@@ -1,77 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FA34349A6;
-	Mon, 12 Oct 2026 07:21:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0714B4349A6;
+	Mon, 12 Oct 2026 07:22:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791789710; cv=none; b=KqW+ku0OZbDEiYWn59YBYvmTqoBHOrfdLVlOPqopv+W/sw2xpOmvHdcMXwOBb7pdtFBem3XRzKwFM5698OqEghsX1kRXYnWqpSXSnBUbWIJSYpcah1eRWBB8wUCkhulDn+jenw6lyvBou96sZOwp90zdV6XqYO+dhx9PmdC1cxk=
+	t=1791789723; cv=none; b=CERNh4XvwbmtlIrMMW0bkjI4KGO7vl5DYdY6qZnwVJqb3NtdEdBg3Yvguh/P74xSVIQ7xidvPzK2OoLhVTcQNI3p46T+mBSqSYBTUVUhMUTHg+C83AoV1XHwcOPkDBs5L7BBInqLwm0AN/vkI9M3CSNYhoP88USc5sMPRlaKs64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791789710; c=relaxed/simple;
-	bh=SnlIresySVCBjEnVtvI+t8vDTw4b1I5i2EHThb3Gk/Y=;
+	s=arc-20240116; t=1791789723; c=relaxed/simple;
+	bh=nr+QZ7RJ49qQP6XyJmTS4ZaFR0oQMnRmaIk2jj73Y6c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ve4xthxi6ct5Tx6crpsk5eDakokBGA3AHsEzpIBzhPbbj4L+hK9Qs9P8+ztc5Dmlp7cdN7KaItQ6smrgJxzEksaOtyAIsFz79c6VLItbjIzuA7/JYvO25F94h9flicxQ7rV9VnNyCSRNzjzTibb3Zx+MuzNIXWj5aazDeT3bAmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mJvf61YS; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=NVf8i3TsxAGLAA2XeheIsduAQDz2x3VImH6HByrIh5lDY1bjkG/XrKqnQg4eUwYowFb8K28Cvx3j6Wl83X7WHD+m2Num2tOvo7SA3WMbTGOcfToCIIcGq5mDCCHN7ydUdCTC3ViWIS+EX+3oyuNJicySq6BSTZMO/OTjK1NQpDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jNFlcw8t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mJvf61YS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E2981F0089B;
-	Mon, 12 Oct 2026 07:21:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jNFlcw8t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 371851F0089B;
+	Mon, 12 Oct 2026 07:22:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791789709;
-	bh=N7cukvBu/Q7ujfnzGvxw39PIswCArvkqP9Kdqk43xLc=;
+	s=k20260515; t=1791789722;
+	bh=XBsDK6EmDHTeEYGSXN73gBpl9Hgu2Csxu6O8i4iiT08=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mJvf61YSDLl6uqu/0OSzbkiCJMhl5WoFPSmJmuqBXr1N/q52zbnlq0qINjoNDZFBs
-	 f6+0Er7YbWxDDDHVM0LdmABnuZ9+VOY6kUpamT/VP9WiZAMemee6SJ+fGaCTjRfR0y
-	 qlHMyXIB9+r1AaOWCnTAwF8touJgjXLQx6WnQXDzDZuhZlSEuN+pE/PJayZn5df2fO
-	 bb21Azulnspoqf3cuwtMgMgXnIcw7s/v4sUlKjPdbnCCCtYfO6gWQrOCzTHjCVOon2
-	 6bcmoaRjDsBAkKXa/7LTJb44brrchzAz+oJQBrE6G9JNePQOqgwWkN5ic2zN8AahiW
-	 YHukGY5rXWRcQ==
-Date: Mon, 12 Oct 2026 09:21:45 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gabor Juhos <j4g8y7@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: arm: qcom: add 'qcom,ipq0518'
- compatible for TP-Link Archer AX55 v1
-Message-ID: <20261012-mature-mastodon-of-genius-ebb74a@quoll>
-References: <20261007-tplink-ax55-v1-ipq0518-v1-0-0ef058756596@gmail.com>
- <20261007-tplink-ax55-v1-ipq0518-v1-1-0ef058756596@gmail.com>
+	b=jNFlcw8tRYe7KbvoA7Zupte10KrYjBUztxfGQ0TZADCix9W8wjzEDPSGFy9UHvAQT
+	 KN5BwyzC8A7qLH+SPxrdjF78QBTriiADgkcJX5ZpoqxM6YGVWV6RWsleocH0nsGZnh
+	 eif4Dq5qKb7yzlhydpO1e0soGXeWPSPV7d934s/cnLuoLW6vzqHcqJBgJsQG312n5e
+	 deJT2WIbRxPoE/M2uDGYfjqgL0Wt8YKFMVmz1lfePcPXqHu3tXD5TcHSNzFLoYWWJ/
+	 wNHz1TOJD4ncrmiy29u1rnDmbZTu37kcArF6GqoKrU/+ZPs9I/kSjp3sqjFxJe+Hp7
+	 vrIVQ4oy8lwpA==
+Date: Mon, 12 Oct 2026 07:22:00 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: Wentao Guan <guanwentao@uniontech.com>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	linux-crypto <linux-crypto@vger.kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	loongarch <loongarch@lists.linux.dev>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	Tianyang Zhang <zhangtianyang@loongson.cn>
+Subject: Re: [PATCH 1/2] lib/crc: loongarch: Use hardware unaligned load in
+ CRC32(C) loops
+Message-ID: <20261012072200.GA828441@google.com>
+References: <20261011142930.492999-1-chenhuacai@loongson.cn>
+ <20261011150052.GA168780@quark>
+ <tencent_4750F9C704AA3CFA1E7309B7@qq.com>
+ <CAAhV-H59DV-qF98M1Uu=Y4k1a8YNw0_RnP_nH-yr8fZu-jnFXQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261007-tplink-ax55-v1-ipq0518-v1-1-0ef058756596@gmail.com>
+In-Reply-To: <CAAhV-H59DV-qF98M1Uu=Y4k1a8YNw0_RnP_nH-yr8fZu-jnFXQ@mail.gmail.com>
 
-On Wed, Oct 07, 2026 at 06:59:20PM +0200, Gabor Juhos wrote:
-> The TP-Link Archer AX55 v1 board is based on the IPQ0518 SoC, so add a
-> new 'qcom,ipq0518' compatible string for that.
+On Mon, Oct 12, 2026 at 02:43:47PM +0800, Huacai Chen wrote:
+> Yes, we considered modifying {get,put}_unaligned_* globally. But it is
+> not arch-specific code and we have no way to override it.
 > 
-> Since the SoC is a trimmed down version of IPQ5018, keep the 'qcom,ipq5018'
-> compatible string as a fallback.
-> 
-> Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+> On the other hand, the byte-to-byte {get,put}_unaligned_* is always
+> correct, we are free to only optimise the hot path (like crc32 code).
 
-I sent previous message stripping lists by mistake, so summarizing
-everything here and reply:
-1. IPQ0518 is already documented in include/dt-bindings/arm/qcom,ids.h
-2. And indeed I found such variant of IPQ5018 in HW catalog, so that's a
-real thing.
+The unaligned access macros are used in lots of other
+performance-critical code.  Hacks in random places don't scale.
 
-I still do not see why do you need to add this fallback. Neither commit
-msgs nor cover letter explain WHY you need to change it.
+> > > Since loongarch made the incorrect decision to not specify unaligned
+> > > access unconditionally, similar to RISC-V it can be worked around only
+> > > by overriding that in the kconfig.  For loongarch that appears that
+> > > already be implemented; just unset CONFIG_ARCH_STRICT_ALIGN when you
+> > > know the kernel will run only on CPUs that have fixed this bug.
+> > I think that we have the use cases to provide the general kernel instead of the two kernel with
+> > different config, so the image increase will be tolerated.
+> Yes, the default configuration is to keep CONFIG_ARCH_STRICT_ALIGN set
+> for single kernel binary.
 
-Existing IPQ5018 compatible accurately describes the die for the kernel
-and bootloader.
+So don't do that.  It does not work for divergent unaligned access
+support, as the other architectures have learned long ago.
 
-Best regards,
-Krzysztof
-
+- Eric
