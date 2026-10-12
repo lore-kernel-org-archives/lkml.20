@@ -1,54 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F3F48D893;
-	Mon, 12 Oct 2026 15:32:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F054A4407;
+	Mon, 12 Oct 2026 15:32:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819148; cv=none; b=OlHRGfvoMoR8c9ZVmXZ3A1nNtCBFewaay0WMeAxlPGUxYEkHHgGGWo/GH5TwB5uDVNnNFUm40pDyFQx8scb6F5VCvoRZfWzQkP4+wrm99rLR6oSaYYaEN9qyEU3/Tn6GsUcAZlU2KndccBy5GEDjDLc/i33jDKJdQslujettzwA=
+	t=1791819155; cv=none; b=iszmKmlzksddQhJjQ9px0G8J2YczSrp1TePA8pO9q6pEPDSklIuzJpe4P+2yEbghbw7GUChRJdbbYLdX6Pmv1CaL7UdSUvsOW+pc5IE8lmqzSQmRcXq2YuXzQpzWfd5qHpqGFjEQsRxEk9R87nnweAl5u9qKTt4/C5zXzKXh+tM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819148; c=relaxed/simple;
-	bh=9RalS/cTcqwsvzfIqCagLYWCk6dkc4dqFyKF+MlULZ8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=kLv8wS+XrJZAgrJQut6QB6D5toNwjh1y/g/jCH0BqnxiuX+lqliXbdnBy9nXETjMlR4maVUTXALAAGy5TzN3MH0N+CuuD76NVHdVUyAe/lv6kk+86bwV/LKmweOGG9BEdc6WXg54QBsu0s+YcO3VKeMGRrNXoWYZG5a8oqrQqzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLfowVUD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791819155; c=relaxed/simple;
+	bh=hPKrAxb/njSmvu8Wo6WPGK2fzdegjQ8qUg74SMm28FQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I/EruGhSIRkHNB+f6jehzubxV96oQNzJurbUjN9GSbrPDChfnLjdtp+U2iM/J4VMTLcq/8Gt4m5Xb/FBMuTFnHl6LvhjSWb7rpdNfjMJsNKcAftcm4cCLTMPy0CgjB6eYMriMirqRB8RtMO3JMyBCCVFMd1CD7FUb8TQBrYtUBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fhj2mM+c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLfowVUD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 932731F0089C;
-	Mon, 12 Oct 2026 15:32:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fhj2mM+c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 834231F0089B;
+	Mon, 12 Oct 2026 15:32:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791819147;
-	bh=9RalS/cTcqwsvzfIqCagLYWCk6dkc4dqFyKF+MlULZ8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=BLfowVUDFCXLcBE+jUBEJcCE17njSGG/cEAXjI9SvlCmRgJ0RrMUebOvIcBAL22BB
-	 A5D1Ri6caBnDzMOyvw37AhfMKib7RzMuriZqCSELM5q15v3sxBzfQ8n7TqBMg1MALg
-	 f3P+U+A9SBVHtbrlZkYfADTjPQJMACeNex5p7EwJsb/Q6fyY5ByM1kTOML9DLEjduS
-	 vg1xLLhUq2LLv9TqJQ7596pdNj928fQNhattCPpvQEci98nbFuNBOI20aOTmMGRjbI
-	 iabjxCy/wtzovR4naUlpBT1NouVwoL8cfFW609Er4QIxLWEecFqpPCxGaIiRJ9emGT
-	 3iz/OYxGy2RzQ==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: Muchun Song <songmuchun@bytedance.com>, Andrew Morton
- <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>, Oscar Salvador
- <osalvador@suse.de>, Dave Hansen <dave.hansen@intel.com>, Paul Walmsley
- <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, =?utf-8?B?Qmo=?=
- =?utf-8?B?w7ZybiBUw7ZwZWw=?=
- <bjorn@rivosinc.com>, Catalin Marinas <catalin.marinas@arm.com>, Will
- Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Kevin
- Brodsky <kevin.brodsky@arm.com>, Alexander Gordeev
- <agordeev@linux.ibm.com>, Alistair Popple <apopple@nvidia.com>,
- linux-mm@kvack.org, linux-riscv@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Muchun Song <muchun.song@linux.dev>, Muchun Song
- <songmuchun@bytedance.com>
-Subject: Re: [PATCH v2 2/4] riscv/mm: fix hotplug page-table destructor
- handling
-In-Reply-To: <20261010112457.49485-3-songmuchun@bytedance.com>
-References: <20261010112457.49485-1-songmuchun@bytedance.com>
- <20261010112457.49485-3-songmuchun@bytedance.com>
-Date: Mon, 12 Oct 2026 17:32:15 +0200
-Message-ID: <87ik37aq9s.fsf@all.your.base.are.belong.to.us>
+	s=k20260515; t=1791819154;
+	bh=VpxzDJstSsto0RTGs836L18/JiYYMQazVuw1Z3RZYlI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fhj2mM+c+gtmIhtLFxRKOe0XW0PW3V45eNmHLhWzRc4QCP7mXRKTdDc56TbxiE8lt
+	 OW2eUq8KZqLsVBuEpcQ0+wIELD0Q6f7wWoR897We/Y6RRUtHrtrAs9ubXob/wS3HRj
+	 5fWC6rlnb3tqZj1gUCOJau1FL6GYAK7ccEcWn5i6yzvkOod65Iefa4O3rFol3RLe8F
+	 UIpQKvzQ9HsyvXnwdfB0Abn2TFKoWOydrjrKdXqb5AFDmmVuUAad9PD3wHRrdgJu0K
+	 Ya8FBC4Uiv1oF0G7aXfolae/fcSAbcgiHT8szvVYGl+Z+yq7JCyRiPVfJ++G0xjDGq
+	 EGcc4LEemZJtA==
+Date: Mon, 12 Oct 2026 21:02:24 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-phy@lists.infradead.org
+Subject: Re: [PATCH 3/4] phy: qcom-qmp-pcie-multiphy: Split phy_ops into
+ init/exit/reset/power_on
+Message-ID: <asz9ApG3h3EJC40t@debian>
+References: <20260915-align_pcie_init_sequence_0916-v1-0-0b2195836f30@oss.qualcomm.com>
+ <20260915-align_pcie_init_sequence_0916-v1-3-0b2195836f30@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,30 +47,29 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260915-align_pcie_init_sequence_0916-v1-3-0b2195836f30@oss.qualcomm.com>
 
-Muchun Song <songmuchun@bytedance.com> writes:
+On Tue, Sep 15, 2026 at 11:04:23PM -0700, Qiang Yu wrote:
+> Per HPG, the controller now calls phy_init() from
+> qcom_pcie_host_init() and phy_reset() from inside its own core reset
+> assert/deassert. Making that actually happen here needs phy_ops::init
+> and phy_ops::reset implemented, and phy_ops::power_on adjusted to
+> match. Split the combined phy_ops::power_on/power_off into
+> phy_ops::init/exit/reset/power_on to do that.
+> 
+> phy_ops::init enables power domains, regulators, and all PHY clocks
+> (pipe clock first). phy_ops::reset does the no-CSR reset assert/
+> delay/deassert/delay. phy_ops::power_on is left with just the PCS
+> status poll. phy_ops::exit mirrors phy_ops::init in reverse;
+> phy_ops::power_off is dropped since nothing remains for it to do.
+> 
+> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
 
-> RISC-V uses the same memory-hotplug teardown code for linear-map and
-> vmemmap page tables. Late linear-map allocations run page-table
-> constructors, while vmemmap and early allocations may not.
->
-> free_pte_table() unconditionally calls pagetable_dtor(), corrupting
-> NR_PAGETABLE accounting for constructor-free tables. free_pmd_table()
-> avoids that for vmemmap using is_vmemmap, but mapping type is not a
-> reliable proxy for constructor state. In particular, it becomes invalid
-> once runtime vmemmap tables use the normal pgalloc helpers.
->
-> Introduce free_pgtable_page() to select free_reserved_page() for reserved
-> pages and pagetable_free() otherwise. The latter runs the destructor only
-> when PageTable() is set, handling both constructor-backed and
-> constructor-free tables.
->
-> Fixes: c75a74f4ba19 ("riscv: mm: Add memory hotplugging support")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Nice!
+- Mani
 
-Reviewed-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
+-- 
+மணிவண்ணன் சதாசிவம்
