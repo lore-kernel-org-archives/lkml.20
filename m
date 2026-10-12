@@ -1,123 +1,137 @@
-Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAFD48C3E4
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:54:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A5D443C19
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:54:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806046; cv=none; b=FgOe5XwnDK1hYOaH5UnZy3LdxvjNV5TmbPn0n0CQGuhCeNHZnQRRpGl3m3mbctbc73S+ENWBiy557KKFvn8o9ojdsP3mxxyU7OQVOZqtI4sO2PO6RYTthC4GKf6xhvBA9kbsrpSI6eT003j2uyKwrWLKZlgqtMbGovEs0heHHUY=
+	t=1791806056; cv=none; b=GjGpmHUQN9yDgLxvt2Yh7DPttZjvPqgvjAyYl9YnPNWwFuxMN096yT6WahmViJRD+ae5qxRgBgy8qE0WLgvb08GahlXR2AihsZYdbMSocKDzV5zuAIBw8Eawjru1yMLJSGGUh9qp+2QaiHdINUW1ndCMqfqoXR72Jmo5onqepa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806046; c=relaxed/simple;
-	bh=qg2kWZvPlSbWNuKIgIh67XXUmjLFLlX5xpSn6IOlvcA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cLBXI4SSQFOAMW+MtfzczHtCWspgtdgkr/EaeRS85N6at0ZP0yfGne8EpSUAgDFKVcVM9M5N0+CF+z3xG4XS74EfPRpqlC6DOvnuGZSns2dG4qAL/5MMs+gc0bCN5ipEX98m8UkdQbWGBi+RCBdtB0bzMp2AruChnTb7ZiLrWWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=onGoc9nh; arc=none smtp.client-ip=79.135.106.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791806056; c=relaxed/simple;
+	bh=RIXnkaIGdBYruZ6AHlMRU+fZ6F/Tbfygc1Wr4yD/oEA=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=ZZhuWo+DzBY6aS3BhgQTCGqszJxGMjPUvP4lpY6kt9m2MuKAZKsYeUfM2kxE6l4PBE9bNvJ6MKZgFT1XbBUkG4HVUBkNU1intPDZ96nKJNjxjmf2Bc1/b6mLR9R99CmOMOZ7YjU54+Js5Ln+CA2TcNe9Vq7In+EcH3fd80stu1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lvzqoBAf; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="onGoc9nh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791806034; x=1792065234;
-	bh=PrdO5L8pvJ0DBb3zbDMTPL8321B89dA6obo2DiA0aCI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=onGoc9nhF5/yiGQY0aaHiUyH3JhqJcm1IPg/3Irbeta5/4hxMyEqBIsKqS3+I/l6F
-	 Q9mET/yEKMLpIdBdsKhu3dIJWESA+2opRKhxyq8KtOPQxC/sZ9o/ZDD9bMLbeVCcYx
-	 KPy9JSj1Mn4CyJi2fH39yxZ6LUGatrHyqDaB0lXDu6PJa4/6Nuz3j6s35p9N/Y6BLu
-	 /L9fkpz4rJw3Ay1urygTCak9ikd8RmYim0oLzdG+wqtTBLqDHsk3IPNIR2VaYIpoB2
-	 nSbGJ+EYkvEQiS1x1WxuHE+ijZJznacfKY6JnlzIIjD27PSh29dT/NFxvHErFm+L99
-	 j+gT7dHddKeWw==
-Date: Mon, 12 Oct 2026 11:53:49 +0000
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-From: Lorenzo Delgado <lnsdev@proton.me>
-Cc: Lorenzo Delgado <lnsdev@proton.me>, linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, Thorsten Blum <blum@kernel.org>, Francis Laniel <laniel_francis@npnm.eu>
-Subject: [PATCH 2/2] rust: uaccess: use NonEmpty in strcpy_into_buf()
-Message-ID: <20261012-nonempty-slice-v1-2-37d1fecff82c@proton.me>
-In-Reply-To: <20261012-nonempty-slice-v1-0-37d1fecff82c@proton.me>
-References: <20261012-nonempty-slice-v1-0-37d1fecff82c@proton.me>
-Feedback-ID: 53083996:user:proton
-X-Pm-Message-ID: 4e875e24c75ded22800616ebaffd2938e2763405
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lvzqoBAf"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48afe75f055so1684347f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:54:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791806053; x=1792410853; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aHowWq+YczhDXXIY9TBMKGYh7uMuFbwbJnMWhOB2Lqo=;
+        b=lvzqoBAfkt17Y3Gv8MkXfYnL6kJH4SAb8HxV11uXnzUf5S8CiXDQRfe//k+aUsvKW4
+         HUIid88JWRbQMz0hs0FYxWggmHRXmAjRMqOh92rXALOxBUYluXp5WhLcxnar02Y/g24m
+         IU2X0cwhBt6ieZzWwbHmXDosrprn3yXjyD+NOQ3ICcQ7lnMTXAPHEsfXwDBiSInQSyYH
+         vTDkUCFjnumwOXX9vwieCXwZ6DkTq6Hzoa8b9X4icYJlz8dmLeQYzwleiIawQtViRopU
+         xHxhcbj0i3esqKQMBZW4oLFPFgl6P5vximmbDde7TAv/hnPSigUXhenFq2QNLAwkJqpS
+         cQ0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791806053; x=1792410853;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=aHowWq+YczhDXXIY9TBMKGYh7uMuFbwbJnMWhOB2Lqo=;
+        b=ge5ZDHPPTmQRqju0gjozysw918xsShYLo0h3k5h0uLG2sF7dud/oxzAgd3OS1KnOPT
+         bBcw73ODqmYivlgjEAxJ1mISeiT7xgIOhD0s+ewWBqLeThqexWY2BRS2OiBtb8+Z218N
+         wkcsQ/3PbyERLnvT0NZfls5/H2k2HDWUnWiBIUzB50KDRcWlJguHFlHC1ag3FmLhxADh
+         t8xG6EX9sifIh+bL73aUyjOlib6KDovbnj2Lrnadq5YXp8yE4LsRE9SrD1miQnnuYzEF
+         aMNUXVmNA1+hqA15oSxHlQzsbsGk9WVqGXhmdRmeFqXcH6a7HTmQ7AYmsenJjsWqxFVj
+         kiZQ==
+X-Forwarded-Encrypted: i=1; AKwUvByT3mzHingJg1IMyWI4o0fyrrm91FiLbBnctT3htQqnqLAv01A2j+8EROxpU08Eha5JQCLdtt3lqcesODY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJmtXMQaWjl8cdhGhwvJbGUp9Lf0U5utO3Wk6mGQe4VIrWZv4e7
+	XPiRBFfyk1hX2LZrOyLYDFT1cGerd9DYzWoSQkfX8MCKQXwS0vFI6PUX
+X-Gm-Gg: AYBFou1GgBnY37cAnIKzZEwFojthjQFQAi4G2RsSoYkzqVlXHa4AsiPiotMjNd6QDim
+	ty/AENcxwrUK21GaV9rfpffo3vvzijAGqhRmA3UfixcfN9vYn83rPGExBXay8eeqg6Wakyr4BjG
+	VHKy87oaJUEej71jwSGYjRXYqK7zofQFHqt3MRNDK0u2uNbSpamvhgMT1xCu7tb4LrOCMzcB7q+
+	v0D9dHf6XpZ/Oevev0I2e3B2ga0QOZ9fnPGGznag43HDmVIUq4Ho73R06ZGwL+b9tDgIqUoYtYD
+	gUKvl291tl1UBZODmeS3/JH85uIfrrCbm6mvAAEpUH0eKTfyqVIBLsZVN5TcI6idElQiEvz6AOU
+	wVsh+ZgiWs/aG6/azqFEwq7e4qNhJej8MC/Oq4A92dSlzcmpX06r6h/iCwUmnM1ifFGbFZFmv/q
+	pWoYxS9L+UqmXFXlxeAgve8kr4DqLp9O/hly4GaQqLObbGxcn6wAIDO7KqG9FDJ7nwmmS/ogarK
+	sR2SUcDatcas0Hhmj6JUXhUmq/02AcGQLsCfqH6fIIgenGrzMJr+LeqjEKg1yUaIDoerQSGqY3X
+	YJFXzPrA2fxkXAih9HVjsw==
+X-Received: by 2002:a05:600c:a404:b0:4a1:9945:98a7 with SMTP id 5b1f17b1804b1-4a1994598ddmr70360335e9.0.1791806052577;
+        Mon, 12 Oct 2026 04:54:12 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-95-235-252-189.retail.telecomitalia.it. [95.235.252.189])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2caf4sm311783805e9.10.2026.10.12.04.54.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 04:54:12 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] ASoC: Add support for AN7581 PCM driver
+Date: Mon, 12 Oct 2026 13:54:05 +0200
+Message-ID: <20261012115408.87066-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-`strcpy_into_buf()` returns `EINVAL` for an empty buffer and later
-writes the NUL terminator through `last_mut().unwrap_unchecked()`,
-relying on that earlier check.
+The Airoha AN7581 SoC provides a PCM interface for VoIP applications,
+supporting playback and capture at sample rates of 8 kHz and 16 kHz.
+The driver configures the PCM bit clock to 2.048 MHz and supports
+8-bit and 16-bit samples, with up to 32 channels.
 
-Turn the buffer into a `NonEmpty<[u8]>` at the start instead. The
-emptiness check and its `EINVAL` stay the same, but `last_mut()` now
-returns the element directly, so the `unsafe` block goes away.
+Add YAML and driver. This has been verified with loopback
+and confirmed by Airoha with ZSI voice chip.
 
-The `MaybeUninit` cast still starts from `[u8]`, so its SAFETY comment
-does not depend on the layout of the wrapper.
+Changes v4:
+- Add review by tag for DT patch
+- Address shashiko bot comments
+- Better protext tx pos
+- Set DMA mask for coherent DMA
+- Use more managed resource
+- Increase users in startup
 
-Suggested-by: Gary Guo <gary@garyguo.net>
-Link: https://lore.kernel.org/rust-for-linux/DM0D9TERQAM3.2Y3HV6P68E2N8@gar=
-yguo.net/
-Link: https://github.com/Rust-for-Linux/linux/issues/1262
-Signed-off-by: Lorenzo Delgado <lnsdev@proton.me>
----
- rust/kernel/uaccess.rs | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+Changes v3:
+- Out of RFC
+- Add Documentation patch
+- Drop SLIC testing code
+- Add MAINTAINERS entry
+- Follow normal pattern for commit title
+- Improve commit description
 
-diff --git a/rust/kernel/uaccess.rs b/rust/kernel/uaccess.rs
-index 5f6c4d7a1a51..044c20e87ee6 100644
---- a/rust/kernel/uaccess.rs
-+++ b/rust/kernel/uaccess.rs
-@@ -11,6 +11,7 @@
-     error::Result,
-     ffi::{c_char, c_void},
-     fs::file,
-+    non_empty::NonEmpty,
-     prelude::*,
-     ptr::KnownSize,
-     transmute::{AsBytes, FromBytes},
-@@ -390,13 +391,11 @@ pub fn read_all<A: Allocator>(mut self, buf: &mut Vec=
-<u8, A>, flags: Flags) -> R
-     /// copied).
-     #[doc(alias =3D "strncpy_from_user")]
-     pub fn strcpy_into_buf<'buf>(self, buf: &'buf mut [u8]) -> Result<&'bu=
-f CStr> {
--        if buf.is_empty() {
--            return Err(EINVAL);
--        }
-+        let buf =3D NonEmpty::try_from_mut(buf).ok_or(EINVAL)?;
-=20
-         // SAFETY: The types are compatible and `strncpy_from_user` doesn'=
-t write uninitialized
-         // bytes to `buf`.
--        let mut dst =3D unsafe { &mut *(core::ptr::from_mut(buf) as *mut [=
-MaybeUninit<u8>]) };
-+        let mut dst =3D unsafe { &mut *(core::ptr::from_mut::<[u8]>(buf) a=
-s *mut [MaybeUninit<u8>]) };
-=20
-         // We never read more than `self.length` bytes.
-         if dst.len() > self.length {
-@@ -422,9 +421,7 @@ pub fn strcpy_into_buf<'buf>(self, buf: &'buf mut [u8])=
- -> Result<&'buf CStr> {
-             // This means that we filled the buffer exactly. In this case,=
- we add a NUL-terminator
-             // and return it. Unlike the `len < dst.len()` branch, don't m=
-odify `len` because it
-             // already represents the length including the NUL-terminator.
--            //
--            // SAFETY: Due to the check at the beginning, the buffer is no=
-t empty.
--            unsafe { *buf.last_mut().unwrap_unchecked() =3D 0 };
-+            *buf.last_mut() =3D 0;
-         }
-=20
-         // This method consumes `self`, so it can only be called once, thu=
-s we do not need to
+Changes v2:
+- Rentirely rework IRQ handling
+- Fix problem for timeslow configuration
+- Better support duplex mode
+- Better handle descriptor tracking
+- Move to Soc directory
+- General code fixup and cleanup
 
---=20
+Christian Marangi (2):
+  ASoC: dt-bindings: airoha: Add AN7581 PCM controller
+  ASoC: airoha: Add support for AN7581 PCM driver
+
+ .../bindings/sound/airoha,an7581-pcm.yaml     |  52 +
+ MAINTAINERS                                   |   7 +
+ sound/soc/Kconfig                             |   1 +
+ sound/soc/Makefile                            |   1 +
+ sound/soc/airoha/Kconfig                      |  10 +
+ sound/soc/airoha/Makefile                     |   3 +
+ sound/soc/airoha/an7581-pcm.c                 | 904 ++++++++++++++++++
+ 7 files changed, 978 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/airoha,an7581-pcm.yaml
+ create mode 100644 sound/soc/airoha/Kconfig
+ create mode 100644 sound/soc/airoha/Makefile
+ create mode 100644 sound/soc/airoha/an7581-pcm.c
+
+-- 
 2.55.0
-
 
