@@ -1,38 +1,38 @@
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72F4457E44
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:24:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384EB4582E8
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:24:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791793490; cv=none; b=pmHY4MSGFZdJ2Ka3xVxuyQDPYicj8pmUHMaGJ9WQDeHEgcDC16Fja1siyCN554sjFV1tqFNil4o4/AYxmflhUFhEtanfhTMeabCSWtRhpLKtCIhPOyL+xgonS3N0X38wyr9FSCjs2w7Jc7OnyGZmzcePIcOgEQ5hdfauZslcROU=
+	t=1791793491; cv=none; b=Kuw7/3pVc6zqABggJ37+FILcTdLQVm+SQVX15Q+UHt0Xm/kkThNZSdFxUeyXMFE5h2v6YMml/UjUDrET5vzFojOj3iNforLcVab2F2ApfzeSr6Zx9HNGiCVKgNZL9c4vfzgYzo3F6+zYn/GXV7n/H0xYknhdUPZro/euG9ogtMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791793490; c=relaxed/simple;
-	bh=GNSTY2Dn5R6MYgrl9wguViH1e6yWEGe4MV0Vu7dVxE4=;
+	s=arc-20240116; t=1791793491; c=relaxed/simple;
+	bh=hOsZlnyjoe84UVCW4dVyP2AVjWPo41rAX3Snzhzlx5Q=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ukcn6+BfnInS2eQNQXBlNcZGuaOl7muGuN0ZWL5ap36YH952R87KYPLYOJwiIWpQ9XkNn64RlXIOZ4ZFDFbQu45oKsUBM9r5nt40/HFLz25qvVcyXSSTaBz0ONfEGh+hlPT2zuJhXvwYjrbELbpnY00seMHC5gin9pwUA5B6PNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=bcPKK+WK; arc=none smtp.client-ip=113.46.200.227
+	 MIME-Version:Content-Type; b=d6y/C+E5kHoPvFnx/H7Yk390zF+J4csuuzTek6nACGQeescHjHiJeV7IGYwyRg9rSvRr+T1AkOgH6HnBbhhYtDovREOo3GaLDN4rW8JTAl0cddN+Y37Jm0qhvAQYvs90nClQW8oKGUGA/DHlbQ5qojPx7GmnftbcoPL3PgXB6go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=47S7L16H; arc=none smtp.client-ip=113.46.200.223
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="bcPKK+WK"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="47S7L16H"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=BaJDLR6ahRLYoEVPJubl1K3dqZ6wLFIVh2mL+VWsorI=;
-	b=bcPKK+WKhbGi2mwkJ+/EVNVZLwj8Tb0WArO3T8HVGsWVDqtrlKHdvHhyVFC+lPxFliAUSP5mm
-	eyJVrjDGIirHfvMGRfc0si0+GWvzxfGFiAs431VilF1bCgXYyTbjbGex8bxolwQhwG7w136tav7
-	/dda7rlLUuiXfG0ZBgv4rcM=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j39F964c5znTVd;
-	Mon, 12 Oct 2026 16:12:45 +0800 (CST)
+	bh=seBOciTHAX+XSFIELMIk3jq/NIuEKRW90rIA3dfUtaw=;
+	b=47S7L16HnhdkXCDj63rRVtLWyAHSMwvhZ1C1ljf7cYCYeNVu47yvKcrld3LO1081AHK4e9SGh
+	tpgARgzU5KZNNbXFe4395CaTCSJp84z0JEvQ5Gc7L/THxfOzfC97SVxe8MbXps8pEZvpkykMN6U
+	zGPriAgITEL6CGLlTuwOOdc=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4j39Dj3jfvzmV8H;
+	Mon, 12 Oct 2026 16:12:21 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 4C2D24056C;
-	Mon, 12 Oct 2026 16:24:39 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id C4F5440561;
+	Mon, 12 Oct 2026 16:24:37 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 12 Oct
- 2026 16:24:38 +0800
+ 2026 16:24:37 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<james.morse@arm.com>, <babu.moger@amd.com>, <tglx@kernel.org>,
@@ -40,9 +40,9 @@ To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<hpa@zytor.com>, <ben.horgan@arm.com>, <fenghuay@nvidia.com>,
 	<x86@kernel.org>, <linux-kernel@vger.kernel.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v9 6/9] arm_mpam: Divide the PARTIDs between the control groups
-Date: Mon, 12 Oct 2026 16:23:34 +0800
-Message-ID: <20261012082337.822258-7-ruanjinjie@huawei.com>
+Subject: [PATCH v9 3/9] arm_mpam: resctrl: Add resctrl_closid_rmid_to_partid_pmg() helper
+Date: Mon, 12 Oct 2026 16:23:31 +0800
+Message-ID: <20261012082337.822258-4-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261012082337.822258-1-ruanjinjie@huawei.com>
 References: <20261012082337.822258-1-ruanjinjie@huawei.com>
@@ -57,164 +57,153 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-From: Zeng Heng <zengheng4@huawei.com>
+The translation from resctrl (CLOSID, RMID) to MPAM (PARTID, PMG)
+is currently open-coded across multiple paths (CPU default settings,
+task setters, matching logic, and monitor readers). This duplicates
+the special-case logic for CDP handling in multiple places.
 
-To program a class that implements PARTID narrowing once per control
-group, the driver needs to know which request PARTIDs belong to which
-control group. Add a map from request PARTID to control group, and
-program a group's configuration into every request PARTID that maps onto
-it.
+Consolidate this translation into a single helper. This not only
+eliminates duplication but also provides a unified checkpoint to support
+non-linear partitioning mappings (such as PARTID narrowing) in subsequent
+patches.
 
-The map is empty until the resctrl glue code sets one up, so every
-PARTID is its own control group and the behaviour is unchanged. A class
-that implements narrowing writes the request-PARTID to internal-PARTID
-mapping, so its configuration is only programmed for the request PARTID
-that maps onto itself.
+No functional change.
 
 Cc: James Morse <james.morse@arm.com>
 Cc: Ben Horgan <ben.horgan@arm.com>
 Cc: Reinette Chatre <reinette.chatre@intel.com>
 Cc: Fenghua Yu <fenghuay@nvidia.com>
-Signed-off-by: Zeng Heng <zengheng4@huawei.com>
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- drivers/resctrl/mpam_devices.c  | 68 ++++++++++++++++++++++++++++++---
- drivers/resctrl/mpam_internal.h |  2 +
- 2 files changed, 65 insertions(+), 5 deletions(-)
+ drivers/resctrl/mpam_resctrl.c | 64 ++++++++++++++++++++--------------
+ 1 file changed, 38 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-index 029f105d5915..17c29022d75d 100644
---- a/drivers/resctrl/mpam_devices.c
-+++ b/drivers/resctrl/mpam_devices.c
-@@ -67,6 +67,25 @@ u8 mpam_pmg_max;
- static bool partid_max_init, partid_max_published;
- static DEFINE_SPINLOCK(partid_max_lock);
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index 385c745787f2..dbafa2a7586d 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -298,25 +298,37 @@ void resctrl_arch_sched_in(struct task_struct *tsk)
+ 	mpam_thread_switch(tsk);
+ }
  
-+/*
-+ * Configuration constraints for resctrl-to-MPAM partitioning.
-+ * mpam_num_closid == 0 indicates resctrl is unmounted or inactive.
-+ */
-+static u16 mpam_num_closid;
-+static u16 mpam_num_partid;
-+
-+/*
-+ * Map a request PARTID onto its owning control group using modulo
-+ * interleaving. Without resctrl active, every PARTID maps 1:1 onto itself.
-+ */
-+u16 mpam_partid_to_intpartid(u16 partid)
+-void resctrl_arch_set_cpu_default_closid_rmid(int cpu, u32 closid, u32 rmid)
++static void resctrl_closid_rmid_to_partid_pmg(u32 closid, u32 rmid,
++					      u32 *partid_d, u32 *partid_i,
++					      u8 *pmg_d, u8 *pmg_i)
+ {
+ 	WARN_ON_ONCE(closid > U16_MAX);
+ 	WARN_ON_ONCE(rmid > U8_MAX);
+ 
+ 	if (!cdp_enabled) {
+-		mpam_set_cpu_defaults(cpu, closid, closid, rmid, rmid);
++		*partid_d = *partid_i = closid;
++		*pmg_d = *pmg_i = rmid;
+ 	} else {
+ 		/*
+ 		 * When CDP is enabled, resctrl halves the closid range and we
+ 		 * use odd/even partid for one closid.
+ 		 */
+-		u32 partid_d = resctrl_get_config_index(closid, CDP_DATA);
+-		u32 partid_i = resctrl_get_config_index(closid, CDP_CODE);
+-
+-		mpam_set_cpu_defaults(cpu, partid_d, partid_i, rmid, rmid);
++		*partid_d = resctrl_get_config_index(closid, CDP_DATA);
++		*partid_i = resctrl_get_config_index(closid, CDP_CODE);
++		*pmg_d = *pmg_i = rmid;
+ 	}
+ }
+ 
++void resctrl_arch_set_cpu_default_closid_rmid(int cpu, u32 closid, u32 rmid)
 +{
-+	if (!mpam_num_closid || partid >= mpam_num_partid)
-+		return partid;
++	u32 partid_d, partid_i;
++	u8 pmg_d, pmg_i;
 +
-+	return partid % mpam_num_closid;
++	resctrl_closid_rmid_to_partid_pmg(closid, rmid, &partid_d, &partid_i,
++					  &pmg_d, &pmg_i);
++	mpam_set_cpu_defaults(cpu, partid_d, partid_i, pmg_d, pmg_i);
 +}
 +
- /*
-  * mpam is enabled once all devices have been probed from CPU online callbacks,
-  * scheduled via this work_struct. If access to an MSC depends on a CPU that
-@@ -1560,14 +1579,24 @@ static void mpam_reprogram_ris_partid(struct mpam_msc_ris *ris, u16 partid,
+ void resctrl_arch_sync_cpu_closid_rmid(void *info)
+ {
+ 	struct resctrl_cpu_defaults *r = info;
+@@ -333,17 +345,12 @@ void resctrl_arch_sync_cpu_closid_rmid(void *info)
  
- 	if (mpam_has_feature(mpam_feat_partid_nrw, rprops)) {
- 		/* Update the intpartid mapping */
-+		u16 intpartid = mpam_partid_to_intpartid(partid);
-+
- 		mpam_write_partsel_reg(msc, INTPARTID,
--				       MPAMCFG_INTPARTID_INTERNAL | partid);
-+				       MPAMCFG_INTPARTID_INTERNAL | intpartid);
-+
-+		/*
-+		 * The internal PARTID holds the configuration. Only the
-+		 * request PARTID that maps onto itself writes the controls,
-+		 * the others share the same internal PARTID.
-+		 */
-+		if (partid != intpartid)
-+			goto out;
+ void resctrl_arch_set_closid_rmid(struct task_struct *tsk, u32 closid, u32 rmid)
+ {
+-	WARN_ON_ONCE(closid > U16_MAX);
+-	WARN_ON_ONCE(rmid > U8_MAX);
++	u32 partid_d, partid_i;
++	u8 pmg_d, pmg_i;
  
- 		/*
- 		 * Then switch to the 'internal' partid to update the
- 		 * configuration.
- 		 */
--		__mpam_intpart_sel(ris->ris_idx, partid, msc);
-+		__mpam_intpart_sel(ris->ris_idx, intpartid, msc);
- 	}
- 
- 	if (mpam_has_feature(mpam_feat_cpor_part, rprops)) {
-@@ -1643,6 +1672,7 @@ static void mpam_reprogram_ris_partid(struct mpam_msc_ris *ris, u16 partid,
- 
- 	mpam_quirk_post_config_change(ris, partid, cfg);
- 
-+out:
- 	mutex_unlock(&msc->part_sel_lock);
+-	if (!cdp_enabled) {
+-		mpam_set_task_partid_pmg(tsk, closid, closid, rmid, rmid);
+-	} else {
+-		u32 partid_d = resctrl_get_config_index(closid, CDP_DATA);
+-		u32 partid_i = resctrl_get_config_index(closid, CDP_CODE);
+-
+-		mpam_set_task_partid_pmg(tsk, partid_d, partid_i, rmid, rmid);
+-	}
++	resctrl_closid_rmid_to_partid_pmg(closid, rmid, &partid_d, &partid_i,
++					  &pmg_d, &pmg_i);
++	mpam_set_task_partid_pmg(tsk, partid_d, partid_i, pmg_d, pmg_i);
  }
  
-@@ -1770,15 +1800,37 @@ struct mpam_write_config_arg {
- static int __write_config(void *arg)
+ bool resctrl_arch_match_closid(struct task_struct *tsk, u32 closid)
+@@ -361,13 +368,15 @@ bool resctrl_arch_match_closid(struct task_struct *tsk, u32 closid)
+ bool resctrl_arch_match_rmid(struct task_struct *tsk, u32 closid, u32 rmid)
  {
- 	struct mpam_write_config_arg *c = arg;
-+	u16 partid;
-+
-+	if (!mpam_num_closid) {
-+		mpam_reprogram_ris_partid(c->ris, c->partid,
-+					  &c->comp->cfg[c->partid]);
-+		return 0;
-+	}
+ 	u64 regval = mpam_get_regval(tsk);
+-	u32 tsk_closid = FIELD_GET(MPAM0_EL1_PARTID_D, regval);
+-	u32 tsk_rmid = FIELD_GET(MPAM0_EL1_PMG_D, regval);
++	u32 tsk_partid = FIELD_GET(MPAM0_EL1_PARTID_D, regval);
++	u32 tsk_pmg = FIELD_GET(MPAM0_EL1_PMG_D, regval);
++	u32 partid_d, partid_i;
++	u8 pmg_d, pmg_i;
  
--	mpam_reprogram_ris_partid(c->ris, c->partid, &c->comp->cfg[c->partid]);
-+	/* c->partid is the control group, and must be a valid one. */
-+	WARN_ON_ONCE(c->partid >= mpam_num_closid);
-+
-+	/*
-+	 * A control group owns every request PARTID that maps onto it. Write
-+	 * the group's configuration into each of them. Resources that
-+	 * implement narrowing collapse them back onto a single internal
-+	 * PARTID, so only the first write changes the hardware.
-+	 */
-+	for (partid = 0; partid < mpam_num_partid; partid++) {
-+		if (mpam_partid_to_intpartid(partid) != c->partid)
-+			continue;
-+
-+		mpam_reprogram_ris_partid(c->ris, partid,
-+					  &c->comp->cfg[c->partid]);
-+	}
+-	if (cdp_enabled)
+-		tsk_closid >>= 1;
++	resctrl_closid_rmid_to_partid_pmg(closid, rmid, &partid_d, &partid_i,
++					  &pmg_d, &pmg_i);
  
- 	return 0;
+-	return (tsk_closid == closid) && (tsk_rmid == rmid);
++	return (tsk_partid == partid_d) && (tsk_pmg == pmg_d);
  }
  
- static void mpam_reprogram_msc(struct mpam_msc *msc)
+ struct rdt_resource *resctrl_arch_get_resource(enum resctrl_res_level l)
+@@ -454,16 +463,19 @@ static int __read_mon(struct mpam_resctrl_mon *mon, struct mpam_component *mon_c
+ 		      int mon_idx,
+ 		      enum resctrl_conf_type cdp_type, u32 closid, u32 rmid, u64 *val)
  {
--	u16 partid;
-+	u16 partid, loop_max;
- 	bool reset;
- 	struct mpam_config *cfg;
- 	struct mpam_msc_ris *ris;
-@@ -1802,7 +1854,13 @@ static void mpam_reprogram_msc(struct mpam_msc *msc)
- 		arg.comp = ris->vmsc->comp;
- 		arg.ris = ris;
- 		reset = true;
--		for (partid = 0; partid <= mpam_partid_max; partid++) {
-+		/*
-+		 * Configurations are stored per control group. When resctrl
-+		 * has grouped several PARTIDs together, __write_config()
-+		 * expands one group into all of its PARTIDs.
-+		 */
-+		loop_max = mpam_num_closid ? mpam_num_closid : mpam_partid_max + 1;
-+		for (partid = 0; partid < loop_max; partid++) {
- 			cfg = &ris->vmsc->comp->cfg[partid];
- 			if (!bitmap_empty(cfg->features, MPAM_FEATURE_LAST))
- 				reset = false;
-diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
-index 0a2177241615..5a7590568a05 100644
---- a/drivers/resctrl/mpam_internal.h
-+++ b/drivers/resctrl/mpam_internal.h
-@@ -458,6 +458,8 @@ extern struct list_head mpam_classes;
- extern u16 mpam_partid_max;
- extern u8 mpam_pmg_max;
++	u32 partid, partid_d, partid_i;
+ 	struct mon_cfg cfg;
++	u8 pmg_d, pmg_i;
  
-+u16 mpam_partid_to_intpartid(u16 partid);
-+
- /* Scheduled work callback to enable mpam once all MSC have been probed */
- void mpam_enable(struct work_struct *work);
- void mpam_disable(struct work_struct *work);
+ 	if (!mpam_is_enabled())
+ 		return -EINVAL;
+ 
+-	/* Shift closid to account for CDP */
+-	closid = resctrl_get_config_index(closid, cdp_type);
++	resctrl_closid_rmid_to_partid_pmg(closid, rmid, &partid_d, &partid_i,
++					  &pmg_d, &pmg_i);
++	partid = (cdp_type == CDP_CODE) ? partid_i : partid_d;
+ 
+ 	if (mon_idx == USE_PRE_ALLOCATED) {
+-		int mbwu_idx = resctrl_arch_rmid_idx_encode(closid, rmid);
++		int mbwu_idx = resctrl_arch_rmid_idx_encode(partid, rmid);
+ 
+ 		mon_idx = mon->mbwu_idx_to_mon[mbwu_idx];
+ 		if (mon_idx == -1)
+@@ -478,8 +490,8 @@ static int __read_mon(struct mpam_resctrl_mon *mon, struct mpam_component *mon_c
+ 	cfg = (struct mon_cfg) {
+ 		.mon = mon_idx,
+ 		.match_pmg = true,
+-		.partid = closid,
+-		.pmg = rmid,
++		.partid = partid,
++		.pmg = pmg_d,
+ 	};
+ 
+ 	return mpam_msmon_read(mon_comp, &cfg, mon_type, val);
 -- 
 2.34.1
 
