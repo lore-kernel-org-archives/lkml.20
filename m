@@ -1,46 +1,72 @@
-Received: from mta0.migadu.com (out-197.mta0.migadu.com [91.218.175.197])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37E82609FD
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B3D547056
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:50:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791766061; cv=none; b=F0tc+OeVXrezbur5q1Sg7vpMVVD9MWBDa7JbgIIF/HQkUxavzatsnJQgzEvznCfgIb+6lasO658BPjJQnYFmmD6PKmFsh9H6wxNPLZ2I6UQ1BukwmCkRK7Z2EvkrZHlRaqoNuHClKU2XJKdDY7A97wsegIMmFEzhHFf2iVq1Mcc=
+	t=1791766202; cv=none; b=k8l9EdROmbDj82W50WC4Hfky/EteY5tEQObTidgxObIFG+aGVJkesfOmF1qOLvP3zoUwmzgYOMTujl4mJHGce98OKRhIzvpLsUrFjEF0wyRLU//1V0oiYp0/aSu7V7ZFOWRe2VmFyLW6r+PShM8m46Jtk+7VnN9TnFkNZUBsqS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791766061; c=relaxed/simple;
-	bh=uLDIHtTGtKJMeI22WvBWZ0DTbQYsdKHE85AgVsYvkr8=;
+	s=arc-20240116; t=1791766202; c=relaxed/simple;
+	bh=UTsiobJzqDxR0bFFwFxp55iUFp/NDEWHqzx3SQiIz3U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MrvLh6ZqKL0GJfW/+TOvTTkDi89XHr97P1xhVZGTKx+yHnZx7B273RtuG3nYfD7dWnCyktafv0oXx9KTVQ/vwdttEwjv1SQhREzhCMwd8vfeQA83JjieCuTpfn5nASOzJf59WxyCDXE1ZgjkwrU2+0fE7nuaQL3wvklHe05B+g4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=c5604gzn; arc=none smtp.client-ip=91.218.175.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=LZ5VxSM0ppynA8K+K+TJE0tn6DUr8eN+bGg84rmm7mzfWJdtj9QP9luSHO0nd1JloFuIM7Y3XEeLyqch3gyTpRIjiw8BevoWEQZYzdI+F9Wr7lNT456NDhMV4VssYaBmeeREc5yYloa0Jl6QYaRh+EreB9d8WHq64ikm+lDku0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cNOgI7iQ; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="c5604gzn"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uLDIHtTGtKJMeI22WvBWZ0DTbQYsdKHE85AgVsYvkr8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791766056; v=1; x=1792370856;
- b=c5604gznyv7rJmjNjbeG2+I/wISJHLo1SRhQPLU3H9nfktZ2RA0bd346XqCdxBzJrSsF9F9T
- 58tYebHfO66yxMpXpT8aHOsosqFBtJMfsYh1w+A9WHcGQ7ZIC8JWfMvRxlgyxsT+5GiiYXjPHab
- SLvTHPeOMEU6xhRnPiWRsTWQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 3a7ede247dd09fed;
-	Mon, 12 Oct 2026 00:47:36 +0000
-X-Mizu-Trace-ID: 3a7ede247dd09fed
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 12 Oct 2026 08:47:23 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: netdev-bot+sashiko@kernel.org
-Cc: andrea.mayer@uniroma2.it, davem@davemloft.net, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
-	edumazet@kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	liuhangbin@kylinos.cn
-Subject: Re: [PATCH net-next v2 5/5] selftests: seg6: add End.X PSP selftest
-Message-ID: <aswuG5CZUWFRQF_t@fedora>
-References: <20261009-srv6_flavors_endx-v2-5-56ac7f838f41@kylinos.cn>
- <179162766537.434549.5701666016384409279@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cNOgI7iQ"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ab3260b2cdso515982a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:50:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791766200; x=1792371000; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=b7HXCBjbd0eaxfFgbg/k4v/Vnkzyazq6CMKtLY0TiC0=;
+        b=cNOgI7iQCPoMgLwZ+Gpmo3uY6gRNI7kfofKkyUYPNX3jZsFovzQseDH+ahkrJFToK0
+         GQwgkJIrCONwNVXxgyq6TzX6jB7sZnl3WIe5iK2nMNjQr6Cv02pVOOVhcD3zUa2KxbmN
+         Y1cSHkoFEFw/IQLEtB/mhrJXMpdl5UulKiGqd+zm4C8HO8iE0NyPuyBl/TGS0d3uIhQD
+         rwYy1p6je1SOcz+gctqBZQ6Hc+NBIp8ZkKJ9RflUMSNDtTzPq6JIG16qaKMwloSHPmJr
+         13x7NzFz2x4WpZKwdnyYnqTMj23wPLtkjJZZ/sdB2DsqBNwtusQfnn7b9SRNtsihTX7T
+         kUCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791766200; x=1792371000;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b7HXCBjbd0eaxfFgbg/k4v/Vnkzyazq6CMKtLY0TiC0=;
+        b=ce4SpRCWjzOW6Xu4mzoRH6eW0nXR8CdLUZpm2Erf57SEiP4tZVj3W8kMMiBGgbNQAR
+         Owyk3exTbEZCfibwIk7t43zi8/NgttA8MWAOveic2xDO2VPSi2/4Y3SS1x37hQnr0zcR
+         xsF6VdTnBxTohDj6tTfZoVkIoRLk0cvy5LcxsK4E8SSFPSjBxvAt0IOsZVP9L1e6tM7d
+         KQXJi9eUbKo0uQ+pxTsMvhVUJR8T2QrPum3fwBT2d43HoIlNyKQBbLJr91cqWNbH7LD1
+         3EYYSWnNLbgmAMtCwe0RAMDQotJRPSjJX7lre/FGe+gm3r9kwJ25xE9fcu4aPOulkIoy
+         WL8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxAZD6xTLk+nHUWtOTZbvWhc091XvaB1OkCLAItt/1l5h/PHtl1SCMu765EWb51uPD9V3HSetDB7MTrMpc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFgQZQvadUWgrsL+wUkSGL4jsd+YHCkJeXaakcaU56UzYKwMTw
+	IBdrYcX+nOi7OPRgpJtXLLBLGGnEjT2AoYt40XBJ+0EOJO1hUhGCZU9U
+X-Gm-Gg: AYBFou38IooUOSlT+ujJIR8ExQUccZamY5AWraYRpest8I8eD+m2Sfv3W3+wJnGI3M7
+	k2dk9GPEMTjc+DQmwLoqdzUSoam5ELF57ol1EVvTp+CpNytHrxFgAgKVuDh6LLFx7Ee7/6c4/29
+	qIvCowcP42t+S1l+VYLjj3G1kuyI403zQI8TXIXB9GTAs3tOmN7TJn7EwNZ49VaaFjVsqij/FK9
+	MXdtdFf0c70UEoC4RUaMrsolCK2lZ+ChAe71EC7r0kd61JjaDk+jN+3SP+wPaRcdg9jr6AtyGmF
+	9OrEOW4EzumSyzIKHslMZfvFaT5LeLSujwAc78AnnTfbR/DFSUObuKe9YBG1C5KR0qX3tGuTUah
+	X1tPwM08Etb1NRwQFH9k/htfh1Pg5XsIwiG7WpB8E2OWhKZpA/cJz5aK4JVFTEVuQgTEB6f65/N
+	rWk1KK1DIKMK+c9QrgJgNOh2a0U1G2faButhjJ8kJz7XusV2oBUuJDyxV8OwJx
+X-Received: by 2002:a17:90b:3c8e:b0:3a6:fc30:ce16 with SMTP id 98e67ed59e1d1-3ab3ae696c8mr5407929a91.51.1791766200345;
+        Sun, 11 Oct 2026 17:50:00 -0700 (PDT)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab3371f748sm8775454a91.1.2026.10.11.17.49.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 17:49:59 -0700 (PDT)
+Date: Mon, 12 Oct 2026 09:49:55 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>, ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>
+Subject: Re: [PATCH] ntfs: widen the sub-block offsets in ntfs_decompress()
+Message-ID: <aswus4M5zs8OxMPG@hyunchul-PC02>
+References: <20261009075523.3135206-1-zhanxusheng@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,170 +75,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179162766537.434549.5701666016384409279@kernel.org>
+In-Reply-To: <20261009075523.3135206-1-zhanxusheng@xiaomi.com>
 
-On Sat, Oct 10, 2026 at 10:21:05AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
+On Fri, Oct 09, 2026 at 03:55:23PM +0800, Zhan Xusheng wrote:
+> ntfs_decompress() tracks where the current sub-block starts and ends
+> inside the destination page with two u16s:
 > 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 1
+> 	u16 do_sb_start;
+> 	u16 do_sb_end;
+> 	...
+> 	do_sb_start = *dest_ofs;
+> 	do_sb_end = do_sb_start + NTFS_SB_SIZE;
 > 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
+> *dest_ofs is an int page offset masked with ~PAGE_MASK, and
+> NTFS_SB_SIZE is 0x1000, so do_sb_end needs PAGE_SIZE + 0xfff of range.
+> That exceeds u16 once PAGE_SIZE reaches 0x10000: the last sub-block of a
+> page starts at 0xf000 and do_sb_end wraps from 0x10000 to 0.
 > 
-> - [Medium] The End.X PSP test in
->   tools/testing/selftests/net/srv6_end_flavors_test.sh does not check…
+> The zero-fill that pads a short sub-block then computes a negative
+> length:
+> 
+> 	if (dp_addr < dp_sb_end) {
+> 		int nr_bytes = do_sb_end - *dest_ofs;
+> 
+> 		memset(dp_addr, 0, nr_bytes);
+> 
+> A sub-block made only of symbol tokens reaches this without consulting
+> do_sb_end on the way, because that path just does
+> 
+> 	*dp_addr++ = *cb++;
+> 	++*dest_ofs;
+> 
+> and is bounded by dp_addr against dp_sb_end.  With do_sb_start at 0xf000
+> and eight literal bytes emitted, nr_bytes is -61448 and the memset()
+> runs for 18446744073709490168 bytes.
+> 
+> Getting there is cheap: fifteen sub-blocks of eleven bytes each advance
+> *dest_ofs to 0xf000, since the same zero-fill pads each of them out to
+> 0x1000 while do_sb_end is still exact, and the sixteenth one triggers
+> the wrap.  A compression block is 0x10000 bytes with 4 KiB clusters and
+> the fixed compression unit of 4, so all sixteen fit with room to spare.
+> 
+> Phrase tokens are bounded against do_sb_end and so return -EOVERFLOW
+> instead, and the
+> 
+> 	if (*dest_index == dest_max_index && do_sb_end > dest_max_ofs)
+> 
+> check at the top of the sub-block stops firing for the same reason.
+> 
+> Use int for both, matching *dest_ofs and dest_max_ofs.  The narrow type
+> came in with the original import and survived the removal and revert of
+> the driver.
+> 
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> Fixes: 1e9ea7e04472 ("Revert "fs: Remove NTFS classic"")
 
-This patch is a series of the End.X PSP support. I don't think anyone will
-only backport this selftest without the kernel support.
+Looks good to me.
 
-> - [Low] The patch adds an `<id:op:act>` descriptor syntax and an End.X
->   PSP scenario, but the script's documentation was not updated.
+Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 
-Low priority. If there is a new version. I will update the documents.
-
-Thanks
-Hangbin
-
-> 
-> --
-> 
-> selftests: seg6: add End.X PSP selftest
-> 
-> This commit adds an End.X PSP test to srv6_end_flavors_test.sh. A new
-> helper, __get_srv6_rtcfg_act(), lets __setup_rt_policy() parse an
-> optional action field in the router description, e.g. "4:psp:End.X,4,2".
-> 
-> > diff --git a/tools/testing/selftests/net/srv6_end_flavors_test.sh b/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> > index a57e92541a046..4ba93ace86563 100755
-> > --- a/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> > +++ b/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> > @@ -397,6 +397,36 @@ __get_srv6_rtcfg_op()
-> >  		xargs | sed 's/ /,/g'
-> >  }
-> >  
-> > +# Given the description of a router <id:op:act> as an input, the function
-> > +# returns the <act> token which represents the action (e.g. End, End.X,
-> > +# End.T behavior with or without route table, out interface) configured
-> > +# for the node.
-> > +#
-> > +# Support End, End.X at present. When omit, return default End behavior.
-> > +# i.e. input: "1:psp:End.X,1,3"
-> > +#      output: "End.X nh6 fcf0:0:1:3::3 oif veth-rt-1-3"
-> > +__get_srv6_rtcfg_act()
-> > +{
-> > +	local element="$1"
-> > +	local net_prefix
-> > +	local acts
-> > +	local out
-> > +
-> > +	acts="$(echo "${element}" | cut -d':' -f3)"
-> > +	act="$(echo "${acts}" | cut -d',' -f1)"
-> > +	act="${act:-"End"}"
-> > +
-> > +	rt="$(echo "${acts}" | cut -d',' -f2)"
-> > +	neigh="$(echo "${acts}" | cut -d',' -f3)"
-> > +
-> > +	if [ "$act" == "End" ]; then
-> > +		echo "End"
-> > +	elif [ "$act" == "End.X" ]; then
-> > +		net_prefix="$(get_network_prefix "${rt}" "${neigh}")"
-> > +		echo "End.X nh6 ${net_prefix}::${neigh} oif veth-rt-${rt}-${neigh}"
-> > +	fi
-> > +}
-> 
-> [Severity: Low]
-> What should happen when act is something other than End or End.X? The
-> comment above mentions End.T, but there is no else branch. For End.T, a
-> typo, or a case mismatch, the function prints an empty string, and
-> __setup_rt_policy() builds:
-> 
->     encap seg6local action  flavors psp
-> 
-> Under set -e that shows up as an environment setup SKIP, not as a clear
-> error in the test description.
-> 
-> A few smaller points in the same helper:
-> 
-> act, rt and neigh are not declared local, but the unused out is.
-> 
-> The End.X form repeats the node id ("4:psp:End.X,4,2") and never checks
-> that the two ids match.
-> 
-> Some existing comments in the file also look stale after this change:
-> 
-> The file header still says "Currently in this selftest we consider only
-> the PSP flavor for the SRv6 End behavior."
-> 
-> The Local SID table still says "fcff:x::ef1 is associated with the SRv6
-> End behavior with PSP flavor". In the new test, fcff:3::ef1 and
-> fcff:4::ef1 are End.X PSP.
-> 
-> The $3 description for __setup_rt_policy() still talks only about
-> <nodeid:op> elements and does not mention the new act field.
-> 
-> [ ... ]
-> 
-> > @@ -819,6 +875,22 @@ host_srv6_end_flv_psp_tests()
-> >  	cleanup_end_flv_psp
-> >  }
-> >  
-> > +host_srv6_endx_flv_psp_tests()
-> > +{
-> > +	set -e
-> > +	SETUP_ERR=1
-> > +	setup_endx_flv_psp
-> > +	SETUP_ERR=0
-> > +	set +e
-> 
-> [Severity: Medium]
-> Does this need a kernel support check for End.X with the PSP flavor?
-> The only kernel probe is "test_kernel_supp_or_ksft_skip psp", and it only
-> installs "action End flavors psp". It never tries End.X, End.X with
-> flavors, or End.X with oif.
-> 
-> Before the series commit "seg6: add RFC8986 flavor support for End.X",
-> net/ipv6/seg6_local.c had:
-> 
->     #define SEG6_LOCAL_END_X_FLV_SUPP_OPS	SEG6_F_LOCAL_FLV_NEXT_CSID
-> 
-> On those kernels parse_nla_flavors() rejects "flavors psp" on End.X with
-> -EOPNOTSUPP.
-> 
-> When that happens, the End.X route add from setup_endx_flv_psp() fails
-> under set -e and the EXIT trap runs cleanup(). The earlier test groups
-> passed, so ret is still ksft_skip, and cleanup() takes this path:
-> 
-> 	if [ "${SETUP_ERR}" -ne 0 ] && [ "$ret" -ne "$ksft_fail" ]; then
-> 		echo "SKIP: Setting up the testing environment failed"
-> 		exit "${ksft_skip}"
-> 	fi
-> 
-> Would this turn a previous PASS on older or stable kernels into a SKIP
-> for the whole script? print_log_test_results() never runs, so the End
-> PSP results that already passed are dropped.
-> 
-> On a kernel that is supposed to support End.X PSP, a regression that
-> breaks this route install would also be reported as SKIP rather than
-> FAIL.
-> 
-> Could End.X PSP support be checked up front, so that only this test
-> group is skipped when the kernel lacks it?
-> 
-> > +
-> > +	log_section "SRv6 connectivity test hosts (h1 <-> h2, End.X flavor PSP)"
-> > +
-> > +	check_and_log_hs_connectivity 1 2
-> > +	check_and_log_hs_connectivity 2 1
-> > +
-> > +	cleanup_endx_flv_psp
-> > +}
-> 
-> [ ... ]
-> 
-> -- 
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009-srv6_flavors_endx-v2-0-56ac7f838f41%40kylinos.cn
+-- 
+Thanks,
+Hyunchul
