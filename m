@@ -1,204 +1,281 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010018.outbound.protection.outlook.com [52.101.85.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A165935A38C;
-	Mon, 12 Oct 2026 07:55:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791791759; cv=fail; b=ndhdjH4BgzDDs0eMJsmin56Bkm4SYEUgxHm9Hv4OFVQGf4192Q01qrwQRPFeMueTb4TS/fM3GTQxhVWDXdQlxUYa2PYYQ1g4vnOhDkwybtb4hJCJWKKhyVdbo0NtVrk4SKBCpICEQb8caJntznP4m20gDbbyjcSMH44Q4heKjiY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791791759; c=relaxed/simple;
-	bh=X+uvvrduCGQzCFhQgfFz9GeKGp5mjSQRqO7pweDgb60=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=elT6ipNYnOLnkbW7woPeU44Q8+Tqpmxs7x6hC4FEdKfWnGPdHa2TYmAfFKaCY0U6aGFGKBQJcLExwH7D3Ii5KwKsfODFsb526xl0Qk2txQ/F+Bu7ih8LrojFr9c3/nUkmhMA0UtpU9UfaWspV+iFJDB2bivo+3hKRa/5HjAZgIE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=LDXlSDJH; arc=fail smtp.client-ip=52.101.85.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764B235A38C
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:56:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791791794; cv=none; b=mF43mgTCvu1ALo/1aQ+2g0t+K5mz3EZMiOxbJQuG+Kdo07nQ1H7bzqrvNz3gcHUFrdfC3uZXqKfqvwbC3595urW1lUbcnAx9SOYN4oMCdbiivbRS5zTz46W8hlPBkGnuiKD+uyhRNk0NGPEPsncXRduJY50tAA8UURcoytxKQOg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791791794; c=relaxed/simple;
+	bh=5g/vd714QxtXPxteGWzkxZjzLcmYZFh4LjP5LF+kwko=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=H5BB9nCBZXnRlrYk2RSBCRzuqpfznc+E7kFigm1MfyWO4UGUWvERtaqZqnyhhsarhZQht9/ogQULPGvZ+GRWbwzMAqIPvejp6dIPNK0eK2cUGeYdR08KaJvWZ9eJUukVyA/wKxrAVwurqcl4qlzuU3FgItnd9PAJ1B81Z3wcu/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IH6LXFRT; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="LDXlSDJH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SAxzmwafqbTtRhzJTLEio+HVwkigHA5uRlIsO+fnNmZOx5nItw3MjQJ+GwsZJFz4+36YfNNMeyFRcZMyr66F45HriVuujmnWKHk5o5tcW7UAay3V2rgDqNRfs69H2Ms4IpZW44giXJnGBzqB566+C2bBRvAJPk+YcHrsK91/DFV7Um/sfX+k3BH8vZX3GGkIg9qMYtWK+0+ujJJmBL2OmHxRuWKwM861LzNpv5h1DQZvDY/fOPZ4Lhm2AvNRj8laa6lcJpipIMndMRwcrsu1oQtrLHFhRSyi2rzu64G3X0ZJavj5eWFDNbcCY6+viVOQ7DeHOjDD67Mqy7IVeZixag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W8oHOphYB5eXZHsO0cHzOZz8k1wxTr1uCeyMZZzyT5k=;
- b=ZQusdB+bfc37XKckZTRWVfkjLUHiQh+x02MN7wAfnT9PW1+m7t79rGA+mQzDWmT9XmeXm2TVlscTZuzv4TUQSqy8/SAV9gUAXdY2/4Hza2EvBKW37J9PMYgt35D/3GCtqccwI14hWGRSzC08FfMBpTmJyq8nbRHN7konzHHGyiboKymkxQvcTOL2kRafc/R7Y24daVUXFCAPMPWg76OU8tBj08awEiro+cDF5W8UhniIXtpDwVSkdaoXGxnnKcKqA2VHpShbR3/ExAYhc/qM8YPbIbDFSagXEL/ndje/BNJFp/gE8SyvAfIqTRFBRQiUaKi0s9ghRHLuwhnzTTL15A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W8oHOphYB5eXZHsO0cHzOZz8k1wxTr1uCeyMZZzyT5k=;
- b=LDXlSDJHn0VgHPxu/xbymjG5OLky+fOh34B/udDFkP35E8UQ+fsd0LEMH1Y2gYFEZtlId62zl3l+CIc9volwpWtaJlZrGrxEL9fl6px4c+436LoJAEfy/aNeve6tPPN0GUX0s5fesMgLQXzNyYpGawBY3tV8FqBjaMdjYF6VbyM=
-Received: from BN0PR04CA0159.namprd04.prod.outlook.com (2603:10b6:408:eb::14)
- by DS4PR12MB9682.namprd12.prod.outlook.com (2603:10b6:8:27f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 07:55:53 +0000
-Received: from BL6PEPF00020E62.namprd04.prod.outlook.com
- (2603:10b6:408:eb:cafe::6) by BN0PR04CA0159.outlook.office365.com
- (2603:10b6:408:eb::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 12
- Oct 2026 07:55:52 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF00020E62.mail.protection.outlook.com (10.167.249.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 07:55:52 +0000
-Received: from sindhu.amdval.net (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 02:55:43 -0500
-From: Sandipan Das <sandipan.das@amd.com>
-To: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
-	<namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, "Alexander
- Shishkin" <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>, Ravi Bangoria <ravi.bangoria@amd.com>,
-	Ananth Narayan <ananth.narayan@amd.com>, Sandipan Das <sandipan.das@amd.com>
-Subject: [PATCH 3/3] perf vendor events amd: Remove "PerPkg" from Zen 6 memory controller metrics
-Date: Mon, 12 Oct 2026 13:23:32 +0530
-Message-ID: <8f22b9814dbe0014a1486a9510da3bb48ba8aeb1.1791791463.git.sandipan.das@amd.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1791791463.git.sandipan.das@amd.com>
-References: <cover.1791791463.git.sandipan.das@amd.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IH6LXFRT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791791791;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ablnLGW299doho7l5Tl3Z5zKXL0TE4+5th6qvfwQSUY=;
+	b=IH6LXFRTJUyuCWVyb6KowWtLa9HTET0GBW2D47QsWE4DhFBUG37c17d2a6Ql6MbRqWNOrN
+	pP9GptdGRjANX2RliQ7mVM9XPtWnFg4/ix87jW6p8EXyS+vazd7ba9jcDDerZ7T4+ZL/H7
+	uvo1+mbX100uvCBepHKuKql6Rr/s+Wk=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-168-ISj1wVsTP36bboTZr6pxgA-1; Mon,
+ 12 Oct 2026 07:56:27 +0000
+X-MC-Unique: ISj1wVsTP36bboTZr6pxgA-1
+X-Mimecast-MFC-AGG-ID: ISj1wVsTP36bboTZr6pxgA_1791791785
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CA7F31800D84;
+	Mon, 12 Oct 2026 07:56:24 +0000 (UTC)
+Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0533A30001B9;
+	Mon, 12 Oct 2026 07:56:21 +0000 (UTC)
+Message-ID: <f5ce3575-3c1b-471c-86aa-e74d9f4df0be@redhat.com>
+Date: Mon, 12 Oct 2026 09:56:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v5 3/5] dpll: zl3073x: reject output frequencies with
+ too small divisor
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, poros@redhat.com, min.li@microchip.com,
+ vadim.fedorenko@linux.dev, arkadiusz.kubalewski@intel.com, jiri@resnulli.us,
+ kuba@kernel.org, Prathosh.Satish@microchip.com, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+References: <20261011061211.448373-4-ivecera@redhat.com>
+ <179178562335.434549.16077864729187599251@kernel.org>
+Content-Language: en-US
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <179178562335.434549.16077864729187599251@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E62:EE_|DS4PR12MB9682:EE_
-X-MS-Office365-Filtering-Correlation-Id: a00e64b1-b090-4780-ab35-08df28363d14
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|82310400026|36860700016|1800799024|23010399003|11063799006|56012099006|18002099003|22082099003|6133799003|261009223027099003|3023799007|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	6CS/lzQVwuXEMIzx0JSXujR/DPQkA0V33UE+ITtlGkWByj3bfHT3xyJQLR6miCtnxDfQb1ai9mq7CzWMieNYHrZ2CrOG13xvHwiI1zBaaTp7C8q4H85SYHsmflPgoiY/TaFqXpYpGzET8/uJdi1kv8X2JsW7E/k+3zZwev9wndX7xuAbmKzcPbhd0A+mp4TjcLnoY+2QNFIcX80rEMDrf496rRFJGvHq7niZ5u6ZyJhh6o90PQ7T2+fdV6jtMzs+EJbdjd5VbTa65WTd738Oyr9gPygi/LsUdUqP4jf9x0VMdJooVLMJ3oBhfsA1sCKLgITsIvWflr5L7ImojJnWk4gFnUH0f6FpnnEv2M/dt+BW3lsheM6Vj0IGIXeXp2EQNlCkTcFfK8ggfIL5X1KAjO+eFuxQd9WQY3dssl+oLAoXQOzJ/3huwXfMAtkWUXipUi2TInCaTy3nX5DW/McZlNSvSOIMnfZjDUM2/oz6/G031i853w7NV/EdoaTa35/I8zZGKRpwpTD0NglRcU8SPwI2jT6jovGCQg5g9HhbBnQd6h2rdgB5v6wR3nZ8jKIVlI+R9YI6bBMN+1ZfdKAWCFjhkIhV2T4Qf65yFU1hR0nwjcUWli8vEaiEQLELx8OO0iYEjUHD4Hae/Erc45pF0rE5/OdClR6WjA5WjQyj0Hd14MtyH0TquguBBhTHOHOZs9d+RVPXAvUbjEA3joY+mA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(82310400026)(36860700016)(1800799024)(23010399003)(11063799006)(56012099006)(18002099003)(22082099003)(6133799003)(261009223027099003)(3023799007)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	kwdwEq9WDO8k+kVP8Gm4q7udQSz/Ady+zOADqIynya/E1QYX9mrywsq4j1rZIZN2kmINLVheqZFFFvoZAlxJlhyDBddVUWx8CxWG48fd6BDC0i1yFlBDZkXQ3F4zwH9upibZv2Zav8kwgYefsOc01/DBLKdW+9qjUxAMWPRS/2Q5aavikvBkPKXB6JYsxUnkaea7hjxAFZuvJo97CgZPD7z+mSeC2R8sXsACfU3Vi9gVqJKpp6dhpiO6PF7q/0E2FAupSryxntaHpNu8c8g0upKQKhZLZW4iaGa7QL9ZN+LC8V2EBxM9Gor+ogIVqDKi8vjKJDPrUUldXan6E55esMn6yOxlK3d67kP7hORTSUoP63RIsiHh5+5bcGZ97Uiw+DRtkdpeg0QpkJW6mWe8BQqL/Dmc2L/dp9zv0zewqDj+aPC7/95IF3ER01UvqSTG
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 07:55:52.7558
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a00e64b1-b090-4780-ab35-08df28363d14
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00020E62.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9682
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-"PerPkg" is an event attribute and has no effect on metrics. Remove it
-from the Zen 6 memory controller metrics for consistency with the data
-fabric metrics, which do not set it.
+On 10/12/26 08:13, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 2 (1) · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] The current output frequency skips the new minimum-divisor
+>    rule.
+> - [Medium] The commit message says that for N-divided outputs the min-
+>    divisor check is 'necessary but not sufficient, the rest is checked by…
+> 
+> Pre-existing issues:
+> - [Medium] eSync can be enabled on an output whose divisor is 1.
+> 
+> --
+> 
+> dpll: zl3073x: reject output frequencies with too small divisor
+> 
+> This adds a minimum output divisor check to zl3073x_pin_check_freq().
+> Firmware-provided output frequencies must now give a divisor of at least
+> 2, or at least 4 for the N-pin of an N-divided output. Frequencies that
+> fail the check are dropped from the supported list.
+> 
+>> diff --git a/drivers/dpll/zl3073x/prop.c b/drivers/dpll/zl3073x/prop.c
+>> index 768e5424de2d2..4e006ed5950ad 100644
+>> --- a/drivers/dpll/zl3073x/prop.c
+>> +++ b/drivers/dpll/zl3073x/prop.c
+> 
+> [ ... ]
+> 
+>> @@ -41,18 +42,38 @@ zl3073x_pin_check_freq(struct zl3073x_dev *zldev, enum dpll_pin_direction dir,
+> 
+> [ ... ]
+> 
+>>   		/* Check the frequency divides synth frequency */
+>> -		if (synth_freq % (u32)freq)
+>> +		div = div_u64_rem(synth_freq, freq, &rem);
+>> +		if (rem)
+>> +			goto err_inv_freq;
+>> +
+>> +		/* The driver requires an output divisor of at least 2 -
+>> +		 * below that the hardware bypasses the divider and ignores
+>> +		 * the pulse width and eSync registers the driver programs.
+>> +		 * For the N-pin of an N-divided output the effective divisor
+>> +		 * also includes the N divider (>= 2), so the minimum is 4.
+>> +		 * For N-divided outputs this is only a necessary condition -
+>> +		 * whether the frequency can be set also depends on the output
+>> +		 * divisor shared by both pins, which is checked when the
+>> +		 * frequency is set.
+>> +		 */
+>> +		out = zl3073x_out_state_get(zldev, out_id);
+>> +		if (zl3073x_out_is_ndiv(out) && zl3073x_is_n_pin(id))
+>> +			min_div = 4;
+>> +		else
+>> +			min_div = 2;
+>> +		if (div < min_div)
+>>   			goto err_inv_freq;
+>>   	}
+> 
+> [Severity: Medium]
+> Can the current output frequency get past this new minimum divisor check?
+> 
+> zl3073x_pin_props_get() puts curr_freq at index 0 of freq_supported
+> without calling zl3073x_pin_check_freq(). It also skips any firmware
+> entry equal to curr_freq, so that value is never validated either:
+> 
+> drivers/dpll/zl3073x/prop.c:zl3073x_pin_props_get() {
+>      ...
+> 	j = 0;
+> 	if (curr_freq) {
+> 		struct dpll_pin_frequency freq = DPLL_PIN_FREQUENCY(curr_freq);
+> 
+> 		ranges[j++] = freq;
+> 	}
+>      ...
+> 	for (i = 0; i < num_freqs; i++) {
+> 		...
+> 		if (freqs[i] == curr_freq)
+> 			continue;
+> 		if (zl3073x_pin_check_freq(zldev, dir, index, freqs[i])) {
+>      ...
+> }
+> 
+> zl3073x_out_state_fetch() only rejects a zero divisor. An output can
+> therefore come up from the flash configuration with div == 1, and then
+> curr_freq == synth_freq stays in the supported list.
+> 
+> dpll_pin_freq_set() only checks that the frequency is in
+> freq_supported. zl3073x_dpll_output_pin_frequency_set() puts no lower
+> bound on new_div:
+> 
+> 	new_div = synth_freq / (u32)frequency;
+> 
+> 	/* Check signal format */
+> 	if (!zl3073x_out_is_ndiv(&out)) {
+> 		...
+> 		out.div = new_div;
+> 
+> 		/* For 50/50 duty cycle the divisor is equal to width */
+> 		out.width = new_div;
+> 
+> The N-div P-pin branch also does out.div = new_div after checking only
+> n_period.
+> 
+> A user can move the output away from its boot frequency and then set it
+> back. The driver then programs divisor 1 again. The commit message says
+> the hardware then ignores the pulse width and eSync registers. In N-div
+> mode those registers also hold the N-pin's N divider.
+> 
+> At the end of the series, a frequency_set with eSync enabled calls
+> zl3073x_out_esync_enable() with div == 1, which writes
+> esync_n_width = 0.
+> 
+> The previous patch in the series ("dpll: zl3073x: do not offer 0 Hz as
+> a supported pin frequency") already filters curr_freq for 0 Hz. Should
+> curr_freq also go through the divisor check? Alternatively, should
+> zl3073x_dpll_output_pin_frequency_set() reject new_div < 2? Later
+> patches in the series don't seem to add either check.
 
-The "PerPkg" setting on the underlying events remains correct on Zen 6.
-perf de-duplicates "PerPkg" counts by socket and die, and on AMD
-processors these are the same domain. Each UMC PMU instance belongs to
-a single IOD, so the CPUs it counts on always share the same socket and
-die. De-duplication therefore never merges counts from different IODs,
-unlike the single Data Fabric PMU, which spans both IODs in a socket.
+No. A divisor of 1 can only come from the boot configuration and is
+rarely used in practice: with the synthesizer running at up to 750 MHz
+it is only needed for output frequencies above 375 MHz, which only
+differential outputs support. Setting the current frequency back just
+restores that boot state, which the hardware supports, and the
+hardware ignores the pulse width in that mode anyway.
 
-Signed-off-by: Sandipan Das <sandipan.das@amd.com>
----
- tools/perf/pmu-events/arch/x86/amdzen6/recommended.json | 9 ---------
- 1 file changed, 9 deletions(-)
+> [Severity: Medium]
+> The commit message says:
+> 
+>    For N-divided outputs this is necessary but not sufficient, the rest
+>    is checked by the frequency set callback.
+> 
+> Does the frequency set callback actually check the out.div >= 2 part?
+> The N-pin branch of zl3073x_dpll_output_pin_frequency_set() uses
+> whatever out.div is currently programmed:
+> 
+> 	} else {
+> 		/* The N-pin frequency has to divide the P-pin frequency and
+> 		 * be at most half of it.
+> 		 */
+> 		n_period = frequency * out.div;
+> 		n_period = div64_u64_rem(synth_freq, n_period, &rem);
+> 	}
+> 
+> After that it only rejects n_period < 2, n_period > U32_MAX and a
+> non-zero remainder before committing out.esync_n_period.
+> 
+> The check added here only looks at the total divisor
+> synth_freq / freq >= 4. That can't tell out.div = 2, N = 2 apart from
+> out.div = 1, N = 4.
+> 
+> An N-div output can end up with out.div == 1 in two ways:
+> 
+>    - the boot configuration, since zl3073x_out_state_fetch() only
+>      rejects 0
+>    - restoring a P-pin frequency equal to synth_freq through the
+>      unvalidated curr_freq entry
+> 
+> In that case the N-pin set succeeds, and
+> zl3073x_dev_output_pin_freq_get() reports synth_freq / N.
+> 
+> The hardware ignores the N divider register at divisor 1. Wouldn't the
+> reported N-pin frequency then differ from what the pin actually
+> produces? This looks like a variant of the "no output on an
+> oscilloscope" case in the commit message. It still seems to be present
+> at the end of the series.
 
-diff --git a/tools/perf/pmu-events/arch/x86/amdzen6/recommended.json b/tools/perf/pmu-events/arch/x86/amdzen6/recommended.json
-index 853700a3a0de..1bc397f933f2 100644
---- a/tools/perf/pmu-events/arch/x86/amdzen6/recommended.json
-+++ b/tools/perf/pmu-events/arch/x86/amdzen6/recommended.json
-@@ -269,7 +269,6 @@
-     "BriefDescription": "Memory controller data bus utilization.",
-     "MetricExpr": "d_ratio(umc_data_slot_clks.all / 2, umc_mem_clk)",
-     "MetricGroup": "memory_controller",
--    "PerPkg": "1",
-     "ScaleUnit": "100%"
-   },
-   {
-@@ -277,7 +276,6 @@
-     "BriefDescription": "Memory controller CAS command rate.",
-     "MetricExpr": "d_ratio(umc_cas_cmd.all * 1000, umc_mem_clk)",
-     "MetricGroup": "memory_controller",
--    "PerPkg": "1",
-     "ScaleUnit": "1per_memclk"
-   },
-   {
-@@ -285,7 +283,6 @@
-     "BriefDescription": "Ratio of memory controller CAS commands for reads.",
-     "MetricExpr": "d_ratio(umc_cas_cmd.rd, umc_cas_cmd.all)",
-     "MetricGroup": "memory_controller",
--    "PerPkg": "1",
-     "ScaleUnit": "100%"
-   },
-   {
-@@ -293,7 +290,6 @@
-     "BriefDescription": "Ratio of memory controller CAS commands for writes.",
-     "MetricExpr": "d_ratio(umc_cas_cmd.wr, umc_cas_cmd.all)",
-     "MetricGroup": "memory_controller",
--    "PerPkg": "1",
-     "ScaleUnit": "100%"
-   },
-   {
-@@ -301,7 +297,6 @@
-     "BriefDescription": "Estimated memory read bandwidth.",
-     "MetricExpr": "(umc_cas_cmd.rd * 64) / 1e6 / duration_time",
-     "MetricGroup": "memory_controller",
--    "PerPkg": "1",
-     "ScaleUnit": "1MB/s"
-   },
-   {
-@@ -309,7 +304,6 @@
-     "BriefDescription": "Estimated memory write bandwidth.",
-     "MetricExpr": "(umc_cas_cmd.wr * 64) / 1e6 / duration_time",
-     "MetricGroup": "memory_controller",
--    "PerPkg": "1",
-     "ScaleUnit": "1MB/s"
-   },
-   {
-@@ -317,7 +311,6 @@
-     "BriefDescription": "Estimated combined memory bandwidth.",
-     "MetricExpr": "(umc_cas_cmd.all * 64) / 1e6 / duration_time",
-     "MetricGroup": "memory_controller",
--    "PerPkg": "1",
-     "ScaleUnit": "1MB/s"
-   },
-   {
-@@ -325,7 +318,6 @@
-     "BriefDescription": "Memory controller ACTIVATE command rate.",
-     "MetricExpr": "d_ratio(umc_act_cmd.all * 1000, umc_mem_clk)",
-     "MetricGroup": "memory_controller",
--    "PerPkg": "1",
-     "ScaleUnit": "1per_memclk"
-   },
-   {
-@@ -333,7 +325,6 @@
-     "BriefDescription": "Memory controller PRECHARGE command rate.",
-     "MetricExpr": "d_ratio(umc_pchg_cmd.all * 1000, umc_mem_clk)",
-     "MetricGroup": "memory_controller",
--    "PerPkg": "1",
-     "ScaleUnit": "1per_memclk"
-   },
-   {
--- 
-2.53.0
+The datasheet requires an output divisor of 2 or more in N-pin divide
+mode, so out.div == 1 there is an invalid boot configuration. N-pin
+divide modes are also CMOS only, and CMOS outputs are limited to
+250 MHz, so a divisor of 1 is never needed there. The driver does not
+try to fix it.
+
+> [Severity: Medium]
+> This isn't a bug introduced by this patch, but the eSync callbacks seem
+> to reach the same divisor 1 case.
+> 
+> zl3073x_dpll_output_pin_esync_get() advertises eSync ranges whenever
+> the output is not N-div, esync_control is set and out_freq > 1:
+> 
+> 	out_freq = synth_freq / out->div;
+> 
+> 	if (!pin->esync_control || out_freq <= 1)
+> 		return -EOPNOTSUPP;
+> 
+> With out->div == 1, out_freq == synth_freq, so this check passes.
+> zl3073x_dpll_output_pin_esync_set() then sets the clock type to ESYNC
+> and commits without checking out.div >= 2:
+> 
+> 	out.esync_n_period = synth_freq / (u32)freq / out.div;
+> 	...
+> 	out.esync_n_width = out.div / 2;
+> 
+> For div == 1 this writes esync_n_width = 0.
+> 
+> This commit says the hardware ignores the eSync registers at divisor 1.
+> Would the driver then report eSync as enabled with a given frequency
+> and pulse, while the device outputs a plain clock?
+
+Yes, but only for an output that the flash configuration left in
+divider bypass. Supporting eSync in that mode is out of scope for this
+series.
+
+Thanks,
+Ivan
 
