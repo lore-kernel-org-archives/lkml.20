@@ -1,263 +1,156 @@
-Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011024.outbound.protection.outlook.com [52.101.65.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0964446851;
-	Mon, 12 Oct 2026 07:44:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791791091; cv=none; b=JcDZvgGbNjMXXpDoC12UUl1666+VoSrnufl9NScpZPmqygg6OMFDrCwLSswIL9I/WqiRLHrdwiqmV6t7r2yTG1Peo1cK6YrkJoO/rCWJM2GS/rgp9L48xxjkqtVlt93nevkUqry4iUk8KljDTSg+ewiTDmaRwBsoDJUWKff986o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791791091; c=relaxed/simple;
-	bh=/fJi3QeK3l4UB5NVtuYuspU6YDU7/K4uM3vAMVEjSXU=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k2qe+oqOsTQ4xESBveXLA84Jo2V2QIFOs4N55Swz9NyMF8IaDJbWm9PNjTzTgMReOusVEUi02rDhB4j21KRYuboJV0m9kBS8cs7rgZ+3KXlVFnr2R3IC1Lrf699mXbPGeQswZmRxuv5pZFLHi203Tb/PGubHyDiwt4QauzrvIvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=GElKpd55; arc=none smtp.client-ip=162.62.58.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0739F44AB60;
+	Mon, 12 Oct 2026 07:45:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791791108; cv=fail; b=hlnMkzKRvYv9+wJlpIuypW0l5z5zm163KHjzekk4sjw5xz9KOdYza8BYhnMchrL4JCC2kp5abutJPWwRO5gOA+tyGj8mx4NGmFnVT0cap00/X8ZjMOIKvyK5FhvXRMEqHWy5gp9E5xJogv1VgvRBKdLqfNGPIrv4nw4/pw4J+ME=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791791108; c=relaxed/simple;
+	bh=1ihIOvmTG4yDOEiPv7K2lRqoUuuVUsItFTSF+NNW8Y4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=EIoBwz+0OvFVoo7zNQfWYzAqo9gfXacyMwtWHp5olqywCNgeS/nAme/loNRKITPl3boZm5PNb9dMk0L++VK4Vx0ZWpQiwam6i0Y8oAWrwbqi+gvaBeQw3Nu1N1FUlt857H0RJLkuPmyzSyWNsM8NNswVJt60xA/RH8L7arkF2MM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=C5htsCSk; arc=fail smtp.client-ip=52.101.65.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="GElKpd55"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791791082; bh=JNbInwog42HZiUei8KOTqHeWPWDAxvtDmWsvnlmhOFg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GElKpd55gtwMogIIepk1z+BxLMVZzTMonjuu7Wk/v2bWomU9KKUkLPtJCyKErnfzO
-	 cCgTfjdCUsW/canXNvsDOUxLLEzMmjgsMCyFapP+mDwuhd07tYOPMYSIYzebcrQhoR
-	 fgRae7lWznEhVTMjjnAz1ZGM2MbU+KPMHEIANt8g=
-Received: from [172.18.4.77] ([111.31.227.58])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id B2728EF6; Mon, 12 Oct 2026 15:44:39 +0800
-X-QQ-mid: xmsmtpt1791791080tvsx1vwjg
-Message-ID: <tencent_C6E63E6151EEA924DF6C23D74E35A6245108@qq.com>
-X-QQ-XMAILINFO: NxKoLLhE22aTzvCIE7pSG6nJdgLbokoxr2Go7gl9ard/2proqb/ben1OZ3upP3
-	 VB9uPlQWFzOjrTJWODy82N53o9+OfxSMXgzTZUHcKQDQ3cEtMO+4EixNKpyqitYYr8Hs60LBhWuN
-	 Qzr4ZNdV/cfwGib5d+441+/XzFWm+BsUBUcxAW/qlQEuO90e7UwKxhlhTPJrkVmCec3bMuHm21sQ
-	 bFmp1GD2je64n7pEdu8zurCQGVMmM+Axbfr4K3JZzBcsV9plWiAL+xZzt3JbD32RSr+xJngeg0et
-	 d23r74GOj513qIGDl7kxurMsyFRzuZeLxT5OLf1zwXh/TWYz8M5ewRgnMvNov4M0fk5Kkrr8154a
-	 0+TJZdzU87u+02qQbEFFibKkf4fQ1Oo7A+PZWgvMRpy99OYD2+QVzM+LZGiBjekj9PTiHjyeN/1J
-	 ZjnHw+yfy/KIlEqaeLPw+zF3pHzFcBEGW0Nm9g2VCvXgTob3enfElctr0fBk1HfLQ1kbybdUSqYh
-	 cb4tXwCJJAmmM1C+0WX/gqeTOUzK4MApLVrHv0T42ADw1sViemh5rwaaq8HZ2iBMRo1tpJCM3EUu
-	 iZIpl6PXxVv0BoBhmuBgmGtp94cKdSgMJbEUeIqO1UB3ffvc+Fh6ASeVbJ9SeaV2bKpZTCcpE3Zm
-	 jQWbbyFHIMPkNjd7wXuri4BvyAkMBMlXCVTUR3f0BkNWFAHMRnyhIsehbA+8Ff2riNhb7p6WVKU+
-	 pu3kaBF6bNYhu/Fvy39MDUt4K5cx7+euLCaCvpzyKsicI7YBs0Z50fcvHci38Fj03xWIKIRzkCCi
-	 02fWtY9RS2bZE0CVjw46f0JRQqXI7bc2YijLIR4nYVYe5UpstFN8PXTelYdGvsxU+mFz+jVt51Ax
-	 SnmUl9PEarp6PUPUrIXeww1Tc5HWNwCx3bwP6CnbxQyDQioaW2hJGPrj2A3+utPKSFhKaqzYmyV0
-	 TtD4WD3SaJQbzVr/IXuYzqKao2SqTbrto4DSoGCAfP2Dbc8QVfIZwMpsLWh/ei1kSM64VxnjkYON
-	 TuD7sAtE5PoEaJdDNLgWon2KHaA0RKaCpfCbeE0PhQVhGlZ5MgK7+gK/S8je0yaV/g+RlnRQ==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: 1sh1ro <yangguikun19@qq.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Yangtao Li <frank.li@vivo.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] hfs: create the internal B-tree inodes through the generic iget path
-Date: Mon, 12 Oct 2026 15:44:38 +0800
-X-OQ-MSGID: <20261012154438.6396-2-yangguikun19@qq.com>
-In-Reply-To: <20261012154438.6396-1-yangguikun19@qq.com>
-References: <fb6a6e2ff419fc197c793d9a98fccd2d1332e49d.camel@dubeyko.com> <20261012154438.6396-1-yangguikun19@qq.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="C5htsCSk"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NV9DMzgrhw0B7ymxrejdF7ld3VZWVANvllfO+2Y2vZoEQGN0g0QkMnff+XIBeA8g1VJik9jWOFkZaGmJyGSPBa8ylZDKVDKFAbRoVwJHNBHFLVvbhZhh+qCs/DpZyr2WbreVt2mV7wDY/TPyDgTd8BQqhPfuVeqMdiTUXD+f9vMupsx99/b3NiBDxg4c0f+u1mmHGhlN0aAN9tY4H6LElpDl9Yi37pDJDQhT/oesc6yjpasbdO2ZXcl0dNNfjd2lMQkQ8LdJv8L/tJcckmZ+OwiFgkn3b1xFfhi8/sjizmukErnasnwHrzw3lsdMlgMpXsOO4M/Pwqjo9qFX9d9Cbg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1ihIOvmTG4yDOEiPv7K2lRqoUuuVUsItFTSF+NNW8Y4=;
+ b=mOPqq9a+j7q3dcQ/O96i5KWI6jy+zUnBhYjScgZ8EZuVnDwZNk+6f/kzeYzcO30xgX2WqKV2guj3Yj0oBIBR8poxdXDhCV0IdG45j5x8b1kwubPNOmarF6+g54FTn1tp85AWHkcCvuu/E+HKdu6Niyr+Dl8aUTsGK8N1rvF+s6jAEUJxwfamNiujrh12inIqvr42eRR/IM0KnrSoxWsP21lzYyIxKv6SN70gxKZfEeVmgBjyUoMfC+I6g+1M10bTY6gj0zb07OuOmT34t0gd9P7AS93Ghbd4q2UqXqJ6ifsYu/Z8Q+zhYTic54mvjoMPJmTiYl5qvcwVgN1ZcL2ZyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1ihIOvmTG4yDOEiPv7K2lRqoUuuVUsItFTSF+NNW8Y4=;
+ b=C5htsCSkm9CduTDRWZ0wsP4g4waPVUquoGiNtf6h0LiHZavjPXjBE2bkJ/IFzXLc0lOn/yQhAhZr1NiwpFJ5c8NOmatOI6j+G4BI3orE72i4W4pTtd1R4mkNI+jce0bLbACyxo9kPDgxDf1TGF4eDQvNC/HAiBITwN7R6Qkg79mp6FQYocXy/7gqCeKO/4SC8AjzIEHBA5xoGwgQQL6Xxb+Zl7tEPiDggkJPlpAPmFWy2We1KAB2bD9qihpEMad6H0TDjJ3pKzcDprC/9eWQu6ZJIp3sMkvwIhVxN85v1EXTTB8og2saFRmPuTrLc0OYYAhtilQLwtbue4h3/L4yNQ==
+Received: from GV2PR04MB11740.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cd::13) by AM9PR04MB8571.eurprd04.prod.outlook.com
+ (2603:10a6:20b:436::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 07:45:03 +0000
+Received: from GV2PR04MB11740.eurprd04.prod.outlook.com
+ ([fe80::ca5f:7e1c:a67a:a490]) by GV2PR04MB11740.eurprd04.prod.outlook.com
+ ([fe80::ca5f:7e1c:a67a:a490%4]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 07:45:03 +0000
+From: Claudiu Manoil <claudiu.manoil@nxp.com>
+To: Wei Fang <wei.fang@nxp.com>
+CC: dl-S32 <S32@nxp.com>, Vladimir Oltean <vladimir.oltean@nxp.com>, Clark
+ Wang <xiaoning.wang@nxp.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>
+Subject: RE: [PATCH net-next v1 2/5] net: enetc: Enable probing of version 4.4
+ devices
+Thread-Topic: [PATCH net-next v1 2/5] net: enetc: Enable probing of version
+ 4.4 devices
+Thread-Index: AQHdV+toM4heoR/OyUSjS2DByV80E7b2BsQAgAOD1pA=
+Date: Mon, 12 Oct 2026 07:45:03 +0000
+Message-ID:
+ <GV2PR04MB11740B17401171A7F3876B6E0969F2@GV2PR04MB11740.eurprd04.prod.outlook.com>
+References: <cover.1791548316.git.claudiu.manoil@nxp.com>
+ <701f38d08f9ea371877645223e6ac919af7870b5.1791548316.git.claudiu.manoil@nxp.com>
+ <AS4PR04MB9338CC6990BCB8781706AAD088912@AS4PR04MB9338.eurprd04.prod.outlook.com>
+In-Reply-To:
+ <AS4PR04MB9338CC6990BCB8781706AAD088912@AS4PR04MB9338.eurprd04.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR04MB11740:EE_|AM9PR04MB8571:EE_
+x-ms-office365-filtering-correlation-id: 74b89a5a-22f6-4c22-4979-08df2834ba20
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|19092799006|366016|1800799024|23010399003|6133799003|10067099003|18002099003|22082099003|38070700021|11063799006|4143699003|56012099006;
+x-microsoft-antispam-message-info:
+ j4+IMvWTR0y0hkiIc1dPhqa1ooVYXCZphRHha9Eh/6keMuzKWVDJBIa+X8fMFu/Bb13Iu9kAI0OmgKMDm+mlq4QjW0IanRoLV1p4d1VncsMuOVBYHdFuLPX6wvqmtLPJ80XwpeCC1h0Fe+e9OOtHGf5fuZCkvv954rqVar0UtzcdGRGcafZky6gLYQq5Svyf9CL28ZBYUvKuEY3+Fwr4Qc9455lGeDlf/6HN0G+ZtIT06lHn/XcsaJKuu/XWqtmPOskbFqszdDJ42A1aWx7DsHZ7kgXWpBFpr/+5VfZjSlo0RUl250PEWwWTgRhsOnVRj9eiZBbUqYBmWth9X5rEZEONwogaPReFCuXYF4enPHTF4oxkUvC+rvaI6iCHkCO2Bq8u2YvrGX0ck+AYTZ69JTHdFJoh0cyhhvn0FiWCEC7Jt5UcLYsp+xpBJcSCbYNlUqlq1188AeZ0Vj8JNNuKdZ+c9ZO9+sk4drM8RYpmrEEuT2TkMmo6u2mTB17fpr+FxXZ2MFP1erySy32iZs/hUCULtQM2G4EO0ZkSS3/pZU+50fJ9kLr7AmHYp/LjEOlv30U32VXxviOSYOoI8/AHa3yOfTvIbiSMRP9TMX3RR4rO2v+MMk5pv29MPP068Iy2+/y/jrPLHx0K9qneZZ5FUDHHQqZXk+f2pHDjhTH94YZkGfg6RQH5xu7KuoS9sJZXwBbJCghD5tdoVDpg2t1JDZcSiR9xM5AqYai3zlgnySY=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11740.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(38070700021)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?k+RBLv4eYxxcYWKRGXqV8ohx7blgfGl5Od+druE3SW6Jl6GdMeq25XRcflSV?=
+ =?us-ascii?Q?eUyfwWtqlDzhkwWk7w/q8oQLBQzPlCsNzwq8I30d0sRWTSxpSLxxQokxUVEI?=
+ =?us-ascii?Q?ZwQh21JVV5PNHwz0UQp4eWYzK3p/FPGsBEGR+/cmAkGh//YgyzUiok9xMWqW?=
+ =?us-ascii?Q?5/+ZgeX4tvemAIDZbOm41DL2yaMRmHiW21ShLeXYNcezKB38IiDhqktaOgZT?=
+ =?us-ascii?Q?ftCFQvJBQqTRTqmsJGLuYCyrUXUi+jmDFdFCDKFpT+HF3EgbblxD9Qn2NR0D?=
+ =?us-ascii?Q?kWyHuDjdYNDUFSFj4DSsPITsAivcLBqk73BjbfwNzfYrKrA7BN5FkTqMkQW4?=
+ =?us-ascii?Q?c/LwKta8+VyhwNgsy+DDHT76/L/K+DHbzpKCuoXuHCZoYq+JsTNtcTweudkU?=
+ =?us-ascii?Q?vg1BglfJYNdanfXj8/Ls/AVaK+v6SGQxyVvd5sJmrN0oeqgXXFfWiLuB4Iun?=
+ =?us-ascii?Q?E8mHiuYFoG7d95Vz7H1/L/9HSFd89aZks4cfYrFrEwOcFiXz0y0liqWv/T8J?=
+ =?us-ascii?Q?KKBoJn83vgo8YYENAec9mN1H3qDXg3nyUbv26Q2/ICcdEf//B4JvdHwsYugy?=
+ =?us-ascii?Q?if1pAwE/REYpnNEbWqAbQbMxHE7/TKD7yNnKjmK+05yK5ChfEDukRJ+/2kzR?=
+ =?us-ascii?Q?vOrq2txwEQPdOcpuH7oEsH4icIZR9tx7aLBRZ7r8VINZ/A4SJ4kv2PR5lSrP?=
+ =?us-ascii?Q?znXCM4GqOWV4X37afiUK375zrWegWzGiC1t9BSIOx01Mcx5DjInVW4QERz7d?=
+ =?us-ascii?Q?MEyy8SW3UVt/s9ar0r+9ZRanznxTsqAenYzTVDKC84MpgNbFFzZHCWhBoJRD?=
+ =?us-ascii?Q?vwu/+krGisXgctPTzv9NoLPizRqDHgOq4lhwoRCFKEAYtjOW/zEXB+S+VbNa?=
+ =?us-ascii?Q?F9WWF0cDhnSGf1h0WLKy8UjUYUY9vTGXs0D/kzG4Sg9YxEsiiArtVHRHapRe?=
+ =?us-ascii?Q?LOJYwPptbDXvOg9GADsZWqnYlsJdOfEa8dB03aGOmsBdz88dCpSlqsDPn11f?=
+ =?us-ascii?Q?hN+OpFrg+dmEaj0Cy06a8PLqWEghTsLELIPywx50k0bSh34oKNPqJnCE8SJK?=
+ =?us-ascii?Q?fz1QhLKIMqi+qmfjY2DzK1WeU1BC+UcdaraI5Py8QmRKznWxnwRLGXMLPesU?=
+ =?us-ascii?Q?li+nLume0tKAB3INhHbHKkiHZpiNhJZF6NZYRpwdJT9NB8DbACgr/uAf/L+A?=
+ =?us-ascii?Q?X7GfSmlKFYhvhDMty/a661pgQyfzxnaDz5O9ncSbLVGOeMAOBudn9d19QHc5?=
+ =?us-ascii?Q?N1EERLhpJCme3ptbMrOK0GRta/URpm7oIEIW5UkKL7Gmj6f+HmNqZwlkOX45?=
+ =?us-ascii?Q?GuHiauGSnxzGhzfLTjSNg80m0gTIGxu1AFjFKKme6QB01G/ErqKTayh5Rqc/?=
+ =?us-ascii?Q?mEL4wnZz+lriyCS6X95Fw400SYRE8ljTQ639gs9EUYgIOTBXuxQ6gkuYFbWM?=
+ =?us-ascii?Q?3fN/uD6z1CdWsd+CSnKhU1K9+gywMSCXzEI+h8T2rLpSVXU9a75TkPod52vR?=
+ =?us-ascii?Q?/vqMDR6mRvuUvWwchaPXhmj+3VfNjgNyJ4b1ZCX/XjA8GM1W6+df/wXijzGL?=
+ =?us-ascii?Q?KQtZgPDhfX+iiO9rpbLaZIb5pIi3HyWiSDEfKq+HKx/wYbQ5g3CYsve8eUWs?=
+ =?us-ascii?Q?BXfpu5NZH3Txai/8EVeyfAZwOWwzD6DU0HDWXTzLaIkNGN3zb5i0523Ms4t4?=
+ =?us-ascii?Q?K9k0UTFNDOLr4kqyKlbgxDsmIbJeuz/yuB/LMliU+mxIeePhDEz1XS+f1vbL?=
+ =?us-ascii?Q?KCKqLzX5gA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11740.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74b89a5a-22f6-4c22-4979-08df2834ba20
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2026 07:45:03.5915
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: vuz8h6yAhPZCg7KOz4PRfcZw23UL9Nf+vkAcTnk7YlE0s8O8xYqw8MlKp+U7dpqwE4+vaHbr0pmbi35Zqdzhiw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8571
 
-hfs_btree_open() builds the extents and catalog B-tree inodes with a raw
-iget_locked() and never assigns them a file type, so both stay cached with
-i_mode == 0 after every mount.  A crafted HFS image whose catalog contains
-a record addressing one of the reserved B-tree CNIDs (3 or 4) makes
-hfs_lookup() -> hfs_iget() return that cached inode - hfs_test_inode()
-matches on i_ino alone - and the typeless inode then reaches the generic
-open path, where it trips VFS_BUG_ON_INODE() in may_open() with
-CONFIG_DEBUG_VFS=y:
+From: Wei Fang <wei.fang@nxp.com>
+Sent: Saturday, October 10, 2026 5:02 AM
+[...]
+> Subject: RE: [PATCH net-next v1 2/5] net: enetc: Enable probing of versio=
+n 4.4
+> devices
+>=20
+> > The ENETC v4.4 devices are present on S32N79 SoCs and feature only
+> > Pseudo-MAC ENETC ports, whose PFs expose both the 0xe101 and 0xe110
+>=20
+> I think the device ID of the ENETC PF with the pseudo MAC should be 0xe11=
+0.
+> The device ID 0xe101 should be only used for the standalone ENETCs (witho=
+ut
+> pseudo MAC). Is this a hardware issue? If so, a workaround is to set thes=
+e PF's
+> device ID to 0xe110 in IERB module. Then the device ID 0xe110 will be pre=
+sent
+> in the PCIe ECAM space.
+>=20
 
-  VFS_BUG_ON_INODE(!IS_ANON_FILE(inode)): inode:... fs:hfs mode:0 opflags:0xc
-  ------------[ cut here ]------------
-  kernel BUG at fs/namei.c:4271!
-  RIP: 0010:may_open+0x2ba/0x480 fs/namei.c:4271
-  Call Trace:
-   do_open fs/namei.c:4698 [inline]
-   path_openat+0x1600/0x3de0 fs/namei.c:4863
-   __x64_sys_openat+0x13f/0x1f0 fs/open.c:1385
-
-Without CONFIG_DEBUG_VFS the assertion compiles away and the same image
-silently yields an openable typeless inode, so this is not merely a
-debug-config nuisance.
-
-Fix it the way HFS+ handles its system inodes: add hfs_system_read_inode(),
-which reads the fork from the MDB (the counterpart of
-hfsplus_system_read_inode()), and hfs_system_iget(), which looks the inode
-up through the normal inode-cache path and can fail before the inode is
-published.  hfs_btree_open() now uses hfs_system_iget(), so the B-tree
-inodes carry a valid S_IFREG type like every other inode.  The
-extent-record validation is unchanged; it just runs after the inode has
-been created.
-
-Found by syzkaller-style fuzzing of v7.2-rc7; still reproducible on
-current mainline.
-
-Suggested-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Link: https://lore.kernel.org/linux-fsdevel/tencent_24D928451FEFA8A35482EFFA9132A7305307@qq.com/
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: 1sh1ro <yangguikun19@qq.com>
----
-  fs/hfs/btree.c  |  25 +++++--------------------
- fs/hfs/hfs_fs.h |   1 +
- fs/hfs/inode.c  |  74 ++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 80 insertions(+), 20 deletions(-)
-
-diff --git a/fs/hfs/btree.c b/fs/hfs/btree.c
-index 41b4e8f..7486707 100644
---- a/fs/hfs/btree.c
-+++ b/fs/hfs/btree.c
-@@ -155,44 +155,29 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id, btree_keycmp ke
- 	tree->cnid = id;
- 	tree->keycmp = keycmp;
- 
--	tree->inode = iget_locked(sb, id);
--	if (!tree->inode)
-+	tree->inode = hfs_system_iget(sb, id);
-+	if (IS_ERR(tree->inode))
- 		goto free_tree;
--	BUG_ON(!(inode_state_read_once(tree->inode) & I_NEW));
--	{
--	struct hfs_mdb *mdb = HFS_SB(sb)->mdb;
--	HFS_I(tree->inode)->flags = 0;
--	mutex_init(&HFS_I(tree->inode)->extents_lock);
-+
- 	switch (id) {
- 	case HFS_EXT_CNID:
--		hfs_inode_read_fork(tree->inode, mdb->drXTExtRec, mdb->drXTFlSize,
--				    mdb->drXTFlSize, be32_to_cpu(mdb->drXTClpSiz));
- 		if (HFS_I(tree->inode)->alloc_blocks >
- 					HFS_I(tree->inode)->first_blocks) {
- 			pr_err("invalid btree extent records\n");
--			unlock_new_inode(tree->inode);
- 			goto free_inode;
- 		}
--
--		tree->inode->i_mapping->a_ops = &hfs_btree_aops;
- 		break;
- 	case HFS_CAT_CNID:
--		hfs_inode_read_fork(tree->inode, mdb->drCTExtRec, mdb->drCTFlSize,
--				    mdb->drCTFlSize, be32_to_cpu(mdb->drCTClpSiz));
--
- 		if (!HFS_I(tree->inode)->first_blocks) {
- 			pr_err("invalid btree extent records (0 size)\n");
--			unlock_new_inode(tree->inode);
- 			goto free_inode;
- 		}
--
--		tree->inode->i_mapping->a_ops = &hfs_btree_aops;
- 		break;
- 	default:
- 		BUG();
- 	}
--	}
--	unlock_new_inode(tree->inode);
-+
-+	tree->inode->i_mapping->a_ops = &hfs_btree_aops;
- 
- 	mapping = tree->inode->i_mapping;
- 	folio = filemap_grab_folio(mapping, 0);
-diff --git a/fs/hfs/hfs_fs.h b/fs/hfs/hfs_fs.h
-index e250f87..26505f7 100644
---- a/fs/hfs/hfs_fs.h
-+++ b/fs/hfs/hfs_fs.h
-@@ -219,6 +219,7 @@ extern void hfs_inode_read_fork(struct inode *inode, struct hfs_extent *ext,
- 				u32 clump_size);
- extern struct inode *hfs_iget(struct super_block *sb, struct hfs_cat_key *key,
- 				hfs_cat_rec *rec);
-+extern struct inode *hfs_system_iget(struct super_block *sb, u32 cnid);
- extern void hfs_evict_inode(struct inode *inode);
- extern void hfs_delete_inode(struct inode *inode);
- 
-diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
-index 2aef3c3..4316d75 100644
---- a/fs/hfs/inode.c
-+++ b/fs/hfs/inode.c
-@@ -421,6 +421,80 @@ static int hfs_read_inode(struct inode *inode, void *data)
- 	return 0;
- }
- 
-+/*
-+ * hfs_system_read_inode
-+ *
-+ * Initialize one of the internal B-tree inodes.  These are described by the
-+ * MDB rather than by catalog records, so they need their own read helper -
-+ * the HFS counterpart of hfsplus_system_read_inode().
-+ */
-+static int hfs_system_read_inode(struct inode *inode)
-+{
-+	struct hfs_sb_info *hsb = HFS_SB(inode->i_sb);
-+	struct hfs_mdb *mdb = hsb->mdb;
-+
-+	HFS_I(inode)->flags = 0;
-+	HFS_I(inode)->rsrc_inode = NULL;
-+	mutex_init(&HFS_I(inode)->extents_lock);
-+	HFS_I(inode)->tz_secondswest = sys_tz.tz_minuteswest * 60;
-+
-+	inode->i_uid = hsb->s_uid;
-+	inode->i_gid = hsb->s_gid;
-+	set_nlink(inode, 1);
-+
-+	switch (inode->i_ino) {
-+	case HFS_EXT_CNID:
-+		hfs_inode_read_fork(inode, mdb->drXTExtRec, mdb->drXTFlSize,
-+				    mdb->drXTFlSize, be32_to_cpu(mdb->drXTClpSiz));
-+		break;
-+	case HFS_CAT_CNID:
-+		hfs_inode_read_fork(inode, mdb->drCTExtRec, mdb->drCTFlSize,
-+				    mdb->drCTFlSize, be32_to_cpu(mdb->drCTClpSiz));
-+		break;
-+	default:
-+		return -EIO;
-+	}
-+
-+	/*
-+	 * Assign a dummy file type, for may_open() requires that an inode has
-+	 * a valid file type.  These inodes are hashed by CNID like any other
-+	 * inode, so without a type a catalog record of a crafted image that
-+	 * aliases CNID 3 or 4 would reach the VFS with i_mode == 0.
-+	 */
-+	inode->i_mode = S_IFREG;
-+
-+	return 0;
-+}
-+
-+/*
-+ * hfs_system_iget
-+ *
-+ * Look up (or create) one of the internal B-tree inodes.  hfs_btree_open()
-+ * uses this instead of a raw iget_locked() so that the inode is completely
-+ * initialized before it becomes visible in the inode cache, in the same way
-+ * hfsplus_iget() handles the system CNIDs for HFS+.
-+ */
-+struct inode *hfs_system_iget(struct super_block *sb, u32 cnid)
-+{
-+	struct inode *inode;
-+	int err;
-+
-+	inode = iget_locked(sb, cnid);
-+	if (!inode)
-+		return ERR_PTR(-ENOMEM);
-+	if (!(inode_state_read_once(inode) & I_NEW))
-+		return inode;
-+
-+	err = hfs_system_read_inode(inode);
-+	if (err) {
-+		iget_failed(inode);
-+		return ERR_PTR(err);
-+	}
-+
-+	unlock_new_inode(inode);
-+	return inode;
-+}
-+
- /*
-  * __hfs_iget()
-  *
--- 
-2.39.5
-
+Ok, will consider going forward with 0xe110 exclusively, in v2.
+Thanks.
