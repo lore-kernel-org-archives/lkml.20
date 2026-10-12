@@ -1,166 +1,101 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E6D73AA19B
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5DB348C7C;
+	Mon, 12 Oct 2026 10:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791801627; cv=none; b=Y7Ml12620cYHWC1dflgxir70kyQ/FtTrOrLaWseqxhIT37WPC9vRL2oPk0iW8SDYKluCYM8qG5WCryxl+5AjjwH86CcNa+JU5OXXXZORq9NSv13g4OOlGoRSXSLW7WadTBODoxyDPI4L5JD6Rtn2P6zYJNdLev8V9nW1nMHzrW0=
+	t=1791801643; cv=none; b=m6GSwdiBRx2J4pcGcaffch+AironYzY4e3TWyso0SiAaULwKa235YMJCHkbe1EKkLywTBFThMUmdTvpW0FX2WwkPQf7iFU/5ETyD5D26BIuIscrKM1ZXNi6j05gtpU1aoZAUHcBeoaT/hnTirKbzr4ADlQNVJKwyLrQF/++nxno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791801627; c=relaxed/simple;
-	bh=vFkCRtgxGCnpOhlZA7FYzY49jEv/8nkM8zfXlvjQOfQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=faYLlsXM377KMsNh9vMig81jPXG+fX0fsSJuCGUWObUqDdU0yd48qXTP5yVfOBRj+zhiCkdz13h0OyDauqVNpFZH49FT6gJ8xpW80FEhCZYb8LhDuf6eCpK+Wlcqt+v3ciF864onj6eJLOs9+IoPRMtKTy1aqeFTLecb39WMIkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hufXMIw0; arc=none smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791801643; c=relaxed/simple;
+	bh=0lqlHCY1i9/hvpDM/SFAMnNmI36PW0atq9twP1Ql5UU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=qsxptKN3xohcNP64E1j/SZDc7fKXHDG7Fbt0qWO1Ct5XgHrZsgOgGeZvHWWu5xMoqfQzti6IL5qRBk6xsQDiekUm0kiHe9xMnVoHumdpySJde/sk016bttKHUFLfeiyrGme1kI+Ere6g0MqvlnyOCUNjKCgQoniDCIE8yXhJpSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HrZ+jots; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hufXMIw0"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso5948765eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:40:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791801626; x=1792406426; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3l61iXys9UAgeiq6Qoow/JEP0G8Esaw8ppQEGcd0fNQ=;
-        b=hufXMIw0EVpInfTHhpYb/QUt24+17FSeX5h06Wfnpgb8Jkqyyg8piXuqxx0i625Ai/
-         d1vDYYMkZ+rRr30gF8oMr/6BYgyg9nnWRXXjq7qrdsMkFBencCoYq0KKVxe4dFuKqDdA
-         duwdxgMF+BUMMevDDeIs/s9YhAgGSLzDgmafK5TY7GcB1laaUuybDctQojzxBOeaoBdN
-         V7kDovVSMCCZs+TYIVIFuBUB7ZLi5fnvzeA/FT0HhRFFbgD6IbZS/j77mtX+TwzxYbJ4
-         RPfwXqe2M2dA8zSmwVeABniRXbFeYUNUG1Pqnk2e2EU+NrxUOc5FgDbkatK5yVGjHi09
-         80mA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791801626; x=1792406426;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3l61iXys9UAgeiq6Qoow/JEP0G8Esaw8ppQEGcd0fNQ=;
-        b=YlXkxSpVNAan6AxQwRro+D2bKbBezfk2neGfVQhDHITUffos775F93Kn+ddgV03Qlr
-         sLDDOa2zBD9qDe5QUccf7xIkYIhhRna7jOCqztYjLcWd6k/5CNeOeQ5powCX4TZ8ARGm
-         NGjrq6FkBk/MM+UCrVUpY+NB8XeucpdKJ1yLBuh5s5g9RmHsZs3nCEcBd7XJcbqCxvUz
-         yAqZvHc4uOJ5KYTkzgi59hiMgI4VWasDl2uWmRWk7tbfHhj7upn9xGcHa6ZNLmAhN2r2
-         1PiOO5vnA5CxBSKVW5vFUMPTvPKsRn8ZujDd3XsEX/4tDjkmjzTWPGKTWbau5TvOTeR5
-         jUvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxPNGCnsIos6SINy0UPEykm5IpO/wx9BHN6MRBfCqCPo/CaV7VQcHNTf9IkAw3dnMIBT796eSncWI7tokk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4RorNhDzD5I7AfJWAvyAd6h51V5eSFitxs8UOKrlBlWHd5zva
-	QsrNGNkB2oUjLWEDbtJWpdRI/yj0O1e8vq6C2DSTuc5GPS2dA8qoqec45mT2ig==
-X-Gm-Gg: AYBFou0/nn2/VQEN7qgobg8pBoTMa1DFnAmjRcyuqJSJV30JmMapFqcoO6X7Bl6Ritv
-	ww0RoQFINyDjqLmIwr+239iyUUEQPJ2+Pop3k9yGyByklEhbRXxy3rnNsd1ilDMcs1s+b1XCqOY
-	3banWCOLDbCSyE1q3fuKQm4NIzZVU7Ih/E4+o7sV7KmnOmxslRjJFaNxNEQeU9jBLkl+gxLSl9C
-	RvpoVfl1JVPfgtDDcM9XcbMxxKbWNYq4S0WsGYYkIZ4HSBbuqQDfadmDywT91ItENlRJnBkP2L6
-	FCIzG07eps+XpEcbDRirukbODqP0ivezmaK/5tmtTJbrNySWwGYv4TX66GkC5d7Lk7mW1RbglGP
-	PdHWCH2vKHghsv8w1zE8JdhWaVMg/IhZBRm08zZsH1qlHJD2EylpFug8v4t7uHwvY86fKbWiaEW
-	HGGw2SNBFEMzJYfWWT3Fy1jHTsC53qz4VRuHT4wJa6ijh9V73m0dKrCVu682uWyCO2SKX51g==
-X-Received: by 2002:a05:701b:2058:20b0:15c:20b8:7964 with SMTP id a92af1059eb24-16a63386d86mr13548313c88.27.1791801625139;
-        Mon, 12 Oct 2026 03:40:25 -0700 (PDT)
-Received: from gmail.com ([188.253.12.32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2fd33sm31434866eec.28.2026.10.12.03.40.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 03:40:24 -0700 (PDT)
-From: Jia Jia <physicalmtea@gmail.com>
-To: Mike Christie <michael.christie@oracle.com>
-Cc: "Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Nicholas Bellinger <nab@linux-iscsi.org>,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jia Jia <physicalmtea@gmail.com>
-Subject: [PATCH v3] vhost-scsi: do not count PI bytes in the data length
-Date: Mon, 12 Oct 2026 18:39:54 +0800
-Message-Id: <20261012103954.136698-1-physicalmtea@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HrZ+jots"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EED301F0089F;
+	Mon, 12 Oct 2026 10:40:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791801642;
+	bh=0lqlHCY1i9/hvpDM/SFAMnNmI36PW0atq9twP1Ql5UU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=HrZ+jotssrXgtMm9Lrf2S7dF6bwHiq+8xfu35AQgvaxE4bPrMAoDE3mfC489K01EI
+	 3qXYKxAAB20DNFQpVx5Ht06Dkkl3A4X0NDlzjalz2YghWjCFPOWIVZ5OhnPxRQVi05
+	 +5/rAKxPYK8LF3F+MiM693CZ3UtfqzLpa3DOyu9eHqg5N0rL80MaxaOg3NaUkAFl7M
+	 Zd8ZiwNhQj+eXG87WKpri264X9Nsuh0MTigI9mpqD1B4P67URIWjmQ+WTfjHDQzktI
+	 gqakU7RXHGxKymjvJZLJOwsLfe1SHTkH0favxB6VT4Qoc9BSrtEILhIuMTDa4dY/WR
+	 uSCBVpM+w8zmQ==
+Received: by alrua-x1.borgediget.toke.dk (Postfix, from userid 1000)
+	id 54EADA8936A; Mon, 12 Oct 2026 12:40:39 +0200 (CEST)
+From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@kernel.org>
+To: Tariq Toukan <tariqt@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>
+Cc: Alexei Starovoitov <ast@kernel.org>, bpf@vger.kernel.org, Carolina
+ Jubran <cjubran@nvidia.com>, Cosmin Ratiu <cratiu@nvidia.com>, Daniel
+ Borkmann <daniel@iogearbox.net>, Dragos Tatulea <dtatulea@nvidia.com>, Gal
+ Pressman <gal@nvidia.com>, Jesper Dangaard Brouer <hawk@kernel.org>, John
+ Fastabend <john.fastabend@gmail.com>, Kees Cook <kees@kernel.org>, Leon
+ Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ linux-rdma@vger.kernel.org, Li RongQing <lirongqing@baidu.com>, Mark Bloch
+ <mbloch@nvidia.com>, Richard Cochran <richardcochran@gmail.com>, Saeed
+ Mahameed <saeedm@nvidia.com>, Shahar Shitrit <shshitrit@nvidia.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, Tariq Toukan <tariqt@nvidia.com>,
+ Adrian Moreno <amorenoz@redhat.com>, Michal Schmidt <mschmidt@redhat.com>
+Subject: Re: [PATCH net-next 0/2] net/mlx5e: Batch RCU grace periods on
+ channel open and close
+In-Reply-To: <20261011133212.807979-1-tariqt@nvidia.com>
+References: <20261011133212.807979-1-tariqt@nvidia.com>
+X-Clacks-Overhead: GNU Terry Pratchett
+Date: Mon, 12 Oct 2026 12:40:39 +0200
+Message-ID: <87cxtfqk0o.fsf@toke.dk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-vhost_scsi_handle_vq() moves pi_bytesout or pi_bytesin into the
-protection sgl and subtracts those bytes from exp_data_len.  The length
-passed to TCM is still exp_data_len + prot_bytes.
+Tariq Toukan <tariqt@nvidia.com> writes:
 
-prot_bytes comes from virtio_scsi_cmd_req_pi.  With
-VIRTIO_SCSI_F_T10_PI negotiated, vhost reads that header and does not
-check that the CDB is a READ or WRITE.  sbc_check_prot() replaces
-data_length from the CDB only when the protect field is non-zero.
-target_cmd_size_check() leaves a write's data_length unchanged when the
-CDB size is smaller, so a command that does not get that replacement
-keeps a data_length larger than the data sgl.
+> Hi,
+>
+> This series by Carolina reduces the time mlx5e spends waiting for RCU
+> grace periods when bringing an interface up or down with many channels.
+>
+> Today the channel open and close flows call synchronize_net() per
+> object. On close, RQ, ICOSQ, TX SQ and NAPI teardown each require a
+> grace period, so the number of waits scales with the number of channels.
+> TX SQ teardown adds a wait per traffic class, and XDP and QoS can add
+> more. On activation, mlx5e_activate_channels() triggers the ICOSQ of
+> every channel, and each trigger waits for its own grace period. With a
+> large channel count this makes link down and link up slow.
+>
+> Patch 1 batches the waits on channel close. Channel deactivate and close
+> are split into pre_sync and post_sync phases: the ENABLED state is first
+> cleared on all queues of all channels, a single grace period is awaited,
+> and only then does the teardown continue. NAPI instances are likewise
+> unlinked with __netif_napi_del_locked(), followed by one
+> synchronize_net() before the channels are freed. The existing per object
+> synchronize_net() calls are kept for single queue paths. The change
+> touches the regular channels as well as the PTP, QoS and XSK queues.
+>
+> Patch 2 does the same for the ICOSQ trigger on activation: all channel
+> ICOSQs are first marked as requiring locking, one grace period is
+> awaited, and then all of them are triggered. mlx5e_trigger_napi_icosq()
+> keeps its existing semantics for standalone callers.
+>
+> Results with 248 channels and rcu_normal=3D1:
+> - ip link set eth2 down: 10.183s before, 0.715s after.
+> - ip link set eth2 up: 3.095s before, 1.794s after.
 
-The KASAN report is a MODE SELECT whose header had pi_bytesout set.
-The data sgl held only the parameter list.  spc_emulate_modeselect()
-walked data_length and read the next physical page.
+Nice! Thanks for tackling this :)
 
-Pass the data sgl length.  Protected READ and WRITE still take their
-length from the CDB in sbc_check_prot().
+Don't know the driver well enough to comment on the details, but in
+principle, emphatically:
 
-KASAN reports:
-
-  BUG: KASAN: use-after-free in spc_emulate_modeselect+0x145/0x380 [target_core_mod]
-  Read of size 1
-
-  spc_emulate_modeselect
-  __target_execute_cmd
-  target_execute_cmd
-  vhost_scsi_write_pending
-  transport_generic_new_cmd
-  __target_submit
-  target_queued_submit_work
-  process_one_work
-  worker_thread
-  kthread
-  ret_from_fork
-  ret_from_fork_asm
-
-Fixes: 9f977ef7b671 ("vhost-scsi: Include prot_bytes into expected data transfer length")
-Signed-off-by: Jia Jia <physicalmtea@gmail.com>
----
-v3:
-  - Rewrite the inline comment to distinguish the data and protection
-    SGLs and explain why TCM receives only the data SGL length.
-  - Note the related target-core patches for PI tuple accesses at
-    protection-SGL boundaries:
-    https://lore.kernel.org/all/20261006093338.27342-5-physicalmtea@gmail.com/
-    https://lore.kernel.org/all/20261006093338.27342-6-physicalmtea@gmail.com/
-    https://lore.kernel.org/all/20261006093338.27342-7-physicalmtea@gmail.com/
-
-v2:
-  - Drop the claim that target used to subtract prot_length.
-    9f977ef7b671 cites 14ef9200, which is not in the tree
-  - prot_bytes comes from virtio_scsi_cmd_req_pi
-
- drivers/vhost/scsi.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
-index 4f8c0260bc9e..4bd29c2ceed9 100644
---- a/drivers/vhost/scsi.c
-+++ b/drivers/vhost/scsi.c
-@@ -1534,9 +1534,17 @@ vhost_scsi_handle_vq(struct vhost_scsi *vs, struct vhost_virtqueue *vq)
- 		 * vhost_scsi_queue_data_in() and vhost_scsi_queue_status()
- 		 */
- 		cmd->tvc_vq_desc = vc.head;
-+		/*
-+		 * vhost_scsi_mapal() maps the PI bytes into cmd->prot_table.
-+		 * It maps the remaining exp_data_len bytes into cmd->table,
-+		 * which is the data SGL passed to the target core.  Its
-+		 * expected length must therefore exclude prot_bytes.
-+		 *
-+		 * sbc_check_prot() derives the data length for protected READ
-+		 * and WRITE commands from the CDB.
-+		 */
- 		vhost_scsi_target_queue_cmd(nexus, cmd, cdb, lun, task_attr,
--					    data_direction,
--					    exp_data_len + prot_bytes);
-+					    data_direction, exp_data_len);
- 		ret = 0;
- err:
- 		/*
--- 
-2.53.0
+Acked-by: Toke H=C3=B8iland-J=C3=B8rgensen <toke@kernel.org>
