@@ -1,232 +1,130 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C95361DA8
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:26:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E46E1DC198
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:26:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791811594; cv=none; b=iSbcNSXKPOM7ESAgcKR2CZd92AQJZf4RwYWY8BpdgGleMMq+Ep3OOBsw6STo1ZMZlUBsww9Tq6WinQT2HMikLdZgg0XGVVAh6GwT+V+8uF7TmWjiexxKQ8PHKPEI6WT4bES1NSOeCVQKXn4oGBf6N5+G2IeWdZPrveaSm45cgqU=
+	t=1791811595; cv=none; b=EtxLO1EKce8lohbCzrBOkuQ5dZOM1frOJ0crQd63yKn1PQAN1p0EHftqaDUxaxihAItwavlx/gB30cWKUQBZyQqCUUYfvMjlgR+GxKKOuzLkxyXzitbb9UFafhGZJCA6JVgQRjb7Oc6CqWWyDMKI75zfOXpexAlrvuEuFRhzZqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791811594; c=relaxed/simple;
-	bh=i/GDUsxmHSizIfmBFVOVpm3wHYUjZCMNoXcEaQNQfag=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bja6KCr+uXS/3JoOmCAp9oJ/hEsGfDIFwt2PqvgsFm2LV615alY4xLbAm9WV4bwQ5AqinpK0/1ER/gjHA986ZPxui6HZifcldpYJvRu1HCNHfJOit4RMEYay7BhohABn9sq15jL1wjf3emxN2s0iQrOwwqE8ySVPib/JEDfqOiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aF2msapz; arc=none smtp.client-ip=74.125.82.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791811595; c=relaxed/simple;
+	bh=0rVER10GL0i/6HOHIXmxiEq4XCeFbcxOLOS8k54e+ok=;
+	h=Date:From:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Bi992MRfb0WKxTNPPIWVCgEN0xDKVDiGta2ivoh18T2HOSWGVWMU5hIGiKarONq3f4xfErfnIezrLqypflF/hknSUFn5NtD6h6md2XmjCG1WeP3Eamdjh2OZrilQVMADr1dyZHtnRpV5A/PeA7KYSGBYuUFy9sWfOM+OVwmgNko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=WfLLQ9bU; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aF2msapz"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35b647aac23so426327eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:26:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791811592; x=1792416392; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4ybFQCLqWdvfa4L31u7XgkYJLc5DdT2g6eV0lE+udE4=;
-        b=aF2msapzUHo29jmbbGG6ENxxdfjm2IBWU4C6Cp7CFnXgdsenEcn2V/5ANeaIfnGlga
-         MC1paCltvBzwo4XUyr8IJ1T2cnL4vnIFz3QvAVBHhfJ88Ng9G6RPzO2YumLeyoakrO51
-         YRZzTVEO+RkjqcoG10Njg3iE0hxKa86nVk1iPspTx0EO1eQdCnudF8i5ogAkKQmQH05P
-         Tdpm9MEEM9cg/9pC0tOyq/V5BBw28ZGeWYspcUnfXitgXflqgz1KHv8+/v0FGBNkO9Li
-         4FQ+HtgFzGD4P4dQdJ09MsPnSK+Gqq1MoTxWZpuqJu5dMWeL6aZhrIGf5/idWLbY/JKL
-         TkBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791811592; x=1792416392;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4ybFQCLqWdvfa4L31u7XgkYJLc5DdT2g6eV0lE+udE4=;
-        b=yMPKs7ZZ3IBTEZJEFZhiJd3k9OYd3TyLKpNT2XFYNL1kDrwoG6bI1P8u7oA+t9oFqQ
-         KPyArO/Kf+Ow82x91hC4Cfs8dAiaEaO5PcIxRv177NzE+5aqNtpu6noxHt2vIwCSqjn/
-         hsF2icna2g+C7LZkRt+NJ+TZ6aXXKGE4BaXBZYhZJLvzP1IgKp2DNWdXI+fbXkqnSAjS
-         kFyCpT6SaXUjiB4JB3re29Siv6Lwd2aVpzT8nZwJu7QsoLCI/Um6bENzUwv0+Beewz4X
-         duSWQNVoFAAICDdz3YtsEpC6cLh23K3YJgYIkklfXh/xiVq+Cn4hBkHYwbtO9BqCPRWp
-         HnWA==
-X-Forwarded-Encrypted: i=1; AKwUvBwUwLdxE3XLjLXHkaOiceOaSqNQdEVE5/u2uMDjfRrMUN2FMG4GV62vVeQgZS2C4wy/4vG0JLLX01A4gHM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKE2pIwplDZlBror6gPSLXDJHuEZ4IVNq8am4gM9GibyXp5Ik00
-	KrHbTh1DygP7rhbPEUpuKDF87sE+F7twR2TO9jJaz2qJSd+4/vTp5luf
-X-Gm-Gg: AYBFou0UmxPcOWG9dacFolec/LBlteJdAtEo6X3W/re4zRgmAPToijr8KuKjSuc/Gh+
-	5M837e3jvYBCSK7al34i8YoWtNuwKAQ2LJGeHfrG7FnRIEDzWPBF8bJAc74pNRiFfnmfWj9uosX
-	C+Onjchr7c1jZEp4IiAMKCwbWuzQtC65/niiHf8XjpBucBiu3+e0DQQ7s90Y5EsJyrni3Z1EPyg
-	sPPkaxS/oxJXH8M2NJnawS6/fgOteSzAdvQxXlHS6fpGaxyVdR5glv5EXMQHMTV7DJIuwPM9285
-	mHPk1T3U75S7AuMGndfG0hNsyEnHBiuuEbX+kSxix9DkmuQ4Nd+iQ732UvYZmlQsS/0sJ18BCmx
-	BLFJp3w1xw3sERj9MG/J0xVo/BgScqheEfgiML+iDcpCD5fmgcQ52y4vxzT3rD/b8awfOzmG05C
-	tWLDxfUBA3qvx/eEobbt47FYK7LhhC8fgt7AvWuj30+NHUf41iskZRdCAoC36Oi+basTg1ISSXh
-	U2D5KJsrfLI1qyHhVkUS+xPObxgsVyLvfkoHhzx9XTyTV7lJQDWp1jQhaxWlynMhaojFJkSlRtM
-	f0sMlm09oOC3K2Gb7zK0lS78RkD89TjlLRPUhibzV8gSmGTWSEcBfc/BcawLx+gcYt1AFwRJ8SG
-	+Rqcf+XTrY6SkLjgEEGotN5+AuNXt3k6Ohd+v6D0+vsqGAZ3RKppRHoM3Y8mEu5Gg
-X-Received: by 2002:a05:7301:d198:b0:354:53af:7f2 with SMTP id 5a478bee46e88-35453af114bmr13178963eec.11.1791811591848;
-        Mon, 12 Oct 2026 06:26:31 -0700 (PDT)
-Received: from FT6N242TWK ([223.181.117.66])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b53dsm31467174eec.6.2026.10.12.06.26.28
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 12 Oct 2026 06:26:31 -0700 (PDT)
-From: Shashank Mohan Jain <jain.sm@gmail.com>
-To: Eric Dumazet <edumazet@kernel.org>,
-	Neal Cardwell <ncardwell@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	"David S. Miller" <davem@davemloft.net>
-Cc: Kuniyuki Iwashima <kuniyu@google.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 1/2] tcp: keep the route window metric when SO_RCVBUF is set before connect
-Date: Mon, 12 Oct 2026 18:56:21 +0530
-Message-ID: <20261012132622.48550-2-jain.sm@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261012132622.48550-1-jain.sm@gmail.com>
-References: <20261012132622.48550-1-jain.sm@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="WfLLQ9bU"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCE8Mt2640423;
+	Mon, 12 Oct 2026 13:26:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject; s=pp1; bh=GUYlqyKxKql6FAaCntzk9cYIBEamwNPoq
+	uU1fOHk61I=; b=WfLLQ9bUldD453vLhtb5eS12klyIgIsBQnX7W5t3B8vS81l04
+	NYjj83kRGFJysY2Nxu2itRk6LCwBAI/e81iRl2IKdDHzpQbvVDUoHeQu2qDMNuQX
+	/Jg7u1krFGD27uBDY9vH9DbutIVlS1BLt7uj0UliAATUdtNHZR/WcL6krg4gJbR5
+	CbD0wEz3TXSPW3Nzppw2rqS5coyIhStKU7bfCbX90KtWJizTDIGAZsikUFbgVII8
+	lOvJUtblkp5puQqJSPUNQ89zIHa/3VoQ5+Ad57eYQw1S8u56cklM3Ri5e0/zRuD0
+	I1xiUQJVKnz02c2y+YlHTs2evzO/rvseddYSA==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwh932c-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 13:26:22 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC4uFh013441;
+	Mon, 12 Oct 2026 13:26:22 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h81wfw50x-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 13:26:21 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CDQKgw17039820
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 13:26:20 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3301B20043;
+	Mon, 12 Oct 2026 13:26:20 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4834820040;
+	Mon, 12 Oct 2026 13:26:18 +0000 (GMT)
+Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com (unknown [9.39.29.21])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon, 12 Oct 2026 13:26:17 +0000 (GMT)
+Date: Mon, 12 Oct 2026 18:56:14 +0530
+From: Gautam Menghani <gautam@linux.ibm.com>
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        chleroy@kernel.org, ritesh.list@gmail.com,
+        linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] powerpc/configs: Add debug configs for debugging
+Message-ID: <aszfA9umcPYKs737@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
+References: <20260827121309.94434-1-gautam@linux.ibm.com>
+ <asyep4EEG-lNR72Z@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
+ <35446573-c8ba-414a-8a0d-d682a84d589e@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <35446573-c8ba-414a-8a0d-d682a84d589e@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1MiBTYWx0ZWRfX8WEwfgTIZAUb
+ qlHJYBxQdttAk8ykkmHX1HSZkDRB6CBNAOOkqij1A8eUDrInj/sHTKtS3onuLo1TuNnz0YakCk7
+ UP8Zbebi1dBNcFBIRLSK2bw37mhulPA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1MiBTYWx0ZWRfX0BkPCpJ/egPS
+ emiJpPcgCz1FlTHFrxmnSzrRRSWIxXqNva6dNAepFIRexN7rsKqwcdNgBQR1JBtiOIWEmztFTSg
+ C95pOaRwpc7aPQzkKuMu2KO/2du4PIf8Y0TSJA/GqjNuw5y1tyArG6UAGgvZ7CgWvyX5E/Yv07p
+ 8QAqTUiqir96OdYdrZW/i5M7f5eBqHndn675ViDr9mdVL7XYrTEu1Evq253Lktw8g7le5FuoQw6
+ Ir5/4t5TV7jfpRhfNOFTgUJTiH6hSeg/bNuJPH4jQ8Paz34nTPvGkk3BBLZDrFLsuYtvNoVul2b
+ 0cDS17dxxpQc3+IeT36AelCjZpMyjxV9i5hwSHQEe72fsXqTAzHoV8oswdJi4A8zABcHtiERrhI
+ c+A1xIoSksYn0J9Yry11sNCj4Wai4aDcK1517b927EN2V54j2kaMspAIdgLy+4bc7IgbnYU74rT
+ XZ5H+dDFkh0oJ6bkhfA==
+X-Proofpoint-GUID: vV4a7VpOv9utEQsGNHYEyMHcOmcaIOii
+X-Authority-Analysis: v=2.4 cv=RoFQvymK c=1 sm=1 tr=0 ts=6accdfff cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=9cW_t1CCXrUA:10 a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22
+ a=lpS_LIIzD_JwdL8Ji4UA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: wcUTq7we8mWWtn84FV7s1xOKd1XtzEKn
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120052
 
-Since commit b025461303d8 ("tcp: update window_clamp when SO_RCVBUF is
-set"), setsockopt(SO_RCVBUF) writes tp->window_clamp in every socket
-state through tcp_set_window_clamp().
+On Mon, Oct 12, 2026 at 02:35:03PM +0530, Shrikanth Hegde wrote:
+> Hi Gautam.
+> 
+> On 10/12/26 2:20 PM, Gautam Menghani wrote:
+> > Hi,
+> > 
+> > Can this patch be pulled in? Or is something else needed here?
+> > 
+> > Thanks,
+> > Gautam
+> 
+> Why it can't be part of existing debug.config? Why add component specific
+> config and merge into def config?
+> 
+> Wouldn't that cause more confusion? If not, could you please add detail in
+> changelog on how one can make use of these?
 
-tcp_connect_init() and tcp_openreq_init_rwin() treat any non-zero
-window_clamp as a clamp the user asked for and, in that case, skip the
-route window metric (RTAX_WINDOW, "ip route ... window N"). A clamp left
-behind by an SO_RCVBUF call therefore has two observable effects:
+The issue with adding all options to debug.config is that if all options
+are enabled at the same time, performance will take a huge hit.
+Grouping the options by area will enable devs to only enable a subset of
+configs. With this patch, you can just do "make pseries_mm_debug_defconfig"
+to enable mm specific options for example.
 
- (1) on a route that carries an RTAX_WINDOW metric, SO_RCVBUF set before
-     connect() (or on a listener) changes the window and window scale
-     advertised in the SYN / SYN-ACK, because the route metric is no
-     longer applied;
+I'm open to suggestions if there is a cleaner way to accomplish this.
 
- (2) a window clamp the application set with setsockopt(TCP_WINDOW_CLAMP)
-     is overwritten by a later SO_RCVBUF on the still unconnected socket
-     or on a listener.
-
-Without an RTAX_WINDOW metric there is no change: both before and after
-this patch the advertised window and scale are derived from sk_rcvbuf
-(tcp_full_space()), so only (1) and (2) are affected.
-
-Keying the decision off the socket state is not enough, because the
-socket is already in TCP_SYN_SENT before tcp_connect_init() runs.
-SO_RCVBUF applied in that gap - through TCP_FASTOPEN_CONNECT before the
-first write(), or through bpf_setsockopt() in a
-BPF_SOCK_OPS_TCP_CONNECT_CB program (as samples/bpf/tcp_clamp_kern.c and
-friends do) - still lands before tcp_connect_init() and still overrides
-the metric.
-
-Record instead whether window_clamp was set explicitly by the user via
-setsockopt(TCP_WINDOW_CLAMP), in a new tp->window_clamp_user bit, and key
-tcp_connect_init() and tcp_openreq_init_rwin() off that bit rather than
-off a non-zero window_clamp. The route metric is then applied on all
-pre-connection paths, regardless of socket state, whenever the clamp was
-not set by the user; a passive socket inherits the decision from its
-listener. SO_RCVBUF no longer overwrites a genuine TCP_WINDOW_CLAMP
-either. When SOCK_RCVBUF_LOCK is set both functions still clamp
-window_clamp to tcp_full_space(), and without a user clamp SO_RCVBUF
-keeps updating window_clamp, so SO_RCVBUF on an established socket still
-grows the advertised window as b025461303d8 intended.
-
-Example: two netns joined by a veth pair, "ip route ... window 4096" on
-the route to the peer, SO_RCVBUF set to 1 MiB before connect():
-
-  before:  SYN win 65535, wscale 5
-  after:   SYN win 2920,  wscale 0
-
-(the window scale option is still sent, with a shift of 0.)
-
-Fixes: b025461303d8 ("tcp: update window_clamp when SO_RCVBUF is set")
-Assisted-by: LLM
-Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
----
- include/linux/tcp.h      |  3 ++-
- net/ipv4/tcp.c           | 12 ++++++++++++
- net/ipv4/tcp_minisocks.c |  7 +++++--
- net/ipv4/tcp_output.c    |  2 +-
- 4 files changed, 20 insertions(+), 4 deletions(-)
-
-diff --git a/include/linux/tcp.h b/include/linux/tcp.h
-index e4d1720f4..2324841e5 100644
---- a/include/linux/tcp.h
-+++ b/include/linux/tcp.h
-@@ -301,7 +301,8 @@ struct tcp_sock {
-  *	0x5?10 << 16 + snd_wnd in net byte order
-  */
- 	u8	nonagle     : 4,/* Disable Nagle algorithm?             */
--		rate_app_limited:1;  /* rate_{delivered,interval_us} limited? */
-+		rate_app_limited:1,  /* rate_{delivered,interval_us} limited? */
-+		window_clamp_user:1; /* TCP_WINDOW_CLAMP set by the user */
- 	u8	received_ce_pending:4, /* Not yet transmit cnt of received_ce */
- 		accecn_opt_sent_w_dsack:1,/* Sent ACCECN opt in previous ACK w/ D-SACK */
- 		unused2:3;
-diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-index f4c9101e5..5f364928b 100644
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
-@@ -1858,6 +1858,15 @@ int tcp_set_rcvlowat(struct sock *sk, int val)
- 
- void tcp_set_rcvbuf(struct sock *sk, int val)
- {
-+	/* A window clamp set explicitly via setsockopt(TCP_WINDOW_CLAMP)
-+	 * takes precedence: SO_RCVBUF must not overwrite it.  Without such
-+	 * a user clamp, keep updating window_clamp from the buffer size so
-+	 * that SO_RCVBUF on an established socket still grows the advertised
-+	 * window (commit b025461303d8).
-+	 */
-+	if (tcp_sk(sk)->window_clamp_user)
-+		return;
-+
- 	tcp_set_window_clamp(sk, tcp_win_from_space(sk, val));
- }
- 
-@@ -3427,6 +3436,7 @@ int tcp_disconnect(struct sock *sk, int flags)
- 	tp->is_cwnd_limited = 0;
- 	tp->max_packets_out = 0;
- 	tp->window_clamp = 0;
-+	tp->window_clamp_user = 0;
- 	tp->delivered = 0;
- 	tp->delivered_ce = 0;
- 	tp->accecn_fail_mode = 0;
-@@ -4056,6 +4066,8 @@ int do_tcp_setsockopt(struct sock *sk, int level, int optname,
- 
- 	case TCP_WINDOW_CLAMP:
- 		err = tcp_set_window_clamp(sk, val);
-+		if (!err)
-+			tp->window_clamp_user = !!val;
- 		break;
- 
- 	case TCP_QUICKACK:
-diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
-index 0ddfd5af6..c24dc975a 100644
---- a/net/ipv4/tcp_minisocks.c
-+++ b/net/ipv4/tcp_minisocks.c
-@@ -442,8 +442,11 @@ void tcp_openreq_init_rwin(struct request_sock *req,
- 
- 	mss = tcp_mss_clamp(tp, tcp_dst_advmss(dst));
- 	window_clamp = READ_ONCE(tp->window_clamp);
--	/* Set this up on the first call only */
--	req->rsk_window_clamp = window_clamp ? : dst_metric(dst, RTAX_WINDOW);
-+	/* Set this up on the first call only.  Honour a window clamp the
-+	 * listener set via TCP_WINDOW_CLAMP; otherwise use the route metric.
-+	 */
-+	req->rsk_window_clamp = tp->window_clamp_user ? window_clamp :
-+				dst_metric(dst, RTAX_WINDOW);
- 
- 	/* limit the window selection if the user enforce a smaller rx buffer */
- 	if (sk_listener->sk_userlocks & SOCK_RCVBUF_LOCK &&
-diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
-index c8865205c..21b4ae303 100644
---- a/net/ipv4/tcp_output.c
-+++ b/net/ipv4/tcp_output.c
-@@ -4137,7 +4137,7 @@ static void tcp_connect_init(struct sock *sk)
- 
- 	tcp_ca_dst_init(sk, dst);
- 
--	if (!tp->window_clamp)
-+	if (!tp->window_clamp_user)
- 		WRITE_ONCE(tp->window_clamp, dst_metric(dst, RTAX_WINDOW));
- 	tp->advmss = tcp_mss_clamp(tp, tcp_dst_advmss(dst));
- 
--- 
-2.43.0
-
+Thanks,
+Gautam
