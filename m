@@ -1,273 +1,171 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D687A4756C8
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:49:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1F6476680
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:50:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791798593; cv=none; b=oRSLl0EmIUeHakFrQoTw9SzplAVex+6CbzT8PylTA8ODMbDild48I4neJXG7Lfr3wBCPxitH8tjaulvqoyJhI7+LWVINUyTw6Cw51AfIWLvIVS55l6M6bO72bMXL0WO7rBmhoEGGin8qlotQy/SJUZnEmADvAxp4xUr0bseld6M=
+	t=1791798622; cv=none; b=fxl7nPp7Jl0bZmgQuSlItoWLMIVjIv7ZiKe5fO8lIdrtjKh/GIotRmrvbvNyyV99tVpNPOXBCcjt/ycksemNXynKUz8IDv39WP6GHlSus4Rpujp6znl2+iuW/HtMQ29NCD16vdhLeFSCAdKOk8nseHgmmQSZh/pWTXjXEKxjaNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791798593; c=relaxed/simple;
-	bh=tquEmo3gl+DNuEdBkeQmX5Ac3hcWeJexs8oMeBPJW+Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DRcV6ieEbu0r1Gu7QD8S3DtPS9YD5QA9+vf0RORLgcGAjgWyMEsEsOoZpr1F9KUcZBCQ2xGoiChMkzEJIqQ6vImTuPHjD9UtsGWvedjiutX7R1yzB6KUcr42Dn+r3zs9Tv3/Ogdh9VImxxYmiAYqXiBWP7uvBAmby3rQ9xnD2nE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aItBVgBm; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791798622; c=relaxed/simple;
+	bh=bkUoku9vvOCC45/xH4+TO5c/C0lBGGKl0K+LjBajYl4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kXNbi/KJjtTNJhwLZ6wxmyKTVPSJwjWpyTF5/9U0hvdnJyx9DPDrSIxhBot3WlD4QFlyT32LbeEXahTD4HxkWtRu5/NVKDUFuBasBgnaSjMwv81wArQkJ4f5zIRXoLh0xHd82IBnzhSTZzW+g1I6iWbvZ/u1/pbErGPFesIt7Sc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ct8zVjhQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cTt+9bnn; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aItBVgBm"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so375915a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:49:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ct8zVjhQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cTt+9bnn"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8LEV81754766
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:50:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	mmYseoi7yS4p0vjT+tNRp8PescPJoKYu+LKWr8PD8bM=; b=ct8zVjhQxysGhVih
+	XneGqg/XFRjbzCqBQQFkh5XFWTiZYRtSXVuOQbrBw1TlcOg2JOV4sRMK67etHbIr
+	pQE8YphIJmvBSIE9dkdmMZrMosK6ErNtRoZjOxF3xvbN9EGN7MPnLTQSrznqQzed
+	tWctd1AR0vT+wqw2evnJyPf+r8YnzToZhTURIIiTY24IVf0pQg7iMEHlD2ojmqjb
+	PGqwpGrt9U3nvSyC815dB4YDkonbX7kum1qrrBZ3qAcmOCaL15L73MtVT9/NTvpd
+	Zzd1MJpw95yo0qGmMKqNilfqflBKWwO1aBaO0RSGBrNBpLOQvP0KIGW+0mpdoSJ9
+	9fFkRA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8j7126wf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:50:17 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a7fa5e0442so2388119a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:50:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791798586; x=1792403386; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=W79TeYdawJl05fpvMEHv8uRrqzpyiJUu8pXbceDlpDs=;
-        b=aItBVgBmot3iNVp3PQmps3gXIvCITWgCosNqCAIOnkLkfgtWXBde3mtFdGqtCqTR/Y
-         lx+cO/85dG4D/k5Z33Mo3lKvEMfq1u66q1lU17w93YXEGOcGx0Pa/gHm4rdBz0HiYlZd
-         DvhdmYQ70sKZO8jb2LmjVhjcfXfw8vp0VKqFUoZCExiifK3jTKRtRtz5yDBQlUeKpp/m
-         xKcCb/NatnfQWmQu2hlSYGJ9KuuKF0/py4E5bQjcf20cTpyvy366ABpeuLh7FbUk74Os
-         PXDNnSpi8PG8PJkbrSsmWXjC2fPcGMKcWS9gUy379oMZe556tLg0XqdHSOGtRce3LKma
-         jFyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791798586; x=1792403386;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1791798616; x=1792403416; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=W79TeYdawJl05fpvMEHv8uRrqzpyiJUu8pXbceDlpDs=;
-        b=ohoVv6UX8bLfgCOlez0/4avkXDjzW+VD1H2deI/21pCpqDXmJvQQdKhm4k4Td5K0gz
-         abxlbOw8ws5aggTTFMgVLV7zIb2wHKeIfsioJV2MkmdLXsPFaNZZChidrfBmkFfk4znS
-         4F+BVoH/DoZ3/bdV5PVRNfe5H6u54WeY949mKfTBlGURH5/v+442zO3RIYLZtEUciGOY
-         guxgmx37NsS5ffxRkBOyX2QTYl/msgwqTpFsO5mRFOrkcgEJzEwPUrPndX2W0g7LHg7n
-         aijMGACMgv8qSjDN/GXAoHnthXdGM4mFn5kEgySbzPjo6P+WSQm/lDNmz2afddY9zRnC
-         3kUg==
-X-Forwarded-Encrypted: i=1; AKwUvBzRJOFZpg1XFoALlrz9X2pt+L5vIG1bsVW3PPMRVD4aqd1iMD1Uoft3uzeGQF/G/q//3UEshdZHV9H5iPo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzmfnwXf0MNrai07EOwhZ44TPVhoafg+9Ymn6W7bpj4q0C2KYx
-	BYRimgl7XC2B39Daamt781S6qmk4322mwUZiH2O19+pslZz844cwx9O7
-X-Gm-Gg: AYBFou1AsYWaQ6rrs4KWlXm8ueaHLrAAttoO9x51PSHYnPHEjuGwHkFBcruNodGGP8C
-	zmmxUA9iNvlY9P16id6/vWgwcBZKRf9kOQk2yfco8QuBO3FfTY1Ee/0UN+5fUG/NgEdokSuBnNJ
-	iwICJ/dYlH2NVOWsZSUkMLgpkdEZG+VVgXooQq9lWwKlD/pUyqRTt0saqniNpk6C4PscGxB+d6w
-	Md9xpOoGMqYawUPSOmy4oW203+Kz23y5i3p8pjEmVs55Mf06iXWb52PRLXFyAj/r6Ou/xqTpPf5
-	IOTHI2HySpcwbAtB+UfqbQbvTIlowk7AFoxMvtEDoYLFQR2aInjodLP5bLpiJG6wAu+8+/ziqR3
-	wPPQ47iZN6h15XcCC+F8EZAFMxSdIFpNKIxPbSPdvw6N80MJY/gJGKr6H0TiSwqP9DestqS5HJq
-	aduNSpKJvWrXcsB1F3kHoLwahJUTmxxL7B5CMxFe2LZz3y4Ms0GIR3uP9SZ/Ak
-X-Received: by 2002:a17:90a:d2c7:b0:3ab:1b19:78f0 with SMTP id 98e67ed59e1d1-3ab3a8e1d1bmr7225596a91.41.1791798585771;
-        Mon, 12 Oct 2026 02:49:45 -0700 (PDT)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9639bsm15214275a91.4.2026.10.12.02.49.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 02:49:45 -0700 (PDT)
-Date: Mon, 12 Oct 2026 18:49:42 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org, zhongling0719@126.com
-Subject: Re: [PATCH v4] ntfs: roll back the ACL xattr commit when the WSL
- mode update fails
-Message-ID: <asytNg4xTuvkSxa-@hyunchul-PC02>
-References: <20261012073452.90099-1-zenghongling@kylinos.cn>
+        bh=mmYseoi7yS4p0vjT+tNRp8PescPJoKYu+LKWr8PD8bM=;
+        b=cTt+9bnneodA8YzTBbwWThEz0qk3PMa963D8SusqaQSUbV9mageUyJb6b5HYNqtKeB
+         +9SheizQ2sTBsK9jwiqpWXXX5FuLmTPI0VKVmWTpq/R9j86ury6kmIiLnZii9v9nJvwR
+         +c8gwkz2lpQigBl/8a/VPnQq3iKY+g1Y16zwi7IbBqp7YRPmho5LdzmiwI3+ek8NI05v
+         W11jhpFSTRQcmoIDk63vL89CRRKGcEzT4pOfL6FfQQdylEfYKJEXKkGL64vbfN/cjPAc
+         a1iEOfJf9NHrcLqGE/HIee+MA2dINDUpLyf0nh/EJSYn43csGCLvNkwZTNfW0vK6zK+3
+         KKHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791798616; x=1792403416;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mmYseoi7yS4p0vjT+tNRp8PescPJoKYu+LKWr8PD8bM=;
+        b=sD+xZzZSOHOxDUh9nPpSzK0k0tp2l+MfaL91jplL9l/7B7Rr6hyaZ5t2rd6OWNqEuy
+         /DefIvzKkE43WmezMnNRu4x5lqmlq0nfcL7X0EV5QqchFm6Cz8YNb/Zz0cyOf9xPN5ha
+         rBttiUhDQa/mihn3g013ndrwknv7xelDIY0mWCCnkEgBJ4P28FEdxZq9u9InFmHYfq23
+         Isoodrq2G8VkrMEXcVkU0vvqfKXR/ixc8Z4t2iK35WSR1rCWSKruRkQSLlSjXjaDlYm+
+         BuBxL0gpqqVXqwydVWJbyoH+Fcf+LPeBFuD52Lg2Y7SPrgYOPpet9bxwn1n8LYOhOwzi
+         vNZQ==
+X-Forwarded-Encrypted: i=1; AKwUvByVdsRHMMHoKGcGXt+00rOA77O+J9CM3FBCsLpTaTfZV4ELe/3Z6o7DNerv/0b/HdtdRbX2tstW6w1c55I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9RjM13UoCB59MKxHvSbUZ9RV5b6zoFqHFLZgyC6Cb4A5KhcJI
+	V0y5482/NSsR8r7LhOD+9oNgEW1M/9DikhT4VPe6UNhxPeTWwiIj85N9njaNbYBMMV3a12Q64Ju
+	dRvb1ilWabbBzRcuP0ZXCHKvBT/N0OjWJ4GI8LA3Z35UhEdLTeqwK+TiSZUfUGV6K5QM=
+X-Gm-Gg: AYBFou1xEKLI5VM012bUhWYEy5w2Tf3jJqVQ/u2zYMm1Ftvx1MPLH4BwBU7iQNvN5aF
+	w/vZgIpufa/YKtO91Cz7IMeQsgadT2rTcQa5wKCeXrKApSdStVdyu+9P0neyChf73pDfwYxTFkY
+	4ckBvvvXcvs7GMUcFxO11Fqk9Vph350Yqd6dTCcRZNlFxwL1Go9XHpNvx3BKNlmznQHhBKXBejx
+	Maa8J2vjJNJMnM3vFj4p5UfiPW5EI8aQ3JKXnrCGn82PJetlBrKJSJExUN4+OX2UERPh8ld4zl9
+	Qp056uG6T3DLJ5SC1xmzFKwQ/eXyS/VCt0o2sUmnvO7Ixa3rW8Pp66Ew5ar1evZN9hvEo83qj+n
+	sZDZZdHKYVVV6+f0EWUFWKJLfxVNfCVOLEOTi5GWhmp7FiCrgO/EIY6DSSi15AbK2Nn00+DOIol
+	Puw/fq2nbbApk=
+X-Received: by 2002:a17:90a:d006:b0:39e:53a:c8d4 with SMTP id 98e67ed59e1d1-3ab3a90e57amr6364587a91.12.1791798616222;
+        Mon, 12 Oct 2026 02:50:16 -0700 (PDT)
+X-Received: by 2002:a17:90a:d006:b0:39e:53a:c8d4 with SMTP id 98e67ed59e1d1-3ab3a90e57amr6364571a91.12.1791798615743;
+        Mon, 12 Oct 2026 02:50:15 -0700 (PDT)
+Received: from [10.79.117.80] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38ff0d34sm16558029a91.14.2026.10.12.02.50.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 02:50:15 -0700 (PDT)
+Message-ID: <bc6440b9-0226-47ae-9e33-594ab6b92004@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 15:20:10 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261012073452.90099-1-zenghongling@kylinos.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] remoteproc: qcom: pas: Add Glymur OOBMSS coredump
+ support
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+References: <20261009-oob-support-glymur-v1-0-96cc8ffcced3@oss.qualcomm.com>
+ <20261009-oob-support-glymur-v1-4-96cc8ffcced3@oss.qualcomm.com>
+ <20261012-burrowing-tarsier-of-serenity-3bd5da@quoll>
+Content-Language: en-US
+From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+In-Reply-To: <20261012-burrowing-tarsier-of-serenity-3bd5da@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzOSBTYWx0ZWRfX4ex7zijfG+Zn
+ +aq3fzSvyTQemrEs4PZcXox8tNab+3LaEHOlu/OK8N49H9bC6oAnA4P3i6HmXjrfVRL9+GZ6txD
+ O90Tdbyezmc5uWQgFKrdHlqqKmqPmmw=
+X-Proofpoint-GUID: pjeyNZszlIxAhI08lfiK3bR8DdAsLgY3
+X-Proofpoint-ORIG-GUID: pjeyNZszlIxAhI08lfiK3bR8DdAsLgY3
+X-Authority-Analysis: v=2.4 cv=ePGGH3p1 c=1 sm=1 tr=0 ts=6accad59 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=NpMNtq8KyP0wiFrzd7MA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzOSBTYWx0ZWRfX2Kz1OhuyXc9g
+ zE9QOnnYe4xIO8CChkEUwIQQTKvP6c7rZkRPyo1bzXMybVry0a3wo4hf9gnwFLfTl3EYTo2Vijk
+ bOnfnXMRwV51yexoO0YHbEqco9MeKg+plASD+l8YKxfifoN9dyIJ7LjM7Q/BOrcMhIegrM/1pg6
+ ybh7bMHgoHXYoePEfbmffaC/MBDNKfghUqUh3DvYzCpF8ihnyP2qnAZpM4voC2PVdSQaSRyt6GS
+ ED4KKR3Vl4U0db7Eh/SP5zs2F99CGlHQfS/4KLNa4x9IpTNLSEUphQAyJyVwVJbT3Aj6R/X0hRT
+ dNBVMtDHJQfTQM3FxkfYDioHI587yVZLyQVyUR4vCUAUK3q7PboRnCunxQjgFDwEqk5bOeaKPqd
+ PqOTFAZfi+cbK8efnZ/KhasAvkIpPjGs9N5lAiVgGUE39VpmyJEFLFONZY3pQi7r8pOOdxxDO3x
+ dyou0Ydv+0mrElF0FBA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 malwarescore=0 adultscore=0
+ bulkscore=0 phishscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120039
 
-Hi Hongling,
 
-On Mon, Oct 12, 2026 at 03:34:52PM +0800, Hongling Zeng wrote:
-> ntfs_set_acl_ex() commits the ACL xattr before it rewrites the WSL
-> mode EA, and removes it again when the rewrite fails.  That only
-> undoes a set that created the xattr: when the update replaced or
-> removed an existing one, the old ACL is discarded along with the
-> failed update.  The undo result is discarded and the EA paths record
-> no error state, so when it fails too, the new, typically more
-> permissive, ACL is left on disk while i_mode, the mode EA and the
-> cached ACL keep the old values.  Once the stale xattr is loaded again
-> after a remount, a chmod 0640 -> 0777 that reported failure leaves
-> the file accessible to the relaxed ACL while stat() still reports
-> 0640.
+
+On 10/12/2026 2:26 PM, Krzysztof Kozlowski wrote:
+> On Fri, Oct 09, 2026 at 12:47:42PM +0530, Anvesh Jain P wrote:
+>> Add coredump support for the secure and non-secure OOBMSS carveouts.
+>> Register fixed dump segments at probe time for attached-state recovery.
+>>
+>> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+>> ---
+>>  drivers/remoteproc/qcom_q6v5_pas.c | 85 ++++++++++++++++++++++++++++++++++----
+>>  1 file changed, 77 insertions(+), 8 deletions(-)
 > 
-> Save the previous xattr before committing the update, and restore it
-> when the mode EA rewrite fails.  A removed xattr is restored by
-> creating it again: the removal dropped the entry, and XATTR_REPLACE
-> fails with -ENODATA on a missing entry.  Remove the new xattr only
-> when there was no previous one, and skip the undo when the commit
-> changed nothing, e.g. removing an xattr that never existed.  Fail
-> the update when the previous xattr cannot be read back.  A failed
-> rollback is still recorded: NVolSetErrors(), which the next
-> persistence point persists as VOLUME_IS_DIRTY, and a log message the
-> errors= policy acts on.  The flag cannot be written to disk here
-> directly: the target inode's mrec_lock is held and the $Volume
-> mrec_lock cannot be nested under it.
+> Why is this separate from Glymur support? How is your device suppose to
+> work without this patch?
 > 
-> Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
-> Suggested-by: Hyunchul Lee <hyc.lee@gmail.com>
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
-> Changes in v3:
-> - Save the previous ACL xattr before committing the new one and roll
->   back to it when the update replaced an existing one, instead of
->   removing the new one (suggested by Hyunchul Lee)
-> - Fail the update when the previous xattr cannot be read back, and
->   restore a zero-length previous xattr without XATTR_REPLACE
-> Changes in v4:
-> - Undo a removal too: restore the previous xattr by creating it
->   again, since the removal dropped the entry
-> - Skip the undo when the commit changed nothing, e.g. removing an
->   xattr that never existed
-> ---
->  fs/ntfs/ea.c | 90 +++++++++++++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 86 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-> index 1104fd72cd2a..0577a2adc365 100644
-> --- a/fs/ntfs/ea.c
-> +++ b/fs/ntfs/ea.c
-> @@ -1038,8 +1038,10 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
->  {
->  	const char *name;
->  	size_t size, name_len;
-> -	void *value;
-> -	int err;
-> +	void *value, *old_value = NULL;
-> +	int err, old_len = -ENODATA;
-> +	bool old_exists = false;
-> +	bool acl_committed = false;
->  	int flags;
->  	umode_t mode;
->  
-> @@ -1083,7 +1085,40 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
->  	}
->  
->  	mutex_lock(&NTFS_I(inode)->mrec_lock);
-> +	if (!init_acl) {
-> +		/*
-> +		 * Save the previous xattr so the update can be
-> +		 * rolled back to it when the mode EA rewrite fails.
-> +		 * A new inode cannot have one yet, and one that
-> +		 * cannot be read back fails the update.
-> +		 */
+> Best regards,
+> Krzysztof
 
-Could you shorten this comment? I think that the explanations are already
-clear from the code.
+This patch is diagnostic-only and is not required for OOBMSS boot or SSR
+recovery; without it, the device works but no OOB coredump is collected.
 
-> +		old_len = ntfs_get_ea(inode, name, name_len, NULL, 0);
-> +		if (old_len >= 0) {
-> +			old_exists = true;
-
-Could you remove the old_exists? we can use old_len >= 0.
-
-> +			/* kmalloc(0) returns the non-NULL ZERO_SIZE_PTR. */
-> +			old_value = kmalloc(old_len, GFP_NOFS);
-> +			if (!old_value) {
-> +				err = -ENOMEM;
-> +				goto out_unlock;
-> +			}
-> +			err = ntfs_get_ea(inode, name, name_len,
-> +					  old_value, old_len);
-> +			if (err != old_len) {
-> +				kfree(old_value);
-> +				old_value = NULL;
-> +				if (err >= 0)
-> +					err = -EIO;
-> +				goto out_unlock;
-> +			}
-> +		} else if (old_len != -ENODATA) {
-> +			err = old_len;
-> +			goto out_unlock;
-> +		}
-> +	}
->  	err = ntfs_set_ea(inode, name, name_len, value, size, flags, NULL);
-> +	if (!err)
-> +		acl_committed = true;
-> +out_unlock:
->  	mutex_unlock(&NTFS_I(inode)->mrec_lock);
->  	if (err == -ENODATA && !size)
->  		err = 0; /* Removing non existed xattr. */
-> @@ -1095,8 +1130,54 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
->  		mutex_lock(&NTFS_I(inode)->mrec_lock);
->  		err = ntfs_ea_set_wsl_inode(inode, 0, &ea_size, NTFS_EA_MODE);
->  		if (err) {
-> -			ntfs_set_ea(inode, name, name_len, NULL, 0,
-> -				    XATTR_REPLACE, NULL);
-> +			if (acl_committed) {
-> +				int undo_err;
-> +
-> +				if (old_exists) {
-> +					/*
-> +					 * Restore the previous xattr.
-> +					 * A removal dropped the entry, and
-> +					 * XATTR_REPLACE fails with
-> +					 * -ENODATA on a missing entry, so
-> +					 * create it.  A zero-length xattr
-> +					 * cannot be restored with
-> +					 * XATTR_REPLACE, which would
-> +					 * remove it again.
-> +					 */
-
-And I think this comment can be reduced.
-
-> +					int undo_flags = acl && old_len ?
-> +						XATTR_REPLACE : 0;
-> +
-> +					undo_err = ntfs_set_ea(inode, name,
-> +							name_len, old_value,
-> +							old_len, undo_flags,
-> +							NULL);
-> +				} else {
-> +					/*
-> +					 * No xattr existed before the
-> +					 * update, so remove the newly
-> +					 * committed one.
-> +					 */
-
-This branch is self-explanatory from `!old_exists`. 
-
-> +					undo_err = ntfs_set_ea(inode, name,
-> +							name_len, NULL, 0,
-> +							XATTR_REPLACE, NULL);
-> +				}
-> +				if (undo_err) {
-> +					/*
-> +					 * The xattr change is committed
-> +					 * already, so a failed rollback
-> +					 * leaves it on disk while i_mode,
-> +					 * the mode EA and the cached ACL
-> +					 * keep the old values.  Record the
-> +					 * error: the next persistence point
-> +					 * persists it as VOLUME_IS_DIRTY.
-> +					 * Run chkdsk.
-> +					 */
-
-Same here.
-
-> +					NVolSetErrors(NTFS_I(inode)->vol);
-> +					ntfs_error(inode->i_sb,
-> +						   "Failed to undo the ACL xattr: %d",
-> +						   undo_err);
-> +				}
-> +			}
->  			mutex_unlock(&NTFS_I(inode)->mrec_lock);
->  			inode->i_mode = old_mode;
->  			goto out;
-> @@ -1109,6 +1190,7 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
->  	}
->  
->  out:
-> +	kfree(old_value);
->  	kfree(value);
->  
->  	return err;
-> -- 
-> 2.25.1
-> 
+I kept it separate to isolate the optional coredump support. I will make
+the subject and description generic for coredump support on PAS
+subsystems with secondary processors, rather than limiting it to
+Glymur/OOBMSS.
 
 -- 
-Thanks,
-Hyunchul
+Best Regards,
+Anvesh
+
