@@ -1,215 +1,137 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDF840F746;
-	Mon, 12 Oct 2026 11:27:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0403840B6E0;
+	Mon, 12 Oct 2026 11:27:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791804463; cv=none; b=rXDw18t68tGb8KtWxCbvZrD81ONYCm/HLqBu5ksPX2IifZCx6uMrTWo8+jVm8YtjLT3IOpbTNodq7Q2gKFMbdIIt+E0jf/kCgPZd9iKJIwe6oBETwb1gyBdPgjWa0Nmz3EAqGpB6Ld0eZS+U47DCBAX9GVnSBnKan5WD8b7gqyQ=
+	t=1791804478; cv=none; b=kKVeid0YSSnM0f1fPAXHrv3Ht7i3PQa6mFlBh3Gz7/YfQCAqQLKJ4piAjruKRb5Ih558hHrpU98+/gNL7bGmdTxcx78iTTPq1QpOh/7Lr14CAvN3hFId0ZTNyP/umYjFFsBzLKSTjMQTXs1Gx1G6hl9nJgJ615prEHdpwB6r/GE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791804463; c=relaxed/simple;
-	bh=56QHLj/h7s0SVyVfNA++t+7gmv2QPEdOlJfVhyl+W0c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dkFbwhY+al3EYR/KMsxpIMrUeq558LnMTmYyupKtT26IFP0MWuwLIN087ycKMuB0GrYIDZo2o9p9Zn5ZK1Y6ufZx6O7nrUINI0w9o9JJ5Q6I9ZBB0lhRIe7hV+r8ZbK/2mdA1lQRtNao8wMYdldK6IE4Z4Oypk1HFJ5rnt9ZX9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=FIiOfmm3; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=19ePpgeE; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=pUZxb2+K; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=V2f7c6br; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791804478; c=relaxed/simple;
+	bh=kQCByoVaggjb/UJQTAgFLZ8KUS15fDOUT2X+RgYa5nA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F3/9gg8UHuvojsV/9i0PJT7fWkazRl00Gl6ceImB5YtRkGGDOXcC2j/D7O04WlKQcuKpe6Wts9JQDS/lr4F1xMt82CfCmJp2QtD1ed4PeITkAHkCWsYSZ08QH1Kp0arHtRu8MIpggXv776W1djXxJrYsphKKu4XaaaY3OVkiLe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SXpM18Gi; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FIiOfmm3";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="19ePpgeE";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pUZxb2+K";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="V2f7c6br"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 32CFF21E6D;
-	Mon, 12 Oct 2026 11:27:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791804460; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e7URtRlrLncshXlKL+R1mPLfjQj1qLjdYf9TgSXwUEA=;
-	b=FIiOfmm3WiGwlbwlvmU/o7lh73JKxJk6jRrh4YnqzL1iKhn6kVrMkf0Cz4jTOLrn0pl9GL
-	4cqss1QZ0s8gUAfTrYr4vDb+pCIaffQ3XTig69/cv0t4WHIbFq2dfylrgnkEbYzeUV9vvV
-	+3ZXCwKp/03upxfIaCCcgsMDZiCV2Qw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791804460;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e7URtRlrLncshXlKL+R1mPLfjQj1qLjdYf9TgSXwUEA=;
-	b=19ePpgeE3U/db48kzgafY/O5xUlLkepuslhjp2tkcqxQjr9TnnkE+obaST50H+s2GBurQ2
-	Nmmf3qWo/KpOsgCA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pUZxb2+K;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=V2f7c6br
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791804459; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e7URtRlrLncshXlKL+R1mPLfjQj1qLjdYf9TgSXwUEA=;
-	b=pUZxb2+K5f70i1geYgipjXtfMskAT4DzIOnaqfHKuIxpxjn8+u+3KVTHDG1raolhnxTgUV
-	uXqEw4Ydqt9u1FF6BGY75AKg8useNVZ3hiMC+T+oBEEwtqFE3dtxusLwGuB3I5Mflc7G0P
-	vToGH9G3tB8eRksZfETAMwixqoHwLFw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791804459;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e7URtRlrLncshXlKL+R1mPLfjQj1qLjdYf9TgSXwUEA=;
-	b=V2f7c6brHU9jkAKrdRDTFZagMzhHqj8YSaddNi+5kYphK7dV08VR+z07xnGfrgXNAKpmEW
-	QbXOCghu39nNBFAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5AF2613314;
-	Mon, 12 Oct 2026 11:27:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id DwC/CirEzGpnagAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 12 Oct 2026 11:27:38 +0000
-Date: Mon, 12 Oct 2026 12:27:36 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yifan Li <liyifan21@xiaomi.com>, akpm@linux-foundation.org, 
-	linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Matthew Wilcox <willy@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, mhocko@suse.com, 
-	netdev@vger.kernel.org
-Subject: Re: [RFC PATCH 0/1] mm: page_frag: account page_frag pages in vmstat
- and meminfo
-Message-ID: <asy9PzW41-Wi0JXC@pedro-suse.tail5790ac.ts.net>
-References: <20261010025941.1253-1-liyifan21@xiaomi.com>
- <40fc5d04-2a20-42c4-9557-7277bc981172@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SXpM18Gi"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 02B541655;
+	Mon, 12 Oct 2026 04:27:53 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 322763F882;
+	Mon, 12 Oct 2026 04:27:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791804476; bh=kQCByoVaggjb/UJQTAgFLZ8KUS15fDOUT2X+RgYa5nA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=SXpM18GiGGokjVzFN66yDXwWffYyU+nyainbUrdvXUhlxb/5aoBKR/zu1Wk8q9m2K
+	 BHJ6rVAmAhbWMus8lqcJ0+VVvuk0vEtCafbmbvQJ8h2GnIS+NnuRL9si8p2j3MjayM
+	 3q0Q0Cr4YzezOswbyFk4QWwLY461WGXHjKeRMcmQ=
+Message-ID: <893507ca-b956-474c-9124-92fbfc25e9ab@arm.com>
+Date: Mon, 12 Oct 2026 12:27:50 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <40fc5d04-2a20-42c4-9557-7277bc981172@kernel.org>
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 32CFF21E6D
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
-X-Spam-Flag: NO
-X-Spam-Score: -4.51
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH DNM v3 8/8] arm64: dts: qcom: kaanapali: Add MPAM MSC
+ nodes for the L2 caches
+To: Yin Li <yin.li@oss.qualcomm.com>, Rob Herring <robh@kernel.org>
+Cc: James Morse <james.morse@arm.com>,
+ Shanker Donthineni <sdonthineni@nvidia.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu
+ <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>,
+ Andre Przywara <andre.przywara@arm.com>, Drew Fustini <fustini@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>, trilok.soni@oss.qualcomm.com,
+ aiqun.yu@oss.qualcomm.com, ganapatrao.kulkarni@oss.qualcomm.com,
+ Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+ Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ devicetree@vger.kernel.org
+References: <20261008-mpam-resctrl-dt-knp-support-v3-0-35196c2b43bf@oss.qualcomm.com>
+ <20261008-mpam-resctrl-dt-knp-support-v3-8-35196c2b43bf@oss.qualcomm.com>
+ <20261008210004.GA1318789-robh@kernel.org>
+ <1d764a3d-7935-4e26-b1c2-92537e1d3811@oss.qualcomm.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <1d764a3d-7935-4e26-b1c2-92537e1d3811@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 12:36:35PM +0200, David Hildenbrand (Arm) wrote:
-> On 10/10/26 04:59, Yifan Li wrote:
-> > This is an RFC.
-> > 
-> > Pages held by the page_frag cache are not accounted by any memory
-> > statistics counter, so on systems that derive "LostRAM" as MemTotal
-> > minus the sum of accounted memory they inflate LostRAM and lead to
+Hi Yin,
+
+On 12/10/2026 11:48, Yin Li wrote:
 > 
-> Sorry, what exactly is subtracted from MemTotal?
 > 
-> How would any other kernel allocations be treated?
+> On 10/9/2026 5:00 AM, Rob Herring wrote:
+>> On Thu, Oct 08, 2026 at 02:41:17PM +0800, Yin Li wrote:
+>>> Add an MPAM MSC device node for each L2 cache. Each MSC is nested
+>>> directly under its L2 cache node so that the cache node is the MSC's
+>>> parent device and its CPU affinity is derived from that cache.
+>>>
+>>> The L2 cache nodes are placed directly under the root node. The root is
+>>> the root of the physical address space, so each cache node only needs an
+>>> identity 'ranges' property for its nested MSC's 'reg' to be resolved to
+>>> a physical address. The two caches use distinct node names (l2-cache-0
+>>> and l2-cache-1) since a cache node has no MMIO unit-address of its own.
+>>>
+>>> The nodes are disabled by default. Production firmware does not expose
+>>> MSC register access to the OS, so these nodes can only be enabled on a
+>>> local test setup where firmware permits direct MMIO access to the MSCs.
+>>> This DTS is therefore only an example for other platform DT authors and
+>>> is not intended to be merged.
+>>>
+>>> Co-developed-by: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
+>>> Signed-off-by: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
+>>> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+>>> ---
+>>>   arch/arm64/boot/dts/qcom/kaanapali.dtsi | 50 +++++++++++++++++++++++++--------
+>>>   1 file changed, 38 insertions(+), 12 deletions(-)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+>>> index 131fd2a16c54..b1dcb1e9c570 100644
+>>> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+>>> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
 
-I suppose those would mostly show up as Slab:. But yes, I agree the metric
-is a little dubious.
-
-> 
-> > misleading "leak" conclusions, even though the memory is legitimately
-> > used by the network path.
-> 
-> Assuming "leak" in such scenarios is questionable, sorry.
-> 
-> Aren't most page_frag allocations short-lived? Or is this more about the
-> page_frag cache?
-
-page_frag allocations are kinda arbitrarily lived. If you queue (send) some
-data to a socket to send over the wire, they are more likely than not
-short-lived, unless the protocol/qdisc says no (for example, you're hitting
-the TCP congestion window and as such can't send more data over the wire).
-If you send it over loopback/veth you get arbitrarily livetimes as sockets
-can keep the page frag alive if the application never reads them.
-
-On the regular RX side you can also (AIUI) keep page frags randomly pinned
-as long as you don't read them.
-
-(note that all of these allocations are bounded by each protocol's memory
-limits)
-
-
-In any case, I remember an off-list discussion with mhocko regarding a
-downstream bug, where I suggested adding a counter for this, and he said
-networking is somewhat sensitive to extra accounting on the fast paths.
-Added netdev in case they have comments.
+[...]
 
 > 
-> > 
-> > The page_frag allocator (page_frag_alloc / napi_alloc_frag /
-> > netdev_alloc_frag) backs sk_buff->head and the frags portion of
-> > skb_shared_info.  Unlike slab (NR_SLAB_*) or page_pool, page_frag
-> > pages have no counter.  A preliminary measurement on a 4K-page
-> > arm64 Android device shows 14432 kB (3608 pages) of page_frag
-> > pages already in use at boot, and the memory footprint grows
-> > larger under heavy load (e.g. sustained traffic through the
-> > virtio_net / tun receive paths).
-> > 
-> > Patch 1/1 adds an NR_PAGE_FRAG node counter and exposes it as
-> > nr_page_frag in /proc/vmstat and PageFrag in /proc/meminfo.  Pages
-> > enter the cache through a single entry point
-> > __page_frag_cache_refill(), so the increment side is complete; the
-> > decrements sit on the paths that free the cache page.
-> > 
-> > The remaining gap is on the release side, which is open: a cache page
-> > handed to an skb frags array (skb_add_rx_frag() /
-> > skb_fill_page_desc(), without an extra get_page) is freed via
-> > put_page() (kfree_skb -> __skb_frag_unref -> put_netmem -> put_page),
-> > bypassing page_frag_free(), so the counter can over-count under
-> > network load.
-> > 
-> > Closing that needs the page to carry a marker checked at the common
-> > free path, e.g. either
-> > 
-> >   1. a page flag: PAGEFLAG(PageFrag, page_frag, PF_HEAD), accounted
-> >      and cleared in __free_pages_prepare(); or
-> > 
-> >   2. a page type: PGTY_page_frag reusing _mapcount, accounted in
-> >      free_frozen_pages() (requires that page_frag pages are never
-> >      mapped into userspace; true for the current RX paths).
-> > 
+>>> +
+>>> +        msc@19870000 {
+>>> +            compatible = "arm,mpam-msc";
+>>> +            reg = <0x0 0x19870000 0x0 0x10000>;
+>>
+>> The MPAM register length is 0x321C.
+>>
 > 
-> Certainly no page flag.
+> You are right, the MPAM register space is 0x321c per the specification.
+> Will update accordingly.
+
+That is the full extent but truncation is allowed by the architecture.
+
+Section B.9 9.2.3 Permitted truncation of an MPAM feature page IQGXFF it mentions
+some conditions but these haven't been updated for the introduction of FEAT_MPAM_MSC_DOMAINS.
+
+Does your implementation have domains?
+
+Thanks,
+
+Ben
+
+
 > 
-> A page type might be the right choice. I don't think Willy planned for that [1],
-> IIUC, the bump allocator was something different, but another page type
-> shouldn't hurt at this point.
+> Thanks,
+> Yin
+> 
+>> Rob
+> 
 
-A page type might not work, these pages _may_ need to be mappable. I know
-that was an issue for page_pool (Yet Another Networking Page Allocator) + TCP
-zero-copy RX using mmap.
-
-Of course, if you have a page frag under PAGE_SIZE or misaligned then you can't map that.
-
--- 
-Pedro
