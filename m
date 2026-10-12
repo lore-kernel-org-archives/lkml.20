@@ -1,224 +1,216 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D5D34477FA
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:25:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739F1223328;
+	Mon, 12 Oct 2026 07:25:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791789950; cv=none; b=NKvJ/tML+yazv9gTlFxZzKOcCdyPpUNtfMdOlgXZT63K9Hd0QUTKli1OKsYzaFnz/pqgyXWSzjPb38kWshGq+0Ml3BezZFJLBFmWT5TBuGyZQvKyx1v3Ug2HV+ZZF8dRJp7d+or49+Q0yvfLsJcqJOKLjADe0k9uPpSXcqMA9Wk=
+	t=1791789957; cv=none; b=h9ZbCnjPs0YriM5RcVBwK8qf+9BLAv8jt+Cf9bgC7mbZvToOwVxfddS2kbeikzFZMDodiRQVLo1wN5Ya4fYbluhcGL9vyQ4e21P5iOnQJs2iZPyGkaubcDtFEnvmDMWzweTpSDC8cqeFcsnIRvQ/2EpAj12BPMwi1QyFarJCpA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791789950; c=relaxed/simple;
-	bh=2zyEq/VgBCcszsUxIMduV8bFDSXymxQnEYZbjCF+dpM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UObBSLCy47iHpmYWNDCknNHgQ+X/z48YAfaOSpusU+/prFB/NfUjXgn+7z/79UvwJMJsKm8bJCs/rJqMvZpD/sGvF12QDSos/qNjGZoaGKY8LEfMUDqjLsBtLUUULa0n9rQqBRfmOK0oEThHUWsazb2mLcL467tzFZ89ddI6IrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YN13EJaI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fn6AMDbV; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791789957; c=relaxed/simple;
+	bh=rwUDJfOuAEno59OlXWEql41+CJQz5EUrlfs7jNV+K7Q=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tOl16QlnUMrBzwTiY/Q43jZop3D7pwny1LnG94QuFp6iay4P7f9+032ry6gEF7RklhCgALecKCbpPdhYVVphpCtrY1yaB1Uwq5+A34mON6CU1LBCQTvt/XSFE46wj8A8QUMEVaeETvrdJdJ9Bxus+I6m3txjPQUTS78PfgUjcC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=zkO4WUPH; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=eQ0N0jgF; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jdgDDeIr; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XuIJ/AoE; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YN13EJaI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fn6AMDbV"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C55wbb751220
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:25:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	eVrFzhkPhx/K8T47whMXfQOfvS7XMcsmwu6sHgWPleg=; b=YN13EJaIvp73y27D
-	Zh3me5UNfED3vH0Uxz/8SyqWMwoEJj6KnD2XLQoMmAJ5BI4VezkUmO5BwgUDnSXU
-	ANJBjSN+RB8Yjt/0CnOD89TKVnl095sjcE3vpUbsz97Om+pg7Xw6fKMdx8dxlGKY
-	Pycw7YF7B7aFQujH1w17S5dmkPvzIkxwzuP1/U/ca51JOfY0LZnPZKvKjKFyFy2d
-	kmQ2sMYa4cKe+tnspfFXqJ5QFR8g/CmzNjKf6nAH2qXjo/d9xCFOTCzS+s0SIqVf
-	/X9y9LyhPGnV5M8xvpTK+ScWcKNqB/hN0kEY55pQ8OuUwe1Z7aA07RmoDJ2Ra5Cp
-	sWefBQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7e4ed7xe-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:25:47 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93caf7856ffso320403885a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:25:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791789946; x=1792394746; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eVrFzhkPhx/K8T47whMXfQOfvS7XMcsmwu6sHgWPleg=;
-        b=fn6AMDbVjs8D6KIImLZCQS/QigkBG4R6jZ1k6ARKZK34kfGWNZEs/T46uvskRfC/oC
-         yHgG5HnERcqvgLm+U4FNimuf1u4ctAdL4swQEi/qLM1rqLXltfdhz71JDu5ARAnRLm3I
-         XdyiN/HbXwaDmDQbIPGbo+9/xUYH2F7MYmuB8SYLcSwxlvYTcHOGMcmOEPbGrEQKM6rm
-         6g3j8qq8oeBk8Py4K0d+L4OveI2e153ivAJ2NpZQMLetMGKf2pF83bWaYKXviz91/yoI
-         fwm7Q1Tb2r4cXWpIsvmSz8RsPteGJHEzqUUyEJ03IAQbJuIwQYd/k9KYeZkQABm5wMdT
-         IWdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791789946; x=1792394746;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eVrFzhkPhx/K8T47whMXfQOfvS7XMcsmwu6sHgWPleg=;
-        b=RLZvhVvhPpVzH1Umnp0zcqPeWUpXvsu/QjBnj+y3ycHCfAle2YzT2sTE0qzjcB+vRO
-         x24o6wp6f/mg5Id8btYRfjo7Me34GWJgGGfv5Fhp+1seODXuE7wDQajerZOvwiDiLdvn
-         7xY1lCgJMZxDIjp4owvlNV5Cml5e26yYVI8c3XBpzXAybOhkcOnXJWozFJIaFi8v+Jam
-         ehRiYOurmGuRbgsIAh9cvkQtLhwnI19zM1q0LY8iQGuc0XE5u88MK+Zto/hPEs9pfEtm
-         25Vwp+/2ov4PYBoBaZt3nS9bD+uuMYq7jj1w6oaRxoPmKM2AaYhroEQnWbMcUCiraFXx
-         ZRjg==
-X-Forwarded-Encrypted: i=1; AKwUvByieBtpK3ZZBgTVgHLCirsNqDFefocKmnNHjDXwGNH0IBugrW3iP34QKZwdXC6htvxjuVia4V2IGH8imXU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKb4N3R1Swv7Phd8ccFGLo1nWyeQiGfXrPGvvFTy6LPc2WPlqov
-	Ut1r7m2Z2uC5iUI/E5eRYheHOC9ULQCNFqRsiy0uTy+83unUVU9G5F7GRm5VC1NtPfE5Hgk7vuT
-	yZcaM/8mQhvc/V34aa6ThIiHOZotCWECEFkE7rh/LLK3fNg2Cpv9YnD0CUW1UQlCF/Cw=
-X-Gm-Gg: AYBFou06XCGnHjm4sLK+CNMqGnwQVHknJrnCijzn/D9U5zrgLDMUcu3yW9EfLmQEDQL
-	hluE7aTg4AFS1guAajJueg1trVDlA5hTFKwrAsfHWJm1QN46gWSHRIvloEeNVKx2lniLoi7/ECk
-	R14Nrq1d97+b663iO930M6lBz0hJ620Xs7zHfVzP9vlTtma2BsUA4+Mmy4v+/+WBKafjhaZqQTZ
-	Q8ZYUJXWoRrp9ub0YOxrOU26yqFvolEcxR0Kej14GrE4zLALKLsDtPbAhUeFijG0+Pyz/+WkX72
-	5PGIpvCmBpluFLUlUxSAr0Ufwlc8cVeVVv7WyWlUsPd+HPRYhQeZiOIGbLBDuA1E+5pkTLMX6/2
-	WpOUmF1WAohHiPKUCiiMIFcF65ZxtjNhtSfRYozU=
-X-Received: by 2002:a05:620a:31a7:b0:939:c71d:8d15 with SMTP id af79cd13be357-93ebd229eb4mr1472632785a.14.1791789946177;
-        Mon, 12 Oct 2026 00:25:46 -0700 (PDT)
-X-Received: by 2002:a05:620a:31a7:b0:939:c71d:8d15 with SMTP id af79cd13be357-93ebd229eb4mr1472629785a.14.1791789945613;
-        Mon, 12 Oct 2026 00:25:45 -0700 (PDT)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19f249692sm122840815e9.3.2026.10.12.00.25.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 00:25:44 -0700 (PDT)
-Message-ID: <e8be3176-e2df-482f-ae84-bcab3d2f9fa7@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 10:25:42 +0300
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="zkO4WUPH";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eQ0N0jgF";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jdgDDeIr";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XuIJ/AoE"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 248641F791;
+	Mon, 12 Oct 2026 07:25:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791789953; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dRt2TsoRwj8j35wnKQv6gaQN9QmhW/wtsLcDcB2zaCg=;
+	b=zkO4WUPHou6rUxLYDL34pbRxGZ9u6szz9MwqgQQQRX6bYEbUM3s5b/2QPuPAtTYZML6KE1
+	fB+X3WQboPNPgf+CI5X5EjVTSAE9rZqmGxZ+BEwRaJndVnr9HdZGIs1X2ppq+pyKLrpGu/
+	JpNcZnebSD9k0nWiTHnCEX0IKqgOvKs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791789953;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dRt2TsoRwj8j35wnKQv6gaQN9QmhW/wtsLcDcB2zaCg=;
+	b=eQ0N0jgF6Zo0thE5OahLlaaRFNNOSJ6DmyTWhawnEYwz8tW0JtH3p6nPoPgj+Flduw64Av
+	qmusEmwhEtNVNPDg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791789952; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dRt2TsoRwj8j35wnKQv6gaQN9QmhW/wtsLcDcB2zaCg=;
+	b=jdgDDeIrDgfovinqnUMsiDQCZqKy83rX0OiPT2k5QfeUczvLwR21uCM0Swf3yI2r9G0OEs
+	B852+ksMsBwkhwxKDtdBZ9cus433snnKAWEcAO/CH6FkmC5AFwPKwC92mnqiX6yj8pC0km
+	XNpuHfsSICgFbKOX7Hw9mY/WVx/wZdE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791789952;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dRt2TsoRwj8j35wnKQv6gaQN9QmhW/wtsLcDcB2zaCg=;
+	b=XuIJ/AoEobueMkE7qFFYbYmcUpfSCy6zj6s8+HykPWcCUzK8m+V8HkVE8G3VeQl5nRXWKv
+	leZCuXTJ6l9fL6CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7B97213314;
+	Mon, 12 Oct 2026 07:25:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id aRLlE3+LzGpdXwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 12 Oct 2026 07:25:51 +0000
+Date: Mon, 12 Oct 2026 09:25:50 +0200
+Message-ID: <8733ubidmp.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	norbert@doyensec.com,
+	kees+treewide@kernel.org,
+	phucduc.bui@gmail.com,
+	danishkhateeb03@gmail.com,
+	cassiogabrielcontato@gmail.com,
+	maoyixie.tju@gmail.com,
+	ivan.orlov0322@gmail.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: Re: [PATCH] ALSA: timer: Pin the module for userspace timer controllers
+In-Reply-To: <pm-pmb-98fb8f747fc7b8499fd4-v2-1c531f149a6d6c084f48@gmail.com>
+References: <pm-pmb-98fb8f747fc7b8499fd4-v2-1c531f149a6d6c084f48@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/8] media: qcom: camss: add V4L2 subdev streams API
- support
-To: Hitesh Patel <hitesh@ebytelogic.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, ravi@ebytelogic.com
-References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
- <20260915121515.17207-1-hitesh@ebytelogic.com>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <20260915121515.17207-1-hitesh@ebytelogic.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAyOSBTYWx0ZWRfX3N8nzNwv2y8+
- WKK8sWgKAeute4IqwyklPg2PmrL4CxZg+R+ncBy5UIofTbIPfQ3+M5caTALvE2/gjlIYxDxbb0V
- Lq56A8pFDBvNEZPo7wK26STpQ1QJbAkOgl+piCspmC0yhZJ2t01huTYW/nF/ydKLRIichFk1i07
- 0rARcgsHL0LR4n0+vbMhgzjDHpDt/O2eJq/1lGBI6HnI9HHeQqKsVfqYDdShYAJZ3XZlskjP9mY
- JTg2eY6l1CbioV8g89XWIcHf5VJNyA0ug6SLcp5Whn99vZK4gAcR5cS908DyP8kGgIpuoSZyamM
- LGRdyXMtPyORp3Zbqash1WAUk1SdBVp3HO554YIJYjBDrwdB6GvYXl2UScEYvdyrqUGeJb1tbys
- AbK4cI2UBh+gFN/HGtatWrGDgduHbgKJzozg/4V/tZSqsrmj77v4iZMfakl1Aljj+TuMvpIjo0u
- 7vHeXUkVeULCsuHrnZg==
-X-Proofpoint-ORIG-GUID: 1GLjMsh-ofQ72ai_9-cp9EKL1jTqWVUV
-X-Proofpoint-GUID: 1GLjMsh-ofQ72ai_9-cp9EKL1jTqWVUV
-X-Authority-Analysis: v=2.4 cv=W5utxhWk c=1 sm=1 tr=0 ts=6acc8b7b cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=ZovgdgjKAAAA:8 a=EEfcIT1LpWLEK3Zwr9YA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=VOxKbm1zgHvARWIDjr3b:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAyOSBTYWx0ZWRfX1qDaYXDAkGae
- TKpC+QI8DP+063k6EhK+nkBFCTRwNdGZQmJ8QXuw/qevl/Mt8+f9mnAubLmoEhaVNrNU9d3GfVF
- pZ13QhIy1bp3D3KpoZgefHDKL7CP4YE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 phishscore=0 malwarescore=0 impostorscore=0
- bulkscore=0 suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120029
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[treewide];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,doyensec.com,kernel.org,gmail.com,vger.kernel.org];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
 
-Hi Hitesh,
-
-Thank you for testing and verifying this—I really appreciate it. 
-I don’t have the SER/DES setup on my side, so I’ll rely on your verification.
-
-On 9/15/2026 3:15 PM, Hitesh Patel wrote:
-> Hi Gjorgji,
+On Sun, 11 Oct 2026 18:02:50 +0200,
+Cen Zhang wrote:
 > 
-> I tested this series on RB3 Gen2 (QCS6490 / SC7280) with two GMSL
-> cameras behind a MAX9296A deserializer, one camera per CSI-2 port, so
-> that the deserializer subdev heads two independent camss pipelines.
-> That is the case my own series [1] patches 6-8 tried to handle in
-> camss-video; with your series enabled on SC7280 they are not needed,
-> and I have dropped them from v2 of that series.
+> The static snd_utimer_ids IDA must remain live until a userspace timer
+> controller has returned its ID. However, snd_utimer_fops has no owner,
+> so anon_inode_getfd() does not take a reference to snd-timer for the
+> controller file.
 > 
-> Results with streams_enable set on the SC7280 CSIPHY/CSID/VFE
-> resources (patch below):
+> With CONFIG_SND_TIMER=m and CONFIG_SND_UTIMER=y, userspace can create a
+> controller with SNDRV_TIMER_IOCTL_CREATE and close the native timer
+> file. If no timer instances or dependent modules retain snd-timer,
+> ordinary module unload can then overlap the controller's final release:
 > 
-> - each camera alone, repeated start/stop: 5/5 and 5/5
-> - both cameras streaming at the same time: works
-> - the second camera started and stopped 8 times while the first one
->   keeps streaming: 7/8, the first camera never disturbed. The one miss
->   is a sensor/serializer settling issue we see on every kernel when
->   the second camera is started within ~2 s of the first, unrelated to
->   camss.
-> - CSID test pattern generator still works.
-
-Thanks good to hear.
-
+>   Controller final release              Module unload
+>   snd_utimer_release()
+>     snd_utimer_free()
+>       snd_timer_free(): unlink provider
+>       snd_utimer_put_id()
+>         enter ida_free()
+>                                         delete_module()
+>                                           alsa_timer_exit()
+>                                           free_module(): free MOD_DATA
+>         access snd_utimer_ids.xa
 > 
-> One problem found, fixed by the first patch below: with the streams
-> API a non-lite CSID registers 4 pads, but camss_link_entities() still
-> links CSID source pad MSM_CSID_PAD_FIRST_SRC + j to line j of every
-> VFE. On SC7280 the non-lite csid0 is linked to vfe_lite0, which has
-> four lines, so it asks for source pad 4 and the driver fails to probe:
+> The provider is already absent from snd_timer_free_all() when unload
+> runs. Neither register_mutex nor the IDA's lock keeps module storage
+> resident through the remaining IDA access. That access can therefore
+> use freed module data and fault while acquiring the XArray lock, as
+> shown in the Oops below.
 > 
->   WARNING: drivers/media/mc/mc-entity.c:1150 media_create_pad_link
->   qcom-camss acb3000.isp: Failed to link msm_csid0->msm_vfe3_rdi3 entities: -22
-
-Hmm, i need to check, thank you for catching this.
-
+> Set snd_utimer_fops.owner to THIS_MODULE so anonymous-file creation
+> takes the existing module reference. The VFS drops it only after
+> snd_utimer_release() returns, keeping the IDA resident through
+> ida_free() and preventing ordinary unload during that interval.
 > 
-> SM8250 does not see it because of csid_vfe_fixed_pairing. You may
-> prefer to fold the guard into patch 4, or keep all MSM_CSID_PADS_NUM
-> pads for the non-lite CSID; either works for me.
-
-Yes i will take a look and verify with other boards i have. Bryan has comment
-for that as well and most probably will be removed in v2 since the 4'th line
-on full IFE will be functional soon.
-
+> Oops report as below:
 > 
-> A note on the test tree: the series applies cleanly to next-20260911,
-> but our board runs the qualcomm-linux qcom-next branch (v7.2), whose
-> camss-csiphy.c has a legacy/generic-PHY ops split that yours does not
-> know about. I ported the CSIPHY part by hand there (a second
-> csiphy_streams_v4l2_ops carrying the legacy core ops, and the
-> enable/disable_streams helpers calling csiphy_set_stream_legacy() when
-> csiphy->phy is not available). Worth keeping in mind if this series
-> is meant to land in qcom-next as well.
+>     BUG: unable to handle page fault for address: fffffbfff80480af
+>     #PF: supervisor read access in kernel mode
+>     #PF: error_code(0x0000) - not-present page
+>     PGD 1a7ff6067 P4D 1a7ff6067 PUD 1a7ff2067 PMD 100ad6067 PTE 0
+>     Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+>     CPU: 0 UID: 0 PID: 485 Comm: alsa-utimer-fix Tainted: G           O        7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+>     Tainted: [O]=OOT_MODULE
+>     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>     RIP: 0010:kasan_byte_accessible+0x15/0x30
+>     Code: 00 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 40 d6 48 b8 00 00 00 00 00 fc ff df 48 c1 ef 03 48 01 c7 <0f> b6 07 3c 07 0f 96 c0 e9 69 f1 2b ff 66 66 2e 0f 1f 84 00 00 00
+>     RSP: 0018:ffff88811a457c48 EFLAGS: 00010086
+>     RAX: dffffc0000000000 RBX: ffffffffc0240578 RCX: 0000000000000000
+>     RDX: 0000000000000000 RSI: ffffffff861f111c RDI: fffffbfff80480af
+>     RBP: ffffffffc0240578 R08: 0000000000000001 R09: 0000000000000000
+>     R10: ffffffff891cc057 R11: ffff88811531ba00 R12: ffffffff861f111c
+>     R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+>     FS:  00007ff190ff7780(0000) GS:ffff8881fda2a000(0000) knlGS:0000000000000000
+>     CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>     CR2: fffffbfff80480af CR3: 0000000116890003 CR4: 0000000000770ef0
+>     PKRU: 55555554
+>     Call Trace:
+>      <TASK>
+>      __kasan_check_byte+0x13/0x50
+>      lock_acquire+0x113/0x2f0
+>      ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+>      ? lock_release+0xc8/0x280
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      _raw_spin_lock_irqsave+0x3c/0x60
+>      ? ida_free+0xd4/0x2b0
+>      ida_free+0xd4/0x2b0
+>      ? __pfx_ida_free+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_locks_remove_file+0x10/0x10
+>      ? __fput+0x39f/0xa60
+>      ? fput_close_sync+0xff/0x200
+>      ? __pfx_fput_close_sync+0x10/0x10
+>      ? dnotify_flush+0x22/0x4b0
+>      ? __x64_sys_close+0x8c/0xf0
+>      ? do_syscall_64+0x115/0x6a0
+>      ? entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>      </TASK>
+>     Modules linked in: snd(O) [last unloaded: snd_timer(O)]
+>     CR2: fffffbfff80480af
+>     ---[ end trace 0000000000000000 ]---
 > 
-> The three VFE fixes in [1] (buffer done gating, write master
-> selection on 17x, VFE reset with another line streaming) are needed
-> on top of your series too for two RDI lines on one VFE; they are
-> independent and I have kept them in v2.
+> Fixes: 37745918e0e7 ("ALSA: timer: Introduce virtual userspace-driven timers")
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
-Maybe they will need small rework afterm stream_api flag is changes
-with list of SoC's which support stream_api.
-
-> 
-> [1] https://lore.kernel.org/linux-media/20260914133416.1030231-1-hitesh@ebytelogic.com/
-> 
-> Tested-by: Hitesh Patel <hitesh@ebytelogic.com>
-> 
-> Hitesh Patel (2):
->   media: qcom: camss: Do not link CSID source pads the CSID does not have
->   media: qcom: camss: Enable the streams API on SC7280
-> 
-> (the two patches follow as replies to this mail)
-
-Thanks i will look at them.
-
-~Gjorgji
+Applied now to for-next branch.  Thanks.
 
 
-
+Takashi
