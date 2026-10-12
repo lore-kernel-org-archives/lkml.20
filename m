@@ -1,95 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BCC32572F;
-	Mon, 12 Oct 2026 20:53:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F1B7440638;
+	Mon, 12 Oct 2026 20:53:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791838386; cv=none; b=oO7jKc1z4okpxEo9C3wdpBFiaEE66RYoWOKRYfMSVR8FLp+c2uCEwScKjy2vT2TMQF5Qg/pHUriuX7D+4hiErL5JZmeapatipHLyY0LW9vok++s2smKjjJ3RoK6j+Foot+ygGGO67RvBfgLPkStjx3ghAa31Z0TPDN02iJccsNs=
+	t=1791838419; cv=none; b=tPSUKlvbAb3qFOpdi8hdZfQrdJnr4JMCoTC9xo+AjYfdEt2ra/KBYOtNthZPE1ruI/cGW/dhWRPCu9ntk10Q4jn0kArOZLDYJ7lr0+BBD3MYLkAvrqjV3ayCRv3Hw2yxm5F0+xLYoNbvbdnaIQ7O1qLVZvpuepJx9kt3JgBuLBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791838386; c=relaxed/simple;
-	bh=/Xk2xrzetp7/wYFtgK81r8fmfppJMzdQq6QF64CNJeI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aIqRQdNv9kQbdvVKB2gbC3xg09J+Lgi/0dFOieqsIOKpobXq9+zhLfmF+QttSaMcr/C+fwQ/s3Y7rlT5QerOCwIxsqt9+33o4RqwXuoUFRTkXXQ00z2x1/WBMwZsZyHGM3tJRPBkZWfWpW9PQAJ2vDIZyRzjdavci0VWopgkKBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UUX2Y3Nb; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791838419; c=relaxed/simple;
+	bh=UtrlsS8phsymac42K0cda/Va1ulluctSzlmp79L9vqE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=evAjfN7+1fUKFnvH8N9RZhMOC8GBe2aegXvMNLD4wyMG6H5ZGrTOVCNMGsFPN6zIVYVI1Fs0gq7j7cidN8UxkSF2N/76FJNaoWCWlbhNLuaZHN4A7kBCfaMi38GUbZvPSJyDTD2c8Dx+fyhKb6X5331IwZKnZAMCpS5LamGfl3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TnqxEC8o; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UUX2Y3Nb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791838385; x=1823374385;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/Xk2xrzetp7/wYFtgK81r8fmfppJMzdQq6QF64CNJeI=;
-  b=UUX2Y3NbdIHf5Y0DD7QVnQiTSdoghQjPVKe0p1quk9Jk7R90ogamsKW2
-   XkUQm6T9UpJ7qflYo2zaPaFvVSz4tjHpvzKMk/rsy9hJtSbDDU3uznEIs
-   2ZF1spt3uriJDxLNHBkhJOVQb6FKl+OpWFyct5D4SJbzB3GHBZ3M7vTNe
-   8iAzFy0XXD99dJQXuOL4cBmodEDOrxpqxX59v3PUFXQirXhdOv46e6Ge4
-   UPAzZnTh+Io6dxC286YijtKq1NjeSFGg/BLzyZYI/dnC4QXAkBslsUPQM
-   id6mxhYJsyINhuS+vc4QidVHvYZX2rTCht/sP1Kg4gdDDWDoNplVtBP+G
-   A==;
-X-CSE-ConnectionGUID: s6UQOOtxRY+kQd3VIP1+UA==
-X-CSE-MsgGUID: jkjL/VhqQrKP5yaj/mlRjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="443381"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="443381"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:53:04 -0700
-X-CSE-ConnectionGUID: 2lpeyVj8QbefWzd7vOWdHA==
-X-CSE-MsgGUID: 27BU7fyCSjiqdBfIB896nw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="962665"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:53:03 -0700
-Date: Mon, 12 Oct 2026 23:53:00 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Alan Stern <stern@rowland.harvard.edu>
-Subject: Re: [PATCH v4] usb: hub: Set proper message when
- usb_hub_create_port_device() fails
-Message-ID: <as1IrOAaNLuSqtEU@ashevche-desk.local>
-References: <20261012092725.575885-1-wenst@chromium.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TnqxEC8o"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 565C41A109E;
+	Mon, 12 Oct 2026 20:53:35 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 20E96601A6;
+	Mon, 12 Oct 2026 20:53:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8162311D70BEA;
+	Mon, 12 Oct 2026 22:53:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791838409; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Yzsm7UcLWz95w7mf2csUHMiUJrt8gEY4jLejuhdiuAM=;
+	b=TnqxEC8om1vFtcEub3V/hkQWm1SBJYORapt54lhZfyc8VpvxaKlWoT/AP5A82neKZGZrzA
+	P/1iSrfE1Yf+O8OJOQUbtHcvABWj2WNUpKdVe3pBwUL1aP1XcFZlef17BmegzDl1yKfuvV
+	yUKT+fDCcr1RV4nxqc6OzVFANsub2kAmba3+Av/8HezTYdNhjhnLGbCoc2KK1Fg35ywZZf
+	wtpstfHAPYAtF4uYod7oKQIfRYfGP5eozhv1hQfSr0Pou/wWHDSvgMWqZ9d+/zSSwacz9S
+	hrNaBr2GD2Wt4uc2m5jA+sndXOso0K0gEf7Ec+SNaYaOnJUli/zxWNHVjzfZIg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
+ <wens@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
+ Holland <samuel@sholland.org>,  Maxime Ripard <mripard@kernel.org>,
+  Richard Genoud <richard.genoud@bootlin.com>,  Masahiro Yamada
+ <yamada.masahiro@socionext.com>,  Boris Brezillon <bbrezillon@kernel.org>,
+  Brian Norris <computersforpeace@gmail.com>,
+  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
+  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
+  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH v6 01/18] mtd: rawnand: sunxi: drain interrupts before
+ reusing the completion
+In-Reply-To: <CADvTj4ppQannShF+dkLreST94g_vSAg4QdMqxhNORzkvci3O1A@mail.gmail.com>
+	(James Hilliard's message of "Mon, 12 Oct 2026 13:17:23 -0600")
+References: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
+	<20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-1-2fb084fe0751@gmail.com>
+	<8733ua23xs.fsf@bootlin.com>
+	<CADvTj4pmtGZ4c04q+5AE3trrfshToD7BPtF-8kPxPRZ25hOTRw@mail.gmail.com>
+	<877bjmzqkr.fsf@bootlin.com>
+	<CADvTj4ppQannShF+dkLreST94g_vSAg4QdMqxhNORzkvci3O1A@mail.gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 12 Oct 2026 22:53:22 +0200
+Message-ID: <87pkxey725.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012092725.575885-1-wenst@chromium.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Mon, Oct 12, 2026 at 05:27:24PM +0800, Chen-Yu Tsai wrote:
-> Right now when usb_hub_create_port_device() fails, it prints a separate
-> error message to say which port failed, but otherwise leaves |message|
-> set to the default "out of memory", which is somewhat misleading.
-> 
-> Set |message| to an error message that is more specific to this error
-> path instead of using the default "out of memory" message.
-
-...
-
->  		if (ret < 0) {
->  			dev_err(hub->intfdev,
->  				"couldn't create port%d device.\n", i + 1);
-> +			message = "couldn't create port device";
->  			break;
-
-We can now even use
-
-			message = "couldn't create port device";
-			dev_err(hub->intfdev, "%s %d.\n", message, + 1);
-
->  		}
-
--- 
-With Best Regards,
-Andy Shevchenko
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
 
+>> >> commit log, I now disagree with the first part of:
+>> >>
+>> >> >The old handler can also complete the new wait or restore an obsolet=
+e interrupt mask.
+>> >>
+>> >> "complete the new wait"? I don't see how a stale handler completes the
+>> >> next wait given the handler is a hard IRQ and the interrupt enable
+>> >> register is cleared on timeout.
+>> >
+>> > The case I had in mind is an already-running handler on another CPU:
+>> >
+>> > CPU 0: Read st and ien for operation A.
+>> > CPU 1: Time out operation A, mask/acknowledge its interrupts,
+>> >        then eventually reinitialize the completion for operation B.
+>> > CPU 0: Call complete() based on the saved st and ien from operation A.
+>>
+>> For this to fire, the hard IRQ handler on CPU0 would have to be stopped
+>> between reading st/ien and calling complete() long enough to span:
+>> - A's timeout
+>> - A's cleanup
+>> - B's wait being rearmed
+>> On this hardware, how is this reachable?
+>
+> CONFIG_PREEMPT_RT provides a concrete mechanism. The driver requests this
+> IRQ with flags =3D 0, without IRQF_NO_THREAD, so the handler is
+> forced-threaded. A higher-priority task can preempt that IRQ thread
+> after it reads st/ien:
+
+That argument only appears in this reply. It is not in the commit log
+nor in the diff, both of which reason about a hard IRQ, no? I'll happily
+take the PREEMPT_RT case into account: in that configuration the case is
+reachable, but it reads as a justification added after the fact.
+
+Then, I'm curious to know how the AI justifies the use of disable_irq()
+as the RT-appropriate choice: doesn't it block without a timeout on the
+very IRQ thread the scenario relies on being starved (and gives no
+priority inheritance)?
+
+Thanks,
+Miqu=C3=A8l
