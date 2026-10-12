@@ -1,106 +1,184 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 310E4218E91
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:25:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAFFC453A57
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:25:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791793554; cv=none; b=qmE1mY747rx0tdu06DREXom/GIiagkObCr5VHjEZDyc5YlvI4beQaBq8BWR5r80oDZOzHtaxLwjx+l44kdb5yIc2O5WD7JeC99tXqhpuckjRzTLSXSAPpJDxY72lGwVdHh69zCTOQITUjSMXY7Rq7tXkxxskkEkd8gcXfh4LOhQ=
+	t=1791793557; cv=none; b=gH0MOgwpgiv91Yrp6LAfKOSlSxSR/ufmiJW3M7yrqnm+vqHB0tYL7FtpDImPBORJdExETEvks6Nox5LxLDPSNo40csmAmOCQ5VNOEAj3b7tNCf1lMXApNmBQ6BGcD45HGO2zbW8A/d7NRes+hmgLIrml3EEqcaKiiaQWDOf4ZEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791793554; c=relaxed/simple;
-	bh=UXINLwBdF37ldXs2CknCbjFXnhSb2AUtJJs45Y0nHdQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YB7Gx22Ldhi/3K3nSU4+ZkdoxQ46nRJq9/90LcUUZBfUWao5kKyuw7x1hYsSJAn1lsDvcEyH7Hq2D8TWQWh9QzO5lgA9Bj1pOrpMeoQDZJnYgDcZJvDPiz54jU1im88z7E6OAnfqbHCbFysZGtBaX6abLhy+TNLg4UsdsqSnX2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AHAeznou; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791793557; c=relaxed/simple;
+	bh=tNK4iWkkGzj0LWE2ZwxVKTqf/hlNiYXyXoD1JBj27Jw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e8gV3hFw+SHI64wVSGYTSbywtX/PSB7z77Vaej9a6kZ7l6zVyBGfQJSU2S23I7xnPPLYp+rCcgyMpTSgwaVLnPP4uLTK1KpLGBchmmFfLMWJyb9kWbfSn1kSIsiwzCpfBK1VEBjM0nD0XXuuZjW023cHkxg6RBpTOl9RaGMij9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rt2tBD+X; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=wO18hACz; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rt2tBD+X; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=wO18hACz; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AHAeznou"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=54lnOO5dQxgGDmmxxPwOcNs7cd6m1JGgl52IeJJFbMo=;
-	b=AHAeznou8X9xnuzzbODSlI/j6vcDwZfD58rh+j3aV/YMSlUmZqlGReN9lxjC4E
-	30yBdw92AJ2tw/DdJHogjTVAGdUTn3UykBomVGikJldfB1hPMZY8OQccQRlE6ktm
-	rQFWOTbVHMlCfA7d1NdLk7Ng4OP05qRZZztxfE4beVk1M=
-Received: from [IPV6:2409:8900:1a87:d0a0:cf38:5aca:d24d:b7a4] (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgBn6kx9mcxqX+SbEA--.52013S2;
-	Mon, 12 Oct 2026 16:25:34 +0800 (CST)
-Message-ID: <d19c802b-623b-4900-ba09-76302fc7b602@163.com>
-Date: Mon, 12 Oct 2026 16:25:33 +0800
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rt2tBD+X";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wO18hACz";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rt2tBD+X";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wO18hACz"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 115ED21E43;
+	Mon, 12 Oct 2026 08:25:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791793554; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=K6vB1DNqF6otGL/B8stHx9KLEIOKxJvHsQqgauK/9Yw=;
+	b=rt2tBD+Xsa4cegseukdkCql4FfWK4dibSELmlF8rG4mf5Q7RQlEIqmgarCitkRbhuk/NIB
+	xcBfs8A0WzGm1dQXokBzHeH/Xn34FqT+Va/VqJ0GSzx1ggdYOu06wYLWBYVHhiGUb2NBx4
+	6SH1TVz3MKVcZ0qE+iskXKFGeQgWnvQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791793554;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=K6vB1DNqF6otGL/B8stHx9KLEIOKxJvHsQqgauK/9Yw=;
+	b=wO18hACzvjyI7bzQsXnrnRX/SIi8r8ZZrNbcv1uajklorQkjcD+JtbLYCigMfyhju2koEU
+	5p1mGdTHJXttKtAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791793554; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=K6vB1DNqF6otGL/B8stHx9KLEIOKxJvHsQqgauK/9Yw=;
+	b=rt2tBD+Xsa4cegseukdkCql4FfWK4dibSELmlF8rG4mf5Q7RQlEIqmgarCitkRbhuk/NIB
+	xcBfs8A0WzGm1dQXokBzHeH/Xn34FqT+Va/VqJ0GSzx1ggdYOu06wYLWBYVHhiGUb2NBx4
+	6SH1TVz3MKVcZ0qE+iskXKFGeQgWnvQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791793554;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=K6vB1DNqF6otGL/B8stHx9KLEIOKxJvHsQqgauK/9Yw=;
+	b=wO18hACzvjyI7bzQsXnrnRX/SIi8r8ZZrNbcv1uajklorQkjcD+JtbLYCigMfyhju2koEU
+	5p1mGdTHJXttKtAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AF56F13408;
+	Mon, 12 Oct 2026 08:25:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id WHyhH5CZzGpNIQAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Mon, 12 Oct 2026 08:25:52 +0000
+Date: Mon, 12 Oct 2026 09:25:50 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: Dev Jain <dev.jain@arm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, ryan.roberts@arm.com, 
+	riel@surriel.com, akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	mhocko@suse.com, kasong@tencent.com, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
+	hannes@cmpxchg.org, brendan.jackman@linux.dev, ziy@nvidia.com
+Subject: Re: [RFC NO CODE] [DISCUSSION] Anti-fragmenting ordered buddy
+ allocator
+Message-ID: <asyUgZVSauks3Vwd@pedro-suse.tail5790ac.ts.net>
+References: <20261011215412.1181172-1-dev.jain@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ntfs: compare streams_interface with mounted volume on
- remount
-To: DaeMyung Kang <charsyam@gmail.com>, linkinjeon@kernel.org
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261012031656.3858771-1-charsyam@gmail.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20261012031656.3858771-1-charsyam@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgBn6kx9mcxqX+SbEA--.52013S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WrWkZr45XFy8Gry5tF17GFg_yoW8ZFWkpr
-	Z7GwnYyr97Ja4jk3WvyF4YqrySvF97Ca12kF12qw17Aw48tFyIq3WUK3W093y0k34SqrWj
-	qF4jqrZ8Way5XFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UyVb9UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6h5THmrMmX4dAQAA3k
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011215412.1181172-1-dev.jain@arm.com>
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[19];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
+Hi,
 
-
-在 2026/10/12 11:16, DaeMyung Kang 写道:
-> During reconfiguration, fc->s_fs_info points to a newly allocated
-> ntfs_volume. It does not contain the mounted volume's stream setting.
-> Consequently, a windows mount rejects a remount with the same
-> streams_interface=windows setting, but accepts streams_interface=none
-> without changing the active pathname interface. This also breaks an
-> ordinary read-only remount when the existing windows setting is passed
-> again, for example from fstab.
+On Sun, Oct 11, 2026 at 09:54:11PM +0000, Dev Jain wrote:
+> (I am not posting code yet since it is in experimental stage.)
 > 
-> Compare the requested setting with the mounted volume instead. Use its
-> superblock when reporting an unsupported setting change.
+> TL;DR
+> -------
 > 
-> Fixes: 2de2cdd9cc08 ("ntfs: add pathname access for named streams")
-> Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
-> ---
->   fs/ntfs/super.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
+> I am proposing "ordered/bucketed buddy allocator": we divide the buddy
+> freelists into buckets, and prefer lower buckets for allocation.
+> This reduces external fragmentation (and, further reduces it when we
+> reverse the ordering for unmovable and reclaimable allocations) at the
+> cost of regressing the alloc and free paths, which depends on how many
+> buckets you partition into. I think we can partition into 4 buckets and
+> do some tricks to remove any regression.
 > 
-> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-> index 242fb19ced2b..711e90be9382 100644
-> --- a/fs/ntfs/super.c
-> +++ b/fs/ntfs/super.c
-> @@ -275,8 +275,8 @@ static int ntfs_parse_param(struct fs_context *fc, struct fs_parameter *param)
->   			result.uint_32 == STREAMS_INTERFACE_WINDOWS;
->   
->   		if (fc->purpose == FS_CONTEXT_FOR_RECONFIGURE &&
-> -		    NVolStreamsWindows(vol) != streams_windows) {
-> -			ntfs_error(vol->sb,
-> +		    NVolStreamsWindows(NTFS_SB(fc->root->d_sb)) != streams_windows) {
-> +			ntfs_error(fc->root->d_sb,
->   				   "Cannot change streams_interface on remount.");
->   			return -EINVAL;
->   		}
+> Design 1 is the simplest and the most upstream-friendly method in terms of
+> allocator speed. Design 2 tries to scale better with the number of buckets.
+> 
+> INTRODUCTION
+> -------------
+> 
+> Apart from dividing the freelists between migratetypes, little attempt
+> has been made to change the algorithm of the buddy itself to reduce
+> external fragmentation proactively (termed as "anti-fragmentation" in
+> academia). Linux has defragmentation (compaction). The analysis below
+> is *not* to claim that compaction does a bad job; I just took up the
+> challenge of anti-fragmentation (because I like to torture myself) and
+> kept digging the rabbit hole.
+> 
+> There have been academic papers about replacing the buddy with bitmaps -
+> I did not want a hard NAK from upstream at any attempt to do that, so
+> I preserved the buddy freelists.
 
-Hi DaeMyung,
+So, I've been looking at LLFree (one of those novel page allocators with
+no buddy and just a bitmap) lately. A few thoughts:
 
-    The fix looks correct.
-    However, vol->sb is NULL in the newly allocated volume, so 
-ntfs_error() only logs the message. Changing the argument to 
-fc->root->d_sb also invokes the mounted volume’s error-handling policy, 
-which would trigger a panic on a read-write mount with errors=panic.
+LLFree basically divides memory into 2MB pageblocks (with a free pages
+counter), and then later organizes these pageblocks into 64MB "tree roots".
+These tree roots are then borrowed by each CPU and made local (pretty much
+like old SLUB used to do). This localizes most of your allocations and
+pretty much avoids conflicts/cross-talk across CPUs.
 
-    This branch only rejects an unsupported option change during 
-remount; it does not indicate filesystem corruption or an I/O error.
+Yes, there is a bitmap. I don't think it's required, and it might actually
+be misguided. The paper itself has other side-goals. One of them is easy
+persistence in persistent DRAM; we don't need that. Another one is minimizing
+the cache footprint of the page allocator; this is misguided (IMO) because
+allocating pages has the side effect of you actually needing to initialize
+the struct pages after the fact; whether the allocator core hangs state off
+the struct page or not is not important, and in fact using struct page there
+might provide cache benefits.
 
-    Could we use ntfs_warning(fc->root->d_sb, ...) without triggering 
-that policy?
+The bitmap does not work well for random order allocations.
+The paper itself was written on Linux 6.0, which (probably) relied quite a
+lot less on things like mTHP (and random-order file pages) than we do now.
 
-Thanks,
-Baolin.
+In any case, this paper doesn't necessarily address your fragmentation
+problems, but it does attempt to address fragmentation (and SMP performance)
+through borrowing these pageblocks. I would not be surprised if it had
+a sizeable (positive) impact in fragmentation. I firmly believe that a
+direction similar to the buddy allocator, but with more buddy work pushed
+to the pcpu side (like Johannes's pcp buddy allocator series) is there right
+approach and could have a meaningful effect.
 
+Of course, it doesn't solve other problems like lifetime mixing in allocations,
+and things like slab migration are insanely complicated to pull off.
+ 
+
+-- 
+Pedro
