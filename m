@@ -1,408 +1,634 @@
-Received: from MA0PR01CU009.outbound.protection.outlook.com (mail-southindiaazon11020092.outbound.protection.outlook.com [52.101.227.92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19897481223;
-	Mon, 12 Oct 2026 12:06:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.227.92
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806765; cv=fail; b=CFlXOw2Z9QikFi9/a6gdiPIHxwYa+ZmEl6YHDQysGFUjIbIVKiVASs+5OzI4qOfs034aSdFLCd+0D/nv9JZ9SuHBDzPE15Uo37dsaRxxoQMvOsfVrdFMr9gF7QLNELNfPZgDfFql0Ebhs0sKJyCO/88SJZ7peqTPQSmrNKvo9M4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806765; c=relaxed/simple;
-	bh=cf0DI7gUyBk6qc0d6p+daMbEOWnCxkwduy4fhy7V7Zw=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BB34779BE
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:06:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791806783; cv=none; b=MLCU/Qw/ZUHyLCJdHsq7TNVussgpn12L+a/05vm0LvaO6KDznBDWiILKPKPHjSzjHkKH6jqLlTUUFDnxWQ/s8y3Fkp1TwRZkWNfeqyeCwfZMzuYq7CiMb7NNahzJKnwEhvNORFKEGOCx/sdIOyhvYHlppWDXA/JKC5hkJ3LRFK0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791806783; c=relaxed/simple;
+	bh=vvNBvg38cvlocG8yl8mu2H+NWV2Pb01JyMRlNQ6uYWw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hpAf50mEFihwOG+HOnNocJUwygI3U2PnOfFm/YzF4kGEOsoRRPja8tABVqFljHyKiUEZdmReHw/g8IoBDX+qW/kGxK5wskkVXwUcAWSh+9MRt0+8Mn3ZkD2IbItgfsSrcWcKG+eoKaJERNHK0aJnQ92VUw4h2DlgDdpThYLRWG0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.227.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PU4piDERH/FVh3u+/soXw5z9XeftUxER+f3CGy55MaQ/bc073GF0RdEfi/3nsCBdHGzDTuSHBVk49qPhH34sAWWAPxVuDZHjoyKD5iq9+w/tWDeWxOWBfAQx9bEuTtdfLGWAVu+4QesyNmNlOWnRwOikMXE9lxRqQ43KE1V9rsoHAeyj/6L9xriCzg29Hg7jR6jfA0QEKESs2IhqNI0CaqfukSY+c0ZAqk7rxUar4YvHInnFpDAQ/UJzVuwhgdMpjMD/Jb3UqA1Yn4ouHTwcpFcbNyDN0yQfhRX+SPF2oV96NNZjs5XFo1R4pYowkB7nL63KWMtkoNCmAxTDXAKPsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m1t2PTWb3U3CXJbOXbvF6jjqZ6SbRe0+eM0wyxS3OJk=;
- b=C2nF6DvUJxVE2p2QjcBLpcTVLuqxJiQdI6M3Y3O+wE2+oau3Yl0fs0MVkO3J4TgYnSlnI1VGes2D2+eMURmW0TRcFq1m5itkS4hY7QkWl/h7xkud/3ycMEMeyv4HcsRQuk+dSrNhDXT9HutJtOLQfrIJYVFHF6ESXThySa5sXuSau3VoiRAzBTUOiLfmjiQnD+TA+nHnK9Pg2Fa9nVKpSmeso1DciZ1lB0cTTXK5mST29DWTrraTCiASkDuEiqN7mDejXTbbMc5Sh/Sp9DZYDu0iLX5wAXAcHaFl36gNNQbGxGEB0x8k75w0IUUzg2xqh/NX0KmpCohZ3hcmphNnCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
- header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=ebytelogic.com;
-Received: from PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::104)
- by PN2P287MB1987.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1c2::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 12:05:55 +0000
-Received: from PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
- ([fe80::3a7f:fb1:6998:b89e]) by PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
- ([fe80::3a7f:fb1:6998:b89e%3]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
- 12:05:54 +0000
-From: Hitesh Patel <hitesh@ebytelogic.com>
-To: linux-media@vger.kernel.org
-Cc: gjorgji.rosikopulos@oss.qualcomm.com,
-	bryan.odonoghue@linaro.org,
-	bod@kernel.org,
-	mchehab@kernel.org,
-	vladimir.zapolskiy@linaro.org,
-	loic.poulain@oss.qualcomm.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	atanas.filipov@oss.qualcomm.com,
-	jigarkumar.zala@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
+	 MIME-Version; b=OCdnVSGs5iT4bTQH8r2Osa6VM+CT6NC1DezQa5moYcfAcGehVV7VQD+sIEzX1CvKEoWzCyf8CaL8iNhqF9imTb0gJVbDSuFKmK5J8eBSAP783JixtX6T11tJbjHer99SRTuQeF/gCzavJf/yyY5ubqSqW68yuWLHA8T04QxGdp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sdK2deje; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sdK2deje"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ab62a8250aso983457a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:06:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791806778; x=1792411578; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f+6TC9tkuUm/bLCdfdY1GSYMOsuFEaxNls0zgTMNafU=;
+        b=sdK2dejeEy/lljDDWiBirOqeO1qtRUb4eb8K+VDLyRX+7Q+vyVW/Yipnb04F+EiZPh
+         6VC48hnGDwb46adE9jyPy2bujeFNXjpDXMsmtl/FKsBdlDZdgbe9Oq8aMZfcXVFdt38f
+         jecWW/xL2XdWv6968F0LU5rGVbhWLtODycPXYRkSIeD/+maMtlE6F/hDN8ewzKnDSAl7
+         Pn+6STrtH6gC5oKxAsA4KDDSePMGBxpTYNlN8MU1Rb3FBEkib8vixQySrJkXCZ/AitR8
+         9A4rF6/D0zzs6oC8cochPF3E6Qm5tyYO1lyVwTyuxd/RsZozMaBLmoVeojjN/ZaWTKSs
+         WDcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791806778; x=1792411578;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f+6TC9tkuUm/bLCdfdY1GSYMOsuFEaxNls0zgTMNafU=;
+        b=hoXzOafj3lPHrhUhvt2GWoE8KAEY24f/ol7mc4kVwPzxajjYa3p0vTdipfUlYmJN3x
+         hN7jAsA9n1vZf4SyIdPLnFTD3FrG/nFpQil9uTcfl/WtDdQO52QArVD+dIFTIn0VxiAI
+         j+ixn/fG6TtfwuzUQuwNQCeBGMnxYK5px9NU6kuEd6QEEoWcu1sQlNkt2VKOxVtCZkDW
+         O37qXZf47U+MWRzfHDGh9xf70n/tViYe+UVaz8B4kWPq5jk814quvMXK/rE5mDa2UTRj
+         +4Q+mMOBY8odNZNfgPe/QYtjo54ZIB26DqkqLaATemaXMLaCkCoh05NATL82rs8fnajD
+         EWrA==
+X-Forwarded-Encrypted: i=1; AKwUvBwm4hmZDKUS49Zl4mhY8Qmz8FEBFAEwOP2jJPxHBmACp+oQaLEgMbDVdiC4D68l90hJTrMl6F+3H4/yqYU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjX2gxH1fEOW7YIbuy3fPFedkRly64SN52iKr2aKAKwUJ8YVMn
+	FXJLiai836Fa5EI4tltMLj4Y9rOOHo6bhRSmeBgjRfjcc8aDufN5u5rf
+X-Gm-Gg: AYBFou0rkbUOdGUpAucO3NnOqIzMGfB18e9O/vJWqvPcmwJ+XerBO6iodj11zxVAA6v
+	QDW39IjZ7u5otVEAHEH92MvAQQrQGeCn/8DDjNilbqZYn11+Enjbs6X7OxX7n/QZ4Zr4N5zc1d8
+	zdWxsGEzd65fFqAeGXI66iLUxUJXLRRe44+OsEh7ZVZNhH5DOlr/FroE2PO3i64UWHKneKuMkN4
+	cHtHBkR8cfgiApmF4e3magC10lHkCm22u36/LKEel2HzM6YFx5SKpasoo6MhO3LHg8x2Qpu0v4R
+	YRyYpF5nvSwuX+/wRDXZoc5aRzBld8MGvMRi/ClCGIn/FlaazIX+uryLNdpft+1REPi92ZigUyL
+	4tlNmvokXpoKZj8GknAle79aFfNk4F+91kkHE2v2ALnUIc6HgW/KRsqgWxSV1lMDJrVLASH3i/Y
+	UsFuNZS/8+KaHsjGUgcA4e4UmJwrxnN0mHeogL4rjdSVWLR8Zfmv0bSTDdUK6H8oWg4DM9z2MfV
+	A5brySJyXRFDy7P1fm6IcXr5q2NOxx36nQK0pMyPQeaAA==
+X-Received: by 2002:a17:90b:224c:b0:3ab:2ad1:f10a with SMTP id 98e67ed59e1d1-3ab3a0ef48emr6943974a91.0.1791806777940;
+        Mon, 12 Oct 2026 05:06:17 -0700 (PDT)
+Received: from yafangs-Air ([101.82.170.24])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab371c32cesm15722454a91.16.2026.10.12.05.05.56
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 12 Oct 2026 05:06:17 -0700 (PDT)
+From: Yafang Shao <laoar.shao@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	gourry@gourry.net,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shakeel.butt@linux.dev,
+	roman.gushchin@linux.dev,
+	yu.c.chen@intel.com,
+	zhao1.liu@intel.com
+Cc: bpf@vger.kernel.org,
+	linux-mm@kvack.org,
+	cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	ravi@ebytelogic.com,
-	Hitesh Patel <hitesh@ebytelogic.com>
-Subject: [PATCH v4 2/4] media: qcom: camss: Set the streams API flag per SoC
-Date: Mon, 12 Oct 2026 17:35:40 +0530
-Message-ID: <20261012120542.1140157-3-hitesh@ebytelogic.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012120542.1140157-1-hitesh@ebytelogic.com>
-References: <20261012120542.1140157-1-hitesh@ebytelogic.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PNYP287CA0057.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:23e::26) To PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c04:1::104)
+	Yafang Shao <laoar.shao@gmail.com>
+Subject: [RFC PATCH v2 2/3] sched: add per-cgroup NUMA balancing mode selection via BPF
+Date: Mon, 12 Oct 2026 20:04:37 +0800
+Message-ID: <20261012120438.52849-3-laoar.shao@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261012120438.52849-1-laoar.shao@gmail.com>
+References: <20261012120438.52849-1-laoar.shao@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN2PPF076CDA63A:EE_|PN2P287MB1987:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8e8d30e-4796-4c5a-0cf8-08df28592aed
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|52116014|366016|23010399003|1800799024|10070799003|5023799004|56012099006|18002099003|22082099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	CxRM4u6fxkg94QG3J+DlINS1+CQ8Q0CVg2Hd6tjQaL3Q4P27tYJPl5RAJLlfPvxlpj66eL0mThvVbBJKu/aoNdasTY9D9npoCkLSzHuaIzzd7R5JelhqVcMakZ9pcxUSsNYCvI9Ashl95f6aUyqFjCRCRN+MZSjQLe03GjNrJy3wpYzy/Vhe6hshKKVEG/maR/D/19LYF+Cv/AJRUG3n/0UCi/YajL6aWNf2j0S6hcFMjq1e7IK+IuUIqxal/swBBAIOccQKOKQlqNNbP6LDKCImmSXDy7OBWB6WcL2lBNZueKUCKdVMU0jqNzrB2huv5vgvDORBfy35CeqGjhHAoqODjKwcS/YqKzAM0Tv7LzbYQecBdSs7yWgr5JZkNWmuslvAtTSpSScVsOA6OFtSeAgIGZRpoFjjVSuD5XiEMpetayjXrZ5KJxh4rbqMEm22R6yisNMIasjEvHqEigYpqm/mI6yVT9ihuwkt693sPwr0yhXD4/pFwBGJcM5ZtYS6CbI45tUT3FPsC2XU81EtQNjsAtWFZ1g+b9Rgxf7Q1Nyn4ithj0f3OND6HsW/1G0L2xuXxRcNfduVDKb2Zfca5ZX6TMS/VtnU9kZjTvXhn4aqAXYiUYBY1ZOpzi1W1I6fnO9SXVI+ArhMv4wevJJXlelvK9U5wCSERTecDwtlGDw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(366016)(23010399003)(1800799024)(10070799003)(5023799004)(56012099006)(18002099003)(22082099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?1W0NompUaFBS2mQINgmnk/JqyskMVhJvQSasMj62B+7ODVWTwB1HBG46PQwR?=
- =?us-ascii?Q?2AK5cP6zBfg8IbgdNqeKdA2JzDqzBj3T2VpZhbdhVejxUcfoprefLUcLICN1?=
- =?us-ascii?Q?VyTo99T96SDn3eugGn3gcL8jY51mzj15C6cwzhuwzCFa8oghSoZRIjUTyoiI?=
- =?us-ascii?Q?Guynn0VNSF0K4YXnNZ5BMhQAcvY9nUcFrVSgmg6C5WUjrbG8QN2M0HjQbF0+?=
- =?us-ascii?Q?vAvdtWQsfZq0n9ZHRgO1n4yZwz8eZyTTTFE3TEAVHVHf4x9GVDJb3Bm+qNXU?=
- =?us-ascii?Q?uhj9MRqws/InsY7PgGX6nJxQU0g6Q7YYrdv5cXKh2q05wepD1uW+BVLMgX7P?=
- =?us-ascii?Q?QvN0Vw1ZEZ5eWmyl0hB3oc8MrlDYi4Eu68K/a0KIrCTUJLZhsUrSTOFAHfys?=
- =?us-ascii?Q?WloTHhKcoDIKXvjAgGokgXF5NcVY5zVbg0DKn7JUNXgi5GIHirWifq5X9or0?=
- =?us-ascii?Q?PTwciusnTl/V50xoGTaTfPmrw5irksrrphe6cLgxMkumocLSbwH8WA9kezsq?=
- =?us-ascii?Q?aCHiypXkiXHpG7C5zVsvEezR8XwR9Mn65Nw1jBNUXDy8TjWdgI/MS2THhqb1?=
- =?us-ascii?Q?MQpB6OIdKDv0Q5wzHTEHScTgctgAs+YLRslUxgzjuGMM2ftJEf5bmT6PTdye?=
- =?us-ascii?Q?WuUBerPuYJHDhBIFHPRuosDEHBc6dcwWr5SW4BXqjnkUNHtz1jc79AaVruff?=
- =?us-ascii?Q?ZG7noBTHkMbxGIzEW0jE2BSd5f1CZBRYZU32N+6R59YDOhZ4+CTn8Gec7Ofg?=
- =?us-ascii?Q?80itNwOThvk9/fGQgezYXXvMcrP77q1GT1EITEOI6vIvOgtqk9p9kwP7Wbd+?=
- =?us-ascii?Q?1WdI9P5/T9vx5v1fKx02yhdXsjHx1dH5ZC9GDMUo1JDiKqlkjLC6dmDHQ2kR?=
- =?us-ascii?Q?GtCspBmqn8FiXNKRHAkvih5T5viVF/CaPXLBOd4wByUDefF0DGDfANdVcz3G?=
- =?us-ascii?Q?FkqOHSUPwyKDhGon03gPm2twVvZfzL68skYC12p5/lLcTzOJDRP4eddib+dE?=
- =?us-ascii?Q?ePGD5Z0/Go0P4cnIimx1ilSlsxzfGtO9nKHdtYA4ITNt+Ihi5nMF+PIRV3Z7?=
- =?us-ascii?Q?RmVpG0kU/BDku5XdgcPRbryKHF6RcnJBxYd9nEayWkKML80EHv2yENLwVtro?=
- =?us-ascii?Q?U+91k7VVyeX/4CV/REKyPTgn5jGn1gudvgbhmQoqzw5wlXTNqDuQpGhPifCg?=
- =?us-ascii?Q?Bc5D9mv0F8EzS/NRQ6K7v3+BnREZQAZEFroi5GPOChLVJ3JCwhuMseUdsY1R?=
- =?us-ascii?Q?clbzYiSVC0ZZnh/Uj4zhZOqmgQilGEIHjfDpNeqJUs5fQa94zXyz+vGJwQsX?=
- =?us-ascii?Q?nGvYAsz7nir2LR+oB9l7OEew4bW7LPMm8NKybDoPi/J+YK3hUyb4EEjq80fC?=
- =?us-ascii?Q?wO7Mm8o8HbM7srj2FRLRpJ+CRlCULAgSkB+9G3VrR8HynREdJHBB6YymPr2z?=
- =?us-ascii?Q?VSWQHO+ykzNxfbUGQHnh+0o2cVfarhSQb8GPuF5e+d99r4x9MSaTPt652nqB?=
- =?us-ascii?Q?M4RKZPf9QyAgkBfT8V1qMLIXKt41WzjeQygIhiN0XE74NwLyvvMRy+yVcXi3?=
- =?us-ascii?Q?CfRPHiGDhtnuc34g4oRxETkVn+JANsrdvmMc0r+rIFdm3aKIYCRHpN5vZI5X?=
- =?us-ascii?Q?fZSNfR+z6BZJUti1GWW0c0SFCpJeRw65HgKy1qx8t8xiLjg2Zgr+KK/NppGF?=
- =?us-ascii?Q?5IuzSn60WSRx+IR1vthbnsameiISmCkLH4bjQEH0EOvYRJGDQA3fyztPDwdy?=
- =?us-ascii?Q?w9ITM6AgJ+docoEyqeIztdwevV4ebLP5ZaGQCQkd1QYQtBqAdwRC7iJKbgLF?=
-X-MS-Exchange-AntiSpam-MessageData-1: WRnso4gM1Qk8kA==
-X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8e8d30e-4796-4c5a-0cf8-08df28592aed
-X-MS-Exchange-CrossTenant-AuthSource: PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 12:05:54.8531
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SyNEc5kflMV8Q7GE5YbJUAPcXPL8Y8hw6JIt0R0nvnb0EaaKhc2+od5dlVK77soK+pPQb8dYbIUHuC0FMoxVjQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2P287MB1987
+Content-Transfer-Encoding: 8bit
 
-streams_enable was repeated on every CSIPHY, CSID and VFE resource entry
-of a platform: fourteen assignments for SM8250, and fifteen more for each
-further platform enabled. The flag describes the driver's support for a
-SoC, not a property of an individual subdev, and nothing reads it before
-the camss resources are available.
+Global NUMA balancing is all-or-nothing: kernel.numa_balancing and
+kernel.numa_balancing_mode pick the mode for every workload.  A
+latency-sensitive service wants the scheduler's NUMA statistics but
+not tiering's promotion machinery; a batch service wants its
+PMEM-resident memory promoted when hot without paying for scheduler
+driven migration.  No global switch serves both.
 
-Declare it once on struct camss_resources alongside version, and have the
-three subdevs consult camss->res->streams_enable at registration. SM8250
-keeps the same behaviour with one assignment instead of fourteen.
+Add a bpf_numab_ops struct_ops. A policy attached to a cgroup picks a
+mode for that cgroup; the kernel runs the policies of the matching
+cgroup and of every ancestor and combines what they return.  One
+policy question, two surfaces: the kernel passes the task when it acts
+on a task (scanner, fault statistics) and the folio when it acts on a
+folio (cpupid vs access-time bookkeeping, scanning exemptions);
+exactly one of the two is set, so a memory answer cannot be keyed on
+whoever happens to touch the folio.
 
-Suggested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+The memory surface converges on folio_numab_mode_tiering(): it decides
+folio_use_access_time(), the top-tier scanning exemption, the
+cross-tier cpupid reset on migration and the cpupid migration guard.
+The task surface: task_numab_enabled() reads the combined request
+directly, and task_numab_mode_tiering() decides whether faults on
+non-top-tier memory feed the statistics. Both compose with the global
+fallback numab_mode_tiering(), so the series is a no-op until a policy
+is attached.
+
+DISABLED beats NORMAL beats TIERING: a policy can always opt out, so
+no cgroup is ever forced into heavier machinery than its own policy
+asks for.  The demotion and migration-fallback machinery stays global:
+it is keyed on node-level reclaim state, not on any cgroup's policy; a
+TIERING cgroup under a normal-mode system gets promotion without
+demotion.
+
+A policy which implements nothing makes every task pay for the enabled
+static key, so bpf_numab_validate() rejects it.
+
+Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
 ---
- drivers/media/platform/qcom/camss/camss-csid.c   |  2 +-
- drivers/media/platform/qcom/camss/camss-csid.h   |  1 -
- drivers/media/platform/qcom/camss/camss-csiphy.c |  4 ++--
- drivers/media/platform/qcom/camss/camss-csiphy.h |  1 -
- drivers/media/platform/qcom/camss/camss-vfe.c    | 10 +++++-----
- drivers/media/platform/qcom/camss/camss-vfe.h    |  1 -
- drivers/media/platform/qcom/camss/camss.c        | 15 +--------------
- drivers/media/platform/qcom/camss/camss.h        |  2 ++
- 8 files changed, 11 insertions(+), 25 deletions(-)
+ include/linux/bpf-cgroup-defs.h      |   1 +
+ include/linux/bpf-cgroup.h           |   2 +-
+ include/linux/bpf_numab.h            |  77 +++++++++++++
+ include/linux/sched/numa_balancing.h |  65 +++++++++--
+ kernel/sched/Makefile                |   5 +
+ kernel/sched/bpf_numab.c             | 164 +++++++++++++++++++++++++++
+ kernel/sched/fair.c                  |   4 +-
+ mm/memory-tiers.c                    |   8 +-
+ mm/mempolicy.c                       |   7 +-
+ mm/migrate.c                         |   4 +-
+ 10 files changed, 317 insertions(+), 20 deletions(-)
+ create mode 100644 include/linux/bpf_numab.h
+ create mode 100644 kernel/sched/bpf_numab.c
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-index 991275398..57c8f13f6 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid.c
-@@ -1828,7 +1828,7 @@ int msm_csid_register_entity(struct csid_device *csid,
- 	struct v4l2_subdev *sd = &csid->subdev;
- 	struct media_pad *pads = csid->pads;
- 	struct device *dev = csid->camss->dev;
--	bool streams_api = csid->res->streams_enable;
-+	bool streams_api = csid->camss->res->streams_enable;
- 	unsigned int num_pads = csid_is_lite(csid) ? MSM_CSID_PADS_NUM : MSM_CSID_PADS_NUM - 1;
- 	int i;
- 	int ret;
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
-index a312103cf..20ea67b96 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.h
-+++ b/drivers/media/platform/qcom/camss/camss-csid.h
-@@ -184,7 +184,6 @@ struct csid_hw_ops {
+diff --git a/include/linux/bpf-cgroup-defs.h b/include/linux/bpf-cgroup-defs.h
+index 0147b8bec973..c0056d170a1b 100644
+--- a/include/linux/bpf-cgroup-defs.h
++++ b/include/linux/bpf-cgroup-defs.h
+@@ -48,6 +48,7 @@ enum cgroup_bpf_attach_type {
+ 	CGROUP_UNIX_GETSOCKNAME,
+ 	CGROUP_INET_SOCK_RELEASE,
+ 	CGROUP_TCP_SOCK_OPS,
++	CGROUP_NUMAB_OPS,
+ 	CGROUP_LSM_START,
+ 	CGROUP_LSM_END = CGROUP_LSM_START + CGROUP_LSM_NUM - 1,
+ 	MAX_CGROUP_BPF_ATTACH_TYPE
+diff --git a/include/linux/bpf-cgroup.h b/include/linux/bpf-cgroup.h
+index 8a75a6cd7309..bbfa171e449c 100644
+--- a/include/linux/bpf-cgroup.h
++++ b/include/linux/bpf-cgroup.h
+@@ -119,7 +119,7 @@ struct bpf_prog_list {
  
- struct csid_subdev_resources {
- 	bool is_lite;
--	bool streams_enable;
- 	const struct csid_hw_ops *hw_ops;
- 	const struct parent_dev_ops *parent_dev_ops;
- 	const struct csid_formats *formats;
-diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
-index 81ca1b0a2..cece9bcb4 100644
---- a/drivers/media/platform/qcom/camss/camss-csiphy.c
-+++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
-@@ -1157,7 +1157,7 @@ int msm_csiphy_register_entity(struct csiphy_device *csiphy,
- 	struct media_pad *pads = csiphy->pads;
- 	struct camss *camss = csiphy->camss;
- 	struct device *dev = camss->dev;
--	bool streams_api = csiphy->res->streams_enable;
-+	bool streams_api = csiphy->camss->res->streams_enable;
- 	int ret;
- 
- 	if (streams_api)
-@@ -1238,7 +1238,7 @@ void msm_csiphy_unregister_entity(struct csiphy_device *csiphy)
- 	if (!IS_ERR(csiphy->phy))
- 		phy_exit(csiphy->phy);
- 	v4l2_device_unregister_subdev(&csiphy->subdev);
--	if (csiphy->res->streams_enable)
-+	if (csiphy->camss->res->streams_enable)
- 		v4l2_subdev_cleanup(&csiphy->subdev);
- 	media_entity_cleanup(&csiphy->subdev.entity);
+ static inline bool cgroup_bpf_is_struct_ops_atype(enum cgroup_bpf_attach_type atype)
+ {
+-	return atype == CGROUP_TCP_SOCK_OPS;
++	return atype == CGROUP_TCP_SOCK_OPS || atype == CGROUP_NUMAB_OPS;
  }
-diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.h b/drivers/media/platform/qcom/camss/camss-csiphy.h
-index f93971bb1..ca3160af7 100644
---- a/drivers/media/platform/qcom/camss/camss-csiphy.h
-+++ b/drivers/media/platform/qcom/camss/camss-csiphy.h
-@@ -86,7 +86,6 @@ struct csiphy_hw_ops {
+ void cgroup_bpf_struct_ops_register(int atype, u32 type_id, void *cfi_stubs, bool mult_trace);
+ int cgroup_bpf_struct_ops_attach(struct bpf_map *map, const union bpf_attr *attr);
+diff --git a/include/linux/bpf_numab.h b/include/linux/bpf_numab.h
+new file mode 100644
+index 000000000000..7f78eef1c159
+--- /dev/null
++++ b/include/linux/bpf_numab.h
+@@ -0,0 +1,77 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * BPF policy hooks for NUMA balancing.
++ *
++ * A bpf_numab_ops is attached to a cgroup. A NUMA balancing decision runs
++ * the policies of that cgroup and of every ancestor, and the kernel combines
++ * what they return. BPF only picks between things the kernel already does:
++ * with global NUMA balancing disabled, a policy can enable it per workload;
++ * with global NUMA balancing enabled, a policy can disable it for
++ * latency-sensitive workloads or opt their memory into tiering.
++ */
++#ifndef _LINUX_BPF_NUMAB_H
++#define _LINUX_BPF_NUMAB_H
++
++#include <linux/types.h>
++
++struct task_struct;
++struct folio;
++
++/*
++ * What a policy can ask for NUMA balancing. The kernel ORs the requests
++ * of all matching policies, so one policy cannot undo another's opt-in.
++ * When several requests combine, the conservative choice wins:
++ * BPF_NUMAB_DISABLED beats BPF_NUMAB_NORMAL, which beats BPF_NUMAB_TIERING.
++ * A policy can always opt a workload out, so no cgroup is ever forced
++ * into heavier machinery than its own policy asks for.
++ *
++ * The mode bits mirror the global sysctl_numa_balancing_mode semantics:
++ * BPF_NUMAB_NORMAL asks for the normal mode, where hinting faults feed
++ * the scheduler's NUMA statistics. BPF_NUMAB_TIERING asks for the
++ * memory tiering mode, where the cgroup's non-top-tier memory records
++ * access times in place of cpupids and is promoted when hot.
++ * BPF_NUMAB_GLOBAL (0) makes no request and defers to the global sysctl
++ * state.
++ */
++enum bpf_numab_mode {
++	BPF_NUMAB_GLOBAL	= 0,
++	BPF_NUMAB_DISABLED	= 1U << 0,
++	BPF_NUMAB_NORMAL	= 1U << 1,
++	BPF_NUMAB_TIERING	= 1U << 2,
++};
++
++#define BPF_NUMAB_VALID_MASK	(BPF_NUMAB_DISABLED | BPF_NUMAB_NORMAL | \
++				 BPF_NUMAB_TIERING)
++
++struct bpf_numab_ops {
++	/**
++	 * numab_mode - request a NUMA balancing mode
++	 * @p: task the NUMA balancing machinery is about to act on, or NULL
++	 * @folio: folio whose NUMA balancing semantics are being decided,
++	 *	   or NULL
++	 *
++	 * Exactly one of @p and @folio is set. The kernel passes @p when
++	 * it acts on a task (whether its scanner runs, whether a fault
++	 * feeds its statistics) and @folio when it acts on a folio
++	 * (whether its memory carries cpupids or access times, whether its
++	 * top-tier pages are worth scanning). A policy must NULL-check
++	 * before dereferencing.
++	 *
++	 * Called from the NUMA balancing hot paths (hinting faults,
++	 * scanner passes, load balancing). It must not sleep.
++	 *
++	 * Return: bits from enum bpf_numab_mode.  Other bits are dropped.
++	 */
++	u32 (*numab_mode)(struct task_struct *p, struct folio *folio);
++};
++
++#if defined(CONFIG_CGROUP_BPF) && defined(CONFIG_NUMA_BALANCING)
++u32 bpf_numab_mode(struct task_struct *p, struct folio *folio);
++#else
++static inline u32 bpf_numab_mode(struct task_struct *p, struct folio *folio)
++{
++	return BPF_NUMAB_GLOBAL;
++}
++#endif
++
++#endif /* _LINUX_BPF_NUMAB_H */
+diff --git a/include/linux/sched/numa_balancing.h b/include/linux/sched/numa_balancing.h
+index 353772b49c5f..fb85e968b1f3 100644
+--- a/include/linux/sched/numa_balancing.h
++++ b/include/linux/sched/numa_balancing.h
+@@ -7,6 +7,7 @@
+  * implements memory access pattern based NUMA-balancing:
+  */
  
- struct csiphy_subdev_resources {
- 	u8 id;
--	bool streams_enable;
- 	const struct csiphy_hw_ops *hw_ops;
- 	const struct csiphy_formats *formats;
- };
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 2cfca1b62..13cbce9f9 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -2168,7 +2168,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
- 		pads = vfe->line[i].pads;
- 		video_out = &vfe->line[i].video_out;
++#include <linux/bpf_numab.h>
+ #include <linux/sched.h>
+ #include <linux/sched/sysctl.h>
  
--		v4l2_subdev_init(sd, vfe->res->streams_enable ? &vfe_streams_v4l2_ops
-+		v4l2_subdev_init(sd, vfe->camss->res->streams_enable ? &vfe_streams_v4l2_ops
- 								   : &vfe_v4l2_ops);
- 		sd->internal_ops = &vfe_v4l2_internal_ops;
- 		sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-@@ -2199,7 +2199,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
- 			goto error_init;
- 		}
+@@ -36,25 +37,67 @@ bool should_numa_migrate_memory(struct task_struct *p, struct folio *folio,
  
--		if (vfe->res->streams_enable) {
-+		if (vfe->camss->res->streams_enable) {
- 			ret = v4l2_subdev_init_finalize(sd);
- 			if (ret) {
- 				dev_err(dev, "Failed to finalize subdev: %d\n", ret);
-@@ -2255,7 +2255,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
- 	v4l2_device_unregister_subdev(sd);
+ extern struct static_key_false sched_numa_balancing;
  
- error_subdev_cleanup:
--	if (vfe->res->streams_enable)
-+	if (vfe->camss->res->streams_enable)
- 		v4l2_subdev_cleanup(sd);
+-/*
+- * Whether NUMA balancing applies to @p.  The @p argument is unused for
+- * now: a later patch will consult a per-cgroup BPF policy with it.
++/* Whether NUMA balancing applies to @p: the global sysctl state, possibly
++ * overridden by a BPF policy attached to @p's cgroup. The requests of
++ * the task's cgroup and of every ancestor are combined; a policy can
++ * always opt out, so a latency-sensitive workload is never forced in.
+  */
+ static inline bool task_numab_enabled(struct task_struct *p)
+ {
++	u32 state = bpf_numab_mode(p, NULL);
++
++	/* A policy can always opt out, regardless of the global state. */
++	if (state & BPF_NUMAB_DISABLED)
++		return false;
++	if (state & (BPF_NUMAB_NORMAL | BPF_NUMAB_TIERING))
++		return true;
+ 	return static_branch_unlikely(&sched_numa_balancing);
+ }
  
- error_reg_subdev:
-@@ -2268,7 +2268,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+-/*
+- * The global sysctl state, for the system-wide tiering machinery: this
+- * reflects kernel.numa_balancing_mode only and takes no task.
+- */
+ static inline bool numab_mode_tiering(void)
+ {
+ 	if (sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING)
+ 		return true;
+ 	return false;
+ }
++
++/*
++ * Whether @p runs in tiering mode, i.e. whether faults on non-top-tier
++ * memory still feed its NUMA statistics. The requests of the task's
++ * cgroup and of every ancestor are combined; DISABLED and NORMAL both
++ * opt out of tiering (a policy can always opt out), so only an
++ * unopposed TIERING request engages it. Without any request, the
++ * global sysctl decides.
++ */
++static inline bool task_numab_mode_tiering(struct task_struct *p)
++{
++	u32 state = bpf_numab_mode(p, NULL);
++
++	if (state & (BPF_NUMAB_DISABLED | BPF_NUMAB_NORMAL))
++		return false;
++	if (state & BPF_NUMAB_TIERING)
++		return true;
++	return numab_mode_tiering();
++}
++
++/*
++ * Whether @folio's memory participates in tiering, i.e. whether its
++ * _last_cpupid carries an access time instead of a cpupid. The requests
++ * of the owner cgroup and of every ancestor are combined. DISABLED
++ * never speaks for memory (it is a task-surface request), so only
++ * NORMAL and TIERING are consulted here; without either, the global
++ * sysctl decides.
++ */
++static inline bool folio_numab_mode_tiering(struct folio *folio)
++{
++	u32 state = bpf_numab_mode(NULL, folio);
++
++	if (state & BPF_NUMAB_NORMAL)
++		return false;
++	if (state & BPF_NUMAB_TIERING)
++		return true;
++	return numab_mode_tiering();
++}
+ #else
+ static inline void task_numa_fault(int last_node, int node, int pages,
+ 				   int flags)
+@@ -83,6 +126,14 @@ static inline bool numab_mode_tiering(void)
+ {
+ 	return false;
+ }
++static inline bool task_numab_mode_tiering(struct task_struct *p)
++{
++	return false;
++}
++static inline bool folio_numab_mode_tiering(struct folio *folio)
++{
++	return false;
++}
+ #endif
  
- 		msm_video_unregister(video_out);
- 		v4l2_device_unregister_subdev(sd);
--		if (vfe->res->streams_enable)
-+		if (vfe->camss->res->streams_enable)
- 			v4l2_subdev_cleanup(sd);
- 		media_entity_cleanup(&sd->entity);
- 	}
-@@ -2293,7 +2293,7 @@ void msm_vfe_unregister_entities(struct vfe_device *vfe)
+ #endif /* _LINUX_SCHED_NUMA_BALANCING_H */
+diff --git a/kernel/sched/Makefile b/kernel/sched/Makefile
+index b1f1a367034f..688d4cd12c4f 100644
+--- a/kernel/sched/Makefile
++++ b/kernel/sched/Makefile
+@@ -40,3 +40,8 @@ obj-y += core.o
+ obj-y += fair.o
+ obj-y += build_policy.o
+ obj-y += build_utility.o
++
++# BPF-based per-cgroup NUMA balancing
++ifdef CONFIG_NUMA_BALANCING
++obj-$(CONFIG_CGROUP_BPF) += bpf_numab.o
++endif
+diff --git a/kernel/sched/bpf_numab.c b/kernel/sched/bpf_numab.c
+new file mode 100644
+index 000000000000..924adf30889e
+--- /dev/null
++++ b/kernel/sched/bpf_numab.c
+@@ -0,0 +1,164 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * BPF-based per-cgroup NUMA balancing
++ *
++ * A bpf_numab_ops is attached to a cgroup via a struct_ops link. Whenever
++ * the kernel is about to act on NUMA balancing, it runs the policies of the
++ * matching cgroup and of every ancestor, and combines what they return: for
++ * a task, the chain of the task's cgroup; for a folio, the chain of the
++ * memcg the folio is charged to.
++ *
++ * Author: Yafang Shao <laoar.shao@gmail.com>
++ */
++#include <linux/bpf.h>
++#include <linux/bpf-cgroup.h>
++#include <linux/bpf_numab.h>
++#include <linux/bpf_verifier.h>
++#include <linux/cgroup.h>
++#include <linux/memcontrol.h>
++#include <linux/sched.h>
++
++/*
++ * CFI stubs. These really run: a slot points at them while its policy is
++ * being detached. Return BPF_NUMAB_GLOBAL, the identity for the
++ * kernel's OR.
++ */
++static u32 numab_mode_stub(struct task_struct *p, struct folio *folio)
++{
++	return BPF_NUMAB_GLOBAL;
++}
++
++static struct bpf_numab_ops __bpf_numab_ops = {
++	.numab_mode = numab_mode_stub,
++};
++
++static const struct bpf_func_proto *
++bpf_numab_get_func_proto(enum bpf_func_id func_id, const struct bpf_prog *prog)
++{
++	return bpf_base_func_proto(func_id, prog);
++}
++
++static bool bpf_numab_is_valid_access(int off, int size,
++				      enum bpf_access_type type,
++				      const struct bpf_prog *prog,
++				      struct bpf_insn_access_aux *info)
++{
++	if (type != BPF_READ)
++		return false;
++	return bpf_tracing_btf_ctx_access(off, size, type, prog, info);
++}
++
++static int bpf_numab_init_member(const struct btf_type *t,
++				 const struct btf_member *member,
++				 void *kdata, const void *udata)
++{
++	/* Mandatory: the core calls it without a NULL check. */
++	return 0;
++}
++
++static int bpf_numab_check_member(const struct btf_type *t,
++				  const struct btf_member *member,
++				  const struct bpf_prog *prog)
++{
++	/*
++	 * Members also run from the scheduler tick and from load
++	 * balancing, which hold the rq lock, so they can never sleep.
++	 */
++	if (prog->sleepable)
++		return -EINVAL;
++	return 0;
++}
++
++static int bpf_numab_init(struct btf *btf)
++{
++	return 0;
++}
++
++static int bpf_numab_validate(void *kdata)
++{
++	struct bpf_numab_ops *ops = kdata;
++
++	/*
++	 * A policy which implements nothing has no effect but still makes
++	 * every task pay for the enabled static key. Reject it.
++	 */
++	if (!ops->numab_mode)
++		return -EINVAL;
++	return 0;
++}
++
++static const struct bpf_verifier_ops bpf_numab_verifier_ops = {
++	.get_func_proto		= bpf_numab_get_func_proto,
++	.is_valid_access	= bpf_numab_is_valid_access,
++};
++
++static struct bpf_struct_ops bpf_numab_ops_desc = {
++	.verifier_ops	= &bpf_numab_verifier_ops,
++	.init		= bpf_numab_init,
++	.init_member	= bpf_numab_init_member,
++	.check_member	= bpf_numab_check_member,
++	.validate	= bpf_numab_validate,
++	.name		= "bpf_numab_ops",
++	.cgroup_atype	= CGROUP_NUMAB_OPS,
++	.cfi_stubs	= &__bpf_numab_ops,
++	.owner		= THIS_MODULE,
++};
++
++/*
++ * Run every numab_mode on the matching cgroup and its ancestors, and
++ * return the combined request for the caller to act on. A task question
++ * walks @p's cgroup; a folio question walks the chain of the memcg @folio
++ * is charged to, and an uncharged folio makes no request.
++ */
++u32 bpf_numab_mode(struct task_struct *p, struct folio *folio)
++{
++	const struct bpf_prog_array_item *item;
++	const struct bpf_numab_ops *ops;
++	struct mem_cgroup *memcg;
++	struct cgroup *cgrp;
++	u32 acc = BPF_NUMAB_GLOBAL;
++
++	if (!cgroup_bpf_enabled(CGROUP_NUMAB_OPS))
++		return acc;
++
++	/* Kernel threads have no user memory to balance. */
++	if (p && !p->mm)
++		return acc;
++
++	rcu_read_lock();
++
++	if (p) {
++		cgrp = task_dfl_cgroup(p);
++	} else {
++		memcg = folio_memcg(folio);
++		cgrp = memcg ? memcg->css.cgroup : NULL;
++	}
++
++	/*
++	 * A cgroup outlives its attachments while it is live, and
++	 * cgroup_bpf_release() frees the arrays when the cgroup goes.
++	 */
++	if (!cgrp || !percpu_ref_tryget_live_rcu(&cgrp->bpf.refcnt))
++		goto out;
++
++	bpf_cgroup_struct_ops_foreach(ops, item, cgrp, CGROUP_NUMAB_OPS) {
++		if (ops->numab_mode)
++			acc |= ops->numab_mode(p, folio) & BPF_NUMAB_VALID_MASK;
++	}
++
++	cgroup_bpf_put(cgrp);
++out:
++	rcu_read_unlock();
++	return acc;
++}
++
++static int __init bpf_numab_ops_register(void)
++{
++	int err;
++
++	err = register_bpf_struct_ops(&bpf_numab_ops_desc, bpf_numab_ops);
++	if (err)
++		pr_err("bpf_numab: Failed to register struct_ops (%d)\n", err);
++	return err;
++}
++late_initcall(bpf_numab_ops_register);
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 45086e6f246c..2cabe8c3ec1e 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -2964,7 +2964,7 @@ bool should_numa_migrate_memory(struct task_struct *p, struct folio *folio,
+ 	this_cpupid = cpu_pid_to_cpupid(dst_cpu, current->pid);
+ 	last_cpupid = folio_xchg_last_cpupid(folio, this_cpupid);
  
- 		msm_video_unregister(video_out);
- 		v4l2_device_unregister_subdev(sd);
--		if (vfe->res->streams_enable)
-+		if (vfe->camss->res->streams_enable)
- 			v4l2_subdev_cleanup(sd);
- 		media_entity_cleanup(&sd->entity);
- 	}
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
-index d1c54a516..ae9dad353 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.h
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.h
-@@ -138,7 +138,6 @@ struct vfe_subdev_resources {
- 	char *pd_name;
- 	bool has_vbif;
- 	char *vbif_name;
--	bool streams_enable;
- 	const struct vfe_hw_ops *hw_ops;
- 	const struct camss_formats *formats_rdi;
- 	const struct camss_formats *formats_pix;
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 452afe16a..2c9c4ce50 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -1954,7 +1954,6 @@ static const struct camss_subdev_resources csiphy_res_8250[] = {
- 		.interrupt = { "csiphy0" },
- 		.csiphy = {
- 			.id = 0,
--			.streams_enable = true,
- 			.hw_ops = &csiphy_ops_3ph_1_0,
- 			.formats = &csiphy_formats_sdm845
- 		}
-@@ -1972,7 +1971,6 @@ static const struct camss_subdev_resources csiphy_res_8250[] = {
- 		.interrupt = { "csiphy1" },
- 		.csiphy = {
- 			.id = 1,
--			.streams_enable = true,
- 			.hw_ops = &csiphy_ops_3ph_1_0,
- 			.formats = &csiphy_formats_sdm845
- 		}
-@@ -1990,7 +1988,6 @@ static const struct camss_subdev_resources csiphy_res_8250[] = {
- 		.interrupt = { "csiphy2" },
- 		.csiphy = {
- 			.id = 2,
--			.streams_enable = true,
- 			.hw_ops = &csiphy_ops_3ph_1_0,
- 			.formats = &csiphy_formats_sdm845
- 		}
-@@ -2008,7 +2005,6 @@ static const struct camss_subdev_resources csiphy_res_8250[] = {
- 		.interrupt = { "csiphy3" },
- 		.csiphy = {
- 			.id = 3,
--			.streams_enable = true,
- 			.hw_ops = &csiphy_ops_3ph_1_0,
- 			.formats = &csiphy_formats_sdm845
- 		}
-@@ -2026,7 +2022,6 @@ static const struct camss_subdev_resources csiphy_res_8250[] = {
- 		.interrupt = { "csiphy4" },
- 		.csiphy = {
- 			.id = 4,
--			.streams_enable = true,
- 			.hw_ops = &csiphy_ops_3ph_1_0,
- 			.formats = &csiphy_formats_sdm845
- 		}
-@@ -2044,7 +2039,6 @@ static const struct camss_subdev_resources csiphy_res_8250[] = {
- 		.interrupt = { "csiphy5" },
- 		.csiphy = {
- 			.id = 5,
--			.streams_enable = true,
- 			.hw_ops = &csiphy_ops_3ph_1_0,
- 			.formats = &csiphy_formats_sdm845
- 		}
-@@ -2064,7 +2058,6 @@ static const struct camss_subdev_resources csid_res_8250[] = {
- 		.reg = { "csid0" },
- 		.interrupt = { "csid0" },
- 		.csid = {
--			.streams_enable = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -2082,7 +2075,6 @@ static const struct camss_subdev_resources csid_res_8250[] = {
- 		.reg = { "csid1" },
- 		.interrupt = { "csid1" },
- 		.csid = {
--			.streams_enable = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -2100,7 +2092,6 @@ static const struct camss_subdev_resources csid_res_8250[] = {
- 		.interrupt = { "csid2" },
- 		.csid = {
- 			.is_lite = true,
--			.streams_enable = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -2118,7 +2109,6 @@ static const struct camss_subdev_resources csid_res_8250[] = {
- 		.interrupt = { "csid3" },
- 		.csid = {
- 			.is_lite = true,
--			.streams_enable = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -2148,7 +2138,6 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
- 			.line_num = 3,
- 			.has_pd = true,
- 			.pd_name = "ife0",
--			.streams_enable = true,
- 			.hw_ops = &vfe_ops_480,
- 			.formats_rdi = &vfe_formats_rdi_845,
- 			.formats_pix = &vfe_formats_pix_845
-@@ -2175,7 +2164,6 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
- 			.line_num = 3,
- 			.has_pd = true,
- 			.pd_name = "ife1",
--			.streams_enable = true,
- 			.hw_ops = &vfe_ops_480,
- 			.formats_rdi = &vfe_formats_rdi_845,
- 			.formats_pix = &vfe_formats_pix_845
-@@ -2200,7 +2188,6 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
- 		.vfe = {
- 			.is_lite = true,
- 			.line_num = 4,
--			.streams_enable = true,
- 			.hw_ops = &vfe_ops_480,
- 			.formats_rdi = &vfe_formats_rdi_845,
- 			.formats_pix = &vfe_formats_pix_845
-@@ -2225,7 +2212,6 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
- 		.vfe = {
- 			.is_lite = true,
- 			.line_num = 4,
--			.streams_enable = true,
- 			.hw_ops = &vfe_ops_480,
- 			.formats_rdi = &vfe_formats_rdi_845,
- 			.formats_pix = &vfe_formats_pix_845
-@@ -5745,6 +5731,7 @@ static const struct camss_resources sm6350_resources = {
+-	if (!(numab_mode_tiering()) && !node_is_toptier(src_nid) &&
++	if (!folio_numab_mode_tiering(folio) && !node_is_toptier(src_nid) &&
+ 	    !cpupid_valid(last_cpupid))
+ 		return false;
  
- static const struct camss_resources sm8250_resources = {
- 	.version = CAMSS_8250,
-+	.streams_enable = true,
- 	.pd_name = "top",
- 	.csiphy_res = csiphy_res_8250,
- 	.csid_res = csid_res_8250,
-diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index dc07ed5d1..5cfae3f3d 100644
---- a/drivers/media/platform/qcom/camss/camss.h
-+++ b/drivers/media/platform/qcom/camss/camss.h
-@@ -106,6 +106,8 @@ enum icc_count {
+@@ -4207,7 +4207,7 @@ void task_numa_fault(int last_cpupid, int mem_node, int pages, int flags)
+ 	 * node for memory tiering mode.
+ 	 */
+ 	if (!node_is_toptier(mem_node) &&
+-	    (numab_mode_tiering() || !cpupid_valid(last_cpupid)))
++	    (task_numab_mode_tiering(p) || !cpupid_valid(last_cpupid)))
+ 		return;
  
- struct camss_resources {
- 	enum camss_version version;
-+	/* Drive this platform through the V4L2 subdev streams API */
-+	bool streams_enable;
- 	const char *pd_name;
- 	const char *pm_clks[CAMSS_RES_MAX];
- 	const struct camss_subdev_resources *csiphy_res;
+ 	/* Allocate buffer to track faults on a per-node basis */
+diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
+index ec7b9aadda98..b401f2e36d99 100644
+--- a/mm/memory-tiers.c
++++ b/mm/memory-tiers.c
+@@ -57,15 +57,15 @@ static const struct bus_type memory_tier_subsys = {
+  * folio_use_access_time - check if a folio reuses cpupid for page access time
+  * @folio: folio to check
+  *
+- * folio's _last_cpupid field is repurposed by memory tiering. In memory
+- * tiering mode, cpupid of slow memory folio (not toptier memory) is used to
+- * record page access time.
++ * folio's _last_cpupid field is repurposed by memory tiering. When the
++ * owner of @folio participates in tiering, cpupid of slow memory folio
++ * (not toptier memory) is used to record page access time.
+  *
+  * Return: the folio _last_cpupid is used to record page access time
+  */
+ bool folio_use_access_time(struct folio *folio)
+ {
+-	return numab_mode_tiering() &&
++	return folio_numab_mode_tiering(folio) &&
+ 	       !node_is_toptier(folio_nid(folio));
+ }
+ #endif
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 79053ece02cd..6b8359ce16f8 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -868,11 +868,10 @@ bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
+ 		return false;
+ 
+ 	/*
+-	 * Skip scanning top tier node if normal numa
+-	 * balancing is disabled
++	 * Skip scanning top tier memory whose owner participates in
++	 * tiering: hinting faults on it would buy nothing.
+ 	 */
+-	if (!(sysctl_numa_balancing_mode & NUMA_BALANCING_NORMAL) &&
+-	    node_is_toptier(nid))
++	if (folio_numab_mode_tiering(folio) && node_is_toptier(nid))
+ 		return false;
+ 
+ 	if (folio_use_access_time(folio))
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 4d2ba87eaa34..dd4e370ae9f8 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -819,7 +819,7 @@ void folio_migrate_flags(struct folio *newfolio, struct folio *folio)
+ 	 * memory node, reset cpupid, because that is used to record
+ 	 * page access time in slow memory node.
+ 	 */
+-	if (numab_mode_tiering()) {
++	if (folio_numab_mode_tiering(folio)) {
+ 		bool f_toptier = node_is_toptier(folio_nid(folio));
+ 		bool t_toptier = node_is_toptier(folio_nid(newfolio));
+ 
+@@ -2719,7 +2719,7 @@ int migrate_misplaced_folio_prepare(struct folio *folio,
+ 	if (!migrate_balanced_pgdat(pgdat, nr_pages)) {
+ 		int z;
+ 
+-		if (!(numab_mode_tiering()))
++		if (!(folio_numab_mode_tiering(folio)))
+ 			return -EAGAIN;
+ 		for (z = pgdat->nr_zones - 1; z >= 0; z--) {
+ 			if (managed_zone(pgdat->node_zones + z))
 -- 
-2.43.0
+2.52.0
 
