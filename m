@@ -1,79 +1,70 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+Received: from mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BD149891F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CBF24AA3EB
 	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:45:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819902; cv=none; b=SUh4XWifPSScryzViaMrexc9HLJ6YSnemdUwzrQ0dr67DdHPBIYr3GYB8ppIUyOP0p7z+LuOfVgwyG3uipZ0J1HOaFvnSdEldVUk9sBOc7L9d0Dilgkw1KXvb+lwNg2YgmYFh4k5ro6pRQ3jle7MlbI4dcTlcFrsbMpApu9/OH4=
+	t=1791819902; cv=none; b=GM+WpODSJUHZiZrWyI8DW30Y6xrgUx/GjnLRLs4Dr3y3HVpzGrYIHrsTEOHo9YTtN6RLdCu43nqt5vUeXtgJBH9fmwd3lMGZyl32VdIvdJiH5j848HPyXRjTmh3jygCsqkPc5FrKEQRFFeaWap4ZKIW12rtNkEqVoweVvN5rO7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791819902; c=relaxed/simple;
-	bh=zLR7JgJIzw44pFUWm86/5MQw3kQDZ7b4n71YXnam9jk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sznm1Y36G8piiDcpnDAzojcZZZn2KHhckJhY9dooCO/2ApRPdGZeNslZj3aaiXAATKlnEniGdjk+219k1zPtq12cXiey3Vhx/uTEKeY7n9p2UzOR3kXhiUgw/n6+RZqcHQpMstGrBNQ+I4d6UwXiBUeiXa7g6E2RNKVi3sxjLV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C8Dzno/Y; arc=none smtp.client-ip=74.125.82.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=GF2y3cZLLKo3Rw4Rb6OFmd7jVWJ7z6UGsLgzVq2UMpQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=npftb19nxrvN9gyyK1BrlDnYpTxNE4jqg7D34UQrytvuRBDXuXKWF7Pc/Iz7dLER8rnku1cbnmIS7Qd3oYcSYT6Xc8mKmCjQAv91WjSFaSa7qjjRz4vMR1BJsg+s0Gw2Q9OMhJe9ekTeQ59K4UKuvlFpuAo+ttWioqCSpsbpTgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=k96R6DGN; arc=none smtp.client-ip=91.218.175.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C8Dzno/Y"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33e6279a1d7so175563eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:45:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791819900; x=1792424700; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZJlyzhoWQhc9t2V9V/IMOCakgx6bB3MzV1A39J6uch0=;
-        b=C8Dzno/Y6hXYIGuX9nehOiGs3WkvguF0uiVlcEXO/oynWR8OZvZixja5bFSfAEIZZw
-         BMmz+CHXOZ6JXe84tdT7/yD1NIM0bM5bh0UodvZSAAuNL3btzkbNqDJao0iiVria2HCW
-         lL2TaeKTvPzg1G+fVvphinMacHuOUpGstw8hmkl7OUQ9YDP3hSHBRDtFL2QKKuMfnM6r
-         FXCGn0f5jdovsZjHB8x0YgN579/jxjYEhq1smitF9/tzpKE2IludbEYnVsIzsAj1csD0
-         kOkHsfdM8yOpMpPHfnr/jnzHH38IMn0C17hiTxjRNpViKxBhwvaxZul3WRisglLeTrmG
-         +8zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791819900; x=1792424700;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZJlyzhoWQhc9t2V9V/IMOCakgx6bB3MzV1A39J6uch0=;
-        b=uw4f1c/CPFy+0yLKp0nk40brUW9Je5lJnyphM1xBj6tn/dfjUwt88DV2X1hbn5Yo35
-         mLQOOSms1Ef5szDl7F1tw2iHYFl0Tju+HTEtzr25Fb5+Trtz3kOT+F5A12YzusMFsjhU
-         axnQbUme7zOI/sNnhFuaLLgmlzZG6pPcwqrPPq21yuq19Nci+zpdLXnJIq4VPB6MCcZO
-         Pfhx9fVFSYTSONSA4w/dRTGLmJUJbbLE6dtif2CcHRpHWENxy3od/t753K+ngGDIz5LY
-         /8UH2tMJ0Uvhdqfb6lYJKxZ+tgoKmGb3WOSr1TjnTvflAq+0yIQQ5hm7Z4+u9/fgY61+
-         1tNg==
-X-Forwarded-Encrypted: i=1; AKwUvBwdlyMd5s2gtN1zhspNXpUACh66lEW/FoYIQyFgUdisUsWHv85wMDzmiQVnzyy6yIDyXdT2wqAaU98ZMxM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKpiVYIa+ofDNt+3PsJ7myTMt2ARaMUfSaMwjEZ15YgDeNiqKk/
-	ZejjFltyQVR1Xu8/8Fc5yJvyesecAvhsPFw+v3loPrJ5UaX57RfB93je
-X-Gm-Gg: AYBFou0H58iOBdM85gpWR4hrDyb/8OOMtjyq1LQQiZNs/mQipzbJpWSokt+MYv7a2/l
-	6CWzjztV5XY6jLRNeARKIemamgUh6TFhvdDJcJKk3TuRFd1HCMAENQzUxjG6q7MABtGCVY1CN3E
-	QIlUPBLBSZqcaBdNVR5WpdBiGWHR1AHc3bazBu7FRGGI+ZhMDsPqnhTJ/Imz8HsOoIZjml5Nuwh
-	eXqffVUB9D3iryOKqExNpFWkgKgViNI2UYQwAKphvpjr/aK43Ibrv2PA1Elvg0wODdLLewqdxft
-	Vq2FJs6Ex5/KLxeHcTsiG7xe5Dr5mvT1BenwA+/VQ+ZAFuXHwRFfoHpuYzj4FvLlFxCIRk3U++D
-	InnIhej5jvsNFiXXr6bOrxN08uhgcS1FkRG3oRAwP+xMKJ+teHRwoET/4/6+AzGkR8x8qjvMByy
-	NsnCwssCtvGbDB7kXTVlCgos/qpqqSIRr4bEQsxmXkkgQi1shwZQro58CsQa8lFCylipIwtP/e4
-	JHv9/CcF/nnGs/1SwRSgL9jdQTszLGXgnBfonOIdzSjdrvU9oN3EDrrmBjO6PR1/b8Xt2rgrgNS
-	gLBg6bk=
-X-Received: by 2002:a05:701b:291b:b0:14c:aaa0:941c with SMTP id a92af1059eb24-16a64ba421cmr13044123c88.35.1791819899484;
-        Mon, 12 Oct 2026 08:44:59 -0700 (PDT)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:c1bb:8d21:6c07:8107])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a567aef5sm30728040c88.19.2026.10.12.08.44.55
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 12 Oct 2026 08:44:58 -0700 (PDT)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Melissa Wen <melissa.srw@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="k96R6DGN"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=GF2y3cZLLKo3Rw4Rb6OFmd7jVWJ7z6UGsLgzVq2UMpQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791819899; v=1; x=1792424699;
+ b=k96R6DGNesctbty1JMjFQRvSFT4dy3eLgHXbKfbCBaIGk7Vxg1pN40FT9KneKRW0HBbSU3GN
+ d6BTSt+y5f2Q4O2orWz8IThL6bCdPZ75z+RN0AsPbRYFI691a8vGkoAfZcDEgqVqwnREeFasA7w
+ E9rJ0t2Ko3bkNArIQxeu7KNA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 56d1af081940df69;
+	Mon, 12 Oct 2026 15:44:58 +0000
+X-Mizu-Trace-ID: 56d1af081940df69
+X-Migadu-Flow: FLOW_OUT
+From: Leon Hwang <leon.hwang@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Quentin Monnet <qmo@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Leon Hwang <leon.hwang@linux.dev>,
+	Mykyta Yatsenko <yatsenko@meta.com>,
+	Avinash Duduskar <avinash.duduskar@gmail.com>,
+	Anton Protopopov <a.s.protopopov@gmail.com>,
+	Amery Hung <ameryhung@gmail.com>,
+	Jordan Rife <jordan@jrife.io>,
+	Rong Tao <rongtao@cestc.cn>,
+	Eyal Birger <eyal.birger@gmail.com>,
+	Pu Lehui <pulehui@huawei.com>,
+	Jingguo Tan <tanjingguo@huawei.com>,
+	Lin Ma <malin89@huawei.com>,
 	linux-kernel@vger.kernel.org,
-	Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: [PATCH] drm/vkms: Fix kernel-doc parameter and member names
-Date: Mon, 12 Oct 2026 21:14:47 +0530
-Message-ID: <20261012154449.42015-1-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf-next v2 17/21] selftests/bpf: Add tracing_multi bpf prog cookie test
+Date: Mon, 12 Oct 2026 23:40:19 +0800
+Message-ID: <20261012154024.29423-18-leon.hwang@linux.dev>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261012154024.29423-1-leon.hwang@linux.dev>
+References: <20261012154024.29423-1-leon.hwang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,108 +73,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A handful of kernel-doc entries name things that do not exist. struct
-vkms_output documents encoder and connector and misspells wb_connector,
-struct vkms_connector calls its base member drm, vkms_crtc_init() lists a
-crtc argument it does not take, the CRTC plane helpers say crtc_config
-instead of crtc_cfg, and vkms_config_plane_get_type() is written without
-the get.
+Verify that the cookie also works for bpf prog targets of tracing_multi
+link.
 
-struct vkms_device used a dash instead of a colon, so its entries were
-being ignored rather than warned about. Switch it over and drop output,
-which is not a member either.
-
-Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
 ---
-@vblank_hrtimer and @period_ns in struct vkms_output are stale too, but
-they are already removed by Thomas Zimmermann's pending patch, so this
-one leaves them alone:
-https://lore.kernel.org/all/20260420131831.242882-1-tzimmermann@suse.de/
- drivers/gpu/drm/vkms/vkms_config.h    |  6 +++---
- drivers/gpu/drm/vkms/vkms_connector.h |  2 +-
- drivers/gpu/drm/vkms/vkms_drv.h       | 11 ++++-------
- 3 files changed, 8 insertions(+), 11 deletions(-)
+ .../selftests/bpf/prog_tests/tracing_multi.c  | 21 +++++++++++++++++--
+ .../selftests/bpf/progs/tracing_multi_bpf.c   | 13 ++++++++++--
+ 2 files changed, 30 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_config.h b/drivers/gpu/drm/vkms/vkms_config.h
-index 8f7f286a4..56805b0c9 100644
---- a/drivers/gpu/drm/vkms/vkms_config.h
-+++ b/drivers/gpu/drm/vkms/vkms_config.h
-@@ -269,7 +269,7 @@ struct vkms_config_plane *vkms_config_create_plane(struct vkms_config *config);
- void vkms_config_destroy_plane(struct vkms_config_plane *plane_cfg);
+diff --git a/tools/testing/selftests/bpf/prog_tests/tracing_multi.c b/tools/testing/selftests/bpf/prog_tests/tracing_multi.c
+index d428b5e2600c..bcf933760bc5 100644
+--- a/tools/testing/selftests/bpf/prog_tests/tracing_multi.c
++++ b/tools/testing/selftests/bpf/prog_tests/tracing_multi.c
+@@ -1143,9 +1143,12 @@ static int run_bpf_target(struct bpf_program *prog, __u32 retval, const char *na
+ 	return 0;
+ }
  
- /**
-- * vkms_config_plane_type() - Return the plane type
-+ * vkms_config_plane_get_type() - Return the plane type
-  * @plane_cfg: Plane to get the type from
-  */
- static inline enum drm_plane_type
-@@ -373,7 +373,7 @@ vkms_config_crtc_set_writeback(struct vkms_config_crtc *crtc_cfg,
- /**
-  * vkms_config_crtc_primary_plane() - Return the primary plane for a CRTC
-  * @config: Configuration containing the CRTC
-- * @crtc_config: Target CRTC
-+ * @crtc_cfg: Target CRTC
-  *
-  * Note that, if multiple primary planes are found, the first one is returned.
-  * In this case, the configuration will be invalid. See vkms_config_is_valid().
-@@ -387,7 +387,7 @@ struct vkms_config_plane *vkms_config_crtc_primary_plane(const struct vkms_confi
- /**
-  * vkms_config_crtc_cursor_plane() - Return the cursor plane for a CRTC
-  * @config: Configuration containing the CRTC
-- * @crtc_config: Target CRTC
-+ * @crtc_cfg: Target CRTC
-  *
-  * Note that, if multiple cursor planes are found, the first one is returned.
-  * In this case, the configuration will be invalid. See vkms_config_is_valid().
-diff --git a/drivers/gpu/drm/vkms/vkms_connector.h b/drivers/gpu/drm/vkms/vkms_connector.h
-index ed312f4ef..52ae97af2 100644
---- a/drivers/gpu/drm/vkms/vkms_connector.h
-+++ b/drivers/gpu/drm/vkms/vkms_connector.h
-@@ -11,7 +11,7 @@
- /**
-  * struct vkms_connector - VKMS custom type wrapping around the DRM connector
-  *
-- * @drm: Base DRM connector
-+ * @base: Base DRM connector
-  */
- struct vkms_connector {
- 	struct drm_connector base;
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index 0933e4ce0..1c94a2dea 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -202,9 +202,8 @@ struct vkms_crtc_state {
-  * struct vkms_output - Internal representation of all output components in VKMS
-  *
-  * @crtc: Base CRTC in DRM
-- * @encoder: DRM encoder used for this output
-- * @connector: DRM connector used for this output
-- * @wb_connecter: DRM writeback connector used for this output
-+ * @wb_connector: DRM writeback connector used for this output
-+ * @wb_encoder: DRM encoder used for this output
-  * @vblank_hrtimer: Timer used to trigger the vblank
-  * @period_ns: vblank period, in nanoseconds, used to configure @vblank_hrtimer and to compute
-  *	       vblank timestamps
-@@ -234,9 +233,8 @@ struct vkms_config_plane;
- /**
-  * struct vkms_device - Description of a VKMS device
-  *
-- * @drm - Base device in DRM
-- * @faux_dev - Associated faux device
-- * @output - Configuration and sub-components of the VKMS device
-+ * @drm: Base device in DRM
-+ * @faux_dev: Associated faux device
-  * @config: Configuration used in this VKMS device
-  */
- struct vkms_device {
-@@ -284,7 +282,6 @@ void vkms_destroy(struct vkms_config *config);
- /**
-  * vkms_crtc_init() - Initialize a CRTC for VKMS
-  * @dev: DRM device associated with the VKMS buffer
-- * @crtc: uninitialized CRTC device
-  * @primary: primary plane to attach to the CRTC
-  * @cursor: plane to attach to the CRTC
-  */
+-static void test_link_api_bpf_prog(void)
++static void test_link_api_bpf_prog(bool test_cookies)
+ {
+ 	const char *funcs[] = { "target_1", "target_2" };
++	__u64 fentry_cookies[] = { 0xfeed01, 0xfeed02 };
++	__u64 fexit_cookies[] = { 0xfeed11, 0xfeed12 };
++	__u64 fsession_cookies[] = { 0xfeed21, 0xfeed22 };
+ 	LIBBPF_OPTS(bpf_tracing_multi_opts, opts);
+ 	struct tracing_multi_bpf *skel = NULL;
+ 	int fds[ARRAY_SIZE(funcs)];
+@@ -1158,27 +1161,39 @@ static void test_link_api_bpf_prog(void)
+ 	fds[0] = bpf_program__fd(skel->progs.target_1);
+ 	fds[1] = bpf_program__fd(skel->progs.target_2);
+ 
++	skel->bss->test_cookies = test_cookies;
++
+ 	opts.fds = fds;
+ 	opts.funcs = funcs;
+ 	opts.cnt = ARRAY_SIZE(fds);
+ 
++	opts.cookies = test_cookies ? fentry_cookies : NULL;
+ 	link = bpf_program__attach_tracing_multi(skel->progs.test_fentry, NULL, &opts);
+ 	if (!ASSERT_OK_PTR(link, "attach_fentry"))
+ 		goto cleanup;
+ 	skel->links.test_fentry = link;
+ 
++	opts.cookies = test_cookies ? fexit_cookies : NULL;
+ 	link = bpf_program__attach_tracing_multi(skel->progs.test_fexit, NULL, &opts);
+ 	if (!ASSERT_OK_PTR(link, "attach_fexit"))
+ 		goto cleanup;
+ 	skel->links.test_fexit = link;
+ 
++	opts.cookies = test_cookies ? fsession_cookies : NULL;
+ 	link = bpf_program__attach_tracing_multi(skel->progs.test_fsession, NULL, &opts);
+ 	if (!ASSERT_OK_PTR(link, "attach_fsession"))
+ 		goto cleanup;
+ 	skel->links.test_fsession = link;
+ 
++	skel->bss->fentry_cookie = fentry_cookies[0];
++	skel->bss->fexit_cookie = fexit_cookies[0];
++	skel->bss->fsession_cookie = fsession_cookies[0];
+ 	if (run_bpf_target(skel->progs.target_1, 1, "target_1"))
+ 		goto cleanup;
++
++	skel->bss->fentry_cookie = fentry_cookies[1];
++	skel->bss->fexit_cookie = fexit_cookies[1];
++	skel->bss->fsession_cookie = fsession_cookies[1];
+ 	if (run_bpf_target(skel->progs.target_2, 2, "target_2"))
+ 		goto cleanup;
+ 
+@@ -1296,7 +1311,9 @@ static void test_attach_api_bpf_prog_fails(void)
+ void test_tracing_multi_prog_test(void)
+ {
+ 	if (test__start_subtest("link_api"))
+-		test_link_api_bpf_prog();
++		test_link_api_bpf_prog(false);
+ 	if (test__start_subtest("attach_api_fails"))
+ 		test_attach_api_bpf_prog_fails();
++	if (test__start_subtest("cookies"))
++		test_link_api_bpf_prog(true);
+ }
+diff --git a/tools/testing/selftests/bpf/progs/tracing_multi_bpf.c b/tools/testing/selftests/bpf/progs/tracing_multi_bpf.c
+index 3e02602558ad..651b5d86203f 100644
+--- a/tools/testing/selftests/bpf/progs/tracing_multi_bpf.c
++++ b/tools/testing/selftests/bpf/progs/tracing_multi_bpf.c
+@@ -5,6 +5,10 @@
+ 
+ char _license[] SEC("license") = "GPL";
+ 
++bool test_cookies;
++__u64 fentry_cookie;
++__u64 fexit_cookie;
++__u64 fsession_cookie;
+ __u64 test_result_fentry;
+ __u64 test_result_fexit;
+ __u64 test_result_fsession_entry;
+@@ -29,20 +33,25 @@ int target_2(void *ctx)
+ SEC("fentry.multi")
+ int BPF_PROG(test_fentry)
+ {
+-	test_result_fentry++;
++	if (!test_cookies || bpf_get_attach_cookie(ctx) == fentry_cookie)
++		test_result_fentry++;
+ 	return 0;
+ }
+ 
+ SEC("fexit.multi")
+ int BPF_PROG(test_fexit)
+ {
+-	test_result_fexit++;
++	if (!test_cookies || bpf_get_attach_cookie(ctx) == fexit_cookie)
++		test_result_fexit++;
+ 	return 0;
+ }
+ 
+ SEC("fsession.multi")
+ int BPF_PROG(test_fsession)
+ {
++	if (test_cookies && bpf_get_attach_cookie(ctx) != fsession_cookie)
++		return 0;
++
+ 	if (bpf_session_is_return(ctx))
+ 		test_result_fsession_exit++;
+ 	else
 -- 
-2.46.0
+2.55.0
 
