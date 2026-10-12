@@ -1,118 +1,147 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6154BB276
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:33:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4CE4BEE25
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:34:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791826415; cv=none; b=uZlEiqPuIE/fb04valKwDhm8H0DIvYJXq3o65ra+46iutUh+3wkzRMTUrzst5bipYvQ2sCyEOL/8oEFmoLQbxsB4esJeB+JtiS4WTzTj8kve1cpG326HJDrh9AWn5/EWJ7LQkRWiHZm7dTjS65YZGefIN5WFlZVEovDx7lfZo6Y=
+	t=1791826446; cv=none; b=natgimlFiRmzm7NAMAch5Rznlim7l2+uE13MqEOwsU4t0tGh1VGCZMurfyG8A0KPqPNe6A1B+61t5ULjfKAvxPvoC5HBcsZi0sSbJfhYLk2TXR34XXkP0ekMFeFllaRZsVya8Cs0m9Ljmud0VA9x6CC2CbysZWO+mLUUKi8FKhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791826415; c=relaxed/simple;
-	bh=A2Lw1qEwiVqek4QQJv+8yes4AI+kfJoHfEBfQC1r45o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T5FW6XGQCVFDj+9FCS2meKxoDOLSE7W+XRQYWnP3RrCfbLsmdXWlyUAepfF5FyLZhu92KirP6/iRY9IP/x50mdDi5m6B1BCrM+7SMxdxZX/oTGXni1HJ5Hk0yoOXbD8IOXo578Y5DCMB32LNwfbM/P6y5fTnN3m4appozU5IcHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OQevAPRa; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791826446; c=relaxed/simple;
+	bh=pLbu4qli1Nc8jvZxrZZlpE3h4h3YuQ8qZp9lwCjFWZo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L8G6GQmVD/r5AQMcz84RQbJd1yz3TTfHGSwpefs3eqpkVbuRGjKbx+PSKkQ4hTcQvY9EYV+hFqLWfzAraNQFJc4zMZ4x8LRqqXj/An/YeaoEAd+GcJIS2Xay3rrJ7sFm5X+4vUsHthdDEmd0S9MI75oirjKC33tZD2Cp352Ccjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ERKLZo8X; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OQevAPRa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791826413;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wiWPlyJ/kHmIcgrx0dElZdSiJcK1k2eBqgSvDAJP7IY=;
-	b=OQevAPRaQltGMS2CGzjAJv94tLEjIbZcUnT2jai0GNNQRVJ529JVhf+dePRE1hs2ci+n86
-	zu4uLnN9JYqBTIAiuAd3vFzgft8F2w9Hj/NTtczBFHZ6f/wBqByyF+z9camtKZugGshQp5
-	YYKV4H9NwDg7euY/aC3zLsqgY22XF8M=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-650-AlrKjK9gPdeV7ySUBQPTDQ-1; Mon,
- 12 Oct 2026 17:33:27 +0000
-X-MC-Unique: AlrKjK9gPdeV7ySUBQPTDQ-1
-X-Mimecast-MFC-AGG-ID: AlrKjK9gPdeV7ySUBQPTDQ_1791826405
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 601E6195606D;
-	Mon, 12 Oct 2026 17:33:24 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 6D2E3180034C;
-	Mon, 12 Oct 2026 17:33:20 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Mon, 12 Oct 2026 19:33:24 +0200 (CEST)
-Date: Mon, 12 Oct 2026 19:33:19 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Cc: w15303746062@163.com, David Laight <david.laight.linux@gmail.com>,
-	jlayton@kernel.org, chuck.lever@oracle.com, viro@zeniv.linux.org.uk,
-	brauner@kernel.org, alex.aring@gmail.com, jack@suse.cz,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] fs/fcntl: fix SOFTIRQ-unsafe lock order in fasync
- signaling
-Message-ID: <as0Z302oRQpI7rgX@redhat.com>
-References: <d15a25fe784b5d4449c7ce4e56f1428d7ff28885.camel@kernel.org>
- <20260523135210.590928-1-w15303746062@163.com>
- <asI5Fn87_SoEd4G5@redhat.com>
- <asuxzwl4iWjjEjRD@redhat.com>
- <437297ff-1bb4-49a7-a979-abccdd1814f8@stu.xidian.edu.cn>
- <asz_NnX9_KaJdaf_@redhat.com>
- <dbf95fb6-1685-463c-a533-79024d7a0a18@stu.xidian.edu.cn>
- <as0K5CT8IIaCWsfR@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ERKLZo8X"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-88aea027391so948610b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:34:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791826445; x=1792431245; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yF/Iy3Hd3jJ7PHeSixb0MK6yhBJ3J2UORZlYHvOyz9w=;
+        b=ERKLZo8XkXpazlptCJsYX1iL38/czuNhhN6STTBKNkrLnsAzL289B0gexVyjRqALrE
+         DBIAzUXZ9NYJE1QYpGfrOixTP9fOE5iQvifrO73OIUuWimBXfHcOqOIgHgPUchh3wPTK
+         bq9CFVnrKF6KNeoV0kFfBBM0J0dSqmOeivgPuTbgIKRkoM42MZFnJ3J+HkWm6W4ofY3K
+         QuwauQc3a7yt8ZyxJuo9tSSFldsAablG7mOXWbuhf39Q1M0YmF1oiYnTov+NYFDFeHo5
+         ScEO+PSXi/7gm22RRqdplW9ytD5eQGCtkk5JvpxoVnJIA8NluaLZfevrcLuqrlYqncWc
+         M5mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791826445; x=1792431245;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yF/Iy3Hd3jJ7PHeSixb0MK6yhBJ3J2UORZlYHvOyz9w=;
+        b=AFErMnctym8ojGxrqQbGuPk/OFiWE/h37kUpmoWXHfnH9Qc0cQaHF7eTjwSgo2Wh1o
+         6YzjKkO9E/0qImxwMlkGvWlpso3dOokfJzGu68luPYxZtLZ8qD6gnwQpc64kcNvqNAqn
+         0Hlmgqpq695zWQmdiOGjmaB/ctf+y+Xyv8LTDWtvv5D/I65pcYLeq/tLz6vfBPjGLtcJ
+         Qt/rQ8yT+tNrdDvlfePOteYF42iYvv09NQBYAYh+4NTUg43NKYGDgYI1ZIPZcyxrWpuq
+         2W7TMr0pAVuor6KttIw+gfaasnOhydKI5mF0Oe5Z8Ql3bDorL4iYw3yp+TzJBOVOEVQE
+         cniQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxMEV2j0Mn1Q2OYJlWogDyk6ubaIQzwWc66TbGmpGLcanXrNsO60sKzj4AkjGg5Qwv3l3u8Fx8Lq2p/mZE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ43/x7bNPsV0KN42FSxWp3ODGWS3Hp3hrYHhPySLtWPwz2ZsPV
+	CPgp/ubTjCaB+mMVTsJ8UtdooV5OqqroHPi1PRPWln6cU7g6vST+YuoL
+X-Gm-Gg: AYBFou1UIpd++/Mmj2OYeFHE9rJHDby9l9dNb07zA7Vwfznl0TGYWhjsVz7JQhVa+Eb
+	I+NTIUgoXSIaucmHQSiXIr3yhDOxx/wGIgv52TKAFdb9ZfdQbDk+p/qAE9jw0qRFvjPGkJKFmbi
+	LLjSS3NzoUZkQd8HHjeNQQPtRXnuGDOrFHpHERUWPeqWue7bSx2GdDx9JE382KFsNtZmJxYPDRs
+	SAoDxJcwE4Z3CYTEmKbb7VxRejhfY46FcXOCNSdVcIvgEHwlnH1X7W8uwt9GmpOJoyQGzMIonP4
+	VpPtk1GHZ/ZKFkmKW/5hMfUPfo237UaPB3GAF5LKkn2sie6Z0RqU7kArCanWfAmu63fKnm19Tqg
+	Ad4fBUd9OJEaZ1GrWUUNZVUR88e9F/aG/kAWjXSjHH8J/XnwLrFzArJfD4Bav32vfXp4bozHZiI
+	RQJIDbq2xixt4bWq/HpEpUOVvXPktnDlCKCgq/7v0rT6oNw1MPPCdG0EANeS5+Avp7OlPr1RMF3
+	9nJWiSabD8zve3l9sMyRWv7jTkqaSpKwH7/YlvabQtP8JqbWqUIGeM7FxFY3nSRKLqz0Izpnvui
+	RYyF56XalXbBxKwZFjZBEZgHYfvGCko3jtFR37CloLaVAzSc6A==
+X-Received: by 2002:a05:6a00:e0a:b0:88d:4b30:1c11 with SMTP id d2e1a72fcca58-897c3efd912mr8494544b3a.6.1791826444565;
+        Mon, 12 Oct 2026 10:34:04 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c49901fesm4166886b3a.57.2026.10.12.10.34.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 10:34:03 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-phy@lists.infradead.org
+Cc: Chunfeng Yun <chunfeng.yun@mediatek.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek USB3 PHY DRIVER),
+	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek USB3 PHY DRIVER),
+	linux-kernel@vger.kernel.org (open list:ARM/Mediatek SoC support),
+	linux-hardening@vger.kernel.org (open list:KERNEL HARDENING (not covered by other areas):Keyword:\b__counted_by(_le|_be|_ptr)?\b)
+Subject: [PATCH v3] phy: mediatek: tphy: simplify main allocation
+Date: Mon, 12 Oct 2026 10:34:02 -0700
+Message-ID: <20261012173402.24568-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as0K5CT8IIaCWsfR@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Transfer-Encoding: 8bit
 
-perhaps it is time to add pid->tasks_lock or abuse pid->lock we already
-have (we would need to make it irq-safe) but this doesn't look nice...
+Use a flexible array member to replace kzalloc + kcalloc with a single
+kzalloc.
 
-Oleg.
+Shuffled some code around as __counted_by requires the counting variable
+to be assigned before any array access.
 
-On 10/12, Oleg Nesterov wrote:
->
-> On 10/13, Mingyu Wang wrote:
-> >
-> > report7.txt corresponds to the warning quoted in my previous reply
-> > (syz.2.658/3606).
->
-> ...
->
-> >   kill_fasync fs/fcntl.c:1159 [inline]
-> >   kill_fasync+0x13c/0x520 fs/fcntl.c:1152
-> >   __pass_event drivers/input/evdev.c:240 [inline]
-> >   evdev_pass_values.part.0+0x62a/0x8f0 drivers/input/evdev.c:278
-> >   evdev_pass_values drivers/input/evdev.c:253 [inline]
-> >   evdev_events+0x3ba/0x440 drivers/input/evdev.c:306
-> >   input_pass_values+0x70c/0x860 drivers/input/input.c:128
-> >   input_event_dispose drivers/input/input.c:353 [inline]
-> >   input_handle_event+0xdb3/0x1490 drivers/input/input.c:370
-> >   input_inject_event+0x1ea/0x3b0 drivers/input/input.c:424
-> >   evdev_do_ioctl+0x547/0x1980 drivers/input/evdev.c:1070
-> >   evdev_ioctl_handler drivers/input/evdev.c:1270 [inline]
-> >   evdev_ioctl+0x14f/0x1b0 drivers/input/evdev.c:1279
-> >   vfs_ioctl fs/ioctl.c:51 [inline]
-> >   __do_sys_ioctl fs/ioctl.c:597 [inline]
-> >   __se_sys_ioctl fs/ioctl.c:583 [inline]
-> >   __x64_sys_ioctl+0x194/0x210 fs/ioctl.c:583
->
-> Thanks. So yes, this is what I suspected...
->
-> kill_fasync() is called under dev->event_lock (input_inject_event() abobe)
-> in process contect.
->
-> If another CPU takes the same dev->event_lock in softirq context and we race
-> with write_lock(tasklist) on yet another CPU, deadlock is indeed possible...
->
-> I'll try to take a look, but I can't promise too much ;)
->
-> Oleg.
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v3: remove of_device_get_match_data message as it's now stale
+ v2: add back NULL check
+ drivers/phy/mediatek/phy-mtk-tphy.c | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/phy/mediatek/phy-mtk-tphy.c b/drivers/phy/mediatek/phy-mtk-tphy.c
+index acf506529507..e9b9e667b319 100644
+--- a/drivers/phy/mediatek/phy-mtk-tphy.c
++++ b/drivers/phy/mediatek/phy-mtk-tphy.c
+@@ -340,10 +340,10 @@ struct mtk_tphy {
+ 	struct device *dev;
+ 	void __iomem *sif_base;	/* only shared sif */
+ 	const struct mtk_phy_pdata *pdata;
+-	struct mtk_phy_instance **phys;
+-	int nphys;
+ 	int src_ref_clk; /* MHZ, reference clock for slew rate calibrate */
+ 	int src_coef; /* coefficient for slew rate calibrate */
++	int nphys;
++	struct mtk_phy_instance *phys[] __counted_by(nphys);
+ };
+ 
+ #if IS_ENABLED(CONFIG_DEBUG_FS)
+@@ -1572,22 +1572,19 @@ static int mtk_tphy_probe(struct platform_device *pdev)
+ 	struct mtk_tphy *tphy;
+ 	struct resource res;
+ 	int port, ret;
++	size_t nphys;
+ 
+-	tphy = devm_kzalloc(dev, sizeof(*tphy), GFP_KERNEL);
++	nphys = of_get_child_count(np);
++	tphy = devm_kzalloc(dev, struct_size(tphy, phys, nphys), GFP_KERNEL);
+ 	if (!tphy)
+ 		return -ENOMEM;
+ 
++	tphy->nphys = nphys;
++	tphy->dev = dev;
+ 	tphy->pdata = of_device_get_match_data(dev);
+ 	if (!tphy->pdata)
+ 		return -EINVAL;
+ 
+-	tphy->nphys = of_get_child_count(np);
+-	tphy->phys = devm_kcalloc(dev, tphy->nphys,
+-				       sizeof(*tphy->phys), GFP_KERNEL);
+-	if (!tphy->phys)
+-		return -ENOMEM;
+-
+-	tphy->dev = dev;
+ 	platform_set_drvdata(pdev, tphy);
+ 
+ 	sif_res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-- 
+2.56.0
 
