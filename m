@@ -1,132 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D29F14ABBB8;
-	Mon, 12 Oct 2026 16:11:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896A04AB3C3;
+	Mon, 12 Oct 2026 16:11:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.82.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791821516; cv=none; b=IbONGcJiw9eFnoePhUKSZIyCWcWtY89JMXNBkjcR55UKP+c9TD0YV0cUXSOuAt0BH2wRwjqTYfKFYaTY4vajsLg3zCKq4iVCDeFKWsN6FSN8qkv0BKG4xYGfcXW12GK2g22nWf9pt5JC102f8DR7KUwf8hwQH/MWGDTHjDPGIiA=
+	t=1791821517; cv=none; b=j+rlYelvdLp8TZWJtEosM67tTR6DqPjXVn5MyFFDnIGUdmXh8hr/9uWSmpXNyt18mSvdooDOippBDFX/addIBmm5rBsrUYjU0//lwR+BZBkBQYL2Rts41L4l0T8EOR93kuHVGcVtxt1c6PE8npU5fAhQZRLh9A2gXfgzTkGO0wI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791821516; c=relaxed/simple;
-	bh=etQEV/62subeHUSfHFRkYVbdp3u2A0a8bVZCelcGd6I=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=aJjbkuBdGkLpWyiqJJwsakcfB3hYpQAAJ2X551ELgU3zVlqDGAYW5/IcKCBXn5Ctjs2aVjXv4eS6paJx0Ig9V+TOlrH7a7RGyHrTu2zXxszMgkAW2DDjP6qqTZQprHHldzF7SsBn1BK9pQDWT2cP3/tvMUeIacGD9r1o0FKuJzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l+JbIG/4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791821517; c=relaxed/simple;
+	bh=e/8swMYCLvyy1dlqt5ZkkmyUvBjW05+gIwT317lRJA8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gP5q73Dm5RT6zGeIYXxzu+y0kRk9TljhjU9IIMYZQp+i/mgpJxvG7NRRW8ywWyLH/X24Eqpu4TKAiq1x0v6Pcqouf2HLQyqhSVwgQs3bTrm431BA6fcYR+VdKWj3Sa2b8/PCr6kqq5/KLjyF0DQeUMhGfbT1P4e1+VhFhJVqct8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org; spf=pass smtp.mailfrom=samba.org; dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b=IWQFas00; arc=none smtp.client-ip=144.76.82.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l+JbIG/4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352B71F0089C;
-	Mon, 12 Oct 2026 16:11:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791821513;
-	bh=oHMngNea3ThDSRS18NpTPABrzpXh0+1e1D1cwHmHRvU=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=l+JbIG/4jjrneTxf+w8rglNeBTCfnmjGClrDoksnxWTPz1QTrfsZaCX8N2ZPl+/c2
-	 cnggf5CeraJzu5RFbuJ21bhkoZTbVOvHkv7CjkPABNLQVKqiXEWNo3uihuA6G+l1+X
-	 jYn81aBOA3Wmgs+ACz7mJN+U4YK6EKojo9A2xChnWNBXReNgCQGi9izl0Bas6N/rX9
-	 gFt88qSEwt+fWWHSp1n4NetXZFVkOJh2HyKbcpxUFKVeE1B9QP+YoKL0zle9s1qddc
-	 T2T+AUo20748IwjNtZWmKzRrPWX4k5XePNqSSxzMBBMMtgWKjMIW/aD4gp0e4btllp
-	 OZ1VvW67v2Dug==
-Content-Type: multipart/mixed; boundary="===============4316976094327861682=="
+	dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b="IWQFas00"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
+	s=42; h=Message-ID:Date:Cc:To:From;
+	bh=ug2U4uOR87PKxNvkhazP9qraYMh5L+a55RRax+7Ny8I=; b=IWQFas007aLkz8phz/3c2rYKBK
+	8PR3KDrSFgKHno6++93qRaDx4bKkbM2rX8bBRr8m691MSQFMXS5Ayz3drENTzLUNeRhOH/NeqKFWX
+	jg6IZmOThwi9L6EZnSgPnp2mQejMUQrqg8V5F/pHbq8fN0qvfKUJCrh+J3cOkO0OqNLcIgm5V+tVV
+	9xHx5HUlr0hRcjgzdX4Q/oKThaw37x7oO/Wl+OFNAv1xeVLYBc/rAyDpB0F6F7GJIlwLrIrFP6skC
+	lTNWE0/5jausBcftnDUdzztHEGb4nJWftitGcipoiY0qtBEoz+GFWO9zOkSC2SlKeV8iBOcOk2PlC
+	64FhOJ+oP5bwdGZh20W0Z36FXRprBM3eKJEGAysobouZorbwoHgi9ZKUY34zy2/5PixsuMBSFqsfL
+	JZW9gi9eIPKx0QdvUDNUBSKoYciBjSXE5PDwfuCNFswlY1ORAt7jmrecak4ooUGFQZtw4btSnMTlz
+	ocw9/+Z3S73CygctdKJGeGtd;
+Received: from [127.0.0.2] (localhost [127.0.0.1])
+	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
+	(Exim)
+	id 1xGIco-00000001Jte-3mB9;
+	Mon, 12 Oct 2026 16:11:42 +0000
+From: Stefan Metzmacher <metze@samba.org>
+To: linux-rdma@vger.kernel.org
+Cc: metze@samba.org,
+	Tatyana Nikolova <tatyana.e.nikolova@intel.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	Mustafa Ismail <mustafa.ismail@intel.com>,
+	Shiraz Saleem <shiraz.saleem@intel.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] RDMA/irdma: always route IB_WR_REG_MR through the allocated PBL
+Date: Mon, 12 Oct 2026 18:11:35 +0200
+Message-ID: <20261012161135.494544-1-metze@samba.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <6dde27849db2f38caae71422579693dde1a24c280e22c3174a770be74f877787@mail.kernel.org>
-In-Reply-To: <20261012154024.29423-9-leon.hwang@linux.dev>
-References: <20261012154024.29423-9-leon.hwang@linux.dev>
-Subject: Re: [PATCH bpf-next v2 08/21] bpf: Move helpers out of CONFIG_HAVE_SINGLE_FTRACE_DIRECT_OPS guard in trampoline
-From: bot+bpf-ci@kernel.org
-To: leon.hwang@linux.dev,bpf@vger.kernel.org
-Cc: ast@kernel.org,daniel@iogearbox.net,john.fastabend@gmail.com,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,qmo@kernel.org,shuah@kernel.org,leon.hwang@linux.dev,yatsenko@meta.com,avinash.duduskar@gmail.com,a.s.protopopov@gmail.com,ameryhung@gmail.com,jordan@jrife.io,rongtao@cestc.cn,eyal.birger@gmail.com,pulehui@huawei.com,tanjingguo@huawei.com,malin89@huawei.com,linux-kernel@vger.kernel.org,linux-trace-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Mon, 12 Oct 2026 16:11:50 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============4316976094327861682==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+irdma_alloc_mr() always allocates a PBL via irdma_get_pble(), but
+irdma_post_send()'s IB_WR_REG_MR handling only pointed the FAST_REGISTER
+WQE at that PBL (chunk_size != 0, first_pm_pbl_index) when
+iwmr->npages exceeded IRDMA_MIN_PAGES_PER_FMR (1) - leaving chunk_size
+at 0 for a single-page (npages == 1) registration, telling hardware to
+use direct/PBL-less addressing for a registration that was never
+allocated that way.
 
-> bpf: Move helpers out of CONFIG_HAVE_SINGLE_FTRACE_DIRECT_OPS guard in trampoline
+This reproduces as data corruption / an IOMMU IO_PAGE_FAULT when a
+peer later performs an RDMA WRITE/READ against such a single-page
+FRWR-registered MR, even though ib_map_mr_sg() itself reports success.
+100% reproducible on iWARP, intermittent on RoCEv2, with fs/smb/smbdirect's
+own single-page memory registrations on an Intel E810-CQDA2 (irdma).
 
-TL;DR: Moved trampoline helpers may trigger unused-function warnings (build
-failure with CONFIG_WERROR) on non-x86_64 configs with CONFIG_BPF_SYSCALL
-until a later patch adds callers; only this commit is affected.
+Intel's current out-of-tree irdma driver (2.6.96) never gates this on
+npages - it always sets chunk_size/first_pm_pbl_index based on the
+actual PBL level (PBLE_LEVEL_1 vs PBLE_LEVEL_2), matching what
+irdma_alloc_mr() actually allocated. Mirror that here instead of the
+npages-based heuristic.
 
-> diff --git a/kernel/bpf/trampoline.c b/kernel/bpf/trampoline.c
-> index a2fd0bd8c685..bb832af8703f 100644
-> --- a/kernel/bpf/trampoline.c
-> +++ b/kernel/bpf/trampoline.c
-> @@ -60,6 +60,32 @@ static void trampoline_unlock(struct bpf_trampoline *tr)
->  	mutex_unlock(select_trampoline_lock(tr));
->  }
->
-> +#ifdef CONFIG_BPF_SYSCALL
-> +
-> +static void trampoline_lock_all(void)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < TRAMPOLINE_LOCKS_TABLE_SIZE; i++)
-> +		mutex_lock(&trampoline_locks[i].mutex);
-> +}
-> +
-> +static void trampoline_unlock_all(void)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < TRAMPOLINE_LOCKS_TABLE_SIZE; i++)
-> +		mutex_unlock(&trampoline_locks[i].mutex);
-> +}
-> +
-> +static void bpf_trampoline_multi_attach_init(struct bpf_trampoline *tr)
-> +{
-> +	tr->multi_attach.old_image = tr->cur_image;
-> +	tr->multi_attach.old_flags = tr->flags;
-> +}
-> +
-> +#endif /* CONFIG_BPF_SYSCALL */
-> +
+Also drop the reg_addr_pa assignment. irdma_sc_mr_fast_register()
+packs reg_addr_pa into the FAST_REGISTER WQE's PBLADDR field, which
+hardware only consults when chunk_size == 0 (direct/PBL-less
+addressing); with chunk_size now always nonzero for this opcode, that
+field is never read for IB_WR_REG_MR and the assignment is dead code -
+Intel's driver never sets it for this path either (only the separate,
+non-FRWR irdma_sc_mr_reg_non_shared() path actually branches on
+chunk_size between reg_addr_pa and first_pm_pbl_index). Removing it is
+not required for correctness: *palloc->level1.addr is always a
+page-aligned address (low 12 bits zero), so it could never have
+collided with the first_pm_pbl_index bits sharing those same bit
+positions in the WQE word even if some path still read it.
 
-Can this add a new "defined but not used" warning on configs that have
-CONFIG_BPF_SYSCALL but not CONFIG_HAVE_SINGLE_FTRACE_DIRECT_OPS?
+Fixes: b48c24c2d710 ("RDMA/irdma: Implement device supported verb APIs")
+Cc: Tatyana Nikolova <tatyana.e.nikolova@intel.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Mustafa Ismail <mustafa.ismail@intel.com>
+Cc: Shiraz Saleem <shiraz.saleem@intel.com>
+Cc: linux-rdma@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Assisted-by: Claude:claude-sonnet-5-5
+Signed-off-by: Stefan Metzmacher <metze@samba.org>
 
-These three helpers are static and are now guarded only by
-CONFIG_BPF_SYSCALL, but their only callers at this point in the series,
-bpf_trampoline_multi_attach() and bpf_trampoline_multi_detach(), are still
-inside:
+--
 
-#if defined(CONFIG_DYNAMIC_FTRACE_WITH_DIRECT_CALLS) && \
-    defined(CONFIG_HAVE_SINGLE_FTRACE_DIRECT_OPS) && \
-    defined(CONFIG_BPF_SYSCALL)
-
-trampoline.o is built for CONFIG_BPF_JIT, and only x86_64 selects
-HAVE_SINGLE_FTRACE_DIRECT_OPS.  On arm64, riscv, s390, x86_32, or x86_64
-without DYNAMIC_FTRACE_WITH_DIRECT_CALLS, a CONFIG_BPF_JIT=y,
-CONFIG_BPF_SYSCALL=y build would define trampoline_lock_all(),
-trampoline_unlock_all() and bpf_trampoline_multi_attach_init() with no users,
-and -Wunused-function would warn for each of them.  With CONFIG_WERROR=y that
-becomes a build failure.
-
-The commit message says the CONFIG_BPF_SYSCALL guard is kept "to avoid
-compiling warning when CONFIG_BPF_SYSCALL is disabled", but this seems to
-trade that warning for the same kind of warning when CONFIG_BPF_SYSCALL is
-enabled.
-
-The helpers only get callers outside the old guard in a later patch of the
-series, commit 59e80b53cc6b ("bpf: Add
-bpf_trampoline_multi_prog_attach/detach()"), which adds users under
-#ifdef CONFIG_BPF_SYSCALL.  So the final state looks
-fine, but this commit on its own does not build warning-free on those configs.
-
-Would it make sense to fold this move into that later patch, or mark the
-helpers __maybe_unused for the interim, so each commit in the series builds
-cleanly?
-
-
+change in v2:
+- rebased on linux-rdma/for-next
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+ drivers/infiniband/hw/irdma/verbs.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/38273555988
---===============4316976094327861682==--
+diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/hw/irdma/verbs.c
+index 71d7ae7baa47..e3cd38e0b3dd 100644
+--- a/drivers/infiniband/hw/irdma/verbs.c
++++ b/drivers/infiniband/hw/irdma/verbs.c
+@@ -4286,11 +4286,14 @@ static int irdma_post_send(struct ib_qp *ibqp,
+ 			stag_info.wr_id = ib_wr->wr_id;
+ 			stag_info.va = iwmr->ibmr.iova;
+ 			stag_info.total_len = iwmr->ibmr.length;
+-			stag_info.reg_addr_pa = *palloc->level1.addr;
+-			stag_info.first_pm_pbl_index = palloc->level1.idx;
+-			stag_info.local_fence = true;
+-			if (iwmr->npages > IRDMA_MIN_PAGES_PER_FMR)
++			if (palloc->level == PBLE_LEVEL_2) {
++				stag_info.chunk_size = 3;
++				stag_info.first_pm_pbl_index = palloc->level2.root.idx;
++			} else {
+ 				stag_info.chunk_size = 1;
++				stag_info.first_pm_pbl_index = palloc->level1.idx;
++			}
++			stag_info.local_fence = true;
+ 			err = irdma_sc_mr_fast_register(&iwqp->sc_qp,
+ 							&stag_info);
+ 			break;
+-- 
+2.43.0
+
