@@ -1,110 +1,83 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7EFA4F30D1
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:48:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0C53B6360;
+	Mon, 12 Oct 2026 21:48:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.83
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791841690; cv=none; b=lKPUdY+TjAmsbJq82LIW3UPARdTMdR0ALdrj+AvUhYWmTZkpQ5EmSmEdKTf4eptox6k+pLhvSzYanzRmuCsi91C9xKyX2dEzFznfO7QYkNBINKeHQVq+u8BVY4KamOgVkP4Z9pBP0qLDVL29S7aoZgiyhz5x4DrE1MoohKqvymc=
+	t=1791841703; cv=none; b=Nb4UTKeViVxbZokcGa1V+Xsam4gHazo9NOhSHozDEXXL2d0CN5gy5QUTWCnlpEb1FxK0GqevKMcSPVfBIu2BudyOdNKXrbL0r7NNumbM1s8DMIIUTgsQ2iu22CVxgu205ahEyUbRlBjKSIPvj3ET2O0t6uzB7UDRrEzVVkd5TLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791841690; c=relaxed/simple;
-	bh=PEBG/k1n0Nekc/Fj4VvaYhr5hFLRa7NhzeeUHCU4N7A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S0yMA7aIC2Yda1wEInF+OjCyVy/N36VUG4n8/jBAfiBo4Oj6rVN2wNE0CCPNL2cFympy+9/JP8iFMOdoOnRReI4GC7LdCYAm2NvPUrcNmjmv3h7vo7S/zstUVDdVh7M04S+GVYQtRzjAJFpvKVw81oo45s5gI3lSMpNGU99slv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pXOo5kCg; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791841703; c=relaxed/simple;
+	bh=1BzDB2BTSbbVodXad2q5RCO9lRhGA9lDhMl+T93wIcA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=aUXPhyb8FC/oZLvAn7otUHeQKBJ1a9RUk60CTHg0+zlOOF7npEUd4oBq1qvIyXKNv1fHNoTXGIM/maQNdKsfs9Bin19GlTFugjp1nmacj59FEp4/x29X5CBpOJKq5cLUqG7MNVchMKpikhWpWXwq1AEBW78hsevgqdEF7ElyFJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=he7gqmJQ; arc=none smtp.client-ip=192.134.164.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pXOo5kCg"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a021c809e3so22616065e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:48:04 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="he7gqmJQ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791841683; x=1792446483; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9zq/8m1eSiHTlioZUUeey5q3Q1PxGXgxzAf3i69rhbQ=;
-        b=pXOo5kCgGZf/tIVqqAGo3MjAEeE8g2vHRTJEqaHQd+i+kRg6qrp1hI4bs8nvSzdqyd
-         nW1/fwr+yLN7mgA/SOQis5wlt6zweHF6B7vvlh6is0tZxAJmBQH5L0huGqMpyh+W/RC2
-         FqwCOHGvtJ5J6P/BY1qilRav1FLxIXREhVNOAfUq64MDrI+2k/mLdhnctd8S0mGj24lW
-         jXuAC+PPCRVLGgFIVNlqhBUHJ6w+n9KSRKmbRJ9jGvPfxZLrukjgOFnn7yHqnuiFPXgj
-         QTK/L8Yyv4iCMH0MASwPpgIuCQtb0KTWNft8mpkXevYcPLatB82oMreDxO4pzMVJZ1zt
-         jLQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791841683; x=1792446483;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9zq/8m1eSiHTlioZUUeey5q3Q1PxGXgxzAf3i69rhbQ=;
-        b=e36A5cgJgjk8AtT9EReIRxDjS1jO5ZvbOwrUlS89XQ3m9CoMjX2qJrCRFAEscdi3X6
-         zlUn33+xVKg4uOnnIZ+eudnoXpIduiFLQXSXiRzZH3BcTqDd+y77bEGQEZ4Q+ezKo0rY
-         +VhGuBSehxCIrvRL0BLoOOQebtuTBmYbBefTVmCoFK9wjondeISdHwHvTVjZjkbnTkBZ
-         ma6zGxxRuDh2r9Dt6Tx+8B472xJJFYaHtvdTuqdXpiBRdbUTYGDyMbQKOJFloJov3XjI
-         7b4A+Dc1CWB2YD15tIAX8n6QrcH4Ev7bcivN+sEYAt4JbIYL/wmbUfPzNXfurppXuKBg
-         ml3g==
-X-Forwarded-Encrypted: i=1; AKwUvByOBfGRiTsUZA518ftWDOWa73ssoxu9XN8c3tPzX44DCnaPWb5Nxkk0yucZhnLlFkX3dxMk8O96nD/u5WU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBsaKAt87rzI57qssaK+zB64NFq43yqaeXKk7xkUs2xn3pKG4J
-	cIgygSvE2VoSMXUmVgHGt9lKdm0uUZlwFoL4vmSDRm1J6R30pF9aRfz2
-X-Gm-Gg: AYBFou2tekG5jkCXrZavVynAl9wG9NAS7EBZJimMgKXuwWpwOYCpMXgkLB6tr249UvG
-	bPbZ/q6tJJ65IEEk8XQhBl7+Va5tZ9MBWNWIKpl8CSkOoQSXcZNetFZPrxveoMj5kcDOuIDDr0P
-	qQoGWvXHZavJx1eZ9rvOLIXF1O2BCiizjcrbWZYg6jCim/gZY/Abihu7IFaKIBcFx1PVXsfd6ml
-	T1KzeVq3VLJq5n4VFXpBTF28XiRa+UiVtL4GoaXO+X+S3R4/KneDW0P66sJbTOu7j9KrJFaR1TI
-	bJqD4ijHYPzNb0pHmy0G3zP+Scce2Or+N0ra+y1/E2mCO5cSH1nBMwbwrQ5woICGYmWvRztFGAC
-	MRq7gHS0S43CH77wfc3XgVgWPokLgS1E2ioUO9C8awBr1Nxr2/peqmTS4a5PV84jhp/1ji/E1Nq
-	r6KwFdC5PIQD915chOTJkiiStUUpah5caOPK5tNjTDgjrtPxyWU+z6Y3cnachBBF8BLmDt82Y/s
-	n2zpTSdwZBed+RpA620ICa/kl4W2jdifqdb0VhxO247Q44vEtlCyDb72VcW
-X-Received: by 2002:a05:600c:3e0a:b0:4a0:1c10:1372 with SMTP id 5b1f17b1804b1-4a18e4aa206mr223185285e9.27.1791841682545;
-        Mon, 12 Oct 2026 14:48:02 -0700 (PDT)
-Received: from [192.168.1.122] (cpc159313-cmbg20-2-0-cust161.5-4.cable.virginm.net. [82.0.78.162])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac52d3sm1449484f8f.43.2026.10.12.14.48.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 14:48:02 -0700 (PDT)
-Message-ID: <aecdab1f-9af6-4a07-938d-753ff9fc9938@gmail.com>
-Date: Mon, 12 Oct 2026 22:48:00 +0100
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=GnlUzR+Z74pHpjx6iyzt6t0OY2yTax8lLgnC5uVbk90=;
+  b=he7gqmJQO32zM0F4dQtta0c77QPgzoikcAKmlwc+KkYvJQJMxKsLepU8
+   2lWWAwFFDuN50pgIPZ6/N0uu7UYKeCC/pKgiz7a6nRtN5tN8PxqIZCUv4
+   qISb0ZfvNUfrmNuThjLur1qfLsm/q+0wwew0vTjl/LC3g70dBOtEm2KGy
+   o=;
+X-CSE-ConnectionGUID: dTTSVntFS3OS6RxhQOSatA==
+X-CSE-MsgGUID: 8hJTNnKETceAo+HaZe9S3w==
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.27,154,1787004000"; 
+   d="scan'208";a="299829059"
+Received: from unknown (HELO hadrien) ([12.202.65.58])
+  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 23:48:14 +0200
+Date: Mon, 12 Oct 2026 17:48:11 -0400 (EDT)
+From: Julia Lawall <julia.lawall@inria.fr>
+To: Jeremy Clifton <deaner92@yahoo.com>
+cc: Marc Dietrich <marvin24@gmx.de>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, ac100@lists.launchpad.net, 
+    linux-tegra@vger.kernel.org, linux-staging@lists.linux.dev, 
+    linux-kernel@vger.kernel.org, outreachy@lists.linux.dev
+Subject: Re: [PATCH] staging: nvec: use guard(mutex) in nvec_write_sync()
+In-Reply-To: <492e9a13-b50b-48cb-bd41-3114573c7950@yahoo.com>
+Message-ID: <525671bb-35b-32fc-94a6-e4e066fc1966@inria.fr>
+References: <20261012171312.5998-1-deaner92.ref@yahoo.com> <20261012171312.5998-1-deaner92@yahoo.com> <b51c3755-a967-3de3-5f8c-3e4984d6e93c@inria.fr> <492e9a13-b50b-48cb-bd41-3114573c7950@yahoo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 1/2] sfc: ptp: serialize host and MC synchronization
- transactions
-To: Alex Austin <alex.austin@amd.com>, netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch, bhutchings@solarflare.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org,
- linux-net-drivers@amd.com, pabeni@redhat.com, richardcochran@gmail.com,
- smhodgson@solarflare.com, alucero@amd.com, pieter.jansen-van-vuuren@amd.com,
- Alejandro Lucero <alucerop@amd.com>
-References: <20261009183240.1898762-1-alex.austin@amd.com>
- <20261009183240.1898762-2-alex.austin@amd.com>
-Content-Language: en-GB
-From: Edward Cree <ecree.xilinx@gmail.com>
-In-Reply-To: <20261009183240.1898762-2-alex.austin@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 09/10/2026 19:32, Alex Austin wrote:
-> Protect the DMA handshake and result processing against concurrent
-> synchronization callers. Serialize clock adjustments with the same mutex
-> so they cannot change the PHC during a capture.
-> 
-> Fixes: 7c236c43b838 ("sfc: Add support for IEEE-1588 PTP")
-> Signed-off-by: Alex Austin <alex.austin@amd.com>
-> Reviewed-by: Alejandro Lucero <alucerop@amd.com>
-> Reviewed-by: Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>
-...
->  static int efx_phc_settime(struct ptp_clock_info *ptp,
->  			   const struct timespec64 *e_ts)
->  {
-> -	/* Get the current NIC time, efx_phc_gettime.
-> -	 * Subtract from the desired time to get the offset
-> -	 * call efx_phc_adjtime with the offset
-> -	 */
 
-Not immediately clear why this comment is getting disappeared; it appears
- to still be accurate.  Is it just thought superfluous?
 
--ed
+On Mon, 12 Oct 2026, Jeremy Clifton wrote:
+
+> Thank you so much for your guidance and feedback.
+>
+> It is the result that the patch will produce. All the unlock calls will
+> be deleted and the out of memory path will have no braces, as per
+> the style guidelines.
+>
+> The motivation behind the patch is to defer usage of manual locks
+> for new and improved guards, disallowing lock leaks.
+>
+> This way, there can be no error producing path by not calling unlock.
+>
+> Shall I send a v2 with motivation included?
+
+Please adjust the second sentence to be clear that it is referring to the
+result, not the initial state.  If you would like to add something about
+the motivation, that would probably be good too.
+
+thanks,
+julia
+
+>
+> On 10/12/26 2:45 PM, Julia Lawall wrote:
+> > Is this the motivation for
+> > doing the patch or the result of the patch.
+>
+>
