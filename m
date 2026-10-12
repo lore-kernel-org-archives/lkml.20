@@ -1,145 +1,210 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B287C2D5C7A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:15:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791839754; cv=pass; b=DSSf9bIh190QeImquGFZ5zmqYna7ifddvp5/HAdgJhHJg6tKwubtf986jPdSgv6prXxN7fMRwzetNnL/KX7Njk43IxfAuG6swcWbs4uMMtrAGus3okUaYZ0wEAEYq8VGft9h2l4WxsbJVizxTgGzBdbYGlkdmTOvCHb2mVb8IaI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791839754; c=relaxed/simple;
-	bh=MvRPWTrtyAjxzLPHNX4nRXVH1EEBCgyWdNoeqj5ZkMo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DAaceCFSMQLByW8mbpLvpxJ1eoX2iPtVYJeiGzLcoQKLlBmxUUA6u3hGXxOoabD9l5rFcjPkrIWRWnVoV908L3JfWEF+MS5YPkNb1COV3fMF6eivAMXS8t0hAeDZMOueJzN161ENNq4VzrHpl6K1IbWdP22Xfwuq+5QWc9c8vJg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co; spf=pass smtp.mailfrom=x6u.co; dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b=d+7ApDRB; arc=pass smtp.client-ip=74.125.82.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 372422D5C7A
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:16:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791839788; cv=none; b=RVG1fLu9jiYFxSEzqTLYMdky4SQUUjigP+toQMjPcgGQfZBDofgSUtmYXshZ7aVxqCQFGe8ceKbysUanM+ZcVa9cR55sE2aVlWm178rZleTcYJQ/SAanMI93uRKlSdaKTDJP+rgc7gZuGrnBHapgVGcpMb5IW5jZ7kD/m9ZFaq8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791839788; c=relaxed/simple;
+	bh=TOJCX5txHscGUt/xdLHicyU6pWt5xGwGejxAzRv5Fcw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=erqRhBUqxAg7vv2GMUwsaAPnuQjqybEH60SR2aeFzUZ1o9Nn0AWxh/eTrBoJG+fyOWB1IcyI6z5o8d0N/0Riw3DOuoNcYGo0bboY/Ewxi/uaToEEG+q8cV9XMQr6IREJeAs/4vT+SHBqoa781R4TOoV8DgMqTtL92qKWc6+Oj50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=S3cd/pSB; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b="d+7ApDRB"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3514e7cbbbaso5793851eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:15:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791839751; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AO0t8O3ES3PJWwkFh8UKx3nZJy3OVGpxW6ZZBFDzAz51q166773tjUSsCtM1V20DWB
-         aofxxbJOXpoHBxm/I3xDIcJ92Zuz22Fj1Iz3rBOnA3KY3KGnD+7gjAzlufmEVqrgMrPf
-         EQxyUrMmt31fKkv7Ld6vvdwgIKtiZa5E8dsgB0j1QVXPRGdzTYRAjpDezUUWWOer9zbP
-         Q5XbDj7sOZziu1dkQNU3mWf/2K3ocxhM+y0L9MlAyED+vaPI11piuiVaEA7Kr4Hcc95J
-         2rwpdoDae8+gGIbFzI/OttIDcx4Ijc2UsaByCRaucVocjbldtLTZVprIfPU2Ga2bSofK
-         v0Bw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IANbA/IjdpnwKKoezh+3TmukPF52GIFYfzBOkPdztNk=;
-        fh=Jd3m6zag2kAklFAsBcKLQNoSDCw/WSL9mdJgE4Pjkvg=;
-        b=KnQzqBiw6dYTm9f+EpDxcbNrk+9+i+5lNF4/wUqt6mkjcQPrJoZ9p4NlQnl4IRT8DY
-         h2gLO4apk+jFVBUrAc2KSnZASTD1JSNnMv7koM6z3yGqYN5vNGDfL2DKDv65qw0A/YCA
-         yWSkLdFQff1TEBcwkPqVGGXgd6iHhkibM1cgy2Yei540rS8dqyu7SmeJITZllgLqkBT2
-         sUMyBpicI4XccmT8gfXV7+9kEO8+Amv5qjE9RPUU01i4TuhkfR4Y79/bQ4gmzYUpUjIW
-         671k/TOlByc/Cwwpt9wM0y7u4WbKkbHm4gmlvBJfzE4x+yp7fcvn/qcQo4lkSmkaCsdY
-         laQA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=x6u.co; s=google; t=1791839751; x=1792444551; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IANbA/IjdpnwKKoezh+3TmukPF52GIFYfzBOkPdztNk=;
-        b=d+7ApDRB9S456YfIHhXaDnZ4yDeqBgWD3BAdR+mY87zU9GT4rBNr+2f1ibjjiLCrvN
-         MKOJxbjkdz4ooDSbUxxYiFI6ZDVPmLWy5Rl3hfXmgbpBGcM+ocE1f4MEQ0K1tCBv1lv4
-         BVhsNC12MhzMdSJSX+s8lvT2ulkoSa/AO0tnPMnWr3KTtJNfdzAj5QyuKndrUtlo2cfj
-         KFO4G6+mvEMk2iJFivdu6t6j0LLCx98nL4vFrIX0ejP3aNg/+b0vNzMtmtHGu3Q5rbws
-         hble4YQp2ub6UE8LRYk7Y9TyGVmtgKF0ybm+GL2VmDr02FHYQUxhGwCf5AelcKSg+QIh
-         TLxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791839751; x=1792444551;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IANbA/IjdpnwKKoezh+3TmukPF52GIFYfzBOkPdztNk=;
-        b=UlZ1CTjWGjVAZrIdVyUcDWFgR/bjShQ1HasfTd6mKj2EdfRUKcRVBTNsog+mcqsG1W
-         TH/3VYDpaJIi0D9aPNH+JU0tq43BwPnf5rSE4GFPVm3vl9PE9FyoN/4/05WRX9zd35zI
-         TqPdG7mQHMGXJCC3csU0Z6oDiP66Cdm92Rck8c/2PIv1sMp3q0TQlDjKFcBmnu8s+1mM
-         4N72+ubdmpWpB/b/n7hTK7mPLy4abL3zyPhq1irFIL6JEaByotHIbe3ngBtrv1rN/k8o
-         iAFJLSZamJL3op7aEXVdcB5SX+6dz4W5/H0FPnLqMpWZULK2EwSmrfVNlsmE3/NQ0J/m
-         P70w==
-X-Forwarded-Encrypted: i=1; AKwUvBzdBQtn+hLNR9RfuUKxBlXqV2iViigMoMqJM2JoqkNimLrAhEaedyvPQ+G5QCG5o2pwIo3ypSCQljPSyhg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtslMmcG99FTPzx6jZa7gXFwRl0qZlrt1AvisxJK8ImZUjEOAR
-	Lq6zNwVmGcoZREU9O+0M/SIj1M8bbV7He/OF8ZHl03JRwT1t2BWVHr4NR8wq8KjRA5oaVK319fN
-	lpDFAA2PsL/gnZf4+OAMxxHEhIVh1mO+WbNX1Yv3a5LM=
-X-Gm-Gg: AYBFou3x+RMJ9Dox/3e452sx3GLMW4MeZcwUcelQt147BIw8F/zoqpTCY2i+wPK5Y4S
-	zxHwGYPVp8lN+Gt7nEj6U7qjlz5TervWYqrmnc+CKi/Zfg1Ojj+vv6fI5tbzV//pcGWkLEwOp5b
-	W0q5OIL/k8NM7D70AuSvpZkTUWjwDzKr3MiJw4VxSKq1BkrizsEbkh/uh9TAr9TEwIzM9fkJD4e
-	12VSp6i5SOV3QP6DvD3oOO+JuNbFxPk6W9q9PEeSXDatp7yaR7Ina7UA2oVLkATBTfRxDi6NC/A
-	6LiazuHO6NDxtlLut8sAIMysLM43eh0+92NoZh9o/G15QWgPNsAHwJhOBQmyeQPsrfSMy0YKKdC
-	3tHSbSZZlcWlQjaivnBITCNmYeX594So3b1r+SFwahw==
-X-Received: by 2002:a05:7300:1c94:b0:351:4a80:d94c with SMTP id
- 5a478bee46e88-3537dfbbe1bmr16689633eec.21.1791839750665; Mon, 12 Oct 2026
- 14:15:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="S3cd/pSB"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CJiWnb1149521;
+	Mon, 12 Oct 2026 21:10:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=uOeRbY
+	5zd/YMwkNv8/66VsyHhlD9kyU9Q3Cur7XCeV4=; b=S3cd/pSB5SFi9qQcfyqkfz
+	w1DJl3CKIUOb8zriuiIZ+fXSB43G1xKBQL9Kx7JEsEGVSQbQGvYDIpbTrEob4KeL
+	ov4B/RBd1pc7TyABPCtJkVrsaQasZl7CtwezYMB19GOinidRxsO3og3yvJCvwd5B
+	Zfmidd82CoVbBWpnVooSZhjbABPJUYVYfUEOeqolTM+aQ2xQWMPfK8XT/WjGMLr5
+	p6pEx4CntrNZGBy157Buy4B9MszsShr38imY+PSnkR3Gux1TxcqRM6wL/mr9q5LX
+	ZiwjOh6zAXbu7qrylrJ31n0fxpBg5en0yMFDf8i0xPgCrerwokpRisamnhyROz7A
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1w2gqb-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 21:10:36 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CJONOC1811998;
+	Mon, 12 Oct 2026 21:10:36 GMT
+Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h7yppq2pr-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 21:10:36 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CLAZhM64291212
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 21:10:35 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EE4BA58057;
+	Mon, 12 Oct 2026 21:10:34 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DF9F158058;
+	Mon, 12 Oct 2026 21:10:33 +0000 (GMT)
+Received: from [9.67.101.21] (unknown [9.67.101.21])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 21:10:33 +0000 (GMT)
+Message-ID: <85244b39-017b-4978-8a4e-ff8e8dc89ffb@linux.ibm.com>
+Date: Mon, 12 Oct 2026 14:10:33 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011011022.1445352-1-dhu@x6u.co> <20261011011022.1445352-5-dhu@x6u.co>
- <20261012141725.GG219304@unreal>
-In-Reply-To: <20261012141725.GG219304@unreal>
-From: David Hu <dhu@x6u.co>
-Date: Mon, 12 Oct 2026 17:15:39 -0400
-X-Gm-Features: AclHuK-WSsye-UZZ0-V6UWBm8gdg-DYRcfAamBGa6KpOmrjBSgQosSoXHhwrVLU
-Message-ID: <CABdL-LRjOf3GiL+eq4ZvRTWmWRqsehrDE_rZsRUJYRqzxaTVxQ@mail.gmail.com>
-Subject: Re: [PATCH rdma-next 4/5] RDMA/irdma: Support UMEM attribute for CQ creation
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Tatyana Nikolova <tatyana.e.nikolova@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, jmoroni@google.com, 
-	eagleshaw@google.com, David Hu <xuehaohu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 RESEND 2/3] powerpc/pseries: switch to dynamic ibmebus
+ root device
+To: Johan Hovold <johan@kernel.org>, Geoff Levand <geoff@infradead.org>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>
+Cc: Nicholas Piggin <npiggin@gmail.com>,
+        Christophe Leroy
+ <chleroy@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+References: <20260812142016.55136-1-johan@kernel.org>
+ <20260812142016.55136-3-johan@kernel.org>
+Content-Language: en-US
+From: mingming cao <mmc@linux.ibm.com>
+In-Reply-To: <20260812142016.55136-3-johan@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA4MiBTYWx0ZWRfX4jm1s17p7m4a
+ 8AXeQna4bddFo0wjBacUmoesRy5dysvN/oiivDaDFihLP/mweu8+zXvRfJ4mxJOn6VJlJGRXHe3
+ SCesNQCq5McNGOiz8W0PQaEymDJfPsc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA4MiBTYWx0ZWRfX8qTZ+EyLKK90
+ Cz+q67knmRZc4PyrZr0fjluLr2i7wwqPpNbUlG4x/2DfAkHHCSpOoy0aArBplY/U7ZrzVG9UeGh
+ Q0zfQn3quUJj65xf/+/gbYJvpNxenVVYWGLqqPCWXKY0q2D45CYTNJP3dKeKTleW5d0SH4Qe97Y
+ 2PMIiGbTfHadGpKqOGFMzdu1AK979/1KDZSYuc/FhxpMwQrXyVvPA/TQ4JkXnjJi75Obkd9VIgV
+ NWW7SgHhzgbYQxeqG2w6UWj0EZRRVm/RGOYuY81FAzjpBq9hTPnu5kLmncb7yGxF4y11oNwmPyD
+ HMMrTxtvPlYaIY0fJSxToY1045pURPb6FOBpHUKOjgY+ps5kPqBFP3hDFRFI6SjLRob3KbKEoAF
+ yujFb6o8xIwDI+1dosmqm6DWjDcGK5OIlMgsH5QLaRkC+lfOl45pTfzAQsww7hdudnovtG/ZCaX
+ 7/hwERXSLqwlwsFb6hw==
+X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6acd4ccd cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=KVws_vwQB_PUgFkgaC8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: 9FlBh5Fau2QIPUMtfXf7FTs3ruR3S-ld
+X-Proofpoint-GUID: 692mHVGhtEQmnnpE3l61Ukqs4nvewVUo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_06,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 clxscore=1011 bulkscore=0 priorityscore=1501
+ spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120082
 
-On Mon, Oct 12, 2026 at 10:17=E2=80=AFAM Leon Romanovsky <leon@kernel.org> =
-wrote:
->
-> On Sun, Oct 11, 2026 at 01:10:21AM +0000, David Hu wrote:
+On 8/12/26 7:20 AM, Johan Hovold wrote:
+> Driver core expects devices to be dynamically allocated and will, for
+> example, complain loudly if a device that lacks a release function is
+> ever freed.
+> 
+> Use root_device_register() to allocate and register the root device
+> instead of open coding using a static device.
+> 
+> Also add the missing sanity check when registering ibmebus devices to
+> avoid use-after-free if the bus failed to register (which would
+> previously have triggered a bunch of use-after-free warnings).
+> 
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+> ---
+>   arch/powerpc/platforms/pseries/ibmebus.c | 39 ++++++++++++++----------
+>   1 file changed, 23 insertions(+), 16 deletions(-)
+> 
+> diff --git a/arch/powerpc/platforms/pseries/ibmebus.c b/arch/powerpc/platforms/pseries/ibmebus.c
+> index 2d0f991da2c8..48076fe6ab30 100644
+> --- a/arch/powerpc/platforms/pseries/ibmebus.c
+> +++ b/arch/powerpc/platforms/pseries/ibmebus.c
+> @@ -52,9 +52,7 @@
+>   #include <asm/ibmebus.h>
+>   #include <asm/machdep.h>
+>   
+> -static struct device ibmebus_bus_device = { /* fake "parent" device */
+> -	.init_name = "ibmebus",
+> -};
+> +static struct device *ibmebus_bus_device;	/* fake "parent" device */
+>   
+>   const struct bus_type ibmebus_bus_type;
+>   
+> @@ -172,7 +170,10 @@ static int ibmebus_create_device(struct device_node *dn)
+>   	struct platform_device *dev;
+>   	int ret;
+>   
+> -	dev = of_device_alloc(dn, NULL, &ibmebus_bus_device);
+> +	if (!ibmebus_bus_device)
+> +		return -ENOENT;
+> +
+> +	dev = of_device_alloc(dn, NULL, ibmebus_bus_device);
+>   	if (!dev)
+>   		return -ENOMEM;
+>   
+> @@ -448,6 +449,7 @@ EXPORT_SYMBOL(ibmebus_bus_type);
+>   
+>   static int __init ibmebus_bus_init(void)
+>   {
+> +	struct device *root;
+>   	int err;
+>   
+>   	printk(KERN_INFO "IBM eBus Device Driver\n");
+> @@ -459,23 +461,28 @@ static int __init ibmebus_bus_init(void)
+>   		return err;
+>   	}
+>   
+> -	err = device_register(&ibmebus_bus_device);
+> -	if (err) {
+> -		printk(KERN_WARNING "%s: device_register returned %i\n",
+> +	root = root_device_register("ibmebus");
+> +	if (IS_ERR(root)) {
+> +		err = PTR_ERR(root);
+> +		printk(KERN_WARNING "%s: root_device_register returned %i\n",
+>   		       __func__, err);
+> -		put_device(&ibmebus_bus_device);
+> -		bus_unregister(&ibmebus_bus_type);
+> -
+> -		return err;
+> +		goto err_deregister_bus;
+>   	}
+>   
+> +	ibmebus_bus_device = root;
+> +
+>   	err = ibmebus_create_devices(ibmebus_matches);
+> -	if (err) {
+> -		device_unregister(&ibmebus_bus_device);
+> -		bus_unregister(&ibmebus_bus_type);
+> -		return err;
+> -	}
+> +	if (err)
+> +		goto err_deregister_root;
+>   
+>   	return 0;
+> +
+> +err_deregister_root:
+> +	ibmebus_bus_device = NULL;
+> +	root_device_unregister(root);
+> +err_deregister_bus:
+> +	bus_unregister(&ibmebus_bus_type);
+> +
+> +	return err;
+>   }
+>   machine_postcore_initcall(pseries, ibmebus_bus_init);
 
-> > diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/h=
-w/irdma/verbs.c
-> > index ab25445f3828..e4a02a6b2a11 100644
-> > --- a/drivers/infiniband/hw/irdma/verbs.c
-> > +++ b/drivers/infiniband/hw/irdma/verbs.c
-> >
-> > @@ -2708,29 +2719,94 @@ static int irdma_create_cq(struct ib_cq *ibcq,
-> >               if (err_code)
-> >                       goto cq_free_rsrc;
-> >
-> > -             spin_lock_irqsave(&ucontext->cq_reg_mem_list_lock, flags)=
-;
-> > -             iwcq->iwpbl =3D irdma_get_pbl((unsigned long)req.user_cq_=
-buf,
-> > -                                         &ucontext->cq_reg_mem_list);
-> > -             spin_unlock_irqrestore(&ucontext->cq_reg_mem_list_lock, f=
-lags);
-> > -             if (!iwcq->iwpbl) {
-> > -                     err_code =3D -EPROTO;
-> > -                     goto cq_free_rsrc;
-> > -             }
-> > +             if (attrs && uverbs_attr_is_valid(attrs, UVERBS_ATTR_CREA=
-TE_CQ_BUF_UMEM)) {
->
-> While making this change, it=E2=80=99s a good opportunity to split
-> irdma_create_cq() into kernel and user paths.
->
-> Also, please keep commit-message lines around 75=E2=80=9380 characters. T=
-here=E2=80=99s no
-> need to wrap them at 50 characters.
->
+I went through the init error paths and they look right: the global is
+only set once the root device exists and is cleared before the root is
+unregistered, so the new NULL check in ibmebus_create_device() stays
+valid after a failed init.
 
-Hi Leon,
-
-Thank you for the review. I'll split `irdma_create_cq()` accordingly
-and keep commit message lines around 75-80 for this patch and going
-forward. I'll send out a v2 shortly.
-
-Regards,
-David
+Reviewed-by: Mingming Cao <mmc@linux.ibm.com>
