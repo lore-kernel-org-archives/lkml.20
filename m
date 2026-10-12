@@ -1,153 +1,203 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01661478E20
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:06:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402B13DB328;
+	Mon, 12 Oct 2026 10:06:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791799609; cv=none; b=R/E9K/ZmfTKrDUEkhypx32ExFYJWgTQYKIL0ftqNRX0Pq14NIAVnWqC4sMa7obEuYLjMF8ZVpELE+iYQmTL/FNBpEemk2WWE0ft7l9zDQRcNy+45ksW05IjvPIgOXUhAxR73S6Xd53jHkxdDJm1XJOXnh0kSZpq24pXQrSxg0TU=
+	t=1791799614; cv=none; b=egCA8EUO/WxbXnT05zjpkfmn+dq1elBuxkSRqmVm7E55bsE4zxbnot29D75FLWcEDksbsoV0JaWFy51dSIlnXOv2Lzk0Iwqm3X98mWpO3XbgSL5VACXU5J5BXiAfJn1RYfVziJa0VEu0y9DiUoxkXLGl+PAUBrf5IGEPmAojf9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791799609; c=relaxed/simple;
-	bh=CyBZnoL9cID7mi6579NOEOhskoy3tNCIc6rw4QdlRHw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WNdrmPgub1+0G6NIRoaagYStcYhxb4e7NBIOSSqGYI4SEp5kp+XqjhZSlBYFl/d5990yuxlrtDh2aqjiDP004MObism1u0k/oUfBkGdkxdt4WNTdEB9w1iZss9mN/1heKxFqpWDR/UmIq0eyX0suWn2UGDmOCX9ckJdEyKB4Uhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bAUooeAo; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791799614; c=relaxed/simple;
+	bh=UPexDGGT5Z5R8GFc8aoWeG8IcB5zmAhAwaXiH54Bt/Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ly7w0BVYWqDBbyJfFESYNe0sudYRMgSuVZjvTLg/dHPUnOSwxt5QmjzSZ54UXOIPBqJHNKnfgHnBfkLL5QjJswTQhuK0At+5U+RQduhQo7AmWaMIvqGibR07i5u34VU19NnIybgWnY1nb0AtCJT9PhuTCRWsm1d5LVfcWwfYRNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=xTIAxMX6; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ZyCqZYoY; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=2B/1uOOa; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=liL655Bv; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bAUooeAo"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4c7fab7b6so979119a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:06:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791799593; x=1792404393; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oOkAEGZ38cExqY4JKO5ThXkSV4YfBritRUgr2RuPIUk=;
-        b=bAUooeAoLsJLofZbCEpsazYVHsoAcUA1bELueSB3NVdib50OvYVe7JuiuAGpsX3uVe
-         SvfbghUlkq2IxcVajJTWgMRAkiXHfnH19H0EaJpx1IhO6fDwXtw04gtkxIQrEkxwyL0I
-         11QDDnA2s5T0H2gP+hKm8NSn41dhBtwcg7oPdAosXGLVr3T4vvrkE9R6c1IEoWoiFj96
-         bhfvL4aZSSYs1WtHOWgsqD1wfL8ee6P2VcscvumD1V9pjZhM0Pr5tE+eNjJT8P147Xrz
-         IcGH8OCnAQVzPFUUlBKgzwmBnvsrOC0DlQ+lgDE1TMMQI69Pc8rAkD4FiRakq+QBG3eA
-         aOrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791799593; x=1792404393;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oOkAEGZ38cExqY4JKO5ThXkSV4YfBritRUgr2RuPIUk=;
-        b=V4k7YsC8iIIFbw5yEXPV7qE/CO9aHhahUJnPiUPWsBV6euvWXMDmASmVH/hkEjVnxq
-         f0fU7uVXFJjOtWVTr62REkUP3+WfSB5qx1SmWiobkVr3v6l54tunK19liVHiIwlFX4wl
-         fyHYlTwgRiEiouw1Tl8tWAwNQDZCYPPU+/s0Bfubo81oB3zdMC4KLi03zVHNR2Xvn8wz
-         fd5GWbpgo0XOzwZDzDFzOx5x3zaum/kEFROF0f7kCNP02HDGmCPzUmcb1twpWC4jtCNO
-         5y6oPe3O+5AWVr3v2ABhftMdTR+GDEplxlZeHjdAxhWB2YSvT0YwxD7oPinJavqeJi0b
-         hCiA==
-X-Forwarded-Encrypted: i=1; AKwUvBwbjWwagVtpl99e9bXMm0q8PI6CIacpaDEEXCfLXkNu+EB6O0a+loq8rF5LIX9ZF4eYMFBiqYa8OUFcpbU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcHIDqLFeDkZiTI0kdUjtZipIS8rzgNZ22aAKiHcSCVSh4zJ1e
-	RgE4WbQ/O3pj4iR8Aakeuytch45DvbHBefMzpfO4Gm97UXGiAfkZEaw0
-X-Gm-Gg: AYBFou1W9zgDO9i+uCpepVZinrRLLlrCPNvjb1/N24FLfL+51GKRXy04D/VEm3kRzgJ
-	mttRfasNQPV9Ynn8yDlnzrehfK5tnohICJE63i38s4l+ZNsaf7R7bgEnhsWNimn31Uo4lxAU/pE
-	y6K5zBoH6mIudQ1EGDKVGtXWXdW5XMM0nSpvwbQsZwLLfMl+gE5XOONeFKcX3bJArwAQdkpG6fn
-	YBhb0cSXa5c0lSLXlUn9sHKqvJwK+mw+pdDeQqyo8ArQx47tQPruIZSdzVp3Le6DwwJPv8cq8Vf
-	FRTJt+fBKIgw02PqB16QhBjzsDpmpY2AUWgpjWC4QuCnKxQT35H8QFZDY4gGsp5EBs+5Uwblb50
-	CB/huEiGA7SC3lpJn3rJhMFqcY2TMCol6HTIdgGQ0sLnbW3xdiCB7UvRPSyYlDgBkQsHJlt56+Z
-	0dxL2kk6RwEOz2JginaY/nE4p3QbzO1yWZNhk2uAtU1hQw4qQ0/0VWFqU6zCXnbYij9Y+9rVws
-X-Received: by 2002:a05:6a21:46c5:b0:3e1:1689:1eb8 with SMTP id adf61e73a8af0-3e16baddb4amr8423622637.2.1791799593094;
-        Mon, 12 Oct 2026 03:06:33 -0700 (PDT)
-Received: from qby-nixos-laptop ([20.89.137.63])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3da04596dsm4074272a12.29.2026.10.12.03.06.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 03:06:32 -0700 (PDT)
-From: Mingyou Chen <qby140326@gmail.com>
-To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>
-Cc: KentoNion <kento@kekto.ru>,
-	platform-driver-x86@vger.kernel.org,
-	ted eric <ericted8810@gmail.com>,
-	Armin Wolf <W_Armin@gmx.de>,
-	linux-kernel@vger.kernel.org,
-	Chris Taraszka <chris@miget.com>,
-	Matias Civadda <matias.civadda2342001@gmail.com>,
-	=?UTF-8?q?=E9=AB=98=20=E4=BF=8A=E6=96=87?= <btx342@gmail.com>,
-	powerfullz <wleizc7319@gmail.com>,
-	=?UTF-8?q?=E5=AD=99=20=E8=AA=89=E9=93=AD?= <wolf109909@outlook.com>,
-	=?UTF-8?q?Milo=C5=A1=20Vlku?= <vlku.milos.fun@gmail.com>,
-	Rsplwe <i@rsplwe.com>,
-	Bozhen Peng <bozhenpeng93@gmail.com>,
-	Anton Karasev <uselessfire@gmail.com>,
-	Jame Jao <jaojame6@gmail.com>,
-	Mingyou Chen <qby140326@gmail.com>
-Subject: [PATCH v11 6/6] platform/x86: bitland-mifs-wmi: Fallback to balanced platform profile if last performance profile is not available
-Date: Mon, 12 Oct 2026 18:05:32 +0800
-Message-ID: <20261012100532.19612-7-qby140326@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261012100532.19612-1-qby140326@gmail.com>
-References: <20261012100532.19612-1-qby140326@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xTIAxMX6";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZyCqZYoY";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="2B/1uOOa";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="liL655Bv"
+Received: from kunlun.suse.cz (unknown [IPv6:2a07:de40:b306:2000::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id EF2E221E05;
+	Mon, 12 Oct 2026 10:06:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791799599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MYhP4QK8hX0Tr71CRIBp10bpXbQNb2lJPWWD//D+Vwk=;
+	b=xTIAxMX6sIw3OC59VuLvftJu1HTRbr9hKWakXYYblrr8wXnND/nIsLwAntOMnwjNYLp4Oj
+	lNuD6L2uBrmN5tNQ/5KtB/KDajArJJMs8tv5I1TTUDzOZuNISJh/K5MV1r85iJbuwUkm6r
+	/3juTgsT4qMFr2g20C048MLGMBoRHTI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791799599;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MYhP4QK8hX0Tr71CRIBp10bpXbQNb2lJPWWD//D+Vwk=;
+	b=ZyCqZYoY20yAgdv6f47t2+rWB9eyWF42xho3/h0/OwGXz2QGHh6d0tX28NWQa61gXt1xPG
+	bYzB7hHIdA46eaCA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="2B/1uOOa";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=liL655Bv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791799598; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MYhP4QK8hX0Tr71CRIBp10bpXbQNb2lJPWWD//D+Vwk=;
+	b=2B/1uOOaluJPw2FBMtAY7PiYbGrxFXO1X1ZRSHjlw9/I2WDKpo7mMMuVkUeLtBEUI7tWho
+	MvI99aEhVNlfPbMbGHlHevLKqr8GZLfHOh9u5r5b1W8qkcIi+hrg/dXeHQg/qBjSGTd5xk
+	a9s5nfwgUfM145MiW+m5jfXDe3KWu4s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791799598;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MYhP4QK8hX0Tr71CRIBp10bpXbQNb2lJPWWD//D+Vwk=;
+	b=liL655Bvljq0rf/ZA7O6bJJGyxiHHYmwBSsRL7uCOXLR8p3YZIgbo8PExbx3EuluEppm9X
+	bgb44cUf5NAQFSBg==
+Date: Mon, 12 Oct 2026 12:06:37 +0200
+From: Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>
+To: Amit Machhiwal <amachhiw@linux.ibm.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Harsh Prateek Bora <harshpb@linux.ibm.com>,
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+	kvm-ppc@vger.kernel.org, Mark-PK Tsai <mark-pk.tsai@mediatek.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] ring-buffer: Do not check si_mem_available() during
+ SYSTEM_BOOTING
+Message-ID: <asyxLYOjzqQ5VfFb@kunlun.suse.cz>
+References: <20261009163557.88467-1-amachhiw@linux.ibm.com>
+ <20261009163557.88467-3-amachhiw@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261009163557.88467-3-amachhiw@linux.ibm.com>
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [2.99 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	HFILTER_HOSTNAME_UNKNOWN(2.50)[];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ONCE_RECEIVED(1.20)[];
+	RDNS_NONE(1.00)[];
+	HFILTER_HELO_IP_A(1.00)[kunlun.suse.cz];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HFILTER_HELO_NORES_A_OR_MX(0.30)[kunlun.suse.cz];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-0.977];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[goodmis.org,kernel.org,vger.kernel.org,lists.ozlabs.org,efficios.com,linux.ibm.com,gmail.com,mediatek.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b306:2000::2:from];
+	TAGGED_RCPT(0.00)[];
+	RCVD_COUNT_ZERO(0.00)[0];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim]
+X-Spam-Score: 2.99
+X-Spam-Level: **
+X-Spamd-Bar: ++
+X-Rspamd-Queue-Id: EF2E221E05
+X-Spam-Flag: NO
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-On Bitland laptops, performance profiles require an external power
-supply. If the system enters suspend in a performance profile and the AC
-adapter is unplugged while the machine is asleep, laptop_profile_set()
-fails with -EOPNOTSUPP during resume when attempting to re-apply
-saved_profile.
+On Fri, Oct 09, 2026 at 10:05:57PM +0530, Amit Machhiwal wrote:
+> During early boot (early_trace_init() called from start_kernel()),
+> tracing allocates initial ring buffers (temp_buffer, array_buffer, and
+> snapshot_buffer) for CPU 0.
+> 
+> Before attempting page allocation, __rb_allocate_pages() performs a
+> heuristic check using si_mem_available() to return early with -ENOMEM if
+> memory appears insufficient.
+> 
+> However, on kernels built with CONFIG_DEFERRED_STRUCT_PAGE_INIT=y,
+> defer_init() leaves only a single section per node (e.g.  16 MiB with 64
+> KB pages) initialized up-front.  On kernels with large static binary
+> footprints (such as debug configurations enabling PAGE_OWNER,
+> DEBUG_PAGEALLOC, KFENCE, or SLUB_DEBUG), the static kernel image and
+> early core initialisations (SLUB caches, vmalloc, static ftrace records)
+> consume virtually all managed pages in this initial pool.
+> 
+> At T=0.000000, watermarks have not yet been established
+> (totalreserve_pages = 0), so si_mem_available() returns the raw free
+> page count (often 0-1 pages).  When the snapshot buffer or global trace
+> buffer attempts to allocate 2 sub-pages, si_mem_available() returns <
+> nr_pages and prematurely aborts with -ENOMEM.
+> 
+> This failure is false: if the page allocation were actually attempted
+> via alloc_pages_node(), the page allocator would trigger
+> deferred_grow_zone() on demand to initialise additional deferred memory
+> sections.  Checking si_mem_available() before attempting the allocation
+> short-circuits this on-demand growth.
+> 
+> Skip the si_mem_available() check when system_state == SYSTEM_BOOTING.
+> Once the system transitions past early boot and page_alloc_init_late()
+> initialises all deferred memory, si_mem_available() accurately reflects
+> system-wide free memory and the check operates as intended for runtime
+> allocations.
 
-Returning an error from the resume callback simply because the power
-cable was removed during sleep is undesirable, as the device is
-otherwise
-fully functional.
+Tested-by: Michal Suchánek <msuchanek@suse.de>
 
-Gracefully handle this condition by falling back to
-PLATFORM_PROFILE_BALANCED
-whenever restoring the saved profile returns -EOPNOTSUPP. Update
-saved_profile accordingly and notify user space via
-platform_profile_notify() so daemons such as power-profiles-daemon stay
-in sync with the actual hardware state.
-
-Signed-off-by: Mingyou Chen <qby140326@gmail.com>
----
- drivers/platform/x86/bitland-mifs-wmi.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
-index d61382ad4a0b..7c950e688988 100644
---- a/drivers/platform/x86/bitland-mifs-wmi.c
-+++ b/drivers/platform/x86/bitland-mifs-wmi.c
-@@ -392,13 +392,27 @@ static int bitland_mifs_wmi_suspend(struct device *dev)
- static int bitland_mifs_wmi_resume(struct device *dev)
- {
- 	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
-+	int ret;
- 
- 	/* Skip event device */
- 	if (!data->pp_dev)
- 		return 0;
- 
-+	ret = laptop_profile_set(dev, data->saved_profile);
-+
-+	if (ret == -EOPNOTSUPP && data->saved_profile != PLATFORM_PROFILE_BALANCED) {
-+		dev_dbg(dev, "Cannot restore profile %d (likely on battery), falling back to balanced\n",
-+			data->saved_profile);
-+
-+		ret = laptop_profile_set(dev, PLATFORM_PROFILE_BALANCED);
-+		if (!ret) {
-+			data->saved_profile = PLATFORM_PROFILE_BALANCED;
-+			platform_profile_notify(data->pp_dev);
-+		}
-+	}
-+
- 	dev_dbg(dev, "Resuming, restoring profile %d\n", data->saved_profile);
--	return laptop_profile_set(dev, data->saved_profile);
-+	return ret;
- }
- 
- static DEFINE_SIMPLE_DEV_PM_OPS(bitland_mifs_wmi_pm_ops,
--- 
-2.55.0
-
+> 
+> Fixes: 2a872fa4e9c8 ("ring-buffer: Check if memory is available before allocation")
+> Cc: stable@vger.kernel.org
+> Reported-by: Michal Suchánek <msuchanek@suse.de>
+> Closes: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
+> Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+> ---
+>  kernel/trace/ring_buffer.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> index 04bb94c29f58..a9f82e2f8fad 100644
+> --- a/kernel/trace/ring_buffer.c
+> +++ b/kernel/trace/ring_buffer.c
+> @@ -2452,9 +2452,15 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
+>  	 * memory. It may not be accurate. But we don't care, we just want
+>  	 * to prevent doing any allocation when it is obvious that it is
+>  	 * not going to succeed.
+> +	 *
+> +	 * Skip this check during early boot: with CONFIG_DEFERRED_STRUCT_PAGE_INIT,
+> +	 * NR_FREE_PAGES only reflects the initial non-deferred pool at this
+> +	 * stage. si_mem_available() returns a false negative while actual
+> +	 * allocations succeed by growing the zone on demand via
+> +	 * deferred_grow_zone().
+>  	 */
+>  	i = si_mem_available();
+> -	if (i < nr_pages)
+> +	if (system_state != SYSTEM_BOOTING && i < nr_pages)
+>  		return -ENOMEM;
+>  
+>  	/*
+> -- 
+> 2.54.0 (Apple Git-157)
+> 
+> 
