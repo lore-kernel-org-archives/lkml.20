@@ -1,90 +1,88 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5781248F827;
-	Mon, 12 Oct 2026 14:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F163D8902;
+	Mon, 12 Oct 2026 14:48:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816471; cv=none; b=DT6b4pQAGyhCxgejt1T/R9Nea28a3nKaW8Kmnuy8WoIxdANgz29hUCZ2qTzS2p8zzEXuXI9jwchD1jlQjoW95At96cDr1qV3WlHrbdK+C0R1wZm4BBYIw72wCZYSL/Auus5yFO3X4HPR2z/VgxQPipdCUdmte1Gx5BWqOCPsyHY=
+	t=1791816507; cv=none; b=V9jeSupatnJtCadgDL7ztlRr4zdhYmnDa8VAEMdcWMpSTCfHTdlypT53M+w5f5FHKvfD9FK/SCfS0+uSKupADHNhByAkS4Jn7lbIN6FSvp3UyM/0NF67mKQzfmZXxzqzeY+v5HZJe7e6tQvwwbxiln0KRt0mcIwEvOpWqfAJ5So=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816471; c=relaxed/simple;
-	bh=sRWQ24BvreigALTr4vhtdp8Z6cN5af/h0OA9Hsa1gQs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q4ZAuWGCbtrAoMMik1fD5wCBlCp8y0V1UlcROLFA8Eqpek5jRn2rnnb3rxwUOyDLBVsqOS5iA61H806xL2E6AEwws0epfsVBv+WDx6lK4rmZE17qDX13GdHQzpOI5cqnaIE5csXnV+MI6rHgDZvYPbET6Nimg9K8BTLB9hz6aJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=MddD1XM3; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791816507; c=relaxed/simple;
+	bh=yIM8lxIM4nwOTva6lIHbyZD4GX0+4++YzhtQHCO8CdI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OOUnCHzJzS159BI6I2JpmYxtw27TqBh1BZPA+ViXKwjRYe0cBRJIGktOaqXlcopCvRqkFHwFO4h8ske0cOBMccxWhwCECGb3S9GTmNE5rLVsMye6r6SOL9IfQo/4rWQNDU3O+hxJXSHJxnVA1kFPDSRIhw06SDQb/KPg5wz4RS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LgSWFl0L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="MddD1XM3"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=2Dnk+taR5VE4FB6PnSfOv7+73NQ/Pd4ruC75qr8uuwY=; b=MddD1XM3HBY7+vM1QpRmqfBzzX
-	yOgfxEsDiNtjZqU7gFFl61ZOn2uKxnay7Pyqbnd4dOqIMu82lbXkBk6wrQawO3ll9Xqw4PmZmiPbY
-	3+WFEccrhDXG8ZZB9YA3tYG2M9vB9cT70IxZtDx+10L06BWnPYFOtiIM8hPnb2NZX+8k=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xGHJQ-00ALOv-K5; Mon, 12 Oct 2026 16:47:36 +0200
-Date: Mon, 12 Oct 2026 16:47:36 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Kyle Switch <kyle.switch@motor-comm.com>
-Cc: olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, mmyangfl@gmail.com,
-	horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
-	wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
-Subject: Re: [PATCH net-next v13 5/5] net: dsa: motorcomm: Add support for
- Motorcomm YT922x
-Message-ID: <69492752-8b6c-428b-80f4-a44f4d0855a2@lunn.ch>
-References: <20261011025043.1859940-1-kyle.switch@motor-comm.com>
- <20261011025043.1859940-6-kyle.switch@motor-comm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LgSWFl0L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EB501F0089B;
+	Mon, 12 Oct 2026 14:48:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791816506;
+	bh=2JmtNNGsQ6gXthWHmY2GYVjAYE1sxJ8hwkk0A4TdoEw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LgSWFl0LwEZyyzuM65lG114h7Bpi4nZtr/jB85mElHNJByp9zML/uwC/BSK3kMBC8
+	 OtyFbDv7nDiAdeKYT2BQgeyBHkc0t0AtGZ+m8a2dyn2g+erU3NOzk/J+902OpFMb/4
+	 ZdugfgNuq2bjLJ24aC1MNd/NtJRQJjPcwVm+LiCfSg5tiyMZhCfj+NK76P+hZPR8pM
+	 PeAIXrc3lUo54cVrzgv+JlecebR7xeQakVVPLWz8KpCPL92EQplHC0EC+cr62e9vVL
+	 mYEMd+NlvwfX7ZhgAbjRin1tuAaNaYZ/vTRyUnIZaMkTd9GOyEm7CuCK01SfUYFuNf
+	 XIOlmKwjNVCWg==
+Date: Mon, 12 Oct 2026 15:48:17 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: jianyungao89@gmail.com
+Cc: linux-kernel@vger.kernel.org, Dan Williams <djbw@kernel.org>, Vishal
+ Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>, Alison
+ Schofield <alison.schofield@intel.com>, nvdimm@lists.linux.dev (open
+ list:DEVICE DIRECT ACCESS (DAX)), linux-cxl@vger.kernel.org (open
+ list:DEVICE DIRECT ACCESS (DAX))
+Subject: Re: [PATCH] dax: fix mapping_store() returning 0 instead of error
+ code
+Message-ID: <20261012154817.11c30692@jic23-hlaptop>
+In-Reply-To: <20261011131857.30481-1-jianyungao89@gmail.com>
+References: <20261011131857.30481-1-jianyungao89@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011025043.1859940-6-kyle.switch@motor-comm.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
->  static int yt921x_chip_detect(struct yt921x_priv *priv)
->  {
->  	struct device *dev = yt921x_priv_to_device(priv);
-> @@ -3631,6 +3648,9 @@ static int yt921x_chip_detect(struct yt921x_priv *priv)
->  		return -ENODEV;
+On Sun, 11 Oct 2026 21:18:57 +0800
+jianyungao89@gmail.com wrote:
+
+> From: Jianyun Gao <jianyungao89@gmail.com>
+> 
+> When the region driver is not loaded, mapping_store() returns rc
+> which is 0 at that point, instead of an error code. Set it to
+> -ENXIO to match the equivalent check in size_store().
+> 
+> Fixes: 9567da0b408a ("device-dax: Introduce bus + driver model")
+> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+
+Looks correct to me.
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+
+I'm curious, found by inspection or some tool?
+
+J
+
+> ---
+>  drivers/dax/bus.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dax/bus.c b/drivers/dax/bus.c
+> index b809e1a264af..262f97b5e7aa 100644
+> --- a/drivers/dax/bus.c
+> +++ b/drivers/dax/bus.c
+> @@ -1192,7 +1192,7 @@ static ssize_t mapping_store(struct device *dev, struct device_attribute *attr,
+>  		return rc;
+>  	if (!dax_region->dev->driver) {
+>  		up_write(&dax_region_rwsem);
+> -		return rc;
+> +		return -ENXIO;
 >  	}
->  
-> +	if (!yt921x_needs_extmode_check(major))
-> +		goto skip_extmode_check;
-> +
->  	res = yt921x_reg_read(priv, YT921X_CHIP_MODE, &mode);
->  	if (res)
->  		return res;
-> @@ -3670,6 +3690,14 @@ static int yt921x_chip_detect(struct yt921x_priv *priv)
->  
->  	priv->info = info;
->  
-> +	return 0;
-> +
-> +skip_extmode_check:
-> +	dev_info(dev,
-> +		 "Motorcomm %s ethernet switch, chipid: 0x%x\n",
-> +		 info->name, chipid);
-> +	priv->info = info;
-> +
+>  	rc = down_write_killable(&dax_dev_rwsem);
+>  	if (rc) {
 
-This goto is a bit spaghetti like coding. Why not:
-
-	if (!yt921x_needs_extmode_check(major))
-		dev_info(dev,
-			 "Motorcomm %s ethernet switch, chipid: 0x%x\n",
-			  info->name, chipid);
-		priv->info = info;
-
-		return 0;
-
-	Andrew
