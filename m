@@ -1,170 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15FD2433E81;
-	Mon, 12 Oct 2026 11:30:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070EC433E81;
+	Mon, 12 Oct 2026 11:31:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791804657; cv=none; b=uY99BdQ5pD/pxPNSAdci15K38qU2Mz7rHV0Uy6Ih/Y1XSPMteeC+6t1yCrlCePrD9gWIgyLY33UEovbOY6d2kD2l9IHGIqyWOu/tD2Z9LCBdFwqJSvsez5H/1R+40rNgqf70XWmR86xNe2IfWsAvYY7Qiv8yRCmTBk80EocJnXg=
+	t=1791804683; cv=none; b=WM0Imnot4Ou7wFVnloYjMvCtxi4Jkj0rX7gcyZOIPRdV6yli729KTbv11q3zX/crqHBTXHcLdZUy4BRCHMhiuUag6bmLHDW6pl5z0hVCAYLTfAMvKUfBt3QGytmYGzpaJb2/b2Ds4b1eE0gqkqdDNk6WzP8FGxIPq2sqifUdTww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791804657; c=relaxed/simple;
-	bh=aPTcmEQ1Ydtv4b0A7IBonKTbkGaEEkXqccFtk2eJeF0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m4224pF7N9v3Ug8rWHGOAsH/k34E2HOwqejCro7BdOjV4dG5aSjbnJaGq1Vps97SiLujjmWvsyctQ8RUBr+FBNwNvtPto3NItYa3kcZ+qxxEtVqnN9UQX1MCvFezqDqdcrwxNJCX8v8DygXFfQeFvttnc3cWmvxQGvmkFO/+QJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k9CBeuFz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791804683; c=relaxed/simple;
+	bh=J2BDvOIa7NGCXDbw/wJHso1NT9BGYY7QZe4OLOYylDE=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qvayX9e+8KqQY7rodAPEDBykrtf5dXoX9DBEhikOHBxqf2xDOK0/Xbe4eDvoIgDncoUwHTLWV1SwD3qDcVLLFFaqt0RlxMsYeZezrQaGtEyMrO6ou1EpML16U5AbcT0hCEMq0Dj1YIlykUrq0T8YVfG9mesohaNx5BtEmRne3aQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GG0crorO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k9CBeuFz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E15F41F0089B;
-	Mon, 12 Oct 2026 11:30:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GG0crorO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0D681F0089B;
+	Mon, 12 Oct 2026 11:31:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791804655;
-	bh=nYLAzRdGcx+Pa1SC0TaGogrsY7RGl2b/LoCCYazp4iI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=k9CBeuFzlXo74TbZIfXSWENGaS2ldExc95bJj+Rs33Kre3ZGctNRikXKMcTwkw7ua
-	 zwV0VrqOI2qoZMM7HHlRerKomGs609/TpwgOdmGYRUEu9xVY6nuLJqnL64eBrN4u5m
-	 oo1QuTzdaPjQWaMI0yw7qnE+pdkKlHuSHIEJ4A8X1d3C0zteEREKasmr9O3J5ikubP
-	 BbDB+NXm04S8VD1w41EOlf5Gw79Exug3hl3NdzAxRV1CgL1ouOsHyFPDKWsqBQ786n
-	 gEBlebxBuIhpbOBkEU8hXHES83exCickuKVUYI3gzyakax3xx+HX7Am8Yb6cGodJo9
-	 EacTou0lpDJkg==
-Message-ID: <0a486a08-8d6c-4ca5-8a54-e7499630095c@kernel.org>
-Date: Mon, 12 Oct 2026 13:30:48 +0200
+	s=k20260515; t=1791804680;
+	bh=UKbDbkFJt72t2zaBIh+ZUe3E29MXtHewW5fvZXZCj30=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=GG0crorOYWxX9858zOkG7h2+X99LFStJ4Gi8/a5Drk5bO6EswnhtjYKFxLtZt8h4v
+	 FqWT41IP8Ehk2C/+UT4t68wZgWCbVd9ccW7oEqHevvJi6EfSWQxTa1AjZMgk6k3j8u
+	 ugOmsxlfttwzXePsildhyn3jj5iL3LG673ZL4PpuDTVHcsQh4g5PfnjnTRhKZbh6x+
+	 BYJ7LRg0UFaH6olen9aZ42c6+9FhgGQ1mO1hAOAoe2BsAI9MuZ3RqAQ8Q0x8ccp0wC
+	 5vea+Oyry6rwXwBdEIXnlMuev3gMUhP3qJV/Q/iNVMJ5qIqtC6jjHQSn4RWNIAGCqt
+	 BUJZ2KnBFbjsQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xGEFS-00000001qvN-0l8F;
+	Mon, 12 Oct 2026 11:31:18 +0000
+Date: Mon, 12 Oct 2026 12:31:17 +0100
+Message-ID: <861p9v2m0q.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Yize Wang <wangyize7@huawei.com>
+Cc: <kvmarm@lists.linux.dev>,
+	<linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>,
+	<catalin.marinas@arm.com>,
+	<will@kernel.org>,
+	<fuad.tabba@linux.dev>,
+	<joey.gouly@arm.com>,
+	<seiden@linux.ibm.com>,
+	<suzuki.poulose@arm.com>,
+	<yuzenghui@huawei.com>,
+	<mark.rutland@arm.com>,
+	<zhengchuan@huawei.com>,
+	<jiangjiacheng@huawei.com>,
+	<yize_w1110@163.com>
+Subject: Re: [RESEND][PATCH 0/2] Batch register access for live migration optimization
+In-Reply-To: <6890def8-168d-4951-b6bd-bcbbcbf3595a@huawei.com>
+References: <20260918081930.4014735-1-wangyize7@huawei.com>
+	<861paq69te.wl-maz@kernel.org>
+	<f70c6fe3-e3c5-4912-b4bb-8a418fec4346@huawei.com>
+	<86ece63kes.wl-maz@kernel.org>
+	<6890def8-168d-4951-b6bd-bcbbcbf3595a@huawei.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] dt-bindings: input: touchscreen: samsung,s6sy761: Add
- S6SY791 and reset GPIO
-To: Lukas Timmermann <foss@timmermann.space>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org
-References: <20261011-lat3st-google-raven-touch-upstream-v1-0-2a9f55159b9e@timmermann.space>
- <20261011-lat3st-google-raven-touch-upstream-v1-1-2a9f55159b9e@timmermann.space>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261011-lat3st-google-raven-touch-upstream-v1-1-2a9f55159b9e@timmermann.space>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: wangyize7@huawei.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, zhengchuan@huawei.com, jiangjiacheng@huawei.com, yize_w1110@163.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On 11/10/2026 14:44, Lukas Timmermann wrote:
-> S6SY791 is the SPI-based counterpart of S6SY761. The register map and
-> commands are identical for the subset the kernel currently implements.
-> Therefore add S6SY791 as a related touch controller.
-> 
-> Optionally, the reset line can be controlled on some boards,
-> such as the Google Pixel 6 Pro (raven).
-> 
-> Also reference spi-peripheral-props for the SPI bus properties.
-> 
-> Signed-off-by: Lukas Timmermann <foss@timmermann.space>
-> ---
->  .../input/touchscreen/samsung,s6sy761.yaml         | 37 +++++++++++++++++++++-
->  1 file changed, 36 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
-> index 1ffd17af3c53..d24f35038934 100644
-> --- a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
-> +++ b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
-> @@ -8,13 +8,17 @@ title: Samsung S6SY761 touchscreen controller
->  
->  maintainers:
->    - Andi Shyti <andi.shyti@kernel.org>
-> +  - Lukas Timmermann <foss@timmermann.space>
->  
->  allOf:
->    - $ref: touchscreen.yaml#
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
->  
->  properties:
->    compatible:
-> -    const: samsung,s6sy761
-> +    enum:
-> +      - samsung,s6sy761
-> +      - samsung,s6sy791
->  
->    reg:
->      maxItems: 1
-> @@ -22,9 +26,19 @@ properties:
->    interrupts:
->      maxItems: 1
->  
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description: GPIO connected to the reset pin of the controller
-> +
->    avdd-supply: true
->    vdd-supply: true
->  
-> +  spi-max-frequency: true
+On Thu, 08 Oct 2026 13:50:57 +0100,
+Yize Wang <wangyize7@huawei.com> wrote:
+>=20
+>=20
+> =E5=9C=A8 2026/10/3 22:53, Marc Zyngier =E5=86=99=E9=81=93:
+> > On Sun, 20 Sep 2026 10:15:25 +0100,
+> > Yize Wang <wangyize7@huawei.com> wrote:
+> >> =E5=9C=A8 2026/9/18 20:08, Marc Zyngier =E5=86=99=E9=81=93:
+> >>> On Fri, 18 Sep 2026 09:18:13 +0100,
+> >>> Yize Wang<wangyize7@huawei.com> wrote:
+> >>  =C2=A0 These patches focus on optimizing GICv3 register access during=
+ live
+> >> migration. We found that there are a large number of locks (kvm->lock,
+> >> vcpus, config_lock) in the GIC, these lock operations wil cost large
+> >> time waste. The batches of sysreg for vcpu optimization will come in
+> >> follow as a separate series. And let me address these questions one by
+> >> one.
+> > All these locks should be non-blocking by the time you save anything
+> > related to the GIC, because:
+> >=20
+> > - none of the vcpu can be running
+> >=20
+> > - this must be a single threaded operation
+> >=20
+> > So if you are seeing anything contended, this is either the sign of a
+> > bad KVM bug, or an indication that you are violating the above
+> > requirements.
+> >=20
+> > 	M.
+>=20
+>=20
+> Hi, Marc! Thanks for your review.
+>=20
+> You are right that when saving the GIC state during live migration
+> process, all vCPUs are not running and it is a single threaded
+> operation. Our patches process the packaged register states from the
+> userspace under the same lock. These operations only aim to reduce
+> the lock opreation downtime and do not involve lock contention.
 
-Drop
+OK, so your argument was actively misleading, since you were claiming
+that locks were the majority of the overhead, and are now
+advocating... something else.
 
-> +
-> +  spi-cpha: true
-> +
-> +  spi-cpol: true
+> In addition, these patches focus on reducing the syscalls of
+> ioctl. Now, every register requires an ioctl, resulting in (num_cpu
+> * registers_per_cpu) system calls. This will cost lots of time
+> during the large-scale VM migration. Our patches batch registers by
+> category in qemu and then send them to kernel in batches. This
+> operations significantly reduce the number of ioctl syscalls and
+> save a great amount of downtime.
 
-These two should be probably required for the new device.
+I've suggested you use io_uring, and you completely disregarded my
+suggestion based on... locking contention. How do you expect me to
+take you seriously?
 
-> +
->  unevaluatedProperties: false
->  
->  required:
+I've now marked this series as rejected. Please come back once you and
+your AI toy have agreed on what you want to do.
 
+Thanks,
 
+	M.
 
-Best regards,
-Krzysztof
+--=20
+Without deviation from the norm, progress is not possible.
