@@ -1,119 +1,102 @@
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E99043F08F
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:01:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8405B43CE58;
+	Mon, 12 Oct 2026 07:01:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791788476; cv=none; b=MTM8kNbv8u+i6uoDZQ/8I3gNDFwmdn3rVts3ChUEYJD38bYNWgj36JJTsAVzhk+qwJCwWvazY5Kb9tFLg1uiK/+uFmr3RmTJ4T6JcBlWHXT41jXZnnKJGXVS17ooYUOBQ8LmmrAIZ3uR0GNpX8g3rCUyF3oTjp1cuutAK4b5omQ=
+	t=1791788499; cv=none; b=ilqnVm0xunUjEUNTg0/EtZsAGGXFbFdfdbj6U+dGKKWn3vHPE75Z+nqy9jbPOzUkLMUVbIKxjjGSCz1LdWZd6O7qJfcqK1dDhASU5d/dbgcp4GZIbrt/5E84sswWyg5ZBrB+2aB0fDzXVTJcsHp+l2kEQOWUPe7l1+4Jt3Dhsnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791788476; c=relaxed/simple;
-	bh=Xk3hbaaEMQ+lW6c3+RYQ4qvYM/R/WfCEOwoYIh/ZUfc=;
-	h=Date:To:Subject:Content-Type:References:Mime-Version:In-Reply-To:
-	 Cc:From:Message-Id; b=ZzLvQiiD1epeu5r1eE6wcEBzh3aASGNBaRJTVaQKLBQ/DFFpfzdJx0/c1seFPneErsPeOW5LTh/3+lOEWXdqRZLpN5tmgD0zWjrtA9mvVwAbnDTgFRmlcFDfzn4dBP+5cIwekprCHAf91dhPy/pYmoU6VIE3kByagkk6Hgj9m8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=DS/55P6U; arc=none smtp.client-ip=209.127.230.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1791788499; c=relaxed/simple;
+	bh=IsS6jlUXPTT9+nYDkYwSXZcw9krz7B74BVT1GYVLKe8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G7Gsr3MC9VaF7ZWVx/eUuKViUI4Hslhj72z+Zj1gWC8nowcqKnQ1rPiH+oPIbm7y7nOcYRAq0yb6EX7Mo8CJRajvRKsiKY+QIOWWeyjRc2GIDQy07C07R6GRtOk7tOjdg9D6zR7SGpZIlDan0VzdaYhj118Aia8Nf/9bBCXxJdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dYBvsSPp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="DS/55P6U"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1791788468; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=Xk3hbaaEMQ+lW6c3+RYQ4qvYM/R/WfCEOwoYIh/ZUfc=;
- b=DS/55P6UWpgshkjluxzjvfYoB2GntbZr0ckOCTTHqbaeRTy2J1aBZVHATiH2O2SdQfX1z+
- +4u1BW4zPIxI/17Y4/YJFPKBS+Iy4YJFEqO1zFgazu2HfOxEDkBtrkXr4O97rOjBreUFMc
- mriMKY4wcz26FOuFNv5zJB5oFn3lTjWrLHhQAVu/Cr0g6cIn8By6humrRRoC+fPdUrXQDf
- AOEYMa1L7wUsha/rhmCrCCPPXAL1qSIbTkHRC/cNlSqoU329WyEllEbTCWNMQSoHC6M/qK
- gTgrL2fXlYT7P9CMLpzoW2wK07lL443uMIrx668+KMj+HtLT91iDSIqhy6J1nQ==
-Date: Mon, 12 Oct 2026 15:00:49 +0800
-X-Original-From: Fengnan <changfengnan@bytedance.com>
-To: "Naman Jain" <namjain@linux.microsoft.com>, 
-	"Michael Kelley" <mhklinux@outlook.com>, 
-	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>
-Subject: Re: [RFC PATCH 0/3] nvme-pci: yield completions under scheduler pressure
-Content-Type: text/plain; charset=UTF-8
-References: <20261009050556.2817978-1-namjain@linux.microsoft.com> <MN2PR02MB6863FBC36CE4F1D6419F0E8BD4922@MN2PR02MB6863.namprd02.prod.outlook.com> <04d88297-1732-4761-ae82-d68c441a7156@linux.microsoft.com> <3f4a11ea-bbc0-4dc5-9720-3447346739cf@linux.microsoft.com> <1c7c7fd9-e2e6-41ac-ac97-9c4d71b1c2fc@bytedance.com> <8bff7953-a9df-4ede-b3de-a4df558946a9@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dYBvsSPp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7AB31F0089B;
+	Mon, 12 Oct 2026 07:01:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791788498;
+	bh=GFhdpnnhNHq8kto2NtVcBzP+4OYlv8T7WrOl9X3C8NE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dYBvsSPpPy0rtJQbOBva6kehr5wr02bZg7sxUnjFGXUcRAc32MyIzZN45t1AlPjXv
+	 XD9k3E1VS8lDMeRnwmLpY+OlJ8lBsu0kv8TS060NFRJkTdR1gjuyXUzWUGvS+X5FqY
+	 2dE3U2+XMWlLnLe9No1jPEDKg6jBjzAB/SNDqn9L6BSQYYzUYg+rerO+YAp3JCNJEs
+	 V1oxiwYnstkJYO/d/IcUehoZFpkW5i/5xVESLs0c2cOGWTf9XZSqrGjMSDkYvEToBY
+	 1CWsp403rjOJlujTQ3E3tnAfGUBfioFhKXtElwTO180JkktFz5YRVCPrROgLUVtl92
+	 0EeW9fV4TYM9w==
+Date: Mon, 12 Oct 2026 10:01:34 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Pranjal Shrivastava <praan@google.com>
+Cc: linux-nfs@vger.kernel.org, Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>, Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, linux-pci@vger.kernel.org,
+	linux-rdma@vger.kernel.org, Shivaji Kant <shivajikant@google.com>,
+	Tom Talpey <tom@talpey.com>,
+	Unnati Sachan <unnatisachan@google.com>
+Subject: Re: [RFC PATCH v1 4/8] xprtrdma: return -EREMOTEIO on P2PDMA map
+ failure
+Message-ID: <20261012070134.GG27033@unreal>
+References: <20261006233248.705086-1-praan@google.com>
+ <20261006233248.705086-5-praan@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-In-Reply-To: <8bff7953-a9df-4ede-b3de-a4df558946a9@linux.microsoft.com>
-User-Agent: Mozilla Thunderbird
-Content-Transfer-Encoding: quoted-printable
-Cc: "Keith Busch" <kbusch@kernel.org>, "Jens Axboe" <axboe@kernel.dk>, 
-	"Christoph Hellwig" <hch@lst.de>, "Sagi Grimberg" <sagi@grimberg.me>, 
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"Luigi Rizzo" <lrizzo@google.com>
-From: "Fengnan" <changfengnan@bytedance.com>
-Message-Id: <758e4c6b-1b1a-4191-baeb-3f9799783ee6@bytedance.com>
-X-Lms-Return-Path: <lba+26acc85b2+e076f0+vger.kernel.org+changfengnan@bytedance.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006233248.705086-5-praan@google.com>
 
-=E5=9C=A8 2026/10/12 14:48, Naman Jain =E5=86=99=E9=81=93:
->=20
->=20
-> On 10/9/2026 5:06 PM, Fengnan wrote:
->> Hi Naman:
->>
->> This is an issue I hadn=E2=80=99t noticed before.
->> I'll take a closer look at this issue later.
->>
->> Regarding testing, there are a few points to note:
->> 1. My patch has been updated to V2, https://lore.kernel.org/linux-nvme/2=
-0260826061546.56006-1-changfengnan@bytedance.com/
->> 2. In my experience, when do performance tests, it=E2=80=99s best to do =
-precondition
->> first and then execute an ABBA test; this ensures reliable results.
->> 3. IIRC, disabling interrupts in the QEMU kernel does not actually disab=
-le hardware
->> interrupts; QEMU still handles them, which has a significant impact on p=
-erformance testing.
->> Perhaps you could test this on a physical machine.
->>
->> Also, I=E2=80=99d like to ask: does this softlockup issue only occur on =
-QEMU+ARM?
->> or does it also occur on x86 physical machines?
->> Have you tried enabling the =E2=80=9CPosted Interrupt=E2=80=9D feature i=
-n VM? Maybe this will solve
->> this problem in VM.
->>
->> Thanks.
->=20
-> Hi Fengnan,
-> Thanks for the suggestion.
->=20
-> I was using QEMU just for sanity, all the test results are based on exper=
-iments in an Azure ARM64 Hyper-V VM. I could not create enough load on my l=
-ocal QEMU VM to cause a lockup, so I am relying only on the Azure VM I have=
-. I would not rule out x86 for this issue, as we have seen spurious lockups=
- in the fleet, which are more common on certain SKUs, but my current experi=
-ments are limited to arm64. The proposed solution should solve it for both.
+On Tue, Oct 06, 2026 at 11:32:44PM +0000, Pranjal Shrivastava wrote:
+> ib_dma_map_sg() returns 0 on any failure, so frwr_map() cannot tell
+> why a mapping failed and reports -EIO. Use ib_dma_map_sgtable_attrs()
+> instead, which returns the reason. Pass up -EREMOTEIO, which means
+> the device cannot reach the P2PDMA memory, so the RPC fails with the
+> same error as other P2PDMA refusals. Every other mapping failure
+> still returns -EIO.
+> 
+> Signed-off-by: Pranjal Shrivastava <praan@google.com>
+> ---
+>  net/sunrpc/xprtrdma/frwr_ops.c | 15 ++++++++++-----
+>  1 file changed, 10 insertions(+), 5 deletions(-)
+> 
+> diff --git a/net/sunrpc/xprtrdma/frwr_ops.c b/net/sunrpc/xprtrdma/frwr_ops.c
+> index e83cef19e656..a55d5e11c0e2 100644
+> --- a/net/sunrpc/xprtrdma/frwr_ops.c
+> +++ b/net/sunrpc/xprtrdma/frwr_ops.c
+> @@ -293,7 +293,8 @@ int frwr_map(struct rpcrdma_xprt *r_xprt,
+>  	bool sg_gaps = ep->re_mrtype == IB_MR_TYPE_SG_GAPS;
+>  	unsigned int max_depth = ep->re_max_fr_depth;
+>  	struct ib_reg_wr *reg_wr;
+> -	int i, n, dma_nents;
+> +	struct sg_table sgt;
+> +	int i, n, dma_nents, ret;
+>  	struct ib_mr *ibmr;
+>  	u8 key;
+>  
+> @@ -381,10 +382,13 @@ int frwr_map(struct rpcrdma_xprt *r_xprt,
+>  	mr->mr_dir = rpcrdma_data_dir(writing);
+>  	mr->mr_nents = i;
+>  
+> -	dma_nents = ib_dma_map_sg(ep->re_id->device, mr->mr_sg, mr->mr_nents,
+> -				  mr->mr_dir);
+> -	if (!dma_nents)
+> +	/* Unlike ib_dma_map_sg(), this reports why a mapping failed */
+> +	sgt.sgl = mr->mr_sg;
+> +	sgt.orig_nents = mr->mr_nents;
+> +	ret = ib_dma_map_sgtable_attrs(ep->re_id->device, &sgt, mr->mr_dir, 0);
 
-I set up a test environment on my own this morning.
-Although I wasn't able to reproduce the soft lockup issue, I did observe
-I/O latency of several hundred milliseconds.
+Please avoid using this function. We are gradually moving away from SG tables
+in the RDMA code.
 
->=20
-> The guest exposes a GICv3 CPU interface and Hyper-V vPCI maps the NVMe MS=
-I-X vectors as guest GIC SPIs. I do not see an ITS, LPIs/vLPIs, GICv4 VPEs,=
- or another direct virtual interrupt injection interface exposed to the gue=
-st. Also, posted/direct interrupts would reduce host-to-guest interrupt inj=
-ection overhead, but the lockup here occurs after delivery, while nvme_irq(=
-) repeatedly drains completion queues in guest hardirq context. So I would =
-not expect posted interrupts alone to provide the missing scheduling bounda=
-ry.
+In general, it is never good thing to built API around try-and-fail
+approach. It will require from us to be aware of "specific" usage for
+the return value from one subsystem by another.
 
-I'm thinking that adding a scheduling check to my patch should also resolve
-this issue.
-That would be simpler and more acceptable, we can work together to refine i=
-t.
-
-Thanks.
-
-
->=20
-> Thanks,
-> Naman
+Thanks
