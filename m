@@ -1,120 +1,101 @@
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333BE3AD509
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:21:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.207.212.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EA23F9263;
+	Mon, 12 Oct 2026 10:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791800517; cv=none; b=quES3uzmvsPgJBFvyIO627+emobIKxcuLyVU3JNwfdZ1t0lNWNAYV0vaADf23ytnE9FQp5qnR88V4Cc7y3LMeCdRN86HP74ltizWkMFqAHXGvalQVBJCRHmoA4Gt8ghpI7NtuEczRWTIUD4sbW8AMYqa7E8VOU/u1Y/0nRfgfiY=
+	t=1791800522; cv=none; b=Wxh6CagJMaS3cElPpK9U1d3GLOX2ODceEZC/N+qAGRzrvQ6Owq0hLAKs41+3lbJ3dNQplL4dXXoKwkbnasmk6ZhRMJUWOP3GHfL6lI8AGWGZk1aZxEgjuEqHEtg+sDx0GsWuSpbPLWYiLE8oK/TWw73bY4KhRBBO9z4RMCs3mJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791800517; c=relaxed/simple;
-	bh=50aBK21AtTxl7TtZINJR8g6ylTxW+RUNVsm35LWouNA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=kY6GNKT6R6wjHJoJtiiYVKhML7So9+WlLTw/3tSzRzSNOvdPQ77NeuErKKZYszlMMbiXlrOI8G2j29CL56akFGrxWCWBqoaH5GIpfoSujp0GGK2wkAdYEJd6PtAXmTMgyexU3QkOMOvcdsdo6jjmQZFuRe+NNhoHXeVzUGP0KC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=FHTMhYQ0; arc=none smtp.client-ip=91.207.212.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	s=arc-20240116; t=1791800522; c=relaxed/simple;
+	bh=ryGcQFkXrp4eIh5B0BOLKz7Mmz9rcgC99kX3em/qqoU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dsqrTBUIWL5mSoEGpb2JZMF8BhFFA9RkTCiUfBSkg1K4epSXfwkUAqGyf+DnuCldFua2RvNmGK6ft9GGpM3aOUsP0rPDNrbrniXDps26Fv2VW5D5L+ou0G3U8OmZc4EEcYCSRO4DjA8B4PM1v8LaOq+cQ+ducQnpD5/33vJ1cXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=EPf2wkUn; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ROIpfpfC; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="FHTMhYQ0"
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8OoMX1468537;
-	Mon, 12 Oct 2026 11:21:12 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=C
-	y8n4XuuIghEBpMqyBtRMtfdIVXhDq5hh3HMWVUuAAw=; b=FHTMhYQ0tRIUv2y1Q
-	FidR2vsGtNRArHRQxIlOzhtYJ72AWWx6bq9q4ISJm0xEOyijRgK11z8IjUApPhSV
-	EW0KpoKAWxqPi3ZwggXKLGOHpL3DKG56R9yfB59OuOv31XUeA4RxEAxIX3IhzFHU
-	1GUNmqXwv6rPZhBccYwc1+kNE/1iqZz4OAj3sDYSENVZt9LnThrPXGb7jKD1le2N
-	dpvqlTdx1xoQ7O+lPly3+vTcZoDVYNTRYRLcB+WOZizwN5z6IwGlFQhBKAJ0oG6X
-	LWuFosMELNg3L6yneT7F6wUr9Lo6XHCo3oMBh+gmN+ho9dUkSeXxWwxI2ekC5hju
-	Kmd7g==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4h7bmp97jf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 11:21:12 +0100 (BST)
-Received: from [127.0.1.1] (172.25.10.25) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 12 Oct
- 2026 11:21:10 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Mon, 12 Oct 2026 13:20:58 +0300
-Subject: [PATCH v2 2/2] drm/imagination: Don't include MMU defines outside
- of MMU code
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="EPf2wkUn";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ROIpfpfC"
+Date: Mon, 12 Oct 2026 12:21:43 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1791800504;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HeExXDFsSsDXoVieXWwNbhti6P2jB2qH9KovDmOCgIU=;
+	b=EPf2wkUnii4Bo6dKs624vNS73b09GrSNLdGYyDpW8TTFlt+I3vg50rqcK66Z+B0Xqvsg7/
+	rtm8ja4Pn/az0KHpP7T9zLU+Y1Lk+fdeTdyU0Blb0xk1SL0X6sl6bMsZm6SPg32//uiczM
+	2CQg/3IwPk/xTwLdgikv+XBgQJSx8turDYA0O/EpAq6jixkW+MM9SuoJ7TbYbISzWRmpdW
+	LmNm17RXcwDrrwi7lzDd3yOLPA2Qj+Th7k9yRza/vNswvrADCYTCZS3bnsmgIvu7wKx1hF
+	3zEGZt50Fza13LP08QkyAi+NsyYqJQAq5BOHY4j2c7P+vcDJwP6J7ZmdP+A9lA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1791800504;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HeExXDFsSsDXoVieXWwNbhti6P2jB2qH9KovDmOCgIU=;
+	b=ROIpfpfCZfohTWgaJ0XyH+2DOhlGL3FnkcnWoK1JRg6wmtUiJxJd4vKQozbPb15q0KBOpJ
+	p8kkqcZa0DX1EeBA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, linux-perf-users@vger.kernel.org,
+	loongarch@lists.linux.dev, Mark Rutland <mark.rutland@arm.com>,
+	Ian Rogers <irogers@google.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Oleg Nesterov <oleg@redhat.com>, WANG Xuerui <kernel@xen0n.name>,
+	Will Deacon <will@kernel.org>, Russell King <linux@armlinux.org.uk>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ingo Molnar <mingo@redhat.com>, Waiman Long <longman@redhat.com>,
+	Clark Williams <clrkwllms@kernel.org>,
+	"Luis Claudio R. Goncalves" <lgoncalv@redhat.com>,
+	James Clark <james.clark@linaro.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>, Chris Zankel <chris@zankel.net>,
+	Max Filippov <jcmvbkbc@gmail.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Jiri Olsa <jolsa@kernel.org>
+Subject: Re: [PATCH v4] ARM, ARM64, LONGARCH, XTENSA: Delay HW BP
+ notification to task_work()
+Message-ID: <20261012102143.lpVrHb9R@linutronix.de>
+References: <20261012090431.TF3iVDsk@linutronix.de>
+ <CAAhV-H4=nnhbJS4srmt7dNdgpkEZ8_RQ5Z+0baYMiXF1UrJ3KA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261012-b4-include-mmu-defines-only-in-mmu-code-v2-2-8aec58777ab6@imgtec.com>
-References: <20261012-b4-include-mmu-defines-only-in-mmu-code-v2-0-8aec58777ab6@imgtec.com>
-In-Reply-To: <20261012-b4-include-mmu-defines-only-in-mmu-code-v2-0-8aec58777ab6@imgtec.com>
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>,
-        Alexandru Dadu <alexandru.dadu@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791800468; l=661;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=lnnnIzrs8v1sTqKWnBmXP0wQ5buykuCp3eWFfVKChxs=;
- b=7/+M+R57VePg+x9X8/+o7635vBGf8mYiQUpUs7J7zxr1n7vzZEWn4uRQKwNuWeg+Yk4tkPq0U
- rWRjIwAre+iAOJHawdOz3VMh4M7h4qqfUYPQlY8gCBn7I/VDxaX8nwT
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0MSBTYWx0ZWRfX1oPuUEJRfQRm
- q080t0bpzbftv94ArXicdFRXe9XDd1i8FaUyzhUHvzXmj0xpI/6Pi7jGJu9L3Pc5rse1kPxO9Bz
- ReqclRlhXiY6Jm5DVM7CIIrEqca0enIDMJ9AlDGj16DrEtkSXHwutOzssBiiaaHNbFglCrZ9PGk
- KVg12Ft467zyWVWV6Qv1oxDSEMNH683PyhO8yeZB5Ad4iVR82E2nSYVSdIaLZLZ+zjw7eppP+L9
- PdzykObLC5VmT2VS1jc+3IiCvmRKs2xis+yWpC6h6byGpHkk+R8XpuIwnYlAA8L/J6x+b0Ro/6g
- mYoxfgZWoBUUs0MoROs5Ut5WbtWyWNusCdIq8gRY4imFECw15OKA32fcsyrEJxNJw4fCIS6/F9t
- WyNluIniM3cpyYShrMz0a2zLqPyhtzsn1UYr7tpXYAJRDKi9GLaTzagXURNV9zmdA+dwdrfIRz/
- Zt4b98dej/atYVVMXmw==
-X-Proofpoint-GUID: zuusnF4pVnwEDsi5TIxKjzCX39RpcW5z
-X-Authority-Analysis: v=2.4 cv=QpDLTlyd c=1 sm=1 tr=0 ts=6accb498 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=1spURiKJc90A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=jECmF5wTsQ93kalXHlwA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: zuusnF4pVnwEDsi5TIxKjzCX39RpcW5z
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0MSBTYWx0ZWRfX+a2AIwzi1Pje
- 24Ldfwxail26IpIBLguCvfn0Cp5ZqHBvm9QAQ9+jD8B4eu7lvOzvFiRtOu8h79l+02IYBta+XC2
- /PvnH2o/x0Iu+lPM3uST2FJRcn7e8xk=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAAhV-H4=nnhbJS4srmt7dNdgpkEZ8_RQ5Z+0baYMiXF1UrJ3KA@mail.gmail.com>
 
-From: Alessio Belle <alessio.belle@imgtec.com>
+On 2026-10-12 18:15:51 [+0800], Huacai Chen wrote:
+> Hi, Sebastian,
+Hi Huacai,
 
-Usage of Rogue MMU defines is already confined within pvr_mmu.c.
+> > diff --git a/include/linux/hw_breakpoint.h b/include/linux/hw_breakpoint.h
+> > index db199d653dd1a..91e8d80220c54 100644
+> > --- a/include/linux/hw_breakpoint.h
+> > +++ b/include/linux/hw_breakpoint.h
+> > @@ -85,6 +85,9 @@ extern int register_perf_hw_breakpoint(struct perf_event *bp);
+> >  extern void unregister_hw_breakpoint(struct perf_event *bp);
+> >  extern void unregister_wide_hw_breakpoint(struct perf_event * __percpu *cpu_events);
+> >  extern bool hw_breakpoint_is_used(void);
+> > +extern void perf_arch_hwbp_send_sig(struct perf_event *bp);
+> > +extern void perf_hwbp_notify(struct perf_event *bp, struct perf_sample_data *data,
+> > +                            struct pt_regs *regs);
+> Maybe this declaration can be put in one line because there is no 80
+> characters limit now.
 
-Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
- drivers/gpu/drm/imagination/pvr_vm.h | 2 --
- 1 file changed, 2 deletions(-)
+We don't save much, do we? It looks more readable. Maybe if the perf
+maintainer requests it. Looks like waste to repost it just for that.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_vm.h b/drivers/gpu/drm/imagination/pvr_vm.h
-index b0528dffa7f1..266d39f5c444 100644
---- a/drivers/gpu/drm/imagination/pvr_vm.h
-+++ b/drivers/gpu/drm/imagination/pvr_vm.h
-@@ -4,8 +4,6 @@
- #ifndef PVR_VM_H
- #define PVR_VM_H
- 
--#include "pvr_rogue_mmu_defs.h"
--
- #include <uapi/drm/pvr_drm.h>
- 
- #include <linux/types.h>
+Any comments on the looong bits?
 
--- 
-2.43.0
+> Huacai
 
+Sebastian
