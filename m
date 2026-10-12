@@ -1,138 +1,75 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D99E46A5EE
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791797449; cv=pass; b=QDJ9SyopMITv8UOIwX13TF8mk/M799462HvfRrT0vbg6P8gys4aE8YlIWm9fZ/znoQAsnlo6EB+zTZ4XchYRr0TlUgs764m7Z/k2uyw723a7B61YCE/pkijWY+UnbHD20FbBihPoU+K6WRG93KTXbbqbaClAbHFczI9snbcarNw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791797449; c=relaxed/simple;
-	bh=z49hML89cIN3imf7VrsC7tsy8ZMFjhTuJK1MAzYH5qE=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E838472554
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:30:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791797453; cv=none; b=pDrNUauZAecRpPbzpIYploVJELW1NHWlsGGqWyRPR9k8bRAK3K+kVgrQ6dxMgjxaXQX/fH/pbS1EHaxtui+u7iXW41XrMFm0oCinngBB6Y6X3hxQNyTSTUHM4y81wHXw7x/vGVTvAhs+25j/uKsPn2DxPWr6N2RYXOvkzI1BlaE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791797453; c=relaxed/simple;
+	bh=JcOgKF4XM/l9A+xkMjDxwLxSXbEYIbrK+MMKAo104Mo=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=B4fMlJLgEXfHWmq7sKs+7Awo0oQoBxnuVouNsy/w5vMqub18u/N3YHk1ORO0m5ipFDWDUNxz681mRwd4NSIHdcSSRo/YiKjc2OiDJ/xoWKL7JSriukyMcfXQJWmSdDH5qmOMXgHj+KPyZk3XwBGyxzChhYlIu4jl5a+WBS5pqtA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iqamOTHn; arc=pass smtp.client-ip=209.85.208.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=JRi31rbKiSFgZ4Jb69ojlpZhqzECnpRS4lHKJy3eycGlZo4s8BAzH8GS+uRGgSjJTucmJlbThW2oChVBWcXnXfQGLw/JI+cHFVN3F8kQNBfMwuLi9Q8u3zRPgeAiMAHlSRC7xLobxg3NwQuK91uxPkqdZkwmodbuhBNFL/t006Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y0RiYvbb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iqamOTHn"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3a65ed9c7cfso12252051fa.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:30:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791797446; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KxDdsVm02VSP5T4CmAPDbarkLjk0XPMWMXyHW5PVGc+GQ5iEl9AsMq9NljuhI1jZsq
-         ZWDx9iE+lRPyFNys3y/mofD5rWAQYLRsYe2ntqP3mn+fy9SsgvUxQ1wgGQ7znx26+Egl
-         /O5uhlJeizVbyrbVhHdEM6PN84ExLUQZDAcmQ2w/LMabFbyuwxmNYzS8kYPRCLLjHOy5
-         qPWI7zIZ9t4fNQ6uvTjP2g558/tVxixZvYcauXb89zjNA/IUe5WBDFaUKBgXQl2RkbIx
-         hB3Sf5zsiRyLA7TCMBXCTLYZlf/ikwIeL461wPSLIw86UUtHIMP9DFII7QHrgleLhoas
-         kJ3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kV/daCkEcG+SwQxwP8rLI06AhxP77k2xK+9iHAJSDFM=;
-        fh=bY6AkAYADe+/ahJO2Cnw2IyC0UEKkLY3p3x3l/v61dM=;
-        b=BTEc8m7PGKer6U2VH8gPmbwqioZ9YEYb9ZTOfHibtpDCZV/toExZvxJmVE3Yu/pJNT
-         vNcTC+vDvbFynj2B62o7DquSG5yzGP/ongKsBpeBg1CavhWbtEsjSAiCKgZ8D1Z/U8JH
-         a1KYhpIpwVz8a87EEI/mYdfdfAya3VX6nh3dQPzkLeT7fwJh9jn2SxEWjbu3FMyKF4Js
-         WB7BiEQihGvlMUraFaK1IY5upjBl+I2T4Dl5IG2DPq39wavaKezH6OMK6IOWYr88vVes
-         Jqf9UAX2COSlWnuVHk5xw6hqjIvhFoISsmQQ0BfBLfHewJlcWUP9OXsckiBDSp0FAoYr
-         L8uQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791797446; x=1792402246; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kV/daCkEcG+SwQxwP8rLI06AhxP77k2xK+9iHAJSDFM=;
-        b=iqamOTHnYT5wtxoTw/cH8Wf/55odU75yA9D0HYYAjAeiW3HjX5YsYeBVyBjzOTUQW+
-         49W/RYx1FvJbr8X1odDwtU1h5KQbnGIlWAp1XzjiZ5ePVILUivYDhV8ZgjoeL94q6DBC
-         UrB6sFas3aehCsYoQ0in6meFtR3wAzsDauKwd8PD9R1vO9NArzxDjvYrcsCjT8Vh3A5+
-         cEdJJwPyP4nhlfC3iyTuqoZHa9bhFqMpeO2ar4GWtudpGd3gQ4O3ZAJ/KqpN8eegWiFj
-         y4iByI8Fz+d0fi0fI9KUvQV89Bz3RKgR3yDezxLgyIknfat7HtlZyjguK8Hz3mWcjNWc
-         C8HA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791797446; x=1792402246;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kV/daCkEcG+SwQxwP8rLI06AhxP77k2xK+9iHAJSDFM=;
-        b=VO9vbjzFRtrDrI5Hi56a8rEhmHcMAW/X+/wpFaD/sFj0zQNpI5tgl+u/YETZFDkByq
-         Nv/ggHVuYscrzUKZYGzXwPArQwXFbFvlua6k9+BSbPAjsnym49ABeXAMY0Fol+oCqQgY
-         L3OEV6aZPpemkDfXCJ1LKwizHdVpV0+Tb7tll8hsUzykprW3xZVKHcSx5uH/jzL0ZCLe
-         ca/5Z/tF8AO811FH7pk3OpML/V4/dIg5kWdUe8kSLu0Bfbwb5i2xuTUK4F+CSqWUq8Hv
-         0ep/X1dRdf82XVojkEqmyu5cFyTCLJEJSgvrOF23/iD+iY612HpWjvoIf40MmgxQiwaI
-         2AHw==
-X-Forwarded-Encrypted: i=1; AKwUvBxf5xRJs00+yUV/Y26iQoDgm4c1njIwn+mr6pfUKd37ueEemkgpuCybWpJjBYpo9QaCrwYSpIgENbxzzZ4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKTIJN6u/479qGN0bUDTqV3Acxu/zsWVi9URMHuZh3azG6xR4PL
-	aEKSTW9lsy6GEE1n7oY62Bi8yDEm4zDAS+scjGDZs+2/9gm3VMkB01J5NOYq2Kh0U8P9Q4jg3il
-	U86fBdeuzBkjiuQqqyDnUswXbMvR7BWs=
-X-Gm-Gg: AYBFou3sTL5oEUwlrqsmCM2jDfPdNFcE3UXfkV4iRbATm23HLU8rTM+0p56LtLNhFb4
-	oMTcNKq8OAJg8nrusu/BJl5kUzw4OvJQhuj39I7ZJ1yWtRhLds+FfB3c3BRb3LWmh2BtHQQV2rK
-	8P2fCzQjPbJA4CyD5V2sUUL3QsahSkKGMsawuHgDava6y5eJI4jpCSfpbxuhkxLPZwEPgqhpp56
-	y3F3SqUonL+mtju355Z1pi9TT14cMUuPYGfvzTMQAQ7XD+urnp5Ss1RiofQ3lxyEdjVe2phVCvv
-	H6Sp11RUz6AwHbK8CRJiFo62UY9kgIIQEIa+hNlzfRqFHDzOrT3nrUHW+Nc3fY/9ddXolW0LUpN
-	YseT55wrTvDKkHfORz6WgSD7SvEOFPf5V18rRHyOuu8ukOXE+0XwVgQV0KPFwKQgXlCm0L/5VET
-	l1Scl7e/N5OsAzSfShAZYGLyFLq62HYF6QOpWVca1t
-X-Received: by 2002:a05:651c:3251:b0:3a9:8167:62a with SMTP id
- 38308e7fff4ca-3a9c539d80dmr19489771fa.28.1791797445959; Mon, 12 Oct 2026
- 02:30:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y0RiYvbb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1760B1F008A0
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:30:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791797452;
+	bh=JcOgKF4XM/l9A+xkMjDxwLxSXbEYIbrK+MMKAo104Mo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Y0RiYvbbyQjLEt9FzUTJMM8Ke7og2fwaGtrMdHSeL0MMJbsKO3JmoIbOXz58033pV
+	 3l1KyJx/foVS8pHbPVTnGUB6kh1D5LVTL6LcNzURvkolpFl3HmxRLF7CPu/Va7N5R6
+	 wCVD3zYPx6v5mmWxtP8qAhJ1LxlrJNh5+mC21vD8x2KlUMtCAKhPEImaMUpjWp/Ble
+	 VbAzrViPrm1/hMcSxKQuactdtNPnofxbeJ5ZBb+X48/772/fISYDW0mPl7HU0ha0bc
+	 Y5C/WUlk6Gda1kRmAmEKayCNdpMv/DKhf1S2GrPPOotX70oa862QNIHwAbWhDmSnvy
+	 EmWuJD7nVEZ8A==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5ba41ea31ccso1836617e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:30:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwUsMDFncw21IjMIHDUuj4dHcuLqjwQXCUuyIqOxpsoCoXxgTBfrkVTLCdQStk/Fc9HkKQAQFRhAAat39M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJl48my6ovxk0OnMc+jPGNANu9LBEKrr7m5q+EXUA00YoccPPRz
+	P8fya8mn50YPHm6cM1gwVk09BVdC2VKgK0QUUoRvwkXmlvf0yBIEpZllKI8kCwugoY7+p6bWo+I
+	JTEk7Lg3W8JLQCaloYcs8GcDbn1eTwF8=
+X-Received: by 2002:a05:6512:6882:10b0:5bc:e45b:bec9 with SMTP id
+ 2adb3069b0e04-5bce45bc053mr1468335e87.35.1791797450757; Mon, 12 Oct 2026
+ 02:30:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com> <20261011-gpio-mxc-cleanup-v6-8-cb47ce2ad758@nxp.com>
-In-Reply-To: <20261011-gpio-mxc-cleanup-v6-8-cb47ce2ad758@nxp.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 12 Oct 2026 12:30:07 +0300
-X-Gm-Features: AclHuK9e_oZT5Sa46rEJHVX3lFg1Q7os3EVH632mfdiuI60h5GYQ15qLL0jo-NM
-Message-ID: <CAHp75VeonKZtX8moOdXrmTJbjH5Ew5iVdDDc3KfqQ9r_tvHg1g@mail.gmail.com>
-Subject: Re: [PATCH v6 08/13] gpio: mxc: use local dev variable
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+References: <20261007060107.62221-1-pmazzini@gmail.com>
+In-Reply-To: <20261007060107.62221-1-pmazzini@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 12 Oct 2026 11:30:38 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=ooz2tMZFrZ_ssH15QSf-hxJJ7kGhRxhBFRx9QAdhNtA@mail.gmail.com>
+X-Gm-Features: AclHuK_cjy8EpD9hefzb7XTUyJ7Wfeeo56o29JsaDB2w0FmhBq4yW8z0mIp2Xg0
+Message-ID: <CAD++jL=ooz2tMZFrZ_ssH15QSf-hxJJ7kGhRxhBFRx9QAdhNtA@mail.gmail.com>
+Subject: Re: [PATCH v2] pinctrl: sunxi: dt: do not accumulate npins across
+ probe attempts
+To: Pablo Mazzini <pmazzini@gmail.com>
+Cc: Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Andre Przywara <andre.przywara@arm.com>, linux-gpio@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 11, 2026 at 2:54=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp.co=
-m> wrote:
+On Wed, Oct 7, 2026 at 8:01=E2=80=AFAM Pablo Mazzini <pmazzini@gmail.com> w=
+rote:
+
+> init_pins_table() adds to npins in the driver's static descriptor, so
+> after a probe deferral the count doubles and the next probe fails with
+> "pin 0 already registered". Reset it first.
 >
-> Introduce a local 'struct device *dev' variable to replace repeated
-> '&pdev->dev' dereferences throughout mxc_gpio_probe(), improving
-> readability.
+> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> ---
+> v2: reset npins instead of counting into a local (Andre)
 
-...
+Patch applied for fixes!
 
->  {
->         struct gpio_generic_chip_config config =3D { };
->         struct device_node *np =3D pdev->dev.of_node;
-
-Why not this one? Is it even used? Perhaps you want to have
-
-  struct fwnode_handle *fwnode =3D dev_fwnode(dev);
-
-here?
-
-> +       struct device *dev =3D &pdev->dev;
->         struct mxc_gpio_port *port;
->         int irq_count;
->         int irq_base;
->         int err;
-
-...
-
-> -       dev_info(&pdev->dev, "%s failed with errno %d\n", __func__, err);
-> +       dev_info(dev, "%s failed with errno %d\n", __func__, err);
-
-This message simply needs to be killed, with initcall_debug in the
-kernel command line you will get something similar from driver core.
-
---=20
-With Best Regards,
-Andy Shevchenko
+Yours,
+Linus Walleij
