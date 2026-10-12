@@ -1,110 +1,117 @@
-Received: from mail-ej2-f6.google.com (mail-ej2-f6.google.com [74.125.228.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DADC3C278A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:15:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.134
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791836105; cv=pass; b=c6NsBDFCOg/KCYR20oC/xOh28xS4/Dp5nXgW/Wi8lqvds8W/5Cuc+2YhAZDM7rbyCnQOvdS4Xk4trwVgR1KfSSeldN4MKnr0eAousPLgKfw0U4IXqh0pPFHb7S5y3AIb9xYld+smk2Kb07ME1j/GM8Vj4CNvpxkYPhExB4DDDUw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791836105; c=relaxed/simple;
-	bh=HS3YiJJwuBFYmXT0xY3bh6dZ6ZY38Ujwfz/IeJXETc0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cJxGoX7IupH1VtCkPvJfMn5aWHUPLnxqVX+MfGohzX3L1fkie5zKrZ/ov/BegM2A2/0SxKctprhhnWV2KBcgQFPIgAaYfnDxKo+d0Fkr8LkT+4WrK+CyrY50kEh7T5+nUNa/rZtYXCeFsvLVSlck4Dwr/MbwpM56eeUDw4KRt/g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IkVfUGNQ; arc=pass smtp.client-ip=74.125.228.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76E394E7807;
+	Mon, 12 Oct 2026 20:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791836132; cv=none; b=nFTbUUAidBr5dZFkZD9f7/UB1TvU58GjZuuTbLJrHLJQaCHKt03KwNm4EgnqgM+hfRbtYdVnae+8x354JolmCpDRDnULsr1gZufPXfzda5XAMYgpr6S3KHcuBBBpSfHk6ch2olH+TbRnswIODQhMQaJDusvI58Ap/HedsZZhxf8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791836132; c=relaxed/simple;
+	bh=tTVHVkVcv+la1edaxZDL80B63dWguM2dX9eUL9oDyl0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=blBtJGfpx6u9YHcsefomfxg4wal21rW8FUqvMP6DhrHqEaSadwnqBMwNfRQbFfuSSXXdUW3zQX2NrR0eWmy8njYfaCTp7aeP1HA5reDU3hMhnGXd/7MVwZflNnnqKYZnuXAW8MFu4gwoUB36kBErmUR9/UuJPmtstNjzhTCSROY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=f7fN/SJa; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IkVfUGNQ"
-Received: by mail-ej2-f6.google.com with SMTP id a640c23a62f3a-c2e36c7fc5dso120805366b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:15:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791836101; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BSYZwEwNS1aRZ48jskDKCnbljg7fTqAuhRDlUYelntafxJtAuFzFdkZzVsc93METJx
-         /4wkiYwzNlEkQNinhtt4jtagSX4Lj8/hmNfu42ypksNilzEQ0tMbTCvUXEbWxbFVTGTE
-         +KLeEUtrp/mnkrYElfaps7ydgDmxwpdbdIJJyONJjIh6zZ6sgEbpe2/1HT+BhqyyG7B6
-         9lp9ix1BOBOOOEtyiHKXJHsRSVkg3WP3ur1sE6zdYqccHZri65+U4dExgBB7nEg3xx/l
-         uch+83Yr3qYTsxfahIUvunZQ4cuEDojIjIaB4YXLaZCdGOLIXa/qab/Y4o8QPU96rUfw
-         Kx0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=HS3YiJJwuBFYmXT0xY3bh6dZ6ZY38Ujwfz/IeJXETc0=;
-        fh=OL4iCVikacyvYPGvbgXnfMu/I/I9nGwUWH3Trt2ccLs=;
-        b=KNxgRv6CPJytCjVka8DDvwNgfE7XMWjvTSSPQr0zXNc16T48HWYaFEftkA4im2jB68
-         SSdGwwcIblM+AjxmeWG3GN1N2xsr60LnmonELuFWvJTE8pCQxE5vSNf8axYSUzq8z7GV
-         N4he2w8C8x4gBEL7akTozO78FOnNbdE7wmasV6QoXolAqEEoFe2VBiC6Xd5hk/BjZCuE
-         T5uTPRapHOWWtLbyue4dzRzCBHEiAk5l5KJ/rWGbGZw5Afk0WeMBaOGAy+mFSNelSeiM
-         +cmYhELtOgzU0qB0HYyCXUyhPrt/SawJ8RlbiHgMB4v4rRiqCRu2PFvBhJYY6ZBm2u7Z
-         sOqg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791836101; x=1792440901; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HS3YiJJwuBFYmXT0xY3bh6dZ6ZY38Ujwfz/IeJXETc0=;
-        b=IkVfUGNQ1yNmn4gzvmzSsvuKHPkeLnfQKjQDS9CEK4YTguVtbIWrAxO22oCHuGOHkF
-         dRlwuvdLYjmLvKQU9IKinxTmWXZIqVUJYHv0Yf+5UiBjc3JjciinIvaEGXGiEYW98kbT
-         M+L8nJJhrj+yY5JXvbjILluoBVknhjdJjL6qP0x+CeGaDMq8DFHsvVLLmw/RgCKGCpIs
-         HTrSNC2iLRrFECAVjLPcPqKNt92+sKsaFkE04FXVE0SAO/FGZizZoF2E6CP6xAL40wI/
-         xtUfkhLd04LfFQ6/mFQvtvoD2BZoOkmLj+RgInYKvVdVHHmZW3c6KZkTA3ws7YtBGyxC
-         WIdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791836101; x=1792440901;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HS3YiJJwuBFYmXT0xY3bh6dZ6ZY38Ujwfz/IeJXETc0=;
-        b=GzihSw884FOguSUDPzgs5E/u9Vpxo8Sc0O4LgW94lo279m6DGwz26MFzWOHRQZ8Hc0
-         O2m5LOdL/7Dvsm4++fxOAsM4TTsWnYbMN7jk/17S0f7HCG75sZavIh/cYnrpuaBDw5uX
-         t8NjmBkMg0zDqE3weNSJePpo+lxy/w5qL1YrIy9D0sMyKVIDQeTGfOKBcDDaSsz1UzvA
-         Rj//TVhujavD8paANsFMAc5dSfG6xLPSSYq7SYmwBh+FTmQbr9pRDq+sw5TbJ/mFg40w
-         xX/Vl5NO7ZKI9qe5vCIvW1iZp4OfkdlhfsZiCz22CPrJeKnrb0Kah4IFqcNxKoHYr1Jz
-         7rjA==
-X-Forwarded-Encrypted: i=1; AKwUvBx+QDc2xUyGuVsjP7dmZfhrS0kZNmCeCcyjErnq8DC5Vy19BDtXSDWQ0YrX0XpKGuIAlvUyFkgZ1zYqm5c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKoVai4+QU8foJq0Bq1VXlDH8QNDGMm67CLIKqMA3Gza6juWtpN
-	IepC+/XAbedEILvylrI/A4lKwTOpY0xPx/eCKvg8AYVt3sBB1pr2ci4kHnn60ik3xKoJiWzPtiQ
-	6bMISPHCqGrpVLFiNMFlmf2p4Lh7ckFM=
-X-Gm-Gg: AYBFou0oT0JYScLJOdT7aZ9I1xrtu+EtvbYfhpf5bWtgKkn4O00qIxtMP3xzcd169bG
-	xF0teV4D3YvXKT/5nVR2l2ZpD1XnjbdO3/7669esrBLvdto5ksaOiXXsq6nO5F/R2/huIHOYHMm
-	BtjMAq//9rsz6wZpPjZQxhcWaepeDZ/CI8ZPU7jgf0niD91zp3C4sCzs3nsDnH4ytPUCPZMHThU
-	O4o1kvy6viDSMHcXmBmokweRK6SiDm6XxR47jgsGZeUiIZNSVHyzhdRyM4VX6m6gqCVhQWpScJI
-	YESSzVg6sbVFZzJt+YItRkKPoQleRer9iK9XZndJS/lEQoQ8Hk1vbhp7YVk=
-X-Received: by 2002:a17:907:9712:b0:c2e:808a:f781 with SMTP id
- a640c23a62f3a-c31a9f8bc7cmr977286166b.34.1791836101394; Mon, 12 Oct 2026
- 13:15:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="f7fN/SJa"
+Received: from mac.lan (unknown [4.194.122.170])
+	by linux.microsoft.com (Postfix) with ESMTPSA id BC0FD20B7166;
+	Mon, 12 Oct 2026 13:15:20 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BC0FD20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791836126;
+	bh=/Jjp0/gGGD1R8hah3x3vcyoIOYd0SLonWaZGlFpBVzw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=f7fN/SJaeBrD6ryMhc1A8CdHsRQsj5TeJyVJCm/h/gqumLVE1HBcJI++s6ocOTDZ9
+	 GDr24FY9OxuSCX3Fmzs70Bx4moJopzZ/A5DB7wSmWDFBtXlLgWMI3Yu5b7GSJRWdnt
+	 If10IRPgNtDftDcQcVphI1sj3VPP9Y6dmHfRyIXA=
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>
+Cc: Peter Xu <peterx@redhat.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Andrea Arcangeli <aarcange@redhat.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	tgopinath@linux.microsoft.com,
+	Cen Zhang <cenzhang@linux.microsoft.com>
+Subject: [PATCH] userfaultfd: fix UFFDIO_MOVE livelock on large folio with extra references
+Date: Mon, 12 Oct 2026 16:15:14 -0400
+Message-ID: <20261012201514.97015-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006162807.2843858-1-coiaprant@gmail.com> <20261006162807.2843858-3-coiaprant@gmail.com>
- <ac2a4e80-6d35-457a-bdc5-ee8511198bec@rock-chips.com> <CALj3r0gQ_U2ZUJkRgF4NdB1Gd3A8ZT3T6qjLhwGZPg=VUXLsrQ@mail.gmail.com>
-In-Reply-To: <CALj3r0gQ_U2ZUJkRgF4NdB1Gd3A8ZT3T6qjLhwGZPg=VUXLsrQ@mail.gmail.com>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Tue, 13 Oct 2026 04:14:52 +0800
-X-Gm-Features: AclHuK9DIbMdxghdp8dVnDg3M3UkCfAC1pjnUxZw0sP50Y9CDUKz7Qi3PzTsHZE
-Message-ID: <CALj3r0hSyVpn4Upbun4DOk5hdOH+fzEFG2E3LpfvS2YUXH8twA@mail.gmail.com>
-Subject: Re: [PATCH v13 2/2] phy: rockchip: naneng-combphy: add SGMII MAC
- selection for RK3568
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Shawn Lin <shawn.lin@rock-chips.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Vinod,
+To move one page out of a large folio, move_pages_ptes() first has to
+split the folio.  __folio_split() refuses if the folio has any
+reference beyond its page table mappings and the caller's own, and it
+reports the refusal as -EAGAIN.  move_pages() treats returned -EAGAIN
+as a transient race and keeps retrying the same address, holding the VMA
+read locks the whole time.  This is incorrect since in some cases
+userspace can hold such a reference indefinitely, such as by
+registering the page as an io_uring buffer.
 
-Gentle ping on this series. It was sent on Oct 6 and carries Conor's
-Acked-by on the binding.
+An unprivileged user can trigger this with three threads: first holds
+such a reference on a page of a THP, second calls UFFDIO_MOVE on another
+page of the same THP and spins in the kernel forever holding the VMA
+read locks, and third calls fork() or mprotect(), which takes mmap_lock
+for writing and then waits forever for those read locks.  From then on
+every mmap_lock user of that mm hangs, including other processes
+inspecting it through /proc/<pid>/, until the process is SIGKILLed.
+The hung task detector reports the blocked tasks (third one), and with
+kernel.hung_task_panic=1 the machine panics:
 
-Is there anything you'd like changed, or is it just queued?
+  INFO: task wedge:95 blocked for more than 122 seconds.
+  task:wedge  state:D stack:12528 pid:95 tgid:95 ppid:94
+  Call Trace:
+   __schedule+0x596/0x1110
+   schedule+0x36/0xf0
+   __vma_start_exclude_readers+0x100/0x170
+   __vma_start_write+0x51/0xd0
+   __split_vma+0x208/0x3d0
+   vma_modify+0x6a8/0x840
+   vma_modify_flags+0xce/0x110
+   mprotect_fixup+0xbe/0x480
+   do_mprotect_pkey+0x2d9/0x580
+   __x64_sys_mprotect+0x1a/0x30
 
-Thanks,
-Coia
+Fix by returning -EBUSY instead of -EAGAIN in move_pages_ptes(), the
+caller of split_folio(), when the split fails. Thus, move_pages()
+does not retry -EBUSY and the ioctl drops its locks and returns to
+userspace instead of spinning.
+
+Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Assisted-by: LLM
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+---
+ mm/userfaultfd.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 74f04c323c50..500962be1162 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -1663,8 +1663,12 @@ static long move_pages_ptes(struct mm_struct *mm, pmd_t *dst_pmd, pmd_t *src_pmd
+ 			pte_unmap(dst_pte);
+ 			src_pte = dst_pte = NULL;
+ 			ret = split_folio(src_folio);
+-			if (ret)
++			if (ret) {
++				/* do not retry, extra refs may be held forever */
++				if (ret == -EAGAIN)
++					ret = -EBUSY;
+ 				goto out;
++			}
+ 			/* have to reacquire the folio after it got split */
+ 			folio_unlock(src_folio);
+ 			folio_put(src_folio);
+-- 
+2.55.0
+
