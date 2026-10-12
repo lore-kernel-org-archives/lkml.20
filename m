@@ -1,119 +1,96 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82766415B6B
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:27:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20814440A2C
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:27:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791797261; cv=none; b=eT5VmwrkKzfaOfwp/HsOVn8yHu14VpYtMFA4HHBr8Djlvurwlvu2xStWdxkpYJYo3P2UydubtBJMqHvpfp2qTdePK0Y6WfzaSwv9BBCpW1XB8FNJmMKJEidn0x0Ps2pieM+Kr1vArnZq+gwi/UILXQk6f02c0nEK509ZHZ29/9g=
+	t=1791797262; cv=none; b=TNYOT1Ykxxf0AB3evTbIN4P6AOPJMCVkHl8jYI0kYlg8TMSTkQy9tSixf5JGhSMGbrAR0VJkpmdzx2hgvrlHM2v9e9ELFVNQQoGMOVRFYYRyAk35I162piPhLQXsg2ew5OMPkd8mnFc+7tV0q6RwerJHBMN56FLl4oJGZ+3E/Rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791797261; c=relaxed/simple;
-	bh=7yg7WgszV0u6qvYQzsbMXRSi0jgQj/GC+iPyvh5zAqs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hN8DG7Yqvi7ApfUrfQYObDmXuCSiJff3X0L0d0scQBjAMyEJtraZ2Om6hIGaTW+qKL8+qXCr6UqTmCALjy0nOTGcE3RbiOMu5qbchfML5N6FnWqUcGDFBfmrb+2npAiRWjb1hoGQiuHPBAvLCd3JLA8z8epr9SSNXmtOUT2oj0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=JeWX2P4S; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1791797262; c=relaxed/simple;
+	bh=khKK7RSF+xgGFCO4AZYgwUC6y25FFMbZUhuCzsqLOGQ=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=cZAXt3G3R7v55xybLQBGI1bUMQw0Fc2kUvk1ADZPJUPIM++BENa3VCuqBMtq6TKI2n4PUyd/NMmcHT+m1WVrx3uoR24fUlA0oaCJPjjBxVX6hIzNc/Axk3Yvgx2USPDgtj+ljf0CthwfLYjilHIBl6X/mk3Q+PkvU3Hua0O+0p8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O4eULovX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="JeWX2P4S"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-89a1740f0a0so569455b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:27:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791797260; x=1792402060; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zDXr90I4Mp/V2LyY9TJ2U43WGzZOgE+mNjJL1cCHqJA=;
-        b=JeWX2P4SpS/G56Z4uyD2AsiLCkPOJtOgnX0d8onqJCsmTATcpng6vmg2ByaCbjoMgb
-         DLn4QBrr7u62FM8zgoYL23dsxqowUhGKp/hQX+u8EEfphqxKOBAfEJyAzvj1NFomnHJG
-         nN1t8ufbbLSOlRGalcSHtJ6RsCkItOcsQT+TA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791797260; x=1792402060;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zDXr90I4Mp/V2LyY9TJ2U43WGzZOgE+mNjJL1cCHqJA=;
-        b=qVhS4i/zBeMZ7zQ2qhvHzfvJCx8ju3F6iOT+7S2XUYvdeCHQbl7Kjz8d4D718yEgDl
-         dlHMcRxzvlnuKf1mqZ46o0jNNeoIDvGe4YEGVeZ2o+RZ1iwdDU0kLDRSvDVGg+4y2Y7W
-         ST7zbimmPVlIHlw7U+MC2+p9QBhdQXgkgNtw75HFc4tjWihSPko/wW1G27Hn/xP95d6q
-         78GB4jdVaVLqAJGidrm0VZ0hxEysEOepPthOZo4cdDZyIwDjts0Jw7kNpuWIo8oIFZrr
-         FTEQXes700wsZV78LF7tzOZRESEHoHWv0aXW2007kvl3z8UsfcldRKiBsoJZW+5IW8Pb
-         zObg==
-X-Forwarded-Encrypted: i=1; AKwUvBw6tXeV/VSaC0DOmrYueTS5UQuQ9O87GuJHMiWsiT3o+Axs09Di8Ls5ZTOWTmva7JOocdGsNm5Z9F0dEhA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIXkkhJ1pZsvMD/UpLKswkLLQlwrQrHLX85oe09Na6gvWeHnwwR
-	jw1XE34JW6yVTJFTYWBltMYKLMWvLlXYEVPz3QmqE4Ps+nuvNro7bUFWyhR1AMeHDQ==
-X-Gm-Gg: AYBFou3dkUR0MmDRhYOj4GhfHaeODRuhyQHpfB09HONlZTDOLUGXjfVe2vffNNUd1lq
-	0EgV+4jCTsl7Z0RBiLS7bTEth9XReYNPPvd31yYnbiVidiqFuojz2tP+Bdo/YVTTPlbZ7ANXBcH
-	bkbQkCJtj8JYasdLOirZ+gZPH7FITL6ZLNAzhK+vGof+qQK4/nwROIPPVjJ+iCQbe0wEHf8Ln1/
-	FYQgSqus/hZFLCrvjwW5Pq2Q8ez4kFETQwXZLxqiAHZ6ah78oCxaDghnCFtRldW7jZ7KvhkNzzl
-	rlY9Ju6vz82gVewNNjQQ59ho9DzNQmoQnJZQwTj7oeHPPxYnoqidzhKsqzlaKsYzm28gebrZlmg
-	SwKmqxNmA7ULFSnEDhcX6CN9muFOSaTIbRbsPu8SbH1ONlLMVDH9nMtNkqHjR5qN9shz2+VHhQU
-	OEnKZRjOokFhG8Jynkep6BbGBCHym/3fkOkrzlft42YrqGw/7kJ2i9cllSnmNwWCpXe+mZ4Kpvj
-	6BnZeaBaH/leZguasqxogzWLiZre3XDn+h6xJiatnnnaMQ8t2n00zQ=
-X-Received: by 2002:a05:6a21:3418:b0:3de:583e:97ad with SMTP id adf61e73a8af0-3e16bf04c22mr6687300637.62.1791797259847;
-        Mon, 12 Oct 2026 02:27:39 -0700 (PDT)
-Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:203d:7:faa:a1f:d46f:934f])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e53f8bsm4117869a12.24.2026.10.12.02.27.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 02:27:39 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Alan Stern <stern@rowland.harvard.edu>
-Subject: [PATCH v4] usb: hub: Set proper message when usb_hub_create_port_device() fails
-Date: Mon, 12 Oct 2026 17:27:24 +0800
-Message-ID: <20261012092725.575885-1-wenst@chromium.org>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O4eULovX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC5D1F0089B;
+	Mon, 12 Oct 2026 09:27:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791797261;
+	bh=mBldAvBr6to/RJszegMJr/9taByx3LmRUjouMSy6F6A=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=O4eULovXkyLQaQpvNyqGmQCON4HL0pNWUz+yN5y8IGXHVyhUOdlvsQ8GRVF7GSs4A
+	 ku2XP/W6ccORr6+xKTYPPV/b/wQ2Ihvx7p81fh7uhHPR+zHXDN/rnH9TaHRyqxQg/D
+	 Ium2eXHHq5vl5JvD7bFEveaaIr+Cvq3C3vSy56znBPxtcZyA2wYiC1xothkjH5F+WQ
+	 xDZty1SGNGkdVS0w6aJOuOgephJNT/J4XytC8K2S5ukk+HW4ggEXVekSOtHGu38UHx
+	 YwP1qp3YlDIkl9H3If6yn8DldrX6qsZhvZbf2kdWsAiXTp06Vx3MW9zVj8S9JgfkYC
+	 QjveFj91GX8Zg==
+Message-ID: <33508315-bf40-4c96-b77f-1a5001099d76@kernel.org>
+Date: Mon, 12 Oct 2026 17:27:35 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, jaegeuk@kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+ qiwenjie@xiaomi.com
+Subject: Re: [PATCH v2 3/5] f2fs: cache: wake up f2fs_writeback when exceeding
+ threshold
+To: Wenjie Qi <qwjhust@gmail.com>
+References: <20261009091857.1326197-1-chao@kernel.org>
+ <20261009101340.3525944-1-qiwenjie@xiaomi.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261009101340.3525944-1-qiwenjie@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Right now when usb_hub_create_port_device() fails, it prints a separate
-error message to say which port failed, but otherwise leaves |message|
-set to the default "out of memory", which is somewhat misleading.
+Hi Wenjie,
 
-Set |message| to an error message that is more specific to this error
-path instead of using the default "out of memory" message.
+Thanks a lot for the review.
 
-Assisted-by: LLM # local reviews
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-Changes since v3:
-- Print custom error message directly and use generic error message for
-  later, instead of using more stack space
+On 10/9/26 18:13, Wenjie Qi wrote:
+> Hi Chao,
+> 
+>> +	if (dirty_threshold && nr_dirty < dirty_threshold)
+>> +		return false;
+>> +
+>> +	/* don't wake up f2fs_writeback if both thresholds are zero */
+>> +	return total_threshold || dirty_threshold;
+> 
+> There is a related case with only the total threshold enabled. With
+> cache_wb_dirty_threshold=0 and cache_wb_total_threshold=1, clean cached
+> entries keep the predicate true even when there are no dirty meta/node
+> caches. Writeback does not necessarily evict those entries, so the
+> thread can keep looping without sleeping.
+> 
+> I checked this in QEMU using dev-test plus my both-zero fix, which has
+> the same predicate for these fixed threshold values. In a three-second
+> idle interval, the writeback thread used about three CPU seconds;
+> the total cache count was 22 and the dirty count was zero at both
+> sample points.
+> 
+> Should the thread wait when no dirty caches remain, even if the total
+> threshold is still met, or is different behavior intended for this mode?
 
-Changes since v2:
-- Simplify to just using a small buffer on the stack (Alan)
+Thanks for the test, yes, it should wait. In v3, the thread won't be
+woken up unless there are enough dirty caches for
+f2fs_write_{meta,node}_caches() to gather (i.e. dirty count reaches
+nr_caches_to_skip()), regardless of the total threshold. Also, threshold
+based wakeup will be throttled once a round fails to write anything.
 
-Changes since v1:
-- Explicitly track and free the allocated custom error message instead
-  of using devm_kasprintf()
-- Link to v1:
-  https://lore.kernel.org/all/20260728100005.413868-1-wenst@chromium.org/
+With your setting (dirty_threshold=0, total_threshold=1), I can see the
+writeback thread uses 0.0% cpu in idle state, w/ either few or thousands
+of clean cached entries, and w/ dirty caches below the threshold under
+checkpoint=disable.
 
-Sorry Andy, I ended up not using your __free(kfree_const) patch. My LLM
-was telling me that it won't work correctly if CONFIG_USB=m.
----
- drivers/usb/core/hub.c | 1 +
- 1 file changed, 1 insertion(+)
+Thanks,
 
-diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-index 0e929a4c9fa1..4c85fdf7a233 100644
---- a/drivers/usb/core/hub.c
-+++ b/drivers/usb/core/hub.c
-@@ -1758,6 +1758,7 @@ static int hub_configure(struct usb_hub *hub,
- 		if (ret < 0) {
- 			dev_err(hub->intfdev,
- 				"couldn't create port%d device.\n", i + 1);
-+			message = "couldn't create port device";
- 			break;
- 		}
- 	}
--- 
-2.56.0.385.gd3acb90ef8-goog
+> 
+> Best regards,
+> Wenjie
 
