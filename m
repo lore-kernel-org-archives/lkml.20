@@ -1,281 +1,133 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764B235A38C
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:56:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB19443C08
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:57:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791791794; cv=none; b=mF43mgTCvu1ALo/1aQ+2g0t+K5mz3EZMiOxbJQuG+Kdo07nQ1H7bzqrvNz3gcHUFrdfC3uZXqKfqvwbC3595urW1lUbcnAx9SOYN4oMCdbiivbRS5zTz46W8hlPBkGnuiKD+uyhRNk0NGPEPsncXRduJY50tAA8UURcoytxKQOg=
+	t=1791791824; cv=none; b=rVIjUuKmQQE/vCGUXFIc4+aeeE7IfAjq3dNhRuQ22j3gRXpqhPlU5dMn3+JxhvO5DI7tuO+C91n0/ImgLUi4pRyp+31lz/mv4B6y3V4+GmQMoR1by6iGzidJoShb1urytTeuVMcqmOHqRWtWRxxIukh68T0dxLOcDJNTWwCnrW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791791794; c=relaxed/simple;
-	bh=5g/vd714QxtXPxteGWzkxZjzLcmYZFh4LjP5LF+kwko=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H5BB9nCBZXnRlrYk2RSBCRzuqpfznc+E7kFigm1MfyWO4UGUWvERtaqZqnyhhsarhZQht9/ogQULPGvZ+GRWbwzMAqIPvejp6dIPNK0eK2cUGeYdR08KaJvWZ9eJUukVyA/wKxrAVwurqcl4qlzuU3FgItnd9PAJ1B81Z3wcu/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IH6LXFRT; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791791824; c=relaxed/simple;
+	bh=Ux9y4FURPjiPXdKEGUNQKnMgS7prAKTKqzlVFy5n2HQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BeJj1fn/Sd0fGKqQWk22BnBBv/4//v3vLnyzfw2rbzcux9l/rxO4SAMnloUwhiYcco0Jeer4pPHrdoQa7oOJWg/d+shQ5/7lH1y6l28F+ZYR+AzxPU7XCVPnrh8MVLIutOHTbvW/1xgoQdgfeeK7eXN8IJPURrdSsmQ1C8UpHXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YCp5AN6k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IH6LXFRT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791791791;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ablnLGW299doho7l5Tl3Z5zKXL0TE4+5th6qvfwQSUY=;
-	b=IH6LXFRTJUyuCWVyb6KowWtLa9HTET0GBW2D47QsWE4DhFBUG37c17d2a6Ql6MbRqWNOrN
-	pP9GptdGRjANX2RliQ7mVM9XPtWnFg4/ix87jW6p8EXyS+vazd7ba9jcDDerZ7T4+ZL/H7
-	uvo1+mbX100uvCBepHKuKql6Rr/s+Wk=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-168-ISj1wVsTP36bboTZr6pxgA-1; Mon,
- 12 Oct 2026 07:56:27 +0000
-X-MC-Unique: ISj1wVsTP36bboTZr6pxgA-1
-X-Mimecast-MFC-AGG-ID: ISj1wVsTP36bboTZr6pxgA_1791791785
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CA7F31800D84;
-	Mon, 12 Oct 2026 07:56:24 +0000 (UTC)
-Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0533A30001B9;
-	Mon, 12 Oct 2026 07:56:21 +0000 (UTC)
-Message-ID: <f5ce3575-3c1b-471c-86aa-e74d9f4df0be@redhat.com>
-Date: Mon, 12 Oct 2026 09:56:20 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YCp5AN6k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99FAF1F0089B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:57:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791791822;
+	bh=gowwe8axss2+O2HwBq41jmehPF78rOiKV0GKeG6qTnI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YCp5AN6kOS191mseGl+KnE26nqDGIc9TCMHWBCPFSyVGzakxThxu4+h00m6+H2ojT
+	 MgK2QQ0lp+fmB1vcsEHNGXS+9GbTjxYbCFK/7GZMU6BFuX75T4a2LSbkG7TSI+ytPE
+	 QL+kb7P1BMJcWiR507Tnh/jg69j16hzJql3GOuBodlFPk7Mk+4JNyhTQHQhgiDje/A
+	 hsWAzV4aEWPFZ81cMF2g4H4WQZf/GoCUX2Za6al45NJr3lOictWLvr2KNIHKc5k5Mw
+	 vnejxbBp8aPdy040DJqX3YgaNH1VIleZJnEWONXv+hq7RPgHdeKUsH5PB1dMaXEKgf
+	 EttyiwdA9w0KA==
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-9179bfa9e9cso32893316d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:57:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx/fLJGSoBbjpTzYZc2M9hINYGJwvW60xbIFMTR+eMckt+9gkr6MIWLzdiNym8Kwuf5yHk9SpIohSJFl2I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK70T3k9/MHvFAPHiJtliwJWM3Iqd2bEIfW+AoKWmx+v4i7n0T0
+	3OFLHz4Pqt6X2r3ju4czxpdwgEEcD0gwySV4Z/QzOCsK1xoziyuRjC//YTd9dKLvhzJ9Yo+0xSB
+	Cw0HQna120IwCjnV40DIc81VXM3z1JkE=
+X-Received: by 2002:a05:620a:2b8b:b0:93e:c12c:fbb6 with SMTP id
+ af79cd13be357-93ec12d082emr1367857085a.67.1791791821896; Mon, 12 Oct 2026
+ 00:57:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v5 3/5] dpll: zl3073x: reject output frequencies with
- too small divisor
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, poros@redhat.com, min.li@microchip.com,
- vadim.fedorenko@linux.dev, arkadiusz.kubalewski@intel.com, jiri@resnulli.us,
- kuba@kernel.org, Prathosh.Satish@microchip.com, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-References: <20261011061211.448373-4-ivecera@redhat.com>
- <179178562335.434549.16077864729187599251@kernel.org>
-Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <179178562335.434549.16077864729187599251@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+References: <20261007153915.53429-1-alex@ghiti.fr> <CAO9r8zMHKmAQT8WBAd+kkQEjETVvyHhfbESzKHpXXPQJUB9nVw@mail.gmail.com>
+In-Reply-To: <CAO9r8zMHKmAQT8WBAd+kkQEjETVvyHhfbESzKHpXXPQJUB9nVw@mail.gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Mon, 12 Oct 2026 15:56:49 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4x3JL9JW2cBXPo0j_8-2d6XQQGSpBAkSf-8Hw9N=0o=6Q@mail.gmail.com>
+X-Gm-Features: AclHuK8gJTkY2DRBIX9AcRDZ89iXtxeakHxULzQhlgHDZmLjl5T6JH2Ua3dDbhA
+Message-ID: <CAGsJ_4x3JL9JW2cBXPo0j_8-2d6XQQGSpBAkSf-8Hw9N=0o=6Q@mail.gmail.com>
+Subject: Re: [PATCH v3] mm: bypass swap readahead for zswap
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Alexandre Ghiti <alex@ghiti.fr>, Kairui Song <kasong@tencent.com>, akpm@linux-foundation.org, 
+	hannes@cmpxchg.org, nphamcs@gmail.com, shikemeng@huaweicloud.com, 
+	baoquan.he@linux.dev, youngjun.park@lge.com, chengming.zhou@linux.dev, 
+	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, ryncsn@gmail.com, 
+	chrisl@kernel.org, usama.arif@linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/12/26 08:13, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 2 (1) · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] The current output frequency skips the new minimum-divisor
->    rule.
-> - [Medium] The commit message says that for N-divided outputs the min-
->    divisor check is 'necessary but not sufficient, the rest is checked by…
-> 
-> Pre-existing issues:
-> - [Medium] eSync can be enabled on an output whose divisor is 1.
-> 
-> --
-> 
-> dpll: zl3073x: reject output frequencies with too small divisor
-> 
-> This adds a minimum output divisor check to zl3073x_pin_check_freq().
-> Firmware-provided output frequencies must now give a divisor of at least
-> 2, or at least 4 for the N-pin of an N-divided output. Frequencies that
-> fail the check are dropped from the supported list.
-> 
->> diff --git a/drivers/dpll/zl3073x/prop.c b/drivers/dpll/zl3073x/prop.c
->> index 768e5424de2d2..4e006ed5950ad 100644
->> --- a/drivers/dpll/zl3073x/prop.c
->> +++ b/drivers/dpll/zl3073x/prop.c
-> 
-> [ ... ]
-> 
->> @@ -41,18 +42,38 @@ zl3073x_pin_check_freq(struct zl3073x_dev *zldev, enum dpll_pin_direction dir,
-> 
-> [ ... ]
-> 
->>   		/* Check the frequency divides synth frequency */
->> -		if (synth_freq % (u32)freq)
->> +		div = div_u64_rem(synth_freq, freq, &rem);
->> +		if (rem)
->> +			goto err_inv_freq;
->> +
->> +		/* The driver requires an output divisor of at least 2 -
->> +		 * below that the hardware bypasses the divider and ignores
->> +		 * the pulse width and eSync registers the driver programs.
->> +		 * For the N-pin of an N-divided output the effective divisor
->> +		 * also includes the N divider (>= 2), so the minimum is 4.
->> +		 * For N-divided outputs this is only a necessary condition -
->> +		 * whether the frequency can be set also depends on the output
->> +		 * divisor shared by both pins, which is checked when the
->> +		 * frequency is set.
->> +		 */
->> +		out = zl3073x_out_state_get(zldev, out_id);
->> +		if (zl3073x_out_is_ndiv(out) && zl3073x_is_n_pin(id))
->> +			min_div = 4;
->> +		else
->> +			min_div = 2;
->> +		if (div < min_div)
->>   			goto err_inv_freq;
->>   	}
-> 
-> [Severity: Medium]
-> Can the current output frequency get past this new minimum divisor check?
-> 
-> zl3073x_pin_props_get() puts curr_freq at index 0 of freq_supported
-> without calling zl3073x_pin_check_freq(). It also skips any firmware
-> entry equal to curr_freq, so that value is never validated either:
-> 
-> drivers/dpll/zl3073x/prop.c:zl3073x_pin_props_get() {
->      ...
-> 	j = 0;
-> 	if (curr_freq) {
-> 		struct dpll_pin_frequency freq = DPLL_PIN_FREQUENCY(curr_freq);
-> 
-> 		ranges[j++] = freq;
-> 	}
->      ...
-> 	for (i = 0; i < num_freqs; i++) {
-> 		...
-> 		if (freqs[i] == curr_freq)
-> 			continue;
-> 		if (zl3073x_pin_check_freq(zldev, dir, index, freqs[i])) {
->      ...
-> }
-> 
-> zl3073x_out_state_fetch() only rejects a zero divisor. An output can
-> therefore come up from the flash configuration with div == 1, and then
-> curr_freq == synth_freq stays in the supported list.
-> 
-> dpll_pin_freq_set() only checks that the frequency is in
-> freq_supported. zl3073x_dpll_output_pin_frequency_set() puts no lower
-> bound on new_div:
-> 
-> 	new_div = synth_freq / (u32)frequency;
-> 
-> 	/* Check signal format */
-> 	if (!zl3073x_out_is_ndiv(&out)) {
-> 		...
-> 		out.div = new_div;
-> 
-> 		/* For 50/50 duty cycle the divisor is equal to width */
-> 		out.width = new_div;
-> 
-> The N-div P-pin branch also does out.div = new_div after checking only
-> n_period.
-> 
-> A user can move the output away from its boot frequency and then set it
-> back. The driver then programs divisor 1 again. The commit message says
-> the hardware then ignores the pulse width and eSync registers. In N-div
-> mode those registers also hold the N-pin's N divider.
-> 
-> At the end of the series, a frequency_set with eSync enabled calls
-> zl3073x_out_esync_enable() with div == 1, which writes
-> esync_n_width = 0.
-> 
-> The previous patch in the series ("dpll: zl3073x: do not offer 0 Hz as
-> a supported pin frequency") already filters curr_freq for 0 Hz. Should
-> curr_freq also go through the divisor check? Alternatively, should
-> zl3073x_dpll_output_pin_frequency_set() reject new_div < 2? Later
-> patches in the series don't seem to add either check.
+On Thu, Oct 8, 2026 at 5:37=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wrote=
+:
+>
+> On Wed, Oct 7, 2026 at 8:39=E2=80=AFAM Alexandre Ghiti <alex@ghiti.fr> wr=
+ote:
+> >
+> > Commit 0bcac06f27d7 ("mm, swap: skip swapcache for swapin of synchronou=
+s
+> > device") made SWP_SYNCHRONOUS_IO devices (e.g. zram) skip swap readahea=
+d.
+> >
+> > zswap is the same kind of in-memory, synchronous backend as zram, not a
+> > swap device flagged SWP_SYNCHRONOUS_IO so it still goes through
+> > swapin_readahead().
+> >
+> > Here are the results from bypassing readahead for zswap too: it was
+> > measured with a kernel build (make -j16) in a memcg, zswap=3Dzstd, shri=
+nker
+> > off, on Sapphire Rapids and 3 iterations.
+> >
+> >   768M memcg (sustained swap thrash):
+> >     metric                 mm-new    + bypass    delta
+> >     build time (s)          405.0       341.7    -15.6%
+> >     zswap-in (GB)            79.5        53.0     -33%
+> >     zswap-out (GB)          144.8       115.6     -20%
+> >     swap readahead (pages)  6.79M       0.45M     -93%
+> >     swap_ra hit (%)          72.1        89.9     +18pp
+> >
+> >   1G memcg (light pressure, build not memory-bound):
+> >     metric                 mm-new    + bypass    delta
+> >     build time (s)          177.7       176.0    ~same (no regression)
+> >     zswap-in (GB)            10.2         7.5     -26%
+> >     zswap-out (GB)           27.7        25.1      -9%
+> >     swap readahead (pages)  1.07M       0.08M     -93%
+> >     swap_ra hit (%)          68.6        87.2     +19pp
+> >
+> > Similar gains were observed on an AMD EPYC 7D13 host.
+> >
+> > The gain is from no longer prefetching pages that are pointless for an
+> > in-memory backend: readahead inflates anon residency and thrashes the
+> > page cache (file pages get evicted and re-read), lengthens each fault b=
+y
+> > synchronously (de)compressing a cluster of neighbours, and adds
+> > compression traffic when those extra pages are reclaimed.
+> >
+> > Bypassing swap readahead for zswap therefore makes sense.
+>
+> No objection here, I am just thinking about Kairui's LPC presentation
+> about how compressed swap can (in theory at least) still benefit from
+> readahead: https://lpc.events/event/20/contributions/2421/attachments/211=
+6/4689/Better%20Anon%20(Swap)%20Readahead%20(2).pdf.
+>
+> Seems like a big portion of the fault cost is still outside of
+> decompression and can benefit from readahead, but that isn't the case
+> today. I assume any future improvements to readahead and re-enabling
+> for zram would also cover zswap?
+>
 
-No. A divisor of 1 can only come from the boot configuration and is
-rarely used in practice: with the synthesizer running at up to 750 MHz
-it is only needed for output frequencies above 375 MHz, which only
-differential outputs support. Setting the current frequency back just
-restores that boot state, which the hardware supports, and the
-hardware ignores the pulse width in that mode anyway.
+In that case, if we can develop an accurate readahead algorithm with a
+high hit rate for readahead folios, we will probably also need to map
+them at the same time, as proposed in [1]. For example, if we readahead
+4 folios, we should map them all together in `do_swap_page()`.
+Otherwise, the cost of future minor faults can still be comparable to
+the decompression cost. Readahead alone would therefore increase the
+total work, which can be quite significant for synchronous I/O.
 
-> [Severity: Medium]
-> The commit message says:
-> 
->    For N-divided outputs this is necessary but not sufficient, the rest
->    is checked by the frequency set callback.
-> 
-> Does the frequency set callback actually check the out.div >= 2 part?
-> The N-pin branch of zl3073x_dpll_output_pin_frequency_set() uses
-> whatever out.div is currently programmed:
-> 
-> 	} else {
-> 		/* The N-pin frequency has to divide the P-pin frequency and
-> 		 * be at most half of it.
-> 		 */
-> 		n_period = frequency * out.div;
-> 		n_period = div64_u64_rem(synth_freq, n_period, &rem);
-> 	}
-> 
-> After that it only rejects n_period < 2, n_period > U32_MAX and a
-> non-zero remainder before committing out.esync_n_period.
-> 
-> The check added here only looks at the total divisor
-> synth_freq / freq >= 4. That can't tell out.div = 2, N = 2 apart from
-> out.div = 1, N = 4.
-> 
-> An N-div output can end up with out.div == 1 in two ways:
-> 
->    - the boot configuration, since zl3073x_out_state_fetch() only
->      rejects 0
->    - restoring a P-pin frequency equal to synth_freq through the
->      unvalidated curr_freq entry
-> 
-> In that case the N-pin set succeeds, and
-> zl3073x_dev_output_pin_freq_get() reports synth_freq / N.
-> 
-> The hardware ignores the N divider register at divisor 1. Wouldn't the
-> reported N-pin frequency then differ from what the pin actually
-> produces? This looks like a variant of the "no output on an
-> oscilloscope" case in the commit message. It still seems to be present
-> at the end of the series.
+[1] https://lore.kernel.org/linux-mm/CAGsJ_4xM=3DWnFO-OuwVude-DQ_UkaCi_zF_b=
+XBP9Li5+ZPNy0VQ@mail.gmail.com/
 
-The datasheet requires an output divisor of 2 or more in N-pin divide
-mode, so out.div == 1 there is an invalid boot configuration. N-pin
-divide modes are also CMOS only, and CMOS outputs are limited to
-250 MHz, so a divisor of 1 is never needed there. The driver does not
-try to fix it.
-
-> [Severity: Medium]
-> This isn't a bug introduced by this patch, but the eSync callbacks seem
-> to reach the same divisor 1 case.
-> 
-> zl3073x_dpll_output_pin_esync_get() advertises eSync ranges whenever
-> the output is not N-div, esync_control is set and out_freq > 1:
-> 
-> 	out_freq = synth_freq / out->div;
-> 
-> 	if (!pin->esync_control || out_freq <= 1)
-> 		return -EOPNOTSUPP;
-> 
-> With out->div == 1, out_freq == synth_freq, so this check passes.
-> zl3073x_dpll_output_pin_esync_set() then sets the clock type to ESYNC
-> and commits without checking out.div >= 2:
-> 
-> 	out.esync_n_period = synth_freq / (u32)freq / out.div;
-> 	...
-> 	out.esync_n_width = out.div / 2;
-> 
-> For div == 1 this writes esync_n_width = 0.
-> 
-> This commit says the hardware ignores the eSync registers at divisor 1.
-> Would the driver then report eSync as enabled with a given frequency
-> and pulse, while the device outputs a plain clock?
-
-Yes, but only for an output that the flash configuration left in
-divider bypass. Supporting eSync in that mode is out of scope for this
-series.
-
-Thanks,
-Ivan
-
+Best Regards
+Barry
