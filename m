@@ -1,90 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-141.mta1.migadu.com [95.215.58.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A5130C606
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:29:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069E2145B3F
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791811790; cv=none; b=Z9CPNTx02a1NbQdnXDklpV4Ub1cwkXTLIUCeNt69K2/UyzTa0zHC+APayQY46zrCFWnVUPXPdw1j9eAVLfYph9kG4yLO6q4AUvSj40Ob96jGUqz9c7K/VndtegqujG2G0ynlH3cKwm+SIE7JPqPqDvuGqKYfnOA8RF3N/O+AO4o=
+	t=1791811800; cv=none; b=mnVt4HTHiNpQQx4goDEA84rg/BLIHIJk+u857PVzaLQWKtmRvjx8hxzxpQGUR3ZArL3JU2WEo1ucqJgrgQZKj5hYeLRP00CpmAWTn0PWWwExwdS0l4ckqVQ0zJXowKdXdRlSKZjLKxIl2V67kr+U0W4yeZ76TdCpvQRIPmb97jE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791811790; c=relaxed/simple;
-	bh=OU4Y8whvWD2Hibdk8gEf9G/ATmDWla5lyVMlVtfiR0g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hw7q4SMNjFjc5Xe98b7CP3G94xpbfvGgh0aK1Aq/NabMar2uyAG74YQK9gPNwT/mHMr3uj4I//jAgyc56jaj5ugBDRAuWlfUMz6/oYetQiVew032yvj8y3gpo8KTb/2Kzh87TI3ERG4ZPdeKmUxx1pB8yw+4QshNPzJmOxMxkqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXw70XOy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791811800; c=relaxed/simple;
+	bh=GGn8drrlO6i+jPM1cQp3kvDlxLXSPfm+i8X2a7OAoPo=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=gIR1KEyGx61CfSQDoQXerd2HTMIT/fDY+meGRjZ2XNaKaawH9+73v+d3YLr/qrAem44heVeGnZ/xjA2Kl0DrLeBbSB5JFMN9KuehX3uFRUqc1hHvK7xd5zHVKrZtboLjN9Lh6RZ7+V4MEorq5Z5IwdXwphLy3hiQgG7zpxnA0bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HKcQEqzM; arc=none smtp.client-ip=95.215.58.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXw70XOy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEC551F0089D;
-	Mon, 12 Oct 2026 13:29:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791811789;
-	bh=eZnvW1f6ZKKDs4epQ72esmcLtWFbZaDp3PtMSfBkwKM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JXw70XOyZ/GydVd5g4rGWFnG4oNaR04Scx4JVWCXdDCDoHo58O/hj3Z9+gqAHYglt
-	 IzOGuY5L3VN1DLqzLjk3xtI2cVTMMMFSsMy0Eh3FLyk1yxCLkW/lDJ6FN+Up1spRAN
-	 mZRHqltvSw9+05Zf+vA+LcP/8BUYcI6ynnVvWGzBJez3LDOYWjXb4bs0+iwEG2Uknf
-	 m4E20m+wgeTD7+vDczrmk1PDIJ42zx9wZNYyAuEf/3UYYVB2gg8aR8R1niBhHwwnUD
-	 /UAwSmQM+jpImaaq3VaWpuoMco9dGlMzrT3qHjEs+1zm63H9ntcWn8bW5JK5JNYrx8
-	 idUvrWZD2GR/A==
-Date: Mon, 12 Oct 2026 14:29:46 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Sasha Levin <sashal@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [GIT PULL] regulator fixes for v7.3-rc6
-Message-ID: <3ca592b2-a411-4353-ae13-06e84021955b@sirena.org.uk>
-References: <20261010234834.6C7001AC57D0@finisterre.sirena.org.uk>
- <CAHk-=wiSL2hmOhLz6f_pY-SD+Q=2q+swkENsHhWvwtL8az1Wqw@mail.gmail.com>
- <asuOoUt8XcOJJmSE@laps>
- <CAHk-=wgAJjTXvGBehCycoObUb45sXdW_-WkLkcd0cZp+fonYHQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HKcQEqzM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=GGn8drrlO6i+jPM1cQp3kvDlxLXSPfm+i8X2a7OAoPo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791811795; v=1; x=1792416595;
+ b=HKcQEqzMc0b9qa3T1l/MT1XX0glz8eLZEWBDc5AJJkcuEAlLFd65BvG/PK8qVzy9Mf/fZPNW
+ 8dO6QDotEkdH3rj8UjNe2IE6iaeogMiaoXnpuJZZMWnJAHGZ7ImhKIfqy5LwDxPo2JXY+v+V0D/
+ FTFz2JY0x35Bi0yTNwGvHeEk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id d7c9edd7e757cc90;
+	Mon, 12 Oct 2026 13:29:55 +0000
+X-Mizu-Trace-ID: d7c9edd7e757cc90
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kcDg+wdYtDzc6CQA"
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wgAJjTXvGBehCycoObUb45sXdW_-WkLkcd0cZp+fonYHQ@mail.gmail.com>
-X-Cookie: 98% lean.
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH v2 1/4] mm: fix missing page-table destructor in
+ pagetable_free()
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <919fcaa9-5ebe-4940-b4fc-59ea0c655ec3@kernel.org>
+Date: Mon, 12 Oct 2026 21:29:35 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Oscar Salvador <osalvador@suse.de>,
+ Dave Hansen <dave.hansen@intel.com>,
+ Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>,
+ =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@rivosinc.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Kevin Brodsky <kevin.brodsky@arm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ linux-mm@kvack.org,
+ linux-riscv@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <77D942CF-B657-4735-9B95-1C6B38DD0F46@linux.dev>
+References: <20261010112457.49485-1-songmuchun@bytedance.com>
+ <20261010112457.49485-2-songmuchun@bytedance.com>
+ <919fcaa9-5ebe-4940-b4fc-59ea0c655ec3@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
 
---kcDg+wdYtDzc6CQA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Sun, Oct 11, 2026 at 11:27:51AM -0700, Linus Torvalds wrote:
+> On Oct 12, 2026, at 21:27, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> On 10/10/26 13:24, Muchun Song wrote:
+>> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
+>> pte_alloc_one_kernel() runs the page-table constructor for kernel PTE
+>> tables.
+>>=20
+>> HVO (HugeTLB Vmemmap Optimization) uses pte_alloc_one_kernel() when
+>> splitting a PMD. Restoring the vmemmap backing pages does not =
+collapse
+>> the PTE table, so a later memory hot-remove eventually frees it =
+through
+>> pagetable_free() on x86-64. That releases the page without running =
+the
+>> matching destructor and leaves NR_PAGETABLE elevated.
+>>=20
+>> Make pagetable_free() detect constructor-backed pages and run the
+>> destructor before releasing their memory to fix the problem.
+>>=20
+>> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: LLM
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> ---
+>> v2:
+>> - Move destructor handling from x86 into pagetable_free() (suggested =
+by
+>>  David Hildenbrand)
+>> - Trim and update the commit message (requested by Dave Hansen)
+>> ---
+>> include/linux/mm.h | 37 ++++++++++++++++++++-----------------
+>> 1 file changed, 20 insertions(+), 17 deletions(-)
+>>=20
+>> diff --git a/include/linux/mm.h b/include/linux/mm.h
+>> index 5cca90fc1df6..771a7d60b0a5 100644
+>> --- a/include/linux/mm.h
+>> +++ b/include/linux/mm.h
+>> @@ -3969,23 +3969,6 @@ static inline void =
+pagetable_free_kernel(struct ptdesc *pt)
+>> __pagetable_free(pt);
+>> }
+>> #endif
+>> -/**
+>> - * pagetable_free - Free pagetables
+>> - * @pt: The page table descriptor
+>> - *
+>> - * pagetable_free frees the memory of all page tables described by a =
+page
+>> - * table descriptor and the memory for the descriptor itself.
+>> - */
+>> -static inline void pagetable_free(struct ptdesc *pt)
+>> -{
+>> - if (ptdesc_test_kernel(pt)) {
+>> - ptdesc_clear_kernel(pt);
+>> - pagetable_free_kernel(pt);
+>> - } else {
+>> - __pagetable_free(pt);
+>> - }
+>> -}
+>> -
+>> #if defined(CONFIG_SPLIT_PTE_PTLOCKS)
+>> #if ALLOC_SPLIT_PTLOCKS
+>> void __init ptlock_cache_init(void);
+>> @@ -4078,6 +4061,26 @@ static inline void pagetable_dtor(struct =
+ptdesc *ptdesc)
+>> lruvec_stat_sub_folio(folio, NR_PAGETABLE);
+>> }
+>>=20
+>> +/**
+>> + * pagetable_free - Free pagetables
+>> + * @pt: The page table descriptor
+>> + *
+>> + * pagetable_free frees the memory of all page tables described by a =
+page
+>> + * table descriptor and the memory for the descriptor itself.
+>> + */
+>> +static inline void pagetable_free(struct ptdesc *pt)
+>> +{
+>> + if (PageTable(ptdesc_page(pt)))
+>> + pagetable_dtor(pt);
+>=20
+>=20
+> We do have
+>=20
+> static inline void pagetable_dtor_free(struct ptdesc *ptdesc)
+> {
+> 	pagetable_dtor(ptdesc);
+> 	pagetable_free(ptdesc);
+> }
+>=20
+> ... can we now get rid of pagetable_dtor_free() and simply use =
+pagetable_free() ?
+> (separate cleanup)
 
-> Bah. It's not like I need reminding about how much I dislike pgp, but
-> this whole "people change their keys without giving a reason or
-> telling me" is something that *should* change, and doesn't require
-> fixing that horrible program.
+You're right, that's exactly my plan.
 
-> PLEASE, people. Don't just throw your keys out into the wild blue
-> yonder and then assume that's it. The people who *care* about your
-> keys should be told about it, and why you suddenly changed your key.
+>=20
+>> +
+>> + 	if (ptdesc_test_kernel(pt)) {
+>> + 		ptdesc_clear_kernel(pt);
+>> + 		pagetable_free_kernel(pt);
+>> + 	} else {
+>> + 		__pagetable_free(pt);
+>> + 	}
+>=20
+>=20
+> This goes into the right direction. I'm still confused, but the less =
+freeing
+> functions we have the better.
+>=20
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Sorry, I was under the impression that the keyring you were using was
-tied in with the kernel.org keyring and didn't realise that you needed
-notifying separately.  This is me adding new subkeys to my existing key
-so that I have backups of them and am not stuck with the single
-smartcard I generated subkeys on 10 years or so ago and can also have a
-physical token I can plug into USB C ports.
+Thanks David.
 
---kcDg+wdYtDzc6CQA
-Content-Type: application/pgp-signature; name="signature.asc"
+>=20
+> --=20
+> Cheers,
+>=20
+> David
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrM4MkACgkQJNaLcl1U
-h9AzvAf8CpfwofupBOVZvtEeTjQIZbUlKK7dp74jnySWca9oRKO6EUbaLhT2/tZO
-rZBYgronPAa3mJkpkrHWFR+YC0BGTOog4sKLhOwqYqiu4lxJkjM76o02hAd+24Si
-hwahdq9B6vqIUF17RUE/5Y4hp88cCwmN8S55ZsIVcCJ7sRBNDDhGceRZp7cYMU69
-Ofrp9blh9foBb+gdM5Wtoh9Zso3/ZrY4iE6PKXxFm16rYNefqK3Vn5iEswTtv2hc
-IsFyNde1wQJS0QnHGKUjugp+UUW93AAXgzG3mcaZjFlxdq35g5Xl6E8qO2mz578W
-fhHygPdADFzZ7ssJ58YeNSzVfShoXg==
-=kaxg
------END PGP SIGNATURE-----
-
---kcDg+wdYtDzc6CQA--
