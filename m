@@ -1,197 +1,257 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010037.outbound.protection.outlook.com [52.101.201.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937511B3925;
-	Mon, 12 Oct 2026 06:01:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791784865; cv=fail; b=BY/E+zuqPAq/ANB6PxHI7toyxu3drC95o4DUu0S6EE9TZWXqNTKkYb3UUf/JyURqLbBz2V57leNOt71ipow5h+ghrLFreW9BEmEiW8IjsTX7tlj6o7IKs4wRlgF5yAaJecfEprBV1pYDpItdaNjt99S/vNcJorF3m5Q4l20MO4Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791784865; c=relaxed/simple;
-	bh=rf7S4klWLVfWwWBj3aqJMRirrB0msIgkbMFJqObAXf0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=jb7kMg8dHU7f6Sk1ccJE6m1oebY6iQRWon4BBWr2XkmCzWnNVBkxk5WL+AQFMXlegR+W+Pu6uZB/WvjyObAbCr6o1XtV2PXytIdGjKHvZkGdZflpCvXbIYthBsMADF07sejbShY3Dp8Xdgk3I5SqcdFFTZoNtvDdUSIBFOfjL2Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=REvgliFe; arc=fail smtp.client-ip=52.101.201.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD1223394B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:02:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791784938; cv=none; b=izNNqHuMUGmj0Xxbbr2gDMvGoS2UKiTIlju57kLlVfIevl64UccMlwlBXL8gK3Bx+2ADWCxAbN59M28+xPvbZqjvFBCoifKqTu4zH3AmdC5llzgFCQJShjYW2kYNx0aowa7ngWSZS1PD3svjOgFbG6AXE7jtSWOodWSB0++ISR8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791784938; c=relaxed/simple;
+	bh=3ds6Kxo8KcToMGKlp0BSgF6Z+8tStFHjy+wAKuW4LJY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=doylf+sld8QuOQp9fHasXRn7iewTecGRPFlIDUd4V5xIpaj0rL4RiF54AHJ+3GJQNJEhXx/0NatatRLm2Mtv4C0PxmxwXKjw1unx7XT6OqLInGXLKEzjYXfzaHS4MGgJSpAWqTsTaHa8rKGU7NKQw4MUczdYtmEeO2/KiJK0Hn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fpKEVUJg; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="REvgliFe"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YdndVQv7Pp/pjB5WZW1ATFwHqVZf7bIhmQY5jsohIhPKQK7sZtLw8qPP40XcUUs6lk1v3PEIQ2bmmmsNavAlf/5BlhXEdQ9l2ZUm+jA900TSAkAHW+aCzoaeQta+OOKqdCKNuhykMSzTkqk+k7jklOZVBKVYgYQjbaAtCA7pFausMrbujP9/PcNo4QMY/DKaz7FW+TxGGAgJmqJyjcEKdmdkX3G/1HZTWG08SKnhDVM4ziQGTYo8GKAyj3awAVe4zffhDquOkOWT60KfyvTTAjq4jKxA5xVdQb5/XQq66fAmXAVylf4BYN2POrL2IR+z4zNslAiX8JKow2ji1He7rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7Smck2Bpq2BqceuhanfQ8/7aHT50jGp8guUJfZ5IM5M=;
- b=LDvY6hp+Ap5qA+w75mmWJGWvnibPSCwJtgFM3FbeIIPWnicycJ+H8vDuPvxLVnbqsqtkePLJ/7TED/Bdyzo0XDOY+Ao5siob7w6+YVWjqLBVHNHNHC89o/71QRDPKadlgLHP235IntuKPI2Mu71pWt9UdGUAeLkk4vtPNQtZFw9xp4/0scjf27iuBOU3Uo0oawz0iU3gz/ql4IPFY3HgL9wa2MForacGndCb1q/y12LSgOdrRAoPTtWNrsYp8emOlEko5wviW2r1TCpKhWArIOaIytL/1ZkPhbNznHufevgNX1EDPA58HEr2O+cQiVoXGyyV/U+hTribXz/I3VkPJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7Smck2Bpq2BqceuhanfQ8/7aHT50jGp8guUJfZ5IM5M=;
- b=REvgliFe6xqeGmJaHQpBPQkuDcwnC+71UR0LQltJw4zmcdi+ul5Edno40nCS2b8kCnBCy2MdkkhnLagyiHXQoz4nJNO+GH9rrb5HIxUjIgeXsOoxFvc3Qdv8Y4HYw1atKJLnaq8aU2EfwdemOoFyUWu4kNwujEiK3uPZ1l0PgJo=
-Received: from BN0PR04CA0020.namprd04.prod.outlook.com (2603:10b6:408:ee::25)
- by DM4PR12MB5915.namprd12.prod.outlook.com (2603:10b6:8:68::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Mon, 12 Oct
- 2026 06:00:50 +0000
-Received: from BL2PEPF000352CE.namprd02.prod.outlook.com
- (2603:10b6:408:ee:cafe::4d) by BN0PR04CA0020.outlook.office365.com
- (2603:10b6:408:ee::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.15 via Frontend Transport; Mon,
- 12 Oct 2026 06:00:50 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL2PEPF000352CE.mail.protection.outlook.com (10.167.249.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 06:00:50 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 01:00:44 -0500
-Received: from [10.136.45.168] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 12 Oct 2026 01:00:21 -0500
-Message-ID: <c40415f4-7bc8-4479-a07c-22b9f67a7613@amd.com>
-Date: Mon, 12 Oct 2026 11:30:15 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fpKEVUJg"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e831e86ebfso7636365ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:02:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791784936; x=1792389736; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R/ggKxDXF1W4YTObb0Gqmnak9Gw8ra8VXEN2yWLxx6o=;
+        b=fpKEVUJgS+E8Ugk5K/rMEtfMNqEQ/gSzQtjKnVZNG0WxiLYl3WSLXvBs1C4JNf3tT0
+         KihZhyE5c5aXMow/hEW7WSBA/8fJuifFI5MV20quz4QeuhbKFnybP4GAF2yUFpeEKLha
+         4yw7wHjKm5sP2OEl0zoqYag3+L4LuMc7U9xh+WGXAy+NbQJaLxYsqtGPtW7H4gXeDOoK
+         oiN3zd7vMf46M9moQ571LWSFpShqoETOI3206Cg7x8aT/WU0aclIXmyXMACnm50RyKJT
+         9+ezW9gyUFNRLOHWPKGbR15W1GzVXVObAwQHUWXJQoZJwSgeBjfW72eQQQf0yo8OuQCj
+         3MTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791784936; x=1792389736;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R/ggKxDXF1W4YTObb0Gqmnak9Gw8ra8VXEN2yWLxx6o=;
+        b=wMK+vwei4218f47liykobaYUsDTKSKJqBjqAWdi+F+i/HaNDlwSM3O4CDbBUMApIt3
+         uSlRORICIl9ZdLeAB7cUlbGtife6HTiABRFFCTwKOinGnR0/3BStqx6E6TAc80HDUBqU
+         PXWC6b5mE4CrDlVdTkYQ47jXt9YkfIsRvMBgpbOLgdhv9RaZypAjlTvytJLSKereuKn+
+         V5UhBN03wk5vX795YZF+VsqX5VTZMID4UYFFkZjkN5uxUZn0Nznd8gVMy20CVG/fda6v
+         hMlk90lSVLj/Jyqrcf9mExJxGE9FZM8XYULtB4dx+uxZz0Ywi4575QVzHzEOScXCfdFp
+         SZhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzJLbHF5EYxio1y1Q/rG1U07YDn/oxLlomx8z6BtnYVXQxeNby2z84rr2cu1p+rbdUxGWzpC72Qk5YVzjw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK24XvyfE977PAGBQckXbQPogljhXeTtqRDrfDaQGh1FWzOguqx
+	7AFHTYL37mf+iWNWHc+kyuE0Zlzp/ZIwPO6Yp/MueRr58sgOBGOaAXg+
+X-Gm-Gg: AYBFou1N5sP6NSmzBOXOOWVI8H+eeqP4pVluNvxmzWwQAfMjH+wyLWnO1yS56a/UHCK
+	f8CUvKk87i06X/QWreeRsT/R6ssYPFYMR25aDIKdx5g9HrMHj4vxhuJTV7ffUUoSkOhUB9PN0eE
+	hnZBeHG0KAnPVq6ahqqowV8Ty2/2pK6KgNbW41mNbwHu8wGH+LAmspopTp9gqj7IgEkYqOSlnhM
+	xZ1WSb/yHSlNWK8mnST0jg6w2fb3keDc6mxqCazAZxMX2wY57chStJjvJr2y3BdLczJ1gkQcLg4
+	5bd48Sf8JPBRTd4myjy3ejnEpVlFK912+/O4ZT3lavsTmLq9uLPs/rHtfBgulOv2ZnP7v7obsRA
+	ey8A/XeSWOVJHyOvV1zms+1XQPAh0odH/FPj53GGwWx7eg+WVdWiHeJ0q6wGHQ3Mrx55MjW0Fx0
+	OlXUMtFnHCzeOv2vvHTR6YKe9nKTWZu5/k8j9vmNjLP/NqeEix1AiWPzk6TWjgCVqPDkLpDX368
+	wqNLUYOThQJs1cWkVp+A1M5sR/Zo/mgldDKlA==
+X-Received: by 2002:a17:902:d2c8:b0:2e6:646:8ee5 with SMTP id d9443c01a7336-2e842cd3e90mr71251985ad.39.1791784935605;
+        Sun, 11 Oct 2026 23:02:15 -0700 (PDT)
+Received: from localhost.localdomain ([2409:891f:1a03:88e9:69f9:d4b:a47:6619])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219f2bfsm39746645ad.21.2026.10.11.23.02.10
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 11 Oct 2026 23:02:15 -0700 (PDT)
+From: Chuang Wang <nashuiliang@gmail.com>
+To: 
+Cc: Chuang Wang <nashuiliang@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Stanislav Fomichev <sdf.kernel@gmail.com>,
+	Hangbin Liu <liuhangbin@gmail.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Neal Cardwell <ncardwell@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v11] net: reduce ARFS flow updates by checking LLC affinity
+Date: Mon, 12 Oct 2026 14:01:08 +0800
+Message-ID: <20261012060152.2930-1-nashuiliang@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/13] treewide: convert rdmsrq() from a macro to an
- inline function
-To: Juergen Gross <jgross@suse.com>, <linux-kernel@vger.kernel.org>,
-	<x86@kernel.org>, <linux-perf-users@vger.kernel.org>,
-	<linux-hyperv@vger.kernel.org>, <kvm@vger.kernel.org>,
-	<virtualization@lists.linux.dev>, <linux-edac@vger.kernel.org>,
-	<linux-pci@vger.kernel.org>, <linux-pm@vger.kernel.org>,
-	<linux-coco@lists.linux.dev>, <linux-acpi@vger.kernel.org>,
-	<linux-ide@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-crypto@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
-	<linux-hwmon@vger.kernel.org>, <linux-mtd@lists.infradead.org>,
-	<platform-driver-x86@vger.kernel.org>, <linux-fbdev@vger.kernel.org>
-CC: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
-	<namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, "Alexander
- Shishkin" <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, "Dexuan
- Cui" <decui@microsoft.com>, Long Li <longli@microsoft.com>, "Sean
- Christopherson" <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>,
-	"Ajay Kaher" <ajay.kaher@broadcom.com>, Alexey Makhalov
-	<alexey.makhalov@broadcom.com>, Broadcom internal kernel review list
-	<bcm-kernel-feedback-list@broadcom.com>, Josh Poimboeuf
-	<jpoimboe@kernel.org>, Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, "Pu
- Wen" <puwen@hygon.cn>, Tony Luck <tony.luck@intel.com>, Reinette Chatre
-	<reinette.chatre@intel.com>, Dave Martin <Dave.Martin@arm.com>, James Morse
-	<james.morse@arm.com>, Babu Moger <babu.moger@amd.com>, Tony W Wang-oc
-	<TonyWWang-oc@zhaoxin.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, "Andy
- Lutomirski" <luto@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, "Rafael
- J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, "Kiryl
- Shutsemau" <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Len Brown <lenb@kernel.org>,
-	Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
-	"David Airlie" <airlied@redhat.com>, Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>, Viresh Kumar
-	<viresh.kumar@linaro.org>, "Huang Rui" <ray.huang@amd.com>, Mario Limonciello
-	<mario.limonciello@amd.com>, "Perry Yuan" <perry.yuan@amd.com>, Srinivas
- Pandruvada <srinivas.pandruvada@linux.intel.com>, Yazen Ghannam
-	<yazen.ghannam@amd.com>, Linus Walleij <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>, Guenter Roeck <linux@roeck-us.net>, Artem
- Bityutskiy <artem.bityutskiy@linux.intel.com>, Artem Bityutskiy
-	<dedekind1@gmail.com>, Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
-	Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, "Rajneesh
- Bhardwaj" <irenic.rajneesh@gmail.com>, Xi Pardee <xi.pardee@linux.intel.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>, Helge Deller <deller@gmx.de>,
-	<xen-devel@lists.xenproject.org>, <linux-geode@lists.infradead.org>, "Michael
- Kelley" <mhklinux@outlook.com>, Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-References: <20261008071839.2247074-1-jgross@suse.com>
- <20261008071839.2247074-13-jgross@suse.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20261008071839.2247074-13-jgross@suse.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL2PEPF000352CE:EE_|DM4PR12MB5915:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7cfeebe3-ee41-47b1-9a45-08df28262b02
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|32650700020|82310400026|23010399003|1800799024|376014|36860700016|7416014|18002099003|10067099003|22082099003|921020|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	iF/4vsFZ0oCxke5nY+IzxcsajSzz5fPHlKfX0Y7e1Yx6IxBZC2sr3ME/4gk3EsXUGoPLFu//3fq/5B93Fmnz6J+cejonYpLtAT5O3MoE9q/2qtUyA6JQVe9/KyUI0Zq2D53G0gSEYWNHVkklvOhGU3AX60Gl1/Dp2o8a7kr9auN2+ROJk55lgWuFVdOkGsnI/RjqR5yBE4YcIzdhUzo75yL+R1wluPkHvKzcBNUfJfs6UStcg3RvocQJvos3t8Ie55dbTBkmiXWO4GzaPMQMnWvyrNt99CU+kzYB2REQ6ZgmORiF6Vk/sQETKzhd/wI0RnhOuijITF21qZ+26lP8Z1rMGjpDfGCIA9/mHEWxy19fLdKyoLhnKunjb3sOk/NjA6nyZye1VKAQiR8L+P5Ix+8q4LpC4K9NO5pUbHiCkPwvUKcnq+gpAnjBtETeBz9J8IgxTvjLZVYS/5A/5aHcDzbNe/52x+IvEtxiu4QwbGgfgQNEwe5+0Ldvt/OFZn81u5mxvzdiUgvrqnm5Z0EPSmw6fhhzpuABtp4EULwt7/UHejEZxA8hCVUgDY1Q+MtNR7qd7b7NKZfskF+X+GyK6f1MXX9RGTjpff8PVrN7Vh2ybgNyjgBkyttYSxy15Sbssdy9hqKgVgE1S47frdT5p4BSbk28gX3HPHxEKRKgrLPQYvWGajX7RRYx+4XJkjMv2YlOgsIGCq/STIrTUogxtK+o1EhIKanpaAYU/pnTG0R/okTYWsplHnynkYPwx2IJ
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(32650700020)(82310400026)(23010399003)(1800799024)(376014)(36860700016)(7416014)(18002099003)(10067099003)(22082099003)(921020)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	7oS2RettfJciXjAoPrqIpsgslkhkkpGAiW01FyzZHJNa6VOeV1Fs9l0RKNylshp8F43mwG7dYZK4yEnC3v2OZJfklqhnVYV8xmuueMD12u9jjbrj9fZR1VkqsUWmm6umnN6nxJeXy+PoYlQEQJEoloPH4EFw7pN+5lvyUMKMLbcWDF1wFCxmgit2RPf6HuaBXte6l7/4hBbWSHicYtdXGpY5AbGKJBmFA25RMv92aM3cXFiCCKCvG1U1CnGToXMhntV12UFo+3Pw59MKrc8GTvPBosZ0etwE2n1Wp4DIHjySvFMuIGuPBtltL9UDWxOmFJngwwXyApuTDlKSDb3h4ptwXkO8ss96jh/qHKPb0lo2Kg4bHCwK5V1iWIh7xJJ4YSFLPtrgDz0pQVTJQQpgka82T+jZZUitzlQX5OGrgr2p+XXZY9v881FQ+I0KBjNe
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 06:00:50.4752
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7cfeebe3-ee41-47b1-9a45-08df28262b02
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL2PEPF000352CE.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5915
 
-Hello Juergen,
+The current implementation of rps_record_sock_flow() updates the flow
+table every time a socket is processed on a different CPU. In high-load
+scenarios, especially with Accelerated RFS (ARFS), this triggers
+frequent flow steering updates via ndo_rx_flow_steer.
 
-On 10/8/2026 12:48 PM, Juergen Gross wrote:
-> Today rdmsrq() is a macro using its second parameter as the target for
-> storing the read MSR value.
-> 
-> Convert rdmsrq() to an inline function returning the MSR value.
-> 
-> The users have been converted using the following semantic patch:
-> 
->   // Options: --include-headers
-> 
->   virtual patch
->   virtual report
-> 
->   @@
->   expression msr, val;
->   @@
->   (
->   - rdmsrq(msr,val)
->   + val = rdmsrq(msr)
->   )
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> Acked-by: Damien Le Moal <dlemoal@kernel.org>      # ATA
-> Reviewed-by: Michael Kelley <mhklinux@outlook.com> # Hyper-V
-> Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org> # ACPI, cpufreq, powercap, thermal
-> Acked-by: Sean Christopherson <seanjc@google.com>
-> Acked-by: Reinette Chatre <reinette.chatre@intel.com> # resctrl
-> Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com> # cpufreq
-> Acked-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>		# pdx86
+For drivers like mlx5 that implement hardware flow steering, these
+constant updates lead to significant contention on internal driver locks
+(e.g., arfs_lock). In high-load scenarios, this contention often becomes
+a performance bottleneck that outweighs the steering benefits.
 
-Feel free to include:
+This patch introduces a cache-aware update strategy: the hardware
+steering update is skipped when the flow's previous target CPU and the
+new one share the same Last Level Cache (LLC), as cache locality for
+the application is preserved either way. The per-queue flow bookkeeping
+(rflow->cpu) is still updated, so RFS keeps steering packets to the CPU
+the application is running on, and subsequent packets take the fast path
+in get_rps_cpu() (tcpu == next_cpu). A new sysctl,
+net.core.arfs_llc_affinity, is added to toggle this feature (default:
+off).
 
-Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com> # amd-pstate
-Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Performance Test Results:
+The patch was tested in a K8s environment (AMD CPU 128*2, 16-core Pod
+with CPU pinning, mlx5 NIC) using brpc[1] echo_server and rpc_press.
 
+rpc_press Commands:
+
+  for i in {1..8}; do
+    ./rpc_press -proto=./echo.proto -method=example.EchoService.Echo
+    -server=<IP>:8000 -input='{"message":"hello"}'
+    -qps=0 -thread_num=512 -connection_type=pooled &
+  done
+
+Monitor mlx5e_rx_flow_steer frequency:
+
+  /usr/share/bcc/tools/funccount -i 1 mlx5e_rx_flow_steer
+
+Frequency of mlx5e_rx_flow_steer (via funccount[2]):
+
+  Before: ~200,000 counts/sec
+  After:       ~10 counts/sec (reduced by ~99%)
+
+These results demonstrate that filtering updates by LLC affinity
+significantly reduces driver lock contention and improves overall
+CPU efficiency under heavy network load.
+
+[1] https://github.com/apache/brpc/
+[2] https://github.com/iovisor/bcc/blob/master/tools/funccount.py
+
+Signed-off-by: Chuang Wang <nashuiliang@gmail.com>
+---
+v10 -> v11:
+- rename the sysctl from net.core.rps_feat_llc_affinity to
+  net.core.arfs_llc_affinity, per Neal Cardwell
+v9 -> v10:
+- move the LLC check from rps_record_sock_flow() into set_rps_cpu(),
+  so that only the ARFS hardware steering is skipped while rflow->cpu
+  is still updated, per Eric Dumazet
+- drop the sock_rps_record_flow_hash()/sock_rps_record_flow() exports,
+  which are no longer needed
+v6 -> v9:
+- simplify code and fix errors in AI submissions, per Simon Horman
+v5 -> v6:
+- remove the multi-check 'old_val == new_val', per Xuan Zhuo
+- fix 'modpost: "sock_rps_record_flow_hash" [drivers/net/tun.ko]
+  undefined!', per kernel test robot
+- fix 'tcp.c:(.text+0x3e90): undefined reference to
+  `sock_rps_record_flow'', per kernel test robot
+v4 -> v5:
+- fix 'modpost: "rps_llc_check" [net/sctp/sctp.ko] undefined!', per
+  kernel test robot
+v3 -> v4:
+- add rps_llc_check, per Eric Dumazet
+v2 -> v3:
+- patch net -> net-next, per Jakub Kicinski
+v1 -> v2:
+- add rps_feat_llc_affinity; add brpc tests
+ include/net/rps.h          |  1 +
+ net/core/dev.c             | 23 +++++++++++++++++++++--
+ net/core/sysctl_net_core.c |  7 +++++++
+ 3 files changed, 29 insertions(+), 2 deletions(-)
+
+diff --git a/include/net/rps.h b/include/net/rps.h
+index e33c6a2fa8bb..6664970e68d6 100644
+--- a/include/net/rps.h
++++ b/include/net/rps.h
+@@ -12,6 +12,7 @@
+ 
+ extern struct static_key_false rps_needed;
+ extern struct static_key_false rfs_needed;
++extern struct static_key_false arfs_llc_affinity;
+ 
+ /*
+  * This structure holds an RPS map which can be of variable length.  The
+diff --git a/net/core/dev.c b/net/core/dev.c
+index a6951ea08961..434ad5499906 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -5122,6 +5122,7 @@ struct static_key_false rps_needed __read_mostly;
+ EXPORT_SYMBOL(rps_needed);
+ struct static_key_false rfs_needed __read_mostly;
+ EXPORT_SYMBOL(rfs_needed);
++struct static_key_false arfs_llc_affinity __read_mostly;
+ 
+ static u32 rfs_slot(u32 hash, rps_tag_ptr tag_ptr)
+ {
+@@ -5160,7 +5161,7 @@ static bool rps_flow_is_active(struct rps_dev_flow *rflow,
+ 
+ static struct rps_dev_flow *
+ set_rps_cpu(struct net_device *dev, struct sk_buff *skb,
+-	    struct rps_dev_flow *rflow, u16 next_cpu, u32 hash)
++	    struct rps_dev_flow *rflow, u16 old_cpu, u16 next_cpu, u32 hash)
+ {
+ 	if (next_cpu < nr_cpu_ids) {
+ 		u32 head;
+@@ -5179,6 +5180,24 @@ set_rps_cpu(struct net_device *dev, struct sk_buff *skb,
+ 		if (!skb_rx_queue_recorded(skb) || !dev->rx_cpu_rmap ||
+ 		    !(dev->features & NETIF_F_NTUPLE))
+ 			goto out;
++
++		/*
++		 * ARFS LLC Affinity Feature:
++		 * Reduce ARFS flow updates by checking LLC affinity.
++		 *
++		 * Frequent flow table updates can trigger constant hardware steering
++		 * reconfigurations (e.g., ndo_rx_flow_steer), leading to significant
++		 * contention on driver internal locks (like mlx5's arfs_lock).
++		 *
++		 * Skip the expensive hardware steering update if the flow's previous
++		 * target CPU and the new one share the last level cache: cache locality
++		 * for the application is preserved either way.
++		 */
++		if (static_branch_unlikely(&arfs_llc_affinity) &&
++		    old_cpu < nr_cpu_ids && cpu_online(old_cpu) &&
++			cpus_share_cache(old_cpu, next_cpu))
++			goto out;
++
+ 		rxq_index = cpu_rmap_lookup_index(dev->rx_cpu_rmap, next_cpu);
+ 		if (rxq_index == skb_get_rx_queue(skb))
+ 			goto out;
+@@ -5308,8 +5327,8 @@ static int get_rps_cpu(struct net_device *dev, struct sk_buff *skb,
+ 		    (tcpu >= nr_cpu_ids || !cpu_online(tcpu) ||
+ 		     ((int)(READ_ONCE(per_cpu(softnet_data, tcpu).input_queue_head) -
+ 		      rflow->last_qtail)) >= 0)) {
++			rflow = set_rps_cpu(dev, skb, rflow, tcpu, next_cpu, hash);
+ 			tcpu = next_cpu;
+-			rflow = set_rps_cpu(dev, skb, rflow, next_cpu, hash);
+ 		}
+ 
+ 		if (tcpu < nr_cpu_ids && cpu_online(tcpu)) {
+diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
+index 473c162736d6..9ce0bbe454c8 100644
+--- a/net/core/sysctl_net_core.c
++++ b/net/core/sysctl_net_core.c
+@@ -560,6 +560,13 @@ static struct ctl_table net_core_table[] = {
+ 		.mode		= 0644,
+ 		.proc_handler	= rps_sock_flow_sysctl
+ 	},
++	{
++		.procname	= "arfs_llc_affinity",
++		.data		= &arfs_llc_affinity.key,
++		.maxlen		= sizeof(arfs_llc_affinity.key),
++		.mode		= 0644,
++		.proc_handler	= proc_do_static_key
++	},
+ #endif
+ #ifdef CONFIG_NET_FLOW_LIMIT
+ 	{
 -- 
-Thanks and Regards,
-Prateek
+2.47.3
 
