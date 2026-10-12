@@ -1,140 +1,166 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE2B497B64;
-	Mon, 12 Oct 2026 15:06:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7B9497B96
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:07:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791817620; cv=none; b=iEPeXaF4aQpcVOOuZRUDc5fmI0NUHEXMfixFVtSPvPKE5gGsM1yPN8yIopabbG81dczXdzdT1eSMu0hY+OHhg2IhBveUKNU1s401SVFTJx9cT+ZtrX1dGEpKrdV5EaFN0gdwfTiLmY/gzZQDfFaSn5zN4XkQS3FccSWyl4CQnAQ=
+	t=1791817641; cv=none; b=AMeFvy2wi59aF80uRShV96r5Cwc0FC005pGNLosuhmcbUHw5SStUqA9tIx2HHAew99pG7Opr/kPPZ/U5ZRpCPd8T3r6iq5uMJW8Iu+YN9ycFR7bt37P4rQXO0FpyFAFOUijtBs5Tla1DI5r3rzOT83dXWQfGsF6PGbVVd0Q9MZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791817620; c=relaxed/simple;
-	bh=1lSW8vLBeVQroU6ImCcVCVnGOKSq1pzmekSby2J34gY=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=WbWmNqzSNBlOAOgFwLY7GgW4nkuMztL9L6+Kg4KQY49E2+5ZafFdzcGPA5XMZfSuC4OW8YC2q1i5D4Ar75sh5wUPvDCn173wcVn9QMDVGEOsql5XHctetDZZhwCMYgUa4ks5E/0EzBKzJAPtZoLnn12N6phJqst0G/cxVto4Kns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PIbKLxyq; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791817641; c=relaxed/simple;
+	bh=tsVU21nxAD5GAzHrBR7QE3ds3Y9VaK8s6sj4rTQ/imc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qebWM676FN+VP+PDyMcPvmqvdjIrQaylz2LbjGNkuk+2AykUe3+fTe/Srhy/RvY1p/zgpN7XzBu1/Z4OsQyAf6RV1rPbcT6WPDx3U36J6YkSXet6pphD7z+5d9w4y4u0SZBKF09CQhpHSxIcE7RHfUjIwZ/GebNmqIdMu1Lmspk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LyAGQb79; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PIbKLxyq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791817618; x=1823353618;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=1lSW8vLBeVQroU6ImCcVCVnGOKSq1pzmekSby2J34gY=;
-  b=PIbKLxyqw04ONBQNDt/Ays0rquxK7qHdlkd7dlzQamOy5Iw8KijwhTWp
-   yqI9txfS4khMJb/ePGFU6rBNYbiq1qtXRJ6hruF/7rsoX670okIrivljp
-   ACvhSxh1mfQ86dNwKu4rcXMw9swdfuLdRKh+I2YCiiJk24Y+dZWJvFxsm
-   bxfPcY5J0b4HbxqkjYGkl0FaeIfsUMXVuLun4jJlhFfM26upvQzzV8HGy
-   uVPAAGqwKA+WwZQd+vA2SbgelasWFQz1QUDlJbFo+Gqmyn4iK1G6AUgjs
-   KxyeLeMveI1fVL2a/mwGpJs0uK/t7pCu1q6w/Bg49Nq/PVFZjDd9nd6X4
-   Q==;
-X-CSE-ConnectionGUID: JwtfQx3uSrSL4Yt18TDYFQ==
-X-CSE-MsgGUID: PlDg97kETESSQcrmGqgg2w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="516252"
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="516252"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 08:06:58 -0700
-X-CSE-ConnectionGUID: 7FQscmOiSoqGe5WSWjIqZw==
-X-CSE-MsgGUID: Wg64IoQURg2wTsZomWk+QQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="1034221"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.202])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 08:06:55 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 12 Oct 2026 18:06:52 +0300 (EEST)
-To: Patryk Pilichowski <pat.pilichowski@gmail.com>
-cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] platform/x86: msi-wmi: Ignore WMI events for keys also
- handled by atkbd
-In-Reply-To: <20260926165034.94254-1-pat.pilichowski@gmail.com>
-Message-ID: <25d919c1-87bf-3e2d-1757-96bc9391e702@linux.intel.com>
-References: <20260926165034.94254-1-pat.pilichowski@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LyAGQb79"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c411d6615so1372041f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:07:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791817638; x=1792422438; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tsVU21nxAD5GAzHrBR7QE3ds3Y9VaK8s6sj4rTQ/imc=;
+        b=LyAGQb79u9R7nttKMdtpi1fPGlIprpgO1689zl1kD4q9v/P9aIA9FyvLTNRzqFikU7
+         8UfrtJ1F/z64nyCqVP0vEykm1I6IDNUbhx1wn/yIoe1qlAJZPW9am9eb0WhXzBoIelI9
+         MSQN3ORBsfYyhEGem0TxoFRCGo+DpjeD8jZky4EUJd2YlQM9fP/ot1eoVbYVgTXbzZAv
+         1KD35A+sZ8s7hz3Kp8xCb/QKo1KxZJpqUHvJ7KQh/yyxVN0VPIzmyAp6t/3M1rKnbCIC
+         4FKfRV21UWUFXOBiSPlE+P+hrxUgmDQUgKr1tD3j0PtJTepy1r/oRPq/Vx7RhLCy8f0e
+         glpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791817638; x=1792422438;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tsVU21nxAD5GAzHrBR7QE3ds3Y9VaK8s6sj4rTQ/imc=;
+        b=tPzGB8+iaJY7Fk7BBhTYP9gexvu/W3G45+g8Mt7IUop1hc7INSCnU9/HEQNdFEw2Se
+         SATKctPtRyoLQcr0QlAMPs9K5hE/0oUhWGD13bJ4kzsokq+S5qpRPkwOUmZC8r/hoGKz
+         z071GuaWiWfMim9GUGRzO90ulPFC+x3oQabDBsrwpXNeiVNSxv2OzE0yF3H9YVhx6sI1
+         Fv5HyMhBH28ww/ebxIarM0OmcLjF7vkkV1SbR0hc75BQBsdGfASnpbsfgRefjSNDomjR
+         Y0SAaalf3NzQV5UjVsibp9d+D3U6Yztj625mqqu+AQtKmnfO+Q+qdI7cQs1C5ZCi0qce
+         1utA==
+X-Forwarded-Encrypted: i=1; AKwUvBzkYL+TGockpTnO9g4ebxz7QVSOOMy8FuWWqUJnf0v014Ux8pplX+XKKCwyxBg+XmeOvMbFpzYO56SaLwU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISF3Q6mnaJS/jTzKvK0yJTnWhtaI0A29COAxwPJexW5bcUixLK
+	+7lfUVBCWeyIucI9owurClWnwFCngUzYISCpfT5dq87oBWZzqq4W87K9
+X-Gm-Gg: AYBFou2LK06ozB+DK1HCs6mrmzMd247ggBelu+7TWvxzR40AL5QuemXbK7vP++80rRI
+	qBCdeUD8RuOy122ruq0xqVXaSer1UpVVKsCwzEFeAjx1dOZf7TQr3CFzAAqcg9fyQMXs7ukJz4L
+	f2bNrwZHwR4aSyAnaB7vbwzr09nzfcIrxi5Zsi+gMpi7FIgjc1CuNfkYv7YZAfekroPCDeg4x68
+	etdrYTs9Hhjt5Gb5wMzHvx9IfzbpYKzFVcd6Bii3v+yiNhpfxmaAYcDrT4KJ63bB4DUu85EzwlB
+	xCJJL2sDXdwcTy3Um92+rnj2IfO8IybkUDIBvSKWLb5AQpsJ36rW1Y1LYu4PPQR5qiTzdufw6O2
+	34igT9wCLPZE+/FnqMP8BdrR+q4zSYbBFB6gQI1Mm/aAKEtlc15Xzx2/FHBsE8ey6KGclTzqTGE
+	TgAKyttbrOqih68dzK/MKViSgacNaaG5x/hCs6KfCUHSoTUvgb9bdS+zhV/oeI936YpTuZ6R1vn
+	eZYOAq0TVnwzYx3L6qcZQzYwICSICIl+ndIzYfoabqnjneV7SEP5A4LpGJMW3qJMkgHA0Dsw5f2
+	lYYKFb3ZzLKwmKWpKzcOEJ4+HA1eC4YVRsrU7xqIu6hCwA==
+X-Received: by 2002:a05:6000:29ce:b0:48c:6fa4:fc89 with SMTP id ffacd0b85a97d-48dbaadb050mr12203015f8f.12.1791817637606;
+        Mon, 12 Oct 2026 08:07:17 -0700 (PDT)
+Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com (54-240-197-234.amazon.com. [54.240.197.234])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48ddaefa06esm3451088f8f.20.2026.10.12.08.07.15
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 12 Oct 2026 08:07:16 -0700 (PDT)
+From: Fred Griffoul <griffoul@gmail.com>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <shuah@kernel.org>,
+	Ackerley Tng <ackerleytng@google.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: David Woodhouse <dwmw2@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	iommu@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [RFC PATCH 0/9] mm: Memory providers for guest_memfd and iommufd
+Date: Mon, 12 Oct 2026 15:07:15 +0000
+Message-ID: <20261012150715.25132-1-griffoul@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CAEvNRgF1hMz+4ivH6WhsEOLTJGOegYO9AYK6OByYysPp_nVJ=g@mail.gmail.com>
+References: <20260720111259.122911-1-dwmw2@infradead.org> <20261006183235.16576-1-griffoul@gmail.com> <yq5ald8680t2.fsf@kernel.org> <20261012095800.50250-1-griffoul@gmail.com> <CAEvNRgF1hMz+4ivH6WhsEOLTJGOegYO9AYK6OByYysPp_nVJ=g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, 26 Sep 2026, Patryk Pilichowski wrote:
+Ackerley Tng <ackerleytng@google.com> writes:
 
-> On MSI notebooks, several keys generate a WMI event through the Wind
-> event GUID in addition to a regular AT keyboard event. Their event
-> codes are not in the keymap, so every press logs "Unknown key
-> pressed".
-> 
-> These keys already work through the AT keyboard, so mark their WMI
-> codes as KE_IGNORE, as is already done for the MSI Claw. On models
-> where a code does not also produce a keyboard event, the event is
-> already dropped, so the only change there is that the log
-> message goes away.
-> 
-> The Wind event GUID is not specific to the MSI Wind. It is present in
-> 17 of 18 MSI notebooks in the linuxhw ACPI dump collection (2012 to
-> 2024), with the same _WED structure. The codes are shared across
-> models too: the volume keys on the tested notebook send the same codes
-> as the MSI Claw (0x21, 0x32).
-> 
-> Tested on an MSI Katana 15 B13VFK: Fn (0x0b), mic mute (0x19),
-> settings (0x1d), mute (0x23) and Bluetooth (0x78) no longer log
-> unknown key messages, and the keys keep working through atkbd.
-> 
-> Link: https://github.com/linuxhw/ACPI/tree/d6d30c6ef6f4/Notebook/MSI
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Patryk Pilichowski <pat.pilichowski@gmail.com>
-> ---
->  drivers/platform/x86/msi-wmi.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
-> 
-> diff --git a/drivers/platform/x86/msi-wmi.c b/drivers/platform/x86/msi-wmi.c
-> index c9db750fe5..6c798f6177 100644
-> --- a/drivers/platform/x86/msi-wmi.c
-> +++ b/drivers/platform/x86/msi-wmi.c
-> @@ -46,6 +46,12 @@ enum msi_scancodes {
->  	WIND_KEY_WLAN		= 0x5f,	/* Fn+F11 Wi-Fi toggle */
->  	WIND_KEY_TURBO,			/* Fn+F10 turbo mode toggle */
->  	WIND_KEY_ECO		= 0x69,	/* Fn+F10 ECO mode toggle */
-> +	/* MSI Notebook keys that use Wind GUID */
-> +	WIND_KEY_FN_NB		= 0x0b,
-> +	WIND_KEY_MICMUTE_NB	= 0x19,
-> +	WIND_KEY_SETTINGS_NB	= 0x1d,
-> +	WIND_KEY_MUTE_NB	= 0x23,
-> +	WIND_KEY_BLUETOOTH_NB	= 0x78,
->  	/* MSI Claw keys */
->  	CLAW_KEY_VOLUMEDOWN	= 0x21,
->  	CLAW_KEY_CENTER		= 0x29,	/* MSI M-Center main menu */
+> Wait, is there some magic done to make struct pages represent different
+> frames, as in PFNs? In your model, the struct page <=> PFN mapping
+> doesn't stay constant?
 
-Hi,
+No, our memory has no struct page: it is a carve-out hidden from the
+host with memmap=. I meant the mapping from guest_memfd file offset to
+PFN. The PFNs never change, only which file and offset they back.
 
-This is getting increasingly hard to read as the values are not ordered. 
-And apparently grouping them by model was bogus anyway (as mentioned in 
-your changelog text).
+> Do multiple VMs map the same physical memory at the same time, or is it
+> a move like below?
 
-So my suggestion is you make a two patch series, first ordering these
-existing ones numerically and adding the values for those not having one 
-yet (please also convert 0xD0 -> 0xd0 for consistency). Then in the second 
-patch add these new entries.
+Mostly moves: a page has one owner at a time. There is also a share,
+where a parent keeps a range and gives a child a view of it, so two VMs
+can map the same frames for a while.
 
---
- i.
+> I'm thinking that if guest_memfd wraps your provider, then your provider
+> can issue a revocation to guest_memfd (ctrl-f for
+> kvm_gmem_provider_revoke in [1]) on the move source guest_memfd inode,
+> then wait for an allocation request from the move target guest_memfd
+> inode.
 
-> @@ -66,6 +72,13 @@ static struct key_entry msi_wmi_keymap[] = {
->  	{ KE_IGNORE, WIND_KEY_CAMERA,		{KEY_CAMERA} },
->  	{ KE_IGNORE, WIND_KEY_WLAN,		{KEY_WLAN} },
->  
-> +	/* These MSI Notebook keys work without WMI. Ignore them to avoid double keycodes */
-> +	{ KE_IGNORE, WIND_KEY_FN_NB },
-> +	{ KE_IGNORE, WIND_KEY_MICMUTE_NB },
-> +	{ KE_IGNORE, WIND_KEY_SETTINGS_NB },
-> +	{ KE_IGNORE, WIND_KEY_MUTE_NB },
-> +	{ KE_IGNORE, WIND_KEY_BLUETOOTH_NB },
-> +
->  	/* These are unknown WMI events found on MSI Wind */
->  	{ KE_IGNORE, 0x00 },
->  	{ KE_IGNORE, 0x62 },
-> 
+For the guest, this series works the same way: the provider revokes the
+range on the source, and the target's next guest fault asks the provider
+for the frame. Devices are different, because a device may not support
+faults. So the provider also revokes the range on the target once it
+owns the frames, and iommufd maps them right away. In other words, a
+revoke means that the frames behind a range changed, whether they went
+away or arrived.
+
+> guest_memfd is going to support preservation [2]. Tarun's series just
+> preserves memory from guest_memfd's default provider (buddy allocator)
+> now. For your provider, I imagine the preservation flow would preserve
+> whatever metadata in guest_memfd (like the attributes in the maple tree)
+> and then go on to notify the provider to preserve some range of PFNs (or
+> folios). Your provider would then basically do nothing, since those PFNs
+> already survive a live update.
+
+Yes, that would work for us, as long as guest_memfd does not also have
+to save the offset to PFN layout: the provider keeps it across the
+update, and guest_memfd can ask again afterwards.
+
+Thanks,
+Fred
