@@ -1,187 +1,126 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011052.outbound.protection.outlook.com [52.101.70.52])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5154B0C82;
-	Mon, 12 Oct 2026 16:30:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791822638; cv=fail; b=D+NPDb8YUqhppT5UurQaIioXwH/vhnyzxu5m6Eli0GQcPzbnnS/mpUUTA0Fbs0gCS1ZFunC4hamCNMdFt7FQzueRzRrgyD6Wcw+puOU7kPR7n0bjw9CxgDvswxbQC+q4JoU1rPkJw5PraXeU2NkcmB9hQhfdxz55IhGmkr6Zpyk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791822638; c=relaxed/simple;
-	bh=Xd1CyTVb2CX3uQ8O2+ZLXchDjIcVvDdnSeAbhFaMrOw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=oVOfsr+3eMzo24bh4NDmS0Ne19DzYX7PY5V5g5MRse3nKum+n8L2EAlu4Hk11lzvMM/efBs9jyeW40vfXHycRCLTt8cFSskCZ1iXkbsuuzRULBAS7Nzbr0A0U1IFU+y46E7tJ6GsntSSUNUkeWXNcu9MpMxt50BTeclFNDRW2k0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=wgJjCX+X; arc=fail smtp.client-ip=52.101.70.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBB84AE8C2
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:31:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791822696; cv=none; b=fcjs0YFHBHEbwCHVjeRsjUnuhXszkAKzMaWTCnOZ1y7pdvVsNNiBScXKRHpHQqTbdWuzVoAhR+VlgEFx3olc8vvTnVeWhs5/UB7suS7c1p3bPCumoTvbqQXLgH2CO5HYEo70VsciMpnAmELEVGkbomfOcguDkg2Eeo3dG56PlOc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791822696; c=relaxed/simple;
+	bh=YE/cfgIkaWn4hLF79JXYi5jbj5uUcOqqXVzm0nD6Bec=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eOC2NDKZ7vTsUGUSpgGxWMYnF9LpOXPtRgtzaTNVEwdYif1N098jbJezQlaP6/8bnBG/NicaZrNYsKF5iTVdZwvH7J9GdR6c7zp9sZSvwK/XDFJTp5bCVhjSIDpczVLHlrDDW9gvkYwhf3gf7rYyXZpHxWZjY6qTNncPa2oLVzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Y9BMJ52x; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=gKLb6OT7; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="wgJjCX+X"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LMj44Cnm/8bnm6s5GG/3AGlnJeqXLXT64pcBMWYtL7n1PnfARFkGhw/1nF8lIAut0sVEYMg5N0EkyV+raV5+3meCD31Ix+B7ZAHZoh+NtZsNdCXqZy3ostn4gcJJ+bKFdMWTSAsqfE2oZkwAYiyvcvnyVbh+q66zhLQVpMyFe7w+W5hE1HyTmKg5/Ic+O98z3U2oRlZ+HgeWRmZ3F4k6RMFKnmes2T7jy1+KZ5r+yoX6PCg2q9VQ1FBI2zVWEDMa+HmSZ1xaVu+/sJN/54j7/LIjvLYq6bLT0Hcmk546ayttdSnGxVaba4TlMLAw8ohJtFjKMcoGl8a5Fe7YXlGv7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ruTppP+7W98tqZGMvNAcc100aWQHlxE2OBWHYch/vlc=;
- b=f/k5j+M9kkL4MSvZwyV7cO7o2ZEWocJ2KYEefSpEh8Ba+DdJHAmaOu7wqghQHrANjavRbzHTnljeNxXOS0H1jz/KgstqIm61h9LDlW4g+hkyMS8Asj9WmV0LSTUwmXKDRmECj8MCu7NO7pwHyMZmTBQAB+VkILzOTFfLjcrjzqAvvB+c8cdsox/gPBG61SbIepXXxTRN90YS++LCgi78NnY4dWaCfJgGDKll4YEb5o1gkUcjOtMqGNipRcQbBq6b34TYBf+JDs95TPHXoN5HKNNMyahx0wVRyP5xoiKA6vWczsnEfPhSiugdskAAidskCFoch+MJ9rHQw7e62GZlTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ruTppP+7W98tqZGMvNAcc100aWQHlxE2OBWHYch/vlc=;
- b=wgJjCX+Xuenc6MRQ97NAdMcG5e4iK63OMYGTdx8zAGkKSq2wjcHFGGghXzBxGoCwhhCO6SjWFTT3Ng2OqwOIeNzuRJgY+P1R2praihV3j0jxzRhaeeYsms2vr3uSzYuFvjXTXepIF3oJLwYnodKIklx9mEik4yS149s3rQX+TRmDFQgDxMxSjlNeXxzBUFDq6zGtK6geZ8YwH/F9PPFeowtU/VqH+8G3Ow8+dw034e6pF269b+AahjU2Ud6FHNXxDWyk9iFw67hIkt1cWpRlc+ytk0ncBp5SOPxQflobHwX/z+FrmjyfA2Ob+rCoSf0GTcvop9aNj4absx4Z6V4lVg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by MI9PR04MB290196.eurprd04.prod.outlook.com (2603:10a6:290:86::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
- 2026 16:30:34 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 16:30:34 +0000
-Date: Mon, 12 Oct 2026 11:30:22 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH 2/3] drm/bridge: simple-bridge: Add Toradex RGB to VGA
- DAC bridge
-Message-ID: <as0LHvZdqhl4HOup@SMW015318>
-References: <20261012-v1-apalis-imx6-enable-vga-v1-0-8905d8746504@toradex.com>
- <20261012-v1-apalis-imx6-enable-vga-v1-2-8905d8746504@toradex.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012-v1-apalis-imx6-enable-vga-v1-2-8905d8746504@toradex.com>
-X-ClientProxiedBy: CY5PR22CA0090.namprd22.prod.outlook.com
- (2603:10b6:930:65::12) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Y9BMJ52x";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="gKLb6OT7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791822694;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gf4b89vW8YSS4mKQIDLy0PYDoLH7aFx+4KKasUNEWcQ=;
+	b=Y9BMJ52xNiql1pz58g/wbhtbhCyNEPutaO40WN2hFPDpBCaPqa5i0gXfq7G1pAvngJSK80
+	dNPPgjpY2U4gw7hsnRnmyb0pgrL1v0dee6f/rClkPqIh0hhtGKnIWLtJi3tLMIINiR6pkA
+	LY2KYRbiDzZbsFnm33my7GtTubmT4Go=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-39-jph2udXdNBSpJy4TMKllVg-1; Mon, 12 Oct 2026 16:31:27 +0000
+X-MC-Unique: jph2udXdNBSpJy4TMKllVg-1
+X-Mimecast-MFC-AGG-ID: jph2udXdNBSpJy4TMKllVg_1791822686
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a168a8209fso19881635e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:31:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791822686; x=1792427486; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gf4b89vW8YSS4mKQIDLy0PYDoLH7aFx+4KKasUNEWcQ=;
+        b=gKLb6OT7g6iKDaMpVlWjCDh4kCkuun6tXvu3+chruwxDoYpdBEksVhwr8PZjlYJXTX
+         wpANIsj4Lptt6m/icm7zX3P8uDB/BKM/zxmF5OWNbczUp+YpZoPpgucGwHBtEy/jSKTt
+         Fp2fd9q0ZQr6F6K/PLBMU+iDUOwJmhWYm5pzsbsgYq0kxTt5qLXwc3hddmdKQ8SBLn2Z
+         CdFyujWWpXCnC3cLYKvgnKJEABpIOTHz26ujuUKH/hrCvaMjbkTSvSCqxHGeH+rwrY7g
+         cNEZVsQGNkEPYXBIOiiJA2MQISbeJcBems7xedb/ICQa2d6gNrGhK+T2glvnrGFZ4oO7
+         3Q0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791822686; x=1792427486;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gf4b89vW8YSS4mKQIDLy0PYDoLH7aFx+4KKasUNEWcQ=;
+        b=GRnnS7/RSup84Vxw5kEkDs+S+WoU7muJ8tggGuAENHlIU+QHk896K1LRljVESU8Nbt
+         9DA+HlJjF68BFcHI8M9ryIZgoY0yOnPycNJrwDvxPMYpnH9nNl3up9Yn15RQlysE14kM
+         faBG/9qujt4RUkmPKgvIiTQKZCRKdSGgM+8/2prxy+A5LfeKtKyUvmj4XpsRYzy/Ty/n
+         T4njBF2lsWgN9kA4SdJx4cjDxxKqAMnnfwpYjGkQKfZbwME1xN05ZuoaTceg3WcbYrwH
+         6O2xXrObv9RRbLYQO4JUrmkXCGFisp7Dxml6T2IMGrAxdqVXX4SfCzkOsIdvv2+sTV/Y
+         rDeg==
+X-Forwarded-Encrypted: i=1; AKwUvBxorrso567e7aD1JrxVSODOX7FcpQsvoTE8fRS8SGRqgdCcSwmGChgGcIGelT1oFpHeAApzFFK+BxGv2Dg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHNJRzgsB+uOXKeCRGtvMfbWxj51qrfSJY088lDF/dLcGvJvG6
+	fGsxGYEQHYeH53/EE5HfvTiTcgRKs1MT9SNmMkeXbPpwnhZNvJKwiyZNYIYGFCbq1M2wJADc8wu
+	h+3aIJVDatIt5edoOA1guJ5L8OC5IN7jiSa2jtUtkhnoo7IVtEyxzNwzF54P9VF5SPg==
+X-Gm-Gg: AYBFou3hOLT4TbHnj4AxirqtGpRnTFPkN/N88Y27CEpZXlZvb7HmEnBwaF5sb4KH80w
+	2eUVCTX2XwyiXylpXckuq40Bhckx7cirWjU9iwI9vRCNPk5fomFZ330KdrnMu0PbbtaBu1coW+B
+	muZoInmJPe10EfJRjkh/8HJHHln/FoMEc1MN70wOOTR2N0eRg9aVUKUrcSUNSl2BUE6SbOaT+oT
+	MpP2xVHEt2jZ8fINZ2K6N7QBkkQJd7vWEiK0ymp48vca56sw/a+clYXb2SAYUQOWxXVU6ng33ts
+	y4tPZkYTV7d4LY7kmQo0SIksX8IYVqmxEQ+noa7/0e3X5ox5wjzOTcvpamF3twsvwRHLRmxt0/K
+	JAi4//QL3MqIXMqUE8hNXNmz47drOeVwLKSvv0310v0TEim7hTNhpMi4kXxHTtNOrMg+uPv+1ZQ
+	==
+X-Received: by 2002:a05:600c:3c89:b0:49f:fc4f:9efb with SMTP id 5b1f17b1804b1-4a18e49105cmr187993025e9.7.1791822685803;
+        Mon, 12 Oct 2026 09:31:25 -0700 (PDT)
+X-Received: by 2002:a05:600c:3c89:b0:49f:fc4f:9efb with SMTP id 5b1f17b1804b1-4a18e49105cmr187992425e9.7.1791822685431;
+        Mon, 12 Oct 2026 09:31:25 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf1358asm303662345e9.4.2026.10.12.09.31.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 09:31:24 -0700 (PDT)
+Message-ID: <24dbe3af-8706-4369-8308-d3ad558fea71@redhat.com>
+Date: Mon, 12 Oct 2026 18:31:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI9PR04MB290196:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4405117-5f6b-4e01-f370-08df287e23b1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|7416014|366016|19092799006|23010399003|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	e39gFeiPpdbbsDAgQiHjQcPXf1uJsBiDqSNXkS2qa8wvbln7QsYnQiaLLujMsqUwQV8krt9dwgMHhXLOEdOgDeF9fYHdXmVlVHVTiVGqSOrm53H7qvROFAdh2rAUkd7oUU0JMb40h38buIzRa05bjySyOGtnoYDsuX7CD+NBmS9giih0Qz7GcLCqaMtIIgRuuGhXR9goKkifpE1HFymwMP3l4ef9KpdEl6GuAeNj15b/MhTHyXMH8Iw0dblcZkpUUJ9maC0FZTW1SMHYdt6RNsjI6ueNApCpnSC2Wm4fsE2llBU2/zrEq0+raUk/wbpJ7Q7gfjKeY7hGXtKySFL/GZLA9DwIJqM3fogQZPQ7epJRDI1RpDtRe+NmC4yttkZnP0UrbKkfHKhtFSfOksOxODTnx9ZNTjB2FHmrEwvkf1N7kplF2nd3yi9a/qXxsGn676la7mesHZqIPkbDGWa4c4ZREyAgP8kfl5nihBVMAeDpUUaKFUxFW+l4APNE9V/dOoNdH4AhknrlWIM1A1/Nx9CiclLEljEntGxcQhKOjtKvZlDQ4ynbrBweFjnyvine4i051gmOPI/p+dbZpR4kAGiSOFLw0y/SPSD65IEWFjr4QWFsWTTdniWw9Pcu+pExPbQfGXAufq5vlkbjXbe+NQ3yAda8ESjvVjF1aafjy0o=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016)(19092799006)(23010399003)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?667PUoKW9oka/GDM/rMlid8vdxgLO8+iomuZScRxCDV0mZ93gBZ7kVtvAHkU?=
- =?us-ascii?Q?NeSvVfxTa4jM9m6j6Ai66sD0zr/TyuF8a+9JFm6UVS5M/9wTALSGSbt4/PGe?=
- =?us-ascii?Q?12NPyVT7p3MY7+8nJsa7n8TUmrwf2x64w8sqgG9ouA2YhnWsi/K1BM2SSQj1?=
- =?us-ascii?Q?Dav1cKFSi8BA3v4VpcX9KtUzqp2fS82IniJ/r8D84ydYXIsQTf1cB3qfdnQW?=
- =?us-ascii?Q?e51HiMpyatEW+2QI80u/WA3nDsCXrhLm8hbfltXsqE+7ZNOYU/KHRDYudYJg?=
- =?us-ascii?Q?AoaoARc8Oi+77mqfgQ8rkm/0+R/89oTNrurPOkJByPQc9raDa+2hBYLoO1sA?=
- =?us-ascii?Q?78WlMizsAck0gHdB16JbXi5xjCFmlksr9vrkQsD1Z0uXc4kp4ZMk6rvg9qfw?=
- =?us-ascii?Q?0OmbzIvGZD5n8ojKt7zi8JOkAoNB6kfqgWYlUmRTL0CwrFftd6QGpfNjkQ5G?=
- =?us-ascii?Q?fPewATc4zBD56P1AZqSuC2dvn0oBNBxWyNY62kUzuSFqmxRAU2aUwz3WsvRE?=
- =?us-ascii?Q?ycN8KK+/fq5eaJGQ5FlcKjDA/XInj8zb8YwmSz3N46ozMTniy+xr6NPffUfC?=
- =?us-ascii?Q?q4bzUbUeYZgRh4W1+E5dJtb5QMdXxGN+OGD9jon+ekpselsGKsJojVb1DSBw?=
- =?us-ascii?Q?bAe4IcHailSJp/G3cC2m1mAudpohmj7APjQzP/QiWoeaqHMShZRtsstHad/5?=
- =?us-ascii?Q?Rov9a8/w9TUzbsQRJXLaYp6HocEyo5YWrLppzjRHYIWeXSmJGOaGMdOgTxvM?=
- =?us-ascii?Q?i/a/6IO69mim5K3JGmrjWebGRFP/fDLYEoN/xqkN87C0wymTAj0IvPWsTDWM?=
- =?us-ascii?Q?XtdvEZIVUQxJsvsDSEXjGICUTB7qrbt2j7/6NYnge8BUsy96IW4pnrQ3qOb7?=
- =?us-ascii?Q?c2b1E/wrtGaSoTcSAxTsubmQZuZWQW69zy+U7HlzcUeCVCWJPizggKMO6uVe?=
- =?us-ascii?Q?dAj8FA7EaEJ5uGttzbKMtgTv12il49lArAh2jlmsNjELlkcQbbwpHEBFX9yk?=
- =?us-ascii?Q?2itf31YE1Uf94B98GRy4BzuRKs88N4tfmm94djAmsPpzzbdLB11K1DPBjsV/?=
- =?us-ascii?Q?7FOBvrcPanDdEgAmPdFpxPAk/V2mZaSUaBTnhE962WJgvSllsr6bjr7yihmK?=
- =?us-ascii?Q?TNj/zD3+fuIbxshwd3KKS3HY3UCw7h0ApCRyXcRx6Q7skYKGLGtyVSh0lM8c?=
- =?us-ascii?Q?9erPqbMI5CcdEENIGQ3leToSvXPGUVPVkpVZ3raL9k+bBOEUhr40JTz0xJuI?=
- =?us-ascii?Q?e9oDJu9vdqhY03CBW6cwuDllGELJEGihK58TNFeJ92y3V6kThzuJZlq4qTS3?=
- =?us-ascii?Q?ck5zHVF1YG8oSK4LZfQaWue56wwK8xqsihR8TyoC2Z0+6l96Nd06j4la4a26?=
- =?us-ascii?Q?iO0UoVx1T9aQbVwhWgFCu4gN+NUqTGN6I2At2GpVlG0cyE9hOBZrrse3QdaH?=
- =?us-ascii?Q?QzX3GjBOai9pnd7UVenwasc+biDiwdNVQPnO875ia99PtlF/S5GMH+MyTvwS?=
- =?us-ascii?Q?TfMQSvsouo7KBobwl2GkZ0C2Q77CnbCtf4D++UFKJemPQeWzD8ecbr1JRSV6?=
- =?us-ascii?Q?C2k96lAU1lhQA+zdKBxmU0vZJsDSHHO3gO1bTCPb1Ere1DPBmc/nq0mZzE2g?=
- =?us-ascii?Q?Np+MU+YEscii+eXxBHoBvf5djrC+i+awvrde1kjlOpITNThBRTibiaMr6SWv?=
- =?us-ascii?Q?GJIvwWnWY8pUZMFKTjqZOugEZBtLh+zN/VMD1GRc9eN4sbaG3zLSagKG3Lff?=
- =?us-ascii?Q?76dhP8edFPUSfwZAy6tN41C5maYw/K+p1F7nuB9x95xu0KOvqgZt?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4405117-5f6b-4e01-f370-08df287e23b1
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 16:30:34.2793
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X7Kc5D62k7ofC86sfyzox/q4hzJcHnyQhRdjR2RdEOcEAsEdpahM6EPfCaxkxLS+ZS2qmEdy5n1CLacDCPvhjEpFBNMkspgsLk8DoWQ16Trsp+Uc0PuyDS6w0AacFBaT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB290196
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] net: Don't allow disabling napi kthread mode while
+ napi instances are disabled
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, kuba@kernel.org, davem@davemloft.net,
+ edumazet@google.com, horms@kernel.org, linux@armlinux.org.uk,
+ kuniyu@google.com, sdf.kernel@gmail.com, thomas.petazzoni@bootlin.com,
+ alexis.lothore@bootlin.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261006141119.85562-1-maxime.chevallier@bootlin.com>
+ <179142548474.434549.4875313383372623036@kernel.org>
+ <35a238ae-0e06-49a9-8539-9139aeca1a30@bootlin.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <35a238ae-0e06-49a9-8539-9139aeca1a30@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026 at 04:25:24AM -0300, Leonardo Costa wrote:
-> From: Leonardo Costa <leonardo.costa@toradex.com>
->
-> The VGA bridge on Apalis iMX6 consists of a simple resistor ladder that
-> converts a digital 16-bit RGB signal to VGA. The VGA output is gated by
-> an active-low data-enable signal.
->
-> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> ---
+On 10/8/26 12:19, Maxime Chevallier wrote:
+> On 10/8/26 04:11, netdev-bot+sashiko@kernel.org wrote:
+>> Would it be better to handle disabled NAPIs in the stop path itself,
+>> napi_stop_kthread() or napi_set_threaded(), rather than only guarding the
+>> explicit disable branch?
+> 
+> Hmmm maybe yes
+My personal take is that the complexity of addressing the issue for good at
+the core level sounds like a good argument to fix this at the device level,
+one device at the time, as needed.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Otherwise I'll probably got for the suggested path above.
 
->  drivers/gpu/drm/bridge/simple-bridge.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
-> index 3fba7002322e..3f88fcdfa214 100644
-> --- a/drivers/gpu/drm/bridge/simple-bridge.c
-> +++ b/drivers/gpu/drm/bridge/simple-bridge.c
-> @@ -253,6 +253,10 @@ static const struct drm_bridge_timings ti_ths8135_bridge_timings = {
->  	.hold_time_ps = 500,
->  };
->
-> +static const struct drm_bridge_timings toradex_apalis_imx6_vga_dac_timings = {
-> +	.input_bus_flags = DRM_BUS_FLAG_DE_LOW,
-> +};
-> +
->  static const struct of_device_id simple_bridge_match[] = {
->  	{
->  		.compatible = "dumb-vga-dac",
-> @@ -312,6 +316,12 @@ static const struct of_device_id simple_bridge_match[] = {
->  			.timings = &ti_ths8134_bridge_timings,
->  			.connector_type = DRM_MODE_CONNECTOR_VGA,
->  		},
-> +	}, {
-> +		.compatible = "toradex,apalis-imx6-vga-dac",
-> +		.data = &(const struct simple_bridge_info) {
-> +			.timings = &toradex_apalis_imx6_vga_dac_timings,
-> +			.connector_type = DRM_MODE_CONNECTOR_VGA,
-> +		},
->  	},
->  	{},
->  };
->
-> --
-> 2.43.0
->
->
+Thanks,
+
+Paolo
+
