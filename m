@@ -1,137 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA8F361961;
-	Mon, 12 Oct 2026 09:17:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D014499AA
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:17:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791796650; cv=none; b=qIFOgJi6rY8YfBl2n2oXzNevVGrXkCgZOfDV7aNaYdqVigriBdsYhLCjtjFmsPp+SRc/bwqh5BlDRkQBJmDzoBs04xeMngRBdrdylv2/cGX1RY6xJODVaid0LKSJm1Pzj0asfDj92VfLZLKXRXKEHW8QHALTchpJMW7WT8dafUs=
+	t=1791796661; cv=none; b=JtJnt7Fz0vcPaj++TcA1xvpOcIvF4+fs5QPGkFoNJcrTAXNnhNK99N/fk0x6MJWPI9VvkY/Thw4Z5dogtAHUT1G/SP70mKjuF1xWTWIorF6c1SYiwBTIUaVrL0rKAprDxBH8jzpzcezzdOSmSg/izhdIPgwN14W2a+RlNt2L6w8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791796650; c=relaxed/simple;
-	bh=JZfaV6Skd9noWQaft/SPWX8ibTsCB1DjJC1fy1PM21Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uC+TLKOoMxkPU9r+rN6gZXDgoW4LHRs1eCr27Kd0u4Rl2hb3+OwXF+mSg2HVCc8mO4nJbuYDAXnAsZ+PbPeli8r0XRiRA5CYdMKrv1hBsA2VQSSRylMZt7ZoadEwZx5XyqHsPVG7zJFtAiH+P6jpLTttIxUQ9beXn0eMieLclIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gafx0wjV; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791796661; c=relaxed/simple;
+	bh=vvu0r8CNgLquCqjXc2EUudX85AHvSHWoKB7SQGnc4io=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=CRrTcW50gx2ZATJm7vIo5Yj0OoxGLfbY25tljttN1OGkUKaFkAAa70CpgrZuTOaim273/Q4iWMHmZt135hMk3SYe7wO25mntnT8zY7NOlxIqVRtdpxiMTbyf46v7tpVKafShsYGfTE3mUWY6Y/QdOOXpeVhz7Y5l+TZbvsxGGyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=iDT5rFMt; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=W35bFjKf; arc=none smtp.client-ip=103.168.172.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gafx0wjV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791796649; x=1823332649;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=JZfaV6Skd9noWQaft/SPWX8ibTsCB1DjJC1fy1PM21Q=;
-  b=gafx0wjVYtH2ApV+lagHVZ/at5Cj5Y/6babxVjfR+Em9RNwsCjJpKunM
-   0K80lTrG86q9+g+um0OGpEg+7k/dDSfG8lSMrNAy5006skn4a9P1c/4Tx
-   Z2Ul2cU1jYqpz3Uyyq8MQnhmmR3TfwoRvBoLHRtzmcOd1+SWRFIX8+Vwt
-   QlXUk+r08bmIzUmbICANcgx2Oy3Y6zg9SiTZNjLSu2246wol4Mjok0v6l
-   LtnSxlI5Scg6vBnrMOkRF7TAEhz1v5ZjflT1KI+1tm6ynxefpk+pQPBW2
-   8oDmsNpxmck+eebebK0DtVT2so82x7pHBu/O1EBtNmdrDFhaWCAKsl0aX
-   A==;
-X-CSE-ConnectionGUID: C35jKtq8Q4mTxzlnvWh2kw==
-X-CSE-MsgGUID: sYb5/KxEQvuqSLJxJQCEqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="489526"
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="489526"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 02:17:29 -0700
-X-CSE-ConnectionGUID: TP8ESo+JSSySafOfxY2MVg==
-X-CSE-MsgGUID: kVtISodZSnqz0LgNGf5J6w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="2645055"
-Received: from unknown (HELO WEBA2062.iind.intel.com) ([10.66.228.2])
-  by fmviesa012.fm.intel.com with ESMTP; 12 Oct 2026 02:17:26 -0700
-From: Ravindra <ravindra@intel.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: kiran.k@intel.com,
-	linux-kernel@vger.kernel.org,
-	luiz.dentz@gmail.com,
-	marcel@holtmann.org,
-	stable@vger.kernel.org,
-	chethan.tumkur.narayan@intel.com,
-	Ravindra <ravindra@intel.com>
-Subject: [PATCH v1] Bluetooth: btintel_pcie: Retry FLR on device lock contention
-Date: Mon, 12 Oct 2026 14:50:17 +0530
-Message-ID: <20261012092017.3275428-1-ravindra@intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="iDT5rFMt";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="W35bFjKf"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id E9C0CEC0822
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:17:38 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Mon, 12 Oct 2026 05:17:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1791796656;
+	 x=1791883056; bh=GJY0qHfhdj9lHENat8tBveKPiLmpddTE5X7F/5JKHlw=; b=
+	iDT5rFMtIABrxoUiQ7QdTflV2Ff5aTe9/kl0gz8FxvlMRXhSCtvg0XODUpvSSQBY
+	bIxXhN+ESwc1ha5UTyuTbvgHnNpQk9GxGfrZAQm/Q9FziZ1/uEjnB82aPeAAo0kN
+	Jbp6fTeO4BiVPAOmALuYg+IZffqUU53zZdwnQ5tiB4kBE4sSUjp6Dt6//Mdmc2qz
+	xbOyBN92z6QWX/hasYtUhmUa0E6a55Zf8aK3lTcmX8+DZPXNXQEdtYDAJDql8ygX
+	ULPfzQos4UQv+ixKuKw4mhKstyiKuvrjfaa8IBUCXStS5/z+ZnDE2qE/69TC37Bg
+	3K6z4bzb3Gls6LRebiYs3g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791796656; x=
+	1791883056; bh=GJY0qHfhdj9lHENat8tBveKPiLmpddTE5X7F/5JKHlw=; b=W
+	35bFjKfIiqWzVZrMg8n+HWt9LIaMj5y3vow0bSbYfcc0N8X/uK4OSnZw/zyzjY85
+	CVdhx2VyTwzpLEpepAXnw9k2UY7VFVsV3VLpwjcB/9O2FAG6sJpFMfzN9a++upPP
+	Q4fIWds2d+2cRctOcVEY2OCgHudxzQclvl+w/Mt81/jGI4Vrgu1huNqS2I8zpNSZ
+	ltPt+7MyTMauMJIfxLdDMdB5bBmGEcpcQXr0U2JjCb0cs/YfEJN8ycGtfYbrLzPE
+	26WA3ShAn3OG9VJV2QOlNZGqAKtsy0hAoA+P1XlkdfVWukDvILuLHtTIA9nQAUxX
+	MND6piYESn/pctuaHBmkQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791796656; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:PXs/GwUY8ebZ7b1z7DMcC6p4OVMxrxbCdIkXcU/ttnB84WG
+	CMHMnaqcY4EPhc4NLOssJ/0TVCmsJD3AhPladhGSZkZduqWIeiBdOCv4a1BhuVr6
+	G9tckOoOOGwjI2gE9T7Y8FcKQAPrS82PLcahnLUF7Woi9Tz+vrAH+CvV4BMkai1S
+	nJ6NL9dqEd+irRX6sw+EIbSc/+kcFC45Z5eHkl0n2rbJQYhbZipyEaJR/4evkTC4
+	cXrB/sh/sHwUY664Rty3aUPfic6+Epu/vC0xsa+11Pc3Kdc0y0vFNlAzXlMN9Tdl
+	qLVhN+Hrtv5oZXbYAopprFxbF9NCwynjs/4oDKQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:bVtpMSKtpLhAe+mMBBoQbWPIbks4fgup1XAJvD3vbco=:vvu0r8CNgLquCqjXc2EUudX85AHvSHWoKB7SQGnc4io=;
+X-ME-Sender: <xms:raXMaozfnJWk_rRv2n0uzJiOVbUB5WZq7bgXZRTChT4xLQ3R1N6AnA>
+    <xme:raXManHKQf0exSld_99MEYoRwfOzXPUu4ZzDIZ26bKWLUWrbVPj2DV3a7vdGkDcKk
+    TBY7CN933x-CLFE0SDRvEMpxhIzA9jvAPPXmAjj0Ayt5p7A-vxrUwB_>
+X-ME-Proxy-Cause: dmFkZTFrHEGwKBdVR8IwyDUhNgBLm/x6Ectrg5hjHEv4JpB9TqYBiUC4MIz/WeB/VY+cav
+    bPTsUM3S7qwhTFTfV8wWYPu7WnJ/9SVdOg/ka9qBCp9p8r+/Ps3fHFlTE1M7H80I11Mi2K
+    hFYAqlQep0Z2JoB0Q6mut7vLvApSpCXTxDx6Ld/9VH/ErXV2gMCrz4TNnfXy5k9qJfw34e
+    nY5VTAt8Cf7w+d7m/8+HQM4omRGrcopizMeaD5fTkJjEH+Pid/kvF9V9R87faGzSpFU4Ey
+    mPnF9KagJocqP6aLsbL1Rb087DI7j6rbs+k8YEK4gkIpo3+d+zQD1/PNZc6flKvtoLERtm
+    IpDxb290wPo7UZ/ZnQPV8EQIstcOYP76q6FDIoSWNQdUBXWfWokrwWSd5Rqd7JdN7NAwNd
+    0dyX/gisWLWv7ye2UhF696VRVx+R2fxqARHS5Isvj+I78Jt3XQlwApw0Wyd9oHmz/W5J5V
+    tDQaoft1Ky6Y/DGu628KNGev9NdHVksY7rH+6Sdh/XVJHKl8+sAG5mACwBXsLt9aLsQxrf
+    nH4Dy33QhCcoOH3ekNTYcELNc3uhBpGcbwweOfsTVKb4F4S66Cd0l5hxGkbYnZDvD/I7+G
+    ryBljAMjn+lfH985e81O9hCBLjHH0jhj2mFHoG3ti0+dPi5iz3WdrnQlxr0w
+X-ME-Proxy: <xmx:r6XMakkke45n4IRYvHAofzWv47KztiwMtx0P6hkjYCCbHL9Ki8TbZw>
+    <xmx:r6XManhKxQU7R-Usv3JT8lK-DnsRMBiRB9cj4mGYz_TKWgKlKPGzLw>
+    <xmx:r6XMasffS7WYDmJbsRdsoVjcnkj3OucT7u3v38Nz7NCwV_UbqDd6Bw>
+    <xmx:r6XManiBvB0j6rqLAOagmsSbGvkFMPKm4mDKqaj8C1Mve6uiPqMAkA>
+    <xmx:sKXMag1JNXA3QvxkXkraEhiRwg_RGFjjf4R7G8pRfkoDDk9M9PAVatDC>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id C253632A0093; Mon, 12 Oct 2026 05:17:33 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: Anz6JKCoHeJg
+Date: Mon, 12 Oct 2026 11:17:13 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Jens Wiklander" <jens.wiklander@oss.qualcomm.com>, arm <arm@kernel.org>,
+ soc@kernel.org
+Cc: "Linux Kernel Mailing List" <linux-kernel@vger.kernel.org>,
+ op-tee@lists.trustedfirmware.org
+Message-Id: <8f4ca3ff-8a71-4ab7-a442-9ba38ec74c63@app.fastmail.com>
+In-Reply-To: <20261003144629.GA929824@rayden>
+References: <20261003144629.GA929824@rayden>
+Subject: Re: [GIT PULL] TEE fix for v7.3
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Several paths request an FLR asynchronously, including S3/S4 resume,
-resume recovery, HCI reset, and hardware-error recovery. When a request
-comes from a PM callback, reset work may run before the PM core releases
-the PCI device lock. pci_try_reset_function() then returns -EAGAIN
-without attempting the FLR. Other FLR requests can encounter the same
-error if another operation holds the device lock.
+On Sat, Oct 3, 2026, at 16:46, Jens Wiklander wrote:
+> Hello soc maintainers,
+>
+> Please pull this small fix for the TEE subsystem. I've only had the patch
+> in linux-next for a day, but it has passed my local smoke tests.
+>
 
-Retry the FLR on -EAGAIN. If all attempts fail, clear the recovery
-in-progress flag so a later reset request can try again.
+Hi Jens,
 
-Fixes: 9c36951474d8 ("Bluetooth: btintel_pcie: Refactor FLR to use device_reprobe()")
-Signed-off-by: Ravindra <ravindra@intel.com>
----
- drivers/bluetooth/btintel_pcie.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+It looks like the patchwork bot missed that I merged this one, I have
+now marked it as mainlined in patchwork as it was part of last week's
+pull request already.
 
-diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
-index 3a555aa50c87..251dd4e2ceb4 100644
---- a/drivers/bluetooth/btintel_pcie.c
-+++ b/drivers/bluetooth/btintel_pcie.c
-@@ -3743,7 +3743,7 @@ static void btintel_pcie_perform_pldr(struct btintel_pcie_data *data)
- static int btintel_pcie_perform_flr(struct btintel_pcie_data *data)
- {
- 	struct pci_dev *pdev = data->pdev;
--	int err;
-+	int err, retry;
- 
- 	/* pci_try_reset_function() avoids the device_lock ABBA against
- 	 * btintel_pcie_remove(): .remove() runs with device_lock held and
-@@ -3751,7 +3751,16 @@ static int btintel_pcie_perform_flr(struct btintel_pcie_data *data)
- 	 * pci_reset_function() would deadlock by trying to re-acquire
- 	 * device_lock here.
- 	 */
--	err = pci_try_reset_function(pdev);
-+	/* PM callbacks hold the device lock, so the queued resume reset may
-+	 * run before the callback releases it. Retry after that lock is dropped.
-+	 */
-+	for (retry = 0; retry < 3; retry++) {
-+		err = pci_try_reset_function(pdev);
-+		if (err != -EAGAIN)
-+			break;
-+
-+		usleep_range(1000, 2000);
-+	}
- 	if (err) {
- 		BT_ERR("Failed resetting the pcie device (%d)", err);
- 		return err;
-@@ -3817,6 +3826,7 @@ static void btintel_pcie_reset_work(struct work_struct *wk)
- 		enable_work(&data->hwexp_work);
- 		enable_work(&data->fwtrigger_work);
- 		enable_work(&data->mbox_work);
-+		clear_bit(BTINTEL_PCIE_RECOVERY_IN_PROGRESS, &data->flags);
- 	}
- 
- out:
-@@ -3841,10 +3851,9 @@ static void btintel_pcie_reset_work(struct work_struct *wk)
-  *     in-flight one (whose recovery will reinitialize the device
-  *     regardless of the dropped trigger's variant).
-  *
-- * The bit is cleared only by .remove() / re-probe via fresh devm
-- * allocation, which is the intended one-shot semantics: a reset
-- * tears down and re-probes 'data', so there is no "in-flight"
-- * reset to follow up after device_reprobe() succeeds.
-+ * A successful reset clears the bit through .remove() / re-probe via
-+ * fresh devm allocation. A failed FLR clears it in reset_work so a
-+ * later request can retry; there is no in-flight reset after failure.
-  */
- static void btintel_pcie_request_reset(struct btintel_pcie_data *data,
- 				       enum btintel_pcie_reset_type type)
--- 
-2.43.0
-
+     Arnd
