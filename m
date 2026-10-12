@@ -1,239 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A654C9E03;
-	Mon, 12 Oct 2026 19:07:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791832074; cv=none; b=nBmLciTBPNgL6SjtMwdmwaaPkqKKTdQs81Jpj0W/yE34h7ul/1O7IV+40Vd0a86LwoIsapYL2zvICihLkO9R/oRKO7F5kD7YnadXboJ8HNrkCamuNK7ELPx/aJ8Gm9gQoECAl1E9Ikd0gOSfoEuiABYDnGycAM7mcxgvQaFurH8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791832074; c=relaxed/simple;
-	bh=Mn6D3gy9/w+bnfjcb6z26eaqqu098jbtRQKRwMp7XuE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kfDKfXMOhiY4RbUcSovPxYsJQOHh2y3PYyFRuyDpTnLkRS8F7fmSKsMmFhhgqcfl+rIxx0s0fV+ZuBN0I1c2k5xB+mabfm6x7+e/d94XUikrD07fA276twULSiwchzHmJKfQcq77j72v9jeW4koV7Y3a3SpAUewK5wppcFC+nGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BoLzz8Nu; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53C54CDDDF
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:08:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791832084; cv=pass; b=PaNnaPFU9b8Eo2e3CCCJJPFPSEXy7HCsIAa2bBCojcZvmRGAW0/mNIBM7GSIln7pXUvDadbhff2bRdMfy7sQ+p1unanEnWfobuI8D/pSMUWlDmCH52Dp6HEi8vytaRPgJA9kmjLgNuaae1TAKu8Goo1X9q0Glw0ywhUyWoo2HZ4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791832084; c=relaxed/simple;
+	bh=gcSrQZk3qlt7pRiEDZiw/H6EM8LqgO2WNUy5cYNkEFo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gihhO6AHIxm0oPVPl/kjK8zwqoUmK9IEklmVok58+92EJazEHQUCELEpbFCYYhlTS8D2OJ89gzBEUXM9/fAf6g0bObo4Fjxu88XxIC0MJJL7lw1mn/Q2/oKkIBaiTR2GBVvFIdHjDCLNnG8+A2gBB6gm/dXTJIytqFFh4o8uRkM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hutN58lT; arc=pass smtp.client-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BoLzz8Nu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 936811F0089B;
-	Mon, 12 Oct 2026 19:07:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791832072;
-	bh=fAUfWWTxjwqCeuukrWQxTgwGQa9QftroT/t4wDZYVVw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BoLzz8NuAjzMywAPstQCH3qnS5gIf3tWURdDM4XY1syXbT1LSQySctZ2fppM7RtHP
-	 rLwcvb8DmcMBAi9bzzhDvyWJctQWBb5jK/GMi8ckeBx7ROBH4BreVfHRvBEYRCUPtZ
-	 Yq5KVAauL+xGSkYdujPrKKiKfywCV1UrI4Lr9XSu12tAosK30XTbV+fWR4Q3Cu1TAr
-	 3oq2oF34wQb5Z09u1hj2fueQtHI+nbRDxDm9ZvHdbDzP0QvnU6pZ3a8mctQVx+/xAd
-	 letnpc5qmYQSbQXDeazBiMKGPpN62CT+RKhUOK82KzJDphDOoW0zdH73RH60m0byXo
-	 guZc0TDwEdUqw==
-Date: Mon, 12 Oct 2026 20:07:48 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jelly Jia <Jelly.Jia@cixtech.com>
-Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, robin.murphy@arm.com,
-	devicetree@vger.kernel.org, Frank.Li@kernel.org,
-	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 6/6] arm64: dts: cix: Describe the Sky1 DMA-350 bus
- integration
-Message-ID: <20261012-rural-undermost-b4817ebd4740@spud>
-References: <20261012084155.2547480-1-Jelly.Jia@cixtech.com>
- <20261012084155.2547480-7-Jelly.Jia@cixtech.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hutN58lT"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a1e9f55e03so23042741fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:08:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791832080; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jotGYuvSJ6huhVFK46LaE0c1EEaMJlcnJuhv0MLRLrJp0E5/D2iphj99A+FNOjBB0P
+         9vE5cEivOQFB1SeCHRWcXi6TJ3rj6pHh9toW6z7zKUlTBkWlr3mnVz+3iTj8SbQopd2W
+         zvX0CBO3waNz9mM073hjMGoW/4ZZnTC8V4qNm7WLuBlWP8vLQYKrxXFdQ8u7uwlhm2FF
+         M4jTizhIkE8DvVSMWzajyEqqXAwbw9Y/Zdb0iOmYQ0LyqNIP1DALFPYYpi/gUwlk1fyd
+         vsIR/ALC3HXySacqyux2rcXwdT8nLiMIrmFqe4wx67xmhVINtNP5V0MOYJfcC71fWZof
+         V+fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gcSrQZk3qlt7pRiEDZiw/H6EM8LqgO2WNUy5cYNkEFo=;
+        fh=ehjscXv+STohFGvvufjGuAaKYkcYGMspAa198jASC1w=;
+        b=TPv0e2ej52w4JS4ZuS8zCkorrf8Hr7VcXpsfDLsvCHifSTy9aSvA9AXCE5404zMSRG
+         9zb3Cbf1JmRHWBnomWbOQiO6opQTL4MuKhkqCNy/+M+moTm/5CxmvyDONsoibhiXgosa
+         gdGB1o3+ssn6I42BZ9o1Yom0jBQ5gXbIGmX/lfnI2YgYHQVcySnutyGh5Aod6BnWmzQS
+         L+3QVIx0x3qGpNQEaQy66JKePQy+Z7VoRpIA0mBnWhsf21ss+84atSXEVLfcW68vdbnf
+         O8+gTL+vxswJJTx75wrfXuW2q4kAlxlYq9db36lZY+UpK2E8/xZlt4yiluBNyQUzA/HL
+         w5+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791832080; x=1792436880; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gcSrQZk3qlt7pRiEDZiw/H6EM8LqgO2WNUy5cYNkEFo=;
+        b=hutN58lT0m+SCrzxLEDY1yvGXQ6kGUvY5rSFRFj1EYIkxc30DbIS21BLOt9Ev/o1Zn
+         ToHHllGXlK1uMb0seeYH9quN/a7JVYCgpFxMVYrEOfqHZqO4YOvpDB2lkuNvdTVcXLWB
+         ibFFdl1hrcFiZxJIJleURYmmNTTRZFvRi+oAEmLJK4BHsF0gL7YmnMEHqry/9L+rxhjl
+         iKdlU8qhPmvAFX5s9f1oedVYpMEa/zdRN0WgQJwS5pwHGB7j1b71uMu8R3Ju12nihVRR
+         YglNh5khAIEA5b4E0mgCBRUmmrqZS+MbSJv32JmX/2hN2t1EzsG5QI/zwJcUjX1jD+PG
+         OyaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791832080; x=1792436880;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gcSrQZk3qlt7pRiEDZiw/H6EM8LqgO2WNUy5cYNkEFo=;
+        b=ikYy7wjXoaLyU8Wstd3eBZMjBK/MCi00hXIN1q/w79PWNbo9o6Q9oLcsz6RYI8lVwY
+         Ngnd+BFQXo8A3AmeyCOU01Weq4w2YVDvEPvyTriO2jbl4zN4r/IfsomcFFdlELO/Yrq7
+         hiCmvV+0qM9rYkeLkQvVFjPOihXhP75yqU+dxO3TmJ1CfNXTqmvebXH6YDVz8eTLs2OE
+         fsTOdHNp/lXsFroiTRCMSKonX8tr5Hutr5s2r/0XyTrrixyqMOUVBmlAHwenreKo+Qmq
+         2BTP5bMb+C1zYKCVWw77pa8zLGBoiSBFaqEmXM1TRs3eLnYJ8W7GNbWISi6hRP2f70el
+         /ZVA==
+X-Forwarded-Encrypted: i=1; AKwUvBwXT7Cwk+dFlZM1ZuyhLL1QFs+aKYurAg8ttJroLysS/UPGLh8ClMJ1iDIeS34FPoIDuWF7xIMaGVFOM6o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8LlJMHNMRj+Ql+98AUPN7ChZUDZwiQU22qGs//Gh/4lYmRByZ
+	ZpfU1BdeRovRrtmZTSsxgYTVb9kIBrNvpLbzjjkJ2CljgZWkPVy8WBUV8QCmFq7RShsvlPpmuXQ
+	jVfPeAjg24XhZr/hL+MKhdE+5jeqeOVs=
+X-Gm-Gg: AYBFou0mGK5S1uJtL6Bm/l1NQzsKadTLK3kt/1xCpN0GQpdyf7IbSh0BuoQqu3ebcnv
+	UbdkZXUIphY7ez4XBxLDhHszo12pDI1+tpTQlBn5Wz6n0NTUuXQ5klFCR0DbfyUBoMHALHowb19
+	sHwoXB69ftx/Fg3GZFLB4TFiTPPK2xG52ahZ6S4kXHnVfLgF3rdCT9FsGD1Eyw+vnmkCjiUeUHZ
+	m3Alie4tzpfIdpshWylwRa96/qIDp2JrIV9v2h1+aYxZgA/Iwl/JURdz7czUPrtNe+CT+6KFuTy
+	aCcOehd02/L0kqZjeon9fHW0nHaLwxbm0HvQj/3LdLXLzifkzbzbi68zsm1LQqY8z/7V8mEIRmS
+	HtbqYrJy83ml/HWS7LDeUhPhQYnPZ1B2jwgXjM+1ZNAR5TYMMxjIX+9C4fT1+/OGBBV6h5qEZw0
+	4s0vpzcxvlf/5YBrV44syrH+W7fsSUwasQZ9FaVsX3p8Hy7chFxd8=
+X-Received: by 2002:a2e:be0d:0:b0:3a9:d756:bfed with SMTP id
+ 38308e7fff4ca-3a9d756c4a4mr13154101fa.10.1791832080463; Mon, 12 Oct 2026
+ 12:08:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eZMYkGYe2LFIW0E9"
-Content-Disposition: inline
-In-Reply-To: <20261012084155.2547480-7-Jelly.Jia@cixtech.com>
-
---eZMYkGYe2LFIW0E9
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261012161322.930099-1-johnsingleton@google.com>
+In-Reply-To: <20261012161322.930099-1-johnsingleton@google.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 12 Oct 2026 22:07:23 +0300
+X-Gm-Features: AclHuK8iM1Olv3dEWQjQsTVTum34F4zSHmBcCl-HukPLYcMHj5uyNgbV89OICy4
+Message-ID: <CAHp75VdvH7T9qLE1e5w2PL+mkNS+ArAC_1E6uQgAE_XvRToiaw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] staging: media: atomisp: Make pmic_name array const
+To: johnsingleton@google.com
+Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andy Shevchenko <andy@kernel.org>, 
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 04:41:55PM +0800, Jelly Jia wrote:
-> The FCH DMA-350 controller sits behind an interconnect window, so the
-> addresses its DMA master uses differ from the CPU physical addresses.
-> Describe the integration as a bus node carrying the dma-ranges of that
-> window, with the controller itself as a child, and give the controller
-> the SoC compatible and the clock feeding it.
->=20
-> The AUDSS DMA-350 controller is described the same way, with its clock
-> and reset. It has no consumer in the SoC dtsi yet: the audio controllers
-> that use it are not described upstream.
->=20
-> The bus nodes are address domains, not devices: they have no reg, so
-> they carry no unit-address in their node names.
->=20
+On Mon, Oct 12, 2026 at 7:13=E2=80=AFPM John Singleton <johnsingleton@googl=
+e.com> wrote:
+>
+> Add const to pmic_name[] as advised by checkpatch to ensure the
+> pointer itself remains unmodified. The array is read and never
+> modified, so this change safe.
 
-> v1 -> v2:
-> - The DMA-350 nodes are no longer wrappers with the generic controller
->   as a child: each Sky1 DMA-350 is a single device node with the
->   "cix,sky1-dma350", "arm,dma-350" compatible, its real MMIO region and
->   the integration resources (clock, reset) that v1 kept on the wrapper.
->   The integration and the block are one device, and the MMIO is the same
->   as the generic node it replaces.
-> - The FCH and AUDSS DMA-350 masters sit behind SoC interconnect windows
->   in a static DMA address domain: the AUDSS masters see the audio
->   register and FIFO block at 0x20000000 and the DRAM window at
->   0x30000000, which the CPU sees at 0x07010000 and 0xc0000000, and the
->   FCH masters see the 0x040b0000 window at 0x040a0000. Their DMA view of
->   the address space is not the CPU physical view.
-> - The windows are static hardware configuration, set up before Linux
->   starts by the boot firmware / secure world: they are not programmable
->   from Linux and must not be reconfigured by it. There is nothing for a
->   Linux interconnect provider to manage here, so the translation cannot
->   be modeled as one; it is a fixed property of the bus.
-> - It is described the standard devicetree way instead: a generic
->   "simple-bus" parent with an identity "ranges;" and the "dma-ranges" of
->   the window. This is not the rejected v1 wrapper and not a separate DMA
->   wrapper/integration device: the parent has no device-specific or
->   vendor wrapper compatible, only the generic "simple-bus" compatible,
->   no reg, no clocks, no resets, no driver and no private address
->   translation. Its only job is to carry the static translation, so it is
->   only a generic bus/address-domain node.
-> - The "dma-ranges" have to sit on that parent for the OF core to build
->   dev->dma_range_map: of_dma_configure_id() starts the lookup at the
->   device's parent (bus_np =3D __of_get_dma_parent(np) in
->   drivers/of/device.c), so a "dma-ranges" on the controller node itself
->   would be ignored. The translation is applied by the DMA API, not by
->   driver code: the driver maps slave resources with dma_map_resource()
->   and contains no address parser.
-> - Mainline has similar bus nodes: the Agilex5 DMA bus (dma-bus@10db0000,
->   a simple-bus with dma-ranges whose controller carries
->   "altr,agilex5-axi-dma", "snps,axi-dma-1.01a") and the Marvell AC5
->   buses (bus@80500000 with "ranges;" and "dma-ranges", and
->   behind-32bit-controller@7f000000, whose only purpose is the DMA
->   mapping of the devices below it).
->=20
-> v2 -> v3:
-> - The AUDSS interrupt gate is set up by the boot firmware and is not
->   configured by Linux, so the cix,irq-router property is gone.
-> - The bus nodes carry no unit-address in their names: they have no reg,
->   which made dtc warn (unit_address_vs_reg).
+Reviewed-by: Andy Shevchenko <andy@kernel.org>
 
-None of this should be in the commit message.
-
->=20
-> Assisted-by: LLM checkpatch sparse dt_binding_check dtbs_check
-> Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
-> ---
->  arch/arm64/boot/dts/cix/sky1.dtsi | 68 +++++++++++++++++++++++++------
->  1 file changed, 56 insertions(+), 12 deletions(-)
->=20
-> diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/=
-sky1.dtsi
-> index 0a820f45feb9..1262f34794d2 100644
-> --- a/arch/arm64/boot/dts/cix/sky1.dtsi
-> +++ b/arch/arm64/boot/dts/cix/sky1.dtsi
-> @@ -518,18 +518,33 @@ iomuxc: pinctrl@4170000 {
->  			reg =3D <0x0 0x04170000 0x0 0x1000>;
->  		};
-> =20
-> -		fch_dmac: dma-controller@4190000 {
-> -			compatible =3D "arm,dma-350";
-> -			reg =3D <0x0 0x4190000 0x0 0x10000>;
-> -			interrupts =3D <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>,
-> -				     <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>,
-> -				     <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>,
-> -				     <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>,
-> -				     <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>,
-> -				     <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>,
-> -				     <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>,
-> -				     <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>;
-> -			#dma-cells =3D <1>;
-> +		/*
-> +		 * The FCH DMA-350 master sits behind an interconnect window;
-> +		 * the dma-ranges below are its view of the address space.
-> +		 */
-> +		fch-dma-bus {
-> +			compatible =3D "simple-bus";
-> +			#address-cells =3D <2>;
-> +			#size-cells =3D <2>;
-> +			ranges;
-> +			dma-ranges =3D <0x0 0x040a0000 0x0 0x040b0000 0x0 0x00040000>,
-> +				     <0x0 0x80000000 0x0 0x80000000 0x8 0x00000000>,
-> +				     <0x80 0x00000000 0x80 0x00000000 0x80 0x00000000>;
-> +
-> +			fch_dmac: dma-controller@4190000 {
-> +				compatible =3D "cix,sky1-dma350", "arm,dma-350";
-> +				reg =3D <0x0 0x04190000 0x0 0x10000>;
-> +				clocks =3D <&scmi_clk CLK_TREE_FCH_DMA_ACLK>;
-> +				interrupts =3D <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>,
-> +					     <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>,
-> +					     <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>,
-> +					     <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>,
-> +					     <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>,
-> +					     <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>,
-> +					     <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>,
-> +					     <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>;
-
-As I said on v2 an hour or so ago, I don't think this is correct, and
-you should put an interrupt-map node into the syscon that contains the
-irq routing registers, and have the syscon be the interrupt parent for
-this node.
-
-Thanks,
-Conor.
-
-> +				#dma-cells =3D <1>;
-> +			};
->  		};
-> =20
->  		mbox_ap2se: mailbox@5060000 {
-> @@ -576,6 +591,35 @@ mbox_pm2ap: mailbox@65a0080 {
->  			cix,mbox-dir =3D "rx";
->  		};
-> =20
-> +		/*
-> +		 * The AUDSS DMA-350 master sits behind an interconnect window;
-> +		 * the dma-ranges below are its view of the address space.
-> +		 */
-> +		audss-dma-bus {
-> +			compatible =3D "simple-bus";
-> +			#address-cells =3D <2>;
-> +			#size-cells =3D <2>;
-> +			ranges;
-> +			dma-ranges =3D <0x0 0x20000000 0x0 0x07010000 0x0 0x00100000>,
-> +				     <0x0 0x30000000 0x0 0xc0000000 0x0 0x20000000>;
-> +
-> +			audss_dmac: dma-controller@7010000 {
-> +				compatible =3D "cix,sky1-dma350", "arm,dma-350";
-> +				reg =3D <0x0 0x07010000 0x0 0x10000>;
-> +				clocks =3D <&audss_cru CLK_DMAC_AXI>;
-> +				resets =3D <&audss_cru AUDSS_DMAC_SW_RST>;
-> +				interrupts =3D <GIC_SPI 230 IRQ_TYPE_LEVEL_HIGH 0>,
-> +					     <GIC_SPI 230 IRQ_TYPE_LEVEL_HIGH 0>,
-> +					     <GIC_SPI 230 IRQ_TYPE_LEVEL_HIGH 0>,
-> +					     <GIC_SPI 230 IRQ_TYPE_LEVEL_HIGH 0>,
-> +					     <GIC_SPI 230 IRQ_TYPE_LEVEL_HIGH 0>,
-> +					     <GIC_SPI 230 IRQ_TYPE_LEVEL_HIGH 0>,
-> +					     <GIC_SPI 230 IRQ_TYPE_LEVEL_HIGH 0>,
-> +					     <GIC_SPI 230 IRQ_TYPE_LEVEL_HIGH 0>;
-> +				#dma-cells =3D <1>;
-> +			};
-> +		};
-> +
->  		audss_cru: clock-controller@7110000 {
->  			compatible =3D "cix,sky1-audss-cru";
->  			reg =3D <0x0 0x07110000 0x0 0x10000>;
-> --=20
-> 2.54.0
->=20
-
---eZMYkGYe2LFIW0E9
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas0wBAAKCRB4tDGHoIJi
-0tZvAQCSHmcnTV6jgT2PsmPzk+KiLw1d4u3fGARAiQ3YfXvDuwEA8WYfrMKQNIA4
-jHJrD7aA6U3SwLq7B48xBdfJ5ZPT8wA=
-=zOqj
------END PGP SIGNATURE-----
-
---eZMYkGYe2LFIW0E9--
+--=20
+With Best Regards,
+Andy Shevchenko
