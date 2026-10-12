@@ -1,283 +1,209 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F2C47ECD8
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:19:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B634BA1CE;
+	Mon, 12 Oct 2026 17:19:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791825561; cv=none; b=DMHqnkrItaAPtnG8owkss/yNkrLO+6PppWVqNWSbSePqoeyLGnoMHARot7vx/D29uK+Y/Kq0TWdtajBm6VQA2Yox43XwZPsURzljDDSThzZP355k6DNwlVrN2r+4S/1YBELBERgY+qKF2+6hQAm4jNs/oWCleYklikGvx01FM34=
+	t=1791825591; cv=none; b=CjKW/ZVn12sH9x8+cKURTWKqP/qJIsGDa7BKXRecvxgTgVult82Zssqcs28OgdM6z68fm0KHac8tpZ3Kb6PjtWF1zBtv/G2oZvIam365CxR9NrodYIjSwVA7Qbs47neXnIWoebQ+S0aRVjdD9dRyCziYFxAou38CYvE1aKtQCp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791825561; c=relaxed/simple;
-	bh=xuHYOzqVDPF+T7DHJcXAkuDGTk5erdnYgh1uJDWbuqk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Nxr1bljARgn3Ycaw6fcZeIxhiCWLRx/MKCJZvZ5HuPKvxYzCZ0iDyK+1MBhboqc3M7txvcTgQVK12lIWu5kN/EEzvg8CynuAzaupiUTQdoe2nYucKmn5fnUUasw2LmVeXRL8ZXDE11O0cjamQyf/PKrOhxEHojLNtRUSLxzbC2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=LdK4pH6I; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
+	s=arc-20240116; t=1791825591; c=relaxed/simple;
+	bh=6TU+qgJyL1P+C51hctL+RoraPsI9x064jlMSM6ExMQc=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QUU9gMq4FjuIBydMkhZlIgZnFTbvxqyEchAToZ94ydwQn6kvdnsxd9SvRpkobGrf7ydk+F6uUeDo/kQnhDdcuiFf4q9aFP7n0yj36UpCIYDBW6Qp/k4wOzbgCpAj5jpsywoJeA2eDGFix/lX1zsdEOmiTwYaOz897q86Rx/X9/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m8s99tKF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="LdK4pH6I"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48afe75f055so1977038f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:19:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1791825557; x=1792430357; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fmWhe9edetnI1XYoSUk/a0gFm8QWgHCjQdahFD9uVho=;
-        b=LdK4pH6I7Yzumf0mZ0A5q3/1aTQbSY3iQrtBa8521viG++vQ/VWcqERrE+sONb43VD
-         u6kCbJNWDq0xyqEzcW0r2mXCiPK6v7XEzWHwWULHKhr//sIc/42pN6YaTCkMrUCUwpqa
-         h0BVBRkjmtls3MnGTX9Qz08ohbt6iHZLFnqw59MRS22ZP6T3AMkAU8wVG6jbJSEjkxlP
-         KF3rhp+hpbzU2kICW6lYD11H07IbVdQ0rkpnKv3P9+KIs1z8JU1/Bpg3D1ctSIciLG9h
-         xwsk8PIUForfICivt1utvl9/M3acpwm5C0CgtIxWai9eTuKRVWSFBh1bur+XJGFUoPZL
-         tWDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791825557; x=1792430357;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fmWhe9edetnI1XYoSUk/a0gFm8QWgHCjQdahFD9uVho=;
-        b=yNoIs3Aakv1BCfMOcv+aHEzydqpPUdpcUfFlsZsbzrqx2P6hGeEi+xOSCd70r0lbY8
-         SuN4+03fSTxFZYqtwFTpeCUs/v5gNICBBOCQUztP8aSAXmsYRoBOObKSBWWH+Q88oDs4
-         PQEJj7kIpF89RxxVSjqkE7FzpFF91tIz3C8YOq622uQJsJVmIVdGyfTX89M9LAFrcD1e
-         /+YNvB59leffHYtHO790yVgm7SygJ/9AsFkpH0mYwhEg4jgr4XZAfHtSxbvcsmWS9Q44
-         fHo4CnNH+xxLQeTJlsVSa48vejKHGV2ki6iSMwuIyOUwAGfZzJI6zalfdxJXvlK0l+mC
-         nZwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzy0lkqs4QE0IKZv6JYVzy3rhS+6lW4w2+nlcJT4Ae+ii479wed8RgCsTMlvCMLHQhLnd/OcQqix338Y1I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBj6C0oypaUjUgCzYNwZEEoMda9+ZcxFwgUZZ8bmH/llC1XnE9
-	GkmGacJlkRB5pbmzJ3D4SdSpYprwW5Pxqwt94jIlTov1d31g668jGqVx1tfRzkM9mdE=
-X-Gm-Gg: AYBFou0GrHAH+24UukEGlgtcY7BCrJFGvnYethvbndSbTX7WqyWrzAnT5+kNrmhic/k
-	o36zkPBmiQUvtS0JGzUCuG/k4VjxrfnJENRUiHfBJaJpDKT7GltN5ngx16j2EiUD+KHVu9SnW09
-	z9UOiF8U4yl/GvFabhTVwy5puNzAD0bk3Se2lnc9B+6zBpzC9mPtW/bJIcHkiibwpuOd9z9+7Sl
-	a7ewus2LynAk2JwtCzpcZev/2G3hlIYpHgIIbQkogAcGFEr6ly7c3xMyuYCQSW7qEFwQ9+XY5v/
-	8kqOOrpuMPkiH3xltYY6oEZOVwoyppQd1q2y6zsuJXoiVoAS6gd0hf8U8tBMwXV2R/zR4R3kZbS
-	lv6GLC9CcitpdTy26oVdYX9mSt0a5axXGTyzl3eT1ShFGt6UvvjkFlL1xEUJSNXWhxni4dg9xmy
-	zDFRos49fY0oyK+LOCLBsnZ8FUX3Kqvn9Pg+C4Uisbv5BSdI5W6tXdxyGWlZUQO9kUO3I4tgeuf
-	iovqy6ZEdtY2H5THRR6/AnPNZkybVAKCh2hIKcY21D08hsimNmlQC0Q5+FiVEY=
-X-Received: by 2002:a5d:5291:0:b0:486:f3db:e0f2 with SMTP id ffacd0b85a97d-48dbaade0b3mr13920551f8f.14.1791825555359;
-        Mon, 12 Oct 2026 10:19:15 -0700 (PDT)
-Received: from ?IPV6:2a01:599:840:e202:6f88:7a35:3ae9:6d10? ([2a01:599:840:e202:6f88:7a35:3ae9:6d10])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc4ec6sm437267f8f.48.2026.10.12.10.19.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 10:19:15 -0700 (PDT)
-Message-ID: <7d703c43-e462-41d6-a488-87342fd139a2@9elements.com>
-Date: Mon, 12 Oct 2026 19:19:13 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m8s99tKF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F27821F0089D;
+	Mon, 12 Oct 2026 17:19:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791825589;
+	bh=N20TDsP1zB7Qq/r8z7eDSI/dWJL/+1JhQa/qRj5xJdw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=m8s99tKFC+8XiKEkFH+X7LsLCIGoPnio5dm5yqGm+l5Ka/Baq9jaWJ3/TwL7eGW0f
+	 W5yjl0gZ9V1FPK6HSGiNuEw/h6FmFjLkIdIaomF5xz2HtEFbFVbgXI5aR85yAh+S+L
+	 qyIhRXr9+dT3YYHs5PqiRGeoZYgcKVvpEMBGV7ZCNCQ27Xp6pI+/3mM9dC6HxK6pBg
+	 ONXXii3vPnPUCm81eGcWTyVpzx3p6kKEwel2Wwrxsrz10V1+eIJv+LbyDRtqoCFTBO
+	 H+KG7jVcEQYRQ6LJTgeGo/0I52BwyY4MxG5Xjv5Mkck3q/s7IzUxd3ROnJclQEQCtV
+	 wsKkd8slklZPQ==
+Subject: Re: [PATCH net-next V2 3/5] net/mlx5: nodnic: Add TX/RX statistics
+From: netdev-bot+sashiko@kernel.org
+To: tariqt@nvidia.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
+ cjubran@nvidia.com, gal@nvidia.com, linux-kernel@vger.kernel.org,
+ shshitrit@nvidia.com, leon@kernel.org, mbloch@nvidia.com, saeedm@nvidia.com,
+ dtatulea@nvidia.com, horms@kernel.org
+Date: Mon, 12 Oct 2026 17:19:48 +0000
+Message-ID: <179182558857.434549.10132144834821303501@kernel.org>
+In-Reply-To: <20261008171821.660739-4-tariqt@nvidia.com>
+References: <20261008171821.660739-4-tariqt@nvidia.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] ARM: dts: aspeed: add Intel AVCRP BMC
-To: Dawid Glazik <dawid.glazik@linux.intel.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- maciej.lawniczak@intel.com
-References: <cover.1791825961.git.dawid.glazik@linux.intel.com>
- <12f8124fea31a6c6b1401d6aee640842c8d896a7.1791825961.git.dawid.glazik@linux.intel.com>
-Content-Language: en-US
-From: Tan Siewert <tan.siewert@9elements.com>
-In-Reply-To: <12f8124fea31a6c6b1401d6aee640842c8d896a7.1791825961.git.dawid.glazik@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 10/12/26 7:39 PM, Dawid Glazik wrote:
-> Add the initial AST2600 device tree for the Intel AVCRP BMC platform.
-> 
-> Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-You got Review trailers from Andrew Lunn in v1. Unless you think Andrew 
-has to re-review it (which should be then reasoned), please keep them in 
-new revisions.
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
- From the kernel docs [0]:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-"Both Tested-by and Reviewed-by tags, once received on mailing list from 
-tester or reviewer, should be added by author to the applicable patches 
-when sending next versions. However if the patch has changed 
-substantially in following version, these tags might not be applicable 
-anymore and thus should be removed. Usually removal of someone’s 
-Acked-by, Tested-by or Reviewed-by tags should be mentioned in the patch 
-changelog with an explanation (after the ‘---’ separator)."
+- [Medium] mlx5_nodnic_handle_send_cqe() reads wi->num_bytes for the
+  tx_bytes update (tx.c:182) after mlx5_nodnic_complete_send_wqe() has…
+- [Medium] The new 64-bit counters in struct mlx5_nodnic_sq_stats and
+  struct mlx5_nodnic_rq_stats (en.h:47-56) are plain u64 with no…
+- [Low] The new RX packet and byte counters in
+  mlx5_nodnic_handle_recv_cqe() (rx.c:155-156) are incremented only…
 
-> ---
-> v2:
->   - Replace bootargs console=ttyS4,115200n8 with stdout-path = &uart5
->   - Remove the unreferenced video_memory reserved-memory node
-> ---
->   arch/arm/boot/dts/aspeed/Makefile             |   1 +
->   .../dts/aspeed/aspeed-bmc-intel-avcrp.dts     | 315 ++++++++++++++++++
->   2 files changed, 316 insertions(+)
->   create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
-> 
-> diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed/Makefile
-> index 767f7c7652d5..ea4645ef9872 100644
-> --- a/arch/arm/boot/dts/aspeed/Makefile
-> +++ b/arch/arm/boot/dts/aspeed/Makefile
-> @@ -54,6 +54,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
->   	aspeed-bmc-ibm-rainier-4u.dtb \
->   	aspeed-bmc-ibm-sbp1.dtb \
->   	aspeed-bmc-ibm-system1.dtb \
-> +	aspeed-bmc-intel-avcrp.dtb \
->   	aspeed-bmc-intel-s2600wf.dtb \
->   	aspeed-bmc-inspur-fp5280g2.dtb \
->   	aspeed-bmc-inspur-nf5280m6.dtb \
-> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
-> new file mode 100644
-> index 000000000000..7c088c89d417
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
-> @@ -0,0 +1,315 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +// Copyright 2026 Intel Corporation
-> +
-> +/dts-v1/;
-> +
-> +#include "aspeed-g6.dtsi"
-> +#include <dt-bindings/gpio/aspeed-gpio.h>
-> +
-> +/ {
-> +	model = "Intel AVCRP BMC";
-> +	compatible = "intel,avcrp-bmc", "aspeed,ast2600";
-> +
-> +	aliases {
-> +		serial4 = &uart5;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path = &uart5;
-> +		bootargs = "earlycon";
-> +	};
-> +
-> +	memory@80000000 {
-> +		device_type = "memory";
-> +		reg = <0x80000000 0x40000000>;
-> +	};
-> +
-> +	reserved-memory {
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges;
-> +
-> +		video_engine_memory: jpegbuffer {
-> +			size = <0x02000000>; /* 32M */
-> +			alignment = <0x01000000>;
-> +			compatible = "shared-dma-pool";
-> +			reusable;
-> +		};
-> +	};
-> +
+--
+
+net/mlx5: nodnic: Add TX/RX statistics
+
+This commit adds TX and RX packet and byte counters to the nodnic driver,
+plus a TX drop counter. The data path updates the counters, and
+ndo_get_stats64 exposes them.
+
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/nodnic/en.h b/drivers/net/ethernet/mellanox/mlx5/nodnic/en.h
+> index 19858e9da064a..d811bfe242ac6 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/nodnic/en.h
+> +++ b/drivers/net/ethernet/mellanox/mlx5/nodnic/en.h
+> @@ -44,6 +44,17 @@ enum mlx5_nodnic_cqe_opcode {
+>  	OPCODE_CQ_INVALID,
+>  };
+>  
+> +struct mlx5_nodnic_sq_stats {
+> +	u64 packets;
+> +	u64 bytes;
+> +	u64 dropped;
 > +};
 > +
-> +&rtc {
-> +	status = "okay";
+> +struct mlx5_nodnic_rq_stats {
+> +	u64 packets;
+> +	u64 bytes;
 > +};
 
-Please sort your nodes, as described in the device tree design guideline 
-[1]. There's also a tool called `scripts/dtc/dt-check-style` that can 
-help with this.
-Note on that: we usually run `--mode strict` but it is known to report 
-false-positives, so please check any reported errors twice ^^
+[Severity: Medium]
+Can these counters tear when they are read on a 32-bit kernel?
 
-> +
-> +&fmc {
-> +	status = "okay";
-> +	flash@0 {
-> +		status = "okay";
-> +		m25p,fast-read;
-> +		label = "bmc";
-> +		spi-rx-bus-width = <4>;
-> +		spi-max-frequency = <50000000>;
-> +#include "openbmc-flash-layout-64.dtsi"
-> +	};
-> +};
-> +
-> +&uart1 {
-> +	status = "okay";
-> +};
-> +
-> +&uart3 {
-> +	status = "okay";
-> +};
-> +
-> +&uart4 {
-> +	status = "okay";
-> +};
-> +
-> +&uart5 {
-> +	status = "okay";
-> +};
-> +
-> +&uart_routing {
-> +	status = "okay";
-> +};
-> +
-> +&mdio1 {
-> +	status = "okay";
-> +
-> +	ethphy1: ethernet-phy@0 {
-> +		compatible = "ethernet-phy-id001c.c916";
-> +		reg = <0>;
-> +		reset-gpios = <&gpio0 ASPEED_GPIO(C, 1) GPIO_ACTIVE_LOW>;
-> +		reset-assert-us = <10000>;
-> +		reset-deassert-us = <50000>;
-> +	};
-> +};
-> +
-> +&mac1 {
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_rgmii2_default>;
-> +	clocks = <&syscon ASPEED_CLK_GATE_MAC2CLK>,
-> +		 <&syscon ASPEED_CLK_MAC2RCLK>;
-> +	clock-names = "MACCLK", "RCLK";
-> +	phy-mode = "rgmii-id";
-> +	phy-handle = <&ethphy1>;
-> +};
-> +
-> +&lpc {
-> +	lpc_snoop: lpc-snoop@80 {
-> +		snoop-ports = <0x80>;
-> +		status = "okay";
-> +	};
+They are plain u64 fields. There is no u64_stats_sync and no
+READ_ONCE()/WRITE_ONCE(). Three places write them with plain ++ and +=:
 
-Why's this named if you don't use it as reference anywhere.
+  mlx5_nodnic_handle_recv_cqe()  - rq_stats packets/bytes, NAPI
+  mlx5_nodnic_handle_send_cqe()  - sq_stats packets/bytes, NAPI
+  mlx5_nodnic_xmit()             - sq_stats dropped, ndo_start_xmit
 
-> +};
+mlx5_nodnic_get_stats64() reads them with plain loads from process context
+through dev_get_stats(). It shares no lock with the writers.
+
+MLX5_NODNIC in Kconfig does not depend on 64BIT, and
+include/linux/mlx5/doorbell.h has a BITS_PER_LONG != 64 fallback, so
+32-bit builds look supported. On 32-bit, a u64 add is two 32-bit stores.
+A reader such as ip -s link or /proc/net/dev could then see rx_bytes or
+tx_bytes jump by about 2^32. On 64-bit these are still unannotated data
+races that KCSAN would report.
+
+Should these use u64_stats_t, with u64_stats_update_begin()/end() in the
+writers and u64_stats_fetch_begin()/retry() in mlx5_nodnic_get_stats64()?
+
+dropped is written from xmit context, while packets and bytes are written
+from NAPI. So the TX side would need separate syncp instances, or separate
+handling for dropped, so that each syncp has only one writer.
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/nodnic/rx.c b/drivers/net/ethernet/mellanox/mlx5/nodnic/rx.c
+> index 7736a1f24ea5b..808740ec39102 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/nodnic/rx.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/nodnic/rx.c
+> @@ -152,6 +152,9 @@ void mlx5_nodnic_handle_recv_cqe(struct mlx5_nodnic_cq *cq,
+>  	skb->protocol = eth_type_trans(skb, priv->netdev);
+>  	nodnic_handle_rx_csum(priv->netdev, cqe, skb);
+>  
+> +	priv->rq_stats.packets++;
+> +	priv->rq_stats.bytes += byte_count;
 > +
-> +&i3c_global {
-> +	status = "okay";
-> +};
 
-That's enabled by default.
+[Severity: Low]
+Should good frames that are dropped because napi_build_skb() failed also be
+counted? Earlier in mlx5_nodnic_handle_recv_cqe():
 
+	skb = napi_build_skb(page_address(page), PAGE_SIZE);
+	if (unlikely(!skb))
+		goto err_recycle;
+
+This jumps past both counter updates. The rtnl_link_stats64 kernel-doc
+says @rx_packets includes "packets which host had to drop at various
+stages of processing (even in the driver)", and that @rx_bytes
+corresponds to @rx_packets.
+
+Could the counters be incremented before the allocation? The failure
+could also be counted in rx_dropped.
+
+>  	napi_gro_receive(&cq->napi, skb);
+>  	rq->cc++;
+>  
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/nodnic/tx.c b/drivers/net/ethernet/mellanox/mlx5/nodnic/tx.c
+> index f2efc8d3f5b85..6958c8a51231d 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/nodnic/tx.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/nodnic/tx.c
+
+[ ... ]
+
+> @@ -176,6 +177,9 @@ void mlx5_nodnic_handle_send_cqe(struct mlx5_nodnic_cq *cq,
+>  	wi = &sq->wqe_info[pi];
+>  
+>  	mlx5_nodnic_complete_send_wqe(sq, wi, napi_budget);
 > +
-> +&vhub {
-> +	status = "okay";
-> +};
-> +
-> +&video {
-> +	status = "okay";
-> +	memory-region = <&video_engine_memory>;
-> +};
-> +
-> +&gpio0 {
-> +	gpio-line-names =
-> +		/*A0-A7*/ "", "", "", "", "SMB_CPU_PIROM_SCL", "SMB_CPU_PIROM_SDA",
-> +				"SMB_IPMB_STBY_LVC3_SCL", "SMB_IPMB_STBY_LVC3_SDA",
-> +		/*B0-B7*/ "", "", "", "FM_CPU1_ERR2_LVT3_N",
-> +				"RGMII_BMC_RMM4_LVC3_R_MDC", "RGMII_BMC_RMM4_LVC3_R_MDIO",
+> +	priv->sq_stats.packets++;
+> +	priv->sq_stats.bytes += wi->num_bytes;
 
-Why do you name reserved GPIO lines (in this case the RGMII lines)? 
-They're used by the kernel anyways.
+[Severity: Medium]
+Could wi->num_bytes already belong to a different packet when it is read
+here?
 
-Tan
+mlx5_nodnic_complete_send_wqe() gives the slot back to the producer before
+it returns:
 
-[0] 
-https://docs.kernel.org/process/submitting-patches.html#using-reported-by-tested-by-reviewed-by-suggested-by-and-fixes
-[1] https://docs.kernel.org/devicetree/bindings/dts-coding-style.html
+	sq->cc++;
+
+	if (netif_tx_queue_stopped(txq))
+		netif_tx_wake_queue(txq);
+
+mlx5_nodnic_xmit() stops the queue when the ring is one entry short of
+full, but it still posts the current packet:
+
+	if (unlikely(mlx5_nodnic_tx_is_sq_full(sq)))
+		netif_tx_stop_queue(sq->txq);
+
+So the ring can become completely full (pc - cc == num_entries). Once this
+completion increments cc and wakes the queue, mlx5_nodnic_xmit() on
+another CPU computes pi = pc & mask, which is the slot that was just
+completed. That CPU holds only the tx queue lock, which NAPI does not take.
+mlx5_nodnic_tx_fill_wqe_info() then does:
+
+	sq->wqe_info[pi].num_bytes = skb->len;
+
+If that write lands before the read above, tx_bytes gets the new packet's
+length. The new packet is then counted again when it completes.
+
+Could wi->num_bytes be saved in a local variable before calling
+mlx5_nodnic_complete_send_wqe()? Another option is to update the stats
+before cc is advanced and the queue is woken.
+
+>  }
+>  
+>  void mlx5_nodnic_complete_send_wqe(struct mlx5_nodnic_sq *sq,
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008171821.660739-1-tariqt%40nvidia.com
