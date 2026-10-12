@@ -1,101 +1,88 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0132841A76F
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:21:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15EE04D37B9;
+	Mon, 12 Oct 2026 19:21:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791832896; cv=none; b=EMaGNwJbbHRw0VVcb7v1yp6OX8oqX08ThLXmygdk7F5QaDbe8XRGouNEJj4Jblet6So9qBfif9u/t5DTzRjOo8KbapSMFsifNzKkY1XO9Jl6BmYTTi3aZiZu/Jf9U0t+54xk2D2seBGMD6XDCtb2LQvKYXQ0C1DmeLfBcbmlksc=
+	t=1791832903; cv=none; b=BueSe2gBvGoXoXw1fMWMSLDX5cF32HWD8oRTP8E9MDrcuoRrTuuJnyShsInqXYHlVkZtb5OW4D1taP51SFq3omU/QMMSgEzpIe3+drq1QXAwyujPP7+IYQXLXNxEltZps5AcKpyFFX2CQS+FOU5oRwJyBSMMdSBPs5vEjr5SPP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791832896; c=relaxed/simple;
-	bh=1k/DQKPcw8YK/xoL6gtmsWPkUhYp94wG1UsM588r5bE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s/Qw3aH3iGJwVsxlZZk1OlGSxSkHb3fZLoTlWV97wsm7hZIKc8g9+I/gTlTERK2vdODOqRaLieFMzWHIpuBIOVRcd7g9C3Gn8xKlXs9taPzKhIb+lpqHiMXsw1aoVwsLRJfPOHtjGlKKFWrjymdnVCb6T4AT1d1hnHfzyUEGJok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=lHiOLo54; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1791832903; c=relaxed/simple;
+	bh=WovZxVKaZ7McOM8h3AbkTrVG9gDYGH8gE547m+K2XLg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UyH5x2vJzX1cp9VJfzeM4PbsCjDMRcduXItrRCnoEjYeJor3nHh2XPb+CWeklqP7/bOPbn0WipFvPgPp+uAcHB2s+osr1qII05D5M1aAXzSU8m7R1ZsdG43Fy1WFq3m/vQftH5xXXfziMekr/rXDROcHSPeqDa3mrpnRUpH1UBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=n+lXEJ5W; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="lHiOLo54"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 74FBA40E03BE;
-	Mon, 12 Oct 2026 19:21:24 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 1GdfJFy0tNit; Mon, 12 Oct 2026 19:21:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1791832881; bh=WqFeSQEBcvFM0X4Ltoz0Z2wIxF05UhXGwoaGo91n8pA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lHiOLo54sbzzTO7dznYp+Y4m/v9HN7PwdJ8P2SsFAczM2V4hyWgsRW72kufPDQJpH
-	 v4OxWMEybbdRryY8sPq/8YQhD2efK6TYtuENUchgKoyFb36dA/H2Sa0XNM9owo/rqb
-	 E0KA0imoFWDBZ/eziVfTSuPEwtl1URFtErQIs7cHBlgMJUV8+XEgEHZJJuosI7KqDC
-	 j5mq+0vh+CNHHvVkEnaa2awrwBZGM2GjyJd5UffTmIvr6GsdKVW6ryV4PkoG88ZS8p
-	 +r9fjKR8n2cbjWJSTX09oXbKjAwMgDWuna1Y8SldVKLVM15XWqenJc9qIE4tAETl/G
-	 BeqNJYgKUmaNrEp/Z11UG9S+qEz8dU/zwHhz4clR5Ip5cwoQyWTc0cH1sLawM0PCCu
-	 pFIvMgyv3ty2VLXc9M2AUKheZp7PMLMfBVyDngubaM4fcW3QaQX3qFLYGQI2oA8ZM7
-	 jLRWGmLut1vo5rZeO44GDBWUzSo1vFo6zf3TLZo9MqgnKOG5d6QpaQMuI4bN6a12j3
-	 YNCaeBrLEwTKRrh8WxleByv60ioVG1Xrzy1t3xlu4OsF4GeMF/wj8+K3RtjjC+PrAb
-	 4SHHxeS4V2xf0y1ddusq1MHJx51ANrg8Pp5Vl7bTEFQviXgFVngQheYQ+aYmGi1pzS
-	 32wNopL05/harpXiNO71A4xU=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id C5E4E40E02B3;
-	Mon, 12 Oct 2026 19:21:09 +0000 (UTC)
-Date: Mon, 12 Oct 2026 12:21:06 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: 1sh1ro <yangguikun19@qq.com>
-Cc: Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Alexander Potapenko <glider@google.com>,
-	Thomas Gleixner <tglx@kernel.org>, kasan-dev@googlegroups.com,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] kasan: Fix false-positive wild-memory-access on x86
- under 5-level paging
-Message-ID: <20261012192106.GAas0zIsS_fb6dgtGB@fat_crate.local>
-References: <20260624234510.GHajxsBgG62PHgEZa4@fat_crate.local>
- <20261013015904.44144-kasan-early-boot@yangguikun19.qq.com>
- <tencent_8BA9ABDFF623474ECBA6E251A03E19512808@qq.com>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="n+lXEJ5W"
+Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay01.hostedemail.com (Postfix) with ESMTP id A76321C4C80;
+	Mon, 12 Oct 2026 19:21:32 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 1DC8820032;
+	Mon, 12 Oct 2026 19:21:30 +0000 (UTC)
+Date: Mon, 12 Oct 2026 15:21:29 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Tobias Schaffner <tobias.schaffner@siemens.com>
+Cc: Gabriele Monaco <gmonaco@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ rpm@xenomai.org, jan.kiszka@siemens.com
+Subject: Re: [PATCH v2 0/3] rv: per-edge dwell-time statistics for per-cpu
+ monitors
+Message-ID: <20261012152129.4c57786c@gandalf.local.home>
+In-Reply-To: <cfd7123a-e83d-490d-918b-154d45aad92d@siemens.com>
+References: <20260911123439.463052-1-tobias.schaffner@siemens.com>
+	<4759c9b0dacdf1f9c0cf47158895860dbd0ec401.camel@redhat.com>
+	<cfd7123a-e83d-490d-918b-154d45aad92d@siemens.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <tencent_8BA9ABDFF623474ECBA6E251A03E19512808@qq.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: 1DC8820032
+X-Stat-Signature: k5g8nf5cmracfxb8etejzcef68697w5o
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/LHhjODesxKHkmKZPZ24+4fULWt9TuWUU=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=WovZxVKaZ7McOM8h3AbkTrVG9gDYGH8gE547m+K2XLg=; b=n+lXEJ5W9jY2/VPYwkQThytHBgga786HfJgk9+q/jCuwoFP+adt7kPnxBM6Jrehh1nOTW3ns2ZrimC3xZSJGZqP7ov7vKQ6n5gCGn5nkxwaay5fnZzP7ZcouRr71XddiMt+PgZ8HZX3ERX8y/rUAH3nBLbcuhraT0F7+NJ03zwY=
+X-HE-Tag: 1791832890-873550
+X-HE-Meta: U2FsdGVkX18Z38EoVZaLVKv1KgFWq/X1ChjGpD7F5T90APg3DKeryhGdo0LRScODfPGISQvyyIPXdsqDBjJCiAPJ3ve5j8nuJ7KM6thgAve6wxtLqrOl+1Zanjrbo6NioP71udrYDj3fLw0qie5+DJbw7FI6vjAmRrjYUL8kRJ7Ey9UArO8EqDv44mXkbtqQE8Xg8VJFM+ENaXzJrvewAZM39FIF+E8o2RB/eTQuWT23MuIYO8YHN/v1j79u5xSPCslFTY1D1gsXxyPk/WuAXSzJFONg9+X/AjzwU4DRCR2Gzw5GG91ZqxebDQ1wX0+WLg+jZKCoyfLuinaDCwYjCsvzXRogrBwA
 
-On Tue, Oct 13, 2026 at 02:06:08AM +0800, 1sh1ro wrote:
-> I hit the same false positive and can add a data point that seems relevant for
-> the fix: it still reproduces on 7.3-rc5, i.e. after the CPUID rewrite that was
-> expected to take care of it.  The rewrite is in 7.3 -- get_cpu_cap() became
-> cpu_detect() -- and that is exactly the function my crashes interrupt.
+On Mon, 12 Oct 2026 18:18:52 +0200
+Tobias Schaffner <tobias.schaffner@siemens.com> wrote:
 
-I don't know which rewrite you mean. 
+> Regarding verification:
+> The path I verify is deliberately kept short and simple. RV fits well
+> because the probe is a plain function call and the state update is a
+> try_cmpxchg that cannot fail, so it adds very little. A BPF program
+> brings more machinery into the probe path doesn't it? I fear that adding
+> this would force me to verify that the new RV system does not change the
+> behavior of the system we are trying to verify, and I suspect that could
+> be harder than verifying the system itself.
 
-If you mean those patches by Ihor:
+This brings back memories of conversations I had with Daniel. When asked
+about how this is being used in formal verification of safety critical
+systems, he told me that only the RV verifier itself needed to be verified
+and to show what it is verifying can be verified via it. For example,
+running Linux in autonomous vehicles handling critical systems the watchdog
+had to be verified that it could catch lockups. As the watchdog would
+trigger fail-safe mode if something went wrong. RV would be monitoring the
+watchdog and if RV detected something it would panic the machine, which
+would immediately force the vehicle into fail-safe mode (stop lots of
+features and only keep those that can stop the vehicle safely).
 
-2711d67bc3a7 x86/cpu: Don't transiently clear the boot CPU's capabilities
-db349783ca7a x86/cpu: Move 32-bit SEP setup into identify_cpu()
-ad86fe2134cc x86/cpu: Inline generic_identify() into identify_cpu()
-7a762b51a149 x86/cpu: Initialize boot CPU cpuinfo defaults early
-54a2882ab9f7 x86/cpu: Factor init_cpu_info() out of identify_cpu()
+Can using BPF as the RV verifier be formally verified? As verification for
+RV monitors did look at the binary. Is BPF optimized to machine language
+before it enters the kernel? If not, can we formally verify the BPF
+verifier created the correct binary? Maybe, I don't know.
 
-they're in tip queued for 7.4. So not mainline yet.
+Maybe the safety-critical project was canceled and this is no longer needed.
 
-You can test current tip/master if you mean them.
-
-HTH.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+-- Steve
