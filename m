@@ -1,176 +1,162 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013058.outbound.protection.outlook.com [52.101.83.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B844A9D59;
-	Mon, 12 Oct 2026 16:57:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791824253; cv=fail; b=PFsZkvJn52hBleRNG80TFak4H1+PL1ItJFfHGCASHZRiryFkLzLGGWPiYUrAVlrxNATB4AL6SB+IFf5GQo+MBjTyImJPDe1VU3bouYQIQOJAQ+LlUzKZQL+X/f1lcbM7/beTWSyJEQ1KNbbF8gbz1GwRHIesb8JIq4yvvLrwv8c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791824253; c=relaxed/simple;
-	bh=WBC2kCwWQTgZVjzb3JWbY7w0Ev7IhBaV5jrW9nI0RMc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=AfJBxEjO+Xvj/Ug/AP6Estk+a/TluBKOi9qO2OexubnpfxiWudCZkC3iLcKQap7Tgir/Amz65Ru9vzMIyd1Dc457YkQa68P5Idkt0edGbscL9AEjIsJt5gOQj6RyQtJ0X+7ZRBRba9gl7IR4mP2jtt54TYhT3tzkUTZyDz6DuZc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=uDzCTAlW; arc=fail smtp.client-ip=52.101.83.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E154B1B26
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:57:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.135
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791824281; cv=none; b=JNAsPTW4JrMShxOt5bf8PfkXnBWwMONFr4I5LVLLS3VkqLxCA0LoZLtbPl2QRasTfng2imwXMQtNnU1iymL94LDvFTKJaSPvitKPGfAmd2WGk/giPK56A/AndB5zNb+DNEvRH2GgZnjaKcj8yev6PvZBE351Z3kjzB0AN4o7kGA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791824281; c=relaxed/simple;
+	bh=jCrJHhg9LmoI7hpxLeknAoCWjFflwD4GcffxqEOx+x8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tP7wzj793lkwGX9TvKJYnPd/kk02qXzo4q7TfGXKTFIFoBGKVqi/qn2MuOVtyc5gkJf2jzKUnYWzIJ2CqCHpqls7+UKGzUAjM6aw2paHx3HB2IevY2QwlCDYQNvhHRDh//yhJgOfTI7+vDfO228YLvZpgym6hgw8Sz2DaziSd8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n7nzLGjr; arc=none smtp.client-ip=74.125.227.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="uDzCTAlW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g0virF4yjEf9OXPf62uP6DBpDa7VoYsQQ0m9lkBn587l/0AYySXufLo1Cr5HuDgT5ZIhCNkIkZ6i+9Vu0rVBNDPrPoyCIIT9J3HiIUxl16GlDH2qd560Qhk3PKq8Hzq1a+PSWjQ333lua9fnw68hk9qOJhZOFEg7Kub9HIfen4MVUzUQ315PolEoSzZKpJybOXMp34TZRPdIpKUQf+7pWBvoK+4+SXz59y+G5J/Zi4Lc3YvQSzpUWx/3FMIafvMopnEmZzy5C/z/nK1VoTC+Nc7NFST1t7dFFjzlYCaqkIcQFGvJAdm68cGnx7gvIIaVwIa0MhL8oSZM3+YFruCBPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v9fHc6qUpCd2u6N/9U7HE52WWVGOAMebo//FHo1swQI=;
- b=QydGY7Lt0Dy5Ac5vY/NCeMG17pRelA5tkCbnscyKPPircwn82+4NaFeBd/JzMgRAQdc1jW7HO93h01nS5mvkZdlebgTfbEEhkHOHC+sflI8O8c00mNeDXJRsAbkP5FzWWnrPkLIv+k8oGTaAKo/SgWOlOXCkJErvYaiu/mnif0/20gx2THoUyVjIfooIZUHDKh2MRsQGpZ91coS/17CrE6riFJodFzIP3D/0s3sd23KRPzXD3Tr4RMdwGD7gjqRQWJm8KeG8IFRtJEPqPvU7+e/q6ss68KVOoWMBGWGvz5hijadW8zuQaoW/JKasG/Is1xb/8HLqHM4Z2bKKhu2JvQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v9fHc6qUpCd2u6N/9U7HE52WWVGOAMebo//FHo1swQI=;
- b=uDzCTAlWh+m38TeS6Yo2nKS0+G6JfhwF/+in3P0h4OwQwQkoPbAss/VZ3duZ5Lh6/nBPGhgvvUnVOVDI/GUMBJFqCys5RUQV5MK7r+QJUr3BidTuPNBMzJbZ3mpm2hzmFmITJ+c3zSmaOvVOX2kSl5kke/NfU3bUA294NeFYWalVK58k9yHQOOmcN/0zOos37NTPzYvhyI16y3s+O0xQUx4knuYG9pb8SrwmE+3QLF7N/0kI/AsyR8o4d4VOpmyrAPOdsz+itBIEt4cxO1Y+LjFLIdWTP7sb2trUE/f/5QRw68INRz+4WttJI1SfDIdmsVQrswnRrpbBRm8iP8kn1A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PAXPR04MB9021.eurprd04.prod.outlook.com (2603:10a6:102:217::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
- 2026 16:57:25 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 16:57:25 +0000
-Date: Mon, 12 Oct 2026 11:57:16 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
-	=?iso-8859-1?Q?S=F8ren?= Andersen <san@skov.dk>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v10 3/4] arm64: dts: imx8mp-skov-revc: convert to overlays
-Message-ID: <as0RbA35EZOmFBcs@SMW015318>
-References: <20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-0-0906e57486a3@pengutronix.de>
- <20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-3-0906e57486a3@pengutronix.de>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-3-0906e57486a3@pengutronix.de>
-X-ClientProxiedBy: PH7P221CA0043.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:33c::31) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n7nzLGjr"
+Received: by mail-pj2-f7.google.com with SMTP id d9443c01a7336-2d561173f9fso15171205ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:57:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791824276; x=1792429076; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lk3jyk+L25op/gK9ZsPi7IfvbejvW+IuaDGcTZaRnIE=;
+        b=n7nzLGjr0vi3iGJrn3PYjtRXP1XDVcaHTCsmZ78sppuyb0NJxCIh6daMJ07t8bPUSc
+         wVTr1p6r19yo6LrzbFaiMu5uP+P11/zoW7ldVBNCzspn0Yy4rrVWuS6qg95JnUBxDA6u
+         bQUiTt/BiOAKLzChwveHcWtvMox8QCJ23WUApozwGSMrZoC72VwAU/QQVCt4t1luncho
+         Ku8y2mNq0ZQyzZVZZOAXIAsaPq7HGXVzLhanZU5HdBNPQ3WNv69WjAfobctAWRTJrJjk
+         0UdL5RhO706ecw8NBJ40noo48dCZFL8PdgMN7Q0JUjmsWXfwd9vuLhnBcIDlitYFD9CS
+         LZ5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791824276; x=1792429076;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lk3jyk+L25op/gK9ZsPi7IfvbejvW+IuaDGcTZaRnIE=;
+        b=PZzUEBmmYcrQHpn5ps8PgkwOaH27AsRKu5JtkfMlEGVPMeVcpBOb1ju0grR+Dv3kOs
+         IwbzFytbARJYJYqmH1nJuhQenTmUG9XHJcnIGEOcQslvTCrFAm9S74IGqh1juR64Bghy
+         mZDPMYSViY+3MaBzhDIADJtpGTE98CNyVRKKAuWW3Z/2lcovXdp97nhtFCXQ1cMFOm8c
+         Ev66NjMpQ8jVK+OqqMyVCA0NrbAs3lcIfXEEq/QMVqxMYH9rJjjRlAjmCpQSvW831jOK
+         KZZxMrPJjG7WW2xCNuTCmnS1OLe/qukrhfCqugmyKR2Du4die/rSBsNUJgC2U8bSy8Nj
+         PTig==
+X-Forwarded-Encrypted: i=1; AKwUvBybOiJnKMVydLTUtfOHsmxVM2KQXoTjyf9CN0K1v0vu2dVTd7SLULeBbhQ4xpzfGbYrhqN6phRkp3GzuZU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIv9E0zSvh4Ge6w1aLIW1iY1fmCMfq58jM1RHR8sjd1F85KiypZ
+	UU1qBwuxuivlv/sWeJ6Nm3W/rC9NwtLvc0g5yAcTHtOkzJadU5F95vmr
+X-Gm-Gg: AYBFou2LmELFiuIck2h4ShfwGKvjvGECANnC2336bdidxGiEA8nSblFx6yEUSSPKR02
+	7AhRoXePL9db22lk+odJ3kCZLMyeE+ylj1hfCV7tszhAQcFbIqlO6xVHSdBzpboGwFPe89sj2i9
+	Hyzb8DlV+pNt+kChKA9v+iMhoiFag8j1sv1J0dxG21P+JO7BRgNQSWgXwHP4qL0TtxHyVAEqFWp
+	FbTQk38kmYnypKtjcDWd2DN/jH2Oe83xuhOZt70vSUmf8aesoNLK0AuqOZRLnpkPZ4R8MOo8bkv
+	QZpXH2KZY9Ph4jcztE4nBJDI5hHKHnnoVCSQy52Jyqmyu8iHj9rsmYbem+SxcnJ/UsArpXV9LPv
+	pa6ciWWcqmme4X8ORMOFaw68qyUIUQubrfEbCqb/n+Hg/SHEBoZ5Wh915gVJeQD1aZZoWTsFrhX
+	mMy3ir+QIbNSGPvvNCUPGkXq7/whjrj/XFJWGmYzhs5mpWkNo57L1NPniaaTlsshCT
+X-Received: by 2002:a17:903:1b6d:b0:2db:39da:90f2 with SMTP id d9443c01a7336-2e84280aed6mr90426765ad.8.1791824276254;
+        Mon, 12 Oct 2026 09:57:56 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:5e::])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8dd5sm46996085ad.55.2026.10.12.09.57.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 09:57:55 -0700 (PDT)
+Date: Mon, 12 Oct 2026 09:57:50 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, David Wei <dw@davidwei.uk>, 
+	Pavel Begunkov <asml.silence@gmail.com>, Taehee Yoo <ap420073@gmail.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>, 
+	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Nikolay Aleksandrov <razor@blackwall.org>, 
+	Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
+Subject: Re: [PATCH net v1 2/4] net: devmem: detach TX bindings on
+ NETDEV_UNREGISTER
+Message-ID: <as0LL7IcZas6IPY2@devvm7509.cco0.facebook.com>
+References: <20261010025532.839559-1-almasrymina@google.com>
+ <20261010025532.839559-3-almasrymina@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB9021:EE_
-X-MS-Office365-Filtering-Correlation-Id: cba74a7d-c6c5-4346-04c4-08df2881e422
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|19092799006|366016|7416014|376014|10067099003|261009223027099003|4143699003|11063799006|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	8Qu4U1ipt+vju+v5wV76r/IYfd6KwTWMfrUfESvtGE2oqAgetTFmdFr0ZtPev2IAI1FPjKWrHKFoSZ6TGBcNNuayRTu7x+hiwSpqss7GJCBqwNbyYke33Bya5tmmhEdCMXcOWFoBa65gounq4Jx1RWXQgChLakhtSJAR/QKLrBXvZtSymBk1Mg1G6aqViKjavljHud9O59a5lGElJdOm2/oDVzwtUiw+goDb+uZUOb2Q9ojLa4Rpu/krHDwXeIV+HGiYeOgpMckH6U0c/lf8/SRXnWpAakzMmwFgxDyr0LzBV7yQ6BYw+WfYeiePH//pPN3Wor5iL5xtiQqmM4nIPogH38t+6Ww+XAL5+YSvggFoo63sav1Hm15uNzMlAAW0M3Xe42aHOHOKPQwjQFhPHexpprn222aBJ2giQceAcj7xThNkznQXcPWewx/nK/OhAgQzPARi7r40uNReQaf1WFD7U1r7XHf9FKNR9srT0gJrQPX8ctEgI25OO4FgUMsgdWwq7QZfsgo4zgjZ5LEmzF20krCByVN+LFLwk9rv15lOMdz1GzEKrrDfqFnS03WaHnItfnZgRASOnbQPxKkU8Gm8dGtq7aPvoH+eKA2TvJkiBubthepFA8wdHcyAVkpUKsd4bBKh8zaMAzeU1dG3F4Uy8nqkodNeqpJR7qJZO5I=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(19092799006)(366016)(7416014)(376014)(10067099003)(261009223027099003)(4143699003)(11063799006)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?VTgsWUt/8EmD14HCb6wlxbdrPbkuKe9hG845bTVsJ+tKPCYbnciA5VnQUYvX?=
- =?us-ascii?Q?V+SPxX8pRoJiBXVQSIwCCLc393M+1f6cv75ihhG/6Q0takSVmfNE1Jy0duAd?=
- =?us-ascii?Q?tEnYWRtDZgXT84UvKBLKGPoMjzcLT3C//N0MDE6i4DqnrYdItWQ3Wzv2Zums?=
- =?us-ascii?Q?znMpSjRk1i3dirE0H1toGumK0iU+p4THelug4eNFTCtue4jidyLincVv3Q91?=
- =?us-ascii?Q?zZoTrSDl+0RXTi04U172ylDvlGuGzkaT+DtBHwnZzn2xzNdmHdeATX8QWVtk?=
- =?us-ascii?Q?8/lIyX6kn2iiSiuWCHNYuuO1Tyw48Q+jh/H++iVQuROnZGBRAkJHj9h/A/nM?=
- =?us-ascii?Q?kScMMwWzJXqrpGTUPY6gN/OibDA8EqiRPyafeYIDy3zoMIlHQpXBBxP9NsYQ?=
- =?us-ascii?Q?Irw/xhZejqwkN2ZXl0maAQSg5GYi6BTtypc6jpDFTjvStt46CewDCNtMW+tD?=
- =?us-ascii?Q?OtZtROWymBOiQfMRcODmFqggSqF3f7sRTxUFeOd2ZoIaDCutmYbs5pkrCDx8?=
- =?us-ascii?Q?nGOT/7R/bS1QiymY1mzoDN7G54o2qt6M72JE0ASAL2IK+qaAXrVVp1qHsP62?=
- =?us-ascii?Q?C0pei+fU6JI7BiBz+kaOOGdos0EzvBq1xRqEsGU0RTQ72tT3vvP3inHQtyU4?=
- =?us-ascii?Q?U7UsHUlmoCvgqjX9jRUD4BG43W+anJJCRkjBcG89UfoLAbZJxzVXYg/KOSxP?=
- =?us-ascii?Q?EZ8oB40AG0V7vUpLHPGPNLV3T83c8AzipFTTb7E5yyoQdLmISkiUGpKo2Ype?=
- =?us-ascii?Q?OPBHB3ervhpC8eOQdUaJ40UoVQNsbtspC8mroA2igXQW3sQfn0rDAPeKgTV2?=
- =?us-ascii?Q?6jDnxxH3IJ4uKd9Wd9+MKh7GeABw483zQt7DX29k95zNV5aO6RgFmnjfZ8Jc?=
- =?us-ascii?Q?c08huaGgIc7Vo/0ouoFHm7Yx64ok+7m0VvbxvX2W40NtMXdKvyB4p4iynb2h?=
- =?us-ascii?Q?G0U3JZD+hR49MBIQ9+m40QCdpeGHRoTf3wzmzK1Fz5CUsvU1ts5JdI6cDV8M?=
- =?us-ascii?Q?Kwji0tlJWV57vOtvFnrbgiCNWlyRpzNQ4t1raQwpru/De/2/de9SRvREuVO1?=
- =?us-ascii?Q?0fcuUws4buJmSVVyP0af+vBYtaIU3AxohE822+/jnVQzLgsPFDPki1jQtCkR?=
- =?us-ascii?Q?asmHdTZf5KmSjfdWJxDeKann9byLjXElGpMjsjsg0pf5N178dXNsF8MrsMyF?=
- =?us-ascii?Q?A5J+0NMJlzpLvwMfDu/BitTomvRRQot/46Ff8axSvw+/prqrxVtlSbVFJRYz?=
- =?us-ascii?Q?skvzqDtw2a2KtJy1nlIfVOzO6pN1grhdzjMRj5XyicYmwVC64ixhAk4bJkyC?=
- =?us-ascii?Q?4N72BWBCFtWeJBTWvOjeUG74XyWH0zNV1sW55+S18fZ73Ezc+HqefMpRlUSJ?=
- =?us-ascii?Q?C6UvXAt8ZBaplhYTUOSvOtYogqE+T5VTKiHwmiHf5ZC/3uTrvQtFv0XbE4BW?=
- =?us-ascii?Q?5x6vEE7J+mi1konuTGxFlFR21cN65LiHiUaq0ID4gaaRjfKsOqRNhKXxB/2R?=
- =?us-ascii?Q?43ZOQ+6Gjs4w8dGSo8hzQsy/yxynFtjfEKxfvHHau9HLvIxoLixkyTwPYBPm?=
- =?us-ascii?Q?46QGj9b+B8BCSiGTWkhaKg2Vi0JXZ0wqeJuuRkH6N4Rr4xJePislBcZrVU9O?=
- =?us-ascii?Q?RQb4yfSrWkOG2uSQUvs/tTNoDFohK0G+4vrsnoyDGS1TfBqpHC1rVYy3fPXs?=
- =?us-ascii?Q?AYiQSxR/9FDCQeBRs7dixtxyf1U8HVcXRIpLTOl0Fqjz55eScK3R70yICxsA?=
- =?us-ascii?Q?XK/UbM1buTNSuWBwFusiBXSL+WWFe/1COKl0gfDJqZUfW3Cug42+?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cba74a7d-c6c5-4346-04c4-08df2881e422
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 16:57:25.6003
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hvUc1b2eIO9SLmL7PBSxOzFzDR+jQC7F0sOQmNRVLcOlYXeonmAABCTyVLM9hifGW0l1eFLdnxSooaGEHzVajH1uYDt6Jsqbtuxjpc8wsCj5QrbOahHmErEIxqWaAkWM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9021
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261010025532.839559-3-almasrymina@google.com>
 
-On Mon, Oct 12, 2026 at 08:30:32AM +0200, Steffen Trumtrar wrote:
-
-subject:
-
-arm64: dts: imx8mp-skov-revc: convert jutouch and tian to overlays
-
-or something,  convert "what" to overlays.
-
-> The i.MX8MP Skov RevC jutouch 10" and Tian 7" variants are pretty
-> similar, apart from the Display and touch controller.
->
-> Move the common bindings to imx8mp-skov-revc-touch.dts and convert both
-> variants to use overlays applied on this base version.
->
-> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+On 10/10, Mina Almasry wrote:
+> TX devmem bindings (NETDEV_CMD_BIND_TX) have no bound RX queues, so
+> mp_dmabuf_devmem_uninstall() never runs when binding->dev or
+> binding->vdev unregisters. As a result, binding->dev and binding->vdev
+> dangle pointing to freed struct net_device memory, and the dma_buf
+> remains attached and mapped after device removal.
+> 
+> Closing the netlink socket after netdev unregistration dereferences the
+> freed struct net_device in netdev_nl_sock_priv_destroy():
+> 
+>   BUG: unable to handle page fault for address: ffff88824ca9b000
+>   Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+>   RIP: 0010:netdev_nl_sock_priv_destroy+0xbd/0x1e0
+>   Call Trace:
+>    genl_release+0xf5/0x190
+>    netlink_release+0xd01/0x18d0
+>    __sock_release+0xb0/0x270
+>    sock_close+0x18/0x20
+> 
+> Add net_devmem_dev_unregister() called on NETDEV_UNREGISTER:
+> - When binding->dev (the physical DMA-capable device) unregisters,
+>   erase the binding ID, clear both binding->dev and binding->vdev, wait
+>   for in-flight RCU/TX readers via synchronize_net(), and unmap the
+>   dma_buf under binding->lock.
+> - When only binding->vdev (virtual device) unregisters while
+>   binding->dev lives, only clear binding->vdev so no new TX sends match
+>   the virtual device while allowing in-flight TX packets on binding->dev
+>   to finish DMA safely.
+> 
+> Fixes: bd61848900bf ("net: devmem: Implement TX path")
+> Fixes: 1abe839b34ae ("net: devmem: support TX over NETMEM_TX_NO_DMA devices")
+> Cc: Kaiyuan Zhang <kaiyuanz@google.com>
+> Cc: Stanislav Fomichev <sdf@fomichev.me>
+> Cc: Bobby Eshleman <bobbyeshleman@meta.com>
+> Cc: Tariq Toukan <tariqt@nvidia.com>
+> Cc: Kaifeng Wang <kaifengw@google.com>
+> Signed-off-by: Mina Almasry <almasrymina@google.com>
 > ---
-...
-
->
->  &lcdif2 {
-> @@ -48,14 +35,17 @@ &lcdif2 {
->
->  &lvds_bridge {
->  	assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>,
-> -				 <&clk IMX8MP_VIDEO_PLL1>;
-> +			  <&clk IMX8MP_VIDEO_PLL1>;
-
-don't mix code style change in this patch.
-
-Frnak
->  	assigned-clock-parents = <&clk IMX8MP_VIDEO_PLL1_OUT>;
-> -	/* IMX8MP_VIDEO_PLL1 = IMX8MP_CLK_MEDIA_DISP2_PIX * 7 */
-> -	assigned-clock-rates = <0>, <506800000>;
->  	status = "okay";
->
->  	ports {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
+>  net/core/devmem.c      | 45 ++++++++++++++++++++++++++++++++++++++++++
+>  net/core/devmem.h      |  5 +++++
+>  net/core/netdev-genl.c |  1 +
+>  3 files changed, 51 insertions(+)
+> 
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index 5e4070b82df44..da7b3e8abaa13 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
+> @@ -169,6 +169,51 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+>  	percpu_ref_kill(&binding->ref);
+>  }
+>  
+> +void net_devmem_dev_unregister(struct net_device *dev)
+> +{
+> +	struct net_devmem_dmabuf_binding *binding;
+> +	unsigned long xa_idx;
 > +
->  		port@1 {
-> +			reg = <1>;
-> +
->  			ldb_lvds_ch0: endpoint {
->  				remote-endpoint = <&in_lvds0>;
->  			};
->
-> --
-> 2.51.0
->
->
+
+[..]
+
+> +	rcu_read_lock();
+> +	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
+> +		if (!percpu_ref_tryget(&binding->ref))
+> +			continue;
+> +		rcu_read_unlock();
+
+You use net_devmem_dmabuf_binding_put below but do not use
+net_devmem_dmabuf_binding_get here.
+
+Also, I feel like rcu_read_lock/rcu_read_unlock dance is confusing. bindings
+are not following rcu lifetimes. Can we race with __net_devmem_dmabuf_binding_free
+here? (xa_for_each returns a valid binding, then before we do try_get it
+gets kfree'd)
