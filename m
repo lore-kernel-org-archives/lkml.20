@@ -1,171 +1,128 @@
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988CE47043A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 22:03:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8167440638
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 22:04:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791842601; cv=none; b=AN77UEuL03h4X2B8AFfm0aAAZ/RWxk+EF3CDpGMeyXzuVXOiydYVvZolbl8xIP228ig8hgAUpOgHO3c/lySWie2IWjPZbDw0WWEGXVtUN2zOoqGFDvdVNFvX0yrKWkc6Ip7L1mbEshTI8oiyX7nZgNfOEHjR6F4dB1lhQvQTX3Q=
+	t=1791842649; cv=none; b=Ajk9eEv/TJD4R6gohkZyDlE1QaWJ0Dp9SzLepzBzQ7FgkP16Y+xmvqkK+CBryd4f79pRujlOh3SiFazRej3JdbTcZcKNpK4gc5sGDVNDJ343u1YjqB5KMrjJ9HABKz4buGEilPhp2yIyiE8v/QxKjLsZnEGJIulxXob3jNSBExk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791842601; c=relaxed/simple;
-	bh=ccgkcMBRb8nQz4mhj6wRp6JfLsMEvJb70e/Z6xow5TU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VqhYZR+/08jcGU/1ezbdlHWO9/Wot45AQq2aTE82c4hcGGUKgYfD4AW/rarRehphZBLCZs7GgVjxdSihtJZvPWPEyiVA6ytl+NGktrgT/iXaxA6mroP6lwvzID36ByTuqzG4hOPGRGu5aAbNHKhE7nxQwyKQvK+BggvJeObhS3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VFtjTjSP; arc=none smtp.client-ip=74.125.82.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791842649; c=relaxed/simple;
+	bh=zopFotP6InvE5vXahu435IY1xh5Ld3G38vL+69ufaEs=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Ol4Z7w6CPFYsdFvm2CQZzpNZrVUw1v3cMlh2bZSS8k19brz/QPDYjnP1qnKK4A4EF0/Rk0GJCgmYbocj+aVjgPA9aRt+YY+AcciWsi2Avh7Cc5bWEuECVY5xbHYqbDaBXZGfXr+dDEfFWvxjUSZgCcNa3Iy1mbiArEO0rgWvss0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OS2+oos/; arc=none smtp.client-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VFtjTjSP"
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-353804b591eso3918079eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:03:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OS2+oos/"
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3548cdfd2fbso3695742eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:04:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791842600; x=1792447400; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NJs555dn0Hiily+4pUme4Llz0sW3A4Uyn/JQ8PM2fk0=;
-        b=VFtjTjSP7l5j2UcUmy2yqHKzg8gTccWrP0jJemfQwFfn06TW4iyHY5WMXmn7P+AIJk
-         kUNE7hgjFnseNrDmb8lgxKixeJYIHpWkQYbsAP1AdG+xq+otdvPIjfSi9RymNG4pT3R9
-         8Cx3HuYUlzgpmenu8TGnfNRYAB+Zuc2kWxKvtd9vYpgzsg8ijLqtc87EMQqqte8ARNpL
-         PQpXsD2pW2OZyOGQIGW6MP8I2gE5w9mSWG/iHACrR0NFvV589dijuQ+1Gv+Bb+bHZgJT
-         b6OAZRyIqIRPHcPZiKm69rw9uOoub5GHceZGvLHxs4NDYs2j0fDgjZ8ZPkD7a6pWSwct
-         VIiA==
+        d=google.com; s=20251104; t=1791842648; x=1792447448; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z6Z8J9t9pgCMILSQ/korquurQDoz6vSJPj6ZETdqQUQ=;
+        b=OS2+oos/R2ZQ8xaSSqTPspiTxMbngrZfnj3P08BMUuJ1sh5PcdCx2hZmnyX8Y/tKmT
+         Sj4IaiTIJcCc+5HLgKjOGIzSTrmQfcbSkWn+OfThJB5QVV5UJsAkazqgyJRVQ8X7PRn2
+         LSOnyvwfseSry92lvbsn11ObF7m9C023cxDp4Dt2LkFPGOboINXX/i5PLt1BKGtKlNZX
+         XnMwd2Iblsl3ZiJLunrTuKLZdAYcF9o2mjANgNEcQu1esSF2cfeuHyb6ifeKlYz8quLK
+         tuY4+bHwCa5YXyrijHqzQz50lHWNRFUIVnun7cKoVpvEClH+9hbUx57dsOLpt2vuZBhx
+         skfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791842600; x=1792447400;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NJs555dn0Hiily+4pUme4Llz0sW3A4Uyn/JQ8PM2fk0=;
-        b=ZJZi7wMfewjFZjUP52IML/eHQQ+hoMINUt7uJihOL5rNv4PJZxpnGBKkus+3r9TtRi
-         1K9ugwgKmRWQ2Atk2l6kULw68YjgzWE3xshlqkXwyb17CwvXL+E16XEUtd5XGsS6EsLf
-         0MUd1ytQCnMlwPDoNG50iXS71w6DDOvsGKUYJFTfS9xVpsoQ6TW6bUfZjOcvbGXb2gra
-         5XZwp/HgRqTNKiPNzyG21bRu4jcX9ivm0UqF5mWcX3B1tZ6m4oVSQfpxOUje2rkDHc57
-         o4Vwp94X0w9IdcDWjGxwfCythlYrs5O47/pSxW4UWccWkEuvs8sIUVl1mSeQCfEm72Ox
-         ntTg==
-X-Forwarded-Encrypted: i=1; AKwUvBzo8m/EAY0gGCXFN8AgGojev1MH6XU9nBOd2DwZDiwcO9nk5dsjgxeMoBR5DEpGTzLvTbj0mscRgn0zsQ4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoj3gdysMjerkETzu3Z/peOMpwuwVin/2VFbVOWxmPfK7pmh6F
-	QSY1MzYmw/hzhAhoMQ3qIKLwpiVyRGWZ4iJRTwE8ADmIJMnBXNkQvVRO
-X-Gm-Gg: AYBFou3EGJvia00/1jIljuv+X8r891F4D7bfA7AI3tRRANH9YnjOakb2VTpgKGSStL9
-	BNp9QwLUYgkM626A1z96Zu8BVvRsljIbFp7dd+DbnP8OsSVIexkc3eksRedANDbb1QA2qjpgoyV
-	01npGX40mDhItI1R+nqssZu0BcBVkjiy2ArwXanrQlEgm03QGeE+QcSPhc6SdvfrgsG+an3N6K5
-	OBt/psz/f5vMcZyveQccrQD3gpgt6IhMyFKAjUyJ5pM3mjtt3T555Igrced/2SZt0YNdop1x8mQ
-	P3tJiJM3iM35F3JbHN1grBN1EUTVUs/4UU29cA3/IOVqAi59BeOM5aYlBjNX6dkRAiw8rqqgvIS
-	GjP7znF8p+GGRErKHsnoZtM0Z5AIEt3OQ4SrNstJO5bMSsZjV42bVJWwbW4nmWwGW12j9Y0pRHI
-	WjSB3sg9ue0M2+CtV/xAL6OY/WTMEoXPZNtt+X0VnH3S9ZiaqnUvXlCQ5Dl1bV7kMPXPv3itmvb
-	FW75w==
-X-Received: by 2002:a05:701b:42c5:20b0:151:2e62:fe4b with SMTP id a92af1059eb24-16a5c8d48ecmr14556937c88.23.1791842599340;
-        Mon, 12 Oct 2026 15:03:19 -0700 (PDT)
-Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a2d2db98sm31002276c88.10.2026.10.12.15.03.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 15:03:18 -0700 (PDT)
-Date: Mon, 12 Oct 2026 19:03:40 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Kanak Shilledar <Kanak.Shilledar@axis.com>,
-	"andy@kernel.org" <andy@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>, Kernel <Kernel@axis.com>,
-	"macromorgan@hotmail.com" <macromorgan@hotmail.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"joshua.crofts1@gmail.com" <joshua.crofts1@gmail.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"jean-baptiste.maneyrol@tdk.com" <jean-baptiste.maneyrol@tdk.com>,
-	"dlechner@baylibre.com" <dlechner@baylibre.com>,
-	"nuno.sa@analog.com" <nuno.sa@analog.com>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"jic23@kernel.org" <jic23@kernel.org>,
-	Henrik Grimler <Henrik.Grimler@axis.com>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>
-Subject: Re: [PATCH v6 1/6] dt-bindings: iio: imu: icm42600: Add ICM-42670-P
-Message-ID: <as1ZPOocclBgYkko@debian-BULLSEYE-live-builder-AMD64>
-References: <20261009-b4-inv_icm42370p-v6-0-e53884f185ff@axis.com>
- <20261009-b4-inv_icm42370p-v6-1-e53884f185ff@axis.com>
- <20261012-adventurous-corgi-of-fury-01219b@quoll>
- <fd4181c7e2f48e3c64530340ae1a02adde1f342e.camel@axis.com>
- <da8b6047-419b-4c3d-8416-e5c871ea4dec@kernel.org>
+        d=1e100.net; s=20260707; t=1791842648; x=1792447448;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z6Z8J9t9pgCMILSQ/korquurQDoz6vSJPj6ZETdqQUQ=;
+        b=q7HvYFV7jeghCKhFlNXAtRQk56O414vX48pk4fIe5PQHV5prTMpFx5xzFCSb1wmve8
+         nGBPYHoRh9EwQppssVWFJhDI2PxTLrehX/o60oCdvIPQpb45Ybyw8ESVW58BHboAqbOf
+         OXZ0IC2MO0KU1xjvpfr+V+dQBOvT9DSBG7xi0aSxUYWgCCvOhZVaJymiraZkocq/ur3I
+         hNWluKmJ9CuYdPEjNI7NrPY+WnFazxdCJafSVPuyy7ellbGbf39XtPP3bwXqIEK4qOJk
+         8giPtjNiptIex/E7JXL+lQBASSFV8UyHgmK0S7Z3MtsD3k4bzPp6LMDqEEHJrg3ni9QS
+         //Sw==
+X-Forwarded-Encrypted: i=1; AKwUvBzDNS7DQVP96Deba92UUhMIriasTAdiDdwWNVHRwwZhz91dL6NroFQQXORshdaa533lhydadua4BivcTbE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHChkkAnSFerqqXr5kukJQapl8ZiBqf1sMhf0Wjj+QwIb9m5D7
+	6Fc5ep6ERSrqcYY1f6NglONpkBXY7SnxKLbxT/kAV8FczsHsrlmPGshRQbyBGUuHvH9HCAVBU2O
+	6kocvhS8dzQsBMMXavU9dUmPATO6OjDjzjQ==
+X-Received: from dyaz26-n1.prod.google.com ([2002:a05:693c:639a:10b0:341:7ee9:6f78])
+ (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7300:8245:b0:35a:7464:6159 with SMTP id 5a478bee46e88-35a74646242mr5566349eec.34.1791842647411;
+ Mon, 12 Oct 2026 15:04:07 -0700 (PDT)
+Date: Mon, 12 Oct 2026 15:03:54 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <da8b6047-419b-4c3d-8416-e5c871ea4dec@kernel.org>
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAElZzWoC/x2MWwqAIBAArxL73UJa9LpK9FG22oKYaEYQ3T3pc
+ wZmHogUmCKMxQOBLo58uAyiLEDtizOEvGUGWclWVEKiV0y4H6e3yaBL1gbS2OtmkWoQa00d5NR nyfe/neb3/QBk3J84ZgAAAA==
+X-Change-Id: 20261012-pcie-hotplug-nullref-8f4a2c91b3e7
+X-Mailer: b4 0.14.3
+Message-ID: <20261012-pcie-hotplug-nullref-v1-1-6e21c2e89ea4@google.com>
+Subject: [PATCH] PCI: pciehp: Fix NULL pointer dereference in pciehp_configure_device()
+From: Priyank Rathod <rathodpriyank@google.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Lukas Wunner <lukas@wunner.de>, Niklas Schnelle <schnelle@linux.ibm.com>, 
+	Ricky Wu <ricky_wu@realtek.com>, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Priyank Rathod <rathodpriyank@google.com>
+Content-Type: text/plain; charset="utf-8"
 
-Hi Krzysztof,
+pciehp_configure_device() calls pci_get_dsn() on the result of
+pci_get_slot(parent, PCI_DEVFN(0, 0)) without checking for NULL, unlike
+the sibling call sites in pcie_init() and pciehp_device_replaced() added
+by the same commit.  When hypervisor_isolated_pci_functions() is true
+(e.g., Jailhouse or LoongArch) and a non-zero function is hot-added
+without Function 0, pci_scan_slot() returns > 0 while pci_get_slot() for
+00.0 returns NULL, causing pci_get_dsn() to dereference a NULL pointer
+in pci_find_next_ext_capability().
 
-On 10/12, Krzysztof Kozlowski wrote:
-> On 12/10/2026 12:43, Kanak Shilledar wrote:
-> > Hi Krzystztof,
-> > 
-> > On Mon, 2026-10-12 at 10:58 +0200, Krzysztof Kozlowski wrote:
-> >> On Fri, Oct 09, 2026 at 04:12:06PM +0200, Kanak Shilledar wrote:
-> >>>    It has a configurable host interface that supports I3C, I2C and
-> >>> SPI serial
-> >>> -  communication, features a 2kB FIFO and 2 programmable interrupts
-> >>> with
-> >>> +  communication, features up to 2.25kB FIFO and 2 programmable
-> >>> interrupts with
-> >>>    ultra-low-power wake-on-motion support to minimize system power
-> >>> consumption.
-> >>>  
-> >>>    Other industry-leading features include InvenSense on-chip APEX
-> >>> Motion
-> >>> @@ -28,6 +29,7 @@ properties:
-> >>>    compatible:
-> >>>      oneOf:
-> >>>        - enum:
-> >>> +          - invensense,icm42370p
-> >>>            - invensense,icm42600
-> >>>            - invensense,icm42602
-> >>>            - invensense,icm42605
-> >>
-> >> Why aren't the interrupts required?
-> > 
-> > The interrupts are only required if using the device is used in
-> > buffered mode. Which will be added later and the dt-binding will be
-> > updated when the buffer support is added. Currently, the device works
-> > without any interrupts.
-> > 
-> 
-> That's misleading or confusing. Either the device works or does not
-> without interrupt hooked up. Consult hardware datasheet if in doubts.
-> 
-> Driver support is different thing here and you cannot make it required
-> later, because that would be unjustified ABI break.
+Guard the pci_get_dsn() call against NULL and reset ctrl->dsn to 0 when
+Function 0 is absent so ctrl->dsn does not retain a stale value from a
+previously removed device.
 
-I looked into icm42605 data sheet and saw no clear statement about the interrupts
-being required. The timing diagrams only show protocol specific lines and it
-looks like the interrupt sources can even be disabled (not routed out to any
-interrupt pin). Maybe I'm missing something and the interrupts are required for
-some sort of reset function or so? Otherwise, I don't see how the interrupts are
-required.
+Fixes: 9d573d19547b ("PCI: pciehp: Detect device replacement during system sleep")
+Cc: stable@vger.kernel.org # v6.11+
+Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
+---
+Verification notes:
+- Commit 9d573d19547b added 3 pci_get_slot(..., PCI_DEVFN(0, 0)) +
+  pci_get_dsn() sites in pciehp: pcie_init() and
+  pciehp_device_replaced() both guard against NULL, while
+  pciehp_configure_device() omitted the check (the only unchecked
+  pci_get_slot() call out of 21 across drivers/pci/).
+- On bare metal (!hypervisor_isolated_pci_functions()), missing fn 0
+  breaks out of pci_scan_slot() immediately with num == 0 (-ENODEV).
+  When hypervisor_isolated_pci_functions() is true, pci_scan_slot()
+  scans fn 1..7 and returns num > 0 even when 00.0 is absent, so
+  pci_get_slot(parent, PCI_DEVFN(0, 0)) at line 75 returns NULL.
+- Using "ctrl->dsn = dev ? pci_get_dsn(dev) : 0;" also avoids keeping a
+  stale ctrl->dsn from a prior hotplug cycle since
+  pciehp_unconfigure_device() does not clear ctrl->dsn.
+---
+ drivers/pci/hotplug/pciehp_pci.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Kanak, do you have access to any of those other chips to test whether they work
-without interrupts? If possible, can you also check the data sheets for the other
-parts besides icm42370p and icm42605?
+diff --git a/drivers/pci/hotplug/pciehp_pci.c b/drivers/pci/hotplug/pciehp_pci.c
+index 65e50bee1a8c..5f9e8044ea5b 100644
+--- a/drivers/pci/hotplug/pciehp_pci.c
++++ b/drivers/pci/hotplug/pciehp_pci.c
+@@ -73,7 +73,7 @@ int pciehp_configure_device(struct controller *ctrl)
+ 	down_read_nested(&ctrl->reset_lock, ctrl->depth);
+ 
+ 	dev = pci_get_slot(parent, PCI_DEVFN(0, 0));
+-	ctrl->dsn = pci_get_dsn(dev);
++	ctrl->dsn = dev ? pci_get_dsn(dev) : 0;
+ 	pci_dev_put(dev);
+ 
+  out:
 
-Maybe
-  - if:
-      properties:
-        compatible:
-          contains:
-            enum:
-              - invensense,icm42600
-              - invensense,icm42602
-              - invensense,icm42605
-              - invensense,icm42622
-              - invensense,icm42631
-              - invensense,icm42686
-              - invensense,icm42688
-    then:
-      required:
-        - interrupts
-was a documentation mistake?
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20261012-pcie-hotplug-nullref-8f4a2c91b3e7
 
-With best regards,
-Marcelo
+Best regards,
+-- 
+Priyank Rathod <rathodpriyank@google.com>
+
