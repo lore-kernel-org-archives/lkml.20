@@ -1,359 +1,144 @@
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010057.outbound.protection.outlook.com [52.101.201.57])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1D34B5CA2
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823443; cv=none; b=NWfo2px8HZUPL9MfN/nPAZwhTw5RYKBIOB0Tf6Lk6C1oqiMSEKdLnXhF5HM/etoMskQLycEDMhrjkSwxa+msOhUXYT54PHL2tfY2lwXsgp6Ocfus9P5yDHy1OeWlX0yXFMQ118tDzSgm8wLQuze6j1LplgzeTEFM7VlGQTeI5LU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791823443; c=relaxed/simple;
-	bh=quQwnIj6OIrZnBodtas8IUiIPPeHDprJ/iM/6DxR2UY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c28cgJroHx8yAO0DwOdBe3H63PVAv07vcSyerXGo9RSHyX5DlqoIpTolwjnp4rqOAUiqItx3yPyQxSfs1z7LZHBkdojoZuz6XxKOXChPbf0GHOJ3asG/zisgzC4ofB0OKMNBA/wBMBjPpoVZAcuXo43DFLbgAJ/LafX1KzRUoJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=RknHItLs; arc=none smtp.client-ip=209.85.219.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F363F329F
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791823447; cv=fail; b=DESVWsmA9LbUDlMaBB28/IY3DzTIryJz+UZPkJ7f/SqNIpieYcCFuYpZXum62j/bB3PN7+gcfuXEGMpbFmnxmUfbT+M0VuWrFhuu2QV7O/qMFvIB5NSQifWnnvCSBJuDHBbhH4jvtRr9t66I1Njp1V9IicO9CI7rpL6GHLoCHzM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791823447; c=relaxed/simple;
+	bh=PbSn1rWwjus53SJSt2b2JT2TyXG/4CkQpPY75cMZ/qs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=hdIkde0boy/EHmT/gmXGwpBTLVFm0DURvpSEeFqXdb4rYwVozDBbZqyGuMhod8GXW6tqmEn62n6WrY7hHCn3iKBBYz7vkqvA6Ul2bLZ8Oa0i8qKNBzIOMlxcrZuHiS5b0PgVyqaitVsfZSqqKMUqZZm/l+1BG4r/AAvMVnuCfg4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=AS0SFEVK; arc=fail smtp.client-ip=52.101.201.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="RknHItLs"
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-917997ab0d9so28190456d6.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:44:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791823439; x=1792428239; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8gdCTGKWsCIcwZXjnFbmDDgPCpqAVnX/FbE20RWWDCc=;
-        b=RknHItLswxJh7MSUdPfJMzf6kNyJcN27EkV91MD5gP8QiI31AL06SCPoGbqQk2OcG3
-         0EHOhQjClRZjJ3uEBOVjx7hoDHHdnggMM8VKu5OU6teALls5Aa63X5hcluwcb5jFuaJQ
-         0NkqQHYja/upnwXno4GLzdRx00vPi84aXJXQWQK2VsuUXOFyEr19F+MbeECFoWr1W9g1
-         iiAP0JT/vx4JTu7aS/YfodRU9Bmu0BQmXBN3XdlX7ZEkkcqmH567yQ4RGW+eTrSkGq2+
-         HhXad1c2CX1BnVXgXLdsQfVf40yHHGFmNlnZyBNILRNe+V9X+T4v2Y3DUHDSe6uPsevH
-         Yvjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791823439; x=1792428239;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8gdCTGKWsCIcwZXjnFbmDDgPCpqAVnX/FbE20RWWDCc=;
-        b=mD2NXippznol3e6l3nalpVyS54ktsmQQtzkdjznSLGJBnDIVlowXq8RPpy9xKRofk2
-         FvTmjHNUtZNYxbKwRuFaRpwz4UYYjvyAEdBigmK+dj5JFTpk9lWzS+sDQSIUOHqRVwHc
-         uB4bZzPNvz0PooN5hJNUpVyYUt4dp+fTvsKsMsQ8cFqmY6Jd7xjDr5GhyhnlLZD3kb0+
-         EZGPAmwsjob5D+0qNXzklAy1PqFk14AClwUEu0E8/Q50AseXQ+a2Fzm1HhuyWCSBS0zB
-         hsTZc9nKdHcvdtZiF3n/CQezwnUqCAd/UEoMr/5nDfWVtThjNZgfJHroefgXWgvSF2W3
-         dEsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzbiPvDkkq9SXkRLqJ3xD7/IprqO4iE38WS4IkMSsSwTgAGWrO6bGEckI+N8ozUIwLUF4zf60HNoJlFkRk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLINRzP9YXYeSmV2fQqyq/iXmv/KjoBcsNrZCNTtlAqke4+fkuU
-	LhvJQjj8eqtkktOLaq+yxDnMwZqFeZJw4vL5/vWGdJxzSucKLTRhYhFPZoIDya1OBnI=
-X-Gm-Gg: AYBFou003nOfHTaJLMOiD9gx+jXiEEkK6LiNZnbhVQSyfF3Itiv0jc0n64idjBr7O3O
-	/XrEFF9dY6sOebeW3CMQdYD6DjSMyB7/fp0ElgacDjfslo+36JoMU8/b9WXXlribdYHgRRjRjZr
-	DrnPk1RQBb2OVUcs6rnNIrBCddOVlHe0yNJ8ZOQ5FC8m0jcSYHQDuxeq4DlA3HFrUwe/jwEgQ0z
-	jj5EIbtsAqWtQJy7w2CMizhzpmTvD7ZRf/WOEX8Tk7bCkut9Fp9on3YsM4ymMWW70LYyRgpzbz8
-	XypN/n2XVvaQFRPcp9o/6pF0LCc3jzEsJDXEx7WZjlqnX7ysNvmQO2oJEFNWxfwCBYuHsdQd+Mv
-	6t3bhvyOgxkUMbH8IIFyv6+z+L+6GXsPDhMef/Vb6DJH88McGA7EoEbDHpkZCjwYd9zaX0cLnyF
-	Tp5hlvdglyoxUd5f1/S9HLHSS/ZCUgNdgeRiUmdn+hn/RaxjsG2tCKRMQ2SH/iyIcK6aM4I3a7A
-	Kp8
-X-Received: by 2002:a05:620a:3720:b0:93e:5dcb:eb9b with SMTP id af79cd13be357-93ebd24ecabmr1839177685a.42.1791823439341;
-        Mon, 12 Oct 2026 09:43:59 -0700 (PDT)
-Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5090050sm24998885a.40.2026.10.12.09.43.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 09:43:59 -0700 (PDT)
-From: Alex Elder <elder@riscstar.com>
-To: p.zabel@pengutronix.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com,
-	danielt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daniel Thompson <daniel@riscstar.com>
-Subject: [PATCH 2/2] reset: toshiba: introduce a TC9564 SoC reset driver
-Date: Mon, 12 Oct 2026 11:43:53 -0500
-Message-ID: <20261012164354.3872326-3-elder@riscstar.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261012164354.3872326-1-elder@riscstar.com>
-References: <20261012164354.3872326-1-elder@riscstar.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="AS0SFEVK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oYG86FvHAaCG0zFLyxFM0ky1GS+LmO6ZyGOU6v/+WUwKbi2Ry7IEfIpNMWdDz1gMJ7lGetLiT9nv5Zxh+cXLzXSyFSpN8m0tZ7z43C/1IFWzpW4/5t2QoY0KJWl1ZR5BuVsy8DK31pmHcH6SavPVKkU2ULyy9As1nf4cZzScxrgXB+tGzXjsLF7W99FsTGE+H6X83ND5Z71+iN2ol1jvY3r+lCbdLByo6KAu2MTZQ3rTh2rB0Y+yy/wPawjVobcxOtSpbQI+0Ms+l7x09dqt2PxiFCjoGcO/j/O6g0tXNF8VE0oGq8sf3h/Bu2TIbNaEuQhUHmke8h5gyenQJYtLsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=x6ycvoK0mY7fJ1RJe/3MsiMrJ/HB/V9u19f5ZVoOxgw=;
+ b=TueHqGdNBRXJ6Hb0tMabZOBhC1ydgLEdfb0uqseg4ShltuSZIolc8SyayoMU/wS5hl6v0JhV8UokXUqQb2BjXXjTCB7q4JIx0t8qfnuG4KoeIT7ECP5n67FncPyZ976w++S8YIybNKUZAY+A9ea2aLnAhnj3nyJYeFHaEeSVE91YPXshHLOVdUTrb8qoyeMiBm0ctiUK19nQUNIluKw06XJZ50Gm14LDIK5AQWUZX4sfIzxyBUxcFADabg8PJIkKzj3+MTh1pOq+kJSS7ucklxqNAJLWeHcs2IAsmlLzzT5rvLnQ8K1KoXuBX83ATXJhw9K3Q26tcwRIWJx+31XHag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=x6ycvoK0mY7fJ1RJe/3MsiMrJ/HB/V9u19f5ZVoOxgw=;
+ b=AS0SFEVK3Veu3EbMaNQ/63TkPmb5DvZOd2b5VPLNPMqoF/k5zStBjSAUDCHCffxncoeTTSaCGpxC7T8B1WLWUe1nKSJTWOOenPzBlBnpzcxvkGg/NlyCMdVE85KnJwu/fLnPUOX/V+zJjA5oJKLaGQgLnKpqNJ2zTXNSmEHDX1Y=
+Received: from DS0PR17CA0005.namprd17.prod.outlook.com (2603:10b6:8:191::6) by
+ CY8PR12MB7538.namprd12.prod.outlook.com (2603:10b6:930:95::21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.17; Mon, 12 Oct 2026 16:43:57 +0000
+Received: from CY8PEPF0000005E.namprd21.prod.outlook.com
+ (2603:10b6:8:191:cafe::5e) by DS0PR17CA0005.outlook.office365.com
+ (2603:10b6:8:191::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon,
+ 12 Oct 2026 16:43:55 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY8PEPF0000005E.mail.protection.outlook.com (10.167.247.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.0 via Frontend Transport; Mon, 12 Oct 2026 16:43:55 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
+ 2026 11:43:49 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
+ 2026 11:43:49 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Mon, 12 Oct 2026 11:43:48 -0500
+Message-ID: <6a124bdc-06ac-79c3-7c26-d9867f9c5abe@amd.com>
+Date: Mon, 12 Oct 2026 09:43:53 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] accel/amdxdna: Reject device heap BO when dev_mem_size is
+ not set
+Content-Language: en-US
+To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
+References: <20261008232416.2646054-1-yidong.zhang@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20261008232416.2646054-1-yidong.zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PEPF0000005E:EE_|CY8PR12MB7538:EE_
+X-MS-Office365-Filtering-Correlation-Id: 077a5b32-bc6a-4e0a-c1a1-08df2880014f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|261009223027099003|11063799006|56012099006|10067099003|22082099003|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	OiAIDkbbsG+mby9udan1xE53+7uXDe0IwAdLfLdyv9JI5g7b3JjNDIZavSfMFuO19cYVVrK9KS/Z2G92YpDZHY6l6p4J96siTKlw9FZSANfAuxjQORJgyLcJtEJFZ8Eu9U//Gh45wcRalbV9aiwrQOp7HtX3BSjvvj3ODoqTirNzz62gOh6Lep4G9be1lsy/SrdPyUEN5UMeBdZG5xFjGvFOC1kPqhUWABOg+njxyT/X2komg0nQQ7Lo+E+Ucx0TsgzBWbf8OLDVskR1eLaXZF9dVBaNwA2+jaBG92pMVLmMONZ81r1ZkZq7kZGX+N+yk0JztB5VgI2YeZqpQ/xi1YbE9QVbgK6VYUCAs3/L8Qv+pn8mBQX1JeIonqqodggCJS+ozUZzTkLiLqNEGK1IExYjwhzmDYIvQ5gEu1FKpap8oqg2QqUXSfd8yOXif7w4eE8eI0EImPpyu9OEwOjrNTPqFe8D6SD+UmFXGSUbFua1cjwe3cobTXmyuboP4jZAPB0zjnL51zCc9pJAP/uA1ol18eWJDG2RQP++Be1v0bKUKdR4R0YzsQJcqIZGhFCd8LXDv/I73Nb35bw8IZWZ/6uwz/G7bdQ46RLMqCP47RD0/6pMdGWbH2rP7CHHzCGNoDfogBOfAgMvHA3VFLP8y8UJuruCojRa04Sx+ZhZHOtDUKOYfyUuvs0LjXYwIP4ldhHavG+3I3dyXvX5NKlgSg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(261009223027099003)(11063799006)(56012099006)(10067099003)(22082099003)(6133799003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pO6GIuF2HyukAQjoVVz9NFnNo2j/qjH1ApfBKa3xGAjQWGr4IeEKOtoh9MM4O5inziut+fGeCy2vq1KpYZ5cITV7W6MfYL7dBr35/ugAcPRk5Gcfiw1qIJQVgFlZqDhhKJ2754Ljc5nRPE2lWNuLndJVsKerpq21Obhg8XfrSNY05vburQBHV7vJiou8iNDp/ttjngTzgXNI2GXvB6mrs8uDMg081ma83+hgeVXXJI/p4PwQ5cPRKa2QJB/WXelwKTJW0TQMV2AvusiOMX0gb18EbqqO/oT4i8Q30fyq8UIemqcozMmMViWRo1iYubdAacv2PGryiBvUBQdwE/OMVe5y07AMoaTsSQxQoWnucJ//PoMrcB55DGrwWSMfmv1Zz9YSF2JVxpB1dUgFOyc3JaSJKDYDe1envHx3bUZYFLZg1u7+0a1pPuaJt6Qfp/Iy
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 16:43:55.1943
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 077a5b32-bc6a-4e0a-c1a1-08df2880014f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY8PEPF0000005E.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7538
 
-Define a new platform driver that manages reset signals implemented by
-the Toshiba TC9564 SoC.  There are 13 reset signals available, although
-only 11 can be controlled.
+Applied to drm-misc-next
 
-Two registers manage the state of the resets.  The registers are
-accessed via a regmap supplied by a system controller, because the
-region of memory accessed is shared with other drivers.
-
-Access to the memory region is provided via a BAR on a PCIe endpoint
-function embedded in the TC9564 SoC.  For that reason the PCIe reset
-cannot be manipulated by this driver (it is assumed to be deasserted).
-Similarly, control is not available for the I2C reset, because the
-PCIe subsystem on the TC9564 relies on I2C.
-
-Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-Signed-off-by: Alex Elder <elder@riscstar.com>
----
- MAINTAINERS                  |   1 +
- drivers/reset/Kconfig        |  12 +++
- drivers/reset/Makefile       |   1 +
- drivers/reset/reset-tc9564.c | 192 +++++++++++++++++++++++++++++++++++
- 4 files changed, 206 insertions(+)
- create mode 100644 drivers/reset/reset-tc9564.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d0eb44079fe17..a8f4982ed1a43 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28185,6 +28185,7 @@ M:	Alex Elder <elder@kernel.org>
- M:	Daniel Thompson <danielt@kernel.org>
- S:	Maintained
- F:	Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
-+F:	drivers/reset/reset-tc9564.c
- F:	include/dt-bindings/reset/toshiba,tc9564.h
- 
- TOSHIBA WMI HOTKEYS DRIVER
-diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-index eda9c698a95f3..b40736368894c 100644
---- a/drivers/reset/Kconfig
-+++ b/drivers/reset/Kconfig
-@@ -358,6 +358,18 @@ config RESET_SUNXI
- 	help
- 	  This enables the reset driver for Allwinner SoCs.
- 
-+config RESET_TC9564
-+	tristate "Toshiba TC9564 reset support"
-+	depends on TC9564_PCI
-+	select MFD_SYSCON
-+	default TC9564_PCI
-+	help
-+	  This enables support for the reset controller embedded in the
-+	  Toshiba TC9564 SoC.  The state of reset lines is controlled
-+	  via MMIO to a region managed by a system controller; this
-+	  ensures access to the region is coordinated between this and
-+	  the clock and XGMAC (stmmac) drivers.
-+
- config RESET_TENSTORRENT_ATLANTIS
- 	tristate "Tenstorrent atlantis reset driver"
- 	depends on ARCH_TENSTORRENT || COMPILE_TEST
-diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
-index 489fafd6bbe3f..6ddded26309ef 100644
---- a/drivers/reset/Makefile
-+++ b/drivers/reset/Makefile
-@@ -45,6 +45,7 @@ obj-$(CONFIG_RESET_SKY1_AUDSS) += reset-sky1-audss.o
- obj-$(CONFIG_RESET_SOCFPGA) += reset-socfpga.o
- obj-$(CONFIG_RESET_SUNPLUS) += reset-sunplus.o
- obj-$(CONFIG_RESET_SUNXI) += reset-sunxi.o
-+obj-$(CONFIG_RESET_TC9564) += reset-tc9564.o
- obj-$(CONFIG_RESET_TENSTORRENT_ATLANTIS) += reset-tenstorrent-atlantis.o
- obj-$(CONFIG_RESET_TH1520) += reset-th1520.o
- obj-$(CONFIG_RESET_TI_SCI) += reset-ti-sci.o
-diff --git a/drivers/reset/reset-tc9564.c b/drivers/reset/reset-tc9564.c
-new file mode 100644
-index 0000000000000..0243c2e0efd54
---- /dev/null
-+++ b/drivers/reset/reset-tc9564.c
-@@ -0,0 +1,192 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+/*
-+ * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/device-id/of.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/reset-controller.h>
-+
-+#include <dt-bindings/reset/toshiba,tc9564.h>
-+
-+#define RST_CTRL0_OFFSET	0x1008
-+#define RST_CTRL1_OFFSET	0x1010
-+
-+struct tc9564_reset {
-+	u32 offset;		/* RST_CTRL0_OFFSET or RST_CTRL1_OFFSET */
-+	u32 mask;		/* Zero means undefined reset */
-+};
-+
-+struct tc9564_resets {
-+	struct regmap *regmap;
-+	struct reset_controller_dev rcdev;
-+};
-+
-+#define TC9564_RESET_INIT0(_name, _bit)	__TC9564_RESET_INIT(_name, 0, _bit)
-+#define TC9564_RESET_INIT1(_name, _bit)	__TC9564_RESET_INIT(_name, 1, _bit)
-+
-+#define __TC9564_RESET_INIT(_name, _reg, _bit)		\
-+	[RESET_##_name] = {				\
-+		.offset	= RST_CTRL ## _reg ## _OFFSET,	\
-+		.mask = BIT(_bit),			\
-+	}
-+
-+/*
-+ * The PCIe and I2C resets are controllable, but we depend on PCIe
-+ * and that relies on I2C, so we don't allow them to be asserted.
-+ */
-+static const struct tc9564_reset tc9564_reset[] = {
-+	TC9564_RESET_INIT0(MCU, 0),
-+	TC9564_RESET_INIT0(MCU1, 1),
-+	TC9564_RESET_INIT0(INTC, 4),
-+	/* TC9564_RESET_INIT0(PCIE, 9), */
-+	/* TC9564_RESET_INIT0(I2C, 12), */
-+	TC9564_RESET_INIT0(UART, 16),
-+	TC9564_RESET_INIT0(MSIGEN, 18),
-+
-+	TC9564_RESET_INIT0(MAC0_MAC, 7),
-+	TC9564_RESET_INIT0(MAC0_PMA, 30),
-+	TC9564_RESET_INIT0(MAC0_XPCS, 31),
-+
-+	TC9564_RESET_INIT1(MAC1_MAC, 7),
-+	TC9564_RESET_INIT1(MAC1_PMA, 30),
-+	TC9564_RESET_INIT1(MAC1_XPCS, 31),
-+};
-+#define TC9564_RESET_COUNT	ARRAY_SIZE(tc9564_reset)
-+
-+static const struct tc9564_resets *
-+rcdev_to_tc9564_resets(struct reset_controller_dev *rcdev)
-+{
-+	return container_of_const(rcdev, struct tc9564_resets, rcdev);
-+}
-+
-+static int tc9564_reset_manage(struct reset_controller_dev *rcdev,
-+			       unsigned long id, bool assert)
-+{
-+	const struct tc9564_resets *resets = rcdev_to_tc9564_resets(rcdev);
-+
-+	if (id < rcdev->nr_resets) {
-+		const struct tc9564_reset *reset = &tc9564_reset[id];
-+		u32 mask = reset->mask;
-+
-+		if (mask)
-+			return regmap_update_bits(resets->regmap,
-+						  reset->offset, mask,
-+						  assert ? mask : 0);
-+	}
-+
-+	dev_err(rcdev->dev, "invalid reset (%s id %lu)\n",
-+		assert ? "assert" : "deassert", id);
-+
-+	return -ENXIO;
-+}
-+
-+static int tc9564_reset_assert(struct reset_controller_dev *rcdev,
-+			       unsigned long id)
-+{
-+	return tc9564_reset_manage(rcdev, id, true);
-+}
-+
-+static int tc9564_reset_deassert(struct reset_controller_dev *rcdev,
-+				 unsigned long id)
-+{
-+	return tc9564_reset_manage(rcdev, id, false);
-+}
-+
-+static const struct reset_control_ops tc9564_reset_control_ops = {
-+	.assert = tc9564_reset_assert,
-+	.deassert = tc9564_reset_deassert,
-+};
-+
-+static void tc9564_reset_assert_all(struct tc9564_resets *resets)
-+{
-+	for (u32 id = 0; id < TC9564_RESET_COUNT; id++)
-+		if (tc9564_reset[id].mask)
-+			tc9564_reset_manage(&resets->rcdev, id, true);
-+}
-+
-+static struct tc9564_resets *tc9564_reset_init(struct device *dev)
-+{
-+	struct reset_controller_dev *rcdev;
-+	struct tc9564_resets *resets;
-+	struct regmap *regmap;
-+	int ret;
-+
-+	regmap = syscon_node_to_regmap(dev_of_node(dev->parent));
-+	if (IS_ERR(regmap)) {
-+		dev_err(dev, "failed to get config regmap\n");
-+		return ERR_CAST(regmap);
-+	}
-+
-+	resets = devm_kzalloc(dev, sizeof(*resets), GFP_KERNEL);
-+	if (!resets)
-+		return ERR_PTR(-ENOMEM);
-+	resets->regmap = regmap;
-+
-+	rcdev = &resets->rcdev;
-+	rcdev->ops = &tc9564_reset_control_ops;
-+	rcdev->owner = THIS_MODULE;
-+	rcdev->dev = dev;
-+	rcdev->of_node = dev_of_node(dev);
-+	rcdev->nr_resets = TC9564_RESET_COUNT;
-+
-+	ret = devm_reset_controller_register(dev, rcdev);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	return resets;
-+}
-+
-+static int tc9564_reset_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct tc9564_resets *resets;
-+
-+	if (!dev_of_node(dev))
-+		return dev_err_probe(dev, -EINVAL, "no devicetree node\n");
-+
-+	resets = tc9564_reset_init(dev);
-+	if (IS_ERR(resets))
-+		return dev_err_probe(dev, PTR_ERR(resets),
-+				     "failed to initialize resets\n");
-+
-+	/* Force all resets to be initially asserted */
-+	tc9564_reset_assert_all(resets);
-+
-+	platform_set_drvdata(pdev, resets);
-+
-+	return 0;
-+}
-+
-+static void tc9564_reset_remove(struct platform_device *pdev)
-+{
-+	struct tc9564_resets *resets = platform_get_drvdata(pdev);
-+
-+	/* Leave all resets asserted when done */
-+	tc9564_reset_assert_all(resets);
-+}
-+
-+static const struct of_device_id tc9564_reset_ids[] = {
-+	{ .compatible = "toshiba,tc9564-reset" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, tc9564_reset_ids);
-+
-+static struct platform_driver tc9564_reset_driver = {
-+	.probe = tc9564_reset_probe,
-+	.remove = tc9564_reset_remove,
-+	.driver = {
-+		.name = KBUILD_MODNAME,
-+		.of_match_table = tc9564_reset_ids,
-+		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-+	},
-+};
-+module_platform_driver(tc9564_reset_driver);
-+
-+MODULE_DESCRIPTION("Toshiba TC9564 Reset Driver");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
-
+On 10/8/26 16:24, David Zhang wrote:
+> NPU3 devices do not set dev_mem_size, since they do not use a device
+> heap. Creating an AMDXDNA_BO_DEV_HEAP BO on such a device hits the
+> WARN_ON(!is_power_of_2(dev_mem_size)) check, which any user with
+> access to the device node can trigger.
+>
+> Return -EOPNOTSUPP when dev_mem_size is 0.
+>
+> Fixes: d76856beb4a4 ("accel/amdxdna: Refactor GEM BO handling and add helper APIs for address retrieval")
+> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_gem.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index f4832337ec31..f14484bc31ec 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -1140,6 +1140,11 @@ amdxdna_drm_create_dev_heap_bo(struct drm_device *dev,
+>   	struct amdxdna_gem_obj *abo;
+>   	int ret;
+>   
+> +	if (!xdna->dev_info->dev_mem_size) {
+> +		XDNA_DBG(xdna, "Device heap is not supported");
+> +		return ERR_PTR(-EOPNOTSUPP);
+> +	}
+> +
+>   	WARN_ON(!is_power_of_2(xdna->dev_info->dev_mem_size));
+>   	XDNA_DBG(xdna, "Requested dev heap size 0x%llx", args->size);
+>   	if (!args->size || !IS_ALIGNED(args->size, xdna->dev_info->dev_mem_size)) {
