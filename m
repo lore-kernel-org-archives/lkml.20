@@ -1,61 +1,42 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148C2424D6B;
-	Mon, 12 Oct 2026 20:10:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD75A4E5357;
+	Mon, 12 Oct 2026 20:13:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791835835; cv=none; b=YeqmyJTYUELkrZcpAMvlWgQDYP2wooCgZpSOL23eXFv6JpHARyhhnQWNC+UtM/jRg6ENhMppOqF+fG8RfcyMEOpuu0q+DoCdPshALtgg+kjcRRKkgwSev4yJBp2eDDkl1KMzRN3CNVcby3VSXffvyUZBc+x0Q/WH/IjLRGgRauI=
+	t=1791836010; cv=none; b=cNjWfAQvlVd65ofBGKEr/IUYSJ+2+AZIsZNZdMwXd8nC8Fx0wPD6bgW/zziURalJin3jPZcLrPr+H3GBFOVmJKTHw3gAsnr6dqcahjiv2lF4lKq2hFKUNIe6Xm2nXBcooGjJRe+89TCdiQ2jLWEuYWCNITqKxkn3boUE7WE21e8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791835835; c=relaxed/simple;
-	bh=6qVl8l0ORmU3qgYKTi/JjagxmTn0oiUeDUJ0XprazQc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J1PZy9t+3QP3a6uQMOLjUDGIfTXl8rzPUr1IE2eDMDkdNE+icCIxCDsADz+ey6w7V7g2wJ3IwkPk9d8gPDQoti7DlwPxmbUCMQtUx0oh0LlFj6SHw62qI6OXl03D30BPJn/BPLksYCF4Sx3zNDwez+O059heADslGKLFPgxeYX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gqCHEcL9; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791836010; c=relaxed/simple;
+	bh=M1Lj5as5bi2C4gscMGK4dz31rWCEL9ULprKscGsuckM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=iPoiiHYS5h2MIc/kjd7s4JhZyiiYcZBHKeoPxzNww81rqMEDMOn/oqwZSsQAqPIGBS2Bn61GXpjBCWjCukLvrIRVxz3ttKcVL9ztOkQMmducynHTg7ZLygJuyXcTapyahwr57ZiP1RF69TDH7X4yp3JQ4IbrQ50ca0eRyzzr7m8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hyoLdGpv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gqCHEcL9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791835832; x=1823371832;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6qVl8l0ORmU3qgYKTi/JjagxmTn0oiUeDUJ0XprazQc=;
-  b=gqCHEcL9QNjdsy8GF1HRHd5Vo5H3k4sgBVN+C8K95TzAw80862UTFEyf
-   WUv1xdNJOs6X/VLL4fjkphTGG7R19BSzy6GMv3L1OaAJ6mBc4m7D1Ia4W
-   urN4twGSOb8Yq5683FfXzSNLlgMrfecYJ9AS/eP8SQc/h2qYFFTybozdv
-   eX4V42u4oNzaq4ynOMfc0uUdX4MPjpXvoANArz+Bspa8zeI18N/DdqKhd
-   c2UJei51r7ozXu8vYe0KmWKDjSvsHEBeFFw8BYVxl9/SIMxwahPy1toju
-   BTVhh7nq+4TaHitaTMX4nNpMQuuvGd8x6yVtVsZMnczEOOkkUFSHNXmD0
-   g==;
-X-CSE-ConnectionGUID: l8ZQV65dSni0yzBgiFPUCQ==
-X-CSE-MsgGUID: 0lQcIzVSQLiqgKdWEzNAEw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="429082"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="429082"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:10:32 -0700
-X-CSE-ConnectionGUID: PwsKfzAyT9aqonhxDHp0OQ==
-X-CSE-MsgGUID: eb+GyynnQTWa/6Qk4kZykg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="1038785"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:10:29 -0700
-Date: Mon, 12 Oct 2026 23:10:27 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	David E Box <david.e.box@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 17/20] platform/x86/intel/tpmi: Use scnprintf() to
- build the debugfs names
-Message-ID: <as0-s6JyjfA2zY-B@ashevche-desk.local>
-References: <20261006183037.1507007-1-sathyanarayanan.kuppuswamy@linux.intel.com>
- <20261006183037.1507007-18-sathyanarayanan.kuppuswamy@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hyoLdGpv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36091F0089B;
+	Mon, 12 Oct 2026 20:13:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791836008;
+	bh=ipfnvz0/kYIxjRDd3MrcP9WRjs1t+zUVD4kVE6VTnwU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=hyoLdGpv1N7sGAm4AzcgqI1HFHbe9lWlVuA3Xsh44J4j5++B7nzx8MNFy6RYzr12C
+	 iwqiQ0OvFbdYiGii4edVrqlWETtX6iGWSl8ifOtoJ3+n2j/P270LtV7sFm5BlcwvAk
+	 dcMkM+/KPOaunj9hNmijb7wT/r6jNqgmKyTqNSvgPJ3i1NPFvzF7pENZhnXP+zYQPj
+	 o346GIOlTfOzowVTN6JWDvHXWlge+N3ggnejNlJgqvW3ji4T4EvdtXpb9TkKr/L/d4
+	 kT0EfCGjux5TZ3AoMUUe+51ASBBzIQgmJcWv8U1FRXNwF9LkyLM9JOzTw7UXyOS3QD
+	 aavAHvs1d6AJg==
+Date: Mon, 12 Oct 2026 15:13:26 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: "Perlow, Jason" <jperlow@gmail.com>
+Cc: "To: Bjorn Helgaas" <bhelgaas@google.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	Oliver O'Halloran <oohall@gmail.com>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	Aditya Garg <aditya.garg@linux.dev>
+Subject: Re: PCI/AER: MacBookPro16,1 test results with Apple SEP ANFE quirk
+Message-ID: <20261012201326.GA1374572@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,20 +45,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261006183037.1507007-18-sathyanarayanan.kuppuswamy@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <CABZrw2H+3yt2Y7xiq6OyAWaJM7P9ox-2nJxoQuJMwoJHLgi+YQ@mail.gmail.com>
 
-On Tue, Oct 06, 2026 at 11:30:34AM -0700, Kuppuswamy Sathyanarayanan wrote:
-> snprintf() is on its way out in favour of scnprintf(). Neither of the two
-> callers in tpmi_dbgfs_register() looks at the return value, so the
-> difference in what the two return does not matter here.
+On Fri, Oct 09, 2026 at 11:38:50PM -0400, Perlow, Jason wrote:
+> Bjorn, Lukas,
+> 
+> I have tested the Apple SEP ANFE quirk together with Lukas's false-alarm
+> recovery fix on two MacBookPro16,1 systems. Both stayed up for over two
+> hours after booting the candidate kernel. The patch is being prepared
+> against pci/for-linus at 79c168e2aa957ed0054c93db17caba653b95e377.
+> 
+> The candidate retains eddba19b8b5f ("PCI/AER: Support Advisory Non-Fatal
+> Errors"), adds 79c168e2aa95 ("PCI/AER: Skip error recovery on false
+> alarms"), and leaves the ANFE mask unchanged only on the Apple T2 Secure
+> Enclave Processor [106b:1802]. The global ANFE revert is absent from the
+> test kernel. The per-device flag approach follows Aditya's earlier
+> proposal, with an EARLY fixup so the flag is set before pci_aer_init().
+> 
+> The test systems are:
+> 
+>   MEDUSA:  MacBookPro16,1, Core i7-9750H
+>   CHIMERA: MacBookPro16,1, Core i9-9980HK
+> 
+> Both ran 7.3.0-rc6-6-t2-edge-apple-sep-anfe-test, confirmed by uname and
+> the kernel banner in each current boot journal. At the 23:24 EDT check
+> on October 9, MEDUSA had 2 hours 22 minutes uptime and Chimera had
+> 2 hours 21 minutes. Their boot IDs were unchanged from the initial
+> successful candidate boots. graphical.target and the display manager
+> were active on both, and neither had failed systemd units.
+> 
+> Read-only config-space checks gave the same results on both systems:
+> 
+>   Function                    Correctable error mask
+>   Apple SEP, 04:00.2           0x00006000
+>   Apple function, 04:00.0      0x00004000
+>   Apple function, 04:00.1      0x00004000
+>   AMD GPU, 03:00.0             0x00000000
+> 
+> ANFE bit 13 is therefore masked on the SEP and unmasked on the other
+> observed functions. No config-register writes were used in these checks.
+> The implementation matches vendor/device ID, not these bus addresses.
+> 
+> Neither candidate boot journal contains an AER/GHES report, kernel
+> panic, oops, BUG or call trace. Neither recorded additional kernel
+> messages after the initial 21:04 checks through the 23:24 check.
+> 
+> The earlier Wunner-only candidate booted on MEDUSA but then powered off,
+> as I reported on October 8. Its retained journal ended before that event;
+> there was no recorded shutdown sequence or panic. The cause of the power
+> loss is still unknown, and this quirk does not establish a firmware
+> mechanism. The combined candidate has not reproduced that symptom within
+> the observed interval.
+> 
+> There are remaining boot warnings unrelated to the reported AER symptom:
+> ACPI duplicate-table/method errors, AMD SDMA fence fallback warnings,
+> HID rotation probe failures, and Broadcom P2P failures. Chimera also logs
+> CPU 0 machine-check records in banks 12 and 13. These warning categories,
+> including the same machine-check status/address records, appear in the
+> previous boot logs. I am retaining them as separate follow-up issues.
+> 
+> This was a v7.3-rc6 test build with the existing T2 driver/patch stack,
+> using Debian Forky GCC 16.2 and binutils 2.47. It was not a vanilla
+> upstream kernel or an identical-toolchain comparison to the older GCC 14
+> release image. Artifact checksums, exact source/provenance, config checks,
+> t2gmux/t2smc builds and imported-symbol CRC checks passed. A generic
+> KVM/OVMF boot also passed; the hardware observations above come from the
+> two physical systems, not KVM.
+> 
+> The T2 team reports that [106b:1802] identifies the SEP across T2 models,
+> but this report covers only these two MacBookPro16,1 machines. I have not
+> tested other T2 models, power-off/cold-start, suspend/resume, reset, kexec
+> or deliberate AER error injection. Physical confirmation of the rendered
+> GUI is not included in this report; desktop service state was checked
+> remotely. The existing release/rescue boot files were preserved.
+> 
+> The patch (enclosed) leaves other ANFE handling enabled and is idempotent
+> across
+> repeated fixup/AER initialization. Please review it as a targeted workaround
+> for the MacBookPro16,1 regression, with the testing limits above.
 
-I believe I asked it already: Why do we care? Do you get any compilation
-warning (assuming `make W=1`)?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks for this!  Since you posted this before Aditya's essentially
+identical patch
+(https://lore.kernel.org/all/20261010172301.12764-1-aditya.garg@linux.dev/),
+I used this one instead.  It's on pci/for-linus for v7.3.
