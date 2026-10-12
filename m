@@ -1,152 +1,86 @@
-Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9748181334;
-	Mon, 12 Oct 2026 08:08:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F5F3BE64B;
+	Mon, 12 Oct 2026 08:08:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791792504; cv=none; b=fPt3Vep8UsVz7eR+KAzjYXrF8BvIE4grYLItL0qYHpSYDvFZro6cPBj5QS7QO1wFNdK6jVnoA+wAj5QtNPT9kmNJM+3sO05j8XhcW5WHbGKJY1NwVY55vOSmyJLlvRuhPovBrTz7XmaTKh2+x3N/G4idoBiHFjJztU27lLAOojg=
+	t=1791792512; cv=none; b=M0NjcUftNMn+hwvD5C3bm64vSdoNm8PBRPrPq1vVsGt89CTKNpZ1IdUzq27moX3bLpf3INGrgJl9V3apZv3UwIRVj3AvgSlyXkmVMg8c9YugmYKggMk4uUNWRSCSvvVEAY+J4Fx2p+NXJGDs33ql6dTC2yL1noRpfc2jHiMVaaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791792504; c=relaxed/simple;
-	bh=VbuUVwRa3q6ixYB746kpqiYxA2CyHawQzNHWHac3nxM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T88cYGKA9t+NvSUE6giqsGFY4qO0yvMugr8YCDdZojYo+yg/54rCRT6E/YwKaX1U2mnG1J1Li3LJw3RJ962rpfhI5N3YLmV4tiJFUH0tmBN+I7Tn93Ly4AYsEA4vIrziZiENZi2D7A5Ia+ame+0ythtEHsaXYKs6UseCv3Rp3yg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=GyxBNE8K; arc=none smtp.client-ip=115.124.30.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791792512; c=relaxed/simple;
+	bh=fUijr6glsKt344ZeX0t8NLHts2AIyJb84PRQM+5wZUg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EvIoZF8l1QRg5h8OFSggs8JeZ/ovy8cjIBTP6eJWaLu5iPjYjZSW2R+MVn1UwUObxD05B48yinP+hbKi1hAyics17K6P6qC0IAol8y4X30A0luQHMStSwZ+JSoZ/Ag5RXWVJuIn8Lt2qEWcE0IHPnCr2hYDfpg5fcYv9wmxv9Qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OGFk++kX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="GyxBNE8K"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791792499; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=D6ifv6a4KKoIiKYJezBRkAhE1P/vLkjB6GL3KBtF0js=;
-	b=GyxBNE8KhdanRPo3VkDWe7EFz/VNszpZhjCzradaIH8Q6Vddf1lROiuLQV+DAMSt2/SRXfe+jQ2zhTfA5RLb6SoNifykA1QEqie2YpfpnBoMyfCab0BCMgifVmH9DRVOTFBnl0riFqlwizkTMMLzHdyyDUUojf/m0/gQGU83zLo=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R561e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=19;SR=0;TI=SMTPD_---0XCd0ksa_1791792496;
-Received: from 30.246.160.148(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XCd0ksa_1791792496 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 12 Oct 2026 16:08:17 +0800
-Message-ID: <882701c0-9016-4fe3-93d0-40853f34f19d@linux.alibaba.com>
-Date: Mon, 12 Oct 2026 16:08:16 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OGFk++kX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D9511F0089B;
+	Mon, 12 Oct 2026 08:08:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791792511;
+	bh=/OOFRPtAFbJXcIK6VVyzE8pqPO2I1iDm9oy3p173wXE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OGFk++kXIhxBrfTe2V9f3UvsG2tBK64VmQUTgBOjaCfCExzgcEp77/JdDoe+AkGcj
+	 u0QHm+gdBoIRUkB1e8Vcr3CCHggl13NF4Qg4S6qwLkiWuoQLY246XKjGGhFV4gwidt
+	 zTKZ+c1QJblStzll5vmQKh+Vua2yrfdT4rpzoiesnHUrHHcsUBk1LnxphAlL+E+Fu8
+	 BCcKsXNkb10GfdA27ni21tsHHy0QVRo56NnRsD4tW/J31sV4pCG1LihqYgO74DQWBX
+	 7QJqbEkJnoxgJdM1MZ+LJEqcR8WR/MAPYsZPB6EJ+Pq0o7R7xMZxEUSfEHauweNkzd
+	 JqZLwnhsl/5Mg==
+Date: Mon, 12 Oct 2026 11:08:26 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Serhat Kumral <serhatkumral1@gmail.com>, haris.iqbal@ionos.com,
+	jinpu.wang@ionos.com
+Cc: jgg@ziepe.ca, danil.kipnis@cloud.ionos.com, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] RDMA/rtrs: Use strscpy() to cache the HCA name
+Message-ID: <20261012080826.GB219304@unreal>
+References: <20261009131715.39217-1-serhatkumral1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] riscv: stacktrace: do not report the walker's own
- frame from arch_stack_walk()
-To: Karl Mehltretter <kmehltretter@gmail.com>, Paul Walmsley
- <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>
-Cc: Alexandre Ghiti <alex@ghiti.fr>, Changbin Du <changbin.du@intel.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Mark Rutland <mark.rutland@arm.com>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>,
- Rae Moar <raemoar63@gmail.com>, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com
-References: <20261010132712.46931-1-kmehltretter@gmail.com>
-From: Shuai Xue <xueshuai@linux.alibaba.com>
-In-Reply-To: <20261010132712.46931-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009131715.39217-1-serhatkumral1@gmail.com>
 
-
-
-On 10/10/26 9:27 PM, Karl Mehltretter wrote:
-> stack_trace_save() uses skipnr + 1 because arch_stack_walk() is expected
-> to first report the return into stack_trace_save(). With FRAME_POINTER,
-> the RISC-V arch_stack_walk() calls walk_stackframe(), which starts from
-> its own frame and first reports the return into arch_stack_walk().
-> stack_trace_save() therefore starts one frame too early. For example,
-> page_owner records begin at __set_page_owner() instead of the allocation
-> site.
+On Fri, Oct 09, 2026 at 04:17:15PM +0300, Serhat Kumral wrote:
+> As the comment states, the HCA name is cached for sysfs. Use
+> strscpy() to copy it directly without unnecessary formatting and
+> avoid interpreting format specifiers in the name.
 > 
-> Move the walker into an always-inlined helper and call it directly from
-> arch_stack_walk(). Keep walk_stackframe() as a wrapper for its existing
-> callers.
-> 
-> return_address() skips level + 3 entries, while the arm64 implementation
-> skips level + 2. After removing the extra frame, use level + 2 so
-> ftrace_return_address() and CALLER_ADDR results do not shift by one caller.
-> 
-> Fixes: 6a00ef449370 ("riscv: eliminate unreliable __builtin_frame_address(1)")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Fixes: 6a98d71daea1 ("RDMA/rtrs: client: main functionality")
+> Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
 > ---
-
-Hi, Karl,
-
-> Tested with the KUnit suite from patch 2 on QEMU's virt machine, clang 22
-> (LLVM=1), on af32da41b032:
+> found by smatch:
+> - drivers/infiniband/ulp/rtrs/rtrs-clt.c:1906 rtrs_rdma_conn_established() warn: call of 'scnprintf' with non-constant format argument
 > 
->    mainline                        stack_trace_save 0/3, return_address 2/2
->    stacktrace.c change alone       stack_trace_save 3/3, return_address 0/2
->    this patch                      stack_trace_save 3/3, return_address 2/2
+>  drivers/infiniband/ulp/rtrs/rtrs-clt.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> A BeagleV Ahead (TH1520) booted with this patch passes all five cases.
-> The stack_trace_save() result on mainline (0/3) was also reproduced with
-> GCC 15.2 and QEMU 10.2.1.
+> diff --git a/drivers/infiniband/ulp/rtrs/rtrs-clt.c b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
+> index 927e3f30483c..c85e22f670ba 100644
+> --- a/drivers/infiniband/ulp/rtrs/rtrs-clt.c
+> +++ b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
+> @@ -1918,8 +1918,8 @@ static int rtrs_rdma_conn_established(struct rtrs_clt_con *con,
+>  		 * Cache the hca_port and hca_name for sysfs
+>  		 */
+>  		clt_path->hca_port = con->c.cm_id->port_num;
+> -		scnprintf(clt_path->hca_name, sizeof(clt_path->hca_name),
+> -			  clt_path->s.dev->ib_dev->name);
+> +		strscpy(clt_path->hca_name, clt_path->s.dev->ib_dev->name,
+> +			sizeof(clt_path->hca_name));
+
+Haris, Jinpu
+
+These names shouldn't be cached.
+
+Thanks
+
+>  		clt_path->s.src_addr = con->c.cm_id->route.addr.src_addr;
+>  		/* set for_new_clt, to allow future reconnect on any path */
+>  		clt_path->for_new_clt = 1;
+> -- 
+> 2.53.0
 > 
-> Without CONFIG_FRAME_POINTER the walker scans the stack for anything that
-> looks like a text address and its start frame is not exact before or
-> after this patch. What return_address() returns there is unchanged: the
-> walk loses one leading entry and the skip count goes down by one.
-
-
-Hi Karl,
-
-As promised in the other thread, here are test results for this series.
-
-Short version: the fix is correct, the KUnit suite reproduces the bug
-precisely, and the whole series passes here.
-
-Testing
--------
-
-Your numbers were collected with clang 22, plus the mainline
-reproduction with GCC 15.2 you noted in the commit message, so I
-re-ran the full matrix with gcc: riscv64 cross-gcc 16.2.0 for the
-first three configurations below and a native gcc 14.3 for the last
-one, all under QEMU (qemu-system-riscv64 11.1.1, -machine virt,
--cpu rv64) on top of your base af32da41b032.
-
-A. base + 2/2 only (tests, no fix): pass:2 fail:3, i.e. exactly the
-    "stack_trace_save 0/3, return_address 2/2" you reported for
-    mainline.  The failures show the off-by-one shift nicely; with
-    skip = 0 the first recorded symbol is the walker itself:
-
-        # riscv_stacktrace_skip_zero: skip=0 first=stack_trace_save count=11
-        #     symbol == "stack_trace_save"
-        #     expected[skip] == "riscv_stacktrace_leaf"
-
-    The two return_address() cases still pass on unpatched mainline,
-    which is consistent with the analysis: the current "level + 3" is
-    calibrated for the buggy frame layout, so ftrace_return_address()
-    keeps working while stack_trace_save() - and everything built on
-    top of it - records one bogus leading entry.
-
-B. base + 1/2 + 2/2: pass:5 fail:0.
-
-C. My v6 reliable stack unwinding series [1] + your 2/2, with the
-    level constant in return_address.c adjusted to the same
-    unconditional "level + 2" as in your 1/2: pass:5 fail:0, with
-    per-case results identical to B (skip=0/1/2 first =
-    leaf/middle/outer, count = 10/9/8).
-
-D. Cross-toolchain check: I rebuilt the C tree with a native riscv64
-    gcc 14.3 inside an Anolis OS 23.4 riscv64 guest - no cross
-    toolchain involved at any step - using the same Kconfig options,
-    and booted the resulting Image under the same QEMU: pass:5 fail:0
-    again, identical output.  The result does not depend on one
-    particular compiler's frame layout.
-
-Please feel free to add
-
-     Tested-by: Shuai Xue <xueshuai@linux.alibaba.com>
-     Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
-
-Thanks.
-Shuai
