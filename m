@@ -1,284 +1,60 @@
-Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.144.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2894AE134;
-	Mon, 12 Oct 2026 16:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F144BD34D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:58:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791824300; cv=none; b=gv07Rc4dC9hykRXuRfcOwWg/UKGPdvkDXoiapwDlyEY5MbgeHoHuMxnVJbN4V7PbJdxxOZQgBKvGnt62BZpLyl7QVTRLrU/36TNvVw9pgvruru+boOgMUtw3Opq9rj2HJ+E8wGQkyYI0B4+G1c6Ab6INQOeYYMS9eEwaVYbg7uc=
+	t=1791824304; cv=none; b=D46DyjzWpcQi7uICMJDwFjLcN8DmOfOiEkUvMWPe0ZvtfsukXRTbDqKw7KqzIMKKfPtd6yReASdO9S/sJ9witZ9++jGkp0ctLA6qpX+EFjiv8IRAPo/K0FLVaZE7lLxqcFpiqjkbfgHdezJiSVINu8PW/CbIzA4+Ii80v+tZwW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791824300; c=relaxed/simple;
-	bh=vUpcsez7CgnIpw4YbzcmYEoAjaaVFIIoSzz7dzlZask=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=aMs0VfX4mw1ED5shAH2BjUj8JtXX/8Ng8UNvUUIOQ91j5TJ8CtA9PNMQmmi+lLA13lbSuYHuvLkUFBTartYNSTXnkZZCQt7y6zbb3sm/dwXOh/+fNpMZBQy1tIsz5iVztC3iiOOE+gjPFosssx5nLMZ8nXnvxXK2W1DjH987/a8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=XAvIrLB8; arc=none smtp.client-ip=192.19.144.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="XAvIrLB8"
-Received: from mail-acc-it-01.broadcom.com (mail-acc-it-01.acc.broadcom.net [10.35.36.83])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 8059AC0000E2;
-	Mon, 12 Oct 2026 09:58:05 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 8059AC0000E2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1791824285;
-	bh=vUpcsez7CgnIpw4YbzcmYEoAjaaVFIIoSzz7dzlZask=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=XAvIrLB8WPb2dhO7ruLj7EVjtdibmdrr58EzFVqeWjcL4o1tmuN3CO/KMS3qjMhYb
-	 5BqNRYJmNn3TJoxovVy9M0YpQfQDKBk0Fx51T3hBR2IPXwD2sUJ++4jSbpvYdyxIki
-	 rBs7R1u5OyRB6LozNuC3xRCkFrTjPZc42Tn7F7sU=
-Received: from stbirv-lnx-1.igp.broadcom.net (stbirv-lnx-1.igp.broadcom.net [10.67.48.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-acc-it-01.broadcom.com (Postfix) with ESMTPSA id 7BDB1AEA2;
-	Mon, 12 Oct 2026 12:58:04 -0400 (EDT)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: netdev@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Doug Berger <opendmb@gmail.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Zak Kemble <zakkemble@gmail.com>,
-	Simon Horman <horms@kernel.org>,
-	Ryo Takakura <ryotkkr98@gmail.com>,
-	linux-kernel@vger.kernel.org (open list),
-	Nicolai Buchwitz <nb@tipi-net.de>
-Subject: [PATCH net v3 6/6] net: bcmasp: fix network filter lookup and wake filter pair allocation
-Date: Mon, 12 Oct 2026 09:56:54 -0700
-Message-Id: <20261012165654.3480668-7-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261012165654.3480668-1-florian.fainelli@broadcom.com>
-References: <20261012165654.3480668-1-florian.fainelli@broadcom.com>
+	s=arc-20240116; t=1791824304; c=relaxed/simple;
+	bh=FF6ZhpSbpqYYcWrrOSIl5oUUCQbPoAZyp8Zl1DPN+jg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=N5wM1MQn56Zj9oZMQ3Pd5QmgGlBVPqvRk47MybVFzXGF2scTTm9LIZNCm68btMiHScTxDJdgF3HlGuqKDkAC1Vhot2lYb5zLqgbzrAVCjS29zJwpM3T7qPCp+wfiFxtwNxsE+B7sXtKaSSwLADBu8swh1wpUJmezUBl21Y1RS1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4e937c5bd4fso2176224b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:58:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791824298; x=1792429098;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FF6ZhpSbpqYYcWrrOSIl5oUUCQbPoAZyp8Zl1DPN+jg=;
+        b=KjTJm3LLOpKltdh+cNGt41vJIhlmfKkwKaTJQ6p/jH/U0b7BTKsAJv9PGkrdqz1pvi
+         8VllOS3slAsNdXE8KfldQ7l7qQ30fGrV6hmxapTsnxhg4n5itUuCdqsEkfgM8/Nerbye
+         XFFyEGRhvcmHZ/YLLOhwCeJpeCQELbjfc67j7A7rkgER0UNFFcO92Gs03bmc/Y30q8+C
+         EMFNuY7YHXKmrPMY5F5SA/i2xH7M9rZht/60heMqsTbFvKN1vzbxqLSkkyNmlSlyOy2i
+         SUd1vu/Nzfpb8XyYoGZaSLjvBFQ9ijNILd7S5FodMTI7HTPoaukVcW0UpihhwlT/30Qo
+         Sl/A==
+X-Forwarded-Encrypted: i=1; AKwUvBzNhCvdGQbuJfeoACc5L6x60NPKjNb5ZnOaAa9SnEKMa1T5lGR+Mdzcorp/ujdBkFS5YtiD8bA/GqNW3Oc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxe5toiyA7WXRiZOzHP6WBdV2TXy2OoKNMP8S/hF0dvQWE8Fyg
+	ttAOD//Ua9eHQcOQKbEDF24AznMiryyYrLYCrFZxYE72Cmav7zSQBJKEUZXBKprpQfT/bPCMwP9
+	9q5n7hdIVkW0D6cacVX/RyBwoTj/VKIVGCYxmI5X2ljNjhyCnGqxk6eXzhWA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:f8d:b0:4f5:98d:d1ae with SMTP id
+ 5614622812f47-50c56915333mr8781127b6e.55.1791824297923; Mon, 12 Oct 2026
+ 09:58:17 -0700 (PDT)
+Date: Mon, 12 Oct 2026 09:58:17 -0700
+In-Reply-To: <CAEfrx+Dh3KTQOhuFOJbErSx8Ct8JGExWeEOsJ0EDLUz0mPxb+g@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6acd11a9.a150a118.27e199.0052.GAE@google.com>
+Subject: Re: #syz test
+From: syzbot <syzbot+181b8b439f5207144b16@syzkaller.appspotmail.com>
+To: spannme41@gmail.com
+Cc: spannme41@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-In bcmasp_netfilt_get_init(), when looking up an existing filter (!init)
-for a specified location, if the filter at loc was not claimed, the
-previous loop continued searching higher indices and could return an
-arbitrary unrelated filter belonging to the port. This caused flow get or
-delete operations on an empty rule location to return or delete an
-unintended filter.
+> #syz test: https://github.com/torvalds/linux.git master
 
-Fix this by checking only the requested location on lookup and rejecting
-RX_CLS_LOC_ANY when !init. In addition, harden wake filter allocation
-and release by ensuring wake filter pair searches stay on even boundaries
-where both entries are free, checking that loc + 1 is free for positioned
-wake filters, and validating parity and bounds on release.
-
-Fixes: c5d511c49587 ("net: bcmasp: Add support for wake on net filters")
-Assisted-by: LLM
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
----
- drivers/net/ethernet/broadcom/asp2/bcmasp.c | 121 +++++++++++---------
- 1 file changed, 70 insertions(+), 51 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/asp2/bcmasp.c b/drivers/net/ethernet/broadcom/asp2/bcmasp.c
-index 972474893a6b..f41a79529f10 100644
---- a/drivers/net/ethernet/broadcom/asp2/bcmasp.c
-+++ b/drivers/net/ethernet/broadcom/asp2/bcmasp.c
-@@ -511,6 +511,13 @@ static int bcmasp_netfilt_wr_to_hw(struct bcmasp_priv *priv,
- 	return 0;
- }
- 
-+static bool bcmasp_netfilt_is_companion(struct bcmasp_priv *priv, int i)
-+{
-+	return i > 0 && (i % 2) &&
-+	       priv->net_filters[i].wake_filter &&
-+	       priv->net_filters[i - 1].wake_filter;
-+}
-+
- void bcmasp_netfilt_suspend(struct bcmasp_intf *intf)
- {
- 	struct bcmasp_priv *priv = intf->parent;
-@@ -524,9 +531,7 @@ void bcmasp_netfilt_suspend(struct bcmasp_intf *intf)
- 		    priv->net_filters[i].port != intf->port)
- 			continue;
- 
--		if (i > 0 && (i % 2) &&
--		    priv->net_filters[i].wake_filter &&
--		    priv->net_filters[i - 1].wake_filter)
-+		if (bcmasp_netfilt_is_companion(priv, i))
- 			continue;
- 
- 		ret = bcmasp_netfilt_wr_to_hw(priv, &priv->net_filters[i]);
-@@ -556,9 +561,7 @@ int bcmasp_netfilt_get_all_active(struct bcmasp_intf *intf, u32 *rule_locs,
- 		    priv->net_filters[i].port != intf->port)
- 			continue;
- 
--		if (i > 0 && (i % 2) &&
--		    priv->net_filters[i].wake_filter &&
--		    priv->net_filters[i - 1].wake_filter)
-+		if (bcmasp_netfilt_is_companion(priv, i))
- 			continue;
- 
- 		if (j == *rule_cnt)
-@@ -583,9 +586,7 @@ int bcmasp_netfilt_get_active(struct bcmasp_intf *intf)
- 			continue;
- 
- 		/* Skip over a wake filter pair */
--		if (i > 0 && (i % 2) &&
--		    priv->net_filters[i].wake_filter &&
--		    priv->net_filters[i - 1].wake_filter)
-+		if (bcmasp_netfilt_is_companion(priv, i))
- 			continue;
- 
- 		cnt++;
-@@ -607,6 +608,9 @@ bool bcmasp_netfilt_check_dup(struct bcmasp_intf *intf,
- 		    priv->net_filters[i].port != intf->port)
- 			continue;
- 
-+		if (bcmasp_netfilt_is_companion(priv, i))
-+			continue;
-+
- 		cur = &priv->net_filters[i].fs;
- 
- 		if (cur->flow_type != fs->flow_type ||
-@@ -659,7 +663,7 @@ bool bcmasp_netfilt_check_dup(struct bcmasp_intf *intf,
- }
- 
- /* If no network filter found, return open filter.
-- * If no more open filters return NULL
-+ * If no more open filters return error.
-  */
- struct bcmasp_net_filter *bcmasp_netfilt_get_init(struct bcmasp_intf *intf,
- 						  u32 loc, bool wake_filter,
-@@ -669,45 +673,55 @@ struct bcmasp_net_filter *bcmasp_netfilt_get_init(struct bcmasp_intf *intf,
- 	struct bcmasp_priv *priv = intf->parent;
- 	int i, open_index = -1;
- 
--	/* Check whether we exceed the filter table capacity */
-+	if (!init) {
-+		if (loc == RX_CLS_LOC_ANY || loc >= priv->num_net_filters)
-+			return ERR_PTR(-EINVAL);
-+
-+		if (priv->net_filters[loc].claimed &&
-+		    priv->net_filters[loc].port == intf->port &&
-+		    !bcmasp_netfilt_is_companion(priv, loc))
-+			return &priv->net_filters[loc];
-+
-+		return ERR_PTR(-ENOENT);
-+	}
-+
- 	if (loc != RX_CLS_LOC_ANY && loc >= priv->num_net_filters)
- 		return ERR_PTR(-EINVAL);
- 
- 	/* If the filter location is busy (already claimed) and we are initializing
- 	 * the filter (insertion), return a busy error code.
- 	 */
--	if (loc != RX_CLS_LOC_ANY && init && priv->net_filters[loc].claimed)
--		return ERR_PTR(-EBUSY);
--
--	/* We need two filters for wake-up, so we cannot use an odd filter */
--	if (wake_filter && loc != RX_CLS_LOC_ANY && (loc % 2))
--		return ERR_PTR(-EINVAL);
--
--	/* Initialize the loop index based on the desired location or from 0 */
--	i = loc == RX_CLS_LOC_ANY ? 0 : loc;
--
--	for ( ; i < priv->num_net_filters; i++) {
--		/* Found matching network filter */
--		if (!init &&
--		    priv->net_filters[i].claimed &&
--		    priv->net_filters[i].hw_index == i &&
--		    priv->net_filters[i].port == intf->port)
--			return &priv->net_filters[i];
--
--		/* If we don't need a new filter or new filter already found */
--		if (!init || open_index >= 0)
--			continue;
--
--		/* Wake filter conslidates two filters to cover more bytes
--		 * Wake filter is open if...
--		 * 1. It is an even filter
--		 * 2. The current and next filter is not claimed
--		 */
--		if (wake_filter && !(i % 2) && !priv->net_filters[i].claimed &&
--		    !priv->net_filters[i + 1].claimed)
--			open_index = i;
--		else if (!priv->net_filters[i].claimed)
--			open_index = i;
-+	if (loc != RX_CLS_LOC_ANY) {
-+		if (priv->net_filters[loc].claimed)
-+			return ERR_PTR(-EBUSY);
-+
-+		/* We need two filters for wake-up, so we cannot use an odd filter */
-+		if (wake_filter) {
-+			if ((loc % 2) || loc + 1 >= priv->num_net_filters)
-+				return ERR_PTR(-EINVAL);
-+			if (priv->net_filters[loc + 1].claimed)
-+				return ERR_PTR(-EBUSY);
-+		}
-+		open_index = loc;
-+	} else {
-+		for (i = 0; i < priv->num_net_filters; i++) {
-+			/* Wake filter consolidates two filters to cover more bytes.
-+			 * Wake filter is open if:
-+			 * 1. It is an even filter
-+			 * 2. The current and next filter is not claimed
-+			 */
-+			if (wake_filter) {
-+				if (!(i % 2) && (i + 1 < priv->num_net_filters) &&
-+				    !priv->net_filters[i].claimed &&
-+				    !priv->net_filters[i + 1].claimed) {
-+					open_index = i;
-+					break;
-+				}
-+			} else if (!priv->net_filters[i].claimed) {
-+				open_index = i;
-+				break;
-+			}
-+		}
- 	}
- 
- 	if (open_index >= 0) {
-@@ -716,16 +730,20 @@ struct bcmasp_net_filter *bcmasp_netfilt_get_init(struct bcmasp_intf *intf,
- 		nfilter->port = intf->port;
- 		nfilter->ch = intf->channel + priv->tx_chan_offset;
- 		nfilter->hw_index = open_index;
--	}
- 
--	if (wake_filter && open_index >= 0) {
--		/* Claim next filter */
--		priv->net_filters[open_index + 1].claimed = true;
--		priv->net_filters[open_index + 1].wake_filter = true;
--		nfilter->wake_filter = true;
-+		if (wake_filter) {
-+			/* Claim next filter */
-+			priv->net_filters[open_index + 1].claimed = true;
-+			priv->net_filters[open_index + 1].wake_filter = true;
-+			priv->net_filters[open_index + 1].hw_index = open_index + 1;
-+			priv->net_filters[open_index + 1].port = intf->port;
-+			priv->net_filters[open_index + 1].ch = intf->channel +
-+							       priv->tx_chan_offset;
-+			nfilter->wake_filter = true;
-+		}
- 	}
- 
--	return nfilter ? nfilter : ERR_PTR(-EINVAL);
-+	return nfilter ? nfilter : ERR_PTR(-ENOSPC);
- }
- 
- void bcmasp_netfilt_release(struct bcmasp_intf *intf,
-@@ -733,7 +751,8 @@ void bcmasp_netfilt_release(struct bcmasp_intf *intf,
- {
- 	struct bcmasp_priv *priv = intf->parent;
- 
--	if (nfilt->wake_filter) {
-+	if (nfilt->wake_filter && !(nfilt->hw_index % 2) &&
-+	    nfilt->hw_index + 1 < priv->num_net_filters) {
- 		memset(&priv->net_filters[nfilt->hw_index + 1], 0,
- 		       sizeof(struct bcmasp_net_filter));
- 	}
--- 
-2.34.1
+Command #1:
+"" does not look like a valid git branch or commit.
 
