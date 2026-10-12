@@ -1,136 +1,177 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+Received: from sonic309-22.consmr.mail.ne1.yahoo.com (sonic309-22.consmr.mail.ne1.yahoo.com [66.163.184.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502AA184A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:07:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2F2184A
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:08:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.184.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791763643; cv=none; b=DGaZyWX2ztHtzjnWoeTwe2W86+NrreHDvYj0vQpMzas6LhLQ05TB0H3lRee0ey2nhGaZUnmf7ycHaCSl2AGwFH9xmOfI4WJhFOkEfjE1VMsUuPXb+2N0x8dnwmlrQsi7ZE6+NZngoaVhnr+9I/Wy6a45/QX31m4oSysbizsmDYs=
+	t=1791763712; cv=none; b=hPmRL5tfDUmYVOC4H3cwiGr7v2gi/IBs0MOjVzqtMfidcc9srWgTvoSui2A2vWnu0YnvjWafRtMIGhP1uKkGtS55vRa7/tprR6sIFmjrxiDqOrvkDiiy4GsLhKKBw1MXtmD8geRop02UK9X7GEAdUObUg43pZinEdIO81BiZetw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791763643; c=relaxed/simple;
-	bh=NvU8lTGY5wOw1EfVIjl8TWYGKj/afTUacaEvubBQpBU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nPBYowstiQmOV2jAYbq85QBIn82b10uPDyCYf8KuQYGI4KKdBHoGbu6S6z2mRPI7EC4ABFs5d9nXm8+010SSSlFj05H/Mf7obX6hthNDxKXMq657eEiymSs99sZ+JtGuv+eexSzJyHyU5jV1qfMdaXLW85F3lu+K2jYB4xLr/BI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JHLGCi3w; arc=none smtp.client-ip=74.125.82.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791763712; c=relaxed/simple;
+	bh=y6VO/zk9PRwxW59Yv1vfAjhh2T4muVBfhBf0Gy8yeuw=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type:
+	 References; b=kLas9LaD9tz0iL6YxEpFRL7kbvRXnn6BNE0PnEZ+hYE21FDt4nbyGFIbBdCA8+OMa79J/Seh8aiLtLdf/qttiKh2RNcJeTSGOlySGbv5zugSZ45C3ULajHyn3+z/I82mzRwOXmTmwA2xGN0gZm1TNS1HREE/VdnxXKih8SwcApk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=kMyUH/OF; arc=none smtp.client-ip=66.163.184.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JHLGCi3w"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so2312409eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:07:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791763641; x=1792368441; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wGay7rJNBB/90A9EPg71UJBrKb3VyPWYiVs9WPdHtBM=;
-        b=JHLGCi3wE1HpryGt4QEax5h2SGR1BDCYrZEcI+S2PWcwcwY9u6HuSxxa+9rFaHRe6w
-         WGVTdgkZ33jqUs2tnVuxerv9T41/+dOFjs77uAttvz+FtPWswPvxi4eD/AfTAJFesARx
-         zuhWC1/Bn515NdKydtZHkE5BOYLb0RzL7KLCkfoIc0njg2WQbPfkQRmoGXWsL9KJ3fHQ
-         mxqZP6DPXP2Ep3zw86F2mS9EWq4Cw5LCkjoSPmb2Rf10pacDBXyTDThuZbPwot1l+JoY
-         Q4fjQ38y9pCEaMWFwx8Rel7iU+KFyX7UvjoyCn1A1tVYI66ahUlHjArfX+DQtmpbrjxm
-         af2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791763641; x=1792368441;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wGay7rJNBB/90A9EPg71UJBrKb3VyPWYiVs9WPdHtBM=;
-        b=i0uSA0oayiceTPCzaD9ECTTrIvK0n7TfzuonS0z2XJpvkv2a2SPjMq+lfPMNC7N8Kh
-         rsw9TToc6hWVe0aAgR+phvaKdSx4DSC+YeOc1Nuh/YgN1yNEytu7JA/02Bwp0/IKUYtH
-         yq1GULjgKgj0dzkIbmkDAHV3iw088bzgehntxSoOcjNWv1PcqcxkfdZ0jXBsLTSZ4suR
-         z9jAhPoWQLNRMdpaQtmqfh7ObQkQ6EtFmuwo7U7lrVWbbQBa//y9hp5KXql45kRLM1Ky
-         Lj221htJt+ckXNXKgBZeDapdHEV/4PUfK9ur01YN6vFko8XrhsWKZEPJiiiZj88Qr9vh
-         0nAQ==
-X-Forwarded-Encrypted: i=1; AKwUvByC7eauLeglJFMiI1Ex4+0B+3PZAJ4o5pmzYSskVbk6LvqFWC+pgzpCGNBRe/6CXFOLQbW9aGQywlrzpPY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJnWNaccHD5ErgoWeOdAlJdqwxCWbNGU35a4n9/LXJB8u5l3I3G
-	jsLb9rIZc9XV8ieLiUsQ6uQFplB3QazDv9qudQj3/EMI39BHqvyqMNfF
-X-Gm-Gg: AYBFou1xbwU0m6YBWk30HhxDFnarLNGV7dXZwgF2Ir0LV/HQ74kLyKawJ1jA/eOm3H+
-	+l6ystvMHMUrQ0rDEahQDp06tV8kHbyG6qaG7xmCnZ2Taa9+OUMi7f5kKzg45XD/J5cpwPQiy6v
-	j22Af8voTrhfDBP5MXwBTwkcG1DsiMBMxi0ItIZH8uR8IAbL1Ak9gjyG0v2iBsGfFL9IeXE/8QD
-	YVWrztFCyYfDPMXdWMB881XFP+yAENOXpuauHFOA/kvTCTFaJyamtDPs45DwGSYU5sG9OhOe7Vm
-	+LXNHBRyjCUOan2d2zIiDpF7p8QRiP2E1oR86uNgpcRucOsGopa5stg8sfdpyDHesNoXa18qoup
-	mRnvZIabKhOUfJRGnYUErg3X5phd5JI9dvhFbMFHKF+x0X3kSW8U52F7yD4tCiuHH/DHDGFHw31
-	XNHeHvz4nOy9EQ51NJHOyp/yGdQzr794Y2MWBG/mjtqzfbVXU9QmP69w/nLb+bYuyI9ngFabs6C
-	Tw5dZFWRCY//hAhY5GGahJR6z9qgtiClQXMO7CxuNJd5MQ/mxE=
-X-Received: by 2002:a05:693c:6218:b0:34d:3ad2:680e with SMTP id 5a478bee46e88-3537df9e261mr12921018eec.14.1791763641210;
-        Sun, 11 Oct 2026 17:07:21 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:8999:e631:ed58:366a])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1ba7esm26650789eec.7.2026.10.11.17.07.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 17:07:20 -0700 (PDT)
-Date: Sun, 11 Oct 2026 17:07:17 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Christian Lamparter <chunkeey@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
-	linux-wireless <linux-wireless@vger.kernel.org>, Johannes Berg <johannes@sipsolutions.net>, 
-	Jeff Johnson <jjohnson@kernel.org>
-Subject: Re: [PATCH] Input: reject parent overrides on managed input devices
-Message-ID: <aswinjw7Ov6auPrn@google.com>
-References: <asmCc1VxVPLIMgY6@google.com>
- <CAAd0S9A6zNJU=BkUgpGtdHBgkcnQ0NyOWb46aDnBuGCf0TKvmA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="kMyUH/OF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791763703; bh=+qyH/Do5H7HZZ3VkNFuAM6orXFG9Bv3NRX1B278lplU=; h=Date:To:From:Subject:References:From:Subject:Reply-To; b=kMyUH/OFYnf/YuoWHD0WJJUHN+TuwFGEqI8P36G6uSnmaNKLGrDI55VvFx5FELlgf3sNKFIPod7fXE6T2m8OQHUz3hHY0uTgR566fNS686UQoASC7TN0TXIuDcxbpK4bu0KyKsrR/FU2BrRLYdix9iHF6nEq7YXQNg9w1D/nHOiLJb+MPikBFPAKI9g1s5pgeCsB7ZtvBWsJ+8TbKZHIrSy2fec5mkmbFzuNPJf5b/i6sCgJDh9cqM4Jpm1n97YyWlD/7nnixWqawLjj9ZlBMTMvYxjNuoako5l504zUG8SG2Q8K8NpbucmrFJTSh45ON9ebgbbOIctD6EKqCxynFw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791763703; bh=6h+zAeuxqjjMQmhOLtOipx28j65aW5X+wWWpCEMg4da=; h=X-Sonic-MF:Date:To:From:Subject:From:Subject; b=QzNtjxAPfVcQKaVuscOUuyrt9lW6x+Vyng7Ibpr8yZh0AeDDnSbRwjP3LCyvpzmgIHbKpNe/TW/3L19zhG+sh4wk5w29B16v9ye4lf0EqAy9zVSGzyIzVMKs9mX1ZwNTsC/9wqwyN0TP3aItqF+P43lzK/M5teNRYeC2/YK+Tu6rM0h0qgWzjA9UrYookUuEetb/xCm056RF0INtPwYXxIzoKVV5Btwdid44dSbpU+RMzQk6SSmlF75tEY62LPyygsorS/SeNY7mq3r6uoLfA7p6Ci7grNVWr6DhOiC7/FEvcuC1m+3CyhJOywHp6FvnSeBguwgC6ttjcX85cEb/Bw==
+X-YMail-OSG: cbLZuEIVM1lsO4.mBVKfZcxXKGizzdQWaRrW1vcGxx8ASTH7IZGUmQFtWWS2_cZ
+ Ja520MgqJalRWy2en1uAgp6RIr0H0NNk8gbk0LSkA2Ts18GC7qh3hXwH_VUK91C_tOQaudlHoVLL
+ Z_P3t7G9iSN6L._Bwmwm8eXLcl74zg6lYJKCtlAIKz0CBpLvVICM_PpH3j07DzDwfuqhE37bGG1X
+ mYz0Z79vsnjA.GQ3c6j5FOn6XRdLotKe0bScpWKIoy3Ft_FqTIISK2vhOUJBAXrmrcR_EfK8lJgq
+ 4P9RAs8XwjeQbHKuRaRMZzjfdUWrxFgR..JeaITl8NGYowq_OVzsI7xJu9gNz30YjEpk..C530WP
+ Mc.sset_qkGLUlHwZ55h1cRqJ6XQbjxA0MZu9vEUyI52kTI6wD5rZYnnYURgoK1r07BniYTd.ZMt
+ rplL2kKHhuTzhRKCKpQ1rT46uSe0Skfpwe1OfK3nzamqGk6nHjnPv2zSSViRvX.CG40qVyb_UP..
+ QbUGGwKDpgBRFXd6ybqqegVggbaTKFbb4Ge2Sfz9zaPqNy809gcaf1pqGqS6g.ts9NAYVb17SVMl
+ ZN8kvZKFmtPn4wE25A6lS_qDO4OXEHfJKyhMIQKMjHR0rxMK4bjhvB9dltkU0saQwFFOVOSMmy84
+ ncN2htl4wBfmZwWdkN.3h0XPDpAjmGY5DHI1EISV3wnBa7aK3c1Qw2J7whAXAyGIeMPEWtGFPZ3n
+ YQqWHl5cdqhNnjbF4.hAGzDQFPlxZf6HVMkV8gXkCvSE0Wi3blDMW2xELYc_U409lfNGwetNiYBo
+ QT59oIPhv3HSsOMYqiGXxH.ifbreekQSEWH9e2wl0ukBLTZEM4WrGDL34wla.ueAIWSf_TsuT5dT
+ zziGGKF5sxBHssh2hZlhZMB2qn9SLUdb4WqZGbW0tRvk5.u71fI10cUPVOpnK.Jg4ifSEaIL8HGf
+ qyPcpxG3lrWdZSBxU_mXu_..mEjNhSN0JQH0YM5XM05SLvXQ0GSJarxPgzH8QSTYKzoqV8ZXgsxI
+ l5kVtm3Ic0pvXVJcBc7kAa.CbunxE41ieDpgvRETjXcC9lFWo76Eg9FqQQfFWVH0QJoRWcS57PxA
+ T66D5Gai5fiRRQeTqG03iti9QihK4GAZC_PyFLYLp0ubbeMQKbD.wj2qeLeqthWVwcnHzJDQT0lz
+ ILZplBYGwJf4JQ1wDp3jYnycrRpLeTgO_gOjJJuJqNdSwibRUY1l_EqryILNHi4PRuVlvtVOm1Tr
+ irIodsPy0SjPSCcjM36nKBvCNe4T9Jl89J_Nb.2cXP1cJnzXLeHn.509lwsGXmRPfpXxGIzApciC
+ gDEh2M8kbHT5psLsGnMe9e5T3xTL53kKg_55jAY.lUThF0lS1xSBdcfXTTMBON1T8l5JHyoWLLV0
+ bk4ZtONVz7k15N0hX0vWDt2vDc0uMc64KWSfGmuM4etJ6FkBM0X.AitYOpIJ69Lsrra.65bHb6_2
+ qZ6ZRIvd98bXlv_oiiW_Bn5B4r2jgWI0goIarmv42KWPhBJDMAGL3BuxCgSAt7R_weKq5Ouj.jgL
+ Mx26HK0_NiiggfcPXaczI7teS.4j27jMbAck3Eb4k.S6PxHrnVrgo14GW4gOUNqyF0JmsFsMCVoS
+ UR1Zp4zgQL0VSMEz9nkXM1uHqZ5GuHe9Cg4fl2tfP5m1qOWQaDfl6U1wnt5D2e7iMH4SLnE6Tt_x
+ ZxyYY11zeywn9mFjvKj.OJz0vEQC5y6h8RKCaXGKM4qtEMB5zbqSsPP.CgEK1s1iS2g2F4A2BNt_
+ 9SJQ14F5IwUsfSAZT8DJxmFkpI8CSW7GLP.1g4ClelFuebrHGI4GeTYcMFOYXEu8uEzEuIGlhek2
+ sTMYtAY74.cMfM_OpwdJhrnY2bxGwHgx2o1vbNcSipGwejctaN8cJg_Sa26u7lqU64qUyQE1ynMJ
+ .ZxpK0CdlQpcPWgtCaZzqSfY9BV9e__Eo1o3SZRJLdWZVFXZU3Hquy_radrPLIa.C8.uTV3amuOt
+ 8TnmxGRHWF1lyeAFQlwEnoGJuGlSWQebsYf7voNpb19QiCs9dVcueuxFBxBdyDxMraNXAqgNI81.
+ 5vJudKrF5NkbJSOmWlaRMZGqfqDKJMbpJiKrs3Om6Xgatt8HcSr1F2iFZYHVcwu96J1odOHo1.KF
+ WFXUtU5.dxZCxGVp.w.IoFIHU2N5ipSl7I_v_oi10pjvocdoN39vk8GtLHqS_mg4pYwt3cvAozxa
+ 7.ILpqSHv_JkUgyT.CpQBfG0UFIjHOk7VHaSUMlGLuuwmCYnOOPboaTlX21zcSH41df_vCy5sS0O
+ .ab5qKFVtXejrZKTG.osbF.4USCwxcyrcP3L2EQ0-
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: b74c2256-2bd5-4182-89a6-0baaa9f2e254
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic309.consmr.mail.ne1.yahoo.com with HTTP; Mon, 12 Oct 2026 00:08:23 +0000
+Received: by hermes--production-bf1-6d6877594b-7jv57 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID db64741de0d526f52593e5ac5ff791a8;
+          Mon, 12 Oct 2026 00:08:18 +0000 (UTC)
+Message-ID: <38872e6f-1264-4a93-9f81-8212173e909d@yahoo.com>
+Date: Mon, 12 Oct 2026 02:08:13 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAd0S9A6zNJU=BkUgpGtdHBgkcnQ0NyOWb46aDnBuGCf0TKvmA@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Content-Language: pl
+To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Subject: [PATCH net-next v4 0/9] net: dsa: realtek: rtl8365mb: add support for
+ RTL8367S-VB
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+References: <38872e6f-1264-4a93-9f81-8212173e909d.ref@yahoo.com>
+X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-On Sun, Oct 11, 2026 at 08:12:47PM +0200, Christian Lamparter wrote:
-> On Sat, Oct 10, 2026 at 5:54 AM Dmitry Torokhov
-> <dmitry.torokhov@gmail.com> wrote:
-> >
-> > When an input device is allocated with devm_input_allocate_device(), the
-> > owner struct device is set as dev->dev.parent and holds the
-> > devm_input_device_release resource. Later, input_register_device()
-> > attaches the devm_input_device_unregister resource to dev->dev.parent.
-> 
-> Ok, why would this be a problem? If something other than the devres
-> garbage collection
-> callback access the data after it was unregistered... what else is
-> supposed to happen
-> other than a crash.
+This series adds support for the RTL8367S-VB (chip ID 0x6642) to the
+rtl8365mb driver. The chip belongs to a new "family D" that differs from
+the existing family C in its VLAN table layout, speed/RGMII configuration
+and SerDes (SDS13) handling.
 
-If the owner is overridden one possibility is that input device stays
-registered while the rest of resources have already been released. Quite
-often it is "name" and "phys" pointers. Since the input device stays
-registered, userspace can access it, which results in UAF scenarios.
-They are reported by syzbot and may serve as an attack vector on a
-device.
+Patch 1 documents the chip in the devicetree binding.
+Patch 2 adds the chip family infrastructure (no functional change).
+Patches 3-4 add port speed and RGMII mode configuration for family D.
+Patches 5-6 add VLAN 4k table access and raw-VID PVID handling.
+Patches 7-8 add SDS13 PCS support and re-latching of the SerDes.
+Patch 9 adds the RTL8367S-VB chip table entry. It comes last, so that
+no intermediate commit exposes a family D chip with incomplete
+handling and the series stays bisectable.
 
-> 
-> for what's worth: this patch seems to be a "spite" response to this:
-> https://lore.kernel.org/linux-wireless/20261008-carl9170-reverts-v2-0-3ecb12089797@gmail.com/
+Family C's functional behaviour is unchanged. The only change in a
+shared path is a mutex serializing SerDes register access, added in
+patch 8. The port count is capped at 8 for family D only (patch 9).
 
-Heh, no. I was simply tracking a syzbot report and I have identified 5
-drivers that do the wrong thing. 4 of them are input subsystem and I
-posted patches and will pick them up through my tree, and one is that
-wireless driver that I posed patches (reverts) fixing as well.
+Tested on a TP-Link Archer AX55 v1 (RTL8367S-VB, CPU port over HSGMII
+to an IPQ5018) with bridge VLAN filtering and per-port PVIDs. RGMII and
+SGMII modes have not yet been tested.
 
-I want to make sure we do not introduce any more such cases, so I am
-adding a runtime check that will fire if someone will try to add another
-such case.
+Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+---
+v4:
+  - 1/9: reword the commit message (support is added by the series)
+  - 3/9: document the per-port force enable register
+  - 5/9: document both forced IVL bits, update stale comments
+  - 6/9: clear the family D PVID registers at setup
+  - 7/9: do not override the forced SGMII speed in pcs_get_state(),
+    update stale comments, note that the patch is preparatory
+  - 8/9: remember a failed restore and retry it first; stop the work
+    after shutdown (driver data cleared)
+  - 9/9: expose HSGMII only on the SerDes port, update the SerDes
+    interface comment
 
-Frankly I do not really care how you will fix your driver. I posted the
-patches that should resolve the issue, you are free to take them or come
-up with your own. This patch will take care of the issue from my end. 
+v3: https://lore.kernel.org/netdev/e84d76ee-03df-49b0-8c9a-b289dfae8728@yahoo.com/
+  - add a dt-bindings patch (1/9): RTL8367S-VB listed under
+    realtek,rtl8365mb
+  - add chip family infrastructure as its own patch (2/9), no
+    functional change
+  - squash the family D PVID getter and the PVID set/clear patches
+    into one (6/9), so the read and write paths use the same register
+    layout at every point of the series
+  - add the RTL8367S-VB chip table entry last (9/9), after the family
+    D speed, RGMII, VLAN and PCS support, so no intermediate commit
+    can reach the chip with incomplete handling (reported by the
+    automated review)
+  - 6/9: fix the commit message (port p's write lands in port p >> 1)
+    and update the stale kernel-doc and file comments
+  - 8/9: start the re-latch work only for 2500base-x, cancel it from
+    .pcs_disable, from pcs_config() and via a devres action; retry the
+    SDS_MISC restore and come back soon if it fails; rewrite the
+    commit message to match the code (reported by the automated
+    review)
+  - 9/9: document family D in the file header comment and in the
+    learn limit comment (limit confirmed against the Realtek vendor
+    API)
 
-> 
-> I think someone else is working on a separate fix:
-> https://lwn.net/Articles/1038523/: "Revocable references for transient devices"
-> With todays Patch-Series V14 on: https://lkml.org/lkml/2026/10/11/475
-> 
-> From what I can tell, this should have been what devres was trying to solve.
+v2: https://lore.kernel.org/netdev/28382f3f-03c1-4606-9b11-86f118abeafe@yahoo.com/
+  - 2/8: mask r_speed to the width of the FORCE_SPEED field before passing
+    it to FIELD_PREP(), so that the family D 2500M value (5) cannot trip
+    the compile-time range check; bit 2 still goes to FORCE_SPEED2
+    (reported by the automated review).
+  - 4/8: the commit message now explains why EXT_TXC_DLY[5:3] is cleared
+    for RGMII on EXT1: the vendor RGMII setup does it, and the init jam
+    table leaves the field at 2, which would add an extra TX delay on top
+    of tx-internal-delay-ps. Add a comment describing the EXT_TXC_DLY
+    layout (Andrew Lunn's review).
+  - 8/8: document the new struct rtl8365mb members in the kernel-doc
+    comment (sds_lock, sds_relatch, sds_relatch_count,
+    sds_misc_target_val), which fixes the kernel-doc warnings.
+  - 1/8, 3/8, 5/8, 6/8, 7/8: no changes.
 
-No, not really. It solves different use case altogether.
+v1: https://lore.kernel.org/netdev/84fc7483-b22d-45ea-a3b8-3285dc357265@yahoo.com/
 
-Thanks.
+Mieczyslaw Nalewaj (9):
+  dt-bindings: net: dsa: realtek: add RTL8367S-VB
+  net: dsa: realtek: rtl8365mb: add chip family infrastructure
+  net: dsa: realtek: rtl8365mb: set speed for family D
+  net: dsa: realtek: rtl8365mb: set RGMII mode for family D
+  net: dsa: realtek: rtl8365mb: set and get vlan 4k for family D
+  net: dsa: realtek: rtl8365mb: use raw VID for PVID on family D
+  net: dsa: realtek: rtl8365mb: add family D SDS13 PCS support
+  net: dsa: realtek: rtl8365mb: re-latch the family D SerDes
+  net: dsa: realtek: rtl8365mb: add support for RTL8367S-VB
+
+ .../devicetree/bindings/net/dsa/realtek.yaml  |   2 +-
+ drivers/net/dsa/realtek/rtl8365mb.h           |  14 +
+ drivers/net/dsa/realtek/rtl8365mb_main.c      | 700 ++++++++++++++++--
+ drivers/net/dsa/realtek/rtl8365mb_vlan.c      | 377 ++++++++--
+ drivers/net/dsa/realtek/rtl8365mb_vlan.h      |   1 +
+ 5 files changed, 957 insertions(+), 137 deletions(-)
+ create mode 100644 drivers/net/dsa/realtek/rtl8365mb.h
 
 -- 
-Dmitry
+2.53.0
+
