@@ -1,301 +1,711 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA8C2FE042
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:57:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791773858; cv=none; b=uxvhWOf3GDvPskCKdqEdQwA9WkrOa5+l4fXPaGlH/Cd5aPfYKxLHNnO4Vv38/Z4L+3LazIVqa992Uyt+zze7sUVNg0uPaXzGCOKUkjy0vgpOJk3LAkbmQtyG+Be4QksVxIrZ5NWtiODENAL83uTEDd0WK/M7p22QGZf/kY9VUWk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791773858; c=relaxed/simple;
-	bh=xiKzgHF1uSn5c7XWzhanvLxymdkP8B3dBves5YNQ6bI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=Ll5HorZyIPM+9EGKDaCn2CB377P0vSCwR0ecwC5bFeiJhCBiUfQqcYjk+z3PaByhU4WxON1o0MUHoJ0o8x+5wXI1rxVGOzSiOGpg6rENbnKyl1eCYIqJofykAEuhkI2JVZ3Y7LRsbAeZisSa11LYDKFh2dwTM5kH+IfAJE5UimU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bbjWd1JX; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0317D13777E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:01:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791774067; cv=pass; b=kACXy7kNOlnd7wt7eLcnBUEBV15iXgoumgfkLwV5AwT5BPLZ5SwBdE2ucW9lPaxE3K2d0lq41QpPmNUF+2Wx629YmOM77UQtE326gOhPOqvt75vqdrjIRvUJ+Yoym4GmTR/KHBgbKM0vaecex5kMrGz0douMk8zNgV4KZF10IcI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791774067; c=relaxed/simple;
+	bh=DFInU9xReb+oruURN+VpO9aqc6jxw+QX/rcdcxa8i+w=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=JsVVXYQv2uSxZI3usXen8Bb+2e5CgK0NRa2K+EVUl/LJYmfg7meFkZkwf/iAyHcvqZVg7unMUH8yHWSA7VMNRFL/GYNoXQ8urW318gm3zJLsUylEqzv+jj/xF1zKLc20z8LAATKyqxMAjk3uqs2ZrVvVo3qD1SxGfqmOiBrm3UU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jfLze7TB; arc=pass smtp.client-ip=209.85.208.170
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bbjWd1JX"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e7e742a2c7so8873405ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:57:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jfLze7TB"
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a1981228f8so8831021fa.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:01:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791774063; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gfHxzIqv+nPaMYG6XGvX/jl+1nP+oi7x/ZFbJVYIypblhm+BSHcG+UZMhn/TkzmFps
+         haQDnnpO6fLvr7MBQp5h3DA2fAzcNFw/wBVsR7uFhRABDwHZZhdEqhk/jeMzeoAfZ11F
+         wpYGusfpw7AmVughFKd7m6Tn3Mk7eSDyvI/UVIaadylKczFhLLzKtOx58Pm476H1Az2X
+         1XL87KmpuJaGUorJe35ycLVI3Ubpcpcj5h0vOud5auciXkHRrSfrae9kTT+y0TDGqzKF
+         sXcv9wAh2tRmymIUlzyavdWdO2kNdThiKLUGK+kshV+5jvbX2t7SLGfixsLRns6ZK+Wj
+         n4vQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=/l9Dlfnsi74I8dEn7u+jvE+D6CKgaOOzNr1dfW5F0c0=;
+        fh=U/IrgxdHHzGzwTBwxgZ6iJyZmx6X0M/x34uxQQqcZLQ=;
+        b=KBS5BQlf0k1e3dpoMxEo9/7s5KKNkxfIsdiXRA09phiisSDzdxjvtky5hUP7nUZcFk
+         6DHDMgkSst97ehEhi5ZmBMnyWRJyBG04NFYN6uUeQHJz2JAzbdnjT0zAl2XP8Y6XeSeu
+         C5a/XQss0CHf9KVK4fYZ35wNZsDqMB8RaZUcsz/WpqOyGG3P0NgNHKIhKf74x5g15g8T
+         NtShZfJ7n2B1JodDkte3qD/rO0RQUAf0YRrRYVR/nrhI7u87KDZZ8JpdF907fNM5OiST
+         jIqRstCWmGidV7/d3rzSVwPSej8P6KD05+YOM4ikK1HsSQN6xN9EWrWT7ci6Xcot+eFz
+         4qSg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791773857; x=1792378657; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KcVwrlk/RusHSGFd4wfyV4XhJQdgwcVH2ElON8D9dbY=;
-        b=bbjWd1JXumncN//8ZSweQS9Cd4vs0Fw2lbBBaaoB2M5eEyOaAzC9u09tdkYWAmdUdk
-         SVQZldUX/3Xebh8WfELQJHSDz3XlS0Q2Ay/wLZQu0vUIsf8++MNFZzUEGdbOs9PBMCRJ
-         j9N878QodZHUBh30H18tqrJRI7gUsOPRbWqKJP8mF/D/01i3lxXwD+ZUHnGklZCqb1vQ
-         OWdbZCIJ53PXC2fP0AduHHtSHR4ebYyDLmrB91Oj/rwN9AQXMrcV6zkoQmu1Bg2PWJYO
-         7CBSloRjSDKLuLkTEhyqjOmHSNbT4qQB2Gm7hQYD8BMrfeYHoIWkFOdyPQCqzI1Q5Dv3
-         I7YQ==
+        d=gmail.com; s=20251104; t=1791774063; x=1792378863; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/l9Dlfnsi74I8dEn7u+jvE+D6CKgaOOzNr1dfW5F0c0=;
+        b=jfLze7TB33BXKXpwPd8zrS0ibaGeW7bxhViC7o1MYhFlHVnjRmhidtfdIz8hgG/0eI
+         HhANOiAhx0d2tzaWgmIFKjGKJKpXDHGRG1r4mBysBrxuOkaUiafoz+HJL6y0UHaoAlVL
+         Cx3GYHjcfnEJ6wUhz0hwjdLlF4LGmggsmnZX4wekviX/79lsu8JWd5HOC8TFwvPfvzt+
+         b+7Q3ibKddKReBldHNvkSxUZGJiE0jpuV1PvqfKuLxzAxMLidsn2VzSYsq1se3rfGM7p
+         i3DckQ/V6qx/c8Hv4TxrJ8D8vAOCxoXcKQ9OiKmfLTFMyln73FZBw3+0DpASoXUBBIG/
+         ysnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791773857; x=1792378657;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KcVwrlk/RusHSGFd4wfyV4XhJQdgwcVH2ElON8D9dbY=;
-        b=A/8V9Btot0v/tmC08jqgCelXrxgZGwY3i94Gnl1FYPXJxlXin/SZC4A3wqqdzUHxId
-         W0lRdGzDHTFhc9cjrchDn+2VBoYwnLGfja+O0ZDByEyVpQQp75TBcEO4unaLvb9VMr4u
-         +lkN/N15ipVgdDBOE3jFiaJ+AinK/b6+75SzS0g2VWSBB7Y+HRp0IgojOoqW8UZuEQTp
-         8RP+tmQFfZgR+8whVL08D5ErLW32IW3C8ZxPfzwBkomoJ1oxa2ZT99dndqo6YI0N9e8U
-         wiwuD/V1P9LfhQAhGX6vz+pqqtX4nBQlXfVBgztOgqjKV3By9NQRlkRdKkBqf21Gd57+
-         cMEg==
-X-Forwarded-Encrypted: i=1; AKwUvByqc6O0JdwUkSIgID7ihWE+NAn4DDEbRfd/4wq8mlLsOtF0FgISai+btaZc2Gm+GA2eUHxAn2AFf/0eK0s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWIL9YNLja/XgXG7ffLmJU3niAhoIoWjg8cVPZdTaUE+Qowvch
-	53ZpsmoF7B6g47+I7nV1wxLTRozfrTsqJEWSLRlUP9Z4BLiOeUJAVXho
-X-Gm-Gg: AYBFou0qK56KY37NGIty8jR/pdFKXeCJG22GzgiMXzZFLvyq3e6ojwV+Y0CujQ9KcZl
-	rk4kCyCpo09qfkNUlAADifPBAFdgM9lXtjl5yb9XAQOdRBf+c54REanwL8KOMvvTYLlc2QJODpB
-	sUvUL42vH6jeQNkGlTPK5sjP099ZRkmMGtZslAtdZesNv6AyvPUFLpOGdAlVfLzhqiAx4NkV0Co
-	VB4Dp2XRj4OIF6BFqg4CYzPpA84RqNQSqDMjo11fqrTvVVMnQkmuUrRbnfQi7fYLU3BwOzJhbll
-	30m/oex7U9HcsxLRy4env6eeoGCkrIA6++KvwAmElFAi4UcM/PY0Qu7UhmINEWaYiT+ZGjl11MD
-	KtNBgEV3OteQyncYODwL0T+Affdvyn3PP58TqrT0Wr2wf3HrCoO7Qe3JjRSJQ56pYOuIEMuB24G
-	LUb21FVyQrp/D7cH/69fla22fyhpc/ZvuRXPF8TwNQwWF5RczGWppOIHKLxiQPGfhhquk=
-X-Received: by 2002:a17:902:e790:b0:2df:8ad8:dc5d with SMTP id d9443c01a7336-2e842ac4a72mr54068285ad.12.1791773856625;
-        Sun, 11 Oct 2026 19:57:36 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e841a04b22sm37546305ad.8.2026.10.11.19.57.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 19:57:36 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	johan.hedberg@intel.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] Bluetooth: hci_core: Keep link keys alive during updates
-Date: Mon, 12 Oct 2026 10:57:29 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0189-v6-def2692b4feebc514f3f@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1791774063; x=1792378863;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/l9Dlfnsi74I8dEn7u+jvE+D6CKgaOOzNr1dfW5F0c0=;
+        b=RWyzbmd2ZLey1wlyyrCLd0nemEsnwcn8Yyb86WOKrGNUainbirOs4wSZOwlPV7CapI
+         q4AfCN46WA9tDuMlx4de8hhy8EVoTXo504O0FCbgy6YAyJ5uOJa8ayNpV8MB49nKO4Uf
+         6K4aSFwLUbT63RLzSO+i7OfvSO916uDMhX1dwpX5hc2kdDRDcvgbu20PmVGU52um2T+e
+         dTx7iYzcgQQCvYSXzBLmGwpkCoWP5NrLhcQEcHyT30LLv3bjG7z279qecnSHTC85OicQ
+         fpg6mibqKyDk3NgHD92knYDMorU629qzQ3U0FMIEgaQEeK32Fq3SaCx1/hs2vHxgFopg
+         S4pw==
+X-Forwarded-Encrypted: i=1; AKwUvBx4ybDU6lZRL83bnwVl1RIm9Z8lkZ/6gFAsg7CGp30PdiD8Pxy2yfLqAXD3LsBt3ufaiTk8lVsjZU0sllM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvWLcu9pVgnDOQeAzPZi8v5Y9ZGjLnWlbZuxjL8egp7tWbxG62
+	O90mpydC0mmWrS4L4AJ79VUh7zXR5WDnJ6jn6vsa0ZwjcP1b/FLRsumk5uZjGTrQRiLvAmWn26N
+	RRBVRaYkjmnqtNIXnxfi4N5U4nIauOuQ=
+X-Gm-Gg: AYBFou1Jgn0Y6KdHx79qA/gy+RzedB8Rv5k0QG+HkDynp9ihw6s20SOb4hpDqRWQFm4
+	8VPlvL1VVFT0jiZwZU8rfJtxj4SaNZNv6nxpwCQ+f7Ec+/o0H9fAPB2MVeW2I0zw7x8+y1/w28e
+	3jDxl13jWYHPUKdyMQ4g3MgkclfcF7Zb02c5AT2wTjxaq36E2adpZPjcP/eKooEV2UZAjJn56wF
+	A5vFkLATySYMSTxfI7E6Vgbe6hXljV2JEVJR0ZuSKynhNnkG10P35BfwyC3fKENeYUHOC4tIpQn
+	pGH9LxFYJNlO39xwml2652AOhXvia4E7HGn/ghksEdLJQ8dwuTJokf9e
+X-Received: by 2002:a2e:a7ca:0:b0:3a5:f982:9c86 with SMTP id
+ 38308e7fff4ca-3a9c53b02b6mr19996551fa.7.1791774062562; Sun, 11 Oct 2026
+ 20:01:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: =?UTF-8?B?5q+b5Yeh?= <tybb1992@gmail.com>
+Date: Mon, 12 Oct 2026 11:00:50 +0800
+X-Gm-Features: AclHuK-eieH378kOEbAGG9Bn7i0MrQcV4oQQLLDgF0NPECp-r9V-wZ7RXLe471Q
+Message-ID: <CACVv+F25oZ3J6-NTT+MVGxrtj=3h=zruOP0onB6Nafq7SdC6Ag@mail.gmail.com>
+Subject: [BUG] arm64: PTRACE_SINGLESTEP ignored after perf HW_BREAKPOINT_X trap
+To: catalin.marinas@arm.com, will@kernel.org, will.deacon@arm.com
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Link keys must remain allocated until hci_add_link_key() finishes
-reading the old type and writing the new fields. hci_find_link_key()
-returns a borrowed pointer after dropping its RCU read lock, and a
-new key is linked before its fields are filled in.
+Hi Catalin, Will,
 
-When LE Secure Connections pairing derives a BR/EDR link key,
-smp_notify_keys() calls hci_add_link_key() without hdev->lock. The
-L2CAP connection and channel locks held on this path do not exclude
-the device lock taken by a concurrent MGMT Load Link Keys command.
-The following ordering is possible:
+I'd like to confirm whether the following arm64 behaviour is expected.
 
-  SMP receive worker                 MGMT / RCU callback
-  ------------------                 -------------------
-  hci_add_link_key():
-    select or publish K
-                                     load_link_keys(): lock hdev
-                                     hci_link_keys_clear():
-                                       unlink K
-                                       queue kfree_rcu(K, rcu)
-                                     unlock hdev
-                                     grace period ends; free K
-    write fields in K
+After a perf hardware instruction breakpoint (PERF_TYPE_BREAKPOINT /
+HW_BREAKPOINT_X) traps and is disabled, a PTRACE_SINGLESTEP issued
+immediately afterwards is not honored: the tracee runs to completion,
+as if PTRACE_CONT had been used.  The same single step works when the
+breakpoint was armed directly through ptrace (NT_ARM_HW_BREAK).  On
+x86_64 both paths single-step correctly.
 
-Removal and the grace period can complete after selection or
-publication but before the remaining stores. This writes to freed
-memory; KASAN reported a six-byte address-field write in
-hci_add_link_key().
+This came up while investigating rr's (the debugger) async-signal replay:
+in JIT memory it runs past the recorded point and hits an unrecorded SIGBUS,
+and the recovery path arms a perf instruction breakpoint and then
+issues one PTRACE_SINGLESTEP to step over the target instruction.
+On arm64 that step is swallowed.
 
-Hold an outer RCU read-side section across lookup and the last helper
-access to the key. On a lookup miss, drop it for the sleeping
-allocation and reacquire it before publishing the private new key.
-Removal may still unlink the node, but its deferred free must wait
-until the helper has finished updating it. This preserves the existing
-allocation flags and avoids reversing the device-to-L2CAP lock order.
+Environment:
 
-KASAN report as below:
+  Linux ubu-aarch64 7.0.0-34-generic #34~24.04.1 SMP PREEMPT_DYNAMIC
+Fri Sep 25 20:07:36 CST 2026 aarch64 aarch64 aarch64 GNU/Linux
+  perf setup: perf_event_open with PERF_TYPE_BREAKPOINT, bp_type
+              HW_BREAKPOINT_X, bp_len = sizeof(long), precise_ip = 0
+              (0 is what this kernel accepted; see transcript)
+  ptrace setup: PTRACE_SETREGSET NT_ARM_HW_BREAK, one dbg_reg slot with
+              ctrl = 0x1FE5 (EL0 execution breakpoint)
 
-    BUG: KASAN: slab-use-after-free in hci_add_link_key+0x772/0x970
-    Write of size 6 at addr ffff8881074b8120 by task kworker/u17:1/502
+Minimal reproducer: pure C, attached below.  It forks a fresh tracee
+per case, arms a breakpoint on the first instruction of step_target(),
+waits for the SIGTRAP stop with PC == target, disables the breakpoint,
+issues exactly one PTRACE_SINGLESTEP, and checks whether the tracee
+stopped just past the target or ran the whole tiny loop to completion.
 
-    Workqueue: hci0 hci_rx_work
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? hci_add_link_key+0x772/0x970
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? hci_add_link_key+0x772/0x970
-     kasan_report+0xe0/0x110
-     ? hci_add_link_key+0x772/0x970
-     kasan_check_range+0x105/0x1b0
-     __asan_memcpy+0x3c/0x60
-     hci_add_link_key+0x772/0x970
-     smp_distribute_keys+0xaf6/0x2800
-     ? __pfx_smp_distribute_keys+0x10/0x10
-     ? kasan_save_track+0x14/0x30
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kasan_kmalloc+0xaa/0xb0
-     ? smp_recv_cb+0x4d32/0x8d80
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kmalloc_cache_noprof+0x251/0x610
-     ? smp_recv_cb+0x4d32/0x8d80
-     ? smp_recv_cb+0x4e25/0x8d80
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     smp_recv_cb+0x4e25/0x8d80
-     ? __pfx_smp_recv_cb+0x10/0x10
-     ? __pfx___might_resched+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? stack_depot_save_flags+0x29/0x9a0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __mutex_lock+0x182c/0x2590
-     ? kasan_save_stack+0x42/0x60
-     ? l2cap_recv_frame+0x9ef/0x8830
-     ? __kasan_slab_free+0x5f/0x80
-     ? kmem_cache_free+0x242/0x580
-     ? kfree_skbmem+0x15e/0x1d0
-     ? sk_skb_reason_drop+0x12f/0x490
-     ? hci_event_packet+0x556/0xc70
-     ? hci_rx_work+0x367/0xf00
-     ? process_one_work+0x908/0x19c0
-     ? worker_thread+0x65c/0xe40
-     ? __pfx___mutex_lock+0x10/0x10
-     ? __lock_acquire+0x466/0x2260
-     ? __pfx_l2cap_chan_hold_unless_zero+0x10/0x10
-     ? l2cap_recv_frame+0x13cc/0x8830
-     ? __pfx_smp_recv_cb+0x10/0x10
-     l2cap_recv_frame+0x13cc/0x8830
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __mutex_lock+0x182c/0x2590
-     ? __pfx_l2cap_recv_frame+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? find_held_lock+0x2b/0x80
-     ? l2cap_recv_acldata+0x1eb/0x10e0
-     ? __pfx___mutex_lock+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __mutex_unlock_slowpath+0x147/0x920
-     ? __pfx_l2cap_conn_hold_unless_zero+0x10/0x10
-     ? __pfx_hci_conn_enter_active_mode+0x10/0x10
-     ? l2cap_recv_acldata+0x13d/0x10e0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     l2cap_recv_acldata+0xe9f/0x10e0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     hci_rx_work+0x5a6/0xf00
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     process_one_work+0x908/0x19c0
-     ? __pfx_process_one_work+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x34f/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf80
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
+Result on arm64:
 
-    Allocated by task 502:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x610
-     hci_add_link_key+0x5b8/0x970
-     smp_distribute_keys+0xaf6/0x2800
-     smp_recv_cb+0x4e25/0x8d80
-     l2cap_recv_frame+0x13cc/0x8830
-     l2cap_recv_acldata+0xe9f/0x10e0
-     hci_rx_work+0x5a6/0xf00
-     process_one_work+0x908/0x19c0
-     worker_thread+0x65c/0xe40
-     kthread+0x34f/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
+  platform=aarch64  target=0xaaaab4150c14 (&step_target)  iterations=8
 
-    Freed by task 0:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     __rcu_free_sheaf_prepare+0x65/0x2a0
-     rcu_free_sheaf+0x1f/0xe0
-     rcu_core+0x661/0x1d10
-     handle_softirqs+0x201/0x930
-     __irq_exit_rcu+0x110/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+  Case A: stop via perf hardware breakpoint (HW_BREAKPOINT_X),
+          then PTRACE_SINGLESTEP
+    [info] perf_event_open ok with precise_ip=0
+    breakpoint hit: SIGTRAP at 0xaaaab4150c14
+    [info] tracee exited with code 0 during 'single step'
+    case A (perf)  SWALLOWED: tracee ran the whole loop and EXITED --
+                   PTRACE_SINGLESTEP behaved like PTRACE_CONT
 
-    The buggy address belongs to the object at ffff8881074b8100
-                                                                which
-                                belongs to the cache kmalloc-64 of size 64
-    The buggy address is located 32 bytes inside of
-                                                                freed
-                                64-byte region [ffff8881074b8100,
-                                ffff8881074b8140)
+  Case B: stop via ptrace-native hardware breakpoint,
+          then PTRACE_SINGLESTEP
+    breakpoint hit: SIGTRAP at 0xaaaab4150c14
+    case B (ptrace)  clean single step: SIGTRAP just past the breakpoint
 
-    The buggy address belongs to the physical page:
-        page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
-    pfn:0x1074b8
-    flags: 0x200000000000000(node=0|zone=2)
-    page_type: f5(slab)
-        raw: 0200000000000000 ffff8881000428c0 dead000000000100
-    dead000000000122
-        raw: 0000000000000000 0000000000200020 00000000f5000000
-    0000000000000000
-    page dumped because: kasan: bad access detected
+  VERDICT: reproduced on aarch64: after a perf HW_BREAKPOINT_X stop,
+  PTRACE_SINGLESTEP is ignored (the tracee runs to completion); the
+  ptrace-native path single-steps correctly.  The failure is specific
+  to the perf breakpoint path, not to single-stepping itself.
 
-    Memory state around the buggy address:
-     ffff8881074b8000: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-     ffff8881074b8080: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-    >ffff8881074b8100: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-                                   ^
-     ffff8881074b8180: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-     ffff8881074b8200: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-    ==================================================================
 
-Fixes: 0378b5977013 ("Bluetooth: Convert link keys list to use RCU")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index 209244fd93918..272812ee3d5ae 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -1243,15 +1243,21 @@ struct link_key *hci_add_link_key(struct hci_dev *hdev, struct hci_conn *conn,
- 	struct link_key *key, *old_key;
- 	u8 old_key_type;
- 
-+	/* Keep the key alive until all field updates are complete. */
-+	rcu_read_lock();
- 	old_key = hci_find_link_key(hdev, bdaddr);
- 	if (old_key) {
- 		old_key_type = old_key->type;
- 		key = old_key;
- 	} else {
-+		rcu_read_unlock();
-+
- 		old_key_type = conn ? conn->key_type : 0xff;
- 		key = kzalloc_obj(*key);
- 		if (!key)
- 			return NULL;
-+
-+		rcu_read_lock();
- 		list_add_rcu(&key->list, &hdev->link_keys);
- 	}
- 
-@@ -1280,6 +1286,8 @@ struct link_key *hci_add_link_key(struct hci_dev *hdev, struct hci_conn *conn,
- 		*persistent = hci_persistent_key(hdev, conn, type,
- 						 old_key_type);
- 
-+	rcu_read_unlock();
-+
- 	return key;
- }
- 
+
+Result on x86_64 (same program, real hardware):
+Linux ubu-X99 7.0.0-31-generic #31~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC
+Mon Aug 10 09:38:02 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+platform=x86_64  target=0x5e6af7af1129 (&step_target)  iterations=8
+
+
+Case A: stop via perf hardware breakpoint (HW_BREAKPOINT_X), then
+PTRACE_SINGLESTEP
+  [info] perf_event_open ok with precise_ip=0
+  breakpoint hit: SIGTRAP at 0x5e6af7af1129
+  case A (perf)  clean single step: SIGTRAP just past the breakpoint
+
+Case B: stop via ptrace-native hardware breakpoint, then PTRACE_SINGLESTEP
+  breakpoint hit: SIGTRAP at 0x5e6af7af1129
+  case B (ptrace) clean single step: SIGTRAP just past the breakpoint
+
+VERDICT: both cases clean on x86_64: no anomaly observed.
+
+So: same hardware debug exception, same single step, different outcome
+depending on whether the breakpoint was armed via perf or via ptrace,
+and only on arm64.
+
+Questions:
+
+1. Is this expected behaviour on arm64, or a kernel bug in the perf
+   breakpoint path?
+
+2. If it is a kernel quirk, what is the recommended way to fast-forward
+   over a breakpointed instruction on arm64 so that one step retires
+   exactly one instruction?
+
+3. Is there anything wrong with the reproducer itself?  In particular,
+   is disabling the perf event with PERF_EVENT_IOC_DISABLE before
+   PTRACE_SINGLESTEP the correct sequence, or does the perf breakpoint
+   need to be torn down differently on arm64?
+
+One possibly related observation: while writing this, I found that if
+PTRACE_SETREGSET(NT_ARM_HW_BREAK) is called with an iov_len covering all
+16 slots of struct user_hwdebug_state, the kernel returns ENOSPC even
+though only slot 0 carries a valid ctrl.  Shrinking iov_len to
+dbg_info + one slot makes it succeed.  I mention it in case it is a
+symptom of the same per-CPU slot bookkeeping.
+
+Reproducer (build with: gcc -O0 -g -fno-plt -o repro repro.c):
+
+/*
+ * perf_vs_ptrace_step_min.c -- one kernel question, two stop paths.
+ *
+ * After a tracee is stopped on a HARDWARE INSTRUCTION BREAKPOINT, does the
+ * kernel honor a PTRACE_SINGLESTEP issued immediately afterwards?
+ *
+ * Case A (perf path, used by rr):
+ *   perf event PERF_TYPE_BREAKPOINT / HW_BREAKPOINT_X, hit delivered as an
+ *   async SIGTRAP.  Then PERF_EVENT_IOC_DISABLE and PTRACE_SINGLESTEP.
+ *
+ * Case B (plain ptrace path):
+ *   same cpu debug registers programmed directly with ptrace --
+ *   aarch64 PTRACE_SETREGSET NT_ARM_HW_BREAK, x86_64 DR0/DR7 via
+ *   PTRACE_POKEUSER; synchronous SIGTRAP, no perf involvement.  Then clear
+ *   the breakpoint and PTRACE_SINGLESTEP.
+ *
+ * Observed: aarch64 7.0.0-3x -> Case A swallowed, Case B clean;
+ *           x86_64  7.0.0-31 -> both clean.
+ *
+ * Build:
+ *   gcc -O0 -g -fno-plt -o perf_vs_ptrace_step_min perf_vs_ptrace_step_min.c
+ *   ./perf_vs_ptrace_step_min [iterations] (default 8)
+ *
+ * Exit code: 0 both clean, 1 Case A broken, 2 Case B broken,
+ *            3 environment/setup error.
+ */
+#define _GNU_SOURCE
+
+#include <errno.h>
+#include <fcntl.h>
+#include <linux/elf.h>
+#include <linux/hw_breakpoint.h>
+#include <linux/perf_event.h>
+#include <sched.h>
+#include <signal.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/ptrace.h>
+#include <sys/syscall.h>
+#include <sys/uio.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+/* -------------------------------------------------------------------- */
+/* Per-arch bits.                                                       */
+/* -------------------------------------------------------------------- */
+
+#if defined(__aarch64__)
+
+typedef struct {
+  uint64_t regs[31];
+  uint64_t sp;
+  uint64_t pc;
+  uint64_t pstate;
+} user_regs_t;
+
+#define PLATFORM_NAME "aarch64"
+#define REG_PC(regs) ((regs).pc)
+/* rr uses precise_ip=3 on arm64; we try 0..3 and log which the kernel takes. */
+#define PRECISE_IP_DEFAULT 0
+#define STEP_PAST_TARGET(regs, target) ((REG_PC(regs)) ==
+(uint64_t)(target) + 4)
+
+#elif defined(__x86_64__)
+
+#include <sys/user.h>
+typedef struct user_regs_struct user_regs_t;
+
+#define PLATFORM_NAME "x86_64"
+#define REG_PC(regs) ((regs).rip)
+#define PRECISE_IP_DEFAULT 0
+#define STEP_PAST_TARGET(regs, target) ((REG_PC(regs)) > (uint64_t)(target))
+
+#else
+#error "this reproducer supports aarch64 and x86_64 only"
+#endif
+
+/* -------------------------------------------------------------------- */
+/* Traced workload.                                                     */
+/* -------------------------------------------------------------------- */
+
+static volatile unsigned long g_step_sink;
+
+__attribute__((noinline))
+static void step_target(void) {
+  g_step_sink++;
+}
+
+static void run_loop(long iterations) {
+  while (iterations-- > 0) {
+    step_target();
+  }
+}
+
+/* -------------------------------------------------------------------- */
+/* Shared tracee plumbing.                                              */
+/* -------------------------------------------------------------------- */
+
+typedef enum {
+  CASE_PERF = 0,
+  CASE_PTRACE = 1,
+} test_case_t;
+
+typedef enum {
+  STEP_CLEAN = 0,   /* SIGTRAP stop just past the breakpoint */
+  STEP_SWALLOWED,   /* step degraded to CONT: tracee ran on / exited */
+  STEP_BROKEN,      /* stopped, but not the expected clean SIGTRAP */
+  SETUP_ERROR,      /* could not set up / drive the tracee */
+} test_result_t;
+
+static pid_t fork_tracee(long iterations) {
+  pid_t child = fork();
+  if (child == 0) {
+    if (ptrace(PTRACE_TRACEME, 0, 0, 0) < 0) {
+      _exit(2);
+    }
+    raise(SIGSTOP);
+    run_loop(iterations);
+    _exit(0);
+  }
+  return child;
+}
+
+static int read_registers(pid_t pid, user_regs_t *regs) {
+  struct iovec iov = {.iov_base = regs, .iov_len = sizeof(*regs)};
+  if (ptrace(PTRACE_GETREGSET, pid, (void *)NT_PRSTATUS, &iov) < 0) {
+    fprintf(stderr, "  [setup] PTRACE_GETREGSET(NT_PRSTATUS): %s\n",
+            strerror(errno));
+    return -1;
+  }
+  return 0;
+}
+
+static int wait_for_initial_stop(pid_t pid) {
+  int status;
+  if (waitpid(pid, &status, 0) < 0) {
+    fprintf(stderr, "  [setup] waitpid initial: %s\n", strerror(errno));
+    return -1;
+  }
+  if (!(WIFSTOPPED(status) && WSTOPSIG(status) == SIGSTOP)) {
+    fprintf(stderr, "  [setup] unexpected initial stop, status 0x%x\n", status);
+    return -1;
+  }
+  return 0;
+}
+
+static bool wait_breakpoint_stop(pid_t pid, uint64_t target) {
+  int status;
+  user_regs_t regs;
+
+  if (ptrace(PTRACE_CONT, pid, 0, 0) < 0) {
+    fprintf(stderr, "  [setup] PTRACE_CONT: %s\n", strerror(errno));
+    return false;
+  }
+  if (waitpid(pid, &status, 0) < 0) {
+    fprintf(stderr, "  [setup] waitpid bp: %s\n", strerror(errno));
+    return false;
+  }
+  if (!WIFSTOPPED(status) || WSTOPSIG(status) != SIGTRAP) {
+    fprintf(stderr, "  [setup] breakpoint stop failed, status 0x%x%s\n",
+            status, WIFEXITED(status) ? " (tracee EXITED)" : "");
+    return false;
+  }
+  if (read_registers(pid, &regs) < 0) {
+    return false;
+  }
+  if (REG_PC(regs) != target) {
+    fprintf(stderr, "  [setup] stopped at %#llx (want %#llx)\n",
+            (unsigned long long)REG_PC(regs), (unsigned long long)target);
+    return false;
+  }
+  return true;
+}
+
+static test_result_t single_step_and_classify(pid_t pid, uint64_t target) {
+  int status;
+  user_regs_t regs;
+
+  if (ptrace(PTRACE_SINGLESTEP, pid, 0, 0) < 0) {
+    fprintf(stderr, "  [setup] PTRACE_SINGLESTEP: %s\n", strerror(errno));
+    return SETUP_ERROR;
+  }
+  if (waitpid(pid, &status, 0) < 0) {
+    fprintf(stderr, "  [setup] waitpid step: %s\n", strerror(errno));
+    return SETUP_ERROR;
+  }
+
+  if (WIFEXITED(status)) {
+    fprintf(stderr, "  [info] tracee exited with code %d during
+'single step'\n",
+            WEXITSTATUS(status));
+    return STEP_SWALLOWED;
+  }
+  if (WIFSIGNALED(status)) {
+    fprintf(stderr, "  [info] tracee killed by signal %d during
+'single step'\n",
+            WTERMSIG(status));
+    return STEP_BROKEN;
+  }
+  if (!WIFSTOPPED(status)) {
+    return STEP_BROKEN;
+  }
+
+  if (read_registers(pid, &regs) < 0) {
+    return SETUP_ERROR;
+  }
+  if (WSTOPSIG(status) == SIGTRAP && STEP_PAST_TARGET(regs, target)) {
+    return STEP_CLEAN;
+  }
+  fprintf(stderr, "  [info] step stopped with sig %d pc=%#llx (want
+pc=%#llx)\n",
+          WSTOPSIG(status), (unsigned long long)REG_PC(regs),
+          (unsigned long long)target);
+  return STEP_BROKEN;
+}
+
+/* -------------------------------------------------------------------- */
+/* Case A: perf hardware instruction breakpoint.                        */
+/* -------------------------------------------------------------------- */
+
+/* Try precise_ip 0..3 and log every failure, so the transcript shows what
+ * the kernel actually accepts on this machine. */
+static int create_perf_breakpoint(pid_t pid, uint64_t target, int
+*used_precise) {
+  static const int precise_candidates[] = {PRECISE_IP_DEFAULT, 1, 2, 3};
+  struct perf_event_attr attr;
+  int fd;
+
+  for (size_t i = 0;
+       i < sizeof(precise_candidates) / sizeof(precise_candidates[0]); i++) {
+    int precise = precise_candidates[i];
+    memset(&attr, 0, sizeof(attr));
+    attr.type = PERF_TYPE_BREAKPOINT;
+    attr.size = sizeof(attr);
+    attr.bp_type = HW_BREAKPOINT_X;
+    attr.bp_len = sizeof(long);
+    attr.sample_period = 1;
+    attr.sample_type = PERF_SAMPLE_IP;
+    attr.pinned = 1;
+    attr.exclude_kernel = 1;
+    attr.exclude_hv = 1;
+    attr.wakeup_events = 1;
+    attr.precise_ip = precise;
+    attr.bp_addr = target;
+    attr.disabled = 0;
+
+    fd = syscall(__NR_perf_event_open, &attr, pid, -1, -1,
+                 PERF_FLAG_FD_CLOEXEC);
+    if (fd >= 0) {
+      *used_precise = precise;
+      return fd;
+    }
+    fprintf(stderr, "  [setup] perf_event_open(precise_ip=%d): %s\n",
+            precise, strerror(errno));
+  }
+  return -1;
+}
+
+static int arm_perf_breakpoint(pid_t pid, uint64_t target, int *perf_fd) {
+  int used_precise = -1;
+  int fd = create_perf_breakpoint(pid, target, &used_precise);
+  if (fd < 0) {
+    return -1;
+  }
+
+  struct f_owner_ex owner = {.type = F_OWNER_TID, .pid = pid};
+  if (fcntl(fd, F_SETOWN_EX, &owner) < 0) {
+    fprintf(stderr, "  [setup] fcntl(F_SETOWN_EX): %s\n", strerror(errno));
+    close(fd);
+    return -1;
+  }
+  if (fcntl(fd, F_SETFL, O_ASYNC) < 0) {
+    fprintf(stderr, "  [setup] fcntl(F_SETFL, O_ASYNC): %s\n", strerror(errno));
+    close(fd);
+    return -1;
+  }
+  if (fcntl(fd, F_SETSIG, SIGTRAP) < 0) {
+    fprintf(stderr, "  [setup] fcntl(F_SETSIG, SIGTRAP): %s\n",
+strerror(errno));
+    close(fd);
+    return -1;
+  }
+  if (ioctl(fd, PERF_EVENT_IOC_ENABLE, 0) < 0) {
+    fprintf(stderr, "  [setup] PERF_EVENT_IOC_ENABLE: %s\n", strerror(errno));
+    close(fd);
+    return -1;
+  }
+
+  printf("  [info] perf_event_open ok with precise_ip=%d\n", used_precise);
+  *perf_fd = fd;
+  return 0;
+}
+
+/* -------------------------------------------------------------------- */
+/* Case B: ptrace-native hardware breakpoint.                           */
+/* -------------------------------------------------------------------- */
+
+#if defined(__aarch64__)
+
+typedef struct {
+  uint64_t addr;
+  uint32_t ctrl;
+  uint32_t pad;
+} hw_bp_reg_t;
+
+typedef struct {
+  uint32_t dbg_info;
+  uint32_t pad;
+  hw_bp_reg_t dbg_regs[16];
+} hw_debug_state_t;
+
+#define AARCH64_EXEC_BP_CTRL 0x1FE5u
+#define AARCH64_DEBUG_REG_MAX 16
+
+/* Arm an EL0 execution breakpoint via PTRACE_SETREGSET(NT_ARM_HW_BREAK).
+ * iov_len covers dbg_info + exactly one slot: asking for all 16 slots makes
+ * the kernel try to reserve every slot and fail with ENOSPC on cores with
+ * fewer hardware breakpoints.  Per-CPU slot bookkeeping means a usable CPU
+ * must be picked, so retry across CPUs. */
+static int set_native_breakpoint(pid_t pid, uint64_t target) {
+  hw_debug_state_t state;
+  memset(&state, 0, sizeof(state));
+  state.dbg_regs[0].addr = target;
+  state.dbg_regs[0].ctrl = AARCH64_EXEC_BP_CTRL;
+
+  struct iovec iov = {
+      .iov_base = &state,
+      .iov_len = offsetof(hw_debug_state_t, dbg_regs) +
+                 sizeof(state.dbg_regs[0]),
+  };
+
+  for (int cpu = 0; cpu < AARCH64_DEBUG_REG_MAX; cpu++) {
+    cpu_set_t set;
+    CPU_ZERO(&set);
+    CPU_SET(cpu, &set);
+    if (sched_setaffinity(0, sizeof(set), &set) < 0) {
+      continue;
+    }
+    if (ptrace(PTRACE_SETREGSET, pid, (void *)NT_ARM_HW_BREAK, &iov) == 0) {
+      return 0;
+    }
+    fprintf(stderr, "  [setup] NT_ARM_HW_BREAK on cpu %d: %s\n",
+            cpu, strerror(errno));
+  }
+  return -1;
+}
+
+static void clear_native_breakpoint(pid_t pid) {
+  hw_debug_state_t zero;
+  memset(&zero, 0, sizeof(zero));
+  struct iovec iov = {
+      .iov_base = &zero,
+      .iov_len = offsetof(hw_debug_state_t, dbg_regs) +
+                 sizeof(zero.dbg_regs[0]),
+  };
+  if (ptrace(PTRACE_SETREGSET, pid, (void *)NT_ARM_HW_BREAK, &iov) < 0) {
+    fprintf(stderr, "  [setup] clear NT_ARM_HW_BREAK: %s\n", strerror(errno));
+  }
+}
+
+#elif defined(__x86_64__)
+
+static int set_native_breakpoint(pid_t pid, uint64_t target) {
+  if (ptrace(PTRACE_POKEUSER, pid,
+             offsetof(struct user, u_debugreg[0]), target) < 0) {
+    fprintf(stderr, "  [setup] POKEUSER DR0: %s\n", strerror(errno));
+    return -1;
+  }
+  if (ptrace(PTRACE_POKEUSER, pid,
+             offsetof(struct user, u_debugreg[7]), 0x1) < 0) {
+    fprintf(stderr, "  [setup] POKEUSER DR7: %s\n", strerror(errno));
+    return -1;
+  }
+  return 0;
+}
+
+static void clear_native_breakpoint(pid_t pid) {
+  ptrace(PTRACE_POKEUSER, pid, offsetof(struct user, u_debugreg[7]), 0);
+  ptrace(PTRACE_POKEUSER, pid, offsetof(struct user, u_debugreg[0]), 0);
+}
+
+#endif
+
+/* -------------------------------------------------------------------- */
+/* Per-case driver: arm -> hit -> disable/clear -> one step -> classify */
+/* -------------------------------------------------------------------- */
+
+static test_result_t run_one_case(test_case_t which, long iterations,
+                                  uint64_t target) {
+  pid_t child = fork_tracee(iterations);
+  if (child < 0) {
+    fprintf(stderr, "  [setup] fork: %s\n", strerror(errno));
+    return SETUP_ERROR;
+  }
+
+  int perf_fd = -1;
+  if (wait_for_initial_stop(child) < 0) {
+    kill(child, SIGKILL);
+    waitpid(child, NULL, 0);
+    return SETUP_ERROR;
+  }
+
+  if (which == CASE_PERF) {
+    if (arm_perf_breakpoint(child, target, &perf_fd) < 0) {
+      kill(child, SIGKILL);
+      waitpid(child, NULL, 0);
+      return SETUP_ERROR;
+    }
+  } else {
+    if (set_native_breakpoint(child, target) < 0) {
+      kill(child, SIGKILL);
+      waitpid(child, NULL, 0);
+      return SETUP_ERROR;
+    }
+  }
+
+  if (!wait_breakpoint_stop(child, target)) {
+    kill(child, SIGKILL);
+    waitpid(child, NULL, 0);
+    return SETUP_ERROR;
+  }
+  printf("  breakpoint hit: SIGTRAP at %#llx\n", (unsigned long long)target);
+
+  if (which == CASE_PERF) {
+    if (ioctl(perf_fd, PERF_EVENT_IOC_DISABLE, 0) < 0) {
+      fprintf(stderr, "  [setup] PERF_EVENT_IOC_DISABLE: %s\n",
+strerror(errno));
+    }
+    close(perf_fd);
+  } else {
+    clear_native_breakpoint(child);
+  }
+
+  test_result_t result = single_step_and_classify(child, target);
+
+  kill(child, SIGKILL);
+  waitpid(child, NULL, 0);
+  return result;
+}
+
+/* -------------------------------------------------------------------- */
+/* Output helpers and main.                                             */
+/* -------------------------------------------------------------------- */
+
+static void print_result(const char *label, test_result_t result) {
+  const char *text;
+  switch (result) {
+    case STEP_CLEAN:
+      text = "clean single step: SIGTRAP just past the breakpoint";
+      break;
+    case STEP_SWALLOWED:
+      text = "SWALLOWED: tracee ran the whole loop and EXITED -- "
+             "PTRACE_SINGLESTEP behaved like PTRACE_CONT";
+      break;
+    case STEP_BROKEN:
+      text = "BROKEN: unexpected stop after the single step";
+      break;
+    default:
+      text = "SETUP ERROR: see the errors above";
+      break;
+  }
+  printf("  %-14s %s\n", label, text);
+}
+
+/* Verdict is written to be pasted into a bug report verbatim: it states
+ * what was observed, without over-claiming on incomplete data. */
+static void print_verdict(test_result_t a, test_result_t b,
+                          const char *platform) {
+  printf("\nVERDICT: ");
+  if (a == SETUP_ERROR || b == SETUP_ERROR) {
+    printf("inconclusive on this run -- at least one case could not be "
+           "set up (see the [setup] lines above); no conclusion drawn.\n");
+  } else if (a == STEP_SWALLOWED && b == STEP_CLEAN) {
+    printf("reproduced on %s: after a perf HW_BREAKPOINT_X stop, "
+           "PTRACE_SINGLESTEP is ignored (the tracee runs to completion); "
+           "the ptrace-native path single-steps correctly.  The failure is "
+           "specific to the perf breakpoint path, not to single-stepping "
+           "itself.\n", platform);
+  } else if (b == STEP_SWALLOWED || b == STEP_BROKEN) {
+    printf("unexpected on %s: the ptrace-native path also fails to "
+           "single-step; the perf-vs-ptrace distinction does not hold.\n",
+           platform);
+  } else if (a == STEP_CLEAN && b == STEP_CLEAN) {
+    printf("both cases clean on %s: no anomaly observed.\n", platform);
+  } else {
+    printf("no clean comparison on %s (case A=%d, case B=%d); rerun and "
+           "inspect the [setup]/[info] lines above.\n", platform, a, b);
+  }
+}
+
+int main(int argc, char **argv) {
+  long iterations = argc > 1 ? atol(argv[1]) : 8;
+  uint64_t target = (uint64_t)(uintptr_t)&step_target;
+
+  printf("platform=%s  target=%#llx (&step_target)  iterations=%ld\n\n",
+         PLATFORM_NAME, (unsigned long long)target, iterations);
+
+  printf("Case A: stop via perf hardware breakpoint (HW_BREAKPOINT_X), "
+         "then PTRACE_SINGLESTEP\n");
+  test_result_t result_a = run_one_case(CASE_PERF, iterations, target);
+  print_result("case A (perf)", result_a);
+
+  printf("\nCase B: stop via ptrace-native hardware breakpoint, "
+         "then PTRACE_SINGLESTEP\n");
+  test_result_t result_b = run_one_case(CASE_PTRACE, iterations, target);
+  print_result("case B (ptrace)", result_b);
+
+  print_verdict(result_a, result_b, PLATFORM_NAME);
+
+  if (result_a == STEP_SWALLOWED || result_a == STEP_BROKEN) return 1;
+  if (result_b == STEP_SWALLOWED || result_b == STEP_BROKEN) return 2;
+  if (result_a == SETUP_ERROR || result_b == SETUP_ERROR) return 3;
+  return 0;
+}
+
+
+Thanks a lot for any advice.
