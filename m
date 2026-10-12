@@ -1,132 +1,180 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D5D03043CF
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:00:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6227E25CC74;
+	Mon, 12 Oct 2026 13:02:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791810062; cv=none; b=XjF2VTYfuPufz9eSHiwnJehaD5s/dIG8uGEOV6NGZjmW4WU0u9FAabS1mg3F5WMrFAed0JQrXvWb2qTO5LjTwoQy9oyHjVYh8dNPGJpmEO2DlRtwFKwi/n4X+5JR8YE+D1G/QfuL+nkbMj73KlmPQ+AA1nAu2Xorr/70mEyShIc=
+	t=1791810124; cv=none; b=iGNTYPJr206SIwgCruEEe0+LyclGBDlMddif3L54pDr7xEBSOyNhUhB9ZMaQ16t4X794a4dN4KqJLk67m67JqQ/0FZdWEh3R2/CJZoXpqq8NcSuxUxw5Kd7q5FN50cecjKoVVIAg87x1qMHmR+ypx/G5arBvCd2rH2Wnb9xqgxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791810062; c=relaxed/simple;
-	bh=+4zUTyq3J6D0WJWX/Ui2UZzNSTwF6xlek6vWAXjql6o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q+mGi4G+EC1FFSmxl88NWmb29H6K7NEWkaJM/erSCCzfMVzkoTSNroPi0HuOL1lqY6eeiZdoeCbEu9ZLfgXROhAk++owq2ag/TfOxCPL/UuGXL6plIsmLGCH10lUnn0JNtZsek9l0PR+pcIFfiaPZJveLWpNoJHI8+jwW1suGCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pkBG6TnH; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791810124; c=relaxed/simple;
+	bh=hBXoXhHM12gnFL9Jd7Ye30eFZSG3qJRfV+k8eRPxnAk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=e3HctA6SfomiH/lihz1Dj/olVte7PuI3DZJbgYX36rKo+7RQPGyljJgsm3lHjFNyuQn/QNabO5Mq70IZov4g+VXnzCVFDiIpDPdIm8j19m9NwqSQuFZiJJ/nTERwLrRGm7twCdAq/DrUhTkapf+y/sA3aACtdPbOVQtdNEFfALk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=HTZkFH8O; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pkBG6TnH"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso657825a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:00:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791810058; x=1792414858; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qgN5EQTZPAe/8W26fAOdp25QZc56hSLNje2myOYBavI=;
-        b=pkBG6TnHdrgGU7ztcFV75AZ28hr2eW0Xohdtxbprzdrs77tVL2CUe4qzfHMBGS7Uk9
-         2/bby8kQwt4V+a3Dq4eJpJK7rA4uC1bPusqA7SSCr1SHLfDgtM9/d72rEliaNb10VAw1
-         Q7aiigyxR4+Kfjrw8WLs3Nkb/bBFrzadGhY/crzsxklkczhi7e9jSgz03YfAce5MB3pP
-         yYYEf3nvqSGcbvseaGowlJYJFCWrKfZhBTZWPi4Z2IDRGQtapDDeXsQ8y6aDdmINKlRz
-         MPQe1X9jOcQQ8V1v6+WhQ55TJmDVg+lntdbg3TlkClTLEJDlLd4c4eKQUHm0syjrXvpT
-         ICog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791810058; x=1792414858;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qgN5EQTZPAe/8W26fAOdp25QZc56hSLNje2myOYBavI=;
-        b=sULkWzYi5sM4txPbfAe5YaBSSzV5/R+01wFOTAAoVhO2IqYgeXPF2pKs+pvqpBJzt/
-         QJnzL31pnJvFQ2O18KvXIpdELwG/H7Sb73sfrgQFyXGEzfh3R7OAlZTs1gA2NHGLOmHF
-         SVg7ChcAv0agPWy3ci/dZwW041egI926/h5oSrVIBPK7x6T0ik7g5sdk/pk2Q/8TBTD7
-         RJ5xJLdWF7jZVInHksXOZY+zNd4l9Sk4P/nUFdHD5yK5ggyKJxMr8SNXbz1HZpk974Me
-         uRBNzq9dAxIW+I5zuf5No4iue6CeRMSR8iuNzLOvKz1jS4fwlaRE8oJ8rnh9R/avxSLF
-         3AOA==
-X-Forwarded-Encrypted: i=1; AKwUvBwQpN1yIXIA0iTUyFdFlCAQS+h0UrXcMTUOhhJvFuvtvGYa1QrT71VcdIbFrY76jooGeLEv9ye4Pw6MT8I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLM1aHfC6PDWhq46hozUx4+kKrnkl9McCSDUxjAbhIRKSwR6/J0
-	qYy5AWsPus/ht9C+ashKmyBcROpKI5buPotX8KClXIGGYaEIdp7k+LzT
-X-Gm-Gg: AYBFou1jWResCxo69U1HkNPDZl0Ryvk0myFnbRIOXf+PrKvh5Iz+uRoilzRacBV+PuQ
-	rR4BrUDFKYSEo+DoIBeaEpBKqL0zJU/WVv87ygexg+mlWrRbIadXZ4TLe2beQuYhKfdRzZtw+ah
-	MGe3U0gaIj4q1HRuDhrSPAGwZJOQbpk6zc4ugJgUFc3kdWSmpB+cbZQMihShIHnsy6GjammcgLA
-	w6ppOa6S4lv+/KSEuojEDry26LFhwyE64II3PY55iPMkPGtDkp6WgEBy+hJxuYbTVjd3KXz/FyJ
-	B5wtRLjlgTOWhYWX7fXSxYnOb+FUa+5hXWUeR8WZWqTpA0q8nyRrZMFoaKQPY7aU4z2KiUecuvP
-	oRGTyREE7fiNO18d3Hf8FgKzZhc1OGIsnrvc3hOfnRasrZ+sHuqt4Az5arjYj8mzlVOiSsU9FYc
-	wxgOVDMJ8FpZMXXXz/Bt4ZZRa6CgbB41py2nGDELSe+EGJkB6duRBvOXIbitkQIEMd9El6JEqWh
-	3qf/KdHXwdGNw==
-X-Received: by 2002:a17:90a:d2ce:b0:39d:e54c:8658 with SMTP id 98e67ed59e1d1-3ab3a364f7emr7429624a91.5.1791810058210;
-        Mon, 12 Oct 2026 06:00:58 -0700 (PDT)
-Received: from DESKTOP-NM9EKIA ([125.134.240.130])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38f4863esm19295887a91.11.2026.10.12.06.00.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 06:00:55 -0700 (PDT)
-From: Joonhoe Kim <26rote@gmail.com>
-To: sre@kernel.org
-Cc: konrad.dybcio@oss.qualcomm.com,
-	kamal.wadhwa@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] power: supply: qcom_battmgr: report the USB type from USB_ADAP_TYPE
-Date: Mon, 12 Oct 2026 22:00:53 +0900
-Message-ID: <20261012130053.442-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="HTZkFH8O"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCECBY316406;
+	Mon, 12 Oct 2026 13:02:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=kSxQTL
+	yM4wswLQT74JvZKW28bZMH8VTBD5UedAIGkDs=; b=HTZkFH8OMI+h3bPuhHRbzf
+	rNj9pZiZJ+PixXmY4dgMFoNP2M3Fvg2yTqS7RqQ2Tv8tggziQvT7cQGH3fCbVYPS
+	Widv29EgGQu3vQxinjxR9xSCx6Hc8r1Q94ArhgOruOGZnSweGkJu8uAzfVal/9I7
+	7+ZEXLICDm/FVvrMyBii/t0xAhftt+I6265TPbaG3ZBqNKk3yi3EDPoycNAO6xZY
+	PklT4luwHc0lNLkeRyv0yVSw7tgeXgxhDJ04JOxewRGOQideLB5XFhwqHdnsJ9PG
+	XpmTB05kxUiRE7fK4qgs9RDur73CWBEXisqcky07aeSOInMC4pjoeDcXVWV7uWnA
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dug8y91-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 13:02:02 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCJtGK1255442;
+	Mon, 12 Oct 2026 13:02:01 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h802vnb0m-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 13:02:01 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CD1v7j44171766
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 13:01:57 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 43EB02004B;
+	Mon, 12 Oct 2026 13:01:57 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B824020040;
+	Mon, 12 Oct 2026 13:01:56 +0000 (GMT)
+Received: from [0.0.0.0] (unknown [9.87.157.242])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 13:01:56 +0000 (GMT)
+Message-ID: <f7a81358-0ff9-404b-9b27-1ea11c095694@linux.ibm.com>
+Date: Mon, 12 Oct 2026 15:01:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/32] s390/traps: Handle nullifying program checks in
+ get_trap_ip()
+To: Heiko Carstens <hca@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Niklas Schnelle <schnelle@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Vineeth Vijayan <vneethv@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Harald Freudenberger <freude@linux.ibm.com>,
+        Holger Dengler <dengler@linux.ibm.com>,
+        Stefan Haberland
+ <sth@linux.ibm.com>,
+        Jan Hoeppner <hoeppner@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+References: <20261001103247.1989111-1-hca@linux.ibm.com>
+ <20261001103247.1989111-8-hca@linux.ibm.com>
+Content-Language: en-US
+From: Ilya Leoshkevich <iii@linux.ibm.com>
+In-Reply-To: <20261001103247.1989111-8-hca@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=Cr0q4X4D c=1 sm=1 tr=0 ts=6accda4a cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=fyzn-L8G_lW4U3_TlzYA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: SQ-V4Eg7ndHY4_P7exOfZlLdka-yem3_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1MCBTYWx0ZWRfX1QI9A21ulZSG
+ 5WnXY7nfOgwN+4V1MYvgvgO39C1VmxSAoOSh/N+7OWblxRuSAs90MY3R0VWBJY7YY+b9LgROhLd
+ i3Bvcfa05YXXC8ZpipTN90b9HV5glqFE2A/g0BnrO+OfAltsnDiZffDjxkcADf9iAfYatYRu3yy
+ Fw3FQ4cSi6i6//klQCqq0oRBYNOzDo+uVq6hd711UEXmN/KREm/VrS34zBMUH9WlUx4d8FCGUMU
+ moX1+LbuV391U/vte6TdsyyoQVdqPS0x9jYyCsLCF3nwCiJX/LPa5loVak9eUdGT8TCeyzOU4dY
+ Ou7ArU3yYphWd/Oa1Eupk5DYu8E/RL25yqUTJkLF8ymlwgn3DiyS2oEtTGQTFppt2g3vKEhNqyx
+ dc3bLbdjEvs2Fr/cFn+Ma5yV7By0D/cXXPXoBT0rTZitSO6dn48Kw6odTd0iotrbFwq8D/H83tl
+ 0igxixLMgqS3X95CRPg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1MCBTYWx0ZWRfXz5vg46xSEl1X
+ wQ4ehMmREGioYgBvK2tK/d70h2HH9WLXTx5TC4U4LpEFFG4RX7ROJnRr8PtCGJaYwuOA7PTwIbN
+ NI5HdEkk3ONRaf0KJVmgKtApwS2fbSo=
+X-Proofpoint-ORIG-GUID: SQ-V4Eg7ndHY4_P7exOfZlLdka-yem3_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120050
 
-On SM8350 and SM8550 class firmware the USB power supply reads its
-usb_type from the USB_TYPE property. On a Kaanapali (SM8850) tablet that
-property is 1 (SDP) whatever is plugged in, while USB_ADAP_TYPE reports
-the adapter, using the same numbering as POWER_SUPPLY_USB_TYPE_*:
 
-  PC port                  USB_TYPE 1   USB_ADAP_TYPE 1 (SDP)
-  USB-C dock, 5 V PD       USB_TYPE 1   USB_ADAP_TYPE 6 (PD)
-  65 W PPS charger         USB_TYPE 1   USB_ADAP_TYPE 8 (PD_PPS)
 
-Qualcomm's downstream qti_battery_charger driver also maps
-USB_ADAP_TYPE to POWER_SUPPLY_PROP_USB_TYPE.
+On 10/1/26 12:32, Heiko Carstens wrote:
+> get_trap_ip() always rewinds the PSW address by the instruction length
+> from the interruption code. For nullifying program checks the PSW
+> already points at the faulting instruction, so rewinding is wrong.
+> 
+> Add a nullified[] bitmap and return the unchanged PSW address for
+> nullifying cases, or if PIF_PSW_ADDR_ADJUSTED is set.
+> 
+> No functional change for existing callers, which only deal with
+> suppressing, terminating, or completing program checks.
+> 
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> ---
+>   arch/s390/kernel/traps.c | 21 +++++++++++++--------
+>   1 file changed, 13 insertions(+), 8 deletions(-)
+> 
+> diff --git a/arch/s390/kernel/traps.c b/arch/s390/kernel/traps.c
+> index bfcab4592299..5e63032a56db 100644
+> --- a/arch/s390/kernel/traps.c
+> +++ b/arch/s390/kernel/traps.c
+> @@ -26,6 +26,7 @@
+>   #include <linux/entry-common.h>
+>   #include <linux/kmsan.h>
+>   #include <linux/bug.h>
+> +#include <asm/pgmcheck-defs.h>
+>   #include <asm/entry-percpu.h>
+>   #include <asm/asm-extable.h>
+>   #include <asm/irqflags.h>
+> @@ -41,15 +42,19 @@ struct pgm_stat {
+>   
+>   static DEFINE_PER_CPU_SHARED_ALIGNED(struct pgm_stat, pgm_stat);
+>   
+> -static inline void __user *get_trap_ip(struct pt_regs *regs)
+> +static inline unsigned long get_trap_ip(struct pt_regs *regs)
+>   {
+> -	unsigned long address;
+> +	static const unsigned long nullified[2] = { PGM_CHECKS_NULLIFIED };
 
-Request USB_ADAP_TYPE for POWER_SUPPLY_PROP_USB_TYPE instead.
+Maybe just [], to deal with the possibility of expansion in the future?
 
-Tested on a Lenovo Legion Tab Y700 gen 5 (qcom,kaanapali-pmic-glink,
-which uses the SM8550 path). Only tested on this device; the SM8350
-variant shares the property map and was not tested.
+[...]
 
-Fixes: 29e8142b5623 ("power: supply: Introduce Qualcomm PMIC GLINK power supply")
-Reviewed-by: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
-Assisted-by: LLM
-Signed-off-by: Joonhoe Kim <26rote@gmail.com>
----
-v2: add Fixes tag, collect Kamal's Reviewed-by
-v1: https://lore.kernel.org/all/20261007123932.1664-1-26rote@gmail.com/
+> @@ -152,7 +157,7 @@ static void illegal_op(struct pt_regs *regs)
+>   	int signal = 0;
+>   	u16 opcode;
+>   
+> -	location = get_trap_ip(regs);
+> +	location = (void __user *)get_trap_ip(regs);
 
- drivers/power/supply/qcom_battmgr.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Should location be moved inside the "if"? Now it reads weirdly: we cast
+the pointer to __user before checking for user mode.
 
-diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
-index 7716eb9e1aff..b24860d2ded2 100644
---- a/drivers/power/supply/qcom_battmgr.c
-+++ b/drivers/power/supply/qcom_battmgr.c
-@@ -975,7 +975,7 @@ static const u8 sm8350_usb_prop_map[] = {
- 	[POWER_SUPPLY_PROP_CURRENT_NOW] = USB_CURR_NOW,
- 	[POWER_SUPPLY_PROP_CURRENT_MAX] = USB_CURR_MAX,
- 	[POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT] = USB_INPUT_CURR_LIMIT,
--	[POWER_SUPPLY_PROP_USB_TYPE] = USB_TYPE,
-+	[POWER_SUPPLY_PROP_USB_TYPE] = USB_ADAP_TYPE,
- };
- 
- static int qcom_battmgr_usb_sm8350_update(struct qcom_battmgr *battmgr,
-@@ -1513,7 +1513,7 @@ static void qcom_battmgr_sm8350_callback(struct qcom_battmgr *battmgr,
- 		case USB_INPUT_CURR_LIMIT:
- 			battmgr->usb.current_limit = le32_to_cpu(resp->intval.value);
- 			break;
--		case USB_TYPE:
-+		case USB_ADAP_TYPE:
- 			battmgr->usb.usb_type = le32_to_cpu(resp->intval.value);
- 			break;
- 		default:
--- 
-2.43.0
+>   	if (user_mode(regs)) {
+>   		if (get_user(opcode, location))
+>   			return;
+
+Regardless:
+
+Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
 
