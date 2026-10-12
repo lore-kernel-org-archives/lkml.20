@@ -1,71 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AFD443D4E0;
-	Mon, 12 Oct 2026 07:54:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEF03A0B31;
+	Mon, 12 Oct 2026 07:54:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.96.220.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791791650; cv=none; b=hmyj0ryRPACpwXjoQAR+2N8BE0vZYY/4gInKRlDFeHWuGz4mKUQRIY2YhyRwfrjXNkcA9UDZRcfqt5vn6dmP7ATYWE2OOvVViSP1jcEN/hxHrf1DmfLaVD6hi+sQ1KSxoKXO6ofCBqwvcNTIBpk2S69Ve/epYlPAUEtEWyu64sc=
+	t=1791791674; cv=none; b=OpxUZzH2tyRnic/3WKPi80agaZlq9tctEeHP9idDt2PwKnFfKl5bBSIfkSmL8bT0DkxeWS5VUzTRe/yiMSOeO2u/R+/V+zgtLJATecMGZiZBsf85y9zVd2TZCvzZuQ0unW+Ud9C8J56AROH+F0mPxW1cBoJ9cnigQd+S5z14wPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791791650; c=relaxed/simple;
-	bh=RICJS5L7fgEBbcsbp1VayoS7jyNdG1TbJZ4vYw9VxrI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=rKvI3vO12wNxWmsKkHuTwRvcOK0LH9Gt8/ood8aCfB14DZtLML8EpD6vFtnkGpokdI/uE6crmoYUse59rp5hNe+sNpG5ZDpkYVj+k4CiXMXOVRSq+tH8dsLGpssjoYHP8gU1Pduh03afaTqSRWJs4gc5hGGtFd8YbkoTGFX+4WM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DSsvIO+C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791791674; c=relaxed/simple;
+	bh=iOFjYct+NA/rBCnLOOO0w4AHLEjLlBpqJJ6RJmSPcPE=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UobwRWtOU+tzCV96AGPbXYmkK9YTv9I7dzd+/7yXFCwIZk9T0rBWCHvz6QOJOvXqqbQ7i5REzjqEG5B+TvcJ9TlSUzNumYqNh2ClWWHmo7Nm9/xSxJaspxqOJocHNq3p+2vVc/G7osi2hip6QUK+qNKSp7i6XR91xvzUytfU1o4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com; spf=pass smtp.mailfrom=secunet.com; dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b=r99Q2mnT; arc=none smtp.client-ip=62.96.220.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DSsvIO+C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CED91F0089B;
-	Mon, 12 Oct 2026 07:54:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791791648;
-	bh=hrIa+tw0BeRbnuHqnWzatAa1fb31tMYGMsKk6RZzgTM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=DSsvIO+C0MPHwru/KpL8xzEcSkSpKZRQt1GDs552pWH/V0TFSvkzBIDwYjyS/BlXR
-	 fl8+R3K9hKgULF098RFEypWtQZWhmOhOcsxhpRKprq77W6+JL1FB7kAYRWu5ATpKtA
-	 i/FoGii2ZMjAd0RLyjtomw5kjEC84EC367ZTl3Yk+NR6s7qgVRd0s6tN6KW9NaKSrb
-	 u84YKxl9TLrxTSzsVVQR6zjt1h9e/HuVV80DR9sIUuOOiXQB674sKX2aBsVjTfkMlP
-	 iEuHNkSQnHZHSnnK7DfajdgXvZPWSYpD1Hz6EDn4XLfemprox2U9Re9pwtTp03A6KK
-	 sY7ZM6FwMSZ0g==
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>, 
- Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
-Cc: Doug Ledford <dledford@redhat.com>, Haggai Eran <haggaie@mellanox.com>, 
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261008141209.6923-1-prathameshdeshpande7@gmail.com>
-References: <20261008141209.6923-1-prathameshdeshpande7@gmail.com>
-Subject: Re: [PATCH rdma] RDMA/mlx5: Cancel software CQ notifications
- before teardown
-Message-Id: <179179164556.55850.15641554474545643936.b4-ty@kernel.org>
-Date: Mon, 12 Oct 2026 03:54:05 -0400
+	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b="r99Q2mnT"
+Received: from localhost (localhost [127.0.0.1])
+	by mx1.secunet.com (Postfix) with ESMTP id B1DFE20523;
+	Mon, 12 Oct 2026 09:54:22 +0200 (CEST)
+X-Virus-Scanned: by secunet
+Received: from mx1.secunet.com ([127.0.0.1])
+ by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id nVQcTqQDLl-S; Mon, 12 Oct 2026 09:54:22 +0200 (CEST)
+Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.secunet.com (Postfix) with ESMTPS id 33EAF20185;
+	Mon, 12 Oct 2026 09:54:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 33EAF20185
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
+	s=202301; t=1791791662;
+	bh=Gbthn3cQMvB39iXiyDycUbw8EvcDj5qysY1Z6LXGzp8=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
+	b=r99Q2mnTuhOt4NX66E5krF7jLIYQdyeVsuMg9DAnZEpowe6G4qhlHzxgfWtjh+gW8
+	 pnNH+8aZDhphXp17kqczkdK4YSibTGBHXSjKszSDbfSho44XxQJwm08biPTwzrw7sQ
+	 B5AqsmaTQY8yIT8xU5GcxoMa5OPjRhC8mW3I1S/WUTYe8N39ooomXqKryLWqTWRa1C
+	 bAhPra9iI7KQM3jjXFAYYO14aAEyoZs2ZWajP+gtjNj8WLEm+dDhAP+Q6Hl2+zKeBs
+	 TiFxiHTCJhCfdm2HBQRINzg6UJ7YlRNhxSNqSIQR0niP5Cd0pXri+QkC4QEr3np4q6
+	 g/ZUNaVKmuUPQ==
+Received: from secunet.com (10.182.7.193) by EXCH-01.secunet.de (10.32.0.171)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 12 Oct
+ 2026 09:54:21 +0200
+Received: (nullmailer pid 2341654 invoked by uid 1000);
+	Mon, 12 Oct 2026 07:54:20 -0000
+Date: Mon, 12 Oct 2026 09:54:20 +0200
+From: Steffen Klassert <steffen.klassert@secunet.com>
+To: Qihang <q.h.hack.winter@gmail.com>
+CC: <netdev@vger.kernel.org>, David Ahern <dsahern@kernel.org>, Ido Schimmel
+	<idosch@nvidia.com>, Herbert Xu <herbert@gondor.apana.org.au>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net 1/2] vti: fix tunnel device use-after-free across
+ async crypto resumption
+Message-ID: <asySLDyakgLAKVdf@secunet.com>
+References: <20260930090813.73901-1-q.h.hack.winter@gmail.com>
+ <20260930090813.73901-2-q.h.hack.winter@gmail.com>
+ <179110850671.434549.2584497019282941556@kernel.org>
+ <1791424156.460.8ed76b88c7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <1791424156.460.8ed76b88c7@gmail.com>
+X-ClientProxiedBy: EXCH-03.secunet.de (10.32.0.183) To EXCH-01.secunet.de
+ (10.32.0.171)
 
-
-On Thu, 08 Oct 2026 15:12:02 +0100, Prathamesh Deshpande wrote:
-> GSI completions queue notify_work to invoke the CQ completion handler.
-> CQ destruction drains hardware events and core polling, but does not
-> cancel this software notifier. Queued or running work can therefore
-> access a freed CQ, or restart polling after ib_free_cq() has drained it.
+On Thu, Oct 08, 2026 at 01:49:16AM +0000, Qihang wrote:
+> All real, and vti6 has the same problems.
 > 
-> Cancel notify_work in the pre-destroy callback, before core polling is
-> stopped and CQ memory is released. Skip user CQs, which do not initialize
-> this work item.
-> 
-> [...]
+> The dev_hold()/dev_put() idea assumed the callback runs exactly once
+> per skb, which xfrm_input() doesn't guarantee. IPTFS frees the outer
+> skb on its own without any callback.
 
-Applied, thanks!
+This is a IPTFS bug. If IPTFS frees the skb, it has to make sure
+to run the whole destruction path including all the callbacks.
 
-[1/1] RDMA/mlx5: Cancel software CQ notifications before teardown
-      https://git.kernel.org/rdma/rdma/c/a0ab2bb269e7fd
+> The early drop when the SA is no
+> longer valid happens while family is still AF_UNSPEC, so xfrm_rcv_cb()
+> can't find the afinfo and never calls us.
 
-Best regards,
--- 
-Leon Romanovsky <leon@kernel.org>
+Assigning family before the early drop should fix this.
+
+> And on the success path I'd
+> drop the last reference before gro_cells_receive() is done with
+> skb->dev.
+
+I think we should unconditionally refcount skb->dev in the
+xfrm input path to fix that for now.
 
