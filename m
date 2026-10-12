@@ -1,147 +1,122 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266D4325494
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:37:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791808644; cv=pass; b=b3x0cczk8LDspi+2JDM+PX/EpWxQVCTWgRSEOusbMQHSlR98Q6Gywvtcu0xbOy2wrB383edGEKPR2DR6Sr249OkpO/vnspKsgAdDg5h1ibLucJljyNBsZUsG5hXy8rGV0Q1DerYqLxYDsFY4DFSbc8HoBLKkMrF0HUma3lq9n50=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791808644; c=relaxed/simple;
-	bh=rJy3EqylvG5GckD9gO3nw6kJWhASgIo22l3kHf5iqhA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lahk40eU9yL2bOZrh4Ny9q1MQIdIrJelfVi6oOxxZcblqUg4hqN+ykChDpauCvG9sVELG6GFO1inYQqme5LG+6sXpy5jbxFQssIxW4pDXscswf5KLv/SSivMiFjeV+ZvotHZ8acv1+9RlPr+xyrcAMn65MdqU+/pR3mp9GzgAxY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=G94F9zcp; arc=pass smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1AB3C1D52
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:37:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791808658; cv=none; b=c+5z8yNkXSFtjetHTjaEvkVD4tFZ9eGdYkZg0mcmT/T5z/1f3zkKIpVt4ZJYLsxvxJ01+iIANVEfVvFLJ4I8PExk/eQz/+uUgnVbhQvu5GB9hnrzpUxHjUmumQFJV0ZcDvXZSKLslnS4v5J73QbHzTu7vC2Qtxqq//0BCT8oaWM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791808658; c=relaxed/simple;
+	bh=v4IziCkASKkVCaFhJHDZf4Plx12XI9gG6H0aDX4vqzk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XVcLB9Yb7O/Ivy2Jk6XvRsKd7pPMXdylzjOkFFoEMo5SL33rwFlyMG8ux01pHvH5blV/q6oQhDD5k4FwEOBtf7phPcWBLeEnoeRYiNRW+hKPjdCV2mn+OPbTPWbSKmzdrMFv94kCebQCfmtNqVeR/1b/oV6twHNP6Uz9G3ocDe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Yt3VqNu0; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="G94F9zcp"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1af232df4so1024188a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:37:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791808641; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YLnt+o/A3Ntg/fMq9QR8KqK8sO4/TjkksBVWSQIHezIZZ+2VO17E5w+D17kXmvqyhe
-         bF/rHGx6AC5b+qEuz9X2tEu6xn4gfrXxaxhW6IgDzdu4FgQ2mGg6dbtEtqp+AYo7QfQA
-         gLJu20hduX9MFpV5cqIXMahNPHR2DzxDVpuCkLW+69E9s6IHb/kq5Aa6peGkI+UYyz92
-         JG1gqRqyrDCPfvuOfz1powyPj9qy8+5MgKCs9WOgHSfeOJ96MugPu6fIDT0Hz5rZ4JEk
-         yV/sWp4B3w5qCkdi5Q+csRjv5HwaprE3sQH09twxuabicGnJug+bYEiIrB8Lpd/advUy
-         4Bhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=rxoY0o5ia08NgeCi7HAM+lGcbYp5Zp91FK4kKhFS5V0=;
-        fh=W7gpkdTOgow2YuDscgxtPUPfN5Eb9H3Yq2KqWyzdhkI=;
-        b=DCKFb0E1zrRGinQgnqS2nIAmq1c2g7oQQkbxR2eGWBEpOKF3YomtIjYWaQPilsAAm5
-         ytZs73bBNQ+fDRdLLBcA3R/P7YIGyIwq1XPTTeO4iS5kO6DdPsiO2boZbMHHobq1nRb+
-         sOpRBZ97YRvbLyMGepcPOp9244MglCkWwCQzkCKQEMwwnLytjmYmRK4HG1tr9NgpXWKl
-         t4XfekBu9eqCdsG0NuA8CNAgvBBlF3gxOUSDGo2KLK/GHfeEk1iVDpvUNYQYiW/2wfwO
-         0OGEo7WJ9o75VNokn+ZuJCnMkXG6gpO4m21WKy2pB2DhzQl7s7GaPmtVAvOW+Trf98h3
-         17ww==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Yt3VqNu0"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48b0ef9c76eso1528211f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:37:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791808641; x=1792413441; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rxoY0o5ia08NgeCi7HAM+lGcbYp5Zp91FK4kKhFS5V0=;
-        b=G94F9zcpFSiCG5d/i4uETYTabdxwMIvQaiuZ/Pgm5cY3majc74xPWr3JY4xjOruP/Q
-         kObwhRNKo0MzVGnSnNfoAagtVjp/SF9ydFxrO8kNKCo3k6DCP5lxt7QQ8497EtCSyhtn
-         SWIb0HMxZbdWvueELk+LBHJVjxpocB47pbfhDjFfspXrEo+VvUXidcflGad6VWgyR/qW
-         ugZlhWDVncHD7vfaWOROKJSyGPn/KZp95Wgj31583ItDVmDCPNxfh3YW4yE3tKffs+F0
-         M635cVRukrhHPROYcHNW2Ikl7ZemNFLhWFa2PW2JpJ8mV4Gbs7NnGktSRJdVb/J8q4Lv
-         Q2Vw==
+        d=suse.com; s=google; t=1791808655; x=1792413455; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=v4IziCkASKkVCaFhJHDZf4Plx12XI9gG6H0aDX4vqzk=;
+        b=Yt3VqNu0iX0rAqky5OpmtTo0CIQz6WykVKszJENVDF5Z4pwLXDQ7uaJpPinLT9kq7Q
+         zQhUe1HiyyJ2YlESIPUQge03zEiewVyfbvp4Cz/MBFvK/qx+aFrpGK1zH9u8GB++wDIL
+         MpyK7E/DKJD+HWaXnG8elL4UkvUE3Rb4eGoy3Q0z9DVQQVOIXHGsU0Xf6qCtNMBs0IGi
+         h269aT1zERckzma0Vwm5l42cef8K12Ab7uthOadAY3gtwVAP7zLEysneyh8nUbcNLn8t
+         KMHQQn2tPIbJoOfazGWjfhida4f8iMAO5AmRWH4LqKlsPqr2H0tZReJ89nLVSFQRgbcn
+         WM5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791808641; x=1792413441;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rxoY0o5ia08NgeCi7HAM+lGcbYp5Zp91FK4kKhFS5V0=;
-        b=pmEE1+feH2ocsgw4+9ma6e82PqdqvGJrhHLve7bVwFL04+3m15RElpvoZ3NvNZpxK/
-         U3Hi5ogP49JPMoP0E35bTFVPazk65LMqqvArhjajdA7cZVnLhos1OyXRvWt8eitapYbc
-         1COt34WqzN3guOBesGEfmxRiM9mckR6QsdRiym/dqkn4/YhxtPXA73R6Nz/uAtTrLlyJ
-         ZpLG2QBStQR51r4SE7W2nbHba1opRYbi4l+dIaP7KyFOucQOf7tt+LYughL+JHVf9Xen
-         cFtfPFXr5IU89iSSaAbi4iMR+lO8zSwZPGRD8uacJc2wH6lakpabjyRaOy+ULCjVE7bE
-         d2mw==
-X-Forwarded-Encrypted: i=1; AKwUvBxDmKNtTFLEUV3qzRpLZrcqGLT1B+mZmBsR9Z35QQEw5ALkPfLhijmz7KzG511KhzSnx+lxZCGcFTrr+2Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLn7oBApjU+LCuIxxRJxRPz2TdtRWatFO2pO126s0qwaLH3THRP
-	QXZkqppwf8YH3TTpIdzoG6rh2ASWIzLReeK/cU9i5FUhewnDqxsNvysnmlyr2rHsVG5fXKUTI1m
-	cy84DoSAPhbcSN+ANA0JzmtRK5ZarHFY9GgoGt9jsrQ==
-X-Gm-Gg: AYBFou0w7ESO5LAEtW4L/heGZUbSdVNJtq0MEYmvqeAa2/IRyhA1exgrW4cvyPUwv+P
-	a7mU2z4QedUq9zfLrkew44D+1YhMEhBIvJ6hwwketb4SwVeXNK6JWtW9C0B1QMlxs+LWWLQcEHN
-	xnnGN71un1N18Kbq1m23HuyosUNLZ9hYNlrRw/5GF1ySQCJIC96aDWZRrZOme+lQBGRJiKXzX4g
-	KMNS5xAKEGwQfd+whpQiPinvQxpGUMccYfYgarJ7GSBBOCOhHT31AthOz8df2/d7/2H6xKl3WSn
-	WFIU1zQS5A9DSIFhix5xO6jsO7pB5A/XRiTUBkrVxFy0OBNkQYqxZPbM9MlzK3IaRpmJ3M/3pA+
-	fQjPkq3qfRsg=
-X-Received: by 2002:a05:6402:4546:b0:6b1:c34b:f1d5 with SMTP id
- 4fb4d7f45d1cf-6b1c34bf36fmr1516807a12.18.1791808641182; Mon, 12 Oct 2026
- 05:37:21 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791808655; x=1792413455;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v4IziCkASKkVCaFhJHDZf4Plx12XI9gG6H0aDX4vqzk=;
+        b=juHoUfZ0zYNlsXAEaewqRJA/cQyJIA+OIgM0nbSAOXcaVcZsdoNj0cTQNc/hBqx2oe
+         E7wy4sVWq/Cb48KcywIC2ZE8F4zl6scBWqCTCZVYxwfrCTJJnHLgGFaAk0o4j/v7il+8
+         WqDAZ+nLD7UAsWW2iG1S6WaJ5LhI+ZuSNuCoK6a1R8eCYIVw4iALpHhZyZ+tJ0L702M1
+         BqukQXJXANAixtZFpQTjYEIEynCyP0Wy9rfw09kyF6oiIKz0aqXfATEZrVJDHjSlGQZ0
+         C+z5M5U4yKIOAuW92VIa3JuE2k9M9GFw6y/r/UF0b8buh/SjtmnhmJRhDZo+9rA7bvuC
+         wdsQ==
+X-Forwarded-Encrypted: i=1; AKwUvByaa94oXCWOVqh8HnJlr9qfSPU3gRTwMHp2QSktqREOQHgwUsT0F5gzJ/w4BwZ5bem7IYdOOoa7xFAzvX4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAWA1/0kdaBJueBgBixzHkZskGckhv7z5ticIz2Ny2xlaHNBt1
+	9Oz7eF4k0R9U1Z+Bef0jzoRefSHnNb3eV1+fY2lfBn/F3IEL61lINByLPrTTbgclwWQ=
+X-Gm-Gg: AYBFou2NklU74SVJ8N+sjq8/EOFO++8zbAswz9May/LlNdtWf1ViRwOiAQ5sa8GFHEV
+	QO3lWs+WJKWRibvamI1fTGBDpGIUTq9n62rCCBqf+Va4pnEwN739GFxZVfV71PzT7gKJmBhtciD
+	TK6H8KODYJGCDuL7mBBNWi2nOf4p+sU1nxK+76qEfJ4Ez+Sj1Sbt3oWkmzus1NInWafWvEgihL4
+	TYBoLSuqoUWqboNgyn/ymm+7fIKiflgpYw3gkQ1YLN/Aj+SL+Tzcdaxt9DrQ1L9Bs/S25C9fxj1
+	8aJpapyYgTCTU16r/tOKvT3kRIExoqGycNfC/WanW6Mn7YpvCUYU/V0wXSQcvCmhEy6HtaiDgJE
+	e0HFXC+lHAJqEzp6EbBcaupDkQnpr56ddZqICCGII42dPHW6Xuww+i9QZzvMX983ALuKe1p+hN2
+	TNykX7V73zVPPdCdodcArOy3N5KSQRTtdEcz6DLmkC9uLwigjsLKz9clk99KFMgFd6bnbntIZ6W
+	5RJgN8baITc
+X-Received: by 2002:a05:6000:298d:10b0:487:b50:101c with SMTP id ffacd0b85a97d-48dba77cf06mr13120307f8f.5.1791808654891;
+        Mon, 12 Oct 2026 05:37:34 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ada3edsm19095411f8f.53.2026.10.12.05.37.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 05:37:34 -0700 (PDT)
+Date: Mon, 12 Oct 2026 14:37:32 +0200
+From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Li Zefan <lizefan@huawei.com>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] cgroup: Avoid warning when procfs is disabled
+Message-ID: <20261012-robin-handclasp-417c1263d268@there>
+References: <20261012054219.13365-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002124538.79658-1-torvic9@mailbox.org>
-In-Reply-To: <20261002124538.79658-1-torvic9@mailbox.org>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Mon, 12 Oct 2026 14:37:09 +0200
-X-Gm-Features: AclHuK_I3fx4e_QcQBfYgOfKk7ibwlNLlg0BNFHctyuKOlll6ATtIR2O3HLLuuw
-Message-ID: <CAKfTPtDVXVzsRCUavub+6cXrC8Ke9=Vrv7A4cMcEG2WwDtJKKg@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/2] sched/fair: Remove tunable scaling
-To: Tor Vic <torvic9@mailbox.org>
-Cc: peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com, 
-	dietmar.eggemann@arm.com, kprateek.nayak@amd.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sxhfuelmz2jajvtk"
+Content-Disposition: inline
+In-Reply-To: <20261012054219.13365-1-kmehltretter@gmail.com>
 
-On Fri, 2 Oct 2026 at 14:45, Tor Vic <torvic9@mailbox.org> wrote:
->
-> This series removes the scaling of tunables, which was introduced around
-> Linux 2.6.33.
->
-> I split this into two separate patches:
->
-> The first removes the "none" and "linear" scaling which are likely not used much
-> and have limited usefulness, as one can always set sched_base_slice through
-> debugfs.
 
-How did you reach this conclusion? and why it's worth removing it
+--sxhfuelmz2jajvtk
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] cgroup: Avoid warning when procfs is disabled
+MIME-Version: 1.0
 
-> It keeps the logarithmic scaling which is already the default.
->
-> The second removes the entire scaling mecanism and sets a fixed sched_base_slice
-> of 2 milliseconds, a value which has been chosen somewhat arbitrarily.
+On Mon, Oct 12, 2026 at 07:42:19AM +0200, Karl Mehltretter <kmehltretter@gm=
+ail.com> wrote:
+> With CGROUPS=3Dy and PROC_FS=3Dn,
 
-No, the sysctl_sched_base_slice value has not been chosen arbitrarily
-and the commit you mentioned below gives you the reason
+What is practical about this config? Is it real life usage?
 
->
-> Currently, the base_slice multiplied by the log2 factor can take the values of
-> 0.7 (1 CPU), 1.4 (2-3 CPUs), 2.1 (4-7 CPUs) and 2.8 msecs (8+ CPUs), so it seems
-> that the new value of 2 msecs is a sane default, which I also use on my consumer
-> x86_64 machines.
-> However I'll leave that open for discussion. Note that the base_slice value has
-> changed quite often over the years, lastly in 2025 [1].
->
-> The series applies to 7.3-rc5, and is build- and boot tested on a measly 2C/4T
-> Skylake machine. I marked it as RFC because I don't know whether these changes
-> are actually wanted by the sched people - and because I'm not a developer.
-> It does however remove quite a lot of code.
->
-> [1] commit 2ae891b826958b60919ea21c727f77bcd6ffcc2c
->
-> Tor Vic (2):
->   sched/fair: Remove the 'none' and 'linear' scaling of tunables
->   sched/fair: Remove sched_base_slice scaling altogether
->
->  include/linux/sched/sysctl.h |  7 ----
->  kernel/sched/core.c          |  1 -
->  kernel/sched/debug.c         | 52 ------------------------
->  kernel/sched/fair.c          | 79 ++----------------------------------
->  kernel/sched/sched.h         |  5 ---
->  5 files changed, 3 insertions(+), 141 deletions(-)
->
-> --
-> 2.55.0
->
+> proc_create_single() returns NULL and
+> cgroup initialization warns during every boot.
+>=20
+> Only check creation of /proc/cgroups when procfs is enabled.
+
+The dependency on CONFIG_PROC_FS is encoded in the
+proc_create_single already, it's unfortunate that it returns a value
+that signifies an error.
+I'd prefer more generic fix that doesn't target cgroup_init()
+specifically.
+
+Thanks,
+Michal
+
+--sxhfuelmz2jajvtk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaszUiBsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AgyPQD+JF1ALjKHhvCZgZTHWKpt
+px7gEmaDUfg16vcP3hhQmeYBANL7rIcu2f2MPAKqn5Rlx5g0zUpusN84McLyxckt
+nFMK
+=qrjq
+-----END PGP SIGNATURE-----
+
+--sxhfuelmz2jajvtk--
