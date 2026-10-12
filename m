@@ -1,125 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0443E399340;
-	Mon, 12 Oct 2026 11:55:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB4533262B;
+	Mon, 12 Oct 2026 11:55:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806121; cv=none; b=WcoVzIWkkiH+kEUUrr8OmnezYIDAea7+8SKXCYTq4EmoEWAtRFvVgKUrKTh77QvMkuoB6mIiWU6FxW2CWvy2lonILQuFURHT6E2O4g7iLWu4CuV1ZQM4gPm0f6/IA+72GIVVEKW3sIy4pBLKcjKePmekVhRP0x0EYc0+DdxLa4U=
+	t=1791806153; cv=none; b=CB/rvZRZ4AhN3uCcG6fmSUimkDXwnF/rLKbKx6ESGMI4mFWcwFhEvFnqCzwdclVx+4Od9IjrVRJVVjnSScHOXhD+ZXcipPp29x5sv840opkBGaW/+O1RWwl+TBjwnrtYINnI3ALgrK6VRY57mGB5jA+UqG0a1d6QHgXzT+58tH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806121; c=relaxed/simple;
-	bh=ATvL8+jGoCFF+CbvlDbPWvSLChLAja5Ob6x7FC9QxVA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NABDbrnyw2EmXkwDMWjmSIrHXeDPzLorm/6rZSlT4ZeG0pf/L1TDWf7LVZHU3o5v2kAc1t8NgIXsl+Ky4C0hUfILAaP/vzsNXkU1t29IT26lVRXxCB3iZKOXJTCp9KXDN6iKeOTJ+GxQs2QIZLwePckRFnLf3tTL/+b+V9I0X7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n43wZqvk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791806153; c=relaxed/simple;
+	bh=YNmFrs7Kqv2eR9cG4yY/hv50VUvPsarLMvBGwioXpDE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bIR4F0zF+bp1dLPk5vMp3hbOxs/tPsupfKRHwzot5FtxPiZT2jtaGc6ROL55r120YCcWBZqH2JHtsndA4G4yc+0akZTPG43M3BZWXoTFkTVZqIp3MN3nakI1mQ2ZGKOT326FqaKiffevMpM6dmpKRUrzpxOTTiZdWxLuZqxbuCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=s+Z6LiEG; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n43wZqvk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBBB01F0089B;
-	Mon, 12 Oct 2026 11:55:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791806119;
-	bh=EFBfQFk5/U3oNT5PftLrBoxKpWYLq06VaTtaCGifA+Q=;
-	h=From:To:Cc:Subject:Date;
-	b=n43wZqvkpRiBHTT8srVSaSF0QkmteVpPPVz/AjMHgwTfz2Hhd0T8eeE5NQjiOdjcU
-	 p8tgxSiKBAyVs9/yTPLNCJLwyvV9diis+mZSfSgX0foXGNit0XJ5Mvw7k6f7nD/Akd
-	 62rLWO5ZY8lH0rIcmp+ZYjidpWABrGpE3ZSEFu0GE2ZnQmwmy1K7CbwiuoBwssBKok
-	 jGXcHbMh3mf2ZR9xabtXfJRDYToLQa0Atye5wmuRnNaXO+Shlb8VEV6ZysUnORPkkX
-	 ZFQp6ClSZrEsUcFjePPmIMOafuD419/ZMuBV5siF5ynAtyw3yq5R3SAjYc/gIl54DE
-	 lhPI+9KfMuuRg==
-From: Daniel Gomez <da.gomez@kernel.org>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: Daniel Gomez <da.gomez@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Julia Lawall <Julia.Lawall@inria.fr>,
-	Corinn Tiffany <corinn.tiffany@inria.fr>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Philipp Stanner <pstanner@redhat.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Samsung GOST <gost.dev@samsung.com>
-Subject: [GIT PULL] Rust XArray for v7.4
-Date: Mon, 12 Oct 2026 13:50:26 +0200
-Message-ID: <20261012115028.73246-1-da.gomez@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="s+Z6LiEG"
+Message-ID: <19b5306a-2783-408a-b649-5d9ad63eb9f9@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1791806149;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2UF1g1L39b0T2WSsLrDGz3aAt7ouAKhUKqYELSYbPgY=;
+	b=s+Z6LiEGyZRFaNqa7pb2KvrwYCgskAFK3nJCcAv44Q1kMo2O8OQN8OZlchAchsnoRo7bry
+	J+Ri8bVkcGl1tgkYb5EJCeAXScypFlURD/t5/tIRCiH3wvoUxrzScV37RWRKbyggcEXbMD
+	ocQwQBxhGe6IjXAzmNwlkN5vmfiscQE=
+Date: Mon, 12 Oct 2026 13:55:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 07/10] dt-bindings: pinctrl: apple,pinctrl: Add t6041
+ compatible
+To: Yureka Lilian <yureka@cyberchaos.dev>, Sven Peter <sven@kernel.org>,
+ Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Hector Martin <marcan@marcan.st>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <ukleinek@kernel.org>, Sasha Finkelstein <k@chaosmail.tech>,
+ Linus Walleij <linusw@kernel.org>, Mark Kettenis <kettenis@openbsd.org>,
+ Andi Shyti <andi.shyti@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+References: <20261010-apple-m4-pro-max-initial-devicetrees-v1-0-781fb3f2d9f6@cyberchaos.dev>
+ <20261010-apple-m4-pro-max-initial-devicetrees-v1-7-781fb3f2d9f6@cyberchaos.dev>
+Content-Language: en-US
+From: Yureka Lilian <yureka@cyberchaos.dev>
+In-Reply-To: <20261010-apple-m4-pro-max-initial-devicetrees-v1-7-781fb3f2d9f6@cyberchaos.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Matthew,
+On 10/10/26 18:59, Yureka Lilian wrote:
+> The pin controller on the Apple Silicon T604x (M4 Pro/Max) SoCs is
+> compatible with t8103. Add "apple,t6041-pinctrl" as SoC specific
+> compatible under "apple,t8103-pinctrl".
+> ---
+>   Documentation/devicetree/bindings/pinctrl/apple,pinctrl.yaml | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/pinctrl/apple,pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/apple,pinctrl.yaml
+> index bc6d41b63b5d..faef287309f8 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/apple,pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/apple,pinctrl.yaml
+> @@ -22,6 +22,7 @@ properties:
+>                 - apple,t6020-pinctrl
+>                 - apple,t6030-pinctrl
+>                 - apple,t6031-pinctrl
+> +              - apple,t6041-pinctrl
+>                 - apple,t8122-pinctrl
+>                 - apple,t8132-pinctrl
+>             - const: apple,t8103-pinctrl
 
-I'm sending the Rust XArray for the current v7.4 cycle, although it is
-probably too late for it. Just let me know if you need me to resend it
-later, rebased or under a different tag.
+As Linus noted, the sign-off was missing. So here it is:
 
-Thanks,
-Daniel
+Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
-
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/da.gomez/linux.git tags/rxarray-v7.4
-
-for you to fetch changes up to 4ce73d98a0a6e5bba46ed1fc9a61511bdccea776:
-
-  rust: rxarray: add rust xarray support (2026-10-12 08:36:28 +0200)
-
-----------------------------------------------------------------
-Rust XArray for v7.4
-
-Add a Rust implementation of the XArray (rust/kernel/rxarray.rs),
-introduced as an experimental Rust reference implementation [1] of
-lib/xarray.c, as discussed at LPC26 [2]. This lets Rust users, such as
-the null block driver and possibly Tyr (under evaluation), experiment
-with and evaluate both implementations.
-
-The goal is to evaluate whether Rust helps with the most common class of
-XArray bugs, misuse of the API by its callers, such as the long-dormant
-page cache corruption that almost blocked the LBS work [3]. The RFC v1
-cover letter has the full motivation, benchmark baseline and
-roadmap [4].
-
-This initial version supports store, load, load_mut and erase. It has
-been tested with the included KUnit tests and doctests.
-
-Outside of rust/kernel/rxarray.rs, this touches:
- - MAINTAINERS: new XARRAY [RUST] entry, maintained by Daniel Gomez and
-   Matthew Wilcox, with Andreas Hindborg as reviewer.
- - lib/Kconfig: new XARRAY_RUST option.
- - rust/kernel/lib.rs: register the rxarray module.
-The C XArray implementation is unchanged.
-
-Link: https://rust-for-linux.com/rust-reference-drivers/ [1]
-Link: https://lore.kernel.org/all/20261009212431.0-da.gomez@kernel.org/ [2]
-Link: https://lore.kernel.org/all/A5A976CB-DB57-4513-A700-656580488AB6@flyingcircus.io/ [3]
-Link: https://lore.kernel.org/all/20260923-rxarray-next-v1-0-92eedf185649@samsung.com/ [4]
-----------------------------------------------------------------
-Daniel Gomez (1):
-      rust: rxarray: add rust xarray support
-
- MAINTAINERS            |   12 +
- lib/Kconfig            |   11 +
- rust/kernel/lib.rs     |    2 +
- rust/kernel/rxarray.rs | 1407 ++++++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 1432 insertions(+)
- create mode 100644 rust/kernel/rxarray.rs
