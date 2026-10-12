@@ -1,210 +1,233 @@
-Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98591A681E
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF9F25F99F
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:58:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791770265; cv=none; b=RjTTho1IQGY+5aZvENh+/cn27eOgeDyGQ6yvEZJVUwHaPWaU4tawXBlwDbH/yKS/LD67RK56bMgqqeLmunWaED9fAEwB5rbOJOWJi60H4W3MlAzc/anynAGxA3jjtQUJnuwSrFxfTQGOxb+L2TAs+1YE0TV+OdtknwiZZAHHkEA=
+	t=1791770325; cv=none; b=n7dl4IE17BGgBENyA7CiEM1qvyxu9NG2vjAisjbqrqvEoIc5puohpar63T0e3XMiOkxmP7kgytzY7jseUwcfR3WzB8t/Ke90E+NUnXW2N9ZSp1vhr0IZhxWXBa4azreMCpLxLYrfTd1unI4SoqSuewypBr/LfBtEydxlmW7ouEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791770265; c=relaxed/simple;
-	bh=UHoRyMXiM7nTiqE229gHpN2uqBFHh+rkx5kDGLsqeb0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iWQmvu8P8xJq4GkefJwWDQwGndwz/Ypf+NIvY2T6/+8/RNk6XdjW9zVCYwNwD8Ch7wptg8/lMqyaSnFFINAOzf6yzvBslySD0Bp62HoeENgBhsY3UYL/qdTvOvlj8YGf0PW+hmRNEln0oDbKbhiLSSY3RGbgSATBsY2xS602e3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=MnOhXC/R; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PKxj8ABi; arc=none smtp.client-ip=103.168.172.157
+	s=arc-20240116; t=1791770325; c=relaxed/simple;
+	bh=abZ2VzGV+T1rrvWItpexx4Ss92dMIEPFRpbAZ8YEp08=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=XogU27qyRnlNvB/WayO9KVTcUs2jzNh2D58+IYRQeyIkMhFemoTFgxdfv6iIaoJq9LT2g9XKihruoUr/XixaxdXx30NnxWKRkLmKeKy2rj9pB80cMrxQc4LknFURt91Ii4ixbYEDWASIXVLsLhsJaLV6alrqo01wRdQBi+mnMVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QXOfWyDL; arc=none smtp.client-ip=209.85.216.41
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="MnOhXC/R";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PKxj8ABi"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id C45B5140003D
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:57:42 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Sun, 11 Oct 2026 21:57:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm2; t=1791770262; x=1791856662; bh=sFxJ/rI/2/
-	T9wBBz1I0/JGzfzTvtkuB0LIHBLyKbO3o=; b=MnOhXC/RcYHOi8Ed92j8cUY9K+
-	ZV4Q8FmmgY0cJ3XMLqjU2rrKjsBBx7msHROG2O4qMBfPzmInYMTB1X7oBuOXErfw
-	Lg7SSeOro0r9v2lAdVGzrGIOyWidRaPu+P9lS74HKTMcE55cAZ1dY5bFDt12L1pa
-	V5RxLLY/vDsEw9UN0aWdfVCFd9bXhgf6AsfSskmYFAKnVdvEnP0GqXTbxb12EOPL
-	TNM9bGCHDmwhaoTLk43dDScQmA+/7uySFak8xGgC3BfCcto1rjk57mFQvHHCjYJr
-	jx1C1q0bFqXK5cUQ+AOhCQdSuhS9bAQRAp5nh0geo4vNYJ+MK0w2PvLRdQIg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791770262; x=1791856662; bh=sFxJ/rI/2/T9wBBz1I0/JGzfzTvtkuB0LIH
-	BLyKbO3o=; b=PKxj8ABipQfmxb8yukKK6mxrtM1ZDVWxtPVtosHKsCtITNm81uV
-	Isa/G1XbPmlWUOCj0wdRJE6wReNpe33qegt05V5w0F6NunzLV5QaCYZOIJH9K/Yg
-	WgTFP+mAU8ZPEOwko9gYPiNMl50h/Em2DC6X/0htjDxCA5f8HZ+gT0yV3JfFGWNx
-	Y6Wa9RMydUF2GiL7PPgcSJhtHrloPAvEumP49N+jEZDwc2g1cbU+V8XpzD/KDmwb
-	p5UO3EmEocYT/jLh23Fgr5cWM+PcSDTL8Ucrk9yb8S0ujpotBLt56P5yjX3WKB3d
-	jwtkTsRqolXjUnTfBkXYPbUhIH4/awFgZ4A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791770262; d=sakamocchi.jp;
-	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:FqJCPAUS7vGZUcFVzPsNfLGvQqWEeANPCSd5la8f4JDr8bZ
-	sxu8rQEXCnUucuafEdM1wgtrR0eax2oYD3IOZs7bdTTtnaznX5krq6y2YOe9oWUY
-	cLIpe6zbv3P6zh9R7AxNkrD4PTWrWQvvpeWselJmN3MTMqnLk3D+s3+FWIvMVlDA
-	12750Orb93UgzrpmAO0YlQKXKVhUCzKe+j6AbNl5Z0vTbM+N35ci9gbTcP/YaFft
-	tE3E278SD8q/zwW15haguxWR/WywSH8SwyM5eVFtWywOvXk7f0ohLWPEjxJm7WGN
-	vyX45H1civ1mSFqsmRnOJeFauk9L7ZzTl3gZYiw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:q56znz8zB9pAEWLveGolFmCslNR5Rw7nq08PqfR9Av0=:UHoRyMXiM7nTiqE229gHpN2uqBFHh+rkx5kDGLsqeb0=;
-X-ME-Sender: <xms:lj7MakhXgcy4HW_VozPHwuFO57PO0SfzDij8gW_VVEZiJkmpoFqK1Q>
-    <xme:lj7Maq8it1X4g8jvl-iDwkFBj_0XP_jKJmZxtm9cf8k5CXw9xwRGhBV4ku_wKHLps
-    d2TK6O9t9DlmqalxLJxbQoOMlF4j6ObPvJHyl9NYGRCG_9XHdzYKJVF>
-X-ME-Received: <xmr:lj7Majp8Pa1fgJhxLpMHjNef22CNA1PS4lQL_RaAWZW26FT63Q0Bck2U6qiphNXTscRMpfMKnvycUo7g_yreTaeLrnQb9SG2po5B58r24Ixjhg>
-X-ME-Proxy-Cause: dmFkZTG1rA/YrMj+wa0lwk3Ix02dN29csAWTKATcSmdCJeMNxmmpB7tHhd8bbxa1JbJaWd
-    /El3fkY3TAYrGNpzTdFaKdc6MNQ12kEcRKfp+zLel2SWjZ610mef7HYF8cwjWYxAxxGot8
-    JeJDLSDZGInFwx4n09JGts2S65nfIChXa4775LbZ2SyMJlkL4aSLP0D5uhEIBWc7w25yKk
-    WfqDGkrZ9rz7l0gd0i1pRg9xxWkGmhu9tZzbVO7EfZmihveAU+gglTih8eo8waSuI2mtM1
-    t3RzR9FfryvnhRyMxbh4/AAroBQuj1b0BzTWE9C9IlSTZc3Ckixby8KRdAFDr1hXBSjdYz
-    w9AH/aRME76PN3Fr6pgQmOj2rKMwm9EPn28N4o2E15sc51h9NUpSCSe0gFTIzE7F/mC6Ts
-    /DsHcEBaFxZaPcaIheExaPLKRf+uGMEc9R7d8Nm5/EOMkIB4jXwSWZjeDq5MI2TXfU+Si7
-    BFJcRafWpCGVSFLaAOx0MSM75T8GqpBJhE+uAsy66o4WjyVlrrWkwlSg5BTFbhCUS9Yunl
-    zntX+X0UU6ChAvyh2il0eZM6r3fcaJqvG0yfHl4oU/45A1YvlRcki6HcxDUIbGWJcAkuyc
-    NQPQFS+b9MPp7wexu4vVOazynHFB3mwBGMOq3FEYgf/RfSETeE7exM7HJ3PA
-X-ME-Proxy: <xmx:lj7Mah_s2W9mqriqxsn7TAZM4t1QEgb74oOzOzISM1x9Y-he2Kvhuw>
-    <xmx:lj7MavUVFtS2iZuSGsFLbZCpkYo3R-O7nw_t8RqKWRwkvG3FTvSKkQ>
-    <xmx:lj7MavBuz4pKRk-ucYblwmqGfTUH9E3vSxQNslDF65JFegNhbsidAg>
-    <xmx:lj7MaozkuxE1b8KbHkgeU54oTw2YSOFgjnHZkjQQR6IizYRdEjOsog>
-    <xmx:lj7MaiUQkJt-_1KNpLdmx9vD159rpeZZ2zGHLQ3qAm280FjcqPiQGWn8>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 11 Oct 2026 21:57:41 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] firewire: core: use appropriate spinlock variants for transaction-related locks
-Date: Mon, 12 Oct 2026 10:57:39 +0900
-Message-ID: <20261012015739.530731-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QXOfWyDL"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so1173706a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:58:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791770323; x=1792375123; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GPTKtpR6RNSVJ/MBAmueSNc/Qt+gv2fvFzalyTXmmk4=;
+        b=QXOfWyDLzLVZHhmr+btXbDD3R7Ie4sc27ShVEIM28Z1S5LboPEdNboP15Vf838LXvE
+         4/bCi0sBXzuWqpKszn5Dh+Rv0VZ1f8XFeARLFNer/7LT6l9LSUiKnpJCf2UuNRv9qdIf
+         7TZJ3kq4i1AxQsdRwUevFDTNidXeuRcEQsB0ISODAi51NVXfXKMQrY9/kijVNZyvvoeq
+         ittGZ/5NFYUzdB9qcjEJNh9youuEBtxcQyeks0MCnIM3JKM8jfaSyCPU8/XTkSn9ZCKY
+         q0d89bhVJ75gYwMUvhXz+4DDYfyLXkhMpoVqTAKSsk+qiVV3AQPzu2CbckWAgY370Vvs
+         U7TQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791770323; x=1792375123;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GPTKtpR6RNSVJ/MBAmueSNc/Qt+gv2fvFzalyTXmmk4=;
+        b=GK7QSrt1zwFwK6HsU/D9rWo0smEYq9wQ+165uTWoqgzdkkndpZ2FzzkNuU5PDOYWpi
+         3Bl4S2VWFPX5Tx8uIp0/48BOXhSRWhZ9e+1/FFo9ndddtQqN9OnVPW3jQeHz/fSym0Zx
+         V3o71rPnr/pcHmKhlrRxmsOnAAOqTq3N8tG15IUih8GAo9awEMRwCqp1pG3ZugHVwKpy
+         I3E6EXUQID377T5p/afYPoKtt7COX5YVTo/KI5YALpIHxK61HLnWibyvb7GqaaZKmYbz
+         COmAxYJcp84v1WqNRVc8m2zf/CiZ3VeVEs9gZ9sDHSdEAuHWZZ2SCcO80O3oQ4/LOmmS
+         shUQ==
+X-Forwarded-Encrypted: i=1; AKwUvByaED4XqLCl4XK8bRAqKpdb/AaUQYfnUBnbdt3CKm73I0VSYVFTJbTmyrvMwmb+ld/Ow/u750TWZpWcQfI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOfvhBYd/JHmsrq3363smBxGLUQ7xCnLA93UdeAgox6OT/WV1b
+	b+7GMRY1mkkn7/TyYQerV9UkEobGH50ZQiSPDbsUvcyucRx41a8AmMu9
+X-Gm-Gg: AYBFou38TVUkByXPdpqd0B0juQUcltk52v1hv2tyCvt8LwWmGMFa3mtrs5JDWWP1noX
+	Gxaf+RC+exWHr6/lYawT9u0aXgL67A8uP5MEttl25veqHJByHTmRLvThfWPWiVMxDXWsfLswC2K
+	22fJ7TGRLOMYcI5eIT3JsistFPwnr+LlYh6EejqxEGjhjh9/jifC3DlsbnKj+BlUUIwFe63l8yl
+	WUSFETitOw1kMhnMbvTZjXCVFVEkq20/Iw+G7xLsN/7TiaWyCx5e/szFjXhAUQ3W26vShJOVLuc
+	xx04Va9cz5eyxv37oVSSs+3jo9bG+VZXob4Zq+EGcNmpn6iM1YaZVBId1LluzgBWMba53kXjH2w
+	frhMypoEdB/VGL2R8lK0K4HAszcjM+un2giAi+Zm2Z8AddGuis7VXdoAdTEWhecp5rJsS4QPnhq
+	M+2NS6EYbE6AWm3K8ewyCOzMAoaHlzkXTHoIeq9iIjbPn+f1rdyiZgQ1HUNt9U98kMLg==
+X-Received: by 2002:a17:90b:1dd1:b0:3a8:bb56:f1ed with SMTP id 98e67ed59e1d1-3ab3acf313fmr6806854a91.50.1791770322776;
+        Sun, 11 Oct 2026 18:58:42 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36fdc75esm14467677a91.12.2026.10.11.18.58.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 18:58:42 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	brian.gix@intel.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] Bluetooth: mgmt: Remove mesh cleanup from the socket destructor
+Date: Mon, 12 Oct 2026 09:58:36 +0800
+Message-Id: <pm-bluetooth-objects-candidate-0156-v8-fac4256cb2701c21549a@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The spinlocks in the fw_card structure protect transaction-related state
-from concurrent access. They are acquired mostly from process context.
-The exceptions are split_transaction_timeout_callback(), which runs in
-softirq context for the timer wheel, and __fw_send_request(), which may
-also be called from interrupt context.
+mgmt_mesh_add() takes a socket reference before linking a mesh
+transmission, and mgmt_mesh_remove() unlinks it before dropping that
+reference. A socket reaching hci_sock_destruct() therefore cannot own
+any entries in mesh_pending. Nevertheless, the destructor calls
+mgmt_cleanup(), which scans every controller's mesh_pending list without
+protecting the entries against request completion.
 
-Use spin_lock() in split_transaction_timeout_callback() and
-spin_lock_irqsave() in the other functions. The latter preserves and
-restores the caller's interrupt state, as the callers are not guaranteed
-to have interrupts enabled.
+With mesh enabled on an LE controller, a pending transmission owned by
+socket B can complete while an unrelated socket A is being destroyed.
+For a successful send, mesh_send_start_complete() schedules
+mesh_send_done(), which queues mesh_send_done_sync() on the controller's
+request workqueue. While the controller remains registered, the paths
+can interleave as follows:
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+1. A enters hci_sock_destruct() -> mgmt_cleanup(), and mgmt_mesh_next()
+   obtains a pointer to B's linked mesh_tx.
+2. B's worker runs mesh_send_done_sync() -> mesh_send_complete() ->
+   mgmt_mesh_remove(), unlinks mesh_tx, drops B's socket reference and
+   frees the entry.
+3. A reads mesh_tx->sk to compare it with A's socket, accessing freed
+   memory.
+
+The hci_dev_list_lock held by A protects controller membership, but B's
+completion does not acquire it and can free the entry before A's read.
+The socket reference held by the entry keeps B alive, but does not keep
+B's mesh_tx alive for A's traversal. Start-error completion can remove
+the same entry through mesh_send_start_complete() as well.
+
+Remove the destructor's mesh cleanup call. The existing socket
+references ensure that all of that socket's mesh entries are unlinked
+before destruction. Mesh completion and cancellation already manage
+the entries' lifetime, so the destructor need only purge its queues.
+
+KASAN report as below:
+
+    ==================================================================
+    BUG: KASAN: slab-use-after-free in mgmt_mesh_next+0x119/0x140
+    Read of size 8 at addr ffff88810c25cf20 by task python3/490
+
+    CPU: 3 UID: 0 PID: 490 Comm: python3 Not tainted
+    7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,
+    1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? mgmt_mesh_next+0x119/0x140
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20d/0x410
+     ? mgmt_mesh_next+0x119/0x140
+     kasan_report+0xe0/0x110
+     ? mgmt_mesh_next+0x119/0x140
+     ? __pfx_sock_close+0x10/0x10
+     mgmt_mesh_next+0x119/0x140
+     mgmt_cleanup+0x6c/0xe0
+     ? __pfx_hci_sock_destruct+0x10/0x10
+     hci_sock_destruct+0x1a/0x50
+     __sk_destruct+0x85/0x790
+     ? __pfx_sock_close+0x10/0x10
+     sk_destruct+0xb3/0xd0
+     __sk_free+0xdd/0x370
+     sk_free+0x51/0x80
+     hci_sock_release+0x339/0x550
+     __sock_release+0xb8/0x270
+     sock_close+0x21/0x30
+     __fput+0x39f/0xa60
+     fput_close_sync+0xff/0x200
+     ? __pfx_fput_close_sync+0x10/0x10
+     ? dnotify_flush+0x22/0x4b0
+     __x64_sys_close+0x8c/0xf0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    RIP: 0033:0x7f057299a687
+    Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8
+    fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f
+    1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+    RSP: 002b:00007fffcf66d4a0 EFLAGS: 00000202 ORIG_RAX: 0000000000000003
+    RAX: ffffffffffffffda RBX: 00007f0572906780 RCX: 00007f057299a687
+    RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000005
+    RBP: 0000000000000005 R08: 0000000000000000 R09: 0000000000000000
+    R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000a83590
+    R13: 0000000000a83590 R14: 0000000000000000 R15: 00007f0572744188
+     </TASK>
+
+    Allocated by task 490:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x251/0x610
+     mgmt_mesh_add+0x5d/0x3e0
+     mesh_send+0x22d/0x6c0
+     hci_sock_sendmsg+0x128b/0x22e0
+     __sys_sendto+0x425/0x470
+     __x64_sys_sendto+0xe5/0x1c0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 492:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x307/0x580
+     mesh_send_done_sync+0x115/0x180
+     hci_cmd_sync_work+0x1b3/0x450
+     process_one_work+0x908/0x19c0
+     worker_thread+0x65c/0xe40
+     kthread+0x34f/0x460
+     ret_from_fork+0x659/0x940
+     ret_from_fork_asm+0x1a/0x30
+
+    The buggy address belongs to the object at ffff88810c25cf00
+     which belongs to the cache kmalloc-96 of size 96
+    The buggy address is located 32 bytes inside of
+     freed 96-byte region [ffff88810c25cf00, ffff88810c25cf60)
+
+    The buggy address belongs to the physical page:
+    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
+    pfn:0x10c25c
+    flags: 0x200000000000000(node=0|zone=2)
+    page_type: f5(slab)
+    raw: 0200000000000000 ffff888100042280 dead000000000100
+    dead000000000122
+    raw: 0000000000000000 0000000000200020 00000000f5000000
+    0000000000000000
+    page dumped because: kasan: bad access detected
+
+    Memory state around the buggy address:
+     ffff88810c25ce00: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+     ffff88810c25ce80: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+    >ffff88810c25cf00: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+                                   ^
+     ffff88810c25cf80: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+     ffff88810c25d000: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+    ==================================================================
+
+Fixes: b338d91703fa ("Bluetooth: Implement support for Mesh")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
- drivers/firewire/core-transaction.c | 21 ++-------------------
- 1 file changed, 2 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
-index dfa6c97f9dce..33c4ea48c6c9 100644
---- a/drivers/firewire/core-transaction.c
-+++ b/drivers/firewire/core-transaction.c
-@@ -78,8 +78,6 @@ __must_not_hold(&card->transactions.lock)
+diff --git a/net/bluetooth/hci_sock.c b/net/bluetooth/hci_sock.c
+index b26f065d0c18ff3a7cd4b2be1f3fc44d1d2a0605..24cfa6db7654255e5192be75fad49478db251817 100644
+--- a/net/bluetooth/hci_sock.c
++++ b/net/bluetooth/hci_sock.c
+@@ -2186,7 +2186,6 @@ static int hci_sock_getsockopt(struct socket *sock, int level, int optname,
  
- 	lockdep_assert_not_held(&card->transactions.lock);
- 
--	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
--	// local destination never runs in any type of IRQ context.
- 	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
- 		list_for_each_entry_safe(t, tmp, &card->transactions.list, link) {
- 			if (try_cancel_split_timeout(t))
-@@ -136,9 +134,6 @@ __must_not_hold(&card->transactions.lock)
- 
- 	// If the request packet has already been sent, we need to see if the transaction is still
- 	// pending and remove it in that case (e.g. the split transaction).
--	//
--	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
--	// local destination never runs in any type of IRQ context.
- 	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
- 		if (!find_and_pop_transaction_entry(card, iter == transaction))
- 			return -ENOENT;
-@@ -180,7 +175,7 @@ static void split_transaction_timeout_callback(struct timer_list *timer)
- 
- 	lockdep_assert_not_held(&card->transactions.lock);
- 
--	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
-+	scoped_guard(spinlock, &card->transactions.lock) {
- 		if (list_empty(&t->link))
- 			return;
- 		remove_transaction_entry(card, t);
-@@ -223,14 +218,12 @@ __must_not_hold(&card->transactions.lock)
- 	{
- 		unsigned int delta;
- 
--		scoped_guard(spinlock, &card->split_timeout.lock) {
-+		scoped_guard(spinlock_irqsave, &card->split_timeout.lock) {
- 			t->split_timeout_cycle =
- 				compute_split_timeout_timestamp(card, packet->timestamp) & 0xffff;
- 			delta = card->split_timeout.jiffies;
- 		}
- 
--		// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
--		// local destination never runs in any type of IRQ context.
- 		scoped_guard(spinlock_irqsave, &card->transactions.lock)
- 			start_split_transaction_timeout(t, delta);
- 		return;
-@@ -255,8 +248,6 @@ __must_not_hold(&card->transactions.lock)
- 		break;
- 	}
- 
--	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
--	// local destination never runs in any type of IRQ context.
- 	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
- 		if (!find_and_pop_transaction_entry(card, iter == t))
- 			return;
-@@ -427,8 +418,6 @@ __must_not_hold(&card->transactions.lock)
- 	 * the list while holding the card spinlock.
- 	 */
- 
--	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
--	// local destination never runs in any type of IRQ context.
- 	scoped_guard(spinlock_irqsave, &card->transactions.lock)
- 		tlabel = allocate_tlabel(card);
- 	if (tlabel < 0) {
-@@ -454,15 +443,11 @@ __must_not_hold(&card->transactions.lock)
- 	// The node_id field of fw_card can be updated when handling SelfIDComplete.
- 	int node_id;
- 
--	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
--	// local destination never runs in any type of IRQ context.
- 	scoped_guard(spinlock_irqsave, &card->lock)
- 		node_id = card->node_id;
- 	fw_fill_request(&t->packet, tcode, t->tlabel, destination_id, node_id, generation, speed,
- 			offset, payload, length);
- 
--	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
--	// local destination never runs in any type of IRQ context.
- 	scoped_guard(spinlock_irqsave, &card->transactions.lock)
- 		list_add_tail(&t->link, &card->transactions.list);
- 
-@@ -1228,8 +1213,6 @@ __must_not_hold(&card->transactions.lock)
- 		break;
- 	}
- 
--	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
--	// local destination never runs in any type of IRQ context.
- 	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
- 		t = find_and_pop_transaction_entry(card,
- 				iter->node_id == source && iter->tlabel == tlabel);
-
-base-commit: c85f48c90bf3e62f50b78f7be7d628c06b97c335
--- 
-2.53.0
-
+ static void hci_sock_destruct(struct sock *sk)
+ {
+-	mgmt_cleanup(sk);
+ 	skb_queue_purge(&sk->sk_receive_queue);
+ 	skb_queue_purge(&sk->sk_write_queue);
+ 	skb_queue_purge(&sk->sk_error_queue);
