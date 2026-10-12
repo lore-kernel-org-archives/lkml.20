@@ -1,181 +1,236 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6415948D893
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:35:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF79377ECC
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:35:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819314; cv=none; b=T4yAMw4Dvx967FAYE0/D+2Wv+ADjtDcLiZpWR1DJJG2C2Ktrw8240AX9WECrqUvuc2mB39jnTUgZMhXCLIgvUeTT5Rm6TtZwCDpNJ7FcTUC2Zh/6CosgiZhdjMtxxDCa28i1VTqLjoxPxs8X0422QeIMI6f9qN6RCJjrZfnGhO0=
+	t=1791819333; cv=none; b=gmVhCJLzJkArug2v1OZxEt0fG0wp8mwjOF+i2gpz3B9n0pEH6L019MOFUNR3RuL/TCNsOZekdgUdJpw/p/2NnJB8eEGZgz92X/OhB036sQQZ9WBmnwGjmaoGjYGOb/W0A1tXgtx24SKJMw9c5HUCNh9ScB6vQHzTZZ4aS37CRKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819314; c=relaxed/simple;
-	bh=w4lePotoXe+nX+H6NblvvDqxQcCb6RktaTtqvtH82EA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eVJ81x+3qlzJNgfI8guVYp27u3d5kYiq5ebVPjoyd/dQrNIYcGGqABBMnne2ZDR39ROfjiKD+O7E9pzZU6jgpqiXeafBoF6E9eoNYUDbnQI/v+xtFO9/iB/bv7rtvGaD42MBdcTb8EMMfL+MXQi5OHa7PEooU4OYAR4MSJJN2F4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SygvHYei; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EmpzixQN; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791819333; c=relaxed/simple;
+	bh=gnxM0yOOK/JwI1s4juAVEfjVQ1r1eqV660lsNqxSPEw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pJsh0nim4pKsYjYGi8kwdlvgutW652UOVQkZfbomHC9oc+V50fbc9j1BZ6cFJonV/DzIACuDZZRl8LVBfCrqxJPQGtanT8S9LvgXBrCeOtOI8aXeDZGqXjy45OZ2GziXqPxY35VUEEXWMX1byStWQfdx1oWjJ1K+vSeyPfqUXo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=LB9He1gC; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SygvHYei";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EmpzixQN"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC04oW3365243
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:35:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1cUO/H/Ma04E9qAVityxFd6ti5bE3hFLpDa4qT5O2ZY=; b=SygvHYeiQ5snGSw7
-	BZ9iQaRIJrMLonFFtuJyJy8krgi6JS4/BUu82Io77+2FSvz9qKrP5n5RVB5V66hO
-	eXu8Hcnc7KwsV68q3fL4CyaWdRoFNVMsWh6bOpnrgolt04Iog7+snNZmSTAS4Jon
-	SLbLOdfxnU3qLTFDOl6l7vbAOsMQQl/ULMbFrYOKY0w3gWxtXCjCPMP9A1Dw9GpP
-	bv28YcyXkCXfZuIZQVcl7N7CCuULDC/1jAsMsM4kT94PNU4Nmg6rG1ApiS184zRL
-	ac6qCj6TLxSY8QvsE+XpD1D3CAowwGoK00Plsbd6c4LfXO8rNLBU4QsTf1h5Gw3A
-	iotksw==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8wdr9f4g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:35:11 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1665200f4c2so2855072c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:35:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="LB9He1gC"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3a4b9732d5aso1478638a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:35:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791819311; x=1792424111; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1cUO/H/Ma04E9qAVityxFd6ti5bE3hFLpDa4qT5O2ZY=;
-        b=EmpzixQN4szYaN4yM828VeNo0bViGvnnwOP1QFKzElzQlSBut4YHakfjtfDj8qp+Ly
-         2BEKEbtA8F/TEZLN9GFln2qQp4R5leTZKNQJyt6OHsLrv6/bCUKeD0wjq4sajGLyhFWp
-         goVm7jt0ziK8CkDTlbJ2jYdiasO03FvD8899R81k0SnKDpyuhY/cjcplluU10gDL3hVN
-         ufnfT5h9VEPPHCxRp0pzCq76jsVXTMjaG+dQ4bD1YrnJXuaOTqcJsXwgOUBaZ2JwhNzn
-         dG752kkjtS65Q+FhVYyrJyPjTlQeFw0ukf6D9QIU6XpP9Bzy15JzTAths2Ey5dfJrNUl
-         o2pg==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791819330; x=1792424130; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Yok6zVFuauItk86XZja8sSODs2GHBMfYs1w0NhMN22c=;
+        b=LB9He1gC1IUekYjF8vFwvdVXa4LoDMBGvgLH50+Z7YkBFwdAxmfHZGHtUmGDN6b1fK
+         e7820GwtU8/DQ0oWrqmoakeFPpUQJxYklpPIfjPD+CliCMjbMHWrfCeuwU4hfbGaPTx0
+         BKR1AXoPQchdmy+ahS8CocpFDI4uW8b9qxaJJoyw34q3ymg1sz5EF196yQHp0l5CaYVJ
+         DBe4ftjkSOd2/z5GGJ4MlHGvAhYdXuQV7WyT1foFd0aYhuknp2Ho98wNnRTJJagn83O9
+         W+JVkigatv8uzw7yGSUxQZ9nWuNC6eOd+jA57aEywJUeQI2q+1W+UvnWiJaUd4QdVc5+
+         Nrcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791819311; x=1792424111;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791819330; x=1792424130;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1cUO/H/Ma04E9qAVityxFd6ti5bE3hFLpDa4qT5O2ZY=;
-        b=ACW6vV7acjDIRoMeDMAySXCtiLqJUlBzYBwmItHIceKbbYwvc8aIdfGa1E90zNnfJ4
-         EovSlM8dm7tBmGQCt3TmbNtvfjl8fOod/MrBVOoqYbWhjBGGvDu7KYlpVzvx2Jc7osWJ
-         MhWK22CIo+95Y9oNVpQVGBDcNfi+zmlRDTW93ZWzMHuEfKEJqZg1tqkT5tj5BdZBaTUd
-         RMVOYjG+nu7BQySvQOsFfyAL5Ufjp2w8pDTlLUKdZb3J3ELGKGc5/uA67yEw183fKFFy
-         zN1B6V6D172y6009iKyx0pdn3wPytK5HoXdva5vCyCX0ixfkg7j9yqdY2MgSnASAdHyf
-         iC5w==
-X-Forwarded-Encrypted: i=1; AKwUvBzTm7oZErNrynwNY+UMnwKHW3tqSwPfIW5DphuN9d7e3X7DD56lrUm9WvO3C3eYq15fvl6RmxRuhufFBoY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdWrYLS9hJPXn/epqiPoVHnGv8DfTeQlnAd8H89BsboWTM4IBY
-	CT7TD3Vr3uIkod44ZEoa3X+N+dqwfyjDgCFOdgXdaUHz5qbcKAck7qTyDjsMrwnrb04qBY81hE2
-	fhRqRmQm5uqvIyNzfC5JE5ogMqCjH9Vw412HKlSDulkIx3rQEoax+VJ4RzxxeoxbSV2Y=
-X-Gm-Gg: AYBFou3+mecs0hIfcxzCuTU0rzi2WWPzAlAIDGASmZWQOnK9OqtNyUqywCgWhZfY89t
-	B1pfmxWD3pnA3vTjeL7BMMKQZnf9qtP+pStPuwjwnEhOaDWe+QNg6R+R/Wqo66QHkr6cr6oLaPB
-	aYuTfCBU/2BVArWtAlH76HitG42paH3Qu5iJrUcJalqO5OCZ8dsbFBkx7SvfdMkicO9Vpkr3kr2
-	dOXMybdM5ePPheb9aAzg996slKI7q+88XRfxppKbzd8daJ8wYfAmvNImMZJ9ah0sd+xF30DAw/0
-	pyhua/vutdOfUC342KOTl00ELU2wB053K6bJMmDcjmb/yF46Mx2r77gpjLtYivl+yMpvktYDYeo
-	Qp4Jbz5PdcwqrxiQa6Ap0e0hOAnNtN94=
-X-Received: by 2002:a05:701b:4553:20b0:14d:5a09:5cd0 with SMTP id a92af1059eb24-16a5ed3d9aamr12748826c88.42.1791819310911;
-        Mon, 12 Oct 2026 08:35:10 -0700 (PDT)
-X-Received: by 2002:a05:701b:4553:20b0:14d:5a09:5cd0 with SMTP id a92af1059eb24-16a5ed3d9aamr12748759c88.42.1791819310129;
-        Mon, 12 Oct 2026 08:35:10 -0700 (PDT)
-Received: from [192.168.1.4] ([122.178.59.3])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a6021e49sm31244885c88.20.2026.10.12.08.35.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 08:35:09 -0700 (PDT)
-Message-ID: <18353f7d-d9e0-4e2d-aa79-ec6be0275e47@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 21:04:41 +0530
+        bh=Yok6zVFuauItk86XZja8sSODs2GHBMfYs1w0NhMN22c=;
+        b=XKSDUmOVoFIEJ8OGYMIC9XwZFWLHM+SBXTqhkC0k+knPxYm7M8CdE5j0VLU5y2eubE
+         bVdcMEyUkHJ2hnkMDEnomFM8wHVrQixjoutwU3NODNMUndNHhDazkaGb4q9UZmqs2pQV
+         dQtXDQaOyKPObZrTbEK0JjwXwvsUz/raRzci+9abMgqaAeKAEo3CZWMIj6YvxRPGPzjt
+         pdw8JXV6AYaQkNBnGjFb9xf7BtKKKFJDP1JfKzNTleIaoi8J3KCbnP29w9EztMWYlM8m
+         5K3ciqRDnI6N13lQHPR1lzcjXbMGtdUGv052F1pa+o0JDjgfjpjNc8GuffNuAEDQLv9Y
+         MJ+g==
+X-Gm-Message-State: AFq9FYIVE+G/5/Lj5qSiZgGvqa7Z8sMfc5YCv47yQz9u4XKp8yfbYWLc
+	gA0du4tw9jWtlNuVqbaFUwhAZaQFhc1dfrqA2VVQ9jVFFa6BKFxWFs+Lx6L3K0dlB/o=
+X-Gm-Gg: AYBFou2CB9T48mSMQIMLFm9cjFW6v5T+22QplyHrnqRH0uNg+Y2XcZgX5lqzLA7qg/A
+	jC4vJGnppbe5eAS4E/WtRCnFA2Bw1DAZTCkPbWEaQLMnTI55rZ8PSlxNez+3C1Psvbc2YFxfHp/
+	YNRXeLpFsykQAAzHqZE9EW/+PW978ykudXejsGykHkjmXZv9omZDngFLx4U/vA1s/b3Cy9IB19U
+	Ggp+0tsO70orFP+Xwle3gFLwFj5dokGnTs77BtULjto+ftJLhN7s6YlZ0RyWO5dK2rNVQnRqZh2
+	t9j0y36gDRgAUNMnz131sIRCfUKS9AAUdm6/H6nSqTHCxfqOJQVcLgZqj46Ki46xXbSdXhrZiH8
+	SYDA/9zfoduc2H8Uztz+asWf8CcU5TZCF23wp5hX7XEQ9dJ/yThYNuJgv7R9SkloVnL4amy93q7
+	Ol//hgugwkEP7cKD+9KBxxN5/FqWYgVZNRtvdKbnc3njBlEbdYq1cS5hCmRC3kI2CkrLkezSpjd
+	hlTvWIA78Mj2LbIQz6s/9I=
+X-Received: by 2002:a17:90b:2889:b0:3ac:eeb:e0ed with SMTP id 98e67ed59e1d1-3ac0eebecf5mr1790611a91.36.1791819329799;
+        Mon, 12 Oct 2026 08:35:29 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:7bd2:1202:246d:44ce])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9639bsm16371590a91.4.2026.10.12.08.35.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 08:35:29 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: mkp@kernel.org,
+	target-devel@vger.kernel.org,
+	linux-scsi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hannes Reinecke <hare@suse.de>,
+	Bart Van Assche <bvanassche@acm.org>
+Subject: [PATCH v2] scsi: target: tcm_fc: reject overlapping write-data frames
+Date: Tue, 13 Oct 2026 00:35:02 +0900
+Message-ID: <20261012153502.2435483-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: talos: Add EL2 overlay for
- talos-lyra-evk
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com>
- <20261012-talos-lyra-evk-v2-v2-4-dcc9316ebb59@oss.qualcomm.com>
- <9fa51ba2-5707-4d39-9038-c0983d138893@kernel.org>
-Content-Language: en-US
-From: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
-In-Reply-To: <9fa51ba2-5707-4d39-9038-c0983d138893@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2MiBTYWx0ZWRfX44Wz1vDmifQI
- cCG3KrBK6ilvvrPUctnRvW7KQBHy1CIhQQmyyeoWcqgiZGw5D8Irq/mdlX3w6gzcZJWeRi208kS
- cyu7o4Eux1/sySTG0B2XFh6XrsOlIL3VHlWstXDvsbkTXBPLhzk+o8QD/nj0Wo1rBCUKJTM+i9q
- zhiZcrPaqS84Bc7Pod/cAKphWex7EV5IqXlmRzUQMI1muXlV7ZMPLW/BAJVMEQdERcBnaTZttBw
- i1G66xN1qY/1SX9yBcWbsFDep4j5UTxyhwwQ8KUV6itCYc9Tg1B4pU0SrNtFG2c4URsUqK/dvfz
- Q1eBQ644ZwNrLflzCjmIWy0mBSMMK5cuRJ0rnFYgMwLENWOl5Zy6v9eMcEAxndskwASAuFnbOPG
- MxQnnzz35yqolntFANUUfVCS/S9gHN7E1SbUtAlrzFcprny0x7Zuha3CRsVvv+kMKFZqv5afIm2
- gyGtOVEGvX17TLZdHiw==
-X-Authority-Analysis: v=2.4 cv=SvAFe/O0 c=1 sm=1 tr=0 ts=6accfe2f cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=n9yIFlGNEsxdxEAB/oY+Cg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=KqQ6fI0hE-5oTRIwU9AA:9 a=QEXdDO2ut3YA:10
- a=vBUdepa8ALXHeOFLBtFW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2MiBTYWx0ZWRfX3DdtM4jSepji
- juSPRIjOCAjIQpq32PmGn3ACdDdd5aDiqMCIUIgy/J06/Xn19wX61iu7/DB7FHtSzc9sI5wz3sT
- owemiiOsgsX0BdzryPrlgLhyaRDR7OQ=
-X-Proofpoint-ORIG-GUID: 1ZA9IJEUfUZZoQEWyDQxNxmvC5Glxbll
-X-Proofpoint-GUID: 1ZA9IJEUfUZZoQEWyDQxNxmvC5Glxbll
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 clxscore=1015 phishscore=0 bulkscore=0
- priorityscore=1501 adultscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120062
+Content-Transfer-Encoding: 8bit
 
-Hi Krzysztof,
+ft_recv_write_data() executes a WRITE once the received byte count reaches
+se_cmd->data_length.  Frames are placed by their FCP relative offset but
+nothing tracks which offsets were filled, so an initiator that sends two
+frames at the same offset reaches data_length with part of the buffer never
+written: two 4096-byte frames at offset 0 of an 8192-byte write get the
+count to 8192 and leave the second half untouched.
 
-On 12-10-2026 16:56, Krzysztof Kozlowski wrote:
-> On 12/10/2026 08:16, Ruchira Revdekar wrote:
->> Add support for building an EL2 combined DTB for the talos-lyra-evk
->> in the Qualcomm DTS Makefile.
->>
->> The new talos-lyra-evk-el2.dtb is generated by combining the base
->> talos-lyra-evk.dtb with the talos-el2.dtbo overlay, enabling EL2-specific
->> configurations required by the platform.
->>
->> Signed-off-by: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
->> ---
->>  arch/arm64/boot/dts/qcom/Makefile | 4 ++++
->>  1 file changed, 4 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
->> index 2f25575e6efe..4f8ca3112fed 100644
->> --- a/arch/arm64/boot/dts/qcom/Makefile
->> +++ b/arch/arm64/boot/dts/qcom/Makefile
->> @@ -458,6 +458,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
->>  dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
->>  dtb-$(CONFIG_ARCH_QCOM)	+= talos-lyra-evk.dtb
->>  
->> +talos-lyra-evk-el2-dtbs	:= talos-lyra-evk.dtb talos-el2.dtbo
->> +
->> +dtb-$(CONFIG_ARCH_QCOM)	+= talos-lyra-evk-el2.dtb
->> +
->>  talos-evk-el2-dtbs	:= talos-evk.dtb talos-el2.dtbo
->>  
-> 
-> Makefile changes belong to the pathc introducing the DTS, so squash this
-> and previous.
-> 
-> Best regards,
-> Krzysztof
+The buffer is not zeroed (transport_generic_new_cmd() clears zero_flag for
+a data CDB), so that gap keeps the previous page contents, which the
+backend then writes to the device for the initiator to read back.  There is
+no oops; poisoning the buffer and sending such a pair leaves 4096 bytes of
+it committed unchanged, and the patched driver refuses the overlapping
+frame.
 
-Thanks for the review.
+Track the range received and drop a frame that falls inside it.  With no
+overlapping frame accepted, the byte count reaches data_length only when
+the whole buffer has been written, so it stays a valid completion test;
+in-order and out-of-order complete writes are unaffected.
 
-I'll squash the EL2 Makefile changes into the patch introducing the Talos
-Lyra EVK DTS in the next revision.
+Fixes: 3699d92a4d7b ("[SCSI] tcm_fc: Adding FC_FC4 provider (tcm_fc) for FCoE target (TCM - target core) support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+v2: coalesce adjacent tracked ranges, so a reordered write whose segments
+    have become contiguous no longer exhausts the array and is wrongly
+    refused (Sashiko).
 
-Best regards,
-Ruchira
+ drivers/target/tcm_fc/tcm_fc.h |  8 ++++
+ drivers/target/tcm_fc/tfc_io.c | 74 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 82 insertions(+)
+
+diff --git a/drivers/target/tcm_fc/tcm_fc.h b/drivers/target/tcm_fc/tcm_fc.h
+index 00e5573c62966..b75b1373a49c9 100644
+--- a/drivers/target/tcm_fc/tcm_fc.h
++++ b/drivers/target/tcm_fc/tcm_fc.h
+@@ -103,12 +103,20 @@ struct ft_lport_wwn {
+ /*
+  * Commands
+  */
++#define FT_WRITE_SEGS	4	/* out-of-order write ranges tracked per cmd */
++
+ struct ft_cmd {
+ 	struct ft_sess *sess;		/* session held for cmd */
+ 	struct fc_seq *seq;		/* sequence in exchange mgr */
+ 	struct se_cmd se_cmd;		/* Local TCM I/O descriptor */
+ 	struct fc_frame *req_frame;
+ 	u32 write_data_len;		/* data received on writes */
++	u32 write_contig_end;		/* end of the contiguous data received */
++	u8 write_nseg;			/* out-of-order ranges held below */
++	struct ft_write_seg {
++		u32 off;
++		u32 end;
++	} write_seg[FT_WRITE_SEGS];
+ 	struct work_struct work;
+ 	/* Local sense buffer */
+ 	unsigned char ft_sense_buffer[TRANSPORT_SENSE_BUFFER];
+diff --git a/drivers/target/tcm_fc/tfc_io.c b/drivers/target/tcm_fc/tfc_io.c
+index 45329284f52f5..27eb9da0bc01f 100644
+--- a/drivers/target/tcm_fc/tfc_io.c
++++ b/drivers/target/tcm_fc/tfc_io.c
+@@ -189,6 +189,73 @@ static void ft_execute_work(struct work_struct *work)
+ 	target_execute_cmd(&cmd->se_cmd);
+ }
+ 
++/* Fold a range that now adjoins the contiguous front, or another range. */
++static void ft_merge_write_ranges(struct ft_cmd *cmd)
++{
++	unsigned int i, j;
++	bool merged;
++
++	do {
++		merged = false;
++		for (i = 0; i < cmd->write_nseg; i++) {
++			if (cmd->write_seg[i].off == cmd->write_contig_end) {
++				cmd->write_contig_end = cmd->write_seg[i].end;
++			} else {
++				for (j = 0; j < cmd->write_nseg; j++)
++					if (j != i && cmd->write_seg[j].end ==
++					    cmd->write_seg[i].off)
++						break;
++				if (j == cmd->write_nseg)
++					continue;
++				cmd->write_seg[j].end = cmd->write_seg[i].end;
++			}
++			for (j = i; j + 1 < cmd->write_nseg; j++)
++				cmd->write_seg[j] = cmd->write_seg[j + 1];
++			cmd->write_nseg--;
++			merged = true;
++			break;
++		}
++	} while (merged);
++}
++
++/* Record a frame's range; refuse one that repeats data already received. */
++static bool ft_add_write_range(struct ft_cmd *cmd, u32 off, u32 len)
++{
++	u32 end = off + len;
++	unsigned int i;
++
++	if (off < cmd->write_contig_end)
++		return false;
++	for (i = 0; i < cmd->write_nseg; i++)
++		if (off < cmd->write_seg[i].end && cmd->write_seg[i].off < end)
++			return false;
++
++	if (off == cmd->write_contig_end) {
++		cmd->write_contig_end = end;
++	} else {
++		for (i = 0; i < cmd->write_nseg; i++) {
++			if (cmd->write_seg[i].end == off) {
++				cmd->write_seg[i].end = end;
++				break;
++			}
++			if (cmd->write_seg[i].off == end) {
++				cmd->write_seg[i].off = off;
++				break;
++			}
++		}
++		if (i == cmd->write_nseg) {
++			if (cmd->write_nseg >= FT_WRITE_SEGS)
++				return false;
++			cmd->write_seg[i].off = off;
++			cmd->write_seg[i].end = end;
++			cmd->write_nseg++;
++		}
++	}
++
++	ft_merge_write_ranges(cmd);
++	return true;
++}
++
+ /*
+  * Receive write data frame.
+  */
+@@ -267,6 +334,11 @@ void ft_recv_write_data(struct ft_cmd *cmd, struct fc_frame *fp)
+ 		goto drop;
+ 	if (frame_len + rel_off > se_cmd->data_length)
+ 		frame_len = se_cmd->data_length - rel_off;
++	if (!ft_add_write_range(cmd, rel_off, frame_len)) {
++		pr_err_ratelimited("%s: xid 0x%x: offset %u len %zu repeats data\n",
++				   __func__, ep->xid, rel_off, frame_len);
++		goto drop;
++	}
+ 
+ 	/*
+ 	 * Setup to use first mem list entry, unless no data.
+@@ -345,6 +417,8 @@ void ft_invl_hw_context(struct ft_cmd *cmd)
+ 				 */
+ 				cmd->write_data_len = lport->tt.ddp_done(lport,
+ 								      ep->xid);
++				cmd->write_contig_end = cmd->write_data_len;
++				cmd->write_nseg = 0;
+ 
+ 				/*
+ 				 * Resetting same variable to indicate HW's
+-- 
+2.43.0
+
