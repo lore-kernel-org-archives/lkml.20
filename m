@@ -1,337 +1,147 @@
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD7D4F797D
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:34:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791840866; cv=none; b=c/3MfPEY7gqur7GwpdEE2954OJcPVs8LwKIbt92AHlkRfA2/FhLeemyKp8lbs1rFlFkjMVsHI1vrgY1nrt9nKnyVjYMUKq9DQQRSGn2aSs49VypzveGhvtLp+Hv/moyW4fwb6VlthFeixRU7ZAOvaWquuHHVjMM9XvZslRYo8NU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791840866; c=relaxed/simple;
-	bh=Hc1ijqb78M+KCiboOG1eU95mN0RQFKIJR2c7e4qGr2g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qJlislBJOB9rNed4fHyk8ag+ms8XUnNikyf97wolVXo2TFCpTdiv11Z9uLJJQEmejrNetvpCIP7UOQkjrm6s9Fds0PfmCwz7NRs4IpDeiegDRb5KrzDFDslR7yYGJjqs/2+7zw+hQITqv5K3U4Ya+haSVEWaePA0tn29eAIKW84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CSlGCtoJ; arc=none smtp.client-ip=209.85.210.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9FC3E765A
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:34:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791840870; cv=pass; b=f36G9OikDxDHqRx2AxEm2bEROJipQyMdYnlqpxNI0Ev5S3tdALy/wN8DvkRto6vKe8dLDinqtmf3lIX7+ehzq6WYGtpCu8WyiDeAmiK6mJYMaVtSL/59/mz8/AV2Cemzy0mPg+iiRqD8ql57FAaHHhkV8UgR4gr2pecTFILb83w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791840870; c=relaxed/simple;
+	bh=/bJ5PQP4uoYZBIo22Fzx5lB/ygVpuCF+t05OUgq3nrM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=T80bGwGUoIXpI7g0iMvjraXkM7PJA+DKah9O9CiVWATT96c0ysntvt5Lks9x6wTNe/G2ltruQCVnbddkvRfbZYFuCtAnK7RZp8XIZvS+lY5e9KumgldhqPeQAy65MBwLhQOxxCcwcE38tV+S3ROr7S7VzMnOv0bi5jGb9+7QojM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems; spf=pass smtp.mailfrom=starlabs.systems; dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b=hyslrloe; arc=pass smtp.client-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starlabs.systems
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CSlGCtoJ"
-Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-7f432ac553fso2799868a34.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:34:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="hyslrloe"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b09e07e149so11983387b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:34:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791840865; cv=none;
+        d=google.com; s=arc-20260327;
+        b=p3PAuAVK/WwkbFj1ubbU3Uaq/ihKMTLJI+r0/IkbjtVot+pKp+276yLBpaqLxvzuKL
+         yF1M86lK0lRhUPVkEw5dAcB8axSRjXq0qq5dcvJVslzNW3/1E58oZxD2+NMXC0uHdFlr
+         ep27aN7uqX5QEOl4vewqhXgpJvryIbd18EJm0JH/q0omBfFgCLN/5lishi5+Juh7aOuQ
+         FQ8bccJdtSjUQf0kzXa4tE40HRzBwrBdJcPXDZWkcrs99r5+a17T0EzN29dkoNquNJUQ
+         FVnLB1uvbsexSJDgNjmZ13ODK8B8pwf/WFOoaPai+F0V/vOdOallzCO6d64RSWXtIJXq
+         ElOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ysmRiqiC15vYpG/lYmDhf4jWZxZpBo2Htczu87XzkBA=;
+        fh=4pDyneEacBnOZCAWI4eb74Ag9Ed9tRxvba3/VlRTDvM=;
+        b=r9s1lmap3gnBl5Q2GyVwuxobRpzM72CRkxzH3LsvtSNGU0ylqrf6zZTQ5ch9vNBvgt
+         GBYpowZmRCP/da2jEE6D6LTZkWJ2eJVgsujzVYjpKZ6nxrgys5fhJM72qSyCaABgvw8t
+         6t8RAsivZsdXqXeWW7V4zRA9hvl4wyATMpaZKugFBfvpf/MHGh2fYRZY9AQHVCDKA304
+         YGDVOxXdky7UpgvFjBh1g1zmjZK3uOkTkAsuDJR+8W7Q8mWybLBTn0t/UWdaOxD3l3Oh
+         nPRiYEAhisaqXpQrIjpskIJNc/x3CDskD9n/b5IKXHdf1geTnb5i7Blp5MdnnXLwfWe+
+         C5vQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791840863; x=1792445663; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Wtcrbd6Cgz3Ugy3PXt8EJcehRCAPru4qEFOiOsw7Yk8=;
-        b=CSlGCtoJY274zs2yLfnnW/EvvrLSzrH1eHdv3PUmD1wSlMEDqWXKa43fEGcacZnapO
-         CTCfBp0oAKfuuA73J86lYpgpMARKxT60b2SOobhTHUaPrQyGOw5bW8J3sPfLrX7T3enk
-         2LTcrpUNAjk+Oh/kpw0LUqe/FfTNbBZGperGCp1kod30d9E+y9lX4ZSFa8TRpHMBCdaU
-         i+SlborerQNhyVrpx4/lUjtKwDYNyoDAUU6WJY4wZPTdE0BOhp7MlvQ5OKCYdVGG+nlE
-         cKzMpXw1JMcgMN8zRtSLWQHglgUj4PuBbhdd/a5MKRaBLPE7iUZHY7oDpunzoFew+YoO
-         8lYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791840863; x=1792445663;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1791840865; x=1792445665; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Wtcrbd6Cgz3Ugy3PXt8EJcehRCAPru4qEFOiOsw7Yk8=;
-        b=LEJ1W7euVHQc7Yw8CcrYxKu3xrWKEAXFGxaZB9U2EBT/9Y4nV970kvhfbaZVa3oJGT
-         uCthpO3grQP5uR4uqUYQfdYE1a2vbQAToSnYMAHhlzHx8w+8er8dRmu58mZUpsnV3kfr
-         UslBL38smNfxMwk5qdtSLbSzZZ+C7c59ND44ZfR3xHNV2iNTikZzMTnWoauYUyVqMDdM
-         a6eNAqcUJKoHflJE3eaJ4C8RfWE4Y6zkG5G6dIpuSqm6FOGQSw5lAOX9l4DW57xaY0CY
-         j99ejrwP6wPycMtchrhN/M/thV/ZnlvQofm7DdmpYvSDPSegQDm8EQYdiAjDAjOtHDYL
-         PB8g==
-X-Forwarded-Encrypted: i=1; AKwUvBwlTiEi3LyCWNoAuZVrxbGOPGJscHoJWbyOZwludsgcEUY8ZK/sPHzsVC9G1dJrT5nWbYUL70i56E12J7c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKt3V96GvkHKpenw38cFHGWBKWiHA/8X9ZySBNCdSuvqIk6N+yP
-	QqkUCbzTGNAxWgWGKf++KknYutU8LTp0/mrqjPkamrnYcQo6g0Ln+/79
-X-Gm-Gg: AYBFou0BjWSFpwFpy+uraHhiS0OmCSUHnFruITHJq+pL9GgKso6D8RFDiWZ8G0M8paD
-	DtgUwJ0hiVcyupV2nWzCgPFs7DURLDcm5K6ouTLCAP8asR5KRqyqtAfO4pUZ4NAToinKqN/rTlC
-	1+ybdYkQnqaK4F6KuUaAzmIN1zwPJJqo6RsYdx6alWS9yubJmvGSl5p8QJFwPwoFvabgKjKaOqt
-	bLIXLRhiYhzGCW3QW4exe3+vGIQUOcVv/LQmsW5QZU9jJ6EWO/EwtFSMuf91KEtaf6BAmu2t1t3
-	q14/MHL+Sz783n2w2/RymTEeUyDMk5uRVvmEAVRAWLV7BOmmxwzNM7F6WbpidkvuE6YmE48IdVf
-	RFVeInoHrBTQ4tFF7MFTCx06zPjInFcro0IKYeQZ6Of+hEdOgaS7MTMljXVvVLDyiMxP0ZQhZoF
-	AIHhe/xrb/Cy+cVavuzTExLC/F9HuIXLy4aSzqUrjTzWwu93zpbF3yyO/fut93WwBihGamzcKTM
-	Vr2nLhxGrC+Ui6DaBQq
-X-Received: by 2002:a05:6830:4c0a:b0:80a:b8da:2792 with SMTP id 46e09a7af769-83094e783camr11556972a34.6.1791840863000;
-        Mon, 12 Oct 2026 14:34:23 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:49::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8303a515aa9sm11078644a34.25.2026.10.12.14.34.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 14:34:21 -0700 (PDT)
-Date: Mon, 12 Oct 2026 14:34:18 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: Jia Jia <physicalmtea@gmail.com>
-Cc: stefanha@redhat.com, sgarzare@redhat.com, netdev@vger.kernel.org,
-	virtualization@lists.linux.dev, kvm@vger.kernel.org, mst@redhat.com,
-	jasowangio@gmail.com, eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com, davem@davemloft.net,
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH net-next v2 1/5] vsock/virtio: split socket lookup from
- locked RX processing
-Message-ID: <as1SWsJw2dSrPYcL@devvm29614.prn0.facebook.com>
-References: <20261010142247.99223-1-physicalmtea@gmail.com>
- <20261010142247.99223-2-physicalmtea@gmail.com>
+        bh=ysmRiqiC15vYpG/lYmDhf4jWZxZpBo2Htczu87XzkBA=;
+        b=hyslrloec1zhakASu16CVHaH1MEMPk4jP+epSDIEaD3BxKb48lqPSzFO9cJWpZDqiP
+         lw25luTM7J8GC2qkLio35jeqIm/ZbsJqVEH7NsP+qAbYjFmn8fVwtkL3+7AU2GNkgMy+
+         yq3L9M4ZyCdiBOHVJORO+Wg7Seutmz64XxSn+c2LHcyqFcnrpxovLrCWyG8R7I2XEUYL
+         2L5ZpstCoKqyVcOP1ygcCzWdI8nrma0/lBgMd3DIi6htavNicO6PkmmiLp4KGzYvg7Ig
+         8DY+Tqj81qtuMxTP0k18k/w6we/1jHfUO25ZVGwolJk75uS+w2Q71IZGYpHHz+bCD5N9
+         TebA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791840865; x=1792445665;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ysmRiqiC15vYpG/lYmDhf4jWZxZpBo2Htczu87XzkBA=;
+        b=KylABdGpGkhJNpufyJudcT/dbMc3MZsiOhQaXdrYyEZPfSxH2xJrKEEWIHbeAPob5/
+         2+o9UOq5fTeOLoXYs+Ahx56pe93mVAzf5j6qj9OUtFYqpywmtA5GUxn8KDOhgJMDBrM8
+         DKbvl+i6p/HWs+jANDu0x6qCdKKaR54VBdG3V0fS6xUJYXsJ6hut5qrRH6wybZ4Dzw8j
+         ci85DzJiZXRk6BAj7Dc9z1+xcOIjkS4hoGdCqpXbN+6VdU0ndRByo+73R2RhqNJRFmDn
+         ZvoxmLeGs45YnzLy2fhq4li/gim0QgBgh4xrOGjC7sOQ9Kg9W3g244tbjZjZu+t/uLig
+         tfeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxPedNfxggy3JmTCkZRWv19Uoy/wbovVMjvxbb9IOGyl4RZyHHyYkSqDS7PqD3PlAitZpc9xTsW+TMT/wk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIpLotrINb32YJDqRRuMqZPoaF9CJh/k9TMKi7JGbwjHzarnHdV
+	uEKijmC82b8r+qVqdzFgEHqM+wR3VAI5tJ9kp8lmFi/AVWWdNJa16h1S4Str/nHVbXzXqDRWD+P
+	yUm7Hg2hdSc+emWeD926SPPuOHXtoAOm+KAPOCw0nNPOPXlEBmCUr8CCl
+X-Gm-Gg: AYBFou34jVSigub0aubnXYntKzzWlZJcoH0CBKy9xN1y9DrXRJ+cmFFkK4xMPguMoEw
+	qswJE6WRp9o0szoFYEcFAs+/wzoaExHGnJtUZQyjHh6Gw79D8wwwS7OBxVfwxUn7VIvHM0dV8Ns
+	QOlloIRJ+ee0W7f6Z0sJ0Y+t4VkZxxIGO9RpBCl3IcnYA6nyOlgkqCmStxYSMfUQyu48EWMq29D
+	ztJiMZBcvwu646Mt5EEWAOBynt+Z/E3fSzR0SH9MntdxE/QDtdigcjK1NffLZeBctp/gtucbRam
+	HtYRDnP6SgER3dAdmUBFbDdNgL1DAqMHelYFklg9S7Q9Gy/nfkJbCOvj9I7DPpjsY/vjbkWRCCt
+	pqnqDvprIyTDywp16CKUj
+X-Received: by 2002:a05:690c:a652:b0:89a:63da:fab0 with SMTP id
+ 00721157ae682-8b07ee4c479mr23157817b3.107.1791840865295; Mon, 12 Oct 2026
+ 14:34:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010142247.99223-2-physicalmtea@gmail.com>
+References: <cover.1783352430.git.sean@starlabs.systems> <7acac70a471452a6ccf23b7ccc557f3c3861e0ad.1783352430.git.sean@starlabs.systems>
+ <20261005103011.03175826.michal.pecio@gmail.com>
+In-Reply-To: <20261005103011.03175826.michal.pecio@gmail.com>
+From: Sean Rhodes <sean@starlabs.systems>
+Date: Mon, 12 Oct 2026 22:34:14 +0100
+X-Gm-Features: AclHuK-f_thTWraeWd7Wac9OHXbR64A-8Mn1b6vg99UV8M_3MiTAJtpOrwS45N0
+Message-ID: <CABtds-3t+ECCPeFShq__iNa9niRAge=WOED4cHtNZAFVw6kPzw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] misc: rtsx_usb: avoid USB I/O in runtime autosuspend
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Ricky Wu <ricky_wu@realtek.com>, 
+	Lee Jones <lee@kernel.org>, Roger Tseng <rogerable@realtek.com>, 
+	Dan Carpenter <error27@gmail.com>, Jisheng Zhang <jszhang@kernel.org>, linux-mmc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Oct 10, 2026 at 10:22:43PM +0800, Jia Jia wrote:
-> Split virtio_transport_recv_pkt() so socket lookup is separate from the
-> receive state machine that runs under the socket lock.
-> 
-> Keep virtio_transport_recv_pkt() on its existing per-packet locking path.
-> Pass the source and destination addresses used for lookup to the locked
-> receive path so they are decoded only once.
-> 
-> Pass the network namespace and decoded address tuple through a packet
-> context to the locked receive path.
-> 
-> Preserve source validation and failure handling. Keep the lookup reference
-> separate from the skb owner reference so the locked receive path can manage
-> the two lifetimes independently.
-> 
-> Signed-off-by: Jia Jia <physicalmtea@gmail.com>
-> ---
->  net/vmw_vsock/virtio_transport_common.c | 139 ++++++++++++++++--------
->  1 file changed, 96 insertions(+), 43 deletions(-)
-> 
-> diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-> index f225f53..e3e75e5 100644
-> --- a/net/vmw_vsock/virtio_transport_common.c
-> +++ b/net/vmw_vsock/virtio_transport_common.c
-> @@ -1774,81 +1774,97 @@ static bool virtio_transport_valid_type(u16 type)
->  	       (type == VIRTIO_VSOCK_TYPE_SEQPACKET);
->  }
->  
-> -/* We are under the virtio-vsock's vsock->rx_lock or vhost-vsock's vq->mutex
-> - * lock.
-> - */
-> -void virtio_transport_recv_pkt(struct virtio_transport *t,
-> -			       struct sk_buff *skb, struct net *net)
-> +static void
-> +virtio_transport_recv_pkt_init_addrs(struct sk_buff *skb,
-> +				     struct sockaddr_vm *src,
-> +				     struct sockaddr_vm *dst)
+> How is the driver supposed to detect card insertion after the last poll
+but before the reader goes to suspend and can issue remote wakeup?
 
-I'd prefer these calls stay inline, there is nothing complex enough here
-to justify abstracting IMHO.
+The reader uses remote wake; what hardware are you testing on?
 
-Could we move things around so that we don't have the arbitrary move of
-virtio_transport_recv_pkt()? It tends to create noise and makes it
-harder to focus on the more important parts of the patch.
-
->  {
->  	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-> -	struct sockaddr_vm src, dst;
-> -	struct vsock_sock *vsk;
-> -	struct sock *sk;
-> -	bool space_available;
->  
-> -	vsock_addr_init(&src, le64_to_cpu(hdr->src_cid),
-> +	vsock_addr_init(src, le64_to_cpu(hdr->src_cid),
->  			le32_to_cpu(hdr->src_port));
-> -	vsock_addr_init(&dst, le64_to_cpu(hdr->dst_cid),
-> +	vsock_addr_init(dst, le64_to_cpu(hdr->dst_cid),
->  			le32_to_cpu(hdr->dst_port));
-> +}
-> +
-> +static void
-> +virtio_transport_trace_recv_pkt(struct sk_buff *skb,
-> +				const struct sockaddr_vm *src,
-> +				const struct sockaddr_vm *dst)
-> +{
-> +	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
->  
-> -	trace_virtio_transport_recv_pkt(src.svm_cid, src.svm_port,
-> -					dst.svm_cid, dst.svm_port,
-> +	trace_virtio_transport_recv_pkt(src->svm_cid, src->svm_port,
-> +					dst->svm_cid, dst->svm_port,
->  					le32_to_cpu(hdr->len),
->  					le16_to_cpu(hdr->type),
->  					le16_to_cpu(hdr->op),
->  					le32_to_cpu(hdr->flags),
->  					le32_to_cpu(hdr->buf_alloc),
->  					le32_to_cpu(hdr->fwd_cnt));
-> +}
-
-Any chance we can get rid of this wrapper and just call
-trace_virtio_transport_recv_pkt() directly? Even from multiple call
-sites I don't think this is a big simplification win.
-
->  
-> -	if (!virtio_transport_valid_type(le16_to_cpu(hdr->type))) {
-> -		(void)virtio_transport_reset_no_sock(t, skb, net);
-> -		goto free_pkt;
-> -	}
-> +static struct sock *
-> +virtio_transport_recv_pkt_find_socket(struct sk_buff *skb,
-> +				      struct sockaddr_vm *src,
-> +				      struct sockaddr_vm *dst,
-> +				      struct net *net)
-> +{
-> +	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-> +	struct sock *sk;
->  
-> -	/* The socket must be in connected or bound table
-> -	 * otherwise send reset back
-> -	 */
-> -	sk = vsock_find_connected_socket_net(&src, &dst, net);
-> -	if (!sk) {
-> -		sk = vsock_find_bound_socket_net(&dst, net);
-> -		if (!sk) {
-> -			(void)virtio_transport_reset_no_sock(t, skb, net);
-> -			goto free_pkt;
-> -		}
-> -	}
-> +	if (!virtio_transport_valid_type(le16_to_cpu(hdr->type)))
-> +		return NULL;
-> +
-> +	sk = vsock_find_connected_socket_net(src, dst, net);
-> +	if (!sk)
-> +		sk = vsock_find_bound_socket_net(dst, net);
-> +	if (!sk)
-> +		return NULL;
->  
->  	if (virtio_transport_get_type(sk) != le16_to_cpu(hdr->type)) {
-> -		(void)virtio_transport_reset_no_sock(t, skb, net);
->  		sock_put(sk);
-> -		goto free_pkt;
-> +		return NULL;
->  	}
->  
-> -	if (!skb_set_owner_sk_safe(skb, sk)) {
-> -		WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
-> -		goto free_pkt;
-> -	}
-> +	return sk;
-> +}
-
-Similarly here, the unrelated functions blending makes for a harder
-read. Maybe worth moving things around or trying a different diff
-algorithm?
-
-nit: maybe we could just call this virtio_transport_find_socket()? AFAIK
-the tx side doesn't need a socket lookup since we already have the
-socket there, so we can omit the disambiguation if it lends a nicer
-name.
-
->  
-> -	vsk = vsock_sk(sk);
-> +struct virtio_transport_rx_pkt_ctx {
-> +	struct net *net;
-> +	const struct sockaddr_vm *src;
-> +	const struct sockaddr_vm *dst;
-> +};
-
-Let's just pass these directly too...
-
->  
-> -	lock_sock(sk);
-> +/*
-> + * The caller holds sk's socket lock and must free skb if this returns true.
-> + */
-> +static bool
-> +virtio_transport_recv_pkt_locked(struct virtio_transport *t,
-> +				 struct sk_buff *skb, struct sock *sk,
-> +				 const struct virtio_transport_rx_pkt_ctx *ctx)
-> +{
-> +	const struct sockaddr_vm *src = ctx->src;
-> +	const struct sockaddr_vm *dst = ctx->dst;
-> +	struct vsock_sock *vsk = vsock_sk(sk);
-> +	struct net *net = ctx->net;
-> +	bool space_available;
->  
-> -	/* Check if sk has been closed or assigned to another transport before
-> -	 * lock_sock (note: listener sockets are not assigned to any transport)
-> +	/* Check after acquiring the socket lock. Listener sockets accept packets
-> +	 * from any source and are not assigned to a transport.
-
-We can probably remove the first sentence since the function-level
-comment already declares we are holding the socket lock.
-
-Best,
-Bobby
-
->  	 */
->  	if (sock_flag(sk, SOCK_DONE) ||
->  	    (sk->sk_state != TCP_LISTEN &&
-> -	     !vsock_check_source(vsk, &t->transport, &src))) {
-> +	     !vsock_check_source(vsk, &t->transport, src))) {
->  		(void)virtio_transport_reset_no_sock(t, skb, net);
-> -		release_sock(sk);
-> -		sock_put(sk);
-> -		goto free_pkt;
-> +		return true;
->  	}
->  
->  	space_available = virtio_transport_space_update(sk, skb);
->  
->  	/* Update CID in case it has changed after a transport reset event */
->  	if (vsk->local_addr.svm_cid != VMADDR_CID_ANY)
-> -		vsk->local_addr.svm_cid = dst.svm_cid;
-> +		vsk->local_addr.svm_cid = dst->svm_cid;
->  
->  	if (space_available)
->  		sk->sk_write_space(sk);
-> @@ -1875,12 +1891,49 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
->  		break;
->  	}
->  
-> +	return false;
-> +}
-> +
-> +/* We are under the virtio-vsock's vsock->rx_lock or vhost-vsock's vq->mutex
-> + * lock.
-> + */
-> +void virtio_transport_recv_pkt(struct virtio_transport *t,
-> +			       struct sk_buff *skb, struct net *net)
-> +{
-> +	struct virtio_transport_rx_pkt_ctx ctx;
-> +	struct sockaddr_vm src, dst;
-> +	struct sock *sk;
-> +	bool free_pkt;
-> +
-> +	virtio_transport_recv_pkt_init_addrs(skb, &src, &dst);
-> +	virtio_transport_trace_recv_pkt(skb, &src, &dst);
-> +
-> +	sk = virtio_transport_recv_pkt_find_socket(skb, &src, &dst, net);
-> +	if (!sk) {
-> +		(void)virtio_transport_reset_no_sock(t, skb, net);
-> +		goto free_pkt;
-> +	}
-> +
-> +	if (!skb_set_owner_sk_safe(skb, sk)) {
-> +		WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
-> +		goto free_pkt;
-> +	}
-> +
-> +	lock_sock(sk);
-> +	ctx = (struct virtio_transport_rx_pkt_ctx) {
-> +		.net = net,
-> +		.src = &src,
-> +		.dst = &dst,
-> +	}
-> +	free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, &ctx);
->  	release_sock(sk);
->  
->  	/* Release refcnt obtained when we fetched this socket out of the
->  	 * bound or connected list.
->  	 */
->  	sock_put(sk);
-> +	if (free_pkt)
-> +		kfree_skb(skb);
->  	return;
->  
->  free_pkt:
-> -- 
-> 2.34.1
-> 
+On Mon, 5 Oct 2026 at 09:30, Michal Pecio <michal.pecio@gmail.com> wrote:
+>
+> On Mon,  6 Jul 2026 16:40:43 +0100, Sean Rhodes wrote:
+> > The runtime autosuspend callback currently queries card status and
+> > clears OCP by issuing USB register accesses. This can run from the
+> > USB runtime-PM path itself, which is the wrong place to start more
+> > device I/O.
+> >
+> > Keep a cached copy of the card-status bits from normal status reads
+> > instead. During runtime autosuspend, use that cached value only to
+> > preserve the existing Memory Stick autosuspend deferral.
+>
+> How is the driver supposed to detect card insertion after the last poll
+> but before the reader goes to suspend and can issue remote wakeup?
+>
+> This is exactly what happens now: if I insert a new card within two
+> seconds of the "card removed" message showing up (which itself happens
+> up to a second after removal) the insertion is never detected and the
+> reader enters suspend with the card in.
+>
+> It seems that not only was "starting more I/O in the runtime-PM path"
+> actually a good idea, but polling should only stop when the parent USB
+> device suspends, not the child MMC host, because there is a two second
+> delay between them. And even with this patch reverted, insertion never
+> works if USB autosuspend is simply disabled altogether.
+>
+> Also, does anyone know if there is any way to utilize the interrupt
+> endpoint instead of polling? I tried submitting a URB to it and got
+> regular responses, but only zeros. Can this be changed?
+>
+> > Do not treat raw SD_CD as an autosuspend blocker, because tray-based
+> > SD readers can assert SD_CD with an empty tray. A real SD card is
+> > protected by the SD/MMC child runtime-PM usage once powered.
+>
+> Sounds like the proper condition is to ignore the card if and only if
+> it failed to initialize and has not been swapped for a new one.
+>
+> Hence the question about interrupts: this would vastly reduce the risk
+> that a swap for an actual working card remains undetected.
+>
+> Regards,
+> Michal
