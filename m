@@ -1,112 +1,172 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244184A4821;
-	Mon, 12 Oct 2026 15:41:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031284A8FE6;
+	Mon, 12 Oct 2026 15:41:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819717; cv=none; b=Oxk/2r1bzSOgAB+3msEYBa8Xw4+aG6xmX0Lzc3YOBxOfcYU/1HsgCCQgAVdAO9p5Jxs2VpWDcU4Y9luZZERpsZxxQvB3Y+/eX4shfRMPqKXXtcWazyPYsc3U24jTfr7FBqJ8Z1n94puWUDBB8kVpwBcyyjpQ+Z/cIWceftqeBe0=
+	t=1791819718; cv=none; b=Go2ooYr8zlozYHTyUE6m8z/i8svV6SKkP9N9szoXGsYHTzolrq/iHzWe9G1CeNIlfGFyoyxC1vrQ9UMgoXyt76j4T4yi/5/oA4JcKweNcqmxGbLCEseciRShzGy40bV0y0KRDtXNmRAV8qqp2IjBDvahMgg0IoQBhpVa2pnPQ8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819717; c=relaxed/simple;
-	bh=UENgAUKbiPmEAB5tiQuAB+RdFzS/wRbfUkI7IQ4znzU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FnBaH4B/5BUREL3sH90qx/P/worEcZ3YJtib8nzJ72iQPJREWPVXlnPGbsYEecnkh8GbdzVPJYPA6vx+jIuOus5wdk1xkg2Qyfe33L2tY66wiKrM5sR9qjekirMUIw0mnRCkUmodkQAy6KLVlIXQnnPsbp90/x7T9AiCU7NGsDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=m5sSOPQq; arc=none smtp.client-ip=54.254.200.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1791819718; c=relaxed/simple;
+	bh=dH2iRzUEs06/K2F8s2qWf7X18rw1d3WbzKm7DvvtJoM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Zbx94s/MsunRhMfeeuHUfXdWH/oJ7oUTlX/yT3gfV6+cHsWEvk9J4hUahVIESRX1YK4Izr12/io+waWUFjl3vuk50gQ8zxEazkuTA0+Rx3cuVRG9Pfgr+vRiMHEVF7C3dkRLqHVqQ6xkrQcjoESDke6oWNdg5Ap/o1V9nK6pM8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UCdfnKme; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="m5sSOPQq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1791819681;
-	bh=qyQ0PlvSl8ju5dE2/elWxA5NN0Ne5kFMkm2t3npw0e4=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=m5sSOPQqmlIczbjCuWPYwPjx5o0FcOvCkU2b80VAo6gn7+F5yUzP4hPw4vW8dkdVX
-	 wD0IY/tc05cExObkttWgzmnMWJ6n/lTEM5XRRq1Bf9iDstNv6qdV9foAYJmWQ6PTHs
-	 YhpS1iiQpKDsWt6gARWoQ/9y1eUQ9piOk8lqiOTY=
-X-QQ-mid: esmtpsz11t1791819663t1d8dd8f5
-X-QQ-Originating-IP: wDsLj23J7X6+GoJg0efhmwdlHAJAX+8vZB68CBLd+rw=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 12 Oct 2026 23:41:01 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 10911215555370622124
-EX-QQ-RecipientCnt: 8
-From: Wentao Guan <guanwentao@uniontech.com>
-To: sashal@kernel.org,
-	kartikey406@gmail.com,
-	harshit.m.mogalapalli@oracle.com
-Cc: johannes@sipsolutions.net,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: [PATCH v2 6.6.y] wifi: cfg80211: release locks on error in cfg80211_wext_siwgenie()
-Date: Mon, 12 Oct 2026 23:40:59 +0800
-Message-Id: <20261012154059.1233032-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UCdfnKme"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A684D1F0089C;
+	Mon, 12 Oct 2026 15:41:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791819716;
+	bh=RHlg+EfPJHOO/fgU1HEhgMSGvdNalYaXSB7c7H8S7ew=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UCdfnKmeDKe1pKhkQkT6ZiAspgKNGO1pDz+XC3wM1ZXRurRNRQSJnnb7r3tC52ATv
+	 Y0yZT+6t8WHxp9kM684SM5LtZ8qvDFhpjHcWhp7rpzkhpPIpWDQRL9VbTSoVNQedSz
+	 WElUTZYyTD9RWD5PSngtOKvtQsgSdppBls2JNPwTxiLHnPHjEFwaOCr/MEC2BWxLOv
+	 qHx5YvMKzWqGThasYzffPbtUoG9N6XSx2l7iFx+69Bc/quW6nIBihFlcfEjrxKP+NW
+	 FhYt04sVhLrmwt+Tx26HBD2uolr0ftYCDFvL+fHdRZcURuiAlLivuEabHo6JKWoMDR
+	 xZsLciBXkiO0A==
+Subject: Re: [PATCH net-next 05/11] net: ethernet: qualcomm: ppe: Add platform
+ support for IPQ5424
+From: netdev-bot+sashiko@kernel.org
+To: jie.luo@oss.qualcomm.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, quic_leiwei@quicinc.com, quic_suruchia@quicinc.com,
+ quic_pavir@quicinc.com, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com
+Date: Mon, 12 Oct 2026 15:41:55 +0000
+Message-ID: <179181971523.434549.1300369159235274267@kernel.org>
+In-Reply-To: <20261008-qcom_ipq5424_ppe-v1-5-16caf43e44ee@oss.qualcomm.com>
+References: <20261008-qcom_ipq5424_ppe-v1-5-16caf43e44ee@oss.qualcomm.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MJmIzNAivfWgGCxLP7TGWSmJE5QVI0ZCkf5qFlLuW+6NL5SukspeASM6
-	c6PbJyf6kUWv5XpU6Dw+ve0q+Fth/rLdfybejUhvd1mrf0o3c7v5Nz+MQaLlHEI5LyC0t7E
-	KDnSVCSeGez6NeSkOIypDZrQgm2oIBoCl0lBNZFSR0FNjGuxI/RtjnR+NtWC8874QdyvNWG
-	JxxSicWdbgcww1eZC4T1Bsct2LQs27brQHMpz0lkl4K4zA73HjOrOYUR4p194kzfzOWJCuN
-	7MFJxDRLr5N4bqEI6+M3aAaSOFDayUsxi2Fx31kjMoJcwqsw6A1H4TCg5tcf3WHKJJj+Zk2
-	9rco0lqYyoUnwH4YbBhvHn0F/jDOXnZmeOcM7f+PiAL1sUs64wFuZkyScvD7iyOAXiPLY+/
-	tV0qR4cgi+oOA8d7E1Fw+qyaGxF9a7x1PTgooWCMLtW5IpCAVLLTisPchAYYOzoJAFtcPHw
-	p08ZW9HawoX4VL4lInMVYbgu6FGe1eN2Qt9UeH2DRNNXbAYZVJeMD8lf/IACsc4MVOMw1WV
-	fc8xH1yxC06NAclS+5b3qx7F0UYXpUygIut1SpqC63GN+LlcX0UAvicA8f8tDJQpmMwbVDU
-	cg2UGMglPAM8amXklFVHd95fgwrTWhySxdpAax4KSn51gZIKB/7E+MBjEcPzT1f2somlL/K
-	yMnLxQ/SaGDpmHkRGHtGxU6Y0GuPmLcHueIV8+PNM1SXGFTEDHsyr97KD/2X4GuDHAAvMYC
-	cZBs4+esC2pcYigprbnf1sP0DdGxoD9En8PT90O9qNO0W+qDaLMKOuCug86DtDdnOLFOhup
-	/UEdxaEVflbsFXEc/W47X1f8GKiATltHtSrlxWebk+QSuwAgPkgIMWM+OKQFfGj4k7f4aGS
-	iFcm4GvJeGFF5OQ3Gk22XGe35JnHwE0D6/B26f5HWo9Butz0mR/HZEfBnJw1mvtVvdjy7qT
-	o8rOlIa9zdhEY00FcbGiqjmOuIUvAmwhe9skUKL1VHMXy1jf8154Vc2T1TXZ99irneFtSux
-	eXxfH4RI5JxLh5q2VLhkC7+Rsnvf1CD5fk4bvx4FkSJ4Vypi4WUWLu5sN49TptIDQCztYaj
-	A/qhkul7ZScopT46wjQiqQwrTjeeI4orfdePt61yo/9AXd4pIPdNCawSYeclXMF9wAfDCr8
-	N5IYi9lqJYVCJJs=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
 
-This error path returns while both wiphy_lock() and wdev_lock() are still
-held, so one malformed IE request can permanently block later operations
-on this wiphy. Route the error through out to release both locks.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Reported-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Closes: https://lore.kernel.org/all/93db0eae-f479-4343-a126-59987ae0dc22@oracle.com/
-Fixes: d01f1600e8b0 ("wifi: cfg80211: validate IEs in cfg80211_wext_siwgenie()")
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
----
-changelog v2:
-add Reported-by.
----
----
- net/wireless/wext-sme.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Low priority / nit picks for your consideration:
 
-diff --git a/net/wireless/wext-sme.c b/net/wireless/wext-sme.c
-index cfa903eb0e82f..0e7c314bdeef0 100644
---- a/net/wireless/wext-sme.c
-+++ b/net/wireless/wext-sme.c
-@@ -354,8 +354,10 @@ int cfg80211_wext_siwgenie(struct net_device *dev,
- 			/* nothing */
- 		}
- 
--		if (!for_each_element_completed(elem, extra, ie_len))
--			return -EINVAL;
-+		if (!for_each_element_completed(elem, extra, ie_len)) {
-+			err = -EINVAL;
-+			goto out;
-+		}
- 
- 		ie = kmemdup(extra, ie_len, GFP_KERNEL);
- 		if (!ie) {
+- [Low] In commit "net: ethernet: qualcomm: ppe: Add platform support for
+  IPQ5424", the qcom,ipq5424-ppe compatible is enabled before any per-…
+- [Low] At commit "net: ethernet: qualcomm: ppe: Add platform support for
+  IPQ5424", ppe_port_resource_get() in…
+
+--
+
+net: ethernet: qualcomm: ppe: Add platform support for IPQ5424
+
+This commit adds struct ppe_of_data to the PPE driver. It holds the
+per-SoC clock rate, port count, regmap access tables and interconnect
+paths. The commit also adds the qcom,ipq5424-ppe compatible.
+
+> diff --git a/drivers/net/ethernet/qualcomm/ppe/ppe.c b/drivers/net/ethernet/qualcomm/ppe/ppe.c
+> index 3c301e609d3e3..f71b673b6f978 100644
+> --- a/drivers/net/ethernet/qualcomm/ppe/ppe.c
+> +++ b/drivers/net/ethernet/qualcomm/ppe/ppe.c
+
+[ ... ]
+
+> @@ -218,8 +301,25 @@ static void qcom_ppe_remove(struct platform_device *pdev)
+>  	ppe_debugfs_teardown(ppe_dev);
+>  }
+>  
+
+[ ... ]
+
+> +static const struct ppe_of_data ipq5424_data = {
+> +	.ppe_rate = IPQ5424_PPE_CLK_RATE,
+> +	.num_ports = IPQ5424_PPE_PORT_MAX,
+
+[Severity: Low]
+At this commit num_ports is 4. With that value, does ppe_port_resource_get()
+in ppe_config.c still return the reserved resource when asked for it?
+
+The function still indexes the single IPQ9574 table, where the reserved
+entry sits at fixed index 8:
+
+drivers/net/ethernet/qualcomm/ppe/ppe_config.c:ppe_port_resource_get() {
+    ...
+	if (port > ppe_dev->num_ports)
+		return -EINVAL;
+
+	res = ppe_scheduler_res[port];
+    ...
+}
+
+On IPQ5424, a request with port == num_ports (4) would get the queue and
+node ranges of IPQ9574 physical port 4 instead of the reserved entry.
+Index 8 can no longer be reached.
+
+No in-tree caller passes port == num_ports at this commit.
+ppe_queue_dest_init() iterates port_id < num_ports, and
+ppe_queues_to_ring_init() uses port 0.
+
+A later patch in this series, "net: ethernet: qualcomm: ppe: Add IPQ5424
+scheduler resource configuration", fixes this. It adds
+ipq5424_ppe_scheduler_res[] with the reserved entry last, at index 4. It
+also makes ppe_port_resource_get() pick the table per SoC and check
+port >= scheduler_res_len.
+
+Could that change come before this one in the series?
+
+> +	.regmap_config = &regmap_config_ipq5424,
+> +	.icc_paths = ipq5424_ppe_icc_data,
+> +	.num_icc_paths = ARRAY_SIZE(ipq5424_ppe_icc_data),
+> +};
+> +
+>  static const struct of_device_id qcom_ppe_of_match[] = {
+> -	{ .compatible = "qcom,ipq9574-ppe" },
+> +	{ .compatible = "qcom,ipq9574-ppe", .data = &ipq9574_data },
+> +	{ .compatible = "qcom,ipq5424-ppe", .data = &ipq5424_data },
+
+[Severity: Low]
+Is it safe to enable the qcom,ipq5424-ppe compatible before ppe_config.c
+can tell the two SoCs apart?
+
+At this commit neither struct ppe_of_data nor struct ppe_device has a type
+field. So on IPQ5424, ppe_hw_config() still programs the IPQ9574-only
+tables:
+
+ppe_config_bm():
+	port_cfg = ipq9574_ppe_bm_port_config;
+
+ppe_config_qm():
+	queue_cfg = ipq9574_ppe_qm_queue_config;
+
+ppe_config_scheduler():
+	bm_cfg = ipq9574_ppe_sch_bm_config;
+	...
+	qm_cfg = ipq9574_ppe_sch_qm_config;
+
+The scheduler tables give BM/QM arbitration slots to PPE ports 4-7. Those
+ports don't exist on IPQ5424, and none of the slots has a backup port.
+
+The BM port thresholds also cover the missing MAC3-5 and EIP ports. The
+queue config includes multicast queues 284-299, which IPQ5424 doesn't
+have.
+
+Three later patches in this series fix this by adding
+switch (ppe_dev->type) with IPQ5424_PPE cases:
+
+  "net: ethernet: qualcomm: ppe: Add IPQ5424 BM buffer configuration"
+  "net: ethernet: qualcomm: ppe: Add IPQ5424 QM configuration"
+  "net: ethernet: qualcomm: ppe: Add IPQ5424 scheduler configuration"
+
+Could the IPQ5424 compatible be added after those patches? Then a bisect
+that lands on this commit wouldn't probe IPQ5424 with the IPQ9574
+configuration.
+
 -- 
-2.39.5
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008-qcom_ipq5424_ppe-v1-0-16caf43e44ee%40oss.qualcomm.com
