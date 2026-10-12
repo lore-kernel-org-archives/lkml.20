@@ -1,291 +1,156 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012045.outbound.protection.outlook.com [52.101.66.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2399347ACFB;
-	Mon, 12 Oct 2026 09:55:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791798921; cv=fail; b=uBisnq3nLXHLbasx/soU34SgQKrhXmEV2lFoXcvGhxah68afIdE+qJDvieGJ8wUEJoqHt0Aa3BW+lx6TfvjTnh3DUrd7MJPLiPH4BONP582CUDf/EHd7FW+59ewdxLqnr/gfrms3j7YAyQ2NpyzfRD65o+VPlrpu/oPJx2pf9X8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791798921; c=relaxed/simple;
-	bh=pIfBAB+W9Xcco0O8rkpuomVaYknA6obY6RQPA5oXY0o=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OBIuuD+O8/CY5HrSjjGaguXV54DmbQ5QbGk+FbovMp+U1v2opRqP2Qd6wu9N8RaCMTohe7ypb6gS5iiJtzhP9CNGK+Co+vR0S3WX/oIjufaNzWNeFe1m8YVmfzdZxWncpRR+7h2LoSlk5cIhxak3RoOiWaKL8ru2jfRgx14/UBM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=YZ8g9Mfv; arc=fail smtp.client-ip=52.101.66.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB0447CC8A
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791798926; cv=none; b=jyneFV4njagUgTM4G+eMYn/L4OUUCxnx4jhhk8MUZUSnAQsmKJ219PHWp5vHP7CPsAtSxEPst2i5CURHhgrS74cKlGHzLgt4LmfYiMnbjgjZxQHKmDZL8+e0jpVgGSI3rpDmXIWJxA4DKOd/TuHILBRQPzMSNUiqThgymiIqFCw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791798926; c=relaxed/simple;
+	bh=BnrYo/A6G2OaUvK9kvg2KfCzfxVlIgzJGfpX6upOnUk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=t/PfOPvlfyFSFs6wxfzdJW1FHGSJdGNXvAq5EWOk+omzofhGHSJzWkVFPtZBiQadtdzU1mXFwx9+ZdeO4jhVjtUkod3yl94FqzEN8Fg7L+/ypNbncs1GtkDnZcaJSpy2aO+Bd3YMevO42Z4YRjTEMLCmwnbJjgMgDttLgAnYqe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=OCErpna2; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="YZ8g9Mfv"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sCVzyufeYaEM+Eusb8a7qDDFqxQNp7b6JGQinnS/DNTlVvyFuVnuKZr/bE2+dz8fp2R7TqBY/aTkPoMQK938Z7YRn17E9qEnRFCMWHOrZzZx2VNqfz1p/nTKVRpfKzjvfEyBgSTr8FHjU8QutJTngLyqtOY1NgH9iAxMdGRIAQtL2zvvybhubtyeunnVl6i+1NdgkGylIAno3Zcm6oajS4G/YikPjx2Esb2U9tGb/LWHw8UbwHdD1y2qOO/31TAGsuwGmkCGMU73dLyjyWUcCKasCKz/DCDrO3bOeHki3vdzgggDRnbZ2wq1UeiGlUTazSOfeJPxmIl31wNo4/+Irw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4DSbFvEk11tMLyZk3FGVVc3Hsf+9ATadUWbFN90YQro=;
- b=R8BBnku7UXMsCYevWSdFzKv6LiS5Gk/rEfx2z9q2Kp+zgs+bfo1EtIL9v1Z8huzh9nJKZI6TNdtUGcm6R1NM9shF2j7KeygNUPCj8wPAd3NbqGyMXVALFN9gTRsQV9vjNkmIY0e7nVqhCoanrYYmtYU4V3f61IU3dth2LmUhGJHjChnNEer+CX2k9Fbq59Br9D5UENZ+yHlpa6jbP+QAE7fvlkUbyXycdnODTNMy4MCkeFDZ/LCD7qJgvMCzV4iD+oy03P7FbMdhE6a7YQ8fFvezGOjabPxrgwTrNF2SMpPddB1EV2O/puYIZpX0jDQ9HSnsoFhvXTfbHPJ98Lun1w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4DSbFvEk11tMLyZk3FGVVc3Hsf+9ATadUWbFN90YQro=;
- b=YZ8g9MfvgTTylp5mXeMVN7TLfCbmqEjeQCjYP6G+wUeQyv0kd4QyTESeA4d3CSdlofFsmIwQt8LnBAzoOdnivDfiS92N7XjcfF+7EaxNWZBA33+M7T6cbevBDCFQNJNfIWi6rMTSGQP0CImYah23eR1BlOaMMc8xPYNpz6nI+lOm4RXoEWQosjAwf3fyu0s+zC0yduO5LkIvmNaJT2bIYbVlxoZaoEbIQQGCQQCN2d185TyELhtAlX4kWj6qU0UqyQNJmFWDyWQizoQCU0SvTdF/9swpWdzIUvj2R2RCj0M6dyphrVNDTybG7jyddiy5UxYuCNCctBBXdXxTcVJfWQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com (2603:10a6:800:1b0::22)
- by VE1PR04MB7248.eurprd04.prod.outlook.com (2603:10a6:800:1aa::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Mon, 12 Oct
- 2026 09:55:12 +0000
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74]) by VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74%6]) with mapi id 15.21.0496.018; Mon, 12 Oct 2026
- 09:55:12 +0000
-From: wei.fang@oss.nxp.com
-To: xiaoning.wang@nxp.com,
-	andrew@lunn.ch,
-	olteanv@gmail.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	richardcochran@gmail.com,
-	linusw@kernel.org
-Cc: wei.fang@nxp.com,
-	imx@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v5 net-next 3/9] ptp: netc: export netc_timer_get_current_time() for cross-driver use
-Date: Mon, 12 Oct 2026 17:59:18 +0800
-Message-Id: <20261012095924.1129312-4-wei.fang@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261012095924.1129312-1-wei.fang@oss.nxp.com>
-References: <20261012095924.1129312-1-wei.fang@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA5P287CA0122.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d0::14) To VE1PR04MB7216.eurprd04.prod.outlook.com
- (2603:10a6:800:1b0::22)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="OCErpna2"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48c4be28b82so1617107f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:55:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791798917; x=1792403717; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YT1SExoYLuIMwneaSCPvUsBJ4hnC+2ocE7ZXG4QBttQ=;
+        b=OCErpna2ECroNC3rlatBilK0R68Ons075WiIqwHU2rgk8R0PvF+wRB68DlPzgFh4wu
+         7fvA+Dbr1kVuw/3FkIfYOl8h2claD6YsU7iOSK9pju6WbpjpAWX19gfetwA2tW7F0NPW
+         mxpQ47LeJjjR+flJ8W2JBSVe1RBuZaAsh8ErYMqzgYkMme2WuuQv64OtZF3E1iSaAMNS
+         IC3h7vE5d7ji2K9cFsqdD/bwa6pvpmgQQqu0zJ5gBoaOyN+pKLRx6zyRs+/VPC48UuPD
+         eWfIwq5w+x+bg+lKK20uv0gxcCoXa5D92Ub7ivWHuH8mW2IPMoFToUFpJYPiEfh0ZUxN
+         rkCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791798917; x=1792403717;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YT1SExoYLuIMwneaSCPvUsBJ4hnC+2ocE7ZXG4QBttQ=;
+        b=sfxEbVp+hAB4An3hW8yZ7p9n2FuzRCcDgucXnQamJuLoeba8LtdZQjSBsG7AADLNip
+         NHrc+J6EgBPe8+Ef6f/WJdfer0gTcj6wAW9X30bNUkBHAcqTfRqfNkFdsPdeh+/w2fnJ
+         TQ+SMDtk2NcIL/IDd6jiG3To6se8s8YtuTDDBNP8jx9IkZt7lY1TfSh7d+wNMRDZYVuU
+         wm2F8yfEKusfDP95oEBgSj8fYDCojnxSu3EcFqEgE/f6DpIevMsDc3hTJqkc/B4XQeGd
+         5q/OdOyIPyNHV9AU1FeT//xb3GH4M2dx5nQaTs2tjgK4zXP/4uNo2VrsAE8BIY6dwXHw
+         dD6g==
+X-Gm-Message-State: AFq9FYJlmqWmY+jA9d3i0kFs1kcTL9RBVx0GlEn2bD7RRSnJeefOxRrr
+	vM49vTmQPpF8Nt8eeSEhPZhK0iU4ygX7sH5CYgjIMAg3jGy2LJUVWRyp1EdrNIQfcozkJxiv5OA
+	vkZySHjo=
+X-Gm-Gg: AYBFou3gJWZwr8lD9g27wyxBmoTZqkkY4iDdJskXd1RG45pfmq/gcTCob69jyX+2C2P
+	cVRQlqo4wixUrRUvbuQKyYZbXoCHr4kViE/ZLuLMWPlu1uCTuFdyFgAGFPhYgopD01pQ61H9iOS
+	kZjJeS0RIc0rLeGjoATD93pAIQi3i2yYOp0gYuqr81pLOyQOGNxGQdaVermPaCH9aZSGngeb6b5
+	a3HkRZaKG5NHKba+jLKLlROa3QnTpAw5X934ld7Pmas3JsrJ/m+TrLNJt/EJaCG1IO5jjS6pucZ
+	N68FKnoTgnVoIZzZesPCsZ2Lg4LTePtpTt9JZcrBbo6rNQY0KbzOXsNXj6m5iEXLXfaKxbX9W6G
+	mshDd/G6mTB3/0xPSOM+vG1tFgXz2lPjCp2u86+BB4ORnp0Lvp393PfRUhaGszpx4I+WUvXnc78
+	jVhmfYSHHTYzsBCELlM3LBttixH31c+lpkZ1UiAqYHocZVpCq8srDF/+8dfbFsfGb2wEGvplEGG
+	h1aprEtGv47Xcic9mos3w==
+X-Received: by 2002:a05:6000:2505:b0:487:27f9:840 with SMTP id ffacd0b85a97d-48dbace65bcmr17485319f8f.53.1791798916694;
+        Mon, 12 Oct 2026 02:55:16 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db98c2800sm18539103f8f.26.2026.10.12.02.55.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 02:55:15 -0700 (PDT)
+From: Marco Crivellari <marco.crivellari@suse.com>
+To: linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Cc: Tejun Heo <tj@kernel.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	linux-usb@vger.kernel.org
+Subject: [PATCH net-next v4 6/6] net: usb: r8152: Move long delayed work on system_dfl_long_wq
+Date: Mon, 12 Oct 2026 11:54:45 +0200
+Message-ID: <20261012095452.135828-7-marco.crivellari@suse.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261012095452.135828-1-marco.crivellari@suse.com>
+References: <20261012095452.135828-1-marco.crivellari@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB7216:EE_|VE1PR04MB7248:EE_
-X-MS-Office365-Filtering-Correlation-Id: ae28432f-52d0-4758-b723-08df2846e84a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|19092799006|376014|7416014|10067099003|3023799007|261009223027099003|921020|11063799006|6133799003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	dOBt+1XrMsC+lYPJFtEcl/9IknRatboWr8SosC24YS8KYnbGSrRkylsMgENIvR/FBqhWjx1eb1Wu2u+i+YCjsrHS+lOLJLCJrpvhDd3kge2ztBqolZWMnO3H4LPD7NpdZ4KfuajUaP6iFs+hIMdeNfBAzaGQlQ52j/BAiAvdkm9fqESJxbPHmlfv7IZjid8kjBko1MPS8na18RqQFT2TQUVNbPr1sdx4yiPOB30jLbvDWs6oXsrNaQzJXkQlvKFntFjImlrCeEpc3Mo1orYySkvo/cSnnJ+F//sJn1eCYITAjTyvDfItKw7hN9ONKZRRq3jyWRhHc90912DkMWzsonD+OjmMrISXNjtKvHPqJjWoJPF81wMIb7d6Ok/DbhRqfeY3cR6TzPkyoEGDDFZIzTtbvwfSwEdWsHCmrSPdqzn58XmjJYHY9+xF8fD12hjvR+1gc+rquDHi+gLqlHUx9dVqcMOZGRRzYvgezaaVLF5ND0KaN1fiaPQx7SyUm4cDmnaMkV8B6guJ6+w2WgVEPGkrel5/ueLXx2rBvPFBSLc+vSzR8LKHrrBlSmZXLgriXiNzALg/BW5hLi9VqGwcwwrih5CrEx5AZEcTHlLu/7Ywnm8v5hA3zV+GZKiHootxtSKT0AtnIa2N4mU8qYoX/K1jL3VxUadfgUoTCZAfEtbiOAUdXlvvzMarEwgnI6qH0O3sqQEeN/rrk9ZVN5tSAQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB7216.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(19092799006)(376014)(7416014)(10067099003)(3023799007)(261009223027099003)(921020)(11063799006)(6133799003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?bNy7VqY/FqYDdRKb3AhQLCnBTlhA9hFi/5R01j/BzswwJmxwzIdGHN3qIFIf?=
- =?us-ascii?Q?/ygiX3sIEenGG8t+G2w1xuoDeIT6RXNzTvvoEZsw18NN8auNJ7VMiWh4mECq?=
- =?us-ascii?Q?MMgYCi/MipLlRXoLmyYGX1z06KkECzYDYYmawIaYERd5mXcWwzdXxLjJgMpQ?=
- =?us-ascii?Q?YJwcDZVcTy0PjQmcZAFIty4HJfWI5/zUpgMKp8q9pvuVBWpjGkjuDyFyiUS7?=
- =?us-ascii?Q?5kuRiqqlAUHKU4nGc4COT7Mp4GtyeBvvBbvmzYbIg7yofzTcKGMNXOMW7aai?=
- =?us-ascii?Q?DCwtMrmIDpH3klwvIo6VTI+LpZhrFVetBUJskJQRzEzR8MjW4LIk0OSpIyoa?=
- =?us-ascii?Q?uqrNsXi8K0jVgqKXY8wgdiqdhs83W+c55A8G6QX8gm5LjER1bHNCf8M9hfTX?=
- =?us-ascii?Q?D5uKuofNazR72mw0su5QOnGKz9Y73V9li656SYgr70hAKls8KsGxXHS1DxL0?=
- =?us-ascii?Q?cHPe/6sRSAau+55EEP6Ef+jqf6Prdkv7B1HR59fqx1OtVlIcp+vJV+vF7hvz?=
- =?us-ascii?Q?uY063LGUaRPkAbTyaOgCRXuFnhLHGpOcz3oC75dX3/akfc4Z0Df3Fn6DXziI?=
- =?us-ascii?Q?dN6cdh8wg6ydUKWT9n1jbUSXRl8vJDFK0rb/2sVY9nBE62sQCE6XQL3dErgZ?=
- =?us-ascii?Q?4Z7gFYXNlC1TOBcfLEZ+LbHH8Y7MkowYGG2GPQ05UXQ8DpX32aLlResoL/kd?=
- =?us-ascii?Q?O4cHYl7QPe6+eCLkVneuKWZBX3WhU28BrlqvPLD9qmOzqypaFy/5t4Pu0xL8?=
- =?us-ascii?Q?7zj4Al/H3Yl/i/HW92v50lyv4hfqIVZxjixC0JXIIdYrnN49/U5HMj2Tf0AC?=
- =?us-ascii?Q?mqST0N3f2ktkRODmZWa/cSXMr0ny2DCwQCVbnWsmA6zYX+TRhJTBEl2G4ZP6?=
- =?us-ascii?Q?nqNnOFn+tNXxzMFRddHjtsIpXszXESDH/ZXU/d0tKEmMv4RLQX149DiSgUFA?=
- =?us-ascii?Q?ojRWWsBeLq4UDyVFQgx4pd3hqXtT0NSeesGzFtnoM0E/TTpgJy+XXcEQeXHN?=
- =?us-ascii?Q?8TcVuSTOCa2yaVQIHoNrpGQsRz0MzquzFce2MGOwo5l9RoIgQ89BEdj70+Qf?=
- =?us-ascii?Q?7DZcD3BjoZsGIamuy03mYTsxPdv9jIKscGM/ySg+DDX6iAxbiK8baHw/PaTC?=
- =?us-ascii?Q?AE849xa1e5yH1fuY3UKjcSALa8U4j95riFlf70iMc8Z/JjiR3wunjWa32XCA?=
- =?us-ascii?Q?a3ayj0buTYxZhraCq5EwwjZbWEzx6EGXxOyuOKcuOi+tufU9H2SYNeVN34Dy?=
- =?us-ascii?Q?UXjbGYHlY4SQ8rs1VstPsak567t26Z5mBCwVwYtJjadvoDK3EMN5z/QuAnQb?=
- =?us-ascii?Q?Iof2ShaNSS2aE1wfMUS2LjAKPHLubZqZZyK+VQgK42YflAPq8Wvo62NO5zVr?=
- =?us-ascii?Q?HvQ3GNCSIlsTJNOu0fS84Y984CaB/Q+OhVeFkydVy8mQUkyRmNwQ97dxsmH1?=
- =?us-ascii?Q?8/BmB53e6HyovBBnlLM45fXDBaB60lNmsBy9xajcEv9oQ1Qqp/ecXbYQwu2C?=
- =?us-ascii?Q?qqFw59Rn6A+pKFjdSG3+ZAvdZW11Y8F3dJychfVGD9xL+BlXTdVITmcvU66X?=
- =?us-ascii?Q?Ti6gQHfGGrY2e+dRpYBvWbAuzo8fRjCLvGn0lzedztAlCDilFE1jnjK5p+9j?=
- =?us-ascii?Q?tTRHybGdBpL79vJNmmb6qdRKfaNCGWFypimihM1UQlxO8LbdG2nnEf2Dg7yf?=
- =?us-ascii?Q?pR9g85G54i7EQMgvBGu0oHvTJh/F68TfhDVmUmSqqVTC2e7hvi4kw6K6Y/4/?=
- =?us-ascii?Q?QD83nGV1o3tKCUy+ywrKjoTqFIeX5hY6P/7kh2eHNQzo8Jg2grEV?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae28432f-52d0-4758-b723-08df2846e84a
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB7216.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 09:55:12.1757
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ENyjpKdCrYiDVaGFgdINA8qGaifA+NtuY7u69AyBHkhHkvpYXxJn4Ec1eMMXdasdI4HujduQWfEfC0uw2MDF2JR6O14ESq0nZXSYFfPiM/PoSQtJjM6qlitvpTCM0j2y
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7248
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Wei Fang <wei.fang@nxp.com>
+Currently the code enqueue work items using {queue|mod}_delayed_work(),
+using system_long_wq. This workqueue should be used when long works are
+expected and it is a per-cpu workqueue.
 
-The NETC Switch does not have its own time registers and must obtain
-the current PTP time from the NETC Timer bound to it. As they are
-separate PCIe functions with independent drivers, add
-netc_timer_get_current_time() to the Timer driver and export it so the
-Switch driver can call it. There is only one switch in the NETC IP,
-and it is the sole caller of this function. ENETC driver will not
-use this function as it has its own time registers.
+The function(s) end up calling __queue_delayed_work(), which set a global
+timer that could fire anywhere, enqueuing the work where the timer fired.
 
-The Timer may be unbound while the Switch is calling this function,
-which would free priv and unmap the MMIO region under an in-flight
-read. To keep priv valid for the whole read, track each probed Timer
-in a module-private list keyed by its pci_dev, and protect the lookup
-and the register read with a global spinlock. A list hit proves the
-pci_dev is bound to this driver, so priv is valid. remove() deletes
-the entry under the same lock before tearing the device down, so no
-read can observe a stale priv.
+Unbound works could benefit from scheduler task placement, to optimize
+performance and power consumption. Long work shouldn't stick to a single
+CPU.
 
-Signed-off-by: Wei Fang <wei.fang@nxp.com>
+Recently, a new unbound workqueue specific for long running work has
+been added:
+
+    c116737e972e ("workqueue: Add system_dfl_long_wq for long unbound works")
+
+Since the workqueue work doesn't rely on per-cpu variables, there is no
+obvious reason that justify the use of a per-cpu workqueue. So change
+system_long_wq with system_dfl_long_wq so that the work may benefit from
+scheduler task placement.
+
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Cc: linux-usb@vger.kernel.org
+Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
 ---
- drivers/ptp/ptp_netc.c          | 63 ++++++++++++++++++++++++++++++++-
- include/linux/fsl/netc_global.h | 10 ++++++
- 2 files changed, 72 insertions(+), 1 deletion(-)
+ drivers/net/usb/r8152.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/ptp/ptp_netc.c b/drivers/ptp/ptp_netc.c
-index aa9be8e2a630..c6170f407090 100644
---- a/drivers/ptp/ptp_netc.c
-+++ b/drivers/ptp/ptp_netc.c
-@@ -1,7 +1,7 @@
- // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
- /*
-  * NXP NETC V4 Timer driver
-- * Copyright 2025 NXP
-+ * Copyright 2025-2026 NXP
-  */
+diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c
+index f61686433031..f6af66f294db 100644
+--- a/drivers/net/usb/r8152.c
++++ b/drivers/net/usb/r8152.c
+@@ -7072,7 +7072,8 @@ static void rtl_hw_phy_work_func_t(struct work_struct *work)
  
- #include <linux/bitfield.h>
-@@ -123,8 +123,12 @@ struct netc_timer {
- 	u8 fs_alarm_num;
- 	u8 fs_alarm_bitmap;
- 	struct netc_pp pp[NETC_TMR_FIPER_NUM]; /* periodic pulse */
-+	struct list_head node;
- };
+ 		/* Delay execution in case request_firmware() is not ready yet.
+ 		 */
+-		queue_delayed_work(system_long_wq, &tp->hw_phy_work, HZ * 10);
++		queue_delayed_work(system_dfl_long_wq, &tp->hw_phy_work,
++				   HZ * 10);
+ 		goto ignore_once;
+ 	}
  
-+static LIST_HEAD(netc_timer_list);
-+static DEFINE_SPINLOCK(netc_timer_list_lock);
-+
- #define netc_timer_rd(p, o)		netc_read((p)->base + (o))
- #define netc_timer_wr(p, o, v)		netc_write((p)->base + (o), v)
- 
-@@ -985,6 +989,10 @@ static int netc_timer_probe(struct pci_dev *pdev,
- 
- 	enable_irq(priv->irq);
- 
-+	spin_lock_bh(&netc_timer_list_lock);
-+	list_add(&priv->node, &netc_timer_list);
-+	spin_unlock_bh(&netc_timer_list_lock);
-+
- 	return 0;
- 
- free_msix_irq:
-@@ -999,6 +1007,10 @@ static void netc_timer_remove(struct pci_dev *pdev)
- {
- 	struct netc_timer *priv = pci_get_drvdata(pdev);
- 
-+	spin_lock_bh(&netc_timer_list_lock);
-+	list_del(&priv->node);
-+	spin_unlock_bh(&netc_timer_list_lock);
-+
- 	disable_irq(priv->irq);
- 	ptp_clock_unregister(priv->clock);
- 	netc_timer_wr(priv, NETC_TMR_TEMASK, 0);
-@@ -1021,5 +1033,54 @@ static struct pci_driver netc_timer_driver = {
- };
- module_pci_driver(netc_timer_driver);
- 
-+/**
-+ * netc_timer_get_current_time - read the current PTP time from the NETC Timer
-+ * @pdev: PCI device of the NETC Timer
-+ * @ns: Output, the current PTP clock time in nanoseconds
-+ *
-+ * Read TMR_CUR_TIME from the NETC Timer bound to @pdev. The lookup and read
-+ * run under netc_timer_list_lock, so the Timer cannot be unbound and its priv
-+ * freed during the read. The caller must hold a reference on @pdev.
-+ *
-+ * Context: Process or softirq context. Must not be called from hardirq.
-+ *
-+ * Return: 0 on success, -ENODEV if the Timer is not present (not yet probed
-+ *         or already removed).
-+ */
-+int netc_timer_get_current_time(struct pci_dev *pdev, u64 *ns)
-+{
-+	struct netc_timer *priv = NULL;
-+	struct netc_timer *tmp;
-+	unsigned long flags;
-+	int err = 0;
-+
-+	/* Serialize against driver unbind, so holding it here ensures that
-+	 * priv remains valid for the entire duration of the register read.
-+	 */
-+	spin_lock_bh(&netc_timer_list_lock);
-+
-+	list_for_each_entry(tmp, &netc_timer_list, node) {
-+		if (tmp->pdev == pdev) {
-+			priv = tmp;
-+			break;
-+		}
-+	}
-+
-+	if (!priv) {
-+		err = -ENODEV;
-+		goto netc_timer_list_unlock;
-+	}
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	*ns = netc_timer_cur_time_read(priv);
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+netc_timer_list_unlock:
-+	spin_unlock_bh(&netc_timer_list_lock);
-+
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(netc_timer_get_current_time);
-+
- MODULE_DESCRIPTION("NXP NETC Timer PTP Driver");
- MODULE_LICENSE("Dual BSD/GPL");
-diff --git a/include/linux/fsl/netc_global.h b/include/linux/fsl/netc_global.h
-index 5b8ff528d369..d4a26c17f99a 100644
---- a/include/linux/fsl/netc_global.h
-+++ b/include/linux/fsl/netc_global.h
-@@ -6,6 +6,7 @@
- 
- #include <linux/io.h>
- #include <linux/io-64-nonatomic-lo-hi.h>
-+#include <linux/pci.h>
- 
- static inline u32 netc_read(void __iomem *reg)
- {
-@@ -22,4 +23,13 @@ static inline u64 netc_read64(void __iomem *reg)
- 	return ioread64(reg);
+@@ -8840,7 +8841,7 @@ static int rtl8152_reset_resume(struct usb_interface *intf)
+ 	clear_bit(SELECTIVE_SUSPEND, &tp->flags);
+ 	rtl_reset_ocp_base(tp);
+ 	tp->rtl_ops.init(tp);
+-	queue_delayed_work(system_long_wq, &tp->hw_phy_work, 0);
++	queue_delayed_work(system_dfl_long_wq, &tp->hw_phy_work, 0);
+ 	set_ethernet_addr(tp, true);
+ 	return rtl8152_resume(intf);
  }
- 
-+#if IS_REACHABLE(CONFIG_PTP_NETC_V4_TIMER)
-+int netc_timer_get_current_time(struct pci_dev *pdev, u64 *ns);
-+#else
-+static inline int netc_timer_get_current_time(struct pci_dev *pdev, u64 *ns)
-+{
-+	return -ENODEV;
-+}
-+#endif
-+
+@@ -10295,7 +10296,7 @@ static int rtl8152_probe_once(struct usb_interface *intf,
+ 	/* Retry in case request_firmware() is not ready yet. */
+ 	tp->rtl_fw.retry = true;
  #endif
+-	queue_delayed_work(system_long_wq, &tp->hw_phy_work, 0);
++	queue_delayed_work(system_dfl_long_wq, &tp->hw_phy_work, 0);
+ 	set_ethernet_addr(tp, false);
+ 
+ 	usb_set_intfdata(intf, tp);
 -- 
-2.34.1
+2.55.0
 
