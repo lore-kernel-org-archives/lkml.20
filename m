@@ -1,196 +1,168 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD9513A1D02
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:57:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6932BD033
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791799056; cv=none; b=QggFK/WMaewsOn2MVniSzhgdYeeOtfEgPcNK4DQdgESS+7R4t7/HqVWN00aUvgN4G2A1T6lR3vc4glrwmXywECME61hF6hG2jj5y6kzd9WAWvt2B9h8xQks3PmqGuLbi87lFXQ7GQiAgaL5cwTgUJHlPex4d6VLrntvjBtEmBuw=
+	t=1791799086; cv=none; b=R+cYwNyV+98s4JmtlyckcuqlN2TdDxgG4eLQg0Ewgza5bXh50/iiUu9y8JKY5AQLuuzFgbXI4OGHI7MR1+BXk4ysvIfx8ch6qoRj1FHX0cpRhWQYtBKF9XtIHbHen73z8rNmLIh3woJK0yEnsTG6dVav/JvqE1d2u2UKTEESoMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791799056; c=relaxed/simple;
-	bh=RuujOt//5MsOXCo+/CdK6ipbpO9887TpqfzWSfRFAMQ=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=myvRLeUoGRV3A3qaZ+VQjNwW4gBvWwdJ87eSrGVwe+VKIQbxjxmiBK5plLBqC/LgQ9U6tAyRtmNrpV6dFx9JicvaH8u+6kynze/cjLJC9jdfd5sLs22VyRoVKh1zI1Sx2ZmWBumWbMCM8U8YZkQrjz7h+PrzL7+FNP3Cha9H5i4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AAcWRfyl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hDCrFG85; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791799086; c=relaxed/simple;
+	bh=8okIb6HYVMsdy6+U5xUzJ+gBO/rOBVZ3zjrTun8vSUo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Qh4CE7hfQInZkHSdkg55PPQGMEmt6JwMpHlXxPI9R8XzyojV1RLyGB22E7P+r69xcBa5Cy4tEwXl/Q8Mz6p8wEPxdJXA5MQmlxcDVLCwVlk50HMxAVIF3U726eL22PbN7xaMNLGjoXOWeYvW65YlOTbOYcRW7Nioa6ncBrAlrcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YV15JsIm; arc=none smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AAcWRfyl";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hDCrFG85"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8LFYs1754867
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:57:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	eODGZNkgasAkWaDm+WQ0P24bqfs/DzcNJsQLJCZtfJM=; b=AAcWRfylT/sskCor
-	IySCsp/Wqagh9PBfJWV015agaWIRsLDSEtB1ThfAJHdZRorZDrVcNcEJvtsgAu/C
-	sR1OUTIBKZt/sLcVl2399UxdDch4za2tX5BrhKsxWhCV9RHwKKLjhwQ7LYjXg8oS
-	Q/lErnteyUsyq0hLrrEA8hoHA5YI8fHzT+oC7J8W8V0fH8MWQ9jR9b12rF8FVpk0
-	Tj95kyjuAfxQo9sfSIlo9UAAeqUtsCvKdx4r7UAmsnWPpEmPCPCmR6ZzE+RzNMOh
-	wwrG+ONZCDYUaVsH2xjmBBV4yz8nOxyD6qJuG65/p4RbDR0T13+lHdp/kXO6y2mp
-	y6nkVQ==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8j7127un-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:57:29 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5337ed1ba44so42103971cf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:57:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YV15JsIm"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b1aa27963eso1076314a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:58:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791799049; x=1792403849; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eODGZNkgasAkWaDm+WQ0P24bqfs/DzcNJsQLJCZtfJM=;
-        b=hDCrFG85BT7qm/ZYr3zkHyaNLc0RfFjiDNZtsUFzl2K1/ptVj+5zrc8UjOm7ZK8FeE
-         SToP4ZUWVCVWUI6HTyaAB8EapKcR+9D6KNyLSOchZIr9rutif06d/ShOkjJxtkiN7wVw
-         U3tapg3ptjvVfCiUe87ggJU2+DrbnlYBt3NhNO3ziMuVb4/+OMnvt8ZHz0l8VveJ6gVH
-         pUqoAz4VImygCmtJ/L7LaI+YNbYOjcorx4XqQ7P/UohuuyNjqSM1UeImt8i0apZOXksu
-         bMWyGpHlyFUZlgEMBNblUnKjU6Cuy1yVIQh8o3+dMtt0rWUulSmN49thpBFS/R1wk4Nl
-         UJxQ==
+        d=gmail.com; s=20251104; t=1791799082; x=1792403882; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8okIb6HYVMsdy6+U5xUzJ+gBO/rOBVZ3zjrTun8vSUo=;
+        b=YV15JsImJ8S/3j9tPRykcGUsV1pFU1z//AAPJ8W8DZds3oRedH/iGnEoetHiMKpd11
+         257epQYEHNK0kwBj1UczJc0fBrrHJXxHo7/0i5U2eoaqcrAFqsAHFOYVtiqyOtmWa+BP
+         us0HV1Af/KdOTZNiRRYrqMEI1lFkEmPfww4Coo+bsSG60FcVfWewAPVJecI2fsNFR6Fk
+         bCRTGxjBPLF7NLZDzy+oD/04k2imQBlNRReXmZk4hvaB833rx3Mm/CArip1mWOXFrY0Z
+         GwhKuYbiIo1uSY9HsDk3e0zTAy7S+GmzdLVTkkeeTljnArjYiD2tvIH24hXWlzV/bltM
+         bNFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791799049; x=1792403849;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=eODGZNkgasAkWaDm+WQ0P24bqfs/DzcNJsQLJCZtfJM=;
-        b=A2YpuUvG1Oqf09LH14glKahUmTYKb9K5QRkUXyHXawZk2dA3GGQPfmnUPcSivRPbN+
-         FbED1ITwXm/nqR8GuG3elEXNkBRdpqCPSZWSGtWwFZnd5otusvC8cdRgjnJU/VbWiYZ1
-         B7/cjcEdOJUNEb86NTdCRDW3Dl5E7VNDZpMgn0AZFukcSyl+Zf8bu9qwkS9gQvLEv4v1
-         P/g8vKZ+csPmE9BPiPz99+9pzYIq48Mxl0N8mKQjsb+E0gIo/eFIya8vJ4MKQdi1uBJV
-         yEfDDJm2YD53LlN4f3vgjsPnW7Qj6fimBZThQLLQqFJYRDGMw5H2kRVYZpTCjmbqq19o
-         NW0w==
-X-Forwarded-Encrypted: i=1; AKwUvBxMCUfNFRbJa1MCQKkGxMqFSsoCCml3bMFpsWEDnTFO+ka2LZnR7qrAsCmK3J7LQL578l9Xegr4yEMTweM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5bZ40HEH1UK4N6LF/+d+Vh0a2SfeJpsGIYlTA/a+uNwlW3hIn
-	sobT8+u2CmA/gc57Ad4uYopUvoGa2tWcY7bsBomvlYDHuoa6Nb113KqSNZ70YwcI7zVbfUg4fR9
-	eyl5s31XSA2APcwuA5QoyVTfmPYUEST/Vy+FW2jsbAg5nIKfvuREgkPetGd9mP7TRbIs=
-X-Gm-Gg: AYBFou0LfW8JB8r0vHgTjogidj5s0RAzBLkq5fDWDEXaRZLysMICxdWBmsdLytC5kVI
-	0diQiWkBa3i13938fEAifzZuzvQFUBw0MHpZnSEa/JG1Pbgph7xYRDZvkVv3IvcZ6qQN2YXz4KI
-	IES/RUpxEnmP3sbYQ/xSnwVfUg+hIzCxujmGiVIBslP8gzoMdMpfuPkuyOseFOqYw5QpTPnR+wR
-	VJfewIWYbAdVkMi7dvjIscTA5Q8vmShker0U/i101EHMv30RzuS1zpkw9c3HreJRpD1nWgDrdKP
-	wsVfkhBDJrlaylXqyR/M0aMOe0/tVzRITxg2nMiQN1mcYqzpVmMCv6Mdve5JL78QRqlAVUSE/3w
-	gAD4mtuxc0Fxw0AEnECLGlL0FEHDyeVHiVcC7X4ufIKtIsGTzlVZTZ2+n
-X-Received: by 2002:a05:620a:6f9b:20b0:93e:c12c:4403 with SMTP id af79cd13be357-93ec12c4988mr917235385a.80.1791799048730;
-        Mon, 12 Oct 2026 02:57:28 -0700 (PDT)
-X-Received: by 2002:a05:620a:6f9b:20b0:93e:c12c:4403 with SMTP id af79cd13be357-93ec12c4988mr917234485a.80.1791799048282;
-        Mon, 12 Oct 2026 02:57:28 -0700 (PDT)
-Received: from RAMIREZO.na.qualcomm.com (5.red-79-144-193.dynamicip.rima-tde.net. [79.144.193.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18beabbd0sm322037675e9.12.2026.10.12.02.57.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 02:57:27 -0700 (PDT)
-From: Jorge Ramirez <jorge.ramirez@oss.qualcomm.com>
-X-Google-Original-From: Jorge Ramirez <JorgeRamirez-Ortiz>
-Date: Mon, 12 Oct 2026 11:57:25 +0200
-To: Sumit Garg <sumit.garg@oss.qualcomm.com>
-Cc: Jorge Ramirez <jorge.ramirez@oss.qualcomm.com>,
-        mukesh.ojha@oss.qualcomm.com, andersson@kernel.org,
-        konradybcio@kernel.org, harshal.dev@oss.qualcomm.com,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] firmware: qcom: pas_tee: handle a NULL resource table
-Message-ID: <asyvBTR4K6ebxI-K@RAMIREZO.na.qualcomm.com>
-References: <20261006064747.2454980-1-jorge.ramirez@oss.qualcomm.com>
- <asyUYnlZWt-ESGut@RAMIREZO.na.qualcomm.com>
- <CAGptzHPnOx+7iZhtF+ng4ZonucOH9UDWTnOD=KUnRNGMnS0JHQ@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1791799082; x=1792403882;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8okIb6HYVMsdy6+U5xUzJ+gBO/rOBVZ3zjrTun8vSUo=;
+        b=e3/az22qq4OPACDmF3DiBmDtljiENxiVMwDSQw62r5Txia9ic4OWTPEQj0hRddBnxo
+         xxEqWfueCZIttxTqvKiireyQMql86k3zuo/840aHooF10NHdAEILt1yCs1kl2nS7jBEc
+         kdhbtYrePdvMvdda+1agwvUfmpDb9qlGyktdIpjhAZIlqWIJ6apykMMwdIK+yMi1eIGp
+         l4QmlglxCH1Vi4XX1bea8+8Faqbt9WX0uqD+bwxoqxGBUN2yHrPdsPnjpE4cWmmzQPVz
+         trxNpUbfBq9zkb4bUTvO7QO/GiVmgeBmjlPnmwyQliDRZ5gZPSGi3HRRMZ0yQ7F+V3b4
+         yTRQ==
+X-Forwarded-Encrypted: i=1; AKwUvByej5j5ybqNhxGc6YnAQMPLemrpgajDUGJ2h4KN/YswFVuTazNogsrdQKY0qMBC7iwV7EMKm2qNNXGim34=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJs1JLqKEiH2dNEkiNv6QJcmHLfHa7u0tcBGmhLnoesjiuB+2rY
+	nVDaqjMhU7IfItdbHxF4j3j7yXC1IO6f77xMXVKdKf+v7yfvbcrbalcB
+X-Gm-Gg: AYBFou24NVXCm+zoWdTJUgwzNC7ouc4hCeXGeK27J6tkmn8bQejfg4b/QZeaxKJFMPV
+	a0UWHMHvj9OHztYqzLPcQrHOtfGZF3SPecpYP5TeOvriM9kCis78DI01+sJjz1TgUVfGh3YXzzv
+	0NBFA9OTPrXGqyYtUVmTovd4HBP7wNv4MfjgYmxgpywREz8DtAfzw5yvTv5XCelz+GYIPL+IQfA
+	GPPksYcyhFZMMVb5bAMjOuZQVnyQnctDmgvPBtAWwKq+abEou9lrSNWZopqmT91L3tm19+D2h05
+	5Kv2/puYBlHa/iQCa7NuCYg/bFHdiO/MLxrabQQAs4YMjftgZQNDaMKFdvQbiOMbZgVBXHPtoip
+	lqAxlC3RzqEur2knaY+YzoZijrUwSXrXSvQQXKE/Yr6D4vIxeT4qBJjZRqETl2QiL3CvfhrGNfY
+	SEdDuRAGBmSsFSehve9GbyS7UOL8SPfov1EP2hGVUAPHoZqKESvceM0JDvIE+FQr+Awybo2aJfH
+	Roog6+ej/ZSPrQPJQqHiKM6D0nyVqJ0Tij+e4CrYLdH6Zd1D0WHVZiGSZVaHrDh45TtQuTMxFtS
+	T+xvDIFFpuQSpLUn3wCoMmaNNCn3GxLKENUl9q/Tf7RHQQ==
+X-Received: by 2002:a17:906:f59d:b0:c2a:b008:8cc0 with SMTP id a640c23a62f3a-c31a70e5566mr981263366b.28.1791799082342;
+        Mon, 12 Oct 2026 02:58:02 -0700 (PDT)
+Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com (54-240-197-234.amazon.com. [54.240.197.234])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b178d1605fsm4928885a12.2.2026.10.12.02.58.00
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 12 Oct 2026 02:58:01 -0700 (PDT)
+From: Fred Griffoul <griffoul@gmail.com>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <shuah@kernel.org>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: David Woodhouse <dwmw2@infradead.org>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	iommu@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [RFC PATCH 0/9] mm: Memory providers for guest_memfd and iommufd
+Date: Mon, 12 Oct 2026 09:58:00 +0000
+Message-ID: <20261012095800.50250-1-griffoul@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <yq5ald8680t2.fsf@kernel.org>
+References: <20260720111259.122911-1-dwmw2@infradead.org> <20261006183235.16576-1-griffoul@gmail.com> <yq5ald8680t2.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGptzHPnOx+7iZhtF+ng4ZonucOH9UDWTnOD=KUnRNGMnS0JHQ@mail.gmail.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzOSBTYWx0ZWRfX7k1gNz149Hg8
- YksbFRIeQOrSW/pWM+fD/66K6YtMpxcYZrGQ/V1vh2MZqsT4cst9Kx16U4ftWUoMXm4cUe1+W/A
- BnCnHaiaTcwdCafGLPb5WgagOw5ssVE=
-X-Proofpoint-GUID: xnS1N4ecBq8quNLfkrQLV56NTjDtZeBZ
-X-Proofpoint-ORIG-GUID: xnS1N4ecBq8quNLfkrQLV56NTjDtZeBZ
-X-Authority-Analysis: v=2.4 cv=ePGGH3p1 c=1 sm=1 tr=0 ts=6accaf09 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=nno+U714v6U58lXnMUU6PQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=8475QBnM4D5EmyIaQVQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzOSBTYWx0ZWRfX7eHJQ+U3NfFy
- E4ZtuNOQCNxXZdSQayt8Ow30TzP97K/769/bxYIHGPdL8qkQ4JeO5TsnItMhoPLS8ehaff0FLvs
- OpZ7dty8bPe4hKOQHnZRZASNBdhjA0Jm4tW4F2MLBk0txwX5X00yw8t2yWEZNVq3FdNsRpDWQ5L
- +sJZeVTq0Tg3KOrB1OpvAtOgWBcXaV19XmfJw4OAyn8MhHUtEdLHR4/vStcpFsLNAmo8PpM1S7y
- TcXOkuHwJSQALQzoLpRN1lZg3JKMPzuL/MtSOakUxMw6tdkJqycDd5vUI9nCg66BiPD4NQinKGs
- 9GWw0t26+a8hETHQZQsAn1HdrQexKqneZjzMkqNiVqeER98EWco72YrLGfXtB3bCcF9qHYNhYOo
- kGEPbiCwZTEZke8WHam+qY4rEF/5BXwtdUakVIORvE8jHSA0DczipZfMHzY9wStC5NEDM0EVRyj
- xUJ6pbSLYoZjRcm00Mw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 impostorscore=0 malwarescore=0 adultscore=0
- bulkscore=0 phishscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120039
 
-On 12/10/26 14:48:22, Sumit Garg wrote:
-> Hey Jorge,
-> 
-> On Mon, Oct 12, 2026 at 1:33 PM Jorge Ramirez
-> <jorge.ramirez@oss.qualcomm.com> wrote:
-> >
-> > On 06/10/26 08:41:49, Jorge Ramirez-Ortiz wrote:
-> > > Stopping a remote processor clears its cached resource table pointer
-> > > but leaves the size set. On restart, qcom_pas_tee_get_rsc_table() copies
-> > > from NULL when the firmware has no resource table:
-> > >
-> > >   pc : __pi_memcpy_generic+0x110/0x22c
-> > >   lr : qcom_pas_tee_get_rsc_table+0xf0/0x244
-> > >
-> > > Zero the input size when the table is NULL so the copy is skipped.
-> > >
-> > > Fixes: b6f7978da0c4 ("firmware: qcom: Add a PAS TEE service")
-> > > Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
-> > > ---
-> > >  drivers/firmware/qcom/qcom_pas_tee.c | 5 ++++-
-> > >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/firmware/qcom/qcom_pas_tee.c b/drivers/firmware/qcom/qcom_pas_tee.c
-> > > index ac33a00687aa..a52a7df385ff 100644
-> > > --- a/drivers/firmware/qcom/qcom_pas_tee.c
-> > > +++ b/drivers/firmware/qcom/qcom_pas_tee.c
-> > > @@ -230,12 +230,15 @@ static void *qcom_pas_tee_get_rsc_table(struct device *dev,
-> > >               },
-> > >               [1] = {
-> > >                       .attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INOUT,
-> > > -                     .u.memref.size = input_rt_size,
-> > >               }
-> > >       };
-> > >       void *rt_buf = NULL;
-> > >       int ret;
-> > >
-> > > +     if (!input_rt)
-> > > +             input_rt_size = 0;
-> > > +     param[1].u.memref.size = input_rt_size;
-> > > +
-> > >       ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
-> > >       if (ret < 0 || inv_arg.ret != 0) {
-> > >               dev_err(dev, "PAS get RT failed, pas_id: %d, ret: %d, err: 0x%x\n",
-> > > --
-> > > 2.54.0
-> > >
-> >
-> > could  we merge this? as mentioned, it  protects against blindly
-> > dereferencin a pointer that might be null. I submitted another patch
-> > that should address the issue in a higher level interface but regardless
-> > I see nothing wrong with catching it here as well.
-> >
-> 
-> I would rather prefer to error out to the caller rather than fixing it
-> here. Doesn't tee_client_invoke_func() already error out or it causes
-> a kernel panic instead?
+On Sat, Oct 10, 2026, Aneesh Kumar K.V wrote:
+> I have been working on something similar for confidential computing use
+> cases. There is likely some overlap between this series and what I posted
+> at [1].
+>
+> I have not reviewed this series in detail yet, but I will compare the two
+> approaches and identify what can be shared between the use cases. Please
+> let me know how you would like to proceed.
+>
+> [1] https://lore.kernel.org/all/20261010072504.536230-1-aneesh.kumar@kernel.org/
 
-it panics
+Thanks for the pointer. I read your series, and Ackerley's resource fd
+RFC that it builds on. The use cases differ, but the interfaces overlap,
+and it would be good to agree on the common parts.
 
-the advantage of having it here as well is that other backend(s) are not
-restricted in case they chose to take different actions.
+All three series add a flag and an fd to KVM_CREATE_GUEST_MEMFD. I
+think one resource_fd is enough, with guest_memfd picking the backend
+from the kind of file it gets. I am happy to drop provider_fd for
+Ackerley's flag and field. We also find the provider from the file in
+three different ways; I would like us to pick one, preferably without
+a registry.
 
-> 
-> -Sumit
+The main constraint on our side is that the provider stays the authority
+on which frame backs which page: it moves pages between VMs and has to
+survive a live update. What would not work for us is guest_memfd
+becoming the primary manager of PFN memory, as Ackerley suggests. Your
+get_pfn() leaves VFIO as the authority for the BAR, so I think we agree
+there.
+
+You refuse dma-buf exports while guest_memfd is attached. That is
+roughly what the memory provider interface is for: one owner, several
+users, and one revoke that reaches all of them. A BAR exposed as a
+provider file could be mapped by both guest_memfd and iommufd.
+
+I plan to change the revoke anyway, because iommufd must not leave the
+device with a hole: it should replace mappings in place instead of
+unmapping and remapping. Would that fit your case? I suspect it depends
+on locking, for example whether you have to revoke while holding
+memory_lock.
+
+Shared/private state and the conversion hooks would stay in
+guest_memfd and the arch code, as in your series.
+
+Does that sound reasonable? Ackerley, David, any thoughts?
+
+Thanks,
+Fred
