@@ -1,129 +1,147 @@
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9977249B445
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:21:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818488; cv=pass; b=clIUO+e4VEOV7jGsXYawBTqtGO92sd5mlUTjY94J7jlB1B0EB5YRp1Xal7JuDkhwJcrmQXQsM5udo886QLcK34nYN9SDIgl418yJBKYzJ+5m/scbWNbtztxs74pRdvgH1sd8Zz/gLiKGXA9r1ehu2UDxh7CkVWQBoDjiMGA6guU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818488; c=relaxed/simple;
-	bh=acXxdYNI6vj4GN6tEYHBYlbXzhzxGLnqPGYWn+EXNdM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PsEteM8OV/mjYEAmFKJl9/beSMtwifypBlOQtIAJmCnSHPNGoGXuLonW4Z4tNhjIEgM6+aswEHFUoF34UZbJ54lCmcDXYRU8YIxyC5aPD6jFlyXS6Z/ly5Sds+BohCQK3xTLbU0PkYduyxvck3KgQHz0Wrk//M3AWCK1K/f8IAI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V9UVbICO; arc=pass smtp.client-ip=74.125.82.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACEAD35C1A6;
+	Mon, 12 Oct 2026 15:21:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791818489; cv=none; b=F8bpl3laoC4N72Pekqx8C6EMJGUJdxvsPvfRQGMndXfUs6OBx96eoyq/xFJOrhdVQVVZsKbWPQFjC99fTFc22hLTujdu/wvI1IO0zBJeWxKEt0Q2VDrEUGi9LGf1gzvic5T3giW3apEYLCBySMWipjacXdYxCyKFU+X5myQWBRU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791818489; c=relaxed/simple;
+	bh=V3T2KqP05PPNQNzMnOJGikVCS700ULWiyxMbOFqWao0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eP7mNFqgiEl8oqGm+gD8X9+C+TeIlGBremkWuBDY3egbl3LCA8dzaWS1VxrEsnHjZ6hdH0RC2jml002M8kixnXyu1I8HZDxJWEeGG28jPnSk3Tbw+coumVPu4UFkMCtOuFT7sIfknKB2rmDU83fQnyESLPZlZD/w3mi+FJx46Gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=m/zyFzFq; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V9UVbICO"
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33c30fcf33fso265250eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:21:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791818487; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AqwsYVSEj6LBqxJONC74bjBNVhCsG+6ZHPROyDiFDQjD0IlL2A6wwAJpI82akQHN96
-         liHGvRKVZK04Fiwrx/frLqbHi29Zi5RxK2Zi8+jzyaJPFYd3qxUzhW2l3HxNc0SQfgxw
-         3ZGilCSnY2psnBJabAYHwB47OGucVDTCyLtBen+KSJWgBHwh94kg9CVZO29v6TlAztYE
-         5qToShxFOIgp7GePXHLu9VZFCxZI3m6RbdWIjTt8OJw5LLWLCnEJlFGJW45/RVHaXGJe
-         Up3GoJUyUn7S+uugCSftFCM9BC2ka9TxEeycoGUV0mfa91dGtJld7ed/hXPl/EvXvYIG
-         DeZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=iLgJ65oJxZVZBoTJpBXKaV00tw4eO5li3Mv5JTtGud0=;
-        fh=eS+RyZhG0Mk3dsRg5uKsLyEplix8luOy56Fq4dplphc=;
-        b=bRmIHgv1Nwfa+IQ3E201cG+tPecW+kKsd6IKJ4ZLf3t5IeAnqgD7S8ZN2DTy/6YoKi
-         8y1htOFIIm0lfbbz4O6nG8h8+VUM8lNnrkoa27ALv+tosTZLsKXpL8cFbtWKDwj3NTnB
-         rSnLWj722V1JonWxQwao4tiM0T86F54BPGw77/ntSGSCSShS12TaNCqFWC8g8rC0UOHV
-         T4QdOOfCiqdNH2kkdibrVHyq6NQ0nB/NlKAn3NswBItUIwwuxZy3q8QZYT8G3DtZWuYt
-         Rsu6VnjGDd+JzMmzoNRBou1x2pchWWjnldCaBYn4JaWR5zGI8qSeUt8XMqm+QQjRFsk2
-         UBsQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791818487; x=1792423287; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iLgJ65oJxZVZBoTJpBXKaV00tw4eO5li3Mv5JTtGud0=;
-        b=V9UVbICO9Vb3G0dHVTiGb8S4WVniQxs6wmTmPNcXznYmsWz8kd1y+k31MFrHAf8vSr
-         F/xu3g2v5JkYjvBeTbKIBSPdbOMtozVeZwNJe/sneeG+41EP6qmE4OlR8ZAft5Aw3GY8
-         5QKTN1uz326YnQuvFOv/Dh4E5k3sn+Hyqa94/cPE5CWDlxlTTKSV8V6mLrRTozIwWcOH
-         sqHovpjY6+6o70mawD+5zf6vV7GcNVQJpS1asU3zptVn8fG5vEtRCymo5tXcTJVdT/dg
-         aOQpLbB7ySZzkjVQwzGgtzrtANP0OAgkCKgoS8RaZIK8+EPmpQgit/8WHVOlQr2kiIk8
-         S0Tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791818487; x=1792423287;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iLgJ65oJxZVZBoTJpBXKaV00tw4eO5li3Mv5JTtGud0=;
-        b=uJ9GWS/0ppAKwnOEqWJKKhyezk7pyLXMituGMQOa5HkunCi76rQQGi6d+JxENpo01N
-         kuOV5ZULZ1TPJ/oDmjAY1JcYQmQKcrT5mD6emOlRhk/lgl62x4vegp19DLjG9YwX37XN
-         Sx2eSJMq8syjjg03hRy3dNbnHOTGOMq3FZNArzBaOXp2fWkiK0wEPTChQTlS3gAZwzIp
-         bNTlHabZYiAqarUUfSbhFKBwx/V/X5kg5dSS5+a8a3Oz4MpNQotgfDa08y223h3oe+uM
-         KEAi7NGxQqy1ggIQD77rb3lKt41TpYgy6HJsyoUoMzB2hLx+MkqXesgEtv//UFOmIszd
-         KaaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxsq7JS8rRejwyss5ZmDnE+ugz35AcsRUm8jSi9iKdkKeY2qP6QBog8znGqUEKm4+bn6//06H2JgdpEIFU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKztdvM6rtwzNa2qUojB/HceVruqqaHKhwOP5W7n5Py1QfSE6N
-	8T7me5bWfC/0zW9pwRfcbxlwFOXDdHvyayISkX5CG6HJdvzMkI8txgR/1l9S9Zw+/q4xng8IIVw
-	xK0ELh5FoHD8Key0XxRtyPnsSXLjvzx0=
-X-Gm-Gg: AYBFou2K6dsr+ke/bPSrModd+ygj/0rbXnpd17+/H3d/QY6VannGVPSdbAYuiN608q9
-	NVXb/3L5iVZC9MjjKaXjrG+wOHhFyzKgJSkXL+h0PB2k8rGy/1FahCm4HLsidhybRA2CRaKh6lI
-	Ok9Y+JS99Pnd8Vqv6tCom3JFu2G3FdftqcghubO4Ks5FIPnOoIC8fYk2AneSfN2xzTmvQL3+H23
-	07sBEVCCLBWKWaIy86nE3aLxyaeTCRui57rMsHeOCP0UsbP5JGxq2lKIzVeQmanjnFq686+Jgry
-	nk6rFThaUS1+8K9ZJ8wgV4hJRbDtjKRD/pO8S1lqwKa+jVEcwDgYiW86TV9f3sS8GiG5WsyM9NR
-	6lyM/Hvrm0nbEpg0BpxWSwELeStWjshO8lcdwTXQpGHgzYrVoimn4mcO1BkFHsi0pLSV1cs161b
-	Tmyyo8oj0ZGygh15icbvIcdEccibDQuTks1pmJv4yMUNN9BPwK1Cc=
-X-Received: by 2002:a05:7300:f3c8:b0:351:7883:bf47 with SMTP id
- 5a478bee46e88-3537dc8e9c0mr22095379eec.0.1791818486595; Mon, 12 Oct 2026
- 08:21:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="m/zyFzFq"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=bX+SBpFYzPiBpusGse8IzndZlRu6fhKhDRIRSp1NJCY=; b=m/zyFzFqnIQbIMgFdQ6cTjDeO+
+	nKdANjlgOCsb5Ig7GjV+yb2g8UA99n+yx/dKBzRgWyAatmboZgtAef9IUp5tpMlxt/an5qcXYMOHg
+	JuwAYZSKuAvIV5EObJpNRVF2B3WfyXbQmrSkMMvNL3B5EUYqiGAH6wAQztpxS3TuSDy6xSQoAYX+q
+	RYwbo2ln3veFYdVslCuaET23JX0zXoEIg3a2RvFZyo5RTv19mKiQU6RcFCb8MHlgB6ON1VQYD/kA7
+	Vv65fgu5M815N1+cKQmjbu3Xnl2kHpv7LoFR++1dYiUJDQfdGbm7fMDL9g7xLXBJ+/DWBmyj2sc5B
+	GpSXlvyA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xGHq6-0000000EZME-0CGZ;
+	Mon, 12 Oct 2026 15:21:22 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 6C50830045A; Mon, 12 Oct 2026 17:21:20 +0200 (CEST)
+Date: Mon, 12 Oct 2026 17:21:20 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Andy Lutomirski <luto@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
+Subject: Re: [RFC PATCH] entry: Account the deferred hrtimer rearm as hardirq
+ context for lockdep
+Message-ID: <20261012152120.GT4121339@noisy.programming.kicks-ass.net>
+References: <20261008204649.62265-1-mikhail.v.gavrilov@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012134159.912183-1-elver@google.com> <20261012134159.912183-2-elver@google.com>
- <CAG_fn=Umb8c1yjp-wEPPFSNXfNdr5UHb5BBd4tV=iwNSehCxxQ@mail.gmail.com> <CANpmjNPBoS7SUTMVboZPGdgXbhY_sz2LhzZqEU=EPojVWkqWHA@mail.gmail.com>
-In-Reply-To: <CANpmjNPBoS7SUTMVboZPGdgXbhY_sz2LhzZqEU=EPojVWkqWHA@mail.gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 12 Oct 2026 17:21:12 +0200
-X-Gm-Features: AclHuK8qicd0EkbAG2tR809BSGa88U6FRkGTx1gJTbJF14aEuOf_oW-ieXqq320
-Message-ID: <CANiq72=p6a=4K+8jhbm8=y8i_4yMszacK-fu91s3-Eg69ACejg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] rust: kcsan: add KUnit test for data race detection
-To: Marco Elver <elver@google.com>
-Cc: Alexander Potapenko <glider@google.com>, Boqun Feng <boqun.feng@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, kasan-dev@googlegroups.com, 
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Boqun Feng <boqun@kernel.org>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Asahi Lina <lina+kernel@asahilina.net>, 
-	Yury Norov <ynorov@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
-	Joel Fernandes <joelagnelf@nvidia.com>, workflows@vger.kernel.org, 
-	linux-doc@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008204649.62265-1-mikhail.v.gavrilov@gmail.com>
 
-On Mon, Oct 12, 2026 at 5:16=E2=80=AFPM Marco Elver <elver@google.com> wrot=
-e:
->
-> Oops. I guess we'll make a v2.
+On Fri, Oct 09, 2026 at 01:46:49AM +0500, Mikhail Gavrilov wrote:
 
-Please also take the chance to use the kernel vertical imports style:
+> Commit 15dd3a948855
+> ("hrtimer: Push reprogramming timers into the interrupt return path")
+> moved the reprogramming of the clock event device out of the timer
+> interrupt into the interrupt return path. On return to kernel mode
+> irqentry_exit_to_kernel_mode_after_preempt() performs it after
+> irq_exit_rcu() has already left lockdep's hardirq context. lockdep
+> therefore records hrtimer_bases.lock and the timekeeper sequence count
+> as taken by the interrupted context, on top of the locks that context
+> holds, and every distinct held-lock stack an interrupt hits adds two
+> lock chains. When the rearm runs from irq_enter_rcu() or
+> __irq_exit_rcu() it is still inside lockdep's hardirq context, and there
+> the same acquisitions reuse one pair of chains.
 
-  https://docs.kernel.org/rust/coding-guidelines.html#imports
+Urgh.
 
-Thanks!
+> Not touched, and a question for you: the rearm in hrtick_schedule_exit()
+> also stacks chains on the preempted task's locks, under the runqueue lock.
+> Chains with hrtimer_bases.lock under the runqueue lock, this rearm among
+> them, were 4.9% of the pool in the boot above. Should it get the same
+> treatment?
 
-Cheers,
-Miguel
+I'm thinking those would be there before the patch too. We've always
+done hrtimer_start() from there. You might not have seen it because
+hrtick was default disabled for most.
+
+
+>  include/linux/irq-entry-common.h | 19 +++++++++++++++++--
+>  1 file changed, 17 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-common.h
+> index 0bb6c03481fa..521cc30cef08 100644
+> --- a/include/linux/irq-entry-common.h
+> +++ b/include/linux/irq-entry-common.h
+> @@ -468,6 +468,21 @@ static inline void irqentry_exit_to_kernel_mode_preempt(struct pt_regs *regs,
+>  		irqentry_exit_cond_resched();
+>  }
+>  
+> +/*
+> + * The deferred hrtimer rearm is the tail of the timer interrupt, moved to the
+> + * interrupt return path so that it runs after a possible reschedule. By now
+> + * irq_exit_rcu() has left lockdep's hardirq context. Re-enter it for the
+> + * rearm, so that the hrtimer base lock and the timekeeping sequence count are
+> + * not chained onto the locks held by the interrupted context, which would add
+> + * new lock chains for every lock stack an interrupt hits.
+> + */
+> +static __always_inline void irqentry_hrtimer_rearm_deferred(void)
+> +{
+> +	lockdep_hardirq_enter();
+> +	hrtimer_rearm_deferred();
+> +	lockdep_hardirq_exit();
+> +}
+> +
+>  /**
+>   * irqentry_exit_to_kernel_mode_after_preempt - Establish trace, lockdep and RCU state
+>   * @regs:	Pointer to current's pt_regs
+> @@ -491,7 +506,7 @@ irqentry_exit_to_kernel_mode_after_preempt(struct pt_regs *regs, irqentry_state_
+>  		 */
+>  		if (state.exit_rcu) {
+>  			instrumentation_begin();
+> -			hrtimer_rearm_deferred();
+> +			irqentry_hrtimer_rearm_deferred();
+>  			/* Tell the tracer that IRET will enable interrupts */
+>  			trace_hardirqs_on_prepare();
+>  			lockdep_hardirqs_on_prepare();
+> @@ -502,7 +517,7 @@ irqentry_exit_to_kernel_mode_after_preempt(struct pt_regs *regs, irqentry_state_
+>  		}
+>  
+>  		instrumentation_begin();
+> -		hrtimer_rearm_deferred();
+> +		irqentry_hrtimer_rearm_deferred();
+>  		/* Covers both tracing and lockdep */
+>  		trace_hardirqs_on();
+>  		instrumentation_end();
+
+The first question I had was about __exit_to_usermode_prepare(), that
+also does hrtimer_rearm, but doesn't get wrapped. I'm thinking that's
+not a problem because at that point the lock stack is empty and all
+that. But perhaps a comment?
+
+That said; I wonder if we want more of irqentry_exit_to_kernel_mode()
+wrapped like this. The schedule_preempt_irq() thing will now also stack
+rq->lock and the like on top of 'random' kernel stacks, rather than
+keeping it in 'empty' hardirq contexts.
+
+Or am I making a mess of things?
+
