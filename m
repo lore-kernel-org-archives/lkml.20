@@ -1,130 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD53C3D955C;
-	Mon, 12 Oct 2026 20:42:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB274DEC1E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:43:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791837762; cv=none; b=JLiKhw9amT/K5bHXdI0GgFlPQ16Jt7IC+PVIYgn9stWnz3Qb+kc1HdDLIOzgtIxVEQgq6v6x3yj93TCxOlOv9lnTZQGcrGFg8KgRk25uIrBbPVdNLNql06ocRbUfAw0Xs63949Wc0D9iICMoZXVbgcmtanznxi9wG0ZpCmqdQes=
+	t=1791837814; cv=none; b=t0OH/kJ934gNVlW5A1XeiRpUJLH/SUo8/Z5F7rt8bVsQHekMRfSnhPjV+Fmv+KczeUHftM4P+k+m5DnJI6AjUJtRsquFlzqIUvBKBzZnDm+UBgCx4fZlpX6FkLHOG4Cw5QfXv21vfdjKDkmqztFeJyz7cyXxQA8SWUInjUJioF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791837762; c=relaxed/simple;
-	bh=T151PnLM20JA9oilHiiu6VZTXffmfYSckEjUlAEVRuE=;
+	s=arc-20240116; t=1791837814; c=relaxed/simple;
+	bh=SWVAfflsvR7uwsFRFLUgJMbObCSKiB2/FdyOcDm66zE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Aa/Al+6OFL36GIN1/k00GbpcfsIVm4+avDr6OCqwVvo7KT/zrCWmLWSuS1RDJ4Axb0zk1I9oOeRm4tdRPHicGekI+aZdbM+Aa7v+5DQSWTiYCL73cPr8vOOdiodgnfBnqH+EW58wtlnx/yJ34PcPUfcI3skrfdZq2dXYDXDyGdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=as2dsfy3; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=oqhUKCIG5shi3Vxz3Q3u+t1T/o63SEozbew/yQUGN2R1JxE0H+g+u3/LmpWP7A8RgWdzNBXCVwzHOtYcYqGVTNCpAN+6AprFwmH0bJeCW+ateprk1cbLxrcolL7N6beauGKiwgO+F7PCrKN1akNUY3oZ+3CW7RpFZZ8aCTVgtw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=dGLzxKc1; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="as2dsfy3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791837761; x=1823373761;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=T151PnLM20JA9oilHiiu6VZTXffmfYSckEjUlAEVRuE=;
-  b=as2dsfy3WGiSC2BgomCDqR89/OmxJ1Paw18Dpxdxqa2fcmqZejhD955b
-   2e1fs84IU9IFq2cTpDqyovqLA/QaJ4IxZH+xD3uZgnYyDsxlX2nkdk7XF
-   haUVrfC7RUrke5RV11eDESrFm8GmlMq4hSjRuF8Q/t0erT0RlAUWNeyh7
-   HkrlwULfHn8DRofHn92dAi7n/+EqCg5fQ4MbUVS06i1KaoxJNTjcHX9J6
-   jYq3e/sR28QGveK/RA/yNM92Stx6YDtSsV6vEpjU0nduVLiSPnat0DHhb
-   jngh/ZZ652x/TV2F0Iw2m/aT1Sp9ynh7q85yZ9Hr2H0SItEuoyNG0QY96
-   Q==;
-X-CSE-ConnectionGUID: 950tLytiTn63HCvsFALwCA==
-X-CSE-MsgGUID: vDCupysVRTyky7gCLCYagQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="442682"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="442682"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:42:40 -0700
-X-CSE-ConnectionGUID: RDfzDRRAQu2pi1ArV0BWzQ==
-X-CSE-MsgGUID: tBtObo7lSruymUz/UC2Ggw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="1078421"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:42:37 -0700
-Date: Mon, 12 Oct 2026 23:42:35 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Kent Gibson <warthog618@gmail.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Jia Jia <physicalmtea@gmail.com>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/6] gpiolib: wait for pending label frees before
- cleaning up desc_srcu
-Message-ID: <as1GOweKHBq2HhpP@ashevche-desk.local>
-References: <20261012-gpiolib-chip-removal-v1-0-aambrozewicz@nvidia.com>
- <20261012-gpiolib-chip-removal-v1-1-aambrozewicz@nvidia.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="dGLzxKc1"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so18590455e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:43:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791837811; x=1792442611; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XK+SEB+e/GS3thSnPWg9ZaAuDfBuOx8piTMr3Esm78A=;
+        b=dGLzxKc1JirYvojo0RObX1aFxRnkvO/Alo1BeCnN6QbXoLPOqWh+/mCb+wi7IgUu05
+         StF00gmsypnUd7iKBzYy/HE4RrxAt9r8KFAbb7X+kmKU0I8VTn1h9giWAsfeMXcjOtjA
+         R9KpNp8rIV9zXnFzlaqUTzdMUsUMyYk/KfZOJbuTH4H7zJAy+xo053cyKY2nA9MB8YbT
+         2ougQHSFyOg1LsUTfVlJDNNpk7Lyx2aYSX+c5lU2Yh68Z/BbkOM+ShopVC+D+bdXKFrF
+         pR3ZIj9zYISTReJE/dNgp4MnImaINnSl80R619cqP5PVDejLOhtB/UaqZBoTV69FbkWf
+         pbOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791837811; x=1792442611;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XK+SEB+e/GS3thSnPWg9ZaAuDfBuOx8piTMr3Esm78A=;
+        b=1W1eh0sIKTpNb7SCRToF0Ijjo+kQmmORnHE9Vt1yakjMe6qayxWjU07HuDrN/WIsGf
+         fJjBUe9tG1yIkWgfnz9EaqnYZFMEXRfWxLEfVKDhei4z/i2pNFmZi/UYSeH74dJ6AdWq
+         csWZbX4xAxXgPgxsWw19M4UuhEWub2pvSUHOrgZRB+JJPe94zlIupBBfMVIpdn7uAjpf
+         ygDC2708dowO62AbWnl35tn5A9sQhMj4kJKi8uaWGi3YBx9xbkVWnOCv4JWuU2KKzMzn
+         eJSFUYQkppAuOoGuDiZBuVCwwjVznMetrfBpVieo40XlUhN/8a0UTvDNUmaCYvGtIIqc
+         rH3w==
+X-Forwarded-Encrypted: i=1; AKwUvBzYo7YhrRm8XOIWK4PrVVMmiMmMTHLl3HU9Lf++mIlEFDwQHgpc4ULwb26AsLHp2Ejy8okQ/1NDBUb0exE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKcGGiL401KpEAGa0vwiOiU8O0aKlCceyv5IKaZnOx6fmXQKWu
+	9FFkuHsbn7olgSF0Nc6/dgjQ5mqKFbKEr5e4wV0SReU7OUrcStPRUpRpKW4lqUg/Z4U=
+X-Gm-Gg: AYBFou3LuaLBP4W04k5nxuS4/G3rayAtI4BZ7awxyNbEHY89sapsRj8aBsW5pwAXOtc
+	RRmfqbfdCBg2XF44fzzMFoQtUciemapT8gf9XEecYQ1BBg8EyoZc3qDqxXHl4DeW4wq6oLc1b9e
+	gleV8gvYYMTu49V4/ZuoiGRqi22W6GZAMpNdrZGUEOlnjS/rCFK/OifY+7ELV5naYhzOMyeD2ii
+	xOL/yNHIJlu6ADqB/ugzzjNEeixw6Bx8B92idgD5oclse/axi5u49050CQeWerTApftFQI9ZjtL
+	7Qblnr0qQHQig0PRIAAe1lajkEQ5koEXrJVvtKS2R4OaTizgVRMFwpS7E2ElsdiAqT+Xwjle0ZT
+	MhOThuR6sXIBIcVIW61/2tI9FuvumdQJFj2LFDMXvAwitP4DMvNkXd9c/xcjvhkrtisq3++J5We
+	gDwIUgf7BBSAK+9pCZFJmnAEOFmVHX8R3sBHwsqqaZPGxCiH75EHHSmfbREELX1qUcAdwjhwKHt
+	BQ=
+X-Received: by 2002:a05:600c:548e:b0:49f:f9d1:e618 with SMTP id 5b1f17b1804b1-4a18e4aa057mr205547665e9.17.1791837811442;
+        Mon, 12 Oct 2026 13:43:31 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a199e5db12sm197660805e9.2.2026.10.12.13.43.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 13:43:30 -0700 (PDT)
+Date: Mon, 12 Oct 2026 22:43:29 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Kishore Batta <kishore.batta@oss.qualcomm.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>, 
+	Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>, Oded Gabbay <ogabbay@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	mhi@lists.linux.dev
+Subject: Re: [PATCH v8 2/7] bus: mhi: Move Sahara protocol driver under MHI
+ host client drivers
+Message-ID: <as1F08YNeWz_1bre@monoceros>
+References: <20261012-sahara_protocol_new_v2-v8-0-e12939d229a1@oss.qualcomm.com>
+ <20261012-sahara_protocol_new_v2-v8-2-e12939d229a1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="k75v5fxmll73bi5h"
 Content-Disposition: inline
-In-Reply-To: <20261012-gpiolib-chip-removal-v1-1-aambrozewicz@nvidia.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Mon, Oct 12, 2026 at 04:49:55PM +0300, Adrian Ambrozewicz wrote:
-> desc_set_label() frees the old label with call_srcu() on gdev->desc_srcu.
-> gpiodev_release() calls synchronize_srcu() and then cleanup_srcu_struct()
-> on it, meaning to run the pending frees first, but synchronize_srcu()
-> only waits for a grace period, not for callbacks queued before it to be
-> invoked. Once the srcu_struct uses per-CPU callback lists, a label freed
-> on one CPU, for instance by gpiochip_free_hogs() at the start of
-> gpiochip_remove(), can still be waiting for its invocation timer there
-> when synchronize_srcu() returns on another, and cleanup_srcu_struct()
-> warns:
-> 
->   WARNING: kernel/rcu/srcutree.c:706 at cleanup_srcu_struct+0x239/0x330, CPU#0: init/1
->   Call Trace:
->    <TASK>
->    gpiodev_release+0x20/0x60
->    device_release+0x3e/0x90
->    kobject_put+0x67/0xf0
->    release_nodes+0x3a/0x60
->    devres_release_all+0x8a/0xf0
->    device_unbind_cleanup+0x21/0xa0
->    device_release_driver_internal+0x1c6/0x210
->    bus_remove_device+0xea/0x180
->    device_del+0x152/0x460
->    platform_device_del+0x20/0x80
->    platform_device_unregister+0xd/0x30
->    gpio_sim_device_deactivate+0x26/0x80
->    gpio_sim_device_config_live_store+0x254/0x3e0
->    configfs_write_iter+0xc2/0x130
->    vfs_write+0x252/0x530
->    ksys_write+0x6c/0xe0
->    do_syscall_64+0x109/0x5d0
->    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+In-Reply-To: <20261012-sahara_protocol_new_v2-v8-2-e12939d229a1@oss.qualcomm.com>
 
 
-Please, read Submitting Patches on the backtraces in the commit messages
-and act accordingly.
+--k75v5fxmll73bi5h
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v8 2/7] bus: mhi: Move Sahara protocol driver under MHI
+ host client drivers
+MIME-Version: 1.0
 
-> cleanup_srcu_struct() then flushes the callbacks itself, so the label is
-> still freed, but the warning is what the comment above that check says
-> srcu_barrier() is for. Use it.
-> 
-> A gpio-sim chip with one hogged line, set live and back in a loop, warns
-> within 4 to 60 cycles in three runs on a 4-CPU guest booted with
-> srcutree.convert_to_big=1; with this change, three runs of 1000 cycles
-> pass. With the default srcutree parameters the srcu_struct only goes
-> per-CPU under contention and the loop did not hit it in 3000 cycles; the
-> warning was first seen that way, once, on a KCSAN arm64 guest unbinding
-> a USB-attached GPIO controller whose firmware node hogs a line, and
-> since then on real hardware with v7.3-rc5 arm64 KCSAN kernels, when
-> unbinding a USB GPIO expander whose driver is not yet upstream, built
-> both as an out-of-tree module and into the kernel.
+On Mon, Oct 12, 2026 at 11:48:00PM +0530, Kishore Batta wrote:
+>  #include <linux/devcoredump.h>
+>  #include <linux/firmware.h>
+>  #include <linux/limits.h>
+>  #include <linux/mhi.h>
+> +#include <linux/mod_devicetable.h>
 
--- 
-With Best Regards,
-Andy Shevchenko
+Why? There isn't even a (new) usage of any *_device_id. There is a
+mhi_device_id, please rely on linux/mhi.h to provide that. The main
+effect of including linux/mod_devicetable.h is that the driver grows
+many unneeded dependencies, so don't.
 
+Best regards
+Uwe
 
+--k75v5fxmll73bi5h
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrNRm4ACgkQj4D7WH0S
+/k4JaAf+LQbc81GUcwrqUE1hp5/ZCb05DUb37f03Yl819y3z00pXYZgwXJDUTd9T
+GxJKc/iB9t1KKUv41uObbdOWw/pX8fpB4QMUgZQ1hlt7cRumJE11HOvk3ieg5WNf
+pb4dIHEZGziIGLgCybUc7cofDnbPzwRnzZHOM7ngjQ1pg6U7wFlwInyjQD9mkett
+cBtgIfwxlb61WfBOpmn2HajtmR/jVHmrj28oEqs6rJYH4yqR5eDpna/VhGCLfSV6
+/AGqL77ZVNBz+bljTJO/GmIXlHHKNMQ9siCwfbX8dqLVG+HqxQB9+07RAtKA7t3q
+ehCntiPriE7DoQa/XfRDpRlCwDiqzA==
+=+TQr
+-----END PGP SIGNATURE-----
+
+--k75v5fxmll73bi5h--
