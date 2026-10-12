@@ -1,196 +1,132 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012044.outbound.protection.outlook.com [40.93.195.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75760371876
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:32:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791837154; cv=fail; b=LQ8YbY3cDcXW655kk2ZGmdPz8pm1++YPBKRs0l0zZay7OHdcjs3Biiu2pcMOZwkRRdM4tcLUbm+2bgDE66KNyoyJ4p0XTXNJbvBDcQgtkS25EOKX8XoKkCbmkPzmY1otnglvc1lPcj25rkYQAsuluQbrtaN1UMJjH+sXx9LUSJI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791837154; c=relaxed/simple;
-	bh=DuyVr4ECM33/8vCraRn9JmyBXInBqhJYqRj44dbyW2M=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EKzl0SxoPBckPb3kkNK0dGFSQnhBZZ5MrvEKdcWLpC2ech19F8VEBTV823QDcMJs+MTZ2Yy9olKV+v5dY4XeqChrxILjUSSXr30qegTb2XRaikfDOGq075rEnZbDvIN0G+bMXvTn1/Zihdw8568IEkT6UEpNMuteMKbOVUMeBE0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=MQRStZLI; arc=fail smtp.client-ip=40.93.195.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D8434CA771
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791837185; cv=none; b=Nt6kyC4DFwNJxORLqAF/DhH9Xl03f0v9aC4x/jzzOdSQCX1Lg3NBp2DWxFHRjBAI67HYpV7ZRYMTsnkmd7X0Swsw+jEJVI/58EkQNXWVyQVsKNax1pn16b+y59RcTaAKtiPYP21CnIQAeNV9cfKRc+qPdA8Hix/R8SFJeXDHERg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791837185; c=relaxed/simple;
+	bh=3dDzxAe3v4K6bmvY5Sku2I2OCIIKOOmdO2oWSS/8r5Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tnFk8JHKcf0RUzCuE3Q/L5bOGuOZ4F2uKhuLFqrgiTLxY94uKoudvNDf/nVBmobjF8y3qn6CWwPjMvTiRGJKYHGRBBqdRjiVpoWn8vJ654ysRQZgH4IjYhA9pielz1n6bR1r/zX4E1ahsuzyf4DyKvuP3nxDl6JLzC1HoVg1H5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=C2J23s9U; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="MQRStZLI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LyQdMW/8XsPd48nQfc9JOlI5b+MpUx4a+xc0K730+DuBud2LbNvAE1o7A8ZPr1WrZl4TDd2dfPb2KYuqCE6gQb+fshdH96R79ey56N6mkp3eA8KDNNDiYlCgRs377sHGeZlrX+0DF9fzE/b1V9/4fBKQUYbf6UnwYb+bW/Me3FYhYDXwzy/sZFmbz30ENEnKg1i4gYNPUVsHKL6ZwCYlxKqC2oSszukGw8J923KHEtZ8eU6Zg5P7VD3K5XJs2wJI296MkAehBacPQ4VuyJyzMiPt2qlvK8FGmDeHM84r+T40DIQmq31sLQoGCtxYlh+XqyWSxpRqqDQwaXGobXcsPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2UgQb66GPPvIHEjQ5C9TWh419/KexlLC6rMO191owDw=;
- b=fBdEYV/IXZ6PrWrgHLM10qsCr4oL8iwf2XmcASdjv6xMEXeeMtw5o9lFw8f741aeeIo4cp2L4jUcLP5g8kFgBVELUzFvuliTf5ljjZnlGzCtWmWcGFHHXEeBMt0O5rqp/oW4R9GSSSp07LPjy06+ohfx6lwNciEWZ0/8bxPWtn1C17Kspa2f8S2aonWPH+5rrpO1OLjuL/fGoKD9N29YJWnZ211IrtGYc6QEGW4RPQgB4EKojTOeKG6WIf6npZMSo701L0xAIzlYm6UDWuanWCSWadqGDf6U4lFsRzyvA2bb7Q/t7BqWI9DoJLEJTtdStI+iqaw2o+xc59KXzhFTUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2UgQb66GPPvIHEjQ5C9TWh419/KexlLC6rMO191owDw=;
- b=MQRStZLIup8awN+GsuR8YScbuHIVgTV+vAMSjB4gG0L27OIns01IdPehUtfpux/vBIvP/ahlaYATqjLd5tZRYALhokIjjlaBQpChz1Z+mpVyLZ+7na2rzW5X6QHYltXbOU4XqPZfK4/GbrbiBATDhsAVlCjH7NhyEOjjqv0ZhSY=
-Received: from CH0P221CA0029.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11d::7)
- by LV3PR12MB9215.namprd12.prod.outlook.com (2603:10b6:408:1a0::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
- 2026 20:32:28 +0000
-Received: from CH2PEPF000166BD.namprd04.prod.outlook.com
- (2603:10b6:610:11d:cafe::3d) by CH0P221CA0029.outlook.office365.com
- (2603:10b6:610:11d::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.21 via Frontend Transport; Mon,
- 12 Oct 2026 20:32:27 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF000166BD.mail.protection.outlook.com (10.167.252.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 20:32:27 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 15:32:21 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 15:31:41 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 12 Oct 2026 15:31:40 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
-	<dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
-	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
-	<sonal.santan@amd.com>
-Subject: [PATCH V1] accel/amdxdna: Serialize HMM range faults on one umap
-Date: Mon, 12 Oct 2026 13:31:39 -0700
-Message-ID: <20261012203139.2573687-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="C2J23s9U"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c4d870d54so1321632f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:33:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791837182; x=1792441982; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3dDzxAe3v4K6bmvY5Sku2I2OCIIKOOmdO2oWSS/8r5Q=;
+        b=C2J23s9UubyCJcxmDzteye4q+6hArWUjeY0by9D4HK7rJ4tJ/yjt80Sn3eH2Y8Mugf
+         C+0VLmpl8CluoBNrRVGZgQ+9RyJ2KUX+4CzGVPjYQ64se1W7VwXcF/mA9f1TwZFIllat
+         uk2BrLSFFGedsU9cHS4U77FDx1AkQ4r1HA+wXXjWVWUHNb+kFiGaz3gsQiVCpELiipin
+         GbETdX2vsCCOn4yAfFBvh6A3V8yfWpasbWNCNTQ8uRZR1xKJQ1fsoYBoigTPR7ov1AqD
+         eZ7JIvALkWE86DjAepB7yvbJEOgRpvPFOdrpdXAMdD8BRGqKJQkQ9qYR3Bxrxnqlpt69
+         RpcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791837182; x=1792441982;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3dDzxAe3v4K6bmvY5Sku2I2OCIIKOOmdO2oWSS/8r5Q=;
+        b=o98i2TPUM0hmsskR4d1IX/oScFpKSW2ZQlsWkklXF+Q+X3Cz2k1saAghr+8ktbrqCZ
+         RQwVcre49eVzeB12NbttVn3hZEgF56rBJOknA/2f37hgGRUCmLP3MtK51L9kkpl+ATXu
+         ES4P5AS37ou3hZqnP5GdKzciSF9xZze+PFXXeZOBkYruGRin3ywDc1+R/oN7NP2yjbYW
+         0kHaT2OMmDDpwY7WxF+oDnV1RilAoK5VGjxaxUCpwMQIrvZ99t/N7rI6GB09ssXKhycR
+         2iO7Sp0y9mjR43KdeFThJUI3DQeyoYQyQjm3Q9ZPJn1+vHxyBd5tvS+fQI1JJTmcdDOF
+         MIcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwRH6M+HUkjvBdRBibJjYxeTXEN/yOvqKoEHYViqFqNnsCWDUBlMiNJrfg6DZbUKsHcDbUC8epQg6CrXx4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJbTb1Ta6LuVqcrEwvzFdyHxFbolb2hYmZhENVDddoL6XJqx2tc
+	ABVWfy5fOitqlOpvmPCqoMLsrQMhy4NsTEjfJvhhwKVLILFp0/EoR3s4Myc67JTsoFI=
+X-Gm-Gg: AYBFou2yBHesYZVIJVLVmBh0r4xCL+UKg0koC1OIBMWwveuxk+QX5aS161Ov0B86Hcc
+	CwB3e86qFlHZl6H2o7WOt5jama5yYDWCRD4bKdueotlzpsshVQvcjzUa9fAAo+MOZ5GBdQI4trd
+	i2ZKt4g60Xgx7AMvdklQk/JIkGY2boISgxDL3gLlXXTmtJJqRv/P7WGxVx/E+O7fZjsdH+Mgw2k
+	bQWNIM0j+3X76rHz+CyQalBQjghUz2csrwhxI82it38EfyxMt6fm9WtUqr1lWcXclMzPC32HY4W
+	rnzurY9J0Q7A8zDH2ULA0FGleP2hDfM+hD8ZSxSG0243/YThwnfW1b1kY3DDRIlyynwcZU1rvh3
+	5WKziE3wybZhUJsiok/4vW/jOmLWs+bkIYlUaLyWKjkng1ey2yFSltixda5dV4iYZdKh/OXmYPJ
+	RVAzwh3Bsg31BadnFwJ7sTwHtQVzlhNiEpqObSaVMW/SR9/+fdDBzVCaPyY7mDM26fyc++cSqO4
+	iY=
+X-Received: by 2002:a05:6000:2610:b0:48b:60a:760c with SMTP id ffacd0b85a97d-48dbacdbca4mr19746116f8f.31.1791837181259;
+        Mon, 12 Oct 2026 13:33:01 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48de0967bf5sm1211973f8f.5.2026.10.12.13.32.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 13:33:00 -0700 (PDT)
+Date: Mon, 12 Oct 2026 22:32:58 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Fil Dunsky <filipp.dunsky@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH 04/11] gpio: Add Cortina Systems CS75xx GPIO driver
+Message-ID: <as1Dl08DwxOu-boF@monoceros>
+References: <20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com>
+ <20261012-b4-cs75xx-s2-v1-4-8a7641b7b79c@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF000166BD:EE_|LV3PR12MB9215:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e86af0f-435f-42e1-69e3-08df289fee4d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|56012099006|11063799006|261009223027099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	nxY1N9PbtC/T67xDgTz5HX9QabCY/hOcZJmoCBCZryir4b5PwpGZbicMGbDKSm/D8kS6eOPAqE4KAPL07smFwVjYiOSOrTxvuuPjtB0fms0VekvlRoYRg7LvDE/eEkBUe4CuxG9IzKpKUZT0S4ZAMPPq2Fq989Fp4SrlEyulm4L5tJii1zlP24pdgDTPeAhhnYxtZECjFMobCWH6EYeNqKLOSGJmms/9rarnhwtRmgt2eTApKNw5WxOEDJ9oWHZt6eDBQVqBWtU0F+DRdNRIWs4E3oGvhRNfWfcbdSR77fvI9M8pFvTkGEtb0t68Oqf5AFdw7WM8w+r0C9i1E4R48WWOtxV3EYwRI3OiyYwXJuX+9HjWsryyPJQJrF43Zylj+czGniztbguHjJ+44QwdeovtV3Pc3oC0vOz3b5CEGjTEu3I86NksZOf9q8rfHptmzK0oTVVo0eN5joU+U924siogW6K254eT8jrIKe2ccaaza0Pv5NbkdXmFEsPtcdCijoGtGSCi0wHJ+6lebT5mmKYWCe9xffPw7sYafPHiYhNy/9yAx4CbOlVVRts6T4CB+tbJW3rvd4xlJ7cUjp/I6oQ4tPRjUQB8KngQ8/b9LjCx4yoXNebt4idCtad+r+kMf+qcrw4BJbno2GobrbQ+yVexMzRdpGOP0FskONUmZao4OV1zzXnBUFklldBZ620HgQQJ+MEO+JnKdD/NrM9KhA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	YXwEkJVEPH6XrT8Ww02qKJlTVZv4oy92Izws9GpX/++zv78yr8hdR9QqXB0Sdt/K2V/Gl1S3jmhrNGi6eI6CY9mB5zqykJk4cRfJibJrVZmMPzxRHzxJkUIuIZp8/yKmmQq8St35HBnxDNMUYVlKVWFqqlOG7x6E259szJfj5Co7bLwhdaclWZsAoA5lhsaFDDaZ/gCU0531l7ApCGMO5BVNPfhMYQUThh6USPnezWolmlRez9Kuisy6ANAo/0gijEeUgyv1Xjz9+/1ojVGkO+t2LR/LZTvO6vAs7d8ZSZrPgPLPcDm+XJri6m5PtkQgVMys4mIO00K6bDtxFGxI8bzE+1UXsqnkJ+5y+M+r0g0OCKK7Y/tZWoY6wCEqqtrevZvlbqjMUItO9WmYP016o2T8PmGOl3yINEjJ7MIwHkX9fBGyQkwBbbDH9aNOu74o
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 20:32:27.2589
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e86af0f-435f-42e1-69e3-08df289fee4d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF000166BD.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9215
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rf3tmjyx6r53tpru"
+Content-Disposition: inline
+In-Reply-To: <20261012-b4-cs75xx-s2-v1-4-8a7641b7b79c@gmail.com>
 
-Two hardware contexts can submit jobs that use the same GEM object while
-a user mapping is invalid. aie2_cmd_submit() drops the reservation and
-notifier_lock before aie2_populate_range(), and that function takes a
-reference on the first invalid umap without clearing invalid until the
-fault returns. Both submissions then call
-hmm_range_fault_unlocked_timeout() on the same struct hmm_range. That
-structure is not safe for concurrent callers. The calls write
-notifier_seq and hmm_pfns[] at the same time, so mmu_interval_read_retry()
-can see the other call's sequence, miss an invalidation, and clear
-invalid. The job is then pushed while the pages may already be gone.
-Give each umap its own mutex and hold it from the fault through the retry
-check and the store that clears invalid. notifier_lock is dropped before
-this mutex is taken, and the fault drops mmap_lock before notifier_lock
-is taken again.
 
-Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
- drivers/accel/amdxdna/aie2_ctx.c    | 7 ++++++-
- drivers/accel/amdxdna/amdxdna_gem.c | 2 ++
- drivers/accel/amdxdna/amdxdna_gem.h | 1 +
- 3 files changed, 9 insertions(+), 1 deletion(-)
+--rf3tmjyx6r53tpru
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 04/11] gpio: Add Cortina Systems CS75xx GPIO driver
+MIME-Version: 1.0
 
-diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-index d927c8c9d557..4db67a789c34 100644
---- a/drivers/accel/amdxdna/aie2_ctx.c
-+++ b/drivers/accel/amdxdna/aie2_ctx.c
-@@ -1155,19 +1155,24 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
- 		return -EFAULT;
- 	}
- 
-+	mutex_lock(&mapp->lock);
- 	ret = hmm_range_fault_unlocked_timeout(&mapp->range, timeout);
--	if (ret)
-+	if (ret) {
-+		mutex_unlock(&mapp->lock);
- 		goto put_mm;
-+	}
- 
- 	down_write(&xdna->notifier_lock);
- 	if (mmu_interval_read_retry(&mapp->notifier, mapp->range.notifier_seq)) {
- 		up_write(&xdna->notifier_lock);
-+		mutex_unlock(&mapp->lock);
- 		amdxdna_umap_put(mapp);
- 		mmput(mm);
- 		goto again;
- 	}
- 	mapp->invalid = false;
- 	up_write(&xdna->notifier_lock);
-+	mutex_unlock(&mapp->lock);
- 	amdxdna_umap_put(mapp);
- 	mmput(mm);
- 	goto again;
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index f14484bc31ec..37bfa5058095 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.c
-+++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -318,6 +318,7 @@ static void amdxdna_umap_release(struct kref *ref)
- 	struct amdxdna_umap *mapp = container_of(ref, struct amdxdna_umap, refcnt);
- 
- 	mmu_interval_notifier_remove(&mapp->notifier);
-+	mutex_destroy(&mapp->lock);
- 	kvfree(mapp->range.hmm_pfns);
- 	kfree(mapp);
- }
-@@ -402,6 +403,7 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
- 		goto free_pfns;
- 	}
- 
-+	mutex_init(&mapp->lock);
- 	down_write(&xdna->notifier_lock);
- 	if (list_empty(&abo->mem.umap_list))
- 		abo->mem.uva = addr;
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
-index 9b4aa21a37c9..456a537eb68c 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.h
-+++ b/drivers/accel/amdxdna/amdxdna_gem.h
-@@ -19,6 +19,7 @@ struct amdxdna_umap {
- 	struct kref			refcnt;
- 	bool				invalid;
- 	bool				unmapped;
-+	struct mutex			lock; /* protect range */
- };
- 
- struct amdxdna_mem {
--- 
-2.34.1
+Hello,
 
+On Mon, Oct 12, 2026 at 08:32:59PM +0300, Fil Dunsky wrote:
+> +#include <linux/mod_devicetable.h>
+
+Please don't include this file. It contains a plethora of defines for
+subsystems not in use here.
+
+> [...]
+> +#include <linux/platform_device.h>
+
+You can rely on <linux/platform_device.h> to yield definitions for
+of_device_id and so drop <linux/mod_devicetable.h> without a
+replacement.
+
+The same applies to patches 6 and 7.
+
+Best regards
+Uwe
+
+--rf3tmjyx6r53tpru
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrNQ/cACgkQj4D7WH0S
+/k6KYQgAgMQZQqqATk7u8/7+zLh1eyfjz96I/KQyBnZbLC753ncNp95vppbzeXYB
+/6Xnb+1PMj4yifoVS9rR2GPW2P4F2cVCiv4ys86vtgjDRRS9qfpvIqAGD5bdkjpR
+AfIu4ZintCl+3dtuqg2yWsp/Njn0OkGzE115dAhtJMsZGrpiAbpkStIsB8lUqPSl
+H5jFp9iVNDnb+9rZe0ckSQeZwDR5JuTFUJq72G71eY2jfDyzjH02v8EejbZDDjqp
+vF/L57mOl847cYmA78hOqMnQrXpBaqqNs+uY6m8YLPt5Jgq+OkWhvGGit0ts5Mlt
+rdJZC0MMQbclAkv16e9nS/twKH5mPQ==
+=4pay
+-----END PGP SIGNATURE-----
+
+--rf3tmjyx6r53tpru--
