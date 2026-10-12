@@ -1,97 +1,223 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A0936EA93;
-	Mon, 12 Oct 2026 07:35:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995033AE6E5
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:35:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791790504; cv=none; b=MqGQhaX1CurZ1Nko6wyH48/OHBC13J8MB93smQwEH7AXggUvex2J1y+E8bp6LgQJ6hhWLMccxRlRwipjK4Y8CKKsLg0WvKlcm8KxNudIunIpe1AmXIVvHHg6PVrrfv6Pz2tB+mjovZZwCdLCb9sgxGVCNSlSWSkNYlJkQ5T5QSg=
+	t=1791790509; cv=none; b=TW57sk3fgp7CmyXcytURE4HLYTX6aDyfrixv8cnSdtxTHVenpVtpYvkX16Q2RqrjqGmc16viI0P/h5PuziicBOrcyof/fWql7pHwZvs4F8PvjRknv7pzLt9EE9DRXcErJdaOdc/uQXp1IvQdrQo2+Q3+tOyR4qWnlXwbakH+x9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791790504; c=relaxed/simple;
-	bh=IfIXiTykCz0xjBObFyhrB/LWEMsOLwR04eU+20HNza8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kaN8mnXRd36/Pti5Du8raYp4XreXCOtOWKIcIvCEDsiIFP+rLACEMKFAuntm9dZnnIQQCaLMGaWSqsrPXH7r2ElvDW2Lt2foI0V7tNuIJA0QsFisRJiQil7j79IwpWvf0wfqWyUmTyPz7HZv2fbNdB1TG701puOrt8FK2cYnres=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iPlG8crY; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iPlG8crY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791790500; x=1823326500;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=IfIXiTykCz0xjBObFyhrB/LWEMsOLwR04eU+20HNza8=;
-  b=iPlG8crYIxgqSwAYZoIX91/NdvAJBFVsN6JeKMFWj/h4vdnNZCpdU8l6
-   SXg7YTKg/9wutn4aLpiBl2B8UN5xYFbKOfZQJMZ355G4WEArnDxoU2IgQ
-   gUPaCwXqU1GCWObvxRJA0z14Lx7ocBeC86d3f7yHjlxAy3aFQPJMq7P0P
-   yozEb4X7wbhY9zckXOU/McbjFxnepxGO+hGnnnhhR8c0XOQQL8bce1QSL
-   mFb8J9bsz3XaxQJzrd+TqNlR3+RFBNpVTR8QZHJBZTxINSNibdENyCkxl
-   VmsdYv0aAsqkXrwXVwnUAkosCqI4SW33+WEQE46n+zsWK3L+wWEwHzuIW
-   Q==;
-X-CSE-ConnectionGUID: ZhgpIrs5RVahHFRnm/vshg==
-X-CSE-MsgGUID: lNzU6kxPQw6iDEmeStIigw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="482462"
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="482462"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 00:35:00 -0700
-X-CSE-ConnectionGUID: SrlQe+BZR8GU+QavfGSruA==
-X-CSE-MsgGUID: EoEqP+0AQYCJnBd5KXT9mw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="1155237"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa009.fm.intel.com with ESMTP; 12 Oct 2026 00:34:57 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xGAYg-00000000B9R-0qsD;
-	Mon, 12 Oct 2026 07:34:54 +0000
-Date: Mon, 12 Oct 2026 15:34:36 +0800
-From: kernel test robot <lkp@intel.com>
-To: Magnus Lindholm <linmag7@gmail.com>, davem@davemloft.net,
-	andreas@gaisler.com, sparclinux@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org,
-	jirislaby@kernel.org, linux-serial@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, krzk@kernel.org, oleg@redhat.com,
-	linmag7@gmail.com
-Subject: Re: [PATCH v2 4/6] sparc64: add SPARC64 VII CPU, MMU and SMP support
-Message-ID: <202610121549.5ejZQ08o-lkp@intel.com>
-References: <20261011195729.981243-5-linmag7@gmail.com>
+	s=arc-20240116; t=1791790509; c=relaxed/simple;
+	bh=ai7Jvhok+oHlAtWVrFRlGnd4iBEJW6I0McwSJarHnEQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HH1q8qRt7SlLxYCT1czunFISiZJdLf5BPcd7SslQC6NLxZGWm3uPgSDHGLNbpeBK6t9qjtw/954EqM5ZRVEje+CPEfzwG+58cKtLsWVbv7Da+PYME+MkuqZdV4iHeh3878qG5SVryuuBJZZPWaeuWc5ZQPxnpEWDrF2SztBcmzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 6c4b0232c60f11f19a56ed5b684f684d-20261012
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:265ded92-75c7-4aa3-afbd-f5066d798293,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:568a1fcbf55b33eb645f34c66a5a246a,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 6c4b0232c60f11f19a56ed5b684f684d-20261012
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 554864418; Mon, 12 Oct 2026 15:34:56 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>
+Subject: [PATCH v4] ntfs: roll back the ACL xattr commit when the WSL mode update fails
+Date: Mon, 12 Oct 2026 15:34:52 +0800
+Message-Id: <20261012073452.90099-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011195729.981243-5-linmag7@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Magnus,
+ntfs_set_acl_ex() commits the ACL xattr before it rewrites the WSL
+mode EA, and removes it again when the rewrite fails.  That only
+undoes a set that created the xattr: when the update replaced or
+removed an existing one, the old ACL is discarded along with the
+failed update.  The undo result is discarded and the EA paths record
+no error state, so when it fails too, the new, typically more
+permissive, ACL is left on disk while i_mode, the mode EA and the
+cached ACL keep the old values.  Once the stale xattr is loaded again
+after a remount, a chmod 0640 -> 0777 that reported failure leaves
+the file accessible to the relaxed ACL while stat() still reports
+0640.
 
-kernel test robot noticed the following build warnings:
+Save the previous xattr before committing the update, and restore it
+when the mode EA rewrite fails.  A removed xattr is restored by
+creating it again: the removal dropped the entry, and XATTR_REPLACE
+fails with -ENODATA on a missing entry.  Remove the new xattr only
+when there was no previous one, and skip the undo when the commit
+changed nothing, e.g. removing an xattr that never existed.  Fail
+the update when the previous xattr cannot be read back.  A failed
+rollback is still recorded: NVolSetErrors(), which the next
+persistence point persists as VOLUME_IS_DIRTY, and a log message the
+errors= policy acts on.  The flag cannot be written to disk here
+directly: the target inode's mrec_lock is held and the $Volume
+mrec_lock cannot be nested under it.
 
-[auto build test WARNING on cee9395acd8043be0644b25c34bfa86623f2b935]
+Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
+Suggested-by: Hyunchul Lee <hyc.lee@gmail.com>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+Changes in v3:
+- Save the previous ACL xattr before committing the new one and roll
+  back to it when the update replaced an existing one, instead of
+  removing the new one (suggested by Hyunchul Lee)
+- Fail the update when the previous xattr cannot be read back, and
+  restore a zero-length previous xattr without XATTR_REPLACE
+Changes in v4:
+- Undo a removal too: restore the previous xattr by creating it
+  again, since the removal dropped the entry
+- Skip the undo when the commit changed nothing, e.g. removing an
+  xattr that never existed
+---
+ fs/ntfs/ea.c | 90 +++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 86 insertions(+), 4 deletions(-)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Magnus-Lindholm/sparc64-return-from-the-generic-clear_page-implementation/20261011-215553
-base:   cee9395acd8043be0644b25c34bfa86623f2b935
-patch link:    https://lore.kernel.org/r/20261011195729.981243-5-linmag7%40gmail.com
-patch subject: [PATCH v2 4/6] sparc64: add SPARC64 VII CPU, MMU and SMP support
-config: sparc64-defconfig (https://download.01.org/0day-ci/archive/20261012/202610121549.5ejZQ08o-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 51b433b4f56c531c0d95ba15e1a15e06c399d552)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261012/202610121549.5ejZQ08o-lkp@intel.com/reproduce)
+diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
+index 1104fd72cd2a..0577a2adc365 100644
+--- a/fs/ntfs/ea.c
++++ b/fs/ntfs/ea.c
+@@ -1038,8 +1038,10 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
+ {
+ 	const char *name;
+ 	size_t size, name_len;
+-	void *value;
+-	int err;
++	void *value, *old_value = NULL;
++	int err, old_len = -ENODATA;
++	bool old_exists = false;
++	bool acl_committed = false;
+ 	int flags;
+ 	umode_t mode;
+ 
+@@ -1083,7 +1085,40 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
+ 	}
+ 
+ 	mutex_lock(&NTFS_I(inode)->mrec_lock);
++	if (!init_acl) {
++		/*
++		 * Save the previous xattr so the update can be
++		 * rolled back to it when the mode EA rewrite fails.
++		 * A new inode cannot have one yet, and one that
++		 * cannot be read back fails the update.
++		 */
++		old_len = ntfs_get_ea(inode, name, name_len, NULL, 0);
++		if (old_len >= 0) {
++			old_exists = true;
++			/* kmalloc(0) returns the non-NULL ZERO_SIZE_PTR. */
++			old_value = kmalloc(old_len, GFP_NOFS);
++			if (!old_value) {
++				err = -ENOMEM;
++				goto out_unlock;
++			}
++			err = ntfs_get_ea(inode, name, name_len,
++					  old_value, old_len);
++			if (err != old_len) {
++				kfree(old_value);
++				old_value = NULL;
++				if (err >= 0)
++					err = -EIO;
++				goto out_unlock;
++			}
++		} else if (old_len != -ENODATA) {
++			err = old_len;
++			goto out_unlock;
++		}
++	}
+ 	err = ntfs_set_ea(inode, name, name_len, value, size, flags, NULL);
++	if (!err)
++		acl_committed = true;
++out_unlock:
+ 	mutex_unlock(&NTFS_I(inode)->mrec_lock);
+ 	if (err == -ENODATA && !size)
+ 		err = 0; /* Removing non existed xattr. */
+@@ -1095,8 +1130,54 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
+ 		mutex_lock(&NTFS_I(inode)->mrec_lock);
+ 		err = ntfs_ea_set_wsl_inode(inode, 0, &ea_size, NTFS_EA_MODE);
+ 		if (err) {
+-			ntfs_set_ea(inode, name, name_len, NULL, 0,
+-				    XATTR_REPLACE, NULL);
++			if (acl_committed) {
++				int undo_err;
++
++				if (old_exists) {
++					/*
++					 * Restore the previous xattr.
++					 * A removal dropped the entry, and
++					 * XATTR_REPLACE fails with
++					 * -ENODATA on a missing entry, so
++					 * create it.  A zero-length xattr
++					 * cannot be restored with
++					 * XATTR_REPLACE, which would
++					 * remove it again.
++					 */
++					int undo_flags = acl && old_len ?
++						XATTR_REPLACE : 0;
++
++					undo_err = ntfs_set_ea(inode, name,
++							name_len, old_value,
++							old_len, undo_flags,
++							NULL);
++				} else {
++					/*
++					 * No xattr existed before the
++					 * update, so remove the newly
++					 * committed one.
++					 */
++					undo_err = ntfs_set_ea(inode, name,
++							name_len, NULL, 0,
++							XATTR_REPLACE, NULL);
++				}
++				if (undo_err) {
++					/*
++					 * The xattr change is committed
++					 * already, so a failed rollback
++					 * leaves it on disk while i_mode,
++					 * the mode EA and the cached ACL
++					 * keep the old values.  Record the
++					 * error: the next persistence point
++					 * persists it as VOLUME_IS_DIRTY.
++					 * Run chkdsk.
++					 */
++					NVolSetErrors(NTFS_I(inode)->vol);
++					ntfs_error(inode->i_sb,
++						   "Failed to undo the ACL xattr: %d",
++						   undo_err);
++				}
++			}
+ 			mutex_unlock(&NTFS_I(inode)->mrec_lock);
+ 			inode->i_mode = old_mode;
+ 			goto out;
+@@ -1109,6 +1190,7 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
+ 	}
+ 
+ out:
++	kfree(old_value);
+ 	kfree(value);
+ 
+ 	return err;
+-- 
+2.25.1
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610121549.5ejZQ08o-lkp@intel.com/
-
-All warnings (new ones prefixed by >>, old ones prefixed by <<):
-
->> WARNING: modpost: vmlinux: section mismatch in reference: fill_in_one_cpu+0x310 (section: .text) -> vii_cpu_topology (section: .init.text)
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
