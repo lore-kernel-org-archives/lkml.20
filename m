@@ -1,216 +1,106 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D89023BD03
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:48:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077EB23BD03
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:49:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791794933; cv=none; b=NBGH8druveh0UOHV3qGNoQUhHkpfFdu4QICGJYmgWRCKa0SWl0BUZml9tllzbmgqWlxyoPOo+cB2P/L4fqID6sFxcSDQQMhr7aUTVZ3djfcIS7XDCbrb2PTsocO6VMik4uxmHoTnv6xREsZ+hRplSKyo5zSRRC4lXnl9ObwkyfM=
+	t=1791794974; cv=none; b=RETYaKwqISjPjuUTP/Ban8SWcWgxBfC2sWF/7CvHKjXu8kiCWLafn+kzASkkDeg70cNoMuEVXzHRxbj2lzYsrBKsGTv4v/aY8XkByRPIKuRCc9itf0dHFZeikQZ6qc1grMiWtVSOlo1ZnauvFN5S+SqCL5vriX44FO1Wu0eselI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791794933; c=relaxed/simple;
-	bh=1eOpVzSHBaZ6yZXrZrTN/Es+LXfRmjlxWvWnixDQFmo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BUs3FZmV+r6heeUMsVOvTz0i07DwodgGgWoEPDYlBwWWlEXfLc9uk7x6djUZWsGzVP4D3EaQLxFOaU7Zytzz9+OCWrRt7pngQ8gzTvSuIGlqgCGiEuQqsVqUq81inZJhDXtyP++NAEC9egsk0fBRAhVwZ5hptARcJGgnZd69udM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=VskVFhY1; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791794974; c=relaxed/simple;
+	bh=SYtJXGGl+yph6qeQVD3MUpSP66ecjEx1Pm5NwbiP+Ig=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oI3joSW2vb46WfRDHsSed+winMDSAC6GDoScY8RFmVMuISaDd2pBO9JzlKcEkhgRwcsPa6jQfVrVQMJqg44POiNkvyAOp0pe9ddn61YSW1TPAN1KAmvsiRvx3AYw5DxDI/HA7a0cntFYdTulHlRH7tkPkhvNXJ7vAyaLAHzOLbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LL300y+E; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="VskVFhY1"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48afe0081a6so1099320f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:48:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791794929; x=1792399729; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3cASW6w1EYZAgoYuqInWi7bvGxpflIrfTx3mhO3Baq4=;
-        b=VskVFhY1h/PWH/3Lg6myfccXMSXciiA1OLXid3aqdnYs1Fpp5Bpuxs9Or2TTEUAUgm
-         ANrLA5Ycmp0ba3dDqCDPxV2/JnOZMpMI0Sjp5FCSziaAmrG00/ZpF5v53vhGCeRB5E/I
-         xTso93mz8h3/BYWhpmbeiwgaWMwpbIL2JhCnJqwcbtrZwhrIj1BaF9785Rs4ZDLI9Ydf
-         REb1osXC4qlY5mU5AgDYeMiT/fMJe3qzW8WYa7t65mYCYA0j10jsOGMNntuesTFUxe2f
-         bNJvRGtKoeh22HhUOaxGrK5c/zVk2oanarDG1Y3tn7Bpn/4Vgx/H6N7SIKKIhH8QVHz+
-         O21w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791794929; x=1792399729;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3cASW6w1EYZAgoYuqInWi7bvGxpflIrfTx3mhO3Baq4=;
-        b=X2XqFhJSyjwc0VEUZi5SmvvwD0yBS7tTUaWmqxvSEY1iZhVI0SK+/6quPM3dYBrGTQ
-         OWujKthZ0Np1xa552X7R1xc6I4/6oUM8ZoEZHlEWzwa1FiREq2SEy4Ipa8oGEUX7Fsjp
-         Gzy9ohBLW5jhMuQ4QsE/S7Biq0VRDMyo7a1JzdlgwMcowBHQ+ruAGtfFwXm2F8q6BNRs
-         s8ODL9kY7axPC0friJwNTIpkHwO3626LUmg6viv/sFs+r5vDgpNXwIcgkoof6jtV6JW2
-         nR3pLJy06XDzlHFZ653wtS17GJZP+DHD8Gv9lqr26HS0rCyxopdPqw3TiWRhmLu/hGqH
-         2YRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBytsGKOzN3y1aD4UBBSHaaerSCBOwE7BpQJIE6p84ROGU9MMx0nWnyFX24igAVNq7yIvWhyDqlqJC9Sy7Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJvznGH1qrOVNJiRBT3jH00imZv2DNzT18aD0M327twshzoOFiv
-	I54DE61uwaneWL6xP6Njqh+vHOwFrW6auVCqg28rnFoiHM7ipIJMxMfWz5KpNQYxlrU=
-X-Gm-Gg: AYBFou3ktw/S2rwUMFwk3pmhnnF/f+E5hcQdjIs26cd74g6ek5wsstfNprF3PPlSnBr
-	tUtUPOLm8x+MjuJIoz5LjMZNS9UI9oibp4oMbOVivKlPw0KV1h/fj9yldw08vP5VXPWrNSm0Cf1
-	RfrFpckzNFWwY/8LZ3WrImsN3e8y3Q2iolttpgzBwKA/NUI8z9Q5l1xazPlfMQLf4Udb0yYFndj
-	F63xea+NLLMJ/sjmEMJEKfpuwFqMPDCebnzzAlDAcpoIzoxfKDTi5UK4DoEYcaplR89yRaIr1AN
-	EK80MF2c2KwH+0qEbvm2KwkZ3ws4unQkezHAFb8kFz0vl85p8yGIBawulatvQn4kRCI1lRbZX2Q
-	is8tVNg7x6H7CM3l/AdykRhD3Bme3AOADECgcImmuIZmK1fZXCNMcstYWnC2p9HjfQlK6AizkrG
-	Jy5vk5QEObZELGSK6KLIUbW2DNoqnOtUc1H/cdhkbkfR5gqMCLcvh/MbB/aKpNXNOvguI4SC+ik
-	tsLhoC19+s=
-X-Received: by 2002:a05:600c:4e91:b0:4a1:7ec7:a479 with SMTP id 5b1f17b1804b1-4a18e4f56bcmr174368605e9.33.1791794929369;
-        Mon, 12 Oct 2026 01:48:49 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff25:4f41:fef7:ab03:44ed:97e7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19f249692sm132645895e9.3.2026.10.12.01.48.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 01:48:48 -0700 (PDT)
-Date: Mon, 12 Oct 2026 10:48:43 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] remoteproc: qcom: pas: Decide early_boot attach
- at probe time
-Message-ID: <asye6zJKwBBpcrCX@linaro.org>
-References: <20261011022802.4069489-1-shengchao.guo@oss.qualcomm.com>
- <20261011022802.4069489-2-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LL300y+E"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=FaJVnMdDN4fWJeDn3xRhGTrEnnilxQp9t1zir9qO1yw=;
+	b=LL300y+ES2gtYyMgoMimUvHnS/fq3ekIomYimgdUlWa4T7u/UznRkecLqBYc/P
+	XmEZhAYn8gKCqqxF7q9rzLEyjpwsFV5Cro8nhAXFFQuzFQO1sFYJ9iBB8RfZqc4o
+	Tre13AxL16/fNPnbvYoM62oB55h7iTrM/2PvKemy2ANnI=
+Received: from [IPV6:2409:8900:1a87:d0a0:cf38:5aca:d24d:b7a4] (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgDnV+YHn8xqO6nBEA--.54362S2;
+	Mon, 12 Oct 2026 16:49:12 +0800 (CST)
+Message-ID: <e590b551-b021-4ec7-b769-aad43fe6ac1c@163.com>
+Date: Mon, 12 Oct 2026 16:49:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011022802.4069489-2-shengchao.guo@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] ntfs: do not read ahead encrypted files
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>,
+ Namjae Jeon <linkinjeon@kernel.org>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>
+References: <20261012062040.3826828-1-zhanxusheng@xiaomi.com>
+ <20261012062040.3826828-2-zhanxusheng@xiaomi.com>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20261012062040.3826828-2-zhanxusheng@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgDnV+YHn8xqO6nBEA--.54362S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJr1UWr18JrWftFWfJw43KFg_yoW8ur18pF
+	ZxCF98Kw1xAryI9w4xKFyfWr1xurW8GF45GrW8J34fAa4fGrs5KryfK3WFqFy8GFyrKw1U
+	Zr4FvrW7Ja15X3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2zuZUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gi3gmrMnwiwigAA3c
 
-On Sun, Oct 11, 2026 at 10:28:01AM +0800, Shawn Guo wrote:
-> For early_boot subsystems, probe unconditionally marks the rproc
-> RPROC_DETACHED and qcom_pas_attach() discovers from SMP2P whether the
-> bootloader actually started the remote. If it did not, attach sets the
-> state back to RPROC_OFFLINE and fails, expecting the core to boot the
-> firmware instead. The core does not do that: rproc_boot() treats the
-> attach failure as fatal and the remote is never started.
-> 
-> This is hit on Nord with firmware where XBL no longer brings ADSP out
-> of reset. The remote never publishes its inbound SMP2P entries, so the
-> very first state read fails (debug print below) and the ADSP stays down:
-> 
->   qcom_q6v5_pas 4c00000.remoteproc: Failed to get fatal_irq state: -19
->   remoteproc remoteproc0: can't attach to rproc adsp: -19
-> 
-> The ready, stop-ack and sysmon shutdown-ack signals cannot change while
-> Linux has not yet interacted with the remote, so there is no reason to
-> defer the decision to attach time. Check them in probe and only mark
-> the rproc RPROC_DETACHED when the remote is up and has not been asked
-> to stop; otherwise leave it RPROC_OFFLINE so the regular firmware boot
-> path is taken. The ready state is read first so that a missing SMP2P
-> entry -ENODEV is treated as "not running" before sysmon is queried.
-> 
-> qcom_pas_attach() keeps only the fatal check, since that is the one
-> signal that has to be acted upon once the rproc is attached.
-> 
-> Assisted-by: LLM
 
-I think we should add stable/Fixes here for backporting to 6.3:
 
-Cc: stable@vger.kernel.org
-Fixes: 16472c99f469 ("remoteproc: qcom: pas: Add late attach support for subsystems")
-
-I'm not sure if b4 picks up Cc/Fixes as trailers when applying so you
-may need to resend.
-
-> Reviewed-by: Stephan Gerhold <stephan.gerhold@linaro.org>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+在 2026/10/12 14:20, Zhan Xusheng 写道:
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> 
+> ntfs_read_folio() refuses EFS-encrypted files with -EOPNOTSUPP because
+> decryption is not implemented.  ntfs_readahead() has no NInoEncrypted()
+> test and passes them to iomap_readahead(), which maps the runlist and
+> fills the folios with the raw on-disk ciphertext.  The folios are
+> marked uptodate, so the read that follows never reaches ->read_folio
+> and returns ciphertext instead of -EOPNOTSUPP.
+> 
+> ntfs_read_locked_inode() sets NInoEncrypted() and NInoNonResident() for
+> a non-resident encrypted $DATA attribute and rejects the
+> encrypted-and-compressed combination, so none of the three existing
+> conditions fires.  read(), mmap(), splice() and fadvise() all populate
+> the page cache through readahead.
+> 
+> Skipping readahead leaves the folio unpopulated, so the read falls back
+> to ntfs_read_folio() and gets the intended error.
+> 
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
 > ---
->  drivers/remoteproc/qcom_q6v5_pas.c | 64 +++++++++++++++---------------
->  1 file changed, 33 insertions(+), 31 deletions(-)
+>   fs/ntfs/aops.c | 7 ++++---
+>   1 file changed, 4 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-> index 2e1e39826ffa..56179b71fd2a 100644
-> --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-> @@ -550,9 +550,7 @@ static unsigned long qcom_pas_panic(struct rproc *rproc)
->  static int qcom_pas_attach(struct rproc *rproc)
->  {
->  	struct qcom_pas *pas = rproc->priv;
-> -	bool ready_state;
->  	bool crash_state;
-> -	bool stop_state;
->  	int ret;
->  
->  	pas->q6v5.handover_issued = true;
-> @@ -570,42 +568,46 @@ static int qcom_pas_attach(struct rproc *rproc)
->  		goto disable_running;
->  	}
->  
-> -	ret = irq_get_irqchip_state(pas->q6v5.stop_irq,
-> -				    IRQCHIP_STATE_LINE_LEVEL, &stop_state);
-> -	if (ret)
-> -		goto disable_running;
-> -
-> -	if (stop_state || qcom_sysmon_shutdown_irq_state(pas->sysmon)) {
-> -		dev_info(pas->dev, "Subsystem found stop state set. Falling back to start.\n");
-> -		goto unroll_attach;
-> -	}
-> -
-> -	ret = irq_get_irqchip_state(pas->q6v5.ready_irq,
-> -				    IRQCHIP_STATE_LINE_LEVEL, &ready_state);
-> -	if (ret)
-> -		goto disable_running;
-> -
-> -	if (unlikely(!ready_state)) {
-> -		/*
-> -		 * The bootloader may not support early boot, mark the state as
-> -		 * RPROC_OFFLINE so that the PAS driver can load the firmware and
-> -		 * start the remoteproc.
-> -		 */
-> -		dev_err(pas->dev, "Failed to get subsystem ready interrupt\n");
-> -		goto unroll_attach;
-> -	}
-> -
->  	return 0;
->  
-> -unroll_attach:
-> -	pas->rproc->state = RPROC_OFFLINE;
-> -	ret = -EINVAL;
->  disable_running:
->  	pas->q6v5.running = false;
->  
->  	return ret;
->  }
->  
-> +/*
-> + * The bootloader may or may not have started the subsystem. Inspect the
-> + * SMP2P state, which is static until Linux interacts with the remote, to
-> + * decide whether to attach or to load and start the firmware.
-> + */
-> +static bool qcom_pas_is_running(struct qcom_pas *pas)
-> +{
-> +	bool ready_state;
-> +	bool stop_state;
-> +	int ret;
-> +
-> +	/*
-> +	 * Check ready first: if the remote never published its SMP2P
-> +	 * entries the state read fails with -ENODEV.
-> +	 */
-> +	ret = irq_get_irqchip_state(pas->q6v5.ready_irq,
-> +				    IRQCHIP_STATE_LINE_LEVEL, &ready_state);
-> +	if (ret || !ready_state) {
-> +		dev_info(pas->dev, "Subsystem not running, not attaching\n");
-> +		return false;
-> +	}
-> +
-> +	ret = irq_get_irqchip_state(pas->q6v5.stop_irq,
-> +				    IRQCHIP_STATE_LINE_LEVEL, &stop_state);
-> +	if (ret || stop_state || qcom_sysmon_shutdown_irq_state(pas->sysmon)) {
-> +		dev_info(pas->dev, "Subsystem found stop state set, not attaching\n");
+> diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
+> index 517d9a1563e7d..ad781674fef1a 100644
+> --- a/fs/ntfs/aops.c
+> +++ b/fs/ntfs/aops.c
+> @@ -240,10 +240,11 @@ static void ntfs_readahead(struct readahead_control *rac)
+>   	};
+>   
+>   	/*
+> -	 * Resident files are not cached in the page cache,
+> -	 * and readahead is not implemented for compressed files.
+> +	 * Resident files are not cached in the page cache, readahead is not
+> +	 * implemented for compressed files, and ntfs_read_folio() refuses
+> +	 * encrypted files because decryption is not implemented.
+>   	 */
+> -	if (!NInoNonResident(ni) || NInoCompressed(ni) ||
+> +	if (!NInoNonResident(ni) || NInoEncrypted(ni) || NInoCompressed(ni) ||
+>   	    NInoWofCompressed(ni))
+>   		return;
+>   	iomap_readahead(&ntfs_read_iomap_ops, &ctx, NULL);
 
-Another nitpick from the original message, the subsystem is stopped so
-it cannot find anything, "Subsystem *has* stop state set" would probably
-be better. :-)
+Looks good to me.
 
-Thanks,
-Stephan
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+
