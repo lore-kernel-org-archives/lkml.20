@@ -1,267 +1,298 @@
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B223BCD0D;
-	Mon, 12 Oct 2026 18:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78720391E64
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:59:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791831573; cv=none; b=qAF9vDS9rwWLOCegvhImuhktQQV5aDO21jrd0kiz34Zt+2DyDlDBVlHneRTaPy8dPiA1BcT4B/4PMjAM7S7UttrQ9G6v2UoEDKfpZWTSJ00dMzKVvsKeUzwUdxVBurLZexL4mDiaoe0NZ7i8oxz/msUrh7wOmktw0x24eT5Np6Q=
+	t=1791831581; cv=none; b=QenHaJK1wEBXgrp11NNJ4YYgq6Gatu+wt9T5j9tLAMP5dvFZnkgp51bZiDO9+n8uGqjFxuK8Lrhmt8x73ncJ1goUu2Qnyk5VPY7fSYKySMkyBo1HXFSNO+qV5SsZKbsDoGheyn8h4yYpLw+CJRvityDZ3e0dDHypneYxvjurmvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791831573; c=relaxed/simple;
-	bh=2bPcfVGTS80cMbqLQOtpnz41cUxttMSol2uwcpqfi0s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=P0H5+RF8tgzad4s8832uv3Y0twpjzD5k3bVykR+02J076bEdacgDt+jtKX6QU/sAcAxYQQdeBPp1UT8V38Uaic6GABUy0BGn7XRNbx+AgfBilza/lOZIq3h4H7lWnnmgJ6MuYfJqwREyj8QFs0a2bhd6A2XSPSsqatUhjzk1hLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=NsHntO7f; arc=none smtp.client-ip=130.117.225.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	s=arc-20240116; t=1791831581; c=relaxed/simple;
+	bh=6DqW02/vrz8bXpSLRnxcsXZWEoAOlr9DZIU8XTfUZjE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aopjDzPkIKbJdpZfDDEHCKzMawSGtEBATukiUc9zwdh+V7DPqP33whMzEPDaKu4gkC9HvRaKeHxzHTh5G1KwCqZuSTiGkOYA9BNaZncAzLgYucWlmqyxtt5fo42GhcG3PC/JW0YaFqE5ZvEAimA5Dm/2sWDPx4lo+Af6/s8uD0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tKMRA9KV; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="NsHntO7f"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
-	:From; bh=qA5EK/Wa96FVW4oU58RgT4UF+JCxctbidCL6ltk8p1o=; b=NsHntO7fnZYNFH7wFAI
-	Iyqnr4jJ0d4L9lU9rnQ7iOzrSQd81v5lxgyvYhHhYyIjLOo9PnLM1CS0K2s9Krqb63BaoAHKm0J3Z
-	bJdvdvgmaoPMANUy5nqLKbngfJRSmT4M8lscLptxLDPOA5/7/LdjmJowTGWnX65GNnfCIxQ+bZnpb
-	MTz1wSnFJ2z2Wco1WjzwITTkCYb1ifMMj0DuKLkC660lqp+sKnSZfHjeMO7WpuxOSlrRJhAidnyCt
-	hiI5ntaM4FTmbpoIXBFTMPxFIf2h1pNog1e8MnwrKfpB4O0ul2UUUfvIBb0Z1Q7e1DS56h1JLlRjv
-	J27dwsb62pDcjCQ==;
-Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
-	by relay.virtuozzo.com with esmtp (Exim 4.96)
-	(envelope-from <khorenko@virtuozzo.com>)
-	id 1xGLBb-007pPW-1u;
-	Mon, 12 Oct 2026 20:59:09 +0200
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Date: Mon, 12 Oct 2026 20:59:06 +0200
-Subject: [PATCH 2/2] selftests: cgroup: make test_memcg_sock check flushed
- sock stats
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tKMRA9KV"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48b0946c2c2so1296508f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:59:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791831577; x=1792436377; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YHE/SGYcUV1OUJwt26eXa2xg6GrIMfRUdwuOqUARZ48=;
+        b=tKMRA9KVzRCfYNOibrHGh0+62a7kiumAJSR9nEkip9vs4xBojbGRqOqGwQBCzE/Hw+
+         VwmhKWf7Z6do0Eq04RkfCAG+F3iXyDVxsVGeBnX/M4F/ghs7sKTEDXpMFv4Cjet69V8H
+         QV+FhLekqX571S+3Pf3K86/QulCQGm6FhzTQGisqRvoB4RXvE3qvUc/I9osPhCzrMBPk
+         k6jg83Z7yQcV52gpzDO5D/cL4F88ex8jtvtSZSt7oxt9esv87BGKIoCIwYQdAhu91SzJ
+         SMVkhusU7Ce1kUcSOUAOE5QEqN4lBQdjXv+Gjnd7i3wHbRve/q60eoHBZxdQAanaMvkf
+         bm4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791831577; x=1792436377;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YHE/SGYcUV1OUJwt26eXa2xg6GrIMfRUdwuOqUARZ48=;
+        b=x+Eb0Xyabfk5y+uQ0jsSm7V7LeQ5fjCMPRX/qlYQcKFYN+4/6osHW+3LsWNnWGspPE
+         N446igJY9I812/8Jxr1jHYzcsgQ0eKuvrL7Oi1HdCKqJhWziOTDfd1Uy+zi+jmdSVFHT
+         UJuRLLn7ZPXGOWCqb/NiTzghsglhB29K6X9Q2iQwPgWrz6zE8z+GlGPx6+XtqIzZ+aLf
+         CdaVikyXes8bmJXpfwBpDlZTRUHX5RcWw+LPVshMefktoS+sXQ4wvM8LzYi4LJ9xwL3n
+         vyEtNOlG7EaJC9BorA7wdu5qfwaPlM62nWP4DLC7Hp5lga8ugEM+tyojp6W5n+R7Fn/Q
+         XYuw==
+X-Forwarded-Encrypted: i=1; AKwUvBxvoHP+qutpzbR8OOtEeb78byvseXYpsaoLDQGpmh7v6ZHpDHFj4BmZw1r5DZXlRq7E0MTvSjQV9cIV7Xg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJs2N9ZV+dUMkkGcBTDV9ORczARCT8vWfryk9rCSS3nseMFdOzz
+	IpqJqrq8gPAwQizJlUxM7xR7iFeq6b2Qkq6hao9zFEJX0qpMr2tVHHXW
+X-Gm-Gg: AYBFou1aH8WFA6XxyR8z6bbyRzpOpUX4lUMqwTWWaHu0OX+vlYKViEtLiSQ/CVnfZ7N
+	ruzBcs6E30QBoDljusPkjstWwNP+b9rdj0dZUzYZlzH6WK5/3soRgdUB6sTTB3j47Wh2y65VmvJ
+	7HR1WNmPNCNWCEPVB/0UA7YJzN7S70km/e4jIi3qFt9XJNzjs+4JyVIiYitq/bII9Wm6KKINplR
+	Hc8eWkqACPqAhwQ3iKjPD7kcMN8EjKYADj8gXsGmNbs584xybRFOFyAMEILpd5VCNjhvxM1KuXF
+	jF4HWdWMgzPvQpE5S3osCcNYn2z11d0P9wTleViMYPn7xbN1o7D9a/4md7S0vXjoqHHSJUkEvMD
+	VANK32PpWSlBX8W+L1EFbfT/zzQK0BuWUw7y5wHRsuMRjjTEx5myljCrNNhfe9L/7tj56REk59i
+	RhQN2XBU+CJmyMMollw+CMg4wKF4wYoe/XG6ACmOZsGAH7SAs1NRaKtqoMqegqDpvzVXpOUMAW4
+	bT2oJU3TVC5oKUHM30MUFQfJ/MtrCf4Y8cug7JehSKitbLfebDGyPuDUrz/PInsrg==
+X-Received: by 2002:a05:6000:4818:b0:48a:ffcc:5b50 with SMTP id ffacd0b85a97d-48dbace8c04mr18035952f8f.40.1791831576447;
+        Mon, 12 Oct 2026 11:59:36 -0700 (PDT)
+Received: from home-desktop (dynamic-002-214-019-128.2.214.pool.telefonica.de. [2.214.19.128])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab5262sm871105f8f.22.2026.10.12.11.59.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 11:59:36 -0700 (PDT)
+Date: Mon, 12 Oct 2026 20:59:33 +0200
+From: Abhin Parekadan Jose <abhinjoses@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+	Shuai Xue <xueshuai@linux.alibaba.com>, Kees Cook <kees@kernel.org>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	Oliver O'Halloran <oohall@gmail.com>, linux-pci@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v4 0/5] PCI: pciehp: Report surprise removal during
+ safe removal
+Message-ID: <as0uFfzw83f9aPpn@home-desktop>
+References: <20260927182017.938565-1-abhinjoses@gmail.com>
+ <asxylqif72Lcldx1@home-desktop>
+ <20261012022556-mutt-send-email-mst@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-b4-prep-vstor-149854-let-test_memcg_sock-compare-flushed-sock-stats-v1-2-bc864b1950ad@virtuozzo.com>
-References: <20261012-b4-prep-vstor-149854-let-test_memcg_sock-compare-flushed-sock-stats-v1-0-bc864b1950ad@virtuozzo.com>
-In-Reply-To: <20261012-b4-prep-vstor-149854-let-test_memcg_sock-compare-flushed-sock-stats-v1-0-bc864b1950ad@virtuozzo.com>
-To: Tejun Heo <tj@kernel.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>
-Cc: Michal Hocko <mhocko@kernel.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Muchun Song <muchun.song@linux.dev>, Shuah Khan <shuah@kernel.org>, 
- Guopeng Zhang <zhangguopeng@kylinos.cn>, cgroups@vger.kernel.org, 
- linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7763;
- i=khorenko@virtuozzo.com; h=from:subject:message-id;
- bh=2bPcfVGTS80cMbqLQOtpnz41cUxttMSol2uwcpqfi0s=;
- b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBqzS4DgaidbMKjbP3IgO7QMgUbXfw4p7qrhlWbW
- f8xX0sK/nOJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCas0uAwAKCRBRlgpH+WFc
- KlOJD/0d2kRvQ33GJ+qflRrSnLSsOysIGJGWhBG3BnIqBP+Ve184OLIAryF81XiNiZQm5rmDM1p
- W5GdsV3nH39IsZMQCn6x71QVw48tGPWwrz3pAIIL839ayQAyHV9RxEBhepZTolStdUtJYONbhTm
- 46TLxH1qzvECUiAeZlkr+9tOIjIn/k3E1YesZq0sIhfUVb47wAdq2kDnKN+q6AM9WQxNUVKeUSh
- DFjR63+RkY2hmrEKdMbDivtskEytCxZsOCYew6hQE70AUS6vHZhjBHYkWgwQAPuFGotjC7VraIM
- J8MDkpyJFQXnJf8rIohipaPn0gpwZy2ou73//aMVaEtqV7IQI9u5FsMb9egiBqCQHJXwpDbh6Z0
- EdY6r5iOowBsXpivcYBPO+rwIiA+oMZVrnYjT3sNnlbmMkGALvFhywDiDh0JNz2PD6CSUmIZGkU
- oVMKNIrCfxHAnj85ch9iJKoi7zt1Ne9TbxQXIoKjYO4U2yhYAnKwFRK9tBU4GnPNxx7XNqvrTMW
- 3KI5aIMVFvToR0oLpL849XMfXJU9XEstZ0S+NhAfLjkNZwnN08PmL46QclOHLcJtKwy0TW1Y/3u
- oD2BrXy1eitotWv47ftKYBqAeVXaAEDdRAsuSOqOHFEWUC50mEUgx5RSD+a1582hnR1d9WOOxRR
- qirwr6ygfFqY9qw==
-X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
- fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012022556-mutt-send-email-mst@kernel.org>
 
-test_memcg_sock compares memory.current with the "sock " entry of
-memory.stat. memory.current changes at charge time, "sock " only when
-the memcg stats are flushed: by a memory.stat read once enough updates
-are pending (MEMCG_CHARGE_BATCH per online CPU), or by a periodic,
-deferrable worker. Nothing in the test makes sure a flush happens:
+On Mon, Oct 12, 2026 at 02:32:02AM -0400, Michael S. Tsirkin wrote:
+> On Mon, Oct 12, 2026 at 07:39:34AM +0200, Abhin Parekadan Jose wrote:
+> > Gentle ping on this RFC.
+> >
+> > Lukas, Bjorn, could you let me know whether the general direction is
+> > acceptable before I work on a non-RFC version? Any comments on the
+> > approach would help.
+> >
+> > Thanks,
+> > Abhin
+>
+> I'd say, complete the picture. acpi,shpc,polling...
 
-- tcp_client() takes 16 readings right after connect(). If no flush
-  lands among them, "sock " reads 0, and the test either passes on
-  0 == 0 without checking anything or, once memory.current shows the
-  first charge, cannot pass any more and fails:
+Ok.
 
-    not ok 11 test_memcg_sock
+>
+> Maybe think about how this interacts with pci_ignore_hotplug
+> (seems to weirdly check presence then ignore)?
 
-- The final check waits 3 seconds for "sock " to drop to 0, counting on
-  the deferrable worker, which can run later than that on an idle
-  machine.
+Yeah, the order is wrong in v4. The presence read should come after
+the `ignore_hotplug` check. Will fix.
+(Need to still find out why this was introduced. Looks like only the GPU drivers
+use it.)
 
-Make the test cause the flushes instead of waiting for them. Every page
-of socket or anonymous memory that comes and goes in the cgroup counts
-towards the flush threshold, and MEMCG_FLUSH_BYTES (twice the vmstat error
-test_kmem allows for) is enough to cross it. After that much, either
-another flush has reset the count or the next memory.stat read flushes.
+>
+> And test with virtio not with edu.
 
-- tcp_client() sets a small receive buffer before it connects. Only
-  the server's socket is charged to the test cgroup, and with a large
-  receive window its data moves straight on to the client; with few
-  CPUs the client then drains it between reads and "sock " stays near 0.
-  A small window keeps the data queued in the server's socket.
-- tcp_client() then keeps reading, comparing after every read, until
-  "sock " is nonzero and matches memory.current, for up to four times
-  MEMCG_FLUSH_BYTES. A comparison can still miss after a flush: one
-  that came midway leaves "sock " behind, and memory.current also holds
-  the per-CPU charge stock. The budget leaves room for several flushes.
-- After the server has exited, the test allocates and frees
-  MEMCG_FLUSH_BYTES of anonymous memory in the cgroup and reads "sock ",
-  for up to three rounds until it reads 0. The socket memory is
-  uncharged before the first round, so any flush that has gone through
-  all CPUs since sees "sock " at 0. A flush still running in parallel
-  can reset the count before it reaches the CPU that did the uncharge,
-  and the read then misses the uncharge. That flush only has to finish
-  its walk over the CPUs for the next read to see it, and each round
-  gives it the time of another allocation. Three rounds are a margin for
-  a flusher that gets rescheduled midway, not a guarantee: nothing
-  bounds how long it can be held up.
+Bjorn had asked me to keep this puerly PCI[1], So I had decoupled it from the
+virtio changes. I could post another series with those changes with a dependecy
+to this series.
 
-MEMCG_CHARGE_BATCH goes to cgroup_util.h, and test_kmem's
-MAX_VMSTAT_ERROR uses it too.
+[1] https://lore.kernel.org/all/20260826194815.GA1552818@bhelgaas/
 
-Assisted-by: LLM
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
----
- .../selftests/cgroup/lib/include/cgroup_util.h     |  3 ++
- tools/testing/selftests/cgroup/test_kmem.c         |  2 +-
- tools/testing/selftests/cgroup/test_memcontrol.c   | 47 +++++++++++++---------
- 3 files changed, 31 insertions(+), 21 deletions(-)
-
-diff --git a/tools/testing/selftests/cgroup/lib/include/cgroup_util.h b/tools/testing/selftests/cgroup/lib/include/cgroup_util.h
-index 5d39c709ac7a4..5307f3bf32a09 100644
---- a/tools/testing/selftests/cgroup/lib/include/cgroup_util.h
-+++ b/tools/testing/selftests/cgroup/lib/include/cgroup_util.h
-@@ -21,6 +21,9 @@
- 
- #define DEFAULT_WAIT_INTERVAL_US (100 * 1000) /* 100 ms */
- 
-+/* from include/linux/memcontrol.h, which userspace cannot include */
-+#define MEMCG_CHARGE_BATCH	64
-+
- /*
-  * Checks if two given values differ by less than err% of their sum.
-  */
-diff --git a/tools/testing/selftests/cgroup/test_kmem.c b/tools/testing/selftests/cgroup/test_kmem.c
-index 437f2d35f205e..30af47ad69793 100644
---- a/tools/testing/selftests/cgroup/test_kmem.c
-+++ b/tools/testing/selftests/cgroup/test_kmem.c
-@@ -24,7 +24,7 @@
-  * the maximum discrepancy between charge and vmstat entries is number
-  * of cpus multiplied by 64 pages.
-  */
--#define MAX_VMSTAT_ERROR (sysconf(_SC_PAGESIZE) * 64 * get_nprocs())
-+#define MAX_VMSTAT_ERROR (sysconf(_SC_PAGESIZE) * MEMCG_CHARGE_BATCH * get_nprocs())
- 
- #define KMEM_DEAD_WAIT_RETRIES        80
- 
-diff --git a/tools/testing/selftests/cgroup/test_memcontrol.c b/tools/testing/selftests/cgroup/test_memcontrol.c
-index a24c1e07b2035..e9d3a04ecf7fc 100644
---- a/tools/testing/selftests/cgroup/test_memcontrol.c
-+++ b/tools/testing/selftests/cgroup/test_memcontrol.c
-@@ -18,11 +18,14 @@
- #include <netdb.h>
- #include <errno.h>
- #include <sys/mman.h>
-+#include <sys/sysinfo.h>
- 
- #include "kselftest.h"
- #include "cgroup_util.h"
- 
--#define MEMCG_SOCKSTAT_WAIT_RETRIES        30
-+/* enough page updates for a memory.stat read to flush, see MAX_VMSTAT_ERROR in test_kmem.c */
-+#define MEMCG_FLUSH_BYTES	\
-+	(2 * sysconf(_SC_PAGESIZE) * MEMCG_CHARGE_BATCH * get_nprocs())
- 
- static bool has_localevents;
- static bool has_recursiveprot;
-@@ -1333,7 +1336,8 @@ static int tcp_client(const char *cgroup, unsigned short port)
- 	const char server[] = "localhost";
- 	struct addrinfo *ai;
- 	char servport[6];
--	int retries = 0x10; /* nice round number */
-+	long budget = 4 * MEMCG_FLUSH_BYTES;
-+	int rcvbuf = 64 * 1024;
- 	int sk, ret;
- 	long allocated;
- 
-@@ -1347,17 +1351,25 @@ static int tcp_client(const char *cgroup, unsigned short port)
- 	if (sk < 0)
- 		goto free_ainfo;
- 
-+	/* keep the data in the server's socket, the one charged to the cgroup */
-+	ret = setsockopt(sk, SOL_SOCKET, SO_RCVBUF, &rcvbuf, sizeof(rcvbuf));
-+	if (ret < 0)
-+		goto close_sk;
-+
- 	ret = connect(sk, ai->ai_addr, ai->ai_addrlen);
- 	if (ret < 0)
- 		goto close_sk;
- 
- 	ret = KSFT_FAIL;
--	while (retries--) {
-+	while (budget > 0) {
- 		uint8_t buf[0x100000];
- 		long current, sock;
-+		ssize_t len;
- 
--		if (read(sk, buf, sizeof(buf)) <= 0)
-+		len = read(sk, buf, sizeof(buf));
-+		if (len <= 0)
- 			goto close_sk;
-+		budget -= len;
- 
- 		current = cg_read_long(cgroup, "memory.current");
- 		sock = cg_read_key_long(cgroup, "memory.stat", "sock ");
-@@ -1366,7 +1378,7 @@ static int tcp_client(const char *cgroup, unsigned short port)
- 			goto close_sk;
- 
- 		/* exclude the memory not related to socket connection */
--		if (values_close(current - allocated, sock, 10)) {
-+		if (sock > 0 && values_close(current - allocated, sock, 10)) {
- 			ret = KSFT_PASS;
- 			break;
- 		}
-@@ -1411,6 +1423,7 @@ static int test_memcg_sock(const char *root)
- 	unsigned short port;
- 	char *memcg;
- 	long sock_post = -1;
-+	int flush_rounds = 3;
- 
- 	if (memcg_sockets_disabled())
- 		return KSFT_SKIP;
-@@ -1468,21 +1481,15 @@ static int test_memcg_sock(const char *root)
- 	if (cg_read_long(memcg, "memory.current") < 0)
- 		goto cleanup;
- 
--	/*
--	 * memory.stat is updated asynchronously via the memcg rstat
--	 * flushing worker, which runs periodically (every 2 seconds,
--	 * see FLUSH_TIME). On a busy system, the "sock " counter may
--	 * stay non-zero for a short period of time after the TCP
--	 * connection is closed and all socket memory has been
--	 * uncharged.
--	 *
--	 * Poll memory.stat for up to 3 seconds (~FLUSH_TIME plus some
--	 * scheduling slack) and require that the "sock " counter
--	 * eventually drops to zero.
--	 */
--	sock_post = cg_read_key_long_poll(memcg, "memory.stat", "sock ", 0,
--					 MEMCG_SOCKSTAT_WAIT_RETRIES,
--					 DEFAULT_WAIT_INTERVAL_US);
-+	/* the uncharge is done, but a flush still walking the CPUs can hide it from a read */
-+	while (flush_rounds--) {
-+		if (cg_run(memcg, alloc_anon, (void *)MEMCG_FLUSH_BYTES))
-+			goto cleanup;
-+
-+		sock_post = cg_read_key_long(memcg, "memory.stat", "sock ");
-+		if (!sock_post)
-+			break;
-+	}
- 	if (sock_post)
- 		goto cleanup;
- 
-
--- 
-2.43.0
-
+>
+> > On Sun, Sep 27, 2026 at 06:20:11PM +0000, Abhin Parekadan Jose wrote:
+> > > If a safe removal is already in progress when the device is surprise
+> > > removed, pciehp cannot report the disconnect [1]. The removal blocks
+> > > waiting on a device interrupt or status read, and pciehp's IRQ thread is
+> > > single-threaded and is itself executing that removal, so it never runs
+> > > again to report the device gone. The removal hangs indefinitely.
+> > >
+> > > pciehp_isr() does run while the IRQ thread is blocked, but pciehp_ist()
+> > > must ignore link and presence changes caused by Secondary Bus Reset or
+> > > DPC, and telling those apart takes seconds which cannot be spent in
+> > > hardirq.
+> > >
+> > > Patch 4 does not do that work in hardirq. pciehp_isr() only checks
+> > > whether the card is present or the link is active, and defers the rest
+> > > to a work item in process context. The work item does not need to know
+> > > why the link changed, only whether the card is gone: it waits for DPC
+> > > recovery or a Secondary Bus Reset in progress to complete, then checks
+> > > again under reset_lock, and if the card is absent and the link is down
+> > > marks the devices below disconnected, which schedules the driver's
+> > > disconnect work from patch 1. pciehp_ist() is unchanged and
+> > > remains the only consumer of the one-shot flags PCI_DPC_RECOVERED and
+> > > PCI_LINK_CHANGED, which tell it whether a link change can be ignored.
+> > >
+> > > Patches:
+> > >
+> > >   1/5 Michael's "PCI: Report surprise removal event" from his RFC v5,
+> > >       which adds disconnect_work_enable and pdev->disconnect_work.
+> > >       Changed to serialize disconnect_work_enable with a per-device
+> > >       spinlock.
+> > >
+> > >   2/5 Add pci_hp_wait_link_change(), which awaits a Secondary Bus Reset
+> > >       in progress without consuming PCI_LINK_CHANGED.
+> > >
+> > >   3/5 Add pci_dpc_wait_recovery(), which awaits DPC recovery without
+> > >       consuming PCI_DPC_RECOVERED.
+> > >
+> > >   4/5 The pciehp change. Adds disconnect_work to struct controller,
+> > >       scheduled from pciehp_isr() on PDC or DLLSC when neither Presence
+> > >       Detect State nor Data Link Layer Link Active indicates a card.
+>
+>
+> how about including the virtio patch? seems more relevant than
+> fooling around with edu.
+>
+> > >   5/5 A POC driver for the QEMU edu device that blocks in remove()
+> > >       waiting for an interrupt, standing in for del_gendisk() stuck in
+> > >       blk_mq_freeze_queue_wait(). Not for merge -- included so the
+> > >       hang can be reproduced.
+> > >
+> > > Changes since RFC v3 [5]:
+> > >
+> > >   - 5/5: Reinitialize the completion in remove() before requesting the
+> > >     delayed interrupt, so that an earlier completion cannot let remove()
+> > >     return while the interrupt is still pending. (Sashiko)
+> > >   - 1/5 to 4/5: No changes.
+> > >
+> > > Changes since RFC v2 [4]:
+> > >
+> > >   - 1/5: Protect disconnect_work_enable with a per-device spinlock, held
+> > >     while testing it and scheduling the work, instead of lockless
+> > >     accesses and barriers.  pci_dev_set_disconnected() could otherwise
+> > >     test the flag, get preempted, and queue the work while a newly bound
+> > >     driver re-initializes it.  With the lock, cancel_work_sync() is
+> > >     sufficient again, so go back to it from disable_work_sync().
+> > >     (Sashiko)
+> > >   - 2/5: Test PCI_LINK_CHANGING with test_bit_acquire(), so that the
+> > >     caller's subsequent accesses are ordered after the end of the code
+> > >     section even if wait_event() returns without sleeping. (Sashiko)
+> > >   - 3/5, 4/5, 5/5: No changes.
+> > >
+> > > Changes since RFC v1 [2]:
+> > >
+> > >   - 1/5: Use disable_work_sync() instead of cancel_work_sync() in
+> > >     pci_clear_disconnect_work(), so that a racing schedule_work() cannot
+> > >     queue the work after remove() has returned. (Sashiko)
+> > >   - 2/5, 3/5: New.
+> > >   - 4/5: Drop schedule_notification_work(); pci_dev_set_disconnected()
+> > >     schedules the driver's disconnect work for all callers again.
+> > >     (Michael)
+> > >   - 4/5: Don't consume PCI_DPC_RECOVERED and PCI_LINK_CHANGED in the
+> > >     work item.  In v1 it ran the same spurious link change test as
+> > >     pciehp_ist(), and whichever ran first took the flags, so pciehp_ist()
+> > >     could tear down a device that was only reset. (Sashiko)
+> > >   - 4/5: Check presence with pciehp_card_present_or_link_active() in
+> > >     both pciehp_isr() and the work item, as pciehp_ist() does, so that a
+> > >     port with Presence Detect State hardwired to zero is not mistaken
+> > >     for an empty slot.
+> > >   - 4/5: Return early from the work item if pciehp_ist() has already
+> > >     taken the pending events, and treat a read error of the presence
+> > >     check as "not present". (Sashiko)
+> > >   - 4/5: In pciehp_isr(), check presence before dropping the runtime PM
+> > >     reference on the port's parent.  In the work item, take a runtime PM
+> > >     reference and check presence under reset_lock, since a slot reset
+> > >     may make Presence Detect State and Link Active flap.
+> > >   - 5/5: Build only with CONFIG_EDU_SRPOC, which depends on PCI; don't
+> > >     claim the interrupt when the device reads all ones; clear bus
+> > >     mastering on teardown. (Sashiko)
+> > >
+> > > Testing
+> > >
+> > > Reproducing this needs QEMU changes, since neither device_del nor the
+> > > attention button produces a true surprise removal.  A branch with both
+> > > is here [3]:
+> > >
+> > >   - a delayed-IRQ register on the edu device (BAR0 0x30, write N ms)
+> > >   - a pcie_surprise_del monitor command that drops the device and
+> > >     generates PDC=1, DLLSC=1, PDS=0
+> > >
+> > > Both tests use:
+> > >
+> > >   ./qemu-system-aarch64 -machine virt,gic-version=3 -cpu cortex-a57 \
+> > >     -m 512 -smp 2 -kernel Image -initrd initramfs.cpio.gz \
+> > >     -device pcie-root-port,id=rp1,chassis=1,slot=1 \
+> > >     -device edu,bus=rp1,id=edu0 -append "console=ttyAMA0 rdinit=/init" \
+> > >     -nographic -monitor unix:/tmp/qemu-mon.sock,server,nowait
+> > >
+> > >   and need a guest kernel with CONFIG_EDU_SRPOC=y.
+> > >
+> > > Test 1 (Hang in remove() on a user thread, then surprise removal):
+> > >
+> > >   guest# echo 1 > /sys/bus/pci/devices/0000:01:00.0/remove &
+> > >   host$  echo "pcie_surprise_del edu0" | socat - unix-connect:/tmp/qemu-mon.sock
+> > >
+> > >   This is the case patch 1 solves on its own: pciehp's IRQ thread is
+> > >   free and handles the removal.
+> > >
+> > > Test 2 (Hang in remove() on pciehp's IRQ thread, then surprise removal):
+> > >
+> > >   guest# echo 0 > /sys/bus/pci/slots/1/power &
+> > >   host$  echo "pcie_surprise_del edu0" | socat - unix-connect:/tmp/qemu-mon.sock
+> > >
+> > >   Without patch 4 the safe removal does not return until the delayed
+> > >   interrupt fires 600 s later.  With it,
+> > >   pciehp_isr() schedules ctrl->disconnect_work, which marks the device
+> > >   disconnected; the POC driver's disconnect work completes the wait and
+> > >   remove() proceeds.
+> > >
+> > > Open questions
+> > >
+> > >   - Is this a viable approach?
+> > >
+> > > [1] https://lore.kernel.org/all/aHlZE18kPuHuDtTT@wunner.de/
+> > > [2] https://lore.kernel.org/all/20260905183905.997833-1-abhinjoses@gmail.com/
+> > > [3] https://gitlab.com/abhinkop/qemu/-/commits/suprise-removal
+> > > [4] https://lore.kernel.org/all/20260927165459.829900-1-abhinjoses@gmail.com/
+> > > [5] https://lore.kernel.org/all/20260927175203.928270-1-abhinjoses@gmail.com/
+> > >
+> > > Assisted-by: LLM
+> > >
+> > > Abhin Parekadan Jose (4):
+> > >   PCI: pciehp: Add pci_hp_wait_link_change()
+> > >   PCI/DPC: Add pci_dpc_wait_recovery()
+> > >   PCI: pciehp: Report surprise removal from pciehp_isr()
+> > >   misc: Add edu_srpoc surprise removal POC driver
+> > >
+> > > Michael S. Tsirkin (1):
+> > >   PCI: Report surprise removal event
+> > >
+> > >  drivers/misc/Kconfig                   |  11 ++
+> > >  drivers/misc/Makefile                  |   1 +
+> > >  drivers/misc/edu_srpoc.c               | 172 +++++++++++++++++++++++++
+> > >  drivers/pci/hotplug/pci_hotplug_core.c |  21 ++-
+> > >  drivers/pci/hotplug/pciehp.h           |   1 +
+> > >  drivers/pci/hotplug/pciehp_hpc.c       |  67 ++++++++++
+> > >  drivers/pci/pci.h                      |  10 ++
+> > >  drivers/pci/pcie/dpc.c                 |  54 ++++++--
+> > >  drivers/pci/probe.c                    |   1 +
+> > >  include/linux/pci.h                    |  57 ++++++++
+> > >  10 files changed, 381 insertions(+), 14 deletions(-)
+> > >  create mode 100644 drivers/misc/edu_srpoc.c
+> > >
+> > >
+> > > base-commit: fd179f8a05be3ccae366b9b96e176b51fbe54aab
+> > > --
+> > > 2.51.1
+> > >
+>
