@@ -1,222 +1,117 @@
-Received: from sonic307-2.consmr.mail.bf2.yahoo.com (sonic307-2.consmr.mail.bf2.yahoo.com [74.6.134.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07F148E0EA
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:35:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.134.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CAD48EBF7;
+	Mon, 12 Oct 2026 14:35:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815727; cv=none; b=UczWWOqt96yZ+BiAow5bI1sV/vrW+p7U99v9eLdgxo6N0V9IcJLbb2zr7S/7lBlKXpR//0OSoz2i0T+4L+T0urvHhNr5XUAa8sTktqsbvcMfnwnQJHiG7l8I06TPnVqb3O19ajrJ4TZaYB3+0H2LFnW0Sv6b2+SEs8/qFFCaBlM=
+	t=1791815728; cv=none; b=beaWCWl979s51OODAlJlf6bJhATtmpyEI2X85YiQkTCtg+5VGJ/iyej/Uc0GxJLMZzZR1eUO/I7nOoT6VEF7CJ293gAmOfbJEwQV7h4wJui9a0cdpoLbJdFl3S4THgkts9vNjsaTcRIl+m6M3hOTov7aHGmiZOkNZRschzNqmW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815727; c=relaxed/simple;
-	bh=HT0TXwWMj17JblcErkt+7GOKgaMKNsDosmRrGsBJ9wE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=jdG0XeR3ezamZxoQeHZMsFivxOR/uKgR9dSuPPfTuRTTD4nNoqA7Nel2wYfo149+xTTiDPNKXEGni3BphBr1f8FIcnoP1v7mgKgf+ogR/GxpFDziBfQnrjKcYE+5AiBzNJcynQe6NJCuMbZAVhB31jjp1ewLdni7WLMbImwKBsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=mVG33PqZ; arc=none smtp.client-ip=74.6.134.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791815728; c=relaxed/simple;
+	bh=GtO5gQgdv/Yc+pLXKoY+5WyQsxrU3QXnNYhUZ39s/bE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lPRSvXxNZ4j9Gkvz9os75NxJkEdvESAnIZnYN5PsQq/bVt4FrZLoKw76r7imkr2IfPmZKInLtpWmmA8XnJEtpf3tldBt22WeA+8mdpQaXKyN7bQ7y4JbyXavfUPLtZlbm7rKM+ISTWnwSrwwr7NK0dD41+CcTGiHSid1OAnkES4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=DlQCxtSs; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="mVG33PqZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791815718; bh=gCX/LDnnjg5pxVmTukcGyCAsVe2HawPgkJZ36yq3vhg=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=mVG33PqZkVQnOXFiLzFB/lVmj2+Es+x2tXhNqFhx7p1Ds1UNifjvgtxj/+w4o5dAHxmUEDzzMsRuuBLc9bC3SyG4XAL240caEc6Mf63dJ96m/M22NLyGwSQPnApDDnNHv3gE5ZmSEjg/XFpiHa4NM+1b85AOajkcW1ouB3z39eFVFa1l/zxzjS/A/X20pbXWZH8YuxZDfWNcszajscPM/vud1IBptna9HnwA7VHUnjmvz6vgiKSQW5vyR+J+6OIXCQlw9t1H5eUTTFVZh19D+xRJnhwWjlQTkpa8G2hlR2L7fqEjRPlV4SL57amNtuWII+AYeUa3ydjg8VzalPpZTw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791815718; bh=Wo13mhmOSTnhUysfpVMdm53A6a4zT0m0067Dns9QRb4=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=FnxyD4IYFWLV/OefR3XMDBf391oOyJKR6esD+5oLKxeirBYv1isT/r9K6n4T3RVtoOkUU/XMbWGEFe5eJ2ZaFZIrvlVd2bB4nT+0RmgPwI7HvWvGOPIoc72dRxLN22kWA2TNj6rYAD459eOwLndwOU+tt+8vcExYFa//tmYgZps1iB7LG1Qhn3kG5ErIibGq5nZk60skNAJvmX8NYNAcXHgvW4JbJnUcJaUY+vDEc+qDJCVTuRekuxTtuueEMOmgB6th4MO1ukZYgIt6HfN2G0ons5IoS0g1yAvWmfz9s+qDGWtPh6kHvH55Bmg+PmTIX2TwJpfrMAVWMvcW1lZrBg==
-X-YMail-OSG: NxPO.JEVM1nxbMNGZsNTEOTe_tePn1QUt9gZWGGt.H16ot3ff0hIVTQzeYDCDX6
- G98firEUddHRSRBc1lr4dBxXHg49_n1M9y5ZkmKQ7ocWwn1J4tZLJaeS.57YOKwIZ1bhD71CPTiz
- OgPp.qwFPBeJG7hYRdVxO53RdcxpOTDUehzjYrpeybRCVMV.kU7plH7PkpuiwaxSC9BRT_wjzBzH
- LL.uHQdaYHaPtylnX1gHlcu0TFoMF3cyVFiR40jb6FuP8060Pey0hFvwzVoFT3K8OElAeW_DX5u3
- rwegjz1F.hGCMHs05NsZpDFgcJPYcXTCaAMBmNghaVstBjDtt2XZ2RB73c2Tle0ldp_VxeHcYb76
- yka2.BmeRCmj0jXpHbkVT_sWWf..wnga4gQoZLLPMs6P2afiCgtoK2.sSu2CqNE76p5hLxNtks8e
- _nLrqftROY3_TNGqGG64lzvxFoyXIDr0Y_4VLF0q3RLoUx01ztMpklAWARxPkgIUrVcT6ATGK.hg
- Iv_19XLieWUl72WhKERTWCwzPkPzDyyH2kJNJgjg0jl.SyfZeuOx79TAVWCWrvYOoz1Lb2uHKGsU
- TR4_8n4Dt70xVpbwMx7X9POITMbz6H5WjacYprahm5mPk0mF28dSZqeH2DEuZP8LDbH13SPOp78h
- iS3FsCBNp5Q82WRcQ1NTqrh1QJAp7RWQZfXL4sJpb3UzCS3IMmz0Vml3stB8aE640OwYU3zQfilW
- 9EOjDrCvFDXaxtuNvn8QlHkmJ6szVjjkX535xaE77mzarovUky8XNf1TJ1dSHuK36QMfkvrJL1Yc
- jieSg4LVrWmhtd.1tR833xI1C1VIRUQUWeeuB9N8IvCvxjHlcEqcsO2XNqV9n_QmC68zVDBcbGwQ
- qokb0dylHM5ViIz3bOY1thAWedHsf.iFDTcVdHUCceKZ8pFejAMwaIGm3bhFyi7JaS2j2sZXQHvY
- 5VW2pBbqkj5jFpNa.yZdpq1uuSdH9MUJ0zgckpAvkSZgO93mzkCFM0LMuSIaRGM_iRKhhohfN6AW
- NZoDTDLwWndkf_JhHCQItTEU7JPvbpcs3fPzMh.gM_dWMrkaEoErwV41EGZaOv84jtlHM2aP5tzq
- fzSAdIXgHMVFuAMtJ61SUNYm6UWOHx0sGNev7bEHGEjxoyFU2Wxe1._v8G_gfTh.tIlaYN2IHvXe
- YPo.V8U61KPnsMuVL.Lygbxk_Ql.D4hahZ16A0TEZV1rxhcC2bDC0XhDMQzufgyysjQauPuFLEM0
- N3BUBggDANrugJKHF50rttMmzZ8AfcyqY_rERJn_lNmdD9QQrWvFrqdlCeoRur1kX_zJmckDHaVJ
- kN3DsAfbroHvp18MDaEiW4ZyxoyPwPaxQLmZUC7t4RMdpJgMN156brbm0Gdgfv0p3RClX2QPHx1.
- llEdTfNVVZO_tobLUsY_iUma.x6hy.mg0dJVd__XW._5AZBzxdvrP8gmbDf6p_g7vVpsVve1.tXz
- fQbnbmLG8qZ6yJEsdlbHbwobRAobeY.oMFtpPu69AVi_cpZTUK4B1mHznoACEjE2e5ST1hqpFLP3
- ByuUxi3i8sdZQBXLQ9n0ypNrQCavlltg.h2ogfFITZPfC3AoQVUFBPcVxaGcWYAKwNCJZtWAd0CQ
- EpYFkuaEidxCYCzMRXlI_p3_EhUAPu7RlEJpLh1zVzst_k7VM7bY6DCSuuz4Zd47Rg4TVWmBD5Lk
- lDsw3z0O.xEp3JadhWRtywguHIdeiunys_vmHEZIXZzF2O5oixXQ3hj_wXpRQeoikABRtNgO8GNv
- BDsnn9kochW_C9vg0iHcfQ2tuDD.a83G7SqzqvMEW3g96kPqx42P1JCQ0cbTHTptmFHFWLfWzki7
- QId2t1ZA8UDF3vDN5DV3EbqPA6bzWlcMLYtYk1.t1LvnWREEjhWIl5bfqwUS6OfG86y1sLO6Chdn
- S99FWag_lYdvkuKEoEQd9HhsPmrYMBuR4BXNbq5NOeY_CDFbe0csDv900G.6FDLBwwys1GfyEIju
- wbHNuTpKaqMMKsmJqJXQ7RXkbf7eZ_7K03WX5Aeh.XF9xtTYABJMfPVstknSlpK6iOpobdyqPpGj
- t_pmXOyyQpuDvQex8w13HY8Li.IcCtt2VDSAp45agmbYGM6Mh0oGPMq.9GK61v1CKfPei8X2y1PG
- kBUOK1.XVnKTW4FkT.0ESkNn7tWXXMjQjMS2N14_Ka0G3eXSnbSE3jWIx4DixYaezI6TN0fZJKmE
- .AgeZ5jwv_6mfyRry6Q9NKJ6l8KtaGtKiCs81M1_29ic-
-X-Sonic-MF: <deaner92@yahoo.com>
-X-Sonic-ID: 305669ed-14c4-4448-b4ec-cdc985f800df
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.bf2.yahoo.com with HTTP; Mon, 12 Oct 2026 14:35:18 +0000
-Received: by hermes--production-bf1-6d6877594b-clgz5 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID e251438cb2097fb36b325920ed61dcc7;
-          Mon, 12 Oct 2026 14:03:59 +0000 (UTC)
-From: Jeremy Dean Clifton <deaner92@yahoo.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jeremy Dean Clifton <deaner92@yahoo.com>
-Subject: [PATCH v3] dt-bindings: pwm: Convert NXP PCA9685 PWM controller to DT schema
-Date: Mon, 12 Oct 2026 14:03:46 +0000
-Message-ID: <20261012140346.3065-1-deaner92@yahoo.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="DlQCxtSs"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCEI9J231301;
+	Mon, 12 Oct 2026 14:35:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=sVr1MCy/r06DIuIkEIpDyeZqSctcdw
+	umg7EBUaNlPkA=; b=DlQCxtSsGBAFbvIBzDAJRbdgroSdwUx6oAFbTuqzwfrYT4
+	aFOMOxZlO7i/5Pw0q4ILmAViiV1fhRUJStILsXstjT9VyVOvkIKb9eZiaYnc9obm
+	GBR6N7nxthCEce+MMaK21K9xR5qkXSIJsQtfFSZUXug8ofOpHA0MvZuFK2JU9qnC
+	gb0I2ppKL5trcFp/UOQ79OljtPXmg2MV8hSEDq0ssAcsCXku+FMfcd/bx88TjtGL
+	rP4K03iGA2dsKXepaNn+ImjrT6z5Lg/c1q0t0md8Oc+DSgJaKeczq42qtnd62NfL
+	mpeo6TdCwgglDgaDA/8dpmVFtZKQmtqfyEn24agw==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1w121u-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 14:35:26 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC4u8m013446;
+	Mon, 12 Oct 2026 14:35:26 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h81wfwd90-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 14:35:25 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CEZMeS16515460
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 14:35:22 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 393522004D;
+	Mon, 12 Oct 2026 14:35:22 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 17C4D20043;
+	Mon, 12 Oct 2026 14:35:22 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown [9.224.92.206])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon, 12 Oct 2026 14:35:22 +0000 (GMT)
+Date: Mon, 12 Oct 2026 16:35:20 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Heiko Carstens <hca@linux.ibm.com>
+Cc: Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH 3/4] s390/percpu: Drop unused output register from
+ arch_this_cpu_to_op()
+Message-ID: <eb95b502-8505-4914-902d-105be51ef21b-agordeev@linux.ibm.com>
+References: <20261012114249.2898572-1-hca@linux.ibm.com>
+ <20261012114249.2898572-4-hca@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-References: <20261012140346.3065-1-deaner92.ref@yahoo.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012114249.2898572-4-hca@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX3uxqSesrwqom
+ rcLEwT7os9fnVQ70VGSS0TFpO/e4gl1+/ecDRsti7ZwF+eF7cUnrB3/n+hEErR9CAyfSyyzyb4S
+ tf9+oPqeHh8f2Qpciw95MaHZb4Uun2c=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfXy37OWHvoQUXP
+ jCTj2y8zROuLiMy1A/DlkU0KBb9tVr50NaS3MzNXZPlHhie9A18aJVwqoG2yRnDp8nCrnZ/du7P
+ Zy9q54OVe4WefsoNEL8UDdRc1RCxvgP8yFLBzd2hPNafQUL5u7mjC0hwJBJlL2JycClKC2I7qjN
+ bb/qkzsYL/XwfdU87DSKErBci9EjP/kWnNx1kJ7rzo8LIKzLgUt0OG996sYFb2ZAss+gyRM4G2f
+ eVJtA7wCM82ZzZQ1dAu94XMwKtnGKyISThrxsKVFJb4VMc3/DRErcMN/Zn7/6WitdreNRioPTOx
+ Qu0NmNToOTU79SSkMjdH2N3Grzo4uE+lBiVjzIy25M4GsNovVn6Ndy4dYIJwnVEoCW51k2dA5r6
+ RgJ2Dns16Pi8qy4c5SQHcukE5uxURrCiiHVAMrmlLcqW0FcVM/xzcn04uGAVN04QKP6C4soXjC+
+ EK3stcFXxpnDkPo5vFw==
+X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6accf02e cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=hrbHa4fqjneYn2M9ZQ8A:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: at8g2o1B7DEmWVIUFxSW0n4ipxRHRNKW
+X-Proofpoint-GUID: at8g2o1B7DEmWVIUFxSW0n4ipxRHRNKW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
+ spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120056
 
-Convert the NXP PCA9685 PWM controller binding to DT schema format.
+On Mon, Oct 12, 2026 at 01:42:48PM +0200, Heiko Carstens wrote:
+> The lan/lang/lao/laog instructions return the old memory content, but
+> arch_this_cpu_to_op() does not need it. Instead of allocating a dedicated
+> output register old__ just to discard the returned value, change the
+> val__ constraint from "d" to "+&d" so it is used as input/output
+> register.
+> 
+> This reduces register pressure.
+> 
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> ---
+>  arch/s390/include/asm/percpu.h | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 
-Changes from the text binding:
-
-Document the 'reg' property and make it required. It was missing
-from the text binding, although the example used it and the device
-cannot work without the I2C address.
-
-Rename the example node to the generic 'pwm', as required by
-pwm.yaml.
-
-Describe both cells of the PWM specifier, and state that 'invert'
-and 'open-drain' apply to all outputs, as per the datasheet (INVRT
-and OUTDRV bits in MODE2).
-
-Assisted-by: LLM
-Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
----
-Changes in v3:
-- Full name in From, Signed-off-by and maintainers. (Jeremy Dean 
-  Clifton)
-v2:
-https://lore.kernel.org/all/0aabb9f2-a144-4267-b67e-a0972d228f2a@yahoo.com/
-though the storage width was widened.
-- Use the same name in 'maintainers' as in the Signed-off-by. 
-
-v1:
-https://lore.kernel.org/all/20261006033518.34332-1-deaner92@yahoo.com/
-
-The schema and commit message were drafted with AI assistant.
-I verified each property against the driver source, the
-PCA9685 datasheet and the binding. Passes make dt_binding_check.
-
- .../bindings/pwm/nxp,pca9685-pwm.txt          | 27 --------
- .../bindings/pwm/nxp,pca9685-pwm.yaml         | 62 +++++++++++++++++++
- 2 files changed, 62 insertions(+), 27 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
- create mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
-
-diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
-deleted file mode 100644
-index f21b55c95738..000000000000
---- a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
-+++ /dev/null
-@@ -1,27 +0,0 @@
--NXP PCA9685 16-channel 12-bit PWM LED controller
--================================================
--
--Required properties:
--  - compatible: "nxp,pca9685-pwm"
--  - #pwm-cells: Should be 2. See pwm.yaml in this directory for a description of
--    the cells format.
--    The index 16 is the ALLCALL channel, that sets all PWM channels at the same
--    time.
--
--Optional properties:
--  - invert (bool): boolean to enable inverted logic
--  - open-drain (bool): boolean to configure outputs with open-drain structure;
--		       if omitted use totem-pole structure
--
--Example:
--
--For LEDs that are directly connected to the PCA, the following setting is
--applicable:
--
--pca: pca@41 {
--	compatible = "nxp,pca9685-pwm";
--	#pwm-cells = <2>;
--	reg = <0x41>;
--	invert;
--	open-drain;
--};
-diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
-new file mode 100644
-index 000000000000..04d2ddd8f108
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
-@@ -0,0 +1,62 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pwm/nxp,pca9685-pwm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: NXP PCA9685 16-channel 12-bit PWM LED controller
-+
-+maintainers:
-+  - Jeremy Dean Clifton <deaner92@yahoo.com>
-+
-+allOf:
-+  - $ref: pwm.yaml#
-+
-+properties:
-+  compatible:
-+    const: nxp,pca9685-pwm
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#pwm-cells":
-+    const: 2
-+    description:
-+      The first cell is the PWM channel index, from 0 to 15, or 16 for the
-+      ALLCALL channel, which sets all PWM channels at the same time. The
-+      second cell is the PWM period in nanoseconds.
-+
-+  invert:
-+    type: boolean
-+    description:
-+      Invert the logic state of all outputs (INVRT bit in the MODE2
-+      register). The setting applies to the whole chip, not to individual
-+      channels, and is typically used when the outputs drive an external
-+      driver stage.
-+
-+  open-drain:
-+    type: boolean
-+    description:
-+      Configure all outputs with an open-drain structure (OUTDRV bit in the
-+      MODE2 register). If omitted, the outputs use a totem-pole structure.
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        pwm@41 {
-+            compatible = "nxp,pca9685-pwm";
-+            reg = <0x41>;
-+            #pwm-cells = <2>;
-+            invert;
-+            open-drain;
-+        };
-+    };
-
-base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
--- 
-2.43.0
-
+Acked-by: Alexander Gordeev <agordeev@linux.ibm.com>
