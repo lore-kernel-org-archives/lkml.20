@@ -1,110 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D028397922;
-	Mon, 12 Oct 2026 16:48:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52DC12DFA4A
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:49:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823710; cv=none; b=ocQQL4JkwXRYwksfkyjMrLcFil9R6DRm/qPYdfcmkUesvuFhoXKzkHabto9GGTKqtRnzZn6OiOAGlvI5I1eK7syq/jRywIp/wYDAvC0gFS+2LLUom/M8Vf7eoovkTOGV8tRtzI41pn7CnNPo7jYIgRqzdHb4lrseR70V893EDlI=
+	t=1791823750; cv=none; b=XCQAY5R7HjdlFYxYsL/e8xzpefgvIqRQTBR/nFZMyDwCWwFrLbyeg3ZS1Q31kTN4mUbp3yWEFfAnbq8KbboMOM04Hg6mY/sBhUXNqr46fblnHoNQkIy8qfexPIg7/6O5AGBcJdpXhdLPf9buEQdBAwk0fdVPi4a9t+tk7xxyipY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791823710; c=relaxed/simple;
-	bh=mMH0te/tvNL90Fzjix9Jb5/yQwN4Tz8Lrk+WcISK7iE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E/q5dghhTCS/KM94BgDQM15VWRXT8lSGLyzNckWgyWohThCkTsg/mQZOFw6M+K9p0CpNTYOfUWC1HaDua9RjIJExxvxTmDtZLjejmASCi7svDn1l8KsRaxxbpDVWDy/OKgUdLfK+9BcXTo7vvhsDNzzxiwXXn90OkarjASk1nns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L3Bv9WpI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791823750; c=relaxed/simple;
+	bh=8TvIDi24R/O+TVv99nnG9HTxml9bp0TzOwiCiySOMsA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pR/ePQI7hrFobLur4JpSk+nD6ZZ4GEtc2AZlHB9VNZSP2TeBog9Ul6TpQFYh5NfgUNZ1wZK/2VVLOWUqEV+8PPVt3Jn2FJ8MRs079/ZYt8QkMgXQHHKnMomWMH5oshxnqdgxMHZ7JZMpeJxv6USN5Ud4RnWz7b0UwIJfFIWxnPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=SqUyvMZG; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L3Bv9WpI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03C811F0089B;
-	Mon, 12 Oct 2026 16:48:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791823708;
-	bh=a5mP5nC8nPPlsIQNVn0JofAMSDeCWtdkqJAfFM+RFQ0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=L3Bv9WpIFj/9+8iEAITVKPt4r5u7esiQ99zdQTN/X2zfuuFoP2dz6VzLMoqk3x9BQ
-	 GiLCQlJGaQxTJCrvXNxDmBAuMw3N+bY6qTDzPKdoYtI0gvsNqz5yvdUJsQyfkFyt81
-	 S/rOIQdH2eICo1+xmN0VSiSQAbtq/cdHYvZQ7x8kT9A5nAv8HMAJXLIcMh/6gGv/gw
-	 4EvSr6CyH6yHeHr4gAB7OMdimisJsFYFcRRPqYn0ov1k6kvSqO0rd8b+PEeOW7YyL5
-	 Wv+O+KUKBFbNKjFZSWFPhH4ZavfUfUszcFlgm4HbAhj+hDRfLppJAjvauEz12Opvso
-	 2rvU1oKXl6MNQ==
-Date: Mon, 12 Oct 2026 17:48:20 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Helge Deller <deller@gmx.de>, 
-	Javier Martinez Canillas <javierm@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Bruno =?utf-8?Q?Pr=C3=A9mont?= <bonbons@linux-vserver.org>, Jiri Kosina <jikos@kernel.org>, 
-	Benjamin Tissoires <bentiss@kernel.org>, Bernie Thompson <bernie@plugable.com>, 
-	Greg Kroah-Hartman <gregkh@suse.de>, Steve Glendinning <steve.glendinning@shawell.net>, 
-	Florian Tobias Schandinat <FlorianSchandinat@gmx.de>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
-	Steve Glendinning <steve.glendinning@smsc.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 0/6] fbdev: fixup callers which ignore errors from
- fb_deferred_io_init()
-Message-ID: <as0PDmzYL5Bc2NrR@gremlin>
-References: <20260926-fix-fbdefio-error-handling-v1-0-a94810b6e263@kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="SqUyvMZG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1791823747;
+	bh=8TvIDi24R/O+TVv99nnG9HTxml9bp0TzOwiCiySOMsA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=SqUyvMZGM/56SFZhqQH9XmbJVlqX/f0dub/oHQYzbSfl4aiVNcid4VVhfhNqSM4qB
+	 TbkstblL2awNWIQTKk0/HO0SUVreykAZdNd25h0LZ9NE9M2x21FTal7C9WakxVbd1q
+	 ILy0/ts9PCjiZz/zi+iaLXxoSuB72VUHrtKYKSOdFwQP75wjMOdIusuu+fCSqwrXkF
+	 R/H3FcqTAZanIWxEzX1nTvEaVlvrai+O3TK15VX9Ks1xwA1DxB7bRLqxLUb6eBKee+
+	 Ws7fJ+xQxlfpZw+V1hWhU76MG71fYv4lhtPf4PY7cn1rpCRUtQW7QN4JX8/FR4Lf6C
+	 QPZOvqVERPJ2Q==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C82DC17E05A6;
+	Mon, 12 Oct 2026 18:49:06 +0200 (CEST)
+Date: Mon, 12 Oct 2026 18:49:01 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Akash Goel <akash.goel@arm.com>
+Cc: liviu.dudau@arm.com, steven.price@arm.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, daniel@ffwll.ch, nd@arm.com
+Subject: Re: [PATCH] drm/panthor: Fix handling of NO_MMAP BOs
+Message-ID: <20261012184901.26f2dcbd@fedora-21.home>
+In-Reply-To: <20260922100743.447700-1-akash.goel@arm.com>
+References: <20260922100743.447700-1-akash.goel@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260926-fix-fbdefio-error-handling-v1-0-a94810b6e263@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 26, 2026 at 02:16:58PM +0100, Lorenzo Stoakes (ARM) wrote:
-> Commit 56c134f7f1b5 ("fbdev: Track deferred-I/O pages in pageref struct")
-> converted fb_deferred_io_init() from a void function to one returning an
-> error value.
->
-> However a number of callers don't seem to have been apprised of the fact
-> and continue to treat it like a void function.
->
-> This is problematic, as upon allocation failure, struct
-> fb_info->fbdefio_state is NULL.
->
-> That means when a subsequent operation is performed upon the driver, for
-> instance opening the file, a NULL pointer dereference occurs.
->
-> Update all of the remaining drivers which fail to check this to do so.
->
-> This issue was discovered as part of a separate series which updated logic
-> belonging to ssd1307fb.
->
-> Also fix up a separate issue with a BUG_ON() occurring on allocation
-> failure for udlfb and smcufx.
->
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Tue, 22 Sep 2026 11:07:43 +0100
+Akash Goel <akash.goel@arm.com> wrote:
+
+> The BOs created with DRM_PANTHOR_BO_NO_MMAP flag are not supposed to be
+> mmappable by the Userspace. But after the rework to support shrinker,
+> it became possible to mmap NO_MMAP BOs. Userspace could second guess
+> the file offset range, allocated unconditionally at the BO creation
+> time, and create a CPU mapping. There may not be any adverse effect of
+> such a CPU mapping though.
+> This commit removes the unconditional allocation of file offset range
+> when a user/kernel BO is created. For user BOs, allocation of file
+> offset range would be done from BO_MMAP_OFFSET ioctl handler which has
+> a check for NO_MMAP flag. For kernel BOs, there is no need to allocate
+> file offset range.
+> 
+> Fixes: 68cbf96b1e9b ("drm/panthor: Part ways with drm_gem_shmem_object")
+> Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Akash Goel <akash.goel@arm.com>
+
+Just a heads-up in case someone was considering merging this patch:
+we've just realized this breaks mmap() on exported BOs that didn't have
+a ioctl(BO_MMAP_OFFSET) on them.
+
 > ---
-> Lorenzo Stoakes (ARM) (6):
->       fbdev: ssd1307fb: check for fb_deferred_io_init() error
->       fbdev: xen-fbfront: check for fb_deferred_io_init() error
->       HID: picoLCD: check for fb_deferred_io_init() error
->       fbdev: udlfb: check for fb_deferred_io_init() error
->       fbdev: smscufx: check for fb_deferred_io_init() error
->       fbdev: sh_mobile_lcdc: check for fb_deferred_io_init() error
+>  drivers/gpu/drm/panthor/panthor_gem.c | 4 ----
+>  1 file changed, 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+> index c07a44057e42..5cfe66537e87 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gem.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
+> @@ -1021,10 +1021,6 @@ panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
+>  	mapping_set_gfp_mask(bo->base.filp->f_mapping,
+>  			     GFP_HIGHUSER | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
+>  
+> -	ret = drm_gem_create_mmap_offset(&bo->base);
+> -	if (ret)
+> -		goto err_put;
+> -
+>  	if (exclusive_vm) {
+>  		bo->exclusive_vm_root_gem = panthor_vm_root_gem(exclusive_vm);
+>  		drm_gem_object_get(bo->exclusive_vm_root_gem);
 
-Ping on this!
-
-I know timing is awful given a. the insane volume this cycle and b. LPC,
-but these are fairly mechanical things so should be relatively
-straightforward.
-
->
->  drivers/hid/hid-picolcd_fb.c           | 12 +++++++++---
->  drivers/video/fbdev/sh_mobile_lcdcfb.c |  6 +++++-
->  drivers/video/fbdev/smscufx.c          |  9 ++++++---
->  drivers/video/fbdev/ssd1307fb.c        |  6 +++++-
->  drivers/video/fbdev/udlfb.c            |  9 ++++++---
->  drivers/video/fbdev/xen-fbfront.c      |  7 ++++++-
->  6 files changed, 37 insertions(+), 12 deletions(-)
-> ---
-> base-commit: 6812ce4e4379ffc99c52401ec28f0d7ffbc36206
-> change-id: 20260926-fix-fbdefio-error-handling-ab135b0193cb
->
-> Best regards,
-> --
-> Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-
---
-Cheers, Lorenzo
