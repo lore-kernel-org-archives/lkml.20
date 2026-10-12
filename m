@@ -1,101 +1,83 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 872F04DD3BC
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:09:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148C2424D6B;
+	Mon, 12 Oct 2026 20:10:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791835759; cv=none; b=VRWdNCIo+9FqRfDutlpp3w55rTk06XjMBN0JWbS+jKk4lqG/q6ptU0IiAAaWUFeIP6Roe+GIhkQ+8qdmk+EoPIhSRoYelXi5AleA3cgeBzJ4eOOx56kS+jI402gQqcRqqTKZJS84YgVGGSD6neK971/XU/8WjHKziKHoWQpjhKI=
+	t=1791835835; cv=none; b=YeqmyJTYUELkrZcpAMvlWgQDYP2wooCgZpSOL23eXFv6JpHARyhhnQWNC+UtM/jRg6ENhMppOqF+fG8RfcyMEOpuu0q+DoCdPshALtgg+kjcRRKkgwSev4yJBp2eDDkl1KMzRN3CNVcby3VSXffvyUZBc+x0Q/WH/IjLRGgRauI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791835759; c=relaxed/simple;
-	bh=labewT2hV27LB5EpRULnoGnU1thrB4RMmBUKgDB18W8=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=gDG/tRfDqkfK1fHlM8/xdANOjTcVHWMU4fKgXYSfoZCmwG7LSU9I/76hIYTag/qHptgQDU0GYoyFHWUnV2YE6bl7XRmD44hAQHRGPJOPcIfUs+6yAYDfgWZS3PgeSHIPsWw1Rtq3FS2PQSfhd3eXlPCUe9LJ9w6fKDTpdL7nL64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sRHmF9JE; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1791835835; c=relaxed/simple;
+	bh=6qVl8l0ORmU3qgYKTi/JjagxmTn0oiUeDUJ0XprazQc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J1PZy9t+3QP3a6uQMOLjUDGIfTXl8rzPUr1IE2eDMDkdNE+icCIxCDsADz+ey6w7V7g2wJ3IwkPk9d8gPDQoti7DlwPxmbUCMQtUx0oh0LlFj6SHw62qI6OXl03D30BPJn/BPLksYCF4Sx3zNDwez+O059heADslGKLFPgxeYX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gqCHEcL9; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sRHmF9JE"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e80ef3e0a3so33244005ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:09:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791835757; x=1792440557; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0huG8WqQPQs/27VK7Fi+O9rqo6WXAIJK228EBYSdVtE=;
-        b=sRHmF9JEJIqhi8rNrjSDAucB5pRjMmYyreRR0fJdsJUgZ2eD455WltOtwmiPaFqtoB
-         fkazpDsIQsfx6PCDoklcp0+dVAYlY/r69qpAnY6+69+ZLGq8lpyNq9Vp5/WAwbrqfNJx
-         rp2pOcJE1oOZ6Wv8bkRCp6HQsHiGMu3/A+V1y3cyEH2LI5vPGWFR3GLdRdFyBBXNAa7Q
-         I+DYQEsHYgECY245ZyixiqZSylDOM1dIa2RYgLNwT4X/UL6pST6GN1o1N3xej6/trq4d
-         F/tyE9wQCoNjvm4rAvW8SLR+qR/ysG8iSOBdx+Lm8Jh4/kCe+3x2Qs3zGDwtlEbIRfKL
-         OzNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791835757; x=1792440557;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0huG8WqQPQs/27VK7Fi+O9rqo6WXAIJK228EBYSdVtE=;
-        b=AJvm4sB2nOXx9DldWwOHPvJAwNPUjcpc23HFfazGhWXsEQoZ4qwquPyGDO5ePXtgya
-         lHKRsBAqpYFc1Q/X5MJxwqlBAA/2zTEG/JGjLmD4i5xFrYsBYL3pLQ70j6jdFU0gAb/J
-         NZIdn2hv4sJnykyUm8v+v8dJQNTFZvub8Gu1QLhSJPM+yWx+0onskrhINiS3j/s8jHWl
-         tZuVjAN+K++Ee8B/ExH/hmCXSiAQSb1s7Eu/WCuFGbimqlys39uvBMOey3gm1DSmfy8p
-         pZWBhU6Z02RtqpibTFhPD2PP4TlEjnxwOWQQZGB5fiGQ4n/hA5Mk7ahASqGxR8TbvyEv
-         0n0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzEFL6GefqDTrO7Cd6tqxr3pmjKPUbWObBMiXy41bwM44QPbtrxg27AxhJQlaxdnFaOtgQwkVxnSWVhBzA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLslETc7i8rJbemDZPdgfkVmlIdHwoWdUUiXoXKxk2fz+6uxpsI
-	3INPoDS6fTI8cHA8D/bA/b1m/6v8t+JLJ0XRFdMUx4IA+1CcLBxHX7DA7jRgbgYBPYxIepSPwsp
-	5aJtmqA==
-X-Received: from pgdt2.prod.google.com ([2002:a05:6a02:3002:b0:cc8:4927:ea08])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ef45:b0:2e8:2f7:4a60
- with SMTP id d9443c01a7336-2e842cd211emr83473025ad.51.1791835756613; Mon, 12
- Oct 2026 13:09:16 -0700 (PDT)
-Date: Mon, 12 Oct 2026 13:09:15 -0700
-In-Reply-To: <qyykjxnxek73ddhbdexwz7jabjso33hdqzpf4syhrbrlh4eo5q@f4hwiuluzvgi>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gqCHEcL9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791835832; x=1823371832;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6qVl8l0ORmU3qgYKTi/JjagxmTn0oiUeDUJ0XprazQc=;
+  b=gqCHEcL9QNjdsy8GF1HRHd5Vo5H3k4sgBVN+C8K95TzAw80862UTFEyf
+   WUv1xdNJOs6X/VLL4fjkphTGG7R19BSzy6GMv3L1OaAJ6mBc4m7D1Ia4W
+   urN4twGSOb8Yq5683FfXzSNLlgMrfecYJ9AS/eP8SQc/h2qYFFTybozdv
+   eX4V42u4oNzaq4ynOMfc0uUdX4MPjpXvoANArz+Bspa8zeI18N/DdqKhd
+   c2UJei51r7ozXu8vYe0KmWKDjSvsHEBeFFw8BYVxl9/SIMxwahPy1toju
+   BTVhh7nq+4TaHitaTMX4nNpMQuuvGd8x6yVtVsZMnczEOOkkUFSHNXmD0
+   g==;
+X-CSE-ConnectionGUID: l8ZQV65dSni0yzBgiFPUCQ==
+X-CSE-MsgGUID: 0lQcIzVSQLiqgKdWEzNAEw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="429082"
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="429082"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:10:32 -0700
+X-CSE-ConnectionGUID: PwsKfzAyT9aqonhxDHp0OQ==
+X-CSE-MsgGUID: eb+GyynnQTWa/6Qk4kZykg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="1038785"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:10:29 -0700
+Date: Mon, 12 Oct 2026 23:10:27 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	David E Box <david.e.box@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 17/20] platform/x86/intel/tpmi: Use scnprintf() to
+ build the debugfs names
+Message-ID: <as0-s6JyjfA2zY-B@ashevche-desk.local>
+References: <20261006183037.1507007-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+ <20261006183037.1507007-18-sathyanarayanan.kuppuswamy@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
- <20260722-tdx-selftests-v14-13-15ad654a50db@google.com> <f7b3a63c-7a1d-445f-b062-4cea5343d266@intel.com>
- <asz8GKNO9aQANr5E@google.com> <as0FedYcvJvdOaq2@google.com> <qyykjxnxek73ddhbdexwz7jabjso33hdqzpf4syhrbrlh4eo5q@f4hwiuluzvgi>
-Message-ID: <as0-ayBpM44YxOHo@google.com>
-Subject: Re: [PATCH v14 13/22] KVM: selftests: Support guest_memfd in-place conversion
-From: Sean Christopherson <seanjc@google.com>
-To: Michael Roth <michael.roth@amd.com>
-Cc: Xiaoyao Li <xiaoyao.li@intel.com>, Lisa Wang <wyihan@google.com>, 
-	Ackerley Tng <ackerleytng@google.com>, Binbin Wu <binbin.wu@linux.intel.com>, 
-	Chao Gao <chao.gao@intel.com>, Chenyi Qiang <chenyi.qiang@intel.com>, 
-	Erdem Aktas <erdemaktas@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
-	Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>, 
-	Sagi Shahar <sagis@google.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ashish Kalra <ashish.kalra@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006183037.1507007-18-sathyanarayanan.kuppuswamy@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Oct 12, 2026, Michael Roth wrote:
-> I don't have a reproducer for the specific ABBA in question though; I'm
-> confused at why sev_ioctl_do_platform_status() / SEV_CMD_PLATFORM_STATUS
-> would trigger a gmem fault (outside of malicious/intentional case) since
-> it is just querying status on behalf of host userspace and storing the
-> result in userspace buffer where there's no reason to use a guest/gmem
-> page. Was this test specifically set up to do this or was this reachable
-> from a normal path? Just trying to see if there are interactions I'm
-> failing to consider here.
+On Tue, Oct 06, 2026 at 11:30:34AM -0700, Kuppuswamy Sathyanarayanan wrote:
+> snprintf() is on its way out in favour of scnprintf(). Neither of the two
+> callers in tpmi_dbgfs_register() looks at the return value, so the
+> difference in what the two return does not matter here.
 
-I was just running KVM selftests, although I was running all of them at once.
+I believe I asked it already: Why do we care? Do you get any compilation
+warning (assuming `make W=1`)?
 
-The condition doesn't require an actual gmem fault.  The uaccess APIs have a
-__might_fault() to communicate that a page fault may occur, and lockdep is smart
-enough to piece together the problematic chain of locks.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-  -> #1 (&mm->mmap_lock){++++}-{4:4}:
-         __might_fault+0x59/0x80  <===================
-         _copy_to_user+0x23/0x60
-         sev_ioctl_do_platform_status+0x50/0x80 [ccp]
-         sev_ioctl+0x220/0x2b0 [ccp]
-         __se_sys_ioctl+0x6d/0xb0
-         do_syscall_64+0xfe/0x460
-         entry_SYSCALL_64_after_hwframe+0x4b/0x53
+
