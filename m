@@ -1,137 +1,109 @@
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3934739EB5B
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:42:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791801741; cv=pass; b=NKRHqtn6Yiox3Um7oPh5UrT10gdeR4XFYJpGFqNtxgzQJQT7lu69qCIWdImWX/BuRZ2qonV6lTGsUvqLLgyLYWdqMRAID2RY1mdxzeSsJxu8UZITtd3vxyyO8rNRbfcxzEGVKpujlNs63KW4wrmWEsd9XhS2PJuZXg7HQB0TWjY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791801741; c=relaxed/simple;
-	bh=yD/LRzCXLzuKvkdgwfHxZGIonOOMzZ6oGk+zvJrPiw0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FQRuBceELwUyBG6QD/iccAFbXPfC8e82LLP3wb4yDrvLTQruMrFQvdESv7UI2D3JKZAat53it1C9ZMvqUMjIt5BLL8GHWJrkxtbX53HUoZe5H4JtxC227HDWHfrENHZaYqXwkKGaBXdp0v5Ienkp8VuVeCFuWaNXwdScFA8lIAg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sWkMfz7v; arc=pass smtp.client-ip=209.85.208.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E928A3E6DF4;
+	Mon, 12 Oct 2026 10:42:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791801747; cv=none; b=K+3oDY8km+KpO2PvFo6eYQ8BcHWyPzuSh0jOv0wQaTZQV2pJDWm/irNrAvgAI8Kr1miS9Vp5JEcwUre6jCb7WztwT/QOhtlM0CAO6f4gPMKQxCLemWI1/4BME08WD2uxhc8AWeejQgFQNZ3AAP2JABl+B6Gr0TYYK3yKaiQaGRk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791801747; c=relaxed/simple;
+	bh=g17MXktF2GmX0zJd05Qf+GdkiWrqsJ8LPSoQLvkRA98=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JvrAjTA5T3W+o4kcYEsTEHj+Xp18f80a/b2aLKlYFBLE7fDxKHX6mtXBfyrB7OEwfNMw5YrigX+Qk144Er7fovBxjccM3TDvdz1lrfFJN8R2ILCwgh8y37bREvFkFRVPz5W7S4mI1g13tlRz/f209lxvJWEv53DItWzwRM0aIT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=vMGFuu61; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sWkMfz7v"
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a629a806d9so14610141fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:42:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791801738; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YPcg9GqYaezn8wPNgBpYXi1nahuLFdZcAcif/L+LuErZk4751JBEnBuahG74a/xTGY
-         Jix0GXg3mInX25zZYI9eitjZI8RgbZWgoSpytzpNp9toyuK6c/+n4VAHEdtoHxzugU/R
-         KRoZGloAyb+Av8qq7j0NbW1RNwvSCUgu8GhKksS4fGiCWcR6uxqEFLx4dpA8TfIV6RIR
-         UDIJZKEap3zMe82ZYRFj0hv2GfjTkOVxvi+pJIQMTk7mN4LMGv++DR84E9lPQpnUPzRA
-         aQGdLDjGJHVRDVkHTXNOUKUsd1RQfqF172K+DhY5tNoINHlUfrFj+hGio1Sbi8s/URq7
-         ZhtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yD/LRzCXLzuKvkdgwfHxZGIonOOMzZ6oGk+zvJrPiw0=;
-        fh=1SoacYXj88LbXL7W7JUatx79hPqd1yJjTGOBozIjq44=;
-        b=lgtZA1u/8e22c3rHsHtwoWWPA+rlbbLtIs4dCgX6A6NzB1bRH0DgxaW2zJhsPd+QBI
-         JjO++GuHkK4vhX00R9vgM6lOpk73RTo9MqbWYON/66hwbYrZw+t7Bw6YE3uVANZdjDXv
-         XiCqCYMKMeVWMYy4afZ3Uk1rNdz2dbbsRAzRA44pIjXjFr12JpOWZrj8YfjsG3u4dBC/
-         RwaQcbedvbK/4eXGyyJ7xbSTjXYCQncfnjcP/QWAtEeDyv6UjdLs4qYMWMMLT08/o38X
-         qFN8U4OOp+DFZjg2WeYYFDNDqXHLVEcToa7DAGxKg/HUQSONW8Xai8molHhoQ806wztE
-         Km1A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791801738; x=1792406538; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yD/LRzCXLzuKvkdgwfHxZGIonOOMzZ6oGk+zvJrPiw0=;
-        b=sWkMfz7v7Wmk6ePfO+89U8YECUtKBAx85SrCB3cfOPVGIHWpxqjB9R+ygotYoJ8zYD
-         wJg3hPO9qM+A8vdqRaNdtYevsErTBNUCy/uAdNoJvewbtSgKFBMrZM7Mw+gAX7RjwKcW
-         rXpRHGt3tMmp1iJ9X9jDWv0uua/o7sscntmrLh7/6HQFUUemooXCqnpbjB8h8QroiyKF
-         SFhI/XrE6f3uZyTfk6tBiaPFrhoRbftCn8WNtqfV7OB+QD8rboti9BanAXVwsKvLVdqX
-         22aqFLDprwuOSHylBeClZdFO36Z25fAC1qqPnFPTm0IN5EU5O7jMWoLdPBfP4gycep/+
-         rKkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791801738; x=1792406538;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yD/LRzCXLzuKvkdgwfHxZGIonOOMzZ6oGk+zvJrPiw0=;
-        b=RT0f4MzhXO/B2Xz77wPBWqwDmkxCncm9rj4ap718dayhGGAJjTbS8vPmEQbzKz32Xt
-         JNwq0wj2Fxz5hl/OXkftsn30M6j/lpMax4QXcSJBt7ElPaPoguS+TrbI1gFo2FyCaMof
-         QhPJSV2KREkDbitnhzEUypjEVU88o/iSQGlXTfXdAOSOMbafNz5f1s4uwk5tbCnv9zOc
-         z85F8gRhE022RhUHqrieW+UuqL4fnurTrLWTXa5kS8f1K240unNnzv+/wD55eU0hAv6p
-         LkonAGtkJfQdZFs2KdBexIk/7s4Wo2koVobA1K5EngvQQ0Sjdw2dfLKu9PuZVGSIv3fa
-         cQ8A==
-X-Forwarded-Encrypted: i=1; AKwUvByWA+yfZ8ao1ikLSrXYTmNj7OCw4ip8fda8llqj+UzQ/3cfx02RiYRMOHaxUB6Ydqx7+RiVeMUn0QRf1nI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHzUoKeluvr11Fhq/2/BucU46G3aZWaUCnbXzvn6ZnyNsdJ2f6
-	cfd9Nq6VhwIAsk8UeZsC4vmTVRnjzn2MF9LN3jTAVWLtRt6LI6pIcAm2GBp8OWn/b1ahUJHnzNf
-	1BbbxZ8ec3PKW4EZ1DUy4yyDs1oYWxzI=
-X-Gm-Gg: AYBFou3f+RkNThhlRkCT0tvp6iuGQs8XO0C/LruGEqkHHglKsuc3Z+KzVBISZTAes9v
-	027NQXpDJsdVciSJNpwU9rPAl89DU6SLLXND2xlhmJWushCeDVwxDLOKFgFfMBs2PzV7yWcM6MV
-	Yd0fDAEEn+ePsWtJfpk72Fw+AWV8uyRalVE+21i+NlMVT/gvc1yDdwIcsSwxAjQlu3vuPmNW7BH
-	XFHiCoBXE55mjHe1VWuJ7INqYhgMJmosPevEuXfERMOU/H/y8B08Qz/PmasfoCVQKQrNo8/hsDD
-	9dCeJZdRAdflcbZ/ntGOuzo20ZHxUUBt5SecZy16Ftp20kmOcHZ8yrBR0Bgo/9UiMd3qDLBPSwk
-	zTHuHGhLNmjCJoUQnD9rb6jCcTpQzf3fkgmO/WbyQq/o3ZWsZ95sN8jA4s7dFmHJ1YBshruNbx8
-	bO2xtLuuFbPwb2kegC1VoxufhtiJCyorrGZJMiHC5mCA==
-X-Received: by 2002:a05:651c:b27:b0:3a9:9b67:25f7 with SMTP id
- 38308e7fff4ca-3a9c53b0b19mr23170161fa.4.1791801738046; Mon, 12 Oct 2026
- 03:42:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="vMGFuu61"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=d6ADhB5BJ6rgYWInDuDWi+047e4zYVau+QWZM7M+Y50=; b=vMGFuu614SZZfq5TH+UQelPyIf
+	hh7EWQHdaWai5c1I9lUD7tDzd4TUCw8ipNXDfB8XZ2xkvNhrUllHvZPVr0QdB3Qw1XjDztwE7IB1k
+	4UZmz3aiNjExhvStzLNE1ykTkBBrOVTeSTpbrCKcTBDSly7/wMJHWfTWR+iV6U8dpYK2kQu1mvSWM
+	RQl/IiOAi3WnFbJOzdafRRjcuPe1MjJrwNXSTIh9Mgrq3V+xjSn9hrVzDuThCMhXCK0u7O0ocOVRD
+	pOcDNAAtH9/jqwplmjDX20mbsvc+WMeP+fJcbnhpL6od48Ubr5nq4eAhHurUmrGuRdHb9D+CA0TUg
+	1V4iSong==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xGDTt-00000004NDI-3XU4;
+	Mon, 12 Oct 2026 10:42:09 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id C58A430063F; Mon, 12 Oct 2026 12:42:08 +0200 (CEST)
+Date: Mon, 12 Oct 2026 12:42:08 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: mingo@redhat.com, acme@kernel.org, namhyung@kernel.org, sj@kernel.org,
+	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
+	james.clark@linaro.org, akpm@linux-foundation.org,
+	lianux.mm@gmail.com, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] perf/core: add AUX buffer ownership for kernel
+ events
+Message-ID: <20261012104208.GQ4121339@noisy.programming.kicks-ass.net>
+References: <20261009160010.1829642-1-kunwu.chan@gmail.com>
+ <20261009160010.1829642-2-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com>
- <20261011-gpio-mxc-cleanup-v6-9-cb47ce2ad758@nxp.com> <CAHp75VcktnQVpqLADs5AccUj6U7KLjAatPaSzMX8SXDrbbs6Ng@mail.gmail.com>
- <asyyLJ3nOUxJ8TKq@shlinux89>
-In-Reply-To: <asyyLJ3nOUxJ8TKq@shlinux89>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 12 Oct 2026 13:41:40 +0300
-X-Gm-Features: AclHuK-RRzScLhztBzLfy8Jh6NTaM_vTOn9ggo9DZdIceERnpI8cnWgRhuFuAK0
-Message-ID: <CAHp75VeRG01p06vT-8-a=VsFj5PKRFH-jUNi6jeerJrHfshHjQ@mail.gmail.com>
-Subject: Re: [PATCH v6 09/13] gpio: mxc: use cleanup guard for
- pm_runtime_get_noresume() balance
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009160010.1829642-2-kunwu.chan@gmail.com>
 
-On Mon, Oct 12, 2026 at 1:06=E2=80=AFPM Peng Fan <peng.fan@oss.nxp.com> wro=
-te:
-> On Mon, Oct 12, 2026 at 12:38:37PM +0300, Andy Shevchenko wrote:
-> >On Sun, Oct 11, 2026 at 2:54=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp=
-.com> wrote:
+On Fri, Oct 09, 2026 at 11:59:48PM +0800, Kunwu Chan wrote:
+> Add an in-kernel AUX owner reference and setup/release helpers for
+> kernel-created perf events that need an AUX buffer without a userspace
+> mmap.  The setup path validates that the event is a kernel event with
+> no parent, rejects non-power-of-two page counts and negative watermark
+> values, allocates the perf buffer and AUX pages, records the kernel
+> owner, and attaches the buffer under the same lock.
+> 
+> perf_event_release_aux() stops AUX writers, frees AUX storage, and
+> detaches the buffer, in that order, matching the AUX teardown ordering
+> of perf_mmap_close(): perf_pmu_output_stop() walks event->rb->event_list
+> and rb_free_aux() must run while the buffer is still referenced by the
+> event.  The single event->rb reference is dropped by
+> ring_buffer_attach(event, NULL) itself, so the release path does not
+> put it again.
+> 
+> Both functions run under event->mmap_mutex, the lock that already
+> serialises ring-buffer attach/detach transitions for an event:
+> perf_mmap(), perf_mmap_close(), _perf_event_set_output() and
+> _free_event() all hold it around ring_buffer_attach().  Concurrent
+> perf_event_release_aux() callers therefore go through the same
+> serialisation point, and a second release call, or a release of a
+> buffer this API does not own, is a no-op.
+> 
+> Keep aux_mmap_count dedicated to userspace mappings.
+> perf_aux_output_begin() accepts a writer while either a userspace or kernel
+> owner remains, preserving the existing teardown ordering.
+> 
 
+> diff --git a/kernel/events/internal.h b/kernel/events/internal.h
+> index c03c4f2eea57..760b7659ad87 100644
+> --- a/kernel/events/internal.h
+> +++ b/kernel/events/internal.h
+> @@ -48,6 +48,12 @@ struct perf_buffer {
+>  	int				aux_nr_pages;
+>  	int				aux_overwrite;
+>  	refcount_t			aux_mmap_count;
+> +	/*
+> +	 * In-kernel AUX owner reference, set by perf_event_setup_aux():
+> +	 * admits writers and ties the AUX teardown to
+> +	 * perf_event_release_aux() when no userspace mmap holds the buffer.
+> +	 */
+> +	refcount_t			aux_kernel_count;
+>  	unsigned long			aux_mmap_locked;
+>  	void				(*free_aux)(void *);
+>  	refcount_t			aux_refcount;
 
-...
-
-> >> +DEFINE_FREE(pm_runtime_put_noidle, struct device *, if (_T) pm_runtim=
-e_put_noidle(_T))
-> >
-> >Please, split this to a separate patch and move it directly to pm_runtim=
-e.h.
->
-> Frank raised same suggestion in V5.
->
-> I tend to avoid introducing cross-subsystem dependency and use a follow-u=
-p
-> patch to move it to pm_runtime.h
-
-Alternatively you may not use it, just carefully put a goto:s and error lab=
-els.
-
-> But since you both vote for pm_runtime.h, let me separate it in V7.
-
-Also think about splitting the series to three. Do not rush! It anyway
-missed v7.4 (except, perhaps, the first fixes part).
-
---=20
-With Best Regards,
-Andy Shevchenko
+This doesn't make sense to me. If the even is a kernel event, then there
+cannot be mmap users, so adding another refcount is just for giggles?
