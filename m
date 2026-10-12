@@ -1,64 +1,64 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF8348F01E
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:13:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC37486B83
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:13:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814387; cv=none; b=p2FcSjwMIJxIbBtsdkMJhFX3hdaUa+1ynPOj+wUZSUk75yUn5yR5G+/7f8aTdQIEOsgIYolDEqsX6J1Gw8PirUQPXoNqKVm6qxCFuGYN97fu3okYa4KktHiZTGyqgbxiAsJsxeJMbkONQk16UZt8z/1NiIEpWYuOVUHiV1YMQbM=
+	t=1791814388; cv=none; b=AvRvzw603fX7Y1Od/G0GsoWDCiYQH2lMDyY/NHtexu/7HINhXoet9TFVGB9VLeX2dz1HW1Kvg9Zmjc7hDFoupicfAWpuy77xupIcVlfi6KPS+FAMOXcTXukSeEigu1rsb6U4KV3vK7D4Xfwwg1MfJ2Wmss1mhbtjRAKoufXHsKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814387; c=relaxed/simple;
-	bh=Op9mdkaqB5CNS94ylwnFmEPh8O+aB/lXmsYsw/4hf8I=;
+	s=arc-20240116; t=1791814388; c=relaxed/simple;
+	bh=CasR7lNwDWX8gQTBDlswxykj5EcXNoNdJ8ashzn6Ffo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BL4cwSBnbyj1mxGOVnLd4rhFlSsGUgZXURjEkBS/oJP71vjJ1db2o14uvN/ZsqD1XkDSOh8jDeuRIxgUSDd0n2yEy7o8IxmQ5w+itdkrcAY9u8I/55HmeXi1LCAG9N+cHgmlOCF5IhlUul6nTo3fuz50xH/rAmzISo2aCqoLqSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GlHLtFv7; arc=none smtp.client-ip=209.85.221.44
+	 MIME-Version; b=NCxf7QXg4nn+FFoloCTDDNEpHohptegjDZPL3tqkBlrEGNXbM+t80bnR03VcdpYOtoz+wpIn3zaCm7fauwwd+ZQViyFKUJUYTa8Crr7Zf/dFQTg/7J0goWghkb953QtqeDObrY1qM6g35FRPL1bgVftpvpri4J/lLLifJszMH6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fM2A3GJt; arc=none smtp.client-ip=209.85.221.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GlHLtFv7"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b0ef9c76eso1619351f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:13:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fM2A3GJt"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48b042c0759so1450207f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:13:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791814383; x=1792419183; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791814385; x=1792419185; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FEGgdcLnqcVqT4VDy0LsmeHP+tq7RUbfRCvfJ7zm1f4=;
-        b=GlHLtFv7jxKrQRsMJLjlCynrQxeG6HHCWeaaKqrzsIvlE8frTFyGach8ZCvdOlObn7
-         P48+TnIioT1Fvr0sO1jNs/6xIQN9bHAOF0KjcmUjbtHxZbzVU/DHfWK9dgpytct3+Ec7
-         okHho/d/YrcgX1vUukbsZ4lE8hgEO0zkUih1UkCmmjEsBxXCHT49DEnDU9sSbeVBV7C4
-         sJ7Bs+kPoCBHT2wjoUOnEACiCIrtw4XdD7VgiSXmF7Z6n9n70KVhOwNzxcC6C/VbekUN
-         Dbp0mkG2mi+VmwjUtHidnHcQJGz+Hjt0h8wTvskTaRWwrtn7VCMM7NMrruwUDiU1J7Si
-         7Hqg==
+        bh=wZoOoHAtBKyUqJYvkGqSuamBRb2ixZoZPiDn5D95M/I=;
+        b=fM2A3GJtXvaAOfnmWHOxqf7axmTeHR7bsYVuXwizEWFzqgCEAWtSc9UUffDLdWvJ4J
+         68Y8TqBX9XY/eC83CQo/rK1HiVElAkrAdgE/fNnElJqOw/aEdihSmIb81+pMaAcVVdWl
+         qo/zcmB/rT3b2BxP3uVT5+N+ZN4MHRWPAbeuBpTP/2vcXl98jqossU4jE47RtF4gsJ1q
+         A97pZlkuOAtfImX/5uDY+dGnnhTsGo0cBdThEQqmbEuCWi5igeBZakKUpSGeRW+fN1NR
+         cu9vuofwyKRXwSkVpqJbohoKcFIrtCXKpREH/3DFRA7IbA7tK3OR9v2Cph1lgnKoUisx
+         ijQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791814383; x=1792419183;
+        d=1e100.net; s=20260707; t=1791814385; x=1792419185;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FEGgdcLnqcVqT4VDy0LsmeHP+tq7RUbfRCvfJ7zm1f4=;
-        b=UboTrmVVtMeEP1H7/3ngbNmDuPClDh6OifFlg7CcHlIEM8sFepER8rSE5RY4E3ovEb
-         HFLdXzaIsX3Pdbttx6NXuCd1ft5ip2iNFLZO3sqHTeuLH5J+aiynWo3cSZk7fJIQHQSQ
-         MSa7JPk0NDguIte4pUVdog8ITt6JHyImMOYTkFscQ/en80cBEzER7tevl2eFiyRipiIH
-         qygaqUAgmvP9V6NoIDjSMLKWYENFTxLH/jIIrigC6l/8m4vZ4dG5ty4/KDMFFgl2n5GI
-         3HWTa3pIvVZnaiy0UoBS2+tVu3XgtBaLSizK2534uzKmV5kDPAHfmvgJ5DqaKS6jezIp
-         ilzw==
-X-Forwarded-Encrypted: i=1; AKwUvBxzYjAinS69j2gBeHoPBCKa129vLiLe5w0/eXPX28mdFGvqzuJuu37y+cTYuFlTaT10nLxfumTzIkCDA8s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3ii88M68xE/ezxmKxq6UFgXe2ak74+iCojGXROmho3CNJmF75
-	oHm13Oc/PjB9QKBgcrxibMZgJXSvaT8x5YTX68FtDI7mzp84AcxF25Nbn9R75s2f
-X-Gm-Gg: AYBFou1MIYEWzqSKWE4XTHefOjzKYzDSO0UPS1otby+IvV0AWw3ThZPGyVL6B2INMPR
-	0Mybxww7x+Fow5JgnvlSpVf+VVhQhxRzj9JzvBNqsHgoJDQ0SCU91VX9a5Tiawy2PKMMFhGbARy
-	MPIIbFK9xmH/6dF/zD1G9Z/kNFwYVk87ByQja3MwIQfkrFA1wHMv/XfI2X9YPr50KAeZ48CrJg3
-	iLchFGaa+bQg3kESvKsyB/RUDyTfMP2EDeZBGd9asBF4q+TfXXq4cKZyb1qyRbSUujkMmkdLm0H
-	akPb1mawCn+RW4sXwoiPqBg6Ocdz8o756H66xFVR1O09PCqBtHyVEY6rAOujzSrsRcZcl2kjmsK
-	h41vCrebiYYCGR/1Nyc7Q+aWLTiK71NnIabGFRqJyJZPH6aN2+nP/Zj4lmiKl1AkjOWluGRPsye
-	ZF3NLcvHQeWw8bXWJxX6vP4+8f7BqBAM5+gpZPNPtH7A+nQrYUs4XQQaLMwbMbAcgeEzdwE8UO6
-	1shoJDycqi8SGKcZG6xdAHW7VOA4BM=
-X-Received: by 2002:a05:600c:8208:b0:4a0:1b14:d00c with SMTP id 5b1f17b1804b1-4a18e446f55mr177700555e9.3.1791814383286;
-        Mon, 12 Oct 2026 07:13:03 -0700 (PDT)
+        bh=wZoOoHAtBKyUqJYvkGqSuamBRb2ixZoZPiDn5D95M/I=;
+        b=ZPDIAaqh91Uaw8n+ZE8fhcnvz12lmY/DqB1I2V1xRjDvuLwrivKrEMTia4fdrsXOpP
+         Rz1m6qb4QvcxAl6k9cWQzWP5UgRCGir20UKcLAF5PZ4TDYQBLOKwklVlXp9IJ3kxezD/
+         QqI6jUwKyY3YuL5AmOlyiUxYzx3bzo2+y32FVrhgwf5qzfZdYQ/+U9zPazLLGIUv/3yX
+         5oHJSHyhy2hRi7642IhVzVeGezH/pNPuu4M5bfmrxEQWNMcUEvIo8Tr03v7H5Dpwbgjd
+         ZKnFxzqLenOVK32A7WVj+fwoPb88GNFeKW3lNxuSErFIT5r95MWxrVBpil5xX9VN82X9
+         qX7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwRA2EDXn6RCI5a+/I5ViGEv90SB0/8lC6GCwnXct6/+RSqJyJp8dQ67iBfW8oqx7c5gwpscbK/FFfYxjI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgWPGLhRCtUVTm0cFQkWJ036tpDInWTJsmiiTvLjgakUxfYn1k
+	zyh5S0fnLQAGpzXMq/gUHcp1bYCJkrxrrAOd4cdWrikKVT4fY6V5655f
+X-Gm-Gg: AYBFou1QXJksgTL2txZ+rZ2RGavEamLKoLNO4ld8j7LixE7b2wzLyTfDMOh0KShRsZI
+	BYgU4wf+1phowmB5COIAu5lDPQl2wiY7ku5mNBD15VDnYzMAKvQ5hn4tGoTG6UOOc/2VtZgugTu
+	ELTl55aqMn2oaZyRqmY5ijUKeSa+q5NGV3qgj5Ov6QA2YDrjhq18iUJBoX680UB+HoCQepMur1a
+	uJgeM7fZz0k/OPGyNAWaO4gClIHyagUqXXkqAUD0V5vpeS2l0wN86DdtYy4QN3/V/Hj/DXi/LRh
+	ILTUKDVFEwVEisSI4vA2PNdxDbpDTbaWgEyKUNtSsHY0xYLbsLQoV+ChbGGoLKCALh2ZmwSFx5q
+	6EJ+QqHe/MlVhXupYghSxtYLzfhwa/qXo2tAF9hdpjuAVT5PQVKqTbhr5CMNFMMmauPc0qybgOP
+	cdHolMgj6BoBXsrhm4ZrfPAjl+EaWAPQFqpTjDHM0wNAD400SiJ4Q1oik2Fw7jr9kVRLHmpW+My
+	JRKiW+xcXP6VCqQNM7JfbRmHNxG/9F94UQw6lNM0bUw
+X-Received: by 2002:a05:6000:491c:b0:488:8a5d:ffcc with SMTP id ffacd0b85a97d-48dba9e6715mr18187313f8f.13.1791814385235;
+        Mon, 12 Oct 2026 07:13:05 -0700 (PDT)
 Received: from andreayoga.wind3.hub ([151.76.59.204])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ac02cfsm18703035f8f.39.2026.10.12.07.13.01
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ac02cfsm18703035f8f.39.2026.10.12.07.13.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 07:13:02 -0700 (PDT)
+        Mon, 12 Oct 2026 07:13:04 -0700 (PDT)
 From: Andrea Parri <parri.andrea@gmail.com>
 To: Christoph Hellwig <hch@lst.de>,
 	Sagi Grimberg <sagi@grimberg.me>,
@@ -71,9 +71,9 @@ Cc: Andrea Parri <parri.andrea@gmail.com>,
 	linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 4/5] nvmet: pci-epf: report transport errors in command completions
-Date: Mon, 12 Oct 2026 16:12:31 +0200
-Message-ID: <20261012141239.156408-5-parri.andrea@gmail.com>
+Subject: [PATCH 5/5] nvmet: pci-epf: require SGLs to match the command data length
+Date: Mon, 12 Oct 2026 16:12:32 +0200
+Message-ID: <20261012141239.156408-6-parri.andrea@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261012141239.156408-1-parri.andrea@gmail.com>
 References: <20261012141239.156408-1-parri.andrea@gmail.com>
@@ -85,22 +85,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When the PCI endpoint target fails a command itself, the host receives a
-successful completion. This happens for a data length above MDTS,
-malformed PRPs or SGLs, a buffer allocation failure, an SQ that is not
-live, and a failed DMA of the command data. A write whose data cannot be
-fetched from the host is thus reported as written, though nothing was
-executed.
+The PCI endpoint target sends the host every byte a read command's SGL
+describes, even when the SGL describes more than the command transfers.
+The excess is kmalloc() memory the command never wrote, so the host
+receives stale target memory. Any successful read can do this,
+including Identify.
 
-Each of these paths sets iod->status and calls
-nvmet_pci_epf_complete_iod(), which then reloads iod->status from
-iod->cqe.status. The nvmet core only fills that field when it completes
-the request, which these paths never do, so it is still zero and
-nvmet_pci_epf_cq_work() posts a success status to the host.
+nvmet_pci_epf_alloc_iod_data_buf() allocates each segment at the length
+of its SGL data descriptor, but sets req->transfer_len from
+iod->data_len, the length the command implies. Once the command
+completes, nvmet_pci_epf_transfer_iod_data() sends every segment in
+full. Nothing compares the descriptor lengths with iod->data_len, and
+the MDTS check only bounds iod->data_len.
 
-Drop the reload. Every path already sets iod->status before completion:
-nvmet_pci_epf_queue_response() copies it from the request's CQE, and
-the transport error paths set it themselves.
+Fail the command with Data SGL Length Invalid when the data descriptors
+do not add up to iod->data_len, before any segment is allocated. The
+tcp and rdma transports take the data length from the SGL itself, so
+there most commands already reject a mismatch in
+nvmet_check_transfer_len(). PRP lists are built from iod->data_len and
+are unaffected.
 
 Found by code inspection. Build-tested only (x86_64, W=1): no PCI
 endpoint hardware was available to run it.
@@ -110,21 +113,65 @@ Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 ---
- drivers/nvme/target/pci-epf.c | 1 -
- 1 file changed, 1 deletion(-)
+For stable, this depends on patch 4/5: without it, the new Data SGL
+Length Invalid error is still reported to the host as a success.
+
+ drivers/nvme/target/pci-epf.c | 29 +++++++++++++++++++++++++++--
+ 1 file changed, 27 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/nvme/target/pci-epf.c b/drivers/nvme/target/pci-epf.c
-index c683450df4227..4c5fff232fb99 100644
+index 4c5fff232fb99..a8df176c1a574 100644
 --- a/drivers/nvme/target/pci-epf.c
 +++ b/drivers/nvme/target/pci-epf.c
-@@ -1152,7 +1152,6 @@ static void nvmet_pci_epf_complete_iod(struct nvmet_pci_epf_iod *iod)
- 	unsigned long flags;
+@@ -1073,10 +1073,22 @@ static int nvmet_pci_epf_iod_parse_sgl_segments(struct nvmet_pci_epf_ctrl *ctrl,
+ 	return 0;
+ }
  
- 	/* Print an error message for failed commands, except AENs. */
--	iod->status = le16_to_cpu(iod->cqe.status) >> 1;
- 	if (iod->status && iod->cmd.common.opcode != nvme_admin_async_event)
- 		dev_err(iod->ctrl->dev,
- 			"CQ[%d]: Command %s (0x%x) status 0x%0x\n",
++static u64 nvmet_pci_epf_iod_data_segs_len(struct nvmet_pci_epf_iod *iod)
++{
++	u64 len = 0;
++	int i;
++
++	for (i = 0; i < iod->nr_data_segs; i++)
++		len += iod->data_segs[i].length;
++
++	return len;
++}
++
+ static int nvmet_pci_epf_iod_parse_sgls(struct nvmet_pci_epf_iod *iod)
+ {
+ 	struct nvmet_pci_epf_ctrl *ctrl = iod->ctrl;
+ 	struct nvme_sgl_desc *sgl = &iod->cmd.common.dptr.sgl;
++	int ret;
+ 
+ 	if (sgl->type == (NVME_SGL_FMT_DATA_DESC << 4)) {
+ 		/* Single data descriptor case. */
+@@ -1084,10 +1096,23 @@ static int nvmet_pci_epf_iod_parse_sgls(struct nvmet_pci_epf_iod *iod)
+ 		iod->data_segs = &iod->data_seg;
+ 		iod->data_seg.pci_addr = le64_to_cpu(sgl->addr);
+ 		iod->data_seg.length = le32_to_cpu(sgl->length);
+-		return 0;
++	} else {
++		ret = nvmet_pci_epf_iod_parse_sgl_segments(ctrl, iod);
++		if (ret)
++			return ret;
+ 	}
+ 
+-	return nvmet_pci_epf_iod_parse_sgl_segments(ctrl, iod);
++	/*
++	 * The command executes on data_len bytes, but each segment is
++	 * allocated and transferred in full, so they must describe exactly
++	 * data_len bytes.
++	 */
++	if (nvmet_pci_epf_iod_data_segs_len(iod) != iod->data_len) {
++		iod->status = NVME_SC_SGL_INVALID_DATA | NVME_STATUS_DNR;
++		return -EINVAL;
++	}
++
++	return 0;
+ }
+ 
+ static int nvmet_pci_epf_alloc_iod_data_buf(struct nvmet_pci_epf_iod *iod)
 -- 
 2.53.0
 
