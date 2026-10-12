@@ -1,150 +1,83 @@
-Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F6023C51D
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:03:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E822AD36;
+	Mon, 12 Oct 2026 01:13:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791767013; cv=none; b=A5FdKWD6Q/RVT3b496egq+lnJOezgfyQXG9otKF9QnzfTolOqseZn16bacGWAlsAAOzs1LTvur1OwVyB+fitsdOUqpC/C/4hm2hOlgypdLNrCjtg/h3w/SJx9gAiQ+xSe56cqXSXKGsSya1oH253dwgNmVNUmCMFakZzq0SWEnk=
+	t=1791767630; cv=none; b=Mxs0TLLB9qegCUWP59qY+AFCtNlHxrE+MMFeLL64h9qcnGZ3eWDAD1CT25M/YQ+1BkCC5R+3Qns2auyS0woCjsYT0YNkN0UtHEw0b0Jx2NbICWI1JPF9VJ5FcErxoIsW01nPFK8objRN7lNCcfIFpN/ZsFWliqIkfaHmLS52Wzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791767013; c=relaxed/simple;
-	bh=SL3C8VNZUCu/3dO8gqZPDMB1iiNPhzqbYyxt/EzaBo8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uDK+nGCKd068GaWS49W8DISipQ04pXaVzu+fBvrMRZ0G4On+Seoz9d8L4/t5Xnym4z77nFFjwo1XIXztMXOQcNWhy0LJnLgovPUgbdJCaINlDToPIask8UxQpglw9TEmb/IdtRGU2D2K0QsZeN51BdZb8+b8SROXq2c9qrESsYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=OJ+fKBYr; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=CR1FRWbt; arc=none smtp.client-ip=103.168.172.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1791767630; c=relaxed/simple;
+	bh=/2+O7pfoOUX5sod1x8QsxeF5lEbg+181hMpw2pvo/s4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=sx9dLrxMgzsE7HorPoQtS4htfaR5Eq8Y8FXse7LO3+yt0BZsnaIZQlw+MvKJzSzgnPXZn+i4gnQSVxjiCCeMnnxks28z+Ni4rjl8j5YzMbEz08c8CNByk8bN017bMbUTMdqAb/bCHsa5L1VaaK3CZUXE6uWoyikxwtUYI4Aes1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=nfJh2V+e; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="OJ+fKBYr";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="CR1FRWbt"
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id CFC5B1400087
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:03:29 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-12.internal (MEProxy); Sun, 11 Oct 2026 21:03:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1791767009; x=
-	1791853409; bh=UTO9iNgAsf+LULaXQEGfYed03Ub1HTRDjxqHtr3u/Zc=; b=O
-	J+fKBYroD1NFWrozMD2sqmabnLL4DMRhS6lVzPow2bpT4laXdJddvxpvIl32/iAk
-	cYSBmIFEsyydq9PE25VUjNQv8mJ+8bYVB1Zn29FJCy9Yi9q7KMxUHiarNo5CwGbr
-	Qytf73lJ0s7+4TwKbrTxeSCgoNrSPof5zcIw9DZdT1i1J6SvtlckUhjvIjC4sMsP
-	qUQaqUTOUB3Ac0Lnx751gi8ksCeYl9d62poEg2IYS67Y+4e3ZVeWxGnNUagVEB74
-	dvpdZALH2QXWsAMKXhP88F9gMNAVQkwfLxel1tPKw6Y2t4Edk1c0MlLLUAsc5UjH
-	YBzJok1OJ1UkIfHGLGBGw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791767009; x=1791853409; bh=UTO9iNgAsf+LULaXQEGfYed03Ub1HTRDjxq
-	Htr3u/Zc=; b=CR1FRWbtSnAgpZO0r0kOAVZHxGyP/zBr+R5RVMQ5BOcOY5719Sf
-	dDrfQDkgAws96sY55gSX2i5hhC5Evomn5pnSN01XPo/Ik6Sge33VOzX5EYiqVg7V
-	9CW4a6EOOP5voXwVPiXGqCEaSdKC+8wI9s+Gz/n7kjhitL9K+jy3X/A3ksZbZljc
-	uYBcNOy8Rf57ciK0zruOEKNpZYjOxLKbvdeDnBiSRrJp2K/X37Z+LXEXGyVMZohf
-	PT8Kb7Nw1qQbjRuG0vJ8K7nJT7wWhdU3kry3uatUNUyfqCQmLk2vyGpi30qAJX2v
-	v4rf+US+KWd0MTsumrkkxtObsNACA95wQCw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791767009; d=sakamocchi.jp;
-	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:ies0eJY6FGG4LKk0xqXoM598f4n/BD0h+dBruaI3qMashn9
-	1P5BxgjYDHTQyoJfxxDnM5OoqCh6c11wNjU86ukiHexyWpy61MAumY13h1nrbHtb
-	gYicA7oWQWvSQ2PzsjlwrMp2DZADIzvL4BuN/3nJw22YxXt81iBTQvyeFr5nYERj
-	Je7or5G/0eFM34EGGqL1H81SNrqHJl2fqnDX/qhqvtKXTQmaAXFfG1r0JPNwd82a
-	GvLmMvY3MYO3OuECI21vXSMdLDOUuYm3siOfkPu4I/vKoHfLk/xjiaxW/U/G/DlA
-	Rj2u4+sTERd2SQl2N0x4Q0mHZZMOYZx8VFq6X0w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,mail-followup-to,message-id,mime-version,references,
-	subject,to;
-Message-Instance: m=1; h=sha256:NBs3CHI86JaCEOAnwkGqdJMJNm2IYZQAEpZdG6FxnFU=:SL3C8VNZUCu/3dO8gqZPDMB1iiNPhzqbYyxt/EzaBo8=;
-X-ME-Sender: <xms:4THMaqUmNwTmSOkLKl2OGgnQQ3T2FnQSJm26rtpggE6mvMDt8Eweug>
-    <xme:4THMakj7KTafE6U7yi8iSrb4kTquWLdriwH68HRaoj-jgtFU4wpIShNKc9UyIJE6S
-    Lw4zdtLrvLKiAVNg9ZbvLMwsx61OeGU3DOOLMpSiJKDMjozLmJezqF1>
-X-ME-Received: <xmr:4THMal8rycdD9DDvngoagsmlG16sxXgxIyTdj3la3QGAIO2Yz7507y03poQbxB6UMmN4bzvAmGPDL2hIA4Sc8uXTQbM7sw>
-X-ME-Proxy-Cause: dmFkZTEMdJzwH5zBH5KRwGiDuvBtoHvefKFJ4slBS81DwqHWTA8PwErc5VEs2huY17W8Jb
-    /hoGExBg6aevrqvj+KVH3UNa2Xjgf08wIJMN3/Y1/yxAgCAegcpr7VyrGlAqHOJhg9rFlp
-    ecgoXMiNZh4g+FX52rKJZOiOHMxhnwL7tjpC7ua/zWzSJJPcznQjWJO7G8LHZXVUriZYFK
-    Z5JShMnXJQdEV03JiasH+0Mqb6JRNIa/4ZhQ5B4cUj/3iylaZCQJ1Tm8mged93DX+jGL49
-    vLLTSOPW6q6P4H5TZ6wfxMQJbLJG8diasNaz7Fhqn70NjtJZRK6/F9lHqW/5xth0/IaPe8
-    3FUVAElhrfhoQTt3gxJnFFNlw51FJBWYIBh/+WtdxyDAJDvZ23bz9pXQ42pSXbUpjiVauM
-    4TrM+imGVpvNKzN05qgZoRX0V/Da/uHfqPtf5BF6q+0TLLKMHVzcC7XkftyYisi8a6wF1K
-    SiT9ysaPg81qBi3nA6QYi5Y1Ec/i/s0QUp/VPeF54Ev/LbuAPgxAs6IQm3RaV3Ih+5SVq3
-    /gUCvSZ0x8TVU8D2s2oIrrC3kJKRE/JPZMCBBk6mrEAvwLMm4+rDoiiuPmVdnQhP4fSBZz
-    8BR9cNeHIv4qed9MqaYAenn+ryxPaVmla8Y1jm5prWns15Zi7Yk8i7Xpzjlg
-X-ME-Proxy: <xmx:4THMauC8ysjSb3Asp_0Zcs02zWLGPHmy-VNdZkeXHA9TMxidWbBKlA>
-    <xmx:4THMaiJeGN4L0yT8gPRnRDzeH7V2Bxh5HXUyjlU0UOamUPurybCj8Q>
-    <xmx:4THMahmYHGpFCrDaCzkvYWNDK8wLdQV4agn3n0j4ObWYqAVud9g_hw>
-    <xmx:4THMagFBXfibH9nvAnorbWPaO65jJ5U24acW42_Q5uXPYCm7lddhWA>
-    <xmx:4THMairatzPRWqlh46Stbajqp7EHFAC_bEIN6JtWFjveVlYJLJwyuLOy>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 11 Oct 2026 21:03:28 -0400 (EDT)
-Date: Mon, 12 Oct 2026 10:03:26 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/6] firewire: core: make execution context
- assumptions explicit for transaction layer
-Message-ID: <20261012010326.GA518749@sakamocchi.jp>
-Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org
-References: <20261011063146.497455-1-o-takashi@sakamocchi.jp>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="nfJh2V+e"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69C1DMTb83413846, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791767602; bh=/2+O7pfoOUX5sod1x8QsxeF5lEbg+181hMpw2pvo/s4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=nfJh2V+eg7c0rHZINyruxi0dV+E5qCquhZ81ixYOboFR+zRG4Nk4T8HyRNDA/JhXf
+	 hI1LCYMyVP10M8MNA2LxDa4Cev2BsyAAaK13UbCmytWw7Y3Ehc3kAThGlkXdBH5BRD
+	 5GU+fMDrGdERQ+XK+z5wWuS8+bevmaCQiL+qdWGWh9BwdcVQbwF+1U4a6n0mGwVKqF
+	 MDt1vxqnXFeajvIpROfW1pq0LYGXZklvLwOSnCYm1mKvg4mAWmrPYcF+cI3PeCjXTj
+	 8FvyeNSzmVxPgznpbaNZ6nz8UNqfp5XNtVObLOS5GKYt/WaXsrGAjUv44ZlQcOXYBp
+	 vZ90qJpU8emLg==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69C1DMTb83413846
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 12 Oct 2026 09:13:22 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 09:13:29 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Mon, 12 Oct 2026 09:13:29 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Hungyu Lin <dennylin0707@gmail.com>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Bernie Huang
+	<phhuang@realtek.com>, "luka.gejak@linux.dev" <luka.gejak@linux.dev>,
+	"rtl8821cerfe2@gmail.com" <rtl8821cerfe2@gmail.com>,
+	"johannes.berg@intel.com" <johannes.berg@intel.com>,
+	"u.kleine-koenig@baylibre.com" <u.kleine-koenig@baylibre.com>
+Subject: RE: [PATCH] wifi: rtw88: sdio: copy RX status after updating the
+ frequency
+Thread-Topic: [PATCH] wifi: rtw88: sdio: copy RX status after updating the
+ frequency
+Thread-Index: AQHdV5CQXUvj2qVYXEy8IlheATldy7b5HoyA
+Date: Mon, 12 Oct 2026 01:13:29 +0000
+Message-ID: <b909ccb2e29a4594831312297441ce0e@realtek.com>
+References: <20261009014941.29137-1-dennylin0707@gmail.com>
+In-Reply-To: <20261009014941.29137-1-dennylin0707@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011063146.497455-1-o-takashi@sakamocchi.jp>
 
-On Sun, Oct 11, 2026 at 03:31:40PM +0900, Takashi Sakamoto wrote:
-> Hi,
-> 
-> This series is take 3 of the previous series[1].
-> 
-> Recent code changes have guaranteed the execution contexts of several
-> functions in the transaction layer. Based on this, this series adds
-> might_sleep() calls where appropriate. It also adds context analysis
-> annotations and lockdep checks for several locks to document the expected
-> locking context and help detect incorrect locking behavior.
-> 
-> Chanes from v2:
-> * Switch from sparse to Compiler-based context analysis assisted by Thread
->   Safety Analysis in LLVM/Clang v23 or later.
-> 
-> [1][PATCH v2 0/5] firewire: core: make execution context assumptions explicit
-> https://lore.kernel.org/lkml/20261009121048.282982-1-o-takashi@sakamocchi.jp/
-> 
-> 
-> Takashi Sakamoto (6):
->   firewire: core: add might_sleep() checks to transaction layer
->   firewire: core: enable context analysis for transaction layer
->   firewire: core: use context analysis annotations and lockdep checks
->     for transactions lock
->   firewire: core: use context analysis annotations and lockdep checks
->     for split timeout lock
->   firewire: core: use context analysis annotations and lockdep checks
->     for topology map lock
->   firewire: core: narrow the card lock scope when accessing node_id
-> 
->  drivers/firewire/Makefile           |  2 +
->  drivers/firewire/core-topology.c    |  3 +
->  drivers/firewire/core-transaction.c | 97 +++++++++++++++++++++++------
->  include/linux/firewire.h            | 16 ++---
->  4 files changed, 91 insertions(+), 27 deletions(-)
+Hungyu Lin <dennylin0707@gmail.com> wrote:
+> Sent: Friday, October 9, 2026 9:50 AM
+> rtw_sdio_rx_skb() copies rx_status to the skb before calling
+> rtw_update_rx_freq_for_invalid(). If the frequency is corrected, the skb
+> still carries the old value when it is passed to mac80211.
+>=20
+> Move the copy after the frequency update, as the PCI and USB RX paths
+> already do.
+>=20
+> Fixes: 53ed4b25a79a ("wifi: rtw88: 8822c: Parse channel from IE to correc=
+t invalid hardware reports")
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-Applied to for-next branch.
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-
-Regards
-
-Takashi Sakamoto
