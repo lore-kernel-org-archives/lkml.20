@@ -1,199 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1473B8BB9;
-	Mon, 12 Oct 2026 21:19:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2D42BFC7B;
+	Mon, 12 Oct 2026 21:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791839948; cv=none; b=pHCEwSar5quq+YBwEav7fZHaD8Cf1PtabVQzzU0TqXtwTSRVmBqu+h1yRa5RQlJQ+Ye7dcTx2YuYKj1SqrLjLemQzLsZ4/OX/YbTV3iL2CWD/VeNzZJCaJJZ4lv/REj58ZGzECv9+eGyM2vkv+juMIujgCmeqXjPSbjO88Ypr1o=
+	t=1791839970; cv=none; b=tlfvYnIl10ndnd/UVuoBJI3ysufWSwdg1uRJdxENzwqTOTsJWRWRHTn1d2RHLfiMEWqP9uHlOQrv06UD3A1hvqkqJxmnuY5W6X8F9+bHzZuEYw6yDMFFGSXNpXXHS9CyeYSa9faD48K/2f85k/jPp9P0yRjCYolKyE0vCHldECs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791839948; c=relaxed/simple;
-	bh=PREwqfQjCmVsIp8KtZYabUQZEtQmVz6CTPSw4NEc3J8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=n8YcnciPZoovucTVzRp2Ea6w+DU27N4u/rHYnNWtV9pswwRaUUaoQBD2Z6mzJHDCdIRsKU7GczTcyZJuQrcPeDd6x+b8qr2jLBPE3wVNMcWq/UTG9wUVEcxnICNgqBJxTYSV/5J0GX1LLKc1Ek8GqLkaKusv29oW9A431HLlL0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MPxmARo4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791839970; c=relaxed/simple;
+	bh=e65YEVn51bit6H6IUDBgpIfn0iLdlP8g1/U272AdULg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d2EG3tgkiZFUckFb9789QOrwfinq5H7IFpVB71q/n/x5TyUnTYoDvjalvLvzfSEZ6N9aropK58gxC376wpqgjjFOZesLfxsS+JdiqSHplHPtz17YLYr5K2St1Kh8GBruqyBcU8Cq1FdWKJsFqMf3JWPGlldruIaQ3te/kN/gRj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mJp722XR; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MPxmARo4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1665C1F0089B;
-	Mon, 12 Oct 2026 21:19:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791839946;
-	bh=3q83OZtY/52gnWp88T+wRIofbrnrdESy35LgvCqOC90=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MPxmARo4aZE87AaSt/dDZn/5p++MDnAWqMEz0Okv95A7qBy8D0bloXwf60wv0eUPP
-	 wF8FeH1ChRNQOg4r2/XOkl4NeLDU59X2sjraFX5q6vvRvjJVa9WsIh46v2cY/op80q
-	 HHF5hzOfJh7o60OMdA0Q2+hXM9e4fyfpIzmbew9mE1mb71h0qOoh2sjMMZX3k3PrEY
-	 +lVq1VvBT/+2rCLxIfACzoBUu/cSLrfL+pRzwCTlM9GTRJGrgh2lvp4mghRT6yJlc4
-	 ZyIzTPGXZ6mZ1jWXeLLdGZ6mx2YF7A4OsfBuotIijPoF5mxI13DCojJyLcALQKlDMO
-	 4mhf0zlx88N5g==
-Message-ID: <01c89e02-28e0-4424-b32b-50363e4d2b95@kernel.org>
-Date: Mon, 12 Oct 2026 23:19:01 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mJp722XR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791839969; x=1823375969;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=e65YEVn51bit6H6IUDBgpIfn0iLdlP8g1/U272AdULg=;
+  b=mJp722XR95FPMftKn6rM/N0ZB/YCU6UIVu2OpMMcTU/tN9N7Zj8e7vpD
+   Zy51zSPeB0SII/Gt91VlVvk6A0iQUdaesXxMjz3kI3NlZVB97FsYtvLa3
+   etiHEkeK69MsPqA/eLrg4uxTwJNp32MADshdLpYXuDTHXCubpVIy1Q6mY
+   cA8zURCyfpBnD4YvaI9Tvb2UwDi28AmWdrJ4xi4vtQSU9YXAr4+IqR/Wk
+   ZEw4ZXD5SjgW5aeT1qk4FtEgUTbZbSRfbuLyGoibmyTr64k+1gMOus0XR
+   Gleqdjcz47O2an6taYQ4Y/5a05NND3Leld27lrTTtP/kfE6OXY21uhp5v
+   Q==;
+X-CSE-ConnectionGUID: /hOyh5NKTOy9EBkUBU4bng==
+X-CSE-MsgGUID: KcbQag7iReic6/i1QjZjBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="435926"
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="435926"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 14:19:29 -0700
+X-CSE-ConnectionGUID: oUbowdnuR0mhF9Th+myUjQ==
+X-CSE-MsgGUID: pNCUC0+ZRxWrMtmNsE74gQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="2766590"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 14:19:26 -0700
+Date: Tue, 13 Oct 2026 00:19:23 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux@analog.com, linux-kernel@vger.kernel.org, jan.sun97@gmail.com
+Subject: Re: [PATCH] iio: dac: ad5529r: Clean up definitions and regmap
+ configuration
+Message-ID: <as1O24cxJRhcSmPO@ashevche-desk.local>
+References: <20261008-ad5529r-review-followup-v1-1-84a98e0e27eb@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v6 2/8] ipc, msg: Account msg_msg allocations
- with GFP_KERNEL_ACCOUNT again
-Content-Language: en-US
-To: Kees Cook <kees@kernel.org>, Harry Yoo <harry@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- cgroups@vger.kernel.org, linux-mm@kvack.org, Pedro Falcato
- <pfalcato@suse.de>, Kuniyuki Iwashima <kuniyu@google.com>,
- linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261006092030.got.500-kees@kernel.org>
- <20261006092035.166776-2-kees@kernel.org> <asjhg2e4-WSeKuXd@thinkpad>
- <ask5kpMS4mpI8Api@thinkpad> <202610092014.AAB20B81@keescook>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <202610092014.AAB20B81@keescook>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008-ad5529r-review-followup-v1-1-84a98e0e27eb@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 10/10/26 05:18, Kees Cook wrote:
-> On Fri, Oct 09, 2026 at 09:39:48PM +0200, Harry Yoo wrote:
->> On Fri, Oct 09, 2026 at 04:22:03PM +0200, Harry Yoo wrote:
->> > And now I see the initial kmem_buckets design did not sufficiently
->> > tackle the question "How this should work when kmem_buckets falls back
->> > to kmalloc?"
->> > 
->> > I suppose the kmem_buckets' abstraction should not be too tightly
->> > coupled with kmalloc caches. Creating a kmem_buckets should be
->> > conceptually equivalent to creating a set of caches with speicifc
->> > slab flags, size, align, useroffset/size. (for variable size allocation).
->> 
->> Just to clarify... I have a few concerns on this area.
->> 
->> 1. Complexity.
->> 
->> It's very counter-intuitive to understand how it works when
->> SLAB_BUCKETS is not compiled. My brain cannot easily process two
->> different implementations w/ and w/o SLAB_BUCKETS.
->> 
->> A "compatibility layer" allows us to assume certain expectations
->> and ignore all implementation details when SLAB_BUCKETS is not compiled.
-> 
-> I'd rather make kmem_buckets not have a SLAB_BUCKETS option. :)
+On Thu, Oct 08, 2026 at 11:19:15AM +0200, Janani Sunil wrote:
+> Use fixed width register literals matching the device's register address
+> width. Rely on SPI regmap's default read flag instead of specifying the
+> same value explicitly, and remove parentheses around the channel
+> initializer.
 
-The tradeoff hardening vs memory footprint exists however, so I don't think
-we can simply do that.
+It sounds like a three patches, but I don't care much (up to Jonathan)
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
->> 2. Making kmem_buckets tightly coupled with kmalloc's implementation
->>    details is not reasonable.
->> 
->> Let's say, at some point we make SLAB_BUCKETS always enabled and drop
->> the config option. Then all kmem_buckets users will now have certain
->> assumptions inherted from kmalloc (e.g. alignment), which is not
->> reasonable.
-> 
-> Until it's always enabled, I don't see a reasonable way to separate
-> those assumptions.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Agree. I don't think the assumptions are so problematic.
 
->> 3. __GFP_ACCOUNT and __GFP_DMA should be applied to all allocations
->> in the slab cache. For kmalloc, these flags are only used to select
->> the kmalloc cache (which has equivalent SLAB_* flags for __GFP_ACCOUNT
->> or __GFP_DMA) to serve the allocation.
->> 
->> Specifying it on individual allocations (rather than as SLAB_ flags)
->> makes it easy to break the assumption.
-> 
-> As in, you don't want a "pass-through" mode for __GFP_DMA?
-> 
-> It's a lot of overhead for __GFP_DMA to have multiple providers, so I'd
-> rather allow kmem_buckets to allow pass-through (perhaps explicitly
-> opt-in) where then the other options (e.g. alignment) must match the
-> general kmalloc caches so that pass-through is consistent.
-
-"pass-through" mode for __GFP_DMA seems reasonable to me. I hope we
-eventually get rid of it, so I would support it in the most simple way possible.
-
->> > When it falls back to kmalloc, kmem_buckets itself should provide a
->> > compatibility layer when falling back to kmalloc.
->> 
->> For example, calculate_sizes() converts certain SLAB_* flags into
->> GFP flags (s->allocflags) for allocation. We can have a similar
->> logic when falling back to kmalloc.
->> 
->> Though current implementation does not allow this and requires
->> some rework.
-> 
-> I think the current series does everything correctly in the sense that
-> nothing is allowing for mismatched fallbacks/passthrus. We could iterate
-> from there once we have a need for this where a non-kmalloc-alignment is
-> wanted, etc?
-
-I think we can indeed simply make sure buckets have the same alignment as
-kmalloc. It comes naturally and should (more than) satisfy everyone. I doubt
-anyone would be needing a more specific alignment than that for a class of
-allocations with a variable size?
-
-ctor removal is clear I think
-
-for __GFP_ACCOUNT and __GFP_RECLAIMABLE I think what we could do is not to
-drop the flags argument kmem_buckets_create and instead require that it
-matches the usage:
-
-__GFP_RECLAIMABLE requires SLAB_RECLAIM_ACCOUNT and vice versa and I can't
-imagine there would be a buckets instance that would allocate both kinds
-(either with or without __GFP_RECLAIMABLE)
-
-SLAB_ACCOUNT requires __GFP_ACCOUNT, memcg objexts are always created and used
-
-SLAB_MAY_ACCOUNT allows __GFP_ACCOUNT, memcg objexts are always created, and
-used when __GFP_ACCOUNT given
-- perhaps not as optimal as the separate kmalloc types, but good enough?
-
-__GFP_ACCOUNT without either SLAB_ACCOUNT or SLAB_MAY_ACCOUNT is wrong,
-__GFP_ACCOUNT would be ignored
-
-with SLAB_BUCKETS=y these rules could be checked e.g. with a VM_WARN_ON_ONCE()
-
-with SLAB_BUCKETS=n these rules won't be checked but also not matter in practice
-
-wdyt?
