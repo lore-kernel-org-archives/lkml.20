@@ -1,135 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48BD44BE44D
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:53:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51744BD352
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791827601; cv=none; b=PfSQ6CfhyBscPYh2OPzjerOFIYeZcEykGBQq85b9c//i8TRIJyXjkc6LO5aCQuEf49GVya0t/6zGmhNUHgpHE6vKVexpnjAYkC1IcOETlH89h7HNxRA0a1yBZEyuJ5JWkWUOyFxOtqyiDKeVcGSf+E3+w8+Bi7ngYpzN7cBv0DY=
+	t=1791827642; cv=none; b=g2cVtlddjVjbeTOaIsG7Bv3juqEsIt69kyM/8w27Ukd9OqE1egTl7VJXBBZCQncb/Bo5wTJtjfBgQ+gO9DmL6Xta8rky8ONaDLTVQIogi/PjpVUxGpbXW3Rb+sxjUtVWCgjXeosirNn34yLpFktzuZt0Y+hkqye6AhgPI7u1UdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791827601; c=relaxed/simple;
-	bh=5yEKgPOGicpMxBFlJWtx7YufLwPyGaBoBvclQixlx9w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=amk6Gzjzispisckxr/kzoAmdxt0JWsfxIDdwX2TvulI2ruZFSH+Dr9u9/8BXfQA0PSSvABza7aalQAIwlwB6i+JhW97XB+BFh3ZK1+/NOWUuZbrVI9VSjdpFujVd0EtOiylGRFpgpzhnZvLScAsUGp7QSzsVMea5IOLRuDeOC+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gX2Mf2H+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791827642; c=relaxed/simple;
+	bh=DBFvf6LMpAJ03sozSIk/CRTorRD2UyaqRnlG5DyjTlU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=msG6m2Qow+zsUphbNPacSnLrYzz+Zyak1IqHVJir1fmOBagKQKmCQm9uqZWdJwHPa9+i+hrfeHFckYJK5fZ+0UlzdhbF9dYmJ+s9RNV7ouLZqWJEH6KaL+jh1q2Z5tnDXp3nDf2fNPF/+fuJOj9Y4uSl01LTaS5+Xniy2pIzY+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ath056ul; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gX2Mf2H+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C3871F008A7
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:53:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791827600;
-	bh=/y391TGDcvyQwXbh4hH2fOqRNprRkLpGxVrH7rsjr/U=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=gX2Mf2H+wdyhnGuKdQPEYnpgiXR6tGyRSYVFAj0MCv9xyMDq4vtC9NvpKqUgg5rDn
-	 cmyHy5ciRusumFmB/fifmDygC3dPav7JTjzV4Yho56kHWPOII1qlpLUyJgKL5doDOM
-	 cZD017xDd0YwSJjuptuLBXCDr4ztqZJN1ag+HPqIwstltmWGEUN+hXGHdgLqWPKZ7l
-	 0SIYH4Li68+kSQjp3SeOCLxni3/L6BvGPclTTkvkw7hJpwOkn2rjmlvq6KQmR71sXp
-	 ahoztaFy4i24oc5YkX5Jj0/ulDnmSYGVasGzBr9aDXsZPnU+2u9p5fYZ7J+5pJQYp5
-	 BPgrlCSY7DoWA==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bcdab9a82bso2381259e87.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:53:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByu5dcHSWMNbngmddPHiqNnQTHcO7t4+CJb1gH/d/WdMPBpV3+kMdfCxmudRrHbfE7eve+77s7S7nNHjnQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJnNufEcu9s8QtP/P6j47rkkRdib4n7VrRr2SJ02RwOLSgxZpNQ
-	IGqnkigQ2yKSoRuzBrhcVcW1XnV3LJzl4aKKGZ8IutwOul/1EWhRlMaoCVV5XufIEpDiKcmv5N8
-	KfCVV2qGR7uwKEd2z8tg6KN7ItRL4A8U=
-X-Received: by 2002:a05:6512:1284:b0:5bc:b728:324 with SMTP id
- 2adb3069b0e04-5bcde6be018mr3241540e87.12.1791827598373; Mon, 12 Oct 2026
- 10:53:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ath056ul"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48c14a06c95so1640504f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:54:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791827639; x=1792432439; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QntbKw3gaGgw4tIzgsEy78HK5tHJosqnu2qH2MEsZDc=;
+        b=Ath056ulQElu2pL7OPP4nO3E+Lec3aFLH+N2vLFqthFyYDaue5OTKAsRtTUuvEXYaa
+         RLJ/JHNvKW5NvnOPzfChosjm9l3w4p3eK0oV4ndDBlwExmNUJYBFc98E+lZoFFeWJ7Qh
+         nDNxVJmEllOxQexk1oC1gLL5U9pAaeWlAOJVAwKEWEykERT4Ji48XIxQet6V4jOXGKj7
+         FiinpkDHUXt/d5ItO4PVcJ9C+4JWlI8/QivVYOMXzo45R7x9grOtxqiF8+fRuYLFr6Ux
+         4qQkiRNiu75/A2QmHt8XBFB1Kq10qXMVxKGumfKgdLtyFUIROsESnzRriAUih+QjDGRG
+         w4DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791827639; x=1792432439;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QntbKw3gaGgw4tIzgsEy78HK5tHJosqnu2qH2MEsZDc=;
+        b=PVuZ+wNLVGGZJAx+HyFVqcV5fTV8qvZonqQZDSvbNO4yM2UoXqiyvc6PWXglXiG76a
+         MdsPmIxWQDTSFoAj1PbV+nAl+97fTBwKmN4JBBDythbxMHZjmEnbU6fT9zBmKSncK+/o
+         b+1HAZRhq8UuzJ/9dBMNE/oHmbTMz3/4cUxG68p2ALZ/JbNxJod/xsu+2WGV9N2TBmIc
+         XyMQ3pu7lftn9ADQpruClL8ekV+yns2bhefDtrRkU+P5PPeHsMLu+8eKKXMF/AdR8eaG
+         uTX/fC5DD6CMn2PznG82z9oh6l6IeO39tOvPfmyJ0EL2T3bGY9trzscUOD3IF7SEcPee
+         Uj8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxtx4jjAeWZOdzCfPjY8YCQOt/LoVW/WlkT52kAynfIZszHwyNGEnDBVyKtoLQ6OGpz7xzt/qWK8HXBhCA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+v0PGVWnVznHC7UvHMnwSo2yjlB0/6gACli1OzE3brnU6SOkl
+	q7p6duyYLF0bCN4sq7xd23BGMpZlRtrEVg4zPlCdC4Dzetc3n5oUXstua+ONn7aYDJjncA==
+X-Gm-Gg: AYBFou2ebrKB3OUVBSOmFKizoiZf6Grvfq+KaEk3Fe3+MUN2bCijKe0hrc2ibDNTxMC
+	zzscb9R56wTxf6rlSjmM8FPgOYjMn2iXrLO4pXVJfW33RUjF1NhjWF6MKpNfCczNA2QWcXaBMQc
+	KzW+o1u4JxeH5mVrTNJwp106tMzCWML32xBlKrltTpIsuShfnCo5gxgozam5y1FcECoZO+FVqaK
+	V0+yjlLshbQCFokb25rdGQiPBQED0e5rrYyyigfP0Iol/3K5UHutAFq2LxGLc9PdpwS1ye8VsQ3
+	FmFb4N8HXSxFyZTv5yL0nx0fps12SJYNSOG73iK09kuxDBgvQht97T9Hyv5lU5SBEJO/TTovq/T
+	nOectZtugp/q5c0wc9b+MKkYo6kquKuH3M3TTAHFbvnrxubN37LCA1ToNOoK/98T38JBE8Hp+JS
+	+f33T0ZZgySuWzLr48t29hpqw7lvwL9Ruvo/jtxh214MSGljyCOVvreyryl3YLOSdFFWQ=
+X-Received: by 2002:a05:6000:26c6:b0:48b:10af:f85e with SMTP id ffacd0b85a97d-48dbaaee1admr18683631f8f.33.1791827638653;
+        Mon, 12 Oct 2026 10:53:58 -0700 (PDT)
+Received: from dev1.kernelcare.com ([2a01:4f8:172:1c85::2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab5af7sm667374f8f.31.2026.10.12.10.53.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 10:53:56 -0700 (PDT)
+From: Andrey Misiurov <andrey.misyrov@gmail.com>
+To: Helge Deller <deller@gmx.de>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Abdun Nihaal <nihaal@cse.iitm.ac.in>,
+	Andrey Misiurov <andrey.misyrov@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] fbdev: core: Initialize modelist in framebuffer_alloc()
+Date: Mon, 12 Oct 2026 19:53:38 +0200
+Message-ID: <20261012175338.2283897-1-andrey.misyrov@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <179095238036.1979087.7916496223328936920.acpi-device-id-docs-v2@gmail.com>
-In-Reply-To: <179095238036.1979087.7916496223328936920.acpi-device-id-docs-v2@gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 12 Oct 2026 19:51:14 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0irqbrMDNikcFmTRyakWvcLjDxB5y1vOymwZnp4kM8jqg@mail.gmail.com>
-X-Gm-Features: AclHuK9FQpA2UeIcQN6SBcLM8QgiLSCr43agXt6T5sZ9fbUoTPP4BGhwhasdvfs
-Message-ID: <CAJZ5v0irqbrMDNikcFmTRyakWvcLjDxB5y1vOymwZnp4kM8jqg@mail.gmail.com>
-Subject: Re: [PATCH v2] ACPI: device-id: document struct acpi_device_id
-To: miguelgarciaroman8@gmail.com
-Cc: rafael@kernel.org, u.kleine-koenig@baylibre.com, kmehltretter@gmail.com, 
-	andriy.shevchenko@linux.intel.com, corbet@lwn.net, linux-acpi@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 2, 2026 at 4:47=E2=80=AFPM Miguel Garcia via B4 Relay
-<devnull+miguelgarciaroman8.gmail.com@kernel.org> wrote:
->
-> From: Miguel Garcia <miguelgarciaroman8@gmail.com>
->
-> struct acpi_device_id lacks kernel-doc, so extracting documentation from
-> its header describes ACPI_DEVICE_CLASS() but not the matching table entry=
-.
->
-> Document the four members, ID and class-code matching, and the table
-> terminator. This complements the documentation header-split work
-> without changing its include directives.
->
-> Link: https://lore.kernel.org/all/aqEWUBf1pewPP_K2@monoceros/
-> Assisted-by: LLM
-> Signed-off-by: Miguel Garcia <miguelgarciaroman8@gmail.com>
-> ---
-> Changes in v2:
-> - Use ACPI_DEVICE_CLASS() in the commit message, as requested by Andy.
-> - Move the drafting and validation notes below the commit message.
-> - Describe the related header-split work without assuming its status.
-> - No change to the source diff.
->
-> v1: https://lore.kernel.org/r/20260913095111.2543502-1-miguelgarciaroman8=
-@gmail.com/
->
-> An LLM drafted this comment and changelog after being asked to address
-> the missing documentation noted in the header-split discussion. The
-> field descriptions were checked against the ACPI matching code. The
-> extracted documentation passes kernel-doc and a focused Sphinx HTML
-> build with warnings treated as errors; checkpatch reports no warnings.
->
->  include/linux/device-id/acpi.h | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/include/linux/device-id/acpi.h b/include/linux/device-id/acp=
-i.h
-> index 65800cefd..8c3b30ebf 100644
-> --- a/include/linux/device-id/acpi.h
-> +++ b/include/linux/device-id/acpi.h
-> @@ -9,6 +9,16 @@ typedef unsigned long kernel_ulong_t;
->
->  #define ACPI_ID_LEN    16
->
-> +/**
-> + * struct acpi_device_id - ACPI device matching table entry
-> + * @id: NUL-terminated hardware ID (_HID) or compatible ID (_CID) to mat=
-ch.
+framebuffer_alloc() returns zeroed memory, so info->modelist starts out
+with NULL next and prev pointers. The list head is initialized only
+later, by fb_videomode_to_modelist() or by do_register_framebuffer().
 
-This should be
+The "fix potential memory leak" commits listed below added
+fb_destroy_modelist(&info->modelist) to the probe error paths of s3fb,
+tdfxfb, tridentfb, i740fb and carminefb. These paths can run before
+the list head is initialized:
 
-+ * @id: NUL-terminated ACPI or PNP device ID (as defined by the ACPI
-specification) to match.
+ - s3fb, tdfxfb, tridentfb and i740fb call fb_videomode_to_modelist()
+   only after a successful EDID read, and tridentfb can also hit the
+   error path on an ioremap() or kmalloc() failure before that;
+ - carminefb jumps to the error path when fb_find_mode() fails, before
+   its fb_videomode_to_modelist() call.
 
-> + * @driver_data: Data private to the driver.
-> + * @cls: PCI-defined class, subclass and programming interface code (_CL=
-S).
-> + * @cls_msk: Mask selecting the class-code fields to match.
-> + *
-> + * Use @id for ID matching or ACPI_DEVICE_CLASS() for class-code matchin=
-g.
+fb_destroy_modelist() then dereferences the NULL head. Reproduced on
+Debian 12 (6.1.180) by binding s3fb to a VGA device without EDID and
+forcing fb_alloc_cmap() to fail:
 
-I would say here
+  s3fb 0000:00:03.0: cannot allocate colormap
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:fb_destroy_modelist+0x10/0x80
+  Call Trace:
+   s3_pci_probe.cold+0x12b/0x2bf [s3fb]
+   local_pci_probe+0x41/0x80
+   pci_device_probe+0xc3/0x240
+   really_probe+0xde/0x380
+   __driver_probe_device+0x84/0x150
+   driver_probe_device+0x1f/0x90
+   __driver_attach+0xce/0x1c0
+   bus_for_each_dev+0x87/0xd0
+   bus_add_driver+0x1ae/0x200
+   driver_register+0x89/0xe0
+   do_one_initcall+0x59/0x220
+   do_init_module+0x4a/0x1f0
 
-"Either @id is used for device ID matching, or @cls along with
-@cls_mask is used for class-code matching via ACPI_DEVICE_CLASS()."
+Initialize the list head in framebuffer_alloc(), so info->modelist is
+always a valid, possibly empty, list and fb_destroy_modelist() is safe
+on every error path. Keep the lazy initialization in
+do_register_framebuffer(), as drivers that embed struct fb_info rather
+than calling framebuffer_alloc() still depend on it.
 
-> + * Terminate the table with an entry whose @id is empty and @cls is zero=
-.
+Fixes: 3b0ed04bc852 ("fbdev: s3fb: fix potential memory leak in s3_pci_probe()")
+Fixes: bb019d755366 ("fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()")
+Fixes: 7a35ec619d9a ("fbdev: tridentfb: fix potential memory leak in trident_pci_probe()")
+Fixes: 5936063409af ("fbdev: i740fb: fix potential memory leak in i740fb_probe()")
+Fixes: 6fcca16a2b19 ("fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
+---
+ drivers/video/fbdev/core/fb_info.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-s/is empty/represents an empty string/
+diff --git a/drivers/video/fbdev/core/fb_info.c b/drivers/video/fbdev/core/fb_info.c
+index 52f9bd2..05988a9 100644
+--- a/drivers/video/fbdev/core/fb_info.c
++++ b/drivers/video/fbdev/core/fb_info.c
+@@ -43,6 +43,7 @@ struct fb_info *framebuffer_alloc(size_t size, struct device *dev)
+ 	info->device = dev;
+ 	info->fbcon_rotate_hint = -1;
+ 	info->blank = FB_BLANK_UNBLANK;
++	INIT_LIST_HEAD(&info->modelist);
+ 
+ #if IS_ENABLED(CONFIG_FB_BACKLIGHT)
+ 	mutex_init(&info->bl_curve_mutex);
+-- 
+2.43.7
 
-> + */
->  struct acpi_device_id {
->         __u8 id[ACPI_ID_LEN];
->         kernel_ulong_t driver_data;
-> --
