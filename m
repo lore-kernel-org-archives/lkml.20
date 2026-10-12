@@ -1,80 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D78548A2D1;
-	Mon, 12 Oct 2026 12:46:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8414940960D;
+	Mon, 12 Oct 2026 12:47:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791809186; cv=none; b=gsVbN2u6YBUKJ59+S44iVxaoeCjTOk4FPR/qbdIvCFzzOKzThb9YhIFP88ddszvlpHTezr73ve+xR4eM6w5i9mwu0K150Vb6Y16SVYVi6NXJY6v4uxrgoAVEQNQbN8N8IpZ6fPfOeN9rfpwZ98A4zsEexFYZR1yGUGb7Cs+hREs=
+	t=1791809228; cv=none; b=iBsrvij6qLcxLnduGSQENP0u1+z9JrNJaL8r8bCF3EnwZ+PNG9nfBqNktmbMctuuclkqzAv/bRVBjho9aG0qSfJRN/IBZAtxcF9bGXfq+co2CivFv6dvFcEBSNhQVkkwB4SE6myCSuBORwaZHd5DBly5dK+pIU5dsI3xzsPHv4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791809186; c=relaxed/simple;
-	bh=nq42yptSw/RlcpiwDOE5kUYPRplLqvQjbJSAYj+oX3M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Tk9EXtpOKXNTiAFKJx/SXmHQME6aRDiX8vZy04IjyzK3FSwMmB7Yu1taxQi/IJQitUhXxGMTdfYU92jBONptqXfnEbVX3/M8+whZEzKqFG+WkBw00gs6SB5P8pwIFWW51uwBqHteUsQV9lZcmz9sJnue55EcJZPJuiKT9LukW+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LH7pDh6J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791809228; c=relaxed/simple;
+	bh=tJulF0cY5GTjLpEoRpxtedyJmzltGV9t2tuLCq0SvcU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TOFcT0NkurlZJKh+SgxelisWRiZBASYVxFejgrhqs/cwG3eoQ8mXaPhpIm4lLXfzzoTpCohR0fUQgRXFGkB1tLmgrOdvPE/GoPnmCWck/581dtQZEKRYpFdi5XrjQ5nkfBdd3v8oazF0SpmXOr7Ud/mhJ2lkcGXIekTGn/fBnlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=XcvLQoT+; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LH7pDh6J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 959B91F0089B;
-	Mon, 12 Oct 2026 12:46:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791809185;
-	bh=QiEZQ7DvZhE3m3MhQISynkWcztSVNF+s1I8gL37uXgg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LH7pDh6Jhr2bo9Of+JFs0lD+77L+6IoaBBIagPkMHHr4p1pLXXMESTnjuHlpDBFMt
-	 W0uI94kdjdme0JdIPl0fCPiJ9rMv/yW5ExhAUuPntNLCaEFknsr/EWRmE/A8qmCGRf
-	 3xnNS5cDJZrFrWxptdveR1sjBTKszUrOxj4hyqyZw+szjDJk8hvlCMExApoDKUxOY2
-	 DfeSwyudoPnK/tWP+e9kE5jPEITYwVk8ZeJtPP9kFkwQOXIi6gyKmTEnJpEfaXYstk
-	 u+gPetdgaxvmmrO+wpqVKCON8EF/og3cQ2MmUlq2xUpoFQzazp7YRUw+aiQsmJo6tX
-	 uiwmBcG45arzQ==
-Message-ID: <cfd38ed0-4e3f-4276-97a7-e172922d4ef6@kernel.org>
-Date: Mon, 12 Oct 2026 14:46:21 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="XcvLQoT+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=moPKCpl59FsFkLNh5tqh19aLEugn3YQjprApG1uQ7rA=; b=XcvLQoT+fO5x6I+yRJFZn2px1H
+	HEcRosHh9xuVFBTQDhobbfixZmocSrue6AI4h6s0epACdfr/ZI4Tbdc1ZTGC09qyXpmzbhtVU0XKA
+	ALFJs/DiaAW1dx+kXqS9cjIAE9jzGV0WnT6VV74pLRScdZnbQjBCgyeri5I5zgNfByhs=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xGFQB-00AK7G-KP; Mon, 12 Oct 2026 14:46:27 +0200
+Date: Mon, 12 Oct 2026 14:46:27 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Hee-Suk Kim <hskim@dilluti0n.com>, netdev@vger.kernel.org,
+	javen <javen_xu@realsil.com.cn>, nic_swsd@realtek.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Daniel Golle <daniel@makrotopia.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] r8169: allow Giga Lite fallback on RTL8168EP
+Message-ID: <4435b286-1638-464a-821c-f486b647c9f7@lunn.ch>
+References: <20261010135356.85454-1-hskim@dilluti0n.com>
+ <dbdd5abd-f1b1-443c-adc3-6ecdc95f4854@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] block: fix the length of a smaller last zone in
- blkdev_get_zone_info()
-To: shashank Jain <jain.sm@gmail.com>
-Cc: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
- Johannes Thumshirn <johannes.thumshirn@wdc.com>,
- Hannes Reinecke <hare@suse.de>, Chaitanya Kulkarni <kch@nvidia.com>,
- "Martin K. Petersen" <mkp@kernel.org>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261011051906.60397-1-jain.sm@gmail.com>
- <20261011051906.60397-3-jain.sm@gmail.com> <20261012122112.GA31242@lst.de>
- <CA+FWx=n=66eHOgMFb=unfgqFrhw3prW0EOf1bYHfLATV2-o1_A@mail.gmail.com>
- <09399f27-11eb-431b-914d-397f42de9dc3@kernel.org>
- <CA+FWx=kgeR8tz46tijYE-s=v+PTJjGfM+3ucQOo0ZuDyqFdYQw@mail.gmail.com>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <CA+FWx=kgeR8tz46tijYE-s=v+PTJjGfM+3ucQOo0ZuDyqFdYQw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <dbdd5abd-f1b1-443c-adc3-6ecdc95f4854@gmail.com>
 
-On 2026/10/12 14:41, shashank Jain wrote:
-> On Mon, Oct 12, 2026, Damien Le Moal wrote:
->> How do you plan to issue a BLK_ZONE_REP_CACHED report? "blkzone report"
->> does not have that yet. I am planning to send a patch for it.
-> 
-> Good point. Two options, and I am happy to follow your preference:
-> 
-> - Use "blkzone report" with the cached flag once your util-linux patch
->   lands - that matches the existing zbd tests and avoids a bundled tool.
->   I would hold the blktests submission until it is available.
-> - Or carry a small C helper in the blktests src/ directory that issues
->   BLKREPORTZONEV2 with BLK_ZONE_REP_CACHED directly, so the test is
->   self-contained and does not depend on the util-linux version.
-> 
-> I lean towards the first, to match the zbd conventions and your blkzone
-> work; tell me which you prefer and I will align the test with it.
+On Sun, Oct 11, 2026 at 10:59:42PM +0200, Heiner Kallweit wrote:
+> On 10.10.2026 15:53, Hee-Suk Kim wrote:
+> > Giga Lite is a Realtek proprietary mode which allows links of up to
+> > 500 Mbps over two-pair cabling. In South Korea, it is widely used to
+> > support 500 Mbps plans by most ISPs. The vendor driver [1] sets PHY
+> > page 0xa42, reg 0x14, bit 9 to allow it on RTL8168H and FP. The driver
+> > does not handle RTL8168EP but I confirmed the same works for it by
+> > setting the PHY register via SIOCSMIIREG on an SK Broadband 500 Mbps
+> > plan [2].
+> > 
+> > With the bit set, the link still came up at about 470 Mbps even when
+> > only 10/100 was advertised. So set it only when autonegotiating with
+> > 1000baseT/Full advertised, and clear it otherwise, to respect a lower
+> > advertised speed. This matches what the vendor driver does for
+> > RTL8168H and FP.
+> > 
+> > PHYSR reports 0x30 in its speed field to denote a Giga Lite link. This
+> > value is not handled in rtlgen_decode_physr(), so the reported speed
+> > varies between 100 and 1000 Mbps on the same link. Handle it to report
+> > 1000, as there is no 500 Mbps uAPI.
+> > 
+> > [1] https://github.com/mtorromeo/r8168/blob/b3e24e4aa74a3561618d0abf01b708bd55def57a/src/r8168_n.c#L6375-L6390
+> > [2] https://www.tworld.co.kr/web/product/callplan/NI00000567
 
-Yes, let's avoid the small helper. Having access to the cached report with
-blkzone will be useful for many things anyway, and the patch should be easy.
+I'm in agreement with Heiner here. If we add this, we do it properly.
 
--- 
-Damien Le Moal
-Western Digital Research
+Please add ETHTOOL_LINK_MODE_500baseT2_Full. Make the PHY report this
+link mode in it features, add the speed, allow it to be negotiated,
+reported in ethtool etc.
+
+	Andrew
