@@ -1,156 +1,272 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3082140BCB4
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B16FD40BCB4;
+	Mon, 12 Oct 2026 11:47:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805639; cv=none; b=tnmxikfZPQEpA7FsLwo7Vvji41qCMMvvYMtmcuJJuwDc8kQCV0yg9mBXdlE73t0pSX0EMKdrtIXNCgE7kksT9lnDPkiid2zebbNYy03AkKVWyzssBvnI5nkVEttTzSW30QooHVVK7WPIqsaHptlaZl1VK/Eqd37ciw5aYjRKjQ4=
+	t=1791805662; cv=none; b=YIpWiXnDiBORjGm7CgK21gAgM6B6HuIj/Tcy4HSFBCEllf3eVIyzkdVjxwR8DngTXawsQGxrgLm8s1LJa960crF7SrzoSTuY25PP0nsbEdimAaYZeJ720wD5iK8Fs7c+Lmk5vvxeY2LkeEqcLG8y8MUJ/9nkoJU6Ry6TrkMKFNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805639; c=relaxed/simple;
-	bh=tTAuW5YXvrWgMERGBm9kuawMACX/4fAn9/TDnPNtVXc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Sghh5ZY5EfhD/aoqrYjeq4lAixM23jJtyd6dKP6q+uTZTsu7j0iOwoV3sAzceHrV7wihkZEBGGY10DfXaYBFKnY2yMT/XYSaiTe95Fvd3f2V1ScYgSg+9xbm42fGOvrAYKlXKUjDGe4yVId4oGZOTteX0M9OV/yHaSxi3Lw1jB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hd6rVcEt; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=DwhPinWH; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791805662; c=relaxed/simple;
+	bh=XbHq762k3/9t3hNa57Y4Kz3aN+yIAuLnRC+BPMiIObE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Z/VMhoztxHvXWC4mUBweg7DxJXuZZSua1Sa3FoXC7f/Soe8F5McT3hf53s58mNF0wCh7a/ja9xM+lLlVfi7x7fll1I4ai4dEismMVxFggs+drzKxALkVgCtllWWT/a1Z5ex+mYFnhFKLqqg0VgtCvEIv6wbrtfcPTFIdNIHGIhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iWVNoIoH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hd6rVcEt";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="DwhPinWH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791805635;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=tTAuW5YXvrWgMERGBm9kuawMACX/4fAn9/TDnPNtVXc=;
-	b=hd6rVcEtaRUmu5RK8CPCAGYginbIJyeuKbzcYz7iaNqy0LoeIbzTKz+06qcYiupGxhB2Fq
-	KjQ3Mva3tYPHG8oTwyr9hqIES2ZUZQJXejdEL2uPRnj2UQEnIXMdqyk0V37WoXXoa//pLx
-	E91BEK1Y01L4d88v0miPrS9q7KuyRUQ=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-214-YI50Q9aXOyW_kp81QSufeQ-1; Mon, 12 Oct 2026 11:47:13 +0000
-X-MC-Unique: YI50Q9aXOyW_kp81QSufeQ-1
-X-Mimecast-MFC-AGG-ID: YI50Q9aXOyW_kp81QSufeQ_1791805632
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48b028d93c5so1274123f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:47:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791805632; x=1792410432; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tTAuW5YXvrWgMERGBm9kuawMACX/4fAn9/TDnPNtVXc=;
-        b=DwhPinWHnjRRDfLT5ckCnhVZT3MPyvPSWXh5sniv2vWCZum9F7r+HebR4oIyqjXbSX
-         ll2WI60GCsS8WnlJhzi9j1dT6jmuZP2K24uQd08ajf0Gnjt27psE6Oc6fSLSvFQhcgEu
-         ds+BVWhLccTTup362o59/FIQjer7IYcBNZN50dP1OhkNhKdHTG4RJiRmuxdZypftlK1m
-         hDYQGOIhQqd0CLtIG53+4CqTFqFZMtlWllHLPdPMqcO+tXq95HP/upXcjW11vto3KsRO
-         23LGAOCInT2Du/0rNrYXKlHlIrQ03LX07ovEeYVwhJUdw6zL7iDw3uGNvknuqKKFZlDC
-         zONA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791805632; x=1792410432;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tTAuW5YXvrWgMERGBm9kuawMACX/4fAn9/TDnPNtVXc=;
-        b=MtIhbIYKl9dNGsxTi3M2s9DzfG9EBu3AlzTdXXx8b0jxVNrHjrVdG+wQF4+CaNn8hZ
-         R+Xm4T8S670ES0UO+gyrcXiaJlGIrREDl/NNNmQWehxUxUfiUlAsXIYR7WUaf5qHxcP7
-         5/SUK3nt53+FRt1hpvI0IX8gqgs917mUPhR2Je/5loCLrDJHsANLcBstYG0zg233YhNw
-         VJFVgBGq/1ginLhuzfPKL2aQJfxf4pES5ol+7/aymyEGt86AfnSCQmeWIBqHvhsA/MlG
-         1vGfcP9XSOZIWVy9fAKqf/fLmETWgylc/+PN0Q4WT3CD4c0tDaIaXIR2k3ttY+z6BQSd
-         Qjqg==
-X-Forwarded-Encrypted: i=1; AKwUvBwdWxFAOH6JY8VZrobx4NGMuww24zNj443YFHB0A0q26i/Dfd/9WoGBFupZ6ySvnMpdd+EECt1h2dhfN5U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCnmrXHERS5L/rQj1KSk/NVr7ITvRbBBpekmQpBoXZ0JlGJ2dd
-	FhmMJLESw2CxKj6pjF2dQCP+LXM1EpQZtFNLD33vylSu3/UpA86aHlQfkyOokKfO7UDQKkdfdB4
-	2QJbJlnWwxMpRVtdjMrGoetR11xNT/FR/BoYTO31ieU4uFfn3aXmydZi6+ADphWwY4w==
-X-Gm-Gg: AYBFou0ZJoHNfdGuw/AcqDFGKdUyBCRULR83Lq83yC3k39mMkevvXZpq/WzpGD0jHDH
-	cPD5K2mxSaQyqo54Y+95gz402AW9bo/zRrLQ6vj951Kr7QhXM2ESqB2m+091lXwjGbIMxg2pq5r
-	+UrSzjeARqFqO4S9FouzG+od5bMVqA0v1V9MyE+IDsSFvZylinaHLyO2QYxO58VZyjZNrpYl8MJ
-	LIgPMYhe69yhyMRwygh9dWTTAVmBUIPOKrK3jpK19tgDCcGqxiZR+o8EtNqfZZOgbXoxZXouZSD
-	JVwIPbP6h5zykKQbiqvQE6EmWLqydIb3rWI+ACaLky9YMPenQNHFUUZ9dXty24T9AqqlMYvlEJP
-	uPENwhepmMU5JrVCcRBy2vSj59alx
-X-Received: by 2002:a05:6000:2f82:b0:487:1662:cf4c with SMTP id ffacd0b85a97d-48dba78459bmr21037789f8f.7.1791805632459;
-        Mon, 12 Oct 2026 04:47:12 -0700 (PDT)
-X-Received: by 2002:a05:6000:2f82:b0:487:1662:cf4c with SMTP id ffacd0b85a97d-48dba78459bmr21037732f8f.7.1791805632034;
-        Mon, 12 Oct 2026 04:47:12 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.135.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9abd57fsm18489239f8f.37.2026.10.12.04.47.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 04:47:11 -0700 (PDT)
-Message-ID: <4759c9b0dacdf1f9c0cf47158895860dbd0ec401.camel@redhat.com>
-Subject: Re: [PATCH v2 0/3] rv: per-edge dwell-time statistics for per-cpu
- monitors
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: Tobias Schaffner <tobias.schaffner@siemens.com>, Steven Rostedt
-	 <rostedt@goodmis.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>,  Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- rpm@xenomai.org, 	jan.kiszka@siemens.com
-Date: Mon, 12 Oct 2026 13:47:09 +0200
-In-Reply-To: <20260911123439.463052-1-tobias.schaffner@siemens.com>
-References: <20260911123439.463052-1-tobias.schaffner@siemens.com>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iWVNoIoH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EA781F0089B;
+	Mon, 12 Oct 2026 11:47:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791805658;
+	bh=7oM78ce5BGAkXeG6yuIhoGfsr+uXGfD+/j4Z4HuOqhs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=iWVNoIoHHb5pYemoB2sx9JfU9tmHxPaaqTHF+wufIFZ8fwdbmDeJAuJMnWa6knI2s
+	 /poSd/d2KzgTO+nCpu04FCx9tOW5vs6e2x7fRBOHs7Tl6ZR/JeHu+bARIbbgnlfwF6
+	 t0n9CqVtZqYFDd27mvnUFT/hu8/sB1lFwCpvLTaMQ0D9xDjRiQLpsCbyeIWBXk/oEN
+	 p6f9iyJTybiLEnXr42zbip7lFlxW8biWTrT3/ncKhtd38TCRfJXq2k6Hfh5nB1hRmT
+	 qF6YXtlZzyA8CqwM24X92wKTcdXOzIoIrgnTzGd+X8rlfv9i8AROVRUB7kKCB9w9js
+	 SJ6xDTj654+Iw==
+Date: Mon, 12 Oct 2026 12:47:14 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Anisa Su <anisa.su887@gmail.com>
+Cc: linux-cxl@vger.kernel.org, nvdimm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Dave Jiang <dave.jiang@intel.com>, Alison
+ Schofield <alison.schofield@intel.com>, Davidlohr Bueso
+ <dave@stgolabs.net>, Ira Weiny <iweiny@kernel.org>, Vishal Verma
+ <vishal.l.verma@intel.com>, Fan Ni <nifan.cxl@gmail.com>, Li Ming
+ <ming.li@zohomail.com>, Benjamin Cheatham <benjamin.cheatham@amd.com>,
+ Gregory Price <gourry@gourry.net>, Richard Cheng <icheng@nvidia.com>, Anisa
+ Su <anisa.su@samsung.com>
+Subject: Re: [PATCH v16 2/8] cxl/mem: Read dynamic capacity configuration
+ from the device
+Message-ID: <20261012124714.6556d6b4@jic23-hlaptop>
+In-Reply-To: <20261010225852.10727-3-anisa.su@samsung.com>
+References: <20261010225852.10727-1-anisa.su@samsung.com>
+	<20261010225852.10727-3-anisa.su@samsung.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2026-09-11 at 14:34 +0200, Tobias Schaffner wrote:
-> Hi Steven, Gabriele,
->=20
-> I am using the RV system for a downstream project called EVL (aka Xenomai=
-4).
-> It is a small co-kernel system, small enough that I can model the whole
-> co-kernel with RV instead of just a fragment of it.
->=20
-> The patches in this series add a per-monitor "stats" file that exposes ho=
-w
-> often an edge has been visited and the dwell time in the prior state for
-> per-cpu monitors.
->=20
-> This allows me to not only check if the model is correct but also to see =
-if
-> all paths are exercised by my stress tooling and to decompose the latency=
- of
-> the co-kernel's wakeup path.
->=20
-> I think that some of the upstream monitors like e.g. the sts monitor coul=
-d
-> also profit from this.
+On Sun, 11 Oct 2026 07:54:53 +0900
+Anisa Su <anisa.su887@gmail.com> wrote:
 
-Hi Tobias,
+> From: Ira Weiny <iweiny@kernel.org>
+> 
+> Devices which support Dynamic Capacity (DC) are configured via mailbox
+> commands. CXL r4.0 section 9.13.3 describes the use of the Get DC
+> Configuration command in order to obtain DCD partition characteristics.
+> 
+> Implement the DC mailbox commands as specified in CXL 4.0 section
+> 8.2.10.9.9 (opcodes 48XXh) to read and store the DCD configuration
+> information. Disable DCD if an invalid configuration is found.
+> 
+> Initial enablement for Linux only supports one dynamic capacity
+> partition. Read all the partitions the device reports but validate
+> only the first, and configure it as 'dynamic ram'.
+> 
+> The specification requires that volatile capacity starts at DPA 0 and
+> pmem starts at the DPA immediately following it, but DC partitions only
+> need to be 256MB aligned according to CXL r4.0 section 8.2.10.9.9.1
+> Table 8-347. So a device could leave a gap between ram/pmem (static)
+> capacity and its first DC partition, or between one DC partition and
+> the next.
+> 
+> However, Linux chooses not to support gaps between static and dynamic
+> capacity, and requires the first DC partition to begin at the DPA
+> immediately following static capacity.
+> 
+> Based on an original patch by Navneet Singh.
+> 
+> Signed-off-by: Ira Weiny <iweiny@kernel.org>
+> Co-developed-by: Anisa Su <anisa.su@samsung.com>
+> Signed-off-by: Anisa Su <anisa.su@samsung.com>
+> Tested-by: Wonjae Lee <wj28.lee@samsung.com>
+> Tested-by: Junhee Park <jh9934.park@samsung.com>
+> Tested-by: Heesoo Kim <habil.kim@samsung.com>
+> 
 
-there's been a conversation at LPC about completely migrating RV to BPF.
-While we aren't sure of its feasibility yet, and it will take time, it's
-something to keep in mind for new contributions.
+A couple of things inline.  Only one that matters I think is the
+cleanup.h fragility  / readability thing about constructors and 
+destructors needing to be near each other.  That bit of guidance
+came from a specific (and I think correct) comment from Linus
+that he really wanted them together and if that meant declaring
+the variables inline rather than in old school c style, then so be
+it.  That might be in category of things Dave could cleanup up whilst
+applying if all else is ready but that's up to him.
 
-First of all, would dropping RV in-kernel support negatively affect your cu=
-rrent
-workflow?
+Jonathan
 
-About this series, I believe we could implement the same using BPF maps wit=
-hout
-too much effort, then the rv userspace tool could display them nicely.
 
-What do you think?
+> diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
+> index 199bb986d674..72af23ba288e 100644
+> --- a/drivers/cxl/core/mbox.c
+> +++ b/drivers/cxl/core/mbox.c
 
-Thanks,
-Gabriele
+> +/* Returns the number of partitions in dc_resp or -ERRNO */
+> +static int cxl_get_dc_config(struct cxl_mailbox *mbox, u8 start_partition,
+> +			     u8 partition_count,
+> +			     struct cxl_mbox_get_dc_config_out *dc_resp,
+> +			     size_t dc_resp_size)
+> +{
+> +	struct cxl_mbox_get_dc_config_in get_dc = (struct cxl_mbox_get_dc_config_in) {
+> +		.partition_count = partition_count,
+> +		.start_partition_index = start_partition,
+> +	};
+> +	struct cxl_mbox_cmd mbox_cmd = (struct cxl_mbox_cmd) {
+> +		.opcode = CXL_MBOX_OP_GET_DC_CONFIG,
+> +		.payload_in = &get_dc,
+> +		.size_in = sizeof(get_dc),
+> +		.size_out = dc_resp_size,
+> +		.payload_out = dc_resp,
+> +		/* The device must return at least the fixed header */
+> +		.min_out = sizeof(*dc_resp),
+> +	};
+> +	size_t expected_sz;
+> +	int rc;
+> +
+> +	rc = cxl_internal_send_cmd(mbox, &mbox_cmd);
+> +	if (rc < 0)
+> +		return rc;
+> +
+> +	if (dc_resp->partitions_returned > partition_count) {
+> +		dev_err(mbox->host, "Device returned %u partitions, requested %u\n",
+> +			dc_resp->partitions_returned, partition_count);
+> +		return -EIO;
+> +	}
+> +
+> +	/* The trailing extent/tag counts (CXL r4.0 Table 8-346) are not read */
+> +	expected_sz = struct_size(dc_resp, partition,
+> +				  dc_resp->partitions_returned);
+> +
+> +	if (mbox_cmd.size_out < expected_sz) {
+> +		dev_err(mbox->host,
+> +			"Payload size %zu less than expected %zu for %u partitions\n",
+> +			mbox_cmd.size_out,
+> +			expected_sz,
+> +			dc_resp->partitions_returned);
 
+Not important, but if you do end up respinning, maybe don't have one parameter per line.
+To me it doesn't really help with readability here.
+
+> +		return -EIO;
+> +	}
+> +
+> +/**
+> + * cxl_dev_dc_identify() - Reads the dynamic capacity information from the
+> + *                         device.
+> + * @mbox: Mailbox to query
+> + * @dc_info: The dynamic partition information to return
+> + *
+> + * Read every partition the device reports, but validate only the first:
+> + * Linux maps partition 0 and nothing else, so a defect in capacity the
+> + * driver never touches is not a reason to refuse the device dynamic
+> + * capacity.  The remaining partitions are read but not recorded.
+> + *
+> + * Return: 0 if identify was executed successfully, -ERRNO on error.
+> + *         On error, @dc_info is left unchanged.
+> + */
+> +int cxl_dev_dc_identify(struct cxl_mailbox *mbox,
+> +			struct cxl_dc_partition_info *dc_info)
+> +{
+> +	struct cxl_dc_partition_info partitions[CXL_MAX_DC_PARTITIONS] = { };
+> +	struct cxl_mbox_get_dc_config_out *dc_resp __free(kfree) = NULL;
+
+See the cleanup.h guidance.  This needs to move.
+
+> +	struct device *dev = mbox->host;
+> +	u8 avail_partitions = 0;
+> +	u8 start_partition;
+> +	u8 num_partitions;
+> +	u8 partition_count;
+> +	size_t dc_resp_size;
+> +
+> +	/*
+> +	 * Bound requested number of partitions by mailbox payload size. The
+> +	 * 256 byte spec minimum, verified in cxl_pci_setup_mailbox(), keeps
+> +	 * the subtraction below from underflowing.
+> +	 */
+> +	partition_count = min(CXL_MAX_DC_PARTITIONS,
+> +			      (mbox->payload_size - sizeof(*dc_resp) -
+> +			       sizeof(struct cxl_mbox_get_dc_config_tail)) /
+> +			      sizeof(struct cxl_dc_partition));
+> +	dc_resp_size = struct_size(dc_resp, partition, partition_count) +
+> +		       sizeof(struct cxl_mbox_get_dc_config_tail);
+> +
+
+	struct cxl_mbox_get_dc_config_out *dc_resp __free(kfree) =
+		kmalloc(dc_resp_size, GFP_KERNEL);
+	if (!dc_resp)
+
+Maybe if everything else is fine, Dave can tweak this whilst applying.
+
+star> +	if (!dc_resp)
+> +		return -ENOMEM;
+> +
+> +	start_partition = 0;
+> +	num_partitions = 0;
+> +	do {
+> +		int returned, rc;
+> +
+> +		returned = cxl_get_dc_config(mbox, start_partition,
+> +					     partition_count, dc_resp,
+> +					     dc_resp_size);
+> +		if (returned < 0) {
+> +			dev_err(dev, "Failed to get DC config: %d\n", returned);
+> +			return returned;
+> +		}
+> +
+> +		if (returned == 0) {
+> +			dev_err(dev,
+> +				"Device reported %u partitions available but returned none at index %u\n",
+> +				dc_resp->avail_partition_count, start_partition);
+> +			return -EIO;
+> +		}
+> +
+> +		/* A DCD reports at least one partition (CXL r4.0 Table 8-346) */
+> +		if (dc_resp->avail_partition_count == 0) {
+> +			dev_err(dev, "Device reported no DC partitions\n");
+> +			return -EIO;
+> +		}
+> +
+> +		avail_partitions = min(dc_resp->avail_partition_count,
+> +				       CXL_MAX_DC_PARTITIONS);
+> +
+> +		/*
+> +		 * Only partition 0 is mapped, so it is the only one checked.
+> +		 * The rest are read to complete the enumeration and dropped.
+> +		 */
+> +		if (start_partition == 0) {
+> +			rc = cxl_dc_check(dev, &partitions[0],
+> +					  &dc_resp->partition[0]);
+> +			if (rc)
+> +				return rc;
+> +		}
+> +
+> +		num_partitions += returned;
+> +		start_partition = num_partitions;
+
+I may be missing something subtle, but do start_partition and num_partitions ever
+differ in value? Far as I can spot they are both only updated here.  If they
+change in later patches and this is churn reduction ignore this comment!
+
+
+> +
+> +	} while (num_partitions < avail_partitions);
+> +
+> +	/* Linux only supports the 1st partition; nothing to do if it is unavailable */
+> +	if (partitions[0].size == 0)
+> +		return -ENODEV;
+> +
+> +	*dc_info = partitions[0];
+> +	dev_dbg(dev, "Returning partition 0 %#llx size %#llx\n",
+> +		dc_info->start, dc_info->size);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(cxl_dev_dc_identify, "CXL");
