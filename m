@@ -1,130 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD75A4E5357;
-	Mon, 12 Oct 2026 20:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DD74E535B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:13:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791836010; cv=none; b=cNjWfAQvlVd65ofBGKEr/IUYSJ+2+AZIsZNZdMwXd8nC8Fx0wPD6bgW/zziURalJin3jPZcLrPr+H3GBFOVmJKTHw3gAsnr6dqcahjiv2lF4lKq2hFKUNIe6Xm2nXBcooGjJRe+89TCdiQ2jLWEuYWCNITqKxkn3boUE7WE21e8=
+	t=1791836036; cv=none; b=s7isONXddNTt8P1tc/sHexTN1YOoIXOfUITHbmoiNyUby9Ru1AdBH5woj1n2GRiG1opZqDbqW4CWOpsv9hQLXTSbXXqnypRVnHhFxa/hDE47NazpbF6hh/p1Q+eTQE2Z1zkLNTCrTjqOZPycI8/O+bx+CqyhYpPnCB0fsHduWKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791836010; c=relaxed/simple;
-	bh=M1Lj5as5bi2C4gscMGK4dz31rWCEL9ULprKscGsuckM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=iPoiiHYS5h2MIc/kjd7s4JhZyiiYcZBHKeoPxzNww81rqMEDMOn/oqwZSsQAqPIGBS2Bn61GXpjBCWjCukLvrIRVxz3ttKcVL9ztOkQMmducynHTg7ZLygJuyXcTapyahwr57ZiP1RF69TDH7X4yp3JQ4IbrQ50ca0eRyzzr7m8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hyoLdGpv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791836036; c=relaxed/simple;
+	bh=nwJ9LwFn0jiy4+yPoQ8GTH6SBwik3tPHXEWfrGXfQos=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=hN/EQ5ftlCU8BracmJfBtTmPDshQpbn+QQ6pcTDsKPyX+HHKGrU+mfRsrmBNGl+0/UnH+Dh72NzJrw8WyebeWn7ToBaQaSotTRzsfChMmiBsA5f8vXXVUDD7iXMVxYNNJLygoQttXN3z4leC5iDVq4QZ1Jb5qRR6pH0IEEt/ieA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eeeeGFeG; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hyoLdGpv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36091F0089B;
-	Mon, 12 Oct 2026 20:13:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791836008;
-	bh=ipfnvz0/kYIxjRDd3MrcP9WRjs1t+zUVD4kVE6VTnwU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=hyoLdGpv1N7sGAm4AzcgqI1HFHbe9lWlVuA3Xsh44J4j5++B7nzx8MNFy6RYzr12C
-	 iwqiQ0OvFbdYiGii4edVrqlWETtX6iGWSl8ifOtoJ3+n2j/P270LtV7sFm5BlcwvAk
-	 dcMkM+/KPOaunj9hNmijb7wT/r6jNqgmKyTqNSvgPJ3i1NPFvzF7pENZhnXP+zYQPj
-	 o346GIOlTfOzowVTN6JWDvHXWlge+N3ggnejNlJgqvW3ji4T4EvdtXpb9TkKr/L/d4
-	 kT0EfCGjux5TZ3AoMUUe+51ASBBzIQgmJcWv8U1FRXNwF9LkyLM9JOzTw7UXyOS3QD
-	 aavAHvs1d6AJg==
-Date: Mon, 12 Oct 2026 15:13:26 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: "Perlow, Jason" <jperlow@gmail.com>
-Cc: "To: Bjorn Helgaas" <bhelgaas@google.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	Oliver O'Halloran <oohall@gmail.com>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	Aditya Garg <aditya.garg@linux.dev>
-Subject: Re: PCI/AER: MacBookPro16,1 test results with Apple SEP ANFE quirk
-Message-ID: <20261012201326.GA1374572@bhelgaas>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eeeeGFeG"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3a4a0017549so3516771a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:13:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791836033; x=1792440833; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=acp+U304GwmkdVMCYfD8nJLd7JDmrMBNmY+Nz8Wjd/8=;
+        b=eeeeGFeGt6vwQ5peZHJKnAHvX5Oc6wcCz4UIcFnEmxNmXYgELgivbin2/wH3YrHhUM
+         MaCXAvjxJg+Ph+Tcp9PSmyx2NH1ZmMG2tO7q6/la2+8E1V+/iZZz0UMKkbcP6Bl/W53W
+         mXJqgfxcUClcF7hdjqbmfIFXswdi/plD3bd73BDNah/9O2vtqwe8TSljkTl/JlrzcCWh
+         bRcYQ3ZBmu5IOWdeH1tGmfaRa681cnS9DPuAZFs9qq2JyAqQ4WZjjj5F9IXOccYim89r
+         cAeyILtpcNfBiR3Ba/JBtu8qlBrzBV6fYQWVAYzbUR4jk8NB8gC7sScNsb93JXLPsaMT
+         hCxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791836033; x=1792440833;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=acp+U304GwmkdVMCYfD8nJLd7JDmrMBNmY+Nz8Wjd/8=;
+        b=CfBxI9PGBGkPpSOY5uq+IjKLtxl7QnTZ3q0t35dwFjv0igzrmZ0TNVOmEGAIKKktFB
+         mtYvefK0/hy4l+k+uvsBOlhm5fz0XUFYkijC8u2OoHwmqpkydxh8vEDRUppGK2qoB+tc
+         fYKXvHnk8KwlpV9+cpBuwEFf42JUj0B3Di/mTUVN8vK6KATqppDqIgcyduLWg4Rk/o+r
+         TNq+ZaWIlqdbD8HMS4c8/p6GtpTTKuOauVsZyhppkqN4sFGjAtNabZ5kONK1h6YbedZs
+         ciZs2mKciEBGXE+7TetYRgWsppULY6+iwd57BEjan+bu/CzvmDAFyKZDlyKSadWXC3ZU
+         pXMw==
+X-Forwarded-Encrypted: i=1; AKwUvBzvkeIo0fpC13JXKItKZwKRWsufzP7CYbA/NsNnwbMilvhvbXGol+p6xd9yb7xiIsNAVpB/Plae+DblpXY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTg1XpO8r46fHiaexgoRrMBVpUktFHithGk9yl+EKLE94izBAA
+	zdV62FySzIuPIbE99mPDFe5JJYomoSdXFs/rILwv6gCmsTLPA8rDnQs9fLxr7aqsEClCFSoIi2J
+	eyE6BEQ==
+X-Received: from pgcgn2-n1.prod.google.com ([2002:a05:6a02:6a02:10b0:cc7:ad09:94b6])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3d91:b0:3ab:be66:ddbe
+ with SMTP id 98e67ed59e1d1-3abbe66e006mr4271545a91.28.1791836032556; Mon, 12
+ Oct 2026 13:13:52 -0700 (PDT)
+Date: Mon, 12 Oct 2026 13:13:51 -0700
+In-Reply-To: <CAEvNRgG3h5jgHOpHvJ_uuJv8o-mq0Jy9gXUhKcDZXfSGAfZBiA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CABZrw2H+3yt2Y7xiq6OyAWaJM7P9ox-2nJxoQuJMwoJHLgi+YQ@mail.gmail.com>
+Mime-Version: 1.0
+References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
+ <20260722-tdx-selftests-v14-13-15ad654a50db@google.com> <f7b3a63c-7a1d-445f-b062-4cea5343d266@intel.com>
+ <asz8GKNO9aQANr5E@google.com> <as0FedYcvJvdOaq2@google.com> <CAEvNRgG3h5jgHOpHvJ_uuJv8o-mq0Jy9gXUhKcDZXfSGAfZBiA@mail.gmail.com>
+Message-ID: <as0_f5dTbCWuODwQ@google.com>
+Subject: Re: [PATCH v14 13/22] KVM: selftests: Support guest_memfd in-place conversion
+From: Sean Christopherson <seanjc@google.com>
+To: Ackerley Tng <ackerleytng@google.com>
+Cc: Xiaoyao Li <xiaoyao.li@intel.com>, Lisa Wang <wyihan@google.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
+	Chenyi Qiang <chenyi.qiang@intel.com>, Erdem Aktas <erdemaktas@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Roger Wang <runanwang@google.com>, 
+	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Ashish Kalra <ashish.kalra@amd.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, Michael Roth <michael.roth@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On Fri, Oct 09, 2026 at 11:38:50PM -0400, Perlow, Jason wrote:
-> Bjorn, Lukas,
+On Mon, Oct 12, 2026, Ackerley Tng wrote:
+> Sean Christopherson <seanjc@google.com> writes:
+> > The alternative would be to take sev_cmd_mutex around the kvm_gmem_populate() call
+> > in snp_launch_update(), but even if the CPP maintainers were willing to provide hooks
 > 
-> I have tested the Apple SEP ANFE quirk together with Lukas's false-alarm
-> recovery fix on two MacBookPro16,1 systems. Both stayed up for over two
-> hours after booting the candidate kernel. The patch is being prepared
-> against pci/for-linus at 79c168e2aa957ed0054c93db17caba653b95e377.
+> I realized you meant CCP/PSP instead of CPP :)
 > 
-> The candidate retains eddba19b8b5f ("PCI/AER: Support Advisory Non-Fatal
-> Errors"), adds 79c168e2aa95 ("PCI/AER: Skip error recovery on false
-> alarms"), and leaves the ANFE mask unchanged only on the Apple T2 Secure
-> Enclave Processor [106b:1802]. The global ANFE revert is absent from the
-> test kernel. The per-device flag approach follows Aditya's earlier
-> proposal, with an EARLY fixup so the flag is set before pci_aer_init().
+> > to allow that, I'm not willing to take such a hack in KVM.
+> >
 > 
-> The test systems are:
-> 
->   MEDUSA:  MacBookPro16,1, Core i7-9750H
->   CHIMERA: MacBookPro16,1, Core i9-9980HK
-> 
-> Both ran 7.3.0-rc6-6-t2-edge-apple-sep-anfe-test, confirmed by uname and
-> the kernel banner in each current boot journal. At the 23:24 EDT check
-> on October 9, MEDUSA had 2 hours 22 minutes uptime and Chimera had
-> 2 hours 21 minutes. Their boot IDs were unchanged from the initial
-> successful candidate boots. graphical.target and the display manager
-> were active on both, and neither had failed systemd units.
-> 
-> Read-only config-space checks gave the same results on both systems:
-> 
->   Function                    Correctable error mask
->   Apple SEP, 04:00.2           0x00006000
->   Apple function, 04:00.0      0x00004000
->   Apple function, 04:00.1      0x00004000
->   AMD GPU, 03:00.0             0x00000000
-> 
-> ANFE bit 13 is therefore masked on the SEP and unmasked on the other
-> observed functions. No config-register writes were used in these checks.
-> The implementation matches vendor/device ID, not these bus addresses.
-> 
-> Neither candidate boot journal contains an AER/GHES report, kernel
-> panic, oops, BUG or call trace. Neither recorded additional kernel
-> messages after the initial 21:04 checks through the 23:24 check.
-> 
-> The earlier Wunner-only candidate booted on MEDUSA but then powered off,
-> as I reported on October 8. Its retained journal ended before that event;
-> there was no recorded shutdown sequence or panic. The cause of the power
-> loss is still unknown, and this quirk does not establish a firmware
-> mechanism. The combined candidate has not reproduced that symptom within
-> the observed interval.
-> 
-> There are remaining boot warnings unrelated to the reported AER symptom:
-> ACPI duplicate-table/method errors, AMD SDMA fence fallback warnings,
-> HID rotation probe failures, and Broadcom P2P failures. Chimera also logs
-> CPU 0 machine-check records in banks 12 and 13. These warning categories,
-> including the same machine-check status/address records, appear in the
-> previous boot logs. I am retaining them as separate follow-up issues.
-> 
-> This was a v7.3-rc6 test build with the existing T2 driver/patch stack,
-> using Debian Forky GCC 16.2 and binutils 2.47. It was not a vanilla
-> upstream kernel or an identical-toolchain comparison to the older GCC 14
-> release image. Artifact checksums, exact source/provenance, config checks,
-> t2gmux/t2smc builds and imported-symbol CRC checks passed. A generic
-> KVM/OVMF boot also passed; the hardware observations above come from the
-> two physical systems, not KVM.
-> 
-> The T2 team reports that [106b:1802] identifies the SEP across T2 models,
-> but this report covers only these two MacBookPro16,1 machines. I have not
-> tested other T2 models, power-off/cold-start, suspend/resume, reset, kexec
-> or deliberate AER error injection. Physical confirmation of the rendered
-> GUI is not included in this report; desktop service state was checked
-> remotely. The existing release/rescue boot files were preserved.
-> 
-> The patch (enclosed) leaves other ANFE handling enabled and is idempotent
-> across
-> repeated fixup/AER initialization. Please review it as a targeted workaround
-> for the MacBookPro16,1 regression, with the testing limits above.
+> Is this a hack because sev_cmd_mutex() would be held for a long time
+> while the populate loop executes?
 
-Thanks for this!  Since you posted this before Aditya's essentially
-identical patch
-(https://lore.kernel.org/all/20261010172301.12764-1-aditya.garg@linux.dev/),
-I used this one instead.  It's on pci/for-linus for v7.3.
+It would also bleed CCP internals into KVM, and in general doesn't pass a basic
+"is this the right thing to do" test. 
+
+> > So, very sadly, I think in-place conversion is dead for 7.4, and will need to be
+> > revived on top of an overhaul of sev_cmd_mutex locking.
+> >
+> > Or I guess maybe a less painful temporary workaround would be to disable support
+> > for SNP if in-place conversion is enabled.  That would avoid extending the in-place
+> > conversion bottleneck for TDX, pKVM, and CCA, without having to take a gross hack
+> > to make SNP play nice.
+> >
+> > E.g. this as a workaround for 7.4 (not yet tested)
+> >
+> > diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+> > index fad72cab76cf..df885b8214d4 100644
+> > --- a/arch/x86/kvm/svm/sev.c
+> > +++ b/arch/x86/kvm/svm/sev.c
+> > @@ -3213,6 +3213,14 @@ void __init sev_hardware_setup(void)
+> >  	sev_snp_supported = sev_snp_enabled && cc_platform_has(CC_ATTR_HOST_SEV_SNP);
+> >
+> >  out:
+> > +	/*
+> > +	 * FIXME: Allow SNP with in-place guest_memfd conversion once the PSP
+> > +	 * driver no longer takes its global mutex outside of mmap_lock (which
+> > +	 * leads to deadlock with sev_gmem_post_populate()).
+> > +	 */
+> > +	if (gmem_in_place_conversion)
+> > +		sev_snp_supported = false;
+> > +
+> 
+> If we go with something like this, when SNP and gmem_in_place_conversion
+> starts to work together, would we need some kind of new CAP or other way
+> to advertise that guest_memfd and SNP are now friends?
+
+I don't think so?  KVM already enumerates support for SNP, so reverting the
+block should tell userspace everything it needs.  We'd need to document that
+enabling in-place conversion disables SNP support, but I think it's purely a
+documentation problem.
