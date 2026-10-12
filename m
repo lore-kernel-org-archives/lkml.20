@@ -1,79 +1,78 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FB53AB498
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:56:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CEB43033E6
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:57:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791813406; cv=none; b=aJKjxkK+aX+cmXCQkD8oORhl7qQRRBchGc4dL3MNHqJxT9r24EblscBJ6hR5AgIYhe9NY4EP6vZc8UoS1P3EL2c7M2IoND0xb1LxBmokBI5QoCg0B21gExCUzsE7VGKXEouWrpSO5AiL6uUs1aaIkQ0IXaTy8yHUPZ3JPXopd8M=
+	t=1791813438; cv=none; b=KD2FuirOIEDXfH1MiM0SYOdMVtAGifah5n9EAdU01ODJTP+F+hKCgXWZs/Mx9iQ6ycEGm97FUd71ogtswcWOvL2eTWNZ/eXrDpIywUo8a/QzidL2ud1WxDbRirfjGBaHutmk/R0fj8nzDoVHQFGQRIFBnllIWJfeS86C5J9aYME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791813406; c=relaxed/simple;
-	bh=L/9MsltiVxDAB9BNwzkHRMxC3qXxoBU85cZrGQmQAd8=;
+	s=arc-20240116; t=1791813438; c=relaxed/simple;
+	bh=/iY5j2p4b5QwDQlKEMYgEYpvGS9pC1Ctd69uP/eW8Rk=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FK9b4W6ZQO3cWFLR4jvxbY8wvnapLJWdOUAtTUgRW+xPc8eYInh9g5NQrBqG1PM5kj3K/Lv2owJ3Kuwb2GvkYytl3Vkr6F5mmO8ptz3/yzSyOodQ+MRqlMRPWyeu90pdmJGRzIyRB5XRvmDKO1g1cYFFG6BekCkJxHslX7XiKwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KsNBgUjr; arc=none smtp.client-ip=209.85.128.41
+	 MIME-Version:Content-Type; b=eHRwBh5/5MfMttcCzAdZMmgNdqWS0R7JsJkoRF47o/HNBM1zWC6Sqwn2zMFPDakGL/pybkosjfUFnR0XsTdkfOY0hbqMRxKRoTx/Dme1RZ2eof/e7eGBRYzsvvm/SXkRyY+2l1hT9wZNvZg5ame4t5wWch1d/1NnfXZJYx0Mv/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=leArUqYg; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KsNBgUjr"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1688d7769so16022335e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:56:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="leArUqYg"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a16c399641so19727025e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:57:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791813402; x=1792418202; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791813436; x=1792418236; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=UUYoS5AA5l7ySIMcuvHl5B+AVs8QiINi3gGrgQ2SCkU=;
-        b=KsNBgUjr8dIYoHTWbojY7qIBnrpg0kRl13ZdWNG0Fr0VMIQ0JVYoJBRrp+0eoSKfZV
-         e9swGtSflbmglT39C25kwXvGNRnPvVFJg/qrDu5KZ0bY34rx5CDJMlxgJXdIMFBgRzcY
-         iRP6cQ6J+8zHgOIPIkgawqPPInV7bbSfst1jyQ3J4tIqGKnC8Q9564EsQ4WganWd8HKS
-         DVuhNKpSiOtZSSUUtpGGHz3ZJ9jggBryczOATAahN80kfSb0W2XpAjXlr9HItM3ZChv5
-         pdEX67ih+LOP7ib45xe+dcfu/7Xd/DhTW8b2xmZQgDG//jgNfJY6cOPizcHj13HvEtB5
-         fzTw==
+        bh=34EJoNLsVra8nCHZLNhyhOI+5/614M9XjyOHIoY4piw=;
+        b=leArUqYgKp6Zd79qG6MdtrHyxPewrSZjNC85UQSCUIvHmdNa4v2XkiKGyU9fWcusc8
+         2+S/Bw9tm8LviyF+HLFf1yAA9F/VRweoQxLUWwEHqybMTKygMbvwLziu6lI+ryOoNcA2
+         OEAL7DrsDrtn3WrXuD5hoWIfnHraHhBYy4agYxTutQzfV3pYmy6IhdGflq/1Q01LgJT0
+         R9hiKPsNxIuQn27E6qN9oiLxt1lQZy6c70/32UBRLkfFpLKd3W35F9g1ElPAPTQ8wGyA
+         IfwdPwbsCsGz5Tza8jNBFfvGwQiAz/z2f1tYZV4xyMNU5jPc5qYFDZq/dbwF8M2RuFmV
+         jDrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791813402; x=1792418202;
+        d=1e100.net; s=20260707; t=1791813436; x=1792418236;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UUYoS5AA5l7ySIMcuvHl5B+AVs8QiINi3gGrgQ2SCkU=;
-        b=kSViOgmFbNWN7Erpgjx1xnlhu7CwGnKcjT2e7z4TsEhreAiqYZsdUJbgPlJDnBBuwh
-         Gd6oUrUCDZTo7yhiiYPyRymzeiBmbDrVBaxIb/Au8TB79HjSaxWRjxltmxnwqEeFP6GS
-         UIX2LUAPC7wmfeHh6b0eFQ055ymlJwaf29LgWVKcUSWN6d39Ydoqwga7Kdya9GYxVx8M
-         ZIXIrflYPLND40Q0e53B8badOKwm306Br+cKNibYZF4ft4z3tpcwOdsFREMFleqAlD9P
-         x1qkipa/VfYhtwLwt/+dAecNjEd1gd0rO5iIi0AnJjjP25p9UGUJ/LI7LR8sKAKo/muI
-         OCnA==
-X-Forwarded-Encrypted: i=1; AKwUvBzjXB4TsS+Izibep0aNU3eJXznOnB08UmJ3LR9gTbshaodzxxd6ZkUkHWPXGpq1P8wJk3CMv5/9A8kbjyk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYINSNgRbYygosRHrW8kZILpBy62WcFLlY2z5H8xZjhreo8s280S
-	oedJ1DNnQOO5njMc8sKfUpED7azeNYTMQzVynN6RSQxrRP9i8exmTSPE
-X-Gm-Gg: AYBFou2+VQr4GxhoTA5Ukyy7oyBl4KEDpQpm76x7JF/X0MzzrPtQT88f/VeKx27ZWUr
-	G3bpvgL4DsCbqdusOJYBFWLiCB5zQbqYUrC4WxMQRW0nUwQXc4tmqqjx76X850P93vtI/VKA5Ov
-	Cj/SNdBLhK9UW5fDDmg+Zn40sKSgQtdNfyuxsya6Xlusoj1vOnaBT6y1aZcDmJA+9+PAtQGbmlY
-	XRjMQiU8wJVW1pbMjJ2L+LmbKKtFwkVyIw3SMWxyfjfSj5SygdlY7DoMoXOsbVx8olFNzfZxCYu
-	g+2pMAPvRFigVVZTcWo1Ya7X6xQt+oFXg1LOEeWq5eovHYul/lhkRutTemhdJBHOLEhRo4etU7s
-	hoQt+1fUfhcFvIDw4eqOpgQumRLWaXZEpm9sCaCOghjoO+mbB+teEack9Reo+mlhGRIEDIhOfrw
-	ce79EjRtytPi/MPzVxVctNSWlbN2gpVsDCdf3pdCAAB1Y8APpn9UrMSRrfS+sZbXpTuaWTg5GL2
-	RKpgLgk3rf5ECjUCCDed1HZwSXHj7iEfKhlr1fFT3wca1rl59HvWvZAGP9ZefRnRQRwb1ucqA80
-	y7L5Yi+m2TjOi+AinkkoaR67SXZyB77vA3vYBlu4IQ+NM3rH2yrPnwzsUEYrc34SfGsf14Q3AFI
-	LETfrgrkJNS4LI15Y+4+xdbyRz7Ra749f8CLPYWpnrVPLQuc/BLU9RBMdn7/EHVoQiA4M60lNqy
-	lG2xeLJhmXlt2ODjk=
-X-Received: by 2002:a05:600c:19cf:b0:4a0:168f:d962 with SMTP id 5b1f17b1804b1-4a18e44363dmr178450155e9.3.1791813402425;
-        Mon, 12 Oct 2026 06:56:42 -0700 (PDT)
+        bh=34EJoNLsVra8nCHZLNhyhOI+5/614M9XjyOHIoY4piw=;
+        b=IXwCVSo0W2ger1WZpvvAAr3FkwiKNik98EiLANf86Yj6ywTB/GDyxUB7gCBpabJx2r
+         C7sT23P+8JQUyAAlmsYiqOwKiqU36xQIIsaISa08ouvvSiusvHiyI+g/eLnJwuuQWDC5
+         +SNH/rqbWsYPhllMBKbyur1Ug6w7bVJNREG4C3P9HpEalj+wxVK1d3PNLCoSFPc9U/Oh
+         1Ky/hvSIIOzQ92uWxydKoSJGAqVio6pUIYjsCyHRF8omg8CAwlFRKc76xaURS1LlSbpQ
+         Iy4DOk5zO4aIYMyz7sA38yk5HeuhUpB4jIwlOsXPozDTRiQ4HHyxcXdw/L1TIKGEe905
+         yeMw==
+X-Forwarded-Encrypted: i=1; AKwUvByNthUT1OAdaYvITUlmZYhZ1zbh9ItlPb20bLwT39V3DFYmkqNv7xA5nEMZtVU5ZOYULQLEmoXL70sihr0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJsBTkmdY7BKUyxlaDATin0Z4ghJVh6Dp3ai6pX9CS/0moHRVYa
+	OBHEhsFXoSc5Urkvwd62MiNBlMeBzwtznWJPUdn6Jh0MeEDHTR9pWwSS
+X-Gm-Gg: AYBFou3pj7/npX0F6qJbcI6/rZTEOQr0fSs4VwiuZF2nM0iFno1Yz4dOrIYUxt77APj
+	wLxMJlb/8ffA8seRy85onhGIW6/bcOGjUXHG4fgw8lWFmwzirTsPceYoO4YGMCXC1dHU9ggFCoa
+	AQsuclI9lyPf22bD8d0fGgtmfxYY+rCquvgQ50CvUSsGkFvMJtuenv/ieeq4JPWdX1LH0Y4dV+g
+	YJk4JHw8yq05tnNiS7lx7ql0E0IwM7qAfK0j+gXkb7s16g82SBIzbTIhXv3eAu8m25VbVQlidjT
+	sIyQsjE81AYVOsAed0qWIkwJ6x0Z2s9GzTzb73+k4OUT6uBhgF/7MV0KMhsIR92VX9aH6GW6nN3
+	aMv2Lgey3R1upQ0eOJLElJma1fnc9dco3zSLLaMfdOd8DcDiYNl+QSNCVpjZMQYlWeRzX/VuCZ2
+	fR6kFPHulvU1wGom7TiCjemQmpodLPvw8e0n+gL/e5FU3CF2YSDDikyuIMgAmSayfAH/rNC8Ge4
+	kAwTsUzpS94Ve83iUZe+fwngZ2E23znP9nLhkmfY/GPxWXZyivmvSitiTsCtfeiOb2ump/3oRt+
+	NTNBaQDfIzrT9b/CJPlIPFTvZL0431Tr4jkdFvQ8QhfYxPH/cmnPIFxqTsZomNOalsa/sQINN/H
+	o0p8qu1kgSfMyLsWbvYkg0f2OtMsGO215/oyZsTvYZCJMh5aJqobeNnBg+9UnwXXpB415iFRyFe
+	mGmMjwucZQT6KcjDE=
+X-Received: by 2002:a05:600c:3b99:b0:4a0:1ea2:10c6 with SMTP id 5b1f17b1804b1-4a18e48eeb6mr236849945e9.17.1791813435810;
+        Mon, 12 Oct 2026 06:57:15 -0700 (PDT)
 Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9abd574sm20255889f8f.34.2026.10.12.06.56.41
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2343asm539977905e9.9.2026.10.12.06.57.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 06:56:42 -0700 (PDT)
-Date: Mon, 12 Oct 2026 15:56:36 +0200
+        Mon, 12 Oct 2026 06:57:15 -0700 (PDT)
+Date: Mon, 12 Oct 2026 15:57:13 +0200
 From: Joshua Crofts <joshua.crofts1@gmail.com>
 To: Nikhil Gautam <nikhilgtr@gmail.com>
 Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
  andy@kernel.org
-Subject: Re: [PATCH 1/1] iio: atlas-ezo: Fix humidity channel read support
-Message-ID: <20261012155627.00004cbc@gmail.com>
-In-Reply-To: <20261012114553.3327-2-nikhilgtr@gmail.com>
+Subject: Re: [PATCH 0/1] iio: atlas-ezo: Fix humidity channel read support
+Message-ID: <20261012155713.00003254@gmail.com>
+In-Reply-To: <20261012114553.3327-1-nikhilgtr@gmail.com>
 References: <20261012114553.3327-1-nikhilgtr@gmail.com>
-	<20261012114553.3327-2-nikhilgtr@gmail.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -84,27 +83,27 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, 12 Oct 2026 17:15:53 +0530
+On Mon, 12 Oct 2026 17:15:52 +0530
 Nikhil Gautam <nikhilgtr@gmail.com> wrote:
 
-> The atlas_ezo_read_raw() function rejects channels that are not of
-> type IIO_CONCENTRATION, preventing the relative humidity channel
-> from reading raw and scale values.
+> The atlas_ezo_read_raw() function currently rejects channels whose
+> type is not IIO_CONCENTRATION. As a result, the relative humidity channel
+> cannot access the raw or scale values, even though the driver defines support
+> for IIO_HUMIDITYRELATIVE.
 > 
-> Remove the early channel type check to allow both concentration
-> and relative humidity channels to reach the mask-specific handling.
+> Remove the early channel type check so that both concentration and
+> relative humidity channels can be handled by the existing mask-specific logic.
 > 
-> Signed-off-by: Nikhil Gautam <nikhilgtr@gmail.com>
-> ---
+> Nikhil Gautam (1):
+>   iio: atlas-ezo: Fix humidity channel read support
+> 
+>  drivers/iio/chemical/atlas-ezo-sensor.c | 3 ---
+>  1 file changed, 3 deletions(-)
+> 
 
-What a weird check...
+No need to add a cover letter if you're just sending one patch.
 
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-
-Additionally, Sashiko found a potential I2C read issue, please check
-it out.
-
-https://sashiko.dev/#/patchset/20261012114553.3327-1-nikhilgtr%40gmail.com
+Thanks.
 
 -- 
 Kind regards,
