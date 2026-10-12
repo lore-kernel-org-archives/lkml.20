@@ -1,149 +1,274 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mailout.tng.vnc.biz (mailout.tng.vnc.biz [34.107.87.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CCB94F55DF;
-	Mon, 12 Oct 2026 21:31:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0283CB55E;
+	Mon, 12 Oct 2026 21:33:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.107.87.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791840685; cv=none; b=CFQ77JgKqWn20j+VyNDi+hXplv7MjzwQGoeOKmIortgMUs12juSTlg7RipgfNtyZj1mPq9BoWit8PdHE6OJNE05WR9ToXaSUj78W2WXFXgJ61/8Sle0lWvF/4hXUAuAAN2ct6nrJSXnQURF3Ipk4RlpOA+cTS1hcaPvUXZ7iFZg=
+	t=1791840833; cv=none; b=PnLVpAZl2XJ3yMYo6KRJKcJprzA71d2shMsyiTLrhtuQ/OEPqw4AGdxalrMOhdOwWg2HSLRdbMiFqLqzApHpS8O5/Vn1z7Xqp56NOZFAD9Mqx0GKRZDhxRwyZm9ddYCeKvqDFXAdqWErQUSjChURIqCYHYjLnOaoBHhuX2XAxAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791840685; c=relaxed/simple;
-	bh=DdnDOuSawbe5nNcJRQbCzcdh3QuvWeXEUVeyBmzwMLE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sjnOebYePcMHqFUa0fnSTGcEPblPGKzrIdxho7HwyFGUPlqN3m3anUqABLUyJCm0RNh1PVTVaU3cozaDzIL8KRcjcJpmcp8VCKUnXD7f40eGmfkqYZ8fB8fpFVHXE3QUfRjJn6mIvIz8zFnsxom4xVW8PBtjXXG6wFUl8a5UyaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VVtSCspt; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791840833; c=relaxed/simple;
+	bh=zdptokPnMaFS0DhpIA3loNPgzbCyYzUqkKRdm+hg3/Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kgoHDmOLQvEQOHwHCqrQ72gJLO5qNvFC3fCNtqYvMZyFRnvI4LtDdqgIdjfRlXSf+iwb0MLM2Jk14dt2gEF9vAUYGqshLdyYFqmO9CKdHL2T8hSa0m8vyjJiB5bri8oIT+99QBgpTXXnYQInGWl94Kj2/CGpZnTxo09/wTJ+MFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tngtech.com; spf=pass smtp.mailfrom=tngtech.com; dkim=pass (2048-bit key) header.d=tngtech.com header.i=@tngtech.com header.b=HMR/ngtG; arc=none smtp.client-ip=34.107.87.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tngtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tngtech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VVtSCspt"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0BBDCC32782;
-	Mon, 12 Oct 2026 21:31:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791840685;
-	bh=DdnDOuSawbe5nNcJRQbCzcdh3QuvWeXEUVeyBmzwMLE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=VVtSCsptaFnucxj7jlU7T3aLpGdFDdj7JetIVBWk3kNxQcnP/KZLf4I8w33QgKlow
-	 o09jhSEzhcopVdAzhA4zRLPwMKNE2xvLVDsm8CPv+H/YllYbzC2VTI8BIe+WsM3im7
-	 Wxg3DLK7Jz8ahEBiHoIu9pG8kSajqt7X3iX1RDCWkYXr71JoeKX2crKmpL4kzo3YaH
-	 Dw/PghpS634n0Ts9W1jN3gts3/pYb/uZY2EsBc8D5VNh77HK5KUe0b4UOYVSyD/oJ5
-	 iQVvfhj26s/4+fZeGiQqn5VE+qe8HI4LLFQLEEZdfDWJAIGRyEErj9zuXSm0tepCuN
-	 BSLsidwt0eDSQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EE9B1CA9ED0;
-	Mon, 12 Oct 2026 21:31:24 +0000 (UTC)
-From: Vladimir Kukharenko via B4 Relay <devnull+vladimir.genproof.com@kernel.org>
-Date: Mon, 12 Oct 2026 21:31:22 +0000
-Subject: [PATCH 5/5] lib/crypto: chacha: Take a size_t length in
- chacha_crypt()
+	dkim=pass (2048-bit key) header.d=tngtech.com header.i=@tngtech.com header.b="HMR/ngtG"
+Received: from zmproxy.tng.vnc.biz (zmproxy.tng.vnc.biz [172.16.1.23])
+	by mailout.tng.vnc.biz (Postfix) with ESMTPS id B798F40872;
+	Mon, 12 Oct 2026 23:33:50 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by zmproxy.tng.vnc.biz (Postfix) with ESMTP id ADC781F8B42;
+	Mon, 12 Oct 2026 23:33:50 +0200 (CEST)
+Received: from zmproxy.tng.vnc.biz ([127.0.0.1])
+ by localhost (zmproxy.tng.vnc.biz [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id ZxVqMZRGNeCU; Mon, 12 Oct 2026 23:33:49 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by zmproxy.tng.vnc.biz (Postfix) with ESMTP id D386D1F8B81;
+	Mon, 12 Oct 2026 23:33:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 zmproxy.tng.vnc.biz D386D1F8B81
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tngtech.com;
+	s=B14491C6-869D-11EB-BB6C-8DD33D883B31; t=1791840829;
+	bh=lJ1s2HBxU8LX7MJZeySZ1Y8ezSSD7jpXj+BDmxI3rNc=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=HMR/ngtGOmblmfzBjl9YyxPR4wt0QJh3xfuKNqL1LNvu1V89TA61k7Asv5mUrxQDs
+	 3Ys34DcDgds7BaOiOwIxDfmePBV64HwpY/agZGrIYTvwFVlkgjOZxXzC/uqDKZoUE+
+	 8392E+KHYgdp+msfMfZY301iHSnpXWe8LSvogrmlGtGQbWexvyu4cluDht2KBa7l85
+	 SoUJJPZA8glmtbNxKblrdaqyM+WhBC4+wQRpoUT6PbI5Hk3P/WX671rSZJ3tP0vO86
+	 tdS6eDEsCDt3Zqoe3NxgWjVwhbovm0587tF+Zr3Z/HVPGXmJ7gNIrqMQ7y6YZ9wjgU
+	 fyCG7OQrFjbTA==
+X-Virus-Scanned: amavis at zmproxy.tng.vnc.biz
+Received: from zmproxy.tng.vnc.biz ([127.0.0.1])
+ by localhost (zmproxy.tng.vnc.biz [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id MoeRt94eWR6b; Mon, 12 Oct 2026 23:33:49 +0200 (CEST)
+Received: from luis-Precision-5480.. (ipservice-092-209-236-032.092.209.pools.vodafone-ip.de [92.209.236.32])
+	by zmproxy.tng.vnc.biz (Postfix) with ESMTPSA id 60BFB1F8B42;
+	Mon, 12 Oct 2026 23:33:49 +0200 (CEST)
+From: Luis Augenstein <luis.augenstein@tngtech.com>
+To: nathan@kernel.org,
+	nsc@kernel.org
+Cc: linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	gregkh@linuxfoundation.org,
+	kstewart@linuxfoundation.org,
+	maximilian.huber@tngtech.com,
+	Luis Augenstein <luis.augenstein@tngtech.com>
+Subject: [PATCH v3 0/7] kbuild: record cmd-prereqs in .cmd files
+Date: Mon, 12 Oct 2026 23:33:15 +0200
+Message-ID: <20261012213337.2466524-1-luis.augenstein@tngtech.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-libcrypto-4gib-lengths-v1-5-ea566c129a2e@genproof.com>
-References: <20261012-libcrypto-4gib-lengths-v1-0-ea566c129a2e@genproof.com>
-In-Reply-To: <20261012-libcrypto-4gib-lengths-v1-0-ea566c129a2e@genproof.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>, Eric Biggers <ebiggers@kernel.org>, 
- "Jason A. Donenfeld" <Jason@zx2c4.com>, Ard Biesheuvel <ardb@kernel.org>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-mips@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, 
- Vladimir Kukharenko <vladimir@genproof.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791840683; l=3015;
- i=vladimir@genproof.com; s=20261012; h=from:subject:message-id;
- bh=EeWzQrmZlf68OfajrkB+W/t3+tJsiZ8lDU4fkz0igMY=;
- b=/ZTtirlILLZ+d+u1I7hRscr5gq2jf876h7ZB9XwqO0kZdL3/9zpYE3Jyvj7zgU5YdUH/8YzTT
- Vtshyrqsd45AR52IOsPPgryK4vOhyYiganDS1gkEOv9pttEVqP2Rb4H
-X-Developer-Key: i=vladimir@genproof.com; a=ed25519;
- pk=EqOzBSKBgFn7ExzKj5f9T8u+1yTrGVlLBwf3fj/sdHM=
-X-Endpoint-Received: by B4 Relay for vladimir@genproof.com/20261012 with
- auth_id=1169
-X-Original-From: Vladimir Kukharenko <vladimir@genproof.com>
-Reply-To: vladimir@genproof.com
+Content-Transfer-Encoding: quoted-printable
 
-From: Vladimir Kukharenko <vladimir@genproof.com>
+KernelSbom (scripts/sbom/sbom.py) reconstructs the kernel build graph
+from the .cmd files written by Kbuild. For most build outputs,
+KernelSbom must infer the build inputs from the shell command stored in
+savedcmd_*. This requires command-specific parsers, which add
+unnecessary complexity and are difficult to maintain.
 
-chacha20poly1305_encrypt(), chacha20poly1305_decrypt() and the
-xchacha20poly1305 variants take size_t lengths.  They pass these lengths
-to chacha20_crypt(), which takes an unsigned int.
+Kbuild already knows these inputs as $(real-prereqs), the non-phony
+prerequisites of the Make rule. This series records them in .cmd files
+using a new metadata field:
 
-For a message of 2^32 + k bytes, chacha20_crypt() processes only the
-first k bytes.  In-place encryption leaves the remaining bytes as
-plaintext.  Until poly1305_update() took a size_t, those bytes were not
-authenticated either.  Commit ed20078b7e33 ("crypto: chacha20poly1305 -
-import construction and selftest from Zinc") introduced this behavior.
+    make_prereqs_<target> :=3D <prerequisites>
 
-Change chacha_crypt() and chacha20_crypt() to take size_t lengths, as
-poly1305_update() and the other library functions do.  The architecture
-code takes an unsigned int length.  Split inputs larger than UINT_MAX
-into chunks of at most UINT_MAX bytes.  Round each non-final chunk down
-to a multiple of CHACHA_BLOCK_SIZE to keep the keystream continuous.
+KernelSbom is updated to read the new field instead of parsing the
+shell command, and the obsolete command-specific parsers are removed.
 
-Lengths up to UINT_MAX make the same single call as before.  The
-RFC 8439 limit of 2^38 - 64 bytes per message still applies.
+The issue of manually parsing shell commands was originally mentioned
+in https://lore.kernel.org/r/a01233b9-23a2-4666-91ed-f1cf030dcb9f@tngtech=
+.com.
+This series is a proposal to address that.
 
-No in-tree caller passes messages this large, so this is an ABI
-robustness improvement.  I found the bug while writing a Coq/VST proof
-of this code with LLM agents, and reproduced it in userspace.
+Cmd writers and consumers
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 
-Assisted-by: LLM
-Signed-off-by: Vladimir Kukharenko <vladimir@genproof.com>
+The new field should not affect existing behavior.
+Below is a summary of what I checked.
+
+.cmd files are primarily written by cmd_and_savecmd and cmd_and_fixdep.
+Both writers add make_prereqs.
+
+The following rules append information to existing .cmd files.
+None of these is affected by the new field:
+
+- scripts/Makefile.lib: cmd_gen_objtooldep only appends new rule
+  target: $(wildcard ./tools/objtool/objtool)
+- scripts/Makefile.build: gen_symversions only appends comments
+  #SYMVER <name> <crc>
+- scripts/Makefile.lib: cmd_save_c_flags only appends a variable
+  saved_c_flags_<target> :=3D <flags>
+- rust/Makefile: cmd_gendwarfksyms only appends comments
+  #SYMVER <name> <crc>
+- kernel/Makefile: kheaders_data_dep appends a deps_* block
+  deps_<target> :=3D <headers>.
+
+This series updates the following .cmd file consumers:
+
+- scripts/sbom/sbom/cmd_graph/cmd_file.py: CmdFile.create() is
+  rewritten to parse the fields by name, including the new
+  make_prereqs field.
+- scripts/make_fit.py: process_dtb() previously read and split the
+  complete .cmd file to find the fdtoverlay command. It is changed to
+  read only the first line, so it keeps working once the new field is
+  introduced.
+
+The remaining consumers are not affected:
+
+- Kbuild Makefiles: -include reads .cmd files as Makefile fragments. The
+  new field is an ordinary variable assignment not used in any dependency
+  rule.
+- scripts/Makefile.thinlto: the saved_c_flags_* lookup only reads
+  saved_c_flags_<target> :=3D <flags>.
+- scripts/mod/modpost.c: extract_crcs_for_object() only reads comments
+  #SYMVER <name> <crc>.
+- scripts/mod/sumversion.c: parse_source_files() only reads
+  source_<target> :=3D <source> and deps_<target> :=3D <dependencies>.
+- scripts/clang-tools/gen_compile_commands.py: main() only reads the
+  first line containing savedcmd_<target> :=3D <command>.
+- scripts/generate_builtin_ranges.awk and
+  scripts/verify_builtin_ranges.awk: get_module_info() only reads the
+  first line and searches the saved command for DKBUILD_MODFILE or
+  RUST_MODFILE.
+
+Alternative: extending the deps_* field
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+An alternative to the new make_prereqs field is to merge $(real-prereqs)
+into the existing deps_* field for both cmd_and_savecmd and cmd_and_fixde=
+p.
+This would avoid a new field and provide one dependency list. However, it
+would broaden the meaning of deps_* from dependencies discovered through
+generated .d files to include prerequisites already declared to Make.
+This increases the risk of undesired side effects.
+
+The writers listed above would need to ensure that each .cmd file
+contains only one deps_* block. In particular, kheaders_data_dep would
+need to merge its header dependencies into the block written by
+cmd_and_savecmd instead of appending a second deps_* block.
+cmd_and_fixdep, or fixdep.c depending on the implementation, would
+likewise need to merge $(real-prereqs) with the generated dependencies.
+
+Apart from KernelSbom, scripts/mod/sumversion.c is the only consumer
+that explicitly reads deps_*. It uses selected dependency files to
+calculate a module's srcversion. Extending deps_* could change this
+module metadata. Such an unrelated change should probably be avoided.
+
+Kbuild Makefiles also consume deps_* by including .cmd files. This
+should not be an issue though, because $(real-prereqs) are already
+present on the original target rule, so repeating them through deps_*
+should not change rebuild behavior.
+
+SBOM comparison
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+I compared the SBOMs before and after the series for the same kernel
+builds on x86 and arm64 allmodconfig. They are ~99% the same. The
+following files are newly included in the SBOM because the manual
+parsers did not cover them.
+
+- Linker scripts: *.lds.S sources and the generated *.lds scripts.
+  The old tool never extracted -T arguments, so the whole
+  linker-script chain was missing.
+
+- The intermediate vmlinux link steps: vmlinux.o,
+  .vmlinux.export.c/.o, the realmode pasyms.h. Previously vmlinux.a
+  was hardcoded as an input of scripts/link-vmlinux.sh. Now the real
+  chain vmlinux link -> vmlinux.o -> vmlinux.a is included.
+
+- Per-module .mod object lists: the old tool expanded the .mod file
+  contents in place and recorded the objects directly as link inputs,
+  without explicitly including the .mod file in the SBOM.
+
+- Generated headers: the drm/xe and msm register tables, the aic7xxx
+  sequence tables, the x32 syscall header, and module.lds.h. The old
+  tool found a header only where a .c file actually includes it via
+  the dep file; the new tool records the full make view, including
+  headers that are never included at all.
+
+- Config and header archives: kernel/config_data.gz and
+  kernel/kheaders_data.tar.xz. The old tool missed them because their
+  generation commands had no matching parser.
+
+- Devicetree overlay sources: the .dtso files are now recorded as
+  inputs of the dtb/dtbo build steps. The old tool saw only the
+  temporary files those steps produce, never the sources themselves.
+
+The following files are removed:
+
+- dtc preprocessing scratch files: .dts.tmp, .d.pre.tmp,
+  .d.dtc.tmp. The old tool recorded these temporary build by-products
+  as inputs; the new tool records the real .dtso source instead. This
+  is a cleanup, not a loss.
+
+- Host tooling: the rust toolchain .md docs, the gen_smb1/2_mapping
+  perl generators, and the dtc host tool's libfdt headers.
+  Deliberately excluded. The SBOM should track what ends up in the image =
+or
+  modules, not the tooling that produces it.
+
+Changes in v3:
+- split the changes into individual patches
+- include the sbom changes directly in this series instead of deferring i=
+t
+- add the SBOM comparison section to the cover letter
+- Assisted-by trailer follows
+  Documentation/process/coding-assistants.rst
+
+Changes in v2:
+- filter depfile entries from make_prereqs in fixdep.c to ensure
+  make_prereqs is consistent between clean and incremental builds.
+  Filtering $(deps_$@) from previous builds is still required to not
+  include deps that got removed in the current depfile.
 ---
- include/crypto/chacha.h |  4 ++--
- lib/crypto/chacha.c     | 15 ++++++++++++++-
- 2 files changed, 16 insertions(+), 3 deletions(-)
 
-diff --git a/include/crypto/chacha.h b/include/crypto/chacha.h
-index 1cc301a48469..4c18e99eb4f7 100644
---- a/include/crypto/chacha.h
-+++ b/include/crypto/chacha.h
-@@ -86,10 +86,10 @@ static inline void chacha_init(struct chacha_state *state,
- }
- 
- void chacha_crypt(struct chacha_state *state, u8 *dst, const u8 *src,
--		  unsigned int bytes, int nrounds);
-+		  size_t bytes, int nrounds);
- 
- static inline void chacha20_crypt(struct chacha_state *state,
--				  u8 *dst, const u8 *src, unsigned int bytes)
-+				  u8 *dst, const u8 *src, size_t bytes)
- {
- 	chacha_crypt(state, dst, src, bytes, 20);
- }
-diff --git a/lib/crypto/chacha.c b/lib/crypto/chacha.c
-index 86e5d382a4e0..ffa0c75ce501 100644
---- a/lib/crypto/chacha.c
-+++ b/lib/crypto/chacha.c
-@@ -39,8 +39,21 @@ chacha_crypt_generic(struct chacha_state *state, u8 *dst, const u8 *src,
- #endif
- 
- void chacha_crypt(struct chacha_state *state, u8 *dst, const u8 *src,
--		  unsigned int bytes, int nrounds)
-+		  size_t bytes, int nrounds)
- {
-+	/*
-+	 * chacha_crypt_arch() takes an unsigned int length.  Process longer
-+	 * messages in chunks that are a multiple of CHACHA_BLOCK_SIZE, so that
-+	 * the keystream continues correctly from one chunk to the next.
-+	 */
-+	while (bytes > UINT_MAX) {
-+		unsigned int l = round_down(UINT_MAX, CHACHA_BLOCK_SIZE);
-+
-+		chacha_crypt_arch(state, dst, src, l, nrounds);
-+		dst += l;
-+		src += l;
-+		bytes -= l;
-+	}
- 	chacha_crypt_arch(state, dst, src, bytes, nrounds);
- }
- EXPORT_SYMBOL_GPL(chacha_crypt);
+Luis Augenstein (7):
+  scripts/make_fit: limit .cmd file parsing to the savedcmd_ line
+  kbuild: refactor fixdep to collect dependencies before printing
+  scripts/sbom: skip make_prereqs lines when parsing .cmd files
+  kbuild: record cmd-prereqs in .cmd files
+  scripts/sbom: parse make_prereqs from .cmd files
+  scripts/sbom: use make_prereqs to determine build inputs
+  scripts/sbom: remove the command-specific parsers
 
--- 
+ Documentation/tools/sbom/sbom.rst             |  22 +-
+ scripts/Kbuild.include                        |  10 +-
+ scripts/basic/fixdep.c                        | 163 +++++-
+ scripts/make_fit.py                           |   2 +-
+ scripts/sbom/sbom/cmd_graph/cmd_file.py       | 152 ++----
+ scripts/sbom/sbom/cmd_graph/cmd_graph_node.py |   5 +-
+ .../sbom/sbom/cmd_graph/dependency_filter.py  |  59 ++
+ .../sbom/cmd_graph/hardcoded_dependencies.py  |   1 -
+ .../cmd_graph/savedcmd_parser/__init__.py     |   6 -
+ .../command_parser_registry.py                | 516 ------------------
+ .../savedcmd_parser/command_splitter.py       | 128 -----
+ .../savedcmd_parser/savedcmd_parser.py        |  67 ---
+ .../cmd_graph/savedcmd_parser/tokenizer.py    |  92 ----
+ scripts/sbom/sbom/config.py                   |  14 -
+ scripts/sbom/sbom/spdx_graph/kernel_file.py   |  64 ++-
+ .../tests/cmd_graph/test_savedcmd_parser.py   | 468 ----------------
+ 16 files changed, 296 insertions(+), 1473 deletions(-)
+ create mode 100644 scripts/sbom/sbom/cmd_graph/dependency_filter.py
+ delete mode 100644 scripts/sbom/sbom/cmd_graph/savedcmd_parser/__init__.=
+py
+ delete mode 100644 scripts/sbom/sbom/cmd_graph/savedcmd_parser/command_p=
+arser_registry.py
+ delete mode 100644 scripts/sbom/sbom/cmd_graph/savedcmd_parser/command_s=
+plitter.py
+ delete mode 100644 scripts/sbom/sbom/cmd_graph/savedcmd_parser/savedcmd_=
+parser.py
+ delete mode 100644 scripts/sbom/sbom/cmd_graph/savedcmd_parser/tokenizer=
+.py
+ delete mode 100644 scripts/sbom/tests/cmd_graph/test_savedcmd_parser.py
+
+--=20
 2.43.0
-
 
