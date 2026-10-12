@@ -1,122 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C46964ACC7B
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:26:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E474AA417
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:27:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791822390; cv=none; b=JxBMzPuF2Udiy1V6wVvlFr62O0TyVA0g1JJbLT8lFusGb4tAx8lHPZtvUIWZ0S1KxSW718AG0uo2iuyalZAyJeuKzabXMB2D5TMQ2VrHCcr0xjrkSOw+EnBLZnxRdHodq0zZIjwb4PWKYZg+FO+EVSIqtU0jVOP4uLHG6gs5Vac=
+	t=1791822459; cv=none; b=sBjKNKye/ilIxonKgg4CBf4l+TkTNBJv/pgz5rBG3RsP8OrsTkscN961JN/CZ93zUEfkqYRasD4pl0O3HpGLwTP9G1IDWUknA5dcmXUQoBp1jiaFPHiAn3vVDkzcquTbTDrLYEvQ2f4t4Ht3vAJge4i7NT5CcP27vBtDx2ABj/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791822390; c=relaxed/simple;
-	bh=DJl1h1zX1CaTeRF2kmfSSDgZTrjxgcg6/cl3EJ7w9Lc=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FEijxglSVcemqj32tvILJ2/0689UqqembYng+HSsBo8HAczgIyui2SsSxwssr+pZRTdD2Ef9yOOniKVgVqwgYJVschl8SptZZEnbt8P0sh6vyRPX5Sf9rfBuG+xThDlvoE2wc9zewXU8M4XeoPziEEI4vLEhES4BQl8HZAvn3y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H/y6NOSp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791822459; c=relaxed/simple;
+	bh=zkr7WBLDtC/RyKdHb7CW1HYyZlDD08zJ7+NVgznsRRc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ktYDV6Q4uGUKj89WDqt0R0c10YBYi2tB3/zu9Mc3fuC2pNwJdR7sd90fW/KSJGgYsw2qVjLDOH8Ik49VxtzAv5rFFQu9bxnSVzD3sd51fjJWcqKnoF1HW62UT/sLd4oQour5xQMbVxwbAfGf5xmsqk453f7HiMqpwqlq9vnsCBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YHjqDrFq; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H/y6NOSp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AD5F1F0089B
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:26:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791822389;
-	bh=A5yMycJwawPg0C3KC+oeROk1OVlGqbmOeMxx37gHkgo=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=H/y6NOSpa1dM7CEj5vQvvFBcP9cuGERYPsfPAlkJtFRd0ATEj36G6bXIK0Pl+VtDc
-	 pPds8LGurpWdqo0KQAO2bBn2BPYtpcDVHyhWNOhZjJYeNWTcTfOpZYzE60m1AiP92Z
-	 rcug3S2fT44XKbSZhWbM4RXyjC9l7rnpe9tH0xTKMKCZDe1bz1jqS2aiDJkPQjRSuB
-	 WXnWGY4ZrazMfrnRmr2c3BpsOotfrHfqivHHx7Gl9+83nK2I5/QjLC5/mTXq1G7sne
-	 ysUWStjhwxoqN15ElgaqBzyE2FRh6VVkhTuDbXQshlId2BvAAdOLSCUgCRS7uYAfY0
-	 DwKXJZwd5lNRg==
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3a1eb6fa0f4so22390581fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:26:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzUK/oxaRQmPa/6bQ22fvhB8et2DGO6FErLEem5+h6/r8LPeFAoTh5d+ocpPrFKUp8/NCPuz9VWySGC8fA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkTSFyNdykxhXYyM2BcmrxGZ3y+H8hd+W+xQceAcfUbbEY9kxC
-	FsLAqqz0eae2A1U5tawj1LFbUIP4GLY+++NvNdFDXs0LLaulu3w5nBcQD0v3pUX2godbKwXgBcJ
-	SA4O2M/Dm/50+s2aGImw0lYvho9rcvmy1AafFImNMHQ==
-X-Received: by 2002:a05:651c:211b:b0:39c:624d:82b9 with SMTP id
- 38308e7fff4ca-3a9c51556e2mr26412571fa.4.1791822388127; Mon, 12 Oct 2026
- 09:26:28 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 12 Oct 2026 12:26:26 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 12 Oct 2026 12:26:26 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <asdVyUKWndnZ1Mxv@gondor.apana.org.au>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YHjqDrFq"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48b0d19cf7eso2800200f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:27:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791822456; x=1792427256; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TDpwaJ1oRpLE3raEQoNefoSEla8kJ3ERyibh0Mx62mQ=;
+        b=YHjqDrFqSGu0z6XIUgO+ztW/RrPOJpNK9Nx0iErM2UyWW2ya4uPc8aP/KH8nRYNgOR
+         scXkREAWp8KA15DW8mdEDz568GRm//RzX3lSXiY8XGYh8s4lgwfSjKwAJ05WjqmbJifG
+         tG2LOmEU2dagwXSSSF6hV4Lp/UHrj2PuGqvddV9H4GL1gnolHrp/T280vSs3U8KcKlPi
+         mP3yP7cr7Rj0YOrTBIcdBD1CYu3u0phQmaJykb0dDHFgURNQ11WElhug9cUkX3lrD6+T
+         QlX02IMv1YRngaHRH64aIGEuh0sYB1m4STdwE+wZJdTN7Q2TJRa1lRD2NMuy3WDvdzfR
+         BF+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791822456; x=1792427256;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TDpwaJ1oRpLE3raEQoNefoSEla8kJ3ERyibh0Mx62mQ=;
+        b=C0LahAkW+UPWzq07MXihHDGQhWyQZ1Ni+g2az5OVWOB0+IxD/85pf7flCpigyUyXjr
+         faZAt2H5WCshr/2Xb+UzeoYxt+XTOCysfY1NrI2yae0azomJb2t3zY1cHKPqs+PDkloG
+         JkuQ5KiGPE1R0XffOy7/ZYFc5C3qLP+EbKdWoGtLr/Yntd16gd9r/nCoGmOaOmTBFNLb
+         7nLcOCWK4tIfQfGw3ObdoTIa7Te7DblmHJ4BHfUwNuakl1IJUabMt6HuEyP+xf3v2ClU
+         5r2qttNCD3c8+Tr8esUoiZTFor7NfwR2LuFUdXLxrl54kRKob5oGf9isyGY/BJx7dde5
+         12AA==
+X-Forwarded-Encrypted: i=1; AKwUvBxHyO9dcspQHfPpMXK9lN+CpWXG1PiEWylhrdXruwaO0joijb/NaBfvS7tFF6oWn+qZi3YMwHNMEtLPn4s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJt6REJt/elO7ziwTALKLTiS7U99j0mBKtIn6208fObShfAh97
+	ZHzy83p5L0uNmu/DsBmP9Q4M38OuTYMVX4ulepjiuS3pINrTdqaf0CZH
+X-Gm-Gg: AYBFou3n4s20O2MR4DO4lFDXts95C9iHuoM0/sa8MLgmXGra9DM3Q2Fj7AolM2fdX49
+	JCdEX4Kr4rtf6TTpLp+9mYzxxSt5vsshPqE7axH2KUomWG3JvQSrrYdBUMm74SMvY209n9ifQt9
+	gxQCYPwagZiRtYVGIyuys8eIClwdBV4knVj0kd3Uom9+5+qtKR0kUpLtR3d4EkzsnxLrYRllTxQ
+	nM7MTb2X0+uAEXuPYr3tJLi9O/0LLE0T210EChoqiFdIUYFOcipq4J7mq5nuILCHO6mze+w7nzJ
+	+xxDOpzstPL2zwGzKKR/P5eBd0I68hwSYIyFC/K7DXoLJzKE669bBGmYUKKhJLq7naql77Y3pBg
+	oILHyXJyQFP9F5fcIcTveuZMjUnVotfAc8pFFuyqefekhBUC0tbv23+x5MaOni8m8ILozoMDV95
+	IQCJ19ncfMPPPqI8f/WqqarvF+y7PGAQR0B8Qhj6fHxj6JJtcfvrF48NaWl+OkxSUo3gXyJSfuS
+	tDtnGDJsGJmIChBTKv8PJW5qwkG9/KuEZHZsWnGk7VP+WXh3onXPz4W90iZ3Jdnd8VEQUDVBIgt
+	xu17OBsVIvsmucEnbb6cbmzon3RnVvqc7ddw7qlJ3VsofAg=
+X-Received: by 2002:a05:600c:16ca:b0:4a1:877b:d4e0 with SMTP id 5b1f17b1804b1-4a18dcc911fmr134708325e9.12.1791822456134;
+        Mon, 12 Oct 2026 09:27:36 -0700 (PDT)
+Received: from ?IPV6:2003:ea:8f2a:fd00:f5c8:7592:9084:dba1? (p200300ea8f2afd00f5c875929084dba1.dip0.t-ipconnect.de. [2003:ea:8f2a:fd00:f5c8:7592:9084:dba1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc506asm260781f8f.47.2026.10.12.09.27.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 09:27:35 -0700 (PDT)
+Message-ID: <cb3a1207-53bd-4488-a1fd-88b1f61ff0a8@gmail.com>
+Date: Mon, 12 Oct 2026 18:27:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922-qce-fix-self-tests-v9-0-b1aa742e79af@oss.qualcomm.com>
- <ar9qNirrzOTDLipN@gondor.apana.org.au> <CAMRc=MdRBu5gg7Q3pz8Wn9Da4RpmmiKLP2-LwiszKCd3o8jQdQ@mail.gmail.com>
- <asdVyUKWndnZ1Mxv@gondor.apana.org.au>
-Date: Mon, 12 Oct 2026 12:26:26 -0400
-X-Gmail-Original-Message-ID: <CAMRc=McxneS=y9eof9cO7CY2Z0GW6swk8JZKiCvY7wQxLyxdeA@mail.gmail.com>
-X-Gm-Features: AclHuK90qLjVg-NEmXjcMIVyxP5clymZXcyYKBdYqwoXDXyduVU9WFnN6XNIWLU
-Message-ID: <CAMRc=McxneS=y9eof9cO7CY2Z0GW6swk8JZKiCvY7wQxLyxdeA@mail.gmail.com>
-Subject: Re: [PATCH v9 00/14] crypto: qce - Fix crypto self-test failures
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Thara Gopinath <thara.gopinath@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Stanimir Varbanov <svarbanov@mm-sol.com>, Eneas U de Queiroz <cotequeiroz@gmail.com>, 
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, Eric Biggers <ebiggers@kernel.org>, 
-	Demi Marie Obenour <demiobenour@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Russell King <linux@armlinux.org.uk>, 
-	Abel Vesa <abelvesa@kernel.org>, linux-crypto@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next] r8169: allow Giga Lite fallback on RTL8168EP
+To: Hee-Suk Kim <hskim@dilluti0n.com>, Daniel Golle <daniel@makrotopia.org>,
+ Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org, javen <javen_xu@realsil.com.cn>,
+ nic_swsd@realtek.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org
+References: <20261010135356.85454-1-hskim@dilluti0n.com>
+ <dbdd5abd-f1b1-443c-adc3-6ecdc95f4854@gmail.com>
+ <4435b286-1638-464a-821c-f486b647c9f7@lunn.ch>
+ <aszgerrI8yoLTaX0@makrotopia.org> <874ierc6nb.fsf@gmail.com>
+Content-Language: en-US
+From: Heiner Kallweit <hkallweit1@gmail.com>
+In-Reply-To: <874ierc6nb.fsf@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 8 Oct 2026 10:35:21 +0200, Herbert Xu
-<herbert@gondor.apana.org.au> said:
-> On Fri, Oct 02, 2026 at 10:31:41PM +0300, Bartosz Golaszewski wrote:
->>
->> > Please check the Sashiko comments:
->> >
->> > https://sashiko.dev/#/patchset/20260922-qce-fix-self-tests-v9-0-b1aa742e79af%40oss.qualcomm.com
->> >
->>
->> I've gone through them. None of the issues were introduced by this series, all
->> are pre-existing. I've added them to my list and will fix them. Can we not
->> delay this series any longer and instead work in smaller steps since the crypto
->> algos will be disabled by default anyway?
->
-> The very first comment appears to be pointing to new code:
->
->> > +/*
->> > + * BAM DMA cannot handle zero-length transfers, so the driver always holds
->> > + * back at least one byte to submit to the engine. A zero rctx->buflen at
->> > + * finalization time does not necessarily mean the message is empty: the
->> > + * caller may have imported a state that already reflects some hashed data
->> > + * with nothing currently buffered. Handle both cases through the software
->> > + * fallback: reconstruct the running state when there is one instead of
->> > + * assuming the message is empty.
->> > + */
->> > +static int qce_ahash_finalize_zero(struct ahash_request *req)
->> > +{
->> > +	struct qce_sha_reqctx *rctx = ahash_request_ctx_dma(req);
->> > +	HASH_FBREQ_ON_STACK(fbreq, req);
->> > +	struct __sha256_ctx core;
->> > +	struct scatterlist sg;
->> > +	int ret;
->> > +
->> > +	sg_init_one(&sg, NULL, 0);
->> Can this trigger a kernel panic during zero-length finalization?
->> qce_ahash_finalize_zero() creates a dummy scatterlist by calling
->> sg_init_one(&sg, NULL, 0).
->> sg_init_one() unconditionally calls sg_set_buf(), which attempts to resolve
->> the page via virt_to_page(NULL).
->> If CONFIG_DEBUG_SG is enabled, this triggers a BUG_ON(!virt_addr_valid(buf))
->> kernel panic, because 0 is not a valid linear map address.
->> If disabled, it results in a bogus PFN being stored in the scatterlist,
->> leading to potential invalid memory access during software fallback operations.
->> This path appears reachable by untrusted userspace via AF_ALG performing a
->> zero-length HMAC finalization.
->
-> How is this a pre-existing issue?
->
+On 12.10.2026 16:53, Hee-Suk Kim wrote:
+> Daniel Golle <daniel@makrotopia.org> writes:
+> 
+>> On Mon, Oct 12, 2026 at 02:46:27PM +0200, Andrew Lunn wrote:
+>>> Please add ETHTOOL_LINK_MODE_500baseT2_Full. Make the PHY report this
+>>> link mode in it features, add the speed, allow it to be negotiated,
+>>> reported in ethtool etc.
+> 
+> Will do in v2.
+> 
+>> While at it also consider ETHTOOL_LINK_MODE_1000baseT2_Full which is
+>> supported as "2.5G Lite" by the RTL8221/RTL8226 2.5G PHY family.
+> 
+> Happy to add it as well, but I'd need to know what PHYSR reports for a
+> 2.5G Lite link on those PHYs, as I can't test it myself. Do you happen
+> to know?
+> 
+Also the needed register configuration may be different. Would be helpful to get advise
+from Javen/Realtek on:
+- Which lite modes exist?
+- Which chip versions support which lite modes?
+- What is the needed configuration per lite mode (according to vendor drivers the config may
+  be different per advertised speeds)
 
-Sorry, this and a couple others were introduced here, v10 coming up.
+I can't tell as I have no access to Realtek documentation.
 
-Bart
+> Thanks,
+> hsk
+
