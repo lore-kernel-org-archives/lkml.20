@@ -1,157 +1,428 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA8C48C414
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:31:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706B43E9C1E;
+	Mon, 12 Oct 2026 12:31:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791808290; cv=none; b=K/b75NW9xtLX8uyBvSIK7Byg+9Kvv6OocpgX8U9SLUzLugilt0WVeo7kWhG3PduVO9AG23XeN2+MWGNQDjh64cZ46dAlENof/8UY8Ntv2KAk3AGCFwSf5pp4FG+ojfxmyhZbtIXo3dLaDUEXmswzKbxm/WOT9gsvlqTavWsFILU=
+	t=1791808318; cv=none; b=WUtN/Bu+M4Bg8GlcCbvMtocAaElN9+/qFybGWNBHFeuLrBpb/JRw+weAjA9n1VUDpZQvmWAOM4jp2/fspnCeWsSm2MTRERv6A+H7BIbxmwQHjUiF12zCljXLS5h4wgM7c4Kow0qgF0heNQR+tmf+mKzfRzI1laY9Mbu22nvU1hI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791808290; c=relaxed/simple;
-	bh=friZCIjXMB43ZyatZaeWUOlL+WSIXupxwiAaNbwCThQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RtXaoZDviUCYHjNdNjAk6dVpU9cAHZy6tEGbMsO6zYcK+A/0/D0svDiM1AXqbTvB5cILVg8Sx/qfr/Q/XdWmafn2i89yDwfLDIwXVW3B8pZD1c2vjCB3Lyc+TmhdjtukXEPQ/Bphchj7QyHygkgwcr55b9K2boj/CA+im1PcisA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QLDoTwHG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ddN7rabx; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791808318; c=relaxed/simple;
+	bh=jfaMfjh65Gw4YctqCBZfwuOUy/nzPRcE+igtf4nkitk=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=u0gujLJMSPtdLbkmk1hxVmkVicqNTOrjCruE1LCHFstlhDssv2e9MTtauB2ygGuwBrp8WiXKDuOw+6LF6An1VzrmgpL2zpk8ldZylPITortfTeWaZSVvqrxz8STFkbf/GTbmH7z/d3L/3mGnjCahp4ygsVynM7I6pIw1AKLSmFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZnqHK4k3; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QLDoTwHG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ddN7rabx"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC0V902088718
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:31:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=h7qMwlSgAt+t7GkDL5quXlg8
-	W4SQwFrSXsclHqg7y/4=; b=QLDoTwHGFUkmsvvtd5WYfnu9Q4F49LCyK2yvu+2i
-	dGgqwc9qOdFzTCyJTYI9s2x6RwIT/tjtX1JLXVx/c9Xx1evMRgynYJnEDHzSpNqj
-	sr6RaxknnrkX4aEvdeM9AC/Ac7Uq6tH4Gq4npUeycVVEtEZWL39CwcAZ3+s8HWxq
-	TXPJ5IEXYem699CjJRUNc2ShJn76eiFX1cYcwRkkek8KnH/69nhf6505xMGcgojo
-	qIEyzMnJ+PUP9vSW4kP4NtSWj2kOqC8gbXduOEudmDlRnl1ZWuRXy5PKJeOvGE2n
-	C+/do2BFt0lpXjmCqcJr1fcJXj72gPnB8PzO96+89JZBtw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8sgu1w47-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:31:27 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93caa0ce0cdso191696985a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:31:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791808287; x=1792413087; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=h7qMwlSgAt+t7GkDL5quXlg8W4SQwFrSXsclHqg7y/4=;
-        b=ddN7rabxxsIcPoemkhLiMedzHIYEF8Gq34LGPmd82saPWk2nygoOw+8D1caBiSEU4R
-         RXbM6JeKwQ2QbsWxKKawerR6BijamhbYRDQwbRDxKRzp7eY9GeNZhhlo7gsCxcHGTasR
-         JXD3ACAsBVGsi/1ZXtx3zz7VN1/DAfHMc+FX/ZDMdPjvi8CwD0+h2CPo4x0bhWyplZ6P
-         tVUjRwYpcxQ6uGZPwtabr2T/qx+0jwqVDhTzkZ2bVrNMT8XHB+5Q+X2cLCd0ahcgq/UE
-         jV4Y86JUM/6OO2Je46WU2/SeQeDCA+q/nCjiwGG2FmE/4P1bQqN+tm+FrqOfcue142PI
-         giXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791808287; x=1792413087;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h7qMwlSgAt+t7GkDL5quXlg8W4SQwFrSXsclHqg7y/4=;
-        b=kx8eQUd0i0iZwiQdCPTSP5iNpx5jofHGqijRTONn1grk6DX+Lxojc2A3X2Sqz+rwDN
-         kENXL82TmSQV5bzB31oV5PaZjAWLnGZKhGAI0mO/+5FceatXUkfJ9XSTYMvlYMLRlWr1
-         SFydJY09oZP47+S5QOVutwEEiMWVP2yGLSx1mdwuDevaQp6C8ISyW01BzLT7GZsHU1sJ
-         6Dj0pXD5UdQ62kN7cfrLAbzmzRgeQlmdawdqTElP0qPRmCrbi5VUxSuLMTih69+Mi3hU
-         QvKm3z4DWNquSc0OAFcckpFMWQBBz3o83fYj3sbcq8Rl3fYjD7XWL3QF9Lun29Qh/vFj
-         cjnw==
-X-Forwarded-Encrypted: i=1; AKwUvBzqyf0Fww36lroXaAz91bdOiIayiDusCIk/aQqjTiA47f9ft2+0rVO+qeWH5BpQbkkarcEzqjEd1/QQ4aA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJZYjcJOT5TeRIFOG71xgxGeL5U4QTJrNQdy0JRPvRIlKHabD0
-	CDrpdD5JKm1ziJoPjMsy9YZlhXAjXYI4S5kTDmcquyu16sRd4gpMnrNVzd0VNxGEvXlRiV+Ed/1
-	xhFSVeGtDB/CuYDa1nkq5D/FZsP0m1/zCmATJS5rQXFJCVBv2kPrPhlP+750UBZV2MLcLkvEBLP
-	U=
-X-Gm-Gg: AYBFou0gERLRfTwj1d6LQtb3WYZm+nuMLBI6ERXzyUP9Y/yW5A4UY+/9mehVwKY5UoJ
-	JMsu7UAKOxyDxP7oMQZ8phzqSF8IGz45eCTrUUmOFiXSrJgLs3gi96JRzrWsskCaQhArPntCIgU
-	GST+1bgFELQJCG/92d6F+CaEHlL08Gu1aYqET6yOPWcKGV48IgsOeloxiQcF+6xCB6flccGNgid
-	cJxsaIygNMyBLeX7j02+05UxfKGMitjIsr9h+M06YHjjWhFN64nD/d09RfDSv/f3MQXsztx0HhP
-	f5nkFdHCHawRJ4iSpujemRs7/le85siFsxro86p4+atrLrYJBKzzMTtsaMyQNklMGAUlotc7mih
-	vrDjBpfBYO1kACAsiRLCnS6Sg6DqD3Oq5EX2v96qhPj0zq+bWGCEE5ZDHtjCBA4gx8rNa2+NuBq
-	AZDdnxBX44oPuL
-X-Received: by 2002:a05:620a:a405:20b0:93e:c12c:fbd6 with SMTP id af79cd13be357-93ec12d07c6mr986750785a.82.1791808287034;
-        Mon, 12 Oct 2026 05:31:27 -0700 (PDT)
-X-Received: by 2002:a05:620a:a405:20b0:93e:c12c:fbd6 with SMTP id af79cd13be357-93ec12d07c6mr986745585a.82.1791808286386;
-        Mon, 12 Oct 2026 05:31:26 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c3cdd958sm28225451fa.35.2026.10.12.05.31.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 05:31:25 -0700 (PDT)
-Date: Mon, 12 Oct 2026 15:31:23 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] drm/msm/a6xx: Split out a7xx/a8xx device tables
-Message-ID: <a74ijgv3bfpgd5gqokwlyf72wxgzsc3642obj53m2jjpxg3g6b@loenpurcl62h>
-References: <20261010154125.726149-1-robin.clark@oss.qualcomm.com>
- <20261010154125.726149-3-robin.clark@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZnqHK4k3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791808316; x=1823344316;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=jfaMfjh65Gw4YctqCBZfwuOUy/nzPRcE+igtf4nkitk=;
+  b=ZnqHK4k3YUAASMbL/UkyFDkuv09ZhnfP2Z0x/JeaXrJTOFrGfG8LqCKY
+   eJSDmjvUMxvy3HQB98L7o5vRDXhp2GCrHeOfjRq7PBRtx3Wt8LOqwNCeR
+   LU9KT8FdwpwOqUBDyzhc/W17Ndk9JZECDSF3t5sMiIQXWrv7nSr8DLVym
+   Z8OdE2nM0514OsR6vR681jW2VBmCMcsx7hrB6oTTvo/AOjxq8KZ0kZkDm
+   SZEtPul2pdYKjq3TeebTXPF3guYKdNJCZRTV+rL7GpkGYmMWOiSSRwyEZ
+   P2yYHfJ7RYFgPoh97emho+PCE7NOyL06sCieXvtgzH84F2AvoNEIzmZ4L
+   g==;
+X-CSE-ConnectionGUID: ZCXC34B9Sb2tOngBOlEuvw==
+X-CSE-MsgGUID: z+IgToISSleqBqxSobhD5w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="400610"
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="400610"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 05:31:56 -0700
+X-CSE-ConnectionGUID: RtqlN238RUax+tvStTUfjQ==
+X-CSE-MsgGUID: /ZpfJTdzQRGSQ19/vyfhxQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="865209"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.202])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 05:31:50 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 12 Oct 2026 15:31:46 +0300 (EEST)
+To: Mingyou Chen <qby140326@gmail.com>
+cc: Hans de Goede <hansg@kernel.org>, 
+    Ilya Gladyshev <ilya.gladyshev@linux.dev>, KentoNion <kento@kekto.ru>, 
+    platform-driver-x86@vger.kernel.org, ted eric <ericted8810@gmail.com>, 
+    Armin Wolf <W_Armin@gmx.de>, LKML <linux-kernel@vger.kernel.org>, 
+    Chris Taraszka <chris@miget.com>, 
+    Matias Civadda <matias.civadda2342001@gmail.com>, 
+    =?ISO-2022-JP?Q?=1B$B9b=1B=28J_=1B$B=3DSJ8=1B=28J?= <btx342@gmail.com>, 
+    powerfullz <wleizc7319@gmail.com>, 
+    =?GB2312?B?y+8g0/7D+g==?= <wolf109909@outlook.com>, 
+    =?ISO-8859-15?Q?Milo=A8_Vlku?= <vlku.milos.fun@gmail.com>, 
+    Rsplwe <i@rsplwe.com>, Bozhen Peng <bozhenpeng93@gmail.com>, 
+    Anton Karasev <uselessfire@gmail.com>, Jame Jao <jaojame6@gmail.com>
+Subject: Re: [PATCH v11 5/6] platform/x86: bitland-mifs-wmi: Add quirks
+ table
+In-Reply-To: <20261012100532.19612-6-qby140326@gmail.com>
+Message-ID: <686c6dc8-965b-331f-a3de-6452ee5e2a53@linux.intel.com>
+References: <20261012100532.19612-1-qby140326@gmail.com> <20261012100532.19612-6-qby140326@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010154125.726149-3-robin.clark@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=QdzzLcbv c=1 sm=1 tr=0 ts=6accd31f cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=ysDuX-smLMpIrN7MedEA:9 a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0OSBTYWx0ZWRfX925/okLvfDFC
- rs/V7OdQFNvRhd/XlLtEccEeHXMbbiW0fqYX7u06+4x5QyzaEpktpL16KksPGvldrjiWGs9OxUO
- Nlqaliq+RJt6xFuBrjZqD9cGkfG6B3KbpuYCQisflFn2802OZ/uOmeUy7KwW95ZjD4NtDONKqe5
- /embSEAuyJ7jcC7KtoapC1i6dmYHsDiQKSKiazwsYDr3KachPRs7tzQHoz0D5NmNqtNM3oPTih0
- PKHK7gm40ms+Rd8Qc0ia9AaQLYresbhN1fzHm/3ISwDhXaXUttUhIPcJBFdymFzidKpN4hBwgxP
- Jwpow4r9OOYRwSmgGGIFeOq/8Ryt3d0e6nVADFIhjU/lUMYDUT0rrM0hpKnwuDqLlm+LTumULIc
- cHSMciyAncblMKAt5439avteYlQlZOAwtFh0gF2VyXCMufhlcgef8nLMV+mhtV2GCbBV8vLZF1S
- 2JdJHTk7zODYWXGL5gw==
-X-Proofpoint-ORIG-GUID: bc8fZZ3S5mR18gcXHH6ZrCyQTCnhjTxA
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0OSBTYWx0ZWRfX9K75VDso/0fQ
- EwyOAngJk/RHoQdQmoAMLlcBd8ETn6ZyPNixDe3NQorLcQsp69g7hldrsWYPwwxiBVgMR85TbiT
- dydXxUGPQqBeImJuUAvISs+TClwfKQA=
-X-Proofpoint-GUID: bc8fZZ3S5mR18gcXHH6ZrCyQTCnhjTxA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 phishscore=0 spamscore=0 suspectscore=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 malwarescore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120049
+Content-Type: text/plain; charset=US-ASCII
 
-On Sat, Oct 10, 2026 at 08:41:20AM -0700, Rob Clark wrote:
-> This way we can start including generated tables for a8xx GPU snapshot
-> in the device table (without having conflicts with earlier gens if we
-> eventually try to retrofit this approach, or later gens in the future).
+On Mon, 12 Oct 2026, Mingyou Chen wrote:
+
+> The MIFS WMI interface is shared by several Bitland ODM laptops which
+> differ in the layout of the performance mode values of
+> WMI_FN_SYSTEM_PER_MODE and in the capability checks.
 > 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> Introduce a quirks table to support multiple machine families without
+> sprinkling model checks over the driver.
+> 
+> Signed-off-by: Mingyou Chen <qby140326@gmail.com>
 > ---
->  drivers/gpu/drm/msm/Makefile              |    2 +
->  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 2310 ---------------------
->  drivers/gpu/drm/msm/adreno/a7xx_catalog.c |  502 +++++
->  drivers/gpu/drm/msm/adreno/a8xx_catalog.c | 1846 ++++++++++++++++
->  4 files changed, 2350 insertions(+), 2310 deletions(-)
->  create mode 100644 drivers/gpu/drm/msm/adreno/a7xx_catalog.c
->  create mode 100644 drivers/gpu/drm/msm/adreno/a8xx_catalog.c
+>  drivers/platform/x86/bitland-mifs-wmi.c | 178 ++++++++++++++++--------
+>  1 file changed, 121 insertions(+), 57 deletions(-)
 > 
+> diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
+> index 93a519b96189..d61382ad4a0b 100644
+> --- a/drivers/platform/x86/bitland-mifs-wmi.c
+> +++ b/drivers/platform/x86/bitland-mifs-wmi.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/bits.h>
+>  #include <linux/container_of.h>
+>  #include <linux/dev_printk.h>
+> +#include <linux/dmi.h>
+>  #include <linux/device.h>
+>  #include <linux/device/devres.h>
+>  #include <linux/err.h>
+> @@ -84,6 +85,41 @@ enum bitland_mifs_power_profile {
+>  	WMI_PP_FULL_SPEED	= 3,
+>  };
+>  
+> +struct bitland_mifs_wmi_data;
+> +
+> +struct bitland_profile_entry {
+> +	enum platform_profile_option profile;
+> +	u8 wmi_val;
+> +	bool no_set;
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+What is this for? I don't see you using it.
 
+If it's to disable a mode, I don't like the approach.
 
--- 
-With best wishes
-Dmitry
+--
+ i.
+
+> +};
+> +
+> +struct bitland_mifs_quirks {
+> +	const struct bitland_profile_entry *profile_entries;
+> +	size_t num_profile_entries;
+> +
+> +	bool return_code_at_end;
+> +	bool skip_ac_type_check;
+> +
+> +	/* Accept return value 0 on SET wmi functions */
+> +	bool accept_zero_function;
+> +};
+> +
+> +static const struct bitland_profile_entry default_profile_entries[] = {
+> +	{ PLATFORM_PROFILE_LOW_POWER,            WMI_PP_QUIET },
+> +	{ PLATFORM_PROFILE_BALANCED,             WMI_PP_BALANCED },
+> +	{ PLATFORM_PROFILE_BALANCED_PERFORMANCE, WMI_PP_PERFORMANCE },
+> +	{ PLATFORM_PROFILE_PERFORMANCE,          WMI_PP_FULL_SPEED },
+> +};
+> +
+> +static const struct bitland_mifs_quirks default_quirks = {
+> +	.profile_entries = default_profile_entries,
+> +	.num_profile_entries = ARRAY_SIZE(default_profile_entries),
+> +};
+> +
+> +static const struct dmi_system_id bitland_mifs_dmi_table[] = {
+> +	{}
+> +};
+> +
+>  enum bitland_mifs_event_id {
+>  	WMI_EVENT_SWITCHVIDEOMODE	= 1,
+>  	WMI_EVENT_SELECTIVE_SCREENSHOT	= 2,
+> @@ -131,12 +167,24 @@ struct bitland_mifs_input {
+>  	u8 payload[28];
+>  } __packed;
+>  
+> -struct bitland_mifs_output {
+> +struct bitland_mifs_output_head_rc {
+>  	__le16 return_code;
+>  	__le16 function;
+>  	u8 data[28];
+>  } __packed;
+>  
+> +struct bitland_mifs_output_tail_rc {
+> +	__le16 function;
+> +	u8 data[28];
+> +	__le16 return_code;
+> +} __packed;
+> +
+> +union bitland_mifs_output_buf {
+> +	struct bitland_mifs_output_head_rc head;
+> +	struct bitland_mifs_output_tail_rc tail;
+> +	u8 raw[32];
+> +};
+> +
+>  struct bitland_mifs_event {
+>  	u8 event_type;
+>  	u8 event_id;
+> @@ -166,27 +214,41 @@ struct bitland_mifs_wmi_data {
+>  	struct input_dev *input_dev;
+>  	struct device *hwmon_dev;
+>  	struct device *pp_dev;
+> +	const struct bitland_mifs_quirks *quirks;
+>  	enum platform_profile_option saved_profile;
+>  };
+>  
+>  static int bitland_mifs_wmi_call(struct bitland_mifs_wmi_data *data,
+>  				 const struct bitland_mifs_input *input,
+> -				 struct bitland_mifs_output *output)
+> +				 struct bitland_mifs_output_head_rc *output)
+>  {
+>  	struct wmi_buffer in_buf = { .length = sizeof(*input), .data = (void *)input };
+>  	struct wmi_buffer out_buf = { 0 };
+> +	const u8 *payload_data;
+> +	__le16 return_code;
+> +	__le16 function;
+>  	int ret;
+>  
+>  	guard(mutex)(&data->lock);
+>  
+>  	ret = wmidev_invoke_method(data->wdev, 0, 1, &in_buf, &out_buf,
+> -				   sizeof(struct bitland_mifs_output));
+> +				   sizeof(union bitland_mifs_output_buf));
+>  	if (ret)
+>  		return ret;
+>  
+> -	struct bitland_mifs_output *result __free(kfree) = out_buf.data;
+> +	union bitland_mifs_output_buf *result __free(kfree) = out_buf.data;
+>  
+> -	switch (le16_to_cpu(result->return_code)) {
+> +	if (data->quirks->return_code_at_end) {
+> +		return_code = result->tail.return_code;
+> +		function = result->tail.function;
+> +		payload_data = result->tail.data;
+> +	} else {
+> +		return_code = result->head.return_code;
+> +		function = result->head.function;
+> +		payload_data = result->head.data;
+> +	}
+> +
+> +	switch (le16_to_cpu(return_code)) {
+>  	case WMI_RETURN_CODE_SUCCESS:
+>  		break;
+>  	case WMI_RETURN_CODE_UNKNOWN_FUNCTION:
+> @@ -195,11 +257,16 @@ static int bitland_mifs_wmi_call(struct bitland_mifs_wmi_data *data,
+>  		return -EIO;
+>  	}
+>  
+> -	if (result->function != input->function)
+> -		return -ENOMSG;
+> +	if (function != input->function) {
+> +		if (!(data->quirks->accept_zero_function && function == 0))
+> +			return -ENOMSG;
+> +	}
+>  
+> -	if (output)
+> +	if (output) {
+> +		output->return_code = return_code;
+> +		output->function = function;
+>  		memcpy(output, result, sizeof(*output));
+> +	}
+>  
+>  	return 0;
+>  }
+> @@ -208,45 +275,41 @@ static int laptop_profile_get(struct device *dev,
+>  			      enum platform_profile_option *profile)
+>  {
+>  	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
+> +	const struct bitland_mifs_quirks *quirks = data->quirks;
+>  	struct bitland_mifs_input input = {
+>  		.operation = cpu_to_le16(WMI_METHOD_GET),
+>  		.function = cpu_to_le16(WMI_FN_SYSTEM_PER_MODE),
+>  	};
+> -	struct bitland_mifs_output result;
+> +	struct bitland_mifs_output_head_rc result;
+> +	size_t i;
+>  	int ret;
+>  
+>  	ret = bitland_mifs_wmi_call(data, &input, &result);
+>  	if (ret)
+>  		return ret;
+>  
+> -	switch (result.data[0]) {
+> -	case WMI_PP_BALANCED:
+> -		*profile = PLATFORM_PROFILE_BALANCED;
+> -		break;
+> -	case WMI_PP_PERFORMANCE:
+> -		*profile = PLATFORM_PROFILE_BALANCED_PERFORMANCE;
+> -		break;
+> -	case WMI_PP_QUIET:
+> -		*profile = PLATFORM_PROFILE_LOW_POWER;
+> -		break;
+> -	case WMI_PP_FULL_SPEED:
+> -		*profile = PLATFORM_PROFILE_PERFORMANCE;
+> -		break;
+> -	default:
+> -		return -EINVAL;
+> +	for (i = 0; i < quirks->num_profile_entries; i++) {
+> +		if (quirks->profile_entries[i].wmi_val == result.data[0]) {
+> +			*profile = quirks->profile_entries[i].profile;
+> +			return 0;
+> +		}
+>  	}
+> -	return 0;
+> +
+> +	return -EINVAL;
+>  }
+>  
+> -static int bitland_check_performance_capability(struct bitland_mifs_wmi_data *data)
+> +static int bitland_pp_check_capability(struct bitland_mifs_wmi_data *data)
+>  {
+>  	struct bitland_mifs_input input = {
+>  		.operation = cpu_to_le16(WMI_METHOD_GET),
+>  		.function = cpu_to_le16(WMI_FN_SYSTEM_AC_TYPE),
+>  	};
+> -	struct bitland_mifs_output output;
+> +	struct bitland_mifs_output_head_rc output;
+>  	int ret;
+>  
+> +	if (data->quirks->skip_ac_type_check)
+> +		return power_supply_is_system_supplied() > 0 ? 0 : -EOPNOTSUPP;
+> +
+>  	/* Full-speed/performance mode requires DC power (not USB-C) */
+>  	if (!power_supply_is_system_supplied())
+>  		return -EOPNOTSUPP;
+> @@ -269,47 +332,42 @@ static int laptop_profile_set(struct device *dev,
+>  			      enum platform_profile_option profile)
+>  {
+>  	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
+> +	const struct bitland_mifs_quirks *quirks = data->quirks;
+>  	struct bitland_mifs_input input = {
+>  		.operation = cpu_to_le16(WMI_METHOD_SET),
+>  		.function = cpu_to_le16(WMI_FN_SYSTEM_PER_MODE),
+>  	};
+> +	size_t i;
+>  	int ret;
+> -	u8 val;
+>  
+> -	switch (profile) {
+> -	case PLATFORM_PROFILE_LOW_POWER:
+> -		val = WMI_PP_QUIET;
+> -		break;
+> -	case PLATFORM_PROFILE_BALANCED:
+> -		val = WMI_PP_BALANCED;
+> -		break;
+> -	case PLATFORM_PROFILE_BALANCED_PERFORMANCE:
+> -		ret = bitland_check_performance_capability(data);
+> -		if (ret)
+> -			return ret;
+> -		val = WMI_PP_PERFORMANCE;
+> -		break;
+> -	case PLATFORM_PROFILE_PERFORMANCE:
+> -		ret = bitland_check_performance_capability(data);
+> +	if (profile == PLATFORM_PROFILE_PERFORMANCE ||
+> +	    profile == PLATFORM_PROFILE_BALANCED_PERFORMANCE) {
+> +		ret = bitland_pp_check_capability(data);
+>  		if (ret)
+>  			return ret;
+> -		val = WMI_PP_FULL_SPEED;
+> -		break;
+> -	default:
+> -		return -EOPNOTSUPP;
+>  	}
+>  
+> -	input.payload[0] = val;
+> +	for (i = 0; i < quirks->num_profile_entries; i++) {
+> +		if (quirks->profile_entries[i].profile == profile &&
+> +		    !quirks->profile_entries[i].no_set) {
+> +			input.payload[0] = quirks->profile_entries[i].wmi_val;
+> +			return bitland_mifs_wmi_call(data, &input, NULL);
+> +		}
+> +	}
+>  
+> -	return bitland_mifs_wmi_call(data, &input, NULL);
+> +	return -EOPNOTSUPP;
+>  }
+>  
+>  static int platform_profile_probe(void *drvdata, unsigned long *choices)
+>  {
+> -	set_bit(PLATFORM_PROFILE_LOW_POWER, choices);
+> -	set_bit(PLATFORM_PROFILE_BALANCED, choices);
+> -	set_bit(PLATFORM_PROFILE_BALANCED_PERFORMANCE, choices);
+> -	set_bit(PLATFORM_PROFILE_PERFORMANCE, choices);
+> +	struct bitland_mifs_wmi_data *data = drvdata;
+> +	const struct bitland_mifs_quirks *quirks = data->quirks;
+> +	size_t i;
+> +
+> +	for (i = 0; i < quirks->num_profile_entries; i++) {
+> +		if (!quirks->profile_entries[i].no_set)
+> +			set_bit(quirks->profile_entries[i].profile, choices);
+> +	}
+>  
+>  	return 0;
+>  }
+> @@ -366,7 +424,7 @@ static int laptop_hwmon_read(struct device *dev, enum hwmon_sensor_types type,
+>  	struct bitland_mifs_input input = {
+>  		.operation = cpu_to_le16(WMI_METHOD_GET),
+>  	};
+> -	struct bitland_mifs_output res;
+> +	struct bitland_mifs_output_head_rc res;
+>  	int ret;
+>  
+>  	switch (type) {
+> @@ -455,7 +513,7 @@ static enum led_brightness laptop_kbd_led_get(struct led_classdev *led_cdev)
+>  		.operation = cpu_to_le16(WMI_METHOD_GET),
+>  		.function = cpu_to_le16(WMI_FN_RGB_KB_BRIGHTNESS),
+>  	};
+> -	struct bitland_mifs_output res;
+> +	struct bitland_mifs_output_head_rc res;
+>  	int ret;
+>  
+>  	ret = bitland_mifs_wmi_call(data, &input, &res);
+> @@ -480,7 +538,7 @@ static ssize_t gpu_mode_show(struct device *dev, struct device_attribute *attr,
+>  		.operation = cpu_to_le16(WMI_METHOD_GET),
+>  		.function = cpu_to_le16(WMI_FN_GPU_MODE),
+>  	};
+> -	struct bitland_mifs_output res;
+> +	struct bitland_mifs_output_head_rc res;
+>  	u8 mode_val;
+>  	int ret;
+>  
+> @@ -534,7 +592,7 @@ static ssize_t kb_mode_show(struct device *dev, struct device_attribute *attr,
+>  		.operation = cpu_to_le16(WMI_METHOD_GET),
+>  		.function = cpu_to_le16(WMI_FN_RGB_KB_MODE),
+>  	};
+> -	struct bitland_mifs_output res;
+> +	struct bitland_mifs_output_head_rc res;
+>  	u8 mode_val;
+>  	int ret;
+>  
+> @@ -718,6 +776,7 @@ static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
+>  		.default_label = ":" LED_FUNCTION_KBD_BACKLIGHT,
+>  		.devname_mandatory = true,
+>  	};
+> +	const struct dmi_system_id *dmi_id;
+>  	int ret;
+>  
+>  	drv_data = devm_kzalloc(&wdev->dev, sizeof(*drv_data), GFP_KERNEL);
+> @@ -732,6 +791,11 @@ static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
+>  
+>  	dev_set_drvdata(&wdev->dev, drv_data);
+>  
+> +	drv_data->quirks = &default_quirks;
+> +	dmi_id = dmi_first_match(bitland_mifs_dmi_table);
+> +	if (dmi_id)
+> +		drv_data->quirks = dmi_id->driver_data;
+> +
+>  	if (dev_type == BITLAND_WMI_EVENT) {
+>  		/* Register input device for hotkeys */
+>  		drv_data->input_dev = devm_input_allocate_device(&wdev->dev);
+> 
