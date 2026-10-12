@@ -1,269 +1,108 @@
-Received: from mail-ej2-f11.google.com (mail-ej2-f11.google.com [74.125.228.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE0137B41E
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:25:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.139
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791833110; cv=pass; b=TdrfoJsaV0IHiaAofbWgLSm2utWcYMf/XF4S6IqBgkn+2q+0bk8oldD1qXFT+YjZdVQQzesuLidQd/IO4xzOL8nxH6TDjZJKk3Tzwrzua2dzpwFNRelQ7H50XBggQvv3VBeONZ6FZs59mq/U4Uh4cLBP7QvuJlifyp5kjzI3giI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791833110; c=relaxed/simple;
-	bh=tgIZVnCf3XGFRPbT2LLSKxTT3U2rAEpxKOb6eHJqbdc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qcWL+HIp6nkgB6R1rrSrGz8X2bSYa7iyxd9d6EBvVZWwmitypOu9K6xyquCHi+pKtf7S8e3E+sPCaDCfmHL9gSNa9gGuEdQ2RFped++ZtXIvdXb/6IBU8H/AEi5dh5YounBNG6mhh7D/C5xLPAZ8DttsiDKROE+woBDtZKcMBhw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZDQoBfQ+; arc=pass smtp.client-ip=74.125.228.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11364BD798;
+	Mon, 12 Oct 2026 19:25:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791833131; cv=none; b=fXOVOQG7IvEFX0Am6gGwHNRkmbcvB399XZPtPRIMLULXz6RsGEIp9+USQQvxWIqgWOqeGDYwzwSoEPEXTdE+meNd0PehVyWcvtqg9az0z3f2XKNZSJOZ9C8C0CFuCIetEs3TTQ9l4O6QGyqVX+6/5CChSSeDIlZveVc/AnSRyKE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791833131; c=relaxed/simple;
+	bh=o447zsGNPwyGinGv9HcXwIhUnX2VZBKog1Cfec/2gEY=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=j/7gnCjNGTFiNxrAEaJ/ZohbXcSwHRrxJi9uENSIxGQx9vtFOgNO3IGtWg6f75ZDeC7CKeaOm5J3oZmVu/BfUls3LwHE5DutZXTPmtr+8ZCTS3EiXLlsfTEfjMUHBFuZBWxrTuvr81pdI2lUJPLhgDdq+DPhmE1CNomdc/WuTfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=kw4mNG4/; arc=none smtp.client-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZDQoBfQ+"
-Received: by mail-ej2-f11.google.com with SMTP id a640c23a62f3a-c3184a307cbso105042466b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:25:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791833107; cv=none;
-        d=google.com; s=arc-20260327;
-        b=p9T9QA2g8oysmpmoxpb2pp9scldd3/WLoQo9G5cGbpGXX8Yp30Dv6ZKpPipdTZeBng
-         7xxIEIPQ38Wl8ybe4cog5gNdz4IdZsY9nD6lkxnO0I4e5H07Qxsw0E8mjUkNOnJwwcuw
-         oK/zuJhmNrZVjr2qJWGHK0mAUt1r5Qk7TdZHF2fM1L/WLiQ2oXgoF0Ni9aZ/BYjqM/g5
-         ytUQWXZ11OI0wqsKfwLxVwBtpqyp6OEmzhcfFPN0x3GKjyIk2G+I1HYCtjSS9agRQ+uh
-         SxgTcP1PbDHSm59LaJ0hr+PysK2nuOWdd11VEO4sbLodaSQzgrLIeIq9ookXepupn6QT
-         k8hg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=L70Ii9x5C+z302d/Psn2CqblJNvQ2CMmeLwkxN/XibM=;
-        fh=MtMXqDv8MaXUjmRzDju2bgiwWe8WZ4qIYGFugmaOSKM=;
-        b=Wdp0rc/CxNi8lUgQZrmed3A6cMFbraXTvTnEZtd0Xm23fyuYD0CzBacEriLlhmp/3U
-         gapAtJzczjSNAeXXq+asaE5HpYowEA57wkkLq/pvwPG69hSYEoaY94hEAsQBLp+uNzUr
-         7aCR9QKPixw8tp1xULzCnBTWhJGSD7M4GE4jX/R7OZ8YCEcYGN7/cFgdDGMpP58RqySm
-         lTaGZjjT8MKWB/1ITZp9F75XJ9d6A0pH2ouF9szlCnM+yKwD7koMy9MZV7fxq5Up+URM
-         pHVOToQjle2p3vDwaO2LaNnBkv1cBnflzgN05Vr6CKOTozEGCbraDQ+wodmFXdK/4ys3
-         UBIw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791833107; x=1792437907; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=L70Ii9x5C+z302d/Psn2CqblJNvQ2CMmeLwkxN/XibM=;
-        b=ZDQoBfQ+rT9HTYW4+uiEMdJEdlujo8CsZRIsDKUY5oArj8I85efzyKg+TEET5Dvmo5
-         pX8kHWIcYG1g60TGWnazVOVQ4QDtCjaxBu8HnGfktOxCQ4Lt+XbbZ52YeuPnkIv3t7R2
-         uwFmKMTOtJCGqfeHNT+II5rlsIL3roBWl7q/O8wE/TE74OO0CEO5KB9D2iSPJSgArjF2
-         2HhXwy+Fh8gTtW2W1qVRQSrC4nSwdodECNgkqlAXpOFy7Xhe7mc8Jj9gZG3HSkyU5HGz
-         r7VfljbgJDMs7uZbf12lF8rEBMPBN/p2Ry/OWRliy2Kt/rDNM5NXAQl9D0YmoNndxrLb
-         FW+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791833107; x=1792437907;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L70Ii9x5C+z302d/Psn2CqblJNvQ2CMmeLwkxN/XibM=;
-        b=zwfxrMHm6Rk9DV1vDkUZ3kjmo12lJTkn4A/5lGQxRFqPmUMBLB8y0DXDd1bNOC0wpn
-         5nPBmRZ9MZymxu2S4PoRQUqldmB7Baprl9nHKL4qeuMX1ftLqCA9yFo7YOqNJq/7A1C7
-         FCgHGnYA+H5YGLfBIJqB0ufqM0Sfw84R2ezVMLnVuzPbHSvbihtFbVkYnU/o/tGX7zLH
-         a4h1mtmJM+hdwYLiGywJUXPdMeeow29sOZ3xpmocLnn2U3/XTV+5ll45ww4U++mDvMEx
-         Jy7tvq/DFU/eohlzwqZA703zr8NqHsFH0E4cUmTDA27RQCFgZcO0mWo/qg4O9jjguyBC
-         HaZg==
-X-Forwarded-Encrypted: i=1; AKwUvBxBlEFvncPS59leB3sSFvfAJbIktqdyOCxbrWFVJJYCVyNRlN5HWMHyRXHbvyA5K8sXtlkC2E2LdqnbkSg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVMGuBhjJV067NgjTNHJGBYiYlNtNbYzqhh/3J7vRsBsBbOoIo
-	bk32U9njXpX4WrCZ9GK0e5+rv8mr/MJ1Yq/psz06z1eGJG5b5Ef5+mwSKjybtSzBMl34hPdELj/
-	AMJJjloyYl73w3CPkGXUYKGHZ2wWhu8M=
-X-Gm-Gg: AYBFou0Uqdqs5L6CkRAXuUhF96jP4eK5iTcnYIS8Oktv6SJjTb9IGKyaxslxjSK5Duj
-	4DDIILo2FMwPHIFMXzx9y6Jq1wijauVUOumHIrJ/kMsAEd9qe7/ChI6XccTEI9jzD1LdajT9INj
-	LGMcjKd3T90LtraSl4UsqJmO7H1ybRpgKG/ZwaoPJ/BgmnVsDw+ORjrkLUXFk9Lzcp1U2OWRTSb
-	xAJz7y7gEVlIzKCnESoD/RA7XEBZe/jnfmvfQ1VX/JQGtkpxQtVf3ScieXzl1NfjGBHVEDGld5u
-	VHKVuYB9hPlHQ/fbJf75xzFXgMv8tnuR4coslQYDLkVGc6RlFaTkjIQ+/Q==
-X-Received: by 2002:a17:906:7948:b0:c29:60b7:3f14 with SMTP id
- a640c23a62f3a-c31aa02b449mr966426866b.46.1791833106527; Mon, 12 Oct 2026
- 12:25:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="kw4mNG4/"
+Received: from ehlo.thunderbird.net ([172.56.213.145])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 69CJOuGE954325
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Mon, 12 Oct 2026 12:24:57 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 69CJOuGE954325
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026092801; t=1791833097;
+	bh=yAoccG/LTttD1h9L3r5SW6HRQUuXcC+JCP51wkvLU30=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=kw4mNG4/7IHPtMe0pOKvp2osW858vqnhSfpRr9iX0ZyOkNdJogL4o8ji2nwY8jMz/
+	 lYWcj6WrTraRc0VLGkb1nxEMVnxvNxg6X92zh5FnrqLhUcRLLMuE7w6IJs5oyfk3PV
+	 dL1d3g7OXf0jmWaDZ4b/7m4sx0w6wRN54FWnq+e/4nu06IMhSShNVK9HXvrlh6GmOO
+	 Tr0DwTrhkKQb9USemmPYmdfdqLOa0d4EMoI71Z9w0l3WSdn7YRldXUZXnHwen0OADj
+	 WsvJ1MZFc6tTjuUqGZuqibzF+cA5MmTC4lGNhSEQ9PDRJm1MJE4NAhqE/MOt0dF+KM
+	 voMzdj9Wqw3Ew==
+Date: Mon, 12 Oct 2026 12:24:46 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: Borislav Petkov <bp@alien8.de>, Luiz Capitulino <luizcap@redhat.com>
+CC: x86@kernel.org, tglx@kernel.org, mingo@redhat.com,
+        dave.hansen@linux.intel.com, linux-kernel@vger.kernel.org,
+        linux-doc@vger.kernel.org, corbet@lwn.net, rppt@kernel.org,
+        blum@kernel.org, david@kernel.org, linux-mm@kvack.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3=5D_x86/corruption-check=3A_Remov?=
+ =?US-ASCII?Q?e_the_BIOS_memory_corruption_check_feature?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20261010194519.GAasqVz2brXiOLegQi@fat_crate.local>
+References: <20261010153604.1885381-1-luizcap@redhat.com> <20261010194519.GAasqVz2brXiOLegQi@fat_crate.local>
+Message-ID: <33A35EDB-3AD7-4F29-85B1-4D9C9B41C874@zytor.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008175225.3375274-2-coiaprant@gmail.com> <179183168522.434549.14619345397319265452@kernel.org>
-In-Reply-To: <179183168522.434549.14619345397319265452@kernel.org>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Tue, 13 Oct 2026 03:24:59 +0800
-X-Gm-Features: AclHuK_IK-J3xdjBLHul-e3CTuwWO6mo07_5PjrwMDoCpvY_M9ekvq5ssPY4yMg
-Message-ID: <CALj3r0jTq+wztO=-TMDkNTM7OFkB4UHMpugTnQ+YPiuWYD9MFA@mail.gmail.com>
-Subject: Re: [PATCH net-next v11 1/6] net: pcs: xpcs: add ANRESTART support
- for SGMII link recovery
-To: netdev-bot+sashiko@kernel.org
-Cc: kuba@kernel.org, netdev@vger.kernel.org, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de, 
-	maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com, 
-	alexandre.torgue@foss.st.com, hkallweit1@gmail.com, linux@armlinux.org.uk, 
-	david.wu@rock-chips.com, linux-rockchip@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Thanks. Both points were raised in earlier versions and are intentional
-for this hardware.
+On October 10, 2026 12:45:19 PM PDT, Borislav Petkov <bp@alien8=2Ede> wrote=
+:
+>On Sat, Oct 10, 2026 at 11:36:04AM -0400, Luiz Capitulino wrote:
+>> By default, the BIOS memory corruption check works by reserving the
+>> first 64 KiB physical area from memblock, zeroing it and then scanning =
+it
+>> periodically=2E
+>>=20
+>> However, this functionality has been broken in its default configuratio=
+n
+>> since v5=2E13 by two commits:
+>>=20
+>> - Commit a799c2bd29d1 ("x86/setup: Consolidate early memory reservation=
+s")=2E
+>>   Moved trim_low_memory_range() into early_reserve_memory(), which runs
+>>   earlier in setup_arch(), causing the first 64 KiB to be reserved (whe=
+n
+>>   CONFIG_X86_RESERVE_LOW=3D64) before setup_bios_corruption_check() run=
+s
+>>=20
+>> - Commit f1d4d47c5851 ("x86/setup: Always reserve the first 1M of RAM")=
+=2E
+>>   Hardcodes the reservation of the first 64 KiB early in
+>>   early_reserve_memory()
+>>=20
+>> It might be possible to get the default case to work by allowing
+>> setup_bios_corruption_check() to run first, but it's just not worth it
+>> given that the kernel will never access the first 64 KiB area anyway=2E
+>>=20
+>> Lastly, note that it's possible to get the corruption check to work wit=
+h
+>> a different region by passing memory_corruption_check_size=3D=2E Howeve=
+r,
+>> the main goal of the feature was to check the first 64 KiB=2E Besides,
+>> the region picked will be almost random as setup_bios_corruption_check(=
+)
+>> will pick a region by size=2E
+>
+>And?
+>
+>Do I want this or should it be fixed or the first 64K are not worth it to
+>check or=2E=2E=2E?
+>
+>That whole "rationale" is not really clear to me=2E Yes, it is broken,
+>apparently=2E So let's remove it but we might get it work still=2E=2E=2E =
+So which is
+>it and why?
+>
 
-<netdev-bot+sashiko@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8813=E6=97=
-=A5=E5=91=A8=E4=BA=8C 03:01=E5=86=99=E9=81=93=EF=BC=9A
->
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] xpcs_get_state_c37_sgmii() now does a non-atomic read -> act
->   sequence.
-> - [Low] Concern: in xpcs_get_state_c37_sgmii() the ANCMPLT latch is
->   cleared (pcs-xpcs.c:1112) before BMCR_ANRESTART is issued (pcs-=E2=80=
-=A6
->
-> --
->
-> net: pcs: xpcs: add ANRESTART support for SGMII link recovery
->
-> This patch sets BMCR_ANRESTART alongside BMCR_ANENABLE when configuring
-> C37 SGMII AN. It also clears DW_VR_MII_AN_INTR_STS before AN starts. In
-> xpcs_get_state_c37_sgmii(), when AN completion is seen with the link down=
-,
-> it clears the ANCMPLT latch and restarts AN, so that parts such as RK3568
-> can recover the link.
->
-> > diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-> > index b415b93d77c15..6466e0ff2a98b 100644
-> > --- a/drivers/net/pcs/pcs-xpcs.c
-> > +++ b/drivers/net/pcs/pcs-xpcs.c
->
-> [ ... ]
->
-> > @@ -1093,9 +1107,18 @@ static int xpcs_get_state_c37_sgmii(struct dw_xp=
-cs *xpcs,
-> >               return 0;
-> >       }
-> >
-> > -     /* Clear AN complete status or interrupt */
-> > -     if (state->an_complete)
-> > -             xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0=
-);
-> > +     if (state->an_complete) {
-> > +             /* Clear AN complete status or interrupt */
-> > +             ret =3D xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INT=
-R_STS, 0);
-> > +             if (ret < 0)
-> > +                     return ret;
-> > +
-> > +             /* Initiate the next round of AN */
-> > +             ret =3D xpcs_modify(xpcs, MDIO_MMD_VEND2, MII_BMCR, BMCR_=
-ANRESTART,
-> > +                               BMCR_ANRESTART);
-> > +             if (ret < 0)
-> > +                     return ret;
->
-> [Severity: Medium]
-> Can two callers of .pcs_get_state() race here and restart a negotiation
-> that has just finished with the link up?
->
-> The read of DW_VR_MII_AN_INTR_STS at the top of the function and the
-> clear and restart here are not atomic. phylink calls .pcs_get_state()
-> from contexts that do not share a lock:
->
->   phylink_resolve()                   holds pl->state_mutex, not RTNL
->   phylink_ethtool_ksettings_get()     holds RTNL only (MLO_AN_INBAND,
->                                       no phydev)
->   phylink_mii_ioctl()->phylink_mii_read()   holds RTNL only
->
-> struct dw_xpcs has no lock of its own, and the MDIO bus lock only covers
-> each single access.
->
-> A possible interleaving:
->
-> CPU1 (ethtool get)                  CPU0 (phylink_resolve)
-> xpcs_read(INTR_STS)
->   link=3D0, ANCMPLT=3D1
->                                     xpcs_read(INTR_STS)
->                                       link=3D0, ANCMPLT=3D1
->                                     xpcs_write(INTR_STS, 0)
->                                     xpcs_modify(BMCR, ANRESTART)
->                                     ... AN completes, link up ...
-> xpcs_write(INTR_STS, 0)
-> xpcs_modify(BMCR, ANRESTART)
->
-> CPU1 acts on its stale sample. It clears the newly latched ANCMPLT and
-> restarts AN on a link that has just come up.
->
-> Before this patch, a concurrent caller could only clear the latch. The
-> extra restart is new. Unprivileged users can issue ethtool get link
-> settings.
->
-> The commit message's reason for clearing the latch before the restart
-> assumes that get_state calls are serialized. Does phylink actually
-> guarantee that for these callers?
-
-The C37 SGMII path needs to restart AN from xpcs_get_state() because
-phylink does not call .pcs_an_restart for SGMII. On RK3568 the PCS does
-not restart AN by itself, so a link that goes down would stay down
-without this. The same pattern is already used by xpcs_get_state_c73(),
-which calls xpcs_soft_reset() and xpcs_do_config() from the same
-callback.
-
-On the non-atomic read-act sequence: the concurrent caller can only
-come from ethtool or mii_read, which do not hold pl->state_mutex. So
-yes, the sequence is not strictly serialized against the normal poll
-path.
-
-The consequence is a possible extra AN restart on a link that just
-came up. On this hardware an AN restart is idempotent and safe: if the
-link is already up, the PCS re-negotiates and comes back up. There is
-no state corruption, no register left in a bad state, and no way for
-the concurrent caller to observe a torn value, since each MDIO access
-is individually locked.
-
-Before this patch a concurrent caller could clear the latch; the extra
-restart is new, but its only effect is to shorten the window in which
-a stale sample can be acted upon.
-
-> [Severity: Low]
-> What retries the restart if the xpcs_write() of DW_VR_MII_AN_INTR_STS
-> succeeds and then this xpcs_modify() of MII_BMCR fails?
->
-> The latched ANCMPLT that triggers this path has already been cleared. No
-> restart is pending, and xpcs_get_state() only logs the error:
->
-> phylink_resolve()
->   xpcs_get_state()
->     xpcs_get_state_c37_sgmii()
->       xpcs_write(DW_VR_MII_AN_INTR_STS, 0)    succeeds
->       xpcs_modify(MII_BMCR, BMCR_ANRESTART)   fails
->     dev_err(..., "xpcs_get_state_c37_sgmii", ...)
->
-> On parts that do not restart AN by themselves, the link would then stay
-> down until the interface is reconfigured.
->
-> The commit message covers this case:
->
->   "If an MDIO access fails at this point, it indicates an unrecoverable
->   hardware condition until reset."
->
-> On RK3568, the MMIO-based MDIO back end added later in the series seems
-> to fail only through pm_runtime_resume_and_get(). That failure is not
-> transient. On other XPCS platforms the databook says AN restarts on its
-> own. So the documented behaviour may be fine as it is.
->
-> > +     }
-> >
-> >       return 0;
-> >  }
-
-The latch ordering is deliberate: clearing it after the restart would
-discard a freshly latched ANCMPLT from the new negotiation. An MDIO
-failure at that point means the transport is gone, so there is nothing
-to retry.
+We aren't using that memory, so there is no point spending the time scanni=
+ng it periodically=2E
