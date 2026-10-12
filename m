@@ -1,308 +1,255 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04C0490C12;
-	Mon, 12 Oct 2026 13:08:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791810517; cv=none; b=NlEvDIzdvlwHDV0suf5lM5kMaA1PqiB+4Ozxb7gPEUgVK1fQSwbFV4nGD3aNTdXGdCPBUTFgv5fNn31NQtxc1p9eyEBivcTKQmMQ3y4VzL5Mb1vgyKisJmYI4a7e1o6GYMt+7AxpzBfau7E+f3IbGVMZ5qGES+ZCCDT50fl625E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791810517; c=relaxed/simple;
-	bh=z/aoKVlTWCqP5xdGqPJedhYl1yTYaPKGqnnicqoO0f8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kk1/oUIZsGZUOzEQXOKHZtix/lf/tZ2/R+vUwek9zST7BsRUwUWPIgvLBfAVymfaXvguuPh8Sfjug+B4OiXE7C/naubUP4F4iZvPid4lJMqnSRHevzUsx5tdBOpMcObRPxPNnk8V9M3I1Y8TgqEg7TYsx7+ZnJxrM5JuOxS9eEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WM3ceTdG; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FA13932D5
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:08:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791810518; cv=pass; b=Ta4BewjEMSicW8YFCrmfFG7nHp5Kng65huChrYYL/zg2utMQgztdO2lXpHz8cP4sAAZpy3SDYdjYHFJZSVQSE++eJlL/obNBOw+ade/NYOxXwmSRMYAWdyEEXVA5ad26Dxu/ZV27g3MGIqDHhRLIfhMIj1n96S2GDhbq5Qdd0nk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791810518; c=relaxed/simple;
+	bh=9TnWb3s6PU7JSbOQWmXYCgTaHNi6mp73s3c+kMKdxes=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hTHqSPmo3wV9Wn3vtvs9lsI2o4qfk6YTeWamaerzlwZ0piq3vhMeeATeKEawjFbJ2AdREsiUIlbi8546H8/qTfsvL6vFfMR953Z5A8qyJ34ivpFxqUpb2Oep+Bi1qlwZdR+kB2soqxU5swVk8AaVDkoAeqDl7VsO5yzNPceCOgM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z4hK4ZWk; arc=pass smtp.client-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WM3ceTdG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AF151F0089C;
-	Mon, 12 Oct 2026 13:08:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791810515;
-	bh=hY/L6W6+M17ZmqpHr2J14GxZO9eD/wt80MpH13jNKZs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WM3ceTdGZL8WLUUaa3qwzYLrexRvvmtE3210qstGtZHp/0AKe+JxnyVH1p3RKS/VT
-	 0tS4pld5NlgrRtJoGSoY5jAgpOAkNalBPAL1aep+eO/SAGHXmUQ0i+39naYkqFRIwY
-	 +EnFPKyuCmaJqG8lPlMklokp90b/7G/98fpzXllrMn4fchDTRfM6Qls+22gdtiP1AO
-	 g+LnfrvpXRSqYpQH+ptIZddv5QdLkManRgOjq6GoaDFFtW0bPLZHHFFysrIZFIGVwh
-	 P+iPOjzMRGJ9GqzGqNiovl4lGcfmzcYEdD8nlZrlmXOvlh1hIgwY+9pX/re58A7kt9
-	 BdVkruMOMMvsw==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: [PATCH v10 06/18] PCI/P2PDMA: Collect the path's ACS controls before deciding
-Date: Mon, 12 Oct 2026 16:07:43 +0300
-Message-ID: <20261012-fix-p2p-acs-v4-0-v10-6-6ffe7b7a4517@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261012-fix-p2p-acs-v4-0-v10-0-6ffe7b7a4517@nvidia.com>
-References: <20261012-fix-p2p-acs-v4-0-v10-0-6ffe7b7a4517@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z4hK4ZWk"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-535d60d850cso6986541cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:08:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791810515; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sFwEKRAyQBH6ALjhNwyHYvL3XxbiyFZjVJWotd7TCTwusMQQrOOEipVyF8fhZvwvP+
+         ZL5KjaD/P55O1g5G+qs3HLZTn93/sXrTwezjyGdeawLn3GHjA6L94L9kuPjhl6GhOnY/
+         83wUHyBDYO5utUL+DzFcuNgxxTkvFLpylPnJubbAuWQ4aH6VUmnvycrHrj4xRFQI8txi
+         hNhTmS9Bh4kFKzpMmb113/62pSXghE9hmuvu8BBxx3xHsZFTxRZAJZLHXEOc3hCwjwky
+         yzxtygfCf87BpFqISodc0zdfVGKwu6DIBgzZut7jzZPJdl5fPi0K61zSOlZvkzL2AdQh
+         rxCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+qDKiqWWRqUrMR9txVGzWq2WKoa0wiQp+MrbYwWuAb0=;
+        fh=0uH4vp6GlPO79pI5DRni0DvL0Z05naCgseZLNmh6V8Q=;
+        b=TOCCU/4g1DwI1+kpPybhznNSuKCp/HtdERR1HUT8YLBa7FQuaPF63yj7Uiw0bq9kUs
+         zo0xAKzA71kO6kcUwVO5LugEnswVTj3XAJncgh5tTYLXU/+cchrVtB1d2LjrWXn4WNCH
+         AfuPhj2n7oeYpyZOhrXbA46glnBAeErkOzS7oIBFKy0Gr6VGqJ5Fq+GVUfNH/B22jmgZ
+         w8MV9fCBNqOj3PVcygQM1+qpbQKOnFpSrb9NEJusGExMoxqZU5BvkwwQ/VK4Bi++cclN
+         NZ8FvYZONilOx/c4Fn24w99us/S9kiZwjUzgkO9RuGrvXH87TUUir7Q0pRN4pn7zY1s8
+         4Y+w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791810515; x=1792415315; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+qDKiqWWRqUrMR9txVGzWq2WKoa0wiQp+MrbYwWuAb0=;
+        b=Z4hK4ZWkaZC70sJtHjoSnZZ3R0BKFi1XWDifaLbp6MzOTJnFR5bKx2+1XF4ELsFsOs
+         E6mfEbeInBrxqgDTLGAnvpG7RIrlTVOZLs2M2aujmbY6MYdkUkEoCke7sigbWLCr9+eA
+         ULDMmJYN+a1DwV/MYLrHZMFI+V/MmS9eZC5cY67UT5fBUXz5MgDrsjiDV/+4GNZnSC6i
+         JMfhoopM5J9eE3dPO7WoNKmjMGruf3bRACpzKvPJjD2bHufFPGGgAJkubuwJYx8R3ZRL
+         wsXb+lfkmjxN3tI2H/AxggUocn0RVC8oK/bsw86fCPW3vp9on8zxhuIg5jcpYzRGb2V1
+         mIoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791810515; x=1792415315;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+qDKiqWWRqUrMR9txVGzWq2WKoa0wiQp+MrbYwWuAb0=;
+        b=pWdCjwZc2OCyrxnricBNarzLpzMeiUi6rd8uXo/JXJoWoSg9eugQUu+ybkIhPO3qqb
+         xNuxRhfAtyXKqlhM8LLo0Quahpq4RtmPeGQnGio3wGJm2nb5PMZywx9O49U092DuQ7xk
+         I//DSW+YSffpePFVm3/q/2q7vFy8tm29/HX6zQlHih9tIzrfXTKqrvbL3FoWJusBTz94
+         CfJMT/nkVNiS39ZzNWBYSGkWohHwwksooKix2qq6/sCH84K0CSosJy+OU8SgHWgAYK0T
+         me6F0hC9aga045ywAwBQg/WZmP7486U7fjDN2DIUDjDbc8TRALQOeQokvASTFfG+chY5
+         zXlg==
+X-Forwarded-Encrypted: i=1; AKwUvBzNTzezTp59rro/pqcNnFVgv/CGskLvmMjji14TIw053BFvdNptMcP7PRQ7+5He4BKenhCt/Nr6sgKFduI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUcXeX9fkt2RN7lB918L5bENXV88G99QNmYmYoBHc++XklTqaC
+	ftV33bxtkHK3WFWgftbkypyl9TO11OtDNiq1AQeLUl047YIWGZGRxHARsig2TM8xNEJkboe0LeN
+	tYvO9aX8WxUmfPzGpicq2jBkC77SkNz0=
+X-Gm-Gg: AYBFou3kJbkH/k/AzHPl3jcE9kzFXJmN2f+Llvrdn/PAoGxDRTtvFAv3vYBtNTgNFqy
+	xdY3KJmdYPw8dS0IN8j1WxNH6r4clHk11JZdnZJe0M9MhTt8noqnAhAJKb71OALApcGWR0mK+7B
+	NRQyWcvk4U8myYgEEQ97+0xkc2gacAQ6fGfNa/5AyEbiDeDMiTftxWMXJ+Z6bUvZi5dP9UrE7Q+
+	sY7jJFgw2RELow7fPMact39/NC0v9HB3Dxa92HgyLU3bOTVaYTiFxrGmv3He2qsppDk0QZXPR+f
+	cBV4zoNv1RaNVxvHSTU0Sr8G6q48hrNANBsLp0PXOikyWqR5NQl1yOaX+8JQhnY2OZoKnD+Fb34
+	8AqMAhssbp2XZ7ceHsIv7+xYE3F66GlB+YomiHIBCehDBHI7gL/KFBqrpptMaOqB0qhbFVgQOYf
+	DE9ivSXLK/RbH0QBq7RODm3Nyhk5sMtawYck700d1nSUcarpBB5xxsuOaBHl8v0cjiil9dFrCAA
+	Qp0mduDoCAK8m3jT6TyM3tVp+jijw==
+X-Received: by 2002:a05:622a:e35a:20b0:533:2daf:c0bc with SMTP id
+ d75a77b69052e-535a5e37b30mr90679591cf.0.1791810515475; Mon, 12 Oct 2026
+ 06:08:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+References: <20261011051906.60397-1-jain.sm@gmail.com> <20261011051906.60397-3-jain.sm@gmail.com>
+ <20261012122112.GA31242@lst.de> <CA+FWx=n=66eHOgMFb=unfgqFrhw3prW0EOf1bYHfLATV2-o1_A@mail.gmail.com>
+ <09399f27-11eb-431b-914d-397f42de9dc3@kernel.org> <CA+FWx=kgeR8tz46tijYE-s=v+PTJjGfM+3ucQOo0ZuDyqFdYQw@mail.gmail.com>
+ <0da1bc26-b3ed-4bfa-b75d-2d1696cc0cfb@kernel.org> <CA+FWx=ko-dj3SORcHcvDpP7abWAmD1JH0o4COPsZc2U7kimTvw@mail.gmail.com>
+ <04251d5f-c251-49f7-8690-565c9b203690@kernel.org>
+In-Reply-To: <04251d5f-c251-49f7-8690-565c9b203690@kernel.org>
+From: shashank Jain <jain.sm@gmail.com>
+Date: Mon, 12 Oct 2026 18:38:24 +0530
+X-Gm-Features: AclHuK_IeifSqwqfSuwQJ_dYfF-pCRt55Ri5tFzGXW39QtQ3e0rtZvRF1C7ic6M
+Message-ID: <CA+FWx=mY7WcyR0D1ik4i4ZTZHFWtTw=Y32306jA7sEiv_SPtHw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] block: fix the length of a smaller last zone in blkdev_get_zone_info()
+To: Damien Le Moal <dlemoal@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>, 
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>, Hannes Reinecke <hare@suse.de>, 
+	Chaitanya Kulkarni <kch@nvidia.com>, "Martin K. Petersen" <mkp@kernel.org>, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Leon Romanovsky <leonro@nvidia.com>
+On Mon, Oct 12, 2026, Damien Le Moal wrote:
+> Maybe add a prep patch that defaults to BLKREPORTZONEV2 (without
+> BLK_ZONE_REP_CACHED) if BLKREPORTZONEV2 is defined.
+> And a second patch that adds the --cached option for BLK_ZONE_REP_CACHED.
 
-calc_map_type_and_dist() reads each divergence port's ACS Control register
-and folds the result into running counters as it goes. Any routing property
-that depends on the kind of TLP being routed would have to be threaded
-through that code, so there is nowhere to put one without reading the
-registers again for each kind.
+Will do - a 2-patch series: 1/2 makes "blkzone report" use BLKREPORTZONEV2
+(without BLK_ZONE_REP_CACHED) when the ioctl is defined in the headers,
+keeping the current device-report behaviour; 2/2 adds "--cached" for
+BLK_ZONE_REP_CACHED. I will CC you.
 
-Collect the two ports' ACS Control values into struct pci_p2pdma_acs_path
-first, then decide from it. pci_p2pdma_route() applies the same rule as
-before: a path routes directly only when both directions do.
+Thanks,
+Shashank
 
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-Tested-by: Tushar Dave <tdave@nvidia.com>
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- drivers/pci/p2pdma.c | 148 +++++++++++++++++++++++++++++++++------------------
- 1 file changed, 96 insertions(+), 52 deletions(-)
-
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 8af11a8449f1..ced177bf4c11 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -553,6 +553,80 @@ static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
- 	seq_buf_printf(buf, "%s;", pci_name(pdev));
- }
- 
-+/*
-+ * What the topology walk found out about one provider/client path. Producing
-+ * this costs a walk and one config read per divergence port, none of which
-+ * depends on the TLP being routed.
-+ *
-+ * @req_ctrl:	ACS Control of the Requester-side divergence port. That is the
-+ *		first port at which a Request can route toward the peer rather
-+ *		than upstream, so it is where the Request controls apply.
-+ * @cpl_ctrl:	ACS Control of the Completer-side divergence port, likewise for
-+ *		the Completions travelling back.
-+ * @unreadable:	First port whose ACS Control could not be read, if any.
-+ */
-+struct pci_p2pdma_acs_path {
-+	u16 req_ctrl;
-+	u16 cpl_ctrl;
-+	struct pci_dev *unreadable;
-+};
-+
-+/*
-+ * Combine both directions into a mapping type. Only a path that routes the
-+ * Request and the Completions it generates directly can be programmed with
-+ * the peer's bus addresses.
-+ */
-+static enum pci_p2pdma_map_type
-+pci_p2pdma_route(const struct pci_p2pdma_acs_path *path)
-+{
-+	if (path->unreadable)
-+		return PCI_P2PDMA_MAP_NOT_SUPPORTED;
-+
-+	if (pci_acs_p2pdma_request(path->req_ctrl) == PCI_ACS_P2PDMA_DIRECT &&
-+	    pci_acs_p2pdma_completion(path->cpl_ctrl) == PCI_ACS_P2PDMA_DIRECT)
-+		return PCI_P2PDMA_MAP_BUS_ADDR;
-+
-+	return PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
-+}
-+
-+/*
-+ * Name the ports that keep this path off a direct route, so that the admin
-+ * can hand them to pci=disable_acs_redir=.
-+ */
-+static void pci_p2pdma_warn_path(struct pci_dev *client,
-+				 struct pci_dev *provider,
-+				 const struct pci_p2pdma_acs_path *path,
-+				 struct pci_dev *a_child,
-+				 struct pci_dev *b_child)
-+{
-+	struct seq_buf acs_list;
-+	char buf[128];
-+
-+	if (path->unreadable) {
-+		pci_warn(client,
-+			 "ACS Control is unreadable for provider %s at %s\n",
-+			 pci_name(provider), pci_name(path->unreadable));
-+		return;
-+	}
-+
-+	seq_buf_init(&acs_list, buf, sizeof(buf));
-+	if (pci_acs_p2pdma_completion(path->cpl_ctrl) != PCI_ACS_P2PDMA_DIRECT)
-+		seq_buf_print_bus_devfn(&acs_list, a_child);
-+	if (pci_acs_p2pdma_request(path->req_ctrl) != PCI_ACS_P2PDMA_DIRECT)
-+		seq_buf_print_bus_devfn(&acs_list, b_child);
-+
-+	/* Drop the final semicolon; the list is not empty here */
-+	if (!seq_buf_has_overflowed(&acs_list))
-+		acs_list.buffer[acs_list.len - 1] = '\0';
-+
-+	pci_warn(client,
-+		 "ACS redirect is set between the client and provider (%s)\n",
-+		 pci_name(provider));
-+	pci_warn(client,
-+		 "to disable ACS controls for this path, add the kernel parameter: pci=disable_acs_redir=%s\n",
-+		 seq_buf_str(&acs_list));
-+}
-+
- static bool cpu_supports_p2pdma(void)
- {
- #ifdef CONFIG_X86
-@@ -758,19 +832,13 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 		int *dist, bool verbose)
- {
- 	enum pci_p2pdma_map_type map_type = PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
--	enum pci_acs_p2pdma_state state = PCI_ACS_P2PDMA_NOT_SUPPORTED;
- 	struct pci_dev *a = provider, *b = client, *bb;
- 	struct pci_dev *a_child = NULL, *b_child = NULL;
--	struct pci_dev *acs_unreadable = NULL;
-+	struct pci_p2pdma_acs_path path = {};
- 	struct pci_p2pdma *p2pdma;
--	struct seq_buf acs_list;
--	int acs_redirect_cnt = 0;
-+	bool cpu_p2pdma, host_whitelisted = false;
- 	int dist_a = 0;
- 	int dist_b = 0;
--	char buf[128];
--	u16 ctrl;
--
--	seq_buf_init(&acs_list, buf, sizeof(buf));
- 
- 	/*
- 	 * Note, we don't need to take references to devices returned by
-@@ -813,61 +881,35 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 	 * branch is upstream, so redirect controls do not affect the path.
- 	 */
- 	if (a_child && b_child) {
--		if (pci_acs_p2pdma_ctrl(a_child, &ctrl))
--			state = pci_acs_p2pdma_completion(ctrl);
--		if (state != PCI_ACS_P2PDMA_DIRECT) {
--			seq_buf_print_bus_devfn(&acs_list, a_child);
--			if (state == PCI_ACS_P2PDMA_REDIRECT)
--				acs_redirect_cnt++;
--			else if (!acs_unreadable)
--				acs_unreadable = a_child;
--		}
--
--		state = PCI_ACS_P2PDMA_NOT_SUPPORTED;
--		if (pci_acs_p2pdma_ctrl(b_child, &ctrl))
--			state = pci_acs_p2pdma_request(ctrl);
--		if (state != PCI_ACS_P2PDMA_DIRECT) {
--			seq_buf_print_bus_devfn(&acs_list, b_child);
--			if (state == PCI_ACS_P2PDMA_REDIRECT)
--				acs_redirect_cnt++;
--			else if (!acs_unreadable)
--				acs_unreadable = b_child;
--		}
-+		if (!pci_acs_p2pdma_ctrl(a_child, &path.cpl_ctrl))
-+			path.unreadable = a_child;
-+		if (!pci_acs_p2pdma_ctrl(b_child, &path.req_ctrl) &&
-+		    !path.unreadable)
-+			path.unreadable = b_child;
- 	}
- 
- 	/*
- 	 * Below a shared upstream bridge, a path whose divergence ports do not
- 	 * redirect routes the request directly.
- 	 */
--	if (!acs_unreadable && !acs_redirect_cnt) {
--		map_type = PCI_P2PDMA_MAP_BUS_ADDR;
-+	map_type = pci_p2pdma_route(&path);
-+	if (map_type == PCI_P2PDMA_MAP_BUS_ADDR)
- 		goto done;
--	}
- 
--	if (verbose) {
--		/* Drop the final semicolon; the list is not empty here */
--		if (!seq_buf_has_overflowed(&acs_list))
--			acs_list.buffer[acs_list.len - 1] = '\0';
--		if (acs_unreadable)
--			pci_warn(client, "ACS Control is unreadable for provider %s at %s\n",
--				 pci_name(provider), pci_name(acs_unreadable));
--		else {
--			pci_warn(client, "ACS redirect is set between the client and provider (%s)\n",
--				 pci_name(provider));
--			pci_warn(client, "to disable ACS controls for this path, add the kernel parameter: pci=disable_acs_redir=%s\n",
--				 seq_buf_str(&acs_list));
--		}
--	}
-+	if (verbose)
-+		pci_p2pdma_warn_path(client, provider, &path, a_child, b_child);
- 
- 	/* An unreadable control does not establish an upstream redirect. */
--	if (acs_unreadable) {
--		map_type = PCI_P2PDMA_MAP_NOT_SUPPORTED;
-+	if (path.unreadable)
- 		goto done;
--	}
- 
- map_through_host_bridge:
--	if (!cpu_supports_p2pdma() &&
--	    !host_bridge_whitelist(provider, client, verbose)) {
-+	cpu_p2pdma = cpu_supports_p2pdma();
-+	if (!cpu_p2pdma)
-+		host_whitelisted = host_bridge_whitelist(provider, client,
-+							  verbose);
-+
-+	if (!cpu_p2pdma && !host_whitelisted) {
- 		if (verbose)
- 			pci_warn(client, "cannot be used for peer-to-peer DMA as the client and provider (%s) do not share an upstream bridge or whitelisted host bridge\n",
- 				 pci_name(provider));
-@@ -1201,8 +1243,9 @@ enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
- {
- 	enum pci_p2pdma_map_type type = PCI_P2PDMA_MAP_NOT_SUPPORTED;
- 	struct pci_dev *pdev = to_pci_dev(provider->owner);
--	struct pci_dev *client;
- 	struct pci_p2pdma *p2pdma;
-+	unsigned long cache_index;
-+	struct pci_dev *client;
- 	int dist;
- 
- 	if (!pdev->p2pdma)
-@@ -1212,13 +1255,14 @@ enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
- 		return PCI_P2PDMA_MAP_NOT_SUPPORTED;
- 
- 	client = to_pci_dev(dev);
-+	cache_index = map_types_idx(client);
- 
- 	rcu_read_lock();
- 	p2pdma = rcu_dereference(pdev->p2pdma);
- 
- 	if (p2pdma)
- 		type = xa_to_value(xa_load(&p2pdma->map_types,
--					   map_types_idx(client)));
-+					   cache_index));
- 	rcu_read_unlock();
- 
- 	if (type == PCI_P2PDMA_MAP_UNKNOWN)
-
--- 
-2.55.0
-
+On Mon, Oct 12, 2026 at 6:35=E2=80=AFPM Damien Le Moal <dlemoal@kernel.org>=
+ wrote:
+>
+> On 2026/10/12 14:53, shashank Jain wrote:
+> > On Mon, Oct 12, 2026, Damien Le Moal wrote:
+> >> I was thinking on adding a "--cached" option to control the use of
+> >> BLK_ZONE_REP_CACHED.
+> >> If you want to take on such patch, go ahead. CC me on it and I will re=
+view.
+> >
+> > Thanks - yes, I will take it: a "--cached" option to "blkzone report"
+> > that selects BLKREPORTZONEV2 with BLK_ZONE_REP_CACHED, leaving the
+> > default report via the device (BLKREPORTZONE) unchanged. I will post it
+> > to util-linux and CC you. The blktests reproducer will then use
+> > "blkzone report --cached" rather than a bundled helper.
+>
+> Maybe add a prep patch that defaults to BLKREPORTZONEV2 (without
+> BLK_ZONE_REP_CACHED) if BLKREPORTZONEV2 is defined.
+>
+> And a second patch that adds the --cached option for BLK_ZONE_REP_CACHED.
+>
+> >
+> > Thanks,
+> > Shashank
+> >
+> > On Mon, Oct 12, 2026 at 6:15=E2=80=AFPM Damien Le Moal <dlemoal@kernel.=
+org> wrote:
+> >>
+> >> On 2026/10/12 14:41, shashank Jain wrote:
+> >>> On Mon, Oct 12, 2026, Damien Le Moal wrote:
+> >>>> How do you plan to issue a BLK_ZONE_REP_CACHED report? "blkzone repo=
+rt"
+> >>>> does not have that yet. I am planning to send a patch for it.
+> >>>
+> >>> Good point. Two options, and I am happy to follow your preference:
+> >>>
+> >>> - Use "blkzone report" with the cached flag once your util-linux patc=
+h
+> >>>   lands - that matches the existing zbd tests and avoids a bundled to=
+ol.
+> >>>   I would hold the blktests submission until it is available.
+> >>
+> >> We should leave "blkzone report" to get the device report as before, t=
+o avoid
+> >> breaking anything for user with the "active" condition being returned.
+> >> I was thinking on adding a "--cached" option to control the use of
+> >> BLK_ZONE_REP_CACHED.
+> >>
+> >> If you want to take on such patch, go ahead. CC me on it and I will re=
+view. The
+> >> patches I need to send to add depop support will take some more time.
+> >>
+> >>> - Or carry a small C helper in the blktests src/ directory that issue=
+s
+> >>>   BLKREPORTZONEV2 with BLK_ZONE_REP_CACHED directly, so the test is
+> >>>   self-contained and does not depend on the util-linux version.
+> >>>
+> >>> I lean towards the first, to match the zbd conventions and your blkzo=
+ne
+> >>> work; tell me which you prefer and I will align the test with it.
+> >>>
+> >>> Thanks,
+> >>> Shashank
+> >>>
+> >>> On Mon, Oct 12, 2026 at 6:07=E2=80=AFPM Damien Le Moal <dlemoal@kerne=
+l.org> wrote:
+> >>>>
+> >>>> On 2026/10/12 14:29, shashank Jain wrote:
+> >>>>> On Mon, Oct 12, 2026, Christoph Hellwig wrote:
+> >>>>>> Can you add this to blktests as a reproducer?
+> >>>>>
+> >>>>> Will do. I'll send a blktests test under tests/zbd/ that sets up a =
+zoned
+> >>>>> null_blk device with a smaller last zone and checks that BLKREPORTZ=
+ONEV2
+> >>>>> without BLK_ZONE_REP_CACHED matches BLKREPORTZONE, and that the cac=
+hed
+> >>>>> report's last-zone length does not extend past the device. I'll pos=
+t it
+> >>>>> to the blktests project separately and reference this series.
+> >>>>
+> >>>> How do you plan to issue a BLK_ZONE_REP_CACHED report? "blkzone repo=
+rt" does not
+> >>>> have that yet. I am planning to send a patch for it.
+> >>>>
+> >>>>>
+> >>>>> Thanks,
+> >>>>> Shashank
+> >>>>>
+> >>>>> On Mon, Oct 12, 2026 at 5:51=E2=80=AFPM Christoph Hellwig <hch@lst.=
+de> wrote:
+> >>>>>>
+> >>>>>> On Sun, Oct 11, 2026 at 10:49:06AM +0530, Shashank Mohan Jain wrot=
+e:
+> >>>>>>> blkdev_get_zone_info() sets the length of every zone to the zone =
+size
+> >>>>>>> of the device. The last zone of a zoned block device may be small=
+er
+> >>>>>>> than the others: blk_revalidate_zone_cb() accepts that and rememb=
+ers
+> >>>>>>> the capacity of that zone in disk->last_zone_capacity. For such a=
+ zone
+> >>>>>>> the length reported from the cached information is too large, and
+> >>>>>>> start + len is beyond the end of the device. A conventional last =
+zone
+> >>>>>>> is also given the capacity of a full zone.
+> >>>>>>>
+> >>>>>>> Example with a zoned null_blk device of 10 MiB (20480 sectors) wi=
+th
+> >>>>>>> 4 MiB zones, last zone:
+> >>>>>>>
+> >>>>>>>   BLKREPORTZONE:       start 16384 len 4096 capacity 4096
+> >>>>>>>   BLKREPORTZONEV2 with
+> >>>>>>>   BLK_ZONE_REP_CACHED: start 16384 len 8192 capacity 4096
+> >>>>>>
+> >>>>>> Can you add this to blktests as a reproducer?
+> >>>>>>
+> >>>>>> The patch looks good:
+> >>>>>>
+> >>>>>>
+> >>>>>> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> >>>>
+> >>>>
+> >>>> --
+> >>>> Damien Le Moal
+> >>>> Western Digital Research
+> >>
+> >>
+> >> --
+> >> Damien Le Moal
+> >> Western Digital Research
+>
+>
+> --
+> Damien Le Moal
+> Western Digital Research
