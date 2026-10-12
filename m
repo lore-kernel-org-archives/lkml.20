@@ -1,287 +1,164 @@
-Received: from mta1.migadu.com (out-146.mta1.migadu.com [95.215.58.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88075448B83
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:16:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CBB367B86
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:17:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791796598; cv=none; b=TtMlvWIV+/oNuxXqoNzLfevP4a58of0wVS8fjB/i364dwWb2ce8n6ev+7GVDwajaEExtv5PAYHiK7mfESK8m8iKYerTwMYRJu20p15wpgUUfGa/IqOGZywZ+Yio3zwc2LtnmcAdAw+JfchvGzBM64qrOkSy2mrSqfxjkZBv+L8M=
+	t=1791796630; cv=none; b=jTfsuNOvHwX/1p6blzxH/QUSIe3BNZklMk6GtX/Xk4rcRKZqnfywR19vYoxAOZReIYvLnJ/rpjYuBpsiQb5h2mZzRsvZo977ZnPx6eGDL+2VpJd23NCcmIismaKgV18x1CK7kycXWROXaK3lP/jKuff1LZbCLn5CnDE1hO//OSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791796598; c=relaxed/simple;
-	bh=69YtGiardfA9MwaWyqxmYX4WlfVGtuCzQQDaVfCNu2k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HlWCOCLA3VhzW2+jL6jWjUum3qm2osYCJSzEVlbIdBl7lMzPDbgJaWGCppr/Ubltg5s/Gmi7s7jhekRhLQyWUeLoYETb2fCZfZYXYIONwVMDZsckKc/VzxVdNNotm5pCfB1kx5iTQjO2MTOuTO3T4zho04qCafwq6F4UEr7YBAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BM93IkYJ; arc=none smtp.client-ip=95.215.58.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791796630; c=relaxed/simple;
+	bh=t83sVHr1wKC8+yaysLXcM55WsgLGm+kgVdHDdB97PJM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pIP99hFL+mk2GjJfGu7eua/49bEMShvohu2PLbv81pz7oEO7xADaPURBNvWFi1Yv9ZwE5o+POUUw6zD/QC115XnBY+6JTdCNR0u9GkUFBtW24iF+9jI+5B5Ey9o9oQn5gc7Zy4Glmp9gzV/MU80drKfqcGC34kLTExo7Bf9jQr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DH5c6w4s; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OrCBldPU; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BM93IkYJ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=69YtGiardfA9MwaWyqxmYX4WlfVGtuCzQQDaVfCNu2k=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791796593; v=1; x=1792401393;
- b=BM93IkYJ8R8KSxfDfnJ6DOKPCN4QyojQrtcWpyGI8fmxEDx6SeCZzwGd2GT1njpVenaRO38D
- qvYwfZ1wuKctTzbdllSUx8s87+cwaIsH7WB+cfWo5aVfh5d5kSFlIghWlxtnblMx5gMm665A18G
- +nl+iqRLU6pdIhdUakS9Elao=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 4ebed4ed4dfe5b5b;
-	Mon, 12 Oct 2026 09:16:33 +0000
-X-Mizu-Trace-ID: 4ebed4ed4dfe5b5b
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 12 Oct 2026 17:16:22 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Klara Modin <klarasmodin@gmail.com>
-Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org,
-	akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
-	hannes@cmpxchg.org, nphamcs@gmail.com, baohua@kernel.org,
-	youngjun.park@lge.com, yosry@kernel.org, shikemeng@huaweicloud.com,
-	chengming.zhou@linux.dev, david@kernel.org,
-	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
-Subject: Re: [PATCH v4 00/14] mm, swap: extendable swap devices (xswap phase
- I)
-Message-ID: <asylV5YyyaHs8rP3@fedora>
-References: <20261003003136.750633-1-hebaoquan@kylinos.cn>
- <asZt7-8mcxqc1a02@soda.int.kasm.eu>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DH5c6w4s";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OrCBldPU"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8KmQY1439197
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:17:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=N4944zQT/7NakQKX3eNjFeImAH/Tf+C6mWE
+	Yc1Zq7AA=; b=DH5c6w4sJGJd+usdrXWoAopgMpDPt48JcrcySH1Mr8CwnGQE/Ao
+	tE4m+pYCdifB3XdkK3EYCXmUaYQtm1aQemBj+qnq+5Y1gbzPhr870n+FsFcJjx+c
+	tzMq0M1l/qftz9W5bDOGSzXO34Cc16m7hpgGGW2XXXqQpNNDQA6I8UOL4E08dQ4f
+	GL/85QPUaFNget3Wg4gMnHEEEIpvbASr0wBo/fvBAmg98/BfKibrslS4xZNRO8CV
+	IZvn7x81UQadSFS4WD71ioPsOvmj7S8Boyx0Agn9nPMo4VgqTAVK6haDZKdJqMjM
+	dXDc7yqHHswI5+WOeHHsErBxVNGmgZzFRLw==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8qtkh8w9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:17:07 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1665200f4c2so2375566c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:17:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791796626; x=1792401426; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N4944zQT/7NakQKX3eNjFeImAH/Tf+C6mWEYc1Zq7AA=;
+        b=OrCBldPU7q6kpd9LuwectKsnVji/7Jt8qYSWwShKdTSy4Zfn/BJxJ1pbNcbCwv3uQ7
+         1z/0wcEfgEX24VGswyTEOhMyHO+OXTgzXW0TfYE7WZpOnTuS66ydBOhbNcKyv12EzOkt
+         p3pncEvg8on1+zvQneYN6bI/UvQdPaIeRsOINWtpAtJQJ3ahfgIRm+xOqfJKtSLAbCOu
+         Nm+mHrh3BWOZqrl7JpQlqcARi6H3vhqKEBqfukU/GicnVqZ0XgtcP2dVT+vZkGz4cfEL
+         XAu0gewvt1mXooilO61Tf98GaYFjsGbq7phWPvhpSZDGOM/tNTn2kZy6i3PAKmsBDuQw
+         bavw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791796626; x=1792401426;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N4944zQT/7NakQKX3eNjFeImAH/Tf+C6mWEYc1Zq7AA=;
+        b=rJ+eiLMblzcMa/gcP8a+R7ORpvkpWJGmpk76XP6WN43++zR5+nBj+Pi3CopjMQ7Xxc
+         ihN5b5g9f2jC3Z7lZv98GrSuojtda3mGlnPQt6/fdF3VtVKoWqy2gmRZxNIQAiwG1fET
+         lez80g4CzVLvWxJ7eoTXa8U4I1SutjJhYIKjKnAhTsUsuVbJQME0aY8RGJlgv/vPQv7f
+         ZrEykP2ZUVlJy8ML+AnS3UKlowCDrGhQuzpq/8l0fterVjFU2xpR20VjW3bKUhsUpubA
+         f4taeTw35AAiY8nMFF6a9tUaQIPqp0gSDZrNmwQ6bur3BZILj6Da0Cmy56L1i4r7BBaC
+         R8UA==
+X-Forwarded-Encrypted: i=1; AKwUvBySE0lcO6H/8phPBoQzPA/ueV2+2Ys+JfZKebBVdYBQnS6Va3Xu4waXtQilOy2uQn5VFq+j5Szt1dYvJuY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJR3bTNReM09oynvPl+YdErxlcWUBfv3JXhuk8z4/ViivYAxRZb
+	IXxZQIRbm2/9sO5qLunewAsTdwsRwiXCsI8d6AxEr+m3f+Wn4TGe6bWbXbOtXC37zq6WKb9v240
+	EpOa4RXNmuxfv0SSNmvW1Nr5/Lniarhj+zlc0ACaJBPPcgVZFyCt4tBuiQX2p5wANi64=
+X-Gm-Gg: AYBFou0eFjOA5XS69tgfodZMG8AoL7tIQ0rjLv9x1490r6PVVS+7B29eYPA/ZG3iRBT
+	eZg/nqzRq7OZDLpuuVePGg8EyHqcucqy7EbVz5OS4OaQWols0J/cxtZaan4tI5pIr+CTw5cvs/K
+	K3UMn24WRoWjSWRErMB8zyLFwLZCVmaN6Zl1g2K0I5eIXIgt+7vW+EGm0AREtYT1Tx07+e1a9Au
+	7cs8InOs5reGacd1Rd84pTLqEiRa0EVQreHr8q9rIWDag49nSpapkapqJQpMlL6C4fQ1ZxCoSPV
+	BWts+YsuZxpvPi9nRuBTZ6mny+1Xr1E4BB+5ioUhEiFWP8HvMFMh5HEJpGKZhZRNoZEeMMvf/HP
+	WgGrqSflczuqZljYLv+PmYKokQAyR
+X-Received: by 2002:a05:7022:296:20b0:159:aa67:2893 with SMTP id a92af1059eb24-16a5d642d08mr11145410c88.30.1791796626336;
+        Mon, 12 Oct 2026 02:17:06 -0700 (PDT)
+X-Received: by 2002:a05:7022:296:20b0:159:aa67:2893 with SMTP id a92af1059eb24-16a5d642d08mr11145386c88.30.1791796625710;
+        Mon, 12 Oct 2026 02:17:05 -0700 (PDT)
+Received: from hu-akakum-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a442956asm34502575c88.16.2026.10.12.02.17.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 02:17:04 -0700 (PDT)
+From: Akash Kumar <akash.kumar@oss.qualcomm.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
+Subject: [PATCH v3 0/2] usb: typec: ucsi_ccg: Add CYPD6129/CYPD6229 support
+Date: Mon, 12 Oct 2026 14:46:56 +0530
+Message-ID: <20261012091658.635441-1-akash.kumar@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asZt7-8mcxqc1a02@soda.int.kasm.eu>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzNiBTYWx0ZWRfX29gfuw/EmKpm
+ liSRMfml9c6DLnOnp9ZA7miWDMVeI/+0FQW07xAkIWvFT+pittW0uXTRptYJ6lvifWBNY5gTaAD
+ c1pSLMX0v3PDYhApeWHRgKSE1NTDsH3H08aQsZmk+LiwfNYIyC6IxuXiQp835CF981eZIqDMl5i
+ 90ROLN5g9E6vVpNbrxZcv2/0nKLIJ6FFyWj0PCfcO2e+f95NS8oB2prcPvEUeZvBJgQ3pjlPzcQ
+ 7cyL964Xb6+mck3lo9II1mO0wGmthCGP6w+raeO9ooylN/BHDP9Pr+mv9PYA0yrjVR5lGC5+Xt8
+ 9PLXk5uOLu5ytex8GmNh4hP7lZCpfr8H5dUCQmsh9HcmdIN96ukSucirZLrpIR5lK57/UJ9wOBh
+ h34JiY2njC6tScnZlhKSikZM3wlemRVGb6epQgyWh1oYm4r4Y5q8scgobTrVZJTBa0iYO/+HdFR
+ L+pfVpOR5VkD5rgeRug==
+X-Authority-Analysis: v=2.4 cv=c8U+0h9l c=1 sm=1 tr=0 ts=6acca593 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=PrD5CQMRHxEyf_1mFesA:9 a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzNiBTYWx0ZWRfXzKJClam2iZLS
+ OE8yfMHM5fM1Mazs7ZEWFPZHNrmwy1BS+390ojmUA4ZO1BQ+Xn2FqofdTWa+uezJ2xJZ8ec2m7E
+ tbyFREWS4mjhHXcpJbpFAhWUSND0ZKU=
+X-Proofpoint-ORIG-GUID: nxVBsxxynN7tuXx1i_Jq2sLYauggUWYe
+X-Proofpoint-GUID: nxVBsxxynN7tuXx1i_Jq2sLYauggUWYe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120036
 
-Hi Klara,
+This series adds Device Tree and driver support for the Cypress CYPD6129
+and CYPD6229 dual Type-C PD controllers.
 
-On 10/07/26 at 06:28pm, Klara Modin wrote:
-> On 2026-10-03 08:31:22 +0800, Baoquan He wrote:
-...snip...
-> > The only argument create takes is a priority. The size comes from
-> > xswap.max= at boot, so there is one place to ask for a size and one to
-> > ask for a priority, and a priority can be given per device while a size
-> > cannot:
-> > 
-> >   # echo > /sys/kernel/mm/xswap/create          default priority
-> >   # echo 100 > /sys/kernel/mm/xswap/create      priority 100
-> > 
-> 
-> > The default is the highest priority, SWAP_FLAG_PRIO_MASK. An xswap
-> > device is then the first one tried, ahead of any ordinary swap device.
-> > Setting a lower priority is allowed.
-> 
-> Nice, this is now a good default which the user should not have to
-> change.
+The controllers use the existing I2C-based UCSI CCG interface. The series
+updates the binding to describe the new compatibles and controller-specific
+properties, and extends the UCSI CCG OF match table accordingly.
 
-Thanks a lot for careful reviewing, and sorry for late reply.
+Patch 1 updates the Device Tree binding to:
+- Add CYPD6129 and CYPD6229 compatible strings.
+- Support the CYPD6229 fallback-compatible relationship with CYPD6129.
+- Allow controller-specific I2C addresses and interrupt configurations.
+- Add pinctrl and wakeup-source properties.
+- Preserve the existing CYPD4226-specific constraints.
 
-> 
-> > 
-> > The device does not move once it exists, so the address space cannot be
-> > changed from this interface either. xswap.max= at boot and this together
-> > are the whole configuration.
-...snip...
-> > Open items
-> > ----------
-> > 
-> > - xswap_create() sets si->pages to the whole address space (twice RAM by
-> >   default) and _enable_swap_info() adds it to nr_swap_pages and
-> >   total_swap_pages, which is what __vm_enough_memory() uses for
-> >   overcommit. That raises the commit limit by 2xRAM for a device whose
-> >   real capacity is bounded by the zswap pool and by how well the workload
-> >   compresses. The question is which semantics overcommit should follow:
-> >   worst-case backing, or the address space.
-> > 
-> > - destroy takes a bare swap type. The type is an internal index that
-> >   alloc_swap_info() recycles as soon as SWP_USED clears, so a value read
-> >   earlier can name a different device by the time it is written. The
-> >   swapoff ABI uses a path for this reason. It wants a generation or
-> >   another stable handle.
-> > 
-> > - The new interfaces (/sys/kernel/mm/xswap/create and destroy, xswap.max=,
-> >   the new type string in /proc/swaps) are not documented yet.
-> 
-> To me it feels a bit weird to have the interface split between a kernel
-> parameter and sysfs, meaning I have to configure this in two places now.
-> As far as I gather, there's also nothing that needs the limit to be
-> fixed at boot since it is applied at creation. If we want to expose this
-> limit to users (as xswap does) it would be nice to have a 'max'
-> shorthand for tha largest possible value, i.e. SWAPFILE_CLUSTER *
-> UNIT_MAX (or whatever it might be in the future). That would I guess in
-> practice give the same behaviour as vm.overcommit_memory=1 which might
-> or might not be desirable.
+Patch 2 adds CYPD6129 and CYPD6229 to the UCSI CCG OF device ID table.
 
-Thanks for the comment.
+Changes in v3:
+- Fold the new controller descriptions into the existing
+  cypress,cypd4226.yaml binding.
+- Drop the standalone cypress,cypd6129.yaml binding file.
+- Drop the Shikra DTS changes from this series.
+- Add conditional binding constraints for CYPD4226 and CYPD6129/CYPD6229.
+- Address review comments from the v1 submission.
 
-Here xswap.max= is a global boot parameter, while not a per-device or
-runtie knob. It sets the space space (si->max) of the xswap device
-at boot and can't change at runtime. So on the two places: the size is
-a global setting, fixed at boot; the priority is per device, it is in
-the create interface. They are different things.
+Link to v2: Link: https://lore.kernel.org/all/20260820145036.2035641-1-akash.kumar@oss.qualcomm.com/
 
-The default is 2xRAM. From our earlier discussion, this is the largest
-size we think is sensible, and in practice I don't think it is not
-reachable in reality. If a system has swapped out 70% of its memory, and
-even more at 100%, it is already doubtful that it can still function
-normally. So 2xRAM is an upper bound, not a target.
+Link to v1: https://lore.kernel.org/all/20260820145036.2035641-1-akash.kumar@oss.qualcomm.com/
 
-On the max short name: it would set the address space to the largest value
-the format allows. As you said, that is close to vm.overcommit_memory=1,
-and it is not a real capacity, so we may not want it as the default.
 
-We keep xswap.max= only for special needs. Otherwise we may not need to
-change it.
+Akash Kumar (2):
+  dt-bindings: usb: cypress,cypd4226: Add cypd6129/cypd6229 support
+  usb: typec: ucsi_ccg: Add cypd6129/cypd6229 OF device IDs
 
-Chris suggested a CONFIG option for the size. While CONFIG is not friendly
-to distros, you must rebuild the kernel to change it.
+ .../bindings/usb/cypress,cypd4226.yaml        | 90 +++++++++++++++++--
+ drivers/usb/typec/ucsi/ucsi_ccg.c             |  2 +
+ 2 files changed, 85 insertions(+), 7 deletions(-)
 
-By the way, I remember you mentioned you ever did a test making swapped
-out pages about 110% of system RAM, could you share your testing steps
-or scripts so that I can give it a shot on my testing system? If it's
-not convenient, then never mind.
+-- 
+2.43.0
 
-Thanks
-Baoquan
-
-> 
-> > 
-> > Changelog
-> > =========
-> > v3 -> v4:
-> > - Rebased onto the latest mm-new.
-> > 
-> > - Add boot parameter xswap.max= .
-> > 
-> > - The device has one size now: set at creation, fixed, with xswap.max= to
-> >   ask for another one at boot. v3's runtime ceiling, the per-device limit,
-> >   the clamp it wrote and the shrink to that ceiling are all gone as
-> >   Johannes suggested (v3's patches 12, 13 and 14).
-> > 
-> > - v3's patches 2 and 4 are the new patch 3: neither builds a device
-> >   alone. It also bounds find_next_to_unuse() and wait_for_allocation(),
-> >   which walked up to si->max past the mapped range. Chris suggested
-> >   this.
-> > 
-> > - New patches 11 to 13: a cgroup that cannot zswap is not given an xswap
-> >   slot, swap_info_struct max and pages are unsigned long, and debugfs
-> >   counters for the mapped range and the grow and shrink counts.
-> > 
-> > - v3's patches 1 and 3, and 5 to 11, are unchanged; the merge shifts them
-> >   to 1 and 2, and 4 to 10.
-> > 
-> > - Minor comment and cleanup changes.
-> > 
-> > v2 -> v3:
-> > - Rebased onto the latest mm-new.
-> > 
-> > - The grow path now honors the user-set ceiling (si->nr_clusters) instead
-> >   of growing up to nr_clusters_max, and a ceiling below the mapped range
-> >   is unmapped exactly instead of rounded to a chunk (patches 12 and 14).
-> > 
-> > - The limit write clamps the ceiling up to the clusters covering the pages
-> >   in use, replacing the earlier WARN_ONCE; si->pages becomes mutable at
-> >   runtime (patch 13).
-> > 
-> > - Minor comment and cleanup changes.
-> > 
-> > v1->v2:
-> > - Patch 1 (mm: zswap: return -ENOENT when the swap device is gone) is not
-> >   part of this series; it was posted separately.
-> > 
-> > - There is only one size knob now. The runtime ceiling and the debugfs
-> >   per-device limit are gone. All that is left is the optional per-device
-> >   cap, /sys/kernel/mm/xswap/type<N>/limit. Grow and shrink work without
-> >   it.
-> > 
-> > - The shrink no longer keeps its own count of the free tail. It scans the
-> >   tail instead, and dropping the counter also removes a call from the
-> >   cluster allocation path.
-> > 
-> > - The priority is no longer a patch of its own. The create attribute
-> >   takes it:
-> >     echo 100 > /sys/kernel/mm/xswap/create
-> > 
-> > RFC v3 -> RFC v2
-> > - Add patch 16 to support setting xswap device priority at creation.
-> >   The create sysfs interface (/sys/kernel/mm/xswap/create) previously
-> >   hardcoded every new device's priority to DEF_SWAP_PRIO, it now
-> >   accepts an optional priority:
-> > 
-> >     echo "<percent> [<prio>]" > /sys/kernel/mm/xswap/create
-> > 
-> > - Bug fix: xswap_lock init ordering. mutex_init(&si->xswap_lock) was called
-> >   after xswap_map_clusters() (which locks it), i.e. locking an uninitialized
-> >   mutex. Init now before the first xswap_map_clusters() call. Thanks to Klara.
-> > 
-> > - Bug fix: Fixes a compile error in !CONFIG_XSWAP builds. xswap_debugfs_root
-> >   is declared inside CONFIG_XSWAP ifdeffery scope, so the ungarded use
-> >   caused error when CONFIG_XSWAP is off.
-> > 
-> > RFC v2-> RFC v3:
-> > - Replace the "header-only swap file + swapon" creation hack with a
-> >   proper file-less device created and destroyed via sysfs
-> >   (/sys/kernel/mm/xswap/{create,destroy}).  This required the
-> >   __swapoff() refactor and the free_swap_cluster_info() signature
-> >   change (patches 4, 6, 14).
-> > 
-> > - Require zswap: refuse to create an xswap device when zswap is
-> >   unavailable (patch 15).
-> > 
-> > - Split the unrelated zswap -ENOENT fix out of the series into a
-> >   standalone patch (patch 1).
-> > 
-> > - Fix nr_free_tail over-counting on concurrent grow, shrink leaking
-> >   detached clusters on early bail-out, a re-init race on cluster
-> >   spinlocks in xswap_map_clusters(), the nr_clusters_mapped update
-> >   ordering, and swapoff accessing the shrinker-unmapped cluster tail.
-> > 
-> > - Minor cleanups (checkpatch, /proc/swaps alignment, commit messages).
-> > 
-> > RFC v1-> RFC v2:
-> > - Added __GFP_HIGH | __GFP_NOMEMALLOC to alloc_page() and kmalloc_array()
-> >   in the grow path, plus memalloc_noreclaim_save/restore() wrapping,
-> >   to prevent the grow path from consuming emergency memory reserves
-> >   or recursing into swap under PF_MEMALLOC. This is folded into patch 3.
-> >   This was pointed out by Nhat.
-> > 
-> > - Folded the mutex serialization fix into the cluster grow patch (patch
-> >   3). This is suggested by Nhat.
-> > 
-> > - Fixed coding style issues: corrected indentation of declarations in
-> >   xswap_unmap_clusters(), removed unnecessary block scope around the
-> >   err variable in xswap_map_clusters().
-> > 
-> > - Rebased onto mm-unstable
-> > 
-> > Baoquan He (13):
-> >   mm, swap: refactor free_swap_cluster_info to take swap_info_struct
-> >   mm, swap: back the cluster_info array with a sparse VM_SPARSE area
-> >   mm, swap: add sysfs create interface for xswap
-> >   mm, swap: add xswap grow trigger on cluster allocation
-> >   mm, swap: add xswap_try_shrink and shrink trigger on cluster free
-> >   mm, swap: free backing pages in xswap_unmap_clusters
-> >   mm, swap: defer xswap shrink to workqueue to avoid lock recursion
-> >   mm, swap: refactor swapoff and add xswap_destroy
-> >   mm, swap: require zswap for xswap devices
-> >   mm, swap: do not give an xswap slot to a cgroup that cannot zswap
-> >   mm, swap: widen swap_info_struct max/pages to unsigned long
-> >   mm, swap: add debugfs counters for xswap
-> >   mm, swap: let the command line set the xswap device size
-> > 
-> > Chris Li (1):
-> >   mm: xswap support for zswap
-> > 
-> >  include/linux/swap.h |   16 +-
-> >  mm/Kconfig           |    9 +
-> >  mm/page_io.c         |   19 +
-> >  mm/swap_state.c      |    9 +
-> >  mm/swapfile.c        | 1221 +++++++++++++++++++++++++++++++++++++++---
-> >  mm/zswap.c           |   11 +-
-> >  6 files changed, 1205 insertions(+), 80 deletions(-)
-> > 
-> > 
-> > base-commit: 9a0542b19a541eda3f82934ee747c61ec3f18847
-> > -- 
-> > 2.54.0
-> > 
