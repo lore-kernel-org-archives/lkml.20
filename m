@@ -1,123 +1,211 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 477864349A6
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:39:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ACDB32B108;
+	Mon, 12 Oct 2026 07:39:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791790761; cv=none; b=gJYQ70otgduP+uibM7QTGAAwINNmQbJFMbfgr2Pj39lvqzHWRF6vHWW6NOtGJ7o3MyrQ0syDH+KmquvRuH521fdnypmgenyrlihj6qeQ7/RxU27Fb/LrSyHH2aLFpMqqAXTA/CCQcUn/zFiLswhbk0z+16DlcEZZzwNyPmHhYzc=
+	t=1791790784; cv=none; b=UjNbuHBA7YBsYsJ3B2S0G4lDfNk7J63SBUyHq1gzht1ZC4I3r/0iqMy+UpekCFou8tm/fJhG+gefpS/XvmfpujcRu5jLxTXLsMjoTgGzVpNVybYMSF+t4yRzVdoSNipWUhAA9Nb+Ox+F1zS+l2VhWTDFFPiPkOVm43FTzerXd5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791790761; c=relaxed/simple;
-	bh=QFylubiAn6XF6+4lXPZWi1iu+KACNJaGKaA1OI3cGV0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iWpxHnSVzZyH6gWfNWlFNtGcknrtyrR2risNYZETA6X5pmg8l5UccxRtm/Roo27s4KwyRqQIg0Dz8VFw+U0X8hqJfwrFH8GGDA38j3TDSmrrTMOrtraaBo6lGxSVf9CuAuGBj0u0gjkJUd9HsdXAhHw0apMwOG2fLHTN44y9B/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=i0lGTdAo; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791790784; c=relaxed/simple;
+	bh=GS44J3Aku38fi/SvJDBKrLt4DpMDeYkkRQQtw8dOoH8=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bvts9sQr/jI47Bc1+8AIhRQqMYFXyZMWmVFzxplD1uLCVDnZvO0vZyXNrRTwBN4irwvPP/uaTWoHD3utCXQ5OW+pvkmGfIjZ5+0u9i3kw/UaztDFwXp44gHSrm0vhfeO5/vXyDkel6ca00cOPmQ/E2chctuFjuOQ++Y9rKir+Og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tCxs5+JG; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fekTLrNX; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=A0Vq279U; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+UtW00LZ; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="i0lGTdAo"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 04CB61650;
-	Mon, 12 Oct 2026 00:39:15 -0700 (PDT)
-Received: from [10.164.19.62] (unknown [10.164.19.62])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 137743F882;
-	Mon, 12 Oct 2026 00:39:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791790758; bh=QFylubiAn6XF6+4lXPZWi1iu+KACNJaGKaA1OI3cGV0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=i0lGTdAoo7yNW9SwE9EHgLeyVZtho3vPYbLDUzDNLp0AxWuYAdwb5P/QXd71ZeYdL
-	 OFHKbtD9gIlK5bb/aEwzvDVLDFJC+bn0oTyJtfKJ13Vjfq7MvuaZfl0HhJzwaQRrAl
-	 ULUyyhH0aFG1ImOrjhUsnfRaO5vb7E26yyFrvCc0=
-Message-ID: <4f812ef0-ab14-48c5-908b-b7d82ce418b3@arm.com>
-Date: Mon, 12 Oct 2026 13:09:10 +0530
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tCxs5+JG";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fekTLrNX";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="A0Vq279U";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+UtW00LZ"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BABE821E00;
+	Mon, 12 Oct 2026 07:39:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791790781; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IBXoYOmOrPyFfDwIreNIPu+rJ4JmjlF9Jmt0Cg7dZH4=;
+	b=tCxs5+JGWGPWGkIZgLNZs++ppp2jghZ++KXMe6GJluNEQLsfPc1wJi7icxyNSeMVBr8ET8
+	HNFSKGx44ptLet3TVUgsvD98bPO9aquO2Qw0CmoFSPbIkHtmOaw53G5uEiaHz85SPG1BTQ
+	PVk9zVktJ74gWSIyNdfGNcSHYjItQGU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791790781;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IBXoYOmOrPyFfDwIreNIPu+rJ4JmjlF9Jmt0Cg7dZH4=;
+	b=fekTLrNXCe9h+KBMXhMzK3zGSNrB/ATPy2u9Wf6/OqwqR2plPHo+sFpfVwfB/bZV8J6nvW
+	4/FT+HjmetrP9FBQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791790779; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IBXoYOmOrPyFfDwIreNIPu+rJ4JmjlF9Jmt0Cg7dZH4=;
+	b=A0Vq279U90YBAVh+oZ/j919ax9tSuWd/B/jI+ZIzeMNhhlgNpxOudWS79ql7MmneuY1gKq
+	su6EaAoHeJKFozHfUTJ3T8sCIiMWLseKfGI0dd88382330jwtPTKiBXeKPVnSxFhS0DrG/
+	sfEnMOkRDMfQ6yfIMfILhZjyncsXFwA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791790779;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IBXoYOmOrPyFfDwIreNIPu+rJ4JmjlF9Jmt0Cg7dZH4=;
+	b=+UtW00LZi1iSz8qvWCswFAfi9CsxsrGpDPM/UwImDk7CB2fhXi/ym+3pb2zwQGvdqxlui5
+	Zpg18qq4yobR05DA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4EE7613314;
+	Mon, 12 Oct 2026 07:39:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id U+M/B7uOzGrLbQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 12 Oct 2026 07:39:39 +0000
+Date: Mon, 12 Oct 2026 09:39:38 +0200
+Message-ID: <87y0c3gyf9.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ma Ke <make_ruc2021@163.com>
+Cc: david.rhodes@cirrus.com,
+	rf@opensource.cirrus.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	sbinding@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] ALSA: hda: cs35l41: Fix ACPI device reference leak on probe failure
+In-Reply-To: <20261011114251.3257172-1-make_ruc2021@163.com>
+References: <20261011114251.3257172-1-make_ruc2021@163.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 05/10] arm64/vmalloc: allow
- arch_vmap_pte_range_map_size() to batch multiple CONT_PTE
-To: Uladzislau Rezki <urezki@gmail.com>, ryan.roberts@arm.com
-Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org,
- will@kernel.org, Xueyuan.chen21@gmail.com, ajd@linux.ibm.com,
- anshuman.khandual@arm.com, baohua@kernel.org, chleroy@kernel.org,
- david@kernel.org, jiangwen6@xiaomi.com, leo.yan@arm.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
- npiggin@gmail.com, rppt@kernel.org
-References: <20261002090947.869220-1-jiangwen6@xiaomi.com>
- <20261002090947.869220-6-jiangwen6@xiaomi.com> <astarANeoldvqBxc@milan>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <astarANeoldvqBxc@milan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[163.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_ENVRCPT(0.00)[163.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-
-
-On 11/10/26 3:15 pm, Uladzislau Rezki wrote:
-> On Fri, Oct 02, 2026 at 05:09:42PM +0800, Wen Jiang wrote:
->> From: "Barry Song (Xiaomi)" <baohua@kernel.org>
->>
->> Allow arch_vmap_pte_range_map_size to batch across multiple CONT_PTE
->> blocks, reducing both PTE setup and TLB flush iterations.
->>
->> Previously the function returned a single CONT_PTE_SIZE for an aligned
->> range, so the caller mapped one CONT_PTE block per iteration. Now, for a
->> CONT_PTE_SIZE-aligned range, it returns the largest CONT_PTE-aligned size
->> that fits within both the remaining range and the caller's max_page_shift,
->> so a single pte_set_huge() call installs several CONT_PTE blocks at once.
->>
->> Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
->> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
->> Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
->> Tested-by: Leo Yan <leo.yan@arm.com>
->> ---
->>  arch/arm64/include/asm/vmalloc.h | 12 ++++++++----
->>  1 file changed, 8 insertions(+), 4 deletions(-)
->>
->> diff --git a/arch/arm64/include/asm/vmalloc.h b/arch/arm64/include/asm/vmalloc.h
->> index 4ec1acd3c1b34..c29704a19e276 100644
->> --- a/arch/arm64/include/asm/vmalloc.h
->> +++ b/arch/arm64/include/asm/vmalloc.h
->> @@ -23,10 +23,12 @@ static inline unsigned long arch_vmap_pte_range_map_size(unsigned long addr,
->>  						unsigned long end, u64 pfn,
->>  						unsigned int max_page_shift)
->>  {
->> +	unsigned long size;
->> +
->>  	/*
->> -	 * If the block is at least CONT_PTE_SIZE in size, and is naturally
->> -	 * aligned in both virtual and physical space, then we can pte-map the
->> -	 * block using the PTE_CONT bit for more efficient use of the TLB.
->> +	 * If the range is at least CONT_PTE_SIZE and naturally aligned in both
->> +	 * virtual and physical space, return the largest CONT_PTE-aligned size
->> +	 * that fits, for more efficient use of the TLB.
->>  	 */
->>  	if (max_page_shift < CONT_PTE_SHIFT)
->>  		return PAGE_SIZE;
->> @@ -40,7 +42,9 @@ static inline unsigned long arch_vmap_pte_range_map_size(unsigned long addr,
->>  	if (!IS_ALIGNED(PFN_PHYS(pfn), CONT_PTE_SIZE))
->>  		return PAGE_SIZE;
->>  
->> -	return CONT_PTE_SIZE;
->> +	size = min(end - addr, 1UL << max_page_shift);
->> +	size = round_down(size, CONT_PTE_SIZE);
->> +	return size;
->>  }
->>  
->>  #define arch_vmap_pte_range_unmap_size arch_vmap_pte_range_unmap_size
->> -- 
->> 2.34.1
->>
-> This is arch/arm64 code. Can you, Jain or Ryan from ARM folk review this change?
+On Sun, 11 Oct 2026 13:42:51 +0200,
+Ma Ke wrote:
 > 
-> Thank you!
+> cs35l41_hda_probe() takes an acpi_device through
+> cs35l41_hda_read_acpi() and stores it in cs35l41->dacpi. It is
+> released in the err: label, which
+> is reached from every later failure.
 > 
+> One failure is not routed there:
+> 
+>         ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
+>         if (ret)
+>                 return dev_err_probe(cs35l41->dev, ret, "...");
+> 
+> cs35l41->acpi_subsystem_id is allocated inside cs35l41_hda_read_acpi()
+> before that point, so it is leaked whenever the function fails.
+> 
+> Route the failure through a new err_acpi label that releases it.
+> 
+> That label must not release cs35l41->dacpi a second time.  Every
+> failure path in cs35l41_hda_read_acpi() that can be taken after the
+> assignment already drops that reference: cs35l41_hda_parse_acpi() does
+> so in its own err: label, and the !physdev path does it directly.
+> Clear cs35l41->dacpi wherever it is dropped, so the pointer never
+> outlives the reference and the put in err_acpi is a no-op on those
+> paths.
+> 
+> Found by code review.
+> 
+> Fixes: 447106e92a0c ("ALSA: hda: cs35l41: Support mute notifications for CS35L41 HDA")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ma Ke <make_ruc2021@163.com>
 
-I will come to this soon.
+Now Sashiko complains other things; please verify whether they are
+valid or not.
+
+Through those developments, I'm thinking whether it'd be cleaner
+rather to move the unref and kfree into the caller side, i.e. doing it
+only in cs35l41_hda_probe() error path (but conditionally), instead,
+so something like below.
 
 
-> --
-> Uladzislau Rezki
+thanks,
 
+Takashi
+
+diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda.c b/sound/hda/codecs/side-codecs/cs35l41_hda.c
+index 62296be45c55..e6f0ae39876d 100644
+--- a/sound/hda/codecs/side-codecs/cs35l41_hda.c
++++ b/sound/hda/codecs/side-codecs/cs35l41_hda.c
+@@ -1907,7 +1907,6 @@ int cs35l41_hda_parse_acpi(struct cs35l41_hda *cs35l41, struct device *physdev,
+ 	hw_cfg->valid = false;
+ 	hw_cfg->gpio1.valid = false;
+ 	hw_cfg->gpio2.valid = false;
+-	acpi_dev_put(cs35l41->dacpi);
+ 
+ 	return ret;
+ }
+@@ -1928,10 +1927,8 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
+ 	cs35l41->dacpi = adev;
+ 	struct device *physdev __free(put_device) =
+ 		get_device(acpi_get_first_physical_node(adev));
+-	if (!physdev) {
+-		acpi_dev_put(adev);
++	if (!physdev)
+ 		return -ENODEV;
+-	}
+ 
+ 	sub = acpi_get_subsystem_id(ACPI_HANDLE(physdev));
+ 	if (IS_ERR(sub))
+@@ -1986,8 +1983,10 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+ 	dev_set_drvdata(dev, cs35l41);
+ 
+ 	ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
+-	if (ret)
+-		return dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
++	if (ret) {
++		dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
++		goto err_acpi;
++	}
+ 
+ 	if (IS_ERR(cs35l41->reset_gpio)) {
+ 		ret = PTR_ERR(cs35l41->reset_gpio);
+@@ -2076,6 +2075,7 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+ 		gpiod_set_value_cansleep(cs35l41->reset_gpio, 0);
+ 	gpiod_put(cs35l41->reset_gpio);
+ 	gpiod_put(cs35l41->cs_gpio);
++err_acpi:
+ 	acpi_dev_put(cs35l41->dacpi);
+ 	kfree(cs35l41->acpi_subsystem_id);
+ 
