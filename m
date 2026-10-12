@@ -1,68 +1,174 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846B630D407;
-	Mon, 12 Oct 2026 14:37:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815876; cv=none; b=i8DN2Iwpm+rpHag/a7dXFCjYQBqHAJEiabdL70pSpDQ4Du4A97Tg9/oLjIT88f1Spp+cZBXfmE9L8Lg07V/7F5WnOFeCCDIbEZWQOT9KQCD7UUP0gRQiaFZV8h9LK0sukT/C1qRWgSGQhC4TVtwRaRjhWilSEuL+5nv4UeID3II=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815876; c=relaxed/simple;
-	bh=TZn+0ewPw/4Ybt0CwaZG4DDCE0OIrFQnshpHwPu8h64=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XvhAQTE1kpc7KpitL467f6DsMwoPdgfwC7lmzcgAlx1yp8w29RGDfN6xy8FJ+ezwO16dzSlWMbzkYXYEzRVhOjLSkxa+WZkPH/JXyCl1Q+Rf3Rhi0uKY6kpedz2qsNddDjn8nC9lLrwYM2fcn83kbzOthpJLS1GYDnuVjd6SX7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=sdiSyCfK; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DF742FCD8
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:38:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791815899; cv=pass; b=kn2LAAztRe7Z57abW71w1Z9XbXCw5pryH5KczPWOBtB+jvDpZsgcSqAhmBf/h3KM25DuTE7edhvw40RxHEnxTh2l9SPo2gSBRNrs6/MURgDgibWKYill3fSgrGk5E6YRJ7ogNeOTpj+g+T88a42DueVfXo8v721yf6mH0O0DnHs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791815899; c=relaxed/simple;
+	bh=Jxmt9KjzM1tHZnS+/rDQVag7Gv7qwGz5Mz0R33A9/8E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nbSgnLVevOpIyV00qUYGXA7SYHZhBmCa2KZbcBvsD7iv3W2stZx0MeoLKPhC5q/tYeKJ/9+mL7QPY1AZI6G7wdiy0ap4JER6EqQQzqGyGdbQCnj3hxbcT3Dy3i1i1EN8mZJCwNRhBfZodbuoOcc2PMBAmFfaDUsVVIZEjypKFag=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Kxrpma0y; arc=pass smtp.client-ip=74.125.224.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="sdiSyCfK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=VNTotHqtHWLq3V885Blb+kNFEDKyBBDlCTc+Gl1cypQ=; b=sdiSyCfKtcXtfcsiA/23x279W3
-	30VZaYjIKEFdP2lrYJWqvyrXPe9VxOz5MZjP/2dFY/j9gEqO9dx0ViUkMhI9RvjsUXGnf87l7x3rQ
-	nLdO/3urv+9bdMhodqT7J6SyqzQCgftOuRpiP0lhWVGcOymhrUlgtzr35sO+j2F0ta4M=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xGH9u-00ALD3-WA; Mon, 12 Oct 2026 16:37:47 +0200
-Date: Mon, 12 Oct 2026 16:37:46 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Kyle Switch <kyle.switch@motor-comm.com>
-Cc: olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, mmyangfl@gmail.com,
-	horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
-	wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
-Subject: Re: [PATCH net-next v13 4/5] net: dsa: tag_yt922x: add support for
- Motorcomm YT922x tags
-Message-ID: <db69e82f-2c9f-4ff3-aef6-8d4ca4ca7a86@lunn.ch>
-References: <20261011025043.1859940-1-kyle.switch@motor-comm.com>
- <20261011025043.1859940-5-kyle.switch@motor-comm.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Kxrpma0y"
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-677d35fd168so1513627d50.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:38:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791815897; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NoUl14f1VlqP1ZfQTLHA9f5+rv62WCgFUE/TtTE5M4lBoHCsi3vNdhml0QIN/RcQ9t
+         e65FZtYU9ZWGac/ZcxI16gDWGlzSOtBtW4RnlIg5ROTAE64yNlQoriVCHoheNVZt8+IU
+         LcAlHISMm+XIDh83D0+6ezjQFrfXq6ege5cKxwceXJIOARo7P3P6xGrC+a5vGRfn5VRD
+         ucAKAlVczFcj+CFWIj0u+JkAFduhCg18gORmOSA/3Wd4ObnxxFj+9Kdyrvog6srHuYoz
+         jbgfQoy6/dYbpnIp7vkKfeT0aLW8D856aq37RXnTrj08qEiWn3+lD6tLT3O7Dea3Ldxq
+         qwVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cVL8xl8gBi6bftcNOZS9JlnRpMYOODIaKFnti92zlBA=;
+        fh=/EUaSDQUAFfsh3EFZJFlEHdObJlQ4Yo7iG7fGvIbXo8=;
+        b=aNgIfT4mszTuFChVKt+Ufi2AW+w/5O5oEzUlhxUUf0l8OllWY+4Ox4KhZBdv351qdz
+         n5xVhO+bZNzBmlvu/c7m7cCln//Q0wEezdwyc3eQg8kEKN40pLgJ7v+pURpzr8fmcQ+b
+         2E81ReNn3GLJzoPGgEnMrN0U0l/+kHPu3B+hmvqHeErxMvNVVuo+fIkbPSeGS6mLxph4
+         9oa/4bO5sfaCTySTSxmUhRQLi3jQKdAa2ro9QpwFNoVNcYfzp8NESmsabxrbQmyOEPTE
+         MzNYNnMNRZSr2+MNktcDiBysq+RfVdIgb1P8/O9mTe66gTwnhPQiyxVCBN+J3tD1x+V3
+         XKCQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791815897; x=1792420697; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cVL8xl8gBi6bftcNOZS9JlnRpMYOODIaKFnti92zlBA=;
+        b=Kxrpma0ytHecy0j5OkVrxYU5EsioaK09WTFxrdXEB8XsG0QPh+WCko42bmjYIOAXY4
+         E1ftWSpb/s9R3nYuo+xGXQ4juk2uUzhUp+XSIpVyzH6vRZ0ZJAbrSVtUxpPT3FF8ZRHv
+         stbcOZ2BhbahADsQN4w0uqUkBStfhtKAfYNVA9L+4KB2+0SRNdVvsdB5rIB+ahRp+RX1
+         jeH+ssxIWCVyIaAbfBq4fCY3AdvqYktfc//n5i4Zidpe6IDyI1qmqdkYDodVONalrkAh
+         qeFlhbXX3y6VO34YHcKFh+5RpZZ8VbKsjA93SafOQnfnC9/QaTdGv6QMbtCqqgBa8ExL
+         YHEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791815897; x=1792420697;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cVL8xl8gBi6bftcNOZS9JlnRpMYOODIaKFnti92zlBA=;
+        b=WFmqPf3ph0Rug3owtpkHi6kWTBMXMiRliyCzQRNRTpu68P+w9G/VyC59LbzX7IWCWX
+         vm1DmSsLW9RO46zO3MEpYkb5heAMkL32OoN2zYkIK3yfyEvEwK0MglxBvLHtPLFfAyA2
+         iRodLrJnt5Y9lixGSQkSMaOlJRgSCVTZRvaPOOJMXiSqbJthwREoClByWsvlKp12tuTC
+         E698jxyOMOuxbzwHOqt+d4LJbKxzkvYeoZlwMOdQyfUVqBXZJ14YNze7jX4vdr2PRYl4
+         J0OQQccoz7Qz5C9w2NSDWRI0fUzYpRB34uxu3sUDI538/S1BOtTOrmnlahZZGc4rO0Ui
+         rheQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwvw9lA5waXlkIVONVOhBR6lKwusfg+BxmzSLPiuXKkwzwjdKzXXUvzYuACG2dow3nsn3F1v3/5kpGtPiI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1Hy+4+CWhcA1I+s5s6JHnR6o+kMxLiA0N3TVhHTAvI9ktDNsT
+	dBW6Axyhe2/ACaoLjAbllFp74zz8Uno8biFF1RSsUnK3M7pVuJmAhywiX4Kir2P8U9zwk75+3A6
+	RiZPRD7RgvpY+V3vKK/Fo8SoI4siuNcMeZyUtOTwU
+X-Gm-Gg: AYBFou2xem04grpCQVy4PWh+R4YkMoSj2IV0mND0sX/wY4wPb5rRL//kYcXaueo9ZKq
+	E9ft/ZupyR28gzmHE7CX4FC3tPbUSc0uJAmV8KmCFgnXjC/8o92hhT3ZftT5jF6DE1RPCZyv42a
+	2a5TfbS4jJlMP0G5ThjWGMuOuoeJGJwwWO9qk6rNgSFaW3nyRVYi105HvApg2lnXZiNwXZFcUc6
+	5lnb29iv614VSzSUJxekm4wV6M0LOdIN3jwEqAxFD1KGe+aQ2yrI0mRXTwXkHz2nhSGRP75ZZHa
+	altvilVZpciYv43sTM6m6vyZPCWsHQ6ZFLwj/7C9EMXv7QU2nLWiaVyTTq04rRCWsLhI+3a6RKl
+	yh54rHP9+gg==
+X-Received: by 2002:a05:690e:4852:20b0:677:ae5f:927f with SMTP id
+ 956f58d0204a3-6793630f86cmr2427106d50.106.1791815896536; Mon, 12 Oct 2026
+ 07:38:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011025043.1859940-5-kyle.switch@motor-comm.com>
+References: <20261012134159.912183-1-elver@google.com> <CANiq72nsJw25w6sFbLKKSaWog5_2cpmBmJMat-zQW1rcveJA_A@mail.gmail.com>
+In-Reply-To: <CANiq72nsJw25w6sFbLKKSaWog5_2cpmBmJMat-zQW1rcveJA_A@mail.gmail.com>
+From: Marco Elver <elver@google.com>
+Date: Mon, 12 Oct 2026 16:37:39 +0200
+X-Gm-Features: AclHuK92MyXxJeDrxPQQFA26o80Qq00iYKL0aWA4ivRbmQNLUfwOPJLz7iq1CKA
+Message-ID: <CANpmjNPRtT6PLf6qAiuEaX4hG1GBYD-=w1A4y_-i8vSv0e7Q-Q@mail.gmail.com>
+Subject: Re: [PATCH 1/2] kbuild: rust: enable KCSAN support
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Boqun Feng <boqun.feng@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Alexander Potapenko <glider@google.com>, kasan-dev@googlegroups.com, 
+	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Boqun Feng <boqun@kernel.org>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Asahi Lina <lina+kernel@asahilina.net>, 
+	Yury Norov <ynorov@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
+	Joel Fernandes <joelagnelf@nvidia.com>, workflows@vger.kernel.org, 
+	linux-doc@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 11, 2026 at 10:50:42AM +0800, Kyle Switch wrote:
-> Add DSA tag support for Motorcomm YT922x switches.  YT922x uses the
-> same ETH_P_YT921X EtherType and the same 8-byte tag length as YT921x,
-> but the tag layout differs, so a separate tag driver is needed instead
-> of extending tag_yt921x.c.
-> 
-> The new driver documents both the to-CPU and from-CPU tag layouts.
-> 
-> Update the co-maintainer for the Motorcomm DSA driver.
-> 
-> Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+On Mon, 12 Oct 2026 at 16:18, Miguel Ojeda
+<miguel.ojeda.sandonis@gmail.com> wrote:
+>
+> On Mon, Oct 12, 2026 at 3:42=E2=80=AFPM Marco Elver <elver@google.com> wr=
+ote:
+> >
+> > +Rust code is instrumented as well on architectures whose Rust target s=
+upports
+> > +it (currently only x86_64; see ``CONFIG_HAVE_KCSAN_RUSTC``).
+>
+> Maybe we can omit the x86_64 bit, to avoid maintaining the list in two
+> places, although it is convenient to know in the docs (but risks
+> getting out of date, of course).
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+I think any future patch that enables more architectures, can also
+update the docs. We have historically maintained the set of supported
+compilers + architectures (if that set was still small) in the
+sanitizer docs. Once that set grows large enough, we can omit.
 
-    Andrew
+> > +  Note that ``rustc`` rejects linking crates built with and without KC=
+SAN
+> > +  instrumentation, so ``KCSAN_SANITIZE`` and ``KCSAN_SANITIZE_<target>=
+.o``
+> > +  cannot currently be used for Rust code.
+>
+> Would `-Cunsafe-allow-abi-mismatch=3Dsanitizer` work? Not a blocker for
+> the patch (and in fact I don't know if we would like to actually
+> support it even if it works), but perhaps in the future we can relax
+> it using that.
+
+If rustc's sanitizer instrumentation is similar to clang's, and rustc
+doesn't introduce other ABI divergence due to sanitizers, then it
+should work. Same with KASAN + Rust, so this would need to be a
+general Rust + sanitizers decision.
+
+The only exception is KMSAN (which I think is not yet enabled for
+Rust), which does affect ABI.
+
+> (If it doesn't work for some reason, and we want it, then we can ask
+> upstream for an "escape hatch" as we usually do, since things like
+> this should normally have one...)
+>
+> > +# The minimum supported rustc's LLVM supports all of these options.
+>
+> Just to double-check: does this refer to the LLVM version of the
+> upstream `rustc` binary (LLVM 19.1.7) or the actual minimum they
+> support in that minimum `rustc` version (LLVM 18 major)?
+>
+> I think all the options exist for a long time, so it doesn't matter,
+> but just to confirm...
+
+Whichever minimum we could ever see the kernel compiled with, which
+looks like LLVM 18 in some custom setups? But yeah, all we need is at
+least LLVM 12...
+
+> In any case, this sounds all reasonable:
+>
+> Acked-by: Miguel Ojeda <ojeda@kernel.org>
+
+Thanks!
