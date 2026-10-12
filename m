@@ -1,193 +1,282 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD8F4349A6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E305438466
 	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791787533; cv=none; b=cGC28g8dm7qC9EfOTm+hPTOq5CxFHTXHgYcmZMzsgl8S1m+xD5iINTxt8hKMe09Axq/rmVtbCsJYam2voPPpFUESfTQtRsripjDmR67P9KalQSqMBefY582n27RHUr029HKFpktnwjFbwrAcM10R90fxf1fBr9vkPX/RKZ3Uf5M=
+	t=1791787533; cv=none; b=tjO+5Ruio4Yq7+1TbBRMFkQAw3aEXatLWRbHQSPgXSeRPnFNsgcWDOTDrD6BLrWPiFAoV1mrPadHhYICW+4YHdBhmWWMfttOTmPkwV58fX9vPz4dvB6e4nxpgBaw9bsnwa7Ex8fVHFl381kYvLZPTWiQmP2ksvhbWiOwItGw+4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791787533; c=relaxed/simple;
-	bh=vsU4fgWUxgVst/irsBNGMIJwmmN6QEqkg+3ocfgqJIY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ja9fC2Dx4xhpa1bVePEUKLvEAj4v1+NGFlrISpwc6YccsEptB/oB64+mT07LEF+5/CIiRP2fzMQntaq27O44ttWlcuozmMUMe3C4Sv3RmbUGNU6SMZRj/8rppot3GohON8sQO/ON2jmH301/jt7obEM5eC/YXB6eTAZfpPddvc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OCF0qcYG; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=gj+4ZcvyLGFiNfdHePlCKWvUe6dp75D9P6rXGa74vtM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GACLwFKxuFEZsfQX9IArEJxGmrk+UGFnuS5ALVZ0a1i6hbTTbAhl1zRBGObFLNZFfmLK2KNV0VFR5o8daXuHzFvOHoklr5mrDBOFd76CbEai/ghjD4YC9TJJvFvoUIOI973ZoZRMJfG5WLvKZd85VJZvrHzUbMZDkydYPHoUX5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WMXDbcIc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VJgDlWel; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OCF0qcYG"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d01548ac96so931615ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:45:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WMXDbcIc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VJgDlWel"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C55cHi1314411
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:45:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	PGMq8T8n/fmFChQTImLI0/8YOyadttJOmYpYwXVmHL0=; b=WMXDbcIc8KpFBudV
+	ryIZVcX5CaPbs3/Ujav+lrEs6biDXJ98H7FzUqBjZClC+6VHx9EehFjrBjw4oY+F
+	FUyFo8WaOYe4+OiAAQv7+In3i6KZrWWokbcZFvwgO31d9XC/YJ7zFUP2h9HhF7Au
+	x2hsa2HNjDHemOcRUVkoa21XJkncZF5vh+QC75HHBJ/Wska1yLOcCy+xtEL1l9VG
+	uGZ62w3hmlFsxiC+f4XausKhqmN/KZi6VRpQH2NBKVCrJIxaChuy/VuCVrJrbsbv
+	uNqPQnNB82vRfXuJD0aXMMi/bLMvhczTwyeNmA8j4CKAAZ4KroZwYFdTLwKygp5q
+	0rZDbQ==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8j711d05-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:45:30 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-88bbc27f85cso2295987b3a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:45:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791787531; x=1792392331; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ouRjuP1RtfyniT15YEA/gc6km+f4No4a2cccPN4BtkA=;
-        b=OCF0qcYGuEnTa6dx+ZEJcwtC4eZOe41GLVJphuY3W4FC8YskluGt1j8AN124c8idPr
-         NZu/oBoRkta5EO7WJ9MVnvGkIwyTrOeUKsM73SgckUtJyay6CHv7BwseFTQqa6J2+Jfh
-         b8OZCVpKxa3N6geEL5kO7lthgaMX5vz5JiqK9hLhwmzqclVkJdIXekigw1453emZhwyi
-         zzckSI76cTapythkX/MwhDKQGuplkrEHb9f6wyYEjaLmMqWyBj7baqAeqZA2cvpy33Nd
-         7vghuFVBzhEEODpzEwTQUqY7RKKr9KWZsy4wNVoMaPQVrO8C/nATg7eVdsIBy3ZvaFVr
-         p8XA==
+        d=oss.qualcomm.com; s=google; t=1791787529; x=1792392329; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PGMq8T8n/fmFChQTImLI0/8YOyadttJOmYpYwXVmHL0=;
+        b=VJgDlWelkZwZXsBvq2PNRIAub0GQXli2f7EqbTDLYlkJsPPrR4hmx2Wv0VUcHa6UZa
+         4hgT9Mqw2ab8/pwlUvu2En0xOG/yS7xhcVV37BY50WAAHC+NrIEgYkRCzR4+4Zi8G/0G
+         +IFNTr/gY3uaFIxRthJG12KEoeJA4PzJoNEcEAhT2pwwOHPZcsbnm8Y6Qw51qx3fergi
+         0T8wNj2BSSxbfjPeFDO4av9PueRYGnoZkQ0lannpOfiq4GA8uyqtj/AkKEt18JG4W9o3
+         LKI7QOiCPVbuUmI4LHv2ltRIbOhsps+eV8RtA3wo88d32XBL468aBBab1Z4lLtED5hnw
+         0BCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791787531; x=1792392331;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ouRjuP1RtfyniT15YEA/gc6km+f4No4a2cccPN4BtkA=;
-        b=uWAFwJSoe8jJBq39bbKHutdkl5DrhYLq3HeCpnSpY7HYaIftmVJZfQI9FiRh76+Q2+
-         mo/XWiupj8K/pGpzf62tlbajggYL4fzELolOPH5O4+Q9V9fvCjq/CQnsC5w8IT0vgPsH
-         bRSqqN4razqy33JTzg/xqoaqnUq/iUb+xdrbXUn2I/WvDpOHo1kiIzvchCB2cYsP6cHp
-         voFaaT28zyFZzWQySsJoKfIW/0YWX2aBFKr47dfeDKwV+zsz+8p9XLF6sJ8sg+iFzz9x
-         cuYaW6afwHjM0fJxIOmTOQndyI1ZrERxOEZU0U6Sok4GyHgtM6/yTcm4l2FCc1HHe9Qc
-         ZecA==
-X-Forwarded-Encrypted: i=1; AKwUvByF649W+n4yNKe1Ya78Zn3QqL3yqSp6usdD/5jOGNwkFCudqHlZXg9qEKJKfLDfToaWBSd61GH6tvy2ros=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKG4PEjzuF4VOEg4Pvoki0qKaW+1TJ4zeaCNeIrgSo4torkLn9H
-	f31xE6YngI6xfK+5w5TSe2jmH/6OJ1WJ/xsrxJtkX3E4LB5NrPIbt5H3
-X-Gm-Gg: AYBFou2wFncDj4RtQ8WLShMvo9JMmPWFWU/vt1rAeNszMx5odm+F8sVehoMR+fgD5T2
-	p+fNM3mnf8DdInx+5CWDxN+OkCbGQYhHaQdnMpY9DvFqupN+RqHe1XEbIm0vi/LH5ilGiOsv1F+
-	dnjjGix5WiP2m1kXutPqXQDhRai3qAO7hJOibCOKdEbsleew7Zdep9V81Bx3eiD99SwsErTtfY7
-	GNF5ULl5wrSb3NfC3xyESMvgUIKP8PEdX85/1oOaxaq8UtdiUGxm9dUdKX0NlkqR3pZ/EuidJUm
-	KihPDSh6txiCu0txp+J+53Do2OgmrTgKM3sKLS4Y3atJxX/saM0VIPcvJ80xSZvBl9F4TfSVzMX
-	1G5qNzmCxDoLtgPZe0FSnquZn50NLJqTLEYyyeLnkybBAyd/0e3ym91I7EfT56yce4S4MNKSYEb
-	bYfATZVlZQHZJO5MU9DBL2fPzabThLP+F/nIC7wWUAyOWXRlsd4psrgSnmt8TlvB+kH1dG
-X-Received: by 2002:a17:90b:224e:b0:3a0:bcc8:1549 with SMTP id 98e67ed59e1d1-3ab3afb180emr11995577a91.6.1791787530571;
-        Sun, 11 Oct 2026 23:45:30 -0700 (PDT)
-Received: from marchy ([2405:3800:8a8:86f0:ee8e:77ff:fed4:d18b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed0daesm15052355a91.5.2026.10.11.23.45.29
+        d=1e100.net; s=20260707; t=1791787529; x=1792392329;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PGMq8T8n/fmFChQTImLI0/8YOyadttJOmYpYwXVmHL0=;
+        b=ZEiteOfoJ7ar8o7BAljahr4pMZt17wrjpWDjdrKk01F2qo9t6tg+5aimNnqtS0tITg
+         lhl6LgRBAPekpUthxGNJ4xL1ezJINGcaSMsLNb1Zf09OgianTNwaA7QWYAqkyzGTkCYD
+         pvxO/YDUuDUPxxo9llFzp35l0rCaNJ4Ujnz1w2KaTdkEZzSQ60XJ1S0DYdbXfjmLOVFX
+         6SnxW8BB32y3rt3pkvs82EOUhynRcTbQt4HyouBDbgm21TvTwVBsAfAI+/f2sPfB4Wi+
+         L30CbKe5UNyKTijDNx6jcIBg0Hn2V1M+U/4AlHNvsulj6qrHSxjJahaArTGq6GVF3Xni
+         d62Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy/xdIyLMWxKU16P2IgX6ucquN1/kZTIyw1JVetKzrihGP2EWhejzvWbCYXPsFW73naUj4VfZbU10vyW10=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLwvnqZH9Qwn6atR4bNnFMzYY+xDXlvFyABdGVfwoT81j7+oVrF
+	Ove1cyrUHF/IAw4xAhG13oRNl1PJlVxrdmZ3HTADU2S1c1BxFav2gtgJ1Lqsh6rHg8PyHKFsR0i
+	XMam5Y4Bg8BkhO9yGpLKQhdA66MB4frk8JueYZj2u+cfQsFcAN/C7mhuddPGBA07XI1g=
+X-Gm-Gg: AYBFou3OA3N06GoeSqTj+nQWYgsDP/iCSGL63gRwhS6LCFWeyrBfPRbvNwG+FSKLFc4
+	gAsmOILkT96g5YQgMD6xrG/7V3iDCV5G+8AaKkE+gsqzDrMZXxkClwMKqzbs+YJ+u42Cie7Ep0q
+	Et3lAs1927ZBGCGpcPCPJhQkMKfMkqyOmggVLseyQNQIOjAnfMFDTW0M2HC+bNsMcbLHGCEiMSz
+	k+RawIckGihJP/ApuJ9s5wfwDzsBcioEooNXebIVab4Z5onOVck5Rsz81NXPrxksPU4dbMuG5kX
+	aaddHSGWvn7XSipjRdyt2QxlzZqSJF4LmGPfBGZwV6r9O7r5pEwG9a2hEJl59+/J3GFiPAFOP3x
+	fj6RfuSn88ct4UqieJxRkPeXQhsbLraUj9UiEdN7pPkOxOmW5sqFjk2EmnkwmkCOAbyx598Yj58
+	/LJZ+4H7QeBw==
+X-Received: by 2002:a05:6a00:18aa:b0:888:119d:efae with SMTP id d2e1a72fcca58-897c8b899cfmr8312973b3a.53.1791787529006;
+        Sun, 11 Oct 2026 23:45:29 -0700 (PDT)
+X-Received: by 2002:a05:6a00:18aa:b0:888:119d:efae with SMTP id d2e1a72fcca58-897c8b899cfmr8312949b3a.53.1791787528518;
+        Sun, 11 Oct 2026 23:45:28 -0700 (PDT)
+Received: from hu-hangxian-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3dc6c93sm3534420b3a.33.2026.10.11.23.45.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 23:45:30 -0700 (PDT)
-From: Adam Azuddin <azuddinadam@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	neil.armstrong@linaro.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de
-Cc: jesszhan0024@gmail.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	andersson@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	azuddinadam@gmail.com
-Subject: [PATCH v4 0/2] drm/tiny: Add RAiO RA8875 display controller driver support
-Date: Mon, 12 Oct 2026 14:45:03 +0800
-Message-ID: <20261012064518.3497285-1-azuddinadam@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Sun, 11 Oct 2026 23:45:28 -0700 (PDT)
+From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Date: Sun, 11 Oct 2026 23:45:06 -0700
+Subject: [PATCH v21 04/14] media: qcom: camss: Issue stream-on REG_UPDATE
+ from CSID
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-kaanapali-camss-v21-4-04fd28d815c6@oss.qualcomm.com>
+References: <20261011-kaanapali-camss-v21-0-04fd28d815c6@oss.qualcomm.com>
+In-Reply-To: <20261011-kaanapali-camss-v21-0-04fd28d815c6@oss.qualcomm.com>
+To: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        jeyaprakash.soundrapandian@oss.qualcomm.com,
+        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+X-Mailer: b4 0.16.1-dev-17221
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAyNiBTYWx0ZWRfXzL4evY73hzEU
+ 7vJaPGWvAc4y6Z4J72ck67jMnb525bvgt0PPkV1WkhNv90NxAf8+HogTGLyx35AtTK3UDNIPmBT
+ 2jjFY6pYQiGJOIhoch9y2AHwPaC6Uec=
+X-Proofpoint-GUID: lSts7IPy6g6fe3F7iQaVoRTsgx0VKL3s
+X-Proofpoint-ORIG-GUID: lSts7IPy6g6fe3F7iQaVoRTsgx0VKL3s
+X-Authority-Analysis: v=2.4 cv=ePGGH3p1 c=1 sm=1 tr=0 ts=6acc820a cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=PawOzgAtrr2O3SqsEfcA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAyNiBTYWx0ZWRfX0Ua8oqMXaYTW
+ 74uQ6B71oKIRzpf7B6ayp5tHIqZ6dm8WC+wf0Yc+m2FBfwEbvrISgewZTeD3uwcJ6WIXwomJddw
+ 7uxrFlJqWBoNLOILR1uYTd96k650Zici8yc09UlEQ0ZI3c+OTdn3H2ZBvWjzVAYYQZVNVjWT5Cw
+ Btah/MPyR6UxxIZyoIAlZaS5DqxRwmndBXQzfgZAZlhoDLf3Q/XDjoLXR4C/T410RVodFpe5fG/
+ oXQlW+9TsDlwauRmUAmq5BmYI4NqyutviotHzsah5L480wmbnJ1LI3FGDcbH3VTL90LiQaYeQOL
+ DchxcppXtZwVoO9M9tFpw8jGI1Pldmp2XSkRxoehbmXhAMKUExOg9qI48WxmIXts8/YTrYlfeEl
+ iFZvNU/TR6pjl1LiY6pLK/4zAYE1OtCdq089v0EQ8IosE6kFY6NlFuH+FxwTpmB1IwsEwKPhETV
+ vDGiT13AxGC6EE/w+Qw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 malwarescore=0 adultscore=0
+ bulkscore=0 phishscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120026
 
-This series adds a new drm/tiny driver and matching dt-binding for the
-RAiO RA8875 SPI display controller. An fbtft driver for this chip
-currently exists at drivers/staging/fbtft/fb_ra8875.c, but fbtft is a
-legacy fbdev-based staging driver, and nothing in mainline DRM
-currently supports this controller.
+On stream-on, CAMSS starts the subdevices upstream from the video node
+through their sink pads, so the VFE is started before the CSID.
 
-This driver does not use drm_mipi_dbi. The RA8875 SPI protocol is
-structurally incompatible with both Type C options drm_mipi_dbi supports.
-Type C1 encodes command/data as a 9th bit within a 9-bit SPI word. The
-RA8875 uses a full prefix byte (0x80 = command write, 0x00 = data write,
-0x40 = data read, 0xC0 = status read) sent as a separate 8-bit transaction.
-These are not the same thing and cannot be mapped to each other.
-Type C3 models two transfer types via a D/CX GPIO. The RA8875 has four
-transfer cycle types and no D/CX pin.
+Starting with CSID 680, the REG_UPDATE is issued through the CSID
+rather than the VFE. However, vfe_enable_output_v2() still issues a
+REG_UPDATE after queueing each initial buffer, before the CSID has
+configured the stream. The VFE then never signals BUF_DONE. Therefore,
+the CAMSS now issues the REG_UPDATE from configure_stream() on CSID 680
+and CSID Gen3 instead. The operation happens after the RX configuration
+and before the RDI path is enabled.
 
-My ER-TFTM050-3 board has RST tied NC, and VDD is a fixed supply
-set via an on-board solder jumper rather than software-controllable,
-so I couldn't test reset-gpios/vdd-supply myself, but added them
-as optional/required properties respectively per review feedback
-for boards that do need them.
+Skip the VFE-side stream-on REG_UPDATE only when the CSID connected to
+the VFE sink pad implements the reg_update callback. Platforms whose
+CSID does not provide this callback, as well as lines fed by ISPIF,
+keep the existing VFE-side REG_UPDATE.
 
-Tested on a Raspberry Pi 3B connected over SPI to an East Rising
-ER-TFTM050-3, a 5" 800x480 panel driven by the RA8875 in Linux 7.3.0-rc4.
-Based on drm-misc-next (commit 73df79cceb8c)
-
-Link to v1: https://lore.kernel.org/all/20260916175942.3186804-1-azuddinadam@gmail.com/
-Link to v2: https://lore.kernel.org/all/20260924145400.1385815-1-azuddinadam@gmail.com/
-Link to v3: https://lore.kernel.org/all/20261001144128.2336301-1-azuddinadam@gmail.com/
+Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 ---
-Changes in v4:
+ drivers/media/platform/qcom/camss/camss-csid-680.c |  3 ++
+ .../media/platform/qcom/camss/camss-csid-gen3.c    |  3 ++
+ drivers/media/platform/qcom/camss/camss-vfe.c      | 37 +++++++++++++++++++++-
+ 3 files changed, 42 insertions(+), 1 deletion(-)
 
-Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml:
--  Drop the sentence in the description saying the binding covers only the
-   SPI-connected device (Conor).
-- Drop unused panel label
-
-drivers/gpu/drm/tiny/ra8875.c:
-- Catch error value from ra8875_write_pixels
-- Use consistent include header format.
-- Return if fb is null in atomic_update
-- Drop unnecessary extra byte in pixel data spi write.
-
-drivers/gpu/drm/tiny/Kconfig:
-- Add depends on OF, which is caught by intel 0-day[3]
-
-Changes in v3:
-
-Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml:
-- Add gpio.h include in example to pass dt_binding_check
-- Remove spi-max-frequency as there is no reference in datasheet
-
-drivers/gpu/drm/tiny/ra8875.c:
-- Remove debug-only ra8875_read_reg function
-- Chunk large SPI transfers to 16 rows per chunk
-- Remove unnecessary includes and spi cs setups in probe
-- Create ra8875_write_pixels function for clear_screen and fb_dirty
-- Use 2 spi writes instead of 1 write with 2 transfers and cs_change in write_reg
-
-Changes in v2:
-
-Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml (review by Krzysztof Kozlowski):
-- Add hardware description to the binding
-- Drop the display-timings property, and instead require it in the required block
-- Add a required vdd-supply and an optional reset gpio property
-- Rename the example node to a more generic "panel: display@0"
-
-drivers/gpu/drm/tiny/Makefile and Kconfig:
-- Remove TINYDRM prefix from the config name (Thomas Zimmermann [1])
-
-drivers/gpu/drm/tiny/ra8875.c:
-- Reformat device_id table to match current convention (Krzysztof Kozlowski)
-- Drop unneeded linux/mod_devicetable.h include (Uwe Kleine-König)
-- Use drm_dev_unplug() instead of drm_dev_unregister() in remove callback
-- Move stack-allocated cmd/data buffers into ra8875_device struct
-- Add mode_valid() callback to validate height/width against panel maximum
-- Add optional reset gpio
-- Use dev_err_probe() in probe function
-- Remove connector detect callback
-- Remove unnecessary |= on register write return value in hw_init
-- Migrate from simple display pipe to manually-handled plane/crtc/encoder,
-  following the simple-KMS-helper removal effort [2]
-- Use defined constants instead of magic values where possible
-- Use drm_atomic_helper_damage_merged() and drm_fb_swab() in plane update
-
-[1] https://lore.kernel.org/all/fee2a743-d3e4-46b4-812f-05c3cc3a46ae@suse.de/
-[2] https://lore.kernel.org/all/20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com/
-[3] https://lore.kernel.org/all/202610042347.idGisdDW-lkp@intel.com/
-
-Adam Azuddin (2):
-  dt-bindings: display: panel: Add RAiO RA8875 display controller
-  drm/tiny: Add RAiO RA8875 display controller driver
-
- .../bindings/display/panel/raio,ra8875.yaml   |  77 ++
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- MAINTAINERS                                   |   6 +
- drivers/gpu/drm/tiny/Kconfig                  |  13 +
- drivers/gpu/drm/tiny/Makefile                 |   1 +
- drivers/gpu/drm/tiny/ra8875.c                 | 719 ++++++++++++++++++
- 6 files changed, 818 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
- create mode 100644 drivers/gpu/drm/tiny/ra8875.c
+diff --git a/drivers/media/platform/qcom/camss/camss-csid-680.c b/drivers/media/platform/qcom/camss/camss-csid-680.c
+index 345a67c8fb94..556cdfef6207 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid-680.c
++++ b/drivers/media/platform/qcom/camss/camss-csid-680.c
+@@ -296,6 +296,8 @@ static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8
+ 	writel(val, csid->base + CSID_RDI_CFG0(port));
+ }
+ 
++static void csid_subdev_reg_update(struct csid_device *csid, int port_id, bool is_clear);
++
+ static void csid_configure_stream(struct csid_device *csid, u8 enable)
+ {
+ 	int i;
+@@ -307,6 +309,7 @@ static void csid_configure_stream(struct csid_device *csid, u8 enable)
+ 		if (csid->phy.en_vc & BIT(i)) {
+ 			__csid_configure_rdi_stream(csid, enable, i, 0);
+ 			__csid_configure_rx(csid, &csid->phy, 0);
++			csid_subdev_reg_update(csid, i, false);
+ 			__csid_ctrl_rdi(csid, enable, i);
+ 		}
+ 	}
+diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen3.c b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
+index 0fdbf75fb27d..830c9c818d3d 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid-gen3.c
++++ b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
+@@ -219,6 +219,8 @@ static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8
+ 	writel(val, csid->base + CSID_RDI_CFG0(port));
+ }
+ 
++static void csid_subdev_reg_update(struct csid_device *csid, int port_id, bool is_clear);
++
+ static void csid_configure_stream(struct csid_device *csid, u8 enable)
+ {
+ 	u8 i;
+@@ -230,6 +232,7 @@ static void csid_configure_stream(struct csid_device *csid, u8 enable)
+ 		if (csid->phy.en_vc & BIT(i)) {
+ 			__csid_configure_rdi_stream(csid, enable, i, 0);
+ 			__csid_configure_rx(csid, &csid->phy, 0);
++			csid_subdev_reg_update(csid, i, false);
+ 			__csid_ctrl_rdi(csid, enable, i);
+ 		}
+ }
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 2680a9914765..16a0b5663fe2 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -502,6 +502,37 @@ void vfe_buf_done(struct vfe_device *vfe, int wm)
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
+ }
+ 
++/*
++ * vfe_upstream_csid_has_reg_update - Check whether the CSID feeding this line
++ * issues its own streamon RUP (i.e. its configure_stream does the RUP).
++ *
++ * The CSID->VFE link is created in camss.c for all CSIDs and VFEs, so the
++ * upstream entity of the sink pad is either a CSID (possibly with RUP) or an
++ * ISPIF (no RUP). Only enabled links are considered.
++ */
++static bool vfe_upstream_csid_has_reg_update(struct vfe_line *line)
++{
++	struct vfe_device *vfe = to_vfe(line);
++	struct camss *camss = vfe->camss;
++	struct media_pad *remote;
++	unsigned int i;
++
++	remote = media_pad_remote_pad_first(&line->pads[MSM_VFE_PAD_SINK]);
++	if (!remote || !is_media_entity_v4l2_subdev(remote->entity))
++		return false;
++
++	for (i = 0; i < camss->res->csid_num; i++) {
++		struct csid_device *csid = &camss->csid[i];
++
++		if (&csid->subdev.entity != remote->entity)
++			continue;
++
++		return !!csid->res->hw_ops->reg_update;
++	}
++
++	return false;
++}
++
+ int vfe_enable_output_v2(struct vfe_line *line)
+ {
+ 	struct vfe_device *vfe = to_vfe(line);
+@@ -511,6 +542,7 @@ int vfe_enable_output_v2(struct vfe_line *line)
+ 	unsigned long flags;
+ 	unsigned int frame_skip = 0;
+ 	unsigned int i;
++	bool rup_in_csid;
+ 
+ 	sensor_pad = camss_find_sensor_pad(&line->subdev.entity);
+ 	if (sensor_pad) {
+@@ -523,6 +555,8 @@ int vfe_enable_output_v2(struct vfe_line *line)
+ 			frame_skip = VFE_FRAME_DROP_VAL - 1;
+ 	}
+ 
++	rup_in_csid = vfe_upstream_csid_has_reg_update(line);
++
+ 	spin_lock_irqsave(&vfe->output_lock, flags);
+ 
+ 	ops->reg_update_clear(vfe, line->id);
+@@ -552,7 +586,8 @@ int vfe_enable_output_v2(struct vfe_line *line)
+ 		output->gen2.active_num++;
+ 		ops->vfe_wm_update(vfe, output->wm_idx[0],
+ 				   output->buf[i]->addr[0], line);
+-		ops->reg_update(vfe, line->id);
++		if (!rup_in_csid)
++			ops->reg_update(vfe, line->id);
+ 	}
+ 
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
 
 -- 
-2.55.0
+2.34.1
 
