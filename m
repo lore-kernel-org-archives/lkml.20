@@ -1,39 +1,67 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9A44A8FDC;
-	Mon, 12 Oct 2026 16:04:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCCE4A43E8
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:04:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791821049; cv=none; b=rNrpJ6NWOBk3ZFULlFpZMXYV4QsSe50uoXVxbUngOhYoUTx93cclOnnewKZ0fp5gAnT4+hRoJbtXzc/0EPrVNOKMtrwMSDarlm+CuCJdm8os8bDC8KC7ZlEx/rO/sJvUXgZ8b1zp49/RBd+mNA81eS2SqB7JKnO9zhYAJpSzXE4=
+	t=1791821069; cv=none; b=OLd82e3xIZXGjZ+KJNv6eEWfFCb4mVH0BAAjdTHE5rwkyu8k9tUutyzOVxCKotApEYQg7ZSn4ivBAz0HLd9/2HT4Mt6bdd7S/YYzU1TGMAo3MHXKk2A57RYVjUij5Z3Q4Dt7ESSdWjaLh3vMIYQA0MxFPbIpNJ+3KnqUSeMxXjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791821049; c=relaxed/simple;
-	bh=wTnbn5tvk/R2ZDZcRuMHuvFaZmxMiTHvE9Q7sFopZMs=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=K5Q7yyz3yG/1Xt9IR4kMLvV5AqWZDw2J43k2LijUDFZW4IGVTnt1zzgSkBUmBpMqD/yvpd9ieAxIQqsyO1505RWFZGa/VHDSqAddqhSmEiL5/EKPqgyiaARopF3cs1WC37iKw3VQYGXAxusH8aiFjfTnFRQmloGA5cPJVlCu/og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=tGArUO0M; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	s=arc-20240116; t=1791821069; c=relaxed/simple;
+	bh=PFwuJYxYbHzYOrQGOqQkjsM9gJQq3amLZPRqzWlEQi4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lHbp/z8Ao5USP9Ur01edW+msIWETYkK1oi4PZKMRep1FpQuFXoJt9J2saRHLS35s6ewkHSHnSHrWMRddzkqZDrhLa3kzQfQFE3UoPJMTOBJMqEKvHLaKoZbmgQCtW60f/zKexVpvQzMO0AKZZxUXBnuEZoy5NbaowGb5682zbJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=vE3Q4HI4; arc=none smtp.client-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="tGArUO0M"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1791821044;
-	bh=mOTVvbMzguCr0itsLPJfPjM4slEMMfKEWtMDQZarop4=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=tGArUO0M+F9ccditeaf/9yzLO4TbPPnQuxNy2IaPxXImPRxBtkRXo15HwwD++1lW9
-	 FA8Q50lzIXUoB9SbUAaYJ/ckFtxD7/lXnKrI2orv2TFsBcepc7c7Qe9VnF73gPX91/
-	 N9g5mUejTU6u11+BgHImWdJFnGN7TkanYw/iSt6PcLyzjvb+5kOUt9KNO+PLCXDwAc
-	 x417Zdh+bf1wVXu/IHdebGgPMzg8asF/7jzvejEHCCMBHU9Zxt4bS+mjKOlYeN0g67
-	 8xGGH73cDLwMxCzFJxQFwxlcdOtI5RJJ9I2Jv6eAfxmdvn6eTg/aB1y6kL5V7iz4Dl
-	 T0hC+9by3qybg==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4j3Mhv4KfYz4w9g;
-	Tue, 13 Oct 2026 03:03:59 +1100 (AEDT)
-Message-ID: <e2171fff-62af-4185-a815-6293bea71220@ozlabs.org>
-Date: Mon, 12 Oct 2026 17:03:56 +0100
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="vE3Q4HI4"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93cbee4b010so121957285a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:04:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791821067; x=1792425867; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KBZy9CvLpjRJHFxBiFOyI0eAdKUiKTp4IxBeE2T+R8A=;
+        b=vE3Q4HI4J4ZBwkg5y5yup3ZGtFQhVKftlEXVVQrlwiNrGk+QJGPnq24/TcJwXywlnR
+         9CJ2HKtyZpr8G1EG89E7Zd33Ypo5RuB7ze8qhugJqXl6zwBrh1jeTOHZynoFgR4ke6IZ
+         9hDtUlcK59JK1NrSW/kiCvs8Ebj26YYSwVaSpjhhtFl9NStdfQ3pVkK5bJQi5320/Vsd
+         MpSLxc3H1H5+oxjk53MgGcmuJSp71ch5oFeZZFnLlstKAkRSsAqLzmPQH1heqx5Zj5aw
+         JWi6vN7u0Koqr5GsRYcSGJdL1/FzqZS2478ucsZnICcpheKwWpC0qjoGRUZyhiPewUOz
+         44qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791821067; x=1792425867;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KBZy9CvLpjRJHFxBiFOyI0eAdKUiKTp4IxBeE2T+R8A=;
+        b=I8KgLK7b2L18WHR8SrTbFWblHCObiWT4asv7M2RRoYfjBzG+T/fW4hbCXPVk9ZFj+3
+         iFUcUuE/B70U8T+jH4bGregQNal3OOQWZWemQ6W1dMcd5okhoPKX/xEFVBV86EVXH+od
+         TXdnTRo4FTtTo0c10J7F+Dbx1V26JF4lejzV/HBi8y+SACLMsK8xm5jCZ1m76uOddaR8
+         UqEz2AKdT0RCr0wajX+l4Gs66ukWOarAaVrbsO11AfgllmMQT27hWVyEfUJlTxqmSRlu
+         W35ZQtDIFN7Scm/FzMRVqgYHq1NwFYXn8OTP2CeEFC8vKC1OaZ4fQnQtUjnCEV98+ape
+         M6DA==
+X-Forwarded-Encrypted: i=1; AKwUvBxFhC7OHjhIjt4W8QewTH/KNH93tC9gn5njrt+kWMyjf0xXzXoGRxG9r+qt+FjTae9uTLJA73ET5EvXqRY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIcNe3S+tNbzxa7OxZdQhTU5gx1aoyv71AQMGSfPcJSZlAGByOz
+	N7xcGm06k5z9FLqZsuglLa1OlOm79NNfELpgoED14nB9eqg3XYaffvmiXpEjMY7miDY=
+X-Gm-Gg: AYBFou2fDvdmUxxS4B/KfRPD5rk5lq8wbAjeYJ3GWXVAhlK8LNzK+LeXCC33r5aX2QA
+	IRLyLFrQef2Qr3N9kJG5y7XMA7iv0tTX0Pa0pcDUDNlAfJ/5zSCu6wPD6RzWuG7yEPpjXiyRT7w
+	3O1iqBFtDfw6ZHZLCR3/1KvgynJ+Fee7D1Ccat5zx47pQzKgeCa7sXrsLuJ7Z5/raYR/DkXqT2K
+	LcED84QDJXD6IY005zaV2zEj8FLld2Ug/eyxNISugCOANOWBqibUO0cuzUcvkHJMSZ2VPYWwEuD
+	zc41KEB0DXcFPCnVURfsS3wSv0RS6UTgEvn7frFm+pOv46WQ3wypn3mVJcq5/hTWXqk7vONnrlc
+	83lzBnIWGfXvZLtwq58yjxVFHd3uh+0W2MpIM7E0H2HTW3iliXdKqBrTOSwfslclYixFjS/gYPF
+	fdBi2ECW6GbdIOKui7zGYJw2sqNnaLnmDK1+Hw3a2BQe2Rz1enjdXVN1BLkcTLUmtHqF/iCq6Y
+X-Received: by 2002:a05:620a:2715:b0:93c:c2f4:9182 with SMTP id af79cd13be357-93ebd211041mr1501700385a.20.1791821066523;
+        Mon, 12 Oct 2026 09:04:26 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97bce2c5sm928636d6.36.2026.10.12.09.04.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 09:04:24 -0700 (PDT)
+Message-ID: <27c7ce19-e05b-4c48-8670-01329196970c@riscstar.com>
+Date: Mon, 12 Oct 2026 11:04:22 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,190 +69,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Annul dmabuf->file on file release
-Content-Language: en-GB
-From: Matt Evans <matt@ozlabs.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Zack Rusin <zack.rusin@broadcom.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>
-References: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
- <CABQX2QOOaxkxzREaDHY3iXHs0106u+F9JvQSTXCnA7AEjPPxuQ@mail.gmail.com>
- <fd564691-ca79-4fcb-80a7-8328c71ab322@ozlabs.org>
-In-Reply-To: <fd564691-ca79-4fcb-80a7-8328c71ab322@ozlabs.org>
+Subject: Re: [PATCH v3 4/4] arm64: dts: qcom: qcs6490-rb3gen2: add the clock
+ controller
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, sboyd@kernel.org,
+ bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org
+Cc: abelvesa@kernel.org, kees@kernel.org, gustavoars@kernel.org,
+ mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
+ danielt@kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Daniel Thompson <daniel@riscstar.com>
+References: <20261012152408.3729237-1-elder@riscstar.com>
+ <20261012152408.3729237-5-elder@riscstar.com>
+ <a8e6e9b7-ca66-4969-bc34-99df34058af0@oss.qualcomm.com>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <a8e6e9b7-ca66-4969-bc34-99df34058af0@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi i915 folks,
-
-On 08/10/2026 14:41, Matt Evans wrote:
-> Hi Zack,
-> 
-> On 07/10/2026 16:24, Zack Rusin wrote:
->> On Tue, Oct 6, 2026 at 3:15 PM Matt Evans <matt@ozlabs.org> wrote:
->>>
->>> The dmabuf release path is split between file and dentry release:
->>> dma_buf_file_release() is called shortly before the file is freed, and
->>> dma_buf_release() calls an exporter's dmabuf->ops->release when the
->>> dentry is freed.  However, the dentry can outlive the file (for
->>> example, if opened with O_PATH), meaning .release might be called some
->>> time after the file is freed.
->>>
->>> This presents a window, when closing a DMABUF file, in which
->>> dmabuf->file points to freed memory yet .release op has not yet been
->>> called.
->>>
->>> For VFIO, if a buffer's .release has not been called it's considered
->>> still active and subject to move/cleanup.  If so, it attempts to
->>> get_file_active() on dmabuf->file: a file close with dentry held open
->>> will call this function with a stale pointer, a UAF.
->>>
->>> To make this pattern safe, set dmabuf->file to NULL in
->>> dma_buf_file_release() to reflect that the associated file is now dead
->>> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
->>> sequence concurrent with a file close will only execute as one of:
->>>
->>>    - Gets the file before file_ref_put() (dmabuf->file valid)
->>>    - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
->>>    - Observes dmabuf->file = NULL (no file)
->>>
->>> Originally, drivers could assume dmabuf->file was valid until .release
->>> was called from fops->release.  This assumption was no longer valid
->>> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
->>> dentry_ops"), which moved the callback to the dentry release (by which
->>> point the file might have been freed).  With this commit, drivers must
->>> still consider that dmabuf->file could be NULL before .release.
->>>
->>> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to 
->>> dentry_ops")
->>> Signed-off-by: Matt Evans <matt@ozlabs.org>
->>> ---
->>>
->>> Hi,
->>>
->>> This issue was found (by Claude Opus 5.5) in the context of VFIO's
->>> DMABUF export path.  VFIO iterates live DMABUFs with a
->>> get_file_active()/fput() block, which now becomes safe if the file is
->>> closed (and memory freed!) yet DMABUF .release hasn't yet occurred.
->>>
->>> However, there are a couple of other places that directly use
->>> dmabuf->file and seem able to race a closing file (i.e. without holding
->>> the file reference)?  If this is so, they'd be a UAF today; with this
->>> patch that goes away, but instead of a stale pointer dmabuf->file could
->>> be NULL:
->>>
->>> 1. drivers/gpu/drm/vmwgfx/ttm_object.c:get_dma_buf_unless_doomed()
->>>
->>>    file_ref_get(&dmabuf->file->f_ref); on a non-refcounted DMABUF
+On 10/12/26 11:02 AM, Konrad Dybcio wrote:
+> On 10/12/26 5:24 PM, Alex Elder wrote:
+>> The clock controller within the TC9564 SoC is accessed via a PCI
+>> endpoint bus through BAR 4 of the first embedded PCIe function.
+>> A syscon node is created to provide access to a range of memory
+>> that is used by the clock controller and shared with other devices.
 >>
->> Yes, that's a real UAF today. vmwgfx relied on the exporter's
->> dma_buf_ops.release running inside __fput() before file_free(), which
->> stopped being true with 4ab59c3c638c and we missed it.
->>
->> But this patch on its own makes vmwgfx worse. In the ordinary case,
->> where closing the file drops the last dentry reference, a close racing
->> PRIME_HANDLE_TO_FD is safe today: ttm_prime_dmabuf_release() runs from
->> the same __fput() and blocks on prime->mutex, keeping the file
->> allocated, so file_ref_get() just fails on the dead refcount. With
->> this patch dmabuf->file is NULL in that window and we oops. So this
->> shouldn't go to stable without a vmwgfx fix.
->>
->> For vmwgfx we'd probably need this one line change in
->> drivers/gpu/drm/vmwgfx/ttm_object.c to accompany this patch:
->> @@ -471,7 +475,7 @@ void ttm_object_device_release(struct
->> ttm_object_device **p_tdev)
->>    */
->>   static bool __must_check get_dma_buf_unless_doomed(struct dma_buf 
->> *dmabuf)
->>   {
->> -     return file_ref_get(&dmabuf->file->f_ref);
->> +     return get_file_active(&dmabuf->file) != NULL;
->>   }
->>
->> under prime->mutex, which keeps the struct dma_buf alive. It needs the
->> NULL store from this patch to fix the existing UAF, since otherwise
->> the recheck can accept a recycled file through the unchanged stale
->> pointer.
+>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>> ---
 > 
-> Thanks for confirming!  Ah, so get_file_active() is good here, cheers. 
-> I'll repost as a 2-part series to first include this in vmwgfx and 
-> second add the anNULL.
+> [...]
 > 
->>> The commit message of 90ee6ed776c0 ("fs: port files to file_ref") hints
->>> this might be more subtle than replacing it with a get_file() variant
->>> (so as to accept a NULL file *).
->>>
->>> 2. drivers/gpu/drm/i915/gvt/dmabuf.c:intel_vgpu_get_dmabuf()
->>>
->>>    gvt_dbg_dpy(... file_count(dmabuf->file) ...);
+>> +&pcie_s1b5d0f0_bar4_bus {
+>> +	syscon@0 {
+>> +		compatible = "syscon", "simple-mfd";
+>> +		reg = <0x0 0x2000>;
+>> +
+>> +		tc9564_clock0: clock-controller {
+>> +			compatible = "toshiba,tc9564-clock";
+>> +			clocks = <&tc9564_xo_board>;
+>> +			#clock-cells = <1>;
+>> +		};
+>> +	};
 > 
-> FWIW aside, I re-read this, and there does appear to be a ref held 
-> (dma_buf_export() has just happened, and dma_buf_fd() generated) so 
-> dmabuf->file is stable at that point.
+> It's the same file - just put the node under the ep-bus definition
 
-I think I was mistaken here:  the reference is moved to the file table 
-by dma_buf_fd(), and seems another thread could immediately close it.
+OK.  I was just trying to avoid very deep indentation.  I
+saw this practice in at least one other place in Qualcomm
+devicetree files, but I'll do as you say in version 4 of
+this series.
 
-If so, there's an opportunity for userspace to (after this fix) cause a 
-NULL deref here.
+Thank you.
 
-I'm about to repost the series but am happy to include a oneliner third 
-patch to mitigate this, if you feel appropriate.
-
-Is file_count() still interesting here, i.e. do you expect it to be >1 
-immediately after export?  If still required, reading 
-file_count(dmabuf->file) before the dma_buf_fd() would be safe (printing 
-it later at the existing place).
-
-
-Matt
-
+					-Alex
 > 
->>> Respective vmwgfx & i915 maintainers, what is your view?
->>> Or, indeed, if anyone sees any other questionable uses of dmabuf->file.
->>>
->>> Thanks,
->>>
->>>
->>> Matt
->>>
->>>
->>>    drivers/dma-buf/dma-buf.c | 6 +++++-
->>>    1 file changed, 5 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
->>> index 4c9add51f9ef..726639130477 100644
->>> --- a/drivers/dma-buf/dma-buf.c
->>> +++ b/drivers/dma-buf/dma-buf.c
->>> @@ -193,11 +193,15 @@ static void dma_buf_release(struct dentry *dentry)
->>>
->>>    static int dma_buf_file_release(struct inode *inode, struct file 
->>> *file)
->>>    {
->>> +       struct dma_buf *dmabuf = file->private_data;
->>> +
->>>          if (!is_dma_buf_file(file))
->>>                  return -EINVAL;
->>>
->>> -       __dma_buf_list_del(file->private_data);
->>> +       __dma_buf_list_del(dmabuf);
->>>
->>> +       /* Must be observed by __get_file_rcu() before file_free() */
->>> +       smp_store_mb(dmabuf->file, NULL);
->>
->> I think Alex is right and dmabuf can be NULL here. An early if
->> (!dmabuf) return 0" will fix that.
-> 
-> Yep, on it.
-> 
-> Many thanks,
-> 
-> 
-> Matt
-> 
+> Konrad
 
