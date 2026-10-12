@@ -1,290 +1,177 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD3535A395
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:02:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4065C391E4B;
+	Mon, 12 Oct 2026 03:04:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791774158; cv=none; b=bp3yR/5sF3NTdVpca3IGj5K/6H0jWrj6l5TIqbgdNH06EEcFoVyb4lKPZtygjQk4O1p5tM1uc99KatwNAPSmj6gHhFGkwAmU0/JCKhGyRMNCSIRXQRZe9fkq7aUtwv6B3ikCR7H2QeBFJDbd4jOaIu2hTI+5lJmFG4jdOGY33OM=
+	t=1791774283; cv=none; b=lRnxSoty/ruH06nMzsGp3zjrMqyLbdkJ17/0QCw+0C4uYZTFkBRTGmhi3pRcz12hf5DC6TOLPZ0vosSZ0oy7oBlj0R8+8Vyjc9TuTGTPpze+fua8CVLtM7Pbx7p/idOfMKTVJ1Ojk2wiYvK29kBP7uPKfx0knSZ7a32JwBNWq/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791774158; c=relaxed/simple;
-	bh=SuVAYnD3a5xDMYKaPk1ig9A/mIZWPLfCf63r0FevbsE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=jg7YgV8GwcOFtpe6ThFga5DmdDhaGsHux3eWmWosAD7FWe5ymcEGi+jzNnr30SB56/E1+lXqDHQmcX7+glRkDu0Sdw3s+I9OvyOJct8/B7GbtxFMRLlJ9tI+7tB1VmOlkUiOaRiVwKrtvQT/4txgu7J7QFES3hU723awv1jeYek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fNFg9uZ6; arc=none smtp.client-ip=209.85.215.176
+	s=arc-20240116; t=1791774283; c=relaxed/simple;
+	bh=/wEt6HRoQiKP+419k9g/6hmFe2Um5pCGtcLpdiC8VSc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JlZcKFliTfaXc8tKwL9nre6dlW2FY0kytvNX7Y6IwYuY3dnRSrX6y7rIPGIosrk+Tkgb5Ib5X1BOm9tk7ErhIzDkUni6vdq2qal4kvCiilDDatfy8gO9OOHXAdLtAXIWNz/f62bNOYQ+eCxrqXoLUAf11Fqj5Re5PXFMiIxOwFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cH0r7OTM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fNFg9uZ6"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc4dbda1e5dso342499a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:02:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791774157; x=1792378957; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/ypdqgvPr7OfUIUhXGpb5sQlR8bwQfco6ZrXxOL4NHw=;
-        b=fNFg9uZ66BsCFGWSUnvzVgBtAEZN/KRG0vEH20/6tLQAB6p1equZ3LoQGj/inywvXm
-         80PITuZEryicqlW3nK9Y4qWgEMYxbkP3wBAFR7s9vNYjczJDMWlWHYQ/K8ySS/CFFc65
-         PsP0n+sB8DBjkS9P1vP4cHf/53yrOlYeGIGnmstZQL1oAjzsEaiMWcTEJ6/CQsguYIcT
-         iEJa3NASL8BrEYtuUf6EJ4tPvsBHnUT0QEwTT4eBnP9PdUwnGVNzWi4jjyeKEz0GY+eC
-         lZT30gBCDTQGPtdQVq61V1CX6PnscjheAldfD/45exndZ+Bz2cFJqSslo0rHZqh85D11
-         9wDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791774157; x=1792378957;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/ypdqgvPr7OfUIUhXGpb5sQlR8bwQfco6ZrXxOL4NHw=;
-        b=Aqi34TYeRN0ErvnAfCXuKBektTiFati71vKUXV6jNMsYzvbdhYGTUJ4gUJCTJcHZto
-         QXnecSxVCgQlmww2ySpB3WTSs/vII98K2dvEPrD89dHypgRWhjS9c1eQTeQSacQ/20Xw
-         kVIVdcsgny0//BJl2QUrIfm1tGvhLtzXXoW4vLQWWkcDkDXV56YcKrOlJ2b4YtoHONJ3
-         iiteglm8Zz3RU22EMIi0wyFnhhccuNBiHzxWJyqk8bp0k0SxVrzzUxhBZ5Ej6VcHv7XC
-         rrCDe6PU/489Yg+M2ICn4iG/WcPFV0xHnjdZffbwzEge2ptF6RlK8Sd0ulQ01NcKdAoF
-         GpZg==
-X-Forwarded-Encrypted: i=1; AKwUvByqoDAZeikix4QRjChePMnHGO/Gh/VzUSbjuN48x/rA+SCrg33q4vbtM1qsr1NuZ7T/tQHyQWHVOJetsmU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJOHQufPf9+xJO3wnDVhpBT2VpiebDymJEZtUEJ2bnAq54bI17
-	6fQ06gwlMkUyrzbVKkwksb1TC7BsH/mmzn1/R4EF7kS2mUB3t8hhkpAC
-X-Gm-Gg: AYBFou02labitF/24ULAsEPD76pBc24uQGBmrM1zrnCBJljk96H2r1490lybeVVCkRj
-	LE0H6zSY8rwZ+tQ/qAlbamwbOOUWuI30ltMfUtQNcXt41K8gUGfW/BVHrcusTHEacnQz9EOXE+2
-	Suoe+V1cKoXJgYlk/V5Y/oMkek00ELYF+s1l7HqH4XGl8yIIwGQL4/FFMs8136pj2U3ugLxLIhI
-	oYWH8ZMJf/wAyDqcPM5izRLetVI9SHQiL7r7LR67tDG0ZygaPWYioKcGq7PzgZ8+B8DtIhEyie9
-	cICCZx/BLEklLaDsBhAnifnEtCsIcPNbHl3k0VCrd/NVW7dp9TImxQJG/ze3DKY9ihjxkmVWHsF
-	ox7hE56GFAKVlwn73Fu4r3O1P3kHNcfTzF3nypKaFEam3B/AYi75Ino9BmTzJIL9cxWp9Xar64i
-	B+bP5FG5fQu67gU90xfq2N16kRDgXoHeDFmlZwBCgWLSQATx4nlS4otE6wRp9VkYrqbpk1bxS05
-	E+q
-X-Received: by 2002:a17:90b:1a8f:b0:3a7:a6bc:9d4b with SMTP id 98e67ed59e1d1-3ab3afe44edmr7514705a91.59.1791774156559;
-        Sun, 11 Oct 2026 20:02:36 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab3386ba90sm9030708a91.1.2026.10.11.20.02.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 20:02:35 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	johan.hedberg@intel.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] Bluetooth: Keep IRKs alive during updates
-Date: Mon, 12 Oct 2026 11:02:30 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0191-v7-12caee3a7046a1a8f311@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cH0r7OTM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B33DDC2BCF5;
+	Mon, 12 Oct 2026 03:04:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791774282;
+	bh=/wEt6HRoQiKP+419k9g/6hmFe2Um5pCGtcLpdiC8VSc=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=cH0r7OTMbRQgnRIP8q0GI6+BJSy3OHiF9XzkyU0hbdhewRobPFYmcNKV+yurGpwns
+	 wcIoSLpWcBmByQpn9c5uv4Kl9e3sTNLuV0GMRwOdZunXRBd2eCZxGv85ZjKXqOx/tk
+	 XsjL3sTcur+uoP5uqdFbOoZlhN4hjRcYRLTpofnBLNlwGQO1Wyi1KX5KVdY3WcPCUc
+	 witcDKX7Xoih1W+XQuDQSD+oghnF2JuHBgqiCrB80q3PsHhbrlqIfji5ykZnIzJ2hY
+	 pJ3NDZkGWpX6Swa+YTG7S4qlZ3/vexrWCYJKjgQ1qH7CClkhFaehEMQKAaT4AZhvoa
+	 1xSlAGSKHR2Qw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EED5CA9ECF;
+	Mon, 12 Oct 2026 03:04:42 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Mon, 12 Oct 2026 12:04:42 +0900
+Subject: [PATCH] xfs: mark the inode preallocated for pNFS write layouts
+ past EOF
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-xfs-pnfs-eof-prealloc-v1-1-e4864d917a00@samsung.com>
+X-B4-Tracking: v=1; b=H4sIAElOzGoC/x2MQQqAMAwEvyI5G2iKKPUr4kFqqgFpSwsiSP9u8
+ DIwDLsvVC7CFebuhcK3VElRhfoO/LnFg1F2dbDGjmSMwydUzFHBKWAuvF1X8jhM7Mh7shMR6FZ
+ DkOf/XdbWPqUBh+BnAAAA
+To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
+Cc: Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, 
+ Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Sergey Bashirov <sergeybashirov@gmail.com>, linux-nfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791774281; l=4661;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=1lCj4zYdx22+I/KvHEXa0Zxtv7fnnOm5ANdbR1aQw+E=;
+ b=JMBEp4xga/9DfvtwfSE7Wqrt674xIinITXKqKMbBNxEqTXYLyPDctpqnqxqg0tsEQTbJX/edS
+ n75S27DmGj+BZcr+9uueMSekz7x+s3KC1QcGussU9BMKodPWCLHEZkm
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
 
-An IRK selected by hci_add_irk() must remain allocated until its value
-and RPA have been copied. hci_find_irk_by_addr() returns a borrowed
-pointer after dropping its RCU read lock, leaving the subsequent stores
-without lifetime protection on the SMP receive path.
+From: Daejun Park <daejun7.park@samsung.com>
 
-A valid SMP Identity Address Information message can update an existing
-IRK while MGMT Load IRKs replaces the identity resolving key list.
-l2cap_recv_acldata() drops hdev->lock before SMP processing, so the
-connection and channel locks do not exclude load_irks(). One possible
-ordering is:
+xfs_fs_map_blocks() marks the inode XFS_DIFLAG_PREALLOC after it
+allocates blocks for a write layout, so that xfs_free_eofblocks() does
+not free blocks past EOF that a client may write to. But a write layout
+for a range past EOF where blocks are already allocated, such as the
+speculative preallocation of buffered writes, gets those blocks without
+an allocation, and the inode is not marked. blockgc, or the release of
+the file, then frees them without breaking the layout. The client still
+writes to them, and they may belong to another file by then.
 
-    SMP receive worker               Management / RCU
-    hci_add_irk()
-      hci_find_irk_by_addr()
-        rcu_read_lock()
-        find matching IRK
-        rcu_read_unlock()
-                                     load_irks()
-                                       hci_dev_lock()
-                                       hci_smp_irks_clear()
-                                         list_del_rcu()
-                                         kfree_rcu()
-                                       hci_dev_unlock()
-                                     RCU grace period ends
-                                     IRK is freed
-      memcpy(irk->val, val, 16)
-      bacpy(&irk->rpa, rpa)
+With pynfs as the client, a file grown to 1 MiB by two buffered writes
+on the server had 960 KiB preallocated past EOF, and an RW LAYOUTGET for
+that range got it as one INVALID_DATA extent, without the inode being
+marked. About 300 seconds later, with the default
+speculative_prealloc_lifetime, blockgc freed those blocks while the
+layout was still held. When the client then wrote through the layout and
+sent LAYOUTCOMMIT, xfs_fs_commit_blocks() found a hole where the
+unwritten extent had been, and xfs_iomap_write_unwritten() allocated for
+it with no blocks reserved:
 
-The receive worker then writes into freed memory. KASAN reported a
-16-byte write in hci_add_irk(), 45 bytes into a freed smp_irk
-allocation.
+  XFS (nvme0n1): Corruption of in-memory data (0x8) detected at
+    xfs_trans_mod_sb+0x817/0x960 (fs/xfs/xfs_trans.c:351).
+    Shutting down filesystem.
+  ...
+   xfs_trans_mod_sb+0x817/0x960
+   xfs_alloc_vextent_finish+0x2e7/0x990
+   xfs_alloc_vextent_start_ag+0x25d/0x720
+   xfs_bmap_btalloc+0xdd2/0x1720
+   xfs_bmapi_allocate+0x197/0xf90
+   xfs_bmapi_write+0x4d0/0xb60
+   xfs_iomap_write_unwritten+0x307/0x7e0
+   xfs_fs_commit_blocks+0x1d9/0x630
+   nfsd4_block_proc_layoutcommit+0x5c2/0x7d0
+   nfsd4_layoutcommit+0x4b5/0xa20
 
-Keep an outer RCU read-side critical section in hci_add_irk() across the
-lookup and both copies. Drop it before the GFP_KERNEL allocation and
-reacquire it before publishing a new node. Reclamation must then wait
-until the stores finish. This also avoids acquiring hdev->lock under the
-L2CAP locks, which would invert the existing lock order.
+The client got NFS4ERR_IO, in six runs out of six. When small files were
+written on the server after blockgc, with a sync first so that the freed
+extents were no longer busy, they got those blocks, and the client's
+write through the layout replaced 978944 bytes of their data before the
+LAYOUTCOMMIT. A LAYOUTGET and LAYOUTCOMMIT 30 seconds apart, before
+blockgc runs, leave the client's data in place.
 
-The change has not been runtime-tested.
+Mark the inode also when a write mapping ends past EOF and nothing was
+allocated, the same way as for an allocation, before the blocks are
+handed out. With this, the same test keeps the blocks past blockgc, and
+the LAYOUTCOMMIT after 360 seconds succeeds with the data in place.
 
-KASAN report as below:
-
-    ==================================================================
-    BUG: KASAN: slab-use-after-free in hci_add_irk+0x77/0x2a0
-    Write of size 16 at addr ffff88810bbdcc2d by task kworker/u17:0/526
-
-    Workqueue: hci0 hci_rx_work
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? hci_add_irk+0x77/0x2a0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? hci_add_irk+0x77/0x2a0
-     kasan_report+0xe0/0x110
-     ? hci_add_irk+0x77/0x2a0
-     kasan_check_range+0x105/0x1b0
-     __asan_memcpy+0x3c/0x60
-     hci_add_irk+0x77/0x2a0
-     smp_recv_cb+0x594d/0x8e40
-     ? __pfx_smp_recv_cb+0x10/0x10
-     ? __pfx___might_resched+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? stack_depot_save_flags+0x29/0x9a0
-     ? __mutex_lock+0x182c/0x2590
-     ? kasan_save_stack+0x42/0x60
-     ? l2cap_recv_frame+0x9ef/0x8830
-     ? __kasan_slab_free+0x5f/0x80
-     ? kmem_cache_free+0x242/0x580
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? find_held_lock+0x2b/0x80
-     ? l2cap_recv_frame+0xaef/0x8830
-     ? __pfx___mutex_lock+0x10/0x10
-     ? __lock_acquire+0x466/0x2260
-     ? __pfx_l2cap_chan_hold_unless_zero+0x10/0x10
-     ? l2cap_recv_frame+0x13cc/0x8830
-     ? __pfx_smp_recv_cb+0x10/0x10
-     l2cap_recv_frame+0x13cc/0x8830
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __mutex_lock+0x182c/0x2590
-     ? __pfx_l2cap_recv_frame+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? find_held_lock+0x2b/0x80
-     ? l2cap_recv_acldata+0x1eb/0x10e0
-     ? __pfx___mutex_lock+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __mutex_unlock_slowpath+0x147/0x920
-     ? __pfx_l2cap_conn_hold_unless_zero+0x10/0x10
-     ? __pfx_hci_conn_enter_active_mode+0x10/0x10
-     ? l2cap_recv_acldata+0x13d/0x10e0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     l2cap_recv_acldata+0xe9f/0x10e0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     hci_rx_work+0x5a6/0xf00
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     process_one_work+0x908/0x19c0
-     ? __pfx_process_one_work+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x34f/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf80
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-
-    Allocated by task 520:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x610
-     hci_add_irk+0x131/0x2a0
-     load_irks+0x5fb/0x8c0
-     hci_sock_sendmsg+0x128b/0x22e0
-     sock_write_iter+0x4c0/0x550
-     do_iter_readv_writev+0x59c/0x860
-     vfs_writev+0x30e/0xc10
-     do_writev+0x241/0x2f0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    Freed by task 0:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     __rcu_free_sheaf_prepare+0x65/0x2a0
-     rcu_free_sheaf+0x1f/0xe0
-     rcu_core+0x661/0x1d10
-     handle_softirqs+0x201/0x930
-     __irq_exit_rcu+0x110/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
-
-    The buggy address belongs to the object at ffff88810bbdcc00
-                                                                which
-                                belongs to the cache kmalloc-64 of size 64
-    The buggy address is located 45 bytes inside of
-                                                                freed
-                                64-byte region [ffff88810bbdcc00,
-                                ffff88810bbdcc40)
-
-    The buggy address belongs to the physical page:
-        page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
-    pfn:0x10bbdc
-    flags: 0x200000000000000(node=0|zone=2)
-    page_type: f5(slab)
-        raw: 0200000000000000 ffff8881000428c0 dead000000000100
-    dead000000000122
-        raw: 0000000000000000 0000000000200020 00000000f5000000
-    0000000000000000
-    page dumped because: kasan: bad access detected
-
-    Memory state around the buggy address:
-     ffff88810bbdcb00: 00 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc
-     ffff88810bbdcb80: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-    >ffff88810bbdcc00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-                                      ^
-     ffff88810bbdcc80: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-     ffff88810bbdcd00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-    ==================================================================
-    Disabling lock debugging due to kernel taint
-
-Fixes: adae20cb2d20 ("Bluetooth: Convert IRK list to RCU")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Fixes: 527851124d10 ("xfs: implement pNFS export operations")
+Cc: stable@vger.kernel.org
+Reported-by: Chuck Lever <cel@kernel.org>
+Link: https://lore.kernel.org/r/4de5356f-bc4d-4f1a-9c81-fce09b1b46fd@slotpi15m67
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 ---
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index 209244fd93918..f8c274c21c0f7 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -1317,8 +1317,14 @@ struct smp_irk *hci_add_irk(struct hci_dev *hdev, bdaddr_t *bdaddr,
- {
- 	struct smp_irk *irk;
+Tested with this patch on nfsd-testing (3af417ce0f30), where xfs_pnfs.c
+differs from xfs for-next only by commit e3c682dd1130 ("xfs: map pNFS
+layouts to the end of the extent again"), with KASAN and lockdep, XFS on
+an NVMe/TCP namespace shared by the server and the client:
+
+- the reproducer above (a local pynfs test, not posted);
+- pynfs block, blockextent and a local multi-extent test, 2 runs: 15
+  pass, BLOCK3 fails with NFS4ERR_BADXDR for its empty layoutupdate, as
+  without this patch;
+- fstests generic/075, 091 and 263 with the Linux client over the block
+  layout: only 075 fails, as without this patch.
+
+Chuck pointed this out in the review of the ->map_blocks series, whose
+patch 7 will carry the same check for all mappings of a call:
+https://lore.kernel.org/r/4de5356f-bc4d-4f1a-9c81-fce09b1b46fd@slotpi15m67
+---
+ fs/xfs/xfs_pnfs.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
+index ab38561700..490b48e2ce 100644
+--- a/fs/xfs/xfs_pnfs.c
++++ b/fs/xfs/xfs_pnfs.c
+@@ -235,6 +235,23 @@ xfs_fs_map_blocks(
  
-+	/*
-+	 * Keep the IRK alive until the value and RPA copies are complete.
-+	 */
-+	rcu_read_lock();
- 	irk = hci_find_irk_by_addr(hdev, bdaddr, addr_type);
- 	if (!irk) {
-+		rcu_read_unlock();
+ 	} else {
+ 		xfs_iunlock(ip, lock_flags);
 +
- 		irk = kzalloc_obj(*irk);
- 		if (!irk)
- 			return NULL;
-@@ -1326,11 +1332,13 @@ struct smp_irk *hci_add_irk(struct hci_dev *hdev, bdaddr_t *bdaddr,
- 		bacpy(&irk->bdaddr, bdaddr);
- 		irk->addr_type = addr_type;
- 
-+		rcu_read_lock();
- 		list_add_rcu(&irk->list, &hdev->identity_resolving_keys);
++		/*
++		 * Blocks past EOF that were allocated for buffered writes, such
++		 * as speculative preallocation, can be freed by
++		 * xfs_free_eofblocks() without breaking the layout unless the
++		 * inode is marked as preallocated. Mark it before handing them
++		 * out for writing, as for blocks allocated above.
++		 */
++		if (write && !(ip->i_diflags & XFS_DIFLAG_PREALLOC) &&
++		    imap.br_startoff + imap.br_blockcount >
++		    XFS_B_TO_FSB(mp, XFS_ISIZE(ip))) {
++			error = xfs_fs_map_update_inode(ip);
++			if (!error)
++				error = xfs_log_force_inode(ip);
++			if (error)
++				goto out_unlock;
++		}
  	}
+ 	xfs_iunlock(ip, XFS_IOLOCK_EXCL);
  
- 	memcpy(irk->val, val, 16);
- 	bacpy(&irk->rpa, rpa);
-+	rcu_read_unlock();
- 
- 	return irk;
- }
+
+---
+base-commit: 0be6da616ab5031ea6419dc4fe0bf0e378fb6757
+change-id: 20261009-xfs-pnfs-eof-prealloc-47e91cc12711
+
+Best regards,
+-- 
+Daejun Park <daejun7.park@samsung.com>
+
+
