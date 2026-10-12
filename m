@@ -1,122 +1,177 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D94248B39D
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:54:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3ED48423E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:55:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791809698; cv=none; b=dA0tOaRQqxYdNSN9w/pj2Y1KPeeS3hZC2yQ75fGtK7XPs6wjKzLNZaQnWvOsJmMa8amuKOGMkdnUGUa7yBkzA0TlRB1hYJnUNyPDQv5lxJcYPGG6G9mApmjA5t2ImMGb724tC4iWzqXASptK/3Jq4YnAm95hy5bxVuhEtCB2gXc=
+	t=1791809708; cv=none; b=CKF84KiS51VXXQ4Y91vUxE93/S+s4+Q44eemJDRKVeQlG5BI11EyCNITWx4shRqWp7IWFuQNAxYcwT114JdKgt+H02+jae5ElN8PX1d0CWPv4OMYXQhVxR+l6hULOBrt3q19e/u5X2sdzNkDjh2gQRkGLb8Fo9YhgHJkBweUWxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791809698; c=relaxed/simple;
-	bh=hUacMIjrG/5XKywSifSJlhwT4/TXyu8FFU/RgZKUWWk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gVGqXXhW+vBwirD0qhImvuLOkR7qegEYR0B5iIiTNCrLZmwyMgDgoiTY/jvkQguwuzS28U6CgwW+bv/a2Ygd5+0ZmYx9ZCQh1YXZza9sF/2V9zclRj9PALslk1NSXFnN5YMNwwGuv4ti/4Wtwtms0f0ku31lFDc5XYs4QhFGgIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q71UaQ5e; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791809708; c=relaxed/simple;
+	bh=3DNvQ+5W11ysh7H8w0QPfVVTN+cFqTMCZ6Hi45mMF0k=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pa9lZIkC4CgiL7bgk8ZVct2NyfjH/SjJE6bHYSL0heO1mUExWgQRr0ggJ+gINhNaawV+F+TLAulmNpx0FlWCvEiJZKsV30JLo/zORsdI74FC8fu93566RWi7zSCc2bkGSKswzi1WnwPpabxXioeWjSeJU/HA5X9S7qGewcGg5UA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i/8rPzM0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KdFkI9MA; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q71UaQ5e"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49e73611928so24345145e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:54:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i/8rPzM0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KdFkI9MA"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC0R3D2088629
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:55:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=V0ukRDCmPB7qomVNkf05fa
+	fiLd6aVrYL79dV4P8GC9k=; b=i/8rPzM0l273tkfxF1GIuZg3zphwT61gCOw417
+	WS80IosppiV6vThn+b0Ji2ji9Mg/GiCOziB6kh0mh8fk2SHRyvmfWLdIGlEbATHV
+	D1h2n8rH8osA0qgu2cDxEFWOl+ddIe0Lkv+v9/ogRrydZZHug3A6V+E7TCuC+42l
+	A/FxLt0NZLCsRPFEd5lJTfAoVU9LrSkmICeTmPtrKbY1w3Eb0VUZZO+1jVSXPlg7
+	ldpWmevErPJtS8Fpnw1yK8pXAsaxaLAQYYVOMAdKCYXOtXyxnMTr/0icpLW+hP+g
+	6oBnoeQI6PlV9rQ3wayPI3N9yKIDfDGV+efRyOoKM1a2k7Eg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8sgu1yeb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:55:05 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93ae8e7e546so382673285a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:55:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791809695; x=1792414495; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=T3Dn8fCU2BvPny/c5KSPlVlXRURCMzHNVV/6jsS8JIg=;
-        b=Q71UaQ5ee7F4gXxH2NR8f/cKRPpkZSpCxX1VvgbJ/ql0+6/AyHq5RF2PbqqZl+1Pfz
-         Q71cjEcjGDG6Np0zPi3mXp0sj+sm69mLplozmKDXX6MtwNqHwG72qdFSZBi+RjHPp9Xi
-         DhMgrRRNPrKv1QOuVQ5BoJGg7hV4Sa0qM8k9nccQjQsJP5Rb9k+krLTKn13WcImO5suP
-         T8he2MRTJ3S2zlbsrIAxOHxdn4p7GFS+qk2OsMaxKXhfoLEj7BbU56kdi/NieMDci4BR
-         JeBqbgahLQLFbfiCHBzK4T1NI8pq7kv+MyguE/xI72x1td1QJf4QZkhY85kfIYGY8wrX
-         a3dg==
+        d=oss.qualcomm.com; s=google; t=1791809705; x=1792414505; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=V0ukRDCmPB7qomVNkf05fafiLd6aVrYL79dV4P8GC9k=;
+        b=KdFkI9MAWFp1XK2+QFA+QspqLKKPAUkNgZBWUVEPxw+uA8ol+iHutwMmiczhRSjKOx
+         7rwg1ORxLxpZY3An1taREAd5f4oibB5Lv8PMJMshB4agBrkXUEaSsFAR2YHByzACFqRT
+         PJbXafRKeNX+RB0qrWlqm9iqX3OyYxeZ3nwrYMPQHe77WGEoHdVuDhKUxYtdh3C6s5Km
+         Xy3sITAKsiEYRdmvgjKe7U4tOBa518KjtzMZSaVbDkjPhsgeT92zLy/GC2HbhT0wdvAv
+         BmHfbU0PcitkWzeAEASIxuiz95oN03NCxYae+ISdpsI1M71oOOHybY3TTsnP4AaK12OT
+         ZLsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791809695; x=1792414495;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T3Dn8fCU2BvPny/c5KSPlVlXRURCMzHNVV/6jsS8JIg=;
-        b=zLjq63OicVgQcrntOSvCcBEUENP/ITdf4DtuBUiGz/88BVX+aeslAt9ORvJHyWbwZr
-         9l2R7dgymyyuZraBi74FHNxw9yukYl2iMJEAmx0DMehN2WCTh9AWFK3sfZmlR/j8IcNf
-         m/q4lOoEn6ogB1Ea2LDFy56a+kir+GP1RS5mQiRgwR4eWuXZe06/37jh5nTvMKfmgXGb
-         MkBSSabJzx73BoCT2njZAOlzZpyCbLvhXUmYsx5DWzoyCp1MxPqtUa4+g8FhgZxfrXEo
-         xAc8ePjwss9dtz5zjk6axxfU8wvofK0vOicPawczvpaGZ2nwkP2TvCWSvCNCHaMsjyqK
-         FuYA==
-X-Forwarded-Encrypted: i=1; AKwUvByARw88AjH0ROUWVTXLcCelNzXrCcHmfL4QdqVlMpxp8TzTy3RSjInTAA+Fd6dRDLISHi8AcdnfjKr0k/U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhbpp6wOAi1bPkaX47MK8FSpDXk5nRR+wznSUmpxynFleBHRrF
-	8KNmyGmYwY0Km/PnaiYZpEN9VZsCevDlkFo/Gi6JaHz1gzWd7EsAtTc0
-X-Gm-Gg: AYBFou2kfAiR5viXWRe0H8aCEQHM0SyQlAQoO0uAOJDW6Fm9sjv7x9UKh4fIwct4oWm
-	g7Snf5CaXIX+BaPc0y09Hal8pWw8XXTTBipDGLUnP5CIp+6hcDHikZog0XLUiehUwBHQH7RzHeB
-	HtyKFYjUh30YUvqyoO8Qj+s69flJ2aRb50EsbC6pMInoIHT8xu0YMzSSPpViCEcr7b9f3fFjC0Z
-	HXq1KEJXg89g20TuKd7+IEGooqflB8zxmDjQJwHhT1p+jaZ+ek2JtX6w4CnKaH24QJxwByflz+7
-	c5XaOQcauv84JoZRmH83EBpBc82WIUaZaEs/kIq1yK5pyfmjujRra0qQysz0faTQE+Ui8MUvzJT
-	vx9ql7ttXvrLgubpn7tteEJTOhMmKsDVHzL7OlqaFidG8HmEQWD4YvfAPYHs1m0fo5mE16JDYlD
-	p5un+gzfDCNR8sZCRJAA5DWMoSAZHJrnRo9XMb/Igl7VcWUsJ5dZHG+QRLxbqBaHBiWcE+SX2tC
-	Qgv27Udjw7kEXlIZCP9orEfXuRFYJuH16k=
-X-Received: by 2002:a05:600c:810a:b0:4a0:ec5:46d9 with SMTP id 5b1f17b1804b1-4a18e3ef100mr160368105e9.0.1791809695318;
-        Mon, 12 Oct 2026 05:54:55 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be96549sm399676705e9.6.2026.10.12.05.54.54
+        d=1e100.net; s=20260707; t=1791809705; x=1792414505;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=V0ukRDCmPB7qomVNkf05fafiLd6aVrYL79dV4P8GC9k=;
+        b=oxc/qczubMhrUA3PsNhJAYKZaqgTIKJFeT/Mr3NZnurz8nGSEo7S91oPiXB1v5F46i
+         OyYVWgEt8KHU39flFHUxVRF1rh+8l0eY1cOtX0RmFk9Y9Joxf2bKt2DHOstvdQyUG2Yf
+         PhWxZ/gdK/k0vh/gxVbVqOdb6E6byUUPf/eKbxJP1OdaKjObYlbkgrI+ARpm23wH+pey
+         9+/4U1ab0fe7gRbFhbyMcwW2PTi9HIos3zpNyIAhxjo2S5hIzofkUnYhWO+F0a497EXP
+         4+hbGYTc4wFfPrVAtB3PPgJV9zAUE2ievMG6C0eKZ1iJ9NZQZ15qn5m7kNEEAes7MpW+
+         dA7w==
+X-Forwarded-Encrypted: i=1; AKwUvBx8cqZVwJf5Ijqrj8CViQYFu4bc6hwahT9uYF8IEDW0zjZh7E9EFxr0q3ziZN4bXewS4RvnnApyu0G4tPQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL6TqUudFR/1kU+7vEMfhuygG4UyoNatAVFDN60Ryrsn1Sqn1vb
+	z4LLPY40AVH3FGGdVgDJFJEOuui/AdNf6WCv0o0ivnI83rJ3PjGQePD6NA10ubU2E2kWxOt8J4p
+	iu+0nw7PffLvusf0uarxeYELbqyAz6I+XlaEwqh5mQ2vF4+G+/oSTeq+OoZQeOtScBWo=
+X-Gm-Gg: AYBFou1wGrSxFyyzSeAtKh+dcCRaPQNz8gQLc9CVHQTFYuIdmMc04YLGC4S5EFszQsI
+	pFY0s40HUfs3/nK4Ir7/ycsYA9OIgUpd1JUjyPPUN/bTpher8yg6EVcamxudQg9LWIiMLV+LGzD
+	GvgXhv8SZELsR7Wn8wrWuoc2NwTu6C/LKs7Xj+nHkx1vSvTeFrE2LLkNE4K4QQHbA+5pF6K/cOQ
+	Oglyq7g8ku4kkpW8Wu7vzLE7tuSJcEOIj/kwpSHssgklNVaXoZErfpCTdjrEYLONthYIgjCghjC
+	2TDxcseSz2+Tk2d4amrB6s4Mc/bpJ5Ggtfndj3f0sgzxZRoLx+17Z8OZGVLRvgR82OL6rVrMWLS
+	/xygWnfW8nPG2cI1Kyk2b6wUJ+jaMcv4E2JIttIi2aaSZl4RVVOWAhYajcvBifWDEiet2iAROpy
+	8JQPJl7Iy4gpllvGKV28CjUEfYOnzX1WlejbM9BMeh1MRovefctIQ=
+X-Received: by 2002:a05:620a:450a:b0:93c:b10:7243 with SMTP id af79cd13be357-93ebd0cbfe0mr1629046385a.5.1791809705169;
+        Mon, 12 Oct 2026 05:55:05 -0700 (PDT)
+X-Received: by 2002:a05:620a:450a:b0:93c:b10:7243 with SMTP id af79cd13be357-93ebd0cbfe0mr1629042485a.5.1791809704665;
+        Mon, 12 Oct 2026 05:55:04 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:d108:3895:812b:662a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9acc936sm19187442f8f.44.2026.10.12.05.55.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 05:54:55 -0700 (PDT)
-Date: Mon, 12 Oct 2026 13:54:54 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Christian Brauner
- <brauner@kernel.org>, Mingyu Wang <25181214217@stu.xidian.edu.cn>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] pid: document that do_each_pid_task() needs
- tasklist_lock
-Message-ID: <20261012135454.4eda3fa8@pumpkin>
-In-Reply-To: <asuaU8H_5MbO3-cW@redhat.com>
-References: <asuaU8H_5MbO3-cW@redhat.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Mon, 12 Oct 2026 05:55:02 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 14:54:56 +0200
+Subject: [PATCH] i2c: qcom-cci: Fix HALT_ACK reset request being dropped
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-cci-fixes-v1-1-8cd4eb1fc5f9@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAKDYzGoC/x3KMQqAMAxA0auUzAbaiA5eRRxCTTVLlRZEKL27w
+ fHxf4MqRaXC4hoUebTqlQ1hcBBPzoeg7mYgT3PwgTBGxaSvVOTEXiYamTiC/XeRP9i+br1/F5y
+ BaVsAAAA=
+X-Change-ID: 20261012-cci-fixes-afa0e523a2ac
+To: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Vinod Koul <vkoul@kernel.org>, Wolfram Sang <wsa@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Todor Tomov <todor.too@gmail.com>
+Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Authority-Analysis: v=2.4 cv=QdzzLcbv c=1 sm=1 tr=0 ts=6accd8a9 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=fiHgs4EJ_qdzu2AaPLEA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1MSBTYWx0ZWRfX5JpFkmZ8fWLC
+ IEk1W1xiAZVffOicIPBDYUlc88lVuO+rZ9uHBBmGroSyHZWQVdJCVEdcnFdeGU6ygyo28QO+Siw
+ XTee5PPGwbDCgF8EU+0U08gHyfXdPj9aVSs0SQoWewUp+mhLunPR2sgEYN4w/8RlNwv99btMZYp
+ jm7vuB8Tc0EyO2+pczloHu4vJHCwO7J96JCwtYDiqoh1oXrplx7aO7sMlpgRjVPXWCN4ERwmFhL
+ vvC8a6Ll+1iD4cndvupqj8/Tg2rq/VCHVuvAZ6mriC/HvMNSRPzdjYd6OLi9CqU1VmfO7220YFT
+ d9Cn3GuQBcupt5ZDEGg0i7SxdTT6l5hLijNv2nmw1l+vmiCjB84kD5Dg6SmLp0VwWUDFlStvmod
+ v6B4cM9PlEjiQoSYyY5N4eDyC6GfoeER2lsRdRbXylcfCihjBPYMtdraL4x482fFPkUXKPhKH2l
+ oHOoH5Tpgwa5vB9eSlQ==
+X-Proofpoint-ORIG-GUID: GmOqRORb24W5efPkdHqYhSRvCCk3eLMU
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1MSBTYWx0ZWRfX24pa6GYoIbnV
+ aoC2IIflJTBL8Vzq62JtwVlkXu4IL4/UIp1GfDNZn5ZEp93t2PzvEsLZTGHKLdamEl/Hv5BTAwY
+ YT1qfgWk3xl1BUb2ZVLPubXMd3N82vk=
+X-Proofpoint-GUID: GmOqRORb24W5efPkdHqYhSRvCCk3eLMU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 phishscore=0 spamscore=0 suspectscore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 malwarescore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120051
 
-On Sun, 11 Oct 2026 16:16:51 +0200
-Oleg Nesterov <oleg@redhat.com> wrote:
+A HALT_ACK interrupt indicates that the corresponding I2C master has
+entered the halted state and must be reset before further operation.
 
-> do_each_pid_task() looks "obviously rcu-safe". This confuses people
-> and we already have 2 buggy users: send_sigio() and send_sigurg().
-> 
-> The reasons why it is not are not obvious at all, add the comment.
-> 
-> Signed-off-by: Oleg Nesterov <oleg@redhat.com>
-> ---
->  include/linux/pid.h | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/include/linux/pid.h b/include/linux/pid.h
-> index ddaef0bbc8ba..f5476d7140a3 100644
-> --- a/include/linux/pid.h
-> +++ b/include/linux/pid.h
-> @@ -187,6 +187,15 @@ static inline pid_t pid_nr(struct pid *pid)
->  pid_t pid_nr_ns(struct pid *pid, struct pid_namespace *ns);
->  pid_t pid_vnr(struct pid *pid);
->  
-> +/*
-> + * Needs tasklist_lock if type > PIDTYPE_TGID. A lockless reader can:
+The M0 and M1 HALT_ACK status bits may be asserted simultaneously in a
+single interrupt. However, the interrupt handler currently overwrites
+the reset mask when processing each HALT_ACK condition, causing the
+first reset request to be lost if both events are reported together.
 
-Think I'd be more explicit, so:
-	... if type isn't PIDTYPE_PID or PIDTYPE_TGID.
-David
+Accumulate reset requests instead of overwriting them so that both
+masters are properly reset when M0 and M1 HALT_ACK events occur in the
+same interrupt.
+
+Fixes: e517526195de4 ("i2c: Add Qualcomm CCI I2C driver")
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+---
+ drivers/i2c/busses/i2c-qcom-cci.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
+index 873e901a23d7a2874af5c1e738167247adff1910..bd70c6bae5dc685435bf2ad031cf7a11ec60ab4f 100644
+--- a/drivers/i2c/busses/i2c-qcom-cci.c
++++ b/drivers/i2c/busses/i2c-qcom-cci.c
+@@ -164,12 +164,12 @@ static irqreturn_t cci_isr(int irq, void *dev)
+ 	}
  
-> + *
-> + * - race with a change_pid() that moves the task to another hlist,
-> + *   and continue to scan the wrong list.
-> + *
-> + * - race with a copy_process() that adds a new task to the start of hlist,
-> + *   and miss the new child.
-> + */
->  #define do_each_pid_task(pid, type, task)				\
->  	do {								\
->  		if ((pid) != NULL)					\
+ 	if (unlikely(val & CCI_IRQ_STATUS_0_I2C_M0_Q0Q1_HALT_ACK)) {
+-		reset = CCI_RESET_CMD_M0_MASK;
++		reset |= CCI_RESET_CMD_M0_MASK;
+ 		ret = IRQ_HANDLED;
+ 	}
+ 
+ 	if (unlikely(val & CCI_IRQ_STATUS_0_I2C_M1_Q0Q1_HALT_ACK)) {
+-		reset = CCI_RESET_CMD_M1_MASK;
++		reset |= CCI_RESET_CMD_M1_MASK;
+ 		ret = IRQ_HANDLED;
+ 	}
+ 
+
+---
+base-commit: ae8364085574203e7f4ea961921a1c7493bcb6de
+change-id: 20261012-cci-fixes-afa0e523a2ac
+
+Best regards,
+-- 
+Loic Poulain <loic.poulain@oss.qualcomm.com>
 
