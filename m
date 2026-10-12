@@ -1,136 +1,217 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.162])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBEF32D7DD7
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:48:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854DE4A64CF;
+	Mon, 12 Oct 2026 15:48:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791820089; cv=none; b=gAk8RsQe6AEhTRMNXgVcCOgUu4zY8juA2EHf596shLAwKlgjkdClUiJQs9zwjla0uSspEvRPz3QS7Ic+Rskcfer84a1JD0xL3gQq3bZb1MY7F+KxHIyzNEj9I8wYrR2ApQZ0VTWOSG78roxDHrgvr/pdFWbprBuGPH21WxSZn28=
+	t=1791820110; cv=none; b=aDbNFfTUeZ8B7mAjg57aqTgSbsu8j7dmMqo2dLw7inG30NGRHw58kH62vjfmhnmD0Ev0L23D1zoSND4BjkaB7UCzElutbU4swBOIKbSgD7CzcTZZ9TquiBBcjDsqc2VeWY9L8SxGucz19KW2dZtRF4HFrvhqYmAide9aJTOWUGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791820089; c=relaxed/simple;
-	bh=joa6RM6ktxOVQDu2XvVi6s+0Yg0dPrzFg1gFR3Nr0a8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e5AovjfwkeJWwYy82IOmDHO8eqIiMzhEX68YH2mxcGXvrPMcamgqb4xtprBvyXJWOmliT5FpIE7cyTAZkb+rz5C/3RNegLkxlKo8zP9+Hm+Eyvql62W+wj9DUXgYM6drT60RODLlxGDNxaI2lFcS/Xcbyr5kqP1/1U5YVprj4M0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L1RtzEAW; arc=none smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791820110; c=relaxed/simple;
+	bh=HtbVrjjLMejF1IvB3Efu9JWPiM87tU4Y34khsHLXIMs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YPuBkCbLxYkWczQIZRanFKZKunWnjekjFj78oLYxx6+UineyrAgItZd4EgNh2KlwpDsuyxmWSe6PZtXOYuuSjAN6VmagGwPbNZisQL0CHagQ+73eUdBMCx2TJ10UROPD3KNUm6LHrq8zJqFOZa4Hk8JKoBfFaT2xn0Azu0NjG4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=HtSkVJQB; arc=none smtp.client-ip=188.68.63.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L1RtzEAW"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35834f72d94so3444748eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:48:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791820087; x=1792424887; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9/p9hlIUpy4pciplLAexWshVdUELSi1RJnPYvzK8GQA=;
-        b=L1RtzEAWzk3npGSueZLjJQHQH3Vd7WTFRXAJZsfY6UNUw7c1swjkmw3LiUW/6yIjhQ
-         E38j5l4Ta0+1HN+ZJYP9et9/J0UERugkwFuFtUld6w7Kjggc9sEismudnWsZ6/RYXF6B
-         6Ny2tFopPC+n3dHGErF496udH6Npan/WEJWAZVNnXfwdQ16S8QYaWPJOxXLtlUF6dF5k
-         78Rj3JwgsfhOYa51pOQ1Sfk6F4t6yV9r/1EwHWi3d8Wi+AJzRu557KWVYAmulX2kW/ia
-         tIhkNZzhg7tSrz6VrqZWEQLZ3WmZLbZEn1MDRjr7xvrQVhxhhQDYMnsbWrQzYgPSTPpt
-         XFMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791820087; x=1792424887;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9/p9hlIUpy4pciplLAexWshVdUELSi1RJnPYvzK8GQA=;
-        b=UDSniM8+S+97K4d0yX8ZxL3z9aF/v6Sd2/Mz1e4VzTk0vTGHZo483cSVWpwrLU8jes
-         742060nDCQxeRP5PvLCvRCXizTYLQm6oYMVOTKKG09G41RadCc05r3Q7gWZHh1BTPWrb
-         IgtauvcnSVZleWBIxk9EwrMsRqIbaPh9orZXECJ00ZMzdkoW2C3EvaW7kFPLv9qtWYsR
-         3DOoDThDv0UDVcPYtjtIBD6bb1EYGlkdQe6G19f7z77zxy2898Yu1C+ToRNycDKTi1HG
-         0/B/5dvDqeRxt9Q6AfRADXB+t3p8my9gLoFan79/kaU4lPcLzuQ+mMSHqSnwMnmD5JdR
-         ACjA==
-X-Forwarded-Encrypted: i=1; AKwUvBw5VScVto+ipjbJVjXDjpjp0vaH6BEz6HtvwbIx2qmcZP7Ja3umYXjOdaYqp3CxVALsjwcH8HaogeZE2A8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKAYgf+KrBA53hQpNmSh15bId48htFEw1DPlgYtFYQ+zNhMVREO
-	wxWk7IadCWckdAVmId+QQcA8bWIX7Xgxp7Yi9/EptDLmr9JLqeIHB9Sb
-X-Gm-Gg: AYBFou2Yoei4P/tnidoOrwYO0pr3VqOgbMyYbnFIir+Z67ZN83ZfiAhSbG6lZRtxQVC
-	ZwcNv8jrozRafd0F95Njs7DGKYi1pv9k+OVtGwG9qMk9cYclYWxTdp+b7fBfpTBKwiQinYe4iwz
-	MB3OzjzPIzVn1UrXEwyRV4OKN9aWHNpLOAHPD8JGjVuljEQqAtmJjjIpRp57KzH7pVu9DaXE3Xk
-	5fgruA9qVXBfAHUVFu7Ud+3MQzitD28wBZFSG8NauwyJObF0tDAI/57iCfAIzgf89Dar0LBWk7U
-	dXlEoAODa7YFgivDrhBk0C9wx7y5FtUXVa3m2/X7sYhhXQOmSDhnbvNQ4GHnz+G8MUVFylxHeHO
-	ZPqJeC35bX0O5c6fSETRndOUX83r6DRJULkQmAmSNDZ9eZplM3Mhj0txKFepjYbjaiw4JfirE4T
-	/XZTaKlktVD/Pqi1Wfzlb2Q8wTuxUuO2GN4sCIzRxqhcxhpJ7C/HTlMIB9D6uDmaCU5nP03Zhk2
-	TGYWmQSLGJy/khiDe36gt08E2BV1AMqeRvViR7ZuBIYS19JS9Xk9FiECvOQN2szSqJkzZbj3g==
-X-Received: by 2002:a05:7301:619c:20b0:35a:ca1e:511b with SMTP id 5a478bee46e88-35aca1e547emr3700116eec.36.1791820086698;
-        Mon, 12 Oct 2026 08:48:06 -0700 (PDT)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:c1bb:8d21:6c07:8107])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35b690af3easm6256328eec.1.2026.10.12.08.48.04
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 12 Oct 2026 08:48:06 -0700 (PDT)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: Jeff Chen <jeff.chen_1@nxp.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: [PATCH wireless-next] wifi: nxpwifi: Use str_on_off() helper
-Date: Mon, 12 Oct 2026 21:17:54 +0530
-Message-ID: <20261012154759.42423-1-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="HtSkVJQB"
+Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4j3MLx4R3Nz4LSk;
+	Mon, 12 Oct 2026 17:48:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1791820105;
+	bh=HtbVrjjLMejF1IvB3Efu9JWPiM87tU4Y34khsHLXIMs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=HtSkVJQB32a6jkG/B+AGdDte7SFLq9oXwEKHN8sWg0TyZTbTM+zp+64adkwkKGjIv
+	 15+E/1M7NY9EcW5hlwK1rtmlHvNABkPMB8Zds7C+19hfymWdDAeaRs7Qf73zYkc7ZZ
+	 L9zDffGu32x3NMpnVRLUZabDvrrTl3eIqIyJbsUe005lhY1Ve4x5PW91SDhSqZ8z0w
+	 Ojz6SCQQXrloUeSn4PM8Gfu2U+MjcHO74jDTKvMoVCa516nA8U+dGlzO8tykjkFgZN
+	 izkvxXRjlkNRzr+ZJAigQPy8waER1YEOLXYNReYoO+KuAV6gW7pECABLYDjM3XUuv9
+	 7TiCJjIq/cJDw==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4j3MLx3jzGz4LSV;
+	Mon, 12 Oct 2026 17:48:25 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4j3MLw5F5pz8svT;
+	Mon, 12 Oct 2026 17:48:24 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id C1CFC5FA0A;
+	Mon, 12 Oct 2026 17:48:19 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <111e94e9-79c9-48f2-8976-70470e59b89d@leemhuis.info>
+Date: Mon, 12 Oct 2026 17:48:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scsi: mpi3mr: use DevicePage0 link rate only for
+ direct-attached targets
+To: Ilya Khomyakov <khomyakovilya@gmail.com>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: Ranjan Kumar <ranjan.kumar@broadcom.com>,
+ "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Sathya Prakash Veerichetty <sathya.prakash@broadcom.com>,
+ Kashyap Desai <kashyap.desai@broadcom.com>,
+ Sumit Saxena <sumit.saxena@broadcom.com>,
+ Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+ mpi3mr-linuxdrv.pdl@broadcom.com, regressions@lists.linux.dev,
+ linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260804142800.4326-1-khomyakovilya@gmail.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20260804142800.4326-1-khomyakovilya@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <179182010029.914747.2425492917080082038@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: C1CFC5FA0A
+X-NC-CID: 0mnVUIfrul6zl9ZaOjksub9GAqSmtleBgE4Qx8o7TmpDi+DTQ4I=
 
-Both carrier prints open code the on/off ternary. Use the helper from
-string_choices.h instead. No change in output.
+On 8/4/26 16:28, Ilya Khomyakov wrote:
+> This patch fixes a regression in the Broadcom MPI3 Storage Controller
+> driver under drivers/scsi/mpi3mr/.
 
-Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
----
- drivers/net/wireless/nxp/nxpwifi/debugfs.c | 5 +++--
- drivers/net/wireless/nxp/nxpwifi/main.c    | 5 +++--
- 2 files changed, 6 insertions(+), 4 deletions(-)
+Ilya, what's the status of this regression fix? It looks like it fall
+through the cracks. Or was there some progress that I missed (which can
+easily happen!)
 
-diff --git a/drivers/net/wireless/nxp/nxpwifi/debugfs.c b/drivers/net/wireless/nxp/nxpwifi/debugfs.c
-index ccaf0eae3..fc2f188fc 100644
---- a/drivers/net/wireless/nxp/nxpwifi/debugfs.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/debugfs.c
-@@ -6,6 +6,7 @@
-  */
- 
- #include <linux/debugfs.h>
-+#include <linux/string_choices.h>
- 
- #include "main.h"
- #include "cmdevt.h"
-@@ -98,8 +99,8 @@ nxpwifi_info_read(struct file *file, char __user *ubuf,
- 	p += sprintf(p, "num_rx_pkts_dropped = %lu\n", priv->stats.rx_dropped);
- 	p += sprintf(p, "num_tx_pkts_err = %lu\n", priv->stats.tx_errors);
- 	p += sprintf(p, "num_rx_pkts_err = %lu\n", priv->stats.rx_errors);
--	p += sprintf(p, "carrier %s\n", ((netif_carrier_ok(priv->netdev))
--					 ? "on" : "off"));
-+	p += sprintf(p, "carrier %s\n",
-+		     str_on_off(netif_carrier_ok(priv->netdev)));
- 	p += sprintf(p, "tx queue");
- 	for (i = 0; i < netdev->num_tx_queues; i++) {
- 		txq = netdev_get_tx_queue(netdev, i);
-diff --git a/drivers/net/wireless/nxp/nxpwifi/main.c b/drivers/net/wireless/nxp/nxpwifi/main.c
-index 9e1334810..4d77b9ecf 100644
---- a/drivers/net/wireless/nxp/nxpwifi/main.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/main.c
-@@ -5,6 +5,7 @@
-  * Copyright 2011-2024 NXP
-  */
- 
-+#include <linux/string_choices.h>
- #include <linux/suspend.h>
- 
- #include "main.h"
-@@ -1088,8 +1089,8 @@ void nxpwifi_drv_info_dump(struct nxpwifi_adapter *adapter)
- 			     atomic_read(&priv->wmm_tx_pending[3]));
- 		p += sprintf(p, "media_state=\"%s\"\n", !priv->media_connected ?
- 			     "Disconnected" : "Connected");
--		p += sprintf(p, "carrier %s\n", (netif_carrier_ok(priv->netdev)
--			     ? "on" : "off"));
-+		p += sprintf(p, "carrier %s\n",
-+			     str_on_off(netif_carrier_ok(priv->netdev)));
- 		for (idx = 0; idx < priv->netdev->num_tx_queues; idx++) {
- 			txq = netdev_get_tx_queue(priv->netdev, idx);
- 			p += sprintf(p, "tx queue %d:%s  ", idx,
--- 
-2.46.0
+Ciao, Thorsten
+> Commit c273c14b0294 ("scsi: mpi3mr: Use negotiated link rate from
+> DevicePage0") changed mpi3mr to prefer the cached DevicePage0 rate.
+> 
+> DevicePage0 stores negotiated_link_rate as one standalone MPI3 SAS
+> link-rate code, while SAS PHY Page 0 and SAS Expander Page 1 store logical
+> and physical rates as two nibbles of one packed byte.
+> 
+> mpi3mr_get_sas_negotiated_logical_linkrate() currently sends both formats
+> through the same high-nibble extraction at its common exit. A valid
+> DevicePage0 value of 0x0b or 0x0c is therefore converted to zero. The later
+> minimum-rate safeguard then publishes the value as 1.5 Gbit/s.
+> 
+> For example:
+> 
+>   DevicePage0 value:            0x0b
+>   packed-field extraction:      (0x0b & 0xf0) >> 4 = 0x00
+>   minimum-rate substitution:    0x00 -> 0x08
+>   Linux SAS transport result:   1.5 Gbit/s
+> 
+> There is also a topology distinction. The caller uses the returned value to
+> update the parent sas_phy. In an expander topology with the HBA-to-expander
+> link limited to 12 Gbit/s, DevicePage0 reported 0x0b for every tested
+> target, while Expander Page 1 reported 0xcc for several disk-facing PHYs
+> that were operating at 22.5 Gbit/s. The cached target value therefore
+> cannot unconditionally replace the local parent expander PHY value.
+> 
+> The original failure was reproduced on an eHBA 9600 controller with a
+> SAS4016 IOC and a 46-PHY Microchip expander. Before the fix, a target with
+> DevicePage0 negotiated_link_rate 0x0b could remain visible in sysfs as
+> 1.5 Gbit/s when a replayed topology event contained current=0x0b and
+> previous=0x0b and therefore skipped the Linux-side update.
+> 
+> Validate the standalone DevicePage0 code and use it directly only for a
+> directly attached target. For an expander-attached target, retain the
+> existing Expander Page 1 path because it describes the local parent
+> expander PHY being updated. Retain the SAS PHY Page 0 fallback when a
+> directly attached cached value is invalid.
+> 
+> The topology-aware variant was tested in an out-of-tree mpi3mr 8.17.1.0.
+> build. After boot, Linux reported:
+> 
+>   PHY 18: 12.0 Gbit/s
+>   PHY 19: 12.0 Gbit/s
+>   PHY 24: 22.5 Gbit/s
+>   PHY 25: 22.5 Gbit/s
+>   PHY 26: 22.5 Gbit/s
+>   PHY 27: 22.5 Gbit/s
+>   PHY 28: 12.0 Gbit/s
+>   PHY 30: 22.5 Gbit/s
+> 
+> No tested PHY was incorrectly reported as 1.5 Gbit/s, and the 22.5 Gbit/s
+> disk-facing rates were preserved even though DevicePage0 contained 0x0b.
+> 
+> Fixes: c273c14b0294 ("scsi: mpi3mr: Use negotiated link rate from DevicePage0")
+> Signed-off-by: Ilya Khomyakov <khomyakovilya@gmail.com>
+> 
+> ---
+>  drivers/scsi/mpi3mr/mpi3mr_transport.c | 46 ++++++++++++++++++++++----
+>  1 file changed, 39 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/scsi/mpi3mr/mpi3mr_transport.c b/drivers/scsi/mpi3mr/mpi3mr_transport.c
+> index 240f67a..740fccc 100644
+> --- a/drivers/scsi/mpi3mr/mpi3mr_transport.c
+> +++ b/drivers/scsi/mpi3mr/mpi3mr_transport.c
+> @@ -587,6 +587,30 @@ static enum sas_linkrate mpi3mr_convert_phy_link_rate(u8 link_rate)
+>  	return rc;
+>  }
+>  
+> +/**
+> + * mpi3mr_sas_link_rate_valid - validate a standalone SAS link-rate code
+> + * @link_rate: MPI3 standalone SAS negotiated link-rate code
+> + *
+> + * DevicePage0 stores one plain negotiated link-rate code. Accept only
+> + * negotiated data rates supported by the SAS transport conversion code;
+> + * reserved or transitional values must use the existing PHY-page path.
+> + *
+> + * Return: true for a supported negotiated data rate, false otherwise.
+> + */
+> +static bool mpi3mr_sas_link_rate_valid(u8 link_rate)
+> +{
+> +	switch (link_rate) {
+> +	case MPI3_SAS_NEG_LINK_RATE_1_5:
+> +	case MPI3_SAS_NEG_LINK_RATE_3_0:
+> +	case MPI3_SAS_NEG_LINK_RATE_6_0:
+> +	case MPI3_SAS_NEG_LINK_RATE_12_0:
+> +	case MPI3_SAS_NEG_LINK_RATE_22_5:
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
+> +
+>  /**
+>   * mpi3mr_delete_sas_phy - Remove a single phy from port
+>   * @mrioc: Adapter instance reference
+> @@ -2292,18 +2316,26 @@ void mpi3mr_expander_remove(struct mpi3mr_ioc *mrioc, u64 sas_address,
+>  static u8 mpi3mr_get_sas_negotiated_logical_linkrate(struct mpi3mr_ioc *mrioc,
+>  	struct mpi3mr_tgt_dev *tgtdev)
+>  {
+> -	u8 link_rate = MPI3_SAS_NEG_LINK_RATE_1_5, phy_number;
+> +	u8 cached_link_rate, link_rate = MPI3_SAS_NEG_LINK_RATE_1_5;
+> +	u8 phy_number;
+>  	struct mpi3_sas_expander_page1 expander_pg1;
+>  	struct mpi3_sas_phy_page0 phy_pg0;
+>  	u32 phynum_handle;
+>  	u16 ioc_status;
+>  
+> -	/* First, try to use link rate from DevicePage0 (populated by firmware) */
+> -	if (tgtdev->dev_spec.sas_sata_inf.negotiated_link_rate >=
+> -	    MPI3_SAS_NEG_LINK_RATE_1_5) {
+> -		link_rate = tgtdev->dev_spec.sas_sata_inf.negotiated_link_rate;
+> -		goto out;
+> -	}
+> +	cached_link_rate =
+> +		tgtdev->dev_spec.sas_sata_inf.negotiated_link_rate;
+> +
+> +	/*
+> +	 * For a directly attached target, DevicePage0 and the parent host PHY
+> +	 * describe the same link, so the standalone cached code can be used
+> +	 * without packed-field decoding. For an expander-attached target, the
+> +	 * caller updates the parent expander PHY and DevicePage0 can differ from
+> +	 * that local segment; retain the Expander Page 1 read in that case.
+> +	 */
+> +	if ((tgtdev->devpg0_flag & MPI3_DEVICE0_FLAGS_ATT_METHOD_DIR_ATTACHED) &&
+> +	    mpi3mr_sas_link_rate_valid(cached_link_rate))
+> +		return cached_link_rate;
+>  
+>  	/* Fallback to reading from phy pages if DevicePage0 value not available */
+>  	phy_number = tgtdev->dev_spec.sas_sata_inf.phy_id;
 
