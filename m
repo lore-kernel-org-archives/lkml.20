@@ -1,87 +1,49 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49184361675
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:15:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A69318EFF
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:16:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791789357; cv=none; b=oHh5rRRRvPPAVh3d4IssevcUylPn3pq/by3nC4ZyHGMoaLP/f5+iRqZW2j812pqVxRjgUtaithG5xotgeSbDlfdl1hMf0DWbPN2mNt71NdWmk29dcZP5M2UsWjfLIhy4U3H8wop1EdgahY9h2f0zGPTF/NMORHlJ7k9/WUYpM/8=
+	t=1791789390; cv=none; b=oS0mXulQ0HtwKeFjKnBD5jeYhI7rkPd2roQH66vYULbJbK0f7FmfjAmkzDjci2oqIokBhNXX0VNLe7OwAgV/1v7yYMRyKkw5l1eZn1In0iXYVdTIUelbWQyzS+YCYbRqDi1MluhBXgeSFgEUlM5idj3XIhpzWuseBmLR5dn9BS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791789357; c=relaxed/simple;
-	bh=Hd+BN6RDJN6bk1MufXlNzSJch755k2WEFTJLN4wFdKw=;
+	s=arc-20240116; t=1791789390; c=relaxed/simple;
+	bh=Ltepxoxgsvwi/c+zVbGbBb5nUiL/dfxeLhn5Yz8DHU8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DemhqDeIZa+ofgZVvy2ZCQtaTzVoRQx1sV4A87Gzhi+AfirNqmoHPYD42KlpdEYsV+dkHCAUwdE+64bi28keiv9PKXLFuYh/gyPkn9qEiiFhZMO8zLi9kelk++rTgxGJQch4otp0g06a7xeYZ5REqWtUNizsfNufCEI2xtECvts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WJyoUWJn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G0T/8PA8; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=JiP2VjVznNBp+BiWPOM9qZHqjVZA01AHzpXok33LAx6bTBP7gJeF9CGnlOdWsXsgLtrfmXkunq+xhHyqIiMZh84Vaf6WBhrmWMtVqYJnXw2yTF1bgjaFhq2y/wXskKd669nOQvdnxNNn8eH3bfyifxVG5GL97YwqYbJQOwnOj6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Fz/Va01c; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WJyoUWJn";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G0T/8PA8"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C5PUL91786870
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:15:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	FALdQOa0iewDJ5PNUsXZhf0wCNU9EWPT335/P5eVh18=; b=WJyoUWJnVa80v1H6
-	EOaC9TlLKjEtG9ZG3YRlYXMTcTdcU4ysz/tK9Q9XJ11FGo/cVHXjHb4WI6Z+fqej
-	uSkC+9VwCsWPgKYs+3bay4Tc0b84YWQmPYtphL1CxqpdcBD5hvddCo6CI/30YP0r
-	gGzAwcTWlx/tL5LLf/5szP7x3MJWbll/kkziPrz31C1f60Zcx+fnVCLEnAGhDJf/
-	4VNR8clDPXC0X3IZMyE0dDKghB6g7hOYG9+ns95CLW27JTmRQoS4BPtjeavjaUS6
-	A0V0EPXONjCRVPfMxAPRBZWr1AtIRtDrdFQY2UvBfxkORtMmNOTLpmqWh/c+GOJG
-	OmKWdg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8sd1rfjf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:15:55 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5352eb4510cso2608051cf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:15:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791789354; x=1792394154; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FALdQOa0iewDJ5PNUsXZhf0wCNU9EWPT335/P5eVh18=;
-        b=G0T/8PA88bV/4HHHhSiBKask51Qt+xEKT+cUcns+55Etv3lEBpNKe8pnPy1NM+EJqS
-         Ggntt9UmjWK2cBPXXVrJ30paDFTAjusVWAtvDGS0zYjNhWhs5+MEl7vFOkTEEX89k7Ye
-         pDcgJkiOrzUnhu0LGLAWK9dg4Yck5QgfIwTlaUFNicl3CR77OZ4kp21RG4psoWwOROyb
-         xtuLhn1/XY/NH3vRFfKRvUmsmKtuCc/oCJy5NQtOapj2nlz0+K2R5CGl5Nb4/oUaqE5y
-         79gwEGnfY5Q17yTOXJPmfthmmY44+s4LF8XI9UczOHrsAZQrUFSWmHUrKKPQEhVYRmBc
-         /HBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791789354; x=1792394154;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FALdQOa0iewDJ5PNUsXZhf0wCNU9EWPT335/P5eVh18=;
-        b=OYHnOy14eOvM7+/Ih1yQECnLC1NX6zivQI80vp0oBdcXn4sY0GbRdaJpo8Ep0W97F2
-         zQauVZxAUboiZhxT+z1XeDuII6f7tdnY4U2vtx7hKvmTW6KP7FwmqFMBxExOtpemIGIP
-         y5aNPoLOzmkEJ6yY+anCHMRmiAUcJ8CAJhtTa/lv7FKmAMhFNPJYNw9TQauEBi9qI63W
-         8tsRaTzynYcAoQ+YF5zsoaiK/MPCLPAg0qFVT7dd6NwuFXJKOXXtx8hOzJgnra75trmY
-         4aPyYZGmoK0csrB3vmf5eh2pVJ2EFy34Ez1CdydAuEgGya8I0gXctm7Iwms/qpmKBti8
-         CwOw==
-X-Forwarded-Encrypted: i=1; AKwUvBwDYGMgk2dylW4yM3M2Wxa7wFWllKEYWyowpvKXtv9u0wa1/iztSZTAFuHabWqJQcoYT7eUcV+BAmZhzE0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKh9Bl58aTLXqCexPRUg59R2RnqBFprmRaxqEhtgmhWY0JtaDyA
-	Pib8k8YD4a73yF1VqkQXzcLWujx5LCmE563Z4OlQfX4hdVBrjGaaORJYWnh2U5fDDMV/Lq5+yAP
-	6pF4KI7OzgBd2ptvrq9UYOTNEWestSyuZHkYYyXXf/p0FaOadQx1Q2f7AV52O5ex0F3I=
-X-Gm-Gg: AYBFou3IDR9Ye7LvwKAmfvKv9/BK267j+MKvNCM2OmLfvqTWqyWfUMm2X7T3ipnqIom
-	3uUAW05Px0067MuPYNpVpHwNOcCeSyobJ3OZI0XbOc4XKeuUhHU0svbCTKxE4ND+/UwSFWNAi+u
-	baIdl4hbsPXlHl9hCKK0rVTg/Mig9A+X/8wuzYwqVTTly7LV+fWMlyLmb1VJUWMZ9gpdswKMs0W
-	Y1W0dMT54XJVnkLpgVJnmJoEtA/NA7dR0tzafAejMukcba8LSw9xDBfH6JTYbGBlItCjpNbrl6Z
-	sXW9meOaH3qxbhIz+CBc4HYPinwaUkX7J2wytV79zuFk2FGyE6pisXZifGoek6pdCS/XdehEpRl
-	S1JiidjTaGq0+napvvQG6uQ==
-X-Received: by 2002:a05:620a:2b4e:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93ebd1e4d57mr1612193085a.3.1791789354456;
-        Mon, 12 Oct 2026 00:15:54 -0700 (PDT)
-X-Received: by 2002:a05:620a:2b4e:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93ebd1e4d57mr1612190985a.3.1791789354033;
-        Mon, 12 Oct 2026 00:15:54 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3382b8953asm199591466b.21.2026.10.12.00.15.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 00:15:52 -0700 (PDT)
-Message-ID: <8ff749b8-2ed2-4ccd-9f7d-e7bca7aeb38b@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 09:15:49 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Fz/Va01c"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791789387;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8TxRBaTllIGO8wccGzCsg07PDjlTm9+uFFv0sibxJJA=;
+	b=Fz/Va01ckrUwfKWKmtY0QehFtCGgeMEQyOJaZ9wVeR8c69h0ytxCJB3fwwkfA1jqeBEL7T
+	xlspThJxfHdt+E4O7dQqPMTlZBtnuGVCgNMIOVb1gjJcfkRVz5OTR2ldtIgxlj0+Zp0ahn
+	pYvZzRZFHIMXTMkrFqXly4dmQbNw/y8=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-258-bd08KXrdPXmmteXhr7NK7g-1; Mon,
+ 12 Oct 2026 07:16:23 +0000
+X-MC-Unique: bd08KXrdPXmmteXhr7NK7g-1
+X-Mimecast-MFC-AGG-ID: bd08KXrdPXmmteXhr7NK7g_1791789381
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BD9971955EA8;
+	Mon, 12 Oct 2026 07:16:21 +0000 (UTC)
+Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0DEBD1800351;
+	Mon, 12 Oct 2026 07:16:18 +0000 (UTC)
+Message-ID: <8c0f0cdd-9de7-4f33-9864-d25585bcd589@redhat.com>
+Date: Mon, 12 Oct 2026 09:16:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,65 +51,158 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] wifi: ath12k: skip hardware rfkill setup on Microsoft
- Surface Pro 11
-To: Dale Whinham <daleyo@gmail.com>,
-        Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Cc: =?UTF-8?Q?Fran=C3=A7ois_Roux?= <franzelfranzel@gmail.com>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Konrad Dybcio
- <konradybcio@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        =?UTF-8?Q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>,
-        ath12k@lists.infradead.org, linux-wireless@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261004165132.4313-1-franzelfranzel@gmail.com>
- <d791e70f-9c3f-4916-94de-8d76517339bf@oss.qualcomm.com>
- <CAFcmK8haaN=O+aqvcRr4t6jc6dr4Bf2QDDPso-aT_frqEfSPWA@mail.gmail.com>
+Subject: Re: [PATCH net v5 2/5] dpll: zl3073x: reject inexact frequencies for
+ N-divided outputs
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, poros@redhat.com, min.li@microchip.com,
+ vadim.fedorenko@linux.dev, arkadiusz.kubalewski@intel.com, jiri@resnulli.us,
+ kuba@kernel.org, Prathosh.Satish@microchip.com, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+References: <20261011061211.448373-3-ivecera@redhat.com>
+ <179178562205.434549.16391656740065795175@kernel.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <CAFcmK8haaN=O+aqvcRr4t6jc6dr4Bf2QDDPso-aT_frqEfSPWA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 8R8Qn8y4QeC41qzhoawzHfIw2xBWFF-t
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAyOCBTYWx0ZWRfX88EntrUmhot8
- EZlO9QgWq/XJjMxXM/wyrDINY1prSWFSxAIuG7i1MYZVTOo42kOpO51dDNJXsuTfkcGPxHH48NF
- w+0lN1UZLCuK2O8WjLQ6GSTzNKhwKy0=
-X-Authority-Analysis: v=2.4 cv=QtHLTlyd c=1 sm=1 tr=0 ts=6acc892b cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=p15cCi0eOIm9mb8E23UA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: 8R8Qn8y4QeC41qzhoawzHfIw2xBWFF-t
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAyOCBTYWx0ZWRfX3XzC9FjZYcQC
- Pnn4JdWGyhPS4SoD0uRmCGA4EntXUlIRlBFYrVoU9+IGv3Dqf5521YFOpd6mnX5Na3D5mKZEJwR
- 0S+ygKDHXJhblVzyNDRI+9zl3uZpmFZQ7beMhsm5RuhRdbZEzfLjoQmrNI2mNpy0IxWOpAOQ+P7
- r0HJz5QRPY9SFtcdp/aQgFlAhLU5+AWXkN1KLvPi7W5iFnPNl/oL1REkLKjFe/yszQYgXnc8grA
- 1ws+xk36/fu3NZpxURPtO1fmfqDL6VHt1If0yrw+1dFFpINGxCOHB8+xqk80wqriikm4qsDrhDn
- 0hDmFkxczjNm/+DRCteQnRB3sVRq84rcadOUehjBXnrVJ791Ujs7Sy6rOPDNjrwSImv28QX9YFP
- 2sBjIasejKbdzmiQdl7Yz5s2eCh1bnvPTTaf2dpS0Amb72bWkA4MHIMTFVy9BClmNiI9qyXJeHt
- Hv+uTu5obk1f0rYsGag==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 bulkscore=0 clxscore=1015
- lowpriorityscore=0 suspectscore=0 impostorscore=0 phishscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120028
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <179178562205.434549.16391656740065795175@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On 10/5/26 6:50 PM, Dale Whinham wrote:
-> On Mon, 5 Oct 2026 at 14:37, Jeff Johnson <jeff.johnson@oss.qualcomm.com> wrote:
->> my preference would to to break this out into a separate table-driven function
->> so that if other devices have this issue they would just need to add to the table.
+On 10/12/26 08:13, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in case
+> you want to address the nit picks below when you respin.
 > 
-> Indeed, as far as I know Microsoft Surface Laptop 7 (aka. Romulus) is
-> also affected by this issue.
+> Low priority / nit picks for your consideration:
+> 
+> - [Low] Concern: zl3073x_pin_props_get() always lists the current
+>    (truncated) frequency as supported.
+> 
+> Pre-existing issues:
+> - [Low] Concern: userspace never sees the three new extack messages added
+>    in `zl3073x_dpll_output_pin_frequency_set()` ("must be at most half",…
+> 
+> --
+> 
+> dpll: zl3073x: reject inexact frequencies for N-divided outputs
+> 
+> This commit tightens zl3073x_dpll_output_pin_frequency_set() for
+> N-divided outputs. It computes esync_n_period in 64 bits and requires it
+> to be at least 2 and to fit into 32 bits. It also rejects any request
+> whose division leaves a remainder, and reports each failure case through
+> extack.
+> 
+>> diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
+>> index f2e137475b40f..7a617d9bd6712 100644
+>> --- a/drivers/dpll/zl3073x/dpll.c
+>> +++ b/drivers/dpll/zl3073x/dpll.c
+> 
+> [ ... ]
+> 
+>> @@ -1031,17 +1027,31 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
+>>   		/* For 50/50 duty cycle the divisor is equal to width */
+>>   		out.width = out.div;
+>>   	} else {
+> 
+> [ ... ]
+> 
+>> +		n_period = frequency * out.div;
+>> +		n_period = div64_u64_rem(synth_freq, n_period, &rem);
+>> +	}
+>> +	if (n_period < 2) {
+>> +		NL_SET_ERR_MSG_FMT(extack,
+>> +				   "OUT%uN freq must be at most half of OUT%uP freq",
+>> +				   out_id, out_id);
+>> +		return -EINVAL;
+>> +	}
+> 
+> [Severity: Low]
+> This is a pre-existing issue and was not introduced by this patch, but
+> will userspace ever see this message, or the two added below it?
 
-I can confirm
+No, as I mentioned in v4, dpll_pin_freq_set() overwrites them. That is a DPLL
+core issue and out of scope for this series.
 
-Konrad
+> 
+> When ops->frequency_set() fails, the DPLL core overwrites the driver's
+> extack text:
+> 
+> drivers/dpll/dpll_netlink.c:dpll_pin_freq_set() {
+>      ...
+> 	ret = ops->frequency_set(pin, dpll_pin_on_dpll_priv(dpll, pin),
+> 				 dpll, dpll_priv(dpll), freq, extack);
+> 	if (ret) {
+> 		NL_SET_ERR_MSG_FMT(extack,
+> 				   "frequency set failed for dpll_id:%u",
+> 				   dpll->id);
+> 		return ret;
+> 	}
+>      ...
+> }
+> 
+> NL_SET_ERR_MSG_FMT() always writes into extack->_msg_buf and resets
+> _msg. The "must be at most half", "is too low" and "must divide" messages
+> are therefore replaced by the generic text, and they can only be seen
+> through the netlink_extack tracepoint. The -EINVAL return is still
+> correct.
+> 
+>> +	if (n_period > U32_MAX) {
+>> +		NL_SET_ERR_MSG_FMT(extack,
+>> +				   "OUT%uN freq is too low for OUT%uP freq",
+>> +				   out_id, out_id);
+>> +		return -EINVAL;
+>> +	}
+>> +	if (rem != 0) {
+>> +		NL_SET_ERR_MSG_FMT(extack,
+>> +				   "OUT%uN freq must divide OUT%uP freq",
+>> +				   out_id, out_id);
+>> +		return -EINVAL;
+>>   	}
+> 
+> [Severity: Low]
+> Can this check reject a frequency that zl3073x_pin_props_get() lists as
+> supported?
+> 
+> zl3073x_pin_props_get() always puts the current frequency into the
+> supported list. For an N-pin, that value comes from a truncating
+> division:
+> 
+> drivers/dpll/zl3073x/core.h:zl3073x_dev_output_pin_freq_get() {
+>      ...
+> 	if (zl3073x_out_is_ndiv(out) && zl3073x_is_n_pin(id))
+> 		freq /= out->esync_n_period;
+>      ...
+> }
+> 
+> Also, zl3073x_out_state_fetch() only refuses esync_n_period == 0, so a
+> boot config with esync_n_period == 1 is accepted.
+> 
+> A request for the current value never reaches the driver, because
+> dpll_pin_freq_set() returns early when freq == old_freq. If the pin is
+> first moved to another frequency, though, a later request for the
+> advertised boot value can fail.
+> 
+> Take a 600 MHz synth, div=60 and a boot esync_n_period of 7. The N-pin
+> is advertised as 1428571 Hz. After N is moved to 1 MHz, a request for
+> 1428571 gives rem=180 and returns -EINVAL.
+> 
+> In the same way, a P-pin frequency that would bring back
+> esync_n_period == 1 now fails the n_period < 2 check. According to the
+> series commit "dpll: zl3073x: reject output frequencies with too small
+> divisor", that state gave no N-pin output.
+> 
+> This looks consistent with the goal of rejecting inexact N frequencies.
+> A later comment in prop.c in this series also says the supported list
+> for N-divided outputs is only a necessary condition. The old code
+> already rejected some advertised values, such as N-pin frequencies at or
+> above the P-pin frequency.
+> 
+> Is it intended that a user cannot go back to an inexact boot-time N-pin
+> setting by asking for its advertised value?
+
+Yes. Such a value can only come from the flash configuration and cannot
+be requested exactly in whole Hz. Accepting truncated values would
+bring back the silent rounding this patch removes.
+
+Thanks,
+Ivan
+
