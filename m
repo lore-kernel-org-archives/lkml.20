@@ -1,83 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B7C493657;
-	Mon, 12 Oct 2026 14:50:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9147B495022;
+	Mon, 12 Oct 2026 14:50:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816606; cv=none; b=m6q9LPlXv8CpodEVYgILCTkJRhrbnu0gSZ+YuFsdvtD/6ZwM6q/XIyqjhrUEBMivLzXt1NoZVWQtsNUa8uh9TQI22Xqalqfoj/aGF368kuat/Cxm3rm6EnWl2UB+sNgXjZ3z0LY9JhcWgc4y6/0m+/izmYfn52+nHsUd8AUdXBs=
+	t=1791816611; cv=none; b=WA8fY4s/4r9JKYn15JXAZVtz6URoYejlvMzkLlozaIh/FPt3M0cWUfoWCKGB/SIR1mASYnM4BjhusCrXlcWGlThKAvnTqPE9uALjykcRy3RBVv5hQv2S73tKeSP2l1ovDzvWiFXteEmy0VD28L0hGtTKqHJQonk3l4J4FCw1qb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816606; c=relaxed/simple;
-	bh=rnapNuSROl7ZSIniW2dU35eramnfFZ+Am2idUYK06HA=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=Kdb6DCCSTz2eU4zr43vYnyUeoXXfMsPaiZ8Qq7Afyoiy84v7gktAiWWEHMX7B6jCTgWxCqbREpIC/pnix3aVhgYPfwnZXIxDsiT3swQwJyhNSscPOcxxzBJ0rwZE2o7BedO9atM6HYnbB1wD4r6aSTdiATNVXUm3Gc7Ppa/WZrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UFQ/xx79; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791816611; c=relaxed/simple;
+	bh=ojlWEdTYH85IupYSdx+gfD5KiVSkj/6N624919m3v+A=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=tSi1oXiwZMOcYIfMvITsOGDDD2EkeC5NOaDEHjZmaE98gZN+6cARcepBZEzDyNewZwwvbwBcHwALh1bryJRALXyfIMprHkf9uUBha8W4gIGLloEDVgyh3CnZhGMqKvhMFZDLeGKw8GJGxZKrORYnvjwZwYAz1YkZof7LAenLLgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=EBOJWke6; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=qDeWqptg; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UFQ/xx79"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80F4D1F0089C;
-	Mon, 12 Oct 2026 14:50:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791816605;
-	bh=zw3oM9Psv0fJEvjd8IvDiH4wKsxJ+0hVmCMiGEw+n7o=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=UFQ/xx79MN9/RJf2AusS26Gkn/YMl6C/W1WX7IlEKPXgnmf1wwWs5Uf/tYdD93ZXu
-	 KJ13LFoCfpI26z1cDs2fg9wH7L5O13U7XXP1/BIsKkUoUDeQEvC4UURKlL5e9NpL63
-	 yPxqE49yv1dyO1KCacE7bzJQw2cOGts96zkT3DKTJ/+yODmuLNuJcRBvFCE0Cj8pr7
-	 Ykwd7pZ96jNZyIJ3AAK5n/+YQiIVlZaq8WYlwJESaq09ScwyFMYzQkvzOpfWKmNV7r
-	 feWvIeKoxhy0eLrYK62FjUERn2pCFRWK+aBKSeIhGwwT1Tve2NdiVr0iPUKHhPQkrr
-	 NL2d9WhLUeAYw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773523924A4E;
-	Mon, 12 Oct 2026 14:50:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="EBOJWke6";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="qDeWqptg"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791816603; bh=J2a6KtlKXaupIikV0psaf1D
+	FdBBvOwkAXf/qL/tKI/o=; b=EBOJWke6bO3lfrr5vCCEScZxRiNNnn7BUfiZcUvQYpUNB0Qiqx
+	cr3FO8OqlwbCYrUi6OMoItrPvl1lnmC/83fH0LzqLqbjNCn3HMt8LMbjBs5eN+4zG9A3BDZ4a41
+	cdAR+zDjSoAY9Bj9B25hYxNvAOT/3Z/uJWxG8BNZWD/UXrZD8ZQbLdksKC6SPu0tp/3bpUSTUqO
+	ljvOj1f3Sl0f0zHDmaGT1TSBGoC6KlSKbag4d6ossXTjfrmAk8atxQylEWxaYHyAhCuphya2c30
+	J5KtfA0YdbnCCUzmJlKHTLbYxLFd/q8w6sUzwuU/YjKytrcls0UVIdvaVeUq3I00gnQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791816603; bh=J2a6KtlKXaupIikV0psaf1D
+	FdBBvOwkAXf/qL/tKI/o=; b=qDeWqptgJpz3d+0jRuAUhUJ4/EUQRdsRrx4tTjG+04yYDT45/d
+	rvmWqLJPcgnODe4DDWM3osut1TMGFqM0OTAA==;
+Date: Mon, 12 Oct 2026 15:50:04 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: qiang.zhang@linux.dev
+CC: boqun@kernel.org, frederic@kernel.org, joelagnelf@nvidia.com,
+ linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org, paulmck@kernel.org,
+ rcu@vger.kernel.org, urezki@gmail.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_rcutorture=3A_Clear_cbflood=5Fma?=
+ =?US-ASCII?Q?x_for_tasks-rude_and_srcu-atomic_testing?=
+In-Reply-To: <20261012104134.16268-1-qiang.zhang@linux.dev>
+Message-ID: <CB7858D2-103F-4EB5-8A7B-55E1A65042FA@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v2] net/mlx5: allocate DMA pool structs on the
- pool's NUMA node
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179181660403.3469238.58273282558779725.git-patchwork-notify@kernel.org>
-Date: Mon, 12 Oct 2026 14:50:04 +0000
-References: 
- <20261006-net-mlx5-numa-allocate-pool-page-v2-1-0dc4c2eb1376@snu.ac.kr>
-In-Reply-To: 
- <20261006-net-mlx5-numa-allocate-pool-page-v2-1-0dc4c2eb1376@snu.ac.kr>
-To: Seongjun Hong <hsj0512@snu.ac.kr>
-Cc: saeedm@nvidia.com, leon@kernel.org, tariqt@nvidia.com, mbloch@nvidia.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hello:
+On 12 October 2026 11:41:34 BST, Zqiang <qiang.zhang@linux.dev> wrote:
+>When running the tasks-rude and srcu-atomic tests, the fwd_prog_tasks
+>kthread is created because the default value of fwd_progress is 1.
+>however, the two RCU flavors not support ->call():
+>
+>1. tasks-rude: commit b428a9de9bba ("rcutorture: Stop testing RCU Tasks
+>   Rude asynchronous APIs") removed .call and .cb_barrier from tasks-rude,
+>   but left the .cbflood_max = 50000.
+>
+>2. srcu-atomic: srcu_torture_init_forbidden_apis() sets ->call to NULL
+>   for SRCU_READ_FLAVOR_ATOMIC runs, but leaves ->cbflood_max untouched.
+>
+>In both cases, the non-zero ->cbflood_max fools the check above into
+>creating the fwd_prog_tasks kthreads, even though those kthreads cannot
+>possibly carry out any forward-progress test:
+>
+>1. The rcu_torture_fwd_prog_cr() returns immediately due to cur_ops->call
+>   is NULL:
+>
+>[   68.022674] rcu_torture_fwd_prog_cr: No ->call(), so no
+>forward-progress test 0
+>[  129.462046] rcu_torture_fwd_prog_cr: No ->call(), so no
+>forward-progress test 0
+>[  190.902123] rcu_torture_fwd_prog_cr: No ->call(), so no
+>forward-progress test 0
+>[  252.343809] rcu_torture_fwd_prog_cr: No ->call(), so no
+>forward-progress test 0
+>
+>2. The rcu_torture_fwd_prog_nr() is never even invoked, because its caller
+>   requires cur_ops->stall_dur, and neither tasks-rude nor srcu-atomic
+>   provide ->stall_dur (only rcu_ops does).
+>
+>Therefore, creating fwd_prog_tasks kthreads is pointless, this commit
+>removes the .cbflood_max from tasks-rude and clears ->cbflood_max in the
+>srcu_torture_init_forbidden_apis().
+>
+>simple verification output:
+>
+>[    3.062959][    T1] srcu-torture: rcu_torture_fwd_prog_init: Disabled,
+>unsupported by RCU flavor under test
+>[    2.922323][    T1] tasks-rude-torture: rcu_torture_fwd_prog_init:
+>Disabled, unsupported by RCU flavor under test
 
-This patch was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Fixes tag?
 
-On Tue, 06 Oct 2026 14:16:45 +0000 you wrote:
-> The mlx5 DMA pool structs (mlx5_dma_pool, mlx5_dma_pool_page and its
-> block bitmap, and mlx5_frag_buf_node_pools) are allocated without a
-> node hint, so they land on the node of whichever CPU happens to create
-> or fill the pool, while the DMA pages they describe are allocated on
-> the pool's node.
+This LGTM anyway so:
+
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+
+>
+>Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+>---
+> kernel/rcu/rcutorture.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+>diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
+>index 968343be4e0d..00db87256e78 100644
+>--- a/kernel/rcu/rcutorture.c
+>+++ b/kernel/rcu/rcutorture.c
+>@@ -723,6 +723,7 @@ static void srcu_torture_init_forbidden_apis(void)
+> 	cur_ops->deferred_free = NULL;
+> 	cur_ops->exp_current = NULL;
+> 	cur_ops->start_gp_poll = NULL;
+>+	cur_ops->cbflood_max = 0;
+> }
 > 
-> The pool, page and bitmap are dereferenced on every block allocation
-> and free. Allocate them on the pool's NUMA node as well, so that all
-> of a pool's state lives on one node.
-> 
-> [...]
+> static void srcu_torture_init(void)
+>@@ -1250,7 +1251,6 @@ static struct rcu_torture_ops tasks_rude_ops = {
+> 	.exp_sync	= synchronize_rcu_tasks_rude,
+> 	.gp_kthread_dbg	= show_rcu_tasks_rude_gp_kthread,
+> 	.get_gp_data	= rcu_tasks_rude_get_gp_data,
+>-	.cbflood_max	= 50000,
+> 	.irq_capable	= 1,
+> 	.name		= "tasks-rude"
+> };
+>
 
-Here is the summary with links:
-  - [net-next,v2] net/mlx5: allocate DMA pool structs on the pool's NUMA node
-    https://git.kernel.org/netdev/net-next/c/29f144016f03
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
