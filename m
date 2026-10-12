@@ -1,49 +1,87 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77551376BF4
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:14:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49184361675
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:15:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791789265; cv=none; b=tBisuNdbWeBzEVggPxtvHrkDWbFOMkCJtrHX/1YrjT8dWGqaWWMLNNOPm0xzJmbCaoO9QzhjKNEf5YI/Jx56jwqd0klw4ISvZqvw7+eaMFpB8t283eefP6o2H2y2aAwNQjbJi0w0eGLUI4oVms7QAM37y/as12FrDg5ETc+igUs=
+	t=1791789357; cv=none; b=oHh5rRRRvPPAVh3d4IssevcUylPn3pq/by3nC4ZyHGMoaLP/f5+iRqZW2j812pqVxRjgUtaithG5xotgeSbDlfdl1hMf0DWbPN2mNt71NdWmk29dcZP5M2UsWjfLIhy4U3H8wop1EdgahY9h2f0zGPTF/NMORHlJ7k9/WUYpM/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791789265; c=relaxed/simple;
-	bh=9WaIHFKSEp1Mh0EY4LzoXVDcItB39+QZBsM6F7Y9/bM=;
+	s=arc-20240116; t=1791789357; c=relaxed/simple;
+	bh=Hd+BN6RDJN6bk1MufXlNzSJch755k2WEFTJLN4wFdKw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k7055+ETFUGOLgV0Pn9nJ7m/YDWzXiot+V6ktOv7MlsYGTJOeh7YLclwdAl8T5eXgyDfuwcn9c5HIHWbd+yTFzOtHx/ZWPGEdIBp4Kc9LPht890XkTaX8rZRZIHyjYqJJ4RtpMMg+52rNAc0j02z15Skt0+8L2KhOmJsA1d6Zuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Wo8p7fTy; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=DemhqDeIZa+ofgZVvy2ZCQtaTzVoRQx1sV4A87Gzhi+AfirNqmoHPYD42KlpdEYsV+dkHCAUwdE+64bi28keiv9PKXLFuYh/gyPkn9qEiiFhZMO8zLi9kelk++rTgxGJQch4otp0g06a7xeYZ5REqWtUNizsfNufCEI2xtECvts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WJyoUWJn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G0T/8PA8; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Wo8p7fTy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791789262;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7kQhW7XHwd2bgZ0aOycOAbqVJ+65LKVZRmOarAwwtYo=;
-	b=Wo8p7fTyi4Y7X6Q53yDA5BamQ7Wf0G2nYR4Ycqog/hR/CviM/EEatqezLulbM6CUIGaEB9
-	IM++9VF7DDUlbKxCBZEcxesVWD1a9ve8RBR1pob5yh/wh5tIhT0FnpuIUEKzvkMokfTOzo
-	gtPSr+qX+3zRAsK0S8I54VyyJXKndtQ=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-353-a7cONxfTP1G9uCsl59Fj5A-1; Mon,
- 12 Oct 2026 07:14:19 +0000
-X-MC-Unique: a7cONxfTP1G9uCsl59Fj5A-1
-X-Mimecast-MFC-AGG-ID: a7cONxfTP1G9uCsl59Fj5A_1791789257
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2C0921800D84;
-	Mon, 12 Oct 2026 07:14:17 +0000 (UTC)
-Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4C22830000E7;
-	Mon, 12 Oct 2026 07:14:14 +0000 (UTC)
-Message-ID: <2f91b950-1daf-4e41-829c-5c0f02b19ace@redhat.com>
-Date: Mon, 12 Oct 2026 09:14:13 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WJyoUWJn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G0T/8PA8"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C5PUL91786870
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:15:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	FALdQOa0iewDJ5PNUsXZhf0wCNU9EWPT335/P5eVh18=; b=WJyoUWJnVa80v1H6
+	EOaC9TlLKjEtG9ZG3YRlYXMTcTdcU4ysz/tK9Q9XJ11FGo/cVHXjHb4WI6Z+fqej
+	uSkC+9VwCsWPgKYs+3bay4Tc0b84YWQmPYtphL1CxqpdcBD5hvddCo6CI/30YP0r
+	gGzAwcTWlx/tL5LLf/5szP7x3MJWbll/kkziPrz31C1f60Zcx+fnVCLEnAGhDJf/
+	4VNR8clDPXC0X3IZMyE0dDKghB6g7hOYG9+ns95CLW27JTmRQoS4BPtjeavjaUS6
+	A0V0EPXONjCRVPfMxAPRBZWr1AtIRtDrdFQY2UvBfxkORtMmNOTLpmqWh/c+GOJG
+	OmKWdg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8sd1rfjf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:15:55 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5352eb4510cso2608051cf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:15:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791789354; x=1792394154; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FALdQOa0iewDJ5PNUsXZhf0wCNU9EWPT335/P5eVh18=;
+        b=G0T/8PA88bV/4HHHhSiBKask51Qt+xEKT+cUcns+55Etv3lEBpNKe8pnPy1NM+EJqS
+         Ggntt9UmjWK2cBPXXVrJ30paDFTAjusVWAtvDGS0zYjNhWhs5+MEl7vFOkTEEX89k7Ye
+         pDcgJkiOrzUnhu0LGLAWK9dg4Yck5QgfIwTlaUFNicl3CR77OZ4kp21RG4psoWwOROyb
+         xtuLhn1/XY/NH3vRFfKRvUmsmKtuCc/oCJy5NQtOapj2nlz0+K2R5CGl5Nb4/oUaqE5y
+         79gwEGnfY5Q17yTOXJPmfthmmY44+s4LF8XI9UczOHrsAZQrUFSWmHUrKKPQEhVYRmBc
+         /HBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791789354; x=1792394154;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FALdQOa0iewDJ5PNUsXZhf0wCNU9EWPT335/P5eVh18=;
+        b=OYHnOy14eOvM7+/Ih1yQECnLC1NX6zivQI80vp0oBdcXn4sY0GbRdaJpo8Ep0W97F2
+         zQauVZxAUboiZhxT+z1XeDuII6f7tdnY4U2vtx7hKvmTW6KP7FwmqFMBxExOtpemIGIP
+         y5aNPoLOzmkEJ6yY+anCHMRmiAUcJ8CAJhtTa/lv7FKmAMhFNPJYNw9TQauEBi9qI63W
+         8tsRaTzynYcAoQ+YF5zsoaiK/MPCLPAg0qFVT7dd6NwuFXJKOXXtx8hOzJgnra75trmY
+         4aPyYZGmoK0csrB3vmf5eh2pVJ2EFy34Ez1CdydAuEgGya8I0gXctm7Iwms/qpmKBti8
+         CwOw==
+X-Forwarded-Encrypted: i=1; AKwUvBwDYGMgk2dylW4yM3M2Wxa7wFWllKEYWyowpvKXtv9u0wa1/iztSZTAFuHabWqJQcoYT7eUcV+BAmZhzE0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKh9Bl58aTLXqCexPRUg59R2RnqBFprmRaxqEhtgmhWY0JtaDyA
+	Pib8k8YD4a73yF1VqkQXzcLWujx5LCmE563Z4OlQfX4hdVBrjGaaORJYWnh2U5fDDMV/Lq5+yAP
+	6pF4KI7OzgBd2ptvrq9UYOTNEWestSyuZHkYYyXXf/p0FaOadQx1Q2f7AV52O5ex0F3I=
+X-Gm-Gg: AYBFou3IDR9Ye7LvwKAmfvKv9/BK267j+MKvNCM2OmLfvqTWqyWfUMm2X7T3ipnqIom
+	3uUAW05Px0067MuPYNpVpHwNOcCeSyobJ3OZI0XbOc4XKeuUhHU0svbCTKxE4ND+/UwSFWNAi+u
+	baIdl4hbsPXlHl9hCKK0rVTg/Mig9A+X/8wuzYwqVTTly7LV+fWMlyLmb1VJUWMZ9gpdswKMs0W
+	Y1W0dMT54XJVnkLpgVJnmJoEtA/NA7dR0tzafAejMukcba8LSw9xDBfH6JTYbGBlItCjpNbrl6Z
+	sXW9meOaH3qxbhIz+CBc4HYPinwaUkX7J2wytV79zuFk2FGyE6pisXZifGoek6pdCS/XdehEpRl
+	S1JiidjTaGq0+napvvQG6uQ==
+X-Received: by 2002:a05:620a:2b4e:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93ebd1e4d57mr1612193085a.3.1791789354456;
+        Mon, 12 Oct 2026 00:15:54 -0700 (PDT)
+X-Received: by 2002:a05:620a:2b4e:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93ebd1e4d57mr1612190985a.3.1791789354033;
+        Mon, 12 Oct 2026 00:15:54 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3382b8953asm199591466b.21.2026.10.12.00.15.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 00:15:52 -0700 (PDT)
+Message-ID: <8ff749b8-2ed2-4ccd-9f7d-e7bca7aeb38b@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 09:15:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,116 +89,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v5 1/5] dpll: zl3073x: do not offer 0 Hz as a
- supported pin frequency
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, poros@redhat.com, min.li@microchip.com,
- vadim.fedorenko@linux.dev, arkadiusz.kubalewski@intel.com, jiri@resnulli.us,
- kuba@kernel.org, Prathosh.Satish@microchip.com, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-References: <20261011061211.448373-2-ivecera@redhat.com>
- <179178562093.434549.11224993829134202451@kernel.org>
+Subject: Re: [PATCH] wifi: ath12k: skip hardware rfkill setup on Microsoft
+ Surface Pro 11
+To: Dale Whinham <daleyo@gmail.com>,
+        Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Cc: =?UTF-8?Q?Fran=C3=A7ois_Roux?= <franzelfranzel@gmail.com>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Konrad Dybcio
+ <konradybcio@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        =?UTF-8?Q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>,
+        ath12k@lists.infradead.org, linux-wireless@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261004165132.4313-1-franzelfranzel@gmail.com>
+ <d791e70f-9c3f-4916-94de-8d76517339bf@oss.qualcomm.com>
+ <CAFcmK8haaN=O+aqvcRr4t6jc6dr4Bf2QDDPso-aT_frqEfSPWA@mail.gmail.com>
 Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <179178562093.434549.11224993829134202451@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <CAFcmK8haaN=O+aqvcRr4t6jc6dr4Bf2QDDPso-aT_frqEfSPWA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 8R8Qn8y4QeC41qzhoawzHfIw2xBWFF-t
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAyOCBTYWx0ZWRfX88EntrUmhot8
+ EZlO9QgWq/XJjMxXM/wyrDINY1prSWFSxAIuG7i1MYZVTOo42kOpO51dDNJXsuTfkcGPxHH48NF
+ w+0lN1UZLCuK2O8WjLQ6GSTzNKhwKy0=
+X-Authority-Analysis: v=2.4 cv=QtHLTlyd c=1 sm=1 tr=0 ts=6acc892b cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=p15cCi0eOIm9mb8E23UA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: 8R8Qn8y4QeC41qzhoawzHfIw2xBWFF-t
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAyOCBTYWx0ZWRfX3XzC9FjZYcQC
+ Pnn4JdWGyhPS4SoD0uRmCGA4EntXUlIRlBFYrVoU9+IGv3Dqf5521YFOpd6mnX5Na3D5mKZEJwR
+ 0S+ygKDHXJhblVzyNDRI+9zl3uZpmFZQ7beMhsm5RuhRdbZEzfLjoQmrNI2mNpy0IxWOpAOQ+P7
+ r0HJz5QRPY9SFtcdp/aQgFlAhLU5+AWXkN1KLvPi7W5iFnPNl/oL1REkLKjFe/yszQYgXnc8grA
+ 1ws+xk36/fu3NZpxURPtO1fmfqDL6VHt1If0yrw+1dFFpINGxCOHB8+xqk80wqriikm4qsDrhDn
+ 0hDmFkxczjNm/+DRCteQnRB3sVRq84rcadOUehjBXnrVJ791Ujs7Sy6rOPDNjrwSImv28QX9YFP
+ 2sBjIasejKbdzmiQdl7Yz5s2eCh1bnvPTTaf2dpS0Amb72bWkA4MHIMTFVy9BClmNiI9qyXJeHt
+ Hv+uTu5obk1f0rYsGag==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 clxscore=1015
+ lowpriorityscore=0 suspectscore=0 impostorscore=0 phishscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120028
 
-On 10/12/26 08:13, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in case
-> you want to address the nit picks below when you respin.
+On 10/5/26 6:50 PM, Dale Whinham wrote:
+> On Mon, 5 Oct 2026 at 14:37, Jeff Johnson <jeff.johnson@oss.qualcomm.com> wrote:
+>> my preference would to to break this out into a separate table-driven function
+>> so that if other devices have this issue they would just need to add to the table.
 > 
-> Low priority / nit picks for your consideration:
-> 
-> - [Low] The patch fixes two separate 0 Hz bugs, but its only Fixes: tag
->    names 85a9aaac4a38 ("dpll: zl3073x: Include current frequency in…
-> 
-> Pre-existing issues:
-> - [Medium] zl3073x_pin_props_get() still adds the probe-time current
->    frequency at index 0 after only a zero check (prop.c line 302).
-> 
-> --
-> 
-> dpll: zl3073x: do not offer 0 Hz as a supported pin frequency
-> 
-> This patch stops zl3073x_pin_props_get() from adding a 0 Hz current
-> frequency to the supported list. It also makes zl3073x_pin_check_freq()
-> reject 0 Hz firmware node entries. If the resulting list is empty, it is
-> not published.
-> 
->> diff --git a/drivers/dpll/zl3073x/prop.c b/drivers/dpll/zl3073x/prop.c
->> index ac9d41d0f978e..768e5424de2d2 100644
->> --- a/drivers/dpll/zl3073x/prop.c
->> +++ b/drivers/dpll/zl3073x/prop.c
->> @@ -30,7 +30,7 @@ static bool
->>   zl3073x_pin_check_freq(struct zl3073x_dev *zldev, enum dpll_pin_direction dir,
->>   		       u8 id, u64 freq)
->>   {
->> -	if (freq > U32_MAX)
->> +	if (!freq || freq > U32_MAX)
->>   		goto err_inv_freq;
-> 
-> [Severity: Low]
-> 
-> The commit message also says that a 0 Hz firmware node entry is divided by
-> in zl3073x_pin_check_freq() at probe time. Does the Fixes: tag cover that
-> part of the fix?
-> 
-> Before this patch, zl3073x_pin_check_freq() had:
-> 
-> 	if (freq > U32_MAX)
-> 		goto err_inv_freq;
-> 	...
-> 		if (synth_freq % (u32)freq)
-> 			goto err_inv_freq;
-> 
-> Both checks came from a99a9f0ebdaa ("dpll: zl3073x: Read DPLL types and pin
-> properties from system firmware"), not from 85a9aaac4a38. On input pins,
-> zl3073x_ref_freq_factorize(0) also succeeds, so 0 Hz was accepted there too.
-> 
-> Would it make sense to add this tag as well?
-> 
-> Fixes: a99a9f0ebdaa ("dpll: zl3073x: Read DPLL types and pin properties from system firmware")
+> Indeed, as far as I know Microsoft Surface Laptop 7 (aka. Romulus) is
+> also affected by this issue.
 
-Maybe, does it make sense to make another respin? Paulo,Jakub?
-> Without it, stable trees that have a99a9f0ebdaa but not 85a9aaac4a38 might
-> not pick this up.
-> 
-> The later patch in this series, "dpll: zl3073x: reject output frequencies
-> with too small divisor", carries Fixes: a99a9f0ebdaa. It still divides by
-> freq via div_u64_rem(), so it seems to depend on the !freq guard added here.
-> 
->>   
->>   	if (dir == DPLL_PIN_DIRECTION_INPUT) {
->> @@ -295,13 +295,20 @@ struct zl3073x_pin_props *zl3073x_pin_props_get(struct zl3073x_dev *zldev,
->>   		goto err_alloc_ranges;
->>   	}
->>   
->> -	/* Start with current frequency at index 0 */
->> -	ranges[0] = (struct dpll_pin_frequency)DPLL_PIN_FREQUENCY(curr_freq);
->> +	/* Start with current frequency at index 0. A sub-Hz frequency is
->> +	 * read back as 0 Hz and cannot be set, so it is not offered.
->> +	 */
->> +	j = 0;
->> +	if (curr_freq) {
->> +		struct dpll_pin_frequency freq = DPLL_PIN_FREQUENCY(curr_freq);
->> +
->> +		ranges[j++] = freq;
->> +	}
-> 
-> [Severity: Medium]
-> 
-> This is a pre-existing issue and was not introduced by this patch. The new
-> comment says a frequency that cannot be set is not offered, but only 0 Hz
-> is filtered here. Should curr_freq also go through
-> zl3073x_pin_check_freq(), as the firmware node entries do?
-No. The current frequency is listed so that the pin always reports
-a frequency from its supported list, even when the flash configuration
-uses a value the driver itself would not set. Going back to such a
-value can then be inexact or fail.
+I can confirm
 
-Thanks,
-Ivan
-
+Konrad
