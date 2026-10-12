@@ -1,73 +1,122 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F313489FB8;
-	Mon, 12 Oct 2026 12:54:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D94248B39D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:54:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791809679; cv=none; b=B8pxHyz6LbTzq/kzIkfq63yAYX7skEGb29ACkNbY6WUA4moaunc3Jowgf8I0Gt+2cLIaYkqEQ9zD/dHP+t3AISY5Wq061FtraKrwYNpC2XJqcQ1ngBcvZDoDJ5wmnNV+WR2ToYdo1nM2DJCkbcxz5RWqt0cvm1zgxonrLAQHKBo=
+	t=1791809698; cv=none; b=dA0tOaRQqxYdNSN9w/pj2Y1KPeeS3hZC2yQ75fGtK7XPs6wjKzLNZaQnWvOsJmMa8amuKOGMkdnUGUa7yBkzA0TlRB1hYJnUNyPDQv5lxJcYPGG6G9mApmjA5t2ImMGb724tC4iWzqXASptK/3Jq4YnAm95hy5bxVuhEtCB2gXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791809679; c=relaxed/simple;
-	bh=Iy4G3KkQgN/NGCU7Ua1uYFQsnWkG6B5FBxm3LSnuLN8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rgw1TqZYio7qFTQB4wotpcsCGg8y/chBL25g/TnQCDkQDexJCRApkvKcF1qCvHrDQN3HyBk2JjRlvD6pKzgA6IZNWrBlNml/zoTfZaSJ3jpHZNgUHXzI5u8+Hss9FmlL3dIzLZyYSVSLvvvqyYIDGrUlF3HBCFUGbIb8NIAsoxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=zv1e6mS4; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791809698; c=relaxed/simple;
+	bh=hUacMIjrG/5XKywSifSJlhwT4/TXyu8FFU/RgZKUWWk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gVGqXXhW+vBwirD0qhImvuLOkR7qegEYR0B5iIiTNCrLZmwyMgDgoiTY/jvkQguwuzS28U6CgwW+bv/a2Ygd5+0ZmYx9ZCQh1YXZza9sF/2V9zclRj9PALslk1NSXFnN5YMNwwGuv4ti/4Wtwtms0f0ku31lFDc5XYs4QhFGgIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q71UaQ5e; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="zv1e6mS4"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=i4wR7/o0Lt0vZN0c0TRid1OYZdhYCCTPqOaf2Deqb7Y=; b=zv1e6mS4qjWBRiRy79gJIJEaGc
-	8j4u2HyLfOKbOkvHlB4SCxfZnSMpiv4KRAvOjfkMeXWrXkIXTnYgbIAY/tgGQM2H/1ixGEuaWwGyu
-	4Rz9hoy4V5GRaROzC7OETOqjo4++eiW0nX6myZdcTBSD7uugIOqtW3VjcHGhXCE14/BI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xGFY1-00AKBV-BK; Mon, 12 Oct 2026 14:54:33 +0200
-Date: Mon, 12 Oct 2026 14:54:33 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
-Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, oliver@neukum.org, giuseppe@southpole.se
-Subject: Re: [PATCH net v2] net: usb: cdc_ncm: reject short
- GET_NTB_PARAMETERS responses
-Message-ID: <66ef60eb-524d-46ea-b6c8-0543bb2c0c63@lunn.ch>
-References: <20261011035150.53315-1-xinsheng.zhu.ny@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q71UaQ5e"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49e73611928so24345145e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:54:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791809695; x=1792414495; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=T3Dn8fCU2BvPny/c5KSPlVlXRURCMzHNVV/6jsS8JIg=;
+        b=Q71UaQ5ee7F4gXxH2NR8f/cKRPpkZSpCxX1VvgbJ/ql0+6/AyHq5RF2PbqqZl+1Pfz
+         Q71cjEcjGDG6Np0zPi3mXp0sj+sm69mLplozmKDXX6MtwNqHwG72qdFSZBi+RjHPp9Xi
+         DhMgrRRNPrKv1QOuVQ5BoJGg7hV4Sa0qM8k9nccQjQsJP5Rb9k+krLTKn13WcImO5suP
+         T8he2MRTJ3S2zlbsrIAxOHxdn4p7GFS+qk2OsMaxKXhfoLEj7BbU56kdi/NieMDci4BR
+         JeBqbgahLQLFbfiCHBzK4T1NI8pq7kv+MyguE/xI72x1td1QJf4QZkhY85kfIYGY8wrX
+         a3dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791809695; x=1792414495;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T3Dn8fCU2BvPny/c5KSPlVlXRURCMzHNVV/6jsS8JIg=;
+        b=zLjq63OicVgQcrntOSvCcBEUENP/ITdf4DtuBUiGz/88BVX+aeslAt9ORvJHyWbwZr
+         9l2R7dgymyyuZraBi74FHNxw9yukYl2iMJEAmx0DMehN2WCTh9AWFK3sfZmlR/j8IcNf
+         m/q4lOoEn6ogB1Ea2LDFy56a+kir+GP1RS5mQiRgwR4eWuXZe06/37jh5nTvMKfmgXGb
+         MkBSSabJzx73BoCT2njZAOlzZpyCbLvhXUmYsx5DWzoyCp1MxPqtUa4+g8FhgZxfrXEo
+         xAc8ePjwss9dtz5zjk6axxfU8wvofK0vOicPawczvpaGZ2nwkP2TvCWSvCNCHaMsjyqK
+         FuYA==
+X-Forwarded-Encrypted: i=1; AKwUvByARw88AjH0ROUWVTXLcCelNzXrCcHmfL4QdqVlMpxp8TzTy3RSjInTAA+Fd6dRDLISHi8AcdnfjKr0k/U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhbpp6wOAi1bPkaX47MK8FSpDXk5nRR+wznSUmpxynFleBHRrF
+	8KNmyGmYwY0Km/PnaiYZpEN9VZsCevDlkFo/Gi6JaHz1gzWd7EsAtTc0
+X-Gm-Gg: AYBFou2kfAiR5viXWRe0H8aCEQHM0SyQlAQoO0uAOJDW6Fm9sjv7x9UKh4fIwct4oWm
+	g7Snf5CaXIX+BaPc0y09Hal8pWw8XXTTBipDGLUnP5CIp+6hcDHikZog0XLUiehUwBHQH7RzHeB
+	HtyKFYjUh30YUvqyoO8Qj+s69flJ2aRb50EsbC6pMInoIHT8xu0YMzSSPpViCEcr7b9f3fFjC0Z
+	HXq1KEJXg89g20TuKd7+IEGooqflB8zxmDjQJwHhT1p+jaZ+ek2JtX6w4CnKaH24QJxwByflz+7
+	c5XaOQcauv84JoZRmH83EBpBc82WIUaZaEs/kIq1yK5pyfmjujRra0qQysz0faTQE+Ui8MUvzJT
+	vx9ql7ttXvrLgubpn7tteEJTOhMmKsDVHzL7OlqaFidG8HmEQWD4YvfAPYHs1m0fo5mE16JDYlD
+	p5un+gzfDCNR8sZCRJAA5DWMoSAZHJrnRo9XMb/Igl7VcWUsJ5dZHG+QRLxbqBaHBiWcE+SX2tC
+	Qgv27Udjw7kEXlIZCP9orEfXuRFYJuH16k=
+X-Received: by 2002:a05:600c:810a:b0:4a0:ec5:46d9 with SMTP id 5b1f17b1804b1-4a18e3ef100mr160368105e9.0.1791809695318;
+        Mon, 12 Oct 2026 05:54:55 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be96549sm399676705e9.6.2026.10.12.05.54.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 05:54:55 -0700 (PDT)
+Date: Mon, 12 Oct 2026 13:54:54 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Christian Brauner
+ <brauner@kernel.org>, Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] pid: document that do_each_pid_task() needs
+ tasklist_lock
+Message-ID: <20261012135454.4eda3fa8@pumpkin>
+In-Reply-To: <asuaU8H_5MbO3-cW@redhat.com>
+References: <asuaU8H_5MbO3-cW@redhat.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011035150.53315-1-xinsheng.zhu.ny@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 10, 2026 at 11:51:50PM -0400, Xinsheng Zhu wrote:
-> usbnet_read_cmd() returns the actual transfer length, but cdc_ncm_init()
-> only checks for negative errors when reading the NTB parameters. A short
-> response therefore leaves the missing bytes zero-filled, and
-> initialization continues with parameters that were not supplied by the
-> device.
-> 
-> CDC NCM 1.1, section 7.2.1, Table 7-3 defines a 28-byte NTB
-> parameter structure. Require GET_NTB_PARAMETERS to return the
-> complete structure before continuing initialization.
-> 
-> Return -EIO for short responses, including zero-length responses, and
-> preserve negative errors from usbnet_read_cmd(). This ensures that a
-> zero-byte response cannot be reported as successful initialization when
-> rejecting an incomplete response.
-> 
-> The issue is theoretical and was found by manual inspection of
-> usbnet_read_cmd() callers with LLM assistance.
+On Sun, 11 Oct 2026 16:16:51 +0200
+Oleg Nesterov <oleg@redhat.com> wrote:
 
-If this is theoretical, please drop the Fixes tag and post to
-net-next.
+> do_each_pid_task() looks "obviously rcu-safe". This confuses people
+> and we already have 2 buggy users: send_sigio() and send_sigurg().
+> 
+> The reasons why it is not are not obvious at all, add the comment.
+> 
+> Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+> ---
+>  include/linux/pid.h | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/include/linux/pid.h b/include/linux/pid.h
+> index ddaef0bbc8ba..f5476d7140a3 100644
+> --- a/include/linux/pid.h
+> +++ b/include/linux/pid.h
+> @@ -187,6 +187,15 @@ static inline pid_t pid_nr(struct pid *pid)
+>  pid_t pid_nr_ns(struct pid *pid, struct pid_namespace *ns);
+>  pid_t pid_vnr(struct pid *pid);
+>  
+> +/*
+> + * Needs tasklist_lock if type > PIDTYPE_TGID. A lockless reader can:
 
-	Andrew
+Think I'd be more explicit, so:
+	... if type isn't PIDTYPE_PID or PIDTYPE_TGID.
+David
+ 
+> + *
+> + * - race with a change_pid() that moves the task to another hlist,
+> + *   and continue to scan the wrong list.
+> + *
+> + * - race with a copy_process() that adds a new task to the start of hlist,
+> + *   and miss the new child.
+> + */
+>  #define do_each_pid_task(pid, type, task)				\
+>  	do {								\
+>  		if ((pid) != NULL)					\
+
