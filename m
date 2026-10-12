@@ -1,139 +1,141 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B98352C54;
-	Mon, 12 Oct 2026 02:28:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E7313A258
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:29:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791772116; cv=none; b=aCctzdux4Ib0bY/QFDgVECkDzEu0rOfauFeFeYok7mQ1DM9CCv5uxmOFLFPrylh1KdZQzGb6amxuDdD0x2nzIUyOhpT1g3yPdKqryary+4vWd2tGE1aAeXEqY0LjIozH+maCMcYs9U5uNLdH4JjFYk82RsqG+dNRjFjLMOfKcjE=
+	t=1791772157; cv=none; b=j1LuXepVUa94SJB1oAUcRMw2QZS5kQzKsg9zjilzDzagJJS8hCgZ58YFz+oMTT4MsR25MaUoY1j5JmZIvmARQG7kR25MXWwONlT2NgDtxIuXVV0Sz1S3YACezubyfC34ooLwj3oQeMEFw/52n33u7QHD4htbMnxsQjvNnsEdAVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791772116; c=relaxed/simple;
-	bh=zY9BHHSzwwt4KjZhmqV6rcmpH/tSF0SIHOYQi6OAukw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Qw3KtMyr17VnFMHg34n1AOJaAFwrrcB4/BOF8BjpLn0xvG6HknyLD16XmDa3LMPcrjKM3YHfeshfb7LlyEmslcTXooPKwSs69UzLjs9H+nNb8O+DOl3OdFcPXBxzTGFZEBORjB8nplnThetYfeG70/gpF9t4gKwh4CAvT4/w5tA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=JiTf0fEC; arc=none smtp.client-ip=211.75.126.72
+	s=arc-20240116; t=1791772157; c=relaxed/simple;
+	bh=zpS3Xh9soiHmpvQs4oVazp8AuGt6Nt+Yz/sxg+zMKD8=;
+	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
+	 In-Reply-To:Content-Type; b=jdHGp+OZmudl4LIwvsdt7Eo9RxgVWyvWJFGubNwsvbC17PhtBhcKhqVczJtL6Z7eovk46ts/wW2ezSncsYGf8QaaqzuuX6KVh4JUOaDS6NA8zXoGqinW+39MjjM39Ld7h1nra3vvETpRZQaO/xG57ZD7GJ0lCiGq25uHqocLE7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=VPFuaUKN; arc=none smtp.client-ip=220.197.31.6
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="JiTf0fEC"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69C2SNWS03453551, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791772103; bh=VykuBYPEDqyCk7vwbC+T9UweQm2nZymqGpSEYUIZXcY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=JiTf0fECyHQfp2zT2pACYWAYRQ9RV1dF7kgkhJP3o/5NAfyxVPZoxREing7SOAvEh
-	 Q7dkhSyUm4z4h67rWu4VGdUr4CgW3GeI4Fgkdpx/pHhDeo+2CRXYm0c4UN/6ZuL4Vc
-	 KaOkmPGxOS1XOrGx9pG0OQQq3Kise5GizAuGveLeLgi2NL8Z3SKw9mhRj1gi2uhluu
-	 UCl/uoN7XGczCyrnIZvWgodyOWVy4UUQCTK3FVAWJFdq23NqO4YF8tLIGFGJ+xcFGa
-	 nQVvOSZ0rrGmy+rceJbP1D+DM7bRteBuxVTn9M8A5Ji/KnMTiq6K4pNlBX5ReSuwDo
-	 ww9fR5N9SOF0g==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69C2SNWS03453551
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 12 Oct 2026 10:28:23 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 10:28:29 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 10:28:28 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Mon, 12 Oct 2026 10:28:28 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Jeremy Fareau <jeremy.fareau@gmail.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Kalle Valo
-	<kvalo@kernel.org>, Brian Norris <briannorris@chromium.org>
-Subject: RE: [PATCH wireless 2/2] wifi: rtw88: restore the control frame
- filter when the device is started
-Thread-Topic: [PATCH wireless 2/2] wifi: rtw88: restore the control frame
- filter when the device is started
-Thread-Index: AQHdVjwePr+h2BpVHUOerR9jRc5abrb5MP0w
-Date: Mon, 12 Oct 2026 02:28:28 +0000
-Message-ID: <87ffcecc1de34fbfa1a59a4013ee29ed@realtek.com>
-References: <20261007091225.413-1-jeremy.fareau@gmail.com>
- <20261007091225.413-3-jeremy.fareau@gmail.com>
-In-Reply-To: <20261007091225.413-3-jeremy.fareau@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="VPFuaUKN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
+	Content-Type; bh=9NJwlbvFs2Xih6NO4DxbF7QZlsJTzh8UHyan52roRtA=;
+	b=VPFuaUKNMgSvdL1OUFwEz+hJU7rYTjTReazy7gLUF+jXYYCh+sHCu5RgL9v70g
+	BYdlVIwEYrwrBO2qpK+9QZK06alOquVvbyJj5M85Yfm9vb6Yf18Z5oLuftqEiBjB
+	vIW/WbgT5GDgH8XDcJ8VGsPmxUhsIWF+J06a62KPaRpRo=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PikvCgC3B_vaRcxqz7qHBQ--.16377S2;
+	Mon, 12 Oct 2026 10:28:43 +0800 (CST)
+Message-ID: <6ACC45B6.1080909@126.com>
+Date: Mon, 12 Oct 2026 10:28:06 +0800
+From: Hongling Zeng <zhongling0719@126.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+To: Hyunchul Lee <hyc.lee@gmail.com>, 
+ Hongling Zeng <zenghongling@kylinos.cn>
+CC: linkinjeon@kernel.org, ntfs@lists.linux.dev, 
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] ntfs: record an error when the ACL xattr undo fails
+References: <20261004022622.631203-1-zenghongling@kylinos.cn> <asR8LDWW5S3Ex0Gi@hyunchul-PC02>
+In-Reply-To: <asR8LDWW5S3Ex0Gi@hyunchul-PC02>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PikvCgC3B_vaRcxqz7qHBQ--.16377S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGFWxCrWfuF17XrWfur1rZwb_yoW5ur1fpr
+	sxJFy5KrWDt342yFna9r48Xa4F934fKF48Jw1fKwnFkwnaqr1SqrWSgr1UWFy8ArWrtw4F
+	vF4UXws8uay5WFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jI0PfUUUUU=
+X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrhtVJmrMRdsVIgAA3J
 
-Jeremy Fareau <jeremy.fareau@gmail.com> wrote:
-> Commit ed51a86b787f ("wifi: rtw88: Enable receiving control frames in
-> monitor mode") writes REG_RXFLTMAP1 from configure_filter(),
 
-Using LLM is okay, but please reword yourself. I don't think this sentence
-is necessary.
+在 2026年10月06日 12:42, Hyunchul Lee 写道:
+> Hi Hongling,
+>
+> On Sun, Oct 04, 2026 at 10:26:22AM +0800, Hongling Zeng wrote:
+>> ntfs_set_acl_ex() commits the new ACL xattr before it rewrites the WSL
+>> mode EA, and removes it again when that rewrite fails.  The removal is
+>> best-effort: its result is discarded and the EA paths record no error
+>> state, so when the removal fails too, the new, typically more
+>> permissive, ACL is left on disk while i_mode, the mode EA and the
+>> cached ACL keep the old values.  Once the stale xattr is loaded again -
+>> after a remount, or when the cached ACL is discarded - a chmod 0640 ->
+>> 0777 that reported failure leaves the file accessible to the relaxed
+>> ACL while stat() still reports 0640.
+>>
+>> Check the removal and record the failure: NVolSetErrors(), which the
+>> next persistence point persists as VOLUME_IS_DIRTY, and a log message
+>> the errors= policy acts on.  The flag cannot be written to disk here
+>> directly: the target inode's mrec_lock is held and the $Volume
+>> mrec_lock cannot be nested under it.
+>>
+>> Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
+>> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+>> ---
+>>   Change in v2:
+>>   -undo only a committed set: undoing a removal returned -ENODATA for an
+>>    already-removed xattr and was recorded as a volume error, or re-added
+>>    an empty xattr once the removal had dropped the last EA
+>> ---
+>>   fs/ntfs/ea.c | 30 ++++++++++++++++++++++++++++--
+>>   1 file changed, 28 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
+>> index b4fcfbe2da4c..b3e079e2dc03 100644
+>> --- a/fs/ntfs/ea.c
+>> +++ b/fs/ntfs/ea.c
+>> @@ -1084,8 +1084,34 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
+>>   		mutex_lock(&NTFS_I(inode)->mrec_lock);
+>>   		err = ntfs_ea_set_wsl_inode(inode, 0, &ea_size, NTFS_EA_MODE);
+>>   		if (err) {
+>> -			ntfs_set_ea(inode, name, name_len, NULL, 0,
+>> -				    XATTR_REPLACE, NULL);
+>> +			/*
+>> +			 * Only a set needs undoing: a removal leaves no
+>> +			 * new ACL behind, and repeating it would either
+>> +			 * return -ENODATA again or, once it dropped the
+>> +			 * last EA, re-create an empty xattr.
+>> +			 */
+>> +			if (acl) {
+>> +				int undo_err = ntfs_set_ea(inode, name, name_len,
+>> +						NULL, 0, XATTR_REPLACE, NULL);
+> Could we restore the previous ACL xattr instead of unconditionally
+> remove it?
+Hi   Hyunchul
+   Good point. Removing the new xattr also loses the old one when it
+   replaced an existing ACL.
 
-> but that
-> register is reset to the chip default by the chip's mac_init() during
-> power_on().
+   v3 saves the previous xattr before the commit and restores it on a
+   mode EA failure, removing the new one only when there was no previous
+   one. A failed rollback is still recorded with NVolSetErrors().
 
-Maybe the default value of rtwdev->hal.rxfltmap1 should be set at
-rtw_core_init()? But I don't have clear thought how to switch between
-normal and monitor modes (or even sta + monitor mode).=20
+Thanks!
 
->  mac80211 only calls ieee80211_ops::configure_filter() when
-> its own filter flags change, so after a stop/start cycle the flags are
-> unchanged and the control frame filter silently reverts: monitor mode
-> stops delivering control frames again.
 
-This problem is also only encountered in monitor mode, right?
-Let's do it under monitor mode condition?
-
->=20
-> Keep track of the value configure_filter() last asked for and restore
-> it in rtw_core_start(), next to the RCR restore, which exists for the
-> same reason.
->=20
-> Measured on an RTL8814AU and an RTL8812AU in monitor mode on channel 6,
-> 40 s captures taken after a down/up cycle.  Control frames go from 0 to
-> 23184 and from 0 to 483 respectively; without this change both are 0.
->=20
-> Fixes: ed51a86b787f ("wifi: rtw88: Enable receiving control frames in mon=
-itor mode")
-> Assisted-by: LLM
-> Signed-off-by: Jeremy Fareau <jeremy.fareau@gmail.com>
-> ---
->  drivers/net/wireless/realtek/rtw88/mac80211.c | 5 +++--
->  drivers/net/wireless/realtek/rtw88/main.c     | 8 ++++++++
->  drivers/net/wireless/realtek/rtw88/main.h     | 1 +
->  3 files changed, 12 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c
-> b/drivers/net/wireless/realtek/rtw88/mac80211.c
-> index 827f38390969..84d869f1efe0 100644
-> --- a/drivers/net/wireless/realtek/rtw88/mac80211.c
-> +++ b/drivers/net/wireless/realtek/rtw88/mac80211.c
-> @@ -300,9 +300,10 @@ static void rtw_ops_configure_filter(struct ieee8021=
-1_hw *hw,
->=20
->         if (changed_flags & FIF_CONTROL) {
->                 if (*new_flags & FIF_CONTROL)
-> -                       rtw_write16(rtwdev, REG_RXFLTMAP1, 0xffff);
-
-REG_RXFLTMAP1 should be 0xffff in monitor mode, right?
-Maybe, just set the value in monitor mode. No need rxfltmap1_cur to store
-current value. Maintaining two variables is hard and confusing...
-
-> +                       rtwdev->hal.rxfltmap1_cur =3D 0xffff;
->                 else
-> -                       rtw_write16(rtwdev, REG_RXFLTMAP1, rtwdev->hal.rx=
-fltmap1);
-> +                       rtwdev->hal.rxfltmap1_cur =3D rtwdev->hal.rxfltma=
-p1;
-> +               rtw_write16(rtwdev, REG_RXFLTMAP1, rtwdev->hal.rxfltmap1_=
-cur);
->         }
->         if (changed_flags & FIF_ALLMULTI) {
->                 if (*new_flags & FIF_ALLMULTI)
-
+>> +
+>> +				if (undo_err) {
+>> +					/*
+>> +					 * The ACL xattr is committed
+>> +					 * already, so a failed removal
+>> +					 * leaves the new, typically more
+>> +					 * permissive, ACL on disk while
+>> +					 * i_mode, the mode EA and the
+>> +					 * cached ACL keep the old values.
+>> +					 * Record the error: the next
+>> +					 * persistence point persists it as
+>> +					 * VOLUME_IS_DIRTY.  Run chkdsk.
+>> +					 */
+>> +					NVolSetErrors(NTFS_I(inode)->vol);
+>> +					ntfs_error(inode->i_sb,
+>> +						   "Failed to undo the ACL xattr: %d",
+>> +						   undo_err);
+>> +				}
+>> +			}
+>>   			mutex_unlock(&NTFS_I(inode)->mrec_lock);
+>>   			inode->i_mode = old_mode;
+>>   			goto out;
+>> -- 
+>> 2.25.1
+>>
 
