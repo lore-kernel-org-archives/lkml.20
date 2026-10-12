@@ -1,82 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80A1418348;
-	Mon, 12 Oct 2026 11:56:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD14E361961;
+	Mon, 12 Oct 2026 11:57:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806192; cv=none; b=lz8iWj4p87eQDdySf+ZAmUu4qlCpc6RCUHkDfBDKYvF4+rcJfUi+pqtP0zkANkatmygV1SfcmuvQOIid9kc4ZgTjld5KYMfgIxYyinbuyFuEGIA5kjwFKBuCepixJfRMLJjx8k3QNsP6HNJ2QPDlp4prxYzXS2532qPF8fbu+4Q=
+	t=1791806252; cv=none; b=pVSpt9HR3CJwOUWX62z54Ah6nIutD23qR+P3XgEaKFq4yytvZxpkFxqMGRr9A515Da7KQfj2p9ljG5abbhRhuERB+TySQ8LQzzN6xm60B9g3+ykV4zIln5wXLuqhLBFldkVlahWeIbDeecQEXI9MjPrh6jy8wJcDCilLHRVY5wE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806192; c=relaxed/simple;
-	bh=ONuwEjTgCSaLDxzQxl+SiKkU9Cpl3gEfToe2nPLi0uE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dJGjNUS8qWgT3GKmGjvtJnVmcunjgNP9bCvdZmLkB4Hj4mfpE3c1ecRh2yCZ+Ic+07BIC9qggIyNfa5M8llRmbzqfrY/FfDHPbTcGsw6G20TW1g5yCjsYTyM3GIGA+2iYw+oGD0ptLkvkx7xy9d9M4oaYe4nGpw946uXoiBujYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c/UN5FDw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791806252; c=relaxed/simple;
+	bh=zHKVY/NJvHBNZ9hB3vMb1iEOuHc9AyYoNpqdlMl+GP4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I5vlnsC3kq/HEQMppNDlJjmRwHZ+PCH0iV8qlQBH/hHfx2vLfHb7UmKX61EQOKWBHdPyLqc7yRYOVchcC0LYUmf8bxlBmO3HSy147uWRkg57b9icJxKm4ZBHRGkzWI4xtL/MNPKCQNBbF/wWG8EEATX9ME04PBhtBhWOBUbfxgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RXwZp/P7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c/UN5FDw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D8901F0089B;
-	Mon, 12 Oct 2026 11:56:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RXwZp/P7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FE761F0089B;
+	Mon, 12 Oct 2026 11:57:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791806190;
-	bh=MahVg9N3cLVa4ehQhYTf13dkd1YOjdNRZ90BmZiPcLs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=c/UN5FDwRQ6jwcCGzPTg70O5PuhAVO+VnskZiFaYq5LlMsOfYpJ7anUYSPEKAPH9f
-	 P2x4QAemjz0U2sGVgaH2P/3AE6+IiZcDKoWKmFQVQteZxyJWTkeuuEIuJ7ZlPw+YlW
-	 ig7hWkTG2XpMh6jeTPfKp714gWUg6pSnGuriKxK7/ZPubAO3iaPQcBOYr9vRlCkrYm
-	 xR9hDy0RBzsz1mXT+kKt14U9ja745ACvp8nku9Fl1uAtZmTswe8hTtSq0Ng/HabDLM
-	 VuKHfgBfMwjO2gn3nNTIM271tBOt6z+EUcQ+OeWbiQbIiN5fejj1Kx8f/q13VAisww
-	 5IrLeuJWKcF4Q==
-Date: Mon, 12 Oct 2026 12:56:08 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Anisa Su <anisa.su887@gmail.com>
-Cc: linux-cxl@vger.kernel.org, nvdimm@lists.linux.dev,
- linux-kernel@vger.kernel.org, Dave Jiang <dave.jiang@intel.com>, Alison
- Schofield <alison.schofield@intel.com>, Davidlohr Bueso
- <dave@stgolabs.net>, Ira Weiny <iweiny@kernel.org>, Vishal Verma
- <vishal.l.verma@intel.com>, Fan Ni <nifan.cxl@gmail.com>, Li Ming
- <ming.li@zohomail.com>, Benjamin Cheatham <benjamin.cheatham@amd.com>,
- Gregory Price <gourry@gourry.net>, Richard Cheng <icheng@nvidia.com>, Anisa
- Su <anisa.su@samsung.com>
-Subject: Re: [PATCH v16 3/8] cxl/cdat: Gather DSMAS data for DCD partitions
-Message-ID: <20261012125608.4b7cbcd8@jic23-hlaptop>
-In-Reply-To: <20261010225852.10727-4-anisa.su@samsung.com>
-References: <20261010225852.10727-1-anisa.su@samsung.com>
-	<20261010225852.10727-4-anisa.su@samsung.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1791806250;
+	bh=dIdf0EGX3pGuBo+uaCGYdHblHIOFatYE3He9grPS0X0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RXwZp/P7uRNArmaAhe0CHt6e5o5jX04SLyCRKlf2SJazfM0blAKjm8KtZvox63ONT
+	 Reb4NOOE4ucQMY0rI7BcHL662fhJg6LRTFOcgaa9ZFldfLNDM1uP2lyc5/dIbBRde6
+	 FLipsxi0fmaesgVy06bTQkR9gCv3h51b8JbMGMyFpVueZ7YvGwFqQkPpjbaMWHfQLI
+	 bcAUtReyeQ0A5sQRVhlrk2EIf9dNtDmB5eCSdauNtFppTsAn+uwz9V6rXOyvUsxl/y
+	 CGJ+3BFX2IneJRacFb4dMFWzKpbojw0mDD8EmP6rHM22Rme7630rx+LR3QHJgSYJLK
+	 B2G/agcYNEbFQ==
+Date: Mon, 12 Oct 2026 14:57:27 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v9 07/18] PCI/P2PDMA: Answer routing per TLP class
+Message-ID: <20261012115727.GF219304@unreal>
+References: <20261001-fix-p2p-acs-v4-0-v9-7-1a8e0f50ddd9@nvidia.com>
+ <20261009212529.GA1086940@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261009212529.GA1086940@bhelgaas>
 
-On Sun, 11 Oct 2026 07:54:54 +0900
-Anisa Su <anisa.su887@gmail.com> wrote:
+On Fri, Oct 09, 2026 at 04:25:29PM -0500, Bjorn Helgaas wrote:
+> On Thu, Oct 01, 2026 at 02:55:15PM +0300, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > calc_map_type_and_dist() returns one mapping type per provider and client,
+> > valid only for strictly ordered Requests carrying an Untranslated address.
+> > Clients that use Relaxed Ordering or ATS cannot ask what the fabric would
+> > do with their traffic.
+> > 
+> > Add enum pci_p2pdma_tlp_flags to name a class and pci_p2pdma_map_type_tlp()
+> > to ask about one. The topology walk and the ACS Control reads do not depend
+> > on the class, so decide all of them from the one walk and cache them
+> > together, four bits each. Every class still answers alike; the controls
+> > that tell them apart come next.
+> > 
+> > Tested-by: Tushar Dave <tdave@nvidia.com>
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > ---
+> >  drivers/pci/p2pdma.c | 159 +++++++++++++++++++++++++++++++++++++++++----------
+> >  1 file changed, 128 insertions(+), 31 deletions(-)
+> > 
+> > diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+> > index 841c86be31bb..43e225cc5735 100644
+> > --- a/drivers/pci/p2pdma.c
+> > +++ b/drivers/pci/p2pdma.c
+> > @@ -492,6 +492,33 @@ static struct pci_dev *find_parent_pci_dev(struct device *dev)
+> >  	return NULL;
+> >  }
+> >  
+> > +/**
+> > + * enum pci_p2pdma_tlp_flags - Properties of the TLPs a client will issue
+> > + *
+> > + * These describe the traffic rather than the topology, and select which ACS
+> > + * controls apply along the peer-to-peer path. A value of 0 means strictly
+> > + * ordered Requests carrying an Untranslated address.
+> > + *
+> > + * @PCI_P2PDMA_TLP_TRANSLATED: Requests carry an ATS Translated address. PCIe
+> > + *	r7.0 sec 6.12.3 routes those to the peer regardless of ACS P2P Request
+> > + *	Redirect and ACS P2P Egress Control wherever ACS Direct Translated P2P
+> > + *	is enabled.
+> > + * @PCI_P2PDMA_TLP_RELAXED_CPL: The provider returns Completions with the
+> > + *	Relaxed Ordering attribute set. PCIe r7.0 sec 6.12.1.1 never redirects
+> > + *	those, so ACS P2P Completion Redirect does not gate the path. The
+> > + *	Completer chooses this attribute and the specification does not require
+> > + *	it to copy Relaxed Ordering from the Request into the Completion, so a
+> > + *	caller passing this flag asserts that its provider does.
+> 
+> It doesn't sound right to me that Completers choose the attribute.  I
+> thought *Requesters* chose the RO attribute based on their design
+> (knowledge about which transactions require strong ordering) and their
+> Enable Relaxed Ordering bit.  Sec 2.2.9.1 says:
+> 
+>   - Completion headers must supply the same values for the Attribute
+>     as were supplied in the header of the corresponding Request,
+>     except as explicitly allowed:
+> 
+>     - when IDO is used (see § Section 2.2.6.4)
+> 
+>     - when RO is used in a Translation Completion (see § Section
+>       10.2.3)
 
-> From: Ira Weiny <iweiny@kernel.org>
-> 
-> Additional DCD partition (AKA region) information is contained in the
-> DSMAS CDAT tables, including performance, shareable and read-only
-> attributes.
-> 
-> Match DCD partitions with DSMAS tables and store the meta data. A DCD
-> shall describe its DC partition in a DSMAS entry (CXL r4.0 9.13.3), so
-> if the CDAT is absent, fails to parse, or has no entry matching the DC
-> partition, disable DCD rather than run with unknown attributes.
-> 
-> DSLBIS is optional, but cxl_cdat_endpoint_process() treated zero DSLBIS
-> entries as a parse failure, which would now disable DCD on a device with
-> a valid DSMAS. Accept an empty DSLBIS, and skip DSMAS entries with no
-> DSLBIS coordinates.
-> 
-> Signed-off-by: Ira Weiny <iweiny@kernel.org>
-> Co-developed-by: Anisa Su <anisa.su@samsung.com>
-> Signed-off-by: Anisa Su <anisa.su@samsung.com>
-> Tested-by: Wonjae Lee <wj28.lee@samsung.com>
-> Tested-by: Junhee Park <jh9934.park@samsung.com>
-> Tested-by: Heesoo Kim <habil.kim@samsung.com>
-> Reviewed-by: Alison Schofield <alison.schofield@intel.com>
-> 
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+You are right, while the code is correct and we indeed expects from
+"Requester" to chose, the comment is not correct and needs to be
+changed.
+
+Thanks
