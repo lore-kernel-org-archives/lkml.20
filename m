@@ -1,90 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C70E03B19B7;
-	Mon, 12 Oct 2026 19:03:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D33C3D953E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:03:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791831803; cv=none; b=gowWvZFJBFuIidYNvN9nm2m8iob7wpphCsnDVpVN2Fxy7wRtwnGEzBTkxcPXWUvKh7GzWPm9Lpq0cajSbTeafppyJsAj9Dq527xxirBf60mHAW4GnQXFbLwd4wBxTNUqA4JsXp5zAfG4NV2bJJc4WlqPb/0dDm0okJr9lAUDh0E=
+	t=1791831806; cv=none; b=OgSZOXFBcix6UvhfzTWET9nhyOT2RzHgwWHdw+3kw3XKFmbYJyPmFT6w2RTGi5blW3mCVSatrVJkXSCYuNKyXBbQPiVaD4+S5RaeV6j7/XGDWV1bbzTTIwz7cAljrkOpkxGoLx57cbmDkGG3Y8nmZJeog9CZhZyf4+scHgPoTnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791831803; c=relaxed/simple;
-	bh=dB+PUYv6kgWAGHRSBrkj2Gxq08CSA/BuRMhHJm/mM1s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OjKbC6vQ8VAjvnNGHphFzxy2tzkXqLgY6WsPq1WKxyZub+e1qrQY4ZZhxe4EcO9rGTTp1XZPeh1Lm1gjb8D9HShzkPzzQkVXQSeI2EoXE5y5sy9sLl9H0MQ0WliTUUJ26BidnhaT6LyrZqDJhSRS3Kt46rfscK3eS0jqFN6iryM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bQo7gV2Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791831806; c=relaxed/simple;
+	bh=60F+hSMZaW3idUzKP6BXQvTV4G564KjFBtabaxAiiSg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wlvnjy1O03RX3GJTQR6fn/E69Eszx0Tdq+28KLKGbsJFsel9k/TVj0Rxlrvn+P0oXuWpW68zQzEIViEtroi/mON3VIFiUv77rcCNa3p0s3ea4XO2Jgtaq0CPoZ2obgYg96bJN1j5GfhtLA3LWxD33zFqr8e9Y5ZkHQQWbFIE9mM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nGuI5EHU; arc=none smtp.client-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bQo7gV2Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352471F008A1;
-	Mon, 12 Oct 2026 19:03:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791831801;
-	bh=Cq5A+t08/RNvZ7w5Ni+Dn50dSQduAra1MlmRgk2XthI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bQo7gV2Z3qEo9VQVXJ7aFudoCfxDxXH+z1wwz2EVV6+sb+B9/7JzalxpgKohq36gI
-	 QUhDY599wE316p9ILtlwtqQ2DNaHsZy9GExTpJz+W+fYTR73EvJIx2s9fDna4wyuCB
-	 QH8OGOzV/AIIjbLrDS0rS/LkRNUGnYuUsQfV07x9VqC+7WKR3Rs+yXX82UyywbH51L
-	 5Gsy043d0A2rhnpUz+SD19K+OO4K66rgj9wo8R1biVoMLFzK03e0hIuIQb+FLtM88U
-	 WW9s0T4M3cdWo2owpjK1o3YorXPVD0pCF3zLDdNufFsm+ve6wLO1jKdWqb27CJAZSx
-	 HoKN+gXhpnDHg==
-Date: Mon, 12 Oct 2026 20:03:17 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Hans de Goede <hansg@kernel.org>, Mark Gross <markgross@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: Re: Missing signoff in the drivers-x86 tree
-Message-ID: <1a363159-02b9-4644-9cc8-38e210d97d5d@sirena.org.uk>
-References: <arUBQuAfW4HJQHik@sirena.org.uk>
- <4ad00775-b067-452b-9869-29d5b6712f66@sirena.org.uk>
- <asOdosd0zROmuzu1@sirena.co.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nGuI5EHU"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33c2520ad38so5026084eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:03:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791831802; x=1792436602; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2NkKyRW0wfIM67u0LXIiGPjl/Rwt9skgi7xkmQC6+0Q=;
+        b=nGuI5EHU9TLCPJzg9E1oIPeqaSaTsBcLdFJB7JzDsRgwvUkAAe7gnwTeRBXmuF9h4u
+         m/1nWf+BnF8Ykuqe7qqvz8k70DWCnaO5ID6VFspFdWYaQc3U+IulDZ3gMsHSjg05Ty9q
+         g8FxwFx9YDoHu+yNacHJN/MAOJrdUHF6K8B2eEiS1V1pCuWX8LpseBUNe5eVNm2zBrXA
+         G5l4bIDwt4p1kx+QD1KyA6Jnx7G//IUNMph4mceCO4+wnwG29hc1evbp16KEP6tS7WRS
+         jQdH6iqUL33l8Yry1F7e/Z3hUWPJuqfUJLOkwJ5f+0x9rmsuNiQ9xKRpTNam3cHreDIs
+         cC4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791831802; x=1792436602;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2NkKyRW0wfIM67u0LXIiGPjl/Rwt9skgi7xkmQC6+0Q=;
+        b=p9M3tdTH9KNYkr1RSjVNEfYyYVTN12Euje+gvhswPw+P3Z24aXlimD25eKUXajw5wG
+         hFHpgMo0GTRsMV3HWmuBiHLyDnbxhU6CzKbGVVeXGQWNPkdT7XteUdQkur4Evtc0s7+n
+         O3IRoAg1q0mlx0vRzAPquifQTB9f1xtlrT+TmHxdCLRa3NToZqV6EnMCvq94hlbZbAzz
+         Qdm3br2Y36cBUU+QmkULaTgI9+HxqF1NIWgUNLrpM4tPc8iL57AMr2u0puWuVLq3tOl0
+         iCf8ShIeYvthx+ck8CussUvdASVC1MRlox+JXcCmKja4NPdfUNXXgOAS29zXfVSQf6OO
+         zq5A==
+X-Forwarded-Encrypted: i=1; AKwUvBwEV+kJKpoQLBASRf+H9lUKJ0WUIFdegWu3UiR8xVJx3puT/BT5c8OhTOMBq1m0tpmOiF4ocwZ+4M73Wss=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLEAnpJ/YHy6vx4tz1FjG98AQ5dfe7NMckBAWEoV2uRQNAWsKp
+	6S4i5JIoCm604Wwb2x3P/qc6gAYPrmDz2C/gR52AaIjqZNIrxHSMRwXX
+X-Gm-Gg: AYBFou1k42X4ukPsr4cmSbGE7IS+Fd8zhx4hZj0pF+GKKXt5w8x6u7OmqcTmfT8V1Wp
+	2obGUSxo8wHiimbPpKr5QgcgQwZbBBwOCsZ0vbPxyGEh9NsKgQafd5MzUNiMXYchdHsMZBTLDlZ
+	WvHCPyMtQCCCfNYFF4y4cWoK8/8BXTQwqoaPEf/6wMqFHvypz+it0mY061STKSkzASgtAxeq/CP
+	R7z9errQkrmNpZ9CtbgDFGPWK4pfS7Y8e1nxPqxX97YIgYk6SP1a6eXchGkrpfx8DI24tLuIW9U
+	PI6neYAGvTmyWOZkyLDyqJcK+o2P7Ere2bTJDVulgGhKIL7RKV9z40FXcWGsr1IAYdekdRUM08/
+	iGfaY780YfSrHAj9BNGTMUblSBgzcFEVHLEq89Z/r2jjYEWKfhvViFPZa6A18LpRBr0rSNH/uHi
+	T0GospIm+e6b0CG66MGhh2ddGE4yRwSSQcHlb80V1HaqM6r8q/9npE7QYyUvdB9bzKmMForh8GU
+	iOHdXcOmCHaDI8hbUg/xzsBqFFAC5SOJ0VADhU=
+X-Received: by 2002:a05:7300:f582:b0:353:5ae1:b0f5 with SMTP id 5a478bee46e88-3537e101bf0mr14461668eec.26.1791831801912;
+        Mon, 12 Oct 2026 12:03:21 -0700 (PDT)
+Received: from localhost.localdomain ([136.126.251.209])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb6a279sm35501602eec.30.2026.10.12.12.03.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 12:03:21 -0700 (PDT)
+From: Henry Zhang <henryzhang62@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Henry Zhang <henryzhang62@gmail.com>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] drm/vc4: dsi: Make failed reads visible and recoverable
+Date: Mon, 12 Oct 2026 12:02:41 -0700
+Message-ID: <20261012190249.3167-1-henryzhang62@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/mDOG4ulw0T6D8Fm"
-Content-Disposition: inline
-In-Reply-To: <asOdosd0zROmuzu1@sirena.co.uk>
-X-Cookie: Save gas, don't eat beans.
+Content-Transfer-Encoding: 8bit
+
+DSI reads on the Raspberry Pi 4 (vc4, DSI1) can fail in two ways that
+the caller cannot handle:
+
+- A peripheral that detected an error answers a read with an
+  Acknowledge and Error Report. vc4 copies its two bytes into the
+  caller's buffer and returns success, so the error bits look like
+  register contents (patch 1).
+
+- After a read whose bus turnaround times out, every following DSI
+  transfer times out as well, until the display is switched off and on
+  (patch 2).
+
+These patches do not prevent the timeouts. With video running, vc4
+does not keep commands within vertical blanking, so a read can still
+collide with active video and time out. That is a separate issue; this
+series makes such failures visible to the caller and recoverable
+without a modeset.
+
+Tested on a Raspberry Pi 4 with a 2-lane video mode panel at 120 Hz,
+using a backport of this series to the Raspberry Pi 6.18 kernel and a
+panel driver that retries failed reads up to 8 times: 499 of 500 reads
+with video running and 1000 of 1000 with video stopped returned the
+expected data, with no lock-up. Without the series, the first timeout
+left DSI unusable.
+
+Compile-tested on drm-misc-next (arm64 defconfig, DRM_VC4=m, W=1), each
+patch on its own.
+
+Henry Zhang (2):
+  drm/vc4: dsi: Don't return error reports as read data
+  drm/vc4: dsi: Recover from a timed-out transfer
+
+ drivers/gpu/drm/vc4/vc4_dsi.c | 114 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 109 insertions(+), 5 deletions(-)
 
 
---/mDOG4ulw0T6D8Fm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+base-commit: 3e32932d3626d0279f9b3531bd648f8c0a16cb08
+-- 
+2.47.3
 
-On Mon, Oct 05, 2026 at 02:52:50PM +0200, Mark Brown wrote:
-> On Mon, Sep 28, 2026 at 03:37:30PM +0100, Mark Brown wrote:
-> > On Thu, Sep 24, 2026 at 11:53:54AM +0100, Mark Brown wrote:
-> > > Commits
-> > >=20
-> > >   4dabecbb202e8 ("platform/x86: hp-wmi: add Omen Transcend 14 8C58 su=
-pport")
-> > >   9af7fddef448d ("platform/x86: asus-wmi: suppress -ENODEV warning in=
- fan_curve_get_factory_default()")
-> > >=20
-> > > are missing a Signed-off-by from their authors
-> >=20
-> > This issue is still present today.
->=20
-> And today.
-
-And today - should Ilpo be added to the list of contacts for this tree?
-
---/mDOG4ulw0T6D8Fm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrNLvUACgkQJNaLcl1U
-h9AxGgf+NzwY6ZyWEZFTv8/gR+mqYKt1RLYgs5gSFa5AE9sMik1PkbZ4b3IlqfHy
-Ver5izp1imkXMG5xV8up7dOYOFAjqAtNpDvH8gLmt/q7mxwyVGEh5EFK17p+nxZl
-0zu6Eub66CFkOpsGjIwHIIsm4SGlzRrE2xFYWbLPTtl8yLMad1tbmif9dPjCnELc
-/7+SmssQcAn1ggVXxQ1MAD/eGQ7sRuRUsFmrk8dpkIyL438yUxyBi8IbmSlW8xJL
-k+HqYALZbp17b/B3b1tVBuaANixtBRB+tCCpEyKe3i65EF51aOxrlr35R11SvbeE
-iKSKuSbz97wnf6XGcQfV32Nsb7Tu3Q==
-=RkKI
------END PGP SIGNATURE-----
-
---/mDOG4ulw0T6D8Fm--
