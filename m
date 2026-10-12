@@ -1,132 +1,100 @@
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBBA14B95BB
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1547A4B7A35
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791824503; cv=none; b=pb/vL+AZudyh402MT/2ser4nrFNHdzsEXOFy0kXFdYqlCz6R5JdPIRRnAHH+di1X3mcDq6h+9ZbKN7mF5LcttmZEKIV0eRX6xutnYzEAN67ODJ1aF6Sx4O5E9h7ZkMr36R7emsH5QbUcJNvQickGeXmvn+mZ055j5MX5P/eftns=
+	t=1791824509; cv=none; b=coVMZNV74tfxvA1TWurWLFaSxLyNwbueuxMqIfZQbAxvSUnUMsFyClmiqpRf/KxKOsbMMk1RyEJV/Oam1nI4G33eXNnO0hA9xUH0mf2iOM44KbBKZMEyLguNz8yLI0TzK0r3oDGmjcqThWeF+gBUSGYwJVJclkBSL4/Im28dtcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791824503; c=relaxed/simple;
-	bh=e+lF8yRHmI1wJ/4EXajqxJyYCSaNnIVAVRA2VsT//1U=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=DgypRw+NVozUQ818THDqWsRQDz7jxgdDdY/vDy9LSiebrjdxQK037Ipap1R0+s53RhdYGHpJa6Jxumkjc0pVc/qrAtg3u8HkggjxwgpJHNC37Db49MSBhhp8Sdws+Tg7I6sIZau2Jn6atGvBPPYTOIpYwpg7k6Kun1VY80lUQTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=nZFT7SYu; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=QIfbE2XB; arc=none smtp.client-ip=103.168.172.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1791824509; c=relaxed/simple;
+	bh=mk8XDZoJLrnz28nCgNWfaXENJFPufAikspSQ2eN5odI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qoj0aU9Xpf1OhUb7oQogpT88uXEhble+g/VcIYolb7hsCQAhlTqbfwSnA9LHP5XCI/LWGEAZBhaWeZDIK8EcOH48oc4rUji2VqDl9rmdDPLYQQZYoV+ebP95wZGwqpdZ3JvhLxrJGEd6bgzdHU34QqGKiLEVS1VxX8vikv2lIT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XxnZ/1hr; arc=none smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="nZFT7SYu";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="QIfbE2XB"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 78054EC087B
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:01:35 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Mon, 12 Oct 2026 13:01:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1791824495;
-	 x=1791910895; bh=QWtKdvcX27LYIXn0e7+qLOOxk9nTeNH1MVhsANwCHfI=; b=
-	nZFT7SYu0JTe7wXpZ1E5T6WvL4TZVZVW3B0+Zj/YtK0VwFL7qEC4vkh2YzbDRUQ2
-	k8fH5Mc/8gY/sNZjCJKBv7QQH/k6ZXbSfX1DxyCZNh5/DaVgwdyYhU3bNSGtF7WT
-	hpy0kmjDXEwGKoYg+pPxxk3AEiZxBrQ1ZotqzQ4LIsnoIpa6DQS088zWU01HK+VM
-	S9zKUGFLkIJ9zuXXwlsq7UO9fBKzDxVn1bZ5bWDJ2XSa8W6VBg+3PrAeeq/bFYqZ
-	y0YgbGKzoPa+l15vhKOwtaB/0zderAUcbwlBwuu5GYnfdZdSdPuqPbTx5uZrMS3/
-	6vUWoHMUv0BphifHrisNfw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791824495; x=
-	1791910895; bh=QWtKdvcX27LYIXn0e7+qLOOxk9nTeNH1MVhsANwCHfI=; b=Q
-	IfbE2XB85UVUAj9gAEfkt8ptuU/DTjNjcOlWLb4xsJ7np6oDPeAGGLrr/IlgkRE5
-	QuAUhEAlSfJun3rgDx38HieuhJavVNnYRppQov0nSrlAoSNqKkr2YgWd7+JkzEl8
-	K+K/ThdkHkUj2gywwOdQWamJ/sfC2tXVOi+XbJLJiHK3qZ2RekgpAUBVprRxO/7t
-	VxJQomYwFbUNK6+ckYz8tPGDLZwSCmYwIA/GCVxecD+5FsYNkl0hncKbJiG/p3C/
-	N6KmXC76D2wX50cQTMBS3NzIVjGXV4HyYlXcK1QhK5t0X3H8BMM3eRrGphBcBv7j
-	gKPC+rf/Q8VpSJAgEbHhQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791824495; d=kroah.com;
-	mf=PGdyaWZmaW5Aa3JvYWguY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:qCDtoJOeWoSaEPdKG4FQtOWtzB8q76PL54QqKZvLwgI5Cih
-	HpSy4ueXhhy1w1555hauImDDhVWgP2pC+FZuPPqdZ6Xr8lNvyfp89ykRC4dw85sv
-	cVd93mplhwQ37ritTKiiEjzMZSohqLgMq2zPkWsHoxMoKx5oN04AlKqwtr01P3h0
-	dfj+eSal2WHfV9seMxeWpVwLIyNTNpWgqLohp2mXjjHS+kT/IDM8hEJPKiXE9xGi
-	7W5nGlYXHXlKaLtnXClWzVKlg/I+zQWs2IQR2H547Qu1VF6leqosq0supxEW5rf3
-	nsbmYFjDA9TlrZ7LgdxAxMRElG+8jzssU92pWag==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:QDB58Bof8A87nGS/PNkncYKX2ZCEw6LEYhEwJeP2D6Y=:e+lF8yRHmI1wJ/4EXajqxJyYCSaNnIVAVRA2VsT//1U=;
-X-ME-Sender: <xms:bxLNaq2VGQZogufSLhs_Ymtm-oMPSc71kqufxMv4XgVOaqz8wiKYiQ>
-    <xme:bxLNamaYx3p_NzVQKAeHvK1ifvh0LqSVQWYKziNDmMj_fySu_pcNUIaeF3l4YUfR9
-    EiXF0hCqyoeB4eNvT4CvBuQJkQInpRLVU8hFyi6wvMwlyY23hwD>
-X-ME-Received: <xmr:bxLNaqJWZfK52La0_hUnbxDZlHrBABJbCFZT2Q9cZNJiy39Gj9nii7VG6fOgD9SLxEQVa83VRZ1ROpHClJrNvlcyR7DYbHl8hvpM>
-X-ME-Proxy-Cause: dmFkZTFOsgINCoh7OPsuSK0zjonm02J6U0D8HTpAc9UFzZkpF7LiFJNRTETJTothRMB0EE
-    uzGTWKp8iZzFGz5Ko0Ti9jr9oYPBJpeGfduAnG+EnX1y7IRiUbUl5vS83McLByHp9hM1Qb
-    d+2A6soTqEdz9BAAhojJPX3eDVOpRHskWgCt3ZlMlY/AcrhpuILUOIogOzLv4yhP+31JRg
-    uFiUrEJ7AadpcSRFdv063nkNKgkQav9zQJIyc1Xv8d0HOg1nN/HLDDXZW4SyXr1JUEHwJt
-    F4VNwn3zmezIcn6uo55Sy8M6xc2ak8lcq/BlJ6mGWdQNll8xXZcadG6AXNvyiE12jPyfF1
-    5GgBdlGxaTm7MNe1yA3qKw0VU8/q5QvVfshf/VU7WW2y72pcT5aQ0OgbuUhzTX3z5qlpc/
-    xpKT8g44kGrCyDAsvZC1tc8Zlf8vmNmgMFQY9HHaO//sVYyuQtNprvGypcLarTVbzJAJsD
-    8J++oWxrBLGOH2gs40Foy+30okUwRbLa1qD9KjgqOCCm3qwXubzis4xMnkbQdbY3qt4TK1
-    LsfFhDl/8TpW62J8gLVeRtVO5PylLiPCWorBHrq0OSSt9J44adQX+AjQ8RzqE4y73BUBlU
-    0ekyrSpJESzOW2FpuzETzcLJo/QDQ3QSZ7t/R4uVW5S7bkrHF+puru9Bquug
-X-ME-Proxy: <xmx:bxLNatGNgylB9IfO7GbXeLAWd_BvJwzqXDJhcky2Q_R6yvipWvhwyQ>
-    <xmx:bxLNapueIecwwsugq4PbnRFyYlfl_Zeg0CBaQ23gZxk2R0neA6LgZQ>
-    <xmx:bxLNakvOgT1KylGlisXhHUppNVuHZHNvuDM3YRG2JSOFzkm1Esh2-w>
-    <xmx:bxLNavATBPJeJbQyXMYO4CdupOyJ_HsaJSRsQIzHe9KxNpJsj9ODTA>
-    <xmx:bxLNas5ADSWO7X9CcoRV70ulrzNASOr3FD_muZrHsSrOVNGuhUpbbvLg>
-Feedback-ID: i1d2843be:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 12 Oct 2026 13:01:34 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XxnZ/1hr"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b1b13e09ffso1613531a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:01:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791824505; x=1792429305; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mk8XDZoJLrnz28nCgNWfaXENJFPufAikspSQ2eN5odI=;
+        b=XxnZ/1hrslvw2d5+up2S+1Kgq7Ul+LVtCS5ifOO5lXEDhBOIDITrmmkYigNNSC0sDA
+         SPZ+FYWiDa2u8FW9ptsZMZ+hduGBIsi1nN5XcvNQKx3N8xBZIHC2AQqcCgAk8FpWVPpe
+         PbhVEfjtGPLB+hMOVSOCYN125JmvTzC99UDOUWB4yBdW7kT5c/VCAgUd+/BzvKg8XPJG
+         rAL8TBv7EBF0a77YMQIOulgBKsOKt+clz8C92SkNK2FSFwWGMLcQFQ0lCpaRqDa843Qp
+         b7vV7QvCaddmcVhquGtiMc99EsLQb8r63FyTy663udcBmZPFVbp8dcFWgYQEUWCYhHXE
+         pE8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791824505; x=1792429305;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mk8XDZoJLrnz28nCgNWfaXENJFPufAikspSQ2eN5odI=;
+        b=bXBLbg9oQG2iEV8pajhY2eqtpFCqZu8iXLt5re2OC1OmCPJqZiv0U8KKVgeSfQKEQ1
+         /rvohgkyh1cxHqiV5i3LPeu+hC0p3PB/IrqPlD6QjAEFfHAMRuS24W7j4YGhCrDscgyA
+         4P8sUIhQapFISl1mq/da33pbIejU2caxWfKYamyMCwCj0yapUNYHs21+Lwtv/i9iQEK5
+         4OAlV0vuq9Ub3O4jb0KJ3l06EXmbd+AIqzANGvabuH4V51KgK1TRxpM4PaCs9S0wpJad
+         sOCNtF5dYzV9rPz8YoCo/OeGcM9H9KJ78ZFa+2p/tnux0t/InqOi7lATyP+gmcyP4Y9j
+         jJrg==
+X-Forwarded-Encrypted: i=1; AKwUvBz6FjKHVEBI3k7u3J+z5XFGJsWud92fwoHPNdWnCOkouk27ji5whU4l4SXBvfYzBdvsKIKXPKMotRokX0g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrS+AQyc9o8TEgGr7MvJx6xW2MRORpkqz3Z4AUVsUFQDtBtQZk
+	9qTcQ5bDQTg78E3ip65eePdQujxyRbpi4phCWSaX9CVqrukjqrw8NIib
+X-Gm-Gg: AYBFou1VQK8belYgvboBbqOSjnUeSkh33BjiTX3MDQGDVZwwTnlSAidYL72TJtRLAZc
+	ks2eLM7IEVFYfdLetAaDRhiYlxTuN6u8uVCG7uHUXyINUIVUNWo8CLqAjNe7qu28Cw+wIK9O7qr
+	Mvj79TXcfpnKI5oB7WXIasaC7FNqvd/yCoX6sczwrMAZ518T+sod42vXcXTsWZh3iD6U8gHurFl
+	yySymjFi1pfDuOhW4Cg2ba0mzd/8lxBMK+QxV4AaclqCyjTfnaARZalD5mAVsYeexvQO8uojSGu
+	H2n8ng6cmMGemjWfW/siDmbZYqE2miU4AqmZEFBQdpvM350OQlZWuOawQFn2uLIx37t597vy3u/
+	tJ3lu/EjTuTsQq/D0ZAmePX5fgn6BN3sEZ0c+XVhclEqCBYJ+Lb5WFec/pTlEq64HAs+CS/4Ill
+	Ja/T+LOumvzi9AQXuJTqmtBpdgBApOXeaxWAQQxnf35ylnv44gAl0SKDL2XC9XSlKzc1LvPtuhq
+	IAOKu/Sko+lYDN0Ysk25/Kni4ciAaMOw2LIApL8
+X-Received: by 2002:a05:6402:218d:20b0:6b1:827c:af27 with SMTP id 4fb4d7f45d1cf-6b1827cb0ccmr6636473a12.14.1791824505098;
+        Mon, 12 Oct 2026 10:01:45 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179dfff40sm5093730a12.34.2026.10.12.10.01.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 10:01:44 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: bhelgaas@google.com,
+	linux-pci@vger.kernel.org,
+	andreas@gaisler.com,
+	sparclinux@vger.kernel.org,
+	davem@davemloft.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Magnus Lindholm <linmag7@gmail.com>
+Subject: Re: [PATCH] PCI: Avoid D3 on PLX PEX 8532/8533/8548 downstream ports
+Date: Mon, 12 Oct 2026 19:00:57 +0200
+Message-ID: <20261012170113.985649-1-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260927105609.8813-1-kaloz@kernel.org>
+References: <20260927105609.8813-1-kaloz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 0/2] Documentation: ABI: leds: Document shared
- trigger attributes
-From: Griffin Kroah-Hartman <griffin@kroah.com>
-To: Wayne Ho <wayneho219@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Griffin Kroah-Hartman <griffin@kroah.com>
-In-Reply-To: <20261005-docs-leds-abi-trigger-attrs-v2-0-c5f8970b1b42@gmail.com>
-References: <20261005-docs-leds-abi-trigger-attrs-v2-0-c5f8970b1b42@gmail.com>
-Date: Mon, 12 Oct 2026 19:01:30 +0200
-Message-Id: <179182449016.72416.1137623814317141380.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791824494; l=580;
- i=griffin@kroah.com; s=20260910; h=from:subject:message-id;
- bh=e+lF8yRHmI1wJ/4EXajqxJyYCSaNnIVAVRA2VsT//1U=;
- b=zGJ8Xy7E4npm6j1Q0BrJQaUTJm5icL5eBoUtqW1brvU44/BE4HAz2Yo4g60WLd3mHY448Mwz7
- b99dCnuw+0pA7EFjGJCgL8Tj+p6WiDY4xOuxWY1/Ufk1gK7QvOiwRma
-X-Developer-Key: i=griffin@kroah.com; a=ed25519;
- pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
+Content-Transfer-Encoding: 8bit
 
-On Mon, 05 Oct 2026 23:27:45 +0800, Wayne Ho <wayneho219@gmail.com> wrote:
-> Documentation: ABI: leds: Document shared trigger attributes
-> 
-> The delay_on, delay_off and invert attributes are created by several
-> LED triggers, but only the oneshot variants are documented. Adding a
-> separate ABI file per trigger would make get_abi.py report the same
-> sysfs path as defined more than once, so patch 2 moves these entries
-> to sysfs-class-led and describes each trigger's behaviour there.
-> 
-> [...]
+Hi Imre,
 
-Reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
+Tested this on a Sun Ultra 45 with PLX PEX8532 downstream ports and an
+LSI SAS1064 controller.
 
--- 
- 
+Without the patch, enabling CONFIG_PCIEPORTBUS reproducibly causes a
+Cheetah bus-error panic when mptbase probes the controller. The kernel
+boots with pcie_port_pm=off.
 
+With this patch, the same kernel and config boot successfully without
+pcie_port_pm=off or pcie_ports=compat. The quirk is applied to all five
+PEX8532 downstream ports, the LSISAS1064 initializes, and the modular
+mptsas/ext4 setup boots through the initramfs normally.
+
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
