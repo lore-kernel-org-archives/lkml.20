@@ -1,198 +1,97 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFBCD4CB8D7
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:38:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55B94C2241
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:38:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791826726; cv=none; b=a69CXJnIZU0n7iF0LmNoPB2sF8WiuZRyS9MS38xdq7DBe2oaJRZBdiyAO1dwM4yyoCOhKxegIW1USQah6RiVgdopQtzZATMe7szcvPcCICpKJvffYyJyyOHJEvqkFHVcsPGMyN/X7ocqnp3KLEpgPkAK3D8LGvm5h7bofSrpar8=
+	t=1791826738; cv=none; b=WflLcyT5BXcP0JFABoougR/f7GGaqjjwKrutW55FPS8TWhUXn/baqNo1nmsS/APpsS9NywQh1nvXmScwTb3LDf1KJTFt/NYUknHZ4N4KzSXw+gUrhO17DQjJYemy9otcO0fwNRYI1FyFLHWAf+ydAqnOAtRZVPd/SXBn1d7KmRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791826726; c=relaxed/simple;
-	bh=FPcqdaNeZA1bm0lcDPq5jrVwtE0kpwludWYB6VKfUXw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ldhhQJLhQDPrX5jc9PAgt/jnwyz532jxKnkzBEO2DwKZ2KJtCFWZ01NyUCZKxCCSS87ZfqNX9dsXh1FD3U1eAXVkpvgHU6q8uhdWx9jNaAYWlXTeZMVasJxn+2yz1wFfws9kxBkuAM7GAfApgLmmbSQFDlHJ/VofuW75HZUgKYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qKO3uZ82; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=xhPDN8OE; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qKO3uZ82; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=xhPDN8OE; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791826738; c=relaxed/simple;
+	bh=bh2gxKmg0564Np81zrJybwevL4dlQ367ebvdSPrYnvU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IJHQIhbdzgSlDfYyntvHj1NB/OHq8MMcImQHMAYouWo4ozNdcPW40RdUQFhiZoc050+cHIaIAplPc4z/teMIb7EPFv2TUosLvh+R3LQ3V1+NOpqhINnTx+pkGXWLRzm+CIqWokEAbKCBbTlFULfDhdMjFHZDHj5pxT0C+HlazbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eVPt5Wmp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qKO3uZ82";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xhPDN8OE";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qKO3uZ82";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xhPDN8OE"
-Received: from tenko.suse.cz (unknown [IPv6:2a07:de40:b2bf:1b::11d2])
-	by smtp-out1.suse.de (Postfix) with ESMTP id CE83B21EB3;
-	Mon, 12 Oct 2026 17:38:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791826722; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h357NitoRH0zuiUywkFzsYaKadkXBUUrN/FvXhuqWY8=;
-	b=qKO3uZ82WLR3OlgKr0k6LTF/5dFMdglQneTO7tZzo6YpBzyMSiD+zT3uUYfHlKoZ+Dq8Px
-	mWOzahuTaWosVWlKd0iXFI67kRxe6E8M9clwO63qlxGlp2XthAjNdlgZ5TLM0B3FnhSHUl
-	I/j0ayU/nxEF+38j9zUNM99qRMf0mqw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791826722;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h357NitoRH0zuiUywkFzsYaKadkXBUUrN/FvXhuqWY8=;
-	b=xhPDN8OEuVgzq5FsZvVj4TqSK+u/QQep9b72EpHdNtMX93IiUBs0F8Zl/fmJK/lE0f7NHw
-	D3kMbt6zyOOdE/Dw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=qKO3uZ82;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=xhPDN8OE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791826722; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h357NitoRH0zuiUywkFzsYaKadkXBUUrN/FvXhuqWY8=;
-	b=qKO3uZ82WLR3OlgKr0k6LTF/5dFMdglQneTO7tZzo6YpBzyMSiD+zT3uUYfHlKoZ+Dq8Px
-	mWOzahuTaWosVWlKd0iXFI67kRxe6E8M9clwO63qlxGlp2XthAjNdlgZ5TLM0B3FnhSHUl
-	I/j0ayU/nxEF+38j9zUNM99qRMf0mqw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791826722;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h357NitoRH0zuiUywkFzsYaKadkXBUUrN/FvXhuqWY8=;
-	b=xhPDN8OEuVgzq5FsZvVj4TqSK+u/QQep9b72EpHdNtMX93IiUBs0F8Zl/fmJK/lE0f7NHw
-	D3kMbt6zyOOdE/Dw==
-From: Michal Suchanek <msuchanek@suse.de>
-To: linuxppc-dev@lists.ozlabs.org
-Cc: Michal Suchanek <msuchanek@suse.de>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Kees Cook <kees@kernel.org>,
-	Andy Lutomirski <luto@amacapital.net>,
-	Will Drewry <wad@chromium.org>,
-	"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
-	Kevin Brodsky <kevin.brodsky@arm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
-	"Bernhard M. Wiedemann" <bwiedemann@suse.de>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eVPt5Wmp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833D21F0089B;
+	Mon, 12 Oct 2026 17:38:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791826736;
+	bh=9a0lqRgEV3VWI3nhJ68+nybh7tySm5osOLiElxFQrAc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eVPt5Wmpn16124nzbML1pGOvnwHC5tffbPcJ9JqlpzszxBysHgdH3D7uqBruSK/lj
+	 V/9Mwux/f1QKXoI0Pu2ic8Y5a26HR6XO1FdTKCrPTiW3w2+E3Dy/CgrDVVqzhEgv6f
+	 Pe8xb5Al5Uw70cvErtfGyx5AuFMTuI8Uv7OTJow+wnRrhZgimzviZOXE5uyJJnxbpN
+	 l7wzgH97Ze/Gzg6u2poXSE0nbkBGyeV+bRMZISk9JBsIdJ0vGZ5TfXC/SFzKe9A5Mh
+	 hkeB2qR+EDrXI8w7zK8CNqtxtzKxi/JBORSplBs84ghOYHFzWuaxVuTLdQHVGOvIZv
+	 T6PeA1eXDUtWA==
+Date: Mon, 12 Oct 2026 18:38:52 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Sasha Levin <sashal@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] powerpc: Remove unused thread info flags
-Date: Mon, 12 Oct 2026 19:38:29 +0200
-Message-ID: <dcbd135c06fcf013b8aa902fbea8f6b1827d06c2.1791826411.git.msuchanek@suse.de>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <4c1da7f31a6603455ec452960af529e4d77f5334.1791826411.git.msuchanek@suse.de>
-References: <4c1da7f31a6603455ec452960af529e4d77f5334.1791826411.git.msuchanek@suse.de>
+Subject: Re: [GIT PULL] regulator fixes for v7.3-rc6
+Message-ID: <51443ef4-fe92-423d-87f2-bfb543271f5f@sirena.org.uk>
+References: <20261010234834.6C7001AC57D0@finisterre.sirena.org.uk>
+ <CAHk-=wiSL2hmOhLz6f_pY-SD+Q=2q+swkENsHhWvwtL8az1Wqw@mail.gmail.com>
+ <asuOoUt8XcOJJmSE@laps>
+ <CAHk-=wgAJjTXvGBehCycoObUb45sXdW_-WkLkcd0cZp+fonYHQ@mail.gmail.com>
+ <3ca592b2-a411-4353-ae13-06e84021955b@sirena.org.uk>
+ <CAHk-=wionXXuNeBs80ECLud+N0s3yi1tyFsvvtfqO1S+1KQLSw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: 4.49
-X-Spamd-Bar: ++++
-X-Rspamd-Queue-Id: CE83B21EB3
-X-Spam-Level: ****
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [4.49 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	HFILTER_HOSTNAME_UNKNOWN(2.50)[];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ONCE_RECEIVED(1.20)[];
-	MID_CONTAINS_FROM(1.00)[];
-	HFILTER_HELO_IP_A(1.00)[tenko.suse.cz];
-	RDNS_NONE(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	HFILTER_HELO_NORES_A_OR_MX(0.30)[tenko.suse.cz];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DIRECT_TO_MX(0.00)[git-send-email 2.51.0];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_CC(0.00)[suse.de,linux.ibm.com,ellerman.id.au,gmail.com,kernel.org,amacapital.net,chromium.org,arm.com,vger.kernel.org];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b2bf:1b::11d2:from];
-	TAGGED_RCPT(0.00)[];
-	RCVD_COUNT_ZERO(0.00)[0];
-	R_RATELIMIT(0.00)[to_ip_from(RLjgs4cuidjxpabfgup3qhaian)];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="WEudpWlNWg79/xxE"
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wionXXuNeBs80ECLud+N0s3yi1tyFsvvtfqO1S+1KQLSw@mail.gmail.com>
+X-Cookie: Times approximate.
 
-These are no longer used with the generic entry code
 
-Fixes: 6ed60999d33d4 ("powerpc: Remove unused functions")
-Suggested-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-Signed-off-by: Michal Suchanek <msuchanek@suse.de>
----
- arch/powerpc/include/asm/thread_info.h | 10 ----------
- 1 file changed, 10 deletions(-)
+--WEudpWlNWg79/xxE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
-index 0e8dc71c8d3fe..4b7ec1db30349 100644
---- a/arch/powerpc/include/asm/thread_info.h
-+++ b/arch/powerpc/include/asm/thread_info.h
-@@ -96,22 +96,17 @@ void arch_setup_new_exec(void);
- /*
-  * thread information flag bit numbers
-  */
--#define TIF_SYSCALL_TRACE	0	/* syscall trace active */
- #define TIF_SIGPENDING		1	/* signal pending */
- #define TIF_NEED_RESCHED	2	/* rescheduling necessary */
- #define TIF_NOTIFY_SIGNAL	3	/* signal notifications exist */
--#define TIF_SYSCALL_EMU		4	/* syscall emulation active */
- #define TIF_RESTORE_TM		5	/* need to restore TM FP/VEC/VSX */
- #define TIF_PATCH_PENDING	6	/* pending live patching update */
--#define TIF_SYSCALL_AUDIT	7	/* syscall auditing active */
- #define TIF_SINGLESTEP		8	/* singlestepping active */
- #define TIF_NEED_RESCHED_LAZY	9       /* Scheduler driven lazy preemption */
--#define TIF_SECCOMP		10	/* secure computing */
- #define TIF_RESTOREALL		11	/* Restore all regs (implies NOERROR) */
- #define TIF_NOERROR		12	/* Force successful syscall return */
- #define TIF_NOTIFY_RESUME	13	/* callback before returning to user */
- #define TIF_UPROBE		14	/* breakpointed or single-stepping */
--#define TIF_SYSCALL_TRACEPOINT	15	/* syscall tracepoint instrumentation */
- #define TIF_EMULATE_STACK_STORE	16	/* Is an instruction emulation
- 						for stack store? */
- #define TIF_MEMDIE		17	/* is terminating due to OOM killer */
-@@ -123,7 +118,6 @@ void arch_setup_new_exec(void);
- #define TIF_SYSCALL_RET		21	/* syscall error value set */
- 
- /* as above, but as bit values */
--#define _TIF_SYSCALL_TRACE	(1<<TIF_SYSCALL_TRACE)
- #define _TIF_SIGPENDING		(1<<TIF_SIGPENDING)
- #define _TIF_NEED_RESCHED	(1<<TIF_NEED_RESCHED)
- #define _TIF_NEED_RESCHED_LAZY	(1<<TIF_NEED_RESCHED_LAZY)
-@@ -132,16 +126,12 @@ void arch_setup_new_exec(void);
- #define _TIF_32BIT		(1<<TIF_32BIT)
- #define _TIF_RESTORE_TM		(1<<TIF_RESTORE_TM)
- #define _TIF_PATCH_PENDING	(1<<TIF_PATCH_PENDING)
--#define _TIF_SYSCALL_AUDIT	(1<<TIF_SYSCALL_AUDIT)
- #define _TIF_SINGLESTEP		(1<<TIF_SINGLESTEP)
--#define _TIF_SECCOMP		(1<<TIF_SECCOMP)
- #define _TIF_RESTOREALL		(1<<TIF_RESTOREALL)
- #define _TIF_NOERROR		(1<<TIF_NOERROR)
- #define _TIF_NOTIFY_RESUME	(1<<TIF_NOTIFY_RESUME)
- #define _TIF_UPROBE		(1<<TIF_UPROBE)
--#define _TIF_SYSCALL_TRACEPOINT	(1<<TIF_SYSCALL_TRACEPOINT)
- #define _TIF_EMULATE_STACK_STORE	(1<<TIF_EMULATE_STACK_STORE)
--#define _TIF_SYSCALL_EMU	(1<<TIF_SYSCALL_EMU)
- 
- #define _TIF_USER_WORK_MASK	(_TIF_SIGPENDING | _TIF_NEED_RESCHED | \
- 				 _TIF_NEED_RESCHED_LAZY | _TIF_NOTIFY_RESUME | \
--- 
-2.51.0
+On Mon, Oct 12, 2026 at 10:24:56AM -0700, Linus Torvalds wrote:
+> On Mon, 12 Oct 2026 at 06:29, Mark Brown <broonie@kernel.org> wrote:
 
+> > Sorry, I was under the impression that the keyring you were using was
+> > tied in with the kernel.org keyring
+
+> It is. Not automatically - but when I see missing keys, the first
+> thing I do is check the kernel.org repo.
+
+> But your new key had not actually shown up there. I don't know what
+> the latency for it normally is, but I think it's all "entirely manual,
+> random when it gets updated".
+
+> Right now the last update to your key on kernel.org is from July, and
+> that looks like it was just an automated "update signatures" kind of
+> thing, not actual new key data.
+
+Yeah, that one was nothing to do with me AFAIK so will have been pulling
+sigs.  I'll file a ticket to helpdesk asking for the process to be more
+chatty about what's going on to try to avoid surprises and so people
+know when the updates are live, I got a "your message is held" then saw
+the update had gone through on the list.
+
+--WEudpWlNWg79/xxE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrNGywACgkQJNaLcl1U
+h9CNqAgAhAIDLAPTFeF9trLiJYjXFpZTrsFJeT0HXXt8rYaIMk7prj2h6G+bNi3k
+vlfJgcSlUwLs2/8v9Fes7Gya6cjywNGpkHNnygBuU/UCHesytMZ2YF/sFgu0c499
+Sx9ehGtDJCSBoGcO3J+1dr5LcgFvWNWhcZl5KLHFNHooH/9X8IsY3oXRvULePYni
+Dj2gOJLiDo7+TDW8vxgAts4XGbz6k6PiW9lBsKQAuXw3q5+wPaQ3pd7VW5xxRpY+
+7DmXT0dczmHHi5jvSb3g/uoEbAyDpgDNbhfVtCUkQrBxUSV0zxXnJ9SIOGxtqd8h
+b+hEtABjEAO7O+YIXvGNTJDto6+sfw==
+=vjk7
+-----END PGP SIGNATURE-----
+
+--WEudpWlNWg79/xxE--
