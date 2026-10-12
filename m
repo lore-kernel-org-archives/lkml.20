@@ -1,203 +1,303 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011037.outbound.protection.outlook.com [52.101.52.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59007126BE1
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:15:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF75353A9F
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.170
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791774918; cv=fail; b=FDAH8Nrk7cAqwEm2h4TDvu1mRC6uPlPFyWm4FBF2nlysGUkFNfpu0X9DPhPgsgDA/kNP0cNjPAVFE2LrccJzfRCosOIjlEFUmWty3uPxinPwAyl/dTr3hSjRaiwYAAJ1RGTYU+9qRdcXh84P/JVwz0082zofjNKapzMWmjiHCYY=
+	t=1791774932; cv=pass; b=lAQkNr1N+Vntl+3qa8KnM9r4CwN2Hy5jnnbnPpWatCbYjBpIa8dc12PeJkcfu8/Mr80ioNBiqYy9BxDpC+mc6IiZ3o0rD5Leu/uSX2umII2dF3k37ui3/JbV4dcrQKW+PQmeUZkQxaCpQgBLSz3wTLC6N4QS366AjMjItu1y3yY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791774918; c=relaxed/simple;
-	bh=ho4ng9Xi/NI4qYJeBUWrk1EZPi1x6/rBGCea15FgKiY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=blmyKYuXIm0suAc1jcvGjufNmBtUV2qP9gX7hqCEbvtbW+/JKF5mjCmQT8qyxq8MQfbuVM9nAmj3pInnflTz1M4C+ymBfEx9S6tD+TZVnHiVPLp2mfqKyiZTFXkJupDjlMmmkJ9Pj5alILGgahneJsaLZjEQi8C9PSKcwQY+cTI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=MOUlzEPx; arc=fail smtp.client-ip=52.101.52.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1791774932; c=relaxed/simple;
+	bh=JPbEASCrM+OONjoFHisnRVpJb/9wB2vAgfPHiWJOh88=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NbHvu1oLAKfzofc0CZFVK6NHlzl66eWUXcHj1s+MOMzev8LQUkLr2i0j131ay6Qmyw2OuNz/r+XRJuIGR6ajRYNeC5w7lYrILJgwc9/hzFUtpe3w0kUH5ZppqZeI8iKwoXej+mil81TqzIVyGO6WRVY3saaqBh/Fs185kmhycp4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c2HzVORn; arc=pass smtp.client-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="MOUlzEPx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Lhu30hmhAXbfppexixKPxMSLu4dovqhGpWxyerMcNUIQ1+6W9BoLNCl3N0nzev3ph2FL6SAhEiw2n35gAdcZTUmwrr+RYAlkcvsICRFQJv2TrDmh6ZemqbvmCwcdFSlTNUIgWUmyVTR9AjUYTybXD3YWTdFho0gAfXXy+p7hdJPPKjMjpKBnJsEyY2XGTAXLHTLlZHuWQ95MJNwScKiHwT19X4ku+ZDX+0yILVIm6CxoNWX7dcAVHfoXVWZhMqFrFR+OjP+cIaNPB19FOo8E8ObLl+nqMr6NMCWkZ3hU9Ybb4y7g5yHjBROr504mKMvCKkuGIPRzyQ3QpMOgMeDPBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mspaR/Ff8oWh05ul9QkNBmdmNXuuLlAJmYr5AKQ4Ly4=;
- b=mYhhX6fylj8lctIQqqcmBFWZ+6vWI4VEnl136Rk19zkFpJNbwP7ACu/2eQkm1/7/O2P+zbwwtJc6RfNcZOSewQxnoD400E3itR37wjJ/2qA6He1RgxLu1EofpwjthhH72Lpdc7cCH4mAnU0BlAO2q/yqVDEz9b1Uga4cVFQf2plYtn7ibPjSc+ny4Txe699UGdqouyRZXw57PqUSLGTxyUKTKeZAmSjKO99HFKiTGT5ekt9BGIygA1Wk6XgPtD9ThHQfVqhL2gyNqh251B+z2Uvw6HR7bAZZGvtFfwMjcondm9h9PXE+wOx8/z+GDr7Kgls2EtLcui/ChWF2srDWdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=163.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mspaR/Ff8oWh05ul9QkNBmdmNXuuLlAJmYr5AKQ4Ly4=;
- b=MOUlzEPxsHx1ikuWBppkg29bXJO+pxPst+LpyaPdfRHjRru7JuHGGG3rcb0fhnB9JZTXWjBZT90xhg42X3sc9lgdorJX/iIT0NmmDp8J8rTviaBxod2GsAPHHcb18dAaaR7CueFzyHTV9MpS5B5UjWpToDaNH/r3UE4YiZJxFzQ=
-Received: from BN9PR03CA0357.namprd03.prod.outlook.com (2603:10b6:408:f6::32)
- by MW6PR12MB9017.namprd12.prod.outlook.com (2603:10b6:303:23b::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Mon, 12 Oct
- 2026 03:15:10 +0000
-Received: from BN2PEPF0000A993.namprd04.prod.outlook.com
- (2603:10b6:408:f6:cafe::84) by BN9PR03CA0357.outlook.office365.com
- (2603:10b6:408:f6::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon,
- 12 Oct 2026 03:15:10 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF0000A993.mail.protection.outlook.com (10.167.248.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 03:15:10 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 11 Oct
- 2026 22:15:02 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 11 Oct
- 2026 22:15:02 -0500
-Received: from [10.136.45.168] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Sun, 11 Oct 2026 22:14:59 -0500
-Message-ID: <19b982f8-f4a0-4d47-8f56-0779e691f0eb@amd.com>
-Date: Mon, 12 Oct 2026 08:44:58 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c2HzVORn"
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8ace0741488so9630687b3.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:15:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791774929; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YuvxHZQJHGysh1x6LsiQhCFQ9gGIzIPsN+XuNDUZYZOhb9HpOv5Z4lP50ce8y45jqm
+         +OmazsTboOFJPr2NzmTFFiiIF/ADZfkEdGLkIE1amffA3pqkzGHP3AQAb8i0kYATs1lK
+         M8Oh+KlcjI7cUR7I6gk1rJ2k6ljokF4Sz1SmQIE36wqBxMi7+gC45FRW03VfcnRLv3YJ
+         mjO+yBxfqDXzpBmRjPrMDx0hQ83frU2YaDLSQ5to4pVpMrGIvQpmAo4soNeuq4w+Izyw
+         TU5/J70G+ijvGdBS2ipFy/c0PyyjrvpoCxRpE/KsSXly/fqpxAxjjW3OGojsktwbsV9y
+         vCgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EibvpYrF7gekrtokC+ObXQgUiDJ9OK568BcwNigSZbI=;
+        fh=lM+IDgmkfSTU9hyyUhWEIchsljXh55tIANMqVRbjRp4=;
+        b=bpm3i1uxXoSPSlTjLtIfLpU/ddM7ZS9Ud38b06Flcch3khJv/Xd5IJ21zJwmbEqXPv
+         BGR3iKT49UOnp6nh0sspit5fKL4cmk7Q3VazI/XNmlTniwi50Qyg3G17ZAlJgjtwxdKZ
+         s+heCOnbyXN3XqDNwK8y6OexNomLB/yVgJErore0eXLCcBpXtoU232gGxMadNG40E4pL
+         GWq3iHXHLbNWWa5a07yLTpBscrON63+CdrcOzZqwvvLigmMkdIvwFdgroK8QKhUydbR0
+         P0b2JCEsNWmBeGzgTiDN/VCsj8I0/cHnoOWAYudUANj5u3kUaFC7Q3hJAXcm5yFtiYeY
+         jZ2Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791774929; x=1792379729; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EibvpYrF7gekrtokC+ObXQgUiDJ9OK568BcwNigSZbI=;
+        b=c2HzVORnt6R3mhdJTdOrWEkRfSLdp1K7tS9rlN98pivuGiYUhZe2DPv7jJKB7SH9Sb
+         CCGGpqik1G0nCS7vg4Ste+O8ABok7dH7HCa7vZ4QlHkUNzvA7v6YQU+PIoUAE9FqdpO4
+         J8xw1t05M7CbiZQMzC0No9+YBSqXvTAQENsQjV3Vg8Q49PBvlzJyjWDsXIXbgKrhK1hY
+         /vip8E6GSSv4ryVrSw4XhsFG8L+vg3Lgg0ceK7BNWwOrIOjdNbr4FEl/ILbsfHsgNNMP
+         e/Q8wCI1ZEarOZT+wPtdalvgupOLjLDyBFyKbUxs3SjedE3QTN5TNQWEFROUuwLonnNr
+         ZRrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791774929; x=1792379729;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EibvpYrF7gekrtokC+ObXQgUiDJ9OK568BcwNigSZbI=;
+        b=YQp1JQ7bMQ8s0SIPoUavbgwIz1p93R2WXBemltLcXG3Qlf9tr3IQej9BaoNg/m8ioE
+         eno8N7WB7nky5ahuZdEgxfM2wDienKhjwNvtjifZuOilaM74GRWRS2MAyV3RhlWTHbBy
+         5KZxzaMEfbaZxFZIjpK0RMdicRTlLVfoGldV7wC9Kv7gWLQBvbTxzMMO8LSsAjve9OPf
+         WrJy4UPqhdu34QuP+Vp2frzDWW1ozuOPQXLzqKkeWZDkKr1AOmh86SNgFIMIsT2YlCHy
+         VTzbS5TqTe1/ja3RhtcMgOwu90VdYdZTJkd7sceUmbDFyLap3nzrLKGHkeMMdROul1ov
+         BWQw==
+X-Forwarded-Encrypted: i=1; AKwUvBwJkW3hyp6dMRLi0QxUKHHq3DLqe99//9A36x3SW8yaPuMtonGGgjoSaEIfVZUicZXFBUUFyZeFQbuQ4Tk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJmQcoQcM6na5rZe2xGabgK8CIYcTxCx/Yxj+bbZ3UygMP7OOVW
+	dz4BC3x8A8jHyykjNl7WL0oie2tCodS9+VTdl14kUeeQFArmEtxjfA30iohumz2TkkpiAcJahp9
+	Yscy/V4KQi9Ts8yWRZA7quxjpHgv2UmM=
+X-Gm-Gg: AYBFou2guID85dJut0lOSYPssy84DUP3Q3D6Evg0+Cti3UuhLGmF7KB1GFeWeLO3fBz
+	8w4CkAg3Q+J4tFxUH7MrpDDFRxnr8mXMDpnZ79wSc6kNsagS4q+/ZHyWsCg8Ed1GRUU02D2oP8h
+	YHHH9dhGvxONWdXFJuRNT7a60ix4ZuQzTL8tSU/VnC1+f4jqAkOK4VBqS2ryouTjkoG1toWr/OT
+	MB1CXe/Q5bORUbCqm9sipdHThk7R/k6JeHzyVSV7vuB98utepbdHeh0LS6jBv2DK01Bk0JP+ukj
+	xBlT0stSxFS86m/OB0J82n1XvX+6IgmAlpsVasKUzdLJKXRqOCtimvpa
+X-Received: by 2002:a05:690c:d85:b0:8b0:a08f:2ace with SMTP id
+ 00721157ae682-8b0a08f2c2cmr7475707b3.42.1791774929600; Sun, 11 Oct 2026
+ 20:15:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] sched/autogroup: Serialize nice rate-limit updates
-To: Hui Su <sh_def@163.com>, Ingo Molnar <mingo@redhat.com>, Peter Zijlstra
-	<peterz@infradead.org>
-CC: Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, "Mel
- Gorman" <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, "Mike
- Galbraith" <efault@gmx.de>, <linux-kernel@vger.kernel.org>
-References: <20261008064440.240528-1-sh_def@163.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20261008064440.240528-1-sh_def@163.com>
+References: <20261007150104.38253-1-ginger.jzllee@gmail.com> <asgJ5cVHQyiKFJo7@SMW015318>
+In-Reply-To: <asgJ5cVHQyiKFJo7@SMW015318>
+From: Ginger <ginger.jzllee@gmail.com>
+Date: Mon, 12 Oct 2026 11:15:16 +0800
+X-Gm-Features: AclHuK-vr3dMnOqUpjIwLAc1h27RiuyWSviI187f_H-THD8PLVmaey_0myGK6dQ
+Message-ID: <CAGp+u1ZiGU6gqCT2kEZQK5ekEnwVFaOr0QrPYbP3YR4SF0UpqA@mail.gmail.com>
+Subject: Re: [PATCH] dmaengine: pl330: Fix lock-order inversion in the channel
+ release path
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: vkoul@kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A993:EE_|MW6PR12MB9017:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49605815-f001-4b49-db07-08df280f062d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|82310400026|36860700016|376014|1800799024|23010399003|56012099006|11063799006|10067099003|5023799004|18002099003|22082099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	fXsX2jThMmyLzcjhUr9GgPd4gLQXFlGjy8+JvFyQHVhMT3BPu2onBLFT67nq1WaSmawjnCcryx0litPy6XyTYzqvHQPigbiQnlzEQa2CYayVvqmUFKiufevVCY6at23XmAK5ULFnpwN1V9O4zMvgXg8AWbcIhjw7qqDUBEtefNfNQ5sbH9y6rBKplwGVED9c3JWneVnUFrWh4GiSsYoIzSuXn6E/07lJ++YAlJ/OPRtIrl1cH3FnNqbzzIudNuRkITyPpOiS/wc2LFRAa3IzR5oUyWGIVTEtdAZJZz0+ebjcIZErcz+sEIGnaR8dJj7TqOMurFp4dcFiuMrwJKBYtrQ+yyU3eBQnX1AMQ5zZifdwZm9xaWM7Ooff+majXcAevRiUI/lpDJUrdxGGjlqUx/I/P6eo4XbNy63BQTpjRmUBas9VmzkkEQIJgjB3kXu72zyYjJxn2s3ACrJl6t0FwcLhZzZIMFCQ/gyHAJIrQNqwBZRpKb6CpkXKtkh2G/OY9VxjlushQF8611Vml4V7/BqKHxHMN6AII+UEnkKYVVYsxHAcPpIKesmZKDvCB/az2znFztB/FqrCJ6Wh+klizzuSDKAOqueNgL0v0elVV0CeMHGCbkPSEEqg0n3wTLgqd4ahWH341S+qNx2X03EvFEBs9G5KcByEm+FZ8ygfz5gmpr/bH4BrZw325k0DEYHjGC2mUNITTQDocboR7iJ2ZA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(82310400026)(36860700016)(376014)(1800799024)(23010399003)(56012099006)(11063799006)(10067099003)(5023799004)(18002099003)(22082099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	DcxiZSKR2/ARoZ0DOKf+2b9oNv8aBuMA3RRbhBWtaQdzi60xXc+zRct9OILveyhFy6WptixMGAaNfFV2khr83QU9RtRKYvdr1oMSoBg5Mu+NUHKMDV8chg+lVGaU8BsXq/cZyF2W8MJO6pAE7L87+ywJ/Z+HAyU/DER9OXaAJNkh6G8drYXul1puHuQVxrNzWjSGZ2WaSguKmgi4+e9hqlRyKJ5a+FqDMYr4PZ8bo/mnWoFcqZgibRa0lY3vuW/kFSDY+/VBRiREK9eXWGdqHS/LrnShAWCEhv7lXRt9/ZSbHnvtjUNKe17PEG46rY2s8DSX3mvPp4d5y3Xs9CshPaDR9PkD01htATvk5MhAtRPMIDnhmP5E/Ikc7yNuc8ThyE0emSPArp9qAK0xEkwQMwIHW9Om57cHgy0eiJWCY0w75ENhsz7BeHmQNyKankSu
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 03:15:10.2762
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49605815-f001-4b49-db07-08df280f062d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A993.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9017
+Content-Transfer-Encoding: quoted-printable
 
-Hello Hui,
+On Fri, Oct 9, 2026 at 5:23=E2=80=AFAM Frank Li <Frank.li@oss.nxp.com> wrot=
+e:
+>
+> On Wed, Oct 07, 2026 at 11:01:04PM +0800, Ginger Li wrote:
+> > [You don't often get email from ginger.jzllee@gmail.com. Learn why this=
+ is important at https://aka.ms/LearnAboutSenderIdentification ]
+> >
+> > pl330 uses two locks per transfer: the channel lock pch->lock and the
+> > controller lock pl330->lock. My static analyzer reported that they can
+>
+>                                The static analyzer ....
+>
+> > be taken concurrently in opposite orders, leading to potential deadlock=
+s.
+> >
+> > The terminate/stop paths take pch->lock first and then pl330->lock, e.g=
+.
+> >   pl330_terminate_all()
+> >     -> spin_lock_irqsave(&pch->lock, flags);
+> >     -> spin_lock(&pl330->lock);
+> > and
+> >   pl330_pause()
+> >     -> spin_lock_irqsave(&pch->lock, flags);
+> >     -> spin_lock(&pl330->lock);
+> >
+> > While on the other hand, the channel release path takes pl330->lock fir=
+st
+> > and then pch->lock in pl330_free_chan_resources():
+> >   pl330_free_chan_resources()
+> >     -> spin_lock_irqsave(&pl330->lock, flags);
+> >     -> pl330_release_channel(pch->thread);
+> >     -> dma_pl330_rqcb()
+> >       -> spin_lock_irqsave(&pch->lock, flags);
+> >
+> > Freeing a channel (dma_release_channel() -> dma_chan_put() ->
+> > pl330_free_chan_resources()) while another CPU is in pl330_terminate_al=
+l()
+> > or pl330_pause() on the same channel is therefore an ABBA deadlock: the
+> > one thread spins on pl330->lock that the other holds, and vice versa.
+>
+> To here is enough. cut below message.
+>
+> >
+> > Inspecting the driver code suggests the rule that dma_pl330_rqcb() must
+> > not be called with pl330->lock held: pl330_dotask() and the callback
+> > drain loop  in pl330_update() both releases pl330->lock before their
+> > dma_pl330_rqcb() calls. Thus, pl330_release_channel() is expected
+> > to follow the same manner.
+> >
+> > Let pl330_release_channel() manage pl330->lock itself and keep the two
+> > dma_pl330_rqcb() calls outside the critical section, and stop holding
+> > pl330->lock around the call in pl330_free_chan_resources().
+> >
+> > This was found by a static analyzer on Linux 7.3-rc4; it reported
+> > DeadLock::AllLock (Certain) for
+> >
+> >     pl330_free_chan_resources() <-> pl330_terminate_all()
+> >     pl330_free_chan_resources() <-> pl330_pause().
+> >
+> > Fixes: 91539eb1fda2 ("dmaengine: pl330: fix double lock")
+> > Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
+> > ---
+> >  drivers/dma/pl330.c | 24 +++++++++++++++++++++++-
+> >  1 file changed, 23 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/dma/pl330.c b/drivers/dma/pl330.c
+> > --- a/drivers/dma/pl330.c
+> > +++ b/drivers/dma/pl330.c
+> > @@ -1805,16 +1805,32 @@
+> >
+> >  static void pl330_release_channel(struct pl330_thread *thrd)
+> >  {
+> > +       struct pl330_dmac *pl330;
+> > +       unsigned long flags;
+> > +
+> >         if (!thrd || thrd->free)
+> >                 return;
+> >
+> > +       pl330 =3D thrd->dmac;
+> > +
+> > +       spin_lock_irqsave(&pl330->lock, flags);
+> >         _stop(thrd);
+> > +       spin_unlock_irqrestore(&pl330->lock, flags);
+>
+> [1]
+> >
+> > +       /*
+> > +        * dma_pl330_rqcb() takes the channel lock, which is acquired b=
+efore
+> > +        * pl330->lock on the terminate/pause/tx_status paths.  Calling=
+ it with
+> > +        * pl330->lock held would invert the lock order, so keep it out=
+side the
+> > +        * critical section
+> > +        * pl330_update() already follow.
+> > +        */
+> >         dma_pl330_rqcb(thrd->req[1 - thrd->lstenq].desc, PL330_ERR_ABOR=
+T);
+> >         dma_pl330_rqcb(thrd->req[thrd->lstenq].desc, PL330_ERR_ABORT);
+> [2]
+> >
+> > +       spin_lock_irqsave(&pl330->lock, flags);
+> >         _free_event(thrd, thrd->ev);
+> >         thrd->free =3D true;
+> > +       spin_unlock_irqrestore(&pl330->lock, flags);
+>
+> [3],
+>
+> how do you make sure it is safe to do 1, 2 and 3 without pl330->lock?
+>
 
-On 10/8/2026 12:14 PM, Hui Su wrote:
-> proc_sched_autogroup_set_nice() uses a function-static timestamp to
-> rate-limit the expensive sched_group_set_shares() operation.
-> 
-> The timestamp check and update are not serialized. Two concurrent
-> unprivileged writers can therefore both observe an expired timestamp,
-> update it, and proceed to sched_group_set_shares(), defeating the
-> intended 100 ms rate limit.
+It seems that [2] is not strictly needed inside pl330->lock (e.g., pl330_do=
+task
+releases the lock before calling dma_pl330_rqcb()). However, if [1] and [3]=
+ are
+expected to run atomically, would the following change do? This fix keeps t=
+he
+original structure but moves the dma_pl330_rqcb() calls outside the critica=
+l
+section of pl330->lock.
 
-Is it really that big of a problem?
+Sincerely,
+Ginger
 
-> 
-> Serialize the timestamp check and update with a dedicated spinlock.
-> Evaluate the capability before entering the lock and keep the heavy
-> autogroup operation outside the critical section.
-> 
-> Fixes: 5091faa449ee ("sched: Add 'autogroup' scheduling feature: automated per session task groups")
-> Signed-off-by: Hui Su <sh_def@163.com>
-> ---
-> Testing:
-> - x86_64 KVM KCSAN forced-overlap reproducer reported concurrent writes
->   to the shared timestamp from proc_sched_autogroup_set_nice() on CPUs
->   0 and 1.
-> - x86_64 KVM rate-limit oracle observed two pre-fix writes within 20 ms
->   and no post-fix pair within a 100 ms window.
-> ---
->  kernel/sched/autogroup.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/sched/autogroup.c b/kernel/sched/autogroup.c
-> index e380cf9372bb..3469a52dd255 100644
-> --- a/kernel/sched/autogroup.c
-> +++ b/kernel/sched/autogroup.c
-> @@ -230,11 +230,14 @@ __setup("noautogroup", setup_autogroup);
->  
->  #ifdef CONFIG_PROC_FS
->  
-> +static DEFINE_SPINLOCK(autogroup_nice_lock);
-> +
->  int proc_sched_autogroup_set_nice(struct task_struct *p, int nice)
->  {
->  	static unsigned long next = INITIAL_JIFFIES;
->  	struct autogroup *ag;
->  	unsigned long shares;
-> +	bool admin;
->  	int err, idx;
->  
->  	if (nice < MIN_NICE || nice > MAX_NICE)
-> @@ -247,11 +250,17 @@ int proc_sched_autogroup_set_nice(struct task_struct *p, int nice)
->  	if (nice < 0 && !can_nice(current, nice))
->  		return -EPERM;
->  
-> -	/* This is a heavy operation, taking global locks.. */
+---
+ drivers/dma/pl330.c | 36 +++++++++++++++++++++++++++++++-----
+ 1 file changed, 31 insertions(+), 5 deletions(-)
 
-That comment suggests we don't want to take any global locks but this
-adds one more? Is that a good idea?
+diff --git a/drivers/dma/pl330.c b/drivers/dma/pl330.c
+--- a/drivers/dma/pl330.c
++++ b/drivers/dma/pl330.c
+@@ -1803,15 +1803,33 @@ static inline void _free_event(struct
+pl330_thread *thrd, int ev)
+  pl330->events[ev] =3D -1;
+ }
 
-Also, any reason this is a spinlock and not a mutex?
+-static void pl330_release_channel(struct pl330_thread *thrd)
++static void pl330_release_channel(struct pl330_thread *thrd,
++  struct dma_pl330_desc **done_a,
++  struct dma_pl330_desc **done_b)
+ {
++ *done_a =3D NULL;
++ *done_b =3D NULL;
++
+  if (!thrd || thrd->free)
+  return;
 
-> -	if (!capable(CAP_SYS_ADMIN) && time_before(jiffies, next))
-> +	admin = capable(CAP_SYS_ADMIN);
-> +
-> +	/* Rate-limit this heavy operation, which takes global locks. */
-> +	spin_lock(&autogroup_nice_lock);
-> +	if (!admin && time_before(jiffies, next)) {
-> +		spin_unlock(&autogroup_nice_lock);
->  		return -EAGAIN;
-> +	}
->  
->  	next = HZ / 10 + jiffies;
-> +	spin_unlock(&autogroup_nice_lock);
+  _stop(thrd);
 
-Spinlock looks too heavy-handed for this. You can perhaps do a simple
-try_cmpxchg() and the ones that fails it can simply return -EAGAIN.
+- dma_pl330_rqcb(thrd->req[1 - thrd->lstenq].desc, PL330_ERR_ABORT);
+- dma_pl330_rqcb(thrd->req[thrd->lstenq].desc, PL330_ERR_ABORT);
++ *done_a =3D thrd->req[1 - thrd->lstenq].desc;
++ *done_b =3D thrd->req[thrd->lstenq].desc;
 
-Thoughts?
+  _free_event(thrd, thrd->ev);
+  thrd->free =3D true;
+@@ -1993,12 +2011,15 @@ static int pl330_add(struct pl330_dmac *pl330)
+ static int dmac_free_threads(struct pl330_dmac *pl330)
+ {
+  struct pl330_thread *thrd;
++ struct dma_pl330_desc *done_a, *done_b;
+  int i;
 
->  	ag = autogroup_task_get(p);
->  
->  	idx = array_index_nospec(nice + 20, 40);
-> 
-> base-commit: 6f8319e3e9a44dd537d17f41565a8453c560a581
+  /* Release Channel threads */
+  for (i =3D 0; i < pl330->pcfg.num_chan; i++) {
+  thrd =3D &pl330->channels[i];
+- pl330_release_channel(thrd);
++ pl330_release_channel(thrd, &done_a, &done_b);
++ dma_pl330_rqcb(done_a, PL330_ERR_ABORT);
++ dma_pl330_rqcb(done_b, PL330_ERR_ABORT);
+  }
 
--- 
-Thanks and Regards,
-Prateek
+  /* Free memory */
+@@ -2353,6 +2374,7 @@ static void pl330_free_chan_resources(struct
+dma_chan *chan)
+ {
+  struct dma_pl330_chan *pch =3D to_pchan(chan);
+  struct pl330_dmac *pl330 =3D pch->dmac;
++ struct dma_pl330_desc *done_a, *done_b;
+  unsigned long flags;
 
+  tasklet_kill(&pch->task);
+@@ -2360,13 +2382,17 @@ static void pl330_free_chan_resources(struct
+dma_chan *chan)
+  pm_runtime_get_sync(pch->dmac->ddma.dev);
+  spin_lock_irqsave(&pl330->lock, flags);
+
+- pl330_release_channel(pch->thread);
++ /* The two callbacks take pch->lock, so they run after the unlock below. =
+*/
++ pl330_release_channel(pch->thread, &done_a, &done_b);
+  pch->thread =3D NULL;
+
+  if (pch->cyclic)
+  list_splice_tail_init(&pch->work_list, &pch->dmac->desc_pool);
+
+  spin_unlock_irqrestore(&pl330->lock, flags);
++
++ dma_pl330_rqcb(done_a, PL330_ERR_ABORT);
++ dma_pl330_rqcb(done_b, PL330_ERR_ABORT);
+  pm_runtime_put_autosuspend(pch->dmac->ddma.dev);
+  pl330_unprep_slave_fifo(pch);
+ }
+--=20
+2.43.0
