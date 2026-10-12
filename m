@@ -1,129 +1,217 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from flow-b3-smtp.messagingengine.com (flow-b3-smtp.messagingengine.com [202.12.124.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97F91D9A66;
-	Mon, 12 Oct 2026 15:00:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB9D491598
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:01:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791817255; cv=none; b=X9M25mJQaBaKgKhNqA4qu8VxDS2ydwpSzThMAqjPYsAsSi9rXyxcm3DvtoP25ELOtNVj2MRrVwQJPcGB7n4yqNAVLtxFilWVd6y+dTBil/6yjuYOimj0FX32BFkJNIstrsVs3qIVtFsLMSCBA6VgA4v1GaBsbgsPgTe315mqhWY=
+	t=1791817279; cv=none; b=ZSEQFw9BfclOQ5XWq0pLsN51OPWf2MOGlhN7XrGZjuu/5ZyAs2sC8IKfxHV9ctEpMkz2x7T6B/rKDFsOliZRXjobvIZWZer1E45rRUjBV4KOxJovMgX+xD70K1Aw1aTtE3b/L8hunPv01iyArOpoLZdloXcDc9jZbaaX9J4NH2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791817255; c=relaxed/simple;
-	bh=ayyPQ4z+5De5S+CH6wBzDTIfJ8yaHWPq8tdR8wAgqzU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NrSQLIV2hCOvgBO+24da1aHfFW6okAazJS/UXahZ/v24aZlCc+FsDsJ6S+48kztVYN/ZTSTAPQJNHt94Ykl9bKuRRW4yFRPMTMobHbQY83qsL/Ju9XZKToDlhg6MivLAHb11arYZnTesXaypxzRuJuiuHSOjjTuBQ35pfwk+E7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=HYz6JP13; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791817279; c=relaxed/simple;
+	bh=H9zvp0EZCSBXT12Fz3uC0fRgwE7OgP+2qL2EjG1W1Ug=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=arCkV4jqcpC3Atf4KEkvTPj+prkpLzE0ZwBxhyinFB7J+5PDczCZsOLPkC5IwycEZHUa2CmQn6LQAAYprWZvc5xLhMq24QyeRrUt/1rtsnOxZ+zaaJ7CgIPvnQFF6Mrqp7ivW2sqYR+n3OfXqPWaBNYC69B0NKs5v6kCEVbnW7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in; spf=pass smtp.mailfrom=s-joshi.in; dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b=n7jgmWrL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=yanhjcLN; arc=none smtp.client-ip=202.12.124.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=s-joshi.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="HYz6JP13"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCEOd4073652;
-	Mon, 12 Oct 2026 15:00:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=T75nQs
-	JWdc7VPipnH1yPJH1w2o7Nf721U9AwZATf7Cg=; b=HYz6JP13RChb4XqFejhxaY
-	2eJ6IefFDVBAGvRUonEO/9VACuZQWo0JZJKjp8guebdTbt0xoQ4c4wdJ4JYvL5E7
-	ZObMz5YWikVoYXX810nsUInDK6IBelwxpqPiLlgt9wSV+AROyzJYevk60i8f9QRk
-	kuzK277b8zL8YZ0w5Z7EdlVhdkNYefye6dFz1FWM4x+Tni56SNInx64qsiqCGgcu
-	SC+/ftufXx6mWbPZh08JvRct+vz0UVseXBPi4bi3j1JuoitfQCHYTOwBT4liIfua
-	jBdYyJM0RTKgVR+lVtmvI617U5/1ghEK+d6Q5q6VrEFTOJwwJljkqDFg6IeqQIrg
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwhs7md-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 15:00:45 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC53MT1287128;
-	Mon, 12 Oct 2026 15:00:44 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h816gwkks-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 15:00:44 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CF0hYZ59048422
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 15:00:43 GMT
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 453675803F;
-	Mon, 12 Oct 2026 15:00:43 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3319558056;
-	Mon, 12 Oct 2026 15:00:42 +0000 (GMT)
-Received: from [9.61.99.49] (unknown [9.61.99.49])
-	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 12 Oct 2026 15:00:42 +0000 (GMT)
-Message-ID: <a3f68cb3-ce09-4a55-9328-d798f88bafd4@linux.ibm.com>
-Date: Mon, 12 Oct 2026 11:00:41 -0400
+	dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b="n7jgmWrL";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="yanhjcLN"
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailflow.stl.internal (Postfix) with ESMTP id 419E81301223
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:01:17 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-10.internal (MEProxy); Mon, 12 Oct 2026 11:01:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=s-joshi.in; h=cc
+	:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1791817276; x=
+	1791820876; bh=PvxGr1CFINA18KAk9q5F7ACBwRMayJ+m/9TUWydj6Y0=; b=n
+	7jgmWrLc/K3sDfEtEQ/nK7i4LVonH8uz5RAbi3EaeTbeK5Nm5ljaehuKkMVaYpLV
+	Obm0VUOP6w3kZFo3EVkX7YpfYDnif6bCwfTXmrwesMxq0vr1wUiosZ+V3a9VNcAa
+	KXy21nqrMlUCAY4KhVc3CY8pG13wK4zEDDCf5R5uzrsiRc0Gl4pKmZhs6R6hB47r
+	pQSY/4jgTkvy61cNGf5oWusNkqNbDgNFGL/bcGEt2O3JWiSG+OVLGL60H6Snt0U0
+	8rXt5Hlq8iLQc6kI67qSFlR4mi9KzYVQSpjSheCIyYogxiGFSkNi+fu6qaRVcjhN
+	ua0qTiL1d8suTnOkCJE2g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1791817276; x=1791820876; bh=P
+	vxGr1CFINA18KAk9q5F7ACBwRMayJ+m/9TUWydj6Y0=; b=yanhjcLNwgFU0T6zS
+	pdjj0ezh0Srgo34dirvhxhCAhm47AtVs744YLKHb+9bH9RCtbNmsKnK/A6YlPpF9
+	9SsFAd/BhnLSqpkjR49iv0BnMuXDdjujNLQhllFcFa4KoXQ0HF+dF54EnzUc7ROu
+	RbQCtmEEELJcQUBulqfuHWA/NR5ALiOGjZAIxEu8G8awZGztEFVnT0IIzbCHC10/
+	uNFSYebaytRHBPjetbjMfAHREDPMm/Pg2mKEVNEC2XANvzskor2wKEeTxw+4Vuqa
+	60AGOmxCjT0KS06UCOTOXSm+J6muvaDNCG/5fyPsj/NKtGFQRPdStlJcf8WUvrtk
+	h44ig==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=s-joshi.in a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791817276; d=s-joshi.in;
+	mf=PHN1aGFhc0BzLWpvc2hpLmluPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:d8Vf955JWD1Mkx8YmqJFgokH+EZsumO9bTH+F528DFVJPCy
+	aogAFWjuHTXnYtOqGwFGn0Bw220a5hAS2GGilR6Ken4SDFLHydKXN6uREUpZtuNV
+	aRzbHiqyp2tJ+hY1pay/KoM2Ys1VC6sAf3f29XiX0uLo6Tokqy1bYPkkRk0Vj4V7
+	x7R8MLffuu5lTAWDWKU1tj4R7bvIEF00tfwKfcNP3RUaNA17cPHLuUBmuuHk0AqQ
+	sYC/CU1bef7WD3o9b6IsmW+KRnN7KnrLL/MGAVpOILjLpOBjQ2P/We9hp/kBu4mR
+	3+ARKmD+TNugxlD4WBCZTQCDySzUJNXZw23be1w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:yQ2vvnXpzJzAkbIEAInqbfoEDRWPIj/3jLWBI3sjHNE=:H9zvp0EZCSBXT12Fz3uC0fRgwE7OgP+2qL2EjG1W1Ug=;
+X-ME-Sender: <xms:PPbMalQ8qBdcjd2efg9vFXpG2-44XYzmV9Jd7MuiKkLsvuC6FSXDqQ>
+    <xme:PPbMaoGXMpL1xp7JWNdX2gULol8XLDJqw7Rpreb26jPY3AhgNO1hfev5rS7bEQcOs
+    ayi-5tYJwXV6K-zEcEkvgy-UFQCFWjFMSPtcrXvCc6CLgXyKP2gePdp>
+X-ME-Received: <xmr:PPbMaiE3CqP4AFhrvbNsIQP2R5wqP3Uv1f3HFi0wRYaI8SlQKEhJa_HbBQ>
+X-ME-Proxy-Cause: dmFkZTErDdaJDRXdtNCIjl4zaEaVlPSB06aAVyOQ6x1o5VxLbYfiAOQZRbFQpiPBT4JjpM
+    tDDI7yio8aZDSIOhcndLp0t0KWZA5KFWQuFr5wvn0bxS8NTlaio24CI42iTSPQ+jhdFgjF
+    9a89afYLD7UDgWgHlCtnjqs6Q9S41kdWMiMdVZpux+Rgb0n85xFK3b7eAp+V0pNy8RMJgK
+    CayOV2kkOCvfZdzAoAfDYmuTcDkowsDl+/OMHHO78fF3wVxHwXD6id87zrcCs/36ianAUH
+    cRx8fJJXQ5C3FdQl14ni8vbJerSrPEYHDsxpwjVRRLepXJM83WpLvXryW22obvm47sN8p4
+    sOgjlSG2B2Lnh6U1picS3Iijh6qWXyMuyuhCLCf848a9Kns56LgnSR+He6/g8EAiY+qixH
+    GqXHN3qNtOT9M8McX3XfbHYPhvzDg5T21NEhiof5HKWZ1oJ3gOkJP1MKzw2LLP+XCEXFDO
+    sjamdtMwlyY7dm38+eeoCTe84dDxlvPxlSTkq1em9KduNx8XtFgJm5VXicXD9GBnByF8zl
+    9S3nYZTgSk9sk4FfGCaIvpf+Ucg3IhAnZ2fd3jl9odbOQMeaHG0UqARkfRoKuNS9agSnM4
+    Xc5oGW0XFlXMdlz1j/HKIUBXqMdDEtKKAqrOAhvVfheHq/AP3GZrH0/PMRGw
+X-ME-Proxy: <xmx:PPbMauQ9fZgP1QLW3kNcmnnBfLwi1XsrM-jnP6FL2i9z4JcXawDq_A>
+    <xmx:PPbMarKoJkfOVB90zM9QzYTkYhROah9323lF3uv3-deVUWHYolDd3A>
+    <xmx:PPbMahbE6-WwE3--rhkjpsTLWLBda233T4ovmFw0cXzx_V0INI--RA>
+    <xmx:PPbMal8dGnvU1K1rcYIwf4Qjixf-sujhFAGClbUfftxpFGmyXGYgbg>
+    <xmx:PPbManqMNHDUg43k7YlVeIdKkJdH-sChtmTQedFaQmWYTpa2y_q4UjK->
+Feedback-ID: ia9504abf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 12 Oct 2026 11:01:14 -0400 (EDT)
+From: Suhaas Joshi <suhaas@s-joshi.in>
+To: sj@kernel.org,
+	akpm@linux-foundation.org
+Cc: damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/2] mm/damon/core: Use only installed probe in damon_merge_two_regions()
+Date: Mon, 12 Oct 2026 20:30:39 +0530
+Message-ID: <20261012150045.169377-1-suhaas@s-joshi.in>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261012145636.168436-1-suhaas@s-joshi.in>
+References: <20261012145636.168436-1-suhaas@s-joshi.in>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] s390/pci: Add function handle to RPCIT insn trace
-To: Gerd Bayer <gbayer@linux.ibm.com>,
-        Niklas Schnelle <schnelle@linux.ibm.com>,
-        Heiko Carstens
- <hca@linux.ibm.com>,
-        Benjamin Block <bblock@linux.ibm.com>,
-        Ramesh Errabolu <ramesh@linux.ibm.com>
-Cc: Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>,
-        Farhan Ali <alifm@linux.ibm.com>, Cam Miller <cam@linux.ibm.com>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        iommu@lists.linux.dev
-References: <20261012-rpcit_trcfh_upstream-v2-0-1812db73dfa5@linux.ibm.com>
- <20261012-rpcit_trcfh_upstream-v2-3-1812db73dfa5@linux.ibm.com>
-Content-Language: en-US
-From: Matthew Rosato <mjrosato@linux.ibm.com>
-In-Reply-To: <20261012-rpcit_trcfh_upstream-v2-3-1812db73dfa5@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1OCBTYWx0ZWRfX6CJkGYHFE/Ue
- lnLUOYAXVvxE/8NKTLlTy/zuV5m8Gro9XPROfcTCxaBBI7t0F3gKUTwlFje5ZrqWOud4I7Gf5x8
- riFFmTz38rFyWWpmzJMACP9AxSk4e4cKTIM7Zb6wxhhWed6jsnA+lpj6Fj9bnhSXAPRWt8MlFQc
- PtXYf8hrN9WYzDIdqjSG7v+zFtSkcOlxRPgQRoidI0ZyLibaApxucqCbrkVU8PCQP9xBwNc0zPS
- mGFn71WD1F81h9hjP+gTTgCuLShDUJ3qdS/I6sMNyJbLB+UJfdtxGnf/r8kYiwGz2MQtPoGuayl
- FLfrXQXBl9SZe3cufVbaRUzkjLDFIw71vDkpG1+sqmhX9KsDPi1trPZOezfH1XX9nOCbJVV9mfN
- 1Xs3Qd4vL+DHrM/4Pqzlv7ufNkiMoHWAzSw5wbbmjQITgeMzpE8jpNBek/mygdD0i2RvrLSBZx3
- L5hBQuUcemIugv3wiKQ==
-X-Proofpoint-GUID: 6SitaoCJBp5HP-7OBKw9Tvi8c_NVK5Gd
-X-Proofpoint-ORIG-GUID: 6SitaoCJBp5HP-7OBKw9Tvi8c_NVK5Gd
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1OCBTYWx0ZWRfX5q8Ni/4KUoX7
- L7rEGFmgxqQvEQaQuxPzc/DVOseGS6tdm0FYLaf5VOIICNct/hkI6nK5vyZlD0vLoqb2FouS7iL
- MYQoIhk8f4a6a7aqg8QmQkr4tG3295Y=
-X-Authority-Analysis: v=2.4 cv=btHZl0ai c=1 sm=1 tr=0 ts=6accf61d cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
- a=B2SnNno4fJaH8Yx9rOgA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 phishscore=0 impostorscore=0 adultscore=0
- lowpriorityscore=0 priorityscore=1501 clxscore=1011 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120058
+Content-Transfer-Encoding: 8bit
 
-On 10/12/26 10:21 AM, Gerd Bayer wrote:
-> In certain debug situations it would be helpful, if the insn trace for a
-> failing RPCIT would reveal the PCI function on which this was attempted.
-> 
-> Introduce a variant of zpci_err_insn_req() called zpci_err_insn_rpcit()
-> that accepts an IO virtual address and a range parameter together with
-> the req conveying the function handle. Switch zpci_refresh_trans() to
-> use that new error trace.
-> 
-> Signed-off-by: Gerd Bayer <gbayer@linux.ibm.com>
-> Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+While merging 2 regions, we iterate over the entire probe_hits[] array,
+whose size is determined by the DAMON_MAX_PROBES macro. However, it is
+possible that we have fewer probes installed than DAMON_MAX_PROBES. In such
+cases, we end up making redundant iterations. Therefore, to remedy this,
+iterate over the list of installed probes instead of iterating over the
+entire array. For doing this, start accepting a struct damon_ctx in
+damon_merge_two_regions(), and update calling functions to pass this
+argument.
+
+Update the damon_test_merge_two() test to use this new signature for
+damon_merge_two_regions() as well.
+
+Signed-off-by: Suhaas Joshi <suhaas@s-joshi.in>
+---
+ mm/damon/core.c             | 15 ++++++++++-----
+ mm/damon/tests/core-kunit.h | 20 ++++++++++++++++++--
+ 2 files changed, 28 insertions(+), 7 deletions(-)
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index b63e60ef8990..bebd2889c2c8 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3524,20 +3524,25 @@ static void damon_verify_merge_two_regions(
+ /*
+  * Merge two adjacent regions into one region
+  */
+-static void damon_merge_two_regions(struct damon_target *t,
+-		struct damon_region *l, struct damon_region *r)
++static void damon_merge_two_regions(struct damon_ctx *ctx,
++		struct damon_target *t, struct damon_region *l,
++		struct damon_region *r)
+ {
+ 	unsigned long sz_l = damon_sz_region(l), sz_r = damon_sz_region(r);
+ 	int i;
++	struct damon_probe *p;
+ 
+ 	l->nr_accesses = (l->nr_accesses * sz_l + r->nr_accesses * sz_r) /
+ 			(sz_l + sz_r);
+ 	l->age = (l->age * sz_l + r->age * sz_r) / (sz_l + sz_r);
+ 	l->ar.end = r->ar.end;
+-	/* todo: do this for only installed probes */
+-	for (i = 0; i < DAMON_MAX_PROBES; i++)
++
++	i = 0;
++	damon_for_each_probe(p, ctx) {
+ 		l->probe_hits[i] = (l->probe_hits[i] * sz_l + r->probe_hits[i]
+ 				* sz_r) / (sz_l + sz_r);
++		++i;
++	}
+ 	damon_verify_merge_two_regions(l, r);
+ 	damon_destroy_region(r, t);
+ }
+@@ -3590,7 +3595,7 @@ static void damon_merge_regions_of(struct damon_target *t, unsigned int thres,
+ 			goto set_prev_continue;
+ 		if (damon_sz_region(prev) + damon_sz_region(r) > sz_limit)
+ 			goto set_prev_continue;
+-		damon_merge_two_regions(t, prev, r);
++		damon_merge_two_regions(ctx, t, prev, r);
+ 		continue;
+ set_prev_continue:
+ 		prev = r;
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index 3fbb4e4e36fa..385d32901650 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -182,6 +182,8 @@ static void damon_test_merge_two(struct kunit *test)
+ {
+ 	struct damon_target *t;
+ 	struct damon_region *r, *r2, *r3;
++	struct damon_probe *p;
++	struct damon_ctx *ctx;
+ 	int i;
+ 
+ 	t = damon_new_target();
+@@ -206,7 +208,21 @@ static void damon_test_merge_two(struct kunit *test)
+ 	r2->age = 21;
+ 	damon_add_region(r2, t);
+ 
+-	damon_merge_two_regions(t, r, r2);
++	p = damon_new_probe();
++	if (!p) {
++		kunit_skip(test, "probe alloc fail");
++		damon_free_target(t);
++	}
++	ctx = damon_new_ctx();
++	if (!ctx) {
++		damon_destroy_probe(p);
++		damon_free_target(t);
++		kunit_skip(test, "context alloc fail");
++	}
++	damon_add_probe(ctx, p);
++	damon_add_target(ctx, t);
++
++	damon_merge_two_regions(ctx, t, r, r2);
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, 0ul);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, 300ul);
+ 	KUNIT_EXPECT_EQ(test, r->nr_accesses, 16u);
+@@ -220,7 +236,7 @@ static void damon_test_merge_two(struct kunit *test)
+ 	}
+ 	KUNIT_EXPECT_EQ(test, i, 1);
+ 
+-	damon_free_target(t);
++	damon_destroy_ctx(ctx);
+ }
+ 
+ static struct damon_region *__nth_region_of(struct damon_target *t, int idx)
+-- 
+2.55.0
+
