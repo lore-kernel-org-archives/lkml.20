@@ -1,98 +1,135 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360923AA507;
-	Mon, 12 Oct 2026 21:24:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A194F7CAE;
+	Mon, 12 Oct 2026 21:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791840298; cv=none; b=LzU3OASDLbvtk6b315pVvlSqkIBDZ/jLiE/IQ1kHf2mG9MT8NrumE1Pzxc620qPjdUARwPzdO5Su792HxxnTufu4RlLnlv8IzCrPGK1iRgdbPxPoa3UMS2SduAt/OADnKhpU3EcG+rMXBvKrJEcnisYwRbDq2wlqcoTuGKWKBes=
+	t=1791840333; cv=none; b=djlwk174gtZmnVGe8ajbPCShUzpU8vAWRR9q4yxvOtbzdfyIJ/6i+GjBjwhXaTUegsWiKN49HJMbaEiD87hqSitFm5d+VmXGOd8q74jP2saOsP3bHGr4LJ6+pZs/6I0qaSfWcSnQTqS09Y/WGjAW0cMEjNsWqCGZFKhx833ZFnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791840298; c=relaxed/simple;
-	bh=0cp5hZ2iucO8/tXQJoU8nvd6BpH3JUU+IYecuY2GfZ0=;
+	s=arc-20240116; t=1791840333; c=relaxed/simple;
+	bh=fvjje0IIW6MOjzpPa7bXnEazhGyVa6KL4EdFPoxyr1M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O4Qqy3gsvNteM2V+gQEo8Wdt/Atc/du0jsWT6JDbDHpLwksPj7xkTmQNv0L7aRPD84OcGXBKECBoiP74EV/KI2oAAKLffGOFXjAskKYrd4OyqwIjzyZv+jLx4d9juy8Jd4G7YBmY8xPKFxK34UgjYmklfYOvKc0BINI3wrOhFfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Jcvroff5; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=KjVY5rMupFVzNEuye0zi8Qu6EJIT5P0VHyq0zBl2nPl14WLDmqIJ43j/8H0p/gGQJuevguOpu2f6ITx4oF1zO85tagKuEAJ3dJMtqZCKaTFWElubYsuJSHxYOCOrf5mRZ32iweRnBDma3DdPfVQwfK5jtJYVouC5k8h06DM2/5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=3MORn/rI; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=17yHSlhA; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Jcvroff5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791840298; x=1823376298;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0cp5hZ2iucO8/tXQJoU8nvd6BpH3JUU+IYecuY2GfZ0=;
-  b=Jcvroff5GIOWXL2sZ0OecbVoFdl81iGNNYPLQr1KK9nwVMvwcy51EdI/
-   Vf6vhDVqOD6IPnuBJvuFstMYoPHdHDG3Gzb8B3VbASXZXAV9tMcV4L4Fs
-   p6BTzFd0nhQFW1wHUPYzRNRPv2Wey5lDSq97/XEQtXRlvPcWM4LCaZNY+
-   A3REYxlJuaRwdNfIliWWUL02Rrt2stkWeWwPlvaiw55BVgculMva1f/zw
-   CK8/NmZ4W/FtsO6NWaqWAeZSAh0Jh2TUdI6Q9JhCd33r/fXtXSHWaXzIy
-   RutM5UZO5ctpMet2gnr3FP4aMX9K2uA/Thsh0GIohlndhWAUk4EvHIils
-   w==;
-X-CSE-ConnectionGUID: mzPvIgI/S7CEmSxNWlvM7Q==
-X-CSE-MsgGUID: /OJmCYf4R96gzWZoIAKdvQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="447699"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="447699"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 14:24:57 -0700
-X-CSE-ConnectionGUID: FdVplnmlSbaFwrkKv3CYGQ==
-X-CSE-MsgGUID: 7wB45rYsTmatw69rC8gqew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="1049946"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 14:24:55 -0700
-Date: Tue, 13 Oct 2026 00:24:53 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Chen-Yu Tsai <wenst@chromium.org>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="3MORn/rI";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="17yHSlhA"
+Date: Mon, 12 Oct 2026 23:25:27 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1791840329;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iAiScCw3xT8qTEUpGk6BjUljTycDujh4sIDNa9F0P6Y=;
+	b=3MORn/rIhXC6vXHl+Ic4CJZNg4nCzhRynPtsaXuNdTdZQyU7/8gOg7C00CPcz+KYO5IWn+
+	bBouNB2iVrq2lI3yjbDrJ4Mj1Cr/0zZz8uKtOC4AxfYduH5k0wQGUGiHtFrCZv24rjsPY7
+	RNolF2ITKJyBEjiF+oJXYBlGFeakqjkmWM356qJrl8bCLLpR5NX8aFOOOCN09N8S0FsbG5
+	+mPS7xcGwAw8rxaA4QmkqhJkP9oUmQq3pnUJcPv5sr8//jhj32YrkD7f15BPSn/xJUmlen
+	aGQGUDU4lOcapu4NFcVIvLwHqEu9/5A250b6OiwimsH/so/suZ6iEUZOaJGmhw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1791840329;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iAiScCw3xT8qTEUpGk6BjUljTycDujh4sIDNa9F0P6Y=;
+	b=17yHSlhAgmgweZpYB2yF8SSxvq0aiaHhIdD0JuRpHX7jKQo8h/igxWvs4KjIw8Ym9+gFMu
+	hLLYGAapiJUxyiAQ==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Alan Stern <stern@rowland.harvard.edu>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	=?utf-8?B?w5ZtZXI=?= Mete Kaya <omermetekaya0@gmail.com>,
+	oneukum@suse.com, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
 	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Alan Stern <stern@rowland.harvard.edu>
-Subject: Re: [PATCH v4] usb: hub: Set proper message when
- usb_hub_create_port_device() fails
-Message-ID: <as1QJfxzU_cSDH2R@ashevche-desk.local>
-References: <20261012092725.575885-1-wenst@chromium.org>
- <as1IrOAaNLuSqtEU@ashevche-desk.local>
+	david.laight.linux@gmail.com,
+	syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
+Subject: Re: [PATCH net v6] usbnet: fix smp_processor_id() use in preemptible
+ context
+Message-ID: <20261012212527.5sFqlGYu@linutronix.de>
+References: <20261004215937.302247-1-omermetekaya0@gmail.com>
+ <20261007200049.079aeb75@kernel.org>
+ <7c4a2f1c-f16d-479b-a11f-cef962d5e2c7@rowland.harvard.edu>
+ <20261008094338.301a75fa@kernel.org>
+ <06a81ea1-b17d-40bd-82d9-922de946b86f@rowland.harvard.edu>
+ <2026100910-petition-embattled-94cb@gregkh>
+ <20261012194902.aEq58Q6b@linutronix.de>
+ <8545800a-a37f-482a-9b06-cbdd70312b7a@rowland.harvard.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <as1IrOAaNLuSqtEU@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <8545800a-a37f-482a-9b06-cbdd70312b7a@rowland.harvard.edu>
 
-On Mon, Oct 12, 2026 at 11:53:04PM +0300, Andy Shevchenko wrote:
-> On Mon, Oct 12, 2026 at 05:27:24PM +0800, Chen-Yu Tsai wrote:
+On 2026-10-12 16:26:28 [-0400], Alan Stern wrote:
+> On Mon, Oct 12, 2026 at 09:49:02PM +0200, Sebastian Andrzej Siewior wrote:
+> > On 2026-10-09 13:31:17 [+0200], Greg Kroah-Hartman wrote:
+> > > > As far as I am aware, there aren't really any guarantees on the=20
+> > > > context of a USB URB-completion callback.  The kerneldoc for struct=
+ urb=20
+> > > > in include/linux/usb.h says "The completion callback is made=20
+> > > > in_interrupt()", but that is most definitely out of date.
+> > >=20
+> > > I don't think so, I think some platforms still have those callbacks in
+> > > irq context, unless we changed to threaded irq handlers everywhere?  I
+> > > could have missed that, but we should still write the callbacks to
+> > > assume that and then we should be fine even if we aren't in irq conte=
+xt,
+> > > right?
+> >=20
+> > The HCD invokes the completion callback usually in IRQ context. I think
+> > the VHCI is an exception here.
+> > For the forced-threaded mode we disable BH before the IRQ handler is
+> > invoked. I think even dummy_hcd invokes them from the timer if my memory
+> > is right.
+> >=20
+> > > > Drivers shouldn't rely on any particular context guarantees.  Not e=
+ven=20
+> > > > whether local irqs are enabled/disabled.
+> > >=20
+> > > Agreed.
+> >=20
+> > I would suggest to make VHCI invoke the completion callback with BH
+> > disabled. usbnet's tx_complete() does also defer_bh() which schedules a
+> > BH worker via queue_work(). While this works without disabling BH it
+> > leads to waking ksoftirqd and an additional context switch which we
+> > could avoid by dealing with it directly.
+>=20
+> Today you fix VHCI, tomorrow some other virtual HCD will cause problems.
 
-...
+We don't have other virtual HCDs, do we?
+The other driver is drivers/net/mctp/mctp-usb.c.
+mctp_usb_out_complete() -> =E2=80=A6 -> mctp_usblib_tx_stats_update() does
+get_cpu_ptr() for stats. But mctp_usb_in_complete() has=20
+mctp_usblib_rx_complete() -> mctp_usblib_rx_stats_single_drop() and
+mctp_usblib_rx() which do just this_cpu_ptr(). Plus the queue wakes &
+netif_rx() which wake ksoftirqd.
 
-> >  		if (ret < 0) {
-> >  			dev_err(hub->intfdev,
-> >  				"couldn't create port%d device.\n", i + 1);
-> > +			message = "couldn't create port device";
-> >  			break;
-> 
-> We can now even use
-> 
-> 			message = "couldn't create port device";
-> 			dev_err(hub->intfdev, "%s %d.\n", message, + 1);
+That makes two drivers from a quick grep. But I guess it is just
+networking for the per-CPU stats.
 
-Of course this has to be
+> Should we document any requirements that all HCDs will have to follow=20
+> and that all completion handlers can rely on?
 
-			dev_err(hub->intfdev, "%s %d.\n", message, i + 1);
+It used to complete in IRQ context. Then you added the possibility to
+complete BH for those HCDs marked as such (except for the RH). I think
+it was always reasonable to assume that it is either IRQ-context
+(force-threaded or not for !HCD_BH) or BH (for HCD_BH). It makes hardly
+a difference, BH is always off and networking uses to rely on it.
+So yes, documenting would make sense.
 
-but in any case it's up to you depending on the template used for the rest of
-the messages in this function.
+Do you want to document it yourself and have me do the VHCI bits?
 
-> >  		}
+> Alan Stern
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Sebastian
