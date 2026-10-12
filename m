@@ -1,160 +1,408 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D48E3B42EB;
-	Mon, 12 Oct 2026 10:15:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42EBA3D3D1B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:16:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791800148; cv=none; b=utXChnyMcmBE1L914/9WIYUYjGj4HHVzsRaZipcC7nCHv+aQSvSIasUWHYTyAplUjZwJYRjquVKJq1tnC+pK/OjtAOK0h4Bfi1CaRvZ5OUd/AwRCabKAdn9GpvUM6nctqRkwej5TdEzFF4U+ez1v7pYrWMIC4fBjcPjk8avTRu4=
+	t=1791800176; cv=none; b=rTV90Z1bW0xvyXtlpgMmhn33oklbFj/vYj5M65rh4cvuErh2uCiL0of62pfFouuwScX9ILqaTSII0gEKSQkHPGoEUs4z4pycrkqp9Ul/bqlQuKHxMDIPysFch2tH2HTXEl5foDKA8iCkOTmTyHW+4Ttf91wr4cj3s2fKYYH5CXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791800148; c=relaxed/simple;
-	bh=c2+opAs7689Xtm7az6pn1Q3umq8nZMHupOBrT/9OA1w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O33ic9RZn1YWxghKkGvKqXRSbQGGlvKwA4udbsNyKseT3Ouo7gPO9UXDvcnG5+gemjdYoPby+18jvMLg/SvvFb/aSay60TU9dtnR5z8U0sxAcF4lBgSZ0cJE6YsFaF696H5nOBpRNFmeoEM8ksX9eR3SjNKIFCLw3FQ+BAhu/Ok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMAn2EW7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791800176; c=relaxed/simple;
+	bh=L3yVb1zCDt9EJgrSPxrSjTkziqDkUrtipzK2mKk+bf4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=I8DDYMvsndklsGWgeFXrgLf4vNep90AzrBQ0JnselibloeeNrmxZwrzTrTQb+wJF7ognwz3J0l+b7jVWNTaxEQSVGFn1NG7rb4GuuulSBkJHZMpF0fIeaa/sMT1GVEpUlOFFUmysudfoRRhPgX4zhb6xq491yILI2+YkL4JezCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fI+tmga+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMAn2EW7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22C2A1F0089B;
-	Mon, 12 Oct 2026 10:15:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fI+tmga+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD54D1F0089D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:16:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791800138;
-	bh=wXbaD+hQMnQX0eRYI2JyeZvdwCRWWe83EhQFaLQYbmw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EMAn2EW7w+8NKOsXHFUr61YoUrTd+uc6qArrUsRty2myyjXVQvnPR70IMpgLwWVn4
-	 +FAMLSMpe9+5kiqF5cyHXdpyq8dzlO/XjBu4g3ol/8FL2B6E2EzPgNlhGYHWFdvpTm
-	 Pel0R+7UJeil2q1yKlt7r8fxllnsFrUu6enU+TTR7tMfn4BCdbupGCrbmW8Q6qp8Aa
-	 dS4OARo0M4NIuxIs6XtnTEf2f+23d5YCf2zekQyPzxB5aqZKy0Nf485HFVOCAmv/ZC
-	 Gf6B+dHQZPrS8B31mSjZK+zNdnTWh7h/EsSvzwTi2W5l/T1ASYAL4u0sZ2yzRRMBQT
-	 BuDtFx+ZjVYZQ==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 7F8B2198003A;
-	Mon, 12 Oct 2026 06:15:32 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Mon, 12 Oct 2026 06:15:35 -0400
-X-ME-Sender: <xms:Q7PMakamMHPY94WudpNYO3M0iZZB_q9VtkMW1v8enMosCFlm2EshVg>
-    <xme:Q7PMarlbRqCCz9RBt4NVyAuxbSDspzotNeF28EKJwTiUPTOIcbNAIRPhPSYNdO1m6
-    Ng1X03vnq794TmDver30gatuZlqd0FS_PhrWMOMVLftcuHP3KKdEIIb>
-X-ME-Received: <xmr:Q7PMamGquXW72XXK-8OCYjTt0YR2dSwiA1Z_lLbsPwFsBHlpcqIS24Dk1sw>
-X-ME-Proxy-Cause: dmFkZTFJUuTgkVW20IYinJ69Kh1eak227WB3MS+CRH0dVNTMUQmd305n5KufqVIrrUYxpF
-    TabuSs1h6on93mgtG/nOyKmZlDFwvtLSLnfh0rl7Ja6zaGON2aEATDiKI03rPAOG506JL4
-    efZKMf5w98MqQ32AZ6kmVMGYhbtMAbl7zhXLEv1JmHTYg9gAJllSHIXopuf5MKVCr1WSMV
-    8dRZ7vOrd1vfTeREzff5ToxCenkqsJKuKHOT82v5bDCRxBvwWa9vAUVIYWkRr49wUJH91O
-    RmVvOORx5/dqj0xH3pgHelgtL6GgiNyiN32Bym5/9jaxy7q9SaYnx97z640p3HVfC1XodZ
-    XyjHygbMvr7rg5UZS5u2k3ZNrHpqvMM5kocn5zyJfBndpqDSYIM+/0l6bfUe78d3UbAH6J
-    g7BHxOvXbU50HmsXUNbTFvdOWbdWDkqOlK/vY2ncvR9AcHzw+tVaw0C8Ih0mATguBF0EFp
-    7FBj6J6UtXBfDwP/VhjBrKx6GTWY5/mFpc8whuers2yGcTyqHC0kc+zL4+x2DYqLWcQ2Pb
-    QY9t7VQyrnQNc8sepcH5MUk3bPEu295fjA891IMwYMJbjOi93d+MHEwvXh7Qa7ELEqyky6
-    uH0jJQTE80PXJmIbrH9U5ifx6EATUHp5X4UEgm1XfyHxxkCjD8Tyu/8TAzaw
-X-ME-Proxy: <xmx:Q7PMaqMTGA20vq0SCuvJSpCAnZhGbC_4f8Q9O0-_6vnNWtOiKaIjcA>
-    <xmx:RLPMag9unIqr3nhERYormH0Wpd7ltwem3RSD6OCusZ9ixI4ryOdMmA>
-    <xmx:RLPMah4sDTkiPvFezMtWy_mm-eCt0MBJJmI-7U_YQ0Gs6jooTaDrYQ>
-    <xmx:RLPMaqTv02zoxaOiIBHe7CkCbYMHDoKcQhCxq7phyIXnEKF-DWWfDA>
-    <xmx:RLPMamNjIvK35lz-rVVjZCiDrJqlDXgKDTK9XAvYPr0V-8p7HLyQ5q6->
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 12 Oct 2026 06:15:31 -0400 (EDT)
-Date: Mon, 12 Oct 2026 11:15:29 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Xu Yilun <yilun.xu@linux.intel.com>
-Cc: Tony Lindgren <tony.lindgren@linux.intel.com>, x86@kernel.org, 
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, dave.hansen@intel.com, 
-	kvm@vger.kernel.org, yilun.xu@intel.com, xiaoyao.li@intel.com, sohil.mehta@intel.com, 
-	adrian.hunter@intel.com, kishen.maloor@intel.com, peter.fang@intel.com, 
-	baolu.lu@linux.intel.com, zhenzhong.duan@intel.com, chao.gao@intel.com, 
-	artem.bityutskiy@linux.intel.com, nik.borisov@suse.com
-Subject: Re: [PATCH v3 6/6] x86/virt/tdx: Support DPAMT when adding memory
- for the extensions
-Message-ID: <asyy0Y4ZWqHvgQ4u@thinkstation>
-References: <20261006-tdx-module-ext-v3-0-db52cb05b918@linux.intel.com>
- <20261006-tdx-module-ext-v3-6-db52cb05b918@linux.intel.com>
- <asR64ovVXEmTVgg6@tlindgre-MOBL1>
- <asceeI8LD5ltEOje@yilunxu-OptiPlex-7050>
- <asjrTLfebkjDzB9F@thinkstation>
- <asmzGnpjrDKmFLLP@yilunxu-OptiPlex-7050>
+	s=k20260515; t=1791800163;
+	bh=orl793BvU5e/CSxcYnxxsBl8AsMTBAsWY1vEB3OIDG4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fI+tmga+k57E8D0T5LnxP2Nb0fso/oPOUxz0Wj0oJJyE0g4FvgJLbmDHbhe16iNfn
+	 DrwStfRcazQINxS3eIEvUwyauJYH5qO890en8ukt4jJgA7HkaZo5ZfXcRkB9P4QU5V
+	 Dca+sJBekwOBrzwwuImo9gzMBoBDu7xeLFzO7BTGjkirFXsqSr0YZf+68N4PjGGiEn
+	 oiiPEVsbwk2H9aIHEzEtVbkQWrqEqqPzuVTnnrXjyUc1NxCpYQ2A1clPey7sgrHoJc
+	 XmOxX29JMPFfOVJnqgpF95QieZpOeAYDaIGp999fOH5pph9axRj+KUSeCWSGqBfQfJ
+	 0kv+gmchg+uxQ==
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6afbc363efeso1898731a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:16:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxfVZB/HzWxI18I7WcPsgY2ytcCuz11/shtb48+jw+x6jdlKE9VFWpc3liKZWLIQ0EHx7asmov5rwXwD/k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBTg5uBk/OkBCX+zOS9UztclXDol30wRXuptDUwjVX2HR6F1WL
+	YO89fHyFVoOGOu0Li0bVVWaSleYKgDHd6HLaTTu+2LEaDCRVNImOfStpK4VaZlSP3NlSjfu1Oc6
+	2qkvNdyzRiRB5NA/hEaPUiWCXFWfcJwI=
+X-Received: by 2002:a05:6402:52d4:b0:6b1:bfa2:28b2 with SMTP id
+ 4fb4d7f45d1cf-6b1bfa237f9mr1810902a12.41.1791800162033; Mon, 12 Oct 2026
+ 03:16:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asmzGnpjrDKmFLLP@yilunxu-OptiPlex-7050>
+References: <20261012090431.TF3iVDsk@linutronix.de>
+In-Reply-To: <20261012090431.TF3iVDsk@linutronix.de>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Mon, 12 Oct 2026 18:15:51 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H4=nnhbJS4srmt7dNdgpkEZ8_RQ5Z+0baYMiXF1UrJ3KA@mail.gmail.com>
+X-Gm-Features: AclHuK9TEXrFCWum0m6_oB3KBiHLt4AYM32obi_SLjhsWyEN5aWEU2MqT_igAd8
+Message-ID: <CAAhV-H4=nnhbJS4srmt7dNdgpkEZ8_RQ5Z+0baYMiXF1UrJ3KA@mail.gmail.com>
+Subject: Re: [PATCH v4] ARM, ARM64, LONGARCH, XTENSA: Delay HW BP notification
+ to task_work()
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-rt-devel@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+	loongarch@lists.linux.dev, Mark Rutland <mark.rutland@arm.com>, 
+	Ian Rogers <irogers@google.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Oleg Nesterov <oleg@redhat.com>, 
+	WANG Xuerui <kernel@xen0n.name>, Will Deacon <will@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Ingo Molnar <mingo@redhat.com>, 
+	Waiman Long <longman@redhat.com>, Clark Williams <clrkwllms@kernel.org>, 
+	"Luis Claudio R. Goncalves" <lgoncalv@redhat.com>, James Clark <james.clark@linaro.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, Chris Zankel <chris@zankel.net>, 
+	Max Filippov <jcmvbkbc@gmail.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Jiri Olsa <jolsa@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 10, 2026 at 11:38:02AM +0800, Xu Yilun wrote:
-> On Fri, Oct 09, 2026 at 02:28:34PM +0100, Kiryl Shutsemau wrote:
-> > On Thu, Oct 08, 2026 at 12:39:20PM +0800, Xu Yilun wrote:
-> > > On Tue, Oct 06, 2026 at 07:36:50AM +0300, Tony Lindgren wrote:
-> > > > On Tue, Oct 06, 2026 at 01:41:50AM +0800, Xu Yilun wrote:
-> > > > > The TDX module uses Physical Address Metadata Table (PAMT) to track some
-> > > > > state for each page of physical memory that it might use. 3 levels of
-> > > > > PAMTs are used to track pages of different sizes - 1GB, 2MB and 4KB.
-> > > > > Dynamic PAMT (DPAMT) allows saving memory by allocating 4KB PAMT
-> > > > > dynamically, while the 1GB and 2MB levels remain allocated on TDX module
-> > > > > initialization. The kernel has helpers to install 4K DPAMT.
-> > > > > 
-> > > > > Although the memory for the extensions is tens of megabytes and the host
-> > > > > allocates it in a large chunk, the TDX module accepts it at 4K
-> > > > > granularity. Thus the host has to install 4K DPAMT for each page of it.
-> > > > > 
-> > > > > Call tdx_pamt_get() for each page before adding it to TDX module.
-> > > > > Normally, these operations should not fail, and if they do,
-> > > > > intentionally keep the error handling as simple as before - leak all
-> > > > > pages, including the installed 4K DPAMT metadata.
-> > > > > 
-> > > > > Signed-off-by: Xu Yilun <yilun.xu@linux.intel.com>
-> > > > > ---
-> > > > > v3:
-> > > > >  - New patch
-> > > > > ---
-> > > > >  arch/x86/virt/vmx/tdx/tdx.c | 9 ++++++++-
-> > > > >  1 file changed, 8 insertions(+), 1 deletion(-)
-> > > > > 
-> > > > > diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
-> > > > > index 5d5f9da1ab02..27a7039ee443 100644
-> > > > > --- a/arch/x86/virt/vmx/tdx/tdx.c
-> > > > > +++ b/arch/x86/virt/vmx/tdx/tdx.c
-> > > > > @@ -1330,8 +1330,15 @@ static __init int tdx_ext_mem_setup(void)
-> > > > >  		struct page *chunk = page + added_pages;
-> > > > >  		unsigned int i;
-> > > > >  
-> > > > > -		for (i = 0; i < chunk_pages; i++)
-> > > > > +		for (i = 0; i < chunk_pages; i++) {
-> > > > > +			ret = tdx_pamt_get(page_to_pfn(chunk + i), NULL);
-> > > > > +			if (ret) {
-> > > > > +				WARN(1, "DPAMT setup error for extensions, stranded all pages\n");
-> > > > > +				goto out_free_hpa_list;
-> > > > > +			}
-> > > > > +
-> > > > >  			hpa_list->phys[i] = page_to_phys(chunk + i);
-> > > > > +		}
-> > > > >  
-> > > > >  		ret = tdx_ext_mem_add(hpa_list, chunk_pages);
-> > > > >  		if (ret) {
-> > > > > 
-> > > > 
-> > > > How about just fold this change in into patch 3/6?
-> > > 
-> > > I think patch 3/6 is already quite heavy. Is it good that I put this
-> > > patch right after patch 3/6?
-> > 
-> > But that breaks bisectability, no? Even placed right after 3/6, that
-> > commit fails TDX module init on a machine with DPAMT and extensions
-> > whenever the module asks for a non-zero pool.
-> 
-> It will not. Any patch for extension-backed features should be applied
-> after this series. So the pool will always be zero until something like:
-> 
->  /* List all kernel-supported add-on features0 bits here */
-> -#define TDX_KERNEL_SUPPORTED_ADDON_FEATURES0   (0)
-> +#define TDX_KERNEL_SUPPORTED_ADDON_FEATURES0   (TDX_FEATURES0_QUOTE)
+Hi, Sebastian,
 
-Okay, fair enough. Feel free to use my
+On Mon, Oct 12, 2026 at 5:04=E2=80=AFPM Sebastian Andrzej Siewior
+<bigeasy@linutronix.de> wrote:
+>
+> Waiman, Luis, Ada reported that HW breakpoints on ARM64 trigger
+> "sleeping while atomic" warnings on PREEMPT_RT. The hardware event is
+> delivered with disabled interrupts and perf intrastrucure expects
+> disabled interrupts while the overflow callback is invoked.
+>
+> The callback then sends a SIGTRAP signal for which it acquires
+> sighand_struct::siglock, a spinlock_t which becomes a sleeping lock and
+> must not be acquired in atomic context.
+>
+> Delay the event callback until the return to userland.
+> Add perf_hwbp_notify(), a generic perf callback which delayes the
+> actual callback invocation to task_work_add() callback. This callback
+> invokes the architecture defined callback perf_arch_hwbp_send_sig().
+> This requires struct callback_head and the functions require
+> ARCH_NEED_PERF_HW_NOTIFY to be defined.
+>
+> This was reported against ARM64. ARM, LongARCH and Xtensa follow the
+> same pattern are also converted. Xtensa is the only not supporting
+> PREEMPT_RT but now we have all architectures using the same pattern.
+>
+> Fixes: d8fccd9ca5f90 ("arm64: Allow to enable PREEMPT_RT.")
+> Reported-by: Luis Claudio R. Goncalves <lgoncalv@redhat.com>
+> Reported-by: Waiman Long <longman@redhat.com>
+> Closes: https://lore.kernel.org/all/aho0eqjMESuHxECr@redhat.com/
+> Reviewed-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+> Tested-by: Ada Couprie Diaz <ada.coupriediaz@arm.com> (arm64)
+> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> ---
+> v3=E2=80=A6v4: https://lore.kernel.org/all/20261001143516.Ew8C97WS@linutr=
+onix.de/
+>  - Add fixes tag
+>  - Rename the functions as suggested by Ada to use the pattern that perf
+>    uses in other places:
+>    - perf_arch_hwbp_notify() -> perf_hwbp_notify() (generic)
+>    - arch_hwbp_send_sig() -> perf_arch_hwbp_send_sig() (arch specific)
+>    - perf_arch_hwbp_send_sig() -> perf_hwbp_send_sig() (generic)
+>  - Rename ARCH_NEED_PERF_HW_NOTIF -> ARCH_NEED_PERF_HW_NOTIFY
+>
+> v2=E2=80=A6v3: https://lore.kernel.org/all/20260814085118.OPEA_Ssn@linutr=
+onix.de/
+>  - Add Xtensa for completion
+>  - sashiko complains and wants TWA_SIGNAL instead TWA_RESUME. His
+>    argument is that a syscall will trap via get_user() and loop forever
+>    instead making progress. This is wrong IMHO. ARM64 will single step
+>    over the watchpoint and continue execution. The only downside is that
+>    userland will get notified after the syscall completed. So my theory.
+>    Using TWA_SIGNAL is worse: Assume we have a watchpoint on UADDR and
+>    are in a futex() syscall. The get_user() invocation will trigger the
+>    exception, the debug handler will step over and queue a signal. The
+>    futex code will notice this and return ERESTARTNOINTR. A signal will
+>    be sent, the syscall restarts, traps onto UADDR again, the loop
+>    continues. But this should be case now, too=E2=80=A6
+>    Now that I look into arch_build_bp_info() and do actual testing I must
+>    say arm64 does not support mixed breakpoints. This means there is no
+>    breakpoint in kernel on a userland address. \o/
+>
+> v1=E2=80=A6v2: https://lore.kernel.org/all/20260713144939.FuCj9yvZ@linutr=
+onix.de/
+>  - sashiko complained that a memory breakpoint might trigger several
+>    times before a signal is sent if the syscall touches the memory (via
+>    get_user()) more than once before returning back. This would lead to
+>    list corruption in task_work_add(). To handle this, there is now a
+>    variable which is set via xchg before task_work_add() and cleared
+>    after the signal has been sent.
+>
+>  arch/arm/include/asm/hw_breakpoint.h       |  1 +
+>  arch/arm/kernel/ptrace.c                   |  7 ++----
+>  arch/arm64/include/asm/hw_breakpoint.h     |  1 +
+>  arch/arm64/kernel/ptrace.c                 |  6 ++---
+>  arch/loongarch/include/asm/hw_breakpoint.h |  1 +
+>  arch/loongarch/kernel/ptrace.c             |  6 ++---
+>  arch/xtensa/include/asm/hw_breakpoint.h    |  1 +
+>  arch/xtensa/kernel/ptrace.c                |  7 ++----
+>  include/linux/hw_breakpoint.h              |  3 +++
+>  include/linux/perf_event.h                 |  4 ++++
+>  kernel/events/core.c                       | 26 ++++++++++++++++++++++
+>  11 files changed, 45 insertions(+), 18 deletions(-)
+>
+> diff --git a/arch/arm/include/asm/hw_breakpoint.h b/arch/arm/include/asm/=
+hw_breakpoint.h
+> index e7f9961c53b2d..fa7fb2b2a392a 100644
+> --- a/arch/arm/include/asm/hw_breakpoint.h
+> +++ b/arch/arm/include/asm/hw_breakpoint.h
+> @@ -7,6 +7,7 @@
+>  struct task_struct;
+>
+>  #ifdef CONFIG_HAVE_HW_BREAKPOINT
+> +#define ARCH_NEED_PERF_HW_NOTIFY
+>
+>  struct arch_hw_breakpoint_ctrl {
+>                 u32 __reserved  : 9,
+> diff --git a/arch/arm/kernel/ptrace.c b/arch/arm/kernel/ptrace.c
+> index ed7a2a87a6707..db4b28c6e15a4 100644
+> --- a/arch/arm/kernel/ptrace.c
+> +++ b/arch/arm/kernel/ptrace.c
+> @@ -347,9 +347,7 @@ static long ptrace_hbp_idx_to_num(int idx)
+>  /*
+>   * Handle hitting a HW-breakpoint.
+>   */
+> -static void ptrace_hbptriggered(struct perf_event *bp,
+> -                                    struct perf_sample_data *data,
+> -                                    struct pt_regs *regs)
+> +void perf_arch_hwbp_send_sig(struct perf_event *bp)
+>  {
+>         struct arch_hw_breakpoint *bkpt =3D counter_arch_bp(bp);
+>         long num;
+> @@ -424,8 +422,7 @@ static struct perf_event *ptrace_hbp_create(struct ta=
+sk_struct *tsk, int type)
+>         attr.bp_type    =3D type;
+>         attr.disabled   =3D 1;
+>
+> -       return register_user_hw_breakpoint(&attr, ptrace_hbptriggered, NU=
+LL,
+> -                                          tsk);
+> +       return register_user_hw_breakpoint(&attr, perf_hwbp_notify, NULL,=
+ tsk);
+>  }
+>
+>  static int ptrace_gethbpregs(struct task_struct *tsk, long num,
+> diff --git a/arch/arm64/include/asm/hw_breakpoint.h b/arch/arm64/include/=
+asm/hw_breakpoint.h
+> index bd81cf17744af..0bc75f42b0da6 100644
+> --- a/arch/arm64/include/asm/hw_breakpoint.h
+> +++ b/arch/arm64/include/asm/hw_breakpoint.h
+> @@ -124,6 +124,7 @@ extern void hw_breakpoint_pmu_read(struct perf_event =
+*bp);
+>  extern int hw_breakpoint_slots(int type);
+>
+>  #ifdef CONFIG_HAVE_HW_BREAKPOINT
+> +#define ARCH_NEED_PERF_HW_NOTIFY
+>  extern void hw_breakpoint_thread_switch(struct task_struct *next);
+>  extern void ptrace_hw_copy_thread(struct task_struct *task);
+>  #else
+> diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
+> index f743cbec1c3ad..dc3793c2a7c3c 100644
+> --- a/arch/arm64/kernel/ptrace.c
+> +++ b/arch/arm64/kernel/ptrace.c
+> @@ -168,9 +168,7 @@ void ptrace_disable(struct task_struct *child)
+>  /*
+>   * Handle hitting a HW-breakpoint.
+>   */
+> -static void ptrace_hbptriggered(struct perf_event *bp,
+> -                               struct perf_sample_data *data,
+> -                               struct pt_regs *regs)
+> +void perf_arch_hwbp_send_sig(struct perf_event *bp)
+>  {
+>         struct arch_hw_breakpoint *bkpt =3D counter_arch_bp(bp);
+>         const char *desc =3D "Hardware breakpoint trap (ptrace)";
+> @@ -312,7 +310,7 @@ static struct perf_event *ptrace_hbp_create(unsigned =
+int note_type,
+>         attr.bp_type    =3D type;
+>         attr.disabled   =3D 1;
+>
+> -       bp =3D register_user_hw_breakpoint(&attr, ptrace_hbptriggered, NU=
+LL, tsk);
+> +       bp =3D register_user_hw_breakpoint(&attr, perf_hwbp_notify, NULL,=
+ tsk);
+>         if (IS_ERR(bp))
+>                 return bp;
+>
+> diff --git a/arch/loongarch/include/asm/hw_breakpoint.h b/arch/loongarch/=
+include/asm/hw_breakpoint.h
+> index 5faa97a87a9e2..c2d061ff3763a 100644
+> --- a/arch/loongarch/include/asm/hw_breakpoint.h
+> +++ b/arch/loongarch/include/asm/hw_breakpoint.h
+> @@ -120,6 +120,7 @@ void breakpoint_handler(struct pt_regs *regs);
+>  void watchpoint_handler(struct pt_regs *regs);
+>
+>  #ifdef CONFIG_HAVE_HW_BREAKPOINT
+> +#define ARCH_NEED_PERF_HW_NOTIFY
+>  extern void ptrace_hw_copy_thread(struct task_struct *task);
+>  extern void hw_breakpoint_thread_switch(struct task_struct *next);
+>  #else
+> diff --git a/arch/loongarch/kernel/ptrace.c b/arch/loongarch/kernel/ptrac=
+e.c
+> index be38430f7e280..27e7e64591592 100644
+> --- a/arch/loongarch/kernel/ptrace.c
+> +++ b/arch/loongarch/kernel/ptrace.c
+> @@ -384,9 +384,7 @@ static int lbt_set(struct task_struct *target,
+>  /*
+>   * Handle hitting a HW-breakpoint.
+>   */
+> -static void ptrace_hbptriggered(struct perf_event *bp,
+> -                               struct perf_sample_data *data,
+> -                               struct pt_regs *regs)
+> +void perf_arch_hwbp_send_sig(struct perf_event *bp)
+>  {
+>         int i;
+>         struct arch_hw_breakpoint *bkpt =3D counter_arch_bp(bp);
+> @@ -479,7 +477,7 @@ static struct perf_event *ptrace_hbp_create(unsigned =
+int note_type,
+>         attr.bp_type    =3D type;
+>         attr.disabled   =3D 1;
+>
+> -       bp =3D register_user_hw_breakpoint(&attr, ptrace_hbptriggered, NU=
+LL, tsk);
+> +       bp =3D register_user_hw_breakpoint(&attr, perf_hwbp_notify, NULL,=
+ tsk);
+>         if (IS_ERR(bp))
+>                 return bp;
+>
+> diff --git a/arch/xtensa/include/asm/hw_breakpoint.h b/arch/xtensa/includ=
+e/asm/hw_breakpoint.h
+> index 9ec86f440a48e..44ea340c88742 100644
+> --- a/arch/xtensa/include/asm/hw_breakpoint.h
+> +++ b/arch/xtensa/include/asm/hw_breakpoint.h
+> @@ -12,6 +12,7 @@
+>  #define __ASM_XTENSA_HW_BREAKPOINT_H
+>
+>  #ifdef CONFIG_HAVE_HW_BREAKPOINT
+> +#define ARCH_NEED_PERF_HW_NOTIFY
+>
+>  #include <linux/kdebug.h>
+>  #include <linux/types.h>
+> diff --git a/arch/xtensa/kernel/ptrace.c b/arch/xtensa/kernel/ptrace.c
+> index 364e4fdabb00d..c9f583d650de2 100644
+> --- a/arch/xtensa/kernel/ptrace.c
+> +++ b/arch/xtensa/kernel/ptrace.c
+> @@ -361,9 +361,7 @@ static int ptrace_pokeusr(struct task_struct *child, =
+long regno, long val)
+>  }
+>
+>  #ifdef CONFIG_HAVE_HW_BREAKPOINT
+> -static void ptrace_hbptriggered(struct perf_event *bp,
+> -                               struct perf_sample_data *data,
+> -                               struct pt_regs *regs)
+> +void perf_arch_hwbp_send_sig(struct perf_event *bp)
+>  {
+>         int i;
+>         struct arch_hw_breakpoint *bkpt =3D counter_arch_bp(bp);
+> @@ -395,8 +393,7 @@ static struct perf_event *ptrace_hbp_create(struct ta=
+sk_struct *tsk, int type)
+>         attr.bp_type    =3D type;
+>         attr.disabled   =3D 1;
+>
+> -       return register_user_hw_breakpoint(&attr, ptrace_hbptriggered, NU=
+LL,
+> -                                          tsk);
+> +       return register_user_hw_breakpoint(&attr, perf_hwbp_notify, NULL,=
+ tsk);
+>  }
+>
+>  /*
+> diff --git a/include/linux/hw_breakpoint.h b/include/linux/hw_breakpoint.=
+h
+> index db199d653dd1a..91e8d80220c54 100644
+> --- a/include/linux/hw_breakpoint.h
+> +++ b/include/linux/hw_breakpoint.h
+> @@ -85,6 +85,9 @@ extern int register_perf_hw_breakpoint(struct perf_even=
+t *bp);
+>  extern void unregister_hw_breakpoint(struct perf_event *bp);
+>  extern void unregister_wide_hw_breakpoint(struct perf_event * __percpu *=
+cpu_events);
+>  extern bool hw_breakpoint_is_used(void);
+> +extern void perf_arch_hwbp_send_sig(struct perf_event *bp);
+> +extern void perf_hwbp_notify(struct perf_event *bp, struct perf_sample_d=
+ata *data,
+> +                            struct pt_regs *regs);
+Maybe this declaration can be put in one line because there is no 80
+characters limit now.
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Huacai
 
-on 3/6 and 6/6.
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+>
+>  extern int dbg_reserve_bp_slot(struct perf_event *bp);
+>  extern int dbg_release_bp_slot(struct perf_event *bp);
+> diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+> index 2d5e7687875b0..07f2c858d50d1 100644
+> --- a/include/linux/perf_event.h
+> +++ b/include/linux/perf_event.h
+> @@ -215,6 +215,10 @@ struct hw_perf_event {
+>
+>         /* Last sync'ed generation of filters */
+>         unsigned long                   addr_filters_gen;
+> +#ifdef ARCH_NEED_PERF_HW_NOTIFY
+> +       struct callback_head            arch_hw_notif;
+> +       int                             arch_hw_notif_busy;
+> +#endif
+>
+>  /*
+>   * hw_perf_event::state flags; used to track the PERF_EF_* state.
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index 7846d70be57f6..619eab68d1dfd 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -13334,6 +13334,28 @@ static void account_event(struct perf_event *eve=
+nt)
+>         account_pmu_sb_event(event);
+>  }
+>
+> +#ifdef ARCH_NEED_PERF_HW_NOTIFY
+> +static void perf_hwbp_send_sig(struct callback_head *head)
+> +{
+> +       struct perf_event *bp;
+> +
+> +       bp =3D container_of(head, struct perf_event, hw.arch_hw_notif);
+> +       perf_arch_hwbp_send_sig(bp);
+> +       xchg_relaxed(&bp->hw.arch_hw_notif_busy, 0);
+> +       put_event(bp);
+> +}
+> +
+> +void perf_hwbp_notify(struct perf_event *bp, struct perf_sample_data *da=
+ta,
+> +                     struct pt_regs *regs)
+> +{
+> +       if (WARN_ON_ONCE(!atomic_long_inc_not_zero(&bp->refcount)))
+> +               return;
+> +       if (xchg_relaxed(&bp->hw.arch_hw_notif_busy, 1) ||
+> +           WARN_ON_ONCE(task_work_add(current, &bp->hw.arch_hw_notif, TW=
+A_RESUME)))
+> +               put_event(bp);
+> +}
+> +#endif
+> +
+>  /*
+>   * Allocate and initialize an event structure
+>   */
+> @@ -13439,6 +13461,10 @@ perf_event_alloc(struct perf_event_attr *attr, i=
+nt cpu,
+>         }
+>
+>         if (overflow_handler) {
+> +#ifdef ARCH_NEED_PERF_HW_NOTIFY
+> +               if (overflow_handler =3D=3D perf_hwbp_notify)
+> +                       init_task_work(&event->hw.arch_hw_notif, perf_hwb=
+p_send_sig);
+> +#endif
+>                 event->overflow_handler =3D overflow_handler;
+>                 event->overflow_handler_context =3D context;
+>         } else if (is_write_backward(event)){
+> --
+> 2.55.0
+>
