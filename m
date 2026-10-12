@@ -1,109 +1,194 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6563321C2
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F69318B83;
+	Mon, 12 Oct 2026 04:27:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791779193; cv=none; b=mZn3LOv17qUAzLDPvv+WNZdiJjF27oaAQ94+yTjYVwk+4qOMkRyyKZIWNBRn6/p7JnQdR45IkDQiMVGKuZOEqL594mZpIUfMB7vzsb0FkfUZtchPagf+HG9+ErIoWEMTj51LENR9RI2VishKyj0Jg05z8JSdUJx3US/ZqJsRGgE=
+	t=1791779244; cv=none; b=OTG0JQR/ka7WLUoUdkE2AwGGN6S1C8q9Zb/oejPogHI3dWbAbGD8dNn77o9rvRqz5KwHWPDynfoAvL5Noe5FzRhTwkj/MLnQDhJCxiMzeBW0DCCpKPlJplzgZdEg5Fg63Rlo0sL4U+rG57lKnb5uJfs61G+dbHJ66Gn3UaJzwPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791779193; c=relaxed/simple;
-	bh=aiBAhlv2Ev/TS2fJoaSo8lPZ16KTHkhhUdlu5+WAv2k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eEdFQqUWqd2no6gDRuCFiv62e/jWH0mB+wUS3AZq5FRpYYzhnmyMo+5ROzTlUmd2jvsm7wxUCNvrvkM7CKHXVNzXgMyz4oiZ+npsf6waCaEX9n919cHgqNj7pGWVnK+N8/oaypXRXOK5sDiZ36rGFc9E5qOUoRMaRrG8rTh2ncs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lIyXC9ZR; arc=none smtp.client-ip=74.125.82.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791779244; c=relaxed/simple;
+	bh=OSualuFA1JNLwwDkgs3/qCuuG8cnTESHH3RVN3CNw0Q=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sWH50S+R56yVaK2ArwB+xFaKylJjSXBEyPmazuRsNk4c+AIPmTZPPdKEwTwK43ytrlFOHdH21Ew+OO43/tJhDnTWaQ1NezehjGf8d/98esecqLcRelp4rP2nqe8ns4rjMh5fIj5ust5T8LkrsyTkkP4QmPinpHIZXWTTT8tNnQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cb3kZnQL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lIyXC9ZR"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3535a54bed9so2057207eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:26:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791779190; x=1792383990; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7HtE6pXgrE7ezeCTTTPF8rtN8BUz+TwVSZ4PqyPsxjA=;
-        b=lIyXC9ZRTxk0Pyu64Ps6Qb9V02ILbh9g5XbSzkL0vx4eHhch9/qQBj6ylSEqehzdvz
-         Zha3CnGBtiFrgmk6rm+7foq8F49NK8BTYp7e3gNRlXTQahGSrC4FCVZ4p+qxWWVwDyZc
-         GpQE17ly6+9N7L9x+8If7gJCGZhFns/vuAx0jRiaNkx/3XlY5vNFfbo3A/UqYlHMqoov
-         uQ/ErFPg63Q75WcVxYrQ2+0UvzlAJf1Do09BILXCksPOuVdDmhNsM59ihCxAQYrqj6fs
-         7cQDUIJlCRvVAv3t68M/+Rt2ubc40kafOE4xITlWT3ukS4iMLtFEHLLLoOwtnZ5+ajf1
-         L/QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791779190; x=1792383990;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7HtE6pXgrE7ezeCTTTPF8rtN8BUz+TwVSZ4PqyPsxjA=;
-        b=u3P8SNal2m9HyzzMKoOZEfKLlC6/0tUcYIUNPcLKJGg3qJA+F/f89LAaiYhWsnwHBX
-         hOW2i5Ldv0MADROF1YfFISC93rKkmdjgHJnF9AnnjavDM1UEv4VrVDdbCFRVfO/d+M11
-         B1wvb5gODhJReaKp+++I6/VPZKjeZ+3w7I3dDeHlggf70q27IWOGGzC/wsFzJbKMDet6
-         hWOiklYV8DMabR4yRemZ+pbjf+KkXddMyW/hxaVZQwHuwRfzh1xYIS08Vzi69sK0q69f
-         xP+vf9tkiZdeRKY+XvZRevafcQCfty3qPDX3p+vSW47VXzkClamMFD9YQajnVmxtdkh6
-         eBIA==
-X-Forwarded-Encrypted: i=1; AKwUvBwdtpCWifvW+O+JxKDKwtbF0/yrgXMFh2ZZMrrIRI+WTWmzSW964IMy430CCga29Q8E2ohffBGr62N3/Ww=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4ITEK+MX6mwWmixjaaX3kJwN0ixm/VzQY42l9oGNqF+t1fu1u
-	ZgwM8VtTOGm8xq7ZxAvmTpujon1lg23Er695guvHj91IHsxyltwayhrjj0EO8avNLvg=
-X-Gm-Gg: AYBFou3msLzscV8pyUrRPvJspCzCdZt4/OOPIyCJvOLEfi9FK7An/Pjp1/N9bxiXeEv
-	RD8lojfTvmh1i7Ix6t1kq5JYzqQWmeTZHUVKbXfWMAMduFdC8q84JUUIv8JIEG1XuCUnHZkeO3G
-	t1jNqQm0Hlki9LSbrSXvhnN5Uy/LQft8KIcv8xIsnV8KwvgLcR1H0CtbFtBEQSPr1ksNjSEwpCz
-	lYgdv2ebU5b8hkyfyO93/eSdI0l86sGEB+EaRnIWoMEyErCWs4UzVWURuip8o3szCGPpHEjUj7p
-	WHGaTqMOfKNoZpiLNctbY0G8gv5TtVMb/zISQ9bCBzkJVidMnGQIssPiSl/lmc6jJ4ek+UPI6H0
-	dzX1c6vFznpiJu9wKy0bCaBdVeJ/cYNJXRXMo3qXfC9I7U3hxFos1cLbOapR/RYXtZQrv4B0UkJ
-	WjsxwDn8TYkrwdqzAuz6r9l14y5bLEzglayR/kLYVPooj5BRVPJh2pGSPCrJCI5BsE/Rodu3TQ7
-	A==
-X-Received: by 2002:a05:7300:ce94:b0:345:84eb:7153 with SMTP id 5a478bee46e88-3537e033341mr12296308eec.11.1791779189344;
-        Sun, 11 Oct 2026 21:26:29 -0700 (PDT)
-Received: from localhost ([122.172.82.240])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c61eaa0sm32289042eec.0.2026.10.11.21.26.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 21:26:28 -0700 (PDT)
-Date: Mon, 12 Oct 2026 09:56:25 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: xiong yining <xiongyining1480@phytium.com.cn>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	linux-pm@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org, chenbaozi@phytium.com.cn
-Subject: Re: [PATCH] selftests: cpufreq: stop CPU hotplug loop after cpufreq
- update test
-Message-ID: <asxhcagRL3myS3m_@vireshk-B250M-D3H>
-References: <20261010100148.297720-1-xiongyining1480@phytium.com.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cb3kZnQL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABF091F0089B;
+	Mon, 12 Oct 2026 04:27:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791779241;
+	bh=QJh9QaUYrLN+/jImyp2k/Z7vS07GIEVHDzwZt/doNeE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Cb3kZnQL9KjNvfhws20mp2cemQVwc1a68eWhAX7KdVkpLxv5pkggQV3Q+pyQ7ibni
+	 IDRYIlW0liiMWn7U3dtInxjRmY9PU2XMydKFZxTGJfGKgg1URa9X8B+IUaGeUpSZFz
+	 XHdj+PCOhv+3K45GA2BIkYE4C0nxgYKNT0ARj4xJvaSs+Mvd7AUipiIt4CMo7Gr3A4
+	 oHvfppuj0d55QlclGLIrzciAiGzvsYl/HRpi+UMXxL4RpEfl7spPUydi3TR+hB+XHJ
+	 XNK3nWcC1srlPuWITKu8uzKOsuFLq5YXczDG0JRdqsJb6zi9nEeeaZBA0sHHzD8WzH
+	 lwaflmLjxVq9Q==
+Subject: Re: [PATCH] net/sched: sch_netem: prevent packet length underflow
+ with negative overhead
+From: netdev-bot+sashiko@kernel.org
+To: dungvn2345@gmail.com
+Cc: stephen@networkplumber.org, jhs@mojatatu.com, jiri@resnulli.us,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Mon, 12 Oct 2026 04:27:20 +0000
+Message-ID: <179177924024.434549.1159457377130534867@kernel.org>
+In-Reply-To: <20261008035656.330667-1-dungvn2345@gmail.com>
+References: <20261008035656.330667-1-dungvn2345@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010100148.297720-1-xiongyining1480@phytium.com.cn>
 
-On 10-10-26, 18:01, xiong yining wrote:
-> Original test uses a fixed 5000 iteration loop to trigger CPU hotplug
-> for verifying cpufreq synchronization between CPU hotplug and sysfs
-> writes.
-> 
-> Two issues exist:
-> 1. Background hotplug task keeps running after test completes, causing
-> redundant CPU on/offline operations.
-> 2. When cpufreq frequency setup is slow, the hotplug loop may exit
-> before frequency updates finish, which breaks test purpose.
-> 
-> Introduce a file-based stop flag to control the infinite hotplug loop.
-> After all cpufreq updates complete, create the stop flag file and
-> wait for the hotplug task to exit.
-> 
-> This makes hotplug run only during cpufreq sysfs write test,
-> align with test objective.
-> 
-> Signed-off-by: xiong yining <xiongyining1480@phytium.com.cn>
-> ---
->  tools/testing/selftests/cpufreq/special-tests.sh | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] In net/sched/sch_netem.c, packet_time_ns() line 376 now does
+  `s32 cell_len = (s32)q->cell_size + q->cell_overhead;`, and lines…
+- [Low] In net/sched/sch_netem.c, packet_time_ns() now computes the cell-
+  adjusted length as `len = (u64)cells * cell_len;` (line 382) instead…
+- [Low] The commit message says the new clamping is 'matching the
+  behavior in sch_cake and sch_tbf'.
+
+--
+
+net/sched: sch_netem: prevent packet length underflow with negative overhead
+
+This patch changes packet_time_ns() in sch_netem. It now returns 0 when
+the packet length plus a negative packet_overhead is non-positive, and
+also when cell_size + cell_overhead is non-positive. The cell-adjusted
+length is now computed as a u64 product instead of a u32 one.
+
+> Clamp the effective packet length to 0 if the overhead adjustment
+> would underflow, and return 0 delay if effective cell length is
+> non-positive, matching the behavior in sch_cake and sch_tbf.
+
+[Severity: Low]
+Is the comparison to sch_cake and sch_tbf accurate?
+
+sch_tbf uses psched_l2t_ns() with struct psched_ratecfg, where overhead is
+a u16. Its overhead cannot be negative, so there is no negative-overhead
+behavior to match there.
+
+sch_cake's cake_calc_overhead() clamps to the MPU rather than to zero:
+
+	len = max((s32)len + q->rate_overhead, (s32)q->rate_mpu);
+
+Its ATM/PTM framing is fixed, so it has no configurable cell size and no
+rule like "return 0 delay when cell_size + cell_overhead <= 0".
+
+The commit message also doesn't mention that the cell product is now
+computed as (u64)cells * cell_len instead of in wrapping u32 arithmetic.
+That changes the computed delay for large configurations.
+
+Since this is tagged for stable, could the message describe this as a new
+policy (a non-positive effective length means no rate shaping for that
+packet) instead of an existing convention?
+
+> diff --git a/net/sched/sch_netem.c b/net/sched/sch_netem.c
+> index 8a1b89a289d8f..a3dcd33bec499 100644
+> --- a/net/sched/sch_netem.c
+> +++ b/net/sched/sch_netem.c
+> @@ -366,14 +366,20 @@ static s64 tabledist(s64 mu, s32 sigma,
+>  
+>  static u64 packet_time_ns(u64 len, const struct netem_sched_data *q)
+>  {
+> +	if ((s64)len + q->packet_overhead <= 0)
+> +		return 0;
+> +
+>  	len += q->packet_overhead;
+>  
+>  	if (q->cell_size) {
+>  		u32 cells = reciprocal_divide(len, q->cell_size_reciprocal);
+> +		s32 cell_len = (s32)q->cell_size + q->cell_overhead;
+>  
+>  		if (len > cells * q->cell_size)	/* extra cell needed for remainder */
+>  			cells++;
+> -		len = cells * (q->cell_size + q->cell_overhead);
+> +		if (cell_len <= 0)
+> +			return 0;
+
+[Severity: Medium]
+Can cell_len come out negative here for configurations the kernel already
+accepts?
+
+q->cell_size comes from the __u32 cell_size field of struct tc_netem_rate.
+get_rate() stores it without any range check:
+
+net/sched/sch_netem.c:get_rate() {
+    ...
+	q->cell_size = r->cell_size;
+	q->cell_overhead = r->cell_overhead;
+    ...
+}
+
+In two cases cell_len goes negative even though the real cell length is
+large and positive:
+
+  - any cell_size >= 0x80000000 turns negative after the (s32) cast
+  - cell_size = 0x7fffffff with cell_overhead = 1 wraps the s32 addition
+    past INT_MAX
+
+In both cases packet_time_ns() returns 0, so this line in netem_enqueue()
+adds no serialization delay:
+
+	delay += packet_time_ns(qdisc_pkt_len(skb), q);
+
+The configured rate shaping is then silently skipped. Before this patch,
+cell_size = 0x80000000 with cell_overhead = 0 still produced a large
+positive delay, and netem_dump() reports the value back unchanged.
+
+Would computing the sum in a wider type avoid this? For example:
+
+	s64 cell_len = (s64)q->cell_size + q->cell_overhead;
+
+Another option is to reject these values in get_rate()/netem_change()
+with an extack error.
+
+> +		len = (u64)cells * cell_len;
+>  	}
+>  
+>  	return div64_u64(len * NSEC_PER_SEC, q->rate);
+
+[Severity: Low]
+len is now a u64 product, so it is no longer bounded by 2^32 - 1. Can
+len * NSEC_PER_SEC overflow here?
+
+Take cell_size = 1, cell_overhead = 0x7ffffffe (so cell_len = 0x7fffffff)
+and a 1500 byte packet. reciprocal_value(1) gives cells = 1500, so len is
+about 3.2e12. len * NSEC_PER_SEC is then about 3.2e21, which wraps u64.
+
+With a small q->rate (for example 1 byte/s) the quotient can also exceed
+S64_MAX. The s64 delay in netem_enqueue() would then turn negative:
+
+	delay += packet_time_ns(qdisc_pkt_len(skb), q);
+	...
+	cb->time_to_send = now + delay;
+
+and time_to_send would land in the past. The old u32 product capped this
+at about 4.3e18, which is below S64_MAX.
+
+The same configuration already gave a meaningless delay before this patch,
+because the u32 product wrapped. The patch moves the wrap into the 64-bit
+multiply and adds the negative-delay case.
+
+Would mul_u64_u64_div_u64() or an explicit clamp make this well-defined?
 
 -- 
-viresh
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008035656.330667-1-dungvn2345%40gmail.com
