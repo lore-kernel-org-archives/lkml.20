@@ -1,69 +1,81 @@
 Received: from linkmauve.fr (linkmauve.fr [82.65.109.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CF64E0B73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8B304DA9C3
 	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:09:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.65.109.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791839368; cv=none; b=N+sIa5vqaJuw7P1CAN9xqyA+LvPqFafM13yNPbA4bKjCo1Ia9/cBOqJ9ci8xR++2lWYoTXtCeoKVKr0ktjdQcbOqh8CxYzr3vO++ny2g1ewSD8BY5XK5bGipeHk6rkc7Pzz8PrhoF3IPPf/5EBkOJ8xpp2yxgL7qttUHbXeg9JA=
+	t=1791839368; cv=none; b=p0Hk373pScZHYikWFHkIuKiIpBQDlID/xbnSMkVZUBGyesDelwloVV5p/yFVyxuG6wcNxuc9U+yzx08xky2ZMIg3xSt9mBdJpIzpaX8FVH4g4v9X9TU617hB+uel5gwLX3R36+NQfGHt/jsvw2hcfBi8Vas/+tgpnO6QEgKvFO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791839368; c=relaxed/simple;
-	bh=7DVYb2ltQlJEsmU+wKHSezO+nazVXLatQgr73KxmXDk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=dYDfIy59q2jqfOvaKfyfRbzQ9/LTzY0qY8A0ERj42NSfy9IKfMmlDqoYyuEsQealdK5AKIkTYADv34nTCzELEpfiR/XahxRKo35Qhtp0HDTZxptNdzBvZ8A7AVYA4x2HcE+E6vtTz59iE73qBHtZSenZ3Y88fnOV0iRz76rSlJU=
+	bh=n1yWGQjSRbgHn/kKaTgcEBElWuhrMX+884nIW0lSaP8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rdmZ4vcGykgivOfh+IRoiYlaU9NQiXU4uuAi6HKpzLgcAW/imdjky757vMnyvi3iKT46B6tHHZJgvN0ObNAr6BTP4N9qyBwMNMjOOC8olXw5YVexaAc/OGPUqzax1puUOB+3LlCtFTDzHxTzcHSYREogf7hiJgUVTkutzxCbjCw=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr; spf=pass smtp.mailfrom=linkmauve.fr; arc=none smtp.client-ip=82.65.109.163
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linkmauve.fr
 Received: by linkmauve.fr (Postfix, from userid 1000)
-	id 1EAB071FB459; Mon, 12 Oct 2026 23:09:24 +0200 (CEST)
+	id 2914371FB465; Mon, 12 Oct 2026 23:09:24 +0200 (CEST)
 From: Link Mauve <linkmauve@linkmauve.fr>
 To: Srinivas Kandagatla <srini@kernel.org>
 Cc: Link Mauve <linkmauve@linkmauve.fr>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/3] nvmem: enable COMPILE_TEST for more drivers
-Date: Mon, 12 Oct 2026 23:09:15 +0200
-Message-ID: <20261012210920.911354-1-linkmauve@linkmauve.fr>
+Subject: [PATCH v2 3/3] nvmem: Replace eight spaces with a tab in Kconfig
+Date: Mon, 12 Oct 2026 23:09:18 +0200
+Message-ID: <20261012210920.911354-4-linkmauve@linkmauve.fr>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261012210920.911354-1-linkmauve@linkmauve.fr>
+References: <20261012210920.911354-1-linkmauve@linkmauve.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This series was spun off from a previous version of my series fixing a
-case of missing const in an internal API.  I found out about those
-missing COMPILE_TEST while writing that series, but fixing that could
-actually be handled as a different series so here it is.
+The NVMEM_QCOM_SEC_QFPROM driver was indented with eight spaces instead
+of one tabulation character, and had been that way ever since its
+inception in c471245bd9f25152e398fb49f65cf6e1ed7febbd.
 
-A bot also reported some missing HAS_IOMEM dependencies, so I fixed them
-in all drivers which do MMIO accesses.  Maybe I missed some, I wasn’t
-sure if the drivers using regmap should also depend on HAS_IOMEM or not,
-but that could eventually go into a future series too.
+Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
+---
+ drivers/nvmem/Kconfig | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-I also fixed a random eight spaces of indentation I found in the same
-file, but again this could go into its own series if needed.
-
-[1] https://lore.kernel.org/lkml/20260920111000.2404131-1-linkmauve@linkmauve.fr/T/
-
-Changes since “v1”:
-- Link to “v1” (actually v6 of an unrelated series):
-  https://lore.kernel.org/lkml/20260920111000.2404131-5-linkmauve@linkmauve.fr/
-- Add missing HAS_IOMEM from drivers which use readl() or writel()
-  family of functions, to access MMIO.
-- Also fix indentation in the Kconfig.
-
-Link Mauve (3):
-  nvmem: add missing HAS_IOMEM depends on some drivers
-  nvmem: enable COMPILE_TEST for more drivers
-  nvmem: Replace eight spaces with a tab in Kconfig
-
- drivers/nvmem/Kconfig | 35 +++++++++++++++++++++--------------
- 1 file changed, 21 insertions(+), 14 deletions(-)
-
-
-base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
+diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
+index ed5b8e21ded0..ff6c4c04cea9 100644
+--- a/drivers/nvmem/Kconfig
++++ b/drivers/nvmem/Kconfig
+@@ -389,17 +389,17 @@ config NVMEM_QCOM_QFPROM
+ 	  will be called nvmem_qfprom.
+ 
+ config NVMEM_QCOM_SEC_QFPROM
+-        tristate "Qualcomm SECURE QFPROM Support"
+-        depends on ARCH_QCOM || COMPILE_TEST
+-        depends on HAS_IOMEM
+-        depends on OF
+-        select QCOM_SCM
+-        help
+-          Say y here to enable secure QFPROM support. The secure QFPROM provides access
+-          functions for QFPROM data to rest of the drivers via nvmem interface.
+-
+-          This driver can also be built as a module. If so, the module will be called
+-          nvmem_sec_qfprom.
++	tristate "Qualcomm SECURE QFPROM Support"
++	depends on ARCH_QCOM || COMPILE_TEST
++	depends on HAS_IOMEM
++	depends on OF
++	select QCOM_SCM
++	help
++	  Say y here to enable secure QFPROM support. The secure QFPROM provides access
++	  functions for QFPROM data to rest of the drivers via nvmem interface.
++
++	  This driver can also be built as a module. If so, the module will be called
++	  nvmem_sec_qfprom.
+ 
+ config NVMEM_QNAP_MCU_EEPROM
+ 	tristate "QNAP MCU EEPROM Support"
 -- 
 2.56.0
 
