@@ -1,104 +1,270 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050D1492199
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:48:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816519; cv=none; b=JKyAr4SjYzy364+NzEP47Y1FzIH86PIjufFCnnULkWFe7Og1JHbObGCWu+XOHFxKFCbNkFVnmUT2v4fqJSXFMugWiXzfPLM0pia2tS3Y8PDWeil+CUcX3tfSAWrduRt/FbYTB2iTFxWJuVV6kU6+HALGzfegnD8nsiZDjND4IuI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816519; c=relaxed/simple;
-	bh=PMfChKFNMXJzKzjmxiF7G9lPkPYxthEBjqQbKUTksMA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s1pQ1hYhpV69Lq58kSuoEgoQyeIhq7sxUZeI8yIuK29mStKgN2iJHc3a8rbR8fZyCxMUm3t/E7Y2Q7zHtHGtvsEDgDFLAnJHNpU+BACPkqjie8zUdQAfEOaEyFGbCqRHcmmXrivTPmTZREK1jKSCdwjegeq+9URQI4t4hOzQ0qI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=a18EyQSR; arc=none smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D31490BF2
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:48:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791816522; cv=pass; b=QXO64BUJIELvg5bYZCb/JdGMNQINzNJTnWEGaSbj7+VjpIRHY7taY0adzeoKvfPU3GFkt/grmLGpSF8em5pjGNM6nhHMZJcxXOqbwuTV/DqBrCPn/Jxks01LtHOYnHA+7LZ04nbId3xBsywlnN8GO9x1EnEUXZONRxRl984KTM8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791816522; c=relaxed/simple;
+	bh=Yft/DjEqqucDjTSqKfKALWWjn/XO9EqkbpRJX6+FO2Q=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ggjzIE6ECpmIQ8yWEdQAFh8nAfp+owZpLfVxH7Z108w3fG5eLwcR1rfnaXJg0U/1qpju9uy/NYbU090g/F0ixTTIcAg2R2w9d3uSua+XWNmdevBZMdsub0BvrzwnXfq04IjjcAtFSUXm0XFvjW80a8vns2CSrqrextov1x2RpP0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=PWnOyeYc; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="a18EyQSR"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-5339381b46eso20905031cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:48:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1791816517; x=1792421317; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PMfChKFNMXJzKzjmxiF7G9lPkPYxthEBjqQbKUTksMA=;
-        b=a18EyQSRv8P0iZVz2cFyE4nGgHoZsQEXyx8UJuHZjpdM+7Qf5SQhhP2xNWAH0VYzQf
-         /hoTlApssge3VsQ/ughGQGY0EAl62gOiNulQUtPZtIib5tqYAnuOwBaIFP2jom9NqxZs
-         Js7D3KhLF4ajJ3qghgQYaFLUYxdFUOYcU8NGDBSHwvQLHuHt9cmGCYRlNuetRRfZ8cBx
-         q41L4B7/xbYzABJqwB1ksDueQgP+fEt/7CCxbNCqmetPUJk8paMF210jlmlyzh2TH+i0
-         IYmXPXhqQploSSM8bOgX4etNpNXQAiPb3ki2WHim7bolH4+nLgdpLKyQW/5qIdwwO02t
-         h5Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791816517; x=1792421317;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PMfChKFNMXJzKzjmxiF7G9lPkPYxthEBjqQbKUTksMA=;
-        b=lrePX0EThTv0RMgTObwkKwIZLbT3RG3R6cPMGA1ZtI0J1ZGNHTm+UVpBOh+ebdoyBk
-         iCw59BJofXgqZQLcytZf4zySfokYj5jU2PVqeejPDU5zIJVRV15POwM3FOpGRklYm1iA
-         sZM8LzYqK0uBsDu5Oge9RPT8KmVv+6ZDFZv3MJ+lHGfwhdFyXs5FlqQkgs4n1Am5CG0p
-         vLlY/cc8Fn/MzTX+X6rO5N7+HVyEX63wTOMsHBM/rh6vKauwr0Cer2VhvlOBfHR3ZY84
-         nKWBy8TxXFC05dV5LljVefJt6kd/O5qlUmNwqXSI+GKVWvl9xhGmJjU+FGRU+pNEmalA
-         pUxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz15Swnc261lD56uh/TPBkxx2YCW5rLqyr4SwE90mSitLeN18HIKaGuGkIzJpwjIDt18XX6+B+Mim3QfNo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIVVSDn7lcGw8DXkI0t+AbYEs6W4BTgVYqWdLFBGdvqzpriJGku
-	eZ53voGzUQ8wPI+8hHO7fBUVMeq781bU2YIfT/greKvwaD0lXR89IWymDvMSe8oMgqw=
-X-Gm-Gg: AYBFou0KtWPHD8X2CCHYGvKZ2nIJc2nYe1MkznhNiaW6AurOHFdzePzxhc/1CVvqDgY
-	HTTvdeHA2aIbWoZ89EOK4FSZjrAJTTxGBapdRYL7ulWEB78grLRIeuoIF8jv+7JDcsdybOesiSS
-	vxZCOmo7e/BMuCIzRr9yq893U7OT5YcGv0HHUTOPsxqxF7sUmX5v87859WnNzMSIFY9aJL7H29O
-	AECHPOdD8ub6JfFwGhTifEPDmqIKoUBhS7QYNokLe90Mpd1Zvle9vnIh8DamkyzEN2QRRq48R2i
-	fVj6MOYyzBn0OrC7DGxfxD1Zoe7zvn9J1reZFV7evQPRZFnuix3TuS0dhqh6mWqtx8JIEjVipVk
-	3m6RMpZO9PITCPYVwyHLO/Y+BB5CfQr74gXjeare4lbGEJNibrmyYG0jseWQJQ36oOZJem+RoIb
-	1UYDBb99wIt3AdlddLqb3BqyoehwtPIib72xEoaJNOmy7Wb8m4Tt20qMkkod0jEdbScZJfHKwOB
-	X7MeukegaczDd556l24LAIMgu/7hFOZmIXuxmErRA==
-X-Received: by 2002:a05:622a:4d93:b0:534:b7d1:cd1c with SMTP id d75a77b69052e-5359f498f75mr175097251cf.8.1791816516771;
-        Mon, 12 Oct 2026 07:48:36 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b6fa173sm80625631cf.7.2026.10.12.07.48.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 07:48:36 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xGHKN-00000006Snm-0vE4;
-	Mon, 12 Oct 2026 11:48:35 -0300
-Date: Mon, 12 Oct 2026 11:48:35 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Cc: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>, alex@shazbot.org,
-	bhelgaas@google.com, jjohnson@kernel.org, johannes@sipsolutions.net,
-	mani@kernel.org, yishaih@nvidia.com, skolothumtho@nvidia.com,
-	kevin.tian@intel.com, linux-pci@vger.kernel.org,
-	kvm@vger.kernel.org, linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org, ath12k@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/7] Enable Qualcomm WiFi PCIe passthrough to VMs
-Message-ID: <20261012144835.GG14213@ziepe.ca>
-References: <20261011074514.515894-1-jtornosm@redhat.com>
- <b1a3f755-19e3-407e-b8f8-b494de83f59a@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="PWnOyeYc"
+ARC-Seal: i=1; a=rsa-sha256; t=1791816494; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=lVxKFrC9CyUzmbrdEcgM/3N098IFq8wQkUUCv0+TyZvflvkOt8r/dG84nafv46OROQOVnAJId4iXth+k13rirlkGBNQ89nX2suPUi5jNTeB7Wsw7/rLcge1fVI8AVmx6iO2KM4mpHPc/4OHfjOoT0iIEzrqZDTrJ/BHKlnZNYv0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791816494; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=3tfB9dUhf4vIJBCiCOEyLD4Jpz/dkpla2SoP6tof+CI=; 
+	b=EjbhW94TftWqWn7fk4RRRUo3IKur5wtpdV3FtbCFhFL+JrBaWIny4IxX5Y2q4LWkX7/X/HasQbqxdujpviM46GgD5TkRa4rLquBdOvWncse4A17cJE+4qyIrwIkR2f7SMvlsPuYQgh2GNPYwKQMVt48wEXmoKkaw4FmU7tn94Z0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791816494;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=3tfB9dUhf4vIJBCiCOEyLD4Jpz/dkpla2SoP6tof+CI=;
+	b=PWnOyeYcUYHyfqjLZWBrGGeTvXv5GQeUEVIq906YCalbw7FzgrP90ZphjEXN4o2J
+	V9vp4RwxSCebva8+l9DRT48eTz4BPK0c87mT87gJ9YRJvtqgcGCbMY/Zil1fdTFcGOO
+	6b9rpvqaB+B+s4icU9bfTKh/6H9Wi0DZ0g5ONobE=
+Received: by smtp.zohomail.com with SMTPS id 1791816492230765.2015092250269;
+	Mon, 12 Oct 2026 07:48:12 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Date: Mon, 12 Oct 2026 15:47:54 +0100
+Subject: [PATCH v15 02/15] drm/panfrost: Move lock and modparam
+ initialisations into their subsystems
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b1a3f755-19e3-407e-b8f8-b494de83f59a@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261012-claude-fixes-v15-2-bc0a6c498553@collabora.com>
+References: <20261012-claude-fixes-v15-0-bc0a6c498553@collabora.com>
+In-Reply-To: <20261012-claude-fixes-v15-0-bc0a6c498553@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7241;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=Yft/DjEqqucDjTSqKfKALWWjn/XO9EqkbpRJX6+FO2Q=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqzPMafHHBoFnAo/7GwZChtXHoH8oOrxRFLy6Z+
+ oGg/vA4BD6JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaszzGgAKCRAOJn5M7lND
+ PeusC/oCPlU8sgVzXTjDc114MDVjESuCWy+CHxCOZfPj3q4jFA2bybvKcOdAaWGcsTO4sEZoQoq
+ Ej9ZtssKmKkuh5IhV3LrVdVxLMc3AZTmMxaewLHRWKDj/Zxh0N3/PeYbBI7Vpbo/RRpSnu9Yk1z
+ Iyp0+DXSDQteK9eCZM8EvrxOP9N1LoECNmxY9lH1XF8RH1tdNVTIu3YZpCyRl5c9ZzhGPO+KnWy
+ jhF7GF6kXr+r4KYmzxQW6deWFKDOrBZKaYrm6cjEkw6qFj4xX7UyIw/+10lRaf4X6M0Z/1+vYPE
+ MlnHuJi6IRuZFDQeKHR8iUsizj0kENwo0er6Jx4yTydxN+9c5r4lHuZrHSDI/JtoObJMU2DnsKb
+ aD6z0kiHOhhXCofXCPsCJN6fAACi3e62lXk13fCs5600TjqHYaNui1r6aX3B4wHnbJnOIVsp9uA
+ TgQ9RCvFtFh0Z2dHyFywKzTl8No5R+Rm/3UdmS0ooN58AJeaz8ALM7MmMCJeusG/J597w=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-On Sun, Oct 11, 2026 at 11:22:26AM -0700, Jeff Johnson wrote:
+The device init function feels a bit cluttered with things that should be
+done in the specific subsystems where those locks and lists are being
+used. Same goes for module parameters, it's best to limit them to the
+subsystems where they're relevant.
 
-> Thank you for providing this level of detail in your cover letter. I've raised
-> this issue with the engineering team in the past, but I've once again raised
-> the issue with your in-depth analysis.
+Then we can also discard panfrost_drv.h since the transparent_huge_page
+doesn't need to be accessed elsewhere. We can also simplify the
+creation of a mount point, because drm_gem_get_huge_mnt() would never
+return NULL if drm_gem_huge_mnt_create() returns 0 when kernel is built
+with support for transparent huge pages.
 
-The main issue here is the driver can't use a normal MSI-X in the
-normal MSI-X table.
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Steven Price <steven.price@arm.com>
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+ drivers/gpu/drm/panfrost/panfrost_device.c       |  7 -------
+ drivers/gpu/drm/panfrost/panfrost_drv.c          | 10 ----------
+ drivers/gpu/drm/panfrost/panfrost_drv.h          |  9 ---------
+ drivers/gpu/drm/panfrost/panfrost_gem.c          | 19 +++++++++++++------
+ drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  3 +++
+ drivers/gpu/drm/panfrost/panfrost_gpu.c          |  2 ++
+ drivers/gpu/drm/panfrost/panfrost_job.c          |  1 +
+ drivers/gpu/drm/panfrost/panfrost_mmu.c          |  3 +++
+ 8 files changed, 22 insertions(+), 32 deletions(-)
 
-"private" MSI registers don't work for virtualization.
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+index 05c40d5a20b5..c1a2e93a2b9b 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.c
++++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+@@ -216,13 +216,6 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ {
+ 	int err;
+ 
+-	mutex_init(&pfdev->sched_lock);
+-	INIT_LIST_HEAD(&pfdev->as_lru_list);
+-
+-	spin_lock_init(&pfdev->as_lock);
+-
+-	spin_lock_init(&pfdev->cycle_counter.lock);
+-
+ #ifdef CONFIG_DEBUG_FS
+ 	mutex_init(&pfdev->debugfs.gems_lock);
+ 	INIT_LIST_HEAD(&pfdev->debugfs.gems_list);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 130ec763343b..86917c8f195f 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -21,7 +21,6 @@
+ #include <drm/drm_timeout.h>
+ 
+ #include "panfrost_device.h"
+-#include "panfrost_drv.h"
+ #include "panfrost_gem.h"
+ #include "panfrost_mmu.h"
+ #include "panfrost_job.h"
+@@ -955,12 +954,6 @@ static const struct drm_driver panfrost_drm_driver = {
+ #endif
+ };
+ 
+-#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-bool panfrost_transparent_hugepage = true;
+-module_param_named(transparent_hugepage, panfrost_transparent_hugepage, bool, 0400);
+-MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with Transparent Hugepage enabled (true = default)");
+-#endif
+-
+ static int panfrost_probe(struct platform_device *pdev)
+ {
+ 	struct panfrost_device *pfdev;
+@@ -979,9 +972,6 @@ static int panfrost_probe(struct platform_device *pdev)
+ 
+ 	pfdev->coherent = device_get_dma_attr(&pdev->dev) == DEV_DMA_COHERENT;
+ 
+-	mutex_init(&pfdev->shrinker_lock);
+-	INIT_LIST_HEAD(&pfdev->shrinker_list);
+-
+ 	err = panfrost_device_init(pfdev);
+ 	if (err) {
+ 		if (err != -EPROBE_DEFER)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/panfrost/panfrost_drv.h
+deleted file mode 100644
+index a2277ec61aab..000000000000
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.h
++++ /dev/null
+@@ -1,9 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 or MIT */
+-/* Copyright 2025 Amazon.com, Inc. or its affiliates */
+-
+-#ifndef __PANFROST_DRV_H__
+-#define __PANFROST_DRV_H__
+-
+-extern bool panfrost_transparent_hugepage;
+-
+-#endif
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
+index f39c0f50ed4f..383ac8cd5645 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+@@ -11,20 +11,27 @@
+ #include <drm/panfrost_drm.h>
+ #include <drm/drm_print.h>
+ #include "panfrost_device.h"
+-#include "panfrost_drv.h"
+ #include "panfrost_gem.h"
+ #include "panfrost_mmu.h"
+ 
++#ifdef CONFIG_TRANSPARENT_HUGEPAGE
++static bool panfrost_transparent_hugepage = true;
++module_param_named(transparent_hugepage, panfrost_transparent_hugepage, bool, 0400);
++MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with Transparent Hugepage enabled (true = default)");
++#else
++#define panfrost_transparent_hugepage false
++#endif
++
+ int panfrost_gem_init(struct panfrost_device *pfdev)
+ {
+-	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) && panfrost_transparent_hugepage) {
++	if (panfrost_transparent_hugepage) {
+ 		int err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+ 
+-		if (drm_gem_get_huge_mnt(&pfdev->base))
++		if (err)
++			drm_warn(&pfdev->base,
++				 "Can't use Transparent Hugepage (%d)\n", err);
++		else
+ 			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+-		else if (err)
+-			drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
+-				 err);
+ 	}
+ 
+ 	return panfrost_gem_shrinker_init(pfdev);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+index fefae87535d6..72cd7a165e6d 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+@@ -97,6 +97,9 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+  */
+ int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
+ {
++	mutex_init(&pfdev->shrinker_lock);
++	INIT_LIST_HEAD(&pfdev->shrinker_list);
++
+ 	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
+ 	if (!pfdev->shrinker)
+ 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+index 29ac0dce5ff8..6081b27829e1 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+@@ -519,6 +519,8 @@ int panfrost_gpu_init(struct panfrost_device *pfdev)
+ {
+ 	int err;
+ 
++	spin_lock_init(&pfdev->cycle_counter.lock);
++
+ 	err = panfrost_gpu_soft_reset(pfdev);
+ 	if (err)
+ 		return err;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index d59b4863b8ad..476c936b54e6 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -874,6 +874,7 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
+ 
+ 	INIT_WORK(&pfdev->reset.work, panfrost_reset_work);
+ 	spin_lock_init(&js->job_lock);
++	mutex_init(&pfdev->sched_lock);
+ 
+ 	js->irq = platform_get_irq_byname(to_platform_device(pfdev->base.dev), "job");
+ 	if (js->irq < 0)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+index 4a3162c3b659..5c393ed6e310 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+@@ -955,6 +955,9 @@ int panfrost_mmu_init(struct panfrost_device *pfdev)
+ {
+ 	int err;
+ 
++	INIT_LIST_HEAD(&pfdev->as_lru_list);
++	spin_lock_init(&pfdev->as_lock);
++
+ 	pfdev->mmu_irq = platform_get_irq_byname(to_platform_device(pfdev->base.dev), "mmu");
+ 	if (pfdev->mmu_irq < 0)
+ 		return pfdev->mmu_irq;
 
-Jason
+-- 
+2.55.0
+
