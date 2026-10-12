@@ -1,141 +1,207 @@
-Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E1C38C2A0
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:30:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791768643; cv=pass; b=opH4jX5Cc85d6aFV4NlzjpmGBYS2O9MDZOUCuxK/61pkMR4K9cAlbCYz2LQH6yb+1mg5Uv24XnCLPXgvXBLQogEK0egomnYONLoybeFb4bjwTfspeR8/A4/rt+HoJ9KDPr8GHTiNPc4m6TroeI/t8DFAcXdn4s/+4W/3cwNIOYA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791768643; c=relaxed/simple;
-	bh=d1fEXq1Mkk4vkb58a3C48SM4t/4EvTl4q1MeMOc9GIs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qDhdgRHjq3Ce2FWkAjKwBaBPpNEq5U6Q1fKnJASsKDHbc6z2krjO29vyeoGImaG58wVhUoUlLTaPk4+M9FYqKOnOnmcGoVFDoyH8+awNg31X9EijgO2EVO19BQCo6QKfn4NV7FTn4u9HoEch6Yy3CCneK0Acm2aZOU807UB+w3k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QWbKhR8F; arc=pass smtp.client-ip=209.85.160.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15D738AC7E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:30:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791768660; cv=none; b=LmNxQSMG1uYIQk33VT4nWGvGwpLFLkX7CY037j19tQDYg5hxMEd3c9ybgPh1kkQcnl9YJbqI31ju/UBEG5U4mHdgu57kYuW8SG2XBUbRnNSIaG8X3XY8Pi9i1TUscOJRNSk80jeHGy0UM+hM/wN4YToSup3uViETGvtpI+oGdik=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791768660; c=relaxed/simple;
+	bh=ArR97m8D16AXE//u0j5nywcxS6/CuXhTCrTp7w6X+Ro=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=gfzZokLj18jODvepEwB5/Qg0tDMEYjeqCLK5uBCpem6xV1m6enjCN8HeAAHDkxnkO0Uqc7PEF6bwRk2rkgSGRjtdRCqTGcU9ucE6ASjbk1agSmLLlVSM10dZeOYIgc6VKxaEQMndV5fRBRl8dpERSSRpluYnkjsKMgP1CuiaRKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K+GDrGsf; arc=none smtp.client-ip=209.85.216.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QWbKhR8F"
-Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-49dd13a91d0so516886fac.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:30:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791768639; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UTKo/+GWIQvjUi3oI23570zuv6GOovzHcddRALDROhvAS3mFSq9egoVUHoprc1P/qP
-         KRx3J5JDd2p1RXBCFHUQMqQr/jCUHwBxuSm9t4UyhPLRyB5PaQYG+p4+0O+VeltVSrtC
-         K+9sTClu1AuloVR6CmrOMLbn5ilc6NFmtSkcKOV7dO+O9t/GLMDKYEmQdOMAI55wp3Is
-         gA9sAR3z+pczvQCmQusIsqsTyQhWaXmUFgBaDncm0Dx5Jq5TT50zOXzvW01QHtk0DD+0
-         hCk6mcexBm2GOPKNJwNSE/ZjJUTHXWfHX2/iwoE+Q3v/j+EQXy1F5e3mkPL1N+/z13y/
-         BANA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=L4eXsmhlclpfowQz5aqJOp7PZGMOX+eSHE8u7F7KW9Y=;
-        fh=wxaJI26TnDO42DEzBrgesBxe3gFqhjVqnL7LwOafbv8=;
-        b=XOx5yYtXEhDaDUEihhy8x/6W1ozW9LzYDY8T5U+BjOMe1SWHn4LOYB+Fyl43/hJUco
-         3E/Ex+LrZ3oGOn36Dj+sSkzcnhC0G2DrhFrirAUvqq4yfv4RmgPCiow2wFxWRbpBoo41
-         RVM8ifhLK6PPwZvhFi2vW2FkcCQogNKFEosJwgwMvDrTEJa/vcBKTcSMJUsIJZcLZFjx
-         y1vMfptKCsLuk6gkFgx72fFDimvmSFAbK0njC/f8MjWnNeJofkHGaItn3m95PKcwyLxI
-         AUIUJRTixmmdDdTw8tjcauwt+vmaNZCoYgSgOhRRw8ALqez8zqcyptcSrZXr1dZdClPl
-         vxQg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K+GDrGsf"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ab98332238so551711a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:30:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791768639; x=1792373439; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=L4eXsmhlclpfowQz5aqJOp7PZGMOX+eSHE8u7F7KW9Y=;
-        b=QWbKhR8FC+ZA8ab/OyiZ3QAmVkJMbIp9ruiItLr0mmxhz8ZPZS1kktkeSM/iHwVFUH
-         WPw7OQgUthwV6PTibwNzbvn+7WeI+soz9GIO+LQyIjlVCyR4lUL55KZOzOZtdeQXHNSM
-         Q/fvnoRxJEdZ0tQyo3djUw2SWDxi0GajwLcBTsbWktFF5O7MambHhTsJTGhxNJli2Rjh
-         5/TUsDU5l4kuRKTwwM6Ei1tzorYXmdACj5EJaNqC1TMqJwfUOsYBmmZIgKtMGsTqbCoe
-         SIwqIAV+hK6W2wSrd6CdyCNKOLXYLDm5+tWexbzX4jFVmGOPiglwmWJRJMYMNVNXkqWA
-         tULw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791768639; x=1792373439;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791768659; x=1792373459; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=L4eXsmhlclpfowQz5aqJOp7PZGMOX+eSHE8u7F7KW9Y=;
-        b=wuAFNfAR3u2ygVRfk8mYS+QGJG05ajoqkhUHLnGqLP5P3gUZbEnf3RUML8PSCRUMl+
-         xoOv0qhHsOBsLSKa4dGgQ2rmocAIo+N8aHbrLoBiOjJUpkHUz2lVCe7VpiRUtAktE6qW
-         YtOGu2+vH+tcP5Cz5W1Ffz1hRnvigDZC58SL5TpRuzUZPUZg/MrqHfNny2zDjqU8y3rN
-         1Kcc4qeUMUE8AevIvEHu07hT+27yAYCUN7BcVjDO6ako3fjFEo9An11ioU2f//VPPgRJ
-         MwdNsAS928EsSIhB/vOrdtTqLAImtUGxeHkCYGoBKqwdFVrwxVQJWU7pxpYqqqfEUFpH
-         HCUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxAQ1hhJ3yuPQPHT4NzUg0IV2JM8/hzbqg8Wd3lOrSKRcq2nRhZuDNn3UgCrPa3fRid8S64slfMI5tB3Gw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLa9xaPSBk6Ny+TYrUgzcvocjwRl0UeDD/JgwivsqakehPTneq
-	2iPGgZ5BWSDmQb5G2BrQdoTT47QjpHPyQBOpPWnyXLuHCyNBS4kkYERpkRNY2iForjk5/0U4C8H
-	dBdqqjawSCxWFsovL9KtejeRFVcvOs7g=
-X-Gm-Gg: AYBFou0Apkmw1FQb4IVmyYk+dWxU7z/Qpx2e+xd1Tf7MQ7SgKLanKzWU9R8RGTbEJNu
-	NO7zvd7DstnWJFPyXMhJ9+FrPLNiJ/GPNJ2tRZ1Q6ocTIvE+DYNrYsbDTDFMS1HQyfynZmK/b4z
-	Yxg5cQIuaPpk75K4ZHNLDoisNQXAvrorfa5gGxWaMaz39FETe8BM7GmDVR3ArQjT/qMAqjh8rqt
-	r0SretZQUh5UnXRVahCxPaNh85Yk9K6q6otEZ2/5EC7hgnr5p+LmAEnkLBp8vLDuik90fZ8ziH6
-	QQBPe4UbqNb52BQgB+/G33cFBgt5TjMyj/AIofyVul+3+2zaeyMV7f0=
-X-Received: by 2002:a05:6870:e2ce:b0:494:a2cf:8dce with SMTP id
- 586e51a60fabf-4a2a870834cmr6526407fac.4.1791768639415; Sun, 11 Oct 2026
- 18:30:39 -0700 (PDT)
+        bh=B43i57rnmc2Wd8OU+i3F2zcXd+ji9FE6Nhhq13anv/A=;
+        b=K+GDrGsfnIv4vfp21j2jsJtOCsjrw+25vSluWPm4i56XTMQ+ejl5hBQGHjUAFy+yxq
+         JgZqLtRwlr5stf9Snp0sRmBzwu/Jz+yc4NLi/D8zuIkI2lcPrWeEKrPjIjT3lh0nos+y
+         LlVeqXdX6LWUjUWMnOwkV9wnY+LxjdY9aj+usK8zI+Au7NciRAkt5PKvl8pa3oN9qJT8
+         6uAP7BHtkeDpALswhbYNPI9vXrMV7i1NX6e0J+iwz6emZ+v+XXeedTQjjJlabUjA5UKo
+         wkPa+iZOnXT03CpMlFnTf+UYcqn5oSdksVoQ8E70uLrLvKV6y9tKsfIuU0nNpgC9CcDR
+         AFlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791768659; x=1792373459;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=B43i57rnmc2Wd8OU+i3F2zcXd+ji9FE6Nhhq13anv/A=;
+        b=QCbACsT16PxjpksCtP8XL/GYdhTvICX/VHHKgUvWLQINcmQYzWoWnwPdCAdQ/U9hhJ
+         dexpgZeOYR2VS0w3TWd7AX2gHOKvlmCGGOQMZmJdn7xTqixwaG7I3bvg60KgHyVnPcag
+         U7Dx4zI7ZuxdPILOrHt7HO9Wg1xBrL6cMCiwl49YkwX537m1EKw9oAGusQFrlSZ0DpAN
+         /Ka3rnNakRGDRknKT0tlgJf3t+Ps+wdwkvE8jdGrVlTVD0cfgUnlD6Kbf6RHcSHnFyN+
+         Azxsu4QiiCgyPRbmtYoH4mMegvVVFMW2TT5Sf40mqh4LCJvXs3LG9UWZTZbXyk1McJYR
+         inJw==
+X-Forwarded-Encrypted: i=1; AKwUvBxlWTJwTcPHMyfrr7ADGllow/1lNGXgWPu+vvsDtAZQzgC9KR1dBcsHo7j7LzpYeEQ1APc2A/7UxP0DgXQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLvcf/8aiWGXV6Dtg/VxFOb0LawuH7q14WPRRRqave+0ETGU9ro
+	+XWFCTcVXj4y3k0HJaJxy7veVzVZjrhkCAHL1ZZZlaI+m813PI0QIHAI
+X-Gm-Gg: AYBFou2+9U6NA+TqWoJbVmh09Tg+NhWPc2G9/3MWlFxTSUCsrd6yDkPO6+9zukEYM/d
+	alhIUOFC2ahlUESvK/J1ENaHk9zptLdknD97kUVWnIOFw2t9YwAxae6E7rYD9ToBO1XNK48qZjY
+	E1vXB3HBA8JfvQRoLrSBdwlwqbak+JFd4n4RHfSAaBVk5Lt2a9CJdpzADn/jx3PVppLQR1EffcF
+	5qinZeV81MttLK6hxk3mJWYUTxNQHwANFyDDiYKeIBT1H8HrPh7sToEKe0bQ5C1qQ4eRS+EtQ7Y
+	FGAIAqzl2VptWVZbe4iYOA15Di9G+GApHjfDM7qJ7mGuR6u4cZZlMqepKBvNSzSN1mFKTeCU1Za
+	gxSKFZs5KW6weu5VPykyBK64pJHphq90ZLRMSGfrgYjBbSrCNXmEIeMg7jftJmwMMHAFZIYtYmY
+	NGX4ZMEZ1EPv2EwTPzHyjGHDJ/cfsueAwS68bwvJfXrMeV7TCigAHXXuLxvNmBW9sVuA==
+X-Received: by 2002:a17:90b:2d06:b0:3a4:b8dd:1447 with SMTP id 98e67ed59e1d1-3ab3ac9fb08mr6003665a91.34.1791768659000;
+        Sun, 11 Oct 2026 18:30:59 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36fdc75esm14391326a91.12.2026.10.11.18.30.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 18:30:58 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com,
+	heming.zhao@suse.com,
+	kees@kernel.org,
+	kuba@kernel.org,
+	zzzccc427@gmail.com,
+	akpm@linux-foundation.org,
+	sunil.mushran@oracle.com
+Cc: ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: [PATCH] ocfs2: unlink socket containers before releasing their nodes
+Date: Mon, 12 Oct 2026 09:30:53 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0065-v4-f45e5cef38dd587b2cfd@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930172948.2901336-1-b-padhi@ti.com>
-In-Reply-To: <20260930172948.2901336-1-b-padhi@ti.com>
-From: Jassi Brar <jassisinghbrar@gmail.com>
-Date: Sun, 11 Oct 2026 20:30:26 -0500
-X-Gm-Features: AclHuK-lzcBr52y20tr2XLLyOQm2hH8-_1PyChxO-WGTtfJpSF8tAo9K4q3D4EQ
-Message-ID: <CABb+yY1nPr0qBngbnmReKPbziNa6be7i4OJDdNut9V9eQTiAJA@mail.gmail.com>
-Subject: Re: [PATCH 0/2] Add support for TDA54 variant secproxy controllers
-To: Beleswar Padhi <b-padhi@ti.com>
-Cc: nm@ti.com, afd@ti.com, u-kumar1@ti.com, linux-kernel@vger.kernel.org, 
-	vigneshr@ti.com, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 12:30=E2=80=AFPM Beleswar Padhi <b-padhi@ti.com> wr=
-ote:
->
-> Add support for the secure proxy mailbox controller integrated in the
-> MAIN voltage domain of the TI TDA54 SoC, which features up to 444
-> threads with 60-byte messages per thread.
->
-> Add a new compatible in dt-bindings and add the device data in the
-> ti-msgmgr mbox driver for the same.
->
-> Testing done:
->  - Build and Boot tested on TI K2 and K3 platforms.
->  - Tested that these patches do not generate new warnings or errors.
->
-> Test logs:
-> https://gist.github.com/3V3RYONE/8cb2e49ddd902180a920730b7a5c8016
->
-> Cc: Jassi Brar <jassisinghbrar@gmail.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Nishanth Menon <nm@ti.com>
-> Cc: linux-kernel@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
->
-> Thanks,
-> Beleswar
->
-> Beleswar Padhi (2):
->   dt-bindings: mailbox: ti,secure-proxy: Add TDA54 variant compatible
->   mailbox: ti-msgmgr: Add ti,tda54-main-secure-proxy support
->
->  .../bindings/mailbox/ti,secure-proxy.yaml     |  4 ++-
->  drivers/mailbox/ti-msgmgr.c                   | 33 +++++++++++++++----
->  2 files changed, 29 insertions(+), 8 deletions(-)
->
-> --
-> 2.34.1
->
-Applied to mailbox/for-next
+A socket container's node must remain alive while the container is on
+sock_containers. The debugfs formatter reads sc_node under
+o2net_debug_lock without taking a node reference, but sc_kref_release()
+drops the node reference and clears sc_node before taking that lock to
+unlink the container.
 
-Thanks
-Jassi
+With CONFIG_DEBUG_FS enabled, removing a disconnected remote node while
+a synchronous sender releases its last socket-container reference can
+expose the freed node to a debugfs reader. The following order is possible:
+
+1. o2net_send_message_vec() holds a reference acquired under nn_lock.
+   o2net_disconnect_node() detaches the connection and flushes o2net_wq,
+   draining the socket callbacks and workers. The synchronous sender's
+   reference survives because its caller runs outside that workqueue.
+2. The sender's final sc_put() enters sc_kref_release() and calls
+   o2nm_undepend_item(). Configfs rmdir can now pass the dependency check,
+   call o2nm_node_group_drop_item(), and drop its node item references.
+   Its disconnect flush does not wait for the sender's release.
+3. The sender calls o2nm_node_put(), freeing the node while the container
+   is still listed and sc_node has not yet been cleared.
+4. Before the sender clears sc_node or unlinks the container, a debugfs
+   reader selects it in sc_seq_show() under o2net_debug_lock and formats
+   sc_node->nd_name, reading the freed allocation.
+
+Move o2net_debug_del_sc() before o2nm_node_put(). Unlinking under the
+existing debug lock waits for an active formatter to finish and prevents
+later readers from selecting the container. The retained node reference
+therefore covers every debugfs node access, including the node number
+read by the stats formatter. The lock is released before the node put.
+
+KASAN report as below:
+
+    BUG: KASAN: slab-use-after-free in string+0x42b/0x470
+    Read of size 1 at addr ffff88810f56fc90 by task python3/506
+
+    CPU: 0 UID: 0 PID: 506 Comm: python3 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     kasan_report+0xe0/0x110
+     string+0x42b/0x470
+     vsnprintf+0x330/0x1110
+     seq_printf+0x1a8/0x260
+     sc_seq_show+0x604/0x9f0
+     seq_read_iter+0x480/0x1110
+     seq_read+0x362/0x5a0
+     full_proxy_read+0x11f/0x180
+     vfs_read+0x1a0/0xc20
+     ksys_read+0x111/0x200
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+(User register dump omitted.)
+
+     </TASK>
+
+    Allocated by task 497:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x28d/0x610
+     o2nm_node_group_make_item+0xea/0x1a0
+     configfs_mkdir+0x762/0xca0
+     vfs_mkdir+0x399/0x7e0
+     filename_mkdirat+0x129/0x450
+     __x64_sys_mkdir+0x70/0xa0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 505:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x308/0x580
+     config_item_cleanup+0x14b/0x230
+     config_item_put+0x79/0x90
+     sc_put+0x454/0x6e0
+     o2net_send_message_vec+0x63d/0x1560
+     o2net_send_message+0xa6/0xe0
+     validation_send_write+0x17f/0x1d0
+     full_proxy_write+0x11f/0x180
+     vfs_write+0x25a/0x1010
+     ksys_write+0x111/0x200
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    The buggy address belongs to the object at ffff88810f56fc00
+     which belongs to the cache kmalloc-512 of size 512
+    The buggy address is located 144 bytes inside of
+     freed 512-byte region [ffff88810f56fc00, ffff88810f56fe00)
+
+(Page and shadow-memory dumps omitted.)
+
+Fixes: 2309e9e040fe ("ocfs2/net: Add debug interface to o2net")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Assisted-by: LLM
+
+---
+diff --git a/fs/ocfs2/cluster/tcp.c b/fs/ocfs2/cluster/tcp.c
+index 8b3830b601ba..213ee7392712 100644
+--- a/fs/ocfs2/cluster/tcp.c
++++ b/fs/ocfs2/cluster/tcp.c
+@@ -399,11 +399,13 @@ static void sc_kref_release(struct kref *kref)
+ 	}
+ 
+ 	o2nm_undepend_item(&sc->sc_node->nd_item);
+-	o2nm_node_put(sc->sc_node);
+-	sc->sc_node = NULL;
+ 
++	/* Keep the node alive until debugfs readers finish. */
+ 	o2net_debug_del_sc(sc);
+ 
++	o2nm_node_put(sc->sc_node);
++	sc->sc_node = NULL;
++
+ 	if (sc->sc_page)
+ 		__free_page(sc->sc_page);
+ 	kfree(sc);
