@@ -1,213 +1,230 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MA0PR01CU009.outbound.protection.outlook.com (mail-southindiaazon11020092.outbound.protection.outlook.com [52.101.227.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5427F409279
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:05:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806737; cv=none; b=eGa635liKp8rF6y9d+0xT4ncKEPZWDyJbVmVklVHcyhDdY+CFDzt+DAzn4MZxRqEpuFxbmeCnZnvhrtd8BLUQTcChyCiYfUobxROR/K8lH5AXVbiFellxb7wVsXAV1P6PtdlPyZElO94wHwU6IkSIoZl4PdxljN25E7Nl4DZ+k0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806737; c=relaxed/simple;
-	bh=Z7nW14BwPeLbnkIrxEhbUH7laRhJdISK7ruJlh482mk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sC25knQn07pXNAfIxrZU4YrZ6a4zOmF6BisrPoUfy/Vu32YkMRJOsxRGL8KP0h0RTunLXJnJ2PWsvy0GG6Btf0gqR1hni6/o7+smMYsxMRaWRKGi8Jv78e/C/UbOOI9qmNis8wNaRJnA0nKALD+hmS3mBrpQ5n7M6x8dUKi5VNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e8VRHiHq; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e8VRHiHq"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc7cc8aafe6so637300a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:05:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791806736; x=1792411536; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kLbm/HnztJlhbsvLEPa7IOES1RKYfU4H2Ro9opKpO1w=;
-        b=e8VRHiHqptxnVL7vepBOegj5Tc82qiTIZOB5aq8irRssgr1MBzB7QcGoJa8JBdMrXC
-         oSAJDNs2iufKIATXaWnrmZjFRpojH2SaU1wUAcxe3lqmQhgin1CS1Bjp2T95Xvh6A53M
-         OnSOvA3wc+xCUmjTmd+LXO/2GjJDtygxuIaQ+jsya4402n9p0PJjHXKs3y9/qAbDj1/O
-         5cHR88laVw+Cvjd4emn0mrqAFJoGZ8GPLiPZ5M8eHBAyK+S33g/X0EkieAxvGFL7QMjB
-         KrgDxzkgzXshVCdYeuXhvcnWkrQ0uf6hoImkBD2E1RUASaf8SZ2F6szXFMgkfbxLPXgN
-         cPUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791806736; x=1792411536;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kLbm/HnztJlhbsvLEPa7IOES1RKYfU4H2Ro9opKpO1w=;
-        b=Nn4e4PCgcW3R1TlerNFLB9UMT+HOyNGGWXX58kiYc8+SpVW2LqBEhpJ4GbkBY1y98x
-         HlGR13ZenLpmjZPbsUggzXJmSG3lR1e+5TK5pnGN8TRE5IdlxnlYPso94NWZSRY7zn1Q
-         njH4hogP/RL6lWi/5LBXRbf4bTxb/tTeEC8B8nQsZUJs8e2upVkvOmZMSnL9c6kZnTlt
-         3TiR1D6vjkB2L3UMO3eJtb2hJDOtoQCm+aM5edS4hgcIXIs80KPqrsQMEbCji1eAbwXM
-         8YUZVuOhv4V48AWgJrwRei0pg03eWqmRiY7Pdk0afBOioFlIjztrKtlda5Ybbf7tx7Pc
-         QExQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxOt/KEEc7lNGjcjhs9xp/u5ZdP5SuejeoR61CZBJT/41x3rMU2r+hl770FxvN8rDCxfoeuHfmP0upuv6I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL5ECq7tYl8OPUWeclfKnR74Mrl8PcDDn3EsFOexPbxxAjGDo5B
-	KMSGXgoKQnFLsG9/kmyO1dG4x/QQgWEFY/SjV3ngFbY9aDHz2TroLZ1s
-X-Gm-Gg: AYBFou3vd52GCOlcZN92gvbgYvhUd/7CFHG1DS2TisbNDjOHK/kWqgXJsdhn9MZk6FZ
-	DEKr6u7IBkFOXoNQSzYbV9X3wWB18HBstJvMcW85zgzH5EhU7H4SLirVavWd3DPgOgpjK1vCBn6
-	Yqvn5eov6dnvXH+fblLyjWO4WyWvKrHVdjdtN1bn8hNCD4aWB0Sob/y/dApf+nxOqOMx34RkTa6
-	t8gpErCvGm/4yeq0PZCVw8hDxTGKWnnt+4OdOcWEPs89CZGHCdWmeY8qDnniwlceCCpPpM85Tfw
-	9sb/aUtTv1RVBlA3pgRgwVjpMxzjHUwW92lVEpkXalY964Wtn+wSqDTFnX3eT0NbATOsWxt/MgO
-	QJpyAhwSNDyxBgFTAk2IDo/9nPPwAYacCNm/nkZVE4tJHOnHJWCRu3krVzqjeQy9CXVJyp+43Fg
-	j2Ri/N1YZgPBUV0aXOn1lGyL7YLhZ2Gjf0I5nj3aTlJjx1sqH1XelDApNEPEvjpUPMacemVUHa6
-	jJXccCExkKEdF004NzFjzBXRTTYwd6eea2oq/WfuwagqQ==
-X-Received: by 2002:a17:90b:3b84:b0:3aa:f4af:1e16 with SMTP id 98e67ed59e1d1-3ab3a4871e5mr7188609a91.7.1791806735133;
-        Mon, 12 Oct 2026 05:05:35 -0700 (PDT)
-Received: from yafangs-Air ([101.82.170.24])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab371c32cesm15722454a91.16.2026.10.12.05.05.22
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 12 Oct 2026 05:05:33 -0700 (PDT)
-From: Yafang Shao <laoar.shao@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	gourry@gourry.net,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shakeel.butt@linux.dev,
-	roman.gushchin@linux.dev,
-	yu.c.chen@intel.com,
-	zhao1.liu@intel.com
-Cc: bpf@vger.kernel.org,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C229C47A0A9;
+	Mon, 12 Oct 2026 12:05:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.227.92
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791806759; cv=fail; b=tHq7kZQLENdCkHhdn9V559jNZSEcaPadpYMcNg8xfYEkO8Sg06nLAVXAwCQgAQkwdO0lEU+lmNUdcHBgWS1v6PbaCZ5qOVYrIhV2QTRQ/shWqtsJPQC19D1PA8Yph3DZz2YmY3HQan44X2mq6M+VX7UfS8/K2dtSedMwycz/Q9A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791806759; c=relaxed/simple;
+	bh=UeqqAJv59Fcej3eRAAyfur7lCV83DWrucP+MHfjncVk=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=nLt/RRMc/UHKofbnnhKvkgsJXcNZ1dcX1tdXWWSjWIRbwitY2TdWHNYl6zfRH03D4ODFqEiUsg74OAuNOtkWVg1IH3ONJYQs7gVIuv/S51uZ/OMz1rqnGBGCI6EIF/RxJIuqmJgL7Es0Jtat4qnOp9+cD9H/2j+BovumjVLZI8I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.227.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ML7itPaWQv0gdB5vJXX9kJj7DqhK8XrUN7ZkYYbLxlWzrhWvaCdZOkVJNvn8u9e44EJsLwYjlQcIH1ZgXc85YzLRWDWYhKCf7NlQ6E7RhMU3gYJWIR79KFn2S1pdnbYAyhTBrThBgM53Eg9gX/3GxF12uVcTZ5DCcKS7MUmebcIlto3B4vFiAgwHW6pvopexDD1eyn0BP8mDnSbi28I1au8l4uZnmKeWlSinqNFhvWK/t18PNMBmu8E1PLGfgT/HF/SfH4UFpLYiqnPmMV5zPlpx5dMEn+fdA34+Qr/ERY+GdnNBvKK6shvHschk/8Zhq79688emlvBkQKwxS2sVHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YZiF8j63WXaWPpmBQqi80Azx4Par2f2t7Xs+tLCuH90=;
+ b=XnXjzsDSxqYE1HjKfnSxgh1Kp8Mn7HL4mwUePrTvU3SD91jJgyfzcIzInYPRUEvmjRtHiMb4NtqWXfdLeodM+NwKT9ZSRVAkxSjXY8w3T0kqqc5sfCRZ39RH1DvtbKYneqT4NwLe9ZXuDF4Y8SJZLSU/aO5R5oeN2hYvRg2xvmGHadeN58bUwMLoonqdL/JbOSs0mxAas0ryGBzWf6Bo5ph9gsqnTB7DDZQLkslikxtaBD8pVlvekEPlZwA/mQwCiD+8CsNZyJ7qB6V7qFyxpPxXPTyqOODYXKK5lbPqyrYocYhhXQNh+yOo1PMxx9hljVqqYlbLJSFtWWFyTQa7+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
+ header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=ebytelogic.com;
+Received: from PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::104)
+ by PN2P287MB1987.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1c2::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 12:05:51 +0000
+Received: from PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
+ ([fe80::3a7f:fb1:6998:b89e]) by PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
+ ([fe80::3a7f:fb1:6998:b89e%3]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
+ 12:05:51 +0000
+From: Hitesh Patel <hitesh@ebytelogic.com>
+To: linux-media@vger.kernel.org
+Cc: gjorgji.rosikopulos@oss.qualcomm.com,
+	bryan.odonoghue@linaro.org,
+	bod@kernel.org,
+	mchehab@kernel.org,
+	vladimir.zapolskiy@linaro.org,
+	loic.poulain@oss.qualcomm.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	atanas.filipov@oss.qualcomm.com,
+	jigarkumar.zala@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yafang Shao <laoar.shao@gmail.com>
-Subject: [RFC PATCH v2 0/3] BPF-based per-cgroup NUMA balancing mode selection
-Date: Mon, 12 Oct 2026 20:04:35 +0800
-Message-ID: <20261012120438.52849-1-laoar.shao@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	ravi@ebytelogic.com,
+	Hitesh Patel <hitesh@ebytelogic.com>
+Subject: [PATCH v4 0/4] media: qcom: camss: rebase fixes and SC7280 enablement for the streams API
+Date: Mon, 12 Oct 2026 17:35:38 +0530
+Message-ID: <20261012120542.1140157-1-hitesh@ebytelogic.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PNYP287CA0057.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:23e::26) To PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c04:1::104)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PN2PPF076CDA63A:EE_|PN2P287MB1987:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b848670-4ec7-42b2-ea75-08df28592860
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|52116014|366016|23010399003|1800799024|10070799003|56012099006|18002099003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	ImXTPxxkyRao+G768bOpl+ybqA0I6pTl+SepLE6+Z65hiMYYeSU1BkAdiiz3D7mV2mkHSamrZS0LV9HWeYvjsnXyi77GLrKUFDl7//7JrKCa20nPiqa53PlEIM/5TGjy/jBhJuMFEvVkffoF4z1eF4p+g+IKmJjPKOoi0sI/9VpJA5brmnITbptHiQIlBB8NO2mjF7wDON6GlhT3ZQfv9X57Jdqr6Bb0wzHs/1q1trDureUd8EGs9pQyRueiGYgyYnNuH65R/3ADhRBb3PyzcYs0ZFNBbqCg8OSfEG9F/Fq85W8nIlVFwa7fCXGPwgplucDcc40Wpstd35v3ytLt0p01+QvOXrDyzJ6iuhyF+8/G0Y0UcdaCytRRXWWjlMzY3gbF+yY/vNy5raZZpmwL4ZBoyI+aEes2xybNIQQuu0aA5CM5my1CdAWqUumHcvvlm4w9twd+eLDyJ/S/kCP85lCZHmGjyt4UwozxNasX+u8p632UzEyPwXOEv1w6ZiANHuVESQ/cEkC/THB+8UQw37E97cEXIww/v+89qbR97bd3TfLndgBoHoddgBOsCpAvXGoeUs8ekAlLMFopnaUH3RbXMkcu42oOpDdWD4cgvuoVD5KjZJxNej3+wQIZmlMrolb8vAmi0bRtVuotW1q4uFIUXgA7kjJM+Sd1IY4t7BI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(366016)(23010399003)(1800799024)(10070799003)(56012099006)(18002099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?9sfzEQHmdcyMLs2jc383AgbLkRRNX44rQL0OYX08G5OnCwyu+F9iXjsK+uBa?=
+ =?us-ascii?Q?RU1Bw/hSrXRs3NsNmJXxl6Xr2fDE77upi7DIhwYfyd1/kQ6czrEUd/BGEPll?=
+ =?us-ascii?Q?Vhnkv+4kBZaFVS07iQe1pVQxYF7E9Hdde4cAszydUYZ/ljFxZgplFPwhKBb3?=
+ =?us-ascii?Q?bBjfGckWHbIXBwQCIwOBOhyRUgd8lN7uJsKhtCdeg1a582iBBUpl0VAwwWyD?=
+ =?us-ascii?Q?hkZ4Op05NB+xdJlPE36kpG8gD0nvub9+aUtiA/KvNKih1fDIu2ndQUkjJC77?=
+ =?us-ascii?Q?rX91eTyU3avVhgGsWStVDXcUA9bobI7rQYF6iIhQLHHU9xp4nPg+u7+k7k3Q?=
+ =?us-ascii?Q?NjCB8VR8AmFQmXVtA2Nu/aD9ZULKdwbtHdo8lL3SSrAAuDX6k8mQn7noYPsh?=
+ =?us-ascii?Q?hQBhQ3VaqH2VYyuaF3HkPIoUDRJfkevRLEO6iEA+p+/LX3WZVU+2apzYCx5T?=
+ =?us-ascii?Q?JnN8VTf94VsQEfnUKWP8dgUsSviNeW9zv003ra0I0HzFuzF9euk+DAcx5JL6?=
+ =?us-ascii?Q?V8tW8OOrIvw5Vey7nJwBI36oz8bHvFjzS/BrD40XWcoNVec2lNe+K08q79jQ?=
+ =?us-ascii?Q?7LRgnqjCnPFYfH5clHXRkbeXx0SbgneqEI+QpiUXKonkEb+ZLFGkBak3HWmL?=
+ =?us-ascii?Q?kIK9dd+3wAynm9GICQj7oteSl6l3Wxus/593rqiAyRhZjq7m7MdXOBnWSP/e?=
+ =?us-ascii?Q?nUpzi5EADD8ALF4DWAX5t1hfngIuNDtfi7DQ++DXQF3KdovpD/5CeYPa4QNG?=
+ =?us-ascii?Q?apT1pqX5jXDAwh7FA+7YtGSjTldaLaFCa55HrOz7+DxaBib6A88zib9+q93x?=
+ =?us-ascii?Q?Ts7Z9F4J6g7ZN9O3phfwi+n/LZMUmeFzPGxYhpjF57y3NJSDPp1pLQSDhs/C?=
+ =?us-ascii?Q?G7SkgoqjBxoJOQ+i7CeqpF5ohPCFrPf+bCul/cEzk1DAiYm5h5/UQfvBLN0n?=
+ =?us-ascii?Q?l9B9qYFPvLJHkpFxiJgfpIFXR4VMXY00hNitw5ewF3CQq6KTuRcuzSjhKASv?=
+ =?us-ascii?Q?czAhJQAwg1eTbU9nb/A0+agjh/Jf7rkxC25p2K/dvIEWX7O260rATdOEiY+W?=
+ =?us-ascii?Q?jfRS5GFW2dspIjyHVbAAKw1If3DTIFyur9ncAyF84ih/yUs3x85qHkGjAoiv?=
+ =?us-ascii?Q?piPK41s4S3zXIHZcl+h0dDCdxLx119qF+eN2V+dCxieXluwux0o2uTk3ctP5?=
+ =?us-ascii?Q?ZaT2xcTGi6eGJBlE6egvM5flCkekPahSbXSnXjruyU8v66VWq+G7K9kiDCbb?=
+ =?us-ascii?Q?mP4nAI0MBWMciVKNqoOXUa1IVHyKFe2oEBudBXb+3wePo5NlHQ5UnMFi75zA?=
+ =?us-ascii?Q?BfEV1YWRYs+t6b8O5dPCjDZU4GwLJqb8ignhOsqPfd3K0LrNtvdFZl0BV0zK?=
+ =?us-ascii?Q?5Tvsb4cnJy6IzOdB40314HaIfE7icK2dd1mRGVJ5oyV6JnT6DsRA3CGkx1H2?=
+ =?us-ascii?Q?jK+XTfzeCsajG6PaLzgDs33NdBeIc2LBD1wqZazYOuX+dgjfX4toF629g/IB?=
+ =?us-ascii?Q?N0QFC5jN5FKHw3SdiZnRpIOi8t3qjXt79+Sn4Mtgltgy9tqUNLjx/e0NunQJ?=
+ =?us-ascii?Q?5nRO3J+wI3eQM4OPZeGOC2U9fKpxowpI2LCsP0FqOAl/V1j7AlEUkYh2xm8s?=
+ =?us-ascii?Q?ndDu2NQC1oDXihTtQ7IvutZg4WB2N4C6r1ZcGzzRlZC5uZ6xOUxzUhUYOOKU?=
+ =?us-ascii?Q?VIDr3x5IMk27EyJs53onKoqsS4xBAdxerpt8IlCgvMtRCvfbjICMHrmXqx2g?=
+ =?us-ascii?Q?9FzD47DW5+SVbRN+vgQCONpT4Ek+FPPIyEHR6kXjkuWoyLI49QT8ZS951EDt?=
+X-MS-Exchange-AntiSpam-MessageData-1: fDNwMBDkEip2zg==
+X-OriginatorOrg: ebytelogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b848670-4ec7-42b2-ea75-08df28592860
+X-MS-Exchange-CrossTenant-AuthSource: PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 12:05:50.9366
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZZUvh0jmDT6LN7dn8t4vqvrFw3TYKwtPEkndrKKbRHGdAczJT2Gpubk/jEDK8zx/95DC/fS3eXZgJIhjxFhzkQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2P287MB1987
 
-The Problem
-===========
+Gjorgji asked me to post what I have so he can fold it into v2 of
 
-In our large fleet of Kubernetes-managed servers, NUMA balancing has
-been historically disabled globally on each server. With the increasing
-deployment of multi-socket AMD EPYC servers, cross-NUMA access has
-become a critical performance issue, which made us reconsider.
+  [PATCH 0/8] media: qcom: camss: add V4L2 subdev streams API support
+  https://lore.kernel.org/r/20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com
 
-Enabling NUMA balancing globally is still not acceptable: it increases
-the overall system overhead and can introduce latency spikes for
-latency-sensitive workloads. What we need is to choose per workload
-whether NUMA balancing runs at all, and which mode it runs in. A
-latency-sensitive service may want the scheduler's NUMA statistics
-without tiering's promotion machinery, while a batch service wants its
-PMEM-resident memory promoted when hot without paying for
-scheduler-driven migration. No single global switch serves both.
+so here it is. These four patches apply on top of that series; they do
+not build without it.
 
-The Design
-==========
+1/4 and 2/4 are what that series needs to build and apply on current
+linux-next. Only its patch 1/8 needs hand work; 2/8 to 8/8 apply
+unchanged.
 
-This series adds a bpf_numab_ops struct_ops which attaches to a
-cgroup. The kernel consults the policies of the matching cgroup and of
-every ancestor and combines what they return. One policy question, two
-surfaces: the kernel passes the task when it acts on a task and the
-folio when it acts on a folio; exactly one of the two is set, so a
-memory answer cannot be keyed on whoever happens to touch the folio.
-A policy can always opt a workload out, so no cgroup is ever forced
-into heavier machinery than its own policy asks for. The demotion and
-migration-fallback machinery stays global, as it is keyed on
-node-level reclaim state rather than on any cgroup's policy.
+1/4  set_fmt has gained a const struct v4l2_subdev_client_info *
+     parameter, so csid_streams_set_format() no longer matches the op it
+     is assigned to.
 
-The hook is designed to be free for everyone who does not use it.
-Every call site (scheduler tick, NUMA hinting faults, folio
-migration) first tests the cgroup_bpf_enabled() static key of the
-new attach type. The key stays off until the first policy is
-attached anywhere in the system, so with no policy attached the
-added cost is a single patched branch.
+2/4  Bryan asked for the flag at the SoC rather than on each CSIPHY and
+     CSID. struct camss_resources is already the per-SoC descriptor, so
+     declaring streams_enable there and reading camss->res->streams_enable
+     takes SM8250 from fourteen assignments to one.
 
-The BPF consult comes before the global sched_numa_balancing static key
-rather than after it, because the primary use case is a fleet which runs
-with global NUMA balancing disabled and enables it per workload: a policy
-must be able to turn balancing on for its cgroup while the global switch
-stays off.
+3/4  SC7280 enablement, now a single line thanks to 2/4.
 
-Once any policy is attached, the key is on for the whole system and
-every task pays the walk: a cgroup lookup, a percpu refcount tryget
-and an iteration of the pre-aggregated effective array, so the cost
-is proportional to the number of policies in the chain rather than
-to its depth, plus one trampoline call per policy. This is also why
-patch #2 rejects a policy which implements nothing: attaching one
-would flip the static key for the whole system and make every task
-pay the walk for no effect. The key turns back off when the last
-policy is detached.
+4/4  Without this, camss does not probe at all once the series is
+     applied:
 
-Measured with schbench (64 worker threads, 30 s per run) on the test
-box. Wakeup latency percentiles from the final cumulative window, in
-usec:
+       WARNING: drivers/media/mc/mc-entity.c:1150 media_create_pad_link
+       qcom-camss acb3000.isp: Failed to link msm_csid0->msm_vfe3_rdi3 entities: -22
+       qcom-camss acb3000.isp: probe with driver qcom-camss failed with error -22
 
-                            p50  p99
-  balancing=0, no policy    15   207
-  balancing=0, policy       15   205
-  balancing=1, no policy    15   199
-  balancing=1, policy       14   201
+     Gjorgji, you thought this one could go away in v2. It cannot, and it
+     is worse than I first described: the pad count in your 4/8 is
 
-With a policy attached, wakeup percentiles stay within a few percent
-of the no-policy baseline whether the global switch is on or off, and
-throughput stays within the benchmark's own run-to-run variance.
+       num_pads = csid_is_lite(csid) ? MSM_CSID_PADS_NUM : MSM_CSID_PADS_NUM - 1;
 
-On this box the global on and off states are themselves
-indistinguishable for this workload, so these numbers isolate the
-cost of the hook, not the benefit of the selection; the benefit side
-needs multi-node, memory-heavy workloads.
+     which depends on lite-ness, not on streams_enable, so any platform
+     that links all CSIDs to all VFEs fails to probe whether or not the
+     streams API is enabled for it.
 
-Changes since v1
-================
+The CSIPHY rebase for your 1/8 is not included here, since it is your
+patch to amend; the resolution is in my reply on that thread. The short
+version is that SC7280 has no camss child node named "phy", so
+camss_detect_legacy_phy() puts it in legacy mode and the lane
+enable/disable has to dispatch on camss->legacy_phy rather than assume
+the generic PHY path.
 
-v1 keyed the hook on the memory cgroup and temporarily embedded the cgroup
-id into the struct-ops value, because the cgroup struct_ops integration was
-still under development. v2 attaches through the cgroup struct_ops support
-that has since landed in bpf-next [0], keys the task surface on the task's
-cgroup and the memory surface on the folio's memcg, and adds the
-memory-tiering mode alongside enable and disable.
+Tested on RB3 Gen2 (QCS6490 / SC7280) against next-20261009:
 
-This is still an RFC with limited testing. Feedback is welcome.
+  qcom-camss acb3000.isp: streams_enable=1 legacy_phy=1 version=4
+  msm_csiphy0-4: flags=0x14  (FL_STREAMS | FL_HAS_DEVNODE)
+  msm_csid0-4:   flags=0x1c  (FL_STREAMS | FL_HAS_EVENTS | FL_HAS_DEVNODE)
+  msm_csid0-2: 4 pads, msm_csid3-4 (lite): 5 pads
 
-[0] https://lore.kernel.org/bpf/20260706171918.317102-1-ameryhung@gmail.com/
+  imx577 -> csiphy3 -> csid0 -> vfe0_rdi0, SRGGB10_1X10/4056x3040
+  msm_csiphy3 routes: 0/0 -> 1/0 [ACTIVE]
+  msm_csid0   routes: 0/0 -> 1/0 [ACTIVE]
 
-RFC v1: https://lwn.net/Articles/1054030/
+  10 frames captured off /dev/video0, 4056x3040 pRAA, 5072 bytes per
+  line, with real sensor content.
 
-Yafang Shao (3):
-  sched: add helpers for numa balancing
-  sched: add per-cgroup NUMA balancing mode selection via BPF
-  selftests/bpf: add tests for the bpf_numab_ops struct_ops
+A correction to the scope I gave on the 0/8 thread: I said I would
+follow up with the two-camera MAX9296A case on linux-next. I withdraw
+that. The upstream qcs6490-rb3gen2 files describe only the on-board
+IMX577, and our GMSL mezzanine DT is not upstream and is not something
+we plan to push, so that case cannot be exercised on a plain
+next-20261009. The concurrent two-pipeline result I reported in
+September stands on the qualcomm-linux qcom-next branch, which sets
+v4l2_subdev_enable_streams_api = true by default so it did go through
+the streams API. If SER/DES behaviour matters for a future revision I
+can retest there, but I cannot offer it against linux-next.
 
- include/linux/bpf-cgroup-defs.h               |   1 +
- include/linux/bpf-cgroup.h                    |   2 +-
- include/linux/bpf_numab.h                     |  77 ++++++
- include/linux/sched/numa_balancing.h          |  82 ++++++
- kernel/sched/Makefile                         |   5 +
- kernel/sched/bpf_numab.c                      | 164 ++++++++++++
- kernel/sched/fair.c                           |  16 +-
- kernel/sched/sched.h                          |   1 -
- mm/memory-tiers.c                             |   9 +-
- mm/mempolicy.c                                |   7 +-
- mm/migrate.c                                  |   7 +-
- mm/vmscan.c                                   |   6 +-
- .../selftests/bpf/prog_tests/bpf_numab_ops.c  | 250 ++++++++++++++++++
- .../selftests/bpf/progs/bpf_numab_ops.c       |  57 ++++
- 14 files changed, 660 insertions(+), 24 deletions(-)
- create mode 100644 include/linux/bpf_numab.h
- create mode 100644 kernel/sched/bpf_numab.c
- create mode 100644 tools/testing/selftests/bpf/prog_tests/bpf_numab_ops.c
- create mode 100644 tools/testing/selftests/bpf/progs/bpf_numab_ops.c
+Note for anyone else testing this series: the streams uAPI is gated at
+compile time by
 
+  static bool v4l2_subdev_enable_streams_api;
+
+in drivers/media/v4l2-core/v4l2-subdev.c. Until that is true,
+VIDIOC_SUBDEV_QUERYCAP strips V4L2_SUBDEV_CAP_STREAMS and the routing
+ioctls return early, so media-ctl reports no routes and v4l2-ctl says
+"Streams API not supported" even though the subdevs have
+V4L2_SUBDEV_FL_STREAMS set.
+
+v4: Posted as a series at Gjorgji's request, for folding into his v2.
+    Added 1/4 (set_fmt signature) and 2/4 (SoC-level flag, per Bryan).
+    3/4 is now a single line instead of fifteen. 4/4 unchanged, but its
+    commit message no longer claims the pad count depends on the streams
+    API. Tested on next-20261009 rather than our vendor branch.
+v3: Referenced the prerequisite series with a Link: tag.
+v2: Added the dependency to the commit message and as base-commit.
+
+Hitesh Patel (4):
+  media: qcom: camss: csid: Match the current set_fmt pad op signature
+  media: qcom: camss: Set the streams API flag per SoC
+  media: qcom: camss: Enable the streams API on SC7280
+  media: qcom: camss: Do not link CSID source pads the CSID does not have
+
+ drivers/media/platform/qcom/camss/camss-csid.c   |  3 ++-
+ drivers/media/platform/qcom/camss/camss-csid.h   |  1 -
+ drivers/media/platform/qcom/camss/camss-csiphy.c |  4 ++--
+ drivers/media/platform/qcom/camss/camss-csiphy.h |  1 -
+ drivers/media/platform/qcom/camss/camss-vfe.c    | 10 +++++-----
+ drivers/media/platform/qcom/camss/camss-vfe.h    |  1 -
+ drivers/media/platform/qcom/camss/camss.c        | 19 +++++--------------
+ drivers/media/platform/qcom/camss/camss.h        |  2 ++
+ 8 files changed, 16 insertions(+), 25 deletions(-)
 -- 
-2.52.0
+2.43.0
 
