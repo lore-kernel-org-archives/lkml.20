@@ -1,149 +1,151 @@
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
+Received: from mta1.migadu.com (out-96.mta1.migadu.com [95.215.58.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A4F137205F
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:37:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791769055; cv=pass; b=hMj8GkW7t6B2XCxj9vzA01rnZ9Qw8UwCMKjpd0/rI0RtAfeBcVGdSUUZc2+kCeezJSIMqtEKDXkWRZXvSk+0605+lCtB4epdGUIiFAyvJIGROan5RkkTVPPxWGLCoszagTktxoe616B3QlWjaj7H4EdOnBuINfluEyol3QsZnNo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791769055; c=relaxed/simple;
-	bh=8eamA2vofHWVcfykSPfOgSMCX6h4wsr3MsQE4r2LhZg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LmEYwsWtJY+ByFQDDz34CWHCFu1p6SQFbLIJoc4gT0ZSwYFW+2BctiLaZy/PUjlVIx8L9sk7N+U2Tiz9cdj5HTtCABncnoAZ89l/0bjt4tGe0VIsszXHzC7YbJN6DIkU3YLg6zAKg5azgK/5Hj58+uRsses+8NwqJxRV+ZPirXk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ly9qfU7s; arc=pass smtp.client-ip=209.85.161.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38CC525B099
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:38:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.96
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791769097; cv=none; b=qjIaCuex00fbYFaJs8CK778jw8u6EZLe8+Lz58De61Lg6dYRqE4mfOhSxJBF7uCy3H904Xpl2s/LOAdRpfTiF4Tl8ZM+gaD7X7vKgICg/4tcUVSbyxRc+rhR7aU2ErIOFOb/ti8lXf4ggmUd0/p16O8v7YXegltPBkeeMZzRPRQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791769097; c=relaxed/simple;
+	bh=DwPAqyo+kbHR4QZnsyXrErGHTcNhB6rs1BCvftMQZjw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WGdNoho3rroR3Mj3fYhTayjnxZZN5Pz/xPkwf6AQzfbhbDBM4gx8CY/dd9ezoAfkbjyqsHDj5WPOoEAbxlFER91DRpdCoTic6FflDH+F9iJT/0hQPa65nHepLwiWRb/5o2hDG/OhzAgHIGw2gYOoXKrMxqkKjoCtKKIgtXSpZBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JXM8zNSI; arc=none smtp.client-ip=95.215.58.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ly9qfU7s"
-Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6ddef424972so1076411eaf.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:37:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791769053; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AULl5BrpVjHlJZFYZaYjqDxqLjK+4n+3ImnO9sQrWR8X2k2/rL0fL03B8ccwtaQx99
-         dubq36C6qeEkWaWWguHN9pdkLPUbj9a9j/+c4a4XinNAUnrHX7tGnuz2qv6X7fI4uX4B
-         PRuWN6cLNlyxOuh8n6UUbMY1p1oX7jyoUWWx6Yg495ejKjpbrQh9QdVLhAh6Z1rvZSj1
-         Yi0oC8ID2eIayk4Sm0JXLk3Q1B1PTsJzczw1l2Nq1YMElRQkXRuIxr4lYw1nlIolFyq3
-         nAGuapnwBbDQ4V8DPnYGfcriWgT2tofBuX7hV0ZIjt5BZL5OMDkbDD2IJzPy+qWQA0E6
-         xS9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Fub5Jcy6LRmb/gHzIvFjGYqxVr2QVdb2MxvdUeJjFqI=;
-        fh=fJO+1x50ZGuyqJHBj6Fr+yl8AHfkgCu4IH2ynJAmSA8=;
-        b=e1atVQMbV8PwQkgCaw9IViLbWhyekyeMpPQoAKe4DN3XJa/NoYg9SUL76Vukr3xbEh
-         hNfnL5+8AdrivBtbAJVDECh5zmiwJH1o0kAzSTMJcgCgrRw+HUwNRtOOXT6kImaZciSC
-         GfxoZvd9ieLG9nk+/BGmS0xebVI9U8zL6pe5z7epNttLWnCl3bQdDlsZxtLuBMwu49Mt
-         YM8F9Zu1caL0l9V0ixjxuRm0b2M4DcE/wCJ9xOEOaGR0oxKZ+R167Qe+0LQ3a6virVUE
-         79AfL7vlEysZ5jVsLo6NUvXDDN3kwILK/rQgh7We5JdXGKmcQOuVNChLjFHhubCHhAA9
-         01mw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791769053; x=1792373853; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Fub5Jcy6LRmb/gHzIvFjGYqxVr2QVdb2MxvdUeJjFqI=;
-        b=Ly9qfU7sUoRvavm66y22mWnyEAFmt7SU7nPQief05UrSedP+KiZI5k8f8CNqYo0PyS
-         EwF/JCUEBToZb83T7utc6sVZNWE4pFgxBywW+oOOKUIYkVygCJDfMhaSHe0Un3CmU9Js
-         zwwLdIKzE11r60wiPgKoc/GdAxC6swIi3VD5hPt0Fc/PvS2wWjzi+FkQksYbIcB14mDV
-         UsbztjFjgpMOqatUOCulO0Wwj8WSgh0wQ46vkKvu11Db0M307cAVOyUAbX/eW5Rc6Ruc
-         e6UBZuQbYY8H6EEozNy7zDyZE8BJwIjvnd8G6xhFFHh4LNW1uZO9DwxI1DCHsDOPa1wy
-         pQSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791769053; x=1792373853;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fub5Jcy6LRmb/gHzIvFjGYqxVr2QVdb2MxvdUeJjFqI=;
-        b=fJUDS89i1xKHccTr3zl2oJuV9vOCAYxopyg6wc4pJoWtUF11cyBYNMMX5oXFIPCIPx
-         nPMhfa6XpqQxMPyjqYZvP3LtRWJkhYi5PYCItBA3VbCug17cRdEjnEsrUZKx2pFjV0/B
-         Az/fJPrnBZp4UEmg1fR3+B4bc86QLDr28b89gzDNRh67txHnZtZBtEKit3Mb00yhgoxZ
-         mt2uZd4dW2aRordHlTSUG9W/m1N9kseCPABysJ0sfZJQnu/OkKf1NDpiO7YVVXdewOwy
-         SAaKjZJiEJXW9XCQXmDAx4U99nQU8s9vhIcsdXaFP1Wim/bi1Fx7qZJuM2xNHRJfVOy5
-         nllg==
-X-Forwarded-Encrypted: i=1; AKwUvBxq3IryU72oVuyCzyTCX29+YFvU5ZlAa+foYBEd4OABG7bw0rvFYWy0bk2uTW+Bbnp166+33KJuWIF3WBM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3rpmvlzuaFAOabANDgIr7hndh05TDXO9ZqhjsaKkollV4XIPp
-	dIyMuzxuBglm+s20+LPMxbDe2kpFUJRDghgD03uawOMYcDOgnzMNtnADtyiY1s5q9TsFdeycNDJ
-	Bu1zXDwe1INgjUCbxV3Y1B8fG1JP0TsA=
-X-Gm-Gg: AYBFou29V9mBcibYMAIfOUSK6Fku3DEFpYVwANBSDVwhlHkX72adrJm9BKiHYVWditq
-	yAkHn74+S0jAZ6IG2NWg1YarSdrSyBh07kmomeTCVzDFeKQjPG2+ufkO0Sop8FQtxnihUoCHV+1
-	5cUR0UjjH5pR/ZfpgFwOA0jHtwKAlzyZlDul/gni2EvSdbECQpz3kZnEjLjV0KRkP+bSz24X5g8
-	wKs6gaH1I8Jye2sfLRES2QGFe6a37VZT76IAb/0SCocfjqe4ZRd3rlQxZVTP8M0VAUQqfMeaCZC
-	fAcCT2hPLf+Mm44aS8q+2JRrj05qAeAjY+xEgV6ZW+GcnJ948XfSWHU=
-X-Received: by 2002:a05:6820:f007:b0:6c3:2d16:34a4 with SMTP id
- 006d021491bc7-6ef08c786c1mr5975765eaf.6.1791769053431; Sun, 11 Oct 2026
- 18:37:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JXM8zNSI"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DwPAqyo+kbHR4QZnsyXrErGHTcNhB6rs1BCvftMQZjw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791769093; v=1; x=1792373893;
+ b=JXM8zNSI7eQgQQGm5PphOuaxKoQrEX4Kxkovv9MMM5okDUB2kEBdXpDrAhK8+qjnBZ131aMi
+ m6HvJ6YEq+W7YqfzqU2OybwlUA1e8fbDqql8y4Miv83DyHovkEwFUe3xYCs07SewXAhVM8pHOjh
+ hCKjg6zEW2lrhk03p3JRlU0Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id a7f938bb652c49cd;
+	Mon, 12 Oct 2026 01:38:12 +0000
+X-Mizu-Trace-ID: a7f938bb652c49cd
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 12 Oct 2026 09:38:05 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	Hangbin Liu <liuhangbin@kylinos.cn>, stefano.salsano@uniroma2.it,
+	andrea@common-net.org
+Subject: Re: [PATCH net-next v2 2/5] seg6: add RFC8986 flavor support for
+ End.X
+Message-ID: <asw5_RwRV5JKLg3l@fedora>
+References: <20261009-srv6_flavors_endx-v2-0-56ac7f838f41@kylinos.cn>
+ <20261009-srv6_flavors_endx-v2-2-56ac7f838f41@kylinos.cn>
+ <20261012025900.c2321bfa92c5863d21efdba3@uniroma2.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916-b4-ipcc_wake_disable_upstream-v1-1-d1b363b5a735@oss.qualcomm.com>
-In-Reply-To: <20260916-b4-ipcc_wake_disable_upstream-v1-1-d1b363b5a735@oss.qualcomm.com>
-From: Jassi Brar <jassisinghbrar@gmail.com>
-Date: Sun, 11 Oct 2026 20:37:21 -0500
-X-Gm-Features: AclHuK87oJ93OBvwpS0PpodKPWCyuarfSIg_g9uznpYXDgKKFP6Fg0H6hEIxn_E
-Message-ID: <CABb+yY27XKXgMo8k7J0=tPX+LnCxpJSwos_h=rCkk43KV5fqxA@mail.gmail.com>
-Subject: Re: [PATCH] mailbox: qcom-ipcc: remove stray disable_irq_wake() call
-To: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Huang Yiwei <quic_hyiwei@quicinc.com>, 
-	Jassi Brar <jaswinder.singh@linaro.org>, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012025900.c2321bfa92c5863d21efdba3@uniroma2.it>
 
-On Wed, Sep 16, 2026 at 2:31=E2=80=AFAM Anup Vishwakarma
-<anup.vishwakarma@oss.qualcomm.com> wrote:
->
-> Commit afaf2ba5b430 ("mailbox: qcom-ipcc: Support interrupt wake up
-> from suspend") replaced enable_irq_wake() with IRQF_NO_SUSPEND on the
-> IRQ request, but left the paired disable_irq_wake() in remove()
-> behind.
->
-> disable_irq_wake() decrements the IRQ's wake_depth. With no matching
-> enable_irq_wake() left to increment it, wake_depth stays at 0 and
-> irq_set_irq_wake() reports:
->
->   WARN(1, "Unbalanced IRQ %d wake disable\n", irq)
->
-> on every unbind. Since there is no enable_irq_wake() to pair it with,
-> remove the stray disable_irq_wake() call; IRQF_NO_SUSPEND already
-> provides the intended wake behaviour.
->
-> Fixes: afaf2ba5b430 ("mailbox: qcom-ipcc: Support interrupt wake up from =
-suspend")
-> Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-> ---
->  drivers/mailbox/qcom-ipcc.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/mailbox/qcom-ipcc.c b/drivers/mailbox/qcom-ipcc.c
-> index 185b63f724d4..759577055671 100644
-> --- a/drivers/mailbox/qcom-ipcc.c
-> +++ b/drivers/mailbox/qcom-ipcc.c
-> @@ -348,7 +348,6 @@ static void qcom_ipcc_remove(struct platform_device *=
-pdev)
->  {
->         struct qcom_ipcc *ipcc =3D platform_get_drvdata(pdev);
->
-> -       disable_irq_wake(ipcc->irq);
->         irq_domain_remove(ipcc->irq_domain);
->  }
->
->
-> ---
-> base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
-> change-id: 20260916-b4-ipcc_wake_disable_upstream-28bcbd84cef4
->
-> Best regards,
-> --
-> Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
->
-Applied to mailbox/for-next
+Hi Andrea,
+On Mon, Oct 12, 2026 at 02:59:00AM +0200, Andrea Mayer wrote:
+> On Fri, 09 Oct 2026 17:58:38 +0800
+> Hangbin Liu <hangbin.liu@linux.dev> wrote:
+> 
+> > From: Hangbin Liu <liuhangbin@kylinos.cn>
+> > 
+> > Previously End.X only supported NEXT-C-SID, with a plain fallback to
+> > input_action_end_x_core(). Add PSP End.X processing by reusing
+> > end_flv8986_core().
+> > 
+> > Add SEG6_LOCAL_FLV8986_SUPP_OPS to SEG6_LOCAL_END_X_FLV_SUPP_OPS so
+> > End.X advertises PSP flavor support.
+> > 
+> > Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> > ---
+> > 
+> > For Sashiko:
+> > 
+> > With the SEG6_LOCAL_END_X_FLV_SUPP_OPS mask widened, parse_nla_flavors()
+> > now accept the combination next-csid plus psp for an End.X instance. And
+> > the current code is unable to handle this combination. The End instance
+> > also has this issue. Andrea is preparing a fix for this bug.
+> 
+> Hi Hangbin,
+> 
+> thanks for v2, and for your work.
+> 
+> The End fix is now posted, to net-next and not to net as I wrote on
+> v1, since the issues it fixes have been there since PSP was added:
+> 
+>   https://lore.kernel.org/netdev/20261011192310.55-1-andrea.mayer@uniroma2.it/
+
+Yes, I saw it.
+
+> 
+> > ---
+> >  net/ipv6/seg6_local.c | 15 ++++++++++++---
+> >  1 file changed, 12 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
+> > index 4fcfcd48cfae..521a9b0c0929 100644
+> > --- a/net/ipv6/seg6_local.c
+> > +++ b/net/ipv6/seg6_local.c
+> > @@ -121,7 +121,8 @@ struct bpf_lwt_prog {
+> >  
+> >  #define SEG6_LOCAL_END_FLV_SUPP_OPS	(SEG6_F_LOCAL_FLV_NEXT_CSID | \
+> >  					 SEG6_LOCAL_FLV8986_SUPP_OPS)
+> > -#define SEG6_LOCAL_END_X_FLV_SUPP_OPS	SEG6_F_LOCAL_FLV_NEXT_CSID
+> > +#define SEG6_LOCAL_END_X_FLV_SUPP_OPS	(SEG6_F_LOCAL_FLV_NEXT_CSID | \
+> > +					 SEG6_LOCAL_FLV8986_SUPP_OPS)
+> >  
+> >  struct seg6_flavors_info {
+> >  	/* Flavor operations */
+> > [snip]
+> > @@ -923,12 +924,20 @@ static int input_action_end_x(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+> >  {
+> >  	const struct seg6_flavors_info *finfo = &slwt->flv_info;
+> >  	__u32 fops = finfo->flv_ops;
+> > +	int ret;
+> > +
+> > +	if (!fops)
+> > +		return input_action_end_x_core(skb, slwt);
+> >  
+> >  	/* check for the presence of NEXT-C-SID since it applies first */
+> >  	if (seg6_next_csid_enabled(fops))
+> >  		return end_x_next_csid_core(skb, slwt);
+> 
+> Here End.X could do what End does in the fix: call
+> seg6_use_next_csid() instead of seg6_next_csid_enabled(), so that a
+> packet with a zero Argument is processed as End.X with PSP.
+> 
+> Does it work for you to rebase this series on top of the End fix,
+> once it is merged, and make that change in this patch? Then End.X
+> handles the combination from the beginning.
+
+OK, hope it doesn't take too long time.
+
+> 
+> The selftests of the two series conflict in srv6_end_flavors_test.sh,
+> and they set up the test environment differently. If you want a hand
+> with that part, I am glad to help.
+
+I will review the selftest update and try rebase my test on yours.
+If there is a need, I will ask for your help.
+
+> 
+> Side note: I received only part of this series. Could you please also
+> Cc andrea@common-net.org, in this thread and on the next versions?
+
+Sure, I will.
 
 Thanks
-Jassi
+Hangbin
