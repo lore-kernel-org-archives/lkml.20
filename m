@@ -1,186 +1,254 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 37B714DAFAA;
-	Mon, 12 Oct 2026 18:45:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A99383C83;
+	Mon, 12 Oct 2026 18:45:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791830714; cv=none; b=qZEB49t9Irh6u1cgM8v0JKwKuC22kzN6H8XBtLQQH2+NmoK9rmUQeFIf9Kg8Fg4xsVRaeNPeHnDzXN2q5dqTL153x9uAf+HjLasBm2f8P1YcmaOdNa1xL9Bg+/0Zv4Jd9TY1ZDNiqdXVuhlKqVFs4R/HArL/VYWlm9Y2sjfuryc=
+	t=1791830760; cv=none; b=Z/Rd66BH/6kTzaC/TvPHB2YlgWdDtD+BA9tBvboxDOFxhbBrl46Ze2M/vb0m7FjZZUqxwvJbKwndyjDCaZDGJNur8FoHOBgQ+2N5cgeFV+zugdFbixLv70FZ/8fkiULiZZdRSxQ2xPsa7tzUaZNgZw3C6HsnE/kAhflya28idQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791830714; c=relaxed/simple;
-	bh=moux0RdaQOg9oAn2omKHKdRwyFUKoL7usBjJzvOq3aI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=giqC91BnoRCgEMskejbQd9qFkO6pc00x9d+c6UdcvQ+Ho36ib+o3apRzDBpRA0DlI/kE0IyOZ7nOJqe5WPXpmclhRLNw1A0jU8LCgNgPNXUaeudo7757Erxe9X7Agatih2aGZMwn9VW2YIMBEmg6rtMOxgZexninWKp4p1OaylE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=ofJTV+zA; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791830760; c=relaxed/simple;
+	bh=0zz3xunVyoY9asPW5zAiqOozaxbDJhwpfGPaJ7jRHik=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rkjU86YsiXmTPMI9rT7ADnDXHBsCC4uYSH840YQCxbEp7dwyb62u45KTDzD7tLI6+9Spnt0sSAym/jvvrpgJKt/6pfn2sHBQeLBatkheI9iS4KL/n6tNpCWcRNqtCgaKXmP57hGujH/FoWaIUiA1QPO3wyqKGK+UFAhfds6Bxgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hjWrxaem; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="ofJTV+zA"
-Received: by linux.microsoft.com (Postfix, from userid 1216)
-	id 3D07120B7166; Mon, 12 Oct 2026 11:45:10 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3D07120B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791830710;
-	bh=aV/lGjTgFzjmi1GzusTJEogclUVFMsaWVMcBG2jRLsM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ofJTV+zAcILUHPvuxvsigZInR4BrwsNh2/ETsurQRBgkE83ooKEkswKTFlyT/g1hw
-	 lVxCFSIpfyq+LQ9B+DbJlakrftSOx/AUpY95xryMhhXntr0T8pZQ8eRzMa/rMOpZjr
-	 5Rassvh93Lw5h9P+EgbeeQ2DHY1P1nTsqIuZa5/U=
-Date: Mon, 12 Oct 2026 14:45:10 -0400
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, haiyangz@microsoft.com, wei.liu@kernel.org,
-	decui@microsoft.com, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, ernis@linux.microsoft.com,
-	gargaditya@linux.microsoft.com, linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: mana: add BQL support
-Message-ID: <as0qticPN9LPaaNU@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20261008152302.3192778-1-hamzamahfooz@linux.microsoft.com>
- <179182066558.434549.8621824405062801385@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hjWrxaem"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCEA31F008A1;
+	Mon, 12 Oct 2026 18:45:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791830753;
+	bh=KI+fzgQwEiyuK2apx4uDGmy8H+VNSYQ2Fwx2d5pIup4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hjWrxaemgQIAy0VI71DGFBjmeo3u0jkeRxOMqy7BoqZ/W9u+ymJ7mEas0GsWImzhc
+	 flbp4TMOKiQO6KfZp57FCitnC9KNkqZQKbjs3rKvW9AK9dzNGznommua8ryR/VPg0G
+	 IMHh9SLlVDzr5qkD/M6su3mSho454w2cd6rH82b7g0g4syW51uXFUgh4fEGBdxcdBX
+	 /vdRxwsILB6yAtD2m5LK+zcjfCCd3cc3PNdcsUVGMD0otTqf07c2OfCVDedxT9SlJC
+	 lS+iaRr74Ul6y2Jkqg/poElsdZhpNt/w6ePhVB38uVJ+q/vSobduzrA5fPJz50twpQ
+	 SjkIx4h/BDWmg==
+Message-ID: <c79d2d40-0f1c-43ec-bc25-b75ce975f27e@kernel.org>
+Date: Mon, 12 Oct 2026 20:45:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179182066558.434549.8621824405062801385@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 30/38] mm/vma: introduce vma[_flags]_is_mm_backed()
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ Bert Karwatzki <spasswolf@web.de>
+References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-30-923b70125b1e@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-30-923b70125b1e@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026 at 03:57:45PM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
+On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
+> Introduce vma[_flags]_is_mm_backed() for the purposes of identifying
+> mappings which are mm-managed and whose contents were placed there by core
+> mm's own fault path - rather than a custom ->fault handler - and which core
+> mm has not reserved the right to discard.
 > 
-> Critical: 0 � High: 0 � Medium: 1 � Low: 0
+> Mappings not managed by core mm do not fall into this category, as they are
+> populated by their owner, and nor of course does memory-mapped I/O.
 > 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
+> We exclude fixed mappings as these have a layout core mm cannot assume
+> ordinary fault semantics over.
 > 
-> - [Medium] If TX completions are lost, XDP traffic can keep a BQL-stopped
->   MANA queue from ever being recovered by the TX watchdog.
+> hugetlb mappings are fixed mappings, but core mm owns them entirely, so
+> they are explicitly carved out as mm-backed, as the MADV_DODUMP check
+> already does.
 > 
-> --
+> Droppable mappings are excluded as core mm has promised it may discard them
+> at any time.
 > 
-> net: mana: add BQL support
+> Use this functionality to update the madvise MADV_DODUMP check to test for
+> this rather than open-coding it.
 > 
-> This patch adds byte queue limit accounting to MANA. Queued bytes are
-> reported in mana_start_xmit() and completed bytes in mana_poll_tx_cq().
-> XDP_TX and XDP_REDIRECT sends are counted through the same path, and the
-> BQL state is reset in mana_destroy_txq() after NAPI is disabled.
+> This replaces the VM_SPECIAL check which means it no longer checks for
+> VMA_IO_BIT, however this is safe as we have established the invariant that
+> mm-managed mappings may not set VMA_IO_BIT, so we implicitly include
+> these.
 > 
-> > diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-> > index 2ba48a1c4b15e..67048fe64d63e 100644
-> > --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-> > +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-> > @@ -543,6 +543,11 @@ netdev_tx_t mana_start_xmit(struct sk_buff *skb, struct net_device *ndev)
-> >  	err = NETDEV_TX_OK;
-> >  	atomic_inc(&txq->pending_sends);
-> >  
-> > +	/* Account the skb in BQL before the doorbell lets the hardware
-> > +	 * complete it.
-> > +	 */
-> > +	netdev_tx_sent_queue(net_txq, len);
-> > +
+> No functional change intended.
 > 
-> [Severity: Medium]
-> Can XDP traffic stop the TX watchdog from ever recovering a queue that
-> BQL has stopped? The commit message says:
+> Acked-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  include/linux/mm.h | 50 ++++++++++++++++++++++++++++++++++++++++++++++++++
+>  mm/madvise.c       |  4 ++--
+>  2 files changed, 52 insertions(+), 2 deletions(-)
 > 
->   The TX watchdog covers the queues stopped by BQL, and its handler resets
->   the queues along with their BQL state.
-> 
-> XDP_TX and XDP_REDIRECT (mana_xdp_xmit()->mana_xdp_xmit_fm()) both reach
-> mana_start_xmit() through mana_xdp_tx(). That function does not check
-> whether the queue is stopped:
-> 
-> drivers/net/ethernet/microsoft/mana/mana_bpf.c:mana_xdp_tx() {
->     ...
-> 	__netif_tx_lock(ndevtxq, smp_processor_id());
-> 
-> 	rc = mana_start_xmit(skb, ndev);
->     ...
-> }
-> 
-> With this patch, each of those sends now calls netdev_tx_sent_queue().
-> If the queue is over its limit, netdev_tx_sent_queue() always refreshes
-> trans_start, even when __QUEUE_STATE_STACK_XOFF is already set:
-> 
-> include/linux/netdevice.h:netdev_tx_sent_queue() {
->     ...
-> 	/* Paired with READ_ONCE() from dev_watchdog() */
-> 	WRITE_ONCE(dev_queue->trans_start, jiffies);
->     ...
-> 	set_bit(__QUEUE_STATE_STACK_XOFF, &dev_queue->state);
->     ...
-> }
-> 
-> dev_watchdog() only fires when trans_start is older than watchdog_timeo.
-> MANA sets watchdog_timeo to 15 * HZ. One XDP packet every 15 seconds on
-> that queue seems to be enough to stop mana_tx_timeout() from ever
-> running.
-> 
-> In that state, what clears STACK_XOFF? mana_poll_tx_cq() matches CQEs to
-> SKBs in FIFO order with skb_dequeue(). If completions are lost, the lost
-> bytes become a permanent debt D in num_queued - num_completed.
-> netdev_tx_completed_queue() only clears STACK_XOFF when dql_avail() >= 0,
-> so the limit would have to reach D.
-> 
-> In dql_completed(), the limit only grows here:
-> 
-> 	if ((ovlimit && !inprogress) ||
-> 	    (dql->prev_ovlimit && all_prev_completed)) {
-> 
-> The first condition can't be true while inprogress >= D. The second
-> needs one poll to complete at least the bytes that were in flight at the
-> previous poll. A low-rate XDP flow with one completion per poll won't
-> meet that.
-> 
-> For example, take equal R-byte packets, a learned limit of R, and two
-> lost completions (D = 2R). The limit never grows, and the decrease
-> branch can shrink it further.
-> 
-> netif_tx_wake_queue() only clears DRV_XOFF. The only
-> netdev_tx_reset_queue() call is in mana_destroy_txq().
-> 
-> Would stack traffic on that queue then stay blocked indefinitely while
-> XDP traffic keeps flowing?
-> 
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 2ce68713e4c3..55320cf2c525 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -1738,6 +1738,56 @@ static inline bool vma_can_merge(const struct vm_area_struct *vma)
+>  	return vma_flags_can_merge(&vma->flags);
+>  }
+>  
+> +/**
+> + * vma_flags_is_mm_backed() - Do the specified VMA flags imply the mapping is
+> + * backed by core mm?
+> + * @flags: The VMA flags to test.
+> + *
+> + * An mm-backed mapping is one managed by core mm (see
+> + * vma_flags_is_mm_managed()) for which two further things are true:
+> + *
+> + * 1. Everything mapped was placed there by core mm's fault path (no custom
+> + *    ->fault).
+> + * 2. What is mapped stays there until it is zapped or unmapped by the user.
 
-Ack, I'll spin up a v2 to address this.
+I still dislike squeezing the VMA_DROPPABLE check in here.
 
-> Hardware faults are not the only source of lost completions. The early
-> returns in mana_poll_tx_cq() exit after some SKBs have already been
-> dequeued and freed, but before netdev_tx_completed_queue() runs:
-> 
+It's just weird semantics to squeeze pages that are *managed* by core MM (#1)
+but are simply always lazyfree into this check.
 
-The early returns are all WARN_ON_ONCE() paths (for completions that
-shouldn't happen). mana_gd_poll_cq() has already consumed the rest of
-the batch (by the time we hit one of those paths), so the SKBs can't be
-matched back to completions anymore. Completing the SKBs already dequeued
-wouldn't avoid that, so I think it makes more sense to leave those paths
-as they are and rely on the watchdog reset to recover the queue.
+In fact, core-mm manages (zaps) these pages, they are really just just
+permanently lazyfree.
 
-pw-bot: cr
+Open-coding "this (DUMP, UFFD, MLOCK) does not make sense for droppable
+mappings" is IMHO the right decision, because there you could say
 
-> drivers/net/ethernet/microsoft/mana/mana_en.c:mana_poll_tx_cq() {
->     ...
-> 		if (WARN_ON_ONCE(txq->gdma_txq_id != completions[i].wq_num))
-> 			return;
-> 
-> 		skb = skb_dequeue(&txq->pending_skbs);
-> 		if (WARN_ON_ONCE(!skb))
-> 			return;
->     ...
-> }
-> 
-> Before this patch, a few leaked WQEs did not block stack traffic on the
-> queue as long as the SQ was not full.
-> 
-> [ ... ]
-> 
-> -- 
-> Sashiko AI review � https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008152302.3192778-1-hamzamahfooz%40linux.microsoft.com
+"dumping something that can get zapped every second does not make any sense"
+
+"placing pages through uffd does not make any sense if it can get zapped any second"
+
+"mlock'ing (and thereby allocating!) droppable mapping does not make any sense
+and could actually break droppable semantics"
+
+Not a hill I will die on, but I much rather have the droppable mapping be
+outside or  have it called something nasty like
+
+vma[_flags]_is_mm_backed_or_droppable()
+
+-- 
+Cheers,
+
+David
