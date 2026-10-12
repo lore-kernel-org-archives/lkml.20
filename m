@@ -1,152 +1,339 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F457368D7E
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:30:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C1534A797
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:31:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791811858; cv=pass; b=CjJK6rXzjpl0yVHI8NCWjhrvJm63cofyZg9g8yIas4aNTdBTsIbzH4Ic3UFUSpIA+9HsdFNWY05kDAXtxfam1nZLu740qR5rDhRvu0KPnLO0NYr9Zr/PWJwOpE2ZcdA1vsTqY9/YV1dxcvNTGwRd8WLP8+tEHwZAgoXH5PCs4rE=
+	t=1791811866; cv=pass; b=oNe4PeFzeD8toDOY4TyIxKzXsIx2M3/CjwY5ThFxdb9nEcIadHTCgk76FFC2zuIYWzPoC67YGfDti+7Ee0b9j3KGI8DDvYb/d8HiK6ZRUAOmaUGleBn/nRNDdnfZgQAPMY/WEtStV3sIQCtAk9AoNdJ6OdPJj8U3HdIZLq8Td5I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791811858; c=relaxed/simple;
-	bh=EmjxUhPi9se44vvqI3S6zFF2XZYXEIws4ovhrSHoy+g=;
+	s=arc-20240116; t=1791811866; c=relaxed/simple;
+	bh=m4koKE0Dza34+nXtLr7E7xUIQ0SHdMkEe30YrKi3yGg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sdSqAw8zjJDhJQ40idt+z/lxSqok+MrZXrj3P/6f9D/cW2diDORshemUtR2Kn2BElQU+XaLzr9qM7+Cx0dcwSbHpbh5DcpzTbqBEYRWytJyP3auN8v2Kh3YSVSx/PDFIk4Zap+SKmPyEY37RhmJ2dBMh5+iA+0aT2Mq27WHQa4c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=To+M7vtE; arc=pass smtp.client-ip=209.85.128.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=YJjDi0hW2e/FiIs2KYonUi6rzhK/x6QyOMrP8+6Rc0VCQCTkzaddQ0xHDJgk6pbFVgvCqVa6QTj/6n7Zr3igRf9xuwK3WCsFH9BHsz+57qmjY80y8OG+1ee1JmvNQAN7I9SoDSrQEeMGFHOYrNz0+RvhWnn+KjlTjWfW6ekYiiw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=KFF3d+b+; arc=pass smtp.client-ip=209.85.161.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="To+M7vtE"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8ae8541a2f0so15604017b3.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:30:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791811856; cv=none;
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="KFF3d+b+"
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6de1fd5f572so753217eaf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:31:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791811863; cv=none;
         d=google.com; s=arc-20260327;
-        b=WXRSWox7D68mc8N+YAltZkCTbEXkLuMli4OGWp8ov0Xj6tNawoFOMZxHybjp7aQwI4
-         a5z//Bw0zLmGdQACLYatwhsbH8cZJeUAMo8bKjL82LNGOHRMA6hpAUGt8TIgOi9OWU9x
-         /NA5chokxGGaT+bAIYEEv55GRY9LlPO1QeLxUEEuP3gBc+xfK4GhUtIkrhEBktlqLrXC
-         iti8FeRoK6Qz3mF/YlmS9mFAb8Y+KKn/114phabyT7YS8aHdptwienL/byDQ24l30on2
-         2VrfkWW8+VunZG1b8wMyGUF1LMQ8gZcCsm+d08vU7lR1YP2jmRqt+Xr+xCbe6Gh9vDV+
-         bIqg==
+        b=o8Gn1b84MsKVBPfU7Y3ubLJ0ihHWiDx45wj3+Kk86VZH3v/7LULuohh+SHpSb5SIQD
+         K03FYhb/Jyazwxc0Cib8EtPs7pNZx8epaaHICCQ2arfYcvsWTFYyLn6GHfg9WJ0ze5sT
+         oAy5YhadmaOc+17zKLk3hCBSvrOcZuVrSLI88IQrIkYQwj7+wQ+2CjrAvEwTItsEdgWs
+         6B1gapGUnTbQND5C4N55lU7NlgALec46pQanDh6iw2HOdAipfaC8mMbcr4fUuBdntEyW
+         4lBiFBwm6ohWXcw8em2Cjdr2b5b+zjyX6HMh0O67lGOQw8RV1kayLbwDNY0CcxApKQht
+         JFcQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=EmjxUhPi9se44vvqI3S6zFF2XZYXEIws4ovhrSHoy+g=;
-        fh=1OU1zzZV+q9RCGE+KSfVGuAPJ6lTbznoe1oPgWheDiY=;
-        b=Ukpavb8Yrfd9JVimMZ2peTg1e8JcDuWLp1Q0xxFJMPzyAxmsAqeejAR9Q5h2xU9246
-         SptMO/hvoToZfvXe30LdNwUojg9WUbcJ4tCO2BA8dGfjQ+vuuHpTWQ5hQRslKjjw8sZz
-         ASIGWLqP/F6V3ru4GJN54nKuIP/e79Un8z5boIMUhWjt1QKOKt2sRX3YdOuSi+S/8SQF
-         oC5VbEgogDAeuoQNDxkhjnSegE/XO7JPzteMooBK8Tph2BsQ9XUy+De+fHDh9Gap/X3K
-         EUxpy/ihgtqVhvFzIYWQSjgaa5wOcelrNDzcinzOBadOCDWMTotTbDUPOaHdB95I6wgd
-         XiSQ==;
+        bh=KiOo/wZD2K62xmIXsdM9wvMcd8ElF/qU/XGwGHVWNnM=;
+        fh=i+WR4u6Nxekh481+GTOso4FVGm6xJQNhAf3GUjbZsEY=;
+        b=c71+bZGrQEq70delbpEzC8kCBO1AiUCtqOZzjYiCPo0Tv0+hVEsCQET5TFIIEA73g7
+         Bw4I/f+4MmtsteoGmXe4UkgIIZcMNcL9X07z2oeUxsVawx8Yh22PjEorELOGWtZo9vLS
+         W3Zu4G9kWDIBEAr5k/JyXjcPwkVMDPi8o2SofLcYJ2LzK8+Lb+FfOddMtd8R4MwW8uj0
+         RfqbKps12oIkCNuLHGjM6lUpHj11uz3oPOdeLnrGNIaDz1HNFqNq1k/YJbCPHTrwOnCk
+         7mRP5bn9ONdA0/oZk21Z9b5i0zpjhj6zLzD52GwMGz1nZoQL780+tNqaUM7JC4/MXrCl
+         1xnQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791811856; x=1792416656; darn=vger.kernel.org;
+        d=bytedance.com; s=google; t=1791811863; x=1792416663; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=EmjxUhPi9se44vvqI3S6zFF2XZYXEIws4ovhrSHoy+g=;
-        b=To+M7vtEZkHjvtni0GIsJBcpb0+VCa/dx3mQlJluv7Qpe9ljPPgmqRSrKAo/OZ99xL
-         3jM5alSXRo2mXSMvFY2cShficiN3ssbSKnQplu+kzxCjE8+VbiZ90UFLksVHJG6ul2u2
-         c+ZObO3y8ocMfuoRfHUqAplNQgNZrVWvFRVXVffPRtSiNgA/I6FVnWKv/QTS3s6V6P3k
-         U5a4GqYXtC3WUOu0wSaQRNagJJLOGHkLi1SVwrCchuWIMFAUOFJe795cA8WdgDa94gcC
-         pC1lApWtK1n+JvxyZK8gXSrDpUAwYE/utCJeTMnOv7a3LGsp5hiKQqpeBgIZX+0fZdo7
-         ofgA==
+        bh=KiOo/wZD2K62xmIXsdM9wvMcd8ElF/qU/XGwGHVWNnM=;
+        b=KFF3d+b+LZ6ivkhhG3B2LjD60EJP9gHuRZZUYclGW3As/xVT+mOXbowmJGB9TwNWTH
+         idO5rLKd8PT2mem11d9LWv+MVOHyytAE+ergT1nvGan9g9zaC6oWOFsKT+dGWGhuW4Lr
+         JklQH0vz5GUX3TdUgD+YcNlc7YcKQ36WK4UXuRuVYTPgs7zleaiOIvIcXQ2/xMXpxsQU
+         HhdNAVM8yv2LXr59cbHAokBP9RBypbKkCAY+OUKaXh/f/G0F2ge7Tcbnkk19sosoi7OI
+         q0h1KS+9Zkg10LwOUCgwY8cn4PtsptudGWZrDZugyQcqrPyHa2UZUBrb6/x+I/ObaEqj
+         IKKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791811856; x=1792416656;
+        d=1e100.net; s=20260707; t=1791811863; x=1792416663;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EmjxUhPi9se44vvqI3S6zFF2XZYXEIws4ovhrSHoy+g=;
-        b=xtyzsUJJZ2g8uM+aOZUsTEEB4ncpl8U0ayIxEzdI2EV0qffR4l0Ee6nyIySCpbY7xs
-         Aroi3GkOJqeiFiC8k8YEKSPV7Gu1r+fA5SYOTfWmaqJY612saj3T0syQN2Y4qfM7ory6
-         c+07LQRqGYQ0WA2/tJNoJaYScu1Fyk8tugQig2JcjF8AL6xHBpbyhMSwulq3NBEJxRgD
-         ZnaDVdEX+/Z6OQjBa30LlNQ6a+9jwJYXz05wQdRXPSaaR4JTsQSdXFiVr6pH2NVdu5+r
-         StPMIGWhMefMhi61+NNjBnlZIL5NvHX9HVU7K6TvT2t6n8cBPrrHbqXkXg9yi4YvUTkn
-         tqFg==
-X-Forwarded-Encrypted: i=1; AKwUvBwpP1+Lw7/+2grfvx1uiBxP+8PxaMaB1oqECa0JSpCBE9xWjTvKnUFQ2QHg8tZjGE4GylBcHLDwLVIA7VY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0W5eRWFC+7kWarkXaMmsdNmu3LYsi2/QVw8fZc6Zh6QnS0pur
-	0IOpJRXDdI1nspYjvYyiGUtBc+3U8fegGXJy0JTTS1uYTWTFF0A2uiDg9bSV+I5MZLdZS59PYyJ
-	9WpDKVmSB2vy/TeMo7J0RJTbmJDAysio=
-X-Gm-Gg: AYBFou3zO+GBTjEIMis9BjL7/htaA2TtjBMeIzOnUdMes6chRzhyXELWDOiLfBV3coL
-	LddmwEz8+yhRGjuY8yYS0gzaHYc862ZII0UMyUAFDKA6AWAIV99YTkQZrp9rEbrxH++wFDkHEXk
-	YWYmN0DRNm3rKlMGH/js///eeqkpDdZKm1Xo/jlHmOwqlQeNpDV1fOxUM4iGmqpgbLoma/VMkMz
-	jSzf7/KovoZUD9/5Nz7IyxafSv+Vf+v1lkuOLgGXeSZSd7WLCeTPI9A+ISV/cs6IR6iTfk3MT6Y
-	VQyv2CIicJdkn9iQyqzvdraGcdlkWLUBJxqtidXqoI+GvWswleaF5VRqDQ==
-X-Received: by 2002:a05:690c:d8c:b0:866:7724:3bcd with SMTP id
- 00721157ae682-8b07ed1e667mr44288127b3.16.1791811856206; Mon, 12 Oct 2026
- 06:30:56 -0700 (PDT)
+        bh=KiOo/wZD2K62xmIXsdM9wvMcd8ElF/qU/XGwGHVWNnM=;
+        b=SC/xqQeXJTFcW2vILieTb63HAVMpTWmYsnEJOuyOGGLZ6Qc5nAnmFoG9bAJa2dwqg+
+         bYTANOR2w73JvJFr9dV1XGy5x1jsz2aezKCeLCs61lezf3Oz0B2Eil85uJVdWD+Ve1sk
+         wjyhoTK2KSTpINN2AUvZ37RcnnjcmVJQTWaAWxOuKpBo8Ov6Aq0ZLmNhFAxXZf8vLrKI
+         Ta9pVTvE3IbJoMrfz11aXHlC18mgdXSyWJE7cAtF9Z9U3kg+lEMbAbATwP+p588aoOdo
+         9qcYq9kOIw5EgY1IT8TfeGtsJv+Hd8TwGcxzXwVhoiFvFopVkNp8Out7YzzY3mPUjZB7
+         GRfg==
+X-Forwarded-Encrypted: i=1; AKwUvBzu/V96hKn0ymDvGsdrmjqMT8LAAm9YzSi7UIVKUSWZM0PbgOft/2yiWf4Zsjp0hPY4R4RBmENFgQb4v3o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIiOUYUjiRQu8aJKhUFAw6hETwN/1rlPb1YWPXMVFPay9gPQM7g
+	2xpGf67VjH7JlExuTUTmO5IAo8J/r2SkIF8WFl73WzuOigTyz2Wkd48e04n//KV3F2lauFu22LN
+	ck2DuMJzzYG/BtCJhEIg+fJGGucvnyOHLhz1XRpnuXg==
+X-Gm-Gg: AYBFou0IzoSQVm0CJTYtS2izfuJ/4wuBp93HDTD6noD0aiUTI+X1YGVBfYTgxOtChJV
+	afzPB7VC4ZTtHP9sAIgl2/I0nssKeOgbPqxH/ho4Bq4XAsIeHx58ZPA5HRk7jjzsRzek6CcisX7
+	L0cIIMQXsAKaMpvEcenV9mjquN2+zKt9GDj73fy47oRcTfvze9FRhmrVER+OBtTvOb+mJpu2fDe
+	n7wLsrqC1iY7D+k+2/rq0ctp+5+5M30DmLvvaWI3V53Pqtw/OHi+w4HV+REHNk8+Yi4rDX16KlL
+	nc6GMp+QiryM81akJsXJ0aGKllRAA1XdKY/9DiDQ/TapaqLMMzGiZDe7REZPrw==
+X-Received: by 2002:a05:6820:1c8c:b0:6f8:3d45:b465 with SMTP id
+ 006d021491bc7-6f83d460e36mr597816eaf.11.1791811862469; Mon, 12 Oct 2026
+ 06:31:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <pm-key-management-objects-candidate-0001-v6-9876bf3e2116d47c065e@gmail.com>
- <aszZ3KPvMMHLEJ0s@kernel.org> <aszalro6U6BFO_D3@kernel.org>
-In-Reply-To: <aszalro6U6BFO_D3@kernel.org>
-From: Cen Zhang <zzzccc427@gmail.com>
-Date: Mon, 12 Oct 2026 21:30:43 +0800
-X-Gm-Features: AclHuK-JMVmEQk9s9PUAJHaHm55xlb-Is6siTbFN4AUKpBCWpjVUnqE1DSSZ9Ps
-Message-ID: <CAFRLqsUB0MQRoCHg8cXmyofWqbDGyvAr7vV07i0jUpMnSaksVQ@mail.gmail.com>
-Subject: Re: [PATCH] KEYS: Protect user key quota access during instantiation
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org, 
-	serge@hallyn.com, akpm@osdl.org, keyrings@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <20260831172245.42253-1-fenghuay@nvidia.com>
+In-Reply-To: <20260831172245.42253-1-fenghuay@nvidia.com>
+From: yunhui cui <cuiyunhui@bytedance.com>
+Date: Mon, 12 Oct 2026 21:30:51 +0800
+X-Gm-Features: AclHuK_vMcorLODW8hzTAKchqs7y0a8-suXQ6J3y_WfRav5d6A8ZoaK1GGtrHOY
+Message-ID: <CAEEQ3wmOqR5M0LzdKqOOH3iYmL04e4tDJ0wS0UqH7FER_2+JHw@mail.gmail.com>
+Subject: Re: [External] [PATCH RFC v2 00/19] arm,fs/resctrl: ARM MPAM MB_NODE support
+To: Fenghua Yu <fenghuay@nvidia.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>, Tony Luck <tony.luck@intel.com>, 
+	Ben Horgan <ben.horgan@arm.com>, James Morse <james.morse@arm.com>, 
+	Dave Martin <Dave.Martin@arm.com>, Will Deacon <will@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Shaopeng Tan <tan.shaopeng@fujitsu.com>, 
+	Chen Yu <yu.c.chen@intel.com>, Babu Moger <babu.moger@amd.com>, 
+	Drew Fustini <fustini@kernel.org>, Vikram Sethi <vsethi@nvidia.com>, 
+	Shanker Donthineni <sdonthineni@nvidia.com>, Newton Liu <newtonl@nvidia.com>, 
+	Richard Cheng <icheng@nvidia.com>, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Jarkko,
+Hi Fenghua,
 
-Thanks very much for the detailed feedback and for your patience with this =
-:).
 
-Jarkko Sakkinen <jarkko@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8812=E6=
-=97=A5=E5=91=A8=E4=B8=80 21:03=E5=86=99=E9=81=93=EF=BC=9A
+On Tue, Sep 1, 2026 at 4:03=E2=80=AFAM Fenghua Yu <fenghuay@nvidia.com> wro=
+te:
+>
+> This series enables MBA bandwidth control emulation on ARM MPAM when the
+> default MB control is disabled, using a node-scoped MB_NODE control as
+> the native backend.  It extends memory-bandwidth monitoring and
+> control to memory-level MSCs or CPU-less NUMA nodes, and adds
+> documentation and tests.
+>
+> Background
+>
+> On x86, MBA bandwidth control is typically associated with the L3 cache:
+> schemata lines use L3 cache ids and monitor domains appear as mon_L3_XX.
+> On some ARM MPAM systems the MBA control is backed by a memory-level MSC
+> rather than the L3 cache MSC.  A memory-level MSC is represented as a
+> NUMA node, and that node commonly has no CPUs of its own (a memory-only
+> node that still participates in bandwidth control).  For such a resource
+> the control scope is NODE, schemata identifiers are NUMA node ids,
+> monitor domains are named mon_NODE_XX, and a node-scoped MB_NODE control
+> may be the only control with usable bandwidth hardware.
+>
+> Because the memory-level MSC lives on a CPU-less NUMA node, the driver
+> must handle nodes with no local CPUs.  mpam_ris_get_affinity() derives
+> affinity from the component's NUMA node id, so a memory-only node would
+> otherwise end up with an empty CPU mask and never be registered.  When
+> the derived mask is empty, the driver falls back to cpu_possible_mask
+> (masked by MSC accessibility) so the node still gets a resctrl domain.
+> The borrowed affinity is kept out of class->affinity: those CPUs already
+> contribute through CPU-ful nodes in the class, and subtracting the
+> borrowed mask on teardown would remove CPUs that other live nodes still
+> depend on.  Domain setup iterates all MSC components per CPU (keyed by
+> component), so each component =E2=80=94 including these CPU-less memory n=
+odes =E2=80=94
+> gets its own control and monitor domain.
+>
+> Examples of NODE and emulation interfaces on MPAM.
+>
+> ** On platform with CPU-less nodes, by default, control_mode is legacy.
+> 1. By default, MB is emulated by MB_NODE in schemata.
+> info/
+> =E2=94=9C=E2=94=80=E2=94=80 MB
+> =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 bandwidth_gran
+> =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 control_mode        # [legacy] na=
+tive
+> =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 schemata
+> =E2=94=82       =E2=94=94=E2=94=80=E2=94=80 MB
+> =E2=94=82           =E2=94=9C=E2=94=80=E2=94=80 MB_NODE     # emulated by=
+ "MB_NODE"
+>
+> schemata: Only show MB, which is emulated by MB_NODE. domain id is numa
+> id
+> MB:0=3D100;1=3D100;2=3D100;10=3D100;18=3D100;26=3D100;34=3D100;35=3D100
+> L3:1=3Dffff;2=3Dffff
+>
+> 2. root can switch to native by writing "native" to "control_mode":
+> info/
+> =E2=94=9C=E2=94=80=E2=94=80 MB
+> =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 bandwidth_gran
+> =E2=94=82   =E2=94=9C=E2=94=80=E2=94=80 control_mode        # legacy [nat=
+ive]
+> =E2=94=82   =E2=94=94=E2=94=80=E2=94=80 schemata
+> =E2=94=82       =E2=94=94=E2=94=80=E2=94=80 MB
+> =E2=94=82           =E2=94=9C=E2=94=80=E2=94=80 MB_NODE     # no emulatio=
+n, native mode
+>
+> schemata: Only show MB_NODE. No "MB:" is emulated.
+> MB_NODE:0=3D100;1=3D100;2=3D100;10=3D100;18=3D100;26=3D100;34=3D100;35=3D=
+100
+>      L3:1=3Dffff;2=3Dffff
+>
+> 3. llc_occupancy in mon_L3_x where x is cache id
+>    mbm_total_bytes in mon_NODE_y where y is numa id
+> mon_data/
+> mon_L3_01  mon_NODE_00  mon_NODE_02  mon_NODE_18  mon_NODE_34
+> mon_L3_02  mon_NODE_01  mon_NODE_10  mon_NODE_26  mon_NODE_35
+>
+> mon_data/mon_L3_01/llc_occupancy
+> mon_data/mon_NODE_01/mbm_total_bytes
+>
+> ** On legacy machine which only has L3 MSCs. No NODE scope in schemata
+>    or mon_data
+> schemata: MB's domain id is cache id, not numa node id
+> MB:1=3D100;2=3D100
+> L3:1=3Dffff;2=3Dffff
+>
+> mon_data/
+> mon_L3_01 mon_L3_02
+>
+> mon_data/mon_L3_01/llc_occupancy
+> mon_data/mon_L3_01/mbm_total_bytes
+> mon_data/mon_L3_02/llc_occupancy
+> mon_data/mon_L3_02/mbm_total_bytes
+>
+> The patches can be compiled but not tested on x86 yet.
+>
+> The 19 patches are grouped as follows:
+>
+> 1. Memory bandwidth monitoring and control on memory-level MSCs
+>    (patches 1=E2=80=9310, 12)
+>
+>    Generalise the monitor infrastructure beyond hard-wired L3 paths:
+>    de-hardcode L3 monitor plumbing, expose MBA MBM counter assignment,
+>    name node-scoped monitor domains mon_NODE_<id>, add a node-scope MBM
+>    total event, and make MBM handling resource-aware.
+>
+>    On the ARM MPAM side, add memory-level MSC and ABMC support, refine
+>    L3 topology and class selection, refactor domain setup to iterate all
+>    MSC components per CPU (keyed by component), and handle CPU-less NUMA
+>    memory nodes that have no local CPUs but still participate in MPAM
+>    bandwidth control. Memory hotplug locking and notifier are added.
+>
+> 4. MB_NODE emulates MB (patch 11) [1]
+>
+>    Wire MB_NODE as the native backend that emulates a MB control
+>    in the ARM MPAM driver.
+>
+>    If emulation is unnecessary, this patch can be removed.
+>
+> 5. Documentation (patches 14=E2=80=9317)
+>
+>    Document memory-level MB control and NUMA nodes in the arm64 MPAM
+>    guide (patch 19), NODE-scoped MBA domains and mon_NODE_* monitoring
+>    in the resctrl documentation (patch 20), and an MB_NODE emulation
+>    example on ARM MPAM (patch 21).
+>
+> 6. Tests (patches 18=E2=80=9319)
+>
+>    Add a KUnit test for CPU-less NUMA node affinity handling and a
+>    kselftest that exercises MB emulation mode switching,
+>    resource_schemata hierarchy, and schemata mirroring on ARM MPAM.
+>
+> Apply the patches on top of [2].
+>
+> Testing
+>
+>   # KUnit (CPU-less affinity)
+>   sudo cat /sys/kernel/debug/kunit/mpam_devices_test_suite/results
 >
 >
-> I appreciate the fix but if I'm completely hones the commit message
-> looks like direct LLM output, which is not acceptable.
+>   # kselftest (MB emulation; requires ARM MPAM with disabled MB control)
+>   cd tools/testing/selftests/resctrl
+>   sudo ./resctrl_tests -t mb_emulation
 >
-> It needs to be proof-readed and edited. For this reason, I want a better
-> iteration before I apply this.
+> This series is in https://github.com/fyu1/linux/  cpu_less.rfc.v2/
+> which is on top of [2].
 >
-> Br, Jarkko
+> Change Log:
+> RFC v2:
+> - Remove fix patches 1-2 which are implemented in [2]
+> - Remove the emulation patches 3-8 which are implemented in [2]
+> - Update emulated_by to *emulated_by in patch 11. Ben seems
+>   doesn't like to emulate MB by MB_NODE. If that's case, I can
+>   remove this patch. But for now, I keep this patch for further
+>   discussion.
+> - Add patch 13 to implemente legacy and native modes to emulate
+>   "mbm_L3_assignments" by "mbm_NODE_assignments" in patch 13.
+> - Add patch 9 for memory hotplug locking (Ben)
+> - Add patch 12 for memory hotplug notifier (Ben)
+>
+> RFC v1:
+> https://lore.kernel.org/lkml/cover.1784217438.git.fenghuay@nvidia.com/
+>
+> [1] [RFC v2] mpam,x86,fs/resctrl: Generic schema description Proof of Con=
+cept https://lore.kernel.org/lkml/d258a32f-12d5-464d-abe9-4720fb3e44b3@inte=
+l.com/
+> [2] Reinette's resctrl control branch RFC v2: git://git.kernel.org/pub/sc=
+m/linux/kernel/git/reinette/linux.git branch resctrl/controls_rfc_v2.4
+>
+> Fenghua Yu (17):
+>   resctrl: De-hardcode L3 monitor infrastructure
+>   resctrl: Expose MBA MBM counter assignment sysfs
+>   resctrl: name node-scoped monitor domains mon_NODE_<id>
+>   resctrl: Add node-scope MBM total event
+>   resctrl: Make MBM paths resource-aware
+>   arm_mpam: Support memory-level MSCs and ABMC per class
+>   arm_mpam: Refine L3 topology and class selection
+>   arm_mpam: Include all MSC components during domain setup
+>   arm_mpam: Handle CPU-less numa nodes
+>   arm_mpam: Emulate MB control with node-scoped MB_NODE control
+>   resctrl: Add mbm_assign_scope_mode for native assignment file names
+>   Documentation: resctrl: document mbm_assign_scope_mode
+>   Documentation: arm64: mpam: document memory-level MB control and NUMA
+>     nodes
+>   Documentation: resctrl: document NODE-scoped MBA domains and mon_NODE
+>     monitoring
+>   Documentation: resctrl: document MB_NODE emulation example on ARM MPAM
+>   arm_mpam: Add KUnit test for CPU-less NUMA node affinity
+>   selftests/resctrl: Add MB emulation test for ARM MPAM
+>
+> James Morse (2):
+>   fs/resctrl: Take memory hotplug lock whenever taking CPU hotplug lock
+>   arm_mpam: resctrl: Add NUMA node notifier for domain online/offline
+>
+>  Documentation/arch/arm64/mpam.rst             | 105 ++-
+>  Documentation/filesystems/resctrl.rst         | 135 ++-
+>  drivers/resctrl/mpam_devices.c                |  59 +-
+>  drivers/resctrl/mpam_internal.h               |   8 +
+>  drivers/resctrl/mpam_resctrl.c                | 879 +++++++++++++++---
+>  drivers/resctrl/test_mpam_devices.c           |  67 ++
+>  fs/resctrl/ctrlmondata.c                      |   6 +-
+>  fs/resctrl/internal.h                         |  18 +-
+>  fs/resctrl/monitor.c                          | 355 +++++--
+>  fs/resctrl/pseudo_lock.c                      |   3 +
+>  fs/resctrl/rdtgroup.c                         | 157 +++-
+>  include/linux/memory.h                        |   1 +
+>  include/linux/resctrl.h                       |  36 +-
+>  include/linux/resctrl_types.h                 |  15 +-
+>  .../selftests/resctrl/mb_emulation_test.c     | 314 +++++++
+>  tools/testing/selftests/resctrl/resctrl.h     |   1 +
+>  .../testing/selftests/resctrl/resctrl_tests.c |   1 +
+>  17 files changed, 1827 insertions(+), 333 deletions(-)
+>  create mode 100644 tools/testing/selftests/resctrl/mb_emulation_test.c
+>
+> --
+> 2.53.0
+>
+>
 
-Thanks very much for the detailed feedback and for your patience with this.
+1. The logical control-domain model looks useful. One domain can
+represent a logical resource backed by multiple physical controllers.
+RISC-V CBQRI has a similar model, grouping cache controllers by cache
+ID and bandwidth controllers by NUMA node ID. It would be helpful to
+keep this infrastructure generic.
 
-Several people have mentioned that my commit messages look like they were
-generated by an LLM =E2=80=94 and to be honest, I did write them with LLM a=
-ssistance.
-However, they often gave me the feeling of being questioned rather
-than explained.
-I spend most of my time looking for bugs, following my interest, so
-I=E2=80=99m more familiar
-with bug patterns than with the deeper details of the subsystem. That
-means I can
-make mistakes. I=E2=80=99m willing to listen to feedback and keep revising =
-the
-patch until it=E2=80=99s in
-good shape, but the pressure sometimes makes me afraid to continue the
-conversation,
-worried about making more mistakes. Your patient explanation this time
-really means a
-lot to me.
+2. Since MB and MB_NODE share the same NODE scope and ultimately
+program the same memory-class MSC, would it be possible to use the
+existing MB control with a discoverable NODE scope? If a separate
+MB_NODE control and emulation mode are still needed, could you clarify
+the userspace requirement for them?
 
-Of course, I also fully understand that busy developers feel
-uncomfortable when seeing
-unclear or poorly written messages. I just wanted to express my thanks
-for taking the time
-to gently and patiently explain things clearly.
-
-I=E2=80=99ll carefully rework the commit message following your suggestions=
- to
-make the concurrency
-scenario and the reasoning clearer, and send a new patch once it=E2=80=99s
-ready. I=E2=80=99d appreciate it if
-you could take another look then.
-
-Best regards,
-Cen Zhang
+Thanks,
+Yunhui
