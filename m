@@ -1,147 +1,222 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F484718E9
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:12:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BAD3418353;
+	Mon, 12 Oct 2026 14:12:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814377; cv=none; b=MIFiKohAeWDek+GwqQdGo+h+9oxbtYNVFL4KJhTjtUgekZ3W/E6AIuK1M6xe31eNk93lbXMTjqVbvjZUnrN4tsHHGb9d4JnmUo1IckThgb/OUlc/GZBNMpWr/3qPNaZH2+kzMaUspiOXtJHV1mAeJFQ6liRcPLhOfawFWb9Wps0=
+	t=1791814378; cv=none; b=jMXPnpBZ83XQ3PbVAPm1z42vwuUGsTnG2JZit+RYNuoTut4dPW31S3LsqShC71/QslmQhi/tXytlvEVBHpgulAfBAhUn+4HyHmz7HhCqX2DbjwuacwPUprVGn2IQmAt6e9tfPxN+XGIpoOQ1wKP098gggW863hRHe1xFLT9eSBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814377; c=relaxed/simple;
-	bh=+P+5IuqZmcHbKdwheJmWecoGHwPlG5Cd02+MDJ/K9H8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kmasvVh4iFzOGRbgAZ20vRjFrWg0+XxOxM5GJ4SYnQGjWA6QvZVL16hkDtnkZesk51rCazu801xEOV7FWY0suJQiAIJ3nvEKXJ2H+fOqz4R7JS75g4IaRcZ283RNINiccAUIf09rrnm10x/ZdjAtjBijtKApBJXdqWqpl2swxHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oR4pUjtl; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791814378; c=relaxed/simple;
+	bh=2RJ4HPmBZNcpkWoZbXPtJ7mrUpVAX499W0ndI01jdT8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=GIaMKedaoSWGR+VWLpZMaAnW/jPpwf2NBh0/iZJcKi02WFNLvHxmAxxn7sAzIZr/XDEOiTG17fnutaHvw+GjKcN8WBKgx7U5uFfbqNqN6D7dIEkrcNjk8pwTsrmhLlNOqK+BROUp1cIA5m96Xz0LoaifH4ZBf4dwt2jwd6GP+kI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Raj/wj1d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oR4pUjtl"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso1880696f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:12:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791814374; x=1792419174; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LMBzO7OLXXuEGs3hvtSdM4niUS4jG81WbBB8rl+DCkQ=;
-        b=oR4pUjtlPNMsQ04WL8xETo6HNuXcNFzJCMFRA8dnxZl7K08Pc0HfLw15N84k7+WcxS
-         /omLmRBt29+UcgGdF6qFMK4xkxHnC4qhTF8cvN8RizvBUxMELG7bIPduXKpI4Lofn9fw
-         cL6sTYAw+bS6RqyXiLU2U8eQc+HxzFqbSPTERJ+bvC041YyZCq6uy0aD3B3Fh6uw0+kw
-         H8qYBhyxs4Sj70GmZKMjWhhXDhqjqo6LI9TENvLCmFyr/e2vh7si6BM/YfHWPqzOchw0
-         xGJw+vlHM2263acWsTi+ZAtKY+YCmsWSjGYDQYq8KdMomVbiBDA4HOhl5fFgpTeQvzRT
-         qNNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791814374; x=1792419174;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LMBzO7OLXXuEGs3hvtSdM4niUS4jG81WbBB8rl+DCkQ=;
-        b=F7SmHX2j2aIKEARzq9qEJrX40qByvjMZbtVpbZ1dBzv4KjB68Iq3OQ3y30+9V5YyqM
-         kkCIDPkyxAWlyFDnHuN6/r1ISt/4+b9bgEYTeoCkVQ5vMyVLVrNs7ayPsYkWsd1R6Uqh
-         lLoeg0Igv+FUVAqZK7Yq+YRauBfdxAeh/mmdn7T/ie1VNQIoA+rzabKncVeYIO28rwkf
-         gb32JuvGiW3C9ELTUfqeA+ZAIZ+75uZ1am80rS3xeaoVm2+c2MQMpnzSMindV/Pumefu
-         oz1Pc1lDe+wE+LONxySkSp/5O8TiTjEDZSLB5Sd13lSqAwmsskD4+9gijM8Mc92CS0O0
-         2kuA==
-X-Forwarded-Encrypted: i=1; AKwUvBwKx6drNX0xBRv+fptBk604mRrpZ3u4JZWvr1mkMVxZRUVlVTJ1dtxblPwpjKdImZx2n60aizovZch81kg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKsF3CJvGDRqI3RIWr7riOdUwaQBDSVXZ7RQXWQeW6nHYZ1rjAw
-	RaE6BGU9gJ/kJLbk0qLL2Ez0351ewuv07X1N7QCfBZf+Q1cIMQnZvRg0
-X-Gm-Gg: AYBFou3Uw4e9tP6Golw0CClGfgfYn8E7FVKNHa31L9FhZHVOgT+5u6+eNOaMYEOknkE
-	B6mciIcJ5igOxwWDFiqye8N8o48nq6Sp9dU7Pb8EaCygDx9066PpEK2FNmTlc2QQJPtmDWyQdgU
-	hmyfT1Q5Ufxw7JPHAi+KNFSSs+QdofQ55ECdDOaOs7PJchkhgf1Z1TTUFtFU3dyq0iXsVwySQHH
-	VSSWol97IzHMzwa8yxmuBs5yfBd/56vyGal1NC0EPMNAsUQPIKKNIlb22Oey5vDZQuQ85X9384R
-	V+FpU28eijZR8qGMqDchrVu2XQ1Cp5O0HNqpiYYdmNZ5slcoYF3k45IHz4IWwbYNrp88uE+/u2Q
-	AmlYcWp4I9TmuqDnNNFaF1Khfb1sLgJkMvKlsPQKKTjr4D2J4intAdi9yctW4QuRPTzdArQhZ5V
-	4OCJGDxqeZcoHPT5lczltPClLi1CgHMflN29aFoO70b8GPaBQC/RNS6zHvmNqqsWjZI731kTqFb
-	yM52EGaBlrh0nT8iPF8dgSeNx5gwsdiKlcNpsd1ghQA
-X-Received: by 2002:a05:6000:454c:b0:487:c3e:8df8 with SMTP id ffacd0b85a97d-48dba77cf87mr12555139f8f.5.1791814373901;
-        Mon, 12 Oct 2026 07:12:53 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([151.76.59.204])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ac02cfsm18703035f8f.39.2026.10.12.07.12.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 07:12:53 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	James Smart <jsmart833426@gmail.com>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Keith Busch <kbusch@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/5] nvmet: fix stale data exposure and ZNS validation
-Date: Mon, 12 Oct 2026 16:12:27 +0200
-Message-ID: <20261012141239.156408-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Raj/wj1d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF93E1F0089F;
+	Mon, 12 Oct 2026 14:12:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791814376;
+	bh=QH4R+MXlZktJnQ9gXtfrNIn8C2oUJYsTrp0hNj3REYQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Raj/wj1dyfGFTt33LIR1X3CPI64HfWpaHxFyDhHgvoQoGrHVRVaXOUUG1AfnFhyth
+	 VGD57dZkUumcCgZXB1mmDyHk2vzxkB01XDCC7vGqOSp5kvqYPPbmTpYh0wztpdFDm6
+	 IoH95i0PaLqyN2lx7c++hq94g1+dcI5IVT7+LLZT6kINPuXBqReUfgJA9EHVzn4dx2
+	 QW0+KyyMnn5o+bMOWpvZ8X1xH12SbPjPDYPDYBJreMETATwU2tiwD4qWdR6spnZzlm
+	 ndYwfQCTz3M9K/NOF0ABv5empEWCPdgcj76+opmy+yojOWJVro+ltkN8RjvxLacxs+
+	 8F7AbWDE+yUTw==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
+ <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
+ kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
+ Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
+ Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
+ Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
+ Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
+ <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
+ <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
+ <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
+ "Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, Weiming Shi
+ <bestswngs@gmail.com>, Nikolay Aleksandrov <razor@blackwall.org>, David
+ Wei <dw@davidwei.uk>, Alexander Lobakin <aleksander.lobakin@intel.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Mina Almasry
+ <almasrymina@google.com>
+Subject: Re: [RFC net-next 06/15] xdp: Track non-page netmem in receive buffers
+In-Reply-To: <asPXa7k-_drxXiI0@devvm7509.cco0.facebook.com>
+References: <20261002190018.696925-1-bjorn@kernel.org>
+ <20261002190018.696925-7-bjorn@kernel.org>
+ <asPXa7k-_drxXiI0@devvm7509.cco0.facebook.com>
+Date: Mon, 12 Oct 2026 16:12:53 +0200
+Message-ID: <8733ubc8ii.fsf@all.your.base.are.belong.to.us>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-A connected host can currently receive stale target memory through three
-nvmet paths.
+Stanislav Fomichev <sdf.kernel@gmail.com> writes:
 
-The FC transport sends a read buffer even when the command completes with
-an error.  Some errors occur before the command handler initializes that
-buffer, so the host receives data left in the allocation.
+> On 10/02, Bj=C3=B6rn T=C3=B6pel wrote:
+>> A page-pool memory provider can give net_iov buffers, and
+>> virt_to_page() does not work for them. An xdp_buff holds only the
+>> data pointer, so code that returns or converts a buffer cannot find
+>> its net_iov.
+>>=20
+>> Add NET_IOV_XSK, the net_iov type for AF_XDP. Add the internal flag
+>> XDP_FLAGS_HAS_NETMEM. When it is set, the xdp_buff holds a netmem
+>> reference in the union with the devmap TX queue, which only devmap
+>> egress uses. The flag is cleared when flags are copied to an skb or
+>> an xdp_frame. xdp_convert_buff_to_frame() sends such a buffer to the
+>> zero-copy copy path.
+>>=20
+>> A fragment from a readable net_iov area no longer marks the buffer's
+>> fragments as unreadable. The skb layer still treats every net_iov as
+>> unreadable, so such a buffer must be copied before it becomes an
+>> skb. Later patches in this series do that.
+>>=20
+>> skb_shared_info holds kernel pointers, so it cannot be in UMEM,
+>> which userspace can write. A netmem xdp_buff points to a
+>> skb_shared_info that the RX queue keeps in kernel memory instead.
+>> xdp_init_buff_from_netmem() sets this up. Page-backed buffers still
+>> use their tailroom.
+>>=20
+>> On 64-bit, struct xdp_buff grows from 56 to 64 bytes. struct
+>> xdp_buff_xsk stays at 128 bytes on x86-64. Where the largest
+>> alignment is 8 bytes, as on s390, it grows from 120 to 128 bytes, so
+>> a pool needs 8 more bytes per UMEM chunk. Only helpers that need the
+>> netmem or the fragment info test the new flag. Page-backed receive
+>> and return paths do not.
+>>=20
+>> Signed-off-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
+>> ---
+>>  include/net/netmem.h |  1 +
+>>  include/net/xdp.h    | 56 ++++++++++++++++++++++++++++++++++++++++----
+>>  2 files changed, 52 insertions(+), 5 deletions(-)
+>>=20
+>> diff --git a/include/net/netmem.h b/include/net/netmem.h
+>> index e6dff0b01581..76e4fe878863 100644
+>> --- a/include/net/netmem.h
+>> +++ b/include/net/netmem.h
+>> @@ -68,6 +68,7 @@ DECLARE_STATIC_KEY_FALSE(page_pool_mem_providers);
+>>  enum net_iov_type {
+>>  	NET_IOV_DMABUF,
+>>  	NET_IOV_IOURING,
+>> +	NET_IOV_XSK,
+>>  };
+>>=20=20
+>>  /* A memory descriptor representing abstract networking I/O vectors,
+>> diff --git a/include/net/xdp.h b/include/net/xdp.h
+>> index 07231adfb5f8..80931490ca3a 100644
+>> --- a/include/net/xdp.h
+>> +++ b/include/net/xdp.h
+>> @@ -11,6 +11,7 @@
+>>  #include <linux/netdevice.h>
+>>  #include <linux/skbuff.h> /* skb_shared_info */
+>>=20=20
+>> +#include <net/netmem.h>
+>>  #include <net/page_pool/types.h>
+>>=20=20
+>>  /**
+>> @@ -81,6 +82,8 @@ enum xdp_buff_flags {
+>>  	 * XDP program is not attached.
+>>  	 */
+>>  	XDP_FLAGS_FRAGS_UNREADABLE	=3D BIT(2),
+>> +	/* The txq/netmem union contains a receive netmem reference. */
+>> +	XDP_FLAGS_HAS_NETMEM		=3D BIT(3),
+>>  };
+>>=20=20
+>>  struct xdp_buff {
+>> @@ -89,7 +92,12 @@ struct xdp_buff {
+>>  	void *data_meta;
+>>  	void *data_hard_start;
+>>  	struct xdp_rxq_info *rxq;
+>> -	struct xdp_txq_info *txq;
+>> +	union {
+>> +		/* Valid for DEVMAP egress programs. */
+>> +		struct xdp_txq_info *txq;
+>> +		/* Valid for receive buffers backed by non-page netmem. */
+>> +		netmem_ref netmem;
+>> +	};
+>>=20=20
+>>  	union {
+>>  		struct {
+>> @@ -104,6 +112,8 @@ struct xdp_buff {
+>>  		u64 frame_sz_flags_init;
+>>  #endif
+>>  	};
+>> +	/* Kernel-owned fragment metadata for non-page netmem. */
+>> +	struct skb_shared_info *sinfo;
+>>  };
+>>=20=20
+>>  static __always_inline void xdp_reinit_buff(struct xdp_buff *xdp)
+>> @@ -138,7 +148,7 @@ static __always_inline void xdp_buff_set_frag_unread=
+able(struct xdp_buff *xdp)
+>>=20=20
+>>  static __always_inline u32 xdp_buff_get_skb_flags(const struct xdp_buff=
+ *xdp)
+>>  {
+>> -	return xdp->flags;
+>> +	return xdp->flags & ~XDP_FLAGS_HAS_NETMEM;
+>>  }
+>>=20=20
+>>  static __always_inline void xdp_buff_clear_frag_pfmemalloc(struct xdp_b=
+uff *xdp)
+>> @@ -150,6 +160,10 @@ static __always_inline void
+>>  xdp_init_buff(struct xdp_buff *xdp, u32 frame_sz, struct xdp_rxq_info *=
+rxq)
+>>  {
+>>  	xdp->rxq =3D rxq;
+>> +	/* Do not initialize the txq/netmem union here. DEVMAP generic XDP
+>> +	 * sets txq before this helper is called; receive drivers set netmem
+>> +	 * explicitly.
+>> +	 */
+>>=20=20
+>>  #ifdef __LITTLE_ENDIAN
+>>  	/*
+>> @@ -176,6 +190,33 @@ xdp_prepare_buff(struct xdp_buff *xdp, unsigned cha=
+r *hard_start,
+>>  	xdp->data_meta =3D meta_valid ? data : data + 1;
+>>  }
+>>=20=20
+>> +static __always_inline bool xdp_buff_has_netmem(const struct xdp_buff *=
+xdp)
+>> +{
+>> +	return !!(xdp->flags & XDP_FLAGS_HAS_NETMEM);
+>> +}
+>> +
+>
+> [..]
+>
+>> +static __always_inline netmem_ref
+>> +xdp_buff_get_netmem(const struct xdp_buff *xdp)
+>> +{
+>> +	if (xdp_buff_has_netmem(xdp))
+>> +		return xdp->netmem;
+>> +
+>> +	return virt_to_netmem(xdp->data);
+>> +}
+>
+> You keep adding methods that are not used in the patch where they are add=
+ed.
+> I keep getting confused :-p
+>
+> For virt_to_netmem, maybe a meta question: does xsk pool need a treatment
+> similar to the socket path? Where we did s/page/netmem_ref/ ? Then might
+> be less reasons to special case?
 
-Zone Management Receive writes only the Number of Zones field and the
-descriptors returned by the backend, while the transports send the entire
-requested buffer.  Reserved header bytes and unused descriptor slots can
-therefore retain stale data.  The handler also does not verify that the
-transport data length agrees with NUMD, allowing a host to increase the
-amount returned beyond the size described by the command.
-
-The PCI endpoint transport allocates each read segment at the length of
-the host's SGL data descriptor and sends every segment in full, even when
-the descriptors describe more than the command transfers.  The excess
-reaches the host uninitialized, on any successful read.
-
-Patch 1 makes the FC transport send read data only for successful
-commands, matching the TCP and RDMA transports.  Patch 2 validates the
-Zone Management Receive transfer length and zeroes the report before
-filling it.  Patch 3 rejects NUMD values whose byte count wraps the u32
-length calculation instead of accepting the wrapped request.
-
-Patch 4 fixes a related PCI endpoint bug that patch 5 depends on.  The
-transport reports every error it detects itself as a successful
-completion, because nvmet_pci_epf_complete_iod() reloads the status from
-a CQE that only the nvmet core fills in, so even a write whose data
-could not be fetched is reported as written.  Patch 5 then makes the
-transport reject SGLs whose data descriptors do not add up to the
-command's data length.
-
-Patches 1-3 were tested over the loop, tcp, rdma (rdma_rxe) and fc
-(fcloop) transports, with a zoned null_blk namespace for the Zone
-Management Receive fixes.  On the unpatched kernel, a failed Identify over
-fc returns data, zone reports carry stale bytes and accept a transfer
-length that disagrees with NUMD, and a wrapping NUMD is accepted.  With
-patches 1-3 applied, none of these occur on any of the four transports.
-Patches 4 and 5 are build-tested only: no PCI endpoint hardware was
-available.
-
-A tested reproducer for patches 1-3 is available privately on request.
-
-Andrea Parri (5):
-  nvmet-fc: only send read data for successful commands
-  nvmet: zns: don't leak stale memory in zone management receive
-  nvmet: zns: reject a NUMD whose byte count wraps
-  nvmet: pci-epf: report transport errors in command completions
-  nvmet: pci-epf: require SGLs to match the command data length
-
- drivers/nvme/target/fc.c      |  8 ++++----
- drivers/nvme/target/pci-epf.c | 30 +++++++++++++++++++++++++++---
- drivers/nvme/target/zns.c     | 17 +++++++++++++++--
- 3 files changed, 46 insertions(+), 9 deletions(-)
-
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
--- 
-2.53.0
+Fair point! I'll move the helpers with their users and see what
+netmem_ref can unify. UMEM still needs the saved descriptor for
+returning buffers and kernel-owned fragment info...
