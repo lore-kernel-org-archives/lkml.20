@@ -1,169 +1,257 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-104.mta0.migadu.com [91.218.175.104])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7752A442388
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:23:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873FB443C0D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:23:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791789820; cv=none; b=s+QC15mJHCRv/mobzM32e0wuVse5mQ3szp5FhSvBcdSZGKgk09qWZghl50i+75iUcpopPrhaiVML2r5GR/TveOv4e+Lqy/4TIzO3WXdnEF3vyfOl87iaoc3n/+ArrXTzQuhk7DEkpgXWsUDwT19nTguz6IpjK2I6r4IPD4oPFqc=
+	t=1791789819; cv=none; b=uMrxMB0LCiGmbJXdmwsS+g8cWWNKMVSYE/qZLgsQVxPNLlFIIwIw8m+1AgNe49K9Fw0Q6rC7l2XnBjq0xG5hsTKM0YhHGE2FG/BbCVpV+SgGUd5zJtF1Aovs2k02S6aEZ91b+Bjo2yw4iv1q+TNhMpWFooddR9HLSziplCZI3qE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791789820; c=relaxed/simple;
-	bh=8osHfmVM/x10707NVXOB5jMsFNtRSzg5BZHUvq1PGuw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ValW3aYrbUOcB27PG6/X0kHHBLnPGiz8Ts4dNjwwm6QP7KRoVLUZ3J+R9e0zqEH9AHFBIYp55Ewz+Rtd84yr3gehaxKrFmMuhDk87L4MGiOWhjIXsT5titRKigw+PlVEo0ZXIETwz43cFrRm7oP/Xmwbgghf0T7EpSHzTOTA4W8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YKMEqIZm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aK+5QciF; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791789819; c=relaxed/simple;
+	bh=UM8adxA/R87Nyq3hvBLH5yR3nIt2GNtot7r6xMKw9+Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VeqmRVp5ePT+wkpjdZ7558/A1jZS+fk2JjYh8E7reK3NhzdsPwyWmLr3tpsC50S5/FGEH/IooIjmPQyzSb4kr3I0rjylwQ57jQ2M5oUkSEth52kEAAoQ+AMbtrac8RqsmNN0HGeWhQxxtrWHxtpBgfi6RZmMYrM3egjtsEH5TdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fVbeXI5V; arc=none smtp.client-ip=91.218.175.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YKMEqIZm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aK+5QciF"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C55hOO474947
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:23:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	I0SdnE1JeLoOPl1Df+hp1q/Qe/3xcQQMjLrpIfPXNZM=; b=YKMEqIZmV5dvh6tj
-	ork9SaU+Dz7HG2wRT6Ad4sqXHWseWdY9/mRoUmCGwVWfPNucioSV2ZfTqGFnKVS4
-	Wv7RBkr6eRxNxmW1AmPix6dsG3Pa5VCVTXtCHB8n96jZaqxd+AJ0+mhW/SLGDP+W
-	ii40mwc1FpOXBUqtApJDw+9E7A3vUPBcK8asy6Zie1wKHH95XDEc3JGiyIdLdxSa
-	INV5fwFfxtbZ3M0Wx8CWf86YguiVcMDhmrIeCJxWnpaTY2/zAtvE2pEsHoB1HVpO
-	JMlIgPVO4NSxnJVXqMUQK44etEoaBCGdkDQ9z08LDmvee8E4pnkl/et50CryUzzI
-	YT5/mg==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7en9w5qn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:23:37 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-341eff9e381so5044106eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:23:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791789817; x=1792394617; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I0SdnE1JeLoOPl1Df+hp1q/Qe/3xcQQMjLrpIfPXNZM=;
-        b=aK+5QciFBSX9846G0iU4l0+385WBd9caftbKc2Q6HEr6xAZPmcuyiWwC7eeFpkKXVi
-         PrXZ41s0TGBSl5O7FTx4TbLtE8JQi/n9S/EJCbMsE+FhxiTvYuJFfircugp8v2J84ltd
-         3/4jzbziQ1dBICvHnXAi8bLjAkwsQRwaeJfHYdWJLrPMdnd93+Sya10rHPD59vcHdCa7
-         yP16qT+J3gf+6MCRNiyrfgVgI2QYPan0bu+74PzJynZa0reNEiZK8zE/X6CfnzR1OtqE
-         2xtj83oy2OY6V3dJ5t3vmpO21ZbFFuTICy8IxOObsiv5b88X/LtGpB61kuBo7RG3B5Oo
-         ikgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791789817; x=1792394617;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I0SdnE1JeLoOPl1Df+hp1q/Qe/3xcQQMjLrpIfPXNZM=;
-        b=L4x0HppdAnCxpEYxoQbaXRsH+VDcauXTPEfbyRU7ocOLK58y7js+DPN5vb1+aQZawS
-         2yWq16TUbRleLuJNcY2ZDnZrXiLpOj9JVZo+ppRvvNadCE5VkeNuF4RA6jNv7HWk9g2k
-         XocGbwYt7xjxNFEB/5EtZTSJuV3vqxZpwSMNQA3Y0TI3/fgpyGnyU9CUZTzTHczexsdA
-         XU3TlN+uCSLYkDRi1QnTMxkcD6vahPWY4ligTNNZ7hD35iu3tyMfo/5+S9NNiDSwk7gM
-         nDkEfOv+DBUOjlUxq/YKNn07bUOt52J0kEwKXX5Z7r6C6Ew8fAebihvAlHSUMptj3Bvp
-         yviA==
-X-Forwarded-Encrypted: i=1; AKwUvBwyAS33EyNqM5L+3KNMn1P+wmrkOp5ZWj9KTcuXRDVlAL2/mkV4MTJWMHCTJdvdZF47V/Bvaq8zlq/m+NA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmhrHIuzI7i7g1uD/yYyEEtslqKI91KFQYP+vPjQI+vLgIEwva
-	v6guH1PFREF+lcgIBXjl/pLKLzECCVbNE/xaDP0lBVns+MumaTBFIv5A14u7Ki/lh1J2/g0+VRh
-	aQ4ukxns11O0vcU2Ihrb37JLMKgiYN8LOtZr5HTXvB7xYNYQXNHu1UvPk4tUWTj1S+VM=
-X-Gm-Gg: AYBFou377kK72qdoBSC47uH/wbgrqOC7q5VVNSVubnA7yI2jiSfbYTsiPYzs+g9M124
-	FKPOXB9U9B3JyE77g5SfXPGn6uWdTBouMlDniS7xW6y+8OZyIxNXtj76mkBC3pg8Q2YLHvYiN0b
-	RgvMAt3WdBhpAZtOF87cfoMC6n6TR6rOpse1w7RqN5vodylr2nZTQ3bx1A99X9PzeaMMk0ayPnD
-	esLSH0BvzMR+evtKzf2js8vQnG4BKxvxQgkeYx/eU3OSsczuWU6maYdUeXQJHcDtexlIyh381TE
-	qQ+MhAxa+uUp90MaTyy4C0Hu/R5c9jRE1aRjcUmJ/TNZTz7mYM+3/olZ2Gs8KpllG7ExtRpvm0e
-	RA1lMAn0ExwPD7a6LoXh9sPpuWEjSX0SIi14+QIWKPUrxtpRik6L1OBHWFKLOY8iB2YaEyL9QQm
-	83zR3//ZbesGM7YG4BVaEk3LGPq2Ve
-X-Received: by 2002:a05:701b:291c:b0:141:4951:f150 with SMTP id a92af1059eb24-16a5ea5d6famr11555450c88.18.1791789817033;
-        Mon, 12 Oct 2026 00:23:37 -0700 (PDT)
-X-Received: by 2002:a05:701b:291c:b0:141:4951:f150 with SMTP id a92af1059eb24-16a5ea5d6famr11555429c88.18.1791789816486;
-        Mon, 12 Oct 2026 00:23:36 -0700 (PDT)
-Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becf08sm29748733c88.5.2026.10.12.00.23.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 00:23:36 -0700 (PDT)
-From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 12:53:07 +0530
-Subject: [PATCH v7 07/11] arm64: dts: qcom: ipq5210: Enable download mode
- support
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fVbeXI5V"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=UM8adxA/R87Nyq3hvBLH5yR3nIt2GNtot7r6xMKw9+Y=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791789814; v=1; x=1792394614;
+ b=fVbeXI5VtBN7ZbNmd3WiRvFhkaCYz6yIRB1CjT4P+aoXCFmVVNTa4QZmgUj5InjIFQGt8khc
+ nWhQocbTTmZuckJajQMFibrhVDtjf5wHPoCCPgC+39fVx6x+709EPkdwDbELHYdfv+pR1xFL4o9
+ u7ohHB4b4wdKmXOzAzv3LNP8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 3fb08dc45f88c86f;
+	Mon, 12 Oct 2026 07:23:34 +0000
+X-Mizu-Trace-ID: 3fb08dc45f88c86f
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 12 Oct 2026 15:23:22 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: KunWu Chan <kunwu.chan@gmail.com>
+Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org,
+	akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
+	hannes@cmpxchg.org, nphamcs@gmail.com, baohua@kernel.org,
+	youngjun.park@lge.com, yosry@kernel.org, shikemeng@huaweicloud.com,
+	chengming.zhou@linux.dev, david@kernel.org,
+	linux-kernel@vger.kernel.org, klarasmodin@gmail.com
+Subject: Re: [PATCH v4 08/14] mm, swap: defer xswap shrink to workqueue to
+ avoid lock recursion
+Message-ID: <asyK6t1POEW5c533@fedora>
+References: <20261003003136.750633-1-hebaoquan@kylinos.cn>
+ <20261003003136.750633-9-hebaoquan@kylinos.cn>
+ <CAN_Opa_JCCd-+o5y9JXbzypPtYjTGvyvnOy7KmSUKHYtVab85w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-08-dts-v7-7-77bd3d68d850@oss.qualcomm.com>
-References: <20261012-08-dts-v7-0-77bd3d68d850@oss.qualcomm.com>
-In-Reply-To: <20261012-08-dts-v7-0-77bd3d68d850@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Authority-Analysis: v=2.4 cv=Woe+otfv c=1 sm=1 tr=0 ts=6acc8af9 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=HaTVWnLGvC5sb4-HCggA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-GUID: Ngl2t986f5fvyZ7ZEbGHMBfOmDSvmr7Y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAyOSBTYWx0ZWRfX8UZtu+66PM3b
- DAudD+RVx3YmTVpEdlaQPEd5RztFcywkkNljs7NLShyk9Qb9OlW6QoxWOmmD8sisJvj98toIJiB
- ghLlb4nOEdxB83AlJI/sj5cBGNJXeodfXO7vNbEGPiFhtyyzBDpSIHLn3BxEJbt/JhD364da2SG
- s4yyIdpXxmx1CitNpwo0EyhL4WkyJBZC+fjVzzoUn7MNwSLUfT8h2c8Of+d/hFTnReQbeqeG7Ql
- UeCpCEoANtCSmxFHE6B1xY1D9NsbCKaG3r/pSpUcs9Qkn94RKGCQ/JTQ9H5BOq6wqwvR0pLE5cS
- +93uyUDuDiVKQLxY7kvK4TFcFGWjcpT5MnKGm71yWXjy7j7oOt/9fAxhh+nPsM1OXxmdiKjqFmP
- IeXG2N8R7hjrDFIY2WGamUcswx0/P2cYQrXFSHSX/6RDvrMynQ+HZ2kownz8anpf6RFgVaKNRiY
- ySIZ/4xCjEe9h0Q8shQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAyOSBTYWx0ZWRfX+fEbeVv4LCfK
- wx4tj7RfpWiDSd8XvgqZD7/jBXtOBbZzz+csK/T5U9wNHFhca/Ps+3Ut2YrtmVsQrk8kky7y0zX
- mWscIiFpM1mR3kOJ3W8/m0s0/aeGAv8=
-X-Proofpoint-ORIG-GUID: Ngl2t986f5fvyZ7ZEbGHMBfOmDSvmr7Y
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 priorityscore=1501 phishscore=0 spamscore=0
- suspectscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120029
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAN_Opa_JCCd-+o5y9JXbzypPtYjTGvyvnOy7KmSUKHYtVab85w@mail.gmail.com>
 
-Enable the support for download mode to collect the crashdumps if
-system crashes, to debug crashes extensively.
+On 10/08/26 at 05:10pm, KunWu Chan wrote:
+> On Sat, Oct 3, 2026 at 8:32 AM Baoquan He <hebaoquan@kylinos.cn> wrote:
+...snip...
+> >  /*
+> >   * Try to shrink the cluster_info tail: unmap contiguous free clusters
+> >   * at the end of the mapped range.
+> > @@ -4164,14 +4187,20 @@ static int xswap_mapped_end(pte_t *pte, unsigned long addr, void *data)
+> >  static void xswap_try_shrink(struct swap_info_struct *si)
+> >  {
+> >         struct swap_cluster_info *ci;
+> > -       unsigned long nr_mapped, last, keep, idx;
+> > +       unsigned long nr_mapped, nr_tail, keep, nr_unmap, start_idx, i;
+> >
+> >         if (!(si->flags & SWP_XSWAP))
+> >                 return;
+> >
+> > +       mutex_lock(&si->xswap_lock);
+> > +
+> > +       /* A swapoff raced us and is about to walk this mapping. */
+> > +       if (!(READ_ONCE(si->flags) & SWP_WRITEOK))
+> > +               goto out_unlock;
+> > +
+> >         nr_mapped = READ_ONCE(si->nr_clusters_mapped);
+> > -       if (nr_mapped <= 1) /* keep cluster 0 */
+> > -               return;
+> > +       if (nr_mapped <= 1)     /* keep cluster 0 */
+> > +               goto out_unlock;
+> >
+> >         /*
+> >          * Reclaim on our own, but only once the mapped range is at most
+> > @@ -4181,40 +4210,73 @@ static void xswap_try_shrink(struct swap_info_struct *si)
+> >          */
+> >         if (swap_usage_in_pages(si) * 100 >
+> >             nr_mapped * SWAPFILE_CLUSTER * XSWAP_SHRINK_WHEN)
+> > -               return;
+> > +               goto out_unlock;
+> >
+> > -       /* Find the last non-free cluster from the tail */
+> > -       last = nr_mapped;
+> > -       while (last > 1) {
+> > -               idx = last - 1;
+> > -               ci = &si->cluster_info[idx];
+> > -               if (ci->count || ci->flags != CLUSTER_FLAG_FREE)
+> > +       /*
+> > +        * Count the free clusters at the tail of the mapped range.  Scanned,
+> > +        * not tracked: the count must be exact to size the unmap, and an
+> > +        * incremental count falls behind on out-of-order frees.
+> > +        */
+> > +       nr_tail = 0;
+> > +       while (nr_mapped - nr_tail > 1) {
+> > +               ci = &si->cluster_info[nr_mapped - nr_tail - 1];
+> > +               if (READ_ONCE(ci->count) ||
+> > +                   READ_ONCE(ci->flags) != CLUSTER_FLAG_FREE)
+> >                         break;
+> > -               last = idx;
+> > +               nr_tail++;
+> >         }
+> > -
+> > -       if (last == nr_mapped)
+> > -               return; /* nothing to shrink */
+> > -
+> > -       /* Below `last` has to stay mapped: the free ones in between are
+> > -        * not part of the tail, and unmapping them orphans what is above.
+> > -        */
+> > -       if (nr_mapped - last < XSWAP_SHRINK_SLACK + XSWAP_SHRINK_MIN)
+> > -               return;
+> > +       if (nr_tail < XSWAP_SHRINK_SLACK + XSWAP_SHRINK_MIN)
+> > +               goto out_unlock;
+> >
+> >         /*
+> >          * Stop at SHRINK_UNTIL rather than at the end of the tail, or the
+> > -        * range comes out full enough for the grow to be woken.
+> > +        * range comes out full enough for the grow to be woken.  Below the
+> > +        * tail everything stays mapped, and one chunk of tail with it.
+> >          */
+> >         keep = DIV_ROUND_UP(swap_usage_in_pages(si) * 100,
+> >                             XSWAP_SHRINK_UNTIL * SWAPFILE_CLUSTER);
+> > -       if (keep < last + XSWAP_SHRINK_SLACK)
+> > -               keep = last + XSWAP_SHRINK_SLACK;
+> > +       if (keep < nr_mapped - nr_tail + XSWAP_SHRINK_SLACK)
+> > +               keep = nr_mapped - nr_tail + XSWAP_SHRINK_SLACK;
+> >
+> >         if (nr_mapped < keep + XSWAP_SHRINK_MIN)
+> > -               return;
+> > +               goto out_unlock;
+> > +
+> > +       nr_unmap = rounddown(nr_mapped - keep, XSWAP_GROW_CLUSTERS);
+> > +       if (!nr_unmap)
+> > +               goto out_unlock;
+> > +       start_idx = nr_mapped - nr_unmap;
+> > +
+> > +       /*
+> > +        * Only shrink a run that reaches the mapped end; otherwise
+> > +        * truncating nr_clusters_mapped would orphan the active tail.
+> > +        */
+> > +       spin_lock(&si->lock);
+> > +       for (i = start_idx; i < nr_mapped; i++) {
+> > +               ci = &si->cluster_info[i];
+> > +               if (READ_ONCE(ci->flags) != CLUSTER_FLAG_FREE)
+> > +                       break;
+> > +               if (!spin_trylock(&ci->lock)) {
+> > +                       spin_unlock(&si->lock);
+> > +                       goto out_unlock;
+> > +               }
+> > +               spin_unlock(&ci->lock);
+> > +       }
+> > +       if (i != nr_mapped) {
+> > +               spin_unlock(&si->lock);
+> > +               goto out_unlock;
+> > +       }
+> > +
+> > +       for (i = start_idx; i < nr_mapped; i++) {
+> > +               ci = &si->cluster_info[i];
+> > +               list_del_init(&ci->list);
+> > +               WRITE_ONCE(ci->flags, CLUSTER_FLAG_NONE);
+> > +       }
+> > +       spin_unlock(&si->lock);
+> >
+> > -       xswap_unmap_clusters(si, keep, nr_mapped - keep);
+> > +       xswap_unmap_clusters_locked(si, start_idx, nr_unmap);
+> > +
+> > +out_unlock:
+> > +       mutex_unlock(&si->xswap_lock);
+> >  }
+> >  #endif /* CONFIG_XSWAP */
+> >
+> > @@ -4278,6 +4340,7 @@ static int setup_swap_clusters_info(struct swap_info_struct *si,
+> >                         }
+> >                 }
+> >
+> > +               INIT_WORK(&si->xswap_shrink_work, xswap_shrink_work_fn);
+> >                 return 0;
+> >
+> >  err_unmap:
+> > --
+> > 2.54.0
+> >
+> 
+> Hi Baoquan,
+> 
+> While following the shrink path across these patches, I wanted to
+> clarify the lifetime guarantee for the `cluster_info` backing pages.
+> 
+> P07 flushes the per-CPU swap cluster cache and calls
+> `synchronize_rcu()` before unmapping the tail. P09 clears
+> `SWP_WRITEOK` and cancels the shrink work before proceeding with
+> `wait_for_allocation()` and `try_to_unuse()`.
+> 
+> Could you clarify how the shrink path ensures that, before the tail
+> is unmapped, no allocation-side reader can still access the tail or
+> republish a stale per-CPU cache entry that points into it, and no
+> swapoff-side walker can still access the unmapped range?
 
-Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/ipq5210.dtsi | 6 ++++++
- 1 file changed, 6 insertions(+)
+Hi Kunwu,
 
-diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-index c14b42c22616..910196a23ca7 100644
---- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-@@ -108,6 +108,7 @@ optee {
- 
- 		scm {
- 			compatible = "qcom,scm-ipq5210", "qcom,scm";
-+			qcom,dload-mode = <&tcsr 0x25100>;
- 		};
- 	};
- 
-@@ -392,6 +393,11 @@ tcsr_mutex: hwlock@1905000 {
- 			#hwlock-cells = <1>;
- 		};
- 
-+		tcsr: syscon@1937000 {
-+			compatible = "qcom,tcsr-ipq5210", "syscon";
-+			reg = <0x0 0x01937000 0x0 0x2b000>;
-+		};
-+
- 		qupv3: geniqup@1ac0000 {
- 			compatible = "qcom,geni-se-qup";
- 			reg = <0x0 0x01ac0000 0x0 0x2000>;
+Thanks a lot for your careful review, and for following the shrink path
+across patches. Assume P07 in your saying means patch 07, and P09 means
+patch 09. For the questions,
 
--- 
-2.34.1
 
+1. Allocation-side readers of the tail
+
+xswap_try_shrink() removes the clusters to unmap from their lists while
+holding si->lock, and only proceeds if spin_trylock(&ci->lock) succeeds for
+each of them. After that no allocator can get these clusters from a list.
+
+The flag check alone is not enough. move_cluster() writes ci->flags after it
+drops si->lock, so spin_trylock() is what actually blocks an allocator that
+just took the cluster.
+
+Then, before the pages are unmapped, xswap_unmap_clusters_locked() does
+flush_percpu_swap_cluster() and synchronize_rcu(). That drains the four
+readers that use cluster_info[] under rcu_read_lock():
+alloc_swap_scan_cluster(), swap_reclaim_full_clusters(), swap_alloc_fast(),
+and swap_alloc_hibernation_slot().
+
+2. Republishing a stale per-CPU cache entry
+
+The per-CPU cache is written in only one place: the end of
+alloc_swap_scan_cluster(), and the value is an offset inside the cluster that
+just got the allocation. That cluster cannot be one the shrink unmaps,
+because the shrink only unmaps CLUSTER_FLAG_FREE clusters and a cluster that
+just took an allocation is not free. So a racing cache write can only point
+to a cluster that stays mapped. The flush plus synchronize_rcu() handles the
+entries written before it.
+
+3. Swapoff-side walkers
+
+The swapoff walkers are not RCU readers. swapoff first stops the shrink:
+cancel_work_sync(&p->xswap_shrink_work), then waits on p->xswap_lock (which
+grow and shrink also hold). SWP_WRITEOK is cleared, so xswap_try_shrink() bails
+out too. Then wait_for_allocation() drains any in-flight allocation, and
+try_to_unuse() runs. Only after percpu_ref_kill(), synchronize_rcu(), and
+flush_work() of the discard and reclaim works, flush_percpu_swap_cluster()
+run and the mapping get freed.
+
+Not sure if I answer your questions clearly.
+
+Thanks,
+Baoquan
