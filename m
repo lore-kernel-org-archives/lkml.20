@@ -1,143 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D5833A0B31;
-	Mon, 12 Oct 2026 07:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC6E344DB5;
+	Mon, 12 Oct 2026 07:09:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791788934; cv=none; b=O3MKNw/AJM02vomOWLlpMmTTQU/GJB7onnlkWnLKC1pNaFQKzHUH3gbCM65A6fDsK7wjrD5ajPX5SD8MRTRZtUozM99RLxnw3Ri4CekU200Gn2PmsojMUU71No4uuf5pv2i2b8xorcHnfDc5wE2HLtlPYJbo+LVQzTK6MZ0n14Q=
+	t=1791788980; cv=none; b=FwMoYGk93d0Nop/yggAj4qVOE2D3JuKPhB0LkQfY6MF9eC5V9zoBR1lTl0b3V5LX3IY4E0q9vgKyrGvW2ixKOD8GZ4vW3WxxIB7JtxMJVxAIb4E+ViEgxXva/IucGpqDoLrc8wUBMEUG6A5c5hCW2FkUX51wYb6rKQWNgERn3jc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791788934; c=relaxed/simple;
-	bh=drUbEhE++aOdd9MpkdF8jZSgZtyEnmUugWsYHm0GI0s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sZ9qw74kk6yk/J6yGv2Gx1qEnvO1xU4/XNuNpTmlfYnFTz1+eSiNri/Q8yKzTn1EEXNib/8rOmhgTly/YUQskmdDDaThzwbEK1jX0G87laFhWUROrTRZdhY4nYvJyhl4tP4f3os0X1fTsPlW2OhM5bvhXBnU7Iu36wvjeDt364g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dh8Tzq5i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791788980; c=relaxed/simple;
+	bh=G8/2m8HcDkzvwnQpwSmjVqiWNhB3PJysmfZoDjw4H6A=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZVnzRp2eR4ibwdIHWZgX6jmpDY85cui7q+1lxxeof2ZODgZ0lBQpWmDE/Jqw5q8++0C5MW4ECkf/qZlD8x0kCPZC09iY3ZcwIWLcit2baXrCIIgBEflk22ATRoVE3fVJxqSAnd8+e5Z09yhyk2wVb+GqVLg71DnQihAigG0o4KI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=dAAUErpC; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Cynu4viO; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=dAAUErpC; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Cynu4viO; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dh8Tzq5i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB4871F0089B;
-	Mon, 12 Oct 2026 07:08:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791788932;
-	bh=26xk8dmr8jAYc6qjJPKF+8t0Zh2+xvf1YvI7IcgDOWY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dh8Tzq5i6OFbiLUQVPyzoIX1TjwIyFQ4zN5zuhkp/UclM1zWpwD321+qfk3Yb+/JN
-	 GlvJcxC2ZfT1zUVgrHKaqpSyZlwMuSq5QM2waEyBtyrUHSA7a9SYT1Cjg3Q+8hCxxn
-	 jIxv4a0SsMSNrpUk8gTTOb6LAeROiNWQc/S1dEvfN69xsdvDvmX+WCMs79sJrHdqvG
-	 EI6qnumKh3yL/mgoeT3yrgCvOqntrANSbYOaYdifEa/O+sRgn+E7ZqkF5h/Mwafr/z
-	 M5uy5+ybylexYpw6bdaIeBARyauiDqPjNbqaPehuUHjeW+Fgwz1W4ILMMTX06MXv63
-	 Nv7vEm/pyc2Zw==
-Message-ID: <a0eca34d-5eb2-4730-b8c7-0f2302bcf265@kernel.org>
-Date: Mon, 12 Oct 2026 09:08:40 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dAAUErpC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Cynu4viO";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dAAUErpC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Cynu4viO"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 053B821E71;
+	Mon, 12 Oct 2026 07:09:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791788977; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Wn/mQNjc1pWtPSQdT4/uMncvR8ogSnlywwtuhjqwtlQ=;
+	b=dAAUErpCj++hJN+aOQn4OxPY8M54LkXDLSvxSj86Qh5Vm1piEMPgBJ3MKbbw0QvDrJ1acY
+	N1OfTR3X6KO2xSJHHmMLOVPU2Kz9nCF39sH2/J3G54Ua92pdZBuFyO2GDn1YwcbvyHsoJD
+	uM9yTfJJ87JXOtGr0B5dVtnZZNrAvOg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791788977;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Wn/mQNjc1pWtPSQdT4/uMncvR8ogSnlywwtuhjqwtlQ=;
+	b=Cynu4viOLr48Hri9ut4X9SGHRw0Giq8xtfEeaJSTtdE0wujIVHcq0KUGlaCijxTuhE6Ha9
+	q7PQFXXkqqehCzCw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791788977; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Wn/mQNjc1pWtPSQdT4/uMncvR8ogSnlywwtuhjqwtlQ=;
+	b=dAAUErpCj++hJN+aOQn4OxPY8M54LkXDLSvxSj86Qh5Vm1piEMPgBJ3MKbbw0QvDrJ1acY
+	N1OfTR3X6KO2xSJHHmMLOVPU2Kz9nCF39sH2/J3G54Ua92pdZBuFyO2GDn1YwcbvyHsoJD
+	uM9yTfJJ87JXOtGr0B5dVtnZZNrAvOg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791788977;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Wn/mQNjc1pWtPSQdT4/uMncvR8ogSnlywwtuhjqwtlQ=;
+	b=Cynu4viOLr48Hri9ut4X9SGHRw0Giq8xtfEeaJSTtdE0wujIVHcq0KUGlaCijxTuhE6Ha9
+	q7PQFXXkqqehCzCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A7C2813408;
+	Mon, 12 Oct 2026 07:09:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id eBQnH7CHzGr/TAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 12 Oct 2026 07:09:36 +0000
+Date: Mon, 12 Oct 2026 09:09:36 +0200
+Message-ID: <877bjniedr.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Bui Duc Phuc <phucduc.bui@gmail.com>
+Cc: Ali Ahmet =?ISO-8859-2?Q?Memi=BA?= <aliamemis@disroot.org>,	Takashi Iwai
+ <tiwai@suse.com>,	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: core: Use the allocated major number with major=0
+In-Reply-To: <CAABR9nHp0jL2fQ4w6rkd8Avfj9eD2=05TnxOYeOqGDWDqD=9jQ@mail.gmail.com>
+References: <20261011221350.1690703-1-aliamemis@disroot.org>
+	<CAABR9nHp0jL2fQ4w6rkd8Avfj9eD2=05TnxOYeOqGDWDqD=9jQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 04/18] dt-bindings: pinctrl: add Ambarella CV75 pinctrl
-To: Linus Walleij <linusw@kernel.org>
-Cc: longzhao@ambarella.com, Arnd Bergmann <arnd@arndb.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Long Zhao <zl020895@163.com>, Lee Jones <lee@kernel.org>,
- mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
- <20260921-cv75-v5-v8-4-282ff5d98dda@ambarella.com>
- <CAD++jLmKF5XxHsJX29sdXC_6JHKn-7HkE=N+TKtk5xODtQj3_w@mail.gmail.com>
- <b2256847-3ec1-47e8-ac79-ceca86eb09e7@kernel.org>
- <CAD++jLkrXXg9xrhAZ8HETc5Qcv5BbkY-ibjvzBmE5WZVqDEGWQ@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAD++jLkrXXg9xrhAZ8HETc5Qcv5BbkY-ibjvzBmE5WZVqDEGWQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 12/10/2026 09:06, Linus Walleij wrote:
-> On Fri, Oct 9, 2026 at 8:17 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->> On 01/10/2026 09:03, Linus Walleij wrote:
+On Mon, 12 Oct 2026 06:32:47 +0200,
+Bui Duc Phuc wrote:
 > 
->>> On Mon, Sep 21, 2026 at 6:23 AM Long Zhao via B4 Relay
->>> <devnull+longzhao.ambarella.com@kernel.org> wrote:
->>>
->>>> From: Long Zhao <longzhao@ambarella.com>
->>>>
->>>> Document the CV75 pin controller binding using generic function and
->>>> groups properties for pinmux configuration.
->>>>
->>>> Reviewed-by: Linus Walleij <linusw@kernel.org>
->>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->>>> Signed-off-by: Long Zhao <longzhao@ambarella.com>
->>>
->>> This patch 4/18 applied to the pinctrl tree.
->>
->> There is a dependency, you cannot take this patch alone.
+> Hi Ali , Takashi-san,
 > 
-> Oops, but is it a DTS dependency so if none of the other patches go in through
-
-No, it is a bindings dependency, introducing new DT bindings warning for
-both your tree and next. Your tree is fine in this case as long as next
-is also fine... but next is not, because that patch did not make it there.
-
-We cannot have any new DT bindings warnings in next.
-
-> this merge window it'd still be OK right?
+> >
+> > Since commit bd8f21876189 ("ALSA: core: propagate actual error code from
+> > register_chrdev"), alsa_sound_init() only treats negative values from
+> > register_chrdev() as errors. With the major=0 module option
+> > register_chrdev() allocates a major number dynamically and returns it
+> > but snd_major and the devices still use 0. The devices are then
+> > created without device numbers so no /dev/snd nodes appear and sound
+> > is unusable.
 > 
-> I think the other patches are still being reviewed and we are at -rc7 so..
-Best regards,
-Krzysztof
+> 
+> Note that major=0 has never worked, even before bd8f21876189: the old
+> code treated the positive return value of register_chrdev() as an
+> error and failed with -EIO. bd8f21876189 only changed the symptom.
+> 
+> So this patch adds support for a dynamic major rather than fixing a
+> regression. Takashi-san, is a dynamic major something ALSA wants to
+> support?
+
+No, it's supposed to be only the fixed one.
+
+If there is a real demand, we can extend the implementation, but I
+don't know of such a request.
+
+
+Takashi
+
+>  If not, rejecting major=0 with -EINVAL might be simpler.
+> If it is kept, the Fixes tag is fine since the patch depends on
+> bd8f21876189, but please mention in the changelog that major=0
+> never worked before.
+> 
+> Best regards,
+> Phuc
