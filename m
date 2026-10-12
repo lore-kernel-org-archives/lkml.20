@@ -1,133 +1,142 @@
-Received: from calculus.sigma-star.at (calculus.sigma-star.at [188.245.196.96])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3B3B39FCB4
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:58:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.245.196.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89093976B8
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:59:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791835139; cv=none; b=MdeL/7OEWK1WM/FxLPvHAvdmzXppBLuj0sFHh4yT4o7EQJAO7JhfPadJJ8GyswAwAnQpYPFQOHrK3/rFuGIdaZ06dvi4bviVq6pXOj51RHTXiPKSPzELXh8O5vHIxxWQP0bH3LgxIfSbes5ICBIRPjCqRIrNfMV0n4gAcMSnk5I=
+	t=1791835165; cv=none; b=gSufki3mq/UnFuimkgN2DP/jDXtPEGNSA5Bxb7gXVL09v2SGphNqV8p/zmQEZEF/AsrqIYKvwsHThp61x3P/btedPsCOqguCWEdIN2Y+jGrg5PvcBQqFB7iOyndQkMmxAsBPGHveGCZ91ipZS73vNnukHs2QszHMsedOaRyDbgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791835139; c=relaxed/simple;
-	bh=lpb+82MjAgQXyYSp9xzweM/Khz/Et/3JlhtdJq1vP8Y=;
-	h=From:To:Cc:Subject:Message-ID:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=lMlsbbpXkJP1yOh3VXhBemSOv9hMVyYDzL4GdMVI6OFSSPhGk9VJNcgQ7+2H9gUlaN/Do07AaGFAG5OOnYnLl0L6xken5v59Nml3OklCb4C29tmA0xRKGNoPuQT4NbmfOcUn3svISNR0ZBMd3rGVEghWjkrLIZAuNC4R9q6PvrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nod.at; spf=fail smtp.mailfrom=nod.at; dkim=permerror (0-bit key) header.d=nod.at header.i=@nod.at header.b=w3nqMXLT; dkim=pass (2048-bit key) header.d=nod.at header.i=@nod.at header.b=HuheKo65; arc=none smtp.client-ip=188.245.196.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nod.at
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nod.at
+	s=arc-20240116; t=1791835165; c=relaxed/simple;
+	bh=cpWrm/qLrfCaxwKAvrTPQuxxJuyVWyZ8+EWRPwtSxTY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CRs9ICYCJZAq4lMsemDkzkj9MDZqA/K6ZS1HcusL9jTW+xoYO13lLNLLDRKS05GXPJqtyPpfCZ4QXmLKGyvVx5GUtyH5PUsbnVAHW7yPABC1gOqZFkluiLdbMebqSfbSYJbWDj84eljrbhG6LLog3d7E/iOI50a9H4F1zJvNedc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=RTSYGB/8; arc=none smtp.client-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=nod.at header.i=@nod.at header.b="w3nqMXLT";
-	dkim=pass (2048-bit key) header.d=nod.at header.i=@nod.at header.b="HuheKo65"
-DKIM-Signature: v=1; a=ed25519-sha256; s=v1-ed25519-20260901; d=nod.at; c=relaxed/relaxed; r=y;
-	h=Date:Message-ID:Subject:To:From; t=1791834979; bh=suzyxHEwPNR4eX+WAHR3lNn
-	UOrfGQSownd3tU1/1O5g=; b=w3nqMXLT9Mr6Dxu6KK7T+0tmnP6tjX6Zz91gqBjw6+1tHPCWB+
-	GVdftQnYAhxUDMuQRvfboR8BE22nILVMCLAw==;
-DKIM-Signature: v=1; a=rsa-sha256; s=v1-rsa-20260901; d=nod.at; c=relaxed/relaxed; r=y;
-	h=Date:Message-ID:Subject:To:From; t=1791834979; bh=suzyxHEwPNR4eX+WAHR3lNn
-	UOrfGQSownd3tU1/1O5g=; b=HuheKo65C9HsmI7xfVlhSdUF5kppcP58tDXwRU8M5baQpodS6D
-	j9JcE37HvE80Mv2EzYFB9NVO3ih0Ax0XnY3Ylh6GAhei+wE9DfZIOkbtl/wRIR3ddkBDCeV/8AK
-	rPOYtCMl0s3d+9+fJYisC17/eocSHzNXuRlDxt4xW6qgjHKdysxdZxFf2wCpJ2kvCKogF9aUGuK
-	Tey779BtFD44vgkfDqXYl8cBO+mAwqS3pTJGiIgsp0ZjY+nd0uIJx21TtohQdeJX/e/iaaqZRGs
-	nRDif2vMrm5Ycrled/69Hy/Kt5mRAemy371F7zFRcSY0qaMStUhvGxxXnzGXQSbn0oQ==;
-From: "Richard Weinberger" <richard@nod.at>
-To: "Nan Lin" <lin.nan@h3c.com>, <chengzhihao1@huawei.com>
-Cc: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <lin.nan@h3c.com>, <wangxiaoqing@h3c.com>, <zhou.kete@h3c.com>
-Subject: AW: [PATCH] ubifs: fix host inode TNC offset when deleting an xattr
-Message-ID: <mv5oa6u2.f135b439-8d58-4f22-b346-3aacaa66e9e4@nod.at>
-In-Reply-To: <20261012075046.1268480-1-lin.nan@h3c.com>
-References: <20261012075046.1268480-1-lin.nan@h3c.com>
-Date: Mon, 12 Oct 2026 19:56:19 +0000
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="RTSYGB/8"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-53506b44151so29987271cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:59:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791835163; x=1792439963; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Tu1RymioQvrQ4tyrLotMGHTUWkYq/MH4DS7yYk9IT7Y=;
+        b=RTSYGB/8BMxgnq5xiH/1ZiufGRQSctbV3HCWADHFC3Lyxd0jG50BIBoByX5Hi4l70i
+         iRcSixC0bw1MhxXW5EVIiTsSBvLIOKMj2IzXO8oTNTFtdjQP0KRIe/q5P8e63zk5o2yf
+         3Sy/ksrFpebNDnwpRPdvwq56keIYVzJqRtlhSw7oku7VG6eGhrj4vVlD9D2ctc0SfduI
+         dsCZe6o6zs+S3v4OP3yeo80AkSAD2z5p6NtFFA/cXhDNU7y6491xCyA7EtJTm1sYbvFS
+         3Bo7mQ1EtskvS/oGvtLrp061x/NoS9Uecjep07mZ9/AHp+Z+Qf/mxieTdST2RzANOB0w
+         bPyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791835163; x=1792439963;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Tu1RymioQvrQ4tyrLotMGHTUWkYq/MH4DS7yYk9IT7Y=;
+        b=D7P+qclTMqgt5zk+fGOzY2ibXEflw+kazuzlCNG9JiOjAwhVok+EZxOMBsZljrnAcM
+         Ft6kK+dJMXunmZnmBL4jK2l6D5s9Es8nzUMt2cwljmHso3JKMMQE174oSyVu2hrkIp3D
+         0r/ZvZsYwlzwKVwisVb6KExY+0EIA08Di3aITsKc937X1P/XDrpsh06XcxKYQPrRYA/Z
+         No4FWWpsx2dw/jkpexBfzp73tBIjQcFJ455vz4GrYEXng55j/r4kiuVwU5eTrhan1XQH
+         6ymmkS94l9ga7mwbRjzIHpNXcSArbxEkhsHmrVoDhpTe8eGZnOMaa5MeSB+9LUxA+Xz4
+         i3iw==
+X-Forwarded-Encrypted: i=1; AKwUvByIonNO6KZV8Fh+GGMMvy/H29bto6biZYEWxl/2YNmdex7hKbpcDQxLlQuCkcFbZ36BSuTXN7Nxh0+zfy0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCXe1WGciIQAJYmvy/mcKjlIenhV4piZsaNIzRNOIunc6SeBMa
+	t/WVO8ft6ZwoI6Hxmqep46GWubpfTdAOnm8NcI4rEOCU6f7d4yc8+5yrunolXPleUIw=
+X-Gm-Gg: AYBFou3M1vSYdjDdstV3cT9M0KIPn9u1CJd2lfQwnpOmNUbB8uglRYZ0fcePzc5Dkr6
+	OGPKzgfQa1fVgKa+8WM1cyy3DrKIw1PUyX93gR1XAqzM+oeAVURljgMUIekM4Uiu4LIwl8UMJch
+	AuwsSOlKztWFIZs3kCO7Nj8yklGErn/ZUY+ZLIrZlLniZ9Jot00vYnYiSPOYTdNCkNe7ovFI492
+	tH3EnhVaj5lLEvExMGkNeJYzRcIFxSvU+DVADtU/Gnb38MDXgBJLD+X/nEYemynNBuLH0JV4hax
+	/qyiqCj3cNZz19kkSbjdBAfeMgfef8ZHhbO9h+rWTYsRmlTa1jZXwUrYMPzFqapSaC+jo8Paxoe
+	js2nI0yXd75EgPRYyslU2wLjlTYEqmZitmtbjO/p4C/5MmjVWKwOwCYauFGqOG7I+BSp/MR6c2X
+	8LR+cdB9uerS2rb1mhr0GGxhTxv4k8Z9sMJq284E3wDlf3IlvtgS1v7yu0xB6c/caVSDK5lOE=
+X-Received: by 2002:a05:622a:181a:b0:534:3634:6959 with SMTP id d75a77b69052e-535e88321cemr14254081cf.8.1791835162762;
+        Mon, 12 Oct 2026 12:59:22 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b79a186sm87032691cf.20.2026.10.12.12.59.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 12:59:22 -0700 (PDT)
+Message-ID: <dd01d09f-15a8-49c3-a505-6afa0e7c516e@riscstar.com>
+Date: Mon, 12 Oct 2026 14:59:20 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] clk: introduce TC9564 clock support
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+ kees@kernel.org, gustavoars@kernel.org, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261012152408.3729237-1-elder@riscstar.com>
+ <179183220207.266355.4262660703229090399.b4-review@b4>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <179183220207.266355.4262660703229090399.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Am Mon, Oct 12, 2026, 09:58 schrieb Nan Lin <lin.nan@h3c.com>:
-> When ubifs_jnl_delete_xattr() deletes an extended attribute, it writes
-> a group of three nodes to the base head: the xent node, the xattr
-> inode node and the host inode node. The host inode node is actually
-> packed at xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ, but the
-> position registered into TNC is computed backwards as
-> xent_offs + len - hlen. The two differ by the group tail padding,
-> ALIGN(hlen, 8) - hlen.
->=20
-> Whenever the host inode's data_len is not a multiple of 8, the offset
-> registered in TNC points 1 to 7 bytes past the real node header. The
-> wrong offset gets committed into the on-flash index, and on the next
-> mount read_znode() fails the offs & 7 alignment check, returns -EINVAL
-> and switches the filesystem to read-only mode, reporting
-> "bad indexing node ... error 2".
->=20
-> Which inodes are affected depends on data_len:
->  - block/character devices always carry data_len =3D 4 and are always
->    affected;
->  - symlinks carry data_len =3D strlen(target) and are affected unless
->    the target length happens to be a multiple of 8;
->  - regular files, FIFOs and sockets carry data_len =3D 0 and are
->    unaffected.
->=20
-> The bug reproduces by setting an xattr on a symlink with attr -Rs and
-> removing it with attr -Rr: after unmount and remount, readlink()
-> fails, the index node is rejected with error 2 (bad branch offset) and
-> the filesystem turns read-only.
->=20
-> Fix the offset computation by accumulating the group layout forward
-> instead of subtracting from the total length: register the host inode
-> at xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ, which matches the
-> packed position exactly. The host node length hlen is already correct
-> and stays unchanged.
+On 10/12/26 2:10 PM, Jerome Brunet wrote:
+>> This series adds support for the clock controller present within
+>> the Toshiba TC9564 SoC.
+>>
+>> This SoC attaches to a host system via PCIe.  It includes a PCIe
+>> switch with three downstream ports.  To one of these ports an
+>> embedded PCIe endpoint is attached, and it implements two PCI
+>> functions.  BAR 4 for both PCI functions provides access to the
+>> registers that enable or disable a set of clocks.
+>>
+>> Both TC9564 PCI functions can provide PCI endpoint buses via
+>> devicetree.  Each PCI endpoint bus provides access to one of the
+>> function's BARs.  Subordinate devices (like the clock controller)
+>> can then be defined as nodes accessible on the endpoint bus.
+>>
+>> Only one of the two PCI functions is permitted to define the clock
+>> device node.
+>>
+>> 					-Alex
+>>
+>> NOTE:
+>>      This series is built upon linux-next, with this patch applied:
+>>        https://lore.kernel.org/lkml/20261002181849.790275-1-elder@riscstar.com/
+> 
+> next AND a patch on top ?? you are not making this easy and this is mostly
+> to accommodate the DT change that could have been sent separately.
 
-Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
-Cc: stable@vger.kernel.org
+Yes.  I considered dropping the DT change for this reason, but
+on v2 I didn't say I would do this, and thought it would be best
+to not change this.
 
-> Signed-off-by: Nan Lin <lin.nan@h3c.com>
-> ---
->  fs/ubifs/journal.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+Here I'll be clear:  I will send v4, and in v4, I will *not*
+include the DTS file patch at the end.
+> Basing on linux-next means there are other deps and you just did not explain.
+> This makes it very difficult for me to apply your series if I wanted to.
 
-Good catch!
+OK.
 
-Please ask your LLM to write less wordy commit messages.
-How about something like that:
+> Next time around, please send a series on the clk list with only the 2 first
+> change. That way we do not have to cherry pick, we can use your cover letter
+> for the merge commit, which makes it easier to provide an immutable branch
+> to another subsystem, if need be.
 
-ubifs: fix host inode TNC offset when deleting an xattr
+I understand.  Thanks for your feedback.
 
-ubifs_jnl_delete_xattr() writes a group of three nodes: the xent, the
-xattr inode and the host inode. The host inode is packed at
-xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ, but its TNC position is
-computed backwards as xent_offs + len - hlen. Since len includes the
-group's tail padding, ALIGN(hlen, 8) - hlen, the two differ whenever
-the host inode's inline data length is not a multiple of 8. This
-affects symlinks and device nodes.
+					-Alex
 
-The unaligned offset ends up in the on-flash index and the next mount
-rejects the index node, turning the filesystem read-only.
+> *Clearly* list you dependencies if any. Please consider using b4 to list
+> the pre-requisite.
+> 
+> Thanks
+> 
 
-> diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
-> index 40a95a2fad50..1a32d641e658 100644
-> --- a/fs/ubifs/journal.c
-> +++ b/fs/ubifs/journal.c
-> @@ -1943,7 +1943,9 @@ int ubifs_jnl_delete_xattr(struct ubifs_info *c, co=
-nst struct inode *host,
-> =20
->  	/* And update TNC with the new host inode position */
->  	ino_key_init(c, &key1, host->i_ino);
-> -	err =3D ubifs_tnc_add(c, &key1, lnum, xent_offs + len - hlen, hlen, has=
-h);
-> +	err =3D ubifs_tnc_add(c, &key1, lnum,
-> +				xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ,
-> +				hlen, hash);
-
-How about adding a new variable instead of open coding the offset?
-The offsets are already super hard to understand, more magic doesn't
-make it better.
-
-e.g.
-host_offs =3D xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ;
-
-Thanks,
-//richard
