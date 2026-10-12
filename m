@@ -1,25 +1,33 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D5DF62FE042;
-	Mon, 12 Oct 2026 07:17:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483B9255F52
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791789423; cv=none; b=Rx5bQasQkcusgeotqCmwpFbYFNplCUGRkegNBltRdCXIKYy2q/6xmLjlDEVx2adr8+YUcnfZjBpUykdzdkBzZB3F6jKweM60UkDgojLPKwQBk1CsSXVSD4UZv7G20YCm5GzLBy1lry71WKB5J74ApyHJc8XCUhoTeQZqgOjCFV0=
+	t=1791789539; cv=none; b=CoK46TZZ3puEgV2qHk1rzkF1qkR3jwb40nAN2FSE6lsKlybwTyrsh0MbeyPm+Sy6i7aAAj1CA654LYG5WaurBF+UbQMeGnWPndiSVGdXUpT4AZ09dlKHqnNoMk8GOQIFEVMUFfFqFYhDWg6d/oRH/6OBMsanrRSqgXGrI5naOxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791789423; c=relaxed/simple;
-	bh=GHGRzDu1jlT6vvkm/rdVz4B+NvejExmm3Ww2ilVvNb0=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=A2XXERZ726CZ2x6eSD9vU9T+Y2wzO/ehALtnYaW4wnCtBaZwLaJqZy5RZmetwfwEWJCsa6qAMap7zdcE79qDGwYf+4ZgnTL0odePjSc0RttQjnHJn/XOyjXoSWqLBUKijaxds2zpL+1W5TeZScsSdoO2M1NbbtBG888k8sSLgbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.40.46.54])
-	by gateway (Coremail) with SMTP id _____8DxOvBkicxqudwUAA--.60737S3;
-	Mon, 12 Oct 2026 15:16:52 +0800 (CST)
-Received: from [10.40.46.54] (unknown [10.40.46.54])
-	by front1 (Coremail) with SMTP id qMiowJDxg8xeicxqAlcrAA--.63784S2;
-	Mon, 12 Oct 2026 15:16:46 +0800 (CST)
-Message-ID: <10bd45f8-2d37-42f0-b7d2-a4a84933c9b3@loongson.cn>
-Date: Mon, 12 Oct 2026 15:18:13 +0800
+	s=arc-20240116; t=1791789539; c=relaxed/simple;
+	bh=sgPObT2NiNxyMT+xutTH3F+8nZI2mNOeTVmYXY0U/B8=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=bcLW6cqK6CZOdnyizUcbhIr/iZlZyAGSSkbfgtbJVn2hB5w9F9c8NpIQwTQnmzt5DmYYebbLb8pOzfhd5813GmH3FJITne5bWfdApjAEoEpsAzT1N3KdPvvzLsAoAeubiGpZr5Oeiyso144tId8b5KhYqsrq0ErfIUQWnOlE66c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NrMNadbC; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NrMNadbC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA531F0089B;
+	Mon, 12 Oct 2026 07:18:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791789537;
+	bh=AdPqNpZXmNQ43AQ3xgOVf01mH+/LX9E+Jqxlk12JjDk=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=NrMNadbCP95GjDmY/kQ46xpmUzNaYnUbZ+Z0r80BX2zwl9Q2OGp69N9jogVH+weFP
+	 rBnbXZ/A0Irm01uu1dzRoQhEoCVBz97z6PzrLrBjszuaIl3lEvpDPVfmSazXsKEnyy
+	 S7A2JJzD+AZ10T0pSRdzWHQyOdS2R05AVXC7aFGN1pN8UMBB5w6YQWMXnyu5oVoxCk
+	 4yrNRtv8MrAsvXxhkML7ltTUCSG+s5SoRaF5AcEtX9JPS3HZzdRkPn43Vixd9tNcaN
+	 T6vrvU3g4SZhA5XIS/Di7O8USiQ3v4/pYScRLVZ6MyYXRRb5TxiT9dZXeeBE8o3UPT
+	 1XAOIs06Wi5gw==
+Message-ID: <fdaf1bef-3d10-4d54-a8c3-087804ca57cf@kernel.org>
+Date: Mon, 12 Oct 2026 15:18:52 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -27,72 +35,166 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: rafael@kernel.org, linux-acpi@vger.kernel.org
-Cc: acpica-devel@lists.linux.dev, chenhuacai@kernel.org, lenb@kernel.org,
- linux-kernel@vger.kernel.org, lixianglai@loongson.cn,
- loongarch@lists.linux.dev, maciej.wieczor-retman@intel.com,
- pawel.chmielewski@intel.com, maobibo@loongson.cn
-References: <20260922121058.972734-2-maobibo@loongson.cn>
-Subject: Re: [PATCH v4 1/4] ACPICA: actbl2.h: Add bit constants of the Flags
- field in the IOVT IOMMU structure
+Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>,
+ Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
+ Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org,
+ David Hildenbrand <David.Hildenbrand@arm.com>,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>,
+ Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [PATCH v3 11/17] f2fs: support partial uptodate large folio read
+To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+ linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20261009161224.4163796-1-zhaonanzhe@xiaomi.com>
+ <20261009162828.4188050-1-zhaonanzhe@xiaomi.com>
 Content-Language: en-US
-From: Bibo Mao <maobibo@loongson.cn>
-In-Reply-To: <20260922121058.972734-2-maobibo@loongson.cn>
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261009162828.4188050-1-zhaonanzhe@xiaomi.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:qMiowJDxg8xeicxqAlcrAA--.63784S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj9xXoWrZw17Xw1xCry7GF1fCry8JFc_yoWDKwb_Ca
-	na9F4kZ3WDWF1xtrs8t3WxArWjgayxAFZ3KFs5WFn8Aa92vrWUurnakryS9F4kC3929FWD
-	ZFn8WrWF9wnxGosvyTuYvTs0mTUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUbxkYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
-	02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAF
-	wI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r
-	126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
-	wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc4
-	0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
-	xVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr
-	1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8aZX5UU
-	UUU==
 
-This change is already merged in acpica tree.
+On 10/10/26 00:28, Nanzhe Zhao wrote:
+> Buffered write can have write bytes smaller than folio
+> size for cases when folio minimum order is not zero.
+> This can left partially uptodate folio in page cache.
+> So we skip uptodate subpage read in read_data_large_folio.
+> Also mark hole subpage uptodate in uptodate bitmap.
+> 
+> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> ---
+>   fs/f2fs/data.c | 70 +++++++++++++++++++++++++++++++++++++++++++++++++-
+>   1 file changed, 69 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index 6f6f5223951d..21c43019167a 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -148,6 +148,7 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
+>   		struct folio *folio = fi.folio;
+>   		unsigned nr_pages = fi.length >> PAGE_SHIFT;
+>   		bool finished = true;
+> +		bool uptodate = bio->bi_status == BLK_STS_OK;
+>   
+>   		if (!folio_test_large(folio) &&
+>   		    f2fs_is_compressed_page(folio)) {
+> @@ -163,6 +164,9 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
+>   				(struct f2fs_folio_state *)folio->private;
+>   
+>   			spin_lock_irqsave(&ffs->state_lock, flags);
+> +			if (bio->bi_status == BLK_STS_OK)
+> +				uptodate = __ffs_mark_subrange_uptodate(folio, ffs,
+> +						fi.offset, fi.length);
+>   			ffs->read_pages_pending -= nr_pages;
+>   			finished = !ffs->read_pages_pending;
+>   			spin_unlock_irqrestore(&ffs->state_lock, flags);
+> @@ -172,7 +176,8 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
+>   			dec_cache_count(F2FS_F_SB(folio), F2FS_RD_DATA);
+>   
+>   		if (finished)
+> -			folio_end_read(folio, bio->bi_status == BLK_STS_OK);
+> +			folio_end_read(folio,
+> +				bio->bi_status == BLK_STS_OK && uptodate);
 
-slightly ping.
+Looks weird, can we initial uptodate to true directly? and only update it according
+to __ffs_mark_subrange_uptodate(), rather than (bio->bi_status == BLK_STS_OK)?
 
-On Tue, Sep 22, 2026 at 08:10:55PM +0800, Bibo Mao wrote:
- > According to the IOVT specification, define macros for each bit of the
- > Flags field in the IOVT IOMMU structure.
- >
- > Link: https://github.com/open-acpica/acpica/commit/352f750e4cc0
- > Signed-off-by: Bibo Mao <maobibo@loongson.cn>
- > ---
- >  include/acpi/actbl2.h | 7 +++++++
- >  1 file changed, 7 insertions(+)
- >
- > diff --git a/include/acpi/actbl2.h b/include/acpi/actbl2.h
- > index baef525367b5..76e4a5bc79b4 100644
- > --- a/include/acpi/actbl2.h
- > +++ b/include/acpi/actbl2.h
- > @@ -919,6 +919,13 @@ struct acpi_iovt_iommu {
- >       u32 device_entry_offset;
- >  };
- >
- > +/* Masks for Flags field above */
- > +#define ACPI_IOVT_IOMMU_PCI_DEVICE           (1<<0)
- > +#define ACPI_IOVT_IOMMU_PXM_VALID            (1<<1)
- > +#define ACPI_IOVT_IOMMU_MAGAGE_BY_SEGMENT    (1<<2)
- > +#define ACPI_IOVT_IOMMU_HW_CAP_SUPPORT               (1<<3)
- > +#define ACPI_IOVT_IOMMU_MSI_INT_BYPASS               (1<<4)
- > +
- >  struct acpi_iovt_device_entry {
- >       u8 type;
- >       u8 length;
- > --
- > 2.39.3
- >
+>   	}
+>   
+>   	if (ctx)
+> @@ -3071,6 +3076,56 @@ static bool find_next_valid_block(const struct folio *folio,
+>   	return false;
+>   }
+>   
+> +static unsigned int ffs_next_uptodate_subpage(struct f2fs_folio_state *ffs,
+> +			unsigned int start, unsigned int end)
+> +{
+> +	return find_next_bit(ffs->state, end + 1, start);
+> +}
+> +
+> +static unsigned int ffs_next_nonuptodate_subpage(struct f2fs_folio_state *ffs,
+> +			unsigned int start, unsigned int end)
+> +{
+> +	return find_next_zero_bit(ffs->state, end + 1, start);
+> +}
+> +
+> +static void f2fs_skip_fully_uptodate_front(struct folio *folio,
+> +			pgoff_t *index, pgoff_t *offset, unsigned int *nrpages,
+> +			unsigned int *max_nr_pages)
+> +{
+> +	struct f2fs_folio_state *ffs;
+> +	unsigned int next, skipped;
+> +
+> +	if (!f2fs_folio_has_ffs(folio) || !*nrpages)
+> +		return;
+> +
+> +	ffs = (struct f2fs_folio_state *)folio->private;
+> +	next = ffs_next_nonuptodate_subpage(ffs, *offset,
+> +					    *offset + *nrpages - 1);
+> +	skipped = next - *offset;
+> +	if (!skipped)
+> +		return;
+> +
+> +	*index += skipped;
+> +	*offset += skipped;
+> +	*nrpages -= skipped;
+> +	*max_nr_pages -= skipped;
+> +}
+> +
+> +static void f2fs_truncate_read_extent(struct folio *folio, pgoff_t offset,
+> +				     unsigned int *len_blks)
+> +{
+> +	struct f2fs_folio_state *ffs;
+> +	unsigned int next, end;
+> +
+> +	if (!f2fs_folio_has_ffs(folio) || *len_blks <= 1)
+> +		return;
+> +
+> +	ffs = (struct f2fs_folio_state *)folio->private;
+> +	end = offset + *len_blks - 1;
+> +	next = ffs_next_uptodate_subpage(ffs, offset + 1, end);
+> +	if (next <= end)
+> +		*len_blks = next - offset;
+> +}
+
+Blank line.
+
+Thanks,
+
+>   static int f2fs_read_data_large_folio(struct inode *inode,
+>   		struct fsverity_info *vi,
+>   		struct readahead_control *rac, struct folio *folio)
+> @@ -3115,6 +3170,11 @@ static int f2fs_read_data_large_folio(struct inode *inode,
+>   
+>   		len_blks = 1;
+>   
+> +		f2fs_skip_fully_uptodate_front(folio, &index, &offset,
+> +					       &nrpages, &max_nr_pages);
+> +		if (!nrpages)
+> +			break;
+> +
+>   		/*
+>   		 * Map blocks using the previous result first.
+>   		 */
+> @@ -3147,6 +3207,7 @@ static int f2fs_read_data_large_folio(struct inode *inode,
+>   			len_blks = min_t(unsigned int, nrpages, max_nr_pages);
+>   			len_blks = min_t(unsigned int, len_blks,
+>   					(unsigned int)(map.m_lblk + map.m_len - index));
+> +			f2fs_truncate_read_extent(folio, offset, &len_blks);
+>   
+>   			for (i = 0; i < len_blks; i++) {
+>   				if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode),
+> @@ -3165,6 +3226,13 @@ static int f2fs_read_data_large_folio(struct inode *inode,
+>   				ret = -EIO;
+>   				goto err_out;
+>   			}
+> +			if (folio_test_large(folio)) {
+> +				ffs = f2fs_ffs_find_or_alloc(folio);
+> +				spin_lock_irq(&ffs->state_lock);
+> +				__ffs_mark_subrange_uptodate(folio, ffs,
+> +						page_offset, PAGE_SIZE);
+> +				spin_unlock_irq(&ffs->state_lock);
+> +			}
+>   			continue;
+>   		}
+>   
 
