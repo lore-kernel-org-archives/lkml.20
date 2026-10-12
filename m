@@ -1,188 +1,146 @@
-Received: from esa4.hc555-34.eu.iphmx.com (esa4.hc555-34.eu.iphmx.com [207.54.77.171])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB1C439F8A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:35:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.54.77.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C44739AD49
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:36:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791790541; cv=none; b=CyJwz+EyTY2eN80ZAup442+5mYrGijJQPeJiooGH3VP6e/gt2GuvV2fmTGsd6sJ3D0K8WViGAU1hMYvopbqbYvEbdkp/JpeBf0qIIr7+yzJ46q/G4Z1cw1VPrKK6K5JVBovDHhKN/FxD54bpYwf/P0NOYp5PqkncR2jPTLe1zew=
+	t=1791790570; cv=none; b=qZgRF/sM+PWoA8GtDdJ0GgI9RKq4CmYdOD/42fVwd6X3C5bQ9X89bJKzeNL7TDKQdOb32Hl3uHaknO0crhPF79NHl28itx25vJL9dIkaK5KnGLi0W91b7kBushliF1PE+Ici2RlcSjO9+1TzFPw+MK5SbLxda9RcoPgV3wv71n8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791790541; c=relaxed/simple;
-	bh=rro3Q103tON6YF9EYmKQjD31tul/1auJiy4JtB4uR94=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=eRq8J+JCDW47mjqq/HkZ+pncAm/OTBdOSNaod1mOTofGBic+XxVse+zZg/njvZ2Rkkmpqa2dDI5IkayHD7a7uma3mpoXtdpRuneGPWtZz2lYh97ENRjyCA9iZHDb/ygoTEueyTLaKGVbQM+PaT1hH3bSiLCbf/gAQDEEUntjbMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com; spf=pass smtp.mailfrom=mobileye.com; dkim=fail (0-bit key) header.d=mobileye.com header.i=@mobileye.com header.b=n1VMQC1C reason="key not found in DNS"; arc=none smtp.client-ip=207.54.77.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+	s=arc-20240116; t=1791790570; c=relaxed/simple;
+	bh=TXcyWi9MxUFrhuCWMhk46kWiqU8K1lwQ74c2cZ1O1Ao=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iaofT+o/qw1LU10dfUT2uR/rjpGV2b6sDcAUhXI8ya3LQc1RbQF4osHUsJGXZaQSSCExsAPk4CqzlkOw5hLgSX9KgirESIaVFSrNPIPlzV6bMTATgZ9RfiL4ubsXIleVKHunYei7qjuSWOFm4N6MuWJjQHgjgHGa3viuVjRHlYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kGaHHMNv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HRb12P5p; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mobileye.com header.i=@mobileye.com header.b="n1VMQC1C"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
-  t=1791790535; x=1823326535;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=rro3Q103tON6YF9EYmKQjD31tul/1auJiy4JtB4uR94=;
-  b=n1VMQC1CjI6s9/yWwhbvM66SQwJFYvFQU2kmcutsOpiamTRqSqVBw2qz
-   fMYcn2BHS7x68IjK0GL7Bh2YKWj+G2E6KAyKxz9SqbQWyNEyBnet/psT0
-   Dn1QxdMsoj5y7eWB3scfYZIxE0jCZ5RoFEzUdjpgdxv75G7S6gHqmSxIb
-   ABTwkMvvfJL6wv580VhnZzBQooQUc+NGf409dk4MD34oGal5AznqloaTP
-   j74AwNznztL+Z9y61ARMxvCCETTyepp6czenU6SexwXo0vCkMmontGFfo
-   Ca4ry98gS65p76yPD7O2cqXvRhaWUSf1yerOxkt4etzU0yxU3351eMd+f
-   Q==;
-X-CSE-ConnectionGUID: P8ZMChhZTSuFeaLDSj19hQ==
-X-CSE-MsgGUID: 6lUXRUk1RGqXNhf/aFHVjA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from unknown (HELO ces02_data.me-corp.lan) ([146.255.191.134])
-  by esa4.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 10:34:24 +0300
-X-CSE-ConnectionGUID: WKqFf3OrRsG/pIgJKAMBiQ==
-X-CSE-MsgGUID: 3rYXRc34TNGXk5O6BHvSzw==
-Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.2])
-  by ces02_data.me-corp.lan with SMTP; 12 Oct 2026 10:41:51 +0300
-Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Mon, 12 Oct 2026 10:34:22 +0300
-From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-Date: Mon, 12 Oct 2026 10:34:08 +0300
-Subject: [PATCH] irqchip/riscv-aplic: fix asynchronous probing
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kGaHHMNv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HRb12P5p"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C55Tlu2436411
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:36:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+O4WBLRQXLDXDWNTb17081RKE4oqj0deMnQ8d0nHMAw=; b=kGaHHMNvFy7zG7ND
+	hkv6J/PkR9eHfknH4408wWxAqh6M3u2FeAdPpq1PGVFcMAX957XeTYqywP1ZnR15
+	7xC4nSy+N954FNy8inOvHPQy3uXMi8X1xBMGj1YBLsX5Q6uEhh4MRVMl6KkCICp9
+	WvBOQZKUvWugQDl/ZJwKfKU6h/RTnHhott6RGwmodj3Uzj+l4sxnUtH1TZdqIJi0
+	fKtByN7nlyY1OPTlmYZwnPNyg4wERwh1TRo+wr4sEhF1XvJmGIYNouR5d6StIq7K
+	+QcUmSMJUw+aa5PtalbCFFstgZbwGTZ3uDfp8KyiEZo9WZo2VphVIcn4qOnBi8A3
+	3fs4DQ==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7b2fdr40-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:36:08 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-90520763ceaso8902836d6.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:36:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791790568; x=1792395368; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+O4WBLRQXLDXDWNTb17081RKE4oqj0deMnQ8d0nHMAw=;
+        b=HRb12P5pCKgY7JnBqdPWRzYS7/RyQjB8gPrDGQQTqaOPCkVhua6M87sbhk0yTkGmQq
+         8O+wlMF8DUoqZICL8Y62yCek8m3aSseJdg5PNr/nAUTz0I03EZKSV1fJ2t371uCiUK+3
+         4TKP0fXLyY1w3BPjmLDcLKlEXeFaQRiA3TSDQeZeuskKYuKo8u6XGUekHgrfkmCtpVGt
+         zq0ayH/Hntx/r6A3tqZe1/I0vIFfq+uLZtmAiNm8qMZxhxsYqpBabN6U9UuKZVXyCoQd
+         ZEMdYuHYu3Du2rlQc78roIHDlqZfFQaRwGOztR/k6WzOUEXOdSTGXpmOgmpTUS/AerK0
+         oOow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791790568; x=1792395368;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+O4WBLRQXLDXDWNTb17081RKE4oqj0deMnQ8d0nHMAw=;
+        b=NBlnSnIJC74D6KdnooyPRADW9FL1QniVKL3B7W7vHWIcDMdjx5iAAjCjwDzUp6Tqg9
+         MbHugTP3fxGaum6EKgMzgdxegrNdqeYrkggM7/XvCRhJv2XCCJmZ622HnG6CH/66DRDw
+         PkAg+7d9tDAu+K/8G6a3MFexahDR4Woese8jCl8Wxq3g8b8FvdrwVG8NqCUDL2mYvERl
+         FYj/PJMdymPf5Bnq3oTLqEIGHnb0CrWoYkQheZjhXCGjTRWknAhY2oMWXQTNwL1EpCyl
+         2aheiuJitSTl4JJ/bkg3S2T4v30tKRgqsED6OPwCsqZ47mlNSZPBWbk2HcWR83pMNisW
+         06hg==
+X-Forwarded-Encrypted: i=1; AKwUvBzjDWttehuz1W4ooO6Vou+vBMnYcfDY1HxvS59ZXZ10nZLRErd00QyhJZbPLRt2y1TClW6+v8+9VfASWJk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+OFTVlnToooQlmDiioXUo+8qkdtcf4ntMQItKImzcnZ2u3XLc
+	NTtSHDdTPhorGTQ5//lMpY/xiPwoynEIUU9SJ9sWIhWZaDPefczXjkEUCR/NqBSBfecYpNP8NcA
+	VSr4ILyPN6wEV85nSj/9w9qQXLhxq4FRcR8GIkbJvMVusztXuNdB5wqjF63jd8lAJyD4=
+X-Gm-Gg: AYBFou2yiequ8newlTi5wg/QXTDGHBPX0UMxWZHA5cFVNxkZMCMWIlZGj41gLhx1Stv
+	xAuSqD8G1Ao8sUszw1qqplQfIg0cPFD9Qu+cIJDyls6JTsYm6r8T7xU983zrsiitgtY1OPe3aAQ
+	PbVXOp0Di6eRxf97EgEaXKnKjnzHXrguHC24lvMz9hFjkrXgJYA5xDDgCW0adon8k8atnbR7vAq
+	Vy9lxzrZGQfFxzpKlhstX4GOSpghNJN7aFkUu7+KjScsadCF1g1UfgeV7o7sdteDC8WgOoeG3Xj
+	YfTq2CnMIx57nTTjHLu0ooWwcBMl2RiW5zvbCozi/1ELJ3vf45gH4atPSvLclXLQIXsoj2Ocgqm
+	tHLnu+W4mn1fUO0sYElSxCA==
+X-Received: by 2002:a05:622a:507:b0:532:d67e:bc2e with SMTP id d75a77b69052e-5359f0634femr174331021cf.0.1791790567745;
+        Mon, 12 Oct 2026 00:36:07 -0700 (PDT)
+X-Received: by 2002:a05:622a:507:b0:532:d67e:bc2e with SMTP id d75a77b69052e-5359f0634femr174330821cf.0.1791790567263;
+        Mon, 12 Oct 2026 00:36:07 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ac969dsm426611366b.73.2026.10.12.00.36.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 00:36:06 -0700 (PDT)
+Message-ID: <22703d47-496d-475e-a09d-871c891ec51e@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 09:36:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PCI: qcom: Disable halting feature
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261009-halt-v1-1-4a2d7899d91f@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261009-halt-v1-1-4a2d7899d91f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-aplic-async-probe-v1-1-4c2c4f5b0916@mobileye.com>
-X-B4-Tracking: v=1; b=H4sIAHCNzGoC/x3MQQqAIBBA0avErBtQK4uuEi3MphoIFYUopLsnL
- d/i/wyJIlOCscoQ6eLE3hXIugJ7GLcT8loMSigthVRowskWTXqcxRD9QjhIrVoSTadFD6ULkTa
- +/+c0v+8HcUftPWMAAAA=
-X-Change-ID: 20261012-aplic-async-probe-81624e035607
-To: Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>, 
- Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
- Jessica Liu <liu.xuemei1@zte.com.cn>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-rt-devel@lists.linux.dev, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-X-Mailer: b4 0.14.2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzMCBTYWx0ZWRfX5vayVlaPRT6j
+ aoz510zY9Usqv979rcxAT84k8VI+A8KGFnJup4dZA85gU6gDm16SlhvjO0rHd5e1stRwJGvNdRJ
+ edRQAoHCSfNQ9J3uAJ/RvL0O/w8jaWI=
+X-Proofpoint-GUID: DA_RgduhUjknAhaHJzy6ESlGOAz1TUzj
+X-Authority-Analysis: v=2.4 cv=NddzRGD4 c=1 sm=1 tr=0 ts=6acc8de8 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=mFIT96Bc5s7vh8gnFTIA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzMCBTYWx0ZWRfX4PKxSZrjzFhz
+ 85tvY8tw367b4cJUAwqqBZat+XpEvgr+9OSzh8GdE14W2fMOijBab1o4Sv8Y72KWoQf7lVbRKnG
+ bFsoLpy2vutQsScNxqYg4p9dcothGgbdny3C1t01OVtPaFHsZ9jEEabepCxYzeZYwXc4Ux5fp50
+ f64lwyKpLw0krq7qzFQTL0YlR47+QZPuDVxekkEwTYvMdXPhyii6+3w6zxhbFkEZyqUe7ctynSp
+ 4sr5IzVl8JWC4i77gNZfCjtidQYLeoNyEwrvMUvRuQJKc6+3egpngL5joGlAKZAyEOs6dApmj1I
+ replNRtNR/OmTTobXaID8NXvVTmAaiaoe4TP7AR0jUD7vcLrQPDaAKYZFEkL9cTl1khwjSUaYfJ
+ D38U7df+ov/C+n8x+QflHjyrPmqqRK0vcXGqzdHNX30M0mRmlJl1TCkAWPYvKoHqAQ+4IVxLeVI
+ 9HfSMTuW4LTm4oN8seQ==
+X-Proofpoint-ORIG-GUID: DA_RgduhUjknAhaHJzy6ESlGOAz1TUzj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 impostorscore=0 malwarescore=0 clxscore=1015
+ priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120030
 
-boolean flag don't protect from race when probing several instances
-asynchronously. On system with multiple APLICs, if probed asynchronously,
-warning triggered as below.
+On 10/9/26 2:55 PM, Krishna Chaitanya Chundru wrote:
+> The PARF write, read and BDF halt features make the controller wait
+> for earlier AXI transactions to complete before issuing new ones. This
+> is needed on SoCs whose NoC cannot preserve the ordering of inbound
+> transactions from the controller.
+> 
+> On newer SoCs, the NoC preserves this ordering on its own. Halting at
+> the controller adds no correctness benefit and reduces inbound DMA
+> bandwidth.
 
-[    0.227210] riscv-aplic 67560000.interrupt-controller: 257 interrupts directly connected to 8 CPUs
-[    0.227210] riscv-aplic 674e0000.interrupt-controller: 257 interrupts directly connected to 8 CPUs
-[    0.227224] ------------[ cut here ]------------
-[    0.227227] list_add double add: new=ffffffff8130ced0, prev=ffffffff8130ced0, next=ffffffff81316d40.
-[    0.227302] WARNING: lib/list_debug.c:35 at __list_add_valid_or_report+0xe0/0xe6, CPU#4: kworker/u97:0/211
-[    0.227322] Modules linked in:
-[    0.227333] CPU: 4 UID: 0 PID: 211 Comm: kworker/u97:0 Not tainted 7.3.0-rc6 #1 PREEMPT_RT
-[    0.227341] Hardware name: EyeQ7H evaluation board (DT)
-[    0.227346] Workqueue: async async_run_entry_fn
-[    0.227358] epc : __list_add_valid_or_report+0xe0/0xe6
-[    0.227366]  ra : __list_add_valid_or_report+0xe0/0xe6
-[    0.227375] epc : ffffffff804a08a0 ra : ffffffff804a08a0 sp : ffffffc600823b90
-[    0.227379]  gp : ffffffff81389e70 tp : ffffffd60135ee00 t0 : 0000000000000000
-[    0.227383]  t1 : 3fffffffffffffff t2 : 0000000000000000 s0 : ffffffc600823bb0
-[    0.227387]  s1 : ffffffff8130ced0 a0 : 0000000000000058 a1 : ffffffd9efc9e5c0
-[    0.227391]  a2 : ffffffd9efd5c510 a3 : 0000000000000000 a4 : 0000000000000000
-[    0.227395]  a5 : 0000000000000000 a6 : ffffffd9efc6e5c0 a7 : bfffffffffffe000
-[    0.227399]  s2 : 0000000000000000 s3 : ffffffff8130ce28 s4 : 0000000000000000
-[    0.227402]  s5 : ffffffd6018b65c8 s6 : 0000000000000000 s7 : ffffffd6012fd605
-[    0.227406]  s8 : ffffffd6010c3400 s9 : 0000000000000000 s10: 0000000000000000
-[    0.227409]  s11: 0000000000000000 t3 : 3fffffffffffe000 t4 : 0000000000000020
-[    0.227413]  t5 : 0000000000000000 t6 : ffffffc6008238f8 ssp : 0000000000000000
-[    0.227417] status: 0000000200000120 badaddr: ffffffff804a08a0 cause: 0000000000000003
-[    0.227422] [<ffffffff804a08a0>] __list_add_valid_or_report+0xe0/0xe6
-[    0.227432] [<ffffffff80558226>] register_syscore+0x30/0x60
-[    0.227444] [<ffffffff804ca0fe>] aplic_probe+0xd2/0xfa
-[    0.227453] [<ffffffff80559b2e>] platform_probe+0x3e/0x7a
-[    0.227461] [<ffffffff8055731a>] really_probe+0x88/0x35c
-[    0.227469] [<ffffffff805576ae>] __driver_probe_device+0xc0/0x13a
-[    0.227478] [<ffffffff805577f4>] driver_probe_device+0x38/0xb2
-[    0.227486] [<ffffffff80557ba6>] __driver_attach_async_helper+0x3c/0xc4
-[    0.227493] [<ffffffff80054a0e>] async_run_entry_fn+0x28/0x154
-[    0.227500] [<ffffffff8004482a>] process_one_work+0x14e/0x3d2
-[    0.227509] [<ffffffff800452fe>] worker_thread+0x144/0x286
-[    0.227516] [<ffffffff8004ca3e>] kthread+0xee/0x10e
-[    0.227524] [<ffffffff8001050a>] ret_from_fork_kernel+0x18/0x14e
-[    0.227532] [<ffffffff807bef36>] ret_from_fork_kernel_asm+0x16/0x18
-[    0.227542] ---[ end trace 0000000000000000 ]---
-[    0.228475] pinctrl-single 48508000.pinctrl: 512 pins, size 2048
-[    0.228500] pinctrl-single 53838000.pinctrl: 512 pins, size 2048
-[    0.228723] pinctrl-single 67107000.pinctrl: 512 pins, size 2048
-[    0.227210] riscv-aplic 674e0000.interrupt-controller: 257 interrupts directly connected to 8 CPUs
-[    0.227224] ------------[ cut here ]------------
-[    0.227227] list_add double add: new=ffffffff8130ced0, prev=ffffffff8130ced0, next=ffffffff81316d40.
-[    0.227302] WARNING: lib/list_debug.c:35 at __list_add_valid_or_report+0xe0/0xe6, CPU#4: kworker/u97:0/211
-[    0.227322] Modules linked in:
-[    0.227333] CPU: 4 UID: 0 PID: 211 Comm: kworker/u97:0 Not tainted 7.3.0-rc6 #1 PREEMPT_RT
-[    0.227341] Hardware name: EyeQ7H evaluation board (DT)
-[    0.227346] Workqueue: async async_run_entry_fn
-[    0.227358] epc : __list_add_valid_or_report+0xe0/0xe6
-[    0.227366]  ra : __list_add_valid_or_report+0xe0/0xe6
-[    0.227375] epc : ffffffff804a08a0 ra : ffffffff804a08a0 sp : ffffffc600823b90
-[    0.227379]  gp : ffffffff81389e70 tp : ffffffd60135ee00 t0 : 0000000000000000
-[    0.227383]  t1 : 3fffffffffffffff t2 : 0000000000000000 s0 : ffffffc600823bb0
-[    0.227387]  s1 : ffffffff8130ced0 a0 : 0000000000000058 a1 : ffffffd9efc9e5c0
-[    0.227391]  a2 : ffffffd9efd5c510 a3 : 0000000000000000 a4 : 0000000000000000
-[    0.227395]  a5 : 0000000000000000 a6 : ffffffd9efc6e5c0 a7 : bfffffffffffe000
-[    0.227399]  s2 : 0000000000000000 s3 : ffffffff8130ce28 s4 : 0000000000000000
-[    0.227402]  s5 : ffffffd6018b65c8 s6 : 0000000000000000 s7 : ffffffd6012fd605
-[    0.227406]  s8 : ffffffd6010c3400 s9 : 0000000000000000 s10: 0000000000000000
-[    0.227409]  s11: 0000000000000000 t3 : 3fffffffffffe000 t4 : 0000000000000020
-[    0.227413]  t5 : 0000000000000000 t6 : ffffffc6008238f8 ssp : 0000000000000000
-[    0.227417] status: 0000000200000120 badaddr: ffffffff804a08a0 cause: 0000000000000003
-[    0.227422] [<ffffffff804a08a0>] __list_add_valid_or_report+0xe0/0xe6
-[    0.227432] [<ffffffff80558226>] register_syscore+0x30/0x60
-[    0.227444] [<ffffffff804ca0fe>] aplic_probe+0xd2/0xfa
-[    0.227453] [<ffffffff80559b2e>] platform_probe+0x3e/0x7a
-[    0.227461] [<ffffffff8055731a>] really_probe+0x88/0x35c
-[    0.227469] [<ffffffff805576ae>] __driver_probe_device+0xc0/0x13a
-[    0.227478] [<ffffffff805577f4>] driver_probe_device+0x38/0xb2
-[    0.227486] [<ffffffff80557ba6>] __driver_attach_async_helper+0x3c/0xc4
-[    0.227493] [<ffffffff80054a0e>] async_run_entry_fn+0x28/0x154
-[    0.227500] [<ffffffff8004482a>] process_one_work+0x14e/0x3d2
-[    0.227509] [<ffffffff800452fe>] worker_thread+0x144/0x286
-[    0.227516] [<ffffffff8004ca3e>] kthread+0xee/0x10e
-[    0.227524] [<ffffffff8001050a>] ret_from_fork_kernel+0x18/0x14e
-[    0.227532] [<ffffffff807bef36>] ret_from_fork_kernel_asm+0x16/0x18
-[    0.227542] ---[ end trace 0000000000000000 ]---
+Please explain what makes a SoC go into the "newer" category in this
+context
 
-Fixes: b330fbfd34d7 ("irqchip/riscv-aplic: Register syscore operations only once")
-Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
----
- drivers/irqchip/irq-riscv-aplic-main.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/irqchip/irq-riscv-aplic-main.c b/drivers/irqchip/irq-riscv-aplic-main.c
-index d9afb6ae98cf56d6fd9f858c31a3d23546c3b450..db15ec8a2d3462f6c911c1e5b7446b05b47bd127 100644
---- a/drivers/irqchip/irq-riscv-aplic-main.c
-+++ b/drivers/irqchip/irq-riscv-aplic-main.c
-@@ -116,14 +116,12 @@ static struct syscore aplic_syscore = {
- 	.ops = &aplic_syscore_ops,
- };
- 
--static bool aplic_syscore_registered __ro_after_init;
-+static atomic_t aplic_syscore_registered = ATOMIC_INIT(0) __ro_after_init;
- 
- static void aplic_syscore_init(void)
- {
--	if (!aplic_syscore_registered) {
-+	if (!atomic_fetch_inc(&aplic_syscore_registered))
- 		register_syscore(&aplic_syscore);
--		aplic_syscore_registered = true;
--	}
- }
- 
- static int aplic_pm_notifier(struct notifier_block *nb, unsigned long action, void *data)
-
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261012-aplic-async-probe-81624e035607
-
-Best regards,
--- 
-Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-
+Konrad
