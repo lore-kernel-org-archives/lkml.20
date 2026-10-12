@@ -1,81 +1,402 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA82C49BD8E;
-	Mon, 12 Oct 2026 13:09:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D1949BD63;
+	Mon, 12 Oct 2026 13:09:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791810547; cv=none; b=TkUQ+MRpy8J2kBQR1J7rNAAYOvtK/FsqmGVxH4y7XOO9VjS/VqGA+yMPF4xQIGnPYR5mSpxdesR3OwvcSbD0e+4eNPhNB4sRJxbow7X7vGuGx1MT8Rw+CdI7dhQouhH7o6ZROnQnwm5BUImRafdax1DGzKFhQuSge4ykmVd7yCg=
+	t=1791810548; cv=none; b=ImZecusyTcnQwhVstVkO+b6hLSgKQQbFs6vMhtWHmkb/Gycdd8SUmTAmd6T2kEc/1vLVuwJI+yv/i7EdK3CscAEz2rL3RlkUmaYZRruboIfLmZWF0trjJ07AxWxyfKmSl5tuIpiLXCyKzPOHzcR4xKypD2GPB0Fr7e8Iasbl2pI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791810547; c=relaxed/simple;
-	bh=VLRaozWfdTWxb8Rd4DWYV5ZEZQt8GH6bkhwa6wyOxnQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ucZt51AlrLG+1JvZun6xS1MSjAITCnuI47jBn6EAoM/LOq5WVNj9slyQnm+sYRz7tZdkTvgD6bx2ezKrxkH/zGw3lWQFTkZLsTA6na8BT6JhYZdLD6X2+H+LKw/g0BG5V+ZmgFhvtPIGhEdgMmm2LnLTLeOpyRbMktMSENpDYM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WHTYapgh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791810548; c=relaxed/simple;
+	bh=SKtqGvXJQfpzg8KhhXH1hl/Sqzs+y7RRclLyfL/m9z4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PXj+Zg7OpUq9hjcqkOAT+R39+fop+Ajkf2iSQSXjacc/85nkkF1usk7wygTLx/KWIWcEyiqNdlGDgjAZJ226cxJLimSoNqNQTzpw2YFDorh11klGHcDu9amvemHKYS4mWc+UTw6KTyDFQSQKeHojzAsv5hCgvxem2i92QovoSUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cwWpfFGP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WHTYapgh"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BF39A1F0089B;
-	Mon, 12 Oct 2026 13:09:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cwWpfFGP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55CAC1F0089C;
+	Mon, 12 Oct 2026 13:09:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791810546;
-	bh=htnToikM5oWNWLcWINlIXAhrpOBUmE0m+tQ2CYJoG5o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WHTYapghOmD5jhcHmMzmSJuuGExOpuexOOGu9ZgC4Xg6NQWW4THCb36O82ceG1Zli
-	 hvPJH6HS/qZZxLFCm1g3UdRirhE/pniMojfShSaizvji6VRiXSlqXHvhAXK0+cpZVm
-	 Fgp/tA0mEiDclikbpWC74CMUwaBh6j9yeReEvcmgKsZqDDhxTeanPpQQ2PtZ0r2238
-	 tiqrJNy1xi9y7mDQIGxybiTcRs3OZUdqrsIG4YHuqaeB3qEpRR/xTmF7n6K9SA/3GU
-	 Lia2xfPPrq0jntrdJnLOqYsUaFzeB5Q02Dwpwz67lTucvVPlrCiXjpHoSx361k8i5c
-	 0RAaz74mQ6wcw==
-Date: Mon, 12 Oct 2026 16:09:02 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Markus Elfring <Markus.Elfring@web.de>
-Cc: kernel-janitors@vger.kernel.org, linux-integrity@vger.kernel.org,
-	Dan Carpenter <error27@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Peter =?iso-8859-1?Q?H=FCwe?= <peterhuewe@gmx.de>,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] tpm: clean up error checking in setup_ring()
-Message-ID: <aszb7oOYq-ZfeNDK@kernel.org>
-References: <ar_DUjuGv-9vPzga@stanley.mountain>
- <74850205-dba2-4a97-951d-cda28be129c9@web.de>
- <asvSXjQQ0vEvF7yL@kernel.org>
- <0d6f94f0-208d-4cf8-a973-2afd37695690@web.de>
+	s=k20260515; t=1791810547;
+	bh=RXGqMPqqj678t0lrx1wOStSLIe+enJFDvY1kgn1i2RY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cwWpfFGPiWMs3BAwBaX0rd/I7T7r17ZH1YetnFmKSaF6MQmaw46PYVuGWSqnrCKHk
+	 eamUKNwJWmLg6CQ1aLJ9cyg8berBmxqXcDPNcV5zD3uAi6MuWX7HVLCb7no5GDo7a+
+	 iJaIPg2jACgSuQgb8iQxP5P7hD03XE7j+sQp/dwzLq183Hd6H2e56nnC+Iu780d/bk
+	 mQUdDAlvtkKdOINMsQwvQ2fDqNNwcyjqY+H9Xg5YbwMo3X+S7T4tlPt3LC8JiEfjkr
+	 1QFZjHL24gc+4TQpPUqIa3OxRfT0JAYqEXTdzvPuntCAvdt6veA7PJNy+6NMwYsIAG
+	 kiSrxMjpQftUw==
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org,
+	kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: [PATCH v10 12/18] PCI/P2PDMA: Add KUnit tests for the ACS routing decisions
+Date: Mon, 12 Oct 2026 16:07:49 +0300
+Message-ID: <20261012-fix-p2p-acs-v4-0-v10-12-6ffe7b7a4517@nvidia.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261012-fix-p2p-acs-v4-0-v10-0-6ffe7b7a4517@nvidia.com>
+References: <20261012-fix-p2p-acs-v4-0-v10-0-6ffe7b7a4517@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.15-dev-18f8f
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <0d6f94f0-208d-4cf8-a973-2afd37695690@web.de>
 
-On Mon, Oct 12, 2026 at 10:03:09AM +0200, Markus Elfring wrote:
-> >>> The bind_evtchn_to_irqhandler() function can never return 0.
-> …
-> > I do agree that something in this patch does not appear right, or 
-> > at least not very well explained so it is a good catch anyhow.
-> > 
-> > My decision on this is that:
-> > 
-> > 1. I'll drop the current patch as it actually does not make a case
-> >    why zero could not possibly happen. I spent 45 minutes browsing
-> >    because commit message did not have any technical details.…
-> 
-> How does this response fit to your previous tag “Reviewed-by”?
-> 
-> Dan Carpenter provided also some hints.
+From: Leon Romanovsky <leonro@nvidia.com>
 
-There's no problem with this. I sanity checked the commit because I
-did not (and do not) understand what you wrote, and started to
-check up on things because of that email.
+pci_acs_p2pdma_request() and pci_acs_p2pdma_completion() turn an ACS
+Control register and a TLP class into a routing decision. Which bits apply
+to which direction and which class is easy to get wrong, and hardware that
+exposes a given combination may not be at hand.
 
-I came into conclusion that the commit message does not nail down
-its claim well enough so I did the only common sense action one
-can do in this situation.
+Drive both from a table of register values and classes, covering the
+redirect controls per direction and Translation Blocking, Direct Translated
+P2P and Relaxed Ordering. Direct Translated P2P gets a case with and
+without a redirect to override, since it changes nothing without one.
+Exposing the two helpers moves their state enum and the TLP flags into
+pci.h.
 
-> 
-> Regards,
-> Markus
+Tested-by: Tushar Dave <tdave@nvidia.com>
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+---
+ drivers/pci/Kconfig        |  15 ++++++
+ drivers/pci/Makefile       |   1 +
+ drivers/pci/p2pdma.c       |  38 ++------------
+ drivers/pci/pci.h          |  41 +++++++++++++++
+ drivers/pci/pci_acs_test.c | 121 +++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 182 insertions(+), 34 deletions(-)
 
-Br, Jarkko
+diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
+index 0c7408509ba2..7a3eb5beb328 100644
+--- a/drivers/pci/Kconfig
++++ b/drivers/pci/Kconfig
+@@ -226,6 +226,21 @@ config PCI_P2PDMA
+ 
+ 	  If unsure, say N.
+ 
++config PCI_ACS_KUNIT_TEST
++	tristate "KUnit tests for PCI ACS P2P routing" if !KUNIT_ALL_TESTS
++	depends on PCI_P2PDMA && KUNIT
++	default KUNIT_ALL_TESTS
++	help
++	  Enable KUnit tests for the PCI ACS peer-to-peer routing decision
++	  logic, including direction-specific Request and Completion
++	  controls that cannot all be exercised on typical peer-to-peer
++	  hardware.
++
++	  For more information on KUnit and unit tests in general, refer to
++	  the KUnit documentation in Documentation/dev-tools/kunit/.
++
++	  If unsure, say N.
++
+ config PCI_LABEL
+ 	def_bool y if (DMI || ACPI)
+ 	select NLS
+diff --git a/drivers/pci/Makefile b/drivers/pci/Makefile
+index 41ebc3b9a518..6305d128d3df 100644
+--- a/drivers/pci/Makefile
++++ b/drivers/pci/Makefile
+@@ -31,6 +31,7 @@ obj-$(CONFIG_PCI_STUB)		+= pci-stub.o
+ obj-$(CONFIG_PCI_PF_STUB)	+= pci-pf-stub.o
+ obj-$(CONFIG_PCI_ECAM)		+= ecam.o
+ obj-$(CONFIG_PCI_P2PDMA)	+= p2pdma.o
++obj-$(CONFIG_PCI_ACS_KUNIT_TEST) += pci_acs_test.o
+ obj-$(CONFIG_XEN_PCIDEV_FRONTEND) += xen-pcifront.o
+ obj-$(CONFIG_VGA_ARB)		+= vgaarb.o
+ obj-$(CONFIG_PCI_DOE)		+= doe.o
+diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+index 46f7927968ff..93735f110b14 100644
+--- a/drivers/pci/p2pdma.c
++++ b/drivers/pci/p2pdma.c
+@@ -492,38 +492,6 @@ static struct pci_dev *find_parent_pci_dev(struct device *dev)
+ 	return NULL;
+ }
+ 
+-/**
+- * enum pci_p2pdma_tlp_flags - Properties of the TLPs a client will issue
+- *
+- * These describe the traffic rather than the topology, and select which ACS
+- * controls apply along the peer-to-peer path. A value of 0 means strictly
+- * ordered Requests carrying an Untranslated address.
+- *
+- * @PCI_P2PDMA_TLP_TRANSLATED: Requests carry an ATS Translated address. PCIe
+- *	r7.0 sec 6.12.3 routes those to the peer regardless of ACS P2P Request
+- *	Redirect and ACS P2P Egress Control wherever ACS Direct Translated P2P
+- *	is enabled.
+- * @PCI_P2PDMA_TLP_RELAXED_CPL: Non-Posted Requests carry the Relaxed
+- *	Ordering attribute, and PCIe r7.0 sec 2.2.9.1 requires the Completer to
+- *	return it in their Completions. Sec 6.12.1.1 never redirects those, so
+- *	ACS P2P Completion Redirect does not gate the path.
+- */
+-enum pci_p2pdma_tlp_flags {
+-	PCI_P2PDMA_TLP_TRANSLATED	= 1 << 0,
+-	PCI_P2PDMA_TLP_RELAXED_CPL	= 1 << 1,
+-};
+-
+-/* Every combination of the flags above selects one routing class. */
+-#define PCI_P2PDMA_TLP_CLASSES \
+-	((PCI_P2PDMA_TLP_TRANSLATED | PCI_P2PDMA_TLP_RELAXED_CPL) + 1)
+-
+-enum pci_acs_p2pdma_state {
+-	PCI_ACS_P2PDMA_NOT_SUPPORTED,
+-	PCI_ACS_P2PDMA_DIRECT,
+-	PCI_ACS_P2PDMA_REDIRECT,
+-	PCI_ACS_P2PDMA_BLOCKED,
+-};
+-
+ /*
+  * Decide how a peer-to-peer Request at an ACS-capable ingress port routes,
+  * from that port's ACS Control register and the Request's Address Type.
+@@ -533,7 +501,7 @@ enum pci_acs_p2pdma_state {
+  * selects are a direct route and an ACS Violation, and neither one lets peer
+  * bus addressing be assumed.
+  */
+-static enum pci_acs_p2pdma_state
++VISIBLE_IF_KUNIT enum pci_acs_p2pdma_state
+ pci_acs_p2pdma_request(u16 ctrl, unsigned int tlp_flags)
+ {
+ 	if (tlp_flags & PCI_P2PDMA_TLP_TRANSLATED) {
+@@ -560,6 +528,7 @@ pci_acs_p2pdma_request(u16 ctrl, unsigned int tlp_flags)
+ 	return ctrl & (PCI_ACS_RR | PCI_ACS_EC) ?
+ 		PCI_ACS_P2PDMA_REDIRECT : PCI_ACS_P2PDMA_DIRECT;
+ }
++EXPORT_SYMBOL_IF_KUNIT(pci_acs_p2pdma_request);
+ 
+ /*
+  * Decide how a peer-to-peer Completion at an ACS-capable ingress port routes.
+@@ -567,7 +536,7 @@ pci_acs_p2pdma_request(u16 ctrl, unsigned int tlp_flags)
+  * affects a Completion, and that one leaves Completions carrying the Relaxed
+  * Ordering attribute alone.
+  */
+-static enum pci_acs_p2pdma_state
++VISIBLE_IF_KUNIT enum pci_acs_p2pdma_state
+ pci_acs_p2pdma_completion(u16 ctrl, unsigned int tlp_flags)
+ {
+ 	if (tlp_flags & PCI_P2PDMA_TLP_RELAXED_CPL)
+@@ -576,6 +545,7 @@ pci_acs_p2pdma_completion(u16 ctrl, unsigned int tlp_flags)
+ 	return ctrl & PCI_ACS_CR ? PCI_ACS_P2PDMA_REDIRECT :
+ 				   PCI_ACS_P2PDMA_DIRECT;
+ }
++EXPORT_SYMBOL_IF_KUNIT(pci_acs_p2pdma_completion);
+ 
+ static const char *pci_acs_p2pdma_state_name(enum pci_acs_p2pdma_state state)
+ {
+diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+index ba3c3fddddc2..302b79d3977f 100644
+--- a/drivers/pci/pci.h
++++ b/drivers/pci/pci.h
+@@ -2,6 +2,7 @@
+ #ifndef DRIVERS_PCI_H
+ #define DRIVERS_PCI_H
+ 
++#include <kunit/visibility.h>
+ #include <linux/bug.h>
+ #include <linux/align.h>
+ #include <linux/bitfield.h>
+@@ -1093,6 +1094,46 @@ resource_size_t pci_min_window_alignment(struct pci_bus *bus,
+ 
+ void pci_acs_init(struct pci_dev *dev);
+ void pci_enable_acs(struct pci_dev *dev);
++
++/**
++ * enum pci_p2pdma_tlp_flags - Properties of the TLPs a client will issue
++ *
++ * These describe the traffic rather than the topology, and select which ACS
++ * controls apply along the peer-to-peer path. A value of 0 means strictly
++ * ordered Requests carrying an Untranslated address.
++ *
++ * @PCI_P2PDMA_TLP_TRANSLATED: Requests carry an ATS Translated address. PCIe
++ *	r7.0 sec 6.12.3 routes those to the peer regardless of ACS P2P Request
++ *	Redirect and ACS P2P Egress Control wherever ACS Direct Translated P2P
++ *	is enabled.
++ * @PCI_P2PDMA_TLP_RELAXED_CPL: Non-Posted Requests carry the Relaxed
++ *	Ordering attribute, and PCIe r7.0 sec 2.2.9.1 requires the Completer to
++ *	return it in their Completions. Sec 6.12.1.1 never redirects those, so
++ *	ACS P2P Completion Redirect does not gate the path.
++ */
++enum pci_p2pdma_tlp_flags {
++	PCI_P2PDMA_TLP_TRANSLATED	= 1 << 0,
++	PCI_P2PDMA_TLP_RELAXED_CPL	= 1 << 1,
++};
++
++/* Every combination of the flags above selects one routing class. */
++#define PCI_P2PDMA_TLP_CLASSES \
++	((PCI_P2PDMA_TLP_TRANSLATED | PCI_P2PDMA_TLP_RELAXED_CPL) + 1)
++
++enum pci_acs_p2pdma_state {
++	PCI_ACS_P2PDMA_NOT_SUPPORTED,
++	PCI_ACS_P2PDMA_DIRECT,
++	PCI_ACS_P2PDMA_REDIRECT,
++	PCI_ACS_P2PDMA_BLOCKED,
++};
++
++#if IS_ENABLED(CONFIG_KUNIT)
++enum pci_acs_p2pdma_state pci_acs_p2pdma_request(u16 ctrl,
++						unsigned int tlp_flags);
++enum pci_acs_p2pdma_state pci_acs_p2pdma_completion(u16 ctrl,
++						    unsigned int tlp_flags);
++#endif
++
+ #ifdef CONFIG_PCI_QUIRKS
+ int pci_dev_specific_acs_enabled(struct pci_dev *dev, u16 acs_flags);
+ int pci_dev_specific_enable_acs(struct pci_dev *dev);
+diff --git a/drivers/pci/pci_acs_test.c b/drivers/pci/pci_acs_test.c
+new file mode 100644
+index 000000000000..ce6b9375da36
+--- /dev/null
++++ b/drivers/pci/pci_acs_test.c
+@@ -0,0 +1,121 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * KUnit tests for PCI ACS peer-to-peer routing decisions.
++ *
++ * These exercise Request and Completion routing independently of the ACS
++ * settings exposed by available PCIe hardware.
++ */
++#include <kunit/test.h>
++
++#include <linux/pci.h>
++#include <linux/pci-p2pdma.h>
++#include <linux/pci_regs.h>
++
++#include "pci.h"
++
++struct acs_decision_case {
++	const char *desc;
++	u16 ctrl;
++	unsigned int tlp_flags;
++	enum pci_acs_p2pdma_state expect;
++};
++
++/* Shorthands to keep the tables below readable. */
++#define ACS_DIRECT	PCI_ACS_P2PDMA_DIRECT
++#define ACS_REDIR	PCI_ACS_P2PDMA_REDIRECT
++#define ACS_RO		PCI_P2PDMA_TLP_RELAXED_CPL
++#define ACS_AT		PCI_P2PDMA_TLP_TRANSLATED
++#define ACS_BLOCK	PCI_ACS_P2PDMA_BLOCKED
++
++/* Request routing ignores Completion Redirect. */
++static const struct acs_decision_case acs_request_cases[] = {
++	{ "req/none", 0, 0, ACS_DIRECT },
++	{ "req/rr", PCI_ACS_RR, 0, ACS_REDIR },
++	{ "req/cr", PCI_ACS_CR, 0, ACS_DIRECT },
++	{ "req/rr_cr", PCI_ACS_RR | PCI_ACS_CR, 0, ACS_REDIR },
++	{ "req/ec", PCI_ACS_EC, 0, ACS_REDIR },
++	{ "req/ec_cr", PCI_ACS_EC | PCI_ACS_CR, 0, ACS_REDIR },
++
++	/*
++	 * Direct Translated P2P overrides the redirect controls, but only for
++	 * a Request that actually carries a Translated address.
++	 */
++	{ "req/dt", PCI_ACS_DT, 0, ACS_DIRECT },
++	{ "req/dt_rr", PCI_ACS_DT | PCI_ACS_RR, 0, ACS_REDIR },
++	{ "req/at", 0, ACS_AT, ACS_DIRECT },
++	{ "req/at_rr", PCI_ACS_RR, ACS_AT, ACS_REDIR },
++	{ "req/at_dt_rr", PCI_ACS_DT | PCI_ACS_RR, ACS_AT, ACS_DIRECT },
++	{ "req/at_dt_ec", PCI_ACS_DT | PCI_ACS_EC, ACS_AT, ACS_DIRECT },
++
++	/*
++	 * Translation Blocking rejects a Translated address outright, and
++	 * makes the port ignore Direct Translated P2P.
++	 */
++	{ "req/tb", PCI_ACS_TB, 0, ACS_DIRECT },
++	{ "req/tb_rr", PCI_ACS_TB | PCI_ACS_RR, 0, ACS_REDIR },
++	{ "req/at_tb", PCI_ACS_TB, ACS_AT, ACS_BLOCK },
++	{ "req/at_tb_dt", PCI_ACS_TB | PCI_ACS_DT, ACS_AT, ACS_BLOCK },
++};
++
++/* Completion routing depends only on Completion Redirect. */
++static const struct acs_decision_case acs_completion_cases[] = {
++	{ "cpl/none", 0, 0, ACS_DIRECT },
++	{ "cpl/rr", PCI_ACS_RR, 0, ACS_DIRECT },
++	{ "cpl/cr", PCI_ACS_CR, 0, ACS_REDIR },
++	{ "cpl/rr_cr", PCI_ACS_RR | PCI_ACS_CR, 0, ACS_REDIR },
++	{ "cpl/ec", PCI_ACS_EC, 0, ACS_DIRECT },
++	{ "cpl/ec_cr", PCI_ACS_EC | PCI_ACS_CR, 0, ACS_REDIR },
++
++	/* Relaxed Ordering Completions are never redirected. */
++	{ "cpl/ro", 0, ACS_RO, ACS_DIRECT },
++	{ "cpl/ro_cr", PCI_ACS_CR, ACS_RO, ACS_DIRECT },
++	{ "cpl/ro_rr_cr", PCI_ACS_RR | PCI_ACS_CR, ACS_RO, ACS_DIRECT },
++};
++
++#undef ACS_DIRECT
++#undef ACS_REDIR
++#undef ACS_RO
++#undef ACS_AT
++#undef ACS_BLOCK
++
++static void acs_decision_desc(const struct acs_decision_case *c, char *desc)
++{
++	strscpy(desc, c->desc, KUNIT_PARAM_DESC_SIZE);
++}
++
++KUNIT_ARRAY_PARAM(acs_request, acs_request_cases, acs_decision_desc);
++KUNIT_ARRAY_PARAM(acs_completion, acs_completion_cases, acs_decision_desc);
++
++static void pci_acs_p2pdma_request_test(struct kunit *test)
++{
++	const struct acs_decision_case *c = test->param_value;
++
++	KUNIT_EXPECT_EQ(test, pci_acs_p2pdma_request(c->ctrl, c->tlp_flags),
++			c->expect);
++}
++
++static void pci_acs_p2pdma_completion_test(struct kunit *test)
++{
++	const struct acs_decision_case *c = test->param_value;
++
++	KUNIT_EXPECT_EQ(test, pci_acs_p2pdma_completion(c->ctrl, c->tlp_flags),
++			c->expect);
++}
++
++static struct kunit_case pci_acs_test_cases[] = {
++	KUNIT_CASE_PARAM(pci_acs_p2pdma_request_test,
++			 acs_request_gen_params),
++	KUNIT_CASE_PARAM(pci_acs_p2pdma_completion_test,
++			 acs_completion_gen_params),
++	{}
++};
++
++static struct kunit_suite pci_acs_test_suite = {
++	.name = "pci_acs",
++	.test_cases = pci_acs_test_cases,
++};
++kunit_test_suite(pci_acs_test_suite);
++
++MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("KUnit tests for PCI ACS peer-to-peer routing decisions");
+
+-- 
+2.55.0
+
