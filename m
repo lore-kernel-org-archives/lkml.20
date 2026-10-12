@@ -1,282 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9885A3ADB8D;
-	Mon, 12 Oct 2026 11:58:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34941331200
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:58:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806302; cv=none; b=e3/puQ787txCZ1G5vuNMc9A4/4qfXhJXV97t4f3zTfYEQgSH5ISS13Q+/uS3d+0vqaokWFew4KQD/MGAlN5h32HpmzsQeSSUCzy6MGlRRbWQifx5s7MAY0Uny4v11NKmku+PUm1x55r5eMVKhRf/pBpdh9Ze64eOrNO0kP4a2bM=
+	t=1791806315; cv=none; b=GbxP5hvFBd78ld9/T/Y29yE01/jZtkyJjD6PJs+7PjMGMcLOkMPNgPOMkTs4AXLawUQ/OxquEOnCfoOL06oZspJBkAlIdeUDe6hdee8lnh8eP4DtyULGG0yl5Aef7cbaB/aRYUY4vS18cFChvoZLEjDUrJzRAEQghjhWASyPBdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806302; c=relaxed/simple;
-	bh=JytK/a13ow3/nqPSLowpzc+fWzLR2Fj1m4sgpxVp0N4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GuQnd16qFudVTfbodzCMaVpLlyku9zRrns//+LEewvzCettm+vOVktLHQZYMj+7F5bH1EUjJ67TGTx9SgnbhHaJbO75Dur6YcMHI7zcjBsBBIXl+I1vp5I7+XWfGuPPHI5lSmuss34eieXQev7GSc7+mqDj6g+8EEC5I9+1gnao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gTSW4tN6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791806315; c=relaxed/simple;
+	bh=ZN1vayRctHh8NpBgSGCZwcKF9qbdnQM1w14tC/GzSnc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HZ89hdMyJ2B+RWH3g91RWCqw6l11EASurm4ALqAKMJZI5qQUFZlf5ywrpSfUgTCMArtRwI8R5wiObxa5XvdenRTaeFTiEPqAGP+mQCBeQsrzwtkjZ7mCTKmC3wy6sjhbyOG7Bt6Vq7tM0d4RCPVszE+b8qjnEE3VMQ0t00tGX9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dDd6HIw5; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=cIxRFW4A; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gTSW4tN6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ADFE1F0089B;
-	Mon, 12 Oct 2026 11:58:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791806301;
-	bh=AAEUEPlZnh7NKI8lwWD51+5cuckUrv0pw246bOl4QvY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=gTSW4tN6eC87cFZ5TaGjvG9JlarVrhS6iXzAY8EQn64Vue3YD5L/AhPL+jINb+T18
-	 1hD1g5c/jofJADJP+OFHvvY9+qpoH9LEEV0un/o8M61qjfcS6XWHDSUK986Y78rCMx
-	 ylAUvtYnKR94ww4wSsYtkINXf68MRQXTqkYHkal/pyuKrb81NypSM8Rz4jcgvxjR7i
-	 dJGnLe/OUsWqDDVfpl1NXFP6N4CtTqnfwnHDiK2myMT8nioR8794/T9lpuG4ryFQmD
-	 9c2gTnKJurT+ZdRes/s5lSgQW6TDTiC1I/vWWd6KFooB7B0JvK5t2JLrFkVESw3EFS
-	 6GSWzDjkDSM4Q==
-Date: Mon, 12 Oct 2026 12:57:56 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Anisa Su <anisa.su887@gmail.com>
-Cc: linux-cxl@vger.kernel.org, nvdimm@lists.linux.dev,
- linux-kernel@vger.kernel.org, Dave Jiang <dave.jiang@intel.com>, Alison
- Schofield <alison.schofield@intel.com>, Davidlohr Bueso
- <dave@stgolabs.net>, Ira Weiny <iweiny@kernel.org>, Vishal Verma
- <vishal.l.verma@intel.com>, Fan Ni <nifan.cxl@gmail.com>, Li Ming
- <ming.li@zohomail.com>, Benjamin Cheatham <benjamin.cheatham@amd.com>,
- Gregory Price <gourry@gourry.net>, Richard Cheng <icheng@nvidia.com>, Anisa
- Su <anisa.su@samsung.com>
-Subject: Re: [PATCH v16 2/8] cxl/mem: Read dynamic capacity configuration
- from the device
-Message-ID: <20261012125756.4672159e@jic23-hlaptop>
-In-Reply-To: <20261012124714.6556d6b4@jic23-hlaptop>
-References: <20261010225852.10727-1-anisa.su@samsung.com>
-	<20261010225852.10727-3-anisa.su@samsung.com>
-	<20261012124714.6556d6b4@jic23-hlaptop>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dDd6HIw5";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="cIxRFW4A"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791806313;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=ZN1vayRctHh8NpBgSGCZwcKF9qbdnQM1w14tC/GzSnc=;
+	b=dDd6HIw5mnK6D/V84ey9XV3EXe2OH+RpM//PLumhMMaP6feAFe+NeNEw5yFmFcD4z/M4Js
+	vbry7rpsts+OYCRI1NTnDJ1wdmdFa1MTtGa32458vjubDFqrdq0yFja8VD5abUOt31rv5w
+	iPkNUNdR+MxOQjxgrOxBMhFk/BHhwCI=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-306-X5WjvHWkNIqko4GlsYoY0Q-1; Mon, 12 Oct 2026 11:58:30 +0000
+X-MC-Unique: X5WjvHWkNIqko4GlsYoY0Q-1
+X-Mimecast-MFC-AGG-ID: X5WjvHWkNIqko4GlsYoY0Q_1791806309
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a009f82bedso15120605e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:58:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791806309; x=1792411109; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZN1vayRctHh8NpBgSGCZwcKF9qbdnQM1w14tC/GzSnc=;
+        b=cIxRFW4AHMzc2ZwtUghm7lDyeMCWvsk2to4ZmmQg/km/f9ZD8jwRKUAlfVMtpoxJls
+         CeBl1+gXLlN3c+9xy8dCK03G1a5UwpBgH3OSFPsreWR/PoKpAnube/y86KZWDSOJueak
+         mGcP4FW6KcrmZ7ue+OwIMLzD9i5CdxWoFXvqIdGQ/z6XhTZUdyqIKFUWnaiDaB9rM7pt
+         0Tzvdy8Ok7PU8q1XaTlwUzBjx/mZVCRLILaanXunzrUuA5PmGwH8NVl9BiZQu0Kz29VP
+         FoFK4e1GzTYmAae/ClBkIt3/h3R0v4w6Rc5KQR/Yh5BmZGJCW2yGL+5LPJ/vI4DVscui
+         OfTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791806309; x=1792411109;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ZN1vayRctHh8NpBgSGCZwcKF9qbdnQM1w14tC/GzSnc=;
+        b=1df+jxC2k29rYN8u/07e8IrEZp2Kb+WAqeqKxC+UtD2FzA1+ep52NdkOhU1L21yLtq
+         f2qmS0SYdzxNHOSJWyg5QlXVM6Cx7uohIMg8Hol6kuwex7i/2etp9LbV8TSkxzqd7WuY
+         cXJ66kFmq7E6hUTmTub0Sk9P6ipH9FxLd8U5p1+jMFqaXNA/Cije1yMUoXi7Zllu4Q9P
+         gHFQQOSQVdPPzF+PBwjR9PFovSE8sf/PDTRna2e4S0mvQxYPTmK0oVpKJJbNVI/x/Cdb
+         6IFubazJPRL2CMWuW94v6It09i7lrndVMwuRjou8l/lNrss7c41pI4DuXBIl/uB0cKrL
+         212A==
+X-Forwarded-Encrypted: i=1; AKwUvBy1mzM5E5tI0RW5pBWTrC77GqcOjyTQSkfn4xMeoJK+seuUSbEu05XIQGCxva3vKK37/b/fs8JY48xwFQw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYID/PVxWfAaQPSovmPFXCjocXLzt837U+DlR7tytS4OHQWr52wV
+	3vJC5R9LNSPv5C24y3LwU6xncvE+PhU4JkKV+n5YfQnkW5+m/hejk7NarOgfBxFjg7i9QAoumCQ
+	mkLZ+O15WXcpXM/bwvlWIHkbn3mXdpQrGWB8poLGL1j2EisMLZeWw8kzU+6NMRUdsXA==
+X-Gm-Gg: AYBFou3iR7ZYdcljXzqzT4nSknhVn+BKfxtfoUnGvP16E4CHzVfI7gKD1+54oRZChZw
+	8x45UTCLTDK0chvpF0b9Qe0CYXuZiDi+d/WsMVL1zZuZDvD457oknw1pXjvX8FJ8IqQeLF9v5bb
+	AZ9NyC2TQB5sJ980pdepvwJ/Zjod9Rh2BuTDKZtzUWmRzvQ7McNG/jR3SWy/j4u4dwYawFJujYS
+	FWKCv8S9MfeQJSpcZydZqyJ4pf++tNpb8CkC8SV7EqDl2A42mEpl5mXGFFAUZ1sTKInk9yr/Buq
+	ls9gRcVzRVvWL7JkY91ae9AS9CWOs7p0pgxuO9lOwIkcq1LccwBdjcsa8wt2eKqbh45G3W/sqWi
+	w06Bdmr/ZhYbkvjXCz5BEAJy1/8fj
+X-Received: by 2002:a05:600c:3e0a:b0:4a0:1c10:1419 with SMTP id 5b1f17b1804b1-4a18e4cd667mr171082695e9.26.1791806309397;
+        Mon, 12 Oct 2026 04:58:29 -0700 (PDT)
+X-Received: by 2002:a05:600c:3e0a:b0:4a0:1c10:1419 with SMTP id 5b1f17b1804b1-4a18e4cd667mr171082355e9.26.1791806308919;
+        Mon, 12 Oct 2026 04:58:28 -0700 (PDT)
+Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.135.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e33d2sm20228336f8f.9.2026.10.12.04.58.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 04:58:28 -0700 (PDT)
+Message-ID: <3eb0948c9ca67f64b3b311f823cd0f7628033c68.camel@redhat.com>
+Subject: Re: [PATCH v7 00/14] rv: Add task latency over budget RV monitor
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: wen.yang@linux.dev
+Cc: Nam Cao <namcao@linutronix.de>, linux-trace-kernel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Mon, 12 Oct 2026 13:58:27 +0200
+In-Reply-To: <cover.1791745088.git.wen.yang@linux.dev>
+References: <cover.1791745088.git.wen.yang@linux.dev>
+Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
+ 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
+ Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
+ Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
+ cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
+ T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
+ eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
+ 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 12 Oct 2026 12:47:14 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+On Mon, 2026-10-12 at 03:39 +0800, wen.yang@linux.dev wrote:
+> From: Wen Yang <wen.yang@linux.dev>
+>=20
+> This series introduces tlob (task latency over budget), a per-task
+> hybrid automaton RV monitor that measures elapsed wall-clock time across
+> a user-delimited code section and emits an error when the elapsed time
+> exceeds a configurable budget.
 
-> On Sun, 11 Oct 2026 07:54:53 +0900
-> Anisa Su <anisa.su887@gmail.com> wrote:
-> 
-> > From: Ira Weiny <iweiny@kernel.org>
-> > 
-> > Devices which support Dynamic Capacity (DC) are configured via mailbox
-> > commands. CXL r4.0 section 9.13.3 describes the use of the Get DC
-> > Configuration command in order to obtain DCD partition characteristics.
-> > 
-> > Implement the DC mailbox commands as specified in CXL 4.0 section
-> > 8.2.10.9.9 (opcodes 48XXh) to read and store the DCD configuration
-> > information. Disable DCD if an invalid configuration is found.
-> > 
-> > Initial enablement for Linux only supports one dynamic capacity
-> > partition. Read all the partitions the device reports but validate
-> > only the first, and configure it as 'dynamic ram'.
-> > 
-> > The specification requires that volatile capacity starts at DPA 0 and
-> > pmem starts at the DPA immediately following it, but DC partitions only
-> > need to be 256MB aligned according to CXL r4.0 section 8.2.10.9.9.1
-> > Table 8-347. So a device could leave a gap between ram/pmem (static)
-> > capacity and its first DC partition, or between one DC partition and
-> > the next.
-> > 
-> > However, Linux chooses not to support gaps between static and dynamic
-> > capacity, and requires the first DC partition to begin at the DPA
-> > immediately following static capacity.
-> > 
-> > Based on an original patch by Navneet Singh.
-> > 
-> > Signed-off-by: Ira Weiny <iweiny@kernel.org>
-> > Co-developed-by: Anisa Su <anisa.su@samsung.com>
-> > Signed-off-by: Anisa Su <anisa.su@samsung.com>
-> > Tested-by: Wonjae Lee <wj28.lee@samsung.com>
-> > Tested-by: Junhee Park <jh9934.park@samsung.com>
-> > Tested-by: Heesoo Kim <habil.kim@samsung.com>
-> >   
-> 
-> A couple of things inline.  Only one that matters I think is the
-> cleanup.h fragility  / readability thing about constructors and 
-> destructors needing to be near each other.  That bit of guidance
-> came from a specific (and I think correct) comment from Linus
-> that he really wanted them together and if that meant declaring
-> the variables inline rather than in old school c style, then so be
-> it.  That might be in category of things Dave could cleanup up whilst
-> applying if all else is ready but that's up to him.
->
-Forgot to add, with that tweak
+Hi Wen,
 
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
- 
-> Jonathan
-> 
-> 
-> > diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
-> > index 199bb986d674..72af23ba288e 100644
-> > --- a/drivers/cxl/core/mbox.c
-> > +++ b/drivers/cxl/core/mbox.c  
-> 
-> > +/* Returns the number of partitions in dc_resp or -ERRNO */
-> > +static int cxl_get_dc_config(struct cxl_mailbox *mbox, u8 start_partition,
-> > +			     u8 partition_count,
-> > +			     struct cxl_mbox_get_dc_config_out *dc_resp,
-> > +			     size_t dc_resp_size)
-> > +{
-> > +	struct cxl_mbox_get_dc_config_in get_dc = (struct cxl_mbox_get_dc_config_in) {
-> > +		.partition_count = partition_count,
-> > +		.start_partition_index = start_partition,
-> > +	};
-> > +	struct cxl_mbox_cmd mbox_cmd = (struct cxl_mbox_cmd) {
-> > +		.opcode = CXL_MBOX_OP_GET_DC_CONFIG,
-> > +		.payload_in = &get_dc,
-> > +		.size_in = sizeof(get_dc),
-> > +		.size_out = dc_resp_size,
-> > +		.payload_out = dc_resp,
-> > +		/* The device must return at least the fixed header */
-> > +		.min_out = sizeof(*dc_resp),
-> > +	};
-> > +	size_t expected_sz;
-> > +	int rc;
-> > +
-> > +	rc = cxl_internal_send_cmd(mbox, &mbox_cmd);
-> > +	if (rc < 0)
-> > +		return rc;
-> > +
-> > +	if (dc_resp->partitions_returned > partition_count) {
-> > +		dev_err(mbox->host, "Device returned %u partitions, requested %u\n",
-> > +			dc_resp->partitions_returned, partition_count);
-> > +		return -EIO;
-> > +	}
-> > +
-> > +	/* The trailing extent/tag counts (CXL r4.0 Table 8-346) are not read */
-> > +	expected_sz = struct_size(dc_resp, partition,
-> > +				  dc_resp->partitions_returned);
-> > +
-> > +	if (mbox_cmd.size_out < expected_sz) {
-> > +		dev_err(mbox->host,
-> > +			"Payload size %zu less than expected %zu for %u partitions\n",
-> > +			mbox_cmd.size_out,
-> > +			expected_sz,
-> > +			dc_resp->partitions_returned);  
-> 
-> Not important, but if you do end up respinning, maybe don't have one parameter per line.
-> To me it doesn't really help with readability here.
-> 
-> > +		return -EIO;
-> > +	}
-> > +
-> > +/**
-> > + * cxl_dev_dc_identify() - Reads the dynamic capacity information from the
-> > + *                         device.
-> > + * @mbox: Mailbox to query
-> > + * @dc_info: The dynamic partition information to return
-> > + *
-> > + * Read every partition the device reports, but validate only the first:
-> > + * Linux maps partition 0 and nothing else, so a defect in capacity the
-> > + * driver never touches is not a reason to refuse the device dynamic
-> > + * capacity.  The remaining partitions are read but not recorded.
-> > + *
-> > + * Return: 0 if identify was executed successfully, -ERRNO on error.
-> > + *         On error, @dc_info is left unchanged.
-> > + */
-> > +int cxl_dev_dc_identify(struct cxl_mailbox *mbox,
-> > +			struct cxl_dc_partition_info *dc_info)
-> > +{
-> > +	struct cxl_dc_partition_info partitions[CXL_MAX_DC_PARTITIONS] = { };
-> > +	struct cxl_mbox_get_dc_config_out *dc_resp __free(kfree) = NULL;  
-> 
-> See the cleanup.h guidance.  This needs to move.
-> 
-> > +	struct device *dev = mbox->host;
-> > +	u8 avail_partitions = 0;
-> > +	u8 start_partition;
-> > +	u8 num_partitions;
-> > +	u8 partition_count;
-> > +	size_t dc_resp_size;
-> > +
-> > +	/*
-> > +	 * Bound requested number of partitions by mailbox payload size. The
-> > +	 * 256 byte spec minimum, verified in cxl_pci_setup_mailbox(), keeps
-> > +	 * the subtraction below from underflowing.
-> > +	 */
-> > +	partition_count = min(CXL_MAX_DC_PARTITIONS,
-> > +			      (mbox->payload_size - sizeof(*dc_resp) -
-> > +			       sizeof(struct cxl_mbox_get_dc_config_tail)) /
-> > +			      sizeof(struct cxl_dc_partition));
-> > +	dc_resp_size = struct_size(dc_resp, partition, partition_count) +
-> > +		       sizeof(struct cxl_mbox_get_dc_config_tail);
-> > +  
-> 
-> 	struct cxl_mbox_get_dc_config_out *dc_resp __free(kfree) =
-> 		kmalloc(dc_resp_size, GFP_KERNEL);
-> 	if (!dc_resp)
-> 
-> Maybe if everything else is fine, Dave can tweak this whilst applying.
-> 
-> star> +	if (!dc_resp)
-> > +		return -ENOMEM;
-> > +
-> > +	start_partition = 0;
-> > +	num_partitions = 0;
-> > +	do {
-> > +		int returned, rc;
-> > +
-> > +		returned = cxl_get_dc_config(mbox, start_partition,
-> > +					     partition_count, dc_resp,
-> > +					     dc_resp_size);
-> > +		if (returned < 0) {
-> > +			dev_err(dev, "Failed to get DC config: %d\n", returned);
-> > +			return returned;
-> > +		}
-> > +
-> > +		if (returned == 0) {
-> > +			dev_err(dev,
-> > +				"Device reported %u partitions available but returned none at index %u\n",
-> > +				dc_resp->avail_partition_count, start_partition);
-> > +			return -EIO;
-> > +		}
-> > +
-> > +		/* A DCD reports at least one partition (CXL r4.0 Table 8-346) */
-> > +		if (dc_resp->avail_partition_count == 0) {
-> > +			dev_err(dev, "Device reported no DC partitions\n");
-> > +			return -EIO;
-> > +		}
-> > +
-> > +		avail_partitions = min(dc_resp->avail_partition_count,
-> > +				       CXL_MAX_DC_PARTITIONS);
-> > +
-> > +		/*
-> > +		 * Only partition 0 is mapped, so it is the only one checked.
-> > +		 * The rest are read to complete the enumeration and dropped.
-> > +		 */
-> > +		if (start_partition == 0) {
-> > +			rc = cxl_dc_check(dev, &partitions[0],
-> > +					  &dc_resp->partition[0]);
-> > +			if (rc)
-> > +				return rc;
-> > +		}
-> > +
-> > +		num_partitions += returned;
-> > +		start_partition = num_partitions;  
-> 
-> I may be missing something subtle, but do start_partition and num_partitions ever
-> differ in value? Far as I can spot they are both only updated here.  If they
-> change in later patches and this is churn reduction ignore this comment!
-> 
-> 
-> > +
-> > +	} while (num_partitions < avail_partitions);
-> > +
-> > +	/* Linux only supports the 1st partition; nothing to do if it is unavailable */
-> > +	if (partitions[0].size == 0)
-> > +		return -ENODEV;
-> > +
-> > +	*dc_info = partitions[0];
-> > +	dev_dbg(dev, "Returning partition 0 %#llx size %#llx\n",
-> > +		dc_info->start, dc_info->size);
-> > +
-> > +	return 0;
-> > +}
-> > +EXPORT_SYMBOL_NS_GPL(cxl_dev_dc_identify, "CXL");  
-> 
+there's been a conversation at the LPC conference about completely migratin=
+g RV
+to BPF.
+While we aren't sure of its feasibility yet, and it will take time, it's
+something to keep in mind for new contributions.
+
+First of all, would dropping RV in-kernel support negatively affect your cu=
+rrent
+workflow?
+
+About this series, completely converting it to BPF isn't trivial, I can kee=
+p on
+reviewing it and we could upstream it in-kernel, then convert it later (tog=
+ether
+with the work with other HA).
+But I'd prioritise not affecting the in-kernel implementation much to keep =
+it on
+par with the BPF one.
+
+I'd first like to focus on what should the rv userspace tool support for a
+monitor like yours to be useful. You'd have all reporting as stdout (or any=
+ BPF
+reactor you'd want to write), then we should probably support some way to s=
+et
+the uprobe location and threshold before loading.
+Would you really need dynamic uprobe addition?
+
+What do you think?
+
+Thanks,
+Gabriele
 
