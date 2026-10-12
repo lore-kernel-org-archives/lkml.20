@@ -1,141 +1,177 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
+Received: from mta1.migadu.com (out-199.mta1.migadu.com [95.215.58.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FDF36E477
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:28:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791797284; cv=pass; b=X7PvvGq3Ee77Av4f7jRj5OIBYhPq61pJGwYFNCTPTfygTu9FgChrXE8c6xLFIhNO3Q1CAz75+KWIx628UbD2EXhZjByxBEBCCjwr2CHvP/TaP6D8HgS3/mllRzclbEJ2PJkO/rvhei1AD6H45TrijNfOjf1ZDeE7A87otmTTDF4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791797284; c=relaxed/simple;
-	bh=ZQmvARbCgXiJ/YFm0TMPhZiaIp+RRWfinoq77aEij7c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G4OuA+ZI0XHtAip0rGwBOV4T7t7Smjxi2jNRrWpGzOzMI3cOk9TX67/q9ZCEV0OmsBjof2Dt3pmGj+MzzieCP3bIXw8pqXdt7w9saxNsosPsvHgILHN+S75poysbTYRnlHnlNS5+k6G3jfBx2jnV6tSCiMWcQm0mUG6x0sJ1skg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B4YodQTI; arc=pass smtp.client-ip=209.85.208.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C16415B6B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791797298; cv=none; b=iVsimPVcz0oGZletmwqKOQ+7IaKEEGWvp6WS4ir6Q7YEuBwgGSmPpqKPEUN9tVmq6BM/RXu6A1+r6JPUVwlMu9BmqBAUiO/ylzBbtTWChBDYngGhFtXWDQufFpqEKs6QJ4SZ30LRMTBBiJhABUxpSBDenqC07PNaiAb1PZsOUlA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791797298; c=relaxed/simple;
+	bh=pH88RZZhMUO+72nSU0zMXA1Vsw+3gSUAjVT/E/uSjCY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iunMnusFS9VDrCpl/tVSnipNzk0w8YhKHanxsE/J5LhUwVgZDtLWMcGSZGb7pqk/fry/V5tOdiNxQFkiVVET/3lkwE9GSTRsfRvohiqYPRGe1iyeomyS4zNBRC1vI4YAIh4/7RyplVTpSMbL6OgUhH7LITAiwc/ceUaCIZW7Coc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fWpwjocU; arc=none smtp.client-ip=95.215.58.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B4YodQTI"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3a5a26c8412so16528661fa.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:28:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791797281; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KyQ/0QzVw0zEd5af7OHq5xVTTfEPdIz7vrJxZDyINkd7AN6WzLFtyWe3i1yI2pAIrJ
-         M2x2i27BhAqsUAoGRYQ8VpVWlnI6RFFtHuow8WLh+N59f1sQXUvIAUQxZxi3vYB/zIWp
-         49wK8o6XxuGkLwPXz9bbsEhyu/dABFkQvT1dKOIhxoegl3T50oBpMi3PyKtAKQL4KuLU
-         dI53c+7xDyyH5LZDd3BWsuPEa4jJcKfrztJnBM+XSOzYe9otfFMcHQ/2nAz8jruyha4R
-         ViqmuvxCU5TbbdnCuBe39fjYXADdPI0ZzU8F/RNXzRF0bmKafIkjyh9Si/8Zs1Pz5tg8
-         J/Zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DvmpQMhsElKYIhMGMYI2OVNGAllui7WBWbcRWxS8qE0=;
-        fh=kIdxoCAtxiHippgmJCLUW95ROzM42KpzzDUszRUdPgs=;
-        b=Y8jYBhWuKrATKLcxEvVIcJq9SfWO7mA9+0Mc6yl72NgriM7gJy/Y+U2UP+DBB+l9b2
-         0nOOktTY05V9dgcMZd41+skVktotBTZEKR4gU6UQYl1tSV8FAHC5KFLi8dzoOk7nzcud
-         yEgt3PpC1J4EtHW4DzL5vE3rS+x7rdQx1BNb6LO6ntUt6w/sRgHpXncwuLh+ae8Z/YMK
-         NMZmhomNjr+5ztyF7htlRQ7yVDVkLigvvX16KJ5Brx+JXSP8QRk0jH3s5C1LxMV4WEmM
-         ov2R9DeIm+d00ofq4tMyM2G4UI9wFxjC7ukLMcHQSq6E8wbpzMaHlBpa0BWWnz/T6JKT
-         wQcw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791797281; x=1792402081; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DvmpQMhsElKYIhMGMYI2OVNGAllui7WBWbcRWxS8qE0=;
-        b=B4YodQTILQ9zaXAyR16qT0/VXnzTFnxW+BQsml7Pn3+4umy5Lr2GzLElACjcGU154w
-         PaJY8bd8Xtr8tEL5pw2TUOLvcIxEPCC06aW8yrpEzISSTfftlWeRDWXrmOGk5d1QgKN/
-         mwKDw6CyOwl6jlc4SMb6O9u1660zfL72aqwVyS7LAupugIqW9A3mD7A/DBde/TXNm9fw
-         s75CS2tfvscCVlDzUSgTvtu83FgKIqNqoTWPaZPuAtIyYpvfo+yCzdqjP9gSQJ62kPIz
-         7r+GACd1frCvRFEFAZYCuyfV6hjl3Aw/hx4acYdzwLYHAJQMfpKcA+Sfxy96r9hLhgg2
-         KgHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791797281; x=1792402081;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DvmpQMhsElKYIhMGMYI2OVNGAllui7WBWbcRWxS8qE0=;
-        b=B8kOo3jGZkHmklGESmf7JYlBvLImRdj7zCr+DYTKi24lDKkU0zk0csUHZBLpQq5BfT
-         qcjmClnaPKKWHdjKxyTDAbiQxqSe3ma5Y+QIeNGYhpN9uvNywrYwSFH//njFBMQ9kGZs
-         IulDk1NjPeagzV5uAwyleiam3X0zZOfQsRfWzr+8gmVVdJcXYL3z8GJ1YcA8r+jEwIcH
-         ZLm0iztFdfXmQfyBIleNMquhdtDGWCWfS8dM+ek9WxgcTc+13Qy/AHtn/3VMck2i3hbE
-         Cqf2eIGdbCihDQ4lIUvf5EAowtIvkdANF7Jtnhk/r6Dvt81Ku7W3v+NOqvDysirvCTBO
-         SEyg==
-X-Forwarded-Encrypted: i=1; AKwUvBz4srlK4CXh8X4Xf4PEfWOA4p+z3VLfJ+6X3EFdAx42A3CKhlDNKxStaSX1LRbUbiEblWI0gxurM45c17I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJcaLDuRGO/qKGlHPFTXVVpgU0DeWG5PAEHb+KL+A36H7572gQk
-	uXhEnuk09RKGNrF9SRpD61qvTVIv1COQLUErjd49VOHj45SpqpicGNHBKbdS88v/T2e7qIRSs9G
-	ygcgN39e8xAfqs3o3bXuV+phWKHqQZsc=
-X-Gm-Gg: AYBFou27BnCRQqKDQRZss+SN9jzHQnRYCA1RScoLZBPAldvuuTtgdfEC+BYW+9yb8KC
-	3Ff9MOyskZhp6u8Fm5VDXNj8t4BQHbE51dzpuDYwIch2pbXp9lRUnoifo9KpvqmUBvy5TH9VGM6
-	to7GGUGRwFnc3x/Dj6KhX5riRNqw7TQYwqRxIBJy+tzQGfr75XbxTdEaDNFKMpnca89RmvLwxSM
-	+K6QW5E4r/XlciKyhnO+Om9v+4c+efIGbNGmAFZ9DcflG4vlzU4A1p8Qma/u+1qGTRrCToW0jNj
-	j8FWC74sbsMgv0f1IVhPmd2Qz2sk/qVuH0bOgtu+/cvJzIDPloIwj1WaSVj0rUH/iPAp1aJRNeT
-	Gm1GgHm6HEl05g/UIiEYtQNtnniI9JZoIZLueES8XbcN/ynIpdRoPEvGY2DQ/mq53aDkafbJk7d
-	5E02yoaV94OIW+dKWoH6lyCstVf001Fr2r9S8HGpOVHDRp5Va0NoM=
-X-Received: by 2002:a05:651c:2105:b0:3a9:7244:e861 with SMTP id
- 38308e7fff4ca-3a9c512683bmr23826781fa.3.1791797280833; Mon, 12 Oct 2026
- 02:28:00 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fWpwjocU"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pH88RZZhMUO+72nSU0zMXA1Vsw+3gSUAjVT/E/uSjCY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791797293; v=1; x=1792402093;
+ b=fWpwjocU/9RjDmsfkJnu35YnBuvH3W2imcSk5vAe61+/vLxPrMQBKhwT38Iy5nSbbi7jEjxq
+ tsDMMRCId590YeDATGK7KUfn6zHlUep4CE653Yg5zZFGxRIxUsjKV230l9027sGjN8pTebkdXpw
+ Ix//TCYc4Jcc1/6Vyh0G2ag0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id fb9bf159fe42bfa0;
+	Mon, 12 Oct 2026 09:28:13 +0000
+X-Mizu-Trace-ID: fb9bf159fe42bfa0
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 12 Oct 2026 17:28:06 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	David Ahern <dsahern@kernel.org>, Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
+	Justin Iurman <justin.iurman@gmail.com>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	Ahmed Abdelsalam <ahabdels@cisco.com>,
+	Stefano Salsano <stefano.salsano@uniroma2.it>
+Subject: Re: [PATCH net-next 2/5] seg6: handle a consumed SRH in SRv6 End
+ with the PSP flavor
+Message-ID: <asyoJvcaU14ip-d4@fedora>
+References: <20261011192310.55-1-andrea.mayer@uniroma2.it>
+ <20261011192310.55-3-andrea.mayer@uniroma2.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com> <20261011-gpio-mxc-cleanup-v6-7-cb47ce2ad758@nxp.com>
-In-Reply-To: <20261011-gpio-mxc-cleanup-v6-7-cb47ce2ad758@nxp.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 12 Oct 2026 12:27:24 +0300
-X-Gm-Features: AclHuK_r2Y_fKFcYo0k3f82kRis_dPW1IUC88HSmLwzwEEkzairYJHYuqRzAsKY
-Message-ID: <CAHp75Vdkh50W7j6oh9mg=DqyNu0ZZYX-aA0goqW+Knf0MmJ1ag@mail.gmail.com>
-Subject: Re: [PATCH v6 07/13] gpio: mxc: convert pad wakeup compatible checks
- to hwdata flags
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011192310.55-3-andrea.mayer@uniroma2.it>
 
-On Sun, Oct 11, 2026 at 2:54=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp.co=
-m> wrote:
->
-> mxc_gpio_generic_config() and mxc_gpio_set_pad_wakeup() call
-> of_device_is_compatible() on every invocation to determine pad wakeup
-> capability and i.MX8QM-specific behavior.  These properties are
-> invariant for the lifetime of the device.
->
-> Extend the hwdata flags scheme introduced in the previous commit with
-> MXC_GPIO_HAS_PAD_WAKEUP and MXC_GPIO_FALL_EDGE_WAKEUP_BROKEN, adding
-> dedicated hwdata instances for imx8qm and imx8qxp (also used by imx8dxl).
-> This replaces the repeated device tree string comparisons in the
-> suspend/resume path with simple flag tests on static per-compatible
-> data.
->
-> While at it, clean up mxc_gpio_generic_config() to use a local ret
-> variable for clarity instead of the =3D=3D 0 comparison.
-
-...
-
-> +static struct mxc_gpio_hwdata imx8qm_gpio_hwdata =3D {
-> +       MXC_GPIO_HW_DATA_COMMON,
-> +       .flags =3D MXC_GPIO_FALL_EDGE_WAKEUP_BROKEN | MXC_GPIO_HAS_PAD_WA=
-KEUP,
-> +};
+Hi Andrea,
+On Sun, Oct 11, 2026 at 09:23:07PM +0200, Andrea Mayer wrote:
+> With the seg6 inline mode, a packet can carry more than one SRH. The
+> SRHs with Segments Left 0 are considered consumed SRHs, and they can
+> come before the SRH to process (Segments Left > 0), as in this packet:
+> 
+>   +------+----------------------+----------------------+---------+
+>   | IPv6 | SRH, Segments Left 0 | SRH, Segments Left 1 | payload |
+>   +------+----------------------+----------------------+---------+
+> 
+> End without flavors skips the consumed SRH and processes the next
+> one [1]. With the PSP flavor, End should do the same. When the SRH to
+> process arrives with Segments Left 1, as in the diagram, End with PSP
+> should then also remove it [2]. However, End with PSP alone currently
+> looks only at the first routing header of the packet, finds Segments
+> Left 0 there, and drops the packet.
+> 
+> Make End with PSP alone skip the consumed SRHs, and any other routing
+> header with Segments Left 0, and process the SRH that follows them. If
+> there is no SRH to process, the packet is dropped as before. When the
+> SRH to process arrives with Segments Left 1, End with PSP now removes
+> it even if consumed SRHs come before it.
+> 
+> Found by manual code inspection and reproduced in a VM without kernel
+> changes or error injection. A following commit adds tests for this case
+> to srv6_end_flavors_test.sh. Without this change, the new tests with a
+> consumed SRH fail for End with PSP alone. With this series, all tests
+> pass and KASAN reports no error.
+> 
+> [1] - https://datatracker.ietf.org/doc/html/rfc8986#section-4.1
+> [2] - https://datatracker.ietf.org/doc/html/rfc8986#section-4.16.1.2
+> 
+> Fixes: bdf3c0b9c10b ("seg6: add PSP flavor support for SRv6 End behavior")
+> Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+> ---
+>  net/ipv6/seg6_local.c | 29 +++++++++++++++++++++++++----
+>  1 file changed, 25 insertions(+), 4 deletions(-)
+> 
+> diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
+> index da8225591fe3..26cd4facbe36 100644
+> --- a/net/ipv6/seg6_local.c
+> +++ b/net/ipv6/seg6_local.c
+> @@ -775,11 +775,14 @@ static bool seg6_pop_srh(struct sk_buff *skb, int srhoff)
+>  		skb_set_transport_header(skb, thoff);
+>  
+>  	iph = ipv6_hdr(skb);
+> -	if (iph->nexthdr == NEXTHDR_ROUTING) {
+> +	if (srhoff == sizeof(*iph)) {
+>  		iph->nexthdr = srh_nexthdr;
+>  	} else {
+>  		/* we must look for the extension header (EXTH, for short) that
+> -		 * immediately precedes the SRH we have just removed.
+> +		 * immediately precedes the SRH we have just removed, i.e. the
+> +		 * EXTH that ends at srhoff. We find it by its position and not
+> +		 * by its nexthdr, since another routing header (e.g. an SRH
+> +		 * with SL = 0) may come before the removed SRH.
+>  		 * Then, we update the value of the EXTH nexthdr with the one
+>  		 * contained in the SRH nexthdr.
+>  		 */
+> @@ -807,7 +810,7 @@ static bool seg6_pop_srh(struct sk_buff *skb, int srhoff)
+>  				break;
+>  			}
+>  
+> -			if (hp->nexthdr == NEXTHDR_ROUTING) {
+> +			if (off == srhoff) {
+>  				hp->nexthdr = srh_nexthdr;
+>  				break;
+>  			}
+> @@ -823,6 +826,24 @@ static bool seg6_pop_srh(struct sk_buff *skb, int srhoff)
+>  	return true;
+>  }
+>  
+> +/* look up the SRH to be processed by the RFC8986 flavors. As End does, a
+> + * routing header with SL = 0 is skipped (e.g. an SRH already consumed).
+> + * This function returns NULL when no valid SRH is found.
+> + */
+> +static struct ipv6_sr_hdr *seg6_flv8986_get_srh(struct sk_buff *skb)
+> +{
+> +	struct ipv6_sr_hdr *srh;
 > +
-> +static struct mxc_gpio_hwdata imx8qxp_gpio_hwdata =3D {
-> +       MXC_GPIO_HW_DATA_COMMON,
-> +       .flags =3D MXC_GPIO_HAS_PAD_WAKEUP,
-> +};
+> +	srh = seg6_get_srh(skb, IP6_FH_F_SKIP_RH);
+> +	if (srh)
+> +		return srh;
+> +
+> +	/* we take the first routing header without skipping it. In this way,
+> +	 * seg6_get_srh_pktinfo() reports SL = 0 and not a missing SRH.
+> +	 */
+> +	return seg6_get_srh(skb, 0);
+> +}
+> +
+>  /* process the packet on the basis of the RFC8986 flavors set for the given
+>   * SRv6 End behavior instance.
+>   */
+> @@ -837,7 +858,7 @@ static int end_flv8986_core(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+>  	__u32 flvmask;
+>  	int srhoff;
+>  
+> -	srh = seg6_get_srh(skb, 0);
+> +	srh = seg6_flv8986_get_srh(skb);
 
-Okay, if you want to deduplicate that, make another data structure
-inside hwdata, or wrap hwdata with flags. But really, kill that
-definition.
+Hmm, here we always try skip the SL = 0 SRH when multi SRH exists. What if
+we want to add USP flavor support in future? Then we will not able to remove
+the first SRH which SL = 0, right? e.g.
 
---
-With Best Regards,
-Andy Shevchenko
+   +------+----------------------+----------------------+---------+
+   | IPv6 | SRH, Segments Left 0 | SRH, Segments Left 2 | payload |
+   +------+----------------------+----------------------+---------+
+
+Thanks
+Hangbin
+
+>  	srhoff = srh ? ((unsigned char *)srh - skb->data) : 0;
+>  	pinfo = seg6_get_srh_pktinfo(srh);
+>  #ifdef CONFIG_IPV6_SEG6_HMAC
+> -- 
+> 2.43.0
+> 
+
