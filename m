@@ -1,166 +1,177 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D55C4A49BE
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:56:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6A24A99AC
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:57:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791820607; cv=none; b=QICDQdr3b52eqbcmnJ/OuTR4Y90qdv0F4cePjYK8t6tmTbbGaJBV3NxuNA4XnCS0SikPmk6LSS7u7h6TNXrFeHm0WvWVZHojJ35F+dJGRXMlu6P+5/Jagr75b6Aq65JAVQu91imdnQyKxS3lxjRYLgcxjOK+J8ycwwUmnIcfjgI=
+	t=1791820629; cv=none; b=npQjrlY/BDOQperH2KCyKnWQ+wNhGMKYAZD2Aij8eFb3jLN85/bNQ7s1ckig+0Av1m+ju1g7xpwPDrGt5v+84TzjPxPX+oXdPgTrIW78Eg5bF7UviRgJt9Jjv2tEXr6xXAQUwgdrhu2eYp8YxsafT8lf7zfcya716zw51e163Vk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791820607; c=relaxed/simple;
-	bh=iodDIsz9q81nBwO7btpthEceHlQpYzhDRjBF/YzC0Xk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ROsmLiY+/wUVet0aemgIRvQl0WSRj4AEbsbrlXMOfLz+1TOlkZEL2g3uGSBRcpNU73RulPXFlN4mU8IDvUNZD4I/Al8ebhI0o+Usc2wVbpIP1wy1w/1xNRyW13uRnYdY5pOHr6I/Q8yC3ZKJoMJ7A653PclMSlSBoMgcaVsvYX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Tn+TP6o/; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791820629; c=relaxed/simple;
+	bh=hgK6iHhdKFem6UFEboTc1tGVcd7hm7BGSzUtO+61aOM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=a/gb+GJpnKeIoxQBSnPYEzS1zkGr8QMVVLDWG5i8w6wON1Qn9qjlBgM+qsIbQN/6oRsQYWxYWF8SMGv0qVVQAIbgv28U2Q2fTw7t+CDNWQlvx1FzNW+C37NqZS0kHrHuq6pPO1og2/AjIomExFjSaJeCmTAmEB3gEvNuwmxX2ok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k61Izvj0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hR4ztKJ0; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Tn+TP6o/"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CFiK5u664557;
-	Mon, 12 Oct 2026 15:56:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=p/1CbzogE0uACzgyIvPXejRWL13emiWfqsLVrwpn6
-	GI=; b=Tn+TP6o/btBIZeYx3WfiSfJBoD8M5tV0sgOnrNil4ROibISpZLnabz2eM
-	gnftgXAPMvpTL5+AgcO2ubNNHTWDynt7ZI8ZreKsV2iqNFycfdPXZ/GLE1fqLsIk
-	HaN/c18+tRzkKyacSd08avNwm3z1Bmarmc9NRmdujiUnyF8QZuE+JnwPCuA5NWVg
-	BhWqn1DCzZy6WtW/iRWr5yV5vuowOCHYqpirWiep0JY7kXU97brTtKsPx96PsW2f
-	5tuZg7fdkulM+CsCGghCICN3TZ93J3ZJxmnjOX+4VTPkc7GvVgp7ltBbCIbp7eky
-	styTfn+Nu4IaUJc+mGrmSo7tBo7EQ==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1w1ch3-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 15:56:32 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CFo2Ga1519777;
-	Mon, 12 Oct 2026 15:56:32 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h80pjnv33-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 15:56:31 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CFuRB741091472
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 15:56:27 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A29FA20049;
-	Mon, 12 Oct 2026 15:56:27 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6719520040;
-	Mon, 12 Oct 2026 15:56:25 +0000 (GMT)
-Received: from sapthagiri.in.ibm.com (unknown [9.111.24.104])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 12 Oct 2026 15:56:25 +0000 (GMT)
-From: Srikar Dronamraju <srikar@linux.ibm.com>
-To: linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: Srikar Dronamraju <srikar@linux.ibm.com>,
-        Samir Mulani <samir@linux.ibm.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH] pseries/hotplug: Add CPU-to-node mappings for all present CPUs
-Date: Mon, 12 Oct 2026 21:25:49 +0530
-Message-ID: <20261012155549.557256-2-srikar@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k61Izvj0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hR4ztKJ0"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CFf8uE2420197
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:57:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	xAdX75WRt1z0l9J+6glmJ42BYc183LpaLtY137AuQhY=; b=k61Izvj09J1i+SqK
+	8HOyPyrhPWM5o48Xpp6VeHi1PN1kYW5jrd0j+Jkikj6pN32BBLCcAaT28WenGhpv
+	x0xr9UvGcaQesmhxzHOo9bD+hWqAjJqOAjoPJFkN+E1XvfPw0AjopP2Lih5l1O+m
+	o+g76c78MrXjaQq7X4K7ap6iIL21bjJ7nZtDLfIx8LF4XU6e/UVAw5uhuwNHLRM2
+	8ISjJNCceqoWLDqgZr22Vio9NZuJG+CLfKSRDG7Si4ENxvye0oHL5c8vCvVUshC4
+	N60mgs+dUv7Nesz4+tZBOE8oE/FYAmCLjjBPktR/52wEEqGCYNo73tDU2r4/n4Fz
+	JDrxnA==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8qtkk15q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:57:07 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3515266f6eeso3855935eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:57:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791820626; x=1792425426; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xAdX75WRt1z0l9J+6glmJ42BYc183LpaLtY137AuQhY=;
+        b=hR4ztKJ0gKdfczhDhR5sogI67YlU4V/6P6iktyfBxXPZcqgXKfqenL0HRmLtyDdT9B
+         vP2pRUVxt/OweAYeg+UVU6InLQHurrPg/zt2+LkOQywUxrp71t9yadULwlkvGERbqGY4
+         Bnt6QbSk2fJfcZRH91Rq+XPR/F/aRoGDED//GaEhodwGJ/UhkVJjqNTj2Lm9bqbYOP4j
+         KIfGMM9M2F77B25nKghnLKKJ6Tc88hEKx+G1YWTJrmK0cVWn2OA2Nrby0JMpkUOG0a0p
+         SQbAn9r0pR1KYNslfcc7quP9DDbVhdOBI5MSDtaKKR+AMTE1wPBmN7i0yuFM4OU/438I
+         zxaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791820626; x=1792425426;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xAdX75WRt1z0l9J+6glmJ42BYc183LpaLtY137AuQhY=;
+        b=P0gYjGdlzEPQDyx0uvgNpm6OHsXzypKnjzI73I0SjUgOF2mJKrLtLL/VhvCtmOFH49
+         FzQriOfWLRuAfY/YkqFwRDctcloSdDxskJgjnp+lUAClLnc7GGDEeH4kdzi4AKBMmopl
+         h9XABT1klBjA7jAzKLuNKaGRP2dxwfKRsvnbTFB6QXvHj+yyv2KLU2L38oKIAb+xZjzT
+         fhTBR6PgKO84z6rguyE43FMYmEA3jGIn9/bYgMSPCtFssUpJziYmJ5GdM0LeAbrzeGKN
+         lfNvdiGRRMBRCRFTSt7byFbtkmDiMx45bsX7+IhkA8ylpJDJdtyBtpECFe+Ba7zQ+sbh
+         GUFw==
+X-Forwarded-Encrypted: i=1; AKwUvBx7zrj8uPvxRJI7ZBdCMvtQeHsgCB2Gq4JGSJrfINwplA4Hegp7SgNvazkHKlxnTejiTLgRQ85QVRBoHzk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNrklWKHX8DL6TTksWcC6K6So/UR4fXPDJvlB5u6Nw4FvvMp7t
+	ze/YSdlQrSmJD2N0l3+5vNNQaNQ8mbyUX/nlRfQIgBkdeBYR+RSnUoycuFOZYuKDHAT/Me4yu1q
+	GSfgVzZNastqM9eh64CNKnR3z2NB2Tw6JuvUB1UEri825wowz3Uyq2EnKMMcI0ZZ4FRY=
+X-Gm-Gg: AYBFou2cLqyidau5lB/90IitIfKSTZWgleURHRPwAvcD2NgG5pzPpOySZN5FWh4qIWu
+	mql+VEuExLN9zZz+pYFrg8LaWUsP/nmWjzJBPB22zLiHW2m+AS5mQsiXFtTm/Cf//OQRNlojsJd
+	UEX8Fv2ODdWRuabJZZg8eZKuIWLkwck3+ALi0pC/jzjGGu+Rr9loTFdbTLluobRxPTbKGGVKmO2
+	xERBtMJO9SD2WEahkAIJ5fNnN6Jpr0ytX5KBvU8MF67PIB6F7f//3MnTOeF4ailGV03m4lfr2E6
+	Vwgm/+pxR1RVMS6fB61u5T62xKZh0A3RbM18r1OtaVKhEtlaSL0XaKErhUgR+3f/S4i13hWAVHj
+	B5YSfrxcPv3aAOjVOPViqSdgF2tyrBGZonfKvO3CPZ+U=
+X-Received: by 2002:a05:7301:4546:b0:343:ff9f:26f3 with SMTP id 5a478bee46e88-3537e033fd4mr12292583eec.9.1791820626094;
+        Mon, 12 Oct 2026 08:57:06 -0700 (PDT)
+X-Received: by 2002:a05:7301:4546:b0:343:ff9f:26f3 with SMTP id 5a478bee46e88-3537e033fd4mr12292555eec.9.1791820625436;
+        Mon, 12 Oct 2026 08:57:05 -0700 (PDT)
+Received: from [192.168.11.106] ([124.123.80.135])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-353814b556esm39386183eec.18.2026.10.12.08.56.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 08:57:05 -0700 (PDT)
+Message-ID: <193ecf72-5e41-4106-9cd7-8ba287642148@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 21:26:56 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2MiBTYWx0ZWRfX8/J/iEy6BizF
- o+6DEht232O1fnlVTTqDkYnrX2X1rLQAfeVYV+k8qOKKRj9Nn/Nxnh80hxKUL07zBhIStiafIg3
- 8pOd1JIyMOJwMUmhVKFMpx0A6UxgRKI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2MiBTYWx0ZWRfX92xShyhueUe+
- HzHIV5dWQG9Sg1kQIO4HS5L8rjbjYzTXLfNuPFC06BhxkhpZor+x3KdlDrshKihsFsRP8gq1D2m
- 3vtIbYx0EZTyE4n2hGWCB2YQozWGsCOT0bGwkk39apVkU7RqCNRzHvo0QKADDBqRXcMFZD88MPJ
- 1UaO24NU4DH38icehm89aESUo+UtrywpuqOCtLNVGGTfFnCFCABIlmNyEZrY4AOH1RXmMeEd+y2
- 4ksjIDzWMpeNVL+ZMrV00Q4A2BDazuV7BJm9VAB3+mBBP1QKHPYglD9BQpuZlb+N6YZp0NuarLd
- aiQciVjqZBDPa1LvpL9v50nFbMYRGIt+s1VRafyw92CEe3bZr5xFshimZfisqY5AbKUqtUQOoHC
- rWS92EEU7UcsU9il01mloiFBAtj+DQZ7jiVLlSH1LJmErb+wptUCqr9RXaT13+Lmz8PH6yebW6v
- rWcITSb7IErVH4nK8gw==
-X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6acd0330 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=1fnlYXJgojCpgBqSObwA:9
-X-Proofpoint-ORIG-GUID: J2EDGii9-ZfR0zQNa_vMe303D77Np5XZ
-X-Proofpoint-GUID: kCoXKPNGlw59eoCCDhnc01PEroamWMBE
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/5] wifi: ath: avoid IDR mutation while iterating
+To: Jiale Yao <yaojiale02@163.com>, Jeff Johnson <jjohnson@kernel.org>,
+        Kalle Valo <kvalo@qca.qualcomm.com>,
+        Michal Kazior
+ <michal.kazior@tieto.com>,
+        Shashidhar Lakkavalli <slakkavalli@datto.com>,
+        Bhagavathi Perumal S <bperumal@codeaurora.org>,
+        Karthikeyan Periyasamy <quic_periyasa@quicinc.com>,
+        Govindaraj Saminathan <quic_gsamin@quicinc.com>,
+        Sriram R <quic_srirrama@quicinc.com>,
+        Carl Huang <quic_cjhuang@quicinc.com>,
+        Vasanthakumar Thiagarajan <quic_vthiagar@quicinc.com>,
+        Wen Gong <quic_wgong@quicinc.com>,
+        Ramya Gnanasekar <quic_rgnanase@quicinc.com>,
+        linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+        linux-kernel@vger.kernel.org, ath11k@lists.infradead.org,
+        ath12k@lists.infradead.org
+References: <20261003092104.520135-1-yaojiale02@163.com>
+From: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20261003092104.520135-1-yaojiale02@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2MyBTYWx0ZWRfX/3qS7NtMpNRe
+ yhe0Gx3AqfNANjZmGo31L4JysOaqpZRo1xjasSTQ3du3mABO4WHQuviBc47XwQf3Kg9s7l7uPp9
+ uWQBWyyq6lsQrKRLJBNGz66QxhRrunXMAFg5p8emOmaJEMDdXF4rJZBDecbyKE3pdgCa/MVuznx
+ pXsThBsv1Ml+s1/Ged7VWRUszwRpVuH9HYxXVKFUEcqmA4ISqJPyLeX24xzhrSuvaAr387GmHIw
+ 1mwCRa/oqlKTfFAwL8eAtef+XK04iZY4v2sYsuF5AfvLSwIgMbBOpT8R54Y3x2co1THQZ0y21Ko
+ qzMt/1+dHjnl8RtBUjFSREVzmsKJeEKwPh0UD8wsxI3bgt4oqpqklT+kWMsqzmNW8PkRb1Tbhgr
+ ZjbcbWM0NESXBQLwlzxTuy3iYqwNkyAZBi9qWYuM8UdMdClhqnP0g1MKOxTFHBfQEhhDZMarJwZ
+ mmFCRbgh9jXD0NfbUyg==
+X-Authority-Analysis: v=2.4 cv=c8U+0h9l c=1 sm=1 tr=0 ts=6acd0353 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=kllYWVK2JqQtNyhMtAlpJw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=2dOy96dDxX5ttOVY4VAA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2MyBTYWx0ZWRfX71+v0SOoHJvG
+ Ts8YUaGlYY6xxMak8JPYKgktYfKWQMGQUAoYAa4bksDLo0EVgTy7Dh2QUptj0X88Yus9+uRtdzy
+ 7LtJhmt25hvdML6PhDZQIl7GMkZkWPk=
+X-Proofpoint-ORIG-GUID: 3U5t7hSVsXTVSf275i7xn6e2KJDztWKn
+X-Proofpoint-GUID: 3U5t7hSVsXTVSf275i7xn6e2KJDztWKn
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-12_05,2026-10-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
- spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ phishscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 clxscore=1015 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120062
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120063
 
-When cores are added while the system is running in a lower SMT mode,
-some threads of those cores remain offline. Moving the system to a
-higher SMT mode later fails to online those threads.
+On 10/3/2026 2:50 PM, Jiale Yao wrote:
+> The ath10k, ath11k, and ath12k cleanup paths walk an IDR while removing
+> the current entry. idr_for_each() retains radix-tree iterator state across
+> the callback, so that removal can invalidate the walk.
+> 
+> Use idr_for_each_entry() in each cleanup path. It performs a fresh
+> idr_get_next() lookup for every iteration, allowing the current entry to
+> be removed safely before its skb is released. Keeping the existing locked
+> removal helpers also ensures that a concurrent TX completion cannot find
+> an IDR entry which points to an already freed skb.
+> 
+> Changes in v2:
+> - Rework the ath11k and ath12k pending management TX cleanup patches to
+>    remove each IDR entry before freeing its skb, as pointed out by
+>    Rameshkumar and Jeff.
+> - Use idr_for_each_entry() for the pending cleanup callers instead of
+>    leaving freed skb pointers in the IDR until idr_destroy().
+> 
+> Jiale Yao (5):
+>    wifi: ath10k: avoid IDR mutation during TX cleanup
+>    wifi: ath11k: avoid IDR mutation during pending mgmt TX cleanup
+>    wifi: ath11k: avoid IDR mutation during vif mgmt TX cleanup
+>    wifi: ath12k: avoid IDR mutation during pending mgmt TX cleanup
+>    wifi: ath12k: avoid IDR mutation during vif mgmt TX cleanup
+> 
+>   drivers/net/wireless/ath/ath10k/htt_tx.c |  7 ++++-
+>   drivers/net/wireless/ath/ath11k/core.c   |  3 +--
+>   drivers/net/wireless/ath/ath11k/mac.c    | 33 ++++++++++++------------
+>   drivers/net/wireless/ath/ath11k/mac.h    |  2 +-
+>   drivers/net/wireless/ath/ath12k/core.c   |  3 +--
+>   drivers/net/wireless/ath/ath12k/mac.c    | 33 ++++++++++++------------
+>   drivers/net/wireless/ath/ath12k/mac.h    |  2 +-
+>   7 files changed, 44 insertions(+), 39 deletions(-)
+> 
 
-For example, on a system with four cores:
-
-  1. ppc64_cpu --smt=off
-  2. nproc
-       expected: 4
-  3. ppc64_cpu --smt
-       expected/actual: "SMT is off"
-  4. drmgr -c cpu -a -q 4
-  5. ppc64_cpu --smt
-       expected/actual: "SMT is off"
-  6. ppc64_cpu --smt=8
-  7. ppc64_cpu --smt
-       expected: SMT=8
-       actual:   SMT=1: 4-7; SMT=8: 0-3
-  8. nproc
-       expected: 64
-       actual:   36
-
-Post commit d1099e2276df ("powerpc/pseries: Honour current SMT state
-when DLPAR onlining CPUs"), when new CPUs are added, the CPU-to-node
-mapping is currently updated only for CPUs that are immediately onlined.
-CPUs that are made present but remain offline due to the current SMT
-mode therefore do not get a CPU-to-node mapping.
-
-When those CPUs are subsequently onlined after switching to a higher
-SMT mode, the online operation fails because the required CPU-to-node
-mapping is missing.
-
-Update the CPU-to-node mapping before applying the SMT restrictions so
-that all newly present CPUs have a node mapping, including CPUs that
-remain offline in the current SMT mode.
-
-Fixes: d1099e2276df ("powerpc/pseries: Honour current SMT state when DLPAR onlining CPUs")
-Reported-by: Samir Mulani <samir@linux.ibm.com>
-Signed-off-by: Srikar Dronamraju <srikar@linux.ibm.com>
----
- arch/powerpc/platforms/pseries/hotplug-cpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/powerpc/platforms/pseries/hotplug-cpu.c b/arch/powerpc/platforms/pseries/hotplug-cpu.c
-index bc6926dbf148..b5dc942eec63 100644
---- a/arch/powerpc/platforms/pseries/hotplug-cpu.c
-+++ b/arch/powerpc/platforms/pseries/hotplug-cpu.c
-@@ -402,6 +402,7 @@ static int dlpar_online_cpu(struct device_node *dn)
- 			if (get_hard_smp_processor_id(cpu) != thread)
- 				continue;
- 
-+			find_and_update_cpu_nid(cpu);
- 			if (!topology_is_primary_thread(cpu)) {
- 				if (cpu_smt_control != CPU_SMT_ENABLED)
- 					break;
-@@ -410,7 +411,6 @@ static int dlpar_online_cpu(struct device_node *dn)
- 			}
- 
- 			cpu_maps_update_done();
--			find_and_update_cpu_nid(cpu);
- 			rc = device_online(get_cpu_device(cpu));
- 			if (rc) {
- 				dlpar_offline_cpu(dn);
--- 
-2.43.7
-
+Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
