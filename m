@@ -1,101 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-138.mta0.migadu.com [91.218.175.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5DB348C7C;
-	Mon, 12 Oct 2026 10:40:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B46F3B8D78
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:41:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791801643; cv=none; b=m6GSwdiBRx2J4pcGcaffch+AironYzY4e3TWyso0SiAaULwKa235YMJCHkbe1EKkLywTBFThMUmdTvpW0FX2WwkPQf7iFU/5ETyD5D26BIuIscrKM1ZXNi6j05gtpU1aoZAUHcBeoaT/hnTirKbzr4ADlQNVJKwyLrQF/++nxno=
+	t=1791801706; cv=none; b=IWqq18Brbokx4X3FnwLVA1LYj6opOWMfxvK7pU1CO7lr2nMrQrhDLzAamjdZ6NGtLuJ1GeVGDWQ+7n48Xrg/qkEAH5Puk5WyKkjPeh360WPAlE64vsb1H2GJcYN47qLiwsJ3+0rELHF3Ydqj4nvwjVtGF9sw48KFKpHAi+vdA9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791801643; c=relaxed/simple;
-	bh=0lqlHCY1i9/hvpDM/SFAMnNmI36PW0atq9twP1Ql5UU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=qsxptKN3xohcNP64E1j/SZDc7fKXHDG7Fbt0qWO1Ct5XgHrZsgOgGeZvHWWu5xMoqfQzti6IL5qRBk6xsQDiekUm0kiHe9xMnVoHumdpySJde/sk016bttKHUFLfeiyrGme1kI+Ere6g0MqvlnyOCUNjKCgQoniDCIE8yXhJpSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HrZ+jots; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791801706; c=relaxed/simple;
+	bh=o7z/TFALTSJlm+e+II+Xl9VTyQplqTg1c1dDpe0CTRQ=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=bmlrKW5rkyns66Nat9dM6hblYqYJoNx70HmWlPtMYeinsRVvIClpx33hTTX0ZSso6r4NQD/2umLs23UNP/v6QlGRLN1XzqdyJHTChiBAjfVBxcNT4mGTG/nmNKIHk0yGFg3/LV8Lh7qbjQnkd/3z8+wo714fkE5SKFYRy9jU4X8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wGJqlQqM; arc=none smtp.client-ip=91.218.175.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HrZ+jots"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EED301F0089F;
-	Mon, 12 Oct 2026 10:40:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791801642;
-	bh=0lqlHCY1i9/hvpDM/SFAMnNmI36PW0atq9twP1Ql5UU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=HrZ+jotssrXgtMm9Lrf2S7dF6bwHiq+8xfu35AQgvaxE4bPrMAoDE3mfC489K01EI
-	 3qXYKxAAB20DNFQpVx5Ht06Dkkl3A4X0NDlzjalz2YghWjCFPOWIVZ5OhnPxRQVi05
-	 +5/rAKxPYK8LF3F+MiM693CZ3UtfqzLpa3DOyu9eHqg5N0rL80MaxaOg3NaUkAFl7M
-	 Zd8ZiwNhQj+eXG87WKpri264X9Nsuh0MTigI9mpqD1B4P67URIWjmQ+WTfjHDQzktI
-	 gqakU7RXHGxKymjvJZLJOwsLfe1SHTkH0favxB6VT4Qoc9BSrtEILhIuMTDa4dY/WR
-	 uSCBVpM+w8zmQ==
-Received: by alrua-x1.borgediget.toke.dk (Postfix, from userid 1000)
-	id 54EADA8936A; Mon, 12 Oct 2026 12:40:39 +0200 (CEST)
-From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@kernel.org>
-To: Tariq Toukan <tariqt@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>
-Cc: Alexei Starovoitov <ast@kernel.org>, bpf@vger.kernel.org, Carolina
- Jubran <cjubran@nvidia.com>, Cosmin Ratiu <cratiu@nvidia.com>, Daniel
- Borkmann <daniel@iogearbox.net>, Dragos Tatulea <dtatulea@nvidia.com>, Gal
- Pressman <gal@nvidia.com>, Jesper Dangaard Brouer <hawk@kernel.org>, John
- Fastabend <john.fastabend@gmail.com>, Kees Cook <kees@kernel.org>, Leon
- Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- linux-rdma@vger.kernel.org, Li RongQing <lirongqing@baidu.com>, Mark Bloch
- <mbloch@nvidia.com>, Richard Cochran <richardcochran@gmail.com>, Saeed
- Mahameed <saeedm@nvidia.com>, Shahar Shitrit <shshitrit@nvidia.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Tariq Toukan <tariqt@nvidia.com>,
- Adrian Moreno <amorenoz@redhat.com>, Michal Schmidt <mschmidt@redhat.com>
-Subject: Re: [PATCH net-next 0/2] net/mlx5e: Batch RCU grace periods on
- channel open and close
-In-Reply-To: <20261011133212.807979-1-tariqt@nvidia.com>
-References: <20261011133212.807979-1-tariqt@nvidia.com>
-X-Clacks-Overhead: GNU Terry Pratchett
-Date: Mon, 12 Oct 2026 12:40:39 +0200
-Message-ID: <87cxtfqk0o.fsf@toke.dk>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wGJqlQqM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=o7z/TFALTSJlm+e+II+Xl9VTyQplqTg1c1dDpe0CTRQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791801702; v=1; x=1792406502;
+ b=wGJqlQqMsdZOMq56XaNmrtXIwxLEByk9RdEgwP5EhIe52Tpqp03JM+nZ7C21os3+OVoeCkN2
+ Qmr0rRNgrjAtfAkqaJMWr/upSeXUjDgl+gDqmfNHgXbp14kDLvt4R887YW2rF2aZfXSAlgunUN+
+ zl3gEV9GauzonXkAl89ziK6o=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7dfb80d8a1407487;
+	Mon, 12 Oct 2026 10:41:42 +0000
+X-Mizu-Trace-ID: 7dfb80d8a1407487
+X-Migadu-Flow: FLOW_OUT
+From: Zqiang <qiang.zhang@linux.dev>
+To: paulmck@kernel.org,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com,
+	urezki@gmail.com,
+	boqun@kernel.org
+Cc: qiang.zhang@linux.dev,
+	rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] rcutorture: Clear cbflood_max for tasks-rude and srcu-atomic testing
+Date: Mon, 12 Oct 2026 18:41:34 +0800
+Message-Id: <20261012104134.16268-1-qiang.zhang@linux.dev>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Tariq Toukan <tariqt@nvidia.com> writes:
+When running the tasks-rude and srcu-atomic tests, the fwd_prog_tasks
+kthread is created because the default value of fwd_progress is 1.
+however, the two RCU flavors not support ->call():
 
-> Hi,
->
-> This series by Carolina reduces the time mlx5e spends waiting for RCU
-> grace periods when bringing an interface up or down with many channels.
->
-> Today the channel open and close flows call synchronize_net() per
-> object. On close, RQ, ICOSQ, TX SQ and NAPI teardown each require a
-> grace period, so the number of waits scales with the number of channels.
-> TX SQ teardown adds a wait per traffic class, and XDP and QoS can add
-> more. On activation, mlx5e_activate_channels() triggers the ICOSQ of
-> every channel, and each trigger waits for its own grace period. With a
-> large channel count this makes link down and link up slow.
->
-> Patch 1 batches the waits on channel close. Channel deactivate and close
-> are split into pre_sync and post_sync phases: the ENABLED state is first
-> cleared on all queues of all channels, a single grace period is awaited,
-> and only then does the teardown continue. NAPI instances are likewise
-> unlinked with __netif_napi_del_locked(), followed by one
-> synchronize_net() before the channels are freed. The existing per object
-> synchronize_net() calls are kept for single queue paths. The change
-> touches the regular channels as well as the PTP, QoS and XSK queues.
->
-> Patch 2 does the same for the ICOSQ trigger on activation: all channel
-> ICOSQs are first marked as requiring locking, one grace period is
-> awaited, and then all of them are triggered. mlx5e_trigger_napi_icosq()
-> keeps its existing semantics for standalone callers.
->
-> Results with 248 channels and rcu_normal=3D1:
-> - ip link set eth2 down: 10.183s before, 0.715s after.
-> - ip link set eth2 up: 3.095s before, 1.794s after.
+1. tasks-rude: commit b428a9de9bba ("rcutorture: Stop testing RCU Tasks
+   Rude asynchronous APIs") removed .call and .cb_barrier from tasks-rude,
+   but left the .cbflood_max = 50000.
 
-Nice! Thanks for tackling this :)
+2. srcu-atomic: srcu_torture_init_forbidden_apis() sets ->call to NULL
+   for SRCU_READ_FLAVOR_ATOMIC runs, but leaves ->cbflood_max untouched.
 
-Don't know the driver well enough to comment on the details, but in
-principle, emphatically:
+In both cases, the non-zero ->cbflood_max fools the check above into
+creating the fwd_prog_tasks kthreads, even though those kthreads cannot
+possibly carry out any forward-progress test:
 
-Acked-by: Toke H=C3=B8iland-J=C3=B8rgensen <toke@kernel.org>
+1. The rcu_torture_fwd_prog_cr() returns immediately due to cur_ops->call
+   is NULL:
+
+[   68.022674] rcu_torture_fwd_prog_cr: No ->call(), so no forward-progress test 0
+[  129.462046] rcu_torture_fwd_prog_cr: No ->call(), so no forward-progress test 0
+[  190.902123] rcu_torture_fwd_prog_cr: No ->call(), so no forward-progress test 0
+[  252.343809] rcu_torture_fwd_prog_cr: No ->call(), so no forward-progress test 0
+
+2. The rcu_torture_fwd_prog_nr() is never even invoked, because its caller
+   requires cur_ops->stall_dur, and neither tasks-rude nor srcu-atomic
+   provide ->stall_dur (only rcu_ops does).
+
+Therefore, creating fwd_prog_tasks kthreads is pointless, this commit
+removes the .cbflood_max from tasks-rude and clears ->cbflood_max in the
+srcu_torture_init_forbidden_apis().
+
+simple verification output:
+
+[    3.062959][    T1] srcu-torture: rcu_torture_fwd_prog_init: Disabled, unsupported by RCU flavor under test
+[    2.922323][    T1] tasks-rude-torture: rcu_torture_fwd_prog_init: Disabled, unsupported by RCU flavor under test
+
+Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+---
+ kernel/rcu/rcutorture.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
+index 968343be4e0d..00db87256e78 100644
+--- a/kernel/rcu/rcutorture.c
++++ b/kernel/rcu/rcutorture.c
+@@ -723,6 +723,7 @@ static void srcu_torture_init_forbidden_apis(void)
+ 	cur_ops->deferred_free = NULL;
+ 	cur_ops->exp_current = NULL;
+ 	cur_ops->start_gp_poll = NULL;
++	cur_ops->cbflood_max = 0;
+ }
+ 
+ static void srcu_torture_init(void)
+@@ -1250,7 +1251,6 @@ static struct rcu_torture_ops tasks_rude_ops = {
+ 	.exp_sync	= synchronize_rcu_tasks_rude,
+ 	.gp_kthread_dbg	= show_rcu_tasks_rude_gp_kthread,
+ 	.get_gp_data	= rcu_tasks_rude_get_gp_data,
+-	.cbflood_max	= 50000,
+ 	.irq_capable	= 1,
+ 	.name		= "tasks-rude"
+ };
+-- 
+2.17.1
+
