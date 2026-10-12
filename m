@@ -1,196 +1,133 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B483A4F50
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791846702; cv=pass; b=uyfz15yVHCE7eTdnBOnG2kFQ5cU0iYs2S63KYJLua0ExMj9pD8izD4CCc6xaqziO10khggF8l0MsEjTE5Q6EXSO9qyHiJ1PI+O51EhL0isXW3gRwdfcQqIg5Ov5BXTsK42c1c/BUbxENBNXaHKAf32HOjS3BpOk2ZoCHugi9hHU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791846702; c=relaxed/simple;
-	bh=0I5bVHaxUWjp+7O8jDMkRiFwwFDI/695iS1DgzBz72s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rWioOil/o2StWtKBKlMh0heSMykjX37VxzrDzCiCfwOtmPA44LGw1RHADQlDVyO7KDHfcf0kLvtaOmDHC4MTjxTKFljLuoDFPP06FPLerDOmuSf1E26jPwULKSEJ3Bjb2Qt/JhdFfke9+a9uQOF7nEnIzAqWppg4FC7nkIlkc20=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vyRsoyoZ; arc=pass smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D313A4F50;
+	Mon, 12 Oct 2026 23:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791846723; cv=none; b=N4dgO+jsaZ9aGfcku6Vdr3OL3PYo1fT9RId7HPYXa8Hfwy4T8YCmhDU43HUZ+j+QzJAc8WVqUYCodxf1SP9Th6FVAYgQK6W8gnA8KhJ71ybBZuvuonf1Ds6uwfNQHgPh3OVGohFVRaLgGogOcXIj2Jps30Cvk/ev2nILtxnraFA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791846723; c=relaxed/simple;
+	bh=dEYLVVwN31rGY8Ihgme1LSkvpWcfA70OxDVxGpc1Q2Q=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eWhNJOR606qALg3k2AYfIw+vakdXa2qKUPf5bSFn/AtNDbjJ3Qc3a8d8waEro+cyaXD4yn7e8ewdiW6BX5lqgBw1hOIJGGMi8Z9eFzAvKmt2+0sNAaXiksdV5I/oFcqGLu7SIAxLhAWxPXt8WfLtYZBv76NM4xv0m1JO/EpDd6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SUtFbuhR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vyRsoyoZ"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-533202fe429so560371cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:11:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791846699; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZCmU48OzacnpIAWXNSiAWxD0iki+DJH55w7b6kzgTDx2ZeAd/gyH+0swfSrnAnUqfk
-         DbmFxzWNAJ86stTAWifOsVlr7q8QHDIqR6Ou3ZcYc6ogZh/3B9Srei9o/HaTF9ziKoSa
-         T4GPz2fhwFTNPMuwieG/GVEwfrSTO4zMs4QgQnzMGkKxRnMjxlLczB5sWmtx/WvwROmV
-         Z6rljfCKzIr53fcKP7Wf2zMXFoaQtdVd4kFErduxLZ+p4hKZv/lJZQfEdFeFdCG0Wb/B
-         I2/LswViO4lh6RLNURUdbi3am/ESWrUPXNddypdzqhrM2eKETSXIJGN9uo5Vrn+c1mzD
-         XW2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=u+bMsRouJZQukERfob8EiKwLyBg/G62Htpbl7G33MJs=;
-        fh=MEhas5FdfAVcM9YyMptfRBpIJz4ZgX7oQh+cweap1HM=;
-        b=gjfieYpuXXFMUfhbMuB7dqfkoywgp+RfgBagPTmPLosvh3S3k52sQ0L86wJzkX3or0
-         IcJVXYlBhZgIAW0AHHV8hbnB9ZrX+HXjnT/NqhsChSt8xKYpr7KQcYz9bxjwd9glxrqc
-         dGUOyaNqSN1J103tpR1Mv/gNrXOlgQI4ife+LXrQzHL0lFAfOnaHDwYHngK2ZrBom6ko
-         O0QM2x7nCA3Xuir3rHFlnQonwI6G5CvaRj8MTzUXIyYWUrsxES6Zr8g5irEnYdQ19LF0
-         f7mfmXmIPPdSIl4d+gFbja3627AX1KVa8l/NvnBP0hUwCKuHG8+2a/q85lZakGw50iSd
-         B+Gg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791846699; x=1792451499; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=u+bMsRouJZQukERfob8EiKwLyBg/G62Htpbl7G33MJs=;
-        b=vyRsoyoZGBOuJ4GEU6AIHLAIQZiddpBjMXQN5MLzKbW3f8ULrhdgNUgSjXTF4Sbblk
-         lSy3lAah82aSKt0DmKlmu/plRPf4DVqUkEJPS2x38WETl7bTCQwjrrZcixSBsz6gl5lf
-         bXItZzQ1nMInBrqA/I7p8Mfbzq/HezWTFqbPQNp2XdQeqKFUmlegmxE2b8NTfZ3YYWSU
-         7ZuzEm1N4PmKAWDngP1GrvMYdGThPU/TKZWL9tEJVDEeEWUIb+saVg5+og44m+OiJwog
-         rS7OstiKWu6/TY4hyDHDJKuBdYe1B2oMsfHle8KwbQ4clb1ba/VjMwEbtzQS1FrQe3JR
-         VADw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791846699; x=1792451499;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u+bMsRouJZQukERfob8EiKwLyBg/G62Htpbl7G33MJs=;
-        b=2GHYcPJKwepNWX94wjawN5jeol5OdRP079IrDf4Aoxy+81pCyeCqrKQNNFIKdhYdHA
-         wqdepWF6v5U+txXtweOQZyVqbRkRZXV9UeFwYwULGJ/6W2X7K3yGwDs8TKyE+8YL5sae
-         Vy+gL4wCOv4JeVg3KmT2Cqy8cTl6/6i6743WrK62c8uPxBT1yJzOiBU7/PrKifnz7KHV
-         7v+/jSQ1ZvWaKGBV03zwGOnYn+VBhgXAqGFaZyg9HOX+F19bD2uKPrJkv2T/Sf3/XqYj
-         F7HNd7X1MdLveheSdN3rMxr97CoPZTY0f1RypJEcwrzjLGlcggJ8cFws4N4GF+w4sSrX
-         x7ig==
-X-Forwarded-Encrypted: i=1; AKwUvBwXN5OC0uob/8MWZQZtwjlBhQsjBdh4IRLovyMycncSD8zdmhaWa09OT6kKx+SWGFZRGkavLUCrdJR6nyw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK4l9tA2Auz7qbvotqf1GPySbdYHOfvV/CgYiCvPwA3b5E7uqyy
-	IJ3oh5F5MvO2H5pfnxZnLyLLMj2+G20fQZOLm3Km1e1jrrKL1ZJrMhzuWpn5u/8Xnfc5s+YIawn
-	J9urX6CFmhRKzr5z4yIaBJomo1lnwloSKEDsOgz3WB6E1JtZG2NAMBkney18=
-X-Gm-Gg: AYBFou36MPzXQZnlNmJCSTk8H1pABCWDl5oVbRPC+0GFDo8wrsM9Wuij3Hxp9uVql20
-	QM0R5VapS8c6f+NN7ujPnrLytdrOnFjP624eCBZtrOwVNqxew/erUrtguNGgIqjEk19gwCJJHey
-	s5/846/+nBM7Ut/thEOD3NWWpxOH1oMI41Ubv9bZgCQOpchbsxHnUhg67SLoYqzHVsKV/fpbvQT
-	oF0gKFtzZg8KDL9T7iYDzHoCq6P2WiV28TBLsnX4li1+4bbSMAR45UNj+yidXVtmIMZK1vpkt2c
-	lmfC7QXnvYK6ER35yucBR7wip8oE1f3BsXU1ONF1hbNVSWUXOmmpiEIPx75D6qYF5SfVzKu6hCK
-	rxA10ABas7g==
-X-Received: by 2002:a05:622a:1f0c:b0:534:b7b2:634f with SMTP id
- d75a77b69052e-535b4eca219mr39913141cf.8.1791846698966; Mon, 12 Oct 2026
- 16:11:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SUtFbuhR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85B6C1F008A1;
+	Mon, 12 Oct 2026 23:11:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791846722;
+	bh=sYxVPNTghx5Je+xlIpNxnYqdjbFjSIOMojl5QUCm+O4=;
+	h=From:Subject:Date:To:Cc;
+	b=SUtFbuhRrgY3EzT2RpzpPWl4i7q9C1SoXxYQRzAeXjAPJT6n3qMww7SQlGNlnHGwc
+	 T06xmK1SHOB9uvl/Q29uasa/i2GJVTw7s486WqtnoXMXCUIO4KuJFP+1AjBG7ZYTqW
+	 0fVJGz43cBnzeKsPKQfAVYPOiFgaDj72nO5rWtWNQ8gvZ7uswKd04qSAfSJcao3kAr
+	 KbJeu3rALQ1FL+vf5wdAxI0mTQ7Lzu0znilHqr2168/+u9eJeuFrz1uai37ZNO0pnm
+	 g1DVZvFoolBBhe3FlfCMiLIFq1tfPRQQDGdo07XzQEIYbGXWJZ6mOCJ/h6wobBBZwh
+	 UPVyl5K+hrdtQ==
+From: Mark <broonie@kernel.org>
+Subject: [PATCH 0/9] kunit: Add KUNIT_CASE_PARAM_UNIQUE() and
+ KUNIT_CASE_PARAM_WITH_INIT_UNIQUE()
+Date: Tue, 13 Oct 2026 00:10:10 +0100
+Message-Id: <20261013-kunit-param-names-v1-0-4b22ec5b85b9@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012053013.14378-1-namhyung@kernel.org> <20261012053013.14378-4-namhyung@kernel.org>
- <CAP-5=fW1SSoyGKjaujZewF=b3rJ-0vp4kJ-friWNzOQWk+ki5A@mail.gmail.com> <as1n8CgDZxYlQkSK@google.com>
-In-Reply-To: <as1n8CgDZxYlQkSK@google.com>
-From: Ian Rogers <irogers@google.com>
-Date: Mon, 12 Oct 2026 16:11:27 -0700
-X-Gm-Features: AclHuK-HHukluNicUj8GP7CFFxMUgqf9ZaEpkGApcagQdUXfvb0VwJu2TGe3iKw
-Message-ID: <CAP-5=fXeufoS36+660zMnWksONa8UzbUo_MXyVzDtSDXVnWbfw@mail.gmail.com>
-Subject: Re: [PATCH v2 4/4] perf test: Update PE file test for other locations
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, James Clark <james.clark@linaro.org>, 
-	Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANNozWoC/yXMPQ6DMAxA4asgz1hKws/Qq1QMwbjUrQgoJggJc
+ XdSOn7DewcoR2GFR3FA5E1U5pBhywLo7cPIKEM2OONaa6zDbwqy4uKjnzD4iRWHlnpbN4YqYsj
+ dEvkl+/18dn9r6j9M628E53kB/9U0h3UAAAA=
+X-Change-ID: 20261012-kunit-param-names-d6cb1450c3ce
+To: Simon Trimmer <simont@opensource.cirrus.com>, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+ Rae Moar <raemoar63@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Theodore Ts'o <tytso@mit.edu>, 
+ Andreas Dilger <adilger.kernel@dilger.ca>, 
+ Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
+ Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ Zhang Yi <yi.zhang@huawei.com>, David Rhodes <david.rhodes@cirrus.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>
+Cc: patches@opensource.cirrus.com, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+ linux-doc@vger.kernel.org, linux-ext4@vger.kernel.org, 
+ linux-sound@vger.kernel.org, Mark Brown <broonie@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3187; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=dEYLVVwN31rGY8Ihgme1LSkvpWcfA70OxDVxGpc1Q2Q=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLOZlrNvOXVHHe7JtPY7nKusE315pZzj1dxqv3O7+f/u
+ fPz1ltPO0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjARh88M/113PSvZL/WlwmTn
+ NLfmj6d3WSZ3XJj1rJAhwpiLJ/POjUiG/8muTN/i16ovPCpi7BzloHd1a3he3fJbDG+EjnZEBvD
+ 84AIA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, Oct 12, 2026 at 4:06=E2=80=AFPM Namhyung Kim <namhyung@kernel.org> =
-wrote:
->
-> On Mon, Oct 12, 2026 at 02:51:52PM -0700, Ian Rogers wrote:
-> > On Sun, Oct 11, 2026 at 10:30=E2=80=AFPM Namhyung Kim <namhyung@kernel.=
-org> wrote:
-> > >
-> > > The test__pe_file_parsing() expects the test is in the tools/perf
-> > > directory, but it could be root or a separate build directory.  Let's
-> > > update the logic to try other paths like in the shell_tests__dir_fd()=
-.
-> > >
-> > > Also add some debug messages to inform users why it's skipped.
-> > >
-> > > Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-> > > ---
-> > >  tools/perf/tests/pe-file-parsing.c | 13 +++++++++++--
-> > >  1 file changed, 11 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/tools/perf/tests/pe-file-parsing.c b/tools/perf/tests/pe=
--file-parsing.c
-> > > index 3979f38bf127c218..78dae7e43603b9f8 100644
-> > > --- a/tools/perf/tests/pe-file-parsing.c
-> > > +++ b/tools/perf/tests/pe-file-parsing.c
-> > > @@ -74,10 +74,17 @@ static int test__pe_file_parsing(struct test_suit=
-e *test __maybe_unused,
-> > >  {
-> > >         struct stat st;
-> > >         char path_dir[PATH_MAX];
-> > > +       static const char * const tests_dirs[] =3D {
-> > > +               "./tools/perf/tests",
-> > > +               "./tests",
-> > > +               "./source/tests"
-> >
-> > I'm not sure where "source/tests" comes from?
->
-> AFAIK it's set when you pass O=3D$(DIR) option when you build perf and it
-> points the source tree.
+KUNIT_CASE_PARAM() and KUNIT_CASE_PARAM_WITH_INIT() name the test case
+after the test function. Several suites reuse one test function with
+more than one parameter generator or param_init() function, listing it
+once per set of parameters, which leads to multiple tests being created
+with the same name. Same-named cases cannot be told apart in the results
+and cannot be selected individually with kunit.filter_glob=, so kunit.py
+--run_isolated=test boots a kernel for every entry and each kernel runs
+all of the same-named cases.
 
-Ah, Andi's change:
-https://lore.kernel.org/r/20240807231823.898979-1-ak@linux.intel.com
+We could fix this by having the KUNIT_CASE_PARAM() macros always include
+the parameter name but this would not only rename all existing users but
+also result in some awkwardly named tests. Instead introduce some new
+macros for use in cases where we need to disambiguate.
 
-> > nit: could we add the exec_path case to the list?
->
-> It's checked right after. :)
+Add KUNIT_CASE_PARAM_UNIQUE() and KUNIT_CASE_PARAM_WITH_INIT_UNIQUE()
+which behave identically to the existing macros but include the name of
+the parameter generator or the param_init() function in the name of
+the case, giving names such as sha1_test-sha1_gen_params. The
+param_init() function is used for the WITH_INIT variant since currently
+all the tests which register parameter arrays from param_init() all
+share the generic kunit_array_gen_params() generator.
 
-Right, I think you can avoid the duplicated logic by having tests_dir
-also have path_dir as the last entry. It'd mean always doing the
-snprintf but performance doesn't matter much in a test.
+The series also includes a fix for what looks like a cut'n'paste
+issue in the cs_dsp code that overlaps with the main set of changes.
+Most of the affected tests are in ASoC, though there are some ext4 tests
+too.
 
-Thanks,
-Ian
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+Mark (8):
+      firmware: cs_dsp: Run the wmfw payload error tests with invalid block types
+      kunit: Add KUNIT_CASE_PARAM_UNIQUE() and KUNIT_CASE_PARAM_WITH_INIT_UNIQUE()
+      ext4: Give the extents KUnit cases distinct names
+      firmware: cs_dsp: Give the control read/write KUnit cases distinct names
+      firmware: cs_dsp: Give the control cache KUnit cases distinct names
+      firmware: cs_dsp: Give the wmfw block error KUnit cases distinct names
+      firmware: cs_dsp: Give the bin file KUnit cases distinct names
+      ASoC: wm_adsp: Give the firmware search order KUnit cases distinct names
 
-> Thanks,
-> Namhyung
->
-> >
-> > Thanks,
-> > Ian
-> >
-> > > +       };
-> > >
-> > >         /* First try development tree tests. */
-> > > -       if (!lstat("./tests", &st))
-> > > -               return run_dir("./tests");
-> > > +       for (size_t i =3D 0; i < ARRAY_SIZE(tests_dirs); ++i) {
-> > > +               if (!lstat(tests_dirs[i], &st))
-> > > +                       return run_dir(tests_dirs[i]);
-> > > +       }
-> > >
-> > >         /* Then installed path. */
-> > >         snprintf(path_dir, PATH_MAX, "%s/tests", get_argv_exec_path()=
-);
-> > > @@ -85,6 +92,7 @@ static int test__pe_file_parsing(struct test_suite =
-*test __maybe_unused,
-> > >         if (!lstat(path_dir, &st))
-> > >                 return run_dir(path_dir);
-> > >
-> > > +       pr_debug("cannot find the tests directory\n");
-> > >         return TEST_SKIP;
-> > >  }
-> > >
-> > > @@ -93,6 +101,7 @@ static int test__pe_file_parsing(struct test_suite=
- *test __maybe_unused,
-> > >  static int test__pe_file_parsing(struct test_suite *test __maybe_unu=
-sed,
-> > >                           int subtest __maybe_unused)
-> > >  {
-> > > +       pr_debug("libbfd is not available\n");
-> > >         return TEST_SKIP;
-> > >  }
-> > >
-> > > --
-> > > 2.55.0
-> > >
+Mark Brown (1):
+      ASoC: cs35l56: Give the speaker ID pad config KUnit cases distinct names
+
+ Documentation/dev-tools/kunit/usage.rst            |   9 +
+ drivers/firmware/cirrus/test/cs_dsp_test_bin.c     | 222 ++++++++++-----------
+ .../cirrus/test/cs_dsp_test_control_cache.c        | 143 ++++++-------
+ .../firmware/cirrus/test/cs_dsp_test_control_rw.c  |  50 ++---
+ .../firmware/cirrus/test/cs_dsp_test_wmfw_error.c  |  72 ++++---
+ fs/ext4/extents-test.c                             |  12 +-
+ include/kunit/test.h                               |  41 ++++
+ sound/soc/codecs/cs35l56-shared-test.c             |   8 +-
+ sound/soc/codecs/wm_adsp_fw_find_test.c            |  24 +--
+ 9 files changed, 329 insertions(+), 252 deletions(-)
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+change-id: 20261012-kunit-param-names-d6cb1450c3ce
+
+Best regards,
+--  
+Mark Brown <broonie@kernel.org>
+
