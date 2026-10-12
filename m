@@ -1,68 +1,91 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012031.outbound.protection.outlook.com [40.107.209.31])
+Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16171392C29;
-	Mon, 12 Oct 2026 14:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3CF47DD51;
+	Mon, 12 Oct 2026 14:34:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.135.77
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815627; cv=fail; b=g7pfMxnBzK8+hPyn3rtpJ/g9TPTeqX6HDjU6K7wBRPpaprHIhYvJ7v3j8eaDDOwenkq6tuliN2MkUKd6+WI2zP9G56Kme3rf0QTppXvxfQL2jQif/uo8VUHwt2MICq9XwXfmw72wGIwEaAZNlGpPQ3iDujM4abcBRyjW7lzzsC0=
+	t=1791815664; cv=fail; b=h93sH49TwHe1xmG+Fz/QHDz6krhiPH46ujIgal5Qg6BQQ1dzz4lCyG8V8y+J8zkmq4V/sy7o9Z1MVRAcD0vOiCxF+FavtIXlpjLMaO16f1PhwKzx6+8FWlDDwEOvyQc8imFBbmTg2LzKDyqq90pDvjJviwc/mINir/duJtDKQSY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815627; c=relaxed/simple;
-	bh=W5namnO13NrYMd2t940bcaDLASKbXCm0e6teFk2Atwg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oyGwztpsxxgQZBJbS/Ygr9892BWSOrRxZGzZXqn/V/kq3qgXz5F9POimO1ulDXYnHiZGNzkehBZ0hv32umshKcWMYT7lDRlrb0nuYEbLW7zBW0iXin8rY5o3ax3vfJcQ2Mn4ota/f/6DJ8CBotxWm/9HAjW2DjFwDE9u+yO5qnY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GEN1TWym; arc=fail smtp.client-ip=40.107.209.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1791815664; c=relaxed/simple;
+	bh=HCjvzL+RUpbGZVHIc2JB4erCkPa4wB/0sSLxzPE5cRg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=tIIe2sodc5/XrIzWZcFgnda7csI9wjBIYoQPtUqwQ3XSjnRi/S75bKbFaHX/aC3Jw29+MEmjWcPDtX8GR8rg3olzukWeaXHvwj84WOcYipM8a1xoQrQyk4oIU7F7TzU+5D7im3iMufttcgVP2nJ7nRODo/ec0+q8+5OMJ2bPqyU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b=r6eLAaOw; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=ZwoEIAHH; arc=fail smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GEN1TWym"
+	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b="r6eLAaOw";
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="ZwoEIAHH"
+Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CDtZJa1795323;
+	Mon, 12 Oct 2026 10:34:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	DKIM; bh=AulEWHHe8qgszgIT9jFaZDH8L1UDOKIvpscEKLXJkjs=; b=r6eLAaO
+	w29DY2SFkyba3JH5p9xD4jjXqMakj2F+MzSUjy8/GzKN/H1Lj7XzHZJOF1RI0zVm
+	NfZc19emK7o4/ZvdBlHyVtfgn0d5bU5AkIIG9s2Mo9fUZrn0IAZzIcD1EkaWBZVJ
+	P/HHfkMM18kf4GQTJ6STgcQdXQbpaUChznMJ6ZDbqNjSQVDmDji78cIiyTQT1LZ9
+	j+xH/11SEk+DjH4Ne2Bdx/IKy6pH0gb91eCaHIR3lCFT1BmwHebsNuUv0/jU8SRn
+	pdEEIwg2nN4rJ4sHgx9Sy8ZfzVwl8fOOC/e82NoiRfkjPeCJW0nKLosMPAKJLnpU
+	XNkjsmkD6lrSBcg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=AulEW
+	HHe8qgszgIT9jFaZDH8L1UDOKIvpscEKLXJkjs=; b=ZwoEIAHH8tJB2/J0LkBiI
+	GPCX7r5Z42ZG87xaaAWWn78CYBBQE/f8Dbl1mTtW0UZRe3nh9prRUWVc186LOmce
+	MmQwsHZHeYAkuvEjBs1zZ67H4TdsppzJA5HCvGe//VO+mfpm0bySi8jLjZ+4Z6wX
+	NUQg7kW4o1bwZrGzlKqXC8KlWnrJrpXpBSSlJDZtWHPsJPyTcKdKrC/gdRRlaQaL
+	d8CXdQClSSKsygwt69Ch9Z10ZxbF4pKddOkib/S3oa8X3X0c9/ZqFA/s2SOtBBmV
+	pINJP3HrfrV2ugLQ42z0os5l5rRmp2biHXVfEOWUwbLmEOD/e7KbEO2WqyfOR8Rt
+	Q==
+Received: from sj2pr03cu001.outbound.protection.outlook.com (mail-westusazon11012006.outbound.protection.outlook.com [52.101.43.6])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4h90v5867k-2
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 10:34:17 -0400 (EDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dNCzvEpaIszQW3ah9Zr3OoVS3JOu2Dp+z066riiKHC35zagUjabMu28Wxsmug4mXqkIZtEwBlLLVMOYnsSTybqbVcQZmg6ptx2dUmY8E2O0hMHW+OKKlEzmeIpDms+LP81uc9wI0UrKS7jbP8BZs5gTrjVOSvrJKUhEP4fwZge07RO5dYa3dSK8CsI607JPgG1ufpmqesWVOG0uuwnrTwy2dmFZBAGxYD8yWr90q3nSgqWM0LphbWOuzmWSMu4A4JECKveiuziZSYbtSsUWv8tGQJc0odYXpPLjYN6luIEP3f1Im5oXiNdHuSfBsqW6CqL+ZOvO6sg3qLSjlexipgw==
+ b=t0sQlbsvdtOS2naTY3Q4xnYQT3cyiTVD8Q+itMrTtd/OS5LlgdAD12IkTRlJ64XLV24fn82+xDHXqz6lu0ZEYCODSG+igB9iC0h1l+3fZJ4wAEPRHdsnLL3oAiKarVGFtK5c2bxNIjVuqKScSvqwxJbfKrwyCiCAG1Eb49w86JE4OsA/1Pooi0QULc6IASf6rfwDXzDKQpWdXVoDg5gmzX4kjM/V9Vvr/hJtX7lcg+C6y6wNCD2BvEjfRVE5MFYT3w4pnuUXXaVhhPW34LHI8f83yMsVs2ZtjPrbf64cKOyH/2bcR1R1ttvwSRpTpng+nlgz5gvGX6I+Y31FfYfB8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6ITiMwsdR+THhAawOwB0YPNCgJZvaxIiioMf+gpAwgE=;
- b=K6Eyn9zhhhiER5BrUVm3IKT6g9ZWRv2R/vX+VDUqhE1veVHcmGWWjjk+WZM8u1/DB5oUfs7wLp1tGupkxvrAAOYFkuIkhySGQRI0QAHwVjb/x9VkfQ1Ju6dpG96GOawpJVeoW6Cs4+iEocTlOkxmsVRyUTCleIoTeCrxaPfYuTCzadLrXTQVrjT1o3f5JWvl91aQo2q2+53ClysVtHYJG9N1BntPpHbrV9WmOAIVINGssoBFKXnXtVJYjJCrQLeJHPpu5RvQnRaj2XIePg/U8dJscQUtorGE9wgtMvG2iAyJcXhay/2kNaIslYhTF9+r5lS53JLxXK0BW3GHEu8HdQ==
+ bh=AulEWHHe8qgszgIT9jFaZDH8L1UDOKIvpscEKLXJkjs=;
+ b=tqMqNLAzSOAQm8GaKGAPEYYtaWnLCvlJEu97668lS5fX/Cji0Tzsnnt3UMQp/JESxErGfGrllTSzz2FTw7ramxfLpDc3pZExbx9HcriZWAh10Ku6dly6y9wqlEq9YmGZXOmROVKH22l+gyIwGheIwfHTCnSHzqN0a0glgkOardfexpgfdbPdm3pukEANpr1k+BHQ6rP1V9MLWIe7ahxLKrXq+eAH/D3hbVwDkOlf1wdBoCiWhujnjH96JCaD6DJANSzKXan/QpLSHW9SiYqOn1zmY88uN4cOVLpYFkb1uQ+6LoNSQVUJEEEi2S7PJ2pyw1LkN7WqRa4aZs9HiFy30g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6ITiMwsdR+THhAawOwB0YPNCgJZvaxIiioMf+gpAwgE=;
- b=GEN1TWymX3pKArqlml7u246QP1EHuvhuTnjQWl5c6B0UX15Zqfty4zYcKUW53ATEIB91P94V7mDwSyT/Zv1Nqk8trwiJSGCuL38c2hj1EiRp8/4VKxFo2NcAmQTpLoO9lAcXlR7yy1WW2/UwFs3OhooIqUxzeUr3efbivXDzCN11/RW7BvQJWAeJWeZ5qdbSPMPGyTH6mT5iV9hGexZ/1jqz2BAMtnLAG1F9VEmkMszpma8oTVs14JIpuHUrdxA6U75Q1FtYIGOtEdxOqtF+Jhex809i6eG1gHUyy94pDxRlC2U/+7mZQexo3NAX1wVf4pWe5nYCYhuNZ7rIboEEYA==
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DS6PR12MB613404.namprd12.prod.outlook.com (2603:10b6:8:4f6::24) with
+ header.d=none;dmarc=none action=none header.from=analog.com;
+Received: from SJ0PR03MB5469.namprd03.prod.outlook.com (2603:10b6:a03:28a::17)
+ by BL1PR03MB6165.namprd03.prod.outlook.com (2603:10b6:208:30b::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
- 2026 14:33:40 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.016; Mon, 12 Oct 2026
- 14:33:39 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Rik van Riel <riel@surriel.com>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>,
- Lance Yang <lance.yang@linux.dev>, Kyle Zeng <kylebot@openai.com>,
- stable@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/rmap: don't discard lazyfree THPs at PMD level
-Date: Mon, 12 Oct 2026 10:33:34 -0400
-X-Mailer: MailMate (3.0r7032)
-Message-ID: <8B17F897-40BE-4834-8078-949DA951B46F@nvidia.com>
-In-Reply-To: <asy445BYRhcsGDE9@gremlin>
-References: <20261009-lazyfree-stable-fix-v1-1-70997958ef8d@nvidia.com>
- <asy445BYRhcsGDE9@gremlin>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MS-Reactions: disallow
-X-ClientProxiedBy: PH8PR15CA0005.namprd15.prod.outlook.com
- (2603:10b6:510:2d2::12) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Mon, 12 Oct
+ 2026 14:34:13 +0000
+Received: from SJ0PR03MB5469.namprd03.prod.outlook.com
+ ([fe80::2a19:76b2:e731:8c5a]) by SJ0PR03MB5469.namprd03.prod.outlook.com
+ ([fe80::2a19:76b2:e731:8c5a%6]) with mapi id 15.21.0496.015; Mon, 12 Oct 2026
+ 14:34:10 +0000
+Date: Mon, 12 Oct 2026 15:35:30 +0100
+From: Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>
+To: raffaele.tranfaglia@gmail.com
+Cc: Michael Hennerich <Michael.Hennerich@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        David Lechner <dlechner@baylibre.com>,
+        Andy Shevchenko <andy@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux@analog.com,
+        linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: iio: addac: adt7316: use dev_err_probe() for
+ ldac GPIO
+Message-ID: <aszvaazebS2NISxS@nsa>
+References: <20261011-adt7316-dev-err-probe-v1-1-27a4a8ac74f3@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261011-adt7316-dev-err-probe-v1-1-27a4a8ac74f3@gmail.com>
+X-ClientProxiedBy: MR1P264CA0095.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:3f::34) To SJ0PR03MB5469.namprd03.prod.outlook.com
+ (2603:10b6:a03:28a::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,333 +93,150 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS6PR12MB613404:EE_
-X-MS-Office365-Filtering-Correlation-Id: aafd9f4c-db27-4f1a-0235-08df286dcebd
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5469:EE_|BL1PR03MB6165:EE_
+X-MS-Office365-Filtering-Correlation-Id: 693ecef8-6f1a-4aed-689c-08df286de0c3
+X-LD-Processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|18002099003|22082099003|10067099003|11063799006|4143699003|261009223027099003|56012099006;
+ BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|56012099006|10067099003|11063799006|6133799003|22082099003|18002099003|261009223027099003;
 X-Microsoft-Antispam-Message-Info:
-	WMHu7cWvoBB9bz72L94bAzjBKULHfChD+o1jqDusLFbCtmNsLjwYD7qjMACFz1cA4tXpTxU8+a/85CVajo52Uwnb6P+4asRToVOYk0pMOy1qndEpbZR3ZGg3XdqLROIxylpdyMK835jbrCfqvMZcRhHCUsuH/fyICwVfhifKZvtGhaJVx4JOpyaxQnEqT0rUDyq38+SCcGtSQRb2E90Ec8PO/GuLYJA6GfgXqOJU3q/gRN/U/bc6FZWOeF5MFXMxFU2seOl3BK9vTli8mF71rRtSA8R76IWS5ilvoDwGy3eNMPf6EWgmdDDjKS5FPHAJ/62B6MJrrdG1C2atM8KBn9oauPZ2gsVrQ+rR56aboWBwfbXu+OUoy3ndDV1nPKbJD2j7hm9pkiiLyee52X2D4ek4hvaLw6eB2d+bzGJcxCcVdhsxf1COXJrla8p/lo2w5SSgE7PC8lOCDbNZvwDVcGt+KQOy32+hqIwP/SGUSfEViiErUVfDiy4E/5yV5sE+K5nmZ0LE9ifNWVlZo2b6TGhsTRVJydB5a0ooKPDMpBzy7Mw8DSc43px1l5jiSFb0AcQ6WMr72aKQdKviWiHLG0ga1MxOg5otFZc0oy+5Ujm5jbgAAdSnaz/rxHhi2+CFavIWSL4oSw8ZE9Gk/abh0xPrQkVoUGc8K2j3oDxrhqI=
+ FLRtrdl0XrMRovGTyHyBaEUXztcHDY2hS/zDrE0cklCM/vJcQO+K6roF1CGsPjmEdCZoFD0WhOkJA3oRRvoOmWkTU/or5zhFnYeacHkeMvDzFnHt7mArJKa4xG9Q9Sud+l2P0Y/1IO4eXM+93sejg+ClJKxdR5cgz7rTS6dhvd3D3DyVHQV2zu3t0l+srYYqlX4MnGB3XCSVygXp58qnQAbgg+e5anNVpmkyyt7vj3ncvGvzYimACdO4f8gm85gAkB7UECMfGrpsUwzmUbyBO6WmzcE1lnv1SbAWymAQx9QZxvhCxmA8f3vA8GatQ233m1MZg9Xj6MPOSQEWg2T+uLgsBEHAWA9jsFAVRWeF+e+ykYR7dZmJ4HDs+tEmWjRdg6FI/bYhCwOIFFr9XX5Q4OZVzsG3FucVY3KXv61HWH4109j8PC6HprWY/TsS5QeJp0dbmrkLLOAp7TFtKyq912IM8/CsR6WPWlHThzKh9wprT32rQNFVL912/NNI0Nvwkl1K8+uE/jK562VMYqoCb3uvswm5PZIt2EQqls+blk268ex8ekjAQbZYfMoCgozukFmBOvTSFnBE2YcYwXl4sBi+4H5KAEsZ1hhOgAab25fvocoX7WBGht9+DxB3c3JBO5kATBF7TCDJ1xp+heSjYkJmIuU7wE1LtjnusIq51CY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(18002099003)(22082099003)(10067099003)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5469.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(56012099006)(10067099003)(11063799006)(6133799003)(22082099003)(18002099003)(261009223027099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TnBvQlhMZkg2UFhrVVA3bUYzUnd5RG02SW8xeXJYQlRCZTVxZERwQnBKbytL?=
- =?utf-8?B?MGpEV051QzJ1YnN2REswR3FXYjIzRG90V0xrVGFhelVTd25LYURwazZHMVFG?=
- =?utf-8?B?di9tVnJOeVVUZHNpeUdoYnFCS3VaYnVQM2VFNUViWkFDTncreTlaYkNtNHFv?=
- =?utf-8?B?cGIwaXMzL3lCSlAreTErcTcxWXhEWWJDWHB4dzF4M3RnU2M3WTlIbGNmWXZX?=
- =?utf-8?B?U0JVbWs0ci9pMmh1NEY2ak1nZEp6dW1ic0EzdHVvMGpjSmRBWHA4TnJiK280?=
- =?utf-8?B?V3N5TnYvZHpSU3B6cElrWk9uYTQ0dm1JdVAyQ3pVQTB6dklzeUh4SGl3NjEr?=
- =?utf-8?B?eHVwUitmZ1psaDFZNTYrNm82bDlIMWNoMnNQZmVobFhUR0o2Y1czZmg0UDk3?=
- =?utf-8?B?Yi9McngybWYrcHdjR2F5YTR2T2Y3cG1Sd2l1aUt1eHJ6VXloaFl5TFZFZHha?=
- =?utf-8?B?Szl0b1pSOEdzRjJKUEZEeVYrQ0h3VDMzKzU5SWhSSGRjZllidHpqVWFNZDht?=
- =?utf-8?B?Ulk3ekI5MnVIVmdDQnBKRll3MHJ3UTErd1BheWpHVElUM2tkS3dsbGN4QUox?=
- =?utf-8?B?ZEpLZXFOMVRJbzlIVksxNkhaeXI3REhxMmczMjdTQ3I1UkpkdU1sRmE1aHNB?=
- =?utf-8?B?bkdKQlJnL1R0RzkwVFlnZi9waGN1TWNHRmY2R0dJTStsOTJ0RnRtNjkxOUJS?=
- =?utf-8?B?V3ludGM4YUFYNTE0VDZNMkNpYUlRaDYrdFlZeVRJcDkwV1kxU1lFZ2JqbkFr?=
- =?utf-8?B?SEIza1FEK2tiY3dyZWZ4OTFodTFhZUZSSlp5Y3YrRzYxbHFCU2I5aDNSeGpw?=
- =?utf-8?B?cGpwMnduMlpjRUJFS01JOFpmYnl4VXNUcGVEREE5MitubjBXblVWcmQxUmFL?=
- =?utf-8?B?RThqem9INVJTdC9nbGJia1BoWXp4N3NJQU04MEd3dlpleDlvV0hETnhNellI?=
- =?utf-8?B?RER5eUpKQXpGd21VbU1ZVjJaMDFPLzVVbVY3dmdFa1Yzd21TdXdWVnRZQ2FJ?=
- =?utf-8?B?cTN3dTlHcUo2Q1UzZVAzNnVQRUhtUmZiVEVlYnFzWDlyUHp1a2poNTIwYktV?=
- =?utf-8?B?MzE4RFM5VjNLMnEway9FRGY2ZStLRElveUVpKzk4TFYvZEM4QlJaTDdwOTZ0?=
- =?utf-8?B?cWFGNzFNZ3VHYlIxK2pFZGN4dnVqbmsrcVlocGpKbjNHWHNPRlNRQi9iNzNV?=
- =?utf-8?B?WUp2eERlQUdxRWhyWDFlb2pOTWNsNkhKbG5iWG1Mcm5aQkxXVXdFTFVJWTRF?=
- =?utf-8?B?OEovbVh2RVVOVDJEM0N4U09aZ1g0YUdWTjZERGFKZFFNenA5VDFsV2Zzak1X?=
- =?utf-8?B?YWNiVC9zYUVVVzFndzNSdmJkT3diTHZSSERoWmEyWU11V1BhVTlibkVYZkZC?=
- =?utf-8?B?YUlrdzlCNTUwWCtvSG4ySVlsVVMyQmN1ZmNOUlYwdHpFTDJsVjE3dk8wYmtG?=
- =?utf-8?B?ODVZYnBmZklxQStadXQzM2xvTmEwZG1MTWhlVVlkdFdQbEdqdHo1TlJRNTc1?=
- =?utf-8?B?SXhSUGUxck5sNldUSWFmMmVNZlNHVUFKUlNQVWVnb1ZUSDFRK3JoQlIxRXdX?=
- =?utf-8?B?OTdqSmMvc0FnMWFRZjhINVpEZ0VDeVZmdlZyckxucVNJdlJqZGdWa3owQ1hZ?=
- =?utf-8?B?YmF1ODZLWkR1YTA5ZWNoN1lzMXRVaE5haVg0d0MrR2NVZXBqaCs3Tnd1U2tG?=
- =?utf-8?B?RHpBb3puTFdHTjh0b0drVXJ1MHQ1YUYrdEhvZjdqZXhFZFZYY0dDSUhlY29p?=
- =?utf-8?B?eWdQcy9jd0dmMkY5MEUrbFBPYlZWQzRBZGVUQlZyc29PbjlCWnhDRzRtSUxO?=
- =?utf-8?B?anVyZ3paM2ppcTJlclVNSjBQUWorbFhDdDIvQVlzcGJJekwyT0p2NTAyVzJR?=
- =?utf-8?B?N0d0MU5sUU1UeGsyZXJySlYvNmZOMi94Sml4ZDJLOVhSSTdKQ0Njb05aTDVR?=
- =?utf-8?B?VXZOUnYyTGFNTWdnd2JJUkU5NE9UaUJXb2FBeTB1T25xUmFMdCtMY0E4dGhs?=
- =?utf-8?B?Um4vSkdONUFNb2l4OUJtUFo4dGJVK2JFVk5wKzdiOStlcm9LeGFlRVFzK0dF?=
- =?utf-8?B?aTNYbHU1TmUwQlVSd0FOeXBHSE5mQlowenV3OW10eG1vMjFEYmdDQTZZcUZT?=
- =?utf-8?B?ajhNWWl5VGl5V2N6YTBEOGJIQmJvaHZwQ0FBaUVPOWpoN3JwV3cvRC9jMERp?=
- =?utf-8?B?OVdlU2ZGZUtrUzBackNnU0VzaDJxM2gvUXpCb3dqL2dYb203aVJvVzhvdHh2?=
- =?utf-8?B?VGJJVXFIbEFFS1JIa2dKdXhrM0ZWa0tyMHNLZ3hFQ05aWkhneWRxM0FKNlFZ?=
- =?utf-8?Q?n3I5MnnBGUkATbxnu9?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aafd9f4c-db27-4f1a-0235-08df286dcebd
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+ =?utf-8?B?R2VlTTJvZS9zbXNQYnpEU1EwMHVRamMyYTdFT3hrT3lNdjZsYTBNK05TcGx4?=
+ =?utf-8?B?TGxyZUhZWVVOcXhYbDFTa0xGeWRmamR6c21yV2RTSzY0N3p0YVdQS0k0UEw3?=
+ =?utf-8?B?UWM1SkNmc0kzM1F6RVlLU1VydFhtTUpDY2Qrek5PdlRtNkFmTURjWGx5UDNB?=
+ =?utf-8?B?Snl2UDRaMzVzQjYwYVNRNU1KeWVOaFU1ZDMxU3VvS3FLZHIyN2NyYzlIUTFk?=
+ =?utf-8?B?cmlZc1BvRlVxT0xtdkhXKzR4MklzVERRbjBwcGE5eHE3ajk5b3JWYVFqMXky?=
+ =?utf-8?B?ZzY3R3pHMk9PL28ybEs3bmNkSlZvY1pvQU9nN1U5UzJtMjk5WkREcXVNWkFE?=
+ =?utf-8?B?ZklxL0w2dGNKMUlWUFg1QmxhcllaK2Exd1NZWGo2aXNCaXpTTmxwRnp2S29z?=
+ =?utf-8?B?VDZxUWhSeGtBbW1PK2xhZUlWT3RLcEtwSnRxVmZKcUZUL2FrdDlZNzUrQnpP?=
+ =?utf-8?B?c0Rnd2xrNG9WMzBqSU9uMEo3RTYvRGxhckdzcmNkb3d0U0JXUmxMcHgvaGR2?=
+ =?utf-8?B?VWVCSUxMNW9Md25jY2FsVFV2MTh2R0I5QWZVMHNMWDlyUE8xcnNEMWllMlZ3?=
+ =?utf-8?B?UllENUpvWm1kSXJtRlhXRjRjUk9wRVlCWnZmMHVETWxOeGlOck94SE9wZ29s?=
+ =?utf-8?B?KzNLMDhPcEk0RHJsSkRQQmxzK1haK3d3NHdKZkF2R1JzQmdMNzhDNlBIck9T?=
+ =?utf-8?B?QUtka0hnWHg4N3hMZHE3RnY0QVNkQkQ1SXNvUHJaL0VyU1NpcW1LamRmMnJX?=
+ =?utf-8?B?TmtoNlVhd1hXa3pJRFNRUEs5enI3UFhRUnA5Ulp5RHVWS3c2MUtxb1h1Rkt5?=
+ =?utf-8?B?OXNxM1NTRUtDMHBVcWFVSzBES3JKa3hDZDR6MWwrMU56MWUwMTJtU2NTdzJj?=
+ =?utf-8?B?cVZDNExIbWIzV2RIdXcyTGdNNE5JK1NyVmVEdWRDUW1aU0JJQkZtWlB4ZXN2?=
+ =?utf-8?B?dzVKS1NsbFM0Y0VURXRpQVAwOG5lTjZ3MzdMZGxWMEh3WVE1WGttMDR2eEhI?=
+ =?utf-8?B?WFhadmROU3hVbzh4NFg3bzZCRkFGamcxelBDSUlQK2IwQVVaeVNNV3diWE1k?=
+ =?utf-8?B?VzZ3Zm1PMmh1akEwejhmeCtsZVhKeEpuTFBGa2w1emQyNVdtL3M5d2lYSU5G?=
+ =?utf-8?B?SCtiSUtiRVVrekllMFcvMFB0anVNampWM1ZXbGp1T1FudWtJMHlYbk5GOUYy?=
+ =?utf-8?B?bDFEQXZTZ3ZyZVNXNTdyRHVKc05tdVFZc0VjZWVLZzMxU1Aya1JjSmNzdGxq?=
+ =?utf-8?B?WGFiVUxtTC93RFp5RzRQZXpjUVZtbWhYeVhqbmY3TEhTYW1TY2tud1B2ekxi?=
+ =?utf-8?B?TTZJUGpwTHFSN3V6dEJrUVQ2YnhYeVRWK1grenVpNytQbWFSanUxQlp2R25p?=
+ =?utf-8?B?Z2ltRDJoeHBlK1FDRGdoSHFqYmtRT3FJRnB6ODlEUk9rcTNGQ3lQRVk0U1U4?=
+ =?utf-8?B?aUs3NkR5VFJDNG5sWXozSW54dFozVktmU05iaVlsTWx1OWE4NFFGMk1yV3R2?=
+ =?utf-8?B?M0VkM3g4dWZwNTZad0RmU2xoRkNDanBQS2hHNi93cnJOTWFZV20zRmJmbnZ2?=
+ =?utf-8?B?YllvdXN6Zm9hRGlZL0NWUDYyS0E3K2ZHaFU5NDFSL2JwOEUxbEZyYk4xK3h1?=
+ =?utf-8?B?TVIrbDBweGNIT2JXd2haNjN2SzEvNEhDRkN4SmZQVXBGL1F0NGxVaW5mcERJ?=
+ =?utf-8?B?dFlTeDgrZ1JKU296akorSkN5eTZjNlJCSzZ5NU9DczRpb3kzc0ZWVG8rbGhS?=
+ =?utf-8?B?Q0djZWtBdncxUXFmNjJIUi92WDdXdFozTm9zajhHTGtmdWdrc2ZDUUwyK3do?=
+ =?utf-8?B?dXM1c2kxS0ZicmFOSG9NRVdpTEsvUTN6S2tRam5uRDVOa2dxMmFRRFIwVlFn?=
+ =?utf-8?B?Ly8yQW1Md1pWMEFGUGJnVnFxMm5jakpBdU9pUy9IRFdVc1g1aTh3ZG1RZWYw?=
+ =?utf-8?B?SEVjVDNOR2ZHbTMyVytnVEFjWTlBalphV1JnWlUwaW9DR2pMdTkxSnNjc1hV?=
+ =?utf-8?B?Slg0eXhoSmMwc0NvcmNTZ0ozQ3Z2Nkc0UERocklvUzc4NmZScE9mTkpvTGtH?=
+ =?utf-8?B?cXdIalZWR3c5MFoxVXdmQUZIaFB2SUd3b0pIdmtuanExV1NSQURCVmZTZm1L?=
+ =?utf-8?B?SFdBOHNwV05hRGRVdnEvdEx4eTNWYU81NUlQU1dwQ3FMaXFiTlpzNUVxdG5C?=
+ =?utf-8?B?TE14eHNwUjhYNTFMSUlEZTBEZWVKVHc2Q1NCR1FFYlpaM2l5WEFxWTdWOGN3?=
+ =?utf-8?B?V0lKSFhrQWZXL3hZRmhhNVE0M0JxbVZnQTN3b3NXTTE2bWpQZWhKOWtOOUNK?=
+ =?utf-8?B?OUg5WjhFdEk3QmZleWowS2V2ZENHQ1U5dFVDUlh5UkdUZ0Nnc1Nqdz09?=
+X-Exchange-RoutingPolicyChecked:
+	GjJGF5O9Wd9CzbJ+dfloEEVjJyzEB+fZRURNqm5n76HYy9MXU7D1nF+upwdqC7IUkmTeaPlT7QVwxpvPr31falzgftu8LYAGotvYVLxopgU88/0E2p1jNVrlbBGy9SWEJCODZP5nMNn05f480g2y+4UzUio+45Iuzj0D3Fic4xDYwjUsBUGDd2NFHRuMiWzvZ6+RoW1TbpE1icCQiL/mjOW7WRsH9DCzSnGW7+C2hqS1+jgT12ciIco7Nlj4MZdLXgHoJ1NIhM/yvlG1U5Hh96x8JGZxK+v2soi3bNx/aiaX6d2IKlIv2MAW3W5nLd9bOQgvZmMNm5t0qHPnSkzahg==
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 693ecef8-6f1a-4aed-689c-08df286de0c3
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5469.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 14:33:39.7090
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 14:34:10.2030
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oT/XNCJTJTE1rpO5dN3tvgI5HeMOybm51jc9gi2a5ZSBTzUBtTF9GoKYg815xOEt
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB613404
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9xVKIizNjeK/FbBExDAbafyVRDGxDKYJOE0KiLU5tM+VI/SmQ4KEwVAqN3GEZzjuHk7zhXo1nbqqVjtovSqaqg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR03MB6165
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NyBTYWx0ZWRfX5LzvYdKj0l+i
+ H+4PfQlu7jfT+Oe1OIcM09FoIjPIFrFUqPSYgo/xuPgEjJWm7/kRDEpoWBN9OzZ5VAqj2u2E2l8
+ Z8RIRCWA6lHXDl+GZuNVobO/FUhV4jc+k17T9KI42Q5uXpM8VVu/
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NyBTYWx0ZWRfX/jld56aw06ZS
+ a41EU8agnZUhyxpAbk+6h0pF/EviI8Bn9RtAf/EBBKp0S0ce9hD6s20O8DQDkvaTttrP+GnnjCn
+ 4qgY0itn1qpO69p/qlLN31lPNLSIGeuOhNe0TahhXEnr/VH+cdX2a2FKioDtE0beOosQeFeeiAK
+ 0GEZBPqxZzpIeSijfvuLxGOs8Kedwp1Jkpc91CLcM+MyejJYRwnlIAGxe14U4NpyB+2fvDYvro1
+ vX9hb/t7pQW+t5A6nYcnDDQ9BxZ+r136XN+Au7fB9bN+gY8WRo+Z3jaVCHCDlpA2E3lNcTiZwfz
+ E9QX9ko3Rx0bXWlzQCBBVwkDbtXsLcSloRy/HLS7oe9SKOLUZoHpdiZMtNA6odUfDhERzvl+pVz
+ mqdO6QBIrrxo0sS93W8YRFE/1S985OcuvnApcXFg4x6ZxojfsybI2Tb/B17Ptv+1oEtodcXEUHj
+ 3nvQSrn0tDSezcHrV4w==
+X-Proofpoint-ORIG-GUID: efuUqBCmjQWEOoQxILVa8BsGkdQFdAHs
+X-Authority-Analysis: v=2.4 cv=Cfedd7rl c=1 sm=1 tr=0 ts=6accefe9 cx=c_pps
+ a=JXicDZ6CVi74U63V4YFJkg==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M51BFTxLslgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22
+ a=pGLkceISAAAA:8 a=832znINkK-yqb4ICu-EA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: efuUqBCmjQWEOoQxILVa8BsGkdQFdAHs
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 priorityscore=1501 clxscore=1011 adultscore=0
+ malwarescore=0 bulkscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120057
 
-On 12 Oct 2026, at 8:07, Lorenzo Stoakes (ARM) wrote:
+On Sun, Oct 11, 2026 at 07:56:22PM +0100, Raffaele Tranfaglia via B4 Relay wrote:
+> From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+> 
+> Use dev_err_probe() when requesting the ldac GPIO fails. This
+> avoids logging an error when the GPIO controller is not ready yet
+> and the request returns -EPROBE_DEFER, and records the deferral
+> reason. It also simplifies the error path.
+> 
+> Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+> ---
+> Compile-tested only.
+> ---
 
-> On Fri, Oct 09, 2026 at 10:08:18PM -0400, Zi Yan wrote:
->> __discard_anon_folio_pmd_locked() clears a lazyfree THP PMD before it kn=
-ows
->> whether the folio can be discarded, and restores it if the folio was
->> redirtied or has extra references. A concurrent munmap() or
->> MREMAP_DONTUNMAP skips the temporary none PMD and unlinks the VMA from i=
-ts
->> anon_vma, so the folio stays mapped after the anon_vma is freed and a la=
-ter
->
-> Yeah this seems pretty horrible, instating a page table entry under the r=
-map
-> lock is pretty gross in general, is there anywhere else where we actually
-> _install_ (even if 'reinstate') page table entries under the rmap lock?
->
-> I think this commit message needs to be clearer/more detailed though, I'v=
-e been
-> sat here working this through in my head for a while.
+Not sure what's Jonathan policy in here (or don't remember :)).
+Personally, I don't see much benefit on this kind of patches. I'm aware
+you might be eager to have something upstream but for staging I guess
+the real value is in having someone willing to really cleanup the driver
+so that we can take it out of staging (naturally that also means having
+HW or someone willing to test it).
 
-Sorry for being vague here, let me clarify it below.
+- Nuno Sá
 
->
-> I'm confused about the locking, which is really the key point about this =
-change
-> isn't it?
->
-> unlink_anon_vmas() takes the anon rmap lock so that can't happen concurre=
-ntly,
-> so is it _just_ the case that:
->
-> - The folio is not properly freed/unmapped and ends up with a dangling an=
-on_vma
->   pointer
->
-> In which case, nobody can actually access that folio since it's not mappe=
-d
-> anywhere, or is it the far more terrible case of the above and:
->
-> - set_pmd_at() in __discard_anon_folio_pmd_locked() reinstates the pmd en=
-try
->   regardless of the fact that the VMA and surrounding page tables could g=
-o away
->   concurrently
->
-> ?
->
-> But I'm confused here because unlink_anon_vmas() takes the anon_vma lock?
->
-> EDIT: See below, I figured out what it was.
->
-> Looking at the code:
->
-> <anon_vma lock>
-> [reclaim]
-> < PMD lock >
-> -> try_to_unmap_one()
->     -> unmap_huge_pmd_locked()
->       -> __discard_anon_folio_pmd_locked()
->         [ clears PMD entry ]
-
-The PMD becomes pmd_none().
-
-> 	...
-
-There are two readers making decisions based on =E2=80=9Cpmd_none()=E2=80=
-=9D locklessly:
-
-1. munmap case is via zap_pmd_range() in mm/memory.c: it skips pmd_none(),
-so the above folio is not zapped;
-
-2. MREMAP_DONTUNMAP case is via move_page_tables() in mm/mremap.c calls
-get_old_pmd(): get_old_pmd() returns NULL for pmd_none(),
-so move_page_tables() skips the above folio.
-
-> 	[ reinstates PMD entry later ]
-
-
-1. for munmap, unmap_region() calls free_pgtables(). In free_pmd_range(),
-the restored PMD is treated as pmd_bad() and cleared. And the folio=E2=80=
-=99s
-rmap is not removed.
-
-2. for meremap, dontunmap_complete() unlinks anon_vma but the source VMA
-still maps the folio.
-
->
-> Concurrent munmap():
->
-> <mmap write lock, downgraded to mmap read lock later>
-> do_vmi_align_munmap()
->   -> vms_complete_munmap_vmas()
->     -> vms_clear_ptes()
->       -> unmap_region()
->         -> unmap_vmas() < zaps > <----- EDIT: the real issue, see below
-> 	-> free_pgtables()
-> 	   -> unlink_anon_vmas()
-> 	     -> < anon_vma lock taken! >
-> 	   ... clears down page tables (no rmap lock) ...
->
-> Is the issue actually the zapping in unmap_vmas(), which doesn't seem to =
-be
-> protected by rmap lock at all, meaning that _that_ can happen with
-> concurrent munmap()?
-
-No. zap and rmap walkers are serialized by PTL. The reason is described abo=
-ve.
-
->
-> So unmap_vmas() doesn't correctly populate the mmu_gather struct for the
-> range, meaning that the underlying page isn't freed and the refcount,
-> mapcount etc. are all left as they were?
-
-Yes to the underlying page isn=E2=80=99t freed.
-
->
-> MREMAP_DONTUNMAP seems a bit of a bizarre callout, but I suppose it is th=
-e
-> other case in which (under certain, likely, circumstances
-> e.g. non-partial/self-merging remap) an unlink_anon_vmas()'s call is done=
-.
->
-> With normal mremap() that'd happen via an unmap of the original VMA.
->
->> rmap walk uses the freed anon_vma.
->>
->> Using an invalidated PMD instead of a cleared one requires additional ar=
-ch
->> code fixes. Instead, disable the PMD level discard of lazyfree THPs, as
->> before commit 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during
->> shrink_folio_list()").
->
-> Again it feels like this commit message assumes a bunch of information th=
-at
-> isn't presented here.
-
-1. SPARC has thp_pte_count-- in its pmdp_invalidate(), but set_pmd_at()
-does not add it back, since the code assumes pmdp_invalidate() is only
-used in THP splitting code.
-
-2. GUP-fast accepts an invalidate PMD on s390, risk, loongarch. They
-need to fix it to prevent GUP-fast from succeeding for this new
-pmdp_invalidate().
-
->
-> Why would you need to invalidate the PMD? Is the issue actually TLB flush=
-?
-> How does that get around the fact that a PMD entry can be 'reinstated'
-> concurrent with a zap?
->
-> Or is it that you put something not-pmd_none() there? Hmm yeah I think so=
-.
->
-> Doesn't all this cause pmd_none_or_clear_bad() to fire too?
->
-> All-round terrible.
->
-> I've not dug into the reports in detail, but I think the commit message
-> should also talk about what exactly is missing from pmdp_invalidate() tha=
-t
-> is broken here? Are some arches not doing things quite right?
->
-> OK reading the code more and it seems the _real_ issue is actually
-> pmd_is_huge() in zap_pmd_range() right?
->
-> It's the -> pmd_none() in general. By doing that, you are breaking a
-> contract with PMD leaf entries.
->
-> So you get:
->
-> zap_pmd_range()
->   -> pmd_is_huge() ? [ no ]
->      -> zap_huge_pmd() [ WOULD HAVE taken PMD lock that blocks against re=
-claim ]
->
-> So using something like pmdp_invalidate() avoids this, because it keeps t=
-he
-> entry huge but invalid.
->
-> But I guess not every arch does this properly somehow?
->
->>
->> Fixes: 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during shrink_=
-folio_list()")
->> Reported-by: Kyle Zeng <kylebot@openai.com>
->> Closes: https://lore.kernel.org/r/20261009165214.40212-2-kylebot@openai.=
-com
->> Cc: stable@vger.kernel.org
->> Assisted-by: LLM
->> Signed-off-by: Zi Yan <ziy@nvidia.com>
->
-> With the commit message made a lot clearer and calling out the specific
-> locking scenarios that allow this + getting rid of the dead code:
->
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-Thanks.
-
->
->> ---
->> The proposed fix[1] requires additional arch code fixes[2]. Disable it
->> first for stable fix. The function will be re-enabled along with arch co=
-de
->> fixes.
->>
->> Link: https://lore.kernel.org/all/20261009165214.40212-2-kylebot@openai.=
-com/ [1]
->> Link: https://lore.kernel.org/all/DM0II2QHWWS1.2RXEJXC8S0101@nvidia.com/=
- [2]
->> ---
->>  mm/rmap.c | 11 -----------
->>  1 file changed, 11 deletions(-)
->>
->> diff --git a/mm/rmap.c b/mm/rmap.c
->> index 805db93fe0428..1131b76bbbc28 100644
->> --- a/mm/rmap.c
->> +++ b/mm/rmap.c
->> @@ -2275,17 +2275,6 @@ static bool try_to_unmap_one(struct folio *folio,=
- struct vm_area_struct *vma,
->>  		}
->>
->>  		if (!pvmw.pte) {
->> -			if (folio_test_lazyfree(folio)) {
->> -				if (unmap_huge_pmd_locked(vma, pvmw.address, pvmw.pmd, folio))
->
-> This is the only caller of unmap_huge_pmd_locked(), making that and
-> __discard_anon_folio_pmd_locked() dead code, shouldn't we remove all of i=
-t?
->
-> Otherwise we're leaving dead code around.
-
-1) it keeps the backport small, 2) I am going to restore the function and
-this reduce the code churn.
-
-I can remove the dead code if you think that is better.
-
->
->
->> -					goto walk_done;
->> -				/*
->> -				 * unmap_huge_pmd_locked has either already marked
->> -				 * the folio as swap-backed or decided to retain it
->> -				 * due to GUP or speculative references.
->> -				 */
->> -				goto walk_abort;
->> -			}
->> -
->>  			if (flags & TTU_SPLIT_HUGE_PMD) {
->>  				/*
->>  				 * We temporarily have to drop the PTL and
->>
->> ---
->> base-commit: 8b38ed9ab5b09c8ba168cbcc49524e9b380ee5c4
->> change-id: 20261009-lazyfree-stable-fix-67712b2049dd
->>
->> Best regards,
->> --
->> Yan, Zi
->>
->
-> --
-> Cheers, Lorenzo
-
-
-Best Regards,
-Yan, Zi
+>  drivers/staging/iio/addac/adt7316.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/staging/iio/addac/adt7316.c b/drivers/staging/iio/addac/adt7316.c
+> index 20f6052cc7fb..8ca6def84584 100644
+> --- a/drivers/staging/iio/addac/adt7316.c
+> +++ b/drivers/staging/iio/addac/adt7316.c
+> @@ -2142,11 +2142,9 @@ int adt7316_probe(struct device *dev, struct adt7316_bus *bus,
+>  
+>  	chip->ldac_pin = devm_gpiod_get_optional(dev, "adi,ldac",
+>  						 GPIOD_OUT_LOW);
+> -	if (IS_ERR(chip->ldac_pin)) {
+> -		ret = PTR_ERR(chip->ldac_pin);
+> -		dev_err(dev, "Failed to request ldac GPIO: %d\n", ret);
+> -		return ret;
+> -	}
+> +	if (IS_ERR(chip->ldac_pin))
+> +		return dev_err_probe(dev, PTR_ERR(chip->ldac_pin),
+> +				     "Failed to request ldac GPIO\n");
+>  
+>  	if (!chip->ldac_pin) {
+>  		chip->config3 |= ADT7316_DA_EN_VIA_DAC_LDAC;
+> 
+> ---
+> base-commit: a22dc7ebb21a6bd4c8b63bc2c1dd46a24945aae7
+> change-id: 20261011-adt7316-dev-err-probe-8ffb5e224100
+> 
+> Best regards,
+> --  
+> Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+> 
+> 
