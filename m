@@ -1,274 +1,140 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E498C48A8BE
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:29:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791808187; cv=none; b=IBkAdO6R2flttLxLGHDS08Uy04IH0Tbrp85rCvNBEzfR7dzcVoqifznTBvHF+wwD83u0Mmhv3EdOzmAeSef//23T8TGtg6/7xn6ddbDIskoEc728Xx6N2lqhXbnk5mBxvh4YlE6qSDti63FLQbDhPk3Oc9FMiztucGUyXTk+++I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791808187; c=relaxed/simple;
-	bh=+hii5+Dl7zlOwgKn2KfFJIJ2jZ1j/vWBvRpoEY5SuxQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E80U2TG/u/tsarx8sFt77vvqfCtiQJtmtaqjicOeF/in1QmpqGkJnHFjC+VpNjXsMaqddW6r+F47Xbkqso5wIUQ7qPM1G768AHoHAi9HCawPXYpZfpwGXJPcajqw3/0Hncwc5I/7mks6Vnw7C+w5yhpNcAx+hvMbehWN73LN7RQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CPFLSRYr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I0ambRMO; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8445A48C40F
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791808195; cv=pass; b=kyuE7Ru9T8lpxDnIXym9x3m5h6BAg4s8T8/cXgCLUhnloQFGUeXsFqO1DE7jcl3QMpSytj4CrgzQEF9RgHhBMcv7iGn5sT4if8+b6nCxBLiQvgRxs9AZeWm0TPSBUGgk6cQeVvkoUcmnlfTyWne3PDsVEuTs/0ebqCv8Dfrzvtw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791808195; c=relaxed/simple;
+	bh=aQzmNXGcSuNt0+K5ClfmF3eNMN4LgrYdBCU5stJ1AOs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lojEGpVRYmnmvDC2VuaBShc+vzVwo3iy8eL4o628znGp1YpWPeO20EG3wHwUAE+aKFPK2XUXSAS1GwuzJYW1RyWkHvoVykB/hjKe3dIlz0O2biVhGZqiqrFpZTrKoBgEnkFecvPHlRDvG2a54NS3hVovgdLoV9eMTnuJhVh2mBI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bNgFZl2r; arc=pass smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CPFLSRYr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I0ambRMO"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC0FnQ1236317
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:29:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=9pJICCJ1jf++M2QDSH+MG+d1zO5Y83scFcB
-	BZmIu3a0=; b=CPFLSRYrDRpoOhDMB2JZ9hI4UdjpLCMnmXNyEZliuZHeUR8vGun
-	H0CZjMr7M5GbBSsiWfM9T6cCJgOPY6kiw/N4HEnQ9HfT4K9SbxLsXqqqESfq09YM
-	+y6Z5/vzeFZe4Kf3FdhpHrxd5QYBv0E2r1JejzhahASv0AMRLxEeaEkaZsUPp6Di
-	xJD4Ja7gdRvKl4GxHSILMeJz8MoaGYp/OkYDPpCcS0wMF4GSXJX2kHef8yt17h/w
-	tjcSe1/l8o583jRnqb2tao3Y87nrjY1EcbSlA+dXJdYdxty+mY3CQjOQM+JWQ7af
-	TBibMaEyVV5vzt7jSw0t3034VXsfIk5yejA==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8j6djxp0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:29:44 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d6b8a88b88so4455445ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:29:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bNgFZl2r"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-53394bffe0fso78593601cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:29:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791808192; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bgpVC787Kpdi04lErFZyiXC+JDssB8IV1zXDmCmke4ju3JimBeY5Lgp+/GNYCByBRL
+         pezqQ6fmJY5s5iX4iOXKXxTZvPneypFSE17e5AlJeapK7CNQwO/juWHBJ7g15PJF61YD
+         nsqO1lTQPSEacM5BXWK7Gw1Do/oPJ5S4YiUNnHjK2f7Nz0126d1JfZVMveXJQCUgOx9i
+         4ji65xrYmSlCXy0a37q99CI9lgAM8JwPAYgSfmLoJbWkWTeTkgya/vv3C7+MB9ZrtWZR
+         XElnRiHOONQhyw8jrlP3GdqIjjNaX+X0jVoyfeRh5kDkVxnLNc6PeeQrFvHO/6lCgzUs
+         M2Lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oIWHaUCymsWkNNoIa2i603tTFbvYNzqXmd5C/K5ZBAc=;
+        fh=8dOCQ6amUeownGkayejB87q52nEfW4tS23icLHkXzug=;
+        b=e10F3997Dh9GUVQIUsYxcos4lEFm3wEmEVF8UDx9vhKycmQKiUTRK0a0D8aTWSRym0
+         qBjUYoLo/qraTqjpb3GuEzz4sRg1TbnvEjiuXCU95uGwPnu/fh7QzhiSKnqQX1/DaTg2
+         rf3TcoIzOKhe08WkkBqbS2h5D97Hx/8pPrXPnaGydlDIyPMPLJOP161gQyC5jU7hBld8
+         tLDdYpXFzJPO3ilpOBtyLZbMmNG0tCzVHZTU5EK88pWzrR77wp+GknwgMsvBxvxnplcz
+         Mh33ZL58mVJGwawkMccSm60muetvSsX3DHjqMtdtdw8Me52XKcu7eEv9CDMyRv4PfhJy
+         SOJg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791808184; x=1792412984; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9pJICCJ1jf++M2QDSH+MG+d1zO5Y83scFcBBZmIu3a0=;
-        b=I0ambRMOXUhUhGoYZnYkUHyE8gNJU3u7jsHsF3FGACMwozNsTzoq6+t/z0rx0Jrkdb
-         GFRNaYb0hIe+h4NONglADzhJEX5MkN7KNpkHYKmVmp348KpQqhPAaKYO6JTgM81Ccenc
-         e4CLT/V1eAyvmrdPwqFlphAZEZC29c0RKRBxWJBBpKHJWK5vrXeK6qUaQC/lgJQhqo8i
-         aMPXuk4YkGdgLVTLqGI5DKhQK/tYIPY+lXNpn5YTxvQ1NJSUzgGhCjo5NZH9833borhb
-         lan83KrOzl2f30S1Xb1JraMrgXXxLA3mWl8p146D8lf5S5ZhIUYa0UasrTcpoP1Q5W2i
-         HokA==
+        d=gmail.com; s=20251104; t=1791808192; x=1792412992; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oIWHaUCymsWkNNoIa2i603tTFbvYNzqXmd5C/K5ZBAc=;
+        b=bNgFZl2rvVOD7o+57JRalBQkhhKWsdI7ANbrFsD6lTF+FQms9t0oOsvcXir/5/o9WD
+         tC0UOrwGpXk8Wmk1YvDzKPKRkwkkZZ5VPH1V9oEywI1rPfq2U1wNlsLGa33U/KY9orfH
+         7a7K1OMVa06+HqqMl4L6knQEWHD+fes7GAo8tkbEywDVvUrNOsSl4/MFp0qwgHTTw0Z+
+         KzWwn3WI4pGtmnUohKT6ZLWtrMfDpXlUOH1nZ+Z5lpTShOvQWFpBzS0g6LeJHQmdiLLC
+         6fTNhf+ZOuzfysIun1qfBgg80P+ImFSluLNdVTuyVECF4usVs4NuBSLrvaOJTMRWad4w
+         LBSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791808184; x=1792412984;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9pJICCJ1jf++M2QDSH+MG+d1zO5Y83scFcBBZmIu3a0=;
-        b=14Z2SPc5xQScl3i8WsLrRYKkkbFR48pHbnurDL4a5/v5Otu+er7KzxGse9eGYyp6a3
-         RfAxcgEm0jD1Dkj+cyjBhkdwFXfK1OIkCCIT83hxbP9gKuB1XwVL0JFq2CUNNJzOK2aY
-         t+IJFOJhbIJXIXO327cKvf4LP2ip4c80SyVSruOFg+n4Mq3+qgm2GgoWugOffqJAVzHI
-         eUUXYFmmCfEgXOMgQJ40zZf9YjJ4IRBBfEKKmXPqAVDhLza5ZS0AEW/Can3iFzuXeTqF
-         Uxu+RaoB3H13uzCcZ+CRb7JdtfYwqwkk8UzpUQnDQFSeIU3QrCo1QZ2c3qQKtutN223B
-         YtnA==
-X-Forwarded-Encrypted: i=1; AKwUvBwnCluV7GeEXA379FQLGucu0logWPvAkhNiym3r5y7Le2NjXODBTJ2BJry6i7JuwRyStwqxTwWlTakRGf0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNOkCkqMCxoxm6dPUU2oi2X+ox+8Q1j9PuuAJ9I8w4UQgpxGoI
-	oSjlubxvYE1qmuK+9YXfXnH22k4nsYfGLZeBkdV2ps69mz9sZrfu1/De+yGJH0KixA68u/2D/mf
-	qV3SZAcOUPuCoAhpMMW25TIp/xV4R1Vcm/pv/qnlTCZpdw5s1Ev/9lNWxXrT7UnPLLL4=
-X-Gm-Gg: AYBFou2E0r9qIz486vbFB6lDsh0V9NunDraKKU42sP/AjskRiCoWUgxtOcxB85lA5W1
-	ftx5kPjZAvLRut/ci8VJ4EZOdtk4x/3zAhuCdnkd+ezfpFVjHLknsp/pYdyE+inJwBklMhq/P1T
-	OjOhnEFAxMxfJCU9A3LAkhytgyX5AhPwWxUlOub/yK8xqq54QWU8V2rWP9pj9P1+J2eWWx6+EJv
-	jrMOw7G5j11axnEcmwtML8X8G831l4+W17+b+PcYzbyawwO8wFsatpTXAb5h9K1fYvE2UU5YiLA
-	jPz8UsIBvwAicgTWmyot3GRzwoCXqtKy7eqQxKzdt3dUsThNAifQQjklxxT9qmdCjOIY7yEke8F
-	bzN7thSZJSfh5aMrKVArau9O34HXU
-X-Received: by 2002:a17:903:22ce:b0:2e5:e361:5560 with SMTP id d9443c01a7336-2e842719490mr127967645ad.0.1791808183603;
-        Mon, 12 Oct 2026 05:29:43 -0700 (PDT)
-X-Received: by 2002:a17:903:22ce:b0:2e5:e361:5560 with SMTP id d9443c01a7336-2e842719490mr127967295ad.0.1791808183110;
-        Mon, 12 Oct 2026 05:29:43 -0700 (PDT)
-Received: from sdciot-sh07-lnx.qualcomm.com ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e1c89sm41761785ad.75.2026.10.12.05.29.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 05:29:42 -0700 (PDT)
-From: Linghui Wu <linghui.wu@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, kernel@oss.qualcomm.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>,
-        Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>,
-        Wei Deng <wei.deng@oss.qualcomm.com>,
-        Linghui Wu <linghui.wu@oss.qualcomm.com>
-Subject: [PATCH] arm64: dts: qcom: shikra-iqs: add M.2 Wi-Fi and Bluetooth overlay
-Date: Mon, 12 Oct 2026 20:29:34 +0800
-Message-ID: <20261012122934.3240030-1-linghui.wu@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1791808192; x=1792412992;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oIWHaUCymsWkNNoIa2i603tTFbvYNzqXmd5C/K5ZBAc=;
+        b=uDndGTBwasDsrD5Fgs8yWQUWlTKLobaPU186XPRBbDH7Yh8ZbMByWiXOvZBBnMvnQv
+         3QdZA3HepgTtfnhrH4hBkhxlCrOQx3zwzXZILjbYCzX3F/teTT3n/axf8ImuefDHEGjp
+         AkXSNV1PSvH42Et7ddmicUvnZUNTVGtDqRoETPfA50e3l+As6atfkozUiOBuGpQdjsGj
+         0AoV4PaNvCT29KkPeyWEccGKvTpDwIREPUDe3NzDywdE6wohQBVpIlQ541N2bCTOU0mP
+         x6ElAwKAZBruNoxvOi01+j6LjQUQPZNSPwEYE/p+RtBnU41Go6KL57uqdtSF7VPo/1p2
+         4VZw==
+X-Forwarded-Encrypted: i=1; AKwUvBxFZ5llV5KdLqnDkuvxGepe+YyPpg205JOXXrxkYJiO1NzDbQ1+tB/67BWTHQChw8/UDmwhCzoLNryCos0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKIQelNEscIVKljewUG1DH5QQ8tYf5feFjQe5xVqRVsvOrkXqFb
+	mBCdXCysZ7KtHbZ6SKdCEgMpyC4USFTOThP3E3urqq86P3C253+YvhjMiXjkIp8PCzrF+ydgcZF
+	gJEjMLnrJXy9gKhxCuOexmDM8YIeubI8Hb43kDmO0lg==
+X-Gm-Gg: AYBFou0Yob4yVLD3p6fd+DKwFINgNjqoKVpXi3YqOz2B7f/tJZh7zr+ddCysG+1RhKA
+	+U/Ek5SgSAGOP3jrOTy7nWFJfgbMnaQ6l2cn8Wb/fGCFhnNsx8PLXH86Lp4Mx5L5G+4bP3GZItE
+	V38mxNHbjAHUorbFf0kB1LlK0e/g3JRvJfy1g+aCUP8MhlxGi4kmcgiloIKEeOpMSdcAp2kWUFo
+	PDFOAenymOVZ2u5uafhn4qNYg04pfHIV6vIx15J33rVsx4CmXe8td/z51n6NhBhLzTMhmdrb9L7
+	MdOo4abWISehKFTLftLns0FMOkzZllrKTS4oKBeg1LotOsCTYXL8CsIjjIICmRPjIKEIyO1Nhxn
+	gK7tG75NrhxbjoIPRGICaUpF6KFfISmbHsRLifi/ta3oc0xDtqM6ASsZ77DuE0IX/oMpJLi/+5n
+	ABcYQI/2Ie1KPYx5u71vC2AM9qUEZj9KQJ3JWdjisWiH3b1VPkjJrDJtb5ka88bN9jRMUTpfZhN
+	cLHg3DIVNOXqoQupGmPRY8qwzFIk5ZCpXYfAFCN
+X-Received: by 2002:a05:622a:1813:b0:535:271c:8e99 with SMTP id
+ d75a77b69052e-535a60739cemr140833231cf.6.1791808192160; Mon, 12 Oct 2026
+ 05:29:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0OSBTYWx0ZWRfX16ZOY53MD+B2
- 8rdcjxNa9PU0INE4m2Xx3r6bJCu+CIQhE4aoT27Z8zyGap9EsTMfnVXn59dApSOTbLkm8nssa2d
- ZPk5iYR2mQwbbItVbdyI0YpSi9EVkFtiun4RieVRIGDzdH1vO8OaTlx5PQD/pMu2AfAIFdgEu6O
- 4RGMIREE8QP+W7PI1CAwxEvpXxfMX095aEz/+rPzmAYwhirssEnTYTZHr4rzgkWVzMnBMR6Bx25
- cXbF/mmVF9Q4cFX+ZTGVw0ldBFhjLPOm6VzhiZIYkqAWE419xEzHxOGzMQ6s4AdExhvEKLnG7Ml
- co3wPOgSbtvife+2aSQ/z/rgtwkGrZo4Apc61RHdzlHMACLfq6CqLe7FJYQM5AUa8ibFfzLoijk
- s/8uBbx5Wie1jmZ4x3XCT//yATRW1TS4o6RzLn3OH3c5trJjjC/7gZ70CZHWx9h6HlxZqQQZLE5
- 8E5q7zOmaOrQhDpJNDQ==
-X-Authority-Analysis: v=2.4 cv=aK5lOr9m c=1 sm=1 tr=0 ts=6accd2b8 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=HwT7i5cL4_BIIXZyjbQA:9 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: sGodzCbEoqTh8jTZL4cxEOCChTR7OUsC
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0OSBTYWx0ZWRfXw/50MeDjrMJa
- pStRGAgIHvKHWPefnk/y/ZGFmnYusEvmjjOrYzCA6lgJtXOc/f1q3QFz8TxrrapttO1EZl0BOIR
- 457FmqsUCTKGRDrIMYgOtVtnHX1F0bw=
-X-Proofpoint-ORIG-GUID: sGodzCbEoqTh8jTZL4cxEOCChTR7OUsC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 bulkscore=0 impostorscore=0 spamscore=0
- suspectscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120049
+References: <20261011051906.60397-1-jain.sm@gmail.com> <20261011051906.60397-3-jain.sm@gmail.com>
+ <20261012122112.GA31242@lst.de>
+In-Reply-To: <20261012122112.GA31242@lst.de>
+From: shashank Jain <jain.sm@gmail.com>
+Date: Mon, 12 Oct 2026 17:59:40 +0530
+X-Gm-Features: AclHuK_PEl7KjQBeQ9EW7hUgBDCPywXTmc6ppL-X9j-cIvzZh0Thn-Gl3haHU4I
+Message-ID: <CA+FWx=n=66eHOgMFb=unfgqFrhw3prW0EOf1bYHfLATV2-o1_A@mail.gmail.com>
+Subject: Re: [PATCH 2/2] block: fix the length of a smaller last zone in blkdev_get_zone_info()
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Damien Le Moal <dlemoal@kernel.org>, 
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>, Hannes Reinecke <hare@suse.de>, 
+	Chaitanya Kulkarni <kch@nvidia.com>, "Martin K. Petersen" <mkp@kernel.org>, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add an overlay for M.2 Key-E Wi-Fi and Bluetooth modules on Qualcomm
-Shikra IQS EVK.
+On Mon, Oct 12, 2026, Christoph Hellwig wrote:
+> Can you add this to blktests as a reproducer?
 
-Describe the PCIe and UART connections through the M.2 connector, the
-3.3 V supply, the W_DISABLE signals and the PCIe reset signal. Disable
-the onboard Wi-Fi and Bluetooth nodes when the overlay is selected.
+Will do. I'll send a blktests test under tests/zbd/ that sets up a zoned
+null_blk device with a smaller last zone and checks that BLKREPORTZONEV2
+without BLK_ZONE_REP_CACHED matches BLKREPORTZONE, and that the cached
+report's last-zone length does not extend past the device. I'll post it
+to the blktests project separately and reference this series.
 
-The Wi-Fi PCIe path was tested on a Shikra IQS EVK with a QCC2072
-module. The overlay was applied, the link trained at Gen2 x1 and the
-endpoint enumerated. Bluetooth UART and HCI runtime validation is
-pending.
+Thanks,
+Shashank
 
-Co-developed-by: Wei Deng <wei.deng@oss.qualcomm.com>
-Signed-off-by: Wei Deng <wei.deng@oss.qualcomm.com>
-Signed-off-by: Linghui Wu <linghui.wu@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile             |   1 +
- .../dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso   | 107 ++++++++++++++++++
- 2 files changed, 108 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso
-
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 1c86e7e98f55..799faa32e2d9 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -339,6 +339,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdx75-idp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk-m2-wifi-bt.dtbo
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
-diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso
-new file mode 100644
-index 000000000000..3264c0add67b
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso
-@@ -0,0 +1,107 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026 Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&{/} {
-+	m2_keye_3p3: regulator-m2-keye-3p3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_3P3_KEYE";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpio = <&qps_gpio_expander 6 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		regulator-boot-on;
-+		startup-delay-us = <100000>;
-+	};
-+
-+	wifi-bt-connector {
-+		compatible = "pcie-m2-e-connector";
-+		vpcie3v3-supply = <&m2_keye_3p3>;
-+		w-disable1-gpios = <&tlmm 61 GPIO_ACTIVE_LOW>;
-+		w-disable2-gpios = <&tlmm 60 GPIO_ACTIVE_LOW>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				m2_e_pcie_ep: endpoint@0 {
-+					reg = <0>;
-+					remote-endpoint = <&pcie_port0_ep>;
-+				};
-+			};
-+
-+			port@3 {
-+				reg = <3>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				m2_e_uart_ep: endpoint@0 {
-+					reg = <0>;
-+					remote-endpoint = <&uart8_ep>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&{/wcn3988-pmu} {
-+	status = "disabled";
-+};
-+
-+&i2c3 {
-+	qps_gpio_expander: gpio@3c {
-+		compatible = "nxp,pca9534";
-+		reg = <0x3c>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+	};
-+};
-+
-+&pcie {
-+	iommu-map = <0x0 &apps_smmu 0x0800 0x0 0x1>,
-+		    <0x100 &apps_smmu 0x0801 0x0 0x1>;
-+	vddpe-3v3-supply = <&m2_keye_3p3>;
-+};
-+
-+&pcie_port0 {
-+	compatible = "pciclass,0604";
-+	reset-gpios = <&tlmm 118 GPIO_ACTIVE_LOW>;
-+
-+	port {
-+		pcie_port0_ep: endpoint {
-+			remote-endpoint = <&m2_e_pcie_ep>;
-+		};
-+	};
-+};
-+
-+&tc9563 {
-+	reg = <0x1ff00 0x0 0x0 0x0 0x0>;
-+	status = "disabled";
-+};
-+
-+&uart8 {
-+	bluetooth {
-+		status = "disabled";
-+	};
-+
-+	port {
-+		uart8_ep: endpoint {
-+			remote-endpoint = <&m2_e_uart_ep>;
-+		};
-+	};
-+};
-+
-+&wifi {
-+	status = "disabled";
-+};
--- 
-2.43.0
-
+On Mon, Oct 12, 2026 at 5:51=E2=80=AFPM Christoph Hellwig <hch@lst.de> wrot=
+e:
+>
+> On Sun, Oct 11, 2026 at 10:49:06AM +0530, Shashank Mohan Jain wrote:
+> > blkdev_get_zone_info() sets the length of every zone to the zone size
+> > of the device. The last zone of a zoned block device may be smaller
+> > than the others: blk_revalidate_zone_cb() accepts that and remembers
+> > the capacity of that zone in disk->last_zone_capacity. For such a zone
+> > the length reported from the cached information is too large, and
+> > start + len is beyond the end of the device. A conventional last zone
+> > is also given the capacity of a full zone.
+> >
+> > Example with a zoned null_blk device of 10 MiB (20480 sectors) with
+> > 4 MiB zones, last zone:
+> >
+> >   BLKREPORTZONE:       start 16384 len 4096 capacity 4096
+> >   BLKREPORTZONEV2 with
+> >   BLK_ZONE_REP_CACHED: start 16384 len 8192 capacity 4096
+>
+> Can you add this to blktests as a reproducer?
+>
+> The patch looks good:
+>
+>
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
