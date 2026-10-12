@@ -1,139 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070EC433E81;
-	Mon, 12 Oct 2026 11:31:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D7A0433E81;
+	Mon, 12 Oct 2026 11:31:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791804683; cv=none; b=WM0Imnot4Ou7wFVnloYjMvCtxi4Jkj0rX7gcyZOIPRdV6yli729KTbv11q3zX/crqHBTXHcLdZUy4BRCHMhiuUag6bmLHDW6pl5z0hVCAYLTfAMvKUfBt3QGytmYGzpaJb2/b2Ds4b1eE0gqkqdDNk6WzP8FGxIPq2sqifUdTww=
+	t=1791804710; cv=none; b=Vo2L455wNyY/K2z2qgqmAQHprNbwQQFDpdhrt25gUaEKtJx+YIAlohkNeSGy4bZmPZFJnPhbT4Dya5jOERucXnj3Ghr8gBBYhc8JDxJAGkk6jYhd8niqcEYfE0TJw2wy/U5/azFGqYIo+U/uC8jbeKfdd8gv6GIIIdsVtkH+l0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791804683; c=relaxed/simple;
-	bh=J2BDvOIa7NGCXDbw/wJHso1NT9BGYY7QZe4OLOYylDE=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qvayX9e+8KqQY7rodAPEDBykrtf5dXoX9DBEhikOHBxqf2xDOK0/Xbe4eDvoIgDncoUwHTLWV1SwD3qDcVLLFFaqt0RlxMsYeZezrQaGtEyMrO6ou1EpML16U5AbcT0hCEMq0Dj1YIlykUrq0T8YVfG9mesohaNx5BtEmRne3aQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GG0crorO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791804710; c=relaxed/simple;
+	bh=2HTu1DA46A3Rq+CoBYT+WU9sGWrgQuqKtymiHb8CRvE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EDyWGcKWBM5/noTfioM1Q+7613VIlynJzvMG6tH3PPvGG0P8KNN0cOfQ8WXqR50v2CjIbZhbQHl7YQcxXTHpbNASayMLqwAs9IcQmJbvWZXHdR/qeUmQH0/zKKq62JWXy9j0oHmcbH0dvk3QPM+fJHwD82Wq0so5kCxFXdTtBGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=hWtVZrIZ; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GG0crorO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0D681F0089B;
-	Mon, 12 Oct 2026 11:31:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791804680;
-	bh=UKbDbkFJt72t2zaBIh+ZUe3E29MXtHewW5fvZXZCj30=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GG0crorOYWxX9858zOkG7h2+X99LFStJ4Gi8/a5Drk5bO6EswnhtjYKFxLtZt8h4v
-	 FqWT41IP8Ehk2C/+UT4t68wZgWCbVd9ccW7oEqHevvJi6EfSWQxTa1AjZMgk6k3j8u
-	 ugOmsxlfttwzXePsildhyn3jj5iL3LG673ZL4PpuDTVHcsQh4g5PfnjnTRhKZbh6x+
-	 BYJ7LRg0UFaH6olen9aZ42c6+9FhgGQ1mO1hAOAoe2BsAI9MuZ3RqAQ8Q0x8ccp0wC
-	 5vea+Oyry6rwXwBdEIXnlMuev3gMUhP3qJV/Q/iNVMJ5qIqtC6jjHQSn4RWNIAGCqt
-	 BUJZ2KnBFbjsQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xGEFS-00000001qvN-0l8F;
-	Mon, 12 Oct 2026 11:31:18 +0000
-Date: Mon, 12 Oct 2026 12:31:17 +0100
-Message-ID: <861p9v2m0q.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Yize Wang <wangyize7@huawei.com>
-Cc: <kvmarm@lists.linux.dev>,
-	<linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>,
-	<catalin.marinas@arm.com>,
-	<will@kernel.org>,
-	<fuad.tabba@linux.dev>,
-	<joey.gouly@arm.com>,
-	<seiden@linux.ibm.com>,
-	<suzuki.poulose@arm.com>,
-	<yuzenghui@huawei.com>,
-	<mark.rutland@arm.com>,
-	<zhengchuan@huawei.com>,
-	<jiangjiacheng@huawei.com>,
-	<yize_w1110@163.com>
-Subject: Re: [RESEND][PATCH 0/2] Batch register access for live migration optimization
-In-Reply-To: <6890def8-168d-4951-b6bd-bcbbcbf3595a@huawei.com>
-References: <20260918081930.4014735-1-wangyize7@huawei.com>
-	<861paq69te.wl-maz@kernel.org>
-	<f70c6fe3-e3c5-4912-b4bb-8a418fec4346@huawei.com>
-	<86ece63kes.wl-maz@kernel.org>
-	<6890def8-168d-4951-b6bd-bcbbcbf3595a@huawei.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="hWtVZrIZ"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8iQtG3968445;
+	Mon, 12 Oct 2026 11:31:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=AfWX+R
+	yH6ssoI/3jJQ61Qx5FQqOU5Ea3xDwaNZPkj/Q=; b=hWtVZrIZ41juBEMJb/P/zi
+	+r8dPrgiqDuaTp2iCzdKT+JAXI2hYIp3rDh0mCP/PvTgFhINdbZZg9iGzngUanA9
+	Qi3G78oyo5wHNfd5uXso72uEhFxa2mXp2RpFUUpl3BVDIfsiBzROvh0kT0ppHJUd
+	awOi3/L0fzQ36POCpTpRDDj0LPF+D7X5hc/jzluGltlIimkyTbHGvJKZ8DtmUDxN
+	sC1+QMHie5hp9NwNkZVURO/afXsyBrjdhTlLHgxQiI9Tw/byet/MHuASi9aUjWpa
+	/832peOQCOVmi1EqUSLcPrgn3MFKucl78ThAnKld3xImMjmr2/93IXTC48qjcJLg
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1w09cm-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 11:31:47 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8K15h1013466;
+	Mon, 12 Oct 2026 11:31:46 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h82cycnu1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 11:31:46 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CBVgDb17367402
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 11:31:42 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B92B22004B;
+	Mon, 12 Oct 2026 11:31:42 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3718920040;
+	Mon, 12 Oct 2026 11:31:42 +0000 (GMT)
+Received: from [0.0.0.0] (unknown [9.87.157.242])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 11:31:42 +0000 (GMT)
+Message-ID: <4838f7e9-fce0-46f8-a0b7-67f816836c9d@linux.ibm.com>
+Date: Mon, 12 Oct 2026 13:31:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: wangyize7@huawei.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, zhengchuan@huawei.com, jiangjiacheng@huawei.com, yize_w1110@163.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/32] s390/kprobes: Prevent kprobes on instructions with
+ exception table entry
+To: Heiko Carstens <hca@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Niklas Schnelle <schnelle@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Vineeth Vijayan <vneethv@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Harald Freudenberger <freude@linux.ibm.com>,
+        Holger Dengler <dengler@linux.ibm.com>,
+        Stefan Haberland
+ <sth@linux.ibm.com>,
+        Jan Hoeppner <hoeppner@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+References: <20261001103247.1989111-1-hca@linux.ibm.com>
+ <20261001103247.1989111-2-hca@linux.ibm.com>
+Content-Language: en-US
+From: Ilya Leoshkevich <iii@linux.ibm.com>
+In-Reply-To: <20261001103247.1989111-2-hca@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0NCBTYWx0ZWRfX+RYX2GzxiVIz
+ fA6U2nCPe9JIaRoC9De8OiYihumQMUX5PcWFmimoL9K9Q4xHi+5DEAqdeQ9PKed4q0MGpW+RARt
+ sHEMHHXUgLi56D4zU4qOfr/KOQiE0ow=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0NCBTYWx0ZWRfXyrP7TUtrzLuQ
+ jJA4FPK3P1HObUahAudG3vdqQ10Vo0igRjK/+zGfLelRcxuGgfs/LLVXKppYfmPkOOQlKyj6HYy
+ x3QgJbqZaaUfeZYTOWKOJXYdzkddaK7YprP/tXr+wHe6UGWwPnL2TgUmc1rOhGCT5SUg2bIMyW9
+ lCmNWuOsAzLxaFDGFQwxoz+5X8SnFQb9pZWMTvY5Gi2XhHLaKvYL3Ewyr7MmEBhNrZyNCBfim7U
+ xsJiSEWCSWyWB/VhvmfzEK6gLN9RXYvTof4n3seStEe/z6BJ9kzU9lqkzRgm8WjBLKgoOXWvhRv
+ 03Cnp64kdwYKggmGxrV/pG6qeniHBuPlQXWjhvon+6SSvFFYTIhyvlSozTLjr6n0VT4hC/BdEz3
+ XYqFXKkkdYoI9BoKLmZu3R3S9qU/ZtALTL0T9mfss9+KHaoIBEt2oDUJK9XuBlKLLxckv7tGD3p
+ of/HeCrFsgoFbV/Glow==
+X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6accc523 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=a_u-TuGqFIQ8ZqSRPssA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: 3fucFtz2lUs8nknSIQ6sAvHbfdYz0iHF
+X-Proofpoint-GUID: 3fucFtz2lUs8nknSIQ6sAvHbfdYz0iHF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
+ spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120044
 
-On Thu, 08 Oct 2026 13:50:57 +0100,
-Yize Wang <wangyize7@huawei.com> wrote:
->=20
->=20
-> =E5=9C=A8 2026/10/3 22:53, Marc Zyngier =E5=86=99=E9=81=93:
-> > On Sun, 20 Sep 2026 10:15:25 +0100,
-> > Yize Wang <wangyize7@huawei.com> wrote:
-> >> =E5=9C=A8 2026/9/18 20:08, Marc Zyngier =E5=86=99=E9=81=93:
-> >>> On Fri, 18 Sep 2026 09:18:13 +0100,
-> >>> Yize Wang<wangyize7@huawei.com> wrote:
-> >>  =C2=A0 These patches focus on optimizing GICv3 register access during=
- live
-> >> migration. We found that there are a large number of locks (kvm->lock,
-> >> vcpus, config_lock) in the GIC, these lock operations wil cost large
-> >> time waste. The batches of sysreg for vcpu optimization will come in
-> >> follow as a separate series. And let me address these questions one by
-> >> one.
-> > All these locks should be non-blocking by the time you save anything
-> > related to the GIC, because:
-> >=20
-> > - none of the vcpu can be running
-> >=20
-> > - this must be a single threaded operation
-> >=20
-> > So if you are seeing anything contended, this is either the sign of a
-> > bad KVM bug, or an indication that you are violating the above
-> > requirements.
-> >=20
-> > 	M.
->=20
->=20
-> Hi, Marc! Thanks for your review.
->=20
-> You are right that when saving the GIC state during live migration
-> process, all vCPUs are not running and it is a single threaded
-> operation. Our patches process the packaged register states from the
-> userspace under the same lock. These operations only aim to reduce
-> the lock opreation downtime and do not involve lock contention.
 
-OK, so your argument was actively misleading, since you were claiming
-that locks were the majority of the overhead, and are now
-advocating... something else.
 
-> In addition, these patches focus on reducing the syscalls of
-> ioctl. Now, every register requires an ioctl, resulting in (num_cpu
-> * registers_per_cpu) system calls. This will cost lots of time
-> during the large-scale VM migration. Our patches batch registers by
-> category in qemu and then send them to kernel in batches. This
-> operations significantly reduce the number of ioctl syscalls and
-> save a great amount of downtime.
+On 10/1/26 12:32, Heiko Carstens wrote:
+> The mvcos exception handler ex_handler_ua_mvcos() decodes the faulting
+> instruction, assuming it is an mvcos instruction. In case the instruction
+> is kprobed the decoded instruction is a breakpoint instruction instead,
+> which leads to incorrect instruction decoding and potential register
+> corruption.
+> 
+> Fix this by simply preventing to set a kprobe on such instructions,
+> similar like arm64 is doing it.
+> 
+> Fixes: c488f5187a24 ("s390/uaccess: Shorten raw_copy_from_user() / raw_copy_to_user() inline assemblies")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> ---
+>   arch/s390/kernel/kprobes.c | 3 +++
+>   1 file changed, 3 insertions(+)
 
-I've suggested you use io_uring, and you completely disregarded my
-suggestion based on... locking contention. How do you expect me to
-take you seriously?
+Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
 
-I've now marked this series as rejected. Please come back once you and
-your AI toy have agreed on what you want to do.
 
-Thanks,
-
-	M.
-
---=20
-Without deviation from the norm, progress is not possible.
