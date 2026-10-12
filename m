@@ -1,68 +1,68 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640504AEBC6
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:04:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3774B95A3
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:04:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791824643; cv=none; b=Hn8aD1II3i5oVMsC2ZVjO5Qa2zSHL4CZTr3uIbua+aMzcNzqxtVx8NWEyJlTZcKUmDGi+7IhNSFRwAaEk1dxBpxQ0cIpykfZNNr6o6/t+fkh9AFA7YnDFZGHZIphShkhCEGulbYN9SlrnHPu4YyGujt4z9lXmxc20it83VzL6g8=
+	t=1791824646; cv=none; b=l8JAY/U+pBeVOnsO/VPAWFzmPvxuyNYpFb7BLivez6kDNXndTfGhHJpL7/0X6SvaZZWHO+WzBnAEB0YGfedHdWoCNh+28WmQv1XmJYwGx6du1/Gz0odPH0cerZcBkFJreyycHC3Wowpkn56cID7ldZp9uGa8dKJ3/lsMUXk6AGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791824643; c=relaxed/simple;
-	bh=7MuVjuhF+Ser5K3+IN7XG2FsuC3X8ZSQxqeDy6PE6bs=;
+	s=arc-20240116; t=1791824646; c=relaxed/simple;
+	bh=wScoK7Zeb+ddAnfyXZ0SLwbxAg0VVSeMqQZ7XRKBFrA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Kd+t1b048G9wVZ86r7BVWuN7XKOSiTeve3k7S5zr3k+NgbHDe7zCH6z5l3PaqYbCgENwLSpARoq4bjwJS5ddi9WOvhI/MEw4chDXbRCSHmzV/WN2xOofPv2ha3tHk1aaZFd60Uh3WKiYApm3u62tBw9e7bt3z9rtjnB2MFTdFvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XY5TuFUf; arc=none smtp.client-ip=209.85.128.44
+	 In-Reply-To:To:Cc; b=UMLH8QZbeDM2Ln2oHcfkr2+SPkOVtomPC/XWPNWTaZ6Bzl0BuHb/9mCqW6a2Mjs4PzpptZ2CUw8vg70V8+ldrWXbI6tFoQY00deFVWOBNCMZcHf2qBnvGaEnaajs0tWBoeAnxWvt86dyK6OarE9eBVnHswzRMqJiP6yQEVBfP1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=irC96f/L; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XY5TuFUf"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a17ce1dc00so3820285e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:04:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="irC96f/L"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49e6b771d06so5190195e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:04:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791824639; x=1792429439; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791824641; x=1792429441; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3FVaPfHKAF1nMEvp9RjbHuFY5UhBJPIfS1hxOZsF6QI=;
-        b=XY5TuFUf5qD364itS2gxwuukny79Gg1sFHP+th6xbpi7TlXd0p/l+g81sVUmnkKAAv
-         p3k7AUeSSJOt99Wm5is6YBSuvbzqYkjgbzD84UZIZPEN7xtb1f35xVfNGObEqbqd7mfF
-         dhGiwWErh1M4HgUytFWUZc/cPxizMfwEK/c7NiP1Cn2nGQunYFb58zCGWzRm9b/XMJzq
-         F7/BEaGhbgrPVzmnbfrep9u9CsoUAK0uMaNbDQTbEvA/vovTaLNZ8dSPdBq3ZQWiGcJt
-         gAf674WK3nnrntHJogQcBWmUnjXzDICd10nE1UWJEOLipVtxAUUl0wLp6sPLsBy8sOP+
-         0Nsg==
+        bh=GWZnbEyxANyUwQJq6+wlCh4sagVZfQm7Gqv7rIje7bs=;
+        b=irC96f/LWcf9kEXQOzCoT2MyCfaE9vI4sIWW4Cfed+qIJEOXEMH/1upIx+eb/2PDQH
+         OeTYzTnp7ohCoioo4ch2yeTAF5OQvxoQ3Dssm7WX84ddnFiY72wzekq6je5sA7f/dewY
+         zDtMazerPHyHxyWjsY1XKB5qGAMRkKYuv5tEgGB5ob42+xmF1O3zPtW671VGShR7QsmF
+         rk3YT/RnJ1M8N1jFlv1M7r8Bi1ok+WvKiF9OThG8iSLOy0CfsL0L9ZTFBWe774YTk+XC
+         X76Pdh+p2ifxeYEkPTg5BasQ7Da/YBAwygap5l5xWYdqR1xOicQ6+5ZnGJkIDbxLZ0Ox
+         2RAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791824639; x=1792429439;
+        d=1e100.net; s=20260707; t=1791824641; x=1792429441;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3FVaPfHKAF1nMEvp9RjbHuFY5UhBJPIfS1hxOZsF6QI=;
-        b=AWXiuopiuC+/Q4dpwuVTkA9emkW6QQS5blOVAyeuZBMDf82OwVsn8YxN6XLdrSIOwo
-         VZol5eQja+KYztsWd94xu22RupkkuOeX87Muj+pk29MP3aNiBjfVL2bVkcocda+JkMGw
-         QWuMeXUv2uCn6cyqH9OVX46ZJ9YlcEp9IZnba2EqzhI6wZUgUhUzZSTFjzEnC4R9C7sw
-         ZbihzKuX2YQOaI1iVWQoBOHieXMYv2YFMLnWFBWQe6JBNknhNPMTt+pYmKSovc/7u0++
-         LIJrzA5WVJccfaIxhThX1tBM/6bGXN7EmYZrtne6Ln9DQ4fxVpTqYcq5ibQgh/kEzt0S
-         LM+g==
-X-Forwarded-Encrypted: i=1; AKwUvBzZ/kxgl10es5RMM4/p9Y0xZDBBY/y8ZZ2GQUqEO7EIDvcKwm35RcWWYZdCeAE76Gk4ypyQVzPjQT4Hjl8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYINS5tg/FDDR+YJugc/CKd0+PazAphciUHAOz8zP00HTgum6vBk
-	OpjcS6rB8TZujoTsgyfwAEV2ZwVtJPQSg7UZs7ygQmfv5FkhyxYucwxT
-X-Gm-Gg: AYBFou2cK2bYmWYts1njvjLsLB1NbpqcdUJOqu2mgxMTWbQ5o78HqOmRhH+HQCpcHid
-	XQOV+9ihn4ytADn4Lj8detPzXgVSF+5jlNyBG9Lfj0dx78QDdRWWa+I5Y2mBYn/IMBSXV5qqAD7
-	a+TzRGww3gY/716MO7hVO1vq4tFoQR6CND+15Sc7LkN/06HP3oLb8yHuf6avv/mEUFCI7pBrYCm
-	5rmJCknL3QL+oOMXhzdO4SJ7AcYePHnP/SHa5O22o3jsmG1s9URdywV23Ji5NsTqvADLqZsl1hb
-	QcuUTCHqJfShYRV33SMQs+OkOiiQhDjKqVeiE80JzK4asVVpCXr8+Mpi+vD/JGI+AJ8N+WaQI+T
-	FI4aGznRAtFE/2dgTrvbKOGtW70YJEMN5TrezDYze3p6zP47GJ/60CbQeok7xMgXH/lmPMfFtea
-	YwgQzAt7hnHfdmbOfsqAAX7DUHNa6LM3ykgz4HMthAGenDML35p4D9Rrl2pszPvBQ=
-X-Received: by 2002:a05:600c:6285:b0:4a1:715d:1913 with SMTP id 5b1f17b1804b1-4a18e4760demr191336265e9.1.1791824639352;
-        Mon, 12 Oct 2026 10:03:59 -0700 (PDT)
+        bh=GWZnbEyxANyUwQJq6+wlCh4sagVZfQm7Gqv7rIje7bs=;
+        b=eacGo/kskEgK8gmLdqcuuvE8SSiX2FruEPJcaMmb4FIUm97cN9vKZGLjAtrMGKPmYh
+         UvCnhm0xDxMKuRBFqIcruYUnL0DNLGuU8DlsAQqzJG/ObqjK4DlV2y0Ga/8s3Ozc3cNu
+         nlLkhaF7W6v3DDPh5gYW6dXH0BmBeBp7KlTo9fLszfU7Vo2J0aBxSl9GWpzpkj3w/H30
+         ryNgMxEiD6tMoRDlQbyHLrvcgNT6dl+Af07UXTsO17YjAnClAO8npEJ6MkZwB27Ptp0q
+         XLTqpp5Qrkkpk7EVvSPg0z0Qr4zcqjUFOWUMGlD1JFrT+Uzlx2XMJRQiDKBNMS67UFuM
+         +sig==
+X-Forwarded-Encrypted: i=1; AKwUvBzQBKsV6G1IY/IVjEkg3Tk95rX92ILlyLLxm4oCpT6h3greB7T7PWdzAQZi248QL5a+/XGPXyojRCS5bZY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8lCbNqwGVx94fS/MmkDRtTT7y2LxlnnAKoAcFI6AIkBYagTWQ
+	lk6+zqNyR7Js/vcYE1Z9KkuYYpy2s1EUhZBE1pAya/jA/64IuJFW1mbX
+X-Gm-Gg: AYBFou2c6nKxfnchYCrg8QA+kquNHpD1dYC1u5lgiVht0XCrvxawnmvc5Io1RbWfaMN
+	gdLH85Cyku+03YyaCF82wIQM4yFyBl2TKnDV7w9/E4sR/uh4za4Yyi7I+kGBHgLX3mTpOaNjjA2
+	aG7oCPSB0fGDNv5fvJkPL9atbO5rRpxm/pj5A2kTtpr64F8ji2R8gV+i9sSsZ4OG6Q3Dx2HLuBo
+	sho/zhzojV+3j5C00ogTvYP/5ts9azDCkgesqy9PkjPKexDoW0bTVAULKfgfNxOa4oXp+/Sl6Ur
+	S61BXxeIRXd9GEyJWTBYPRGfsuHJaWSCp4zA+k9+QgJPMQt2RAua5ZYGPtItRnk0RIYNnL3Vtrt
+	cyoUNXTDn4nrYZDDAEiVMt45LlbjXUpsK/zVWE7iTpaqgnuI6jmfB2Ctt1GIcrh5QUvf3HTwYOH
+	7NNMab7ydRYSX4+9R6cubOu4b5mk9balkZMd7urOIEUkVYq/Yx5EHa
+X-Received: by 2002:a05:600c:3b29:b0:4a1:813f:2a5a with SMTP id 5b1f17b1804b1-4a18e477757mr189549095e9.2.1791824640898;
+        Mon, 12 Oct 2026 10:04:00 -0700 (PDT)
 Received: from localhost ([2620:10d:c092:500::4:c555])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab4f34sm447253f8f.28.2026.10.12.10.03.58
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2e0dbsm319829985e9.11.2026.10.12.10.04.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 10:03:58 -0700 (PDT)
+        Mon, 12 Oct 2026 10:04:00 -0700 (PDT)
 From: Gustavo Luiz Duarte <gustavold@gmail.com>
-Date: Mon, 12 Oct 2026 18:03:43 +0100
-Subject: [PATCH net-next v2 1/2] netconsole: avoid printing partially
- updated target attributes
+Date: Mon, 12 Oct 2026 18:03:44 +0100
+Subject: [PATCH net-next v2 2/2] netconsole: remove unnecessary target
+ refcounting from the netdev notifier
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,143 +71,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-netcons-fixes-next-v2-1-ac8ec4c62edb@gmail.com>
+Message-Id: <20261012-netcons-fixes-next-v2-2-ac8ec4c62edb@gmail.com>
 References: <20261012-netcons-fixes-next-v2-0-ac8ec4c62edb@gmail.com>
 In-Reply-To: <20261012-netcons-fixes-next-v2-0-ac8ec4c62edb@gmail.com>
 To: Breno Leitao <leitao@debian.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Gustavo Luiz Duarte <gustavold@gmail.com>, 
- Sashiko <netdev-bot+sashiko@kernel.org>
+ Gustavo Luiz Duarte <gustavold@gmail.com>
 X-Mailer: b4 0.15.2
 
-The configfs store callbacks all serialize on dynamic_netconsole_mutex
-but not on the read side, so reading an attribute while it is being
-written returns a partially updated value.
+Since netconsole_netdev_event() holds target_list_lock, there is no need
+to also protect each target with netconsole_target_get/put()
+refcounting. There is no way a target reachable from the target_list
+would go away while we hold target_list_lock.
 
-Hold dynamic_netconsole_mutex on *_show() callbacks to avoid racing with
-writers.
+This is similar to commit a6d403ac9689 ("netconsole: remove unnecessary
+netconsole_target_get/out() from write_msg()").
 
-The dev_name_show() callback can also race with
-netconsole_netdev_event() writing to np.dev_name due to
-NETDEV_CHANGENAME. So it needs to hold target_list_lock in addition to
-dynamic_netconsole_mutex.
+Since this is the only remaining user of netconsole_target_get/put(),
+remove those helpers as well.
 
-Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260814-netcons_ipv6-v3-7-bc0915e8c75f@gmail.com
-Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928-netcons-fixes-v1-0-bb5ffe5e698a%40gmail.com
 Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
 ---
- drivers/net/netconsole.c | 63 +++++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 52 insertions(+), 11 deletions(-)
+ drivers/net/netconsole.c | 31 -------------------------------
+ 1 file changed, 31 deletions(-)
 
 diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
-index 267254f046de..953a1da07186 100644
+index 953a1da07186..e40ef6c4f761 100644
 --- a/drivers/net/netconsole.c
 +++ b/drivers/net/netconsole.c
-@@ -859,7 +859,20 @@ static ssize_t release_show(struct config_item *item, char *buf)
- 
- static ssize_t dev_name_show(struct config_item *item, char *buf)
- {
--	return sysfs_emit(buf, "%s\n", to_target(item)->np.dev_name);
-+	struct netconsole_target *nt = to_target(item);
-+	unsigned long flags;
-+	int ret;
-+
-+	dynamic_netconsole_mutex_lock();
-+	/* Hold target_list_lock to prevent racing against
-+	 * netconsole_netdev_event() changing np.dev_name.
-+	 */
-+	spin_lock_irqsave(&target_list_lock, flags);
-+	ret = sysfs_emit(buf, "%s\n", nt->np.dev_name);
-+	spin_unlock_irqrestore(&target_list_lock, flags);
-+	dynamic_netconsole_mutex_unlock();
-+
-+	return ret;
+@@ -262,23 +262,6 @@ static void __exit dynamic_netconsole_exit(void)
+ 	configfs_unregister_subsystem(&netconsole_subsys);
  }
  
- static ssize_t local_port_show(struct config_item *item, char *buf)
-@@ -875,25 +888,39 @@ static ssize_t remote_port_show(struct config_item *item, char *buf)
- static ssize_t local_ip_show(struct config_item *item, char *buf)
+-/*
+- * Targets that were created by parsing the boot/module option string
+- * do not exist in the configfs hierarchy (and have NULL names) and will
+- * never go away, so make these a no-op for them.
+- */
+-static void netconsole_target_get(struct netconsole_target *nt)
+-{
+-	if (config_item_name(&nt->group.cg_item))
+-		config_group_get(&nt->group);
+-}
+-
+-static void netconsole_target_put(struct netconsole_target *nt)
+-{
+-	if (config_item_name(&nt->group.cg_item))
+-		config_group_put(&nt->group);
+-}
+-
+ static void dynamic_netconsole_mutex_lock(void)
  {
- 	struct netconsole_target *nt = to_target(item);
-+	int ret;
-+
-+	dynamic_netconsole_mutex_lock();
- 
- 	if (nt->local_ip.family == AF_UNSPEC)
--		return sysfs_emit(buf, "\n");
--	if (nt->local_ip.family == AF_INET6)
--		return sysfs_emit(buf, "%pI6c\n", &nt->local_ip.in6);
-+		ret = sysfs_emit(buf, "\n");
-+	else if (nt->local_ip.family == AF_INET6)
-+		ret = sysfs_emit(buf, "%pI6c\n", &nt->local_ip.in6);
- 	else
--		return sysfs_emit(buf, "%pI4\n", &nt->local_ip.ip);
-+		ret = sysfs_emit(buf, "%pI4\n", &nt->local_ip.ip);
-+
-+	dynamic_netconsole_mutex_unlock();
-+
-+	return ret;
+ 	mutex_lock(&dynamic_netconsole_mutex);
+@@ -300,18 +283,6 @@ static void __exit dynamic_netconsole_exit(void)
+ {
  }
  
- static ssize_t remote_ip_show(struct config_item *item, char *buf)
+-/*
+- * No danger of targets going away from under us when dynamic
+- * reconfigurability is off.
+- */
+-static void netconsole_target_get(struct netconsole_target *nt)
+-{
+-}
+-
+-static void netconsole_target_put(struct netconsole_target *nt)
+-{
+-}
+-
+ static void populate_configfs_item(struct netconsole_target *nt,
+ 				   int cmdline_count)
  {
- 	struct netconsole_target *nt = to_target(item);
-+	int ret;
-+
-+	dynamic_netconsole_mutex_lock();
- 
- 	if (nt->remote_ip.family == AF_UNSPEC)
--		return sysfs_emit(buf, "\n");
--	if (nt->remote_ip.family == AF_INET6)
--		return sysfs_emit(buf, "%pI6c\n", &nt->remote_ip.in6);
-+		ret = sysfs_emit(buf, "\n");
-+	else if (nt->remote_ip.family == AF_INET6)
-+		ret = sysfs_emit(buf, "%pI6c\n", &nt->remote_ip.in6);
- 	else
--		return sysfs_emit(buf, "%pI4\n", &nt->remote_ip.ip);
-+		ret = sysfs_emit(buf, "%pI4\n", &nt->remote_ip.ip);
-+
-+	dynamic_netconsole_mutex_unlock();
-+
-+	return ret;
- }
- 
- static ssize_t local_mac_show(struct config_item *item, char *buf)
-@@ -906,7 +933,14 @@ static ssize_t local_mac_show(struct config_item *item, char *buf)
- 
- static ssize_t remote_mac_show(struct config_item *item, char *buf)
- {
--	return sysfs_emit(buf, "%pM\n", to_target(item)->remote_mac);
-+	struct netconsole_target *nt = to_target(item);
-+	int ret;
-+
-+	dynamic_netconsole_mutex_lock();
-+	ret = sysfs_emit(buf, "%pM\n", nt->remote_mac);
-+	dynamic_netconsole_mutex_unlock();
-+
-+	return ret;
- }
- 
- static ssize_t transmit_errors_show(struct config_item *item, char *buf)
-@@ -1342,7 +1376,14 @@ static struct netconsole_target *userdata_to_target(struct userdata *ud)
- 
- static ssize_t userdatum_value_show(struct config_item *item, char *buf)
- {
--	return sysfs_emit(buf, "%s\n", &(to_userdatum(item)->value[0]));
-+	struct userdatum *udm = to_userdatum(item);
-+	int ret;
-+
-+	dynamic_netconsole_mutex_lock();
-+	ret = sysfs_emit(buf, "%s\n", udm->value);
-+	dynamic_netconsole_mutex_unlock();
-+
-+	return ret;
- }
- 
- /* Navigate configfs and calculate the lentgh of the formatted string
+@@ -1980,7 +1951,6 @@ static int netconsole_netdev_event(struct notifier_block *this,
+ 	mutex_lock(&target_cleanup_list_lock);
+ 	spin_lock_irqsave(&target_list_lock, flags);
+ 	list_for_each_entry_safe(nt, tmp, &target_list, list) {
+-		netconsole_target_get(nt);
+ 		if (nt->np.dev == dev) {
+ 			switch (event) {
+ 			case NETDEV_CHANGENAME:
+@@ -2010,7 +1980,6 @@ static int netconsole_netdev_event(struct notifier_block *this,
+ 			 * notifier.
+ 			 */
+ 			queue_work(netconsole_wq, &nt->resume_wq);
+-		netconsole_target_put(nt);
+ 	}
+ 	spin_unlock_irqrestore(&target_list_lock, flags);
+ 	mutex_unlock(&target_cleanup_list_lock);
 
 -- 
 2.56.0
