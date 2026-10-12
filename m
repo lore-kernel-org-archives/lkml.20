@@ -1,238 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8084DBD70;
-	Mon, 12 Oct 2026 19:16:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC0B4DAFBC
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:16:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791832581; cv=none; b=R1w3fCYyR9xjcR7S/8u+ERqCXAxh9z4zoqsv1mpj1U8Unn6HA8KfzE4newzEhvNUPCDhvY1M1fP5y3R3tgayQ/FpSgl90ELoof3+VZ82E0rwt8WDvUxDauVpcWtsPgOuZlesG2XPCtURRgPz0RCOG7HegH9hEEKnUcKzvL+sdOU=
+	t=1791832585; cv=none; b=bGZoL53NgSaFVpvIm1XrUpSqDlH5OPIH/cDtSZXZZys4Do84xRLVDkO2/zRXnI1MSF6Yy0/np4coIDDtnI1S73p6R3emxioBDCs6xp4SSdDXsuRzpex5bh0W6qFxuC4WbTLenF3SILevPmAWqOTlOpfObl7sByMYmG8phGJkDDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791832581; c=relaxed/simple;
-	bh=jfm7V/lN2juYXLscNqZLMKlFPte1DBkKgWz0rkvstq4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Aqaq45v61Y/0zvyoTR+qygJB0dTj4s2lz/lBr+G1hq/ZjI1NeinLeTIs9Xgvfd4BJNEIo425f86Htu9zKTW0y4qz5wveJLorgrVXTKREo2NU6M7Jnw9JptDDqU+//DzDRmM7V6Civ/+2dX7U0MeAjbo5OyTJ4V2MrO/yCC8rDhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kHhqjUXk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791832585; c=relaxed/simple;
+	bh=F1N9sc0phttKEroqTY7fq4cUBOZftvRnSXLYqSUrN14=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=PObcs8c2SnaqVHLp+FKL/Pfeo2uG0pO5/t/V8IH56Gm12fmpR0vwibinqIEtKY+9sb4pWzCq4BX2aJTJFCsz9ZdvLmF+3GF0Mego84yDm74QwrHfFPLwF+9/62EjxKEl9mF5MqghMVS5Eu7UCF1T22DTp9qlOFjnx9fB9b5GCfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=burcliSJ; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kHhqjUXk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 283BC1F0089B;
-	Mon, 12 Oct 2026 19:16:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791832575;
-	bh=nJS4Pop097HfYJvZyN52MddIk+X13UjE+RZ+4JN0C+g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kHhqjUXkPc/hchWSgCP6jgo1i6Qu4/0x7uJq6NGgJOT6xTNGCceeTR9jemUhb+Vu7
-	 NCrylSUtYMzunfLRMUHCVtrJ+BC0PHlP7TungRgwNuGHVLENOkrjYkJY9wSDP9zveX
-	 n6iOXdFaah2L1GhMMssBznT5oyUuc5zJQWeAYm/ECwWQ9oncTMw2gyYrEClZKq6pl2
-	 a4fnetCasOH01pJWm2FREAFNzmxFglybMSXB52TLnS6g1g+0V8YjN0C2M12ntRMaO7
-	 swfAa01j/Pi36ID5gTH380udtGteVprtrtcthNAtAhXP4m03aPKlMi6lnZ2j10UMJT
-	 xkvqLt4MJfTLg==
-Date: Mon, 12 Oct 2026 20:16:10 +0100
-From: Conor Dooley <conor@kernel.org>
-To: =?utf-8?B?TWljaGHFgiBLb3BlxIc=?= <michal@nozomi.space>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	jikos@kernel.org, bentiss@kernel.org, dmitry.torokhov@gmail.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
-	allencl_lin@hotmail.com, tylor_yang@himax.corp-partner.google.com,
-	felix@kaechele.ca, dianders@chromium.org
-Subject: Re: [PATCH v6 1/3] dt-bindings: input: Add Himax HX83102J touchscreen
-Message-ID: <20261012-material-disclose-4f0f8af60ffe@spud>
-References: <20261011181633.1778969-1-michal@nozomi.space>
- <20261011181633.1778969-2-michal@nozomi.space>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="burcliSJ"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a168355946so19428855e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:16:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791832581; x=1792437381; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CRfRncq4FuUqEgsh+Q7MKNhu4iIEz6/gs4z1N6qwQUY=;
+        b=burcliSJwJy8wntjxL4duhuZcZ/y8xNQMOrS2+ed8KpsCZk0oCS5hVSf5VT9fWL6Ci
+         dctnORJH/vEmrkyvaNC3JF+H6Q2Zma+iT1N7AwwuNqIBZeU9eLOS0HONZod6fxaH3WO2
+         WRddL6QzfsVQXpzf3eggBoXY3SDMrkQc4Y/dqXJoK7SWNu1MT2s2kqzEH7n40kBo14Pu
+         +aydu3/+zEFmbeYZXFimx3uYfWeDLCz0kt1me3eR94tW+ufDdSZlsrnKfWp1kUNMj/hy
+         cShyHZjkLEwCF00gFwjtZdcxL0OWrpZstHGRHtatB4exdL4oi+1bWxcUJAC6BY0x2GBt
+         GvQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791832581; x=1792437381;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CRfRncq4FuUqEgsh+Q7MKNhu4iIEz6/gs4z1N6qwQUY=;
+        b=v1iz7ppYqovKM70G03w8Yy8D/bQ1ip1x3O9j8jojcsDAEyhh7uY7NVjc5pcl4HTOVE
+         ahXGupuu0HsxYThlfum6l45mNUhoVGzwaUWusr62HQKFDlmobCkPy19nD2rkdJrpwrFd
+         5S0veDdRvCDINnIOKeOZL4S27k5vAGzC0mzqh8K+X29Pty0HTJoNSpZl6kQKOlYuhvwS
+         VDjZNGztO9CUFjvymsGBUzKhcPh5gjcBTVGlE3dJi677RSAues3ssQz/IPLw1+zF12uv
+         +2bWYfHf2+JYiSwAki+QO2i7VaFJAICkVSirLgt8VEYxK/1MFxioEWTWl8v6Kbw8db5H
+         rLFA==
+X-Forwarded-Encrypted: i=1; AKwUvBz3AJYSnVgcVkmLYo10Dus2ahOGJQMTbvluV5rQyiw1a3P8Dj5eyB8XOl90nOwAerNyj5tqkDaBPGergTs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYINklatOh5dPmPoiECixNyyQeQYqFg6DMstUTRKrm4XOHl5I5ia
+	cE69nQKZQRQrna2QZ3SEfGg25wTsUvaFNVjoG3HmTvxlssU+oNsBVjou7lovZ7GP8ts=
+X-Gm-Gg: AYBFou3CHAYRzSNvc01CV3OIHm4OYAmS21FC9XVcVL3IeMaA1F3FvbczKSDYckYSjnU
+	VJYnLPN/nLW+GRkY/OuIbXHYgCmyH/XldIVC/e436TonJdOt4ftIqzmks+fq6vlqCfRvoLYIBpq
+	sfMcyBCmXC9d5tDUlM5zzhHY2BAZtmpphleuZH7Q39Tlz3asjIUHpafKy4IHcwEgiqB9qpMete1
+	jSjZeEy2u7c93YiT0MrijRWrx2cna29d+5+RTbjraME7zI74oo17BhEDPUbE+nm7VBY8eGX/SoV
+	N/7v0erArVXcxR4IRq4ANVxVtKyqRc82EDA6PMTyigu4Z19F2wb5rOEDU1hJPr4ddPW0bJj3cNP
+	/OFnIFZpzp134pDPkSGbtcLt6HxLWxY2GahUGl5r0zLTVSuvM7bs/RPXifTGWv1CSggsQzU5erM
+	QRCPiqvHu+2pD01FXvJFNaTIfgtrEunEmpSPQMf6mJhenx6PikU2fFNdeBsaMZ47S8jUfCAqiQy
+	jjWRk6ruwE3l6YIsbRMTd18E3ii
+X-Received: by 2002:a05:600c:8b70:b0:4a0:108:3b48 with SMTP id 5b1f17b1804b1-4a18e4a174amr194169405e9.7.1791832580955;
+        Mon, 12 Oct 2026 12:16:20 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf21276sm478285355e9.8.2026.10.12.12.16.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 12:16:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/CLthKRV7cJy8A22"
-Content-Disposition: inline
-In-Reply-To: <20261011181633.1778969-2-michal@nozomi.space>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v6 00/15] Add basic clocks and resets for JHB100 SoC
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, 
+ Changhuang Liang <changhuang.liang@starfivetech.com>, 
+ Brian Masney <bmasney@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Emil Renner Berthing <kernel@esmil.dk>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ Hal Feng <hal.feng@starfivetech.com>
+In-Reply-To: <20261012-grass-guru-1ba876eda895@spud>
+References: <20261008123338.11081-1-changhuang.liang@starfivetech.com>
+ <179180050741.66744.3459927533880490879.b4-review@b4>
+ <20261012-grass-guru-1ba876eda895@spud>
+Date: Mon, 12 Oct 2026 21:16:19 +0200
+Message-Id: <179183257960.266355.15581316876923702717.b4-reply@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1422; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=F1N9sc0phttKEroqTY7fq4cUBOZftvRnSXLYqSUrN14=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlnjZhzV537/L/M+KX8bkkb84JgjbmKcnd7zSVXvGQ/5
+ +/C/0awo5SFQYyLQVZMkaWGu1r8naTWl1nTdW7DzGFlAhnCwMUpABPx2sbIcMUr0nD6Uoazbr/u
+ /xA7XB+v681zct+D7QsW+fbozLtpuZPhnxWT2QFppxW/hcrua0zme85ue+FEzqEHjZ7nmtNjjC9
+ E8wMA
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
---/CLthKRV7cJy8A22
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 2026-10-12 20:03 +0100, Conor Dooley wrote:
+> On Mon, Oct 12, 2026 at 12:21:47PM +0200, Jerome Brunet wrote:
+> > > The JHB100 SoC includes CRG (Clock and Reset Generator) for multiple
+> > > subsystems:
+> > 
+> > Nothing really forces you to send them all together.
+> > 
+> > In the future, could you try to send one CRG driver at a time ?
+> > 
+> > It is fine to send big RFC to give context but after that, if you
+> > can make you series smaller, it is generally a good idea to do so.
+> > 
+> > This helps us iterate on the series faster and then you can fold our
+> > feedback in following series (instead of repeating the same comments
+> > on multiple instances of the same thing) Thanks.
+> > 
+> 
+> > Also your series does not apply on clk-next or -rc1 and no pre-requisite
+> > are mentioned in this cover letter. Consider using b4 to point out
+> > your pre-requisite if any
+> 
+> The dep should be the PR I sent to Brian, but I suspect what's happened
+> here is that the MAINTAINERS parts of those patches (which I had dropped
+> because they were all conflicting with my tree) didn't get reabsorbed
+> into this series. Very annoying for review of course, even if it's a
+> non-functional conflict. Of course rebase on top of clk-next would've
+> highlighted that to the submitter!
 
-On Sun, Oct 11, 2026 at 08:16:31PM +0200, Micha=C5=82 Kope=C4=87 wrote:
-> Add the binding for the touch function of the Himax HX83102J, a touch
-> and display driver integrated (TDDI) controller. The touch function is
-> connected over SPI and shares the analog supplies and the reset of the
-> display function, so it is powered and reset together with the panel
-> and has to follow it.
->=20
-> Co-developed-by: Allen Lin <allencl_lin@hotmail.com>
-> Signed-off-by: Allen Lin <allencl_lin@hotmail.com>
-> Signed-off-by: Micha=C5=82 Kope=C4=87 <michal@nozomi.space>
-> ---
->  .../input/touchscreen/himax,hx83102j.yaml     | 98 +++++++++++++++++++
->  MAINTAINERS                                   |  6 ++
->  2 files changed, 104 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/input/touchscreen/h=
-imax,hx83102j.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/input/touchscreen/himax,hx=
-83102j.yaml b/Documentation/devicetree/bindings/input/touchscreen/himax,hx8=
-3102j.yaml
-> new file mode 100644
-> index 0000000000000..f0aca7a6662c9
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/input/touchscreen/himax,hx83102j.=
-yaml
-> @@ -0,0 +1,98 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/input/touchscreen/himax,hx83102j.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Himax hx83102j touchscreen
-> +
-> +maintainers:
-> +  - Micha=C5=82 Kope=C4=87 <michal@nozomi.space>
-> +
-> +description:
-> +  The Himax HX83102J is a touch and display driver integrated (TDDI)
-> +  controller. Its touch function is connected over SPI and reports HID
-> +  packets. The display and touch functions share the analog supplies and
-> +  the display reset, so the touch function is powered and reset together
-> +  with the panel it is part of.
-> +
-> +allOf:
-> +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: himax,hx83102j
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description:
-> +      Reset of the touch function. Unlike display-reset-gpios, it only
-> +      resets the touch MCU and leaves the display function running, so t=
-he
-> +      touch function can be reset without disturbing the panel.
-> +
-> +  vccd-supply:
-> +    description: Digital I/O supply of the touch function.
-> +
-> +  vsn-supply:
-> +    description: Negative analog supply, shared with the display functio=
-n.
-> +
-> +  vsp-supply:
-> +    description: Positive analog supply, shared with the display functio=
-n.
-> +
-> +  display-reset-gpios:
-> +    maxItems: 1
-> +    description:
-> +      Reset of the display function, usually driven by the panel. Assert=
-ing
-> +      it also resets the touch function.
-> +
-> +  spi-cpha: true
-> +
-> +  spi-cpol: true
+Yes it was only the MAINTAINERS file which I did rebase to check if the rest
+applied correctly.
 
-Just to be sure, these are optional on this device and it's not always
-in this mode?
+-- 
+Jerome
 
-> +
-> +  firmware-name:
-> +    description: Specify the file name for firmware loading.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - reset-gpios
-> +  - panel
-> +  - vccd-supply
-> +  - vsn-supply
-> +  - vsp-supply
-> +  - display-reset-gpios
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    spi {
-> +      #address-cells =3D <1>;
-> +      #size-cells =3D <0>;
-> +      ap_ts: touchscreen@0 {
-
-Drop the label if you respin btw, since it is unused. Binding is mostly
-fine looking to me.
-
-> +        compatible =3D "himax,hx83102j";
-> +        reg =3D <0>;
-> +        pinctrl-names =3D "default";
-> +        pinctrl-0 =3D <&touch_int0 &touch_reset>;
-> +        reset-gpios =3D <&gpio1 8 GPIO_ACTIVE_LOW>;
-> +        spi-cpha;
-> +        spi-cpol;
-> +        interrupt-parent =3D <&gpio1>;
-> +        interrupts =3D <7 IRQ_TYPE_LEVEL_LOW>;
-> +        panel =3D <&panel>;
-> +        vccd-supply =3D <&regulator>;
-> +        vsn-supply =3D <&regulator>;
-> +        vsp-supply =3D <&regulator>;
-> +        display-reset-gpios =3D <&gpio1 9 GPIO_ACTIVE_LOW>;
-> +      };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 72294ddfa5b75..e209f0d44fa73 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -11729,6 +11729,12 @@ W:	http://www.highpoint-tech.com
->  F:	Documentation/scsi/hptiop.rst
->  F:	drivers/scsi/hptiop.c
-> =20
-> +HIMAX HID TOUCHSCREEN
-
-Sounds overly generic, since the hx83112B is probably also a touchscreen
-HID device?
-
-Thanks,
-Conor.
-
-pw-bot: changes-requested
-
-> +M:	Micha=C5=82 Kope=C4=87 <michal@nozomi.space>
-> +L:	linux-input@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/input/touchscreen/himax,hx83102j.ya=
-ml
-> +
->  HIMAX HX83112B TOUCHSCREEN SUPPORT
->  M:	Job Noorman <job@noorman.info>
->  L:	linux-input@vger.kernel.org
-> --=20
-> 2.56.0
->=20
-
---/CLthKRV7cJy8A22
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas0x+gAKCRB4tDGHoIJi
-0ucEAQCqGmUP3Sw5IhmjbZ6Zc9QHpdIzvn83kyYwYYm5jhim1gEAnIrDddbvguy7
-da3uqtmF97eGpMyekSYrksUSQSLvSQE=
-=81pe
------END PGP SIGNATURE-----
-
---/CLthKRV7cJy8A22--
