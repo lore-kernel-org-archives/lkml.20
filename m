@@ -1,207 +1,237 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3EF41A4E4;
-	Mon, 12 Oct 2026 12:10:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6DF4734FA;
+	Mon, 12 Oct 2026 12:10:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791807023; cv=none; b=KSCqyYJVK5rxHaHr588zr4b0VQY+VuUouJgtMn31qS/c/71a09g14ZXy5ARjEsy3iIFzg8lNGAisbX1e32nlJB6RP/wVu6cgt9sXX3MS6xoCJrG1M8zoejrsB03ie/ga0x1GZeIUdobnnWI6JvmRdi2sabM0yWG1fn5rA2nVmNs=
+	t=1791807031; cv=none; b=fRBYYPjAdpQ7vRyr6su8Tjc2LT3lTBrG9XwFtK0Ynjee10wyGBhN9L/Kah614BY35SAruGKPMDDc+e80cUS1GcOXhogKQYlc4Mfheb1aJpgZ1P2VqS/No/n8HRqhtc/dMmblY2e7KQBxc+sWDXkfCkVbD/9fDvbPfGqBFDqpEww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791807023; c=relaxed/simple;
-	bh=l6raZMAXhf9dMLYNhLhwY95pksikfmORW40GrE2iy34=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nInVNdaoB5+ou5BrSIWJ/rC513dAXiyKAnLv43p4ymKXfP2xg/0hqDIAIPjqeA24nuMhZJQn5f4ALK9uawcb4NwVXxX9i4iB0BxJEe3LOT75SmYBAtEM6c6xbrrUEOfJ1HC7p1K+9b77Zt5DbPJgWb1ktKUXAzQ1enxsM7WKtis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZSClGga; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791807031; c=relaxed/simple;
+	bh=fliI41BsBmNuMXFhfbOxcIqf+EdBbQmcQaJNX3hKCh0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=V9+Mny3tgjWhuhZ5lz6yngv5EQxjbLf51NUKeA1kiA7kMeb/68VtcOkkTJrLCioZXohEbj7+i/sw5HDNBaumHiLw3h+VUHssu0CnyGE39djvfRTfrkM74+Ua8eylKOUp723KpYZYzmhedID3bp3Aar21vlWaeExEs5qbMSDD/RQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lgrDR/ML; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZSClGga"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12F901F0089B;
-	Mon, 12 Oct 2026 12:10:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791807018;
-	bh=anrg1c6253FnLZIpERC0khiiG86vNVw6etBg+OrCLc8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mZSClGgaM9kY1Is7etP7rlPP+pnJ++gzStyBSiAKSb3o2d7g6hYUPN8qzhmwWur0m
-	 NsAXQprs6JKO3MITKNcLWubZvuZ0M40zk9oJ4ML4II0ICaUAfw25ab5G4k8S/3Hjz1
-	 B0+6ogGRFDaKz/kGUrWFy/VU7jAMitI+kOwYNrVtwFPqMsLMwnJenRneOHrHm4I19f
-	 bLbAhsHIvhQVVGgeKq1/ySL5o+/wQnIE975nRdyC+SLHUikKHi5pjpasCEZ8FctnR3
-	 hcL7skuJ4q7q8Uh3GR2a7RQom7GiNdtJ/xupw6uqpYhODwy/QcatODAc3NA7Eyarqk
-	 9Hw+yiePDzBIg==
-Subject: Re: [PATCH net-next 1/2] net/mlx5e: Select DCBX HOST/AUTO from
- capability flags in setdcbx
-From: netdev-bot+sashiko@kernel.org
-To: tariqt@nvidia.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, alazar@nvidia.com,
- cjubran@nvidia.com, dtatulea@nvidia.com, gal@nvidia.com, leon@kernel.org,
- linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, mbloch@nvidia.com,
- saeedm@nvidia.com
-Date: Mon, 12 Oct 2026 12:10:17 +0000
-Message-ID: <179180701752.434549.16734295951082648234@kernel.org>
-In-Reply-To: <20261011112900.802150-2-tariqt@nvidia.com>
-References: <20261011112900.802150-2-tariqt@nvidia.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lgrDR/ML"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=x9
+	J19izjyZc6NXDk+H4B76aDk4tOsSFHWGczroPIdDs=; b=lgrDR/MLe3kMc2pOIQ
+	d/WF75wZpc33QhmI0SHHRqfRA/DXgskdW8kVu20AVhoa8BBVHKIYbKqK7ILMuPsN
+	GS2O0RAMHi0n6Mcb40Fgy2swlEUc8Tgx1nx62/JsZQr/2VhKD/g4SpVozYhP2zNM
+	i8zXiGZ9s/++ekg7KE/zIflXc=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3Nz_mzcxqHGNeDw--.1037S3;
+	Mon, 12 Oct 2026 20:09:13 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Tony Lindgren <tony@atomide.com>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chaosheng Qu <quchaosheng000406@163.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v6 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT schema
+Date: Mon, 12 Oct 2026 20:09:08 +0800
+Message-ID: <20261012120910.506444-2-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261012120910.506444-1-quchaosheng000406@163.com>
+References: <20261012120910.506444-1-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3Nz_mzcxqHGNeDw--.1037S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCFyDtr1xCr1UZF1rCr45Wrg_yoWrtr1UpF
+	n5Gas7Ca48WFyaqw4xAr1kCa1rAFykAF40kF1xJFy5ta10qF4ktF13Krn8XFy5Ga4xZayY
+	qF47Ww17Kwn7C3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRmXdbUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-wl78GrMzenFOQAA3D
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+From: Chaosheng Qu <quchaosheng000406@163.com>
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+Convert the TPD12S015 HDMI level shifter binding to DT schema.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The TI TPD12S015 is an HDMI companion chip that combines a level shifter
+and ESD protection circuitry. Document the two ports it exposes between
+the HDMI transmitter and the connector.
 
-- [Medium] mlx5e_dcbnl_setdcbx()
-  (drivers/net/ethernet/mellanox/mlx5/core/en_dcbnl.c) now returns…
-- [Medium] The patch reports firmware AUTO mode as CEE|IEEE|LLD_MANAGED
-  (0x0e), but only on the setdcbx HOST->AUTO transition path.
+The tpd12s016 is software compatible with the tpd12s015 and is listed as
+a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
+fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so
+a board using the tpd12s016 must list both compatibles.
 
---
+The ports carry no properties beyond the graph ones, so each port takes
+the plain graph port schema.
 
-net/mlx5e: Select DCBX HOST/AUTO from capability flags in setdcbx
+Assisted-by: LLM
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
+---
+ .../bindings/display/ti/ti,tpd12s015.txt      | 44 ----------
+ .../bindings/display/ti/ti,tpd12s015.yaml     | 88 +++++++++++++++++++
+ 2 files changed, 88 insertions(+), 44 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+ create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
 
-This commit changes mlx5e_dcbnl_setdcbx() so that the DCB_CAP_DCBX_HOST
-bit selects firmware HOST or AUTO DCBX mode. That merges the two old code
-paths into one. When it switches to firmware-controlled mode, it reports
-CEE, IEEE and LLD_MANAGED together because of a firmware limitation.
-
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_dcbnl.c b/drivers/net/ethernet/mellanox/mlx5/core/en_dcbnl.c
-> index 741f75b5bfec..4eef929f5ae9 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_dcbnl.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_dcbnl.c
-
-[ ... ]
-
-> @@ -453,32 +434,31 @@ static u8 mlx5e_dcbnl_getdcbx(struct net_device *dev)
->  
->  static u8 mlx5e_dcbnl_setdcbx(struct net_device *dev, u8 mode)
->  {
-> +	bool new_is_host = mode & DCB_CAP_DCBX_HOST;
->  	struct mlx5e_priv *priv = netdev_priv(dev);
->  	struct mlx5e_dcbx *dcbx = &priv->dcbx;
-> +	enum mlx5_dcbx_oper_mode target_mode;
->  
->  	if (mode & DCB_CAP_DCBX_LLD_MANAGED)
->  		return 1;
->  
-> -	if ((!mode) && MLX5_CAP_GEN(priv->mdev, dcbx)) {
-> -		if (dcbx->mode == MLX5E_DCBX_PARAM_VER_OPER_AUTO)
-> -			return 0;
-> -
-> -		/* set dcbx to fw controlled */
-> -		if (!mlx5e_dcbnl_set_dcbx_mode(priv, MLX5E_DCBX_PARAM_VER_OPER_AUTO)) {
-> -			dcbx->mode = MLX5E_DCBX_PARAM_VER_OPER_AUTO;
-> -			dcbx->cap &= ~DCB_CAP_DCBX_HOST;
-> -			return 0;
-> -		}
-> +	if (!MLX5_CAP_GEN(priv->mdev, dcbx))
-> +		return !new_is_host;
->  
-> -		return 1;
-> -	}
-> +	target_mode = new_is_host ? MLX5E_DCBX_PARAM_VER_OPER_HOST :
-> +				    MLX5E_DCBX_PARAM_VER_OPER_AUTO;
-> +	if (dcbx->mode == target_mode)
-> +		return 0;
-
-[Severity: Medium]
-Do these two early returns lose the requested DCBX flags?
-
-If the device lacks the dcbx HCA capability, the first check returns 0
-for any HOST request.
-
-If firmware is already in the target mode, the second check returns 0.
-One example is a host LLDP agent sending HOST|VER_IEEE (0x09) while the
-port is already in HOST mode.
-
-Neither path reaches the "dcbx->cap = mode;" at the end of the function.
-
-Before this patch, both cases went through
-mlx5e_dcbnl_switch_to_host_mode(). That helper returned 0 when the cap was
-missing or the mode was already HOST, and the caller then did:
-
-	dcbx->cap = mode;
-	return 0;
-
-Now dcbnl_setdcbx() reports success to userspace, but
-mlx5e_dcbnl_getdcbx() keeps returning the initial CEE|IEEE|HOST (0x0d).
-The same stale value goes into DCB_ATTR_DCBX in the IEEE/CEE get and
-notify paths, and into event.dcbx for dcb_app notifier events.
-
-fcoe_dcb_app_notification() in drivers/scsi/fcoe/fcoe.c consumes that
-value:
-
-	if (entry->dcbx & DCB_CAP_DCBX_VER_CEE)
-		prio = ffs(entry->app.priority) - 1;
-
-If VER_CEE is still set after userspace selected IEEE only, could FCoE
-read an IEEE priority as a CEE bitmap?
-
-The commit message only talks about folding the two code paths into one.
-Was this change in behaviour intended? It is still present at the end of
-the series.
-
->  
-> -	if (!(mode & DCB_CAP_DCBX_HOST))
-> +	if (mlx5e_dcbnl_set_dcbx_mode(priv, target_mode))
->  		return 1;
->  
-> -	if (mlx5e_dcbnl_switch_to_host_mode(netdev_priv(dev)))
-> -		return 1;
-> +	if (!new_is_host)
-> +		mode = DCB_CAP_DCBX_VER_CEE |
-> +		       DCB_CAP_DCBX_VER_IEEE |
-> +		       DCB_CAP_DCBX_LLD_MANAGED;
-
-[Severity: Medium]
-Does the reported AUTO state now depend on history rather than on the
-firmware state?
-
-This sets cap to CEE|IEEE|LLD_MANAGED (0x0e), but only after an actual
-HOST to AUTO transition. mlx5e_dcbnl_initialize() was not updated. When
-firmware is in a non-host mode at probe time, it still does:
-
-	priv->dcbx.cap = DCB_CAP_DCBX_VER_CEE |
-			 DCB_CAP_DCBX_VER_IEEE;
-	if (priv->dcbx.mode == MLX5E_DCBX_PARAM_VER_OPER_HOST)
-		priv->dcbx.cap |= DCB_CAP_DCBX_HOST;
-
-That gives 0x0c, without LLD_MANAGED. A later non-host setdcbx request
-then hits the "if (dcbx->mode == target_mode) return 0;" check above, so
-LLD_MANAGED is never added.
-
-So the same firmware state is reported as 0x0c after booting in AUTO, but
-as 0x0e after a runtime switch to AUTO. The difference shows up in:
-
-  - getdcbx
-  - DCB_CAP_ATTR_DCBX, since mlx5e_dcbnl_getcap() ORs in dcbx->cap
-  - DCB_ATTR_DCBX in the IEEE/CEE get and notify paths
-  - event.dcbx
-
-Before this patch, both paths reported 0x0c.
-
-Should mlx5e_dcbnl_initialize() also set LLD_MANAGED in the AUTO case?
-That would match "report CEE, IEEE and LLD_MANAGED together" from the
-commit message.
-
-There is a related problem in the same function. setdcbx still rejects
-LLD_MANAGED at the top even though it now reports it, which breaks a get
-then set round trip.
-
-The later patch in this series, "net/mlx5e: Add DCB_CAP_DCBX_LLD_MANAGED
-support in setdcbx", fixes that part by removing the check. The
-history-dependent reporting is still present at the end of the series.
-
-[ ... ]
-
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+deleted file mode 100644
+index 26e6d32e3f20..000000000000
+--- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
++++ /dev/null
+@@ -1,44 +0,0 @@
+-TPD12S015 HDMI level shifter and ESD protection chip
+-====================================================
+-
+-Required properties:
+-- compatible: "ti,tpd12s015"
+-
+-Optional properties:
+-- gpios: CT CP HPD, LS OE and HPD gpios
+-
+-Required nodes:
+-- Video port 0 for HDMI input
+-- Video port 1 for HDMI output
+-
+-Example
+--------
+-
+-tpd12s015: encoder@1 {
+-	compatible = "ti,tpd12s015";
+-
+-	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
+-		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
+-		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
+-
+-	ports {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		port@0 {
+-			reg = <0>;
+-
+-			tpd12s015_in: endpoint@0 {
+-				remote-endpoint = <&hdmi_out>;
+-			};
+-		};
+-
+-		port@1 {
+-			reg = <1>;
+-
+-			tpd12s015_out: endpoint@0 {
+-				remote-endpoint = <&hdmi_connector_in>;
+-			};
+-		};
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+new file mode 100644
+index 000000000000..5955f2e6421c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+@@ -0,0 +1,88 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI TPD12S015 HDMI level shifter and ESD protection chip
++
++maintainers:
++  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
++
++description:
++  The TPD12S015 is an HDMI companion chip that combines a level shifter and
++  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
++  connector, and provides control over the level shifter enable and the
++  hot-plug detect signals.
++
++properties:
++  compatible:
++    oneOf:
++      - const: ti,tpd12s015
++      - items:
++          - const: ti,tpd12s016
++          - const: ti,tpd12s015
++
++  gpios:
++    description:
++      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first controls
++      the level shifter, the second enables the level shifter outputs and
++      the third reads the hot-plug detect line.
++    maxItems: 3
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: HDMI input from the transmitter.
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: HDMI output to the connector.
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    encoder1 {
++        compatible = "ti,tpd12s015";
++
++        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,    /* 60, CT CP HPD */
++                <&gpio2 9 GPIO_ACTIVE_HIGH>,    /* 41, LS OE */
++                <&gpio2 31 GPIO_ACTIVE_HIGH>;    /* 63, HPD */
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++
++                tpd12s015_in: endpoint {
++                    remote-endpoint = <&hdmi_out>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++
++                tpd12s015_out: endpoint {
++                    remote-endpoint = <&hdmi_connector_in>;
++                };
++            };
++        };
++    };
++
++...
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261011112900.802150-1-tariqt%40nvidia.com
+2.43.0
+
