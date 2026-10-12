@@ -1,256 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A2348F856;
-	Mon, 12 Oct 2026 14:42:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5CE3750D5;
+	Mon, 12 Oct 2026 14:43:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816143; cv=none; b=rSKeSYXJ15NPCrgR+PuF/ILgpJ3MtwoO7YVlxBOIabv6/5QKsDhf5dsP8X/rbDGaV2nE2XLhFPngb8C2SkKyQsUh+wuSHAPh/6WLl6xq5YyVOBBLwz2MrZO1m4DvOmuZU4NmzaSbF1uUlDjtT73Wp+dGIJ849ThXtFQBFRCGlCY=
+	t=1791816189; cv=none; b=lE0r5FZ96yxcJaFtv9fZOvBqcZvn/sljrmhrUhL+T9ESTrFOg/M6ZqTLuzjZxnyJKH32M+S2TPGMj8NDBQOClP4qw8uEARVvcVAtXjRuXi44jrqHagnn7ppz9WRBmZH/gVo82F1WKegfwAVZNwxwg9PaFC0F+qsyJsUjw3CExH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816143; c=relaxed/simple;
-	bh=1lQvQwvjWy67EpJChMqUQ8ieh9OoI2R7zYjYkx4oYpA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iOHTORBZdHRPiQBYJAY/OZ03uNw37yk7eeiWGQ+tIhX/PWHNhd1EgjZnbwu/LGpLCDAtbv99wt+hGSeTYoYSYo/6gUJY9BIsulKXG7bjr7kV67PqlAoTZzOrAmMbDUVqXUHWMpcW2tf5mPEymBZiPJ+1DS0c6gWIOG7oiZNqWTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YG05CT7i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791816189; c=relaxed/simple;
+	bh=de++yez/EDw5v12343W+6FoxIue0/Kiud1UpJiusQFQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f3K2Jd355cFWIA+zNyJiwVDqXGapLIYtrTub8uXgR8iXwuftdvA42mMmu+O6xYYQBgPMZTEcrE4XN5OGMzcjEYnYsC71GJXr0MSzdXxXwHQ+/gcupGL9JDXV8Y0xf6JMzuJH4Hc1dlcMbzR0GHPlhlAuXiJRHEipMQde/LWlUgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=shcfq0DL; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YG05CT7i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42D0D1F0089C;
-	Mon, 12 Oct 2026 14:42:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791816141;
-	bh=9kkg6vVzXjctboclnlhLJzLnBK/wncsMNmzmF3tNzJ0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=YG05CT7iL2YX+wrgdCg1eZO6LYDiLbUSmtURE6Ohc8zpBoUW2ZlltePUA8ohqtOm7
-	 oBrSy92Eny4V0Ek1C8qTvWX1vfjqLDPIktbADAsCvtOhbA9vf1UEV/CB6brCuVX7KR
-	 Pa+y4JxKUZqjMPSUHeboYdJcAnPJyN1hcIt0n57bTgA6c+ZqpHFxu75lqgStdV3rnN
-	 wXc5gIPNdIM3SvJXdqQO/M3WpFpY7ViGr5lMzH/nHvK2VIuWtv4+aNVlzheh8V5DZl
-	 VvZtj9eJuf+NHF9ctQgeCQTEEgmZJktJietnmyEM49snP1GA5wn4jxnwO5H8TPs7RF
-	 L/wdxxGUQIDqQ==
-Subject:
- Re: [PATCH net-next 10/10] net/mlx5e: Enable the data direct netdev feature
-From: netdev-bot+sashiko@kernel.org
-To: tariqt@nvidia.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
- bobbyeshleman@meta.com, byungchul@sk.com, cjubran@nvidia.com,
- cratiu@nvidia.com, dtatulea@nvidia.com, gal@nvidia.com,
- Jacob.e.keller@intel.com, kees@kernel.org, leon@kernel.org,
- linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, mbloch@nvidia.com,
- mfleming@cloudflare.com, almasrymina@google.com, razor@blackwall.org,
- saeedm@nvidia.com, shivajikant@google.com, horms@kernel.org, sdf@fomichev.me,
- sdf.kernel@gmail.com, witu@nvidia.com, yuehaibing@huawei.com,
- bobbyeshleman@gmail.com
-Date: Mon, 12 Oct 2026 14:42:19 +0000
-Message-ID: <179181613986.434549.15185486433326152669@kernel.org>
-In-Reply-To: <20261008132815.654147-11-tariqt@nvidia.com>
-References: <20261008132815.654147-11-tariqt@nvidia.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="shcfq0DL"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCEfte183057;
+	Mon, 12 Oct 2026 14:43:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=iDJF8q
+	mI6PS+fwKmn5h+LuEf7O53YZcSIAiEUaAEO8c=; b=shcfq0DLFDRO118Z7SmwGn
+	kyyqX24okEneTEi/wyBo6NpjQY8SF6gH12fswUhZ22fNJjjjWsM1/8ePN259Jbiw
+	eBkE2oxuk3zGD1kzxXLif1g8tUTUecCMzGq5zPMGNC7OxyFyCvVLyhxflDOCphbf
+	maoWWsSUIGpn5Il9jea6kffQa0TIDEPnN7FsMOFqszlHywQKVOqiUVLpwPv4hm1n
+	zMU+huyL4zrRbP+8hVx2feBHIFIGiM9qSe4re4B6v/9x25cDnTlRB2yc8JwqzNZN
+	tImzdMCOEGJtWrRt2vnc+F0R1yVGDjNCz8Jv11cXBXSD3Lb7KJOWwl1iRBPAl0+w
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv39dp2-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 14:43:07 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC50Dl1287103;
+	Mon, 12 Oct 2026 14:43:06 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h816gwhj1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 14:43:06 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CEh2Pk17367544
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 14:43:03 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D1B6E2004B;
+	Mon, 12 Oct 2026 14:43:02 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 519F720043;
+	Mon, 12 Oct 2026 14:43:02 +0000 (GMT)
+Received: from [0.0.0.0] (unknown [9.87.157.242])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 14:43:02 +0000 (GMT)
+Message-ID: <da1110ca-3b2e-49f2-b8f4-6d3eda33a9d9@linux.ibm.com>
+Date: Mon, 12 Oct 2026 16:43:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 32/32] s390/extable: Remove EX_TABLE macros and fallback
+ extable search
+To: Heiko Carstens <hca@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Niklas Schnelle <schnelle@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Vineeth Vijayan <vneethv@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Harald Freudenberger <freude@linux.ibm.com>,
+        Holger Dengler <dengler@linux.ibm.com>,
+        Stefan Haberland
+ <sth@linux.ibm.com>,
+        Jan Hoeppner <hoeppner@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+References: <20261001103247.1989111-1-hca@linux.ibm.com>
+ <20261001103247.1989111-33-hca@linux.ibm.com>
+Content-Language: en-US
+From: Ilya Leoshkevich <iii@linux.ibm.com>
+In-Reply-To: <20261001103247.1989111-33-hca@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: d_3zPTzxLkp4Gd8MWwg3yojCOlNJiY1C
+X-Proofpoint-ORIG-GUID: d_3zPTzxLkp4Gd8MWwg3yojCOlNJiY1C
+X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6accf1fb cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=zqj48yzne7XEvSD_7ugA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX4pkpQYMp5JMH
+ Z3FpcU7MffzabtUSsQm6WcubVlTuBCudIEyWgVCo/FvqeJ0rSVpIetLleATkWKgiPdG2h60k4Qm
+ kuj0RrJ76jx9In/X4Eifn2Ypf9ka9vY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX4GhK6j0M6Q6U
+ 0ldj4lUl0xvseXG9BPptUnHQGs9b3PmND3uorg64hKh/KUjYYvUGeoFezCfOve0e2uL0EqUMh92
+ QUaBo3yoTFkh7W1GzmhVq8xZ1wUYJQhzLdySXqiGtj4mIw0hc+aGsvP3zDlMqpauQp5s3m3Jxij
+ o3n3gJM7O6m5mo2ABt0YZlI3peMG9Ym6nlbyUnO+RK9a+emKQQVQjI7yF8nS3ZyMk6Du2rRN4D3
+ 4/Po2E73nGg5AhNnA2yp5M38x5unNyN6lV58JhUzaQtwVDCId2X8uUemrinkVHZmQ7JAwm7i9SX
+ ZzMIxz1K+OhRrHvHFZ4sgsu2NFcoVsGnRZveIhrGY7iz1P7Fp5ufDUTJQ6HaPsnUtlk4/rBNixC
+ o9uEn/rkepAHLeTbGpAZurW6PKNX1pti3biYXzrj5a0eZwu+53x7uuqGOxgBGQnK3Jl84nmHf5H
+ QB3JevDznzaK2M0qB+g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120056
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
 
-Critical: 0 · High: 2 · Medium: 1 · Low: 0
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On 10/1/26 12:32, Heiko Carstens wrote:
+> Now that all exception table entries point to the faulting instruction,
+> rename all EX_TABLE* macros to EX_TABLE_INSN* and remove the
+> EX_TABLE_INSN* aliases.
+> 
+> Also remove the fallback extable search via instruction_pointer() which
+> was only needed to handle the old EX_TABLE entries that pointed to the
+> instruction after the faulting instruction.
+> 
+> Add a comment above the EX_TABLE_INSN macros that documents the usage
+> rule and describe the difference to the previous EX_TABLE macros. This
+> might be helpful in case of backporting to old kernels.
+> 
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> ---
+>   arch/s390/boot/pgm_check.c          | 23 +++++------------
+>   arch/s390/include/asm/asm-extable.h | 38 ++++++++++++++---------------
+>   arch/s390/include/asm/extable.h     | 25 ++++++-------------
+>   arch/s390/mm/extable.c              |  2 --
+>   4 files changed, 32 insertions(+), 56 deletions(-)
 
-- [High] set_pflag_data_direct()
-  (drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c:2431) is meant…
-- [High] Before this commit, set_pflag_data_direct() always returned
-  -EOPNOTSUPP, so the body of mlx5e_data_direct_event() never ran.
-- [Medium] This commit makes mlx5e_data_direct_event() reachable, and
-  that handler throws away the return value of…
+Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
 
---
 
-net/mlx5e: Enable the data direct netdev feature
-
-This commit adds the setter for the mlx5e data_direct private flag, which
-turns the data direct feature on. It also refuses to change the flag while
-dmabufs are bound to the netdev.
-
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c b/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
-> index b3eced1dd43fd..8ab1150ce3f20 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
-
-[ ... ]
-
-> @@ -2402,7 +2403,40 @@ static int set_pflag_tx_port_ts(struct net_device *netdev, bool enable)
->  
->  static int set_pflag_data_direct(struct net_device *netdev, bool enable)
->  {
-> -	return -EOPNOTSUPP;
-> +	struct mlx5e_priv *priv = netdev_priv(netdev);
-> +	struct mlx5_core_dev *mdev = priv->mdev;
-> +	struct mlx5e_params new_params;
-> +
-
-[ ... ]
-
-> +	/* Changing the flag reopens the channels with a different DMA device,
-> +	 * which would break any dmabuf currently bound to this netdev.
-> +	 */
-> +	if (netdev_has_dmabuf_binding(netdev, NULL)) {
-> +		netdev_err(netdev, "Can't change data_direct while dmabufs are bound\n");
-> +		return -EBUSY;
-> +	}
-
-[Severity: High]
-Does this check catch every memory provider that can be installed on an
-mlx5 RX queue?
-
-netdev_has_dmabuf_binding() only walks net_devmem_live_bindings and
-matches on binding->dev:
-
-net/core/devmem.c:netdev_has_dmabuf_binding() {
-    ...
-	list_for_each_entry(binding, &net_devmem_live_bindings, live_list) {
-		if (dev == READ_ONCE(binding->dev) &&
-		    (!dma_dev || binding->attachment->dev == dma_dev)) {
-    ...
-}
-
-This seems to miss two cases.
-
-The first is a devmem RX binding made through a leased queue. In
-netdev_nl_bind_rx_doit(), net_devmem_bind_dmabuf() is called with the
-leasee netdev, so binding->dev is the virtual device. The dma_dev still
-comes from mlx5e_queue_get_dma_dev() through the lease, and
-netif_mp_open_rxq() installs the provider on the physical mlx5 rxq.
-
-The second is io_uring zcrx. zcrx_register_netdev() does:
-
-	ifq->dev = netdev_queue_get_dma_dev(ifq->netdev, if_rxq, NETDEV_QUEUE_TYPE_RX);
-
-It then maps its area for that device and installs io_uring_pp_zc_ops
-with netif_mp_open_rxq(). It never adds anything to
-net_devmem_live_bindings.
-
-In both cases the flag change is accepted and mlx5e_safe_switch_params()
-reopens the channels. mlx5e_open_channel() then does:
-
-	data_direct = MLX5E_GET_PFLAG(params, MLX5E_PFLAG_DATA_DIRECT) &&
-		      netif_rxq_has_unreadable_mp(netdev, ix);
-
-That is true for any unreadable provider, so the RQ switches between the
-PF MTT UMR mkey and the data direct KSM crossing mkey. The page pool
-netmems still hold IOVAs mapped for the old DMA device, and
-mlx5e_alloc_rx_mpwqe() writes them into the KSM/MTT entries:
-
-	if (test_bit(MLX5E_RQ_STATE_DATA_DIRECT, &rq->state))
-		umr_wqe->inline_ksms[i] = (struct mlx5_ksm) {
-			.key = rq->mpwqe.ksm_child_mkey_be,
-			.va  = cpu_to_be64(addr),
-
-Could the NIC then DMA to IOVAs resolved through the other function's
-IOMMU domain? That would mean IOMMU faults, or writes into unrelated pages
-if the same IOVA happens to be mapped there.
-
-The commit message says "Do not allow state changes while dmabufs are
-still bound to the netdev". Should the setter also refuse the change when
-any RX queue has a memory provider installed? One way would be to check
-netif_rxq_has_unreadable_mp() for each queue below real_num_rx_queues.
-
-> +
-> +	new_params = priv->channels.params;
-> +	MLX5E_SET_PFLAG(&new_params, MLX5E_PFLAG_DATA_DIRECT, enable);
-> +
-> +	return mlx5e_safe_switch_params(priv, &new_params, NULL, NULL, true);
-
-[Severity: High]
-Before this patch, set_pflag_data_direct() always returned -EOPNOTSUPP,
-so the body of mlx5e_data_direct_event() never ran. Now that the flag can
-be set, what keeps the dmabuf invariant when the data direct PCI function
-unbinds?
-
-While the flag is set, mlx5e_queue_get_dma_dev() returns the data direct
-device:
-
-	dd_dev = mlx5_data_direct_get_dev(mdev->data_direct);
-	if (dd_dev)
-		pdev = &dd_dev->pdev->dev;
-
-So devmem bindings and zcrx areas created during that time are attached
-to, and mapped for, the data direct function.
-
-On sysfs unbind or hot-unplug the call chain is:
-
-mlx5_data_direct_remove()
-  mlx5_data_direct_dev_unreg()
-    mlx5_data_direct_do_unbind()
-      mlx5e_data_direct_event()
-        mlx5e_safe_switch_params()
-
-mlx5e_data_direct_event() clears the flag and reopens the channels. It
-does not call netdev_has_dmabuf_binding() or
-netif_rxq_has_unreadable_mp(), and it does not revoke anything:
-
-	MLX5E_SET_PFLAG(&new_params, MLX5E_PFLAG_DATA_DIRECT, false);
-	mlx5e_safe_switch_params(priv, &new_params, NULL, NULL, true);
-
-rxq->mp_params is left in place. Would the recreated PF RQs keep posting
-net_iovs whose DMA addresses come from the data direct function's IOMMU
-domain?
-
-After the notifier returns, mlx5_data_direct_remove() continues with:
-
-	mlx5_data_direct_dev_unreg(dev);
-	pci_disable_device(pdev);
-	kfree(dev->vuid);
-	kfree(dev);
-
-It does not wait for the outstanding attachments. Later, the deferred
-__net_devmem_dmabuf_binding_free() calls
-dma_buf_unmap_attachment_unlocked() on an attachment whose device is the
-removed function.
-
-An earlier commit in this series, "net/mlx5e: Recreate netdev channels on
-data direct device unbind", acknowledges the IOMMU faults and says a
-devmem revoke hook is needed. No later commit in the series adds one.
-Should the flag stay disabled until that revoke path exists?
-
-[Severity: Medium]
-This patch also makes the error handling in mlx5e_data_direct_event()
-reachable. The handler ignores the return value of
-mlx5e_safe_switch_params() and returns NOTIFY_OK:
-
-	mlx5e_safe_switch_params(priv, &new_params, NULL, NULL, true);
-	netdev_info(priv->netdev,
-		    "data_direct device unbound, disabled data_direct\n");
-
-Suppose the interface is open and mlx5e_safe_switch_params() fails in
-kzalloc_obj() or mlx5e_open_channels(). priv->channels is then left
-unchanged. MLX5E_PFLAG_DATA_DIRECT stays set, and the old RQs/SQs keep
-their data direct state, their KSM crossing mkeys and their page pools
-mapped for the data direct device.
-
-mlx5_data_direct_remove() then goes on to pci_disable_device() and
-kfree(dev). Would the live queues still be routing DMA through a disabled
-PCI function at that point?
-
-mlx5_data_direct_do_unbind() has also already done:
-
-	WRITE_ONCE(reg->dd.dev, NULL);
-
-Because the flag is stale, mlx5e_queue_get_dma_dev() still takes the data
-direct branch. It returns NULL instead of falling back to ch->pdev, so new
-zero-copy bindings would fail until someone clears the flag by hand.
-
-On this forced path, should a failure take the affected channels down, or
-otherwise make sure the data direct path is gone, before PCI teardown
-continues?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008132815.654147-1-tariqt%40nvidia.com
