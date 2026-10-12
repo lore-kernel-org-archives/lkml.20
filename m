@@ -1,87 +1,33 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B464CC29C
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:12:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04C704CC26B;
+	Mon, 12 Oct 2026 18:12:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791828758; cv=none; b=m00eBOxxxarSuyJsbti1xUFS+jZ713Rjs/63A+tNFOTRyHN8gB+d7Tlu/ibjZ4/Yep6kzljt9WLhpMqC8lul0lynoQ1zkw5E4djSvXG+eU4MBqK5lVcSq4Xv5V7P7+Aoh/gQJsJiIcKbZVJVCPhGQvAuffGkPbExdp2aRaDqpTg=
+	t=1791828772; cv=none; b=Hz9O8HYVjvFfVy7vHWNVHdaqln+DPo7dk5+bO6Ho35q/wTYkQCtoTeN+yqjHYvcLllx3F9AKahQ8jxw3ndbyP5emjYJUOf0oX4xSj3N00cvTBVhdHB0xg8SLonZdTyW+K+hLISfAOjWwByGOzYGtkCS5+GKIQ5OHepaov5g60Jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791828758; c=relaxed/simple;
-	bh=xMOB+Xeswh/VHG1JRXbW55ogVP/Sfyg4N3upBRTPGH0=;
+	s=arc-20240116; t=1791828772; c=relaxed/simple;
+	bh=0XA6LJJVwnEA53uWNOvZPv5K+SN5s63VQM5Ia/jD9/4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZZVsioPjwmrZgsCieFMFExzFfklvFztP0Rcb8gheQtWdLdqhxOzXlXPWt2kllJDkcwOb91ZfVoAZcCYkW+/Q6b4a+y6lrdRCDzElpAvxnMIQ64eydQTNgaVm591/DRf+TrQiMytbvdfz8O9D4M+y7bnBiBQ7YPWVC7lOwZP3F5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YNSM7lB4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KqTBcvF8; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=l6CnJr9YOZGGGtRMpXEFrZKs3MrbwiWpGeTaaLm9PqnnXzrVyQeyJSaY3fV4I/u0PlR/ZSuukh1OziDzOWzLzKHV6Fi6tTwN3bzVEOskrmczVDUuLfVK89x40Xyab1/WjJNzj7rXqvobPnWlE5iU8sGrWDPCMCNDmMYtgtfbd2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DgQYzth/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YNSM7lB4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KqTBcvF8"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CHvDUd2879064
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:12:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	218J+j7wE8PIduGE71lICGhFvQKcwEnxX938pBY/Ais=; b=YNSM7lB4JH/yNGny
-	CkiKnKe2Q/7w9vBoMyHJg/uLWTnONhHn5J+/1bsPsEAs9AUyIxXShnRefFp3lNN7
-	5hqZyXp2gMfq9tjuyE4TlUWUQ2IW36U8gheCFvniVwXnJy8RETjpu0u0qjqWUgGI
-	7iZCLRvwUy6/ZpMWCRXTEj27D6TzlX9+IdQh4vawLxl+t8yNoEDxfGJ6xvpRLVcR
-	Ao/FfP1gSDZgFLvTgU9lCXKYwsPWi32FZmAd9aBiB1Sam2FeWMfCtsKkyphgXDSI
-	IN1E8sbVGedTsfCtjh7QWbRGXiG03Oc5S/YOd6iBR3krdFZcDZIV7mNW+5wlBPPr
-	wxa4/A==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8sgu3bjg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:12:36 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3552883bd19so13173eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:12:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791828755; x=1792433555; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=218J+j7wE8PIduGE71lICGhFvQKcwEnxX938pBY/Ais=;
-        b=KqTBcvF8+GhJuMeliOhItQt6R91+nWHcf88BOofFGYuzqrFqbF+ZGmzSQ+0+CcT1W8
-         b94nHAkEY8EU5Wd9MxZ63OCTRgGtmSCsfzyN8X0/0zf5Z75jc2L2xG8AwnvYlpB87Q60
-         oIaHTNBJDInBXp4oIdft2J9oBdVoBOEqywQy69cTWu6vnc25oXN/Mt0tZgLrGi9XKgcZ
-         W23gdeVu4NQlqujGfQItjA1hYaOgF3OpUzPxL575Wgn73Ztp3DyATZeKf7KDEGbSwJs9
-         gzNwJeEi4P6d8uGgk6+VGT96M/a55ZKraFMBGinqWG8dTG0SEeBVojZfBMy+iLGEzJEn
-         VnkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791828755; x=1792433555;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=218J+j7wE8PIduGE71lICGhFvQKcwEnxX938pBY/Ais=;
-        b=ztjE6aq/hcIGlkQx3p9QTxgbRDNX48gR8obWLR5HHcnT0svlAfngvNG8krH3+Ep2cn
-         Ff61bjPU9Km1iBOk01Xy2fGRniBecyRYKkxkl9yEQaZ53TNstio03WUHCfF0LBSc6OLf
-         RkHodkBD60SoS0X5gC3xgp495RWa1XDQrtT6XVH6MUj8VgJheiDXnavvYWBF+d+GYMqK
-         W8qEjs5UISTT4lRMpHZI12AnlSQq5FOv75OPsLEMDhkbOfbk3wKXGjVtnlKoEYKpEc/8
-         0CJ7dweQc/rBWbnyoTcWq5VDQUaymeXBeXd00MQtSO1Dn329qFcM3grMFf7WTUR1xg9Q
-         TQog==
-X-Forwarded-Encrypted: i=1; AKwUvBxkYeixnZW7sjygS2ulSFZDzo3Aa2Zk6/LUe+IIIGqGoorEN4u6zFqSgc2h/yEf89+wzQBJiTgA5sJXvTM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL904n3J9vinmatV18llVOxPYuI7PhvcvUMKB6a7F+U9HB1LXbK
-	LbnhpYRgoW08z07YdznRHz5o4lZp9DYoTwNDch6rPLVWAirbUO3UDXTchJNx0PGgpIN7iDSTtt0
-	emxruY5/p3ykWlOURhOXI608r/xpkmoCDo9qn9yUxMO7AIe1YVk8tKyL4zA36acEaulQ=
-X-Gm-Gg: AYBFou3tSGxODzitBpnL0dT2YS5HMwAk8iFlXv41CfsCivru26hUEeyDK1aVLMsfko5
-	fvCQEyqkAajNwqLGwWppIFvs/8/9lHM33tc7oI2viro+1N9l2pUxflT4X4cgy7zmMeuUDmGhMFK
-	gAUlUKHAhs/j2T9Mhkfl9pM0CpjYUfHKM28EerniwcNZSJqQE5qQL/C6uR4I2dAsYremOcPbjwi
-	bqDavXyZLwAnGiFDbNMA0GTURZo2eoyieSasd0mkkjIFVkqJdxpbwIca3DC+76TGNwki4ZOCcG+
-	dJpGeKjdexi/YSIJWlFacUpLwAjL9Bb4VcAEJlSIPY4rmV4insgOOj51apMukbwZAnOf/SBzqLg
-	YkIpfuboP3NT1rS4l9/Zlc0bVtcoEnNM=
-X-Received: by 2002:a05:7300:6822:b0:35b:bb89:231e with SMTP id 5a478bee46e88-35bbb892336mr1842432eec.29.1791828754990;
-        Mon, 12 Oct 2026 11:12:34 -0700 (PDT)
-X-Received: by 2002:a05:7300:6822:b0:35b:bb89:231e with SMTP id 5a478bee46e88-35bbb892336mr1842396eec.29.1791828754450;
-        Mon, 12 Oct 2026 11:12:34 -0700 (PDT)
-Received: from [192.168.0.215] ([49.205.115.55])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841648sm40504487eec.3.2026.10.12.11.12.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 11:12:34 -0700 (PDT)
-Message-ID: <1997618b-1350-4b67-9168-794be3e40683@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 23:42:28 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DgQYzth/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 999391F0089B;
+	Mon, 12 Oct 2026 18:12:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791828770;
+	bh=cE3bSEEMTqHWrj1tS3Q/lf/i5N1uRPRLGcz8J6sy2y4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DgQYzth/MmZoWmiNzeqXMo3pL3++4NPcxPJzPON5+Iq1S5su3srfSsiLs/CRoSsV+
+	 y5o+xBW5wDB2UDULZVXK4Z+375t1dzbNUtt0abqzfCef5+wNE0F8zkc23m9IRRJQki
+	 E4j3lVFrh5llmtdqL8iYb+O84Q1sd17qdYFd9Kh1re0RHi4Rwnj76YbarFlQjfDBco
+	 wT37cp3+XRmGwpGtSGF5SPeOgjXQRjICCX4Lqd0pIe+Q1BeY5jWG2zzffSTDcLJPzR
+	 WjJK0Vf5kjqk84P6RDfdYSn6uJUn28TopIgTD9wsdxKgdymGRHK6Hy3nSvR1UmFnzT
+	 enZNuzoKkUK8A==
+Message-ID: <4c3e6350-b647-482d-a81a-89ba2431519e@kernel.org>
+Date: Mon, 12 Oct 2026 20:12:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,117 +35,166 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/7] Qualcomm Sahara protocol enhancements
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-        Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-        Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
-        Oded Gabbay <ogabbay@kernel.org>, linux-doc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, mhi@lists.linux.dev
-References: <20261008-sahara_protocol_new_v2-v7-0-90d278bd7414@oss.qualcomm.com>
- <asu5x72z9-p0U8G0@debian>
+Subject: Re: [PATCH v5 18/38] fbdev: defio: assert FBINFO_VIRTFB, drop VM_IO,
+ add VM_MIXEDMAP
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ Bert Karwatzki <spasswolf@web.de>
+References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-18-923b70125b1e@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Kishore Batta <kishore.batta@oss.qualcomm.com>
-In-Reply-To: <asu5x72z9-p0U8G0@debian>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-18-923b70125b1e@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=QdzzLcbv c=1 sm=1 tr=0 ts=6acd2314 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=rMnsrh5NOwviKPWndHUBiA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=YvxDvPKW4DV_tE5yJ3MA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA3MiBTYWx0ZWRfX6Fl7GvCrtLRr
- crkOjLFG6RvBgW94QHNomYflJ79n2BQldfIhjXDw/U73UpZSmz84rOsiMiTRLzdU2yrwaaC81Pm
- +s1BUeTJ9TXS+fQN7NO/fbdgIa3ocgJPsLK7a34MOc+mi18gkX5Ph8Nkele5cd0733UFtcGpjTK
- lR9AgzFnGVSvriH6G9HyrypFx+L4Y4HvhUb7KVu78jejothK8pUuZuIE7qyeJiXEa6p0PprSLX3
- nQCNj3A01B4yQThbQCCuUPooHnG7OoFIGyvqZxLhFi8DBKOdBLUyl2JMXuCrnTKY9Hq0501eyP+
- o67sZlahWKNuFFcKbJgoeAn9A+aHShtfd0SX4nqLnxJKWLdmR7IXpeoqqV2C5qMn4pfkMk9Di82
- QAHp8J1liLF7/IQQuLLrNhZR2KKkVGy3p328/yaSrwb6Bx1TcwByizKeHShyCVci7UnlHxIu50d
- ahe2kzw8YzQUATTFlGA==
-X-Proofpoint-ORIG-GUID: 7g_I29W2cHag4Jj29B484PIJ-ASeUZ3S
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA3MiBTYWx0ZWRfX9wWH0enTZuLr
- nvK5tMjcag8LGCXxzwBDexrOtyviDW0kSly+/OazuuXlf6jvvEYwVs4+x8vySSXWaC9KBETBpe8
- W4GuuoMoS8ULhQv3fYq0vPXltrMd0Qo=
-X-Proofpoint-GUID: 7g_I29W2cHag4Jj29B484PIJ-ASeUZ3S
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_05,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 phishscore=0 spamscore=0 suspectscore=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 malwarescore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120072
 
+On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
+> Currently all drivers which use defio allocate system memory. All of them
+> also set FBINFO_VIRTFB, other than ssd1307fb, however this driver allocates
+> system RAM, so simply failed to set this flag when it ought to.
+> 
+> This patch sets FBINFO_VIRTFB on ssd1307fb probe, then drops setting VM_IO
+> in fb_deferred_io_mmap() and instead requires FBINFO_VIRTFB to be set,
+> erroring out with a kernel warning if not.
+> 
+> The logic requires a page from the driver and since commit 1ecbc7dd2902
+> ("fbdev/deferred-io: Always call get_page() for framebuffer pages") has
+> always required it to be refcounted, so this was implicitly already the
+> case.
+> 
+> Finally this patch sets VM_MIXEDMAP, as the logic is mapping
+> kernel-allocated memory so this is appropriate.
+> 
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
 
-On 10/11/2026 10:03 PM, Manivannan Sadhasivam wrote:
-> On Thu, Oct 08, 2026 at 11:53:44AM +0530, Kishore Batta wrote:
->> Hi All,
->>
->> This series reworks the Sahara protocol driver to make it reusable for
->> multiple MHI based devices and adds support for capturing, restoring and
->> exposing DDR training data using the Sahara command mode.
->>
->> The Sahara protocol is transported over the MHI bus and is used by multiple
->> flashless devices to transfer firmware images, retrieve memory dumps and
->> exchange command mode data during early boot. However, the current
->> implementation lives under the QAIC accelerator driver and contains
->> device-specific assumptions that limit reuse.
->>
->> Some MHI devices (for example, QDU100) expose the sahara protocol directly
->> on a "SAHARA" MHI channel and rely on command mode to exchange DDR training
->> data with the host. The existing driver does not bind to such devices and
->> ignores Sahara command mode packets, causing training data to be dropped.
->>
->> This series addresses these issues by relocating the Sahara driver to the
->> MHI subsystem, centralizing device specific configuration and adding command
->> mode handling for DDR training data.
->>
->> Overview of the changes in this series -
->> 1. Move Sahara under the MHI subsystem:
->>     a. Relocate the sahara protocol driver from QAIC accelerator tree to
->>        drivers/bus/mhi/host/clients directory.
->>     b. Register Sahara as an independent MHI protocol driver.
->>
->> 2. Generalize device matching and configuration
->>     a. Allow the driver to bind to devices exposing the protocol on a
->>        SAHARA MHI channel.
->>     b. Centralize firmware image table selection at probe time using a variant
->>        table, instead of scattered conditionals.
->>     c. Preserve existing behavior on AIC devices.
->>
->> 3. Add QDU100 firmware image table support
->>     a. Add a QDU100 image table and select it based on the matched MHI channel.
->>     b. No separate client driver or registration mechanism is required.
->>
->> 4. Add Sahara command mode support for DDR training.
->>     a. Handle command mode packets(CMD_READY, EXECUTE, EXECUTE_DATA).
->>     b. Query supported commands and retrieve DDR training data from the device.
->>     c. Allocate receive buffers based on the reported payload size and copy
->>        raw data from the MHI DL.
->>     d. Store training data in controller-scoped memory using devres so it
->>        survives sahara channel teardown.
->>
->> 5. Expose DDR training data to userspace
->>     a. Add a read-only binary sysfs attribute under the MHI controller device.
->>     b. The attribute reads directly from controller-scoped storage and remains
->>        available after the Sahara channel device is removed.
->>     c. Cleanup is handled automatically via device-managed resources.
->>
->> 6. Document the sysfs ABI
->>     a. Add ABI documentation describing the DDR training data sysfs node.
->>
->> Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
-> Series fails to apply to mhi-next branch. Please rebase and resend. Since I'm
-> about to send the PR for v7.4, this will miss the upcoming cycle. But I can
-> queue it once v7.4-rc1 is released.
->
-> - Mani
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
+-- 
+Cheers,
 
-Sure Mani. I'll rebase the series onto the current mhi-next branch and 
-resend it in v8 version.
-
-
+David
