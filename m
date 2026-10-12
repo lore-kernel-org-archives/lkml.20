@@ -1,110 +1,107 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-253.mta1.migadu.com [95.215.58.253])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B4BD4A2065
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:39:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D411B4A0EF8
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:40:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.253
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819587; cv=none; b=hlZWTczQ14uao9KmY8nEl8Js+DD4YLtyDfW5ZJUIbBie/+y4r2qFSzxEULctS52EZ7cnWOdBa+PB0IFeCUOJFhI4qETCmQedJdd9Pm6HsR7JhATpfiWIO+WyqY5qutZCkWyE8402dkM+gZqRu+tt/s7wi3BzvwaMeTsVjD3boaI=
+	t=1791819606; cv=none; b=mCYrFxMEi0RZzix5gR7LrhXgUesRZc3ZJwpce8gPrpipYWnu/XnjxmkxKv1gJrxM6KlpuYa+ltmALX7oW1+XXaZn9491kaZmXnvumgm0l52rYOYBd2MGI4AJbP/BvJleZXnO8Zsng82iQCvxWgdgWmQTChjSLBLdF0silFBL4xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819587; c=relaxed/simple;
-	bh=2l2DLVa1PeXlyHJE1c7nWN3mmaGpOwkWkxtVnG11bXs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KhWUjgk9LPwLzHPyfySxwZzLOTyKV4bEGxNdT7/a9MzWdP94wrxiPUNp5cW7H9eSd90raSqCtxWfDr4cqkLnWg9n+Xtfks6RNeYcZbYwM/+frLfOjUXD6EkpyDSAn/cFU1VL1TCQHGKwsXP8leI1mN9SPZrC4Jotwnpf3QX9eeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cEiqM03s; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791819606; c=relaxed/simple;
+	bh=zPGOdscwfUn5mgzb0Gu30YtAw5dbLao3e/+fpf4jvD8=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=ctrt6kFOdXnM9aHW8EbTW46vd/8uaKHsDVIi1O3qCbo57du4oUGrS5TALGQrT4osnUKtZzImB4M5vQqitdumCMO389UR4EWhwPABkr9wUy43UjwMp71EyVGnB8GFwYrjReSeZmc2HieI05YJUcBWtC53bfGbSYJzY9a5tnb43n8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iqcjYwO2; arc=none smtp.client-ip=95.215.58.253
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cEiqM03s"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791819585;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yypxGPlx55QH0pYdP+VfNSAu253l74EUWhcjDK+UzYs=;
-	b=cEiqM03sKcZZ7YENDx6/+DlGG3Rq3WBGwp0G0/hoObP5iZ2E33uozy+uF4rIQeU5g8AD2n
-	U+RDn2/fDTDPNdvTKCBmzpg4JBvzpfO18MuwpG9zafLqiTyG7idxpbtse2tfPnKmwl9rQD
-	3thZvVf+Xf+wym4tik/VktoWQCAAoPU=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-686-PQrBu5JWOXG9XuxiLztMdQ-1; Mon,
- 12 Oct 2026 15:39:40 +0000
-X-MC-Unique: PQrBu5JWOXG9XuxiLztMdQ-1
-X-Mimecast-MFC-AGG-ID: PQrBu5JWOXG9XuxiLztMdQ_1791819579
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7244118021F6;
-	Mon, 12 Oct 2026 15:39:38 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 93A3D1956053;
-	Mon, 12 Oct 2026 15:39:35 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Mon, 12 Oct 2026 17:39:38 +0200 (CEST)
-Date: Mon, 12 Oct 2026 17:39:34 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Cc: w15303746062@163.com, David Laight <david.laight.linux@gmail.com>,
-	jlayton@kernel.org, chuck.lever@oracle.com, viro@zeniv.linux.org.uk,
-	brauner@kernel.org, alex.aring@gmail.com, jack@suse.cz,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] fs/fcntl: fix SOFTIRQ-unsafe lock order in fasync
- signaling
-Message-ID: <asz_NnX9_KaJdaf_@redhat.com>
-References: <d15a25fe784b5d4449c7ce4e56f1428d7ff28885.camel@kernel.org>
- <20260523135210.590928-1-w15303746062@163.com>
- <asI5Fn87_SoEd4G5@redhat.com>
- <asuxzwl4iWjjEjRD@redhat.com>
- <437297ff-1bb4-49a7-a979-abccdd1814f8@stu.xidian.edu.cn>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iqcjYwO2"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=zPGOdscwfUn5mgzb0Gu30YtAw5dbLao3e/+fpf4jvD8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791819602; v=1; x=1792424402;
+ b=iqcjYwO2LqFj4OZJ+hoO9/P5tFqoC6njYvBztokFZcdncyIoi0uVOp+CeeHxfgXFJB+LYLYO
+ c3z3K46re8hN9scIxBUF0/kLIgYO9BmCG6DVWH8t2TTUG0cBv+egOaW3mb9tjHG8u3zHR+EycYh
+ CmrYPlInjHPH0yTcks+dDrGQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8cfabf6460186618;
+	Mon, 12 Oct 2026 15:40:02 +0000
+X-Mizu-Trace-ID: 8cfabf6460186618
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <437297ff-1bb4-49a7-a979-abccdd1814f8@stu.xidian.edu.cn>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Date: Mon, 12 Oct 2026 15:40:01 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <341ceaef821fe23a887a90701d9fda6516066edf@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH 5.10] staging: rtl8723bs: fix OOB read in OnAssocRsp() IE
+ loop
+To: "=?utf-8?B?0JzQuNGF0LDQuNC7INCU0LzQuNGC0YDQuNGH0LXQvdC60L4=?="
+ <mdmitrichenko@astralinux.ru>
+Cc: stable@vger.kernel.org, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Sasha Levin" <sashal@kernel.org>, "Fabio
+ Aiuto" <fabioaiuto83@gmail.com>, "Alexandru Hossu"
+ <hossu.alexandru@gmail.com>, "Hans de Goede" <hdegoede@redhat.com>,
+ "Navaneeth K" <knavaneeth786@gmail.com>, "Michael Straube"
+ <straube.linux@gmail.com>, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, "Dan Carpenter" <error27@gmail.com>,
+ "Andrei Khomenkov" <khomenkov@mailbox.org>, "Dalvin-Ehinoma Noah
+ Aiguobas" <fliegbert2@gmail.com>, "Michael Huang"
+ <tehsiu.huang@gmail.com>, "Jinke Wu" <coolbeaner@126.com>, "Nikolay
+ Kulikov" <nikolayof23@gmail.com>, "William Hansen-Baird"
+ <william.hansen.baird@gmail.com>, "Serhat Kumral"
+ <serhatkumral1@gmail.com>, "Nazar Kletskii" <nazar.kletskii@gmail.com>,
+ "Jennifer Guo" <guojy.bj@gmail.com>, "Hans de Goede" <hansg@kernel.org>,
+ lvc-project@linuxtesting.org, "stable" <stable@kernel.org>
+In-Reply-To: <fa2a1e43-8b9f-2c0c-609c-ca17bd20b7c0@astralinux.ru>
+References: <20261012140642.1076-1-mdmitrichenko@astralinux.ru>
+ <7e9af4f7528da1307cf62e53cf6b00fa9c4f674f@linux.dev>
+ <fa2a1e43-8b9f-2c0c-609c-ca17bd20b7c0@astralinux.ru>
 
-Hi Mingyu,
+October 12, 2026 at 5:33 PM, "=D0=9C=D0=B8=D1=85=D0=B0=D0=B8=D0=BB =D0=94=
+=D0=BC=D0=B8=D1=82=D1=80=D0=B8=D1=87=D0=B5=D0=BD=D0=BA=D0=BE" <mdmitriche=
+nko@astralinux.ru> wrote:
 
-On 10/12, Mingyu Wang wrote:
+
+>=20
+>=20On Mon, 12 Oct 2026 at 17:19 MSK, Luka Gejak <luka.gejak@linux.dev> w=
+rote:
+>=20
+>=20>=20
+>=20> It seems to me that this was sent by accident by running git format=
+-patch -1
+> >=20
+>=20>  You probably forgot to commit so git made last commit into a patch=
+ file.
+> >=20
+>=20>  Either way staging rtl8723bs is getting removed in linux 7.4 so an=
+y
+> >  further commits for rtl8723bs are discouraged.
+> >=20
+>=20Hi Luka,
+>=20
+>=20Thanks for taking a look. This was intentional: it is a backport of
+> your reviewed fix f9654207e922 for the 5.10.y stable tree (hence the
+> [PATCH 5.10] prefix). The upstream commit is tagged Cc: stable and is
+> already in 5.15.y and newer, but 5.10.y is still missing it
+> (CVE-2026-64444).=20
+>=20
+> As far as I understand, the removal in 7.4 affects mainline only; the
+> driver is still part of 5.10.y, so the fix is still relevant there.
+>=20
+>=20Best regards,
+> Mikhail
 >
-> In the original report, the task triggering the warning was in process
-> context, through a TTY ioctl. Here are the relevant excerpts; omissions
-> are marked with [...].
 
-Thanks... so according to lockdep we have the
+Understandable, I wasn't aware it isn't backported as it seems to me
+it was merged quite some time ago.
 
-	&dev->event_lock --> &f_owner->lock --> tasklist_lock
-
-chain. At first glance this suggests that kill_fasync()->send_sigio() can
-be called under input_dev->event_lock. But I know nothing about drivers/input,
-so I can't find who does this...
-
-And,
-
-> input_inject_event+0xa4/0x3b0 drivers/input/input.c:419
-...
-> kbd_bh+0x23c/0x310 drivers/tty/vt/keyboard.c:1244
-> tasklet_action_common+0x25c/0x3d0 kernel/softirq.c:925
-
-means that ->event_lock can be acquired in softirq context.
-
-That is all I can understand right now. Can you can send the full full
-report without omissions? Not that I think this will help, at least to me ;)
-
-Perhaps something like:
-
-read_lock(tasklist)	lock(event_lock)
-						write_lock(tasklist)
-<Interrupt>
-lock(event_lock)	// send_sigio()
-			// ...
-			read_lock(tasklist)
-			
-Oleg.
-
+Best regards,
+Luka Gejak
