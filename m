@@ -1,110 +1,142 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B0537EFE2
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:38:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE1F37B019;
+	Mon, 12 Oct 2026 13:38:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791812325; cv=none; b=uIoY6NpOPHRX32lguBtt5+MWd+Ibc+LIA71cRsFxbxOThpD1Jzl6HcCUCZ0qAaC/8FsHDlu/88l1132K8Zr2UWpYaJWlzJ2IB1FG+ch9frzKYmzPBwhWzQlh3MkhvT2Rtvo8cquX/nG2ZwQ30b+RzeYHWz8IVm4DfatwlfKgRAw=
+	t=1791812325; cv=none; b=uY1LhZNsKackukGOlb5fuk7jIZ1qwGx6SC3GVl8j4wTCL5+YIyFzPxk0F2p5xsc704I/lUEOBhxy03BjzoSsgQdh6GifFywb10Sr2MSWL+38zsnC05PH6+QRiaVv3gkiLB3U1neL56pliRUAcr4vY++dQGYGPAwpqXvFELCvoQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791812325; c=relaxed/simple;
-	bh=ABYJ/Yw1TjXHnufHGoB3nTim9TwHZ+4hagkepnUn9j4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Bpz0f+uSRjl/YvPc64qozw5GHqDxKE+EqUy0DKdTnqa/R1tgBUkIUV2Va1RIcczjx6Am6Ek8HBlh74NvDdAlleTYN6IRL168cn4fqB8oXsgrhMkARKz+8MW9tUVU/Rz4Dl5TqfOxUxeYjW/pwTTPq9OPR+ofPQDvKQT+KmwOl4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n/yAk2jg; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=dEptTwNX9Sq3lL7fDHLWKReZfufeO69vQyYwqPmjcPs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TL/gXxKq5pOEH6kB1/f4JJSSnAA0iDBbTbywYueYTvKjwknEK6fPi1KxBBvquhtCEUYmH8HFHTZHVUgzmBjxf0QOWPTtoFyImTZflPm4xeEc7ur3Z6nyGNRY3Xf1OqE2dhL3pw1aB2UuRG6Q7r+FRmRSWX+YHryj/6IigX6eoCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=P2oKD/iu; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n/yAk2jg"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-381b831d535so2143722a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:38:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791812324; x=1792417124; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9UKhi6lcTuujnu/BWozq77KZubAfuSehI6HN/EmzOgg=;
-        b=n/yAk2jgl9KRpWEIXbmYEpgcr47+bi30Fxb1zEbYwoZdCqNFFn7fQsW8JVE8lY2Jxu
-         6/kTIwd2ozWCbOKPHABDriTT0utMuA8fWBca64QT0a+posDNTCYaPjkq13RF/tkxNiWf
-         sSfC8en9lI4H+DqVW/vmFKe1qB9a4lTOnVtI4+TfvmqaHoLA3KvB+1PpZtLd0Fz+VpJ5
-         34BVcpHfr1b6ZZmd4WXmjA3c+NdYL0XItWIGvfF1FD6EHxkwVIme9TUakJi22N07crHN
-         FndTkncN0HbSH7UbVhbu7zV1LSZX+dtaQlWVx3Ezh8wiogmYDF5gseSwZo0MI9sLtOvp
-         MgNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791812324; x=1792417124;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9UKhi6lcTuujnu/BWozq77KZubAfuSehI6HN/EmzOgg=;
-        b=SgsalXFtJBH49m33eWzvWLJ5R2wt9uKfCBUAQiwVl4wMuNTlmkYUAlgKnTDronASf7
-         WyJJHG/EmTbYYQwU//mYM2TS+z/QGsQZoE1HehA1UF4Lg1BzWbxH+RDOf7rs5XSM5zrp
-         bl1A/P9IkSMx4NEuQ/AdI2HLlzR3mdwNyyAFb3VeccLWBen8YZtY4kAnY4i9qXF9db5H
-         TU7uQjW1LXcKyY8urPoKkcnvzQ9PrXwIZm96yQS0JX8+jTw7RMu4N5Xmq5YXkv48g0fV
-         tukIHRYVOdtOl6dlNzKJpQFsIQFIrYTk5tV7OFTbWRlIEkqu1RiauISJoDkxpDK1Dj5z
-         tdgg==
-X-Forwarded-Encrypted: i=1; AKwUvByof0SvlekRpMh7REDreiH7rdVuug88yAGa3k4FYxaniO7qT03EYHiFaW/eCgp5cSmXD4JRskG0Z3SfMv4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYInVbRk/XIuu3KZsLrBIsC/h4H4/Qe+oZpmu+JRUUYwXVbJj6Ep
-	+ZmFPyoX063ZCio8qnKl0in2g5szNcR1Kwyy/hspv94iSwZJrbV/Y+0534B1UrgW
-X-Gm-Gg: AYBFou2zEVwTR8tuZKIgf1GlgFpjQ/Mtbnt2tqKbkE6lFViVvLtxRtZCJwWpl3IVaDD
-	Ch7UhWeXh3vWw47KSErk6LSA5Zrk78q2F01pu5ib5B6MNxgMPUGmCeWUms/wlsp6bi1FMN72lDy
-	kqUyyFFJFyzK5d6E5VoCELYGvGMU7T441tGMu6oFPNb9hbRurWabduOpQdc4ISS8XPwtiZm/Tva
-	3DhrvQH3e53TcPx9/qln5wwkJJKnh2aN2qTGDQttEHaKG4WRpm/ydzY3qxqwo0XbbRhmeSw6EH7
-	7UOX1ix0AAvS+BhUAYVIiG64K85e91okx8X402r6pqB6Drd74hkJii8oZrsAJkCushgzugU0sIy
-	l6cSHQLcCFRzB6D6ELDMdUa31i+i9MPY8beE6bl27pu2U2Uav9F3odvVaCQUCbWwY76DENuXrER
-	DSkr9HT0TI4B7X+qBUJum1iQPChFDQO+L3/U685giB+eD0021PwDPFusfam0z69iSwD6VqqLrE+
-	x8YDAAj5BT3jQP2z/ltQltQyOatNcmy4CzQZmUAnNC03TsTBKWy5XV68NTt
-X-Received: by 2002:a17:90a:909:b0:3ab:884b:65b4 with SMTP id 98e67ed59e1d1-3ab884b7122mr3314878a91.59.1791812323830;
-        Mon, 12 Oct 2026 06:38:43 -0700 (PDT)
-Received: from hostname.tail4fb79.ts.net ([2401:7400:c804:b668:a144:150d:733a:5ba2])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3ab36ca0033sm16423579a91.2.2026.10.12.06.38.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 06:38:43 -0700 (PDT)
-From: Ho Jie Feng <hjf3108@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: Ho Jie Feng <hjf3108@gmail.com>,
-	Stanislaw Gruszka <stf_xl@wp.pl>,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] wifi: rt2x00: use VCO_IC 0x2 for RF3053 on 2.4 GHz
-Date: Mon, 12 Oct 2026 21:37:27 +0800
-Message-ID: <20261012133728.77780-1-hjf3108@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="P2oKD/iu"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 50A681A11E6;
+	Mon, 12 Oct 2026 13:38:35 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 15458601A6;
+	Mon, 12 Oct 2026 13:38:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6D22611D70B5E;
+	Mon, 12 Oct 2026 15:38:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791812308; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=kSIOvrEHM3a5XmLq4o4Vz8QQhg7cfJBqO8WQZOEPSfo=;
+	b=P2oKD/iuYLKPKxVYgo/dXPzK7+3qO4HQVVCArAfXy2xfTIIGffN6Fz+//KdG8xo1hHy/N0
+	6hZ5EDXqnUQIGoGdQsdjAdoTJGgeeftYKc3CSnMnPeUqF6CUYL8cNy5VQ+0a17A8yiZXXV
+	s8bkbQwSZEC6UknOCygjtOUU771kiei44of8lPuAHohnuzWe+SoNo9JqYZjpSpIYd8dxPr
+	yaBTD2/kVXCXFaLlbCCv/eEZi1SFlxCDHKRNp2ax5v5kByo9s61c8u9fExUmGYUWkESU2B
+	vtBm3N6rv+3fUXsb5M4Q/x6D756ZiWWywR1bwuxC7b5+VIMx+dpl6AqCsJBG1g==
+Date: Mon, 12 Oct 2026 15:38:11 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Richard Cheng <icheng@nvidia.com>, Andrew Lunn <andrew@lunn.ch>, Rob
+ Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas
+ <bhelgaas@google.com>, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, David Rhodes
+ <david.rhodes@cirrus.com>, Linus Walleij <linusw@kernel.org>, Daniel Scally
+ <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Bartosz Golaszewski
+ <brgl@kernel.org>, Len Brown <lenb@kernel.org>, Davidlohr Bueso
+ <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>, Dave Jiang
+ <dave.jiang@intel.com>, Alison Schofield <alison.schofield@intel.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
+ Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, Lizhi Hou
+ <lizhi.hou@amd.com>, driver-core@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-gpio@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-cxl@vger.kernel.org, Allan Nielsen <allan.nielsen@microchip.com>,
+ Horatiu Vultur <horatiu.vultur@microchip.com>, Daniel Machon
+ <daniel.machon@microchip.com>, Steen Hegelund
+ <steen.hegelund@microchip.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ stable+noautosel@kernel.org
+Subject: Re: [PATCH v12 10/10] PCI: of: Avoid np->data usage for the node
+ changeset
+Message-ID: <20261012153811.2cdcaf89@bootlin.com>
+In-Reply-To: <ar62bJzBEAhGL2iu@ashevche-desk.local>
+References: <20261001142815.277550-1-herve.codina@bootlin.com>
+	<20261001142815.277550-11-herve.codina@bootlin.com>
+	<ar62bJzBEAhGL2iu@ashevche-desk.local>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Using the 0x1, the VCO calibration result is 0x7f on channels 6
-and below. Using 0x2 fixes it.
+Hi Andy,
 
-Hardware: Netgear WNDA4100 (USB 0846:9013, RT3593 rev 0402, RF3053)
+On Thu, 1 Oct 2026 22:37:16 +0300
+Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
 
-Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
----
-RFC for this since I am not sure if it is a generic fix, since the
-vendor driver also doesn't use VCO_IC=0x2.
-Is this also a known issue?
+> On Thu, Oct 01, 2026 at 04:28:10PM +0200, Herve Codina wrote:
+> > of_pci_remove_node() and of_pci_remove_host_bridge_node() check
+> > whether the node is dynamic but not whether it has valid private data.
+> > 
+> > During the node creation, an OF changeset is used and this changeset is
+> > stored in np->data to be available for removal functions.
+> > 
+> > If, for instance, a PCI host bridge is created using a device-tree
+> > overlay, the related node will have the dynamic flag set but np->data
+> > will be NULL. This leads to NULL pointer dereferences.
+> > 
+> > Checking for a non-NULL np->data pointer to determine if the node has
+> > been created by the PCI node creation process is not enough. Indeed,
+> > on some platforms like PowerPC, the OF_RECONFIG_ATTACH_NODE notifier
+> > (e.g., in the pci_dn_reconfig_notifier() function) intercepts node
+> > additions and populates np->data with its own structure, such as a
+> > struct pci_dn. In that case, np->data is not NULL but it is not related
+> > to our changeset stored during the PCI node process creation.
+> > 
+> > Avoid the usage of np->data to store the changeset used during the PCI
+> > node creation. Store our changeset in a more relevant structure: either
+> > struct pci_dev when the node is created for a PCI device or struct
+> > pci_host_bridge when the node is created for the PCI host bridge.
+> > 
+> > With that done, no ambiguity remains on removal. Indeed, this changeset,
+> > if non-NULL, is the one used during PCI node creation. Check and use
+> > this changeset on the removal process.  
+> 
+> ...
+> 
+> >  void of_pci_remove_node(struct pci_dev *pdev)  
+> 
+> >  	struct device_node *np;
+> >  
+> >  	np = pci_device_to_OF_node(pdev);
+> > -	if (!np || !of_node_check_flag(np, OF_DYNAMIC))
+> > +	if (!pdev->cset || !np)
+> >  		return;  
+> 
+> Wouldn't be better to split this conditional to two?
+> 
+> 	if (!pdev->cset)
+> 		return;
+> 
+> 	np = pci_device_to_OF_node(pdev);
+> 	if (!np)
+> 		return;
 
-Testing on different hardware would be appreciated.
+Yes indeed, this will improve readability. I will update in the next
+iteration.
 
- drivers/net/wireless/ralink/rt2x00/rt2800lib.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Also I will perform the same kind of modification in
+of_pci_remove_host_bridge_node(), the same kind of check is present.
 
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
-index 2e2e382b62475..4a44a0222210d 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
-@@ -2979,7 +2979,7 @@ static void rt2800_config_channel_rf3053(struct rt2x00_dev *rt2x00dev,
- 
- 	rfcsr = rt2800_rfcsr_read(rt2x00dev, 6);
- 	if (rf->channel >= 1 && rf->channel <= 14)
--		rt2x00_set_field8(&rfcsr, RFCSR6_VCO_IC, 1);
-+		rt2x00_set_field8(&rfcsr, RFCSR6_VCO_IC, 2);
- 	else if (rf->channel >= 36 && rf->channel <= 64)
- 		rt2x00_set_field8(&rfcsr, RFCSR6_VCO_IC, 2);
- 	else if (rf->channel >= 100 && rf->channel <= 128)
-
-base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
--- 
-2.55.0
-
+Best regards,
+Hervé
