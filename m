@@ -1,344 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11012046.outbound.protection.outlook.com [52.101.126.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C39B13A258
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:54:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791788099; cv=none; b=k9GNwkoYPzpRvB1hkVu7Q+2NeGnYSUAHt9mYv81+FG1RRXMArDi/4V+nkr/GaAPWXOxSp0bOgUQuD1EMY5VSRxyMpQLZ8ck4+9b8zHgMX4DqkdoFt9zTg9EaKNDrVPSK2ye/i4NvocHRIdN2oG4iDQ+Fc9MYhm5x4NaJhWLHC5A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791788099; c=relaxed/simple;
-	bh=O1ag+HkQuh3qE2HaC+HDSIk4guB98RMnpdfOpESGw9k=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Ce1zv43IOwYVG+0tRIymlVKOY3CiJzD8852+hiSUW6hkEilD16DjODeO5ITYESZhCiY9mnIJrZaEQZYPldg8eSRp9g+7P3iQDQ7wSDRXlsKkG/U7KOh9TSbhDpECDSiOdF1JhVghnDSkHGTFL+YjJWOcGgUwjmjiiQFgcheeH/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XF9e7QRx; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCEA2436377;
+	Mon, 12 Oct 2026 06:55:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791788109; cv=fail; b=ZjfIq9iPejXrLoyxRF6Yvv32GPSuA6cJsIgFsWK+26t34QzTUk5nC2xNvxu9LS22Lx4buxscUs2xyI1lkcx8Lmo50NEuyoa2DK71O8ZuXs259NDGdYi79vpvNATFpr7plCOhxs2/dlTHfC/m/KQ1hbDtGOup196wKy3fc431Nz8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791788109; c=relaxed/simple;
+	bh=rJyeeC4GbfYvUzz/S4mLwhgShUk40R8Z2mtD+uKfvs8=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=iH7HiVhBIaPVZ0UBJGfHZq4xJacEgtn8tI6qGbfMH4KHjkHfEbeabJvafQPdBHGesVQFZFhmxq7JZuJjvdnRNjoIC1QYhuN3GB8B0w0nUqxv3FNn7VIEMGzX0aaIAWs46QDNBChk2NPR9GNtPhgnYBy8bCibR7IuEmjK/80KnP8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com; spf=pass smtp.mailfrom=vivo.com; dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b=TZ8CSnzc; arc=fail smtp.client-ip=52.101.126.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vivo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XF9e7QRx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D8EE1F0089B;
-	Mon, 12 Oct 2026 06:54:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791788097;
-	bh=ixUDbnCWgkzkbUHhz0JT3wyfuPZOPnsypnSoCMDlymM=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=XF9e7QRx6Sen9F/WbCo4a24ZFzVhrP8Gh2uVb9hpH4V7N31/24z8FOE4QZgrJ2CPL
-	 Sy+YbTDvfl5vNRBUn5Y4VNKme4dqYynrl/jVlXCoqWwiBMQ2y8gzEkb0uIovf0ayJw
-	 1nJ5l78WUdsGeWHavbfdzXCR/mgQOKdskATDPXns+5uc5uf6SaNam4H35a+QWctdHV
-	 FJUv7xczl3IcHpiFmINBl1ML4Qq0aIKGEA7rBxJFfJA9YR42vkcIER/7Pv44NrSY9/
-	 Ti5NoOMb4lXz3Tf1GtUpWNy7d6IOuvhHuddL62xjeSUzodVlufs6eqGyxOR1j4nTo9
-	 zhvTCeI7PU8Rg==
-Message-ID: <68543181-226a-4f83-a6eb-9b1f419ac707@kernel.org>
-Date: Mon, 12 Oct 2026 14:54:51 +0800
+	dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b="TZ8CSnzc"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d9EYUy9TTqPHZSvNjWczWtOEqEpNA1JMoOfZ18o3MFs9PrVn/uc1jqrQplXgzc2zQTjtk+/DwsgmJObZw2orKuN9ieo3RlQo2uKXtkSBpsjsPTUJFgsX5sjVJ8d6C7WWtAm2ybt/p6susXNBayiI3Au1KKIgWNwlQdlTznEPbBQEs7xnO+BinFilzPmpIjk+pREXLm3n21FrI882IFbwQIWN/jPkrzoSabNuJVOlMUjjnU+TCOQKfZEsdcGBc8LZfGJiIfcFL6d/njyDABVO3jkoz97IkkWaq8CuENbzY8ZvD2PhUxROcA86JR6DlwwfNIEoo2lNiTItXL6YoNqQeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rJyeeC4GbfYvUzz/S4mLwhgShUk40R8Z2mtD+uKfvs8=;
+ b=IYYyyvtvfZ9RzokeOpnmvzzhZCjrGxFF3Y7KLw8N/SDE4mHtZ7zHyQ4wu1vhM3DcqvvovjuA5g3WpC9k76AL2f+TYbk2qAvlbtTM5ZEQP/5sNuR8RtoqoQ3k1nrFdmfQpQBgeg3Z7VH18fCPAWO3G1/AC8gl8RbHxYISWdMdyn8BDkzwo8ZgjUJ0lftDEDlOKoyn/y/l7zHKQcHA01LeV9TKmUKrpQ0/K+5QF69kHmBCI4vDPwXHEzmJBRs+ABw157dxgVaXF8CHGzzrTe3gzoY0g/34jH7UqUXhLgwnomESpPnlo4E+LcWyrXxEJbulW+owJm+MBixtscrbPDvGVQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rJyeeC4GbfYvUzz/S4mLwhgShUk40R8Z2mtD+uKfvs8=;
+ b=TZ8CSnzcz5TPLUYlMby1LLom0fMq/mRGylmalga4gxOQTaAbxWlTnp/GFrauVKArgjQb1CF20Ud836Okn2MY6vzyUVbkcLG/MQqNAHuVG/2GUNQFbVN/zEpAZ7oZvvtlnX1ssxfXLxBTSU99NPeR01L4/79zMVJK5FjzMi72yoj+VgHo24oqgsFwNdj3DrU+vE+Iyh/6Sfr7nYUrGZQUkrLuLvg0nvFuBF1X0Y6jo4tHTCanc/1rErALwaCd1IMqvn5qVPeUb9MKv5ktrW/qa5lxnkcxoW4jHj45l/153oYTfWCeB+fDFmcUJzTZWLR5mKGkEOwOflEh1+yUbnydhg==
+Received: from TYUPR06MB6217.apcprd06.prod.outlook.com (2603:1096:400:358::7)
+ by TYPPR06MB8077.apcprd06.prod.outlook.com (2603:1096:405:31b::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 06:55:03 +0000
+Received: from TYUPR06MB6217.apcprd06.prod.outlook.com
+ ([fe80::8d51:58c7:42f3:ecc]) by TYUPR06MB6217.apcprd06.prod.outlook.com
+ ([fe80::8d51:58c7:42f3:ecc%4]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 06:55:03 +0000
+From: =?gb2312?B?uvrBrMfa?= <hulianqin@vivo.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+CC: "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	=?gb2312?B?uvrBrMfa?= <hulianqin@vivo.com>
+Subject: [PATCH] ALSA: usb-audio: Add iface reset and delay quirk for rongyuan
+ GS20
+Thread-Topic: [PATCH] ALSA: usb-audio: Add iface reset and delay quirk for
+ rongyuan GS20
+Thread-Index: Ad1aFnLUNo8+xC5PQcCpkW1NmNiVtg==
+Date: Mon, 12 Oct 2026 06:55:03 +0000
+Message-ID:
+ <TYUPR06MB62171DFA33D7E17FD3F73D24D29F2@TYUPR06MB6217.apcprd06.prod.outlook.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYUPR06MB6217:EE_|TYPPR06MB8077:EE_
+x-ms-office365-filtering-correlation-id: 8b444604-3484-4b93-2fd8-08df282dbdfd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|42112799006|23010399003|376014|1800799024|366016|18002099003|10067099003|38070700021|261009223027099003|11063799006|56012099006;
+x-microsoft-antispam-message-info:
+ TXS1RiIfGLXlmx2jba6bWuwdpGnx2RYYYKruViVWnh6HBVESj0p9HginfyV+rYtZwQEpovNvjc4U4Jvg2po7nNvY8ivYUSvz34IRA8tMwUDLmYtTizfm5jVAfWSutCtSiXRL4AFMHINoMzSnzY1jK1Ul5eFk8HokWYRa4a9bzfHkX81V5Uwg9DuzCN4biiYirvgw2ixcPhaRRgYPl3YHV3njGLaG0lDvcK+9r0SJod5o79jOYe67nydj4unx+nO2wDo9LlGYbShWJAhFMQjx3d09ZjgCBAUG4MfCWAXjdnQLu9Rm3xGtpWdQOv98G3NJPpJZ4BJtcUXUgGNbiARRCfAaZk497ArTf6S3b+oKbsmi++3TktRsFGxfgcyUJH/l/G5N4VfC1Go5MAvp0L311Xv/JcWF3Gi+5U0R7/coh6KeTV8KoOT0JXoPXCHeqmoH1+++LAYYxSJjJCOmYITusakQc+b1MyN8/XIRfKj8OqLcyA5XdZrjROg5KIApRk8wsMAAN07p60ZPigbnl1lL1C3waLlsIuFqGODznGzyQG+X1/9PhTzpkMCDQeR8x/gmvZ7ykPw+PKjgNjtmsv9xMMO7L7WBShu6fTzuaNCO6euZG6Iy9zzp/wpQ0K4FTXcrjiMtI5or0cbgVDerW/mz6bp3PXp60w+LfCVYibrpkKPwHDvLlMLEo7t1Y//ynY5KimO0j59YsxAITUn/ImIRaJMn1KCxYQ1oEiP8eaxngMU=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYUPR06MB6217.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(23010399003)(376014)(1800799024)(366016)(18002099003)(10067099003)(38070700021)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?gb2312?B?RTlzRjN4VzJxSzZud0hrS2pjUkQ2QkpPcUN4NEJ0VzE0MUxNajV6bWQwSTdo?=
+ =?gb2312?B?SzdOU3BOazlSMUZMODA2Q2ZJS1lPb2k5SjZCRlFEZEp4cEZWL202Ui93a0dm?=
+ =?gb2312?B?Z293cnZnOXFvZkxhU2dhNHBveWMvS01zWjdFTkF3UnYzTkNiOTJ1Z3pQSWZo?=
+ =?gb2312?B?QVpXdlhMbUhMMFhUTUsrcmNSaW5jcit0Y0wyaEdOL29YZ2ZpYnhGYVUxZkt6?=
+ =?gb2312?B?Y3QyTGc3RjVZMHM3Zmd5YnZ5L3ZZZVNvUm5PaXYxWnIzNjB2ZmxDRXFmVzlt?=
+ =?gb2312?B?U1BwS2J6cnROTmtmYk9Pb2wrU0VpeEdMVmNpY1RMb01IU1NPNmRnZEtoRXpH?=
+ =?gb2312?B?T2VhZmZXL1VvbDhiYU1jNUVIaTRmWXAwYW9VTi80RDdyVFY0cC9WRlhVSHk2?=
+ =?gb2312?B?OXEvY3VhMHlFVFh2eWhOK29uaUlwZjB5UUIxLytMWVkwakxyZnRmNlE0MjFW?=
+ =?gb2312?B?K0ZyZGZTZ3dyQUF1WGlrNHZVaGREb1FuWTRtTUp5U0FWQmszcWw2NVI3Wmdp?=
+ =?gb2312?B?VmF1V0d3TTNRSis5ZnoxcmV5L0dta08zMTFDMzE5WVYyRU9XUXN2dk1ZenYv?=
+ =?gb2312?B?cDlseGJ1WWlEb1VyaktjMkE0Q1QyandkemJzMUxvY2Q1UDNJaVg2K0RtVlZT?=
+ =?gb2312?B?cUVCeitLS2gydXFNd1V2UGZPcGlkblNMYWsvNlRmVUVEeFo0Q2FOVU92enda?=
+ =?gb2312?B?dUI3MnZUdG5HNGxqcFlGeXNtZWxheklBeURvaGlyZXhVSll6bmgxc3llNWxh?=
+ =?gb2312?B?WDc4dE4zZDBOTDN1RGgwRkNqS1d3MjFLdEljUjZiYTBIOWUzTU96TjYzNWpx?=
+ =?gb2312?B?SjdhWW1sdGhOZTJqSXFZa0dBUnY5a3o4OHZ4aHFPUmlEMTlQY0gyWXRWU1ln?=
+ =?gb2312?B?KzFvUkhqb01hcUNoY282QlZDNEhJSWZTQzYydlQ3cEdFK21melQvT0dMWkFu?=
+ =?gb2312?B?dCtRbUpzS0hkdCtWZ3E5M1pTN3VvK3FRVHJpTmdGZytZOGUybjkrbUFOWnNN?=
+ =?gb2312?B?UXQveVZMNWw0QWZKamwyYWlybDJoYk1hQXdsRXFZY1ZzdUIwVzE1S1pjOWky?=
+ =?gb2312?B?bFgrbDVyK0NFYy9Jb3BYellwQlgyVHBkNHFqeXpzVUVFSUhEaU5OUWVaaTcw?=
+ =?gb2312?B?M0R6eFFmNURzaW9kTGlMdDI5VWxNTTM3QXgxYm90bGlweGNERjBFc3JNaGhN?=
+ =?gb2312?B?YnVrclFRNFNaMXpjMkxTZUlMamo4VnVhbmdIN1R2bTcwek40QTZpS3psUHBC?=
+ =?gb2312?B?dkxOZldLMW94dXVIbnNBcXB3YVU0bVRBL1ZuS2piVWlzVzY1RDMrQjhuaHdj?=
+ =?gb2312?B?NVhWNi9qdGkrcFphekF4azVpK1drMFhhRmF3V3hwTnlrZWRNQkUvQjI3b2hr?=
+ =?gb2312?B?WCtOZUlLVjlsczJxVmQwRWxLa1ZXbi9Mb01WR3BBQlRCb3NRTnJsTkduZUl1?=
+ =?gb2312?B?M2NuUytyWFBObDE3d2RhbnRwMStmdjhwU1RvVFR2WURGcTcycVZBdTMyeUYy?=
+ =?gb2312?B?Yms5dlJjS0FlZDVWc3RKN0laYjMyRjR5SnBwRVhMZ1R3K3BrTU5BRUlIelA5?=
+ =?gb2312?B?STN4QzlweGdMY3ZaZHA1ek1aOExSa2l1c3Rma0c5VzQycUVBOTBIYjUrRE03?=
+ =?gb2312?B?Y0VnQXdmS05KSmlRSHlMYkNObjVHQ1NmcVNISndncGl4N2lQM1JGS042ZHl0?=
+ =?gb2312?B?REJqZFgxbWF4YXhuUm04VUxlUUsxNFFBcDBsT2xYTTl1bU5SM29YOC9yTElB?=
+ =?gb2312?B?enZCeU1YbW1BWFJwbHlSOENNSi9SaDk4KzJuTjJHbnI4ZDlnbWFFWW16Y2tP?=
+ =?gb2312?B?WjZUM2xrOEFpRGJHd3Uzc0V1KzBVZGliZFJyTlFaOW1sTS9KT3FnRnNXS08z?=
+ =?gb2312?B?TkRJRVIwNS9wSVkxb1ZiUmVmODBZam5ieDBrWnZiRmpjVWV0VU44ZFdyTUJo?=
+ =?gb2312?B?ZkIrQXlhSE9OMWxxS3R1emE4cldMb3AybmdnRjhTRWdHVlY2UUhYTlZPWU1z?=
+ =?gb2312?B?YkhTSW5LL29WaSt3clFZL3F1cThkdDZLT2t4ZVhVQ1R1Z1ROOEZVUW4xQjNV?=
+ =?gb2312?B?SisrenF0UFVvSldHODdkbHc4Z2xadVRoQXRqWFFldGR3a1p0Q3JmWVM2d25H?=
+ =?gb2312?B?SUc1NDk0eC9zU2dSbGRCelMvMkNQYW4yR2RCTEdZUHlqZ05MTnZaQUVwQnpa?=
+ =?gb2312?B?c2VvcFVQaWJmSE5TcGdsNmNtcm02MGQ3TmVaeTZ0d3JqWG5BVDlWeC9QN2xi?=
+ =?gb2312?B?MDg0b09qZ2xCM2RaZForbGo1Z3ZSMnlWWmd0dTVVbnpkOFZiaFE0RUJKdU9C?=
+ =?gb2312?Q?0xRjuz+nqS0HVKE1nv?=
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>,
- Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
- Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org,
- David Hildenbrand <David.Hildenbrand@arm.com>,
- Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
- Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>,
- Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [PATCH v3 06/17] f2fs: account large folio dirty data at block
- granularity
-To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
- linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
-References: <20261009161224.4163796-1-zhaonanzhe@xiaomi.com>
- <20261009161224.4163796-7-zhaonanzhe@xiaomi.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261009161224.4163796-7-zhaonanzhe@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYUPR06MB6217.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b444604-3484-4b93-2fd8-08df282dbdfd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2026 06:55:03.4951
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jhhaUiUEIMVIHsOBScghovet7BFcnMIWNKkGDwpituVnuxk/VfXBjw++yu31RPG0Wn9vbio7kjFaHDz+dUVA7A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYPPR06MB8077
 
-On 10/10/26 00:12, Nanzhe Zhao wrote:
-> Originally inode->dirty_pages was accounted once per folio, but f2fs
-> needs the counter to be accounted in blocks.
-> 
-> This introduces batch dirty page add/sub accounting; for a large folio
-> the changed dirty page count is computed from the dirty bitmap bit
-> changes.
-> 
-> Found by f2fs/006 (lfs + checkpoint=disable) and generic/363.
-> 
-> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-> ---
->   fs/f2fs/checkpoint.c | 38 ++++++++++++++++++++++----
->   fs/f2fs/data.c       | 24 ++++++++++++----
->   fs/f2fs/f2fs.h       | 65 ++++++++++++++++++++++++++++++++++----------
->   3 files changed, 101 insertions(+), 26 deletions(-)
-> 
-> diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-> index 81c1c2de936f..49075c840c61 100644
-> --- a/fs/f2fs/checkpoint.c
-> +++ b/fs/f2fs/checkpoint.c
-> @@ -1316,20 +1316,46 @@ static void __remove_dirty_inode(struct inode *inode, enum inode_type type)
->   	stat_dec_dirty_inode(F2FS_I_SB(inode), type);
->   }
->   
-> -void f2fs_update_dirty_folio(struct inode *inode, struct folio *folio)
-> +/*
-> + * Account @nr dirty pages (negative when dirtiness is cleared) for @inode.
-> + */
-> +void f2fs_account_dirty_pages(struct inode *inode, int nr)
-
-How about f2fs_account_dirty_blocks() to match your commit title?
-
->   {
->   	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
->   	enum inode_type type = S_ISDIR(inode->i_mode) ? DIR_INODE : FILE_INODE;
->   
-> -	if (!S_ISDIR(inode->i_mode) && !S_ISREG(inode->i_mode) &&
-> -			!S_ISLNK(inode->i_mode))
-> +	if (!nr)
->   		return;
->   
->   	spin_lock(&sbi->inode_lock[type]);
-> -	if (type != FILE_INODE || test_opt(sbi, DATA_FLUSH))
-> -		__add_dirty_inode(inode, type);
-> -	inode_inc_dirty_pages(inode);
-> +	if (nr > 0) {
-> +		if (type != FILE_INODE || test_opt(sbi, DATA_FLUSH))
-> +			__add_dirty_inode(inode, type);
-> +		inode_inc_dirty_pages_nr(inode, nr);
-> +	} else {
-> +		inode_dec_dirty_pages_nr(inode, -nr);
-> +		__remove_dirty_inode(inode, type);
-> +	}
->   	spin_unlock(&sbi->inode_lock[type]);
-> +}
-> +
-> +void f2fs_update_dirty_folio(struct inode *inode, struct folio *folio)
-> +{
-> +	if (!S_ISDIR(inode->i_mode) && !S_ISREG(inode->i_mode) &&
-> +			!S_ISLNK(inode->i_mode))
-> +		return;
-> +
-> +	/*
-> +	 * Large folios have a subpage dirty bitmap, so defer their dirty accounting
-> +	 * to the f2fs_ffs_*subrange_dirty*() helpers.  This avoids nesting
-> +	 * ffs->state_lock with the inode dirty list lock.
-> +	 */
-> +	if (f2fs_folio_has_ffs(folio)) {
-> +		folio_set_f2fs_reference(folio);
-> +		return;
-> +	}
-> +
-> +	f2fs_account_dirty_pages(inode, 1);
->   
->   	folio_set_f2fs_reference(folio);
->   }
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index da388ed9cccc..d45fbe0db161 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -2902,6 +2902,7 @@ void f2fs_ffs_mark_subrange_dirty(struct folio *folio,
->   				    size_t offset, size_t len)
->   {
->   	struct f2fs_folio_state *ffs;
-> +	unsigned int set;
->   	unsigned long flags;
->   
->   	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
-> @@ -2912,21 +2913,27 @@ void f2fs_ffs_mark_subrange_dirty(struct folio *folio,
->   	ffs = (struct f2fs_folio_state *)folio->private;
->   
->   	spin_lock_irqsave(&ffs->state_lock, flags);
-> -	__ffs_mark_subrange_dirty(folio, ffs, offset, len);
-> +	set = __ffs_mark_subrange_dirty(folio, ffs, offset, len);
->   	spin_unlock_irqrestore(&ffs->state_lock, flags);
-> +
-> +	if (set)
-> +		f2fs_account_dirty_pages(folio->mapping->host, set);
->   }
->   
->   static bool __ffs_clear_subrange_dirty(struct folio *folio,
-> -			struct f2fs_folio_state *ffs, size_t offset, size_t len)
-> +			struct f2fs_folio_state *ffs, size_t offset, size_t len,
-> +			unsigned int *cleared)
->   {
->   	unsigned int nr_subpages = folio_nr_pages(folio);
-> -	unsigned int start, end;
-> +	unsigned int start, end, before;
->   
->   	start = offset >> PAGE_SHIFT;
->   	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
->   	end = min(end, nr_subpages);
->   
-> +	before = bitmap_weight(ffs->state, 2 * nr_subpages);
->   	bitmap_clear(ffs->state, nr_subpages + start, end - start);
-> +	*cleared = before - bitmap_weight(ffs->state, 2 * nr_subpages);
->   	return find_next_bit(ffs->state, 2 * nr_subpages, nr_subpages) <
->   			2 * nr_subpages;
->   }
-> @@ -2938,13 +2945,15 @@ static bool __ffs_clear_subrange_dirty(struct folio *folio,
->    * @len: byte length of the subrange
->    *
->    * Clear the dirty bits of the 4K subpages covered by [offset, offset + len),
-> - * and return whether the folio still has any dirty subpage left.
-> + * account the cleared subpages against the inode dirty counters, and return
-> + * whether the folio still has any dirty subpage left.
->    */
->   bool f2fs_ffs_clear_subrange_dirty_and_test(struct folio *folio, size_t offset,
->   					    size_t len)
->   {
->   	struct f2fs_folio_state *ffs;
->   	unsigned long flags;
-> +	unsigned int cleared = 0;
->   	bool dirty;
->   
->   	if (!f2fs_folio_has_ffs(folio))
-> @@ -2952,9 +2961,12 @@ bool f2fs_ffs_clear_subrange_dirty_and_test(struct folio *folio, size_t offset,
->   
->   	ffs = (struct f2fs_folio_state *)folio->private;
->   	spin_lock_irqsave(&ffs->state_lock, flags);
-> -	dirty = __ffs_clear_subrange_dirty(folio, ffs, offset, len);
-> +	dirty = __ffs_clear_subrange_dirty(folio, ffs, offset, len, &cleared);
->   	spin_unlock_irqrestore(&ffs->state_lock, flags);
->   
-> +	if (cleared)
-> +		f2fs_account_dirty_pages(folio->mapping->host, -cleared);
-> +
->   	return dirty;
->   }
->   
-> @@ -4319,7 +4331,7 @@ static int f2fs_write_cache_folios(struct address_space *mapping,
->   		if (f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
->   					(err ? pos : end_pos) - folio_pos(folio)))
->   			folio_redirty_for_writepage(wbc, folio);
-> -		else
-> +		else if (!f2fs_folio_has_ffs(folio))
->   			inode_dec_dirty_pages(inode);
->   
->   		if (bias_added) {
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index e14275f98fe7..2cf98f49c876 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -2916,9 +2916,10 @@ static inline void dec_valid_block_count(struct f2fs_sb_info *sbi,
->   	f2fs_i_blocks_write(inode, count, false, true);
->   }
->   
-> -static inline void inc_cache_count(struct f2fs_sb_info *sbi, int count_type)
-> +static inline void inc_cache_count_nr(struct f2fs_sb_info *sbi,
-
-add_cache_counts()
-
-> +					int count_type, int nr)
->   {
-> -	atomic_inc(&sbi->nr_caches[count_type]);
-> +	atomic_add(nr, &sbi->nr_caches[count_type]);
->   
->   	if (count_type == F2FS_DIRTY_DENTS ||
->   			count_type == F2FS_DIRTY_NODES ||
-> @@ -2928,31 +2929,66 @@ static inline void inc_cache_count(struct f2fs_sb_info *sbi, int count_type)
->   		set_sbi_flag(sbi, SBI_IS_DIRTY);
->   }
->   
-> -static inline void inode_inc_dirty_pages(struct inode *inode)
-> +static inline void dec_cache_count_nr(struct f2fs_sb_info *sbi,
-
-sub_cache_counts()
-
-> +					int count_type, int nr)
->   {
-> -	atomic_inc(&F2FS_I(inode)->dirty_pages);
-> -	inc_cache_count(F2FS_I_SB(inode), S_ISDIR(inode->i_mode) ?
-> -				F2FS_DIRTY_DENTS : F2FS_DIRTY_DATA);
-> -	if (IS_NOQUOTA(inode))
-> -		inc_cache_count(F2FS_I_SB(inode), F2FS_DIRTY_QDATA);
-> +	atomic_sub(nr, &sbi->nr_caches[count_type]);
-> +}
-> +
-> +static inline void inc_cache_count(struct f2fs_sb_info *sbi, int count_type)
-> +{
-> +	inc_cache_count_nr(sbi, count_type, 1);
->   }
->   
->   static inline void dec_cache_count(struct f2fs_sb_info *sbi, int count_type)
->   {
-> -	atomic_dec(&sbi->nr_caches[count_type]);
-> +	dec_cache_count_nr(sbi, count_type, 1);
->   }
->   
-> -static inline void inode_dec_dirty_pages(struct inode *inode)
-> +/*
-> + * Account @nr dirty pages for @inode; one page is
-> + * (PAGE_SIZE >> log_blocksize) filesystem blocks.
-> + */
-> +static inline void inode_inc_dirty_pages_nr(struct inode *inode, int nr)
-
-inode_add_dirty_blocks()
-
-> +{
-> +	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
-> +	int blocks = nr * (PAGE_SIZE >> sbi->log_blocksize);
-> +
-
-    	if (!S_ISDIR(inode->i_mode) && !S_ISREG(inode->i_mode) &&
-    			!S_ISLNK(inode->i_mode))
-    		return;
-
-> +	atomic_add(blocks, &F2FS_I(inode)->dirty_pages);
-> +	if (S_ISDIR(inode->i_mode))
-> +		inc_cache_count_nr(sbi, F2FS_DIRTY_DENTS, blocks);
-> +	else
-> +		inc_cache_count_nr(sbi, F2FS_DIRTY_DATA, blocks);
-> +	if (IS_NOQUOTA(inode))
-> +		inc_cache_count_nr(sbi, F2FS_DIRTY_QDATA, blocks);
-> +}
-> +
-> +static inline void inode_dec_dirty_pages_nr(struct inode *inode, int nr)
-
-inode_sub_dirty_blocks()
-
->   {
-> +	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
-> +	int blocks = nr * (PAGE_SIZE >> sbi->log_blocksize);
-> +
->   	if (!S_ISDIR(inode->i_mode) && !S_ISREG(inode->i_mode) &&
->   			!S_ISLNK(inode->i_mode))
->   		return;
->   
-> -	atomic_dec(&F2FS_I(inode)->dirty_pages);
-> -	dec_cache_count(F2FS_I_SB(inode), S_ISDIR(inode->i_mode) ?
-> -				F2FS_DIRTY_DENTS : F2FS_DIRTY_DATA);
-> +	atomic_sub(blocks, &F2FS_I(inode)->dirty_pages);
-> +	if (S_ISDIR(inode->i_mode))
-> +		dec_cache_count_nr(sbi, F2FS_DIRTY_DENTS, blocks);
-> +	else
-> +		dec_cache_count_nr(sbi, F2FS_DIRTY_DATA, blocks);
->   	if (IS_NOQUOTA(inode))
-> -		dec_cache_count(F2FS_I_SB(inode), F2FS_DIRTY_QDATA);
-> +		dec_cache_count_nr(sbi, F2FS_DIRTY_QDATA, blocks);
-> +}
-> +
-> +static inline void inode_inc_dirty_pages(struct inode *inode)
-
-inode_inc_dirty_block()
-
-> +{
-> +	inode_inc_dirty_pages_nr(inode, 1);
-> +}
-> +
-> +static inline void inode_dec_dirty_pages(struct inode *inode)
-
-inode_dec_dirty_block()
-
-> +{
-> +	inode_dec_dirty_pages_nr(inode, 1);
->   }
->   
->   static inline void inc_atomic_write_cnt(struct inode *inode)
-> @@ -4380,6 +4416,7 @@ void f2fs_remove_orphan_inode(struct f2fs_sb_info *sbi, nid_t ino);
->   int f2fs_recover_orphan_inodes(struct f2fs_sb_info *sbi);
->   int f2fs_get_valid_checkpoint(struct f2fs_sb_info *sbi);
->   void f2fs_update_dirty_folio(struct inode *inode, struct folio *folio);
-> +void f2fs_account_dirty_pages(struct inode *inode, int nr);
->   void f2fs_remove_dirty_inode(struct inode *inode);
->   int f2fs_sync_dirty_inodes(struct f2fs_sb_info *sbi, enum inode_type type,
->   								bool from_cp);
-
+U2V0dGluZyB1cCB0aGUgaW50ZXJmYWNlIHdoZW4gc3VzcGVuZGVkL3Jlc3VtaW5nIGZhaWxzIG9u
+IHRoaXMgY2FyZC4NCkFkZGluZyBhIHJlc2V0IGFuZCBkZWxheSBxdWlyayB3aWxsIGVsaW1pbmF0
+ZSB0aGlzIHByb2JsZW0uDQoNCnVzYiAxLTE6IE5ldyBVU0IgZGV2aWNlIGZvdW5kLCBpZFZlbmRv
+cj0xMjM3LCBpZFByb2R1Y3Q9MTdiOA0KdXNiIDEtMTogTmV3IFVTQiBkZXZpY2Ugc3RyaW5nczog
+TWZyPTEsIFByb2R1Y3Q9MiwgU2VyaWFsTnVtYmVyPTMNCnVzYiAxLTE6IFByb2R1Y3Q6IEdTMjAN
+CnVzYiAxLTE6IE1hbnVmYWN0dXJlcjogcm9uZ3l1YW4NCnVzYiAxLTE6IFNlcmlhbE51bWJlcjog
+MjAyNTAyMjgNCg0KU2lnbmVkLW9mZi1ieTogTGlhbnFpbiBIdSA8aHVsaWFucWluQHZpdm8uY29t
+Pg0KLS0tDQogc291bmQvdXNiL3F1aXJrcy5jIHwgMiArKw0KIDEgZmlsZSBjaGFuZ2VkLCAyIGlu
+c2VydGlvbnMoKykNCg0KZGlmZiAtLWdpdCBhL3NvdW5kL3VzYi9xdWlya3MuYyBiL3NvdW5kL3Vz
+Yi9xdWlya3MuYw0KaW5kZXggYTU0ZmFiY2U3OTIwLi4yOGZhOTg0NzNjOGMgMTAwNjQ0DQotLS0g
+YS9zb3VuZC91c2IvcXVpcmtzLmMNCisrKyBiL3NvdW5kL3VzYi9xdWlya3MuYw0KQEAgLTI0MDQs
+NiArMjQwNCw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgdXNiX2F1ZGlvX3F1aXJrX2ZsYWdzX3Rh
+YmxlIHF1aXJrX2ZsYWdzX3RhYmxlW10gPSB7DQogCQkgICBRVUlSS19GTEFHX01JWEVSX1BMQVlC
+QUNLX01JTl9NVVRFKSwNCiAJREVWSUNFX0ZMRygweDExMDEsIDB4MDAwMywgLyogQXVkaW9lbmdp
+bmUgRDEgKi8NCiAJCSAgIFFVSVJLX0ZMQUdfR0VUX1NBTVBMRV9SQVRFKSwNCisJREVWSUNFX0ZM
+RygweDEyMzcsIDB4MTdiOCwgLyogcm9uZ3l1YW4gR1MyMCAqLw0KKwkJICAgUVVJUktfRkxBR19G
+T1JDRV9JRkFDRV9SRVNFVCB8IFFVSVJLX0ZMQUdfSUZBQ0VfREVMQVkpLA0KIAlERVZJQ0VfRkxH
+KDB4MTJkMSwgMHgzYTA3LCAvKiBIVUFXRUkgVVNCLUMgSEVBRFNFVCAqLw0KIAkJICAgUVVJUktf
+RkxBR19NSVhFUl9QTEFZQkFDS19NSU5fTVVURSB8IFFVSVJLX0ZMQUdfTUlYRVJfQ0FQVFVSRV9N
+SU5fTVVURSB8DQogCQkgICBRVUlSS19GTEFHX0ZPUkNFX0lGQUNFX1JFU0VUIHwgUVVJUktfRkxB
+R19JRkFDRV9ERUxBWSksDQotLSANCjIuMzkuMA0KDQo=
