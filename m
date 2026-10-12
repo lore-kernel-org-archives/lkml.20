@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6200E423EAA
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 22:38:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1B1477E40
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 22:38:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791844708; cv=none; b=sCycK4mx8B1nhDY7nFLi+yCvKuU4Mws9Sis9GU1JUh96U7fWFe4ehnclqdq53k5F91WGHW4XuH+5avOkji051Z7BswcwS18Ugeceo2aDFnMHm7hoZ+I1FFx68berSgNe89bVWt3zJulnULQpg+uROcu9pag5bpGXFT5JLOyWtb4=
+	t=1791844710; cv=none; b=fhQcni3DFsOyR9bqR/t+JMxVLjeYZ44QsUEMJzs2EDIakliDowB8m4wRD/lOMq2g24geesi05UPLapYBfsip7s8FZiua/mv1V82V5olJUv7cMg5WjesdL2X8jswGDOpgckh7ZMh26TkcgaZydiYQmpVMwi+64LKcDXezV0qbIjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791844708; c=relaxed/simple;
-	bh=iemir4/bJvID1L2kuPWuIgRZmoTsm805wNnKuGPgf04=;
+	s=arc-20240116; t=1791844710; c=relaxed/simple;
+	bh=jDidYoOUFS4b/LIyjavaBdXQusepb/47uBSH3WmhCBs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OQhOur9+MmGxADt2mhPzLLRsb/jSLtxtCdq5mxFarYdHLfwJq4GpzzsQOrdTGCGmlpLcj+kgOI8r7e0CViST2bc40EwkxBYAq1sWP8QU4MLtUleJQVMHWVUsbjBZU0vcqkmRWxQFqLQH0YtPfkYB00Db6vKva/2yL7ue3bX6r3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=qFKSwFRL; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=u5FzxO3f5bJSfwS+4XkttAl6Bw3PXCN9kR+ov4JJsqgX/hcyMTFnb2P+07Dri7Gv4AeaeaESkm+3Kod9A3AwxWmWg1SQVAgNJO21ScbsIF6mPReDUEqEKfZmFuSDrWIYixGdVkTy5fGbu4fnLF8WT0w/AjU1l5tEqDbDqJU4qlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=hPAZpnC3; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="qFKSwFRL"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="hPAZpnC3"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1791844700;
-	bh=iemir4/bJvID1L2kuPWuIgRZmoTsm805wNnKuGPgf04=;
+	bh=jDidYoOUFS4b/LIyjavaBdXQusepb/47uBSH3WmhCBs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=qFKSwFRLGxtqO6u5h1LLzhfGvCfuOX+IklBzSfb4e1YBntOuu5lVI2689MbnxGIVd
-	 e3CPfcpr/X6K8DPWHA3jxZdZH6iL/YNyWtyiU4JCI1n/MQ5SKTIwGj6H39lhIXrzgC
-	 +DZC39B8AfXt7VRgBAIS0uEttoevM5wv90+DufxVqqW5WHubAowyER0u3XvUOtGdVQ
-	 qbybt8zXWvj11y82kRYyZTwGsAXCA1d0kaiOuAHttxLBJCCGSF8MAVE5BnXWAS82bz
-	 EBCQgxFbKDD/quTniK4h0/YSJzgVYnQo+exmAkndBR3qU2apr2pnlfTAs6NfRtET1/
-	 4IZEOj/NBuqGQ==
+	b=hPAZpnC3QQy/O/ZMrlUMy9YuXwghEkaVExAZGmhI0JBzmWdwgrVehTNqZ9qpU+4XR
+	 3TbNMzeQbGX66xke2zTcLIVgjhR3K0bjjxt2j+ilwzcWJXcFPDOXBPrYwE22OfsVDL
+	 n/j0rohhzlvmHkRC2orF3imSCfcoqYtPm1n1Pshibz6UEs01AHj3Tlgn4ORgj3aUJo
+	 0w3n23rNdl4JeY7OYzOVYJVq4j9T/u4m+K3If9+jUFvK+lRo2c0kGixaB+B3Ep6hKy
+	 MaM9POauk9qaI/H032vJ+/PNO3YRJ+6hf63ilbwSbM5q1OgPZARFVTpzPxqtC3lgq5
+	 1UF9HBMltXhgQ==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0C2F017E092C;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id BCEF217E0943;
 	Tue, 13 Oct 2026 00:38:20 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 13 Oct 2026 01:37:42 +0300
-Subject: [PATCH v2 2/8] drm/vc4: hdmi: Bump BCM2835 max pixel clock to 165
- MHz
+Date: Tue, 13 Oct 2026 01:37:43 +0300
+Subject: [PATCH v2 3/8] drm/vc4: hdmi: Switch to
+ drm_hdmi_mode_needs_scrambling()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-vc4-common-scramb-v2-2-a41d15e131ad@collabora.com>
+Message-Id: <20261013-vc4-common-scramb-v2-3-a41d15e131ad@collabora.com>
 References: <20261013-vc4-common-scramb-v2-0-a41d15e131ad@collabora.com>
 In-Reply-To: <20261013-vc4-common-scramb-v2-0-a41d15e131ad@collabora.com>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -59,46 +59,66 @@ Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-Historically, the HSM clock for BCM2835 was fixed at 163.7 MHz.  Since
-the pixel clock had to be at least 1% below the HSM clock, it was capped
-at 162 MHz.
+The VC4 HDMI driver has a local helper to check whether a mode requires
+scrambling.  It is equivalent to drm_hdmi_mode_needs_scrambling(), so
+use the common helper instead.
 
-Since commit cd4cb49dc5bb ("drm/vc4: hdmi: Adjust HSM clock rate
-depending on pixel rate"), the HSM clock rate is set to pixel clock *
-101 / 100.  For a 165 MHz pixel clock, this gives an HSM rate of 166.65
-MHz, which, per Dave Stevenson, the hardware can handle without issues.
+No functional change intended.
 
-Increase the max pixel clock to 165 MHz, which matches the maximum TMDS
-character rate of HDMI 1.0 through 1.2.
-
-Suggested-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Acked-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 16 ++++------------
+ 1 file changed, 4 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 8e4623ccc4f8..e61f1b694dbe 100644
+index e61f1b694dbe..60c2c655b2e9 100644
 --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
 +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -1507,7 +1507,7 @@ static void vc4_hdmi_encoder_pre_crtc_configure(struct drm_encoder *encoder,
- 	 * users are able to use pixel clocks closer to HSM's, namely for
- 	 * 1920x1200@60Hz. So it was decided to have leave a 1% margin between
- 	 * both clocks. Which, for RPi0-3 implies a maximum pixel clock of
--	 * 162MHz.
-+	 * 165MHz.
- 	 *
- 	 * Additionally, the AXI clock needs to be at least 25% of
- 	 * pixel clock, but HSM ends up being the limiting factor.
-@@ -3363,7 +3363,7 @@ static const struct vc4_hdmi_variant bcm2835_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
- 	.debugfs_name		= "hdmi_regs",
- 	.card_name		= "vc4-hdmi",
--	.max_pixel_clock	= 162000000,
-+	.max_pixel_clock	= HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ,
- 	.registers		= vc4_hdmi_fields,
- 	.num_registers		= ARRAY_SIZE(vc4_hdmi_fields),
+@@ -130,15 +130,6 @@ static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
+ 	return true;
+ }
  
+-static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
+-					   unsigned int bpc,
+-					   enum drm_output_color_format fmt)
+-{
+-	unsigned long long clock = drm_hdmi_compute_mode_clock(mode, bpc, fmt);
+-
+-	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
+-}
+-
+ static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
+ {
+ 	struct drm_debugfs_entry *entry = m->private;
+@@ -313,7 +304,7 @@ static int vc4_hdmi_reset_link(struct drm_connector *connector,
+ 		return 0;
+ 	}
+ 
+-	scrambling_needed = vc4_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
++	scrambling_needed = drm_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
+ 							   vc4_hdmi->output_bpc,
+ 							   vc4_hdmi->output_format);
+ 	if (!scrambling_needed) {
+@@ -443,7 +434,8 @@ static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
+ 		const struct drm_display_mode *mode;
+ 
+ 		list_for_each_entry(mode, &connector->probed_modes, head) {
+-			if (vc4_hdmi_mode_needs_scrambling(mode, 8, DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
++			if (drm_hdmi_mode_needs_scrambling(mode, 8,
++							   DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
+ 				drm_warn_once(drm, "The core clock cannot reach frequencies high enough to support 4k @ 60Hz.");
+ 				drm_warn_once(drm, "Please change your config.txt file to add hdmi_enable_4kp60.");
+ 			}
+@@ -803,7 +795,7 @@ static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
+ 	if (!vc4_hdmi_supports_scrambling(vc4_hdmi))
+ 		return;
+ 
+-	if (!vc4_hdmi_mode_needs_scrambling(mode,
++	if (!drm_hdmi_mode_needs_scrambling(mode,
+ 					    vc4_hdmi->output_bpc,
+ 					    vc4_hdmi->output_format))
+ 		return;
 
 -- 
 2.55.0
