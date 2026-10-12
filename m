@@ -1,75 +1,61 @@
-Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7A136C0CD
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:15:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A73A3793B3
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:15:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791810950; cv=none; b=Q0bR8QEx7ZbWI+5BSQvMoRIWbBhhJA9k+DMP4IjII47xYqp3DOzz0vQBmOH2y8hsd9qCTvmgfSt0v/JSHHMSHIZBJR2CNFe1xw7spYuu3FCHlxw46ucNyGXdxnYqTLhNdHTclQR7T73PkOZaNU8g8aLMcj9+zhxRxPsWWdqXg7U=
+	t=1791810954; cv=none; b=rczRF/6451n2rz3I0QL4y8RiOomUMQvlLjXkHFOEjTymniAatAPJhfBbvvydTlVzfjcabpUc+HUC5MhUiLrR3O3k5DMorlzzDy+5SGEVqixe0CL7sASOwq6O20j8luFrz8sjkChKsIAsAyDPvwxg1wkJ0KhgUN+el5dAEHAdMA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791810950; c=relaxed/simple;
-	bh=Aej9XIH7buJ/CWeysXUMpOG71qYpaAa+MZQ178jNnT8=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=PT0rUrvSpKCXmGuSm05c1Z4CzJNl5uxdXgDxN8BufBhSvZJhQUETwJnlebqBZLLBxjjqfkpTfvInUsSVubATJoaBi6+dFPCtAyLEg91HYZ8wp1nDLiGPFh/KfbcDlRKsJJbAO7+lVx+pHZLmIGRkbzM31BQtwshG/kAntOprNx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=NU4Kmayk; arc=none smtp.client-ip=85.9.206.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="NU4Kmayk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1791810936; x=1792070136;
-	bh=Aej9XIH7buJ/CWeysXUMpOG71qYpaAa+MZQ178jNnT8=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=NU4Kmayktte3RmzoQ4mlmTZTNw6eSfhxDR6VIbJXEjLlSYdTDt4ArBC6nRGoK0yp8
-	 krLENWE1GEcQTYPvXcCGulOuGsvkQtswpbgL4GRxzIcdpBXzQYBrJvHaiy4RLkidyF
-	 QHCJE3qv1cscJ3OGbFsV6J/caKYUwLadk0aX9CVwqcUfyJDU6oKQd6WpNJispENIqQ
-	 ubryny6S48fnqaer3UZ76r4bFWW60sNiqFgbjA80Vni9bbzibkJdJV7HWqJetDymIH
-	 QJ/qmhBFDV5FTbwO+vzXQV70WF59WY17p6hO9Mn5Fo0OUmar44uV2uKGGgRt6Hrpdm
-	 x2ryAM8316jqg==
-Date: Mon, 12 Oct 2026 13:15:33 +0000
-To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-From: Turritopsis Dohrnii Teo En Ming <teo.en.ming@protonmail.com>
-Cc: "ceo@teo-en-ming-corp.com" <ceo@teo-en-ming-corp.com>
-Subject: Linus Torvalds Working On A Hefty Linux Kernel Improvement With Claude Code
-Message-ID: <0xleOFE4FeC2dBqqi8lh_-U9PeAHemdpNzRUHjCgKT504G0VUGnLLCoimrVHPwCPaZEKBFsIzGP-RlU3eOcqbNd_rlfa0fgecSM8FverDVA=@protonmail.com>
-Feedback-ID: 39510961:user:proton
-X-Pm-Message-ID: 613db88d2c3f036e48c58355b7d764a2d713b0c3
+	s=arc-20240116; t=1791810954; c=relaxed/simple;
+	bh=oUJ3RMDDNB2ivKAi05eH0inu4rlJLtX2H1bKRkH8Q9c=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=WPqMLOkkNwN30pbVX1TZV7PIUf5Udn3YKtijzWRsBMFEhcOzsAIWIVynJbWW4iT0YEVGXw1ZvbJ3dPQ34fmdmm5VHhAAhrFfybHJo81UBrJNFnLfewEZXXdIgQBUtvT6w24S0qo9lAEGGPEc8UIf9OA/x/ou1yhiXxCHYS2CY6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4ab4f652f9bso1673616b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:15:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791810952; x=1792415752;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=oUJ3RMDDNB2ivKAi05eH0inu4rlJLtX2H1bKRkH8Q9c=;
+        b=ef2PDJ8EOChRhQWVIDsS1PGEFGSxYorECF/CV5W7JXgkQ2ATGwxhvZ9xWXgG4FJQqb
+         JOuYV5wcqa4sjkSY+f0T7bHKs0Jacuqy177uotqV2d8tR5F6geec1PTj8KEm71rSkwUx
+         OSWNjUU13N0SBaA3QB6+YfPApPgkmG/8UYQa78bWKOHkEqD7IWwFeIkw5GXstKitkfCX
+         fyLipRdxgCwxhJFm134fuJZ6j/qXcSWx1g5SKzahulBjpHL2Lvrdt0Sc/UsFQXwe/MWl
+         v8dHDUr3g87HnNOSmAD46CzFcWhmB3+fwJli/o5CvmMERBkMPqqFmgW7rfYWzp0rm5ZP
+         Xlow==
+X-Gm-Message-State: AFq9FYIyug0xjQJiBJFApAAep+BOgOxsz+f4fzwT0a/jtIfebQjgeH6x
+	p86KYucjQqk7gU6lie/hnNBqIGFCE6o2uzlDqJAYWHLP7pEopeDtbI9F0PViLokjZFltBzRrIa1
+	keNbNht9amZMGFuwoWEqGAgZS5h1geuGSJiTfBP/PFPQEOWJQMxjFoPsX03A=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-Received: by 2002:a05:6808:c213:b0:4d6:9232:b3be with SMTP id
+ 5614622812f47-50c5870f350mr7372428b6e.53.1791810952122; Mon, 12 Oct 2026
+ 06:15:52 -0700 (PDT)
+Date: Mon, 12 Oct 2026 06:15:52 -0700
+In-Reply-To: <688445fa.a00a0220.b12ec.0002.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6accdd88.a150a118.27e199.004b.GAE@google.com>
+Subject: Forwarded: #syz test
+From: syzbot <syzbot+baad8fdbfa4129f93db6@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Subject: Linus Torvalds Working On A Hefty Linux Kernel Improvement With Cl=
-aude Code
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Good day from Singapore,
+***
 
-Here is an article which I would like to share.
+Subject: #syz test
+Author: spannme41@gmail.com
 
-Article: Linus Torvalds Working On A Hefty Linux Kernel Improvement With Cl=
-aude Code
-Link: https://www.phoronix.com/news/Linus-Torvalds-Claude-Code
-Date of article: 11 Oct 2026
-
-Thank you.
-
-Regards,
-
-Mr. Turritopsis Dohrnii Teo En Ming
-Targeted Individuals Singapore
-Government-Induced Schizophrenia, Government-Induced Health and Medical Pro=
-blems, and Government-Induced Extreme Poverty for the Past 20 Years (Govern=
-ment Persecution)
-Why is the Government SOOO ADAMANT, INSISTENT AND PERSISTENT about maintain=
-ing Absolute and Total CONTROL over all of my Android (Linux) phones for th=
-e past 20 years???
-12 Oct 2026 Monday 9.11 pm Singapore Time
-
-
-
-
-
+#syz test
