@@ -1,147 +1,166 @@
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092F8372EF0
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791801622; cv=pass; b=BGX09dhGBm95tD8GbrktUNn7xAd5f/HmcmkglMdTYHvQ7cwYKTdgrPRTjhsThK6A3gID4hZpSD9wJWlIz1SXGsopVG0JL+ZS+bOa84S14rfjP8CMu+HINJsJZ8tNQ0swGdqtfbehnxqmRilUeXlGXsu4+tJY0RPh1Vei3bDE2eg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791801622; c=relaxed/simple;
-	bh=92KIamnWD8cd5WYLKJyli8qdGUGMlFHe2PGqMoGdBQI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LGM6Xdjgba9s/PYzmdb/o3mPhMFRyQnjtcR9T2k5JwIU5KRT5BNNoT2rXM/FRxo5pX33+e2vaJpQHbCRbBwOooOocY6mscVK5Yj71McQeetJhWC4D4NFP0iZO7zWxhqnC9hOcUGP9EyXSwhg5xSxOvcGZCnjo3PVJifj2fBt2EA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oNH5l3zT; arc=pass smtp.client-ip=209.85.208.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E6D73AA19B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:40:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791801627; cv=none; b=Y7Ml12620cYHWC1dflgxir70kyQ/FtTrOrLaWseqxhIT37WPC9vRL2oPk0iW8SDYKluCYM8qG5WCryxl+5AjjwH86CcNa+JU5OXXXZORq9NSv13g4OOlGoRSXSLW7WadTBODoxyDPI4L5JD6Rtn2P6zYJNdLev8V9nW1nMHzrW0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791801627; c=relaxed/simple;
+	bh=vFkCRtgxGCnpOhlZA7FYzY49jEv/8nkM8zfXlvjQOfQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=faYLlsXM377KMsNh9vMig81jPXG+fX0fsSJuCGUWObUqDdU0yd48qXTP5yVfOBRj+zhiCkdz13h0OyDauqVNpFZH49FT6gJ8xpW80FEhCZYb8LhDuf6eCpK+Wlcqt+v3ciF864onj6eJLOs9+IoPRMtKTy1aqeFTLecb39WMIkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hufXMIw0; arc=none smtp.client-ip=74.125.82.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oNH5l3zT"
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a1eb6fa0f4so18808581fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:40:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791801619; cv=none;
-        d=google.com; s=arc-20260327;
-        b=b/JtARiDB45hpiU72x1JlGNWUWIZq9AurjeoW2Sr3DJDPtcOCDcdyfx9UcG/e7HpaG
-         tDuWPvrwGKcYkLdfEgCCPfcDpYu6x9i1MUZkMGww/NsMBse6CW4nZOGPF+s/H5HklV6l
-         eSwZ9r5+AONrjGJsZf0saDiUS+GsqSGR94u3Fdd1v61XMX/n9zktEW+9Sgt1vjbEoO0/
-         Av0eIp97WusEGHxjRWCSn6/l5lUS5bY9AIkrfGZ7wfFiLT8IieFK+Nvrl8N/nN/CGuS+
-         H5V2obAb+OvwjuP6xZEc0BofOdcedzyE1oOL8HK3nt611S4Gi2Y3oW+fDMiNFEDoPybA
-         LeLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qb9r1QTfT6Icnt2JRunI17mQhOI8vmMkb4F7tmAW4fo=;
-        fh=AzB7ZNwC8vs8/z4s2s2msFSfksuQtuwT83HQh3U/ZIw=;
-        b=Sr7v5dCv9DpWnL3DTCWuuj2DaqOHUaIV90oQZTRSSZ+CjaIutajCPXd8QUlWonxAmf
-         q2wSRoL38tizfLR+0O/wOogGgQrQXgEvsedcJxI19t5hLJ/ai1K2CJzAeZBZueQZZaqV
-         tfxrnqe/06J9iRx3QEzDusDD5WTsjO8QOGhg9UfXVYqn8Qz2TaVZ6QP3QlyZ5IIHrU5F
-         qKWJamZ5D/+9z1FLOkwI8eBYW6Pc48y6zyqL4H0y7+8gyCaL1RXciUMMp2faFOyjNOCN
-         RQBm9hXPATnJDHb2tMMz+k8T+lYAmg/7j77ohVGQ25wRsnKpeTVV4FQRUMLUIMBe+vqE
-         dmGw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hufXMIw0"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso5948765eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:40:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791801619; x=1792406419; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qb9r1QTfT6Icnt2JRunI17mQhOI8vmMkb4F7tmAW4fo=;
-        b=oNH5l3zT/XPHOXZTbeRvG4Q4AU34Xsdlct4Y08OF/Hkh9kUjAIJwq2pkjguXnD7WxE
-         /qG5F/neSRsqxoorX/TGENQ98q4f8g7yIDNsh1uhN3rWQ3UkqbIAvcC/HH5W/NTDW4q5
-         +btJyoxWDRp69AyOc1kR+5FsIrOswNbukJ47rAkN+uXFpPz26MNEMjF6L76jkBbnkFgs
-         7fPb82nu6a1nsQm5dDdH1Gq9dCfDHiFg72GpxqAqggCbemNg5G5pmK/7f4NpgP7kRdQp
-         e4XYWb47XmaaGobn4EQl6bT4QkmX1o7KurYFrl3zbbMZRmER9LgGDKpp8RT0AQbQLx4g
-         PFHQ==
+        d=gmail.com; s=20251104; t=1791801626; x=1792406426; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3l61iXys9UAgeiq6Qoow/JEP0G8Esaw8ppQEGcd0fNQ=;
+        b=hufXMIw0EVpInfTHhpYb/QUt24+17FSeX5h06Wfnpgb8Jkqyyg8piXuqxx0i625Ai/
+         d1vDYYMkZ+rRr30gF8oMr/6BYgyg9nnWRXXjq7qrdsMkFBencCoYq0KKVxe4dFuKqDdA
+         duwdxgMF+BUMMevDDeIs/s9YhAgGSLzDgmafK5TY7GcB1laaUuybDctQojzxBOeaoBdN
+         V7kDovVSMCCZs+TYIVIFuBUB7ZLi5fnvzeA/FT0HhRFFbgD6IbZS/j77mtX+TwzxYbJ4
+         RPfwXqe2M2dA8zSmwVeABniRXbFeYUNUG1Pqnk2e2EU+NrxUOc5FgDbkatK5yVGjHi09
+         80mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791801619; x=1792406419;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qb9r1QTfT6Icnt2JRunI17mQhOI8vmMkb4F7tmAW4fo=;
-        b=WEFVbHBx2Y6ERc9yXiEkhuMcloo/Emjbfep9H6mMpaz7DBGH2kwrlgtwAyjKirWbn1
-         ttTO/ZUJBEXwj7KefszzJ8MjimcR3J8q4qR/R6l+7PvlMx+T2qBPoxMAh0yWT950wZUB
-         iIvIe/ELoT63g3GmeA914Rz3/d8IAgFxNyJ/KJp9KlZ6lDkQhKqMzBGuLNebyKOGh1Rm
-         mulTpvnEGg3kNp/eatvqMRMhpnFJZbAhijFqTQdNkft0q/m+TrcORJ9LfcGUL6vtL3Yp
-         pfRz0cUwu+FArNTvm1bG8Yl1VOapFNqO7T8/GGrpJeGn411FpE1Zx2qn6kitxGWQDe3H
-         JQwg==
-X-Forwarded-Encrypted: i=1; AKwUvBwEiZU996qEOLhx9QKTOo+ZAYoDoKHpIXMEDLn7R9JXsprP4uJkxJF/OCXaDLkp71w3YlZJEd5D6qIBym0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJvQwwiYsjR6UlI/RIHruz7kGmfqtmixThzLVikpCx2+oELoQ1J
-	ti6ZFU8P2WI6QUpOtlenT3FkUDgaZjZejS20finArBcETpdgiggIZ9VEXqt9ho31+HLIDIJVnyv
-	tg812GyrbIeON6uCmQsPz7U9jVh+G8YE=
-X-Gm-Gg: AYBFou2xkDv0GhWMzVk5kG0NBGanJceJCBWu8qb8ciG7O3ddQRDbcfs/9nHc3KVxAwM
-	mB+EZvcMHvnbkeTiUb7tTilg6GKKWO4r180rWXSATtF28qg+zkFPTEs5u/XEOIkpqvD5hU2sRlc
-	l8LnJB8NmvpfQNbGP1aM5MbwNQGTd2cV6iygL3FyFi9zMb3TUfQkgXWshAG2+oEILFduMyCTI8Q
-	IcX6Q05Rq3PwIu91WAIb4tTTUoKKOBVPXoDC24HF2e/n2c/01gLFZcrFogoEex4rNd+9A4eZik3
-	ChdHxfxcaeyhwbhrPlT3OyXIUBMSfBD2RvrjA5WqKGs6ua6vYNJqdK0U0DnHc9fiSfYmLFwwUo6
-	88oIU+2thtruQ5kKkqvEv94yJkrEkCpkedj4CepfSamC89NCLB9Giy81keISJDdWT5hqTS2gUR2
-	D+Ir1pCDTXtkf5PIwsKx3aTRgO10N2iHL3BITi+L5k
-X-Received: by 2002:a2e:bc18:0:b0:3a7:5ff2:576 with SMTP id
- 38308e7fff4ca-3a9c4eb3dadmr26987981fa.1.1791801618912; Mon, 12 Oct 2026
- 03:40:18 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791801626; x=1792406426;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3l61iXys9UAgeiq6Qoow/JEP0G8Esaw8ppQEGcd0fNQ=;
+        b=YlXkxSpVNAan6AxQwRro+D2bKbBezfk2neGfVQhDHITUffos775F93Kn+ddgV03Qlr
+         sLDDOa2zBD9qDe5QUccf7xIkYIhhRna7jOCqztYjLcWd6k/5CNeOeQ5powCX4TZ8ARGm
+         NGjrq6FkBk/MM+UCrVUpY+NB8XeucpdKJ1yLBuh5s5g9RmHsZs3nCEcBd7XJcbqCxvUz
+         yAqZvHc4uOJ5KYTkzgi59hiMgI4VWasDl2uWmRWk7tbfHhj7upn9xGcHa6ZNLmAhN2r2
+         1PiOO5vnA5CxBSKVW5vFUMPTvPKsRn8ZujDd3XsEX/4tDjkmjzTWPGKTWbau5TvOTeR5
+         jUvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxPNGCnsIos6SINy0UPEykm5IpO/wx9BHN6MRBfCqCPo/CaV7VQcHNTf9IkAw3dnMIBT796eSncWI7tokk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4RorNhDzD5I7AfJWAvyAd6h51V5eSFitxs8UOKrlBlWHd5zva
+	QsrNGNkB2oUjLWEDbtJWpdRI/yj0O1e8vq6C2DSTuc5GPS2dA8qoqec45mT2ig==
+X-Gm-Gg: AYBFou0/nn2/VQEN7qgobg8pBoTMa1DFnAmjRcyuqJSJV30JmMapFqcoO6X7Bl6Ritv
+	ww0RoQFINyDjqLmIwr+239iyUUEQPJ2+Pop3k9yGyByklEhbRXxy3rnNsd1ilDMcs1s+b1XCqOY
+	3banWCOLDbCSyE1q3fuKQm4NIzZVU7Ih/E4+o7sV7KmnOmxslRjJFaNxNEQeU9jBLkl+gxLSl9C
+	RvpoVfl1JVPfgtDDcM9XcbMxxKbWNYq4S0WsGYYkIZ4HSBbuqQDfadmDywT91ItENlRJnBkP2L6
+	FCIzG07eps+XpEcbDRirukbODqP0ivezmaK/5tmtTJbrNySWwGYv4TX66GkC5d7Lk7mW1RbglGP
+	PdHWCH2vKHghsv8w1zE8JdhWaVMg/IhZBRm08zZsH1qlHJD2EylpFug8v4t7uHwvY86fKbWiaEW
+	HGGw2SNBFEMzJYfWWT3Fy1jHTsC53qz4VRuHT4wJa6ijh9V73m0dKrCVu682uWyCO2SKX51g==
+X-Received: by 2002:a05:701b:2058:20b0:15c:20b8:7964 with SMTP id a92af1059eb24-16a63386d86mr13548313c88.27.1791801625139;
+        Mon, 12 Oct 2026 03:40:25 -0700 (PDT)
+Received: from gmail.com ([188.253.12.32])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2fd33sm31434866eec.28.2026.10.12.03.40.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 03:40:24 -0700 (PDT)
+From: Jia Jia <physicalmtea@gmail.com>
+To: Mike Christie <michael.christie@oracle.com>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Nicholas Bellinger <nab@linux-iscsi.org>,
+	virtualization@lists.linux.dev,
+	kvm@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jia Jia <physicalmtea@gmail.com>
+Subject: [PATCH v3] vhost-scsi: do not count PI bytes in the data length
+Date: Mon, 12 Oct 2026 18:39:54 +0800
+Message-Id: <20261012103954.136698-1-physicalmtea@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com>
- <20261011-gpio-mxc-cleanup-v6-8-cb47ce2ad758@nxp.com> <CAHp75VeonKZtX8moOdXrmTJbjH5Ew5iVdDDc3KfqQ9r_tvHg1g@mail.gmail.com>
- <asyw9ns870F0g7UD@shlinux89>
-In-Reply-To: <asyw9ns870F0g7UD@shlinux89>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 12 Oct 2026 13:39:41 +0300
-X-Gm-Features: AclHuK8j5vu_bU9arYI-L7AJUk-wyVDtV4Vr4-xee8wNlRYyo0Qc1_7I9JALruk
-Message-ID: <CAHp75VcO8YEBbt--P8WO-_Vu1O0mR2nsdqeBSG=JgavCEoR3Dg@mail.gmail.com>
-Subject: Re: [PATCH v6 08/13] gpio: mxc: use local dev variable
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 1:01=E2=80=AFPM Peng Fan <peng.fan@oss.nxp.com> wro=
-te:
-> On Mon, Oct 12, 2026 at 12:30:07PM +0300, Andy Shevchenko wrote:
-> >On Sun, Oct 11, 2026 at 2:54=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp=
-.com> wrote:
+vhost_scsi_handle_vq() moves pi_bytesout or pi_bytesin into the
+protection sgl and subtracts those bytes from exp_data_len.  The length
+passed to TCM is still exp_data_len + prot_bytes.
 
-...
+prot_bytes comes from virtio_scsi_cmd_req_pi.  With
+VIRTIO_SCSI_F_T10_PI negotiated, vhost reads that header and does not
+check that the CDB is a READ or WRITE.  sbc_check_prot() replaces
+data_length from the CDB only when the protect field is non-zero.
+target_cmd_size_check() leaves a write's data_length unchanged when the
+CDB size is smaller, so a command that does not get that replacement
+keeps a data_length larger than the data sgl.
 
-> >>         struct device_node *np =3D pdev->dev.of_node;
-> >
-> >Why not this one? Is it even used? Perhaps you want to have
->
-> of_alias_get_id() is used, there is no counterpart in fwnode api for it.
->
-> >  struct fwnode_handle *fwnode =3D dev_fwnode(dev);
-> >
-> >here?
+The KASAN report is a MODE SELECT whose header had pi_bytesout set.
+The data sgl held only the parameter list.  spc_emulate_modeselect()
+walked data_length and read the next physical page.
 
-What about using to_of_node() for that one and fwnode for IRQ APIs?
+Pass the data sgl length.  Protected READ and WRITE still take their
+length from the CDB in sbc_check_prot().
 
-> >> +       struct device *dev =3D &pdev->dev;
+KASAN reports:
 
-...
+  BUG: KASAN: use-after-free in spc_emulate_modeselect+0x145/0x380 [target_core_mod]
+  Read of size 1
 
-> >> -       dev_info(&pdev->dev, "%s failed with errno %d\n", __func__, er=
-r);
-> >> +       dev_info(dev, "%s failed with errno %d\n", __func__, err);
-> >
-> >This message simply needs to be killed, with initcall_debug in the
-> >kernel command line you will get something similar from driver core.
->
-> ok. Let me fold the change in this patch, I would not introduce
-> another patch to just drop this line.
+  spc_emulate_modeselect
+  __target_execute_cmd
+  target_execute_cmd
+  vhost_scsi_write_pending
+  transport_generic_new_cmd
+  __target_submit
+  target_queued_submit_work
+  process_one_work
+  worker_thread
+  kthread
+  ret_from_fork
+  ret_from_fork_asm
 
-Why not? This is a logically different change. Since the driver was
-not touched for a long time there is a technical debt, you can first
-send fixes separately, followed by a number of the drops like this one
-(remove a noisy line), followed by new features. Make it three patch
-series.
+Fixes: 9f977ef7b671 ("vhost-scsi: Include prot_bytes into expected data transfer length")
+Signed-off-by: Jia Jia <physicalmtea@gmail.com>
+---
+v3:
+  - Rewrite the inline comment to distinguish the data and protection
+    SGLs and explain why TCM receives only the data SGL length.
+  - Note the related target-core patches for PI tuple accesses at
+    protection-SGL boundaries:
+    https://lore.kernel.org/all/20261006093338.27342-5-physicalmtea@gmail.com/
+    https://lore.kernel.org/all/20261006093338.27342-6-physicalmtea@gmail.com/
+    https://lore.kernel.org/all/20261006093338.27342-7-physicalmtea@gmail.com/
 
---=20
-With Best Regards,
-Andy Shevchenko
+v2:
+  - Drop the claim that target used to subtract prot_length.
+    9f977ef7b671 cites 14ef9200, which is not in the tree
+  - prot_bytes comes from virtio_scsi_cmd_req_pi
+
+ drivers/vhost/scsi.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
+index 4f8c0260bc9e..4bd29c2ceed9 100644
+--- a/drivers/vhost/scsi.c
++++ b/drivers/vhost/scsi.c
+@@ -1534,9 +1534,17 @@ vhost_scsi_handle_vq(struct vhost_scsi *vs, struct vhost_virtqueue *vq)
+ 		 * vhost_scsi_queue_data_in() and vhost_scsi_queue_status()
+ 		 */
+ 		cmd->tvc_vq_desc = vc.head;
++		/*
++		 * vhost_scsi_mapal() maps the PI bytes into cmd->prot_table.
++		 * It maps the remaining exp_data_len bytes into cmd->table,
++		 * which is the data SGL passed to the target core.  Its
++		 * expected length must therefore exclude prot_bytes.
++		 *
++		 * sbc_check_prot() derives the data length for protected READ
++		 * and WRITE commands from the CDB.
++		 */
+ 		vhost_scsi_target_queue_cmd(nexus, cmd, cdb, lun, task_attr,
+-					    data_direction,
+-					    exp_data_len + prot_bytes);
++					    data_direction, exp_data_len);
+ 		ret = 0;
+ err:
+ 		/*
+-- 
+2.53.0
