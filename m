@@ -1,68 +1,51 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.102])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6AA93793A2
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:18:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777B2453A31;
+	Mon, 12 Oct 2026 08:19:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791793139; cv=none; b=rCdwnYyQkmEqSxH3+zjVjsSOW6BMddeOXjwN+dYXxC32MHpX0gPB4brU0zNgtE6XlmoOS+Ih+iZxAwO0NpwL8rO8KxFO/3S/k9l1Ck6NVFEPNxs8hU6bipObv0DVSB39bmxN2OTpNi1fE08NZOByVeW/+q8ljY3h6eQ0oTzqReg=
+	t=1791793162; cv=none; b=e0+vBlmFliNPHY717l7frvhHiiju4ZHyAp9A09dnjhvRk3GrWWOMv+9LnooywiShg8ueMnv8rBy84pRjVLgsyszIqieRXeqXlpplZ7f0ZC1l0cUKpHSmePz/LZN21Tppl/GCRbqGXLd04T3bmKZ6317zozIw71mqZ0KAXLm1Zhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791793139; c=relaxed/simple;
-	bh=pOzr+4bkvPAd+tqVxnDq62DbUqUG1YPr92b7gG2YWUQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lSASpewZTk6kBriinLxuCiomAUOouR+vcgrc0NPbKxriSKrgsk31S2vo2PkV/ijwcrO24/sYo3dK0lUtxpvt3l8GJuWFjFJkwB0y3OimjlbdwDAFXx7Pa58+hn62SW3b1sfknzmxVqTIt1EPaJRJyRvgDKnZmSlRBAGHwoIfbWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B51SIBOP; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791793162; c=relaxed/simple;
+	bh=8m/PI2rzRR7e4izvpKwNRDaoYx1A00e6WCIv/1VKjt0=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=F5ynKK9uJw/aM9JIK4LN8QYk0PvjaXk4CNmpa/BUodXVqwB55WikM43B9sU/iqeL972PebLfV+AcwDk54aufTmB8EEbggLW98Ma1+gJV8+rpfL/qbYZjKkCK1rq3kiNTypusPCNRIZlJ1klNHBxpDhcKOMaTridUuoNFCkallp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=PTx6Ibnf; arc=none smtp.client-ip=188.68.63.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B51SIBOP"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd5e2d696e0so840342a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:18:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791793137; x=1792397937; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dPG7Y7H+r9R94i7P5GUiBC7BGzZ5i2tduA/5fQyP0hQ=;
-        b=B51SIBOPB6eMPNhKIyFWsz03ymNUzdkx/IVerL02xHZpym0udVgSt/+9rPrrFFx8So
-         M9uO7djqHUGvkOqgsc/9W8cTQ2nz1N+eSEG3Cd2JMFnG/InY0hEIiUOGv0obLwlnDQCV
-         C2uWbwMyipZNJB8uNOs2lgHu7Aucnc8aYvGrXTyIrO/l8NAIpMLIde87/NPzYxlg1X7S
-         njrLmR22blUxW8xYQ/ZgqeKOfU1HgD+tyUTzLX+Qgra6i/jIDRxIawgO7E2v8Va1mMST
-         cjGBrMDHxPsOX5MqExTvnomkr1Sz+eaJnBuhSiZLJS5oDV1lvBiCTZQaAHdKDquCMmb4
-         4Q1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791793137; x=1792397937;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dPG7Y7H+r9R94i7P5GUiBC7BGzZ5i2tduA/5fQyP0hQ=;
-        b=fB52ZaJ8JVxPO3qf8f7D8EEDKv4yX9VQ5tK/CSxxxayk7L04gQ48Xv04Xv+RFYRyvj
-         ZLXsfOX1ukINg+J8R59BNAP7M+L4hetOdG43lbIBLiLB7/RjqoXuFFS5u3LX0SQrdz3q
-         K4VOUa92KKAdZuBZE0B/B7NArrlMWekkTIA9NZyO9T3fkY7dWZNlKXf623bT2YfbpZDK
-         nvupiN2kPd/9hYL/l6Wl85Ud7bzmu/nFUu0YuytgUpmy2P2qp0SDzhcfeNPuU5okiwcD
-         AAMavq6dVKG9gqix+z3Ppyb+aKfwHV2xfDcUzdHrw00HbHImnSRL7oZOMk0kPPn/GI+g
-         YHig==
-X-Forwarded-Encrypted: i=1; AKwUvBxPqcRkmR/mjKv6GlMhL2jIoZRYU7lSpfeZz5ePCg8jAdf+NxcLkoEwK5F7UZy6z0305dYHVQk266Vw54A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKD3kltrY7LSJ8B4oAFOqCyZqRP+5KQnGQxHdzosxIflid1Ljui
-	SpORx2u/psjb2E+ASc5Td6ox/e+KMcTpwhCBIBEkEb8rze4HO5HtdMa8
-X-Gm-Gg: AYBFou0ANLl2RWtuomHoJuqs985GwPXA6x2OTHtzc6K7eVy6og9Ch1eYRjIskIWETzy
-	cxBP2EPInLKwlSChzxE1F4lFNlQ8iLb5Z/Rf4Hbd/VC5IXY5VDvgCJM39iXr901NgK6i0uRdrvO
-	Trd2PK3FzvVdb4xLso7aNXzl90tOy/Cr7S67Ng8gG2GARAeB/U+4Q/OjDC2XG9aBQ9blDErYNe9
-	8VozgToA3wZ4O8kJACpqdXQvcbobV6z0YLIOPq5CvyFIm6VmqTOfzKpmRmoXI2Dtc37OrVCs6/v
-	C90plogG4nV8f68Khc6YiOKykn4OTJ/za1cDp4/dgjV0BEaZ88qjPPVEFfRbQ5KI67P/FcKqvcE
-	q5IRTHl57hklKZ0E+irBv2+PlTz7yWPEvBxb5ES0ntA3TpCCYuZsVAbylkoMUqVbdBPNSJ3IlDw
-	aYEkSdGay2k2a5+gYW4lrQOGn2JTWcLSt0OEXH+WSjaQKrFs/N1jiay4IqpC6U6hRBaHnqh1AeD
-	/bevd9/DUs0BgBTIuwPxHUoytv3KzYpGADL
-X-Received: by 2002:a05:6a00:9508:b0:881:a5b6:7954 with SMTP id d2e1a72fcca58-897c7cd4565mr7903109b3a.39.1791793136976;
-        Mon, 12 Oct 2026 01:18:56 -0700 (PDT)
-Received: from ?IPV6:2620:10d:c085:21e8::1189? ([2620:10d:c090:400::5:b3cd])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3107373sm3519766b3a.9.2026.10.12.01.18.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 01:18:56 -0700 (PDT)
-Message-ID: <40b3432d-b597-423f-9279-ab4aa1157f44@gmail.com>
-Date: Mon, 12 Oct 2026 01:18:54 -0700
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="PTx6Ibnf"
+Received: from mors-relay-2502.netcup.net (localhost [127.0.0.1])
+	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4j39DW2Ng8z6KNr;
+	Mon, 12 Oct 2026 10:12:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1791792731;
+	bh=8m/PI2rzRR7e4izvpKwNRDaoYx1A00e6WCIv/1VKjt0=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
+	b=PTx6Ibnfz5eXEKUXAxXEsgBww+gw/0RXLy7t1V5r2qGbZ4a2vsSiRkVjXSW8rOMq6
+	 zMKhQMFNNq46CrUsQ8d8beTdzEwNsP9NSd/TCsyvAX/CHmfpTANxUcTD2zGgksEgri
+	 hUR/hZqC7Ub6DGv6NA8AsIm2JouIVxjJ5hooRJ4LNOwC7aT7DpM1JneG6wqezChCJ7
+	 qlqKOdtIpWiQ77BSu8V3JypSQeDQCM6YwLDFJuyFM30rEdGNkCxbdtHOwC7FIdNqAZ
+	 XnRueyYDCofKWFkdWUGCEzHAE+6GRvZgt7Ld9jpP8+gOFtUqvDc7QXfG5m97mdMBCZ
+	 wB5n1jWeZgJiQ==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4j39DW1djNz4xrZ;
+	Mon, 12 Oct 2026 10:12:11 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4j39DT0hwsz8svZ;
+	Mon, 12 Oct 2026 10:12:08 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 89CBF5FA0A;
+	Mon, 12 Oct 2026 10:12:03 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <d1ef135e-1b5d-4656-9229-348c7029efbb@leemhuis.info>
+Date: Mon, 12 Oct 2026 10:12:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,221 +53,155 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3 1/5] eth: fbnic: only act on Rx completions naming
- a posted buffer
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
- Alexander Duyck <alexanderduyck@fb.com>, Jakub Kicinski <kuba@kernel.org>,
- netdev@vger.kernel.org
-Cc: kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- davem@davemloft.net, Eric Dumazet <edumazet@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Dimitri Daskalakis <daskald@meta.com>,
- Bobby Eshleman <bobbyeshleman@meta.com>,
- Daniel Zahka <daniel.zahka@gmail.com>, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1791775409.git.yhlee@isslab.korea.ac.kr>
- <25ce85c9821fba5d94932b36b9c9afb9a2fbd12a.1791775409.git.yhlee@isslab.korea.ac.kr>
-Content-Language: en-US
-From: Mohsin Bashir <mohsin.bashr@gmail.com>
-In-Reply-To: <25ce85c9821fba5d94932b36b9c9afb9a2fbd12a.1791775409.git.yhlee@isslab.korea.ac.kr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Subject: Re: [RFC PATCH 0/3] dma-buf: warn-only mode for DMABUF_DEBUG
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Rob Clark <rob.clark@oss.qualcomm.com>,
+ Jianfeng Liu <liujianfeng1994@gmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Vinod Koul <vkoul@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <20261005064133.7305-1-kmehltretter@gmail.com>
+Content-Language: de-DE, en-US
+In-Reply-To: <20261005064133.7305-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <179179272424.2732199.1316107687235030751@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 89CBF5FA0A
+X-NC-CID: e7ESKfmUIpuYlmbQcZtXdDyJbZbz3Y/HlwjoxMOnU+MFOoIgJ9w=
 
+On 10/5/26 08:41, Karl Mehltretter wrote:
+> With DMABUF_DEBUG, dma_buf_map_attachment() gives the importer a copy of
+> the exporter's sg_table without the struct pages and offsets, and
+> without the lengths where sg_dma_len() is a separate field. An importer
+> that uses those fields stops working. That is the point of the option,
+> but the failure usually shows up somewhere else and says nothing about
+> the cause.
+> 
+> Commit 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on
+> DEBUG_KERNEL kernels"), which I wrote, went into v7.3-rc4. It made the
+> default from commit 646013f513f3 ("dma-buf: enable DMABUF_DEBUG by
+> default on DEBUG kernels") take effect, and distribution configs
+> usually have DEBUG_KERNEL=y. Two reports followed:
+> 
+> - Jianfeng Liu: hardware video decode with drm/msm ends in GPU
+>   translation faults [1]. He then sent a revert [2].
+> 
+> - Diederik de Haas: rockchip fails to import buffers when playing
+>   video, on a config based on Debian's [3].
+>
+> In [2] Rob Clark said the problem goes beyond msm and cannot be fixed
+> quickly,
 
+What's the status here given that 7.3 will likely be released in a few
+days? Note, I can see from the discussion that this is a complex problem
+that can't be quickly solved. That's how it is sometimes. But I wonder
+if the current state of things is the best compromise for now or if
+Rob's revert or some other option would be better.
 
-On 10/11/26 9:15 PM, Yehyeong Lee wrote:
-> An Rx completion descriptor carries a 16-bit buffer id that the driver
-> uses to index the rx_buf[] array (FBNIC_RCD_AL_BUFF_PAGE_MASK). The fill
-> path masks the id to the ring size, but the completion path does not, so
-> the device can hand back an id that is past the array or that names a
-> slot which was never posted. An unposted in-range slot holds netmem 0,
-> and netmem_to_page(0) returns NULL, which fbnic_pkt_prepare() and
-> fbnic_add_rx_frag() then dereference.
-> 
-> Masking the id would not fix this: it aliases an out-of-range id onto a
-> posted buffer and corrupts that buffer's page_pool reference count.
-> Reject a completion whose id is outside the array or outside the posted
-> window and take the existing drop path.
-> 
-> The same id is used as the BDQ head in fbnic_clean_bdq(), where an
-> out-of-range value spins the cleanup loop; bound it there with the same
-> test. Validate head0/head1 in fbnic_clean_rcq() before they are assigned,
-> and drop a META completion that arrives with no header buffer rather than
-> building an skb around a NULL pointer.
-> 
->    Oops: general protection fault, probably for non-canonical address
->    0xdffffc0000000004: 0000 [#1] SMP KASAN NOPTI
->    KASAN: null-ptr-deref in range [0x0000000000000020-0x0000000000000027]
->    RIP: 0010:fbnic_pkt_prepare+0x1a2/0x5a0 [fbnic]
->    Call Trace:
->     <TASK>
->     fbnic_clean_rcq+0x1ba/0x1350 [fbnic]
-> 
-> Fixes: a29b8eb6e533 ("eth: fbnic: Add basic Rx handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-> ---
->   drivers/net/ethernet/meta/fbnic/fbnic_txrx.c | 87 ++++++++++++++++++--
->   1 file changed, 82 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> index 10caacffee0f0..305fe6d2f511f 100644
-> --- a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> +++ b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> @@ -797,6 +797,34 @@ static void fbnic_page_pool_drain(struct fbnic_ring *ring, unsigned int idx,
->   	rx_buf->netmem = 0;
->   }
->   
-> +/* The device names an Rx buffer by its index in the buffer descriptor
-> + * ring.  A completion may only name a buffer we posted, that is one in
-> + * [head, tail), so test the index against the array and against the
-> + * posted window.  The window test is not enough on its own: it masks the
-> + * index, so an index past the end of the array can fold back into the
-> + * window and run off rx_buf[].
-> + */
-> +static bool fbnic_rx_buf_posted(struct fbnic_ring *ring, unsigned int idx)
-> +{
-> +	if (idx > ring->size_mask)
-> +		return false;
-> +
-> +	return ((idx - ring->head) & ring->size_mask) < fbnic_desc_used(ring);
-> +}
-> +
-> +/* fbnic_clean_bdq() is given a position to consume up to rather than a
-> + * buffer to use, so unlike fbnic_rx_buf_posted() it also accepts tail,
-> + * which is how the teardown path asks for the whole ring to be drained.
-> + */
-> +static bool fbnic_bdq_head_valid(struct fbnic_ring *ring, unsigned int hw_head)
-> +{
-> +	if (hw_head > ring->size_mask)
-> +		return false;
-> +
-> +	return ((hw_head - ring->head) & ring->size_mask) <=
-> +	       fbnic_desc_used(ring);
-> +}
-> +
->   static void fbnic_clean_twq(struct fbnic_napi_vector *nv, int napi_budget,
->   			    struct fbnic_q_triad *qt, s32 ts_head, s32 head0,
->   			    s32 head1)
-> @@ -882,6 +910,13 @@ static void fbnic_clean_bdq(struct fbnic_ring *ring, unsigned int hw_head,
->   {
->   	unsigned int head = ring->head;
->   
-> +	/* A head we never posted cannot name a buffer we own, and the loop
-> +	 * below masks head to the ring so it would never reach it.  Leave
-> +	 * the ring alone and wait for a head we can act on.
-> +	 */
-> +	if (unlikely(!fbnic_bdq_head_valid(ring, hw_head)))
-> +		return;
-> +
->   	if (head == hw_head)
->   		return;
->   
-> @@ -985,14 +1020,25 @@ static void fbnic_pkt_prepare(struct fbnic_napi_vector *nv, u64 rcd,
->   {
->   	unsigned int hdr_pg_idx = FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
->   	unsigned int hdr_pg_off = FIELD_GET(FBNIC_RCD_AL_BUFF_OFF_MASK, rcd);
-> -	struct page *page = fbnic_page_pool_get_head(qt, hdr_pg_idx);
->   	unsigned int len = FIELD_GET(FBNIC_RCD_AL_BUFF_LEN_MASK, rcd);
->   	unsigned int frame_sz, hdr_pg_start, hdr_pg_end, headroom;
->   	unsigned char *hdr_start;
-> +	struct page *page;
->   
->   	/* data_hard_start should always be NULL when this is called */
->   	WARN_ON_ONCE(pkt->buff.data_hard_start);
->   
-> +	/* A buffer ID we never posted cannot name a buffer we own, so drop
-> +	 * the packet instead of running off the end of rx_buf[] or picking
-> +	 * up a slot we have already drained.
-> +	 */
-> +	if (unlikely(!fbnic_rx_buf_posted(&qt->sub0, hdr_pg_idx))) {
-> +		pkt->add_frag_failed = true;
-> +		return;
-> +	}
-> +
-> +	page = fbnic_page_pool_get_head(qt, hdr_pg_idx);
-> +
->   	/* Short-cut the end calculation if we know page is fully consumed */
->   	hdr_pg_end = FIELD_GET(FBNIC_RCD_AL_PAGE_FIN, rcd) ?
->   		     FBNIC_BD_FRAG_SIZE : fbnic_hdr_pg_end(hdr_pg_off, len);
-> @@ -1026,10 +1072,27 @@ static void fbnic_add_rx_frag(struct fbnic_napi_vector *nv, u64 rcd,
->   	unsigned int pg_idx = FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
->   	unsigned int pg_off = FIELD_GET(FBNIC_RCD_AL_BUFF_OFF_MASK, rcd);
->   	unsigned int len = FIELD_GET(FBNIC_RCD_AL_BUFF_LEN_MASK, rcd);
-> -	netmem_ref netmem = fbnic_page_pool_get_data(qt, pg_idx);
->   	unsigned int truesize;
-> +	netmem_ref netmem;
->   	bool added;
->   
-> +	/* No header completion has set buff up, either because one was
-> +	 * rejected or because the device sent none, so there is nothing to
-> +	 * add a fragment to.  Mark the packet so the metadata descriptor
-> +	 * drops it instead of building an skb on an empty buffer.
-> +	 */
-> +	if (unlikely(!pkt->buff.data_hard_start)) {
-> +		pkt->add_frag_failed = true;
-> +		return;
-> +	}
-> +
-> +	if (unlikely(!fbnic_rx_buf_posted(&qt->sub1, pg_idx))) {
-> +		pkt->add_frag_failed = true;
-> +		return;
-> +	}
-> +
-> +	netmem = fbnic_page_pool_get_data(qt, pg_idx);
-> +
->   	truesize = FIELD_GET(FBNIC_RCD_AL_PAGE_FIN, rcd) ?
->   		   FBNIC_BD_FRAG_SIZE - pg_off : ALIGN(len, 128);
->   
-> @@ -1270,6 +1333,7 @@ static int fbnic_clean_rcq(struct fbnic_napi_vector *nv,
->   	while (likely(packets < budget)) {
->   		struct sk_buff *skb = ERR_PTR(-EINVAL);
->   		u32 pkt_bytes;
-> +		u32 pg_idx;
->   		u64 rcd;
->   
->   		if ((*raw_rcd & cpu_to_le64(FBNIC_RCD_DONE)) == done)
-> @@ -1281,12 +1345,21 @@ static int fbnic_clean_rcq(struct fbnic_napi_vector *nv,
->   
->   		switch (FIELD_GET(FBNIC_RCD_TYPE_MASK, rcd)) {
->   		case FBNIC_RCD_TYPE_HDR_AL:
-> -			head0 = FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
-> +			pg_idx = FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
-> +			/* Only take the head from a completion we are going
-> +			 * to act on, so that one rejected ID does not discard
-> +			 * the progress an earlier completion in this poll has
-> +			 * already reported.
-> +			 */
-> +			if (likely(fbnic_rx_buf_posted(&qt->sub0, pg_idx)))
-> +				head0 = pg_idx;
->   			fbnic_pkt_prepare(nv, rcd, pkt, qt);
->   
->   			break;
->   		case FBNIC_RCD_TYPE_PAY_AL:
-> -			head1 = FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
-> +			pg_idx = FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
-> +			if (likely(fbnic_rx_buf_posted(&qt->sub1, pg_idx)))
-> +				head1 = pg_idx;
->   			fbnic_add_rx_frag(nv, rcd, pkt, qt);
->   
->   			break;
-> @@ -1300,7 +1373,11 @@ static int fbnic_clean_rcq(struct fbnic_napi_vector *nv,
->   			/* We currently ignore the action table index */
->   			break;
->   		case FBNIC_RCD_TYPE_META:
-> -			if (likely(!fbnic_rcd_metadata_err(rcd) &&
-> +			/* A metadata completion with no header completion
-> +			 * ahead of it leaves nothing to build a frame from.
-> +			 */
-> +			if (likely(pkt->buff.data_hard_start &&
-> +				   !fbnic_rcd_metadata_err(rcd) &&
->   				   !pkt->add_frag_failed)) {
->   				pkt_bytes = xdp_get_buff_len(&pkt->buff);
->   				skb = fbnic_run_xdp(nv, pkt);
+Ciao, Thorsten
 
-As Daniel pointed-out on V1, the device does not make up the buffer 
-ID's. Rather, it only echoes them back as provided by the SW. A 
-completion with ID's that SW did not post would indicate a bad device or 
-an inconsistency between SW and HW state. Either of the two would 
-indicate that the issue is somewhere else. These checks would only mask 
-the issue.
+> and Christian König offered to set the default to N for
+> another few months [4]. I listed more importers that look affected and
+> mentioned this RFC in [5]. As of v7.3-rc6 the default is unchanged.
+> 
+> This series adds DMABUF_DEBUG_WARN as a sub-option of DMABUF_DEBUG. The
+> importer still gets a copy, but one that keeps the CPU side of the
+> exporter's table. The entries are marked with a new bit in dma_flags.
+> sg_page(), sg_nents_for_len() and sg_split() print a rate limited
+> message with a stack trace when they see the bit. These CPU-side
+> accesses can continue after the report instead of failing because the
+> fields were cleared. The report is not a WARN(), so it does not taint
+> and does not trigger panic_on_warn. Strict mode remains the default and
+> continues to remove the CPU-side fields.
+> 
+> Known limits:
+> 
+> - Only access through sg_page(), sg_nents_for_len() and sg_split() is
+>   seen. sg_page() covers sg_phys(), sg_virt() and the page iterators.
+>   An importer that reads sg->length or sg->offset directly is not
+>   noticed.
+> 
+> - When the option is enabled, every sg_page() tests the flag.
+> 
+> - It selects NEED_SG_DMA_FLAGS, which adds dma_flags and may increase
+>   the size of struct scatterlist. It also relies on dma_flags being
+>   initialised, as the DMA mapping code already does.
+> 
+> - It finds importers. It does not fix them.
+> 
+> Question for the maintainers: could warn mode be what DEBUG_KERNEL
+> kernels get by default, with strict mode kept for CI? Or is an opt-in
+> sub-option all that is wanted, if anything? The series does not change
+> any default.
+> 
+> Testing, on the commits as posted:
+> 
+> - KUnit, the dma-buf suites, under UML and on x86_64 in QEMU, in strict
+>   and in warn mode: 56 passed, 1 skipped (it needs 2 CPUs) each time.
+> 
+> - Builds: x86_64, arm64 and ARM926 with DMABUF_DEBUG_WARN=y, ARM926
+>   without DMABUF_DEBUG. Without DMABUF_DEBUG the generated code of
+>   dma-buf.o and lib/scatterlist.o is the same as before, except for
+>   line numbers.
+> 
+> - IIO DMABUF capture on a Zynq in QEMU, with local device models. The
+>   IIO dmaengine buffer calls sg_nents_for_len() on the attachment's
+>   table. In strict mode with NEED_SG_DMA_LENGTH the capture fails with
+>   -EBUSY. In warn mode it works, the kernel is not tainted, and the log
+>   has:
+> 
+>   DMA-BUF: importer used the CPU side of an exporter's sg_table
+>   CPU: 0 UID: 0 PID: 48 Comm: iio-dmabuf Not tainted 7.3.0-rc4+ #2 VOLUNTARY
+>   Call trace:
+>    [...]
+>    dump_stack_lvl from sg_nents_for_len+0xd8/0xe4
+>    sg_nents_for_len from iio_dmaengine_buffer_submit_block+0x4c/0x33c
+>    iio_dmaengine_buffer_submit_block from iio_dma_buffer_submit_block.part.0+0x5c/0x104
+>    iio_dma_buffer_submit_block.part.0 from iio_dma_buffer_enqueue_dmabuf+0x68/0xa0
+>    iio_dma_buffer_enqueue_dmabuf from iio_buffer_chrdev_ioctl+0x520/0x9a4
+>    iio_buffer_chrdev_ioctl from sys_ioctl+0x460/0x914
+> 
+> - sur40 behind xHCI and intel-iommu on x86_64 in QEMU, with a one-line
+>   test-only change in sur40. Here sg_page() is called in
+>   iommu_dma_map_sg(), and the trace leads back to sur40_poll(). The
+>   capture itself did not finish in that setup.
+> 
+> Details are in the notes on the patches. Not tested on hardware.
+> 
+> Based on v7.3-rc4-70-gfe2ec83746e5.
+> 
+> An LLM agent helped with the code and the testing.
+> 
+> [1] https://lore.kernel.org/r/20260923074256.9357-1-liujianfeng1994@gmail.com
+> [2] https://lore.kernel.org/r/20260926022026.10539-1-liujianfeng1994@gmail.com
+> [3] https://lists.freedesktop.org/archives/dri-devel/2026-September/600904.html
+> [4] https://lore.kernel.org/r/50a9c1f1-6889-4bd5-b4f7-0500d30d3dd9@amd.com
+> [5] https://lore.kernel.org/r/arrAvk4aYQ4sDEzN@gmail.com
+> 
+> Karl Mehltretter (3):
+>   dma-buf: keep the DMA flags in the DMABUF_DEBUG copy
+>   dma-buf: add a warn-only mode to DMABUF_DEBUG
+>   dma-buf: test the debug scatterlist wrapper
+> 
+>  drivers/dma-buf/.kunitconfig |   1 +
+>  drivers/dma-buf/Kconfig      |  23 ++++
+>  drivers/dma-buf/Makefile     |   1 +
+>  drivers/dma-buf/dma-buf.c    |  48 ++++++-
+>  drivers/dma-buf/st-dma-buf.c | 253 +++++++++++++++++++++++++++++++++++
+>  include/linux/scatterlist.h  |  26 +++-
+>  lib/scatterlist.c            |  22 +++
+>  lib/sg_split.c               |   2 +
+>  8 files changed, 372 insertions(+), 4 deletions(-)
+>  create mode 100644 drivers/dma-buf/st-dma-buf.c
+> 
+> 
+> base-commit: fe2ec83746e501645709761605c2464a44fd2929
+
