@@ -1,229 +1,244 @@
-Received: from dilbert.mork.no (dilbert.mork.no [65.108.154.246])
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2742E737D;
-	Mon, 12 Oct 2026 16:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.108.154.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26D83A7F79
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823903; cv=none; b=LJD3LY18LOBu63OdgOVcU8U21vcIfg3jwYIUI7Ehj700JtX08qlu7G870kI8wCptUPJmHTmKmWVioYwuPPOLlpHKMOUS/7xfPowxQtJz+TtcpE5RBYT72Y5Dl5DJdhL3npsoh1SCjfjmQu0L/2WCF92fzh/ts59NDhVG3PRANjI=
+	t=1791823937; cv=none; b=LY/HfFB0cDn2ZDMdJ54ZrKhAiVYWEAiRaTq0FfvdpdVQiwt4Fa56aPw/pv9UcDSk0zGgS71iUJLR92lwxtu6hHk+e3964untaTOxhSZL9o9sOIIMikETbnyNx9l39rcDLI34xtorQ9iZKYZCXsaY/ES/Wh+jPWAGcd0kWOzY8q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791823903; c=relaxed/simple;
-	bh=RQydqv4XJcasiRQuUFPvomHpu3S+M+YdF/tmAgc4t00=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=TBK3pribfF15U3HALttorKcr7bjeXrMQzwdM4BKImlYnMk13dnmIF/A+NjHLZlHiR/GU5SPO30CFl9fJ5xx5fxrZt1Q3YqRtLXsMAPjAE5x5l2pHu7gRepRYOzFrxV6bY3l8D6V/3+jDjxa7Qk0apoVudXf6TUv+vXchsBrrcx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mork.no; spf=pass smtp.mailfrom=miraculix.mork.no; dkim=pass (1024-bit key) header.d=mork.no header.i=@mork.no header.b=aCJvWEq3; arc=none smtp.client-ip=65.108.154.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mork.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miraculix.mork.no
+	s=arc-20240116; t=1791823937; c=relaxed/simple;
+	bh=IGwn36wt1Vvnr1YLDK16Ncy1SrwH9wO8dchDop0hdgQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=W5pRTrdtIGgaGx55k1tWFGjoVS6HawaYTcpxnIYZ6LCjtH/46f2A32gc/cEEAz0FUbaXB5Z8DVijKLj/PCaT3LxlNbqXCu/oBJ1DmdBfFgdN6dYm98ov3HmmMOWFLq6SoT7E31fMg9Ma5r2SPPNqpiG/gEMeQQvpq78PnjJAU4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=jnt3JyZI; arc=none smtp.client-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mork.no header.i=@mork.no header.b="aCJvWEq3"
-Authentication-Results: dilbert.mork.no;
-	dkim=pass (1024-bit key; secure) header.d=mork.no header.i=@mork.no header.a=rsa-sha256 header.s=b header.b=aCJvWEq3;
-	dkim-atps=neutral
-Received: from canardo.dyn.mork.no ([IPv6:2a01:799:10e2:d900:0:0:0:1])
-	(authenticated bits=0)
-	by dilbert.mork.no (8.18.2/8.18.2) with ESMTPSA id 69CGZWEc790305
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 17:35:34 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mork.no; s=b;
-	t=1791822932; bh=nHOetBiDekJwWPGeGPktITGpQNmqnuv3FWLxPY57pPs=;
-	h=From:To:Cc:Subject:References:Date:Message-ID:From;
-	b=aCJvWEq33ThyxGcgvykeF24eHjFSIln8357sLW74qJt9qmu21hG2zoZxYBn+Z2HE1
-	 /Z6xkZ3UOgcgYbpC8nE8k6rPREVBMYkx0lf9MMfUqsBuIf5BN2DwcnZ8BLRRKYUdJV
-	 1KRZBb0ul1kl22HnJAox9twwuc7POS/pmTHIrf0g=
-Received: from miraculix.mork.no ([IPv6:2a01:799:10e2:d90a:6f50:7559:681d:630c])
-	(authenticated bits=0)
-	by canardo.dyn.mork.no (8.18.2/8.18.2) with ESMTPSA id 69CGZWcL894584
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 18:35:32 +0200
-Received: (nullmailer pid 905597 invoked by uid 1000);
-	Mon, 12 Oct 2026 16:35:32 -0000
-From: =?utf-8?Q?Bj=C3=B8rn_Mork?= <bjorn@mork.no>
-To: Vladislav Karmanov <vladislav.karmanov.dev@gmail.com>
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, daniel@makrotopia.org,
-        dqfext@gmail.com, SkyLake.Huang@mediatek.com, hkallweit1@gmail.com,
-        linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
-        kuba@kernel.org, pabeni@redhat.com, matthias.bgg@gmail.com,
-        angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
-        sean.wang@mediatek.com, olteanv@gmail.com, yangshiji66@outlook.com,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH net v3] net: phy: mediatek-ge: disable EEE on the MT7530
- PHY
-In-Reply-To: <20260904202800.3410838-1-vladislav.karmanov.dev@gmail.com>
-	(Vladislav Karmanov's message of "Fri, 4 Sep 2026 23:28:00 +0300")
-Organization: m
-References: <20260904202800.3410838-1-vladislav.karmanov.dev@gmail.com>
-Date: Mon, 12 Oct 2026 18:35:32 +0200
-Message-ID: <87cxteri5n.fsf@miraculix.mork.no>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="jnt3JyZI"
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261012165211epoutp031068e87d165866773d6d0a0f275514b2~d1l9ND1yk1187111871epoutp03R
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:52:11 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261012165211epoutp031068e87d165866773d6d0a0f275514b2~d1l9ND1yk1187111871epoutp03R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791823931;
+	bh=1mEWCnFmOg5Enh/UqTziVDsffFD/trliWbhIh2JCps0=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=jnt3JyZIcZngCZh2uAym8FsLcjrmqQdDFDmDMTBeiEQi1tool1dG70WNuRtN5/awD
+	 UkmBUjQWMTEN62FWPOvx6Pbg1ME6ja1XH3VWsDbDKDWIdHTses1cXeGt2lU2J+paO0
+	 /m9h/9xRpj8ReBOCnqyEHktRA+0em31F/ZSvNScI=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261012165211epcas5p339cc6e2e574f66765f8171ddc7a827d3~d1l8xdykP0975309753epcas5p3I;
+	Mon, 12 Oct 2026 16:52:11 +0000 (GMT)
+Received: from epcas5p1.samsung.com (unknown [182.195.38.92]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4j3NmV2vWbz6B9m5; Mon, 12 Oct
+	2026 16:52:10 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261012165209epcas5p2b0cbbe6cbba6eec6aa244860fdbefca3~d1l7hwmQ82036820368epcas5p2M;
+	Mon, 12 Oct 2026 16:52:09 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261012165207epsmtip1fe1c1db3d0c258e28bd266cd36e27287~d1l5gPrtz2367123671epsmtip1y;
+	Mon, 12 Oct 2026 16:52:07 +0000 (GMT)
+Message-ID: <0a2bc277-3977-46cd-9759-ba273b5c2c4d@samsung.com>
+Date: Mon, 12 Oct 2026 22:22:06 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Virus-Scanned: clamav-milter 1.4.3 at canardo.mork.no
-X-Virus-Status: Clean
-
-Vladislav Karmanov <vladislav.karmanov.dev@gmail.com> writes:
-
-> The MT7530 internal GE PHY advertises EEE by hardware default, but its
-> EEE support is defective: with EEE advertised, some link partners fail
-> to establish a stable link. On a 2-pair (4-wire) cable where both ends
-> advertise gigabit, 1000BASE-T training cannot succeed, and instead of
-> falling back to 100 Mbps the port loops, so no link or DHCP lease is
-> ever obtained.
-
-I realize that I'm too late at the party here, but I still want to state
-this for the record:
-
-I just tried to reproduce this bug on a Zyxel NR7101, using a cable with
-pair 4 cut, connecting to the I219-LM controller in my laptop.  Without
-success.
-
-EEE enabled or not does not make any difference.  The link is negotiated
-as 100Mb/s as expected, and it is completely stable.  Absolutely no
-issues observed.  I even added a .link_change_notify callback with a
-counter and a printk to the phy driver to make sure I didn't miss any
-flapping.
-
-MT7621 side:
-
-root@OpenWrt:~# ethtool --show-eee lan
-EEE settings for lan:
-        EEE status: enabled - active
-        Tx LPI: 30 (us)
-        Supported EEE link modes:  100baseT/Full
-                                   1000baseT/Full
-        Advertised EEE link modes:  100baseT/Full
-                                    1000baseT/Full
-        Link partner advertised EEE link modes:  100baseT/Full
-                                                 1000baseT/Full
-root@OpenWrt:~# ethtool lan
-Settings for lan:
-        Supported ports: [ TP    MII ]
-        Supported link modes:   10baseT/Half 10baseT/Full
-                                100baseT/Half 100baseT/Full
-                                1000baseT/Full
-        Supported pause frame use: Symmetric Receive-only
-        Supports auto-negotiation: Yes
-        Supported FEC modes: Not reported
-        Advertised link modes:  10baseT/Half 10baseT/Full
-                                100baseT/Half 100baseT/Full
-                                1000baseT/Full
-        Advertised pause frame use: Symmetric Receive-only
-        Advertised auto-negotiation: Yes
-        Advertised FEC modes: Not reported
-        Link partner advertised link modes:  10baseT/Half 10baseT/Full
-                                             100baseT/Half 100baseT/Full
-        Link partner advertised pause frame use: No
-        Link partner advertised auto-negotiation: Yes
-        Link partner advertised FEC modes: Not reported
-        Speed: 100Mb/s
-        Duplex: Full
-        Auto-negotiation: on
-        master-slave cfg: preferred master
-        master-slave status: master
-        Port: Twisted Pair
-        PHYAD: 2
-        Transceiver: external
-        MDI-X: Unknown
-        Supports Wake-on: d
-        Wake-on: d
-        Link detected: yes
-
-I219-LM side:
-
-root@miraculix:/tmp# ethtool --show-eee eth0
-EEE settings for eth0:
-        EEE status: enabled - active
-        Tx LPI: 17 (us)
-        Supported EEE link modes:  100baseT/Full
-                                   1000baseT/Full
-        Advertised EEE link modes:  100baseT/Full
-                                    1000baseT/Full
-        Link partner advertised EEE link modes:  100baseT/Full
-                                                 1000baseT/Full
-root@miraculix:/tmp# ethtool eth0
-Settings for eth0:
-        Supported ports: [ TP ]
-        Supported link modes:   10baseT/Half 10baseT/Full
-                                100baseT/Half 100baseT/Full
-                                1000baseT/Full
-        Supported pause frame use: Symmetric Receive-only
-        Supports auto-negotiation: Yes
-        Supported FEC modes: Not reported
-        Advertised link modes:  10baseT/Half 10baseT/Full
-                                100baseT/Half 100baseT/Full
-                                1000baseT/Full
-        Advertised pause frame use: Symmetric Receive-only
-        Advertised auto-negotiation: Yes
-        Advertised FEC modes: Not reported
-        Link partner advertised link modes:  10baseT/Half 10baseT/Full
-                                             100baseT/Half 100baseT/Full
-        Link partner advertised pause frame use: Symmetric Receive-only
-        Link partner advertised auto-negotiation: Yes
-        Link partner advertised FEC modes: Not reported
-        Speed: 100Mb/s
-        Duplex: Full
-        Auto-negotiation: on
-        Port: Twisted Pair
-        PHYAD: 2
-        Transceiver: internal
-        MDI-X: on (auto)
-        Supports Wake-on: pumbg
-        Wake-on: d
-        Current message level: 0x00000007 (7)
-                               drv probe link
-        Link detected: yes
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] usb: dwc3: gadget: Prevent EP resource conflicts
+ during StartTransfer
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"jh0801.jung@samsung.com" <jh0801.jung@samsung.com>, "dh10.jung@samsung.com"
+	<dh10.jung@samsung.com>, "akash.m5@samsung.com" <akash.m5@samsung.com>,
+	"hongpooh.kim@samsung.com" <hongpooh.kim@samsung.com>,
+	"eomji.oh@samsung.com" <eomji.oh@samsung.com>, "h10.kim@samsung.com"
+	<h10.kim@samsung.com>, "shijie.cai@samsung.com" <shijie.cai@samsung.com>,
+	"alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
+	"muhammed.ali@samsung.com" <muhammed.ali@samsung.com>,
+	"thiagu.r@samsung.com" <thiagu.r@samsung.com>, "pritam.sutar@samsung.com"
+	<pritam.sutar@samsung.com>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Content-Language: en-US
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <asglyrMYkopr3EOz@vbox>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261012165209epcas5p2b0cbbe6cbba6eec6aa244860fdbefca3
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6
+References: <arsnMM-GvuXwBKCX@vbox>
+	<5d7501ea-4579-44a5-9a7e-91ef1f10b2bb@samsung.com> <asBhDmy-3DymDKQH@vbox>
+	<3fdda532-8181-48e9-b58d-cad7289408e7@samsung.com>
+	<CGME20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6@epcas5p1.samsung.com>
+	<asWmW1jmzedIV5SP@vbox> <ff5d6900-374b-44d8-967f-0af16ae53437@samsung.com>
+	<98f16da0-5e24-4dd1-8f9f-79a1a5e7656c@samsung.com> <asbJfaj5OIhHBunD@vbox>
+	<bc43e3f5-ba0c-4f91-b765-ee35021bf089@samsung.com> <asglyrMYkopr3EOz@vbox>
 
 
-So now I am curious to know:  What am I doing wrong here?
-
-I primarily did this test because I wanted to implement a smarter
-workaround, without forcibly disabling EEE for everyone based on one
-pretty obscure configuration.  But that's hard without being able to
-reproduce the problem.
-
-So let me ask you, who seem to be able to reproduce it:  Why is it
-necessary to block EEE for everyone? Why can't you disable EEE by
-default, but let me enable it on my systems - where I know it works?
-
-Or even better:  Why can't you detect the link flaps and only disable
-EEE when required? (this was my plan)
-
-FWIW, I have been using EEE on MT7621 devices for years without ever
-noticing the claimed issue.  I have heard the rumours that the SoC is
-supposed to have occasional link issues, and that they are related to
-EEE.  But reproducing the issue has so far been impossible.
-
-> MediaTek confirms the hardware is the root cause (Landen
-> Chao, 2021): "EEE of the 10-year-old MT7530 internal gephy has many IOT
-> problems, so it is recommended to disable its EEE."
-
-This is BS. I don't doubt that there are bugs in the MT7530 gephy. But
-the EEE feature of the MT7530 internal gephy works fine for me.  And
-always has.
-
-Vendors have no interest in making older hardware work. There is no
-reason to ask them or trust them when it comes to hardware they don't
-sell anymore.
-
-We can do better. And we have, by for example bringing DSA to the
-MT7621. Please, let's try to make even old hardware work as good as
-possible.  Disabling features is not the way to go.
-
-> Auto-negotiation then falls back to a stable 100 Mbps link instead of
-> looping at gigabit. Tested on ASUS RT-AX53U (MT7621): with a 2-pair
-> cable on the WAN port, a single clean 100 Mbps link comes up and a
-> DHCP lease is obtained, where the unpatched driver loops.
-
-And no I've tested the same configuration with EEE enabled, and it
-doesn't loop either.
-
-Where does that put us?
+On 10/9/2026 5:57 AM, Thinh Nguyen wrote:
+> On Thu, Oct 08, 2026, Selvarasu Ganesan wrote:
+>>> The End Transfer command not completing is also a separate issue. I
+>>> asked you to check whether the command would eventually complete with
+>>> the additional code, and it appears it doesn't.
+>>    We have confirmed that the completion event is never seen, once the
+>> timeout occurs for end transfer. It appears the command is indeed
+>> hanging in the hardware, as you suspected.
+>>
+>>> Can you provide some more info on your setup:
+>>>    * IP and version
+>>>    * connected speed
+>>>    * endpoint direction (is it always OUT?)
+>>>    * Is there any active transfer
+>>>    * tracepoints
+>
+>> * IP and version : 0xc120:   0x33313130
+> and version (0xc1a0)?
 
 
-Bj=C3=B8rn
+VER_NUMBER = 0x3231302a
+VER_TYPE = 0x67612a2a
+>
+>> * connected speed : HS mode
+>> * endpoint direction (is it always OUT?) : Yes its always OUT
+>> * Is there any active transfer : No, There is evidences from the log to
+>> say there is a active transfer.
+> The host may have sent data that would not appear in the log until
+> completion. Are there any active transfer on other endpoints?
+
+
+Yes, we can see active transfer on other endpoints.
+
+>
+>> * tracepoints: There is no dwc3 traces for this issue as of now due to
+>> its low reproduction rate in the customer's setup.
+>>
+> I think you may need to file a case with our support team and provide
+> additional debug info such as scan dump to investigate this further.
+
+
+Sure We will file a case,
+I agree that the ENDTRANSFER timeout may be a controller level issue 
+that we can debug separately.  But, there is also a software bug here. 
+Let see the in the below error case, "dep->resource_index" is reset to 
+"0" unconditionally, even when the first ENDTRANSFER times out. A 
+subsequent ENDTRANSFER with resource index "0" may succeed and 
+incorrectly clear the pending and transfer started flags, making the 
+driver assume the previous transfer has completed. Since the original 
+transfer was never properly terminated, the endpoint may not recover, 
+resulting in a no-resources error on the next STARTTRANSFER.
+
+Therefore, we need to fix this software state tracking issue 
+independently of the controller timeout.
+
+Step 1:
+__dwc3_gadget_ep_set_halt(dep, value=0)
+  ->dwc3_stop_active_transfer(dep, true, true)
+   ->END(e.g, ep2out, resource_index=7) issued, but timeout occurs
+    -> resource_index cleared to 0
+->dwc3_send_clear_stall_ep_cmd(dep)
+  -> failed to clear STALL on ep2out
+
+
+Step 2:
+__dwc3_gadget_ep_set_halt(dep, value=0) ->Re triggered clear stall for 
+same EP
+  -> dwc3_stop_active_transfer(dep, true, true)
+    -> END(ep2out, resource_index=0) issued (wrong resource!)
+     -> Command succeeds, DWC3_EP_TRANSFER_STARTED cleared in completion 
+handler
+
+Step 3:
+usb_ep_queue()
+-> dwc3_gadget_ep_queue()
+  -> __dwc3_gadget_kick_transfer()
+   -> starting = !(dep->flags & DWC3_EP_TRANSFER_STARTED) -> starting=0
+    -> Issues STARTTRANSFER (because DWC3_EP_TRANSFER_STARTED is not set)
+      -> Hardware rejects with NO_RESOURCE (resource 7 still held)
+
+
+We are fine with the following suggestions fix to prevent resource issue 
+in timeout case,
+
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+index 1f973e546219..bac0328423cd 100644
+--- a/drivers/usb/dwc3/gadget.c
++++ b/drivers/usb/dwc3/gadget.c
+@@ -1819,7 +1819,11 @@ static int __dwc3_stop_active_transfer(struct 
+dwc3_ep *dep, bool force, bool int
+
+      dep->resource_index = 0;
+
+-    if (!interrupt || ret)
++    if (!interrupt || (ret && ret != -ETIMEDOUT))
+          dep->flags &= ~DWC3_EP_TRANSFER_STARTED;
+      else
+          dep->flags |= DWC3_EP_END_TRANSFER_PENDING;
+@@ -3895,6 +3899,8 @@ static void 
+dwc3_gadget_endpoint_command_complete(struct dwc3_ep *dep,
+      if (dep->stream_capable)
+          dep->flags |= DWC3_EP_IGNORE_NEXT_NOSTREAM;
+
++    dep->flags &= ~DWC3_EP_DELAY_STOP;
+      dep->flags &= ~DWC3_EP_END_TRANSFER_PENDING;
+      dep->flags &= ~DWC3_EP_TRANSFER_STARTED;
+      dwc3_gadget_ep_cleanup_cancelled_requests(dep);
+
+
+But regarding below changes in ep_disable that you suggested, is this 
+really required? It seems this could cause a bug during an endtransfer 
+timeout, if command completion never happens, the PENDING flag won't be 
+cleared, making recovery impossible.
+
+@@ -1096,6 +1110,15 @@ static int __dwc3_gadget_ep_disable(struct 
+dwc3_ep *dep)
+       */
+      if (dep->flags & DWC3_EP_DELAY_STOP)
+          mask |= (DWC3_EP_DELAY_STOP | DWC3_EP_TRANSFER_STARTED);
++
++    /*
++     * The End Transfer command is still in progress.  Do not clear the
++     * flags, so that the ep is only rearmed once the command completes.
++     */
++    if (dep->flags & DWC3_EP_END_TRANSFER_PENDING)
++        mask |= (DWC3_EP_END_TRANSFER_PENDING |
++             DWC3_EP_TRANSFER_STARTED);
+
+
+As you mentioned Clearing the flag (DWC3_EP_END_TRANSFER_PENDING) in 
+ep_disble only lead to a NO_RESOURCE error later. Yes i agree, but this 
+can prevent by below new suggestion change, so above changes (do not 
+clear DWC3_EP_END_TRANSFER_PENDING in ep_disable) is not required.
+
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c index 
+ee837235630a..eb6666b7bb98 100644 --- a/drivers/usb/dwc3/gadget.c +++ 
+b/drivers/usb/dwc3/gadget.c @@ -1084,6 +1084,8 @@ static int 
+__dwc3_gadget_ep_disable(struct dwc3_ep *dep) reg &= 
+~DWC3_DALEPENA_EP(dep->number); dwc3_writel(dwc, DWC3_DALEPENA, reg); + 
+dep->flags &= ~DWC3_EP_ENABLED; + dwc3_remove_requests(dwc, dep, 
+-ESHUTDOWN); dep->stream_capable = false; @@ -1990,7 +1992,8 @@ static 
+int __dwc3_gadget_ep_queue(struct dwc3_ep *dep, struct dwc3_request 
+*req) { struct dwc3 *dwc = dep->dwc; - if (!dep->endpoint.desc || 
+!dwc->pullups_connected || !dwc->connected) { + if (!(dep->flags & 
+DWC3_EP_ENABLED) || !dep->endpoint.desc || + !dwc->pullups_connected || 
+!dwc->connected) { dev_dbg(dwc->dev, "%s: can't queue to disabled 
+endpoint\n", dep->name); return -ESHUTDOWN;
+
+Thanks,
+Selva
+
+
+>
+> Thanks,
+> Thinh
