@@ -1,73 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B743318EFF;
-	Mon, 12 Oct 2026 08:20:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B350644F545
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:21:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791793240; cv=none; b=lKD8ITMmw/5o6lKanZBvojZCUpSQojKcm27gpyoyevRcVnk0SVXFFJz70OJyERus+3Ly/8XhCG614lSbSb1jSTe7JloGFDm7qA2iL2XXWn58Ao6PQL7oJNlkg9yxCrbCjLTfqYR7pebNAvMUu7WHdHjq2TrtN7wSwYhjZlPtJG0=
+	t=1791793312; cv=none; b=Jj7UHlezYKKetMZQ6FC7d5JQNscHoV0LljcPTJJw1r2bcrJJ5s8X99MunLgQXJYh1MdCYsS67vzfkKlPOWScpdYTW3stPbH77APCWFu60QljXFHyhd0kqI6zBVlp7R11kfds9Y5i1bire+TKujJyRs36g/kH5Ao0tN8s0qrcH9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791793240; c=relaxed/simple;
-	bh=NdBmE+arUhCUQk4s6QlgkHgrLxuewrAeF7CdR10Du2U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XdPXLleNDAA4z5pGmhZdShDgoK62tb7XdvALjdL2X1kO5IPqdjaXXUVhH9dM6yz5RZaBQnOpn8WD7znHsNAihRMFIhPM63JCYeKb4PMG+9QQtYKlZqWLO5OAq3PHoa9ks9i95kM/IMet4oXQCshaleSTeTxRzmwb8Vd2QsJyrAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U4fh06Mq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791793312; c=relaxed/simple;
+	bh=v/y7NXaWbJ6lQjdzR8N8Ksy8XPIBfzpcBd6y5+X6xcY=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=CEvWvMapThqABlO7ZIsGC3nMNsj5rvq2rChtKl4k0KUmfyqVFq+7Xejv+xkzjxyCBbmMIgIgKLVULx0c/bhQ7RwFT/8/rqZRfg5xdlyOOIvUhxpDwc1Qz741xtg2QtxttdThG1m9ROEaz8wg5wNc/4zzCg7twWLVdqLF1HofhUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ptmtu0MC; arc=none smtp.client-ip=74.125.82.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U4fh06Mq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9264C1F0089B;
-	Mon, 12 Oct 2026 08:20:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791793238;
-	bh=wtGjqMDW3CpJJHF3B6yMKEQikZ5WiODedxSJ3vWP+Rk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U4fh06Mq/+mxOG6tt+/NDp78ofjUvBWDu046poy6x3BmTg75VA7S8MjzqHihIBkVM
-	 4hAb3HFhpe52IMCpdnpRJqVse9mvInxxic+HP7ro2H4JcaLdlfZhoQB37ozQtFG1+Z
-	 K8FYeNjalhTx0PPdK9DhiOMwywXZTTtLOn+I4YPjMlpRjqbol0whdfyy+caAqc1Lg4
-	 3RyCvC3l5AItlLbCiIf3SkbI8M2hOWjUeFq417+QiWBBGLuZpQgnWLlUJ4qwv7JHY+
-	 nDPjIJ8/+aw6DnxRIcMjrKdqZkTNkfLIUFENaG8TDfxrR9L8IwT2n8m8BPUS4zJ31+
-	 x8KSR7qy0TLWw==
-Date: Mon, 12 Oct 2026 13:50:28 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Christian Marangi <ansuelsmth@gmail.com>, Andy Gross <agross@codeaurora.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
-Subject: Re: [PATCH 07/10] phy: qcom-ipq806x-usb: parse the tx-deamp-3_5db
- property as documented
-Message-ID: <asyYLiGuhLFnyvwJ@debian>
-References: <20260810-msm8974-usb3-v1-0-1a47e1185524@oss.qualcomm.com>
- <20260810-msm8974-usb3-v1-7-1a47e1185524@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ptmtu0MC"
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-139b62317d0so8331203c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:21:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791793310; x=1792398110; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j/HfGjAac+AZaYIKh17jKsISYIpx8gEa0S85wJAbcwk=;
+        b=ptmtu0MC0FZf26nwNy1PD9LrKtxFJa1fop433HtVfZ46RM8ELyjokb62rQzGaUG7mq
+         h9Wjpb558BDrWhL4/GeIjlITxTsHTC92Cy+c+M2fG3Et5toZlbDHjJcYPiTqTvR03sBT
+         s4BhER54ZtFRbRnwp0UuBJPgzzmAn+fWvRih6FwHOpS+wfnN6E0uTYStCpyNfMWxMor9
+         b+FzOpm5Hq8Cp3DYXlwKlxNB/1Ls+CLCEPJgmvxctN3LfmntZZeASR/c7i0WBQ+Y/BWx
+         QsfmzArTLlFaMDIl3khB+5i9xpcSbH6AXLh4hQcExoNB0y3mgFgPrepby6v9ttnZ1ED1
+         SMyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791793310; x=1792398110;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j/HfGjAac+AZaYIKh17jKsISYIpx8gEa0S85wJAbcwk=;
+        b=cw0IpuWRa8xA/sePSpMerYCtKu7x6NsMBBE793e1ZzkCNortcs8dWPJ/nfGsfxQ/l/
+         5VZ29QbXpVanONMchskM+bK405EjDscyGhGJA7e4Hs9bcom6C22oZz1AwSWfwtEHxkoS
+         cXbQoX9zMAg3hXae3QyMmTIsWn5lqvLYHEKUOqCMjePBpSCRS+vURa9ui90TGOeNWgc4
+         mcCG1WXZmh2lJv8U0P3PUJQxfyJH0EtShp9aCX1HZGhL9hr6oiPyL7YhMULBMGXWW92m
+         49fUC+eZqT/r8UH52r74EVcoiND7twK0sjeFzBXuTXnzMkz/Vti5qqQZeYELNCuLqtTe
+         mSBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxBlxU9xWHie5/pm9Ug/bwoSlTU3pTs5JND3sXdih83e+Yknp740+wJ95bhO1jsNLtykedq/iWeX11nbBc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBpYYyOiEf82IArpdJ2hE27Siczn5NoV8hIeQDS0EimLsbuv5/
+	qyXAMbJXiczzzsUtfVTbI8JL91VqaxE8vbNnEDWnHil4Sci1fqKFIb+cW0G1pg4vaV8O2ZnkOpB
+	QSwIz+6Zn4oo9q3rhA5P47FsnnA==
+X-Received: from dybco9.prod.google.com ([2002:a05:7300:a189:b0:352:3bdd:a9d7])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:701b:2713:b0:168:6ad8:e8b0 with SMTP id a92af1059eb24-16a6187f095mr14622288c88.14.1791793309400;
+ Mon, 12 Oct 2026 01:21:49 -0700 (PDT)
+Date: Mon, 12 Oct 2026 08:21:42 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260810-msm8974-usb3-v1-7-1a47e1185524@oss.qualcomm.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261012082148.1698596-1-almasrymina@google.com>
+Subject: [PATCH net-next v2 0/6] net: unify symmetric netmem and page_pool refcounting
+From: Mina Almasry <almasrymina@google.com>
+To: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, bpf@vger.kernel.org
+Cc: Mina Almasry <almasrymina@google.com>, Ayush Sawal <ayush.sawal@chelsio.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Tariq Toukan <tariqt@nvidia.com>, Simon Horman <horms@kernel.org>, 
+	Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	John Fastabend <john.fastabend@gmail.com>, Sabrina Dubroca <sd@queasysnail.net>, 
+	Eric Biggers <ebiggers@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>, 
+	"=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=" <u.kleine-koenig@baylibre.com>, Jijie Shao <shaojijie@huawei.com>, 
+	Michael Grzeschik <mgr@kernel.org>, Jakub Raczynski <j.raczynski@samsung.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Aug 10, 2026 at 02:42:37PM +0300, Dmitry Baryshkov wrote:
-> The driver reads the transmit de-emphasis override from
-> qcom,tx-deamp_3_5db while the binding documents qcom,tx-deamp-3_5db,
-> so a device tree following the binding is silently ignored and the
-> default is used instead. No in-tree device tree uses either spelling.
-> 
-> Parse the property under its documented name.
-> 
-> Fixes: ef19b117b834 ("phy: qualcomm: add qcom ipq806x dwc usb phy driver")
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+netmems (pages and net_iovs) have two independent refcounts: a non-pp
+refcount (page._refcount or binding->ref) governing backing memory
+lifetime, and pp_ref_count governing recycling within a page_pool while
+page_pool holds a single backing non-pp reference. SKBs with
+pp_recycle=1 own pp_ref_count references on page_pool fragments; SKBs
+with pp_recycle=0 own non-pp references.
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Core helpers currently mix these two refcounts asymmetrically:
+skb_frag_ref() always increments the non-pp refcount via get_netmem(),
+whereas skb_frag_unref() decrements pp_ref_count when skb->pp_recycle
+is set. Any path that refs a fragment on a pp_recycle=1 SKB (or unrefs
+with a hardcoded recycle=false) increments one counter and decrements
+the other, leaking the backing memory while underflowing pp_ref_count
+(e.g., IP-TFS [1], skb_split(), skb_shift(), and cloned SKB uncloning).
+Unclear core APIs also led drivers and ULPs to open-code pp_ref_count
+manipulations or add one-off helpers like skb_pp_frag_ref().
 
-- Mani
+Unify fragment refcounting into symmetric pairs where each layer clearly
+specifies which refcount it touches:
 
+- Non-PP refcount: get/put_page(), get/put_net_iov(), get/put_netmem()
+- PP refcount:     napi_pp_get/put_page()
+- SKB netmem:      skb_netmem_ref/unref(netmem, recycle)
+- SKB fragment:    skb_frag_ref/unref(skb, f)
+
+Found by code inspection while reviewing [1] and confirmed with the KUnit
+tests in patch 6; not observed in production. Driver and ULP call-site
+changes are compile-tested only.
+
+Link: https://lore.kernel.org/netdev/xfrm-iptfs-pp_ref_count-underflow-v4-1-912fa72106f0@secunet.com/ [1]
+
+---
+v2:
+- Clear NETIF_F_SG in skb_segment() when frag_list SKBs mix pp_recycle
+  flags (patch 4).
+- Export skb_shift() via EXPORT_SYMBOL_IF_KUNIT() to fix the
+  CONFIG_NET_TEST=m modpost error reported by NIPA (patch 6).
+- Reset mac_header before skb_segment() and check skb_clone() results in
+  KUnit (Sashiko), and extend KUnit coverage to compound tail pages,
+  skb_try_coalesce(), TCP devmem recvmsg, skb_zerocopy() rollbacks,
+  skb_split()/skb_shift() edge cases, and mixed pp_recycle frag_list GSO.
+- Note how the issues were found and tested (netdev-bot), and add
+  Assisted-by tags.
+- Link to v1: https://lore.kernel.org/netdev/20261010083935.3274178-1-almasrymina@google.com/
+
+Mina Almasry (6):
+  netmem: rename __get/__put_netmem() to get/put_net_iov()
+  net: skbuff: add napi_pp_get_page() and use it in tcp_recvmsg_dmabuf()
+  net: skbuff: replace skb_page_unref() and __skb_frag_unref() with
+    skb_netmem_unref()
+  net: skbuff: replace __skb_frag_ref() with symmetric skb_netmem_ref()
+  net: skbuff: use skb_frag_ref() in skb_try_coalesce()
+  net: kunit: test netmem, page_pool, and skb frag refcounting
+
+ .../chelsio/inline_crypto/ch_ktls/chcr_ktls.c |    2 +-
+ drivers/net/ethernet/marvell/sky2.c           |    2 +-
+ drivers/net/ethernet/mellanox/mlx4/en_rx.c    |    2 +-
+ drivers/net/ethernet/sun/cassini.c            |    4 +-
+ drivers/net/veth.c                            |    2 +-
+ include/linux/skbuff_ref.h                    |   64 +-
+ include/net/netmem.h                          |   24 +-
+ net/core/net_test.c                           | 1204 +++++++++++++++++
+ net/core/skbuff.c                             |  161 ++-
+ net/ipv4/esp4.c                               |    4 +-
+ net/ipv4/tcp.c                                |    6 +-
+ net/ipv6/esp6.c                               |    4 +-
+ net/tls/tls_device.c                          |    2 +-
+ net/tls/tls_device_fallback.c                 |    2 +-
+ net/tls/tls_strp.c                            |    2 +-
+ net/xfrm/xfrm_iptfs.c                         |    3 +-
+ 16 files changed, 1373 insertions(+), 115 deletions(-)
+
+
+base-commit: d8674294aefef02266c4d47ad10131f1bffbe534
 -- 
-மணிவண்ணன் சதாசிவம்
+2.56.0.385.gd3acb90ef8-goog
+
