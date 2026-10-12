@@ -1,65 +1,65 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084DF4519AB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1374734F3
 	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:55:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791798913; cv=none; b=aIdhW1xZ6ggmdPRa1PZfRht9BvXZeDMlK/Qh1o4UlL6wsmbgPUuK9v61N7VYZT7xO0PusBgDv4nz7MlS7WbtMG7FhN8Kih2p/AP/xeEvLoa7aPel95i1ZHj9Z/rn8Xc3pT2CVeFIL1DtYjkpSxNxHxiSvKSNeynQfc9SHiuzPeg=
+	t=1791798914; cv=none; b=pYWIXwcXf85MTwDk36JqRDaoMW7X8sFM8irpWfnE7d4aR5GouvkmXqsO3sE5OHa3VR+9P9L/IJiR9mWAPak4aCVa3FiLfM0PQTmE/bVfnp6y6xZrhsU0CzGsRxDx1XdH2xfyqgBCcCgh6obRvvmQeyyE20ZvZ+t+vBNlSYqtP3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791798913; c=relaxed/simple;
-	bh=Amk8uD3HNfuuztl7q0RyRF92LjutyVBvE3JyMlDZ8Xk=;
+	s=arc-20240116; t=1791798914; c=relaxed/simple;
+	bh=5o+gkaEDGsokOpCnIO/4/WtZKXU3lspYVk5COSvG6RA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YH0xCtv7fid+wAL51qKP2ZkatNjSqiVauiYzXZbbdzZDjZXUDTksdXE7rSb3mD/DbdwOTkfxOWzm5N1xBRZKyXCzPosn3bJoHoDJZDyu/d/2uW3e/h4qEZjTPAUI4SWHuq7zjpsV1/c7mojtqueMJf3XDaHts35+nUrAMf98M3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Kg5QErhB; arc=none smtp.client-ip=209.85.221.46
+	 MIME-Version:Content-Type; b=X/9XRo9AZYIlL8OaUjnDLsFr5ycnW1lpvfQp1XfJpsuhnBBLR8g6PF6hmFb4qSlzQM24Wsmyc5gWzr/cQpDs9D1t+C6RwSoL3Mu+cJWgcwyRviI98TdkRckxphf2+Xi2NFnjeOcwXd5EyMWsfOJYELToGYBCYtr2pwsSBjiihuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Yc15mDh7; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Kg5QErhB"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48c411d6615so1086284f8f.3
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Yc15mDh7"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48b0d19cf7eso2522854f8f.1
         for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:55:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791798908; x=1792403708; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1791798907; x=1792403707; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=kVFVSCKYu4LMX2OyBp2Sx2+yDSioFsB6HDpmMFcR8pE=;
-        b=Kg5QErhBsDRv7M7FGg+n0K+CPIswYEEbpLKbRmc9qYGEWeRI0zW8BiLTYyNN4iqwY/
-         Ci0+rkdqARj6dgW7W7bHyd6yDK64GRosR8U9GCOkqwPQQIOWgzxwr6wC/tc7h3kFv/Zt
-         757kWpgj3ZMEva2cnZCDDGGjrHpOmSATwRhREarnFmpcoGztgHY3+dKY8c83DE20fdA0
-         y++Fc5UXIV5lPy86N4S86+693h0tT+Zgr/z7LLU1A3QbKQJwrxQotdEJWutItPfiVfpJ
-         qUwMYM9KTcqoloIDSTaikoMUOXxqWxZsVvrPIpQnTt5NTJSAaYt2oTeFlIJQA1EV/NXi
-         3uGQ==
+        bh=0DTUEu+tQMr+K01BzO77MDPNxFso/NrhJ3ycIpr+NMA=;
+        b=Yc15mDh7XId/RpM52kMrtDMAckt4mMRHjA0YCLYXLGSQmt3f8izA/MwV5tgghKNC1X
+         t6jEiUrohkzpK3xUdrMN1cSbUw3QoQz34FjvK+RFX428EC7nryGK+LmnNmAfee28i8dX
+         ccHId9xtBdNm7K03pwyXjhziFIajA76fdfedBmSdKqqo5DLRA78hXxpnMZ2fwVvWyDt7
+         tNmibkHnuRmbBctb6ff8ox7mNiBhxq4ujeqFOepdgW0wyAfss1wS8+GwgqugbfK5+a/K
+         pUeSLBrM1xFFiDkpwU3zCbVZyysZgxRO3zmVulpxf6dzdnKVZp6s/JkAJmQAaesxlC5z
+         mWMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791798908; x=1792403708;
+        d=1e100.net; s=20260707; t=1791798907; x=1792403707;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kVFVSCKYu4LMX2OyBp2Sx2+yDSioFsB6HDpmMFcR8pE=;
-        b=SzhhE2JDSK3U2UGv5OeztWD86LI0fSSETXx0If1293S79TdxQvllIs2hGxU0WaOP5r
-         UMtgIVY70c0QyH1xhVg4TRVQbooNjc0GHmjFMdv/xJnGzPiX9YEQ1SxMYUExct40XMzU
-         VP7gJd/NoNNfzA453q259aPFZEb4S6QF99KXvcutUwBJ6p6k0jgIJU1ZxtcwCis0ADUy
-         2tjjTUguvWi8SzvKp3m4rJccGsW16D+h/FJ1Y2zVGSlqxIp3ws24zgYK20LQM8SVX/sI
-         qifoCjmC27Vb5K3vmKZP0GlAzYC9gXG7urBi7mweY0FStQRlJeCo1Hkof78zVO63bEyJ
-         kIqw==
-X-Gm-Message-State: AFq9FYIEBkAI6Bl5tsg1p7Cue+AqPZ8zjA6u4RTndgHmyTrSzT4EnICD
-	hbsXQ6QYkEm4iLez4sFFIIXalAyilpd6WR3VPoDAQJSjooEhRqCTrgWAFiD0+iXj428+XPU+2Fh
-	cvoi8dw8=
-X-Gm-Gg: AYBFou1iciYoX2mL1NaVg7Hu66btIqnRNtPUo25oyU/YA8E4nXZ6/lbsIyhd5cpkqMY
-	71eww1wk2XR7mfOvF/sBS/4FEJBCuiXUqn311W+nr+OV+SCXu65F3HKr+YlCiX+eP4vNkSX8CJ1
-	++t1B6tQZ+WDt3G6nx8wW8wZ2WmBbRXb+K98TGDpHrQGFzBvnrdhtWIZgLLtma6dMYbboRbV19p
-	55ssfFjriqzwUZSU/+M6lrSKYR5IM1/3DIEMbSdUiTV5YWYvywdifrUYMzVjWhBkRIi0ZfxWxR2
-	5fPvZP20TMU421x9Iv4025FplnRTx6YQlIFEdj48jxTnOvDYlNGz9KReTrOUigIVhZaSO2HdAWo
-	j2EFj2qUUY6xlmR30sMzTT80APF+JLsvMjWiVtoxBDYnBtZtctoCuvQ+hb8NwA0Me1u0FTtVr5h
-	+0YELgmN4QDazy1F8ZAIpmJoD5z9a+5KiCxKu18qxeDcHpx+DZVuNfGQ9D1V7pwiRPvqo56y+QQ
-	aF6s7qR1KoIdQMf4QNBBA==
-X-Received: by 2002:a05:6000:2505:b0:485:8a47:5b91 with SMTP id ffacd0b85a97d-48dbacf6fc4mr14133924f8f.46.1791798907696;
-        Mon, 12 Oct 2026 02:55:07 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db98c2800sm18539103f8f.26.2026.10.12.02.55.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=0DTUEu+tQMr+K01BzO77MDPNxFso/NrhJ3ycIpr+NMA=;
+        b=oL37kos/jGQc4aTBILl4qFORRfecjQBmN4TyrpaAdvrOqM922u7/nojdVViuphgmZ4
+         abw4D4BRWCinXPmymGtdgOAO16wOWVnGBiJXvDQM40/kI4jav6x0jFeh05uQ388rjZVJ
+         hNoYpM0bLTx6FY4QT8zIoMuMCXq4XEyA434XxZTZ9MvNPGeWvgfJKsJiQ57SKdNL0FYy
+         871siEkEmLDp9fdcIArgbt4M/cznv3CDvVNJeuVB6hsfdrZDBZBb1GR1MCDs7DuBDaOm
+         3TTpYW9Ur2xPaSziSYaZqN9ekjNlTrNzaXXOa/lHuPpjLUOW5cMmZHWRBGMLRWX1OWr5
+         J+xA==
+X-Gm-Message-State: AFq9FYL/1OvBeACCwbWnaXlllMKcWASub1B82ipmUcR2cWVzEAg45B+u
+	9bRhfXL/fVKVnMKt1xQpDpJtgViVvyBsP0CTEyhgzR6QvTQdWNrk81gNMdKbae+xj7Xv4ekcae0
+	8XfGMwJM=
+X-Gm-Gg: AYBFou2X0kPlSR/BjRoOaXv1WHYcdKj0DDFXSyz7EKdiUGOK2iel552FjsyfP+/Dyi9
+	G7NrPEFuxIiN3ZyzJt6LUDavnODUoiTvs+IfO9GEsSC8zEWUhdkE4MpVsow6G7F+GJX4DABD4pB
+	nr0XfOYGUEhsvVbU89yAAV2m8TTJ9k6p+XrtpsXgkIPrynoQRcUwOCy/TmgjO1ky1XXjwCu+yfW
+	woMo57IQ/ROy+l6hY4OV6r80ulII7pcp7Pvwok5E5rUxLkiz41hMeRCSRYPuuZ+rAit7Yc3Hvk/
+	48Gmys2ABz4rkkKJIYLf04Jstv/QabOCWfYunTBU7U3wAecu7QblH1wA3cjhF3YN/796KcJ752m
+	oxBM94EZph8NzB8HvLn4xRpofjD4cd+qU8GzDNqUtD0A4tyZRGTVMIuVZwIfiuwNFVy9QJru7jK
+	FI37uQSoRvr2mTLhpq39GZJx/2MW4zZLHKPoK8yY3RKzA/tlna+4o/T9Bn+gj5og5M5iiZjvq4Y
+	Tc3aYuS77sDSXxxi1fV3Q==
+X-Received: by 2002:a05:6000:298d:20b0:48b:469:b562 with SMTP id ffacd0b85a97d-48dba7b3284mr12398568f8f.2.1791798906038;
         Mon, 12 Oct 2026 02:55:06 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db98c2800sm18539103f8f.26.2026.10.12.02.55.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 02:55:05 -0700 (PDT)
 From: Marco Crivellari <marco.crivellari@suse.com>
 To: linux-kernel@vger.kernel.org,
 	netdev@vger.kernel.org
@@ -74,13 +74,17 @@ Cc: Tejun Heo <tj@kernel.org>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	MD Danish Anwar <danishanwar@ti.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	Richard Cheng <icheng@nvidia.com>
-Subject: [PATCH net-next v4 2/6] net: ti: icssg-stats: Move long delayed work on system_dfl_long_wq
-Date: Mon, 12 Oct 2026 11:54:41 +0200
-Message-ID: <20261012095452.135828-3-marco.crivellari@suse.com>
+	Haren Myneni <haren@linux.ibm.com>,
+	Rick Lindsley <ricklind@linux.ibm.com>,
+	Nick Child <nnac123@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	linuxppc-dev@lists.ozlabs.org
+Subject: [PATCH net-next v4 1/6] ibmvnic: Move long delayed work on system_dfl_long_wq
+Date: Mon, 12 Oct 2026 11:54:40 +0200
+Message-ID: <20261012095452.135828-2-marco.crivellari@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261012095452.135828-1-marco.crivellari@suse.com>
 References: <20261012095452.135828-1-marco.crivellari@suse.com>
@@ -114,28 +118,50 @@ obvious reason that justify the use of a per-cpu workqueue. So change
 system_long_wq with system_dfl_long_wq so that the work may benefit from
 scheduler task placement.
 
-Cc: MD Danish Anwar <danishanwar@ti.com>
-Cc: Roger Quadros <rogerq@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org
+Cc: Haren Myneni <haren@linux.ibm.com>
+Cc: Rick Lindsley <ricklind@linux.ibm.com>
+Cc: Nick Child <nnac123@linux.ibm.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+Cc: linuxppc-dev@lists.ozlabs.org
 Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
-Reviewed-by: Richard Cheng <icheng@nvidia.com>
 ---
- drivers/net/ethernet/ti/icssg/icssg_stats.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/ibm/ibmvnic.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/ethernet/ti/icssg/icssg_stats.c b/drivers/net/ethernet/ti/icssg/icssg_stats.c
-index 7159baa0155c..7d6d6692d819 100644
---- a/drivers/net/ethernet/ti/icssg/icssg_stats.c
-+++ b/drivers/net/ethernet/ti/icssg/icssg_stats.c
-@@ -69,7 +69,7 @@ void icssg_stats_work_handler(struct work_struct *work)
- 						stats_work.work);
- 	emac_update_hardware_stats(emac);
+diff --git a/drivers/net/ethernet/ibm/ibmvnic.c b/drivers/net/ethernet/ibm/ibmvnic.c
+index 5a510eed335e..d4c284c8ef43 100644
+--- a/drivers/net/ethernet/ibm/ibmvnic.c
++++ b/drivers/net/ethernet/ibm/ibmvnic.c
+@@ -3229,7 +3229,7 @@ static void __ibmvnic_reset(struct work_struct *work)
+ 	if (adapter->state == VNIC_PROBING &&
+ 	    !wait_for_completion_timeout(&adapter->probe_done, timeout)) {
+ 		dev_err(dev, "Reset thread timed out on probe");
+-		queue_delayed_work(system_long_wq,
++		queue_delayed_work(system_dfl_long_wq,
+ 				   &adapter->ibmvnic_delayed_reset,
+ 				   IBMVNIC_RESET_DELAY);
+ 		return;
+@@ -3267,7 +3267,7 @@ static void __ibmvnic_reset(struct work_struct *work)
+ 	spin_lock(&adapter->rwi_lock);
+ 	if (!list_empty(&adapter->rwi_list)) {
+ 		if (test_and_set_bit_lock(0, &adapter->resetting)) {
+-			queue_delayed_work(system_long_wq,
++			queue_delayed_work(system_dfl_long_wq,
+ 					   &adapter->ibmvnic_delayed_reset,
+ 					   IBMVNIC_RESET_DELAY);
+ 		} else {
+@@ -3454,7 +3454,7 @@ static int ibmvnic_reset(struct ibmvnic_adapter *adapter,
+ 	list_add_tail(&rwi->list, &adapter->rwi_list);
+ 	netdev_dbg(adapter->netdev, "Scheduling reset (reason %s)\n",
+ 		   reset_reason_to_string(reason));
+-	queue_work(system_long_wq, &adapter->ibmvnic_reset);
++	queue_work(system_dfl_long_wq, &adapter->ibmvnic_reset);
  
--	queue_delayed_work(system_long_wq, &emac->stats_work,
-+	queue_delayed_work(system_dfl_long_wq, &emac->stats_work,
- 			   msecs_to_jiffies((STATS_TIME_LIMIT_1G_MS * 1000) / emac->speed));
- }
- EXPORT_SYMBOL_GPL(icssg_stats_work_handler);
+ 	ret = 0;
+ err:
 -- 
 2.55.0
 
