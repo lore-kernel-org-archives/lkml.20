@@ -1,165 +1,158 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B90143230D
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:57:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E45A21FF2A;
+	Mon, 12 Oct 2026 00:02:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791763053; cv=none; b=M4qZ3+Q5TVcu0hQDreM8CFuqcxkjik/u3nlW7mR9F2HTtiVpT6xlVyp3ZnQ2bWXBpBJDvQOPJmjpjk+pHdqWRZK2IyAalioHpmqjJjUoFBQdSEPBzo06E5SkDnvx2z/HZaopPIB7uq22K3UrwPYOs30YNvHta8iZgh0yF8Pwanc=
+	t=1791763329; cv=none; b=Nvlh+iwh2Ie23GVH6s0DgfMD/3f8RILUjAGEElQS48j8DThAmfvQ4g8GCWMbOGQUYplvMVRVChnjJvaml8OSbCRfzkpUsSdZFC5wBYOISE2iVFKHKuGh24KJIiS2QEcZTVGqyoer2KPA5LcjQj8O1M2zNtMrn1r2p6z0qcQXpa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791763053; c=relaxed/simple;
-	bh=VKnH2yGmZMcFZt2mH89aB22XW2Y4GUfsPSnGPGdpbXA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MecxMrm1sySCVEHkGxi23q+Bj/5jjLMWZDAGXqIve8lYn/85eXF/4v0rFZC93glmxa5+V9cdi7RYzpogftQFXkFj8QpHY111HdXQllQO4eS1SzQdm3yWv0a+YTtRX2dKgdZBMkb2DTfPu64EPRX/CTVvZ6jBltQ5KqhR15/7sR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fEP+gmzr; arc=none smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791763329; c=relaxed/simple;
+	bh=q7xHYe+k0mPe1R+mJYS433as71ocv2X4aSPPcqnLYvI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=q2HhorM0iec6j/fFWw93RRwLjAzXjdISNdrmiPGKpRx9TgBww0KS1h9cwuVHYN3vNlAv9dRgTCFpdI8nRuOG7pTzokr/4f6o9jkMKrbu+FXgFvEnGEcKbTQD6vH/kf7q07IfiLjdOt/jlWDzv+Vtr/6I/AqJLJ5dWvnsTlQzTZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lqFLIEAE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fEP+gmzr"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3514e7cbbbaso3461518eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:57:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791763052; x=1792367852; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cRPcpD4bGybI0n7FRTBMhW8q9yb51oDjvzb7f7KdtWo=;
-        b=fEP+gmzrGAAWoYazsw1jrvz8dHBmNVw4Bj50Xzr84Ev+ScPp3+JoL0cfhHx7Fs6ay9
-         Bv7aZ7MybA2kocEijKfjyyQQhlr+QFwyXzz9jnDxL0RPBs8yTjMNZzQQmjtuFassHZdz
-         vva+L2tbA6moSYZ2AK4A41hiWDJKWNF+84488r2Ci1/BML9JHZ55VPj8im7MstjuKF/R
-         4uNYNsYdX1R/vAL4yzB5xmM5xTxOpW4+MMpy5SPZxA/T2xXRH8MwkZpxwAMqI2kjTXo7
-         kppQVVHrlIQghpYp5p1ahNpEZrHhCJsQrXV9QaV3r2XCN6Hhkr7XJ3m7DsJPNoF+INjp
-         K1jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791763052; x=1792367852;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cRPcpD4bGybI0n7FRTBMhW8q9yb51oDjvzb7f7KdtWo=;
-        b=CQeZZNgTUNHGaKsxT6ODC9KXsPmvusyo05s1ZdA3XUt6vKyYPIWXDm7NS0A2bWnHHB
-         U8vgutPpZ/cjvRwLzz1rbJPQjLBG0auEwV/20I1b39ksPAOHSpA9JaipX+paMeuSwJPx
-         WraL0tnW9KBF9M17Xc6aMnYnTG8PkEq6/mJlm/QqF8sXfbFChgvfWxT+Imj0Upg7gKDZ
-         nI3lmo2t8qO1s/RQCGPnpWYCGYx6yLb+eguYw4ItdSY6yp6CbUEqEXj7H2yUA0CStK2y
-         vbElT+r7rBtmik1EUSzA7wkR5MPwa8x8TN8+2x1KtlNOanHn0XvIZn4BKt2E75Oudv9j
-         rvIw==
-X-Forwarded-Encrypted: i=1; AKwUvBxSQl9Bfj5jUxP+YCRFCaGLA1QjRcZqcyvTRX54GJ+1/SRZHzMinYs7ct/FsDcpZzjjlh+ttJgj8gEyr6c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYthj3O/61wR1c3aSKA3Vvz4bkwNTe4y6UJyy82c9n197TwlnH
-	0nQv3niGzXAr1rkf9kposEPphAxXU7EGx96Y4NWyHCrwvHfKsZZci2Ph
-X-Gm-Gg: AYBFou1B0LAcQeoKiXUStJN/yCq1jYusR6GQK5UvVhhjR86B8QONFY0HlDNwhyHXASg
-	xBlv4/9Kh7D5Kdor01YPabTdxqLRehCeAoK1zCONOgYKg5Yyly6D+PS+l/nrxoZS9RFVmR/rpqq
-	xd3GakXog3XnTjgrsN0bM4HSL5bFa/36WHJABBORDitYQ2rkkMTbP592TpG3S8cZ9UssMMsKLdD
-	7kA1hOUYnmWlnnkPE3Tkndw+ImGP7uXxXw1kpqZDOBgJudY7zXCHjiU1rbSFUdVa2ZFTforHjjM
-	1Q/50Y9ZFZblO1X3Hdyefl0qluLLAa576SI5m1ogRiBwaJ3Ou3Ixvb9rDEqerwDN+E4731Km+S5
-	gwR0otYSE4RL2Ru7h8GcDeOSC6VyqzmNsCwvVCdzIDo0WGCthGYeQAFcUoOW+rs5cz4OW+1z95s
-	p8XtbmEsg5vtwCmBhW7R2doTr2Ptwlbp9I5wIpVs5vQlmKxntKryC4fRj6s+ZCWYolf+2lRvo1z
-	/IIMwRebWDNrqagxll+HmiVDBFbCVWgzEcyfRK5
-X-Received: by 2002:a05:7300:ac81:b0:34b:f456:25ce with SMTP id 5a478bee46e88-3537ddd6fb4mr16618625eec.3.1791763051589;
-        Sun, 11 Oct 2026 16:57:31 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:8999:e631:ed58:366a])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c843079sm26847414eec.1.2026.10.11.16.57.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 16:57:30 -0700 (PDT)
-Date: Sun, 11 Oct 2026 16:57:27 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Christian Lamparter <chunkeey@gmail.com>
-Cc: Christian Lamparter <chunkeey@googlemail.com>, 
-	Kalle Valo <kvalo@kernel.org>, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] wifi: carl9170: revert broken devres conversions
- for input and hwrng
-Message-ID: <aswgwre0SeBnYZwo@google.com>
-References: <20261008-carl9170-reverts-v2-0-3ecb12089797@gmail.com>
- <5771235e-fa91-402a-b5d2-ebb153872c26@gmail.com>
- <aslvBb9VbMvnHmHi@google.com>
- <76210777-9f09-48ce-af97-90fec06a6f84@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lqFLIEAE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A7A41F0089C;
+	Mon, 12 Oct 2026 00:02:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791763327;
+	bh=UOBLYemmNMySix3BY2EnTEqYJu43hmHq/DXqqMBM8PE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=lqFLIEAEHlPW4cfy1h+9Kf9T4Z10wWPgq2PVKAzXmqJ/RFOQP2VuYM4FmH/99GOYW
+	 aHjALvaU0lZUx1D9ZdwGPkS92L7ZHxWpS/QegI68SuVDDotExHIFSoY/RSLHHak4dJ
+	 lO/0RKs60cP5sDWxYw/YvCZ6qUMdNaV6itD6uS0r5xdpG+XjvaPkDv0I34eKSvEGYh
+	 c091zi9moFHz+Z6eyMhXYQ9eAR8LMYsX239Ldi9W8trsCYQTUs8L8RWpkJuXJTqkmf
+	 kViIyINhffiNztV3/BEk2RBdbMw25goa+UxvIqUkZCOX/ljYICiYYnCeaPZrrOcwQA
+	 93exXXblq0X1Q==
+Subject:
+ Re: [PATCH net v2 3/3] ptp: qoriq: fix support for PTP_EXTTS_REQUEST2 ioctl
+From: netdev-bot+sashiko@kernel.org
+To: vjardin@free.fr
+Cc: yangbo.lu@nxp.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ richardcochran@gmail.com, jacob.e.keller@intel.com, kory.maincent@bootlin.com,
+ claudiu.manoil@nxp.com, vladimir.oltean@nxp.com, wei.fang@nxp.com,
+ xiaoning.wang@nxp.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, ioana.ciornei@nxp.com
+Date: Mon, 12 Oct 2026 00:02:05 +0000
+Message-ID: <179176332574.434549.17881202126873427960@kernel.org>
+In-Reply-To:
+ <20261009-for-upstream-qoriq-ptp-extts-flags-v2-3-0f4eeff2295d@free.fr>
+References:
+ <20261009-for-upstream-qoriq-ptp-extts-flags-v2-3-0f4eeff2295d@free.fr>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <76210777-9f09-48ce-af97-90fec06a6f84@gmail.com>
 
-On Sun, Oct 11, 2026 at 04:41:02PM +0200, Christian Lamparter wrote:
-> On 10/10/26 1:13 AM, Dmitry Torokhov wrote:
-> > Hi Christian,
-> > 
-> > On Fri, Oct 09, 2026 at 09:37:36PM +0200, Christian Lamparter wrote:
-> > > On 10/8/26 11:39 AM, Dmitry Torokhov wrote:
-> > > > Commits 23de0fa0d2a0 ("carl9170: devres-ing hwrng_register usage") and
-> > > > 87ddb2fc29f1 ("carl9170: devres-ing input_allocate_device") converted
-> > > > the HWRNG and WPS button input device registrations in carl9170 to
-> > > > devres attached to the parent struct usb_device (&ar->udev->dev) and
-> > > > removed explicit unregistration from carl9170_unregister().
-> > > > 
-> > > > In carl9170_usb_disconnect(), the driver calls carl9170_unregister()
-> > > > followed immediately by carl9170_free(), which frees struct ar9170
-> > > > inside the interface .disconnect() callback before devres_release_all()
-> > > > runs. Furthermore, devres on &ar->udev->dev is not released on
-> > > > interface unbind or registration failure in carl9170_register().
-> > > > As a result, both the WPS input device (whose input->name and
-> > > > input->phys point into freed memory) and the embedded struct hwrng
-> > > > remain registered after struct ar9170 has been freed, leading to
-> > > > use-after-free bugs.
-> > > 
-> > > Ok, so you just reworded your patch? Sight...
-> > 
-> > Yes, as I promised I would.
-> > 
-> > > looking at the WPS input
-> > > 
-> > > |        input->name = ar->wps.name;
-> > > |        input->phys = ar->wps.phys;
-> > > |        input->id.bustype = BUS_USB;
-> > > |        input->dev.parent = &ar->hw->wiphy->dev;
-> > >            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> > > 
-> > > the input's dev.parent is set to ar->hw->wiphy->dev and not ar->udev->dev, right?
-> > > Does this do anything at all? If not, why? The wiphy gets shutdown by
-> > > ieee80211_unregister() and having the "freeing" stick around after the USB device
-> > > is gone should not hurt, right?
-> > 
-> > devm_input_allocate_device() explicitly states:
-> > 
-> > 	NOTE: the owner device is set up as parent of input device and
-> > 	users should not override it.
-> 
-> Yeah, and this is something you added in 2012... 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Yes, in the same patch where devm_input_allocate_device() was
-introduced. This requirement was there from the very beginning.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-> The carl9170 code driver is back from 2010.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-No, the devm conversion was done in 2022, 10 years later.
+- [Medium] The commit message says that making the legacy
+  PTP_EXTTS_REQUEST ioctl strict "cannot be avoided", because the core…
 
-> 
-> So, was this changed to "break it", rather than the driver?
+--
 
-The conversion to devm in the driver was broken on arrival.
+ptp: qoriq: fix support for PTP_EXTTS_REQUEST2 ioctl
 
-> 
-> From my POV: What's the point of devres then?
+This patch sets .supported_extts_flags in ptp_qoriq_caps to
+PTP_RISING_EDGE | PTP_STRICT_FLAGS, so that the PTP core stops rejecting
+every PTP_EXTTS_REQUEST2 request. Because of this, the legacy
+PTP_EXTTS_REQUEST ioctl now also rejects falling-edge and both-edge
+requests.
 
-In certain situation it allows to reduce amount of boilerplate code in
-the driver. But it has be to be used properly. One of the most important
-thinks it attaching resources to the right device and not mixing managed
-and noon managed resources in the same driver, as that very often causes
-incorrect order on unwinding.
+> This also makes the legacy PTP_EXTTS_REQUEST ioctl strict: a request for
+> the falling edge, or for both edges, now fails with -EOPNOTSUPP instead
+> of being timestamped on the rising edge. That cannot be avoided: the core
+> adds PTP_STRICT_FLAGS to every PTP_EXTTS_REQUEST2 request, so a driver
+> has to declare it to accept them, and once declared it applies to both
+> ioctls.
 
-> And why are you so "eager" to revert the changes.
+> diff --git a/drivers/ptp/ptp_qoriq.c b/drivers/ptp/ptp_qoriq.c
+> index 76272e5ac5b85..bcd29104effe7 100644
+> --- a/drivers/ptp/ptp_qoriq.c
+> +++ b/drivers/ptp/ptp_qoriq.c
+> @@ -355,6 +355,7 @@ static const struct ptp_clock_info ptp_qoriq_caps = {
+>  	.n_per_out	= 0,
+>  	.n_pins		= 0,
+>  	.pps		= 1,
+> +	.supported_extts_flags = PTP_RISING_EDGE | PTP_STRICT_FLAGS,
 
-Because I have to deal with syzhot reports routed to me and I would
-rather not.
+[Severity: Medium]
+Is the "cannot be avoided" part of the commit message accurate?
 
-Humor me: why are you so against reverting the change? I have shown that
-it is problematic. You can go back and re-introduce devm for input once
-the rest of the driver is ready.
+In ptp_extts_request() in drivers/ptp/ptp_chardev.c, the strict bit is
+only added for PTP_EXTTS_REQUEST2. For the legacy ioctl it is always
+removed by the mask:
 
-Thanks.
+drivers/ptp/ptp_chardev.c:ptp_extts_request() {
+    ...
+	if (cmd == PTP_EXTTS_REQUEST2) {
+		/* Tell the drivers to check the flags carefully. */
+		req.extts.flags |= PTP_STRICT_FLAGS;
+    ...
+	} else {
+		req.extts.flags &= PTP_EXTTS_V1_VALID_FLAGS;
+    ...
+}
+
+PTP_EXTTS_V1_VALID_FLAGS contains only ENABLE, RISING and FALLING. The
+.enable callback can therefore tell the two ioctls apart by checking
+PTP_STRICT_FLAGS in rq->extts.flags.
+
+Drivers in the tree already do this. mv88e6xxx declares
+RISING | FALLING | STRICT and rejects the unsupported edge combination
+only for strict requests:
+
+drivers/net/dsa/mv88e6xxx/ptp.c:mv88e6352_ptp_enable_extts() {
+    ...
+	if ((rq->extts.flags & PTP_STRICT_FLAGS) &&
+	    (rq->extts.flags & PTP_ENABLE_FEATURE) &&
+	    (rq->extts.flags & PTP_EXTTS_EDGES) == PTP_EXTTS_EDGES)
+		return -EOPNOTSUPP;
+    ...
+}
+
+sja1105 does something similar in sja1105_ptp.c.
+
+Could qoriq do the same? It would declare PTP_RISING_EDGE |
+PTP_FALLING_EDGE | PTP_STRICT_FLAGS in ptp_qoriq_caps. Then
+ptp_qoriq_enable() would return -EOPNOTSUPP when STRICT, ENABLE and
+FALLING are all set. That fixes PTP_EXTTS_REQUEST2 and leaves the legacy
+ioctl lenient. enetc_ptp.c also uses ptp_qoriq_enable(), so the same
+check would cover enetc.
+
+As written, with the Fixes: tag, this is going to stable. Legacy
+PTP_EXTTS_REQUEST calls on QorIQ timers that ask for the falling edge or
+for both edges now fail with -EOPNOTSUPP. Before this patch they
+succeeded and were timestamped on the rising edge. Commit 7c571ac57d9d
+calls the legacy edge flags hints that are not expected to be enforced.
+
+testptp hits this path. Running it with -e and -E 2 or -E 3 sends
+PTP_EXTTS_REQUEST with PTP_FALLING_EDGE set.
+
+If the stricter legacy behaviour is intended, could the commit message
+say that a lenient alternative exists, rather than saying the change
+cannot be avoided?
+
+>  	.adjfine	= ptp_qoriq_adjfine,
+>  	.adjtime	= ptp_qoriq_adjtime,
+>  	.gettime64	= ptp_qoriq_gettime,
 
 -- 
-Dmitry
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009-for-upstream-qoriq-ptp-extts-flags-v2-0-0f4eeff2295d%40free.fr
