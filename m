@@ -1,105 +1,183 @@
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED483612E2
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:43:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41043135A53
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:44:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791776612; cv=none; b=gbGM0OYr9loWk7Ti1g4ksHmO0I47pgb0B+w+AEpI/ZTLhDbfXTzYOPdOYqHItqatvI4MhMsPhf5cqoe7FbergV9NiNNWQL6SjxL2mumLcWm49HUf1HpCn4hRHZXjTqAfxFn2uBG73U5fPU1mXXg0m2r1C2STRT/Q4O6raZNg/2M=
+	t=1791776668; cv=none; b=cm/CAOV8F5uuVHVb7o5pZhTxWTBbncjQVn5HOAZfS6RBKyPM9sa15cLnMGt5T1Lg7KoxIoJJuIwFKHOlKSlW6wZQrBg4BqzDWRasIDjqVfUSUYZSHUte5vMh104dLpWoS3IKdsU0OttFBk1bSbbWCmvf4JKIAojbD6D3IcGPLU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791776612; c=relaxed/simple;
-	bh=U+UQAp7kh/x98hIsREfVhOUGHXS7swVH17fKKU0GUDM=;
-	h=Cc:Message-Id:In-Reply-To:To:From:Content-Type:Subject:
-	 Mime-Version:References:Date; b=QDH3BJv6mKGo6KHnIrldqQ5foFkfNvrdumBvxb5W6N8fVxtYvR6ySc4oS1AiLJMQqNoBU+gIQpHbGODSfr+tHoN1htFQha5+hYOtaVaH8Xh0ILIFcTlEwKv2YeUiOeJ15QoMTKGFt/KqgWR+rYnmX4BDdlKsH8dEX++zH3ShuQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=c2yys3v3; arc=none smtp.client-ip=209.127.230.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1791776668; c=relaxed/simple;
+	bh=cDHIvCHfrPPpF0uIa80vtI94kyvi5BHR+PWTlzNWHtw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 References; b=nbwqPRBUBDF2Ejhusrc/4voTAn+i7Hg3kDbL+BuU5FqoyPcKnaH0xIoTos8x5CAbVHR8rPlNIQ/H0IgRJf16LEODaRkQRINRCh2a5kSG3n5hNAnE0u5vSYIbo030kS3q1JXF9NZ6ryGojE3oRlI24iltxV3Cu45gW3sUVrkH3/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=Huff7BvX; arc=none smtp.client-ip=203.254.224.25
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="c2yys3v3"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1791776605; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=QizeKpOU35qee0IxFSKyyUgNJ+iSR0wduoFJXf9eATQ=;
- b=c2yys3v3TmJT+MeKsUkCmEqVsxFI4R7C05IXeppAAgfvE2qY6Ss4RcxSI8pBjw9umJOOFF
- fPIP3tbtu160YuM/dEttKnlZaFp+6PUDeA1dIAgz6OUOe/UDL875lxkGt+0md+biDiTdNO
- ZcydWXHMm6RL9SDkUUNet4400DVU3MDqWWl0Evr1tonojOulA75FtXukFJZDzOSeasIo5C
- Mo/bwuw633fN9jlqndo4thFNlRqBVpMQ6kXqk0piuNN9xQgu/YnY6IBitJqaQMiGWQBn2t
- IkLettndh0PgPVV0IhAQZlfzwZ92Nm3054nnCTKGhQsw3obq/1jLfDKWf4pWeA==
-Cc: <linux-kernel@vger.kernel.org>, "Chuyi Zhou" <zhouchuyi@bytedance.com>
-Message-Id: <cddb2fae2bf241316978aa7f4b3fc945560b7be7.1791443164.git.zhouchuyi@bytedance.com>
-In-Reply-To: <cover.1791443164.git.zhouchuyi@bytedance.com>
-Content-Transfer-Encoding: 7bit
-To: <tglx@kernel.org>, <mingo@redhat.com>, <luto@kernel.org>, 
-	<peterz@infradead.org>, <paulmck@kernel.org>, <muchun.song@linux.dev>, 
-	<bp@alien8.de>, <dave.hansen@linux.intel.com>, <pbonzini@redhat.com>, 
-	<bigeasy@linutronix.de>, <clrkwllms@kernel.org>, <rostedt@goodmis.org>, 
-	<nadav.amit@gmail.com>
-From: "Chuyi Zhou" <zhouchuyi@bytedance.com>
-X-Lms-Return-Path: <lba+26acc575b+308d5f+vger.kernel.org+zhouchuyi@bytedance.com>
-X-Mailer: git-send-email 2.20.1
-Content-Type: text/plain; charset=UTF-8
-Subject: [PATCH v3 5/5] x86/mm: Re-enable preemption before waiting for kernel TLB flushes
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="Huff7BvX"
+Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261012034424epoutp02b4d17cadfdcec099a2540ce4f4f249cc~dq2H3WfH-1392313923epoutp02B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:44:24 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261012034424epoutp02b4d17cadfdcec099a2540ce4f4f249cc~dq2H3WfH-1392313923epoutp02B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791776664;
+	bh=FKgnRa88XvLVectNV+hOOXwkCVWe2eQs0wALqoY1YFc=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=Huff7BvXLpQVQC48gLPLneH307P/BC4ifrmNDX6wTl4nsVyCvggj7y9X7a9fMQmnq
+	 Lj/kiX9wvUO40fDH3DSUWehggDUriOFeTCwPW34ItwwXvmxmHkblz/4szSd/KXaVRG
+	 h9iMIt+5Tf0pn0Tpi91g2N3vmQjBWu7FMETnBeaQ=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
+	20261012034423epcas2p46c5847be0e19609d4f25b88c9d8b32a6~dq2HgANk42036120361epcas2p4x;
+	Mon, 12 Oct 2026 03:44:23 +0000 (GMT)
+Received: from epcas2p1.samsung.com (unknown [182.195.38.211]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4j33HW282Fz6B9m9; Mon, 12 Oct
+	2026 03:44:23 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261012034422epcas2p486b38818b542d2fff5b5fed58863ec6e~dq2Gu5xML2036120361epcas2p4v;
+	Mon, 12 Oct 2026 03:44:22 +0000 (GMT)
+Received: from ubuntu.dsn.sec.samsung.com (unknown [12.81.221.204]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261012034422epsmtip1c189b2c0afcf1d05e4decae3125711e2~dq2GqO_R50647706477epsmtip1i;
+	Mon, 12 Oct 2026 03:44:22 +0000 (GMT)
+From: Daehwan Jung <dh10.jung@samsung.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org (open list:USB SUBSYSTEM),
+	linux-kernel@vger.kernel.org (open list), selvarasu.g@samsung.com, Daehwan
+	Jung <dh10.jung@samsung.com>
+Subject: [PATCH] usb: gadget: uvc: reserve frame interval headroom for the
+ zero length backlog
+Date: Mon, 12 Oct 2026 12:40:18 +0900
+Message-Id: <20261012034018.3193146-1-dh10.jung@samsung.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Original-From: Chuyi Zhou <zhouchuyi@bytedance.com>
-References: <cover.1791443164.git.zhouchuyi@bytedance.com>
-Date: Mon, 12 Oct 2026 11:41:25 +0800
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261012034422epcas2p486b38818b542d2fff5b5fed58863ec6e
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261012034422epcas2p486b38818b542d2fff5b5fed58863ec6e
+References: <CGME20261012034422epcas2p486b38818b542d2fff5b5fed58863ec6e@epcas2p4.samsung.com>
 
-flush_tlb_kernel_range() uses on_each_cpu() to synchronously flush
-kernel mappings on all online CPUs when using the IPI backend.
+uvc_video_prep_requests() spreads a frame over every service interval of
+the negotiated frame interval:
 
-The synchronous wait can become longer as the number of online CPUs
-grows, and a remote CPU with interrupts disabled can further delay
-completion. Preemption remains disabled throughout this wait, delaying
-higher-priority tasks on the initiating CPU. The outer guard prevents
-the SMP layer from making its final completion wait preemptible.
+	nreq = DIV_ROUND_UP(video->interval, interval_duration);
 
-The flush_tlb_info descriptor is allocated on the caller's stack and
-remains valid until on_each_cpu() returns. The SMP layer protects CPU
-selection, IPI queueing and local callback execution, so the kernel
-flush caller does not need to remain pinned while waiting for remote
-completion.
+and uvc_buffer_prepare() then splits every buffer into exactly
+reqs_per_frame requests - only the request size varies, never the count.
+So transmitting one frame always occupies nreq service intervals, 100% of
+the frame interval, with nothing left over.
 
-INVLPGB requires separate protection: TLBSYNC only waits for operations
-issued on the same CPU. Disable preemption inside
-invlpgb_kernel_range_flush() across the broadcast loop and TLBSYNC.
-The full-flush helper invlpgb_flush_all() already provides this
-protection.
+That budget cannot be met. While no video buffer is available,
+uvcg_video_hw_submit() deliberately keeps a backlog of zero length
+requests queued to the endpoint:
 
-Remove the outer preemption guard from flush_tlb_kernel_range() so the
-IPI completion wait can be preempted when the caller's context allows
-it. Keep both flush backends synchronous.
+	if (list_empty(&video->req_free) ||
+	    (atomic_read(&video->queued) > UVCG_REQ_MAX_ZERO_COUNT)) {
 
-Signed-off-by: Chuyi Zhou <zhouchuyi@bytedance.com>
+Up to UVCG_REQ_MAX_ZERO_COUNT + 1 of them are in flight whenever the
+encoder is late, each occupying a service interval that carries no
+payload, and the ring is FIFO so they all drain before the next frame's
+payload moves. The frame period is therefore reqs_per_frame plus that
+backlog, always longer than the frame interval the host asked for. The
+UVCG_REQ_MAX_ZERO_COUNT compensation already in this function only sizes
+the request pool; it buys the backlog no time.
+
+At 60fps over SuperSpeed with bInterval 1 the backlog is 33 of the 133
+intervals a frame interval has - 4.125ms, a quarter of the budget. The
+waste is a fixed count, so it hurts in inverse proportion to the frame
+interval: 24.8% at 60fps down to 6.2% at 15fps.
+
+Reserve it. Measured on a SuperSpeed gadget (isoc IN, wMaxPacketSize
+1024, bMaxBurst 2, bInterval 1) running the Android DeviceAsWebcam
+service, as reported by the CTS Verifier "Camera - Webcam" test, next to
+the rate the microframe accounting predicts:
+
+  target   predicted  measured  |  predicted  measured
+            (before)  (before)  |   (after)    (after)
+    60        47.9       46     |    59.7        56
+    30        26.7       26     |    30.0        28
+    24        21.8       22     |    24.5        22
+    15        14.1       13     |    16.0        13
+
+Before, the prediction matches the measurement at every rate - this
+function was the limit. After, 60 and 30fps move up with the budget,
+while 24 and 15fps do not move at all even though their ceiling now
+exceeds the target. At those two rates the remaining gap is on the buffer
+supply side, not here.
+
+req_size grows in proportion, 376 -> 495 bytes for the frames measured
+here. That costs no isochronous bandwidth: it stays far inside what the
+endpoint descriptor already reserves, so the clamp below is not reached
+and the host does not have to re-reserve anything.
+
+Fixes: 48dbe731171e ("usb: gadget: uvc: set req_size and n_requests based on the frame interval")
+Signed-off-by: Daehwan Jung <dh10.jung@samsung.com>
+Assisted-by: Claude:claude-opus-5
 ---
- arch/x86/mm/tlb.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/usb/gadget/function/uvc.h       | 10 ++++++++++
+ drivers/usb/gadget/function/uvc_video.c | 15 ++++++++++++++-
+ 2 files changed, 24 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
-index 2213f1a6f9e1..0deec9e664b8 100644
---- a/arch/x86/mm/tlb.c
-+++ b/arch/x86/mm/tlb.c
-@@ -1468,6 +1468,9 @@ static void invlpgb_kernel_range_flush(struct flush_tlb_info *info)
- {
- 	unsigned long addr, nr;
+--- a/drivers/usb/gadget/function/uvc.h
++++ b/drivers/usb/gadget/function/uvc.h
+@@ -74,6 +74,15 @@
+ #define UVCG_REQ_MAX_INT_COUNT			16
+ #define UVCG_REQ_MAX_ZERO_COUNT			(2 * UVCG_REQ_MAX_INT_COUNT)
  
-+	/* Keep the INVLPGB operations and TLBSYNC on the same CPU. */
-+	guard(preempt)();
++/*
++ * Service intervals of a frame interval that must not carry payload: they
++ * absorb the up to UVCG_REQ_MAX_ZERO_COUNT + 1 zero length requests that
++ * uvcg_video_hw_submit() keeps queued while it waits for a video buffer, or
++ * 1/UVCG_REQ_HEADROOM_FRACT of the frame interval, whichever is larger.
++ */
++#define UVCG_REQ_HEADROOM_COUNT			(UVCG_REQ_MAX_ZERO_COUNT + 1)
++#define UVCG_REQ_HEADROOM_FRACT			8
 +
- 	for (addr = info->start; addr < info->end; addr += nr << PAGE_SHIFT) {
- 		nr = (info->end - addr) >> PAGE_SHIFT;
+ #define UVCG_STREAMING_MIN_BUFFERS		2
  
-@@ -1509,8 +1512,6 @@ void flush_tlb_kernel_range(unsigned long start, unsigned long end)
- 		.end = end,
- 	};
+ /* ------------------------------------------------------------------------
+--- a/drivers/usb/gadget/function/uvc_video.c
++++ b/drivers/usb/gadget/function/uvc_video.c
+@@ -501,7 +501,7 @@
+ 	struct usb_composite_dev *cdev = uvc->func.config->cdev;
+ 	unsigned int interval_duration;
+ 	unsigned int max_req_size, req_size, header_size;
+-	unsigned int nreq;
++	unsigned int nreq, headroom;
  
--	guard(preempt)();
--
- 	if (tlb_range_exceeds_ceiling(start, end, PAGE_SHIFT))
- 		flush_tlb_all();
- 	else
+ 	max_req_size = video->max_req_size;
+ 
+@@ -521,6 +521,20 @@
+ 
+ 	nreq = DIV_ROUND_UP(video->interval, interval_duration);
+ 
++	/*
++	 * Not all of those intervals can carry payload: the zero length
++	 * requests uvcg_video_hw_submit() queues while it waits for a buffer
++	 * have to drain first, and uvc_buffer_prepare() splits a buffer into
++	 * exactly reqs_per_frame requests regardless. Reserve them, unless
++	 * that would claim more than half of the frame interval - a frame
++	 * interval that short cannot absorb the backlog either way, and
++	 * nreq - headroom would underflow.
++	 */
++	headroom = max_t(unsigned int, nreq / UVCG_REQ_HEADROOM_FRACT,
++			 UVCG_REQ_HEADROOM_COUNT);
++	if (nreq > 2 * headroom)
++		nreq -= headroom;
++
+ 	header_size = nreq * UVCG_REQUEST_HEADER_LEN;
+ 
+ 	req_size = DIV_ROUND_UP(video->imagesize + header_size, nreq);
+-- 
+2.43.0
+
