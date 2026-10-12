@@ -1,70 +1,72 @@
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FF74BB80D
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:46:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBEF32D7DD7
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:48:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819984; cv=none; b=aOFwzs89ob8FS5CSBEGsrWwJFuZxB/Q+EBqVX5q4VKnVV1D1f6Rztf5PhI3J6/NVJp92NhHiJNEWThHUVYgCAvIid4x3HktT5LM5qRNWl+C3/pmlJX2ec5Kt9Y4iylZEmiJoytr6hwiSmEDcidLXfrGKd95p6qt06t4mOAHgMfs=
+	t=1791820089; cv=none; b=gAk8RsQe6AEhTRMNXgVcCOgUu4zY8juA2EHf596shLAwKlgjkdClUiJQs9zwjla0uSspEvRPz3QS7Ic+Rskcfer84a1JD0xL3gQq3bZb1MY7F+KxHIyzNEj9I8wYrR2ApQZ0VTWOSG78roxDHrgvr/pdFWbprBuGPH21WxSZn28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819984; c=relaxed/simple;
-	bh=WsYQRqZVkYfAC0uocIQCG3hADVXXJg52uM4QwsZS/VM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FOSb1OEIRJ0prP+vyxhWjNyMSQTnmut7ZG8OCD3nuZi1KedwAoSex2L5ELRH8//SGQ49sP5p+0p7/vL4N/Tp2L5qfObP3j0UgB2RwnmJnieIgvTkPl1xPmXBh1Gy5bmIQ6u0B/XGqgGFzMA9744tHetdkydloS+dawy/bGfjF5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pJ9KvtdX; arc=none smtp.client-ip=74.125.82.41
+	s=arc-20240116; t=1791820089; c=relaxed/simple;
+	bh=joa6RM6ktxOVQDu2XvVi6s+0Yg0dPrzFg1gFR3Nr0a8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e5AovjfwkeJWwYy82IOmDHO8eqIiMzhEX68YH2mxcGXvrPMcamgqb4xtprBvyXJWOmliT5FpIE7cyTAZkb+rz5C/3RNegLkxlKo8zP9+Hm+Eyvql62W+wj9DUXgYM6drT60RODLlxGDNxaI2lFcS/Xcbyr5kqP1/1U5YVprj4M0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L1RtzEAW; arc=none smtp.client-ip=74.125.82.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pJ9KvtdX"
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1419d3416ceso2720413c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:46:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L1RtzEAW"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35834f72d94so3444748eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:48:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791819982; x=1792424782; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791820087; x=1792424887; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NAuVFfQbxwKnXcYGVkoP45E/v8P/ovYGz0j3wut9/Dk=;
-        b=pJ9KvtdXW+l9rUsPrCdb6JKioO2Prixdx4MaCp5jAIuyBohZmCvXTgX2Z0Haz2Sgfw
-         31NHqmiImhmH6W2byXMbbRYcIobhKGM28Alqoh3udIy9fDXR8snKpIEzGCWPctq4geNY
-         1V1ChZznBgrMv+0ONzjoDRxxWT326BRWTJ+w5dnM1xivr/2ixMdWfZ7nkM8VlyBaLaqz
-         m0CSrPNjP8M0eIpxkBHoWI/2fCExSlQ4pPwmnO5kVUfAsVtnhLzKQaRaAjl/SWmw9r3k
-         och8Vr/IVrKls9MdH81qSvxGQygU4NAHbYsyf231+KbGpck9BaNsEKro+ICl2/GIvlM7
-         lzfg==
+        bh=9/p9hlIUpy4pciplLAexWshVdUELSi1RJnPYvzK8GQA=;
+        b=L1RtzEAWzk3npGSueZLjJQHQH3Vd7WTFRXAJZsfY6UNUw7c1swjkmw3LiUW/6yIjhQ
+         E38j5l4Ta0+1HN+ZJYP9et9/J0UERugkwFuFtUld6w7Kjggc9sEismudnWsZ6/RYXF6B
+         6Ny2tFopPC+n3dHGErF496udH6Npan/WEJWAZVNnXfwdQ16S8QYaWPJOxXLtlUF6dF5k
+         78Rj3JwgsfhOYa51pOQ1Sfk6F4t6yV9r/1EwHWi3d8Wi+AJzRu557KWVYAmulX2kW/ia
+         tIhkNZzhg7tSrz6VrqZWEQLZ3WmZLbZEn1MDRjr7xvrQVhxhhQDYMnsbWrQzYgPSTPpt
+         XFMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791819982; x=1792424782;
+        d=1e100.net; s=20260707; t=1791820087; x=1792424887;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NAuVFfQbxwKnXcYGVkoP45E/v8P/ovYGz0j3wut9/Dk=;
-        b=Wu1cnlATx0I9S2wOfQ46ck5h6LDu5fx+vc1Zy6NcsS+53vHi9OZ2dyGFuYh5aAzHWD
-         nhU8LL/pFg1ax3SklGJDYECe3QPe56URdbvCegrM3U1mrdYnIrE4rgJIkpzMS1j68Mwe
-         rY2zuevjC1pwTZft2O+xYcnIxy9tEHMwrvpWybVDsOiIxjykVYUZd2b5MDHlw8QVelNJ
-         fk5EhRlDC8uft5lBzqHBqdrHkBN+B17Az3WuA7kborV3WuRblBGu0TYFBSn09WaKibfd
-         hOZQ4PMWloPJ6bH+bE2ia+9N4iBr/JbBlGsu0XnuCHNGsTwJJnURGGqydOqIlT2YMuEh
-         +zNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxaykRa082dlXNATAH38D5uGpFbjYkWqptVbulaRWd0aOrgwBPH0dGQRR8EeRnVkRe7YAgLpdKMlKin9Jk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKnwAmHaFgk0dNTVSA9Mg5hYniwba9sTvj49jkx2W/tSK1G1tfF
-	iAsYnrtYdB8tbwvZsiLk7moHyox9cd7hLTH2xURrvUtOC8Y/QFEeEvWH
-X-Gm-Gg: AYBFou1iTeD7Wqw7IH3vk8KLJF8gcK4bTGddxCdYHRtrOw6nJJp9am78ak/O4HqpWBz
-	WfAeg9pnojL0Pcen9ugiR6XsGvMPTUJQTUEEeGrHd6gRTheRFLgh2TxiMBqF00xYSUX2wCCivV5
-	K3/ld/qA8RAh+ZfNDBIh1bvIrvlqcr7erY10APXUnXUxirYg3d84xI3Ukb108YKk/K8pNoAm1uA
-	H4my2RlQyn0TBkA7BqzJlsn7/1W79tOGKk7Xf9dz9DrwNoyC7RisuVWJOotBqTU6d0ufV/666IA
-	SFtXlJgcK4l2ZHbzP65uEIsISNJykw5Ir4P/CE8YC71meMsb7+C7s/4eBcvXq1mxAixwSGMxmYE
-	Vzor0NC+oP4oCLELVrUeehWSdqrt36Wpy6iMFpC6064SH+STQwX9JSTUKbMWMChB1YpixxTI+P5
-	W01DcOyKbsXQT/R23a8g6+3R/NuGgsFDOiuRTQmc4DFjxRoCyIqFBjuFLhNXy7rda03XRw846ej
-	uTSJw8g9Gu0Jzyf/EB5+Vhbka7dWTYUplZCiqKFiZMYMECKOXZilPL6X6GIPKbo+94cOJTM
-X-Received: by 2002:a05:7022:ea8c:b0:149:1feb:6dae with SMTP id a92af1059eb24-16a62bcc7c8mr12280029c88.39.1791819982235;
-        Mon, 12 Oct 2026 08:46:22 -0700 (PDT)
+        bh=9/p9hlIUpy4pciplLAexWshVdUELSi1RJnPYvzK8GQA=;
+        b=UDSniM8+S+97K4d0yX8ZxL3z9aF/v6Sd2/Mz1e4VzTk0vTGHZo483cSVWpwrLU8jes
+         742060nDCQxeRP5PvLCvRCXizTYLQm6oYMVOTKKG09G41RadCc05r3Q7gWZHh1BTPWrb
+         IgtauvcnSVZleWBIxk9EwrMsRqIbaPh9orZXECJ00ZMzdkoW2C3EvaW7kFPLv9qtWYsR
+         3DOoDThDv0UDVcPYtjtIBD6bb1EYGlkdQe6G19f7z77zxy2898Yu1C+ToRNycDKTi1HG
+         0/B/5dvDqeRxt9Q6AfRADXB+t3p8my9gLoFan79/kaU4lPcLzuQ+mMSHqSnwMnmD5JdR
+         ACjA==
+X-Forwarded-Encrypted: i=1; AKwUvBw5VScVto+ipjbJVjXDjpjp0vaH6BEz6HtvwbIx2qmcZP7Ja3umYXjOdaYqp3CxVALsjwcH8HaogeZE2A8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAYgf+KrBA53hQpNmSh15bId48htFEw1DPlgYtFYQ+zNhMVREO
+	wxWk7IadCWckdAVmId+QQcA8bWIX7Xgxp7Yi9/EptDLmr9JLqeIHB9Sb
+X-Gm-Gg: AYBFou2Yoei4P/tnidoOrwYO0pr3VqOgbMyYbnFIir+Z67ZN83ZfiAhSbG6lZRtxQVC
+	ZwcNv8jrozRafd0F95Njs7DGKYi1pv9k+OVtGwG9qMk9cYclYWxTdp+b7fBfpTBKwiQinYe4iwz
+	MB3OzjzPIzVn1UrXEwyRV4OKN9aWHNpLOAHPD8JGjVuljEQqAtmJjjIpRp57KzH7pVu9DaXE3Xk
+	5fgruA9qVXBfAHUVFu7Ud+3MQzitD28wBZFSG8NauwyJObF0tDAI/57iCfAIzgf89Dar0LBWk7U
+	dXlEoAODa7YFgivDrhBk0C9wx7y5FtUXVa3m2/X7sYhhXQOmSDhnbvNQ4GHnz+G8MUVFylxHeHO
+	ZPqJeC35bX0O5c6fSETRndOUX83r6DRJULkQmAmSNDZ9eZplM3Mhj0txKFepjYbjaiw4JfirE4T
+	/XZTaKlktVD/Pqi1Wfzlb2Q8wTuxUuO2GN4sCIzRxqhcxhpJ7C/HTlMIB9D6uDmaCU5nP03Zhk2
+	TGYWmQSLGJy/khiDe36gt08E2BV1AMqeRvViR7ZuBIYS19JS9Xk9FiECvOQN2szSqJkzZbj3g==
+X-Received: by 2002:a05:7301:619c:20b0:35a:ca1e:511b with SMTP id 5a478bee46e88-35aca1e547emr3700116eec.36.1791820086698;
+        Mon, 12 Oct 2026 08:48:06 -0700 (PDT)
 Received: from localhost.localdomain ([2405:201:301c:f8cd:c1bb:8d21:6c07:8107])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becf08sm33838996c88.5.2026.10.12.08.46.19
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35b690af3easm6256328eec.1.2026.10.12.08.48.04
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 12 Oct 2026 08:46:21 -0700 (PDT)
+        Mon, 12 Oct 2026 08:48:06 -0700 (PDT)
 From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: linux-pm@vger.kernel.org,
+To: Jeff Chen <jeff.chen_1@nxp.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: [PATCH] power: supply: sgm41542: Use secs_to_jiffies()
-Date: Mon, 12 Oct 2026 21:16:12 +0530
-Message-ID: <20261012154614.42203-1-sinha.aryan03@gmail.com>
+Subject: [PATCH wireless-next] wifi: nxpwifi: Use str_on_off() helper
+Date: Mon, 12 Oct 2026 21:17:54 +0530
+Message-ID: <20261012154759.42423-1-sinha.aryan03@gmail.com>
 X-Mailer: git-send-email 2.46.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,36 +76,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Both watchdog kicks are a flat five seconds written the long way. Use
-secs_to_jiffies() from the same header instead.
+Both carrier prints open code the on/off ternary. Use the helper from
+string_choices.h instead. No change in output.
 
 Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
 ---
- drivers/power/supply/sgm41542_charger.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/wireless/nxp/nxpwifi/debugfs.c | 5 +++--
+ drivers/net/wireless/nxp/nxpwifi/main.c    | 5 +++--
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/power/supply/sgm41542_charger.c b/drivers/power/supply/sgm41542_charger.c
-index 888096252..118b4c700 100644
---- a/drivers/power/supply/sgm41542_charger.c
-+++ b/drivers/power/supply/sgm41542_charger.c
-@@ -468,7 +468,7 @@ static int sgm4154x_set_watchdog_timer(struct sgm4154x_device *sgm, u8 time)
- 		if (!sgm->watchdog_enable)
- 			queue_delayed_work(sgm->sgm_monitor_wq,
- 					   &sgm->sgm_delay_work,
--					   msecs_to_jiffies(1000 * 5));
-+					   secs_to_jiffies(5));
- 		sgm->watchdog_enable = true;
- 	} else {
- 		sgm->watchdog_enable = false;
-@@ -970,7 +970,7 @@ static void sgm_charger_work(struct work_struct *work)
- 	if (sgm->watchdog_enable)
- 		queue_delayed_work(sgm->sgm_monitor_wq,
- 				   &sgm->sgm_delay_work,
--				   msecs_to_jiffies(1000 * 5));
-+				   secs_to_jiffies(5));
- }
+diff --git a/drivers/net/wireless/nxp/nxpwifi/debugfs.c b/drivers/net/wireless/nxp/nxpwifi/debugfs.c
+index ccaf0eae3..fc2f188fc 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/debugfs.c
++++ b/drivers/net/wireless/nxp/nxpwifi/debugfs.c
+@@ -6,6 +6,7 @@
+  */
  
- static void sgm4154x_disable_irq_wake(void *data)
+ #include <linux/debugfs.h>
++#include <linux/string_choices.h>
+ 
+ #include "main.h"
+ #include "cmdevt.h"
+@@ -98,8 +99,8 @@ nxpwifi_info_read(struct file *file, char __user *ubuf,
+ 	p += sprintf(p, "num_rx_pkts_dropped = %lu\n", priv->stats.rx_dropped);
+ 	p += sprintf(p, "num_tx_pkts_err = %lu\n", priv->stats.tx_errors);
+ 	p += sprintf(p, "num_rx_pkts_err = %lu\n", priv->stats.rx_errors);
+-	p += sprintf(p, "carrier %s\n", ((netif_carrier_ok(priv->netdev))
+-					 ? "on" : "off"));
++	p += sprintf(p, "carrier %s\n",
++		     str_on_off(netif_carrier_ok(priv->netdev)));
+ 	p += sprintf(p, "tx queue");
+ 	for (i = 0; i < netdev->num_tx_queues; i++) {
+ 		txq = netdev_get_tx_queue(netdev, i);
+diff --git a/drivers/net/wireless/nxp/nxpwifi/main.c b/drivers/net/wireless/nxp/nxpwifi/main.c
+index 9e1334810..4d77b9ecf 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/main.c
++++ b/drivers/net/wireless/nxp/nxpwifi/main.c
+@@ -5,6 +5,7 @@
+  * Copyright 2011-2024 NXP
+  */
+ 
++#include <linux/string_choices.h>
+ #include <linux/suspend.h>
+ 
+ #include "main.h"
+@@ -1088,8 +1089,8 @@ void nxpwifi_drv_info_dump(struct nxpwifi_adapter *adapter)
+ 			     atomic_read(&priv->wmm_tx_pending[3]));
+ 		p += sprintf(p, "media_state=\"%s\"\n", !priv->media_connected ?
+ 			     "Disconnected" : "Connected");
+-		p += sprintf(p, "carrier %s\n", (netif_carrier_ok(priv->netdev)
+-			     ? "on" : "off"));
++		p += sprintf(p, "carrier %s\n",
++			     str_on_off(netif_carrier_ok(priv->netdev)));
+ 		for (idx = 0; idx < priv->netdev->num_tx_queues; idx++) {
+ 			txq = netdev_get_tx_queue(priv->netdev, idx);
+ 			p += sprintf(p, "tx queue %d:%s  ", idx,
 -- 
 2.46.0
 
