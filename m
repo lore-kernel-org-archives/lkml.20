@@ -1,261 +1,147 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0B638398F
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:07:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6D54DD3BC
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:08:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791835675; cv=none; b=nTU9SB0OmC4zLxc7gBzap8NDP4aqJM4ZgEyu5WBo4FJbsbO4JDzYOhPFiqQ/nvNmjK9qhF/1Wkm/ysZpKI8p9xNdDrAVinA489qWlgW3k/A6A8D85gVk2XHihr8gBjWr/9VRkRA4Glz08v3xR2GysMzRlxKXfT38/yHMv8iSQKs=
+	t=1791835712; cv=none; b=Hj8cU9cvMR0wUVCrRfX9Ql07VdYlwkpk1R3wwoYUW4CaYWqfXfWuvtHI1DurWo3IbRW4W8ezuZEMUQMmCcqQd5H0C+hy8akhjdJOJ/vOxvQI2sU0DpfNaMMsZ7SFAzlHapG5Sc4xz+VE+pea1xeebh88SFmqmqdkKm8O5FtIHzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791835675; c=relaxed/simple;
-	bh=hZeN90OHi8JsYAC1LGoWi61Ik6KxYl2x+M733vRSzv4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=iFFpD8GxtgewFAGKrAYz2pbwCidzpiDnUamNnitHz9o6p1P2e4/uRs736IFFCPtP2x8zmgsM3/u4Fsz8hcKpTifB9Qf0axPRNw2uYTAZFNExtmGmg4Zip8+sS27J6vpTIYauCgp2EnXZgc6SLe6MLXYP5CKczROpa86n/8dCGfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SnPeH8uz; arc=none smtp.client-ip=209.85.215.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	s=arc-20240116; t=1791835712; c=relaxed/simple;
+	bh=tge+8N4eSTSVxeb5T2g4NYzIYsLGM11CHJPIBUanVCo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RnsCQYlVysQNhgERiJr9XO4Y/8cFltFegh4oYABOqWp/Cv/wdizlp7WQbaMCSOXNOedt2NH3GmJUr//SG6CroB9eG0LzL1QNt1LoGbJ/2gbDwvDOQyLZXToV+Igkd6KxP3umNt3kk+snETweQ214p9dW+teLRE2ZJeKG7LjG7N8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=utexas.edu; spf=pass smtp.mailfrom=utexas.edu; dkim=pass (2048-bit key) header.d=utexas.edu header.i=@utexas.edu header.b=M9fkdbg9; arc=none smtp.client-ip=209.85.160.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=utexas.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=utexas.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SnPeH8uz"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd3b9e70f88so2970650a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:07:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=utexas.edu header.i=@utexas.edu header.b="M9fkdbg9"
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-43bf9548df4so1950178fac.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:08:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791835673; x=1792440473; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2PABba6DbeMdjCfPcszkJEKZ4VosjTV2kGe/Y+FbUHM=;
-        b=SnPeH8uzwHbhtJtgXccFOrpYwGvTTyNZPmttm1MLY7s2Ve+Mu0i0lXt7hQdgGKP+Db
-         bM21uwz2tbSsQtJ+V8+kj96GvHPypWKuTc2YsskA804M9t/3HvXo5RmWfHAFW7dWiHeu
-         ovRyOiaOyjP+7oalLINCHzoTV0aAW1Pvb27Gd1W/0086xDGTmg2OW9v28SiU+twD16dO
-         L63+Y/StRdIbG3sg6LdhEF36atMH/oE/pRUaqo3S9kx2V9iY2v4UgHIXxKj+z8ezBX3Z
-         5uR4ARLw32pBnJWsld2ZcOWv1cmqCoJc2ewVUsNnCJS3ZV6qybue6mI8Z2KnlPOv0w/r
-         63qg==
+        d=utexas.edu; s=google; t=1791835706; x=1792440506; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C5VkKI5ZAzJ6cEJcZ3ResShuIP8Oeib9ArzUWA2J4tg=;
+        b=M9fkdbg9oiUR9MvmIL5n3SoAp88IGIoCOqSXpJe6wHoxkP3iB6yYIDx/UqQuM/qLNZ
+         a5JZhiriVPhZqGxO4bNwFmt46vvXT9e078ZdPz/XTg3qUbgv74CiNdSDdNHGIqW9A2k9
+         kza3Qpe2AoKHpJF9yPqHooXmZKzYRS21SaHrUlkUcP7Fb06s0KFN8HRp7fT8Lfk7MOLr
+         prkgDYkwAE6IAeas/1hIXWazbaBGcg+48I8b8cg1nMCAcYfyHM09n/hxc6timQtzRE2c
+         CQXJMvFHO3MK30fiQK5rGGVxE98d/bVB/y4AoCzKZ5uHqfO8eiMQsa9IVJbGwU8I3ABc
+         c/NA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791835673; x=1792440473;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791835706; x=1792440506;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2PABba6DbeMdjCfPcszkJEKZ4VosjTV2kGe/Y+FbUHM=;
-        b=TzYjQbZh8CnOStjm3wh8C3J+8inWDT3TkWtzngjC4TSnKflDrls7hiYH6BhNzoOyVu
-         CPUT/GiTU7TwkzRnr5wJM9qeyiVXFe6l6k5OIx65YEUtnQkCKBVIcH4Zf1q3bN/wEOPW
-         R2uwapspb3EM9qbmKXQqNQbgTqmbuaFzrsXdQ71Am7J9bUT6cFwJatlSReNKj8BgGTXk
-         +Ee9XBCN29bu31T2GVGngNMxWTN21d9zl3gvTC5wp6ed15FelMbjfO/V2Qxb4zwxKd0r
-         DKLatFymH/AUh9J6oTq/UHCXVZ29DETfwOqFXUrDiHiGzVCwO0G7mjGVVPWd0wbHVSdT
-         75Ew==
-X-Forwarded-Encrypted: i=1; AKwUvByTDGFMLQOm/+zFb2IVc/FUSTNOVRtbuRIq46GNgl8DVkeKKNYnFwKdrn17KX0W3rN12X/pVP6+0IeALYM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItooz7kjmr+vskmDRrcUjCFh5n5Kci44PSbW5dkhf/9mdSEgRt
-	/6IRIUF3OWmcM3k4MUhG6QVc43awDzvBDlZI9vuuQc/3SA3MWcCCTatfIAifks8xcOKV9/ouqRj
-	o2dQyPw==
-X-Received: from pgvi17.prod.google.com ([2002:a65:61b1:0:b0:cd4:ef82:4e33])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6300:6cc1:10b0:3e1:7746:637c
- with SMTP id adf61e73a8af0-3e17746749bmr4905404637.51.1791835673305; Mon, 12
- Oct 2026 13:07:53 -0700 (PDT)
-Date: Mon, 12 Oct 2026 20:07:37 +0000
-In-Reply-To: <20261002173844.3537111-1-nicoyip.dev@gmail.com>
+        bh=C5VkKI5ZAzJ6cEJcZ3ResShuIP8Oeib9ArzUWA2J4tg=;
+        b=k2fhgWOY3n/Ki+PVKJB+vnZ9RbacHUs8OqW+xTSlbscKFLjmd2VyBAxjQrumci6vEn
+         f3KowZMSD2eObvnopTNk5z1h1Gq04p2+oSFhAN68b3vDhn88QiVOf23pYshYZGwIiaUH
+         W0t0M1yHnY+oK2ShBQskd01v+vj+bVEzKuHgJrvfoERpPnV9YGGoDLNQJcr6WaAYgqpT
+         T+Hpviy0B2dIFhWZI6ROGSV8/Me1LVTATAH3wlWEDBJfXPhnoY0gqLrPrQcnZlDa/zZ2
+         AgjB+iHIREtCbYZvJh2Glu053nTezxgCXF3za1QQ8u0ELSXm7U5PJ/xyyIYYmKmx9F0w
+         aFxA==
+X-Forwarded-Encrypted: i=1; AKwUvByfyBfCc153Cx5mU3fPLn8EZvi2VY99JDymjOgle6VxDHWfgDd9MEWh8BgZcrQnYKCVvCN2Lqx3/uXGP0I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBV2JJmhLzSdKglD/h46Rtb+z42PpQ+6qzQIYdIFxQu6eloqm6
+	SqIUq3Fxftl9GhUrltSlh08YHw0DIxP8c62CKhFf1VsRXhyG+b6PrQPFkUrmsj7FQt8=
+X-Gm-Gg: AYBFou1WkXygfJZobo88eUosXfbtuFikt2lwoPYVj58b0y+6GCW4I3eaQU1DH8EMAUp
+	ABv8NBesa/YCruGnWUSEYL4fdy51Kvq7udZ1GobtiNTdwu9alSQVD12ljKGgaLTOXUOKbotJsgd
+	R1KRWzu6A3/53diEQc6lZ+ipYPoPVPZ89sZxILQ/HhlOXtY7LqW8gCYzbkXDw+7wCNS3twNteaZ
+	0CYCaucMkHAvfCZNdcA6z2UOvi6jK+0qXlWUOhFyuX2j53goSz5mGAIVdenaBhkfpN6roIvWX9Y
+	i1KTwvJWgk4Du85WUxLkvV6xAdddWfgA6Q9vZkp4RJ8SKiSOo3nxWYt6Kq+rSA1ntY4cov6KOtg
+	VxEsF87XQVXiLqagi7dttopboWuGe7wCbqXsBwxlbu6oY7Fu35a4eBg7Lk1wnwCNvWbOK/EIdOm
+	HJ9UhDcAEyykbZGDbtO2JhsA5JjhDPxxG6p/BYwGGiT5qTLk4RhEQ2fytZyUGa8BXkiln/YVzJj
+	GcnYv/vY7kbBhnCiALGLA==
+X-Received: by 2002:a05:6870:63aa:b0:493:ab63:38b2 with SMTP id 586e51a60fabf-4a2a8b0cf44mr8930726fac.57.1791835706237;
+        Mon, 12 Oct 2026 13:08:26 -0700 (PDT)
+Received: from paizhang-U9.taila8073d.ts.net ([70.116.71.224])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a6aca4711csm2166166fac.4.2026.10.12.13.08.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 13:08:25 -0700 (PDT)
+From: Peizhe Liu <peizheliu@utexas.edu>
+To: Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	iommu@lists.linux.dev,
+	linux-mm@kvack.org,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] iommu/sva: Charge IOPF allocations to the faulting mm's memcg
+Date: Mon, 12 Oct 2026 15:08:23 -0500
+Message-ID: <20261012200823.699316-1-peizheliu@utexas.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261002173844.3537111-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261012200752.3771786-1-kuniyu@google.com>
-Subject: Re: [PATCH net v4] net: pin protocol module before inet socket allocation
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: nicoyip.dev@gmail.com
-Cc: davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	pabeni@redhat.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Sat,  3 Oct 2026 01:38:44 +0800
-> inet_create() and inet6_create() look up the protocol under RCU, then drop
-> RCU before using the resulting proto. A concurrent module unload can
-> unregister the protosw, wait for the RCU readers, and destroy the proto's
-> slab before sk_alloc() uses it. sk_alloc() may sleep, so the RCU read-side
-> critical section cannot simply be extended across the allocation.
-> 
-> The reported failure occurred during concurrent L2TP socket creation and
-> module unload:
-> 
->   Oops: general protection fault, probably for non-canonical address
->         0xffff1108974182a0
->   KASAN: maybe wild-memory-access in range
->          [0xfff8a844ba0c1500-0xfff8a844ba0c1507]
->   RIP: kmem_cache_alloc_noprof+0x63/0x370
->   Call Trace:
->    sk_prot_alloc+0x74/0x2c0
->    sk_alloc+0x2b/0x6c0
->    inet_create+0x2cd/0xd40
->    __sock_create+0x1c3/0x430
->    __sys_socket+0x116/0x1d0
-> 
-> Cache the proto and its owner under RCU and acquire a temporary module
-> reference before dropping RCU. This prevents normal module unload while
-> the proto is in use. sk_prot_alloc() takes the socket's own reference;
-> drop the temporary reference on every exit after allocation. Use the
-> cached proto for the IPv6 backlog callback as well.
-> 
-> Use try_module_get() with its existing initialization semantics. SCTP
-> creates its kernel control socket during module initialization, so
-> rejecting MODULE_STATE_COMING would prevent modular SCTP from loading.
-> Failed module initialization can still unwind published protocols despite
-> module references; that separate publication/unwind lifetime issue is not
-> fixed here.
-> 
-> Fixes: a79af59efd20 ("[NET]: Fix module reference counts for loadable protocol modules")
-> Cc: stable@vger.kernel.org
-> Assisted-by: GPT-6-Astra
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-> ---
-> Changes in v4:
-> - Remove the MODULE_STATE_COMING rejection. SCTP creates its kernel control
->   socket from module init and must be allowed to use the published protosw.
+iommu_sva_handle_mm() runs from the IOPF workqueue and calls
+handle_mm_fault() for the faulting mm, but does not set the active
+memcg. File-backed faults can allocate page cache through
+mem_cgroup_charge(folio, NULL, gfp), which falls back to the root memcg
+when the worker has neither an active memcg nor a current->mm. Page
+cache faulted in by a device is therefore charged to root and escapes
+the task's memory.max.
 
-You can filter the case by @kern.
+Set the active memcg to the one associated with the faulting mm while
+handling the fault, and restore the previous value afterwards.
 
-sockets created from __init_net functions always have
-@kern=true otherwise we cannot tear down netns.
+Fixes: fc36479db74e ("iommu: Add a page fault handler")
+Signed-off-by: Peizhe Liu <peizheliu@utexas.edu>
+---
+Tested on a Xeon Gold 5512U with Intel DSA, based on iommu/next.
+Before/after testing confirmed that the block-on-fault case charges
+the page cache to the task's memcg after this change and is subject
+to memory.max.
 
+ drivers/iommu/iommu-sva.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-> - Keep the owner cached under RCU and use the cached proto for IPv6 backlog
->   setup, retaining those v3 changes.
-> - Scope the module-reference guarantee to normal module unload. The earlier
->   review's initialization-failure unwind concern remains a separate issue;
->   rejecting all initializing modules is not a compatible solution.
-> - Rebase onto net/main at a7bfaba4823e.
-> 
-> v3: https://lore.kernel.org/r/20260904111514.584264-1-nicoyip.dev@gmail.com/
-> Review: https://lore.kernel.org/r/178887699602.219967.13594894510710999619@kernel.org/
-> v2: https://lore.kernel.org/r/20260825172349.232794-1-nicoyip.dev@gmail.com/
-> v1: https://lore.kernel.org/r/20260823171311.3857087-1-nicoyip.dev@gmail.com/
-> 
->  net/ipv4/af_inet.c  | 14 +++++++++++---
->  net/ipv6/af_inet6.c | 16 ++++++++++++----
->  2 files changed, 23 insertions(+), 7 deletions(-)
-> 
-> diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
-> index 32d006c1a8ee..c956afa65ec4 100644
-> --- a/net/ipv4/af_inet.c
-> +++ b/net/ipv4/af_inet.c
-> @@ -263,6 +263,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
->  	struct inet_protosw *answer;
->  	struct inet_sock *inet;
->  	struct proto *answer_prot;
-> +	struct module *answer_owner;
->  	unsigned char answer_flags;
->  	int try_loading_module = 0;
->  	int err;
-> @@ -322,9 +323,14 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
->  	    !ns_capable(net->user_ns, CAP_NET_RAW))
->  		goto out_rcu_unlock;
->  
-> -	sock->ops = answer->ops;
->  	answer_prot = answer->prot;
-> +	answer_owner = answer_prot->owner;
->  	answer_flags = answer->flags;
-> +	if (!try_module_get(answer_owner)) {
-> +		err = -EPROTONOSUPPORT;
-> +		goto out_rcu_unlock;
-> +	}
-> +	sock->ops = answer->ops;
->  	rcu_read_unlock();
->  
->  	WARN_ON(!answer_prot->slab);
-> @@ -332,7 +338,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
->  	err = -ENOMEM;
->  	sk = sk_alloc(net, PF_INET, GFP_KERNEL, answer_prot, kern);
->  	if (!sk)
-> -		goto out;
-> +		goto out_module_put;
->  
->  	err = 0;
->  	if (INET_PROTOSW_REUSE & answer_flags)
-> @@ -398,6 +404,8 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
->  		if (err)
->  			goto out_sk_release;
->  	}
-> +out_module_put:
-> +	module_put(answer_owner);
->  out:
->  	return err;
->  out_rcu_unlock:
-> @@ -406,7 +414,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
->  out_sk_release:
->  	sk_common_release(sk);
->  	sock->sk = NULL;
-> -	goto out;
-> +	goto out_module_put;
->  }
->  
->  
-> diff --git a/net/ipv6/af_inet6.c b/net/ipv6/af_inet6.c
-> index 282912a11999..9db60af6f38d 100644
-> --- a/net/ipv6/af_inet6.c
-> +++ b/net/ipv6/af_inet6.c
-> @@ -110,6 +110,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
->  	struct sock *sk;
->  	struct inet_protosw *answer;
->  	struct proto *answer_prot;
-> +	struct module *answer_owner;
->  	unsigned char answer_flags;
->  	int try_loading_module = 0;
->  	int err;
-> @@ -167,9 +168,14 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
->  	    !ns_capable(net->user_ns, CAP_NET_RAW))
->  		goto out_rcu_unlock;
->  
-> -	sock->ops = answer->ops;
->  	answer_prot = answer->prot;
-> +	answer_owner = answer_prot->owner;
->  	answer_flags = answer->flags;
-> +	if (!try_module_get(answer_owner)) {
-> +		err = -EPROTONOSUPPORT;
-> +		goto out_rcu_unlock;
-> +	}
-> +	sock->ops = answer->ops;
->  	rcu_read_unlock();
->  
->  	WARN_ON(!answer_prot->slab);
-> @@ -177,7 +183,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
->  	err = -ENOBUFS;
->  	sk = sk_alloc(net, PF_INET6, GFP_KERNEL, answer_prot, kern);
->  	if (!sk)
-> -		goto out;
-> +		goto out_module_put;
->  
->  	sock_init_data(sock, sk);
->  
-> @@ -201,7 +207,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
->  	sk->sk_family		= PF_INET6;
->  	sk->sk_protocol		= protocol;
->  
-> -	sk->sk_backlog_rcv	= answer->prot->backlog_rcv;
-> +	sk->sk_backlog_rcv	= answer_prot->backlog_rcv;
->  
->  	inet_sk(sk)->pinet6 = np = inet6_sk_generic(sk);
->  	np->hop_limit	= -1;
-> @@ -251,6 +257,8 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
->  		if (err)
->  			goto out_sk_release;
->  	}
-> +out_module_put:
-> +	module_put(answer_owner);
->  out:
->  	return err;
->  out_rcu_unlock:
-> @@ -259,7 +267,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
->  out_sk_release:
->  	sk_common_release(sk);
->  	sock->sk = NULL;
-> -	goto out;
-> +	goto out_module_put;
->  }
->  
->  int __inet6_bind(struct sock *sk, struct sockaddr_unsized *uaddr, int addr_len,
-> 
-> base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
-> -- 
-> 2.43.0
+diff --git a/drivers/iommu/iommu-sva.c b/drivers/iommu/iommu-sva.c
+index 9827cb804363..9a825fac61a5 100644
+--- a/drivers/iommu/iommu-sva.c
++++ b/drivers/iommu/iommu-sva.c
+@@ -2,6 +2,7 @@
+ /*
+  * Helpers for IOMMU drivers implementing SVA
+  */
++#include <linux/memcontrol.h>
+ #include <linux/mmu_context.h>
+ #include <linux/mmu_notifier.h>
+ #include <linux/mutex.h>
+@@ -220,6 +221,7 @@ iommu_sva_handle_mm(struct iommu_fault *fault, struct mm_struct *mm)
+ 	unsigned int access_flags = 0;
+ 	unsigned int fault_flags = FAULT_FLAG_REMOTE;
+ 	struct iommu_fault_page_request *prm = &fault->prm;
++	struct mem_cgroup *memcg, *old_memcg;
+ 	enum iommu_page_response_code status = IOMMU_PAGE_RESP_INVALID;
+ 
+ 	if (!(prm->flags & IOMMU_FAULT_PAGE_REQUEST_PASID_VALID))
+@@ -255,7 +257,11 @@ iommu_sva_handle_mm(struct iommu_fault *fault, struct mm_struct *mm)
+ 		/* Access fault */
+ 		goto out_put_mm;
+ 
++	memcg = get_mem_cgroup_from_mm(mm);
++	old_memcg = set_active_memcg(memcg);
+ 	ret = handle_mm_fault(vma, prm->addr, fault_flags, NULL);
++	set_active_memcg(old_memcg);
++	mem_cgroup_put(memcg);
+ 	status = ret & VM_FAULT_ERROR ? IOMMU_PAGE_RESP_INVALID :
+ 		IOMMU_PAGE_RESP_SUCCESS;
+ 
+
+base-commit: c233d59828627bfaab750ec5546e81970475f951
+-- 
+2.53.0
+
