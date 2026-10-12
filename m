@@ -1,150 +1,100 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686E627FD74
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:04:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B7E46EF6A;
+	Mon, 12 Oct 2026 09:04:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791795868; cv=none; b=VJpaSy6AFPIKsNynR4aObOpngV3PCI/mrhtWo7GVtRlm5lc3zOd8bwTj46/yArRBwityUdR3cukbEau6CRJNJbFtM089d0o8oAxIu3qZNprgwh+hHUbfd6HpteeRS3ChieMzUMgoRhaOiQaV/dGpKq0OtSRG80ay7phNygiYNUs=
+	t=1791795878; cv=none; b=Jh1qMBWfw47JLD+qTf06e+4nRc0EwEEKaPHl811N2boniFqQBCPHEocvuZPvi7FDLU3Prbp0hzYouakY6qnQpXnzUjNEiiRWRaP6JkJvX/vSrMCqE6jkeZdwO1w9W38sIXHdZd4WsMjvfrPtkIX6V2P+Qe4GSrffOdyFnEDBPGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791795868; c=relaxed/simple;
-	bh=Z9sdoXZiCAvXUksggZN7Bwbtvi9NyuLIEb/gHrd8Sbs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=V2We79/RVdIMmrukCD55hBbmKQM6tKhS3vLSkWBT/8bccmeQqBpGUbGacTFiQjMJAWRvxNXetvh9RQimTGb+H1a+c4sFRQBayr1hoFvWmCySzkSeycR5hgtfUPc2CB41tXj8duAWCth9ue0vxOfgeToDJqFJmGzA5o7F4ngooe0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=RqRZQvaW; arc=none smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
+	s=arc-20240116; t=1791795878; c=relaxed/simple;
+	bh=F+hU7zwvoM4jrDZHnAy/AVYIpxeYgHOwQ6w9X6A+J/4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZuFQ94aIk5ohtk4xN87TxyXFV5qNUaY8ZxXwPfTOukKOIVjjaTMlb13X0Q3hLY+X9o6XMYioBGAzSaaqLBZGiJozhIw6aMbNMRcS4dpgGkjKot+cs0V6Obxq9LG2UM1+E9C+tWE6ZEVsh0oTQhfPJDRzgzzVzOqWBIYdVhT8/WM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MU553+qa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="RqRZQvaW"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6ab006eb282so2058274a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:04:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1791795866; x=1792400666; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lSSxuYb41ZPYRHGZDzePbKtEh17LW+nxXJKra7Xv65k=;
-        b=RqRZQvaWT6xBe7H/A9rPcDR10OJ0lzcEhoftxyQHMqEMmm/Y+wBquD75iUQZdKrcHa
-         34xDMG9TegiVuEpiCu032EoQiF6Ph6lhXHwpw8HB97VqlIvvVH7IGdMFqJ9K2A1VVica
-         Dz+KfYa97gfH78yWoe9otJEtJ6KqAEc4UH2x8XqGiWZ87F0Ec9xJhG43cMTLl9Lh/3bq
-         uUlfw997l/EHUeElgLCrYljXqq0v+R623wuUHZ5lioDpenb5sdCEj+67/RpWEkZ90m4m
-         qUhgB0oDj8X8Vpwkg+NFzHkZ+qEDsKo+p2H1MO1n3xOUYch+lCuO5fxfDDm7sC06kkbM
-         eC1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791795866; x=1792400666;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=lSSxuYb41ZPYRHGZDzePbKtEh17LW+nxXJKra7Xv65k=;
-        b=jy9vrdO2xhEW5hgEUYxWs5zpHotu4XJ8Bczln6EaZWCE8LcSPwWeS+J7yuxE8KEdXu
-         sRA23Ud9WRtB2tNW1gfLrjxw/HGxH8o+BZ4DLY6lOs58rxFlOTlM462mVwyiumaOKRXp
-         eiMuBi4ixgMHqByVng4EigMwWRgRZKrjBnkd0cXN9we1yub6skKh/S5alywIemE2f7iy
-         u2+ifmu9qSXdl9XiWaZsI8Z4lNauANpA5VtDEuoRtcKeu2y5PyobuMc3dZzibqD3C36K
-         QYc7oN9xfPbu95YPVTAof0b4+ijUIIjNSvRdwNtmdsMuhXAfMra5RhZdCf5ckn/irCno
-         Jgmw==
-X-Forwarded-Encrypted: i=1; AKwUvBwrBM0DQ5gnKgOoaRHDHxQ8DT+gRP0WjB7l6t9KZVqp0gM60kJJZL8goYqR8V4iuqLNEhXfDtGQSZkG0sc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILcl9TmWG9ghQ9Qw9Eiw70/Fpnc4B0MYWO82gfVqhVHoEAJDfw
-	r7KLiV36/fqp0AQBcj2w2sMubRUzbFfDV/1qXoqG+lSeb66zSrD5XU36Ake75NFiQlR9kbsK5ns
-	qRJsjl8Y=
-X-Gm-Gg: AYBFou07LVqt6tiH1ndtGHCePt49Ne1GGCGxqjsbiRwgBtG6L6g/zWME9uDeMzBNbHA
-	QKBHL3/BWiBVs9ht5lbiPYKh0CqFjfggkWF2KsU5PDTbnSJ/tJRP5N1Lks789ifXm2A7GpdyyVx
-	5Zdb7rpgJqp7U3UkB2+YzM1wUFJxziu+CbEa/O/MprAtTuUwsmpsCS7Vxd6MSiBSAKvI+3PpdoZ
-	lw/2eW6K1mqWAKJTcdqj1NRfALmbCvcXi5ME+ZITVydy4CjVaV05Lsv9D0uaP2UE7zqBvlfiN5u
-	+yNI0SqdbJ9ERCf0oa+Qk0zcBq08yJit7CeFYerfYuWtFvPtjZR+FqD7rNFqmLtuvkLE4OdRKUG
-	66ZQ0RlYH/Us/cg+jHXKlGWfSZ+MXLZwXW9c4yX40Vq2REtXBndL4bv/TrmcGXymDkNCvfIwEo/
-	V4FNyAzbFnxsVmbGWegYgkPi2RtYt0I9QBGYclSIitBvSmmoGBJDoWIvpdbnUpXGiaVvFkRpvl/
-	iqrM3pIs5/HNX7NrNcVdX32J7UInT4gQ1NdgPdMF6HHfc1/ZGCFkGAsL9X5+W2n7AIl5zGdyjc7
-	+VO6q4iJz7e6og==
-X-Received: by 2002:a05:6402:321c:b0:6af:9bef:cf75 with SMTP id 4fb4d7f45d1cf-6b17c1e03e9mr7944049a12.4.1791795865570;
-        Mon, 12 Oct 2026 02:04:25 -0700 (PDT)
-Received: from cloudflare.com (2a01-110f-491b-1300-bcd0-2dc6-3ac4-45a2.aa.ipv6.supernova.orange.pl. [2a01:110f:491b:1300:bcd0:2dc6:3ac4:45a2])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179e03428sm4548461a12.37.2026.10.12.02.04.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 02:04:25 -0700 (PDT)
-From: Jakub Sitnicki <jakub@cloudflare.com>
-To: Jan-Gerd Tenberge <janten@gmail.com>
-Cc: bpf@vger.kernel.org,  ast@kernel.org,  daniel@iogearbox.net,
-  john.fastabend@gmail.com,  jiayuan.chen@linux.dev,  edumazet@kernel.org,
-  kuniyu@google.com,  pabeni@redhat.com,  willemb@google.com,
-  davem@davemloft.net,  kuba@kernel.org,  horms@kernel.org,
-  yonghong.song@linux.dev,  netdev@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH bpf] bpf, sockmap: Fix UAF when map user reference is
- revived
-In-Reply-To: <20261008095656.92793-1-janten@gmail.com> (Jan-Gerd Tenberge's
-	message of "Thu, 8 Oct 2026 11:56:56 +0200")
-References: <20261008095656.92793-1-janten@gmail.com>
-User-Agent: mu4e 1.14.1; emacs 30.2
-Date: Mon, 12 Oct 2026 11:04:24 +0200
-Message-ID: <87v777jnmv.fsf@cloudflare.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MU553+qa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C17491F0089E;
+	Mon, 12 Oct 2026 09:04:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791795876;
+	bh=qCxhAANfVhEXP/8xHY5Cud2Gow55mujn4jh7Fzm4A04=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MU553+qaNz6AzM0rba9oPDtYAkVfgFIRPAleDgwX/MJuDW4F3MO5Ab1lel9UKN+rw
+	 8wl2G7QX1trbND/URMezfF6ZQh0fNHdBP7EKcNIK0DpVft9LYaG38OkB1kU1o8sq7m
+	 2WTbwTnCB63x69o0EnbCyUD5co5Yqgsu/Gt11p/2sMSf3IrWFjCQeBarvkjLonb1Fd
+	 i4u9RiQ8BBPw/e0uUOY5yOqsxBSxTR+6f4y2BgxA6z1c7q1Duw3hgYE0ocqEnp603B
+	 uHVJBd+tgxo6VcR/195SnRZAf9liKGrNAy/ge9eDKHpYpWU+KcXR6VZ3T79p0apd1h
+	 EMZ7V9TV1li8Q==
+From: Kees Cook <kees@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Kees Cook <kees@kernel.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	llvm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [PATCH 3/3] objtool: Skip jump table jumps in the kCFI indirect call check
+Date: Mon, 12 Oct 2026 02:04:26 -0700
+Message-ID: <20261012090436.1676525-3-kees@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261012090424.i.497-kees@kernel.org>
+References: <20261012090424.i.497-kees@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1669; i=kees@kernel.org; h=from:subject; bh=F+hU7zwvoM4jrDZHnAy/AVYIpxeYgHOwQ6w9X6A+J/4=; b=owGbwMvMwCVmps19z/KJym7G02pJDFlnFs3irS5IOrOg6v9TTQuP5Rqrvq1Zvv+axBbOLyd4M /escGG27ShlYRDjYpAVU2QJsnOPc/F42x7uPlcRZg4rE8gQBi5OAZiIxxVGhrcL3flNC4N2T147 oYJ/ptxj1QrPgKMXHhrIzTVaELaojYeR4eRGPpY4x1RLh/iDHbUTWP0l/55VEvl0aXam2sGr1q2 VjAA=
+X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 08, 2026 at 11:56 AM +02, Jan-Gerd Tenberge wrote:
-> bpf_map_put_uref() invokes map_release_uref after usercnt reaches zero,
-> before bpf_map_put() drops the map reference. BPF_MAP_GET_FD_BY_ID can
-> find the map during that callback and raise usercnt again.
->
-> The sockmap and sockhash release callbacks unconditionally drop programs
-> without taking sockmap_mutex. A concurrent attach through the revived fd
-> can therefore publish a new program before the stale callback drops it.
->
-> For a bpf_link attachment, this leaves plink set while pprog is NULL, so
-> link release warns and leaves the attachment slot unusable. The callback
-> can also drop the program between sock_map_prog_update() and the later
-> bpf_prog_inc(). If the program fd is closed concurrently, this removes
-> the last reference and schedules an RCU free. The subsequent increment
-> then resurrects a zero reference and leaves link->prog pointing to memory
-> that will be freed. A KASAN reproducer triggers a slab-use-after-free when
-> reading information from that link.
->
-> Triggering the race requires CAP_SYS_ADMIN in the initial user namespace,
-> because reviving the map uses BPF_MAP_GET_FD_BY_ID. A deterministic KASAN
-> reproducer is available privately on request. It was used to verify the
-> UAF before this change and its absence afterwards.
->
-> Serialize the release callbacks with program updates using sockmap_mutex
-> and recheck usercnt under the mutex. If the map was revived, leave its
-> programs intact. Move the map user-reference put in link release outside
-> the mutex to avoid recursively taking sockmap_mutex when it drops the last
-> user reference.
->
-> Fixes: 699c23f02c65 ("bpf: Add bpf_link support for sk_msg and sk_skb progs")
-> Assisted-by: LLM
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jan-Gerd Tenberge <janten@gmail.com>
-> ---
+With MITIGATION_RETPOLINE=y, GCC lowers the computed goto in
+___bpf_prog_run() to a jump through __x86_indirect_thunk_rdx. objtool
+puts that jump on the retpoline call list along with the indirect calls,
+so with CONFIG_CFI=y the kCFI check wants a UD2 before it:
 
-Please include KASAN report in the description.
-That helps others find that the issue they hit has been fixed.
+  vmlinux.o: warning: objtool: ___bpf_prog_run+0x1e: no-cfi indirect call!
 
-[...]
+The jump goes through the "jumptable" array, which objtool already reads
+from .data.rel.ro.c_jump_table, so its targets stay inside the function
+and need no kCFI check. Skip jump table jumps in the check. Clang does
+not emit this jump: with retpolines, it lowers the computed goto without
+an indirect jump.
 
-> @@ -1743,6 +1750,7 @@ struct sockmap_link {
->  static void sock_map_link_release(struct bpf_link *link)
->  {
->  	struct sockmap_link *sockmap_link = container_of(link, struct sockmap_link, link);
-> +	struct bpf_map *map = NULL;
->  
->  	mutex_lock(&sockmap_mutex);
->  	if (!sockmap_link->map)
-> @@ -1751,10 +1759,12 @@ static void sock_map_link_release(struct bpf_link *link)
->  	WARN_ON_ONCE(sock_map_prog_update(sockmap_link->map, NULL, link->prog, link,
->  					  link->attach_type));
->  
-> -	bpf_map_put_with_uref(sockmap_link->map);
-> +	map = sockmap_link->map;
->  	sockmap_link->map = NULL;
->  out:
->  	mutex_unlock(&sockmap_mutex);
-> +	if (map)
-> +		bpf_map_put_with_uref(map);
->  }
+Build tested ARCH=x86_64 defconfig with CONFIG_LKDTM=y and CONFIG_CFI=y,
+with GCC 17.0.0 (experimental, with the kCFI series).
 
-In sock_map_link_release map->usercnt is now modifed without
-sockmap_mutex held. Is that a problem?
+Assisted-by: LLM
+Signed-off-by: Kees Cook <kees@kernel.org>
+---
+ tools/objtool/check.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/tools/objtool/check.c b/tools/objtool/check.c
+index 464f6c9d9ff0..d35c5305075f 100644
+--- a/tools/objtool/check.c
++++ b/tools/objtool/check.c
+@@ -4199,6 +4199,14 @@ static int validate_retpoline(struct objtool_file *file)
+ 	list_for_each_entry(insn, &file->retpoline_call_list, call_node) {
+ 		struct symbol *sym = insn_sym(insn);
+ 
++		/*
++		 * A jump through a jump table stays inside the function, so
++		 * it has no kCFI check.  GCC turns the computed goto in
++		 * ___bpf_prog_run() into one under MITIGATION_RETPOLINE.
++		 */
++		if (is_jump_table_jump(insn))
++			continue;
++
+ 		if (sym && (is_notype_sym(sym) ||
+ 			    is_func_sym(sym)) && !sym->nocfi) {
+ 			struct instruction *prev =
+-- 
+2.55.0
+
