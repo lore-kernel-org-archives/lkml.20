@@ -1,88 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD9D2DB7BE
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:58:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC97E3D9541;
+	Mon, 12 Oct 2026 11:58:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806317; cv=none; b=Qjjp4oIazLjJxLtisEP1Up2FpwebKML27ID/AAzhhh2kNSP5uWvZsoXQ1pNtufhOPLxHc+1cIdvLG05fIo7R8Q/fqtZy4h3Dmj9Ciz6h/4t9fBEiVEN+3YQiyQStArUppss/uZyj432B0F2XapkxGkJgheLImPfMWH/dkKeN3+o=
+	t=1791806318; cv=none; b=I/m0nMY3zEEIqDVH408u5shMLkiDpvAWUHyxORgUwO/28/UU5P4lisjwZz44KQVPxDcWV6orQ9yUYBjelLl9Ybduqvpyyr1QHkeja3ln8V54uxTNeZ7x/bQ9zsQ0acWbrcedjFvgYCd0+RO44vEahkW7ji+xLMVfOum/YvwmZOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806317; c=relaxed/simple;
-	bh=gUGz6lwQa1a2dYxqinX1f5TJWie/JLfd3LgMNAeJK8k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RI1Psb69RGkOnowBuKBSp1GEmjfD6XaMZGUfXWV0tXO4BTky3yvE9K5mrfLmV1ohHCRECNFo9k66Tt0f64NsI/RgGgfVJ3Lpggin1ojUaZytC/ln6mlqg/Hx00DLIUtTm/qwiRT50twYfRktvBc7ddNty5uVSLCkvrQpxQuqVDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BuNc7FbB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791806318; c=relaxed/simple;
+	bh=dojZteJP9FwJRrGvm0N/9qsvAIDATHWlqAv67ZfOhRE=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=rX4e1gAxLVSX540z6tJ3CkhE5ZiQlXic/qIQPlE8pQU1pYUt2HQJ1l2bACd8fkJspp5fz67pN3QOK5TWewa8xrnnPa7F4wULtjXcYWUomSEMhzzhA0sEQR/RRhrIj5tdI5VWz0sRIcirBWsDnUtHdTFXaDBushEZgHrYtaiaBgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HbxcTuBz; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BuNc7FbB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8D161F0089F
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:58:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791806315;
-	bh=HYnvEiSRJD71V8Rd3An/g58Mos1BQ3rgGbWpmrIrJK8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BuNc7FbB7dmIXR8I0IdobeoJnMQc8AR5wbl5tXoKFejArP1OyOfbKdKyS9j1bXx9m
-	 4ycefERmRZHCYVKo7wXZ1EENFWRYOdIJemtlI8aPmmR6Ill/wuZBaT+s+bpwT5NsbL
-	 b0v40KbIb/r/9skACubhxVz5nkhfOdEXgf7sRp4SPlObSXi1lZiPKcngZ/I4opKpUb
-	 nmzH8PTAF+3byc/QoKe/QtLRizuJ43U/9W6qsk0JpVKdEa6ZKGMzY/3zmRkW+pKowl
-	 Es2T3R4vT4/WsCuOsAj7B4SPbisepUmRbTk9oUlzSk7qcmERB+kwHXs/vhCGBTl0LA
-	 gM9iyZQQND/Mg==
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2e4df2e26fso237010666b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:58:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy5KBqZhbzxedFqIsqwxnbpFeKxBwh2m8GXyOWhwazXLkHsNzjU0vYt4V4dMNlR+Tkb8RdwJn0Vt78mc6A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNfAfGy9KxgJj7XzBmCkPtk+LB0TJp+pvm+tYdOEdSnnxX3rAJ
-	0WFKgvQutao7WfBr/5813FjOYgYW8ql9daAuhluA1ZcpYrjXWAT4A3YRRwehgk0lu/9niZy3hOt
-	VYLtuyvL0XoV7fjUaDRIOVS6Mopel0fE=
-X-Received: by 2002:a17:907:3da1:b0:c2e:61e:f4fd with SMTP id
- a640c23a62f3a-c31a9a07772mr810203666b.5.1791806314541; Mon, 12 Oct 2026
- 04:58:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HbxcTuBz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791806316; x=1823342316;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=dojZteJP9FwJRrGvm0N/9qsvAIDATHWlqAv67ZfOhRE=;
+  b=HbxcTuBz6wfhZUySyPpmkXlchJs8X7gLZBxktg0zKrICgtIE8paTCM5r
+   w9O9Ck/ZW9gjkh+sIRcPsR8SexkGnNsfO+jmNm8xU2z25wrTpm7nxJy8W
+   Gf7j3YDlzJ2x14d2/wIkmDZ3jbqiiJdcoTBpUfYXTljN3/anmazrSvH9V
+   JP+wT1jKlpi8DX82aFeeDhC11oGvEi5xl2SQ7dUVZoan4vrduN6DBJZGV
+   8L9eM2jgPcOi6pC1CmUSiVAho3fEM6QCT1qUdzZjwHZ6S2USUqCwklemo
+   +wA0wZS7I3WO6sqm34ze7FCLpm6V8QvEaoc57aW+NWO1XE+rNXcGY20Oa
+   A==;
+X-CSE-ConnectionGUID: Naurr+cdRZapziVFuiLN7g==
+X-CSE-MsgGUID: tDVSIdo0SbObjpkl52moUg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="419413"
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="419413"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 04:58:35 -0700
+X-CSE-ConnectionGUID: 4zZUeJOUTCGvZCe3RMs3kg==
+X-CSE-MsgGUID: Ix018LGbRG2yZo/vdsmN/Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="1192146"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.202])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 04:58:33 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 12 Oct 2026 14:58:30 +0300 (EEST)
+To: Huang Wei <huangwei@kylinos.cn>
+cc: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] platform/x86: thinkpad_acpi: Add X9-14 Gen 1 to
+ non-standard thermal/fan quirk tables
+In-Reply-To: <20261012034129.2902006-1-huangwei@kylinos.cn>
+Message-ID: <b5f1c096-f10b-ee56-c3ec-e2eba4a151b1@linux.intel.com>
+References: <20260826073014.2611191-1-huangwei@kylinos.cn> <000acb24-7aef-4718-89ea-0dffd1ab34d9@app.fastmail.com> <20261012034129.2902006-1-huangwei@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012062040.3826828-1-zhanxusheng@xiaomi.com>
-In-Reply-To: <20261012062040.3826828-1-zhanxusheng@xiaomi.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Mon, 12 Oct 2026 20:58:22 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8UhVysoZ50h8GPFjD701y5frB8MvWA4Y-sP6PCSvexsQ@mail.gmail.com>
-X-Gm-Features: AclHuK_zCh0yyDClvS7vBVflOscONkCx7g8dSTMN8zx_K7sJ0z_XwYZPqWsBJ-M
-Message-ID: <CAKYAXd8UhVysoZ50h8GPFjD701y5frB8MvWA4Y-sP6PCSvexsQ@mail.gmail.com>
-Subject: Re: [PATCH 0/2] ntfs: enforce the encrypted-file policy on the read paths
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Zhan Xusheng <zhanxusheng@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, Oct 12, 2026 at 3:20=E2=80=AFPM Zhan Xusheng <zhanxusheng1024@gmail=
-.com> wrote:
->
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
->
-> EFS-encrypted attributes are refused with -EOPNOTSUPP in exactly one
-> place, ntfs_read_folio(), because decryption is not implemented.  Two
-> read paths get there without passing that test and return the raw
-> on-disk ciphertext instead, so the same read returns either ciphertext
-> or -EOPNOTSUPP depending on which path serves it.
->
-> Patch 1 is readahead, which marks the folios uptodate so ->read_folio
-> is never called.  read(), mmap(), splice() and fadvise() all populate
-> the page cache this way, so one test closes all four.
->
-> Patch 2 is direct I/O, which bypasses the page cache entirely and has
-> no such backstop.
->
-> Both commits are in v7.1.  I have not added Cc: stable; returning
-> ciphertext rather than an error is a correctness bug but not a
-> privilege boundary crossing, so that call is better made by the
-> maintainers.
->
-> Found by reading the code.  I have no EFS-encrypted NTFS volume, so
-> there is no reproducer; the paths were traced in the source.
->
-> Zhan Xusheng (2):
->   ntfs: do not read ahead encrypted files
->   ntfs: reject direct I/O reads of encrypted files
-Applied them to #ntfs-next.
-Thanks!
+On Mon, 12 Oct 2026, Huang Wei wrote:
+
+> Hi Mark,
+> 
+> Thanks for running this down with the FW team - and for the honest
+> follow-up. Dropping the patch is clearly the right call: if the X9-14
+> has its own register layout, reusing the existing quirk-table offsets
+> would just trade "thermal sensors disabled" for wrong readings, which
+> is worse.
+> 
+> The symptom the reporter hit (legacy probes reading 0x00, thermal
+> getting disabled) is still real, so I'm glad Lenovo is working on the
+> correct mapping - happy to review that series when it lands.
+> 
+> Ilpo - sorry for the churn, the patch will need to come back out of
+> your review branch.
+
+Hi,
+
+If you want it removed, please send a revert patch as there have been 
+enough merges in between so I don't want to attempt history rewriting to 
+get it pulled.
+
+-- 
+ i.
+
