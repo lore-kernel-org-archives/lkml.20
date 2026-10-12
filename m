@@ -1,71 +1,72 @@
-Received: from mailout2.hostsharing.net (mailout2.hostsharing.net [83.223.78.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C36ED472F93;
-	Mon, 12 Oct 2026 10:11:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.223.78.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560E746EF60
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:12:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791799930; cv=none; b=Oyh2eQ8l5TJzTzLCiJiEpjyrekMmrVzx/mtsYLhOqyoP9kEVCWECDcj9C97E8+XtyFz/clgDkihYnnHBch6EJaIPLbgIKiOmCVtUfdap1GewSi0pSjGyZ3+BrD0Trk9ibrOftuMMbtxLesKJbNvcuDSeixrRe6h1XUD3mvi1uTs=
+	t=1791799930; cv=none; b=sWelIJE08HGTM+1m4Ws+vcNP3DDyWDWs1b6NqSTRgvxoGFUW0HxbmdSWfIOcYCYyn5nTrKWClORI6NxRZo3/IbFp19wuh971uZpavzczKToWDwR1IOeXtbNm7z74aH6ff2ihGiBg/bUlrU+VSsmjFA0mGig9JuVaPoeXiqVMj/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791799930; c=relaxed/simple;
-	bh=MtT+iP3cKBw24ZFL3MLI6cV8yBFqbIdjvWW6CIqA4sQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AYtmfctX0rFipzNI6IQan7Nr8oAWVwAgvzeuNNS8CToUKHHu0XLAAVy8gCD90fbEN2gaYjVGOc2xPY6Et3VIxL0uCkjOFweVtiYlc2kyA/FkRA0dV+6kByKVKqinlcnf53Nce9/cPHK4LN9eLCKUFvK06ltH1fKiqxA1mWEYZVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de; spf=pass smtp.mailfrom=wunner.de; arc=none smtp.client-ip=83.223.78.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
-Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
-	 client-signature ECDSA (secp384r1) client-digest SHA384)
-	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
-	by mailout2.hostsharing.net (Postfix) with ESMTPS id 11F9D10F63;
-	Mon, 12 Oct 2026 12:11:57 +0200 (CEST)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
-	id E32A8600E1CF; Mon, 12 Oct 2026 12:11:56 +0200 (CEST)
-Date: Mon, 12 Oct 2026 12:11:56 +0200
-From: Lukas Wunner <lukas@wunner.de>
-To: Alexander Gruhlke <gruhlke@mailbox.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Alex Williamson <alex@shazbot.org>,
-	Hui Wang <hui.wang@canonical.com>, Linux-Fan <info@masysma.net>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [PATCH v3 2/2] PCI: Don't treat ~0 as ready in pci_dev_wait()
- with RRS SV
-Message-ID: <asyybNwDFi7hNpZN@wunner.de>
-References: <20261011190145.23621-1-gruhlke@mailbox.org>
- <20261011190145.23621-3-gruhlke@mailbox.org>
+	bh=pgDFTEinz63ffLNJReuaDXvEZpACwSMthSpL2GABIKE=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=J0GUzVOl3Zps2YCLk93qF+nI8/5wzWRqw9hJ9X9I/oJWAHysxUa5iKaiHzB2p2xLkJ9NjnrasR+O/tnOL4TPxLqimutnV6tua0Qib6QLQgTKWoPrYN+0ayOglnr7omE20qaLdcIVA0aUQNe38UZpG02wyQa959035w5K/UNudpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b26d8d2498so2814454b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:12:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791799922; x=1792404722;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=nX4OG2Xf42v+bja/rmj7W/GA9GBPmTLDzjbF/c9M5dQ=;
+        b=TqbW28YX4UjjhVXNlThQxUlmTyJnykwbuEcFYTQgeokqrlvlE8uTaDTEyGk+B1Mf61
+         +9pDl8oZMD+GDBLKhh3bmPrCYfWp+2YTBkvzQLPxeDkrEaxiq9LiYvs2s6hJWToZX+wK
+         8GX42gFS1InMSgLGmVSPxQ5rppIZhtXENoRzGgCx2Nmt0KkE6LpnNTv/KIxwcNon0JN8
+         AVTeBw/YCBFDSuZkQgyzBo/Gx9t1bpLF96Xak1IVYVCnxsDqQq2tjo3M3JL45MsOw6Mz
+         ZoHYdW/8jGTUGn9KOq1ebh6r85x/gj69q+yGDgZdOcCxVoLbS3RjITm31XX/ugnNL+jU
+         PrgA==
+X-Forwarded-Encrypted: i=1; AKwUvBz/w/Ll8VMbcNmM/Oo529zABJJfYPoGY2yZAm3cmiIj1s/kp4ih8gPik0RK5cw2QK+ZvSwynC7nc6h86iA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpZZsSYProS/WEL+wrwwSHHiG0JeJ6w+Glf51ahbGmJDhLFgxF
+	DtGCClpjBesD1p/8Krw8Y3Co1uppyi6KrWHyUjMB6x25MHlBNEciC4TI7pvdV3pKjz4OJ6sDl3K
+	A8kt8wz0blBZTTK8d+an6Is2oQfeMV7eog4fFGMxsvOyIJlaUJ5q1r/AUWAo=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011190145.23621-3-gruhlke@mailbox.org>
+X-Received: by 2002:a05:6808:308b:b0:4b9:e88f:89dd with SMTP id
+ 5614622812f47-50c54835dccmr9055624b6e.43.1791799922064; Mon, 12 Oct 2026
+ 03:12:02 -0700 (PDT)
+Date: Mon, 12 Oct 2026 03:12:02 -0700
+In-Reply-To: <CAJAt6L_VC+8MHXNkWL6kSWw7wF4XmmN2_zFgYW+_1d=nPPajHg@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6accb272.8cdf6287.1eb53.0123.GAE@google.com>
+Subject: Re: [syzbot] WARNING: ODEBUG bug in hwsim_del_radio_nl
+From: syzbot <syzbot+19cbce4cc656ecd4febc@syzkaller.appspotmail.com>
+To: aryanarora.w1@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Oct 11, 2026 at 09:01:45PM +0200, Alexander Gruhlke wrote:
-> @@ -1235,8 +1237,12 @@ static int pci_dev_wait(struct pci_dev *dev, char *reset_type, int timeout)
->  
->  		if (root && root->config_rrs_sv) {
->  			pci_read_config_dword(dev, PCI_VENDOR_ID, &id);
-> -			if (!pci_bus_rrs_vendor_id(id))
-> -				break;
-> +			if (!pci_bus_rrs_vendor_id(id)) {
-> +				if (PCI_POSSIBLE_ERROR(id) && dev->is_virtfn)
-> +					pci_read_config_dword(dev, PCI_COMMAND, &id);
-> +				if (!PCI_POSSIBLE_ERROR(id))
-> +					break;
-> +			}
->  		} else {
->  			pci_read_config_dword(dev, PCI_COMMAND, &id);
->  			if (!PCI_POSSIBLE_ERROR(id))
+Hello,
 
-Lean and clean, thank you.  The additional pci_read_config_dword()
-exceeds 80 chars, but I guess Bjorn can fix that up when applying
-if he dislikes it.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Reviewed-by: Lukas Wunner <lukas@wunner.de>
+Reported-by: syzbot+19cbce4cc656ecd4febc@syzkaller.appspotmail.com
+Tested-by: syzbot+19cbce4cc656ecd4febc@syzkaller.appspotmail.com
+
+Tested on:
+
+commit:         08fa34e1 ieee802154: hwsim: free PIB after unregisteri..
+git tree:       https://github.com/aryanA101a/linux.git syzbot-pib-baseline
+console output: https://syzkaller.appspot.com/x/log.txt?x=168c8f15580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3b57b1287207ae97
+dashboard link: https://syzkaller.appspot.com/bug?extid=19cbce4cc656ecd4febc
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=121f540d580000
+
+Note: testing is done by a robot and is best-effort only.
