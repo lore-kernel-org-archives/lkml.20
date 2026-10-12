@@ -1,140 +1,242 @@
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E8E4EBACA
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:16:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D684E9C1D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:17:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791836190; cv=none; b=QgxEtP9cH0Dtj3FvptoouH3El5q/UiU9x3ScldE9pUpJPJ0oo505eGyDyAZ8PzMuzlGc4UjKWAeBJQ/vhWet1DY2eCTGCzbp3Bwiex2o1OcsxOMx01VP9I1e4P6kcjtzpFH3sCBWWy4C3bHusyb+azxRi+jM34PNqh5W8pYtW9A=
+	t=1791836263; cv=none; b=NWolho09dUyAp6ZRdor7LTWw6NKIHGFrpnMfDzZdeqp117jh0vdYxwXc1MjhSletDgO2j81RUW7dznhMWDa3X2+fTuYkBsAYwyrn1eAiYdJVId0fwx0VPaMwef9BNt44PSILPmmstehhdSgSAX0H26dWwQ9lhJMq1nBkR+65yKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791836190; c=relaxed/simple;
-	bh=E/5MB9DmrAPZDxIzNkf5ZDQX8eOZAjHFk1n9mFFTl2w=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=So/q+L2hjkXoFg7SbvvDEGpwX+B9ntp84ooVsXifcdV2qzU8XIy0sEoiAL8ZM4y/9bCskUtDxvC+mx+G4qmLEF6PE7j8HPFW9vWgFbVIYLiwH8fnVCMOIaRoYl0hTf3XqAb+jSjgcv2fguWKTgBpGHMSbkVg8r0MF2erWOCe01o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=ezThKuKF; arc=none smtp.client-ip=209.85.210.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1791836263; c=relaxed/simple;
+	bh=61iS9+1SVarRvVuZi7tPbmlBK6P9VGdigJkR9+V6iRU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=J3W6x2H25satHeSkw5tOCNggfj2OiPT0sx5Bi0YvysygZVKfeXA5xnVQCX7oMUHMiFZ8okmn3qkBnIVysUIF2pQFudISpAzjfXr+UUSfhcZchV2DVEs48oNp3+/kvi1RKDUzvFMQo0su67B222Eel9ppeEyIVIXNac5NIE9tqMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L6D/XXfM; arc=none smtp.client-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="ezThKuKF"
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-82380b0f55dso1083138a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:16:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L6D/XXfM"
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91b8306b9f8so17271476d6.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:17:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791836186; x=1792440986; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791836255; x=1792441055; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wg1Ux0hl2+pwA4qVaI3hvIFFByPMMzuli4I/B5ITH7M=;
-        b=ezThKuKF8wDokh9LV126CqDkq7P34XkK2Biiu+wFZl4Jqu5AOH3ohzQx+ZNa09FM86
-         lLei/mQ/hyy8kog9HVR2FUVEJe1pyM9H1I1c5b+/N5csUF9CIa3j4UWCn+8cP5LZIoVQ
-         q3hcv7E6lpGLnA1dKzIJieWJUq5XQAocUCz3cqnts6ArMOCF+CWPUN7dN1tfRWurC296
-         ChWyKVASsA2SD4Fqw67KHcvAwaOBQqZszVCKij7Z64plVx5bYb8Dt/PsdtxmUmDR7Rtd
-         3Vezv+IAle+KoE0wT/2yoWe26a+qYPgY0eum1UwO9HZ+1zUasYuivhbyy8SaMI2HjRMH
-         naQA==
+        bh=VoYcMQ1EmcXpMmCHSpOUdX1vSVFqCCRRNJZGecYdkWc=;
+        b=L6D/XXfMYjPrzZZiAJb6FfXCbpYGYsrvv+vnXBLFv7GrkJaomCxXTUydt+sazhaSLS
+         55nsiZbXoPkPJCTgq/M2ftjUePmNPirQCnQYEBrI9h1tE7shv0FyyKZE6rcAjZE8+LIS
+         pToV/KzqKJUbyKGcuAeVvJMJJ2BcCqDbgEPRAEjeYZEurlcsg/Q+0KwPlCurd0Bhmmln
+         pumXs8beTkZ4jhPuwigt4HVpMeA3uS9/fKRwCS96L4HUPLFOjc7vMPYdQIJqQy114xNL
+         nVbpJyVD7/zLvrhW8FRwnhat56rjytZK1VHNG5H738vTWrWncBgAcYx9fZWcMfVHL2YC
+         cZUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791836186; x=1792440986;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wg1Ux0hl2+pwA4qVaI3hvIFFByPMMzuli4I/B5ITH7M=;
-        b=dSVxfg2/v+j5marMkM+0qcBiS7JKgmt/5XnuzB17dRLtIro1LxjgNpJXhp7yFRQjt0
-         j2Uu9moyHD5rGn5Q6xebOZSXymAwjO4qCWm0MAoC92sVjbR/iZlhOPP4mrfqdVoYxWV1
-         iA4o5hBTC2xXVvQOc8JF+ZLu9wpuOvU4JtTTdIvvDncB9/ECEC1yavycCMZB+T43cd2+
-         eWKWURgCKhCajyI7AxhUX2+Xll6iHXqNp/bg3x+6y4MeVN4ZxdBfk6MkEASRj6lEYNsc
-         1fl4ZoN4OhYeh3XFHjkVHL/mCl1s3yzXBVAjW22dS+AssWTMi5/SHBGjMNXrz7OcyIEw
-         5qMQ==
-X-Gm-Message-State: AFq9FYL38doHT5vF8aUPp3AhxkwR8SNhXnqtNTgWPjv+K+XFmZEz58LG
-	ZjHa7uEL1GQMjWJQ7L+7TZlFUP9snunrr0N0VJpQXenzoQyc6QE2kxAWEiOD63msGhE=
-X-Gm-Gg: AYBFou3v7+Dmd6GlMEY1J40fsFn0Cte4tZ/Bkc761tqEs5J/n+9EB14vyyr2xAn7seY
-	vF63K8v4oSXsSkm++aRLL2OLElaAqCWmY5UJQcBY0s1/cNOgmnMHwDDVF0gT2RMUQL59c0BLvmD
-	Ot4CRMD0GUOMcImv68bb4iC/BvGF9yOjQhQ6So67h4n4HBRbx5Cod9rJnHRN9ZHwsWOz+AU7Xlj
-	ImDARTMpNC8voBUjZQF+RFyacisRlwNQ//MrlU3Jj0IN4onv82yXndE+jjIUpIzmywuGtX+0OUG
-	v+wTn6ADVNL8mCXMbWaqTKbscMyFQ30Aheh/qiYZAPNxNs92QPEAT5M6nJj9s6yJCf+WNeGK8RM
-	dn3x34XDQfx8AKnMOaWq2gGfGMtqJA14SzSFjsf6n5eyvk6O5bPJJQy36wXcxmZvvPyZbAYuSlE
-	32dD8ptqNe7ulDBDYvuJtbYDrd+freHQdn08yJQWSJPiTVb9LnugV9szhhApKFdBUgfjvdOsNJi
-	t9EQqYp4QKc60Eyt7gIhmNAHitGsZV824FmLDtKqEcvDuqX8H6tBBP+9pWeDBMQzoAC
-X-Received: by 2002:a05:6830:4104:b0:81f:92c9:1f80 with SMTP id 46e09a7af769-83095b2dcfdmr13038337a34.16.1791836185941;
-        Mon, 12 Oct 2026 13:16:25 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039076d72sm10441653a34.12.2026.10.12.13.16.23
+        d=1e100.net; s=20260707; t=1791836255; x=1792441055;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VoYcMQ1EmcXpMmCHSpOUdX1vSVFqCCRRNJZGecYdkWc=;
+        b=N4gf8lvzb2fcUqNJsf2Fu/VftamRMrpXERdx0NZ1LnzN6yyPBDZ4aFLAYWeSAxQawU
+         sTonbOQyZd1gpvMjyDe9AKVLziMgY+GuMsr8PuNuFO3G/hHigQABR+mgmk4vuhX0oHvh
+         PDWEywCYya8MAV7OYukm/8r3RS8pH+iIgPTQTi7FMNMcece2bR9cOnYpPPGG7NtSHqs6
+         PmrBUlrT8f1lcBCq5JMywBD+iiD6iiYWb+xZG+eEK8bep0hO1oU437KaZQVCO3J0JBFN
+         qzrRjhgEOVMSTA6YvrqMS6tqsoFoHg6V0Zy9hZsFKLPAecSLhxmEOPRETEGsqR2JvJpM
+         iUUw==
+X-Forwarded-Encrypted: i=1; AKwUvBw23tsE1BPjrn+/in1agMWDPsPef8sx4ISFsRWyDz0mIGptbHOnOL2sUi+EXxYUPEMRYUryc8qNH3sVsTI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJihqSg7WbHiVEO8Lnp9UMeuDwI21jm5wfohKDdGUFIoGyrn2V
+	OvDV0461IHqkNKDnMOgIA3ktKuPq+LnWxXO/tZ7uqtrEF3pQi0btzdmf
+X-Gm-Gg: AYBFou08oGSWLjtoXSq+lv5/hwEjE7/Q/nzhY7BnvI66343kUN4sAsYyazeqY0+BqXY
+	63q2Mex0aTjxm0SP03yjuoNMDivRKL81i9ZelTSQ1VUOsKnEU8qc24zQOeF8uHoBhzrolHFTle8
+	1/CdjysCTliB4TR3HWNv6hAn2bHVCLWhPduzZ4h9pPoiTyjSWkQipKndSn7Ml/NDhAsr2a9Tl6E
+	zSnQmIqNXV9MWaZZwzm5+A5jIL6N0ifvNN4bLypKGJRh8Lp9k4t0uYkaK3X8EiGhFpS0HaCAM9C
+	IEO2bcc56cxSkokk4vcsI/PmQvEoswNed7RlTUEqh090qb9of2TTZmVLDx3ckPspG1+UNq2cmWB
+	ZMZ0yjwQ8JRHq5q/unTKukP86nyzrVaed0o+nfZw1e5O6couuVKRDQ1Xv6pB0W33muPkpSbhlDS
+	sR2Kwwe6T6GhSQmA/EysWWFpWthsZqeaiSRseZY2fL6NCcdei5vn3WSEA7c4s+chtgnZPPPEZuI
+	ybPVtqmDUJNMejZwTDMRHcW
+X-Received: by 2002:a05:620a:471f:b0:93e:62a3:f845 with SMTP id af79cd13be357-93ebd0a24f7mr1687923985a.8.1791836254568;
+        Mon, 12 Oct 2026 13:17:34 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5086fe3sm69139485a.37.2026.10.12.13.17.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 13:16:24 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: linux-block@vger.kernel.org, Pavel Begunkov <asml.silence@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, 
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>, 
- William Power <william.power@intel.com>, 
- Matthew Brost <matthew.brost@intel.com>, Alasdair Kergon <agk@redhat.com>, 
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, 
- Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-In-Reply-To: <cover.1791336930.git.asml.silence@gmail.com>
-References: <cover.1791336930.git.asml.silence@gmail.com>
-Subject: Re: [PATCH v9 00/13] Add dmabuf read/write via io_uring
-Message-Id: <179183618332.250226.7412463798702866633.b4-ty@b4>
-Date: Mon, 12 Oct 2026 14:16:23 -0600
+        Mon, 12 Oct 2026 13:17:34 -0700 (PDT)
+From: Dingisoul <dingiso.kernel@gmail.com>
+To: dingiso.kernel@gmail.com
+Cc: James.Bottomley@HansenPartnership.com,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	mkp@kernel.org,
+	loberman@redhat.com
+Subject: Re: [BUG] scsi: st: use-after-free race between st_remove() and st_open()/scsi_tape_get()
+Date: Mon, 12 Oct 2026 16:17:30 -0400
+Message-Id: <20261012201730.1853897-1-dingiso.kernel@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261007211520.1428497-1-dingiso.kernel@gmail.com>
+References: <20261007211520.1428497-1-dingiso.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
+Hi Laurence,
 
-On Wed, 07 Oct 2026 02:42:43 +0100, Pavel Begunkov wrote:
-> The patch set allows to register a dmabuf to an io_uring instance for
-> a specified file and use it with io_uring read / write requests. The
-> infrastructure is not tied to io_uring and there could be more users
-> in the future. A similar idea was attempted some years ago by Keith [1],
-> from where I borrowed a number of changes. Later it was brough back up
-> to life by Tushar and Vishal.
-> 
-> [...]
+Adding you to Cc as requested. Quoting the original report below for
+reference; let me know if you'd like anything else re-tested.
 
-Applied, thanks!
+Best,
+Dingisoul
 
-[01/13] dma-buf: introduce initial file I/O infrastructure
-        commit: b899f5d8a9594f3e5be7c481e4631521f0a6e42d
-[02/13] iov_iter: add iterator type for dmabuf maps
-        commit: f41f84796a1129838524d2aa542598c22822a2ec
-[03/13] block: always adjust bi_offset on bio_advance_iter
-        commit: dda48c57e1484f967727d827923d3fb47d6b8aa3
-[04/13] block: introduce dma map backed bio type
-        commit: dfc9cc23122deeffcbf562a0989c695e8505d54e
-[05/13] block: add dma-buf support for raw bdev
-        commit: 738881239a914b2d92cafdf1030c382f1614a293
-[06/13] nvme-pci: rename nvme_pci_sgl_set_data to nvme_pci_dma_iter_set_sgl
-        commit: db93ee31780323044eb5d6279d89f6ae49493f39
-[07/13] nvme-pci: implement dma-buf backed requests
-        commit: bb3e58f540e95ad55bc7ba6a6f713f79b4e79e7e
-[08/13] nvme-pci: add SGL support for the dmabuf path
-        commit: 3676bad01d84421fbf8567edafac63bef9f648cc
-[09/13] io_uring/rsrc: introduce buf registration structure
-        commit: fa1925e901c00b00695edd29d053564a6de63d9c
-[10/13] io_uring/rsrc: extend buffer update
-        commit: b497df80ba7536cffb2c5364e725c0812135886c
-[11/13] io_uring/rsrc: add uncloneable regbuf flag
-        commit: 10b6521fae14c5941b3fd77d1a48eb7a424ee487
-[12/13] io_uring/rsrc: add regbuf import flags
-        commit: b5a1e426d22fa059eaac1106292ad60c8da52d17
-[13/13] io_uring/rsrc: add dmabuf backed registered buffers
-        commit: 4bb797852328975051b001189f3e3840cfaad2d7
-
-Best regards,
--- 
-Jens Axboe
-
-
-
+> Hi Kernel Maintainers,
+>
+> I hit the following report while testing current upstream kernel:
+>
+> KASAN: slab-use-after-free in st_open
+>
+> on commit: a90ee4305c4a (2026-10-06)
+>
+> Root cause: st_remove() drops the device's last reference, and only
+> afterwards removes it from st_index_idr:
+>
+>     static void st_remove(struct scsi_device *SDp)
+>     {
+>         struct device *dev = &SDp->sdev_gendev;
+>         struct scsi_tape *tpnt = dev_get_drvdata(dev);
+>         int index = tpnt->index;
+>         ...
+>         mutex_lock(&st_ref_mutex);
+>         kref_put(&tpnt->kref, scsi_tape_release);  /* may kfree(tpnt) right here */
+>         mutex_unlock(&st_ref_mutex);
+>         spin_lock(&st_index_lock);
+>         idr_remove(&st_index_idr, index);          /* too late: tpnt may already be freed */
+>         spin_unlock(&st_index_lock);
+>     }
+>
+> Meanwhile scsi_tape_get() -- called from st_open() on every open of a
+> tape device node -- looks the device up by the same index and takes its
+> own reference:
+>
+>     static struct scsi_tape *scsi_tape_get(int dev)
+>     {
+>         struct scsi_tape *STp = NULL;
+>
+>         mutex_lock(&st_ref_mutex);
+>         spin_lock(&st_index_lock);
+>
+>         STp = idr_find(&st_index_idr, dev);  /* can still find the freed tpnt */
+>         if (!STp) goto out;
+>
+>         kref_get(&STp->kref);                /* UAF write */
+>         ...
+>     }
+>
+>     static int st_open(struct inode *inode, struct file *filp)
+>     {
+>         ...
+>         if (!(STp = scsi_tape_get(dev))) {
+>         ...
+>
+> Between st_remove()'s mutex_unlock(&st_ref_mutex) and its own
+> spin_lock(&st_index_lock), tpnt is already freed but still reachable
+> through st_index_idr. A concurrent st_open() racing in that window takes
+> both locks in scsi_tape_get(), finds the stale idr entry, and calls
+> kref_get() on the freed tpnt.
+>
+> We used scsi_debug (ptype=1, emulating a tape LUN) to avoid needing real
+> tape hardware.
+>
+> The reproducer and .config files are here.
+> https://gist.github.com/dingiso/b33f8c01a47bfcbb902d3f21a4877feb
+>
+> I'm happy to test debug patches or provide additional information.
+>
+> [   23.212502] ==================================================================
+> [   23.212506] BUG: KASAN: slab-use-after-free in st_open (./include/linux/instrumented.h:112 ./include/linux/atomic/atomic-instrumented.h:252 ./include/linux/refcount.h:283 ./include/linux/refcount.h:366 ./include/linux/refcount.h:383 ./include/linux/kref.h:45 drivers/scsi/st.c:254 drivers/scsi/st.c:1291)
+> [   23.212537] Write of size 4 at addr ffff888009854a1c by task repro/315
+> [   23.212541] 
+> [   23.212551] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+> [   23.212554] Call Trace:
+> [   23.212556]  <TASK>
+> [   23.212558]  dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+> [   23.212566]  print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+> [   23.212591]  kasan_report (mm/kasan/report.c:595)
+> [   23.212602]  kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
+> [   23.212607]  st_open (./include/linux/instrumented.h:112 ./include/linux/atomic/atomic-instrumented.h:252 ./include/linux/refcount.h:283 ./include/linux/refcount.h:366 ./include/linux/refcount.h:383 ./include/linux/kref.h:45 drivers/scsi/st.c:254 drivers/scsi/st.c:1291)
+> [   23.212623]  chrdev_open (fs/char_dev.c:411)
+> [   23.212645]  do_dentry_open (fs/open.c:996)
+> [   23.212651]  vfs_open (fs/open.c:1101)
+> [   23.212656]  path_openat (fs/namei.c:4837 fs/namei.c:5000)
+> [   23.212669]  do_file_open (fs/namei.c:5029)
+> [   23.212693]  do_sys_openat2 (fs/open.c:1417 (discriminator 1))
+> [   23.212702]  __x64_sys_openat (fs/open.c:1423 fs/open.c:1439 fs/open.c:1434 fs/open.c:1434)
+> [   23.212712]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
+> [   23.212719]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+> [   23.212755] 
+> [   23.212756] Allocated by task 325:
+> [   23.212758]  kasan_save_stack (mm/kasan/common.c:57)
+> [   23.212764]  kasan_save_track (mm/kasan/common.c:78)
+> [   23.212768]  __kasan_kmalloc (mm/kasan/common.c:409 mm/kasan/common.c:426)
+> [   23.212773]  __kmalloc_cache_noprof (./include/linux/kasan.h:263 mm/slub.c:5563)
+> [   23.212778]  st_probe (./include/linux/slab.h:991 ./include/linux/slab.h:1312 drivers/scsi/st.c:4376)
+> [   23.212783]  really_probe (drivers/base/dd.c:628 drivers/base/dd.c:706)
+> [   23.212788]  __driver_probe_device (drivers/base/dd.c:868)
+> [   23.212793]  driver_probe_device (drivers/base/dd.c:898)
+> [   23.212798]  __device_attach_driver (drivers/base/dd.c:1026)
+> [   23.212803]  bus_for_each_drv (drivers/base/bus.c:500)
+> [   23.212807]  __device_attach (drivers/base/dd.c:1098)
+> [   23.212811]  device_initial_probe (drivers/base/dd.c:1153)
+> [   23.212816]  bus_probe_device (drivers/base/bus.c:620)
+> [   23.212821]  device_add (drivers/base/core.c:3776)
+> [   23.212826]  scsi_sysfs_add_sdev (drivers/scsi/scsi_sysfs.c:1427)
+> [   23.212830]  scsi_add_lun (drivers/scsi/scsi_scan.c:1138 (discriminator 1))
+> [   23.212834]  scsi_probe_and_add_lun (drivers/scsi/scsi_scan.c:1311)
+> [   23.212838]  __scsi_scan_target (drivers/scsi/scsi_scan.c:1805)
+> [   23.212841]  scsi_scan_channel (drivers/scsi/scsi_scan.c:1895 drivers/scsi/scsi_scan.c:1870)
+> [   23.212845]  scsi_scan_host_selected (drivers/scsi/scsi_scan.c:1924)
+> [   23.212849]  scsi_scan_host (drivers/scsi/scsi_scan.c:2089 drivers/scsi/scsi_scan.c:2077)
+> [   23.212852] sdebug_driver_probe (drivers/scsi/scsi_debug.c:9618) scsi_debug
+> [   23.212875]  really_probe (drivers/base/dd.c:628 drivers/base/dd.c:706)
+> [   23.212879]  __driver_probe_device (drivers/base/dd.c:868)
+> [   23.212883]  driver_probe_device (drivers/base/dd.c:898)
+> [   23.212887]  __device_attach_driver (drivers/base/dd.c:1026)
+> [   23.212891]  bus_for_each_drv (drivers/base/bus.c:500)
+> [   23.212895]  __device_attach (drivers/base/dd.c:1098)
+> [   23.212900]  device_initial_probe (drivers/base/dd.c:1153)
+> [   23.212905]  bus_probe_device (drivers/base/bus.c:620)
+> [   23.212909]  device_add (drivers/base/core.c:3776)
+> [   23.212914] sdebug_add_host_helper (drivers/scsi/scsi_debug.c:8843) scsi_debug
+> [   23.212937] add_host_store (drivers/scsi/scsi_debug.c:8878 drivers/scsi/scsi_debug.c:8105) scsi_debug
+> [   23.212954]  kernfs_fop_write_iter (fs/kernfs/file.c:345)
+> [   23.212960]  vfs_write (fs/read_write.c:595 fs/read_write.c:687)
+> [   23.212964]  ksys_write (fs/read_write.c:739)
+> [   23.212968]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
+> [   23.212973]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+> [   23.212977] 
+> [   23.212978] Freed by task 325:
+> [   23.212980]  kasan_save_stack (mm/kasan/common.c:57)
+> [   23.212984]  kasan_save_track (mm/kasan/common.c:78)
+> [   23.212989]  kasan_save_free_info (mm/kasan/generic.c:584)
+> [   23.212993]  __kasan_slab_free (mm/kasan/common.c:264 mm/kasan/common.c:296)
+> [   23.212997]  kfree (./include/linux/kasan.h:235 mm/slub.c:2748 mm/slub.c:6509 mm/slub.c:6802)
+> [   23.213000]  st_remove (./include/linux/kref.h:65 drivers/scsi/st.c:4512)
+> [   23.213004]  device_release_driver_internal (drivers/base/dd.c:1349 drivers/base/dd.c:1372)
+> [   23.213009]  bus_remove_device (drivers/base/bus.c:664)
+> [   23.213014]  device_del (drivers/base/core.c:3965)
+> [   23.213018]  __scsi_remove_device (drivers/scsi/scsi_sysfs.c:1499)
+> [   23.213021]  scsi_forget_host (drivers/scsi/scsi_scan.c:2115)
+> [   23.213025]  scsi_remove_host (drivers/scsi/hosts.c:182)
+> [   23.213031] sdebug_driver_remove (drivers/scsi/scsi_debug.c:9631) scsi_debug
+> [   23.213052]  device_release_driver_internal (drivers/base/dd.c:1349 drivers/base/dd.c:1372)
+> [   23.213057]  bus_remove_device (drivers/base/bus.c:664)
+> [   23.213061]  device_del (drivers/base/core.c:3965)
+> [   23.213065]  device_unregister (drivers/base/core.c:4006)
+> [   23.213070] sdebug_do_remove_host (drivers/scsi/scsi_debug.c:8917) scsi_debug
+> [   23.213089] add_host_store (drivers/scsi/scsi_debug.c:8110) scsi_debug
+> [   23.213109]  kernfs_fop_write_iter (fs/kernfs/file.c:345)
+> [   23.213113]  vfs_write (fs/read_write.c:595 fs/read_write.c:687)
+> [   23.213117]  ksys_write (fs/read_write.c:739)
+> [   23.213121]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
+> [   23.213126]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+> Best,
+> Dingisoul
