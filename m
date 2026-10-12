@@ -1,748 +1,197 @@
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06833E5EF7;
-	Mon, 12 Oct 2026 22:49:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.145.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6054827FB1C
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 22:51:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791845393; cv=none; b=lgM5NLEi6ZHMwmc5UNfcWJRvDiNEMp7T5e67YADI9qmjPwhufzAKI39ZRL/4HvBySXZtupi2zorF0WV/C46RPJVziANrQwD1qaB4KjJzsYhhjvwCHolqA+vwyVnDG1X6XysBPXIyivMURLI75owhcfnrST6bX5ghLoanOmnQ3mk=
+	t=1791845461; cv=none; b=ucMImi6aXgiJ5NY4MOX2Eh4vXhrvMKt59ddB6LgfESFTSmQM76DQpHne6IASRDKXlEs8suPgmfgOm4lUZCIlu3fuSljgJEs6rMX4ZuvulGwAruvgYbSWJTKsX92na2J7zNmjOqkHiYmlGYCvuppplP3pNQ6zhEgM8chMj6RYDo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791845393; c=relaxed/simple;
-	bh=nmdygpifJ2JNHPtHmIQKnMfWjg92y8dqbfv281SOtdM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=uc0GZrN73io6aoJRUpl7jVRganVyaSBzFVxgVnyMQN6plNqSK0jH/n9MHhdjAXKScyDxDpnGciTpRK7mzUgsPSHexCoSD1Pm8QKgIy9w3yiW43GkzOCMpnQubAEvEqVdashgeSDqt3bFbt5GxpreJGSuUgBgwl8YLF9ijEtgkOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b=GD1Dbjay; arc=none smtp.client-ip=67.231.145.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	s=arc-20240116; t=1791845461; c=relaxed/simple;
+	bh=NfwA6HwOKrESGHGLedUFXahLqGNv4PDozp7tZqXsua0=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=UM17AYuMUOMbv6cWkG4S6ijl8k4zkeUa1KJFuaY5670sQFQIm+KxK2AbvgPTEs8hFw+6EYijTLxv3o3SsALXX5FgBHaqZL0G4QdETEuaqbJaoNGjHf6b3CjTJw9JiquBKQKmmNez8xVsen5Sx9gv/N9OH8xiaP0c6bUzJTWCMrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nQYB0Gip; arc=none smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b="GD1Dbjay"
-Received: from pps.filterd (m0044012.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CJOhFU1060277;
-	Mon, 12 Oct 2026 15:49:23 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=WXlxidSFg0cx2lwleLPsE1w03jQZ2kwbFHaGq
-	RzAm+k=; b=GD1DbjayV3vxn3miIG7h7x9x2UxecNC5tcX8dJ1Gvwpyihn2M9eMs
-	w3ghWdaiHsMRvOMbtySJiItuhlD4OtidMbE5IbOPBSnWHomkJAsEQzHG+ztAA3Xt
-	K45YMGtiP0xXn9K35qFKoyzuJcuihJGsu9CzSY23C5zCu2jaXCecVby/QDPu9rsc
-	a+HOTVWglLI+qWxCbaGL+mEc3nDSc7R9TH9p0asJOr1h+lvwy7/vr6SPbRKgEgCl
-	kHwtLtlN7CYEjY/rgm253+N+b+5bNwQmgxrBeqtr84kzPAlgbkAEqK7P8uI5dCw5
-	ZhxbtoXZGhQv78fTPme5SBSz/6TBwDWLw==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4h7k208a4p-10
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Mon, 12 Oct 2026 15:49:23 -0700 (PDT)
-Received: from localhost (2620:10d:c085:208::f) by mail.thefacebook.com
- (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.49; Mon, 12 Oct
- 2026 22:49:20 +0000
-From: Bobby Eshleman <bobbyeshleman@meta.com>
-Date: Mon, 12 Oct 2026 15:48:37 -0700
-Subject: [PATCH net-next v3 6/7] selftests/vsock: test the guest vsock
- device network namespace
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nQYB0Gip"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-33e6279a1d7so1196953eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:51:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791845459; x=1792450259; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=kS8ICr9lk4y6biHhtlX3SM1igmzmxcCufNZlzrQ83NM=;
+        b=nQYB0Gipl9UbyhW4fhPwdGIEheNWxUSuxiYfYAi7G1P9YjQStKKnUKUzwnOD8erRxl
+         ao7vsR9t6nJvqyQBJElkTEFq1pdEdu37KZF4hqhU5BQYaTdkGobE8yZJUcNkE1B9k/eV
+         crfDg+2h/Opu9hCn3w630wk6rfIIlyxrzcbo/GrFEgWEf2jSkksKd7kO8mb9w0u15lL4
+         uqHQGLGpABp2qTqPO5wsr8VNZZ89KJoZ6LSgzAEpeGHWArt55J8lypixO/FDlzcDH3dv
+         kI5rBfrxnzyB/3Qey8W/07tu5K9Rnkb0cohelLWDiA4T4kVGNE9AEx0eNwjNrlCN/xNs
+         Qqxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791845459; x=1792450259;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kS8ICr9lk4y6biHhtlX3SM1igmzmxcCufNZlzrQ83NM=;
+        b=DK7j5BJeDXBfMSasORZd6yDpeZPfKzdPpYPNEqVh4Hun9NLOIUq8O3tXhTjrCHbsyE
+         XVrl/avpPr/AXHC+B8aeML2HHRQmZkcMIMk3GK+vvQ59yn9GO7KDZMO2tVxT8gcrggKY
+         EIgy+jwatDPJWb7g0tuQGI317pmoHLvan00l+QQH7fHEkV/8jUoA75pPLLFzFP/gjaYo
+         QcSt6FHhmRN854NyoeDYXno4peP295bFEuVLRz6lAR7DnQmub66FMTy1ok5cUVVNH4ZG
+         fof5YlShwCS0JsUYBmCqWUWyXkQwvDrybQVTvFPZ3Vibo8+4P58ZK23kxXDr7E24zksi
+         kHeA==
+X-Forwarded-Encrypted: i=1; AKwUvBzwA8ykq2iwtzkvHJ8doPEwhPXAuuY5MhDMRtIsfyt4PQ4JDTbAjGrzW3MXo+VMg1nHVApScKi66iu0zNA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeMk2MDkK2+EFFWzNlNXTzTs3KF6SK9Y9fmSvjecZUa+KjTCKA
+	HoGJQSZshAAEAawwDDhx1QTZieZhOYQLg8sIe9ZXPO/Qinn4oEkk5rZ2ogL8CfgV
+X-Gm-Gg: AYBFou36NLRKW/iifhIyu+LG6X68KvMZVESbYCvkV6+Pri9tZ5OzB4l/xEoiEp8bsvz
+	/q07j/AqohzFYHQMty5npJAg7DWSoMc6WxxQ6HnoYqkgYIUAve0UadXMOAnafS3G6oaRbNz/1wu
+	tYc8VKE1HApAXBjRt35cr1uRLZTD9Tu/zqS/xZXHQXXtTwuDoA+0mdkxMhZy3DZSkdZgauJw7qz
+	wllIIToRNMABeCntRppHDhzVk8BzemZrzqevaZ8kC5ABEGRn5CoZI5kZbaTAJpdaUfIRNoKEFIL
+	dcFdlbfCZ4KJFpHn8bx3VDjBso19HiV5Hg9EAkyVYeLNMnnA01ZxLiVgYj66QQfKT7mefd+ByM4
+	A99VQnoeBWfgN+e0KFwb3aFtt934F9uwCwzvqX4SRV/WkO2bd7G/3qOPIG5yZEE9W171aa1gzQM
+	TjyNx7OD/Pb7S4Iv7K0eLDyTJaiXvUCxrZrJQL0uAXNpCMdVUqslHN2exKPQ0DNweW8PkUrMXDD
+	GUTXX31VZrktA==
+X-Received: by 2002:a05:693c:20cb:20b0:351:6f51:e019 with SMTP id 5a478bee46e88-3537e0a265bmr15424101eec.23.1791845459167;
+        Mon, 12 Oct 2026 15:50:59 -0700 (PDT)
+Received: from ehlo.thunderbird.net ([2804:2bf0:60e7:ae00:66d:701a:cb5d:9767])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb1e05esm38020891eec.25.2026.10.12.15.50.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 15:50:58 -0700 (PDT)
+Date: Mon, 12 Oct 2026 19:50:51 -0300
+From: Arnaldo Melo <arnaldo.melo@gmail.com>
+To: Ian Rogers <irogers@google.com>
+CC: Namhyung Kim <namhyung@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, James Clark <james.clark@linaro.org>,
+ Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
+ Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: Re: [PATCH 0/6 v1] perf test attr: Fix the re-enabled test
+User-Agent: Thunderbird for Android
+In-Reply-To: <CAP-5=fURC_-ez2eNXjcT378ttO7iKMHhjrexxekqDEDU-suRpQ@mail.gmail.com>
+References: <20261006161309.3078488-1-acme@kernel.org> <asWLmvF-3YtoKJ7j@google.com> <asYDREqTrh9ZDUhm@localhost> <CAP-5=fURC_-ez2eNXjcT378ttO7iKMHhjrexxekqDEDU-suRpQ@mail.gmail.com>
+Message-ID: <EFC68523-B6E1-4CC6-9B96-93AB16E8D627@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261012-vsock-guest-ns-v3-6-b32447c66b23@meta.com>
-References: <20261012-vsock-guest-ns-v3-0-b32447c66b23@meta.com>
-In-Reply-To: <20261012-vsock-guest-ns-v3-0-b32447c66b23@meta.com>
-To: Stefano Garzarella <sgarzare@redhat.com>,
-        "David S. Miller"
-	<davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>,
-        Simon Horman <horms@kernel.org>, Jonathan Corbet
-	<corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Stefan Hajnoczi
-	<stefanha@redhat.com>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang
-	<jasowangio@gmail.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
-        Shuah Khan
-	<shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
-        Donald Hunter
-	<donald.hunter@gmail.com>,
-        Eric Dumazet <edumazet@kernel.org>,
-        Eric Dumazet
-	<edumazet@kernel.org>
-CC: <virtualization@lists.linux.dev>, <netdev@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <kvm@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-        <sargun@sargun.me>, <jlinbox@meta.com>,
-        Bobby Eshleman <bobbyeshleman@gmail.com>,
-        Bobby Eshleman
-	<bobbyeshleman@meta.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA5MCBTYWx0ZWRfX8DXjT6V+outD
- 3uDRSTQigvluS/KUnK9tr8waX1Tk3jqPTvXgL1Y+gagc2QYjbsBoLkr+wCfbSBZC+34RUKdN8fn
- SxNXks9vB8LeyOEZKglZOErWw71KNL0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA5MCBTYWx0ZWRfX3N2bxoh3XQg+
- wWrs3B02EaXM2zlm3J8FtJE1L7E/vbaaumrOJS/qF2XrXCKkSVlwTJgsxIKRcvZOnmExVMGK81s
- F7Y2057K1gi9Jd8hW7MlOd3VmOh/CbnEj3g9tR1dtvIia9gcu+iAeLJbzg/bPWTWe33bozcpslW
- Ir9j+PHD7rsM5ZsL0+gF8po4hA1kz0FmflJpZukCE/UyOldL1ctN6LsdsXhFmKbKtlpA0hIsBlW
- Y1ghMd+K5s5TsPfy80ap26tjcoal2ugNG9jOwVkDKhxCcZFS6aPl/b7OO/x4aaF2YPhQ45/Xbqm
- tReDLfnpS9K5s5RC2JcA3fPUuDDSHp3uYaIW1gvGh73ZDf5p3nv1cvX8InExiVZeDk1KDnFywAa
- mQEHKGnB43ISa8seS57dXFq2Uc1pFBnyGzpofl90+o8SOJ1hS3zNwMGQcsI3hJtyM30546ojlMq
- nrjitIuAfa+KOJVmo1Q==
-X-Proofpoint-ORIG-GUID: g9ZT7JmFuwC3MRAOapaeImWQ8DiXDyOo
-X-Authority-Analysis: v=2.4 cv=Z/V5j3RA c=1 sm=1 tr=0 ts=6acd63f3 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=7x6HtfJdh03M6CCDgxCd:22 a=PAz_-FQ8hEVmOPYdF0yf:22 a=VabnemYjAAAA:8
- a=bwb2axNAknaXDuCKphUA:9 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-GUID: g9ZT7JmFuwC3MRAOapaeImWQ8DiXDyOo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_06,2026-10-09_01,2025-10-01_01
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Add tests for guest vsock device namespace assignment, including ns
-destruction and the device moving between namespaces.
 
-The tests drive the device through ynl's cli.py and create guest
-namespaces with unshare, so they need python3, PyYAML and unshare. A
-missing one skips only these tests, not the whole script.
 
-Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
----
-Changes in v3:
-- Replace reset_on_ns_delete_ok with pins_ns_ok, to cover the netns
-  pinning
-- Skip only the ns_guest_ tests when PyYAML or the ynl CLI or spec is
-  missing, and ship the ynl bits via TEST_FILES for installed trees
-  (Sashiko)
-- Also skip only the ns_guest_ tests when unshare or python3 is missing
-- Make vm_ns_start() wait for the namespace and report failure (Sashiko)
-- Poll for FIRST in old_conn_send_fails instead of sleeping, and report
-  an over-long assign as a skip (Sashiko)
-- Kill the guest-side socat by name, $! names a local subshell (Sashiko)
-- Wait for the host listener to exit before the next test binds its
-  port (Sashiko)
+On October 12, 2026 7:40:07 PM GMT-03:00, Ian Rogers <irogers@google=2Ecom=
+> wrote:
+>On Wed, Oct 7, 2026 at 1:31=E2=80=AFAM Arnaldo Carvalho de Melo
+><arnaldo=2Emelo@gmail=2Ecom> wrote:
+>>
+>> On Tue, Oct 06, 2026 at 05:00:26PM -0700, Namhyung Kim wrote:
+>> > On Tue, Oct 06, 2026 at 06:13:03PM +0200, Arnaldo Carvalho de Melo wr=
+ote:
+>> > > From: Arnaldo Carvalho de Melo <acme@redhat=2Ecom>
+>>  > The test passes with 'perf test -vv attribute' on x86_64=2E  The AMD
+>> > > encodings come from the amd_pmu_event_map tables in
+>> > > arch/x86/events/amd/core=2Ec=2E
+>> >
+>> > On my machine, the current tmp=2Eperf-tools-next which contains these
+>> > changes fails like this=2E
+>> >
+>> >   $ tools/perf/perf test -v 82
+>> >   ---- start ----
+>> >   test child forked, pid 931585
+>> >   /home/namhyung/project/linux/tools/perf/tests/shell/attr=2Esh: line=
+ 20: python: command not found
+>> >   ---- end(-1) ----
+>> >    82: Perf attribute expectations test                              =
+                   : FAILED!
+>> >
+>> >   =3D=3D=3D Test Summary =3D=3D=3D
+>> >   Passed main tests : 0
+>> >   Passed subtests   : 0
+>> >   Skipped tests     : 0
+>> >   Failed tests      : 1
+>> >   List of failed tests:
+>> >      82: Perf attribute expectations test
+>> >
+>> > The below patch fixes the problem=2E
+>>
+>> still without your patch:
+>>
+>> root@number:~# perf test attribute
+>>  82: Perf attribute expectations t: Ok
+>>
+>>  =3D=3D=3D Test Summary =3D=3D=3D
+>>  Passed main tests : 1
+>>  Passed subtests   : 0
+>>  Skipped tests     : 0
+>>  Failed tests      : 0
+>>  root@number:~# grep "model name" -m1 /proc/cpuinfo
+>>  model name      : AMD Ryzen 9 9950X3D 16-Core Processor
+>>  root@number:~# uname -a
+>>  Linux number 7=2E2=2E7-200=2Efc44=2Ex86_64 #1 SMP PREEMPT_DYNAMIC Mon =
+Sep 21
+>>  18:25:57 UTC 2026 x86_64 GNU/Linux
+>>  root@number:~#
+>>
+>>  I reproduced the build failure in an ARM64 Debian Trixie machine,
+>>  applying your patch to try again=2E
+>
+>For the change to use PYTHON:
+>Reviewed-by: Ian Rogers <irogers@google=2Ecom>
+>I think we can fix the attribute test expectations separately=2E
 
-Changes in v2:
-- Drive the assign with ynl cli.py, drop the vsock_assign_g2h_netns
-  ioctl helper and its patch
-- Terminate the guest socat sender too, it sometimes outlived the test
-  and kept holding on to a port the next test binds
----
- tools/testing/selftests/vsock/Makefile  |   5 +
- tools/testing/selftests/vsock/vmtest.sh | 502 +++++++++++++++++++++++++++++++-
- 2 files changed, 501 insertions(+), 6 deletions(-)
 
-diff --git a/tools/testing/selftests/vsock/Makefile b/tools/testing/selftests/vsock/Makefile
-index c407c0afd938..2b066ba91bcd 100644
---- a/tools/testing/selftests/vsock/Makefile
-+++ b/tools/testing/selftests/vsock/Makefile
-@@ -13,5 +13,10 @@ $(VSOCK_TEST_DIR)/vsock_test: $(VSOCK_TEST_SRCS)
- TEST_PROGS += vmtest.sh
- TEST_GEN_FILES := vsock_test
- 
-+TEST_FILES := \
-+	../../../net/ynl/pyynl/cli.py \
-+	../../../net/ynl/pyynl/lib \
-+	../../../../Documentation/netlink/specs/vsock.yaml
-+
- include ../lib.mk
- 
-diff --git a/tools/testing/selftests/vsock/vmtest.sh b/tools/testing/selftests/vsock/vmtest.sh
-index 310dfc2a39ad..7693d5e0a1d0 100755
---- a/tools/testing/selftests/vsock/vmtest.sh
-+++ b/tools/testing/selftests/vsock/vmtest.sh
-@@ -17,6 +17,20 @@ readonly KERNEL_CHECKOUT=$(realpath "${SCRIPT_DIR}"/../../../../)
- source "${SCRIPT_DIR}"/../kselftest/ktap_helpers.sh
- 
- readonly VSOCK_TEST="${SCRIPT_DIR}"/vsock_test
-+
-+# "make install" copies the ynl CLI, its lib package and the spec next to this
-+# script (see TEST_FILES); in a source tree they stay where they are built.
-+if [[ -r "${SCRIPT_DIR}"/cli.py ]]; then
-+	readonly YNL_CLI="${SCRIPT_DIR}"/cli.py
-+	readonly YNL_LIB="${SCRIPT_DIR}"/lib
-+	readonly VSOCK_SPEC="${SCRIPT_DIR}"/vsock.yaml
-+else
-+	readonly YNL_DIR="${KERNEL_CHECKOUT}"/tools/net/ynl/pyynl
-+	readonly YNL_CLI="${YNL_DIR}"/cli.py
-+	readonly YNL_LIB="${YNL_DIR}"/lib
-+	readonly SPEC_DIR="${KERNEL_CHECKOUT}"/Documentation/netlink/specs
-+	readonly VSOCK_SPEC="${SPEC_DIR}"/vsock.yaml
-+fi
- readonly TEST_GUEST_PORT=51000
- readonly TEST_HOST_PORT=50000
- readonly TEST_HOST_PORT_LISTENER=50001
-@@ -73,6 +87,12 @@ readonly TEST_NAMES=(
- 	ns_delete_vm_ok
- 	ns_delete_host_ok
- 	ns_delete_both_ok
-+	ns_guest_local_connect_to_host_fails
-+	ns_guest_assign_g2h_netns_connect_to_host_ok
-+	ns_guest_assign_g2h_netns_init_ns_connect_fails
-+	ns_guest_assign_g2h_netns_host_connect_ok
-+	ns_guest_assign_g2h_netns_pins_ns_ok
-+	ns_guest_assign_g2h_netns_old_conn_send_fails
- )
- readonly TEST_DESCS=(
- 	# vm_server_host_client
-@@ -149,12 +169,36 @@ readonly TEST_DESCS=(
- 
- 	# ns_delete_both_ok
- 	"Check that deleting the VM and host's namespaces does not break the socket connection"
-+
-+	# ns_guest_local_connect_to_host_fails
-+	"Check a guest process in a local ns cannot reach the host without the netns assign."
-+
-+	# ns_guest_assign_g2h_netns_connect_to_host_ok
-+	"Check a guest process in a local ns reaches the host once the vsock device is assigned to it."
-+
-+	# ns_guest_assign_g2h_netns_init_ns_connect_fails
-+	"Check the guest's initial ns loses vsock once the device is assigned to another ns."
-+
-+	# ns_guest_assign_g2h_netns_host_connect_ok
-+	"Check the host reaches a guest listener in the ns the vsock device is assigned to."
-+
-+	# ns_guest_assign_g2h_netns_pins_ns_ok
-+	"Check the assignment keeps the ns alive when deleted, and that reassigning releases it."
-+
-+	# ns_guest_assign_g2h_netns_old_conn_send_fails
-+	"Check connections made before the assign stop sending once they lose the device."
- )
- 
- readonly USE_SHARED_VM=(
- 	vm_server_host_client
- 	vm_client_host_server
- 	vm_loopback
-+	ns_guest_local_connect_to_host_fails
-+	ns_guest_assign_g2h_netns_connect_to_host_ok
-+	ns_guest_assign_g2h_netns_init_ns_connect_fails
-+	ns_guest_assign_g2h_netns_host_connect_ok
-+	ns_guest_assign_g2h_netns_pins_ns_ok
-+	ns_guest_assign_g2h_netns_old_conn_send_fails
- )
- readonly NS_MODES=("local" "global")
- 
-@@ -316,6 +360,34 @@ check_deps() {
- 	fi
- }
- 
-+check_ns_guest_deps() {
-+	local tname=$1
-+	local dep
-+
-+	if [[ ! "${tname}" =~ ^ns_guest_ ]]; then
-+		return 0
-+	fi
-+
-+	for dep in unshare python3; do
-+		if [[ ! -x $(command -v "${dep}") ]]; then
-+			log_host "no ${dep} for test ${tname}"
-+			return 1
-+		fi
-+	done
-+
-+	if ! python3 -c "import yaml" &>/dev/null; then
-+		log_host "no python3 yaml module for test ${tname}"
-+		return 1
-+	fi
-+
-+	if [[ ! -r "${YNL_CLI}" ]] || [[ ! -r "${VSOCK_SPEC}" ]]; then
-+		log_host "no ynl cli or vsock spec for test ${tname}"
-+		return 1
-+	fi
-+
-+	return 0
-+}
-+
- check_netns() {
- 	local tname=$1
- 
-@@ -401,6 +473,19 @@ setup_home() {
- 	mkdir -p "$(dirname "${SSH_KEY_PATH}")"
- 	ssh-keygen -t ed25519 -f "${SSH_KEY_PATH}" -N "" -q
- 	cp "${VSOCK_TEST}" "${TEST_HOME}"/vsock_test
-+
-+	mkdir -p "${TEST_HOME}"/ynl
-+	if [[ -r "${YNL_CLI}" ]]; then
-+		cp "${YNL_CLI}" "${TEST_HOME}"/ynl/
-+		cp -r "${YNL_LIB}" "${TEST_HOME}"/ynl/
-+		cp "${VSOCK_SPEC}" "${TEST_HOME}"/ynl/
-+	fi
-+
-+	# One of the tests runs the CLI as an unprivileged user, so the CLI
-+	# has to be reachable by one.
-+	chmod -R a+rX "${TEST_HOME}"/ynl
-+
-+	chmod 755 "${TEST_HOME}"
- }
- 
- create_pidfile() {
-@@ -528,6 +613,82 @@ vm_wait_for_ssh() {
- 	done
- }
- 
-+# Create a local mode namespace in the VM and echo the pid holding it open.
-+vm_ns_start() {
-+	local ns=$1
-+	local initns
-+	local nspid
-+	local newns
-+	local i
-+
-+	local mode=/proc/sys/net/vsock/child_ns_mode
-+
-+	if ! vm_ssh "${ns}" -- "echo local > ${mode}" &>/dev/null; then
-+		return
-+	fi
-+
-+	nspid=$(vm_ssh "${ns}" -- "unshare -n sleep infinity" \
-+		'>/dev/null 2>&1 & echo $!')
-+	if [[ -z "${nspid}" ]]; then
-+		return
-+	fi
-+
-+	initns=$(vm_ssh "${ns}" -- "readlink /proc/self/ns/net")
-+	for ((i = 0; i < WAIT_PERIOD_MAX; i++)); do
-+		newns=$(vm_ssh "${ns}" -- "readlink /proc/${nspid}/ns/net" \
-+			2>/dev/null)
-+		if [[ -n "${newns}" ]] && [[ "${newns}" != "${initns}" ]]; then
-+			echo "${nspid}"
-+			return
-+		fi
-+		sleep 1
-+	done
-+
-+	vm_ns_stop "${ns}" "${nspid}"
-+}
-+
-+# Returns once the holder is gone, so that the namespace is unreferenced and
-+# the kernel can start tearing it down.
-+vm_ns_stop() {
-+	local ns=$1
-+	local nspid=$2
-+
-+	vm_ssh "${ns}" <<-EOF &>/dev/null
-+		kill ${nspid}
-+		for ((i = 0; i < ${WAIT_PERIOD_MAX}; i++)); do
-+			kill -0 ${nspid} 2>/dev/null || break
-+			sleep 1
-+		done
-+	EOF
-+}
-+
-+# Runs in the guest's initial namespace when <nspid> is empty. The command must
-+# not contain single quotes.
-+vm_ns_exec() {
-+	local ns=$1
-+	local nspid=$2
-+	local cmd=$3
-+
-+	if [[ -z "${nspid}" ]]; then
-+		vm_ssh "${ns}" -- "${cmd}"
-+		return
-+	fi
-+
-+	vm_ssh "${ns}" -- nsenter -t "${nspid}" -n sh -c "'${cmd}'"
-+}
-+
-+vm_ns_assign_g2h() {
-+	local ns=$1
-+	local nspid=$2
-+
-+	vm_ns_exec "${ns}" "${nspid}" "python3 /root/ynl/cli.py --no-schema \
-+		--spec /root/ynl/vsock.yaml --do dev-netns-set"
-+}
-+
-+vm_reset_g2h() {
-+	vm_ns_assign_g2h "init_ns" "" &>/dev/null
-+}
-+
- # derived from selftests/net/net_helper.sh
- wait_for_listener()
- {
-@@ -564,17 +725,33 @@ wait_for_listener()
- 	done
- }
- 
--vm_wait_for_listener() {
-+# Runs in the guest's initial namespace when <nspid> is empty.
-+vm_ns_wait_for_listener() {
- 	local ns=$1
--	local port=$2
--	local protocol=$3
-+	local nspid=$2
-+	local port=$3
-+	local protocol=$4
-+	local nsenter=
-+	local args
-+
-+	[[ -n "${nspid}" ]] && nsenter="nsenter -t ${nspid} -n"
-+	args="${port} ${WAIT_PERIOD} ${WAIT_PERIOD_MAX} ${protocol}"
- 
- 	vm_ssh "${ns}" <<EOF
- $(declare -f wait_for_listener)
--wait_for_listener ${port} ${WAIT_PERIOD} ${WAIT_PERIOD_MAX} ${protocol}
-+export -f wait_for_listener
-+${nsenter} bash -c "wait_for_listener ${args}"
- EOF
- }
- 
-+vm_wait_for_listener() {
-+	local ns=$1
-+	local port=$2
-+	local protocol=$3
-+
-+	vm_ns_wait_for_listener "${ns}" "" "${port}" "${protocol}"
-+}
-+
- host_wait_for_listener() {
- 	local ns=$1
- 	local port=$2
-@@ -1421,6 +1598,317 @@ test_ns_delete_both_ok() {
- 	check_ns_delete_doesnt_break_connection "both"
- }
- 
-+# Send a string from the guest to a host listener and leave what the host
-+# received in <outfile>.
-+guest_send_to_host() {
-+	local ns=$1
-+	local nspid=$2
-+	local port=$3
-+	local outfile=$4
-+	local cmd="echo TEST | socat -u STDIN VSOCK-CONNECT:2:${port}"
-+	local pid
-+
-+	socat -u VSOCK-LISTEN:"${port}" STDOUT > "${outfile}" 2>/dev/null &
-+	pid=$!
-+	host_wait_for_listener "${ns}" "${port}" "vsock"
-+
-+	vm_ns_exec "${ns}" "${nspid}" "${cmd}" 2>/dev/null
-+
-+	timeout "${WAIT_PERIOD}" \
-+		bash -c 'while [[ ! -s '"${outfile}"' ]]; do sleep 1; done'
-+
-+	# Wait for the listener to actually go, or the next test binding the
-+	# same port races it and silently reads nothing.
-+	terminate_pids "${pid}"
-+	wait "${pid}" 2>/dev/null
-+}
-+
-+# Send a string from the host to a listener in the guest and leave what the
-+# guest received in <outfile>.
-+host_send_to_guest() {
-+	local ns=$1
-+	local nspid=$2
-+	local port=$3
-+	local outfile=$4
-+	local cmd="socat -u VSOCK-LISTEN:${port} STDOUT"
-+	local dst="VSOCK-CONNECT:${VSOCK_CID}:${port}"
-+	local pid
-+
-+	vm_ns_exec "${ns}" "${nspid}" "${cmd}" > "${outfile}" 2>/dev/null &
-+	pid=$!
-+	vm_ns_wait_for_listener "${ns}" "${nspid}" "${port}" "vsock"
-+
-+	echo TEST | socat -u STDIN "${dst}" 2>/dev/null
-+
-+	timeout "${WAIT_PERIOD}" \
-+		bash -c 'while [[ ! -s '"${outfile}"' ]]; do sleep 1; done'
-+
-+	vm_ns_exec "${ns}" "${nspid}" \
-+		"pkill -f VSOCK-LISTEN:${port}" &>/dev/null
-+	terminate_pids "${pid}"
-+	wait "${pid}" 2>/dev/null
-+}
-+
-+ns_old_conn_cleanup() {
-+	local port=$1
-+	local pid=$2
-+	local sender=$3
-+	local outfile=$4
-+	local nspid=$5
-+
-+	vm_ns_exec "init_ns" "" "pkill -f VSOCK-CONNECT:2:${port}" &>/dev/null
-+	terminate_pids "${pid}" "${sender}"
-+	wait "${pid}" "${sender}" 2>/dev/null
-+	rm -f "${outfile}"
-+	vm_ns_stop "init_ns" "${nspid}"
-+	vm_reset_g2h
-+}
-+
-+test_ns_guest_assign_g2h_netns_old_conn_send_fails() {
-+	local gap=$(( WAIT_PERIOD * 3 ))
-+	local port=12346
-+	local elapsed
-+	local started
-+	local outfile
-+	local result
-+	local sender
-+	local nspid
-+	local pid
-+
-+	nspid=$(vm_ns_start "init_ns")
-+	if [[ -z "${nspid}" ]]; then
-+		log_host "failed to create a namespace inside the guest"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	outfile=$(mktemp)
-+	socat -u VSOCK-LISTEN:"${port}" STDOUT > "${outfile}" 2>/dev/null &
-+	pid=$!
-+	host_wait_for_listener "init_ns" "${port}" "vsock"
-+
-+	# Send a message, wait, then send another. While waiting, assign the
-+	# device to a namespace. Confirm the second message does not arrive.
-+	vm_ssh "init_ns" -- \
-+		"(echo FIRST; sleep ${gap}; echo SECOND) |" \
-+		"socat -u STDIN VSOCK-CONNECT:2:${port}" &>/dev/null &
-+	sender=$!
-+
-+	timeout "$(( WAIT_PERIOD * WAIT_PERIOD_MAX ))" \
-+		bash -c 'while [[ ! -s '"${outfile}"' ]]; do sleep 1; done'
-+
-+	started=${SECONDS}
-+	if ! vm_ns_assign_g2h "init_ns" "${nspid}"; then
-+		log_host "failed to assign the vsock device to the guest ns"
-+		ns_old_conn_cleanup "${port}" "${pid}" "${sender}" \
-+			"${outfile}" "${nspid}"
-+		return "${KSFT_FAIL}"
-+	fi
-+	elapsed=$(( SECONDS - started ))
-+
-+	sleep $(( gap + WAIT_PERIOD ))
-+
-+	result=$(cat "${outfile}")
-+	ns_old_conn_cleanup "${port}" "${pid}" "${sender}" \
-+		"${outfile}" "${nspid}"
-+
-+	if [[ "${result}" != *FIRST* ]]; then
-+		log_host "no connection before the assign: [${result}]"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	if [[ ${elapsed} -ge ${gap} ]]; then
-+		log_host "assign took ${elapsed}s, longer than the ${gap}s gap"
-+		return "${KSFT_SKIP}"
-+	fi
-+
-+	if [[ "${result}" == *SECOND* ]]; then
-+		log_host "old connection still delivered after the assign"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	return "${KSFT_PASS}"
-+}
-+
-+test_ns_guest_local_connect_to_host_fails() {
-+	local port=12345
-+	local outfile
-+	local result
-+	local nspid
-+
-+	nspid=$(vm_ns_start "init_ns")
-+	if [[ -z "${nspid}" ]]; then
-+		log_host "failed to create a namespace inside the guest"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	outfile=$(mktemp)
-+	guest_send_to_host "init_ns" "${nspid}" "${port}" "${outfile}"
-+
-+	vm_ns_stop "init_ns" "${nspid}"
-+	vm_reset_g2h
-+
-+	result=$(cat "${outfile}")
-+	rm -f "${outfile}"
-+
-+	if [[ "${result}" == TEST ]]; then
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	return "${KSFT_PASS}"
-+}
-+
-+test_ns_guest_assign_g2h_netns_connect_to_host_ok() {
-+	local port=12345
-+	local outfile
-+	local result
-+	local nspid
-+
-+	nspid=$(vm_ns_start "init_ns")
-+	if [[ -z "${nspid}" ]]; then
-+		log_host "failed to create a namespace inside the guest"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	if ! vm_ns_assign_g2h "init_ns" "${nspid}"; then
-+		log_host "failed to assign the vsock device to the guest ns"
-+		vm_ns_stop "init_ns" "${nspid}"
-+		vm_reset_g2h
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	outfile=$(mktemp)
-+	guest_send_to_host "init_ns" "${nspid}" "${port}" "${outfile}"
-+
-+	vm_ns_stop "init_ns" "${nspid}"
-+	vm_reset_g2h
-+
-+	result=$(cat "${outfile}")
-+	rm -f "${outfile}"
-+
-+	if [[ "${result}" != TEST ]]; then
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	return "${KSFT_PASS}"
-+}
-+
-+test_ns_guest_assign_g2h_netns_init_ns_connect_fails() {
-+	local port=12345
-+	local outfile
-+	local result
-+	local nspid
-+
-+	nspid=$(vm_ns_start "init_ns")
-+	if [[ -z "${nspid}" ]]; then
-+		log_host "failed to create a namespace inside the guest"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	if ! vm_ns_assign_g2h "init_ns" "${nspid}"; then
-+		log_host "failed to assign the vsock device to the guest ns"
-+		vm_ns_stop "init_ns" "${nspid}"
-+		vm_reset_g2h
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	outfile=$(mktemp)
-+	guest_send_to_host "init_ns" "" "${port}" "${outfile}"
-+
-+	vm_ns_stop "init_ns" "${nspid}"
-+	vm_reset_g2h
-+
-+	result=$(cat "${outfile}")
-+	rm -f "${outfile}"
-+
-+	if [[ "${result}" == TEST ]]; then
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	return "${KSFT_PASS}"
-+}
-+
-+test_ns_guest_assign_g2h_netns_host_connect_ok() {
-+	local port=12345
-+	local outfile
-+	local result
-+	local nspid
-+
-+	nspid=$(vm_ns_start "init_ns")
-+	if [[ -z "${nspid}" ]]; then
-+		log_host "failed to create a namespace inside the guest"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	if ! vm_ns_assign_g2h "init_ns" "${nspid}"; then
-+		log_host "failed to assign the vsock device to the guest ns"
-+		vm_ns_stop "init_ns" "${nspid}"
-+		vm_reset_g2h
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	outfile=$(mktemp)
-+	host_send_to_guest "init_ns" "${nspid}" "${port}" "${outfile}"
-+
-+	vm_ns_stop "init_ns" "${nspid}"
-+	vm_reset_g2h
-+
-+	result=$(cat "${outfile}")
-+	rm -f "${outfile}"
-+
-+	if [[ "${result}" != TEST ]]; then
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	return "${KSFT_PASS}"
-+}
-+
-+test_ns_guest_assign_g2h_netns_pins_ns_ok() {
-+	local port=12345
-+	local outfile
-+	local result
-+	local nspid
-+
-+	nspid=$(vm_ns_start "init_ns")
-+	if [[ -z "${nspid}" ]]; then
-+		log_host "failed to create a namespace inside the guest"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	if ! vm_ns_assign_g2h "init_ns" "${nspid}"; then
-+		log_host "failed to assign the vsock device to the guest ns"
-+		vm_ns_stop "init_ns" "${nspid}"
-+		vm_reset_g2h
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	vm_ns_stop "init_ns" "${nspid}"
-+	sleep "${WAIT_PERIOD}"
-+
-+	outfile=$(mktemp)
-+	guest_send_to_host "init_ns" "" "${port}" "${outfile}"
-+	result=$(cat "${outfile}")
-+	if [[ "${result}" == TEST ]]; then
-+		log_host "device returned to the init ns instead of pinning it"
-+		rm -f "${outfile}"
-+		vm_reset_g2h
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	# Assigning it back is what releases the deleted namespace.
-+	vm_reset_g2h
-+
-+	guest_send_to_host "init_ns" "" "$(( port + 1 ))" "${outfile}"
-+	result=$(cat "${outfile}")
-+	rm -f "${outfile}"
-+
-+	if [[ "${result}" != TEST ]]; then
-+		log_host "device did not come back on reassign: [${result}]"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	return "${KSFT_PASS}"
-+}
-+
- shared_vm_test() {
- 	local tname
- 
-@@ -1453,7 +1941,8 @@ run_shared_vm_tests() {
- 			continue
- 		fi
- 
--		if ! check_netns "${arg}"; then
-+		if ! check_netns "${arg}" ||
-+		   ! check_ns_guest_deps "${arg}"; then
- 			check_result "${KSFT_SKIP}" "${arg}"
- 			continue
- 		fi
-@@ -1517,7 +2006,8 @@ run_ns_tests() {
- 			continue
- 		fi
- 
--		if ! check_netns "${arg}"; then
-+		if ! check_netns "${arg}" ||
-+		   ! check_ns_guest_deps "${arg}"; then
- 			check_result "${KSFT_SKIP}" "${arg}"
- 			continue
- 		fi
+I fixed then already, will submit tomorrow morning:=20
 
--- 
-2.53.0-Meta
+=E2=AC=A2 [acme@toolbx perf-tools-next]$ git log --oneline -22            =
+        =20
+ b8d6660fb3333fe9 (HEAD -> perf/alta-test-evsel-fix-and-mlock) perf tests:=
+ Mark the shell tests not mapping perf ring buffers                        =
+  =20
+745ef567f0fe5705 perf tests: Mark the C tests mapping perf ring buffers
+ebb8034d6627621f perf test: Take turns using the perf mlock budget in the =
+mmaping tests                                                              =
+   433379c85c0affc5 perf mutex: Add a robust, process-shared mutex initiali=
+zer=20
+52277c8f4bc4a5f8 perf tests: Introduce a 'needs_mlock' suite flag
+7be6c60f58acca20 perf test attr: State, spelled out in a line, why a test =
+is skipped
+2a6b500277a921d1 perf test attr: Ignore the group read_format bit the PMU =
+count can remove                                                           =
+   392722445f2b0a15 perf test attr: Ignore the dummy tracking event and the=
+ terms it carries                                                          =
+     b4631e5b762de4a8 perf test attr: Accept either sample id bit perf asks=
+ for =20
+b2a70402b56b34e5 perf test attr: Introduce mask_bits(), generalizing hide_=
+core_pmu_type()                                                            =
+   f6711283e99de095 perf evsel: Don't dump probe events to PERF_TEST_ATTR
+13b60625f92619aa perf test attr: Ignore the core PMU type perf puts in 'co=
+nfig'                                                                      =
+   394bfd10f1923f0d perf evsel: Mark the event as supported when retrying a=
+n open
+50a76fcdb7321c57 perf test attr: Relax group checking for ungrouped expect=
+ations
+0887d3cc78ca9b69 perf test attr: Fix default stat metrics expectations    =
+  048fe0dc4cc566f0 perf test attr: Fix legacy event encodings in group test=
+s
+f1f3c53b46c5da4e perf test attr: Allow tests to require a core PMU        =
+ =20
+75929770e7f9a907 perf test attr: Fix record dwarf sample_type expectation =
+ =20
+d4c243e294dee22c perf test attr: Fix wrong size expectation for events    =
+=20
+16e6b715c7ab376b perf test attr: Propagate the return value from the test =
+to the wrapper                                                             =
+   74128ffa6d71a0ef perf test attr: Source setup_python=2Esh instead of cal=
+ling python                                                                =
+       1dc462fc21490767 (perf-tools-next=2Ekorg/perf-tools-next, five/perf-=
+tools-next, acme/perf-tools-next) perf test: Add a test for perf timechart =
+--tui     =20
+=E2=AC=A2 [acme@toolbx perf-tools-next]$
 
+- Arnaldo 
