@@ -1,162 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3398E3BCD0D
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:59:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A1D374E5A;
+	Mon, 12 Oct 2026 18:59:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791831555; cv=none; b=meiJvSx2oZwCWlciS/y7XQz0Jdqs/d0N9LkqxliYnfDUwBpdovqA02Pb9IzqEcUuKrzG/1fc6/jPZ1dQ4k4FPuSC/k0h5C4A+LT41HlCx2E5UK8xPqgMhgTlb/zl3gtH+riCQmNZj4dtPeBBMUn7p+LonxtPOCnoClCWC748xrw=
+	t=1791831573; cv=none; b=ULbutxM7zUQZZQN3YLj3wxuI25NLU8DhWLTKPY68/ajkPZmwZ+OuUKi+CSqnmyCeNfEiFFyHtnbByEzk1F1nPg6nPFtc15jSPbh6AlxbmG0pL7wZk/cXZG+/WN8+vhLivdIbh7XmdYYsqiluOvc6gIyxaIsDVNCjObqPbZM0XYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791831555; c=relaxed/simple;
-	bh=0nXGACBN/x6TX9kfCTgsb4l252RYCW0IICb3v/pKq/A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lgkrzo+0uvk9YsVxoedcZ/n4safjonF3Sl/ur8CSeLEqvEjuBgO87GZiFz5jxnjQGc6krQjoL9eEsCVLFURxdm4uGhG7SD1VchiVlZ53M+6s5X52VAkHM/JZGueVib3klBSjIy6l19NZnRndBxlJNeoJ2yxq9GsGtvqTKQPRs68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=REy5hcig; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791831573; c=relaxed/simple;
+	bh=NDcnXEQvkxTSDc7OEmOpPUIL28bEAcCqKO16/nQ9nHY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=YyLMOC80gurTnNmdn+gcRqHxlOwbIoWOnpD4Qy8amizDG6wnlh2c6obcu3BVC8liQZynh5BKA4fDARRp4FgxK+KsSIb/8o9yP70zkZJ1MPYJqk9mp/Gl6QmcH3DNim2RvIQloX0Asvs0cadO0la1t7qGY4sIyPWqx5uHrFseEcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=wuqJNlLp; arc=none smtp.client-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="REy5hcig"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D62021F008A7
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:59:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791831553;
-	bh=xt5R5QIossr8PvFGF9z1aq+prpu9O6h0Df/bSvqtdU8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=REy5hcigSNpGZuCUMAJoRMuOB7E2gF7kAwGnmZhEGf9Ej5RotAWpfUfmnuE+lSgRx
-	 u+tNL9R+v9uE2pNpgwmI0n8ea8XkQAXFZ8gnJ6ZVFQInQ86gEth2M/3/oXraD0uEKK
-	 z+Nz/nmt0bwaS7EokprAftNYFCVs1OhD/z1P32QhAWGWfl9FrHsE1td0bIP8m4M8xO
-	 Re0yPBez7TkJG2yQeixupmnqnJMrRVsRnwm/1rVEQ12XdwGzmme6n8fZcyjOIWfFou
-	 DE9Sai51wLi1KOC3h24/MEYz5Ab9ukZ8A/XONplO7u2fw9LIKsiUcbsovxuBsxi+Yu
-	 1OGnQ8/lo+ayQ==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so1580590e87.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:59:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwErgT2ckpRm9huz5eTDmNVA/nPOubTbugae/o4Ltk/xJeI8bSYyQoKGIN+q2DJQhziplFoNmuGLNGRU4Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI81b0HfA4W2cjD8kNdSLySdctN/mJySIa9xTLBthe8kQi+mllX
-	r9KL1/Aaev4jto2kJNNJZKxQM4biL6etT9p090rfyJDQGwEV2A4cgevY9S4JXCq3YBU66KaCInc
-	zCYj86hwqP1HND1nmboyUXVTpuDiLm4E=
-X-Received: by 2002:a05:6512:6405:b0:5bc:e4ae:718d with SMTP id
- 2adb3069b0e04-5bce4ae7220mr3129853e87.64.1791831552263; Mon, 12 Oct 2026
- 11:59:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="wuqJNlLp"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
+	:From; bh=xABwQzsz7Q7HeYTm3a7cqXm8Re+2/3UYBe4Ql6Rc5uk=; b=wuqJNlLpTPZXGeWPY6z
+	RbmO3Xtnk2lTELwJlu8MCShhrdKvYkJq9irIolxAXzPM0naiCrGW3pH8qr54ncd++swVD7hXNWoBz
+	hEHnkbdPAi07FA+8ZpDtydwtxFnao/WsBWoiLs4IHVuOuHdo3j7Xm7F4djjbG1tfSYF1pZRSsaYrT
+	dln7qcJPBYYpbug69GSuHVpv77hDNNZ9mQLBoPf760E6Ylp9MwUMAoigjb6FWXzJ1vD2Y2qbKAEX/
+	iS1grzdQGFbdPn8o+YaOQQOkUoTW4fQ+Hww32qQYInENDATweU+fW25vXJ/qhhhfRXBtvUkKykUC6
+	RhrN1IfJ3FordbA==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <khorenko@virtuozzo.com>)
+	id 1xGLBb-007pPW-0K;
+	Mon, 12 Oct 2026 20:59:08 +0200
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Date: Mon, 12 Oct 2026 20:59:05 +0200
+Subject: [PATCH 1/2] selftests: cgroup: skip test_memcg_sock under
+ cgroup.memory=nosocket
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007155820.3194105-1-sh_def@163.com>
-In-Reply-To: <20261007155820.3194105-1-sh_def@163.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 12 Oct 2026 20:57:08 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0iHXc4+si4TspPB+oNyPNED+9s90B7VJwrMa91J6GOGCg@mail.gmail.com>
-X-Gm-Features: AclHuK_mNZ2wKn_gme-IIZoeUlw1tE_wMnFnbScf3dXt5ZLPmlcVDWESBz1-BKc
-Message-ID: <CAJZ5v0iHXc4+si4TspPB+oNyPNED+9s90B7VJwrMa91J6GOGCg@mail.gmail.com>
-Subject: Re: [PATCH v2] cpufreq: schedutil: Serialize start against rate limit updates
-To: Hui Su <sh_def@163.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, Ingo Molnar <mingo@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-b4-prep-vstor-149854-let-test_memcg_sock-compare-flushed-sock-stats-v1-1-bc864b1950ad@virtuozzo.com>
+References: <20261012-b4-prep-vstor-149854-let-test_memcg_sock-compare-flushed-sock-stats-v1-0-bc864b1950ad@virtuozzo.com>
+In-Reply-To: <20261012-b4-prep-vstor-149854-let-test_memcg_sock-compare-flushed-sock-stats-v1-0-bc864b1950ad@virtuozzo.com>
+To: Tejun Heo <tj@kernel.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@kernel.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Muchun Song <muchun.song@linux.dev>, Shuah Khan <shuah@kernel.org>, 
+ Guopeng Zhang <zhangguopeng@kylinos.cn>, cgroups@vger.kernel.org, 
+ linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1810;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=NDcnXEQvkxTSDc7OEmOpPUIL28bEAcCqKO16/nQ9nHY=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBqzS4Dq31RlSyeRnJrQb5BqdajPr4aqA1nSsHEP
+ tO3tnluCEyJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCas0uAwAKCRBRlgpH+WFc
+ Kq9zD/9hCfrn+3/QeRccmHR5iUlw8bwPXqJF0/A/r0TWCtxaq6wsiclWoWkfYmVqaCiIBssMXn/
+ wQYqt8NQcCMiGopXo+1sT6yiEjE1QY+WVSkAFi2SooA0ums9KcN/RqvH4Y3ei6FnGy51pL1tPXR
+ QhUqk5B9HEOpLdj05cjU2unGkTS0+a9eZKwBG9J3BMENdXmtxzB6PVe77COpbQFbFrEQ1XOZKC2
+ KL0Cr2fE7lsDn5oeDCNQcklnquShVlaUbQ65GauytxgDrVfdbaz3noDy2vntGrDOBlkr+pI2E6o
+ FVgoOObbPMejOgXEXmUzM4rh7E7AxACvZYse8kAG46RLp0+fdk5PHiXMdOhannqA1w1wIQGFn6N
+ XBiUciNPno2Kyhz6EZaUxbXCsLTHIJsZKbBc3p05k2eQrC4W9zWNgh0F4Ip8M5gFvU+TfGNZZ0P
+ GQUMVIAXFg9wYJuoXEYqtc6Wgf21WO4Aq3wC9A1C8kgVkM/ompDWh4IYVIPY8uftRi1rS+7zkWl
+ FBcI/fbSNktog4X2gc7jWOGPyyHANwD7cDXIJSaEtlrSpsuWHTJHnPMFcpQZ7d4t4ElMEpIQ4h7
+ ewNE2mTnItIMoukD/Lg89R7/x9Fp05p5AWHvh8lekHFg6xx5FK0WBp+fwesnCxWBFdRAQKwCug9
+ Wl4TFPQ6oDmWBTg==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 
-On Wed, Oct 7, 2026 at 5:59=E2=80=AFPM Hui Su <sh_def@163.com> wrote:
->
-> rate_limit_us_store() is called with the governor attribute set
-> update_lock held, but sugov_start() updates freq_update_delay_ns from
-> the same tunable without taking that lock.
->
-> This allows the two paths to interleave as follows:
->
->         sugov_start()             rate_limit_us_store()
->
->         read old rate_limit_us
->                                   write new rate_limit_us
->                                   publish the new delay
->         publish the old delay
->
-> The sysfs tunable then contains the new value while
-> freq_update_delay_ns contains the old one. Unlike a transient torn
-> read, the stale delay remains in effect until another rate limit update
-> or governor restart.
->
-> Serialize sugov_start() against sysfs stores by taking the existing
-> governor attribute set lock around sugov_update_rate_limit_us(). Use
-> gov_attr_set_lock() and gov_attr_set_unlock() to keep locking details
-> within the attribute set interface. This keeps the fix off the scheduler
-> hot path.
->
-> Fixes: 9bdcb44e391d ("cpufreq: schedutil: New governor based on scheduler=
- utilization data")
-> Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-> Signed-off-by: Hui Su <sh_def@163.com>
-> ---
-> Changes in v2:
-> - Wrap governor attribute set locking in helpers as suggested by
->   Zhongqiu Han.
->
-> v1: https://lore.kernel.org/lkml/20260929103635.3780346-1-sh_def@163.com/
->
->  include/linux/cpufreq.h          | 10 ++++++++++
->  kernel/sched/cpufreq_schedutil.c |  4 ++++
->  2 files changed, 14 insertions(+)
->
-> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-> index 35ce665edfd8..5448eb0a0885 100644
-> --- a/include/linux/cpufreq.h
-> +++ b/include/linux/cpufreq.h
-> @@ -694,6 +694,16 @@ static inline struct gov_attr_set *to_gov_attr_set(s=
-truct kobject *kobj)
->         return container_of(kobj, struct gov_attr_set, kobj);
->  }
->
-> +static inline void gov_attr_set_lock(struct gov_attr_set *attr_set)
-> +{
-> +       mutex_lock(&attr_set->update_lock);
-> +}
-> +
-> +static inline void gov_attr_set_unlock(struct gov_attr_set *attr_set)
-> +{
-> +       mutex_unlock(&attr_set->update_lock);
-> +}
+With cgroup.memory=nosocket the memory controller does not charge
+socket memory, so the "sock " entry of memory.stat stays 0 and
+memory.current moves only by the kernel objects accept() allocates.
+tcp_client() then passes on 0 == 0 without having checked any
+accounting, or fails if those objects took a fresh charge batch.
 
-I'd rather not do this.
+Look for nosocket among the cgroup.memory= options on the kernel command
+line and skip the test there.
 
-> +
->  void gov_attr_set_init(struct gov_attr_set *attr_set, struct list_head *=
-list_node);
->  void gov_attr_set_get(struct gov_attr_set *attr_set, struct list_head *l=
-ist_node);
->  unsigned int gov_attr_set_put(struct gov_attr_set *attr_set, struct list=
-_head *list_node);
-> diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_sche=
-dutil.c
-> index 49ccd6f1c185..b847311c307d 100644
-> --- a/kernel/sched/cpufreq_schedutil.c
-> +++ b/kernel/sched/cpufreq_schedutil.c
-> @@ -861,7 +861,11 @@ static int sugov_start(struct cpufreq_policy *policy=
-)
->         void (*uu)(struct update_util_data *data, u64 time, unsigned int =
-flags);
->         unsigned int cpu;
->
-> +       /* Serialize against rate_limit_us_store(). */
-> +       gov_attr_set_lock(&sg_policy->tunables->attr_set);
->         sugov_update_rate_limit_us(sg_policy);
-> +       gov_attr_set_unlock(&sg_policy->tunables->attr_set);
+Assisted-by: LLM
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+---
+ tools/testing/selftests/cgroup/test_memcontrol.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-But instead, I'd add a wrapper around sugov_update_rate_limit_us() that wou=
-ld do
+diff --git a/tools/testing/selftests/cgroup/test_memcontrol.c b/tools/testing/selftests/cgroup/test_memcontrol.c
+index 0ed82347044ed..a24c1e07b2035 100644
+--- a/tools/testing/selftests/cgroup/test_memcontrol.c
++++ b/tools/testing/selftests/cgroup/test_memcontrol.c
+@@ -1379,6 +1379,24 @@ static int tcp_client(const char *cgroup, unsigned short port)
+ 	return ret;
+ }
+ 
++static bool memcg_sockets_disabled(void)
++{
++	char buf[4 * BUF_SIZE], *opt;
++
++	if (read_text("/proc/cmdline", buf, sizeof(buf)) <= 0)
++		return false;
++
++	for (opt = strstr(buf, "cgroup.memory="); opt;
++	     opt = strstr(opt + 1, "cgroup.memory=")) {
++		char *end = strchrnul(opt, ' ');
++		char *ns = strstr(opt, "nosocket");
++
++		if (ns && ns < end)
++			return true;
++	}
++	return false;
++}
++
+ /*
+  * This test checks socket memory accounting.
+  * The test forks a TCP server listens on a random port between 1000
+@@ -1394,6 +1412,9 @@ static int test_memcg_sock(const char *root)
+ 	char *memcg;
+ 	long sock_post = -1;
+ 
++	if (memcg_sockets_disabled())
++		return KSFT_SKIP;
++
+ 	memcg = cg_name(root, "memcg_test");
+ 	if (!memcg)
+ 		goto cleanup;
 
-    guard(mutex)(&sg_policy->tunables->attr_set->update_lock);
+-- 
+2.43.0
 
-before calling it and I'd invoke that wrapper from here.
-
-Also, the comment should explain why the locking is needed which it
-doesn't do now.
-
-> +
->         sg_policy->last_freq_update_time        =3D 0;
->         sg_policy->next_freq                    =3D 0;
->         sg_policy->work_in_progress             =3D false;
->
