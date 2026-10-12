@@ -1,191 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE412D781B;
-	Mon, 12 Oct 2026 17:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742A548B398
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:17:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791825400; cv=none; b=iAffT0pkSNnbk3/Dk7ePwUdPsu+gW46qk6czV7zN0r4ZBzYsorxjvYA95gDbSNpNptcOO8EDMKyHp8aqQq7igK7jIK+FDtpnxP1Nau6uRSJjSPa/ZboXXfhyLdH37Ssu8YeQzaEzjTZVew3rMlZ7noAfI9aUto3oxoEEonATh2w=
+	t=1791825479; cv=none; b=b6V7Lsolt4vx4FVao7Ni2FxS2mCMfDF+6tbv8Woquo/D8r6/d6gIi/npNkpVkwDe8h46IvppmELYLO0pjvXEHiW2hcYWX7Cgy65QhJ9GVSi4+q7hz6wt0z+JfeRgzI8gt5D65hsr6eDJYAJneNDLgLo0mRoy65WovZjJ6VRhDf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791825400; c=relaxed/simple;
-	bh=/agcCFouw/gqTSOvTcaEZQDSWyCL+YpsYbk5myDAEF4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=e8a+4qSydx5djbXlGRMGbCVxvG+NMYipPEDuwWC+WdTXTNO/qw3KfvzuChU9G9fBSg8u7QU0EJPSy32lEt77999TyfJvcpOTXgYdWnek1541iGan9u3YLpi1FJgLYj0TojGGUForbQUqi/92INcKfKdICdA6DKkP5boedfsNdsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BdLN9Fh7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791825479; c=relaxed/simple;
+	bh=VwcAIDWhgnfIn32IVgjlHKqi3+DSTWH8Hd3zm2RoHxY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pKcjPlHI3dpciHwjBGenQotgc1B8g71lKKWDMo3CFfOKPbJIqWES2jVgbBwmvibAIrANCkUnNwyJ20eZj0g2dqFq0i8a7CigasTM1v5MvzUdgAstfso7X4jJFuvl5d/AT+4aWbZGeU1Odx8DaytBTXFgfLdYoyo+rG5jAH+9Gqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=jZVfrS6B; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=TWhHVT8F; arc=none smtp.client-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BdLN9Fh7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E65CD1F0089B;
-	Mon, 12 Oct 2026 17:16:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791825398;
-	bh=EpezYIC2PF522Pn091cXv35Yzr07N8vqXygIgiVc8QE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BdLN9Fh7u/aIlHTvwiaw72L7/uA1Go/ZmjNTJq49DmvgeKLil4xKjARZjUGmJfK34
-	 k2EVDN+qH7ysxyDl6AdNDGIstnNvhTqxEk1zTFAlYkUhBNd7YdxDIE5h2uoejSP0Fv
-	 TO0koRwyGMc5Je8yJI8euIajtqnDXmt9mAlkMg5ILoecG8iACaPq3mRMqRBbWZOHWf
-	 MjPIyyjXnVDOEDdwRWTi7Raf5LZ48PX69BKYwc9SGa8mqXeJ7PEio116QojvPLh7Zn
-	 o8mXNsZK3VZGe8S9KHtCq2IVfSvfXNkMIuEMR9/xOpTA2ginXIVLrt/UdUF7Q0A/Z2
-	 bil+TlcwaugVw==
-Subject: Re: [PATCH] rds: fix out-of-bounds conn_path walk in peer gen update
-From: netdev-bot+sashiko@kernel.org
-To: bsdhenrymartin@gmail.com
-Cc: achender@kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Mon, 12 Oct 2026 17:16:37 +0000
-Message-ID: <179182539748.434549.902490805365673328@kernel.org>
-In-Reply-To: <20261008164041.961961-1-bsdhenrymartin@gmail.com>
-References: <20261008164041.961961-1-bsdhenrymartin@gmail.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="jZVfrS6B";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="TWhHVT8F"
+Received: from pps.filterd (m0167071.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CGcMuH1687657
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:17:57 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps01; bh=gC9IoZKL1jmjVDGSQBCOs0WSnE
+	J04v+LLCo5re+IopE=; b=jZVfrS6BMkcN6xF7wmJMksC8JBjbOGAsArPipJxydr
+	ezuoAPWyeNvN8ir8YAiRFNJ0R6BBy7Km68L/QZrgiE30XDKjRbDaniJZJXl3NBHI
+	0jgVTO/gj0/tcp+1KT6M5YiRHbKb8/qLkF3A5q0pgTPg3sjz9GDafQzOzWpydqWZ
+	DOhP5OgqN0PwoguvF8/z4qv1ilwDVk4ItGK3sd8epoOQc2EvU9UXTVi+5e+6TIri
+	h2Cq9xx7Q8krRZCuc+U/0nk0wjF5fzkfuEY4yQcT1Di8rzWvD4KLRoxviIL4wTB8
+	UyFxtRhymolxTYjJEUXKIerpo75sAUfniHjx4AMgd1cg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4h91hc9n35-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:17:57 -0400 (EDT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5351f1b26e6so33800011cf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:17:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1791825476; x=1792430276; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gC9IoZKL1jmjVDGSQBCOs0WSnEJ04v+LLCo5re+IopE=;
+        b=TWhHVT8FcA3ar+qzbrOcBHQ/D+ExY2lx3qyyW9yXzyC9h7lnE8mEVYjL6D5ENESwbn
+         3WVjtC7JwreoE7MOGVbjl1lwKDvaaAqUuIHyIuILqbKxfQhrQTH14bs9ez3MN3UPkMhE
+         56ekvPHANyrJcXy17b89bQGm/QN8TyJzq41y01ylgfQQJFTdffX7RPktRouoHwiO1s0p
+         QdLbUpnxqRh2/wAAIOyLkBPnmwTxFm3qvQHrJApGONK1WeIbGsP18aKz20y1qzhVEjMg
+         SIjBrow37QdEbRLPqeCCBRlyFZ2qTuxOXwvHAK+xQjyvrlMOLQiGS4GSs+x1f+rrwWpu
+         /bGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791825476; x=1792430276;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gC9IoZKL1jmjVDGSQBCOs0WSnEJ04v+LLCo5re+IopE=;
+        b=Lu75JmLNQ2CiG7ZdfOXThKhHKfhrHWXPRttrIW2k4xZ71NbQH4H93rCSYUl6oMCueh
+         WPRU4xx+tfNftOMcQcaUOsXZ4LmMAZ9z1opBUi9kjZYAYA2kRcsWB0GXCJg1amk2fJTe
+         7Y1o9paayY+oSqH9IFhvlYedEA+KiY64oPVTMXfhCcdggcYimFSH1cNYuH02p+iQAnT8
+         cpp0LlCK7qjEAnSSJvn9nU8hyh3KNFESLGIOoTcG1XYlhaZEr6vUiPkbyB5p+RP61Dis
+         cfzOv4PX7+T4zPRToltPP26V6JH7qt2A9dEEjVBGNehozlsbOPo/8WBflfoflL5YgRxA
+         8qLw==
+X-Forwarded-Encrypted: i=1; AKwUvBwIPDhP9+IyfIBNlQ7IwYgH5vjy1z/2fb4+uU+UIwlXnDz21UIdZmw4PL3nl2pcTTJAW76+Cmq4iOp0uFs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+OWgDNXO+vJmXssFysYM/BP6znAug8JqZ77O5iYAYOLUPWzSk
+	+B6oGMcb11WQaVIhqh9kzsfcByf1Us6mCwMvrdrdVHVTclMeDl3rnKVt7RMwHEuiDFq5jb5nFbD
+	wwKP3n+RhpXd6ggsGbikUwAo++b8AC62J9MwLgHCNea38OJgHVTLtnXGJyFQxZw==
+X-Gm-Gg: AYBFou2la92gghoIjQF+NZs4QlxopNIFUyJ5KeH4Km/VtzJgz5lGuXp8tcD63/QFjsN
+	H4ChCpEHBFKv0ceRgHWysVjN1h4UsAr3pGEP7sllVLr5R2u+wYmdu13MDiC228Pw/lNUh5RLeV0
+	V5CRQ4MIlHC5Tm7nYFeMOr2VPDJ3GkFyEtJOx5orFPqngRuyQ9vmG9lKvaLHAvWUSmMBC3sgmqZ
+	PCh0pT2QQSCscztdApglrdBpc5SIr/DxIioGt/4j1zuw3fdJfhqPdk//D7gGVLbBVx71jsrp5bH
+	KYMd/5PbIOAtKaKTmAn8yhf6bZK3hewcaI2ogPmuvq/7gg7un3wXSRdhzMT4iCYNed6cmBIVodi
+	5m1dC2mtoYEpQhRHD1SLXooCNRRh3yvNticSxBRCP5kbXSbk=
+X-Received: by 2002:a05:622a:1b89:b0:535:70b4:3f81 with SMTP id d75a77b69052e-5359fe556b8mr172345721cf.71.1791825476309;
+        Mon, 12 Oct 2026 10:17:56 -0700 (PDT)
+X-Received: by 2002:a05:622a:1b89:b0:535:70b4:3f81 with SMTP id d75a77b69052e-5359fe556b8mr172344981cf.71.1791825475513;
+        Mon, 12 Oct 2026 10:17:55 -0700 (PDT)
+Received: from [127.0.1.1] (nat-128-59-178-231.net.columbia.edu. [128.59.178.231])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b79a186sm84105241cf.20.2026.10.12.10.17.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 10:17:53 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+Subject: [PATCH RFC v2 0/3] ext4: don't complete atomic writes through
+ buffered I/O
+Date: Mon, 12 Oct 2026 13:17:39 -0400
+Message-Id: <20261012-ext4-atomic-no-fallback-v2-0-c4b30c60e500@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADMWzWoC/4WNQQ6CMBREr0L+2pq2WExdmZh4ALeGRVt+pQrUt
+ IVgCHcX8AAuZ/LmzQQRg8MIp2yCgIOLzndL4LsMTK26BxJXLRk45QWVVBIc04Go5FtnSOeJVU2
+ jlXkRzYSg6qhyayws63dA68bNfIfb9QLlr4y9fqJJq3PFaheTD5/tf2Ab/PdqYIQRoQotRS4Np
+ fxsfNO32qk9Vj2U8zx/AXXf3yDYAAAA
+X-Change-ID: 20260909-ext4-atomic-no-fallback-b1550a7a3fcf
+To: Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>,
+        Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>,
+        Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Zhang Yi <yi.zhang@huawei.com>, Christoph Hellwig <hch@lst.de>,
+        John Garry <john.garry@linux.dev>,
+        "Darrick J. Wong" <djwong@kernel.org>
+Cc: linux-block@vger.kernel.org, linux-ext4@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+        Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791825472; l=2239;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=VwcAIDWhgnfIn32IVgjlHKqi3+DSTWH8Hd3zm2RoHxY=;
+ b=4nuovofsOXeVA4WMPAoybjCcbpaZs5uqfbQUypnaxQDRlltD3EGo1W5xmcmwVOtiHwmwXYVCp
+ lxx3G+HvUHICM+LIhVmmkOMIFhT7F1PBlxEUkkx5tHNwR/9kWBWO/WX
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-GUID: 6qpBwIcr0TPTUfCjuC8XO_berRVaLx5V
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2OCBTYWx0ZWRfXz2UO2BWoKjO3
+ 1zoA5UlmlateOVHG8y0iiJlhxcJqx2rc8nxVWiFaVCMJEdpbOXw1tryKmx2Wh+LYN4rNiVynycW
+ mk3c/NklCVGaJjK9vk+EwxdfOHWUrakZMAvY5KnkInm+FxS1mkJI
+X-Authority-Analysis: v=2.4 cv=Wue+otfv c=1 sm=1 tr=0 ts=6acd1645 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=9fnr1hFzp71kSIFw8uYQYA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=79PYxaXUQd1wl-QFWJnA:22
+ a=bC-a23v3AAAA:8 a=7FDvDFWMCw6z-JPjW7kA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: 6qpBwIcr0TPTUfCjuC8XO_berRVaLx5V
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2OCBTYWx0ZWRfX4BLQR1t+mXK8
+ sk1MW2nXknvo+o9Vnae22U6VfbypknrCCXpULKSxIlGo8XuQohK9sI+NkioQ1hXZXUmUdy5c9F/
+ sYjh5nV54pUJRRtvVGNFpgkVRd4nSByOJiOYIOnBS648xdos9bUxPKElvZYxVIYIdEM196Rg3Bs
+ 5cgPHBb0J9jNW0LDibhIpJirV1fw0AKzZ+Lb5EF6a3SqxEXs6e2PxX5wV3AqL5xj+IVoR1PpGmA
+ U4PzCjKnUzbwSV1TM0jcXkjAkwScPE5tmk/MXFWkzRG1q/JAST2mV7t6DVG6UqRl6syXX+VyTqF
+ DzcM33jAu6aAnMFzcIKxg4ZbQ0QPVQSCZv46eJg/PCVVc0qHeKE8P2BXMf79V+bznuT4+0g5oaY
+ kHKtet8F+kSRWPqxb1MRfGfV+g9kVwW1X87Kk4J3XdHh82MpfC5nlEZmOPb+uHUNwuS2gojV5GF
+ cGoCiLCM8O+KNh5sg7g==
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11933
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=10 phishscore=0 malwarescore=0 spamscore=0
+ bulkscore=10 priorityscore=1501 lowpriorityscore=10 adultscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120068
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+ext4_dio_write_iter() has two ways to finish a write through the page
+cache: the fallback for inodes that can't do direct I/O at all, and the
+completion of a short direct write. Neither provides torn-write
+protection, and neither refuses IOCB_ATOMIC.
 
-Critical: 1 · High: 0 · Medium: 1 · Low: 0
+Patch 1 fixes a reachable bug: an atomic write to a data-journaled
+inode is advertised by statx() and then silently done as a buffered
+write. Patch 2 makes a short atomic direct write fail with -EIO instead
+of falling back. That path should be unreachable today, so this is
+defensive. Patch 3 closes the same kind of gap for DAX inodes,
+which ext4_file_write_iter() hands to the DAX path before any atomic
+write handling. No DAX-capable device advertises atomic write limits
+today, so this one is defensive too, and matches XFS.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+With a scsi_debug device, on a data=journal mount, and with chattr +j on
+a nodelalloc mount, the unpatched kernel reports atomic write limits via
+statx() and completes an O_DIRECT RWF_ATOMIC pwritev2() as a buffered
+write. With the series, statx() reports awu_min=0 and the write fails
+with -EOPNOTSUPP. Ordinary extent files still complete atomic writes,
+and the WARN_ON_ONCE() in patch 2 did not fire under an fio atomic
+direct write workload.
 
-- [Critical] The patch only bounds the loop in
-  rds_conn_peer_gen_update().
-- [Medium] The Fixes: tag names ba3d1f480c7a ("net/rds: size a
-  connection's path set by the transport it ends up with", Sep 2026),…
+---
+Changes in v2:
+- Patch 1 (new): Reject atomic writes on inodes that can't do direct
+  I/O at all, where the fallback to buffered I/O is reachable, per
+  Sashiko.
+- Patch 2: Fail a short atomic direct write with -EIO and keep the
+  WARN_ON_ONCE(), instead of returning the short count.
+- Patch 3 (new): don't advertise atomic writes for DAX inodes.
+- Link to v1: https://patch.msgid.link/20260909-ext4-atomic-no-fallback-v1-1-5a6b9539c002@columbia.edu
 
---
+---
+Tal Zussman (3):
+      ext4: reject atomic writes on inodes that can't do direct I/O
+      ext4: never fall back to buffered I/O for atomic direct writes
+      ext4: don't advertise atomic writes for DAX inodes
 
-rds: fix out-of-bounds conn_path walk in peer gen update
+ fs/ext4/ext4.h |  9 ++++++++-
+ fs/ext4/file.c | 17 +++++++++++++----
+ 2 files changed, 21 insertions(+), 5 deletions(-)
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260909-ext4-atomic-no-fallback-b1550a7a3fcf
 
-This patch limits the loop in rds_conn_peer_gen_update() to the number of
-rds_conn_path entries allocated for the connection's transport. With it, a
-non-mp-capable (IB) connection only walks its single c_path slot when the
-peer announces a new generation number.
+Best regards,
+--  
+Tal Zussman <tz2294@columbia.edu>
 
-> Cc: stable@vger.kernel.org
-> Fixes: ba3d1f480c7a ("net/rds: size a connection's path set by the transport it ends up with")
-
-[Severity: Medium]
-Is this the right commit for the Fixes: tag?
-
-git blame shows that the RDS_MPATH_WORKERS loop in
-rds_conn_peer_gen_update() dates from 905dd4184e07 (2016).
-
-The single-entry c_path allocation for non-mp-capable transports came from
-840df162b3eb ("rds: reduce memory footprint for RDS when transport is
-RDMA", 2017):
-
-net/rds/connection.c:__rds_conn_create() {
-    ...
-	int npaths = (trans->t_mp_capable ? RDS_MPATH_WORKERS : 1);
-    ...
-}
-
-ba3d1f480c7a only adds a second npaths computation after the loopback
-transport swap. That changes how many paths get initialised, not the size
-of c_path. Its own commit message says "The c_path array stays sized for
-the caller's transport". IB conns had one slot before that commit and
-still have one after it.
-
-Stable tooling uses the Fixes: tag to pick target trees, so this tag could
-leave out LTS trees from 2017 onward that have the out-of-bounds write.
-Should it be this instead?
-
-Fixes: 840df162b3eb ("rds: reduce memory footprint for RDS when transport is RDMA")
-
-> diff --git a/net/rds/recv.c b/net/rds/recv.c
-> index 6204e577a90ae..afc810a2e3cf9 100644
-> --- a/net/rds/recv.c
-> +++ b/net/rds/recv.c
-> @@ -144,7 +144,8 @@ static void rds_conn_peer_gen_update(struct rds_connection *conn,
->  	if (peer_gen_num != 0) {
->  		if (conn->c_peer_gen_num != 0 &&
->  		    peer_gen_num != conn->c_peer_gen_num) {
-> -			for (i = 0; i < RDS_MPATH_WORKERS; i++) {
-> +			for (i = 0; i < (conn->c_trans->t_mp_capable ?
-> +			     RDS_MPATH_WORKERS : 1); i++) {
-
-[Severity: Critical]
-This limits the walk here. Can the same handshake packet still overrun the
-single-entry c_path[] of an IB connection through c_npaths?
-
-rds_recv_incoming() calls rds_recv_hs_exthdrs() for handshake pings and
-pongs on every transport, and nothing on that path checks t_mp_capable.
-The ping sysctl does not gate the pong branch:
-
-net/rds/recv.c:rds_recv_incoming() {
-    ...
-	if (be16_to_cpu(inc->i_hdr.h_dport) ==  RDS_FLAG_PROBE_PORT &&
-	    inc->i_hdr.h_sport == 0) {
-		rds_recv_hs_exthdrs(&inc->i_hdr, cp->cp_conn);
-		/* if this is a handshake pong, start multipath if necessary */
-		rds_start_mprds(cp->cp_conn);
-    ...
-}
-
-rds_recv_hs_exthdrs() takes the RDS_EXTHDR_NPATHS value from the peer and
-caps it at RDS_MPATH_WORKERS, not at the allocated path count. It then
-stores the result:
-
-net/rds/recv.c:rds_recv_hs_exthdrs() {
-    ...
-		case RDS_EXTHDR_NPATHS:
-			new_npaths = min_t(int, RDS_MPATH_WORKERS,
-					   be16_to_cpu(buffer.rds_npaths));
-    ...
-	conn->c_npaths = max_t(int, new_npaths, 1);
-    ...
-}
-
-This lets c_npaths reach 8 on an IB conn where __rds_conn_create()
-allocated only one c_path entry.
-
-In the same receive call, when laddr < faddr, rds_start_mprds() walks
-c_npaths entries:
-
-net/rds/recv.c:rds_start_mprds() {
-    ...
-		for (i = 0; i < conn->c_npaths; i++) {
-			cp = &conn->c_path[i];
-			rds_conn_path_connect_if_down(cp);
-		}
-    ...
-}
-
-When laddr > faddr, c_npaths still stays inflated. A later rds_sendmsg()
-reaches rds_check_all_paths() whenever the selected path is down:
-
-net/rds/connection.c:rds_check_all_paths() {
-    ...
-	do {
-		rds_conn_path_connect_if_down(&conn->c_path[i]);
-	} while (++i < conn->c_npaths);
-}
-
-For c_path[1..7], rds_conn_path_connect_if_down() reads cp->cp_conn from
-the neighbouring slab object and dereferences it in rds_destroy_pending().
-It also does test_and_set_bit() on cp->cp_flags and calls
-queue_delayed_work() with cp->cp_wq and cp->cp_conn_w from that same
-memory.
-
-rds_send_probe() only sends these extension headers when t_mp_capable is
-set, but the receive side applies them on every transport.
-
-Would it be better to skip rds_recv_hs_exthdrs() and rds_start_mprds() for
-non-mp-capable transports, or to clamp c_npaths to the allocated path
-count? Either would cover all of these walks.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008164041.961961-1-bsdhenrymartin%40gmail.com
