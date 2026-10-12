@@ -1,233 +1,119 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF9F25F99F
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:58:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A096A25F99F;
+	Mon, 12 Oct 2026 01:58:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791770325; cv=none; b=n7dl4IE17BGgBENyA7CiEM1qvyxu9NG2vjAisjbqrqvEoIc5puohpar63T0e3XMiOkxmP7kgytzY7jseUwcfR3WzB8t/Ke90E+NUnXW2N9ZSp1vhr0IZhxWXBa4azreMCpLxLYrfTd1unI4SoqSuewypBr/LfBtEydxlmW7ouEA=
+	t=1791770335; cv=none; b=jDDkpI5248DWJLwAuNo+3JsjtKmj59T7jUSQ5rx8QX6zoyN2wIhRb93cxGBPU9e5IzVYMY2l+uBgF59e5lg4oRP0jEFKuPT6gX2faRa1QcjjrFs5d2q9TOuQHChuu8mlPsn3gHQ8yj7Q36OThAUGNxdYMOFNQ+a/SfHfaZTJGJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791770325; c=relaxed/simple;
-	bh=abZ2VzGV+T1rrvWItpexx4Ss92dMIEPFRpbAZ8YEp08=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=XogU27qyRnlNvB/WayO9KVTcUs2jzNh2D58+IYRQeyIkMhFemoTFgxdfv6iIaoJq9LT2g9XKihruoUr/XixaxdXx30NnxWKRkLmKeKy2rj9pB80cMrxQc4LknFURt91Ii4ixbYEDWASIXVLsLhsJaLV6alrqo01wRdQBi+mnMVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QXOfWyDL; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QXOfWyDL"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so1173706a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:58:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791770323; x=1792375123; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GPTKtpR6RNSVJ/MBAmueSNc/Qt+gv2fvFzalyTXmmk4=;
-        b=QXOfWyDLzLVZHhmr+btXbDD3R7Ie4sc27ShVEIM28Z1S5LboPEdNboP15Vf838LXvE
-         4/bCi0sBXzuWqpKszn5Dh+Rv0VZ1f8XFeARLFNer/7LT6l9LSUiKnpJCf2UuNRv9qdIf
-         7TZJ3kq4i1AxQsdRwUevFDTNidXeuRcEQsB0ISODAi51NVXfXKMQrY9/kijVNZyvvoeq
-         ittGZ/5NFYUzdB9qcjEJNh9youuEBtxcQyeks0MCnIM3JKM8jfaSyCPU8/XTkSn9ZCKY
-         q0d89bhVJ75gYwMUvhXz+4DDYfyLXkhMpoVqTAKSsk+qiVV3AQPzu2CbckWAgY370Vvs
-         U7TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791770323; x=1792375123;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GPTKtpR6RNSVJ/MBAmueSNc/Qt+gv2fvFzalyTXmmk4=;
-        b=GK7QSrt1zwFwK6HsU/D9rWo0smEYq9wQ+165uTWoqgzdkkndpZ2FzzkNuU5PDOYWpi
-         3Bl4S2VWFPX5Tx8uIp0/48BOXhSRWhZ9e+1/FFo9ndddtQqN9OnVPW3jQeHz/fSym0Zx
-         V3o71rPnr/pcHmKhlrRxmsOnAAOqTq3N8tG15IUih8GAo9awEMRwCqp1pG3ZugHVwKpy
-         I3E6EXUQID377T5p/afYPoKtt7COX5YVTo/KI5YALpIHxK61HLnWibyvb7GqaaZKmYbz
-         COmAxYJcp84v1WqNRVc8m2zf/CiZ3VeVEs9gZ9sDHSdEAuHWZZ2SCcO80O3oQ4/LOmmS
-         shUQ==
-X-Forwarded-Encrypted: i=1; AKwUvByaED4XqLCl4XK8bRAqKpdb/AaUQYfnUBnbdt3CKm73I0VSYVFTJbTmyrvMwmb+ld/Ow/u750TWZpWcQfI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOfvhBYd/JHmsrq3363smBxGLUQ7xCnLA93UdeAgox6OT/WV1b
-	b+7GMRY1mkkn7/TyYQerV9UkEobGH50ZQiSPDbsUvcyucRx41a8AmMu9
-X-Gm-Gg: AYBFou38TVUkByXPdpqd0B0juQUcltk52v1hv2tyCvt8LwWmGMFa3mtrs5JDWWP1noX
-	Gxaf+RC+exWHr6/lYawT9u0aXgL67A8uP5MEttl25veqHJByHTmRLvThfWPWiVMxDXWsfLswC2K
-	22fJ7TGRLOMYcI5eIT3JsistFPwnr+LlYh6EejqxEGjhjh9/jifC3DlsbnKj+BlUUIwFe63l8yl
-	WUSFETitOw1kMhnMbvTZjXCVFVEkq20/Iw+G7xLsN/7TiaWyCx5e/szFjXhAUQ3W26vShJOVLuc
-	xx04Va9cz5eyxv37oVSSs+3jo9bG+VZXob4Zq+EGcNmpn6iM1YaZVBId1LluzgBWMba53kXjH2w
-	frhMypoEdB/VGL2R8lK0K4HAszcjM+un2giAi+Zm2Z8AddGuis7VXdoAdTEWhecp5rJsS4QPnhq
-	M+2NS6EYbE6AWm3K8ewyCOzMAoaHlzkXTHoIeq9iIjbPn+f1rdyiZgQ1HUNt9U98kMLg==
-X-Received: by 2002:a17:90b:1dd1:b0:3a8:bb56:f1ed with SMTP id 98e67ed59e1d1-3ab3acf313fmr6806854a91.50.1791770322776;
-        Sun, 11 Oct 2026 18:58:42 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36fdc75esm14467677a91.12.2026.10.11.18.58.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 18:58:42 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	brian.gix@intel.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] Bluetooth: mgmt: Remove mesh cleanup from the socket destructor
-Date: Mon, 12 Oct 2026 09:58:36 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0156-v8-fac4256cb2701c21549a@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1791770335; c=relaxed/simple;
+	bh=m/WK/MyD22PzCKpazs4O7b+IE6Lv4Bm9Vny3DgkQtcE=;
+	h=Date:From:To:cc:Subject:Message-ID:MIME-Version:Content-Type; b=F9hOacQv8PLd7yZyzMQmZ7SlUQgw852dTjTg9Kg9p8eJ4Dn5gKie3yMQGtPtQkao89YQ623BtIL/NcpZ2lxA9DtxS13+okSy/tSM1vGFZVKX2SHmfW9gp6eTSMRr40NOAR+i/dF0KBeXkFPH91r9e6lFNKRJQnJcpe+e5wSPNKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 9D7FD92009C; Mon, 12 Oct 2026 03:49:48 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 9267392009B;
+	Mon, 12 Oct 2026 02:49:48 +0100 (BST)
+Date: Mon, 12 Oct 2026 02:49:48 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>
+cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>, Kees Cook <kees@kernel.org>, 
+    Lukas Wunner <lukas@wunner.de>, John Ogness <john.ogness@linutronix.de>, 
+    Jiayuan Chen <jiayuan.chen@shopee.com>, Gerhard Engleder <eg@keba.com>, 
+    linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/1] serial: core: Don't clobber the baud rate on hangup
+ via B0
+Message-ID: <alpine.DEB.2.21.2610120150230.55767@angie.orcam.me.uk>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; BOUNDARY="-2058476832-1387339034-1791767440=:55767"
+Content-ID: <alpine.DEB.2.21.2610120211240.55767@angie.orcam.me.uk>
 
-mgmt_mesh_add() takes a socket reference before linking a mesh
-transmission, and mgmt_mesh_remove() unlinks it before dropping that
-reference. A socket reaching hci_sock_destruct() therefore cannot own
-any entries in mesh_pending. Nevertheless, the destructor calls
-mgmt_cleanup(), which scans every controller's mesh_pending list without
-protecting the entries against request completion.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-With mesh enabled on an LE controller, a pending transmission owned by
-socket B can complete while an unrelated socket A is being destroyed.
-For a successful send, mesh_send_start_complete() schedules
-mesh_send_done(), which queues mesh_send_done_sync() on the controller's
-request workqueue. While the controller remains registered, the paths
-can interleave as follows:
+---2058476832-1387339034-1791767440=:55767
+Content-Type: text/plain; CHARSET=US-ASCII
+Content-ID: <alpine.DEB.2.21.2610120211241.55767@angie.orcam.me.uk>
 
-1. A enters hci_sock_destruct() -> mgmt_cleanup(), and mgmt_mesh_next()
-   obtains a pointer to B's linked mesh_tx.
-2. B's worker runs mesh_send_done_sync() -> mesh_send_complete() ->
-   mgmt_mesh_remove(), unlinks mesh_tx, drops B's socket reference and
-   frees the entry.
-3. A reads mesh_tx->sk to compare it with A's socket, accessing freed
-   memory.
+Greg,
 
-The hci_dev_list_lock held by A protects controller membership, but B's
-completion does not acquire it and can free the entry before A's read.
-The socket reference held by the entry keeps B alive, but does not keep
-B's mesh_tx alive for A's traversal. Start-error completion can remove
-the same entry through mesh_send_start_complete() as well.
+ As we discussed at LPC, this is an update to the fix previously posted as 
+an RFC.  I have verified it with the system originally affected, running 
+the console at 115200bps; see the attached console output logs for the bad 
+vs fixed case.  All that needed to be done to reproduce it was to keep 
+killing getty(8)s repeatedly until init(8) decided something was wrong and 
+chose to put their inittab(5) entries into a snooze, leaving the line(s) 
+at the wrong speed setting.
 
-Remove the destructor's mesh cleanup call. The existing socket
-references ensure that all of that socket's mesh entries are unlinked
-before destruction. Mesh completion and cancellation already manage
-the entries' lifetime, so the destructor need only purge its queues.
+ NB this fixes the missing %B0 literal markup as a part of the doc update.  
+I've concluded it's not worth splitting off into a separate patch.  Let me 
+know if you think otherwise.
 
-KASAN report as below:
+ Previous iteration (v1) at
+<https://lore.kernel.org/r/alpine.DEB.2.21.2605242242330.1450@angie.orcam.me.uk/>.
 
-    ==================================================================
-    BUG: KASAN: slab-use-after-free in mgmt_mesh_next+0x119/0x140
-    Read of size 8 at addr ffff88810c25cf20 by task python3/490
+  Maciej
+---2058476832-1387339034-1791767440=:55767
+Content-Type: text/plain; CHARSET=US-ASCII; NAME=swarm-bad.log
+Content-Transfer-Encoding: BASE64
+Content-ID: <alpine.DEB.2.21.2610120210400.55767@angie.orcam.me.uk>
+Content-Description: 
+Content-Disposition: ATTACHMENT; FILENAME=swarm-bad.log
 
-    CPU: 3 UID: 0 PID: 490 Comm: python3 Not tainted
-    7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,
-    1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? mgmt_mesh_next+0x119/0x140
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? mgmt_mesh_next+0x119/0x140
-     kasan_report+0xe0/0x110
-     ? mgmt_mesh_next+0x119/0x140
-     ? __pfx_sock_close+0x10/0x10
-     mgmt_mesh_next+0x119/0x140
-     mgmt_cleanup+0x6c/0xe0
-     ? __pfx_hci_sock_destruct+0x10/0x10
-     hci_sock_destruct+0x1a/0x50
-     __sk_destruct+0x85/0x790
-     ? __pfx_sock_close+0x10/0x10
-     sk_destruct+0xb3/0xd0
-     __sk_free+0xdd/0x370
-     sk_free+0x51/0x80
-     hci_sock_release+0x339/0x550
-     __sock_release+0xb8/0x270
-     sock_close+0x21/0x30
-     __fput+0x39f/0xa60
-     fput_close_sync+0xff/0x200
-     ? __pfx_fput_close_sync+0x10/0x10
-     ? dnotify_flush+0x22/0x4b0
-     __x64_sys_close+0x8c/0xf0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    RIP: 0033:0x7f057299a687
-    Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8
-    fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f
-    1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-    RSP: 002b:00007fffcf66d4a0 EFLAGS: 00000202 ORIG_RAX: 0000000000000003
-    RAX: ffffffffffffffda RBX: 00007f0572906780 RCX: 00007f057299a687
-    RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000005
-    RBP: 0000000000000005 R08: 0000000000000000 R09: 0000000000000000
-    R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000a83590
-    R13: 0000000000a83590 R14: 0000000000000000 R15: 00007f0572744188
-     </TASK>
+G1tIG1tKDXN3YXJtLm9yY2FtLm1lLnVrIGxvZ2luOiAA/gD+AAAAAAAA/gAA
+8AAA8AD+AADwAADwAP4A/gAA8AAA8AD+AAAAwAD+AP4A/gAA8AD+AADwAAAA
+AAAAAPgAAPAA/gAA8AAA8AD+AAAAwAAA8AD+AAAAAAAAAPgAAPAAAPAAAADA
+AADwAP4AAPAA/gD+AAAAAAAA/gAA8AAA8AAAAMAAAPAAAAAAAAAA+AAA8AAA
+8AAA8AD+AP4A/gAA8AD+AP4AAPAA/gAAAAAAAP4A/gD+AAAAAAAA/gD+AP4A
+/gAA8AD+AP4A/gAA8AD+AP4AAPAA/gD+AP4AAPAA/gAAAAAAAADwAADwAAAA
+wAD+AP4A/gD+AP4A/gD+AP4AAAAAAAAA8AAA8AAA8AAA8AD+AP4AAAAAAAD+
+AP4AAPAA/gAAAMAA/gD+AADwAP4AAPAAAAAAAAAA8AAA8AAAAMAAAPAA/gD+
+AADwAP4A/gD+AADwAP4A/gAAAAAAAP4AAPAAAADAAP4AAADAAP4A/gD+AP4A
+APAA/gAAAMAAAPAA/gAAAAAAAAD4AADwAADwAADwAP4A/gD+AP4AAPAAAPAA
+/gAAAAAAAAD4AADwAP4A/gD+AADwAAAAAAAAAPgAAPAA/gD+AP4A/gD+AADw
+AP4A/gAA8AD+AP4A/gD+AP4A/gAAAMAA/gD+AP4A/gAA8AD+AP4AAPAA/gD+
+AP4AAAAAAAAA8AD+AAAAAAAA/gD+AAAAAAAA/gAA8AAA8AD+AADwAADwAP4A
+/gAA8AAA8AD+AAAAwAD+AP4A/gAA8AD+AADwAAAAAAAAAPgAAPAA/gAA8AAA
+8AD+AAAAwAAA8AD+AAAAAAAAAPAAAPAAAPAAAADAAADwAP4AAPAA/gD+AP4A
+AADAAADwAADwAAAAwAAA8AAAAAAAAADwAADwAADwAADwAP4A/gD+AADwAP4A
+/gAA8AD+AAAAAAAA/gD+AP4AAAAAAAD+AP4A/gD+AADwAP4A/gD+AADwAP4A
+/gAA8AD+AP4A/gAA8AD+AAAAAAAAAPgAAPAAAADAAP4A/gD+AP4A/gD+AP4A
+/gAAAAAAAAD4AADwAADwAADwAP4A/gAAAAAAAP4A/gAA8AD+AAAAwAD+AP4A
+APAA/gAA8AAAAAAAAAD4AADwAAAAwAAA8AD+AP4AAPAA/gD+AP4AAPAA/gD+
+AAAAAAAA/gAA8AAAAMAA/gAAAMAA/gD+AP4A/gAA8AD+AAAAwAAA8AD+AAAA
+AAAAAPAAAPAAAPAAAPAA/gD+AP4A/gAA8AAA8AD+AAAAAAAAAPAAAPAA/gD+
+AP4AAPAAAAAAAAAA+AAA8AD+AP4A/gD+AP4AAPAA/gD+AADwAP4A/gD+AP4A
+/gD+AAAAwAD+AP4A/gD+AADwAP4A/gAA8AD+AP4A/gAAAAAAAADwAP4AAAAA
+AAD+AP4AAAAAAAD+AADwAADwAP4AAPAAAPAA/gD+AADwAADwAP4AAADAAP4A
+/gD+AADwAP4AAPAAAAAAAAAA8AAA8AAA8AD+AP4A/gD+AP4AAAAAAAAA+AAA
+8AD+AP4A/gD+AP4A/gD+AADwAADwAP4A/gD+AADwAP4AAAAAAAAA+AAA8AAA
+AAAAAP4A/gAA8AAA8AD+AP4A/gD+AP4AAADAAP4A/gD+AADwAP4A/gAA8AD+
+AP4AAPAA/gD+AP4AAPAA/gD+AADwAP4AAAAAAAAA+AAA8AAAAMAA/gD+AP4A
+/gAA8AD+AADwAADwAP4AAADAAP4A/gAAAAAAAADwAADwAP4AAPAA/gD+AADw
+AP4A/gAAAAAAAADwAADwAAAAwAD+AP4AAAAAAAD+AP4A/gAA8AD+AP4A/gAA
+8AD+AAAAAAAAAPgAAPAAAPAAAPAA/gD+AP4A/gD+AADwAP4A/gAAAMAA/gD+
+AP4A/gAA8AD+AADwAP4A/gD+AP4AAPAA/gAAAMAA/gD+AP4A/gAAAAAAAADw
+AP4AAAAAABtbSBtbSg1zd2FybS5vcmNhbS5tZS51ayBsb2dpbjogDQo=
 
-    Allocated by task 490:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x610
-     mgmt_mesh_add+0x5d/0x3e0
-     mesh_send+0x22d/0x6c0
-     hci_sock_sendmsg+0x128b/0x22e0
-     __sys_sendto+0x425/0x470
-     __x64_sys_sendto+0xe5/0x1c0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+---2058476832-1387339034-1791767440=:55767
+Content-Type: text/plain; CHARSET=US-ASCII; NAME=swarm-fixed.log
+Content-Transfer-Encoding: BASE64
+Content-ID: <alpine.DEB.2.21.2610120210401.55767@angie.orcam.me.uk>
+Content-Description: 
+Content-Disposition: ATTACHMENT; FILENAME=swarm-fixed.log
 
-    Freed by task 492:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x307/0x580
-     mesh_send_done_sync+0x115/0x180
-     hci_cmd_sync_work+0x1b3/0x450
-     process_one_work+0x908/0x19c0
-     worker_thread+0x65c/0xe40
-     kthread+0x34f/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
+G1tIG1tKc3dhcm0ub3JjYW0ubWUudWsgbG9naW46IElOSVQ6IElkICJTMCIg
+cmVzcGF3bmluZyB0b28gZmFzdDogZGlzYWJsZWQgZm9yIDUgbWludXRlcw0K
+SU5JVDogSWQgIlMxIiByZXNwYXduaW5nIHRvbyBmYXN0OiBkaXNhYmxlZCBm
+b3IgNSBtaW51dGVzDQpJTklUOiBubyBtb3JlIHByb2Nlc3NlcyBsZWZ0IGlu
+IHRoaXMgcnVubGV2ZWwNChtbSBtbSnN3YXJtLm9yY2FtLm1lLnVrIGxvZ2lu
+OiANCg==
 
-    The buggy address belongs to the object at ffff88810c25cf00
-     which belongs to the cache kmalloc-96 of size 96
-    The buggy address is located 32 bytes inside of
-     freed 96-byte region [ffff88810c25cf00, ffff88810c25cf60)
-
-    The buggy address belongs to the physical page:
-    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
-    pfn:0x10c25c
-    flags: 0x200000000000000(node=0|zone=2)
-    page_type: f5(slab)
-    raw: 0200000000000000 ffff888100042280 dead000000000100
-    dead000000000122
-    raw: 0000000000000000 0000000000200020 00000000f5000000
-    0000000000000000
-    page dumped because: kasan: bad access detected
-
-    Memory state around the buggy address:
-     ffff88810c25ce00: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-     ffff88810c25ce80: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-    >ffff88810c25cf00: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-                                   ^
-     ffff88810c25cf80: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-     ffff88810c25d000: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-    ==================================================================
-
-Fixes: b338d91703fa ("Bluetooth: Implement support for Mesh")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-
-diff --git a/net/bluetooth/hci_sock.c b/net/bluetooth/hci_sock.c
-index b26f065d0c18ff3a7cd4b2be1f3fc44d1d2a0605..24cfa6db7654255e5192be75fad49478db251817 100644
---- a/net/bluetooth/hci_sock.c
-+++ b/net/bluetooth/hci_sock.c
-@@ -2186,7 +2186,6 @@ static int hci_sock_getsockopt(struct socket *sock, int level, int optname,
- 
- static void hci_sock_destruct(struct sock *sk)
- {
--	mgmt_cleanup(sk);
- 	skb_queue_purge(&sk->sk_receive_queue);
- 	skb_queue_purge(&sk->sk_write_queue);
- 	skb_queue_purge(&sk->sk_error_queue);
+---2058476832-1387339034-1791767440=:55767--
