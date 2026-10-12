@@ -1,147 +1,129 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C163BBA0D;
-	Mon, 12 Oct 2026 19:58:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6314E141D;
+	Mon, 12 Oct 2026 19:58:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.145.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791835113; cv=none; b=aU/VyiR5gASDqSjsk+TVKUm1q/izBPfBjLLj9VDjCORnXssYZ6Hkff3ZKZlA8p0E2XMQ5WHDo9STgKlTJ7GfWrIvKGVs2oLtjHeoAzr7Zx8O7HBSctxn5lBTGpn5gZBoGRP5aPsQAdQ04gbfeJfxExwcO3p0jQv6p7vm/HCWtDw=
+	t=1791835116; cv=none; b=qy0PFblW0qrpyUcmYPAW5/8F1qcYlzix+dpB2DPtZp423K5kqxcPOIzaLmQ9VhHJjX+funDkGLz0z7+1ARiZgt8a0lQDK1vpWpSjOGiAtBD3BNz3ptQWi7dCSSls8F/6T6B/lmUf447cbicyOOoEHQZxml2V40swmzgDfn0Y9i0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791835113; c=relaxed/simple;
-	bh=svyaTnJKl2TYexbkp/vhzflZQy5dYZbMzF9dkVFPBPg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YJEVg6BUyK9Waa759g5kFIhr5rKLJ3n0HOUM8bbRg+M7u1FjgUnP6TEO4uWUyqVmsSr1BcC9mBYyBkIT8OQ0+WWTRdfeqyH8YGKjPpK1cHFqn5TTVSpstUJKQrvmxMPml3WTx3l1PVx57lmVFPmedji6vouAx+kzzWw3BNg0Iq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E1wktWQk; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791835116; c=relaxed/simple;
+	bh=LHDpUqoIUY73agKLC0JPTYyrCYH/uP7gZDbQ0lKiftQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=b8Sjx3bzjRDcfvv0i1epE5Ua8pkWES/XoWNDQkqzrr13Yw3Ce7bqkY1WpWl8QzRd/DtLdmtsEkuNX4emSVb1uSNn429tT89NjzwnEjq1OZrZ+v5dEKc3wK3bw/C+1WcNTZyHQ2qXhBrYnbQUR8JeLApG3ZXnZgpv0qZstqD7WYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b=NkIVWrnF; arc=none smtp.client-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E1wktWQk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791835110; x=1823371110;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=svyaTnJKl2TYexbkp/vhzflZQy5dYZbMzF9dkVFPBPg=;
-  b=E1wktWQk423SIUVeiUw8NtWu85Up7HtqaSPjUaTSdoUsztcEir15elsh
-   zeR+Tkj+7juLaLkLHyWRUgQtkmHlC84x1tVOk3id9A0DB48xAeKRxppFg
-   W+Y7GVHhzDX6xqNLJp3UYrHEywkbQjDUKbsJKtk3KJmTd8406SrFS0Nz4
-   4MeQzEm9oMcB9fPTCNzqgW7NdhXDSl2CBq13/7gu3IX8StUfILV58v6vu
-   EJzgbzfY3WGT+McnLDz8mKuBUXNlDxyMi8aRJBXcRftoWkbVL1bv5jICT
-   qec3sLjk2inBcBqwECLoGAFOTCzPsEMN4uidyFgzwRr7mdDkJ/sEYhQ6z
-   A==;
-X-CSE-ConnectionGUID: QCxK83cwRp6ovqYt3u1qEg==
-X-CSE-MsgGUID: JsN7fqizRGy1o9yQmxXFkQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="447846"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="447846"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 12:58:30 -0700
-X-CSE-ConnectionGUID: Qfp4xOXGRHaLFx0Gl49dRg==
-X-CSE-MsgGUID: XQRCHPb8RSGkWbPwEH2PVg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="2730507"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 12:58:27 -0700
-Date: Mon, 12 Oct 2026 22:58:24 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Brian Norris <briannorris@chromium.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org,
-	linux-iio@vger.kernel.org, Andy Shevchenko <andy@kernel.org>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Fabrice Gasnier <fabrice.gasnier@st.com>,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 3/5] PM: runtime: Propagate last_busy from dependent to
- dependency
-Message-ID: <as074Em1m9d5s1yO@ashevche-desk.local>
-References: <20261002230714.507921-1-briannorris@chromium.org>
- <20261002160309.3.I40c0bc917fa0b13111251844e9a54feb1d9cd7d2@changeid>
- <asEdiIT7l49vhn7i@ashevche-desk.local>
- <asPm6HYpEIAYJ4a3@google.com>
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b="NkIVWrnF"
+Received: from pps.filterd (m0528008.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CJO5Ms1953201;
+	Mon, 12 Oct 2026 12:58:28 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps82601-s2048-2026-q3; bh=aySQG+wpA
+	fhuaLrRAC0TXgBqWFy64W/qu6r3MZnQmOs=; b=NkIVWrnF9Mo0Ah2iHKueG4WqA
+	ANIMpNOtxzQLT1j7FxRmsjh+SyePN/OigIKb9u8B33p/Q/LHDQeDhT1VyZ6VSbTh
+	9gzDnRovggCx8636rYKqXQ+6eKUBd//9wi9gMMPSFsSoGIv2wt7giTinkUcVvUJN
+	tNSu9mzPiSxG22soSp2kQmG5JXhbfQSFO7BkaplLt5l8km48yl+nyh8zwzipqxBc
+	X7QNhTHpf+62plkFXlCPRpPoQXMbo4XLrrMVMzywVjnuJdwzFgtVjjU3KzISdQut
+	GABUr/iBOOnoAgG2JR9KlJSGFSLAy/UNoRvf6bnThjsEaelkVII7G4pFdqyJg==
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4h89yjsmk0-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Mon, 12 Oct 2026 12:58:27 -0700 (PDT)
+Received: from localhost (2620:10d:c085:208::f) by mail.thefacebook.com
+ (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.49; Mon, 12 Oct
+ 2026 19:58:27 +0000
+From: Bobby Eshleman <bobbyeshleman@meta.com>
+Date: Mon, 12 Oct 2026 12:58:08 -0700
+Subject: [PATCH net] MAINTAINERS: add Bobby Eshleman as vsock reviewer
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asPm6HYpEIAYJ4a3@google.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261012-add-maintainers-v1-1-ef0488f460db@meta.com>
+X-B4-Tracking: v=1; b=H4sIANA7zWoC/x3MwQmAMAwF0FXCP1uwPRTpKuIh2qg5GKUVEcTdB
+ d8A70GVolKR6EGRS6vuhkS+IUwr2yJOMxIhtCH61gfHObuN1U5Wk1LdOEXpOM4cuxEN4Sgy6/2
+ PPUxODO/7AaLHUMtmAAAA
+X-Change-ID: 20261012-add-maintainers-bc6e8a6fa68b
+To: <netdev@vger.kernel.org>, <virtualization@lists.linux.dev>,
+        <kvm@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+        Eric Dumazet
+	<edumazet@kernel.org>,
+        Stefano Garzarella <sgarzare@redhat.com>,
+        "Jakub
+ Kicinski" <kuba@kernel.org>,
+        Stefan Hajnoczi <stefanha@redhat.com>,
+        "Michael
+ S. Tsirkin" <mst@redhat.com>, <linux-kernel@vger.kernel.org>,
+        Bobby Eshleman
+	<bobbyeshleman@gmail.com>
+CC: Bobby Eshleman <bobbyeshleman@meta.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-GUID: 30UUzFJCRlRT9JyEHzj6nT4uM6MJ5sDW
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA3OSBTYWx0ZWRfX1xOF1rEgGnxV
+ Rg50UoHUwXKcQwh9pig03bdolJX6KqA3wCXyaCbzREHr1mqpL6d7mZee+8AMXjMc+zrFwz5+/ON
+ TujjMjOMFoax8UiCDEgkQ0N0W7hJvu0=
+X-Authority-Analysis: v=2.4 cv=YaUodARf c=1 sm=1 tr=0 ts=6acd3be3 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=_1IyUuN4QrATX339ibzo:22 a=VabnemYjAAAA:8
+ a=20KFwNOVAAAA:8 a=VwQbUJbxAAAA:8 a=YPFdDlkatZT_ntEAilkA:9 a=QEXdDO2ut3YA:10
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA3OSBTYWx0ZWRfXy7ZpZF9Ocwzf
+ FePX7xoY9jPRXtsanQ0ZHyAcnidYMUBQSiIAY9lz5DiBHklWo2noNfUNvBcILravUK2QmmR4S1q
+ TbvgWp728ApKuhuWEpffX8gWxKWU/ILejvR79Euc+U7KNBWtLVJTWPVcRzHazNTS0bEDUaYNrcd
+ UZvr/rWEIO7nAWIrsj8XXVJq1dyma6lqa6USIn2cihoiHn6gkzrb1ILkOiMpLHz34/TzOGd2BrX
+ SqDWkVwPg4LTViJw7JEXtOBvm6ygEtNL73ak3XI87K43ejRcG6geARxhBdLbGZotykXjZtaLNjg
+ DJRyhogVeMCldDW+NnQ6IyDxD8X1WzDWe8aubro461yc5xsZGsG1KJuBy3E83t4fOpDNNgTnuMt
+ zcrNpCVuvTTNm4lzR1xG+uBW2p0PwG+ffaU8czJ3zsvmjZvGsxafYsXflEaeGiUbnCGCPrTaQrR
+ Af6ixAlCcEptHzrhN2Q==
+X-Proofpoint-ORIG-GUID: 30UUzFJCRlRT9JyEHzj6nT4uM6MJ5sDW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_06,2026-10-09_01,2025-10-01_01
 
-On Mon, Oct 05, 2026 at 11:05:28AM -0700, Brian Norris wrote:
-> On Sat, Oct 03, 2026 at 06:21:44PM +0300, Andy Shevchenko wrote:
-> > On Fri, Oct 02, 2026 at 04:03:07PM -0700, Brian Norris wrote:
+I've been reviewing vsock via lore+lei for a while now.
 
-...
+Finally adding myself as a formal reviewer, since vsock will continue
+being stuck with me for the foreseeable future.
 
-> > > Cc: Ulf Hansson <ulfh@kernel.org>
-> > 
-> > Can go under the '---' cutter, so it won't pollute the commit message in the
-> > Git history.
-> 
-> This is a well-documented convention.
-> 
-> Documentation/process/submitting-patches.rst
-> 
->   If a person has had the opportunity to comment on a patch, but has not
->   provided such comments, you may optionally add a ``Cc:`` tag to the patch.
->   This tag documents that potentially interested parties have been included in
->   the discussion.
-> 
-> I'm directly referencing Ulf's suggestions (Link tag), so I'm also
-> making it explicit that I'm CC'ing him.
+Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
+---
+ MAINTAINERS | 2 ++
+ 1 file changed, 2 insertions(+)
 
-This piece of the documentation was written long time ago before we have got
-the kernel.org controlled mailing archives (now it's lore.kernel.org). I argue
-that this piece is outdated and we need to look at all aspects of the commit
-message. Perhaps having one might not lead to the issue, but exempli gratia 20
-is. I still think it should be moved to under '---' to show the good example.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f53047aa8d3c..cc1341f6e15c 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -28840,6 +28840,7 @@ F:	virt/lib/
+ VIRTIO AND VHOST VSOCK DRIVER
+ M:	Stefan Hajnoczi <stefanha@redhat.com>
+ M:	Stefano Garzarella <sgarzare@redhat.com>
++R:	Bobby Eshleman <bobbyeshleman@meta.com>
+ L:	kvm@vger.kernel.org
+ L:	virtualization@lists.linux.dev
+ L:	netdev@vger.kernel.org
+@@ -29145,6 +29146,7 @@ F:	drivers/media/test-drivers/vivid/*
+ 
+ VM SOCKETS (AF_VSOCK)
+ M:	Stefano Garzarella <sgarzare@redhat.com>
++R:	Bobby Eshleman <bobbyeshleman@meta.com>
+ L:	virtualization@lists.linux.dev
+ L:	netdev@vger.kernel.org
+ S:	Maintained
 
-> > > Signed-off-by: Brian Norris <briannorris@chromium.org>
-> > > ---
-> > 
-> >  Cc: ...
+---
+base-commit: 8e2fbe0e75d38690d551456658194c632933cb57
+change-id: 20261012-add-maintainers-bc6e8a6fa68b
 
-...
-
-> > > +/*
-> > > + * Propagate last_busy timestamp from one device to another. This can, for
-> > > + * example, prevent overactive suspend when a dependency's usage is primarily
-> > > + * driven by one of its dependents.
-> > > + */
-
-^^^
-
-> > But here you already have an outdated ones, no? Why is this not a problem?
-> 
-> The "target" device (a supplier or parent) can't suspend before this
-> point, because the dependent device still holds a reference -- so an
-> "outdated" last_busy is not relevant yet. The target last_busy *might*
-> become relevant after this point, so this is the point at which it needs
-> updated (propagated).
-> 
-> That's what I mean in the commit message by:
-> 
->   propagate last_busy timestamps from a dependent device to its
->   dependencies any time it may allow a dependency to suspend -- i.e.,
->   when releasing a refcount for its parent or suppliers.
-> 
-> Please let me know if I should add some clarification somewhere --
-> perhaps also in the comments here on rpm_propagate_last_busy()? Or if
-> you see some other problem in the reasoning.
-
-Perhaps a word to the top function comment?
-
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Bobby Eshleman <bobbyeshleman@meta.com>
 
