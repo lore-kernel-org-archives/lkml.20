@@ -1,94 +1,56 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F282747A896;
-	Mon, 12 Oct 2026 17:51:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EEB24C33CA;
+	Mon, 12 Oct 2026 17:51:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791827500; cv=none; b=LYcoVuRQ8tnlmrlxntDTUoxexVH5KbGW0X8t3cGX4qGAA6m5UED+hgWrmQyh30UEpm4b8DuIEAJjdu9fuuUl1+oZ/q+gT9qDwK+3hUviglOKq8nNVvJpVaE7pcuTwL3JeotP10y0QJY5qMsEtfDtzzTTVDrISDf6HYZunXNxOIw=
+	t=1791827515; cv=none; b=uM/IW4Vsk6RmJLf4q2v/V/HP8HXt8rCKGazowKK3E7a+g4ExF4vSkRCMVYmFkhTXuObzuU3wmQlPoPrOUwrBIGic1JyevnCh56YICzyl4AaQdtFUtTAgacqQiZeP7gxCQqVsaJL6F79+9yT88b1L0hyrhNY9ZjwTucVUe6JF6+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791827500; c=relaxed/simple;
-	bh=8EEBTF511ETJq4Mm9C2quPFvfKDHChn8bxjmp5fFzN8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M9/4V2CN4t2LIS9zeAyD9zMnFnOJrDidwa4NkCWmlSDulCHZvx97T1SxG/jNoHAkYjLXcOeLUc7wDKjvicVNygK3r4MbXV51hbIaEh61YO3yyoqvNnfUooStfcxSx3uMrEIFHyryQz7J2jqjlCglKGCZ1opMKc7zlhagWY6xiOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=fB5YgU/Y; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791827515; c=relaxed/simple;
+	bh=qDINUBxZZPw1zhFnyXj5oTfCOVb0IJMJx4thMwKV8YA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=WLdltILvYXvRbZ+MQf1HwlDwlMAty59p9b6LgoB8/T7KoZlg2yPlUzrjr71Kv+ybSb23i1k2wIKaBCgRVAv7IXY6GzDRv9jIizuRalVWjrgGv057bbR9fb1W6dmV292w/Dc3FsUljWoHLSfpA8Iw79NNIAkjaoQd5JqVam2W2R4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oYo3Ib9T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="fB5YgU/Y"
-Received: by linux.microsoft.com (Postfix, from userid 1216)
-	id 0F87F20B7166; Mon, 12 Oct 2026 10:51:36 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0F87F20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791827496;
-	bh=pxy81f68wAn9b0dFCG+7MRKSJwe2CfB3+1h/k+wpJRg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fB5YgU/Y1p1kCuW3/V8u2f4+qHDDKszWxISSF8lALOVg2y8+x34DczdjNYyRd00l4
-	 y7RQI6WvMJ7Nkgq3JzKNrCLKCMg50Js8FWXxvdY7sVNMCCImlDzHDiB6J+rYCKvoMA
-	 mC72qManyABYfvYS6VV7lruZ1npDiO6fvqm0/FHA=
-Date: Mon, 12 Oct 2026 13:51:36 -0400
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: "K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Mary Hardy <maryhardy@microsoft.com>,
-	Saurabh Sengar <ssengar@linux.microsoft.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH] tools: hv: remove unused rte_smp_mb()
-Message-ID: <as0eKHYtyIYSlfKP@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20261011223358.2327625-12-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oYo3Ib9T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67F5D1F0089B;
+	Mon, 12 Oct 2026 17:51:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791827513;
+	bh=kNahywYLBv8aIcm/NKKEaAKhrF/aTvhTm1jlesIR1Tw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=oYo3Ib9T2TZSshkFrVUqEOLiXFfRi1YL/5Ep6sBc6dUG5N/yAlaONNYFmgvEBgrHc
+	 b9gj1QMF/XT2BhOc8rgrHhkT2xYAb2qbmTW1urn3miOGHSekiPjh4ErT4cMJ0M/21i
+	 9a/MJ3coYndW9WG5251ppIixuze1q+EOYOT5rSnr4G9VGICdyxxTbg+z3lo8BYW+Vs
+	 EEGdBOaSVLLMudVkvldsDK3nm3hwVFj7QKz5ZiXF152X1DHBP1sEOZXa2Gl9mEU8N2
+	 i6fzl2GUCx66cs+DXUYZo9F4c9PdUJTvzejtHoBFarjZMvq7xew3/QlWrXnYjxjlVX
+	 Thln3g3+yC+Xg==
+Date: Mon, 12 Oct 2026 07:51:52 -1000
+Message-ID: <d9a3367a1852158f60cc2e89677fb12f@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Yafang Shao <laoar.shao@gmail.com>
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, akpm@linux-foundation.org, david@kernel.org, gourry@gourry.net, hannes@cmpxchg.org, mkoutny@suse.com, shakeel.butt@linux.dev, roman.gushchin@linux.dev, yu.c.chen@intel.com, zhao1.liu@intel.com, bpf@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 0/3] BPF-based per-cgroup NUMA balancing mode selection
+In-Reply-To: <20261012120438.52849-1-laoar.shao@gmail.com>
+References: <20261012120438.52849-1-laoar.shao@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011223358.2327625-12-sashal@kernel.org>
 
-On Sun, Oct 11, 2026 at 06:33:40PM -0400, Sasha Levin wrote:
-> rte_smp_mb() has never been used, and its "static inline __always_inline"
-> declares inline twice, so clang warns:
-> 
->   vmbus_bufring.c:61:15: warning: duplicate 'inline' declaration specifier [-Wduplicate-decl-specifier]
->   vmbus_bufring.c:62:1: warning: unused function 'rte_smp_mb' [-Wunused-function]
-> 
-> Remove it.
-> 
-> Fixes: 45bab4d746510 ("tools: hv: Add vmbus_bufring")
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+Hello,
 
-Reviewed-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+On Mon, Oct 12, 2026 at 08:04:35PM +0800, Yafang Shao wrote:
+> This series adds a bpf_numab_ops struct_ops which attaches to a
+> cgroup. The kernel consults the policies of the matching cgroup and of
+> every ancestor and combines what they return.
 
-> ---
->  tools/hv/vmbus_bufring.c | 6 ------
->  1 file changed, 6 deletions(-)
-> 
-> diff --git a/tools/hv/vmbus_bufring.c b/tools/hv/vmbus_bufring.c
-> index bac32c1109df8..23542e59a2ee9 100644
-> --- a/tools/hv/vmbus_bufring.c
-> +++ b/tools/hv/vmbus_bufring.c
-> @@ -58,12 +58,6 @@ void vmbus_br_setup(struct vmbus_br *br, void *buf, unsigned int blen)
->  	br->dsize = blen - sizeof(struct vmbus_bufring);
->  }
->  
-> -static inline __always_inline void
-> -rte_smp_mb(void)
-> -{
-> -	asm volatile("lock addl $0, -128(%%rsp); " ::: "memory");
-> -}
-> -
->  static inline int
->  rte_atomic32_cmpset(volatile uint32_t *dst, uint32_t exp, uint32_t src)
->  {
-> -- 
-> 2.53.0
-> 
+The op doesn't compute anything. It returns a fixed mode per cgroup and
+that's all the series uses it for. BPF is unnecessary here. This is a
+prctl() feature, not a struct_ops one.
+
+Thanks.
+
+-- 
+tejun
