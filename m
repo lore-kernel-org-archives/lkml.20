@@ -1,215 +1,142 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B67BA36A369
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC7235AC13;
+	Mon, 12 Oct 2026 13:26:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791811598; cv=none; b=iks8XtPWofjMOU/CaQRKsmdmPDfWO+RnKzExhQ4CeGejo7re2EZ2aTfFyQ/EiKEER/jIVrDFxdgA4Z9SbZL0TkiROJ3Q6/Unn/ostbldilIgcSVb8+fGXu5zdKBUvad1o6HRI7roLYCIfs9IwymbI7CCVzN0GzIJKY490SkjPPk=
+	t=1791811605; cv=none; b=f4NWjELS/olNLqoo3H1OSJ7yR+5Xq+4yU/A651ffSg66UEYyqVJabW0PODaCsv8gF8WlXqSYW0BOu+zBkBf/BE6+5kVwN+Rkf8xiJIW8Z50q+4bShRJW8mkWDoUwjpk9pLc6bwlH8f9adXiprIHLjwISgOC3yQVxLquiioGmbIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791811598; c=relaxed/simple;
-	bh=tEhgdvR5dXlZ2sBWgNodEMf5jbc63XxHqDMT5EOAe0w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d3QGkNURlavLAVB/erkQcvBJQosPl/GmRNsKieCb8E1PNu1vy5QcXd0CE5WSt8N0Hgvsyfr2Rhv4G5kZg5aVDA87e+P/z86905CsLGwDSPPSD5kOA6TdwgLzp8wh1eFswqlJVJ5yfHkqg2c63rYSxi0yxsDlHsYpl3RcaoRWfUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UX4zaLK4; arc=none smtp.client-ip=74.125.82.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791811605; c=relaxed/simple;
+	bh=KOPO584/j4b3cUzRqGq9od57uxmo2/IwW1C7qUY+HCk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dm9vQGRYXmlmybl1Oyqr0JXTjpKwnPJSl1p1CsuhKkKZSSlVuucy3HOuU24giHd7rZTkhxvksIphPrePRwSWd5LD8Pc2ynVLKqzhIS8f4RnRHp/EMePF92qnrZpQsa+2/bwJ3NqA/katHoN3A1wCmEQwbEGQ4+jLhTKgRnNKPzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Zei+Myc0; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UX4zaLK4"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35a31bb9fb6so2928039eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:26:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791811596; x=1792416396; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LlpHzIuYQd2oZxIU0NKyhphISYrEiSsYul67utJZnW0=;
-        b=UX4zaLK4L5HSbe3GFKB458RNoIuwZrn1Qlf+28Gb+HYNHhVnDiRTqwhHGYdU7qnmoT
-         PcL26k05Bh4Joh+cB7RgaWU7EtprABjHjUhZgFkRRoxJxDEttfRErWc4vjORckCA4kAy
-         bpd+4WgjEZc1s1wQDKW4vmrjO9OV4a8W+Uf7AYcknZIH6lYZVSL3I3iaIyJwFHwNqKKX
-         dqAQFA1zNadP0PUKUd4wnsePKqJeKkbyLtgfwmzYj4epwEBq8zaZgv6NZF9ycF9u2vWo
-         3PnZoHvB3ID1f5Cwm4oO41AYviQ5OFVaau2JgW/R4GeYky749DdDWlMB/HUBJtehNarJ
-         IYKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791811596; x=1792416396;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LlpHzIuYQd2oZxIU0NKyhphISYrEiSsYul67utJZnW0=;
-        b=RdnHedy4c9u7ZZYbmGW25YNpR2ZBy5oynHn6/UgO9B+5ECh0Hsq4oGeJmj/HSmTraF
-         FFF31Bx6ytRxq/RfIocRtS3BUwLbgWXVlFSsREYyAiDffo+SnyIBtY6CyTIvFR2fFbbB
-         DtV/9lJN/zOiyr4c8+cYqku6efGdg+XrkOeU4URIpJfVCwFT5w9Y/AsWqi/eZdc4U7wT
-         T1xZTMdx2i8QuZ/cxw3OQPGSDr+Ue3Vsk2DDd3iJlKRJHSPY/7acA+Nlbhygutmo+BP8
-         gbeRo1ydRTLI43Ln8Otey7UNSKgdDnVPOqw05utDqfSNXva2FJkh8PvCbooV1qk58wt+
-         1uww==
-X-Forwarded-Encrypted: i=1; AKwUvBxaJ7KYPXuMpK9deY0FRKs8JfNjIpUTKYFHFZN8KKw7zpMoC9+N/b9IEgzCuyBKAmTJCVg722YogMt+/Lc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/6uv6Uy8RpTBXq/5PeXmhKcrsEYBvu1MACXOdwazkCgaGeLv1
-	jYN7uBXCgDBRHb3BZqZ+CYs84367sDuzI60TC5y/RT+px+WtQo4m8Zpi
-X-Gm-Gg: AYBFou02yQSgQv3DUcV8rtS970+wdvP4Fb5goSuoELEq/xtCTW3QKf7JPH/GV6hDLkE
-	SQkmWpgklDTG7tam1pI58bvaJ7OgIr/PYvf19vZkXkBZEfxGPVFe+Z3h8kTqaMty4JiapuuU7yv
-	7RCrMBAopFm7skfj17I25srz8JMH1w9Ecqz+YpV+CmXUYYpwiKluQ4pLpU0ZZhFCKsze3PyMb/c
-	VnVnV5f2t9dIraBo1I3rP3e+9sN+uaVRZ74UQjCC3FUl3ePsEKbQ4CSQ3lIXEgYXdUDlLiSW2Dp
-	QHggWiesa/KdU7xzP1L2cVOemthKB56AacmT8LbKCeyuWfMtHoS6/71dy950AFr+Pb/1NT8gCnB
-	O+MVkQolLSFLt5U/+tapRM12FJZ3+zl3wOCCYFhxAUOQmiOFZhvpjFq0b8y2HAZDa18Vau1j8BZ
-	o2wyRFyoWNu+y7rFdG2ZLp76qlA6ZofZk2jATU0fnpfmYta/VKPsTvASAWGAhQtkNeT0OL2uAeo
-	JCrLiOpscYsX//mpsM9vVoULurBmOHnFfF/vLQY9r0H5PyZgCWD2J56ccazIhu4XfsZ+O3ojeiZ
-	T/HejbikF9w7XgZE4GtfcXHY/jF3VDQW6mkiR5JYbEEMu+0YB923Esar6oUuI4ur9oedR1z3sty
-	6XEvy0O8MT+vlFDX/u9uZUtWRzUHvbXHjFVYnV/kkfz291ixFeC1+aZU64T0yZb8T
-X-Received: by 2002:a05:7300:fa15:b0:35b:9851:a896 with SMTP id 5a478bee46e88-35b9851ab64mr1197254eec.10.1791811595645;
-        Mon, 12 Oct 2026 06:26:35 -0700 (PDT)
-Received: from FT6N242TWK ([223.181.117.66])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b53dsm31467174eec.6.2026.10.12.06.26.32
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 12 Oct 2026 06:26:35 -0700 (PDT)
-From: Shashank Mohan Jain <jain.sm@gmail.com>
-To: Eric Dumazet <edumazet@kernel.org>,
-	Neal Cardwell <ncardwell@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	"David S. Miller" <davem@davemloft.net>
-Cc: Kuniyuki Iwashima <kuniyu@google.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 2/2] selftests/net/packetdrill: cover SO_RCVBUF vs the route window clamp
-Date: Mon, 12 Oct 2026 18:56:22 +0530
-Message-ID: <20261012132622.48550-3-jain.sm@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261012132622.48550-1-jain.sm@gmail.com>
-References: <20261012132622.48550-1-jain.sm@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Zei+Myc0"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCEnen2641632;
+	Mon, 12 Oct 2026 13:26:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=9a541AsLA2akKtgWs1C4s+remktZ69
+	fVP5WEMMpf1Dc=; b=Zei+Myc0hBDTF5zZXqeXK9Gf2D+mMeQEpvj1Krlc9zOtnV
+	Fwq5coWiBl9v2qgZ8PEj9tq0GyxwMQ1n2DtgdN0ditCb2MNt3YMITNjfYWWzf0uV
+	FuImSUsUge5O4SzRGEgBO5gdn+QnoHEDsttDnhGuZb1Uf/V0FMBBNT8bWZFlwrMF
+	PP8Xr4CgebicCc45Sgq419HXbk93X4Eblo//N3UBeJ/Z1hdFFWYT/G4HsS8at/eL
+	AaKI9ezGYROJpxxZg1b4k+JF9E35AfdA29ZCJz54JYEKUZppIIv8ihg02BWXWybg
+	aw5V40XhBCEvpH6gvE8yf2YaTPIqIeLGxq7vU2Cw==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwh933n-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 13:26:43 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC5Awk1238650;
+	Mon, 12 Oct 2026 13:26:42 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h7yppnfp6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 13:26:42 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CDQc0t53018926
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 13:26:38 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B9E0B20043;
+	Mon, 12 Oct 2026 13:26:38 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 25CF520040;
+	Mon, 12 Oct 2026 13:26:38 +0000 (GMT)
+Received: from osiris (unknown [9.111.15.154])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon, 12 Oct 2026 13:26:38 +0000 (GMT)
+Date: Mon, 12 Oct 2026 15:26:36 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Ilya Leoshkevich <iii@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Niklas Schnelle <schnelle@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Vineeth Vijayan <vneethv@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Harald Freudenberger <freude@linux.ibm.com>,
+        Holger Dengler <dengler@linux.ibm.com>,
+        Stefan Haberland <sth@linux.ibm.com>,
+        Jan Hoeppner <hoeppner@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH 05/32] s390/tools: Rename gen_facilities to gen_bitmaps
+Message-ID: <20261012132636.19350Db1-hca@linux.ibm.com>
+References: <20261001103247.1989111-1-hca@linux.ibm.com>
+ <20261001103247.1989111-6-hca@linux.ibm.com>
+ <a2cce267-4d50-4509-b44a-bcf15ec1612c@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a2cce267-4d50-4509-b44a-bcf15ec1612c@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1MiBTYWx0ZWRfX2IH1/jtdouww
+ E8VVuPTz+uQkJsUf7fQXysu7u54QbKe1x50i3xch5RWnDdWREtkdhrHQuHOdoT0ryP/Ky9BM/6H
+ Xo6WAx09u3IGsrztR3AS0B81TsCsvgA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1MiBTYWx0ZWRfXzBVhrcWCyeVZ
+ 1wnIae69KVMxPNGOQC1RZNhl+ImB7cuq78YtGle5asonZDLuX6p4dzLkDkfHONRzQrkIkV7YEdZ
+ vWDF71TIPCNkTzn118vwgRenb8BNwIQyt/Hn2rqlGnVKanbKK5jTEdRuXxSlnx52WzyMyvGuuxB
+ BZRXGNAD/X8WgkSViXC6jtFyt+bgssR3hvJLs2JFDNEP9im/lhY+UJxFtlmBdUYz5NealNWSLbo
+ MDo0ovQyHUZSQi5CVMONi8Ld0f0erygePEZkQHe+r9ioIKFQ3ZFUR18NelPoEGOoF4x/fqmv+Dz
+ GiAreCrW4PASZ2gHcxFtYwg2/LbZVxLbToJFy2lRQv3ZcvEVUvh+vIFiCZsuzrtZBKXUUnlV8XB
+ 87GsG3Td2uCYojWg2UEE68clmPk4S65dybNBamwWGr+eJHNIoRG/mF47RJFZkNM8v2cFcWej9xF
+ wf4pLfdzKFqfe1XUaOw==
+X-Proofpoint-GUID: TJMtKfRDuCPkwBPreM1OPelJp4omlJS9
+X-Authority-Analysis: v=2.4 cv=RoFQvymK c=1 sm=1 tr=0 ts=6acce013 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=RaO6znPNoWWx0pFsc4sA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: TJMtKfRDuCPkwBPreM1OPelJp4omlJS9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120052
 
-Add packetdrill tests for the interaction between SO_RCVBUF, a user
-TCP_WINDOW_CLAMP and the route "window" metric (RTAX_WINDOW) on the SYN:
+On Mon, Oct 12, 2026 at 02:35:50PM +0200, Ilya Leoshkevich wrote:
+> 
+> 
+> On 10/1/26 12:32, Heiko Carstens wrote:
+> > Rename gen_facilities.c to gen_bitmaps.c and make it more generic so it
+> > can be used for various bitmaps. Add command line parsing, and use it
+> > to explicitly specify that the facilities header should be generated.
+> > 
+> > Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> > ---
+> >   arch/s390/tools/.gitignore                    |  1 +
+> >   arch/s390/tools/Makefile                      |  8 +--
+> >   .../tools/{gen_facilities.c => gen_bitmaps.c} | 49 +++++++++++++------
+> >   3 files changed, 38 insertions(+), 20 deletions(-)
+> >   rename arch/s390/tools/{gen_facilities.c => gen_bitmaps.c} (83%)
+> > 
+> > diff --git a/arch/s390/tools/.gitignore b/arch/s390/tools/.gitignore
+> > index e6af51d9d183..e07d27143172 100644
+> > --- a/arch/s390/tools/.gitignore
+> > +++ b/arch/s390/tools/.gitignore
+> > @@ -1,4 +1,5 @@
+> >   # SPDX-License-Identifier: GPL-2.0-only
+> >   gen_facilities
+>     ^^^^^^^^^^^^^^ This should probably be dropped now.
 
- - tcp_rcvbuf_before_connect_window.pkt: SO_RCVBUF set before connect()
-   must not defeat the route metric; the SYN must advertise the
-   route-clamped window and window scale 0.
-
- - tcp_window_clamp_vs_rcvbuf.pkt: a clamp set with TCP_WINDOW_CLAMP must
-   be honoured on the SYN and not be overwritten by a later SO_RCVBUF on
-   the still unconnected socket.
-
- - tcp_fastopen_connect_rcvbuf_window.pkt: with TCP_FASTOPEN_CONNECT the
-   SYN is deferred to the first write() while the socket sits in
-   TCP_SYN_SENT; SO_RCVBUF applied in that gap must not defeat the route
-   metric on the deferred SYN either.
-
-Without the first patch of this series the SYN carried win 65535,
-wscale 5 in the first and third cases (the route metric was skipped) and
-the SO_RCVBUF-derived window in the second (the user clamp was lost).
-
-The tests are picked up automatically by the packetdrill selftest
-Makefile (TEST_PROGS := $(wildcard *.pkt)).
-
-Assisted-by: LLM
-Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
----
- .../tcp_fastopen_connect_rcvbuf_window.pkt    | 22 +++++++++++++++
- .../tcp_rcvbuf_before_connect_window.pkt      | 27 +++++++++++++++++++
- .../tcp_window_clamp_vs_rcvbuf.pkt            | 24 +++++++++++++++++
- 3 files changed, 73 insertions(+)
- create mode 100644 tools/testing/selftests/net/packetdrill/tcp_fastopen_connect_rcvbuf_window.pkt
- create mode 100644 tools/testing/selftests/net/packetdrill/tcp_rcvbuf_before_connect_window.pkt
- create mode 100644 tools/testing/selftests/net/packetdrill/tcp_window_clamp_vs_rcvbuf.pkt
-
-diff --git a/tools/testing/selftests/net/packetdrill/tcp_fastopen_connect_rcvbuf_window.pkt b/tools/testing/selftests/net/packetdrill/tcp_fastopen_connect_rcvbuf_window.pkt
-new file mode 100644
-index 000000000..7892ac566
---- /dev/null
-+++ b/tools/testing/selftests/net/packetdrill/tcp_fastopen_connect_rcvbuf_window.pkt
-@@ -0,0 +1,22 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// TCP_FASTOPEN_CONNECT defers the SYN until the first write(); between
-+// connect() and that write the socket is in TCP_SYN_SENT. SO_RCVBUF applied
-+// in that gap must not defeat the route "window" metric on the deferred SYN.
-+// optname 30 = TCP_FASTOPEN_CONNECT, 34 = TCP_FASTOPEN_NO_COOKIE on SOL_TCP.
-+--ip_version=ipv4
-+
-+`./defaults.sh
-+sysctl -q net.ipv4.tcp_fastopen=5
-+ip route replace 192.0.2.1 via 192.168.0.1 dev tun0 window 4096`
-+
-+    0 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
-+   +0 setsockopt(3, SOL_TCP, 30, [1], 4) = 0
-+   +0 setsockopt(3, SOL_TCP, 34, [1], 4) = 0
-+   +0 connect(3, ..., ...) = 0
-+   +0 setsockopt(3, SOL_SOCKET, SO_RCVBUF, [1048576], 4) = 0
-+   +0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
-+   +0 write(3, ..., 1) = 1
-+
-+// The deferred SYN (carrying 1 byte of data) must advertise the route
-+// clamped window and window scale 0 (not win 65535, wscale 5).
-+   +0 > S 0:1(1) win 2920 <mss 1460,sackOK,TS val 0 ecr 0,nop,wscale 0>
-diff --git a/tools/testing/selftests/net/packetdrill/tcp_rcvbuf_before_connect_window.pkt b/tools/testing/selftests/net/packetdrill/tcp_rcvbuf_before_connect_window.pkt
-new file mode 100644
-index 000000000..7ec7f14d8
---- /dev/null
-+++ b/tools/testing/selftests/net/packetdrill/tcp_rcvbuf_before_connect_window.pkt
-@@ -0,0 +1,27 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Setting SO_RCVBUF before connect() must not defeat the route "window"
-+// metric on the SYN.
-+//
-+// The route to the peer carries "window 4096" (RTAX_WINDOW). With SO_RCVBUF
-+// also set before connect(), the SYN the kernel sends must still advertise
-+// the small, route-clamped receive window and a window scale of 0 (the
-+// window scale option is sent, with a shift of 0).
-+//
-+// Since commit b025461303d8 ("tcp: update window_clamp when SO_RCVBUF is
-+// set"), setsockopt(SO_RCVBUF) wrote tp->window_clamp while the socket was
-+// still in TCP_CLOSE. tcp_connect_init() then treated that as a user clamp
-+// and skipped RTAX_WINDOW, so the SYN carried win 65535, wscale 5 instead.
-+--ip_version=ipv4
-+
-+`./defaults.sh
-+ip route replace 192.0.2.1 via 192.168.0.1 dev tun0 window 4096`
-+
-+    0 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
-+   +0 setsockopt(3, SOL_SOCKET, SO_RCVBUF, [1048576], 4) = 0
-+   +0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
-+   +0 connect(3, ..., ...) = -1 EINPROGRESS (Operation now in progress)
-+
-+// The SYN must advertise the route-clamped window and window scale 0.
-+   +0 > S 0:0(0) win 2920 <mss 1460,sackOK,TS val 0 ecr 0,nop,wscale 0>
-+  +.1 < S. 0:0(0) ack 1 win 65535 <mss 1460,nop,wscale 7>
-+   +0 > . 1:1(0) ack 1
-diff --git a/tools/testing/selftests/net/packetdrill/tcp_window_clamp_vs_rcvbuf.pkt b/tools/testing/selftests/net/packetdrill/tcp_window_clamp_vs_rcvbuf.pkt
-new file mode 100644
-index 000000000..3d73178df
---- /dev/null
-+++ b/tools/testing/selftests/net/packetdrill/tcp_window_clamp_vs_rcvbuf.pkt
-@@ -0,0 +1,24 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// A window clamp the user set with setsockopt(TCP_WINDOW_CLAMP) must be
-+// honoured on the SYN even when SO_RCVBUF is set afterwards on the still
-+// unconnected socket: SO_RCVBUF must not overwrite the user's clamp, and
-+// the route "window" metric must not replace it either.
-+//
-+// TCP_WINDOW_CLAMP is optname 10 on SOL_TCP (this packetdrill build has no
-+// symbol for it).
-+--ip_version=ipv4
-+
-+`./defaults.sh
-+ip route replace 192.0.2.1 via 192.168.0.1 dev tun0 window 4096`
-+
-+    0 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
-+   +0 setsockopt(3, SOL_TCP, 10, [16384], 4) = 0
-+   +0 setsockopt(3, SOL_SOCKET, SO_RCVBUF, [1048576], 4) = 0
-+   +0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
-+   +0 connect(3, ..., ...) = -1 EINPROGRESS (Operation now in progress)
-+
-+// The SYN advertises the user's clamp (win 16060), not the route window
-+// (2920) and not the SO_RCVBUF-derived full window.
-+   +0 > S 0:0(0) win 16060 <mss 1460,sackOK,TS val 0 ecr 0,nop,wscale 0>
-+  +.1 < S. 0:0(0) ack 1 win 65535 <mss 1460,nop,wscale 7>
-+   +0 > . 1:1(0) ack 1
--- 
-2.43.0
-
+Left there intentionally because of:
+https://lore.kernel.org/all/CAHk-=whVY4mq1Fd=Vhwy0dK8fR5cOLkiy1OZMG4QyEMaGEd9ZQ@mail.gmail.com/
