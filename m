@@ -1,148 +1,209 @@
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9286032824B
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:36:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34AAF4AF9D1
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:38:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823021; cv=none; b=ndXuUvIbDBFemsFu0Rk3iIMFrEm9AY0Z+zEP64fgaBvlFL2VObgrkjOapF+1cPnl6aOLFYohMmZP0ssAqggELpZwycuttBc5K0KEqbj4VKtQKw60ZPTaYdWrQxORPE9y4/8bLhYzgLs1Sbqso/uLXYYhfeddAHnOF8p3Ei/Mg7M=
+	t=1791823117; cv=none; b=j4pHGHgQuLRP27s5PlS+Q/YE1R1yKAOGDWB4bXxpO5h8uQ+Wz0kAUMSKjzmHCewWeucIWaodHOjughodPrfDK1xYOXUtgG1sxcIGPYD3AQ+cNKrYJ/scL1luBUDN85tcdIYuQDdroe0ZXwDrnnyV2Q6XEy4JJk3ISTga9tP3gKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791823021; c=relaxed/simple;
-	bh=eLqIJFpZARpTKqSv51MdJJjuy28e6zXE9Kld4KRhU+I=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Q/vccVhfy/pcpmVmjehYY5y4ooonqQqV2EDE9mw2sfr9JnfTQXBgitnfwciFlZswRsWZtU+2vt9MwVsugWiYasqcGobZXnwfKpX/WP6rezI+AgKuK0Fx1BhS9CfOKV64utOTeNkUSu77oRNo70MejzmMzDsfxD+nDZL25O19JdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Q8So8cdv; arc=none smtp.client-ip=209.85.221.71
+	s=arc-20240116; t=1791823117; c=relaxed/simple;
+	bh=pbhZkYNnar0kPSp+s9GEb5Xa1JRNBT0QcgxDD0heE5g=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=WJIB/AusUEH5DNvbfURcXG4Vl3Oz+TW2dhji/nMvL5wSaAeNCEZmQzGcEwJqXFlYyzyad+bDNsMCV1pI4uyYrZgSvelP3e3kRx8mr9l0o4DNFeJqkXT00MyJIKhRrTkRQNr6csO6hlrDNuwohC9sEfcmidapfitanJySVjXtCKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UnUIbA6h; arc=none smtp.client-ip=209.85.216.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Q8So8cdv"
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48af4a0bd0fso1118124f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:36:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UnUIbA6h"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ab7f1efe67so1479349a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:38:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791823018; x=1792427818; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LS4qpOUX8U+nhwzlLQ4pxh6uIS+fahSDIf6nSelya9k=;
-        b=Q8So8cdvA7CRTgtxhdp+obpoHNh+KADwuHapkvDKgcL1BZfzoGQ/JT/ZTEsBWFXGAY
-         xtwYfD2hw48LF+jFEJMW3U9CNIIlgqRg8z+Qd3CBihxTlNzWK1UPe48ECf8lU0xhqVMw
-         P6jdLyoPs0jzDDP2OwCfqhgLSOFBVWFwpPvFzpPxaDUFIesktgwqyG8O3Y18O3xOzfGu
-         n8/sYW/Iv3x+pc6Env76YSU3SDjn8R7uikSqCj1jUwx1pxFS+nBnL+IajoooqOcUtuCe
-         SDp7i0JiqkNobYbz7pYCo5LkVPSHHHmuNm+J5uytVRjHtL0Vqxrts/Za1MoUUG+X57E7
-         F/tQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791823018; x=1792427818;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1791823110; x=1792427910; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LS4qpOUX8U+nhwzlLQ4pxh6uIS+fahSDIf6nSelya9k=;
-        b=fW+EknJ5Y0u0/PhoIWsRUkKrDFvvcZhcU1SLN7TylRkgCZcNFqQyW1AVe289/V9ukk
-         hh1EI1N/llaLOb2P2U50OZGOytvLaqJKtoslfTnY3zYiAUblRW1itxvShkyWN6/408x1
-         pl45f6zBcsV0fuTZu1A01JQ/zXNmJUBjCe02a6LcQ/ajaYNqqyW7qXVg1B63fkS5MPdY
-         KRIpfH1EMJ5YtwEJsBMVKiDxnf6w4U+rvhN7QXwCWi9fIkaF1kivT9wkDveDHYPFzhcc
-         E1dhKxp611TmOlRlc3EQGOflG08MgITQ+9WQ3j+3hRevgl6dNourf3UX4OyhZLeQ3EBA
-         Pjwg==
-X-Forwarded-Encrypted: i=1; AKwUvBwII7g1J+uPtRcbBF+FgJ6dHRcCLZH/UcHWciVU0KN4dAmlLxFEm+4b+sW5gcR/DJPGBFzJsQqyUC4T31s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPZUaYYljZZFB2WYdcx+SqQL49q8ihnXlmSzOe8IF2/zc/xJND
-	QG67gN/pZZPt7qxDDLEDBNnZs5/ZdqoQ4z7Dc2zdLoCcEwkVmgn3KRgxLjk8kftZfj8Pwr65VY4
-	ymRIwuKIttuU2g3n6b7F/8Q==
-X-Received: from wmpl34.prod.google.com ([2002:a05:600c:8a2:b0:4a1:811f:6de2])
- (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:810a:b0:4a0:2391:6533 with SMTP id 5b1f17b1804b1-4a18e4a954bmr170650545e9.21.1791823017685;
- Mon, 12 Oct 2026 09:36:57 -0700 (PDT)
-Date: Mon, 12 Oct 2026 17:35:02 +0100
+        bh=B2vzFHQG4XVoWzezMO6TihD0hD+Jfa/iBmx477A16Dw=;
+        b=UnUIbA6hnTT04bC0qBxw7H272aoC/MxV3ov1JfPC3B/0L4DC2uUE5OeZ86DPcSef2c
+         L/oeOUSiwdQ6nIhPC1VPEMyKkmLdKFerX7IJyCC4tXLINL2En9Hvf90L0Ji9W2wD5nUS
+         sVFNMXl16PgWhOnxDr7n1H1Q2JljxuLOMiTm70CFPnotSVAxC41QhKRql9rwVVCkSZl4
+         9F0bRVyTfVv9APWTNNyzLj7xl2ZB/v7IqYNQ0qAtqWV6Rr9eRGy5RSWH45oQsSLvliLO
+         5PsmsFi5OO+W6EP7A66jTg2VKJvpbxLE/7ukUgeSrFM2obDEX3sK6iCE0fdv0If1/MFr
+         XYGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791823110; x=1792427910;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B2vzFHQG4XVoWzezMO6TihD0hD+Jfa/iBmx477A16Dw=;
+        b=NmF6h3AOeZKf/Q2PIAqW1+isjhkKTuZcugNrMfddu0yKs0TqAFzaT4wHl7SX26wVQJ
+         xk+0oaEZLg1ipCd4Ofdm5Fi64um4yYUyqjgIeXVJ1pNvPz9AF8wktpu1m+xzkgDIV26c
+         l8etrYt5OXHvVtnpkmn52SucOunDONh8lyajphqxE+Wup2Bg3mnLj6YXKzX1GzINvELt
+         tttGNoRBCDYLQ/2UMzhy7WeOTlCIRtja2+72GYjLde/AkRBEYIWNa9uZGnOl1TgjDLOx
+         RZ5ZJe1wlWeWsi0Rez1XFm9C3qa36gJH/TArzhEPDedm6mL712cJxUJ6+B8kKw3DHOBZ
+         QTdA==
+X-Gm-Message-State: AFq9FYLBf0mnNnCDSw1b9mkTvPTYlp1IUr+bkq5gEvvy5/cmbJWpoAzF
+	/xnLwb26hFPp8nQaDqxL5oM/b8NBf4mu4rr5wkJM6I/l5tchZx49BL++QpX1LIxiUnhsTF6a8j1
+	eSXeYEw==
+X-Received: from pjbrs15.prod.google.com ([2002:a17:90b:2b8f:b0:3a8:4386:7c43])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4b0e:b0:39e:4c7f:7308
+ with SMTP id 98e67ed59e1d1-3ab3aca124cmr8447686a91.31.1791823110020; Mon, 12
+ Oct 2026 09:38:30 -0700 (PDT)
+Date: Mon, 12 Oct 2026 09:38:29 -0700
+In-Reply-To: <20261009130450.361690-1-pbonzini@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261012163502.687061-1-vdonnefort@google.com>
-Subject: [PATCH v1] ring-buffer: Skip si_mem_available() for persistent and
- remote buffers
-From: Vincent Donnefort <vdonnefort@google.com>
-To: rostedt@goodmis.org, mhiramat@kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
-Content-Type: text/plain; charset="UTF-8"
+References: <20261009130450.361690-1-pbonzini@redhat.com>
+Message-ID: <as0NBfuEY-60pgtz@google.com>
+Subject: Re: [PATCH] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit codes
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	SimonP <simonp.git@mailbox.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-Persistent and remote buffer memory is pre-allocated by the time
-__rb_allocate_pages() is called. Skip si_mem_available() to avoid
-wrongly failing the allocation under memory pressure.
+On Fri, Oct 09, 2026, Paolo Bonzini wrote:
+> When running Hyper-V from Windows 11, KVM is seeing the SS bit set
+> in nested page fault error codes produced for shadowed NPT.  The AMD
+> manual is unclear about when SS is set, including whether it can be set
+> when SupervisorShadowStackEn (bit 6) is not set in the MISC_CTL field
+> of the VMCB; in fact, bisection shows that while SHSTK was available
+> to guests since Linux 6.18, this started happening with commit
+> 687ee95c1b6d ("KVM: nSVM: enable GMET for guests"), which seems unrelated.
 
-For the same reason, unset user_thread.
+It's not unrelated.  As you note below, this is purely because Hyper-V only uses
+CET when GMET is available.
 
-Fixes: be68d63a139b ("ring-buffer: Add ring_buffer_alloc_range()")
-Fixes: 2e67fabd8b77 ("ring-buffer: Introduce ring-buffer remotes")
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
----
- kernel/trace/ring_buffer.c | 41 +++++++++++++++++++-------------------
- 1 file changed, 21 insertions(+), 20 deletions(-)
+> Nevertheless, the unexpected SS bit causes out of bounds accesses in
+> permission_fault(), seen as either WARNs or UBSAN reports:
+> 
+>   kernel: UBSAN: array-index-out-of-bounds in arch/x86/kvm/mmu.h:225:27
+>   kernel: index 34 is out of range for type 'u16 [16]'
+> 
+> (in this case, the page fault error code is 34*2=0x44, i.e. SS|U; the
+> report shows SS|U|W happening as well).  Fix the handling of unknown
+> error codes by dropping SS and (with a WARN) any bits not among those
+> that permission_fault() expects to receive.
+> 
+> At the same time, given the uncertainty about when hardware sets SS,
+> follow the processor's behavior when constructing the fault's error
+> code, and preserve the SS bit as passed to FNAME(walk_addr_generic).
+> While the behavior is surprising, there's a possibility that Hyper-V
+> expects it (Hyper-V does not even enable CET unless it finds MBEC/GMET!),
+> so retain the information when reflecting the fault to L1 instead of
+> unconditionally discarding it.
+> 
+> Note that, even though KVM always tries to run L1 with GMET enabled, it
+> copies the GMET-enable bit of the VMCB12 to the VMCB02 when L1 requests
+> usage of NPT.  Therefore, if the theory suggested by the bisection result
+> is correct and GMET enables setting the SS bit as well, this would not
+> affect hypervisors that enable NPT but not GMET.
+> 
+> Reported-by: SimonP <simonp.git@mailbox.org>
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 04bb94c29f58..b3a30a0413a5 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -2442,20 +2442,30 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
- 	struct trace_buffer *buffer = cpu_buffer->buffer;
- 	struct ring_buffer_cpu_meta *meta = NULL;
- 	struct buffer_page *bpage, *tmp;
--	bool user_thread = current->mm != NULL;
- 	struct ring_buffer_desc *desc = NULL;
-+	bool user_thread = false;
- 	long i;
+Closes: https://lore.kernel.org/all/asUqYEisPp9MJ8mQ@rika.bernkas.tel
+
+> Fixes: 687ee95c1b6d ("KVM: nSVM: enable GMET for guests")
+> Cc: stable@vger.kernel.org # 7.2+
+
+This is wrong, I reproduced this with the KUT CET test with gmet=1.  It needs to
+be (I would just leave off the kernel version number and let the Fixes take the
+backports where it needs to go).
+
+  Fixes: 8db428fd5229 ("KVM: SVM: Enable shadow stack virtualization for SVM")
+  Cc: stable@vger.kernel.org
+
+With the above tweaks and the removal of user_fault:
+
+  Reviewed-by: Sean Christopherson <seanjc@google.com>
+
+The only reason the KUT test doesn't hit the WARN is because L0 KVM never takes
+a #NPF on the push to the shadow stack.  Thanks to KVM's prefetching and KUT's
+handling of free pages (the allocator writes to the page being allocated), it's
+all but impossible for the shadow stack push to hita #NPF in L0's domain.
+
+With hacks in KVM and KUT to zap all SPTEs just before running the shadow stack
+test:
+
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 81a5b32a4bd0b..2ab55fd910d64 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -7683,6 +7683,7 @@ void kvm_arch_flush_shadow_all(struct kvm *kvm)
+ {
+ 	kvm_mmu_zap_all(kvm);
+ }
++EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_arch_flush_shadow_all);
  
--	/*
--	 * Check if the available memory is there first.
--	 * Note, si_mem_available() only gives us a rough estimate of available
--	 * memory. It may not be accurate. But we don't care, we just want
--	 * to prevent doing any allocation when it is obvious that it is
--	 * not going to succeed.
--	 */
--	i = si_mem_available();
--	if (i < nr_pages)
--		return -ENOMEM;
-+	if (buffer->range_addr_start) {
-+		meta = rb_range_meta(buffer, nr_pages, cpu_buffer->cpu);
-+	} else if (buffer->remote) {
-+		desc = ring_buffer_desc(buffer->remote->desc, cpu_buffer->cpu);
-+		if (!desc || WARN_ON(desc->nr_page_va != (nr_pages + 1)))
-+			return -EINVAL;
-+	} else {
-+		/*
-+		 * Check if the available memory is there first.
-+		 * Note, si_mem_available() only gives us a rough estimate of available
-+		 * memory. It may not be accurate. But we don't care, we just want
-+		 * to prevent doing any allocation when it is obvious that it is
-+		 * not going to succeed.
-+		 */
-+		i = si_mem_available();
-+		if (i < nr_pages)
-+			return -ENOMEM;
+ static void kvm_mmu_zap_memslot_pages_and_flush(struct kvm *kvm,
+ 						struct kvm_memory_slot *slot,
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index 757c8ea1ee818..a050ebb633b36 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -1828,6 +1828,12 @@ int nested_svm_exit_special(struct vcpu_svm *svm)
+ 		 * of L1.
+ 		 */
+ 		return NESTED_EXIT_HOST;
++	case SVM_EXIT_MSR:
++		if (!svm->vmcb->control.exit_info_1)
++			break;
 +
-+		user_thread = current->mm != NULL;
-+	}
- 
- 	/*
- 	 * If a user thread allocates too much, and si_mem_available()
-@@ -2469,15 +2479,6 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
- 	if (user_thread)
- 		set_current_oom_origin();
- 
--	if (buffer->range_addr_start)
--		meta = rb_range_meta(buffer, nr_pages, cpu_buffer->cpu);
--
--	if (buffer->remote) {
--		desc = ring_buffer_desc(buffer->remote->desc, cpu_buffer->cpu);
--		if (!desc || WARN_ON(desc->nr_page_va != (nr_pages + 1)))
--			return -EINVAL;
--	}
--
- 	for (i = 0; i < nr_pages; i++) {
- 
- 		bpage = alloc_cpu_page(cpu_buffer->cpu);
++		kvm_arch_flush_shadow_all(vcpu->kvm);
++		break;
+ 	default:
+ 		break;
+ 	}
 
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
--- 
-2.56.0.385.gd3acb90ef8-goog
+diff --git a/x86/cet.c b/x86/cet.c
+index bb031b80..050cc1c7 100644
+--- a/x86/cet.c
++++ b/x86/cet.c
+@@ -225,10 +225,14 @@ static void test_shstk(void)
+ 	wrmsr(MSR_IA32_PL3_SSP, (u64)(shstk_virt + 0x1000));
+ 
+ 	printf("Running user mode Shadow Stack tests\n");
++	wrmsr(MSR_IA32_UCODE_REV, 0);
+ 	run_in_user(cet_shstk_func, CP_VECTOR, 0, 0, 0, 0, &rvc);
+ 	report(rvc && exception_error_code() == CP_ERR_NEAR_RET,
+ 	       "NEAR RET shadow-stack protection test");
+ 
++	if (1)
++		return;
++
+ 	run_in_user(cet_shstk_far_ret, CP_VECTOR, 0, 0, 0, 0, &rvc);
+ 	report(rvc && exception_error_code() == CP_ERR_FAR_RET,
+ 	       "FAR RET shadow-stack protection test");
 
+
+I can trigger the WARN:
+
+ ------------[ cut here ]------------
+ WARNING: ./arch/x86/kvm/mmu.h:305 at paging64_walk_addr_generic+0x493/0x630 [kvm], CPU#475: CPU 27/KVM/453497
+ Modules linked in: kvm_amd kvm irqbypass vfat fat dummy bridge stp llc ccp k10temp i2c_piix4 cdc_ncm cdc_eem cdc_ether usbnet mii xhci_pci xhci_hcd ehci_pci ehci_hcd [last unloaded: kvm]
+ CPU: 475 UID: 0 PID: 453497 Comm: CPU 27/KVM Tainted: G S   U              7.3.0-smp--dfc8813a3132f-seanjc-sink #71 PREEMPT 
+ Tainted: [S]=CPU_OUT_OF_SPEC, [U]=USER
+ Hardware name: Google Astoria-Turin/astoria, BIOS 0.20260526.0-0 05/26/2026
+ RIP: 0010:paging64_walk_addr_generic+0x493/0x630 [kvm]
+ Call Trace:
+  <TASK>
+  paging64_page_fault+0x55/0x2a0 [kvm]
+  kvm_mmu_do_page_fault+0x138/0x210 [kvm]
+  kvm_mmu_page_fault+0xce/0x400 [kvm]
+  npf_interception+0x14b/0x320 [kvm_amd]
+  vcpu_run+0x1571/0x1f00 [kvm]
+  kvm_arch_vcpu_ioctl_run+0x2c6/0x600 [kvm]
+  kvm_vcpu_ioctl+0x580/0x6b0 [kvm]
+  __se_sys_ioctl+0x6d/0xb0
+  do_syscall_64+0xfe/0x460
+  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+ RIP: 0033:0x7f9e1677a17b
+  </TASK>
+
+Note, the early return in test_shstk() is necessary to reproduce the splat in my
+setup.  I assume it's due to a change in the generated test code that causes KVM
+to fault-in (prefetch?) the shadow stack page.  I didn't bother digging that deep.
