@@ -1,158 +1,143 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F7C392822
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:30:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C2548F01B;
+	Mon, 12 Oct 2026 14:31:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815463; cv=none; b=hp/Bl1Yeby58xqpdleUKRzFVLNo0ntTNgG18Dm+EzCHqb/szvzRZQlydapRMwoa3lGsrMiWcwsMisH5LmOnMpKda3yqWTzI5xAk0mXBQmGwy/wJKJlbgF2MdSVXvOzEd7py9jT61EedEfVrPHBi9yO3hRWV68gcLJJngDCLFBRw=
+	t=1791815484; cv=none; b=u/uONukkotK4XFAHb6AClaj3gXsqisC4L+bZjfmXe7qQ8WjAAQ7StnKvixnOyQt7hPGesWlxz+1zvyA2SKD1kLKnrGsOq82UWVJPRruHGBHZlxz9upvadCXCmy5WiC52FfXGueUW5FHXQaWZsBW41bfb6AxPIfYuZV0eKmBsj/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815463; c=relaxed/simple;
-	bh=LGgmqh2MLqir3C+8ZDFdMii09F46RRiDyfl38h29TQI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eSopm+Zv9KbUlzaLDf9CDh3x808u+kB2RzQ6v+DKHY4bnWikW9Np0nnChU/bG5Co/ZDMKToUU3dlCKc/Ng0V5WaWT0yqWN/+MFePvl+118IiePZ5dQm3s+0kGhufczXlfW6ufnEUzxluScpGo8bxrq6hDmG52ST629vlZBtuYKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=AVb4Bt61; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1791815484; c=relaxed/simple;
+	bh=cwNeHIUl6p8KJxXDwgAzED7mAKp/Pz7kWvsHFdSgijY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QEcQPKHkG91umkWXDMuHzGGFrmxkIFFiNnWKG1HgEslUOPng1rl+V36fywQEw59xmdcKDYuFSvRIMH9AMRLHkuTK0GyXLXpuA0IPjqaQmNdKWQtSEpu7pdTBvu6vUZCnqUfj2+FwuPEyjJkg0eag8ztRr6TExTN8hjdo8YM7kw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=QdRlAXLT; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="AVb4Bt61"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=CLjYLfxJnK6GkVOplIqun7ZyK1q9cTFbEiWppKDfqmo=; b=AVb4Bt61shNQuwqBuSkAOU71yH
-	8zPas4dO7QmGnDrIqgV50vhOGSJNTZJM5DAlg8qKebQmvtnlwJPnAD+E4VSdtNraCVHS7X1/4Qo6B
-	cMtSkyqgOatkaINQiD9Cz8cEhW/mNh4AXOogPS5YI888fhM2uR2H/Jt/8uLcOeP96crZNf4Q5+NJ8
-	/Cosm0jhI/2fgD9gJbGV42+Xujw9N54QF2QFx/yDXBzaXBst1UkjwNShRc3WHOiK0UTYULMHmxLMj
-	IOlaHh1N81sJF8x1KHDUsvUtl783sDI8J9ZvdfmLKAPVZPazjJxbBYSNNXcBtveXe7P1CvK55nv0I
-	rHj9z1rg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xGH3A-00000005jxK-3qPm;
-	Mon, 12 Oct 2026 14:30:49 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 04CCD30045A; Mon, 12 Oct 2026 16:30:48 +0200 (CEST)
-Date: Mon, 12 Oct 2026 16:30:47 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: syzbot <syzbot+6835d5c11145e4f77057@syzkaller.appspotmail.com>,
-	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>
-Subject: Re: [RFC PATCH v2] sched: irq: cpu-hotplug race vs
- set_cpus_allowed_ptr()
-Message-ID: <20261012143047.GV2009045@noisy.programming.kicks-ass.net>
-References: <20261012103946.aOSAmrRe@linutronix.de>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="QdRlAXLT"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCEE1d3209697;
+	Mon, 12 Oct 2026 14:31:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=TJl3D1
+	pzprafFh7GndGxQJlYsvdSrDBW7tORWfxQ7sI=; b=QdRlAXLTTQgnlFfELNAFKj
+	3HQ6d9UePlhZYpqRShjJwCGtIGfYF8uyObIyWUO0Clxeu5gb9UxwG7JMpKOySWIy
+	wP7y92vaSSLWGxB/hd0qSA4WIGjDD4045pC479CkZBC++D0Q6vLaNR479o0hjLTz
+	+X10AVV27zIz0Kz3hSh9dM7+1q2nR4WWpsLFs41jScL7FhCYHbHk7B+g8lO5t5kX
+	lBtH0Uo2E2G7ZgoeeXT76qCzcVc80YXLQUkDT+7HR4iX+j38wMxKMk779uZntN0v
+	1lo4qAMA+qm72+RSYE4kGKNKpUTzfdLbr2YJdhbf+TZdqdG3ZF8QNkyzzPgSEs0A
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv09260-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 14:31:22 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC4sFf1212024;
+	Mon, 12 Oct 2026 14:31:22 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h80pjnjh0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 14:31:22 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CEVI9G56099280
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 14:31:18 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 221202004B;
+	Mon, 12 Oct 2026 14:31:18 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9A54820043;
+	Mon, 12 Oct 2026 14:31:17 +0000 (GMT)
+Received: from [0.0.0.0] (unknown [9.87.157.242])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 14:31:17 +0000 (GMT)
+Message-ID: <efd8f77f-f66e-481d-a67a-d4f2d0520ad1@linux.ibm.com>
+Date: Mon, 12 Oct 2026 16:31:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261012103946.aOSAmrRe@linutronix.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/32] s390/traps: Handle nullifying program checks in
+ get_trap_ip()
+To: Heiko Carstens <hca@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Niklas Schnelle <schnelle@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Vineeth Vijayan <vneethv@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Harald Freudenberger <freude@linux.ibm.com>,
+        Holger Dengler <dengler@linux.ibm.com>,
+        Stefan Haberland
+ <sth@linux.ibm.com>,
+        Jan Hoeppner <hoeppner@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+References: <20261001103247.1989111-1-hca@linux.ibm.com>
+ <20261001103247.1989111-8-hca@linux.ibm.com>
+ <f7a81358-0ff9-404b-9b27-1ea11c095694@linux.ibm.com>
+ <20261012134221.19350F50-hca@linux.ibm.com>
+Content-Language: en-US
+From: Ilya Leoshkevich <iii@linux.ibm.com>
+In-Reply-To: <20261012134221.19350F50-hca@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX0n5dOWwd5xof
+ M3GN9euaWWgUsC7hsMzP4bfQ/y+E6tlshpsByJcS8evy8kM2EdyhZgByw+L46FAw6rhdOPpyxpF
+ ZUpxU+CrDvPBFA22aRpO4BxNiJHpWeIwsXvpt9KJyzWUHjHjN0tYsIwNfK37cZXnGSommROpmll
+ gIZ0VnrbqGwI3+RNsR4OUhgxu0m6pYblvXOdviYJohULsckAsDVuvOXxDPOU88KztICJLAv02Yr
+ 3lliVgll2VqJaROlKrYk9Co91vyUKtMQXWuORmltZfnJzA6RR/+TuJlfcrTuB8OvzlWHEpq+QFy
+ +3jJLQW63s4AFRGObzuTzE2OX/ggsgnpsNN9y81qZac1RPzjMJTxneccYkqDZoPZhojTmK+IuPr
+ o+sSeS+Eg4Hr0o+J9obU1pyv0dTUsN3U4vseBvjUt3YgYYakTlpjCqP48kt/G2DurMPWKoZaHpl
+ 2vsrXmi6JqUDWuKOuGw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX5edEEpVJ9kRS
+ jVgh7eX/iO118UGVVHbwzuoS8ZYplBVwD61aS2g5q+M553tlba5Df/zjjH0PkJ6RGGiRCR1mxlG
+ +3s35rlLaRtXS+OdLa0ODFhv/Oi5UE4=
+X-Proofpoint-ORIG-GUID: X4DRiyxEZ8_Mdl_eWJ3UIiO-pIjTWDnb
+X-Authority-Analysis: v=2.4 cv=a6KlZkSF c=1 sm=1 tr=0 ts=6accef3a cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=cuqZv70OvzW3UWfsH6YA:9
+ a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+X-Proofpoint-GUID: X4DRiyxEZ8_Mdl_eWJ3UIiO-pIjTWDnb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
+ phishscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120056
 
-On Mon, Oct 12, 2026 at 12:39:46PM +0200, Sebastian Andrzej Siewior wrote:
-> syzbot reported a race of assigning a CPU affinity during CPU hotplug
-> operation.
-> After the affinity of an IRQ has been changed, the IRQ-core sets
-> IRQTF_AFFINITY and wakes the relevant interrupt threads which need to
-> adjust their affinity mask. The thread will then invoke
-> set_cpus_allowed_ptr() to update the mask. Based on the new mask a CPU
-> is chosen on which the thread should run.
+
+
+On 10/12/26 15:42, Heiko Carstens wrote:
+> On Mon, Oct 12, 2026 at 03:01:56PM +0200, Ilya Leoshkevich wrote:
+
+[...]
+
+>> Should location be moved inside the "if"? Now it reads weirdly: we cast
+>> the pointer to __user before checking for user mode.
+>>
+>>>    	if (user_mode(regs)) {
+>>>    		if (get_user(opcode, location))
 > 
-> It is verified that this CPU is online however there is no guarantee
-> that this CPU remains online while affine_move_task() is moving _this_
-> task. Since the current task requests the migration the stopper/
-> migration_cpu_stop() is involved at which point the task pauses for a
-> while. If the CPU goes offline (or is no longer cpu_online_mask) then
-> __migrate_task() (due to is_cpu_allowed() reject) will return the rq of
-> the CPU on which the task is currently running (which does not match
-> it's task_struct::cpus_mask).
+> You are suggesting to move the assignment like this:
 > 
-> The aftermath:
-> The IRQ-thread's CPU and task's cpus_mask do not match. A
-> migrate_disable()-> schedule() will change task_struct::cpus_ptr
-> ensuring that the following migrate_enable() will update the task to the
-> requested affinity mask. At this point, affine_move_task() expects
-> task_struct::migration_pending set but it is NULL because no one
-> requested an affinity change while the task was in migrate-disable
-> section.
-
-
-
-> I see two ways of fixing this:
-> - Holding the cpus_read_lock while set_cpus_allowed_ptr() is invoked.
->   This ensure that the CPU remains in the cpu_online_mask while the
->   migration task moving the task over. Should the mask be already
->   invalid, then it is rejected otherwise the operation completes.
+> 	if (user_mode(regs)) {
+> 		location = (void __user *)get_trap_ip(regs);
+> 		if (get_user(opcode, location))
 > 
->   sashiko complains about deadlock of cpus_write_lock() in the CPU down
->   path and calling irq_migrate_all_off_this_cpu() vs
->   irq_thread_check_affinity() doing cpus_read_lock().
->   As far as I see, there is no deadlock because the mask is updated, the
->   tread is woken, the tread blocks with cpus_read_lock() until the CPU is
->   down.
->   There is nothing that waits for the interrupt thread to complete,
->   there is no synchronize_irq() invocation which would be required for
->   the deadlock to happen.
+> ? Or something else? Sure, why not. Just let me know what you prefer.
 
-But any other set_cpus_allowed_ptr() call in the kernel can suffer the
-same problem, no? Why is the irq thing 'special'?
-
-
-> - Should __migrate_task() fail to return the requested rq make sure its
->   CPU is part task_struct::cpus_mask. This ensures that the current CPU
->   is still part of mask avoiding a possible push by migrate_enable().
->   sched_class::set_cpus_allowed did not see this mask. It might be a bit
->   inconsistent and feels a bit like select_fallback_rq() without the
->   printk.
-> 
->   Sashiko complains:
-> | If __migrate_task() fails (e.g., due to a concurrent CPU offline event), this
-> | fallback code forcibly modifies p->cpus_mask with cpumask_set_cpu(). This
-> | skips the required p->sched_class->set_cpus_allowed() callback and fails to
-> | update p->nr_cpus_allowed.
-> | Can this bypass global EDF real-time invariants for SCHED_DEADLINE (as
-> | set_cpus_allowed_dl() is skipped), and allow unprivileged tasks to escape
-> | affinity boundaries, giving them access to CPUs outside their cpusets?
-> 
->   We did do_set_cpus_allowed() for CPU X and can't migrate there now. We
->   also don't know if the invocation was successful.
->   
->   Looking at this, it is not possible acquire the CPU-hotplug lock here
->   and not every caller holds it. This seems to be limited to
->   migrate-disable. Should this happen without the lock, then during the
->   wake-up the scheduler will just print "process … no longer affine to
->   cpu" pick a CPU and be done with it.
->   Maybe set the bit followed by do_set_cpus_allowed()?
-> 
-> Both changes are implemented to illustrate, one is enough.
-> I can reproduce this back on v6.8, therefore I assume we have this since
-> day #1 of migrate-disable.
-
-I am struggling to follow along. The actual fail scenario is a
-combination of hotplug *and* migrate_disable()? Can we get a picture?
-
-A CPU must not be able to go offline while there are migrate_disable()
-tasks on it. Are you saying the migrate_disable() happens after hotplug
-already marks the CPU offline?
-
-The thinking was that either:
-
- - task is asleep, and ttwu()/select_task_rq() picks a fallback
- - task is running, and __balance_push_cpu_stop() picks a fallback
-
-
-There is a TLA+ model of all this somewhere; Valentin, do you remember?
-That would have to be extended at the very least.
-
-
+Yes, and maybe also move the declaration there too.
