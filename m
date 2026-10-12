@@ -1,118 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D999E33F59C;
-	Mon, 12 Oct 2026 06:05:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94E03644C4
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:06:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791785137; cv=none; b=DuHji+cLmHo2mlvI2QLSv9XPb0BVCwLg/phoQSxWwxnD1i3VDD01lPtzt5vAvmlBn+9IsjZeKMQXDC0AHcZtD2Q26RMxWIuNP3523PFp/ssIF/Ol3axg3pkrpLaCbPbpJL4T9Uuy/1jtkg8OxYmCDVPVwda9fxxBY1epHBAejug=
+	t=1791785210; cv=none; b=BAguU9xeqj3uWBiB74+salo97Wr6j0F+ejClOc+YVyASA9qx5ZvGXhTK4au3ld+rsULAW/19Y1ohg2qmMB0tb4wJt5JYAcnWuLLa/CK5zlseGVktjxsPTZxCVLiXCqemKI+kVUxXgr3qM63SaZpzSkYauayWsF8EQ4GkitGMyng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791785137; c=relaxed/simple;
-	bh=beQa+DI+F888sK7apR3knG33kZZQpCR8lIwCaKguaC8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B5TFAgA3Me89NSV8nYdwl+mslBBvHU+jQLrpHu6uv5UIzUsE25XntMbaWkMnjSSkuxdVLMyNRBFkJ88iVPEaLE/KUkYaGaXTtx0jMsVnuQkXDd+gtgE2oql/xlF53RGCGYN2KlBles9WWYkJuH7S/yJsuCp9VHlPXFoUlGhIv/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MyHcZjNI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791785210; c=relaxed/simple;
+	bh=+BEqCnHHclDjuLHOc3NkaW2NSsl8fX3sGxz3SHV4JrY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cm69OxOj58ExafpPEd5A7RUe37iCf7+jspek1E/C6/sqoYPhzdSiNwdn8dwbTHa8HYrYjyFwesr1s7SOeU7zRosPVcodLdBWb+bxMcA6LYofSGVC9ugzD5TCbgk1KWtsw47CLRdyjAxLsGb+vMKImC6scuShHn1DeoOzos+vC7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=HP60QPGg; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MyHcZjNI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D63F1F0089B;
-	Mon, 12 Oct 2026 06:05:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791785136;
-	bh=ys9Q5nq9RGCH9TxLe8jSzAR8n/kR5uhkjEivdRY/C6I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MyHcZjNIGx/NFm6+BmrVg7xFHMGG8WaiVGQQ9S4vAJpS7EQ5IilD7HBqia62R2Cr7
-	 XR36DrqiUxg/Pod9evnCQcaEUYo+ZRbY2tnIajVE8wvQUCnXsg/zMj12cJW52sE5Pn
-	 YGrNdcpDN+XKDRLB3geHxUU0DhP+71STi/WiikfRKSqSsUVKft0qkSJverWUKXHUaz
-	 t4pPoIo17gxKgZWV+soIpgQCxmO99hH5dsRcY0RSWLk8mgfK4SHxun5RYq486qKPeL
-	 aW2FByvp6t3PPhq0P9sWLypU44c0vtgMzHnBGjSHVbvf5qaJv2RgiyJExHA362FhIN
-	 iuhUoTGH85ZyQ==
-Message-ID: <998a8c7b-82e3-4370-b0f4-765deccdb348@kernel.org>
-Date: Mon, 12 Oct 2026 08:05:26 +0200
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="HP60QPGg"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dc1508191so171103f8f.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:06:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791785207; x=1792390007; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=7vkTy2G13GGSXxsehf2L4ItoE0bTLRJIAaTzfMdbDvY=;
+        b=HP60QPGg5NJfJ31gz6LE6hD4rF2/3/o2ftyY549wyhFVHAmP1ivrU+54HCF+mWjpp9
+         s3nbiw/X6xQ7R0r+wkv6TGXCXCfk+Jt/MPG1uOHyHY607zvgq0uBykX+Y6fahDgZDOd+
+         yZc8V6QtXTQSp80gLW+6pU18YzlHSkPjs6W3DNzVfs10aIkASKt0tGDZuhS0ojJOABcV
+         FVsW5wAg7M1ju1Y/yNZ8U2Hu6Tfey911SgXTuBFCNknYQqIuM23+6o8T9zz3g2xpo/sl
+         u3cAPe4vqwQDgG4YLWfOch9dIs8owQ1hBxsXJyCSxnUFs8J4z2L2TntwhT3mOC7mygpy
+         cFhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791785207; x=1792390007;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7vkTy2G13GGSXxsehf2L4ItoE0bTLRJIAaTzfMdbDvY=;
+        b=ZBfISqtchcdWV3yApv2JrZ5aWx0T7OL0G4tCaT3z06wJw3pYj4Rl4P6K4BJZwL8cNW
+         MYUdyjNQ/xKNBqa0uNqCwCsGL8D7/F9BBnj4tYzKwzVufJXd9Nukw8Bs0KXNgj7iCaB4
+         XohJMZzA/O8bvGTphrFbI0ohs4Esz7WEGFLpPuxgfvM4y7iGtvYaD2N+U0pWOMkkgMJg
+         gFNbAuaZQ1aTKKobtBJ1LWu9wEW6Re3iiiM9pHIY4i57xjmEvWYiAcQAHxIuYZ+k1DRV
+         4w+pPA803qxr2f+oc3cKyMzIXXBKp3RqEflKEp33Q4cFP/n0xx15O+/atgkf5ibyRJM8
+         9XpA==
+X-Forwarded-Encrypted: i=1; AKwUvBwS6G6cOoeA5gqfydu/UFq5t1Gh7K05XCUEQx3Mt3UzQ7NUthCvBaglNMcyKXfquYw4MSJCcpav7KiUnI4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkpgcZcT2q3b+Ngwo6VR86CPW3KzXudk3sYEGGQ1BObf/WG8Av
+	8uPoKmeZyGU0py5clWlWoHXpu4oXsfZlv9fz4la0F3wUlcNwQ2AfjeSWVI9TC2y+C2U=
+X-Gm-Gg: AYBFou3Qs+K9TxZnyy+JdC04/lPn4pqakuZNngbgjf17qrxartQ/mADlk+qe/RCfHFa
+	vNt5N3NOZGv5X7GlJnxw1uC3zBI17BRd1lxFPqskZvcTvf/ZIjl7R9UBr2USYOhWBQbajtgwDbh
+	09XO7nrVzL2lnjVgQ5LFB2ccCvAem+fwMQP0yutFU8OyvCVdFxtjCl+p3DUaTvohooutnEe5ZcF
+	gcD1Qa//VJvNAtWjy+BCpstyOLMi+M79YFkH9Z3A/MZzDUTaq8eG3tQrV5hHDwp9vFplX66PJRM
+	7oZWiE9zkzQ8POK/tQyZcVZ4kW1P94ShalXw2uw/yZfC2gIklbavADTpzlP3Uo/byWdgg8unuK2
+	wVhLChoM+CeBi/J2gaTa9oD428LfyEpT8h8KUdTz8R4xJYIWi3VOxxkziySw9ibYVyYOms9mBFg
+	ytS85eQLqXbz3DqweUPAhtQDYOORBUr+w9DNm56C9wb52bG7YnHmDg4IA+bVx3yyrwuQ==
+X-Received: by 2002:a05:6000:178b:b0:48a:f5c5:d077 with SMTP id ffacd0b85a97d-48dba7a9f96mr15057202f8f.2.1791785206815;
+        Sun, 11 Oct 2026 23:06:46 -0700 (PDT)
+Received: from mordecai ([2001:1ae9:6037:1b01:4005:7ef3:2241:3a83])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e4018sm17892670f8f.11.2026.10.11.23.06.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 23:06:46 -0700 (PDT)
+Date: Mon, 12 Oct 2026 08:06:43 +0200
+From: Petr Tesarik <ptesarik@suse.com>
+To: Thorsten Blum <blum@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Hans Peter Anvin <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
+ Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
+ x86@kernel.org
+Subject: Re: [PATCH 2/3] x86/tsc: Define and use HZ_PER_KHZ and KHZ_PER_MHZ
+Message-ID: <20261012080643.19d39c70@mordecai>
+In-Reply-To: <asjvQ-3mZzYdtTie@kernel.org>
+References: <20261009100436.1133518-1-ptesarik@suse.com>
+	<20261009100436.1133518-3-ptesarik@suse.com>
+	<asjvQ-3mZzYdtTie@kernel.org>
+Organization: SUSE LINUX
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.53; x86_64-suse-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/11] dt-bindings: input: Document hid-over-spi DT
- schema
-To: Jingyuan Liang <jingyliang@chromium.org>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Mark Brown <broonie@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- hbarnor@chromium.org, tfiga@chromium.org, fqwqf@fqwqf.xyz, daleyo@gmail.com,
- Dmitry Antipov <dmanti@microsoft.com>,
- Jarrett Schultz <jaschultz@microsoft.com>
-References: <20261009-send-upstream-v5-0-384af01da3ee@chromium.org>
- <20261009-send-upstream-v5-9-384af01da3ee@chromium.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261009-send-upstream-v5-9-384af01da3ee@chromium.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 10/10/2026 00:25, Jingyuan Liang wrote:
-> Documentation describes the required and optional properties for
-> implementing Device Tree for a Microsoft G6 Touch Digitizer that
-> supports HID over SPI Protocol 1.0 specification.
-> 
-> The properties are common to HID over SPI.
-> 
-> Signed-off-by: Dmitry Antipov <dmanti@microsoft.com>
-> Signed-off-by: Jarrett Schultz <jaschultz@microsoft.com>
-> Tested-by: Dale Whinham <daleyo@gmail.com>
+On Fri, 9 Oct 2026 15:42:27 +0200
+Thorsten Blum <blum@kernel.org> wrote:
 
-No, fake test.
+> On Fri, Oct 09, 2026 at 12:04:35PM +0200, Petr Tesarik wrote:
+> > The KHZ macro is ambiguous. Sometimes it is used for conversion between Hz
+> > and KHz, and sometimes for conversion between KHz and MHz. Use two
+> > different macros to distinguish between them.
+> > 
+> > Convert plain 1000 constants to one of the two macros where appropriate.
+> > 
+> > No functional change intended.
+> > 
+> > Signed-off-by: Petr Tesarik <ptesarik@suse.com>
+> > ---
+> >  arch/x86/kernel/tsc.c | 39 ++++++++++++++++++++-------------------
+> >  1 file changed, 20 insertions(+), 19 deletions(-)
+> > 
+> > diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
+> > index bac81d37a90ce..8b905c4dbefe2 100644
+> > --- a/arch/x86/kernel/tsc.c
+> > +++ b/arch/x86/kernel/tsc.c
+> > @@ -41,7 +41,8 @@ EXPORT_SYMBOL(cpu_khz);
+> >  unsigned int __read_mostly tsc_khz;
+> >  EXPORT_SYMBOL(tsc_khz);
+> >  
+> > -#define KHZ	1000
+> > +#define HZ_PER_KHZ	1000
+> > +#define KHZ_PER_MHZ	1000  
+> 
+> These are already defined in linux/units.h.
 
-Best regards,
-Krzysztof
+Oh, that's cool. I'll use those for v2. 
+Thanks for the pointer!
+
+Petr T
