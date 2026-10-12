@@ -1,220 +1,109 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF93339CCFA;
-	Mon, 12 Oct 2026 03:51:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9011F3955FF;
+	Mon, 12 Oct 2026 03:57:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791777113; cv=none; b=SZeZiepXw/zv5Rmk576mbGON4We2UQ+mIaw0NL5v890OQrL6BXLPHinQm/apgKDQrS+v3IOqSMzQBpKMWOeIglf9k1L4vRbBcrglzXHRC8QpWKN/fIMsjFcDxA9ivem0ZzqYVrw/Qgi+vBxCV/wzLaibmB/G2GW2neoBcx+J6ig=
+	t=1791777422; cv=none; b=Ad4M3Em+P8PljhQjs48sHKFxKgbwmPE6XQvGtqSsjd+tBYHzfGoiZL5RmxKn1/nQlWpWfSM71usr5y9R+bjA8JFNXP2N1Djp3ot0gS1maxY7TP2O3drSVaGCapdJ5iF9e+vw55WlHk7VCyvx5m3K1CoAJY9gsy5XSazOTicZhds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791777113; c=relaxed/simple;
-	bh=hdeLvYFZ6QgSNWLA5/5kBKBzTRPYU8nalvU+ICQ5vHU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lc9aP1E7xHGWO5GtYciJCRw8HNU+Bm5IprBY19vppyfEKiqCDLrqNLcP5bC8FbBwwz3XQX2CIx9m8qDI28+ywnNSUYu88fHfZI+TA9Nwopjt4wN3EY27YIfQP5tvnyL+DTNUgUGRnv1nyMuT38HB+P1oSRxL3rYmWTupGMaEBQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=RquGCIGj; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791777422; c=relaxed/simple;
+	bh=w9kTsY78JmCrb87bSa72DL2IVDLvj0lnMC2vJKSw2c0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=D3vBcba0Cv/badkaUBBiWhZE+GxHKH1IA4zbXnjJgFOU84RU2VtOEkqRq4xvZfVZCsEJgi/O+FykbL5uNK03cAa0eGm5gW6JNlaSqBA2JkztuGsDgLen+QU6ebAWXBcbBMh6u2pB3H0BKkz5hUEab1NwKpPW5uPsNf5lBh+rAv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q5Cl74mT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="RquGCIGj"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C2EEDQ3070856;
-	Mon, 12 Oct 2026 03:51:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=Fh+cmR
-	tEbXcmwWD44V7PpRx5S2436EpwTjabRkFFgx8=; b=RquGCIGjKi8FgksoepE589
-	1JQmtcH6aeFKmnZCAUFreUSD9guyufUS4spo7Zc9uQWM71Bd9cViaXM7+ju2qIai
-	IgIQ2YvRQXQRWcYA+o9OX+Fy1b5FqM7ZB372rs3nUrCuBbU3pZEhThZZoICTKYKP
-	C0Kg+5bEX50USssK55JbT9JZn307IbNmDhtiOIuqkqsrSE/fmlbC4KZS7iDHqdvz
-	NOZAFRC4JwQ8xEdd/kulvQ2dXzWw8EYsNGiOMmdlQoBsovBjZ/Fc+IyrNqiXf8ZT
-	DrXqo8QP3Y0x5G7RNikxQ86J+bRLgi3YNJ2E9x7ywRNBWUNpZXy2W0lS9sKP3Irg
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1vxqm2-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 03:51:36 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69C1o7Av598375;
-	Mon, 12 Oct 2026 03:51:35 GMT
-Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h82cybaud-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 03:51:35 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
-	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69C3pYCw54067562
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 03:51:35 GMT
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E40FF58055;
-	Mon, 12 Oct 2026 03:51:34 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D9C8A58059;
-	Mon, 12 Oct 2026 03:51:30 +0000 (GMT)
-Received: from [9.123.8.83] (unknown [9.123.8.83])
-	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 12 Oct 2026 03:51:30 +0000 (GMT)
-Message-ID: <94cd4203-1be8-4f8d-b015-0c02760e5770@linux.ibm.com>
-Date: Mon, 12 Oct 2026 09:21:28 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q5Cl74mT"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ECC22C2BCC7;
+	Mon, 12 Oct 2026 03:57:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791777422;
+	bh=w9kTsY78JmCrb87bSa72DL2IVDLvj0lnMC2vJKSw2c0=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=Q5Cl74mTxPYZtu05GB50g6rGeh15DFB3F3B50X+W2MOdqXUyKGbz0cXFo7zdat71y
+	 BKofNuT0YmdX+/HRJgKZtqWCFY1hI5ifjgqZ2LK8AYE2ZduCQhigKi4dzPYOn/Lce4
+	 FsEC6r+GDxO+SGWN3vrJ+ul03sRA8HT/lsmaztZIrVS/28nIJIjn95+8Sa4Cy710Uk
+	 rSOpWBUPNoqgtWmcpr3hyTKIIPSwPhKbTMWdSeL+Qm3bmkjc2ePA7Nx7lkuoWehPPw
+	 yEpYFmbC6xMhFDAJjISLyVkBvFA2uTyvlPT4KdcmXwtpbndQJBMt0MgcHbd2OViPdD
+	 shFEEleJN/sRg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C9B24CA9ED1;
+	Mon, 12 Oct 2026 03:57:01 +0000 (UTC)
+From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
+Subject: [PATCH v2 0/2] arm64: dts: qcom: sm8350: Add CPU capacities and
+ power coefficients
+Date: Mon, 12 Oct 2026 03:56:03 +0000
+Message-Id: <20261012-sm8350-cpu-capacity-v2-0-67ce449becf0@fromdisposition.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/8] KVM: selftests: add powerpc support
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, kvm@vger.kernel.org,
-        Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, linuxppc-dev@lists.ozlabs.org,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Christophe Leroy
- <chleroy@kernel.org>,
-        Anushree Mathur <anushree.mathur@linux.ibm.com>,
-        Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org
-References: <cover.1791280439.git.ritesh.list@gmail.com>
-Content-Language: en-US
-From: Madhavan Srinivasan <maddy@linux.ibm.com>
-In-Reply-To: <cover.1791280439.git.ritesh.list@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAxNCBTYWx0ZWRfXwfcHgwa6F8F1
- 8+Xb8jlXeIVF4vbwNLHGxTqCnjqxEVIpcUpgfX4e6fWztGHMs62FTes2xRJU3x56nYbubABrEYp
- idgcS/PW9izzuw0/3IU6Fyyr3Wbf4Rg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAxNCBTYWx0ZWRfX7Cj0jI8n7Owq
- NqEz8zD2aCoKct+/eQ/KdnVZf6nWcgzy2729OhoUXoj5eTzYrizrJslM25eYSeKdWAFdUoD5aQ2
- +zu928m6BUJRzAbSeQ7Mp6vVSEANUW3fd8pzL137OAHEH7ymWALQTooBBrFwlkZAQJg6sJpI6QT
- I39ueCKqzinYRVvXiaqIac7ASk/CcHsR1An2aN3ot5K3i5l8nU7pZ22J/Zizy+hKQ1bKrHvnzQD
- ImllwfwkP1Re+SE4bl7s/Ul/Q3x9Bl4tr4iYRnwj+khKRPmAgPnA7t0KbCfw+kMb8Qrl4PPh4iq
- lwI+cixxK7ly+6Xtl7DBeX7tYa1kddka04htaYdRNIgF370TxX9oMFe08waYRIOF7q5bCfp7B0L
- lf545DwvdCG+MUHXREq8KUTQFPYpq9XPtzcRvfZSQZFtsfztEg9kDHd4RNwJP7YEjPT7i6hP8Ve
- 1nYvYxY7xJU+MjmOluA==
-X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6acc5948 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=1XWaLZrsAAAA:8 a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=XUvtLocL4moM6XFFuJEA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: wcyoAUsnYWyartj_LMssaGR2zbXpmQ44
-X-Proofpoint-GUID: 6L66dTfzpY_Xhq72Nqee6HcVU9AJ5lpm
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
- spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120014
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32OQQ6DIBREr2JYl4YPYmpXvUfjAgH1N7EQvpoa4
+ 92Ldt/lS2bezMbIJ/TE7sXGkl+QMLwzyEvB7GDevefoMjMpZAUCJKfxprTgNs7cmmgsTitXUGp
+ TedB1q1huxuQ7/JzWZ/NjmtuXt9OhOhID0hTSes4ucOT+LyzABVcOSvBC1LXTjy6F0SHFQDjlz
+ 9eQetbs+/4FqbB8WNIAAAA=
+X-Change-ID: 20261012-sm8350-cpu-capacity-3145a6e159b3
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Demeter Barna <me@fromdisposition.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791777425; l=1799;
+ i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
+ bh=w9kTsY78JmCrb87bSa72DL2IVDLvj0lnMC2vJKSw2c0=;
+ b=k2+Ld8UrsCCizogtNl53u3PuYAFm8A6fTJLOduMyZPK/L7WU6675kNPPU7JUG0pbXcxzL0EjT
+ QWWMWfgYxdGB9OD8O/46A1LRivjtyJIovScyxbidn7M8BoK5LutjClx
+X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
+ pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
+X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
+ auth_id=1163
+X-Original-From: Demeter Barna <me@fromdisposition.org>
+Reply-To: me@fromdisposition.org
+
+Give the SM8350 CPUs their capacities and dynamic power coefficients, so
+that the scheduler sees the three clusters as they are and energy aware
+scheduling gets an energy model. Both come from Qualcomm's downstream
+device trees.
+
+Downstream, the capacities are the same for v1 and v2 silicon, but the
+power coefficients are not: patch 2 takes the v2 ones, which the device
+tested here (v2.1) carries too. I have no v1 part to check them on; if
+v1 boards matter, patch 2 can wait without holding up patch 1.
+
+Tested on a Razer Edge 5G (SM8350 v2.1), whose board support is not
+upstream yet: cpu_capacity reads 308, 785 and 1024 once the kernel has
+scaled the values by each cluster's maximum frequency (1804, 2419 and
+2995 MHz), sched_energy_aware is 1, and the energy model covers all
+three clusters. Compared with the same kernel without these patches, an
+unpinned CPU-bound task now runs mostly on the X1 and a light periodic
+task on the A55s. dtbs_check shows no new warning for the SM8350 boards.
+The values come from Razer's kernel release for this device
+(Nicole-msm-5.4.254-20240515).
+
+---
+Changes in v2:
+- From and Signed-off-by now carry my real name instead of the handle
+  "fromdisposition" used for v1 (same author). No code changes.
+- Link to v1: https://patch.msgid.link/20261012-sm8350-cpu-capacity-v1-0-3d141e0099d5@fromdisposition.org
+
+---
+Demeter Barna (2):
+      arm64: dts: qcom: sm8350: Add CPU capacities
+      arm64: dts: qcom: sm8350: Add CPU dynamic power coefficients
+
+ arch/arm64/boot/dts/qcom/sm8350.dtsi | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+---
+base-commit: d053e38e614fb2e383b298ce8fc308a780d7f209
+change-id: 20261012-sm8350-cpu-capacity-3145a6e159b3
+
+Best regards,
+--  
+Demeter Barna <me@fromdisposition.org>
 
 
-On 10/6/26 3:58 PM, Ritesh Harjani (IBM) wrote:
-> Patch v5 -> v7:
-> ================
-> (Suggestions from Sean):
-> 1. Added kvm_is_ppc_pseries_lpar() helper in kvm_util.h to avoid sprinkling
->     multiple #ifdef __powerpc64__ checks.
-> 2. Enable all tests via TEST_GEN_PROGS_COMMON for powerpc
-> 3. Enable hardware_disable_test and skip when running on powerpc pseries LPAR
->     (nested).
-> 4. Re-arranged the fixes in appropriate order.
->
-> This is based off v2 of Sean PPC pre-enablement series [1].
-> [1]: https://lore.kernel.org/kvm/20260902164123.2546762-1-seanjc@google.com/
->
-> Patch v4 -> v5:
-> ==============
-> - Fixed the issues reported by Anushree while running on kvm on powervm
->    (nested).
-> - Fixed memslot_perf_test on powerpc.
->
-> PATCH v3 -> PATCH v4:
-> ==================
-> - Rebased on top of Sean's new page allocator patch series v2 [1]
->    This allowed to drop and patch-2 since it will now come from Sean's
->    v2.
-> - Addressed review comments from Sean - squashed patches 6-10 in patch-1 of
->    this.
-> - Dropped patch-5 to print vcpu_id when KVM_CREATE_VCPU ioctl fails.
-> - Added additional patch-3 to this series to allow dirty_log_test to run on all
->    big-endian machines.
->
-> [1]: https://lore.kernel.org/kvm/20260902164123.2546762-1-seanjc@google.com/
-> [v3]: https://lore.kernel.org/linuxppc-dev/2d2c46be7f051c7f1c645afaec67f57067d37a81.1781093720.git.ritesh.list@gmail.com/
->
-> Testing updates:
-> ================
-> I have done some fair amount of testing of the selftests both on real HW and
-> using various combinations on qemu (powernv+LE (default), pseries+cap-nested-hv,
-> pseries+cap-nested-papr, powernv+BE). There were few powerpc kvm kernel fixes
-> which were identified as part of this work. I will send those patches separately
-> as those anyway needs to go in separately.
->
-> <pasted snippet of cover letter from previous versions>
-> =======================================================
->
-> Hi All,
->
-> This series primarly adds KVM selftests support for powerpc (64-bit, BookS,
-> radix MMU).
->
-> This patch series is originally Nick's work. I have mainly only rebased it on
-> the latest upstream tree. Since the rebase required few changes to all the four
-> patches (Patch 1-4), I have dropped the earlier Acked-by from Michael Ellerman.
->
-> Since the last series was posted three years ago [1], I am resetting the version
-> to RFC. This rebase was done as part of a larger effort to improve the selftests
-> infrastructure for Linux on PowerPC tree. Thanks to Harsh and Maddy for their
-> help on this.
->
-Sean/Paolo, hope you take this via your tree.
-Acked-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-> Nicholas Piggin (1):
->    KVM: PPC: selftests: add support for powerpc
->
-> Ritesh Harjani (IBM) (7):
->    KVM: selftests: Don't limit LE dirty-bitmap bitops to s390x
->    KVM: selftests: Move memslot_perf_test off the 256M ELF load address
->    KVM: selftests: Skip the max vCPU ID test when KVM_CAP_PPC_SMT is set
->    KVM: selftests: Add helper for checking if running on powerpc pseries LPAR
->    KVM: selftests: Skip kvm_create_max_vcpus on powerpc pseries LPAR
->    KVM: selftests: Only warn for idle-page checks on powerpc pseries LPAR
->    KVM: selftests: Skip hardware_disable_test on powerpc pseries LPAR
->
->   MAINTAINERS                                   |   2 +
->   tools/testing/selftests/kvm/Makefile          |   2 +-
->   tools/testing/selftests/kvm/Makefile.kvm      |   9 +
->   .../selftests/kvm/access_tracking_perf_test.c |  10 +
->   tools/testing/selftests/kvm/dirty_log_test.c  |  12 +-
->   .../selftests/kvm/hardware_disable_test.c     |   3 +
->   .../testing/selftests/kvm/include/kvm_util.h  |  26 +
->   .../selftests/kvm/include/powerpc/hcall.h     |  17 +
->   .../kvm/include/powerpc/kvm_util_arch.h       |  22 +
->   .../selftests/kvm/include/powerpc/ppc_asm.h   |  32 ++
->   .../selftests/kvm/include/powerpc/processor.h |  39 ++
->   .../selftests/kvm/include/powerpc/ucall.h     |  21 +
->   .../selftests/kvm/kvm_create_max_vcpus.c      |  14 +-
->   tools/testing/selftests/kvm/lib/guest_modes.c |  20 +-
->   tools/testing/selftests/kvm/lib/kvm_util.c    |   8 +
->   .../selftests/kvm/lib/powerpc/handlers.S      |  93 ++++
->   .../testing/selftests/kvm/lib/powerpc/hcall.c |  45 ++
->   .../selftests/kvm/lib/powerpc/processor.c     | 512 ++++++++++++++++++
->   .../testing/selftests/kvm/lib/powerpc/ucall.c |  22 +
->   .../testing/selftests/kvm/memslot_perf_test.c |   2 +-
->   20 files changed, 898 insertions(+), 13 deletions(-)
->   create mode 100644 tools/testing/selftests/kvm/include/powerpc/hcall.h
->   create mode 100644 tools/testing/selftests/kvm/include/powerpc/kvm_util_arch.h
->   create mode 100644 tools/testing/selftests/kvm/include/powerpc/ppc_asm.h
->   create mode 100644 tools/testing/selftests/kvm/include/powerpc/processor.h
->   create mode 100644 tools/testing/selftests/kvm/include/powerpc/ucall.h
->   create mode 100644 tools/testing/selftests/kvm/lib/powerpc/handlers.S
->   create mode 100644 tools/testing/selftests/kvm/lib/powerpc/hcall.c
->   create mode 100644 tools/testing/selftests/kvm/lib/powerpc/processor.c
->   create mode 100644 tools/testing/selftests/kvm/lib/powerpc/ucall.c
->
-> --
-> 2.39.5
->
->
