@@ -1,76 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA26D4189C2;
-	Mon, 12 Oct 2026 12:37:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1E448C3E4;
+	Mon, 12 Oct 2026 12:37:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791808664; cv=none; b=DauBmGjntyKM/gN2BDeK1aHkNqyyyUKyw9Yu3RgJSSyTdfkLH1UiaF602COTXp6h0kyeHRBBD6OkRHslGPJCegcMzfUW3b+8rB665kELjxaOiVYoDhDVPKlo97kdR+AHWgKN0Fsq6mvRUuCnR1ZbBDvlVgq46wui7E9qv+1+JBQ=
+	t=1791808669; cv=none; b=kGoyTRCcEOYg1ww5+FEQkED2mamjWHifV0zndwXsbQJxOAI0Q9/AYu0v2Wal3jtUp3oqfX+CEsgJAZ41xHB0WcT3SCm+Yf24HYJ/cUXRMUl4Q2YikQTUGat+K5WIkF+sOCtB59H6hDHG37Ath4gmFMKi1ES2ST0MnAjd49A5/iM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791808664; c=relaxed/simple;
-	bh=9AWYYSDa6SCm+/g6z4QXgjnuexBF14nbrZE0n6ErnDA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gw8+hjvztjvg9+Y/KJm87iRxL7UanwXbE/SKWliUxYVoQqriDNZ3I2DtEg6j/pRIfq8Airfe+v+QR3nhcUfLWqtpfsdo934ip8nqyL/n89z8kevwpg/Exbru1ExLhsxBK++NKRv5u9T3VX8X4BbgIWBwJPogebo/Mw+Ngc97b1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AKNTjxZM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791808669; c=relaxed/simple;
+	bh=rfPZU24Fziz4Rn+Vxpu1Nwgz3d0kf2vcujuc4PGiWAk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rhQAYSp0j6tq8XWsXnlExCeyLjoAXszx9BBXQcNiLfz1vmeEeRWJtqmRyYdy7W7X96PPgK0+W2Ft9bdSHLAKwmEhbOsqn+UKd30kqHbvFvCQrfxnfz0EeTnKWdwZbkkO3eQidbKZhccyl5aRrzuzTa5I8B5PTw0VPgwNWgw4Ttg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=STrSN/f7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AKNTjxZM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC0591F0089B;
-	Mon, 12 Oct 2026 12:37:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="STrSN/f7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 479C01F0089C;
+	Mon, 12 Oct 2026 12:37:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791808663;
-	bh=p66xA6HMJ+HyXp1W0C0rgTV6OarYb4WpLpc6MP7K344=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AKNTjxZM/O3cmclTrGJQXraZpzoaHpSr9sNvM7l4WOJBNbIh8CoPUkP1EMwJ5von7
-	 bfeCq7WgGGrD7VxtkZG/Y6DNtgtWCjxwDMG2r3trWZaYPfhUTeZKScVe0y4NxUW1L8
-	 S9fZ1BDLlTdienpPXmtvkevEb/ReBw5jqqS5kC2u6ROjlmGhloKw4Mgaaf266PzOVz
-	 7B4sZerAplWUSeuxutGAdvgKH1qJgUcd2lU8wincY5Dq8FzTCh32gCEPisTbf8YQ5J
-	 ZDXJQc1/p0mr4IZPdYQnJN3QqWYCi+dobg0UDYPkCp58zWMgTqo68KWWooePwGa9fR
-	 Hjb6LF5HOH/pQ==
-Date: Mon, 12 Oct 2026 18:07:31 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: george.moussalem@outlook.com
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Praveenkumar I <praveenkumar.i@oss.qualcomm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
-	Nitheesh Sekar <quic_nsekar@quicinc.com>, Wesley Cheng <quic_wcheng@quicinc.com>, 
-	Varadarajan Narayanan <quic_varada@quicinc.com>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Stanislaw Pal <kuncy7@gmail.com>
-Subject: Re: [PATCH v4 02/13] phy: qualcomm: qcom-uniphy-pcie-28lp: Convert
- to PCIe/USB3 combo PHY driver
-Message-ID: <aszUGe85aahu0vW9@debian>
-References: <20260908-ipq5018-usb3-v4-0-b789702f0695@outlook.com>
- <20260908-ipq5018-usb3-v4-2-b789702f0695@outlook.com>
+	s=k20260515; t=1791808668;
+	bh=4IaUZt4lrPscc9GvnmihC4Wj6E2yNrEFFtll5KwiMnU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=STrSN/f7mNERDldfUOpVZzAlHAvah30Ie1cOTCT7LfXFSUiXG5gtohFHvjjulJ4Ib
+	 UfxFpjhnsdTY7ddUF7tHhVT0pWvxmBj8BY3DmpjQIwzL3MxCILMYKoNvn0LQvuendt
+	 L1uP9pOiOfee7MNKRMy1jhuhE8wljDpk/itbPmQFOdumisppP44klo0+mPUudbbkV9
+	 N1xPMazQQvgTbTwZpltpI0YiEJhi0pjXfr+3ljuU2VPnc/MZ/1jc2tuxhOv697O2VB
+	 kA7FNeR49TMFjUYL0woVm1PsJWEaeAtZ+VSxG5lSquGDDnRVEQzGfiRTQ8MyKZg/Dr
+	 BHlo/Bv1/AQQQ==
+Message-ID: <09399f27-11eb-431b-914d-397f42de9dc3@kernel.org>
+Date: Mon, 12 Oct 2026 14:37:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] block: fix the length of a smaller last zone in
+ blkdev_get_zone_info()
+To: shashank Jain <jain.sm@gmail.com>, Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+ Hannes Reinecke <hare@suse.de>, Chaitanya Kulkarni <kch@nvidia.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261011051906.60397-1-jain.sm@gmail.com>
+ <20261011051906.60397-3-jain.sm@gmail.com> <20261012122112.GA31242@lst.de>
+ <CA+FWx=n=66eHOgMFb=unfgqFrhw3prW0EOf1bYHfLATV2-o1_A@mail.gmail.com>
+From: Damien Le Moal <dlemoal@kernel.org>
+Content-Language: en-US
+Organization: Western Digital Research
+In-Reply-To: <CA+FWx=n=66eHOgMFb=unfgqFrhw3prW0EOf1bYHfLATV2-o1_A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908-ipq5018-usb3-v4-2-b789702f0695@outlook.com>
 
-On Tue, Sep 08, 2026 at 01:40:55PM +0400, George Moussalem via B4 Relay wrote:
-> From: George Moussalem <george.moussalem@outlook.com>
+On 2026/10/12 14:29, shashank Jain wrote:
+> On Mon, Oct 12, 2026, Christoph Hellwig wrote:
+>> Can you add this to blktests as a reproducer?
 > 
-> This PHY found in IPQ5332 and IPQ5018 SoCs is actually a multi-purpose
-> PCIe/USB3 combo PHY. The driver was initially created for PCIe PHY
-> support only. As such, rename the driver and generalize function and
-> struct names to reflect that it is a PCIe and USB3 combo PHY driver so
-> that USB3 support can be added in subsequent patches.
+> Will do. I'll send a blktests test under tests/zbd/ that sets up a zoned
+> null_blk device with a smaller last zone and checks that BLKREPORTZONEV2
+> without BLK_ZONE_REP_CACHED matches BLKREPORTZONE, and that the cached
+> report's last-zone length does not extend past the device. I'll post it
+> to the blktests project separately and reference this series.
+
+How do you plan to issue a BLK_ZONE_REP_CACHED report? "blkzone report" does not
+have that yet. I am planning to send a patch for it.
+
 > 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Tested-by: Stanislaw Pal <kuncy7@gmail.com>
-> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> Thanks,
+> Shashank
+> 
+> On Mon, Oct 12, 2026 at 5:51 PM Christoph Hellwig <hch@lst.de> wrote:
+>>
+>> On Sun, Oct 11, 2026 at 10:49:06AM +0530, Shashank Mohan Jain wrote:
+>>> blkdev_get_zone_info() sets the length of every zone to the zone size
+>>> of the device. The last zone of a zoned block device may be smaller
+>>> than the others: blk_revalidate_zone_cb() accepts that and remembers
+>>> the capacity of that zone in disk->last_zone_capacity. For such a zone
+>>> the length reported from the cached information is too large, and
+>>> start + len is beyond the end of the device. A conventional last zone
+>>> is also given the capacity of a full zone.
+>>>
+>>> Example with a zoned null_blk device of 10 MiB (20480 sectors) with
+>>> 4 MiB zones, last zone:
+>>>
+>>>   BLKREPORTZONE:       start 16384 len 4096 capacity 4096
+>>>   BLKREPORTZONEV2 with
+>>>   BLK_ZONE_REP_CACHED: start 16384 len 8192 capacity 4096
+>>
+>> Can you add this to blktests as a reproducer?
+>>
+>> The patch looks good:
+>>
+>>
+>> Reviewed-by: Christoph Hellwig <hch@lst.de>
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-
-- Mani
 
 -- 
-மணிவண்ணன் சதாசிவம்
+Damien Le Moal
+Western Digital Research
