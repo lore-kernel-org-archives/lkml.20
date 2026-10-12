@@ -1,283 +1,147 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E585649CF5A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:26:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9432D49D5A3
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:26:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818781; cv=none; b=FyxShbpOPCXRiZGG+CraMUz3ZjJ0EHr3G3biuwqZ9fSIYw37MTHA1rnsBF+11BVYexbAz6AFndjuVgBiPhLoGrJIC8dHYkROaNWTDzLZuTFWuYQKcxRxPFBVTyEHWOKB8WV7wVl4VOYaPRc7S1+zBuAvtD+/lyASqTTeWFbq7iY=
+	t=1791818795; cv=none; b=KGO8zeHS/JYkWumcxgx1MT46sgr7OdBIsdgMhtfHfrFCyBm8WrRsr2S8eUa60lQ8uenR40zUgBB5Nn+TmGy45VIOc5cudDWJR3NWHFLMsqwrw4odhL9F5M0RL8HMa6WqI06+J7ApuDegEKrVAhtW1kIkX7temFLJgSHx+upD+OA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818781; c=relaxed/simple;
-	bh=r4xS8qfNNip730dRIttM9p9vhzXPPetzgmX8Jzhtz04=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ZttRDq7knfk1vsDi7fGPkf+oJCpESauf3lniqyKj1a2a64DUHZg0rr0ZFCuNwEJSVVmYpwvKCWCtuF0qrErBrUSZB/g4uZ/XnX+rLJTWSq8l9PAZYe/80M4seHR0CVPdzB+FocCisadlTrxEWd7qAo9J8YRbzl0YDd7WiqZX0u0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XE1UZivP; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1791818795; c=relaxed/simple;
+	bh=hYDFT734qZnpS535ADRerpMmaNaNQCjAV4kE7QhVIHA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lIguvKT2Oc5N40cbh0QUub9vaa/hjBsWAJPnRQxJDJmZzv3X0ckCnKMCrNIq8nNR7pudKKKrsVjWqhzFTZdsRYjqXHZAwxu2Kqhn8AQs+T/Smruu+yMSkKBmB3RYhjfU0AFMa7xcs9OlN1NSMwsNzSQW8ej55gQYxQjMqV+//G8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=C0aRXjSX; arc=none smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XE1UZivP"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ab27eb38d6so1987357a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:26:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="C0aRXjSX"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1ab2ad719so1900097a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:26:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791818777; x=1792423577; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FuORvPXGU1IelcH358psfnrLkQ757pvSe+rshYdO0wU=;
-        b=XE1UZivPLi+WvufAE+WmhUCqiVPVWoj6P2pxJhhtPYukpGyKlj27X3GZxWydIeUETx
-         pmJiQTn64bM4pbZtb23rafEqyW4XJknl9/UJQ7NUKAC9mgEf3o55+/SxHutm1YRXCQNd
-         Z8P+xhaUWLIk+n5Cuf4oXm9JOt/DaSefu2YSHDeL57QPeh+vjxFBLleMZBIMipJs2ueC
-         obcN61ONM0aV/9lpG6/kcp7JIe6fxwakJC97sglRXe0UzGZ5S2MvhuZNQDkalmes5nZo
-         Xbarjdf4Xw+UoqxVPf7GdgmsTiEy0/de+qnmVE7iBAEq33GdWBONfTBZb7FV+Hj3jp8L
-         c/vQ==
+        d=chromium.org; s=google; t=1791818791; x=1792423591; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RvHQEIGxpaUf21Ijq4HTy/LleTd6G7LJ99iq4zk8rXk=;
+        b=C0aRXjSXZ+adypoh6zExcleanksiJMonmVD1RwyWDNqvd/yHBAMRg6NAltW8uqoo7D
+         mrM2FQ5bSgVjCXDOkj74nXXHG8dPw2UFBWGvZVMjCkloePncfxLtEggJRwK7/A65RldJ
+         WlH+KLL5Nx36VapGdIDhTuneQDq5fMoap1VJg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791818777; x=1792423577;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FuORvPXGU1IelcH358psfnrLkQ757pvSe+rshYdO0wU=;
-        b=TU5TISyjF0p/DvBHFJL97NTbONE/dBjtuL+pxtJoysOiP779deGDd6O5iiliA+Fh6Q
-         fnVD+rGC5qiAIY1Fbs3P5fFvRMDloSrUEKttTTIZzx/58XAP0+mJRZhMzCXc8Zhu3HcT
-         Oei3Uo5ourYyYc5+OoErmPVr6usnv988cMP0onXgrAydAE64IRnUI7ML0fafX8djZ5bu
-         NJe4lijIfakJ+8Ym5i9Y1RSimv+cLbA0EFeXk+13FPrh0og7EJdY4hbPe4ktjuP9hXui
-         NIm+8wjwybVMsRrCRBDwh+9sPAN5Uvnvx34iUuKdj83vd7eUl/DdpmYxyL6y8y9dKe/x
-         OaPg==
-X-Forwarded-Encrypted: i=1; AKwUvBzv5ZNQaq9XronITc91j1x4r1T71WaCAYjKqqm9cM8q2k4/dXbrUh+xDB4SrllN+xAs4/pUkjoVCykhVRY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjxsNP4tIZU67Er+mh5pDXbtopuFIC5NAdSRkmZwQosdBsqPt6
-	PDqhh16nx1GbqJu8zYByWjaC4M4sZC2T3yYMvmUNSJIC41RGsroPhyU3IWEhLFKIhP13fxrlDq1
-	g2in2eQ==
-X-Received: from pjbrs15.prod.google.com ([2002:a17:90b:2b8f:b0:3a8:434e:45b0])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:da8b:b0:3ac:1c76:61a9
- with SMTP id 98e67ed59e1d1-3ac1c767e0fmr1361340a91.13.1791818776719; Mon, 12
- Oct 2026 08:26:16 -0700 (PDT)
-Date: Mon, 12 Oct 2026 08:26:16 -0700
-In-Reply-To: <f7b3a63c-7a1d-445f-b062-4cea5343d266@intel.com>
+        d=1e100.net; s=20260707; t=1791818791; x=1792423591;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RvHQEIGxpaUf21Ijq4HTy/LleTd6G7LJ99iq4zk8rXk=;
+        b=y+3LW3SfWTw7jWbAGyw/x+rGefbYGNoq3vtYbY/OLdKl6Mzs1DKLQMs4lm9FQbHYjn
+         PchmEeiK5/vr72vrjZ9ebskcUQpi293uvr6vRz1AjB65KgPS6dsj4tfx0e8h3J0fcGDb
+         qp223jujH/OhrYznUmoYL1ck4w3/wTPBt1t6cfJJyFKVxzWA306fh20veSTt/IwnXgYb
+         lSBgZQ9TkqYmZIa76Cj+AC8hmjJ2iyKFHYK9XrCRF+uqooj4z7JfoBTLSV8sK1FarypP
+         1ZhCnZvNOQg+ASypmnTBa8ARel9ES0RxFFHdZ6SrKIEiqTjhd9og7DNRRfP7Lspnd/ST
+         vuDg==
+X-Forwarded-Encrypted: i=1; AKwUvBxJzE+ztmwpmAvpb3z+ON0+t3pDwJiiuC+Ls6gt0GvMaZg8e9kJDVw3b6e4rrrec1lMamirauw3D0fQunQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIGJ94miFXYPtsUK5n7/7gub0b4xtJWdW0puyAiwvb63poK4IzG
+	cluqg1IG6GO35wYmQI9mkXkbKGfGyspf2dkKF1PRTbp8sz7uNzf6v+z2UtCnRLg7bfOCQhtS3uJ
+	+qOeR5g==
+X-Gm-Gg: AYBFou117PcMMWr3OPUvROkVxvJVXMnqoI2iq3xlsm4vJKHuPVcSr14D+FMOAav9Gvb
+	1w3dhOIOiKe7gAgD9pgqs6xGzJM89+RC0guKsFeS+VaeaMqOf7d1aT+YGItn0JvCdbf8ADSG2E9
+	EpBCUOysGwbLaZgAWR4DAOmGhYpndPMxfU6PIv0ddeIsrxdgs+L7TRSpQiqpDXowJ3zZRKJUHU9
+	6c0SAmI38yjFId7x42OHJSGtvx7/KPVmNw53480rK7GLnSRqiql0KGqynKNRRx4BmdU39Xwg56G
+	lxEKCUBNVagTbrlAvB+TSo2+D9QVSO04Zwj5yjrD0qTEqnqYw2hAI/OTXWAYxEgDVQDv/NyzWds
+	9fqW1xdtNR5ArJfOZXHnwI6Dy0NV0E/miMGst4m+eYnzphJTcG9JtTcS4GqZ2YjSsDjlqUEmthB
+	ogRHeVSOvmU/0GM/ZvbSgIGEq0yMKEL18TX9oJLreRRjEmnUaNAcsmoVR+4MPtHwELxi9JYtyoO
+	nut+06Ct+gp+nuqYss9ktiUTMqWfPeeg524ig==
+X-Received: by 2002:a05:6402:11cc:b0:6a9:a6fa:8b7e with SMTP id 4fb4d7f45d1cf-6b17c28f2f6mr8251678a12.18.1791818791486;
+        Mon, 12 Oct 2026 08:26:31 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com. [209.85.128.53])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179dd3736sm5084706a12.18.2026.10.12.08.26.26
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 08:26:28 -0700 (PDT)
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a161d9b8c7so13892965e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:26:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy8J6JnLC1OVPsG2Io0yRu7Z4GDQPHR7BlEFWnqQSrQKcbdgzCuyiAOOYrJfcB4Q89RAPyx6MkMTw80uew=@vger.kernel.org
+X-Received: by 2002:a05:600c:3b08:b0:4a0:da23:e06d with SMTP id
+ 5b1f17b1804b1-4a18e4a380bmr192954375e9.10.1791818785340; Mon, 12 Oct 2026
+ 08:26:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
- <20260722-tdx-selftests-v14-13-15ad654a50db@google.com> <f7b3a63c-7a1d-445f-b062-4cea5343d266@intel.com>
-Message-ID: <asz8GKNO9aQANr5E@google.com>
-Subject: Re: [PATCH v14 13/22] KVM: selftests: Support guest_memfd in-place conversion
-From: Sean Christopherson <seanjc@google.com>
-To: Xiaoyao Li <xiaoyao.li@intel.com>
-Cc: Lisa Wang <wyihan@google.com>, Andrew Jones <ajones@ventanamicro.com>, 
-	Ackerley Tng <ackerleytng@google.com>, Binbin Wu <binbin.wu@linux.intel.com>, 
-	Chao Gao <chao.gao@intel.com>, Chenyi Qiang <chenyi.qiang@intel.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Erdem Aktas <erdemaktas@google.com>, 
-	Ira Weiny <ira.weiny@intel.com>, Isaku Yamahata <isaku.yamahata@intel.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, linux-kselftest@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, 
-	Reinette Chatre <reinette.chatre@intel.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
-	Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>, 
-	Sagi Shahar <sagis@google.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, x86@kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+References: <20261011164417.151770-1-jerrysteve1101@gmail.com>
+In-Reply-To: <20261011164417.151770-1-jerrysteve1101@gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 12 Oct 2026 08:26:12 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=VZs9bZciynpey2O6Yy5DQJqeq9Rgz_Ks6dgsBhVUkenA@mail.gmail.com>
+X-Gm-Features: AclHuK9bI6P913aL5-rnPTBteKvsbpWcqqRccf9MDbM65_2lAJpzo-yFPxnN8ew
+Message-ID: <CAD=FV=VZs9bZciynpey2O6Yy5DQJqeq9Rgz_Ks6dgsBhVUkenA@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel-edp: Add BOE NV140FHD-N43 panel
+To: Jun Yan <jerrysteve1101@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 18, 2026, Xiaoyao Li wrote:
-> On 7/23/2026 7:13 AM, Lisa Wang wrote:
-> > diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
-> > index 4a48c4b42095..e547ea341ff7 100644
-> > --- a/tools/testing/selftests/kvm/lib/kvm_util.c
-> > +++ b/tools/testing/selftests/kvm/lib/kvm_util.c
-> > @@ -484,8 +484,10 @@ struct kvm_vm *__vm_create(struct vm_shape shape, u32 nr_runnable_vcpus,
-> >   	u64 nr_pages = vm_nr_pages_required(shape.mode, nr_runnable_vcpus,
-> >   						 nr_extra_pages);
-> >   	struct userspace_mem_region *slot0;
-> > +	u64 gmem_flags = 0;
-> >   	struct kvm_vm *vm;
-> > -	int i, flags;
-> > +	int flags = 0;
+Hi,
 
-Don't make unnecessary changes.  It's not just a "nice to have" thing, e.g. in
-this case this results in extra conflicts with other changes.
+On Sun, Oct 11, 2026 at 9:44=E2=80=AFAM Jun Yan <jerrysteve1101@gmail.com> =
+wrote:
+>
+> Add the BOE NV140FHD-N43 14.0" 1920x1080 eDP panel found in the
+> Sunniwell Z96A.
+>
+> raw EDID:
+>
+> 00 ff ff ff ff ff ff 00 09 e5 f4 03 00 00 00 00
+> 13 1c 01 04 a5 1f 11 78 02 3f 62 94 5e 56 94 28
+> 21 4f 58 00 00 00 01 01 01 01 01 01 01 01 01 01
+> 01 01 01 01 01 01 c8 36 80 cc 70 38 14 40 30 20
+> 36 00 35 ae 10 00 00 1a 86 24 80 cc 70 38 14 40
+> 64 64 44 05 35 ad 10 00 00 1a 00 00 00 fe 00 53
+> 54 41 52 52 59 0a 20 20 20 20 20 20 00 00 00 fe
+> 00 4e 56 31 34 30 46 48 44 2d 4e 34 33 0a 00 97
+>
+> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+> ---
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/pa=
+nel-edp.c
+> index ac815729aa83..ba981581f3b4 100644
+> --- a/drivers/gpu/drm/panel/panel-edp.c
+> +++ b/drivers/gpu/drm/panel/panel-edp.c
+> @@ -1972,6 +1972,7 @@ static const struct edp_panel_entry edp_panels[] =
+=3D {
+>         EDP_PANEL_ENTRY('A', 'U', 'O', 0xd497, &delay_200_500_e50, "B120X=
+AN01.0"),
+>         EDP_PANEL_ENTRY('A', 'U', 'O', 0xf390, &delay_200_500_e50, "B140X=
+TN07.7"),
+>
+> +       EDP_PANEL_ENTRY('B', 'O', 'E', 0x03f4, &delay_200_500_e50, "NV140=
+FHD-N43"),
+>         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0607, &delay_200_500_e200, "Unkn=
+own"),
+>         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0608, &delay_200_500_e50, "NT116=
+WHM-N11"),
+>         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0609, &delay_200_500_e50_po2e200=
+, "NT116WHM-N21 V4.1"),
 
-> > +	int i;
-> >   	kvm_set_files_rlimit(nr_runnable_vcpus);
-> > @@ -495,14 +497,20 @@ struct kvm_vm *__vm_create(struct vm_shape shape, u32 nr_runnable_vcpus,
-> >   	vm = ____vm_create(shape);
-> >   	/*
-> > -	 * Force GUEST_MEMFD for the primary memory region if necessary, e.g.
-> > -	 * for CoCo VMs that require GUEST_MEMFD backed private memory.
-> > +	 * Force GUEST_MEMFD for the primary memory region if necessary, and
-> > +	 * initialize it as shared if in-place conversion is support, so the
-> > +	 * selftest framework can populate it exactly like other memory
-> > +	 * providers.
-> >   	 */
+Things look pretty reasonable, but before landing I'd love a little
+more background about this panel and where your timings come from. Do
+you actually have a datasheet here, or are the timings a guess based
+on nearby panels? This panel is also curious in a few other ways:
 
-Leave the existing comment as is.  The new comment should be anchored to the code
-below.
+1. ID (0x03f4) is much lower than other panels.
 
-> > -	flags = 0;
-> > -	if (is_guest_memfd_required(shape))
-> > +	if (is_guest_memfd_required(shape)) {
-> >   		flags |= KVM_MEM_GUEST_MEMFD;
-> > +		if (kvm_has_gmem_attributes)
-> > +			gmem_flags |= GUEST_MEMFD_FLAG_INIT_SHARED |
-> > +				      GUEST_MEMFD_FLAG_MMAP;
-> > +	}
-> > -	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, 0, 0, nr_pages, flags);
-> > +	vm_mem_add(vm, VM_MEM_SRC_ANONYMOUS, 0, 0, nr_pages, flags,
-> > +		   -1, 0, gmem_flags);
-> >   	for (i = 0; i < NR_MEM_REGIONS; i++)
-> >   		vm->memslots[i] = 0;
-> 
-> IMO, this diff belongs to the gmem in-place series.
+2. The EDID contains the string "STARRY", which is weird for a BOE panel.
 
-Yep, you're 100% right.  I pushed this to "coco" for now...
+None of that is necessarily blocking, but I wanted to get a little
+more info. Thanks!
 
-diff --git tools/testing/selftests/kvm/lib/kvm_util.c tools/testing/selftests/kvm/lib/kvm_util.c
-index 3f559f207408..0c67d964a9aa 100644
---- tools/testing/selftests/kvm/lib/kvm_util.c
-+++ tools/testing/selftests/kvm/lib/kvm_util.c
-@@ -494,6 +494,7 @@ struct kvm_vm *__vm_create(struct vm_shape shape, u32 nr_runnable_vcpus,
-        u64 nr_pages = vm_nr_pages_required(shape.mode, nr_runnable_vcpus,
-                                                 nr_extra_pages);
-        struct userspace_mem_region *slot0;
-+       u64 gmem_flags = 0;
-        struct kvm_vm *vm;
-        int i, flags;
- 
-@@ -509,10 +510,20 @@ struct kvm_vm *__vm_create(struct vm_shape shape, u32 nr_runnable_vcpus,
-         * for CoCo VMs that require GUEST_MEMFD backed private memory.
-         */
-        flags = 0;
--       if (is_guest_memfd_required(shape))
-+       if (is_guest_memfd_required(shape)) {
-                flags |= KVM_MEM_GUEST_MEMFD;
- 
--       vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, 0, 0, nr_pages, flags);
-+               /*
-+                * Allow mmap() and initialize the gmem instance as SHARED if
-+                * in-place conversions are supported, so that the memory can
-+                * be populated/initialized like any other memory region.
-+                */
-+               if (kvm_has_gmem_attributes)
-+                       gmem_flags |= GUEST_MEMFD_FLAG_INIT_SHARED |
-+                                     GUEST_MEMFD_FLAG_MMAP;
-+       }
-+
-+       vm_mem_add(vm, VM_MEM_SRC_ANONYMOUS, 0, 0, nr_pages, flags, -1, 0, gmem_flags);
-        for (i = 0; i < NR_MEM_REGIONS; i++)
-                vm->memslots[i] = 0;
-
-but the entire in-place conversion series may need to be dropped because there's
-a potential deadlock, and I don't see an obviously non-awful way to fix it.
-
-[ 2260.466972] ======================================================
-[ 2260.473150] WARNING: possible circular locking dependency detected
-[ 2260.479329] 7.3.0-smp--ce115a0096358-seanjc-soink #75 Tainted: G     U     O       
-[ 2260.486981] ------------------------------------------------------
-[ 2260.493161] sev_snp_vmsa_pu/24505 is trying to acquire lock:
-[ 2260.498821] ffffffffc01f7900 (sev_cmd_mutex){+.+.}-{4:4}, at: sev_issue_cmd_external_user+0x39/0x60 [ccp]
-[ 2260.508387] 
-               but task is already holding lock:
-[ 2260.514213] ffff93c9dd1cf070 (mapping.invalidate_lock#4){++++}-{4:4}, at: kvm_gmem_populate+0x18c/0x300 [kvm]
-[ 2260.524275] 
-               which lock already depends on the new lock.
-
-[ 2260.532446] 
-               the existing dependency chain (in reverse order) is:
-[ 2260.539917] 
-               -> #2 (mapping.invalidate_lock#4){++++}-{4:4}:
-[ 2260.546878]        down_read+0x3d/0x160
-[ 2260.550716]        kvm_gmem_fault_user_mapping+0x43/0x180 [kvm]
-[ 2260.556663]        __do_fault+0x3f/0x110
-[ 2260.560588]        do_pte_missing+0x515/0x1000
-[ 2260.565035]        handle_mm_fault+0x7f2/0x1290
-[ 2260.569567]        do_user_addr_fault+0x47d/0x6c0
-[ 2260.574271]        exc_page_fault+0x67/0xa0
-[ 2260.578458]        asm_exc_page_fault+0x26/0x30
-[ 2260.582991] 
-               -> #1 (&mm->mmap_lock){++++}-{4:4}:
-[ 2260.588997]        __might_fault+0x59/0x80
-[ 2260.593096]        _copy_to_user+0x23/0x60
-[ 2260.597197]        sev_ioctl_do_platform_status+0x50/0x80 [ccp]
-[ 2260.603116]        sev_ioctl+0x220/0x2b0 [ccp]
-[ 2260.607560]        __se_sys_ioctl+0x6d/0xb0
-[ 2260.611749]        do_syscall_64+0xfe/0x460
-[ 2260.615933]        entry_SYSCALL_64_after_hwframe+0x4b/0x53
-[ 2260.621506] 
-               -> #0 (sev_cmd_mutex){+.+.}-{4:4}:
-[ 2260.627426]        __lock_acquire+0x160d/0x2940
-[ 2260.631957]        lock_acquire+0xf1/0x300
-[ 2260.636050]        __mutex_lock+0x8f/0xdf0
-[ 2260.640147]        sev_issue_cmd_external_user+0x39/0x60 [ccp]
-[ 2260.645982]        sev_gmem_post_populate+0x189/0x230 [kvm_amd]
-[ 2260.651901]        kvm_gmem_populate+0x1ed/0x300 [kvm]
-[ 2260.657066]        snp_launch_update+0x1a7/0x250 [kvm_amd]
-[ 2260.662551]        sev_mem_enc_ioctl+0x371/0x3d0 [kvm_amd]
-[ 2260.668036]        kvm_vm_ioctl+0x52c/0x580 [kvm]
-[ 2260.672761]        __se_sys_ioctl+0x6d/0xb0
-[ 2260.676946]        do_syscall_64+0xfe/0x460
-[ 2260.681133]        entry_SYSCALL_64_after_hwframe+0x4b/0x53
-[ 2260.686706] 
-               other info that might help us debug this:
-
-[ 2260.694695] Chain exists of:
-                 sev_cmd_mutex --> &mm->mmap_lock --> mapping.invalidate_lock#4
-
-[ 2260.706077]  Possible unsafe locking scenario:
-
-[ 2260.711993]        CPU0                    CPU1
-[ 2260.716520]        ----                    ----
-[ 2260.721052]   lock(mapping.invalidate_lock#4);
-[ 2260.725498]                                lock(&mm->mmap_lock);
-[ 2260.731503]                                lock(mapping.invalidate_lock#4);
-[ 2260.738463]   lock(sev_cmd_mutex);
-[ 2260.741868] 
-                *** DEADLOCK ***
-
-[ 2260.747778] locks held by sev_snp_vmsa_pu/24505: 3, last CPU#35:
-[ 2260.753785]  #0: ffff93c9d54bd3a8 (&kvm->lock){+.+.}-{4:4}, at: sev_mem_enc_ioctl+0x73/0x3d0 [kvm_amd]
-[ 2260.763083]  #1: ffff93c9d54bc0a0 (&kvm->slots_lock){+.+.}-{4:4}, at: snp_launch_update+0x145/0x250 [kvm_amd]
-[ 2260.772991]  #2: ffff93c9dd1cf070 (mapping.invalidate_lock#4){++++}-{4:4}, at: kvm_gmem_populate+0x18c/0x300 [kvm]
-[ 2260.783356] 
-               stack backtrace:
-[ 2260.787718] CPU: 35 UID: 0 PID: 24505 Comm: sev_snp_vmsa_pu Tainted: G     U     O        7.3.0-smp--ce115a0096358-seanjc-soink #75 PREEMPT 
-[ 2260.800310] Tainted: [U]=USER, [O]=OOT_MODULE
-[ 2260.804668] Hardware name: Google, Inc.                                                       Arcadia_IT_80/Arcadia_IT_80, BIOS 34.86.0-102 01/25/2026
-[ 2260.818127] Call Trace:
-[ 2260.820579]  <TASK>
-[ 2260.822687]  dump_stack_lvl+0x54/0x70
-[ 2260.826351]  print_circular_bug+0x2e4/0x300
-[ 2260.830537]  check_noncircular+0xf5/0x120
-[ 2260.834553]  __lock_acquire+0x160d/0x2940
-[ 2260.838565]  ? __lock_acquire+0x65e/0x2940
-[ 2260.842664]  ? rcu_is_watching+0x11/0x40
-[ 2260.846587]  ? trace_sched_exit_tp+0x25/0xb0
-[ 2260.850861]  lock_acquire+0xf1/0x300
-[ 2260.854440]  ? sev_issue_cmd_external_user+0x39/0x60 [ccp]
-[ 2260.859928]  ? lock_is_held_type+0xc7/0x120
-[ 2260.864112]  ? sev_issue_cmd_external_user+0x39/0x60 [ccp]
-[ 2260.869599]  __mutex_lock+0x8f/0xdf0
-[ 2260.873178]  ? sev_issue_cmd_external_user+0x39/0x60 [ccp]
-[ 2260.878663]  ? pfn_valid+0x89/0x220
-[ 2260.882155]  ? pfn_valid+0x1fb/0x220
-[ 2260.885736]  ? lookup_address+0x49/0x70
-[ 2260.889577]  sev_issue_cmd_external_user+0x39/0x60 [ccp]
-[ 2260.894890]  sev_gmem_post_populate+0x189/0x230 [kvm_amd]
-[ 2260.900289]  kvm_gmem_populate+0x1ed/0x300 [kvm]
-[ 2260.904938]  ? snp_bind_asid+0xd0/0xd0 [kvm_amd]
-[ 2260.909561]  snp_launch_update+0x1a7/0x250 [kvm_amd]
-[ 2260.914528]  sev_mem_enc_ioctl+0x371/0x3d0 [kvm_amd]
-[ 2260.919493]  kvm_vm_ioctl+0x52c/0x580 [kvm]
-[ 2260.923706]  ? kvm_gmem_ioctl+0x192/0x1e0 [kvm]
-[ 2260.928266]  __se_sys_ioctl+0x6d/0xb0
-[ 2260.931930]  do_syscall_64+0xfe/0x460
-[ 2260.935595]  ? entry_SYSCALL_64_after_hwframe+0x4b/0x53
-[ 2260.940822]  ? trace_irq_disable+0x25/0xc0
-[ 2260.944921]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
-[ 2260.949972] RIP: 0033:0x474bdb
-[ 2260.953031] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-[ 2260.971770] RSP: 002b:00007ffd188ac3f0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-[ 2260.979337] RAX: ffffffffffffffda RBX: 0000000028691b30 RCX: 0000000000474bdb
-[ 2260.986468] RDX: 00007ffd188ac4a0 RSI: 00000000c008aeba RDI: 0000000000000007
-[ 2260.993600] RBP: 0000000000135000 R08: 00000000004d50b8 R09: 00000000004e1b78
-[ 2261.000734] R10: 0000000000000002 R11: 0000000000000246 R12: 00007ffd188ac4c0
-[ 2261.007867] R13: 0000000000137000 R14: 0000000028693db0 R15: 0000000000137000
-[ 2261.015001]  </TASK>
+-Doug
