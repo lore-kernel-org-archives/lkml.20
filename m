@@ -1,146 +1,183 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010054.outbound.protection.outlook.com [52.101.201.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF74399375;
-	Mon, 12 Oct 2026 20:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791838144; cv=none; b=DL0+BD7W0OELWgmYIc8DK+pRLguOuSSHDHnReU/LlBhnoYvEeGqBXWqVRKeFe4mamik+xNLIKG2C36CJA3BfyxvUEZ2Bd6svMmEgZjrCbx7szyR1S5k9dOx0KFBonoE9I4dW6jwSIcCLBg+mftn6Hd24YIZsARl+sX57B4AX5Dk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791838144; c=relaxed/simple;
-	bh=eVKms1OwY/OjrTvipCfGH7Enfw3b8ytga0cdN8fMY3I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=emrfU4ZMDYTOQZkI/Ec3QRz2z5Rv9Y4Mio0XiZBYwWXRzquqrU6F39jtxc/t36IozcpNA08SEAp+dBjddVi0aWjI+X1SXs/ii8dyn5Bnlls7+id1f8q7FR4C2dOg4LjU5ZsilVq2UkIOFldb0BF6DO+8Marq2ndpFSbDeWG00Qs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eJr+Uf7j; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F80399375;
+	Mon, 12 Oct 2026 20:49:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791838154; cv=fail; b=OufySKHqJ7FC5H3FukGHp6EqhFO2KLTxwZyPk0zpA/bZuRwo9GXTdFkRVnXg1jVkkQjx6NNY5Nx9j+Gq4wP8m38wk4GBeXIzBCIaMYSjYvPOsh3dGGTIc81kLzp945l3yTmleR+sdXVXla7RW/GyGcqoHubjOxvwaAr/3jQSNLE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791838154; c=relaxed/simple;
+	bh=MinIUeH8gYib2agR658ZUbrZuFxOXA/CXs/1J79/lJ0=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pIbaVl/A1nxkHdxhiEIfzuGru2XjxxmfIExSeVldL/EwiM+SXXXLn2oRT/JIluADTW/BbkHIS4lKlhOUbkAUJwgpp4s/H5/Ob/n6HxVe2LIs1PzspAF6Wv/tPvsEKzla4eit0sXnFR9hCx9JOt+brVIFREzvvAhsVdCS2eEw34E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Esh1slEW; arc=fail smtp.client-ip=52.101.201.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eJr+Uf7j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791838143; x=1823374143;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=eVKms1OwY/OjrTvipCfGH7Enfw3b8ytga0cdN8fMY3I=;
-  b=eJr+Uf7jzXb0yLcKwGFA4vZ+WSL/PtOb6yoyCHeuafzyACtqMio1dIRu
-   5KO87ygN3mpESZCPywpdYvEaBBWnSpgcoDz5Zi0JosH6lQkp1592rWZZs
-   6XoES/J9HHjuru3ujPRMyneys9Wy9tGv9h7P/6BsbpqWINE+8mdUQAoAT
-   j6HXg/j4RBgR7ysiUvvqNeWj6oUnqkQ8W9y7I6yul8gYvlFt/9Udb1Zkv
-   azky93xVDNQauX73O5F/FrywhrF9Ts7uYXKuMq5iSiZeid4yZTg3VMnph
-   yHw5BdaPO62HKQurJZsyKqqWpKD+Re1Bj55cUV3V8zYdd9VfmAYKRJGQE
-   A==;
-X-CSE-ConnectionGUID: YhRXArF5Qx2+djAfFfGQWA==
-X-CSE-MsgGUID: dX8bORaKRWOm7bErqfPFCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="457027"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="457027"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:49:02 -0700
-X-CSE-ConnectionGUID: fUhGqPK4TC2wyjaUcQU3uw==
-X-CSE-MsgGUID: niL0/AvPTeCJN+2SpktBfA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="1045622"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:48:59 -0700
-Date: Mon, 12 Oct 2026 23:48:56 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rupesh Majhi <zoone.rupert@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] iio: pressure: dps310: add Zilltek ZTS8032 support
-Message-ID: <as1HuFxMET0hnhuL@ashevche-desk.local>
-References: <20261012114550.1680054-1-paulius.zaleckas@ui.com>
- <20261012114550.1680054-5-paulius.zaleckas@ui.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Esh1slEW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e+ZWDHfQLC+OuKkHiPzl+ufSp8E3AgMJzfPZD60VQXMyPvV+lQHx0HstZtv+MPk6LFaKCovlfNxagzb6GjTtOFQfLty9DWCzEC8jyx1oarjEHfCvcUiZYZV8wv7VYsrPtMhigP+lQI85MdecCG/AvJLN7Vn7Wby6AvJcmMxYL+Q6j2++dTSHc8aQAGZcsUv287kiuaXKe3KfSRCstWBOsB9F7O+jStosuTkVNPPFD/WvMoY803IDEOhUMePPVqasMvKxf9ZDEuKY5Imazd5lT4fdZFXI3J5n5inxmlmIOOm45Nfe3euzCbO/EBlHEmQUf2AJi3W7oScbqL68ODZgmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Cvf3N1QhN73wg42zXoX/lqMSJhRNvXVhFYSh/86iFLY=;
+ b=GW9xv89FV669RQYlRBHneToFbZAo/76VB0K+xnhdZVHPMssI1oqRRdWdxZJtaNBJoXRK6K+OijTCDAC4FQmBpYl7UMwbJUyR/vuxmr7rYQuBxs+QXRZgmxBdT+YHiL0ckf8J80KFK7hAACE0iux6b7x6mBwms1BMDZDxXDKeA2PWWUqKPslMdxLpO+7TvfCb2a2QDkgu3QQP6jnxFuqSm4+FEE4ocbA7h6gr9jPPPsgWzJmxnPCjVXn6K8COBzWIraYJECSk03fIcsBKmmXpLcM18igML//7ebT6CbdeaIPXi8oQpn5frjqelAnzlAFQQlJoklTzo6u/mKVdXpsnZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Cvf3N1QhN73wg42zXoX/lqMSJhRNvXVhFYSh/86iFLY=;
+ b=Esh1slEWrkvuStLlYFZwOPXK4vIks2Fh6fUOtd/07pknWi4k7bjxuWOAmQKvyN3d6RqtGP5zkSjjghjWu5lFfwHa+oC3ptmVp9SXbZ6vvr0xNB/yzzSmZQd+mMNF58pElPDylo0JtDEqA7Ym8+gBGvKAfN2Xzhkevo6dcmtxrV5IrlzNpjvYjfj5m0Ik4H2145oPf18meplrmXO4IgM3G1VAy3YE2tFjNaCyra1MzQBsOg7gR1Puxs3ryM7IOYCMninWVA2hbhVhey1G0tr1LQZo1sbE1UdjwzB+7ExTfUjLP3ZrHR7026/1Ofx9CqUanV885u5Pflnp8+7AQdiFog==
+Received: from BY5PR04CA0030.namprd04.prod.outlook.com (2603:10b6:a03:1d0::40)
+ by LV0PR12MB243158.namprd12.prod.outlook.com (2603:10b6:408:3fc::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
+ 2026 20:49:07 +0000
+Received: from SJ5PEPF000001D6.namprd05.prod.outlook.com
+ (2603:10b6:a03:1d0:cafe::7a) by BY5PR04CA0030.outlook.office365.com
+ (2603:10b6:a03:1d0::40) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 12
+ Oct 2026 20:49:07 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ SJ5PEPF000001D6.mail.protection.outlook.com (10.167.242.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 20:49:06 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 12 Oct
+ 2026 13:48:46 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 12 Oct
+ 2026 13:48:46 -0700
+Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Mon, 12 Oct 2026 13:48:44 -0700
+Date: Mon, 12 Oct 2026 13:48:43 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Joerg
+ Roedel (AMD)" <joro@8bytes.org>, Jean-Philippe Brucker <jpb@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Thierry Reding <thierry.reding@kernel.org>,
+	Krishna Reddy <vdumpa@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <linux-tegra@vger.kernel.org>, Peng Fan
+	<peng.fan@nxp.com>
+Subject: Re: [PATCH RFC v6 3/5] iommu/arm-smmu-v3: Support shared SIDs in
+ insert/remove_master
+Message-ID: <as1Hq8FD3S67MpoE@nvidia.com>
+References: <20261011-smmu-shared-sid-v6-0-cb76b89dc612@nxp.com>
+ <20261011-smmu-shared-sid-v6-3-cb76b89dc612@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20261012114550.1680054-5-paulius.zaleckas@ui.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261011-smmu-shared-sid-v6-3-cb76b89dc612@nxp.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D6:EE_|LV0PR12MB243158:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0307bcf9-299d-4a6a-9148-08df28a2423d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|82310400026|36860700016|1800799024|23010399003|10067099003|18002099003|22082099003|11063799006|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	f6hi5V6UzIuwvRWZuJkanPQaGlL8H6EVPHkveCJKl4PhBd4C+rgjUC4kyPEIlnWNP8fcEcfTqefBuLxpYXnW9HJyUETNq6o2FvFo3zHdAAxsks0YLgORem8b3EleCNcRM5wBMLsevr+QvnKUhc9LbZhZAP0nPlH1LmDC2ViwwQAau8mQc5dbUqt3jeaVBGIbDcZbca9H9O8hP+T4VJ2we4Grz18yIMxGljYTMASBts2oUD3KqjBB/2nX31DoWg+a0OjcSf83cs+6W6N2T0ENhsdfjckvddGU6wA+Qy+oM7edUv0XHpUkdkhB/zsTcDvtBegRuux5ikeCV02bCnBQXoFX8k69ryIG2l18QcWXymMmB50ulZL1LzNXmGuIlp0JM9i2rNQ2Z/zTwxJN98uTtrip3WjpGzW0UgHh0xO6+pXtFpkFDigQteIZRC28GNhNXqyqXGjIANZRf8IebQgoZght7RCg0FHuOO66vkZm962rc0N9apqN7Tz/EqG/rGGCMg4nWtG8UZe8IapvwPbbDbKVQD6wBzOSVOTj9JTVsoUk0sAetaP1sjcGG+b3sYNvpQQIdsbBKJO00obtREnLskYRtvhBTUcnSwkIh6cuMEvDoWM8Rll5qqT5eJhOKydrAKcedAo7Lvv+AnC7Xxy/0QZPI/qnSaVOFdEPvr3hkxpGYZBnOU98jzzmM+Ekz1QQamzeaJrqGmRomeFCZOdfcQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(7416014)(82310400026)(36860700016)(1800799024)(23010399003)(10067099003)(18002099003)(22082099003)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	FYxsI8m//7/25IfY5QFafWAidQsXY1FBvK7MHNo0YTnZwR03/yafEkH9tHMy9z0qZ0O9cWEZddVPjXYEeuF/abURY0L4M9DKRMOJ0kF0F7WGNfREXP/cVTuGreyh69m8mjUyMwJNvgPZnw+2diib7dESmvo7ErUGQXtL0JDkWA41lQ2WRSXVoReVqgYIjlhEJU/7i0MXJUqjpM5cHT8+gXPYYz9ZJO9S7ZRFUr311I3JP7nSadCCGxrTWpSGKueVuajufFkZAxGM66uooraE5cu8BtRTLEuFIrUajleDo/QH9UPPGbg9WyGBHeTeUWRh5eYMHKAD4HFhfzrAqZtHdixl6a5QnyoaTq+h04h4yyiKF9P0dFIqphgGP9g2lFZ5ZUro/oJ9O7Tdah77cLeDldZVgpeAqXYBdzvB+TymigVbG1gfAauey2WEjiFV2TG2
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 20:49:06.9774
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0307bcf9-299d-4a6a-9148-08df28a2423d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001D6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB243158
 
-On Mon, Oct 12, 2026 at 02:45:50PM +0300, Paulius Zaleckas wrote:
-
-> The Zilltek ZTS8032 has the DPS310 register map, scale factors and
-> compensation, with these differences:
-> 
-> - two more pressure coefficients, c31 and c40 at 0x22-0x25, adding
->   c40 * Praw_sc^4 + c31 * Traw_sc * Praw_sc^3 to the polynomial
-> - TMP_EXT is MEAS_CFG bit 3, and the temperature coefficients are for
->   the internal sensor (COEF_SRCE reads 0x06). TMP_CFG bit 7 is the top
->   bit of a 4-bit TMP_RATE, so the DPS310 TMP_EXT write would select a
->   25/16 Hz background rate instead of the external sensor.
-> - product ID 0x11 instead of 0x10, the driver does not check it
-> 
-> Add a per-chip table holding the coefficient count and the TMP_CFG
-> startup value, and an OF match table to select it.
-> 
-> Tested on a ZTS8032 at 0x76 over I2C: in_pressure_input is within 1 Pa
-> of the datasheet formula evaluated from the raw and coefficient
-> registers at every oversampling rate from 1 to 128, and TMP_CFG reads
-> 0x00 after probe.
-
-...
-
->  #include <linux/math64.h>
-
-> +#include <linux/mod_devicetable.h>
-
-No. This should be guaranteed by the respective bus header.
-
->  #include <linux/module.h>
->  #include <linux/regmap.h>
->  #include <linux/unaligned.h>
-
-...
-
-> +	data->info = i2c_get_match_data(client);
-> +	if (!data->info)
-> +		return -ENODEV;
-
--ENODATA
-
-...
-
->  static const struct i2c_device_id dps310_id[] = {
-> -	{ .name = DPS310_DEV_NAME },
-> +	{ .name = "dps310", .driver_data = (kernel_ulong_t)&dps310_chip_info },
-> +	{ .name = "zts8032", .driver_data = (kernel_ulong_t)&zts8032_chip_info },
-
-Using driver_data should be in a separate change.
-
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(i2c, dps310_id);
+On Sun, Oct 11, 2026 at 07:31:27PM +0800, Peng Fan (OSS) wrote:
+>  static void arm_smmu_remove_master(struct arm_smmu_master *master)
+>  {
+> +	int i;
+>  	struct arm_smmu_device *smmu = master->smmu;
 >  
-> +static const struct of_device_id dps310_of_match[] = {
-> +	{ .compatible = "infineon,dps310", .data = &dps310_chip_info },
-> +	{ .compatible = "zilltek,zts8032", .data = &zts8032_chip_info },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, dps310_of_match);
+>  	if (!smmu || !master->streams)
+>  		return;
+>  
+>  	mutex_lock(&smmu->streams_mutex);
+> -	arm_smmu_free_master_streams(master);
+> +	for (i = 0; i < master->num_streams; i++) {
+> +		struct arm_smmu_stream *stream = master->streams[i];
+> +
+> +		if (!list_empty(&stream->shared_masters)) {
+> +			struct arm_smmu_master *next;
+> +
+> +			list_del_init(&master->shared_masters_elm);
+> +			next = list_first_entry(&stream->shared_masters,
+> +						struct arm_smmu_master,
+> +						shared_masters_elm);
+> +			if (stream->master == master)
+> +				stream->master = next;
+> +			if (list_is_singular(&stream->shared_masters))
+> +				list_del_init(&next->shared_masters_elm);
+> +			continue;
+> +		}
+> +		rb_erase(&stream->node, &smmu->streams);
+> +		kfree(stream);
+> +	}
 
-Adding OF table should be in a separate change.
+Rather than removing arm_smmu_free_master_streams(), just fold all
+of these into arm_smmu_free_master_streams(). The rollback path in
+arm_smmu_insert_master() can still use the same helper:
 
-...
+arm_smmu_insert_master:
+	[...]
+	if (ret) {
+		arm_smmu_free_master_streams(master);
+		mutex_unlock(&smmu->streams_mutex);
+		kfree(master->streams);
+		[...]
 
-Hence this patch should be split to three (or more if there are more logical
-changes).
+arm_smmu_remove_master:
+	[...]
+	mutex_lock(&smmu->streams_mutex);
+	arm_smmu_free_master_streams(master);
+	mutex_unlock(&smmu->streams_mutex);
+	[...]
 
--- 
-With Best Regards,
-Andy Shevchenko
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> index 56ed6ad1dd523..95da4ad354829 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> @@ -1020,6 +1020,8 @@ struct arm_smmu_stream {
+>  	u32				id;
+>  	struct arm_smmu_master		*master;
+>  	struct rb_node			node;
+> +	bool				ste_installed;
 
+ste_installed is unused; better move to the patch that uses it.
 
+With these addressed,
+
+Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
