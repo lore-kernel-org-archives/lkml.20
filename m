@@ -1,215 +1,149 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E4F48A2D1
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11310367B8E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:52:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791813141; cv=none; b=HjmCONnrCQgsdxtk889zkLTROEt7WytySoAC27VX8c0oTtkeunyjq3aR+WuQ1s9xTCcvqUC3WXGUMuKOHYd5NwQos/EAi4ixb7h9rVHsL/tI+KDL0ilaZFEvIoq1ZA9s7bOzOuovl6hvnnB8QccuIznyUEtuOwLqThNuvGyyozo=
+	t=1791813171; cv=none; b=Fz0WoE9KP4F0yWnPneaI6vaLb2Y7TAaNwJGZBh/S7Go6Inb9fdEZdl38kk2fAMI75JomWhn4I9rnzdyRt+/539yDLaM9+2DD38SDuJYUJRqPbSsUgSTER8qDWs/wfG5IkcSsn75TmYWPjWSAp4eJAkzqciM/nzp8I0ccfSR7Jt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791813141; c=relaxed/simple;
-	bh=TmrDgwIsBwwzPv80GnSL6PFlsZHILn4PMmXvaiqLLF0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kddc+2WZJ7c53m7c2StqwwcfY+z8Ct9suudJV4v4pyCxykiQyj6W96MTqrrBU69s4qmAiZ1PnF6csi7danfVC9m0PnZW8CzVdYDvWIEJzZU0iM8SHU1LyOujyTxyZoh+96y69Q38b3ZSoEc06tLx2T2w5WTAD2vjNN8wmumHcD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=a58vcaqc; arc=none smtp.client-ip=209.85.210.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791813171; c=relaxed/simple;
+	bh=VgZk/BFiBv6LU801ysM8erBrAAKc5EKBKXCMP/m+4no=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=V0UOqrVVG2A2hnvzyEoJST8Ahg/BJLqDUw48wfL3JPvvg4g6rJYSric2PrJqyqC88h2cF2tW/vFcOizhelioXWya6wXXfqvWysSTAzPQ+jinNBkwmtbDXGGtXzOKU+AOr/AUX1+OfJ5FmWwfjyVd2fAsmoU4EYGK9EDnvBrHbmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h4D7CJZi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="a58vcaqc"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-887fb6c0ad1so440121b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:52:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791813137; x=1792417937; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VUNiGziCUNl+CT1ZqXgl34E50ZrFvZEoRDfOve+S9JE=;
-        b=a58vcaqcqb31nvvheENTQc3TJZJ3c8qP6d9NiFVlddOPyg5hTQjOM0ID1aNoW/YFg/
-         1mLesTY29GGjN9B3iwgZqthZdxADBJJtL5aQGtFudXTIdG1DT0w/NmCybyMxiZWgw0zZ
-         oNHteQdf0o3PQG8W9OLgcRbvDgWpYiM+tCUyt1mxrMryxU9MHdgi9b8lyxoO+bzwXv2K
-         2o7sg+s5h2wDQpbloc+RDqafUg9f5oafvJRDIMm7F22GHVU4DsLdr/S5H1AIJ+EXEmQE
-         pmD3lkDhFLAed0O+YRA0LOru1czE6dxKdMIBO0XajXdhZOehjtmzYpQu7+q6quYiTuKA
-         wCGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791813137; x=1792417937;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VUNiGziCUNl+CT1ZqXgl34E50ZrFvZEoRDfOve+S9JE=;
-        b=pwWIZCEqK6cSdLQWKAdoI92rkzfOqYxnI3SbfJ9yV/20nw3gcmzzywITPxNzviNkid
-         5GOf7TdXGkccknT+IBN08zQqwsqQFiNNY0VM6DJm8aZAxstLp0ciyVezaYb6yxP2a74s
-         mqNzWOHGc1qiOurlso9bd3a4op6i8OEgZS08TTf/e8ntM1bvjRzzXVjPPdLZVV2veI+R
-         zIJ+T69nV/8dwCPjxWAId763F+UddIcmk9DtoSdeFXZDPFyq5GVZoEov3vYRSLbu90lZ
-         OdOBGYrvzI4v4ank4L4Wn5cgJfjNXTKgXLT+/+Ym7TzwaOkXqE8doarG2S4c1hOg/DUL
-         //6g==
-X-Gm-Message-State: AFq9FYJvwkaIcL/l9Vrx3zeqsGljZU88g72W7QoOw8j0AuScMqiwTx4f
-	Ek0DPk+zV5s0gzF+JX2o/rX2KGKfgp7pSEa7JAjSDQnrMoj7VoxdUwiQ7pjir2s/UdY=
-X-Gm-Gg: AYBFou3mWZ41lyTQIRrIsiC45BTj/U0ASuq0RYCF4ZXIz5No+XRrS4wyZCGUmRo+UyI
-	sevBrYR+mJMVd2jv2uDeSn1XrG5/+6235vg4WyNWSsXU4dp5wE+XMEx1acxRteBiyvvVPRcQi6E
-	MBpfbi1OJRPCxhXHO8fMZnOGuJQ05PsViVPqGYu00V5fhjsKvQpuwZBWQt/1Ib83OuviEbkKHy4
-	RhC2v3BPLA6H579Tc8NSZwCk8W06lNEkBQL1iSi9wGAcRsLPtgtRI9APJCd98qbNUrxknYmUHyx
-	kAvfkYuEUmQ9ZJRAID+CuzrKQ4NDcyUK27DrFa1vjRxnQAw3SZtlMRdWWbCXLX0bhcQxXG/Be12
-	dhdbTCLSGgHtqlKb74ffM12ODQ1dAihLjOL8dnRmOey4MSJu4m1/SZcklK29uyvRIwKoxLBTAZt
-	KZzVKCv0+CT39tFQznqzQtUlQu8xOh/xcA+sUQ7PbBwHxsXCeY/0XnVweOQEDSeSNf70Q3NlNZI
-	HJ6xVZJ1e43YlroNSrUaA==
-X-Received: by 2002:a05:6a20:5493:b0:3dd:a00a:c5be with SMTP id adf61e73a8af0-3e16c03cd8emr10688105637.49.1791813136750;
-        Mon, 12 Oct 2026 06:52:16 -0700 (PDT)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:7bd2:1202:246d:44ce])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e08c89sm4298333a12.8.2026.10.12.06.52.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 06:52:16 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: mkp@kernel.org,
-	target-devel@vger.kernel.org,
-	linux-scsi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hannes Reinecke <hare@suse.de>,
-	Bart Van Assche <bvanassche@acm.org>
-Subject: [PATCH] scsi: target: tcm_fc: reject overlapping write-data frames
-Date: Mon, 12 Oct 2026 22:51:59 +0900
-Message-ID: <506886f3051941899c26b3dd4d2a32a3c0cf9846.1791812937.git.yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h4D7CJZi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC4261F0089B;
+	Mon, 12 Oct 2026 13:52:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791813169;
+	bh=F9zvoH+Az/uKJAB5P1uYqjIh12NKolhbo6fDlfYMw64=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=h4D7CJZiCRGU+lPZNmqJvvEAhNSYLhq9GPvvpK7JAaEosOCbCqrc/e1vDiTCifuwv
+	 GIaKs3DvMIyAGi/IX56wBYQLO8TqaOUHt5GiIKt28T+cezs8pyCeCRM/lKscYihELm
+	 7dEcJMPE8V7cmMDkzLUzQV7zjTJYClCewLD1RpnBVm7glxBNyO1E4c7NPWINcLXiZd
+	 lKSsnoozEOoy9p6OkGhHgTMNtbCaOnzR2zxcIbHptpod3PyPWB5Q7aFmeS8Cp81Gmk
+	 h0BHrs+VLm1tvYXY+jntzjQn5CDroi9CdjHAiZWwYUdRe+HHYeja44ClQWRIaimzM/
+	 l+5eIWxHtiXYg==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Sourabh Jain <sourabhjain@linux.ibm.com>,  kexec@lists.infradead.org,
+  Alexander Graf <graf@amazon.com>,  Andrew Morton
+ <akpm@linux-foundation.org>,  George Guo <guodongtai@kylinos.cn>,  Pasha
+ Tatashin <pasha.tatashin@soleen.com>,  Pratyush Yadav
+ <pratyush@kernel.org>,  "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+  linux-kernel@vger.kernel.org,  linux-mm@kvack.org
+Subject: Re: [PATCH] kho: fix global scratch size calculation
+In-Reply-To: <asC3-4WNiTF3n7l1@kernel.org> (Mike Rapoport's message of "Sat, 3
+	Oct 2026 10:08:27 +0200")
+References: <20260922131217.698809-1-sourabhjain@linux.ibm.com>
+	<asC3-4WNiTF3n7l1@kernel.org>
+Date: Mon, 12 Oct 2026 15:52:46 +0200
+Message-ID: <2vxzo6czjaa9.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-ft_recv_write_data() executes a WRITE once the received byte count reaches
-se_cmd->data_length.  Frames are placed by their FCP relative offset but
-nothing tracks which offsets were filled, so an initiator that sends two
-frames at the same offset reaches data_length with part of the buffer never
-written: two 4096-byte frames at offset 0 of an 8192-byte write get the
-count to 8192 and leave the second half untouched.
+On Sat, Oct 03 2026, Mike Rapoport wrote:
 
-The buffer is not zeroed (transport_generic_new_cmd() clears zero_flag for
-a data CDB), so that gap keeps the previous page contents, which the
-backend then writes to the device for the initiator to read back.  There is
-no oops; poisoning the buffer and sending such a pair leaves 4096 bytes of
-it committed unchanged, and the patched driver refuses the overlapping
-frame.
+> On Tue, Sep 22, 2026 at 06:42:16PM +0530, Sourabh Jain wrote:
+>> KHO calculates the global scratch size based on memblock-reserved kernel
+>> memory. It passes NUMA_NO_NODE to memblock_reserved_kern_size() for
+>> this calculation.
+>> 
+>> When memblock_reserved_kern_size() is called with NUMA_NO_NODE, it
+>> counts both:
+>> 
+>> - memory reserved for a specific NUMA node
+>> - memory reserved with NUMA_NO_NODE
+>> 
+>> KHO needs to distinguish between these two types of reservations.
+>> When calculating the size of global scratch memory, KHO only needs to
+>> account for reservations made with NUMA_NO_NODE. Reservations made for
+>> a specific NUMA node must not be included in the global scratch size.
+>> 
+>> Add memblock_reserved_size_nid() to calculate reserved memory for a
+>> given reservation type and NUMA node. When NUMA_NO_NODE is passed, it
+>> counts only memory reserved with NUMA_NO_NODE.
+>> 
+>> Use the new API for lowmem, global, and per-node KHO scratch size
+>> calculations. For lowmem and global scratch, count only memory
+>> reservations that were made with NUMA_NO_NODE. For per-node scratch,
+>> count only memory reservations that were made with the corresponding
+>> NUMA node ID.
+>> 
+>> Remove memblock_reserved_hugetlb_size() since it has the same
+>> implementation as the new API and differs only in the memblock
+>> reservation flag being checked. The new API handles both kernel and
+>> HugeTLB reservations through its reservation type argument.
+>> 
+>> Define the new helper as a static function in the KHO implementation,
+>> since it is only used by KHO and has no users outside
+>> kernel/liveupdate/kexec_handover.c.
+>
+> I looked again and this feels like a band-aid to me.
+>
+> I think we need to step back and rethink the order of the
+> scratch/kho-bootmem sizing and consider how NUMA and lowmem are involved
+> there.
 
-Track the range received and drop a frame that falls inside it.  With no
-overlapping frame accepted, the byte count reaches data_length only when
-the whole buffer has been written, so it stays a valid completion test;
-in-order and out-of-order complete writes are unaffected.
+Could you elaborate? How else would you calculate the sizes?
 
-Fixes: 3699d92a4d7b ("[SCSI] tcm_fc: Adding FC_FC4 provider (tcm_fc) for FCoE target (TCM - target core) support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/target/tcm_fc/tcm_fc.h |  8 +++++
- drivers/target/tcm_fc/tfc_io.c | 57 ++++++++++++++++++++++++++++++++++
- 2 files changed, 65 insertions(+)
+To me, the idea sounds fine (although I also share your comments on the
+code style). This is what the global scratch size should have been doing
+from the get-go. Today it over-allocates by counting both global
+allocations and _all_ per-node allocations.
 
-diff --git a/drivers/target/tcm_fc/tcm_fc.h b/drivers/target/tcm_fc/tcm_fc.h
-index 00e5573c62966..b75b1373a49c9 100644
---- a/drivers/target/tcm_fc/tcm_fc.h
-+++ b/drivers/target/tcm_fc/tcm_fc.h
-@@ -103,12 +103,20 @@ struct ft_lport_wwn {
- /*
-  * Commands
-  */
-+#define FT_WRITE_SEGS	4	/* out-of-order write ranges tracked per cmd */
-+
- struct ft_cmd {
- 	struct ft_sess *sess;		/* session held for cmd */
- 	struct fc_seq *seq;		/* sequence in exchange mgr */
- 	struct se_cmd se_cmd;		/* Local TCM I/O descriptor */
- 	struct fc_frame *req_frame;
- 	u32 write_data_len;		/* data received on writes */
-+	u32 write_contig_end;		/* end of the contiguous data received */
-+	u8 write_nseg;			/* out-of-order ranges held below */
-+	struct ft_write_seg {
-+		u32 off;
-+		u32 end;
-+	} write_seg[FT_WRITE_SEGS];
- 	struct work_struct work;
- 	/* Local sense buffer */
- 	unsigned char ft_sense_buffer[TRANSPORT_SENSE_BUFFER];
-diff --git a/drivers/target/tcm_fc/tfc_io.c b/drivers/target/tcm_fc/tfc_io.c
-index 45329284f52f5..53d7c7268865d 100644
---- a/drivers/target/tcm_fc/tfc_io.c
-+++ b/drivers/target/tcm_fc/tfc_io.c
-@@ -189,6 +189,56 @@ static void ft_execute_work(struct work_struct *work)
- 	target_execute_cmd(&cmd->se_cmd);
- }
- 
-+/* Record a frame's range; refuse one that repeats data already received. */
-+static bool ft_add_write_range(struct ft_cmd *cmd, u32 off, u32 len)
-+{
-+	u32 end = off + len;
-+	unsigned int i, j;
-+	bool absorbed;
-+
-+	if (off < cmd->write_contig_end)
-+		return false;
-+	for (i = 0; i < cmd->write_nseg; i++)
-+		if (off < cmd->write_seg[i].end && cmd->write_seg[i].off < end)
-+			return false;
-+
-+	if (off != cmd->write_contig_end) {
-+		for (i = 0; i < cmd->write_nseg; i++) {
-+			if (cmd->write_seg[i].end == off) {
-+				cmd->write_seg[i].end = end;
-+				return true;
-+			}
-+			if (cmd->write_seg[i].off == end) {
-+				cmd->write_seg[i].off = off;
-+				return true;
-+			}
-+		}
-+		if (cmd->write_nseg >= FT_WRITE_SEGS)
-+			return false;
-+		cmd->write_seg[cmd->write_nseg].off = off;
-+		cmd->write_seg[cmd->write_nseg].end = end;
-+		cmd->write_nseg++;
-+		return true;
-+	}
-+
-+	cmd->write_contig_end = end;
-+	do {
-+		absorbed = false;
-+		for (i = 0; i < cmd->write_nseg; i++) {
-+			if (cmd->write_seg[i].off != cmd->write_contig_end)
-+				continue;
-+			cmd->write_contig_end = cmd->write_seg[i].end;
-+			for (j = i; j + 1 < cmd->write_nseg; j++)
-+				cmd->write_seg[j] = cmd->write_seg[j + 1];
-+			cmd->write_nseg--;
-+			absorbed = true;
-+			break;
-+		}
-+	} while (absorbed);
-+
-+	return true;
-+}
-+
- /*
-  * Receive write data frame.
-  */
-@@ -267,6 +317,11 @@ void ft_recv_write_data(struct ft_cmd *cmd, struct fc_frame *fp)
- 		goto drop;
- 	if (frame_len + rel_off > se_cmd->data_length)
- 		frame_len = se_cmd->data_length - rel_off;
-+	if (!ft_add_write_range(cmd, rel_off, frame_len)) {
-+		pr_err_ratelimited("%s: xid 0x%x: offset %u len %zu repeats data\n",
-+				   __func__, ep->xid, rel_off, frame_len);
-+		goto drop;
-+	}
- 
- 	/*
- 	 * Setup to use first mem list entry, unless no data.
-@@ -345,6 +400,8 @@ void ft_invl_hw_context(struct ft_cmd *cmd)
- 				 */
- 				cmd->write_data_len = lport->tt.ddp_done(lport,
- 								      ep->xid);
-+				cmd->write_contig_end = cmd->write_data_len;
-+				cmd->write_nseg = 0;
- 
- 				/*
- 				 * Resetting same variable to indicate HW's
+There is a separate problem with CONFIG_NUMA=n, but for that I think we
+should just have a different allocation path where we only do lowmem and
+global scratch.
+
+>  
+>> On powerpc, the difference can be seen in the scratch_len values
+>> reported by:
+>> 
+>> cat /sys/kernel/debug/kho/out/scratch_len
+>> 
+>> Before this change, the global scratch allocation was 0x12000000
+>> (288 MB):
+>> 
+>> 0x1000000   (16 MB)
+>> 0x12000000  (288 MB)  <- global allocation
+>> 0x5000000   (80 MB)
+>> 
+>> After this change, the global scratch allocation is 0xd000000
+>> (208 MB):
+>> 
+>> 0x1000000   (16 MB)
+>> 0xd000000   (208 MB)  <- global allocation
+>> 0x5000000   (80 MB)
+>> 
+>> The 80 MB difference is the per-node reservation that was previously
+>> being included in the global allocation.
+>> 
+>> The same issue also affects lowmem scratch memory, but its impact is
+>> limited because the lowmem scratch memory calculation is restricted to
+>> the first 4G of memory. The changes also cover the lowmem scratch
+>> memory case.
+>> 
+>> Cc: Alexander Graf <graf@amazon.com>
+>> Cc: Andrew Morton <akpm@linux-foundation.org>
+>> Cc: George Guo <guodongtai@kylinos.cn>
+>> Cc: Mike Rapoport <rppt@kernel.org>
+>> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+>> Cc: Pratyush Yadav <pratyush@kernel.org>
+>> Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+>> Cc: linux-kernel@vger.kernel.org
+>> Cc: linux-mm@kvack.org
+>> Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+[...]
+
 -- 
-2.43.0
-
+Regards,
+Pratyush Yadav
