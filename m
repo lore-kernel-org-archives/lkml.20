@@ -1,78 +1,89 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A59F8481238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCE9486B82
 	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791808421; cv=none; b=ZSI2S1rjumXzKP70LVngtuM/SKRuqHORpMLISTVFY0QEO8+ieIAoywvATq4F4vxqc67Pj6OEa5q3tyJhw2s5gdpl4naYCBOWSQ31v92KRz8lZPUT+5ZMKf/Fhf08pULZZ8nUsiZcVQN0DlGmSrkUjXc9b2QANJ3A7WR1YMeSutg=
+	t=1791808421; cv=none; b=sE0sysiSEYa8Ud0/dqfoGWijFKlHlUA6/71Z/xX5//Izk0VFft8EPWuwYYc5+PI9umLEOHpjko9dEG2krUQ9i8QNElixTK9kduA9kgwqzgLjjrqxyJQChmYkrwsJTVWOx5Sl1cNdTZ5IgiJCFL/yWApWD1luIlcXUFbGQsw6LcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791808421; c=relaxed/simple;
-	bh=h91+HOvqdlewQhPQ2gxcj04PwRiRtOcVOor8Tvz805Q=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=cTxdNQOKWFWRfDF1mx17hJA5gqoxGHbJwReJD3VKA28peTZqqrEqfcVnNmpScqTHri2TRbhy3/tc+/ltTFBzfYEZpTLtdXYTXVwJBhcVGI71I8F0yBMsdMtMZBxeLQXe2CD9PXJ2G70QdKLSFR43Q15ds1MZEa8jWxP24Kk2IlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
+	bh=XihemXfcYZe5DT/XSjTaqS/KCGASOQQLYoMk/bpzjfs=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=CfQ5+krsMdxKwPMgbJMDmSMyAio33JAKraiFAROnWgGf9PxlHZPlhvDEgqWe5Pw5IeyGpY4t+OaFIy4PXSfuflcU8OyB4uyPOpER9og/o1KlugP7T16ApwZxCbT9j9VDVBe8eLVrwWKpl0QBTW5tyudjouudrGZD87WkL53SAco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-820ce3bb94bso2107509a34.0
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cd3e90ff97so1457141b6e.2
         for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:33:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791808418; x=1792413218;
+        d=1e100.net; s=20260707; t=1791808419; x=1792413219;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=M/AkdDECDi+uo+Cdtuf/U1SnbWxVE22e3DrnPYbcqHI=;
-        b=Eo/KyPsVx54FzJQyCYFhdfggose5xZX1smFLdjio2TjDEahUR/Gj6U/zm4CvLCxxZp
-         EjqQaQePZRTuvk0ujPTKYxaYwQ8u+DEs0bWgZYJJIxm00Sunyl7tPM6ZulUShRINemaz
-         uhZmN/aCLWLEPjAaB01yJUDMHHz5VdKK5UKXHLNaLc6t3aJrxCbJ6iZ1MQ85moJS+iJ7
-         BH4MBgHRoVE0u7WS0wyl2j+oGWDAm7nK7d+/p4BHdV5r3vZAsCS9WmvrjhuUWzoiwgBB
-         nBcu4uLzhiOSnYecHMzgmcCYY5cmsSeeopRc0JGQ6cS3ICIC1Dan1CgDvqJx63opKxBb
-         Q1nA==
-X-Forwarded-Encrypted: i=1; AKwUvBx9rZVA5HVHmEQu0aNVyuDb4S8Sgx1FVTYNCDYP7n6kI4Hi31kzG0kMt3YbF1Se6cUEWDg3S7ac7LG2PaE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkH2sFVPZ/XcBO6Eb5IPHhAGN23NIdv+m2GX9aPKdBEjgGC/A5
-	OXN/L9z9r8eJ8aFt/lCtUx2M2FSauSIvFPAPTnhpsf44Y7GDau4iZ4QsWweiU/55Dib1Tqi1Z9u
-	7yZB1tepBk2C/JvdmgrznT0SgG0CbHk54DnjWPGPaAe2Sq9CCJjGadbd5hBI=
+        bh=ZH+gAu+BLHr4YrFurgl7HL56gbd1v3K9opgyg2ImIcc=;
+        b=qY5GRLo45MSFfsveqETqDB5v1WfgBJ8DPRZ7qK+u1bIeUF6zLMHGbbwfWWp+9DCtpA
+         4gF0jAHBpXURjn0NHWYiqJ7wkRfbpJsHzF+ri/mkz6W4FcmVq64TvsqS6GVmo39p7xUP
+         iBQwmHCDNQNkdlbKfNOVdsBYn6MNyAoa82Hy/0d2gpjW0+IAXvhAGmZo/c1qet702xr+
+         aXhr9AqYlYtxDJg4bortg+tTLbg4X6fxxwYtwxrY0lj7gymbOFbNwQN1glQYlMsF++GZ
+         A8JZoFSKrD9cCKs0tndkd3oAv4MIGcvy03QxFfo1NKs718Ca5rZlGoCdyitk/f6cOxSL
+         vcpA==
+X-Forwarded-Encrypted: i=1; AKwUvBzEB82ftAeXkreO/dQVOfl72P1pa4Bub4I5k8oMRR9d5VJei4NrPteQoGZXMumNKK6v69en7arwb2fXpbQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7PqxnusN0/0M9OLxOX3MTUEo+xF4dlE8+gyqXAW20So1oeuPY
+	C1umYnvbQPO2rcIkkEpUB9GkAMNqr9hdzMlHHAu4uP7IdK17R8/GjWeAfB+7Rz70cwWY9pilkWv
+	0q9kweeja5C933MfkatBrKbYZavY6Ohl6vY3H1k++om3HJQ0NyfBqOvg2A1k=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:199b:b0:4dd:18c7:5448 with SMTP id
- 5614622812f47-50c56de25dbmr10500216b6e.56.1791808418618; Mon, 12 Oct 2026
- 05:33:38 -0700 (PDT)
-Date: Mon, 12 Oct 2026 05:33:38 -0700
+X-Received: by 2002:a05:6808:4fe0:b0:4e6:76eb:b997 with SMTP id
+ 5614622812f47-50c59399cb4mr10097103b6e.62.1791808419060; Mon, 12 Oct 2026
+ 05:33:39 -0700 (PDT)
+Date: Mon, 12 Oct 2026 05:33:39 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6accd3a2.0e5b5d80.2c029c.0574.GAE@google.com>
-Subject: [syzbot] Monthly f2fs report (Oct 2026)
-From: syzbot <syzbot+listcde74ed375b6fae34bba@syzkaller.appspotmail.com>
-To: chao@kernel.org, jaegeuk@kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+Message-ID: <6accd3a3.0e5b5d80.2c029c.0576.GAE@google.com>
+Subject: [syzbot] Monthly ocfs2 report (Oct 2026)
+From: syzbot <syzbot+liste7c729fb813252b362b8@syzkaller.appspotmail.com>
+To: jlbec@evilplan.org, joseph.qi@linux.alibaba.com, 
+	linux-kernel@vger.kernel.org, mark@fasheh.com, ocfs2-devel@lists.linux.dev, 
 	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hello f2fs maintainers/developers,
+Hello ocfs2 maintainers/developers,
 
-This is a 31-day syzbot report for the f2fs subsystem.
+This is a 31-day syzbot report for the ocfs2 subsystem.
 All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/f2fs
+https://syzkaller.appspot.com/upstream/s/ocfs2
 
-During the period, 2 new issues were detected and 0 were fixed.
-In total, 12 issues are still open and 82 have already been fixed.
+During the period, 1 new issues were detected and 0 were fixed.
+In total, 31 issues are still open and 58 have already been fixed.
+There are also 3 low-priority issues.
 
 Some of the still happening issues:
 
-Ref Crashes Repro Title
-<1> 2538    Yes   kernel BUG in f2fs_evict_inode (4)
-                  https://syzkaller.appspot.com/bug?extid=5c81eb8c0a380fa578b5
-<2> 1367    Yes   INFO: task hung in f2fs_balance_fs
-                  https://syzkaller.appspot.com/bug?extid=8b85865808c8908a0d8c
-<3> 302     Yes   INFO: task hung in f2fs_issue_checkpoint (2)
-                  https://syzkaller.appspot.com/bug?extid=8a7eea50810efde15b0a
-<4> 6       Yes   kernel BUG in clear_inode (5)
-                  https://syzkaller.appspot.com/bug?extid=fc026e87558558f75c00
-<5> 2       No    kernel BUG in f2fs_write_end_bio
-                  https://syzkaller.appspot.com/bug?extid=eae639926b1c1ac725d5
+Ref  Crashes Repro Title
+<1>  433952  Yes   possible deadlock in ocfs2_try_remove_refcount_tree
+                   https://syzkaller.appspot.com/bug?extid=1fed2de07d8e11a3ec1b
+<2>  49909   Yes   possible deadlock in ocfs2_reserve_suballoc_bits
+                   https://syzkaller.appspot.com/bug?extid=5d516fba7bc3c966c9a9
+<3>  20068   Yes   possible deadlock in ocfs2_setattr
+                   https://syzkaller.appspot.com/bug?extid=d78497256d53041ee229
+<4>  9400    No    possible deadlock in ocfs2_xattr_set
+                   https://syzkaller.appspot.com/bug?extid=ba9a789bd1f4d21fcefe
+<5>  680     Yes   possible deadlock in _ocfs2_free_suballoc_bits
+                   https://syzkaller.appspot.com/bug?extid=73d1166b94ed9875af54
+<6>  587     Yes   kernel BUG in ocfs2_reserve_suballoc_bits
+                   https://syzkaller.appspot.com/bug?extid=fd05de09d1267725aa95
+<7>  463     Yes   kernel BUG in ocfs2_dio_wr_get_block
+                   https://syzkaller.appspot.com/bug?extid=f8b081be889b639423bb
+<8>  27243   Yes   possible deadlock in ocfs2_reserve_local_alloc_bits
+                   https://syzkaller.appspot.com/bug?extid=843fa26882088a9ee7e3
+<9>  2788    Yes   INFO: trying to register non-static key in ocfs2_dlm_shutdown
+                   https://syzkaller.appspot.com/bug?extid=d7935821694d430624ea
+<10> 2060    Yes   kernel BUG in ocfs2_iget
+                   https://syzkaller.appspot.com/bug?extid=5bdd4953bc58c8fbd6eb
 
 ---
 This report is generated by a bot. It may contain errors.
