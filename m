@@ -1,75 +1,57 @@
-Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com [209.85.210.194])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out203-205-221-155.mail.qq.com (out203-205-221-155.mail.qq.com [203.205.221.155])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D1634F24E
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:19:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.194
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F37248FF9A;
+	Mon, 12 Oct 2026 15:19:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818346; cv=none; b=P0SLdGBd1o6MToaHRyaSu2J/nDLgBQ9wwCpu4Vhr5/OKdqP+pV6HIEfJwAXQ5OamsAdVJbyIVNMnE88xZZJ6rP8sqwLNtMIXIukNOIZmdeNneq1O5QqFbknqfZT6Uc3sJj9w/KKObC6jHeIKWWGF+oCsomvvp4GteUPjoioGs3Y=
+	t=1791818380; cv=none; b=PdeUP6W+vtyCFfLr4gtOBSztX/NrluyQ0re6PfeqIS/udrAPpHiZY7zJ0biK5zDVUx43jbPL+qwVf5fWqeV5vR6/Otk0Azc6ZPX94natoAQQvQ3a1KfTLmiVSBC5Zuo73wtDc26hWzXDJjF5bJEEQbrpueP2GVgkhFyy+0tKlDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818346; c=relaxed/simple;
-	bh=zCThCBQHEg7zoILpu1wZQQI8Pc820V1e/n5FVw5TliA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=K0L8AylKguV9VDl8gOnbdpXaQif4be8osFwaXLtWAgXtQKks/1N9A4ka25JEOCwlIbA2dl9QoqJzKcVKfMOHjWXBHYrqlW10PgYZYtQsAqjaoL1kPKGVK6sWUM8tGSe7UBUfP1bA/lZir9ppHEknIOb6OkO37BdlG94zwD1yH3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a4Z2jh8w; arc=none smtp.client-ip=209.85.210.194
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791818380; c=relaxed/simple;
+	bh=OWylyIefKFPUmHKX93Ks0I5PsUBqwAK54eM+KhIrKeE=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=NjaB2OM0asDa6f97paAAINKQQbtjfZOfbPjDA+uuP3LlXStIo5dFd3+4t9yNDrcluQP87xM5IcCAfu0cDADA3x202VpdKGaJfIWWqk3xO4Xzxl+Iw0VuXXak0Psv88qymD5sYbLNBO89aV9ozbWT5hWp38YokkDeRx9ZAjJcC9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=veF5P943; arc=none smtp.client-ip=203.205.221.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a4Z2jh8w"
-Received: by mail-pf1-f194.google.com with SMTP id d2e1a72fcca58-881269371acso1959322b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:19:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791818343; x=1792423143; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Smdsi1BCXFX0leS6t8zLips+J1KQ1pukbcy1pEKTRmY=;
-        b=a4Z2jh8w8IqAYly6Tjkzo55Wf3S/+kjfqshh5BFpINuDnQb6tsjnhZwIwDII8w1qZ7
-         z1bcwgJcFi8Er8D5jji+1PKO0VCeD3GTgKulnkrgOsafJhcM89wY4l4l3EOVdikrh7/E
-         MOHrqUFkpH2w72t2A3j6ucSNoKLIhlN8ip5Yrnu55J4fqPIVFeRaqPobXVqWvu1Wb5+R
-         iXiQSXK0GYIf5mC+Ed9D+C7LO/4C7LUxWJzATDdB79XcbKUEM7BaxcU/J8UsPASb7bhF
-         AmXlI9Hr5gi9ymVzAbWDjv3n1xvV8bAzMyJjnGTVh+mZJv3tvdHOst1jk5A5r3WA/0w0
-         Ih+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791818343; x=1792423143;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Smdsi1BCXFX0leS6t8zLips+J1KQ1pukbcy1pEKTRmY=;
-        b=sAM6usfeSDuQGDV77QpRLG2hfaTfZ7NojtBKfYAsM9GNbQO+39Mb+BnKqe1oEZ/mvQ
-         OmxPcxbtuZPFXbQO6qT2sBsT1JrnEemReMMPtPPh0jTah/kqdAxTMBUV+sZFzlgvsz1A
-         mExrNEk5ZyFXYxmg/BPVx80Y1GkRue/YL/+B4ixQYe7QsLC4+P2NXMQX53EOKFVrjUhG
-         tnUOZ48sh3AXXUiOBzXt5Kf7oqF0Z3U3+myRJfI01CoeuXBlw4iV7LzlYfhLXpWBnDT4
-         Rve34JkrqcuM26qXq03Qo4erGuQ4eKmWUzJObOgKgEo2PnDyUd1lfKu9CVaASEDfk25o
-         TS1Q==
-X-Gm-Message-State: AFq9FYJA/sqOTflI0JgFKwWLcW/pfR059457L0erYHoZhybZIvIgS66W
-	r63eymtD8tTGkvjd6ZhAKm40Dm1u++GDrUTf71oNbb7y/B1f1QpIJbG2395NxIsQNsX68dH4
-X-Gm-Gg: AYBFou3swI3iN4GL6Lb9MVfJdCMflk6mihH4+z3kddu4AaV2WWH3+4Qaf1NOkZ298s/
-	Sg9N0hXoge5nKfhwx6hSr+7Se2a6vAHCOdpYvMXoIRnLnNvuec9kJ2BjPj0XNyqzClKXeWa+U0E
-	Vx6Weh+Y+iG9IK3AjrJ1x0qx4wVQLL+EJhVkwWYbvmnNcgvD/im1WjhQyI9rTNImTLI9AJmA6wi
-	4GhDT4cXEy5IIUqe85oZeJ+PPpjA4He1SsmbhLm8Zxb2CsGSTnBV/B/TL9SCnJeWUdQSOgOpKqX
-	hWvBnHDYTC1HGj0tRgzFc1pPO4Ba+bO8NF3VBOOZlGQCDKSQjAU8NJNeTJBA2pu54xmkQUqepF+
-	BnHToR+a7v9DKZaZ8eC1hXfELbO91KZVV6Wvde1a+DKHKcyggCZzgpD9FnwjmRnoS+lqwr1DvAo
-	PnrcER58585e2Fyk31Ks11sz5R07m4sM+zh4J2SGb1Onxs//taaI3kulgkAIumB4xMAEQapffEE
-	PWEbZdMq3Ltyxv0J/n8Mp4uh9c66NrmCa6OeKUFyqxazX+8mqTlxphFKoA=
-X-Received: by 2002:a05:6a00:c08e:b0:898:776e:eed6 with SMTP id d2e1a72fcca58-898776ef151mr3214615b3a.34.1791818343199;
-        Mon, 12 Oct 2026 08:19:03 -0700 (PDT)
-Received: from localhost (ec2-13-231-150-91.ap-northeast-1.compute.amazonaws.com. [13.231.150.91])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896b68ef2easm4191976b3a.7.2026.10.12.08.19.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 08:19:02 -0700 (PDT)
-From: jianyungao89@gmail.com
-To: linux-kernel@vger.kernel.org
-Cc: Jianyun Gao <jianyungao89@gmail.com>,
-	stable@vger.kernel.org,
-	Dan Williams <djbw@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	nvdimm@lists.linux.dev (open list:DEVICE DIRECT ACCESS (DAX)),
-	linux-cxl@vger.kernel.org (open list:DEVICE DIRECT ACCESS (DAX))
-Subject: [PATCH v2] dax: fix dax_core_init error return code
-Date: Mon, 12 Oct 2026 23:18:57 +0800
-Message-Id: <20261012151857.22534-1-jianyungao89@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="veF5P943"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1791818373; bh=5fgfkf1VJtkzY+vpSfke4wLKD2w9rs5+vYerqyHRQeo=;
+	h=From:To:Cc:Subject:Date;
+	b=veF5P943Ctwerb2fj5Tkb4d3c78c4gB7zhNHQvLO0tqEmlflPANw35j5aCG0jLhDh
+	 h25QxUEXCLd7cKWdyQtVawwsaNdRrYGkbG5MWp4RaA5RE1d014i15Q5Cur6/ClpeCn
+	 GYVegP+/U4vVOHuz8oZ6FgrwSIDBr0+Yc6CDqu0o=
+Received: from localhost.localdomain ([14.116.239.37])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id 4DF99A53; Mon, 12 Oct 2026 23:19:31 +0800
+X-QQ-mid: xmsmtpt1791818371tp425s1w5
+Message-ID: <tencent_323D31BEC6A1CD2A843E2E48242C774ECE09@qq.com>
+X-QQ-XMAILINFO: NnYhxYSyuBnLsLTkWQTkJW4GtCG8e4/sWtKYGel8myIFXIcZ/e59lzta51p0WT
+	 B/q/deeiNpOL2CpiqEUmcKQON+vQB9FLOKvKwfmQ9hwjYvyah9MArTzqz29g598rB8VTTLQDQhyJ
+	 QM+R7FUVtYEqeEwaVXOKnBNK+UbUHkyMKqWxrxmdWiTHfe4B4Ujv9G5RjTYC2dA7KijtpkoPN0ox
+	 aZiC/ePtiu8XbupK9axI0LVShr+loO49MInYJEsrGUEvbg78vX8jCmu34EYYzFHp4KaHfqaR/TY4
+	 MnI9g0SoGp1iCP7E9NAzChkh9NN8hAn4Qgef7PYV9zDTI6UhyAdYqWCCdTV6MhzfqgJ7gkxtTwtg
+	 8eELPaXDiX2QYa9lYj8CsaYMBm/izuU5609uvvwHTu3zyMsh8jDT7S/rokwujzjzXxhorT4tlZFF
+	 aIZ9TS081Q5kKG18LkrDpTG0ha8LZ9/OwpM6m9BclbXMm071eF82MLY8zqJzCY197iYALxd96sm6
+	 EPS/WcLx086Uyz03C27rZ2oQ82AHmInugFCwZlIqUXzoVvFGzzfCI4v6hmFfCNAqJik/3hL46nV+
+	 dS/93KMfzD1vQoa9FZ5/Ij3eycmflzvjFNc3ctY0S84M7WHcz0C0h8sGNafAhFEWeHfjp5BX/w7K
+	 CZ+2CVW36DHwSXbrSnGHPOQmDjZZf+nmFp2YPqtqbq8ZmgvbAc4fVJFDLhXsRywZi2UKRFjKFR2k
+	 iVmf1P/sVcpWNXNGNRjfhGsz7OhqHY7Z/4jGLqymL9za0FlsrQJoJtBO+Q/P4dGguAsgyxiXtp8O
+	 wo+1TtZyyVsK7ppcqaR4y6VSUZdmiOL635eMjtWbyxtquguS6ruRdT4S3gZofnwYfOJ8F1E5Tcd+
+	 XGlgDILegUFWZNg+A1+U72+8u2BLvQKYQ0psI6wvvDG8V0JMAp8SSIfwdaoOkc4XXfXXnqaLHUHy
+	 OOp1I3RpGLG1fYIWm05tj84Lf9pxLOnO7+9L5Bnsu/8sxv9mEAT1+BrW5Cg7qUdp7nRfslRwPcZP
+	 JgRn2tPpT7mWu09tStEfd0dcVcy4XIqlaI3BQexEgzH5v/h5dR
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: shatyuka@qq.com
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shatyuka <shatyuka@qq.com>
+Subject: [PATCH] tty: hvc: dcc: Detect JTAG connection only on CPU core 0
+Date: Mon, 12 Oct 2026 23:17:33 +0800
+X-OQ-MSGID: <20261012151733.53461-1-shatyuka@qq.com>
+X-Mailer: git-send-email 2.36.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,39 +60,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jianyun Gao <jianyungao89@gmail.com>
+From: Shatyuka <shatyuka@qq.com>
 
-dax_core_init() mistakenly returns 0 on error paths. Change the
-error return to use rc so the actual error code is propagated
-to the caller.
+On SMP, migration can occur inside hvc_dcc_check() during
+device_initcall, so the CPU writing the probe character and the CPU
+reading the TXfull status may not be the same, which can hang the
+system.
 
-Fixes: 9567da0b408a ("device-dax: Introduce bus + driver model")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+Commit 4419da5d5d4b1788568b ("tty: hvc: dcc: Bind driver to CPU core0
+for reads and writes") cached the DCC availability detected on core 0
+during console_initcall. However, this is not sufficient: if DCC is
+not detected as available and another CPU later calls
+hvc_dcc_check(), the check is not actually performed on core 0.
+
+Multiple checks are unnecessary: nobody is going to plug/unplug JTAG
+during kernel boot and expect it to work. Cache the return value of
+hvc_dcc_check() from device_initcall and reuse the cached value during
+console_initcall. This avoids complex SMP-related code and ensures the
+result is always from core 0.
+
+Signed-off-by: Shatyuka <shatyuka@qq.com>
 ---
+ drivers/tty/hvc/hvc_dcc.c | 30 ++++++++----------------------
+ 1 file changed, 8 insertions(+), 22 deletions(-)
 
-Changes in v2:
-- Drop unnecessary goto label, keep direct return for dax_fs_init() error
-- Add Fixes tag and Cc stable
-
-Link: https://lore.kernel.org/lkml/20261011132017.31131-1-jianyungao89@gmail.com/ # v1
-
- drivers/dax/super.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/dax/super.c b/drivers/dax/super.c
-index 45f84b0eb909..210f4af479f0 100644
---- a/drivers/dax/super.c
-+++ b/drivers/dax/super.c
-@@ -738,7 +738,7 @@ static int __init dax_core_init(void)
- 	unregister_chrdev_region(dax_devt, MINORMASK+1);
- err_chrdev:
- 	dax_fs_exit();
--	return 0;
-+	return rc;
+diff --git a/drivers/tty/hvc/hvc_dcc.c b/drivers/tty/hvc/hvc_dcc.c
+index dfc5c9c38f07..fc8dcbce9b5b 100644
+--- a/drivers/tty/hvc/hvc_dcc.c
++++ b/drivers/tty/hvc/hvc_dcc.c
+@@ -29,6 +29,9 @@ static DEFINE_SPINLOCK(dcc_lock);
+ static DEFINE_KFIFO(inbuf, u8, DCC_INBUF_SIZE);
+ static DEFINE_KFIFO(outbuf, u8, DCC_OUTBUF_SIZE);
+ 
++/* Cached result of hvc_dcc_check() */
++static bool dcc_core0_available;
++
+ static void dcc_uart_console_putchar(struct uart_port *port, u8 ch)
+ {
+ 	while (__dcc_getstatus() & DCC_STATUS_TX)
+@@ -90,36 +93,18 @@ static ssize_t hvc_dcc_get_chars(uint32_t vt, u8 *buf, size_t count)
  }
  
- static void __exit dax_core_exit(void)
+ /*
+- * Check if the DCC is enabled. If CONFIG_HVC_DCC_SERIALIZE_SMP is enabled,
+- * then we assume then this function will be called first on core0. That way,
+- * dcc_core0_available will be true only if it's available on core0.
++ * Check if the DCC is enabled. This function will be called once on core 0.
+  */
+ static bool hvc_dcc_check(void)
+ {
+ 	unsigned long time = jiffies + (HZ / 10);
+-	static bool dcc_core0_available;
+-
+-	/*
+-	 * If we're not on core 0, but we previously confirmed that DCC is
+-	 * active, then just return true.
+-	 */
+-	int cpu = get_cpu();
+-
+-	if (IS_ENABLED(CONFIG_HVC_DCC_SERIALIZE_SMP) && cpu && dcc_core0_available) {
+-		put_cpu();
+-		return true;
+-	}
+-
+-	put_cpu();
+ 
+ 	/* Write a test character to check if it is handled */
+ 	__dcc_putchar('\n');
+ 
+ 	while (time_is_after_jiffies(time)) {
+-		if (!(__dcc_getstatus() & DCC_STATUS_TX)) {
+-			dcc_core0_available = true;
++		if (!(__dcc_getstatus() & DCC_STATUS_TX))
+ 			return true;
+-		}
+ 	}
+ 
+ 	return false;
+@@ -265,7 +250,8 @@ static int __init hvc_dcc_console_init(void)
+ {
+ 	int ret;
+ 
+-	if (!hvc_dcc_check())
++	dcc_core0_available = hvc_dcc_check();
++	if (!dcc_core0_available)
+ 		return -ENODEV;
+ 
+ 	/* Returns -1 if error */
+@@ -279,7 +265,7 @@ static int __init hvc_dcc_init(void)
+ {
+ 	struct hvc_struct *p;
+ 
+-	if (!hvc_dcc_check())
++	if (!dcc_core0_available)
+ 		return -ENODEV;
+ 
+ 	if (IS_ENABLED(CONFIG_HVC_DCC_SERIALIZE_SMP)) {
 -- 
-2.34.1
+2.36.1
 
