@@ -1,221 +1,192 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mta0.migadu.com (out-61.mta0.migadu.com [91.218.175.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CEDC43CE58
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:17:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F98F44F55C
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:17:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.61
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791793032; cv=none; b=o+mVYZN8I/7cFkl6+O4w2c2pmiwhr57iMCuHNrJuDGMkIQMVoktKfW31fHtD4731MW4yx/VnIuGvNOuSKDiYvovpIzAojyS+sY/KTFSNeADmUecifWHXnvpjHUuN2kqEZRrfYHLqwN12Mkwv5UbH9QjeNpInOaQsWjcRlZhUp54=
+	t=1791793074; cv=none; b=jLx0EGFMloIYXO1OyT7WdZDhj0Y1NTRwdIf8mZlcEvzz8mX/BB6OAD0hAapTsl2lXRXc1yVJZfoxKc+E5kK7Ky5l2tLr3MxQIE8CobhsXy0GQnmzQbfK66PrUTG+ZJurQYv180Fc0QeGXbz6ybXDVlPrDYjwfvN/cI+SaDRR6Cg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791793032; c=relaxed/simple;
-	bh=LBNk5mSEvmb/JFtueibojf+Rw2v4KwD8FDbTwjMrtbo=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=suszapDaAkCyGGAbG8Be84uO/pEVxaR7zhVVtQA/Mk+oQgdxRXUCawe+zAlq7Ppgdaw3BJu6YtHxbtbpDhMbqRDElS9ZHckXY9pI0DkQvVt2tmsr71A4ckmLmsHpUFJh6rx5SFIoQvsOhbidy/jnMNNdtOERk8Gg8aZWjHXCu1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QUDMJsal; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1791793074; c=relaxed/simple;
+	bh=oiQs+XaAPXnhj3q2rBXJEJ5pvTTgbC4S2aepl5uzLe4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u1HzeZdMrYmvxiCrLLLIhaig+VRMLN118e9DkC4zCHPFtORXAEwchH/aIAdRj8Ns4XpSdfWoeMJJoaGC/j3VoJknNkpQll2mgc37qzoYlbdqLADVxBYbQrKQrP1o9/SlmVE1q5nuea7DU1RE/fDSk/O1bwkupBaWzX/QKVAqEI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=r9Yw1yA4; arc=none smtp.client-ip=91.218.175.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QUDMJsal"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a0e1b0681bso11159895e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:17:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791793028; x=1792397828; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/zLuY+/+ESi4JJhmc3hnMkOLSBz9DtESmIsl3yGIgb8=;
-        b=QUDMJsalbLn5h/UGekHNOBO2FtxMhVZej31S+ZUEetQij9oAMZojo/1P/a0F6As6Hy
-         5J6iUsuGbHoxhmOmiuj7lQLdfTBk1LoHmJYXrggOoa/kfWRoD6WFu+RcH0cH8/QKV8p2
-         pti5oIJSm9RNO/UV8JkTtq8xZ96B5cee0KxsYGb1i0AHWfXpSpvm/cQsZ1iFy/CFbprr
-         3b10E2hz6cOwSB1VzlDhJNl6zvdWBGhajnWlNg9mUWjmQLNx//+Kg5XHLFhd3p2x97ua
-         lsML7iNUiZJ84FfaEyEgnTR8aZCkRCd+Zl80uaEkGq2gV5OHxThY1yT2S7PLhlEZxIqK
-         16jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791793028; x=1792397828;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/zLuY+/+ESi4JJhmc3hnMkOLSBz9DtESmIsl3yGIgb8=;
-        b=fMEvdw8WdH8QkfouuTKx4jTdoPxG90IKmNBciirSoqBA0X71RVTFeBUyzYEHQjHEB7
-         IhLgZp/OjNPsfWYaKCcyXKPckfyYUZAQ8C0odrzIEuf40sexGSUwN3uOXGSH0Of7CNKn
-         cDpucghAAh8PjL7CPhNsjCMmT2Z8U6iZREGn2Zw+CKnN13+XWTjZA4rlfwnqGqKtWCRn
-         lfkUiz1jhFttKwLa2QB4u8gaJD9g2mQN/Z8FukgflPI7ercGXG9qXJtUKKENu16QuPtL
-         qGlCiAl/9zD8wYCtv2e26rzvCdzaMAO1T6aW1oxv6E6loofsenbTE6Qjq6WwIyhzezAv
-         NXfg==
-X-Forwarded-Encrypted: i=1; AKwUvBw6i/SupS8zZouCOGWy5IH/4bCDnZrJjsCM1E1WLpx8K949oVSQ6XkWX/sEpaKWDYxdG0qqhhoyEDZbNZY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIc6/e3SXXK2/6yxIh98YCV+thjfhqCuDeVrUDIbzk22DttJR3h
-	TsIDVTM/sXqd8/XrxRt1cVuhGDTDB1SZUvxqiZ2PXayxRkGNlvhLll4HIu9oshEdvKY=
-X-Gm-Gg: AYBFou3ForVcaYKePvTKASamb1vVeYU2Ol7O7hN4cnxdkTccm8B046h0Fcvha2unZbG
-	L3lDJ0isrftnH0haLE5J/YSGAGYXKnbiMLP639NsHtYEgJVAzE5MPerB6hvhWVNvlhtp49IWMWS
-	ObytCPjzDOnnhTqD7I8a+4U90zd0S4o04odEwm5BuoEm7p06vhP9oMZKEGX731cvRo6JN05XL4v
-	d0yE2o4UzarlT5126v3Lc/VeZ1LkqU+O8hZbl7HhqiYJdJN/WNrxms/pOPK+UYSfQMs6w/clKtQ
-	bz2WR0ryw3WwIqJygQWyXIElwp1eEFvnmgD729GyVssCFlH/6ygvN9XSUgsbBYptoRl0CbZvWGd
-	URMKOgslSRELCmMURaFXbHA7fvJDBIRaXCVAAjGZahfDh9Umf/3O4uWm2QK1RHaOfRPaFKWcz2T
-	hiH0iFgK965xB1sq/9Gtui3s3WWfPZ4yszBO13Y1eXVzct9N24i97E4ztTifCTiM1OgjiU7c3P0
-	H0i+4ZLrTGMVkta4Q==
-X-Received: by 2002:a05:600c:4fcb:b0:4a1:811c:8083 with SMTP id 5b1f17b1804b1-4a18e4c3600mr160793515e9.33.1791793028350;
-        Mon, 12 Oct 2026 01:17:08 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19f318c31sm57721225e9.3.2026.10.12.01.17.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 01:17:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="r9Yw1yA4"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=oiQs+XaAPXnhj3q2rBXJEJ5pvTTgbC4S2aepl5uzLe4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791793069; v=1; x=1792397869;
+ b=r9Yw1yA480UQrT66imwaLswS7CZn4oX+fMt7jmieYKMuZU4LQfE6oIIP5C7UCcXkKcDfehT8
+ eM10ev1x6JvfVP7/6/Jh8lDIFp3VxXpSVvFudxcXJc30IS+bKgxBOPdB7RHAXQ4xwDaPteHRUDn
+ YO0wSWfo61PmlygbqCjc0ZCc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 108c7064bb8ec50c;
+	Mon, 12 Oct 2026 08:17:49 +0000
+X-Mizu-Trace-ID: 108c7064bb8ec50c
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 12 Oct 2026 16:17:41 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	David Ahern <dsahern@kernel.org>, Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
+	Justin Iurman <justin.iurman@gmail.com>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	Ahmed Abdelsalam <ahabdels@cisco.com>,
+	Stefano Salsano <stefano.salsano@uniroma2.it>
+Subject: Re: [PATCH net-next 3/5] seg6: apply the PSP flavor together with
+ NEXT-C-SID in SRv6 End
+Message-ID: <asyXpWXMeKnPw9U6@fedora>
+References: <20261011192310.55-1-andrea.mayer@uniroma2.it>
+ <20261011192310.55-4-andrea.mayer@uniroma2.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 1/1] clk: nuvoton: ma35d1-divider: use direct
- formula instead of divider table
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Joey Lu <a0987203069@gmail.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, sboyd@kernel.org, 
- ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
- bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
- linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <2e5f4ca4-ccb7-4328-9bcb-32a2c4f73694@gmail.com>
-References: <20261008064307.2757324-1-a0987203069@gmail.com>
- <20261008064307.2757324-2-a0987203069@gmail.com>
- <179156372588.266328.3848259565001346041.b4-review@b4>
- <2e5f4ca4-ccb7-4328-9bcb-32a2c4f73694@gmail.com>
-Date: Mon, 12 Oct 2026 10:16:56 +0200
-Message-Id: <179179301672.27179.2823663473263190790.b4-reply@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5683; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=LBNk5mSEvmb/JFtueibojf+Rw2v4KwD8FDbTwjMrtbo=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlnplc8itQ6ebFhz7PLFXFem37ylAreXbdi7sTPN7eYM
- Jc09kbO7yhlYRDjYpAVU2Sp4a4Wfyep9WXWdJ3bMHNYmUCGMHBxCsBEZjcyMhzdfDuAOaxMoPl6
- sk+FDJemiyVzs2R57KKZV43+qbAHTGBkuFg9wfvj6y83hK/fqfx/7/r8KtuUbjnGT74nysN7uKU
- vsQMA
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011192310.55-4-andrea.mayer@uniroma2.it>
 
-On 2026-10-12 13:36 +0800, Joey Lu wrote:
+On Sun, Oct 11, 2026 at 09:23:08PM +0200, Andrea Mayer wrote:
+> Since commit bdf3c0b9c10b ("seg6: add PSP flavor support for SRv6 End
+> behavior"), an SRv6 End route can be set up with both the NEXT-C-SID and
+> the PSP flavors, e.g.:
 > 
-> On 10/10/2026 12:35 AM, Jerome Brunet wrote:
-> >> The ADC clock divider register implements rate = parent_rate / (2 * (N + 1)),
-> > Are you open-coding CLK_DIVIDER_EVEN_INTEGERS ?
-> >
-> >   * CLK_DIVIDER_EVEN_INTEGERS - clock divisor is 2, 4, 6, 8, 10, etc.
-> >   *	Formula is 2 * (value read from hardware + 1)
-> >
-> > Am wondering if this driver is necessary at all ? Can you just use the
-> > regular divider here ?
-> >
-> >> which was previously modeled by building a clk_div_table with one entry per
-> >> possible divider value (up to 2^width entries) and feeding it through the
-> >> generic divider_recalc_rate()/divider_determine_rate()/divider_get_val()
-> >> helpers. That is unnecessary overhead (a large table allocation and a
-> >> linear scan on every rate lookup) for a relationship with a simple
-> >> closed-form expression, so compute the rate directly instead.
-> >>
-> >> Drop the mask_bit/mask mechanism as well. The previous code unconditionally
-> >> OR'd an arbitrary bit into the divider register on every set_rate() call,
-> >> and the one existing caller passed mask_bit as a bitmask value (0x1ffff)
-> >> rather than a bit index, so BIT() shifted by an out-of-range amount, which
-> >> is undefined behavior. The divider field write already clears and rewrites
-> >> only its own bits, so no extra forced bit is needed.
-> >>
-> >> Select the divider with a single helper shared by determine_rate() and
-> >> set_rate(), using closest rounding as before, so the rate promised by
-> >> determine_rate() is the rate that set_rate() programs. The helper clamps
-> >> the divider to the valid range and avoids overflowing 2 * rate for very
-> >> large requested rates, which would otherwise lead to a division by zero.
-> >> Reject a rate of 0 with -EINVAL.
-> >>
-> >> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-> >> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> >>
-> >> diff --git a/drivers/clk/nuvoton/clk-ma35d1-divider.c b/drivers/clk/nuvoton/clk-ma35d1-divider.c
-> >> index e992e7c30341..12a946c989e9 100644
-> >> --- a/drivers/clk/nuvoton/clk-ma35d1-divider.c
-> >> +++ b/drivers/clk/nuvoton/clk-ma35d1-divider.c
-> >> @@ -16,8 +16,6 @@ struct ma35d1_adc_clk_div {
-> >>   	void __iomem *reg;
-> >>   	u8 shift;
-> >>   	u8 width;
-> >> -	u32 mask;
-> >> -	const struct clk_div_table *table;
-> >>   	/* protects concurrent access to clock divider registers */
-> >>   	spinlock_t *lock;
-> >>   };
-> >> @@ -29,44 +27,66 @@ static inline struct ma35d1_adc_clk_div *to_ma35d1_adc_clk_div(struct clk_hw *_h
-> >>   
-> >>   static unsigned long ma35d1_clkdiv_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
-> >>   {
-> >> -	unsigned int val;
-> >>   	struct ma35d1_adc_clk_div *dclk = to_ma35d1_adc_clk_div(hw);
-> >> +	unsigned int val;
-> >>   
-> >>   	val = readl_relaxed(dclk->reg) >> dclk->shift;
-> >>   	val &= clk_div_mask(dclk->width);
-> >> -	val += 1;
-> >> -	return divider_recalc_rate(hw, parent_rate, val, dclk->table,
-> >> -				   CLK_DIVIDER_ROUND_CLOSEST, dclk->width);
-> >> +
-> >> +	return DIV_ROUND_CLOSEST_ULL((u64)parent_rate, 2 * (val + 1));
-> >> +}
-> >> +
-> >> +static unsigned int ma35d1_clkdiv_get_val(struct ma35d1_adc_clk_div *dclk,
-> >> +					  unsigned long parent_rate,
-> >> +					  unsigned long rate)
-> >> +{
-> >> +	unsigned long max = clk_div_mask(dclk->width) + 1;
-> >> +	unsigned long val;
-> >> +
-> >> +	if (rate > parent_rate / 2)
-> >> +		return 1;
-> >> +
-> >> +	val = DIV_ROUND_CLOSEST_ULL((u64)parent_rate, 2 * rate);
-> >> +
-> >> +	return clamp(val, 1UL, max);
-> >>   }
-> >>   
-> >>   static int ma35d1_clkdiv_determine_rate(struct clk_hw *hw,
-> >>   					struct clk_rate_request *req)
-> >>   {
-> >>   	struct ma35d1_adc_clk_div *dclk = to_ma35d1_adc_clk_div(hw);
-> >> +	unsigned int val;
-> >>   
-> >> -	return divider_determine_rate(hw, req, dclk->table, dclk->width,
-> >> -				      CLK_DIVIDER_ROUND_CLOSEST);
-> >> +	if (!req->rate)
-> >> +		return -EINVAL;
-> >> +
-> >> +	val = ma35d1_clkdiv_get_val(dclk, req->best_parent_rate, req->rate);
-> >> +	req->rate = DIV_ROUND_CLOSEST_ULL((u64)req->best_parent_rate, 2 * val);
-> > Rate propagation support is lost with this.
-> Thanks for the review.
-> On open-coding CLK_DIVIDER_EVEN_INTEGERS: you're right. The ADC divider 
-> is exactly 2 * (val + 1), so the regular divider covers it. The 
-> dedicated driver is not needed. You're also right that my 
-> determine_rate() lost rate propagation, because it never forwarded the 
-> request to the parent the way divider_determine_rate() does.
-> I tested the regular divider on hardware. That showed a separate problem 
-> in the existing clock tree. The mux parents are declared with .fw_name 
-> only, but the controller node has no clock-names, so the lookup fails. 
-> sysclk1_mux and everything below it (pclk0, adc_div, and so on) end up 
-> as orphans at 0 Hz. As a result clk_set_rate() on the ADC clock returns 
-> early without writing the divider register. That hid the real behaviour 
-> of the divider.
-> So I will drop this series and send a new series that:
-> 1. fixes the parent lookup in the clock tree, and
-> 2. switches the ADC divider to the regular divider and removes the 
-> dedicated driver together with the unused mask_bit parameter.
+>   ip -6 route add fcbb:0:100::/48 encap seg6local action End \
+>           flavors next-csid,psp lblen 32 nflen 16 dev dum0
+> 
+> In RFC 9800, the NEXT-C-SID flavor (NEXT-CSID in the RFC) changes the
+> End processing only when the Argument is not zero [1]. With a zero
+> Argument (i.e. when the IPv6 DA carries no further C-SID), End is
+> processed as in RFC 8986, and the PSP flavor (when set) applies
+> unchanged [2]. If the packet arrives with Segments Left 1, PSP must
+> then remove the SRH.
+> 
+> However, on a route with both the NEXT-C-SID and PSP flavors,
+> input_action_end() always uses the NEXT-C-SID processing. The
+> NEXT-C-SID processing handles a packet with a zero Argument as End
+> without flavors, ignoring PSP. Therefore, if this packet arrives with
+> Segments Left 1, the SRH is not removed.
+> 
+> Fix this by using the NEXT-C-SID processing only when the Argument is
+> not zero or the route has no RFC 8986 flavor. Otherwise, the packet is
+> processed as End with its RFC 8986 flavors, in end_flv8986_core(). With
+> a zero Argument and Segments Left 1, PSP now removes the SRH before the
+> packet is forwarded. If seg6_pop_srh() cannot remove the SRH, the packet
+> is dropped, as on a route with the PSP flavor alone.
+> 
+> Found by manual code inspection and reproduced in a VM without kernel
+> changes or error injection. A following commit adds tests for this case
+> to srv6_end_flavors_test.sh. The tests reproduce the issue: they fail
+> without this change and pass with it.
+> 
+> [1] - https://datatracker.ietf.org/doc/html/rfc9800#section-4.1.1
+> [2] - https://datatracker.ietf.org/doc/html/rfc9800#section-4.1.7
+> 
+> Fixes: bdf3c0b9c10b ("seg6: add PSP flavor support for SRv6 End behavior")
+> Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+> ---
+>  net/ipv6/seg6_local.c | 50 ++++++++++++++++++++++++++++++++++++++++---
+>  1 file changed, 47 insertions(+), 3 deletions(-)
+> 
+> diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
+> index 26cd4facbe36..427d12fedfc3 100644
+> --- a/net/ipv6/seg6_local.c
+> +++ b/net/ipv6/seg6_local.c
+> @@ -551,6 +551,47 @@ static bool seg6_next_csid_enabled(__u32 fops)
+>  	return fops & SEG6_F_LOCAL_FLV_NEXT_CSID;
+>  }
+>  
+> +static bool seg6_flv8986_enabled(__u32 fops)
+> +{
+> +	return fops & SEG6_LOCAL_FLV8986_SUPP_OPS;
+> +}
+> +
+> +/* check whether the NEXT-C-SID processing has to be used for the packet,
+> + * instead of the RFC8986 flavors set for the given SRv6 End* behavior
+> + * instance.
+> + *
+> + * This function returns:
+> + *  - true, when the packet has to go through the NEXT-C-SID processing;
+> + *  - false, when NEXT-C-SID is not configured or the packet has to be
+> + *    processed on the basis of the RFC8986 flavors.
+> + */
+> +static bool seg6_use_next_csid(struct sk_buff *skb,
+> +			       const struct seg6_flavors_info *finfo)
+> +{
+> +	const struct in6_addr *addr;
+> +	__u32 fops = finfo->flv_ops;
+> +
+> +	if (!seg6_next_csid_enabled(fops))
+> +		return false;
+> +
+> +	addr = &ipv6_hdr(skb)->daddr;
+> +
+> +	/* NEXT-C-SID and the RFC8986 flavors combine according to the
+> +	 * DA.Argument (see RFC9800, sections 4.1.1 and 4.1.7):
+> +	 *
+> +	 *       DA.Argument   RFC8986 flavors   processing
+> +	 *   (1) != 0          any               NEXT-C-SID only, SL unchanged
+> +	 *   (2) == 0          none              the behavior, e.g. End
+> +	 *   (3) == 0          one or more       the behavior with its flavors,
+> +	 *                                       e.g. End with PSP
+> +	 *
+> +	 * In (2), the packet still goes through the NEXT-C-SID processing,
+> +	 * which runs the behavior (e.g. End) when the DA.Argument is zero.
+> +	 */
+> +	return !seg6_flv8986_enabled(fops) ||
+> +	       !seg6_next_csid_is_arg_zero(addr, finfo);
 
-Have you looked at this series ?
+nit: based on the comment, maybe we can change the order to
 
-https://lore.kernel.org/all/20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com/
+	return !seg6_next_csid_is_arg_zero(addr, finfo) ||
+	       !seg6_flv8986_enabled(fops);
 
-It does address several problems the existing driver has when it comes to
-parents and incorrect usage of .fw.name
+No need to change if there is no new version patch.
 
-Please sync with Miquel on this.
+> +}
+> +
+>  /* Processing of SRv6 End, End.X, and End.T behaviors can be extended through
+>   * the flavors framework. These behaviors must report the subset of (flavor)
+>   * operations they currently implement. In this way, if a user specifies a
+> @@ -865,7 +906,10 @@ static int end_flv8986_core(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+>  	if (srh && !seg6_hmac_validate_skb(skb, srh))
+>  		goto drop;
+>  #endif
+> -	flvmask = finfo->flv_ops;
+> +	/* NEXT-C-SID, when configured, has already been evaluated by the
+> +	 * caller. Only the RFC8986 flavors are left here.
+> +	 */
+> +	flvmask = finfo->flv_ops & ~SEG6_F_LOCAL_FLV_NEXT_CSID;
+>  	if (unlikely(flvmask & ~SEG6_LOCAL_FLV8986_SUPP_OPS)) {
+>  		pr_warn_once("seg6local: invalid RFC8986 flavors\n");
+>  		goto drop;
+> @@ -919,8 +963,8 @@ static int input_action_end(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+>  	if (!fops)
+>  		return input_action_end_core(skb, slwt);
+>  
+> -	/* check for the presence of NEXT-C-SID since it applies first */
+> -	if (seg6_next_csid_enabled(fops))
+> +	/* NEXT-C-SID is evaluated first, when configured */
+> +	if (seg6_use_next_csid(skb, finfo))
+>  		return end_next_csid_core(skb, slwt);
+>  
+>  	/* the specific processing function to be performed on the packet
+> -- 
+> 2.43.0
+> 
 
--- 
-Jerome
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
 
+Thanks
+Hangbin
