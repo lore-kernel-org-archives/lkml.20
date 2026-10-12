@@ -1,62 +1,104 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4733AE6E5
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:20:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3794C3AE6E5
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:21:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791789635; cv=none; b=NXGywYW4UFZlQGYSLxp6nwGBBrpz0NSzpNxY+NFCHoZF7frMGk9jCEuXozq5trwRIBKTdJ2wZGf0xDymIPlsvJMNULt1b7tQt2ekWMVqSt3VJnUfYS3TH0bcIRdCwfhBpmlnewunzl5mOhCmNA4vsJlE0WoZYyC+NeU/BEkdQIg=
+	t=1791789671; cv=none; b=UHglZ8hcR9i6jBZKdEGPZWUR9OgEkvkdJdK9bMEmiO4ch3xVMpFWuVj7zaSxQ5PmNW/BzN6HHgnHTPDx42sV42n9oAYh7ZOoct+xF7kEu/kvAncwfAyJUpwhy3vJPjjOq52mnQtL9oRgCijFjVJjjrt5tR4TrR2XeFJ3323bA/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791789635; c=relaxed/simple;
-	bh=zyQn5w9QkO+fyQFG+fHkXsQXfomKQc8tYhi8uC3G+bM=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=b7raXs+WdfULiLHRKf1s8pP9g9RwroKQUXI4tOAyw8B6BYx+b9gublwyY5i2f0GPBwO8p8a1LKIEmnHVy3hJ+B4LtltShXLBelPMb9kXBVETk8/Wzexqr3A9u810iP0KaZTaX0UGZNgFbeEv04VKKd/4PqJg+1StfqWDjY30bUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b28deb7ee3so3196731b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:20:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791789632; x=1792394432;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zyQn5w9QkO+fyQFG+fHkXsQXfomKQc8tYhi8uC3G+bM=;
-        b=W+LkRKzT2s34iNBOB/RiCkYS/eGYgrLM1yjwVCEEIYdR8wQ241jR+IAD7GdY5Q5omQ
-         LvVScAOjRmNVMPNYZuhx56eE9aY/rewpyr7oY81fF09AgbNkD+g8OoY4Ssi/p/7EJwwE
-         SGFd6h2xGMb8TiJYrZoPsPN3QguK6Pjn5RnWgwklAbphB0VKG0jyv/UzMr8OnuroOObR
-         CePneHmsxAgtMtbVcAXq7mAY+/5jIROl3pCvECiyvNsIBMbgTxHMY8UAJEfs3inpqlTG
-         jW9xII1NVzqCYPQHya/VZp4C0sw7qE6ecA7OVlKhBp0ihnuD7uBjNChRxlw5Zr5qAS90
-         CMCA==
-X-Gm-Message-State: AFq9FYK9WNUhSzm38aPIWubW0Rs8K4eYuphLbe8yO6NFYXj9cWR0hID7
-	vsylDHHdXClVC8E0j8CKMQ6SEJZLssQVAyQ2fl5WjiFT8xGCi1v4NIqU1kFDWAJdPrIosNS+B2i
-	cdlbgbWQ0nIqZjqvpeknVIMt8yEjwpmWPtqU3ZPU5JsD71X1tUMdux9GVXzM=
+	s=arc-20240116; t=1791789671; c=relaxed/simple;
+	bh=GlPJFBH/QQaGpWj2HTUaP+XhfB/ILKkWcWTtXLgnGnk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=R1sU4yZatwFm/Oqfq1Rfyjuf1903d+aBlmK6R7pnuysuztvd/DL9VnHnc6tf6H0b6Q4NIQ//7NjQ0CyWmy4blRJgs3l15dj0Tvgybp+oinJ0C4M6WweC4LJK3zZWBBESTbOHlSUdQ4ZfcCts25pca0vfM1XXa9iig9WCjQzT3D8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nEQCAMjh; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nEQCAMjh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E308F1F008A0
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:21:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791789668;
+	bh=E1EzNNVWzoVsaQJ5ysflzUxIgWV051RNj1SflKkQXWc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nEQCAMjhJMMRYRi7lufiAtDkkhT+qIu3gPV/N7IiWsPWDOL0yN9fMJk8emM/5q8ct
+	 9aC/NGlKonKiI2MiBLGerMkxqSb3Cs+QUCJCC08MK2ZGtUd/zCs+4dD5/254rCsU/d
+	 cz9SC0iLm5h7/OrnXZPRH1aYJltz1bbX22EXE9Oqfaf+a0tCTIMMWeBhAhED1iqutM
+	 j4X8OIveu8bpiImQlpqZMigJDdLC2am/Q10JhVJK6yPlPELKKVwt6mn9azrcnYyBqY
+	 E2MzFK+PJ69/OA4LMjPptW20LRL8d05mxI5soqWyzPbo83IOLm3jfVDch5/mQJ6P4M
+	 G+P268KtC9E6g==
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6af9cc73235so958164a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:21:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxIy5Hk/Dd9kjHXgqzhn2Q/wBTFihwhqoHKnl/MawcZN1w2SrDWFUYth07ZGNXzk2eKqhclQ26XSiBwFUY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUhwcTjtbZfOYxNtMtEztUSj0B0WsnXshpSV99cQ0ZS5y6D4qx
+	ulWZnv/BZoWwMc7bdZ9+mErL6ekyHDPiJ0R5dpc/SahKB5woYUC/QRkBMO7e9+OWFGKBcaEhIPU
+	FL9Yn84PPAOT1RIKn8pOJeDaw0HYCNjU=
+X-Received: by 2002:a17:907:c8c4:b0:c2d:c0ce:8465 with SMTP id
+ a640c23a62f3a-c31a6999fe9mr871638766b.0.1791789667484; Mon, 12 Oct 2026
+ 00:21:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:ecb:b0:4ea:4207:39a0 with SMTP id
- 5614622812f47-50c5416ab1cmr7434291b6e.47.1791789632345; Mon, 12 Oct 2026
- 00:20:32 -0700 (PDT)
-Date: Mon, 12 Oct 2026 00:20:32 -0700
-In-Reply-To: <6a84384d.ae6ddae5.3da009.0000.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6acc8a40.8cdf6287.1eb53.0116.GAE@google.com>
-Subject: Forwarded: [syzbot test] mac802154: Cancel scan work synchronously
- during hardware teardown
-From: syzbot <syzbot+19cbce4cc656ecd4febc@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+References: <20260922121058.972734-2-maobibo@loongson.cn> <10bd45f8-2d37-42f0-b7d2-a4a84933c9b3@loongson.cn>
+In-Reply-To: <10bd45f8-2d37-42f0-b7d2-a4a84933c9b3@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Mon, 12 Oct 2026 15:20:57 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H40TW01vpaNSDgm86DVM4Mwf0sUvnAt2KEwUB=pPFhhqw@mail.gmail.com>
+X-Gm-Features: AclHuK8x62gs_C5UF1Qg2VLiQQD2G3P5vBVPyCdu0AvLT7ob8451ejbWRTFvLCM
+Message-ID: <CAAhV-H40TW01vpaNSDgm86DVM4Mwf0sUvnAt2KEwUB=pPFhhqw@mail.gmail.com>
+Subject: Re: [PATCH v4 1/4] ACPICA: actbl2.h: Add bit constants of the Flags
+ field in the IOVT IOMMU structure
+To: Bibo Mao <maobibo@loongson.cn>
+Cc: rafael@kernel.org, linux-acpi@vger.kernel.org, 
+	acpica-devel@lists.linux.dev, lenb@kernel.org, linux-kernel@vger.kernel.org, 
+	lixianglai@loongson.cn, loongarch@lists.linux.dev, 
+	maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Mon, Oct 12, 2026 at 3:16=E2=80=AFPM Bibo Mao <maobibo@loongson.cn> wrot=
+e:
+>
+> This change is already merged in acpica tree.
+>
+> slightly ping.
+I will merge the last three patches once the acpica changes are synced
+to git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git.
 
-***
+Huacai
 
-Subject: [syzbot test] mac802154: Cancel scan work synchronously during hardware teardown
-Author: aryanarora.w1@gmail.com
-
-#syz test
+>
+> On Tue, Sep 22, 2026 at 08:10:55PM +0800, Bibo Mao wrote:
+>  > According to the IOVT specification, define macros for each bit of the
+>  > Flags field in the IOVT IOMMU structure.
+>  >
+>  > Link: https://github.com/open-acpica/acpica/commit/352f750e4cc0
+>  > Signed-off-by: Bibo Mao <maobibo@loongson.cn>
+>  > ---
+>  >  include/acpi/actbl2.h | 7 +++++++
+>  >  1 file changed, 7 insertions(+)
+>  >
+>  > diff --git a/include/acpi/actbl2.h b/include/acpi/actbl2.h
+>  > index baef525367b5..76e4a5bc79b4 100644
+>  > --- a/include/acpi/actbl2.h
+>  > +++ b/include/acpi/actbl2.h
+>  > @@ -919,6 +919,13 @@ struct acpi_iovt_iommu {
+>  >       u32 device_entry_offset;
+>  >  };
+>  >
+>  > +/* Masks for Flags field above */
+>  > +#define ACPI_IOVT_IOMMU_PCI_DEVICE           (1<<0)
+>  > +#define ACPI_IOVT_IOMMU_PXM_VALID            (1<<1)
+>  > +#define ACPI_IOVT_IOMMU_MAGAGE_BY_SEGMENT    (1<<2)
+>  > +#define ACPI_IOVT_IOMMU_HW_CAP_SUPPORT               (1<<3)
+>  > +#define ACPI_IOVT_IOMMU_MSI_INT_BYPASS               (1<<4)
+>  > +
+>  >  struct acpi_iovt_device_entry {
+>  >       u8 type;
+>  >       u8 length;
+>  > --
+>  > 2.39.3
+>  >
+>
