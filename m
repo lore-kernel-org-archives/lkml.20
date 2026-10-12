@@ -1,97 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB39318ED7;
-	Mon, 12 Oct 2026 05:57:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E0F318ED7;
+	Mon, 12 Oct 2026 05:58:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791784671; cv=none; b=ioVCBJsqPUPvN3vLmMdDeWTujGSlQWuiHpjw/lXlExLuTdtVWfYhVjcEilaMrc+KxsgH57pWt9wGPgz3jMVYACZt7jn7TEcqVTjSHiTbTRbXPXwFrFv1yvwLED+mhcPWe/7RDvhwZbk8xmnXGh56zrVqQ6uj0hmBhgpRDWMKHTY=
+	t=1791784684; cv=none; b=bCAmkOKhBRfh7iI9Q3e1C0Srm1TF1rfOB6rNVAAqcrXFoB6D42A4rmFZK59hhRXJ7v4tBaFaqExOCb2Go/tDRU3Mcu2pMPrbZOGbyedG9o3znaiicc2RtxJD9ihToPsVj09lnW23UYOiZxKpOP15qu8OeY5lQFbooTPYE+g8W54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791784671; c=relaxed/simple;
-	bh=WN7nf+p7kxzQ+C+blyl1D7z4iLtnAw+tmqdPCP2akJA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m3YGwBWIGfO123Haif0LaAHw8el2kffLQQLGeE1poCb/NMgA+WF7oXsy2ae6kktX1Z6pX/KdPPavxp7eG5i/qKXjYRPw9oh7cUC7h1OnckgAcyKVE4JRbW9KYr3/fs150brr27CQ+3MY+ZXYR/ExFNwHdZMVDhgOAlCtgCBeUcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=p2t+mMbt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791784684; c=relaxed/simple;
+	bh=oTrODFrVK+fs0ywHN/TMizl+ZxHTa7uPOGuTPcSvCYo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Wp/tdaAucfuraLbD4Q2mxgfqd+/sSosbiSeSC+Vw58hWm5OO8mo3CdGs+TYxQeY3ybXayw157Djyem/70YQiU5LPZBzeJbTKK1KQJSTwzK266f3fHJSANQ5Jwx6SzOZ5GV1RQH1kHQ4bUXxbs+P+7jjSgF/lbVCSOszeBe0+UdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+xDgTCD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="p2t+mMbt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B1941F0089B;
-	Mon, 12 Oct 2026 05:57:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791784669;
-	bh=fqNaSHKbaBtd70ZOA6N6C+BNYVqH/ibRWUuvmgYjVao=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=p2t+mMbtBUSLXhudX7Z+BmXCRa5YmWhGAZxjfdQ6+I/CH8EolgF5rsHcL9n3nJymm
-	 CZZVGfeYbGQf+vdf42v1KiwBEv7NQd7vdH/mXLvyF7NVw1zkfg0mEkyg6M+wFYZNkx
-	 PDf9YE7muMTkgOsM8+LQxsTsS869IrMnsUosEh0s=
-Date: Mon, 12 Oct 2026 07:57:47 +0200
-From: gregkh <gregkh@linuxfoundation.org>
-To: "yao.zhang1@amlogic.com" <yao.zhang1@amlogic.com>
-Cc: stable <stable@vger.kernel.org>, sashal <sashal@kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	"tuan.zhang" <tuan.zhang@amlogic.com>,
-	"jianxin.pan" <jianxin.pan@amlogic.com>
-Subject: Re: Requesting CVES to be merged into version 5.15.y
-Message-ID: <2026101250-taekwondo-eatery-9d4f@gregkh>
-References: <2026101013574578732920@amlogic.com>
- <2026101020-sheep-monetize-afa3@gregkh>
- <2026101210492396062337@amlogic.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+xDgTCD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72D11F0089B;
+	Mon, 12 Oct 2026 05:58:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791784683;
+	bh=mPPQ++MUoadxPUoc9/p8ERrMgkZWA2CRtjIMkHUYcFs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=S+xDgTCDNGf/bXDt2GUumdgFwUaiiRg92DpydOgS6XwtmyObl+Xvy1vHFikY9bLJx
+	 Yl+yhN6Co6Tb9/Gjr2WQMUHwpZ6j4rWbhQa5EFexUM+kARq6i5rMxp0FCZjiT2QEGM
+	 dA7H55VdCQXsTy8A+eFcjkfI/WlSgHS/IsgTE+KE39AE5bXxhWOouCAsWPr/1zx6hF
+	 cXSFDnlwvQ71Z/Zu0uNOTNy0j17OzdMdg7x+Tg7RwbpdKggr+nPKWEaOuNVxUAO684
+	 UUO9xxvcvUxksAov51XdxNVuoVtXSnul8TFFBvWYp7f4F2XmXXwv5DN2Z1Qp90Yy6u
+	 4eUVIsAGQo4rw==
+Message-ID: <6bb8cb0b-e614-4d7b-9b61-fdea34c2f793@kernel.org>
+Date: Mon, 12 Oct 2026 07:57:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026101210492396062337@amlogic.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] memory: tegra: Shut down Tegra210 EMC timers before
+ teardown
+To: Myeonghun Pak <mhun512@gmail.com>, thierry.reding@kernel.org,
+ jonathanh@nvidia.com
+Cc: linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+ ae878000@gmail.com
+References: <20261011160034.93d011b386c2-1-mhun512@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261011160034.93d011b386c2-1-mhun512@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026 at 10:49:26AM +0800, yao.zhang1@amlogic.com wrote:
-> Hi stable team,
-> > Here's an example of why this is not in the 5.15.y tree, it does not
-> > apply at all.  How did you come up with this very small list of CVEs
-> > when there are thousands of "missing" fixes in these older trees?
+On 11/10/2026 22:00, Myeonghun Pak wrote:
+> The training and refresh timers can outlive the EMC state on removal
+> or probe failure after clock attachment, causing use-after-free.
 > 
-> > Have you tested this commit to verify it does work properly in the
-> > 5.15.y tree?
+> Shut down both timers before detaching the clock provider and releasing
+> the timing tables to wait for callbacks and prevent rearming. Initialize
+> them before clock attachment, since set_rate() can start training.
 > 
-> > Again, if you wish to see these all applied, please submit the patches
-> > that you have backported.
-> 
-> These CVEs were identified by our customers using third-party scanning tools, 
-> and I have verified using `strak` that the patches for these CVEs are indeed
->  missing from the latest 5.15.y release.
-> I actually checked the code, and those CVEs aren't there either.
+> This issue was found by static analysis.
 
-I agree, these commits are not in the tree, and they are not in the tree
-as no one has taken the time and effort to do the work to apply them
-there.  If you have customers that need these commits/CVEs fixed, great,
-please submit working patches that you have tested to resolve these
-issues and we will gladly apply them.
+You are expected to name the tool or be silent. Reading code by LLM is
+not static analysis. It's statistical guessing, nothing to do with
+static analysis.
 
-> For example: [DEBUG strak] Checking CVE-2025-39797
->                       5.15.222 is vulnerable to CVE-2025-39797
-> 
-> I have not tested this specific commit on the 5.15.y tree. 
-> I would like to know the reason why these CVEs were not merged into 5.15.y.
-> Does version 5.15.y not need these CVEs?
-> 
-> I have a few questions I would appreciate your help answering:
-> 1. Can you merge the patches for these critical/high-severity CVEs into the 
->    5.15.y tree?
-
-If someone sends them to us, yes we will.
-
-> 2. If they can be merged, what is the plan? How long would the process take?
-
-Depends on our release cycle / workload, see how long other submitted
-patches take to get merged.  All of our work is in public, it shouldn't
-be hard to track this.
-
-> 3. If you decide not to merge them, what is the reason?
-
-We will tell you if you submit them for review if there are any problems
-with them.
-
-thanks,
-
-greg k-h
+Best regards,
+Krzysztof
