@@ -1,62 +1,64 @@
-Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF3D48A2D1
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24EDB48EC67
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:59:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791809990; cv=none; b=erOH3RALSk9ER4VGgVagnKfkfYGiBWoTpFzLc2UA9bXuF+FCYO8oOpzxkim1fX9h7ESBGiXwryrGwNd82MJPbuiPJX79FcvL2Es7NApDIL7yWN4BumPmPuYu0KBgOh7vxZESbxoxGCthknD960VQDIlcl82LX3gBnFGuyhlhMSo=
+	t=1791809993; cv=none; b=Zb9CjjvD2Po2SOq8DQjDqorzek1DVRL+ltg5HdAAIw2ANnu/gOr0SvGgWgeD+TsVEzcmZAOLMEF/fjrjAZ8BPs8RJueUmT+6GE52uSQRXV6nEx8PH/JPmO0t3vIUekOi8lwZ6eTM5uFXdoFGZUlwr3DcsE76wu4iXinhRafqaJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791809990; c=relaxed/simple;
-	bh=Sjs/T35GDSK2mLpXvd+0a+mLJsbh1ZkWIn8eH7SnHG4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LQ4JmGDcA5N7A26sqLYZEsBkLJ3EKAZBsnT5mXdmHHCztzb+f1louYBvzAulUN5y7jWqtp/mvRkl5djPRWODX5ADiwrkcjNf6/+y+vSeqe8efYrTWaPiOlNkhslvsyJYQN/MLtNQljtH7YIoQbgEbNPEypEHJLDMA3VVNyOLa8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=Oq2JHkXJ; arc=none smtp.client-ip=74.125.229.8
+	s=arc-20240116; t=1791809993; c=relaxed/simple;
+	bh=fPB+wZjG3HVi2iSjYqkLH/ckgebyx31G+/S5iuLVqbE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e+083PMPdHl1B6XXWvYYHOmS0CrtrIw390Tp9awdieuXgYnyoLMhj3wQjyofRhXdQcXuktV9/uld2e/hffg8uKeuQxpPrFAbdt5B92k0VTfOxDk83W9GII9nFnfQgEg/yBeD8MF+kSrB9IfcC3xGa5+v5ODXq5h1TNQBOQQC0+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=Hfy+8nT2; arc=none smtp.client-ip=74.125.82.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="Oq2JHkXJ"
-Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-33baa8eb238so1285687eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:59:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="Hfy+8nT2"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3550c917fd3so2685276eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:59:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1791809988; x=1792414788; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q7B4DSPMgfSFvLLxNvbACWp9nlscmrDCD1XJDKGbIJ0=;
-        b=Oq2JHkXJonoGb1cFMKdcCXJZvckBc7AzVdgC6A5mz+mh9rkobpCzOCZrz38nxxsY0A
-         Cez/ZJdfUSwqwmAN+33dKKQ7AAwz2YhW8FIV4xg9oSk/9QujrWeajl3TPK8HB8/oU57t
-         /m2L1ZpoueDKrCKsHMDQ6nSdwAzJRMn27t9noyGIsVC3dlPUGis7Z4R7AgSfPp9CsBxt
-         EEQxBVcbWhe+agXFs4GRJdHDwVbvoc1if+1PGOnF1hTc3O8o8bQBlRcnVMyHstWfQCOH
-         pded7fCxzUcLZHOh0Ldba2y3Pjd9AB4Kybxd+mHcR3VHNEhEgPkwsLr+v7QBJjt3aq/T
-         Jgew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791809988; x=1792414788;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=blockcast.net; s=google; t=1791809991; x=1792414791; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Q7B4DSPMgfSFvLLxNvbACWp9nlscmrDCD1XJDKGbIJ0=;
-        b=RTDbVWxAlMixICYrlXhS6/LilKsj3WjuYH0opjBQRJhFJTWzuepcq3fKs7wTvfl9da
-         I5h2jpThDX/bR7JQ2IbwIIH8fkbVv/2lSqXVE3y+x9L9KUdHYal7hFQN1DbrZhbz9h4o
-         HT27SxXX2OFDMc4g/WpJ4IjxJK+A5u+0762EmFgifA3Jb4ZOig2/eHwj32MX6GKA85eq
-         DgJwr0HyVDx7bp5sToBE6RgDYUOVIhjZBTpss+nFR8uxx8TUHQOzc9aE3biu8cigqtN9
-         mwBYTHwPMngU1r5LZM7PJx7EFV9HyKR9oiM/yVaGuygld+c/Ak+20mRNB7frvkrvS7qg
-         x/kA==
-X-Forwarded-Encrypted: i=1; AKwUvByZgndCr16JqlG1AA/MOT/FtFsWxVhd+KOaQM849PmrYa7HzELqGsAiVtNnhE+6nj1u9YWSz4ZKIkdUk58=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdGqFBXcWDrxbh5CcnPTsrueYqBAxpOjz/MxCFQhQhGoPbXF4o
-	kQIXH+HqLVUWfwq9ilxT5fEqKCsB2FqMZroSTXAb/mLhPeApaDhUd+HxkJmFtAuVIT0=
-X-Gm-Gg: AYBFou0JYIsc+tTMrWNH4UQM93XuSqXjTymjl8I+GV0bbxS+8S3fwpypj2wv3ZaMPeU
-	yT0wYaU5EY4MEhGOSX7aGjbBFyH9qPFyOFbLdbvr8SppHXQ8Zo00n3fGl81tWZ81rFLFMS01umQ
-	U3ZqLFEXGMdWTHdRGnz0EYTWWGBfKVDT8axyYmwAFSTGVC67g3RrSr/fMCvqQsEcayvgF9x6Ztw
-	9AVknyYUAQaJpFkcnRqBu07W4tWXs/iJHxghTXL8UMtfekfOEN/dbFZUW5tzOVZYTCcyGzrt5lh
-	04ThCGmgYuuazlgIzDqplaG8VTqwX7wd08bfAkOBwyiE8705zBe4SYH8H7AsgD+cv2jrVOYjcN9
-	cEAjn8bCSWXe2Q+Yt5rlRvJgdEQzUoJClVqrn1TYI6qiB21KUlxykU4DLTN1Y0aA+KRyhKvziU4
-	CiRcvAB8iViT3gstMZu9+BhiYZXicO2x+zM+FcQSeHRQ9ZZKLd1JdWYec1eRXZ6EDegKAtuSc2n
-	6ikbeA3uUeV7GqP90TGXxKx2Q+Rem7/qVq8rkOAcTsqOxixkhrOuoLZOpfEd5ew
-X-Received: by 2002:a05:7300:f0ca:b0:359:a6ed:41ab with SMTP id 5a478bee46e88-359a6ed547amr6459544eec.36.1791809988031;
-        Mon, 12 Oct 2026 05:59:48 -0700 (PDT)
+        bh=sZ1/UevHkaiLLGQSB4KaOHNVe81DkpsaSLYz0M3iQ3s=;
+        b=Hfy+8nT2yt9g3+G7dCdBi/fHHVBrfSIV0QEazuNWlYNFGudhXhYqcTmFO7F4Gh7ejf
+         Qsi1tYXTSe1Dh8h9zDIaKlKKR6aTpRVoUyjWvp0h6ZzWYuTmT69isLiezxhQJ81dyIDe
+         mROImD80ye+l12vs5955qYu232ece0JT5APKwslXb7VdR1pAZX8aAztRK5emVozE7xKU
+         AoH1TU2H9lGdqzZ3RL7mF/avEJbNP0+s9wGHABTOAWjDHD6CvMgo0029mQPI6aWga6ri
+         w/U4FQlk7ZULqUOx39KK06SsekJpv3QIb7fK2l9hzpBuaHu+qQHPzK3rGCgoc1s+8OCs
+         2ZaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791809991; x=1792414791;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sZ1/UevHkaiLLGQSB4KaOHNVe81DkpsaSLYz0M3iQ3s=;
+        b=YHLqSqtTca+/6JKtxvXr+fz0TC4/yQk447Vvh3Rq8t3iS2AUEUEi+HXa7FnM5h1N0g
+         xUeR27Qwrnnfahgap6CmND3xY2IU+e7wtEUUvur6fDX2MUlQ3wTtqgaFvyrrkisinIox
+         1bWYvwl1cIXsS5laQlWF9L/tK7mlFd6Ql+1hpJmgzSOoMjYSHKyqCYA7GqyNjbbdK6+L
+         8jSO3YmjHi//WceWsbj17lXGoKQA6NYdqS4GjnC3S5hP5qYx8oix/Tl579Q9uWtzYFNE
+         g4ZtzdvBY0H6G0ZRdNeQrqafcloBgFZYMXlVs5qWlYAnsVk+A+gdU5POV8+qvovNK9TN
+         Ihxw==
+X-Forwarded-Encrypted: i=1; AKwUvBw7t4AvK9NaYSo5EU+33u9+LVkPAWzg2evDxWJ3am7t5I0iDFF5MTEzQclt4MernnhGBPUorUcEWlIWnQU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtV13WUCuh8gZhIju23vSqMsMfcY2uuKWCg3ft/nmjnA/spUX+
+	Mb5j8mv8LGVMJ3bsKfliAUbwSZuNWFIrcpua6ipirzfle+Ezm6rthfYxZa9+wnxyCv8=
+X-Gm-Gg: AYBFou3NTehucR2IqAe/6PBdRZKtNpdqhBzE1EeGGr3hDBBR6DHwLnNwweG7nN5Nd6/
+	YEeVXbbwQSTN1N6DXDsQC5aDlikGEEpu2zujbnKsk4P0vaUY1xr9LVjpBlqsvF2ZBJZxiTQFQGW
+	Vc96KqJeL8Wb0dwxVriyS/q70td3IWFJ3iHW7W89Do8g4ZlB7BZomUTy2v2UaReiXqP3/VgILoh
+	bomHe1ir6Lp6Zx1yeRgDzROyVcKZNd6uHOz3RK0Mqv4SITQTQHd6D4nhrL39aB1Glz1MI/mhXhL
+	kSc71eB6D50tS+xt5D7QPeyRT8LSI3wQYtVBtA6qEQS5pFWwAIAe1UNY0OEyee3IvyCjnwE+Fcg
+	EFMkMYh2Kk6OxBTQG7SyrOZ/4rqRB7hjA2zFQjmmWqouANK0nbe2pYi2tpqiww3FT8qVTCgB1SD
+	xgKZkhQdHSbT3Wpg6twzDJVsdJvROcmDcaky6GAVvA23LnYOYjC6EeceZsBuqI0msCVOQbPaETj
+	RnO8NPioUJBsqS+IHpMsLag4DR5j0H41Vg5R6zry3h9PlKfFEJLce6/xJvQO7ruCkkcvhvXBw==
+X-Received: by 2002:a05:7300:8803:b0:353:7b46:4819 with SMTP id 5a478bee46e88-3537e032905mr15793475eec.8.1791809990942;
+        Mon, 12 Oct 2026 05:59:50 -0700 (PDT)
 Received: from devbox.ts.blockcast.net ([69.25.95.32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb61asm35348067eec.21.2026.10.12.05.59.45
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb61asm35348067eec.21.2026.10.12.05.59.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 05:59:47 -0700 (PDT)
+        Mon, 12 Oct 2026 05:59:50 -0700 (PDT)
 From: Omar Ramadan <omar@blockcast.net>
 To: Taehee Yoo <ap420073@gmail.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -67,10 +69,12 @@ To: Taehee Yoo <ap420073@gmail.com>,
 Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Simon Horman <horms@kernel.org>
-Subject: [PATCH net v3 0/6] amt: relay tunnel lifetime, validation and request-path hardening
-Date: Mon, 12 Oct 2026 12:59:37 +0000
-Message-ID: <20261012125943.558629-1-omar@blockcast.net>
+Subject: [PATCH net v3 2/6] amt: reject a gateway Query or Data from 0.0.0.0 before a relay is learned
+Date: Mon, 12 Oct 2026 12:59:39 +0000
+Message-ID: <20261012125943.558629-3-omar@blockcast.net>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261012125943.558629-1-omar@blockcast.net>
+References: <20261012125943.558629-1-omar@blockcast.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,49 +83,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Six fixes to the AMT relay data and control paths, found while adding an
-IPv6 outer transport (that feature follows for net-next, rebased on this).
-All are independent of the IPv6 work and belong in net with stable in mind.
+A gateway's amt_rcv() admits a Membership Query or Multicast Data message
+when "saddr != remote_ip" is false.  remote_ip is 0 before discovery has
+learned a relay (and is reset to 0 by amt_dev_open() and when discovery
+gives up), so a packet whose source is 0.0.0.0 -- for example a
+0.0.0.0 -> 255.255.255.255 broadcast delivered to the socket -- satisfies
+0 != 0 and is accepted.  With the nonce freshly reset to 0, a spoofed
+Query is then taken as genuine: it sets ready4/qi and the response MAC and
+suppresses rediscovery until the discovery timeout, and a spoofed Data
+message is injected the same way.
 
-1/6 is the most serious: a Membership Update can re-arm the gc timer of a
-tunnel amt_tunnel_expire() is already freeing, firing a delayed_work in
-freed memory.  2/6 and 3/6 close two input-validation holes (a gateway
-Query/Data from 0.0.0.0 before a relay is learned; a 16-byte IPv6 literal
-accepted into an IPv4 netlink attribute).  4/6-6/6 harden the relay's
-tunnel table: key it on the (address, port) endpoint RFC 7450 defines,
-surface silently-dropped pre-Query reports, and stop allocating tunnel
-state for unauthenticated (spoofable) Requests, which closes a table-
-exhaustion / ICMP-reflector / session-desync primitive and moves the
-max_tunnels bound onto verified gateways.
+Reject both when no relay is learned: a 0 remote_ip must match nothing, so
+guard the check with !remote_ip.  Discovery is unaffected -- Relay
+Advertisements are validated against discovery_ip, not remote_ip.
 
-Each patch carries a Fixes: tag.  Verified W=1 clean and with a
-KASAN + lockdep + PROVE_RCU boot of the amt selftests, no splat, and
-of amt.sh with max_tunnels 1, which keeps the tunnel table full while
-the gateway keeps sending Requests.
+Fixes: b9022b53adad ("amt: add control plane of amt interface")
+Assisted-by: LLM
+Signed-off-by: Omar Ramadan <omar@blockcast.net>
+---
+ drivers/net/amt.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-v3:
-- Add 1/6-3/6, found in review of v2 and of the net-next IPv6
-  series [1]: the gc_wq re-arm use-after-free, and the IPv4 halves of
-  two input-validation bugs.  The IPv6 series will be rebased on this.
-- 4/6: do not count the invalid-MAC drop in rx_dropped; amt_rcv()
-  already counts it.
-- 5/6: commit message: the Query supplies the response MAC that the
-  Update echoes, not the nonce.
-- 6/6: keep three secrets so a response MAC outlives the advertised
-  QQIC; cap the tunnels one source can hold in the locked re-check (a
-  fixed limit, no new UAPI); when the table is full, answer a gateway
-  that holds no tunnel with ICMP and no Query, so it rediscovers; seed
-  the secret before the socket is created; refresh last_seen rather
-  than re-arming gc_wq (see 1/6).
-v2: https://lore.kernel.org/netdev/20261009201455.1904698-1-omar@blockcast.net/
-v1: https://lore.kernel.org/netdev/20261008003606.3666617-1-omar@blockcast.net/
+diff --git a/drivers/net/amt.c b/drivers/net/amt.c
+index b284fa7..c3716ba 100644
+--- a/drivers/net/amt.c
++++ b/drivers/net/amt.c
+@@ -2858,7 +2858,7 @@ static int amt_rcv(struct sock *sk, struct sk_buff *skb)
+ 			}
+ 			goto out;
+ 		case AMT_MSG_MULTICAST_DATA:
+-			if (saddr != remote_ip) {
++			if (!remote_ip || saddr != remote_ip) {
+ 				netdev_dbg(amt->dev, "Invalid Relay IP\n");
+ 				err = true;
+ 				goto drop;
+@@ -2869,7 +2869,7 @@ static int amt_rcv(struct sock *sk, struct sk_buff *skb)
+ 			else
+ 				goto out;
+ 		case AMT_MSG_MEMBERSHIP_QUERY:
+-			if (saddr != remote_ip) {
++			if (!remote_ip || saddr != remote_ip) {
+ 				netdev_dbg(amt->dev, "Invalid Relay IP\n");
+ 				err = true;
+ 				goto drop;
+-- 
+2.43.0
 
-[1] https://lore.kernel.org/netdev/20261009122426.551178-1-omar@blockcast.net/
-
-Omar Ramadan (6):
-  amt: fix use-after-free when a Membership Update re-arms a freed tunnel
-  amt: reject a gateway Query or Data from 0.0.0.0 before a relay is learned
-  amt: reject an IPv6 address passed in an IPv4 address attribute
-  amt: key relay tunnel state on the (address, port) endpoint, not the address
-  amt: make pre-query report drops visible
-  amt: do not create tunnel state for unauthenticated Requests
