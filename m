@@ -1,48 +1,80 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5769F48EC8D
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:59:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B28948EC8A
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:59:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791809997; cv=none; b=ZGx2im39fZnp2aHu1FJIgodKAF+vuJ9juCTE+mSfVcDL1mLBcTezePBtbi7ezOHB7kjSIGvPmJghRBwgR/72Tprj8N/W9TWuj1YpDMyQx/hApte1xyVsiWSR4avRfohwuJYKg0GyItDajqv+AQjcBUZzbYHZ9A6aiig9xZtDLFQ=
+	t=1791809997; cv=none; b=Ic4X4dnV9oEOQeNPKwzrLEEvpNhMTH6d0pmStlTOGTFfUxwlfoD0iZhZL3JGREr6rRBNH+iqqy5HM/CZbj/zkOVH5rN7O2HMWpsmZlSxeRp61kGXZKDVrynRStXK53HP7PbdE/Jz03s8OFZB5hzbPmXbcnxLWzQjYuM9aUzB9rY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791809997; c=relaxed/simple;
-	bh=oizA45bDDsJgO8SGT9GtZF3nmHazrlUFD3gKgUVNYFs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XbtIX7VDAuUOKlaxI7NkwUvWzyraaLn1XBl4Ufbn8UTfEe1lUhZsAE+sO/iyUeOPag4tpt4onhAHKFaHeZzYn8ZE8o81oqMA68vMkdB8A7+ijt7L8cpBsq2ciSU99+hUIiCla4d9N+2N4TvQ5F3i2WSnTlGkTDc1i+O0IJaNejA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=PKRcneeu; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	bh=+sguhb5W5A9ufBhXXrUOEbtvslc2+EnOPXa+UGtdZxI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SS2d+FVIJM0HBQARH5EbZ4dTM0grwgteNX9QX0FHLxoTV2vA3UKHMvq05WRhSZs+S+DdGQVMJqKSMomQvt46CBNTtECynTZb46ooJnuLS4dB4CPWql87LEwImKVv7YQfAoCfkTeAYdgCZJkVNHLepRM3+qwX7U2HdVL1SRbVEQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=FZ3novAk; arc=none smtp.client-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="PKRcneeu"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 875001655;
-	Mon, 12 Oct 2026 05:59:51 -0700 (PDT)
-Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com [10.42.46.160])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 92B4B3F66F;
-	Mon, 12 Oct 2026 05:59:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791809994; bh=oizA45bDDsJgO8SGT9GtZF3nmHazrlUFD3gKgUVNYFs=;
-	h=From:To:Cc:Subject:Date:From;
-	b=PKRcneeucpUeHmFVFwK7CF3Kiznv2yHVAUP2AUQyHZl9C4UYGD1GDhxqiYno/Rr9b
-	 nsWlpf/th667/Vs1S+lo6o//z3pJ7yKfTAF5tlNfvLrFLxyvpSv97TMI9z+v4OVlWa
-	 2XAecbTPcjA6biUC1ePLQ9gZiwkMGLF242QYMTes=
-From: Ketil Johnsen <ketil.johnsen@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Alice Ryhl <aliceryhl@google.com>
-Cc: dri-devel@lists.freedesktop.org,
+	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="FZ3novAk"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3514e7cbbbaso4758566eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:59:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=blockcast.net; s=google; t=1791809995; x=1792414795; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l/YD2PthIXuKbIegQAp4lU8CkrkTGnFWWU88rL4EQAU=;
+        b=FZ3novAkRp2UwGiAqhgkSijmBV7Q0P5D5/HUisApXZo8gfLfkbqzDnLFOdqw6iFCwW
+         qwt4tONpOzGOWJjn9fVl5AOHNcLoIqN+JgoTlMGlvjsCl+TaxT8/Yax8U4bjMmVd9h+T
+         NPZMVoMw9JsFqGH89UTWO8K5GfRoOczqQaCi/EtR+2llGepm+Zimh/EiY5WDm6XFDnFU
+         o/+BNBaiYVUjz7SEbc5/Av6xRKmxKdShrnz//2GXK1x3WaEJ1uS6FNwcC+OAIr1+C3eo
+         Aj38iZyIbo0/X5ZBt2MTsUFf66Ok/M8rA1TwJltTegP7pO7EcetxtcgGtw6qiNcy6IHs
+         wi8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791809995; x=1792414795;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l/YD2PthIXuKbIegQAp4lU8CkrkTGnFWWU88rL4EQAU=;
+        b=xjoBvX9ScxLZeY9SUiCAYhVOtE/qevXCZnB+cm9SGE/i/qM0d5bSG+2yaFRZl/zlSH
+         qgOK2ADLGzavB7TgLbzQJjtYjTuyGPzCjJrwYCpV0SSzoRTED07hpSqlNxxhWQQaJVc2
+         u5ff3d5h9COJyIIu2EjsHPkeUlBnFQ5ZHGkBY1DGwqUKNipY6ohscEpLrC8/enE6k7sV
+         foLUErPeu+28CN4KsCFx3kq8zEWiRS/I14DXvXZW3wHlAy1BDGUI9BRqVgeY6HxzCi5G
+         2mbt0v9kF8eHjnXV0+m/rR3ZPyi59Bn5Z1REFztIKkXYPPaxUw1Y9kU4czZlcKgwcTWi
+         1J4w==
+X-Forwarded-Encrypted: i=1; AKwUvBxUua+hZSnMl6v4Jfd8XIoZwKG75u87mALASZmiNTFRJZvh//r4NKSGKtk1KfoBSfDbzf8SGFoowdjx5TU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5LW5BhhEmzhIiASjet5OLZ1YxRqnaWRU0memdcpNmzCba4woY
+	E7u+J/pfpbltRAuOecZn9rSGchMa4uKyNlM1hYlI02gLIjSzrkShdc9leNSRyfmW0T4=
+X-Gm-Gg: AYBFou0UfE1SXJ+u+Dpfi5ro+gL+Fr0sON6QmeyWiW6+shOvxkO8BL2UVYsvU8I+jXr
+	5PGse+3e9FLbaCEKQQDEgDuvRkbqTj/CQdDk8xsbA4QZj+Av6U+RV4q8jp6/zzZA5aTIH/KsKLM
+	F/6UMe+42EmNRODuqFN2sdo0mxWQnbtLb21Kca2Nu/LiWj2lycc4PkXEfyPqcMk8cp2sDrk1zvy
+	N6oxqsNq2k1WrXDM1IHO6B05crd3PRKyW0Nj+J/vG/KvJlyJVw5xHstyLCkDHlbrJD85ajyBkK3
+	OblXv99Ly8oWYLh3Lg0tzCx+5bJGks++MRKOqaYj25n8JngDigTqmroUgKUZGawZwU3SBcmjzwE
+	kjBgOvsZN5cGykrwR3JDMjv9vubobCsEsvBdyAewq0u/ai6DIv41vceutqqTLRLyuafBliBO0MZ
+	icDhle2bOzSmmd4/aDuwMtJC5MXbqXKMOAJIKi1Iw7OtrYBJtUfQ0tc/nkTp8yCF/EpEm8IExzd
+	Nzf/enM37b8z7KwhXJ9lKa6aMlL4FqC5P0pSNyyU7Fk8jCYewuGzLBctldP6/m0pUEv4ECT7w==
+X-Received: by 2002:a05:7301:3f07:b0:358:8f02:e0ca with SMTP id 5a478bee46e88-3588f02e0f2mr12060523eec.9.1791809995129;
+        Mon, 12 Oct 2026 05:59:55 -0700 (PDT)
+Received: from devbox.ts.blockcast.net ([69.25.95.32])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb61asm35348067eec.21.2026.10.12.05.59.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 05:59:54 -0700 (PDT)
+From: Omar Ramadan <omar@blockcast.net>
+To: Taehee Yoo <ap420073@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ketil Johnsen <ketil.johnsen@arm.com>
-Subject: [PATCH v4 00/12] drm/panthor: Protected mode support for Mali CSF GPUs
-Date: Mon, 12 Oct 2026 14:59:28 +0200
-Message-ID: <20261012125940.3291951-1-ketil.johnsen@arm.com>
+	Simon Horman <horms@kernel.org>
+Subject: [PATCH net v3 4/6] amt: key relay tunnel state on the (address, port) endpoint, not the address
+Date: Mon, 12 Oct 2026 12:59:41 +0000
+Message-ID: <20261012125943.558629-5-omar@blockcast.net>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261012125943.558629-1-omar@blockcast.net>
+References: <20261012125943.558629-1-omar@blockcast.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,181 +83,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+amt_request_handler and amt_update_handler both look a tunnel up by the
+outer source address alone:
 
-This is a patch series covering the support for protected mode execution in
-Mali Panthor CSF kernel driver.
+	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list)
+		if (tunnel->ip4 == iph->saddr)
+			goto send;
 
-It builds on the initial RFC posted by Florent Tomasin back in January of 2025.
+RFC 7450 s4.2.2 defines the unit of relay tunnel state differently: "an
+AMT 'tunnel' is identified by the IP address and UDP port pair used as
+the destination address for sending encapsulated multicast IP datagrams
+to a gateway", and "each unique combination represents a unique tunnel
+endpoint".
 
-The initial RFC can be found here:
-https://lore.kernel.org/lkml/cover.1738228114.git.florent.tomasin@arm.com/
+Because the port term is missing, two distinct endpoints that share a
+source address alias onto one tunnel. The second Request to arrive
+reaches `send:`, overwrites tunnel->nonce and re-derives tunnel->mac, so
+the first gateway's subsequent Membership Updates no longer match and
+are dropped at the "Invalid MAC" arm. That arm returns rather than
+continuing the walk, so there is no recovery path: the first gateway has
+had its Request answered and its membership accepted, and simply never
+receives data again. The failure is silent on both sides.
 
-The Mali CSF GPUs come with the support for protected mode execution at the
-HW level. This feature requires two main changes in the kernel driver:
+Two deployments reach this, and the same RFC section names both:
 
-1) Configure the GPU with a protected buffer. The system must provide a DMA
-   heap from which the driver can get protected buffers.
-   It can be a carved-out memory or dynamically allocated protected memory region.
-   Some system includes a trusted FW which is in charge of the protected memory.
-   This problem is integration specific and the responsibility to allocate the
-   required protected memory from the correct and system specific DMA heap is
-   left to user space (Mesa). Panthor CSF driver must be handed the needed
-   buffers via new IOCTLs.
+ - NAT, which s4.2.2 calls out explicitly ("this address may differ from
+   that carried by the message when it exited the gateway as a result of
+   network address translation"). CGNAT, a single-WAN site with a
+   redundant gateway pair, or two subscriber devices behind one
+   residential NAT all present as one source address.
+ - A single gateway host, with no NAT anywhere, which s4.2.2 says "may
+   use separate ports for the IPv4/IGMP and IPv6/MLD protocols".
 
-2) Handle enter and exit of the GPU HW from normal to protected mode of execution.
-   FW sends a request for protected mode entry to the kernel driver.
-   The acknowledgment of that request is a scheduling decision. Effectively,
-   protected mode execution should not overrule normal mode of execution.
-   A fair distribution of execution time will guaranty the overall performance
-   of the device, including the UI (usually executing in normal mode),
-   will not regress when a protected mode job is submitted by an application.
+Add the port term to both lookups. amt_update_handler snapshots the
+source port before iptunnel_pull_header() strips the encap, alongside
+the existing pre-pull reads.
 
+With the endpoint keyed correctly, a gateway that re-Requests from a new
+ephemeral port no longer aliases onto its own previous tunnel: it gets a
+new one addressed to the port it is listening on, and the old one ages
+out on gc_wq. That is the same stale-Membership-Query symptom addressed
+by refreshing tunnel->source_port at `send:`, fixed at the cause instead
+-- so this change supersedes that approach rather than stacking on it.
 
-Background
-----------
+Note this removes an accidental bound: while tunnels were keyed on the
+address alone, one source address could never hold more than one tunnel,
+whatever it did. RFC 7450 s5.3.3 asks for that bound explicitly, and it
+is restored in a companion net-next patch ("amt: bound relay tunnels
+admitted per source address") rather than here, since it adds UAPI and
+this is a fix.
 
-Current Mali Panthor CSF driver does not allow a user space application to
-execute protected jobs on the GPU. This use case is quite common on end-user-device.
-A user may want to watch a video or render content that is under a "Digital Right
-Management" protection, or launch an application with user private data.
+Fixes: cbc21dc1cfe9 ("amt: add data plane of amt interface")
+Assisted-by: LLM
+Signed-off-by: Omar Ramadan <omar@blockcast.net>
+---
+ drivers/net/amt.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-1) User-space:
-
-   In order for an application to execute protected jobs on a Mali CSF GPU the
-   user space application must submit jobs to the GPU within a "protected regions"
-   (range of commands to execute in protected mode).
-
-   Find here an example of a command buffer that contains protected commands:
-
-```
-          <--- Normal mode ---><--- Protected mode ---><--- Normal mode --->
-   +-------------------------------------------------------------------------+
-   | ... | CMD_0 | ... | CMD_N | PROT_REGION | CMD_N+1 | ... | CMD_N+M | ... |
-   +-------------------------------------------------------------------------+
-```
-
-   The PROT_REGION command acts as a barrier to notify the HW of upcoming
-   protected jobs. It also defines the number of commands to execute in protected
-   mode.
-
-   The Mesa definition of the opcode can be found here:
-
-     https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/panfrost/lib/genxml/v10.xml?ref_type=heads#L763
-
-2) Kernel-space:
-
-   When loading the FW image, the Kernel driver must also load the data section
-   of CSF FW that comes from the protected memory, in order to allow FW to
-   execute in protected mode.
-
-   The FW uses the same protected memory buffer to execute protected jobs from
-   all processes on the system. Note: This buffer must be provided by a user
-   space process with CAP_SYS_MODULE though.
-
-   In addition, when a CSG (group) is created, it must have a protected suspend
-   buffer. User space must provide this buffer on group creation if it want to
-   execute protected jobs.
-
-   The required size of both these buffer types can be queried. See
-   query type DRM_PANTHOR_DEV_QUERY_PROTM_INFO.
-
-Design decisions
-----------------
-
-The earlier versions (RFC and v1) relied on in-kernel allocation of protected
-DMA-bufs, both for the required FW memory (system wide), and per group
-suspend buffers (per process). This is no longer needed.
-Starting with v2, this is now changed and it is user space which is responsible
-for supplying these buffers.
-Only a user space processes with elevated privileges (CAP_SYS_MODULE) is trusted
-to provide the system wide protected FW memory. This only needs to happen once
-per boot, and is needed before any non-privileged processes can make use of
-protected rendering.
-
-The Mali Panthor CSF kernel driver will handle enter/exit of protected
-mode with a fair consideration of the job scheduling.
-
-If the system integrator does not provide a protected DMA heap, the driver
-will not allow any protected mode execution.
-
-Testing
--------
-
-1) Platform and development environment
-
-   Any platform containing a Mali CSF type of GPU and a protected memory allocator
-   that is based on DMA Heap can be used. For example, it can be a physical platform
-   or a simulator such as Arm Total Compute FVPs platforms. Reference to the latter:
-
-     https://developer.arm.com/Tools%20and%20Software/Fixed%20Virtual%20Platforms/Total%20Compute%20FVPs
-
-2) Mesa:
-
-PanVK support can be found here:
-https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/40044
-
-
-Previous versions
------------------
-v3: https://lkml.org/lkml/2026/9/11/1187
-v2: https://lkml.org/lkml/2026/7/12/369
-v1: https://lkml.org/lkml/2026/5/5/1523
-
-
-Highlevel changes
------------------
-
-Changes in v4:
-- Main changes are to the "drm/panthor: Add support for entering and exiting protected mode" patch.
-  A new approach to avoid uneccesary protm premption by non-running VMs.
-  This patch do need some splitting before final version. Will do that if
-  this approach gets the general approval.
-- Split the old patch "drm/panthor: Expose protected rendering features" into
-  multiple smaller patches.
-- See each patch for detailed changes
-
-Changes in v3:
-- Dropped patch "drm/panthor: Explicit expansion of locked VM region"
-- See each patch for detailed changes
-
-Changes in v2:
-- Conceptually similar to v1, but heavily reworked to address fault handling
-- User space provides all protected memory buffers (no in-kernel dmabuf alloc)
-
-Boris Brezillon (7):
-  drm/panthor: Pass drm_file instead of panthor_file
-  drm/panthor: New function for FW section map flags
-  drm/panthor: Keep size and VA in FW section obj
-  drm/panthor: Refactor GEM usage flags assignment
-  drm/panthor: Create kernel BO from existing GEM
-  drm/panthor: Support FW init of protm
-  drm/panthor: Protm support for groups
-
-Florent Tomasin (2):
-  drm/panthor: Minor scheduler refactoring
-  drm/panthor: Add support for entering and exiting protected mode
-
-Ketil Johnsen (3):
-  drm/panthor: De-duplicate FW memory section sync
-  drm/panthor: Don't allocate protm_suspend_buf
-  drm/panthor: Bump version to expose protm feature
-
- drivers/gpu/drm/panthor/panthor_device.h |  11 +
- drivers/gpu/drm/panthor/panthor_drv.c    |  61 +-
- drivers/gpu/drm/panthor/panthor_fw.c     | 307 ++++++++--
- drivers/gpu/drm/panthor/panthor_fw.h     |   8 +
- drivers/gpu/drm/panthor/panthor_gem.c    | 107 ++--
- drivers/gpu/drm/panthor/panthor_gem.h    |   9 +-
- drivers/gpu/drm/panthor/panthor_gpu.c    |  49 +-
- drivers/gpu/drm/panthor/panthor_gpu.h    |   4 +
- drivers/gpu/drm/panthor/panthor_mmu.c    | 294 +++++++---
- drivers/gpu/drm/panthor/panthor_mmu.h    |  12 +-
- drivers/gpu/drm/panthor/panthor_sched.c  | 702 +++++++++++++++++++----
- drivers/gpu/drm/panthor/panthor_sched.h  |  28 +-
- include/uapi/drm/panthor_drm.h           |  85 ++-
- 13 files changed, 1356 insertions(+), 321 deletions(-)
-
+diff --git a/drivers/net/amt.c b/drivers/net/amt.c
+index 550b0a5..2feb418 100644
+--- a/drivers/net/amt.c
++++ b/drivers/net/amt.c
+@@ -2492,6 +2492,7 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
+ 	u64 response_mac;
+ 	__be32 saddr;
+ 	__be32 nonce;
++	__be16 sport;
+ 
+ 	saddr = ip_hdr(skb)->saddr;
+ 
+@@ -2505,6 +2506,8 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
+ 
+ 	nonce = amtmu->nonce;
+ 	response_mac = amtmu->response_mac;
++	/* Snapshot the tunnel endpoint port before the encap is stripped. */
++	sport = udp_hdr(skb)->source;
+ 
+ 	if (iptunnel_pull_header(skb, hdr_size, skb->protocol, false))
+ 		return true;
+@@ -2512,7 +2515,8 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
+ 	skb_reset_network_header(skb);
+ 
+ 	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list) {
+-		if (tunnel->ip4 == saddr) {
++		if (tunnel->ip4 == saddr &&
++		    tunnel->source_port == sport) {
+ 			if ((nonce == tunnel->nonce &&
+ 			     response_mac == tunnel->mac)) {
+ 				/* Refresh liveness only.  gc_wq is re-armed by
+@@ -2729,7 +2733,8 @@ static bool amt_request_handler(struct amt_dev *amt, struct sk_buff *skb)
+ 		return true;
+ 
+ 	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list)
+-		if (tunnel->ip4 == iph->saddr)
++		if (tunnel->ip4 == iph->saddr &&
++		    tunnel->source_port == udph->source)
+ 			goto send;
+ 
+ 	spin_lock_bh(&amt->lock);
+@@ -2768,6 +2773,12 @@ static bool amt_request_handler(struct amt_dev *amt, struct sk_buff *skb)
+ 	spin_unlock_bh(&amt->lock);
+ 
+ send:
++	/* source_port is part of the tunnel's identity and is set once, in
++	 * the allocation path above; the lookup only reaches here on an exact
++	 * (address, port) match, so it already equals udph->source.  Do not
++	 * "refresh" it here: doing so let a colliding Request from a new port
++	 * steal an established tunnel outright.
++	 */
+ 	tunnel->nonce = amtrh->nonce;
+ 	mac = siphash_3u32((__force u32)tunnel->ip4,
+ 			   (__force u32)tunnel->source_port,
 -- 
 2.43.0
 
