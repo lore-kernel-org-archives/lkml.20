@@ -1,190 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE5343B3C0
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:09:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7123440628;
+	Mon, 12 Oct 2026 07:10:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791788987; cv=none; b=Sp1bPflsmyNGV8vIhihfB+0bKqb3XiA92MJEqQ6Eoy+E71tgCnE6NbEDhbN51BUVBhxmFgkGqm9I4d57MRtYQZinnhCGjsePEDbgqAtEEaya8r2lhj/IBas2X8yt2bHB9yo/JuPM3dcsUb+pCxDqVBOiQ+X7ls5RBnNbm+RY7og=
+	t=1791789025; cv=none; b=Vhe7rBJn1oLk7V8hKcdv8mpfeKlmfnLoukC/7ty7xfNbJNw7/c8db5eaPeeGS1dj16ODyxIoAqvVImY/QGPz6uDJE3wai2/6IyWE8Z3+Q8DgM9VNAuDy+ZhMxP9DgdsjFHCR/uwTyBV2+4PxRpXs56n5SlUR8ah/Nbo8yj9LVWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791788987; c=relaxed/simple;
-	bh=ZK1PiyAElATAllrlPJJL1FflFfqMAwTRknwhS3TR0Wo=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=q/SO1y8sEnGtgeHp7uohf2QVhnFQgfKvafs/nDJ/hNqaWYDmA3Ex9iBfyQ/8ryflyIu4qX/WQZuiO1VYD0ohnV7RNf3vSOHQe3QBbfiJ7yLcF0x2fGtifxCVHLMz226hs0+4smOoidw//UwaFguGEOPkAmgrNfJzM39eWyNAUGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fVqnTNcO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791789025; c=relaxed/simple;
+	bh=omZ7B44BTjksikzdLiQUM1HIGTVrF5fygEDWLWHAffw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gm3CAjlG6Ic7Wg5SYhnOSJ0f/t1EcNMfhVGHMrPIyY4FZi9FslBWvWbFdKvHppsg+iwopAasOftMrnR0iocWLkI7JsIpC1+3iUx5VERXypfgTr5KAKCradYyFFRllZHDlyBJQ/Cq+G/KfJkWZpq5YbmoH8KVE1X71j3QarSPwr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJ4ZJ+9T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fVqnTNcO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 946DE1F0089B;
-	Mon, 12 Oct 2026 07:09:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJ4ZJ+9T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78FBD1F0089B;
+	Mon, 12 Oct 2026 07:10:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791788986;
-	bh=vc+vo3tyDqzu0eoQG/JEUgM2Kj8/FZF1XersPkE/WXE=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=fVqnTNcOp1/ajoMRkZ5iOpQq88dUh6+wM/qFcjTsLpzAYpGYU974UREaMZ/789dIL
-	 B3jjZqAP8jeMdSPb2VAjHAF5GmZTC+/Tfzo/vKS9d00kaESxdTt6rXBmet88puoF0c
-	 7HDckpFqad39fYFInFpzYNilwV/rm9goupo4JII7e2oZ5MOwsAdDD9wl1esxImSPXn
-	 1g4Q1EZFBtiOGvQ7ZOHH88LQJ/72s0qsoNIe2csakqKPU9A5GeqkyslrJ0jJB1qaYA
-	 PoWE13GBDhtDKDBMma/34+8bPvpPFJxQJARfu5TCMFApNsqpp7mpFM5tMpLcDvkx10
-	 cNHL8DLGf+5eA==
-Message-ID: <3be99fcf-86c1-44de-a354-0292646dd1b7@kernel.org>
-Date: Mon, 12 Oct 2026 15:09:38 +0800
+	s=k20260515; t=1791789024;
+	bh=EZWLh8ZtcEyLbgkyy8mpGa6zyzZlvRQ5iu92TZ5q1tw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iJ4ZJ+9T0IuPjoE/MMgLlFRx+Ik3f1GcSsNvLZr53mf1/+olSG6Re3/+WjjJ9rzkh
+	 HtgSeV2bXLWRaztBvFGpsm5q0kWbcpk6+NPOr75WbPC+Ywh0ymzLY3BwzItzvBPwdo
+	 TS1qOdLnuhU/Ph/bg9CcCuvlzUtV8gbFo7/C4B0yU6TuzMLgiX9AuG2tay2YDTc6+z
+	 Osyyq+sYyQPaxBUrkzRQp1vQaEeClmxFVASeh+EH2ePtYnNQac7pcjvdN7303bY69s
+	 id/eKXAa+WrueOfG2hSBBYTHTxeSlQK/gIXMvOko+zB5fFtPl8MOtkv/M+EtxZhIC9
+	 YeyCaIvlay32w==
+Date: Mon, 12 Oct 2026 10:10:20 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Pranjal Shrivastava <praan@google.com>, Chuck Lever <cel@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Matthew Wilcox <willy@infradead.org>
+Cc: linux-nfs@vger.kernel.org, Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+	linux-kernel@vger.kernel.org, Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, linux-pci@vger.kernel.org,
+	linux-rdma@vger.kernel.org, Shivaji Kant <shivajikant@google.com>,
+	Tom Talpey <tom@talpey.com>,
+	Unnati Sachan <unnatisachan@google.com>
+Subject: Re: [RFC PATCH v1 5/8] nfs: tag READ/WRITE RPCs carrying P2PDMA pages
+Message-ID: <20261012071020.GH27033@unreal>
+References: <20261006233248.705086-1-praan@google.com>
+ <20261006233248.705086-6-praan@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>,
- Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
- Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org,
- David Hildenbrand <David.Hildenbrand@arm.com>,
- Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
- Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>,
- Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [PATCH v3 10/17] f2fs: optimize small block size large folio read
-To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
- linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
-References: <20261009161224.4163796-1-zhaonanzhe@xiaomi.com>
- <20261009161224.4163796-11-zhaonanzhe@xiaomi.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261009161224.4163796-11-zhaonanzhe@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006233248.705086-6-praan@google.com>
 
-On 10/10/26 00:12, Nanzhe Zhao wrote:
-> The original f2fs_read_data_large_folio() implementation has limited
-> benefit with a 4KB block size, mainly because updating
-> read_pages_pending greatly increases the number of spinlock
-> operations.
+On Tue, Oct 06, 2026 at 11:32:45PM +0000, Pranjal Shrivastava wrote:
+> A transport must know when an RPC's payload pages are P2PDMA memory,
+> so it can move them by DMA or refuse the RPC.
 > 
-> Use len_blks to batch read_pages_pending and iostat updates for
-> contiguous mapped blocks.
+> Check each page as nfs_generic_pgio() builds the page array, and
+> record the result in nfs_pgio_args. The READ and WRITE encoders of
+> every NFS version then set XDRBUF_P2PDMA on the buffer holding the
+> payload.
 > 
-> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> Additionally, avoid using READ_PLUS when the pages are P2PDMA memory.
+> 
+> Signed-off-by: Pranjal Shrivastava <praan@google.com>
 > ---
->   fs/f2fs/data.c | 48 ++++++++++++++++++++++++++++++++----------------
->   1 file changed, 32 insertions(+), 16 deletions(-)
-> 
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index 171b6a38e5cc..6f6f5223951d 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -158,7 +158,7 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
->   			continue;
->   		}
->   
-> -		if (folio_test_large(folio)) {
-> +		if (f2fs_folio_has_ffs(folio)) {
->   			struct f2fs_folio_state *ffs =
->   				(struct f2fs_folio_state *)folio->private;
->   
-> @@ -3081,7 +3081,7 @@ static int f2fs_read_data_large_folio(struct inode *inode,
->   	pgoff_t index, offset, next_pgofs = 0;
->   	unsigned max_nr_pages = rac ? readahead_count(rac) :
->   				folio_nr_pages(folio);
-> -	unsigned nrpages;
-> +	unsigned nrpages, len_blks;
->   	struct f2fs_folio_state *ffs;
->   	int ret = 0;
->   	bool folio_in_bio = false;
-> @@ -3105,11 +3105,16 @@ static int f2fs_read_data_large_folio(struct inode *inode,
->   	folio_in_bio = false;
->   	index = folio->index;
->   	offset = 0;
-> -	ffs = NULL;
->   	nrpages = folio_nr_pages(folio);
->   
-> -	for (; nrpages; nrpages--, max_nr_pages--, index++, offset++) {
-> +	for (; nrpages;
-> +	     nrpages -= len_blks, max_nr_pages -= len_blks,
-> +	     index += len_blks, offset += len_blks) {
->   		sector_t block_nr;
-> +		unsigned int i;
-> +
-> +		len_blks = 1;
-> +
->   		/*
->   		 * Map blocks using the previous result first.
->   		 */
-> @@ -3138,13 +3143,23 @@ static int f2fs_read_data_large_folio(struct inode *inode,
->   got_it:
->   		if ((map.m_flags & F2FS_MAP_MAPPED)) {
->   			block_nr = map.m_pblk + index - map.m_lblk;
-> -			if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode), block_nr,
-> +
-> +			len_blks = min_t(unsigned int, nrpages, max_nr_pages);
-> +			len_blks = min_t(unsigned int, len_blks,
-> +					(unsigned int)(map.m_lblk + map.m_len - index));
-> +
-> +			for (i = 0; i < len_blks; i++) {
-> +				if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode),
-> +						block_nr + i,
->   						DATA_GENERIC_ENHANCE_READ)) {
-> -				ret = -EFSCORRUPTED;
-> -				goto err_out;
-> +					ret = -EFSCORRUPTED;
-> +					goto err_out;
-> +				}
->   			}
-> +
->   		} else {
->   			size_t page_offset = offset << PAGE_SHIFT;
-> +
->   			folio_zero_range(folio, page_offset, PAGE_SIZE);
->   			if (vi && !fsverity_verify_blocks(vi, folio, PAGE_SIZE, page_offset)) {
->   				ret = -EIO;
-> @@ -3154,7 +3169,7 @@ static int f2fs_read_data_large_folio(struct inode *inode,
->   		}
->   
->   		/* We must increment read_pages_pending before possible BIOs submitting
-> -		 * to prevent from premature folio_end_read() call on folio
-> +		 * to prevent from premature folio_end_read() call on folio.
+>  fs/nfs/nfs2xdr.c        | 4 ++++
+>  fs/nfs/nfs3xdr.c        | 4 ++++
+>  fs/nfs/nfs4proc.c       | 3 +++
+>  fs/nfs/nfs4xdr.c        | 4 ++++
+>  fs/nfs/pagelist.c       | 2 ++
+>  include/linux/nfs_xdr.h | 1 +
+>  6 files changed, 18 insertions(+)
 
-It's not worth to change this line only by adding a "."
+<...>
 
->   		 */
->   		if (folio_test_large(folio)) {
->   			ffs = f2fs_ffs_find_or_alloc(folio);
-> @@ -3164,9 +3179,7 @@ static int f2fs_read_data_large_folio(struct inode *inode,
->   			}
->   
->   			/* set the bitmap to wait */
-> -			spin_lock_irq(&ffs->state_lock);
-> -			ffs->read_pages_pending++;
-> -			spin_unlock_irq(&ffs->state_lock);
-> +			f2fs_update_read_folio_pending(folio, len_blks);
->   		}
->   
->   		/*
-> @@ -3190,17 +3203,20 @@ static int f2fs_read_data_large_folio(struct inode *inode,
->   		 * If the page is under writeback, we need to wait for
->   		 * its completion to see the correct decrypted data.
->   		 */
-> -		f2fs_wait_on_block_writeback(inode, block_nr);
-> +		for (i = 0; i < len_blks; i++)
-> +			f2fs_wait_on_block_writeback(inode, block_nr + i);
+> +++ b/fs/nfs/pagelist.c
+> @@ -970,6 +970,8 @@ int nfs_generic_pgio(struct nfs_pageio_descriptor *desc,
+>  				if (pageused > pagecount)
+>  					goto full;
+>  				*pages++ = last_page = page;
+> +				if (is_pci_p2pdma_page(page))
+> +					hdr->args.p2pdma = true;
 
-f2fs_wait_on_block_writeback_range()
+Should we allow wider use of is_pci_p2pdma_page()? Does NFS require
+`struct page`?
 
->   
-> -		if (!bio_add_folio(bio, folio, F2FS_BLKSIZE(F2FS_I_SB(inode)),
-> +		if (!bio_add_folio(bio, folio,
-> +				len_blks * F2FS_BLKSIZE(F2FS_I_SB(inode)),
->   				offset << PAGE_SHIFT))
->   			goto submit_and_realloc;
->   
->   		folio_in_bio = true;
-> -		inc_cache_count(F2FS_I_SB(inode), F2FS_RD_DATA);
-> +		for (i = 0; i < len_blks; i++)
-> +			inc_cache_count(F2FS_I_SB(inode), F2FS_RD_DATA);
->   		f2fs_update_iostat(F2FS_I_SB(inode), NULL, FS_DATA_READ_IO,
-> -				F2FS_BLKSIZE(F2FS_I_SB(inode)));
-> -		last_block_in_bio = block_nr;
-> +				len_blks * F2FS_BLKSIZE(F2FS_I_SB(inode)));
-> +		last_block_in_bio = block_nr + len_blks - 1;
->   	}
->   	trace_f2fs_read_folio(folio, DATA);
->   err_out:
-
+Thanks
