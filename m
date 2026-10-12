@@ -1,34 +1,33 @@
-Received: from mta0.migadu.com (out-164.mta0.migadu.com [91.218.175.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E95A4190473
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:06:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B182BF3F3
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:06:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791774373; cv=none; b=D6dYVpfxfzvoDLT15BQ41ve/Z61n3GTuLs8aPHnsKuAY+taNSDfrWYufrPVPDMOiHXqypETU6bfE4ZSuVCjfBVDS0V3UbZMWZRqS+wCLtNNPvICpCD5suXLIA4IGR5h7Y4TE9qzAavnQsGgoU4iCNDfSr1elJrJAHereSIV9nSE=
+	t=1791774395; cv=none; b=LyUFtAb9rWrS42iY1GnP7HcQ4m8AJlfIBo9js1Zvr8lxcOcPwpKRsm00IkUHTjqrthNy0rWfkJYYMNAVifHgaGsvJfgkYvcsyyqTTVpst8Sr7atsMl4mAolg7b10YQNOTzqV/wFSL7VFqR6vkfozpLsjtdUeUIjqzPdPSbXbye0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791774373; c=relaxed/simple;
-	bh=ZqahB6iGbcSAawApacCpm+EpH54wUNgYNo/E9F0GBaU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UM7kc40jVr4434jTX7Ov++vWfAhNdDobtawGdnCUC/tKTMPsBs8Mu9fwhk6Ae4liG8xj8zwDnW19yj6rwL0den0iwqC0jusghlrjF4o5Ge5aMegQW/kdFBABLdA3i+a5K75oZPzvjk7RUkiIJ0oBgkDDX0FBmC86kWoex4vv9gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=A1fBpdhy; arc=none smtp.client-ip=91.218.175.164
+	s=arc-20240116; t=1791774395; c=relaxed/simple;
+	bh=lWRJAzCXfzatvkdgJjzxDixw8EVDzMh3HkSFHxYJ5Go=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=uQby5v5/Ys/fr/4AEKHGxhLJfQHsNJtO5S3sXnEYTLCycj9WUX1N0aQnJVXVndw89cZuVPbswreKYt5Fuod3fh/cINv+NwEIxsocu9Xpdj92hsdDefuZvZJYCzpys+MtfYgpWihZlidMOa5cCZ4rKQeKSzhJsi9nsL3Am9juF4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fkHjlQ+W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="A1fBpdhy"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZqahB6iGbcSAawApacCpm+EpH54wUNgYNo/E9F0GBaU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791774366; v=1; x=1792379166;
- b=A1fBpdhyodD5ZOjJG0Uc3TeSP+ncgokW2bZygbQZvM4i5frfBal7a6NTZMA4pYmcTAmR7B6G
- PWp439SvcjpUTGWYZcz1WvgTCDJkljX2R8eFfDpwjmZpew07YkLm+NffGO01RQbYxwkI6V/HLC+
- c+v1HBKPjCEpmBk3iVyg9a5Y=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 5dbb87babb859b87;
-	Mon, 12 Oct 2026 03:06:06 +0000
-X-Mizu-Trace-ID: 5dbb87babb859b87
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4f0e115f-0826-4139-a6a2-30e4520f33bc@linux.dev>
-Date: Mon, 12 Oct 2026 11:06:01 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fkHjlQ+W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B2C51F0089B;
+	Mon, 12 Oct 2026 03:06:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791774393;
+	bh=n9ZRVZAhPl0REZUvWy9Yao07ThdaPGKA/SPLB+UrlLQ=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=fkHjlQ+WdOiIsPLnMTSxK89S6+KXM2Kfu37oDdOHwd+qyvL7oUiULjfq+avuvWwdH
+	 Aw67iK23Duv9PQpG27FaE2/oZqRkiUlfkx/mkxZUp2PFHTklEWddSg61fQNNCT1BPk
+	 c+TnUAuKDGPN1UyRqCRKeZT6nTqm7SZrCblkhZX40ES63GkQltMUAnvEMHXFJRV7Ch
+	 sWtjjYJcS4mtoAZBkEWXBXOwBvPqYDYrQmFdBvmL/pCJVw3SIWp0SU8hvradm7hOpK
+	 hfTb+gFNnYFv9ocg3ld0b0VWjm81ehOR9TMZNQZ1VS17eFGVBPq4XLcvwvrfteZHme
+	 00+mj+Wiq596A==
+Message-ID: <e12debf8-87d0-4c17-8973-98e950c2047f@kernel.org>
+Date: Mon, 12 Oct 2026 11:06:27 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,43 +35,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] memblock: Remove unused exact nid allocation API
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Muchun Song <muchun.song@linux.dev>,
- Priyanshu Kumar <priyanshukumarpu@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Muchun Song <muchun.song@linux.dev>
-References: <20260919135327.74089-1-kaitao.cheng@linux.dev>
- <179023613121.508753.1739135911194499722.b4-review@b4>
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-In-Reply-To: <179023613121.508753.1739135911194499722.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>,
+ Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
+ Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org,
+ David Hildenbrand <David.Hildenbrand@arm.com>,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>,
+ Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [PATCH v3 04/17] f2fs: support atomic file large folios buffered
+ write
+To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+ linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20261009161224.4163796-1-zhaonanzhe@xiaomi.com>
+ <20261009161224.4163796-5-zhaonanzhe@xiaomi.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261009161224.4163796-5-zhaonanzhe@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 10/10/26 00:12, Nanzhe Zhao wrote:
+> +	/* If index is beyond the end of file, reserve a new block in COW inode */
+> +	if ((index << PAGE_SHIFT) >= i_size_read(inode))
 
+Can you please check all "xxx << PAGE_SHIFT" statements in patchset to see if there
+is overflow issue?
 
-在 2026/9/24 15:48, Mike Rapoport 写道:
-> Hi,
-> 
->> Commit ffe55393137c ("mm/sparse: remove sparse buffer pre-allocation
->> mechanism") removed the only memmap_alloc() caller that requested an
->> allocation from an exact NUMA node. All remaining callers allow fallback
->> to other nodes, leaving the exact_nid argument unused.
-> 
-> Overall this looks good to me. There's is an issue though that mentioning 
-> commit in mm-unstable in the changelog does not really work because the
-> commit sha may change.
+> +	if (f2fs_folio_may_unlock_balance_fs(folio, mapping, need_balance)) {
+>   		folio_unlock(folio);
+> -		f2fs_balance_fs(sbi, true);
+> -		folio_lock(folio);
+> -		if (folio->mapping != mapping) {
+> -			/* The folio got truncated from under us */
+> -			folio_unlock(folio);
+> -			folio_put(folio);
+> -			goto repeat;
+> -		}
+> +		folio_put(folio);
 
-Commit ffe55393137c was already merged into Linus's tree on June 19,
-via a552c81ff4a1, so its SHA is stable.
+Then we can call f2fs_folio_put(, true) to clean up the codes?
 
-> Andrew, how do you suggest to deal with it?
-> 
+>   	if (folio_test_large(folio)) {
+> -		err = prepare_large_folio_write_begin(inode,
+> +		if (f2fs_is_atomic_file(inode))
+> +			err = prepare_large_folio_atomic_write_begin(inode,
+> +					mapping, folio, pos, len);
+> +		else
+> +			err = prepare_large_folio_write_begin(inode,
+>   					folio, pos, blen);
 
--- 
-Thanks
-Kaitao Cheng
+Same question as it in 03/17, can we relocate?
 
+Thanks,
