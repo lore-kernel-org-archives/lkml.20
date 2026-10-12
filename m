@@ -1,252 +1,152 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 845113D5640
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:10:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791799874; cv=none; b=ruD656kOqgaQ0VuJWzNVEDCu9+d2/EK8c9FQrJfjaH7+vpRUx2jbFQ+A0svABBYXwEurLs9TejAAjzKctsUqzWinLjtqGkN5H9IfL1OZ4fZI/doxSHuVvbtzk4XSojMEmkN7eawDKA/ccG2ehhhmd4DfCLUfmlfhV7NlYOQ3K7E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791799874; c=relaxed/simple;
-	bh=4s/xDJjI5Yi3Iie/JSApNyADbuBLred0RCuvDLjnYQ0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JhDgA8WUHvKT05j67m2VrTI7keQ0XMWmg4W90TQRx4PDR0/mKtpFprDFmIoyRPaAUD6/DoZv6jhjZ9YAd2NTzFV9zgYM5vBtOnLqMWPle5rhsAz+yoNMfnS+1WTI185LDub6NInRJ8qSVP2AXkVHRZl5ayM4+shTHPd0p+2rajY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DvXiZiA7; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72053955CD
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791799889; cv=pass; b=RpylNK1PBxBg40+TFFYThNAiMG1LJWXc74eVblWCzJyqDLoQ0kI1OocUokfHoBirss1b+v1ZPiRuGXDLaZpQvCmljoZM1xgtCNV4SyERtmqY+zYjjd8KfzTM9lMM8frJxWkUZr0voCiVHMIkIi45U3VyE0/9qek+bbUSYxu11i8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791799889; c=relaxed/simple;
+	bh=hD0XUYpmFbkzwLbEs6hxZkv+4L8VPUED/C4DSZiJEJg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=heX6/o9rhYYGJm6cpcaYGtV/2wbJHLU8qRo9prkpHkUWP1qS4niBiv3OaFKOXESw2HNGIpdtGpIonKxgwM/j6MyaOk8ZGMGPGWMb1VEhQUNOvr6QMGnVAYi1iL/V9UxzbyYwLR8JRmtkhHg7oes/3QoWjZPdOk5XqHtTku632I0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YXHNMIba; arc=pass smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DvXiZiA7"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7BEAC1655;
-	Mon, 12 Oct 2026 03:10:53 -0700 (PDT)
-Received: from [10.164.19.62] (unknown [10.164.19.62])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 463C73F66F;
-	Mon, 12 Oct 2026 03:10:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791799856; bh=4s/xDJjI5Yi3Iie/JSApNyADbuBLred0RCuvDLjnYQ0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=DvXiZiA7IANGTjiIi3p929DkASucYMvkwq4IfgM2nN09ccEJXPslThneXVPDOLdo+
-	 Fvky6tsgCxSGCOyHjUj+OX8BvZsv7PcLNfYpogG+I1XrsoWl7HgnS18Vet/UhguEU/
-	 2AGsP8zLuClFigtTBv3WG4aRyLDjfzKeXUKaLwTw=
-Message-ID: <89700b93-e646-4263-bca3-a2df7636f6bc@arm.com>
-Date: Mon, 12 Oct 2026 15:40:49 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YXHNMIba"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c2dcbcc546fso196912266b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:11:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791799882; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cD/5KDogns1hsFxNrvi/BxPBLHdJshFPWcTNa+aqC+Fwd4zSWEqRGsLTL8JSYBX34F
+         oqDZxO2R94EHvNRbNf2Y0xCct3C8VA0Rv66j+UCqa8Z1YyM1Gt/ohekDwkShELanbPyV
+         Am6tYDooUQPVuK3/T7pyUG9Lpu9fs+qoDQtUXFNPBhckDXhBtGqAlWv5203XxQVQTFip
+         hLhn2/om8l/sYkAsq/A4d6UQoxoxeJErUT1W3AF0RKIV0zbsv5gRekMy2uyM40e4drSt
+         fJujbBWmssbe1V59IE2XSI14JMhBHpzfBAnZPTdGk1Kf/hdCORWqCQ7vIFRHuqe1JNbH
+         1Cnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IH/H5Rnu3KGQfAu4tL3ijSF/1VrM6iJeJ912BB/EjuA=;
+        fh=iRz4TJevlViATilkOrkeYtLRuc1s86xVlkJtcXEe60g=;
+        b=b41VWko9L6Xbc6V/pj4ffXyyC7unrP4713s8n87nl6VtLOZSVxAaany72z07UZvb/m
+         GalqQb8K7s2q+xiYsmQwsq9zjcAViPc+zNDr2vG7NBUuX+bjRiHmy8l4bjwsN7fdidva
+         4h0G+TnTYZzvpDGrcOXJm/1nV8GeWvzE2ZFuwZEmGXpxRF7K9ghy7GPUn8j7TDEd6EBO
+         M2f0+wcrdpwl1J1dB7ob/a30BFRnZQ7jWCKtr+DepeT8qODInB0TCY89fXAwzJFW/+lc
+         YHzaDUu9/QCXZOCyPRw8f+fiQHp7ip9KmnycztMwDvROgbJDhRoGBBF3qq1FcQVgVCzJ
+         zNaQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791799882; x=1792404682; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IH/H5Rnu3KGQfAu4tL3ijSF/1VrM6iJeJ912BB/EjuA=;
+        b=YXHNMIbatKmqpRMhla9Q+v0No9Rhy8kGGt0tEgaKy+WczfjkqJKIMm6DJCd3jHSUlg
+         wvp+FNfxoMkqFcfYnvHfQ0iRMId2i9p44nbcelwD2oCY0099ZBa91/Cb+vw8uiaeGmZI
+         DUTog/2mRqc3sX7IOC4UkKP+W1EEf4Ls7ehW3sQaE8EOrCrt0v03in4aQLgJM/QHSszV
+         QanATi4GA0fGmgMAYCCdE46D27HdiZAwU/5Enr4bSouUigzl1XdpYdCmIURcQ0YYykKt
+         YEFpsZ5UzejtnI8/NFR+a2Oy0c0qAJR2EL/978Ne1lcqanA02AR0qzmShsloes9sxefU
+         p1QA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791799882; x=1792404682;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IH/H5Rnu3KGQfAu4tL3ijSF/1VrM6iJeJ912BB/EjuA=;
+        b=aCvK/7HiRjhtk6TW0uA/aYnccTIjvnKZmwQzvOsyCjWqNDNwNV6m3JF0gwJ03+GIjP
+         lJ+7x6edznPIGiKe8qdBSDyHL7zolWjPu/TGR9kWVrrpTrhcLwY9lVd5Plgot8xXC/hb
+         XoBflTI+7qh7Zt7HmQib84JgYxOhdAk09j6GjSynsir5e5hodjoaeMLqo+Bge8ZkY9Ma
+         AVXrKrqMyixveiQrs/9u1t/GLk9SlPdctMgYzMX4gQyT+BD+SnJQhnY6eo0HUEiex03v
+         OPlhomyi/712DcO+f0Nowhf9oNo4RmrsrfCoVEOeHMomnea92+2r+GjgOuwO26huYUbx
+         SM9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzL/uyHymof/DU/owjPU6QorIeU6KZNmH50/o5oVla416Jl7xgYalVRg+GNAOnvGOVCnO71HaMfJV2GFW4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+NPnNA1RAcTTKoclsZcUnMPsufjCAp5RLQO+pfiU5pJCjT9Wg
+	RDxbMUnGyl+vwRTJmP7pYFpPKkhCTjclByk6tMVx59+St0Z9bp7proZWd53Nt+7PSqiRukxWPuh
+	Ke5Frn04lEBBRb5bA7CihdiQneqcl3ls=
+X-Gm-Gg: AYBFou3clq5Y9C89cPTaHKPKR6gk5OBQfxxuNT/Gvtz4kPJfDkub3VLo7W3cPQN133n
+	E3IMcfzEWNYvKDPFm1nkosdLM+ydIiGd7qQbKcXwlEaOcF6VVbq3+NXjdTTfoSl0qvwfcBXLJvS
+	PirRbv1nPLyMXWJ2JmwhJOiaAzR3hVsk9L/RqP2bLbGIFgToazQNy6aQaG1KFbVx+5RPgPlEVtw
+	hPpPeDjZxjwvzu86I+iRwh7fG7uYJGkOJ6MXPo6AQW9o+80yUinWzpVR091MwFKoFIvoMRXsb2p
+	sEOqDchFyhf4ACfoOlHLzMYeedr5kI1Bsz5zO1LdklV9uIVo+TsW34gz
+X-Received: by 2002:a17:907:9625:b0:c2e:4c59:a3ab with SMTP id
+ a640c23a62f3a-c31aa0d3c1emr865310166b.48.1791799881902; Mon, 12 Oct 2026
+ 03:11:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC NO CODE] [DISCUSSION] Anti-fragmenting ordered buddy
- allocator
-To: Zi Yan <ziy@nvidia.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, ryan.roberts@arm.com, riel@surriel.com,
- akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, kasong@tencent.com, qi.zheng@linux.dev,
- shakeel.butt@linux.dev, hannes@cmpxchg.org, brendan.jackman@linux.dev
-References: <20261011215412.1181172-1-dev.jain@arm.com>
- <DM2DV199T6N4.19MU82DJBDOF9@nvidia.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <DM2DV199T6N4.19MU82DJBDOF9@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261012060847.836027-1-zhugl3@xiaopeng.com> <20261012095538.938789-1-zhugl3@xiaopeng.com>
+In-Reply-To: <20261012095538.938789-1-zhugl3@xiaopeng.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Mon, 12 Oct 2026 12:11:10 +0200
+X-Gm-Features: AclHuK-zcdTy-mDP_rHpw_c-n4lrMxyUGTOyZXWU629AVGJdU872TFQ1QoVGClc
+Message-ID: <CAOQ4uxgLZWGFhSHfHWiGFau7ZOXmNWsd8M5iVTOf+4_hO2KgGA@mail.gmail.com>
+Subject: Re: [PATCH v2] ovl: reject lowerdir ending with unescaped backslash
+To: Guanglei Zhu <zhugl3@xiaopeng.com>, Christian Brauner <brauner@kernel.org>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, linux-unionfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, liuwb@xiaopeng.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Oct 12, 2026 at 11:55=E2=80=AFAM Guanglei Zhu <zhugl3@xiaopeng.com>=
+ wrote:
+>
+> In ovl_parse_param_split_lowerdirs() a backslash consumes the
+> character that follows it.  When the backslash is the last character
+> of the lowerdir value, it consumes the NUL terminator: the loop exits
+> normally and the backslash is kept in the output, so the lowerdir is
+> passed downstream with a trailing backslash and the mount fails later
+> with a confusing ENOENT from path lookup.
+>
+> A trailing unescaped backslash escapes nothing, so reject it with
+> EINVAL.
+>
+> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+> ---
+> v2: fix the commit message.  v1 wrongly claimed that the loop
+> scans heap memory past the allocation; there is no out-of-bounds
+> access, the backslash merely consumes the NUL terminator.  Thanks
+> to Amir Goldstein and Sashiko for catching this.
+>
+> Verified with an ASAN build of a user-space replica of the loop:
+> no out-of-bounds access, the output retains the trailing backslash.
+> With this patch fsconfig(lowerdir=3D"...\") returns -EINVAL instead
+> of -ENOENT.
+>
+>  fs/overlayfs/params.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/fs/overlayfs/params.c b/fs/overlayfs/params.c
+> index c93fcaa45..5a15e5478 100644
+> --- a/fs/overlayfs/params.c
+> +++ b/fs/overlayfs/params.c
+> @@ -216,6 +216,9 @@ static ssize_t ovl_parse_param_split_lowerdirs(char *=
+str)
+>                 if (*s =3D=3D '\\') {
+>                         /* keep esc chars in split lowerdir */
+>                         *d++ =3D *s++;
+> +                       /* A trailing backslash escapes nothing. */
+> +                       if (!*s)
+> +                               return -EINVAL;
+>                 } else if (*s =3D=3D ':') {
+>                         bool next_colon =3D (*(s + 1) =3D=3D ':');
+>
+> --
+> 2.43.0
+>
 
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 
-On 12/10/26 4:34 am, Zi Yan wrote:
-> On Sun Oct 11, 2026 at 5:54 PM EDT, Dev Jain wrote:
->> (I am not posting code yet since it is in experimental stage.)
-> 
-> Thank you for posting the idea.
+Christian,
 
-Thanks for replying Zi.
+Could you pick this up via vfs.fixes?
 
-
->>
->> TL;DR
->> -------
->>
->> I am proposing "ordered/bucketed buddy allocator": we divide the buddy
->> freelists into buckets, and prefer lower buckets for allocation.
->> This reduces external fragmentation (and, further reduces it when we
->> reverse the ordering for unmovable and reclaimable allocations) at the
->> cost of regressing the alloc and free paths, which depends on how many
->> buckets you partition into. I think we can partition into 4 buckets and
->> do some tricks to remove any regression.
->>
->> Design 1 is the simplest and the most upstream-friendly method in terms of
->> allocator speed. Design 2 tries to scale better with the number of buckets.
->>
->> INTRODUCTION
->> -------------
->>
->> Apart from dividing the freelists between migratetypes, little attempt
->> has been made to change the algorithm of the buddy itself to reduce
->> external fragmentation proactively (termed as "anti-fragmentation" in
->> academia). Linux has defragmentation (compaction). The analysis below
-> 
-> Like Rik suggested, it is better to focus on one thing at a time. I
-> think improving anti-fragmentation at pageblock level is high priority
-> at the moment.
-
-The premise I started with was to improve chance of mTHP allocations; I would
-like to point out the benefit of ordering.
-
-I was first looking at the problem from the perspective of finding already
-populated blocks to allocate, within the same migratetype (an implication
-of trying to do that was, reverse the order for non-movable, which is not
-the premise I started with).
-
-If we bias allocations towards the left, we give more chance for pages at
-the right to get freed and make contiguous free blocks. So maintaining an
-ordering is a good approximation for biasing w.r.t fragmentation score.
-This delays compaction triggers, and even if compaction is triggered it may
-exploit some sort of ordering - it knows that sparse blocks are to the right
-with good probability.
-
-Essentially we are trying to do a bucket-sort here.
-
-Think of the allocation stream as a *probability distribution* -
-I am trying to skew that to one direction.
-
-
-> 
->> is *not* to claim that compaction does a bad job; I just took up the
->> challenge of anti-fragmentation (because I like to torture myself) and
->> kept digging the rabbit hole.
->>
->> There have been academic papers about replacing the buddy with bitmaps -
->> I did not want a hard NAK from upstream at any attempt to do that, so
->> I preserved the buddy freelists.
->>
->> IDEA
->> ----
->>
->> There is a correlation between allocating from one side of memory, and
->> reducing external fragmentation. Biasing on one side implies the
->> probability we fragment already fragmented sections is high. This may also
->> enable smarter compaction by directing the free-page scanner toward
->> higher-address regions. This also circumvents the discussion around
->> a "fragmentation score" which is dependent on the size of the
->> block we are considering.
->>
->> The idea itself quite obviously improves clustering of allocations: I
->> observe reductions in 'compact_stall' and 'anon_fault_fallback', and some
->> large improvements when the number of buckets is high (like, compact_stall
->> going down from 4000 to 5 with almost no hit in execution time for a kernel
->> compilation). The obvious downside being slowing down the allocator (which
->> needs to be tested more widely). The content below is mainly on how
->> to minimize that.
-> 
-> I am not sure how your bucket idea is better than the existing pageblock
-> design, because the biggest issue in anti-fragmentation is unmovable
-> pages spreading across the entire physical memory space to prevent high
-> order page allocation and I do not see how your idea could contaminate
-> unmovable pages.
-
-To make it clearer, I have observed improvement even without clustering
-movable and non-movable to opposite ends, and simply clustering *all* allocations
-to the left.
-
-Note that all of the pageblock claim/steal algorithm of the buddy
-remains the same - an unmovable allocation will still try to take the
-largest order block free in movable buddy lists and try to claim it
-instead of stealing, so the existing algorithm works. So we first
-cluster by migratetype, then cluster by pfn bucket.
-
-
-
-
-> 
-> Unmovable pages can sometimes take majority of the memory of a system,
-> leaving the entire memory space fragmented, for example a burst of
-> dentry allocation. Roman wrote a small userspace app to do this [1], and
-> you can give it a try. Afterwards, some of these unmovable pages might
-> be freed after their use, but there is no guarantee that the freed
-> unmovable pages can create contiguous free pages. Unless we do unmovable
-> page lifetime prediction and group unmovable pages with similar lifetime
-> like Yu Zhao proposed[2].
-
-Thanks for mentioning [1] and [2].
-
-You are right regarding [2]: I had also concluded that the most correct
-way of looking at external fragmentation is lifetime prediction. I had
-written a reply to Johannes' PCPbuddy patchset (my intuition says it
-will also improve on fragmentation):
-
-So basically we need to give contiguous pages to an "allocator context". The
-allocator context examples are a file filling its pagecache, a slab filling
-slab pages, a VMA faulting in memory, etc.
-
-Currently a file does readahead to ask for contiguous memory which is good,
-but it would have been great if we could reserve a pageblock worth of memory
-and keep fragmenting it for the same file, tying allocations together.
-
-Perhaps we can think for the file case specifically since pagecache has
-been observed as a huge bottleneck for fragmentation: after reclaim,
-the pages freed are scattered. And, they may immediately be taken again
-by pagecache allocations.
-
-(One way is, at least for filesystems not supporting large folios, we
-can still do high-order (non-compound) allocations, the order
-dictated by the write()/read() syscall, or the readahead ra->order.)
-
-Then, the next programmatic approximation (losing accuracy) of
-the "allocator context" is a task_struct. A task_struct reserves
-a pageblock and allocates from it.
-
-If you think about it, there is a correlation between allocator-context
-and task_struct, since at a time the task is doing similar things in
-a time frame, be it userspace allocation or even kernel allocations
-triggered from userspace.
-
-Then the next and more natural approximation (losing more accuracy)
-is of a cpu. The cpu reserves a pageblock, and we hope that the
-cpu is continuously used by the same allocator context for enough
-time before migration.
-
-
-> 
-> IMHO, pageblock is already acting like bucket, limiting allocation
-> range. I see each pageblock a small bucket for allocations and it is
-> better than growing allocation from one end to the other end, because
-> the latter means unmovable allocation can keep pushing the boundary and
-> the boundary might be able to move back if there is a long live
-> unmovable page sitting at the boundary.
-
-I think what you are trying to say is that a long-term unmovable allocation
-at the boundary will pin the boundary. But that is fine. That boundary is
-not a hard limit (I am not claiming a bucket for a certain type of allocation),
-the point of bucketing is to skew the probability distribution
-(allocation distribution) to one side.
-
-Codewise, the loop looks like
-
-migratetype = gfp_migratetype(gfp);
-choose zone->free_area[migratetype]
-
-In that, choose the least bucket:
-zone->free_area[migratetype][bucket]
-
-Which has list_head[NR_PAGE_ORDERS].
-> 
-> At the moment, anti-fragmentation is only preventing mixing
-> movable and unmovable pages in a pageblock. Rik's series[3] is doing
-> additional work to keep unmovable page allocation within a unmovable
-> pageblock, further reducing fragmentation. That is probably what we want
-> to get in first.
-
-Indeed, agreed that the bigger problem is pageblock mixing.
-
-
-> 
-> Maybe you can compare your idea with Rik's series and tell us the pros
-> and cons of both. :)
-> 
-> 
-> [1] https://github.com/rgushchin/fragm
-> [2] https://lpc.events/event/18/contributions/1779/
-> [3] https://lore.kernel.org/all/20261007021250.1665929-1-riel@surriel.com/
-> 
-> 
-
+Thanks,
+Amir.
