@@ -1,73 +1,85 @@
-Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D238645198A;
-	Mon, 12 Oct 2026 08:52:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454B73F20E3;
+	Mon, 12 Oct 2026 08:52:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791795154; cv=none; b=eyTg0wohgPpwYUsknh41MO614RJJ+lL+XOVWd88ZdFFlTyFi+MnKKxoB9tPDpNthfy7kbao/iOWVmCZ9KySLx9nCB1ok+Yxk4Wc/dIxlTz3SuvCXtTzUGX2Go5/+Ovo3pL39zQ2zOa4Su/SGitMvri35zWYaDSPwvRDC18u//jM=
+	t=1791795176; cv=none; b=Jp+jqYC1qLnyp2y9s57HADwo7hrWX1xQjmY8xplXXdaiJi6F+XzNF3Y6JyQ2zeujyRWuu+Dp0cnDEzH6IAY+/fWZFh6i+jAIH2O1H40OozJEznCjXysTTr8cZwHWDWqZwqyR6dV3oyH44sx2NGH26zesxgU50oZyFvRW7hABeYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791795154; c=relaxed/simple;
-	bh=G0TvSqZWMzuaHQkc4LLKgNtXBuK7C/XR62simfDeyGs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u67RMDspwMPlQG5sar8Nb4wUfBDJrcz3ZZypG9+UGXKv1Dx8cVKotk6Z4VKAsMLAY4c0NurDMw6EH3vlDnphnCUth5zflqS1cHGrZ8owcn5/2D+srHtT8cxynSxqbxM3XIqwYeW4UCXrBsT7yCi2OmyS2Z7BjdMb3iH3+TL9rS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
-Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 62A4F47F91;
-	Mon, 12 Oct 2026 10:52:29 +0200 (CEST)
-Date: Mon, 12 Oct 2026 10:52:27 +0200
-From: Gabriel Goller <g.goller@proxmox.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>, 
-	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>, 
-	Nikolay Aleksandrov <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org, 
-	coreteam@netfilter.org, bridge@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
-Subject: Re: [RFC PATCH net-next] netfilter: bridge: refragment reassembled
- packets passed up
-Message-ID: <asyew3iKfV_yEX-e@luna.proxmox.com>
-References: <20261009150246.443127-1-g.goller@proxmox.com>
- <179155828067.2527009.9838753386350423335@kernel.org>
+	s=arc-20240116; t=1791795176; c=relaxed/simple;
+	bh=PAs3/unkQTsE/HzXG0F+sn9y5qgwzYP965UoMpTQomM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iy0nenNGqbe0BXA39JbcO5cegtnlXOTJdJGACDmrs32gB8w5NUVJ+NyaffMgmNB6QvU6ZWAekTRHYO2q0qYycWy2x6GuRoP5womp84ChXToMNnHiBl1NLCUBzekbAc7iO8q3aWI5oVdeeQDz5BMKvYVD0qAWI86E/n2REffHqLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=PHid+6UU; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="PHid+6UU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=8v
+	EkFSLM9DHEiphTeciKiQiF8lgll8giuwOgersz8J4=; b=PHid+6UU9oBGiMV/2I
+	e215duKX2R+5q09+jxABo9z5rnS4tRYYO2DOEHCz0feoUZjxsuzK0hvAyaXkZWh0
+	c5UBjcVaiwibWp/caYSs6z8Lj4/iNV9bmRMcY3DvDycM5BZ9Mm25/MH3tw9YrpUW
+	AOLbi1IZRsiPNULNJeyHeTz1w=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgD3nzHan8xqbiYcDg--.59897S2;
+	Mon, 12 Oct 2026 16:52:42 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Oliver Hartkopp <socketcan@hartkopp.net>
+Cc: linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] selftests: can: add CAN XL raw socket tests
+Date: Mon, 12 Oct 2026 16:52:41 +0800
+Message-ID: <20261012085241.377683-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260923034256.396514-1-quchaosheng000406@163.com>
+References: <20260923034256.396514-1-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <179155828067.2527009.9838753386350423335@kernel.org>
-User-Agent: NeoMutt/20260504
-X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1791795148774
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgD3nzHan8xqbiYcDg--.59897S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uFWUJrWDZF13Ary3XrWfAFb_yoW8GrWUpF
+	WrGw1UKFWDG3W093s7Cr43Xayayr4ktF15try5tryUZ345WFnrtr4xGas09ay5Crs8Wa4F
+	vw4Y9FZ8G3WDJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziiiSJUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5BrrYWrMn9rPVQAA3N
 
-On 09.10.2026 15:04, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+Hello Marc, Oliver,
 
-The issue was hit in production when bigger udp packets get ip-fragmented
-and then hit a bridge with conntrack enabled. The bridge then reassembles the
-packets for conntrack, but doesn't fragment them again (pass up instead of
-forward, LOCAL_IN instead of POST_ROUTING hook), so they are dropped at the next
-bridge because of the mtu.
+A ping on this one.  It has been three weeks without a reply, so here is
+the short version in case that is what has kept it from being looked at.
+
+tools/testing/selftests/net/can/ has one test, test_raw_filter, which
+exercises classic CAN filter matching.  CAN XL has been in the tree since
+CAN_MTU, CANFD_MTU and CANXL_MTU became distinct, and the raw socket CAN
+XL options (CAN_RAW_XL_FRAMES, CAN_RAW_XL_VCID_OPTS) have no test at all.
+This series adds eight cases to the existing test_raw_filter.
+
+What they cover: classic/FD/XL length separation, the mandatory CANXL_XLF
+flag, the declared length against the payload actually written, that
+enabling CAN XL also enables CAN FD and cannot be undone while XL stays
+on, and VCID handling including the RX filter.
+
+On vcan, no hardware needed:
+
+  # PASSED: 26 / 26 tests passed.
+  # Totals: pass:26 fail:0 xfail:0 xpass:0 skip:0 error:0
+
+On an interface forced down to a classic CAN MTU the same run gives
+pass:19 skip:7, so nothing fails on a host that cannot carry CAN XL.
+
+Nothing here depends on anything else in flight.  If the scope is the
+problem I am happy to drop the vcan plumbing and keep only the XL cases,
+or to move whichever subset you prefer to the next release window.  If
+the answer is that this does not belong in the directory at all, that is
+fine too and I will stop.
+
+Thanks,
+Chaosheng Qu
 
