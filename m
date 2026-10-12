@@ -1,159 +1,273 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4109499F14;
-	Mon, 12 Oct 2026 15:12:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471BD49B45D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:12:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791817938; cv=none; b=sctJkkvXo/+aNPqJ2sKH1j/jE4xcAVOw5FmYFOrruTRjiqJzK2/tAqXRoFB3lxpomPgXnW6LXOScYeVkV7u34qGoAAOvG85ArkDAanuFcd0W3FW8GfqcTbzoCZKGUvBTdVlox8QWrTigObl0iXKSt/QuJBOmZJ9gpR3zPNQiCgY=
+	t=1791817940; cv=none; b=Z/MW+D5hZilPBHtqpZ1f9NRyNZl/d/oNZ3jpHzmv5C/rog3v5+/5DUc/q2wiCCvUOOde05voOJQQKuhnzfbmrkrHgd+5Tp1+YHo2FTSuqPrjbk66yttBm5yaL7MsUjmWjQQxxPckc5QhUY4//EradmBkQj7R5KrTUJWu/nexZ58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791817938; c=relaxed/simple;
-	bh=d4Ik5OmF8txIQXW7kr+1V3FL0GReJc55cUCuXHzQh+A=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=dcJU43GGTMmMgLyRyeLDZ2U8+agjkwCjytRew8ZQv/FoHyR5rwvITOtGcdxljP4EonuQI+2HNZ/rIXAJ5spwdARjsGrR7qhOzrPCKymjlUk/ye/OgAiQtHmrVunvGHnwBlwfHOyB2Vv3ETbpBjNe0GXfb1js1iMDQVxvKT2QWfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=L70l+P+m; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791817940; c=relaxed/simple;
+	bh=B6NHRXPrUrRowHMKwGnNjBxaLCD9lUFYYYPqcfEwvHI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nkRphAOBVHTkTkWsjp7PmIJbWxbdSlZr8dhdSyptdYeqYtEdi+rLKUpc3jeMsYpXHtCHgcpRQssqr+vskgBk33udBiToxrEYH1JKbFiGBiyUb6hmzo6Wz3oyCodvSFmlXWpwYwl+29+8Z2n8DExlQYjsKO1h9LuJxyLqIjNpTzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QEw4ceLz; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="L70l+P+m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791817936; x=1823353936;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=d4Ik5OmF8txIQXW7kr+1V3FL0GReJc55cUCuXHzQh+A=;
-  b=L70l+P+mVOSH+JzE/hG73sgGyxvOijyzT9OPrlm4fRYS8EZSGpHQ4Mtg
-   jl2fS6kUJiay8StNw/wp3oY1v5HC7IuluCvbiN+dgyIDA8YbRG7LX3SAi
-   KxqFgwBWj9iU9spdzloh3OGsuxRuV8cfZQVWz+buM9Tsn9nG52pFxDuO0
-   7LfVgCJZNxT7okJsPRSBKjfBktCLOdz3QFL5s7hbfPbBhriJTUBDY8QmL
-   yTLZUqXDrx6wGGxdHS4tZ7vLG/BTTsKJgMnalMxFmhDuowfstgFn4k9Tb
-   6RzKKZ4i3dpVZ3ZgU3juZJkCmLvcjuclTnvZ4du+Xg0wrQdPIOg+eaocU
-   A==;
-X-CSE-ConnectionGUID: s0Dw6ZQvTJmKQ7GY+SCADA==
-X-CSE-MsgGUID: eCFmrgmFQHiYUsBEZ3omdA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="402583"
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="402583"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 08:12:15 -0700
-X-CSE-ConnectionGUID: XWMRspO+RlqvDXPcpnajPQ==
-X-CSE-MsgGUID: 5ogL04JgQpGWYBbKTVH0rA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="1015207"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.202])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 08:12:12 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 12 Oct 2026 18:12:09 +0300 (EEST)
-To: Suryansh Singh <technosfan14@gmail.com>
-cc: Hans de Goede <hansg@kernel.org>, krishna.chomal108@gmail.com, 
-    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH v2] platform/x86: hp-wmi: Define known Victus S driver
- data
-In-Reply-To: <20260927093852.161958-1-technosfan14@gmail.com>
-Message-ID: <ec244f7d-0b51-43f9-c932-2d6ea5952672@linux.intel.com>
-References: <20260927085539.96791-1-technosfan14@gmail.com> <20260927093852.161958-1-technosfan14@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QEw4ceLz"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 9F6634E411F7;
+	Mon, 12 Oct 2026 15:12:17 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 71B30601A6;
+	Mon, 12 Oct 2026 15:12:17 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AFF8411D70CD6;
+	Mon, 12 Oct 2026 17:12:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791817935; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=P/Q4nFBYsii5RLmePNAPJ+fdVFCY7TJHBVJr5R7oOUU=;
+	b=QEw4ceLzWeB8qinUu3mC0wNsLS4KwoVzdMeNR1LuDZOqpeG4PwWut/oihiBkHGQnbMZxhl
+	OZp32Dlsdo/K2c61sEs2QPrVvPALXX8V2EcPeErhamuicCpfdVR20vOzkjxnlgKCaJU0Yr
+	exCKtpfmW3UbWGlASwH576cy09yT7rUudgRtXAeGCZNYkyHiGgHQwOTi9/PvsrPO8E6Lls
+	N2qpi/NxPYL9Cm/9PeF0JNTF7bdFq7AaEr90/6sAOncIfSe0wPcROPU/Prd7nCb56dQ7c9
+	rdyz+0CVJcpxqT964ronT75nEzdCaq9aXxGrcGzf01uBswPl3tFKxLGSMOIsqA==
+From: Kory Maincent <kory.maincent@bootlin.com>
+Date: Mon, 12 Oct 2026 17:11:03 +0200
+Subject: [PATCH RFC v3 8/8] drm/mediatek: Use dp_connector helpers to
+ expose link training state
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-feat_link_cap-v3-8-7517f4aba0f3@bootlin.com>
+References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
+In-Reply-To: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Mark Yacoub <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, 
+ Manasi Navare <navaremanasi@google.com>, 
+ Drew Davenport <ddavenport@google.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Kory Maincent <kory.maincent@bootlin.com>
+X-Mailer: b4 0.16.1-dev-17221
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, 27 Sep 2026, Suryansh Singh wrote:
+Adopt the DRM core DisplayPort helpers by setting DRM_BRIDGE_OP_DP and
+populating the bridge dp_link_caps at probe time. Report the sink
+capabilities on hotplug, reset them on disconnect, and report the link
+parameters once link training succeeds.
 
-> Currently, Victus S thermal parameters use the Unknown Offset for TP
-> (Thermal Profile) from the EC offsets enum, even though there is a
-> Victus S EC Offset in the same enum.
-> 
-> This was done so because the EC layout is highly
-> variable across this lineup of laptops. The only place where the 0x59
-> offset is used is the driver data for Omen V1 models, despite it being
-> labelled as the Victus S TP offset. The name clearly doesn't relate
-> to the use case.
-> 
-> However, after some downstream searching, I have found that there is
-> a Victus S board which does have the expected EC layout corresponding to
-> the very Victus S offset itself.
-> 
-> Add known board parameters for the Victus S models to correctly map
-> the found board (8C99) and any others in the future, and add
-> required if-statements for platform profile options for the new
-> parameters.
-> 
-> Link: https://github.com/yunusemreyl/omen-space/commit/f32a76386592d1a604e574c693b323d15e978089
-> Signed-off-by: Suryansh Singh <technosfan14@gmail.com>
-> ---
->  drivers/platform/x86/hp/hp-wmi.c | 20 +++++++++++++++++---
->  1 file changed, 17 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-> index 7ab81ce5f8d4..7851cb607c74 100644
-> --- a/drivers/platform/x86/hp/hp-wmi.c
-> +++ b/drivers/platform/x86/hp/hp-wmi.c
-> @@ -121,6 +121,13 @@ static const struct thermal_profile_params victus_s_thermal_params = {
->  	.ec_tp_offset	= HP_EC_OFFSET_UNKNOWN,
->  };
->  
-> +static const struct thermal_profile_params victus_s_known_thermal_params = {
-> +	.performance	= HP_VICTUS_S_THERMAL_PROFILE_PERFORMANCE,
-> +	.balanced	= HP_VICTUS_S_THERMAL_PROFILE_DEFAULT,
-> +	.low_power	= HP_VICTUS_S_THERMAL_PROFILE_DEFAULT,
-> +	.ec_tp_offset	= HP_VICTUS_S_EC_THERMAL_PROFILE_OFFSET,
-> +};
-> +
->  static const struct thermal_profile_params omen_v1_thermal_params = {
->  	.performance	= HP_OMEN_V1_THERMAL_PROFILE_PERFORMANCE,
->  	.balanced	= HP_OMEN_V1_THERMAL_PROFILE_DEFAULT,
-> @@ -164,6 +171,11 @@ static const struct hp_wmi_board_params victus_s_board_params = {
->  	.fan_profile		= &victus_s_fan_profile_params,
->  };
->  
-> +static const struct hp_wmi_board_params victus_s_known_board_params = {
-> +	.thermal_profile	= &victus_s_known_thermal_params,
-> +	.fan_profile		= &victus_s_fan_profile_params,
-> +};
-> +
->  static const struct hp_wmi_board_params omen_v1_board_params = {
->  	.thermal_profile	= &omen_v1_thermal_params,
->  	.fan_profile		= &victus_s_fan_profile_params,
-> @@ -316,7 +328,7 @@ static const struct dmi_system_id hp_wmi_feature_boards[] __initconst = {
->  	},
->  	{
->  		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8C99") },
-> -		.driver_data = (void *)&victus_s_board_params,
-> +		.driver_data = (void *)&victus_s_known_board_params,
->  	},
->  	{
->  		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8C9C") },
-> @@ -2146,10 +2158,12 @@ static int platform_profile_victus_s_get_ec(enum platform_profile_option *profil
->  	 * of these values.
->  	 */
->  	if (tp == victus_s_thermal_params.performance ||
-> -	    tp == omen_v1_thermal_params.performance) {
-> +	    tp == omen_v1_thermal_params.performance ||
-> +		tp == victus_s_known_thermal_params.performance) {
+Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+---
+Not tested. I believed I had a board with this device, but it actually uses
+an anx7625 bridge. I'm unable to test it; it would be appreciated if
+someone else could, so the change isn't dropped.
 
-Please remind me, why can't we generalize this and have to keep adding 
-numbers even if we should have the params now per board in struct so why 
-cannot we map using those numbers?
+Changes in v3:
+- Sync and report sink capabilities from the HPD thread for DisplayPort,
+  or in atomic_enable for eDP. Reset them on unplug, or atomic disable
+  and only report link parameters after successful training.
+- Add connection_mutex lock for DisplayPort in the IRQ thread.
 
-This is also misaligned.
+Changes in v2:
+- Remove voltage swing and pre emphasis properties.
+---
+ drivers/gpu/drm/mediatek/mtk_dp.c | 79 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 75 insertions(+), 4 deletions(-)
 
->  		*profile = PLATFORM_PROFILE_PERFORMANCE;
->  	} else if (tp == victus_s_thermal_params.balanced ||
-> -		   tp == omen_v1_thermal_params.balanced) {
-> +			tp == omen_v1_thermal_params.balanced ||
-> +			tp == victus_s_known_thermal_params.balanced) {
-
-Same comments here.
-
->  		/*
->  		 * Since both PLATFORM_PROFILE_LOW_POWER and
->  		 * PLATFORM_PROFILE_BALANCED share the same thermal profile
-> 
+diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
+index f656b85b84212..2e2596eaa342e 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dp.c
++++ b/drivers/gpu/drm/mediatek/mtk_dp.c
+@@ -1812,6 +1812,35 @@ static void mtk_dp_train_change_mode(struct mtk_dp *mtk_dp)
+ 	mtk_dp_reset_swing_pre_emphasis(mtk_dp);
+ }
+ 
++static void _mtk_dp_report_link_train(struct mtk_dp *mtk_dp)
++{
++	u32 rate, nlanes;
++	bool dsc = false;
++
++	rate = drm_dp_bw_code_to_link_rate(mtk_dp->train_info.link_rate);
++	nlanes = mtk_dp->train_info.lane_count;
++
++	drm_dp_set_cur_link_params(mtk_dp->conn, rate, nlanes, dsc);
++}
++
++static void mtk_dp_report_link_train(struct mtk_dp *mtk_dp)
++{
++	struct drm_modeset_lock *lock;
++	int ret;
++
++	if (!mtk_dp->conn)
++		return;
++
++	lock = &mtk_dp->conn->dev->mode_config.connection_mutex;
++	ret = drm_modeset_lock_single_interruptible(lock);
++	if (ret)
++		return;
++
++	_mtk_dp_report_link_train(mtk_dp);
++
++	drm_modeset_unlock(lock);
++}
++
+ static int mtk_dp_training(struct mtk_dp *mtk_dp)
+ {
+ 	int ret;
+@@ -2015,6 +2044,8 @@ static irqreturn_t mtk_dp_hpd_event_thread(int hpd, void *dev)
+ 			ret = mtk_dp_training(mtk_dp);
+ 			if (ret)
+ 				drm_err(mtk_dp->drm_dev, "Training failed, %d\n", ret);
++			else
++				mtk_dp_report_link_train(mtk_dp);
+ 
+ 			mtk_dp->enabled = true;
+ 		}
+@@ -2145,9 +2176,12 @@ mtk_dp_bdg_detect(struct drm_bridge *bridge, struct drm_connector *connector)
+ 	struct mtk_dp *mtk_dp = mtk_dp_from_bridge(bridge);
+ 	enum drm_connector_status ret = connector_status_disconnected;
+ 	bool enabled = mtk_dp->enabled;
++	int err;
+ 
+-	if (!mtk_dp->train_info.cable_plugged_in)
++	if (!mtk_dp->train_info.cable_plugged_in) {
++		drm_dp_sink_reset_caps(connector);
+ 		return ret;
++	}
+ 
+ 	if (!enabled)
+ 		mtk_dp_aux_panel_poweron(mtk_dp, true);
+@@ -2160,9 +2194,18 @@ mtk_dp_bdg_detect(struct drm_bridge *bridge, struct drm_connector *connector)
+ 	 * whether we connect to a sink device.
+ 	 */
+ 
+-	if (drm_dp_read_sink_count(&mtk_dp->aux) > 0)
++	if (drm_dp_read_sink_count(&mtk_dp->aux) > 0) {
+ 		ret = connector_status_connected;
+ 
++		err = drm_dp_sink_sync_caps(connector, &mtk_dp->aux, NULL);
++		if (err)
++			drm_dbg_kms(mtk_dp->aux.drm_dev,
++				    "%s: error sink caps synchronisation (%d)\n",
++				    mtk_dp->aux.name, err);
++	} else {
++		drm_dp_sink_reset_caps(connector);
++	}
++
+ 	if (!enabled)
+ 		mtk_dp_aux_panel_poweron(mtk_dp, false);
+ 
+@@ -2390,12 +2433,20 @@ static void mtk_dp_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	if (mtk_dp->data->bridge_type == DRM_MODE_CONNECTOR_eDP) {
+ 		mtk_dp_aux_panel_poweron(mtk_dp, true);
+ 
++		ret = drm_dp_sink_sync_caps(mtk_dp->conn, &mtk_dp->aux, NULL);
++		if (ret)
++			drm_dbg_kms(mtk_dp->aux.drm_dev,
++				    "%s: error sink caps synchronisation (%d)\n",
++				    mtk_dp->aux.name, ret);
++
+ 		/* Training */
+ 		ret = mtk_dp_training(mtk_dp);
+ 		if (ret) {
+ 			drm_err(mtk_dp->drm_dev, "Training failed, %d\n", ret);
+ 			goto power_off_aux;
+ 		}
++
++		_mtk_dp_report_link_train(mtk_dp);
+ 	}
+ 
+ 	ret = mtk_dp_video_config(mtk_dp);
+@@ -2435,6 +2486,7 @@ static void mtk_dp_bridge_atomic_disable(struct drm_bridge *bridge,
+ 	if (mtk_dp->data->bridge_type == DRM_MODE_CONNECTOR_eDP) {
+ 		mtk_dp->enabled = false;
+ 		mtk_dp_aux_panel_poweron(mtk_dp, false);
++		drm_dp_sink_reset_caps(mtk_dp->conn);
+ 	}
+ 
+ 	mtk_dp_update_plugged_status(mtk_dp);
+@@ -2740,11 +2792,14 @@ static int mtk_dp_edp_link_panel(struct drm_dp_aux *mtk_aux)
+ 	return 0;
+ }
+ 
++static int mtk_dp_rates[] = {162000, 270000, 540000, 810000};
++
+ static int mtk_dp_probe(struct platform_device *pdev)
+ {
++	struct drm_connector_dp_link_caps *source_caps;
+ 	struct mtk_dp *mtk_dp;
+ 	struct device *dev = &pdev->dev;
+-	int ret;
++	int ret, i, max_rate;
+ 
+ 	mtk_dp = devm_drm_bridge_alloc(dev, struct mtk_dp, bridge,
+ 				       &mtk_dp_bridge_funcs);
+@@ -2758,6 +2813,20 @@ static int mtk_dp_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to parse dt\n");
+ 
++	source_caps = devm_kzalloc(dev, sizeof(*source_caps), GFP_KERNEL);
++	if (!source_caps)
++		return -ENOMEM;
++
++	source_caps->nlanes = mtk_dp->max_lanes;
++	source_caps->link_rates = mtk_dp_rates;
++
++	max_rate = drm_dp_bw_code_to_link_rate(mtk_dp->max_linkrate);
++	for (i = 0; i < ARRAY_SIZE(mtk_dp_rates); i++)
++		if (mtk_dp_rates[i] > max_rate)
++			break;
++
++	source_caps->nlink_rates = i;
++
+ 	/*
+ 	 * Request the interrupt and install service routine only if we are
+ 	 * on full DisplayPort.
+@@ -2809,6 +2878,8 @@ static int mtk_dp_probe(struct platform_device *pdev)
+ 
+ 	mtk_dp->bridge.of_node = dev->of_node;
+ 	mtk_dp->bridge.type = mtk_dp->data->bridge_type;
++	mtk_dp->bridge.dp_link_caps = source_caps;
++	mtk_dp->bridge.ops = DRM_BRIDGE_OP_DP;
+ 
+ 	if (mtk_dp->bridge.type == DRM_MODE_CONNECTOR_eDP) {
+ 		/*
+@@ -2849,7 +2920,7 @@ static int mtk_dp_probe(struct platform_device *pdev)
+ 			}
+ 		}
+ 	} else {
+-		mtk_dp->bridge.ops = DRM_BRIDGE_OP_DETECT |
++		mtk_dp->bridge.ops |= DRM_BRIDGE_OP_DETECT |
+ 				     DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HPD;
+ 		ret = devm_drm_bridge_add(dev, &mtk_dp->bridge);
+ 		if (ret)
 
 -- 
- i.
+2.43.0
 
