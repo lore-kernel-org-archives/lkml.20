@@ -1,238 +1,237 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011007.outbound.protection.outlook.com [40.107.208.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789DD46DFFA;
-	Mon, 12 Oct 2026 08:54:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791795277; cv=fail; b=tZ5rWPcqK1XQGU9YMNQK24yCx6yUxMyb7M6altt/qIaksUN+/Uu0BdDWRgJfRswSm6yctFDA6NuIRAzizCGJp2KGi4Bxe9o89Jey9o277+gWKI/wdMXVuEEmopqZVecoBLp/04ege+7eOR7Vh6zGt4rudYjOaE4/iXwdAa5QCsM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791795277; c=relaxed/simple;
-	bh=RXZ8HuZE27OFhzubgJc3mJ9YU72TerFqbffgoXcyvRg=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r7stOUY6Myon8ttosJCrFyhQ6b337imsHL0nuoE7BpSw9P33H2uJ3EpXSbtL832ZQV5qH4ECMhL9AtBxNfo2OrHEwwzXqVWqYCU0SHArQn6CzdPdl27O7vCzWtPXLLK0iIzQZsVXzLQj7ttjvfuT1q0krpJ3mucEXNMS8n/LCYk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=mkyQXG7c; arc=fail smtp.client-ip=40.107.208.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F3E449B3F;
+	Mon, 12 Oct 2026 08:55:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791795317; cv=none; b=f4mVVgLkNtaZ06TqXhmUoxHhgyvAHVIseqfC9jCBISIdQSq2JWR4RijzH74TcMpW/QCeRMdQmPq69c9it5uivVvrniISXXRCXngET7Hr0msk9vHTjGurzs4gZG5nCTIfQZl97veteBQynApxhMARq2t37mYAgqklbB8U5XtX6HE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791795317; c=relaxed/simple;
+	bh=SFlT8f5O1uS5gyAPr3fI8UtmdpGQjU5Ii1ch/y5CkvE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gpIOhybDa1/tv7psgzU5QwlxEz8k9+OSZzHzvsTUokwfz9hP7yUTUM/62lHt+jIATBhekOCUVzCLCnS4R5xlJHq4qC2ua7lRO+PpVzC0AAAj6qAuE2V2WudK433hOdHiH6RIGPJnJ4bARn3opDOtBof9DR6CA2WeyaxxC5akAnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NAqY133f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="mkyQXG7c"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ellDW5/vod2VMaKg1djXGza9RQRtk0svpu7FRUfMT99oI2rhckdxj1X8A/lwz3RhnA1wn1WnQbVGzvzK0qn/4eJk8hcPhOrOPrX/Jz9smkazr45HfpUiTxagT9hmISSsbKfMC1bB6/RZplLrDD7pSrzkvnAcpq2RWm9vZLNtQhbL+jrmGbHvKbi8kOnZ8skEdI1JYVP9on+AyaVitUWpXApjOhka5iz0egoHg231ZhKdSYSrTOKCQAsYPL2DK9oPwFCQFd+G2CyWQUqLOHgi1mSNcgXBTlW9tWybBItW5zfCNp2cPiDOg7PY5pSt1vEL5sjLMV3HcnU+d+TALfR9TA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CRIrew14baHDNl8d6zIJP5U1OfY/qc+u3Q70uplMMV4=;
- b=I9cMWokrz3qopcHb2nRTCba6zD17G0qs9aZ899ImsYSbw2o5B++Bde0snhqHl5honUAXdFpr4mgwS9+rHu69DqABzsmRdD3mkEh7z5HcN5cwsIQt+yUowZyNGM0ygBoFTj2GEnqMRk+JPUQKNHO3nqyr5Ns8530oEs4Y4y4Tj8Oar2kfYoXkhK2EHW6+eadsalqnRISA0s4ez3f1xzuvfcm5bLrj1JqW81F+mpQBzRC+lZpAK0cEqkT/Ij4VMGtCrClOjoLKlv/G2X4wULrMV3YlLHFomfBebrh3PULr9gUyGyIrx2nGJS/nk4EJTO8RccP8oAirF2wEHQR5B1+esg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CRIrew14baHDNl8d6zIJP5U1OfY/qc+u3Q70uplMMV4=;
- b=mkyQXG7c6RnPD3riLcQLVYCSGXwJ/mYjmpMZdSI91yGq1KM+XF4zBo8NwlHq4z3SuajyOcRyFdeDzT02GBdGct8SW23zAqq58f4NMTexUCmwZWUVsONANCVoRynijk2zsIatL3AbbbFapqvm/hyuk7vvk8rCSyreyu6iGmUiirI=
-Received: from SJ0PR05CA0112.namprd05.prod.outlook.com (2603:10b6:a03:334::27)
- by PH7PR12MB9201.namprd12.prod.outlook.com (2603:10b6:510:2e8::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 08:54:31 +0000
-Received: from SJ5PEPF00000203.namprd05.prod.outlook.com
- (2603:10b6:a03:334:cafe::5d) by SJ0PR05CA0112.outlook.office365.com
- (2603:10b6:a03:334::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Mon, 12
- Oct 2026 08:54:31 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF00000203.mail.protection.outlook.com (10.167.244.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 08:54:31 +0000
-Received: from dcsm-trdripper1.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 03:54:22 -0500
-From: Muralidhara M K <muralidhara.mk@amd.com>
-To: <ilpo.jarvinen@linux.intel.com>
-CC: <platform-driver-x86@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	Muralidhara M K <muralidhara.mk@amd.com>, Mario Limonciello
-	<superm1@kernel.org>
-Subject: [PATCH v9 3/4] platform/x86/amd/hsmp: Route metric table through the client messages
-Date: Mon, 12 Oct 2026 14:24:06 +0530
-Message-ID: <20261012085407.1202295-4-muralidhara.mk@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261012085407.1202295-1-muralidhara.mk@amd.com>
-References: <20261012085407.1202295-1-muralidhara.mk@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NAqY133f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 995851F0089B;
+	Mon, 12 Oct 2026 08:55:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791795315;
+	bh=6+RjzyoY+WzdecItmok1wH56kEdK4bd4YwXPaoMyTUw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NAqY133fO18gICNf4yx50YT57a3AIVU6GPi+M8pOAQYcaJq3bLsCycEamcTHUdcj9
+	 pwjdf0a92lQfWRw0JkObvZzXH/GceFK21Hq2QivgpVe7E2KbctvnAm20EpTuGhm1Ov
+	 89ueAiZcT+2YTOtVQAL1+B2IkWsGTiCXFUGUrsv03KXUUyyRG0uLu8bVHDl8HcwwRf
+	 rC4e+9gbciEzbldC/Xu+vJaUfUbATaJNGez8XhXp+Rr+Wh6Ktf3CcMRVuJmeeCgu3M
+	 spLWMPLPvsMl4+G1EVfen1Ks8gePOiORFxM0NU7tQllxvYlYZxoF+A/T4Gd8huWsKg
+	 8DMX1dhtYqOSg==
+Date: Mon, 12 Oct 2026 10:55:11 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Subject: Re: [PATCH 1/4] dt-bindings: remoteproc: qcom: Add Glymur OOBMSS PAS
+ binding
+Message-ID: <20261012-impossible-illustrious-dog-702afc@quoll>
+References: <20261009-oob-support-glymur-v1-0-96cc8ffcced3@oss.qualcomm.com>
+ <20261009-oob-support-glymur-v1-1-96cc8ffcced3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000203:EE_|PH7PR12MB9201:EE_
-X-MS-Office365-Filtering-Correlation-Id: 791bb86e-5e5d-4525-693c-08df283e6e77
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|11063799006|56012099006|18002099003|22082099003|261009223027099003|3023799007|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	E7spO86/l8D9f9yfe+rMp09rfT+h38+5h8gqHvgX7yKeClM4hX1CjuDo42gwJGmCmGzY8IhDav4Bvqlb7oXNBM/I7e+oWZ8VYdw5bAakpoeeh5GCZ0Hx9AbcZkelnynqNq1xKe04GZevoWnoTPFEW98DeBtHpVmYsrWKTToUxClQLgapVkk6qV/1AgDIC4clzcKDg6ubGuzPM5aUQmmjHGB65ODEmUqLZq9PpqbBtWH61UmmgkfBsT8K1uYy8gHSMBB7vsrHpu/WP7sQEbz0+/51jkVtP7YK5mB3Rmqgdt9iVw/LX/bldJzRU+GRDuFShxheygoMbrBGc2OOtg7eZYm/K71pcRO8vjGUa5lf1jq95XhtIG9py4O+habYIVIG54yPzIL7J0wP30Sj906YGVJ4A2l8CCwRDxLb30A/Xk1IXrWFF4h8c54bCaZXFO657vZjbCKWZvaIvLoUmI5JIqrQUYs4YzrDibmbk4gxiCdtZEadA0Rryb+7QRIKWEdBD9cYbiM94jwJRNef4ZsDsGOwm2UsdOHJSjW+hDs3ZcMl9/cSXvDXl0vBfHO1ajHqAQ+uCfY23GxgVRRg506JzaKNMSrU60hDu3f1XZ3sB7xd3wZNtQhJqpnli98mTq9NNa2NbN1eHe/iACi2srg1KM3+4G4Z+bLGiCYCx96oup/dq2VPAZKyJHQ4XP2+oWR6W9h1AriBYLQgdIZj3UgE2g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(11063799006)(56012099006)(18002099003)(22082099003)(261009223027099003)(3023799007)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	CjzRklnKOBjAho5lHP36iyYHszQMUtuFAZlAR6NFijnC5qEwXvPsZ4R0jBGu/V5T8donRyY8ViVaYpHYydHDl2CW+sZhaTN03gNeoZtoH7gCrwrV9a70NQeaec1iQGsEdkeSRCA3W89f6fMC/swpVxNZlCjSl79oeSS5T10cKCWx97KVnhsfJYewIAPTbXXP975pnBLS3/Lut8NuKmytLo4Dd1+4+iQ+jVR9hJY0g8OZyM+2CXFwpJgEvGkMLsMjWkU3SgROiwgUbdOFMrKizCaw7UaU+t/ExJEo+zo2nu6Mk9jv/cXBuVHEFKjDfNFeV7rrtzHENjdZImAR50elhsf8lPLpoY+XWB1weuKBBY7bXPKkjSdWaQ7xRYh6TjPepihOOwmMWkMalKj7Yu+qSYP+nkjJd9oGhEztKbc+XwPNFS5l1GJ8QRrjbzDH2M7v
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 08:54:31.5020
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 791bb86e-5e5d-4525-693c-08df283e6e77
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF00000203.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9201
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261009-oob-support-glymur-v1-1-96cc8ffcced3@oss.qualcomm.com>
 
-Wire the client metric table and metric table DRAM address messages
-into the metric table read path for the Family 1Ah client platforms,
-and fetch the DRAM base for them during ACPI probe, lifting the
-defensive client exclusion placed on that call several commits ago.
+On Fri, Oct 09, 2026 at 12:47:39PM +0530, Anvesh Jain P wrote:
+> Document the Glymur OOBMSS PAS node with its secure GLink edge,
+> shared-memory signaling, firmware carveouts, and power resources.
+> 
 
-Add metric_tbl_msg and metric_dram_msg to struct hsmp_plat_desc, and
-have hsmp_metric_tbl_read_locked() and hsmp_get_tbl_dram_base() take
-the message ID from there instead of a shared constant, since the
-client set numbers these messages differently from the server set
-(05h/06h vs 24h/25h). Have hsmp_get_tbl_dram_base() take response_sz
-from hsmp_msg_response_sz() too, since the client set has no
-descriptor table to take it from directly.
+A nit, subject: drop second/last, redundant "binding". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
-Add enum ryzen_master_proto_versions, and replace the single
-!is_client_platform() exclusion guarding the hsmp_get_tbl_dram_base()
-call in init_acpi() with a RYZEN_MASTER_PROTO_VER1 clause for client
-platforms alongside the existing HSMP_PROTO_VER6 clause for server.
-proto_ver holds the Ryzen Master interface version on client
-platforms, a separate numbering space from enum hsmp_proto_versions;
-gating the two platforms on their own version enum avoids relying on
-numeric coincidence between the two, and lets a client interface
-version bump be reasoned about independently of the server protocol
-version.
+> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> ---
+>  .../bindings/remoteproc/qcom,glymur-oob-pas.yaml   | 156 +++++++++++++++++++++
+>  1 file changed, 156 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,glymur-oob-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,glymur-oob-pas.yaml
+> new file mode 100644
+> index 000000000000..bd4f397da40f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,glymur-oob-pas.yaml
+> @@ -0,0 +1,156 @@
+> +# SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/remoteproc/qcom,glymur-oob-pas.yaml#
 
-Signed-off-by: Muralidhara M K <muralidhara.mk@amd.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
----
- arch/x86/include/uapi/asm/amd_hsmp.h |  9 +++++++++
- drivers/platform/x86/amd/hsmp/acpi.c | 11 +++++++++--
- drivers/platform/x86/amd/hsmp/hsmp.c | 14 ++++++++++----
- 3 files changed, 28 insertions(+), 6 deletions(-)
+Filename must match the compatible.
 
-diff --git a/arch/x86/include/uapi/asm/amd_hsmp.h b/arch/x86/include/uapi/asm/amd_hsmp.h
-index 7274cf040a66..b4f64b2407b6 100644
---- a/arch/x86/include/uapi/asm/amd_hsmp.h
-+++ b/arch/x86/include/uapi/asm/amd_hsmp.h
-@@ -106,6 +106,15 @@ enum hsmp_proto_versions {
- 	HSMP_PROTO_VER7
- };
- 
-+/*
-+ * Ryzen Master SMC interface version, reported by
-+ * HSMP_CLIENT_GET_INTERFACE_VER. Separate numbering space from enum
-+ * hsmp_proto_versions, which applies to the server set only.
-+ */
-+enum ryzen_master_proto_versions {
-+	RYZEN_MASTER_PROTO_VER1 = 1,
-+};
-+
- struct hsmp_msg_desc {
- 	int num_args;
- 	int response_sz;
-diff --git a/drivers/platform/x86/amd/hsmp/acpi.c b/drivers/platform/x86/amd/hsmp/acpi.c
-index 1e5028aea54b..167c76c13ad0 100644
---- a/drivers/platform/x86/amd/hsmp/acpi.c
-+++ b/drivers/platform/x86/amd/hsmp/acpi.c
-@@ -567,8 +567,15 @@ static int init_acpi(struct device *dev)
- 		return ret;
- 	}
- 
--	/* Exclude client platforms from the metric table DRAM base lookup */
--	if (!is_client_platform() && hsmp_pdev->proto_ver >= HSMP_PROTO_VER6) {
-+	/*
-+	 * proto_ver holds the Ryzen Master interface version on client
-+	 * platforms, a separate numbering space from enum
-+	 * hsmp_proto_versions; gate the two platforms on their own
-+	 * version enum rather than relying on numeric coincidence
-+	 * between the two.
-+	 */
-+	if ((is_client_platform() && hsmp_pdev->proto_ver >= RYZEN_MASTER_PROTO_VER1) ||
-+	    (!is_client_platform() && hsmp_pdev->proto_ver >= HSMP_PROTO_VER6)) {
- 		ret = hsmp_get_tbl_dram_base(sock_ind);
- 		if (ret)
- 			dev_info(dev, "Failed to init metric table\n");
-diff --git a/drivers/platform/x86/amd/hsmp/hsmp.c b/drivers/platform/x86/amd/hsmp/hsmp.c
-index 08e00a7c329a..45d20beda946 100644
---- a/drivers/platform/x86/amd/hsmp/hsmp.c
-+++ b/drivers/platform/x86/amd/hsmp/hsmp.c
-@@ -57,6 +57,8 @@ struct hsmp_plat_desc {
- 	u32				num_msgs;
- 	u32				test_msg;
- 	u32				proto_ver_msg;
-+	u32				metric_tbl_msg;
-+	u32				metric_dram_msg;
- };
- 
- static const struct hsmp_plat_desc hsmp_desc_server = {
-@@ -64,6 +66,8 @@ static const struct hsmp_plat_desc hsmp_desc_server = {
- 	.num_msgs		= HSMP_MSG_ID_MAX,
- 	.test_msg		= HSMP_TEST,
- 	.proto_ver_msg		= HSMP_GET_PROTO_VER,
-+	.metric_tbl_msg		= HSMP_GET_METRIC_TABLE,
-+	.metric_dram_msg	= HSMP_GET_METRIC_TABLE_DRAM_ADDR,
- };
- 
- /*
-@@ -77,6 +81,8 @@ static const struct hsmp_plat_desc hsmp_desc_client = {
- 	.num_msgs		= HSMP_CLIENT_MSG_ID_MAX,
- 	.test_msg		= HSMP_CLIENT_TEST,
- 	.proto_ver_msg		= HSMP_CLIENT_GET_INTERFACE_VER,
-+	.metric_tbl_msg		= HSMP_CLIENT_GET_METRICS_TABLE,
-+	.metric_dram_msg	= HSMP_CLIENT_GET_METRICS_TABLE_DRAM_ADDR,
- };
- 
- static struct hsmp_plat_device hsmp_pdev;
-@@ -671,11 +677,11 @@ static ssize_t hsmp_metric_tbl_read_locked(struct hsmp_socket *sock, char *buf,
- 		return -EINVAL;
- 	}
- 
--	msg.msg_id	= HSMP_GET_METRIC_TABLE;
-+	msg.msg_id	= hsmp_desc()->metric_tbl_msg;
- 	msg.sock_ind	= sock->sock_ind;
- 
- 	/*
--	 * HSMP_GET_METRIC_TABLE makes firmware refill this socket's shared
-+	 * The metric table message makes firmware refill this socket's shared
- 	 * metric DRAM region, which is then copied out below.  Hold the
- 	 * per-socket lock across the fill-and-copy so concurrent readers of the
- 	 * same socket cannot return a torn snapshot.
-@@ -741,8 +747,8 @@ int hsmp_get_tbl_dram_base(u16 sock_ind)
- 	int ret;
- 
- 	msg.sock_ind	= sock_ind;
--	msg.response_sz	= hsmp_msg_desc_table[HSMP_GET_METRIC_TABLE_DRAM_ADDR].response_sz;
--	msg.msg_id	= HSMP_GET_METRIC_TABLE_DRAM_ADDR;
-+	msg.msg_id	= hsmp_desc()->metric_dram_msg;
-+	msg.response_sz	= hsmp_msg_response_sz(msg.msg_id);
- 
- 	ret = hsmp_send_message_locked(&msg);
- 	if (ret)
--- 
-2.34.1
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Glymur Out-of-Band Management Subsystem (OOBMSS) PAS
+> +
+> +maintainers:
+> +  - Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> +
+> +description: |
+> +  Qualcomm Glymur Out-of-Band Management Subsystem (OOBMSS) contains two
+> +  processors running Zephyr, managed together as one remoteproc instance.
+> +  The Out-of-Band Trusted Execution Environment (OOB-TEE) is the primary
+> +  processor. The OOB-Non-Secure processor is an auxiliary processor that
+> +  depends on the primary processor and cannot function independently.
+> +
+> +  The primary processor runs the primary image, while the auxiliary
+> +  processor runs the secondary image. Each processor has its own DTB.
+> +  The two images and their DTBs have separate PAS identifiers for
+> +  authentication and dedicated reserved-memory carveouts.
+> +
+> +  OOBMSS is booted by earlier-stage firmware and uses an XO clock and the
+> +  CX and MX power domains. Shared Memory Point-to-Point (SMP2P) provides
+> +  boot, shutdown, handover and ping/pong signaling, as well as fatal error
+> +  notifications. The subsystem exposes a secure GLink edge to the host,
+> +  with doorbell interrupts provided by the Inter-Processor Communication
+> +  Controller (IPCC).
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,glymur-oobmss-pas
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    items:
+> +      - description: Watchdog interrupt
+> +      - description: Fatal interrupt
+> +      - description: Ready interrupt
+> +      - description: Handover interrupt
+> +      - description: Stop acknowledge interrupt
+> +      - description: Pong interrupt
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: wdog
+> +      - const: fatal
+> +      - const: ready
+> +      - const: handover
+> +      - const: stop-ack
+> +      - const: pong
+> +
+> +  clocks:
+> +    items:
+> +      - description: XO clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: xo
+> +
+> +  power-domains:
+> +    items:
+> +      - description: CX power domain
+> +      - description: MX power domain
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: cx
+> +      - const: mx
+> +
+> +  memory-region:
+> +    items:
+> +      - description: Secure firmware carveout
+> +      - description: Secure device tree carveout
+> +      - description: Non-secure firmware carveout
+> +      - description: Non-secure device tree carveout
+> +
+> +  firmware-name:
+> +    items:
+> +      - description: Secure firmware
+> +      - description: Secure device tree firmware
+> +      - description: Non-secure firmware
+> +      - description: Non-secure device tree firmware
+> +
+> +  qcom,smem-states:
+> +    minItems: 2
+> +    description: States used by the AP to signal OOBMSS
+> +
+> +  qcom,smem-state-names:
+> +    minItems: 2
+> +    description: The names of the state bits used for SMP2P output
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - power-domains
+> +  - power-domain-names
+> +  - memory-region
+
+firmware-name as well, I guess?
+
+
+> +
+> +allOf:
+> +  - $ref: /schemas/remoteproc/qcom,pas-common.yaml#
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,rpmh.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/mailbox/qcom-ipcc.h>
+> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+> +    #define IPCC_MPROC_OOB_S 56
+> +    #define IPCC_MPROC_OOB   55
+
+Drop these two
+
+> +
+> +    remoteproc@1f000000 {
+> +        compatible = "qcom,glymur-oobmss-pas";
+> +        reg = <0x1f000000 0x30000>;
+> +
+> +        interrupts-extended = <&intc GIC_SPI 86 IRQ_TYPE_EDGE_RISING>,
+> +                              <&smp2p_oobmss_in 0 IRQ_TYPE_EDGE_RISING>,
+> +                              <&smp2p_oobmss_in 1 IRQ_TYPE_EDGE_RISING>,
+> +                              <&smp2p_oobmss_in 2 IRQ_TYPE_EDGE_RISING>,
+> +                              <&smp2p_oobmss_in 3 IRQ_TYPE_EDGE_RISING>,
+> +                              <&smp2p_oobmss_in 9 IRQ_TYPE_EDGE_RISING>;
+> +        interrupt-names = "wdog", "fatal", "ready", "handover", "stop-ack", "pong";
+> +
+> +        clocks = <&rpmhcc RPMH_CXO_CLK>;
+> +        clock-names = "xo";
+> +        power-domains = <&rpmhpd RPMHPD_CX>,
+> +                        <&rpmhpd RPMHPD_MX>;
+> +        power-domain-names = "cx", "mx";
+> +
+> +        memory-region = <&oob_secure_mem>, <&oobdtbqc_mem>,
+> +                        <&oob_nonsecure_mem>, <&oobdtboem_mem>;
+> +        firmware-name = "qcom/glymur/oobmss_tee.mbn",
+> +                        "qcom/glymur/oobmss_qc_dtb.mbn",
+> +                        "qcom/glymur/oobmss_ns.mbn",
+> +                        "qcom/glymur/oobmss_oem_dtb.mbn";
+> +        qcom,smem-states = <&smp2p_oobmss_out 1>,
+> +                           <&smp2p_oobmss_out 8>;
+> +        qcom,smem-state-names = "stop", "ping";
+> +
+> +        glink-edge {
+> +            interrupts-extended = <&ipcc IPCC_MPROC_OOB_S
+
+Just use numbers here
+
+Best regards,
+Krzysztof
 
