@@ -1,174 +1,290 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF9D43E9D2
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:18:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791793126; cv=pass; b=d9QjEsS2Ls5mlSTZ+FbZ/xxbrrC/LvQCDH+hFUDHeDHBf94XGg9NgjPGY20HMLxM75lLGCig7Sqzrs+aPlVgf5rgOww6CKPTjipgJznAJDcUvikBfjCh50cBMM68Ts1BJpXthyThnh5TslwEoYVQXQiE63pkDh/V4atnBsQmtak=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791793126; c=relaxed/simple;
-	bh=+cgBnKpA956E9oC3dPcEvrFaJuDQAJAIwVEJgcDrCgU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mIe9H0VXRPDB4uG42LyKy27dhHHnEywPDAEl++18DEGUw10r2uEz94l5AoUoij9EuZnAYtx/VXFdAU4mcX620kE3V7yY67jS+YFb0rZhQ+jTk8Qt75ZM9Jl3Tdxu4x8YrI+NMPAnNU+8qtLv7LTq9eIIx1MkxjjKm8t6IB1Rv0U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=eyn6+JVN; arc=pass smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6AA93793A2
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791793139; cv=none; b=rCdwnYyQkmEqSxH3+zjVjsSOW6BMddeOXjwN+dYXxC32MHpX0gPB4brU0zNgtE6XlmoOS+Ih+iZxAwO0NpwL8rO8KxFO/3S/k9l1Ck6NVFEPNxs8hU6bipObv0DVSB39bmxN2OTpNi1fE08NZOByVeW/+q8ljY3h6eQ0oTzqReg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791793139; c=relaxed/simple;
+	bh=pOzr+4bkvPAd+tqVxnDq62DbUqUG1YPr92b7gG2YWUQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lSASpewZTk6kBriinLxuCiomAUOouR+vcgrc0NPbKxriSKrgsk31S2vo2PkV/ijwcrO24/sYo3dK0lUtxpvt3l8GJuWFjFJkwB0y3OimjlbdwDAFXx7Pa58+hn62SW3b1sfknzmxVqTIt1EPaJRJyRvgDKnZmSlRBAGHwoIfbWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B51SIBOP; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="eyn6+JVN"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6acb57c2b88so2119362a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:18:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791793123; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qoL6JmIPAK+u7wuVSyAq/MyW4dn9XfA5igbkhUzgCOfVy6It+3sMSvVW57+ZR2Mq4z
-         pTszP4p3CxSLbJZjlfFoNjyfK2m2hrzixJhEpZQvFkIRmho0jrZjOYrYAXDRpfSpTIMO
-         UrsW+m9dZ+/Q/oLymqMqwOxrPPhjklUxRYrrqLjMATnOVJg0apcahvizVpBW+F2WPYH5
-         crzgzsEL55UbUwIcBNEROjWz8ho9hAUEiBvDrKt5B2b2KlFJ6OH5x1E8wIv2X3eoZs5L
-         UoXlsbZc2xNycyyzL1848vKW8CLxHDN/YhFII5P6XL7JS8CIFQJC8Fev6n/Q0NAOC0cW
-         1AoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=zSGc2gSvInI+9O2ij46iITf1yj50GR8jSWXc3T4EcG4=;
-        fh=nLrOq1S2R4dCSfqBf7AV9hd5++l6Tlmc/PJXDo8SnEU=;
-        b=h43qQfIkJ6FFNiiXdHqdk7fDPL+olTgVov7WRk9zzjCftsZM+6KFgisfCRV8Ef/jpg
-         r27Ru+3k16iSEP+0yZf5m56LIZ9usX+mjKWWOgLjKCKcxsrQ641ebFtlHD2qWwSez6ao
-         9116bg8OU/Kn4MK+QbifMPTglfBVcuGTjefmMXEKznUXdp6Vhv+nDqgMh0vMycChZ5vR
-         lPAlCgUEQEKR2AQTKi9JfnghAxShAKcE750sYi8JZBMDWRcQvVDChScYLwaWm0CUb7vK
-         hdSJullxFQTlL3oqp/h1Awl8ROzcM9YDuyzZ9cGIZbUMMYfMkc/G85AJSrATvGVQjrGx
-         zxSQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B51SIBOP"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd5e2d696e0so840342a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:18:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791793123; x=1792397923; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791793137; x=1792397937; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zSGc2gSvInI+9O2ij46iITf1yj50GR8jSWXc3T4EcG4=;
-        b=eyn6+JVNq6toaTEpom54udG10HGMfVRoqi5ipDvof/sRly/8NHLD3n6Kt/9oTjRJ4t
-         BYUK18Iod//l3EDN9mTJIl3KuguTqXrR4pBtp17FUdEIXG9tDIAiJCSz8swISpMOYJDN
-         UZ3Fb6SIxgzm3R2M7YY0E22ITiNzpj3PGSgwrid9NDPKi4XKyJXu6WkAXME4uS5hW1MC
-         K4D/+unTFruqKsXLUY/LfSnXLFaZA5InYInlIhlSMJPDvuswDwjZJ5OvMXmTB9996lxm
-         b3WNaCsufIP2GxHGzV/58VUTi6/mCzKZRK/7Y+Jr/cKy8E5TEDBvTO9OGTRmkW0/nrG/
-         OpQA==
+        bh=dPG7Y7H+r9R94i7P5GUiBC7BGzZ5i2tduA/5fQyP0hQ=;
+        b=B51SIBOPB6eMPNhKIyFWsz03ymNUzdkx/IVerL02xHZpym0udVgSt/+9rPrrFFx8So
+         M9uO7djqHUGvkOqgsc/9W8cTQ2nz1N+eSEG3Cd2JMFnG/InY0hEIiUOGv0obLwlnDQCV
+         C2uWbwMyipZNJB8uNOs2lgHu7Aucnc8aYvGrXTyIrO/l8NAIpMLIde87/NPzYxlg1X7S
+         njrLmR22blUxW8xYQ/ZgqeKOfU1HgD+tyUTzLX+Qgra6i/jIDRxIawgO7E2v8Va1mMST
+         cjGBrMDHxPsOX5MqExTvnomkr1Sz+eaJnBuhSiZLJS5oDV1lvBiCTZQaAHdKDquCMmb4
+         4Q1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791793123; x=1792397923;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zSGc2gSvInI+9O2ij46iITf1yj50GR8jSWXc3T4EcG4=;
-        b=CPjLkY1rh9Pe1hGb/M3uw6ZYXuJ7gfJgiai7aCccPvbF52ybM74a3sZ1qHJzia99i2
-         gBSHOldGQ/QL/EkDjkXdC/Xydy/Kst2OHekZVeiUu4b7xI6yTFnFzARmH5aehpqyhgl2
-         gzd9YPw1ZMdzUqzBY4I1yVbARzXEDOhL0b8dbDxus6l5UraFKr9iINi2DiQH5DTJeDvK
-         tf7n4dYvN6BCPTGJBfQX/1QUHbzZV57PmvW5tsOt1jMmhv6L8vEDmbgDotQ2H7xXHd9W
-         KvL2q0nliCV0Y+rdGpsWPWyD26CwVqDvFiLbTPxfypvBzPPCzaFOZylDpjDpV1JReuM2
-         nmjA==
-X-Forwarded-Encrypted: i=1; AKwUvByNkrhbQ2JkJuFAPVDX7WFm6pnc6j9BOOVPbm8cBFhujE0ceURhmg9MySsPjmuQWy1HqawmXq21+tHz0jc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqpZnEmvLPB1ROYy9WKijK5Yq+CMpZ3f7p623HL6oiZNrUKpV7
-	4XtEY+5Nupt2pF8zNS+YSooJ0NFCuK7o3wleAwtipaoK9a4db28bn5kDT5uhO7eUct0J+5K7C5p
-	mBH17tmBYi5SqoCXRM0sLvQ0PXmK5xmJRgQDoQr63vw==
-X-Gm-Gg: AYBFou0EfFyIFa1EOMWpE51Jx+P+OviQui6zKgSarezEG6bLkUTK5+hq2Dm7SaPCGTc
-	1zH8T+UaCPrxKgE2SVswLG1LW95RgMvcwX5cUuWosdY4MQwXbjX62h34qPJQJztfydsIE6IgMYy
-	9du7QbO27Y4e4hQXu0VzdQXMuGN0eUSPfDq7Ay6t18CWUnrXMa5PMGzHAZk5AeTk8NEeAo4yb7w
-	ivbao7oOIQ4B5NPTY7+p9BuIIMOVc2MYVeyXDKO5tOAbx0CzXEartZPBEwanfOw1pJQQtCx/37p
-	nXFGjGaNFZSv2XgoycqiyVtkOkLJXkJCel2CC4qnAxE8nhQFMBn4katNrhL3IhopPHcM/B161xh
-	fClAQmMi2yckC
-X-Received: by 2002:a17:907:d1a:b0:c2a:704c:8c8e with SMTP id
- a640c23a62f3a-c31a9fced4fmr940287766b.11.1791793122980; Mon, 12 Oct 2026
- 01:18:42 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791793137; x=1792397937;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dPG7Y7H+r9R94i7P5GUiBC7BGzZ5i2tduA/5fQyP0hQ=;
+        b=fB52ZaJ8JVxPO3qf8f7D8EEDKv4yX9VQ5tK/CSxxxayk7L04gQ48Xv04Xv+RFYRyvj
+         ZLXsfOX1ukINg+J8R59BNAP7M+L4hetOdG43lbIBLiLB7/RjqoXuFFS5u3LX0SQrdz3q
+         K4VOUa92KKAdZuBZE0B/B7NArrlMWekkTIA9NZyO9T3fkY7dWZNlKXf623bT2YfbpZDK
+         nvupiN2kPd/9hYL/l6Wl85Ud7bzmu/nFUu0YuytgUpmy2P2qp0SDzhcfeNPuU5okiwcD
+         AAMavq6dVKG9gqix+z3Ppyb+aKfwHV2xfDcUzdHrw00HbHImnSRL7oZOMk0kPPn/GI+g
+         YHig==
+X-Forwarded-Encrypted: i=1; AKwUvBxPqcRkmR/mjKv6GlMhL2jIoZRYU7lSpfeZz5ePCg8jAdf+NxcLkoEwK5F7UZy6z0305dYHVQk266Vw54A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKD3kltrY7LSJ8B4oAFOqCyZqRP+5KQnGQxHdzosxIflid1Ljui
+	SpORx2u/psjb2E+ASc5Td6ox/e+KMcTpwhCBIBEkEb8rze4HO5HtdMa8
+X-Gm-Gg: AYBFou0ANLl2RWtuomHoJuqs985GwPXA6x2OTHtzc6K7eVy6og9Ch1eYRjIskIWETzy
+	cxBP2EPInLKwlSChzxE1F4lFNlQ8iLb5Z/Rf4Hbd/VC5IXY5VDvgCJM39iXr901NgK6i0uRdrvO
+	Trd2PK3FzvVdb4xLso7aNXzl90tOy/Cr7S67Ng8gG2GARAeB/U+4Q/OjDC2XG9aBQ9blDErYNe9
+	8VozgToA3wZ4O8kJACpqdXQvcbobV6z0YLIOPq5CvyFIm6VmqTOfzKpmRmoXI2Dtc37OrVCs6/v
+	C90plogG4nV8f68Khc6YiOKykn4OTJ/za1cDp4/dgjV0BEaZ88qjPPVEFfRbQ5KI67P/FcKqvcE
+	q5IRTHl57hklKZ0E+irBv2+PlTz7yWPEvBxb5ES0ntA3TpCCYuZsVAbylkoMUqVbdBPNSJ3IlDw
+	aYEkSdGay2k2a5+gYW4lrQOGn2JTWcLSt0OEXH+WSjaQKrFs/N1jiay4IqpC6U6hRBaHnqh1AeD
+	/bevd9/DUs0BgBTIuwPxHUoytv3KzYpGADL
+X-Received: by 2002:a05:6a00:9508:b0:881:a5b6:7954 with SMTP id d2e1a72fcca58-897c7cd4565mr7903109b3a.39.1791793136976;
+        Mon, 12 Oct 2026 01:18:56 -0700 (PDT)
+Received: from ?IPV6:2620:10d:c085:21e8::1189? ([2620:10d:c090:400::5:b3cd])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3107373sm3519766b3a.9.2026.10.12.01.18.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 01:18:56 -0700 (PDT)
+Message-ID: <40b3432d-b597-423f-9279-ab4aa1157f44@gmail.com>
+Date: Mon, 12 Oct 2026 01:18:54 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKfTPtCAbreGDhesDmFNvXEzjj+anmOH1=jqT-1B6Lfj0FfPqw@mail.gmail.com>
- <20261011174038.5334-1-kayracizmeci@gmail.com>
-In-Reply-To: <20261011174038.5334-1-kayracizmeci@gmail.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Mon, 12 Oct 2026 10:18:30 +0200
-X-Gm-Features: AclHuK-DP5qVnsuYOeIrtkpyOkecXNVv-1nV6z-W92W9g6i97Pk7RW1tEN3H67A
-Message-ID: <CAKfTPtBDcfk+TEEjD07RBLpCAusKqa0K4AWuFrcCtdw9uGsXCQ@mail.gmail.com>
-Subject: Re: [PATCH 10/18 v2] sched/fair: Add force push task mechanism for fair
-To: Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: arighi@nvidia.com, bsegall@google.com, changwoo@igalia.com, 
-	christian.loehle@arm.com, dietmar.eggemann@arm.com, juri.lelli@redhat.com, 
-	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, lukasz.luba@arm.com, mgorman@suse.de, 
-	mingo@redhat.com, peterz@infradead.org, pierre.gondois@arm.com, 
-	qyousef@layalina.io, rafael@kernel.org, rostedt@goodmis.org, 
-	sched-ext@lists.linux.dev, sshegde@linux.ibm.com, tj@kernel.org, 
-	void@manifault.com, vschneid@redhat.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 1/5] eth: fbnic: only act on Rx completions naming
+ a posted buffer
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+ Alexander Duyck <alexanderduyck@fb.com>, Jakub Kicinski <kuba@kernel.org>,
+ netdev@vger.kernel.org
+Cc: kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ davem@davemloft.net, Eric Dumazet <edumazet@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Dimitri Daskalakis <daskald@meta.com>,
+ Bobby Eshleman <bobbyeshleman@meta.com>,
+ Daniel Zahka <daniel.zahka@gmail.com>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1791775409.git.yhlee@isslab.korea.ac.kr>
+ <25ce85c9821fba5d94932b36b9c9afb9a2fbd12a.1791775409.git.yhlee@isslab.korea.ac.kr>
+Content-Language: en-US
+From: Mohsin Bashir <mohsin.bashr@gmail.com>
+In-Reply-To: <25ce85c9821fba5d94932b36b9c9afb9a2fbd12a.1791775409.git.yhlee@isslab.korea.ac.kr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, 11 Oct 2026 at 19:40, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
->
-> > >
-> > > On Fri, 9 Oct 2026 at 07:53, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
-> > > >
-> > > > >       task_tick_cache(rq, curr);
-> > > > >
-> > > > > -     update_misfit_status(curr, rq);
-> > > > > -     check_update_overutilized_status(task_rq(curr));
-> > > > > +     if (!tick_pushable_task(curr, rq, rf)) {
-> > > > > +             update_misfit_status(curr, rq);
-> > > > > +             check_update_overutilized_status(task_rq(curr));
-> > > > > +     }
-> > > > >
-> > > > >       task_tick_core(rq, curr);
-> > > > >  }
-> > > >
-> > > > Hm.
-> > > >
-> > > > I think this mechanism added on here does not works.
-> > >
-> > > Ah yes, while factorizing the code, I removed this main diff between
-> > > tick and put events
->
-> > In fact this is on purpose.
-> > fair_check_pushable_task() is the function that is called to decide
-> > wether we try to push or not a task. In the case of short task, we
-> > will not push a task that is already alone on the rq
->
-> I'm confused. So, is the added tick push mechanism not working at all
-> on purpose? For future use or something IDK.
 
-The push mecanism part is generic and includes a push on put prev and
-a push on tick when the task is alone and never put back in the
-runnable list. For short slice tasks, we don't use the push on tick as
-there is no reason to push a short slice task that is alone on the
-cpu. The push on tick will be useful for other cases like misfit task,
-EAS and cache aware. The latters are not part of this patch
 
->
-> Before the fair_check_pushable_task call on tick_pushable_task():
->
-> if (rq->nr_running > 1)
->         return false;
->
-> So now at the rest of the function, nr_running have to be equal or smaller than 1.
->
-> We call fair_check_pushable_task() with next = NULL.
->
-> There are only 2 paths that can return true, one of them requires next to be true,
-> so it never works. The other one:
->
-> if (check_pushable_short_task(rq, p))
->         return true;
->
-> And check_pushable_short_task() does this:
->
-> if (cfs_rq->h_nr_runnable <= 1)
->         return false;
->
-> As I know, h_nr_runnable should be smaller than (or equal maybe) to nr_running.
->
-> nr_running can be 1 max, so if h_nr_runnable can't pass nr_running it will
-> always be smaller or equal to 1.
->
-> Maybe I'm missing something from the start :-)
->
-> Thanks,
->
-> Kayra
->
+On 10/11/26 9:15 PM, Yehyeong Lee wrote:
+> An Rx completion descriptor carries a 16-bit buffer id that the driver
+> uses to index the rx_buf[] array (FBNIC_RCD_AL_BUFF_PAGE_MASK). The fill
+> path masks the id to the ring size, but the completion path does not, so
+> the device can hand back an id that is past the array or that names a
+> slot which was never posted. An unposted in-range slot holds netmem 0,
+> and netmem_to_page(0) returns NULL, which fbnic_pkt_prepare() and
+> fbnic_add_rx_frag() then dereference.
+> 
+> Masking the id would not fix this: it aliases an out-of-range id onto a
+> posted buffer and corrupts that buffer's page_pool reference count.
+> Reject a completion whose id is outside the array or outside the posted
+> window and take the existing drop path.
+> 
+> The same id is used as the BDQ head in fbnic_clean_bdq(), where an
+> out-of-range value spins the cleanup loop; bound it there with the same
+> test. Validate head0/head1 in fbnic_clean_rcq() before they are assigned,
+> and drop a META completion that arrives with no header buffer rather than
+> building an skb around a NULL pointer.
+> 
+>    Oops: general protection fault, probably for non-canonical address
+>    0xdffffc0000000004: 0000 [#1] SMP KASAN NOPTI
+>    KASAN: null-ptr-deref in range [0x0000000000000020-0x0000000000000027]
+>    RIP: 0010:fbnic_pkt_prepare+0x1a2/0x5a0 [fbnic]
+>    Call Trace:
+>     <TASK>
+>     fbnic_clean_rcq+0x1ba/0x1350 [fbnic]
+> 
+> Fixes: a29b8eb6e533 ("eth: fbnic: Add basic Rx handling")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+> ---
+>   drivers/net/ethernet/meta/fbnic/fbnic_txrx.c | 87 ++++++++++++++++++--
+>   1 file changed, 82 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
+> index 10caacffee0f0..305fe6d2f511f 100644
+> --- a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
+> +++ b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
+> @@ -797,6 +797,34 @@ static void fbnic_page_pool_drain(struct fbnic_ring *ring, unsigned int idx,
+>   	rx_buf->netmem = 0;
+>   }
+>   
+> +/* The device names an Rx buffer by its index in the buffer descriptor
+> + * ring.  A completion may only name a buffer we posted, that is one in
+> + * [head, tail), so test the index against the array and against the
+> + * posted window.  The window test is not enough on its own: it masks the
+> + * index, so an index past the end of the array can fold back into the
+> + * window and run off rx_buf[].
+> + */
+> +static bool fbnic_rx_buf_posted(struct fbnic_ring *ring, unsigned int idx)
+> +{
+> +	if (idx > ring->size_mask)
+> +		return false;
+> +
+> +	return ((idx - ring->head) & ring->size_mask) < fbnic_desc_used(ring);
+> +}
+> +
+> +/* fbnic_clean_bdq() is given a position to consume up to rather than a
+> + * buffer to use, so unlike fbnic_rx_buf_posted() it also accepts tail,
+> + * which is how the teardown path asks for the whole ring to be drained.
+> + */
+> +static bool fbnic_bdq_head_valid(struct fbnic_ring *ring, unsigned int hw_head)
+> +{
+> +	if (hw_head > ring->size_mask)
+> +		return false;
+> +
+> +	return ((hw_head - ring->head) & ring->size_mask) <=
+> +	       fbnic_desc_used(ring);
+> +}
+> +
+>   static void fbnic_clean_twq(struct fbnic_napi_vector *nv, int napi_budget,
+>   			    struct fbnic_q_triad *qt, s32 ts_head, s32 head0,
+>   			    s32 head1)
+> @@ -882,6 +910,13 @@ static void fbnic_clean_bdq(struct fbnic_ring *ring, unsigned int hw_head,
+>   {
+>   	unsigned int head = ring->head;
+>   
+> +	/* A head we never posted cannot name a buffer we own, and the loop
+> +	 * below masks head to the ring so it would never reach it.  Leave
+> +	 * the ring alone and wait for a head we can act on.
+> +	 */
+> +	if (unlikely(!fbnic_bdq_head_valid(ring, hw_head)))
+> +		return;
+> +
+>   	if (head == hw_head)
+>   		return;
+>   
+> @@ -985,14 +1020,25 @@ static void fbnic_pkt_prepare(struct fbnic_napi_vector *nv, u64 rcd,
+>   {
+>   	unsigned int hdr_pg_idx = FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
+>   	unsigned int hdr_pg_off = FIELD_GET(FBNIC_RCD_AL_BUFF_OFF_MASK, rcd);
+> -	struct page *page = fbnic_page_pool_get_head(qt, hdr_pg_idx);
+>   	unsigned int len = FIELD_GET(FBNIC_RCD_AL_BUFF_LEN_MASK, rcd);
+>   	unsigned int frame_sz, hdr_pg_start, hdr_pg_end, headroom;
+>   	unsigned char *hdr_start;
+> +	struct page *page;
+>   
+>   	/* data_hard_start should always be NULL when this is called */
+>   	WARN_ON_ONCE(pkt->buff.data_hard_start);
+>   
+> +	/* A buffer ID we never posted cannot name a buffer we own, so drop
+> +	 * the packet instead of running off the end of rx_buf[] or picking
+> +	 * up a slot we have already drained.
+> +	 */
+> +	if (unlikely(!fbnic_rx_buf_posted(&qt->sub0, hdr_pg_idx))) {
+> +		pkt->add_frag_failed = true;
+> +		return;
+> +	}
+> +
+> +	page = fbnic_page_pool_get_head(qt, hdr_pg_idx);
+> +
+>   	/* Short-cut the end calculation if we know page is fully consumed */
+>   	hdr_pg_end = FIELD_GET(FBNIC_RCD_AL_PAGE_FIN, rcd) ?
+>   		     FBNIC_BD_FRAG_SIZE : fbnic_hdr_pg_end(hdr_pg_off, len);
+> @@ -1026,10 +1072,27 @@ static void fbnic_add_rx_frag(struct fbnic_napi_vector *nv, u64 rcd,
+>   	unsigned int pg_idx = FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
+>   	unsigned int pg_off = FIELD_GET(FBNIC_RCD_AL_BUFF_OFF_MASK, rcd);
+>   	unsigned int len = FIELD_GET(FBNIC_RCD_AL_BUFF_LEN_MASK, rcd);
+> -	netmem_ref netmem = fbnic_page_pool_get_data(qt, pg_idx);
+>   	unsigned int truesize;
+> +	netmem_ref netmem;
+>   	bool added;
+>   
+> +	/* No header completion has set buff up, either because one was
+> +	 * rejected or because the device sent none, so there is nothing to
+> +	 * add a fragment to.  Mark the packet so the metadata descriptor
+> +	 * drops it instead of building an skb on an empty buffer.
+> +	 */
+> +	if (unlikely(!pkt->buff.data_hard_start)) {
+> +		pkt->add_frag_failed = true;
+> +		return;
+> +	}
+> +
+> +	if (unlikely(!fbnic_rx_buf_posted(&qt->sub1, pg_idx))) {
+> +		pkt->add_frag_failed = true;
+> +		return;
+> +	}
+> +
+> +	netmem = fbnic_page_pool_get_data(qt, pg_idx);
+> +
+>   	truesize = FIELD_GET(FBNIC_RCD_AL_PAGE_FIN, rcd) ?
+>   		   FBNIC_BD_FRAG_SIZE - pg_off : ALIGN(len, 128);
+>   
+> @@ -1270,6 +1333,7 @@ static int fbnic_clean_rcq(struct fbnic_napi_vector *nv,
+>   	while (likely(packets < budget)) {
+>   		struct sk_buff *skb = ERR_PTR(-EINVAL);
+>   		u32 pkt_bytes;
+> +		u32 pg_idx;
+>   		u64 rcd;
+>   
+>   		if ((*raw_rcd & cpu_to_le64(FBNIC_RCD_DONE)) == done)
+> @@ -1281,12 +1345,21 @@ static int fbnic_clean_rcq(struct fbnic_napi_vector *nv,
+>   
+>   		switch (FIELD_GET(FBNIC_RCD_TYPE_MASK, rcd)) {
+>   		case FBNIC_RCD_TYPE_HDR_AL:
+> -			head0 = FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
+> +			pg_idx = FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
+> +			/* Only take the head from a completion we are going
+> +			 * to act on, so that one rejected ID does not discard
+> +			 * the progress an earlier completion in this poll has
+> +			 * already reported.
+> +			 */
+> +			if (likely(fbnic_rx_buf_posted(&qt->sub0, pg_idx)))
+> +				head0 = pg_idx;
+>   			fbnic_pkt_prepare(nv, rcd, pkt, qt);
+>   
+>   			break;
+>   		case FBNIC_RCD_TYPE_PAY_AL:
+> -			head1 = FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
+> +			pg_idx = FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
+> +			if (likely(fbnic_rx_buf_posted(&qt->sub1, pg_idx)))
+> +				head1 = pg_idx;
+>   			fbnic_add_rx_frag(nv, rcd, pkt, qt);
+>   
+>   			break;
+> @@ -1300,7 +1373,11 @@ static int fbnic_clean_rcq(struct fbnic_napi_vector *nv,
+>   			/* We currently ignore the action table index */
+>   			break;
+>   		case FBNIC_RCD_TYPE_META:
+> -			if (likely(!fbnic_rcd_metadata_err(rcd) &&
+> +			/* A metadata completion with no header completion
+> +			 * ahead of it leaves nothing to build a frame from.
+> +			 */
+> +			if (likely(pkt->buff.data_hard_start &&
+> +				   !fbnic_rcd_metadata_err(rcd) &&
+>   				   !pkt->add_frag_failed)) {
+>   				pkt_bytes = xdp_get_buff_len(&pkt->buff);
+>   				skb = fbnic_run_xdp(nv, pkt);
+
+As Daniel pointed-out on V1, the device does not make up the buffer 
+ID's. Rather, it only echoes them back as provided by the SW. A 
+completion with ID's that SW did not post would indicate a bad device or 
+an inconsistency between SW and HW state. Either of the two would 
+indicate that the issue is somewhere else. These checks would only mask 
+the issue.
