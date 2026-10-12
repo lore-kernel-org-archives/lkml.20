@@ -1,189 +1,159 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3470A26656D
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:01:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E12364926
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:01:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791792069; cv=none; b=onqzGwHxkCB/dzPgO5Q9PNgmVEFOKKIoLb0+YkFpUzNPzlIfnLiKxPTCAt0HpX0QR0QFisVdufACqYuwKgnPEBf/0TvpXp5R8yp0O/dz5FNywVwlU8KlN2M8qH8cZHlTSa4pvVH6M6x9gMllxbRCee7SNbc5S716lFx4KcVcfj4=
+	t=1791792084; cv=none; b=mqbsNzGwyDITweWtYuPEvkKqPXYTAqs8Su8SJHBC0zZ3QBrdidoURJ1ytYNXqVfMG8CJ1BNT+jTjJQ+N2WI8xssDbRZ2pIcY5OixmFqcTzrYzTSOHiFL6Wo9NfEhKF5Z85+xHG6/2wRWd8DHvbib4Fi9qxuiG6KKy9PoVBJZdyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791792069; c=relaxed/simple;
-	bh=2UE1slJ/TuqtnCQfrrKjh8A7RNcnR3G6JBVTg+E/JL4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GXpTUEXhqnW+PHLugEdI6wcSyWfbhTx4MvILPt5DQoMkSpG0I78NLw6nXBLq3XG4kUsjS+SGYQU997RATxxKTBsDYdgbWxnVtwlReNtBnyT8Y9ZxSZzdVoUTDxZZ32nwC6gwp8SJgkJh+FFE9wnkkulNJE1RMa0ygn+Y4xnEowQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R/iGb5yh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=czTZqv/p; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791792084; c=relaxed/simple;
+	bh=nWuXCx/7DPazUmSBzEGZs7Zdqlk+bGwIqKwfgQmkKV0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rntcH/uBpwQ06M2xYLvpdO9/HmbfUhA+1t0fTf9Q/ghWOACO5jjo1nkCHgVbcBEC9a/yOj//oUKIwQB91wC+jnEkeVqDAHW0E37MEb0iF9dO8Df1AQr3vydt2hh/wuod1miftpXEWeAStVkZBFlTSTSoOvLLLVo97T1BGsvDYKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LiCoR9Kw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R/iGb5yh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="czTZqv/p"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C567XT1002377
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:01:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	JsBn+x/B4FRTAQ9qeP4Xp/X8QK95CkhbCMiwhXCn/08=; b=R/iGb5yh5gV+VzRZ
-	yCFEkH4d4rDnR+vKoe15fRaCJi4R42/mdiB6NmcJrF5frK9CRi3rD8YYWU2pyb8v
-	OUVigOu78zNtDxDGKQJmQjTq4oHP5b413jrhdmFsg0VBon054OMYK/KYZCZUia+q
-	Nw1aiu3pupkVf7mrgTgolwvyR1DMps1/4jTDyCRPZMgbB4BjFAKcdfC0NYj/O9S5
-	GZoMfYcCBDmj4obyPe7oZqTlMAl0VhU6mL/9baAWZyug+xKCnMO9Mny2Xel4px/W
-	kWHFX2jSt5qEiCBmM6FQsUNLHaYw5hVsiW8VcRGvOzD6Xh1acjR/zrWWfkpAFXt3
-	Zgfvvw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8qtkgx71-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:01:06 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cac495d99so6409785a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:01:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791792066; x=1792396866; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JsBn+x/B4FRTAQ9qeP4Xp/X8QK95CkhbCMiwhXCn/08=;
-        b=czTZqv/pjeDAvGeb+1fWuI59V/zjKYnrk58c0H3ya5HpQe+FT2dP98hk6lifsNJCiS
-         PiZJCOwNVAqwDWoJdnvRgk8mj0C6qs2BpJbJt0zy6b+zMmvH9AM7mWWDzjc/kIJed4hH
-         svQL/LItE9cT+bNpWOI72LmXQY83lfKuZMyIRJI63rWPDjKtHshNsQFBWCkgQIdjCmg+
-         cm/IglW2JmHn0VxXMsvzzPFlVrk/DIVlpd7lnKa3Qd3knx6IBGr+gKmeXjzsmb+RwHc4
-         RNKBC8Skf3nQpgPXxF1qGiru9ht986G3026Cwvv7jL5HoHMNri1DVh6SKS/rTD9iVggB
-         b7XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791792066; x=1792396866;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JsBn+x/B4FRTAQ9qeP4Xp/X8QK95CkhbCMiwhXCn/08=;
-        b=rMd5kr2dOZTwSmoNMZbvrcugirNemOxRcGLkkcYXRxy6K55K6DVnweDC+q6zkHMFfW
-         RUY98ZW+YZ8KDm9VZdLbq7KJnLduQ8m+OYjpcOx2rZ1FLhnq/mg8AI2mFPbKe/Lp4lmG
-         rcINdU8ZsrlXvuhfYM1/T/NVAE+bkF93MnnduVavpWcqhPGZhhTgK7vonw3hPvC45b/Q
-         pLkkxKIC8LtKwBecytT8Fr+Oe8TkVwqY/6DyeCzJXvwZFkwuwIhQ3SS7E39KQ3IcNbbv
-         Uv6gvFQ0XwpnEf2WlS+1Jeb3c7cjI4dW5XQ2WsLfMAmqJfrffLXDoVvoLg/01DZ4y1z3
-         sJAg==
-X-Forwarded-Encrypted: i=1; AKwUvByLZho/7oZDwKmRPOBXPtKpOPpmXkYk7Q833iyg5DQddg6TxP26TvR9+620LwRvkzGgRfvkm8d2lNsyNfQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLxr/YxQmnrGd8dzcRsK636SVT3jh7EAR9tlewBZhGFoykvhrwk
-	eXH27d23lJ6RRub6t1Cx9+Qq+tSkP/pcWGguUngig90jh8+QOHhJqTzK+nTQWs5o484Jpf9kR0L
-	m/NRbU3PcvL1snSFahw1EIY8zusZQirPPUYRb+EWCfdpsavDXoa1/VJjRhI5WtzFAiMo=
-X-Gm-Gg: AYBFou19mMpD0B0NXgIKjDiiPBlfIRgtwt6OW2J2kRxjdN+y4kjZVivyyPEbKm1dUu3
-	rZ7QS4YEE6XWReM7u1WHtvHxCd4BlJ+0GRePqQxsiOuJY0RHGGD2JIT5hl6B9tQJ/cW5MLMJxrh
-	RC1ERBYrQSMgAOfrkv9HNRI58TpTKoMD2OcvEoVc0oZD4q8A7/h1kqeAwH76WINHHqyGbWtKHKS
-	MfNp0XFhYpk35r7aD/mG8+FbcJvuLVAa5w4eM8JdqZ5tEm9vO69IlnCY4ScaHtkqe1Q0+eoOzTt
-	xyNMq4mbuy3azAIL3gFQBqh38RgCnr0hUYcPlbh0BH2kGsO61FDhyxa+k0TNxfevWm6u3XC7Y91
-	J9uCjuwf44L0j2EoYbLqkVg==
-X-Received: by 2002:a05:620a:1a10:b0:93c:c96c:a5b4 with SMTP id af79cd13be357-93ebd23a4f6mr1661416885a.4.1791792066177;
-        Mon, 12 Oct 2026 01:01:06 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a10:b0:93c:c96c:a5b4 with SMTP id af79cd13be357-93ebd23a4f6mr1661411885a.4.1791792065667;
-        Mon, 12 Oct 2026 01:01:05 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c3c9af97sm27169731fa.14.2026.10.12.01.00.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 01:00:42 -0700 (PDT)
-Message-ID: <d33eaab8-2933-45a9-a716-b3eebf3dd9d4@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 10:00:29 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LiCoR9Kw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 162371F0089D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:01:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791792083;
+	bh=VFJCTOee66kxc8V6r3kv+pIOgrnSLrYGq1H3NUTohKg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=LiCoR9KwQklxGnaAd7874H4CHvE1PZVseMsln2OtO9mI46DAXRvjOBJfebS9dUz+r
+	 jzNk8f7IFnVlQzGA5WvcpoR7FBjn/KUIleYP0UuD/c/Pbu5uCdVDvdYKiHbBmXEukO
+	 i6j4cyRWy3EnThhhH/idFsTC7eXlXhP7DSqqENIubppmTxhPOanKOAgASMVN8/htR5
+	 o9z8jpoyoPZJjo0S21ZUlPW65ddTVsm1d/l/NJHx0vJN1TCsytw2G6pM7/ekjnCpWK
+	 l2KR6lg2vFszJRyE3ZRO4rCaORtn2UPSomDS0JzIkMVlXdI4F0Dn0EXqIfhl4Qz0uk
+	 cJNZWLrroI0TQ==
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93e4e37788cso184078085a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:01:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBykhrQ38KtIWaMYYv7nT8lo8P/uijI5nhulanBpFjYDt06Le0nGdL246j7wqrbyQ52tMpCdShJxiB1qABc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWJ4GFZO1s9dPIZ1yQLovlFoHvQ2YZZIZQ3nFXOdlQ39bV/rcH
+	zsYxdhodOFYj0gf1zUedZ1xf+0ieCDLwDuwxvJ10Y0ofTzBjwTDbDDuYqDknv9aWrNN/+OBsKEi
+	jeOKJVwqdwfUltwEoXJdJ4b34PHu+nzQ=
+X-Received: by 2002:a05:620a:271c:b0:93e:942f:b8a5 with SMTP id
+ af79cd13be357-93ebd20ede1mr1614851285a.14.1791792082466; Mon, 12 Oct 2026
+ 01:01:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/20] drm/msm/dp: Clear stale MSA colorimetry bits
-To: Xilin Wu <sophon@radxa.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Andrzej Hajda <andrzej.hajda@intel.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Robert Foss <rfoss@kernel.org>,
-        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-        Jonas Karlman <jonas@kwiboo.se>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Luca Ceresoli <luca.ceresoli@bootlin.com>,
-        Kevin Hilman <khilman@baylibre.com>,
-        Jerome Brunet <jbrunet@baylibre.com>,
-        Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
-        dragon@radxa.com, linux-amlogic@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org
-References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
- <20261009-msm-dp-hdr10-v2-14-1835d4966da3@radxa.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261009-msm-dp-hdr10-v2-14-1835d4966da3@radxa.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzMSBTYWx0ZWRfX0hXNNH4JveYw
- /xs04KkRS9/PhoqwukdM3sYCI+xOFu/Jh8DlO6YAgJNl/TMNiIgt34/kyMBZTrVKeh6MeF6qqCw
- pA8d84GThjLLrXAftW9FEUM+q3ZazZvIiz5SpLi75YLb/PK3y7CNvygUcOeKH7FwFEAJXX5Vtcr
- SC41VM2VkpJKjXDf+Zjze0xXrlVgbQ/fhIjN0KQ64C++NU+V5m1TvmLe8BOKJABr5Inb4J5FHMW
- edj7wa27U6257HO0r4dc4cuzoHH0PISS3oUhiNAYj329fywDUUs95/uUJ9YaK0s5YEMxqqX/Y3d
- N9p8RQlz2ldYMcfbzeOAnHAvf2MG2T8Rv4PAbEVzGnov7gkC8zkSUyc5zCb7WVJkZsC5bTf0ARS
- kqjOFAC07OMiqSItrDRIHePRuXcv5oBedPgyo9+IXTuJUfRAjfYbp6ioeTbXvPSpXvga2Klal8a
- zoZ3zz7nadZ65EKlU1Q==
-X-Authority-Analysis: v=2.4 cv=c8U+0h9l c=1 sm=1 tr=0 ts=6acc93c2 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=ksxQWNrZAAAA:8 a=KLRTrxjsjmTHsxePAeEA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=l7WU34MJF0Z5EO9KEJC3:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzMSBTYWx0ZWRfX4yMK5ZH4udwL
- Di91K1IZhAAa67oVUj9/fB9k9nxH9WZXmTkB6z5deBoePnLzuIHIHtEowkiuG/JF6Jhe8ROFzKM
- IBMi6e/wpiewmuLV+9jef/ZCLjtxjqw=
-X-Proofpoint-ORIG-GUID: 80_VYWXJZtUBFIOlujoqRu5YhLpWjw5a
-X-Proofpoint-GUID: 80_VYWXJZtUBFIOlujoqRu5YhLpWjw5a
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- priorityscore=1501 spamscore=0 impostorscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120031
+References: <20261007153915.53429-1-alex@ghiti.fr> <CAGsJ_4xyzgUH4uhKqpD7PTVuOzdsAkYgowsyn5iT1LHWiaYqqw@mail.gmail.com>
+ <CAEmasaWQm6DPqAhmW_z=kuR+3LDWJ=h+yM0hAs+ryNoFQd6qmg@mail.gmail.com> <CAEmasaXa2pB_Jm_VgBZAWQwu1p75yUSY2=dr0Opt5okLgWk-YQ@mail.gmail.com>
+In-Reply-To: <CAEmasaXa2pB_Jm_VgBZAWQwu1p75yUSY2=dr0Opt5okLgWk-YQ@mail.gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Mon, 12 Oct 2026 16:01:10 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4xw+CLzrazOFxnvJCbvG0qoauEuFGR6OdtT3x78ef95pA@mail.gmail.com>
+X-Gm-Features: AclHuK8IOexl_8V3bBRbq6TRfOHJmNLkbnQq5h2MM7v35kR54WFVJ9QbpGusTiw
+Message-ID: <CAGsJ_4xw+CLzrazOFxnvJCbvG0qoauEuFGR6OdtT3x78ef95pA@mail.gmail.com>
+Subject: Re: [PATCH v3] mm: bypass swap readahead for zswap
+To: Alexandre Ghiti <alexghiti@meta.com>
+Cc: Alexandre Ghiti <alex@ghiti.fr>, akpm@linux-foundation.org, hannes@cmpxchg.org, 
+	yosry@kernel.org, nphamcs@gmail.com, shikemeng@huaweicloud.com, 
+	baoquan.he@linux.dev, youngjun.park@lge.com, chengming.zhou@linux.dev, 
+	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, kasong@tencent.com, 
+	ryncsn@gmail.com, chrisl@kernel.org, usama.arif@linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/9/26 5:16 AM, Xilin Wu wrote:
-> The MISC0 update clears the bit-depth field but only ORs in the new
-> colorimetry value. Bits from the previous stream can therefore survive
-> when the new value clears them.
-> 
-> Clear the colorimetry field together with the bit-depth field before
-> programming the new stream.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 791bb3af2cad..783cafb22374 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -476,7 +476,8 @@ static void msm_dp_ctrl_config_misc1_misc0(struct msm_dp_ctrl_private *ctrl,
->  	misc_val = msm_dp_read_link(ctrl, REG_DP_MISC1_MISC0);
->  
->  	/* clear bpp bits */
-> -	misc_val &= ~(0x07 << DP_MISC0_TEST_BITS_DEPTH_SHIFT);
-> +	misc_val &= ~((0x07 << DP_MISC0_TEST_BITS_DEPTH_SHIFT) |
-> +		      GENMASK(4, 1));
+On Mon, Oct 12, 2026 at 2:59=E2=80=AFPM Alexandre Ghiti <alexghiti@meta.com=
+> wrote:
+>
+> Hi Barry,
+>
+> On Fri, Oct 9, 2026 at 8:22=E2=80=AFAM Alexandre Ghiti <alexghiti@meta.co=
+m> wrote:
+> >
+> > Hi Barry,
+> >
+> >
+> > On Wed, Oct 7, 2026 at 11:05=E2=80=AFPM Barry Song <baohua@kernel.org> =
+wrote:
+> > >
+> > > > >
+> > > On Wed, Oct 7, 2026 at 11:39=E2=80=AFPM Alexandre Ghiti <alex@ghiti.f=
+r> wrote:
+> > > >
+> > > > Commit 0bcac06f27d7 ("mm, swap: skip swapcache for swapin of synchr=
+onous
+> > > > device") made SWP_SYNCHRONOUS_IO devices (e.g. zram) skip swap read=
+ahead.
+> > > >
+> > > > zswap is the same kind of in-memory, synchronous backend as zram, n=
+ot a
+> > > > swap device flagged SWP_SYNCHRONOUS_IO so it still goes through
+> > > > swapin_readahead().
+> > > >
+> > > > Here are the results from bypassing readahead for zswap too: it was
+> > > > measured with a kernel build (make -j16) in a memcg, zswap=3Dzstd, =
+shrinker
+> > > > off, on Sapphire Rapids and 3 iterations.
+> > > >
+> > > >   768M memcg (sustained swap thrash):
+> > > >     metric                 mm-new    + bypass    delta
+> > > >     build time (s)          405.0       341.7    -15.6%
+> > > >     zswap-in (GB)            79.5        53.0     -33%
+> > > >     zswap-out (GB)          144.8       115.6     -20%
+> > > >     swap readahead (pages)  6.79M       0.45M     -93%
+> > > >     swap_ra hit (%)          72.1        89.9     +18pp
+> > > >
+> > > >   1G memcg (light pressure, build not memory-bound):
+> > > >     metric                 mm-new    + bypass    delta
+> > > >     build time (s)          177.7       176.0    ~same (no regressi=
+on)
+> > > >     zswap-in (GB)            10.2         7.5     -26%
+> > > >     zswap-out (GB)           27.7        25.1      -9%
+> > > >     swap readahead (pages)  1.07M       0.08M     -93%
+> > > >     swap_ra hit (%)          68.6        87.2     +19pp
+> > >
+> > > Hi Alexandre,
+> > >
+> > > I assume your configuration is as below?
+> > >
+> > > / # cat /proc/sys/vm/page-cluster
+> > > 3
+> > > / # cat /sys/kernel/mm/swap/vma_ra_enabled
+> > > true
+> >
+> > Yes
+> >
+> > >
+> > > I am curious whether setting `/proc/sys/vm/page-cluster` to either 0
+> > > or 1 would result in the same performance gain on a zswap-enabled
+> > > system?
+> >
+> > I'll test and report back here.
+>
+> So I ran the same workload (kbuild -j16, 768M memcg, zswap only, n=3D3 pe=
+r arm):
+>
+>     768M memcg (sustained swap thrash):
+>       metric                                        mm-new
+> page-cluster=3D1    page-cluster=3D0    + bypass
+>       build time (s)                               530.0      462.0
+> -12.8%      452.3  -14.7%    452.7  -14.6%
+>       zswap-in (GB)                               95.7        66.7
+> -30%         64.2    -33%     64.4    -33%
+>       zswap-out (GB)                           169.3      138.3
+> -18%       135.2    -20%    135.6    -20%
+>       swap readahead (pages)            8.37M     1.93M    -77%
+>   0      -100%    0.53M    -94%
+>       swap_ra hit (%)                            73.6        86.5
+> +13pp          -          -          90.7   +17pp
+>
+> Exact same results with page-cluster to 0, so I'll add that to the
+> changelog as you suggested.
 
-The colorimetry field spans bits 7:1 AFAICU and bit 15 means
-Y-only video
+Thanks! This seems to be a strong indication that setting
+`page-cluster =3D 0` can also resolve your problem, even without your
+patch. :-)
 
-Furthermore, I believe this register holds the standard fields/
-values defined in drm_dp.h near
+But I'm still glad to see your auto-tuning patch!
 
-"/* MSA (Main Stream Attribute) MISC bits (as MISC1<<8|MISC0) */"
-
-so we can drop the local defines
-
-Konrad
+Best Regards
+Barry
