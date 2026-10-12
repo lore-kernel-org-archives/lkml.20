@@ -1,117 +1,114 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76E394E7807;
-	Mon, 12 Oct 2026 20:15:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D474E80CF;
+	Mon, 12 Oct 2026 20:15:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791836132; cv=none; b=nFTbUUAidBr5dZFkZD9f7/UB1TvU58GjZuuTbLJrHLJQaCHKt03KwNm4EgnqgM+hfRbtYdVnae+8x354JolmCpDRDnULsr1gZufPXfzda5XAMYgpr6S3KHcuBBBpSfHk6ch2olH+TbRnswIODQhMQaJDusvI58Ap/HedsZZhxf8=
+	t=1791836134; cv=none; b=U3OkDQcG8u2btb9iBSmlhZrdPgYWgX/+n5yYtrmsIwCTgk0da1snYMP19CIiMpZyPU8bfOdtzn7phj//vs4CrIpZn8CGjNQa9OTTODeNpQ1uzxoZETxr3cKW6CzpFJezCPus9SD1GpSaJ43QpFuwSET2zp2urXMCiyYoJLU34pk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791836132; c=relaxed/simple;
-	bh=tTVHVkVcv+la1edaxZDL80B63dWguM2dX9eUL9oDyl0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=blBtJGfpx6u9YHcsefomfxg4wal21rW8FUqvMP6DhrHqEaSadwnqBMwNfRQbFfuSSXXdUW3zQX2NrR0eWmy8njYfaCTp7aeP1HA5reDU3hMhnGXd/7MVwZflNnnqKYZnuXAW8MFu4gwoUB36kBErmUR9/UuJPmtstNjzhTCSROY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=f7fN/SJa; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791836134; c=relaxed/simple;
+	bh=fHfsDAJFw0fUpfUilkiUJy3oPfy3l3e6wdBptn0NSS0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SwadVBbdcgVRvYfQ+mwpXkoHMrt+CueCco8yv/oTykEBDLQKZZQjwQ2I+1CglQp5qIsv9oV1g+yMEdUY/GOJKfAjQ4rpthjh8yh7f2LXtsYRX9U3whXAAn5dqEtRaqKg9SAMEFDCZFmLHn7zU1H9xgK++FkCLhvzpTX2jFnFHNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fsXuKr+q; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="f7fN/SJa"
-Received: from mac.lan (unknown [4.194.122.170])
-	by linux.microsoft.com (Postfix) with ESMTPSA id BC0FD20B7166;
-	Mon, 12 Oct 2026 13:15:20 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BC0FD20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791836126;
-	bh=/Jjp0/gGGD1R8hah3x3vcyoIOYd0SLonWaZGlFpBVzw=;
-	h=From:To:Cc:Subject:Date:From;
-	b=f7fN/SJaeBrD6ryMhc1A8CdHsRQsj5TeJyVJCm/h/gqumLVE1HBcJI++s6ocOTDZ9
-	 GDr24FY9OxuSCX3Fmzs70Bx4moJopzZ/A5DB7wSmWDFBtXlLgWMI3Yu5b7GSJRWdnt
-	 If10IRPgNtDftDcQcVphI1sj3VPP9Y6dmHfRyIXA=
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>
-Cc: Peter Xu <peterx@redhat.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Andrea Arcangeli <aarcange@redhat.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	tgopinath@linux.microsoft.com,
-	Cen Zhang <cenzhang@linux.microsoft.com>
-Subject: [PATCH] userfaultfd: fix UFFDIO_MOVE livelock on large folio with extra references
-Date: Mon, 12 Oct 2026 16:15:14 -0400
-Message-ID: <20261012201514.97015-1-cenzhang@linux.microsoft.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fsXuKr+q"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 340E5C4AF0B;
+	Mon, 12 Oct 2026 20:15:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791836134;
+	bh=fHfsDAJFw0fUpfUilkiUJy3oPfy3l3e6wdBptn0NSS0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=fsXuKr+qgw9rYjLitq//5EXQWHjDi4K6/tYQcPDD2MWxbOM2xBuqCW5AwYoHW67B1
+	 amOnvpRLDvfHY15doQf4OViHxYvKI/DMQZjUpfF1JYwusK2pfZd0AQ3Oqbtz4Q8Blx
+	 CCyO5xC8bQqx8ssoYoiN6amvPeOmMl3ccC3wcQT59wgXxy1+P3POC+Gc0GYpOknpRH
+	 a/R9hQpimdgDLBvyy0WqiBDYmCG21XPacWTS1g1UAcIj5UQRrPqtlIWw6X+TFZvXYs
+	 IOzX9eDAmurtIkf3DBcx6sKnU2KW8W+53FQcuBLvDSbe3JFORXMDeDxk7xght4qAPi
+	 w2hFJ5kvJx/Lg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20859CC6B04;
+	Mon, 12 Oct 2026 20:15:34 +0000 (UTC)
+From: Bishwa Bhusan Saha via B4 Relay <devnull+contact.bishwasaha.com@kernel.org>
+Date: Tue, 13 Oct 2026 01:45:27 +0530
+Subject: [PATCH 5/5] HID: UNCTRL: only report to userspace on battery
+ changes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-b4-unctrl-m1-battery-v1-5-4a50203b7177@bishwasaha.com>
+References: <20261013-b4-unctrl-m1-battery-v1-0-4a50203b7177@bishwasaha.com>
+In-Reply-To: <20261013-b4-unctrl-m1-battery-v1-0-4a50203b7177@bishwasaha.com>
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Bishwa Bhusan Saha <contact@bishwasaha.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791836132; l=1478;
+ i=contact@bishwasaha.com; s=20261012; h=from:subject:message-id;
+ bh=3oBe0qsOm90IcaPkZIlIWjNRUTzq1vzLXSX1oUkBnqw=;
+ b=X8rj9H1jZV+QhdFfR3+iy2u/uIt+iEfRbNnyyKST2xx4RCI3bIS5+JPHJjs8wHhEO9B+P3/Mn
+ rj3WU9WQzfzCP400yYq+B50R2kCDNqcDbSjegZFx01lI1KYH7yI6dAh
+X-Developer-Key: i=contact@bishwasaha.com; a=ed25519;
+ pk=bW8B6BzX1VU4IIcYagrb5nNRxBho+rTXaQZ8fLx8CoU=
+X-Endpoint-Received: by B4 Relay for contact@bishwasaha.com/20261012 with
+ auth_id=1168
+X-Original-From: Bishwa Bhusan Saha <contact@bishwasaha.com>
+Reply-To: contact@bishwasaha.com
 
-To move one page out of a large folio, move_pages_ptes() first has to
-split the folio.  __folio_split() refuses if the folio has any
-reference beyond its page table mappings and the caller's own, and it
-reports the refusal as -EAGAIN.  move_pages() treats returned -EAGAIN
-as a transient race and keeps retrying the same address, holding the VMA
-read locks the whole time.  This is incorrect since in some cases
-userspace can hold such a reference indefinitely, such as by
-registering the page as an io_uring buffer.
+From: Bishwa Bhusan Saha <contact@bishwasaha.com>
 
-An unprivileged user can trigger this with three threads: first holds
-such a reference on a page of a THP, second calls UFFDIO_MOVE on another
-page of the same THP and spins in the kernel forever holding the VMA
-read locks, and third calls fork() or mprotect(), which takes mmap_lock
-for writing and then waits forever for those read locks.  From then on
-every mmap_lock user of that mm hangs, including other processes
-inspecting it through /proc/<pid>/, until the process is SIGKILLed.
-The hung task detector reports the blocked tasks (third one), and with
-kernel.hung_task_panic=1 the machine panics:
+This patch calls power_supply_changed() only when the reported
+capacity or mode actually changes.
 
-  INFO: task wedge:95 blocked for more than 122 seconds.
-  task:wedge  state:D stack:12528 pid:95 tgid:95 ppid:94
-  Call Trace:
-   __schedule+0x596/0x1110
-   schedule+0x36/0xf0
-   __vma_start_exclude_readers+0x100/0x170
-   __vma_start_write+0x51/0xd0
-   __split_vma+0x208/0x3d0
-   vma_modify+0x6a8/0x840
-   vma_modify_flags+0xce/0x110
-   mprotect_fixup+0xbe/0x480
-   do_mprotect_pkey+0x2d9/0x580
-   __x64_sys_mprotect+0x1a/0x30
-
-Fix by returning -EBUSY instead of -EAGAIN in move_pages_ptes(), the
-caller of split_folio(), when the split fails. Thus, move_pages()
-does not retry -EBUSY and the ioctl drops its locks and returns to
-userspace instead of spinning.
-
-Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Assisted-by: LLM
-Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+Signed-off-by: Bishwa Bhusan Saha <contact@bishwasaha.com>
+Assisted-by: GLM:glm-5.3
 ---
- mm/userfaultfd.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/hid/hid-unctrl-m1.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 74f04c323c50..500962be1162 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -1663,8 +1663,12 @@ static long move_pages_ptes(struct mm_struct *mm, pmd_t *dst_pmd, pmd_t *src_pmd
- 			pte_unmap(dst_pte);
- 			src_pte = dst_pte = NULL;
- 			ret = split_folio(src_folio);
--			if (ret)
-+			if (ret) {
-+				/* do not retry, extra refs may be held forever */
-+				if (ret == -EAGAIN)
-+					ret = -EBUSY;
- 				goto out;
-+			}
- 			/* have to reacquire the folio after it got split */
- 			folio_unlock(src_folio);
- 			folio_put(src_folio);
+diff --git a/drivers/hid/hid-unctrl-m1.c b/drivers/hid/hid-unctrl-m1.c
+index ff15384c0..df283cbae 100644
+--- a/drivers/hid/hid-unctrl-m1.c
++++ b/drivers/hid/hid-unctrl-m1.c
+@@ -324,6 +324,8 @@ static int unctrl_raw_event(struct hid_device *hdev, struct hid_report *report,
+ {
+ 	struct unctrl_dev *dev = hid_get_drvdata(hdev);
+ 	struct power_supply *battery = NULL;
++	bool changed;
++	u8 old_capacity, old_mode;
+ 
+ 	if (!dev || size < 8)
+ 		return 0;
+@@ -338,14 +340,21 @@ static int unctrl_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 
+ 	scoped_guard(spinlock_irqsave, &dev->lock) {
+ 		/* the receiver reports 0% while the mouse is switched off */
++		old_capacity = dev->battery_capacity;
++		old_mode = dev->mode;
++
+ 		dev->battery_capacity = min_t(u8, data[4], 100);
+ 		dev->mode = data[5];
+ 		dev->online = dev->battery_capacity != 0;
++
++		changed = dev->battery_capacity != old_capacity ||
++			  dev->mode != old_mode;
++
+ 		battery = dev->battery;
+ 	}
+ 
+ 	/* only schedules a work, so this is safe from the completion path */
+-	if (battery)
++	if (battery && changed)
+ 		power_supply_changed(battery);
+ 
+ 	return 0;
+
 -- 
-2.55.0
+2.56.0
+
 
