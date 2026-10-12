@@ -1,171 +1,128 @@
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1457469821
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:24:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B57445D909
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:25:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791793495; cv=none; b=CvMZHWNuJYXNy0n8ZalwOVMWVY0cf+UqbL/KOMBb0t/btBYSdQ/c24IaBmqP5s9Ex3c7LFi4lk4c/lcLR7vO32dHvvU4m7yJP+NKWAljFFQzWLSzhm2f3cDKDoJhEK3dK/Vjug5faddYVP25+03V+4DeUfLEiHU0widvGimydkk=
+	t=1791793505; cv=none; b=S/qrz7YM+oN+oYsscOO52KglOJPSPRTBzn8075BMiVLeopbbNQUIw4kr8jY7P4+AiGsdkBoZQqnQ1Dk/uRmcis14pHYQxZenrpG6PWHzdNjDGYtVPil9evixee6WsWGdTxEb5tiCNtwEhQvOfkY9qPiPYibK20kaXLRK7yaey/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791793495; c=relaxed/simple;
-	bh=A/IiT39SXwrWWnw/qoqVPCM1vOG+XGuQ8wUaRKoj7uk=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=em7J57JwsQ+U4t7VusOjYGEmgO4mx9gIM7eqY8nQGuSty79FiLbwbD3DU08gZ3PAmS34kZ5j81sptI5nkm/TmnKBCP6n+G+ZYcFtSkk8Y9c0KSETFeijFP+0aWm8nVfi84awQqZXxrXSt7y8/Ft6FYQyM9+0noR4Ee11LFTedf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=MbzbHvb9; arc=none smtp.client-ip=113.46.200.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="MbzbHvb9"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Vm159Fr15eKJFdLHrCI3qZOsx+8QFUgTAo9DQzy1GAY=;
-	b=MbzbHvb98kaQfPoKTQsIXCHb/Ui6GxhJIKvtdMuM4ZqNbDaqbFVGMQIxgIFY70CHjellxKZEV
-	VkhcnKW3hG+hGObSaF730TV2yWIkA9GqnJXLpgm/pTeEO5GqO1NKF6vON6W5h2uZrD+V2I74ytp
-	yvyWFXJZOleAcbD+W9OWifY=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j39Dc66g5zKmVp;
-	Mon, 12 Oct 2026 16:12:16 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 4D9424057A;
-	Mon, 12 Oct 2026 16:24:37 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 12 Oct
- 2026 16:24:36 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
-	<james.morse@arm.com>, <babu.moger@amd.com>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <ben.horgan@arm.com>, <fenghuay@nvidia.com>,
-	<x86@kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v9 2/9] fs/resctrl: Add resctrl_arch_rmid_idx_match() helper
-Date: Mon, 12 Oct 2026 16:23:30 +0800
-Message-ID: <20261012082337.822258-3-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261012082337.822258-1-ruanjinjie@huawei.com>
-References: <20261012082337.822258-1-ruanjinjie@huawei.com>
+	s=arc-20240116; t=1791793505; c=relaxed/simple;
+	bh=ImOOINWaLEXmzPTvNh7r0fSDk27MpWbpTVjiRx/WH3M=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=FM/cwmsQAULFefZC3PdeOMsRdQg45GdwydUp8YUTq8ftVAJRUsV3ZkaqtZqfrK41nlC+RRPaehVwsQx1uRdDtl6C/WQnMRF/2JEKzJHvZDpivuM01h6nEBbCwUvIm0ci1LzfwEwgvIYRJgXMKsIy3k2IlD00Pk3emkzCF2SDSfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-48296f34f1dso2072197fac.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:25:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791793503; x=1792398303;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7ieBeUprCeI4lGB/ia0ws73k13xYUaAVtpQqsoHKNsE=;
+        b=gvbq8qQvS7MAhFaw4c0lWC4xLXHH9lVFHzJSjw603afdyAMfiIz9EqDDNjlZ437cn3
+         c+nr2HTKk00450XBf42FWSl2Rm40SeFKhgNCx1aMBMJkMpiJrrvaNVKss4genhYxqY8/
+         5DEo/tLtcq//D2FI5/2DOHeOKr80HdWyWvhwbENqY7Wdx84ydC07OyDc+G6uROIOYcKN
+         CV7/WlTGW8JpmM+568ohfWuvYLApzwzK3IXbF7Cq+hF6XMdtpcQ8WgTJhsXitrPeIXDq
+         7ckOedgsW6aX3+OnUc/n91M/wq6m58mAsvAdi/uNzog3CdOSJ3exKLEcMVavyLXlcRRE
+         8gEA==
+X-Forwarded-Encrypted: i=1; AKwUvBzFrOXPDewch2avzp1vBl3raPDpFhnutdTvzgrgD9MczhELlJQE0B/ncUQd9AeMTLWJFChNFSSbsuUF4qA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJkWr5OSjTo/GCC84lssZwQcBXW9XbvObJVkZYRFc4iX+rihxl+
+	uqIB70WiAdeWGI9BDJH94u+l3t9WJDe2wE6I38i2MIM2fixCuNAlhrMlfBIArMcHK4os7P0/Nom
+	lJ7ATY3EMZRNcgi4FgtOzsB7bS8jieutfvNc06fF5inLau06UeUuSGaGbrY4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-Received: by 2002:a05:6808:6713:b0:4f6:1e12:e37d with SMTP id
+ 5614622812f47-50c5870a541mr8263518b6e.63.1791793503468; Mon, 12 Oct 2026
+ 01:25:03 -0700 (PDT)
+Date: Mon, 12 Oct 2026 01:25:03 -0700
+In-Reply-To: <20261012075854.435-1-hdanton@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6acc995f.a150a118.27e199.0044.GAE@google.com>
+Subject: Re: [syzbot] [nvme?] BUG: corrupted list in nvmet_fc_remove_port
+From: syzbot <syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com>
+To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-The current RMID allocator assumes that RMID and CLOSID are entirely
-independent or follow a rigid 2D encoding. This prevents architectures
-where an RMID is bound to a specific CLOSID from properly filtering
-free RMIDs.
+Hello,
 
-Introduce resctrl_arch_rmid_idx_match() to allow architectures to define
-their own compatibility rules between a target CLOSID and an allocated
-RMID's CLOSID.
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+BUG: corrupted list in nvmet_fc_remove_port
 
-No functional change.
+ non-slab/vmalloc memory
+list_del corruption. prev->next should be ffff88805f6be020, but was 0000000000000000. (prev=ffffffff9aecd340)
+------------[ cut here ]------------
+kernel BUG at lib/list_debug.c:64!
+Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
+CPU: 0 UID: 0 PID: 6706 Comm: syz.1.55 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+RIP: 0010:__list_del_entry_valid_or_report+0x15a/0x190 lib/list_debug.c:62
+Code: e8 8b f8 37 fd 43 80 3c 2c 00 74 08 4c 89 ff e8 4c bf 58 fd 49 8b 17 48 c7 c7 40 6e cc 8b 48 89 de 4c 89 f9 e8 27 88 4c fc 90 <0f> 0b 4c 89 f7 e8 5c f8 37 fd 43 80 3c 2c 00 74 08 4c 89 ff e8 1d
+RSP: 0018:ffffc90005077c38 EFLAGS: 00010246
+RAX: 000000000000006d RBX: ffff88805f6be020 RCX: 3022935dcdf04700
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000201 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: ffffed101708490b R12: 1ffffffff35d9a68
+R13: dffffc0000000000 R14: ffffffff85f7e840 R15: ffffffff9aecd340
+FS:  00007f556375d6c0(0000) GS:ffff8881249bb000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fcf66ae41d8 CR3: 0000000035112000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __list_del_entry_valid include/linux/list.h:140 [inline]
+ __list_del_entry include/linux/list.h:261 [inline]
+ list_del include/linux/list.h:275 [inline]
+ nvmet_fc_portentry_unbind drivers/nvme/target/fc.c:1288 [inline]
+ nvmet_fc_remove_port+0x1fb/0x380 drivers/nvme/target/fc.c:2934
+ nvmet_disable_port+0x13e/0x1f0 drivers/nvme/target/core.c:400
+ nvmet_port_subsys_drop_link+0x1e8/0x210 drivers/nvme/target/configfs.c:1123
+ configfs_unlink+0x44f/0x6b0 fs/configfs/symlink.c:258
+ vfs_unlink+0x27b/0x6e0 fs/namei.c:5678
+ filename_unlinkat+0x3d3/0x610 fs/namei.c:5748
+ __do_sys_unlinkat fs/namei.c:5777 [inline]
+ __se_sys_unlinkat+0x83/0x1a0 fs/namei.c:5769
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f556411e1d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f556375d028 EFLAGS: 00000246 ORIG_RAX: 0000000000000107
+RAX: ffffffffffffffda RBX: 00007f55643a6090 RCX: 00007f556411e1d9
+RDX: 0000000000000000 RSI: 0000200000000780 RDI: ffffffffffffff9c
+RBP: 00007f55641b5888 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f55643a6128 R14: 00007f55643a6090 R15: 00007ffde0760588
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:__list_del_entry_valid_or_report+0x15a/0x190 lib/list_debug.c:62
+Code: e8 8b f8 37 fd 43 80 3c 2c 00 74 08 4c 89 ff e8 4c bf 58 fd 49 8b 17 48 c7 c7 40 6e cc 8b 48 89 de 4c 89 f9 e8 27 88 4c fc 90 <0f> 0b 4c 89 f7 e8 5c f8 37 fd 43 80 3c 2c 00 74 08 4c 89 ff e8 1d
+RSP: 0018:ffffc90005077c38 EFLAGS: 00010246
+RAX: 000000000000006d RBX: ffff88805f6be020 RCX: 3022935dcdf04700
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000201 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: ffffed101708490b R12: 1ffffffff35d9a68
+R13: dffffc0000000000 R14: ffffffff85f7e840 R15: ffffffff9aecd340
+FS:  00007f556375d6c0(0000) GS:ffff8881249bb000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fcf66c6f040 CR3: 0000000035112000 CR4: 00000000003526f0
 
-Cc: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Dave Martin <Dave.Martin@arm.com>
-Cc: James Morse <james.morse@arm.com>
-Cc: Babu Moger <babu.moger@amd.com>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Ben Horgan <ben.horgan@arm.com>
-Cc: Fenghua Yu <fenghuay@nvidia.com>
-Suggested-by: James Morse <james.morse@arm.com>
-Signed-off-by: Zeng Heng <zengheng4@huawei.com>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- arch/x86/include/asm/resctrl.h |  6 ++++++
- drivers/resctrl/mpam_resctrl.c |  6 ++++++
- fs/resctrl/monitor.c           | 13 +++----------
- include/linux/arm_mpam.h       |  1 +
- 4 files changed, 16 insertions(+), 10 deletions(-)
 
-diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
-index 8f6edcdcfd87..7bb297a0ab6e 100644
---- a/arch/x86/include/asm/resctrl.h
-+++ b/arch/x86/include/asm/resctrl.h
-@@ -181,6 +181,12 @@ static inline u32 resctrl_arch_rmid_idx_encode(u32 ignored, u32 rmid)
- 	return rmid;
- }
- 
-+/* x86 RMIDs are independent; any RMID can be used with any CLOSID. */
-+static inline bool resctrl_arch_rmid_idx_match(u32 closid, u32 rmid_closid)
-+{
-+	return true;
-+}
-+
- /* x86 can always read an rmid, nothing needs allocating */
- struct rdt_resource;
- static inline void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r,
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 9d223057953a..385c745787f2 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -279,6 +279,12 @@ u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid)
- 	return closid * (mpam_pmg_max + 1) + rmid;
- }
- 
-+/* Check if the RMID's associated closid matches the target CLOSID. */
-+bool resctrl_arch_rmid_idx_match(u32 closid, u32 rmid_closid)
-+{
-+	return closid == rmid_closid;
-+}
-+
- void resctrl_arch_rmid_idx_decode(u32 idx, u32 *closid, u32 *rmid)
- {
- 	*closid = idx / (mpam_pmg_max + 1);
-diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-index 73413cb128ea..39908f67dea4 100644
---- a/fs/resctrl/monitor.c
-+++ b/fs/resctrl/monitor.c
-@@ -205,23 +205,16 @@ bool has_busy_rmid(struct rdt_l3_mon_domain *d)
- static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
- {
- 	struct rmid_entry *itr;
--	u32 itr_idx, cmp_idx;
- 
- 	if (list_empty(&rmid_free_lru))
- 		return rmid_limbo_count ? ERR_PTR(-EBUSY) : ERR_PTR(-ENOSPC);
- 
- 	list_for_each_entry(itr, &rmid_free_lru, list) {
- 		/*
--		 * Get the index of this free RMID, and the index it would need
--		 * to be if it were used with this CLOSID.
--		 * If the CLOSID is irrelevant on this architecture, the two
--		 * index values are always the same on every entry and thus the
--		 * very first entry will be returned.
-+		 * Check if the free RMID matches the target CLOSID.
-+		 * Architecture-specific rules apply.
- 		 */
--		itr_idx = resctrl_arch_rmid_idx_encode(itr->closid, itr->rmid);
--		cmp_idx = resctrl_arch_rmid_idx_encode(closid, itr->rmid);
--
--		if (itr_idx == cmp_idx)
-+		if (resctrl_arch_rmid_idx_match(closid, itr->closid))
- 			return itr;
- 	}
- 
-diff --git a/include/linux/arm_mpam.h b/include/linux/arm_mpam.h
-index f92a36187a52..0bc8049a3733 100644
---- a/include/linux/arm_mpam.h
-+++ b/include/linux/arm_mpam.h
-@@ -60,6 +60,7 @@ void resctrl_arch_sched_in(struct task_struct *tsk);
- bool resctrl_arch_match_closid(struct task_struct *tsk, u32 closid);
- bool resctrl_arch_match_rmid(struct task_struct *tsk, u32 closid, u32 rmid);
- u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid);
-+bool resctrl_arch_rmid_idx_match(u32 closid, u32 rmid_closid);
- void resctrl_arch_rmid_idx_decode(u32 idx, u32 *closid, u32 *rmid);
- u32 resctrl_arch_system_num_rmid_idx(void);
- 
--- 
-2.34.1
+Tested on:
+
+commit:         24a19b95 Linux 7.3-rc7
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=17e825d1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=df4bbab1c2172b9f
+dashboard link: https://syzkaller.appspot.com/bug?extid=c98b21427617af7f547a
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=12c690a5580000
 
