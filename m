@@ -1,220 +1,236 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Received: from mta1.migadu.com (out-24.mta1.migadu.com [95.215.58.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C596A4B203E
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:44:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230274AF140
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:44:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819880; cv=none; b=aWBHngUHNTInkFMLPAqrtG/i+idmBnnt29WcTs5GimUIRxHzoYsgRAHhfDwJUOxyETqXmE+bH71yAushhaXj9IMVyPtTcF8nFDWESVeylIcFTBf7hILb3067PMoDgtBoeJ7cxDofYNI1DIJVdJMm6cxLFgbWmiEHmc0paVnF5L4=
+	t=1791819886; cv=none; b=M1YEpipJbjTtkl4qIqOVu/klQeL4gO15Y7TDLl1Ie2j/crIyERFn91yPTIHm7x/wJgFuj+PgXNYh3uiQuoMYMLkXl9cUXEfafjkGHHuQEIrRI3r3ZVHlijWlEzSPFRq0O4oaDmlxyqFpAl9/iZkmk2+a6m6NSphanlwsLX/i9Lk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819880; c=relaxed/simple;
-	bh=bR1O7d6qQN9Efb4Kbpe+rTLzsK7TGqxLRmmK6Ui3Ass=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Yyyupp7REvqf/GsHcY3HPhlCLYDuMtTDBb6I6e8jYR6W+i61Ie0CyAd6f2s9DRw15XChOa8mRwdkm2XFO+4NuaoihEJXPIvkPYUgUlsvQTkSUKVSBTBbx1lpNH9/O8grb5oScZ8DIFreOnLsvegmnt5QjbSh0MMTfkHXOAZvuFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c734afb8deso3041289b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:44:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791819878; x=1792424678;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GPDFFFGSrqI9ZKgzKXufTUNby0rH4X7Rocq6YYaTbNU=;
-        b=WLaF8+vB8Gb6EvPPye9llUmf52oto8v93NZO/4F26KyvHKCvdBUPMaUTv1DF1fBFv5
-         KJ4Zq8/0y/CWJvb4r2Hpv27PbGdr4psWfkoDlCjUyNsm/VDKyEkyaGuiUvdwjbyjqJON
-         qYJv6TS+p+1c8Lj1trgTnUnqIUrJDSWwKqZoImO0MCwpgaMMBEsLBpuiMfuu8UYYaOs3
-         ATPbnjmNmZdsxTVUCBBVTUuBuY9k09BUr5uzwsX544LLhN37/jpv5tLjhn7LyqkGDJ/m
-         mF6C07DONWIA1yztRJbedMLO7HdZcZZ6ynVYYgUOG21zBcBW5OWZvBAqKCwgJx93neBd
-         OywA==
-X-Forwarded-Encrypted: i=1; AKwUvBwMcttKnZgbOelg6CgWKTXClRyTWWtHc2L7wbCGbeUd/PJe/UGwft5pfuNrMKNPDGChe0y9BsaUn0Io6js=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIC9w+5fg4s/z09zi/fovJx6814Y8PdM/tDhkygj5jwf5g9j/zU
-	xJfeTUrEf2b0dUPWCW1VvEszQz4xlpZNeDI+zOURRfJVbVYNBv/jwdf2Ee+Q75BI0mQE44gxI5u
-	FiQXEpvz9ytlWiT4LBmSDb1x+IiCu6dkHUNI9bKId0sIAz8sxP0irJIGGPvE=
+	s=arc-20240116; t=1791819886; c=relaxed/simple;
+	bh=RNUPxnQhct34be5Z0buM9fJf70aN/ExmaVf/Fojs7us=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=r7HMfp8A9LxPLUKlkpU18bE5kknaTAu4wI41A0rNlSPC6qOYTI2HC7jAzukc3fjH1eN1XLE2VZwvGtPmOB6q6S/sYKMmJJJlMpkELzwZoc0QgaLJzTkvYCnZ2BzrSrFCq/fKPAJILIg4bmQPkBJCOUV5pzH3zqoKI8bknS6+H8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BJ1uo5AU; arc=none smtp.client-ip=95.215.58.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BJ1uo5AU"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RNUPxnQhct34be5Z0buM9fJf70aN/ExmaVf/Fojs7us=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791819883; v=1; x=1792424683;
+ b=BJ1uo5AUtxeGiJjseHAuurS00kVcYIF6bA9TaHE4KnygeSnIRKLgddfJnbiXfkKIrsk15YfV
+ OIU8NyL1G3z5jgT8xfesC7nk+cL/beyucLbgZ1dEwDUj5/nGwY1slh++KkAX22EH8y0oE2jtw5r
+ 7BNqLDwmwu4z7pGFFOm6Zn2c=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 035d91738ae5639f;
+	Mon, 12 Oct 2026 15:44:42 +0000
+X-Mizu-Trace-ID: 035d91738ae5639f
+X-Migadu-Flow: FLOW_OUT
+From: Leon Hwang <leon.hwang@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Quentin Monnet <qmo@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Leon Hwang <leon.hwang@linux.dev>,
+	Mykyta Yatsenko <yatsenko@meta.com>,
+	Avinash Duduskar <avinash.duduskar@gmail.com>,
+	Anton Protopopov <a.s.protopopov@gmail.com>,
+	Amery Hung <ameryhung@gmail.com>,
+	Jordan Rife <jordan@jrife.io>,
+	Rong Tao <rongtao@cestc.cn>,
+	Eyal Birger <eyal.birger@gmail.com>,
+	Pu Lehui <pulehui@huawei.com>,
+	Jingguo Tan <tanjingguo@huawei.com>,
+	Lin Ma <malin89@huawei.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf-next v2 15/21] selftests/bpf: Add tracing_multi bpf prog attach test
+Date: Mon, 12 Oct 2026 23:40:17 +0800
+Message-ID: <20261012154024.29423-16-leon.hwang@linux.dev>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261012154024.29423-1-leon.hwang@linux.dev>
+References: <20261012154024.29423-1-leon.hwang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:680a:b0:4fb:6402:a8ca with SMTP id
- 5614622812f47-50c4e685340mr10902686b6e.21.1791819877745; Mon, 12 Oct 2026
- 08:44:37 -0700 (PDT)
-Date: Mon, 12 Oct 2026 08:44:37 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6acd0065.a150a118.27e199.004d.GAE@google.com>
-Subject: [syzbot] [lvs?] INFO: rcu detected stall in ip_vs_estimation_kthread (2)
-From: syzbot <syzbot+022ec9322756662013b5@syzkaller.appspotmail.com>
-To: coreteam@netfilter.org, davem@davemloft.net, edumazet@kernel.org, 
-	fw@strlen.de, horms@verge.net.au, ja@ssi.bg, kuba@kernel.org, 
-	linux-kernel@vger.kernel.org, lvs-devel@vger.kernel.org, 
-	netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, pabeni@redhat.com, 
-	pablo@netfilter.org, phil@nwl.cc, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Attach to two bpf progs with fentry.multi, fexit.multi, and fsession.multi
+progs.
 
-syzbot found the following issue on:
-
-HEAD commit:    7b63ef2d55f2 Merge tag 'for-7.3-rc6-tag' of git://git.kern..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=16feaa8e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=23e5acac5c98285f
-dashboard link: https://syzkaller.appspot.com/bug?extid=022ec9322756662013b5
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/6a3c98d82e9c/disk-7b63ef2d.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/3d921ef6c68c/vmlinux-7b63ef2d.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/9d4e9981e5b9/bzImage-7b63ef2d.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+022ec9322756662013b5@syzkaller.appspotmail.com
-
-rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
-rcu: 	Tasks blocked on level-0 rcu_node (CPUs 0-1): P5285/3:b..l
-rcu: 	(detected by 0, t=10503 jiffies, g=348101, q=1610 ncpus=2)
-task:syz-executor    state:R  running task     stack:28200 pid:5285  tgid:5285  ppid:32677  task_flags:0x400040 flags:0x00080002
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5533 [inline]
- __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
- preempt_schedule_common+0x7f/0xd0 kernel/sched/core.c:7463
- preempt_schedule_thunk+0x16/0x40 arch/x86/entry/thunk.S:12
- __raw_spin_unlock include/linux/spinlock_api_smp.h:201 [inline]
- _raw_spin_unlock+0x41/0x50 kernel/locking/spinlock.c:213
- spin_unlock include/linux/spinlock.h:401 [inline]
- filemap_map_pages+0x1aba/0x2170 mm/filemap.c:3997
- do_fault_around mm/memory.c:5958 [inline]
- do_read_fault mm/memory.c:5991 [inline]
- do_fault mm/memory.c:6134 [inline]
- do_pte_missing+0x20ae/0x34b0 mm/memory.c:4700
- handle_pte_fault mm/memory.c:6558 [inline]
- __handle_mm_fault mm/memory.c:6707 [inline]
- handle_mm_fault+0x1a53/0x3750 mm/memory.c:6876
- do_user_addr_fault+0xa4f/0x1340 arch/x86/mm/fault.c:1343
- handle_page_fault arch/x86/mm/fault.c:1483 [inline]
- exc_page_fault+0x6a/0xc0 arch/x86/mm/fault.c:1536
- asm_exc_page_fault+0x26/0x30 arch/x86/include/asm/idtentry.h:595
-RIP: 0033:0x7f5254b3f7c0
-RSP: 002b:00007f5254f4fc58 EFLAGS: 00010202
-RAX: 0000000000000000 RBX: 00007f5254f4fc60 RCX: 00007f5254bc6c4c
-RDX: 0000000000000000 RSI: 0000000000000018 RDI: 00007f5254f4fc60
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000001
-R10: 000055557d62f7d0 R11: 0000000000000246 R12: 0000000000000001
-R13: 00000000000927c0 R14: 00000000001e199a R15: 00007f5254f4fe40
- </TASK>
-rcu: rcu_preempt kthread starved for 737 jiffies! g348101 f0x0 RCU_GP_WAIT_FQS(5) ->state=R ->cpu=1
-rcu: 	Unless rcu_preempt kthread gets sufficient CPU time, OOM is now expected behavior.
-rcu: RCU grace-period kthread stack dump:
-task:rcu_preempt     state:R  running task     stack:27496 pid:17    tgid:17    ppid:2      task_flags:0x208040 flags:0x00080000
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5533 [inline]
- __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
- __schedule_loop kernel/sched/core.c:7361 [inline]
- schedule+0x164/0x2b0 kernel/sched/core.c:7376
- schedule_timeout+0x152/0x2c0 kernel/time/sleep_timeout.c:99
- rcu_gp_fqs_loop+0x30c/0x11f0 kernel/rcu/tree.c:2122
- rcu_gp_kthread+0x9e/0x2b0 kernel/rcu/tree.c:2330
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-rcu: Stack dump where RCU GP kthread last ran:
-Sending NMI from CPU 0 to CPUs 1:
-NMI backtrace for cpu 1
-CPU: 1 UID: 0 PID: 2226 Comm: ipvs-e:321:0 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-RIP: 0010:netif_skb_features+0xc5/0xf20 net/core/dev.c:3914
-Code: 4c 89 74 24 10 49 8b 45 00 48 89 44 24 18 48 8d 98 b8 00 00 00 48 89 d8 48 c1 e8 03 48 b9 00 00 00 00 00 fc ff df 80 3c 08 00 <74> 08 48 89 df e8 b1 57 85 f8 4c 8b 33 48 8b 44 24 10 48 8d b8 d0
-RSP: 0018:ffffc90000a17da0 EFLAGS: 00000246
-RAX: 1ffff1100547bc17 RBX: ffff88802a3de0b8 RCX: dffffc0000000000
-RDX: 8000000000000300 RSI: 0000000000000100 RDI: ffff8881d9ce2dc0
-RBP: ffffc90000a17ea0 R08: 0000000000000100 R09: 1ffffffff20f4ccf
-R10: dffffc0000000000 R11: fffffbfff20f4cd0 R12: dffffc0000000000
-R13: ffff8881d9ce2dd0 R14: ffff8881d9ce2dc0 R15: ffff88802a3de000
-FS:  0000000000000000(0000) GS:ffff888124dc6000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f5254b3f7c0 CR3: 000000007eb18000 CR4: 00000000003526f0
-Call Trace:
- <IRQ>
- validate_xmit_skb+0xa0/0x1820 net/core/dev.c:4095
- __dev_queue_xmit+0xb01/0x3920 net/core/dev.c:4945
- dev_queue_xmit include/linux/netdevice.h:3464 [inline]
- neigh_hh_output include/net/neighbour.h:544 [inline]
- neigh_output include/net/neighbour.h:558 [inline]
- ip_finish_output2+0xbda/0x10b0 net/ipv4/ip_output.c:236
- NF_HOOK_COND include/linux/netfilter.h:314 [inline]
- ip_output+0x29f/0x450 net/ipv4/ip_output.c:437
- synproxy_send_client_synack+0x89b/0xde0 net/netfilter/nf_synproxy_core.c:487
- nft_synproxy_eval_v4+0x362/0x4e0 net/netfilter/nft_synproxy.c:59
- nft_synproxy_do_eval+0x389/0x5d0 net/netfilter/nft_synproxy.c:142
- expr_call_ops_eval net/netfilter/nf_tables_core.c:237 [inline]
- nft_do_chain+0x48d/0x1b10 net/netfilter/nf_tables_core.c:285
- nft_do_chain_ipv4+0x195/0x290 net/netfilter/nft_chain_filter.c:24
- nf_hook_entry_hookfn include/linux/netfilter.h:165 [inline]
- nf_hook_slow+0xc5/0x220 net/netfilter/core.c:619
- nf_hook include/linux/netfilter.h:280 [inline]
- NF_HOOK+0x21f/0x3c0 include/linux/netfilter.h:323
- NF_HOOK+0x336/0x3c0 include/linux/netfilter.h:325
- __netif_receive_skb_one_core net/core/dev.c:6297 [inline]
- __netif_receive_skb net/core/dev.c:6410 [inline]
- process_backlog+0xa6b/0x18b0 net/core/dev.c:6761
- __napi_poll+0xaa/0x330 net/core/dev.c:7830
- napi_poll net/core/dev.c:7893 [inline]
- net_rx_action+0x61d/0xf50 net/core/dev.c:8050
- handle_softirqs+0x226/0x860 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0xcb/0x220 kernel/softirq.c:758
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0xa6/0xc0 arch/x86/kernel/apic/apic.c:1062
- </IRQ>
- <TASK>
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:finish_task_switch+0x413/0xc60 kernel/sched/core.c:5384
-Code: 04 00 00 41 c7 84 24 20 0e 00 00 00 00 00 00 e9 db 06 00 00 49 83 c4 48 4c 89 e7 e8 47 e0 53 0a e8 22 2f 3a 00 fb 4c 8b 65 c8 <49> 8d bc 24 18 17 00 00 48 89 f8 48 c1 e8 03 42 0f b6 04 30 84 c0
-RSP: 0018:ffffc90003c477e0 EFLAGS: 00000206
-RAX: 000000000001ad27 RBX: ffff8880b873c8e0 RCX: 8000000000000001
-RDX: 0000000000000000 RSI: ffffffff8e41727c RDI: ffffffff8c6dad80
-RBP: ffffc90003c47830 R08: ffffffff907a667f R09: 1ffffffff20f4ccf
-R10: dffffc0000000000 R11: fffffbfff20f4cd0 R12: ffff888033593e80
-R13: ffff8880b873c8a8 R14: dffffc0000000000 R15: 1ffff110170e791c
- context_switch kernel/sched/core.c:5536 [inline]
- __schedule+0x17e3/0x58f0 kernel/sched/core.c:7284
- __schedule_loop kernel/sched/core.c:7361 [inline]
- schedule+0x164/0x2b0 kernel/sched/core.c:7376
- schedule_timeout+0x152/0x2c0 kernel/time/sleep_timeout.c:99
- ip_vs_estimation_kthread+0x29ef/0x3950 net/netfilter/ipvs/ip_vs_est.c:216
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ .../selftests/bpf/prog_tests/tracing_multi.c  | 74 +++++++++++++++++++
+ .../selftests/bpf/progs/tracing_multi_bpf.c   | 52 +++++++++++++
+ 2 files changed, 126 insertions(+)
+ create mode 100644 tools/testing/selftests/bpf/progs/tracing_multi_bpf.c
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/tools/testing/selftests/bpf/prog_tests/tracing_multi.c b/tools/testing/selftests/bpf/prog_tests/tracing_multi.c
+index cc727011f3a2..801136ca63f0 100644
+--- a/tools/testing/selftests/bpf/prog_tests/tracing_multi.c
++++ b/tools/testing/selftests/bpf/prog_tests/tracing_multi.c
+@@ -12,6 +12,7 @@
+ #include "tracing_multi_verifier.skel.h"
+ #include "tracing_multi_bench.skel.h"
+ #include "tracing_multi_rollback.skel.h"
++#include "tracing_multi_bpf.skel.h"
+ #include "trace_helpers.h"
+ 
+ static __u64 bpf_fentry_test_cookies[] = {
+@@ -1126,3 +1127,76 @@ void test_tracing_multi_test(void)
+ 	if (test__start_subtest("fentry_after_multi"))
+ 		test_fentry_after_multi();
+ }
++
++static int run_bpf_target(struct bpf_program *prog, __u32 retval, const char *name)
++{
++	LIBBPF_OPTS(bpf_test_run_opts, topts);
++	int err;
++
++	err = bpf_prog_test_run_opts(bpf_program__fd(prog), &topts);
++	if (!ASSERT_OK(err, name))
++		return err;
++
++	if (!ASSERT_EQ(topts.retval, retval, name))
++		return -EINVAL;
++
++	return 0;
++}
++
++static void test_link_api_bpf_prog(void)
++{
++	const char *funcs[] = { "target_1", "target_2" };
++	LIBBPF_OPTS(bpf_tracing_multi_opts, opts);
++	struct tracing_multi_bpf *skel = NULL;
++	int fds[ARRAY_SIZE(funcs)];
++	struct bpf_link *link;
++
++	skel = tracing_multi_bpf__open_and_load();
++	if (!ASSERT_OK_PTR(skel, "tracing_multi_bpf__open_and_load"))
++		return;
++
++	fds[0] = bpf_program__fd(skel->progs.target_1);
++	fds[1] = bpf_program__fd(skel->progs.target_2);
++
++	opts.fds = fds;
++	opts.funcs = funcs;
++	opts.cnt = ARRAY_SIZE(fds);
++
++	link = bpf_program__attach_tracing_multi(skel->progs.test_fentry, NULL, &opts);
++	if (!ASSERT_OK_PTR(link, "attach_fentry"))
++		goto cleanup;
++	skel->links.test_fentry = link;
++
++	link = bpf_program__attach_tracing_multi(skel->progs.test_fexit, NULL, &opts);
++	if (!ASSERT_OK_PTR(link, "attach_fexit"))
++		goto cleanup;
++	skel->links.test_fexit = link;
++
++	link = bpf_program__attach_tracing_multi(skel->progs.test_fsession, NULL, &opts);
++	if (!ASSERT_OK_PTR(link, "attach_fsession"))
++		goto cleanup;
++	skel->links.test_fsession = link;
++
++	if (run_bpf_target(skel->progs.target_1, 1, "target_1"))
++		goto cleanup;
++	if (run_bpf_target(skel->progs.target_2, 2, "target_2"))
++		goto cleanup;
++
++	ASSERT_EQ(skel->bss->target_1_result, 1, "target_1_result");
++	ASSERT_EQ(skel->bss->target_2_result, 1, "target_2_result");
++	ASSERT_EQ(skel->bss->test_result_fentry, ARRAY_SIZE(funcs), "test_result_fentry");
++	ASSERT_EQ(skel->bss->test_result_fexit, ARRAY_SIZE(funcs), "test_result_fexit");
++	ASSERT_EQ(skel->bss->test_result_fsession_entry, ARRAY_SIZE(funcs),
++		  "test_result_fsession_entry");
++	ASSERT_EQ(skel->bss->test_result_fsession_exit, ARRAY_SIZE(funcs),
++		  "test_result_fsession_exit");
++
++cleanup:
++	tracing_multi_bpf__destroy(skel);
++}
++
++void test_tracing_multi_prog_test(void)
++{
++	if (test__start_subtest("link_api"))
++		test_link_api_bpf_prog();
++}
+diff --git a/tools/testing/selftests/bpf/progs/tracing_multi_bpf.c b/tools/testing/selftests/bpf/progs/tracing_multi_bpf.c
+new file mode 100644
+index 000000000000..3e02602558ad
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/tracing_multi_bpf.c
+@@ -0,0 +1,52 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <vmlinux.h>
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_tracing.h>
++
++char _license[] SEC("license") = "GPL";
++
++__u64 test_result_fentry;
++__u64 test_result_fexit;
++__u64 test_result_fsession_entry;
++__u64 test_result_fsession_exit;
++__u64 target_1_result;
++__u64 target_2_result;
++
++SEC("syscall")
++int target_1(void *ctx)
++{
++	target_1_result++;
++	return 1;
++}
++
++SEC("syscall")
++int target_2(void *ctx)
++{
++	target_2_result++;
++	return 2;
++}
++
++SEC("fentry.multi")
++int BPF_PROG(test_fentry)
++{
++	test_result_fentry++;
++	return 0;
++}
++
++SEC("fexit.multi")
++int BPF_PROG(test_fexit)
++{
++	test_result_fexit++;
++	return 0;
++}
++
++SEC("fsession.multi")
++int BPF_PROG(test_fsession)
++{
++	if (bpf_session_is_return(ctx))
++		test_result_fsession_exit++;
++	else
++		test_result_fsession_entry++;
++
++	return 0;
++}
+-- 
+2.55.0
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
