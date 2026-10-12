@@ -1,140 +1,197 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011016.outbound.protection.outlook.com [40.107.208.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B79A2EEE84;
-	Mon, 12 Oct 2026 14:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791813820; cv=fail; b=BHhnF4vV+U7jnQAKYPCm4dSF4qiiKvWncAoB5mu8wrfO0VN4MgPPLRYWTOOZ24IkMKzz2K0w3tCQ4I5rlOUIB/VtNVoMHvB64NYJ4u6rJ2QIX0ZeQSF3yesO8oXU6b8gXqOKZjZy1FdiT61huZ2agCy6FvKru5/9nFsglBLZS24=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791813820; c=relaxed/simple;
-	bh=Sf3NyC4utg+WA42v9Iu1S6/fzOLEc0OuPMISPhFehBg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=NOUZ0GQb3uglyqG+Pnhf06A5PTCZvDYXCBqJG6Jya/giG/KYqQ9uL/bSIblohVgmKyFFn7/0FWajfyMfUDinYMjXK9YJlv5kgVZG6f95sgM2uS4HF8g9V74EQfzdSIaXa2Cg1xeBZADoy+zDzv47iOgERJ1MGxbJyeNnaDLk234=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ycPAjL6Z; arc=fail smtp.client-ip=40.107.208.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F97476681;
+	Mon, 12 Oct 2026 14:03:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791813828; cv=none; b=W/FeuzFUlPQ/SHe1yFiyFZ0N8jAjHGNfr6BGJISJ3mjs8sQmXkwehNN8HK+6XNo7cx0/H5SAK+T/ZbxRlVvznTN7Scs10/p6Ior3lyBVYAFU8vX++7akFnHJVCVSNr2aGAPtiSjmsBolFua804JELHNuXpdZwvtnm8nrsAcLUFs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791813828; c=relaxed/simple;
+	bh=+1QKd8Jr1KCnu4yXZZ3rmMeo9LPyc3brv++uan6aklA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QIqK9L47uJroQZfJMGJdrwRNn6s6SP5lkh/UnbSMbdWwz0y+hehMaV6bd1TXcsFucN0v/p0wZF2xz1F460oLKEwky4EcZjdpYiXtPzBZlZyP+psfCDmSu+rHco7cATzX3CnUWS2vMALJmqcxqm4kThYmRPHm6WawmtXxXijzBzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=WUQUmKbW; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=O74MO2LT; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=YbZVSdZW; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=19dypBJS; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ycPAjL6Z"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xsEy12tOMiLc3/oFuHQ787ZAhg7QjqO/5luqYidlAvrHFugRvru1yFsk2bDCIYSdln8+32mw9oXI+Os8FjMJf51LBjr9l+hFIUVUh0AK1G6gpLaQ+TN2ZuL390hbMbYiFdnH+v5ix/3pwWb1aj4ijdQc9S1rjw3RarMmmJwCBIkSVIiMgCYS0u5IwA7alcGXuWPiJg4Zd0/wgirCmppSP8yaDEJuT38dHHkBizkRvlaP0i6c2ykoK30NKI336vpfvb0DeHaWdHgaOqqf/gDcQMG9949J87Yf0gHOA86J/08HhbiLNQ3VQlNYu/Jgmlg1y+1CPJMm3cl+IQtfOQ0VKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U7UbVhy0DuBrIMMPzuccw3hDjIHxmiSxQ3h16HdHNdw=;
- b=w7ZmtzVg1XnbukvRj5ZcrFC7wkSD9UcIaEJYZhZeHUh9vQ5whsxS5YwtLJ9xN9JvG7cZhGf8SrXmfQV28SIEk/iBLRlwqxzjaT4CJHVV5jVU58NB8hD87VD97dVKR8078k13CvPxpW6U+hTm9/ru/Hqsp0pXppggck53VQq/ymtyea2zIJNEANPPjR1PI1eZRWVBHe6dueHWMcRJ0R+0Aj5/6gQ1HSh9fPiThVLpjXCEX75UDPLJi/zRHZU/WFrX64mDtmMpniPJPPJ4ZDr4T/Rpv7Fmu3T57DHu3xJl5yG2jlSnCNuNxc28oTd99P+oz65b3ELCwsZ80QrBoRA/Ag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U7UbVhy0DuBrIMMPzuccw3hDjIHxmiSxQ3h16HdHNdw=;
- b=ycPAjL6Zoco0aavVNR+6B7wr1FjsRKMTCpXMpPUXH+AnPeECSBsW2Y+zGejp6BEQs5rbe896xEpL1CMmAkU9QcgphkC87+wpO3hjhnwFDFHeW0aEVMx0VxTOBDzvcvkXkI+kwiB0FwemJyP/f5yOqLJ6Q+AZ7fGhR8l1EB2i0jY=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
- DS0PR12MB9345.namprd12.prod.outlook.com (2603:10b6:8:1a9::10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.17; Mon, 12 Oct 2026 14:03:35 +0000
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf%5]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 14:03:35 +0000
-Date: Mon, 12 Oct 2026 10:03:30 -0400
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: Guixiong Wei <weiguixiong@bytedance.com>
-Cc: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
-	Muralidhara M K <muralidhara.mk@amd.com>,
-	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] EDAC/mce_amd: Add missing long names for SMCA bank types
-Message-ID: <20261012140330.GC15198@yaz-khff2.amd.com>
-References: <20261009020447.90758-2-weiguixiong@bytedance.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009020447.90758-2-weiguixiong@bytedance.com>
-X-ClientProxiedBy: MN2PR16CA0054.namprd16.prod.outlook.com
- (2603:10b6:208:234::23) To DM4PR12MB6374.namprd12.prod.outlook.com
- (2603:10b6:8:a3::18)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="WUQUmKbW";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="O74MO2LT";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="YbZVSdZW";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="19dypBJS"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0742F21DF9;
+	Mon, 12 Oct 2026 14:03:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791813825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UMuzhFir/rTUnCzgemgYrRCOBUti0kDEikdV99mQG8c=;
+	b=WUQUmKbWymjU5N8nE7wanBZv2alOdU7ykNv63GK+IgKkTXzEz4ldstZDu/0WKLlzZPVj2J
+	dH+EvOwJdvtB02cJzXWe7KLUlL2OH4svy6Juf20hH1MtWrCsDlOGmrC/KTpBfNRdKyS3UD
+	Vu6hadmfEylax0a+9VPqHXYrQ4Wp25M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791813825;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UMuzhFir/rTUnCzgemgYrRCOBUti0kDEikdV99mQG8c=;
+	b=O74MO2LTqvjcm1xeNuhTSHKU+WrcrAbZeW3ymwtxg0i4V4jbP0g4AFm5sLinQqKAXO8i2E
+	2Cxwo//YcA3z+xDQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791813824; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UMuzhFir/rTUnCzgemgYrRCOBUti0kDEikdV99mQG8c=;
+	b=YbZVSdZWDuxFHB4kSACBLFcxZxglS99yIYXCsx9LpR7PwmvButO4kzu0H+6SMMbcGDP6dX
+	Q7VfPs/DgwNlU1seSl93K2cb5sXXgBpUn7lHWIrGAa3l/SlhLJGeXF5HcOm0adLHYB827K
+	t4jP7pKsB7pWUjEb5cZJEOne3YdRzAo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791813824;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UMuzhFir/rTUnCzgemgYrRCOBUti0kDEikdV99mQG8c=;
+	b=19dypBJSpSB8VpG9k68dspCu59qOZsosN9V46nHSXiwCSa0QOalR3rHZKiHUIfwEsHsX7U
+	+/pNDnqubKp7WWAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AF9EA13314;
+	Mon, 12 Oct 2026 14:03:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 1E/GIb/ozGo8GAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 12 Oct 2026 14:03:43 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 3B7BEA1407; Mon, 12 Oct 2026 16:03:39 +0200 (CEST)
+Date: Mon, 12 Oct 2026 16:03:39 +0200
+From: Jan Kara <jack@suse.cz>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+1cfd29c242c7cd26da02@syzkaller.appspotmail.com
+Subject: Re: [PATCH] fs/dcache: annotate the lockless d_unhashed() check in
+ retain_dentry()
+Message-ID: <xfg44tmmmuse7snjoqhreqbkvlny2vyrrqh5jtvame3mw5ycby@jxrrtmsfl66l>
+References: <20261012132218.106771-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|DS0PR12MB9345:EE_
-X-MS-Office365-Filtering-Correlation-Id: 40f21709-c4dc-4618-d694-08df28699b4a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|11063799006|56012099006|10067099003|22082099003|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	+gQG0OTk93ZbEcQXKLyLNT+l/xTdlupInFgao6086KrteUBGSy7CjQCGyAHnUYjfAIFNxAislUKrrbqsxLYzDUj/3Rcw4p15oMEueTbIjWsOgskFUrVMXBjjjxz/R6gbOQhITGkHcz0xejAW4PHzv9QFGUk3V3uxxb3OfZOfDqIx5fp5zCWlWF0AswcpilZ/NM4R+HxxJ+MMaEwJKJRzBYVMZZEqdt6aQMumyTmqhIv76XldeKXnss6eQKMyCiCydklAZc8DZ2povHeB8rlqlsOqDQKe/P6kaZKUe4ptrco/ReipUD0F6M9D6kEWj0Za1a9dbfzVe6kZ6xOwh/+B+4IktNkVISK2Wf+g6/qe+woohqy+osiQtkqI9pAE4Cyc1jAdViz3+dtsyQMNlEaZo31d89zD8sG6j68Ia/zSEBzWWcPXtO2lgUKCOxSQ3rTYMomGmzJl/Nm4masKSPVUyluqUnozB22yi2zj4A1nc+abqyTOjLx0vIL81Z+19BynkZp4OLJCrf4KKXXO5h8sfvU4Bpt71Jh4U4triy7utTzxH+qeKw9sLxNgaW+jTVo/YDPR7kr5qbJnwt/o1CVDJYKE7k8CbXuMVJCrxV3FuQWVmYPQCI7zV73nukuXZaU/zq3C/FCMVHiQNqTBZlGSlHE4DnMXYz8KGA7aUQYZLnU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(11063799006)(56012099006)(10067099003)(22082099003)(6133799003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?HnC2NdorGDnNuiyBRV260lTIIu/FncUS0g06+Y8cKQGXMZlsLrBE42Sl98Ue?=
- =?us-ascii?Q?ePOw7IG0310/TmH+4Qd7jGYdIHnmOGFciJdqZmQ2ehnaCG7X5LqxMDc6nXWu?=
- =?us-ascii?Q?fuxQU3yj7IMzD4PSEHAQRjM3O4vhFBa4y7vKSLBJ20we8dg2t4NoVZqbQDRp?=
- =?us-ascii?Q?6gV0qE7zlvm2cJqAK4FSQNVMmyZC/MAgpYQmmMQzzwRV8f4lXeGZO3WjrZNF?=
- =?us-ascii?Q?aLv+vo0kabua0OFFrHkea1/BjMIxY+cnyGG+ix29ky5rOqwvM/EJMRZPRJlR?=
- =?us-ascii?Q?FD1E1fxZOlu48lSi10HSJGI0AY1N5wKgoIEtlqJC0a0qYJH2uWidxJei/Ni0?=
- =?us-ascii?Q?p3+CpmN3Ieyq6cIzk6cuuuph1yHxsL+GdXsC1igOhaXrK2cf96JAi24C64T3?=
- =?us-ascii?Q?24gcPGFdfMT3MqY5cDIxqcOPkjqSnN0rqDzyR4fJyQgq6jzY/piM0bSM2/S/?=
- =?us-ascii?Q?bI8XG+gyJuCBGA2ipkccW2VoEdoFsztPnbc6iSlnzMpE0yGbXaHev9xDdgHv?=
- =?us-ascii?Q?GQRDbxVcsGjYjysHKmhIv4lXg+HW/d/vMyuN9vUlzazh9Wy83RS2eZJKmv64?=
- =?us-ascii?Q?kcGb3lodAoz5HlNONkr/L2G297t7RdjVjMIeNQT2EX0keFaj7Pk5i2uP1EB3?=
- =?us-ascii?Q?sEaKgPYElWlZIb6EdpQaBvxknorQDBwXudngHDz25CtfDR/SG1yxrJMcGnpM?=
- =?us-ascii?Q?2GntBNnOm+WTWbErcGMILGAclagT+QMK6UCdU98BTx9Lmyez33h6c7U7SwSW?=
- =?us-ascii?Q?C8ejK1qM7+E9Xm8WUX5Nr6iFhtt+b7MI5D2fzb9y6XPgO/iasKj9zcL015eY?=
- =?us-ascii?Q?q8d/xJSlOpGALz5FiPUF6wWIUq0yad1sLk8dh1VXk9LVymUY5tVXhxxWTPDd?=
- =?us-ascii?Q?r9LWwriOG7p4kRFkMGxgdSXHC2Nio7sQeyvJiF3w4zsX+NpaBAZelUSK7bc8?=
- =?us-ascii?Q?wml2m6I09Xdq6KNQQkVkPpedt52T4zrIImMCVG8xSWQK7mcr3pgkWDnFiHt/?=
- =?us-ascii?Q?CpiqBsLfoVEoX1Cv39wxTzFT9Tk3H9l4VjGvMuMhDobXOMh+83vtApJr0szy?=
- =?us-ascii?Q?E+8sJHntndVcCu/j+9iE5kA1LSG0iJ7Fba8oetR+Ao9W5DK2MyOyNoSA9rR6?=
- =?us-ascii?Q?7buMhW2AFgpYRrf2ZncTp2NJ3EVjrPLCz0ERX1UhlFQzpB8vVPOx9N/HHWLE?=
- =?us-ascii?Q?pqzP9Im/cCmbvAeAzuGnL5CmmrMjeT9N9v2W49mFN9L4gZNNfbR7nad+gSTC?=
- =?us-ascii?Q?OuOQaT0x4v47cXnEqmBmtXcciibmK20LUF4E6WV/4Ja00WmmnHFCwPcljRL+?=
- =?us-ascii?Q?/oYotww7GIQMW7+XWC2Q7WmKdBFo2hPBAW50VWwcViN29BhpZwylUKi+ssbo?=
- =?us-ascii?Q?h1S9jsC8u6cK1GqJ8WbsV94LpTBvVEGKP0cZA7rU+/vdNfWdf9auqpdR77f9?=
- =?us-ascii?Q?8PBx4veEBP0Deqp3ZxhNVnTJbpkOvOqPbwclO9Xnk4OQl780nJfLeVe5S1Jn?=
- =?us-ascii?Q?W9KiWDm0mlOVH/NO98qXVMnvxXD880aGS9Uhq8x6LRcX5Ys7wYL7/HGUEe+/?=
- =?us-ascii?Q?4Y8pwZTl/60f53a7GoAEjUknJ+Tdmby6GEgnibRO4cZhGxZ0u30SVuiAYrFr?=
- =?us-ascii?Q?rKaHTOPMoBxKNW+ct3vxfGcxSvLxpKK/1fXpAdt37NRiwCuD5OffNItKx2pj?=
- =?us-ascii?Q?Nt0e/sfNI/ErqEOEvOi4eK4ytVkw0x0r6YQw7fVIB8paW579?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 40f21709-c4dc-4618-d694-08df28699b4a
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 14:03:35.4022
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wHPVQBIfLV/pIezaLaMPRGrXEnqBpS9fWQOcwfpxz9IVcdgqNX2ofqX7IKVX8TO3xwiYiUg+jF2CY+zexPh2mw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9345
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012132218.106771-1-ngocthang2710.1999@gmail.com>
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[1cfd29c242c7cd26da02];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[syzkaller.appspot.com:url,suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo,appspotmail.com:email]
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Fri, Oct 09, 2026 at 10:04:24AM +0800, Guixiong Wei wrote:
-> Commit 47b744ea5e3c ("x86/MCE/AMD: Add new MA_LLC, USR_DP,
-> and USR_CP bank types") added three SMCA bank types after the bank long
-> names had been moved to the MCE decoder.
+On Mon 12-10-26 20:22:18, Nguyen Ngoc Thang wrote:
+> KCSAN reports a data race between __d_drop() clearing d_hash.pprev
+> and the d_unhashed() test in retain_dentry(), reached from fast_dput()
+> without ->d_lock held:
 > 
-> The new types were added to the enum, short-name table, and HWID/McaType
-> mapping, but not to smca_long_names[]. As a result, an error from any of
-> these banks is logged with "(null)" in place of the bank name.
+>   BUG: KCSAN: data-race in dentry_kill / fast_dput
 > 
-> Add the missing long names.
+>   write to 0xffff888107394e50 of 8 bytes by task 3667 on cpu 0:
+>    __d_drop fs/dcache.c:578 [inline]
+>    dentry_kill+0x139/0x500 fs/dcache.c:824
+>    finish_dput+0x16/0x1d0 fs/dcache.c:1001
+>    dput+0x48/0x50 fs/dcache.c:1042
+>    lookup_one_qstr_excl+0x156/0x240
+>    filename_unlinkat+0x149/0x410
 > 
-> Fixes: 47b744ea5e3c ("x86/MCE/AMD: Add new MA_LLC, USR_DP, and USR_CP bank types")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
+>   read to 0xffff888107394e50 of 8 bytes by task 3668 on cpu 1:
+>    hlist_bl_unhashed include/linux/list_bl.h:54 [inline]
+>    d_unhashed include/linux/dcache.h:396 [inline]
+>    retain_dentry fs/dcache.c:872 [inline]
+>    fast_dput+0x64/0x300 fs/dcache.c:971
+>    dput+0x1f/0x50 fs/dcache.c:1040
+>    handle_mounts fs/namei.c:1753 [inline]
+>    step_into_slowpath+0x38c/0x4c0 fs/namei.c:2104
+>    path_lookupat+0x2eb/0x4c0
+>    do_readlinkat+0x74/0x2f0
+> 
+>   value changed: 0xffff8882376dc230 -> 0x0000000000000000
+> 
+> The race is intentional. As the comment above retain_dentry() says,
+> without ->d_lock the predicates are not stable, and it is enough that
+> the dentry was hashed at some point after the reference was dropped.
+> If the lockless reader sees a stale "hashed" value, the dentry is kept
+> with a zero refcount, exactly as if it had been dropped just after the
+> check. If it sees "unhashed", it takes ->d_lock and rechecks. A single
+> aligned pointer load cannot tear, so neither outcome is harmful.
+> 
+> Mark the read with data_race() to document this and silence KCSAN.
+> No functional change.
+> 
+> Reproduced with the syzbot C reproducer on a KCSAN kernel in QEMU;
+> with this patch the dentry_kill race no longer shows up.
+> 
+> Reported-by: syzbot+1cfd29c242c7cd26da02@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=1cfd29c242c7cd26da02
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 
-These were intentionaly left out as it as it seems users have been
-moving to user space decode tools.
+Looks good. Feel free to add:
 
-Do you actually need these in the kernel?
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Thanks,
-Yazen
+								Honza
+
+> ---
+>  fs/dcache.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/dcache.c b/fs/dcache.c
+> index 1b1a81f10da6..3eb3d7e7ab0f 100644
+> --- a/fs/dcache.c
+> +++ b/fs/dcache.c
+> @@ -868,8 +868,9 @@ static inline bool retain_dentry(struct dentry *dentry, bool locked)
+>  	smp_rmb();
+>  	d_flags = READ_ONCE(dentry->d_flags);
+>  
+> -	// Unreachable? Nobody would be able to look it up, no point retaining
+> -	if (unlikely(d_unhashed(dentry)))
+> +	// Unreachable? Nobody would be able to look it up, no point retaining.
+> +	// Racy when !locked: a stale answer only costs a recheck under ->d_lock.
+> +	if (unlikely(data_race(d_unhashed(dentry))))
+>  		return false;
+>  
+>  	// Same if it's disconnected
+> -- 
+> 2.43.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
