@@ -1,151 +1,182 @@
-Received: from mta1.migadu.com (out-96.mta1.migadu.com [95.215.58.96])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38CC525B099
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:38:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.96
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D6C5D371887;
+	Mon, 12 Oct 2026 01:43:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791769097; cv=none; b=qjIaCuex00fbYFaJs8CK778jw8u6EZLe8+Lz58De61Lg6dYRqE4mfOhSxJBF7uCy3H904Xpl2s/LOAdRpfTiF4Tl8ZM+gaD7X7vKgICg/4tcUVSbyxRc+rhR7aU2ErIOFOb/ti8lXf4ggmUd0/p16O8v7YXegltPBkeeMZzRPRQ=
+	t=1791769387; cv=none; b=WN92DhVkU8bB9RFa2aGRlUqPLvv0WQ31scvG+M73p7pUf8aoJtgJFXriVLlFhWiQZIk8/Bt4K9nRZeter4J37kahg2pIZkYJETRHTgxj+ESaA2mz4D2L4ZHCRYnOPIWgYk+vl44t3FtqZBDKkONRp0Z/NRIRb+ISZf6RLhjaHQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791769097; c=relaxed/simple;
-	bh=DwPAqyo+kbHR4QZnsyXrErGHTcNhB6rs1BCvftMQZjw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WGdNoho3rroR3Mj3fYhTayjnxZZN5Pz/xPkwf6AQzfbhbDBM4gx8CY/dd9ezoAfkbjyqsHDj5WPOoEAbxlFER91DRpdCoTic6FflDH+F9iJT/0hQPa65nHepLwiWRb/5o2hDG/OhzAgHIGw2gYOoXKrMxqkKjoCtKKIgtXSpZBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JXM8zNSI; arc=none smtp.client-ip=95.215.58.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791769387; c=relaxed/simple;
+	bh=uOO8yUPcbHO2t16nwX57yyO34At8x/V6BNcoRxJ9Ths=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sPy/L9cAleLpKFkcyVhLHWJL+WL9lYf7S3pvhEAodc3VONosFXXOxROuE3saOeaGDqAdCgV94s3mKiaBWwwtSOk0GgjclkoW/ceaoEpJ+HINj5vHDisAFuAZMzMJZNhlwiLoAynSs+B3KZ65kmeB4arSQ3O4q2O884X9ZCKjgA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=rDrn1jLv reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JXM8zNSI"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DwPAqyo+kbHR4QZnsyXrErGHTcNhB6rs1BCvftMQZjw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791769093; v=1; x=1792373893;
- b=JXM8zNSI7eQgQQGm5PphOuaxKoQrEX4Kxkovv9MMM5okDUB2kEBdXpDrAhK8+qjnBZ131aMi
- m6HvJ6YEq+W7YqfzqU2OybwlUA1e8fbDqql8y4Miv83DyHovkEwFUe3xYCs07SewXAhVM8pHOjh
- hCKjg6zEW2lrhk03p3JRlU0Y=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id a7f938bb652c49cd;
-	Mon, 12 Oct 2026 01:38:12 +0000
-X-Mizu-Trace-ID: a7f938bb652c49cd
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 12 Oct 2026 09:38:05 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Hangbin Liu <liuhangbin@kylinos.cn>, stefano.salsano@uniroma2.it,
-	andrea@common-net.org
-Subject: Re: [PATCH net-next v2 2/5] seg6: add RFC8986 flavor support for
- End.X
-Message-ID: <asw5_RwRV5JKLg3l@fedora>
-References: <20261009-srv6_flavors_endx-v2-0-56ac7f838f41@kylinos.cn>
- <20261009-srv6_flavors_endx-v2-2-56ac7f838f41@kylinos.cn>
- <20261012025900.c2321bfa92c5863d21efdba3@uniroma2.it>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="rDrn1jLv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
+	MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=UeHWFTee2
+	L5pNatr2v8jD8hfo9aA7PdEVYM1CZ+poog=; b=rDrn1jLvgtC6EH9pmSTPKgnmu
+	ZwQxPxiCi+m2tVLZT1eQseB5+QaPEwegGq5p8RKS1Kr2Z+TmuvaSiT2sR3lJa0uH
+	YGQWsgGVW3ALZyi3TCvLiuLID+WMsgmI98euNiWlRaGDvBrpqoT7oAljBL3PnycH
+	BNmLpZf/T2U9lmE9I0=
+Received: from [10.101.142.107] (unknown [218.19.14.194])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPSA id BbQMCkA2PwIWO8xq4DiCAA--.24847S3;
+	Mon, 12 Oct 2026 09:42:48 +0800 (CST)
+Message-ID: <437297ff-1bb4-49a7-a979-abccdd1814f8@stu.xidian.edu.cn>
+Date: Mon, 12 Oct 2026 09:42:47 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012025900.c2321bfa92c5863d21efdba3@uniroma2.it>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] fs/fcntl: fix SOFTIRQ-unsafe lock order in fasync
+ signaling
+To: Oleg Nesterov <oleg@redhat.com>, w15303746062@163.com,
+ David Laight <david.laight.linux@gmail.com>
+Cc: jlayton@kernel.org, chuck.lever@oracle.com, viro@zeniv.linux.org.uk,
+ brauner@kernel.org, alex.aring@gmail.com, jack@suse.cz,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <d15a25fe784b5d4449c7ce4e56f1428d7ff28885.camel@kernel.org>
+ <20260523135210.590928-1-w15303746062@163.com> <asI5Fn87_SoEd4G5@redhat.com>
+ <asuxzwl4iWjjEjRD@redhat.com>
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+In-Reply-To: <asuxzwl4iWjjEjRD@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:BbQMCkA2PwIWO8xq4DiCAA--.24847S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxXw17Ar4rury8Zw13CF1rWFg_yoWrAFykpa
+	yYy3sxAr1vvFyjva9rtF48uayrZan7JrW3WFWfG34Fqay5ZryUXFyxXFyruFW5Wr4v9F9I
+	qFn8XrWxWF1DZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9lb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
+	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxG
+	xcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I
+	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
+	xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
+	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
+	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
+	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUg0D2UUUUU
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAQUEEWrLplBHIgABsi
 
-Hi Andrea,
-On Mon, Oct 12, 2026 at 02:59:00AM +0200, Andrea Mayer wrote:
-> On Fri, 09 Oct 2026 17:58:38 +0800
-> Hangbin Liu <hangbin.liu@linux.dev> wrote:
-> 
-> > From: Hangbin Liu <liuhangbin@kylinos.cn>
-> > 
-> > Previously End.X only supported NEXT-C-SID, with a plain fallback to
-> > input_action_end_x_core(). Add PSP End.X processing by reusing
-> > end_flv8986_core().
-> > 
-> > Add SEG6_LOCAL_FLV8986_SUPP_OPS to SEG6_LOCAL_END_X_FLV_SUPP_OPS so
-> > End.X advertises PSP flavor support.
-> > 
-> > Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
-> > ---
-> > 
-> > For Sashiko:
-> > 
-> > With the SEG6_LOCAL_END_X_FLV_SUPP_OPS mask widened, parse_nla_flavors()
-> > now accept the combination next-csid plus psp for an End.X instance. And
-> > the current code is unable to handle this combination. The End instance
-> > also has this issue. Andrea is preparing a fix for this bug.
-> 
-> Hi Hangbin,
-> 
-> thanks for v2, and for your work.
-> 
-> The End fix is now posted, to net-next and not to net as I wrote on
-> v1, since the issues it fixes have been there since PSP was added:
-> 
->   https://lore.kernel.org/netdev/20261011192310.55-1-andrea.mayer@uniroma2.it/
 
-Yes, I saw it.
+Hi Oleg,
 
-> 
-> > ---
-> >  net/ipv6/seg6_local.c | 15 ++++++++++++---
-> >  1 file changed, 12 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-> > index 4fcfcd48cfae..521a9b0c0929 100644
-> > --- a/net/ipv6/seg6_local.c
-> > +++ b/net/ipv6/seg6_local.c
-> > @@ -121,7 +121,8 @@ struct bpf_lwt_prog {
-> >  
-> >  #define SEG6_LOCAL_END_FLV_SUPP_OPS	(SEG6_F_LOCAL_FLV_NEXT_CSID | \
-> >  					 SEG6_LOCAL_FLV8986_SUPP_OPS)
-> > -#define SEG6_LOCAL_END_X_FLV_SUPP_OPS	SEG6_F_LOCAL_FLV_NEXT_CSID
-> > +#define SEG6_LOCAL_END_X_FLV_SUPP_OPS	(SEG6_F_LOCAL_FLV_NEXT_CSID | \
-> > +					 SEG6_LOCAL_FLV8986_SUPP_OPS)
-> >  
-> >  struct seg6_flavors_info {
-> >  	/* Flavor operations */
-> > [snip]
-> > @@ -923,12 +924,20 @@ static int input_action_end_x(struct sk_buff *skb, struct seg6_local_lwt *slwt)
-> >  {
-> >  	const struct seg6_flavors_info *finfo = &slwt->flv_info;
-> >  	__u32 fops = finfo->flv_ops;
-> > +	int ret;
-> > +
-> > +	if (!fops)
-> > +		return input_action_end_x_core(skb, slwt);
-> >  
-> >  	/* check for the presence of NEXT-C-SID since it applies first */
-> >  	if (seg6_next_csid_enabled(fops))
-> >  		return end_x_next_csid_core(skb, slwt);
-> 
-> Here End.X could do what End does in the fix: call
-> seg6_use_next_csid() instead of seg6_next_csid_enabled(), so that a
-> packet with a zero Argument is processed as End.X with PSP.
-> 
-> Does it work for you to rebase this series on top of the End fix,
-> once it is merged, and make that change in this patch? Then End.X
-> handles the combination from the beginning.
+Sorry for the delayed response due to the recent holiday break.
 
-OK, hope it doesn't take too long time.
+> Mingyu, could you provide more details? How was this problem reported?
 
-> 
-> The selftests of the two series conflict in srv6_end_flavors_test.sh,
-> and they set up the test environment differently. If you want a hand
-> with that part, I am glad to help.
+The warning was found during kernel fuzzing with DevGen, our own testing
+tool, in a QEMU x86_64 guest. The report identifies the kernel as
+7.0.0 #6, PREEMPT(full).
 
-I will review the selftest update and try rebase my test on yours.
-If there is a need, I will ask for your help.
+This was a lockdep report. It does not establish the actual deadlock
+interleaving described in my changelog, nor does it substantiate the
+claim about a remote denial of service through TCP URG packets.
 
-> 
-> Side note: I received only part of this series. Could you please also
-> Cc andrea@common-net.org, in this thread and on the next versions?
+> but queued_read_lock_slowpath() does not block the reader if
+> in_interrupt() == T ?
 
-Sure, I will.
+You are right. My two CPU scenario overlooked that an interrupt reader
+can acquire the read lock while the writer is only waiting.
 
-Thanks
-Hangbin
+I also agree with your concern about change_pid(PIDTYPE_PGID). RCU
+protects the task lifetime, but it does not prevent the traversal from
+following a node into another hlist after that node is moved. My
+justification for replacing tasklist_lock with RCU was incorrect.
+
+In the original report, the task triggering the warning was in process
+context, through a TTY ioctl. Here are the relevant excerpts; omissions
+are marked with [...].
+
+WARNING: SOFTIRQ-safe -> SOFTIRQ-unsafe lock order detected
+7.0.0 #6 Tainted: G W N
+
+syz.2.658/3606 [HC0[0]:SC0[0]:HE0:SE1] is trying to acquire:
+ffffffff8760c098 (tasklist_lock){.+.+}-{3:3}, at: send_sigio+0xc0/0x380 
+fs/fcntl.c:932
+
+and this task is already holding:
+ffff888105547220 (&f_owner->lock){....}-{3:3}, at: send_sigio+0x36/0x380 
+fs/fcntl.c:918
+
+which would create a new lock dependency:
+(&f_owner->lock){....}-{3:3} -> (tasklist_lock){.+.+}-{3:3}
+
+[...]
+
+Chain exists of:
+&dev->event_lock --> &f_owner->lock --> tasklist_lock
+
+[...]
+
+CPU: 3 UID: 0 PID: 3606 Comm: syz.2.658 Tainted: G W N 7.0.0 #6 
+PREEMPT(full)
+
+Call Trace:
+<TASK>
+[...]
+send_sigio+0xc0/0x380 fs/fcntl.c:932
+kill_fasync_rcu fs/fcntl.c:1144 [inline]
+kill_fasync fs/fcntl.c:1159 [inline]
+kill_fasync+0x21d/0x520 fs/fcntl.c:1152
+__receive_buf drivers/tty/n_tty.c:1632 [inline]
+n_tty_receive_buf_common+0x670/0x1770 drivers/tty/n_tty.c:1715
+tty_ldisc_receive_buf+0xa8/0x1c0 drivers/tty/tty_buffer.c:387
+paste_selection+0x605/0x730 drivers/tty/vt/selection.c:439
+tioclinux+0x3d3/0x630 drivers/tty/vt/vt.c:3505
+vt_ioctl+0x23ec/0x2ee0 drivers/tty/vt/vt_ioctl.c:753
+tty_ioctl+0x717/0x1670 drivers/tty/tty_io.c:2792
+[...]
+entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[...]
+</TASK>
+
+The report separately records the following lock usage history. These
+are historical acquisition paths, not simultaneous CPU stacks showing
+a confirmed deadlock.
+
+... which became SOFTIRQ-irq-safe at:
+[...]
+input_inject_event+0xa4/0x3b0 drivers/input/input.c:419
+__led_set_brightness drivers/leds/led-core.c:52 [inline]
+led_set_brightness_nopm drivers/leds/led-core.c:335 [inline]
+led_set_brightness_nosleep drivers/leds/led-core.c:369 [inline]
+led_set_brightness+0x21c/0x2a0 drivers/leds/led-core.c:328
+led_trigger_event drivers/leds/led-triggers.c:420 [inline]
+led_trigger_event+0xdf/0x270 drivers/leds/led-triggers.c:408
+kbd_propagate_led_state drivers/tty/vt/keyboard.c:1065 [inline]
+kbd_bh+0x23c/0x310 drivers/tty/vt/keyboard.c:1244
+tasklet_action_common+0x25c/0x3d0 kernel/softirq.c:925
+handle_softirqs+0x1ba/0x890 kernel/softirq.c:622
+[...]
+
+... which became SOFTIRQ-irq-unsafe at:
+[...]
+__do_wait+0xfe/0x870 kernel/exit.c:1678
+do_wait+0x1d0/0x5a0 kernel/exit.c:1722
+kernel_wait+0xa4/0x160 kernel/exit.c:1898
+[...]
+
+The recent program history includes id=658, which contains:
+
+ioctl$TIOCL_PASTESEL(r1, 0x541c, &(0x7f00000000c0))
+
+This is consistent with the reporting stack, but the program history
+should not be treated as a validated minimal reproducer.
+
+I support reverting the RCU replacement. I am sharing these excerpts
+to clarify how the warning was reported and to help assess the original
+warning and determine the appropriate next steps.
+
+Thank you for pointing out these issues.
+
+Mingyu
+
+
