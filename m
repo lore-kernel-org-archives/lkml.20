@@ -1,278 +1,158 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE163490BEE
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:39:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23E4548F849
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815962; cv=none; b=Fj+qWpoohDpJauQZJ8y04PSdsQhPiSqJLJZ/XM9DzoigXHdK99WqMvUnwuK3IphvZYbx//EKFBJVfgAWTXTc2yaMff3bi5eIbeU9YsWMp3+gbY4aoLxUH6+RUo2nduF4++/xhomYkxFoSHE98YZzpb1aSasoRKS6GlAMpCLAMVs=
+	t=1791815969; cv=none; b=Y9rNZiTui3ANQGM9wlmQ3notsoTYekQI8yFwKNHuHB+M3yGpTOqysn+rVAYPyLTvSnnN4wrgTno8PoLT3Fcm6IBpCpAxTdwg4poFi1+4gvM8SgMaJose8z0KJ9xkoanKFFlPAmjxeh0C1Xz1RqljkpnCQccTQ6gnKIT29QT9jgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815962; c=relaxed/simple;
-	bh=D/BVKXe5Wb0E1ZjR1WthUttwdLCxdENSzb1RMi/OxYw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kuOBt2QV3phhkhZJ8iZUPeBSGW31iVKYh2pMAK5urAZQdB8nXJpW8qHZ3pqxOo9YdyOSKPPsDWbyNB59XnLpxFXAjiZxrQYt5ZgOB1Ko8FczDmU7CUWsPXilMxgLuUcOxdiDX6YUTMbHXU7uxpHLbA876On14nB4c9ipqKVzKsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nMXDJu2+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jXljfvgG; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791815969; c=relaxed/simple;
+	bh=xh9Mmvk06Au7lG0R4sR9TW7rJ1wuJFXH46qIEUS9m84=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nC9tBpf+Aw/cNNRahSoOQDs4joVyVCD/vN6P7cp6+pzV7M+AN1ngt7QWH67kzaJENa7Gc+CLwv4OBx8TY9xSQjdx1vabM49olSU1Z/9U3SW+LVMCvyCMu66RUEe6zptdmNmgvNY3U4nRW1MGGQ/7DM7MR24+HNNZXoc+C86Jxtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=noCB9nHG; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nMXDJu2+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jXljfvgG"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC0AlB3292357
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:39:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	wZtaKHzGZpXDbcsphDKquq7/u7rQ9pTLQpCkCGoLE0w=; b=nMXDJu2+yvhYATqY
-	GfmBvdMCoTSP7TiF1PEvpUw460Of9IZuKxXyNiLfbHmaZ7fcelKXIESBOgGA8PTo
-	uPwBERKCKI6DQH4kzrTwBBor6+bkc5qX0TlGum6VKAPWQ4l1x3OAW3xoLSbgZdv/
-	uvGYJXleS38PBBKVt9cf005bthVTtA6EJxD7cRqhTgWs3QtDnjdpwvlb31M9Bceg
-	Jg89bf8ihI1yWLpJBft+ktQ6P/NcqKOdHOFcXDdp04J7OccvrTahcljieBGBLY0h
-	vCs330dKliGS3LvOV22z7jn1b/RdZsxv7fuu+m13v9OuywHAbAkbZ3Eu1CO4KOCg
-	j2F7nA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8uh3hu87-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:39:19 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-917b7dd3f1dso30111666d6.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:39:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="noCB9nHG"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2db80fcdf8bso10721935ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:39:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791815959; x=1792420759; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wZtaKHzGZpXDbcsphDKquq7/u7rQ9pTLQpCkCGoLE0w=;
-        b=jXljfvgGZJQHRmsQQewKCiAsda30/KBlA6GHedPKpxk4p0jEZI2of2CE8PxtjsD7gW
-         CFHhifJY1QWL+9uKX0COvgT4UA5rXeCNttn1A28RWHWsirUrl0T1fC4p9tcxGPcw+65K
-         93j4sKKGbM79KyJIKilCrq7MUa0mHuyDIxA6CW/onBzMZSzSGChcUjb5Zx/MJf9z3lP0
-         SuOTus+iCZjcpfF4nD6Yt6w/E9arHAllGgpxGtNru1pQsjRz+7pBjrZ8Vt6icePiWF4q
-         0DgykAB58YMhLiRvwYESxGDSFGsRHV4RXtutVLgDpGmdcSmAqqAguTjqoHIhI3KtF7vC
-         hwSA==
+        d=gmail.com; s=20251104; t=1791815967; x=1792420767; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8AhwaiJTOIO9yzRLrCBE5zRrRd3YyiOnh3b3vVnas14=;
+        b=noCB9nHGbiZbCKFTDGVI3oi/isnm5lbEDvSC7rBvJ9PqQNoTHYfycwdSLGSw9kFTIY
+         v0HgHkSLD8yVZtt9daarhXVm9wIKe8/6r4SfEpdmUOrAmIGa/ZbiXZNuqBGl1m2mDnKQ
+         3553B8LOFkMSEpu27fwytsrAdNUXxs42IBQlQa7+AbMH3fVz+v8KCCaAOdXEe/G+QJcH
+         XS5xisS8BLyGw/kMFZZxTDGvx7GRWR7ETb0jVYyTcQ/kG+Irh9iKyeBOzTzwMR8NgqP4
+         TWw+4Qk0MqzGeejj26NwBkUfFmqM6ybUn+4WWKGU9db9Q20wMY73F9HInHdHwExKRuCn
+         u3nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791815959; x=1792420759;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wZtaKHzGZpXDbcsphDKquq7/u7rQ9pTLQpCkCGoLE0w=;
-        b=VK5AYHEYUNsixvGxy8zYJQJcoe7FFlMJp/scIVyDRB+6+S1o7BniEOh4d1WRdWUP03
-         0WKG6pSnzalEnt666QO0wxWvAX59WjBy6ivJio83WLBUnYqCBKFGYpAV64VqQv61zVGh
-         0h2sJ46dkJo5OH6GNxesEQVXMtlgytRtGvk5IDJhbFr20LZvELkN4KjN7/OC3vWPG5DE
-         0KNXBsTt815YpD5s8/6WetO0FIytTLJZuX6KUgDIhBHX4SM5Yc3I8aRfd3d656uEG2Gw
-         H04q/SlZrGERA9MQZ1BRF/PPRLJkVX6rJWQGWTiXBFb3solOQbho14Q2K9QPRdQ2TdzT
-         vmLA==
-X-Forwarded-Encrypted: i=1; AKwUvBzhGd0mXwph4zEEEtpKnVf9YJQIk86rw1mIrjROY1Ooc1o1hAFlqf974r5QvQH6BDW+RiNjq3jcYG7xMtU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0tTqcXMnjA8cAWpl3GmEzhmC05llxbmJwQgwSBIkN2ww+ZYc2
-	IgIlfKpYphK9B3ex24o0z44U2avVdH2muoyKNZoA90urMjFOzI2yh/c9stDtlISK3fFLz2LtpDV
-	1iS+Ft+dblZPEIqiunMC7hh8oed+iP0nxsxBkJchAvZCySI5m/+zz5wxYrF9g6BoYKmw=
-X-Gm-Gg: AYBFou0NEELYdgWEoKDm/bP+Ldwpw7T9V2iDzsCh4KFx3kKD0H+hgaEOyJtqK6bEG89
-	hp4++zLuvcPosTLSUcEnVE8qaOHhAIlX7qCcUgeUZic4a2Tju0UYrPvCLaKfVj+SsMucsb2DCUo
-	tWFlz1zY3W3sIQAhTKodwe0JvGndGLXDiKg5PkfHDnuzMS8KJh+hCE7Kn1VBcvi+2yDhPI6YY+R
-	noWUtWZpibiyNYLX1JNHIM38253CG1k6n3numXY/AQ/82sKgeW04AemIMODckF6WZjY+XRAL+yC
-	b7yVdO86cX/LIT/KigjMKv513IKFT9zSyv3/gQbwIWy10IoIH3k9MEEB0t4EWLhFU9mzgIK8rXO
-	kmC9TwcsV5CUxZAsT2M+SEl3brlW2
-X-Received: by 2002:a05:620a:6081:b0:93a:1fa7:1afb with SMTP id af79cd13be357-93ebd24d180mr1581100785a.42.1791815958756;
-        Mon, 12 Oct 2026 07:39:18 -0700 (PDT)
-X-Received: by 2002:a05:620a:6081:b0:93a:1fa7:1afb with SMTP id af79cd13be357-93ebd24d180mr1581095785a.42.1791815958237;
-        Mon, 12 Oct 2026 07:39:18 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18beabbd0sm340396725e9.12.2026.10.12.07.39.17
+        d=1e100.net; s=20260707; t=1791815967; x=1792420767;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8AhwaiJTOIO9yzRLrCBE5zRrRd3YyiOnh3b3vVnas14=;
+        b=m3ERuwxtNa9k13SFH3W1G+0HVJ2nRPhZpLh3rKpm01+pgZSIeU5mAqQ1iZdxq3kFIS
+         liZ2wFFIQg4f71UMo1Iga0etyQ+e9OdSoNAXGczT77f6OQzmc3Oe8u4Glb/IN9+DxJ3q
+         p07ypqmZh4awhcrmk/eeKPTsZA1v7GjAneUsIGtZrGA200QdhmNwBJ99kq/t6FlwBGqF
+         2e93DA8V05gmR17iC4KiQXZR418e4Iv/4gUNqKtXYb0OLi9JCgQ75K0CH6JjdjNR/VO+
+         X87707pXSQGV1WVtKPpFWNL+JlxhgJF/IKuIXqcJmbe3X3uPELWqrB2yEBzN64htrgK4
+         jQNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwbtyapFTHDO2wDC7zozbECF7KuDV1xWnLbO39EqfaER35hTigTLS1la+cnhxpRJxAVkSBgI+u8avMER7E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuPVRTdEihHAPQGqHhUIoHneomEgzdharHf/AJVjbxmv0bVBD9
+	zmnj6QB6zQYuGb4kg+FFf4hTh73Nz2WK0fuAn8zmnDlF7mDJLRjq2j58
+X-Gm-Gg: AYBFou0mmm8wgcvDPndW4ZLPsvkWJcSFs9mEoMAUwnl+ZksCHVXZTnJZCK/j5CZgETr
+	RvSFTUS/i2i4GZYjwSBk6tVhRwv0cmQqmx11k7e/5VXJdzy+yjS/AhMv1vMkDVlquw/aLtd62Wv
+	bdKtzZMssXM4IMWO0YESVS1w+7Oqu16XyhqQ4xbeoB5NfCOv1xyIZ5m3w2j5Kzr6VSDdPRXLcNh
+	hdTHNse9jxLhzy0VE1FFtUJI4PtBuKmO0w/BSyMOV96WuQKGE69VPfO5TuwrrlzkCuG3TcoI5Dp
+	VzXnfPnWi0Z1h1oII0VOrGtUqufeE/o9EWEGs6JDkXhLuiSRXNxC6SSkAIYec9PoHcpkAt2MMGx
+	HxKWslBSYWV1u+AWXxzi7Q0JXWQ0Q+EROwTc5YBPR7UyFgCePLka+TQRt3EIqttgnm/jxwRT5Sq
+	F01cVvKezVerx3Xs63nPvdOvr3Uw0ksDwSVi/ZNRNTcAEFaXFsxfJySVw2dm3k8FHXHNYK5w==
+X-Received: by 2002:a17:902:d4c8:b0:2e8:cb5e:c3a with SMTP id d9443c01a7336-2e8cb5e0cabmr24547315ad.59.1791815967347;
+        Mon, 12 Oct 2026 07:39:27 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac1:7aa0:50::3cf:23])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422db284sm42652555ad.68.2026.10.12.07.39.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 07:39:17 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 16:39:00 +0200
-Subject: [PATCH v2 4/4] gpio: kunit: add a test case for platform lookup
- tables
+        Mon, 12 Oct 2026 07:39:26 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Matthew Wilcox <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	syzbot+e0624b5bf72b99131402@syzkaller.appspotmail.com
+Subject: [PATCH v3] mm/filemap: annotate lockless reads of mapping->nrpages
+Date: Mon, 12 Oct 2026 21:39:21 +0700
+Message-ID: <20261012143921.283806-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-gpio-kunit-plat-lookup-v2-4-553b0d6446b9@oss.qualcomm.com>
-References: <20261012-gpio-kunit-plat-lookup-v2-0-553b0d6446b9@oss.qualcomm.com>
-In-Reply-To: <20261012-gpio-kunit-plat-lookup-v2-0-553b0d6446b9@oss.qualcomm.com>
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3918;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=D/BVKXe5Wb0E1ZjR1WthUttwdLCxdENSzb1RMi/OxYw=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqzPEMU0uNVpSaH7Z7vqEKvTwlD8+Qo6mKbHGq+
- 97iFMczBp6JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCaszxDAAKCRAFnS7L/zaE
- wzW9EACkL3HWu7niVhagayjLzs76WhVfuQaUJh0hx5WGmU/CaLAyx+gJ3A7kLOb7toI+f8wmKv/
- t9SgGtySTHMmgfmKe2IoOidT5DULu+a11q0FxHQWYqdtmyBRCBmKYwqD+EJWb8GuhpSF1ots5Nd
- RXJGU1I+9d/xqqsq2uhYXRHkw628b4K+U+621IVaYRtgDWFDDpHHJR7B1yFCuKDthOZK8QvhWBd
- 63ZXNh9LOeIZpEt2ArIyodxCkDTLbz59a3w70bxFCygmf/lpv7KpXlTZpf6ikjbFsLer+YhWcV2
- ycvHdTD/BVjwWGgz0zOuawrrguuHgafXHaR13cSH1nj0xp32+AjMsVypu0K9UeIYkXV12VaBxcr
- nz/9lXM8YRH40KuaJmiCTQubUsSq6WZ8s0MfiHpCzCaE7zr2+kGqu5FiqnQWcoFhMvcXvZCTXvy
- 7TogBggag6DnI0QpLz2XM8BdoqOmdYKAHAnfaVJB+xSXiP7z77bqTH+pub+u6B2Zvx9uE2L0ZSy
- tuIwEzZQ1gehU29TTBRuTceumhJhnaA7tnM53VoWKVQGhauDjHMvXpjC+R76DBuhWSQ2U5Vpmkz
- tNOzxjEQqd277YinWxuCAVfsggwqjVtR2V58kgopRsGYnuWTb2D7XzHIN+marmjrRXTe/mpUYAz
- m11NncGFjXE8A9Q==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1OCBTYWx0ZWRfXwZ+H3Gf6zUgd
- +yx5pvJhr9FWphBgdcNahkI13kgx4dfzLQwQhcyTwhNFTbPkTHl9PjVO67QKfK/akRHvn6+wLuQ
- 5HEBO82WcP0hSiht+3b/LPie3oxzgDCJTUA/9zSL5zKd06LKutRU6XYbozYZPEzHXHIca0w2rzy
- BRt72b2dZfO9swRxHTsqXzMfBNmw1/KceoCV/rBiD1AU3RskSSnQjgLg4fSVjLkQoFlgVR4HsdC
- KYAOkwj78wBEt5lqfbspj+VvsjFlcBn35oi6sxbi11OyP+oBRMWWS0qQSrtsHuNUK+VpBng/6Kg
- e0iK7Lps9KZ1oLjkwUSFEj0g9RERaejcbXnZjSvngMUInnQ9KzX513qIN2tkjmy5GgoGWgtcZgY
- vhYcZo2zHLPKE+KBUeOfMR9goinCHtb+f7ml6jLs9UBQ7/mxONz2gypneBiEo4ZcBCP3ND1YDZg
- JIIY12dbF80hvVOCkHg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1OCBTYWx0ZWRfX0lrfYytLWP87
- UmZU1vXL/n/6sAwGssRMyXvgUl9mfXIlXJPDEyDsurw4NodfLqPzkBt1mjyqOxZ0eIEco/frEXM
- EgVUIlppmkqAtQ2xJobAamCegRbB9vE=
-X-Authority-Analysis: v=2.4 cv=QO391QLL c=1 sm=1 tr=0 ts=6accf117 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=6Kgsdax8oSNbX6mdXg4A:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-ORIG-GUID: RdU8htrYSzXP1phu0x1j-pgLC-clYNUU
-X-Proofpoint-GUID: RdU8htrYSzXP1phu0x1j-pgLC-clYNUU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120058
+Content-Transfer-Encoding: 8bit
 
-Add a kunit test-case for retrieving GPIOs using platform lookup tables.
+mapping->nrpages is updated under the i_pages lock but is read locklessly
+as a cheap "anything cached?" hint, e.g. in invalidate_bdev() and
+filemap_write_and_wait_range(). KCSAN reports the race:
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+  BUG: KCSAN: data-race in __filemap_add_folio / invalidate_bdev
+
+  read-write to 0xffff8881004c4178 of 8 bytes by task 3600 on cpu 0:
+   __filemap_add_folio+0x6b7/0x910 mm/filemap.c:919
+   filemap_add_folio+0x1cd/0x380
+   page_cache_ra_unbounded+0x1a4/0x3a0
+   ...
+   blkdev_read_iter+0x21e/0x2d0
+  read to 0xffff8881004c4178 of 8 bytes by task 3601 on cpu 1:
+   invalidate_bdev+0x25/0x70 block/bdev.c:98
+   ext4_fill_super+0x2ccb/0x37b0
+
+The same counter also races with filemap_write_and_wait_range() through
+mapping_needs_writeback().
+
+The race is benign: a stale value only makes the caller do or skip a
+harmless invalidate/flush pass. Mark the lockless reads with data_race()
+in invalidate_bdev() and in the two callers of mapping_needs_writeback(),
+rather than inside the helper, so a future user needing a reliable answer
+is not silently covered.
+
+Reported-by: syzbot+e0624b5bf72b99131402@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e0624b5bf72b99131402
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
- drivers/gpio/gpiolib-kunit.c | 100 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 100 insertions(+)
+v3: move data_race() from mapping_needs_writeback() to its two callers (Jan)
+v2: use data_race() on the readers instead of READ_ONCE()/WRITE_ONCE() (Jan)
 
-diff --git a/drivers/gpio/gpiolib-kunit.c b/drivers/gpio/gpiolib-kunit.c
-index b662be88a08711380f938852d84809f36a8d62d0..5d04b134d57746a78439fc54c6c78c1acde10a1d 100644
---- a/drivers/gpio/gpiolib-kunit.c
-+++ b/drivers/gpio/gpiolib-kunit.c
-@@ -18,6 +18,7 @@
- 
- #include <kunit/fwnode.h>
- #include <kunit/platform_device.h>
-+#include <kunit/resource.h>
- #include <kunit/test.h>
- 
- #define GPIO_TEST_PROVIDER		"gpio-test-provider"
-@@ -828,11 +829,110 @@ static struct kunit_suite gpio_swnode_hog_test_suite = {
- 	.init = gpio_test_register_drivers,
- };
- 
-+KUNIT_DEFINE_ACTION_WRAPPER(gpiod_remove_lookup_table_wrapper,
-+			    gpiod_remove_lookup_table,
-+			    struct gpiod_lookup_table *);
-+
-+static int kunit_gpiod_add_lookup_table(struct kunit *test,
-+					struct gpiod_lookup_table *table)
-+{
-+	gpiod_add_lookup_table(table);
-+
-+	return kunit_add_action_or_reset(test, gpiod_remove_lookup_table_wrapper, table);
-+}
-+
-+static struct gpiod_lookup_table gpio_test_lookup_table_by_device = {
-+	.dev_id = GPIO_BASE_TEST_CONSUMER,
-+	.table = {
-+		GPIO_LOOKUP(GPIO_TEST_PROVIDER, 0, "foo", GPIO_ACTIVE_HIGH),
-+		{ }
-+	},
-+};
-+
-+static void gpio_lookup_table_by_device(struct kunit *test)
-+{
-+	struct gpio_test_consumer_pdata *pdata;
-+	struct platform_device_info pdevinfo;
-+	struct platform_device *pdev;
-+	int ret;
-+
-+	ret = kunit_gpiod_add_lookup_table(test, &gpio_test_lookup_table_by_device);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	pdevinfo = (struct platform_device_info){
-+		.name = GPIO_TEST_PROVIDER,
-+		.id = PLATFORM_DEVID_NONE,
-+	};
-+
-+	pdev = kunit_platform_device_register_full(test, &pdevinfo);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, pdev);
-+
-+	pdevinfo = (struct platform_device_info){
-+		.name = GPIO_BASE_TEST_CONSUMER,
-+		.id = PLATFORM_DEVID_NONE,
-+		.data = &gpio_test_pdata_template,
-+		.size_data = sizeof(gpio_test_pdata_template),
-+	};
-+
-+	pdev = kunit_platform_device_register_full(test, &pdevinfo);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, pdev);
-+
-+	gpio_test_device_check_bound(test, &pdev->dev, true);
-+
-+	pdata = dev_get_platdata(&pdev->dev);
-+	KUNIT_ASSERT_TRUE(test, pdata->gpio_ok);
-+}
-+
-+static struct gpiod_lookup_table gpio_test_lookup_table_global = {
-+	.dev_id = NULL,
-+	.table = {
-+		GPIO_LOOKUP(GPIO_TEST_PROVIDER, 0, "foo", GPIO_ACTIVE_HIGH),
-+		{ }
-+	},
-+};
-+
-+static void gpio_lookup_table_global(struct kunit *test)
-+{
-+	struct platform_device_info pdevinfo;
-+	struct platform_device *pdev;
-+	struct gpio_desc *desc;
-+	int ret;
-+
-+	ret = kunit_gpiod_add_lookup_table(test, &gpio_test_lookup_table_global);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	pdevinfo = (struct platform_device_info){
-+		.name = GPIO_TEST_PROVIDER,
-+		.id = PLATFORM_DEVID_NONE,
-+	};
-+
-+	pdev = kunit_platform_device_register_full(test, &pdevinfo);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, pdev);
-+
-+	desc = gpiod_get_index(NULL, "foo", 0, GPIOD_OUT_HIGH);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, desc);
-+
-+	gpiod_put(desc);
-+}
-+
-+static struct kunit_case gpio_lookup_table_tests[] = {
-+	KUNIT_CASE(gpio_lookup_table_by_device),
-+	KUNIT_CASE(gpio_lookup_table_global),
-+	{ }
-+};
-+
-+static struct kunit_suite gpio_lookup_tables_suite = {
-+	.name = "gpio-lookup-tables",
-+	.test_cases = gpio_lookup_table_tests,
-+	.init = gpio_test_register_drivers,
-+};
-+
- kunit_test_suites(
- 	&gpio_swnode_lookup_test_suite,
- 	&gpio_swnode_probe_order_test_suite,
- 	&gpio_unbind_with_consumers_test_suite,
- 	&gpio_swnode_hog_test_suite,
-+	&gpio_lookup_tables_suite,
- );
- 
- MODULE_DESCRIPTION("Test module for the GPIO subsystem");
+ block/bdev.c | 3 ++-
+ mm/filemap.c | 6 ++++--
+ 2 files changed, 6 insertions(+), 3 deletions(-)
 
+diff --git a/block/bdev.c b/block/bdev.c
+index cd8323083740..233750f87e6d 100644
+--- a/block/bdev.c
++++ b/block/bdev.c
+@@ -95,7 +95,8 @@ void invalidate_bdev(struct block_device *bdev)
+ {
+ 	struct address_space *mapping = bdev->bd_mapping;
+ 
+-	if (mapping->nrpages) {
++	/* Lockless hint; a stale value only costs or skips a harmless pass */
++	if (data_race(mapping->nrpages)) {
+ 		invalidate_bh_lrus();
+ 		lru_add_drain_all();	/* make sure all lru add caches are flushed */
+ 		invalidate_mapping_pages(mapping, 0, -1);
+diff --git a/mm/filemap.c b/mm/filemap.c
+index 00fd89cf6f55..ff10ac8f56b3 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -680,7 +680,8 @@ int filemap_write_and_wait_range(struct address_space *mapping,
+ 	if (lend < lstart)
+ 		return 0;
+ 
+-	if (mapping_needs_writeback(mapping)) {
++	/* Lockless hint; a stale value is harmless */
++	if (data_race(mapping_needs_writeback(mapping))) {
+ 		err = filemap_fdatawrite_range(mapping, lstart, lend);
+ 		/*
+ 		 * Even if the above returned error, the pages may be
+@@ -782,7 +783,8 @@ int file_write_and_wait_range(struct file *file, loff_t lstart, loff_t lend)
+ 	if (lend < lstart)
+ 		return 0;
+ 
+-	if (mapping_needs_writeback(mapping)) {
++	/* Lockless hint; a stale value is harmless */
++	if (data_race(mapping_needs_writeback(mapping))) {
+ 		err = filemap_fdatawrite_range(mapping, lstart, lend);
+ 		/* See comment of filemap_write_and_wait() */
+ 		if (err != -EIO)
 -- 
-2.47.3
+2.43.0
 
