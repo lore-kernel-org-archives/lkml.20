@@ -1,142 +1,230 @@
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087BC48CD7B;
-	Mon, 12 Oct 2026 14:51:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A684E346777;
+	Mon, 12 Oct 2026 14:52:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816715; cv=none; b=iIWrFa60uyJRkcJOFAI4ZSqg8/Pt41Nijb4OBjPQxfGff1qPXgmt3/v1QKkt3k8udfuWK/cMoCNGgobKmA+k7rbZ5W3jQK7ZPXD3VxxEtN/Xn/wEqJSnXMzQXdfeN6IxnXHOQtSRynF8Npv2rPXVGVJLuRy+aYHN+LryqSZmQtY=
+	t=1791816765; cv=none; b=XWFTHNMY3Ofc+mSZIKKavhjkNeygiF2JK0jXVWHeMJYMTx+ArAXhrZpaw0/ZvhSyRSLgRj7N4aPC6y8ZMKeSIcTaf5/tHdm2iMy8ulIe1nTNiDgXlM95F5vnOKfz1erWj5FvvGSn87Hf5900Og0RoVQFhPRmYzHAJpNpuiORiJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816715; c=relaxed/simple;
-	bh=QUBp1UxhO/vVw9XOAKqgoyXDLPzTSJIZisKnjA6euus=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=ACHDWTpQnz2rcBZDRkqPfRQcabh6WyZrzFtVlsuMN6LZkpcHpdaIT+Nvxby3GdIsY5RNeC38xstGQ7MO1R+D2I7uJMFRg27tXpkH+5Z7f7TAysiKLyf4YMSZPwvmqs1M2K2go7Q77NLSi+RWRFiJfHLgQ7r4rhQ9AJ9R+fbglA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=MZ6RVf2n; arc=none smtp.client-ip=54.254.200.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1791816765; c=relaxed/simple;
+	bh=IleSOSNkSFAO9MhUZ0KKM8eTKL6/bDq63SCpXAlXqmU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kRDtaxpyQftwXAPeDhYIAHtf4G55PgxhEYmjTT+5t5vV3ClXO/ylSh05zTawz05v3BJTuzXC2tJYmEJI3LJFy/y19bHekR2Er8kKL8ZVS1bIEKa/i73IEjwCmJ1AapK6FhxiQ7Vsltsu8u9rUqrQlKlEce3o6CB6DsZLJsuNeKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HSVxTkFO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="MZ6RVf2n"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1791816650;
-	bh=QUBp1UxhO/vVw9XOAKqgoyXDLPzTSJIZisKnjA6euus=;
-	h=From:To:Subject:Mime-Version:Date:Message-ID;
-	b=MZ6RVf2nPv9EKwqiK3caa3/wqcOcrllrmxVy1dxBcXaDx8M2Oxdzjz84jwZuSkZSK
-	 UzzRqhaSxacglGSRSMLbWG2oG+tFBbhEDw/J3erEfcC/9a5ubsLl7PHq3SNTZzAGTi
-	 5t8nbIFY7lGp27jTNWavkZjlVOQnH3cJbeEgR1Ag=
-EX-QQ-RecipientCnt: 10
-X-QQ-GoodBg: 1
-X-QQ-SSF: 00400000000000F0
-X-QQ-FEAT: D4aqtcRDiqQnft7kyUuJbd/1GndRJklzmB5VJlBX//o=
-X-QQ-BUSINESS-ORIGIN: 2
-X-QQ-Originating-IP: F6fiQjb4gg3A2PhMTlx/61hsUi4NpEGYKmB2f1u3Ezs=
-X-QQ-STYLE: 
-X-QQ-mid: lv3gz7b-6t1791816648t33d73367
-From: "=?utf-8?B?V2VudGFvIEd1YW4=?=" <guanwentao@uniontech.com>
-To: "=?utf-8?B?RGF2aWQgTGFpZ2h0?=" <david.laight.linux@gmail.com>
-Cc: "=?utf-8?B?RXJpYyBCaWdnZXJz?=" <ebiggers@kernel.org>, "=?utf-8?B?Y2hlbmh1YWNhaQ==?=" <chenhuacai@kernel.org>, "=?utf-8?B?SHVhY2FpIENoZW4=?=" <chenhuacai@loongson.cn>, "=?utf-8?B?QXJkIEJpZXNoZXV2ZWw=?=" <ardb@kernel.org>, "=?utf-8?B?bGludXgtY3J5cHRv?=" <linux-crypto@vger.kernel.org>, "=?utf-8?B?V0FORyBYdWVydWk=?=" <kernel@xen0n.name>, "=?utf-8?B?bG9vbmdhcmNo?=" <loongarch@lists.linux.dev>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?VGlhbnlhbmcgWmhhbmc=?=" <zhangtianyang@loongson.cn>
-Subject: Re: [PATCH 1/2] lib/crc: loongarch: Use hardware unaligned load in CRC32(C) loops
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HSVxTkFO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840381F0089D;
+	Mon, 12 Oct 2026 14:52:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791816763;
+	bh=++9/kUt44kAUgHENKZc+rwCY2UCiq7Jqb/ANO3lupso=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HSVxTkFOyak1+9V3vwKcDUyTRL1TKOR617BBD8k5GFmRXY+TbCZrIU+72FXhnuFlc
+	 OzOIGB3eJ8iXNIR1orYDS5BLsHZMDEz01fl3XfwJ+XxzzIs3SlHhRO2bLMCW4dDNyE
+	 T3vPWLdgPHJ4yVOM4kSKbk0E1WMSp27xEXTmWG0YPZ2hFLT+mb/71fsQXEYtkLq/JK
+	 ovEBAqdL/0Ty7MSeD6IB7R1lua5FOS0LabXl1bv50OGhvAJNU/Ptj9OLBJw2vD4x0Q
+	 3E2TeSySXmAOSwX1ym4XwoH1VRRnX+u/7sY5DZ8tv0QmaiAM6jif46suGU3nSamhda
+	 dEZIojbrENgWw==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.phl.internal (Postfix) with ESMTP id D52F4F40068;
+	Mon, 12 Oct 2026 10:52:41 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Mon, 12 Oct 2026 10:52:41 -0400
+X-ME-Sender: <xms:OfTMajBWKskVBuGg79BTiDfE7EbczDnyxJiPMhj__eBi9N6oN2C-0w>
+    <xme:OfTMarY6pCcWT5d1adHw3hN7BLdRNONuIww05zLVlfQmuRwLtHO1C4cru9gLHUc8b
+    go74c9GnBj0aicJFbZF6apU_VT5ZTNM88LwfAu_4apauS4LaENlTdU>
+X-ME-Received: <xmr:OfTMajPANGzigbKa33CraD4qUnpWrnXG6E8qAgOlFXwB6K8Wd-SwW8E21TJgSBM-TWEd7PpQOnJ_wuEEpoHeLUiYklj28e_z>
+X-ME-Proxy-Cause: dmFkZTGQjzbzJkrc7kB2sAZm2TSI5woc2yhK2Xfz2IIuCAGi5DSZcyK1DRZSIf/kmJRhhF
+    J2uW2YGXri8vW6rG7Ahqs0OIrtoJQYhzqRJkGnMdavN0NUTCtc21sPb9qIqMyYQVnfTfgZ
+    /bXcuUzlHJ0U6IsSizwDu64O66SV/yBX8Cy898G2rViBgiC+1W0BD80G8TuwFhqvSpahI4
+    HJEfkX2GBHV0zJ5Rie2gekpZbMHCpoXfExf+WnnkUDPfjymgZXxx9KXofcUY8nOr3WcCDi
+    +tWKpA9ZVoP+hOKoMRd8eByv4BFox3nlIroHd5V1iaWXVSzCRd2yO7ub+gsD4mSAKElHr7
+    ARJ7mZM0TcpHoLP8JpljAn28/sHET6vNolUrvFmf4NPRgXRvEFvC7Gp3Vn1sCFUv+4JMIf
+    ZJQ3zaPJRZHS1EsvqM6bAX/x38hKdOQAUfPZ7DkH6LZ6ekY+LsT+JJMCM8JqGV8UyJGcOI
+    EXWBzC5saSoFhyLMuZpPcCnikMr7hhjXFX+jYmbyFQW/qxYJhXucD1yQKmBLq1lkfkfcCC
+    bYMs8fEaxNQDVLsq0qAvzB4UaXLWa6Tc7hrvLZiFxdUsgM/2M9YG1QHTXhiQqos2oRiiSk
+    o6To78wEf+rhFVuJB0+SXCun/YWLPmrUeHDpI0rTO2h8/DPErNIF3lRmb6eQ
+X-ME-Proxy: <xmx:OfTMakTwkHOHjoTmqOy8ONA9OkX9jien3EuoRiHvFR_ra6GimNMd6A>
+    <xmx:OfTMaoTaz9TpyOPVskP2VIWl8U9qmTHTlzWZ8KTu-uW67ht9lsekoA>
+    <xmx:OfTMalBDf6NrYowKVLnrh-c1Mc7d1yos6bEW3IrJAaZCYAg9_jKBOA>
+    <xmx:OfTMaiAeyp-M2tDkHAQw9VS7MG90baQijArva_mpQXP6CTCv7e48dg>
+    <xmx:OfTMamzMkMHHdl8okQfas7YL9YFrnuxxtQhqrLrsiSWBUED9XOeVGtdn>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 12 Oct 2026 10:52:40 -0400 (EDT)
+Date: Mon, 12 Oct 2026 07:52:40 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Marco Elver <elver@google.com>
+Cc: Boqun Feng <boqun.feng@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+	Gary Guo <gary@garyguo.net>,	Alexander Potapenko <glider@google.com>,
+ kasan-dev@googlegroups.com,	linux-kernel@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>,	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Nathan Chancellor <nathan@kernel.org>,	Nicolas Schier <nsc@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,	Justin Stitt <justinstitt@google.com>,
+	Asahi Lina <lina+kernel@asahilina.net>,	Yury Norov <ynorov@nvidia.com>,
+	Eliot Courtney <ecourtney@nvidia.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>, workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH 1/2] kbuild: rust: enable KCSAN support
+Message-ID: <asz0OM48dedfuQY0@tardis.local>
+References: <20261012134159.912183-1-elver@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Mon, 12 Oct 2026 22:50:48 +0800
-X-Priority: 3
-Message-ID: <tencent_52C5E0AD1187B69B562F19A5@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261011142930.492999-1-chenhuacai@loongson.cn>
-	<20261011150052.GA168780@quark>
-	<tencent_4750F9C704AA3CFA1E7309B7@qq.com>
-	<CAAhV-H59DV-qF98M1Uu=Y4k1a8YNw0_RnP_nH-yr8fZu-jnFXQ@mail.gmail.com>
-	<20261012072200.GA828441@google.com>
-	<tencent_339CC94656CDACB222608A27@qq.com>
-	<20261012140802.267c293a@pumpkin>
-In-Reply-To: <20261012140802.267c293a@pumpkin>
-X-QQ-ReplyHash: 3685548821
-X-BIZMAIL-ID: 16018066872221435482
-X-Address-Ticket:version=;type=;ticket_id=;id_list=;display_name=;session_id=;
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1])
-	by smtp.qq.com (ESMTP) with SMTP
-	id ; Mon, 12 Oct 2026 22:50:49 +0800 (CST)
-Feedback-ID: lv:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NyAwOXzgHijeGcXpcG6JGlQ+NNNGaQPyO4+UsfJlBxNCT6yMMvS7qtXV
-	FxqwlR2RMaqH+V9wVLzybsEeIGSp0XafyNvIkAFnjrCtMPb7E28nOwCz338xSq6chRYDR8Y
-	e6uPO3lgMmNc5vfDrlvTAmqoMiGRXSKc5mWd/NaUKaHHNe5E428jU01XF6bGmHlAL4Hcppv
-	8m9Ww0g3PX9Zb6d0Ui3BF0XjkTFmF1lP9awwMqTR3OJrjcBgb2TJVB0Gqs0EMz0/kTihiL9
-	qlEJk3uYameaYagO9BtGvR6SeBF0no+/99zpEeKfxIf2udG0I47W75aRKRvVkGDvxKyPCjs
-	0UrwpKZUkJQIlxBYTsXW+aAhimlsyN3mESVzlsJSrvuc1bKq0QE9hW7vCfVse3t4/1iPZh5
-	tWO7YaAALPJ2RVt3flPHN1cmJ1hJX2mtQsxTEy9BUT3c4IK8HC3yvc2aQjESmrOK3OogKu7
-	Y6xKgVAAmH0s08lh9p65Qiy/qDwamuOJly9VQlatkbvu0NqjMX+nL+chjAO6CXzPHgkYcsx
-	cBrBvzY6rZhqEeqkL97wGPU17Y1ISOg80kTY1MtsQtygsitKcUATib1FMYFLVzKAA/5xP/Q
-	At1XbkAW59yiBfO/48EfNANcY841X2cZnE/LYN/AX30gkgxJpJgb46OD6B/OMpd+8CGrXOK
-	zjixAR25w/kwT462Ad19cqV2u1RsrqIXlE1nrUsT07TjjicQGRGHLBSelHFt+bZ5UVUaSy3
-	FlCxYjWoQID+eenb7wQpLf+5gFRHn7+X6l4sZxUsgF3ZYYd4oBDeBTX5w2sBfTuDFhEjvSd
-	Qhz91piaVAeHl3255h0avB60UfBwKyadCkaXpzUsIguF/6hXw3b9FDoLw5onsEpNv90OoXS
-	6oFjLe/8HXvAC5RZ3rOVGjY/TXfreTbTgyIeG5uWnSpR62KzlnXszSUtputmI569EqbmZwk
-	CKxL6u92guMUaNzURTazVGdA1bSToz1kVUTSjJ9bcq438J7SGqececdy1cmG73KGOuO7uOq
-	REq1SuK0N4zlbb8ltC7Q67k+vDX+L9ICbM1eun9SbDxvH+ixEJ13j6jTG0gEEiUXeoGAXwu
-	LT3ZETxbMwkkpNZI585Fz2Qqd3OOTzR/pp/FDYBwJxYWKolIylGgymL1COcJxYKjw==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012134159.912183-1-elver@google.com>
 
-SGksDQoNCj4gPiBIaSBFcmljLA0KPiA+DQo+ID4gPiBPbiBNb24sIE9jdCAxMiwgMjAyNiBh
-dCAwMjo0Mzo0N1BNICswODAwLCBIdWFjYWkgQ2hlbiB3cm90ZTogDQo+ID4gPiA+IFllcywg
-d2UgY29uc2lkZXJlZCBtb2RpZnlpbmcge2dldCxwdXR9X3VuYWxpZ25lZF8qIGdsb2JhbGx5
-LiBCdXQgaXQgaXMNCj4gPiA+ID4gbm90IGFyY2gtc3BlY2lmaWMgY29kZSBhbmQgd2UgaGF2
-ZSBubyB3YXkgdG8gb3ZlcnJpZGUgaXQuDQo+ID4gPiA+DQo+ID4gPiA+IE9uIHRoZSBvdGhl
-ciBoYW5kLCB0aGUgYnl0ZS10by1ieXRlIHtnZXQscHV0fV91bmFsaWduZWRfKiBpcyBhbHdh
-eXMNCj4gPiA+ID4gY29ycmVjdCwgd2UgYXJlIGZyZWUgdG8gb25seSBvcHRpbWlzZSB0aGUg
-aG90IHBhdGggKGxpa2UgY3JjMzIgY29kZSkuIA0KPiA+ID4NCj4gPiA+IFRoZSB1bmFsaWdu
-ZWQgYWNjZXNzIG1hY3JvcyBhcmUgdXNlZCBpbiBsb3RzIG9mIG90aGVyDQo+ID4gPiBwZXJm
-b3JtYW5jZS1jcml0aWNhbCBjb2RlLiAgSGFja3MgaW4gcmFuZG9tIHBsYWNlcyBkb24ndCBz
-Y2FsZS4gDQo+ID4gQWdyZWUsIGZyb20gdGhlaXIgc2lkZSwgdGhleSB0aG91Z2h0IG1heSBs
-aWtlOiB0aGUgY2hhbmdlIGlzIG1pbmltYWw/DQo+ID4gTXkgdGhvdWdodCBsaWtlIHdoYXQg
-b3RoZXIgYXJjaCBkaWQsIHVzZSBhbHRlcm5hdGl2ZSB0byBwYXRjaCB0aGUge2dldCxwdXR9
-X3VuYWxpZ25lZF8qPw0KPiA+DQo+ID4gPiA+ID4gPiBTaW5jZSBsb29uZ2FyY2ggbWFkZSB0
-aGUgaW5jb3JyZWN0IGRlY2lzaW9uIHRvIG5vdCBzcGVjaWZ5IHVuYWxpZ25lZA0KPiA+ID4g
-PiA+ID4gYWNjZXNzIHVuY29uZGl0aW9uYWxseSwgc2ltaWxhciB0byBSSVNDLVYgaXQgY2Fu
-IGJlIHdvcmtlZCBhcm91bmQgb25seQ0KPiA+ID4gPiA+ID4gYnkgb3ZlcnJpZGluZyB0aGF0
-IGluIHRoZSBrY29uZmlnLiAgRm9yIGxvb25nYXJjaCB0aGF0IGFwcGVhcnMgdGhhdA0KPiA+
-ID4gPiA+ID4gYWxyZWFkeSBiZSBpbXBsZW1lbnRlZDsganVzdCB1bnNldCBDT05GSUdfQVJD
-SF9TVFJJQ1RfQUxJR04gd2hlbiB5b3UNCj4gPiA+ID4gPiA+IGtub3cgdGhlIGtlcm5lbCB3
-aWxsIHJ1biBvbmx5IG9uIENQVXMgdGhhdCBoYXZlIGZpeGVkIHRoaXMgYnVnLiANCj4gPiA+
-ID4gPiBJIHRoaW5rIHRoYXQgd2UgaGF2ZSB0aGUgdXNlIGNhc2VzIHRvIHByb3ZpZGUgdGhl
-IGdlbmVyYWwga2VybmVsIGluc3RlYWQgb2YgdGhlIHR3byBrZXJuZWwgd2l0aA0KPiA+ID4g
-PiA+IGRpZmZlcmVudCBjb25maWcsIHNvIHRoZSBpbWFnZSBpbmNyZWFzZSB3aWxsIGJlIHRv
-bGVyYXRlZC4gDQo+ID4gPiA+IFllcywgdGhlIGRlZmF1bHQgY29uZmlndXJhdGlvbiBpcyB0
-byBrZWVwIENPTkZJR19BUkNIX1NUUklDVF9BTElHTiBzZXQNCj4gPiA+ID4gZm9yIHNpbmds
-ZSBrZXJuZWwgYmluYXJ5LiANCj4gPiA+DQo+ID4gPiBTbyBkb24ndCBkbyB0aGF0LiAgSXQg
-ZG9lcyBub3Qgd29yayBmb3IgZGl2ZXJnZW50IHVuYWxpZ25lZCBhY2Nlc3MNCj4gPiA+IHN1
-cHBvcnQsIGFzIHRoZSBvdGhlciBhcmNoaXRlY3R1cmVzIGhhdmUgbGVhcm5lZCBsb25nIGFn
-by4gDQo+ID4NCj4gPiBGcm9tIFJJU0MtViB3b3JrYXJvdW5kIGxlYXJuLCB0aGVpciBtb2Rl
-bCBpcyBkaWZmZXJlbnQsDQo+ID4gdGhleSB3YW50IHRvIGRlZmF1bHQgdW5hbGlnbmVkIGFj
-Y2VzcywgYW5kIHRyYXAgYW5kIGVtdWxhdGUgdGhlIGFjY2Vzcy4NCj4gDQo+IFdoaWNoIGlz
-IGVudGlyZWx5IGJyb2tlbiBmcm9tIGEgcGVyZm9ybWFuY2UgcG9pbnQgb2Ygdmlldy4NCj4g
-RXNwZWNpYWxseSBzaW5jZSBzb21lIHN5c3RlbSBoaWRlIHRoZSBlbXVsYXRpb24gZnJvbSB0
-aGUga2VybmVsLg0KRW1tbSwgSSBkb25gdCBrbm93IGlmIGl0IGV4aXN0ZWQgaW4gTG9vbmdB
-cmNoIHN5c3RlbS4uLg0KDQo+ID4NCj4gPiBUaGlzIExvb25nQXJjaCBtb2RlbCBpcyBwb2lu
-dCB0byBkZWZhdWx0IHNhZmVseSBhbGlnbmVkIGFjY2VzcywNCj4gPiBhZnRlciBkZXRlY3Rl
-ZCB0aGUgdW5hbGlnbmVkIGFjY2VzcyBzdXBwb3J0LCBuZXh0IHRvIHVzZSB0aGUgdW5hbGln
-bmVkIHRvIHNwZWVkIHVwLg0KPiA+IE9yIGRpZCBhbnl0aGluZyBJIG1pc3Npbmc/DQo+IA0K
-PiBUaGVyZSBhcmUgdGhyZWUgY2FzZXM6DQo+IDEpIFVuYWxpZ25lZCBhY2Nlc3NlcyBmYXVs
-dCBhbmQgbXVzdCBiZSBhdm9pZGVkLg0KPiAyKSBVbmFsaWduZWQgYWNjZXNzZXMgYXJlIGV4
-ZWN1dGVkIGJ5IHRoZSBjcHUgYnV0IHRha2UgYSBzbWFsbCBudW1iZXINCj4gICAgb2YgZXh0
-cmEgY3ljbGVzLg0KPiAzKSBVbmFsaWduZWQgYWNjZXNzZXMgYXJlIGV4ZWN1dGVkIGJ5IHRo
-ZSBjcHUgYW5kIGFyZSAoYWxtb3N0IGFsd2F5cykNCj4gICAgZnJlZS4NCj4gRm9yICgyKSBp
-dCBpcyBzdGlsbCB3b3J0aCBhbGlnbmluZyBidWZmZXJzLg0KPiB4ODYgaXMgcHJldHR5IG11
-Y2ggaW4gY2FtcCAoMykgLSBJIHN1c3BlY3QgaXQgdXNlcyBieXRlLWVuYWJsZXMgb24gYSA2
-NCBieXRlDQo+IHdpZGUgaW50ZXJmYWNlIHRvIHRoZSBjYWNoZS4NCj4gDQo+IElmIHlvdSBh
-bGlnbiBidWZmZXJzIHlvdSBkb24ndCBoYXZlIHRvIHdvcnJ5IGFib3V0IHRoaW5ncyBsaWtl
-DQo+ICd3b3JkIGF0IGEgdGltZSBzdHJsZW4oKScgcnVubmluZyBvZmYgdGhlIGVuZCBvZiBh
-IHBhZ2UuDQpBZ3JlZWQsIGFzIEkga25vd24gc29tZSBob3VycyBhZ28gZm9yIHVuYWxpZ25l
-ZCBhY2Nlc3MgZXhpc3RlZCBpbiBMb29uZ0FyY2gNCmRlc2t0b3Avc2VydmVyIGNoaXAsIHNv
-IGZvciBtZSBub3cgaXMgbm90IG1vdGl2YXRlZCB0byBkbyB0aGUgY29tcGxleGVkIHdvcmsu
-DQoNClRoYW5rcw0KV2VudGFvIEd1YW4=
+On Mon, Oct 12, 2026 at 01:39:14PM +0000, Marco Elver wrote:
+> Rust supports ThreadSanitizer instrumentation via LLVM, which is what
+> KCSAN relies on; however, Rust code is not currently instrumented.
+> 
+> Pass -Zsanitizer=thread and the same TSan backend options used for C
+> code to rustc. Wire up KCSAN_SANITIZE in scripts/Makefile.lib for parity
+> with C (though rustc currently rejects linking crates with mismatched
+> instrumentation).
+> 
+> rustc only accepts -Zsanitizer=thread for targets that declare support
+> for it. Of the targets used by the kernel, this is only possible for the
+> generated x86_64 target specification, so restrict instrumentation of
+> Rust code to x86_64 for now via HAVE_KCSAN_RUSTC. On other architectures
+> Rust code remains uninstrumented as before.
+> 
+> All TSan options used are supported by the LLVM versions of the minimum
+> supported rustc, so no rustc-option checks are needed (they would also
+> fail, because x86_64-unknown-none used for option checks does not
+> support -Zsanitizer=thread).
+> 
+> With this enabled we can detect data races in kernel Rust code and
+> between Rust and C code.
+> 
 
+Help has finally arrived! :)
+
+Thank you for looking into this, for both patches:
+
+Acked-by: Boqun Feng <boqun@kernel.org>
+
+Regards,
+Boqun
+
+> Signed-off-by: Marco Elver <elver@google.com>
+> ---
+>  Documentation/dev-tools/kcsan.rst |  7 +++++++
+>  lib/Kconfig.kcsan                 |  7 +++++++
+>  scripts/Makefile.kcsan            | 13 +++++++++++++
+>  scripts/Makefile.lib              |  3 +++
+>  scripts/generate_rust_target.rs   |  2 +-
+>  5 files changed, 31 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/dev-tools/kcsan.rst b/Documentation/dev-tools/kcsan.rst
+> index 8575178aa87f..3bb8754f844b 100644
+> --- a/Documentation/dev-tools/kcsan.rst
+> +++ b/Documentation/dev-tools/kcsan.rst
+> @@ -14,6 +14,9 @@ Usage
+>  KCSAN is supported by both GCC and Clang. With GCC we require version 11 or
+>  later, and with Clang also require version 11 or later.
+>  
+> +Rust code is instrumented as well on architectures whose Rust target supports
+> +it (currently only x86_64; see ``CONFIG_HAVE_KCSAN_RUSTC``).
+> +
+>  To enable KCSAN configure the kernel with::
+>  
+>      CONFIG_KCSAN = y
+> @@ -121,6 +124,10 @@ the below options are available:
+>  
+>      KCSAN_SANITIZE := n
+>  
+> +  Note that ``rustc`` rejects linking crates built with and without KCSAN
+> +  instrumentation, so ``KCSAN_SANITIZE`` and ``KCSAN_SANITIZE_<target>.o``
+> +  cannot currently be used for Rust code.
+> +
+>  .. _"Marking Shared-Memory Accesses" in the LKMM: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/memory-model/Documentation/access-marking.txt
+>  
+>  Furthermore, it is possible to tell KCSAN to show or hide entire classes of
+> diff --git a/lib/Kconfig.kcsan b/lib/Kconfig.kcsan
+> index 4ce4b0c0109c..f0096e1c8b61 100644
+> --- a/lib/Kconfig.kcsan
+> +++ b/lib/Kconfig.kcsan
+> @@ -10,6 +10,13 @@ config HAVE_KCSAN_COMPILER
+>  	  For the list of compilers that support KCSAN, please see
+>  	  <file:Documentation/dev-tools/kcsan.rst>.
+>  
+> +config HAVE_KCSAN_RUSTC
+> +	def_bool RUST && X86_64
+> +	help
+> +	  rustc only accepts -Zsanitizer=thread for targets that declare
+> +	  support for it; of the kernel's Rust targets, only x86_64 does.
+> +	  Elsewhere, Rust code is not instrumented.
+> +
+>  menuconfig KCSAN
+>  	bool "KCSAN: dynamic data race detector"
+>  	depends on HAVE_ARCH_KCSAN && HAVE_KCSAN_COMPILER
+> diff --git a/scripts/Makefile.kcsan b/scripts/Makefile.kcsan
+> index 19f693b68a96..01af6fd71006 100644
+> --- a/scripts/Makefile.kcsan
+> +++ b/scripts/Makefile.kcsan
+> @@ -24,3 +24,16 @@ kcsan-cflags += $(call cc-option,$(call cc-param,tsan-instrument-func-entry-exit
+>  endif
+>  
+>  export CFLAGS_KCSAN := $(kcsan-cflags)
+> +
+> +ifdef CONFIG_HAVE_KCSAN_RUSTC
+> +# The minimum supported rustc's LLVM supports all of these options.
+> +rustc-param = -Cllvm-args=-$(1)
+> +kcsan-rustflags := -Zsanitizer=thread \
+> +	$(call rustc-param,tsan-compound-read-before-write=1) \
+> +	$(call rustc-param,tsan-distinguish-volatile=1)
+> +ifndef CONFIG_KCSAN_WEAK_MEMORY
+> +kcsan-rustflags += $(call rustc-param,tsan-instrument-func-entry-exit=0)
+> +endif
+> +endif
+> +
+> +export RUSTFLAGS_KCSAN := $(kcsan-rustflags)
+> diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+> index 0a4fdd8bd975..78f1c23e54be 100644
+> --- a/scripts/Makefile.lib
+> +++ b/scripts/Makefile.lib
+> @@ -98,6 +98,9 @@ ifeq ($(CONFIG_KCSAN),y)
+>  _c_flags += $(if $(patsubst n%,, \
+>  	$(KCSAN_SANITIZE_$(target-stem).o)$(KCSAN_SANITIZE)$(is-kernel-object)), \
+>  	$(CFLAGS_KCSAN))
+> +_rust_flags += $(if $(patsubst n%,, \
+> +	$(KCSAN_SANITIZE_$(target-stem).o)$(KCSAN_SANITIZE)$(is-kernel-object)), \
+> +	$(RUSTFLAGS_KCSAN))
+>  # Some uninstrumented files provide implied barriers required to avoid false
+>  # positives: set KCSAN_INSTRUMENT_BARRIERS for barrier instrumentation only.
+>  _c_flags += $(if $(patsubst n%,, \
+> diff --git a/scripts/generate_rust_target.rs b/scripts/generate_rust_target.rs
+> index 7687b0dd5474..4b02bffa6b46 100644
+> --- a/scripts/generate_rust_target.rs
+> +++ b/scripts/generate_rust_target.rs
+> @@ -231,7 +231,7 @@ fn main() {
+>          }
+>          ts.push("features", features);
+>          ts.push("llvm-target", "x86_64-linux-gnu");
+> -        ts.push("supported-sanitizers", ["kcfi", "kernel-address"]);
+> +        ts.push("supported-sanitizers", ["kcfi", "kernel-address", "thread"]);
+>          if cfg.rustc_version_atleast(1, 91, 0) {
+>              ts.push("target-pointer-width", 64);
+>          } else {
+> -- 
+> 2.56.0.385.gd3acb90ef8-goog
+> 
