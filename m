@@ -1,190 +1,108 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E60484915B1
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:49:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816580; cv=pass; b=u4J5TJpn2sDGWJY9d3wct+6h1GfDHQE6oz4xEeCwbXlkOjy3h4S41tJ2dedLAK+f3TrLN+qwQyw/EpFWAPoY3KktEFsQ4+L4POIbJerWMThJ170ilLcN5AggEHX7VIzWQoujIn+BCd3IyLC1R5H6Zj2qeZc4lI+zyEjKyM56VVA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816580; c=relaxed/simple;
-	bh=sKBgSzTYU033t4LYXBsn6CmXDo5tF/aJYwgKpZ7dQpg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=idNx6/j7+PPbaGOIEH1vwMNr9SjW0S8pTjp9ORH0I/c/7G4LRNLBuspEXAjzPyli+JQqkOECmy+nPCOcif6AycuzVk1CQBL+bHiWPBQq/I33KKJWOz6RE+TS75oBC7vP2kaRYefBX/ToTfRuuJjw0+DEz+P2pXH8N0fMf25xq6w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Cao1OL54; arc=pass smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E38E492E34
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:49:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791816582; cv=none; b=sZvwScN06IBwc56Z0QX3K0OtJmnLTUncb4KV1vo/FDdQokau2RL5qut9X+Di0bVgE7b7m84JYlTTW2VLxHrik5kinZ7x0tn7tCraZdm6VgQv1YSN9thD5Kh21n4vTlZe/rc95XCcJON9cTfPkMMnIgL8qE+ikbxanni1qFVyi3k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791816582; c=relaxed/simple;
+	bh=oPkeZaNBkdRECuCTRYVoSMnv9mvchctzGqmg2kEJu8U=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LPXcfAF/zhDveQuZY18S7HRPnfQlp1erdfq0Q7ltwwY066/Lm3ByeWa5imkFdAwLc1LlxtGR8kXrndulG/Av+UrOrmUlwDfYFjTirnfKaJZPkygVsFXm6TJZWIhRwggl6NgzBsePkHtANCKrTp4XDyn1nEAi6JiNHWfYh3kiMVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k+n7mo+u; arc=none smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Cao1OL54"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6af9a9451daso2978580a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:49:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791816577; cv=none;
-        d=google.com; s=arc-20260327;
-        b=G6X1EVvCQZXb7g3gMif4bLyAiYVahTYOjDA6sN6S743hw8nX8B4nGO0ArGnVuljkmY
-         f3HM7nxv/hYWcESS36w3mFOEx+/3Rsu7tH5fdeyrzYS9guvhEXUtmN64Zedb013yQYPN
-         AT7nhpYJhmpOVeVNE/zRcwgKVY0eNykymB3hZnU6nNOapBYAd7bMcIE5ts/sXWXCZChq
-         rDGXFZxfp2lSbVVCxMHFN5AqyV/zY7eQfMKHd6NST+v5flWCwtzdayNqDuDlK9qQMu7D
-         A/VC4D8wgAcXxAt+DV5iJDrZf9MUHFNQzseNZdVrJ3nFozGFS5nNPgPhkPell/XEnSQW
-         FfBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=o6kt5sxQxEd1IeZHNY2Emi/Ix9odRnAqO5gpURKPws0=;
-        fh=Qov3EwfyGYzIzSGton/kni3wWiyHJ3mwwGqsNNJ2E24=;
-        b=TANPMhq79iW8Vbdqo7TLVbN3xZAp5ayllBh4cawRbF1fPdoRMgopKepBarefDV/O4/
-         F1mze6kAEiIr4iZepUb9Ls0w5Bp1zo15xzWxrmiq0pU/MGouyMAUoaEI2aHjxx9nC1dA
-         mF9OnClCx0goelCpxIvr5nzCpj/QekcFHR1ndw9oBjBbz6wElGeYiz1ZFlfVoXoJ9XHv
-         ILAr8ylrCks/3Wpsd9VKLcwHRco/m6PtfMhunjI+ugXaURQuvLNgXhYybXEZHJ6Drxey
-         ZMa3L3yF0AQpE9YOO16NgnpR0UR/SuSQbxq4kgnDycSrl56yM3uT+/fXFoLkRDVeDYGR
-         Y1NQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k+n7mo+u"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35a31bb9fb6so3110122eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:49:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791816577; x=1792421377; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o6kt5sxQxEd1IeZHNY2Emi/Ix9odRnAqO5gpURKPws0=;
-        b=Cao1OL54v8BNjN57nw9Gwekmdz9CIJah/7+PG/E9GVyWtrr1aOuvh45h3FaQv6Q2qf
-         jVUuzi4cUkAKR7jM0gu56yTCvyqf61MZ6qPMNHsiKoRXC5ePqTCeT21UHldkJ4Jc2+Ow
-         lxepZ9kSc20lXD8dIRCTwnUMdp+4MtoZactqJLksDpIrl2l76n1jhpsK7VTVgA8BUcI5
-         g0r4Oegm1IFsac8+bGBfCXIIcs8EPd7Z9CVH0biuxEXf+gfG62YIc227tZfAJyf/oQIp
-         H0qvSAo6qRVCNeoVRLZG2yl446o9DjMVVaAh3jVeauzdO+eEB3FrN5y7I+VB2qS0Ij19
-         Cqyw==
+        d=gmail.com; s=20251104; t=1791816581; x=1792421381; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Qe8p8UxXn7BQaCP9o12LF3+dtE+HBHraOrQKjsuul2k=;
+        b=k+n7mo+uNRh3FuXhOf4vDpem4wH+S9xgYaH72j3dqtr/lJptAhgz/6u1JBO3tbrs69
+         Y/YU/J7wrE2Psknq2WRs+4hVprbE2Z9vX9NPWjiu80fpI1qn0EhHE6k/HyG3JuZzeXEo
+         nKCHTrSCJc008qF/DzzI2x8UrXpBy7XEM+YzdNOBWNEi90cVhQySXl/kL+96D1SqjzRG
+         da9AtSq2c9dDQ5gnt8tW7shSDGZNTMWFuH/AQ1aVYTY+CkEThQbTi7/iO+orFZGUy9eN
+         lRfez/74vCMgIZcZO9n2E/uC1mrXwT+haRzc0EOK7pmjnpkWELG8fimzexdpl7YTu033
+         AU0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791816577; x=1792421377;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=o6kt5sxQxEd1IeZHNY2Emi/Ix9odRnAqO5gpURKPws0=;
-        b=s0ErbJ9/QkI7lXrKTTknKilm9B1DRzyVcc1TCmjgo7Vlp5spCIqMBJRUEosWfV+n7E
-         5GwRy8MggzwoKHcUne612b6ya5qMsFT+eMhERGIavlW/W0HUd0B4Q50f45m32SZLkDz0
-         umOCDC12+6sJ+d/qNWQcJhgKz50dUPHDtlsJ/xD8L0baxi0XrzncSwD7QxAkYJKbE/yR
-         zIVKl6Q6k44wx+rNVvQaN1JmlFCPzHsntwPwFio5diFAX7ZX+HQWXOoMFI7dR/I9LvBR
-         rQN9WRrZxLOBmK3X9HGt/eG1aOdUpRLCWdX/OA6wBX6z/bxUWHVTO0ZHadu3voSOK+yk
-         /MCg==
-X-Forwarded-Encrypted: i=1; AKwUvBzhHyRxbGXU6S4h55Ew7FojSQuRgqSO9e8AZyx5ytFjyIdJe+qg9tzszwe91/c1ksMf8lz+a65fNChdKEQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMJIVuXbZTQ6hOJaztsBdo+MpuaYRp48ldd2z/D5HaA0G15mD9
-	zZvjnrAOXQ66Hv6QXmPMvSf2jRHkhJgDQPTqruQE45Kemtv//yeZUViZCW/N2dqf2qV+FfJ/P4x
-	N01DpsOlnatiJCM8gBy8yKNpUZbTSh+ys9nm8dpY08w==
-X-Gm-Gg: AYBFou0/LZpK0Vf0WT+p6muwdsfb4q66/WCCJgOimWbZUwGYR51iGQhG9Huq2ayzjm2
-	v0GvkO8vOWAr8GYdkScwXcmU1mA7UnnCd8oact2LQImcxb+phBuKXkDRTj03/7UIznBJ4YkORtV
-	logWLE9+Pkj5ATt5ac6n9uZE9q26LylVjts48ms4VN4ZZKWQ0kIDS/g/BxgASVvaYTFJm/qxA0h
-	daG+ZWdoyejfDL1qcuegd6jl4L7oM9b6lRHDvsvcG1yNJZ7HoJrUkAliOrnoAMthpeFHVeO0598
-	589kf/TjbrRXKdqItpdZVwnEnAyyQA8UBu1y1JvbDDEwkXgb3WCbu//leuqvu4sL8P/A4el/VDa
-	4IvJaU2CCC1M=
-X-Received: by 2002:a17:907:2da9:b0:c20:af9d:4533 with SMTP id
- a640c23a62f3a-c31aa022dd3mr979980166b.19.1791816575661; Mon, 12 Oct 2026
- 07:49:35 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791816581; x=1792421381;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Qe8p8UxXn7BQaCP9o12LF3+dtE+HBHraOrQKjsuul2k=;
+        b=kHKdzCyqfHmF9ugYKwn7QUi+kKAbsOKV8pCBYmvOhhMrLHun/hda4YtD6Xl6QGZdNc
+         bAKW+HMhG78dzRFekYSMJ40qUSIl4P9Dcx1+qCJuHUmhKfa9uirxXVMyxzAhIBZlHR+w
+         bTpFqMlfwTLAdiKCSnyy1Uo/kvwopXGdLfvcl9AhZk1od30He3DJQ3wgmhC1LZ1bAfIe
+         hKc3y+y05BE5hpaq2dJzkpp/PLuGvsxHxR3CD/3x5UBw0x8DVe6tI+l3NvlvWqWgtIks
+         id96QxNKr1XYL+/rHgh+PukyJA0c8vIDyMLJAZmSQvNO90RgxSGFcRp6xfL0C6dFVNL1
+         CPNw==
+X-Gm-Message-State: AFq9FYLErP5M7yixrC2BC4HxAIjWS7sgBO/lfQGGRRYWmBt1+RZWnfXb
+	Es+sPe2asgv+tBiBekBLdZxNjjOE9izoD8bjGrwBE7GGdkSS4Uxis3aGM3aZRg==
+X-Gm-Gg: AYBFou07Je+6HtQTnMjr64IzVSsbzChQSM0Cb0PxBX27Xb+p+gEFKrMKeuFMOZQEpyr
+	XNMY52eqdnDSa2rSRt156nBZpUuuhPdBhoIJi4+Oft8MjDveghVAzygvYotSuWF1ugdVQrGAAWk
+	sKzrF1nkt9ydA9OHTddm98D/6ZBvKNDG5mVWnyIHOtgbRPkhFVTMHw+nJhJ6Zz+Tbo04SK9wC56
+	nRjZdZ+JA74bQsyL/nkL/M5Zcx3c220BdqguwdJ0OgMHz0qDHbgKU3vadGlhU6BNfoHbCzBHaKY
+	Ria5roFU760McPIYqQOKX7694+raE8ogiZKDpSJ0wcFDxMnCtOHiLkN157JKkBKsCOnaql+P9pD
+	RZXnhdsQctGR3pB6GJG3IZ7+7PwpdXUhGgkdpVv/BWOuJXe4U6A0iNkIj4Y21PZNyrN6Mfmrod7
+	Ux1UbJTq5DPx/bLg5PYMWQ1Q3NpDAJgVO+B7TtumglAgEkl7HpEzWJb4vVcEOyX/6mTGQpiS8K9
+	GyhJvz5ybm8f6nR9kF0oZqlKj043VombzRYPHNWOZkzwq1Go742ThwA4VM97X0Ns8SKeAF7W/w=
+X-Received: by 2002:a05:7300:8806:b0:34e:9147:b862 with SMTP id 5a478bee46e88-3537e073ab1mr17729284eec.34.1791816579688;
+        Mon, 12 Oct 2026 07:49:39 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (162.10.253.157.netskope-rdns.com. [162.10.253.157])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca6d202sm33239386eec.13.2026.10.12.07.49.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 07:49:38 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Date: Mon, 12 Oct 2026 11:49:30 -0300
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>
+Subject: Re: [PATCH RFC 3/3] iio: core: use kstrtodec64() to parse
+ fixed-point values
+Message-ID: <s2h7eparj3igtairdv24jxxfqrrcntwsgq63de5zssvylxcj7q@lgr45mi3ebt2>
+References: <20261001-e-notation-v1-0-75187bf06c10@analog.com>
+ <20261001-e-notation-v1-3-75187bf06c10@analog.com>
+ <ar9kuHwnTM8jdkqR@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008-hiperdispatchfix-v1-0-73fe41081070@linux.ibm.com>
- <aseIPhrDGCYFtJNE@gpd4> <90454932-1d82-450a-ac4c-499acdedb9d7@linux.ibm.com>
- <ffbeae31-0e93-4386-8e0e-dba13960b283@linux.ibm.com> <CAKfTPtCianGNWSu0s2J_B_aO_rtKWO17k9guYmwgXXLUHQE+SA@mail.gmail.com>
- <d412d939-4704-4246-a9bd-b49b457099b8@linux.ibm.com>
-In-Reply-To: <d412d939-4704-4246-a9bd-b49b457099b8@linux.ibm.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Mon, 12 Oct 2026 16:49:23 +0200
-X-Gm-Features: AclHuK--DkxB95BT203G4DHhuJ4NrrL_B5_NJsMlLldXjfXFADXDQ_ENLFySR4A
-Message-ID: <CAKfTPtAGiesy0FZQ3aOny_1QkqaX0P2MCOdkE42ERdihRJL99g@mail.gmail.com>
-Subject: Re: [PATCH RFC 0/2] sched: Introduce idle SMT priority for asymmetric
- capacity systems
-To: Mete Durlu <meted@linux.ibm.com>
-Cc: Shrikanth Hegde <sshegde@linux.ibm.com>, Andrea Righi <arighi@nvidia.com>, 
-	Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Tim Chen <tim.c.chen@linux.intel.com>, 
-	Chen Yu <yu.c.chen@intel.com>, Ilya Leoshkevich <iii@linux.ibm.com>, linux-kernel@vger.kernel.org, 
-	linux-s390@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ar9kuHwnTM8jdkqR@ashevche-desk.local>
 
-On Mon, 12 Oct 2026 at 13:04, Mete Durlu <meted@linux.ibm.com> wrote:
->
-> On 09/10/2026 17:32, Vincent Guittot wrote:
-> > On Thu, 8 Oct 2026 at 17:25, Mete Durlu <meted@linux.ibm.com> wrote:
-> >>
-> >> On 08/10/2026 16:58, Shrikanth Hegde wrote:
-> >>> Hi Meter/Andrea.
-> >>>
-> >>> On 10/8/26 5:40 PM, Andrea Righi wrote:
-> >>>> Hi Mete,
-> >>>>
-> >>>> On Thu, Oct 08, 2026 at 10:30:46AM +0200, Mete Durlu wrote:
-> >>>>> Summary
-> >>>>> ===========================================================================
-> >>>>> On systems with asymmetric CPU capacities, the scheduler prefers
-> >>>>> fully idle
-> >>>>> cores over idle SMT siblings of busy cores. This works generally well
-> >>>>> but
-> >>>>> virtualized platforms where low capacity cores should be avoided are not
-> >>>>> considered. Introduce a new config option and arch hook to prioritize
-> >>>>> SMT utilization.
-> >>>
-> >>> That's true only under physical CPU contention right? or is it always?
-> >>
-> >> Right, because of that s390 treats all CPUs as equal and starts to
-> >> assign lower capacities to CPUs with low entitlement once a certain
-> >> steal time threshold is crossed (aka physical CPU contention).
->
-> Hi,
-> Sorry for causing a misunderstanding. I should have been more patient
-> and detailed while writing my reply.
->
-> > I'm not sure to get what your topology is because "if s390 treats all
-> > CPUs as equal"  then you should never use select_idle_capacity()
-> > because  their capacity should be fixed and equal and
-> > SD_ASYM_CPUCAPACITY_FULL never set.
->
-> On s390 the entitlement of the vCPUs are signified by an arch specific
-> value we call polarization. We can tell which vCPUs are assigned high
-> and low entitlement. This entitlement value tells us which vCPUs are
-> prone to experience steal time first. Without any contention all
-> vCPUs behave and perform *almost* the same(of course, we want
-> some priority for CPUs with high entitlement).
->
-> Prior to experiencing steal time(it's what we use to determine
-> contention) to get the most out of the system we assign all vCPUs
-> the same capacities, making the system symmetric like you say.
-> While there is no contention s390's vCPUs also perform better if
-> fully idle cores are selected for task placement.
->
-> > If your hypervisor lowers the capacity once a certain threshold is
-> > crossed, we already account for the steal time in the scheduler with
-> > irq and remove it from the capacity available for tasks but the
-> > original capacity doesn't change.
-> s390's linux implementation has a mechanism called hiperdispatch,
-> that checks topology changes along with system steal time (and soon
-> the total free capacity of the pyhsical machine) periodically and
-> makes vCPU capacity adjustments accordingly.
->
-> After steal time starts ramping up and cross a certain threshold,
-> we start assigning lower capacities to vCPUs with low entitlement to
-> hint the scheduler that they should be avoided.
+On 02/10/26 11:00, Andy Shevchenko wrote:
+> On Thu, Oct 01, 2026 at 12:34:58PM -0300, Rodrigo Alencar via B4 Relay wrote:
+> 
+> ...
+> 
+> > +	/* fract_mult = 10^n, so ffs(10^n) = ffs(2^n * 5^n) = n + 1 */
+> > +	unsigned int scale = ffs(fract_mult);
+> 
+> Hmm... It's not obvious. Maybe you want to use int_log() instead?
 
-If all your vCPUs starts with the same capacity, you should not use
-asym_capacity or enabled it . What you describe above is system
-pressure (steal time or other) on your vCPU that change over time but
-not a capacity change. The value returned by arch_scale_cpu_capacity
-is not supposed to change at runtime or you need to rebuild the
-sched_domain topology. As an example, max_allowed_capacity does assume
-capacity fixed otherwise the misfit detection will sometimes fails.
+hence the comment. intlog10() from int_log.h returns log10(x) * 2^24.
+It could be used with a correction:
 
-What you describe really fit into the prefered core that Shrikanth
-Hegde has developped
+	DIV_ROUND_CLOSEST(intlog10(x), 1 << 24)
 
-> In this asymmetric configuration, utilizing low capacity but fully idle
-> cores hurt performance. Instead packing the tasks first to SMT siblings
-> of high capacity cores would give s390 a lot of benefit.
->
-> I hope that clears some of the fog that I unintentionally created.
->
-> [..snip..]
->
+because the header warns the result "might be not exactly n·2²⁴".
+Assuming that the fract_mult is a power of 10, ffs is the most straight
+forward way of doing this.
+
+-- 
+Kind regards,
+
+Rodrigo Alencar
