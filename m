@@ -1,396 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDDA3BCD05
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:48:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297043603DD
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:48:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791791282; cv=none; b=id7y9tX+PldIbfYjLi1by5BBy0Fk9GuA0z9X76QjQhbJGXp2vgW5Hv2+q7AFG7CzAyfguj4cdXmkvPVJTgrqowiFX39RTRL2faZqHj6nAJVEdjKVDk0MRCLiYYomXfWGE/MGG12IjubSha71D3ZeGk2tF/kq36MwJyB/XwNV030=
+	t=1791791288; cv=none; b=cP7nlEZsKg/Q9mV3CR/EAdLNFxQVEBghmvL1wahzbiDuvnek7OtK7H3PuXQLMW28vqUOpeqn5ekpFLQcfa73dammG8OF+ykgcvIux2OdXvM0kl8e65SRGFyGt/EAQ0+vWhaQdCeDlqQNLlz6bHIMDxjZlh7ycof0WJMPpZM2JRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791791282; c=relaxed/simple;
-	bh=M7s9Lincs5YAX0rWv+FFYjgv7nPV6+lxcgamcHfegkk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=af8LJZIhgoDlYkCVJ4h56p/34qjp8AmCN/LoQD0RRXRm9pAoe8JYxnDS0G2BqdSdS88y+LuMGSK5e/ozXb6Sx5LdaWjUWmEqr8i+QtibXNGTbOtN/RfX/j/qe8aHmExqo16wTgrX36RxGO+g8hRAliZAApJA/TiOs//Ydf1KpMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=swJTVslP; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791791288; c=relaxed/simple;
+	bh=zEzFs4aKk6Xfzf60TDLNG6YlxcIStOAudSHifCTjPCg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 References; b=n3e/zm2Db61maCOekupxELAP6ee4D64hSUYYmyJy+c6/xQdkwqf17tXNyFe3s0jtX+BOZ6QIIcvIxVl9CDLmvZ7+rOl/t2XOsIFjzfBut94IsTbDjMgKWHJXk0Ucoxphf++nisajMJ643+D6+ktL5ce5X1Yn2xpZJyHpQ8m/X2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=Hj8vjdrg; arc=none smtp.client-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="swJTVslP"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4A14BC2BCF4;
-	Mon, 12 Oct 2026 07:48:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791791282;
-	bh=M7s9Lincs5YAX0rWv+FFYjgv7nPV6+lxcgamcHfegkk=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=swJTVslPj8N/xtSa5lKZqsdNTiN7j7k4N9JoQ/hDvSM9ooOLvO0Um/ZDouyFmyzHm
-	 WSlacCO3vUekDfYqfUtbz2E0SNWCDozZfwkzguerER260yZQ0mtRdytUEPzRUEiXyn
-	 oeMbrvse1GGBO8pA25CcpvkbCtmpq5HYcgenoAw8tjJlFCJ0YnoKgvbDQHdQFm+gs9
-	 utEeyLGn+MkJcf962+DcFdGDq6BHwI3A9V/ZUzetjb1xrVY1qt2GOEgdRI5S1fUXTa
-	 9hX1ciQkC77MrSkZugyZ26buX+s5UBSU58qwWwPKMU7E7mHQUogf8wMFIoLJWDhZ9I
-	 AfyOq/jlP23og==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 23E4ECA9ED1;
-	Mon, 12 Oct 2026 07:48:02 +0000 (UTC)
-From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
-Date: Mon, 12 Oct 2026 07:47:55 +0000
-Subject: [PATCH] drm/panel: visionox-vtdr6130: Add 120, 90 and 60 Hz modes
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="Hj8vjdrg"
+Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261012074802epoutp032255dcaec97118037e6418f7bd608803~duK2tNc2F2906529065epoutp03H
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:48:02 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261012074802epoutp032255dcaec97118037e6418f7bd608803~duK2tNc2F2906529065epoutp03H
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791791282;
+	bh=EZiJpBCaQS/Y7CL4+MDT0WahFVz2znoxPYi7A/ivAn0=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=Hj8vjdrg+Yja/8/9iEiAk0RdM/Z/qwfCviEnZ+dnJvVHRzhouO7oXSj3f/f4hE7IG
+	 9IA6Iet4sbk2XZTbHScMhiHlyt1LcXDYv523B+CKYHar6gX+9olI4AL0x/Vp4tJkM2
+	 hvJ4ebLwxI065kcpgpi/YuyGnrbPWwTTxIqc2Kk8=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261012074802epcas2p3606261995aa73d05264f1c9327f03d88~duK2XaKBh1902219022epcas2p3E;
+	Mon, 12 Oct 2026 07:48:02 +0000 (GMT)
+Received: from epcpadp2new (unknown [182.195.40.142]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4j38hf36cYz6B9m6; Mon, 12 Oct
+	2026 07:48:02 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261012060557epcas2p4ce5468f159a857c5caf2c81b59cc3f60~dsxt4ZQiS1397113971epcas2p4u;
+	Mon, 12 Oct 2026 06:05:57 +0000 (GMT)
+Received: from ubuntu.dsn.sec.samsung.com (unknown [12.81.221.204]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261012060557epsmtip24e1a01eb464b1c55e1f4e9f4e11a4113~dsxt0255q0647806478epsmtip2M;
+	Mon, 12 Oct 2026 06:05:57 +0000 (GMT)
+From: Daehwan Jung <dh10.jung@samsung.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org (open list:USB SUBSYSTEM),
+	linux-kernel@vger.kernel.org (open list), prashanth.k@oss.qualcomm.com,
+	selvarasu.g@samsung.com, cpgsproxy1@samsung.com, Daehwan Jung
+	<dh10.jung@samsung.com>
+Subject: [PATCH v4] usb: gadget: u_serial: fix stale req->dep warn on
+ disconnect/reconnect
+Date: Mon, 12 Oct 2026 15:01:53 +0900
+Message-Id: <1860250540.01791791282424.JavaMail.epsvc@epcpadp2new>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261012060557epcas2p4ce5468f159a857c5caf2c81b59cc3f60
+X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-vtdr6130-refresh-rates-v1-1-f6053b328e2a@fromdisposition.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrDuQSSVCryIuNJnU6cKWmVQK4
- t2NdvnxeP8Gxips8Gg2UF7F5L1U0K2BOI/Lk1FSNXjnAznyuJakge4OlbOyzahjYUOKqfM5T9x
- 2Aer5U2f5XeF++Nu+04tjOWuw7wc/Nd91egAAAA==
-X-Change-ID: 20261012-vtdr6130-refresh-rates-1cd72ffbe476
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Aaron Kling <webgeek1234@gmail.com>, Demeter Barna <me@fromdisposition.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791791286; l=11768;
- i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
- bh=UdzeIu9dT5hZaoSKST+cAWFNeHEnoRPZTbrecaVBh+o=;
- b=U7fKZazHB1UR9GbtkW97qfAMueI2M1E3d5/sY+hM3j3a31I16sPKA21sntp2PAqi2SOj+BAEN
- rt0NHVv+rCgBhNvODvRX1V+Eob+xnAhkPmWDAP/h7vSti/ebvJs7WLA
-X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
- pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
-X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
- auth_id=1163
-X-Original-From: Demeter Barna <me@fromdisposition.org>
-Reply-To: me@fromdisposition.org
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-Hop-Count: 3
+X-CMS-RootMailID: 20261012060557epcas2p4ce5468f159a857c5caf2c81b59cc3f60
+References: <CGME20261012060557epcas2p4ce5468f159a857c5caf2c81b59cc3f60@epcas2p4.samsung.com>
 
-From: Demeter Barna <me@fromdisposition.org>
+When DWC3_EP_DELAY_STOP defers ENDXFER, giveback of -ESHUTDOWN requests
+arrives after gserial_disconnect(). These stale requests then accumulate
+in read_pool via gs_rx_push(). After gadget exit frees the old endpoint,
+req->dep becomes a dangling pointer. On the next gserial_connect(),
+gs_start_rx() queues these stale requests onto a new endpoint, triggering:
 
-The panel runs at 60, 90, 120 and 144 Hz, but the driver only exposes
-144 Hz.
+  WARNING: CPU: 0 at drivers/usb/dwc3/gadget.c:1990
+  request 00000000e6e350a5 belongs to ''
 
-Add the lower refresh rates. They keep the pixel clock and the
-horizontal timings of the 144 Hz mode and stretch the vertical front
-porch. Each mode carries the values of registers 0x6c, 0xb1 and
-0xce/0xd3 that the panel vendor programs for its rate, taken from the
-panel configuration shipped with the Razer Edge; the power-on sequence
-writes them where it wrote the 144 Hz values, so 144 Hz is programmed as
-before. As in panel-novatek-nt35950, the mode is looked up in the CRTC
-state at prepare time, so a rate change goes through a full modeset.
+  Call trace:
+   dwc3_gadget_ep_queue+0x158/0x1e8
+   usb_ep_queue+0x60/0xe8
+   gs_start_rx+0xa4/0x128
+   gs_start_io+0x128/0x254
+   gserial_connect+0xb4/0x14c
+   acm_set_alt+0xa0/0x114
+   set_config+0x22c/0x384
+   composite_setup+0x37c/0xc7c
+   configfs_composite_setup+0x5c/0x88
+   dwc3_ep0_interrupt+0x6c8/0xbcc
+   dwc3_thread_interrupt+0xa0/0x1284
+   irq_thread_fn+0x48/0xa8
+   irq_thread+0x150/0x31c
+   kthread+0x150/0x27c
+   ret_from_fork+0x10/0x20
 
-get_modes() now exposes every mode of the panel description, the first
-one preferred; the Retroid Pocket 6 description has one.
+Fix by freeing the request in gs_read_complete() when the port has
+already been disconnected (port->port_usb is NULL), so that stale
+requests never enter read_pool.
 
-Assisted-by: LLM
-Signed-off-by: Demeter Barna <me@fromdisposition.org>
+Fixes: 937ef73d5075 ("USB: serial gadget: rx path data loss fixes")
+Signed-off-by: Daehwan Jung <dh10.jung@samsung.com>
 ---
-This applies on top of Aaron Kling's Retroid Pocket 6 series in
-drm-misc-next ("drm/panel: visionox-vtdr6130: Modularize panel config"),
-whose per-panel description it extends.
+Changes in v4:
+- Check port->port_usb instead of req->status == -ESHUTDOWN to detect
+  completions after gserial_disconnect()
+- Drop the read_started decrement, gserial_disconnect() already resets it
+- Rephrase the code comment in terms of u_serial
+Link to v3: https://lore.kernel.org/all/20260727051335.1745955-1-dh10.jung@samsung.com/
 
-Tested on a Razer Edge 5G, whose board support is not upstream yet:
-switched through KDE, every one of the twelve transitions between 144,
-120, 90 and 60 Hz lands on the requested mode at the expected frame
-rate with no DPU underrun; panel off and on, and suspend and resume,
-keep each rate. The Retroid Pocket 6 path is built but not tested.
+Changes in v3:
+- Add missing version tag in subject
+Link to v2: https://lore.kernel.org/linux-usb/20260727042632.1726391-1-dh10.jung@samsung.com/
+
+Changes in v2:
+- Correct the name of author
+- Modify commit subject (panic -> warn)
+Link to v1: https://lore.kernel.org/all/20260721013509.2327242-1-dh10.jung@samsung.com/
 ---
- drivers/gpu/drm/panel/panel-visionox-vtdr6130.c | 204 +++++++++++++++++++-----
- 1 file changed, 161 insertions(+), 43 deletions(-)
+ drivers/usb/gadget/function/u_serial.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-index d0db128cda81..a1fd09548073 100644
---- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-+++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-@@ -10,6 +10,7 @@
- 
- #include <drm/display/drm_dsc.h>
- #include <drm/display/drm_dsc_helper.h>
-+#include <drm/drm_crtc.h>
- #include <drm/drm_mipi_dsi.h>
- #include <drm/drm_of.h>
- #include <drm/drm_modes.h>
-@@ -19,6 +20,7 @@
- 
- struct visionox_vtdr6130 {
- 	struct drm_panel panel;
-+	struct drm_connector *connector;
- 	struct mipi_dsi_device *dsi;
- 	struct gpio_desc *reset_gpio;
- 	struct regulator_bulk_data *supplies;
-@@ -26,13 +28,24 @@ struct visionox_vtdr6130 {
- 	struct visionox_vtdr6130_desc *desc;
- };
- 
-+/*
-+ * A mode and, for the VTDR6130's own power-on sequence, the 0x6c, 0xb1 and
-+ * 0xce/0xd3 values the panel vendor programs for its refresh rate
-+ */
-+struct visionox_vtdr6130_mode {
-+	struct drm_display_mode mode;
-+	u8 rate;
-+	u8 b1[22];
-+	u8 tune[24];
-+};
-+
- struct visionox_vtdr6130_desc {
- 	unsigned int bpc;
- 	unsigned int lanes;
- 	unsigned long mode_flags;
- 	enum mipi_dsi_pixel_format format;
- 
--	const struct drm_display_mode *modes;
-+	const struct visionox_vtdr6130_mode *modes;
- 	unsigned int num_modes;
- 	int (*init_sequence)(struct visionox_vtdr6130 *ctx);
- 
-@@ -136,8 +149,30 @@ static int retroidpocket_rp6_on(struct visionox_vtdr6130 *ctx)
- 	return dsi_ctx.accum_err;
- }
- 
-+static const struct visionox_vtdr6130_mode *
-+visionox_vtdr6130_mode(struct visionox_vtdr6130 *ctx)
-+{
-+	const struct visionox_vtdr6130_desc *desc = ctx->desc;
-+	struct drm_connector *connector = ctx->connector;
-+	const struct drm_display_mode *mode;
-+	unsigned int i;
-+
-+	if (!connector || !connector->state || !connector->state->crtc)
-+		return &desc->modes[0];
-+
-+	mode = &connector->state->crtc->state->mode;
-+
-+	for (i = 0; i < desc->num_modes; i++)
-+		if (drm_mode_match(mode, &desc->modes[i].mode,
-+				   DRM_MODE_MATCH_TIMINGS | DRM_MODE_MATCH_CLOCK))
-+			return &desc->modes[i];
-+
-+	return &desc->modes[0];
-+}
-+
- static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
+diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
+index cdd1dfc666c4f..917fe0a714972 100644
+--- a/drivers/usb/gadget/function/u_serial.c
++++ b/drivers/usb/gadget/function/u_serial.c
+@@ -459,10 +459,21 @@ static void gs_read_complete(struct usb_ep *ep, struct usb_request *req)
  {
-+	const struct visionox_vtdr6130_mode *m = visionox_vtdr6130_mode(ctx);
- 	struct mipi_dsi_device *dsi = ctx->dsi;
- 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
- 	struct drm_dsc_picture_parameter_set pps;
-@@ -154,7 +189,7 @@ static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
- 				     MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0x00,
- 				     0x00);
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x59, 0x09);
--	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6c, 0x01);
-+	mipi_dsi_dcs_write_var_seq_multi(&dsi_ctx, 0x6c, m->rate);
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6d, 0x00);
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x01);
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x70, 0x12, 0x00, 0x00, 0xab,
-@@ -172,15 +207,9 @@ static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
- 				     0xf4, 0x4b, 0xf4, 0x6c, 0x34, 0x84, 0x74,
- 				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xaa, 0x10);
--	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb1, 0x01, 0x38, 0x00, 0x14,
--				     0x00, 0x1c, 0x00, 0x01, 0x66, 0x00, 0x14,
--				     0x00, 0x14, 0x00, 0x01, 0x66, 0x00, 0x14,
--				     0x05, 0xcc, 0x00);
-+	mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, m->b1, sizeof(m->b1));
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xaa, 0x13);
--	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xce, 0x09, 0x11, 0x09, 0x11,
--				     0x08, 0xc1, 0x07, 0xfa, 0x05, 0xa4, 0x00,
--				     0x3c, 0x00, 0x34, 0x00, 0x24, 0x00, 0x0c,
--				     0x00, 0x0c, 0x04, 0x00, 0x35);
-+	mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, m->tune, sizeof(m->tune));
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xaa, 0x14);
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb2, 0x03, 0x33);
- 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb4, 0x00, 0x33, 0x00, 0x00,
-@@ -276,19 +305,21 @@ static int visionox_vtdr6130_unprepare(struct drm_panel *panel)
- 	return 0;
- }
+ 	struct gs_port	*port = ep->driver_data;
  
--static const struct drm_display_mode retroidpocket_rp6_modes[] = {
-+static const struct visionox_vtdr6130_mode retroidpocket_rp6_modes[] = {
- 	{
--		.clock = (1080 + 22 + 2 + 16) * (1920 + 16 + 2 + 20) * 120 / 1000,
--		.hdisplay = 1080,
--		.hsync_start = 1080 + 22,
--		.hsync_end = 1080 + 22 + 2,
--		.htotal = 1080 + 22 + 2 + 16,
--		.vdisplay = 1920,
--		.vsync_start = 1920 + 16,
--		.vsync_end = 1920 + 16 + 2,
--		.vtotal = 1920 + 16 + 2 + 20,
--		.width_mm = 69,
--		.height_mm = 122,
-+		.mode = {
-+			.clock = (1080 + 22 + 2 + 16) * (1920 + 16 + 2 + 20) * 120 / 1000,
-+			.hdisplay = 1080,
-+			.hsync_start = 1080 + 22,
-+			.hsync_end = 1080 + 22 + 2,
-+			.htotal = 1080 + 22 + 2 + 16,
-+			.vdisplay = 1920,
-+			.vsync_start = 1920 + 16,
-+			.vsync_end = 1920 + 16 + 2,
-+			.vtotal = 1920 + 16 + 2 + 20,
-+			.width_mm = 69,
-+			.height_mm = 122,
-+		},
- 	},
- };
- 
-@@ -313,19 +344,98 @@ static struct visionox_vtdr6130_desc retroidpocket_rp6_panel_desc = {
- 	},
- };
- 
--static const struct drm_display_mode visionox_vtdr6130_modes[] = {
-+/*
-+ * All modes share one pixel clock and the horizontal timings; the lower
-+ * rates stretch the vertical front porch.
-+ */
-+static const struct visionox_vtdr6130_mode visionox_vtdr6130_modes[] = {
- 	{
--		.clock = (1080 + 20 + 2 + 20) * (2400 + 20 + 2 + 18) * 144 / 1000,
--		.hdisplay = 1080,
--		.hsync_start = 1080 + 20,
--		.hsync_end = 1080 + 20 + 2,
--		.htotal = 1080 + 20 + 2 + 20,
--		.vdisplay = 2400,
--		.vsync_start = 2400 + 20,
--		.vsync_end = 2400 + 20 + 2,
--		.vtotal = 2400 + 20 + 2 + 18,
--		.width_mm = 71,
--		.height_mm = 157,
-+		.mode = {
-+			.clock = (1080 + 20 + 2 + 20) * (2400 + 20 + 2 + 18) * 144 / 1000,
-+			.hdisplay = 1080,
-+			.hsync_start = 1080 + 20,
-+			.hsync_end = 1080 + 20 + 2,
-+			.htotal = 1080 + 20 + 2 + 20,
-+			.vdisplay = 2400,
-+			.vsync_start = 2400 + 20,
-+			.vsync_end = 2400 + 20 + 2,
-+			.vtotal = 2400 + 20 + 2 + 18,
-+			.width_mm = 71,
-+			.height_mm = 157,
-+		},
-+		.rate = 0x01,
-+		.b1 = { 0xb1, 0x01, 0x38, 0x00, 0x14, 0x00, 0x1c, 0x00, 0x01,
-+			  0x66, 0x00, 0x14, 0x00, 0x14, 0x00, 0x01, 0x66, 0x00,
-+			  0x14, 0x05, 0xcc, 0x00 },
-+		.tune = { 0xce, 0x09, 0x11, 0x09, 0x11, 0x08, 0xc1, 0x07, 0xfa,
-+			   0x05, 0xa4, 0x00, 0x3c, 0x00, 0x34, 0x00, 0x24, 0x00,
-+			   0x0c, 0x00, 0x0c, 0x04, 0x00, 0x35 },
-+	},
-+	{
-+		.mode = {
-+			.clock = (1080 + 20 + 2 + 20) * (2400 + 508 + 2 + 18) * 120 / 1000,
-+			.hdisplay = 1080,
-+			.hsync_start = 1080 + 20,
-+			.hsync_end = 1080 + 20 + 2,
-+			.htotal = 1080 + 20 + 2 + 20,
-+			.vdisplay = 2400,
-+			.vsync_start = 2400 + 508,
-+			.vsync_end = 2400 + 508 + 2,
-+			.vtotal = 2400 + 508 + 2 + 18,
-+			.width_mm = 71,
-+			.height_mm = 157,
-+		},
-+		.rate = 0x01,
-+		.b1 = { 0xb1, 0x01, 0x38, 0x00, 0x14, 0x00, 0x1c, 0x00, 0x01,
-+			  0x66, 0x00, 0x14, 0x01, 0xfc, 0x00, 0x01, 0x66, 0x00,
-+			  0x14, 0x0d, 0x6c, 0x00 },
-+		.tune = { 0xce, 0x0a, 0xe1, 0x0a, 0xe1, 0x0a, 0x81, 0x09, 0x92,
-+			   0x06, 0xc5, 0x00, 0x48, 0x00, 0x3e, 0x00, 0x2b, 0x00,
-+			   0x0c, 0x00, 0x0c, 0x05, 0x00, 0x3f },
-+	},
-+	{
-+		.mode = {
-+			.clock = (1080 + 20 + 2 + 20) * (2400 + 1484 + 2 + 18) * 90 / 1000,
-+			.hdisplay = 1080,
-+			.hsync_start = 1080 + 20,
-+			.hsync_end = 1080 + 20 + 2,
-+			.htotal = 1080 + 20 + 2 + 20,
-+			.vdisplay = 2400,
-+			.vsync_start = 2400 + 1484,
-+			.vsync_end = 2400 + 1484 + 2,
-+			.vtotal = 2400 + 1484 + 2 + 18,
-+			.width_mm = 71,
-+			.height_mm = 157,
-+		},
-+		.rate = 0x02,
-+		.b1 = { 0xb1, 0x01, 0x38, 0x00, 0x14, 0x00, 0x1c, 0x00, 0x01,
-+			  0x66, 0x00, 0x14, 0x00, 0x14, 0x00, 0x01, 0x66, 0x00,
-+			  0x14, 0x05, 0xcc, 0x00 },
-+		.tune = { 0xd3, 0x0e, 0x81, 0x0e, 0x81, 0x0e, 0x01, 0x0c, 0xc3,
-+			   0x09, 0x06, 0x00, 0x60, 0x00, 0x53, 0x00, 0x3a, 0x00,
-+			   0x0c, 0x00, 0x0c, 0x07, 0x00, 0x54 },
-+	},
-+	{
-+		.mode = {
-+			.clock = (1080 + 20 + 2 + 20) * (2400 + 3436 + 2 + 18) * 60 / 1000,
-+			.hdisplay = 1080,
-+			.hsync_start = 1080 + 20,
-+			.hsync_end = 1080 + 20 + 2,
-+			.htotal = 1080 + 20 + 2 + 20,
-+			.vdisplay = 2400,
-+			.vsync_start = 2400 + 3436,
-+			.vsync_end = 2400 + 3436 + 2,
-+			.vtotal = 2400 + 3436 + 2 + 18,
-+			.width_mm = 71,
-+			.height_mm = 157,
-+		},
-+		.rate = 0x02,
-+		.b1 = { 0xb1, 0x01, 0x38, 0x00, 0x14, 0x00, 0x1c, 0x00, 0x01,
-+			  0x66, 0x00, 0x14, 0x01, 0xfc, 0x00, 0x01, 0x66, 0x00,
-+			  0x14, 0x0d, 0x6c, 0x00 },
-+		.tune = { 0xd3, 0x15, 0xc2, 0x15, 0xc2, 0x15, 0x02, 0x13, 0x25,
-+			   0x0d, 0x8a, 0x00, 0x90, 0x00, 0x7d, 0x00, 0x57, 0x00,
-+			   0x0c, 0x00, 0x0c, 0x0b, 0x00, 0x7e },
- 	},
- };
- 
-@@ -354,20 +464,28 @@ static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
- 				       struct drm_connector *connector)
- {
- 	struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
-+	const struct visionox_vtdr6130_desc *desc = ctx->desc;
- 	struct drm_display_mode *mode;
-+	unsigned int i;
- 
--	mode = drm_mode_duplicate(connector->dev, ctx->desc->modes);
--	if (!mode)
--		return -ENOMEM;
-+	for (i = 0; i < desc->num_modes; i++) {
-+		mode = drm_mode_duplicate(connector->dev, &desc->modes[i].mode);
-+		if (!mode)
-+			return -ENOMEM;
- 
--	drm_mode_set_name(mode);
-+		drm_mode_set_name(mode);
-+
-+		mode->type = DRM_MODE_TYPE_DRIVER;
-+		if (i == 0)
-+			mode->type |= DRM_MODE_TYPE_PREFERRED;
-+		drm_mode_probed_add(connector, mode);
+-	/* Queue all received data until the tty layer is ready for it. */
+ 	spin_lock(&port->port_lock);
+-	list_add_tail(&req->list, &port->read_queue);
+-	schedule_delayed_work(&port->push, 0);
++	if (!port->port_usb) {
++		/*
++		 * The port was disconnected: gserial_disconnect() has already
++		 * freed read_pool/read_queue and reset the request counters.
++		 * Free this request now instead of queueing it, otherwise
++		 * gs_rx_push() would return it to read_pool and the next
++		 * gserial_connect() would submit it on the new OUT endpoint.
++		 */
++		gs_free_req(ep, req);
++	} else {
++		/* Queue all received data until the tty layer is ready for it. */
++		list_add_tail(&req->list, &port->read_queue);
++		schedule_delayed_work(&port->push, 0);
 +	}
- 
--	mode->type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
--	connector->display_info.width_mm = mode->width_mm;
--	connector->display_info.height_mm = mode->height_mm;
--	drm_mode_probed_add(connector, mode);
-+	connector->display_info.width_mm = desc->modes[0].mode.width_mm;
-+	connector->display_info.height_mm = desc->modes[0].mode.height_mm;
-+	ctx->connector = connector;
- 
--	return 1;
-+	return desc->num_modes;
+ 	spin_unlock(&port->port_lock);
  }
  
- static enum drm_panel_orientation visionox_vtdr6130_get_orientation(struct drm_panel *panel)
-
----
-base-commit: 73df79cceb8c01f311055a61794e229dc81546cb
-change-id: 20261012-vtdr6130-refresh-rates-1cd72ffbe476
-
-Best regards,
---  
-Demeter Barna <me@fromdisposition.org>
+-- 
+2.34.1
 
 
