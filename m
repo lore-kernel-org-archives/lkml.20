@@ -1,135 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9244A8435;
-	Mon, 12 Oct 2026 15:46:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FF74BB80D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:46:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819980; cv=none; b=Z+A+zBsC6llwX78cje5KR8vHXgKvXFwSl9HG404vJn9f/c6F+0lROnAd1bCkCEirMi2T0efQaapDl7Ie7iurXLavnGtBTeFQXmaBQst/n4xpqyl6638F3eFLo3gjmhKHCQqbvu1rwVVEIoxydydfEDxBXsd/teiUHFSyBd6WYvI=
+	t=1791819984; cv=none; b=aOFwzs89ob8FS5CSBEGsrWwJFuZxB/Q+EBqVX5q4VKnVV1D1f6Rztf5PhI3J6/NVJp92NhHiJNEWThHUVYgCAvIid4x3HktT5LM5qRNWl+C3/pmlJX2ec5Kt9Y4iylZEmiJoytr6hwiSmEDcidLXfrGKd95p6qt06t4mOAHgMfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819980; c=relaxed/simple;
-	bh=/pmaFO0/r973GUxNK0BC9x/YwBobKQEpEqwEyNX/hFQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bLIPz7pBQwiazQQnlfY7uH1tBo284annB5qxA2IQBOTvP2r/H3wraLyWBmU+fHzYmqmRNK0wJrWk604tvtNeH5dxLfMRIAZaFQhbmSbRAgdDD2Igl3JSBx2tT4ZYuNLou5huYwbenJ0ghiNv9j3WC5BIebCrw4ZoOg2OphfaoDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BpoZHBQ3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791819984; c=relaxed/simple;
+	bh=WsYQRqZVkYfAC0uocIQCG3hADVXXJg52uM4QwsZS/VM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FOSb1OEIRJ0prP+vyxhWjNyMSQTnmut7ZG8OCD3nuZi1KedwAoSex2L5ELRH8//SGQ49sP5p+0p7/vL4N/Tp2L5qfObP3j0UgB2RwnmJnieIgvTkPl1xPmXBh1Gy5bmIQ6u0B/XGqgGFzMA9744tHetdkydloS+dawy/bGfjF5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pJ9KvtdX; arc=none smtp.client-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BpoZHBQ3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09011F0089B;
-	Mon, 12 Oct 2026 15:46:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791819979;
-	bh=etgzfBpuaaj+cySZG8Ntkb7v7DpcXVXb4LYAEZaIZto=;
-	h=From:Date:Subject:To:Cc;
-	b=BpoZHBQ38wo3x0mhzk0kwn6g36OoW8AMGYsKUwPoVGDRdoc/zfu7oprOZBXGrE9xk
-	 thlmDeJC5JAEhRYhEHvBV4xkZzV23ZtYuj+BKDaKADj5P/8UycDZrGdxIW3FV5FxUE
-	 UneXk42MOqmSdWOcz8cYH2mey+pG5EIfw3LJ1a1KKme91VhdB0Wl5I8Lwe+T8PFGfb
-	 wa7VK7pvFOlDbaT4iuxtaIT3oun4z71XISttdcqlZ+MSHp0DFJQFxn+FBMdyzaRjHS
-	 QguwdT2kEyk2gYS5Yhw/E7pJCSxNFzEPJAnMDhfwlMPqgKegywJFDH9V82Ejqn22vc
-	 9mZN9B2Dm8ddg==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 12 Oct 2026 11:46:10 -0400
-Subject: [PATCH] f2fs: opt in to multigrain timestamps
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pJ9KvtdX"
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1419d3416ceso2720413c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:46:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791819982; x=1792424782; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NAuVFfQbxwKnXcYGVkoP45E/v8P/ovYGz0j3wut9/Dk=;
+        b=pJ9KvtdXW+l9rUsPrCdb6JKioO2Prixdx4MaCp5jAIuyBohZmCvXTgX2Z0Haz2Sgfw
+         31NHqmiImhmH6W2byXMbbRYcIobhKGM28Alqoh3udIy9fDXR8snKpIEzGCWPctq4geNY
+         1V1ChZznBgrMv+0ONzjoDRxxWT326BRWTJ+w5dnM1xivr/2ixMdWfZ7nkM8VlyBaLaqz
+         m0CSrPNjP8M0eIpxkBHoWI/2fCExSlQ4pPwmnO5kVUfAsVtnhLzKQaRaAjl/SWmw9r3k
+         och8Vr/IVrKls9MdH81qSvxGQygU4NAHbYsyf231+KbGpck9BaNsEKro+ICl2/GIvlM7
+         lzfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791819982; x=1792424782;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NAuVFfQbxwKnXcYGVkoP45E/v8P/ovYGz0j3wut9/Dk=;
+        b=Wu1cnlATx0I9S2wOfQ46ck5h6LDu5fx+vc1Zy6NcsS+53vHi9OZ2dyGFuYh5aAzHWD
+         nhU8LL/pFg1ax3SklGJDYECe3QPe56URdbvCegrM3U1mrdYnIrE4rgJIkpzMS1j68Mwe
+         rY2zuevjC1pwTZft2O+xYcnIxy9tEHMwrvpWybVDsOiIxjykVYUZd2b5MDHlw8QVelNJ
+         fk5EhRlDC8uft5lBzqHBqdrHkBN+B17Az3WuA7kborV3WuRblBGu0TYFBSn09WaKibfd
+         hOZQ4PMWloPJ6bH+bE2ia+9N4iBr/JbBlGsu0XnuCHNGsTwJJnURGGqydOqIlT2YMuEh
+         +zNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxaykRa082dlXNATAH38D5uGpFbjYkWqptVbulaRWd0aOrgwBPH0dGQRR8EeRnVkRe7YAgLpdKMlKin9Jk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKnwAmHaFgk0dNTVSA9Mg5hYniwba9sTvj49jkx2W/tSK1G1tfF
+	iAsYnrtYdB8tbwvZsiLk7moHyox9cd7hLTH2xURrvUtOC8Y/QFEeEvWH
+X-Gm-Gg: AYBFou1iTeD7Wqw7IH3vk8KLJF8gcK4bTGddxCdYHRtrOw6nJJp9am78ak/O4HqpWBz
+	WfAeg9pnojL0Pcen9ugiR6XsGvMPTUJQTUEEeGrHd6gRTheRFLgh2TxiMBqF00xYSUX2wCCivV5
+	K3/ld/qA8RAh+ZfNDBIh1bvIrvlqcr7erY10APXUnXUxirYg3d84xI3Ukb108YKk/K8pNoAm1uA
+	H4my2RlQyn0TBkA7BqzJlsn7/1W79tOGKk7Xf9dz9DrwNoyC7RisuVWJOotBqTU6d0ufV/666IA
+	SFtXlJgcK4l2ZHbzP65uEIsISNJykw5Ir4P/CE8YC71meMsb7+C7s/4eBcvXq1mxAixwSGMxmYE
+	Vzor0NC+oP4oCLELVrUeehWSdqrt36Wpy6iMFpC6064SH+STQwX9JSTUKbMWMChB1YpixxTI+P5
+	W01DcOyKbsXQT/R23a8g6+3R/NuGgsFDOiuRTQmc4DFjxRoCyIqFBjuFLhNXy7rda03XRw846ej
+	uTSJw8g9Gu0Jzyf/EB5+Vhbka7dWTYUplZCiqKFiZMYMECKOXZilPL6X6GIPKbo+94cOJTM
+X-Received: by 2002:a05:7022:ea8c:b0:149:1feb:6dae with SMTP id a92af1059eb24-16a62bcc7c8mr12280029c88.39.1791819982235;
+        Mon, 12 Oct 2026 08:46:22 -0700 (PDT)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:c1bb:8d21:6c07:8107])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becf08sm33838996c88.5.2026.10.12.08.46.19
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 12 Oct 2026 08:46:21 -0700 (PDT)
+From: Aryan Sinha <sinha.aryan03@gmail.com>
+To: Sebastian Reichel <sre@kernel.org>
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aryan Sinha <sinha.aryan03@gmail.com>
+Subject: [PATCH] power: supply: sgm41542: Use secs_to_jiffies()
+Date: Mon, 12 Oct 2026 21:16:12 +0530
+Message-ID: <20261012154614.42203-1-sinha.aryan03@gmail.com>
+X-Mailer: git-send-email 2.46.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-mgtime-f2fs-v1-1-a934ef646c44@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDC0NT3dz0kszcVN00o7Ri3cREk0Qjg5REw2TDJCWgjoKi1LTMCrBp0bG
- 1tQCxYb6JXQAAAA==
-X-Change-ID: 20260815-mgtime-f2fs-aa4a20da1c1b
-To: Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>
-Cc: linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2320; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=/pmaFO0/r973GUxNK0BC9x/YwBobKQEpEqwEyNX/hFQ=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBqzQDKQP+W13Upb7oA1KbdCiEVR3HC6BiuiTeWH
- NgRNDXgupOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCas0AygAKCRAADmhBGVaC
- FUrCD/9mwE8gB6f33Dy6XBwn5SIS4s0tpENweEU4JT8G65ZuB57NNC6O0T5nAfyr1Cg0EmuuKjV
- h/Yb4yixHrDpCKYuMQ4uVhvwloRZx+vkj64qAV8s2eMWHDjJkF8UEmni1GordMh966wlajTm1vf
- +LH5z3KnXx9lC0yQlpHbrgnx/8tEQStYfWsk2cOR5B9GN7hXS54f2kpChoDsWnVVo4st3kICPor
- KXym54AMayJ3gO7Egmi2vLvRcjhkpJ3IW5FRgI2k6DGgBgWB7OLt/zee5h/lR8GWtOd3vBoeUTI
- VQLRAzSewNAgUtaXaI9Bsa17RQ5eqXC3aJsxFuUypfqoUAOvOnS/YWvw/i9I5RePyFXTpi6uXj3
- z1DK4FzTXstDwzxXEu1iLS6KvlEVP1BvEvipkiClIUra4KkMjXXQfEYA4E5fyRSo4/kubhOsnYX
- araUa8XZAruPDypwE8BvcIQuS7qaIPHQbGqrx4UTRtfMbkBJ1Gt4cTdPCf6WVKq3rxczmJxme58
- 8WnLOAs/u7aYd9GYPNz4j1KW1ZSOJoeJMZB1NsqpBU3St6MfKF7XzSlhAOVm7KM9b9ScaDw89+L
- goWJNcFDkkaGqUZ+F/B04B7uqf7ZF3dsI4aYvMqEHRcnqDBVIfCpHaQbuewcABDWi24iv2YZ1tG
- ifyBShBLq1gl3FQ==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+Content-Transfer-Encoding: 8bit
 
-Set FS_MGTIME on f2fs_fs_type.
+Both watchdog kicks are a flat five seconds written the long way. Use
+secs_to_jiffies() from the same header instead.
 
-f2fs meets the multigrain requirements:
-- ctime updates use inode_set_ctime_current()
-- f2fs_getattr() calls generic_fillattr()
-- f2fs_setattr() calls setattr_copy()
-- s_time_gran is 1ns
-
-Exception: with CONFIG_F2FS_FS_POSIX_ACL, f2fs_setattr() uses a local
-__setattr_copy() that sets timestamps directly, bypassing
-setattr_copy_mgtime(). Make it call setattr_copy() with ATTR_MODE
-cleared, then do the f2fs mode/ACL handling as before. ACL builds now
-also honor ATTR_CTIME_SET via inode_set_ctime_deleg(), as non-ACL
-builds already do.
-
-Assisted-by: LLM
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
 ---
- fs/f2fs/file.c  | 14 +++++---------
- fs/f2fs/super.c |  2 +-
- 2 files changed, 6 insertions(+), 10 deletions(-)
+ drivers/power/supply/sgm41542_charger.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index edc352569e87..71211244f42f 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -1100,17 +1100,13 @@ static void __setattr_copy(struct mnt_idmap *idmap,
- 			   struct inode *inode, const struct iattr *attr)
- {
- 	unsigned int ia_valid = attr->ia_valid;
-+	struct iattr sattr = *attr;
+diff --git a/drivers/power/supply/sgm41542_charger.c b/drivers/power/supply/sgm41542_charger.c
+index 888096252..118b4c700 100644
+--- a/drivers/power/supply/sgm41542_charger.c
++++ b/drivers/power/supply/sgm41542_charger.c
+@@ -468,7 +468,7 @@ static int sgm4154x_set_watchdog_timer(struct sgm4154x_device *sgm, u8 time)
+ 		if (!sgm->watchdog_enable)
+ 			queue_delayed_work(sgm->sgm_monitor_wq,
+ 					   &sgm->sgm_delay_work,
+-					   msecs_to_jiffies(1000 * 5));
++					   secs_to_jiffies(5));
+ 		sgm->watchdog_enable = true;
+ 	} else {
+ 		sgm->watchdog_enable = false;
+@@ -970,7 +970,7 @@ static void sgm_charger_work(struct work_struct *work)
+ 	if (sgm->watchdog_enable)
+ 		queue_delayed_work(sgm->sgm_monitor_wq,
+ 				   &sgm->sgm_delay_work,
+-				   msecs_to_jiffies(1000 * 5));
++				   secs_to_jiffies(5));
+ }
  
--	i_uid_update(idmap, attr, inode);
--	i_gid_update(idmap, attr, inode);
--	if (ia_valid & ATTR_ATIME)
--		inode_set_atime_to_ts(inode, attr->ia_atime);
--	if (ia_valid & ATTR_MTIME)
--		inode_set_mtime_to_ts(inode, attr->ia_mtime);
--	if (ia_valid & ATTR_CTIME)
--		inode_set_ctime_to_ts(inode, attr->ia_ctime);
-+	sattr.ia_valid &= ~ATTR_MODE;
-+
-+	setattr_copy(idmap, inode, &sattr);
- 	if (ia_valid & ATTR_MODE) {
--		umode_t mode = attr->ia_mode;
-+		umode_t mode = sattr.ia_mode;
- 
- 		if (!in_group_or_capable(idmap, inode, i_gid_into_vfsgid(idmap, inode)))
- 			mode &= ~S_ISGID;
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 1314b6ccced9..535666bfa50c 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -5699,7 +5699,7 @@ static struct file_system_type f2fs_fs_type = {
- 	.name		= "f2fs",
- 	.init_fs_context = f2fs_init_fs_context,
- 	.kill_sb	= kill_f2fs_super,
--	.fs_flags	= FS_REQUIRES_DEV | FS_ALLOW_IDMAP,
-+	.fs_flags	= FS_REQUIRES_DEV | FS_ALLOW_IDMAP | FS_MGTIME,
- };
- MODULE_ALIAS_FS("f2fs");
- 
-
----
-base-commit: d5b6dc381db93ff2d1888f7d99c06e0bd85f4083
-change-id: 20260815-mgtime-f2fs-aa4a20da1c1b
-
-Best regards,
+ static void sgm4154x_disable_irq_wake(void *data)
 -- 
-Jeff Layton <jlayton@kernel.org>
+2.46.0
 
