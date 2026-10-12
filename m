@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1FBC3493D52
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:00:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B58348F012
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:00:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791810024; cv=none; b=AKoLOxrUZQD2Aeh9koW2HrI7sjHZtP4wjb1qv6xy9ssYAfpisEGUyijR5MmNoBtvmiTGJW5APsA/gC7sK7qdFipvs1GHG9tURLE99RKp0ahJXx1QAQyAEmD7sTcQLnsBDQVcT3nyz9HrZH6NfupSjVP8BugV3U1bZfgYKqVYpFE=
+	t=1791810027; cv=none; b=PgxpLJ5xcyYBqREILjVVxY3ylYHUk6F5PbIdwO+9HZzV1V63zIGN6oC0zRzCO3+foDIZ6hrrGgB6McMc/aJQwuojk3Xjd6wijZdRwXCMjs64LMLplpBmkD1MFC8huUXzWrfHfcCus0vDTnRMgvJeYY4Ru7Jqs8qJz7zivQjrxMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791810024; c=relaxed/simple;
-	bh=OY4b9rx8njkewz7edHPqtfOF8iTdPo2fNGb90LhNQYU=;
+	s=arc-20240116; t=1791810027; c=relaxed/simple;
+	bh=v7EmvNju9Oe0rmwSf6Sxhi8oR0v8qpfI9YQMwWDeJ1c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TabVhu5I03+BbhT/DaMuWIyr3+F1llL3AdOc9kgu0M9bp/G7+OYD7zoYjHHuqr6JX9CZ/PD7abpyVCK8/s1Sr/Rlly5LP26qD9bqQ/GJhro5mYt7CPmJnOhKiNVLk2j4hr0bq+zMRoyVBx8ZEFnE9YNmvNGLKa2fL0EvYev1pmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=C0gPS15O; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=jIABBoRaDDs1dtkuQTr96aZSZOBF3T9aVtvqDfnzrtNyagwUnZRb21h1avW0KJ45nAnJHuiujsIXeSWnYO3XKj2G2vbHkba8pJYShdvHNeF9tIEkv736o7nMNzgCegKFWqa2h8HhYLBUBcsbvnLHZu/Wq2DiRyJi90o1Q7cf/To=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=g74xb2An; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="C0gPS15O"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="g74xb2An"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 449FC1655;
-	Mon, 12 Oct 2026 06:00:16 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8A1A11655;
+	Mon, 12 Oct 2026 06:00:21 -0700 (PDT)
 Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com [10.42.46.160])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4BF2B3F66F;
-	Mon, 12 Oct 2026 06:00:17 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 923C13F66F;
+	Mon, 12 Oct 2026 06:00:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791810019; bh=OY4b9rx8njkewz7edHPqtfOF8iTdPo2fNGb90LhNQYU=;
+	t=1791810024; bh=v7EmvNju9Oe0rmwSf6Sxhi8oR0v8qpfI9YQMwWDeJ1c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=C0gPS15O87hxl3kVvzGa0IMQ3LcqSbwlrv/boamrDkXnoWwy8wznFdfGieRVDYdGs
-	 xcjbysZc6c32PPDGTALwmAe7IlzW49O9kNWU8blEWtB74HlLmtjurB5ITTx1o0IEA7
-	 V6F9VPfSdb8BWayEAHHak9SdHv99Mk8UiXG7NNas=
+	b=g74xb2An9R/OJxAFP2n8aA3wp4jqJolmnqbCRCY494h0LQP8l5JxWb1eABn86HBqV
+	 fMRadLjA8goZN5wIkfL/pl5FSSscEmNu6zOXt+QmBwl8jsJxDSn9PgFJCs88Zu75lk
+	 4N9fcy7kObogO2TJW/+kaoxOY1g/o1pTyR2JcQK4=
 From: Ketil Johnsen <ketil.johnsen@arm.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>,
 	Steven Price <steven.price@arm.com>,
@@ -40,9 +40,9 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
 Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	Ketil Johnsen <ketil.johnsen@arm.com>
-Subject: [PATCH v4 09/12] drm/panthor: Create kernel BO from existing GEM
-Date: Mon, 12 Oct 2026 14:59:37 +0200
-Message-ID: <20261012125940.3291951-10-ketil.johnsen@arm.com>
+Subject: [PATCH v4 11/12] drm/panthor: Protm support for groups
+Date: Mon, 12 Oct 2026 14:59:39 +0200
+Message-ID: <20261012125940.3291951-12-ketil.johnsen@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261012125940.3291951-1-ketil.johnsen@arm.com>
 References: <20261012125940.3291951-1-ketil.johnsen@arm.com>
@@ -56,9 +56,17 @@ Content-Transfer-Encoding: 8bit
 
 From: Boris Brezillon <boris.brezillon@collabora.com>
 
-Refactors/splits existing panthor_kernel_bo_create().
-Adds panthor_kernel_bo_create_from_gem() so we can create kernel BOs
-from imported protected memory in future change.
+Extends struct drm_panthor_group_create to allow user provided protm
+suspend buffer. This is needed for protm execution with this group.
+
+Make use of the user supplied suspend buffer (import).
+
+Allow PROT_REGION instruction for groups which provided protm
+suspend buffer.
+
+Store the suspend buffer sizes (normal and protected) provided by FW
+after FW start. Unsafe to read directly from FW as these will return
+zero between FW load and FW start.
 
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 Co-developed-by: Ketil Johnsen <ketil.johnsen@arm.com>
@@ -69,197 +77,196 @@ Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
 v4:
 - First version of this change as a separate commit
 ---
- drivers/gpu/drm/panthor/panthor_gem.c | 94 ++++++++++++++++++---------
- drivers/gpu/drm/panthor/panthor_gem.h |  7 ++
- 2 files changed, 71 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/panthor/panthor_fw.c    | 24 ++++++++++
+ drivers/gpu/drm/panthor/panthor_fw.h    |  2 +
+ drivers/gpu/drm/panthor/panthor_sched.c | 59 ++++++++++++++++++++-----
+ include/uapi/drm/panthor_drm.h          | 10 ++++-
+ 4 files changed, 83 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index 2e39a32fcd673..f1939b4aafed1 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -1033,7 +1033,6 @@ panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
- 		bo->base.resv = bo->exclusive_vm_root_gem->resv;
- 	}
+diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+index 0af6addfd55a5..11c370ef86aad 100644
+--- a/drivers/gpu/drm/panthor/panthor_fw.c
++++ b/drivers/gpu/drm/panthor/panthor_fw.c
+@@ -269,6 +269,12 @@ struct panthor_fw {
+ 	/** @protm_init_lock: Used to serialize protm initialization. */
+ 	struct mutex protm_init_lock;
  
--	panthor_gem_debugfs_add_usage_flags(bo, usage_flags);
- 	panthor_gem_debugfs_bo_add(bo);
- 	return bo;
- 
-@@ -1260,7 +1259,9 @@ void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo)
- 	panthor_kernel_bo_vunmap(bo);
- 
- 	drm_WARN_ON(bo->obj->dev,
--		    to_panthor_bo(bo->obj)->exclusive_vm_root_gem != panthor_vm_root_gem(vm));
-+		    to_panthor_bo(bo->obj)->exclusive_vm_root_gem &&
-+			    (to_panthor_bo(bo->obj)->exclusive_vm_root_gem !=
-+			     panthor_vm_root_gem(vm)));
- 	panthor_vm_unmap_range(vm, bo->va_node.start, bo->va_node.size);
- 	panthor_vm_free_va(vm, &bo->va_node);
- 	if (vm == panthor_fw_vm(ptdev))
-@@ -1271,46 +1272,33 @@ void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo)
- }
- 
- /**
-- * panthor_kernel_bo_create() - Create and map a GEM object to a VM
-+ * panthor_kernel_bo_create_from_gem() - Create kernel BO from existing GEM object
-  * @ptdev: Device.
-  * @vm: VM to map the GEM to.
-- * @size: Size of the buffer object.
-- * @bo_flags: Combination of drm_panthor_bo_flags flags.
-+ * @bo: BO to use for our kernel BO.
-  * @vm_map_flags: Combination of drm_panthor_vm_bind_op_flags (only those
-  * that are related to map operations).
-  * @gpu_va: GPU address assigned when mapping to the VM.
-  * If gpu_va == PANTHOR_VM_KERNEL_AUTO_VA, the virtual address will be
-  * automatically allocated.
-- * @name: Descriptive label of the BO's contents
-+ * @vm_map_size: Size of the BO to map to the VM.
-  *
-  * Return: A valid pointer in case of success, an ERR_PTR() otherwise.
-  */
- struct panthor_kernel_bo *
--panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
--			 size_t size, u32 bo_flags, u32 vm_map_flags,
--			 u64 gpu_va, const char *name)
-+panthor_kernel_bo_create_from_gem(struct panthor_device *ptdev,
-+				  struct panthor_vm *vm,
-+				  struct panthor_gem_object *bo,
-+				  u32 vm_map_flags, u64 gpu_va, u32 vm_map_size)
- {
- 	struct panthor_kernel_bo *kbo;
--	struct panthor_gem_object *bo;
--	u32 debug_flags = PANTHOR_DEBUGFS_GEM_USAGE_FLAG_KERNEL;
- 	int ret;
- 
--	if (drm_WARN_ON(&ptdev->base, !vm))
--		return ERR_PTR(-EINVAL);
--
- 	kbo = kzalloc_obj(*kbo);
- 	if (!kbo)
- 		return ERR_PTR(-ENOMEM);
- 
--	if (vm == panthor_fw_vm(ptdev))
--		debug_flags |= PANTHOR_DEBUGFS_GEM_USAGE_FLAG_FW_MAPPED;
--
--	bo = panthor_gem_create(&ptdev->base, size, bo_flags, vm, debug_flags);
--	if (IS_ERR(bo)) {
--		ret = PTR_ERR(bo);
--		goto err_free_kbo;
--	}
--
-+	drm_gem_object_get(&bo->base);
- 	kbo->obj = &bo->base;
- 
- 	if (vm == panthor_fw_vm(ptdev)) {
-@@ -1319,24 +1307,27 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
- 			goto err_put_obj;
- 	}
- 
--	panthor_gem_kernel_bo_set_label(kbo, name);
--
- 	/* The system and GPU MMU page size might differ, which becomes a
- 	 * problem for FW sections that need to be mapped at explicit address
- 	 * since our PAGE_SIZE alignment might cover a VA range that's
- 	 * expected to be used for another section.
- 	 * Make sure we never map more than we need.
- 	 */
--	size = ALIGN(size, panthor_vm_page_size(vm));
--	ret = panthor_vm_alloc_va(vm, gpu_va, size, &kbo->va_node);
-+	vm_map_size = ALIGN(vm_map_size, panthor_vm_page_size(vm));
-+	ret = panthor_vm_alloc_va(vm, gpu_va, vm_map_size, &kbo->va_node);
- 	if (ret)
- 		goto err_unpin;
- 
--	ret = panthor_vm_map_bo_range(vm, bo, 0, size, kbo->va_node.start, vm_map_flags);
-+	ret = panthor_vm_map_bo_range(vm, bo, 0, vm_map_size,
-+				      kbo->va_node.start, vm_map_flags);
- 	if (ret)
- 		goto err_free_va;
- 
- 	kbo->vm = panthor_vm_get(vm);
-+	if (vm == panthor_fw_vm(ptdev))
-+		panthor_gem_debugfs_add_usage_flags(
-+			bo, PANTHOR_DEBUGFS_GEM_USAGE_FLAG_FW_MAPPED);
++	/** @suspend_size: Size of regular suspend buffer */
++	u32 suspend_size;
 +
- 	return kbo;
++	/** @protm_suspend_size: Size of protected suspend buffer size */
++	u32 protm_suspend_size;
++
+ 	/**
+ 	 * @req_waitqueue: FW request waitqueue.
+ 	 *
+@@ -1006,6 +1012,14 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+ 	}
  
- err_free_va:
-@@ -1348,12 +1339,55 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
- 
- err_put_obj:
- 	drm_gem_object_put(&bo->base);
--
--err_free_kbo:
- 	kfree(kbo);
- 	return ERR_PTR(ret);
+ 	if (!csg_idx) {
++		/* We make a copy of these sizes, as csg_iface can read these
++		 * as zero during full GPU reset, between FW sections being
++		 * reloaded and FW fully booted.
++		 */
++		ptdev->fw->suspend_size = csg_iface->control->suspend_size;
++		ptdev->fw->protm_suspend_size =
++			csg_iface->control->protm_suspend_size;
++
+ 		ptdev->protm.info.group_protected_suspend_buf_size =
+ 			csg_iface->control->protm_suspend_size;
+ 	}
+@@ -1523,6 +1537,16 @@ static void panthor_fw_ping_work(struct work_struct *work)
+ 	}
  }
  
-+/**
-+ * panthor_kernel_bo_create() - Create and map a GEM object to a VM
-+ * @ptdev: Device.
-+ * @vm: VM to map the GEM to.
-+ * @size: Size of the buffer object.
-+ * @bo_flags: Combination of drm_panthor_bo_flags flags.
-+ * @vm_map_flags: Combination of drm_panthor_vm_bind_op_flags (only those
-+ * that are related to map operations).
-+ * @gpu_va: GPU address assigned when mapping to the VM.
-+ * If gpu_va == PANTHOR_VM_KERNEL_AUTO_VA, the virtual address will be
-+ * automatically allocated.
-+ * @name: Descriptive label of the BO's contents
-+ *
-+ * Return: A valid pointer in case of success, an ERR_PTR() otherwise.
-+ */
-+struct panthor_kernel_bo *
-+panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
-+			 size_t size, u32 bo_flags, u32 vm_map_flags,
-+			 u64 gpu_va, const char *name)
++u32 panthor_fw_suspend_size(struct panthor_device *ptdev)
 +{
-+	struct panthor_kernel_bo *kbo;
-+	struct panthor_gem_object *bo;
-+
-+	if (drm_WARN_ON(&ptdev->base, !vm))
-+		return ERR_PTR(-EINVAL);
-+
-+	bo = panthor_gem_create(&ptdev->base, size, bo_flags, vm, 0);
-+	if (IS_ERR(bo))
-+		return ERR_CAST(bo);
-+
-+	kbo = panthor_kernel_bo_create_from_gem(ptdev, vm, bo, vm_map_flags,
-+						gpu_va, size);
-+	if (!IS_ERR(kbo)) {
-+		panthor_gem_debugfs_add_usage_flags(
-+			bo, PANTHOR_DEBUGFS_GEM_USAGE_FLAG_KERNEL);
-+		panthor_gem_kernel_bo_set_label(kbo, name);
-+	}
-+
-+	/* panthor_kernel_bo_create_from_gem() acquires a GEM ref if the import
-+	 * succeeds, so we can release it unconditionally here.
-+	 */
-+	drm_gem_object_put(&bo->base);
-+	return kbo;
++	return ptdev->fw->suspend_size;
 +}
 +
- /**
-  * panthor_dummy_bo_create() - Create a Panthor BO meant to back sparse bindings.
-  * @ptdev: Device.
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
-index 4da3f59693ce4..03dd3927b5d16 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.h
-+++ b/drivers/gpu/drm/panthor/panthor_gem.h
-@@ -318,6 +318,13 @@ panthor_kernel_bo_vunmap(struct panthor_kernel_bo *bo)
- 	}
++u32 panthor_fw_protm_suspend_size(struct panthor_device *ptdev)
++{
++	return ptdev->fw->protm_suspend_size;
++}
++
+ static bool wait_protm_enter(struct panthor_device *ptdev,
+ 			     s64 protm_session_seqno)
+ {
+diff --git a/drivers/gpu/drm/panthor/panthor_fw.h b/drivers/gpu/drm/panthor/panthor_fw.h
+index 34bc9dc82314c..98576114cc803 100644
+--- a/drivers/gpu/drm/panthor/panthor_fw.h
++++ b/drivers/gpu/drm/panthor/panthor_fw.h
+@@ -531,6 +531,8 @@ void panthor_fw_unplug(struct panthor_device *ptdev);
+ 
+ int panthor_fw_protm_init(struct drm_file *file,
+ 			  struct drm_panthor_protm_init *args);
++u32 panthor_fw_suspend_size(struct panthor_device *ptdev);
++u32 panthor_fw_protm_suspend_size(struct panthor_device *ptdev);
+ int panthor_fw_protm_enter(struct panthor_device *ptdev);
+ int panthor_fw_protm_exit(struct panthor_device *ptdev, u32 timeout_ms);
+ int panthor_fw_protm_exit_wait(struct panthor_device *ptdev, u32 timeout_ms);
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index fff805fd794a5..d1178be178a48 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -1462,10 +1462,15 @@ cs_slot_process_protm_pending_event_locked(struct panthor_device *ptdev,
+ 	if (!group)
+ 		return;
+ 
+-	/* Do not allow user space work to switch into protected mode, as we
+-	 * do not fully support this quite yet.
++	/* Do not allow user space work to switch into protected mode if we
++	 * do not support protected mode on this device.
++	 * User space should query (and init) this support before attempting
++	 * to use such GPU instructions.
+ 	 */
+-	atomic_or(BIT(cs_id), &group->fatal_queues);
++	if (group->protm_suspend_buf)
++		atomic_or(BIT(cs_id), &group->protm_pending_queues);
++	else
++		atomic_or(BIT(cs_id), &group->fatal_queues);
+ 
+ 	sched_queue_delayed_work(sched, tick, 0);
+ }
+@@ -4074,6 +4079,7 @@ static void add_group_kbo_sizes(struct panthor_device *ptdev,
  }
  
-+struct panthor_kernel_bo *
-+panthor_kernel_bo_create_from_gem(struct panthor_device *ptdev,
-+				  struct panthor_vm *vm,
-+				  struct panthor_gem_object *bo,
-+				  u32 vm_map_flags, u64 gpu_va,
-+				  u32 vm_map_size);
+ #define MAX_GROUPS_PER_POOL		128
++#define GROUP_CREATE_FLAGS DRM_PANTHOR_GROUP_CREATE_PROTECTED
+ 
+ int panthor_group_create(struct drm_file *file,
+ 			 const struct drm_panthor_group_create *group_args,
+@@ -4083,14 +4089,10 @@ int panthor_group_create(struct drm_file *file,
+ 	struct panthor_device *ptdev = pfile->ptdev;
+ 	struct panthor_group_pool *gpool = pfile->groups;
+ 	struct panthor_scheduler *sched = ptdev->scheduler;
+-	struct panthor_fw_csg_iface *csg_iface = panthor_fw_get_csg_iface(ptdev, 0);
+ 	struct panthor_group *group = NULL;
+-	u32 gid, i, suspend_size;
++	u32 gid, i;
+ 	int ret;
+ 
+-	if (group_args->pad)
+-		return -EINVAL;
+-
+ 	if (group_args->priority >= PANTHOR_CSG_PRIORITY_COUNT)
+ 		return -EINVAL;
+ 
+@@ -4136,14 +4138,51 @@ int panthor_group_create(struct drm_file *file,
+ 		goto err_put_group;
+ 	}
+ 
+-	suspend_size = csg_iface->control->suspend_size;
+-	group->suspend_buf = panthor_fw_alloc_suspend_buf_mem(ptdev, suspend_size);
++	group->suspend_buf = panthor_fw_alloc_suspend_buf_mem(
++		ptdev, panthor_fw_suspend_size(ptdev));
+ 	if (IS_ERR(group->suspend_buf)) {
+ 		ret = PTR_ERR(group->suspend_buf);
+ 		group->suspend_buf = NULL;
+ 		goto err_put_group;
+ 	}
+ 
++	if (group_args->protected_suspend_bo_handle) {
++		struct drm_gem_object *obj;
 +
- struct panthor_kernel_bo *
- panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
- 			 size_t size, u32 bo_flags, u32 vm_map_flags,
++		/* Read a correct snapshot of the state */
++		if (!(smp_load_acquire(&ptdev->protm.info.state) &
++		      DRM_PANTHOR_PROTM_INITIALIZED)) {
++			ret = -EINVAL;
++			goto err_put_group;
++		}
++
++		obj = drm_gem_object_lookup(
++			file, group_args->protected_suspend_bo_handle);
++		if (!obj) {
++			ret = -ENOENT;
++			goto err_put_group;
++		}
++
++		if (obj->size <
++		    ptdev->protm.info.group_protected_suspend_buf_size) {
++			drm_gem_object_put(obj);
++			ret = -EINVAL;
++			goto err_put_group;
++		}
++
++		group->protm_suspend_buf = panthor_kernel_bo_create_from_gem(
++			ptdev, panthor_fw_vm(ptdev), to_panthor_bo(obj),
++			DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC,
++			PANTHOR_VM_KERNEL_AUTO_VA,
++			panthor_fw_protm_suspend_size(ptdev));
++		drm_gem_object_put(obj);
++		if (IS_ERR(group->protm_suspend_buf)) {
++			ret = PTR_ERR(group->protm_suspend_buf);
++			group->protm_suspend_buf = NULL;
++			goto err_put_group;
++		}
++	}
++
+ 	group->syncobjs = panthor_kernel_bo_create(ptdev, group->vm,
+ 						   group_args->queues.count *
+ 						   sizeof(struct panthor_syncobj_64b),
+diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+index d2d21e3e6bb39..a0ed16041e178 100644
+--- a/include/uapi/drm/panthor_drm.h
++++ b/include/uapi/drm/panthor_drm.h
+@@ -956,8 +956,14 @@ struct drm_panthor_group_create {
+ 	/** @priority: Group priority (see enum drm_panthor_group_priority). */
+ 	__u8 priority;
+ 
+-	/** @pad: Padding field, MBZ. */
+-	__u32 pad;
++	/**
++	 * @protected_suspend_bo_handle: BO to use as a protected suspend buffer.
++	 *
++	 * This BO must have been allocated from a protected DMA-BUF heap and
++	 * imported in panthor. It's size must be at least
++	 * drm_panthor_protm_info::group_protected_suspend_buf_size.
++	 */
++	__u32 protected_suspend_bo_handle;
+ 
+ 	/**
+ 	 * @compute_core_mask: Mask encoding cores that can be used for compute jobs.
 -- 
 2.43.0
 
