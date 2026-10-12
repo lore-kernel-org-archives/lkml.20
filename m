@@ -1,136 +1,147 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2F09446040
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:15:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458A648EC67
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:15:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814502; cv=none; b=hwlN4aUrRBaMVSnAFru0ZZ+hsIvbGJV8g8oCqQTKK8ga50VUH4NR+oyile1nw2ieM2KG5+yDV79eqga9zMr4Us2rUthky92KLjjyNJHXNOHpeDwQJIiHGedYcxD5tCtlEpDvql35+uNUqoDFodDoB/NGcwFEvAX/Il+5l7y0QVc=
+	t=1791814530; cv=none; b=FIwMZAJeQ0Du6yeELglMx/NTRJ6FaNHPwHFYe26kZwYDfdh6EcOGXlvHP0i0iw+bEziWWXnbsfB5CZeAm2CNTbbVjRX0CrHgTXmBoT7158rMvt8DI+7yS4XUZ+SJawCkijdpJTPSMT2gnp4Vp5gHWSUJ7szzjfus6XD4IbUeR4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814502; c=relaxed/simple;
-	bh=erw0AO19IFVjijwbWXTSh4h9h3/bAdtJlkivvORv6Ls=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oPxJhR5m80v5SoSkZje5g8hSJfIZgvdcZx0cv2AxQptRuowEpCmd8gAgF4ySKJx7d3ZraXpkGXHVvurKa5ZLCUBhrVyMXhXXhT8XyF8sij6UOVJcrO3k2p++bqSPB/HUAk43ynLsvwgA9eOrR+/jx/CJ6jcis2Xxk2gQGaNQ5UQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=S6YJ0l1U; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791814530; c=relaxed/simple;
+	bh=8Hx4LyXnrR+jEIf6HgFsFeMNvYWQp3bkb15nReOq1ig=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bktivQ16YvZLekgyUZa4V3T5XPQX/yLFtGEP2HV4Bf7t3T0EdF8i0ZTk5J6SmuSaQs1THxhxTzCvU6jY5kKlDgISS+EsaGBgDu3+S8X/rLPfxc9VU6G6R/xvMPkQ/Q0SIh+/gtxdT/3N5M0E9JRlMIvAhQHdYF2qrWX2FbgWxLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gVnhVAoL; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="S6YJ0l1U"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCE5Ee181674;
-	Mon, 12 Oct 2026 14:14:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=nYBY2B
-	EdKW3Ee2M0WH1npF5tIdNC/HdlhrA4UKHvRsA=; b=S6YJ0l1UVh67BG/Tnq2gAK
-	CMcuogwmlFY8lXEv3VfIXRy7hV1M/oKX3bQXKy2e2TI4FCzxYZhdYoCBdl7tJCJa
-	3EvyBf32NI8B/FO2LS3puCtVkeGym44WKNrilNHm8ka4xKsAbybTGfFe2WUki0tt
-	tYBxZLE+4EVDW3yXoAS40U81kEsGzzRPZhjPIKk84UY0ThlLU2GII9mLqBqbN3zj
-	+16YLd9Cx+Xgk9xMzfuwA7oPC3oDgS/+0XKwsjQT+lF6h8ocXAuRyG0M3m9DakyM
-	Msb+Zdj9ii5aZ/Q/6qTkcPWPQX0jskvXanfXrlhh5dGObVRNCXNAGHLB3nL/dZuA
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv399qs-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 14:14:41 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC4uRN013441;
-	Mon, 12 Oct 2026 14:14:40 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h81wfwask-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 14:14:40 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CEEamn49414452
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 14:14:36 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A607820043;
-	Mon, 12 Oct 2026 14:14:36 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 60F4E20040;
-	Mon, 12 Oct 2026 14:14:33 +0000 (GMT)
-Received: from [9.124.214.197] (unknown [9.124.214.197])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 12 Oct 2026 14:14:33 +0000 (GMT)
-Message-ID: <b03786e6-28f3-4fad-bd32-33803ea2fd8c@linux.ibm.com>
-Date: Mon, 12 Oct 2026 19:44:32 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gVnhVAoL"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48afbd35952so93898f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:15:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791814527; x=1792419327; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vXq0E091sd0ptd0CzELhGcHr/yz5Nvx+ZadANvOnAdg=;
+        b=gVnhVAoLO6G/XOv0XGuYuqrThXBbcBtZ7NBNQptjTWYGAwt5bN6TjQ3QpgMOUYWj+B
+         bHROXI2xdxIoqaeuCtX4gePas6TzW0iDYsW56efNDRWnI+DrE++hmnoP1yYRKmkAPhkg
+         cX+XfF8npLvVDX+tlDcOl47ULpP1I8VBlYsGxKoDXb7u/7+VdOrFMK7Yr+gxLdupw/KI
+         JHs1BjqdPFlSKmaqSM+liQOtyRIorwldTc3No0NDMvFJELpBRz+tIW4oYBMbQ/EBjFXF
+         +rXZmfUALAAQCHFVrIE3PviRRKCuryPeXa+c4aQoqCwQRlT4kB22nHqB69RiVFvlRAXT
+         mkGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791814527; x=1792419327;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vXq0E091sd0ptd0CzELhGcHr/yz5Nvx+ZadANvOnAdg=;
+        b=av8j3AnbMBeMxt7Nch2rrjEcxvcWY4CoEysIYx6yn8AkkVuznGe/K5l+Eh/H1ygcOk
+         Fyx1Pt+HLMCWTfOlwZZgCAPEox8h9j16lS6HbE2NkHf5R/gw2ahZPHC8axg/ciKlGFFk
+         T/TQef0tclubPCiiV69BHATbPIWS76Oc9A5vdlJvkuuKAKXS1xTMu30qIFVGQNogA6SM
+         B1+GfkrU7lr7aZuUc1eyyYWs/MpT9Xu/71URL4V3FigC0y++01l+wLo+lbyRDI1zmEHQ
+         wyVXOJ48vgde80hemMelXj+zZ68o1Nx6ynZMGBjp3BXWvImUqEoIR9la2glOJG+VZGhP
+         F4AA==
+X-Forwarded-Encrypted: i=1; AKwUvBzQWFDp4/EtHy4qSog83GyMKV2ve8URB7dx/LCpwJkp8pENgefvU9YV3O/Jm852aIcPPW8TKxCpzcS6b14=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQsnYnYoAY+qLpOtZgincSq7OddCd69oCgS0eKwVw9SxvvjpBB
+	BRijOP/s7iVoz2syskP+fwPgQ2EKqLAVPzS/A4s1SN6jVeEXMVBP9Oay
+X-Gm-Gg: AYBFou3hu0SlOgppK6B9wlQ9r3R0symBKxG8vvRy2zjgPhKWK8/xCYxNc00iT09vE0I
+	26zJ9E5yMAzzQIez1TOfmhIq7vYWhR/hLUhCsGup0gosBy7nGX3ep6OiVYycHXWcaUbdj3awyk7
+	X85GTGlKp4h7iLVkooUJXHJxZzJOoBfWBSRPkKmDP/fNHcPmgp29nGA9iZIwLYBOKQcLnbgz4hm
+	MuTOnwLGzsk4wdWc3hQ2ZG3v7WNqQSn26ROHe9ORTshljnQsdR9wpF86oYJPbP7m93UEc/Vya7y
+	DWfD3lYcsw4R8KZz4U1AoR55feQAQh2MLsm0mN73qzfo8jQzI5mIP6TgIWDYy0f0j4Ct3rb/MtM
+	/8EWeUpC5gnevXfaPEvr7PP+0amqnf1tjD2bGlbFSEuiwqgAlcZm5ye3glXNKC4JYEDtLJwiql2
+	wM9bl7YTGzuzsG8Xbu6J01NIVPt4vdCYdo1o/TYbvAyPoJiTigKr7fICusoA8Ue1ZMmxVY/jwUv
+	KWOo8XSmZ5tv4pnGVtJPftKaA3inZE=
+X-Received: by 2002:a05:600c:a086:b0:4a0:1f9e:5f78 with SMTP id 5b1f17b1804b1-4a18e3ea887mr159528235e9.0.1791814527297;
+        Mon, 12 Oct 2026 07:15:27 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db98c2800sm19694171f8f.26.2026.10.12.07.15.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 07:15:26 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: peterz@infradead.org
+Cc: bsegall@google.com,
+	christian.loehle@arm.com,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	kayracizmeci@gmail.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	rostedt@goodmis.org,
+	vincent.guittot@linaro.org,
+	vschneid@redhat.com
+Subject: Re: [PATCH v3] sched/fair: remove dead code on enqueue_task_fair()
+Date: Mon, 12 Oct 2026 17:15:24 +0300
+Message-ID: <20261012141524.3529-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261012140225.GU2009045@noisy.programming.kicks-ass.net>
+References: <20261012140225.GU2009045@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] powerpc/topology: Introduce llc_override debugfs
-To: Srikar Dronamraju <srikar@linux.ibm.com>
-Cc: maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, peterz@infradead.org,
-        tim.c.chen@linux.intel.com, christophe.leroy@csgroup.eu,
-        linux-kernel@vger.kernel.org, ritesh.list@gmail.com,
-        kprateek.nayak@amd.com, yu.c.chen@intel.com, vineethr@linux.ibm.com,
-        vincent.guittot@linaro.org, npiggin@gmail.com, mpe@ellerman.id.au
-References: <20261012102037.2477378-1-sshegde@linux.ibm.com>
- <aszQR3jtdzE0OeB-@linux.ibm.com>
-Content-Language: en-US
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-In-Reply-To: <aszQR3jtdzE0OeB-@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: yPdxMBPrbcYv-xVpP5DYG2SaviyOF7R0
-X-Proofpoint-ORIG-GUID: KEof3A7tF05NuSUDuOscKlfq1zk3eMJA
-X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6acceb51 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=jaEAVqPHSARQqII2670A:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
- a=zZCYzV9kfG8A:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfXzFwW0OkYCtXA
- XWBJw8zU9SXsRUaYuaon8JRp+wiXx7pNnhkYzl4v0+DLWrRASsWdVtr46qg6BdSqvv0gXyh2xdW
- 2EvSN4UC6/OpKy3xr7DFc8vd6yBBn+w=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX54YNnjNeMuvS
- cD8is9WWS4DM41RT3+p5b7QgtsqJDMwmzvRPE65xeOmE5Ez3zxU09PYILNz9r3cijrxPhu5fE63
- +xotzyo1BpQ+xXmdmJC5PlT0Zf/AIuSVth9yjpnmRFGARSStIin+h5ymGdiu7O9hymauEYDm8Yg
- /XdCqLrEEKd6i11P1qvWSwb4FBRep6XZuo+ZhdniGUVvoRNPt/+fgsQx0OrGf1a3Sp7Ide3GWKU
- wG8MggQ/kNbodePgu6qKzD1jaAhjB0YFK+FtThwX/VFxJzKEqKGrZY1zgABG1UQ4uXY4utAMQIg
- uE3sRy+HbXY5nm/x2mPKBWTuE7S93JHSNSrchtHLrKRaWSWu6lGiOQpHJxE7I6v2CZhh1aLPOW8
- SMIayCy2tU8awO1ntoWLvAQK1AfHfMSXZbXTfjmPW0Zy9AuSqITvifAFnln19NLOTdm82wJnsby
- d42PTB1vEPhgqv15PnQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
- bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120056
+Content-Transfer-Encoding: 8bit
 
 
+> Argh, so this is bandwidth. Task gets throttled, but before it gets back
+> to userspace to actually dequeue, it gets hit by a wakeup again while it
+> is still current?
 
-On 10/12/26 5:49 PM, Srikar Dronamraju wrote:
-> * Shrikanth Hegde <sshegde@linux.ibm.com> [2026-10-12 15:50:33]:
-> 
-> 
-> Hi Shrikanth,
-> 
->> There is a new feature in scheduler called as Cache Aware Scheduling [1].
->> It tries to keep related tasks within the same LLC domain while
->> keeping the system reasonably balanced.
->>
->> Cache Aware Scheduling assumes that the scheduler LLC domain is large enough
->> to be a useful placement target. This is true on many systems where an LLC spans
->> several cores, but not on PowerPC systems where the scheduler-visible LLC is at
->> the SMT level. In that case, sd_llc_size is effectively the SMT width.
->>
-> 
-> Can we add a reference to the earlier attempt to try MCLLC a few years back.
-> 
+> Hmm, no, in that case it can't actually be on throttled_tasks. So it did
+> get dequeued, but it never quite scheduled out.
 
-Ah yes. will add it.
+> I hate this bandwidth stuff :-)
 
-It is this one.
-https://lore.kernel.org/all/1617341874-1205-1-git-send-email-ego@linux.vnet.ibm.com/
+Ask me...
 
-But I couldn't find an email id of Gautham which won't bounce. Based on what i know :)
+> Anyway, this is different from the initial use-case, where a
+> sched_entity would get dequeue and re-enqueued while walking the cgroup
+> hierarchy, and thus had to appear like nothing happened in between.
+
+> In this case we're fine to advance time.
+
+> Anyway... the normal block/wakeup paths are >< close to also hitting
+> this in the case where balancing drops the rq->lock after dequeue. The
+> only reason ttwu can't tickle this is because it has that ->on_cpu
+> stuff. However, we cannot use that on the unthrottle path :/
+
+> Bah.
+
+> Does this work?
+
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 5c98d8dfce5d..0edd8bfb6363 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -8250,7 +8250,14 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
+>  	weight = enqueue_hierarchy(p, flags);
+>  	reweight_eevdf(cfs_rq, se, weight, false);
+>  	place_entity(cfs_rq, se, flags | ENQUEUE_QUEUED);
+> -	__enqueue_entity(cfs_rq, se);
+> +
+> +	/*
+> +	 * This can actually happen with CFS_BANDWIDTH, in that case a task
+> +	 * can get throttled, dequeued and then unthrottled, woken *before* it
+> +	 * schedules out and does put_prev_task().
+> +	 */
+> +	if (cfs_rq->curr != se)
+> +		__enqueue_entity(cfs_rq, se);
+>  
+>  	if (!rq_h_nr_queued && rq->cfs.h_nr_queued)
+>  		dl_server_start(&rq->fair_server);
+
+This burns my brain. I *think* it should work. 
+But at this point, I don't think me thinking
+alone is enough on this subject. So,
+I'll try to test this... I'll post
+the results tommorow or today if I even could.
+
+Thanks!
+
+Kayra
+
