@@ -1,124 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE4E47A0A9;
-	Mon, 12 Oct 2026 11:54:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAFD48C3E4
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:54:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806043; cv=none; b=CbXEkp5qC3lKyzeruGSVgpIIR2QV7PASZtMaT4YWcLr9nABGO1f49wQM8ccRiuOHv8Szma9T463oLfJMbcOPr/XpJJ5/4PZ5EFSl6IHm94vcsKl5V1KqHJ9rr5rc2kIt+Lc3jApPfez/GVxEpcg1ws9g0c0RX3bN/QlncT2iDIk=
+	t=1791806046; cv=none; b=FgOe5XwnDK1hYOaH5UnZy3LdxvjNV5TmbPn0n0CQGuhCeNHZnQRRpGl3m3mbctbc73S+ENWBiy557KKFvn8o9ojdsP3mxxyU7OQVOZqtI4sO2PO6RYTthC4GKf6xhvBA9kbsrpSI6eT003j2uyKwrWLKZlgqtMbGovEs0heHHUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806043; c=relaxed/simple;
-	bh=7E+GF5kjGv0Kl1i14e8nS/OkhBLJ7pvzgMyWdkcJex4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eR/8N2ZoKpztGFMsaYaQGh61kkTxtq1J+6sSMkYaPjLOoSOBLirq87B+SuzVFLWhLshSS1LXPtmuqN66sgJqZPMEkL0Wze4KLuuGMSV2ZGWqEIan2OG4WPt6sod52bTdaKDK6XuXm/O+A2SADxI4Nv3RoA5rEnfob3rw405aSxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YTjyZQxU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791806046; c=relaxed/simple;
+	bh=qg2kWZvPlSbWNuKIgIh67XXUmjLFLlX5xpSn6IOlvcA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cLBXI4SSQFOAMW+MtfzczHtCWspgtdgkr/EaeRS85N6at0ZP0yfGne8EpSUAgDFKVcVM9M5N0+CF+z3xG4XS74EfPRpqlC6DOvnuGZSns2dG4qAL/5MMs+gc0bCN5ipEX98m8UkdQbWGBi+RCBdtB0bzMp2AruChnTb7ZiLrWWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=onGoc9nh; arc=none smtp.client-ip=79.135.106.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YTjyZQxU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE711F0089C;
-	Mon, 12 Oct 2026 11:54:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791806041;
-	bh=L5F7alszsmDfB3EkWEEFqNG+2UIF92exyXNav5WLshs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YTjyZQxU5kgwLmeBS5kpBan2T0OOA/aNoilYZZYSeAEqPizzQWLlgzSj77PprWvPs
-	 goIZjR0RlaxlCm/U92AGxYW8AZF6PBaRLpm/SL2jDzzPXYLvA0jU3La6Rp1KwxQP+m
-	 FUCkWnCZMEmX/VrB08wLvgUE8BsqSH0+byuJlgyxC0KI7ERRMZUw0yVJbG8i4UtcqW
-	 1YQrEIhClieQiHct5I46908MxmS0TNkFXwqacorlvdxWI0WVHJiOwXomhx6Jx9wDYg
-	 MJSnd1gfkZsYPpIiO9tZT15vZuOdPGviwnrV0oHnLuIDFa+pp7VI4/xck3GiUHpmD7
-	 xt5cmmviCoeow==
-Date: Mon, 12 Oct 2026 14:53:57 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v9 10/18] PCI/P2PDMA: Route Translated Requests under
- Direct Translated P2P
-Message-ID: <20261012115357.GE219304@unreal>
-References: <20261001-fix-p2p-acs-v4-0-v9-10-1a8e0f50ddd9@nvidia.com>
- <20261006222845.GA720627@bhelgaas>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="onGoc9nh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791806034; x=1792065234;
+	bh=PrdO5L8pvJ0DBb3zbDMTPL8321B89dA6obo2DiA0aCI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=onGoc9nhF5/yiGQY0aaHiUyH3JhqJcm1IPg/3Irbeta5/4hxMyEqBIsKqS3+I/l6F
+	 Q9mET/yEKMLpIdBdsKhu3dIJWESA+2opRKhxyq8KtOPQxC/sZ9o/ZDD9bMLbeVCcYx
+	 KPy9JSj1Mn4CyJi2fH39yxZ6LUGatrHyqDaB0lXDu6PJa4/6Nuz3j6s35p9N/Y6BLu
+	 /L9fkpz4rJw3Ay1urygTCak9ikd8RmYim0oLzdG+wqtTBLqDHsk3IPNIR2VaYIpoB2
+	 nSbGJ+EYkvEQiS1x1WxuHE+ijZJznacfKY6JnlzIIjD27PSh29dT/NFxvHErFm+L99
+	 j+gT7dHddKeWw==
+Date: Mon, 12 Oct 2026 11:53:49 +0000
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+From: Lorenzo Delgado <lnsdev@proton.me>
+Cc: Lorenzo Delgado <lnsdev@proton.me>, linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, Thorsten Blum <blum@kernel.org>, Francis Laniel <laniel_francis@npnm.eu>
+Subject: [PATCH 2/2] rust: uaccess: use NonEmpty in strcpy_into_buf()
+Message-ID: <20261012-nonempty-slice-v1-2-37d1fecff82c@proton.me>
+In-Reply-To: <20261012-nonempty-slice-v1-0-37d1fecff82c@proton.me>
+References: <20261012-nonempty-slice-v1-0-37d1fecff82c@proton.me>
+Feedback-ID: 53083996:user:proton
+X-Pm-Message-ID: 4e875e24c75ded22800616ebaffd2938e2763405
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006222845.GA720627@bhelgaas>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 06, 2026 at 05:28:45PM -0500, Bjorn Helgaas wrote:
-> On Thu, Oct 01, 2026 at 02:55:18PM +0300, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > A Downstream Port with ACS Direct Translated P2P enabled routes a Request
-> > whose Address Type is Translated "to the peer Egress Port without
-> > redirection, regardless of ACS P2P Request Redirect and ACS P2P Egress
-> > Control", per PCIe r7.0 sec 6.12.3. P2PDMA assumes every Request carries an
-> > Untranslated address, so it sends an ATS client through the host bridge
-> > even where the fabric would route it straight to the peer.
-> 
-> "sends an ATS client through the host bridge" -- I assume this really
-> means "we told the caller that Requests would be routed through the
-> host bridge" when in reality they wouldn't?  I don't think this
-> actually changes any routing in the fabric, does it?
+`strcpy_into_buf()` returns `EINVAL` for an empty buffer and later
+writes the NUL terminator through `last_mut().unwrap_unchecked()`,
+relying on that earlier check.
 
-I'd say it does. Before this patch, we didn't return `bus_address` here nor
-took the P2P path.
+Turn the buffer into a `NonEmpty<[u8]>` at the start instead. The
+emptiness check and its `EINVAL` stay the same, but `last_mut()` now
+returns the element directly, so the `unsafe` block goes away.
 
-Thanks
+The `MaybeUninit` cast still starts from `[u8]`, so its SAFETY comment
+does not depend on the layout of the wrapper.
 
-> 
-> So essentially we told the caller that P2P between A and B was, e.g.,
-> 5 hops when it was really only 2?
-> 
-> > Add PCI_P2PDMA_TLP_TRANSLATED and consult Direct Translated P2P for the
-> > Requests it describes.
-> > 
-> > Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-> > Tested-by: Tushar Dave <tdave@nvidia.com>
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > ---
-> >  drivers/pci/p2pdma.c | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> > 
-> > diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-> > index 569a74de3b3a..3fd2cb8d16f0 100644
-> > --- a/drivers/pci/p2pdma.c
-> > +++ b/drivers/pci/p2pdma.c
-> > @@ -548,6 +548,15 @@ pci_acs_p2pdma_request(u16 ctrl, unsigned int tlp_flags)
-> >  		 */
-> >  		if (ctrl & PCI_ACS_TB)
-> >  			return PCI_ACS_P2PDMA_BLOCKED;
-> > +
-> > +		/*
-> > +		 * PCIe r7.0 sec 6.12.3: ACS Direct Translated P2P routes a
-> > +		 * Request carrying a Translated address to the peer "without
-> > +		 * redirection, regardless of ACS P2P Request Redirect and ACS
-> > +		 * P2P Egress Control settings".
-> > +		 */
-> > +		if (ctrl & PCI_ACS_DT)
-> > +			return PCI_ACS_P2PDMA_DIRECT;
-> >  	}
-> >  
-> >  	return ctrl & (PCI_ACS_RR | PCI_ACS_EC) ?
-> > 
-> > -- 
-> > 2.55.0
-> > 
+Suggested-by: Gary Guo <gary@garyguo.net>
+Link: https://lore.kernel.org/rust-for-linux/DM0D9TERQAM3.2Y3HV6P68E2N8@gar=
+yguo.net/
+Link: https://github.com/Rust-for-Linux/linux/issues/1262
+Signed-off-by: Lorenzo Delgado <lnsdev@proton.me>
+---
+ rust/kernel/uaccess.rs | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
+
+diff --git a/rust/kernel/uaccess.rs b/rust/kernel/uaccess.rs
+index 5f6c4d7a1a51..044c20e87ee6 100644
+--- a/rust/kernel/uaccess.rs
++++ b/rust/kernel/uaccess.rs
+@@ -11,6 +11,7 @@
+     error::Result,
+     ffi::{c_char, c_void},
+     fs::file,
++    non_empty::NonEmpty,
+     prelude::*,
+     ptr::KnownSize,
+     transmute::{AsBytes, FromBytes},
+@@ -390,13 +391,11 @@ pub fn read_all<A: Allocator>(mut self, buf: &mut Vec=
+<u8, A>, flags: Flags) -> R
+     /// copied).
+     #[doc(alias =3D "strncpy_from_user")]
+     pub fn strcpy_into_buf<'buf>(self, buf: &'buf mut [u8]) -> Result<&'bu=
+f CStr> {
+-        if buf.is_empty() {
+-            return Err(EINVAL);
+-        }
++        let buf =3D NonEmpty::try_from_mut(buf).ok_or(EINVAL)?;
+=20
+         // SAFETY: The types are compatible and `strncpy_from_user` doesn'=
+t write uninitialized
+         // bytes to `buf`.
+-        let mut dst =3D unsafe { &mut *(core::ptr::from_mut(buf) as *mut [=
+MaybeUninit<u8>]) };
++        let mut dst =3D unsafe { &mut *(core::ptr::from_mut::<[u8]>(buf) a=
+s *mut [MaybeUninit<u8>]) };
+=20
+         // We never read more than `self.length` bytes.
+         if dst.len() > self.length {
+@@ -422,9 +421,7 @@ pub fn strcpy_into_buf<'buf>(self, buf: &'buf mut [u8])=
+ -> Result<&'buf CStr> {
+             // This means that we filled the buffer exactly. In this case,=
+ we add a NUL-terminator
+             // and return it. Unlike the `len < dst.len()` branch, don't m=
+odify `len` because it
+             // already represents the length including the NUL-terminator.
+-            //
+-            // SAFETY: Due to the check at the beginning, the buffer is no=
+t empty.
+-            unsafe { *buf.last_mut().unwrap_unchecked() =3D 0 };
++            *buf.last_mut() =3D 0;
+         }
+=20
+         // This method consumes `self`, so it can only be called once, thu=
+s we do not need to
+
+--=20
+2.55.0
+
+
