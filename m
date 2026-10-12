@@ -1,183 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3A94BE44C;
-	Mon, 12 Oct 2026 17:19:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C67E4BC007;
+	Mon, 12 Oct 2026 17:20:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791825596; cv=none; b=kuROx5ZhDXGMnIQye6h8cVwa8xBCRzlY064kJGbRSVcjwPXyrFyXMvjSrHu6LDIP82rBpYISehwtbAa8By5F7prqD+ZCvvi5qL6iwKeDXwhqC3IuLY4CqJ03Bmm2FvIr9CNDJlBOpaIgzBomHQ64cvTRon+Dkrq4PCvWb2Cv8Qw=
+	t=1791825605; cv=none; b=HdCHhltu21Lgc1rnNtc/iHQbsURRs2tYHJlxaDF8U/dHWlx9geX5qDsoqukzmvLkS6DUoQJwILH0TijcS65ntMdDPovoQvIfq+HPckazTv5tPKXmo8HBmlDImmT15EXvawCb+pmiZpNaXV47MHN8lGZKxS2zoKUQv9k+qCHK7ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791825596; c=relaxed/simple;
-	bh=h40ggl8deBeBe2maVyxyiPGuRmq4FgY1nleaKjxEnDw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=HUjsjlTEr3G+tNvcnwqK3JpriUZhTfFI/JWH0T/enFyOXo3YojZ1usqaz7XUnOyV5OZDk6/IQ6T40k+ilL3hFUScIbEJxEBTFQGgzYkr7/zxXBZdyF+4LKpTJloGRTxEOusFpFQvWFYAJqUipnSGSFTAaifPBVHyLmJpEIHLNT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UsyJC2O0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791825605; c=relaxed/simple;
+	bh=ReC683xLMLHgfyjyrGz2xE73qadaayonBN5dJNWSGf0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uTvuKP9JLNvxADuICOqItQidaHR7dl8LQGc4coZc56OjyDP1Bhldpr9e0CODrwPbJ9RQKJ+Z1O/p1ewM1j7jI7X+Nm91fs/WS8ULwEU807yX1AL6sNaU99hTgp1/w9+qJBcSLg6rCI/ZFvixjIFO/MUO/2225T1gFeR0fQAWAd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WCZIeTx4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UsyJC2O0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5F831F0089B;
-	Mon, 12 Oct 2026 17:19:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WCZIeTx4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 195A71F0089B;
+	Mon, 12 Oct 2026 17:20:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791825594;
-	bh=pXgRj89nsEmEJ7SR6gAWW3Ykxx7GORVQRW2IXC5fXfI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UsyJC2O0J8t7d/dm2U3ksbGFMcoVEz/hJF+SvnuzZFMFd/jyv027/FnKYOB9Fnmj8
-	 oEyxAtdo8ZXqZbNzvyVguzpLDkTYZFj9s2pIXTDvaie0lVYKKtXB3Uk/z/vU0OGrzw
-	 JTgoYxbDnB065SGDXLKGgIETCZQR3m0p2mjgAiGz5pBxqbT3Nji5/oxX7V3J74OTeQ
-	 di7KjlilxhnEHZcskOEhY+gbj6hEZiDD8/mEQrJnvGfNatwyWuGXYSi+s99AaydzEj
-	 YmzCM0PASkGwcbL6Jizg0p2ebg2VWdmW3A4e0g2ik5dyI7cLX/gWRuW3lggATSBvA1
-	 nDrftHZDpdrCw==
-Subject: Re: [PATCH net v2 2/3] ipmr: set up GSO state for tunnel vifs
-From: netdev-bot+sashiko@kernel.org
-To: julius@bairaktaris.de
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, steffen.klassert@secunet.com, willemb@google.com,
- linux-kernel@vger.kernel.org
-Date: Mon, 12 Oct 2026 17:19:53 +0000
-Message-ID: <179182559332.434549.18294510093742639467@kernel.org>
-In-Reply-To: <20261011162957.1328474-3-julius@bairaktaris.de>
-References: <20261011162957.1328474-3-julius@bairaktaris.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1791825604;
+	bh=/+kYat3Js03LLBNLv0RvM8p5SjFSuufv4UsSaTtr3vg=;
+	h=From:To:Cc:Subject:Date;
+	b=WCZIeTx48JYsbkqPJ8oGRb8Z6K0VhXDe7aglI7KhvjXQyj2HPezQGvCQXRlWz7804
+	 oE4iRPBXmYgyFKSCVRSoKRduwu69Gk+uz9eDqcPNFRnTgmAHK6GXE2iZsc6DlgcF18
+	 AilMXoUHzDoe82GDn6aFzLAZPLpa5waoW+EdBo1+cNL9PsrXc0kvTzlEp9bkw/p20i
+	 WG/QZabuOj+/PZjv2ozkwd2qRcRgRk5gxO3CaOuA2YAwsIBESkETY67uW9SejIjyhT
+	 zkqcFBLJrU73NjDg/vuLs8HWLVL2KDZqoxTc+PSPBKPg7GIBvaeCIWNEFuyd4ghqju
+	 J+xFKtK7Iv7Qw==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	dakr@kernel.org
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Philipp Stanner <phasta@kernel.org>
+Subject: [PATCH v2] dma-buf/dma-fence: Mark two callbacks as deprecated
+Date: Mon, 12 Oct 2026 19:19:40 +0200
+Message-ID: <20261012171939.390365-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+dma_fence's backend_ops functions ops->wait() and ops->release() are
+problematic because they prevent fence producers from unloading.
+Moreover, they can easily be implemented through simpler means more
+aligned with the dma_fence contract.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Since the declared goal of dma_fence is to move towards an
+implementation that supports driver-unload in all circumstances, we must
+prevent more parties from implementing those callbacks.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Deprecate ops->release() and ops->wait() and document what users should
+do instead.
 
-- [Medium] After this patch, a GSO skb sent through a VIFF_TUNNEL vif is
-  a valid SKB_GSO_IPXIP4 encapsulated packet and gets segmented.
-- [Low] ip_encap() now turns the skb into an encapsulated GSO packet
-  (iptunnel_handle_offloads() sets skb->encapsulation = 1 and ORs in…
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+Changes in v2:
+  - Drop confusing sentence (Christian).
+---
+ include/linux/dma-fence.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
---
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dd07d128adc3..388c07d11e70 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -220,6 +220,8 @@ struct dma_fence_ops {
+ 	/**
+ 	 * @wait:
+ 	 *
++	 * DEPRECATED!
++	 *
+ 	 * Custom wait implementation, defaults to dma_fence_default_wait() if
+ 	 * not set.
+ 	 *
+@@ -243,6 +245,8 @@ struct dma_fence_ops {
+ 	/**
+ 	 * @release:
+ 	 *
++	 * DEPRECATED!
++	 *
+ 	 * Called on destruction of fence to release additional resources.
+ 	 * Can be called from irq context.  This callback is optional. If it is
+ 	 * NULL, then dma_fence_free() is instead called as the default
+@@ -254,6 +258,12 @@ struct dma_fence_ops {
+ 	 *
+ 	 * If the callback is implemented the memory backing the dma_fence
+ 	 * object must be freed RCU safe.
++	 *
++	 * Deprecated because it prevents the producer of a fence from
++	 * unloading. No new users must be implemented. Parties with a
++	 * hypothetical need for this callback can instead simply and directly
++	 * perform their custom release operations one RCU grace period after
++	 * they have signaled the fence.
+ 	 */
+ 	void (*release)(struct dma_fence *fence);
+ 
 
-ipmr: set up GSO state for tunnel vifs
-
-This commit makes ip_encap() call iptunnel_handle_offloads() with
-SKB_GSO_IPXIP4 and then skb_set_inner_ipproto(). GSO packets forwarded to
-a VIFF_TUNNEL vif are now segmented instead of being dropped in
-validate_xmit_skb(). ip_encap() now returns an error, and
-ipmr_prepare_xmit() passes it up.
-
-> diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-> index b9c544d48c452..f0666749b14a7 100644
-> --- a/net/ipv4/ipmr.c
-> +++ b/net/ipv4/ipmr.c
-> @@ -1835,12 +1835,17 @@ static struct notifier_block ip_mr_notifier = {
->   * This avoids tunnel drivers and other mess and gives us the speed so
->   * important for multicast video.
->   */
-> -static void ip_encap(struct net *net, struct sk_buff *skb,
-> -		     __be32 saddr, __be32 daddr)
-> +static int ip_encap(struct net *net, struct sk_buff *skb,
-> +		    __be32 saddr, __be32 daddr)
->  {
-> +	const struct iphdr *old_iph;
->  	struct iphdr *iph;
-> -	const struct iphdr *old_iph = ip_hdr(skb);
->  
-> +	if (iptunnel_handle_offloads(skb, SKB_GSO_IPXIP4))
-> +		return -1;
-> +	skb_set_inner_ipproto(skb, IPPROTO_IPIP);
-
-[Severity: Medium]
-A GSO skb sent out a VIFF_TUNNEL vif is now a valid SKB_GSO_IPXIP4 packet
-and really does get segmented. Is one IP ID reservation for the outer
-header still enough?
-
-Later in ip_encap(), the outer header is built with DF clear and a single
-ID:
-
-net/ipv4/ipmr.c:ip_encap() {
-    ...
-	iph->frag_off	=	0;
-    ...
-	ip_select_ident(net, skb, NULL);
-    ...
-}
-
-ip_select_ident() hard-codes a segment count of one:
-
-include/net/ip.h:ip_select_ident() {
-	ip_select_ident_segs(net, skb, sk, 1);
-}
-
-Later, inet_gso_segment() handles the outer header with encap == 0, and
-fixedid is normally false. Each segment gets its own consecutive ID from
-iph->id = htons(id++), so a packet with N segments uses IDs id..id+N-1.
-
-ip_idents_reserve() moves the bucket forward by only 1 per packet. It adds
-random perturbation only when the jiffy changes.
-
-Can back-to-back GSO packets on the same tunnel then reuse most of each
-other's outer IDs?
-
-DF is clear on these outer datagrams. If they are fragmented further along
-the path, the tunnel endpoint could reassemble fragments from different
-packets that share an ID.
-
-The commit message says this matches ipip_tunnel_xmit(). That path ends
-in iptunnel_xmit(), which reserves gso_segs IDs:
-
-net/ipv4/ip_tunnel_core.c:iptunnel_xmit() {
-    ...
-	__ip_select_ident(net, iph, skb_shinfo(skb)->gso_segs ?: 1);
-    ...
-}
-
-__ip_queue_xmit() does the same. Should ip_encap() call
-ip_select_ident_segs(net, skb, NULL, skb_shinfo(skb)->gso_segs ?: 1)
-instead?
-
-[Severity: Low]
-Should an existing SKB_GSO_TCP_FIXEDID bit be moved to
-SKB_GSO_TCP_FIXEDID_INNER here?
-
-tcp4_gro_complete() sets SKB_GSO_TCP_FIXEDID to describe the original
-received IPv4 header:
-
-	skb_shinfo(skb)->gso_type |= SKB_GSO_TCPV4 |
-			(NAPI_GRO_CB(skb)->ip_fixedid * SKB_GSO_TCP_FIXEDID);
-
-Once iptunnel_handle_offloads() sets skb->encapsulation, that header
-becomes the inner one. However, this documentation file:
-
-Documentation/networking/segmentation-offloads.rst
-
-says "For encapsulated packets, SKB_GSO_TCP_FIXEDID refers only to the
-outer header." inet_gso_segment() follows that rule:
-
-	fixedid = !!(skb_shinfo(skb)->gso_type & (SKB_GSO_TCP_FIXEDID << encap));
-
-Take a TCP flow with fixed IP IDs, sent to a multicast group whose route
-goes out a VIFF_TUNNEL vif. Would every outer segment get the same IP ID,
-while the inner header gets incrementing IDs?
-
-The outer header built by ip_encap() always has frag_off = 0, so this
-would send non-atomic datagrams with repeated IDs, which RFC 6864 does not
-allow.
-
-ipip_tunnel_xmit() calls the same helper. Its outer DF normally comes from
-the tunnel's pmtudisc setting, while ip_encap() always clears DF.
-
-Before this patch these packets were dropped in ipip_gso_segment(), so this
-path is newly reachable.
-
-[ ... ]
-
+base-commit: 3e32932d3626d0279f9b3531bd648f8c0a16cb08
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261011162957.1328474-1-julius%40bairaktaris.de
+2.55.0
+
