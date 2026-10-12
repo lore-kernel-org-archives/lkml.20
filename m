@@ -1,36 +1,35 @@
 Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A07473C93;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55181474245;
 	Mon, 12 Oct 2026 09:01:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791795663; cv=none; b=uQI426Q34D3hSpcTIYEwZAhXk8BCRXb9mQ5Izb+d25cfmajEzcdIF2gDBkiOvFatcWa7YG84Amo+Rs5Tdch9zNoDy+mYtOv5o64e7FLyEpzKUpzYMPAtzjE7MLggjUBOEqzJKaNmxUlI3vhhd+h9m6Tm+m0dMwmz1yo6GfusAak=
+	t=1791795665; cv=none; b=Zh4f7Xtzin4k804VytScZX9YMQLrpleaqaq7h2R2+b3dWiybv702SXldMJk0MlWXqPWnQjvcW4D2pdXbwlVGMyUg38QER/5O31CkaAbPRiVsKG1LfIEZcP4oubMgAn+zfCn2lGQBdEdIxRp4TmhN61tcIf3OS8IImjcLpuIYtiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791795663; c=relaxed/simple;
-	bh=V/sv7WzgzDQUWocc2DsV03JGUxqDo5dDMvlqwySqgzg=;
+	s=arc-20240116; t=1791795665; c=relaxed/simple;
+	bh=o9sa/cFYD1NRv8ZMaDOCvzx1TS6BMDdfSeOwr4e92Gs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KaB4guHlXc4++y1dCNlOZKqByovrcdjo6+hT7BaDIanKprNlDHI+xdnYWDBrtWXkVHlBPR4OaUGSGoUN2a9uJZfHKleIbJka5u0Aj/lQugw7mj0xwuWcOfiEGAWwn/75wj9IFskJC4FH1ZO17sLP9BBgJKLxp416UfJInHf7sP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=AAEq+fhl; arc=none smtp.client-ip=194.13.80.246
+	 In-Reply-To:To:Cc; b=B3pJ/OlD859nDhICujGXd+/6BUtBA9ov6cFyy2zMJTF7UfnMV3BaEvp3I758UAywhWjFLgBzVNlkU6VBzsRoC21e9wyLgfRMkvMn9kEOsfH/tA1ItldZ1ZLlYVWIGvOGysQxoBOgGi1uS0/SwoJ/QqrUHVxvg/4XzAkMJ9/ic3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=4BKjhOH8; arc=none smtp.client-ip=194.13.80.246
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="AAEq+fhl"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AE4D1A1589;
-	Mon, 12 Oct 2026 11:00:57 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="4BKjhOH8"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BF79DA1588;
+	Mon, 12 Oct 2026 11:00:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791795658; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1791795657; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=TDxHfkRwg6tE6Kik6YEdF6/7+v8H6j39s9co0qImR0k=;
-	b=AAEq+fhleKfuvbaY8eejryrVEnmfCrWPCSWDWShyKSws5QTfSzIr9Dm/NLlmwM5VPgsXwN
-	f16GayGiZeh5+qnrOMrTvewuccYLIr0MwUZMS0gLNCRGPYhkmv+hBLMTrCn0QwW75zEZ02
-	TAVbGV3EF2p01hJ5bqblmdskFxrCYgMGift3rGncuObMExJPGBu03YWJmWcOzsEVgEe/9h
-	kuFKLUPcaEuD1YQRwCo4/Vbex0Bwob+6s0e0scV0yPdFqURqhrpRuzz6jmhLtfNMZrpj+5
-	svgS5ep5asZ7tknInhGxn1aOqtEf2Ckv39bIMdq5gt7INZSOqxDDOz1idits3w==
+	bh=YTz8GmVluprXANzTquyGzE0K0aZBQa7dbBWwpxsjhUk=;
+	b=4BKjhOH8ou4NKXaRkK5+nfmF0LS7x0BjMvH1hlKUCTmo8Krdv0kNJhuu39b+XnCq9TdzME
+	gHo2NhuVdoZRTifk6tYw4053OQ/8IrS8WysQPeKFzqT4v+wQxrC3rCaqFWOAYIVWhkivvC
+	AQY0rMXEGI6AcIwRLPhT3war6rW8qAiaHL30sD7Yu4KnL1FM9tVJoKx/FZj6ii5YjKgD8x
+	1fPIX4ZpzfbsaCl/96jFKxcVOQK+xjZoaxTZV/ovb5Kd9ZecDZVh/Tgz9IEX+0k58sSA1Z
+	SqUTkM3sjuaQ14c9Hwy0AUctNAz6Bn6cgw/pxqWfUvBkA0eKObvKxwgXSZlWrg==
 From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Mon, 12 Oct 2026 11:00:44 +0200
-Subject: [PATCH net-next v4 8/8] net: bcmgenet: reassemble jumbo frames
- from status block fragments
+Date: Mon, 12 Oct 2026 11:00:43 +0200
+Subject: [PATCH net-next v4 7/8] net: bcmgenet: allow the MTU to be changed
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-nb-genet-mtu-nn-v2-v4-8-2e2e3bfaf8cc@tipi-net.de>
+Message-Id: <20261012-nb-genet-mtu-nn-v2-v4-7-2e2e3bfaf8cc@tipi-net.de>
 References: <20261012-nb-genet-mtu-nn-v2-v4-0-2e2e3bfaf8cc@tipi-net.de>
 In-Reply-To: <20261012-nb-genet-mtu-nn-v2-v4-0-2e2e3bfaf8cc@tipi-net.de>
 To: Doug Berger <opendmb@gmail.com>, 
@@ -56,308 +55,218 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-The hardware does not truncate a frame longer than the packet ready
-threshold. It splits the frame across descriptors and writes a status block
-at the start of each one. The first fragment then arrives with SOP and no
-EOP and is dropped as fragmented. This caps the MTU.
+The driver never sets dev->max_mtu, so the MTU is stuck at ETH_DATA_LEN.
 
-Strip the status blocks and reassemble the fragments. Only the last block
-holds the checksum of the whole frame. Broadcom confirmed from the RTL that
-every GENET revision splits long frames this way, not just the v5 this was
-tested on.
+One descriptor reaches as far as the packet ready threshold, so derive the
+maximum from it. The threshold registers are 8 bit in units of 16 bytes and
+want a multiple of the 256 byte burst size. A descriptor is one page and
+also holds skb_shared_info behind the frame. On 4K pages the page is the
+tighter limit and leaves 3564 bytes. That includes room for a VLAN tag so a
+VLAN interface can run at the parent MTU. The MAC accepts a little more
+than one descriptor holds, so a double tagged frame at that maximum is
+dropped as fragmented until a later patch reassembles those.
 
-On transmit the MAC only checksums a frame it holds in full, so anything
-longer than the threshold falls back to software. At jumbo sizes the larger
-frame saves more per packet overhead than the checksum costs.
+Resize the buffers and rewrite the registers in place. The PHY keeps
+running and the link stays up. Two MTUs at or below ETH_DATA_LEN derive the
+same values, so a change between them skips the restart.
 
-UMAC_MAX_FRAME_LEN is 14 bit and counts the FCS. That puts the maximum MTU
-at 16347.
+A failed allocation retries at the previous size. If that fails too, take
+the interface down. Running on rings that were never allocated is worse.
 
-The TX descriptor length field is wider than DMA_BUFLENGTH_MASK suggests,
-that mask only extracts the length from the RX status word. A frame of
-16361 bytes, the largest that MTU allows, came back byte exact 200 times
-over UMAC loopback.
-
-Suggested-by: Justin Chen <justin.chen@broadcom.com>
+Suggested-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Link: https://github.com/raspberrypi/linux/issues/5561
 Tested-by: Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>
 Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
- drivers/net/ethernet/broadcom/genet/bcmgenet.c | 139 ++++++++++++++++++++-----
- drivers/net/ethernet/broadcom/genet/bcmgenet.h |   2 +
- 2 files changed, 116 insertions(+), 25 deletions(-)
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c | 97 +++++++++++++++++++++++++-
+ drivers/net/ethernet/broadcom/genet/bcmgenet.h |  1 +
+ 2 files changed, 96 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-index f158d6bc314b..6455519e81be 100644
+index e00661b2414b..f158d6bc314b 100644
 --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
 +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-@@ -84,11 +84,8 @@
+@@ -84,6 +84,12 @@
  				      ENET_THLD_MAX * ENET_THLD_UNIT, \
  				      ENET_THLD_PAGE_LEN)
  
--/* Largest MTU that fits one descriptor, with room for a VLAN tag so a VLAN
-- * interface can use the parent MTU.
-- */
--#define ENET_MAX_MTU		(ENET_THLD_MAX_LEN - GENET_RBUF_ALIGN - \
--				 ETH_HLEN - VLAN_HLEN)
-+/* UMAC_MAX_FRAME_LEN is 14 bits wide and counts the FCS */
-+#define ENET_MAX_JUMBO_MTU	(GENMASK(13, 0) - ENET_FRAME_OVERHEAD)
- 
++/* Largest MTU that fits one descriptor, with room for a VLAN tag so a VLAN
++ * interface can use the parent MTU.
++ */
++#define ENET_MAX_MTU		(ENET_THLD_MAX_LEN - GENET_RBUF_ALIGN - \
++				 ETH_HLEN - VLAN_HLEN)
++
  /* Tx/Rx DMA register offset, skip 256 descriptors */
  #define WORDS_PER_BD(p)		(p->hw_params->words_per_bd)
-@@ -2200,8 +2197,8 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
- 		}
- 	}
+ #define DMA_DESC_SIZE		(WORDS_PER_BD(priv) * sizeof(u32))
+@@ -3179,8 +3185,12 @@ static int bcmgenet_init_rx_queues(struct net_device *dev)
+ 	/* Initialize Rx priority queues */
+ 	for (i = 0; i <= priv->hw_params->rx_queues; i++) {
+ 		ret = bcmgenet_init_rx_ring(priv, i, end - start, start, end);
+-		if (ret)
++		if (ret) {
++			/* Only the rings before this one hold a NAPI */
++			while (i--)
++				netif_napi_del(&priv->rx_rings[i].napi);
+ 			return ret;
++		}
  
--	/* The MAC only inserts a checksum into a frame it holds in full, and
--	 * silently drops a longer one, so fall back to software.
-+	/* The MAC holds a frame to insert its checksum, but only as much as
-+	 * its FIFO takes. Longer frames are dropped silently.
- 	 */
- 	if (unlikely(skb->len > priv->tx_thld_len) &&
- 	    skb->ip_summed == CHECKSUM_PARTIAL) {
-@@ -2351,6 +2348,54 @@ static int bcmgenet_rx_refill(struct bcmgenet_rx_ring *ring,
+ 		start = end;
+ 		end += priv->hw_params->rx_bds_per_q;
+@@ -3564,6 +3574,7 @@ static int bcmgenet_open(struct net_device *dev)
+ 
+ 	bcmgenet_netif_start(dev, true);
+ 
++	priv->datapath_up = true;
+ 	netif_tx_start_all_queues(dev);
+ 
+ 	return 0;
+@@ -3622,7 +3633,11 @@ static int bcmgenet_close(struct net_device *dev)
+ 
+ 	netif_dbg(priv, ifdown, dev, "bcmgenet_close\n");
+ 
+-	bcmgenet_netif_stop(dev, false);
++	/* A failed MTU change can have torn the datapath down already */
++	if (priv->datapath_up) {
++		bcmgenet_netif_stop(dev, false);
++		priv->datapath_up = false;
++	}
+ 
+ 	/* Really kill the PHY state machine and disconnect from it */
+ 	phy_disconnect(dev->phydev);
+@@ -3870,6 +3885,76 @@ static int bcmgenet_change_carrier(struct net_device *dev, bool new_carrier)
  	return 0;
  }
  
-+/* Drop the frame being collected. Its remaining descriptors carry no SOP,
-+ * so they are dropped quietly until the next one does.
-+ */
-+static void bcmgenet_discard_frags(struct bcmgenet_rx_ring *ring)
++static int bcmgenet_change_mtu(struct net_device *dev, int new_mtu)
 +{
-+	ring->frag_drop = true;
++	struct bcmgenet_priv *priv = netdev_priv(dev);
++	unsigned int old_mtu = dev->mtu;
++	int ret;
 +
-+	if (!ring->frag_head)
-+		return;
-+
-+	dev_kfree_skb_any(ring->frag_head);
-+	ring->frag_head = NULL;
-+}
-+
-+/* A frame longer than the threshold arrives in several descriptors, each with
-+ * its own status block. Only the first one carries a header, so hand the page
-+ * of every later one to the frame already being collected. Returns the frame
-+ * once EOP is in, NULL while more descriptors are expected or once the frame
-+ * had to be dropped.
-+ */
-+static struct sk_buff *bcmgenet_add_frag(struct bcmgenet_rx_ring *ring,
-+					 struct page *page,
-+					 unsigned int offset,
-+					 unsigned int size,
-+					 unsigned int dma_flag,
-+					 unsigned int len)
-+{
-+	struct sk_buff *head = ring->frag_head;
-+
-+	if (unlikely(skb_shinfo(head)->nr_frags >= MAX_SKB_FRAGS)) {
-+		BCMGENET_STATS64_INC((&ring->stats64), fragmented_errors);
-+		bcmgenet_discard_frags(ring);
-+		page_pool_put_full_page(ring->page_pool, page, true);
-+		return NULL;
++	/* Every MTU dependent value is floored at ETH_DATA_LEN, so a change
++	 * below it reprograms nothing and must not cost queued frames.
++	 */
++	if (!netif_running(dev) ||
++	    max_t(unsigned int, old_mtu, ETH_DATA_LEN) ==
++	    max_t(unsigned int, new_mtu, ETH_DATA_LEN)) {
++		WRITE_ONCE(dev->mtu, new_mtu);
++		priv->rx_buf_len = bcmgenet_rx_buf_len(new_mtu);
++		return 0;
 +	}
 +
-+	skb_add_rx_frag(head, skb_shinfo(head)->nr_frags, page,
-+			offset + sizeof(struct status_64),
-+			len - sizeof(struct status_64), size);
++	/* The watchdog trips on an idle queue once the rings are gone */
++	netif_device_detach(dev);
 +
-+	if (!(dma_flag & DMA_EOP))
-+		return NULL;
++	/* Only the buffers and the MTU registers change, leave the PHY up */
++	bcmgenet_netif_stop(dev, false);
++	priv->datapath_up = false;
 +
-+	ring->frag_head = NULL;
++	WRITE_ONCE(dev->mtu, new_mtu);
++	priv->rx_buf_len = bcmgenet_rx_buf_len(new_mtu);
++	bcmgenet_set_mtu_regs(priv, new_mtu);
 +
-+	return head;
++	ret = bcmgenet_init_dma(priv, true);
++	if (ret) {
++		/* Retry the size that was allocated a moment ago */
++		WRITE_ONCE(dev->mtu, old_mtu);
++		priv->rx_buf_len = bcmgenet_rx_buf_len(old_mtu);
++		bcmgenet_set_mtu_regs(priv, old_mtu);
++		if (bcmgenet_init_dma(priv, true)) {
++			/* Nothing left to run on. Take the interface down so
++			 * that close and suspend do not tear it down twice.
++			 */
++			netdev_err(dev, "failed to restore MTU %u, closing\n",
++				   old_mtu);
++			netif_close(dev);
++
++			/* Mark the device present again, __dev_open()
++			 * refuses a detached one. The queues stay stopped
++			 * because the interface is down by now.
++			 */
++			netif_device_attach(dev);
++			return ret;
++		}
++	}
++
++	bcmgenet_hfb_restore(priv);
++	bcmgenet_netif_start(dev, false);
++
++	/* bcmgenet_netif_start() only restores the link interrupt */
++	if (bcmgenet_has_mdio_intr(priv))
++		bcmgenet_intrl2_0_writel(priv, UMAC_IRQ_MDIO_EVENT,
++					 INTRL2_CPU_MASK_CLEAR);
++
++	/* A link event latched while the interrupts were off is gone. Internal
++	 * PHYs on GENET v1-v4 are not polled, so resync the state machine.
++	 */
++	phy_mac_interrupt(dev->phydev);
++
++	priv->datapath_up = true;
++	netif_device_attach(dev);
++
++	return ret;
 +}
 +
- /* bcmgenet_desc_rx - descriptor based rx process.
-  * this could be called from bottom half, or from NAPI polling method.
-  */
-@@ -2368,6 +2413,7 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 	unsigned int rxpktprocessed = 0, rxpkttoprocess;
- 	unsigned int bytes_processed = 0;
- 	unsigned int p_index, mask;
-+	unsigned int rxframes = 0;
- 	unsigned int discards;
+ static const struct net_device_ops bcmgenet_netdev_ops = {
+ 	.ndo_open		= bcmgenet_open,
+ 	.ndo_stop		= bcmgenet_close,
+@@ -3881,6 +3966,7 @@ static const struct net_device_ops bcmgenet_netdev_ops = {
+ 	.ndo_set_features	= bcmgenet_set_features,
+ 	.ndo_get_stats64	= bcmgenet_get_stats64,
+ 	.ndo_change_carrier	= bcmgenet_change_carrier,
++	.ndo_change_mtu		= bcmgenet_change_mtu,
+ };
  
- 	/* Clear status before servicing to reduce spurious interrupts */
-@@ -2415,6 +2461,7 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 
- 		if (bcmgenet_rx_refill(ring, cb)) {
- 			BCMGENET_STATS64_INC(stats, dropped);
-+			bcmgenet_discard_frags(ring);
- 			goto next;
- 		}
- 
-@@ -2439,24 +2486,42 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 			  __func__, p_index, ring->c_index,
- 			  ring->read_ptr, dma_length_status);
- 
--		/* Only the first descriptor carries the alignment pad */
--		min_len = dma_flag & DMA_SOP ? GENET_RSB_PAD
--					     : sizeof(struct status_64);
-+		/* Only the first descriptor carries the alignment pad. A head
-+		 * with more to come must hold the Ethernet header, and a
-+		 * continuation must hold payload.
-+		 */
-+		if (dma_flag & DMA_SOP) {
-+			min_len = GENET_RSB_PAD;
-+			if (!(dma_flag & DMA_EOP))
-+				min_len += ETH_HLEN;
-+		} else {
-+			min_len = sizeof(struct status_64) + 1;
-+		}
- 
- 		/* Reject lengths that would underflow the SKB build path. */
- 		if (unlikely(len > priv->rx_buf_len || len < min_len)) {
- 			netif_err(priv, rx_status, dev,
- 				  "invalid packet length %d\n", len);
- 			BCMGENET_STATS64_INC(stats, length_errors);
-+			bcmgenet_discard_frags(ring);
- 			page_pool_put_full_page(ring->page_pool, rx_page,
- 						true);
- 			goto next;
- 		}
- 
--		if (unlikely(!(dma_flag & DMA_EOP) || !(dma_flag & DMA_SOP))) {
--			netif_err(priv, rx_status, dev,
--				  "dropping fragmented packet!\n");
--			BCMGENET_STATS64_INC(stats, fragmented_errors);
-+		/* A new SOP resynchronizes after an incomplete frame */
-+		if (dma_flag & DMA_SOP) {
-+			if (ring->frag_head) {
-+				BCMGENET_STATS64_INC(stats, fragmented_errors);
-+				bcmgenet_discard_frags(ring);
-+			}
-+			ring->frag_drop = false;
-+		} else if (unlikely(!ring->frag_head)) {
-+			/* Rest of a dropped frame, or no SOP seen yet */
-+			if (!ring->frag_drop) {
-+				BCMGENET_STATS64_INC(stats, fragmented_errors);
-+				ring->frag_drop = true;
-+			}
- 			page_pool_put_full_page(ring->page_pool, rx_page,
- 						true);
- 			goto next;
-@@ -2486,17 +2551,27 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 						DMA_RX_RXER)) == DMA_RX_RXER)
- 				u64_stats_inc(&stats->errors);
- 			u64_stats_update_end(&stats->syncp);
-+			bcmgenet_discard_frags(ring);
- 			page_pool_put_full_page(ring->page_pool, rx_page,
- 						true);
- 			goto next;
- 		} /* error packet */
- 
-+		if (!(dma_flag & DMA_SOP)) {
-+			skb = bcmgenet_add_frag(ring, rx_page, rx_offset,
-+						rx_size, dma_flag, len);
-+			if (!skb)
-+				goto next;
-+			goto deliver;
-+		}
+ /* GENET hardware parameters/characteristics */
+@@ -4234,7 +4320,11 @@ static int bcmgenet_probe(struct platform_device *pdev)
+ 	/* Mii wait queue */
+ 	init_waitqueue_head(&priv->wq);
+ 	bcmgenet_hfb_init(priv);
 +
- 		/* Build SKB from the page - data starts at hard_start,
- 		 * frame begins after RSB(64) + pad(2) = 66 bytes.
- 		 */
- 		skb = napi_build_skb(hard_start, rx_size);
- 		if (unlikely(!skb)) {
- 			BCMGENET_STATS64_INC(stats, dropped);
-+			bcmgenet_discard_frags(ring);
- 			page_pool_put_full_page(ring->page_pool, rx_page,
- 						true);
- 			goto next;
-@@ -2508,17 +2583,26 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 		skb_reserve(skb, GENET_RSB_PAD);
- 		__skb_put(skb, len - GENET_RSB_PAD);
- 
--		if (priv->crc_fwd_en) {
--			skb_trim(skb, skb->len - ETH_FCS_LEN);
-+		if (unlikely(!(dma_flag & DMA_EOP))) {
-+			ring->frag_head = skb;
-+			goto next;
-+		}
-+
-+deliver:
-+		/* The FCS trim may release the page with the last status block */
-+		rx_csum = (__force __be16)(status->rx_csum & 0xffff);
-+
-+		if (priv->crc_fwd_en &&
-+		    unlikely(pskb_trim(skb, skb->len - ETH_FCS_LEN))) {
-+			BCMGENET_STATS64_INC(stats, dropped);
-+			dev_kfree_skb_any(skb);
-+			goto next;
- 		}
- 
- 		/* Set up checksum offload */
--		if (dev->features & NETIF_F_RXCSUM) {
--			rx_csum = (__force __be16)(status->rx_csum & 0xffff);
--			if (rx_csum) {
--				skb->csum = (__force __wsum)ntohs(rx_csum);
--				skb->ip_summed = CHECKSUM_COMPLETE;
--			}
-+		if ((dev->features & NETIF_F_RXCSUM) && rx_csum) {
-+			skb->csum = (__force __wsum)ntohs(rx_csum);
-+			skb->ip_summed = CHECKSUM_COMPLETE;
- 		}
- 
- 		len = skb->len;
-@@ -2526,6 +2610,7 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 
- 		/*Finish setting up the received SKB and send it to the kernel*/
- 		skb->protocol = eth_type_trans(skb, priv->dev);
-+		rxframes++;
- 
- 		u64_stats_update_begin(&stats->syncp);
- 		u64_stats_inc(&stats->packets);
-@@ -2552,7 +2637,8 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 	}
- 
- 	ring->dim.bytes = bytes_processed;
--	ring->dim.packets = rxpktprocessed;
-+	/* A long frame spans several descriptors but is one packet */
-+	ring->dim.packets = rxframes;
- 
- 	return rxpktprocessed;
- }
-@@ -2626,6 +2712,8 @@ static void bcmgenet_free_rx_buffers(struct bcmgenet_priv *priv)
- 			cb = ring->cbs + i;
- 			bcmgenet_free_rx_cb(cb, ring->page_pool);
- 		}
-+		/* a partial frame still holds pages of this pool */
-+		bcmgenet_discard_frags(ring);
- 	}
- }
- 
-@@ -2696,7 +2784,8 @@ static void bcmgenet_link_intr_enable(struct bcmgenet_priv *priv)
- }
- 
- /* Receive threshold in register units. Covers the alignment bytes and the
-- * frame, but not the status block, which the hardware adds on top.
-+ * frame up to the register maximum, but not the status block, which the
-+ * hardware adds on top. A longer frame arrives in several descriptors.
-  */
- static unsigned int bcmgenet_pkt_rdy_thld(unsigned int mtu)
- {
-@@ -4324,7 +4413,7 @@ static int bcmgenet_probe(struct platform_device *pdev)
- 	/* v1 cannot program the thresholds, so it stays at the default MTU */
++	/* v1 cannot program the thresholds, so it stays at the default MTU */
  	priv->rx_buf_len = bcmgenet_rx_buf_len(dev->mtu);
- 	if (!GENET_IS_V1(priv))
--		dev->max_mtu = ENET_MAX_MTU;
-+		dev->max_mtu = ENET_MAX_JUMBO_MTU;
++	if (!GENET_IS_V1(priv))
++		dev->max_mtu = ENET_MAX_MTU;
  	INIT_WORK(&priv->bcmgenet_irq_work, bcmgenet_irq_task);
  
  	priv->clk_wol = devm_clk_get_optional(&priv->pdev->dev, "enet-wol");
+@@ -4418,6 +4508,7 @@ static int bcmgenet_resume(struct device *d)
+ 		bcmgenet_rdma_disable(priv);
+ 		bcmgenet_intr_disable(priv);
+ 		bcmgenet_fini_dma(priv);
++		priv->datapath_up = false;
+ 		enable_irq(priv->irq1);
+ 	}
+ 
+@@ -4449,6 +4540,7 @@ static int bcmgenet_resume(struct device *d)
+ 
+ 	bcmgenet_netif_start(dev, true);
+ 
++	priv->datapath_up = true;
+ 	netif_device_attach(dev);
+ 
+ 	return 0;
+@@ -4510,6 +4602,7 @@ static int bcmgenet_suspend(struct device *d)
+ 	} else {
+ 		/* Teardown the interface */
+ 		bcmgenet_netif_stop(dev, true);
++		priv->datapath_up = false;
+ 	}
+ 
+ 	return 0;
 diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.h b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-index 13c3eb97d84b..9c2c21081736 100644
+index 7703e1fb73b6..13c3eb97d84b 100644
 --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.h
 +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-@@ -585,6 +585,8 @@ struct bcmgenet_rx_ring {
- 	unsigned int	cb_ptr;		/* Rx ring initial CB ptr */
- 	unsigned int	end_ptr;	/* Rx ring end CB ptr */
- 	unsigned int	old_discards;
-+	struct sk_buff	*frag_head;	/* frame being reassembled */
-+	bool		frag_drop;	/* discarding until the next SOP */
- 	struct bcmgenet_net_dim dim;
- 	u32		rx_max_coalesced_frames;
- 	u32		rx_coalesce_usecs;
+@@ -636,6 +636,7 @@ struct bcmgenet_priv {
+ 	unsigned autoneg_pause:1;
+ 	unsigned tx_pause:1;
+ 	unsigned rx_pause:1;
++	unsigned datapath_up:1;
+ 
+ 	/* MDIO bus variables */
+ 	wait_queue_head_t wq;
 
 -- 
 2.53.0
