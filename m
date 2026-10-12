@@ -1,261 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-5.mail.aliyun.com (out28-5.mail.aliyun.com [115.124.28.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C809B36E460
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:27:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A50531AABF;
+	Mon, 12 Oct 2026 07:27:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791790055; cv=none; b=Xcgr/ihX9ye68hdj3dJJ7su+5OdlbyasNC78lWKR6zvjGae/YhQIvkt7kH3OpTm3GeyOTnDdYl6tHsIqMczJmHk/2ujyblP0aC7oUm5ugRnIVRLvZDboiUGFjstHTptZd5UGWlLT+K97iNIWakxttQpTP2kciUXph9GSLYw3OjU=
+	t=1791790071; cv=none; b=pzdmkpe4lUHaU/VJPafgIROXCXASi4/jlWXH9ynM+AieAGtPC9HPd166MRnPna7R8AvychaMsheLJou8osZrr6dskq3ZrcX+6cUKtQF0Ffgn9IKnPSuvv8rj3R22XyPYQ77pWakaf8zSCnK0hH3+d0Zu38rKjpG3iB8J/vPkZ68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791790055; c=relaxed/simple;
-	bh=UwZVaN+chGIqReoIZp+arD9j3fFh87n+sh2ZtKloJWk=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=P6hXEUs8BczoADgPDqRyNm4m7pp/z7PAVpzl0PB5cH64Q77/Nv8rjGN/06a0GHd+8jryoKagbdRLZBTKHjd0bTQSJJ44Ulwg9Ost9Fge2zAeVFmcGK1RjUpNrnTxDVQc4Knoldh7f7UfnD8UMIpaKAw6pJ6eRYgNXeI65xJoa2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TZJHjSNa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791790071; c=relaxed/simple;
+	bh=cQQasB83hW+IIFrMPWO/YXArsGHooJTtS1M0lBe8izY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XRMl2ptIG1UQNKUMuAc0JEvb+IO7+q4/T8jRzjGpp5CPAdGbjmfdgjJAIgBg2vhL4OA0dQ4mQERHu5IxHbP2j+9z4pLMeGHX7RAtDFOgdUUJlOGqa6DFsnznVd/1ixTwK1I2abvg4l7XPn2A57UxzkEr2NXF/+co3gk6mr6L7HQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=uq/zDFv2; arc=none smtp.client-ip=115.124.28.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TZJHjSNa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 135291F0089B;
-	Mon, 12 Oct 2026 07:27:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791790053;
-	bh=O5Crrv7QmlSOOQ+tSXEhOnpQY4JCzNlOfvWo98Zq/n8=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=TZJHjSNaS5Tj814nGWGzmdULqUOC3VVlQf2k5snDlPZNQCKQxEuaTNFq9IVorlnT1
-	 HzON+uHvzXwUfadtC/LkZJk7/+ogsAWDVOV9vZqtc/EjTBTFuKnzK1T6m7eHm0ezt4
-	 7SXrQ45I4LtgsBmBzIT9skRwvYq9SQTsiCtN6n9S5voM95zwYNEAJX3jtdE6toA+bz
-	 O+36BmuGwLHacd+GKW/QW78K+WblDwJOoboGqhAgEbuFngIhq4T54omRGsjXo8j6A4
-	 eIJLjw4nUy0p29I+dzLvOFfdWH/MgETlagSjg0BjJi4MV6rUsL6PPRdyMD9QJqqCn2
-	 6fmxZlA4YkP5w==
-Message-ID: <1b2831dc-8d8a-4216-811e-22396fc9e35d@kernel.org>
-Date: Mon, 12 Oct 2026 15:27:27 +0800
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="uq/zDFv2"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1791790058; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=XorIrIplWxJhQV21amxhTVYV0lJGwdY32+kptBAZQTc=;
+	b=uq/zDFv271/mA27pip5vV8aI8gXdwS3iigG6SItnsBHaYlmAz10N2mjtVliOn1WlFXqJLOr+2pyCxdoImnuL+rNauvObr6SyjpccEfVhGb7cpBkp/Ch/7XVc7oDMn32cHC5aH5hMkUNKk90kv3wHvW+RS3pWdcQjdxLGYAQ/IOU=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1052275|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0167187-0.0089166-0.974365;FP=18446590920149191191|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jZjoirn_1791790057;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jZjoirn_1791790057 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 12 Oct 2026 15:27:38 +0800
+From: Guo Zihao <guozh23@xiaopeng.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>
+Cc: Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	netfilter-devel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] netfilter: ebtables: ebt_802_3: check the LLC fields before reading them
+Date: Mon, 12 Oct 2026 15:27:37 +0800
+Message-ID: <20261012072737.3313804-1-guozh23@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <asd1uX2tWn9LtsUT@chamomile>
+References: <asd1uX2tWn9LtsUT@chamomile>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>,
- Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
- Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org,
- David Hildenbrand <David.Hildenbrand@arm.com>,
- Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
- Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>,
- Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [PATCH v3 12/17] f2fs: handle partial truncate of large folio
- dirty subpages
-To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
- linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
-References: <20261009161224.4163796-1-zhaonanzhe@xiaomi.com>
- <20261009162828.4188050-2-zhaonanzhe@xiaomi.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261009162828.4188050-2-zhaonanzhe@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/10/26 00:28, Nanzhe Zhao wrote:
-> A large folio can be partial truncated and stays in folio mapping, we
-> need to clear the subrange dirty bits and uptodate bits that the partial
-> truncate covers. If this partial truncate happens to clear the last
-> subrange dirty bits, then cancel the whole folio dirty state.
-> 
-> Also add a guard in f2fs_write_single_data_folio() so a large folio
-> subpage whose disk block was already truncated (NULL_ADDR) is skipped
-> 
-> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-> ---
->   fs/f2fs/data.c | 115 ++++++++++++++++++++++++++++++++++++++++++++++---
->   1 file changed, 109 insertions(+), 6 deletions(-)
-> 
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index 21c43019167a..138a77044e95 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -329,6 +329,27 @@ static void f2fs_read_end_io(struct bio *bio)
->   	f2fs_verify_and_finish_bio(bio, intask);
->   }
->   
-> +static bool f2fs_ffs_has_dirty_subpage(struct folio *folio)
-> +{
-> +	struct f2fs_folio_state *ffs;
-> +	unsigned long flags;
-> +	unsigned int nr_subpages;
-> +	bool dirty;
-> +
-> +	if (!f2fs_folio_has_ffs(folio))
-> +		return false;
-> +
-> +	ffs = (struct f2fs_folio_state *)folio->private;
-> +	nr_subpages = folio_nr_pages(folio);
-> +
-> +	spin_lock_irqsave(&ffs->state_lock, flags);
-> +	dirty = find_next_bit(ffs->state, 2 * nr_subpages,
-> +				nr_subpages) < 2 * nr_subpages;
-> +	spin_unlock_irqrestore(&ffs->state_lock, flags);
-> +
-> +	return dirty;
-> +}
-> +
->   static void f2fs_write_end_bio(struct bio *bio)
->   {
->   	struct f2fs_sb_info *sbi = bio->bi_private;
-> @@ -380,7 +401,8 @@ static void f2fs_write_end_bio(struct bio *bio)
->   			wake_up(&sbi->cp_wait);
->   
->   		if (finished) {
-> -			folio_clear_f2fs_gcing(folio);
-> +			if (!f2fs_ffs_has_dirty_subpage(folio))
-> +				folio_clear_f2fs_gcing(folio);
->   			folio_end_writeback(folio);
->   		}
->   	}
-> @@ -2893,6 +2915,29 @@ static void f2fs_ffs_mark_subrange_uptodate(struct folio *folio, size_t offset,
->   		folio_mark_uptodate(folio);
->   }
->   
-> +static void ffs_clear_subrange_uptodate(struct folio *folio,
-> +					size_t offset, size_t len)
-> +{
-> +	struct f2fs_folio_state *ffs;
-> +	unsigned int nr_subpages, start, end;
-> +	unsigned long flags;
-> +
-> +	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
-> +
-> +	if (!f2fs_folio_has_ffs(folio))
-> +		return;
-> +
-> +	ffs = (struct f2fs_folio_state *)folio->private;
-> +	nr_subpages = folio_nr_pages(folio);
-> +	start = offset >> PAGE_SHIFT;
-> +	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
-> +	end = min(end, nr_subpages);
-> +
-> +	spin_lock_irqsave(&ffs->state_lock, flags);
-> +	bitmap_clear(ffs->state, start, end - start);
-> +	spin_unlock_irqrestore(&ffs->state_lock, flags);
-> +}
-> +
->   bool f2fs_ffs_test_blk_dirty(const struct folio *folio, pgoff_t index)
->   {
->   	struct f2fs_folio_state *ffs;
-> @@ -3771,12 +3816,35 @@ static int f2fs_write_folio_dirty_range(struct folio *folio, int *submitted,
->   
->   		err = f2fs_get_dnode_of_data(&dn, data_idx, LOOKUP_NODE);
->   
-> +		/*
-> +		 * If a subpage of folio for a cow file is dirtied but not
-> +		 * reserve a cow block, fallback to original inode to lookup
-> +		 * block address
+Hi Pablo,
 
-writeback vs truncate on atomic file?
+thanks for looking at this.
 
-> +		 */
-> +		if (atomic_commit && (err == -ENOENT ||
-> +		    (!err && dn.data_blkaddr == NULL_ADDR))) {
-> +			f2fs_put_dnode(&dn);
-> +			set_new_dnode(&dn, inode, NULL, NULL, 0);
-> +			err = f2fs_get_dnode_of_data(&dn, data_idx,
-> +						     LOOKUP_NODE);
-> +			/* Original inode has no block, handled as truncated below */
-> +			if (err == -ENOENT)
-> +				err = 0;
-> +		}
->   		if (err)
->   			goto block_done;
->   		dn_held = true;
->   
->   		fio.old_blkaddr = dn.data_blkaddr;
->   
-> +		/* This page is already truncated */
-> +		if (fio.old_blkaddr == NULL_ADDR) {
-> +			ffs_clear_subrange_uptodate(folio,
-> +					(unsigned long long)i << PAGE_SHIFT,
+On the target tree: right, there is no reproducer, and I did not run
+anything against a real crash, so v3 is tagged [PATCH nf-next v3].
 
-(loff_t)i << PAGE_SHIFT,
+On llc support being removed: I could not find that. The last commit
+touching net/bridge/netfilter/ebt_802_3.c in net-next is Jeremy's
+header-inlining change from 2019 (85cfbc25e5c5), and the module still
+registers "802_3" for NFPROTO_BRIDGE today. Were you thinking of a
+pending removal, or of something else? If you do want to drop the
+match instead, I am happy to withdraw this series.
 
-Thanks,
+The comments are gone in v3, you are right that the call plus git
+blame says enough.
 
-> +					PAGE_SIZE);
-> +			goto block_done;
-> +		}
-> +
->   got_it:
->   		if (__is_valid_data_blkaddr(fio.old_blkaddr) &&
->   		    !f2fs_is_valid_blkaddr(sbi, fio.old_blkaddr,
-> @@ -4325,6 +4393,7 @@ static int f2fs_write_cache_folios(struct address_space *mapping,
->   		bool verity_in_progress;
->   		int folio_submitted = 0;
->   		bool bias_added = false;
-> +		bool dirty;
->   
->   		submitted = 0;
->   		next = true;
-> @@ -4432,15 +4501,19 @@ static int f2fs_write_cache_folios(struct address_space *mapping,
->   		 * partially written back), the folio must stay dirty so that
->   		 * the remaining subranges are written back later.
->   		 */
-> -		if (f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
-> -					(err ? pos : end_pos) - folio_pos(folio)))
-> +		dirty = f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
-> +					(err ? pos : end_pos) - folio_pos(folio));
-> +		if (dirty)
->   			folio_redirty_for_writepage(wbc, folio);
->   		else if (!f2fs_folio_has_ffs(folio))
->   			inode_dec_dirty_pages(inode);
->   
->   		if (bias_added) {
-> -			if (atomic_dec_and_test(&ffs->write_pages_pending))
-> +			if (atomic_dec_and_test(&ffs->write_pages_pending)) {
-> +				if (!dirty)
-> +					folio_clear_f2fs_gcing(folio);
->   				folio_end_writeback(folio);
-> +			}
->   		} else if (!folio_submitted && folio_test_writeback(folio)) {
->   			folio_end_writeback(folio);
->   		}
-> @@ -5243,10 +5316,40 @@ void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length)
->   	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
->   
->   	if (inode->i_ino >= F2FS_ROOT_INO(sbi) &&
-> -				(offset || length != folio_size(folio)))
-> +				(offset || length != folio_size(folio))) {
-> +		size_t clear_start = round_up(offset, PAGE_SIZE);
-> +		size_t clear_end = round_down(offset + length, PAGE_SIZE);
-> +		size_t clear_length;
-> +		bool dirty;
-> +
-> +		/*
-> +		 * If the truncated range falls within a single subpage, no
-> +		 * subpage state needs to be cleared.
-> +		 */
-> +		if (clear_start >= clear_end || !f2fs_folio_has_ffs(folio))
-> +			return;
-> +
-> +		clear_length = clear_end - clear_start;
-> +		dirty = f2fs_ffs_clear_subrange_dirty_and_test(folio,
-> +						clear_start, clear_length);
-> +		ffs_clear_subrange_uptodate(folio, clear_start, clear_length);
-> +
-> +		/*
-> +		 * If the truncated subrange happens to clear the remaining
-> +		 * dirty bitmap of the whole folio, cancel the folio-level
-> +		 * dirty state.
-> +		 */
-> +		if (!dirty && folio_test_dirty(folio))
-> +			folio_cancel_dirty(folio);
-> +		if (!dirty && !folio_test_writeback(folio))
-> +			folio_clear_f2fs_gcing(folio);
->   		return;
-> +	}
->   
-> -	if (folio_test_dirty(folio)) {
-> +	if (f2fs_folio_has_ffs(folio)) {
-> +		f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
-> +							folio_size(folio));
-> +	} else if (folio_test_dirty(folio)) {
->   		inode_dec_dirty_pages(inode);
->   		f2fs_remove_dirty_inode(inode);
->   	}
+Sashiko reported four more items against v2 (1 Low, 3 Medium). All
+four check out and v3 deals with them:
 
+ - the commit messages no longer claim that ebt_basic_match()
+   pre-filters the protocol; they now say the match is not restricted
+   to 802.3 frames and that the kernel never enforced the userspace
+   "-p Length" pairing,
+
+ - the TYPE match now reads the header in two steps (dsap/ssap plus
+   control first, then the type from the ui or the ni layout), so a
+   complete 21/22-byte SNAP UI frame still matches; the 24-byte
+   sizeof() requirement is only imposed where the ni type is really
+   read,
+
+ - the S/I format test is now (ctrl & IS_UI) == IS_UI, patched 2/2,
+
+ - 2/2 reads the ni-view type at the wire offset with
+   get_unaligned_be16(); the padding in struct hdr_ni cannot be
+   fixed because the uAPI struct is shared with ebtables userspace.
+
+Series at https://lore.kernel.org/netdev/20261012072721.3306308-1-guozh23@xiaopeng.com/
+([PATCH nf-next v3 1/2]) and thread.
+
+pw-bot: cr
+
+Guo Zihao
