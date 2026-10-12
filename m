@@ -1,94 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441BA385D87;
-	Mon, 12 Oct 2026 23:16:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C0353ACF1E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:17:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791847006; cv=none; b=L7b0unXsE2xn3MnynvaihZVST+3lEOHRJIFVbsLGrnM+OTp/gH5OXArOzuXWAbHgVvD3lEUtPTZYKFneUnCXht3nmhPUacn2eN2otktK6ce14z/4tsolkVtv0UtMlhKz7YVx7Anmy2jGz+S1NzFIq9w6HJ6U80/6r9qJVYdUpv4=
+	t=1791847042; cv=none; b=Pkl2u5i7Oget/ibnPp4MfTBaABWYC0Kj2ITlEGWCEHhsnaIa5fYnckESADb0yEYzY6tA+A3n2P+wZjdScunZROAyPUvAoB1Em6NzGp2sj7kHNo6xulVg4wY1tBKBj4LkBVe/wxkwXD+nkLMw3XtS1Jw21TsgycbY5by4QGNSHx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791847006; c=relaxed/simple;
-	bh=3sl9bB83+LOPofI+yHfFvuD+l3/3A/7SHzH27L4h19w=;
+	s=arc-20240116; t=1791847042; c=relaxed/simple;
+	bh=zpGJ2C9ZXKZREZPO809kC3o2ILZTcWpcszBp/d5beEk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SgS8c/8zVJbKjidMkxfkOq4LiZHlr+VfZMY5iJXx/o6SfkAqZeLf+sFnj+cQuknmiadkJk8NWhHXe5Kl8NoeT8drZTdqv6m1AlxipWuG2j7MtQFtDm4Scn51hkfRSawdKcxRnDfEz9nBqIcL8KcAToXPXAR4l1WJx6oh6Nz6kas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oYx6qKTD; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=MJYHN9IRYriagc7O61aL+YUo5LCMra7MflTqieyzgyfkbMJ8hS04oNbmKTgnQg45cmhw8TYgQy0+cbqRonLTV6Nd9OjRjHwqud4hX2UqoDHfgwYhKF6/uqkwMkva6FF3MhYJSMXm1aaKCSu8p1zY/U6IXYJojgtQDNvYTiZJ82I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=AUjxFOJH; arc=none smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oYx6qKTD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 390771F0089B;
-	Mon, 12 Oct 2026 23:16:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791847004;
-	bh=zzmW9wCYTQoOlcq0U2T+K4uBnkW7AVavQQwITnbWB3k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oYx6qKTDyJpVy2se66Xf2k3D+zB7eks2fu5GxGrQSQZfV1+5ymIo9gLJVoRxjI5Ot
-	 w3GM1nJ2ziMFRHJCSb4UmTV7TiKfbxFIAFacO8WyoywoUiOfuk2UV7Qzh1Njkh4lnE
-	 +xSvDR7yD4ZByd4ccwgjcyxumlFhNGZGU3y7h0YK8ebXLETHEyPl1MX2R5KEaDFbC5
-	 ntlDCep1YAywtdCidBrqjMAznJIxi7CvKNhLfu+pGDRljbdoq0jcyiWOA1+NgERWZw
-	 u3j5cti0ndTNT2VKChrOXsjrmS7+aCm6rFfOOmBksGqwtp1Xbjoz5jCwmt2D9uAOVX
-	 LAdFcYMopGvSw==
-Date: Tue, 13 Oct 2026 00:16:40 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: David Yang <mmyangfl@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] regulator: dt-bindings: add hi3798cv200 regulator
-Message-ID: <828d3e2e-f204-4bcb-99e8-341a5c799335@sirena.org.uk>
-References: <20261009214404.722628-1-mmyangfl@gmail.com>
- <20261009214404.722628-2-mmyangfl@gmail.com>
- <20261012-taupe-grebe-of-nirvana-f32c6e@quoll>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="AUjxFOJH"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33fb4680717so4423321eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:17:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1791847039; x=1792451839; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jULzgmU90GwExwiOegz46rYdLgOhwZJMHx733RDhwSw=;
+        b=AUjxFOJHMFNqdn0qSQdV+lgeYQ7Hohkc5r1F4cSK2jsT50hlnsYWRf1N1zMTf2ShuZ
+         6sIFLZ6U7ayNwu/ZKwOEi3QHWLWamBhZjiWJWKl6yQesEzy7gnbBScJhbuhG7lJqBoka
+         uO9RLNxGlEjncYrlU2P//vgRmRF2FGYW7DG18=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791847039; x=1792451839;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jULzgmU90GwExwiOegz46rYdLgOhwZJMHx733RDhwSw=;
+        b=TAa/eZj944JIBbjwESh1BcS2zsEgwahn2eFr9yhCI9t7PMuPM9q0amrYxHUnFGJ98F
+         hmePsqjJB0L/nH0ckm37xlPNhUj5pYBxjUEpz/XrrPP+xuKyrqfnckrL5qmk8itnKr4J
+         iS/sSBKAoDdrfS+wdOGhZbfU6Pbx4EBNzBnq6lxtkLBPfDT4wft93kOXPP2q99EkoNtm
+         O3p5AdLtpzXZDYIQcdXAXVamyzqzb8nILRBF76Ozu4mHiiv+I2zYXSdf9zuDfB7R3syg
+         bOh1uip1vOd79l0K8jY65l/61pYEVkCnXcVQHHZIpjFMVsJv3xmZae7I6NM2Mip+vC2Z
+         fnsA==
+X-Forwarded-Encrypted: i=1; AKwUvBzKkTWVzr90IIJIsTDeNNWco/K3VOa4KlUJQVLWAaKoc1jo26EAzWNrS04enrJm1BQBZ9Y2FVPb3UANlYg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKylnblj0LNrd0b5PndjMrr7e+I8jxVQAf9U48Ezf3mUHwZjkN3
+	P3vAVoHzPpC6uJVdAqeigETiZOaTjT0GeVV4A+rmdYdenhVKcuOwGvPN6Xmdjph1Dg==
+X-Gm-Gg: AYBFou0ug6/p6w/ngVXMTFoydklEGz1Y0aolU9sht3y4H5P2OLanY9/BOjUp6IZFZ7l
+	EqccJgrRP1qiBEvdMcqkXcdwjg58ccGTJM6v5ZAwYuohFU+GhiEl1p7XvqNzPTP9hZfyl7t9thh
+	tlCeUl4fZi9RBjKgLQF4RIlRoyI9XMZxJ7ZNNb13q6vDDx7f8OE3WT9f75GhanPp9RB8HPMbypM
+	zxraHEZl9RTaoimgVvDHBECanuLY746cPc0A1AclGSMbw47Yec470fzzCUY031jqATH+bT+KDCd
+	WK21yWFNF3ZsW3Qjj8uYUU4mC7n6/Sx1/ctn56RJZkHCVEzSRJ7hr3QHk5HdxbLOjST70DMNJiW
+	JqzpP1g/WZDNfVKXhUoIvLUDXhdpE1ieKViGBcwlTGdM4DV+d6NH62nGcaL1YHhQJitPgjjeLJ0
+	U+v33GL1+LuliE7vCUrdcP/Ox50oX6A5Cm5AykIUH3MWLeg/n8s6KYQTidajzAayCyQsJbIobcw
+	D++ycN1DdUN8meqWW9WZ9Zm7VzzL+p9r/6S8NMM50bM8TqO
+X-Received: by 2002:a05:7022:1703:b0:166:b307:5855 with SMTP id a92af1059eb24-16a4ee7e657mr14543536c88.0.1791847038615;
+        Mon, 12 Oct 2026 16:17:18 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2e7c:8:4c0f:2208:f55a:d12f])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-169a1becf08sm36095925c88.5.2026.10.12.16.17.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 16:17:17 -0700 (PDT)
+Date: Mon, 12 Oct 2026 16:17:15 -0700
+From: Brian Norris <briannorris@chromium.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org,
+	linux-iio@vger.kernel.org, Andy Shevchenko <andy@kernel.org>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Fabrice Gasnier <fabrice.gasnier@st.com>,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 3/5] PM: runtime: Propagate last_busy from dependent to
+ dependency
+Message-ID: <as1qe_J37Njol797@google.com>
+References: <20261002230714.507921-1-briannorris@chromium.org>
+ <20261002160309.3.I40c0bc917fa0b13111251844e9a54feb1d9cd7d2@changeid>
+ <asEdiIT7l49vhn7i@ashevche-desk.local>
+ <asPm6HYpEIAYJ4a3@google.com>
+ <as074Em1m9d5s1yO@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="TgNrPhrAn99G5uuB"
-Content-Disposition: inline
-In-Reply-To: <20261012-taupe-grebe-of-nirvana-f32c6e@quoll>
-X-Cookie: Double!
-
-
---TgNrPhrAn99G5uuB
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <as074Em1m9d5s1yO@ashevche-desk.local>
 
-On Mon, Oct 12, 2026 at 11:11:33AM +0200, Krzysztof Kozlowski wrote:
-> On Sat, Oct 10, 2026 at 05:43:39AM +0800, David Yang wrote:
+(Note to self: drop linux-stm32@st-md-mailman.stormreply.com from future
+postings. It's failing hard, and not (AFAICT) just because I'm not
+subscribed.) 
 
-> > +description: |
-> > +  HiSilicon STB SoCs (Hi3798cv200/mv100/mv200) provide PWM outputs in the PMOC
-> > +  block which drive an external converter.
+On Mon, Oct 12, 2026 at 10:58:24PM +0300, Andy Shevchenko wrote:
+> On Mon, Oct 05, 2026 at 11:05:28AM -0700, Brian Norris wrote:
+> > On Sat, Oct 03, 2026 at 06:21:44PM +0300, Andy Shevchenko wrote:
+> > > On Fri, Oct 02, 2026 at 04:03:07PM -0700, Brian Norris wrote:
+> 
+> ...
+> 
+> > > > Cc: Ulf Hansson <ulfh@kernel.org>
+> > > 
+> > > Can go under the '---' cutter, so it won't pollute the commit message in the
+> > > Git history.
+> > 
+> > This is a well-documented convention.
+> > 
+> > Documentation/process/submitting-patches.rst
+> > 
+> >   If a person has had the opportunity to comment on a patch, but has not
+> >   provided such comments, you may optionally add a ``Cc:`` tag to the patch.
+> >   This tag documents that potentially interested parties have been included in
+> >   the discussion.
+> > 
+> > I'm directly referencing Ulf's suggestions (Link tag), so I'm also
+> > making it explicit that I'm CC'ing him.
+> 
+> This piece of the documentation was written long time ago before we have got
+> the kernel.org controlled mailing archives (now it's lore.kernel.org). I argue
+> that this piece is outdated and we need to look at all aspects of the commit
+> message. Perhaps having one might not lead to the issue, but exempli gratia 20
+> is. I still think it should be moved to under '---' to show the good example.
 
-> SoCs rarely provide supplies for themselves (they are rather called
-> power domains in such case) and above wording suggests this is actually
-> something external. It also speaks about PWM but binding has no PWM.
+Well, it's not 20; it's 1, with a clear reason. So not sure what you're
+saying. Anyway, I've prepped that for v2.
 
-I think this is talking about something like pwm-regulator.c.
+Do you think you could propose a documentation update, if it's really so
+out-of-date with current practice?
 
-> > +        compatible = "hisilicon,hi3798cv200-regulator";
-> > +        reg = <0x8a23018 0x4>;
+FWIW, a quick look at the v7.1..v7.2 git log shows over 10,000 Cc lines
+that aren't for stable@ or similar, with over 900 different addressees,
+across roughly 1300 different commits. (For comparison, there are 17,833
+commits in v7.1..v7.2.)
 
-> And one word is rarely a device, which adds to the confusion.
+It seems like you'll have a hard job trying to apply your rule to
+everybody's changes, especially if it conflicts with the documentation.
 
-It is possible for a simple analog block...
+> > > > Signed-off-by: Brian Norris <briannorris@chromium.org>
+> > > > ---
+> > > 
+> > >  Cc: ...
+> 
+> ...
+> 
+> > > > +/*
+> > > > + * Propagate last_busy timestamp from one device to another. This can, for
+> > > > + * example, prevent overactive suspend when a dependency's usage is primarily
+> > > > + * driven by one of its dependents.
+> > > > + */
+> 
+> ^^^
+> 
+> > > But here you already have an outdated ones, no? Why is this not a problem?
+> > 
+> > The "target" device (a supplier or parent) can't suspend before this
+> > point, because the dependent device still holds a reference -- so an
+> > "outdated" last_busy is not relevant yet. The target last_busy *might*
+> > become relevant after this point, so this is the point at which it needs
+> > updated (propagated).
+> > 
+> > That's what I mean in the commit message by:
+> > 
+> >   propagate last_busy timestamps from a dependent device to its
+> >   dependencies any time it may allow a dependency to suspend -- i.e.,
+> >   when releasing a refcount for its parent or suppliers.
+> > 
+> > Please let me know if I should add some clarification somewhere --
+> > perhaps also in the comments here on rpm_propagate_last_busy()? Or if
+> > you see some other problem in the reasoning.
+> 
+> Perhaps a word to the top function comment?
 
---TgNrPhrAn99G5uuB
-Content-Type: application/pgp-signature; name="signature.asc"
+OK, I've tried to factor that into my drafts for an eventual v2.
 
------BEGIN PGP SIGNATURE-----
+Thanks!
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrNalcACgkQJNaLcl1U
-h9D9wgf/Qem+IVfXX52lhrDKT9el0dn3Z2e6uRfS94urq58Pl1LRmDlWgGKd0XXY
-Lk4OhuCtXqsLaBadv/BHnFF/1YuxnTCFdIGrH6Y919c7KdQBR5fyAhL0kW5mxn0k
-Kw/V3Hz0sux8Wc6myYoLuuXQ13Q9WY7OMvsSp6Pu1lyGwl6D3lrEJMa7YlnZA4tq
-1lfsQUvyLyBv3KvfJb/y0tQffTBb6vKSFyTISCdxqYQbZ0dtYC/9RTgTbsnznLjN
-TMmw0msnmKRDMNtBWKe56KvI5qxiniZx/veqCc5T9V61aljn7FfK8NVnf0IxDBxn
-9svpcc1DdW23Qf3E252v+mOBePekZw==
-=yDfI
------END PGP SIGNATURE-----
-
---TgNrPhrAn99G5uuB--
+Brian
