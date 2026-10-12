@@ -1,296 +1,149 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012038.outbound.protection.outlook.com [52.101.48.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE08733A70A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:37:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791801433; cv=none; b=ins5E1Ca9d77ITUyM97d9ZgJazroYWwFbQZ8K0nGbhRkjWi5sMrkKpCwHBztbtCHOTqbUibrtuSqZSFEqlrlqV7ytPhQgTCdAahB2o5iFcjk4xoLeks1k0Fx7qWDyq0svYKJiCUcddDDL2flR5hlvPbRaZqqGtbkaMLqo/Py5Fc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791801433; c=relaxed/simple;
-	bh=bQ2VgwErdXzsUtcrHwFne66TL024RzFhVTV9iw7nNRI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MQXzzJpdp/NfQDSfo0h8x1tB4FtsjThkzHiO14WlTUJGZStdoPwxoXo/3NqyrA0/o28oI5vdBTWOi0CDkQf5Afd4nlzStpMaPRoiIhSVpxkMwCDdvf2ujFS6TRYUoXw1/CkXekDtkzabj44VVu59y9Vyhyoe9G7QyopSHOqrjKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YiHz/O/k; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69EA0248F64;
+	Mon, 12 Oct 2026 10:37:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791801476; cv=fail; b=FpR4xYkq6KDp7drjzzCGzEhcMZJD6MrTPyoOUaiyY/934AtSrwPAUWQVbouw7KV+wJD0T66LLwJ5aGL7W7ED+IVQbmjFxGCt2dptGekQfo15XDZbN0ymny6UTspAgRmgr9igANmngGfBOY/FTUCQZnPM7IoZ9F1vAhEaUWItxLA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791801476; c=relaxed/simple;
+	bh=LSX2js8E/dN+qiAxFPi1ROhezKQRCIzsvL7nkav6aaM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Pba/gSk+XrQAHQsVA6xMukbTILxlZcFe84OBocsU04ikgIb77BX1PdpRKIBViFILr3Fenm8/DiHb0X994/4irZfGX09TsezNkyT0LlEpcFxS2ZpBfQRqaw+IlZMIXWSijEznOt1VxbnMK/X2oqwh+abJxRTn1t/MxT/aA669LYo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Izo2ujes; arc=fail smtp.client-ip=52.101.48.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YiHz/O/k"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c4d870d54so963712f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:37:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791801430; x=1792406230; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5UwMCsUaPcuhIF4YQXXWs7svt+B6rufSHlmQNA2woxs=;
-        b=YiHz/O/kI9mNpixzZKD14T6PDnhYZUDoxLluOg/RViMKJcVIc9xwFGAYw4hMv9ERFl
-         Nqn0vE4uXcXzC8mXr/wklUJv9HKHdAvdeWsWtlWAhYppSewlTuHsVAuTuBzfbdiZxvMc
-         SjT6g82Jr0Pl6cASPPzhAZD8rZFBSXC4/POXExVrbgTPpYDrZQWcdCdAy/jupJq0HUx/
-         c2rq0tgbqBIJHsKc8Edxow/BXn91IHimMZ+2i0vm+teAX5ozSUjgqbqbf9WMYIAPC8Nb
-         q5Lc2t/gdbS8gYP6EAKvp1UYFv+297Ui5Wl64cG/9S8CE8W7KJA0Hr+1WRxNCjenvI3O
-         rU2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791801430; x=1792406230;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5UwMCsUaPcuhIF4YQXXWs7svt+B6rufSHlmQNA2woxs=;
-        b=VwN2jED8KIL9ZWjC9arUrC1VwHb/B9d9CE1Wc90TzPluAj/Wg8yZ+Ku+RhB4gE0o2X
-         ubRLsMMALzKbikPStGdpdU+OsiMn/Degbqd0807lUCYgVVmdX3BvL8zfLqeJLHfk/psn
-         Z7ekclRDm2C/42kLQ+lsgvNco+PZMXfRqxhjILQs5+6gETm/FkMoP9SzcJB27dCIvaU5
-         9yW8cquJNY4QmnggSr4s7pq9q/eXmJxykCOpRZxb3o27mnft/39HB97XD6kyg7qzhi1d
-         me7dJKKQKA2T9e78WMZgScSXbEPacDzJjXig8KQ+eCdWGT+CFx9sVWW1L9Qo19NkfIx/
-         SZuw==
-X-Forwarded-Encrypted: i=1; AKwUvBw1yDSbD9jGYVoWC4Snf6AAfukxU3lb+z2vK5yooh1AY+W6GWxpwU86h7n2D8mntvsqm1P+gyLPHrZbFa8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqjpqz8iIR17w3Rtg71kt6QZ27VaS6HfZW8/Y8Cz6O2JMV1hC9
-	vG0UTDDXeiKFLIWRZjdothXAEfOl1Nfo4oMwwzDyCmRNjhKHCZtSLNsi
-X-Gm-Gg: AYBFou0mRGhNIrK3pJTrmasUaKJ/AYpjXgNrIhMv+ZMdv2QfwmlE/ic1/xKzYLhL7qp
-	p3FwSUfy/xa6N0oAgqNAHfFMaYIPI8CWgRG91vfvWC94z0Bs9mcyVgGcfqENZuyS2QtYPnL+zdG
-	EAkrvmuujCVV4yj3BizhQ7OtjQ3FmxIyPBJ83gxy7JLcUcIk90CgW3bm1QyF68QQnC8nijSJoBW
-	3/fIAg+aUs38qQxN9Jrlah6jCfkaD4NC+ehS5wZVYse2qsHO1WQksUjcUZTKCVMKWJKeAqoS0iN
-	AhS784HHNZF013JOjaVaZN47ul3aLZLPK7hAQOqiTTs0IH/k8D0djKC5nP0/yrejQ7tMQDI/uYM
-	eEO1aO5ey0HtnclTxHZK3YDkolkhAsXhn2MoE0qKyrAeXrHhQgrYKs+aHNQ5l/fC21XmooyBqjo
-	m4OT1+99puJ1dDTHDifMnCT2NFFQdNhsdTwbVKcga/jHt2FkmQxWpGzV0oyq5u9vxKVg==
-X-Received: by 2002:a05:6000:491c:b0:48c:7326:cf0b with SMTP id ffacd0b85a97d-48dbacfbafbmr15475205f8f.56.1791801429908;
-        Mon, 12 Oct 2026 03:37:09 -0700 (PDT)
-Received: from sparkle.lan ([86.33.83.51])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9acee65sm19443316f8f.49.2026.10.12.03.37.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 03:37:09 -0700 (PDT)
-From: =?UTF-8?q?Sini=C5=A1a=20Do=C5=A1en?= <snsdosen@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Sini=C5=A1a=20Do=C5=A1en?= <snsdosen@gmail.com>
-Subject: [PATCH] media: cx231xx: fix August VGB100 video and VBI capture
-Date: Mon, 12 Oct 2026 12:36:57 +0200
-Message-ID: <20261012103657.28574-1-snsdosen@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Izo2ujes"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=x6sov3FRVEKLjZohA/6S896OBi35klaARunakHzF28j2c8KAe1MMRwY3vkYRIJsi8dckitL44sRpbwjUIoegC9M5AxlUNtngyeCPtB+eQuJQ5efGdo1yKy/dQMmWvVQ7YFbzS8EoGF9DjQIqGDm/iYAQLDIyNW9z8dUfytZV+Y5CS1ClLUCfjZATbrz/eAMjDdRimnP53bDXzv1DiSRHZk8xyVjzyePhGePIJzOLvF9BV7rp3Ag3+X31VuYey4S9OiTTCUsGvpneg7wAEQs3j4rA7nLULa9JrrCuZig1Ui0PS1EMPahJI9q40BUTu336rMAQEe/xPftHaEb57feoog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M1muJFVwVq6Zo/jjPhDXVyUJDSNgtRV6bNRhjpR5Iqw=;
+ b=B/6CZEugtdwBOPxF6Y+HN0BdT0unzy37sCoGX2SHG7eBE2UXcWaV1kaXrt1+GY2ndaA9Mu9NBhYlVdF0/HNghFfNgpzpfrOz++9v4jSX4wJOOjLz+LtUNiQVZQ1+M5hNNcJKiNrW9rcTvyS2QCZdwrhvcs2HzaY8HExlO1OIrhZKrBrgGzTaaXJrnaRhqRR5JV2pHO/XAC8kQwi5GRzIkoRHhXuriI1toICxXTgEbIWGOtHrokZAKyswAYgCzHHCl5pr0V9PZMXusuW2a7yEE4H68dCJ/6fZqlAuYZVcEKfkmAsNuxRO/86aVP4vpERpadyo2qU0qRnEc/s6HMKkAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M1muJFVwVq6Zo/jjPhDXVyUJDSNgtRV6bNRhjpR5Iqw=;
+ b=Izo2ujesi2A1W2YR1coIpATs58/XvrvcurafrtO64nGq5c42bJaoZbxMrDsIHe4qBY97FM1JzfOayqOQ/pZC6zZqWqAJVCv3PghuOU7bmuuAZxe++sZuQvQXvvv6LbScFqcjDjEV/QnpoQwJoTARf1e7fbVkxTERVcCc3kl4R66wcz8UdSDSpbHYitXpHZ1yLlsnzOiCBey2VtQ9v85H2ZkBpWRS44C7dFezXBnr/UbBoIKTytbU9aHhIgT2kLPjdW/kgu5eniKV3N6zSvXS5yP4kWQucJ/6T23hcIghy0BjPepj5kZLC0Yay/p3lV1KI88lMIV9shpb934JQQuUXg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by DM4PR12MB6375.namprd12.prod.outlook.com (2603:10b6:8:a2::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 10:37:51 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0496.015; Mon, 12 Oct 2026
+ 10:37:51 +0000
+Date: Mon, 12 Oct 2026 13:37:42 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: Yun Zhou <yun.zhou@windriver.com>
+Cc: dsahern@kernel.org, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v5] net: erspan: set lltx to avoid sch_direct_xmit
+ deadlock
+Message-ID: <20261012103742.GA673951@shredder>
+References: <20261008093824.119453-1-yun.zhou@windriver.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008093824.119453-1-yun.zhou@windriver.com>
+X-ClientProxiedBy: TL2P290CA0011.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:2::14) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|DM4PR12MB6375:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0e1f138f-b73d-4fb9-0c2e-08df284cddc4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|10067099003|22082099003|18002099003|3023799007|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	1aAsnJfkJktdCl4Cd5id4oKDU9jiZCjAsqX9n/egtP00V/XwSOCCvCt8WlM2bGLJ2oSregVVfUNAU8k8mYd34tImm5um6w+haHAlXX+aB7Omsp/beTTvBiYmYuA03zdUzk+CopNVIk7a2yu3XE1Glr1Y1Yg4M58GpSHYGD/kljOwfDcXCMKBMS52PECCmPz/wJff6ae9jNNXsGk7bBYXL5BQFpc1WCsfpRNokLaqK+DBH70L3JXoQgZEPX1LF/okCeJTLYgk/t44TpfMjP9v5SnqTtv6pB118nLlxC9reMzwZtqoIlzygO5zQJ2sXaYyuavhxrpmcVO/VbJKYgwe3v7K7AyIIngNiRyJwn+T1znpS43L93gW2h7knDElQ3ZC8XNS4chiHBvO6DHdlJXQG8cxJYrz+hyZceVsrGS8knJdb2+Cb0hKR214and0IpfzYr/yb/PKxurGCaBxIamGum6IcVqcKNwkL0aXzyJAHk+OIQQdMVYt4OBehUpY00m32G5Ic3qeH+e777Kaq6PWvpU4sKWcdDYgbyT0I4jLcS4kt91vPxed1x8j9+DXbpl5Dy+G2u8ZDxKs3Es2H6Xh1OONFN4E3OD9SFecWdkoQ2vJF9q3H9elpt/Qjrgg8Yn6M61JSsE0cb1pKklC1HESQEmqy5rCdV0crs+If2MQY9g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(22082099003)(18002099003)(3023799007)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?nm7dsua/OvJ29NwH+MgC4iq3/l3Sg2I1gneFPJNRF9aMtdhm7WEm44fYq2K3?=
+ =?us-ascii?Q?1kVx8GN0SEF8ODbg30MmoLXpeu1LjPHZmTvwmq2shAaYS55zqiwsrLxf3jfB?=
+ =?us-ascii?Q?0hog1OUDk8YHZuHmnE7bcrO9fbwlv8M+XCI/vOUSd2wavvLkzYgKa0GmttE5?=
+ =?us-ascii?Q?4ZbDUtOAqPD4SC9ZmM1+LebBg8rManpNAb0m9kTCJqCStFngWhVb52yI9/ay?=
+ =?us-ascii?Q?XnRQBO1xjgmPRkmOZa7TDQfD4IFB/u14iAJMzbqCv1mE8vxBkHiNxJHTP687?=
+ =?us-ascii?Q?9IZUB54TayVM8AxROXCPJhln32HdzEN7eg6PSGzM2iInzh69kqCtN/I6wyIP?=
+ =?us-ascii?Q?F5OWzKW+kMCe9cef8zAKKv78ojLxVGyzFlYAOiAD8METg2XFWoa19sdm1D3x?=
+ =?us-ascii?Q?kO8CL36uMbs1JUjuXAyxXtzcKRNtaYnuNJGVaCp2Gb04TQk/UaY9z5dq00t3?=
+ =?us-ascii?Q?3Km3fchdEkaMXPI18gDizHJf24mz199p2m8yEKq8jb3fg1QGiXN4uiYR2GwK?=
+ =?us-ascii?Q?ccmTt83K8sQ2isDK/8BU4Cj/CEgNPcXdk1aAmxVUoRlT5YnvcV1X2B6fMdfl?=
+ =?us-ascii?Q?DYqmV8cmPIOZ98AOL4ef6nY5CuD4lJlZpYrZRb5C+AgNU/8YXLU480nk3Zr8?=
+ =?us-ascii?Q?kBfBWpb7rZsjebms7nY3Knj6xgGDALlxFyeool5c88LSrhJpeT834UyPduFb?=
+ =?us-ascii?Q?Ovq8FDiX9uE88Fd1eZyPsU5lT0IUOuMh091WnD3x13qfhaVA9f7zj1g0jBty?=
+ =?us-ascii?Q?zngrJuiaLSNm/6CBp6hldufJONG/OsvphN5dZFdarkgGGf+pHOud0mtH+sne?=
+ =?us-ascii?Q?1dAxkjpaRvHkP7IquFrqN1xCfIquU++nrSgnYIXwmZ6t89vy0354/XT9n9Za?=
+ =?us-ascii?Q?ve9DWlQZESOcrzYo3IZN4al6gKN9woTsXAbL8GJcFy5sT9W05gFtMdAjLRZm?=
+ =?us-ascii?Q?+xi1Nb1dFu/TrY3ySjr8WH7WRc/QytxJemBJkEbgBBeufhtaAWh9vNinpG26?=
+ =?us-ascii?Q?w5dSNwD/N4uUFCmMzA8a+fi/9V5COakyZ+7mqDg+iYg4vup1O3bQTMYhiFjC?=
+ =?us-ascii?Q?MyX70j9OQNjtXw1bqe0xJOAEP6eehS+OytI6Rw5FzKbVSjGaM8uNm/2tHICw?=
+ =?us-ascii?Q?KglJ2KVRi77RLQwgB7Pj5pi0BL1UwL4TIWln/r6scJ37W8pNTYpq9dzHrR5v?=
+ =?us-ascii?Q?S7SLlOaK39o+N2R5t63peBnuUC5o+yt8LNvgAq/ni7xNe9wZsA4LN6k4xXbA?=
+ =?us-ascii?Q?esYvgaO5RHulvhS/NKGDq5D4mpWJc0xc4QleJEOeSv3TPyAvH22hcS/ynnrR?=
+ =?us-ascii?Q?qFyQDVjp+pmHU+1qKFD0CXsJU0b+Gz2Lvn8IP0T3CaS0Seeb47RMTy1tm8Z+?=
+ =?us-ascii?Q?TgLhYWz7ypgiLYf28ohP7FKC3gNrXUGMh1FZ4CeGdfquP/RniudaHSZroBvL?=
+ =?us-ascii?Q?KQopCQzNx9A8CO1yy/kOZ7kb2V/WxwIcH1Ic7AuGB2/ySVX4+Jg5Lcjv8oj4?=
+ =?us-ascii?Q?j7qUEiR7oKysrvnqcud2oaOoLpu4E2hNmSBJjWPUA3PVXe1clk7NsaQr+voI?=
+ =?us-ascii?Q?E0WN4aKL5L6+HpeghOUqyV3Byte1EoPfcag7pMPNmfWpVGltd2Wl/phBbxB4?=
+ =?us-ascii?Q?FEKSGIDBGEAvds04Qxa3Mng1I+4Hjkhdd5uo+Lp/x1DfRroRElackt5eDuv2?=
+ =?us-ascii?Q?FfbwjSIpkoPZT8e/MWa3QeHmmj4srorrVLkpdly3Odp619Eu?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e1f138f-b73d-4fb9-0c2e-08df284cddc4
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 10:37:51.4587
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bmLWmRnnSVdC5U50vsV94S00J5ho6/rn1eUSLA9NW2lwHGKB0/qmTnajRkBAe0atiHJUIrCx4arPSykkaYiQTg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6375
 
-Devices sold as the August VGB100 exist in at least two hardware
-revisions, although both use USB ID 1f4d:0102. The Windows driver INF
-also contains separate entries for two VGB100 revisions. The unit tested
-here reports bcdDevice 0x4002.
+On Thu, Oct 08, 2026 at 05:38:24PM +0800, Yun Zhou wrote:
+> The ERSPAN xmit path re-enters the network stack, causing nested
+> acquisition of _xmit_lock on the underlay device while already holding
+> the ERSPAN device's _xmit_lock, creating an ABBA deadlock. This happens
+> for both IPv4 ERSPAN (erspan_xmit() -> ip_tunnel_xmit()) and IPv6 ERSPAN
+> (ip6erspan_tunnel_xmit() -> ip6_tnl_xmit()):
+> 
+>   sch_direct_xmit [lock erspan] -> erspan_xmit -> ip_tunnel_xmit ->
+>   ip_output -> __dev_queue_xmit -> sch_direct_xmit [lock underlay]
+> 
+>   sch_direct_xmit [lock erspan] -> ip6erspan_tunnel_xmit -> ip6_tnl_xmit ->
+>   ip6_output -> __dev_queue_xmit -> sch_direct_xmit [lock underlay]
+> 
+> Set dev->lltx = true so HARD_TX_LOCK() skips the spinlock for ERSPAN.
+> This is safe as the ERSPAN xmit path has no shared mutable state: o_seqno
+> is atomic, TX stats are per-CPU u64_stats, dst_cache is per-CPU, and
+> o_flags is no longer modified in the xmit path since commit 9958e69b9893
+> ("gre: fix ERSPAN o_flags race/corruption in xmit and fill_info").
+> GRETAP, the sibling device with identical xmit structure, already sets
+> lltx.
+> 
+> Reported-by: syzbot+9bda1b9fbb7fbdf9b62b@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=9bda1b9fbb7fbdf9b62b
+> Fixes: 84e54fe0a5ea ("gre: introduce native tunnel support for ERSPAN")
+> Fixes: 5a963eb61b7c ("ip6_gre: Add ERSPAN native tunnel support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
 
-Linux support for this USB ID was originally added for the Geniatech
-OTG102/EZGrabber2. A later patch fixed S-Video capture on an August
-VGB100 by correcting the input routing from the VGB100 and OTG102
-Windows INF files. That profile provides working video on an older
-VGB100 unit, but it does not initialize the 0x4002 revision correctly.
-The older unit also showed URB errors and could become unresponsive when
-capturing raw VBI.
-
-On the 0x4002 revision the generic profile leaves the analog front end
-with the wrong reference tuning, so the decoder cannot lock reliably to
-a PAL signal. Once that is corrected, cx25840 reports 720x572 while the
-bridge delivers complete 720x576 frames, causing applications to reject
-the captured buffers.
-
-Raw VBI capture also exposes two bugs in the common cx231xx code. The
-parser stops making progress after discarding a surplus VBI line, which
-leaves readers waiting indefinitely despite continuing USB traffic. VBI
-URBs can also remain active while their vb2 buffers are returned during
-stream shutdown.
-
-This change adds a board profile for bcdDevice 0x4002 while leaving the
-existing OTG102 profile as the fallback for the older revision. It uses
-the AFE reference tuning and frame geometry required by the new hardware,
-corrects the raw VBI parser state, stops URBs before returning buffers,
-and avoids reinitializing the analog path when userspace reselects the
-active input.
-
-The result was tested on the 0x4002 VGB100 with 720x576 YUYV video at
-25 fps and raw PAL VBI capture at 1440 samples over 36 lines per frame.
-
-Signed-off-by: Siniša Došen <snsdosen@gmail.com>
----
- drivers/media/usb/cx231xx/cx231xx-avcore.c | 14 +++++++++++++
- drivers/media/usb/cx231xx/cx231xx-cards.c  | 24 ++++++++++++++++++++++
- drivers/media/usb/cx231xx/cx231xx-vbi.c    | 18 ++++++++++++----
- drivers/media/usb/cx231xx/cx231xx-video.c  | 12 +++++++++--
- drivers/media/usb/cx231xx/cx231xx.h        |  1 +
- 5 files changed, 63 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/media/usb/cx231xx/cx231xx-avcore.c b/drivers/media/usb/cx231xx/cx231xx-avcore.c
-index 0a5c635..fb71e39 100644
---- a/drivers/media/usb/cx231xx/cx231xx-avcore.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-avcore.c
-@@ -348,6 +348,7 @@ int cx231xx_afe_update_power_control(struct cx231xx *dev,
- 	case CX231XX_BOARD_HAUPPAUGE_USB2_FM_PAL:
- 	case CX231XX_BOARD_HAUPPAUGE_USB2_FM_NTSC:
- 	case CX231XX_BOARD_OTG102:
-+	case CX231XX_BOARD_AUGUST_VGB100:
- 		if (avmode == POLARIS_AVMODE_ANALOGT_TV) {
- 			while (afe_power_status != (FLD_PWRDN_TUNING_BIAS |
- 						FLD_PWRDN_ENABLE_PLL)) {
-@@ -932,6 +933,18 @@ int cx231xx_set_decoder_video_input(struct cx231xx *dev,
- 		status = vid_blk_write_word(dev, OUT_CTRL1, value);
- 	}
- 
-+	/*
-+	 * The generic setup derives TUNE1 from the reference clock and leaves
-+	 * 0x42 here.  The VGB100 40.02 analogue front end requires 0xbe;
-+	 * otherwise its decoder never acquires horizontal sync.
-+	 */
-+	if (dev->model == CX231XX_BOARD_AUGUST_VGB100 &&
-+	    pin_type == CX231XX_VMUX_COMPOSITE1) {
-+		status = afe_write_byte(dev, SUP_BLK_TUNE1, 0xbe);
-+		if (status < 0)
-+			return status;
-+	}
-+
- 	return status;
- }
- 
-@@ -1729,6 +1742,7 @@ int cx231xx_dif_set_standard(struct cx231xx *dev, u32 standard)
- 	case CX231XX_BOARD_CNXT_VIDEO_GRABBER:
- 	case CX231XX_BOARD_HAUPPAUGE_EXETER:
- 	case CX231XX_BOARD_OTG102:
-+	case CX231XX_BOARD_AUGUST_VGB100:
- 		func_mode = 0x03;
- 		break;
- 	case CX231XX_BOARD_CNXT_RDE_253S:
-diff --git a/drivers/media/usb/cx231xx/cx231xx-cards.c b/drivers/media/usb/cx231xx/cx231xx-cards.c
-index 69b2420..7ce160d 100644
---- a/drivers/media/usb/cx231xx/cx231xx-cards.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-cards.c
-@@ -685,6 +685,28 @@ struct cx231xx_board cx231xx_boards[] = {
- 			}
- 		},
- 	},
-+	[CX231XX_BOARD_AUGUST_VGB100] = {
-+		.name = "August VGB100",
-+		.tuner_type = TUNER_ABSENT,
-+		.decoder = CX231XX_AVDECODER,
-+		.output_mode = OUT_MODE_VIP11,
-+		.ctl_pin_status_mask = 0xFFFFFFC4,
-+		.agc_analog_digital_select_gpio = 0x0c,
-+		.gpio_pin_status_mask = 0x4001000,
-+		.norm = V4L2_STD_PAL,
-+		.no_alt_vanc = 1,
-+		.external_av = 1,
-+		.input = {{
-+			.type = CX231XX_VMUX_COMPOSITE1,
-+			.vmux = CX231XX_VIN_2_1,
-+			.amux = CX231XX_AMUX_LINE_IN,
-+		}, {
-+			.type = CX231XX_VMUX_SVIDEO,
-+			.vmux = CX231XX_VIN_1_1 |
-+				(CX231XX_VIN_3_2 << 8),
-+			.amux = CX231XX_AMUX_LINE_IN,
-+		} },
-+	},
- 	[CX231XX_BOARD_HAUPPAUGE_930C_HD_1113xx] = {
- 		.name = "Hauppauge WinTV 930C-HD (1113xx) / HVR-900H (111xxx) / PCTV QuatroStick 521e",
- 		.tuner_type = TUNER_NXP_TDA18271,
-@@ -1061,6 +1083,8 @@ struct usb_device_id cx231xx_id_table[] = {
- 	 .driver_info = CX231XX_BOARD_ICONBIT_U100},
- 	{USB_DEVICE(0x0fd9, 0x0037),
- 	 .driver_info = CX231XX_BOARD_ELGATO_VIDEO_CAPTURE_V2},
-+	{USB_DEVICE_VER(0x1f4d, 0x0102, 0x4002, 0x4002),
-+	 .driver_info = CX231XX_BOARD_AUGUST_VGB100},
- 	{USB_DEVICE(0x1f4d, 0x0102),
- 	 .driver_info = CX231XX_BOARD_OTG102},
- 	{USB_DEVICE(USB_VID_TERRATEC, 0x00a6),
-diff --git a/drivers/media/usb/cx231xx/cx231xx-vbi.c b/drivers/media/usb/cx231xx/cx231xx-vbi.c
-index 338e101..63db257 100644
---- a/drivers/media/usb/cx231xx/cx231xx-vbi.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-vbi.c
-@@ -234,6 +234,8 @@ static void vbi_stop_streaming(struct vb2_queue *vq)
- {
- 	struct cx231xx *dev = vb2_get_drv_priv(vq);
- 
-+	/* Stop URB callbacks before returning their destination buffers. */
-+	cx231xx_uninit_vbi_isoc(dev);
- 	return_all_buffers(dev, VB2_BUF_STATE_ERROR);
- }
- 
-@@ -499,8 +501,12 @@ u32 cx231xx_copy_vbi_line(struct cx231xx *dev, struct cx231xx_dmaqueue *dma_q,
- 		cx231xx_reset_vbi_buffer(dev, dma_q);
- 	}
- 
--	if (dma_q->current_field != field_number)
-+	if (dma_q->current_field != field_number) {
-+		/* Drop any incomplete surplus line from the previous field. */
- 		dma_q->lines_completed = 0;
-+		dma_q->bytes_left_in_line = _line_size;
-+		dma_q->is_partial_line = 0;
-+	}
- 
- 	/* get the buffer pointer */
- 	buf = dev->vbi_mode.bulk_ctl.buf;
-@@ -514,9 +520,13 @@ u32 cx231xx_copy_vbi_line(struct cx231xx *dev, struct cx231xx_dmaqueue *dma_q,
- 
- 	if (dma_q->lines_completed >= dma_q->lines_per_field) {
- 		dma_q->bytes_left_in_line -= bytes_to_copy;
--		dma_q->is_partial_line =
--		    (dma_q->bytes_left_in_line == 0) ? 0 : 1;
--		return 0;
-+		if (dma_q->bytes_left_in_line == 0) {
-+			dma_q->bytes_left_in_line = _line_size;
-+			dma_q->is_partial_line = 0;
-+		} else {
-+			dma_q->is_partial_line = 1;
-+		}
-+		return bytes_to_copy;
- 	}
- 
- 	dma_q->is_partial_line = 1;
-diff --git a/drivers/media/usb/cx231xx/cx231xx-video.c b/drivers/media/usb/cx231xx/cx231xx-video.c
-index 70aa99f..4fd31ab 100644
---- a/drivers/media/usb/cx231xx/cx231xx-video.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-video.c
-@@ -912,6 +912,10 @@ static int vidioc_s_fmt_vid_cap(struct file *file, void *priv,
- 	call_all(dev, pad, set_fmt, NULL, &format);
- 	v4l2_fill_pix_format(&f->fmt.pix, &format.format);
- 
-+	/* The DMA engine keeps the requested 576-line PAL geometry. */
-+	if (dev->model == CX231XX_BOARD_AUGUST_VGB100)
-+		vidioc_g_fmt_vid_cap(file, priv, f);
-+
- 	return rc;
- }
- 
-@@ -1065,13 +1069,17 @@ int cx231xx_s_input(struct file *file, void *priv, unsigned int i)
- {
- 	struct cx231xx *dev = video_drvdata(file);
- 
--	dev->mode_tv = 0;
--
- 	if (i >= MAX_CX231XX_INPUT)
- 		return -EINVAL;
- 	if (0 == INPUT(i)->type)
- 		return -EINVAL;
- 
-+	/* Reapplying the vendor profile disturbs an active raw VBI stream. */
-+	if (dev->model == CX231XX_BOARD_AUGUST_VGB100 &&
-+	    i == dev->video_input)
-+		return 0;
-+
-+	dev->mode_tv = 0;
- 	video_mux(dev, i);
- 
- 	if (INPUT(i)->type == CX231XX_VMUX_TELEVISION ||
-diff --git a/drivers/media/usb/cx231xx/cx231xx.h b/drivers/media/usb/cx231xx/cx231xx.h
-index 19f5036..1cb08ec 100644
---- a/drivers/media/usb/cx231xx/cx231xx.h
-+++ b/drivers/media/usb/cx231xx/cx231xx.h
-@@ -70,6 +70,7 @@
- #define CX231XX_BOARD_THE_IMAGING_SOURCE_DFG_USB2_PRO 25
- #define CX231XX_BOARD_HAUPPAUGE_935C 26
- #define CX231XX_BOARD_HAUPPAUGE_975 27
-+#define CX231XX_BOARD_AUGUST_VGB100 28
- 
- /* Limits minimum and default number of buffers */
- #define CX231XX_MIN_BUF                 4
--- 
-2.56.0
-
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
