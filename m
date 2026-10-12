@@ -1,123 +1,100 @@
-Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com [203.205.221.240])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75D534B1AD;
-	Mon, 12 Oct 2026 14:38:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.240
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8687476CD8
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:38:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815914; cv=none; b=ljxzC5nH8U9z+BflMBFOCipCPmPce1I9+jCxJu+AXJ1z9fhWBOxre5ucxmy3Ed9pYVuS+9wGy/rLhU9hXsxY93frfVj+m9JlZAunnomuPExWXBAFfHctbkJMlHy+RNGUNQQ5rdBOwGIHQUgz7dM7472fXF5hXrSXKZ2dB3zh4G8=
+	t=1791815919; cv=none; b=i9pQRwvQHXXAT+obcs8Qr0u5omjI7EyHXlAb3h/+x168hFYQmDmupf22d6XBRgxpGRGmzTyEcze+vy9ULeRA7ffAKKSYJPSWyejbnhZoDysiabXJBy3+8QTlqM6m6OwcZX3ENPcfsVEBXDDWJmqSX/FZwpvUNt0zODO7AqgEcXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815914; c=relaxed/simple;
-	bh=fJT2LAsI+66sPFPMBf1dktBnPkHklTuThSGYqJPWSjE=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=sM+BkrmCdOWULKSA3m5kfiRNpvBtK4QCjFpOZLz9JX4J9fb9QRgEXL92R0obFo76NclQSXD/n5xFe+Q1/QpUznPl6iYTB6m28QCg7UJ5o4w0e+e6CursR5GunB6GF/cMBQCbXlklZKrbrQOPUw2I2aGNEDuyb8YdtmisoiYKFTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=AlYcDTV/; arc=none smtp.client-ip=203.205.221.240
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1791815919; c=relaxed/simple;
+	bh=N1/l8Kla8P7IehtK8R0KBpqpGIIP3xRru5dPvuwTpUc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WsJ9ZLWfxvX0MH4i8HHjm3XeS/Nh8fKgyNBAX81BcarI8HkrXgyuWsF5dYi44PbPMGbW9D5lwd38aNO3cxjFr6+9fhEdvv4HkzlhobA86eAGMVpOmebw/Za7+QgJQaBh49fvvPXhw/bZiaf+oAP8hIQpeAOf4pxvLfiFtTdjrj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N3gB+sVL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="AlYcDTV/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791815907; bh=LNKxzpmjCEP+a7Nq3MoOesUompTT9/8E11oGyH877mw=;
-	h=From:To:Cc:Subject:Date;
-	b=AlYcDTV/ZJGc7tH9shlyHISH2a2ej7jSMRs4n0K7oDzrA1FoykBJv7TAkKdA6uHel
-	 hsfiW0bAwX1kNzihTAuhUTKwZ0r2Byk4qd4UsvQp63kMPiparYH29nIkcVsiEvFtpK
-	 JnpdfSF+iM7JFERnsvleMXHyF2iqHT4xADctI4S0=
-Received: from [172.18.4.77] ([61.136.26.103])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 998A66E1; Mon, 12 Oct 2026 22:38:24 +0800
-X-QQ-mid: xmsmtpt1791815906tn2pvg8za
-Message-ID: <tencent_96F9E846FDA4A67FF38C7C393D985A44690A@qq.com>
-X-QQ-XMAILINFO: MqswyhUqVe0CMd58NaO3KRHK5Me+Ff/PQx2OUdIRQGbYr0iTDfhHMoVzJesUVW
-	 YJDax+US8HQK/uWcO2/knzxf0Ueudc9AnOmYNmjrKq7JEPV7ixSNhulbssAhFG7ov2ibB3KGk8S4
-	 BnSkXmKmxWEawPDaZICN4wTqjMZz1HRHpn04btjfWverex5r1DBmfja7yy9tHH9VGoJjO8QHxIY1
-	 2jH5I1BNtfj+EGoVYAWNCdpyWpfnkaiIOFh5HX0wcWhA/f+wEfk+Pmj03ByQEyl2biBxeaNQA5Uu
-	 XeG11SSsBv7yEGFD28746ZNpTRn3IgwE/g9OU02N6fFl4bNtDRbyKGTpyLOR+Hx/9IvxuSe7KsBN
-	 JHIX9WpyI7VSNJqNOlce+vVf16rlkZVd+K+2fPxHeOUFTjwFzYwKIW0SzNeZ8MmPrYXHN7gyE6ka
-	 bXjHMrQImGHGgZKGggly0gCXrdjcNtxogIrZoBWwX9YdxpibYuyf6MaQ7N40C3cUWTKRIupHHvOQ
-	 F0UvgrCdPeAaRVg5ChUHoGCjFFdqMok0z6BzGyqavKywYYLHutTDItzDN40+pxcAZdK69ZIoWsXi
-	 biKTi1xfRNZ5kX6FJpL8/QO2rf6ZEkiVSrx7yO5ygOTqLI2ys/ZtlsgxiL2uf7AckY864TQdYIA2
-	 9Yt3v8D/+C0D5pUY17EUZLOE4DdGkCE9bdKxMurkyLRz0YEnFHDlETYQpmJ385GKGx+kxvpupFhD
-	 CTAuyXMektDavDUCOy8eroqMM/va+qOf4pVfyMayxCsn9r3MUNGzfyREfIgkXDFQhQYERBnLI3s2
-	 UX64Hgq9SS5E2dOnsUXLt4sqWxbBshUQJS8wdIunrOEHAYuA49Te5uCiP4yYWyt6+VqsgpuBKnyw
-	 IqaYXbIfdSFWkm5l92uwpwKqo8NwB9k5Hie8yIhzLnZwXv0rV0y8rQV4J/N2pNajqfUQxRkU2q/X
-	 jZVnrWQ7TUV6/PBnnwLi3mRByNSv83b0ZJBXL3d0L9Ig35vYRzhk5wk/QPz9RZcWeLc87t/I3Seo
-	 YlDdAx3im3j+cqe68peBzOCm3VOVdvoXo5K7wbaPTO09Qn1f/A
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: 1sh1ro <yangguikun19@qq.com>
-To: Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>
-Cc: Ondrej Mosnacek <omosnacek@gmail.com>, selinux@vger.kernel.org, linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [BUG REPORT] selinux: general protection fault in avtab_search_node() during an AVC lookup
-Date: Mon, 12 Oct 2026 22:38:24 +0800
-X-OQ-MSGID: <20261012223824.41804-2-selinux-avtab@yangguikun19.qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N3gB+sVL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8739C1F0089B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:38:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791815918;
+	bh=tuPxZXuGLU7wX3l3pKMP81CnZG4Db7ko04WR+gDObKM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=N3gB+sVLglxV1K+/5Z+DJ9Fu2/7soPIUqCVSC80c0NMqo7I4PxDqAN8ajMtJd6j40
+	 NUOA1MOAzQ3H6xPVJt5sW/t88+VtzyySuxAbui7MfKbYx9NpY+clMh9YaFoHC67zuu
+	 B0bhgNTv/1RdvzWTN5fPFWGM3xdWVA8j+PoZZvTsmpMxnFGXw8q4k9cB2Z8VMSPwGr
+	 Z2pjUa4bMLRkuvGYBx2lDmMA6pjY0mCGxw4tbhhy7ZRA9h+iG+Fr3S0nmZwgJjyfue
+	 Sxh/ZbD/s8THBWmUeB7B9ueWUl1j9rI07wx0Cgnxn681isHmTYGnroXcOxuer2Lo+K
+	 mi2RhUFqmuKfQ==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so1361531e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:38:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByBatc5GsgwinUKVXOdyHyoJ9xLzcVqBjZ8tkCd8JIWtswHyCFj5OroPplOHDdF326Ti3U9UsmIspb8BIo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzLj4VpxdaTBoCLQSikCy8AhjNoP+9q01yHNd2Ans9vtzrNRiQ
+	DY1NiM2lVbaILRDbN3VV2zzzilWjwm3f+sVbFbuYwz4scQ6wjSNUFATODyN/Olir5WIAug1kwTb
+	qy5JvMjlQWLYqlEYIDDUKUt8JGwBwW9A=
+X-Received: by 2002:a05:6512:31ca:b0:5b8:efa9:b822 with SMTP id
+ 2adb3069b0e04-5bcde8d0c43mr3653296e87.52.1791815917004; Mon, 12 Oct 2026
+ 07:38:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20261007165840.1604136-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+ <20261007165840.1604136-4-sathyanarayanan.kuppuswamy@linux.intel.com>
+In-Reply-To: <20261007165840.1604136-4-sathyanarayanan.kuppuswamy@linux.intel.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 12 Oct 2026 16:36:32 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gURgKAU9tvgMhy9KvUEKWLrPSUA5mCd4hs+9ZfrZsbnw@mail.gmail.com>
+X-Gm-Features: AclHuK8WHhhyNVu1g8Iokcs3OmI2nvd96ZylRDnDO6gW49A3hr0YCq8qwXXEib8
+Message-ID: <CAJZ5v0gURgKAU9tvgMhy9KvUEKWLrPSUA5mCd4hs+9ZfrZsbnw@mail.gmail.com>
+Subject: Re: [PATCH 3/4] PCI/ACPI: Request DPC control only together with AER control
+To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Lukas Wunner <lukas@wunner.de>, Mahesh J Salgaonkar <mahesh@linux.ibm.com>, 
+	"Oliver O'Halloran" <oohall@gmail.com>, Len Brown <lenb@kernel.org>, linux-pci@vger.kernel.org, 
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Paul, Stephen,
+On Wed, Oct 7, 2026 at 6:58=E2=80=AFPM Kuppuswamy Sathyanarayanan
+<sathyanarayanan.kuppuswamy@linux.intel.com> wrote:
+>
+> PCI Firmware r3.3, sec 4.5.2.4, requires the OS to request AER control
+> when it requests DPC control.  calculate_control() requests DPC control
+> whenever CONFIG_PCIE_DPC is enabled, even if it does not request AER
+> control, e.g., with "pci=3Dnoaer" or when MSI is disabled.
+>
+> Request DPC control only if AER control is also requested.
+>
+> Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@lin=
+ux.intel.com>
 
-fuzzing with syzkaller on a 7.3.0-rc5 KASAN kernel (SELinux enabled,
-permissive) produced a general protection fault in avtab_search_node() from
-the AVC lookup path.  The policy's avtab appears to contain garbage: the
-first fault reads a non-canonical address, and it is followed by thousands
-of further Oopses (8850 in this run) as later lookups keep hitting the
-broken structure.
+Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
 
-The crash
----------
-
-Oops: general protection fault, probably for non-canonical address 0xe06f3dc280000000: 0000 [#1] SMP KASAN NOPTI
-KASAN: maybe wild-memory-access in range [0x037a0e1400000000-0x037a0e1400000007]
-CPU: 1 UID: 0 PID: 14271 Comm: systemd-udevd Not tainted 7.3.0-rc5 #2 PREEMPT(lazy)
-Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:avtab_search_node+0x24d/0x4d0
-Call Trace:
- <TASK>
- cond_compute_av+0x59/0x340
- context_struct_compute_av+0x7f2/0x11f0
- security_compute_av+0x558/0xd60
- avc_compute_av+0x86/0x820
- avc_perm_nonode+0x9b/0x170
- avc_has_perm+0x27b/0x2f0
- selinux_inode_follow_link+0x226/0x380
- security_inode_follow_link+0x96/0xe0
- pick_link+0x447/0x1570
- step_into_slowpath+0x928/0xdd0
- link_path_walk+0xdae/0x1b20
- path_lookupat+0x70/0xb80
- filename_lookup+0x213/0x5e0
- filename_setxattr+0x89/0x1b0
- path_setxattrat+0x1cc/0x2a0
- __x64_sys_setxattr+0xc6/0x140
- do_syscall_64+0xec/0x4e0
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
- </TASK>
-
-Context
--------
-
-- The task is systemd-udevd (uid 0) in setxattr() (ORIG_RAX 0xbc), which
-  follows a symlink while walking the path; the first AVC decision for the
-  symlink hits the corrupt avtab.
-- The same crash appeared on three runs of this fuzzing instance:
-  2026-10-08 23:39 UTC, 2026-10-12 04:50 UTC and 2026-10-12 10:48 UTC.
-- The kernel log of the crashing run shows only avc denials
-  (permissive=1) and no policy (re)load, so the avtab was already corrupt
-  when this lookup happened.  From this run alone I cannot tell whether the
-  corruption originates in SELinux or comes from an unrelated memory
-  corruption bug in the same fuzzing session (that instance also produced
-  unrelated memory-safety crashes around the same time).
-- No reproducer: the instance ran with syzkaller's reproduce disabled.  I
-  can rerun it with reproduce enabled if you would like one.
-
-7.3-rc5 already contains the recent policy-load validation fixes (class and
-permission counts, level category sets, boolean values), so this looks like
-a separate instance of the avtab-corruption family rather than one of those.
-
-Thanks,
-1sh1ro
-
+> ---
+>  drivers/acpi/pci_root.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/acpi/pci_root.c b/drivers/acpi/pci_root.c
+> index b0e0b33e3254..5c674d5b6bb8 100644
+> --- a/drivers/acpi/pci_root.c
+> +++ b/drivers/acpi/pci_root.c
+> @@ -516,8 +516,12 @@ static u32 calculate_control(void)
+>          * the PCI Firmware Spec, r3.2, sec 4.5.1, table 4-5,
+>          * OSC_PCI_EXPRESS_DPC_CONTROL indicates the OS supports both DPC
+>          * and EDR.  EDR is always built with DPC on ACPI systems.
+> +        *
+> +        * PCI Firmware r3.3, sec 4.5.2.4, requires the OS to request AER
+> +        * control while requesting DPC control.
+>          */
+> -       if (IS_ENABLED(CONFIG_PCIE_DPC))
+> +       if (IS_ENABLED(CONFIG_PCIE_DPC) &&
+> +           (control & OSC_PCI_EXPRESS_AER_CONTROL))
+>                 control |=3D OSC_PCI_EXPRESS_DPC_CONTROL;
+>
+>         return control;
+> --
+> 2.43.0
+>
