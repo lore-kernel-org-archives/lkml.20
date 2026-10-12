@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB47B4BFE8D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0804C10DA;
 	Mon, 12 Oct 2026 17:32:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791826378; cv=none; b=qpmu4fvhYm3nBRKiisBxZ49iLST+gH+t15xTPxN+jOdnxTI4nVj8WLJOoufKTj5R8td58q7HgQnnQ1wHawqux+KxWe+ptXywkeK8qkjEbZcvvil3fPLkjQgfHFlXsEviPdDOcbKd/Oht/msmLUgVA8m30BK8Xdcw29seF3aajLc=
+	t=1791826379; cv=none; b=ERjyIXu99/HByB8L5+9C6JZCV59qzeAJeNH+TMftvjPFo9lJBEuT4AnpSsWqpKk6XVvkc8F6Jrk0Ip1MsIzEXBuue+bDxXnh/UcEVeGQXpWlJ2O+lEwKdftzG4McMXR8RJFaX6adyz4A2Fkzedhvj9qydy1noWuoKeWLw5FUIJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791826378; c=relaxed/simple;
-	bh=2K57Ukhh2ZtD8p9cC8o3YJWWaJ88JHj5YgPFCwXr2bY=;
+	s=arc-20240116; t=1791826379; c=relaxed/simple;
+	bh=fH9Kfvz9BxN/X6lf8vavcMwm5AFooycimNuX17Ck7qg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OUF+inF+AiQZWNrscsh//w5+wqQIpaDZauQnx24xF29NAy08Lsl1SB0w3ZBDZQVkG//OOxGrAASJk1rT7vHdaHeST31k7/RRQee4SLfNL8X19VSYV0M1mxSxi6og9KaY/fmsBgKTInnm9k1Zjxh0oo7IkVyATp5P2Orj1b+9m9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8PjPJRG; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=hWlsQRpEFBuyBbDbegFMgtRP2y2rivIBZRc0cJVtSVeA3HJ7Iy2DsUWFEuYwxs4vPWCOINqG+dVBz8GuMeMpQUe8pW8kUEsLFy17JzO3DPVZVdaC0kxeTwHQ5uDob9qhun/XA55Q10CGbqyh4qUv4EmLTucgNGMBKjWpUFC8zsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DrdPlbVp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8PjPJRG"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AB237C2BCC7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DrdPlbVp"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C4F8FC2BD01;
 	Mon, 12 Oct 2026 17:32:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791826378;
-	bh=2K57Ukhh2ZtD8p9cC8o3YJWWaJ88JHj5YgPFCwXr2bY=;
+	bh=fH9Kfvz9BxN/X6lf8vavcMwm5AFooycimNuX17Ck7qg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=I8PjPJRGRTdAZvGIq5e/tseE1Rn3L0aEiLkuZIzEcj0ta7YSTHHqUQdZuT7EuplLf
-	 sjq8Ahc2Q5fBuEF2HU5RiUVHsKG2P9pEuyG4FEL9VeJGHEk8sxvPVqtHX4kZpFHCyz
-	 oi76LreSbH93y/4ZYypP6p2TOJkzOZlLvzwcvIC/lLnF7EAjLK8r4X5TqLpzvB55oF
-	 apQIsaw8upMLYpSryWotvd3jWvD25Exhs9ITRZV7ryu7mcf1lX1yEcxSMQto2j1Cbe
-	 W1J9pvEkLoO1n+uc8IshALSiEObv8TAF/NHpFS2YcuLrFrBqsWgAL+aeTB+EqAAWCZ
-	 R1T4Jj4FCStvQ==
+	b=DrdPlbVpK9xyvtpJqjZRGZmTtPV9RAy7bnHE6Z+LkPPcfflC4CmOHfnOpMXKeJOfM
+	 jOrjq5A2NdHa+lTNtv/MZK4mjaUWk0cnEkCjlak2TSJd0gpUonJIKq0b0tlm6j0wMO
+	 qpo4RkeS8tT8RjgKHvBfXr0PInwo1H/JQi3Zn/eFQgVCPAoR5czCyHf7BRq8PMrUsc
+	 lZ0RWnpAi0iWgcEeAU/8JUSYo9zYDoPATYtpBdOmmLt+fhels0bCxqgQgmyZiMlwmz
+	 gc6dnMwd1e6W3tc8wW4abdt5gaiJA1fxioX+dGxuH8WGPwzOsazERZsM6AZ5zw31GO
+	 UQKKULMue/2OQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97D07CA9ED0;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ACCE4CA9EDE;
 	Mon, 12 Oct 2026 17:32:58 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Mon, 12 Oct 2026 20:33:04 +0300
-Subject: [PATCH 09/11] ARM: dts: cortina: almondplus: Add reset button and
- enable I2C
+Date: Mon, 12 Oct 2026 20:33:05 +0300
+Subject: [PATCH 10/11] ARM: multi_v7_defconfig: Enable Cortina Systems
+ CS75xx GPIO, I2C and TWD watchdog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-b4-cs75xx-s2-v1-9-8a7641b7b79c@gmail.com>
+Message-Id: <20261012-b4-cs75xx-s2-v1-10-8a7641b7b79c@gmail.com>
 References: <20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com>
 In-Reply-To: <20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com>
 To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
@@ -56,11 +56,11 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org, 
  Fil Dunsky <filipp.dunsky@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791826375; l=1441;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791826375; l=1224;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=2Dx/b8/3JsG/5KBFCzsSYSUq7LHO1maolj27mYLmFbc=;
- b=XWXbANLAClu8iyD8TTsgycP74bTBmdKiyDLudB2hH8j1YjH5+rTRpJOhQFTQTtmjisBqTZn1r
- ikhfSV3SYYgAxpwOP/Igf7+GbMZursjO7mDSWY2rjY8Vzx6VmgWbZCm
+ bh=MUeH/IRw5kyuG0JD1ac38OtCmIzMZqOUsJQbjBgyrHs=;
+ b=SNf8wEToz4B2uynbNl9qa7UzIlGMp+SMQVfnf+94Fi+2mxpSi4lBHy0gcQ5GKXY7oCcGjAMFA
+ N8mizfMeqI0CSOBviXEUbceoF5rj6Q1ZrwGpRiqkbxAJHp64U7Sm/qy
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -70,62 +70,43 @@ Reply-To: filipp.dunsky@gmail.com
 
 From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-The pinhole button on the back of the Almond+ is connected to GPIO 37
-(bank 1, line 5), active low. The stock firmware uses it for restart
-and factory reset.
-
-Enable the I2C bus, which has the touchscreen controller on it; the
-touchscreen itself will be added together with its driver changes.
+Enable the GPIO and I2C drivers of the Cortina Systems CS75xx SoCs and
+the ARM TWD watchdog driver, which is needed on the Securifi Almond+
+because its bootloader starts the watchdog.
 
 Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- .../boot/dts/cortina/cs7542-securifi-almondplus.dts   | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ arch/arm/configs/multi_v7_defconfig | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/arch/arm/boot/dts/cortina/cs7542-securifi-almondplus.dts b/arch/arm/boot/dts/cortina/cs7542-securifi-almondplus.dts
-index e2988c687..0619bd754 100644
---- a/arch/arm/boot/dts/cortina/cs7542-securifi-almondplus.dts
-+++ b/arch/arm/boot/dts/cortina/cs7542-securifi-almondplus.dts
-@@ -5,6 +5,9 @@
- 
- /dts-v1/;
- 
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+
- #include "cs7542.dtsi"
- 
- / {
-@@ -19,6 +22,16 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	keys {
-+		compatible = "gpio-keys";
-+
-+		button-reset {
-+			label = "reset";
-+			gpios = <&gpio1 5 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_RESTART>;
-+		};
-+	};
-+
- 	memory@0 {
- 		device_type = "memory";
- 		reg = <0x00000000 0x20000000>;
-@@ -50,6 +63,12 @@ &apb_clk {
- 	clock-frequency = <150000000>;
- };
- 
-+&i2c {
-+	clock-frequency = <400000>;
-+
-+	status = "okay";
-+};
-+
- &uart0 {
- 	status = "okay";
- };
+diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
+index 23f144359..9a161f8bd 100644
+--- a/arch/arm/configs/multi_v7_defconfig
++++ b/arch/arm/configs/multi_v7_defconfig
+@@ -423,6 +423,7 @@ CONFIG_I2C_ASPEED=m
+ CONFIG_I2C_AT91=m
+ CONFIG_I2C_BCM2835=y
+ CONFIG_I2C_CADENCE=y
++CONFIG_I2C_CS75XX=y
+ CONFIG_I2C_DAVINCI=y
+ CONFIG_I2C_DESIGNWARE_CORE=y
+ CONFIG_I2C_DIGICOLOR=m
+@@ -492,6 +493,7 @@ CONFIG_PINCTRL_QCOM_SSBI_PMIC=y
+ CONFIG_PINCTRL_RZA2=y
+ CONFIG_PINCTRL_RZN1=y
+ CONFIG_GPIO_ASPEED_SGPIO=y
++CONFIG_GPIO_CS75XX=y
+ CONFIG_GPIO_DAVINCI=y
+ CONFIG_GPIO_DWAPB=y
+ CONFIG_GPIO_EM=y
+@@ -568,6 +570,7 @@ CONFIG_UNIPHIER_THERMAL=y
+ CONFIG_DA9063_WATCHDOG=m
+ CONFIG_XILINX_WATCHDOG=y
+ CONFIG_ARM_SP805_WATCHDOG=y
++CONFIG_ARM_TWD_WATCHDOG=y
+ CONFIG_AT91SAM9X_WATCHDOG=y
+ CONFIG_SAMA5D4_WATCHDOG=y
+ CONFIG_S3C2410_WATCHDOG=m
 
 -- 
 2.53.0
