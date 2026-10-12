@@ -1,136 +1,86 @@
-Received: from mta0.migadu.com (out-74.mta0.migadu.com [91.218.175.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail3-167.sinamail.sina.com.cn (mail3-167.sinamail.sina.com.cn [202.108.3.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC27E449B2E
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32DED3CB54E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:59:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791791964; cv=none; b=J7moy1T+A2B03bWZ4RITHvBJXC5pRj4IJ+WaHsKLKzCN4cfRXlNDxfURYO8IV4tz101/3WQbQE+aMyQXPKX8jGq04Weo014G9eRLVWI8rdDBtl5BbQPGoomTu8yxAgFR1rUoWpCU1g1kd9a73JrnA/lhD+OZAsgN80RAdeWAuPs=
+	t=1791791993; cv=none; b=T/cE1HR/5LvaXdrlKfFAplBijPenqkXq2cZU/g8POWJbdaak9HxQ/EVyHRRlLDTD7s46l7GDGEX4SSPoTkyp8BZMqdhB+lfNi3VAm1yHzgHdFyGZ2Q22sYrb+axmbyZWaehwTEzZsAMOMZ6vd3RVr54kSuxE8f66LxOkOZr4xFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791791964; c=relaxed/simple;
-	bh=56McHLpkjbEcfgo3ET0BWRpRsj/vdI3JWjyVwnemna0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hNZ1qutfH2Mzuj7DOo7VZsY5r+CR0y+Ge2QYQrcwgAWtkYp1xfE5tTILpO+8xGAdDuMhl34Vr3DuXw0evAAmFR3KAJ7uPkBT8ub270Me3tq8Pu9PMBGf0pWWcWyyYoArqn0yQI2u9x7OKuxLoUuVbc495QdqFS/Yek6TMIuc+4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Pj/btZnL; arc=none smtp.client-ip=91.218.175.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791791993; c=relaxed/simple;
+	bh=edrKY4TvRJ368ajENKHsCNPq/qRfVm9wmemw7Q7qP1U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XDVgc9gEkvTnoSHoYMU7kqiTsSIjFfQ2iYtIzZM+f/8/wDtJspyMw9ho/bDsEz+ZNP2Fri6x/pyZU6GgGfXkRM52Matuox6iSXvFfgGa8XqJMKg23hg2vdm3oytekEjHd3tHsyNX5fqcr9k2j3KjxISKBFWWBZMQk6AZntataDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=oZUKpfUa; arc=none smtp.client-ip=202.108.3.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Pj/btZnL"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=56McHLpkjbEcfgo3ET0BWRpRsj/vdI3JWjyVwnemna0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791791957; v=1; x=1792396757;
- b=Pj/btZnLyrKTvemqk0Widq6ALB5WUmpF8p1x6BmbzwaXiDAFU2a4zPVP8QvoznbLX1LR6ZPj
- 5N9sLp8Y+HG+C/Klzzxu/bxZhiy7tb2IHzd49kNOuZF8UW+2suDqPdZNp+g48obqkRT6eoL7OmL
- N23mIKLTbHjd+/Vc+qSP1UaY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 0f422274027c2e95;
-	Mon, 12 Oct 2026 07:59:16 +0000
-X-Mizu-Trace-ID: 0f422274027c2e95
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 12 Oct 2026 15:59:08 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	David Ahern <dsahern@kernel.org>, Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
-	Justin Iurman <justin.iurman@gmail.com>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	Ahmed Abdelsalam <ahabdels@cisco.com>,
-	Stefano Salsano <stefano.salsano@uniroma2.it>
-Subject: Re: [PATCH net-next 1/5] seg6: handle a Fragment or AH header before
- the SRH consistently in PSP
-Message-ID: <asyTTOcu2MRufGJ-@fedora>
-References: <20261011192310.55-1-andrea.mayer@uniroma2.it>
- <20261011192310.55-2-andrea.mayer@uniroma2.it>
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="oZUKpfUa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1791791986;
+	bh=Iapu6a7tccbi03hUneV5+JK98JdHBKTi8RQoWHIxZBo=;
+	h=From:Subject:Date:Message-ID;
+	b=oZUKpfUaYEbwcUC8Ss/7JCNi01CBpO2dni25fgpNc5/Vv5gdZKpabBAizHfr22W08
+	 xokotjX1hwk6sL6o2R6jePEyOOiJAXuduNrlqALSXKv/efssEH7vgamgxhOwa74Bei
+	 8iqgaYXx/0ZJlL5Fc9sgVUDWrthJqWVBYbn6LbXg=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
+	by sina.com (10.54.253.33) with ESMTP
+	id 6ACC934600005C82; Mon, 12 Oct 2026 15:59:05 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 5773696685066
+X-SMAIL-UIID: 1744AB75C0F3497D95B44021345AEDDD-20261012-155905-1
+From: Hillf Danton <hdanton@sina.com>
+To: syzbot <syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [nvme?] BUG: corrupted list in nvmet_fc_remove_port
+Date: Mon, 12 Oct 2026 15:58:53 +0800
+Message-ID: <20261012075854.435-1-hdanton@sina.com>
+In-Reply-To: <6acbc835.a150a118.27e199.003c.GAE@google.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011192310.55-2-andrea.mayer@uniroma2.it>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 11, 2026 at 09:23:06PM +0200, Andrea Mayer wrote:
-> seg6_pop_srh() already fails when a Fragment or AH header comes before
-> the SRH with other headers in between, and the packet is dropped ("we
-> expect SRH before FRAG and AUTH" in the code). But when the SRH directly
-> follows the Fragment or AH header, it is removed:
+> Date: Sun, 11 Oct 2026 10:32:37 -0700	[thread overview]
+> Hello,
 > 
->   (a) IPv6 | FRAG/AH | DOPT | SRH | ...   the packet is dropped
->   (b) IPv6 | FRAG/AH | SRH | ...          the SRH is removed
+> syzbot found the following issue on:
 > 
-> In both packets the Fragment or AH header comes before the SRH.
-> 
-> Align the two cases: check first whether a header is a Fragment or AH
-> header, and only then look at its Next Header field. In this way, the
-> packet is dropped also when the Fragment or AH header comes directly
-> before the SRH. A Fragment or AH header before the SRH, with or without
-> other headers in between, does not follow RFC 8200 and RFC 4302: a
-> Fragment header must not come before the Routing header, as the
-> Per-Fragment headers must include the Routing header [1], and AH should
-> not come before the routing and fragmentation headers [2].
-> 
-> At the penultimate segment, End with the PSP flavor alone today drops
-> (a) and forwards (b) with the SRH removed. Packets with the Fragment or
-> AH header after the SRH are not affected: seg6_pop_srh() does not look
-> at the headers after the SRH.
-> 
-> Found by manual code inspection and reproduced in a VM without kernel
-> changes or error injection, by sending to End with PSP the packets
-> shown in the diagram, both with a Fragment header and with AH. With this
-> change, the packets are dropped in both cases, all tests in
-> srv6_end_flavors_test.sh pass, and KASAN reports no error. With the
-> whole series, all the srv6_*.sh selftests pass.
-> 
-> [1] - https://datatracker.ietf.org/doc/html/rfc8200#section-4.5
-> [2] - https://datatracker.ietf.org/doc/html/rfc4302#section-3.1.1
-> 
-> Fixes: bdf3c0b9c10b ("seg6: add PSP flavor support for SRv6 End behavior")
-> Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-> ---
->  net/ipv6/seg6_local.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-> index 0c3d1be7f129..da8225591fe3 100644
-> --- a/net/ipv6/seg6_local.c
-> +++ b/net/ipv6/seg6_local.c
-> @@ -796,11 +796,6 @@ static bool seg6_pop_srh(struct sk_buff *skb, int srhoff)
->  			if (unlikely(!hp))
->  				return false;
->  
-> -			if (hp->nexthdr == NEXTHDR_ROUTING) {
-> -				hp->nexthdr = srh_nexthdr;
-> -				break;
-> -			}
-> -
->  			switch (nexthdr) {
->  			case NEXTHDR_FRAGMENT:
->  				fallthrough;
-> @@ -812,6 +807,11 @@ static bool seg6_pop_srh(struct sk_buff *skb, int srhoff)
->  				break;
->  			}
->  
-> +			if (hp->nexthdr == NEXTHDR_ROUTING) {
-> +				hp->nexthdr = srh_nexthdr;
-> +				break;
-> +			}
-> +
->  			nexthdr = hp->nexthdr;
->  		}
->  	}
-> -- 
-> 2.43.0
-> 
+> HEAD commit:    a5ebb76233b7 Merge tag 'edac_urgent_for_v7.3_rc7' of git:/..
+> git tree:       upstream
+> console+strace: https://syzkaller.appspot.com/x/log.txt?x=1494923e580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=df4bbab1c2172b9f
+> dashboard link: https://syzkaller.appspot.com/bug?extid=c98b21427617af7f547a
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=126a0f15580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=166a0f15580000
 
-After changing the order, we can check the FRAG/AH header first and
-return false and drop the pkt.
+#syz test
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+--- x/drivers/nvme/target/fc.c
++++ y/drivers/nvme/target/fc.c
+@@ -1273,7 +1273,14 @@ nvmet_fc_portentry_unbind(struct nvmet_f
+ {
+ 	unsigned long flags;
+ 
++	if (!pe->port)
++		return;
+ 	spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
++	if (!pe->port) {
++		spin_unlock_irqrestore(&nvmet_fc_tgtlock, flags);
++		return;
++	}
++	pe->port = NULL;
+ 	if (pe->tgtport) {
+ 		nvmet_fc_tgtport_put(pe->tgtport);
+ 		pe->tgtport->pe = NULL;
+--
