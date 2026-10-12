@@ -1,86 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C133B2BFC7B;
-	Mon, 12 Oct 2026 23:19:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D8F2BFC7B;
+	Mon, 12 Oct 2026 23:20:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791847187; cv=none; b=SDCs84qQHWAZ1+KCp6hWQH3ZfR00ynxC8z1/Ds8YgwSIbrtulUC9ceUXZGEYneqAW4G99KYrvcFoqStQFRnlnyhjx5x8bGOu9MdvM1cnXHlw4DmWvf502B3O2AgshZpZbsHUS4da+w9e4fov+HqGUJ2ehgKuoz2+gpuc2A49yGY=
+	t=1791847220; cv=none; b=UNkVuPuKBLjbVA6nEDs8gtUJt2WiQN33t/YJuXF/MGa2vOnhMdDdaaLETx0800iYneXF18h35/Yl6I6rQpGDNf5mLT8PD8G4eIXo63Bi2HzeeyUF60uFUlp3/V5TPup17tl+t0VPWTfCfOA0mqrjpPbhETkcwzzXvww4nj0ZQuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791847187; c=relaxed/simple;
-	bh=XekL7nLGfOsrWj6iwNLQF96d617X42cQtWzshXk7QG0=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=rzdOV7cgj1GOdL4MYQA+lWjbnchmPUFdLzAGncPbeuOqRlAtn3rq/Yz+PkcaaNp/5V48OfzgGbbmcGToMjy0kLnp4nOykQLRJGJ5P+30466IaDfN9Gi8tkkSWmi2LzXNZLbSlE6GMo6PBVS+0nXPz0ueMJbAB/UcYQ4wSgAwLRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eAtgtxLu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791847220; c=relaxed/simple;
+	bh=WdyZQ+u/1nVShA20+JGSbrpv+kYiOhfDzau+w6JgPFA=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=H6ib0GExo3iZ82VJgw2iLGsLJJ18Facw96F6zhywHK9UTLdLyCYScy9XX2UJ7/qe2atlF6/3Q9/VPl3E1kX8lcWoVm+SMTj19RkDDqcitvlZFxykcigusX3tiCc0zZ7fPJptBNok0duGErCzdlpdTv7P1bm3ESx7z1B9h7COaF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WbW6Vh0k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eAtgtxLu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92B181F0089B;
-	Mon, 12 Oct 2026 23:19:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WbW6Vh0k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 434F51F0089B;
+	Mon, 12 Oct 2026 23:20:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791847186;
-	bh=zymbzV4xuuOmUW+cDFy3VBYZaS1DX9dhzhy7OD6YcaU=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=eAtgtxLuqiDgdxCq1PCNs6+jqK7rup+awJICYqFyMCyLMEc0YvnglO/0VXkGWkpL6
-	 /mZIlo/jVJwQUbCM5DoXzgSDkMkUHKhChV+E/3X4XvE9vk6b1nvNqDYIsv3UM9h5vT
-	 n+c3+jrA/DxeFknL2edvVI8UFB2A/Gs/bdNlg309/fvyZInT81lDt3C0aP6G7tnaFx
-	 S18g2+KPb4rA9ALWNzeg/V+0t8/o8Nzi715KaSwMSfsx6hN0sX8DZBN1Dc+75UeoYA
-	 Xi/qCbMvCN3/diZ/51SVFoqL6pyotBakpB7D3tZ3UxDoV3pGZsWL3bxIbkjKClwwYB
-	 CWFeDeb/1ddKw==
+	s=k20260515; t=1791847219;
+	bh=o4oN5lKH9EEBCH19PG70lJLrhKcKXfLPurXqtoeLfGM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=WbW6Vh0k6NHKZMsuSbhZYg0xatoAJneorZ8ZD3SAVs9g6WfhJTykvaxi/wRaemfFk
+	 B/vmazhK6TpAwW63I5vSK8O2IialYqb/ed69cci48HKDqWQ5U+Yc9xckul6Qr5Zi+x
+	 cmfsMW/1xDTBcFPsgui5okGK0hlefKKnxKiIBSixShD4D98uN2AEkDBaFkaJZwhbEL
+	 Lf/S/yhPMQVCbs1FCBi1cMwdGmvAR2BqmILho6fgKYMPhJwyXWZm89Hsbmj/cCnzYu
+	 +sLNchhQQ6fIVUoDNYko+PRiFgyhQDoFp1RIAY3RgnQpGivd6NQE1YjVmetKa1JxTm
+	 Px0bM1XoCtVOA==
+Date: Mon, 12 Oct 2026 18:20:18 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Lukas Wunner <lukas@wunner.de>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	Oliver O'Halloran <oohall@gmail.com>, Len Brown <lenb@kernel.org>,
+	linux-pci@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] PCI/DPC: Decide DPC ownership with
+ host_bridge->native_dpc
+Message-ID: <20261012232018.GA1428722@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sm8550: Add the CSI TPG
- regions to camss
-From: bod@kernel.org
-To: William Bright <william.bright@imd-tec.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Depeng Shao <quic_depengs@quicinc.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261012-sm8550-camss-tpg-v2-3-06dbbe36ecd2@imd-tec.com>
-References: <20261012-sm8550-camss-tpg-v2-0-06dbbe36ecd2@imd-tec.com>
- <20261012-sm8550-camss-tpg-v2-3-06dbbe36ecd2@imd-tec.com>
-Date: Tue, 13 Oct 2026 00:19:40 +0100
-Message-Id: <179184718069.1635143.6101594072316608239.b4-reply@b4>
-X-Mailer: b4 0.17-dev-e5aa4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=455; i=bod@kernel.org;
- h=from:subject:message-id; bh=XekL7nLGfOsrWj6iwNLQF96d617X42cQtWzshXk7QG0=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqzWsMHWIdcUVxz0Trbqj7gv7wV5DYAD1eU0Y6c
- 0bzRGQi/BeJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCas1rDAAKCRAicTuzoY3I
- OkDVEAC32p6ACRZegAtjXJcFSrXjRcOugX6cTgWkrfcod0uivXN3Qa47Y1PMAZDob/y2f1vVRZh
- Y0qjUWXrTqI1d9YojzuBr4KVvVeEMsVYpzPHcO/D0qfYZzgzyJ9WkMEBWnwo4zAE8YkrfFnAbtr
- jZ+hTLjQGV/ias0BnVMJ9iM5IWUHrunBpvb144ARSd4oVWwGQNDEAu2UbjAojyzmyTv98TpQ9dS
- 8SjxKEJMVEyc1S4E4WeLvRK2pFR+Qjtm4YYqt9/y+tKGWwsvSGGjEYD3c5ZP7lAjcvwsJogScen
- qv4/Gz8FF1gC9OdVEEfNTuHRrtRrx2iZXVKdfYkOlv7FVbSu6a6ufk0d4MGLwOVTWgavffavdUK
- 1Wa6GkhH+Pq4t42NZPiBZlwb/N1nWCk9vIpnMyCTbjoODRbnf9dsG5FjtlrGwYV2YCxAh9mGnWs
- FZEY9MsUzYLeKFEHkcTYcqv1L4mVO6o0ZM0/eLmhgJExpVjQKRUcLwrkMFkv2v/30gznxLaaL9k
- hqvFMAMZ2RBAZhRHYhaJam/JJzR6jUWXbpDt2acr8PDq4o/tqdCMO1l2v8Q+pUrZZMabuX2s4vn
- skPHWAR95Ln1KKM53RvlgWiMt2TptiftwHG62O2bGpT5yrCwIFQjGJc6ZIWij50GegDVGCt47OE
- P7oXfTdZATjPdfw==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007165840.1604136-1-sathyanarayanan.kuppuswamy@linux.intel.com>
 
-On 2026-10-12 14:52 +0100, William Bright wrote:
-> Add the three CSI test pattern generator register regions to the
-> camss node, matching the updated binding. The TPG blocks sit at
-> 0xacf6000, 0xacf7000 and 0xacf8000 and are used to generate test
-> frames without a sensor attached.
+On Wed, Oct 07, 2026 at 09:58:36AM -0700, Kuppuswamy Sathyanarayanan wrote:
+> This series makes host_bridge->native_dpc the single decider for whether
+> Linux uses DPC, as Bjorn asked during the review of "Simplify PCIe native
+> ownership".
 > 
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: William Bright <william.bright@imd-tec.com>
+>   https://lore.kernel.org/r/20261001221408.GA2731929@bhelgaas
+> 
+> Today the DPC service binds on host_bridge->native_aer, AER availability
+> and "pcie_ports=dpc-native".  host_bridge->native_dpc is only consulted
+> by pci_dpc_recovered().  After this series, native_dpc is the end result
+> of everything that decides DPC ownership, and portdrv binds the DPC
+> service on it.
+> 
+> The series applies on top of two others:
+> 
+>   - pci/portdrv, which has patches 1-3 of v15 of "Simplify PCIe native
+>     ownership".  They fold "pcie_ports=native" and "pcie_ports=dpc-native"
+>     into the _OSC control mask, so native_dpc already reflects the
+>     command line.
+> 
+>     https://lore.kernel.org/r/20261002211828.1293177-1-sathyanarayanan.kuppuswamy@linux.intel.com
+> 
+>   - Lukas's "Error reporting for AER-incapable devices".  It removes the
+>     AER Capability requirement from the DPC driver.
+> 
+>     https://lore.kernel.org/r/cover.1790531238.git.lukas@wunner.de
 
-Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
----
-bod
+My impression was that Lukas planned to tweak a couple things in that
+series, e.g., https://lore.kernel.org/all/arltOHrdHdokyfC9@wunner.de
 
+Does this actually depend on Lukas' series?  If so, can we include the
+relevant patch here?
+
+> Patch 1 removes CONFIG_PCIE_EDR, which was another knob in deciding
+> whether to request DPC control in _OSC.
+> 
+> Patch 2 stops requiring pci_aer_available() to bind the DPC service,
+> since the DPC driver does not depend on MSI or on the AER driver.
+> 
+> Patch 3 requests DPC control only together with AER control, as PCI
+> Firmware r3.3, sec 4.5.2.4, requires.
+> 
+> Patch 4 binds the DPC service on host_bridge->native_dpc and logs a
+> message when the OS assumes DPC control that _OSC did not grant.
+> 
+> Kuppuswamy Sathyanarayanan (4):
+>   PCI/EDR: Remove CONFIG_PCIE_EDR
+>   PCI/portdrv: Don't require AER to bind DPC service
+>   PCI/ACPI: Request DPC control only together with AER control
+>   PCI/portdrv: Bind DPC service based on host_bridge->native_dpc
+> 
+>  drivers/acpi/pci_root.c    | 26 +++++++++++++++++++++++---
+>  drivers/pci/pcie/Kconfig   |  9 ---------
+>  drivers/pci/pcie/Makefile  |  5 ++++-
+>  drivers/pci/pcie/dpc.c     |  5 +++--
+>  drivers/pci/pcie/portdrv.c |  7 +------
+>  include/linux/pci-acpi.h   |  4 ++--
+>  6 files changed, 33 insertions(+), 23 deletions(-)
+> 
+> 
+> base-commit: 4fe37866b0d92cdc45b62954a76489a9d9f8bd73
+> prerequisite-patch-id: e0eafcb39f15c38f3acfa601dfce07a6f0832ce1
+> prerequisite-patch-id: 83e8185612e785fad80790d4a0c20fa68ab12ce7
+> prerequisite-patch-id: 8e9e2b06f55249ff57c7d7f43918ee82f79d1450
+> prerequisite-patch-id: 78ad13a1c423c3ee50122237c4bd0fdedf2d1e00
+> prerequisite-patch-id: 0c4b9d46eea86635c431382aef2bf576a3bb5691
+> prerequisite-patch-id: 2d1a35309e750427352c6fe0d9bb62c4453c6252
+> prerequisite-patch-id: c1ed9c8ac6123e0a65ae0d7ba3183dd46477edf7
+> -- 
+> 2.43.0
+> 
