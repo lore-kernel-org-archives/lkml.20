@@ -1,212 +1,148 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772C23AE18A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C2C1A6816;
+	Mon, 12 Oct 2026 06:01:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791784750; cv=none; b=BYepqZCzLRnVRaZbM1G1JOuwY73n0sWC1LKv54fcaHkDi/mJAFfbGHA01VNbe3NaimEfiXXKjnaI6InPvAox5KwNAOXl63RbRyxehXSrqD214np6HFEIENxTpP3PDtCy6f4bs4NbCZbMm78fSqtLZq01Xuk4sSB1QNIoDwMVFeI=
+	t=1791784866; cv=none; b=knaCutcQoJEo2ypCgGXNwVU5z48VYoKcVqOj1UZXc2d4Vn1stbkMFjB5At6aIK8uQRQ1t2oghpWjm/sLeekSCL4FVQ1PRjRQiHhbCea66XOaz30O6Hzg/GgOa1qBEW8g5pNm3VZfS02iJnh8Hft4Q9YgPcnYo8nzo80+BdPDVv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791784750; c=relaxed/simple;
-	bh=V4bYiEtPvbsNwrfI4FTIqVOAh7K1SIyJuvRFG+HzNMA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dLBpxZDvJUDGB5QLofTkgm4vWygH98cBMCzf2MXGglaT1HCubxvEgTC9kEqYx/Vj6ya3zOlhU85sR/mLz/O4qBeb9DtG/NRwPCghKBV/hbLMtmHdVuVJJgyQwHv9hPWiniZRPwRwG7TLdSOf3Wf4wuqPnlGdEm/hE+OFrdIxj78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 06a39b54c60211f19a56ed5b684f684d-20261012
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:757bba7b-bf37-4f2b-a449-61fe3a784295,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:a7c0691b46c78e865f19011d80d8f37d,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 06a39b54c60211f19a56ed5b684f684d-20261012
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 142794637; Mon, 12 Oct 2026 13:59:02 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>
-Subject: [PATCH v3] ntfs: roll back the ACL xattr commit when the WSL mode update fails
-Date: Mon, 12 Oct 2026 13:58:59 +0800
-Message-Id: <20261012055859.52525-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1791784866; c=relaxed/simple;
+	bh=Hu7HCc4nHxJfT3bADEOIg4AOj3Wh2n5Q/pQ7V7jdDl0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=tfGd+eLHErQw0RWVKpk62wedC5CsdNG+CB5GC8dbdlGvt8hkqd+z/I5PI3wxFEYvnG9u+6L1lqto4KQQZmDNJDeD3FykIwcL6cc+NVIHLM9pKGpPNov9LRMDX5eRM/mtVKN3ntEdLavjfGiwkFxCWg1lozn9ojjt2hC2KLeeitc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=mYVmOme7; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=pqsuOgAL; arc=none smtp.client-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="mYVmOme7";
+	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="pqsuOgAL"
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id EF7AB26F7696;
+	Mon, 12 Oct 2026 15:01:01 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1791784862;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vjSHdLmFsmJo8/craiiu5QNtg5PTDvzbzLLcu9AI6QM=;
+	b=mYVmOme7ytkrK2LwNtDe6TFYy8KCuchKiQ6M7aO74aKCbHZc7pXdwxSUWNPQ7oDrO/tv6R
+	vnGn+cjMpkkHVqoiUwD2Bfly//y2fQKYnQgR/QyJ65qb3Ycw167QJ35uAWOXhM+v8dp0CA
+	Lr9H9FBNFxnYmXqfvADv2p0X9vPCe4KkOHtCIxNTYVbGi/2eA7j27xovSMQJoRpAzEEVQP
+	5yYV/fy/KLG/nUx55ksE/jtB4oeuMr2GkWiu/Xc7pVMLQ2Bf+9LYSewYqslC/qClyDegEV
+	uTC7A5doyysv5QNp5k3gftgcoGHBjI/0aSrCW8dOBxNDvfP1BP2JcEvV5ruvNA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1791784862;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vjSHdLmFsmJo8/craiiu5QNtg5PTDvzbzLLcu9AI6QM=;
+	b=pqsuOgAL3M8eejQn7e+uiWai8zpq94mxuYDEqTMFhXUxFyU2Y6ZaM62U5/qCe/+1ZrDIAQ
+	K6rGF+SbAtt5efAA==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 56D3FE00070;
+	Mon, 12 Oct 2026 15:01:01 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id 47EB422000BB; Mon, 12 Oct 2026 15:01:01 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Cc: linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] fat: allocate multiple clusters in fallocate
+In-Reply-To: <3b0bef1504539358bf049724329ced57@inf.ufrgs.br>
+References: <20261008020941.55784-1-matheus.aalmeida@inf.ufrgs.br>
+	<874iesm5hu.fsf@mail.parknet.co.jp>
+	<3b0bef1504539358bf049724329ced57@inf.ufrgs.br>
+Date: Mon, 12 Oct 2026 15:01:01 +0900
+Message-ID: <87se2blaoy.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-ntfs_set_acl_ex() commits the new ACL xattr before it rewrites the WSL
-mode EA, and removes it again when that rewrite fails.  Removing the
-new xattr is only the right undo when no ACL xattr existed before the
-update: when the update replaced an existing one, the old ACL is
-discarded along with the failed update.  The undo is best-effort as
-well: its result is discarded and the EA paths record no error state,
-so when it fails too, the new, typically more permissive, ACL is left
-on disk while i_mode, the mode EA and the cached ACL keep the old
-values.  Once the stale xattr is loaded again - after a remount, or
-when the cached ACL is discarded - a chmod 0640 -> 0777 that reported
-failure leaves the file accessible to the relaxed ACL while stat()
-still reports 0640.
+Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
 
-Save the previous xattr before committing the new one, and roll back
-to it when the mode EA rewrite fails.  Remove the new xattr only when
-there was no previous one.  When the previous xattr cannot be read
-back, fail the update instead of replacing a value that could not be
-rolled back to.  A failed rollback is still recorded: NVolSetErrors(),
-which the next persistence point persists as VOLUME_IS_DIRTY, and a
-log message the errors= policy acts on.  The flag cannot be written
-to disk here directly: the target inode's mrec_lock is held and the
-$Volume mrec_lock cannot be nested under it.
+> Em 2026-10-11 15:55, OGAWA Hirofumi escreveu:
+>> Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+>> 
+>>> Hi,
+>
+>>> This series adds support for allocating multiple clusters in a single
+>>> fat_add_clusters() call in fat_fallocate().
+>
+>>> The multi-cluster TODO in inode.c is not implemented, as doing so would
+>>> require speculative preallocation or an iomap conversion.
+>
+>> Is this to improve the performance of fallocate? If so, what the number
+>> by improved bench or such?
+>
+> Yes, it is. I ran a few benchmarks. Each run used a freshly formatted
+> filesystem, with no userspace processes other than init (which is the
+> benchmark program in this case).
+>
+> The numbers below are the arithmetic mean of the samples, with
+> improvement calculated as before / after. The times are for the complete
+> loop and not an individual fallocate() call.
+>
+> The benchmarks were run under QEMU/KVM with a virtio-blk device using
+> cache=none.
+>
+> start = now_ns();
+> for (unsigned int i = 0; i < count; i++)
+>      fallocate(fds[i], FALLOC_FL_KEEP_SIZE, 0, bytes);
+> elapsed = now_ns() - start;
+>
+> FAT32 with 512-byte clusters using count=16 files:
+> length    mounted sync?    before    after    improvement    samples
+> 256MiB    no               2.328s    0.175s   13.2x          10
+> 16MiB     no               149.659ms 14.036ms 10.7x          10
+> 16MiB     yes              747.993s  3.445s   217.1x         3*
+> 1MiB      yes              46.63s    0.333s   140.1x         10
+>
+> FAT32 with 512-byte clusters using count=128 files:
+> length    mounted sync?    before    after    improvement    samples
+> 1MiB      no               90.873ms  4.686ms  19.4x          10
+> 16KiB     no               1.287ms   0.241ms  5.3x           10
+> 128KiB    yes              47.284s   0.350s   135x           10
+> 4KiB      yes              1.98s     0.144s   13.7x          10
+>
+> FAT32 with 4096-byte clusters using count=16 files:
+> length    mounted sync?    before    after    improvement    samples
+> 256MiB    no               295.392ms 24.733ms 11.9x          10
+> 16MiB     no               20.509ms  1.404ms  14.6x          10
+> 16MiB     yes              92.489s   0.348s   265.4x         10
+> 1MiB      yes              5.837s    0.048s   121.3x         10
+>
+> * it would take a lot of time to take 10 samples like the others,
+>    so I only took 3 here.
+>
+> The improvement is large because the old fallocate path allocates one
+> cluster at a time, while the new path can allocate an entire chain in
+> one call. This is especially visible on synchronous mounts, where the
+> new code can batch FAT updates instead of synchronously handling each
+> cluster allocation separately.
 
-Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
-Suggested-by: Hyunchul Lee <hyc.lee@gmail.com>
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
-Changes in v3:
-- Save the previous ACL xattr before committing the new one and roll
-  back to it when the update replaced an existing one, instead of
-  removing the new one (suggested by Hyunchul Lee)
-- Fail the update when the previous xattr cannot be read back, and
-  restore a zero-length previous xattr without XATTR_REPLACE
----
- fs/ntfs/ea.c | 86 +++++++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 82 insertions(+), 4 deletions(-)
+Thank you. Please add it to the commit log too.
 
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index 1104fd72cd2a..319c2c09632f 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -1038,8 +1038,9 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
- {
- 	const char *name;
- 	size_t size, name_len;
--	void *value;
--	int err;
-+	void *value, *old_value = NULL;
-+	int err, old_len = -ENODATA;
-+	bool old_exists = false;
- 	int flags;
- 	umode_t mode;
- 
-@@ -1083,7 +1084,39 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
- 	}
- 
- 	mutex_lock(&NTFS_I(inode)->mrec_lock);
-+	if (acl && !init_acl) {
-+		/*
-+		 * Save the previous xattr so a committed set can be
-+		 * rolled back to it.  A new inode cannot have one yet,
-+		 * and one that cannot be read fails the update instead
-+		 * of being replaced: what was not saved cannot be
-+		 * rolled back to.
-+		 */
-+		old_len = ntfs_get_ea(inode, name, name_len, NULL, 0);
-+		if (old_len >= 0) {
-+			old_exists = true;
-+			/* kmalloc(0) returns the non-NULL ZERO_SIZE_PTR. */
-+			old_value = kmalloc(old_len, GFP_NOFS);
-+			if (!old_value) {
-+				err = -ENOMEM;
-+				goto out_unlock;
-+			}
-+			err = ntfs_get_ea(inode, name, name_len,
-+					  old_value, old_len);
-+			if (err != old_len) {
-+				kfree(old_value);
-+				old_value = NULL;
-+				if (err >= 0)
-+					err = -EIO;
-+				goto out_unlock;
-+			}
-+		} else if (old_len != -ENODATA) {
-+			err = old_len;
-+			goto out_unlock;
-+		}
-+	}
- 	err = ntfs_set_ea(inode, name, name_len, value, size, flags, NULL);
-+out_unlock:
- 	mutex_unlock(&NTFS_I(inode)->mrec_lock);
- 	if (err == -ENODATA && !size)
- 		err = 0; /* Removing non existed xattr. */
-@@ -1095,8 +1128,52 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
- 		mutex_lock(&NTFS_I(inode)->mrec_lock);
- 		err = ntfs_ea_set_wsl_inode(inode, 0, &ea_size, NTFS_EA_MODE);
- 		if (err) {
--			ntfs_set_ea(inode, name, name_len, NULL, 0,
--				    XATTR_REPLACE, NULL);
-+			if (acl) {
-+				int undo_err;
-+
-+				/*
-+				 * Only a set needs undoing: a removal
-+				 * leaves no new ACL behind, and repeating
-+				 * it would either return -ENODATA again
-+				 * or, once it dropped the last EA,
-+				 * re-create an empty xattr.
-+				 */
-+				if (old_exists) {
-+					/*
-+					 * A zero-length xattr cannot be
-+					 * restored with XATTR_REPLACE,
-+					 * which would remove it again.
-+					 */
-+					int undo_flags = old_len ?
-+						XATTR_REPLACE : 0;
-+
-+					undo_err = ntfs_set_ea(inode, name,
-+							name_len, old_value,
-+							old_len, undo_flags,
-+							NULL);
-+				} else {
-+					undo_err = ntfs_set_ea(inode, name,
-+							name_len, NULL, 0,
-+							XATTR_REPLACE, NULL);
-+				}
-+				if (undo_err) {
-+					/*
-+					 * The ACL xattr is committed
-+					 * already, so a failed rollback
-+					 * leaves the new, typically more
-+					 * permissive, ACL on disk while
-+					 * i_mode, the mode EA and the
-+					 * cached ACL keep the old values.
-+					 * Record the error: the next
-+					 * persistence point persists it as
-+					 * VOLUME_IS_DIRTY.  Run chkdsk.
-+					 */
-+					NVolSetErrors(NTFS_I(inode)->vol);
-+					ntfs_error(inode->i_sb,
-+						   "Failed to undo the ACL xattr: %d",
-+						   undo_err);
-+				}
-+			}
- 			mutex_unlock(&NTFS_I(inode)->mrec_lock);
- 			inode->i_mode = old_mode;
- 			goto out;
-@@ -1109,6 +1186,7 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
- 	}
- 
- out:
-+	kfree(old_value);
- 	kfree(value);
- 
- 	return err;
+> Thanks,
+> Matheus
+>
+>>> Matheus Alves de Almeida (4):
+>>>  fat: remove cluster allocation size limit
+>>>  fat: return only first cluster when allocating
+>>>  fat: support adding multiple clusters
+>>>  fat: allocate multiple clusters in fallocate
+>>> 
+>>> fs/fat/dir.c    | 20 +++++++++++++++-
+>>> fs/fat/fat.h    |  4 ++--
+>>> fs/fat/fatent.c | 61 ++++++++++++++++++++++++++++++++-----------------
+>>> fs/fat/file.c   | 10 ++++----
+>>> fs/fat/inode.c  |  8 +++----
+>>> 5 files changed, 69 insertions(+), 34 deletions(-)
+>
+
 -- 
-2.25.1
-
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
