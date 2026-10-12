@@ -1,162 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC48C4A1DFB
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:11:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A9F4BB293;
+	Mon, 12 Oct 2026 17:11:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.54.11.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791825084; cv=none; b=g+caIu0z2mFBG7KmttJ3PaA3NNf/cbms9WnQJhfgDEScAeLVzdfGAKs1xOeWGoy7u0VEM7u1+XpnSmfXGDFGqIpZUswO8VPeh1ZdNsgZVNxCj+MMJL3w/YFjQwHjK/PO0kslThdNr0C2YZmBPeS5NMFvuQxtoG6rpz17kzQhNz0=
+	t=1791825089; cv=none; b=bognFgYnfYBc9c6X6C6vq4jdYlphOcV9dbwojSq3KLwHl2Ck9zRgmsSlyGkj0trKhzhiquo3WKzqGZaRAZeauNrOz4NAFjAoi31iHrmqx9PB2SxmmX6G59e8mL+Ba/L3sG1LA2dkyALG6m3gQ+Lz6SNcXGjkIYa6ve72FwKpntQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791825084; c=relaxed/simple;
-	bh=NyXOCQz0IHMV+KX1ZnDo8YCjMKOponZ8LmuUVuhrrFg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QED7WByS+N/mRW0ENA44gBVev0RzTP26bw9nEWigFUjif7IHGbvMrIJ5Hucg80l19UgnXE/QHbeYpK07jVx1NaM03uEfTiIchmVv1KWr3OlFhCSIOtyVZ4iUUSluGMMGG3Nnpwr4wATvEGQMptwPjpp9hbCkmGfSa8sfuWFkNPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i9yb8Aru; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791825089; c=relaxed/simple;
+	bh=bq9n0C2W49WuWQMPx1mq1hu0fQtznO8Qg5MBuoMPNbU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OLb6/oRBc7YK9XvyNYorqowszHCVUdP17gaXKlWMUSK5s9Gt1DlT6gB8ngyUxh63N4tusF0DEyIYy0MiBbR5JRsS0eg3o71wBdlxxndkpZFtHL0dKw6Oty4gQqJODunmHYWEi5AY7iAA1ylvZpCoq2IoUcN8CCpn5+KqlkPiTgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br; spf=pass smtp.mailfrom=inf.ufrgs.br; dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b=1yZDkT9s; arc=none smtp.client-ip=143.54.11.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i9yb8Aru"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 452741F0089C;
-	Mon, 12 Oct 2026 17:11:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791825082;
-	bh=eIpXBxc1Zh+5tYOYTOcIg/Ba6/+mSunX8M4pzhxilnw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=i9yb8AruVWhFnaBylkZ3cCIq17GgdHNPTtRN/iIoerfLgW5ZLo57/VPpwKXuTXpX9
-	 Rxqv6XA8bqubOEVIZ66EY4jsNKQP6dsMn5011o4a9WCImjqbGvlBj4xK5AaVrf9Dw5
-	 L4ZbFwjbTLxhk9coLPjuPVFKyMMLSNCGbA+zXpkbdeW5YeRe7GVGiArf1Sad+EA5dw
-	 N1gI/wrGWHCZFNKNzRFGKqQkuyrK80Fu14ktFl9La2Bv5kRdsKUQQOoSps/8oaxzWn
-	 COJjN6dXrswLvINJaSw35/yg/vS+E9oOkIE58zsgJLAGfsPBYTdfctD/24yKKPFym2
-	 WN/sATU+rv9bw==
-Date: Mon, 12 Oct 2026 20:11:10 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Pratyush Yadav <pratyush@kernel.org>
-Cc: Sourabh Jain <sourabhjain@linux.ibm.com>, kexec@lists.infradead.org,
-	Alexander Graf <graf@amazon.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	George Guo <guodongtai@kylinos.cn>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH] kho: fix global scratch size calculation
-Message-ID: <as0UrrAvqjvUPyQx@kernel.org>
-References: <20260922131217.698809-1-sourabhjain@linux.ibm.com>
- <asC3-4WNiTF3n7l1@kernel.org>
- <2vxzo6czjaa9.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="1yZDkT9s"
+Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.6.233.4])
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 0CD4E121121;
+	Mon, 12 Oct 2026 14:11:15 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+	s=dkim2026; t=1791825075;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AekpOn0RQNvYktcb9eJqXpRgLVmePdgHhuHcsjY2Z1A=;
+	b=1yZDkT9sWqo2L6Es35RF6Bx3jARqN5pMplCSMms8nfMWsvyj+3s0qLcd8Aridn6N7tYr/p
+	bbG90FYDNptMacthgBGbjhMxCo0BmXv+pEOGTj0XHVbM8/nyBDFbtLV1nslt7O0t+aHlKg
+	dtJBpTXISNrPs8aBianiXdcdRXiT5seMFbnQ2qxE5OLzbUaLraOZxbZj7JKp9fmx50DuLW
+	8Khjt99WhFJHPtUq1qQwKeX7WBxtY8zLC1VMl3bdRRtf6lVu3cRaWLIj/vgaB7upv+iMwA
+	9z2VSO5zGvX0XS6TzhxROVCxG3SDkhHDOMVtFRZ0X3IIz27Nj4E8Z9kMHJ5aZg==
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Subject: [PATCH v2 1/3] fat: remove cluster allocation size limit
+Date: Mon, 12 Oct 2026 14:11:04 -0300
+Message-ID: <20261012171106.146243-2-matheus.aalmeida@inf.ufrgs.br>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261012171106.146243-1-matheus.aalmeida@inf.ufrgs.br>
+References: <20261012171106.146243-1-matheus.aalmeida@inf.ufrgs.br>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2vxzo6czjaa9.fsf@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 03:52:46PM +0200, Pratyush Yadav wrote:
-> On Sat, Oct 03 2026, Mike Rapoport wrote:
-> 
-> > On Tue, Sep 22, 2026 at 06:42:16PM +0530, Sourabh Jain wrote:
-> >> KHO calculates the global scratch size based on memblock-reserved kernel
-> >> memory. It passes NUMA_NO_NODE to memblock_reserved_kern_size() for
-> >> this calculation.
-> >> 
-> >> When memblock_reserved_kern_size() is called with NUMA_NO_NODE, it
-> >> counts both:
-> >> 
-> >> - memory reserved for a specific NUMA node
-> >> - memory reserved with NUMA_NO_NODE
-> >> 
-> >> KHO needs to distinguish between these two types of reservations.
-> >> When calculating the size of global scratch memory, KHO only needs to
-> >> account for reservations made with NUMA_NO_NODE. Reservations made for
-> >> a specific NUMA node must not be included in the global scratch size.
-> >> 
-> >> Add memblock_reserved_size_nid() to calculate reserved memory for a
-> >> given reservation type and NUMA node. When NUMA_NO_NODE is passed, it
-> >> counts only memory reserved with NUMA_NO_NODE.
-> >> 
-> >> Use the new API for lowmem, global, and per-node KHO scratch size
-> >> calculations. For lowmem and global scratch, count only memory
-> >> reservations that were made with NUMA_NO_NODE. For per-node scratch,
-> >> count only memory reservations that were made with the corresponding
-> >> NUMA node ID.
-> >> 
-> >> Remove memblock_reserved_hugetlb_size() since it has the same
-> >> implementation as the new API and differs only in the memblock
-> >> reservation flag being checked. The new API handles both kernel and
-> >> HugeTLB reservations through its reservation type argument.
-> >> 
-> >> Define the new helper as a static function in the KHO implementation,
-> >> since it is only used by KHO and has no users outside
-> >> kernel/liveupdate/kexec_handover.c.
-> >
-> > I looked again and this feels like a band-aid to me.
-> >
-> > I think we need to step back and rethink the order of the
-> > scratch/kho-bootmem sizing and consider how NUMA and lowmem are involved
-> > there.
-> 
-> Could you elaborate? How else would you calculate the sizes?
-> 
-> To me, the idea sounds fine (although I also share your comments on the
-> code style). This is what the global scratch size should have been doing
-> from the get-go. Today it over-allocates by counting both global
-> allocations and _all_ per-node allocations.
+fat_alloc_clusters() currently BUG()s when asked to allocate more than
+MAX_BUF_PER_PAGE / 2 clusters. This limit comes from the buffer_head
+array used to defer syncing and mirroring.
+
+Remove the allocation size limit by doing buffer_head batching like
+fat_free_clusters() does.
+
+Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+---
+ fs/fat/fatent.c | 44 +++++++++++++++++++++++++++++++-------------
+ 1 file changed, 31 insertions(+), 13 deletions(-)
+
+diff --git a/fs/fat/fatent.c b/fs/fat/fatent.c
+index f0801d99d..bfab8eab5 100644
+--- a/fs/fat/fatent.c
++++ b/fs/fat/fatent.c
+@@ -468,6 +468,26 @@ static void fat_collect_bhs(struct buffer_head **bhs, int *nr_bhs,
+ 	}
+ }
  
-> There is a separate problem with CONFIG_NUMA=n, but for that I think we
-> should just have a different allocation path where we only do lowmem and
-> global scratch.
-
-I mean more fundamental code refactoring that takes into the account all
-cases (and I could miss some)
-
-- NUMA vs no-NUMA
-- systems that have global scratch containing lowmem scratch vs those that
-  don't
-- and of course fix global scratch over-allocation
++static int fat_flush_bhs(struct super_block *sb, struct buffer_head **bhs,
++			 int *nr_bhs, bool sync)
++{
++	int err, i;
++
++	if (sync) {
++		err = fat_sync_bhs(bhs, *nr_bhs);
++		if (err)
++			return err;
++	}
++	err = fat_mirror_bhs(sb, bhs, *nr_bhs);
++	if (err)
++		return err;
++	for (i = 0; i < *nr_bhs; i++)
++		brelse(bhs[i]);
++	*nr_bhs = 0;
++
++	return 0;
++}
++
+ int fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluster)
+ {
+ 	struct super_block *sb = inode->i_sb;
+@@ -477,8 +497,6 @@ int fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluster)
+ 	struct buffer_head *bhs[MAX_BUF_PER_PAGE];
+ 	int i, count, err, nr_bhs, idx_clus;
  
-> >> On powerpc, the difference can be seen in the scratch_len values
-> >> reported by:
-> >> 
-> >> cat /sys/kernel/debug/kho/out/scratch_len
-> >> 
-> >> Before this change, the global scratch allocation was 0x12000000
-> >> (288 MB):
-> >> 
-> >> 0x1000000   (16 MB)
-> >> 0x12000000  (288 MB)  <- global allocation
-> >> 0x5000000   (80 MB)
-> >> 
-> >> After this change, the global scratch allocation is 0xd000000
-> >> (208 MB):
-> >> 
-> >> 0x1000000   (16 MB)
-> >> 0xd000000   (208 MB)  <- global allocation
-> >> 0x5000000   (80 MB)
-> >> 
-> >> The 80 MB difference is the per-node reservation that was previously
-> >> being included in the global allocation.
-> >> 
-> >> The same issue also affects lowmem scratch memory, but its impact is
-> >> limited because the lowmem scratch memory calculation is restricted to
-> >> the first 4G of memory. The changes also cover the lowmem scratch
-> >> memory case.
-> >> 
-> >> Cc: Alexander Graf <graf@amazon.com>
-> >> Cc: Andrew Morton <akpm@linux-foundation.org>
-> >> Cc: George Guo <guodongtai@kylinos.cn>
-> >> Cc: Mike Rapoport <rppt@kernel.org>
-> >> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-> >> Cc: Pratyush Yadav <pratyush@kernel.org>
-> >> Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-> >> Cc: linux-kernel@vger.kernel.org
-> >> Cc: linux-mm@kvack.org
-> >> Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-> [...]
-> 
-> -- 
-> Regards,
-> Pratyush Yadav
-
+-	BUG_ON(nr_cluster > (MAX_BUF_PER_PAGE / 2));	/* fixed limit */
+-
+ 	lock_fat(sbi);
+ 	if (sbi->free_clusters != -1 && sbi->free_clus_valid &&
+ 	    sbi->free_clusters < nr_cluster) {
+@@ -509,14 +527,21 @@ int fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluster)
+ 				if (prev_ent.nr_bhs)
+ 					ops->ent_put(&prev_ent, entry);
+ 
+-				fat_collect_bhs(bhs, &nr_bhs, &fatent);
+-
+ 				sbi->prev_free = entry;
+ 				if (sbi->free_clusters != -1)
+ 					sbi->free_clusters--;
+ 
+ 				cluster[idx_clus] = entry;
+ 				idx_clus++;
++
++				if (nr_bhs + fatent.nr_bhs > MAX_BUF_PER_PAGE) {
++					err = fat_flush_bhs(sb, bhs, &nr_bhs,
++							    inode_needs_sync(inode));
++					if (err)
++						goto out;
++				}
++				fat_collect_bhs(bhs, &nr_bhs, &fatent);
++
+ 				if (idx_clus == nr_cluster)
+ 					goto out;
+ 
+@@ -606,17 +631,10 @@ int fat_free_clusters(struct inode *inode, int cluster)
+ 		}
+ 
+ 		if (nr_bhs + fatent.nr_bhs > MAX_BUF_PER_PAGE) {
+-			if (sb->s_flags & SB_SYNCHRONOUS) {
+-				err = fat_sync_bhs(bhs, nr_bhs);
+-				if (err)
+-					goto error;
+-			}
+-			err = fat_mirror_bhs(sb, bhs, nr_bhs);
++			err = fat_flush_bhs(sb, bhs, &nr_bhs,
++					    sb->s_flags & SB_SYNCHRONOUS);
+ 			if (err)
+ 				goto error;
+-			for (i = 0; i < nr_bhs; i++)
+-				brelse(bhs[i]);
+-			nr_bhs = 0;
+ 		}
+ 		fat_collect_bhs(bhs, &nr_bhs, &fatent);
+ 	} while (cluster != FAT_ENT_EOF);
 -- 
-Sincerely yours,
-Mike.
+2.43.0
+
