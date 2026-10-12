@@ -1,154 +1,183 @@
-Received: from flow-b3-smtp.messagingengine.com (flow-b3-smtp.messagingengine.com [202.12.124.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D0C8345EBE
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:57:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6DFF4908CE;
+	Mon, 12 Oct 2026 14:57:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791817047; cv=none; b=tY7nozK+pcpHn9aPkLEnbyH1oh/vvGTj+Qbu7gjRMzQSv+W+UMWU788XFol85iyIisFf6RFt+ADHobqNGHJP3zPsohLG277zshLqkPjV7jSgpSZYITUpZL46USLjBrJ0wvzLgPgpEuqrlGZm76yBFWlrD+HQesvHekum7UPPoMo=
+	t=1791817066; cv=none; b=E/z3vmxb9TmANF0YM5dCHyBtT9ZjIrTUN29cSBhnwpmR3bthPOA8/5og12yuJxHVmjZlMxYHExCZqDo74xuKNFnIwpB3vM+Ebz4zfwmgFy7JMu8awetqlSC59zzIcDmrhoFo7WvzBJoXLiAYXu1uO3ZuJMyvxviDr/JW+ksNxPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791817047; c=relaxed/simple;
-	bh=7C4dEkQnMLz9TMFBil12z3bVuTnUQHMzsSjRJ0bhEdU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bcRp5C0ByCbtGkaHfdCkOZl2DUzZeRtThN4Oqhi9gQcseiAQJQh35YjSouQe1yfqMZqTg48YmgTe9GGnO7iIbq+q9V65uNvprDQea0vsuSoFXK8FIzjJ1XkglbTVEiM41LgBuTJD0S4ukZDxCMVdheHpAivqCZXKF+Z54H40CgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in; spf=pass smtp.mailfrom=s-joshi.in; dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b=fWCjle4+; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WuLhkgrY; arc=none smtp.client-ip=202.12.124.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=s-joshi.in
+	s=arc-20240116; t=1791817066; c=relaxed/simple;
+	bh=jgkWrRS1kuOixDXjmSqGzzgEBn58oa3IiZw02ig8r4w=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=THcg7IYckD/u+e1Noj61qK9LeZHujX4XfWdfqRTzsXDx4+paaxHIuWGZAH6ctVf8YfUbouiwK3de365MCCNzg/61NqQMpv0W3f08Ru3P3DX40xwi+6zh4w2HM0j7P5SN7NTpVmjVXSFKEzDMP23HoEZzDaRKk6TwN6fIj/bZWjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VryG38gP; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=tGQJtYhb; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VryG38gP; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=tGQJtYhb; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b="fWCjle4+";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WuLhkgrY"
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailflow.stl.internal (Postfix) with ESMTP id B482A130123C
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:57:24 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-11.internal (MEProxy); Mon, 12 Oct 2026 10:57:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=s-joshi.in; h=cc
-	:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm1; t=1791817043; x=1791820643; bh=Pu13YpKtGky8tPdtL89/Z
-	JE76RVpEXfu65dztzSTlxg=; b=fWCjle4+kDvG3CJenoGoGVOHvD28bHOluWkMM
-	FXka3vmIvW3hp0I0q3moDDsyFY2DXZd7b5/udaUasfDZECbaPbe68RrmskqTaW6y
-	+5DSOOcrb1uYRgLt5Kl5mlI6N7/NMMFbOqyebPe1CfpPsnZVhIVVDEf14Iu9Ftly
-	eUjztaI/4m0kKbEOR52DNOiIv1js7M6XHdxpuz0A3bR3p6PJpy7P8wWAU+dXSKJC
-	SsvZd3BwSVLTAT0HIIiTK8t1L+18MCXwykj2CwckleyMjTm1wwgK1mAOl9lR5Jae
-	BToFurkXHhc7Ew73ilTJ4oNBJrS0uPVj4T3fcN/pRKdycOGPQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791817043; x=1791820643; bh=Pu13YpKtGky8tPdtL89/ZJE76RVpEXfu65d
-	ztzSTlxg=; b=WuLhkgrY+Xo+knPrPI/Ng08TLcByZnJlTaVAaUxGnV6K1FdcIu0
-	clsAyHx0Xm7S3yDPZ0i2vKskN5PfqFr1YclTVMkxakt1kdSS+uIlqR0JLO2ZuHsx
-	szH6gRMVh8uO3d7z2Jo6fN0yM9auRIYOuOIYy2wxfKe9s+GtJYFlW3KUdFLpq542
-	AQJKKzyM5dcGeUvcT7btE7voW7tZ1uzBHDPVr1DZa/f7XbZcv37dNXwFITtvK2+p
-	u6CFgLtLAsLOmAyvCAjOhkRTB/Yq5e1ph5cuZ+bhd5+1Gv9V8qdUruOgwKl5XGTu
-	kAaCwpsqWm4DTbFiFqB7rC4TXg7Ux53xYLQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=s-joshi.in a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791817043; d=s-joshi.in;
-	mf=PHN1aGFhc0BzLWpvc2hpLmluPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:VljObzB+sqq8V4ffAqTPkCOIUHRjiE8b7M2D+tLIufqem4Z
-	yyzIP8wLgO/ODZaGU90qZ59Gm8skkmpD5VQtXECBcBjFTPgyO/Lc5aTLYdnnts8I
-	OpROAB6SUSYkMWwS5aKtSQPiSXVCPS04FBfdszVWedQRX2GEF847RvOqt5CvtQEq
-	gvFcqypkm2Cq2ugUxN9MN8nkMcFdYtIonBIiLjYTdLlOb8CweCgn+aQILM7pjGtQ
-	YLPLCynBYgQ3ypDLdGmM219uld0WqdzQAFSX2vS4lmQZmbTqaIBZGFxYXwjwC5aY
-	6FVZHLzRqYZEv1He8EXlZ+1ov6dfcsh0KmsEckA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:K3S4ELdJFLAySkcvaXr590/l3Nv+7PaJDetms1kIPHc=:7C4dEkQnMLz9TMFBil12z3bVuTnUQHMzsSjRJ0bhEdU=;
-X-ME-Sender: <xms:U_XMasNye88xTrm3IfSKiHn3trpJTmqDo1bXMW_YU0xisNKvV8kgEw>
-    <xme:U_XMasR-XAolPmOUrQOVr8E_Bvq-svdNnJIuhIfInl8XC0Z6PSiNtrnMWcM6Z1bo0
-    ROylIF9QMoMEUnO508y9hKJTFqZrQ2C-bNJh6tOWtHJ4Qw0rS4fuXk2>
-X-ME-Received: <xmr:U_XMaqjga76Uujkb2w00aH6Kbk1ZTWQkBVuq_3nm6we5V8vAtytmgaVACw>
-X-ME-Proxy-Cause: dmFkZTEXjfH5TD6BbZhKBuZ2eKA3t7u3UNXaaE6kXK+qJSJ1FQBQL/xgKeqXzvuID6nIDq
-    v1B5cfciV+B4y8D5FB3SF0E6nNt8FEUQFycJoyso8ID7CWldSXl2TsWi0XR5RtPocR2J8/
-    kZ2oJ6acL5tqX+7QKX5XsayWqQ6YLVOeX4Q4t8OhqTF92tW/AJkvJkGhYW0TJWf7rb+8pi
-    KhAfjtk3qCBeo+oc69WFKMjaMKWTzuCzhqD+j/hj0C5sONKbHoh9qoHG+WMr6mr7xdQhSH
-    6Q7sK5b2XPTuXCQtPUBM3SUgv8KMiu2hBMn8l96di7vN85UxslUIWrFNVZ4RRCk4DH14Di
-    n0zy2NRuNo77QRtfWcaqrG9+whFGuRGRpa6L1qdrULefD113KKZ2DSdZp8io4AS8J/fR4U
-    RIhbv4UGU7eueeQAyenc60wk9N8qKa1XQ3jBv3bFBb5Nvak7UpkAhbSvk9jbpKE1D7fNZu
-    WePNqbw/ceFBkUEZ6rReu0gfT6McDY87a7wqTTi311mOZoIgex205pLcyhl7HoK5g4ov7q
-    8KhuoGsBN6wUskXp/Bd4sd4U1CKR3oBgntemSZ3FgrQ4lW66Oqcrj6qeIwwCOearLcfoer
-    fRpSNRulvJ2FHd9YDXca0Ndg4KJTTJCO+4gNu6gaXN8NY9JNmVzmfLL8DapQ
-X-ME-Proxy: <xmx:U_XMal-21VmYH1B1uGIREc4gA-BNlaLFGaz6C7YwQNNVGdEI_DKMtg>
-    <xmx:U_XMahF3dNEUrpsrNIlJ0BnKjSG0fJQHMO04-FfRPHxgo7mn9LS1Fw>
-    <xmx:U_XMaon8CVIbeVSdW_WLBiHsmf8O6Uyib8zA_VK8p0XqFO3b3Zvq0A>
-    <xmx:U_XMalZ4s27t9ZjURvY1Y9xyqTld3AdQHB6VcuwPvJJNhpCmhe6PAQ>
-    <xmx:U_XMav3C44gIYdD1255VPF6u631jorDfhrT5N3MEr6kn-dEjLlkNCCyd>
-Feedback-ID: ia9504abf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 12 Oct 2026 10:57:21 -0400 (EDT)
-From: Suhaas Joshi <suhaas@s-joshi.in>
-To: sj@kernel.org,
-	akpm@linux-foundation.org
-Cc: damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/2] mm/damon/core: Iterate over installed probes instead of DAMON_MAX_PROBES
-Date: Mon, 12 Oct 2026 20:26:18 +0530
-Message-ID: <20261012145636.168436-1-suhaas@s-joshi.in>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VryG38gP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tGQJtYhb";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VryG38gP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tGQJtYhb"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 92BED1F7A6;
+	Mon, 12 Oct 2026 14:57:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791817063; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=x0beSNIPZY3VBODQQLt6X8tB505Uzs7LokXw8c8p/IU=;
+	b=VryG38gP0MCR6I9BXAa08UWiSWO1R+DWxyGjaWI+b4M1ZKYte1cx/42KLduuWKte3DTxxq
+	KuuEtHZGBFHFv9nBD5goWwBC0l+0tx/hDRUjaiCWk6IcWU1GrGcCAE14XzUup5aDeq34j1
+	L38iKlsbmvAqzwRaSGRBN5E6UlZBiBQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791817063;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=x0beSNIPZY3VBODQQLt6X8tB505Uzs7LokXw8c8p/IU=;
+	b=tGQJtYhb1WZC0fNcuqLnGaQePuUo1Oujsrj99rSX+IY9hEEyWdLS7kQmTSdXTqIF0J02oW
+	mj6VHY7xjtzHKKCg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=VryG38gP;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=tGQJtYhb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791817063; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=x0beSNIPZY3VBODQQLt6X8tB505Uzs7LokXw8c8p/IU=;
+	b=VryG38gP0MCR6I9BXAa08UWiSWO1R+DWxyGjaWI+b4M1ZKYte1cx/42KLduuWKte3DTxxq
+	KuuEtHZGBFHFv9nBD5goWwBC0l+0tx/hDRUjaiCWk6IcWU1GrGcCAE14XzUup5aDeq34j1
+	L38iKlsbmvAqzwRaSGRBN5E6UlZBiBQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791817063;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=x0beSNIPZY3VBODQQLt6X8tB505Uzs7LokXw8c8p/IU=;
+	b=tGQJtYhb1WZC0fNcuqLnGaQePuUo1Oujsrj99rSX+IY9hEEyWdLS7kQmTSdXTqIF0J02oW
+	mj6VHY7xjtzHKKCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 43D3C13408;
+	Mon, 12 Oct 2026 14:57:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id F/Q0CWf1zGozUgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 12 Oct 2026 14:57:43 +0000
+Date: Mon, 12 Oct 2026 16:57:37 +0200
+Message-ID: <87fqybge5a.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ali Ahmet =?ISO-8859-2?Q?Memi=BA?= <aliamemis@disroot.org>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+40b06a86af225236fdb4@syzkaller.appspotmail.com
+Subject: Re: [PATCH] ALSA: hda: intel: Don't free card in the probe work
+In-Reply-To: <20261012143508.1830791-1-aliamemis@disroot.org>
+References: <20261011200648.1662935-1-aliamemis@disroot.org>
+	<875wz7idx3.wl-tiwai@suse.de>
+	<20261012143508.1830791-1-aliamemis@disroot.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-2
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spam-Score: -2.01
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	TAGGED_RCPT(0.00)[40b06a86af225236fdb4];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 92BED1F7A6
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-Hello,
+On Mon, 12 Oct 2026 16:35:05 +0200,
+Ali Ahmet Memiº wrote:
+> 
+> On Mon, 12 Oct 2026 09:19:36 +0200, Takashi Iwai wrote:
+> > For avoiding the card free, can it be the refcounting like below
+> > instead?
+> 
+> I tried it in QEMU and it hangs on every failed delayed probe even
+> without a remove.  snd_card_free() waits for the release of card_dev,
+> but the reference taken in azx_probe_work() is dropped only after
+> azx_probe_continue() returns, so the work never finishes:
+> 
+> kworker/1:1+events:
+> [<0>] snd_card_free+0x107/0x160
+> [<0>] azx_probe_work+0x57d/0x1fa0
+> [<0>] process_one_work+0x937/0x1800
+> [<0>] worker_thread+0x4ba/0xd20
+> [<0>] kthread+0x331/0x420
+> 
+> It also doesn't help azx_remove() which reads the card without a
+> reference before cancel_delayed_work_sync() and frees it again after
+> the work.
 
-This is v3 of a series I sent earlier. Please find changelog below.
+OK, that's a problem, indeed.  How about replacing snd_card_free()
+with *_when_closed() version that doesn't block in addition?
 
-There were two "todo: " items of the same nature in mm/damon/core.c. Both
-of these suggested that we should iterate over only installed probes while
-updating (last_)probe_hits[] during merging/splitting regions, instead of
-iterating over the entire array, which may have empty/unused indices.
+--- a/sound/hda/controllers/intel.c
++++ b/sound/hda/controllers/intel.c
+@@ -2450,7 +2450,7 @@ static int azx_probe_continue(struct azx *chip, bool free_on_error)
+ 			dev_warn(&pci->dev, "GPU sound probed, but not operational: please add a quirk to driver_denylist\n");
+ 		if (free_on_error) {
+ 			pci_set_drvdata(pci, NULL);
+-			snd_card_free(chip->card);
++			snd_card_free_when_closed(chip->card);
+ 		}
+ 		return err;
+ 	}
 
-So this patch series does exactly that. It replaces the for-loop over
-[0, DAMON_MAX_PROBES) with a damon_for_each_probe() over the probe list of
-the context.
+> Which user-visible change did you mean?  The card now stays until the
+> device is removed instead of being freed in the work.
 
-These patches are based off mm-new. They pass all KUnit tests related to
-damon. I have boot tested (but nothing beyond) on qemu-x86_64. Please do
-let me know if I should do any specific tests and link the logs here.
-
-Changes v2 -> v3:
-1. In test functions, new probe and context allocations happen after target,
-   region etc have been allocated. Further, target is added to the context.
-   These 2 changes help in reducing allocation code and improving simplicity
-   and readability of the patches. This change is true for both patches.
-   (on SJ suggestion)
-2. Earlier, if a function's argument list required multiple lines, I was aligning
-   these lines to the opening paranthesis of the function. In v3, these begin
-   after 2 tab spaces. (On SJ suggestion)
-3. damon_test_last_region_quota_reset() uses the older version of damos_skip_charged_region().
-   Make it use the new version.
-Link to v2: https://lore.kernel.org/damon/20261008151944.113714-1-suhaas@s-joshi.in/
-
-Changes v1 -> v2:
-1. simplified commit message of patch 1 (on Liew's suggestion)
-2. wrapped all lines at 80 characters (on SJ's suggestion)
-3. added comments for new argument in function (on SJ's suggestion)
-4. added damon_ctx_destroy() in r2 failure case in damon_test_merge_two()
-   (on SJ/Sashiko/Liew suggestion)
-Link to v1: https://lore.kernel.org/damon/20261007154851.45368-1-suhaas@s-joshi.in/
-
-Suhaas Joshi (2):
-  mm/damon/core: Use only installed probe in damon_merge_two_regions()
-  mm/damon/core: Copy only installed probe in damon_split_region_at()
-
- mm/damon/core.c             | 57 ++++++++++++++++-----------
- mm/damon/tests/core-kunit.h | 78 +++++++++++++++++++++++++++++++------
- 2 files changed, 100 insertions(+), 35 deletions(-)
+Staying the card means that the card slot will be kept, then if you
+probe another card afterwards, it'll end up with assignment on another
+card slot.
 
 
-base-commit: 8b38ed9ab5b09c8ba168cbcc49524e9b380ee5c4
--- 
-2.55.0
+thanks,
 
+Takashi
