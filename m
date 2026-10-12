@@ -1,133 +1,234 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012057.outbound.protection.outlook.com [52.101.53.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35543B6360;
-	Mon, 12 Oct 2026 20:55:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791838556; cv=none; b=DvQXYppyis55PzLuVkAMq5oSlMAgSiG+GrEzmRd93x8LnrjWjyjrPHFspryt2knXQ9jmAsVoKUwiyxTziN7i1scWc7gVzwI4COyLI+emYfbhbNVRvbPGqIuDbFQqFN5FvFKPBiSHvEYzOPx7BWCZQFArxPtLnWo0KVwvWt7QaBI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791838556; c=relaxed/simple;
-	bh=+nfZABIaUamH+2DRheHYOScZlicKn7PcPmYphZR7ovQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pp8wF//d6GR15RkrqT5npmLclKeM8koKnr3CR69BE0qBKyK0vHjYuXhaNpqa4U/QT0nZ3lkhtfwwTaClymANgs3lw6eo6iSqQm+A/ph/YZan2lpacLZ60M09N3mHS5KqDuAUv3Raz7j50MqDOrjQhSohCmilhsfKYuNmG70qLP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Dr50EHkp; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3A0421249
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:56:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791838571; cv=fail; b=gqoEqnB5LRYlM8f8ef2Dgg9tElAuj/J12oAyVI+/oLkv99FZLz1SiafxV37v7r+C+rupYo/lzQpEn9N5pnU+sFdTyeG3s5v1yjdcdXgV1nWzn5id7ThRIg8rRayQEnGGb+swFwwn7Au/9p/jLGmurWoBi+Nca4a3Z44iHOsurdE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791838571; c=relaxed/simple;
+	bh=zQRRltQmDplP7xE3ONSMzMPmeLLbre8t4cNIgVqL7/g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=T2a/tKfqtnehilaVNKBCFf09ebXHQhq3lXjYIZ05BOSHGbb0u9UCsauy5pa3/JV/52vjfqe9XjJyuzpyPjoTSYAOQhmXYdk/491/nUvM+nhThJYTau8Jvg2UH4QtS3OuaF081kj2oTunE6mN2pUuJkcIeiGXxW2ee3J9SexU6yA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=lyirX5C2; arc=fail smtp.client-ip=52.101.53.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Dr50EHkp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791838554; x=1823374554;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=+nfZABIaUamH+2DRheHYOScZlicKn7PcPmYphZR7ovQ=;
-  b=Dr50EHkpbAH7Ys5AgGYfpI85TsjfMiMzkhdXKQnQP3rcGfO4mjXbei8m
-   NenJdkBlhCzTmWa3os2zziYEYTi5wkzM4UMs5XYLrKcxc5eTU3fYSYedM
-   FWptEBPh5HKPq2SU78mYB3Apbl/5Na89/3M2Qd/XsMc48tRZnONzE5M2L
-   WXLPs8+yCnFv570YiRgNCKzPk0U3fI7NVjDSqZvQvBsLHRhxaUNFXleZH
-   WpD6oZzhPuNNDTNgt+WtfAA6mdSYUhL/na9NiCfRhWGLaD5ud1t0KUsa/
-   WWJiEIYsjfa08UcOfNDzjr2JDbP97bj9pvRFfQRLq9prhXZE7dflc/vb1
-   g==;
-X-CSE-ConnectionGUID: FNBXsPauTr+Fo9MKH0ZuFQ==
-X-CSE-MsgGUID: T4E6E/QqSMWdN4dBbAJZnw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="443606"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="443606"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:55:54 -0700
-X-CSE-ConnectionGUID: 669eaP5UQU+FxR9dDhYXTg==
-X-CSE-MsgGUID: YaH5e3m1SdyqKynIfkAwAQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="1079536"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:55:51 -0700
-Date: Mon, 12 Oct 2026 23:55:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Yu-Hsiang Tseng <asas1asas200@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: acpi: Accept comma separated values in ROTM strings
-Message-ID: <as1JVWC8FiN704Uj@ashevche-desk.local>
-References: <20261012074144.1060625-1-asas1asas200@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="lyirX5C2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RTdGJUXt2/gu2QdTi6OIG+juB4izThPO297cpPCiYAz7VYdBbyRCPawxS92LmZpb7vhNPXso2rpa6qf0hohSD+hTXW8GL3YDRGPdkXtlE62+GyeqFo1cARlNigaV/bn0kOUfIgGlvDvudE6ozh4qvB3q7Dh+QY1mG6Dkpm7Kt2WtMDWl2xuP3al6S0+9zZLfiAgbW+cVaAeXc63lpa3NT6IgWAjmttsqStaN4SUDjsn8AyFy82k7LS9GzR123KobMJqrpaj8PFrEVKuzvCgowafF7/iF7K+EbuKP+WVui5ZOy6hvK6mrXNutODdetGPSHxJHA9qbW+kEgP6v4f9RCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tURL7ySnrJuA4INdVd1fQZOpE/dV/duzl1seVBUrmEo=;
+ b=IvRpu3xDcEOZtIgPWmnNmYRsfAm+l0W9NKAH2LmKFFAUn6ErpxXe2R1L9Nir4FbFUYr1/85QWdT3kQOjpbrs7V41JKVdd7N4MVQZEv7OQfTJgfCP28vWiy0skdEisanvsiCwx/mHu6rcfWKek5ZmlbiyibwShwPqz25yhLhsqCo2cDZslanxOQf/VPH9+W6dYXCGn56KazspAmns9RAZF03Oj3a+dvs3izi8hr1ALTJNqB5dvKDWS/c4LMseytVaQmMt/7F4lWcG8lIcwdjiqibRYHZYTGc4+YKsXLkvXyUdrijr9gLxr5pTUbl7hal0GK3BXktxDDRTeGcj2xPWCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tURL7ySnrJuA4INdVd1fQZOpE/dV/duzl1seVBUrmEo=;
+ b=lyirX5C2GwhmXywPUy2/dTBfnh1R1IRLGRZcJI73MybEiJQNUCZEMwGKVHg71k97u4RgZMvH4MPhbvDBl6Igg17rwK119lQf2lNURsCH1uuU1OX01QrT6Q5Xveltl7fdI1swMOTO4NpSzZ/faJjBXrnQ26NA/HFMcA6xZZZc8iI=
+Received: from SJ0PR03CA0140.namprd03.prod.outlook.com (2603:10b6:a03:33c::25)
+ by SA1PR12MB5613.namprd12.prod.outlook.com (2603:10b6:806:22b::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
+ 2026 20:56:06 +0000
+Received: from CO1PEPF000075ED.namprd03.prod.outlook.com
+ (2603:10b6:a03:33c:cafe::12) by SJ0PR03CA0140.outlook.office365.com
+ (2603:10b6:a03:33c::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Mon, 12
+ Oct 2026 20:56:05 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CO1PEPF000075ED.mail.protection.outlook.com (10.167.249.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 20:56:05 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
+ 2026 15:55:58 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Mon, 12 Oct 2026 15:55:57 -0500
+Message-ID: <d16aa986-2f98-97c4-fad9-5fca23f4bc95@amd.com>
+Date: Mon, 12 Oct 2026 13:55:57 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012074144.1060625-1-asas1asas200@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Mon, Oct 12, 2026 at 03:41:44PM +0800, Yu-Hsiang Tseng wrote:
-> The ROTM method of the MXC6655 accelerometer on the Higole F9B, an
-> Alder Lake-N handheld (AMI BIOS F9D_16G_P800217, DMI strings are all
-> "Default string"), separates the values with a comma and a space:
-> 
-> 	Method (ROTM, 0, NotSerialized)
-> 	{
-> 	    Name (SBUF, Package (0x03)
-> 	    {
-> 	        "-1, 0, 0",
-> 	        "0, 1, 0",
-> 	        "0, 0, 1"
-> 	    })
-> 	    Return (SBUF)
-> 	}
-> 
-> iio_read_acpi_mount_matrix() only accepts the space separated form used
-> in Microsoft's example ("0 1 0"). It rejects this matrix and mxc4005
-> falls back to the identity matrix:
-> 
-> 	mxc4005 i2c-MXC6655:00: Incorrect ACPI mount matrix string format
-> 	mxc4005 i2c-MXC6655:00: mounting matrix not found: using identity...
-> 
-> With the X axis not inverted, iio-sensor-proxy reports left-up when the
-> device is held right-up and vice versa, so the desktop turns the
-> picture upside down whenever the handheld is held in landscape.
-> 
-> It is not the only BIOS written this way. The BOSC0200 on the AYANEO
-> Air Plus uses commas in its ROMS method as well, with a space before
-> one of them, and its ROMK method has "1, 0,0":
-> 
-> 	Method (ROMS, 0, NotSerialized)
-> 	{
-> 	    Name (SBUF, Package (0x03)
-> 	    {
-> 	        "-1, 0, 0",
-> 	        "0, -1 , 0",
-> 	        "0, 0, -1"
-> 	    })
-> 	    Return (SBUF)
-> 	}
-> 
-> The kernel's sscanf() does not support '%*[', so there is no clean way
-> to take both separators in a single format string. That leaves either
-> a second sscanf() call with a comma format, or normalizing the
-> separator first. Do the latter: turn the commas into spaces before
-> parsing, so the existing "%d %d %d" format, which already takes any
-> amount of white space around the values, keeps working unchanged. The
-> strings live in the buffer acpi_evaluate_object() allocated for us, so
-> they can be modified in place.
-> 
-> With this change in_accel_mount_matrix on the Higole F9B reads
-> "-1, 0, 0; 0, 1, 0; 0, 0, 1" and, with no udev hwdb override, the
-> desktop rotates correctly in all four orientations. The AYANEO Air
-> Plus was not tested; systemd's hwdb has an entry for it, which
-> iio-sensor-proxy prefers over the kernel's matrix.
-
-Makes sense, and fix is neat.
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-
--- 
-With Best Regards,
-Andy Shevchenko
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V4 06/19] accel/amdxdna: Add AIE version query to
+ aie4_get_info
+Content-Language: en-US
+To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>, Hayden Laccabue
+	<hayden.laccabue@amd.com>
+References: <yidong.zhang@amd.com>
+ <20261009225343.3079074-1-yidong.zhang@amd.com>
+ <20261009225343.3079074-7-yidong.zhang@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20261009225343.3079074-7-yidong.zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075ED:EE_|SA1PR12MB5613:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2f6fdffa-5a64-4f4e-ff0d-08df28a33bb2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|56012099006|11063799006|4143699003|261009223027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	sZuis0YerRiQ7SUUD9WmrmqibkiG2CGD8R01tIcCydQ+LJ6zeaQ+ThFfDjyTdoihj7pnfiywgs4101WJ/AFPHTdgysabkYNHLIiI26fJlk9wVd3O+KJ7EApigMa0nGJZUeCK9t50XcHxGyFElJyHskUEkyLP1X/kt1VQzLoJcCIjJDJywLMnDXdjddJRfVF7oo/Qh0jFUaue7gxcCssS6qc+ZPDxPTCnPSzyQXzW6ve0apNHhLt062yCaTOiSCivmI/YvoyBoMPPUy7eD/AUeCFXf1Gyoo1aICUmKCyj1AoXDJkPK+2/VdDiCb3Qr136lkbDiauqGOPRB1ZzkfQ5yvitESs5ffnmheEuJEeOAwmmAH/a/ho3yqLcc+WTB9O0OS844g/6k14UMgOK7BHEaiqlwQbe7c0vPSJMsjmN+hbD2vFs1uMdB25wbP/FruJnvVXm5FzKZf0ci0YsL/WtemEHb1M18bwRQW4nXx6fMPiseMTe+OoRizGUc8n/qF7j5dYYFd+g8pdbg9pazFR+1P0Qmg9TPcwBLnsSmX2FUoGF6K3+qFiqhut79Hl2+VPNnOVtdQf4A10tq0C75HIgut5ftHubCPc+s+zwmrk4Qmr49Iz0BN9CM/cXm3bsKGNwApSSwo68p+wYEzoELSqkBBkYrklc3jxwsjY8Wihc5LucAODU/JqfrxKfNik3KLmZ+Q1aUZ75eXYXmi0PgcY5vQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	m+IinEec/zNOJalo7lw7kYlZhKF5z16FyeCSikbdFfqKUr6ge+mOHg12L8nlw9E4qPqLyEIUecZbnxq9f2Vg7wUtTxvXGZx0kAe9ZzhYXwMqjFUGjiLkXHrzR/NlD+mspcfYy2zaykOBV23Xm8/pp5YfzPdyOzOSHhTRGXwDujGAUlzJG1AHzTaK1IHCZF8ppgv7YLy/T97UkqIKLfXHZniJMqo1v9qVuLmcaK+/sf6U+hZAflYG4+w/yJi55E9Ird5D+2cYyov+QpWoX4oPPGd1pmluLrYUmHOAkBWycNPhvKzKTsWRbOt47iSZObzofPTUxGZgeTm9uiDgLlZNNR3u0q1ckrQ8iHfkYijB2cMPDYMwQ3r9oRE9qWyepDGTFKSIzDXn+l0ZekKS5fl7cZt2TYm8uSgVMjR6NrNC2qUxG0NiPUD91BZCcNnh4GzJ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 20:56:05.5164
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f6fdffa-5a64-4f4e-ff0d-08df28a33bb2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000075ED.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5613
 
 
+On 10/9/26 15:53, David Zhang wrote:
+> Add AIE version query via DRM_AMDXDNA_GET_INFO. The NPU firmware
+> version query already existed internally; it is now also exposed
+> through this ioctl alongside the new AIE version query.
+>
+> These versions are mandatory once released, the firmware management
+> interfaces must support those queries in their stable version.
+> Propagating any failure to abort device initialization is intentional.
+>
+> Co-developed-by: Hayden Laccabue <hayden.laccabue@amd.com>
+> Signed-off-by: Hayden Laccabue <hayden.laccabue@amd.com>
+> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+> ---
+>   drivers/accel/amdxdna/aie4_message.c  | 20 ++++++++++++++++++++
+>   drivers/accel/amdxdna/aie4_msg_priv.h | 11 +++++++++++
+>   drivers/accel/amdxdna/aie4_pci.c      | 10 ++++++++++
+>   drivers/accel/amdxdna/aie4_pci.h      |  2 ++
+>   4 files changed, 43 insertions(+)
+>
+> diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
+> index f67aa8ba943c..c83f81a0e65b 100644
+> --- a/drivers/accel/amdxdna/aie4_message.c
+> +++ b/drivers/accel/amdxdna/aie4_message.c
+> @@ -75,6 +75,26 @@ int aie4_query_aie_metadata(struct amdxdna_dev_hdl *ndev,
+>   	return 0;
+>   }
+>   
+> +int aie4_query_aie_version(struct amdxdna_dev_hdl *ndev,
+> +			   struct amdxdna_drm_query_aie_version *version)
+> +{
+> +	DECLARE_AIE_MSG(aie4_msg_aie4_version_info, AIE4_MSG_OP_AIE_VERSION_INFO);
+> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
+> +	int ret;
+> +
+> +	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	XDNA_DBG(xdna, "Query AIE version - major: %u minor: %u",
+> +		 resp.major, resp.minor);
+> +
+> +	version->major = resp.major;
+> +	version->minor = resp.minor;
+> +
+> +	return 0;
+> +}
+> +
+>   int aie4_query_npu_firmware_version(struct amdxdna_dev_hdl *ndev,
+>   				    struct amdxdna_drm_query_firmware_version *fw_version)
+>   {
+> diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
+> index b9f7c61f36e3..81842fa1d6ce 100644
+> --- a/drivers/accel/amdxdna/aie4_msg_priv.h
+> +++ b/drivers/accel/amdxdna/aie4_msg_priv.h
+> @@ -22,6 +22,7 @@ enum aie4_msg_opcode {
+>   	AIE4_MSG_OP_CREATE_HW_CONTEXT                = 0x30003,
+>   	AIE4_MSG_OP_DESTROY_HW_CONTEXT               = 0x30004,
+>   	AIE4_MSG_OP_AIE_TILE_INFO                    = 0x30006,
+> +	AIE4_MSG_OP_AIE_VERSION_INFO                 = 0x30007,
+>   
+>   	AIE4_MSG_OP_ATTACH_WORK_BUFFER               = 0x40001,
+>   };
+> @@ -160,6 +161,16 @@ struct aie4_msg_aie4_tile_info_resp {
+>   	struct aie4_tile_info info;
+>   } __packed;
+>   
+> +struct aie4_msg_aie4_version_info_req {
+> +	__u32 resvd;
+> +} __packed;
+> +
+> +struct aie4_msg_aie4_version_info_resp {
+> +	enum aie4_msg_status status;
+> +	__u16 major;
+> +	__u16 minor;
+> +} __packed;
+> +
+>   struct aie4_msg_query_cert_firmware_version_req {
+>   	__u32 resvd;
+>   } __packed;
+> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
+> index 1eeb1cb73b27..1cbd1665a28f 100644
+> --- a/drivers/accel/amdxdna/aie4_pci.c
+> +++ b/drivers/accel/amdxdna/aie4_pci.c
+> @@ -289,6 +289,10 @@ static int aie4_query(struct amdxdna_dev_hdl *ndev)
+>   	if (ret)
+>   		return ret;
+>   
+> +	ret = aie4_query_aie_version(ndev, &ndev->aie.version);
+> +	if (ret)
+> +		return ret;
+> +
+>   	ret = aie4_query_aie_metadata(ndev, &ndev->aie.metadata);
+>   	if (ret)
+>   		return ret;
+> @@ -595,6 +599,12 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
+>   	case DRM_AMDXDNA_QUERY_AIE_METADATA:
+>   		ret = amdxdna_get_metadata(&ndev->aie, client, args);
+>   		break;
+> +	case DRM_AMDXDNA_QUERY_AIE_VERSION:
+> +		ret = amdxdna_get_aie_version(client, args, &ndev->aie.version);
+> +		break;
+> +	case DRM_AMDXDNA_QUERY_FIRMWARE_VERSION:
+> +		ret = amdxdna_get_firmware_version(client, args, &xdna->fw_ver);
+> +		break;
+>   	default:
+>   		XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
+>   		ret = -EOPNOTSUPP;
+> diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
+> index 940e67347d74..5ae5e8427a3b 100644
+> --- a/drivers/accel/amdxdna/aie4_pci.h
+> +++ b/drivers/accel/amdxdna/aie4_pci.h
+> @@ -69,6 +69,8 @@ enum aie4_fw_feature {
+>   /* aie4_message.c */
+>   int aie4_query_aie_metadata(struct amdxdna_dev_hdl *ndev,
+>   			    struct amdxdna_drm_query_aie_metadata *metadata);
+> +int aie4_query_aie_version(struct amdxdna_dev_hdl *ndev,
+> +			   struct amdxdna_drm_query_aie_version *version);
+>   int aie4_suspend_fw(struct amdxdna_dev_hdl *ndev);
+>   int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev);
+>   int aie4_query_npu_firmware_version(struct amdxdna_dev_hdl *ndev,
