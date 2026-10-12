@@ -1,91 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF6D49BD90
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:37:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F0F377ECC;
+	Mon, 12 Oct 2026 15:37:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819439; cv=none; b=aRUStALCBw5PKwjW+nPFWLsxuCmsruYssHUWmMOQO4g8iY6oaYelBBepYEw+WoCSr5pdo+wl09xYjreif9JSp0/R7VwlcedYqg6KpoJRMJeZ0O5GQP/lmId1N7vkC7QGF5v2hjNhBpA3Zq70Y1P9mQ0cv+4RTHT/+fr8kngX8kw=
+	t=1791819467; cv=none; b=kyKXgjLARm4lREMh0sFVmQpl1ri0H1ptrQ4h/st5dAIr3g0Eqh/+mVWPzpST8x6sd9W5IG7xqYApTn/jMdzBIY+lEUPpWXtynZg38HaEiefO7QEHcm5InT2AzoHe6uP0720eiiLLJrzaR4p7AFnAPVpz77UzPgWwaEzt8I+81VI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819439; c=relaxed/simple;
-	bh=Ny6CnJcMREGWOqOHnwVu++VYZE8mUIUwqMU0hWC+Llw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QDjR5b745SM+HEkJ7W4eV6TM4YX4lKuh9wFmgd+I5Lervr53h6mA1QTyOhhxlTrvsM69TZgDs6WmP4495cELcjNYh5JvQegtv6NnaLXnPkJ6PHvBwy1zyegC+JTjdw8SNg86ia3CtC5jkyVBkJy4LkXtgQIxGITwHeGx0bMO6ZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FnV4OwTk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791819467; c=relaxed/simple;
+	bh=nGOOjrZQ9vQTrVsVYxJirsK1R//qfD//QDoncz6f/Bw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fK9GjZpyTsB2k9XPwgrVKjL2WYXydV9U7unI7oaIaIxZEibEwcTILQoc5Ql9TktLZ7Mu9D88Qykg1F4uXZIR0jvRL28MXz5OvU88HeWZdfilYXNfj6j4YejXwQdH9zr6gLdqNiAOnX/ePzukjWYu3nugKfFRqKNFIY5jbV6SkwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=OexIpR0A; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FnV4OwTk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC2481F0089F
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:37:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791819437;
-	bh=0LtWcDpcoANXJxp8BUzLrX4nuAiYWSXUb2UN4CsRl44=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=FnV4OwTkZA/UNOS5Ux4gh2FK0Pqev8vsp2jMe/kCyc0LAycKwKRjIOP/dmsMCl/Uk
-	 xI/S3z7UvSkvHPrE9BKs8TfHLfuxE/lQQ3eJooU5E0U+8vBoDnuj7K/E/djyTtbZlI
-	 0EJSdzRxP64LUpDt/K0SdHckNJOr1gxQmFeeZjdOFgkv5n+t4lJis3K8NkyucUSkkN
-	 dmMyS55Fm9znnm8c0pcjjqTHYX1enVN88XVTpvCOYFMSJNuZ2Ruwqhu2xD5tkJpeQi
-	 00AqKHvOvAtlmUnjuw5G7mo/bpytNYAppPwvQxgr9RHAWZlkA56W48uHhG4sELbzjf
-	 mXF4N8abeSmLQ==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bcb2ecebb4so1515693e87.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:37:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz/EiTOXKn1eHVesd0LSJZhy25j5wQRcZdKoaSyX6S0OmG0qi6cC1Dm16L0ibEMtJcEHYJ3SG7blF8K4Y4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK10qVTL2aSU6+F+z8ADm5aPS4s0pcKKTgJNWMzPByrThcN1ZjV
-	7QF4u/ULJUaBHLSVC8Gd3PBJ6qpKGuQ9/iIUpHd6j1XSKYN/W+8pckskLjtJMDttXxAz6dfZuUY
-	GF29r28KZlZZcGARJozC50oXxn8oALF8=
-X-Received: by 2002:a05:6512:1592:b0:5bc:b5ea:94b2 with SMTP id
- 2adb3069b0e04-5bcde8db1damr3599793e87.59.1791819436162; Mon, 12 Oct 2026
- 08:37:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="OexIpR0A"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=bmEBzjtGY7aLkmAjI10fqgFl9crk74BPMTb3u+QXLYY=; b=OexIpR0AbtlyuqpOma1HLv7/Lu
+	ggcdjsqXA+UA0/uT+wD/8cBA1zC3OrHHLS/KIEBlUykNSuUQ5AQ74YPgKi0KKl0y3L3p0wkU9PNgs
+	CBZtk000pCuXvcTWbo8HnOuvpJUzIVpae6OK5xqUMN8o8Yvx/EPWf4owmSkI4txni8b2bPssAZiL3
+	pwlnAAfIteP3s7Z3CO5oPhiouQAdhTrL2IZELhIafND4k3E7kfhgTn/n4TuSopsSK7fXtoamZ8fL8
+	hJh+isSfzOg9r94EfCcC5Avv9OelXeIXUzI/j5Xk3LeEz1qqM6DU0yloNM+6unS6QCP0AxZukcmx0
+	7YEtQSAw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xGI5p-00000006VHw-2UX7;
+	Mon, 12 Oct 2026 15:37:37 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 64F9430045A; Mon, 12 Oct 2026 17:37:36 +0200 (CEST)
+Date: Mon, 12 Oct 2026 17:37:36 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Thomas Gleixner <tglx@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Uladzislau Rezki <urezki@gmail.com>, linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] rust: add a wrapper for the `num_possible_cpus` C
+ function
+Message-ID: <20261012153736.GV4121339@noisy.programming.kicks-ass.net>
+References: <20260929-cpu-helpers-v3-0-e968ce5ee613@kernel.org>
+ <20260929-cpu-helpers-v3-1-e968ce5ee613@kernel.org>
+ <20261002092438.GA2823843@noisy.programming.kicks-ass.net>
+ <87o6db9ej6.fsf@t14s.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925155846.2381956-1-yaojiale02@163.com>
-In-Reply-To: <20260925155846.2381956-1-yaojiale02@163.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 12 Oct 2026 17:35:11 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hjijTBTcUWW_esn414CNenNuBN9Viv+boqYX=fSnuQpw@mail.gmail.com>
-X-Gm-Features: AclHuK_MhwdXrrCVuVtKNaYGnMohUwJfio5uZBGpMkVRF1pokHTd6KvPAgrMm3U
-Message-ID: <CAJZ5v0hjijTBTcUWW_esn414CNenNuBN9Viv+boqYX=fSnuQpw@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: PCI: link: clear driver_data before free
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pavel Machek <pavel@suse.cz>, linux-pci@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87o6db9ej6.fsf@t14s.mail-host-address-is-not-set>
 
-On Fri, Sep 25, 2026 at 5:59=E2=80=AFPM Jiale Yao <yaojiale02@163.com> wrot=
-e:
->
-> acpi_pci_link_remove() frees the link object without clearing the ACPI
-> device's driver_data pointer. The ACPI device survives hot-removal and
-> can later be retrieved by acpi_fetch_acpi_dev(), leaving callers with a
-> dangling pointer.
->
-> Clear driver_data before freeing the link.
->
-> Fixes: db89b4f0dbab ("ACPI: catch calls of acpi_driver_data on pointer of=
- wrong type")
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->  drivers/acpi/pci_link.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/acpi/pci_link.c b/drivers/acpi/pci_link.c
-> index e6ed13aee48d..84bfcdf242dd 100644
-> --- a/drivers/acpi/pci_link.c
-> +++ b/drivers/acpi/pci_link.c
-> @@ -787,6 +787,7 @@ static void acpi_pci_link_remove(struct acpi_device *=
-device)
->         list_del(&link->list);
->         mutex_unlock(&acpi_link_lock);
->
-> +       device->driver_data =3D NULL;
->         kfree(link);
->  }
->
-> --
+On Sat, Oct 03, 2026 at 02:03:57PM +0200, Andreas Hindborg wrote:
+> Peter Zijlstra <peterz@infradead.org> writes:
+> 
+> > On Tue, Sep 29, 2026 at 07:56:48PM +0200, Andreas Hindborg wrote:
+> >> This function returns the maximum number of CPUs that can be online.
+> >> 
+> >> The wrapper is needed by the Rust null block driver.
+> >
+> > What does it need it for?
+> 
+> Setting an upper bound on the number of submit and poll queues.
 
-Applied as 7.4 material, thanks!
+OK I suppose. As long as nobody is going to try and use the return value
+as a max for cpuid. That is, num_possible_cpus() <= nr_cpu_ids and all
+that.
+
