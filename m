@@ -1,122 +1,69 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219E349C4C3
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:44:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A203290AA
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:45:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823472; cv=none; b=INE5Gu3ocXB/UxsXOB+OrqneE8iVjDNMNdeGyWsmVwhGZbKHfmDsLHjthhUS2cqdMCCkJCZiTW0fsgkTwLpYTq+/qqYC6QRn5y+mB3L15C0AbR7wKGffeorodw6B5jsIomEK1qj4UjIBmIY3NG1UzuHKi7lSuS/otwzh9ytvBFg=
+	t=1791823504; cv=none; b=WtrmXiYVNZFOcagJqttYjRbeT817b5uPUJU5+1pje9gOzOSJfRUkztlwhN23nj/qsBDN7RPQ3mFY8TPsAUqdxtkHOPbHZXh/RCKvjHzShqm2+9kHmlAvSSG1NnI+RlZnrmcnDMu8zchMI6vgsfEs6fAiZ6CGczbw7O1X/SDV6So=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791823472; c=relaxed/simple;
-	bh=rIw4+SIpOyE8y8Up8P2niQvSmYAUDOt+08ZKgVbIVmA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=R1OjoFGx8kh1VMmca3PRJZww5rARdMJ0DdUwIe7uuZWhk1H3SBG43+GJ/tIHQWc4pQ/Ndfr+ILkmk2tuszayp3N4IwxpmoJidaifGGrrmmL9Wp4kPIzE1gmvCxyWz9shl84OIW4/4QNlidgvF2octTJQkNPTZ7c2lhWxKzKT360=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=z6bRrKRK; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="z6bRrKRK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=ZI1jrhehYU+RLKzgYORjc8QBBzD771a1CdXAHNaSzhg=; b=z6bRrKRKJWtCYbq8O15zAVKj2D
-	bBzZr2i0KPOh74I4rQGdau7VTdAKbFhVeChAGUfakuuH16JYr91BIvvM2DR8J5GTsNfTmOADDDUxf
-	gSoyRlC/x31Z4YlNZF5zkwo55heQMtbGri91zlsdtqFHHohb+H9DxwCDSKr6LDuUCTXSZfauun/tz
-	NrO/lXE2WYRRkEAAhCYmJkoGjtPR5hOBGyZDTq5cfSZ+MeN5U9LIoWoSrQ37zsIatc5ItLcALCsSm
-	JbN9AMSF08rKqA3DshjDy6cC4kBWFUfdh/eTx9n1MZZ2KPNuYZ72C+gPT77kQZbxoDI5Mp78yAqb9
-	DNXK2IKQ==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Sandy Huang <hjc@rock-chips.com>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Algea Cao <algea.cao@rock-chips.com>,
-	Daniel Stone <daniels@collabora.com>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	kernel@collabora.com,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Diederik de Haas <diederik@cknow-tech.com>,
-	Maud Spierings <maud_spierings@hotmail.com>,
-	=?UTF-8?q?Robin=20R=C3=A4ber?= <robin.raebi@gmail.com>,
-	Igor Paunovic <royalnet026@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v12 00/16] Add HDMI 2.0 support to DW HDMI QP TX
-Date: Mon, 12 Oct 2026 18:05:01 +0200
-Message-ID: <179182109533.3793653.8971698569867906952.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
-References: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
+	s=arc-20240116; t=1791823504; c=relaxed/simple;
+	bh=orvMHA0tK0NzLwHia4UVEvLA7DgboKzQltKRh7ise58=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=f6tywTlKsM+Gv1mWMgx+Nhw+0eSTfLQtJAMS2mtn3WpwzMbvug4kAQHIPevBus6czA6Qgobe8fvjhFgaJCD/ZVog731tzPvivIgfAmjWbCsBTd9xifI1xY/GITGV7a8fhEeu9GpJfys2CdZPJA0o6yKK9BogUPulRz3G7XXqkOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4c467e19391so3807139b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:45:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791823502; x=1792428302;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=MtfVgGXZMMx3Yl+dn2SsazaLYN5GZhxkboUwj27h+V4=;
+        b=Yad3sQNfpWz4Y+laPUBJWM0m24CrOwVOww/LCoNkPWA6vT9lbkKlV2P2fDOQcEhfvM
+         PoVLYLEcUWp/hMAQ5ub9ol2R5xHn9G9lwv3htuVTVxOloE1fTPfH4eqWtDsIWhZ9f1UR
+         u8gxWRcJHD8m5jeL87VBc4aweRP7iMpb0PcupEwBys5ORYCpVFCfDCmsd4Kyp6dGARwo
+         chCqIXb71xe+c3QuFURomljynRMNekgjmz51iNrb5OXQK8d1ZOpIh1QH1FG/3yLTjxD+
+         EtrE5ujJRNZhY3LCmT/K+3wnZeNOX1DvfvIiBp1olP9Uqg1+L4jxVmK76D0uy2AOwQ0E
+         CJvw==
+X-Gm-Message-State: AFq9FYJ/t0u7oEm0Uj8Zz9JL+Rh4J5nIXUu0xATDcxu2aAsRqML88+ba
+	PPKj4Vjzz1cliQ1p21wPPTf1IF9dpRiPYnYhomCdi7/EQf5/UAdnm3Bdr0IPhYjJL/BIaS18D1Q
+	uxbXyL9t5YElh0dKggqjEu0566fatGxio3XhEvxA0RXTM7sz7GEs6IjmeR3o=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1303:b0:4d6:9222:99f7 with SMTP id
+ 5614622812f47-50c59e37adcmr8114121b6e.55.1791823502302; Mon, 12 Oct 2026
+ 09:45:02 -0700 (PDT)
+Date: Mon, 12 Oct 2026 09:45:02 -0700
+In-Reply-To: <CAEfrx+BVayni5vLt7vDR7bLM83OKYB-GqhSfJxNXUH=ekqniCw@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6acd0e8e.a150a118.27e199.0051.GAE@google.com>
+Subject: Re: [syzbot] KCSAN: data-race in __se_sys_inotify_add_watch / fsnotify_handle_inode_event
+From: syzbot <syzbot+181b8b439f5207144b16@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, spannme41@gmail.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot tried to test the proposed patch but the build/boot failed:
+
+init/main.c:14:2: error: ASDF
 
 
-On Mon, 05 Oct 2026 03:38:01 +0300, Cristian Ciocaltea wrote:
-> Enable HDMI 2.0 display modes (e.g. 4K@60Hz) on the Synopsys DW HDMI QP
-> TX controller, as found in Rockchip RK3576 & RK3588 SoCs, by making use
-> of the scrambler infrastructure introduced recently in the DRM core and
-> HDMI display helpers.
-> 
-> The first group of patches wires up the SCDC scrambling feature itself
-> in the DW HDMI QP bridge driver, while improving i2c fault handling,
-> and providing enable/disable HPD PHY ops and a HPD notify helper.
-> 
-> [...]
+Tested on:
 
-Applied, thanks!
+commit:         24a19b95 Linux 7.3-rc7
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ea1e6d8de13bab08
+dashboard link: https://syzkaller.appspot.com/bug?extid=181b8b439f5207144b16
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=13fea9c9580000
 
-[01/16] drm/bridge: dw-hdmi-qp: Demote i2c bus error messages to debug level
-        commit: 7de65917d29cc0747bdbd5f30ad2f8a3d0a236b9
-[02/16] drm/bridge: dw-hdmi-qp: Provide .{enable,disable}_hpd() PHY ops
-        commit: 23594060f8019e400c55abe4b982f4ddfbb06471
-[03/16] drm/bridge: dw-hdmi-qp: Remove unused workqueue include and define
-        commit: 994452efe9c7871d7a6de8c31ba6e5a2c9733e99
-[04/16] drm/bridge: dw-hdmi-qp: Add HDMI 2.0 scrambling support
-        commit: 046dbe428a69e0e2a8d09ac7de75ebc9bd469a46
-[05/16] drm/bridge: dw-hdmi-qp: Provide dw_hdmi_qp_hpd_notify() helper
-        commit: a58efc1aa0bb67abe1946be72a1c67d17d78aadf
-[06/16] drm/rockchip: dw_hdmi_qp: Fix invalid drvdata access in PM ops
-        commit: b6e19848c9db535d81d6db85c7cc1324e6611791
-[07/16] drm/rockchip: dw_hdmi_qp: Cancel pending HPD work on suspend
-        commit: 5d0aa771a5308f6a6c83eeaa89351a472ae580c3
-[08/16] drm/rockchip: dw_hdmi_qp: Add missing newlines in dev_err_probe() messages
-        commit: 7554a1cb23148a3ab0b74c7edd47356c26b40ead
-[09/16] drm/rockchip: dw_hdmi_qp: Use local dev variable consistently in bind()
-        commit: 1fe516676a1ca0678b27408f7b5f91b4e9f5bbc9
-[10/16] drm/rockchip: dw_hdmi_qp: Avoid spurious HPD IRQ thread wakeups
-        commit: 8bba3185c107b6bb6d59a1fb0c516e24dd90dee4
-[11/16] drm/rockchip: dw_hdmi_qp: Mask RK3576 HPD IRQ in io_init
-        commit: 383fad9dac0c136334cf257fa1a1ce5180e08740
-[12/16] drm/rockchip: dw_hdmi_qp: Implement .{enable,disable}_hpd() PHY ops
-        commit: 40e100d4af8f29df7ddc7e867412bf81836fb32c
-[13/16] drm/rockchip: dw_hdmi_qp: Factor out HPD interrupt (un)mask helpers
-        commit: b0d607d0c35b206b3ec0497dedbd0fa48f108144
-[14/16] drm/rockchip: dw_hdmi_qp: Control the HPD IRQ line via the bridge HPD ops
-        commit: 91f92a7487c4efef52b13bc864f5c16858791ba4
-[15/16] drm/rockchip: dw_hdmi_qp: Use dw_hdmi_qp_hpd_notify() for HPD reports
-        commit: bba9ac0a9047f3df5d5160140785c1d885debb06
-[16/16] drm/bridge: dw-hdmi-qp: Drop unused .setup_hpd() phy op
-        commit: fc9370d7b1c927f5a7f20e1251b8ee7bc0698954
-
-Best regards,
--- 
-Heiko Stuebner <heiko@sntech.de>
