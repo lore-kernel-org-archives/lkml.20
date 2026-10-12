@@ -1,232 +1,152 @@
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8159D4F30F2
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:55:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A91E47209D;
+	Mon, 12 Oct 2026 21:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791842130; cv=none; b=joh02ee2gUrB/FtOlwlMnt3mWKrbwSDDlj+Xd5+24oYnvXKJ5/JTvujHj/zK7SYUrNuUy71z7CxPbHNLKOuADxjjevwUS6o7flhD15KKiumuPzUu94tOJ9Ip7geR8zLoEJc36Lw9CklMeihvTp4TSyfZ2G7t7dlQlkatfl63/2w=
+	t=1791842245; cv=none; b=mwYT0AdRlc/U9GF2Ju5scTMnLjRXQQjS2kIGe8BzKhA744NGNgwddkk/4AeNwlXPckOb3i40vE2XN/BnCMTHVwP8WIOqeSJZxquBpNFIhDKbmFod9+pzjDp+TBn5u6X7y27JemU4qU6rOrMGSQrYvZ+7sbxM3ah8kL49rNrojR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791842130; c=relaxed/simple;
-	bh=v7mSnixZGMtaMz8xX1r2GGHZjopVTLHny2iDACGM2iU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ltdxGMZuNVbW0zn95grBYNhikxySoav0Z3Tv55Y4JB8Q71m4nGnGIyvtcklBdVwEojKWH8e/8FdNX4J3icYODrSPrNbNaYl5ckSBTYzhTxgEQ+BlBo86JolqTGcCvS5qvyR9cZbTTC3z/Mv9BopWudCN1utwIcy9XfnTq1wm0O0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WoPWWc5z; arc=none smtp.client-ip=74.125.82.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791842245; c=relaxed/simple;
+	bh=aCs3DO9bJi+Jg3rfsha+cbRjn79iH0l7DpIL3THq6Cw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ixpvu6qsY7kYqaWpgt6cNLmlhywcmzNKQTrg2ytUlCzqYZn0ki1OjBoiKaYgXfqwqyDPe4QdDtsV98eQ8Q3c+3uZz5WBF1BLLTT0ehKVkguD0mt4dWtwrS8dntb1LMEgNlYDNY3erPpBel+nRvXvY3DKLQ+VvZiT3QXZLiAr+WA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=YNLD/nl7; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WoPWWc5z"
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1517bda04a0so1164107c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:55:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791842127; x=1792446927; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kbVgtJX2q8ylQI0zobsXx8l1hr9HiDdvcbYq5xBa+EA=;
-        b=WoPWWc5zM6PBxHQn64cGSZEAn0SOe8cirC7Gdh6qQofC2tVqz+PrkISD46hVEKYB2m
-         QXKUxOl1tGr5fAaCTgd23MkQi+DcUubTEkTb+R9iUoUmi9Q2eapYk0/gaSCr+21UdmKa
-         /bTe9s0GabJIzzi2OUh9f5SgvBgk1q7U9mIrUetN4sNZZyoRJOjpksNEsx2/r+KPixIc
-         v7Jp0ZZwJK7gx22H5w31ZOgNCGymyiDzC0mJnfvN++qgIesDw2RGCKh6N9rm4YjWMKKo
-         9+wTu2YoZKyqH2kt1Zs7aDV8R6mCjCAI8M6ldtds9pEqknmMwKOhuwkzDJcmGYFDHm4b
-         X1IA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791842127; x=1792446927;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=kbVgtJX2q8ylQI0zobsXx8l1hr9HiDdvcbYq5xBa+EA=;
-        b=bSQCDr0amD1v9XWdCXW8s2PsmwsFS8lbJvUy1dd7HlPzIaBeSus5TgnHetjzmCgrHD
-         Y1eYf6Ln/S4Kflv3bhcuVyULyEkTGTkTQJCzr41If4d9PgmUrEf0m/rKet43pD6YGk1O
-         TkuvACcZAg6e2d3qH2QXqVlIaRs7h2RHui+cX3evWrxblKtP796/X2oE61aX4Re/MajC
-         pDOx7XttNVQoWjlgZf3Swn3wkdg4P5V5XOWpcufr5hVT9VKI7zQghRs6ClB3wZc9jXgL
-         HkYr4Wfzv0UsRo39AaZ5KHx4+/QiAG5oPYQJPqDvVk5wbHNqYoTaHizpJJOwcg0A7lmv
-         yJOw==
-X-Forwarded-Encrypted: i=1; AKwUvBzliXuvcJc/mh1ZapbKf39dv6gUs7tKuU6GHS+4JZWd7zcP09HNEEAUi6tuRwVue8ZOs7q3gEiU/w1TpUE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsFN8yRWgUljiSyN4g08JaD6p3O6cFwAiq6lWi2TlHPhsnhVAW
-	2bgmEqaX3PhSsHDmduRjCK4Tebq5SGprD0rqDYm46qK8cuflL8txpHJW
-X-Gm-Gg: AYBFou2Hq/mnDcS+SO5emHNaoaZt2EXHRsK2fGQ1vejNLd6hzUiwsoxTaiiz/fjPmYt
-	C/61nb/Ks7LkCKxaz9vicrCx8TpOi9nq+jRlv1qgIP+jsWL3x7gCakDl2t8nSMiziAHari0EcVN
-	KJLgZxd/RYBQPw5RDvpG1eCD0aNPKeMVJ7Hyl5xgSjwlZ5eKPajyUwzy4RbGDAk0paOzhFM0owM
-	38MWBkGSGBf8+xHULDm+RboIVw9zzf5N/TWOraJ+0syOjChM/5pcEyYXt4OahpBTZ9tzWNnrEcB
-	1f8kBzmL0E/9yCwqo+PIOBnRf0NYIvO4nxOYm8tjkCEe/vz/co+foKBbfIEbW5pSYujvLim6DIG
-	Jh9eGPsZFnzB8DPW8iX5GZ1DVspfAHzXdAWz9BvWTGUI3/gkwAPwcfNs06KCHv4HpyiPrCuJkwy
-	/8wX/EFsCyl9mnHFffk+wx3cWZt6SW8hSqNeHjpEcmJHIbW2wh64fysuHM/NTrrZkMT0F3EBgfn
-	A0sXw==
-X-Received: by 2002:a05:7022:285:20b0:15d:f053:18b6 with SMTP id a92af1059eb24-16a5adfbebdmr13879181c88.9.1791842126992;
-        Mon, 12 Oct 2026 14:55:26 -0700 (PDT)
-Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1746482c978sm12428271c88.13.2026.10.12.14.55.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 14:55:26 -0700 (PDT)
-Date: Mon, 12 Oct 2026 18:55:47 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 6/6] iio: imu: inv_icm42607: Add accelerometer
- calibbias support
-Message-ID: <as1XY5EfKwfnb2DX@debian-BULLSEYE-live-builder-AMD64>
-References: <20261009-b4-inv_icm42370p-v6-0-e53884f185ff@axis.com>
- <20261009-b4-inv_icm42370p-v6-6-e53884f185ff@axis.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="YNLD/nl7"
+Received: from mac.lan (unknown [4.194.122.162])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 5290920B7166;
+	Mon, 12 Oct 2026 14:57:07 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5290920B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791842235;
+	bh=sAcevL3agJ7NVCdbTZ35FN4zIGdW9XvO0Fip6lIwkuE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=YNLD/nl7Nl9aac/wgHGsxEwCTHbK4NfaG+EIihCqjxHA0pRMtj8LubdkJt7blMiNi
+	 oO1E/1/oJMew/ClnbW3UbYiJmyRMlYo9vHm58m6wQgS4mILiV99V2mpr4iCNpQEn1Y
+	 KKabXWcXmggR+SBILssE118VpAwqhrK+cinN+7gc=
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+To: John Johansen <john.johansen@canonical.com>,
+	Georgia Garcia <georgia.garcia@canonical.com>
+Cc: Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	apparmor@lists.ubuntu.com,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Francis Perron <francis@akrites.dev>,
+	AutonomousCodeSecurity@microsoft.com,
+	tgopinath@linux.microsoft.com,
+	Cen Zhang <cenzhang@linux.microsoft.com>
+Subject: [PATCH] apparmor: fix query_data() output overlapping the lookup key
+Date: Mon, 12 Oct 2026 17:57:03 -0400
+Message-ID: <20261012215703.30592-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261009-b4-inv_icm42370p-v6-6-e53884f185ff@axis.com>
 
-On 10/09, Kanak Shilledar wrote:
-> Expose IIO_CHAN_INFO_CALIBBIAS on the accelerometer channels. The
-> registers are stored in MREG1. The calibration bias is written to
-> OFFSET_USER4 to OFFSET_USER8 registers in MREG1. Reject the out of
-> limit calibbias values instead of clamping it.
-> 
-> Datasheet: https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370-p
-> Datasheet: https://www.lcsc.com/product-detail/C5129967.html
-> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
-> ---
-...
-> +static int inv_icm42607_accel_read_offset(struct inv_icm42607_state *st,
-> +		struct iio_chan_spec const *chan, int *val, int *val2)
-> +{
-> +	struct device *dev = regmap_get_device(st->map);
-> +	unsigned int msb_reg, lsb_reg, nib, byte;
-> +	int offset;
-> +	s64 val64;
-> +	s32 bias;
-> +	int ret;
-> +	u32 raw;
-> +
-> +	if (chan->type != IIO_ACCEL)
-> +		return -EINVAL;
-> +
-> +	switch (chan->channel2) {
-> +	case IIO_MOD_X:
-> +		msb_reg = INV_ICM42607_REG_OFFSET_USER4;
-> +		lsb_reg = INV_ICM42607_REG_OFFSET_USER5;
-> +		break;
-> +	case IIO_MOD_Y:
-> +		msb_reg = INV_ICM42607_REG_OFFSET_USER7;
-> +		lsb_reg = INV_ICM42607_REG_OFFSET_USER6;
-> +		break;
-> +	case IIO_MOD_Z:
-> +		msb_reg = INV_ICM42607_REG_OFFSET_USER7;
-> +		lsb_reg = INV_ICM42607_REG_OFFSET_USER8;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	ret = regmap_read(st->map, msb_reg, &nib);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_read(st->map, lsb_reg, &byte);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* 12 bits signed value */
-> +	if (chan->channel2 == IIO_MOD_Y)
-> +		raw = FIELD_PREP(INV_ICM42607_OFFSET_MSB,
-> +				 FIELD_GET(INV_ICM42607_OFFSET_USER_NIBBLE_LO, nib));
-> +	else
-> +		raw = FIELD_PREP(INV_ICM42607_OFFSET_MSB,
-> +				 FIELD_GET(INV_ICM42607_OFFSET_USER_NIBBLE_HI, nib));
-> +
-> +	raw |= FIELD_PREP(INV_ICM42607_OFFSET_LSB, byte);
-> +	offset = sign_extend32(raw, 11);
-> +
-> +	/*
-> +	 * Convert raw offset to g then to m/s²
-> +	 * 12 bits signed raw step 0.5mg to g: 5 / 10000
-> +	 * g to m/s²: 9.806650
-> +	 * Result in micro (1000000)
-> +	 * (offset * 5 * 9.806650 * 1000000) / 10000
-> +	 */
-Maybe add a comment here highlighting that this is an exception among IIO ABI
-and provide an additional patch extending the note on in_accel_x_calibbias ABI
-doc to include icm42370. Having to amend the ABI doc that way looks to have been
-an unfortunate need (also according to commit 69c93a7df74b).
+In query_data(), buf and query point into the same multi_transaction
+buffer: buf at the start, query a few bytes in, and the lookup key
+right after the label string that query points to. Reusing the buffer
+is by design and is safe as long as the query is fully parsed before
+buf is written to, but the key is not: it is dereferenced on every
+iteration of label_for_each_confined(), after output has already been
+written. So when the label has more than one profile with a data
+table, the data of the first matching profile is written to buf while
+the key is still needed, and overwrites it if the data is large enough.
+The later lookups then run on a corrupted key. Besides, if the data has
+no NUL byte from the key's position to the end of the allocation,
+strhash() -> strlen() -> jhash() reads past the 4096-byte slab object,
+triggering an out-of-bound read:
 
-icm42370 seems to be similar to icm42600 so extending the exception might be
-okay in this case. Creating new ABI is probably too much.
+  BUG: KASAN: slab-out-of-bounds in jhash+0x595/0x5e0
+  Read of size 1 at addr ff1100001159d000 by task exploit/155
+  CPU: 0 UID: 1000 PID: 155 Comm: exploit Not tainted 7.3.0-rc7 #1
+  Call Trace:
+   jhash+0x595/0x5e0
+   aa_write_access+0x880/0x1400
+   vfs_write+0x26f/0xd20
+   ksys_write+0x115/0x210
 
-> +	val64 = (s64)offset * 5LL * 9806650LL;
-> +	/* For rounding, add + or - divisor (10000) divided by 2 */
-> +	bias = DIV_S64_ROUND_CLOSEST(val64, 10000L);
-> +	*val = bias / (long)MEGA;
-> +	*val2 = bias % (long)MEGA;
-> +
-> +	return IIO_VAL_INT_PLUS_MICRO;
-> +}
-> +
-> +static int inv_icm42607_accel_write_offset(struct iio_dev *indio_dev,
-> +					   struct iio_chan_spec const *chan,
-> +					   int val, int val2)
-> +{
-> +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-> +	struct device *dev = regmap_get_device(st->map);
-> +	s32 min, max;
-> +	u8 msb, lsb;
-> +	s16 offset;
-> +	s64 val64;
-> +	int ret;
-> +
-> +	if (chan->type != IIO_ACCEL)
-> +		return -EINVAL;
-> +
-> +	/* inv_icm42607_accel_calibbias: min - step - max in micro */
-> +	min = inv_icm42607_accel_calibbias[0] * (long)MEGA -
-> +	      inv_icm42607_accel_calibbias[1];
-> +	max = inv_icm42607_accel_calibbias[4] * (long)MEGA +
-> +	      inv_icm42607_accel_calibbias[5];
-> +
-> +	val64 = val * (s64)MEGA;
-> +	if (val >= 0)
-> +		val64 += val2;
-> +	else
-> +		val64 -= val2;
-> +
-> +	if (val64 < min || val64 > max)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * Convert m/s² to g then to raw value
-> +	 * m/s² to g: 1 / 9.806650
-> +	 * g to raw 12 bits signed, step 0.5mg: 10000 / 5
-> +	 * val in micro (1000000)
-> +	 * val * 10000 / (9.806650 * 1000000 * 5)
-> +	 */
-Unless Jonathan thinks it to be too verbose, we can also have an ABI comment here.
+Writing to the .access file is unprivileged (0666), but triggering this
+requires loaded profiles that carry a data table, which needs
+CAP_MAC_ADMIN and is not the case on default distribution policies.
 
-With the ABI exception somehow highlighted,
-Reviewed-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+Fix by copying the key with kstrdup() before writing any output to buf,
+so the key stays valid across all loop iterations regardless of what
+gets written to the overlapping buffer.
 
-> +	val64 *= 10000LL;
-> +	offset = DIV_S64_ROUND_CLOSEST(val64, 9806650 * 5);
+Fixes: 317d9a054e1c ("apparmor: update query interface to support label queries")
+Cc: stable@vger.kernel.org # v4.13+
+Cc: Francis Perron <francis@akrites.dev>
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+---
+ security/apparmor/apparmorfs.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-With best regards,
-Marcelo
+diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+index 5b42140e12e8..9df06fdd894f 100644
+--- a/security/apparmor/apparmorfs.c
++++ b/security/apparmor/apparmorfs.c
+@@ -919,7 +919,7 @@ static void profile_query_cb(const struct aa_profile *profile,
+ static ssize_t query_data(char *buf, size_t buf_len,
+ 			  char *query, size_t query_len)
+ {
+-	char *out;
++	char *out, *keydup;
+ 	const char *key;
+ 	struct label_it i;
+ 	struct aa_label *label, *curr;
+@@ -941,11 +941,18 @@ static ssize_t query_data(char *buf, size_t buf_len,
+ 	if (buf_len < sizeof(bytes) + sizeof(blocks))
+ 		return -EINVAL; /* not enough space */
+ 
++	/* buf overlaps query, keep a copy of the key for the later lookups */
++	keydup = kstrdup(key, GFP_KERNEL);
++	if (!keydup)
++		return -ENOMEM;
++
+ 	curr = begin_current_label_crit_section(&needput);
+ 	label = aa_label_parse(curr, query, GFP_KERNEL, false, false);
+ 	end_current_label_crit_section(curr, needput);
+-	if (IS_ERR(label))
++	if (IS_ERR(label)) {
++		kfree(keydup);
+ 		return PTR_ERR(label);
++	}
+ 
+ 	/* We are going to leave space for two numbers. The first is the total
+ 	 * number of bytes we are writing after the first number. This is so
+@@ -963,13 +970,14 @@ static ssize_t query_data(char *buf, size_t buf_len,
+ 		if (!profile->data)
+ 			continue;
+ 
+-		data = rhashtable_lookup_fast(profile->data, &key,
++		data = rhashtable_lookup_fast(profile->data, &keydup,
+ 					      profile->data->p);
+ 
+ 		if (data) {
+ 			if (out + sizeof(outle32) + data->size > buf +
+ 			    buf_len) {
+ 				aa_put_label(label);
++				kfree(keydup);
+ 				return -EINVAL; /* not enough space */
+ 			}
+ 			outle32 = __cpu_to_le32(data->size);
+@@ -981,6 +989,7 @@ static ssize_t query_data(char *buf, size_t buf_len,
+ 		}
+ 	}
+ 	aa_put_label(label);
++	kfree(keydup);
+ 
+ 	outle32 = __cpu_to_le32(out - buf - sizeof(bytes));
+ 	memcpy(buf, &outle32, sizeof(outle32));
+-- 
+2.55.0
+
