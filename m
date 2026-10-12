@@ -1,95 +1,175 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA2FC4A4983
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791821921; cv=none; b=S7iPQdMqjxsudSnzyXBdAhW0Role+ir4XThe+vxDM2tRNI6rWThwfRMsQxyqFPR4idZY/dfSyMaO0gdcVrBP4Tds9X5EFRIEaZoaCQlarkfCjFZf9uMqjVql9g5K0zl5fyGhT9ABURpZrNL90XkHSkXtBMjdSrY+FF3seZG+w3I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791821921; c=relaxed/simple;
-	bh=4YpWVz2t7P3nkCK75u6xOdBsc4nHUlNeMIe6NmdDkAs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YNqCkYD7TK17eIC9DdxIN5vyJ+K4uTkv5bHiMpJTrXxCY7SrXuAWuYM99spx+QaIu66cCryPeY0nPdcFbDuc5T50T6QkM+bOAiOKlbeUCG//yk4Qz9DTAbCVm3Khhm0g+LfAMsWg8WiuXM8Vb3po/TJKN5AR/7qIN3GWCBoF8mA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=LvvoZaG6; arc=none smtp.client-ip=209.85.219.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED954AA417
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:18:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791821926; cv=pass; b=TKCjB0EtmQh8iV1QFYSlUZZW6lIwYDIfCkaKDPa4r0Ra33jLtErBxVihIKawH7iqKJ/qP1AKYPJucJt4gR2UZXcCJhGW4xluycTFkw08+j1oFfjjAzT6R/nvcBaXAcgBHZKvy+W11mdscC59fqEfgcOnDa9onf27Mmntq35kgnY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791821926; c=relaxed/simple;
+	bh=qvVpEPzOzLifjD/7DmAg+LNyF2ciqW2crgsJsv4fMNY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BcPsiHMRpTU0lrfAbf7ZAU2Ax0VlfdJtoMmYpnlqZAm3JgXfJslJvlzysr233bvA7RtSfh3LrdLLfmh9KTYD3ML4EbN4hMeB/MKOw42KexfElLKrfnmXEsrxW/FCC93qVnDHdULlX4z2afuu9h/uXYKujc3itSmexzvkUPrIpMk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PsPS4BD7; arc=pass smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="LvvoZaG6"
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91791ec1b83so18189866d6.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:18:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PsPS4BD7"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c350db5a761so163545566b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:18:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791821924; cv=none;
+        d=google.com; s=arc-20260327;
+        b=K/AC97ll8KeKK3Iau6fRIRjipMtvMdPxMDsfOWXACtGI+FcaDQ96jzrrrZ8s/jeGRp
+         OkW/E2ArSzVozLxASNLbIonwzOXlfLxfqMnjkqJ6xcPD6bL93GMu9IH7KXrJ2AOlAfAi
+         uBA2QXakeMCrfab/To1oG2QFgK/31iSKE569CEs2f/CMQiP+kqM88uPSFaCbmtoKGIBL
+         WPDTs0+pBKuMU3JvxbmtrRqS8IaQIIkhTWZoVgxcHwYNANV30pqpCFHuBisoq4bSCx6M
+         rQRe3RrECe5Pi4rFM5NgWMpR62T/bVtqgPu3UwuI4JAh/3KPhvQ6W9TvCk6HISSlyZNM
+         pSVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CUeAR5YurRmrLyPWT1WYCY1/iIz0jhnPKKa1Syh0wXc=;
+        fh=DIQjUfG3KX2G4wCwDugM2NqEOLNDBxnHl9C8IaNSLZU=;
+        b=oVIwjUXrVWBgB6p7E0R8vcP+G4/uS5f2dWkv+ZN+Icz9Lg/aCwTz9Jz94CknGvUWj9
+         d6CM962wMkMGsPLc7rcXViYUVd/3RrcgSG5UbdFJ6ZfkPzzvyrk8z/95MT+KPjAaYHZW
+         XvhOyR51NMCJirRtbGFc8IeM1pPABq1mDgjv+mAIE71+jnThiXFdoyRxZvytbofCfuWm
+         OpxSfVgD36FpiTb6NrsgKnD5n2o7CxhQ6GKakU/w0d/iKJBGFSoJcY0XcnYfq7f0sPas
+         jFlfn9aICB+WFnZTO6xJ6CCOMsmBP+sr3sRIrEgA2l6WMINNvfMvdyFZaXhL+22opLR+
+         d2JA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1791821919; x=1792426719; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791821924; x=1792426724; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ycCA/46fGP9bMzNSUFEULycpfUfNegmWCSDBNo9iDiA=;
-        b=LvvoZaG6fsq8hB0FOotQh35EMoCepkvvzptzfAzU/s1zJC7dhg5PSKIPvRHtUNIUBP
-         w9gvhZ87eGhXWdTMd4p/TK1h1+ue4Fr7gFP9EBJo7NiJyYTitoai0dUHr0lFLGA30I4P
-         x0LV6t/aKncAdIxJf1RpJN2EUnV8Jc6gOa7sDXczYruPnhnW0AEZTntu47jpBq4qmz65
-         XZ29Cj0zf+pzoYW7+Sqi+LWrGr7lNlQ6BbmCinaNxPHEK+0fy08RT5N9oE+GYxegAK2R
-         c0TFCts30Tzfsr89JZpBW+/suz2o049I6GsqorKmvKbg1H4thRkP3HGJRwS3IdBsjHZn
-         P06w==
+        bh=CUeAR5YurRmrLyPWT1WYCY1/iIz0jhnPKKa1Syh0wXc=;
+        b=PsPS4BD7m2jkgUCxRdMk0FNY2z5ZY59lAfo1Ryo47UKC1ju9hpMh4jWUN90HEJprgS
+         Z+PRQR0N4FHO8/rzWt0K9670/ixmjyEGtvNvyXmSFP75wzZeEH1zaOf+tR32+jDFpJqe
+         ZuISWP8RJ2XqbFu/QDyph1iE0p49cMI7cNH2h8l9KfHhfAazx+pHtYvkqaU8J2jyCVaz
+         MPWT3vHhzxXm4aYP1+AwRiQnTVbGa2NXDJGCdNej3Mk7bHUkN/cxVzAnTNkZFN9McSQC
+         CXN4VzRUuv/vQwGi3HCnNaElw+i0BqDIwIZWS+TlnGoffcIcf4qf/5Yd6Ae5MJNOZL+u
+         qX9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791821919; x=1792426719;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791821924; x=1792426724;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ycCA/46fGP9bMzNSUFEULycpfUfNegmWCSDBNo9iDiA=;
-        b=NM8ZQH8q5GaDM2de5GG7dK+cgB5ldCJpL++kYjNsuVufM+RDKQPXGJhCyWZ8BYbIu1
-         P1tg3Qorr6IUIKzPPcUMYFzhNfbpmpzPY9FzHsTxVctwJuB/xdnAAgu1C1N32BoXA/zV
-         fCu4axLBMel0eZ/izxYa9fvuiiOEm0menzDua8AkXoZAvQa9B9FHS79H7Tx4abOWeb0H
-         sep1Wps+kUbok6Pxb5TmK7jogx+6IciviBnr5Y27FJSaD0wCYJOv3Br4hnrWmEJMjZVF
-         /Lz5yhBz7aIx99uxvkB2HIiHYWfG3ghaztBUzsmzTWWZkBBD7NrW7vtTBPbgUp94MJL7
-         r2Cw==
-X-Gm-Message-State: AFq9FYL3ItE4yehkQDcv9bttOVupLr35LpoZhzdUK/GZno0guSRaHfdL
-	BvhKPoQGvMX90I8AKBNlq43aBgC8aOwRS/bIjR9PcR6XsEEKRpkpOb/dJNeWmutRmh8=
-X-Gm-Gg: AYBFou1/Ox2xl9M6EwbZFVgE9fVf1vdEs015B1kQK9X7zwAjtQaUmiK9nF48WAbWPGK
-	ppRdfE7z2LhL433jGTzn+fif3iEzvzNODPPhlsj2Jr65l4QOR54xbZxY4kJ6krDSvfQvRusvl6x
-	SGJDPdEMoLByKFibVRTZN4YJ+T9WHAHUtOXcU9UE2hsAQfSH5AtDALLDb32tiDaypsq5c7QWjHa
-	G/lcq3oYmqVzzDmPNFYT3nG1goL6nE5T9NuR8RLIre+Ko+VIIRnGYnfOUZqHIjZVGgDjKDkwIhW
-	1E1/8kvOa9XLtSojr5651bGL1i0szJIz7jMxZR6NtDhHIoww29Lv2MjN0BtyIa9IaSPxw2tPVkX
-	8ERyQh753zgmpgEVJtg5j+QxOSC63OTBqHgHP9/fw2x0f3XZm1R58CV057dKpyq2YtCzxaqKneE
-	JNWhlg3p0TwQFfR4MDxN/Hm2LfErM6BW1Ss9+j18ri+e6UEqKxKGUrzZ78k85K2wqEZBhyDhQAJ
-	9FYHQvsi8GNuHo/lF4UJXWyZ8NHVrARr0rFo8lYgWE25dtbUn8b95w=
-X-Received: by 2002:a05:620a:2981:b0:939:6df7:73f1 with SMTP id af79cd13be357-93ebd27484bmr1635268185a.51.1791821918598;
-        Mon, 12 Oct 2026 09:18:38 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef50295a7sm20807785a.23.2026.10.12.09.18.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 09:18:38 -0700 (PDT)
-Date: Mon, 12 Oct 2026 12:18:36 -0400
-From: Gregory Price <gourry@gourry.net>
-To: jianyungao89@gmail.com
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Dan Williams <djbw@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>, 
-	Dave Jiang <dave.jiang@intel.com>, Alison Schofield <alison.schofield@intel.com>, 
-	"open list:DEVICE DIRECT ACCESS (DAX)" <nvdimm@lists.linux.dev>, 
-	"open list:DEVICE DIRECT ACCESS (DAX)" <linux-cxl@vger.kernel.org>
-Subject: Re: [PATCH v2] dax: fix dax_core_init error return code
-Message-ID: <as0IMU-uIENTAXSW@gourry-fedora-PF4VCD3F>
-References: <20261012151857.22534-1-jianyungao89@gmail.com>
+        bh=CUeAR5YurRmrLyPWT1WYCY1/iIz0jhnPKKa1Syh0wXc=;
+        b=u4tuUpIze8q0LTv91jWES3Btqsz2fdLvwY0qcGNGyp+Gwh6K90NnOIhvripNi2HDgt
+         mtqcghLMdyPloiApo/GTT/TixhczuHxkqvH4E2iu0gC4hHIzQlA/Or9JtZHz9e+nzy6g
+         1KHJLo3Rf1mw+AEJtoaBrd49n2t6rbkSAGVW5hMmdoZnPsxuKwQzgKNM3WWDr/SrYquD
+         ctWAjxl7K9QXWc5bt7oXFJnreBHBv5cvAFgcj/bCANXRsKjC2SAFh0KA4jVZXFWrzpSs
+         VU2b/uCgOqpuxUMO8YwZmCJ7GVTaMyjEZCM+vATV9uq0sGHqncTe1nKhGBlujMwm23um
+         4XBw==
+X-Forwarded-Encrypted: i=1; AKwUvBxQE9uNS9+bsfeyUt2Tx91duqLBjdvQrwRPCzSTlrGjdzNQ+yQUkV0BWcN/WDQnZ+fHPQ117e/wvtlOaRo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJYlU5J1nuffGQCtXMziz7k/DrtMk+4Y6FB1nVH1YIAux7nP1tv
+	VnqEGPMjdnz5QIA0+H9C1iDdHqJhDtDqMEJ0xtVA+P71yXk9B0X7byhwXaEFe+WgNmtXJg8GJLL
+	/7vCBbkRwgy0+SdQ8J7ZxBraEfzYWlF4=
+X-Gm-Gg: AYBFou0p5vPsf4IlFesa7THpq4FKZYpyeeuHHEba/BMad1AKUSVwNUBKxBbPz7i9zX6
+	yHYVE4ua4LXrg/ewo28+uaFXcZ2X4phgzzcDujLm374ob/DsVRRPIu8pedvnSIR4d1rsioPO+hl
+	nAcJPgxOrmuaoS3bOlTCwsjeS1wwgHx4GDkNCZWx7/31vGjK71gbhVghjIH6hO3eqLlGhLAqmRT
+	ATPLaABNvLcJUBKz+e+mbQHHOHNJLPqPm3teQ91Vfj2PwtA6X/s1DnD829oZdxALQUM3hztIdR3
+	x0d0RgP+b9uBYYccybEqh1ZSPqa0baEmFZ+LOXcpxIhggFuD1JRZmtjlsW6jBVwSJrr9G3W1zoJ
+	XUPG3T9NwOBcBdTpe1XyvSMk2R4eAjTXiNJasvSV/nQ==
+X-Received: by 2002:a17:906:dc8e:b0:c2e:4488:b8a3 with SMTP id
+ a640c23a62f3a-c31aa0850bamr1000531266b.33.1791821923522; Mon, 12 Oct 2026
+ 09:18:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012151857.22534-1-jianyungao89@gmail.com>
+References: <20261011-alpha-perf-regs-v3-v1-0-eaa625a39712@gmail.com> <20261011-alpha-perf-regs-v3-v1-1-eaa625a39712@gmail.com>
+In-Reply-To: <20261011-alpha-perf-regs-v3-v1-1-eaa625a39712@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Mon, 12 Oct 2026 18:18:32 +0200
+X-Gm-Features: AclHuK-nN_rEqA6xqbO4CkyZX0-XsUGhkKaJX3rrOmarOEgQAl1ktERcvGizgjc
+Message-ID: <CA+=Fv5RoxY0Bav9Q-E4FpEofokfB26ePOwPPWUmEDp6_sO5S3Q@mail.gmail.com>
+Subject: Re: [PATCH 1/4] alpha: fix stale user_stack_pointer()
+To: Matt Turner <mattst88@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>, linux-alpha@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 11:18:57PM +0800, jianyungao89@gmail.com wrote:
-> From: Jianyun Gao <jianyungao89@gmail.com>
-> 
-> dax_core_init() mistakenly returns 0 on error paths. Change the
-> error return to use rc so the actual error code is propagated
-> to the caller.
-> 
-> Fixes: 9567da0b408a ("device-dax: Introduce bus + driver model")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+Hi Matt,
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+On Sun, Oct 11, 2026 at 10:16=E2=80=AFPM Matt Turner <mattst88@gmail.com> w=
+rote:
+>
+> PALcode keeps the user stack pointer in the PCB, not the trap frame, so
+> pt_regs->usp is only valid where entry code stores it: entSys,
+> do_entArith() and do_entIF(). Interrupts, page faults and unaligned
+> traps leave it stale, and ptrace and /proc/<pid>/syscall read it
+> through user_stack_pointer().
+>
+> A user-mode pt_regs is at the top of its task's stack, so find the
+> thread_info from it and use rdusp() for current or pcb.usp otherwise,
+> as KSTK_ESP() and the regset code already do.
+>
+> Fixes: 8a2857bc2b30 ("alpha: enable regset-based ptrace and core dumps")
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> ---
+>  arch/alpha/include/asm/ptrace.h |  7 +------
+>  arch/alpha/kernel/ptrace.c      | 12 ++++++++++++
+>  2 files changed, 13 insertions(+), 6 deletions(-)
+>
+> diff --git a/arch/alpha/include/asm/ptrace.h b/arch/alpha/include/asm/ptr=
+ace.h
+> index 430e8dc27ff7..45d1229344b6 100644
+> --- a/arch/alpha/include/asm/ptrace.h
+> +++ b/arch/alpha/include/asm/ptrace.h
+> @@ -26,12 +26,7 @@ static inline unsigned long regs_return_value(struct p=
+t_regs *regs)
+>         return regs->r0;
+>  }
+>
+> -/* Helpers for working with the user stack pointer */
+> -static inline unsigned long user_stack_pointer(struct pt_regs *regs)
+> -{
+> -       /* Valid for user-mode regs */
+> -       return regs->usp;
+> -}
+> +unsigned long user_stack_pointer(struct pt_regs *regs);
+>
+>  static __always_inline bool regs_irqs_disabled(struct pt_regs *regs)
+>  {
+> diff --git a/arch/alpha/kernel/ptrace.c b/arch/alpha/kernel/ptrace.c
+> index e1d8c2f69688..dba7e9905cfa 100644
+> --- a/arch/alpha/kernel/ptrace.c
+> +++ b/arch/alpha/kernel/ptrace.c
+> @@ -440,6 +440,18 @@ ptrace_cancel_bpt(struct task_struct * child)
+>         return (nsaved !=3D 0);
+>  }
+>
+> +/*
+> + * PALcode keeps the user stack pointer in the PCB, not the trap frame.
+> + * A user-mode pt_regs sits at the top of its task's stack, so the
+> + * thread_info is at the base.
+> + */
+> +unsigned long user_stack_pointer(struct pt_regs *regs)
+> +{
+> +       struct thread_info *ti =3D (void *)((unsigned long)regs & -THREAD=
+_SIZE);
+> +
+> +       return ti =3D=3D current_thread_info() ? rdusp() : ti->pcb.usp;
+> +}
+> +
+>  void user_enable_single_step(struct task_struct *child)
+>  {
+>         /* Mark single stepping.  */
+>
+> --
+> 2.55.0
+>
 
+Nice work!
+
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
