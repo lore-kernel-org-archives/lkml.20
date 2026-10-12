@@ -1,118 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040363191D3;
-	Mon, 12 Oct 2026 16:46:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BECC39734A
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:48:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823615; cv=none; b=MGC4oWlHlWaYykm26NwPRokr7wwJc7Ik4LadkCn4M1CvaJmXv34yf19Ej27oF4p+W4LKG1B24aqBpY9QlJWu31ZSH5PPBNJnY1rSb59pIAmosjUqXR7TXILxbrLalggNWpuzMmkAlwcyY+XHsHKtrrak+RbutRBvl97RDxwYoto=
+	t=1791823685; cv=none; b=RPW6FxWZ+KxaSFS3JiEYxY4ZA6SfAoHNEszMOvvLL6nelkZX95jUlDA0+Nluz75YgxUfeaKrgIfcm99n4cWIOKFpfUhWjf9qx6VPJxD4uSR5lvM4dxJpYHxoVchvinS1tn0qTPt78jYthlJNdshkfp4mI2XtEhfM85sztvKQqMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791823615; c=relaxed/simple;
-	bh=bJ19nHZhEMmOqTlHI69TQlMDCVicITKlR/TSUSSiudU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WUisbtvCoc6a0oGKbgX9lGzhZApU4H8ah5vWBzTSCW3FEl1VkwD5KgnySpgHBNw+Tv77OuKbe/1vxXtLMxl957vyZ024EH8a/+S69xSgOE8ksLntxifle6ETUkLaYqjCdqQZVrL2I0U7NJA8uudAeR8S3VngV1ej+ejwoK9tIvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DGySc7jB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791823685; c=relaxed/simple;
+	bh=Zn6zFRPZqXi0QzW7YY3iv8zN7h8vLIg8vDHuWf+op1E=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=QnflGfMem246NC1ctFIFTmseAmIM/3MvvTU9QIq+9vFXUnW7GxVRnc/jfWdPV77p4lnRQoyhH9gu8jbzGB+wiPJ78U99ZEFgobRhKCxlMCelPmLn1axwBP5kSiyHG97qZRxihdu5dpGPbu7x+dMZKqaqlWwIktzMGgQBSggH/1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pAWBHwDe; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DGySc7jB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B7C11F0089B;
-	Mon, 12 Oct 2026 16:46:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791823613;
-	bh=0UrN5VSM1Sm71gRbWyyCAhAHasLekx/YSqvnQwMreug=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DGySc7jB23/V1Z0AiUJki0Z8E+1NITPebzHJoljKGLolAv23dMkVULASEv6xcM3hP
-	 URvKzoUwGJbKWzmEXSPRHB9IBLvJSHW5FjeLNe3ZH5AXI7XnbJP67L/oF7D/DiaWnl
-	 aDMZEIjcEVpwUF7XuHEB9FvmbBwqDzgtukk98Rm+p5gsCZCSHsxXM0yYjSbt31HnDy
-	 eIk294Mjj0CNM7ykSZ0YscTCi0i6vupSrnS4gWjraC7oKXpky4BUIRati+wEhVDL56
-	 YV6QnEC2eKQmVROYtSGXUKnJLLGUX8CtEkIA729wb5QlNYCQ4J0hiU6P+qFKp1Sglk
-	 MzL4zw2ZPN3Sg==
-Message-ID: <4866a382-42d9-44da-b68b-377d36642528@kernel.org>
-Date: Mon, 12 Oct 2026 18:46:48 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pAWBHwDe"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3abfcf726dcso1241164a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:48:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791823684; x=1792428484; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LibxDXO+KDgRqmVow7/Whkw5PtEP6MVPh2MsRLI8bpU=;
+        b=pAWBHwDeCXCPPzSeHjx7RpuXvh6ZivLEmhNU/RIsqV36A1hDm51HpG8tfTqijdvcuZ
+         rYJW4XlJ0AYvKFGg2yRSo7m2+0SRnb0b76HaCcapLrJkyaxSMVb6EF3TB5oteTXdbNH1
+         gAeix97OMT9STD19Nu+wv2V/dS/uY85opjbXW71bTlHJagxgOXiYo+2ZjdwRfVAeKxbn
+         CjYP0nrMBA8sqUfqCDjFAG52Xcuhi+BSeT6FIPllEaFlEUJRXimR5BtT7f22ThNwM8qT
+         8JSA15CGIgUQoeLgyVA/yeHgIMb83tJQ5RI+5Qq7V4YBBfTGz/tF6z48hhv9uTkFClYj
+         bbsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791823684; x=1792428484;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LibxDXO+KDgRqmVow7/Whkw5PtEP6MVPh2MsRLI8bpU=;
+        b=G95HLkOR3DiHEFDoiYe1WtH/qLiml1MqJZoS5JHLolA5+bs2/ZzYD7qlRVrUvFdYhJ
+         DYhWWq8RElQi1vQStDaX2/Jxcskr8G14fs9rlZQwK8eRma1ACNcFLPaXF4AT2s7HjNS7
+         5YGIzV6q+3oTQEgoaz93U1IfMZDPeeurcIZpPUoTge2P6MOSku7G4oRcx3XxHDNJnqLh
+         1AUEtCw2of+2fr15aVjOTN00h08ynSPwvDI7r2t+LglJfEeBcldb2AUu+BWajdtx58/L
+         4VOloK79MZk9DHcF1juCMYmagsnZ4lpfu+rUMD9C9RsMrcm9JZadQdctJ3SY7sHG1jkG
+         w8wQ==
+X-Gm-Message-State: AFq9FYLcIIPc9yV5AxTKuKq8zRg66Rx/PJBLz6kAo7Orm7BcqCruLhak
+	MKHXYLIXoD9OYPh+6zvb2VtLP5zBKSNjJm6QbJa4fNIwPT6IDiSenHxbpSvpZ9sqkbfPaxpzfwh
+	+4oSySA==
+X-Received: from pjbov12.prod.google.com ([2002:a17:90b:258c:b0:3a8:a8e6:f289])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:916:b0:3ab:e588:c2a0
+ with SMTP id 98e67ed59e1d1-3abe588f906mr1929716a91.56.1791823683410; Mon, 12
+ Oct 2026 09:48:03 -0700 (PDT)
+Date: Mon, 12 Oct 2026 09:48:02 -0700
+In-Reply-To: <CABgObfY=xYUJJtYvcVhjdTXOah6eofi0O4C3J3sa60KCC+WO6A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v6 2/8] ipc, msg: Account msg_msg allocations
- with GFP_KERNEL_ACCOUNT again
-Content-Language: en-US
-To: Andrew Morton <akpm@linux-foundation.org>, Kees Cook <kees@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>, Christian Brauner <brauner@kernel.org>,
- Jan Kara <jack@suse.cz>, Roman Gushchin <roman.gushchin@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- cgroups@vger.kernel.org, linux-mm@kvack.org, Pedro Falcato
- <pfalcato@suse.de>, Kuniyuki Iwashima <kuniyu@google.com>,
- linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261006092030.got.500-kees@kernel.org>
- <20261006092035.166776-2-kees@kernel.org> <asjhg2e4-WSeKuXd@thinkpad>
- <202610092010.934197B@keescook>
- <20261010153714.b9e91801ea93675da099e903@linux-foundation.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261010153714.b9e91801ea93675da099e903@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261009130450.361690-1-pbonzini@redhat.com> <as0NBfuEY-60pgtz@google.com>
+ <CABgObfY=xYUJJtYvcVhjdTXOah6eofi0O4C3J3sa60KCC+WO6A@mail.gmail.com>
+Message-ID: <as0PQm_PS3LC9KWc@google.com>
+Subject: Re: [PATCH] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit codes
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	SimonP <simonp.git@mailbox.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/11/26 00:37, Andrew Morton wrote:
-> On Fri, 9 Oct 2026 20:14:20 -0700 Kees Cook <kees@kernel.org> wrote:
-> 
->> Anything with Fixes: will end up in stable, so I just leave off the
->> stable CC these days.
-> 
-> -stable maintainers have been asked to Not Do That for mm patches. 
-> Other subsystems are doing the same.
-> 
-> I don't know how they determine whether something is an mm patch.  A
-> patch which covers do-do-that and dont-do-that parts of the tree is
-> likely to be mishandled.
-> 
-> So yeah, add that cc:stable to reduce the possibility of mistakes.
+On Mon, Oct 12, 2026, Paolo Bonzini wrote:
+> On Mon, Oct 12, 2026 at 6:38=E2=80=AFPM Sean Christopherson <seanjc@googl=
+e.com> wrote:
+> >
+> > On Fri, Oct 09, 2026, Paolo Bonzini wrote:
+> > > When running Hyper-V from Windows 11, KVM is seeing the SS bit set
+> > > in nested page fault error codes produced for shadowed NPT.  The AMD
+> > > manual is unclear about when SS is set, including whether it can be s=
+et
+> > > when SupervisorShadowStackEn (bit 6) is not set in the MISC_CTL field
+> > > of the VMCB; in fact, bisection shows that while SHSTK was available
+> > > to guests since Linux 6.18, this started happening with commit
+> > > 687ee95c1b6d ("KVM: nSVM: enable GMET for guests"), which seems unrel=
+ated.
+> >
+> > It's not unrelated.  As you note below, this is purely because Hyper-V =
+only uses
+> > CET when GMET is available.
+>=20
+> Indeed, my intended meaning is that bit 1 of MISC_CTL does *not* have
+> the side effect of reporting SS failures...
+>=20
+> > This is wrong, I reproduced this with the KUT CET test with gmet=3D1.
+>=20
+> ... howver, this makes me wonder if you meant gmet=3D0? Because if you
+> need gmet=3D1, the Fixes would be fe080f58dec24049 (i.e. when the gmet
+> module parameter was added).
 
-There's also this from the list of pain points at
-https://lwn.net/Articles/1099594/
+/facepalm
 
-    Kroah-Hartman: subsystems that do not add CC: stable@vger.kernel.org
-tags to patches, but which still expect the stable team to pick up the
-important fixes anyway. The stable maintainers are overwhelmed as it is and
-are not doing that.
+I did indeed.  And I quadruple-checked that I could trigger the splat with =
+gmet=3D0.
