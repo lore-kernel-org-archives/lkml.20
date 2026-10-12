@@ -1,375 +1,185 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6732A4BFE72
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:42:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49304ADDBF;
+	Mon, 12 Oct 2026 17:42:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791826946; cv=none; b=NYCMgKl38kPIGPqyfAUnpWQ1QJ7KaYxAfqpZBYWvp7TmGRiQkQi4MbQ2NK7NooqlX9Ivmcn7v6cHSbJKkyyxO8wA4v3aDg10OtNR5iX+oIWrjoNJPljNpHcYVL0tHO14mmE4jWY/zZ53NFmWqIaqPGfiFLPu+RI6VoYys9hRxSU=
+	t=1791826960; cv=none; b=MypKpEW1YmLWi5r4VgBPbaZZnFprgFQhi4ABKBXANrpCPLkqzNj8NFmCy0+/GWUTtH96rO7vSR2ccm7j177/70QVaADPSGz7/lWwzR+cMxszkXdvEziFH97egTkZv1keUcSv3ABMv+gUQtggcpyOtGQQYRXRTV9IIv3Q3wP2E90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791826946; c=relaxed/simple;
-	bh=I/nSWVVT3rY6OybZtz2wXLTd0UBOKCyz7/WaZQWe1x0=;
-	h=Subject:To:References:Cc:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=UCf8G1aTyOOY4wyx7O42zIN5JAzLZz0emhYAk/UW4lQuR3H5nNG5NwQnwkJ8az2PHyDcWfDQ6O5roi80DAfKQ9hpHVCZYHZSkc9qk0dhdzL9c/7yPi6wXUkcD4vrSlH7rwYzubu15Ga/V0xZvf491DyD7ZL2xlj+fjJtf4/JwQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PF0jUiUQ; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PF0jUiUQ"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3a4b9732d5aso1551243a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:42:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791826944; x=1792431744; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:mime-version
-         :user-agent:date:message-id:from:cc:references:to:subject:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=p7CuoqXFrw4wDFYgwD8z+qFoYEhlCKQln6ACbFv3yiE=;
-        b=PF0jUiUQzpcNp3voP0juuR9OEHo/F7299nhhKgVnQoIrrB0zHbyeU6jcqOK325CJoN
-         JrBuSbxjVomyp3ta7V0hRqG7KRx3WLRbJq1FmzGuNWKCFP7uZ6VYa0EzwliZJzhWkXqJ
-         gwioUhLUmvTH+N00fAH1WsT2RQAzzmWcF1Fk2ne0Z6aqAVqiK2k1h9cXfr7nnDG0LO0d
-         2HV694v2IKstiyeWhYmysZl+XF6Vdd7lJ2+dnGzTYztgN1dqM9AZPPZGQI6B8HZB/B7D
-         ZnO8cZdXvSfPlnyT6ePp9NAiMZgpklOFbPjwEFaicmiElVdgVyIv+M53hyrmDByjiOXD
-         c6Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791826944; x=1792431744;
-        h=content-transfer-encoding:content-type:in-reply-to:mime-version
-         :user-agent:date:message-id:from:cc:references:to:subject:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p7CuoqXFrw4wDFYgwD8z+qFoYEhlCKQln6ACbFv3yiE=;
-        b=fE/SCZ1J1/mYCAcJ/mlMzD4x1XkZBWIMB5QEsnWqxFGkB+OXywmogSyF5UoIMNzAO9
-         KgiNXtPwyRArYZxIMDxdn6JeOjRLhh2zu1bbG3S+TLVhLVwu3kvJZdLAeBQWo2FVbAbm
-         jMWPr/verW/wCs4PtZqeVDm8UizulzZf9gk5QQ41+9fTLR1LKjmlQ/GrdjH30XAwmju1
-         ryfbucPo4ryvoZGwJOUA9CZZilZf2HhNT/Bu3nDLBeqdXiuMTRp9pD/4kZ97WXc8IMP2
-         WAe0GI45H6Z/4JQV+8VH0P0G2GGcWQUk+7NB7g156lJ1eACvZTD5IM2VYYbQ9qx1PZzA
-         TrSw==
-X-Forwarded-Encrypted: i=1; AKwUvBz/xNiVlfe9qBzTr8Yr/vyakbF27O9zP9WV9Iej1uHjNERnoEO+Xx1VQ+J90AcRoNqDJwuyKlHMoGpKK+o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHI64ZsGRGKET1wDz9sswtQjjYtiY2X/fjxQkIYME/xlCEmt15
-	cjK42s/tx1G82eF+Hv4u89Z2F2MfX+5R2KnnPhaD2ESsjQdpXUq8tB4uDiq77A==
-X-Gm-Gg: AYBFou18YeUDy2MHIAWz19FU8D7n4mcNT5GOolLShi7XXuu9A1ZptoSrCKKDHllwyPR
-	3g0yyTq0GL1ZlpNZkCGhSQi3Pc3MFx6Y1pojkWz0q24i3Afaw6beo/3mgoaKRomXjeVuVTA+6RF
-	cMbKdK36yWsxEsoFNfjHUPrhPZIvUxSRg68AV4ghz6Uzcpm0fz16nsg93gzzefz7DNVcTmRRKh8
-	v9JzzedFHIhn4yh5JezXeBwaRGsAZOk2z8LcXnM1SnmBd9pfxkREps6ogkBiC8Vs4nbziRoFPYG
-	H5uYKabsxX/VQwFf1GzdYBirrNmdgGXlUiRrSkSmLcrc2ZJwVya/45UuypZHVoU53JZ6HVWnBsP
-	9kL9jIp0npE5pUWEmm+FmRo0fO3TaG1v9xenT3t85iuV5JO1CJ+OxVvBxDyxofovYeNvpW7lavT
-	iQnt0KaQSsU/QGg2egvxgpXLrAa86WSilz6Uq/4j8s+jxnk7tK9WHMrSey92x083Hten32z65vW
-	VgdhbzDkqzBm5bhMSPx7BocmkYBWw==
-X-Received: by 2002:a17:90b:3a48:b0:39d:f6a6:60d8 with SMTP id 98e67ed59e1d1-3ab3a33db57mr8527594a91.3.1791826943512;
-        Mon, 12 Oct 2026 10:42:23 -0700 (PDT)
-Received: from [10.1.1.24] (122-59-250-182-adsl.sparkbb.co.nz. [122.59.250.182])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3abdd5adaadsm6509106a91.0.2026.10.12.10.42.18
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 12 Oct 2026 10:42:22 -0700 (PDT)
-Subject: Re: [PATCH RESEND] m68k: Handle put_user faults more carefully
-To: Greg Ungerer <gerg@linux-m68k.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Finn Thain <fthain@linux-m68k.org>
-References: <88e752e0bca92c7b65533cc1b334052dd272f8ef.1790842086.git.fthain@linux-m68k.org>
- <02c53c37-d2ee-4c03-a8f9-0a757c3af59e@gmail.com>
- <CAMuHMdVbfUH1ZoFcS64t=gyE_cskMWv6gGvL8pjGirSGvAKu2w@mail.gmail.com>
- <dfcbbc59-4204-478b-b8da-867621056c62@gmail.com>
- <5bb9f586-6939-433e-9e06-a9bbc08a69a0@polyxeno.com>
- <d52fd72d-fe72-4fd3-9ae8-5ed999d18b5f@gmail.com>
- <f76142b2-6472-456e-b810-187e8f40eb01@linux-m68k.org>
-Cc: linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org
-From: Michael Schmitz <schmitzmic@gmail.com>
-Message-ID: <6cfc7c55-114c-e0dd-0920-796060331c7c@gmail.com>
-Date: Tue, 13 Oct 2026 06:42:13 +1300
-User-Agent: Mozilla/5.0 (X11; Linux ppc; rv:45.0) Gecko/20100101
- Icedove/45.4.0
+	s=arc-20240116; t=1791826960; c=relaxed/simple;
+	bh=UQ7NYcTVYebnTIGueqNZxtx+9yKoLC1TxyVNjHpbWy0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=idosZfpKJLEZxTb+poY8+09qDXaLUV7KyzvgfljDi8idrYLNfcLwB1IZP4vmkPHg8Vi0Jy/dN3vTRHzqBpjTsrrebD8T1/o91Yt/hJeSEIrAmmRjIRj9hipzopwD4hBgb1/51f58RweshqZoGmjZlHqs9PqYtQyedYOLWqk1u0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xGK2g-00FScM-Dl;
+	Mon, 12 Oct 2026 13:42:30 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] xarray: unlink a node before freeing it
+Date: Mon, 12 Oct 2026 13:42:29 -0400
+Message-ID: <20261012174230.772325-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <f76142b2-6472-456e-b810-187e8f40eb01@linux-m68k.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Greg,
+xas_delete_node() passes an empty node to xa_node_free(), which queues it
+with call_rcu(), and only then stores NULL over the pointer to the node,
+in the parent's slot or in xa_head.  Between the two, a lockless walker
+can still reach the node, and RCU does not protect it: call_rcu() waits
+only for the read-side critical sections that were running when the
+callback's grace period started, and that grace period can start before
+the store that unlinks the node.  A walker that begins its RCU read-side
+critical section after that point can load the old pointer and keep
+using the node after it has been freed:
 
-Am 13.10.2026 um 02:23 schrieb Greg Ungerer:
-> Hi Michael,
->
-> On 8/10/26 09:54, Michael Schmitz wrote:
->> Hi Greg,
->>
->> thanks for running these tests!
->>
->> On 6/10/26 01:42, Greg Ungerer wrote:
->>> Hi Michael,
->>>
->>> On 3/10/26 09:55, Michael Schmitz wrote:
->>>> Hi Geert,
->>>>
->>>> On 03/10/2026 5:28 AM, Geert Uytterhoeven wrote:
->>>>
->>>>> Hi Michael, Finn,
->>>>>
->>>>> On Thu, 1 Oct 2026 at 20:57, Michael Schmitz <schmitzmic@gmail.com> wrote:
->>>>>> On 1/10/26 22:08, Finn Thain wrote:
->>>>>>> Running 'stress-ng --sysbadaddr -1' on my MC68040 system immediately
->>>>>>> produces an oops:
->>>>>>>
->>>>>>>        Unable to handle kernel access at virtual address f1c422fb
->>>>>>>        Oops: 00000000
->>>>>>>        Modules linked in:
->>>>>>>        PC: [<00005a1a>] do_040writeback1+0xae/0x160
->>>>>>>        SR: 2010  SP: 96087dc2  a2: 01500000
->>>>>>>        d0: 00000000    d1: 014e8000    d2: 00000081    d3: 00000000
->>>>>>>        d4: 00000481    d5: c043dfff    a0: 014e8000    a1: 00632fd5
->>>>>>>        Process stress-ng (pid: 221, task=1b729d30)
->>>>>>>        Frame format=7 eff addr=014e9eb8 ssw=0c81 faddr=c043dfff
->>>>>>>        wb 1 stat/addr/data: 0001 00000481 c043dfff
->>>>>>>        wb 2 stat/addr/data: 0081 c043dfff 2f746d70
->>>>>>>        wb 3 stat/addr/data: 0005 014e9ed4 2f746d70
->>>>>>>        push data: c043dfff 800daa70 00000000 014e9f1c
->>>>>>>        Stack from 014e9ed4:
->>>>>>>          2f740000 8017c000 014e9f10 00006830 00000081 c043dfff 2f746d70 2f746d70
->>>>>>>          0081a000 00000400 c043dfff 800daa70 c043dfff 80016a20 00000003 014e9f88
->>>>>>>          000026c8 014e9f1c 00000001 2f746d70 0081a000 00000400 c043dfff 0081afff
->>>>>>>          c043dfff 01500000 00000001 ffffffff 00000000 20000046 41d67008 014e9f58
->>>>>>>          04810005 00810045 c043dfff 014e9f84 2f746d70 c043dfff 2f746d70 c043dfff
->>>>>>>          80016a20 8017c000 00000000 0081affb 00000005 014e9fc4 00128bc6 c043dfff
->>>>>>>        Call Trace: [<00006830>] buserr_c+0x510/0x698
->>>>>>>          [<000026c8>] buserr+0x20/0x28
->>>>>>>          [<00128bc6>] sys_getcwd+0xc8/0x15a
->>>>>>>          [<000027a2>] syscall+0x8/0xc
->>>>>>>          [<0008800d>] sanity_check_segment_list+0x17/0x11e
->>>>>>>
->>>>>>>        Code: 000c 0e90 1800 220f 0281 ffff e000 2041 <2228> 0008 0281 00ff
->>>>>>>              ff00 67a4 6026 4280 122e 0013 206e 000c 0e10 1800 220f 0281
->>>>>>>
->>>>>>> 0000596c <do_040writeback1>:
->>>>>>>        596c:       4e56 fffc       linkw %fp,#-4
->>>>>>>        5970:       2f02            movel %d2,%sp@-
->>>>>>>        5972:       202e 0008       movel %fp@(8),%d0
->>>>>>>        5976:       4282            clrl %d2
->>>>>>>        5978:       3400            movew %d0,%d2
->>>>>>>        597a:       220f            movel %sp,%d1
->>>>>>>        597c:       0281 ffff e000  andil #-8192,%d1
->>>>>>>        5982:       2041            moveal %d1,%a0
->>>>>>>        5984:       2228 0008       movel %a0@(8),%d1
->>>>>>>        5988:       0281 00ff ff00  andil #16776960,%d1
->>>>>>>        598e:       6600 0104       bnew 5a94 <do_040writeback1+0x128>
->>>>>>>        5992:       4e7b 2000       movec %d2,%sfc
->>>>>>>        5996:       4e7b 2001       movec %d2,%dfc
->>>>>>>        599a:       0240 0060       andiw #96,%d0
->>>>>>>        599e:       0c40 0020       cmpiw #32,%d0
->>>>>>>        59a2:       6700 0084       beqw 5a28 <do_040writeback1+0xbc>
->>>>>>>        59a6:       0c40 0040       cmpiw #64,%d0
->>>>>>>        59aa:       6730            beqs 59dc <do_040writeback1+0x70>
->>>>>>>        59ac:       4a40            tstw %d0
->>>>>>>        59ae:       6752            beqs 5a02 <do_040writeback1+0x96>
->>>>>>>        59b0:       4280            clrl %d0
->>>>>>>        59b2:       220f            movel %sp,%d1
->>>>>>>        59b4:       0281 ffff e000  andil #-8192,%d1
->>>>>>>        59ba:       2041            moveal %d1,%a0
->>>>>>>        59bc:       2228 0008       movel %a0@(8),%d1
->>>>>>>        59c0:       0281 00ff ff00  andil #16776960,%d1
->>>>>>>        59c6:       6600 0086       bnew 5a4e <do_040writeback1+0xe2>
->>>>>>>        59ca:       7201            moveq #1,%d1
->>>>>>>        59cc:       4e7b 1000       movec %d1,%sfc
->>>>>>>        59d0:       4e7b 1001       movec %d1,%dfc
->>>>>>>        59d4:       242e fff8       movel %fp@(-8),%d2
->>>>>>>        59d8:       4e5e            unlk %fp
->>>>>>>        59da:       4e75            rts
->>>>>>>        59dc:       4280            clrl %d0
->>>>>>>        59de:       322e 0012       movew %fp@(18),%d1
->>>>>>>        59e2:       206e 000c       moveal %fp@(12),%a0
->>>>>>>        59e6:       0e50 1800       movesw %d1,%a0@
->>>>>>>        59ea:       220f            movel %sp,%d1
->>>>>>>        59ec:       0281 ffff e000  andil #-8192,%d1
->>>>>>>        59f2:       2041            moveal %d1,%a0
->>>>>>>        59f4:       2228 0008       movel %a0@(8),%d1
->>>>>>>        59f8:       0281 00ff ff00  andil #16776960,%d1
->>>>>>>        59fe:       67ca            beqs 59ca <do_040writeback1+0x5e>
->>>>>>>        5a00:       604c            bras 5a4e <do_040writeback1+0xe2>
->>>>>>>        5a02:       4280            clrl %d0
->>>>>>>        5a04:       222e 0010       movel %fp@(16),%d1
->>>>>>>        5a08:       206e 000c       moveal %fp@(12),%a0
->>>>>>>        5a0c:       0e90 1800       movesl %d1,%a0@
->>>>>>>        5a10:       220f            movel %sp,%d1
->>>>>>>        5a12:       0281 ffff e000  andil #-8192,%d1
->>>>>>>        5a18:       2041            moveal %d1,%a0
->>>>>>>        5a1a:       2228 0008       movel %a0@(8),%d1
->>>>>>>        5a1e:       0281 00ff ff00  andil #16776960,%d1
->>>>>>>        5a24:       67a4            beqs 59ca <do_040writeback1+0x5e>
->>>>>>>        5a26:       6026            bras 5a4e <do_040writeback1+0xe2>
->>>>>>>        ...
->>>>>>>
->>>>>>> The cause is a deliberately misaligned access in the 'bad_end_addr' test
->>>>>>> case in the 'sysbadaddr' stressor. The location being accessed here,
->>>>>>> 0xc043dfff, was contrived to span the boundary between a r/w anonymous page
->>>>>>> and an unmapped page. The address was then passed to the getcwd syscall
->>>>>>> which faulted in copy_to_user().
->>>>>>>
->>>>>>> The fault for the mapped page appears to be handled okay -- up until
->>>>>>> do_040writeback1() called put_user() which produced a second fault due to
->>>>>>> the unmapped page.
->>>>>>>
->>>>>>> Michael Schmitz helpfully deciphered the oops and explained the exception
->>>>>>> processing leading up to it.
->>>>>>>
->>>>>>>        "regs->pc does point to the PC in the format 7 frame which is the PC
->>>>>>>        the fault was detected at, but not (in case of a writeback fault)
->>>>>>>        the PC of the faulting instruction [that is, MOVES.L].
->>>>>>>
->>>>>>>        "The writeback would still cross the page boundary, and fault if the
->>>>>>>        unmapped page still isn't present. We would not see the PC of the
->>>>>>>        movesl in that case, and fail to find the PC in the exception
->>>>>>>        table."
->>>>>>>
->>>>>>> One solution is to add a NOP instruction after the MOVES.L to flush the
->>>>>>> pipeline and take the fault. That way, the PC value in the exception frame
->>>>>>> becomes dependable so the exception table works.
->>>>>>>
->>>>>>> Theoretically, there seems to be another bug in the existing code. If
->>>>>>> the instruction following the MOVES faulted, then after the fixup,
->>>>>>> execution would resume at the instruction which caused the fault. This
->>>>>>> appears to be a loop. After this patch, that cannot happen.
->>>>>>>
->>>>>>> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
->>>>>>> Signed-off-by: Finn Thain <fthain@linux-m68k.org>
->>>>>>> ---
->>>>>>>     arch/m68k/include/asm/uaccess.h | 10 ++++++----
->>>>>>>     1 file changed, 6 insertions(+), 4 deletions(-)
->>>>>>>
->>>>>>> diff --git a/arch/m68k/include/asm/uaccess.h b/arch/m68k/include/asm/uaccess.h
->>>>>>> index 31d133faa45e..728a6dfb7414 100644
->>>>>>> --- a/arch/m68k/include/asm/uaccess.h
->>>>>>> +++ b/arch/m68k/include/asm/uaccess.h
->>>>>>> @@ -31,11 +31,12 @@
->>>>>>>     #define __put_user_asm(inst, res, x, ptr, bwl, reg, err) \
->>>>>>>     asm volatile ("\n"                                  \
->>>>>>>         "1:     "inst"."#bwl"   %2,%1\n"                \
->>>>>>> -     "2:\n"                                          \
->>>>>>> +     "2:     nop\n"                                  \
->>>>>>> +     "3:\n"                                          \
->>>>>>>         "       .section .fixup,\"ax\"\n"               \
->>>>>>>         "       .even\n"                                \
->>>>>>>         "10:    moveq.l %3,%0\n"                        \
->>>>>>> -     "       jra 2b\n"                               \
->>>>>>> +     "       jra 3b\n"                               \
->>>>>>>         "       .previous\n"                            \
->>>>>>>         "\n"                                            \
->>>>>>>         "       .section __ex_table,\"a\"\n"            \
->>>>>>> @@ -53,11 +54,12 @@ do {                                                              \
->>>>>>>         asm volatile ("\n"                                      \
->>>>>>>                 "1:     "inst".l %2,(%1)+\n"                    \
->>>>>>>                 "2:     "inst".l %R2,(%1)\n"                    \
->>>>>>> -             "3:\n"                                          \
->>>>>>> +             "3:     nop\n"                                  \
->>>>>>> +             "4:\n"                                          \
->>>>>>>                 "       .section .fixup,\"ax\"\n"               \
->>>>>>>                 "       .even\n"                                \
->>>>>>>                 "10:    movel %3,%0\n"                          \
->>>>>>> -             "       jra 3b\n"                               \
->>>>>>> +             "       jra 4b\n"                               \
->>>>>>>                 "       .previous\n"                            \
->>>>>>>                 "\n"                                            \
->>>>>>>                 "       .section __ex_table,\"a\"\n"            \
->>>>>>> Reviewed-by: Michael Schmitz <schmitzmic@gmail.com>
->>>>>>>
->>>>>>> in case it helps.
->>>>>>>
->>>>>>> Anecdotally, I've seen similar uaccess faults causing kernel oops on 030
->>>>>>> as well, so this may not merely be an artificial unaligned access issue.
->>>>> Shouldn't this include
->>>>> https://lore.kernel.org/20240429030945.22451-3-schmitzmic@gmail.com
->>>>> ?
->>>> Along with https://lore.kernel.org/20240429030945.22451-2-schmitzmic@gmail.com, perhaps.
->>>>
->>>> Can't recall the details, but Finn's solution was to add a nop in order to make the fault PC reliable. That's not a great deal of overhead in the case of put_user(). My changes to copy_to_user try to avoid flushing the pipeline inside of a loop, and only use the nop after exiting the loop. The cost of that is larger exception tables. Not sure which is worse.
->>>>
->>>> What's more, I can't be certain that my 'fault is taken two instructions past faulting instruction' observation is 100% reliable. AFAIK this has only been tested on 030 and 040. Coldfire(MMU) and 060 tests are still missing.
->>> ColdFire seems to have more, or maybe just different problems for "stress-ng --sysbadaddr -1".
->>> Running a kernel with and without this patch resulted in:
->>>
->>> # stress-ng --sysbadaddr -1process '/usr/bin/stress-ng' started with executable stack
->>> stress-ng: info:  [40] defaulting to a 86400 second (1 day, 0.00 secs) run per stressor
->>> stress-ng: info:  [40] dispatching hogs: 1 sysbadaddr
->>> *** ILLEGAL INSTRUCTION ***   FORMAT=4
->>> Current process id is 250
->>> BAD KERNEL TRAP: 00000000
->>> Modules linked in:
->>> PC: [<00000000>] 0x0
->>> SR: 2004  SP: 013da6cc  a2: bfccd950
->>> d0: 00000000    d1: 00000002    d2: bfccd814    d3: 00000001
->>> d4: 80174c1e    d5: 800bd9ac    a0: 800bd9ac    a1: 800bdb54
->>> Process stress-ng-sysba (pid: 250, task=f7e050bd)
->>> Frame format=4 eff addr=44090004 pc=80115870
->>> Stack from 013ea000:
->>> Call Trace:
->>> Code: 0000 0000 0000 0000 0000 0000 0000 0000 <0000> 0000 0000 0000 0000 0000 0000 0000 0002 a6c4 0002 a6c4 0002 a6c4 0002 a6c4
->>> Disabling lock debugging due to kernel taint
->>> note: stress-ng-sysba[250] exited with irqs disabled
->>> *** ILLEGAL INSTRUCTION ***   FORMAT=4
->>> Current process id is 42
->>> BAD KERNEL TRAP: 00000000
->>> Modules linked in:
->>> PC: [<00000000>] 0x0
->>> SR: 2004  SP: affae50f  a2: 012d1f80
->>> d0: 00000000    d1: 0000000b    d2: 01057db0    d3: 00035b9a
->>> d4: 00000000    d5: bfccd814    a0: bfccd814    a1: 0050c21c
->>> Process stress-ng-sysba (pid: 42, task=1b5bfafe)
->>> Frame format=4 eff addr=480a2004 pc=00035ab2
->>> Stack from 013d3f28:
->>>          00000000 000000fa 00000000 00000004 01057db0 00000000 0000000b 00000000
->>>          00000000 012d1f80 000336b4 00000100 00000122 fffffff6 bfccd76c 00035c1c
->>>          000000fa bfccd814 00000000 00000000 bfccd76c 00000000 0000000a 000000fa
->>>          00000000 8011685e 80119990 00935414 0002ce18 013d3fcc 00000000 00000000
->>>          00000000 00000000 8011685e 013d3fcc 00000005 bfccd7a0 80010686 0002a6bc
->>>          0002df3c 000000fa bfccd814 00000000 00000000 bfccd814 00000000 800bdb54
->>> Call Trace: [<000336b4>] child_wait_callback+0x0/0x86
->>>   [<00035c1c>] sys_wait4+0x82/0x92
->>>   [<0002ce18>] buserr_c+0x130/0x1dc
->>>   [<0002a6bc>] buserr+0x28/0x30
->>>   [<0002df3c>] system_call+0x58/0xac
->>>
->>>
->>> I have not debugged any further yet.
->>
->> This rather looks like stack corruption - does that ColdFire system pass signal tests OK?
->
-> Update on this. It runs "stress-ng --signal 8" with no problems.
+  CPU 0: xa_erase(), xa_lock held   CPU 1: RCU walker, e.g. xa_load()
 
-Thanks - we'll have to look elsewhere then.
+  xas_delete_node()
+    xa_node_free(node)
+      call_rcu()
+                    <grace period starts>
+                                     passes a quiescent state
+                                     rcu_read_lock()
+                                     xas_load(): parent->slots[offset]
+                                     is still node
+    parent->slots[offset] = NULL
+  xa_unlock()
+  quiescent state
+                    <grace period ends>
+  radix_tree_node_rcu_free(node)
+                                     reads node->shift, node->slots[]
 
-> Or did you have some other specific test you wanted checked?
+The grace period does not wait for CPU 1: CPU 1 reported its quiescent
+state before its critical section began.  Holding xa_lock does not help
+either.  It makes CPU 0 an RCU reader, which delays the end of the grace
+period until after the unlinking store, but not its start.  The start can
+fall inside the window whenever the callback is assigned to a grace
+period before the unlink: from call_rcu() itself when many callbacks are
+queued, from an interrupt that arrives in the window (interrupts are
+enabled under xa_lock(), and RCU core processing and the other softirqs
+may run on interrupt exit for milliseconds), from the rcuog kthread on
+another CPU when callbacks are offloaded (rcu_nocbs=), or while the
+writer is preempted under PREEMPT_RT.  Interrupts, and in a guest a
+preempted vCPU, also stretch the window.
 
-Finn is more of a stress-ng expert than I am, maybe he can remember some 
-other tests that helped narrow down the 040 writeback bug back then.
+Setting node->array to XA_RCU_FREE does not make walkers retry: no
+lockless path looks at node->array.  xas_load() and xas_descend() look
+only at the entries and at node->shift, and the marker is overwritten
+when the slab reuses the object.  The XA_RETRY_ENTRY markers that
+xas_shrink() and xas_free_nodes() store only help walkers that reached
+a node before it was unlinked; the grace period waits for those because
+both functions unlink before they free.
 
-We should redo the sysbadaddr test after applying my patch to 
-arch/m68k/asm/traps.c to get the actual fault status, then perhaps apply 
-my uaccess exception fixes (posted to the ML 2024/04/29) to see if those 
-help.
+radix_tree_node_cachep is not SLAB_TYPESAFE_BY_RCU, so the walker reads
+freed memory.  Once the object is reused for a node of another array,
+the walker can descend through the wrong node and return an entry of
+the other array.  In a page cache lookup, the xas_reload() recheck in
+filemap_get_entry() reads the same reused slot and accepts the result,
+so in the worst case the lookup returns a folio of another file.
 
-Cheers,
+The order dates from the introduction of xas_delete_node() in the
+commit below, which reimplemented the radix tree's delete_node().
+delete_node() unlinks first and frees after, and still does in
+lib/radix-tree.c, as do xas_shrink() and xas_free_nodes(), the other two
+paths that free nodes in lib/xarray.c.  The commit gives no reason for
+the different order and nothing depends on it: xa_node_free() only marks
+the node and queues the callback, node->offset is read before the free,
+and the stores and xas_update() on the parent do not involve the node.
 
-	Michael
+Move xa_node_free() after the store that unlinks the node, in both
+branches.  The stores and their order are unchanged, nothing reads the
+node after it is freed, and every caller sees the same tree and the
+same xa_state.
 
->
-> Regards
-> Greg
->
->
->
->> That said - the register dump is misleading - from what I've read, ColdFire only has a single exception frame format, 2 longwords in size. The first longword of that frame contains frame format code, fault status, vector no. and status register. This is what's shown in the 'eff addr' longword here. The following longword is the actual faulting instruction PC as saved in the exception frame by the processor - this does not match what is given as PC at the start of the register dump (saved by the kernel on exception processing entry).
->>
->> I don't know what kind of ColdFire processor you used, so can't work out what happened on exception entry and in particular, where the PC in the kernel stack frame was taken from. No matter what, I think we ought to clean up the frame format 4 section in show_registers() to account for the different frame format on ColdFire, then perhaps also use the correct PC to dump the infringing code section. Makes no sense to try and debug this without correct debug info ...
->>
->> I can prepare a patch to show what I mean, but can neither compile or test that...
->>
->> Cheers,
->>
->>     Michael
->>
->>
->>>
->>> Regards
->>> Greg
->>>
->>>
->
+The radix-tree test suite already runs into this.  Its multiorder test
+(multiorder_iteration_race(): one thread inserts and deletes an entry at
+index 0 while the others walk the array under rcu_read_lock(), with
+liburcu's call_rcu()) reported a heap-use-after-free in xas_start(),
+reading the shift of a head node freed through call_rcu(), in 10 of 200
+unpatched runs under AddressSanitizer on a 160-CPU machine, and in none
+of 200 runs with this patch.  A harness check that no node passed to
+xa_node_free() is still reachable from xa_head fails 556941 times in the
+XArray tests without this patch (all in xas_delete_node(), both
+branches) and never with it.  No test is added: the race is not
+deterministic and the check needs a hook on xa_node_free().  On a
+kernel, the window is too short to hit on demand.  With a 100 ms delay
+injected between call_rcu() and the unlink in a test build, a lookup
+that starts on another CPU 20 ms into the window reaches the node, and
+KASAN reports a slab-use-after-free of the radix_tree_node freed from
+rcu_core() when the lookup reads it again.  With this patch and the
+same delay between the unlink and the free, no lookup reaches the node.
+The XArray and IDA self-tests pass on x86_64 and riscv64.
+
+Found while formally verifying xas_store() against the kernel binary.
+
+Fixes: 58d6ea3085f2 ("xarray: Add XArray unconditional store operations")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
+
+Notes:
+    Reproduction details: the harness numbers come from
+    tools/testing/radix-tree built as is (AddressSanitizer is on by
+    default), running ./multiorder 200 times on master and on master plus
+    this patch.  The ordering check wraps each xa_node_free(node) call in a
+    copy of lib/xarray.c with a function that walks the tree from xa_head
+    and reports the node if it is still reachable; it is not part of this
+    patch.  The kernel demonstration is a test build (x86_64 defconfig +
+    KASAN, QEMU -smp 4) with mdelay(100) after xa_node_free() in
+    xas_delete_node() for one test array, a writer kthread on CPU 0 doing
+    xa_store()/xa_erase() and a reader kthread on CPU 1 doing
+    xas_load()/xas_next() under rcu_read_lock().  I can send any of these
+    if useful.
+    
+    The patch and its analysis were drafted with an LLM coding assistant
+    and then reviewed and tested as described in the commit message.
+
+ lib/xarray.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/lib/xarray.c b/lib/xarray.c
+index bfe7bef80f34..d48754c5f8b8 100644
+--- a/lib/xarray.c
++++ b/lib/xarray.c
+@@ -500,17 +500,18 @@ static void xas_delete_node(struct xa_state *xas)
+ 		parent = xa_parent_locked(xas->xa, node);
+ 		xas->xa_node = parent;
+ 		xas->xa_offset = node->offset;
+-		xa_node_free(node);
+ 
+ 		if (!parent) {
+ 			xas->xa->xa_head = NULL;
+ 			xas->xa_node = XAS_BOUNDS;
++			xa_node_free(node);
+ 			return;
+ 		}
+ 
+ 		parent->slots[xas->xa_offset] = NULL;
+ 		parent->count--;
+ 		XA_NODE_BUG_ON(parent, parent->count > XA_CHUNK_SIZE);
++		xa_node_free(node);
+ 		node = parent;
+ 		xas_update(xas, node);
+ 	}
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.53.0
+
