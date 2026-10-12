@@ -1,102 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8405B43CE58;
-	Mon, 12 Oct 2026 07:01:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2120642F709
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791788499; cv=none; b=ilqnVm0xunUjEUNTg0/EtZsAGGXFbFdfdbj6U+dGKKWn3vHPE75Z+nqy9jbPOzUkLMUVbIKxjjGSCz1LdWZd6O7qJfcqK1dDhASU5d/dbgcp4GZIbrt/5E84sswWyg5ZBrB+2aB0fDzXVTJcsHp+l2kEQOWUPe7l1+4Jt3Dhsnc=
+	t=1791788521; cv=none; b=F9R2Iyl6MeHOinkDZUu9S6uQ9Qj3mSyp4OZxGWQsORuk9fin8UQLRN34euR/43FxrFciidOzs8oTgVmZgTL/O35BFiubdj+QTDRF1G+lGos2SfhIpX8eP5fqFtN1AsyPcZmVBByJNy3xmckx7C3Rk8tPNeIeNn0U5MC1IXU5zQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791788499; c=relaxed/simple;
-	bh=IsS6jlUXPTT9+nYDkYwSXZcw9krz7B74BVT1GYVLKe8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G7Gsr3MC9VaF7ZWVx/eUuKViUI4Hslhj72z+Zj1gWC8nowcqKnQ1rPiH+oPIbm7y7nOcYRAq0yb6EX7Mo8CJRajvRKsiKY+QIOWWeyjRc2GIDQy07C07R6GRtOk7tOjdg9D6zR7SGpZIlDan0VzdaYhj118Aia8Nf/9bBCXxJdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dYBvsSPp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791788521; c=relaxed/simple;
+	bh=Mt5WDCiD8tEdJ4CbcXjRX0Q7cR5vFljDaq2NWFYbikk=;
+	h=Mime-Version:Subject:From:To:CC:Message-ID:Date:Content-Type:
+	 References; b=ojsTEjBKisBTYPtHCpBPxSAyqgkaBAmd0fVBwM7GgNXpUPU8jrNojqcVvhUQh+6Q060wZIwIWdJsFaXj6cX/z7/ZNvdrAq4S0eW2/YufvuIBAWxozkMg6Fm9gNjhsTjISMseS48HqF5txDRRgt24fyV/flwOtPzP4mAV1dpgKZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=Ayab69z4; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dYBvsSPp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7AB31F0089B;
-	Mon, 12 Oct 2026 07:01:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791788498;
-	bh=GFhdpnnhNHq8kto2NtVcBzP+4OYlv8T7WrOl9X3C8NE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dYBvsSPpPy0rtJQbOBva6kehr5wr02bZg7sxUnjFGXUcRAc32MyIzZN45t1AlPjXv
-	 XD9k3E1VS8lDMeRnwmLpY+OlJ8lBsu0kv8TS060NFRJkTdR1gjuyXUzWUGvS+X5FqY
-	 2dE3U2+XMWlLnLe9No1jPEDKg6jBjzAB/SNDqn9L6BSQYYzUYg+rerO+YAp3JCNJEs
-	 V1oxiwYnstkJYO/d/IcUehoZFpkW5i/5xVESLs0c2cOGWTf9XZSqrGjMSDkYvEToBY
-	 1CWsp403rjOJlujTQ3E3tnAfGUBfioFhKXtElwTO180JkktFz5YRVCPrROgLUVtl92
-	 0EeW9fV4TYM9w==
-Date: Mon, 12 Oct 2026 10:01:34 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Pranjal Shrivastava <praan@google.com>
-Cc: linux-nfs@vger.kernel.org, Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>, Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
-	Christoph Hellwig <hch@lst.de>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, linux-pci@vger.kernel.org,
-	linux-rdma@vger.kernel.org, Shivaji Kant <shivajikant@google.com>,
-	Tom Talpey <tom@talpey.com>,
-	Unnati Sachan <unnatisachan@google.com>
-Subject: Re: [RFC PATCH v1 4/8] xprtrdma: return -EREMOTEIO on P2PDMA map
- failure
-Message-ID: <20261012070134.GG27033@unreal>
-References: <20261006233248.705086-1-praan@google.com>
- <20261006233248.705086-5-praan@google.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="Ayab69z4"
+Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261012070156epoutp0211e7ab63502bddb05381b56ef2ef3881~dtimb2POl2435824358epoutp02g
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:01:56 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261012070156epoutp0211e7ab63502bddb05381b56ef2ef3881~dtimb2POl2435824358epoutp02g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791788516;
+	bh=7SLteVdjPiEHdE5sddmk61hF6DXbPHqRUJWK2W3/8yk=;
+	h=Subject:Reply-To:From:To:CC:Date:References:From;
+	b=Ayab69z4B8bLubdHG2lTd1uRwyoPUHGNP8tt7g3tGU9u2eI1g6/JFc5EfknA433Z1
+	 jHstcRNCUcaIaWxbsUSe0yZ8cgAAFzqdDr7bkCVn5OfCegVjNwBg5erPqFLPwsCl/d
+	 JEIYJe29jWda26RI2ozRW9GyRBrn0kcKZBsrorW0=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261012070155epcas2p3b98e22081fb305528e3e2113cdf58680~dtil3xUgg0609606096epcas2p3R;
+	Mon, 12 Oct 2026 07:01:55 +0000 (GMT)
+Received: from epcas2p3.samsung.com (unknown [182.195.38.205]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4j37gR59V3z6B9mD; Mon, 12 Oct
+	2026 07:01:55 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006233248.705086-5-praan@google.com>
+Mime-Version: 1.0
+Subject: [PATCH] f2fs: do not discard valid segments with
+ discard_unit=section
+Reply-To: keosung.park@samsung.com
+Sender: Keoseong Park <keosung.park@samsung.com>
+From: Keoseong Park <keosung.park@samsung.com>
+To: "jaegeuk@kernel.org" <jaegeuk@kernel.org>, "chao@kernel.org"
+	<chao@kernel.org>
+CC: "linux-f2fs-devel@lists.sourceforge.net"
+	<linux-f2fs-devel@lists.sourceforge.net>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, Jinyoung Choi <j-young.choi@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261012070155epcms2p12175ed226bd55689c386338460be6d9d@epcms2p1>
+Date: Mon, 12 Oct 2026 16:01:55 +0900
+X-CMS-MailID: 20261012070155epcms2p12175ed226bd55689c386338460be6d9d
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261012070155epcms2p12175ed226bd55689c386338460be6d9d
+References: <CGME20261012070155epcms2p12175ed226bd55689c386338460be6d9d@epcms2p1>
 
-On Tue, Oct 06, 2026 at 11:32:44PM +0000, Pranjal Shrivastava wrote:
-> ib_dma_map_sg() returns 0 on any failure, so frwr_map() cannot tell
-> why a mapping failed and reports -EIO. Use ib_dma_map_sgtable_attrs()
-> instead, which returns the reason. Pass up -EREMOTEIO, which means
-> the device cannot reach the P2PDMA memory, so the RPC fails with the
-> same error as other P2PDMA refusals. Every other mapping failure
-> still returns -EIO.
-> 
-> Signed-off-by: Pranjal Shrivastava <praan@google.com>
-> ---
->  net/sunrpc/xprtrdma/frwr_ops.c | 15 ++++++++++-----
->  1 file changed, 10 insertions(+), 5 deletions(-)
-> 
-> diff --git a/net/sunrpc/xprtrdma/frwr_ops.c b/net/sunrpc/xprtrdma/frwr_ops.c
-> index e83cef19e656..a55d5e11c0e2 100644
-> --- a/net/sunrpc/xprtrdma/frwr_ops.c
-> +++ b/net/sunrpc/xprtrdma/frwr_ops.c
-> @@ -293,7 +293,8 @@ int frwr_map(struct rpcrdma_xprt *r_xprt,
->  	bool sg_gaps = ep->re_mrtype == IB_MR_TYPE_SG_GAPS;
->  	unsigned int max_depth = ep->re_max_fr_depth;
->  	struct ib_reg_wr *reg_wr;
-> -	int i, n, dma_nents;
-> +	struct sg_table sgt;
-> +	int i, n, dma_nents, ret;
->  	struct ib_mr *ibmr;
->  	u8 key;
->  
-> @@ -381,10 +382,13 @@ int frwr_map(struct rpcrdma_xprt *r_xprt,
->  	mr->mr_dir = rpcrdma_data_dir(writing);
->  	mr->mr_nents = i;
->  
-> -	dma_nents = ib_dma_map_sg(ep->re_id->device, mr->mr_sg, mr->mr_nents,
-> -				  mr->mr_dir);
-> -	if (!dma_nents)
-> +	/* Unlike ib_dma_map_sg(), this reports why a mapping failed */
-> +	sgt.sgl = mr->mr_sg;
-> +	sgt.orig_nents = mr->mr_nents;
-> +	ret = ib_dma_map_sgtable_attrs(ep->re_id->device, &sgt, mr->mr_dir, 0);
+With discard_unit=section, f2fs_clear_prefree_segments() widens a run
+of prefree segments to section boundaries, but only LFS mode checks the
+sections for valid blocks afterwards. In adaptive mode with large
+sections the widened range is discarded as it is, including segments
+that are still valid, and their data is lost.
 
-Please avoid using this function. We are gradually moving away from SG tables
-in the RDMA code.
+Check each section whenever the range was widened over large sections.
 
-In general, it is never good thing to built API around try-and-fail
-approach. It will require from us to be aware of "specific" usage for
-the return value from one subsystem by another.
+Testcase:
+- mkfs.f2fs -f -s 2 /dev/vda
+- mount -o discard,discard_unit=section /dev/vda /mnt/f2fs
+- for i in 0 1 2 3 4 5; do
+      dd if=/dev/urandom of=/mnt/f2fs/k$i bs=2M count=1 conv=fsync; done
+- rm /mnt/f2fs/k0 /mnt/f2fs/k2 /mnt/f2fs/k4; sync
+- umount /mnt/f2fs
+- mount -o discard,discard_unit=section /dev/vda /mnt/f2fs
 
-Thanks
+Before, k1, k3 and k5 are lost after the remount, or the umount hits
+the f2fs_bug_on() in __check_sit_bitmap() with CONFIG_F2FS_CHECK_FS.
+After, they are intact.
+
+Fixes: 4f993264fe29 ("f2fs: introduce discard_unit mount option")
+Signed-off-by: Keoseong Park <keosung.park@samsung.com>
+---
+ fs/f2fs/segment.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 794e0d99fc7..2e1502c5571 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -2325,7 +2325,7 @@ void f2fs_clear_prefree_segments(struct f2fs_sb_info *sbi,
+ 
+ 		/* Should cover 2MB zoned device for zone-based reset */
+ 		if (!f2fs_sb_has_blkzoned(sbi) &&
+-		    (!f2fs_lfs_mode(sbi) || !__is_large_section(sbi))) {
++		    (!section_alignment || !__is_large_section(sbi))) {
+ 			f2fs_issue_discard(sbi, START_BLOCK(sbi, start),
+ 				SEGS_TO_BLKS(sbi, end - start));
+ 			continue;
+-- 
+2.43.0
+
