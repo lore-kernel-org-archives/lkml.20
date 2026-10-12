@@ -1,257 +1,176 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD1223394B
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:02:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11AD2DECD3
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:02:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791784938; cv=none; b=izNNqHuMUGmj0Xxbbr2gDMvGoS2UKiTIlju57kLlVfIevl64UccMlwlBXL8gK3Bx+2ADWCxAbN59M28+xPvbZqjvFBCoifKqTu4zH3AmdC5llzgFCQJShjYW2kYNx0aowa7ngWSZS1PD3svjOgFbG6AXE7jtSWOodWSB0++ISR8=
+	t=1791784952; cv=none; b=UJ4QrqKMlPp6KIYJ0VlkVumd4ZEbRN39KDwfW6QWh/jn5Jx5MrXEbaqENFBilOnu49T1GdZvUARZNSyoAyrXEU666Qq1rv0QBI8nbmPz73l0hDfZdazp0nVERkuPChQqAXH/4rb/xIofbKOBiE/SibCF4nYlamBmUiGYwbxZOPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791784938; c=relaxed/simple;
-	bh=3ds6Kxo8KcToMGKlp0BSgF6Z+8tStFHjy+wAKuW4LJY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=doylf+sld8QuOQp9fHasXRn7iewTecGRPFlIDUd4V5xIpaj0rL4RiF54AHJ+3GJQNJEhXx/0NatatRLm2Mtv4C0PxmxwXKjw1unx7XT6OqLInGXLKEzjYXfzaHS4MGgJSpAWqTsTaHa8rKGU7NKQw4MUczdYtmEeO2/KiJK0Hn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fpKEVUJg; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791784952; c=relaxed/simple;
+	bh=k+khePLNGuctSnJaatEztevhyIesIxxAE8b39j4LmQE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qnGAzsBm/ZppK+JuSwmOz3iWQYfHs/j4kJtdJbZfQ0OEZdmexgbgFD9oVTBsjv9LnCgpd90uH2n3BzVhjOM2CeRZ7lSBNxcck8SAB3yTO92JWdCEl2p0rCsYTtcgwCvq6Puox84y4TS/wUjvlIzv+20npFBz3vpVRLvA765S/EA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=VM+sQUbD; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fpKEVUJg"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e831e86ebfso7636365ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:02:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="VM+sQUbD"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c34831355b3so1711866b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:02:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791784936; x=1792389736; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R/ggKxDXF1W4YTObb0Gqmnak9Gw8ra8VXEN2yWLxx6o=;
-        b=fpKEVUJgS+E8Ugk5K/rMEtfMNqEQ/gSzQtjKnVZNG0WxiLYl3WSLXvBs1C4JNf3tT0
-         KihZhyE5c5aXMow/hEW7WSBA/8fJuifFI5MV20quz4QeuhbKFnybP4GAF2yUFpeEKLha
-         4yw7wHjKm5sP2OEl0zoqYag3+L4LuMc7U9xh+WGXAy+NbQJaLxYsqtGPtW7H4gXeDOoK
-         oiN3zd7vMf46M9moQ571LWSFpShqoETOI3206Cg7x8aT/WU0aclIXmyXMACnm50RyKJT
-         9+ezW9gyUFNRLOHWPKGbR15W1GzVXVObAwQHUWXJQoZJwSgeBjfW72eQQQf0yo8OuQCj
-         3MTQ==
+        d=suse.com; s=google; t=1791784948; x=1792389748; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q+eQfUnbG/s5ISP+prTeAt1XskcnCqxPh3vr+MdcxjQ=;
+        b=VM+sQUbDseISULtSf3JHo0OkSCRalkm2eojdlKYEve3z0NcKdLJxB1ESDMSviAZ+nc
+         2tLZuHkMsSK2pf8I+yNhC/EMdeBvFqxu3BM3ykh4ICDegMM1tQ1nQaBb632XnW1r/n39
+         da5F50UFqaWEH5PAZ+U7y02QZtH6+NaXadZIknZBeZN9u3DZBg88moEoAhemL1rp14rw
+         HPPx2wk57e6WZXzSM/e+hE/oJPAZXaOpm8DcG99cbqa/UVFRK4c7xzPV4b23SrJiCUny
+         McmTnadrZYNWKFVXJ5n1wMnkXF8Jtv5tn98rjRKEvtbzaQAhsXxch4Y65MUos1Z4iIW6
+         S2xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791784936; x=1792389736;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R/ggKxDXF1W4YTObb0Gqmnak9Gw8ra8VXEN2yWLxx6o=;
-        b=wMK+vwei4218f47liykobaYUsDTKSKJqBjqAWdi+F+i/HaNDlwSM3O4CDbBUMApIt3
-         uSlRORICIl9ZdLeAB7cUlbGtife6HTiABRFFCTwKOinGnR0/3BStqx6E6TAc80HDUBqU
-         PXWC6b5mE4CrDlVdTkYQ47jXt9YkfIsRvMBgpbOLgdhv9RaZypAjlTvytJLSKereuKn+
-         V5UhBN03wk5vX795YZF+VsqX5VTZMID4UYFFkZjkN5uxUZn0Nznd8gVMy20CVG/fda6v
-         hMlk90lSVLj/Jyqrcf9mExJxGE9FZM8XYULtB4dx+uxZz0Ywi4575QVzHzEOScXCfdFp
-         SZhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzJLbHF5EYxio1y1Q/rG1U07YDn/oxLlomx8z6BtnYVXQxeNby2z84rr2cu1p+rbdUxGWzpC72Qk5YVzjw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK24XvyfE977PAGBQckXbQPogljhXeTtqRDrfDaQGh1FWzOguqx
-	7AFHTYL37mf+iWNWHc+kyuE0Zlzp/ZIwPO6Yp/MueRr58sgOBGOaAXg+
-X-Gm-Gg: AYBFou1N5sP6NSmzBOXOOWVI8H+eeqP4pVluNvxmzWwQAfMjH+wyLWnO1yS56a/UHCK
-	f8CUvKk87i06X/QWreeRsT/R6ssYPFYMR25aDIKdx5g9HrMHj4vxhuJTV7ffUUoSkOhUB9PN0eE
-	hnZBeHG0KAnPVq6ahqqowV8Ty2/2pK6KgNbW41mNbwHu8wGH+LAmspopTp9gqj7IgEkYqOSlnhM
-	xZ1WSb/yHSlNWK8mnST0jg6w2fb3keDc6mxqCazAZxMX2wY57chStJjvJr2y3BdLczJ1gkQcLg4
-	5bd48Sf8JPBRTd4myjy3ejnEpVlFK912+/O4ZT3lavsTmLq9uLPs/rHtfBgulOv2ZnP7v7obsRA
-	ey8A/XeSWOVJHyOvV1zms+1XQPAh0odH/FPj53GGwWx7eg+WVdWiHeJ0q6wGHQ3Mrx55MjW0Fx0
-	OlXUMtFnHCzeOv2vvHTR6YKe9nKTWZu5/k8j9vmNjLP/NqeEix1AiWPzk6TWjgCVqPDkLpDX368
-	wqNLUYOThQJs1cWkVp+A1M5sR/Zo/mgldDKlA==
-X-Received: by 2002:a17:902:d2c8:b0:2e6:646:8ee5 with SMTP id d9443c01a7336-2e842cd3e90mr71251985ad.39.1791784935605;
-        Sun, 11 Oct 2026 23:02:15 -0700 (PDT)
-Received: from localhost.localdomain ([2409:891f:1a03:88e9:69f9:d4b:a47:6619])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219f2bfsm39746645ad.21.2026.10.11.23.02.10
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 11 Oct 2026 23:02:15 -0700 (PDT)
-From: Chuang Wang <nashuiliang@gmail.com>
-To: 
-Cc: Chuang Wang <nashuiliang@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Stanislav Fomichev <sdf.kernel@gmail.com>,
-	Hangbin Liu <liuhangbin@gmail.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Neal Cardwell <ncardwell@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v11] net: reduce ARFS flow updates by checking LLC affinity
-Date: Mon, 12 Oct 2026 14:01:08 +0800
-Message-ID: <20261012060152.2930-1-nashuiliang@gmail.com>
-X-Mailer: git-send-email 2.50.1
+        d=1e100.net; s=20260707; t=1791784948; x=1792389748;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q+eQfUnbG/s5ISP+prTeAt1XskcnCqxPh3vr+MdcxjQ=;
+        b=1RolLlCTGngyyJ29AYq1SiLdANrXuXH3NUBD2qGEtIHy37HiyF06fq581GfvQnmtZ0
+         pOcvqnmbPk3uwIBYwN57QrU1M55IZRTrAQTfn8nbXPxueFsxHqzFhBAboySpt/cUTijE
+         HLhOp2CNyB9CpK4MezhebIaqRkCaRIic3oFQbDYSLmlvU1HYXx40pRexfkXez7+yTDfz
+         bgwqA8B7MjLHaYBXUm53afwOY1sO4B6WLOSwFwOFq2TojTUF1qbBQMri08MmM5oTKaov
+         gEXr+hkIfDSjMEHrqwgr1HhY7wWb+P4r4alIFsdlZSFm6d61MOqjjIpk3T7DnV7mXBjc
+         V7eQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw8bC0W/b9d2ZTq+1WhYagrQB6ZcZAVZsZwd97Ry/ELESWmX/EobwsHLQrdvkfXqxIeB4LeqO9m22/l6wg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuRTTw/NZBm2qQ8POWZIh/JWJ0ozTERaMPqFBfD2N0RtC/I0du
+	IKy0BPlimrpJZ2K9T2BUDB8WmitbE1LkSBXE0M/kFPl4fdZQLmhqqYR4lrFXTam2zX4=
+X-Gm-Gg: AYBFou32e/hdYIudeN6bG3nZSvUCs1TcImEmmAUkdMAvrFzT9Zw4d5huj3J5Z5rjP4L
+	nydCVgoYHwy//LRb+lEZQFvSHMB9ucKCVaGQnCt1LE34WlpisXx6Df4/lwgFYAQaHSuYnGUOASJ
+	TXO0TPCI1gEgNTK9WWgQMTmZ3SL98wvjJVyJOe6SlbHMB5GLpoWsP3ta5U0mx9chLX73+ub2BMN
+	rQbOWb8HGwtnLDzlg9NbzaMBRy9fRtDaq5t1euLCvRO/tZPEu6PjHWkzcfWOKKyIm8Czk7WCGIS
+	LDaUVXklnIOXGW3rXjrTOhRROjVAnCfB1yd2x9z7YKs9aTnV+jbflxxG4ENfN7+5CXcWslDSVGe
+	eEsqW5CtKv5cvYLrKh1KfhpusjhUwKCVvV4gJ3y9l2V848DYczaWPa68hPLQ/u2ZhfxsFUZxUww
+	YaFXtzSUCEsysKH5eukaKh7kkLioH6TwXWX1MPVOXMqmNckFv9rHTT+CFiNaSyiyoSW+WP
+X-Received: by 2002:a17:907:9720:b0:c2e:e3c:ddf3 with SMTP id a640c23a62f3a-c31a9a2d73dmr991629866b.1.1791784948048;
+        Sun, 11 Oct 2026 23:02:28 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9639bsm14290393a91.4.2026.10.11.23.02.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 23:02:27 -0700 (PDT)
+Date: Mon, 12 Oct 2026 14:02:24 +0800
+From: Heming Zhao <heming.zhao@suse.com>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, joseph.qi@linux.alibaba.com, 
+	akpm@linux-foundation.org, kmehltretter@gmail.com, ericterminal@gmail.com, kees@kernel.org, 
+	sunil.mushran@oracle.com, christophe.jaillet@wanadoo.fr, ocfs2-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+Subject: Re: [PATCH] ocfs2: Pin the node manager module for open debugfs files
+Message-ID: <asx3pAlqeVkKNRfB@p15>
+References: <pm-ocfs2-objects-candidate-0089-v2-4c67f48d4e2d0fc85990@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <pm-ocfs2-objects-candidate-0089-v2-4c67f48d4e2d0fc85990@gmail.com>
 
-The current implementation of rps_record_sock_flow() updates the flow
-table every time a socket is processed on a different CPU. In high-load
-scenarios, especially with Accelerated RFS (ARFS), this triggers
-frequent flow steering updates via ndo_rx_flow_steer.
+On Mon, Oct 12, 2026 at 09:31:38AM +0800, Cen Zhang wrote:
+> The node manager debugfs file operation tables do not set owner.
+> The debugfs full proxy obtains real_fops with fops_get() at open and
+> keeps it until final release. Without an owner, this does not acquire
+> a module reference. Normal unload can free the ocfs2_nodemanager
+> module image while an open file still holds its operation table.
+> 
+> Closing connected_nodes then makes full_proxy_release() read
+> real_fops->release from freed module memory. Removing the debugfs
+> entries during module exit does not drain retained open files.
+> 
+> Set owner to THIS_MODULE in the o2net and heartbeat debugfs operation
+> tables. The existing debugfs get/put pair then keeps the module and
+> its callbacks alive until the last open file is released.
+> 
+> A controlled test used an unloadable OCFS2 module and case-local probe
+> filters without changing the candidate open, unload or release logic.
+> Closing a retained connected_nodes file after normal unload produced:
+> 
+>   BUG: unable to handle page fault for address: fffffbfff804cfef
+>   Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+>   RIP: 0010:full_proxy_release+0xbf/0x190
+>   Call Trace:
+>    <TASK>
+>    __fput+0x39a/0xa60
+>    fput_close_sync+0xff/0x200
+>    __x64_sys_close+0x8c/0xf0
+>    do_syscall_64+0x114/0x620
+>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>    </TASK>
+>   Modules linked in: [last unloaded: ocfs2_nodemanager]
+> 
+> Fixes: 2309e9e040fe ("ocfs2/net: Add debug interface to o2net")
+> Fixes: 87d3d3f3931f ("ocfs2/hb: Expose the list of heartbeating nodes via debugfs")
+> Fixes: 3ba169ccec1c ("ocfs2/cluster: Add new function o2net_fill_node_map()")
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
-For drivers like mlx5 that implement hardware flow steering, these
-constant updates lead to significant contention on internal driver locks
-(e.g., arfs_lock). In high-load scenarios, this contention often becomes
-a performance bottleneck that outweighs the steering benefits.
 
-This patch introduces a cache-aware update strategy: the hardware
-steering update is skipped when the flow's previous target CPU and the
-new one share the same Last Level Cache (LLC), as cache locality for
-the application is preserved either way. The per-queue flow bookkeeping
-(rflow->cpu) is still updated, so RFS keeps steering packets to the CPU
-the application is running on, and subsequent packets take the fast path
-in get_rps_cpu() (tcpu == next_cpu). A new sysctl,
-net.core.arfs_llc_affinity, is added to toggle this feature (default:
-off).
+Thanks for spotting this. I applied the same test to 
+/sys/kernel/debug/ocfs2/<id>/fs_state and confirmed the same issue.
+It looks like all debugfs ops in ocfs2 are missing .owner.
+Would you have time to check and fix them?
 
-Performance Test Results:
-The patch was tested in a K8s environment (AMD CPU 128*2, 16-core Pod
-with CPU pinning, mlx5 NIC) using brpc[1] echo_server and rpc_press.
-
-rpc_press Commands:
-
-  for i in {1..8}; do
-    ./rpc_press -proto=./echo.proto -method=example.EchoService.Echo
-    -server=<IP>:8000 -input='{"message":"hello"}'
-    -qps=0 -thread_num=512 -connection_type=pooled &
-  done
-
-Monitor mlx5e_rx_flow_steer frequency:
-
-  /usr/share/bcc/tools/funccount -i 1 mlx5e_rx_flow_steer
-
-Frequency of mlx5e_rx_flow_steer (via funccount[2]):
-
-  Before: ~200,000 counts/sec
-  After:       ~10 counts/sec (reduced by ~99%)
-
-These results demonstrate that filtering updates by LLC affinity
-significantly reduces driver lock contention and improves overall
-CPU efficiency under heavy network load.
-
-[1] https://github.com/apache/brpc/
-[2] https://github.com/iovisor/bcc/blob/master/tools/funccount.py
-
-Signed-off-by: Chuang Wang <nashuiliang@gmail.com>
----
-v10 -> v11:
-- rename the sysctl from net.core.rps_feat_llc_affinity to
-  net.core.arfs_llc_affinity, per Neal Cardwell
-v9 -> v10:
-- move the LLC check from rps_record_sock_flow() into set_rps_cpu(),
-  so that only the ARFS hardware steering is skipped while rflow->cpu
-  is still updated, per Eric Dumazet
-- drop the sock_rps_record_flow_hash()/sock_rps_record_flow() exports,
-  which are no longer needed
-v6 -> v9:
-- simplify code and fix errors in AI submissions, per Simon Horman
-v5 -> v6:
-- remove the multi-check 'old_val == new_val', per Xuan Zhuo
-- fix 'modpost: "sock_rps_record_flow_hash" [drivers/net/tun.ko]
-  undefined!', per kernel test robot
-- fix 'tcp.c:(.text+0x3e90): undefined reference to
-  `sock_rps_record_flow'', per kernel test robot
-v4 -> v5:
-- fix 'modpost: "rps_llc_check" [net/sctp/sctp.ko] undefined!', per
-  kernel test robot
-v3 -> v4:
-- add rps_llc_check, per Eric Dumazet
-v2 -> v3:
-- patch net -> net-next, per Jakub Kicinski
-v1 -> v2:
-- add rps_feat_llc_affinity; add brpc tests
- include/net/rps.h          |  1 +
- net/core/dev.c             | 23 +++++++++++++++++++++--
- net/core/sysctl_net_core.c |  7 +++++++
- 3 files changed, 29 insertions(+), 2 deletions(-)
-
-diff --git a/include/net/rps.h b/include/net/rps.h
-index e33c6a2fa8bb..6664970e68d6 100644
---- a/include/net/rps.h
-+++ b/include/net/rps.h
-@@ -12,6 +12,7 @@
- 
- extern struct static_key_false rps_needed;
- extern struct static_key_false rfs_needed;
-+extern struct static_key_false arfs_llc_affinity;
- 
- /*
-  * This structure holds an RPS map which can be of variable length.  The
-diff --git a/net/core/dev.c b/net/core/dev.c
-index a6951ea08961..434ad5499906 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -5122,6 +5122,7 @@ struct static_key_false rps_needed __read_mostly;
- EXPORT_SYMBOL(rps_needed);
- struct static_key_false rfs_needed __read_mostly;
- EXPORT_SYMBOL(rfs_needed);
-+struct static_key_false arfs_llc_affinity __read_mostly;
- 
- static u32 rfs_slot(u32 hash, rps_tag_ptr tag_ptr)
- {
-@@ -5160,7 +5161,7 @@ static bool rps_flow_is_active(struct rps_dev_flow *rflow,
- 
- static struct rps_dev_flow *
- set_rps_cpu(struct net_device *dev, struct sk_buff *skb,
--	    struct rps_dev_flow *rflow, u16 next_cpu, u32 hash)
-+	    struct rps_dev_flow *rflow, u16 old_cpu, u16 next_cpu, u32 hash)
- {
- 	if (next_cpu < nr_cpu_ids) {
- 		u32 head;
-@@ -5179,6 +5180,24 @@ set_rps_cpu(struct net_device *dev, struct sk_buff *skb,
- 		if (!skb_rx_queue_recorded(skb) || !dev->rx_cpu_rmap ||
- 		    !(dev->features & NETIF_F_NTUPLE))
- 			goto out;
-+
-+		/*
-+		 * ARFS LLC Affinity Feature:
-+		 * Reduce ARFS flow updates by checking LLC affinity.
-+		 *
-+		 * Frequent flow table updates can trigger constant hardware steering
-+		 * reconfigurations (e.g., ndo_rx_flow_steer), leading to significant
-+		 * contention on driver internal locks (like mlx5's arfs_lock).
-+		 *
-+		 * Skip the expensive hardware steering update if the flow's previous
-+		 * target CPU and the new one share the last level cache: cache locality
-+		 * for the application is preserved either way.
-+		 */
-+		if (static_branch_unlikely(&arfs_llc_affinity) &&
-+		    old_cpu < nr_cpu_ids && cpu_online(old_cpu) &&
-+			cpus_share_cache(old_cpu, next_cpu))
-+			goto out;
-+
- 		rxq_index = cpu_rmap_lookup_index(dev->rx_cpu_rmap, next_cpu);
- 		if (rxq_index == skb_get_rx_queue(skb))
- 			goto out;
-@@ -5308,8 +5327,8 @@ static int get_rps_cpu(struct net_device *dev, struct sk_buff *skb,
- 		    (tcpu >= nr_cpu_ids || !cpu_online(tcpu) ||
- 		     ((int)(READ_ONCE(per_cpu(softnet_data, tcpu).input_queue_head) -
- 		      rflow->last_qtail)) >= 0)) {
-+			rflow = set_rps_cpu(dev, skb, rflow, tcpu, next_cpu, hash);
- 			tcpu = next_cpu;
--			rflow = set_rps_cpu(dev, skb, rflow, next_cpu, hash);
- 		}
- 
- 		if (tcpu < nr_cpu_ids && cpu_online(tcpu)) {
-diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
-index 473c162736d6..9ce0bbe454c8 100644
---- a/net/core/sysctl_net_core.c
-+++ b/net/core/sysctl_net_core.c
-@@ -560,6 +560,13 @@ static struct ctl_table net_core_table[] = {
- 		.mode		= 0644,
- 		.proc_handler	= rps_sock_flow_sysctl
- 	},
-+	{
-+		.procname	= "arfs_llc_affinity",
-+		.data		= &arfs_llc_affinity.key,
-+		.maxlen		= sizeof(arfs_llc_affinity.key),
-+		.mode		= 0644,
-+		.proc_handler	= proc_do_static_key
-+	},
- #endif
- #ifdef CONFIG_NET_FLOW_LIMIT
- 	{
--- 
-2.47.3
-
+Thanks,
+Heming
+> ---
+> diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+> index 8e6ead433228..1d4f71190d27 100644
+> --- a/fs/ocfs2/cluster/heartbeat.c
+> +++ b/fs/ocfs2/cluster/heartbeat.c
+> @@ -1447,6 +1447,7 @@ static ssize_t o2hb_debug_read(struct file *file, char __user *buf,
+>  #endif  /* CONFIG_DEBUG_FS */
+>  
+>  static const struct file_operations o2hb_debug_fops = {
+> +	.owner = THIS_MODULE,
+>  	.open =		o2hb_debug_open,
+>  	.release =	o2hb_debug_release,
+>  	.read =		o2hb_debug_read,
+> diff --git a/fs/ocfs2/cluster/netdebug.c b/fs/ocfs2/cluster/netdebug.c
+> index f7ab66e70799..5d373002297d 100644
+> --- a/fs/ocfs2/cluster/netdebug.c
+> +++ b/fs/ocfs2/cluster/netdebug.c
+> @@ -183,6 +183,7 @@ static int nst_fop_release(struct inode *inode, struct file *file)
+>  }
+>  
+>  static const struct file_operations nst_seq_fops = {
+> +	.owner = THIS_MODULE,
+>  	.open = nst_fop_open,
+>  	.read = seq_read,
+>  	.llseek = seq_lseek,
+> @@ -415,6 +416,7 @@ static int stats_fop_open(struct inode *inode, struct file *file)
+>  }
+>  
+>  static const struct file_operations stats_seq_fops = {
+> +	.owner = THIS_MODULE,
+>  	.open = stats_fop_open,
+>  	.read = seq_read,
+>  	.llseek = seq_lseek,
+> @@ -427,6 +429,7 @@ static int sc_fop_open(struct inode *inode, struct file *file)
+>  }
+>  
+>  static const struct file_operations sc_seq_fops = {
+> +	.owner = THIS_MODULE,
+>  	.open = sc_fop_open,
+>  	.read = seq_read,
+>  	.llseek = seq_lseek,
+> @@ -476,6 +479,7 @@ static ssize_t o2net_debug_read(struct file *file, char __user *buf,
+>  }
+>  
+>  static const struct file_operations nodes_fops = {
+> +	.owner		= THIS_MODULE,
+>  	.open		= nodes_fop_open,
+>  	.release	= o2net_debug_release,
+>  	.read		= o2net_debug_read,
