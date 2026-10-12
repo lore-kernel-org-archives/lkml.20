@@ -1,660 +1,625 @@
-Received: from linkmauve.fr (linkmauve.fr [82.65.109.163])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010021.outbound.protection.outlook.com [52.101.56.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF91B4E0219;
-	Mon, 12 Oct 2026 19:52:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.65.109.163
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791834747; cv=none; b=C7/c9Sf+KOYutFHKEU4LdnySql1SC5laCUpdAstf6+X9RRYjVq95rVVdPosGh8B4toIW/PVCGXUMUeEL4FSSJfEUH7P2KY2uiNKt15bgOwLT17VEnlpGPUm7kvsnQ7ewTeZb65VXzhNlVUNX8ehOjBNphcWwisfYzudTqFLf08s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791834747; c=relaxed/simple;
-	bh=KAyrY+rXCLLi3fUaux5XBMuFFXeJ2nNRf5wFCKTc4OY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eYgUg5CPzSyf9wdGEihPZutLFOk9lF21ZJBeUjtkwvNVf1UHW1uEjqUHEt/ZKY9gBS1BZXW2Rn57+XPUCUNduVqQe8OYFYhDvdXEsjrZrSpZRzOt6l4DXZYsCwN3Ugpvji00y9NEKMJzZr0mRe2LjuVGR1Uz+ZknzeESIWGKnsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr; spf=pass smtp.mailfrom=linkmauve.fr; arc=none smtp.client-ip=82.65.109.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linkmauve.fr
-Received: by linkmauve.fr (Postfix, from userid 1000)
-	id 2A17D71FB39F; Mon, 12 Oct 2026 21:52:16 +0200 (CEST)
-From: Link Mauve <linkmauve@linkmauve.fr>
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Link Mauve <linkmauve@linkmauve.fr>,
-	Sasha Finkelstein <k@chaosmail.tech>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Sven Peter <sven@kernel.org>,
-	Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Vladimir Zapolskiy <vz@mleia.com>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Kalyani Akula <kalyani.akula@amd.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Johan Hovold <johan@kernel.org>,
-	Ronald Claveau <linux-kernel-dev@aliel.fr>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	asahi@lists.linux.dev,
-	imx@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	rust-for-linux@vger.kernel.org
-Subject: [PATCH v7 3/3] nvmem: make all reg_write callbacks take const void *
-Date: Mon, 12 Oct 2026 21:52:10 +0200
-Message-ID: <20261012195213.875403-4-linkmauve@linkmauve.fr>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261012195213.875403-1-linkmauve@linkmauve.fr>
-References: <20261012195213.875403-1-linkmauve@linkmauve.fr>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BBF3CB54D;
+	Mon, 12 Oct 2026 19:53:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791834816; cv=fail; b=H843ChZ8wPZao/DQz8NoSjjrWqHqwV196YoAlx+gLPnVwJJmDndYmSSwqTL7rnyvgGhjaVgpxlis+rFiDipx+4RpfRGl/xy1lpTv+CqzlGJgYqo34DSLaDU26WvNNRzYYPKNgAfMqFnjQjCL/atr4t6gR7VxKKruxI++qCGArWQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791834816; c=relaxed/simple;
+	bh=X6nOt7B1yuVbwUCGVoZjo+7Ke3u60SG0Lc0KzBUY328=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pB1s48EUIoeGFZN26EdZTjGMgCxSfHlXgLUXru9CGXJhUyd3hzAUb0yuhvC/XrdTv8+kXP+r9ep9jYgpnOuwFJEJwmq0UL+S5zBgjpASUf5dBj5NB2iD28oayS+5trFCg1gOxlTYofgSwh7NntyOxq5Wn/tkNdr5ogMS0cPt+S8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=dU7J//dJ; arc=fail smtp.client-ip=52.101.56.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="dU7J//dJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oizkKP8t9LdFu+ufzfgVN+08reB1lH3xE2ruJil8KcJOcy+9ZmLyxqVz8gyqMpkBGYLd8dzIYdfINJBKRjuhs6I2ykEuI6Aw0WFY3qrAZegpQarRy04QzJYiwNItp63cRwpW30h/hZRAvnle9LlqqiHytt5FY9L7BKfpQgNV+Ow6/kDoMHFf1rCREeSEKri2w1IJ4axglIVE1aOL84RvBsFyPSkAdoke8qoRTGaVljKf3q//ydCJ+OzKRcvqG43V1gKQ8ZHMqklR2n3rBDxY0LTsULJVooqcxB/pGzaj5NOeynM4YrAGPuMN0DjIWoqHtJI4zY0ItYpp7LiWaxkZ9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TbY+dyiHHFfKM1ltFkJY2JAB2p2KGihqeRlczPJaU88=;
+ b=OBTN3GlQQqgLofnjG+5oEgjqlGbgPFBqUcug8oRwCG4fARkQIwf6WGY7sFKu8pBxFcNR3NLC70yR+1dLWxgNqiniQ1QmdAuFhYMWFR3GYpCibzMES/1qWjKKwyAlOte1dKiBc1mqU9MBLMayQxuT3n4KM5fceixSY2BoQhvi/HWxDBlPgiaGPVXbwny+nhuDU5AJfNhqT5/xmrIsWceAXw0Ea61bcX11onfHNGTNVqI27IsqfjRzQrv7I/CwL87ad0MPCeh5TG5m9jM+qWVwEMMa8LH4YJIQd9a3Nv1PmWYRP/let1iRbP8rPIgrSRx4uOkiFhnOyDgtnlsmzj+PYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TbY+dyiHHFfKM1ltFkJY2JAB2p2KGihqeRlczPJaU88=;
+ b=dU7J//dJITpOOHFqf4Y5rT4Nv6OV3CmrPHTY4zRq9XLr3kFjlsfy2fh7lD3U0lSS8xpyetDDMY+cKFHi1jGIRIr/VkZGcyBGPJjO8AMoGIrGFgyXNoupTOnw0FnZhxg7Fep1a4Kd0FfhbInRAnt+ppi6nIxiFfAgbNcJhzkaZuc=
+Received: from DS0PR17CA0013.namprd17.prod.outlook.com (2603:10b6:8:191::11)
+ by DS0PR12MB9324.namprd12.prod.outlook.com (2603:10b6:8:1b6::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
+ 2026 19:53:23 +0000
+Received: from DM3PEPF000265AF.namprd02.prod.outlook.com
+ (2603:10b6:8:191:cafe::47) by DS0PR17CA0013.outlook.office365.com
+ (2603:10b6:8:191::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon,
+ 12 Oct 2026 19:53:23 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DM3PEPF000265AF.mail.protection.outlook.com (10.167.23.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 19:53:23 +0000
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
+ 2026 14:53:17 -0500
+Date: Mon, 12 Oct 2026 14:53:08 -0500
+From: Michael Roth <michael.roth@amd.com>
+To: Sean Christopherson <seanjc@google.com>
+CC: Xiaoyao Li <xiaoyao.li@intel.com>, Lisa Wang <wyihan@google.com>,
+	"Ackerley Tng" <ackerleytng@google.com>, Binbin Wu
+	<binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, Chenyi Qiang
+	<chenyi.qiang@intel.com>, Erdem Aktas <erdemaktas@google.com>, Paolo Bonzini
+	<pbonzini@redhat.com>, "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, Rick
+ Edgecombe <rick.p.edgecombe@intel.com>, Roger Wang <runanwang@google.com>,
+	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>,
+	<kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Ashish Kalra
+	<ashish.kalra@amd.com>, "Tom Lendacky" <thomas.lendacky@amd.com>
+Subject: Re: [PATCH v14 13/22] KVM: selftests: Support guest_memfd in-place
+ conversion
+Message-ID: <qyykjxnxek73ddhbdexwz7jabjso33hdqzpf4syhrbrlh4eo5q@f4hwiuluzvgi>
+References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
+ <20260722-tdx-selftests-v14-13-15ad654a50db@google.com>
+ <f7b3a63c-7a1d-445f-b062-4cea5343d266@intel.com>
+ <asz8GKNO9aQANr5E@google.com>
+ <as0FedYcvJvdOaq2@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <as0FedYcvJvdOaq2@google.com>
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265AF:EE_|DS0PR12MB9324:EE_
+X-MS-Office365-Filtering-Correlation-Id: 143c0e7a-6cb3-4a8f-6c28-08df289a7937
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|82310400026|36860700016|1800799024|23010399003|4143699003|11063799006|56012099006|22082099003|18002099003|6133799003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	S20rnumm7kPPnfsMB5sycEscpaProbXCf6P/Mybn2bKt18VO22g3CT9UNlp3vn3vCdWtYzONm1l7glNEBkzUC9RjmmWG0AJHApjhZeQEECNZpC851BT/Q6LjUmnnX2aus/9ITXBrq3CQh4NkKem0p6HyLEzbR/7v+knBQ5cGEjA0KPaVC//ebmNdomIujJPV9Xu5vxoPVUIVYrT7lVmepE1DYG4QZjw1/DdBh6KSK+90+yLzpL1Gm3BfToKw2S2P1DEU07CF0w0sjrJCUQg7GTqXcLG6nvJMO5ZCymnlLdwFkcFw53LcfC3WRwzWRV9Ykt1GOjyJvO/eAq0wp/Z23hi7ENgn0vc7IJyLPawO8SbpP2XVjOuKYlsS2Dv83RQh/8CGUdH79LkAWN/0Dv/gEQ+NZh/8YMQmW6nEv2dBXx4BILs5rfUJa6Qk0FrSBoW88dpxK8NZ+u4cOl+3CZC1t+EaqW02bgw6X9b4zuyEIy/YnAj5OMC0NaUUK4mqAFKau4g9LUICDaSKEAwawtsZcqVX/j1EAjfhs9vDYXPJtMZgmWcME19cdVxaq3kwGjl4lZSOgFRXM9p7g5FPht9YJdVK6/uXplwee47QM4d4J86tvuuYFBA/KMc24qwyRZ+E41HPxLfkZCvbvl9ho2n8/mx1ibUADGRrxQR4Q+8XxM9vWruhhQEd4LemtJK+L+5LDCHEalTLdi1sh6ZAEsQFRA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(82310400026)(36860700016)(1800799024)(23010399003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003)(6133799003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	9S5WcPgd0T7FXr0dIeyB6YmW6xOFJ3pXwNINXpgqtqF59EHmJbz+ydsq0F6elzluxTwpAFYfrWSkuUO2+ujJfsLDRuVuPm1UkjftOVVA8YnuprTpP07pWdIxle0GNHll2zTfP9NMr7GNW/4fbnQEidvQ1Pg0kwJQcIdVA6u06vV0Or5QC4PK7RRgSGe8lOHLrYEWgM4Ehw/jkkeAFipnStwkGqKPTUP7rmKTZCqDKIwT0AEgMBrXlnZbXjgpROU+zhfh/XrrRCYlCVTyMeFwTp8/3aPXDV0YgULwsgpfkD1M+KVAn5aXOxp6/BN1AqT5K2o1aYCy2s3SlWW7/gDcsixtIfzZEzrGAHH7fiXeteuU5DXRJ+eYEk8Fzh4Yzv6ZxexpkD8sjQA+9+4kYnR0FR50BeSKf5/kDSWJSfQ27CzJaxWvTBH7UuO9OcoDm2jS
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 19:53:23.2841
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 143c0e7a-6cb3-4a8f-6c28-08df289a7937
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM3PEPF000265AF.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9324
 
-The previous commit switched from a pointer to mutable data to a pointer
-to immutable data, so let’s fix all users of this API in the nvmem
-subsystem.
+On Mon, Oct 12, 2026 at 09:06:17AM -0700, Sean Christopherson wrote:
+> +Ashish, Tom and Mike, dropped a bunch of others that probably don't care about
+> the CCP/PSP driver.
+> 
+> On Mon, Oct 12, 2026, Sean Christopherson wrote:
+> > On Tue, Aug 18, 2026, Xiaoyao Li wrote:
+> > > On 7/23/2026 7:13 AM, Lisa Wang wrote:
+> > > > -	flags = 0;
+> > > > -	if (is_guest_memfd_required(shape))
+> > > > +	if (is_guest_memfd_required(shape)) {
+> > > >   		flags |= KVM_MEM_GUEST_MEMFD;
+> > > > +		if (kvm_has_gmem_attributes)
+> > > > +			gmem_flags |= GUEST_MEMFD_FLAG_INIT_SHARED |
+> > > > +				      GUEST_MEMFD_FLAG_MMAP;
+> > > > +	}
+> > > > -	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, 0, 0, nr_pages, flags);
+> > > > +	vm_mem_add(vm, VM_MEM_SRC_ANONYMOUS, 0, 0, nr_pages, flags,
+> > > > +		   -1, 0, gmem_flags);
+> > > >   	for (i = 0; i < NR_MEM_REGIONS; i++)
+> > > >   		vm->memslots[i] = 0;
+> > > 
+> > > IMO, this diff belongs to the gmem in-place series.
+> > 
+> > Yep, you're 100% right.  I pushed this to "coco" for now...
+> > 
+> > diff --git tools/testing/selftests/kvm/lib/kvm_util.c tools/testing/selftests/kvm/lib/kvm_util.c
+> > index 3f559f207408..0c67d964a9aa 100644
+> > --- tools/testing/selftests/kvm/lib/kvm_util.c
+> > +++ tools/testing/selftests/kvm/lib/kvm_util.c
+> > @@ -494,6 +494,7 @@ struct kvm_vm *__vm_create(struct vm_shape shape, u32 nr_runnable_vcpus,
+> >         u64 nr_pages = vm_nr_pages_required(shape.mode, nr_runnable_vcpus,
+> >                                                  nr_extra_pages);
+> >         struct userspace_mem_region *slot0;
+> > +       u64 gmem_flags = 0;
+> >         struct kvm_vm *vm;
+> >         int i, flags;
+> >  
+> > @@ -509,10 +510,20 @@ struct kvm_vm *__vm_create(struct vm_shape shape, u32 nr_runnable_vcpus,
+> >          * for CoCo VMs that require GUEST_MEMFD backed private memory.
+> >          */
+> >         flags = 0;
+> > -       if (is_guest_memfd_required(shape))
+> > +       if (is_guest_memfd_required(shape)) {
+> >                 flags |= KVM_MEM_GUEST_MEMFD;
+> >  
+> > -       vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, 0, 0, nr_pages, flags);
+> > +               /*
+> > +                * Allow mmap() and initialize the gmem instance as SHARED if
+> > +                * in-place conversions are supported, so that the memory can
+> > +                * be populated/initialized like any other memory region.
+> > +                */
+> > +               if (kvm_has_gmem_attributes)
+> > +                       gmem_flags |= GUEST_MEMFD_FLAG_INIT_SHARED |
+> > +                                     GUEST_MEMFD_FLAG_MMAP;
+> > +       }
+> > +
+> > +       vm_mem_add(vm, VM_MEM_SRC_ANONYMOUS, 0, 0, nr_pages, flags, -1, 0, gmem_flags);
+> >         for (i = 0; i < NR_MEM_REGIONS; i++)
+> >                 vm->memslots[i] = 0;
+> > 
+> > but the entire in-place conversion series may need to be dropped because there's
+> > a potential deadlock, and I don't see an obviously non-awful way to fix it.
+> 
+> The underlying problem is that drivers/crypto/ccp/sev-dev.c does memory allocations
+> and copy_{to,from}_user() while holding sev_cmd_mutex in a variety of locations.
+> 
+> I genuinely think the right fix is to not do that, i.e. to perform invasive surgery
+> on the driver so that it holds sev_cmd_mutex only for the operations that really
+> truly need its protection.  Because taking page faults while holding a *system*-wide
+> lock is asking for trouble.  Deadlock aside, if one of the user pages being accessed
+> happens to be swapped out, tasks could be blocked on sev_cmd_mutex for quite some
+> time waiting for the page to come back from disk or wherever.  Rinse and repeat, and
+> I wouldn't be surprised if VM creation/boot can stall for hundreds of milliseconds
+> or worse.
 
-Other subsystems will go through their own tree at their respective
-pace, and only when the last reg_write callback will be removed we will
-rename reg_write_const back to reg_write.
+Hi Sean,
 
-Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Thanks for catching this. I had a discussion with Tom and Ashish and we agree
+that making the CCP driver more granular with it's use of sev_cmd_mutex seems
+like the best choice.
+
+I've include a patch (below) that reworks the CCP driver to take this
+approach and did some light regression/build testing. Still need to take
+a closer look but am planning to post this as a proper patch if the
+approach seems okay to you. This mainly addresses /dev/sev IOCTLs since
+KVM/internal users use sev_issue_cmd_external_user() which does not do
+any copy_to/from_user()'s and is basically a direct firmware call which
+is the latest point where sev_cmd_mutex is needed.
+
+I don't have a reproducer for the specific ABBA in question though; I'm
+confused at why sev_ioctl_do_platform_status() / SEV_CMD_PLATFORM_STATUS
+would trigger a gmem fault (outside of malicious/intentional case) since
+it is just querying status on behalf of host userspace and storing the
+result in userspace buffer where there's no reason to use a guest/gmem
+page. Was this test specifically set up to do this or was this reachable
+from a normal path? Just trying to see if there are interactions I'm
+failing to consider here.
+
+> 
+> The alternative would be to take sev_cmd_mutex around the kvm_gmem_populate() call
+> in snp_launch_update(), but even if the CPP maintainers were willing to provide hooks
+> to allow that, I'm not willing to take such a hack in KVM.
+> 
+> So, very sadly, I think in-place conversion is dead for 7.4, and will need to be
+> revived on top of an overhaul of sev_cmd_mutex locking.
+> 
+> Or I guess maybe a less painful temporary workaround would be to disable support
+> for SNP if in-place conversion is enabled.  That would avoid extending the in-place
+> conversion bottleneck for TDX, pKVM, and CCA, without having to take a gross hack
+> to make SNP play nice.
+> 
+> E.g. this as a workaround for 7.4 (not yet tested)
+> 
+> diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+> index fad72cab76cf..df885b8214d4 100644
+> --- a/arch/x86/kvm/svm/sev.c
+> +++ b/arch/x86/kvm/svm/sev.c
+> @@ -3213,6 +3213,14 @@ void __init sev_hardware_setup(void)
+>  	sev_snp_supported = sev_snp_enabled && cc_platform_has(CC_ATTR_HOST_SEV_SNP);
+>  
+>  out:
+> +	/*
+> +	 * FIXME: Allow SNP with in-place guest_memfd conversion once the PSP
+> +	 * driver no longer takes its global mutex outside of mmap_lock (which
+> +	 * leads to deadlock with sev_gmem_post_populate()).
+> +	 */
+> +	if (gmem_in_place_conversion)
+> +		sev_snp_supported = false;
+> +
+>  	if (sev_enabled) {
+>  		init_args.probe = true;
+>  
+
+I would hate to hold everyone else up due to an SNP issue that
+(hopefully) already has a potential fix. So, if it comes to that and
+hard decisions need to be made, it would be great if we can just disable
+SNP specifically. The above approach seems reasonable to me.
+
+Thanks,
+
+Mike
+
+From: Michael Roth <michael.roth@amd.com>
+Date: Mon, 12 Oct 2026 14:32:28 -0500
+Subject: [PATCH] crypto: ccp: Don't hold sev_cmd_mutex when copying from/to user pages
+
+(Proper commit message pending)
+
+This can lead to deadlocks and slow performance. Copying to/from
+userspace pages so handle that outside of the criticial path.
+
+The only bit of awkwardness here is that sev->snp_initialized also
+relies on the sev_cmd_mutex(), so in that case push the related checks
+down into the critical path. This currently results in
+sev_ioctl_do_snp_set_config() potentially doing an unnecessary
+copy_from_user() before it reports the original ENODEV error in cases,
+whereas before it would report ENODEV before doing the copy. This can be
+improved upon based on the fact that sev->snp_initialized can only be
+set a specific points in time rather than being truly dynamic.
+
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Reported-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Michael Roth <michael.roth@amd.com>
 ---
- drivers/nvmem/apple-spmi-nvmem.c    |  4 ++--
- drivers/nvmem/at24.c                |  6 +++---
- drivers/nvmem/at25.c                |  4 ++--
- drivers/nvmem/bcm-ocotp.c           |  8 ++++----
- drivers/nvmem/eeprom_93xx46.c       |  6 +++---
- drivers/nvmem/imx-ocotp-scu.c       |  6 +++---
- drivers/nvmem/imx-ocotp.c           |  6 +++---
- drivers/nvmem/lan9662-otpc.c        |  6 +++---
- drivers/nvmem/lpc18xx_eeprom.c      |  6 +++---
- drivers/nvmem/m24lr.c               |  4 ++--
- drivers/nvmem/max77759-nvmem.c      |  4 ++--
- drivers/nvmem/meson-efuse.c         |  4 ++--
- drivers/nvmem/qcom-spmi-sdam.c      |  6 +++---
- drivers/nvmem/qfprom.c              |  6 +++---
- drivers/nvmem/rave-sp-eeprom.c      |  6 +++---
- drivers/nvmem/snvs_lpgpr.c          |  4 ++--
- drivers/nvmem/sprd-efuse.c          |  6 +++---
- drivers/nvmem/stm32-bsec-optee-ta.c |  2 +-
- drivers/nvmem/stm32-bsec-optee-ta.h |  4 ++--
- drivers/nvmem/stm32-romem.c         | 10 +++++-----
- drivers/nvmem/zynqmp_nvmem.c        |  6 +++---
- 21 files changed, 57 insertions(+), 57 deletions(-)
+ drivers/crypto/ccp/sev-dev.c | 73 ++++++++++++++++++++++++------------
+ 1 file changed, 49 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/nvmem/apple-spmi-nvmem.c b/drivers/nvmem/apple-spmi-nvmem.c
-index 7acb0c07d6ab..63b2b11d78f9 100644
---- a/drivers/nvmem/apple-spmi-nvmem.c
-+++ b/drivers/nvmem/apple-spmi-nvmem.c
-@@ -26,7 +26,7 @@ static int apple_spmi_nvmem_read(void *priv, unsigned int offset, void *val,
- 	return regmap_bulk_read(map, offset, val, bytes);
- }
+diff --git a/drivers/crypto/ccp/sev-dev.c b/drivers/crypto/ccp/sev-dev.c
+index f833cb7e4da3..ecbc9dfda6e5 100644
+--- a/drivers/crypto/ccp/sev-dev.c
++++ b/drivers/crypto/ccp/sev-dev.c
+@@ -1914,6 +1914,8 @@ static int sev_ioctl_do_reset(struct sev_issue_cmd *argp, bool writable)
+ 	if (!writable)
+ 		return -EPERM;
  
--static int apple_spmi_nvmem_write(void *priv, unsigned int offset, void *val,
-+static int apple_spmi_nvmem_write(void *priv, unsigned int offset, const void *val,
- 				  size_t bytes)
- {
- 	struct regmap *map = priv;
-@@ -45,7 +45,7 @@ static int apple_spmi_nvmem_probe(struct spmi_device *sdev)
- 		.stride = 1,
- 		.size = 0xffff,
- 		.reg_read = apple_spmi_nvmem_read,
--		.reg_write = apple_spmi_nvmem_write,
-+		.reg_write_const = apple_spmi_nvmem_write,
- 	};
++	guard(mutex)(&sev_cmd_mutex);
++
+ 	/*
+ 	 * The SEV spec requires that FACTORY_RESET must be issued in
+ 	 * UNINIT state. Before we go further lets check if any guest is
+@@ -1946,7 +1948,8 @@ static int sev_ioctl_do_platform_status(struct sev_issue_cmd *argp)
  
- 	regmap = devm_regmap_init_spmi_ext(sdev, &apple_spmi_regmap_config);
-diff --git a/drivers/nvmem/at24.c b/drivers/nvmem/at24.c
-index 772c4d9fa651..6e3fe353c376 100644
---- a/drivers/nvmem/at24.c
-+++ b/drivers/nvmem/at24.c
-@@ -477,11 +477,11 @@ static int at24_read(void *priv, unsigned int off, void *val, size_t count)
- 	return 0;
- }
+ 	memset(&data, 0, sizeof(data));
  
--static int at24_write(void *priv, unsigned int off, void *val, size_t count)
-+static int at24_write(void *priv, unsigned int off, const void *val, size_t count)
- {
- 	struct at24_data *at24;
- 	struct device *dev;
--	char *buf = val;
-+	const char *buf = val;
- 	int ret;
+-	ret = __sev_do_cmd_locked(SEV_CMD_PLATFORM_STATUS, &data, &argp->error);
++	scoped_guard(mutex, &sev_cmd_mutex)
++		ret = __sev_do_cmd_locked(SEV_CMD_PLATFORM_STATUS, &data, &argp->error);
+ 	if (ret)
+ 		return ret;
  
- 	at24 = priv;
-@@ -743,7 +743,7 @@ static int at24_probe(struct i2c_client *client)
- 	nvmem_config.compat = true;
- 	nvmem_config.base_dev = dev;
- 	nvmem_config.reg_read = at24_read;
--	nvmem_config.reg_write = at24_write;
-+	nvmem_config.reg_write_const = at24_write;
- 	nvmem_config.priv = at24;
- 	nvmem_config.stride = 1;
- 	nvmem_config.word_size = 1;
-diff --git a/drivers/nvmem/at25.c b/drivers/nvmem/at25.c
-index bc2cfb75d9bb..bb5fb7b692f4 100644
---- a/drivers/nvmem/at25.c
-+++ b/drivers/nvmem/at25.c
-@@ -235,7 +235,7 @@ static int at25_wait_ready(struct at25_data *at25)
- 	return bounce[0];
- }
+@@ -1965,6 +1968,8 @@ static int sev_ioctl_do_pek_pdh_gen(int cmd, struct sev_issue_cmd *argp, bool wr
+ 	if (!writable)
+ 		return -EPERM;
  
--static int at25_ee_write(void *priv, unsigned int off, void *val, size_t count)
-+static int at25_ee_write(void *priv, unsigned int off, const void *val, size_t count)
- {
- 	u8 *bounce __free(kfree) = kmalloc(min(count, io_limit), GFP_KERNEL);
- 	struct at25_data *at25 = priv;
-@@ -544,7 +544,7 @@ static int at25_probe(struct spi_mem *mem)
- 	at25->nvmem_config.compat = true;
- 	at25->nvmem_config.base_dev = &spi->dev;
- 	at25->nvmem_config.reg_read = at25_ee_read;
--	at25->nvmem_config.reg_write = at25_ee_write;
-+	at25->nvmem_config.reg_write_const = at25_ee_write;
- 	at25->nvmem_config.priv = at25;
- 	at25->nvmem_config.stride = 1;
- 	at25->nvmem_config.word_size = 1;
-diff --git a/drivers/nvmem/bcm-ocotp.c b/drivers/nvmem/bcm-ocotp.c
-index 2490f44caa40..02adfd787de8 100644
---- a/drivers/nvmem/bcm-ocotp.c
-+++ b/drivers/nvmem/bcm-ocotp.c
-@@ -179,11 +179,11 @@ static int bcm_otpc_read(void *context, unsigned int offset, void *val,
- 	return 0;
- }
++	guard(mutex)(&sev_cmd_mutex);
++
+ 	if (sev->sev_plat_status.state == SEV_STATE_UNINIT) {
+ 		rc = sev_move_to_init_state(argp, &shutdown_required);
+ 		if (rc)
+@@ -2014,14 +2019,23 @@ static int sev_ioctl_do_pek_csr(struct sev_issue_cmd *argp, bool writable)
+ 	data.len = input.length;
  
--static int bcm_otpc_write(void *context, unsigned int offset, void *val,
--	size_t bytes)
-+static int bcm_otpc_write(void *context, unsigned int offset, const void *val,
-+			  size_t bytes)
- {
- 	struct otpc_priv *priv = context;
--	u32 *buf = val;
-+	const u32 *buf = val;
- 	u32 bytes_written;
- 	u32 address = offset / priv->config->word_size;
- 	int i, ret;
-@@ -223,7 +223,7 @@ static struct nvmem_config bcm_otpc_nvmem_config = {
- 	.word_size = 4,
- 	.stride = 4,
- 	.reg_read = bcm_otpc_read,
--	.reg_write = bcm_otpc_write,
-+	.reg_write_const = bcm_otpc_write,
- };
- 
- static const struct of_device_id bcm_otpc_dt_ids[] = {
-diff --git a/drivers/nvmem/eeprom_93xx46.c b/drivers/nvmem/eeprom_93xx46.c
-index f9c3ab52c2f9..c8c15b91e624 100644
---- a/drivers/nvmem/eeprom_93xx46.c
-+++ b/drivers/nvmem/eeprom_93xx46.c
-@@ -268,10 +268,10 @@ eeprom_93xx46_write_word(struct eeprom_93xx46_dev *edev,
- }
- 
- static int eeprom_93xx46_write(void *priv, unsigned int off,
--				   void *val, size_t count)
-+			       const void *val, size_t count)
- {
- 	struct eeprom_93xx46_dev *edev = priv;
--	char *buf = val;
-+	const char *buf = val;
- 	int ret, step = 1;
- 	unsigned int i;
- 
-@@ -510,7 +510,7 @@ static int eeprom_93xx46_probe(struct spi_device *spi)
- 	edev->nvmem_config.compat = true;
- 	edev->nvmem_config.base_dev = &spi->dev;
- 	edev->nvmem_config.reg_read = eeprom_93xx46_read;
--	edev->nvmem_config.reg_write = eeprom_93xx46_write;
-+	edev->nvmem_config.reg_write_const = eeprom_93xx46_write;
- 	edev->nvmem_config.priv = edev;
- 	edev->nvmem_config.stride = 4;
- 	edev->nvmem_config.word_size = 1;
-diff --git a/drivers/nvmem/imx-ocotp-scu.c b/drivers/nvmem/imx-ocotp-scu.c
-index 517d83e11af2..57008228100f 100644
---- a/drivers/nvmem/imx-ocotp-scu.c
-+++ b/drivers/nvmem/imx-ocotp-scu.c
-@@ -178,11 +178,11 @@ static int imx_scu_ocotp_read(void *context, unsigned int offset,
- }
- 
- static int imx_scu_ocotp_write(void *context, unsigned int offset,
--			       void *val, size_t bytes)
-+			       const void *val, size_t bytes)
- {
- 	struct ocotp_priv *priv = context;
- 	struct arm_smccc_res res;
--	u32 *buf = val;
-+	const u32 *buf = val;
- 	u32 tmp;
- 	u32 index;
- 	int ret;
-@@ -226,7 +226,7 @@ static struct nvmem_config imx_scu_ocotp_nvmem_config = {
- 	.stride = 1,
- 	.owner = THIS_MODULE,
- 	.reg_read = imx_scu_ocotp_read,
--	.reg_write = imx_scu_ocotp_write,
-+	.reg_write_const = imx_scu_ocotp_write,
- };
- 
- static const struct of_device_id imx_scu_ocotp_dt_ids[] = {
-diff --git a/drivers/nvmem/imx-ocotp.c b/drivers/nvmem/imx-ocotp.c
-index 108d78d7f6cb..36d4a37aed93 100644
---- a/drivers/nvmem/imx-ocotp.c
-+++ b/drivers/nvmem/imx-ocotp.c
-@@ -310,11 +310,11 @@ static void imx_ocotp_set_imx7_timing(struct ocotp_priv *priv)
- 	writel(timing, priv->base + IMX_OCOTP_ADDR_TIMING);
- }
- 
--static int imx_ocotp_write(void *context, unsigned int offset, void *val,
-+static int imx_ocotp_write(void *context, unsigned int offset, const void *val,
- 			   size_t bytes)
- {
- 	struct ocotp_priv *priv = context;
--	u32 *buf = val;
-+	const u32 *buf = val;
- 	int ret;
- 
- 	u32 ctrl;
-@@ -483,7 +483,7 @@ static struct nvmem_config imx_ocotp_nvmem_config = {
- 	.word_size = 4,
- 	.stride = 1,
- 	.reg_read = imx_ocotp_read,
--	.reg_write = imx_ocotp_write,
-+	.reg_write_const = imx_ocotp_write,
- };
- 
- static const struct ocotp_params imx6q_params = {
-diff --git a/drivers/nvmem/lan9662-otpc.c b/drivers/nvmem/lan9662-otpc.c
-index 62d1d6381bf8..f586ae4cd126 100644
---- a/drivers/nvmem/lan9662-otpc.c
-+++ b/drivers/nvmem/lan9662-otpc.c
-@@ -139,10 +139,10 @@ static int lan9662_otp_read(void *context, unsigned int offset,
- }
- 
- static int lan9662_otp_write(void *context, unsigned int offset,
--			     void *_val, size_t bytes)
-+			     const void *_val, size_t bytes)
- {
- 	struct lan9662_otp *otp = context;
--	u8 *val = _val;
-+	const u8 *val = _val;
- 	u8 data, newdata;
- 	int i, rc = 0;
- 
-@@ -174,7 +174,7 @@ static struct nvmem_config otp_config = {
- 	.stride = 1,
- 	.word_size = 1,
- 	.reg_read = lan9662_otp_read,
--	.reg_write = lan9662_otp_write,
-+	.reg_write_const = lan9662_otp_write,
- };
- 
- static int lan9662_otp_probe(struct platform_device *pdev)
-diff --git a/drivers/nvmem/lpc18xx_eeprom.c b/drivers/nvmem/lpc18xx_eeprom.c
-index 504155e30bab..78a35ef095fb 100644
---- a/drivers/nvmem/lpc18xx_eeprom.c
-+++ b/drivers/nvmem/lpc18xx_eeprom.c
-@@ -87,7 +87,7 @@ static int lpc18xx_eeprom_busywait_until_prog(struct lpc18xx_eeprom_dev *eeprom)
- }
- 
- static int lpc18xx_eeprom_gather_write(void *context, unsigned int reg,
--				       void *val, size_t bytes)
-+				       const void *val, size_t bytes)
- {
- 	struct lpc18xx_eeprom_dev *eeprom = context;
- 	unsigned int offset = reg;
-@@ -109,7 +109,7 @@ static int lpc18xx_eeprom_gather_write(void *context, unsigned int reg,
- 	usleep_range(100, 200);
- 
- 	while (bytes) {
--		writel(*(u32 *)val, eeprom->mem_base + offset);
-+		writel(*(const u32 *)val, eeprom->mem_base + offset);
- 		ret = lpc18xx_eeprom_busywait_until_prog(eeprom);
- 		if (ret < 0)
- 			return ret;
-@@ -155,7 +155,7 @@ static struct nvmem_config lpc18xx_nvmem_config = {
- 	.stride = 4,
- 	.word_size = 4,
- 	.reg_read = lpc18xx_eeprom_read,
--	.reg_write = lpc18xx_eeprom_gather_write,
-+	.reg_write_const = lpc18xx_eeprom_gather_write,
- };
- 
- static int lpc18xx_eeprom_probe(struct platform_device *pdev)
-diff --git a/drivers/nvmem/m24lr.c b/drivers/nvmem/m24lr.c
-index 7a9fd45a8e46..35c66304399f 100644
---- a/drivers/nvmem/m24lr.c
-+++ b/drivers/nvmem/m24lr.c
-@@ -374,7 +374,7 @@ static int m24lr_nvmem_read(void *priv, unsigned int offset, void *val,
- 	return 0;
- }
- 
--static int m24lr_nvmem_write(void *priv, unsigned int offset, void *val,
-+static int m24lr_nvmem_write(void *priv, unsigned int offset, const void *val,
- 			     size_t bytes)
- {
- 	ssize_t err;
-@@ -548,7 +548,7 @@ static int m24lr_probe(struct i2c_client *client)
- 	nvmem_conf.owner = THIS_MODULE;
- 	nvmem_conf.type = NVMEM_TYPE_EEPROM;
- 	nvmem_conf.reg_read = m24lr_nvmem_read;
--	nvmem_conf.reg_write = m24lr_nvmem_write;
-+	nvmem_conf.reg_write_const = m24lr_nvmem_write;
- 	nvmem_conf.size = chip->eeprom_size;
- 	nvmem_conf.word_size = 1;
- 	nvmem_conf.stride = 1;
-diff --git a/drivers/nvmem/max77759-nvmem.c b/drivers/nvmem/max77759-nvmem.c
-index 283000ec3a2c..86c025cfc2f6 100644
---- a/drivers/nvmem/max77759-nvmem.c
-+++ b/drivers/nvmem/max77759-nvmem.c
-@@ -59,7 +59,7 @@ static int max77759_nvmem_reg_read(void *priv, unsigned int offset,
- }
- 
- static int max77759_nvmem_reg_write(void *priv, unsigned int offset,
--				    void *val, size_t bytes)
-+				    const void *val, size_t bytes)
- {
- 	struct max77759_nvmem *nvmem = priv;
- 	DEFINE_FLEX(struct max77759_maxq_command, cmd, cmd, length,
-@@ -99,7 +99,7 @@ static int max77759_nvmem_probe(struct platform_device *pdev)
- 		.word_size = sizeof(u8),
- 		.stride = sizeof(u8),
- 		.reg_read = max77759_nvmem_reg_read,
--		.reg_write = max77759_nvmem_reg_write,
-+		.reg_write_const = max77759_nvmem_reg_write,
- 	};
- 	struct max77759_nvmem *nvmem;
- 
-diff --git a/drivers/nvmem/meson-efuse.c b/drivers/nvmem/meson-efuse.c
-index f71854f89950..5e056e707a96 100644
---- a/drivers/nvmem/meson-efuse.c
-+++ b/drivers/nvmem/meson-efuse.c
-@@ -27,7 +27,7 @@ static int meson_efuse_read(void *context, unsigned int offset,
- }
- 
- static int meson_efuse_write(void *context, unsigned int offset,
--			     void *val, size_t bytes)
-+			     const void *val, size_t bytes)
- {
- 	struct meson_sm_firmware *fw = context;
- 	int ret;
-@@ -83,7 +83,7 @@ static int meson_efuse_probe(struct platform_device *pdev)
- 	econfig->stride = 1;
- 	econfig->word_size = 1;
- 	econfig->reg_read = meson_efuse_read;
--	econfig->reg_write = meson_efuse_write;
-+	econfig->reg_write_const = meson_efuse_write;
- 	econfig->size = size;
- 	econfig->priv = fw;
- 
-diff --git a/drivers/nvmem/qcom-spmi-sdam.c b/drivers/nvmem/qcom-spmi-sdam.c
-index 4f1cca6eab71..10febaf9e427 100644
---- a/drivers/nvmem/qcom-spmi-sdam.c
-+++ b/drivers/nvmem/qcom-spmi-sdam.c
-@@ -81,8 +81,8 @@ static int sdam_read(void *priv, unsigned int offset, void *val,
- 	return rc;
- }
- 
--static int sdam_write(void *priv, unsigned int offset, void *val,
--				size_t bytes)
-+static int sdam_write(void *priv, unsigned int offset, const void *val,
-+		      size_t bytes)
- {
- 	struct sdam_chip *sdam = priv;
- 	struct device *dev = sdam->sdam_config.dev;
-@@ -147,7 +147,7 @@ static int sdam_probe(struct platform_device *pdev)
- 	sdam->sdam_config.size = sdam->size;
- 	sdam->sdam_config.word_size = 1;
- 	sdam->sdam_config.reg_read = sdam_read;
--	sdam->sdam_config.reg_write = sdam_write;
-+	sdam->sdam_config.reg_write_const = sdam_write;
- 	sdam->sdam_config.priv = sdam;
- 
- 	nvmem = devm_nvmem_register(&pdev->dev, &sdam->sdam_config);
-diff --git a/drivers/nvmem/qfprom.c b/drivers/nvmem/qfprom.c
-index 1de3435df116..16b7f647a3f6 100644
---- a/drivers/nvmem/qfprom.c
-+++ b/drivers/nvmem/qfprom.c
-@@ -252,13 +252,13 @@ static int qfprom_enable_fuse_blowing(const struct qfprom_priv *priv,
-  *
-  * Return: 0 or -err.
-  */
--static int qfprom_reg_write(void *context, unsigned int reg, void *_val,
-+static int qfprom_reg_write(void *context, unsigned int reg, const void *_val,
- 			    size_t bytes)
- {
- 	struct qfprom_priv *priv = context;
- 	struct qfprom_touched_values old;
- 	int words = bytes / 4;
--	u32 *value = _val;
-+	const u32 *value = _val;
- 	u32 blow_status;
- 	int ret;
- 	int i;
-@@ -443,7 +443,7 @@ static int qfprom_probe(struct platform_device *pdev)
- 
- 		/* Only enable writing if we have SoC data and a valid clock */
- 		if (priv->soc_data && priv->secclk)
--			econfig.reg_write = qfprom_reg_write;
-+			econfig.reg_write_const = qfprom_reg_write;
+ cmd:
++	mutex_lock(&sev_cmd_mutex);
++
+ 	if (sev->sev_plat_status.state == SEV_STATE_UNINIT) {
+ 		ret = sev_move_to_init_state(argp, &shutdown_required);
+-		if (ret)
++		if (ret) {
++			mutex_unlock(&sev_cmd_mutex);
+ 			goto e_free_blob;
++		}
  	}
  
- 	pm_runtime_enable(dev);
-diff --git a/drivers/nvmem/rave-sp-eeprom.c b/drivers/nvmem/rave-sp-eeprom.c
-index 9ecf3873cbb7..c703d303eb6c 100644
---- a/drivers/nvmem/rave-sp-eeprom.c
-+++ b/drivers/nvmem/rave-sp-eeprom.c
-@@ -278,10 +278,10 @@ static int rave_sp_eeprom_reg_read(void *eeprom, unsigned int offset,
- }
+ 	ret = __sev_do_cmd_locked(SEV_CMD_PEK_CSR, &data, &argp->error);
  
- static int rave_sp_eeprom_reg_write(void *eeprom, unsigned int offset,
--				    void *val, size_t bytes)
-+				    const void *val, size_t bytes)
- {
- 	return rave_sp_eeprom_access(eeprom, RAVE_SP_EEPROM_WRITE,
--				     offset, val, bytes);
-+				     offset, (void *)val, bytes);
- }
++	if (shutdown_required)
++		__sev_firmware_shutdown(sev, false);
++
++	mutex_unlock(&sev_cmd_mutex);
++
+ 	/*
+ 	 * Firmware will returns the length of the CSR blob (either the minimum
+ 	 * required length or the actual length written), return it to the user.
+@@ -2042,9 +2056,6 @@ static int sev_ioctl_do_pek_csr(struct sev_issue_cmd *argp, bool writable)
+ 	}
  
- static int rave_sp_eeprom_probe(struct platform_device *pdev)
-@@ -331,7 +331,7 @@ static int rave_sp_eeprom_probe(struct platform_device *pdev)
- 	config.add_legacy_fixed_of_cells	= true;
- 	config.size		= size;
- 	config.reg_read		= rave_sp_eeprom_reg_read;
--	config.reg_write	= rave_sp_eeprom_reg_write;
-+	config.reg_write_const	= rave_sp_eeprom_reg_write;
- 	config.word_size	= 1;
- 	config.stride		= 1;
- 
-diff --git a/drivers/nvmem/snvs_lpgpr.c b/drivers/nvmem/snvs_lpgpr.c
-index 89c27112320f..3e76d33dff20 100644
---- a/drivers/nvmem/snvs_lpgpr.c
-+++ b/drivers/nvmem/snvs_lpgpr.c
-@@ -50,7 +50,7 @@ static const struct snvs_lpgpr_cfg snvs_lpgpr_cfg_imx7d = {
- 	.size		= 16,
- };
- 
--static int snvs_lpgpr_write(void *context, unsigned int offset, void *val,
-+static int snvs_lpgpr_write(void *context, unsigned int offset, const void *val,
- 			    size_t bytes)
- {
- 	struct snvs_lpgpr_priv *priv = context;
-@@ -127,7 +127,7 @@ static int snvs_lpgpr_probe(struct platform_device *pdev)
- 	cfg->size = dcfg->size;
- 	cfg->owner = THIS_MODULE;
- 	cfg->reg_read  = snvs_lpgpr_read;
--	cfg->reg_write = snvs_lpgpr_write;
-+	cfg->reg_write_const = snvs_lpgpr_write;
- 
- 	nvmem = devm_nvmem_register(dev, cfg);
- 
-diff --git a/drivers/nvmem/sprd-efuse.c b/drivers/nvmem/sprd-efuse.c
-index 1a7e4e5d8b86..f960fa8cb25c 100644
---- a/drivers/nvmem/sprd-efuse.c
-+++ b/drivers/nvmem/sprd-efuse.c
-@@ -192,7 +192,7 @@ static void sprd_efuse_set_prog_en(struct sprd_efuse *efuse, bool en)
- }
- 
- static int sprd_efuse_raw_prog(struct sprd_efuse *efuse, u32 blk, bool doub,
--			       bool lock, u32 *data)
-+			       bool lock, const u32 *data)
- {
- 	u32 status;
- 	int ret = 0;
-@@ -321,7 +321,7 @@ static int sprd_efuse_read(void *context, u32 offset, void *val, size_t bytes)
+ e_free_blob:
+-	if (shutdown_required)
+-		__sev_firmware_shutdown(sev, false);
+-
+ 	kfree(blob);
  	return ret;
  }
+@@ -2318,18 +2329,22 @@ static int sev_ioctl_do_pek_import(struct sev_issue_cmd *argp, bool writable)
+ 	data.oca_cert_len = input.oca_cert_len;
  
--static int sprd_efuse_write(void *context, u32 offset, void *val, size_t bytes)
-+static int sprd_efuse_write(void *context, u32 offset, const void *val, size_t bytes)
- {
- 	struct sprd_efuse *efuse = context;
- 	bool blk_double = efuse->data->blk_double;
-@@ -410,7 +410,7 @@ static int sprd_efuse_probe(struct platform_device *pdev)
- 	econfig.size = efuse->data->blk_nums * SPRD_EFUSE_BLOCK_WIDTH;
- 	econfig.add_legacy_fixed_of_cells = true;
- 	econfig.reg_read = sprd_efuse_read;
--	econfig.reg_write = sprd_efuse_write;
-+	econfig.reg_write_const = sprd_efuse_write;
- 	econfig.priv = efuse;
- 	econfig.dev = &pdev->dev;
- 	nvmem = devm_nvmem_register(&pdev->dev, &econfig);
-diff --git a/drivers/nvmem/stm32-bsec-optee-ta.c b/drivers/nvmem/stm32-bsec-optee-ta.c
-index f89ce791dd12..3184b976b1f9 100644
---- a/drivers/nvmem/stm32-bsec-optee-ta.c
-+++ b/drivers/nvmem/stm32-bsec-optee-ta.c
-@@ -203,7 +203,7 @@ int stm32_bsec_optee_ta_read(struct tee_context *ctx, unsigned int offset,
- 
- /* stm32_bsec_optee_ta_write() - nvmem write access using PTA client driver */
- int stm32_bsec_optee_ta_write(struct tee_context *ctx, unsigned int lower,
--			      unsigned int offset, void *buf, size_t bytes)
-+			      unsigned int offset, const void *buf, size_t bytes)
- {	struct tee_shm *shm;
- 	struct tee_ioctl_invoke_arg arg;
- 	struct tee_param param[2];
-diff --git a/drivers/nvmem/stm32-bsec-optee-ta.h b/drivers/nvmem/stm32-bsec-optee-ta.h
-index 3966a0535179..74658a54fe57 100644
---- a/drivers/nvmem/stm32-bsec-optee-ta.h
-+++ b/drivers/nvmem/stm32-bsec-optee-ta.h
-@@ -50,7 +50,7 @@ int stm32_bsec_optee_ta_read(struct tee_context *ctx, unsigned int offset,
-  *	On success, 0. On failure, -errno.
-  */
- int stm32_bsec_optee_ta_write(struct tee_context *ctx, unsigned int lower,
--			      unsigned int offset, void *buf, size_t bytes);
-+			      unsigned int offset, const void *buf, size_t bytes);
- 
- #else
- 
-@@ -72,7 +72,7 @@ static inline int stm32_bsec_optee_ta_read(struct tee_context *ctx,
- 
- static inline int stm32_bsec_optee_ta_write(struct tee_context *ctx,
- 					    unsigned int lower,
--					    unsigned int offset, void *buf,
-+					    unsigned int offset, const void *buf,
- 					    size_t bytes)
- {
- 	return -EOPNOTSUPP;
-diff --git a/drivers/nvmem/stm32-romem.c b/drivers/nvmem/stm32-romem.c
-index 82879b1c9eb9..622093b0755c 100644
---- a/drivers/nvmem/stm32-romem.c
-+++ b/drivers/nvmem/stm32-romem.c
-@@ -118,12 +118,12 @@ static int stm32_bsec_read(void *context, unsigned int offset, void *buf,
- 	return 0;
- }
- 
--static int stm32_bsec_write(void *context, unsigned int offset, void *buf,
-+static int stm32_bsec_write(void *context, unsigned int offset, const void *buf,
- 			    size_t bytes)
- {
- 	struct stm32_romem_priv *priv = context;
- 	struct device *dev = priv->cfg.dev;
--	u32 *buf32 = buf;
-+	const u32 *buf32 = buf;
- 	int ret, i;
- 
- 	/* Allow only writing complete 32-bits aligned words */
-@@ -153,7 +153,7 @@ static int stm32_bsec_pta_read(void *context, unsigned int offset, void *buf,
- 	return stm32_bsec_optee_ta_read(priv->ctx, offset, buf, bytes);
- }
- 
--static int stm32_bsec_pta_write(void *context, unsigned int offset, void *buf,
-+static int stm32_bsec_pta_write(void *context, unsigned int offset, const void *buf,
- 				size_t bytes)
- {
- 	struct stm32_romem_priv *priv = context;
-@@ -239,10 +239,10 @@ static int stm32_romem_probe(struct platform_device *pdev)
- 				return rc;
- 			}
- 			priv->cfg.reg_read = stm32_bsec_pta_read;
--			priv->cfg.reg_write = stm32_bsec_pta_write;
-+			priv->cfg.reg_write_const = stm32_bsec_pta_write;
- 		} else {
- 			priv->cfg.reg_read = stm32_bsec_read;
--			priv->cfg.reg_write = stm32_bsec_write;
-+			priv->cfg.reg_write_const = stm32_bsec_write;
- 		}
+ 	/* If platform is not in INIT state then transition it to INIT */
++	mutex_lock(&sev_cmd_mutex);
++
+ 	if (sev->sev_plat_status.state != SEV_STATE_INIT) {
+ 		ret = sev_move_to_init_state(argp, &shutdown_required);
+ 		if (ret)
+-			goto e_free_oca;
++			goto e_unlock;
  	}
  
-diff --git a/drivers/nvmem/zynqmp_nvmem.c b/drivers/nvmem/zynqmp_nvmem.c
-index d297ff150dc0..54905a608157 100644
---- a/drivers/nvmem/zynqmp_nvmem.c
-+++ b/drivers/nvmem/zynqmp_nvmem.c
-@@ -183,7 +183,7 @@ static int zynqmp_nvmem_read(void *context, unsigned int offset, void *val, size
+ 	ret = __sev_do_cmd_locked(SEV_CMD_PEK_CERT_IMPORT, &data, &argp->error);
+ 
+-e_free_oca:
++e_unlock:
+ 	if (shutdown_required)
+ 		__sev_firmware_shutdown(sev, false);
+ 
++	mutex_unlock(&sev_cmd_mutex);
++
+ 	kfree(oca_blob);
+ e_free_pek:
+ 	kfree(pek_blob);
+@@ -2372,7 +2387,8 @@ static int sev_ioctl_do_get_id2(struct sev_issue_cmd *argp)
+ 		data.len = 0;
+ 	}
+ 
+-	ret = __sev_do_cmd_locked(SEV_CMD_GET_ID, &data, &argp->error);
++	scoped_guard(mutex, &sev_cmd_mutex)
++		ret = __sev_do_cmd_locked(SEV_CMD_GET_ID, &data, &argp->error);
+ 
+ 	/*
+ 	 * Firmware will return the length of the ID value (either the minimum
+@@ -2430,7 +2446,8 @@ static int sev_ioctl_do_get_id(struct sev_issue_cmd *argp)
+ 	data->address = __psp_pa(id_blob);
+ 	data->len = user_size;
+ 
+-	ret = __sev_do_cmd_locked(SEV_CMD_GET_ID, data, &argp->error);
++	scoped_guard(mutex, &sev_cmd_mutex)
++		ret = __sev_do_cmd_locked(SEV_CMD_GET_ID, data, &argp->error);
+ 	if (!ret) {
+ 		if (copy_to_user((void __user *)argp->data, id_blob, data->len))
+ 			ret = -EFAULT;
+@@ -2492,19 +2509,29 @@ static int sev_ioctl_do_pdh_export(struct sev_issue_cmd *argp, bool writable)
+ 	data.cert_chain_len = input.cert_chain_len;
+ 
+ cmd:
++	mutex_lock(&sev_cmd_mutex);
++
+ 	/* If platform is not in INIT state then transition it to INIT. */
+ 	if (sev->sev_plat_status.state != SEV_STATE_INIT) {
+ 		if (!writable) {
+ 			ret = -EPERM;
++			mutex_unlock(&sev_cmd_mutex);
+ 			goto e_free_cert;
+ 		}
+ 		ret = sev_move_to_init_state(argp, &shutdown_required);
+-		if (ret)
++		if (ret) {
++			mutex_unlock(&sev_cmd_mutex);
+ 			goto e_free_cert;
++		}
+ 	}
+ 
+ 	ret = __sev_do_cmd_locked(SEV_CMD_PDH_CERT_EXPORT, &data, &argp->error);
+ 
++	if (shutdown_required)
++		__sev_firmware_shutdown(sev, false);
++
++	mutex_unlock(&sev_cmd_mutex);
++
+ 	/*
+ 	 * Firmware will return the length of the blobs (either the minimum
+ 	 * required length or the actual length written), return 'em to the user.
+@@ -2535,9 +2562,6 @@ static int sev_ioctl_do_pdh_export(struct sev_issue_cmd *argp, bool writable)
+ 	}
+ 
+ e_free_cert:
+-	if (shutdown_required)
+-		__sev_firmware_shutdown(sev, false);
+-
+ 	kfree(cert_blob);
+ e_free_pdh:
+ 	kfree(pdh_blob);
+@@ -2605,7 +2629,8 @@ static int sev_ioctl_do_snp_platform_status(struct sev_issue_cmd *argp)
+ 	if (!argp->data)
+ 		return -EINVAL;
+ 
+-	ret = __sev_do_snp_platform_status(&status, &argp->error);
++	scoped_guard(mutex, &sev_cmd_mutex)
++		ret = __sev_do_snp_platform_status(&status, &argp->error);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -2623,6 +2648,8 @@ static int sev_ioctl_do_snp_commit(struct sev_issue_cmd *argp)
+ 
+ 	buf.len = sizeof(buf);
+ 
++	guard(mutex)(&sev_cmd_mutex);
++
+ 	ret = __sev_do_cmd_locked(SEV_CMD_SNP_COMMIT, &buf, &argp->error);
+ 
+ 	return ret;
+@@ -2639,12 +2666,14 @@ static int sev_ioctl_do_snp_set_config(struct sev_issue_cmd *argp, bool writable
+ 	if (!writable)
+ 		return -EPERM;
+ 
+-	if (!sev->snp_initialized)
+-		return -ENODEV;
+-
+ 	if (copy_from_user(&config, (void __user *)argp->data, sizeof(config)))
+ 		return -EFAULT;
+ 
++	guard(mutex)(&sev_cmd_mutex);
++
++	if (!sev->snp_initialized)
++		return -ENODEV;
++
+ 	return __sev_do_cmd_locked(SEV_CMD_SNP_CONFIG, &config, &argp->error);
  }
  
- static int zynqmp_nvmem_write(void *context,
--			      unsigned int offset, void *val, size_t bytes)
-+			      unsigned int offset, const void *val, size_t bytes)
- {
- 	int pufflag = 0;
+@@ -2677,7 +2706,8 @@ static int sev_ioctl_do_snp_vlek_load(struct sev_issue_cmd *argp, bool writable)
  
-@@ -194,7 +194,7 @@ static int zynqmp_nvmem_write(void *context,
- 		pufflag = 1;
+ 	input.vlek_wrapped_address = __psp_pa(blob);
  
- 	return zynqmp_efuse_access(context, offset,
--				   val, bytes, EFUSE_WRITE, pufflag);
-+				   (void *)val, bytes, EFUSE_WRITE, pufflag);
- }
+-	ret = __sev_do_cmd_locked(SEV_CMD_SNP_VLEK_LOAD, &input, &argp->error);
++	scoped_guard(mutex, &sev_cmd_mutex)
++		ret = __sev_do_cmd_locked(SEV_CMD_SNP_VLEK_LOAD, &input, &argp->error);
+ 	kfree(blob);
  
- static const struct of_device_id zynqmp_nvmem_match[] = {
-@@ -216,7 +216,7 @@ static int zynqmp_nvmem_probe(struct platform_device *pdev)
- 	econfig.priv = dev;
- 	econfig.add_legacy_fixed_of_cells = true;
- 	econfig.reg_read = zynqmp_nvmem_read;
--	econfig.reg_write = zynqmp_nvmem_write;
-+	econfig.reg_write_const = zynqmp_nvmem_write;
+ 	return ret;
+@@ -2702,8 +2732,6 @@ static long sev_ioctl(struct file *file, unsigned int ioctl, unsigned long arg)
+ 	if (input.cmd > SEV_MAX)
+ 		return -EINVAL;
  
- 	return PTR_ERR_OR_ZERO(devm_nvmem_register(dev, &econfig));
+-	mutex_lock(&sev_cmd_mutex);
+-
+ 	switch (input.cmd) {
+ 
+ 	case SEV_FACTORY_RESET:
+@@ -2747,14 +2775,11 @@ static long sev_ioctl(struct file *file, unsigned int ioctl, unsigned long arg)
+ 		ret = sev_ioctl_do_snp_vlek_load(&input, writable);
+ 		break;
+ 	default:
+-		ret = -EINVAL;
+-		goto out;
++		return -EINVAL;
+ 	}
+ 
+ 	if (copy_to_user(argp, &input, sizeof(struct sev_issue_cmd)))
+ 		ret = -EFAULT;
+-out:
+-	mutex_unlock(&sev_cmd_mutex);
+ 
+ 	return ret;
  }
 -- 
-2.56.0
+2.43.0
 
+
+> > [ 2260.466972] ======================================================
+> > [ 2260.473150] WARNING: possible circular locking dependency detected
+> > [ 2260.479329] 7.3.0-smp--ce115a0096358-seanjc-soink #75 Tainted: G     U     O       
+> > [ 2260.486981] ------------------------------------------------------
+> > [ 2260.493161] sev_snp_vmsa_pu/24505 is trying to acquire lock:
+> > [ 2260.498821] ffffffffc01f7900 (sev_cmd_mutex){+.+.}-{4:4}, at: sev_issue_cmd_external_user+0x39/0x60 [ccp]
+> > [ 2260.508387] 
+> >                but task is already holding lock:
+> > [ 2260.514213] ffff93c9dd1cf070 (mapping.invalidate_lock#4){++++}-{4:4}, at: kvm_gmem_populate+0x18c/0x300 [kvm]
+> > [ 2260.524275] 
+> >                which lock already depends on the new lock.
+> > 
+> > [ 2260.532446] 
+> >                the existing dependency chain (in reverse order) is:
+> > [ 2260.539917] 
+> >                -> #2 (mapping.invalidate_lock#4){++++}-{4:4}:
+> > [ 2260.546878]        down_read+0x3d/0x160
+> > [ 2260.550716]        kvm_gmem_fault_user_mapping+0x43/0x180 [kvm]
+> > [ 2260.556663]        __do_fault+0x3f/0x110
+> > [ 2260.560588]        do_pte_missing+0x515/0x1000
+> > [ 2260.565035]        handle_mm_fault+0x7f2/0x1290
+> > [ 2260.569567]        do_user_addr_fault+0x47d/0x6c0
+> > [ 2260.574271]        exc_page_fault+0x67/0xa0
+> > [ 2260.578458]        asm_exc_page_fault+0x26/0x30
+> > [ 2260.582991] 
+> >                -> #1 (&mm->mmap_lock){++++}-{4:4}:
+> > [ 2260.588997]        __might_fault+0x59/0x80
+> > [ 2260.593096]        _copy_to_user+0x23/0x60
+> > [ 2260.597197]        sev_ioctl_do_platform_status+0x50/0x80 [ccp]
+> > [ 2260.603116]        sev_ioctl+0x220/0x2b0 [ccp]
+> > [ 2260.607560]        __se_sys_ioctl+0x6d/0xb0
+> > [ 2260.611749]        do_syscall_64+0xfe/0x460
+> > [ 2260.615933]        entry_SYSCALL_64_after_hwframe+0x4b/0x53
+> > [ 2260.621506] 
+> >                -> #0 (sev_cmd_mutex){+.+.}-{4:4}:
+> > [ 2260.627426]        __lock_acquire+0x160d/0x2940
+> > [ 2260.631957]        lock_acquire+0xf1/0x300
+> > [ 2260.636050]        __mutex_lock+0x8f/0xdf0
+> > [ 2260.640147]        sev_issue_cmd_external_user+0x39/0x60 [ccp]
+> > [ 2260.645982]        sev_gmem_post_populate+0x189/0x230 [kvm_amd]
+> > [ 2260.651901]        kvm_gmem_populate+0x1ed/0x300 [kvm]
+> > [ 2260.657066]        snp_launch_update+0x1a7/0x250 [kvm_amd]
+> > [ 2260.662551]        sev_mem_enc_ioctl+0x371/0x3d0 [kvm_amd]
+> > [ 2260.668036]        kvm_vm_ioctl+0x52c/0x580 [kvm]
+> > [ 2260.672761]        __se_sys_ioctl+0x6d/0xb0
+> > [ 2260.676946]        do_syscall_64+0xfe/0x460
+> > [ 2260.681133]        entry_SYSCALL_64_after_hwframe+0x4b/0x53
+> > [ 2260.686706] 
+> >                other info that might help us debug this:
+> > 
+> > [ 2260.694695] Chain exists of:
+> >                  sev_cmd_mutex --> &mm->mmap_lock --> mapping.invalidate_lock#4
+> > 
+> > [ 2260.706077]  Possible unsafe locking scenario:
+> > 
+> > [ 2260.711993]        CPU0                    CPU1
+> > [ 2260.716520]        ----                    ----
+> > [ 2260.721052]   lock(mapping.invalidate_lock#4);
+> > [ 2260.725498]                                lock(&mm->mmap_lock);
+> > [ 2260.731503]                                lock(mapping.invalidate_lock#4);
+> > [ 2260.738463]   lock(sev_cmd_mutex);
+> > [ 2260.741868] 
+> >                 *** DEADLOCK ***
+> > 
+> > [ 2260.747778] locks held by sev_snp_vmsa_pu/24505: 3, last CPU#35:
+> > [ 2260.753785]  #0: ffff93c9d54bd3a8 (&kvm->lock){+.+.}-{4:4}, at: sev_mem_enc_ioctl+0x73/0x3d0 [kvm_amd]
+> > [ 2260.763083]  #1: ffff93c9d54bc0a0 (&kvm->slots_lock){+.+.}-{4:4}, at: snp_launch_update+0x145/0x250 [kvm_amd]
+> > [ 2260.772991]  #2: ffff93c9dd1cf070 (mapping.invalidate_lock#4){++++}-{4:4}, at: kvm_gmem_populate+0x18c/0x300 [kvm]
+> > [ 2260.783356] 
+> >                stack backtrace:
+> > [ 2260.787718] CPU: 35 UID: 0 PID: 24505 Comm: sev_snp_vmsa_pu Tainted: G     U     O        7.3.0-smp--ce115a0096358-seanjc-soink #75 PREEMPT 
+> > [ 2260.800310] Tainted: [U]=USER, [O]=OOT_MODULE
+> > [ 2260.804668] Hardware name: Google, Inc.                                                       Arcadia_IT_80/Arcadia_IT_80, BIOS 34.86.0-102 01/25/2026
+> > [ 2260.818127] Call Trace:
+> > [ 2260.820579]  <TASK>
+> > [ 2260.822687]  dump_stack_lvl+0x54/0x70
+> > [ 2260.826351]  print_circular_bug+0x2e4/0x300
+> > [ 2260.830537]  check_noncircular+0xf5/0x120
+> > [ 2260.834553]  __lock_acquire+0x160d/0x2940
+> > [ 2260.838565]  ? __lock_acquire+0x65e/0x2940
+> > [ 2260.842664]  ? rcu_is_watching+0x11/0x40
+> > [ 2260.846587]  ? trace_sched_exit_tp+0x25/0xb0
+> > [ 2260.850861]  lock_acquire+0xf1/0x300
+> > [ 2260.854440]  ? sev_issue_cmd_external_user+0x39/0x60 [ccp]
+> > [ 2260.859928]  ? lock_is_held_type+0xc7/0x120
+> > [ 2260.864112]  ? sev_issue_cmd_external_user+0x39/0x60 [ccp]
+> > [ 2260.869599]  __mutex_lock+0x8f/0xdf0
+> > [ 2260.873178]  ? sev_issue_cmd_external_user+0x39/0x60 [ccp]
+> > [ 2260.878663]  ? pfn_valid+0x89/0x220
+> > [ 2260.882155]  ? pfn_valid+0x1fb/0x220
+> > [ 2260.885736]  ? lookup_address+0x49/0x70
+> > [ 2260.889577]  sev_issue_cmd_external_user+0x39/0x60 [ccp]
+> > [ 2260.894890]  sev_gmem_post_populate+0x189/0x230 [kvm_amd]
+> > [ 2260.900289]  kvm_gmem_populate+0x1ed/0x300 [kvm]
+> > [ 2260.904938]  ? snp_bind_asid+0xd0/0xd0 [kvm_amd]
+> > [ 2260.909561]  snp_launch_update+0x1a7/0x250 [kvm_amd]
+> > [ 2260.914528]  sev_mem_enc_ioctl+0x371/0x3d0 [kvm_amd]
+> > [ 2260.919493]  kvm_vm_ioctl+0x52c/0x580 [kvm]
+> > [ 2260.923706]  ? kvm_gmem_ioctl+0x192/0x1e0 [kvm]
+> > [ 2260.928266]  __se_sys_ioctl+0x6d/0xb0
+> > [ 2260.931930]  do_syscall_64+0xfe/0x460
+> > [ 2260.935595]  ? entry_SYSCALL_64_after_hwframe+0x4b/0x53
+> > [ 2260.940822]  ? trace_irq_disable+0x25/0xc0
+> > [ 2260.944921]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+> > [ 2260.949972] RIP: 0033:0x474bdb
+> > [ 2260.953031] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+> > [ 2260.971770] RSP: 002b:00007ffd188ac3f0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+> > [ 2260.979337] RAX: ffffffffffffffda RBX: 0000000028691b30 RCX: 0000000000474bdb
+> > [ 2260.986468] RDX: 00007ffd188ac4a0 RSI: 00000000c008aeba RDI: 0000000000000007
+> > [ 2260.993600] RBP: 0000000000135000 R08: 00000000004d50b8 R09: 00000000004e1b78
+> > [ 2261.000734] R10: 0000000000000002 R11: 0000000000000246 R12: 00007ffd188ac4c0
+> > [ 2261.007867] R13: 0000000000137000 R14: 0000000028693db0 R15: 0000000000137000
+> > [ 2261.015001]  </TASK>
+> > 
