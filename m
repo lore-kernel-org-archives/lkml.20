@@ -1,210 +1,102 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 372422D5C7A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:16:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9059E4DE716
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:17:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791839788; cv=none; b=RVG1fLu9jiYFxSEzqTLYMdky4SQUUjigP+toQMjPcgGQfZBDofgSUtmYXshZ7aVxqCQFGe8ceKbysUanM+ZcVa9cR55sE2aVlWm178rZleTcYJQ/SAanMI93uRKlSdaKTDJP+rgc7gZuGrnBHapgVGcpMb5IW5jZ7kD/m9ZFaq8=
+	t=1791839864; cv=none; b=Ygetco4Bwh+I7esGf/Nk9MteOINgbzBGx5RKB+xwy3IrjXE1JgDGqtAblNUa2qcFou1qZ2vfsdc56b1da8S4u0eEnpJByQEGcq8EXn1lhyT+fB/s5pQxzC4psQSBS+3FtJwf9Sh/gOvI7IMd647u9c6irZY0sDNb4SsNlGqXVhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791839788; c=relaxed/simple;
-	bh=TOJCX5txHscGUt/xdLHicyU6pWt5xGwGejxAzRv5Fcw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=erqRhBUqxAg7vv2GMUwsaAPnuQjqybEH60SR2aeFzUZ1o9Nn0AWxh/eTrBoJG+fyOWB1IcyI6z5o8d0N/0Riw3DOuoNcYGo0bboY/Ewxi/uaToEEG+q8cV9XMQr6IREJeAs/4vT+SHBqoa781R4TOoV8DgMqTtL92qKWc6+Oj50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=S3cd/pSB; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791839864; c=relaxed/simple;
+	bh=ZOaV5j+eXuFSiRY/48xGC3VEaW0+/0IwPIwLqoa+0WA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PnuqUczjSuOIV0JBUMhDwl9VXNFptbXT+c7+xVDCUI3O3rKmlmWSxzqrkq+7WBQKcrlpTuu2H/GPm5PySViN/Uei9Jt9rEhGKW2DfzZGMhpWnTSt+Ko4LNEijzKQt419eTcfqNAYLYzWy0b6mYDo3sUtq9+Q8bQMuk6pB0WWuS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RiCc+2Q/; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="S3cd/pSB"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CJiWnb1149521;
-	Mon, 12 Oct 2026 21:10:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=uOeRbY
-	5zd/YMwkNv8/66VsyHhlD9kyU9Q3Cur7XCeV4=; b=S3cd/pSB5SFi9qQcfyqkfz
-	w1DJl3CKIUOb8zriuiIZ+fXSB43G1xKBQL9Kx7JEsEGVSQbQGvYDIpbTrEob4KeL
-	ov4B/RBd1pc7TyABPCtJkVrsaQasZl7CtwezYMB19GOinidRxsO3og3yvJCvwd5B
-	Zfmidd82CoVbBWpnVooSZhjbABPJUYVYfUEOeqolTM+aQ2xQWMPfK8XT/WjGMLr5
-	p6pEx4CntrNZGBy157Buy4B9MszsShr38imY+PSnkR3Gux1TxcqRM6wL/mr9q5LX
-	ZiwjOh6zAXbu7qrylrJ31n0fxpBg5en0yMFDf8i0xPgCrerwokpRisamnhyROz7A
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1w2gqb-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 21:10:36 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CJONOC1811998;
-	Mon, 12 Oct 2026 21:10:36 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h7yppq2pr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 21:10:36 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CLAZhM64291212
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 21:10:35 GMT
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EE4BA58057;
-	Mon, 12 Oct 2026 21:10:34 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DF9F158058;
-	Mon, 12 Oct 2026 21:10:33 +0000 (GMT)
-Received: from [9.67.101.21] (unknown [9.67.101.21])
-	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 12 Oct 2026 21:10:33 +0000 (GMT)
-Message-ID: <85244b39-017b-4978-8a4e-ff8e8dc89ffb@linux.ibm.com>
-Date: Mon, 12 Oct 2026 14:10:33 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RiCc+2Q/"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3514e7cbbbaso5796788eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:17:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791839863; x=1792444663; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZOaV5j+eXuFSiRY/48xGC3VEaW0+/0IwPIwLqoa+0WA=;
+        b=RiCc+2Q/dfpmswyVrpmJehN0lyNki4pV09gyLNQ6Va885M2TlXH7ovKBhxII5KAxmA
+         ddclO++KwQJpJbsjt0Y3pW8qt3r0Ef8G8wN8E1ti0JqPo3AU02mWFNHSbo9Lfi820W2n
+         GlgTXYF4HqWovS+QvxlZGE4LTtgkRf50IsLWGTrU68+mlR4mK6n15z5ETEAT8CFevwX7
+         I4sC78bcvHUJjTS/NdWvLqXMiOWdBL5x9hfQ/kzbHcamCI3s9mreJhmpC7ygXAV2MF1u
+         6Fl7kqJCoWhErgxTQcSCQYC4xtsAVBuzHI4QwuAIp66o8dqcu85BBRbi2DkEasrW+cU2
+         8CXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791839863; x=1792444663;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZOaV5j+eXuFSiRY/48xGC3VEaW0+/0IwPIwLqoa+0WA=;
+        b=h16AKPXhmNKQQeggfLL426+f4QiamoRU+ptDtcI83ngWsCogJdvwCSK58T3b7Q9kH/
+         1MMB3CVv9BCEjd8Mr3JVUPDuRYZSQs52jQ2s8V/VauJyR6BqhQ4ll/8u8Os+3/ZKj36d
+         A/pRT9dM476mIksWKj8APWws//nODBiPk3D5FJ5BFBQWw/eXuL6YnaIyR5n/buB+PIYx
+         o/K1FVABlfN31ZrKLzg8h4cgaIkn/Kp15SRiSIQVJuIveiZw/dIuNWqSGCfhXsdFrsd9
+         TmGTfldTN4nlzTkrL3X6cr134K9eYIpOmprSK78nFKSstXu06YG1yAoBwh43L47/1sGu
+         Amdg==
+X-Forwarded-Encrypted: i=1; AKwUvBx2vx5+2U2FYNaGRPpze27pjeUiGYw1DdiObY51CTwKf4IgbQfDTYys4m/j1yMYkfWcpZ4KFipPg1ttc4c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLX/8uRWnlPWc4p/YOrr5U7bFpvfFh3a00VmHoqjsloXKESQ5N6
+	5FOsQt+lvKJgNpYnDN2HLPgUAvnXF8+krx/fCBP6ox9S94BctE4cFYV1
+X-Gm-Gg: AYBFou1mvGY8hNM2B7+ziNe5/xHGIghAbmv5+yHuFCDHgFfFofHPtlQugBmpdMNBsXr
+	c4Eco3W0jZD3XOoNPXorBTzIC5GOFqrOAZIWXTS6UQy2/dImb2hLDnp6D7WLeRQRTvROA8neFYH
+	l0Fv3iGGdNfot7b/V1w0ZWVM0Pxh2xd2jbocaOoHkkgHPpUp0SXSfxiTJ70v+/fR7m4W6mmDCct
+	6au19IdVU31LjPlWGhAKYAtNme7jxnuKj+Owp89ESY3quEYQ4SeKQvTwiwlLUQE4uFWb0fqH3NL
+	hNTQC8vfSDSB5WP1YTMD69hjSrjud98R/BG9LOcObddcKDbh27h0jVV+T6c6JE2kccNlAe9MhMN
+	jnTpLbbS94faJntck26mnykJuCI9P4Q3BC3OFygPnUjHjR1FqJwyQTCRtikZGQk8eCBA1h7kzff
+	NJztB00aRmTzNfgS7UolspWrHkg0hLQcbECOPjriK+Mm64ma500/aVTt1d0KZDjMQ4TRvvTSp8k
+	oSnAHgZkrXp4HTd5bWAiEpHGfiyaQYk0yN4YwdS4U7eF5pTILcH7R6vUe3EH79MGnT6QxxDzEl3
+	fdK0sVR8dSF7dAIal9CAq0pWufgxkg==
+X-Received: by 2002:a05:7300:8245:b0:35a:7464:6159 with SMTP id 5a478bee46e88-35a74646242mr5454876eec.34.1791839862310;
+        Mon, 12 Oct 2026 14:17:42 -0700 (PDT)
+Received: from kapoor.iiserb.ac.in ([203.18.51.212])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb1e02asm39147488eec.27.2026.10.12.14.17.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 14:17:41 -0700 (PDT)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Arnav Kapoor <kapoorarnav43@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Benson Leung <bleung@chromium.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	chrome-platform@lists.linux.dev,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: common: cros_ec_sensors: use sensor_scale union member for CALIBSCALE
+Date: Tue, 13 Oct 2026 02:47:30 +0530
+Message-ID: <20261012211733.575305-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261011191641.4e9e2ac4@systembl0wer>
+References: <20261011045410.356156-1-kapoorarnav43@gmail.com> <20261011191641.4e9e2ac4@systembl0wer>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 RESEND 2/3] powerpc/pseries: switch to dynamic ibmebus
- root device
-To: Johan Hovold <johan@kernel.org>, Geoff Levand <geoff@infradead.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>
-Cc: Nicholas Piggin <npiggin@gmail.com>,
-        Christophe Leroy
- <chleroy@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-References: <20260812142016.55136-1-johan@kernel.org>
- <20260812142016.55136-3-johan@kernel.org>
-Content-Language: en-US
-From: mingming cao <mmc@linux.ibm.com>
-In-Reply-To: <20260812142016.55136-3-johan@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA4MiBTYWx0ZWRfX4jm1s17p7m4a
- 8AXeQna4bddFo0wjBacUmoesRy5dysvN/oiivDaDFihLP/mweu8+zXvRfJ4mxJOn6VJlJGRXHe3
- SCesNQCq5McNGOiz8W0PQaEymDJfPsc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA4MiBTYWx0ZWRfX8qTZ+EyLKK90
- Cz+q67knmRZc4PyrZr0fjluLr2i7wwqPpNbUlG4x/2DfAkHHCSpOoy0aArBplY/U7ZrzVG9UeGh
- Q0zfQn3quUJj65xf/+/gbYJvpNxenVVYWGLqqPCWXKY0q2D45CYTNJP3dKeKTleW5d0SH4Qe97Y
- 2PMIiGbTfHadGpKqOGFMzdu1AK979/1KDZSYuc/FhxpMwQrXyVvPA/TQ4JkXnjJi75Obkd9VIgV
- NWW7SgHhzgbYQxeqG2w6UWj0EZRRVm/RGOYuY81FAzjpBq9hTPnu5kLmncb7yGxF4y11oNwmPyD
- HMMrTxtvPlYaIY0fJSxToY1045pURPb6FOBpHUKOjgY+ps5kPqBFP3hDFRFI6SjLRob3KbKEoAF
- yujFb6o8xIwDI+1dosmqm6DWjDcGK5OIlMgsH5QLaRkC+lfOl45pTfzAQsww7hdudnovtG/ZCaX
- 7/hwERXSLqwlwsFb6hw==
-X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6acd4ccd cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=KVws_vwQB_PUgFkgaC8A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: 9FlBh5Fau2QIPUMtfXf7FTs3ruR3S-ld
-X-Proofpoint-GUID: 692mHVGhtEQmnnpE3l61Ukqs4nvewVUo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_06,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 clxscore=1011 bulkscore=0 priorityscore=1501
- spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120082
+Content-Transfer-Encoding: 8bit
 
-On 8/12/26 7:20 AM, Johan Hovold wrote:
-> Driver core expects devices to be dynamically allocated and will, for
-> example, complain loudly if a device that lacks a release function is
-> ever freed.
-> 
-> Use root_device_register() to allocate and register the root device
-> instead of open coding using a static device.
-> 
-> Also add the missing sanity check when registering ibmebus devices to
-> avoid use-after-free if the bus failed to register (which would
-> previously have triggered a bunch of use-after-free warnings).
-> 
-> Signed-off-by: Johan Hovold <johan@kernel.org>
-> ---
->   arch/powerpc/platforms/pseries/ibmebus.c | 39 ++++++++++++++----------
->   1 file changed, 23 insertions(+), 16 deletions(-)
-> 
-> diff --git a/arch/powerpc/platforms/pseries/ibmebus.c b/arch/powerpc/platforms/pseries/ibmebus.c
-> index 2d0f991da2c8..48076fe6ab30 100644
-> --- a/arch/powerpc/platforms/pseries/ibmebus.c
-> +++ b/arch/powerpc/platforms/pseries/ibmebus.c
-> @@ -52,9 +52,7 @@
->   #include <asm/ibmebus.h>
->   #include <asm/machdep.h>
->   
-> -static struct device ibmebus_bus_device = { /* fake "parent" device */
-> -	.init_name = "ibmebus",
-> -};
-> +static struct device *ibmebus_bus_device;	/* fake "parent" device */
->   
->   const struct bus_type ibmebus_bus_type;
->   
-> @@ -172,7 +170,10 @@ static int ibmebus_create_device(struct device_node *dn)
->   	struct platform_device *dev;
->   	int ret;
->   
-> -	dev = of_device_alloc(dn, NULL, &ibmebus_bus_device);
-> +	if (!ibmebus_bus_device)
-> +		return -ENOENT;
-> +
-> +	dev = of_device_alloc(dn, NULL, ibmebus_bus_device);
->   	if (!dev)
->   		return -ENOMEM;
->   
-> @@ -448,6 +449,7 @@ EXPORT_SYMBOL(ibmebus_bus_type);
->   
->   static int __init ibmebus_bus_init(void)
->   {
-> +	struct device *root;
->   	int err;
->   
->   	printk(KERN_INFO "IBM eBus Device Driver\n");
-> @@ -459,23 +461,28 @@ static int __init ibmebus_bus_init(void)
->   		return err;
->   	}
->   
-> -	err = device_register(&ibmebus_bus_device);
-> -	if (err) {
-> -		printk(KERN_WARNING "%s: device_register returned %i\n",
-> +	root = root_device_register("ibmebus");
-> +	if (IS_ERR(root)) {
-> +		err = PTR_ERR(root);
-> +		printk(KERN_WARNING "%s: root_device_register returned %i\n",
->   		       __func__, err);
-> -		put_device(&ibmebus_bus_device);
-> -		bus_unregister(&ibmebus_bus_type);
-> -
-> -		return err;
-> +		goto err_deregister_bus;
->   	}
->   
-> +	ibmebus_bus_device = root;
-> +
->   	err = ibmebus_create_devices(ibmebus_matches);
-> -	if (err) {
-> -		device_unregister(&ibmebus_bus_device);
-> -		bus_unregister(&ibmebus_bus_type);
-> -		return err;
-> -	}
-> +	if (err)
-> +		goto err_deregister_root;
->   
->   	return 0;
-> +
-> +err_deregister_root:
-> +	ibmebus_bus_device = NULL;
-> +	root_device_unregister(root);
-> +err_deregister_bus:
-> +	bus_unregister(&ibmebus_bus_type);
-> +
-> +	return err;
->   }
->   machine_postcore_initcall(pseries, ibmebus_bus_init);
+On Sun, 11 Oct 2026 19:16:41 +0200, Joshua Crofts wrote:
+> Please add a Fixes tag. Otherwise looks good to me!
+>
+> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
-I went through the init error paths and they look right: the global is
-only set once the root device exists and is cleared before the root is
-unregistered, so the new NULL check in ibmebus_create_device() stays
-valid after a failed init.
+Thanks for the review. The mismatch was introduced when CALIBSCALE
+support was added:
 
-Reviewed-by: Mingming Cao <mmc@linux.ibm.com>
+Fixes: ed1f2e85da79 ("iio: cros_ec: Add calibscale for 3d MEMS")
+
+Jonathan, could you pick this up when applying, or would you prefer a v2?
+
+Thanks,
+Arnav
