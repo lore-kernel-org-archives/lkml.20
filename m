@@ -1,137 +1,151 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAC9386C36
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:35:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2DB37205F
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:35:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791768935; cv=pass; b=Wk5bKrJE+HwFYewNfNF8iu2+4OjW8XKbTsJNgSS1+0chqAFULjjdFyGB2sXl2VCyN8N64vTNnwkMYenFYxDWc6WvAvdrTMHOdvQC+7sIv9jQAaac+Anx7t1Ah1x1D+IGz91R5IwJ+I8ZQUZsV+a+iLAKKtiqsHmef+PgVQUhz5c=
+	t=1791768951; cv=pass; b=M2vPhcGDbJv+5W7E58nVw5H6mlKGzxwOetqtHVPcIo5JgbFOcbHHrT0PVNVTNdEARYX6i0Gp/ZtU6DX5aWbCniuhjJq5aZNiC9Bq79ZbLRiZZC/w+itJJEgwUE+kCITbg3Hj1IagQBEdZDxvJOzcAUiefPm6msTvQgM73evXjH8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791768935; c=relaxed/simple;
-	bh=MWjvWkkPwyfWYHHELX/PMM9+30Kt6P7OKSDvO5cu+9Q=;
+	s=arc-20240116; t=1791768951; c=relaxed/simple;
+	bh=JfaZunMAGesDXlAQR97ItVhMeHGWpdeT5fixAIyjgD0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Dhp471Xf2fIafRv4Yb50ZMX710IINqusbIYxRRmUdZQezmEHmTm0Au4jQiZLe434DX6wvPecOJUhOTq1P0EDil6im9XRWwaCYIMgLDSXVsbz0sqw6T4J+y9GP1z+mLYOfWz8sKCQ1F2XtV4GNKpFCeiV4bz9hnWhmTZtdJOUuIA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jHusvovj; arc=pass smtp.client-ip=209.85.208.43
+	 To:Cc:Content-Type; b=cb97lYWsqpEirPqPHPePxlcveU9HBBz3iRz34LFJqn3yM1ie91coPyDGGCkIOoDrbQ8R+oRbWA1VeDWBnQKK7yGPCKBAUxsVMg4MyBl0uIaHjluaS0Zh2ryrLrFQY3AUTtVrnRBjNsQDec3SqcloVxemIVOY6hKpM04cI1Z3Jnc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ciGPkrR9; arc=pass smtp.client-ip=209.85.208.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jHusvovj"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6ab006eb282so1726228a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:35:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791768932; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ciGPkrR9"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b1aa29e06bso950710a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:35:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791768949; cv=none;
         d=google.com; s=arc-20260327;
-        b=T5f65GD4kMqVwWZio39QFucrouEiXCL72+j2BR3L4gI6l4sCV3XuXh+ob4W8fN8Lry
-         ciI8E0wpLpho09243wBTJQ8Gu8+VeTfWskvwgRtTKbkwJTLF+YNsff8cKReJ7gcU9xKp
-         HV86kCTJV7W8RTq1oeTEnlX+VEvfWRelNYBaEUqxAPPRaqVZ4a9Mk+mmwbJuQZFxhhyh
-         aGtQPrLyDuG58m1inO1mgi6EZsIoGpQbK/afDMQ0s35iEsKnFC+lbDxl4kMe+kKxoJwh
-         n+kIvqi9L93nxRB4w6LvkF6uT53VLhs3GIileY8a+eLH51V4I6eTb9RJxOmhM0b1tr4b
-         VepA==
+        b=PtXalYhkeTwYU7lp0o0gQlfSa7QP7lngJuHsCxnomSHcucMhK1p8hZOPHaUEIEsKOt
+         EyL6VcIIw5rbfaMjFG5H5SJyvomLHwCgrCuNlnC9j+OT4A/txkiwKSbQGABpr2xRZiBL
+         p9gGoW/whbH58NMK7+hBbsu2SSXRQ63eyPvKgC+p1C+QGuNPXjSv0k1PBBRLENo36GTC
+         eAl+Dad27XzYJ52aDipulXYS2YicZKryrpvco1e1J4l3JSIYUAxKxfr+7aKzvl14T0TE
+         LRwnPAnlouzk37uV3NURbPAHg0uqGgVUMMT3Zcap5Azvj+acWLdya6ou96jhocZQf1iX
+         Zq2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=yoR9NEoIErL+2TbnevvINQDuo7n5mgemEQNQFCIh1Ks=;
-        fh=6neHV8l+9OO0qvlm1Khxhg9H2sIjEzbGr2oX9gCv9xk=;
-        b=g6p+EZ7pMkyimPn7C23ZzbSpWcYoi8Bx3O3X2nYDeWN5ppXz6svH4XxWbmCn1hlQXN
-         Tv6GviOi9i9oHJPVRHzK5dUrgA21N4L6yWcJZ+a4ixMcUKm7RZPu5BsOWrVTxAagYKVG
-         boWyqyC/2fcrCqZFleiQMf9MTRncX0wYKs3N6KW3y+pbrpicuuLoyeZ78OkA8lbovntA
-         mN8a9Lsguzn9k44y09LBNQpmE3dDfv4Pnb1LrXmX5hrWqHZvA9XKoVqoqeH2z5kVtIVu
-         IyR5farfm272ELmbccdGzYi40v79650m8JbpdCcRI1kE6sz+Q3j3yeGH9YIj/YhAzV87
-         rzyw==;
+        bh=6VRgPYh8KzHTJLITlkZ0kqibdjDtY4WnhSrTw9ugLHc=;
+        fh=UvguE5qQuqH8xMlZ35qQ37KYd1StFz3BQ1mSAYKuMGw=;
+        b=cDJ64dR43slyb6VDgVzUvjCD9eyE1qPAcE6PdGRVgCWUQJrX6L8kKG3IFUYgk+BU9O
+         CJRHedlKkKLMJ8o4gqRT79VuGtgXrmrCQQJrGvmV0LkgYHK9aWaFbcGRzAzTKUGt+NMb
+         UYIt8mLqXg4H0Y7QQrfvKOwkhoOwNlcBi8Jpz8SaXJLAVPas36Dnkdqby4Tr9gTZxL8T
+         9RFfqn3HOvT7iChub5HYPbPAGPWvP1npJ9HLkhL2m1f+JibYtv1//2Gtobg+NzJl848m
+         T6EpSMulGc0icbH9gOuKij6lZF5+KV+VvNZkpBkrnAj18VY4k+hdV4F71es5P0rcxFOP
+         /E0Q==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791768932; x=1792373732; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791768949; x=1792373749; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=yoR9NEoIErL+2TbnevvINQDuo7n5mgemEQNQFCIh1Ks=;
-        b=jHusvovjX4HaG4nJ5fy8Ph7aZhy1chd3UV+GpLg/A9oSuFGu6/j+tZ+wsmV76kK65C
-         +cWLrYXkkgKiYFYlPIH60r9V6hXvWQrGXQX5wyvn7nQUEzAXAPYv+vQzXJbJHTjN+z0X
-         UJIJ1ad0jMfY2XUUdtr0LKlwPW2Ed51soNm+52AAjP0erwPWR8lqBxCPJgBfYFjApQ9G
-         4VWBrPax4oSCaMFEGCQGDVWBjjdwWm3SrSVSKKRdtUXjxIXZaU0GtLRCtD0/lI2SwxXv
-         MHoDFankfVDyPuEgChg+T3cZHRhqijRQ3EgpfxC4QxXj85scxau//aSJkFwQsiUoA4vG
-         QJMw==
+        bh=6VRgPYh8KzHTJLITlkZ0kqibdjDtY4WnhSrTw9ugLHc=;
+        b=ciGPkrR9JQN+Ovldmk31twwMsF6Su3UDZcF3VSZGqeqvsFof/s7STPvYDSmzsusl+K
+         o3bHaMX5pbZLjQ3kFDmw30oHMdXMd2y6DOYVJDg7R3NrkyAxSoXB06FWUXXwhVVfC4b1
+         czcG2q78Jjg9HXMPjPb/AAbZ/Fw8dsuKjvYUICzLBD7f4qvDKMpcknsVI7OlFjCASGvl
+         NcG2LojaKPDzTOIAzeUyAuSplZ2rZ/LWplCngMf6sjEKkKb4dQdooUZVVMk+iNgSo3uP
+         Ui6w78b16V87edDq5p1xGuQzYxWxoVeLo55610Jg7mLIs6Lch4naVq89D+5hER44HfQS
+         MaJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791768932; x=1792373732;
+        d=1e100.net; s=20260707; t=1791768949; x=1792373749;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yoR9NEoIErL+2TbnevvINQDuo7n5mgemEQNQFCIh1Ks=;
-        b=bSq37qvIJTKj+oIpY6Su/xO+5bYUhFQLN51BxsOSQMXh5VpIadmHq610kfCMRN5k82
-         LP1uN69cPdWBKxUZnixS2iKUnlokkbEv8JKdiJ5VC+nJFbBLiH8gXOw421bhqpGVnif0
-         MAD2ViVYkIqM68UgCADqhJ2MfqaZfiOsvzhVs4hY29l5qXTtlZJZEqqDRrXoWMmv8UQ0
-         61MJkH7Sz9qTyXYVdwhYiSgATswMdTpLjQDrpIwNfi6bWgAIQ6WkakAVsZ4OnLDn/q7Q
-         xfhNuWXLxwt4xNm1C28v+wI9mOeyS0Ns4duXi8MN1LqRoS4oX+B6qgmHIwzO9sJo0/fX
-         FeyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz13vkriZQyUrygoBzwgHKXjH+OTGQOXImV9dLndz/oAbYJqcmp+uZc3HF1zH3+8iTADDtT7kayFMKp5Wo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqP5omaT+c3Z3W9IhsjvNterjVreQJ+u/a6OonUkwgwkKZ5wCQ
-	/PXvmNlded/ygJFfjBAjts4M0ejnT7BFfohLPEySgQ9klkjUhb36kMI2cAZHOg8/t2tqtAyyGKl
-	vf4gJDOQPc9HLFUHpR56UIG1fVQCIsDI=
-X-Gm-Gg: AYBFou2ylwEIyYLgeNVsHvDql15Hp3b68Ho7bKYVyO8NLCqMJkhkQuo47ZTrURg+E+J
-	XDbIWZ/Yb7bKDFn8/KzkAKlBK7UUC9nDh1DMZbNBylFixua6P7qUaGc5XB47BAUAdnrITI2OS7m
-	ehmkQBJGu42ZEl7l66FkHx8C6BGCwCcw0tFkP4YPpUGhgcK0yMdMm6dgLdOTVXfBZYtMSjVQwjg
-	uoraVQFdZFT0Q15qycVS9SAjhEKR3jYXVmbHxGyvtEeZ4mVvTuOgE8IhYvELi7bDZIP0qTCg/fM
-	Piz1LfnAnKPG68TptSTLHV3lG98dHhZAZTqkBm2PI3NRt36k5bUPUjA=
-X-Received: by 2002:a05:6402:2b95:b0:6b1:d313:d56e with SMTP id
- 4fb4d7f45d1cf-6b1d313db6bmr88532a12.20.1791768932313; Sun, 11 Oct 2026
- 18:35:32 -0700 (PDT)
+        bh=6VRgPYh8KzHTJLITlkZ0kqibdjDtY4WnhSrTw9ugLHc=;
+        b=VteUZ9/OWN9xcXeYTcvGq7mden2HwdTob/pc293GAmWOjW0yPWqcfDWQpUJBjEzFAm
+         /bhZIhqIDtsi2ZXt4rP07HLDenToGy4p46DFouTMk1DQKxKUt8cfvZHidRq09GXPfv/s
+         +800LNiTO7N70qedb9aJpfjRI/rbywpNlooAsL3ITkjD92n772xEwks2XPbk8Ism6dvz
+         E6CHvcT8nujGBJOsrMre/ULgVKfhVN9v/nhSzfURUpM0vxs26vi9AIK3hnoKdHpe0ctg
+         eWpbb5j+J3oddNtCJ/JBXNizlAWXEMx5/OB+6Bfsika5e5M0JmuKbWz5yYA2KZcC1svC
+         hJQA==
+X-Forwarded-Encrypted: i=1; AKwUvBxASwRYEvS57/nHkDCESUpJNyn3yL7V90/N59dkuX26KQ0R0yHvilrH8QKzLAqHm8q785X1cgIZD3Ug7vg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIRtO64sZJI5/cZwZCYCZhyRaI68lStaF/ORF/2q/DcNhthH9o
+	jewWek063rqkDxae9yuKxxMefpfE/mETLszfxq/q5sssU2fnd0gzA7O+4Rrr5ylPkUEGom76tka
+	c8lP2nk1lbB3ElkK74X9N/JRx/bPoCnA=
+X-Gm-Gg: AYBFou0uzAPwls/oljlcHzC5v4BXES0N806z3/SJ2HT/OUTUHn9wnU/w8Of1ZV7T8vA
+	nNxWMJywTJ1x9kMAQ+bQNtDoNxbee8FWsvstocP5rNzi8jAKqUpP41/qIczhwjJa30qRYTcgDjK
+	64pA7U0HGJIp91ii9ccOYQN3eByFRLkNw/vs1DMJuXBbWUM5xGgtxKf1WPkhEG/7XcvSuMmUQv0
+	kRgiuq7L4HyiY3t84YRwGNj6AYftRwdc+y18y4R/D+i14yZzxDEC+wrQ8QH+KCoHA+tWWJTAVx8
+	6BEZ991olRm84kOdpMyjoeNPUgQHeFao4Jad8ZaaFDUQz7H9QRALulsa
+X-Received: by 2002:a05:6402:3217:b0:6ac:765e:def6 with SMTP id
+ 4fb4d7f45d1cf-6b17c1e0c23mr7390623a12.2.1791768948600; Sun, 11 Oct 2026
+ 18:35:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904061939.4039320-1-runyu.xiao@seu.edu.cn>
-In-Reply-To: <20260904061939.4039320-1-runyu.xiao@seu.edu.cn>
+References: <20260902092545.2542183-1-gonglinkai@kylinos.cn>
+In-Reply-To: <20260902092545.2542183-1-gonglinkai@kylinos.cn>
 From: Jassi Brar <jassisinghbrar@gmail.com>
-Date: Sun, 11 Oct 2026 20:35:18 -0500
-X-Gm-Features: AclHuK-WVZj6lLru9SXw9PdtwdjgOvOcHc_I6ucLMItGFN5juVc-ly692F7grV8
-Message-ID: <CABb+yY3pLJ5nYnbFkZc0Dum7sQ+dztUKBc8UgDaEtnq07syHbA@mail.gmail.com>
-Subject: Re: [PATCH] mailbox: altera: shut down RX polling timer on channel teardown
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Tien Sung Ang <tiensung.ang@altera.com>, Ley Foon Tan <lftan@altera.com>, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Date: Sun, 11 Oct 2026 20:35:35 -0500
+X-Gm-Features: AclHuK-4frNmPmeXD-8EnQyzFi7h4d42JHBY5L468Uub689krlQD4pNfaRnqfoA
+Message-ID: <CABb+yY0EV=op1m9PVG7F3RK8eTSzGg5dNzJobmTk8cLuEk7iHg@mail.gmail.com>
+Subject: Re: [PATCH] mailbox: arm_mhuv2: time out if the receiver never comes up
+To: Linkai Gong <gonglinkai@kylinos.cn>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>, Tushar Khandelwal <Tushar.Khandelwal@arm.com>, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 4, 2026 at 1:19=E2=80=AFAM Runyu Xiao <runyu.xiao@seu.edu.cn> w=
-rote:
+On Wed, Sep 2, 2026 at 4:25=E2=80=AFAM Linkai Gong <gonglinkai@kylinos.cn> =
+wrote:
 >
-> The RX polling callback unconditionally rearms the timer after it
-> processes mailbox data.  altera_mbox_shutdown() uses
-> timer_delete_sync(), which waits for a running callback but does not
-> prevent that callback from rearming the timer after the deletion.
+> mhuv2_tx_init() waits forever for access_ready. Fail probe
+> after 1s instead of hanging boot.
 >
-> Use timer_shutdown_sync() for the final polling teardown so the timer
-> cannot be queued again while the mailbox channel is being released.
-> The timer is reinitialized with timer_setup() on a later channel startup,
-> so polling mode remains reusable.
+> Fixes: 5a6338cce9f4 ("mailbox: arm_mhuv2: Add driver")
+> Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
+> ---
+>  drivers/mailbox/arm_mhuv2.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
 >
-> Fixes: f62092f6d77d ("mailbox: Add Altera mailbox driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:GPT-5
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> diff --git a/drivers/mailbox/arm_mhuv2.c b/drivers/mailbox/arm_mhuv2.c
+> index f035284944c0..1cf4282e1583 100644
+> --- a/drivers/mailbox/arm_mhuv2.c
+> +++ b/drivers/mailbox/arm_mhuv2.c
+> @@ -27,6 +27,7 @@
 >
-> diff --git a/drivers/mailbox/mailbox-altera.c b/drivers/mailbox/mailbox-a=
-ltera.c
-> index 17278c257..7cb91413e 100644
-> --- a/drivers/mailbox/mailbox-altera.c
-> +++ b/drivers/mailbox/mailbox-altera.c
-> @@ -270,7 +270,7 @@ static void altera_mbox_shutdown(struct mbox_chan *ch=
-an)
->                 writel_relaxed(~0, mbox->mbox_base + MAILBOX_INTMASK_REG)=
-;
->                 free_irq(mbox->irq, chan);
->         } else if (!mbox->is_sender) {
-> -               timer_delete_sync(&mbox->rxpoll_timer);
-> +               timer_shutdown_sync(&mbox->rxpoll_timer);
->         }
+>  #include <linux/amba/bus.h>
+>  #include <linux/interrupt.h>
+> +#include <linux/iopoll.h>
+>  #include <linux/mailbox_controller.h>
+>  #include <linux/mailbox/arm_mhuv2_message.h>
+>  #include <linux/module.h>
+> @@ -968,6 +969,7 @@ static int mhuv2_tx_init(struct amba_device *adev, st=
+ruct mhuv2 *mhu,
+>  {
+>         struct device *dev =3D mhu->mbox.dev;
+>         int ret, i;
+> +       u32 val;
+>
+>         mhu->frame =3D SENDER_FRAME;
+>         mhu->mbox.ops =3D &mhuv2_sender_ops;
+> @@ -1011,8 +1013,11 @@ static int mhuv2_tx_init(struct amba_device *adev,=
+ struct mhuv2 *mhu,
+>  out:
+>         /* Wait for receiver to be ready */
+>         writel_relaxed(0x1, &mhu->send->access_request);
+> -       while (!readl_relaxed(&mhu->send->access_ready))
+> -               continue;
+> +       if (readl_relaxed_poll_timeout(&mhu->send->access_ready, val, val=
+,
+> +                                      100, 1000000)) {
+> +               dev_err(dev, "receiver not ready\n");
+> +               return -ETIMEDOUT;
+> +       }
+>
+>         return 0;
 >  }
->
 > --
-> 2.34.1
+> 2.25.1
 >
 Applied to mailbox/for-next
 
