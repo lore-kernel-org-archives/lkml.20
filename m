@@ -1,137 +1,127 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0403840B6E0;
-	Mon, 12 Oct 2026 11:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6AE40F746
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:28:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791804478; cv=none; b=kKVeid0YSSnM0f1fPAXHrv3Ht7i3PQa6mFlBh3Gz7/YfQCAqQLKJ4piAjruKRb5Ih558hHrpU98+/gNL7bGmdTxcx78iTTPq1QpOh/7Lr14CAvN3hFId0ZTNyP/umYjFFsBzLKSTjMQTXs1Gx1G6hl9nJgJ615prEHdpwB6r/GE=
+	t=1791804485; cv=none; b=NH3pj+wSr5qdGUInL5LplqEmPZwQ3qTnrIuo3a6tHDVEF7JU8JydeZJ7KxY3GhSMTyXNSWPzlRBlt1J9U3dsyXi283mGMt4+LGjzIv6cuPPipb0OPZ8BQqZoKWBCKLJ9nJQJ6dcmiy5aAGNKfIkim1VQboFS685OccypX3iWrGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791804478; c=relaxed/simple;
-	bh=kQCByoVaggjb/UJQTAgFLZ8KUS15fDOUT2X+RgYa5nA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F3/9gg8UHuvojsV/9i0PJT7fWkazRl00Gl6ceImB5YtRkGGDOXcC2j/D7O04WlKQcuKpe6Wts9JQDS/lr4F1xMt82CfCmJp2QtD1ed4PeITkAHkCWsYSZ08QH1Kp0arHtRu8MIpggXv776W1djXxJrYsphKKu4XaaaY3OVkiLe0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SXpM18Gi; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791804485; c=relaxed/simple;
+	bh=exqEXLN2SY94nU0jMh7MM0HV9X3L3BalWjmZ/lzq+sA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rp3ti8qAZZ6cFTSwoW1zHLHRf0QTAt0goD7sVJBB6W1PxLbwROoue+UdUgm+NlT6vBlAOx3/gRTBN1ygO3QvTjsuAi5qZGEptl9YdeQ8R3vS/iQU7S1dh6Dph+Ck+lkJa/OkIKE+m6iPlx0OSprP/pdJR0vNAhnk0irghh0iyd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KG/U3s0T; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SXpM18Gi"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 02B541655;
-	Mon, 12 Oct 2026 04:27:53 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 322763F882;
-	Mon, 12 Oct 2026 04:27:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791804476; bh=kQCByoVaggjb/UJQTAgFLZ8KUS15fDOUT2X+RgYa5nA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=SXpM18GiGGokjVzFN66yDXwWffYyU+nyainbUrdvXUhlxb/5aoBKR/zu1Wk8q9m2K
-	 BHJ6rVAmAhbWMus8lqcJ0+VVvuk0vEtCafbmbvQJ8h2GnIS+NnuRL9si8p2j3MjayM
-	 3q0Q0Cr4YzezOswbyFk4QWwLY461WGXHjKeRMcmQ=
-Message-ID: <893507ca-b956-474c-9124-92fbfc25e9ab@arm.com>
-Date: Mon, 12 Oct 2026 12:27:50 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KG/U3s0T"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cbe437a530dso61433a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:28:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791804483; x=1792409283; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xDB3l5shmaXveZ9dlihn63ZuXd4kW273Wtsgs+YqQR4=;
+        b=KG/U3s0T8p/5bC7NV0gyoiq9rW+YchxwPR3DjtbN8p5sqfjCkiJHn98MRuH3eUQ/HS
+         DLiUKVWq3tnI/EsCvygZIpMEEoSmNA0OjbuyvHVAM/b1CbYPdrJ40wJTwiN3fXDRu4d0
+         M7IETylIE7oVhhF7p1wHw/vlYhRmpBb0oTrBq4yKSWdqPoN9FvDs/fifp80ZNsWvDwVa
+         7m4c9NoMnDkK9m46a+Vm35/fKLu2o3ZRfXtikLDvLMLODiHbhmuRBfGB5UOEglDS73bj
+         DS0o/JehetoThVlC5BGjg7ULWvsJZ7KHRtRAlJYmz5jiOj8/tKeLf5f5tbpD6MVQGgg3
+         q3QQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791804483; x=1792409283;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xDB3l5shmaXveZ9dlihn63ZuXd4kW273Wtsgs+YqQR4=;
+        b=Ng9GbQJ6rfZ9Z/7c1bFYx3sJDea+cbkRXEQ/YRaB5iOlJNBXqFifhSYvuphPBuH1aE
+         IdBkPWkwmAri58RSz7nxm5lZHOv04+XPVNtzJevpHQUk4cc0ViQhQWFccGKYe2NB/22f
+         6JjqLTe952ZWsJw/Rmr7EDHUI76Hc1B/dO7cbpA2us5bpQdFG2ioLlXalyCq8byf0coP
+         y2XNXqQRlvt0uk049Fu10cESatSXngUxzHm2Bu9bgJS9vNRmYWftvg8S/m8MVAi1e0+V
+         0HKVIvLN0nt/jIB5vpmIJKNlBxA5fk5oBhAaWALybMstk856XQmARh22hTQoKO8O/mCn
+         WHOw==
+X-Forwarded-Encrypted: i=1; AKwUvByzWpyN+nj0faKdDkX0VO5zJo4vu+VMQn/eAz+l7TwiLbVitAVqTWWNNszV8EoXWDOfFvPJW6TeAUBrb68=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcJw/dt+192Vz6Kgj6Qwp+I9flQKXqX6IYRqXmPqOgoh1+RDec
+	NU+h/JCyqdth/iUU1ywxwOcWoG0gEJuTb+gENyRLmDcWKmcqtR5DTEQ6
+X-Gm-Gg: AYBFou1P9vqCEOMz+BHMSSYVwNLX5m0auBofa9qKFt//PqTbSLOFJiL6BqqyLkGkkGg
+	2R+Dpq4dqU7yQTFbS3gAzy/q5u3oiG3MgNtqvkxRcEZz3IUD/J02j7wJTnXBX4LHlU3lIz/x1wN
+	3Enm9JNvl8SKU16gSThZ8NkUu6spweS/w0ZiKYpr3A9HHugJdQlTrCg/fDc9BmL5iY/4et8jnAn
+	vg3OKMqeEE0m1ERB6zmPWYnK6SttOWTVLlzX3q6/zBdyCpB86WqXuNiRror6WqhRDBZLQlzWyTE
+	+auu1m3Hup5EAdFPG5Ki1hbicat+VuMFBDobwYUNoNMMICDFhBfqkWpJ6v5Jeh3PqBtD84NMCfE
+	k+v9rIrYk3gIYlVG/k1zMKSWKGuy0ejuMlGhdQFPwTbi0j/XokuwIvDPn7Q0EjhZ7dIYktRTQlo
+	G4JPy34BuTI3zqwm0ITfEbPsjS6lVZaWMrnfRpNIcmttro6Kmmx0qr1+u/b9zyAuSg2qxaH/TCT
+	g==
+X-Received: by 2002:a05:6a20:734c:b0:3df:15f4:756e with SMTP id adf61e73a8af0-3e16bd0ab2dmr12145528637.1.1791804483113;
+        Mon, 12 Oct 2026 04:28:03 -0700 (PDT)
+Received: from ser8.. ([221.156.231.192])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c43ae1d3sm3911281b3a.48.2026.10.12.04.28.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 04:28:02 -0700 (PDT)
+From: DaeMyung Kang <charsyam@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>,
+	Baolin Liu <liubaolin12138@163.com>,
+	ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	DaeMyung Kang <charsyam@gmail.com>
+Subject: [PATCH v2] ntfs: compare streams_interface with mounted volume on remount
+Date: Mon, 12 Oct 2026 20:27:55 +0900
+Message-ID: <20261012112755.1353990-1-charsyam@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261012031656.3858771-1-charsyam@gmail.com>
+References: <20261012031656.3858771-1-charsyam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH DNM v3 8/8] arm64: dts: qcom: kaanapali: Add MPAM MSC
- nodes for the L2 caches
-To: Yin Li <yin.li@oss.qualcomm.com>, Rob Herring <robh@kernel.org>
-Cc: James Morse <james.morse@arm.com>,
- Shanker Donthineni <sdonthineni@nvidia.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu
- <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>,
- Andre Przywara <andre.przywara@arm.com>, Drew Fustini <fustini@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>, trilok.soni@oss.qualcomm.com,
- aiqun.yu@oss.qualcomm.com, ganapatrao.kulkarni@oss.qualcomm.com,
- Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
- Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
- devicetree@vger.kernel.org
-References: <20261008-mpam-resctrl-dt-knp-support-v3-0-35196c2b43bf@oss.qualcomm.com>
- <20261008-mpam-resctrl-dt-knp-support-v3-8-35196c2b43bf@oss.qualcomm.com>
- <20261008210004.GA1318789-robh@kernel.org>
- <1d764a3d-7935-4e26-b1c2-92537e1d3811@oss.qualcomm.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <1d764a3d-7935-4e26-b1c2-92537e1d3811@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Yin,
+During reconfiguration, fc->s_fs_info points to a newly allocated
+ntfs_volume. It does not contain the mounted volume's stream setting.
+Consequently, a windows mount rejects a remount with the same
+streams_interface=windows setting, but accepts streams_interface=none
+without changing the active pathname interface. This also breaks an
+ordinary read-only remount when the existing windows setting is passed
+again, for example from fstab.
 
-On 12/10/2026 11:48, Yin Li wrote:
-> 
-> 
-> On 10/9/2026 5:00 AM, Rob Herring wrote:
->> On Thu, Oct 08, 2026 at 02:41:17PM +0800, Yin Li wrote:
->>> Add an MPAM MSC device node for each L2 cache. Each MSC is nested
->>> directly under its L2 cache node so that the cache node is the MSC's
->>> parent device and its CPU affinity is derived from that cache.
->>>
->>> The L2 cache nodes are placed directly under the root node. The root is
->>> the root of the physical address space, so each cache node only needs an
->>> identity 'ranges' property for its nested MSC's 'reg' to be resolved to
->>> a physical address. The two caches use distinct node names (l2-cache-0
->>> and l2-cache-1) since a cache node has no MMIO unit-address of its own.
->>>
->>> The nodes are disabled by default. Production firmware does not expose
->>> MSC register access to the OS, so these nodes can only be enabled on a
->>> local test setup where firmware permits direct MMIO access to the MSCs.
->>> This DTS is therefore only an example for other platform DT authors and
->>> is not intended to be merged.
->>>
->>> Co-developed-by: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
->>> Signed-off-by: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
->>> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
->>> ---
->>>   arch/arm64/boot/dts/qcom/kaanapali.dtsi | 50 +++++++++++++++++++++++++--------
->>>   1 file changed, 38 insertions(+), 12 deletions(-)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
->>> index 131fd2a16c54..b1dcb1e9c570 100644
->>> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
->>> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+Compare the requested setting with the mounted volume instead. Report
+an unsupported change with ntfs_warning() so it does not invoke the
+mounted filesystem's error-handling policy.
 
-[...]
+Fixes: 2de2cdd9cc08 ("ntfs: add pathname access for named streams")
+Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
+---
+Changes in v2:
+- Use ntfs_warning() so a rejected option change does not invoke the
+  mounted volume's error policy, as Baolin suggested.
+- Explain in the commit message why logging must not invoke the mounted
+  filesystem's error policy.
 
-> 
->>> +
->>> +        msc@19870000 {
->>> +            compatible = "arm,mpam-msc";
->>> +            reg = <0x0 0x19870000 0x0 0x10000>;
->>
->> The MPAM register length is 0x321C.
->>
-> 
-> You are right, the MPAM register space is 0x321c per the specification.
-> Will update accordingly.
+Link to v1: https://lore.kernel.org/r/20261012031656.3858771-1-charsyam@gmail.com
 
-That is the full extent but truncation is allowed by the architecture.
+ fs/ntfs/super.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Section B.9 9.2.3 Permitted truncation of an MPAM feature page IQGXFF it mentions
-some conditions but these haven't been updated for the introduction of FEAT_MPAM_MSC_DOMAINS.
-
-Does your implementation have domains?
-
-Thanks,
-
-Ben
-
-
-> 
-> Thanks,
-> Yin
-> 
->> Rob
-> 
-
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index 242fb19ced2b..ed9f29b16c7c 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -275,9 +275,9 @@ static int ntfs_parse_param(struct fs_context *fc, struct fs_parameter *param)
+ 			result.uint_32 == STREAMS_INTERFACE_WINDOWS;
+ 
+ 		if (fc->purpose == FS_CONTEXT_FOR_RECONFIGURE &&
+-		    NVolStreamsWindows(vol) != streams_windows) {
+-			ntfs_error(vol->sb,
+-				   "Cannot change streams_interface on remount.");
++		    NVolStreamsWindows(NTFS_SB(fc->root->d_sb)) != streams_windows) {
++			ntfs_warning(fc->root->d_sb,
++				     "Cannot change streams_interface on remount.");
+ 			return -EINVAL;
+ 		}
+ 		if (streams_windows)
+-- 
+2.43.0
