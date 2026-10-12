@@ -1,97 +1,72 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459EB46EF8D
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:16:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE74046EF6B;
+	Mon, 12 Oct 2026 09:16:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791796578; cv=none; b=AyyUEz6yQ3CKSr0Scv6J4YbehJ4yzJKAL2+OEQk24pHrAPR9zE5baw0Yu0gtN18y0UX2GsFfdcHi8/9wvFNbiKxxUzEonCRiyfmNwQaYaXVv5pdxfIZYTXMFlxETXh3pfH2mchEHnh2i48iwpoyfsLI0oUhD5BqNP5h7B0M9R4c=
+	t=1791796579; cv=none; b=NURZNGLBpmSrnQ60qTXo/xsczjJtwNrbJcHGLHf1qhdjpPuYVh8tmU+sMS7il3yOc0vOehttZJAGlqYR+jCZKfznQuya11CKcdusn+FcyE26ii8glI+A28ejkr236ddSGRBSVAKkrXupnExL7I+wUyKqOx10CuabC0Mun+HGF3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791796578; c=relaxed/simple;
-	bh=Q4JU9KpIqco4E3X/lHGLuCUuN5OWqYKKu0TR1+mWIxs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RowneaS2lzrvuc77iZH6NHuGTMz2CG2RgHFW9nvp72LMga0IFoiSyd4b4LQ5VH0oDEYT4kNRq8Gl01Wlui6AbrKMUkfCgh45hnIatJCnV/1IISw2qEAfvCUSxdiLGOl5FYhz1skSuxEbK+1frMm50PfbLJv8dtZRchABr5Kd7M4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KXf0mKLq; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791796579; c=relaxed/simple;
+	bh=4ZM8We04j/ZAuwBC4UcD19sKjRpDgRm8HNFks9pZKkM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PzKqIUeBytDZrbfW4+wFSMWg9HUVGpYf+Pno1yeWj3vkXI7yqaAbXKze1j0V1+zUqjq/rUygMgh+BJJLoEp9N2zMpOlHH4NFfQE+3l8wD/3eLtRZncQvEN0HFewCcAG3ZoOw5yHf+cORhcKqp7PjlmqRNevzxogGuurUTnXBApk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ZCcBTiDE; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KXf0mKLq"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 6FDF24E411F9;
-	Mon, 12 Oct 2026 09:16:13 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 42153601A6;
-	Mon, 12 Oct 2026 09:16:13 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E357711D70194;
-	Mon, 12 Oct 2026 11:16:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791796571; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Sn02TEo+skQseKCCe0yo8KhgJfoqXwV2TUHXH7rQBWA=;
-	b=KXf0mKLql10uD4xoWayinX/w7giW5N1DhzeCpDfhSH2Ar+LXhSl2h+3/4TqW+6jqyWkC2n
-	/RyNNV0foFL7k4c5Xo62zooWLmCByvAoJ5Pps1vCoLCSGgoph8BHC7LUr9HoyOfgzB3/yu
-	Uay8MY6vA0QIhXn9JZIaAbXDLdVw7M8ET3B4z795XuTv+kl6TiTCltwOsFwU7HaHssVAzF
-	rSLTvqSDckV0ZrnkueeOv+gZq9lliLhw8qyQMwos9LYKddwYn2AfhUiW5Pivl0wKpCtxSe
-	w/2j7BSL1sbGLOFW4Y6TIiM3RPBcUwqQ2R72bEmIcyHnFq+bEbY1avnsiQTkBQ==
-Date: Mon, 12 Oct 2026 11:16:06 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, Wolfram Sang
- <wsa+renesas@sang-engineering.com>, Daniel Lezcano
- <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Pascal Eberhard <pascal.eberhard@se.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v7 0/4] timers: Add support for RZ/N1 SoCs timers
-Message-ID: <20261012111606.3784d993@bootlin.com>
-In-Reply-To: <8eb0b435-e5d4-4429-a807-24e15b0659fa@oss.qualcomm.com>
-References: <20261001082225.125956-1-herve.codina@bootlin.com>
-	<8eb0b435-e5d4-4429-a807-24e15b0659fa@oss.qualcomm.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZCcBTiDE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=FQ50Dt1VxVbS6FOI5MYyL9mmyJE/4nL6OgtNMM1nqMk=; b=ZCcBTiDExWS0tM4/h68o6limu0
+	dSLo29FP6+gSBO0VgP3PFrjT0eQ/dbItrCsNqTiPiJt2jgvh/S/DpFwpSOpbbb1E1wsNJFJh/VvqO
+	hUEdAnwa1zrGZxpqNPK0jpg+8zaLzd7o4FcVUVzcGzBSsYRmp9eigWf/8djE87bv84opczRhbMigf
+	jmZ20+0tQRMwIqB+btWe71a4kWeIvS7rcgcKW8QpjX7o/Tl6pLm4RenaR1DNeW56GWK7F1mvhJ5YA
+	6DvrxIrpanDwZoVzNt8LgIv9Ye3LmpGKePctdiZBJuVj/Nv9g5cVkc/xIeJcIGdjTATkHDf2C0mzn
+	dSdcctAQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xGC8Y-00000003zgH-0kNo;
+	Mon, 12 Oct 2026 09:16:02 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id BC58930063F; Mon, 12 Oct 2026 11:16:01 +0200 (CEST)
+Date: Mon, 12 Oct 2026 11:16:01 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, x86@kernel.org,
+	llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH 2/3] x86/kcfi: Emit the FineIBT paranoid "cs" prefix as a
+ byte
+Message-ID: <20261012091601.GN4121339@noisy.programming.kicks-ass.net>
+References: <20261012090424.i.497-kees@kernel.org>
+ <20261012090436.1676525-2-kees@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012090436.1676525-2-kees@kernel.org>
 
-Hi Geert,
-
-On Fri, 2 Oct 2026 11:49:49 +0200
-Daniel Lezcano <daniel.lezcano@oss.qualcomm.com> wrote:
-
-> On 10/1/26 10:22, Herve Codina (Schneider Electric) wrote:
-> > The Renesas RZ/N1 SoCs family has two timers block controller
-> > available.
-> > 
-> > Each controller is charge of 8 timers (six 16-bit timers + two 32-bit
-> > timers).
-> > 
-> > Each timer has its own interrupt, its own prescaler that can be used to
-> > divide the clock by 25 (timers block are fed with a 25 MHz clock) and
-> > all timers can work in either one-shot or periodic mode.
-> > 
-> > This series adds support for those timers blocks.
-> > 
-> > Best regards,  
+On Mon, Oct 12, 2026 at 02:04:25AM -0700, Kees Cook wrote:
+> The "cs" prefix on the LEA in the FineIBT paranoid caller template is
+> padding: it places the LEA's 0xf0 immediate byte where it doubles as the
+> LOCK prefix that makes the failing Jcc raise #UD. GNU as warns about it
+> in every CONFIG_FINEIBT=y build:
 > 
-> Applied, patch 1,2 and 4
-> 
+>   Warning: segment override on `lea' is ineffectual
 
-Daniel applied almost all patches of the series.
-
-The only missing one is patch 3 which has to be applied on your tree.
-
-IMHO, we have the green light to apply it.
-
-Can you consider it?
-
-Best regards,
-Hervé
+Shees...
