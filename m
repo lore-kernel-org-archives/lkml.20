@@ -1,126 +1,98 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80AF433BD4;
-	Mon, 12 Oct 2026 07:16:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D5DF62FE042;
+	Mon, 12 Oct 2026 07:17:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791789406; cv=none; b=JyjdtLkUaA3Qs8CB1f+RVr+op9lcHRBwsr22yEjub2XzmrMoayAwyk82y3lRoI/VB7Gq3xrh3Gr1vdt+mEYaMXYxLL5/QlT63JmwwLbh2G+X4TSAKh87vHAADW3F8+5jVI5PdX/OVUI/DnPhmrVLywmjHFsehzOOVTp2cjGg7HQ=
+	t=1791789423; cv=none; b=Rx5bQasQkcusgeotqCmwpFbYFNplCUGRkegNBltRdCXIKYy2q/6xmLjlDEVx2adr8+YUcnfZjBpUykdzdkBzZB3F6jKweM60UkDgojLPKwQBk1CsSXVSD4UZv7G20YCm5GzLBy1lry71WKB5J74ApyHJc8XCUhoTeQZqgOjCFV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791789406; c=relaxed/simple;
-	bh=zg26uMNz8Rod70GTBPQkyNHcw/orcT7Ofvka2N0cUcc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=rQ0qeAomt1hhgOxiMFL0HII8i8KS0+ioQ2VN6kugVzg0plW0yFtPjoBImcFMppOmY15kQjkd/kM4NbLROjOoQK44pdpNN2oCVReoOsyidLx6a4npq7EBZxrJRUKDgN9RJkps7WdZ3cb8k25bQSJXfV4fjzM2XkLrMov1C96OTB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=dw/eFeLi; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="dw/eFeLi"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69C7G8nhC3614875, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791789368; bh=zg26uMNz8Rod70GTBPQkyNHcw/orcT7Ofvka2N0cUcc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=dw/eFeLiOAmeSmIsASeNoi0W8/wTTq1CWZ0sFsdDitIr8Jkaaz3Dv5eo/wZNAqBUk
-	 nqBkFNhk6Qe0bffj1FweN8jsd503v5CLQl/WNYsxWbDmDIc6iieREm2UemhupPooF2
-	 Y4x7YCLhfnphfXmiZtMqyPYQODCqCipmsqAIOpigYFI3FAUvYWfLm+EeKhL76Y0b6N
-	 4nefZqwwcqGB28vVpR5n24O2Bu/D+pXsNkXZNcrqsrnVQ7T+azm2r+4alGY00GrhFV
-	 BX2aUoiWzs+Xgvv2JwK9GpIwvxwzxHLzq21Y0fRfnKGFZqE7bMrLWdk6PAZI+Mg9TQ
-	 +9ruhObL/NqSw==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69C7G8nhC3614875
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 12 Oct 2026 15:16:08 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 15:16:15 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Mon, 12 Oct 2026 15:16:15 +0800
-From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
-To: Birger Koblitz <mail@birger-koblitz.de>, "davem@davemloft.net"
-	<davem@davemloft.net>, "kuba@kernel.org" <kuba@kernel.org>
-CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, nic_swsd
-	<nic_swsd@realtek.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-usb@vger.kernel.org"
-	<linux-usb@vger.kernel.org>, "edumazet@google.com" <edumazet@google.com>,
-	"bjorn@mork.no" <bjorn@mork.no>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>
-Subject: RE: [PATCH net-next v6 01/10] r8152: split r8156_init per chip and
- factor out wait_autoload_done
-Thread-Topic: [PATCH net-next v6 01/10] r8152: split r8156_init per chip and
- factor out wait_autoload_done
-Thread-Index: AQHdVv1AdBx9zD4lckuTWpQnvZF0MLbzCemAgAZd6BA=
-Date: Mon, 12 Oct 2026 07:16:15 +0000
-Message-ID: <52a5180dfe614973b22696d30338dc7a@realtek.com>
-References: <20261008081556.47901-1-nic_swsd@realtek.com>
- <20261008081556.47901-2-nic_swsd@realtek.com>
- <633a0f2b-67b3-4896-8464-6a4d0c05498f@birger-koblitz.de>
-In-Reply-To: <633a0f2b-67b3-4896-8464-6a4d0c05498f@birger-koblitz.de>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	s=arc-20240116; t=1791789423; c=relaxed/simple;
+	bh=GHGRzDu1jlT6vvkm/rdVz4B+NvejExmm3Ww2ilVvNb0=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
+	 In-Reply-To:Content-Type; b=A2XXERZ726CZ2x6eSD9vU9T+Y2wzO/ehALtnYaW4wnCtBaZwLaJqZy5RZmetwfwEWJCsa6qAMap7zdcE79qDGwYf+4ZgnTL0odePjSc0RttQjnHJn/XOyjXoSWqLBUKijaxds2zpL+1W5TeZScsSdoO2M1NbbtBG888k8sSLgbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.40.46.54])
+	by gateway (Coremail) with SMTP id _____8DxOvBkicxqudwUAA--.60737S3;
+	Mon, 12 Oct 2026 15:16:52 +0800 (CST)
+Received: from [10.40.46.54] (unknown [10.40.46.54])
+	by front1 (Coremail) with SMTP id qMiowJDxg8xeicxqAlcrAA--.63784S2;
+	Mon, 12 Oct 2026 15:16:46 +0800 (CST)
+Message-ID: <10bd45f8-2d37-42f0-b7d2-a4a84933c9b3@loongson.cn>
+Date: Mon, 12 Oct 2026 15:18:13 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: rafael@kernel.org, linux-acpi@vger.kernel.org
+Cc: acpica-devel@lists.linux.dev, chenhuacai@kernel.org, lenb@kernel.org,
+ linux-kernel@vger.kernel.org, lixianglai@loongson.cn,
+ loongarch@lists.linux.dev, maciej.wieczor-retman@intel.com,
+ pawel.chmielewski@intel.com, maobibo@loongson.cn
+References: <20260922121058.972734-2-maobibo@loongson.cn>
+Subject: Re: [PATCH v4 1/4] ACPICA: actbl2.h: Add bit constants of the Flags
+ field in the IOVT IOMMU structure
+Content-Language: en-US
+From: Bibo Mao <maobibo@loongson.cn>
+In-Reply-To: <20260922121058.972734-2-maobibo@loongson.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:qMiowJDxg8xeicxqAlcrAA--.63784S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj9xXoWrZw17Xw1xCry7GF1fCry8JFc_yoWDKwb_Ca
+	na9F4kZ3WDWF1xtrs8t3WxArWjgayxAFZ3KFs5WFn8Aa92vrWUurnakryS9F4kC3929FWD
+	ZFn8WrWF9wnxGosvyTuYvTs0mTUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUbxkYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
+	02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAF
+	wI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r
+	126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
+	wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc4
+	0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
+	xVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr
+	1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8aZX5UU
+	UUU==
 
-SGkgQmlyZ2VyLA0KVGhhbmtzIGZvciB0aGUgcmV2aWV3Lg0KDQpPbiBUaHVyc2RheSwgT2N0b2Jl
-ciA4LCAyMDI2LCA4OjE4IFBNLCBCaXJnZXIgd3JvdGU6DQo+IEhpIENoaWggS2FpLA0KPiANCj4g
-T24gMDgvMTAvMjAyNiAxMDoxNSBhbSwgQ2hpaCBLYWkgSHN1IHdyb3RlOg0KPiA+IFJUTDgxNTYs
-IFJUTDgxNTZCLCBSVEw4MTU3IGFuZCBSVEw4MTU5IHNoYXJlZCBhIHNpbmdsZSByODE1Nl9pbml0
-KCksDQo+ID4gZ2F0ZWQgYnkgYSBkZW5zZSBzZXQgb2YgdHAtPnZlcnNpb24gcmFuZ2UgY2hlY2tz
-LiBUaGF0IG1hZGUgdGhlIGluaXQNCj4gPiBzZXF1ZW5jZSBoYXJkIHRvIGZvbGxvdy4NCj4gPg0K
-PiA+IFNwbGl0IHI4MTU2X2luaXQoKSBpbnRvIG9uZSBmdW5jdGlvbiBwZXIgY2hpcCBmYW1pbHk6
-DQo+ID4gLSByODE1Nl9pbml0ICAoVkVSXzEwLzExKQ0KPiA+IC0gcjgxNTZiX2luaXQgKFZFUl8x
-Mi8xMy8xNSkNCj4gPiAtIHI4MTU3X2luaXQgIChWRVJfMTYpDQo+ID4gLSByODE1OV9pbml0ICAo
-VkVSXzE3KQ0KPiBJIGhhdmUgYSBoYXJkIHRpbWUgdG8gdW5kZXJzdGFuZCB3aHkgeW91IHdhbnQg
-dG8gc2VwYXJhdGUgb3V0IG9uZSBpbml0DQo+IGZ1bmN0aW9uIGludG8gNCBkaWZmZXJlbnQgb25l
-cywgZm9yIGVhY2ggY2hpcCBvbmUuIEVzcGVjaWFsbHksIGlmLCBhcyB5b3Ugc2F5IG5vDQo+IGZ1
-bmN0aW9uYWwgY2hhbmdlcyBhcmUgaW50ZW5kZWQsIHdoaWNoIG1pZ2h0IGp1c3RpZnkgdGhlIHJl
-LWZhY3RvcmluZyBpbiB0aGlzDQo+IG1hbm5lci4gQnkgbXVsdGlwbHlpbmcgdGhlIGZ1bmN0aW9u
-cywgaXQgd2lsbCBiZWNvbWUgbW9yZSBkaWZmaWN1bHQgdG8gbWFpbnRhaW4NCj4gdGhlIGNvZGU6
-IGlmIGFuIGlzc3VlIGlzIGZvdW5kIGluIHRoZSBpbml0LXNlcXVlbmNlLCBpdCBtYXkgbm93IGJl
-IG5lY2Vzc2FyeSB0bw0KPiBmaXggaXQgNC10aW1lcyBhbmQgZnV0dXJlIGRldmVsb3BtZW50cyB0
-b3VjaGluZyB0aGUgaW5pdC1zZXF1ZW5jZSB3aWxsIGFsc28NCj4gbmVlZCB0byBiZSByZXBsaWNh
-dGVkIG11bHRpcGxlIHRpbWVzLiBJbiB0b3RhbCwgdGhlcmUgd291bGQgYWZ0ZXJ3YXJkcyBiZSA4
-KCEpDQo+IGRpZmZlcmVudCBpbml0IHNlcXVlbmNlcyBpbmNsdWRpbmcgdGhlIG90aGVyIG9uZXMg
-Zm9yIHRoZSBSVEw4MTUyIGFuZCBkaWZmZXJlbnQNCj4gdmVyc2lvbnMgb2YgdGhlIFJUTDgxNTMu
-IFRoZSBzYW1lIHBhdHRlcm4gcmVwZWF0cyB3aXRoIF91cCgpLCBfZG93bigpIGFuZA0KPiBvdGhl
-ciBjb25maWd1cmF0aW9uIGZ1bmN0aW9ucy4NCg0KVGhlIHNwbGl0IGlzIG1lYW50IHRvIG1ha2Ug
-ZWFjaCBmdW5jdGlvbiByZWFkYWJsZSBvbiBpdHMgb3duLiBJbiBhIHNpbmdsZSBzaGFyZWQgZnVu
-Y3Rpb24sIGV2ZXJ5IGNoaXAgZGlmZmVyZW5jZSBpcyBhIHRwLT52ZXJzaW9uIHJhbmdlIGNoZWNr
-LCBhbmQgdGhlIGZ1bmN0aW9uIGlzIGhhcmQgdG8gZm9sbG93LiBZb3VyIGNvbmNlcm4gaXMgdmFs
-aWQ6IGlmIGEgZml4IG5lZWRzIHRvIGJlIGFwcGxpZWQgdG8gdGhlIGZvdXIgY2hpcHMsIGl0IHdp
-bGwgbmVlZCB0byBiZSBhcHBsaWVkIGZvdXIgdGltZXMuIEJ1dCBpZiBhIGNoaXAgZ2V0cyBjaGlw
-LXNwZWNpZmljIGZpeGVzLCB0aGUgaW5pdCBvciBvdGhlciBmdW5jdGlvbnMgd2lsbCBiZSBtb3Jl
-IGNvbXBsZXggd2l0aCBzZXZlcmFsIHRwLT52ZXJzaW9uIGNoZWNrcy4gT24gdGhlIG90aGVyIGhh
-bmQsIHVzaW5nIGEgc2luZ2xlIHNoYXJlZCBmdW5jdGlvbiB3aWxsIG1ha2UgdGhlIGZ1bmN0aW9u
-IHZlcnkgY29tcGxleCB3aGVuIG5ldyBJQ3MgYXJlIGFkZGVkLg0KDQo+IA0KPiBXb3VsZCBpdCBu
-b3QgbWFrZSBtb3JlIHNlbnNlIHRvIHRyeSB0byBmdXJ0aGVyIGNvbWJpbmUgdGhlIGluaXQgc2Vx
-dWVuY2VzIG9yDQo+IHRyeSB0byBkaXNlbnRhbmdsZSB0aGUgY29kZSBieSBlc3RhYmxpc2hpbmcg
-Y29tbW9uIGxpYnJhcnkgcm91dGluZXMgcHV0IGludG8gYQ0KPiBfbGliLmMgZmlsZSBhbmQgcG9z
-c2libHkgZGlmZmVyZW50IC5jIGZpbGVzIGZvciB0aGUgZGlmZmVyZW50IGdlbmVyYXRpb25zIG9m
-IHRoZSBjaGlwcz8NCj4gRm9yIGV4YW1wbGUsIGl0IGFwcGVhcnMgdGhhdCB0aGUNCj4gcnRsODE1
-Ny85IGJlbG9uZyB0byBvbmUgZ2VuZXJhdGlvbiBvZiBjaGlwcywgYmFzZWQgb24gdGhlIHJ0bDgx
-NTYgZGVzaWduLiBPbg0KPiB0aGUgb3RoZXIgaGFuZCwgcnRsODE1Mi8zIGFwcGVhciB0byBiZSBh
-IGRpZmZlcmVudCBnZW5lcmF0aW9uIHdpdGggdmFyaW91cw0KPiBmYW1pbHkgbWVtYmVycy4gVGhh
-dCB3b3VsZCBhbGxvdyB0byBidWlsZCBhIGJhc2lzIGZvciBmdXR1cmUgZGV2ZWxvcG1lbnQgbGlr
-ZQ0KPiB0byByZWx5IG9uIHVzaW5nIHBoeWxpbmsgdG8gaGFuZGxlIHRoZSBQSFlzIGludGVncmF0
-ZWQgaW4gdGhlIGNoaXBzLCB3aGljaCBhbGwNCj4gYXBwZWFyIHRvIGJlIGFscmVhZHkgc3VwcG9y
-dGVkIGJ5IHRoZSBSZWFsdGVrLVBIWSBkcml2ZXIuDQoNCkkgYWdyZWUgdGhhdCBjaGlwcyB3aXRo
-IHRoZSBzYW1lIGdlbmVyYXRpb24gb3IgdmVyeSBzaW1pbGFyIHNlcXVlbmNlcyBzaG91bGQgYmUg
-Y29tYmluZWQuDQoNCkkgcHJlZmVyIHRvIGNvbWJpbmUgdGhlIGNhbGxiYWNrcywgaW5jbHVkaW5n
-IGluaXQsIHVwLCBkb3duLCBhbmQgZW5hYmxlLiANCi0gRm9yIGluaXQsIEkgY2FuIG1lcmdlIHI4
-MTU2Yl9pbml0IGludG8gcjgxNTZfaW5pdCBhbmQgcjgxNTlfaW5pdCBpbnRvIHI4MTU3X2luaXQu
-IA0KLSBGb3IgdXAvZG93biwgSSBjYW4gbW92ZSB0aGUgc2VxdWVuY2Ugc2hhcmVkIGJ5IHJ0bDgx
-NTZfdXAvcnRsODE1N191cCBhbmQgYnkgdGhlIGRvd24gZnVuY3Rpb25zIGludG8gY29tbW9uIGhl
-bHBlcnMsIGFzIHJ0bDgxNTJiLzMgZG8gd2l0aCBleGl0X29vYi9lbnRlcl9vb2IuIA0KLSBGb3Ig
-ZW5hYmxlLCBJIGNhbiBjb21iaW5lIHJ0bDgxNTZfZW5hYmxlIGFuZCBydGw4MTU2Yl9lbmFibGUu
-DQoNCj4gDQo+IFsuLi5dDQo+ID4NCj4gPiBObyBmdW5jdGlvbmFsIGNoYW5nZSBpbnRlbmRlZC4N
-Cj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IENoaWggS2FpIEhzdSA8aHN1LmNoaWgua2FpQHJlYWx0
-ZWsuY29tPg0KPiBCZXN0LA0KPiAgICBCaXJnZXINCkJlc3QsDQpDaGloLUthaQ0K
+This change is already merged in acpica tree.
+
+slightly ping.
+
+On Tue, Sep 22, 2026 at 08:10:55PM +0800, Bibo Mao wrote:
+ > According to the IOVT specification, define macros for each bit of the
+ > Flags field in the IOVT IOMMU structure.
+ >
+ > Link: https://github.com/open-acpica/acpica/commit/352f750e4cc0
+ > Signed-off-by: Bibo Mao <maobibo@loongson.cn>
+ > ---
+ >  include/acpi/actbl2.h | 7 +++++++
+ >  1 file changed, 7 insertions(+)
+ >
+ > diff --git a/include/acpi/actbl2.h b/include/acpi/actbl2.h
+ > index baef525367b5..76e4a5bc79b4 100644
+ > --- a/include/acpi/actbl2.h
+ > +++ b/include/acpi/actbl2.h
+ > @@ -919,6 +919,13 @@ struct acpi_iovt_iommu {
+ >       u32 device_entry_offset;
+ >  };
+ >
+ > +/* Masks for Flags field above */
+ > +#define ACPI_IOVT_IOMMU_PCI_DEVICE           (1<<0)
+ > +#define ACPI_IOVT_IOMMU_PXM_VALID            (1<<1)
+ > +#define ACPI_IOVT_IOMMU_MAGAGE_BY_SEGMENT    (1<<2)
+ > +#define ACPI_IOVT_IOMMU_HW_CAP_SUPPORT               (1<<3)
+ > +#define ACPI_IOVT_IOMMU_MSI_INT_BYPASS               (1<<4)
+ > +
+ >  struct acpi_iovt_device_entry {
+ >       u8 type;
+ >       u8 length;
+ > --
+ > 2.39.3
+ >
+
