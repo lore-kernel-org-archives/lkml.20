@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FFD3BFAEA;
-	Mon, 12 Oct 2026 06:43:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31D42E7165;
+	Mon, 12 Oct 2026 06:43:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791787408; cv=none; b=cE+tu52YdJQh3Xryr8TCccmmKdvTHjU7CTqIlB/rNjopFKnKFAeGoGEotNc7g0heeEzBKMqnQ/C+4B5NbiWpUFpW/tED3kJiHGojYnkn5RO3zqON1Tub61O5qZ3Ipg+sKMUJ9MulTgv44Gy7N1wpodSHuUYfAqoWMaPj6wtiJr8=
+	t=1791787417; cv=none; b=tncwJx58U+C1QqAIjMFBXpCxfoDJVBoWc4C0QAeOk4e0GsU2C/+APQvz4ZjkYPeGP4VWCtU8LD74fSz/H0LXWrg/L7KGliDtRfIyyHkygLACsebHsgimi3Z3oL5284hjQtVxmR33QY9DBj0w8Wf8MW3jQ7O72OG0T+jKz+E2V1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791787408; c=relaxed/simple;
-	bh=9RM345X0RD6b9EwL7lpb6nYtbMPbSbkw+UseM4ftYrM=;
+	s=arc-20240116; t=1791787417; c=relaxed/simple;
+	bh=RFTjjpfxJ8zE2BSqHhwCZ1f9XWj1jH2GdaWi8sGyP7o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W9IvXasuiCJyhcSioy3UNnSv/FK5rXkym57DYuDivLJ6Hsatn5FK2c78DmqPK/GGbKpJR0OBxjw0WDg4VZpkaSngZQFKb6zOqGBYVPMBVND2Hwr1Er9JEVNVjpF4RWknmIDSQeL6Vbil7GYp5XRj88zS+4ncWSKHjJ63rHZ3lPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XPlEDgfr; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=rkU+jkwZ3+EbsICz2MaSPobzTG2koew37fOBUIVvRa/mMwbCafORUvzc2ZBAc4dXNEobkuLJZC/0eqenAtiBVIDBsM51fRyGJD7sk0NRFFSjgzrNrUpUPX+9Pa2cWsDHMVe3OVRR1NhpWc7b90tlDP4E4ejPaEajp2Ew2BhhF/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kUegjVzc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XPlEDgfr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 940931F0089B;
-	Mon, 12 Oct 2026 06:43:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kUegjVzc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A13A21F0089B;
+	Mon, 12 Oct 2026 06:43:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791787407;
-	bh=TyV2Bq43Wm2rxT+bE3tLJ32jLGwD2lcUogYKBq5cy/8=;
+	s=k20260515; t=1791787416;
+	bh=vPTVfQX0lP4O9dxbl1gVroQOSOKrj2GjFIjLYc/2qPA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XPlEDgfrGsawaCitpHCKcfoiGlP7rKo81yQcvdQfpYzFZNdj7ko5+T/GJKwG2i8qF
-	 i8LbUS1pNSmP6xRSZBZGkHD807B0T2qgXLxk5km7LuC+6axQ0O/X9T0GX/N1PfBOzV
-	 GW/WoFKhJ5KvIkXbb6zUDpQw1FCs25qXRjoXjlINNL5FWYa2KhlT3jdhbrBe4K+xL3
-	 ossYs4IQnsR15l1F3pH6pLuFmfMhntlptxRcGcQQpAdBXuOIbI8LXaBphhnnNX0Tyd
-	 m7czfXKv6BiIHjFH76RuMB4DVwZPmwm82USl6oU3An7nwnm8GaAB3Z1DHZLBOI0twz
-	 G/n/h+SPzQTnA==
-Date: Mon, 12 Oct 2026 08:43:24 +0200
+	b=kUegjVzcYrvWsI+bjoCIh8UMRt6HTYK0eHjhU9kMK8zCs95X0/uXu2ndLtEDGppvo
+	 2C7Eum9cjZSbs46GKbeVyU0UY7WihNSs8NsmbzuCbdme3fSqXB+B7VloZbfcvSxpU9
+	 Yi/k9I9dNF7hhmomDqYjNusxkhgNxantpn8LXY+19rzqdJKRiOz26IkV5Bfob48Q4Z
+	 T1HJpGQB+JdFAfX/gDh3Vha1AVQuQ7kkBBR1vEiU1mnHhs//j4pdeQ9ahveP+xNTAY
+	 SvI91HHSamxOAP8kP6Qnq3SLIf2sFmpzISbdFDk31sV/UksyusXcUuVF8iTIlILr2N
+	 6h3xVcrX33tLQ==
+Date: Mon, 12 Oct 2026 08:43:33 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Mikhail Kalashnikov <iuncuim@gmail.com>
 Cc: Chen-Yu Tsai <wens@kernel.org>, 
 	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
 	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
 	Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH v2 1/4] dt-bindings: vendor-prefixes: Add vendor prefix
- for Teclast
-Message-ID: <20261012-worthy-terrific-sunfish-3acbab@quoll>
+Subject: Re: [PATCH v2 2/4] dt-bindings: arm: sunxi: Add Teclast P85T tablet
+Message-ID: <20261012-inquisitive-python-of-competence-a2bbf1@quoll>
 References: <20261001022415.913959-1-iuncuim@gmail.com>
- <20261001022415.913959-2-iuncuim@gmail.com>
+ <20261001022415.913959-3-iuncuim@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,17 +45,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261001022415.913959-2-iuncuim@gmail.com>
+In-Reply-To: <20261001022415.913959-3-iuncuim@gmail.com>
 
-On Thu, Oct 01, 2026 at 10:24:12AM +0800, Mikhail Kalashnikov wrote:
-> Teclast is a Chinese consumer-electronics brand. Add its vendor prefix
-> so that board compatible strings can use it.
+On Thu, Oct 01, 2026 at 10:24:13AM +0800, Mikhail Kalashnikov wrote:
+> Document the compatible for the Teclast P85T tablet, which is based on
+> the Allwinner A523 SoC.
 > 
 > Assisted-by: OpenCode:DeepSeek-V4.1-Flash
 > Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
 > ---
->  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+>  Documentation/devicetree/bindings/arm/sunxi.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
