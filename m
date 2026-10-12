@@ -1,196 +1,260 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA8745C6E6;
-	Mon, 12 Oct 2026 08:40:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BDF43CE73
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:41:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791794458; cv=none; b=h83jilmrCRCDcqDkzG2ecuuI/wSxvxMOVe0eneFq6p9aL3Y27yclOLCR1dZ0P6M125LNKd6m/9mz25j8u7rs3M9TYIA0pzm1Aifa2ZKFTWZ82K5m8gbj0IsJiksNnfI9siAUyzPOprwW431zFRMYm1yGaIvzjxJPuwPvt56WHdo=
+	t=1791794476; cv=none; b=XcUEIx+KI99v/yf/bvV2mZl48Ev9vKrupjUHlzwZcpLU48OO7LA6KFNlOUVAzpbEVkSnpssetIcynEOcbC8nDa56w1qFqMS7vaO7VAdY1QkSePBOeCAAff7dkcVWXDhkwx2Nz74no2hFWo4KgAnpNA8xp+lzgQT9YulEEpyX64U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791794458; c=relaxed/simple;
-	bh=mpvdjSjG6yKlGSAbffcGXjSwVQRMw+hHYg5VMZur0QU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DVPYwM/ZA6ul3cihEcL+/+SUxJtGGIiB0kyvkCZRlFz4y6zjWt4afksKt/2W+dQ+R5rYU3jxzXqVuESz8PmG497JYyLE0f8C1r3OlafMGg2fhuhXaNasfj8Bx9DazAmv6Bl7hI1V0Z7Lghtt4ArmnIdVJycuQAvWszCD9p7tMYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PI99TSF0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791794476; c=relaxed/simple;
+	bh=Hfq20dRp+wFT03a4/sFntrP0p/AxTie81mZS6a/kB1A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PRkOYb+JyRZuFPfdMuoXTluyNzQN0zfmpr1rELmtrGlZMI1FpMyq6PqhmUQfude/9NvN+oOIZDHLCm/RVPcPdN+f4RMYSrL3JgeJ967cphYPCrK/g3lBBX5GkpsdPkPP4anjDp9vX7gA6FXhIa4i4Xs8vVA2MglzrF1gyuGIZ+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ai5FHyzn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dIi/iiHD; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PI99TSF0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DC141F0089C;
-	Mon, 12 Oct 2026 08:40:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791794456;
-	bh=egYXV60732DYc0+bH0RPt7he1vgoVrW8edxdByobZDg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=PI99TSF0iYNzndubYyDTZ+03YppPeNcizePvAPTNFy3IVTg5zwBSx0BT9vJuAZS8m
-	 FOZNnzV5f7VV6Ga9hT3RDc1ouCrfFG8SwuJHiq3iWA6rwhPfGoWeR76fJSBEo/Laun
-	 d8B4zLo0vD6PtOupUwBgbhJZsZEiUSaNWmGXBCWjEPAduEipcQXf7p/29z1mTV2dCk
-	 chLLo8O9vuveoXYrYeop7nK6fl8gZ5jW3msYRPmEPJ96hfV++E6GxuAYt8H4iFRax8
-	 QRU44RDyUAw5iXXvC1AEx3wz8/KkoYeA6sNxW4JM3Y2H9sBLOLtpQCoXK8T5FYP6V3
-	 kO9BnCM22M7Mw==
-Subject: Re: [PATCH net-next V2] net/dcb: Validate bandwidth for non-ETS
- traffic classes
-From: netdev-bot+sashiko@kernel.org
-To: tariqt@nvidia.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, alazar@nvidia.com,
- cjubran@nvidia.com, gal@nvidia.com, kees@kernel.org,
- linux-kernel@vger.kernel.org, oss-drivers@corigine.com, horms@kernel.org
-Date: Mon, 12 Oct 2026 08:40:55 +0000
-Message-ID: <179179445567.434549.13418460679554314301@kernel.org>
-In-Reply-To: <20261011083929.739261-1-tariqt@nvidia.com>
-References: <20261011083929.739261-1-tariqt@nvidia.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ai5FHyzn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dIi/iiHD"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8Ku7r312841
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:41:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	f8GO7ExOgblqj7+GdipBZ3YhlJBmXYlbc4wk298drcU=; b=ai5FHyznuqWJvwh7
+	nFw9jGAjXyjV9H5Z+mcIUA2ESi5ifOMKW32t0UcjzUd7n5QRWA9bEhEtG9DRk2BO
+	4fK2ZuYuau57oxsHDZHWS5j2SEBkIpQkMpd8EjH2nMc1paqdjEwoYo9wIr8kzxn1
+	ATahCT2LL6Tzrr3NxfV70XnwgeMQ/88UlPMT6oY21dMeY/8R/6vFxjLSwlqODBb8
+	M2+KfnNTbp5E0IXuYCEVOko3N3JxTtGKlQt3rhmgEOLDAM+R/Rq8r8iyBB5c8Kls
+	Hh/3TSCEGeCBt7iiqCJJpJuvdNhdZxYlIjKHfsMJVQHd/SFtOOoxmzF1Z/2wMJ/z
+	Hj+MUQ==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7ehjnp37-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:41:13 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e605efae40so21250825ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:41:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791794473; x=1792399273; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f8GO7ExOgblqj7+GdipBZ3YhlJBmXYlbc4wk298drcU=;
+        b=dIi/iiHDcnEFx7FaeLPUHYFrsV46OdDdX9qJDmj1/VCxiAcLvERkQbR5wEbPH9Zzx3
+         iBtr6/+BJNsqFnOhvCkElByIdZPGNFR5zpY0uzxi4E+gDYInPc/pYgMFoLj/uHWaSpnA
+         vRGdDVT7FGYW4gJZeC/Qs6ZvMRmknsw8AzNoa6iecIfHqFUObDmIYVTC4chqt1K5s61x
+         4e6wuxcakjG6wpoESj7DvpYs5EmA+Yw8PIcpZqTkuQLIW05ErnUD51IpiJD3+bxTGjmD
+         JWUFL5koRC7b9UDSFXNap4e+3EuXJFm7dU9+KJFBW+6Y0j8UMYybzQ3y+RWz7GL/h5oD
+         4Bqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791794473; x=1792399273;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f8GO7ExOgblqj7+GdipBZ3YhlJBmXYlbc4wk298drcU=;
+        b=Re2+atiDfy3Ad/gnicGK6QIYHvNDj8pGrRAdLPX85QNsU1HVebGS1oDnicboABmdHw
+         7rqJ3Ljde19lClyXgbD+cAqm2BymNQDYYJDIXL8KOjoJkJYH2kD5kANW2rZCB5ORm16l
+         xjNA0dQKQMFNym1hTfzygeHjxJGaj3flTVh6PPxuTi3pjdcC25Mikl9CfJpWda/ez9H4
+         TPoSm7jY7qBxFgGOGOgRaF4Wtx38iDyqqIIqZuXPETFOWvhAXWi3zSXM1qqqbHTHpuY8
+         8xSyFZNVXCSwpVVWQwod4vDlUhyGyL6U/5xuNkeCHcxqvdOvY/SUxMV4bQ65NOwkw5a6
+         xLvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwx13bentF+wRfWkljSgrJe7PIMsqC6Dgsi7gi2ELwBAicz/R4eFoiQPXe/VU3a4/d2oTsTIi02RbL7XRc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKc4zUaNl8T0wz1aGc0ytlDsiddby54UaXZef2Am6kP0OwEBjKu
+	jCLC9B2v8jOkAWj/bqrZ8ZX51MSnAPCcgOdvkukUJRjoDXxcPZ+Sc3HqXEPm8GZUaJ764luI7rj
+	C8MJejp77PCIJYxS8zsP/RyWo594ucu9eT/E8Kpniu5ZaBsc+ygPVCkZhPeyyTeOQ63Y=
+X-Gm-Gg: AYBFou1Xo32t+oCwJxWnWSq/H7q5wW7e7x/74A2rZVp7vi1qtPaDOuckPZO8rz+AqqM
+	o3ViWk6E5EOL7A47Fypu1nsyASHTbTaLC6qI63SNJs0OQyVtCveOOXXFkWKGNhuR2vwqP2VRnYo
+	aPC/tGJivRx9Pb4CJFTc/7uleg0jRcOHcKjgmJGzgojmW1bOa5gjhfJxdA9AUdMl914rWkoH/Id
+	K0PPxwi0cUtnkXn6NytinQA1l9dOvlYBySvDkNz9xjUPP7BU3gwkKv3DxieCbZYhIxpfQmRaYdJ
+	jq6vsMO7+PDh6Zv+MsLrgdYnA8g/CjVxvefSJ9N4RyQz7Hq9go9Cz7ilCP1okEnuVl5WXN6ddmh
+	4QDdtLG0rg1p74s6aDIA1yYKzAAQpwo8PIxsW67Vo1ntHg38rG1an4rXU4WzBIPBkdBqW+zg=
+X-Received: by 2002:a17:903:15c8:b0:2e8:f7a:c69d with SMTP id d9443c01a7336-2e8429a8013mr71142885ad.15.1791794473009;
+        Mon, 12 Oct 2026 01:41:13 -0700 (PDT)
+X-Received: by 2002:a17:903:15c8:b0:2e8:f7a:c69d with SMTP id d9443c01a7336-2e8429a8013mr71142745ad.15.1791794472496;
+        Mon, 12 Oct 2026 01:41:12 -0700 (PDT)
+Received: from [10.133.33.27] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e14f6sm40626185ad.69.2026.10.12.01.41.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 01:41:12 -0700 (PDT)
+Message-ID: <a09f71a4-31e7-439d-b053-66b279ea27c7@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 16:41:04 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: display: msm: Add INT2 GDSC to
+ Kaanapali DPU
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Krishna Manikandan <quic_mkrishn@quicinc.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Yuanjie Yang
+ <yuanjie.yang@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260915-msm_gdsc2-v2-0-9157237b8382@oss.qualcomm.com>
+ <20260915-msm_gdsc2-v2-1-9157237b8382@oss.qualcomm.com>
+ <f3qs4wcascfodjufisl4qtpycfb3lunff2fv4u3olybjius5kp@vahhjfjfh6wv>
+Content-Language: en-US
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <f3qs4wcascfodjufisl4qtpycfb3lunff2fv4u3olybjius5kp@vahhjfjfh6wv>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzNCBTYWx0ZWRfX4oeN4psSXzT8
+ wrNTkNAyObJvO48hjRNFZKlsn7dsSZXHWlH094l3euxO22VbdghbL1b8780uOFQ9tfl0eVXTh3H
+ iPfUyZjjXoEh/PovGguSi+woXImAXfX5h8BAHML0ZJDk43K/XSNqPZyrpZ4mI75SaVSwjDlXe0K
+ YtJbi/7i90oLof7k81hlx6d3310cJif2JwN16tkcrux1siEvKEHjCRb8nhTpLwiLB8hGziLD96O
+ dEdqrWRqTqmvBpommOFqLH+XOBkx4okcF0zjOC+PImOjtEbeqZX2x1AqT80orVeQmx+5AN1FLO2
+ SEI8v3NUDxLAhzEigK87rU4oXdfFb3I9C73/Pcq3E9Qq3rRO10sn+QO+QRU6l521qbrURZvT9Ff
+ xzqMm4xEdDDXTGnyZLCCe4omDXNOR9/bO2xUE5WFXORgwMBALr9+MPLHxveonO1a64VUyVg7/96
+ mh51XPSQ90ICGsCXJGw==
+X-Proofpoint-ORIG-GUID: MzHP1Ptq558pkCzYEAl3yETwfJHcS1dY
+X-Authority-Analysis: v=2.4 cv=MpTHeGae c=1 sm=1 tr=0 ts=6acc9d29 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=rG2K5GnlOK9i5R8LVMAA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: MzHP1Ptq558pkCzYEAl3yETwfJHcS1dY
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzNCBTYWx0ZWRfX8dwCsL/RCxuz
+ NmtYRxhnfMIhkz0sZElOhm7IsxxTtlCTNZFrvQwm9MHSH+bdk/smCIIT0848BQqZ7TYVkB7LmZo
+ dZpdTl2FxAAqVDBDutscQaHj82YLXBM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 spamscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120034
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On 10/5/2026 9:02 AM, Dmitry Baryshkov wrote:
+> On Tue, Sep 15, 2026 at 05:27:48PM +0800, Yongxing Mou wrote:
+>> Kaanapali (SM8850) has an additional INT2 GDSC that powers a subset
+>> of the DPU source pipes (VIG2/VIG3/DMA5), on top of the CORE_GDSC
+>> that powers the rest of the MDSS hardware.
+>>
+>> Describe INT2 GDSC as an additional power domain of the DPU device
+>> rather than of the whole MDSS, since it only supplies DPU-local
+>> source pipes. Restrict the schema change to the Kaanapali DPU
+>> compatible via an if/then, so other platforms sharing
+>> qcom,sm8650-dpu.yaml (which don't have an INT2 GDSC) keep the
+>> existing single power-domain constraint.
+>>
+>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+>> ---
+>>   .../bindings/display/msm/dpu-common.yaml           | 19 ++++++++++++++++--
+>>   .../bindings/display/msm/qcom,sm8650-dpu.yaml      | 23 ++++++++++++++++++++++
+>>   2 files changed, 40 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-common.yaml b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
+>> index 3f953aa5e694..19b791a857b5 100644
+>> --- a/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
+>> +++ b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
+>> @@ -25,8 +25,7 @@ properties:
+>>     interrupts:
+>>       maxItems: 1
+>>   
+>> -  power-domains:
+>> -    maxItems: 1
+>> +  power-domains: true
+>>   
+>>     operating-points-v2: true
+>>     opp-table:
+>> @@ -53,4 +52,20 @@ required:
+>>     - operating-points-v2
+>>     - ports
+>>   
+>> +allOf:
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: qcom,kaanapali-dpu
+>> +    then:
+>> +      properties:
+>> +        power-domains:
+>> +          minItems: 2
+>> +          maxItems: 2
+>> +    else:
+>> +      properties:
+>> +        power-domains:
+>> +          maxItems: 1
+>> +
+>>   additionalProperties: true
+>> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
+>> index aa0cf0ec5b93..88aa71d2b912 100644
+>> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
+>> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
+>> @@ -61,6 +61,29 @@ required:
+>>     - clocks
+>>     - clock-names
+>>   
+>> +allOf:
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: qcom,kaanapali-dpu
+>> +    then:
+>> +      properties:
+>> +        power-domains:
+>> +          items:
+>> +            - description: MMCX power domain
+>> +            - description: INT2 GDSC power domain
+>> +
+>> +        power-domain-names:
+>> +          minItems: 2
+>> +          maxItems: 2
+>> +          items:
+>> +            - const: mmcx
+>> +            - const: int2
+> 
+> Nit: I'd suggest more generic names here. If the next platform switches
+> from "mmcx" to some other domain, while keeping the split architecture,
+> the name becomes unapplicable (in the past we have seen platforms using
+> CX instead of MMCX). What about using names like "core", "int2"?
+> 
+Agreed, using "mmcx" would be too provider-specific, as the DPU 
+performance domain can be CX on other platforms.
 
-- [Medium] Round-trip mismatch: the kernel now rejects an ETS config that
-  ice itself reports.
+However, "core" might be confusing here because DISP_CC_MDSS_CORE_GDSC 
+is already attached to the parent MDSS device. The first domain on the 
+DPU is used for OPP performance-state voting, so would "perf" and "int2" 
+be clearer generic names?
+>> +
+>> +      required:
+>> +        - power-domain-names
+>> +
+>>   unevaluatedProperties: false
+>>   
+>>   examples:
+>>
+>> -- 
+>> 2.43.0
+>>
+> 
 
-Pre-existing issues:
-- [Medium] This problem was not introduced by this patch, but NFP's ETS
-  path uses unchecked user-supplied prio_tc values as indexes into the…
-
---
-
-net/dcb: Validate bandwidth for non-ETS traffic classes
-
-This commit moves the check that rejects non-zero tc_tx_bw for non-ETS
-traffic classes from the NFP driver into dcbnl_ieee_set(). Every driver
-now gets this check. NFP's ETS bandwidth-sum check is left as it is.
-
-> diff --git a/drivers/net/ethernet/netronome/nfp/nic/dcb.c b/drivers/net/ethernet/netronome/nfp/nic/dcb.c
-> index bb498ac6bd7d6..91fbfa3708fc8 100644
-> --- a/drivers/net/ethernet/netronome/nfp/nic/dcb.c
-> +++ b/drivers/net/ethernet/netronome/nfp/nic/dcb.c
-> @@ -218,9 +218,6 @@ static int dcb_ets_check(struct net_device *dev, struct ieee_ets *ets)
->  		if (ets->tc_tsa[i] == IEEE_8021QAZ_TSA_ETS) {
->  			ets_exists = true;
->  			sum += ets->tc_tx_bw[i];
-> -		} else if (ets->tc_tx_bw[i]) {
-> -			nfp_warn(app->cpp, "ETS BW for strict/vendor TC must be 0.");
-> -			return -EINVAL;
->  		}
->  	}
-
-[Severity: Medium]
-This problem was not introduced by this patch, but NFP's ETS path still
-does not check the user-supplied prio_tc values. Can they index past the
-end of the 8-entry dcb->tc2idx[] array?
-
-Neither dcbnl_ieee_set() nor the DCB_ATTR_IEEE_ETS policy checks prio_tc.
-After this patch, dcb_ets_check() only checks the bandwidth sum. An
-all-strict config with all tc_tx_bw set to 0 and prio_tc[0] = 255 passes
-both checks. nfp_nic_dcbnl_ieee_setets() then stores the value as is:
-
-drivers/net/ethernet/netronome/nfp/nic/dcb.c:nfp_nic_dcbnl_ieee_setets() {
-    ...
-		dcb->prio2tc[i] = ets->prio_tc[i];
-    ...
-}
-
-nfp_nic_fill_ets() later uses it as an index:
-
-drivers/net/ethernet/netronome/nfp/nic/dcb.c:nfp_nic_fill_ets() {
-    ...
-		writeb(dcb->tc2idx[dcb->prio2tc[i]],
-		       dcb->dcbcfg_tbl + dcb->cfg_offset + NFP_DCB_DATA_OFF_PCP2IDX + i);
-    ...
-}
-
-This reads tc2idx[255], which is well past the end of the kzalloc'd
-nfp_app_nic_private. The byte read goes into the device's PCP2IDX table.
-update_dscp_maxrate() has the same index pattern:
-
-		writeb(dcb->tc2idx[dcb->prio2tc[dcb->dscp2prio[i]]],
-
-So does the setapp path, which looks up dcb->tc2idx[dcb->prio2tc[prio]].
-Should prio_tc[i] < IEEE_8021QAZ_MAX_TCS be enforced somewhere on this
-path?
-
-> diff --git a/net/dcb/dcbnl.c b/net/dcb/dcbnl.c
-> index 35164bfa563d1..ab71f53128760 100644
-> --- a/net/dcb/dcbnl.c
-> +++ b/net/dcb/dcbnl.c
-> @@ -1578,6 +1578,15 @@ static int dcbnl_ieee_set(struct net_device *netdev, struct nlmsghdr *nlh,
->  
->  	if (ieee[DCB_ATTR_IEEE_ETS] && ops->ieee_setets) {
->  		struct ieee_ets *ets = nla_data(ieee[DCB_ATTR_IEEE_ETS]);
-> +
-> +		/* IEEE 802.1Qaz: BW allocation applies only to ETS TCs */
-> +		for (int i = 0; i < IEEE_8021QAZ_MAX_TCS; i++) {
-> +			if (ets->tc_tsa[i] != IEEE_8021QAZ_TSA_ETS &&
-> +			    ets->tc_tx_bw[i]) {
-> +				err = -EINVAL;
-> +				goto err;
-> +			}
-> +		}
-
-[Severity: Medium]
-Can this reject an ETS object that a driver itself reported back to user
-space?
-
-On ice in host-managed IEEE mode, take an all-strict config with all
-tc_tx_bw set to 0, or one with every priority mapped to a strict TC0.
-That config passes this new check. ice_dcbnl_setets() then gives TC0 100%
-bandwidth without looking at tsatable[0]:
-
-drivers/net/ethernet/intel/ice/ice_dcb_nl.c:ice_dcbnl_setets() {
-    ...
-	if (!bwcfg)
-		new_cfg->etscfg.tcbwtable[0] = 100;
-    ...
-}
-
-ice_dcb_bwchk() does the same when num_tc == 1 or total_bw == 0:
-
-drivers/net/ethernet/intel/ice/ice_dcb_lib.c:ice_dcb_bwchk() {
-    ...
-	if (num_tc == 1) {
-		etscfg->tcbwtable[0] = ICE_TC_MAX_BW;
-		return 0;
-	}
-    ...
-	if (!total_bw) {
-		etscfg->tcbwtable[0] = ICE_TC_MAX_BW;
-    ...
-}
-
-ice_pf_dcb_cfg() copies new_cfg into local_dcbx_cfg. ice_dcbnl_getets()
-then copies tcbwtable and tsatable into struct ieee_ets as they are. So
-both GET replies and the RTM_SETDCB notification from dcbnl_ieee_notify()
-report tc_tsa[0] = STRICT and tc_tx_bw[0] = 100.
-
-If that object is sent back to DCB_CMD_IEEE_SET, it now fails here with
--EINVAL. Before this patch the same round trip worked on ice.
-
-Read-modify-write users such as iproute2's dcb ets set read the current
-ETS object before applying a change. Wouldn't a change to an unrelated
-field like prio-tc or willing now fail, unless the user also clears the
-strict TC's bandwidth each time? Save and restore of the reported object
-would fail the same way.
-
-Should drivers like ice be changed to stop reporting bandwidth for
-non-ETS TCs before the core enforces this rule?
-
->  		err = ops->ieee_setets(netdev, ets);
->  		if (err)
->  			goto err;
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261011083929.739261-1-tariqt%40nvidia.com
