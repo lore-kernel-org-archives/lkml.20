@@ -1,123 +1,124 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E247A3C0A0C
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:58:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791813538; cv=none; b=mmGaAZyVdk8HiqWMdjP02gwDl5KPOYiRsywg552EtkYwME12feHbD59p2ZYs/JSGq1yygsdsE+cI6M+n5yALEm8dNxNrqY13kW/d2Ie8Z/TXToAnRO10Vgd6aCzdStLucZ+LIWE6VV9iRswPOCDefOpJB9tx1DB1N71DFDi+8XY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791813538; c=relaxed/simple;
-	bh=B8fYPQsF3fjjjyxm4tLPdgSy0mdz8Y2/OEmL8RLtKQ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H13EEmWOtIiqLqgdNQ4+9Cy6NGpH+mp69tIL4rUF65cfBCbmPXfiATuEDxbzRdpYSvzkZ1xOSBJhHlhDNr9DJciXeiWUGMHAwUkiBR4zr4MSkI/n7OUv7rcSPSiavoD2KpEK3ilt5f0qyFGcwistHbmX3igU7yAv8cpzsBEcRD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oz0MUfSP; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9DA93BCD2B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:59:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791813562; cv=pass; b=D/cNCQBRZm9UolS72KwFbfW2O6uBZ3Yt377bfMk35OoodIbbt7SkalR+X2+CLi7GJ4JZr/8/S1DDUVxFHGdrCytGQBH96Sw8zk97q+xfDl+WxlP/y+fKxFpene7Hr8M7n6eECEvyUTcQUKYfE2jjcJxNrpYGwGacGR2IQ89H+GE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791813562; c=relaxed/simple;
+	bh=7+FqPZlbKzDBVAJi5KEqpaoN9YJA+O6TweFmTWZcY/g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RWUiFS/ElE11AVrjX0dQjwzo+v1epY2GkDXPz9BFSeaTsq3DJmdPxL7Y764HrE7FEEdXvaS91YjzpP9OyG+JfQ1aYP2ErS6R1kXIe4Mcjcda2wBsfrdTb/NlxJ5TKeOb7qStWh7Mql97Ushjq4e0OrMK5JPkDSwz5Y5MyYW5P5s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l59ictqP; arc=pass smtp.client-ip=74.125.224.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oz0MUfSP"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a01933b584so16836345e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:58:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l59ictqP"
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-6756a01fa01so1660045d50.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:59:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791813560; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Bz8/nJHTlt4Pydqn6E/UuLSH6De1voIXw2GoGZPOp+WvxK2CTwVB+1MmXBJl4+AZQ6
+         s9dwXT9K1QStBvHDmFfDWVJMmj/f/wPyPxRKOlhpEIZdO65hhrwlh4L9cUu595zuGGFU
+         mRdTtl+1MfjmJO6OMROdkt/qGIUlH6mBcWEFj8CCpob4KJFYAr8MVHl4BOqLC27sfdOJ
+         OnXiAYbzictN0u6gOAXIhxLoK0VXdx3TueFRoMdr8Tqt4Qem3hkt5AYXgv8H8WivjoBF
+         p6c+V0XAYyj42OLmnvFPPlhMTwadIcofMT3SsQt0MB8AuvuJ9mvl0H+9nrNv2isbJKy6
+         zxGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7+FqPZlbKzDBVAJi5KEqpaoN9YJA+O6TweFmTWZcY/g=;
+        fh=hN/HoIWbgSJqqy2f8jeihBDRdY8C4MXPlUN+y3qrdQ0=;
+        b=i46m+4b6921gzyKOW4tXqBvihJ8Gxo6bS22Jl4l7vSQIhncdmi6sodzQiLS3xAJSrN
+         Ct7soI0EK4Su5K6ZiPG6n2eVQI/inca1j9g0LxPuK5A9zMcHNEyZWXwH6q4XrGms/zO4
+         liT3b+pssTG0wfKzjHQI2GzuRseqNrqRLfpaAxjFVEddAyyFOuRIwfMaZT1CXmaGadKe
+         +483w84btrTF7VD6ts6q274X94GptmdGK9PohDCF01KJKePXUTZJOdosGcr5WxzlMYF7
+         OefwRrnguYHlwi1VGcxmjkH8J/C6JYfNRim/gKpJ6b7yM/2UrH1mvR5ENlm/Yf1wEUeQ
+         sLGQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791813535; x=1792418335; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fkfYRiKWPJSEEeybOhY/J1Dk0z/38ebHl0Wzyd5gW/I=;
-        b=oz0MUfSPP3M0yLey3mtfCp0OO8wwoujC1at5Y0AmOCkKRJnkYevY4mF3LYzULmOWMY
-         870gTf0GTs+8texXXFubibHcK76epk/GR5Y5mOrF0ubW0U0h4rZrcuifK56BTPfFcw6W
-         jpuhPgaFOEZmHgUL72XO09pBNp6RozZkCpNlfv+VWmlOk9RJODe4nG86n26mffpmF57O
-         mHDA2z4KE7eeyRN53QUeUXML2fCB2PsciFL6dK2PGvS4eF2t92DibcAXfqbLLHKJ2Lou
-         WxhHqzGbPw/o2ODQ/Gv3khmpdtnNGxqsWf2ntobbuPbeE08uHcVzAcrkl2K/02toixOa
-         Hw4g==
+        d=gmail.com; s=20251104; t=1791813560; x=1792418360; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7+FqPZlbKzDBVAJi5KEqpaoN9YJA+O6TweFmTWZcY/g=;
+        b=l59ictqPvgtSdXxtxQityvioB3NKtTTy1otYtzB3WjkLh3dOWALB1x5GdqX4it6MNl
+         4+Oi9gs7LgfRIBPGHP1kg/D2HSW1OfPsQ5jR8arpqYn2rpTptOPR4UuHhYycFFF8ICTX
+         opUk0g0/pCRuHzS3atuvN8UWp5X9/7VD9OtSUc9VtqdBlujlncAaY2SHRMkH3Q5LXpkZ
+         dpGrKeABWrefOeZs7Z16WBcfapLnlh4LTGAcAICSOjsMENWO5a+uFhJfsKnUGAse20D1
+         RGOx5qHzOH+fDHDquWyESnHWVy9R7s4BUm9iFhh7Hkm1ep1Mo4tQVldW3IC9W1FI3J/4
+         I1Pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791813535; x=1792418335;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fkfYRiKWPJSEEeybOhY/J1Dk0z/38ebHl0Wzyd5gW/I=;
-        b=ymDiNZnaVkHM23Wh499ZqJ0J36BoT/QIBKPwwz88Bt2q50KQxFf5yOaqFXTC3pzzjN
-         hEbJKV+eeoiMpUdEhQ1GiO7C41tt6yUBJ45w3k7UpUc+QC92bWS54eV+VSj/iVnL/EXF
-         klbKTqWkVyRc+yY6CXiiTeVWk8600ea65Z8822DhAWKuwCnDNK8u71SX8pZHdKQmlWuw
-         u9LJ6gkrzD0W3maLGsggOru58/Skwc62GbERxjrNvY8Zq5+K1PpnlanFmatVMUAItVhL
-         A/bUKP8hv6JpJlJy4cZVISuAhtKY2KG7tCly2hinvIBJcmcwuTCOJhnW9KPq/+3KbF2v
-         wCnA==
-X-Forwarded-Encrypted: i=1; AKwUvBwSC6vUX2X0Caf0iHaulzAEk5HU/42vqXYjQ0enys9LI1I8L5PO9eGSlP+Ik6kRMgmlUCAVGKkCNKG2hx8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWnv7zMNialIC8gNtgHr1f25ZxfD9nJ9DWWm5ykWMgpppKWd+V
-	XUu45QEMpNZwEJpul7upOXQ1Nkxgg2DUJeaATr2wEtEf4KJt0wqH5Fgz
-X-Gm-Gg: AYBFou2aoN8NWkQSGzwfHsAOoDOBGfD2Fjs5l5j0fsuxE5YOBiC8HshV7hVJC6+7M80
-	93bGZhxjjYn8/ul+wi9L0+xS89QIvyyXzHDpnG5bavIa/lZW2UAj2c4wBf1fPfq4zNEH2EG/L/R
-	qefv+p/EpcKlVJ9lsoRh9i5NuQ7luZ21CqNZWdm8KVufQKpxI1PdGE0cCEOMCVMug7MGJD+1HgK
-	gMeRHmSGgOO3WBVGwRCE0WNQDYzcd64nE73EotEppImARTz39QMM6HHEOM9pOmJyYdUkFmCJ9pc
-	L+X/ESCGbRqoLj/pegI0CDomTEhD3rijOlw6Pp9W1Iq0V16nuBcd1s8PrjKWUs+E8Q83nclwAs8
-	+MKM31qA8JWTflvsxsUmlB6NSH468yMz6RrmSboTZmmxp2+jNvkzEpxZPJq5kUf9kh2SmEMQc+t
-	DV4QzvuAqUCOrfvjXo0K1KncuQt39duNO20rjHVZQliFaAILgQH9D9rFHyTfMgqQbVV5xY8EyVe
-	LByOge6oUbrPs8IiJcdZDcC4qgracjVHecqUPbbn69I
-X-Received: by 2002:a05:600c:4e55:b0:49f:fe39:5bc8 with SMTP id 5b1f17b1804b1-4a18e49c008mr167950485e9.12.1791813534960;
-        Mon, 12 Oct 2026 06:58:54 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([151.76.59.204])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf3e044sm281072835e9.14.2026.10.12.06.58.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 06:58:54 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Yishai Hadas <yishaih@nvidia.com>,
-	Shameer Kolothum <skolothumtho@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Jiaqi Yan <jiaqiyan@google.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] vfio/nvgrace-gpu: Skip PFN registration for empty memory regions
-Date: Mon, 12 Oct 2026 15:58:41 +0200
-Message-ID: <20261012135842.152928-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261009135203.33f3806d@shazbot.org>
-References: <20260925161024.189771-1-parri.andrea@gmail.com> <20261009135203.33f3806d@shazbot.org>
+        d=1e100.net; s=20260707; t=1791813560; x=1792418360;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7+FqPZlbKzDBVAJi5KEqpaoN9YJA+O6TweFmTWZcY/g=;
+        b=d8i3VDYBUI8v+o9sJv8lrWqv2ucnmh8d+lrCYv99vMPZHA1sC2ijofyEh0d8KIrjV+
+         HBHU1mcQe0kcEFGNFjKA3WWzqFVn0gFw7ApBWmnM2wjj0g7ci6mqbcrfd8XuNEixazcx
+         tI2zUFbfQgI4+LwaEVLVD22gudcSgNzVyMVM6+WL099ypqqvdGjVOKspu7OHGVXeXMKO
+         a4UqjGyA7ejUHp0Ms6q/3C28kFNYWAd4QfhrThtiolMOuwHgAXn0ho/TpqPz452xD6Im
+         GjYo4KaRtk4J1yjyGAk+kidp9k/rI1Zrs9pkKF7MjLYBhzWSzztMH2ygtiiPMiJBUx0C
+         WaNA==
+X-Forwarded-Encrypted: i=1; AKwUvBztR7BATFcEjrmOfQeD9v+cuF8diapF10m1PpXhG6nQ7Yb0fEnzsOvT4cITONEBmraqKjiV8fLLxTbQqS8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhE/0wiFSdv1ky1CjGFUitJ/jsTXaRRVVV7o8oKyLiALS2sKke
+	a+j+2Uu+aGppa46dIYXy+E9EpUT68r+vMWVHdSVdaev/UBdrKifDfJc7xE8Q6iLcpm+vToEm3kw
+	bAZO4BfP4QFBxhRM4yoW/gtjeDPzJ2Nk=
+X-Gm-Gg: AYBFou1SkiE7lK5pMvGrhcEmHdFrp7Ns04LslRA92y5ZEuSsX4ZUJ2LylqdFRYYZ5Ua
+	fDF0aJRI5rDDbhpF9Pr725IyRZj0WmPQTz2CYhFpf3y3/5s5uqpLQXISk3E+LyB0l48KiS1mlY/
+	IBHTctP0a/o53vBFro8GgMRF+JOB/4d1iLk6DzsLMR+kF8o7BFmLCPV+hjgtRvzK4/5TRSsVzlT
+	DGOwQZZfMx5os83npMG2ttsITu4Taet5S/sJWLyZ4h4TtG5RZubIUyVhHynzlGW6b4O53xzk0Ro
+	wIgIbERIwbRe2dAy343BBI/Mux6XIOCmaXIdYpyvZkg8HwFEHrdIiiBL7w==
+X-Received: by 2002:a53:ac90:0:b0:675:3c10:28a7 with SMTP id
+ 956f58d0204a3-67936acfd88mr2947207d50.94.1791813559834; Mon, 12 Oct 2026
+ 06:59:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <pm-key-management-objects-candidate-0001-v6-9876bf3e2116d47c065e@gmail.com>
+ <aszZ3KPvMMHLEJ0s@kernel.org> <aszalro6U6BFO_D3@kernel.org>
+ <CAFRLqsUB0MQRoCHg8cXmyofWqbDGyvAr7vV07i0jUpMnSaksVQ@mail.gmail.com> <aszlg2R3E7zqR75r@kernel.org>
+In-Reply-To: <aszlg2R3E7zqR75r@kernel.org>
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Mon, 12 Oct 2026 21:59:09 +0800
+X-Gm-Features: AclHuK_Z8o-xqZg0jqZI76nVd64T9lr82nl3wJ3vcrRD5bolIQP_kt4ypa7iRSI
+Message-ID: <CAFRLqsW7HEn1=BjHsVNpvqT+Uf8hnxaY=ktsx+5S151KM7mKsw@mail.gmail.com>
+Subject: Re: [PATCH] KEYS: Protect user key quota access during instantiation
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org, 
+	serge@hallyn.com, akpm@osdl.org, keyrings@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 09, 2026 at 01:52:03PM -0600, Alex Williamson wrote:
-> It seems to me though that the reason this bug exists is because
-> nvgrace_gpu_pci_core_ops.open_device is trying to handle both real
-> nvgrace devices, where usemem.memlength cannot be zero, alongside
-> non-nvgrace devices where that can easily be forgotten.
+Jarkko Sakkinen <jarkko@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8812=E6=
+=97=A5=E5=91=A8=E4=B8=80 21:49=E5=86=99=E9=81=93=EF=BC=9A
 >
-> The above patches the failure of that model, but maybe the better
-> approach is to split them such that the failures like this cannot
-> occur, ie. a core-only wrapper that just calls vfio_pci_core_enable()
-> and vfio_pci_core_finish_enable(), or some other refactor such that the
-> core-only path never handles the nvdev.  Thanks,
+> While AI assistance is allowed, if this happens as a pattern, it is
+> misuse and eager way to credit without due. I.e., you've done 50%
+> of the work but ignored the human part.
+>
+> I.e., you also must understand without AI assistance what
+> the patch does. If you do, it should not a problem to write
+> a commit message tht simply describes what it does.
+>
+> To summarize:
+>
+> 1. Actual mistakes are fine and then patch just needs to be iterated.
+> 2. Skipping work is not mistake and it is not cool.
+>
+> Hope this clears things up.
+>
 
-Agreed, that's a better fix.  For v2 I have:
+Thanks for the guidance. I=E2=80=99ll keep it in mind.
 
-  1/2 gives nvgrace_gpu_pci_core_ops its own open_device, which only
-      calls vfio_pci_core_enable() and vfio_pci_core_finish_enable(),
-      to pair with vfio_pci_core_close_device().  The usemem.memlength
-      guards from v1 are gone.
-
-  2/2 drops the remaining usemem.memlength check in
-      nvgrace_gpu_open_device(), since only devices with the ACPI
-      memory properties reach it now.  Not for stable.
-
-One visible change in fallback mode: open no longer fails when BAR0
-cannot be mapped, the same as vfio-pci.  BAR0 was only mapped there for
-the readiness check, which fallback mode never runs.  Ankit, please
-shout if the fallback path relies on anything else from
-nvgrace_gpu_open_device().
-
-With 1/2 the reproducer from v1 (QEMU cxl-type3, fallback mode) no
-longer hits the -EBUSY on reopen or the KASAN use-after-free after
-unbind.
-
-I'll wait a few days for Ankit's comments before posting v2.
-
-Thanks,
-  Andrea
+Best regards,
+Cen
