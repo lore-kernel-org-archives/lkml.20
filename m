@@ -1,241 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA461FF7C8;
-	Mon, 12 Oct 2026 02:36:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31CF1C69D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:40:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791772565; cv=none; b=E5EIkjvN7kiigwVfPprId+Rpzz3x6JZoI12klapCBbHRxPKBiIxdu7PY4m5CrrEcfX0KSxxXoGrTVck5f/be/wKrzdQS+kq9fg4J/W6uZVDXrvag3GXxW3uh3wmIHkYrsJf8h9ixNbH09Tn/W+0wX/YC5BYyEL4KP1+iZ686q7M=
+	t=1791772832; cv=none; b=rXFZShVutNpRTe1min0nqYCn+pbvUBJG167akeLVe+AcWALyPwmP7VO0YbfGSoynO5gph2ZMpcOJ1Dx3VEEV/yt2a3mov17O7EnwlURV7/brvtrQ0Auc7gKT0do4SEJwwTtiu6ga3S0HFevM6iTPUM9HE+BDrEVFi+Mms+Ku0gs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791772565; c=relaxed/simple;
-	bh=T4ruSoRClhQbEaHdxHWGbRjJy+TGfpyOvkHNaCtrSxM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=CkpFOtlZqVBBX7g3dG9wQ6OQqbGUfQxKDkU1MXH/EyHFt9cBS7krcZMQ+ynH28SqtbFQt7N/hn4jj/F6oXJ1jTU1YEk1ofbgbARPIAsuiSU92t16OurrkpnYbp197EPnMmqazpMhNCPKxjURq6voN7Ez4Af04MHOuUgZT2Kg2zU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K99o9M6q; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791772832; c=relaxed/simple;
+	bh=Rg7Ti2nrCcjndaSwC/tc8Lpj9MG69++gVxXMtW61Alc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=huLH9TEr47a7Qwj5KZWUi3HnBZ07slkzSk91GnMd7/oab+iQwxWRNae7RNCn6KwF3/7Y4SMGJxd1KQYsnDGMQxWzPsLzwdl5zTVUdJR4e/3H/ACsLYyk5gyyOOCdTlkdnxWy/Apc3C5YIW84+mA0vDaNkjvrjIOw6qa49bv2B/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ESP+wt37; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K99o9M6q"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C47A8C2BCF5;
-	Mon, 12 Oct 2026 02:36:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791772564;
-	bh=T4ruSoRClhQbEaHdxHWGbRjJy+TGfpyOvkHNaCtrSxM=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=K99o9M6q0OXNM58Kz2sm8ZfSBgm2mq5IzDDTtudVTqC7N2npm9+VKXTDUrQLoJliY
-	 Hcig2AngyzsOEBmXbsQkyZL/Fzy5cu3CtyfzjlWmZtkT64ZtNLrDWm376q0FZfx48x
-	 APJShlpSU1YiJzJA4KSvJ0QxlCqECKgyZUgpYMTZdPtaqhei9iz4JkLcA9Y/vutrGm
-	 rhUEu1mkY4jMKug/FUYcd4N00s9gaPAXsrShbzhaqVET4DaJtZ9722xS/xfRyztavk
-	 q1PlR6DeUbFnGPQPm2IaKCJ2hxHzv6UBkLlFcF3JDfXmwMskz4qsmv7qyoQhd3IwjS
-	 f8somJyr4js0Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C192CA9ED1;
-	Mon, 12 Oct 2026 02:36:04 +0000 (UTC)
-From: Haipeng Lin via B4 Relay <devnull+jimmie.lin.gmail.com@kernel.org>
-Date: Sun, 11 Oct 2026 22:35:56 -0400
-Subject: [PATCH RFC] bus: mhi: host: pci_generic: Add MBIM-mode config for
- generic SDX65
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ESP+wt37"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791772829;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mptis6qqMpkv7ium90UiEIS1Bva/bRNNiMhKtY2RI7I=;
+	b=ESP+wt378y2jySy+w+ZOWz/6ffx3Bmeapmfd6Gtn/pKnkfIwxmCESiTSetewPBPLs1EsPj
+	VAZq9hUHd1eZjMCk43/rrXyhccXQo+57UedmpQkqS2lllCLSvZA74jq25RtHPipoMJnns3
+	aKYX5FeMAIq8l9sXMyfeGOtza3/4jq4=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-278-8R_MMj77OJmOTMcV1s8jmA-1; Mon, 12 Oct 2026 02:40:28 +0000
+X-MC-Unique: 8R_MMj77OJmOTMcV1s8jmA-1
+X-Mimecast-MFC-AGG-ID: 8R_MMj77OJmOTMcV1s8jmA_1791772828
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-53514fbd4a3so34656091cf.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:40:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791772828; x=1792377628;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mptis6qqMpkv7ium90UiEIS1Bva/bRNNiMhKtY2RI7I=;
+        b=Kwg4lREAUsZ+Hf9VFuEdw3G/fz9Nq5uxrebzA1eoYWKlrXpk2Gwv9CtannyyE6jkLa
+         f5v7sHioGewMHkk9NhZLdouBPp55pt3IRa4UIC1II/OP6RMOytm0lEpzL9NsYK3OiIvg
+         eCyWSYnO1321BY49nnXSg450C2eUfoZQZUzkt4wIDdcAYGRNHMtsQrZF6wlMZfRJ/3kR
+         iQjS+POThyvfcj1jFNxZjWwboIPslOK3cpICbIkxWr+hq4IjVLiHUaSaHJlCIHetETzv
+         NwYzr4vX33A0XyvVHieoBTqasVJqhjDj66DgU7iTBvOuiJLrXOXxfy+p5GEjCpXN2Ot1
+         OnkQ==
+X-Forwarded-Encrypted: i=1; AKwUvByI5Dxm8UYM1CrW8GTpHX42MunWd7aJkbghikQgyKfvQH8GygDkOJED3N6Ajnby7QP+ky+BG6HU7SPXFIU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+r9TLRPjVfq36RvMw+mOmFPMU8SslMhRMwUi4iPTVhDLlxiRM
+	FafjLYAKokCm8jP7m2Ch52TAbRTk/BWqRtM1C3Y26tnvGg00G8GI+sTa6XlJuveOKjXjhJSNWMT
+	RHGquTMcmTK35iyB4ScYc+AzpyHLcAuSoHHS9mTJCRlJLoMdKbyMfXJA6/iJswph/XQ==
+X-Gm-Gg: AYBFou3RgSThb6mKfS+/y24ytxHa7bOLuzs9tEA9mclWeTKlNGvcXqGj1rBrwX396FN
+	ztcgCnZIaBm03gKQHDd5SoVZX+YysjQd68dU3kR1nBmVpFVwfJg+lrJPBj6iVX5Dwup/ybtTY3r
+	DnOilpGELigoN9NLCgJRznm+25bMmeMXh595ZhvRPYMSwoVQiX06JLWWkhmYtNBSnYcRV61xntV
+	0F4sZi+bqX7gjP9+TSvRkfc7rDY0MZ8hXxDq4AECBbXZ1+btZNBJ0FOYM+1xbSjHcMR65ZCPOs/
+	QwflFqVo4hD4uAnxl6yjl/k8Xp9k1qtva8ulu1S0cUI5bCeaf49azhhxLufoqykSj+p9wD9IzeQ
+	NjqA=
+X-Received: by 2002:ac8:5f4e:0:b0:533:97ab:dd45 with SMTP id d75a77b69052e-5359fb3dceemr148577501cf.36.1791772827793;
+        Sun, 11 Oct 2026 19:40:27 -0700 (PDT)
+X-Received: by 2002:ac8:5f4e:0:b0:533:97ab:dd45 with SMTP id d75a77b69052e-5359fb3dceemr148577221cf.36.1791772827331;
+        Sun, 11 Oct 2026 19:40:27 -0700 (PDT)
+Received: from [192.168.2.110] ([142.172.30.162])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b812ba8c7sm15440366d6.38.2026.10.11.19.40.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 11 Oct 2026 19:40:27 -0700 (PDT)
+Message-ID: <aae9d468-2dd4-48fb-8e2d-d6997ac8e723@redhat.com>
+Date: Sun, 11 Oct 2026 22:40:26 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] x86/corruption-check: Remove the BIOS memory
+ corruption check feature
+To: Borislav Petkov <bp@alien8.de>
+Cc: x86@kernel.org, tglx@kernel.org, mingo@redhat.com,
+ dave.hansen@linux.intel.com, hpa@zytor.com, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, corbet@lwn.net, rppt@kernel.org, blum@kernel.org,
+ david@kernel.org, linux-mm@kvack.org
+References: <20261010153604.1885381-1-luizcap@redhat.com>
+ <20261010194519.GAasqVz2brXiOLegQi@fat_crate.local>
+Content-Language: en-US
+From: Luiz Capitulino <luizcap@redhat.com>
+In-Reply-To: <20261010194519.GAasqVz2brXiOLegQi@fat_crate.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-mhi-sdx65-mbim-rfc-v1-1-8089b4d33d5b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDA0ND3dyMTN3ilAozU93cpMxc3aK0ZF2LxGSLpESDFHNzi0QloMaCotS
- 0zAqwodFKQW7OSrG1tQCP/ef0aQAAAA==
-X-Change-ID: 20261011-mhi-sdx65-mbim-rfc-8ac8ba0d778a
-To: Manivannan Sadhasivam <mani@kernel.org>, 
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-Cc: mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, daleyo@gmail.com, 
- Haipeng Lin <jimmie.lin@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791772564; l=6715;
- i=jimmie.lin@gmail.com; s=20261011; h=from:subject:message-id;
- bh=12BqEQFC2zNFvRylvqVSEtj1UlA8nqo2lwDSkjHX2y0=;
- b=vP1kMRlhSbHPkFTrpYPTwc0Cuzavc6czw63h1+bxHRXfGcF9RgE3cHoZSsvOGG/JtUQP+lUKm
- co1PEGEMi6wAqB9R5UZC/bmtDxuRKJpQxpVqWFWqinFCrFRCciL9bPX
-X-Developer-Key: i=jimmie.lin@gmail.com; a=ed25519;
- pk=3KDRF1RQ/9A7ZUVTdRVEZnVrGltdmq1bRocsOYeXezI=
-X-Endpoint-Received: by B4 Relay for jimmie.lin@gmail.com/20261011 with
- auth_id=1164
-X-Original-From: Haipeng Lin <jimmie.lin@gmail.com>
-Reply-To: jimmie.lin@gmail.com
 
-From: Haipeng Lin <jimmie.lin@gmail.com>
 
-The Surface Pro 11 5G carries an SDX65 that enumerates with Qualcomm's
-generic IDs (17cb:0308, subsystem 17cb:0308) but runs the MBIM-mode
-firmware it ships with for Windows.
 
-Control is MBIM only (the QMI channel never answers), and data on
-channels 100/101 is framed as MBIM NTBs: the modem reports a WDA data
-format of raw IP with MBIM aggregation, up to 32 KiB downlink.
+On 10/10/26 3:45 PM, Borislav Petkov wrote:
+> On Sat, Oct 10, 2026 at 11:36:04AM -0400, Luiz Capitulino wrote:
+>> By default, the BIOS memory corruption check works by reserving the
+>> first 64 KiB physical area from memblock, zeroing it and then scanning it
+>> periodically.
+>>
+>> However, this functionality has been broken in its default configuration
+>> since v5.13 by two commits:
+>>
+>> - Commit a799c2bd29d1 ("x86/setup: Consolidate early memory reservations").
+>>    Moved trim_low_memory_range() into early_reserve_memory(), which runs
+>>    earlier in setup_arch(), causing the first 64 KiB to be reserved (when
+>>    CONFIG_X86_RESERVE_LOW=64) before setup_bios_corruption_check() runs
+>>
+>> - Commit f1d4d47c5851 ("x86/setup: Always reserve the first 1M of RAM").
+>>    Hardcodes the reservation of the first 64 KiB early in
+>>    early_reserve_memory()
+>>
+>> It might be possible to get the default case to work by allowing
+>> setup_bios_corruption_check() to run first, but it's just not worth it
+>> given that the kernel will never access the first 64 KiB area anyway.
+>>
+>> Lastly, note that it's possible to get the corruption check to work with
+>> a different region by passing memory_corruption_check_size=. However,
+>> the main goal of the feature was to check the first 64 KiB. Besides,
+>> the region picked will be almost random as setup_bios_corruption_check()
+>> will pick a region by size.
+> 
+> And?
+> 
+> Do I want this or should it be fixed or the first 64K are not worth it to
+> check or...?
+> 
+> That whole "rationale" is not really clear to me. Yes, it is broken,
+> apparently. So let's remove it but we might get it work still... So which is
+> it and why?
 
-The generic qcom-sdx65m entry names channels 100/101 "IP_HW0", which
-binds mhi_net. mhi_net expects raw IP, so no data session can work.
-The MBIM-mode modules in this driver name them "IP_HW0_MBIM" instead
-which binds mhi_wwan_mbim.
+Right, the changelog got convoluted because I tried to document all the
+options. Just to make it clear: I don't think it's worth fixing this, so
+I'm proposing to remove it.
 
-Boards with a Qualcomm-ID modem in MBIM mode have so far been told
-apart by subsystem ID, like the SC8280XP CRD's SDX55 (17cb:010c).
-This modem carries the generic subsystem ID, so we select an MBIM
-configuration by machine compatible instead. The channel layout is
-modem_qcom_v1 with data on IP_HW0_MBIM and without the QMI and IP_SW0
-channels. With the stock layout ModemManager spent about 45 s probing
-the silent QMI port and put the bearer on mhi_swip0 (IP_SW0);
-with this layout it does neither.
-The MRU is 32 KiB to match the modem's downlink aggregation size.
+Here's a rewritten changelog, if you think this is good I'll send v4.
 
-Tested on a Surface Pro 11 5G (Surface_Pro_with_5G_11th_Edition_2077,
-modem firmware 251216-DE-dc49bb9-00197) on a v7.2.8-based kernel:
-ModemManager registers the modem on wwan0mbim0, uses wwan0 for data and
-connects over 5G NR.
+"""
+x86/corruption-check: Remove the BIOS memory corruption check feature
 
-Assisted-by: claude-opus:5.5
-Signed-off-by: Haipeng Lin <jimmie.lin@gmail.com>
----
-Hi Mani, maintainers,
+By default, the BIOS memory corruption check works by reserving the
+first 64 KiB physical area from memblock, zeroing it and then scanning it
+periodically.
 
-I am sending this patch developed to support the Qualcomm SDX65 modem
-in the Surface Pro 5G (LCD, X1P-64-100 variant) for your consideration
-and comments.
+However, in its default configuration it has been broken since v5.13 by
+two commits:
 
-I am sending this as an RFC because I am not sure how you would like
-the MBIM-mode configuration to be selected. The device exposes the
-modem with fully generic PCI IDs (17cb:0308, subsystem 17cb:0308) so
-we cannot tell it apart from QMI-mode SDX65 modules using
-PCI_DEVICE_SUB() entries.
+- Commit a799c2bd29d1 ("x86/setup: Consolidate early memory reservations").
+   Moved trim_low_memory_range() into early_reserve_memory(), which runs
+   earlier in setup_arch(), causing the first 64 KiB to be reserved
+   before setup_bios_corruption_check() runs
 
-This patch proposes to match the machine compatible. This is a smaller
-change without a new DT ABI but the PCI driver looking at the root
-compatible may be unusual, hence the RFC.
+- Commit f1d4d47c5851 ("x86/setup: Always reserve the first 1M of RAM").
+   Hardcodes the reservation of the first 64 KiB early in
+   early_reserve_memory()
 
-An alternative would be to describe the endpoint in DT (a pci17cb,308
-node under the root port) with a property naming the firmware mode or
-channel layout, similar to ath11k's qcom,calibration-variant, then read
-it from pdev->dev.of_node; this would describe the board instead of the
-machine but needs a new binding.
+This has been broken for years and nobody reported it, which suggests the
+feature might have no users.
 
-Additionally we could potentially reuse modem_foxconn_sdx55_config
-instead of adding a channel table, as the SC8280XP CRD entry does but I
-haven't tested that layout on this modem yet.
+It may be possible to fix this by running setup_bios_corruption_check()
+earlier, but that's not worth doing: the feature was intended to detect
+corruption in the first 64 KiB but the kernel will never access that
+range anyway.
 
-I would be happy to rework the patch based on your comments.
+Note that one case still "works", which is passing
+memory_corruption_check_size= to scan a larger region. But this is not
+useful either: the parameter takes a size, not an address range, so what
+gets scanned is whatever memblock happens to have free below that size.
 
-DTs for Surface Pro 11 LCD are in the process of being upstreamed
-separately and I've submitted patches to Dale Whinham's Surface Pro 11
-tree to enable pcie5 to enumerate the modem. This patch was
-functionally tested on top of that tree based on v7.2.8.
-
-This patch is based on mhi-next and build-tested in arm64 and x86_64
-without CONFIG_OF. mhi-next adds DUN (32/33) to
-modem_qcom_v1_mhi_channels. I left DUN out of the MBIM table because
-I haven't tested it on this modem.
-
-Thank you for your consideration.
-
-Best,
-Haipeng
----
- drivers/bus/mhi/host/pci_generic.c | 55 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 55 insertions(+)
-
-diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
-index 7193a384cca4..4df5f9962ee7 100644
---- a/drivers/bus/mhi/host/pci_generic.c
-+++ b/drivers/bus/mhi/host/pci_generic.c
-@@ -12,6 +12,7 @@
- #include <linux/device.h>
- #include <linux/mhi.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/pci.h>
- #include <linux/pm_runtime.h>
- #include <linux/timer.h>
-@@ -373,6 +374,33 @@ static const struct mhi_controller_config modem_qcom_v1_mhiv_config = {
- 	.event_cfg = modem_qcom_v1_mhi_events,
- };
- 
-+/*
-+ * Channel layout of the same modems running MBIM-mode firmware:
-+ * data travels on IP_HW0 as MBIM NTBs,
-+ * and the QMI and IP_SW0 channels go unused.
-+ */
-+static const struct mhi_channel_config modem_qcom_v1_mbim_channels[] = {
-+	MHI_CHANNEL_CONFIG_UL(4, "DIAG", 16, 1),
-+	MHI_CHANNEL_CONFIG_DL(5, "DIAG", 16, 1),
-+	MHI_CHANNEL_CONFIG_UL(12, "MBIM", 4, 0),
-+	MHI_CHANNEL_CONFIG_DL(13, "MBIM", 4, 0),
-+	MHI_CHANNEL_CONFIG_UL(20, "IPCR", 8, 0),
-+	MHI_CHANNEL_CONFIG_DL(21, "IPCR", 8, 0),
-+	MHI_CHANNEL_CONFIG_UL_FP(34, "FIREHOSE", 32, 0),
-+	MHI_CHANNEL_CONFIG_DL_FP(35, "FIREHOSE", 32, 0),
-+	MHI_CHANNEL_CONFIG_HW_UL(100, "IP_HW0_MBIM", 128, 4),
-+	MHI_CHANNEL_CONFIG_HW_DL(101, "IP_HW0_MBIM", 128, 5),
-+};
-+
-+static const struct mhi_controller_config modem_qcom_v1_mbim_config = {
-+	.max_channels = 128,
-+	.timeout_ms = 8000,
-+	.num_channels = ARRAY_SIZE(modem_qcom_v1_mbim_channels),
-+	.ch_cfg = modem_qcom_v1_mbim_channels,
-+	.num_events = ARRAY_SIZE(modem_qcom_v1_mhi_events),
-+	.event_cfg = modem_qcom_v1_mhi_events,
-+};
-+
- static const struct mhi_pci_dev_info mhi_qcom_sa8775p_info = {
- 	.name = "qcom-sa8775p",
- 	.edl_trigger = false,
-@@ -405,6 +433,29 @@ static const struct mhi_pci_dev_info mhi_qcom_sdx65_info = {
- 	.sideband_wake = false,
- };
- 
-+static const struct mhi_pci_dev_info mhi_qcom_sdx65_mbim_info = {
-+	.name = "qcom-sdx65m-mbim",
-+	.fw = "qcom/sdx65m/xbl.elf",
-+	.edl = "qcom/sdx65m/edl.mbn",
-+	.edl_trigger = true,
-+	.config = &modem_qcom_v1_mbim_config,
-+	.bar_num = MHI_PCI_DEFAULT_BAR_NUM,
-+	.dma_data_width = 32,
-+	.mru_default = 32768,
-+	.sideband_wake = false,
-+};
-+
-+/*
-+ * Machines whose SDX65 carries the generic Qualcomm IDs
-+ * (17cb:0308, subsystem 17cb:0308) but runs the MBIM-mode firmware
-+ * it ships with for Windows.
-+ * The PCI IDs cannot tell these apart from QMI-mode modules, so match the machine.
-+ */
-+static const char *const mhi_qcom_sdx65_mbim_machines[] = {
-+	"microsoft,denali",
-+	NULL
-+};
-+
- static const struct mhi_pci_dev_info mhi_qcom_sdx55_info = {
- 	.name = "qcom-sdx55m",
- 	.fw = "qcom/sdx55m/sbl1.mbn",
-@@ -1389,6 +1440,10 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	unsigned int dma_data_width;
- 	int err;
- 
-+	if (info == &mhi_qcom_sdx65_info &&
-+	    of_machine_compatible_match(mhi_qcom_sdx65_mbim_machines))
-+		info = &mhi_qcom_sdx65_mbim_info;
-+
- 	dev_info(&pdev->dev, "MHI PCI device found: %s\n", info->name);
- 
- 	/* mhi_pdev.mhi_cntrl must be zero-initialized */
-
----
-base-commit: 0b1883ca75c0005ab5ca52c7bc1a26329bc39746
-change-id: 20261011-mhi-sdx65-mbim-rfc-8ac8ba0d778a
-
-Best regards,
--- 
-Haipeng Lin <jimmie.lin@gmail.com>
-
+Remove the feature.
+"""
 
