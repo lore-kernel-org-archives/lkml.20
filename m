@@ -1,64 +1,64 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8229E386552
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:16:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551513750BE
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:16:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791778599; cv=none; b=IKjqgjk3gfnF25GmGv5lk7L83BcNsN2990pMd4n9tlIv9MbYkAetHexGyUoEp7YY6axR8+czdSHnSRvVTkC1d6ILNO1B7vr7latatKZ2Ju61+iZQG7VT0zawkm/PVv+sjD6b2WQL8oxNcjItKJ9jTt+0yETCVLve8KOgaZ59BGo=
+	t=1791778604; cv=none; b=RQPF1OYuQ8fPA8QR0iyHf9aQbyR6jDYERpMh3zCa3GlpksniL59XBUAnU71fHMJT0OXdb1vmreLNOkSGVlr3XFl4nh/DhQGgqWM835o5/xnOm4Sv7L1HKXTJrMXhtCpC8nLO51nETF2FLp89zOe6IWlHQ98Fq+8bmHTTG885P2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791778599; c=relaxed/simple;
-	bh=YQaGRylIUdDFcPUitGbK2CzCGwIGvThJblHLN5RMhBs=;
+	s=arc-20240116; t=1791778604; c=relaxed/simple;
+	bh=sQrj9NtsIHkxF9w49pSeMNv9N9eQxQbKMSBF5j2fiVE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lFYWUQH3eM15Snf/ZAMxzpOCrY+cM38ZyQ4LShS6yfgkZjQPS9b4vCBCqbtC08FiOJfjyZY7rHFxC52CgymwWCVbmysuqLuuXn+iX4kjtb7nssCYJvZhyYWZQhN7bhSI26b+FIIsxXDbSyevcRSwP9sjpziUcWcgbdJVIiMubpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=H8SmtG0U; arc=none smtp.client-ip=209.85.214.176
+	 MIME-Version; b=BQSb5tlS3ag8fTQjSVCya89oiC0O/wqvr3uYPBeMyS+DFxOCBN8wp72aVYuzlvwDvMap08nKusysSSX2AF54SW99hldKRH0Bd9ngF+fbE4EacnIvbL9KHll7TOMRsGmj8p7KXgLF284TDofavPNTRrf1EYQXaV2++yCue3H5kuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=nL8QH8Bg; arc=none smtp.client-ip=209.85.214.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="H8SmtG0U"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d71d1cc8b2so7660515ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:16:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="nL8QH8Bg"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e81738d24eso13326255ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:16:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791778596; x=1792383396; darn=vger.kernel.org;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791778603; x=1792383403; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=92mwmyUTtXBrrkUU1Kt+mlj6dDxLQ8K0k1LROD62i4E=;
-        b=H8SmtG0UiKktKj4B45uJukiKVqdRyUgwcAHQEy8ZP4uhwBa3ymS2RAilbXfriPHtlI
-         imAMPcsCszH+NnuP5GYQB52Q0j3tzQAKHsHbl0GUjOWcuzOggQaRSmoecD3eVuVIk+2P
-         A6VjSA7QdmU9az5nbBKzrGtX70VHH9YF4I+0vR8FJCA4pt34MnWQJ4mAbis0X1FMy+y/
-         orLQMUFx6AhZeIM1+lPqnZt3a/EFdW1W47Xe6mP75+LZo0hn2TZ5nribE8SJSSIbFYrP
-         QzP753PZoBwm32fQrbqh3gK41oaEWxK7L6N3lkbRACK3RaYGfh2dVVPKklyJR3O/JOZK
-         7bYw==
+        bh=EMjXa7fPM07GEuEQK3ZTCMVcOkPQnQoQnjCjmIDRcqQ=;
+        b=nL8QH8BgwQL/76yuOYzpSl5ZCyfLH04d7kgForWpm7AmqO5iqLmxLbHU7ORHKcfzUP
+         SH/0+vXBqJUsiFFTJfgtlhGJpxYjJFuzi4BK6RKdHPM+Y79sUqkjnsiCdvMykoH1qtKv
+         agIjEli85YjfIAvBxlJmXGa7gpcaBYFUOlDFzXC6UUmxAY5e8wgYjP1ZaawjMgjlx7e4
+         JPnx9O3FFAysIFoJQ/Pm2PSnZI3ZjxPE2fEgnDRFSntdAF0n/dB7WKoZYTN0QH10fgLF
+         1frGb8XlnJ2Z4PO3gvz1NryFY1tYucrN0lkUQXrI/Ly8v1DXrKKogwDwdaxHpq7W9Y0o
+         rWuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791778596; x=1792383396;
+        d=1e100.net; s=20260707; t=1791778603; x=1792383403;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=92mwmyUTtXBrrkUU1Kt+mlj6dDxLQ8K0k1LROD62i4E=;
-        b=Rrnd3ZvhjGrG7Lk702O9U8gmYC0wuMQwdXqKl71Wp3yGFtSug7ANrXpJiE49XO2PzZ
-         q/pOqzfAClwEq1p59vfslbcpHF64crLmlN8k6eddvu0E1gjVoDw+Kq/xhr/+uL7Ty10C
-         57KyDtbYrnJKz7s9Pr2ME48XoI6RoSwXf78oauWP05UT/IzpBdZipOHSrnDEW5HI2zNa
-         iAEIY0YqUBTSmE64Drz1aFSVyou4An4QpFLqVhceuvXqcr96R6nBtrLfqa0TO078ojPu
-         daf5RRmaA5mXRS/QKnZjoijg3ahcie7uJxiuDUnxw+hsB4AFNeSlrm4ZrvwpCHkFm4xF
-         RH8A==
-X-Forwarded-Encrypted: i=1; AKwUvBziGRY8B8eLoi4yB/Ihql48CnNL2ewG2K3P3tm+e+eQreuBKLel7Dbsy8938bzug9Iz25Fsqh7uoh46JDQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK4mXUu6E5stC7KdybDeefjT1nuPAyIOXKYlkzXPIgqGt3AieVA
-	/Nru4w8EgxkeXsoSs6gST4KLHBOxWin8uYkXdlCuQrHoe4fksXJ0DFFLT39YTPYlJmo=
-X-Gm-Gg: AYBFou2QyopVTz9FCBc1VxLrR5QJ0CkLqdHFDXnLDgACqK6OcC7KIZ3jjNVfgU4KYYj
-	NIKXkEvmAXARGwB3mOrcQLQtqvbq4BeBBfkFrmefg+80SBTJySAr61kwX4a4vmtWNn8ei8tbq/G
-	jhmpFDAmo8knYS/HpplgtTuHad44mmKUNhF+jz/egL5+3C0NtJ2tGL0c40kP6jgtf13m5p0N6l2
-	lvziQe6C2UgCOTaUaR2MA+5UfkRntob36TS4ouZallmJCEGquCqIgXcSLE8tF+pMMamrVLhC7mt
-	ke6b8TUTbCKk6VHz5A58tZNzYJuW3rfgFs/3QC959F/C3KqC1xa8XBU8FGn713Zepz3nE9iH+X/
-	5z2qskQ99hONqX0/2RfHLVIQrM0k00eCjHZz1Rm5UsTjFPkbeOJAivdf9/O+Wdsy3bOOXmbyFPS
-	O5TCjlfC6KypNLNcYIjr3o3upfwTKj3T+DN5tAvZ8KwQA/K6o0rgRYXlQ0bFQCFyowkxDwa33nX
-	m7LTSkG7zg1Bcf5
-X-Received: by 2002:a17:903:8c3:b0:2e4:a338:3658 with SMTP id d9443c01a7336-2e842bbf5bamr75162065ad.42.1791778595822;
-        Sun, 11 Oct 2026 21:16:35 -0700 (PDT)
+        bh=EMjXa7fPM07GEuEQK3ZTCMVcOkPQnQoQnjCjmIDRcqQ=;
+        b=ffKSWefbgzDSkcafIArJDrfE38jHWdgA0+CCo5o20ZdRTpiUX7i8uxrWKLvqxx0PaP
+         XygkInrqjHKtlDxLsoGyn7XKOWdQrgN3VPKscA86azDVEfOKMxgFCKu09/m269/L4riP
+         rPTsETC9/6qaNp4iJmR2eqF6vF+TF5sA4ZZcM2Fj4OR/QqQXIdo3lu9XxmIC824CWua0
+         1G9tJBCMR3PTLg0dcWybao1MV1p7PZRi1NvD5iP7iOs71hleSAD/49nHG3GT0VbIA1tS
+         MPMe+/BPqDuim6VF4EGvnPlZ2ZtveUXJpViFM9xa11TaRCvPejoT9C9rWoIsvEEcltAd
+         OGrg==
+X-Forwarded-Encrypted: i=1; AKwUvBzUIiu89SV02P0F7QpdKd4b1gyq1B+++wXsvCK0SSme8NAh0h58hOQar+VZn7G94hgiOYGV2azU/owlpHI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwV9F16eJJqC9zVcROuRHycMBBokggE5KmUsEsvggAQ2xAPcWc
+	Hko1IVNiskjlLPV4wNkEBR6Od9rkEDv7/XzGki0Y1rQKG1v6UbX7sxolWHnjTby+QXg=
+X-Gm-Gg: AYBFou1ak+j0xe7opdtsIuwtNJKX0Tu2zbWE9BiSDbjAXSrJIMImoQyXXqkwZM9m1Cn
+	Zcc9+LIExvKpzy9vCxGNuDMB7zoeWwDB2v7rrW7zqeyMbo98EtPDAXNjvC+qWLvrC6EBJU7OwCU
+	iPXD6dpeU2sDy+0GYCX3QxGQd3zaS21nk2sLQiCXbxPIm+NzBJS+cE0NWs9VOE8yWnO8PKfYUlt
+	wD9vqBVJnUG8ZjCFAdcPlmp7UWZPtFljVjiXWAH2ZWd32v/eMf/jaZQH/mj0NP9r2qxmC0aLEwn
+	YTUjVbLIY4zmHTpPWvfv2PWNVkLEHqLuT/FOL89WxrPioOWirvAMYChlWqCH3hbVk7CJODAUynT
+	gdWei9n35NqvwMF3zd7P0Uh80UWE5pswI+m3iqCy4ZDQdvNuLToI+uQWuPeuMVFkz57882LB3zZ
+	QntZPWqmzBXM1v1pZ1Gc6G/2z7JKrbqTQkAZpVAiLLAQg1NW8pQy0aI7QzidnV7loSG5KxnAQ2g
+	XNuRmS3tDUw0cPr
+X-Received: by 2002:a17:902:e790:b0:2dd:ad74:ac1d with SMTP id d9443c01a7336-2e842cfc98dmr74612865ad.24.1791778602300;
+        Sun, 11 Oct 2026 21:16:42 -0700 (PDT)
 Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421af46asm38240025ad.39.2026.10.11.21.16.31
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421af46asm38240025ad.39.2026.10.11.21.16.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 21:16:35 -0700 (PDT)
+        Sun, 11 Oct 2026 21:16:40 -0700 (PDT)
 From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 To: Alexander Duyck <alexanderduyck@fb.com>,
 	Jakub Kicinski <kuba@kernel.org>,
@@ -76,9 +76,9 @@ Cc: kernel-team@meta.com,
 	stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: [PATCH net v3 3/5] eth: fbnic: return a pending Rx packet before reusing its buffer
-Date: Mon, 12 Oct 2026 13:15:58 +0900
-Message-ID: <dc2fd0f8b4ff068c3919444d7b4a88ad55e5831f.1791775409.git.yhlee@isslab.korea.ac.kr>
+Subject: [PATCH net v3 4/5] eth: fbnic: return the page reference taken for a dropped Rx fragment
+Date: Mon, 12 Oct 2026 13:15:59 +0900
+Message-ID: <9d77812119330cd316b7eea7fd35fa4038ff86a0.1791775409.git.yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1791775409.git.yhlee@isslab.korea.ac.kr>
 References: <cover.1791775409.git.yhlee@isslab.korea.ac.kr>
@@ -90,109 +90,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-fbnic_pkt_prepare() starts a new packet on each header completion and so
-far only warned when pkt->buff was still populated from a previous header
-that no META completion had finished. The stale buffer, and any fragments
-attached to it, were then overwritten and leaked.
+fbnic_add_rx_frag() takes a page reference through
+fbnic_page_pool_get_data(), which decrements the buffer's pagecnt_bias,
+before handing the page to xdp_buff_add_frag().  xdp_buff_add_frag()
+fails when the buffer already holds MAX_SKB_FRAGS fragments, and on that
+path the reference is lost: add_frag_failed is set and the frame is
+dropped, but the bias is not restored and fbnic_put_pkt_buff() only
+returns the fragments that were actually attached.
 
-Return the pending buffer to the page pool before starting over and clear
-data_hard_start, so the META drop path does not release it a second time.
-This leaks memory rather than crashing, so there is no oops to show.
+The page is then never returned to the page pool.  A device that keeps
+sending payload completions for one packet past MAX_SKB_FRAGS leaks a
+page for every completion beyond the limit.
 
-Fixes: a29b8eb6e533 ("eth: fbnic: Add basic Rx handling")
+Restore pagecnt_bias on the failure path, the exact inverse of the get,
+so fbnic_page_pool_drain() reclaims the page.
+
+Fixes: 61f9a066c309 ("eth: fbnic: Use shinfo to track frags state on Rx")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/net/ethernet/meta/fbnic/fbnic_txrx.c | 62 +++++++++++---------
- 1 file changed, 33 insertions(+), 29 deletions(-)
+ drivers/net/ethernet/meta/fbnic/fbnic_txrx.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-index 7dda59bba14ee..47ded7a9e0a81 100644
+index 47ded7a9e0a81..7a9bd91bcc41c 100644
 --- a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
 +++ b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-@@ -1014,6 +1014,33 @@ static unsigned int fbnic_hdr_pg_end(unsigned int pg_off, unsigned int len)
- 	return ALIGN(pg_off, 128) - FBNIC_RX_HROOM;
- }
+@@ -1171,6 +1171,8 @@ static void fbnic_add_rx_frag(struct fbnic_napi_vector *nv, u64 rcd,
  
-+static void fbnic_put_pkt_buff(struct fbnic_q_triad *qt,
-+			       struct fbnic_pkt_buff *pkt, int budget)
-+{
-+	struct page *page;
-+
-+	if (!pkt->buff.data_hard_start)
-+		return;
-+
-+	if (xdp_buff_has_frags(&pkt->buff)) {
-+		struct skb_shared_info *shinfo;
-+		netmem_ref netmem;
-+		int nr_frags;
-+
-+		shinfo = xdp_get_shared_info_from_buff(&pkt->buff);
-+		nr_frags = shinfo->nr_frags;
-+
-+		while (nr_frags--) {
-+			netmem = skb_frag_netmem(&shinfo->frags[nr_frags]);
-+			page_pool_put_full_netmem(qt->sub1.page_pool, netmem,
-+						  !!budget);
-+		}
-+	}
-+
-+	page = virt_to_page(pkt->buff.data_hard_start);
-+	page_pool_put_full_page(qt->sub0.page_pool, page, !!budget);
-+}
-+
- static void fbnic_pkt_prepare(struct fbnic_napi_vector *nv, u64 rcd,
- 			      struct fbnic_pkt_buff *pkt,
- 			      struct fbnic_q_triad *qt)
-@@ -1025,8 +1052,12 @@ static void fbnic_pkt_prepare(struct fbnic_napi_vector *nv, u64 rcd,
- 	unsigned char *hdr_start;
- 	struct page *page;
- 
--	/* data_hard_start should always be NULL when this is called */
--	WARN_ON_ONCE(pkt->buff.data_hard_start);
-+	/* a new header while one is pending: release the old one */
-+	if (unlikely(pkt->buff.data_hard_start)) {
-+		WARN_ON_ONCE(1);
-+		fbnic_put_pkt_buff(qt, pkt, 1);
-+		pkt->buff.data_hard_start = NULL;
-+	}
- 
- 	/* A buffer ID we never posted cannot name a buffer we own, so drop
- 	 * the packet instead of running off the end of rx_buf[] or picking
-@@ -1146,33 +1177,6 @@ static void fbnic_add_rx_frag(struct fbnic_napi_vector *nv, u64 rcd,
- 	}
- }
- 
--static void fbnic_put_pkt_buff(struct fbnic_q_triad *qt,
--			       struct fbnic_pkt_buff *pkt, int budget)
--{
--	struct page *page;
--
--	if (!pkt->buff.data_hard_start)
--		return;
--
--	if (xdp_buff_has_frags(&pkt->buff)) {
--		struct skb_shared_info *shinfo;
--		netmem_ref netmem;
--		int nr_frags;
--
--		shinfo = xdp_get_shared_info_from_buff(&pkt->buff);
--		nr_frags = shinfo->nr_frags;
--
--		while (nr_frags--) {
--			netmem = skb_frag_netmem(&shinfo->frags[nr_frags]);
--			page_pool_put_full_netmem(qt->sub1.page_pool, netmem,
--						  !!budget);
--		}
--	}
--
--	page = virt_to_page(pkt->buff.data_hard_start);
--	page_pool_put_full_page(qt->sub0.page_pool, page, !!budget);
--}
--
- static struct sk_buff *fbnic_build_skb(struct fbnic_napi_vector *nv,
- 				       struct fbnic_pkt_buff *pkt)
- {
+ 	added = xdp_buff_add_frag(&pkt->buff, netmem, pg_off, len, truesize);
+ 	if (unlikely(!added)) {
++		/* Give back the reference fbnic_page_pool_get_data() took */
++		qt->sub1.rx_buf[pg_idx].pagecnt_bias++;
+ 		pkt->add_frag_failed = true;
+ 		netdev_err_once(nv->napi.dev,
+ 				"Failed to add fragment to xdp_buff\n");
 -- 
 2.43.0
 
