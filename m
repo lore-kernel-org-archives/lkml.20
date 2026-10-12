@@ -1,154 +1,197 @@
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa3.hc555-34.eu.iphmx.com (esa3.hc555-34.eu.iphmx.com [207.54.77.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB2D3537FF
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:13:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA2F2AD03
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:14:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.54.77.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791796412; cv=none; b=Lpm4KgJnnCJpNFTVTiFW6W3EMVNM9EMwtnnnBQzQqXyAwZSURb47PN7bntviMAoPgYVMdlEN8aKG2DV7/Ylak5EgLyERpDbzfLerEvY7bI0OTXl3/M2ejGqswt66KDQ4S2iIrXPbbzLHtVN0QSyP0FTIBSZ7HOqSQtEqYY9YQR4=
+	t=1791796457; cv=none; b=faHjobXtG1D8jHT46N711LaU6pGVQWwmpnmeJW+BEICz6OYQICPLQezK83zJyzKtYma+BnD5GkDDcfT9XLCYAXWdJtnt+IHsHs8kxMksamczDmK8HQ8w9ulg2fqLV09qrD1RaO/5v1O7sLoah8Ws6DUG7PurMwo53YfyrY+hd6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791796412; c=relaxed/simple;
-	bh=4H+dWSvxr8+UjpRwRI0SHZ16MiF829cfsZgcOenFqDk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tzz2F23VzdGeb14zb5+TVcTniK4bKaCFf93vmeoLqn9AN0e+j5prewa26RRYJLoBna/yPPqf2Eite7PPlJhCSrplTqbG02gCMjfAK+G8pMZVziftoGBQoI0ZyT+55XeJ2cvHjaq64OBtpG6oCZ+9w+yLzk+UcdxR3JdVpBwhrXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7bec5112765so1021256137.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:13:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791796410; x=1792401210;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jPEqW4IX1dV2O20vPEsTLBe6R8QJVWdW6CAGC3CFIBA=;
-        b=mgXo+9kgSnGVaDG5bDnRYdIqbS0SCPLrdRT70h+KxRaeOAS45PQcIX0Zlwoo6Havaw
-         zFrWJF4Bm4vdexugC3VP8anUmpjMx06w+KgJ0wc4iNYwpKLGhyM6Ev9GJhw90/seIsXq
-         MGkfnKYOpSM5cyq6E3p7OA0dcmtHdjCPYp6HYsE39C1nwhU/ADvwQqLhB9zrzBWanuIP
-         PfEdVXb1P8B1LevLBm66HNP//sxqN+hVm5ecoB3sYBQF0ggkqchlyRTIC9atvbdQwKG5
-         nW85Mjb5q5LPGEZ8SdJAdyzFXbm9KLHneOJloQHTOsIPKW7ogf6pI8DxbTr9kWv/faAH
-         moRA==
-X-Forwarded-Encrypted: i=1; AKwUvBxlOK+l/S2ImuOm6jJJsWH7X+g+9XFtdymD6vEVTR6wR4nSNB0aMSkGQDJiI16nqGtOvBYT/CB7LfkAxDU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLfANhPgKwfSAsdbgRf3I5HoaFvx6IVFQheFTPO8cRSUApY7Xlx
-	vZM8h6Jg/aQEEDqFjM+lKcC1M5PSjq5LR1v7/RkpLRt9qIbWyNaAXRPZFMp6RuVZ
-X-Gm-Gg: AYBFou3h2lAVb6QKfQr6Nhik8akSSxvH1CaEPLdt6NlYRD904llZs/T4TolZSZWAxwc
-	JOe3fUUmPYEVM7MOMigp0GQaTVdxD/7Q43A9RKcMNk7CQzRTvLmfO4xogmGa5a+XAdtld8TCbyc
-	YZFWDOJrmpdJloDPxhAVLjYXj8J3CTwIEjLs7HleH6LvBMYTf/SJxxJUMAh4MNViArvMUZYhSGK
-	e2IwX1ZmpLHJ5iS0MpaD9KG1JivdcAXoWi2tNGwwHtVqn7gCjPZFEzndc19GDh9mWNa1C+aDPk7
-	je6ktxqe8OlA2pRRApdiuv9q7WH7OgCaYDeGrEyatILdFR219N8HA2Ueksvq8KaQ9mxnO0i52KR
-	aKR/ro9KYOP/UCfrn+H1bobpVfIHCkavWVq5RJF6oieEawi3HVpGUwLqLjgDPBzIS+vAHkqG8Qe
-	2/BNt9LCS2VSi0xG6vGV8ltgcCDAU8r19u9o4Ekb4FsxEq7WizNnS31AYplSjUg9UgeTInEtNcK
-	5vjL+tOc0/ToCOpKp66nFFsmvHNU5NHoeKNyQ==
-X-Received: by 2002:a67:e713:0:b0:7c3:c0b9:8d50 with SMTP id ada2fe7eead31-7cb37311326mr2397937137.21.1791796409907;
-        Mon, 12 Oct 2026 02:13:29 -0700 (PDT)
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com. [209.85.222.53])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cb35471536sm6273685137.11.2026.10.12.02.13.28
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 02:13:29 -0700 (PDT)
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-98c786605e7so816398241.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:13:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxeiebUXVR5RD3Ay6DkUClJhbP2ziqF3icJQOGnTnwNcpKeW4CZsbF3Acu/y3UsIuPgLg4MbAHA3hoJeAY=@vger.kernel.org
-X-Received: by 2002:a05:6102:4490:b0:7a8:10eb:96ce with SMTP id
- ada2fe7eead31-7cb3668a4c7mr2485869137.4.1791796407802; Mon, 12 Oct 2026
- 02:13:27 -0700 (PDT)
+	s=arc-20240116; t=1791796457; c=relaxed/simple;
+	bh=RUboTfQiUPP76+VWIJzfRXec6oAYPgqZ2bmu4E3lnGs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FEMd0gLoHLLUZkLGb4LXEC5SKllIg0v6MBejOCOzoHilFjsPwIea4SLMW5HWAQqqn22F6TGdRL+0z4bnI31JzZTDoDMNj/GDGVlv4XzU7GHtfrVZDCNCJdT/dWAmzeg9lJodCANEc5Ajbj9ycDaJ9So9LuLInUfc2BFKsLRDETI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com; spf=pass smtp.mailfrom=mobileye.com; dkim=fail (0-bit key) header.d=mobileye.com header.i=@mobileye.com header.b=paQgpkrZ reason="key not found in DNS"; arc=none smtp.client-ip=207.54.77.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mobileye.com header.i=@mobileye.com header.b="paQgpkrZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1791796455; x=1823332455;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=RUboTfQiUPP76+VWIJzfRXec6oAYPgqZ2bmu4E3lnGs=;
+  b=paQgpkrZURLn04CtGp1kbKuSgii1wqswrxTDkE0riM6bTZ01Tu9xZl9X
+   gsi14LBIKVZ5IVluGwtaRMev0/hBTtNTdKMsWSxirRe9Nk2hwyz6Sl59X
+   DzXFXNbC7whXSMOZvJoLM0mYSGOQW55Dbx5wRVXAdJ6ImLrMfL879ncvM
+   W5h4a0XscWPoXEdWGIDV3TtAhh4wRcu705w5zqm3WPr+7ukAWlnrabpm4
+   5D1GDFC6Yvy+6Cj8LrDoT2043lg/W+uv4UinGzpMTe6F07sIGYt7JOJ5b
+   0rtHBM7GqTufcCTL8k0gIjWY0bRkVXQHmKYhXF++1LYn0hdWXsZPxcHmv
+   Q==;
+X-CSE-ConnectionGUID: DZomWcbJQrKnf7LEiIjYkQ==
+X-CSE-MsgGUID: cQGSfrF7QZi3g6C0e+ERHA==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces01_data.me-corp.lan) ([146.255.191.134])
+  by esa3.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 12:13:03 +0300
+X-CSE-ConnectionGUID: rEWvfetiQ1iP5W/OjNINWg==
+X-CSE-MsgGUID: BJlt/lpRT8WsWVNxy4Kuvg==
+Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.3])
+  by ces01_data.me-corp.lan with SMTP; 12 Oct 2026 12:20:35 +0300
+Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Mon, 12 Oct 2026 12:13:01 +0300
+From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Date: Mon, 12 Oct 2026 12:12:59 +0300
+Subject: [PATCH v3] irqchip/riscv-aplic: fix asynchronous probing
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002212058.25117-1-kmehltretter@gmail.com>
-In-Reply-To: <20261002212058.25117-1-kmehltretter@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 12 Oct 2026 11:13:16 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXPMSyHy4tU5Sq4y=ssFZy8Ktd_OZoFr9L2sj-m-=wFkg@mail.gmail.com>
-X-Gm-Features: AclHuK_y85x8cMEVOZECVsvp7GHPU25gGQ7oBbJZUrQ3T9LAbD0GI07OmtaZn9U
-Message-ID: <CAMuHMdXPMSyHy4tU5Sq4y=ssFZy8Ktd_OZoFr9L2sj-m-=wFkg@mail.gmail.com>
-Subject: Re: [PATCH net-next v3] net: mctp: Make flow KUnit coverage an
- explicit opt-in
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Jeremy Kerr <jk@codeconstruct.com.au>, Matt Johnston <matt@codeconstruct.com.au>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	netdev@vger.kernel.org, Brendan Higgins <brendan.higgins@linux.dev>, 
-	David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
-	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-aplic-async-probe-v3-1-5cf52dc28690@mobileye.com>
+X-B4-Tracking: v=1; b=H4sIAJqkzGoC/4XNQQ6DIBCF4asY1qUBRERXvUfThY5jnUTFQENqj
+ HcvuuyiXf4vmW82FtATBlZnG/MYKZCbU+SXjMHQzE/k1KVmSigjhVS8WUYC3oR1Br541yK30ii
+ NIi+MKFm6Wzz29D7N+yP1QOHl/Hq+iPJYf2lRcsk1KNB90YpKmtvkWhpxxSu4iR1gVH8RlRBrb
+ Fcaq6HqvpF93z+5t1n0+gAAAA==
+X-Change-ID: 20261012-aplic-async-probe-81624e035607
+To: Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Jessica Liu <liu.xuemei1@zte.com.cn>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rt-devel@lists.linux.dev, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+X-Mailer: b4 0.14.2
 
-Hi Karl,
+boolean flag don't protect from race when probing several instances
+asynchronously. On system with multiple APLICs, if probed asynchronously,
+warning triggered as below.
 
-On Fri, 2 Oct 2026 at 23:21, Karl Mehltretter <kmehltretter@gmail.com> wrote:
-> MCTP_TEST selects MCTP_FLOWS, so KUNIT_ALL_TESTS builds flow support and
-> SKB_EXTENSIONS even when no transport needs them. KUnit's style guide
-> says tests should not select otherwise unused functionality. The CRC
-> and crypto library tests use explicit ENABLE_ALL_FOR_KUNIT options for
-> full coverage.
->
-> Remove the selection from MCTP_TEST. The core suite remains available
-> without flows; its two flow cases use their existing skip paths. Add
-> MCTP_ENABLE_ALL_FOR_KUNIT to opt into full coverage, and enable it in
-> all_tests.config and a dedicated net/mctp/.kunitconfig. Both profiles
-> run the flow cases without a hardware transport.
->
-> A plain MCTP_TEST=y configuration without the opt-in now skips those
-> two cases. This is the coverage cost of leaving otherwise unused flow
-> support disabled.
->
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
-> Changes in v3:
-> - Keep the core suite available without MCTP_FLOWS; a plain MCTP_TEST=y
->   configuration now skips only the two flow cases.
-> - Add MCTP_ENABLE_ALL_FOR_KUNIT to retain full coverage in
->   all_tests.config and a focused net/mctp/.kunitconfig.
-> - Drop the Fixes tag because this changes test configuration rather
->   than fixing a runtime MCTP bug.
+[    0.227210] riscv-aplic 67560000.interrupt-controller: 257 interrupts directly connected to 8 CPUs
+[    0.227210] riscv-aplic 674e0000.interrupt-controller: 257 interrupts directly connected to 8 CPUs
+[    0.227224] ------------[ cut here ]------------
+[    0.227227] list_add double add: new=ffffffff8130ced0, prev=ffffffff8130ced0, next=ffffffff81316d40.
+[    0.227302] WARNING: lib/list_debug.c:35 at __list_add_valid_or_report+0xe0/0xe6, CPU#4: kworker/u97:0/211
+[    0.227322] Modules linked in:
+[    0.227333] CPU: 4 UID: 0 PID: 211 Comm: kworker/u97:0 Not tainted 7.3.0-rc6 #1 PREEMPT_RT
+[    0.227341] Hardware name: EyeQ7H evaluation board (DT)
+[    0.227346] Workqueue: async async_run_entry_fn
+[    0.227358] epc : __list_add_valid_or_report+0xe0/0xe6
+[    0.227366]  ra : __list_add_valid_or_report+0xe0/0xe6
+[    0.227375] epc : ffffffff804a08a0 ra : ffffffff804a08a0 sp : ffffffc600823b90
+[    0.227379]  gp : ffffffff81389e70 tp : ffffffd60135ee00 t0 : 0000000000000000
+[    0.227383]  t1 : 3fffffffffffffff t2 : 0000000000000000 s0 : ffffffc600823bb0
+[    0.227387]  s1 : ffffffff8130ced0 a0 : 0000000000000058 a1 : ffffffd9efc9e5c0
+[    0.227391]  a2 : ffffffd9efd5c510 a3 : 0000000000000000 a4 : 0000000000000000
+[    0.227395]  a5 : 0000000000000000 a6 : ffffffd9efc6e5c0 a7 : bfffffffffffe000
+[    0.227399]  s2 : 0000000000000000 s3 : ffffffff8130ce28 s4 : 0000000000000000
+[    0.227402]  s5 : ffffffd6018b65c8 s6 : 0000000000000000 s7 : ffffffd6012fd605
+[    0.227406]  s8 : ffffffd6010c3400 s9 : 0000000000000000 s10: 0000000000000000
+[    0.227409]  s11: 0000000000000000 t3 : 3fffffffffffe000 t4 : 0000000000000020
+[    0.227413]  t5 : 0000000000000000 t6 : ffffffc6008238f8 ssp : 0000000000000000
+[    0.227417] status: 0000000200000120 badaddr: ffffffff804a08a0 cause: 0000000000000003
+[    0.227422] [<ffffffff804a08a0>] __list_add_valid_or_report+0xe0/0xe6
+[    0.227432] [<ffffffff80558226>] register_syscore+0x30/0x60
+[    0.227444] [<ffffffff804ca0fe>] aplic_probe+0xd2/0xfa
+[    0.227453] [<ffffffff80559b2e>] platform_probe+0x3e/0x7a
+[    0.227461] [<ffffffff8055731a>] really_probe+0x88/0x35c
+[    0.227469] [<ffffffff805576ae>] __driver_probe_device+0xc0/0x13a
+[    0.227478] [<ffffffff805577f4>] driver_probe_device+0x38/0xb2
+[    0.227486] [<ffffffff80557ba6>] __driver_attach_async_helper+0x3c/0xc4
+[    0.227493] [<ffffffff80054a0e>] async_run_entry_fn+0x28/0x154
+[    0.227500] [<ffffffff8004482a>] process_one_work+0x14e/0x3d2
+[    0.227509] [<ffffffff800452fe>] worker_thread+0x144/0x286
+[    0.227516] [<ffffffff8004ca3e>] kthread+0xee/0x10e
+[    0.227524] [<ffffffff8001050a>] ret_from_fork_kernel+0x18/0x14e
+[    0.227532] [<ffffffff807bef36>] ret_from_fork_kernel_asm+0x16/0x18
+[    0.227542] ---[ end trace 0000000000000000 ]---
+[    0.228475] pinctrl-single 48508000.pinctrl: 512 pins, size 2048
+[    0.228500] pinctrl-single 53838000.pinctrl: 512 pins, size 2048
+[    0.228723] pinctrl-single 67107000.pinctrl: 512 pins, size 2048
+[    0.227210] riscv-aplic 674e0000.interrupt-controller: 257 interrupts directly connected to 8 CPUs
+[    0.227224] ------------[ cut here ]------------
+[    0.227227] list_add double add: new=ffffffff8130ced0, prev=ffffffff8130ced0, next=ffffffff81316d40.
+[    0.227302] WARNING: lib/list_debug.c:35 at __list_add_valid_or_report+0xe0/0xe6, CPU#4: kworker/u97:0/211
+[    0.227322] Modules linked in:
+[    0.227333] CPU: 4 UID: 0 PID: 211 Comm: kworker/u97:0 Not tainted 7.3.0-rc6 #1 PREEMPT_RT
+[    0.227341] Hardware name: EyeQ7H evaluation board (DT)
+[    0.227346] Workqueue: async async_run_entry_fn
+[    0.227358] epc : __list_add_valid_or_report+0xe0/0xe6
+[    0.227366]  ra : __list_add_valid_or_report+0xe0/0xe6
+[    0.227375] epc : ffffffff804a08a0 ra : ffffffff804a08a0 sp : ffffffc600823b90
+[    0.227379]  gp : ffffffff81389e70 tp : ffffffd60135ee00 t0 : 0000000000000000
+[    0.227383]  t1 : 3fffffffffffffff t2 : 0000000000000000 s0 : ffffffc600823bb0
+[    0.227387]  s1 : ffffffff8130ced0 a0 : 0000000000000058 a1 : ffffffd9efc9e5c0
+[    0.227391]  a2 : ffffffd9efd5c510 a3 : 0000000000000000 a4 : 0000000000000000
+[    0.227395]  a5 : 0000000000000000 a6 : ffffffd9efc6e5c0 a7 : bfffffffffffe000
+[    0.227399]  s2 : 0000000000000000 s3 : ffffffff8130ce28 s4 : 0000000000000000
+[    0.227402]  s5 : ffffffd6018b65c8 s6 : 0000000000000000 s7 : ffffffd6012fd605
+[    0.227406]  s8 : ffffffd6010c3400 s9 : 0000000000000000 s10: 0000000000000000
+[    0.227409]  s11: 0000000000000000 t3 : 3fffffffffffe000 t4 : 0000000000000020
+[    0.227413]  t5 : 0000000000000000 t6 : ffffffc6008238f8 ssp : 0000000000000000
+[    0.227417] status: 0000000200000120 badaddr: ffffffff804a08a0 cause: 0000000000000003
+[    0.227422] [<ffffffff804a08a0>] __list_add_valid_or_report+0xe0/0xe6
+[    0.227432] [<ffffffff80558226>] register_syscore+0x30/0x60
+[    0.227444] [<ffffffff804ca0fe>] aplic_probe+0xd2/0xfa
+[    0.227453] [<ffffffff80559b2e>] platform_probe+0x3e/0x7a
+[    0.227461] [<ffffffff8055731a>] really_probe+0x88/0x35c
+[    0.227469] [<ffffffff805576ae>] __driver_probe_device+0xc0/0x13a
+[    0.227478] [<ffffffff805577f4>] driver_probe_device+0x38/0xb2
+[    0.227486] [<ffffffff80557ba6>] __driver_attach_async_helper+0x3c/0xc4
+[    0.227493] [<ffffffff80054a0e>] async_run_entry_fn+0x28/0x154
+[    0.227500] [<ffffffff8004482a>] process_one_work+0x14e/0x3d2
+[    0.227509] [<ffffffff800452fe>] worker_thread+0x144/0x286
+[    0.227516] [<ffffffff8004ca3e>] kthread+0xee/0x10e
+[    0.227524] [<ffffffff8001050a>] ret_from_fork_kernel+0x18/0x14e
+[    0.227532] [<ffffffff807bef36>] ret_from_fork_kernel_asm+0x16/0x18
+[    0.227542] ---[ end trace 0000000000000000 ]---
 
-Thanks for the update!
+Fixes: b330fbfd34d7 ("irqchip/riscv-aplic: Register syscore operations only once")
+Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+---
+Changes in v3:
+- drop __ro_after_init attribute due to write to read-only page concern
+- Link to v2: https://lore.kernel.org/r/20261012-aplic-async-probe-v2-1-868d7684c9d6@mobileye.com
 
-> --- a/net/mctp/Kconfig
-> +++ b/net/mctp/Kconfig
-> @@ -12,9 +12,23 @@ menuconfig MCTP
->           devices, you'll want to enable a driver for a specific hardware
->           channel.
->
-> +config MCTP_ENABLE_ALL_FOR_KUNIT
-> +       bool "Enable all optional MCTP features for KUnit tests"
-> +       depends on MCTP=y && KUNIT=y
-> +       select MCTP_FLOWS
-> +       help
-> +         Enable all optional MCTP features covered by KUnit tests, even
-> +         when no transport needs them. Currently this selects MCTP_FLOWS
-> +         so the two flow cases can run.
-> +
-> +         Without this option, the core suite remains available; the flow
-> +         cases skip unless a transport enables flow support.
-> +
-> +         You still need to enable MCTP_TEST, either individually or through
-> +         KUNIT_ALL_TESTS.
+Changes in v2:
+- fixed potential access to read-only page
+- Link to v1: https://lore.kernel.org/r/20261012-aplic-async-probe-v1-1-4c2c4f5b0916@mobileye.com
+---
+ drivers/irqchip/irq-riscv-aplic-main.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-IMHO adding yet another symbol overcomplicates things.
-Why not make MCTP_FLOWS visible if KUNIT is enabled instead, like is
-already done for several other symbols ('git grep " if KUNIT"')?
+diff --git a/drivers/irqchip/irq-riscv-aplic-main.c b/drivers/irqchip/irq-riscv-aplic-main.c
+index d9afb6ae98cf56d6fd9f858c31a3d23546c3b450..54e1d5602f15a04127e900c0a4983022d49da553 100644
+--- a/drivers/irqchip/irq-riscv-aplic-main.c
++++ b/drivers/irqchip/irq-riscv-aplic-main.c
+@@ -116,14 +116,12 @@ static struct syscore aplic_syscore = {
+ 	.ops = &aplic_syscore_ops,
+ };
+ 
+-static bool aplic_syscore_registered __ro_after_init;
++static atomic_t aplic_syscore_registered = ATOMIC_INIT(0);
+ 
+ static void aplic_syscore_init(void)
+ {
+-	if (!aplic_syscore_registered) {
++	if (!atomic_cmpxchg(&aplic_syscore_registered, 0, 1))
+ 		register_syscore(&aplic_syscore);
+-		aplic_syscore_registered = true;
+-	}
+ }
+ 
+ static int aplic_pm_notifier(struct notifier_block *nb, unsigned long action, void *data)
 
-> +
->  config MCTP_TEST
->          bool "MCTP core tests" if !KUNIT_ALL_TESTS
-> -        select MCTP_FLOWS
->          depends on MCTP=y && KUNIT=y
->          default KUNIT_ALL_TESTS
->
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20261012-aplic-async-probe-81624e035607
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
+Best regards,
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
