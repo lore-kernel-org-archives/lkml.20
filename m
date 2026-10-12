@@ -1,115 +1,343 @@
-Received: from sonata.ens-lyon.org (domu-toccata.ens-lyon.fr [140.77.166.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f4.google.com (mail-ed2-f4.google.com [74.125.228.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4C046D2CC
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:04:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.77.166.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87199400987
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791813882; cv=none; b=UvhZA6byZ1U6jXs2oAQD+q/78vleWHDH+DFrN0bUoFfCsB0kkH56QATWJ9dKyj5zaGXd5GjFoxEcpFuE5EapRo6k5YKjX6DCS2S9N6Vto9idAIdfGyJSRzm5jt/jszX5uQOLMbBY9X8WkyAQ1zWbz/kGST4ibdB9wPPBAZZuxzw=
+	t=1791813897; cv=none; b=hjqYI2/3QWzNUhlkPaFdSnoJSbWjQ5w0ZdVQe5xAiBr++/j64lJ452FAS57F0esu8Uj7+iKfBzxZTdNTq7DIJHy00KyHmPKmHEYnuUC1yQCsWs5nw2zgeqK0f4ahlNtB1R7sstoMx85m1JSWMsY2bDcTPm6GY28adQuuaWFdoC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791813882; c=relaxed/simple;
-	bh=b/OP7UO4QI5EAz0MF6AstTK9qK/7VcOlLA68qfIzhUk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y9LF+Wmin6pZJKntloHrHhndL+TjqBq+kmUCGizTx9uG6x1bTymggRtcqtjg1P8Xf9tlkfyalXW4IpBqdet3Tiw2HV+Z3PyI4XIY244vm0Vy96yvxP1u9ViH3mLGulWuvJyT7xZLLilpLonAVvu0k0luepp3JG1SlaE3PdG4k8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=VAhCavLs; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=VAhCavLs; arc=none smtp.client-ip=140.77.166.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org
+	s=arc-20240116; t=1791813897; c=relaxed/simple;
+	bh=YGwGd3X0wSlJYpWucqcz7XGqmn7cqVxfCQw20hQUoTk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jYitwziygVA3sh26Zv0RMu7CHLtfTgkl9uqcPk/INOOuCQmLe1xB3HUFGxePbubBwwyZqYT3lDnHEjZJfC5CqXWAlQY/sbTXFlAJrRcDaEVVdlI5esrG90WbXI9VdJrlt+b3sg1hO+yp9jmoYt8bDYQH6eg63rwnlPG+Ue5RW+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b91hVPw5; arc=none smtp.client-ip=74.125.228.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="VAhCavLs";
-	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="VAhCavLs"
-Received: from localhost (localhost [127.0.0.1])
-	by sonata.ens-lyon.org (Postfix) with ESMTP id D4964A739F;
-	Mon, 12 Oct 2026 15:56:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
-	t=1791813417; bh=b/OP7UO4QI5EAz0MF6AstTK9qK/7VcOlLA68qfIzhUk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VAhCavLsbRJaFUjNNJdI76YjuqJW0GQTsGz9ImVsYzLP8tVhK35tZLA2FjOwLk4od
-	 xMR/TNL+zpQoozImal6YiXfz7iU/qMDQI8xnUut9uSjUjcIN0TQI4kjN781Ez16I2T
-	 WKdQPfkUetF2NlP4P9gTrmePk9W+bzl987LSpmCoj51LtvDOfjjL4JiioSJVWYCLHY
-	 kzcrBB2KhubaOmrKZuCisLTqYiR1n48l3wY4ViYAR7q46VU1sDdp5IxNXnw2p0IoCe
-	 6KTf/mtbG+2Oo799JYBJ6iiHwSwnl2XaFGod1NyKw5Av3oE5fxp2cWcJngxr12IvXg
-	 Njgv/z8Uk/j4A==
-Received: from sonata.ens-lyon.org ([127.0.0.1])
-	by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id kKZECVPFRM8J; Mon, 12 Oct 2026 15:56:57 +0200 (CEST)
-Received: from end (nat-inria-interne-52-gw-01-bso.bordeaux.inria.fr [194.199.1.52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by sonata.ens-lyon.org (Postfix) with ESMTPSA id 5A474A1E47;
-	Mon, 12 Oct 2026 15:56:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
-	t=1791813417; bh=b/OP7UO4QI5EAz0MF6AstTK9qK/7VcOlLA68qfIzhUk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VAhCavLsbRJaFUjNNJdI76YjuqJW0GQTsGz9ImVsYzLP8tVhK35tZLA2FjOwLk4od
-	 xMR/TNL+zpQoozImal6YiXfz7iU/qMDQI8xnUut9uSjUjcIN0TQI4kjN781Ez16I2T
-	 WKdQPfkUetF2NlP4P9gTrmePk9W+bzl987LSpmCoj51LtvDOfjjL4JiioSJVWYCLHY
-	 kzcrBB2KhubaOmrKZuCisLTqYiR1n48l3wY4ViYAR7q46VU1sDdp5IxNXnw2p0IoCe
-	 6KTf/mtbG+2Oo799JYBJ6iiHwSwnl2XaFGod1NyKw5Av3oE5fxp2cWcJngxr12IvXg
-	 Njgv/z8Uk/j4A==
-Received: from samy by end with local (Exim 4.100.1)
-	(envelope-from <samuel.thibault@ens-lyon.org>)
-	id 1xGGWO-0000000BnOF-0TQP;
-	Mon, 12 Oct 2026 15:56:56 +0200
-Date: Mon, 12 Oct 2026 15:56:56 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Thorsten Blum <blum@kernel.org>
-Cc: William Hubbs <w.d.hubbs@gmail.com>,
-	Chris Brannon <chris@the-brannons.com>,
-	Kirk Reiser <kirk@reisers.ca>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>,
-	Kees Cook <kees@kernel.org>,
-	Jagadeesh Yalapalli <jagadeesh.yalapalli@einfochips.com>,
-	speakup@linux-speakup.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] accessibility: speakup: Use isdigit() in handle_goto()
-Message-ID: <asznKOvUGKWBZKub@end>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Thorsten Blum <blum@kernel.org>,
-	William Hubbs <w.d.hubbs@gmail.com>,
-	Chris Brannon <chris@the-brannons.com>,
-	Kirk Reiser <kirk@reisers.ca>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>,
-	Kees Cook <kees@kernel.org>,
-	Jagadeesh Yalapalli <jagadeesh.yalapalli@einfochips.com>,
-	speakup@linux-speakup.org, linux-kernel@vger.kernel.org
-References: <20261012130805.345080-4-blum@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b91hVPw5"
+Received: by mail-ed2-f4.google.com with SMTP id 4fb4d7f45d1cf-6afe183a704so1174339a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:04:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791813894; x=1792418694; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pDbDDRw5NqCQFjKs4W4BF9IGnUoJVxd/s6rpPe+Ky2M=;
+        b=b91hVPw5wbjT3eqAnV5A6QTayLzc/zDSFwfJXilQnSFbJIeqjguBrDr/EqiNdqwGEE
+         lbyRZXJX3nQY0xd1DfMAuwq/esMulnuA8nx+GUBsjWz3a/J+QHuothbJ6/oHEu/MUcNU
+         cHjnvUq0xJMdALKd5/fDnkVR8HcxOWil6ixJjzq9iflo/gwIhE3dB8XCxBs1Z6fS2Jzs
+         HrSjsyEo8/UPxBNJ7MnTfgeLTL5Rgq4LMQAb8uiYmshJWjefBZbEgVW5+JK+4zHMA6Z6
+         SlwMDD0W1TXUOvLt4c02ITQE569kKIWcwat19Qt2KPwY4lZcTcmY17RDoMqEB1V+SYQc
+         NKBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791813894; x=1792418694;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pDbDDRw5NqCQFjKs4W4BF9IGnUoJVxd/s6rpPe+Ky2M=;
+        b=qxvW70aTPSiXDA1sYV6PF5S0dZL6hvjWudtvis4YTyFJQcN0lnkb8rLf9V6ayrK1tF
+         3HccNfJg/c9oQ5XNxhSzjC2p9tviB7TUCJx8r0uKsGN5hFX2FO/XDznnb4irXQr0zzf2
+         9NgDUUwUrCzE6eMp6dMP02zcr/dvGoaTHZcoEHndaQsbJOgrNYPPNiKkWxsngqweTuQl
+         K7RlYs2zRN7CLnHqnqGsppKk6jsFyJ6qlFs147LPKwi4sclwOjoq1uMPE4ZJYcyYrilo
+         8H03s3xl1fZRq90/FEQ2DlMxRfSemgwbEm9nFZu3/esYK/r6fHV2fQ3CF/LNknb+H3zw
+         xz+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzAc6uoMOqhiqXaNf9w2VeS1P1UgTl+xY7/vMhg+b+EcQ0UeTgvWFMekoyGWC7N1umjLiAYE3OI79fwIv0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLlt4+b0O69OE6cpNL5AO2jyczAicgNQ6Ariz2zhoSbMUW8zYnw
+	6B9/VtMYNtylXSIk45L9Gsw7EgufLslZcrzc2p3acz0VmO48iZwUNl8/
+X-Gm-Gg: AYBFou2TI0oAYEbEiojy5D2Q6t6PXv6gfumzSoP932UyypvhKErDfgw31RWA1v5kwFO
+	BQ/SFCvs6yTEkEqCvwRcarPryg8hcmxtk+o5y2RCPpLWpyLVyUMKzQZxcQ9w8zv0d172nkaHPfH
+	bDyAHMx+OoyhiCWdGzSIhpw6L3/zkjw1OJvxR0hZ47JYq34Hcg2KJ6FinY6m+AcpVzzAoMc1h7a
+	k+xAdTLZH+DS1K5tvFLc6leWBxib/pgBwEGJzgwxi5//g0A6E35AKixvfOOSLKrlYcsWlpMAvgF
+	xfxlj7tSOE42dqrVDxgjYbr94kh7HmBij94KSTeCLv658ZU1s2qWx6cMoKXkwfFGg0AkSf+Ndj2
+	he0fI97bWHBBSh+zoorx+kOE9GG2VNeiUYNrqs6A5P6QCOA/7PNK0fOMLfffCTvD04HaaeT866B
+	4qct0NvZ1DT/r4XV5/QCmsGnjtrO0BaKPpBBfNydttpcWjOBpBxgLp/PCdYHE+hk7oDS+gmpUuZ
+	IYziV0NDWwA6txy1hpW+PANlKGtCnrqB9/MK0fSVusf+kjLFdtLrMie3faXbhdgKIcOrU2D3OVc
+	IwQBcRIIRrgVjIjaW1hq74p1lQ==
+X-Received: by 2002:a05:6402:2347:b0:6b1:b75e:e0ba with SMTP id 4fb4d7f45d1cf-6b1b75ee465mr3517228a12.28.1791813892505;
+        Mon, 12 Oct 2026 07:04:52 -0700 (PDT)
+Received: from thi-server.fritz.box (dslb-092-076-089-226.092.076.pools.vodafone-ip.de. [92.76.89.226])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b1c1d9fc0esm1477287a12.4.2026.10.12.07.04.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 07:04:51 -0700 (PDT)
+From: Thilo Zirnstein <thi.zirnstein@gmail.com>
+To: michal.simek@amd.com,
+	andi.shyti@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thilo Zirnstein <thi.zirnstein@gmail.com>
+Subject: [PATCH 1/1] i2c: i2c-xiic: fix clearing of bnb irq
+Date: Mon, 12 Oct 2026 16:04:44 +0200
+Message-ID: <20261012140444.1195207-1-thi.zirnstein@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012130805.345080-4-blum@kernel.org>
-Organization: I am not organized
+Content-Transfer-Encoding: 8bit
 
-Thorsten Blum, le lun. 12 oct. 2026 15:08:05 +0200, a ecrit:
-> Use isdigit() to replace the open-coded implementation.
-> 
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
+This commit fixes the clearing routine for the bus not busy (bnb) irq.
 
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+The bnb is used to indicate that the current transfer is done.
 
-Thanks!
+A high level view of the software flow for tx:
 
-> ---
->  drivers/accessibility/speakup/main.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accessibility/speakup/main.c b/drivers/accessibility/speakup/main.c
-> index e9b7c2761f6f..a7c14531f2ce 100644
-> --- a/drivers/accessibility/speakup/main.c
-> +++ b/drivers/accessibility/speakup/main.c
-> @@ -1980,7 +1980,7 @@ static int handle_goto(struct vc_data *vc, u_char type, u_char ch, u16 key)
->  	maxlen = (*goto_buf >= '0') ? 3 : 4;
->  	if ((ch == '+' || ch == '-') && num == 1)
->  		return 1;
-> -	if (ch >= '0' && ch <= '9' && num < maxlen)
-> +	if (isdigit(ch) && num < maxlen)
->  		return 1;
->  	if (num < maxlen - 1 || num > maxlen)
->  		goto oops;
-> 
+* init i2c controller
+* prepare all registers ( fill fifo, enable irqs, ... )
+* start i2c txfer
+* clear and enable bnb
+* wait for completion
+* ( serve interrupts )
+* ( bnb interrupt ): complete completion
+
+The datasheet ( pg090-axi-iic, Interrupt-Status-Register ISR)
+states that the bnb bit can only be cleared if
+the bus busy bit in the status register is set.
+
+So the iic controller must have recognized that their is some activity
+on the bus. ( Start condition )
+
+Currently the bnb bit is cleared without checking or waiting for this
+condition. This can lead to spurious bnb interrupts.
+
+This commit introduces a function for clearing the bnb bit,
+which waits for all preconditions and clears the bnb bit or times out.
+
+Tested on Zynqmp dev board with some custom logic.
+
+Tested-by: Thilo Zirnstein <thi.zirnstein@gmail.com>
+
+Signed-off-by: Thilo Zirnstein <thi.zirnstein@gmail.com>
+---
+ drivers/i2c/busses/i2c-xiic.c | 103 ++++++++++++++++------------------
+ 1 file changed, 48 insertions(+), 55 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.c
+index 5e397a7e63f6..de463d356bff 100644
+--- a/drivers/i2c/busses/i2c-xiic.c
++++ b/drivers/i2c/busses/i2c-xiic.c
+@@ -73,9 +73,6 @@ enum i2c_scl_freq {
+  * @prev_msg_tx: Previous message is Tx
+  * @quirks: To hold platform specific bug info
+  * @smbus_block_read: Flag to handle block read
+- * @smbus_actual_len: Valid byte count (length + payload + optional PEC) of a
+- *	padded SMBus block read. msg->len is trimmed to this on completion.
+- *	Zero when no trimming is needed.
+  * @input_clk: Input clock to I2C controller
+  * @i2c_clk: I2C SCL frequency
+  * @atomic: Mode of transfer
+@@ -101,7 +98,6 @@ struct xiic_i2c {
+ 	bool prev_msg_tx;
+ 	u32 quirks;
+ 	bool smbus_block_read;
+-	unsigned int smbus_actual_len;
+ 	unsigned long input_clk;
+ 	unsigned int i2c_clk;
+ 	bool atomic;
+@@ -230,7 +226,9 @@ static const struct timing_regs timing_reg_values[] = {
+ 
+ #define XIIC_RESET_MASK             0xAUL
+ 
+-#define XIIC_PM_TIMEOUT		1000	/* ms */
++#define XIIC_PM_TIMEOUT 1000 /* ms */
++/* timeout waiting for bus busy */
++#define XIIC_BB_TIMEOUT		(msecs_to_jiffies(1))
+ /* timeout waiting for the controller to respond */
+ #define XIIC_I2C_TIMEOUT	(msecs_to_jiffies(1000))
+ /* timeout waiting for the controller finish transfers */
+@@ -392,6 +390,30 @@ static int xiic_wait_tx_empty(struct xiic_i2c *i2c)
+ 	return 0;
+ }
+ 
++static int xiic_clear_en_bnb(struct xiic_i2c *i2c)
++{
++	u8 sr = 0, isr = 0;
++	unsigned long timeout;
++
++	timeout = jiffies + XIIC_BB_TIMEOUT;
++	for (isr = xiic_getreg8(i2c, XIIC_IISR_OFFSET);
++		(isr & XIIC_INTR_BNB_MASK);
++		isr = xiic_getreg8(i2c, XIIC_IISR_OFFSET)) {
++
++		sr = xiic_getreg8(i2c, XIIC_SR_REG_OFFSET);
++		if (sr & XIIC_SR_BUS_BUSY_MASK)
++			xiic_setreg8(i2c, XIIC_IISR_OFFSET, XIIC_INTR_BNB_MASK);
++
++		if (time_after(jiffies, timeout)) {
++			dev_err(i2c->dev, "Failed to clear bnb\n");
++			return -ETIMEDOUT;
++		}
++	}
++
++	xiic_irq_en(i2c, XIIC_INTR_BNB_MASK);
++	return 0;
++}
++
+ /**
+  * xiic_setclk - Sets the configured clock rate
+  * @i2c: Pointer to the xiic device structure
+@@ -543,38 +565,30 @@ static void xiic_smbus_block_read_setup(struct xiic_i2c *i2c)
+ 
+ 	/* Check if received length is valid */
+ 	if (rxmsg_len <= I2C_SMBUS_BLOCK_MAX) {
+-		unsigned int pec_len = i2c->rx_msg->len - 1;
+-
+ 		/* Set Receive fifo depth */
+-		if (rxmsg_len + pec_len > IIC_RX_FIFO_DEPTH) {
++		if (rxmsg_len > IIC_RX_FIFO_DEPTH) {
+ 			/*
+-			 * Trailing bytes (payload plus any PEC) exceed Rx FIFO
+-			 * capacity, so drain in chunks. This also keeps the
+-			 * else branch below from pushing rfd_set past the
+-			 * 4-bit XIIC_RFD_REG_OFFSET field.
++			 * When Rx msg len greater than or equal to Rx fifo capacity
++			 * Receive fifo depth should set to Rx fifo capacity minus 1
+ 			 */
+ 			rfd_set = IIC_RX_FIFO_DEPTH - 1;
+-			i2c->rx_msg->len = rxmsg_len + 1 + pec_len;
+-		} else if (1 + rxmsg_len + pec_len < SMBUS_BLOCK_READ_MIN_LEN) {
++			i2c->rx_msg->len = rxmsg_len + 1;
++		} else if ((rxmsg_len == 1) ||
++			(rxmsg_len == 0)) {
+ 			/*
+-			 * The HW needs SMBUS_BLOCK_READ_MIN_LEN bytes on the
+-			 * bus to exit cleanly: by the time the ISR reads the
+-			 * length byte the second byte is already being clocked
+-			 * in, too late to NACK. Pad the drain target and record
+-			 * the real length, trimmed back on completion so the
+-			 * PEC check sees the right byte.
++			 * Minimum of 3 bytes required to exit cleanly. 1 byte
++			 * already received, Second byte is being received. Have
++			 * to set NACK in read_rx before receiving the last byte
+ 			 */
+ 			rfd_set = 0;
+ 			i2c->rx_msg->len = SMBUS_BLOCK_READ_MIN_LEN;
+-			i2c->smbus_actual_len = 1 + rxmsg_len + pec_len;
+ 		} else {
+ 			/*
+-			 * All trailing bytes fit in the Rx FIFO. Defer RX_FULL
+-			 * until every one of them is buffered, so the drain
+-			 * takes xiic_read_rx()'s bytes_rem == 0 path.
++			 * When Rx msg len less than Rx fifo capacity
++			 * Receive fifo depth should set to Rx msg len minus 2
+ 			 */
+-			rfd_set = rxmsg_len + pec_len - 1;
+-			i2c->rx_msg->len = rxmsg_len + 1 + pec_len;
++			rfd_set = rxmsg_len - 2;
++			i2c->rx_msg->len = rxmsg_len + 1;
+ 		}
+ 		xiic_setreg8(i2c, XIIC_RFD_REG_OFFSET, rfd_set);
+ 
+@@ -587,16 +601,6 @@ static void xiic_smbus_block_read_setup(struct xiic_i2c *i2c)
+ 	dev_err(i2c->adap.dev.parent, "smbus_block_read Invalid msg length\n");
+ }
+ 
+-/*
+- * Undo the setup-time padding of a short SMBus block read before rx_msg is
+- * cleared, so the PEC check sees the right byte.
+- */
+-static void xiic_smbus_trim_len(struct xiic_i2c *i2c)
+-{
+-	if (i2c->rx_msg && i2c->smbus_actual_len)
+-		i2c->rx_msg->len = i2c->smbus_actual_len;
+-}
+-
+ static void xiic_read_rx(struct xiic_i2c *i2c)
+ {
+ 	u8 bytes_in_fifo, cr = 0, bytes_to_read = 0;
+@@ -819,8 +823,6 @@ static irqreturn_t xiic_process(int irq, void *dev_id)
+ 
+ 		xiic_read_rx(i2c);
+ 		if (xiic_rx_space(i2c) == 0) {
+-			xiic_smbus_trim_len(i2c);
+-
+ 			/* this is the last part of the message */
+ 			i2c->rx_msg = NULL;
+ 
+@@ -881,19 +883,13 @@ static irqreturn_t xiic_process(int irq, void *dev_id)
+ 	}
+ 
+ 	if (pend & XIIC_INTR_BNB_MASK) {
+-		/* IIC bus has transitioned to not busy */
+-		clr |= XIIC_INTR_BNB_MASK;
+-
+ 		/* The bus is not busy, disable BusNotBusy interrupt */
+ 		xiic_irq_dis(i2c, XIIC_INTR_BNB_MASK);
+ 
+ 		if (i2c->tx_msg && i2c->smbus_block_read) {
+ 			i2c->smbus_block_read = false;
+-			/*
+-			 * Drive xiic_tx_space() to 0 to signal STATE_DONE
+-			 * without truncating the rx_msg length.
+-			 */
+-			i2c->tx_pos = i2c->tx_msg->len;
++			/* Set requested message len=1 to indicate STATE_DONE */
++			i2c->tx_msg->len = 1;
+ 		}
+ 
+ 		if (!i2c->tx_msg)
+@@ -965,7 +961,6 @@ static void xiic_recv_atomic(struct xiic_i2c *i2c)
+ 			return;
+ 	}
+ 
+-	xiic_smbus_trim_len(i2c);
+ 	i2c->rx_msg = NULL;
+ 	xiic_irq_clr_en(i2c, XIIC_INTR_TX_ERROR_MASK);
+ 
+@@ -983,9 +978,6 @@ static void xiic_start_recv(struct xiic_i2c *i2c)
+ 	u8 cr = 0, rfd_set = 0;
+ 	struct i2c_msg *msg = i2c->rx_msg = i2c->tx_msg;
+ 
+-	/* A stale value from an aborted block read would truncate this msg. */
+-	i2c->smbus_actual_len = 0;
+-
+ 	if (!i2c->atomic)
+ 		dev_dbg(i2c->adap.dev.parent, "%s entry, ISR: 0x%x, CR: 0x%x\n",
+ 			__func__, xiic_getreg32(i2c, XIIC_IISR_OFFSET),
+@@ -1028,7 +1020,7 @@ static void xiic_start_recv(struct xiic_i2c *i2c)
+ 
+ 		xiic_setreg16(i2c, XIIC_DTR_REG_OFFSET, val);
+ 
+-		xiic_irq_clr_en(i2c, XIIC_INTR_BNB_MASK);
++		xiic_clear_en_bnb(i2c);
+ 	} else {
+ 		/*
+ 		 * If previous message is Tx, make sure that Tx FIFO is empty
+@@ -1095,7 +1087,7 @@ static void xiic_start_recv(struct xiic_i2c *i2c)
+ 
+ 	if (i2c->nmsgs == 1)
+ 		/* very last, enable bus not busy as well */
+-		xiic_irq_clr_en(i2c, XIIC_INTR_BNB_MASK);
++		xiic_clear_en_bnb(i2c);
+ 
+ 	/* the message is tx:ed */
+ 	i2c->tx_pos = msg->len;
+@@ -1179,11 +1171,11 @@ static void xiic_start_send(struct xiic_i2c *i2c)
+ 		/* Clear any pending Tx empty, Tx Error and then enable them */
+ 		xiic_irq_clr_en(i2c, XIIC_INTR_TX_EMPTY_MASK |
+ 				XIIC_INTR_TX_ERROR_MASK |
+-				XIIC_INTR_BNB_MASK |
+ 				((i2c->nmsgs > 1 || xiic_tx_space(i2c)) ?
+ 				XIIC_INTR_TX_HALF_MASK : 0));
+ 
+ 		xiic_fill_tx_fifo(i2c);
++		xiic_clear_en_bnb(i2c);
+ 	} else {
+ 		/*
+ 		 * If previous message is Tx, make sure that Tx FIFO is empty
+@@ -1225,8 +1217,9 @@ static void xiic_start_send(struct xiic_i2c *i2c)
+ 
+ 		/* Clear any pending Tx empty, Tx Error and then enable them */
+ 		xiic_irq_clr_en(i2c, XIIC_INTR_TX_EMPTY_MASK |
+-				XIIC_INTR_TX_ERROR_MASK |
+-				XIIC_INTR_BNB_MASK);
++						XIIC_INTR_TX_ERROR_MASK);
++
++		xiic_clear_en_bnb(i2c);
+ 	}
+ 
+ 	i2c->prev_msg_tx = true;
+-- 
+2.43.0
+
