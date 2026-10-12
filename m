@@ -1,104 +1,88 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1281FE451;
-	Tue, 13 Oct 2026 14:06:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0524B4F3939;
+	Tue, 13 Oct 2026 14:06:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900365; cv=none; b=A61x3YGxcHLmfd24glrbCVQeFJ52YFwM4f4Yp29JTga/9lJWs1BKGB/8XH5DbbM4meSj4MdcoWEJ8Zep8IpnuLbScf6b3rEcEkBbsU/nmq0vlLrCtBov7sbAW7kRrY98eiGtrGdsSHJpCRFbtck9LJUZBlpkJT0Umvr4oiyLMFo=
+	t=1791900368; cv=none; b=TOmBwy9o2km34GijUJT1MI4fpX8m5/VAWEP7zZYiBWoAJgBhXrTvH4EPRjyOYDa4EyM90+vs1cXryy7mOzKoVfUIotNhUZk5yCMZ3H0rPysTwHNXA9ybe5qhhHUa72ZJgLXcioz3AGnkgjjOtrFIQvTNb/5yJqfe8O7b3Q81Rqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900365; c=relaxed/simple;
-	bh=sKU/XcsTHaTSX7e1d5LMbRt9ZT4u9MldIjoStyaSx1Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tg/xcmRk22SIXTg9hd/ZZ9SWLhTXlAWDNuAFJRg/Z7O+cZG1UlGS4k/IMo9aqezs+FdKYdk2SRirK9gQn2wQLi8Eqi7EsYEFrmZrR4KXbLBhtew6roS5GbK+3sIvfQ8CtlaU9YWHQOeSTyD/1oCIQRq81i991E4wmFvYBLTRXME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W8tg/lXg; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791900368; c=relaxed/simple;
+	bh=QlbAfkPPFpaw58RZxV/YQ2jnS9l4Juf7CsuDwzWYkrU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=eTm0TKiQiLKxT+tD3JIp4MhOJknL9FbPJ/iw6+N/y6NGtPGGI2DYz84YV0vvv8g/W07dCi7+QiEOQz9wgldtatRCLgSRxKpJEREHCRlffwShQftj8PMOTa+eVy9Uz2+1QKXF7O35NucSnmMNB9isfPaCCTQx0sJhQ4hiyjEhsoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l4gDerQk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W8tg/lXg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791900364; x=1823436364;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=sKU/XcsTHaTSX7e1d5LMbRt9ZT4u9MldIjoStyaSx1Y=;
-  b=W8tg/lXg/dKAPs7IzQQpxleZdRqWN31/Iv4S/tvys4HXKF31nrNGzYws
-   96aOIxJFmNESnG3knHPv3EJseISA1yyGDg0UwWZo8rU5xYmp+UCMuNDpM
-   Wgwd/YLR0RGi4Egv6KY6Nqh2lWTVFHCwXmYbwavVMHSg7n/ez5OdwdXnw
-   zKdkN1TCilO+nb8hfGz/amJlMlG5Qkh2uFpRC9WnFn39MWYMONWuF+h+K
-   XtTPhfzXHZDanTZEaF+fZzn2Ww7dYMzZFiNbU2Z9jcVLlzCTHbArVPY+c
-   gyuoZz83/FniZIIc9obzSJ7LVd0wO6Y4v7XpGCbKUp8rqsDF2Uj0ruYsy
-   w==;
-X-CSE-ConnectionGUID: a9PoP7KXROiav2ruzm2Ptg==
-X-CSE-MsgGUID: JCqqn0wISIW4EJuB0iJBmQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="634263"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="634263"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 07:06:03 -0700
-X-CSE-ConnectionGUID: mx6/uuVETymVvMK3wkKf5A==
-X-CSE-MsgGUID: BDq0DslZTR67YS4YtKQNvg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1493860"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 07:06:00 -0700
-Date: Tue, 13 Oct 2026 17:05:56 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
-	Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads112c14: add gpio support
-Message-ID: <as46xFp-3fXvWPlm@ashevche-desk.local>
-References: <20261009-iio-adc-ti-ads112c14-gpio-v2-0-3231a795fa63@baylibre.com>
- <20261009-iio-adc-ti-ads112c14-gpio-v2-2-3231a795fa63@baylibre.com>
- <CAMRc=Mfn7+uQYvLjGLxU9wMOnRwx5pyPgaLp6oNx+ZcFXyXL=A@mail.gmail.com>
- <cde9d00a-bfe4-4093-b03d-f76a122e4ded@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l4gDerQk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C840E1F000FF;
+	Tue, 13 Oct 2026 14:06:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791900367;
+	bh=QDUFgi5qXoKJKWdS4isV8ww+zH8ENZP7NGQ4t9Dfgoo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=l4gDerQkCIpqyBzoZ/lSrf+5xR13Vq2ltrY+RkXbMNmQdB170jSL7gdyDodCqNO19
+	 faDe4FutFDGiK/mKIR6v0xDCumFe90Y/jkbmbBc4WmrAFQZjO1aTMqGPkQ7n6n1hQB
+	 FN2bPz+H7cu5zPUtZm9kRMYb2pKatdi9Y6vPrHzlsLaQYPRNBQEHRQnw2cWtp1Yv6R
+	 jFoX2aFsjUsFkXhBkAwJMqjAs/LPlFVRmKg7JagW6xkqQSK90Ceshuz2JyMqGPOPHk
+	 ysm9IgrzY2Lw3ffnmp26aWDNKg63CFluqW3KhGcrmGoYulak/P1u9bOMaQjTbHGq0J
+	 OCp5W5goLAAmw==
+From: Mark Brown <broonie@kernel.org>
+To: srini@kernel.org, lgirdwood@gmail.com, Joonhoe Kim <26rote@gmail.com>
+Cc: perex@perex.cz, tiwai@suse.com, neil.armstrong@linaro.org, 
+ jonathan@marek.ca, linux-sound@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261007123954.1709-1-26rote@gmail.com>
+References: <20261007123954.1709-1-26rote@gmail.com>
+Subject: Re: [PATCH] ASoC: codecs: wcd939x: read the SoundWire port
+ switches per channel
+Message-Id: <179184618495.390394.12922276610796741760.b4-ty@b4>
+Date: Tue, 13 Oct 2026 00:03:04 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cde9d00a-bfe4-4093-b03d-f76a122e4ded@baylibre.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1150; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=QlbAfkPPFpaw58RZxV/YQ2jnS9l4Juf7CsuDwzWYkrU=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLOWZ222nJyiYGuqMC3iw8P6tnmL1D56bq5Qvf3lzm3M
+ 17FZB641FHKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJPCliZPgyXe0Yl0+txR/P
+ vxPLlwfGdzRVPpz+sZVlfSKzSmHVP36G/0lva0qK33QvrdNX+rgmMdEmkPX87re7O3bbWciqLlO
+ WYwIA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Sat, Oct 10, 2026 at 08:46:30AM -0500, David Lechner wrote:
-> On 10/10/26 4:00 AM, Bartosz Golaszewski wrote:
-> > On Sat, 10 Oct 2026 01:25:52 +0200, "David Lechner (TI)"
-> > <dlechner@baylibre.com> said:
+On Wed, 07 Oct 2026 21:39:54 +0900, Joonhoe Kim wrote:
+> ASoC: codecs: wcd939x: read the SoundWire port switches per channel
 
-...
+Applied to
 
-> >> +	if (device_property_read_bool(dev, "gpio-controller")) {
-> > 
-> > I think the right one to use is device_property_present().
-> 
-> I thought this was the one case where device_property_read_bool() is
-> actually correct because gpio-controller property is a
-> /schemas/types.yaml#/definitions/flag.
-> 
-> Otherwise, we should just remove device_property_read_bool() from the tree
-> because there would never be a reason to use it.
-> 
-> My understanding is we should use device_property_present() for non-boolean
-> properties when we want to know if it is present or not before reading the
-> value of it.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-That's not true. The _property_present() checks any type of property, while
-_property_read_bool() returns an actual value of the flag, while they might
-overlap in the behaviour, they are semantically completely different.
+Thanks!
 
--- 
-With Best Regards,
-Andy Shevchenko
+[1/1] ASoC: codecs: wcd939x: read the SoundWire port switches per channel
+      https://git.kernel.org/broonie/misc/c/e7860dc5d8d4
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
