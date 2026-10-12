@@ -1,233 +1,88 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE2A47255A;
-	Mon, 12 Oct 2026 12:33:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A59F8481238
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:33:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791808405; cv=none; b=jBgk0bI8BL3f7hMIbOSeoBV8gK3q7NPwWecI52+PQSSFqSimURImSqowO7SQkVCkTL9zzvu23BCVlb87aMsWtfXF9viZRrJ07BzzbgIl7+7tvBqvgl7c1hxR+U0lYiDWIca91Lh9HGVx5twpLoyfL57SXUue0yOsDcB4MsEj2Is=
+	t=1791808421; cv=none; b=ZSI2S1rjumXzKP70LVngtuM/SKRuqHORpMLISTVFY0QEO8+ieIAoywvATq4F4vxqc67Pj6OEa5q3tyJhw2s5gdpl4naYCBOWSQ31v92KRz8lZPUT+5ZMKf/Fhf08pULZZ8nUsiZcVQN0DlGmSrkUjXc9b2QANJ3A7WR1YMeSutg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791808405; c=relaxed/simple;
-	bh=7vTfPz8fNhJWn87an4pITaOOv8N3fWD28RpTcB3AByo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sLu8vAZaEkAE2H8qoaRDwo4P003VcHe1MSMl6VgX+n6klNcQhXOQ2J15mknWycqnEgGIXoPd+nTMBYA7/9LmKt/pGa46th3cp3jRhXbu+XKEOpJlAWcxuhJ0Xcph8XF3UBgYqGxACkxa2OQz+YTcK8HaqALOM8ZsgEg5X1WMrKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=CuPVwyox; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="CuPVwyox"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCEUlk073775;
-	Mon, 12 Oct 2026 12:33:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=FyWUeM
-	JNFB4lUSeSpe1i4usJzcakGpj2RGshi8Ors5s=; b=CuPVwyoxABGLapm8jXXYQU
-	rA+B1xxZS6m1iVujQLTbHFSTafpIro1tNrHVVUIBpe9WEGoXnECGZxteUV+R+FCW
-	xEasaL40LCu0GqePfJycGcvQ7jkKBH1z3oYjpkAAOdryUHH6/lcB0f3n778p1ujA
-	GhQMl8AyZvSu//gUbIedx6H1cS2LEGY+QJ3x1wf8jZuZAThI+rFn7P+AMqFnpqGi
-	DChO5YlbNqTVxT0Xz4iozTKrP63fH5QYkb7ojwm1T7SAUcUjc29wu2iH7BTOxDGW
-	XdNwAifLNZqtLNBEViVXgxg7TN2l0lANZTmdxVKGCbc2EZ/HJWJ+x5oZBBQhR0SA
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwhrjbq-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 12:32:59 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC4s2f1286752;
-	Mon, 12 Oct 2026 12:32:58 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h816gw1xf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 12:32:58 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CCWsNe47579490
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 12:32:54 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8EA6C20043;
-	Mon, 12 Oct 2026 12:32:54 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C0CF120040;
-	Mon, 12 Oct 2026 12:32:53 +0000 (GMT)
-Received: from [9.111.15.190] (unknown [9.111.15.190])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 12 Oct 2026 12:32:53 +0000 (GMT)
-Message-ID: <6c4fcef6-6ff8-4733-a451-53744d2c821d@linux.ibm.com>
-Date: Mon, 12 Oct 2026 14:32:53 +0200
+	s=arc-20240116; t=1791808421; c=relaxed/simple;
+	bh=h91+HOvqdlewQhPQ2gxcj04PwRiRtOcVOor8Tvz805Q=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=cTxdNQOKWFWRfDF1mx17hJA5gqoxGHbJwReJD3VKA28peTZqqrEqfcVnNmpScqTHri2TRbhy3/tc+/ltTFBzfYEZpTLtdXYTXVwJBhcVGI71I8F0yBMsdMtMZBxeLQXe2CD9PXJ2G70QdKLSFR43Q15ds1MZEa8jWxP24Kk2IlY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-820ce3bb94bso2107509a34.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:33:39 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791808418; x=1792413218;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M/AkdDECDi+uo+Cdtuf/U1SnbWxVE22e3DrnPYbcqHI=;
+        b=Eo/KyPsVx54FzJQyCYFhdfggose5xZX1smFLdjio2TjDEahUR/Gj6U/zm4CvLCxxZp
+         EjqQaQePZRTuvk0ujPTKYxaYwQ8u+DEs0bWgZYJJIxm00Sunyl7tPM6ZulUShRINemaz
+         uhZmN/aCLWLEPjAaB01yJUDMHHz5VdKK5UKXHLNaLc6t3aJrxCbJ6iZ1MQ85moJS+iJ7
+         BH4MBgHRoVE0u7WS0wyl2j+oGWDAm7nK7d+/p4BHdV5r3vZAsCS9WmvrjhuUWzoiwgBB
+         nBcu4uLzhiOSnYecHMzgmcCYY5cmsSeeopRc0JGQ6cS3ICIC1Dan1CgDvqJx63opKxBb
+         Q1nA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9rZVA5HVHmEQu0aNVyuDb4S8Sgx1FVTYNCDYP7n6kI4Hi31kzG0kMt3YbF1Se6cUEWDg3S7ac7LG2PaE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkH2sFVPZ/XcBO6Eb5IPHhAGN23NIdv+m2GX9aPKdBEjgGC/A5
+	OXN/L9z9r8eJ8aFt/lCtUx2M2FSauSIvFPAPTnhpsf44Y7GDau4iZ4QsWweiU/55Dib1Tqi1Z9u
+	7yZB1tepBk2C/JvdmgrznT0SgG0CbHk54DnjWPGPaAe2Sq9CCJjGadbd5hBI=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/2] sched: Introduce idle SMT priority for asymmetric
- capacity systems
-To: Shrikanth Hegde <sshegde@linux.ibm.com>, Andrea Righi <arighi@nvidia.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-        Juri Lelli <juri.lelli@redhat.com>,
-        Vincent Guittot <vincent.guittot@linaro.org>,
-        Dietmar Eggemann <dietmar.eggemann@arm.com>,
-        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
-        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
-        K Prateek Nayak <kprateek.nayak@amd.com>,
-        Heiko Carstens
- <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Tim Chen <tim.c.chen@linux.intel.com>, Chen Yu <yu.c.chen@intel.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org
-References: <20261008-hiperdispatchfix-v1-0-73fe41081070@linux.ibm.com>
- <aseIPhrDGCYFtJNE@gpd4> <90454932-1d82-450a-ac4c-499acdedb9d7@linux.ibm.com>
- <ffbeae31-0e93-4386-8e0e-dba13960b283@linux.ibm.com>
- <cc926e51-7223-4d3b-9896-3ed8955b584f@linux.ibm.com> <askERc5Xa9NhAfk_@gpd4>
- <effe96a4-c995-4da4-aac6-bef195df36c2@linux.ibm.com>
-Content-Language: en-US
-From: Mete Durlu <meted@linux.ibm.com>
-In-Reply-To: <effe96a4-c995-4da4-aac6-bef195df36c2@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0OCBTYWx0ZWRfX8ofZe4vNB00l
- HAFwQFHRnAlekgIpOe8SLLc8xdJM7Gnd7aU5mow0xyyLBiSFUALaAu0T3O3TR0XtJfG6KK+/o9O
- fs9F50cu3qZAGD97hHH8ETK6Egp3ykDIWTRfhpZCn+PinntHVAeLg6ru2luc+IeP1vKSq+IRZjR
- sHQTsf+N0C888Hn0ESedz12t6DRfCLTVCo8NLUt+iqRzX/biMSSwKxMaTbUf2h3BxrswFU0V7l6
- IDIs8Ksu0pOxSEavcoxj7xvWPtj3TtYkgbRlykidf+cBZ/7AGaT8Oo8gCgoBLFj10Y9vq+WaRp/
- VZHe+0eyBh5lsWjQ+Wegz747A/6Z5qR8/NozmzSI0FTxrq5mTpPxkAB0IarhwaVUgUxw1kZiCAi
- m/J599wa+e0tAhnsFAM9sgjYcZxsSqDiI+0JGIXQFGmNTHBbLuiEfd7r+Tgp7+djnI7jgI3WE7N
- P6SGLBKYBmyvyMhn3Lg==
-X-Proofpoint-GUID: iVb9FMcT0SbeTSyvJCgFGTQf-6bshjdL
-X-Proofpoint-ORIG-GUID: NrZ5GDOAGjp7ev5lS-xIwRPbO877Skqm
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0OCBTYWx0ZWRfX0L9p4DoUKT5Z
- oqYEPWq+8xv9u3FqlHgP+RsVjkUJE8FTJqIxcA+FzJoT9HVE9mGgM13TQ8FkcN9EL/2enEqK7qJ
- iLUAavy30gt4pFjKsashxULWv1RMvvQ=
-X-Authority-Analysis: v=2.4 cv=btHZl0ai c=1 sm=1 tr=0 ts=6accd37b cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=tkh5zrSn6ICSXLwhzbEA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 phishscore=0 impostorscore=0 adultscore=0
- lowpriorityscore=0 priorityscore=1501 clxscore=1015 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120048
+X-Received: by 2002:a05:6808:199b:b0:4dd:18c7:5448 with SMTP id
+ 5614622812f47-50c56de25dbmr10500216b6e.56.1791808418618; Mon, 12 Oct 2026
+ 05:33:38 -0700 (PDT)
+Date: Mon, 12 Oct 2026 05:33:38 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6accd3a2.0e5b5d80.2c029c.0574.GAE@google.com>
+Subject: [syzbot] Monthly f2fs report (Oct 2026)
+From: syzbot <syzbot+listcde74ed375b6fae34bba@syzkaller.appspotmail.com>
+To: chao@kernel.org, jaegeuk@kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
-sorry for the late reply, I have been sick since Friday.
-I though about what has been written for a bit.
+Hello f2fs maintainers/developers,
 
->>> Well, when we see steal time, it usually means there is high 
->>> contention and
->>> we are using more vCPUs at this moment than possible.
->>> So we mark them as non-preferred. Note that they are idle cpus. But 
->>> non-preferred.
->>>
->>> That means preferred CPUs may have more than 1 task. If we spill over 
->>> if there
->>> is idle non-preferred CPUs, we will be back to square one. No?
->>
->> I agree that CPUs excluded by the steal governor should remain avoided 
->> even when
->> all preferred CPUs are busy.
->>
->> I'm wondering if we should have two levels: cpu_preferred_mask acting 
->> as a hard
->> affinity constraint and an entitlement-based soft affinity within that 
->> mask? The
-> 
-> That not what entitlement usually means. At least not PowerVM. when one 
-> creates VM,
-> they assign VP=Virtual Cores and EC=Entitled Cores. and Hypervisor 
-> ensure at least EC
-> worth of cores are always assigned to that VM. There is no need of 
-> priority within that
-> entitlement.
+This is a 31-day syzbot report for the f2fs subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/f2fs
 
-Wouldn't it make sense to first fully load entitled cores before
-moving onto virtual cores on Power? On s390 we would definitely
-benefit from it on some cases.
+During the period, 2 new issues were detected and 0 were fixed.
+In total, 12 issues are still open and 82 have already been fixed.
 
->> soft affinity would prefer high-entitlement CPUs: first fully idle 
->> cores, then
->> idle SMT siblings. Once those CPUs are busy, tasks could spill onto
-> 
-> I think when one has high steal time and hence reduced preferred CPUs, 
-> there will
-> likely be no fully idle cores within preferred CPUs.
+Some of the still happening issues:
 
-Shrikanth, wouldn't something like below still make sense?
+Ref Crashes Repro Title
+<1> 2538    Yes   kernel BUG in f2fs_evict_inode (4)
+                  https://syzkaller.appspot.com/bug?extid=5c81eb8c0a380fa578b5
+<2> 1367    Yes   INFO: task hung in f2fs_balance_fs
+                  https://syzkaller.appspot.com/bug?extid=8b85865808c8908a0d8c
+<3> 302     Yes   INFO: task hung in f2fs_issue_checkpoint (2)
+                  https://syzkaller.appspot.com/bug?extid=8a7eea50810efde15b0a
+<4> 6       Yes   kernel BUG in clear_inode (5)
+                  https://syzkaller.appspot.com/bug?extid=fc026e87558558f75c00
+<5> 2       No    kernel BUG in f2fs_write_end_bio
+                  https://syzkaller.appspot.com/bug?extid=eae639926b1c1ac725d5
 
-> Note that current logic takes out last set of CPUs and find_new_ilb 
-> iterates from
-> the beginning. So if there is idle core within the preferred CPUs, it 
-> will be chosen.
-> 
->> lower-entitlement CPUs still inside cpu_preferred_mask, again 
->> preferring fully
->> idle cores over idle SMT siblings. If all CPUs inside 
->> cpu_preferred_mask are
->> busy, tasks would queue there. The soft affinity would never override the
->> governor's restriction by spilling onto CPUs it excluded due to 
->> contention.
->>
-> As we were discussing, as long as threads don't end up on non-preferred 
-> CPUs,
-> we might be okay. With the above, find_new_ilb will becomes very complex 
-> IMHO
-> and I am not sure if it is worth it.
-> 
-> likely what we need is,
-> - Fully idle preferred Core.
-> - idle preferred CPU.
-> - any idle CPU.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Andrea does this resemble what you were describing;
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
 
-1-) (steal time == 0)
-====================================================================
-cpu_preffered_mask = active_cpus
-cpu_soft_affinity = 0
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
 
-All cpus are available for scheduler to pick and use.
-Idle cores are preferred in case of asymmetric capacities.
-
-2-) (steal time > 0) && (steal time <= initial_threshold*)
-====================================================================
-cpu_preffered_mask = active_cpus
-cpu_soft_affinity = entitled cpus
-
-In this case entitled cores get fully filled (SMT siblings first)
-before spilling load onto the rest of the cpus on preferred mask.
-*Initial threshold is a value I just devised. Ideally arch specific
-and dynamically configurable, setting it to just 0 should also
-be an option.
-
-3-) (steal time > initial_threshold)
-====================================================================
-cpu_preffered_mask = entitled cpus + steal governor's modifications
-cpu_soft_affinity = entitled cpus
-
-Carrying the logic from case 2 but shrinking the preferred mask
-according to the increased steal time value.
-
-Shrikanth/Andrea,
-does what I describe above make sense and would it make a reasonable
-addition to the vCPU backoff mechanism?
-
-*Considering guests with hardware based topology and underlying
-hypervisor scheduling vCPUs per core;
-I'd expect this approach to allow for guests having a smaller
-footprint for longer and steal time to start appearing later than
-usual as the entitled cores are fully utilized before touching other
-cores.
-
-*This is the case for s390 for example. I am not sure if it is the same
-for Power or any other architecture.
+You may send multiple commands in a single email message.
