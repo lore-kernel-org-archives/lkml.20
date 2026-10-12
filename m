@@ -1,50 +1,51 @@
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E8B4D37B7
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:21:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7414D4897
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:21:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791829271; cv=none; b=QJh568jbR+0MNX/agu3vE2pfaBFSFf8OU456lJzLJ5Q5Yy8QCSmOUIjjUCgP87zqtum8jgeezzCJmUU5U25SsCZHMx36kzGBVyt2nwIpi5oHowXbilh+CPfPDYNgsjOkdqeTIx1j97/nUAjlS5qOxcYFc4zlO/NBShm7HRf10hE=
+	t=1791829274; cv=none; b=Hvc8XrRJE9G+yE6nwijycdaXsGMdlGDvfkeTCcq4kv6bjGLxfrvZxuHU48UT/iC/zl+zbKHuFM7DU+RI4+vn/DAXCc+VK3ABiZHWPXvKnIbKicf9Fnv7f36rALGZfKfF1y65Mdv/Bc9yuOIimebZ6nvVdl01Z5jaQdSY2fuPT4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791829271; c=relaxed/simple;
-	bh=T0eFQu5C4gC28+YUc9RWFbzsr8tV8NYfYEx26TFih6M=;
+	s=arc-20240116; t=1791829274; c=relaxed/simple;
+	bh=3v34PAL4aAKXYV6ohyBSemkgnCN9JMf9FwutRDfmzX0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=MmezhNrlrJcNRqhOkKJeI5rUF1twCMJzfWYrLo1uhSGH4EIXUuz9oIw3SptK05/QPwFwsD/NPC1PvOxDwpscISqkHsbvBOacMJ+JJwoeNTN7LnUQr4l1QLrpbGCKNIlpReqgn1YmWHawRxp80oWpe2YoG2BY4jDdk9IePKzQIUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=2I9hvHzO; arc=none smtp.client-ip=185.246.84.56
+	 MIME-Version:Content-Type; b=t4byU/tkjPf+mGLjYulN8GS6RKNIDPqaYKoPtsY+E/w6BGZoNp/fXS12nhfrVhIRE7Zwj5nifMYKwfZeZSmMDoCEtpqe6WQbQMOmAP0+KaghQ2ak+KnYqQxZvvMGIYBER5grEZ96flXkljEqjqDC+FLtHXlrR7FDF4A3tkkYP8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vWYjixju; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="2I9hvHzO"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vWYjixju"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 7CA2D1A11E9;
-	Mon, 12 Oct 2026 18:21:08 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id CA49D1A11EC;
+	Mon, 12 Oct 2026 18:21:11 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5157A601A6;
-	Mon, 12 Oct 2026 18:21:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 668D111D70C57;
-	Mon, 12 Oct 2026 20:21:01 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 96FA9601A6;
+	Mon, 12 Oct 2026 18:21:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C7DF311D70C58;
+	Mon, 12 Oct 2026 20:21:07 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791829263; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1791829270; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=RtoBieVdgz46Yu4sNoTwlnltzC8ycX7TlJ8qkNidGU0=;
-	b=2I9hvHzO1QsGxWc9vfKn5l4iBIEX7BtmEGBNLcO3r9sB8KMcSJqxk9p+IEAyYFkWX4R9Zv
-	W0rui9Qs69LkLuvzf2ZPQ97QGru4+HHQXjKYgYOiI030OfXEGsxjldZxKcorUCaMRh9u8h
-	6k0EELqgbePlNjg8jOvJjBxGrddvSBIKNSHZXf9xF7IBJyfnyQaMWkrchexIvUHv9tZ/ms
-	0PsAnZNEKvrbNTW29ugjbDTr1Pa4B2PW3Gm2HfHWg6oZE+cgJRgV2/j11dGDHEwrNcd4S8
-	KXzdS5Bob8LJ12W4JlbFYkgtH5syT/Z2Kj8LpJkfkflUUys/D48Pq5XCbntWRw==
+	bh=y5HWKSRRQNv9jBuSNGPG575nkQgXJ5PE8wPbsk+wyPY=;
+	b=vWYjixju/Xrmw8WRI8ekFc5byXp/EOf820j67ggwGnAWRWq59UWvM+KWpqtGUAEHjeSqRs
+	HRji6c2wQujkoVuwoP8BWrlWZBtKqjPnD4f/BWEMrYRmMr88c8lLZB6+W1+thew3RVHbcL
+	ButPThJ4XodZPtzJUyIEwjpcqoVCEdw11p6j88EsKJzaU6ccqrey3f2WE1rVPzFU4UeZId
+	cU9AKyrnhpSEp4whJF9fBRYUH+B5WHmz7svmgdqpa2eub/aCzZDmemuHsSItZeo0Wf+bID
+	6Y3WVEipKtbmMbzvvQtlLL8F047vJK7SPzjczexxUDr/wwFNGdML6RsBWFA2vg==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: devicetree@vger.kernel.org, Rosen Penev <rosenp@gmail.com>
-Cc: Richard Weinberger <richard@nod.at>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-mtd@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260926014802.87255-1-rosenp@gmail.com>
-References: <20260926014802.87255-1-rosenp@gmail.com>
-Subject: Re: [PATCH v4] dt-bindings: mtd: convert IBM NDFC binding to YAML
-Message-Id: <179182926132.590599.17670038456038372637.b4-ty@bootlin.com>
-Date: Mon, 12 Oct 2026 20:21:01 +0200
+To: Kyungmin Park <kyungmin.park@samsung.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Frank Li <Frank.Li@nxp.com>, Hemanth Selam <hemanth.selam@gmail.com>, 
+ linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Frank.Li@oss.nxp.com
+Cc: vkoul@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20261002201614.245240-1-Frank.Li@oss.nxp.com>
+References: <20261002201614.245240-1-Frank.Li@oss.nxp.com>
+Subject: Re: [PATCH 1/1] mtd: nand: use dmaengine_submit() instead of
+ ->tx_submit()
+Message-Id: <179182926769.590599.14708999784232940162.b4-ty@bootlin.com>
+Date: Mon, 12 Oct 2026 20:21:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,23 +57,16 @@ Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, 25 Sep 2026 18:48:02 -0700, Rosen Penev wrote:
-> The NDFC NAND flash controller was only described in a legacy text file,
-> so dtbs_check reported "failed to match any schema with compatible:
-> ['ibm,ndfc']" for the ndfc nodes of the bluestone, canyonlands, eiger,
-> glacier, sequoia and warp device trees.
+On Fri, 02 Oct 2026 16:16:07 -0400, Frank.Li@oss.nxp.com wrote:
+> Replace direct dma_async_tx_descriptor->tx_submit() calls with the
+> proper dmaengine_submit() API wrapper.
 > 
-> Convert the binding to the YAML format so those nodes match the generic
-> nand-controller-legacy schema.  Describe the node's reg, ccr and
-> bank-settings properties, along with its "nand" chip node which carries
-> the legacy partition layout.
 > 
-> [...]
 
 Applied to nand/next, thanks!
 
-[1/1] dt-bindings: mtd: convert IBM NDFC binding to YAML
-      commit: 0d1644566a1caaf71c8bf2a6689176e61749a85f
+[1/1] mtd: nand: use dmaengine_submit() instead of ->tx_submit()
+      commit: 8bef0196a4e21d4415091de2b6c498320e03ada2
 
 Patche(s) should be available on mtd/linux.git and will be
 part of the next PR (provided that no robot complains by then).
