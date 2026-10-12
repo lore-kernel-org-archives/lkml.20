@@ -1,83 +1,216 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD06B283FE5;
-	Mon, 12 Oct 2026 08:48:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D89023BD03
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:48:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791794915; cv=none; b=PXxVvwjIkJ85pJzUMDZT8GgGUwNw+Yr8YtiHUXxfhr4Y63NiIE5i1UbSGbv/JL3omuqXanBQ59jlF0LwhDZfZsimVfci8mKoIgvxtQJTaVyewiDHeRFM/wEf+TCP2wuQFOHHAEK5W+c+Mm/MXCeg0P8y/geKqj1/WQWYeJH6o+g=
+	t=1791794933; cv=none; b=NBGH8druveh0UOHV3qGNoQUhHkpfFdu4QICGJYmgWRCKa0SWl0BUZml9tllzbmgqWlxyoPOo+cB2P/L4fqID6sFxcSDQQMhr7aUTVZ3djfcIS7XDCbrb2PTsocO6VMik4uxmHoTnv6xREsZ+hRplSKyo5zSRRC4lXnl9ObwkyfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791794915; c=relaxed/simple;
-	bh=D2T/ZcrViDIEMuf2BBjGpYyjwTw2ZFyvcawker9vJZk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=H7YN3Ab10J6ExcS7u0O+ujdhpti23wi5TTtcAvC62iWZSrQ/2Zq+ppEBHIVc8LDKeIdgVr7Hgix0r+BPBfqVTTCE2OI42hR8lphFrQcxAVdzrOYYSf4ugpfxCXyzymP+UM3/ya8nK4j2RedF6a/5zm9VSPnDXOUpWBGfQm3M3Hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bRqymb4x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791794933; c=relaxed/simple;
+	bh=1eOpVzSHBaZ6yZXrZrTN/Es+LXfRmjlxWvWnixDQFmo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BUs3FZmV+r6heeUMsVOvTz0i07DwodgGgWoEPDYlBwWWlEXfLc9uk7x6djUZWsGzVP4D3EaQLxFOaU7Zytzz9+OCWrRt7pngQ8gzTvSuIGlqgCGiEuQqsVqUq81inZJhDXtyP++NAEC9egsk0fBRAhVwZ5hptARcJGgnZd69udM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=VskVFhY1; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bRqymb4x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6790C1F0089B;
-	Mon, 12 Oct 2026 08:48:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791794914;
-	bh=G+CtPiDfQVkz9f3GwytSDEGRsU21v8WZagiW8IUBOdw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=bRqymb4x5bWra+5w9vuFnjASch7trGBb5KiYFmlG+o9C9L01prbkAWp09LazrU5Vt
-	 djBM4kDuFoSEYyFQolIIkyAfXxNOZYdzPYzSlrMuSn5cl7GmTaYi/Kwtr2STZITng/
-	 hkkgNB7QWa2WxBGDPAB8MnbE9VgesGlY+l8m5Agxyq7eZhDC6Y9/7yy52pd4HNO9dN
-	 EFdn79JAwT0zxl5awGHIy//DdiuVwug5Q7sehg9yZ74fS0gLSekzMjTA7nPohrLffD
-	 rNibgYva95rgOX+1fHYL3ZwxRoMUNuEJlOxIfyZMp7j/sKop03/2aPr/w5r3/IZ/5P
-	 yAKd5JxdY0l8w==
-From: Christian Brauner <brauner@kernel.org>
-To: David Howells <dhowells@redhat.com>, 
- "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>, Kees Cook <kees@kernel.org>, 
- "Dae R. Jeong" <threeearcat@gmail.com>, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, AutonomousCodeSecurity@microsoft.com, 
- tgopinath@linux.microsoft.com
-In-Reply-To: <20261009224715.46121-1-cenzhang@linux.microsoft.com>
-References: <20261009224715.46121-1-cenzhang@linux.microsoft.com>
-Subject: Re: [PATCH v2] watch_queue: Fix note pool publication race in
- watch_queue_set_size()
-Message-Id: <20261012-umgewandelt-drehung-ortskenntnis-40e943ecacac@brauner>
-Date: Mon, 12 Oct 2026 10:48:30 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="VskVFhY1"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48afe0081a6so1099320f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:48:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791794929; x=1792399729; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3cASW6w1EYZAgoYuqInWi7bvGxpflIrfTx3mhO3Baq4=;
+        b=VskVFhY1h/PWH/3Lg6myfccXMSXciiA1OLXid3aqdnYs1Fpp5Bpuxs9Or2TTEUAUgm
+         ANrLA5Ycmp0ba3dDqCDPxV2/JnOZMpMI0Sjp5FCSziaAmrG00/ZpF5v53vhGCeRB5E/I
+         xTso93mz8h3/BYWhpmbeiwgaWMwpbIL2JhCnJqwcbtrZwhrIj1BaF9785Rs4ZDLI9Ydf
+         REb1osXC4qlY5mU5AgDYeMiT/fMJe3qzW8WYa7t65mYCYA0j10jsOGMNntuesTFUxe2f
+         bNJvRGtKoeh22HhUOaxGrK5c/zVk2oanarDG1Y3tn7Bpn/4Vgx/H6N7SIKKIhH8QVHz+
+         O21w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791794929; x=1792399729;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3cASW6w1EYZAgoYuqInWi7bvGxpflIrfTx3mhO3Baq4=;
+        b=X2XqFhJSyjwc0VEUZi5SmvvwD0yBS7tTUaWmqxvSEY1iZhVI0SK+/6quPM3dYBrGTQ
+         OWujKthZ0Np1xa552X7R1xc6I4/6oUM8ZoEZHlEWzwa1FiREq2SEy4Ipa8oGEUX7Fsjp
+         Gzy9ohBLW5jhMuQ4QsE/S7Biq0VRDMyo7a1JzdlgwMcowBHQ+ruAGtfFwXm2F8q6BNRs
+         s8ODL9kY7axPC0friJwNTIpkHwO3626LUmg6viv/sFs+r5vDgpNXwIcgkoof6jtV6JW2
+         nR3pLJy06XDzlHFZ653wtS17GJZP+DHD8Gv9lqr26HS0rCyxopdPqw3TiWRhmLu/hGqH
+         2YRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBytsGKOzN3y1aD4UBBSHaaerSCBOwE7BpQJIE6p84ROGU9MMx0nWnyFX24igAVNq7yIvWhyDqlqJC9Sy7Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJvznGH1qrOVNJiRBT3jH00imZv2DNzT18aD0M327twshzoOFiv
+	I54DE61uwaneWL6xP6Njqh+vHOwFrW6auVCqg28rnFoiHM7ipIJMxMfWz5KpNQYxlrU=
+X-Gm-Gg: AYBFou3ktw/S2rwUMFwk3pmhnnF/f+E5hcQdjIs26cd74g6ek5wsstfNprF3PPlSnBr
+	tUtUPOLm8x+MjuJIoz5LjMZNS9UI9oibp4oMbOVivKlPw0KV1h/fj9yldw08vP5VXPWrNSm0Cf1
+	RfrFpckzNFWwY/8LZ3WrImsN3e8y3Q2iolttpgzBwKA/NUI8z9Q5l1xazPlfMQLf4Udb0yYFndj
+	F63xea+NLLMJ/sjmEMJEKfpuwFqMPDCebnzzAlDAcpoIzoxfKDTi5UK4DoEYcaplR89yRaIr1AN
+	EK80MF2c2KwH+0qEbvm2KwkZ3ws4unQkezHAFb8kFz0vl85p8yGIBawulatvQn4kRCI1lRbZX2Q
+	is8tVNg7x6H7CM3l/AdykRhD3Bme3AOADECgcImmuIZmK1fZXCNMcstYWnC2p9HjfQlK6AizkrG
+	Jy5vk5QEObZELGSK6KLIUbW2DNoqnOtUc1H/cdhkbkfR5gqMCLcvh/MbB/aKpNXNOvguI4SC+ik
+	tsLhoC19+s=
+X-Received: by 2002:a05:600c:4e91:b0:4a1:7ec7:a479 with SMTP id 5b1f17b1804b1-4a18e4f56bcmr174368605e9.33.1791794929369;
+        Mon, 12 Oct 2026 01:48:49 -0700 (PDT)
+Received: from linaro.org ([2a02:2454:ff25:4f41:fef7:ab03:44ed:97e7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19f249692sm132645895e9.3.2026.10.12.01.48.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 01:48:48 -0700 (PDT)
+Date: Mon, 12 Oct 2026 10:48:43 +0200
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] remoteproc: qcom: pas: Decide early_boot attach
+ at probe time
+Message-ID: <asye6zJKwBBpcrCX@linaro.org>
+References: <20261011022802.4069489-1-shengchao.guo@oss.qualcomm.com>
+ <20261011022802.4069489-2-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-3d1b8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011022802.4069489-2-shengchao.guo@oss.qualcomm.com>
 
-On Fri, 09 Oct 2026 18:47:15 -0400, Cen Zhang (Microsoft) wrote:
-> There is a race between watch_queue_set_size() and post_one_notification().
-> watch_queue_set_size() publishes wqueue->notes, notes_bitmap, nr_pages and
-> nr_notes with plain stores, and post_one_notification() reads them with
-> plain loads under a different lock, so nothing orders the four stores
-> against the poster's loads: depending on the build, notes can be stored
-> last (gcc 14 on x86-64 does this).  Since keyctl_watch_key() lets a watch
-> attach to a queue before it is sized, post_one_notification() can already
-> be running on another CPU at that moment: it reads nr_notes > 0, passes
-> its bounds check, and then reads notes while it is still NULL,
-> dereferencing notes[0].
+On Sun, Oct 11, 2026 at 10:28:01AM +0800, Shawn Guo wrote:
+> For early_boot subsystems, probe unconditionally marks the rproc
+> RPROC_DETACHED and qcom_pas_attach() discovers from SMP2P whether the
+> bootloader actually started the remote. If it did not, attach sets the
+> state back to RPROC_OFFLINE and fails, expecting the core to boot the
+> firmware instead. The core does not do that: rproc_boot() treats the
+> attach failure as fatal and the remote is never started.
 > 
-> [...]
+> This is hit on Nord with firmware where XBL no longer brings ADSP out
+> of reset. The remote never publishes its inbound SMP2P entries, so the
+> very first state read fails (debug print below) and the ADSP stays down:
+> 
+>   qcom_q6v5_pas 4c00000.remoteproc: Failed to get fatal_irq state: -19
+>   remoteproc remoteproc0: can't attach to rproc adsp: -19
+> 
+> The ready, stop-ack and sysmon shutdown-ack signals cannot change while
+> Linux has not yet interacted with the remote, so there is no reason to
+> defer the decision to attach time. Check them in probe and only mark
+> the rproc RPROC_DETACHED when the remote is up and has not been asked
+> to stop; otherwise leave it RPROC_OFFLINE so the regular firmware boot
+> path is taken. The ready state is read first so that a missing SMP2P
+> entry -ENODEV is treated as "not running" before sysmon is queried.
+> 
+> qcom_pas_attach() keeps only the fatal check, since that is the one
+> signal that has to be acted upon once the rproc is attached.
+> 
+> Assisted-by: LLM
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+I think we should add stable/Fixes here for backporting to 6.3:
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+Cc: stable@vger.kernel.org
+Fixes: 16472c99f469 ("remoteproc: qcom: pas: Add late attach support for subsystems")
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+I'm not sure if b4 picks up Cc/Fixes as trailers when applying so you
+may need to resend.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+> Reviewed-by: Stephan Gerhold <stephan.gerhold@linaro.org>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>  drivers/remoteproc/qcom_q6v5_pas.c | 64 +++++++++++++++---------------
+>  1 file changed, 33 insertions(+), 31 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+> index 2e1e39826ffa..56179b71fd2a 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> @@ -550,9 +550,7 @@ static unsigned long qcom_pas_panic(struct rproc *rproc)
+>  static int qcom_pas_attach(struct rproc *rproc)
+>  {
+>  	struct qcom_pas *pas = rproc->priv;
+> -	bool ready_state;
+>  	bool crash_state;
+> -	bool stop_state;
+>  	int ret;
+>  
+>  	pas->q6v5.handover_issued = true;
+> @@ -570,42 +568,46 @@ static int qcom_pas_attach(struct rproc *rproc)
+>  		goto disable_running;
+>  	}
+>  
+> -	ret = irq_get_irqchip_state(pas->q6v5.stop_irq,
+> -				    IRQCHIP_STATE_LINE_LEVEL, &stop_state);
+> -	if (ret)
+> -		goto disable_running;
+> -
+> -	if (stop_state || qcom_sysmon_shutdown_irq_state(pas->sysmon)) {
+> -		dev_info(pas->dev, "Subsystem found stop state set. Falling back to start.\n");
+> -		goto unroll_attach;
+> -	}
+> -
+> -	ret = irq_get_irqchip_state(pas->q6v5.ready_irq,
+> -				    IRQCHIP_STATE_LINE_LEVEL, &ready_state);
+> -	if (ret)
+> -		goto disable_running;
+> -
+> -	if (unlikely(!ready_state)) {
+> -		/*
+> -		 * The bootloader may not support early boot, mark the state as
+> -		 * RPROC_OFFLINE so that the PAS driver can load the firmware and
+> -		 * start the remoteproc.
+> -		 */
+> -		dev_err(pas->dev, "Failed to get subsystem ready interrupt\n");
+> -		goto unroll_attach;
+> -	}
+> -
+>  	return 0;
+>  
+> -unroll_attach:
+> -	pas->rproc->state = RPROC_OFFLINE;
+> -	ret = -EINVAL;
+>  disable_running:
+>  	pas->q6v5.running = false;
+>  
+>  	return ret;
+>  }
+>  
+> +/*
+> + * The bootloader may or may not have started the subsystem. Inspect the
+> + * SMP2P state, which is static until Linux interacts with the remote, to
+> + * decide whether to attach or to load and start the firmware.
+> + */
+> +static bool qcom_pas_is_running(struct qcom_pas *pas)
+> +{
+> +	bool ready_state;
+> +	bool stop_state;
+> +	int ret;
+> +
+> +	/*
+> +	 * Check ready first: if the remote never published its SMP2P
+> +	 * entries the state read fails with -ENODEV.
+> +	 */
+> +	ret = irq_get_irqchip_state(pas->q6v5.ready_irq,
+> +				    IRQCHIP_STATE_LINE_LEVEL, &ready_state);
+> +	if (ret || !ready_state) {
+> +		dev_info(pas->dev, "Subsystem not running, not attaching\n");
+> +		return false;
+> +	}
+> +
+> +	ret = irq_get_irqchip_state(pas->q6v5.stop_irq,
+> +				    IRQCHIP_STATE_LINE_LEVEL, &stop_state);
+> +	if (ret || stop_state || qcom_sysmon_shutdown_irq_state(pas->sysmon)) {
+> +		dev_info(pas->dev, "Subsystem found stop state set, not attaching\n");
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
+Another nitpick from the original message, the subsystem is stopped so
+it cannot find anything, "Subsystem *has* stop state set" would probably
+be better. :-)
 
-[1/1] watch_queue: Fix note pool publication race in watch_queue_set_size()
-      https://git.kernel.org/vfs/vfs/c/e184fdfd7ea0
-
+Thanks,
+Stephan
