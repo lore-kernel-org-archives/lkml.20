@@ -1,118 +1,152 @@
-Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8739B4BC029;
-	Mon, 12 Oct 2026 17:11:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.54.11.23
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791825107; cv=none; b=QErULwy8Lr3bbvB2gXFM9J9iNGjfel+nI5XIc9s5m4ptjdDDM3M4khnix3ygz9NPN3plVrWOVXslg5k9kocYIFKt3fnGY2Dvmf4eOZbDhQVwDTAzIsoAeYECfrYfF6xyNpFr30Fg2kAl4ewRSJ1L22NhFfPL2KSprWHnXzT+2ts=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791825107; c=relaxed/simple;
-	bh=jnR2pEkOYYyZdO+L/BlRNyIeUa+dsDZlxXhd4vuRevA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=APuxwVjSpE6iF0mzowbN488F+diMfZ7cAK4jCtTxRbSA4c/KLw5y2lBKwK7w4B/FVDIUTB9pRnmCocpYMfpLXfiUQyHKUnu/iDY0QjvEcuMR/VY5W8NHblhCRGH6+Hy4t+caGAdoSTCFQbeYY7dTZ0Z5jk0fw+fVfCNn0xfoXuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br; spf=pass smtp.mailfrom=inf.ufrgs.br; dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b=3/WFlihY; arc=none smtp.client-ip=143.54.11.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B08F4B826D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:12:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791825155; cv=pass; b=k53dC4KWzlqVqF+VwipqTaxvPkWMsbzBWqZdYlaQmUoEL3kiDc6HKpYHRvtOyjeBh9QvwCVBVnJScQDMiUHgZzifG191vp08q7VYBHe9vQIBjvVG1hTVeP04Q6+Yah165dngGZTYd9NO5i1wqDt9bn4NBJwH7YJ7C4MiBBNrrY0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791825155; c=relaxed/simple;
+	bh=dpW2g/OHhp1bd+k/Wa9Z4WycLX07oh4uMIjONrgblWU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JPpxWpw7WUUb4EjqEPDMrHWq45Zb19ix3NZIjngehXM2A25ad+UXeZ/j5aX53y7gLE3mn8oPTEvslmAgmw3qUCOsivXr5HLOYtrNqrLB8lXFVw3Up81Dzj+o+JQpETCws7tKUpegoDXvfgl29zF5FcqxKA5+WfZ87en2yQRAVvo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LNtkXBU+; arc=pass smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="3/WFlihY"
-Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.6.233.4])
-	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 3C137121124;
-	Mon, 12 Oct 2026 14:11:18 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
-	s=dkim2026; t=1791825078;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l1aFztTi4Ls5s4M+ONyD33t/zWSdTU5MhJ9CIOsKwN0=;
-	b=3/WFlihYwj0fDXzANjTOkjdhXr/w0fgXg2yr59zmI76a9lgcfQs3eLJFg2qlZHYWNdPJ7I
-	5ANhgp3mGXHJU2pP4XieKYOaBIbFRpZnacu/J8D1rKnlaeTWp/w0jQGiByVDmJ22UEwJAu
-	U/gUjAh3QnNaf9Db9P6jz/tf68N0S9tpUL3NDa4kL9fPL3bMyYzg6M/2cqPWXigYwEs3o/
-	x1rzfX/ePYbq/9DviWQSC3j9q+1sLFNz2ZJO4nlndkfr53sofeZKj0gpLXUYehSm/UnQMM
-	iGdyOWbDi0hMW/COnfLsIvGjxuXYssxAbDnAWCo09Eupj3AK8xnidmPeX1xlzA==
-From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Subject: [PATCH v2 3/3] fat: allocate multiple clusters in fallocate
-Date: Mon, 12 Oct 2026 14:11:06 -0300
-Message-ID: <20261012171106.146243-4-matheus.aalmeida@inf.ufrgs.br>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012171106.146243-1-matheus.aalmeida@inf.ufrgs.br>
-References: <20261012171106.146243-1-matheus.aalmeida@inf.ufrgs.br>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LNtkXBU+"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2e5e090746so187627766b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:12:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791825149; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MhsHtTsJOwibsp4bxPgV7PvklYRW7ktju+LDsqIQVARwGHG1wsw4myzxM5CCyybCDN
+         9YH+6mzl/sKGEaULalI0/Dxg/XGw41pLmUNnlw+Us5B+oJpzi9N+/3qkjm3tr8Rb93GD
+         RG9x7FLp5ndQP4koARHJC7b71Oh1Mcp4heoNSAZBeHNEk8CJyzo5qWlvyYLkB+1DfJNl
+         WqKxlmqf0k/QGu+UcJeE933gsVTUDIfsAwD9EmZPCybjtAHxy8U0D3cX9yLxoCC5WOnX
+         vJT4wXFDXaP9TaZ7mXxQtX8o8qevS8e5O6FNn9Nc0kdtqGHbyMDoNOiheeBV3U8WOecL
+         vkQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=UhieV+/eJrwJW2//RDtEPeUp5XItWunJ/DM2B+e/f0M=;
+        fh=Q7NjKIg72bT4qFh1zQYQg+7as/APfJ/SRHjoKEZlfZo=;
+        b=lcosE3a680ydHCSArg3ld0m3nHb+kYeyaLZn4mnGRsLFvnTPTEj7IU+8mdMgzdkWbA
+         KjFIe5RUUr26j2CGB8YmcKoGxqqZFhpSddN1U+XXxv6bu5AW6lcyoHjsi7un3bwEJMrj
+         qYFh2azrGYTb2KjT++Cvr6532nO9dBX4QnEJb0FOlUO7mK/qHUi4xUnPYI4ltPlFalBQ
+         Lx9UbHfZQExAfZe/zXWBHd4p4/u+Rpe1Nz3hO5OXBTOJQk+fZm7F00UI4YJEEhu+nkuW
+         2f3ZRrYV+7mpsWXNQaB18Y8qlDJTYJavoi+KLIuHm5Dp7NZCC4h7lPif84ffahFcuiMl
+         nAIQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791825149; x=1792429949; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UhieV+/eJrwJW2//RDtEPeUp5XItWunJ/DM2B+e/f0M=;
+        b=LNtkXBU+ki5e5hfXUbOYJgoqmVPmvvlOv6aE8TeGaObQVrMEhK5SMDzl2vxRDv3w9a
+         Y9wMRqWUrUzIgVfOB2QeS1wDoxLAVUOmRoz+jmQZ2FJr+w3MAOm2EhDw6RbyRXdE8+sd
+         EFFSjzf7S6eyHBu/Eheio/8fEREfXEZSFvjEZ4TJCeXfBVO6s1iEXjBDMbRGtGf9lMhI
+         uTRs9DRO+EAWbu993mr/8EBwNvBG2f3wYG4vQXxzFlixvQJSNrsYkgQNH/kDlVbbtugm
+         v2p3/8lgQ1Lu1aQtanuQOuwjI6Zru14CSDwomS76o3l499/Be5ER+5B517veqwwcEpiM
+         ZJIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791825149; x=1792429949;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UhieV+/eJrwJW2//RDtEPeUp5XItWunJ/DM2B+e/f0M=;
+        b=Z0QPZsnj4cJ+y27XJdpTllTjXYpNl75rLjr6mO5lNyqqvshNJIhkrDFjwghFO9FouD
+         unkJbruO5LeGNmFI66JSOicxUEJXxroRm26zd3bROe0JyySM+G3YgiEOkXyaoQ2wIbq1
+         HbffW/xwR6ufg6N9KJBBLsL0/416MRTth68lSccMn+T61DHSXEdb6tsyhEPiIgQf+OmZ
+         NRk01xnD4fr5wro+wwyZhnYoDs0A4By5mremjmGZJA9S4VTV5PuzEcnPy3dcJTTw/Owv
+         P0i1rjlCeH6pVMFleq65zwD/0l+YExNQ29QHbYaOlMJrQGkZs5c+tuxBEZ6l/okU4ToN
+         6yow==
+X-Forwarded-Encrypted: i=1; AKwUvBze64EzYgfFrhwcrU7xtADeLLYKBfTje+JPmYpK3bfu+Jhp7n1wC0CGtsy0iNKE8YOnsMryYXcTJ2KJxVc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIeGFZ+xYZCf6DyBD3PbtIBZZnd3yl6J62RSXhHyDd2W1PjVTTA
+	TCylMLJ9ieczCFMsy5904EQ8Xu4/YiZzuVYRAonOgMx0aglKoyi0XzTxStRxxPB9tXfSqRJ7QMs
+	6rTUpok560efYcPp9DEQieOOG9kP16ec=
+X-Gm-Gg: AYBFou2d8MKKLeGS+Ll+FqQlSEIbT8XqZAfBfr2Gpoo8KgC7UrmCIHQ+a3RKqdxujp1
+	w12bkJL/hL/PA14Bp/HsxTxHAvnhJ26GzSn48QmVoS+xPbHaf/oJWd1UBMqUd1ZkJKpx+hJXk1Y
+	tMEtPEcDgjFvz43d5ouLdQ66rkA4ZNusNzIm7/WRrVXf0E+NXeFnDUMblD4Qo+tu2Pd3sWvGAA/
+	XzciDLcDDxtfhBEFUB8fL13hqGZLTBa4X+DrtrvYlYYjsOsXpDDL0649k3KFIogI6/OLD4ifV3t
+	/239HlH6uh1khnt3bFHz1Kf2R+if/D3RdMt1vDodxkHENwXtKaCSM+A1fxuP2J6HSbVdSOnNeCn
+	PeQTmhs0XFkyctGCd/OUQKbsm7RZJDm7LSS9t/XpjHA==
+X-Received: by 2002:a17:907:2d24:b0:c2d:bcf7:37f9 with SMTP id
+ a640c23a62f3a-c31aa07a9d9mr992370766b.26.1791825149332; Mon, 12 Oct 2026
+ 10:12:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261011-alpha-perf-regs-v3-v1-0-eaa625a39712@gmail.com> <20261011-alpha-perf-regs-v3-v1-3-eaa625a39712@gmail.com>
+In-Reply-To: <20261011-alpha-perf-regs-v3-v1-3-eaa625a39712@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Mon, 12 Oct 2026 19:12:17 +0200
+X-Gm-Features: AclHuK_IfbO80biMKT5u2j2yFp2FuPhLw89IvxvMZVpINwN-IiFIyIRGdYMzWGo
+Message-ID: <CA+=Fv5RW+ju5weuhDMLjEFcWvg0G0RnWXiqTr-0HmCnWhcaQUA@mail.gmail.com>
+Subject: Re: [PATCH 3/4] alpha: use user_stack_pointer() in KSTK_ESP() and dump_elf_thread()
+To: Matt Turner <mattst88@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>, linux-alpha@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The fat_fallocate() code currently does many 1-cluster allocations when
-growing a file in the FALLOC_FL_KEEP_SIZE path. Make it allocate
-everything with one call instead.
+Hi Matt,
 
-Benchmarking was done under QEMU/KVM with a virtio-blk device using
-cache=none. Each result is the arithmetic mean of the listed samples.
+On Sun, Oct 11, 2026 at 10:16=E2=80=AFPM Matt Turner <mattst88@gmail.com> w=
+rote:
+>
+> Both open-code the same PCB lookup.
+>
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> ---
+>  arch/alpha/include/asm/processor.h | 3 +--
+>  arch/alpha/kernel/process.c        | 2 +-
+>  2 files changed, 2 insertions(+), 3 deletions(-)
+>
+> diff --git a/arch/alpha/include/asm/processor.h b/arch/alpha/include/asm/=
+processor.h
+> index c461a26d47b3..73251cd671e0 100644
+> --- a/arch/alpha/include/asm/processor.h
+> +++ b/arch/alpha/include/asm/processor.h
+> @@ -43,8 +43,7 @@ unsigned long __get_wchan(struct task_struct *p);
+>
+>  #define KSTK_EIP(tsk) (task_pt_regs(tsk)->pc)
+>
+> -#define KSTK_ESP(tsk) \
+> -  ((tsk) =3D=3D current ? rdusp() : task_thread_info(tsk)->pcb.usp)
+> +#define KSTK_ESP(tsk) user_stack_pointer(task_pt_regs(tsk))
+>
+>  #define cpu_relax()    barrier()
+>
+> diff --git a/arch/alpha/kernel/process.c b/arch/alpha/kernel/process.c
+> index 06522451f018..7861c9e767b7 100644
+> --- a/arch/alpha/kernel/process.c
+> +++ b/arch/alpha/kernel/process.c
+> @@ -318,7 +318,7 @@ dump_elf_thread(elf_greg_t *dest, struct pt_regs *pt,=
+ struct thread_info *ti)
+>         dest[27] =3D pt->r27;
+>         dest[28] =3D pt->r28;
+>         dest[29] =3D pt->gp;
+> -       dest[30] =3D ti =3D=3D current_thread_info() ? rdusp() : ti->pcb.=
+usp;
+> +       dest[30] =3D user_stack_pointer(pt);
+>         dest[31] =3D pt->pc;
+>
+>         /* Once upon a time this was the PS value.  Which is stupid
+>
+> --
+> 2.55.0
+>
 
-start = now_ns();
-for (unsigned int i = 0; i < count; i++)
-     fallocate(fds[i], FALLOC_FL_KEEP_SIZE, 0, bytes);
-elapsed = now_ns() - start;
+Looks good to me.
 
-FAT32 with 512-byte clusters using count=16 files:
-length    mounted sync?    before    after    improvement    samples
-256MiB    no               2.328s    0.175s   13.2x          10
-16MiB     no               149.659ms 14.036ms 10.7x          10
-16MiB     yes              747.993s  3.445s   217.1x         3
-1MiB      yes              46.63s    0.333s   140.1x         10
-
-FAT32 with 512-byte clusters using count=128 files:
-length    mounted sync?    before    after    improvement    samples
-1MiB      no               90.873ms  4.686ms  19.4x          10
-16KiB     no               1.287ms   0.241ms  5.3x           10
-128KiB    yes              47.284s   0.350s   135x           10
-4KiB      yes              1.98s     0.144s   13.7x          10
-
-FAT32 with 4096-byte clusters using count=16 files:
-length    mounted sync?    before    after    improvement    samples
-256MiB    no               295.392ms 24.733ms 11.9x          10
-16MiB     no               20.509ms  1.404ms  14.6x          10
-16MiB     yes              92.489s   0.348s   265.4x         10
-1MiB      yes              5.837s    0.048s   121.3x         10
-
-The improvement is especially large on synchronous mounts, where the
-new code can batch FAT updates instead of synchronously handling each
-cluster allocation separately.
-
-Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
----
- fs/fat/file.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
-
-diff --git a/fs/fat/file.c b/fs/fat/file.c
-index 41d49e9de..3aa541c6b 100644
---- a/fs/fat/file.c
-+++ b/fs/fat/file.c
-@@ -290,12 +290,10 @@ static long fat_fallocate(struct file *file, int mode,
- 		nr_cluster = (mm_bytes + (sbi->cluster_size - 1)) >>
- 			sbi->cluster_bits;
- 
--		/* Start the allocation.We are not zeroing out the clusters */
--		while (nr_cluster-- > 0) {
--			err = fat_add_clusters(inode, 1);
--			if (err)
--				goto error;
--		}
-+		/* Allocate the clusters. We are not zeroing them out */
-+		err = fat_add_clusters(inode, nr_cluster);
-+		if (err)
-+			goto error;
- 	} else {
- 		if ((offset + len) <= i_size_read(inode))
- 			goto error;
--- 
-2.43.0
-
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
