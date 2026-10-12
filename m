@@ -1,60 +1,60 @@
 Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023119.outbound.protection.outlook.com [40.107.44.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA2448665E;
-	Mon, 12 Oct 2026 12:17:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290A7486409;
+	Mon, 12 Oct 2026 12:17:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.119
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791807443; cv=fail; b=YNqdGQBejyMqqJWoGj0nNpXwqbnhs9V/6Q7FDOLB4uM+pnS6skK8rC9pPiHQC7GgzqdKJkbcvqEyqLEsLphgoqup8UoVI+dUpub/cQwNcf+LLfYQENJJEMaB0fjVzIRlpUehRLhjG/sHjYKIoATa5swS/+2NDYcA7GXiKvUlJ2w=
+	t=1791807441; cv=fail; b=Oli5nMQ71snrZ5Pw/4cQDDg4PmhWg5IbiEG0IM9vkcToOOG8a6jkueRmfgy7c6SDJ4/jkC21KUA7ccehYMHdOmgcOTV6ZTdRakCZOVxv7Elp5KbhOZ0Xvtj41HCpJJ4ocFnSI4IFybRJEkoJKE5lmqMRRunkufVeu3ZykDZZrp0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791807443; c=relaxed/simple;
-	bh=/zsuF0dFsXiOeYHLwF8nmoMjSEdbx05Zqeoht4VcOOo=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=QKZ/DeUoHh4+dBmOzVXlOT/YqlR54jl2VP+H5n+TBAz4zAINZrPzedQwzt9ibYBJ9GdwNRMx75GUYdglBXuZ7zHcedWdjFtC/T2TsbeWHqqEDTN7BAWD8LNXs//tWs990aui+CbqJVY+aIlHOMP/UmrjwPq3m8jDlVtp273IEdI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=crepuse.com; spf=pass smtp.mailfrom=crepuse.com; dkim=pass (2048-bit key) header.d=crepuse.com header.i=@crepuse.com header.b=lpTsRVAR; arc=fail smtp.client-ip=40.107.44.119
+	s=arc-20240116; t=1791807441; c=relaxed/simple;
+	bh=YwWICq9ltEzGP0khTY2KqGL7yydkcLH3WWj6ba5P9Rs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=me2F1lZ1pFZarKWBNwknkiiYFo12y8u3ITsg9UoAfI+H3ytJ1+ZRVR0uEXZbL+RtqBWM+UNj7Uq6jWmNhBURCUOyh4g1IR1tMeXCjorCP7DKhuYgnAOcJbQzYew71USCSByMVYKpjztxoFUxH3RQzvKz1QTH/TFSeqCwYNslL/A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=crepuse.com; spf=pass smtp.mailfrom=crepuse.com; dkim=pass (2048-bit key) header.d=crepuse.com header.i=@crepuse.com header.b=JwjJRv7v; arc=fail smtp.client-ip=40.107.44.119
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=crepuse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crepuse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crepuse.com header.i=@crepuse.com header.b="lpTsRVAR"
+	dkim=pass (2048-bit key) header.d=crepuse.com header.i=@crepuse.com header.b="JwjJRv7v"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yyV8BPCyZ2pw7eV+2hcUJM0YyUU86gs4x8HzNhZxn94FvxK9Y69JxeO4pIbaoGBqcxCc2uTVGEkbEOkobkpAFiqre7gJ3wmMh7u0+pu/hYeufFTOGDtfiqtVZvdV0npjNix1gKcjFgRYXm0Aai0I6VSYe7A3MV+TMDrldkh4wxteD+rFVslGyImNsRFxRQnEopb5aazTKLTAS7ndi+TVqZQnMhV3oa++0PjXKlGqJHjKKbUCsfN64q/RCc5xul195WqrufkjUolrQC9I/8tyw1o3WVyLR+ANDfvppawxyHK77YkeLLeyfLUcl1U79TTM/cFrd0k+Gb7R2lhFRLCG+Q==
+ b=c+COzYtWffQ2kFGEbjHyzxaTL5qmGYDgL/E0ZHZp7en8KFGSB7k8URZPSM6LSqubqNeoA+jEMVHtY22mrJ4FUrXSEZHcud+B4c640P5usPyXA3S8m5ZjFhy7Fx1YkT7ROxCfcD358UIl/mnUppy0Hk/PfrglTGTPvc3e986qH2V71SAeeMG7/6F53PY/bPfzF+3dB4/qvI7JTUoq+D4udcgfoyntMZcGW3wsC2SoTCpr0LuGJZI2odphWZ/mBjahuL9/LOZl3BlSOl9QKoK2ROIgL0xPO+e8nxmwFK22kUAN8/8T3NzuCf65kYlCLfHvQRpunBtvLR77y4c60lJuug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kBn9xMEd7nl4v8mIBfhuQucdIoRf1k4cWjKiIqvp+8M=;
- b=cwCYHXEm5S20V4KBES3HF9/bdpJcdLONRkIhEhfuiST86Qb00b0+aaXj4fGohO//0qEDP07aMqPSBGMpfBGxX4aYdcRjFbomdJRHIwRrzZk0jjRdzaREGyjipRlHL5FYnSY8Kvy35K4ZpI7vLXuIiUP3eta9qhG7uzIMnx/P3LDMQSLXU4x7qhe7/qaLoqthEZd+PYR5OfFHvyylH5VNhUh/SDy6H3JbTNI9NbMTdauHppJvEa25PPwMWjKFpVNfKoR2IarAnl+JqUd+F3oucrBk6mBU3TPZLPFrnEiMkOSqktnsQ7vI5SHK8YL5FEg7ZlaQOXpKEVYCINZQtEzIUA==
+ bh=hj+x/WqC3QSG0d/3W9ieDeFEGKeprDJyElyybmEbQwY=;
+ b=hHG/aXiBj5CIlhNZy+eWWN7RhcZQp9nAO4rMnZqmX2OQza0kmuI9QQQF771Yo3wAfuIOA5KxyIxnWA9A3iIxl+4Za9sBLJoFrrR9ydHYzsbW4zv6pfVQxUwHa0o8pCouk+CWnPjowgYju5moWhdZOMCrhveJDD8/iCNNx+LK1vrDwPf3tlOPzeDmqA8OjxKtUs9NaG5tk9CT2JEPM/8xhZVE/D+778k+xOe2od9O85G1rkiNYIPCCIubcSAN6hiPtDJ5E6YisxeQ7i4ttM9rmNwoOqyAjeJjYE/5Ph56FwSsUJmJBMHSkY8IMfALE/OqIhlU9kocZ4PshiFdS0DxRg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=crepuse.com; dmarc=pass action=none header.from=crepuse.com;
  dkim=pass header.d=crepuse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crepuse.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kBn9xMEd7nl4v8mIBfhuQucdIoRf1k4cWjKiIqvp+8M=;
- b=lpTsRVARhkyKmJjOvhEwoSGbdsvQ2HF4A0du70PFDKbo3nkZnFnY3Rn0NKme8K/XhfY5nmXu0eQYgPVTS1LsG6xS/GKOT3/PIjiA3lJGGIctmL8kCSBFfnk34MgumT51/nmpk6Allj0u4HI1Rexs8Y0recus8rt40O+dDyx4rALYj0oDdNFInqpThZBcH/ovxR00T6BRXsW1idIG7GD/O6YvWUyAcJh9b1f7uziugXOLwnZbxsTcIr9/d9T87KefO7uKUhSi1zM3Q/YFOdIRc4a5QvzTwtmLqlKu3ya4XO3u9/qobjHtsGjkUaUBBhevLeG5e/8xtM1AKZJn5KrvHQ==
+ bh=hj+x/WqC3QSG0d/3W9ieDeFEGKeprDJyElyybmEbQwY=;
+ b=JwjJRv7vnNIjn9NOjQdRS4QXfgFvOgHW3I3T6NX/8HhEBwUD7kjEIpX89n2NNklGxLUkyzVHSy1L7J504tMPgF5Zms09X9rSAW3KYrUDaeXyLB/uvzFN0Y6FCUzHp6SyLCospY8vklhGTiyS2HP5fkN7VSgs9Ynmcf5fH2RhporNG5jJB9er/RcfyWTAKockKUCjqf7hvCON10FoVKOadT99WlSwW1zPavfDdJ7GFkq6HsUriL/i0g2Zh1cfMhcn6b1cjADHUia+HdF8STkRcJCyZ37PwdQGkvnaP343OCR/8sX2flAh6ohOLNq0mnF6ivCGQTaRox9QiVU2THf/UQ==
 Received: from KUYPR01MB8186.apcprd01.prod.exchangelabs.com
  (2603:1096:d10:8d::16) by TY2PPF1753F85B8.apcprd01.prod.exchangelabs.com
  (2603:1096:408::389) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 12:17:18 +0000
+ 2026 12:17:09 +0000
 Received: from KUYPR01MB8186.apcprd01.prod.exchangelabs.com
  ([fe80::fe2d:77d4:b78a:358a]) by KUYPR01MB8186.apcprd01.prod.exchangelabs.com
  ([fe80::fe2d:77d4:b78a:358a%4]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 12:17:17 +0000
+ 12:17:09 +0000
 From: Miotsuki Mizuno <founder@crepuse.com>
-To: "heiko@sntech.de" <heiko@sntech.de>
-CC: "broonie@kernel.org" <broonie@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-rockchip@lists.infradead.org"
-	<linux-rockchip@lists.infradead.org>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>, "luca.ceresoli@bootlin.com"
-	<luca.ceresoli@bootlin.com>, "robh@kernel.org" <robh@kernel.org>
-Subject: [PATCH v2 0/1] Enable audio on UNIHIKER M10 V1.2
-Thread-Topic: [PATCH v2 0/1] Enable audio on UNIHIKER M10 V1.2
-Thread-Index: AQHdWkOfvy0wg5W0UEG0uss1FK2C2g==
-Date: Mon, 12 Oct 2026 12:17:17 +0000
-Message-ID: <20261012121709.53418-1-founder@crepuse.com>
+To: "dmitry.torokhov@gmail.com" <dmitry.torokhov@gmail.com>
+CC: "conor+dt@kernel.org" <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "icenowy@aosc.io" <icenowy@aosc.io>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "linux-input@vger.kernel.org"
+	<linux-input@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "robh@kernel.org" <robh@kernel.org>
+Subject: [PATCH v3 3/3] Input: add Nsiway NS2009 resistive touchscreen driver
+Thread-Topic: [PATCH v3 3/3] Input: add Nsiway NS2009 resistive touchscreen
+ driver
+Thread-Index: AQHdWkOaegWaNj9HckypHytzI06+cw==
+Date: Mon, 12 Oct 2026 12:17:09 +0000
+Message-ID: <20261012121705.53396-4-founder@crepuse.com>
+References: <20261012121705.53396-1-founder@crepuse.com>
+In-Reply-To: <20261012121705.53396-1-founder@crepuse.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -63,47 +63,47 @@ authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=crepuse.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: KUYPR01MB8186:EE_|TY2PPF1753F85B8:EE_
-x-ms-office365-filtering-correlation-id: 3df6c7bc-ff8f-418e-dd06-08df285ac1be
+x-ms-office365-filtering-correlation-id: f6f07df7-d538-41a6-e1dd-08df285abd53
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|1800799024|7416014|366016|23010399003|38070700021|56012099006|261009223027099003|10067099003|18002099003;
+ BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|38070700021|56012099006|261009223027099003|10067099003|22082099003|18002099003|3023799007;
 x-microsoft-antispam-message-info:
- 5rGTkNlJqb7P7oqGx2o5/7c/yriBqcNAfJpCPaupVQCsxx/rS1ruEmdDkA0GC1xH2NOWJJeM8+LUTzuF+B5B38l2HmhTPDyvKrgQeFLpd0V5pZCtPXoZ0R4oBCqpOaBmMc5KBd85MonK641t3DaAY4Ywna/sYrSX2d1xqzbmxBe/9xEVQYcHFVwEYm1hBgtsyupEqEXZUsETG5lSQi2rnDmPlzn4ahIZCcmuNs3TQsxUomYQr/NXmu0mJkRIG1O9R38HBB2/wGRa/iJCGTekfsGtDPJFGcBIMP7+wfaOPqEuqzsDsPOh/dkbG2alEA3OKC9doO1n5r0LLAdLhUVlGgjOmMgRUoZYnRs/fNA4eyUkF7PxEJNcegD9gtT7+lnIzeP+2pmIRDqX016PRiQU+wslfBSkCPTEM9cr7OLK6hfCAC8lcX9fpN9IXMK20yVlCn9V9rbk/0bqZNTPoehn+t5AY3HQI+GFLv9fba6vJ8GgYZJvz7B9jJHsf8SkKXoozkj5+Ss/3rsSAfEfJLpfxjt33SSLxsHGmNi9mDRfdGA7X3+sRGP3fS2Gl/K5vBQH9yELnFIoXq6y7l7WubjXyeOX7CFxmTBl581b2pFfibo7y/jQ96upBQkk44TdhDk3HpEJNfy1/duc474/U4y0p88AXS/2XeWJeW3gDaF0CzrKnEXTH5qBR1+muYx3Qq6iJtEZ942w0yyQf+WQ4Q2m0g2OxD86NYEeyuvm4G0ySTo=
+ NfZfGUTOKnIDA6yGYMTGvZqCXi/euXpgJ9cdqZblghrK0YQqS7XxOk/+pQxAlfgPmMm5B/pXkuZikHQTrchcix1UEMnkMUXBaIzKi7BSmV/woYLLD7qEa1MRqLs+0L6IUrHUjdtOgsIUuYK/o6A4Mc/Pb26BsyheGt/I1emCtMm0iO9AkIJDTuaG/BGNgPm7mH0XF4qRRJRjZ6yhCoIkkxeFrjTq5I+i5NPPlzzD65F5q4OjjB2Gc0H+rmBSW2CL6G/5qH+uDjzMb8XJqbLVM3NvsZBc2v6tfXPCR7l1JOxEn/STMab+8pMJlueimWo3wqE6jvVTTKXEEuoBQPWXGQr1LgiurPjzl72mVKdLjOFyO79uDnlIbcxrsScicK2YJkgn9nPM8TB8e25tGcpn5tJUr6BBDLjFQNbBxu/owOn09zpIon/FFg/7xTRMdC65zRFbKB2kLWRrOPWbAlCSxn5ZM9irjUkLJX4CyY/vI87MOtvKBf3C8NQzzI7UVFDgvo8cl8ukmGG690invsrqGDVgpvXrvdGFQwmEq+Ftd2FlXuUrDlYX3NsrEI/PPtnwfCuUSSHzatCeMQKJiVGGYt5XGsBq/fR213RIemM4acAPMd4aoj/8U89PtJT47latHJvXCIXZN57Y3/SWaWERQ0BfaRgfYWsr7ENEaEGLvZ+psQw4zTHPsccooiUOuWLQRKXPuyg2eSXkgOpnBckn/pT68dlQhsRcpzDrFFa0ktQ=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KUYPR01MB8186.apcprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016)(23010399003)(38070700021)(56012099006)(261009223027099003)(10067099003)(18002099003);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KUYPR01MB8186.apcprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(38070700021)(56012099006)(261009223027099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?EsOJA4xLhSHU2l48HSyePjF2ZLjpZBc2WhkWkyig4kajLtv8L7rHiHfNyV?=
- =?iso-8859-1?Q?MpWlcmL+BVDp+zhLuELBMXvKHXMICACMVH2eBSmmaTTp6ToF4apZc4KQ2z?=
- =?iso-8859-1?Q?MX3r42XcXIqzbhQ1mWEiYdM3Ujt7KMP5jYOsxYo650DyK/kpL/P5JIdpjD?=
- =?iso-8859-1?Q?uQGIf9/c6L5Moi+d3ARkmG9d+xWzhdrwJGR7fMXpwD2mZmoi6U/2bk+1co?=
- =?iso-8859-1?Q?cdUwCeMF4LZ2jDRYDErODtM8RjZ6/DNJlNLEzdG1FRGhm1AT+ROwWj+qi2?=
- =?iso-8859-1?Q?lWdjJB3Fp0HXAbszNy77fZD1fdrgd3SVTZ7zJg9PxzVz5ukJuNQU9AzFy0?=
- =?iso-8859-1?Q?LR/7o0c5t7qIfS4A9/qlwex5YOfEqebMp0Pm5vdUUJ/CGg/Fxnk2uT9P8t?=
- =?iso-8859-1?Q?0+XgWBJ/sBjeibcOR5RYMyUO3SE06cmPvz+zx5xVK2uIvCgamcgIXL3Xx8?=
- =?iso-8859-1?Q?ItYGMQ7M7wxg63BLjk06aFkEw7b0DbZywwoadi+escXdLzOITVxhKaAkDn?=
- =?iso-8859-1?Q?rIgYrytW8hNdYUQKm+WxiguWTrEsZu0tAjIABAnqIEDom4eDRD80uCblTf?=
- =?iso-8859-1?Q?Wm4PgqcM7XDxVZ2KzSxhlek4V0Ehiy4g28eX+WLY5k1mgdNULlF51dIQ1G?=
- =?iso-8859-1?Q?L7cioGC7tARd0mHlYv+ucwEWu2nCWNxywj1ylo9DRUpb80XWk1shQMBpr8?=
- =?iso-8859-1?Q?1rHXkUgUnTHzgeux5XYy4bQx6/DvYmfMzG4ucgWtgdOWKcVOvZ69pTWbFa?=
- =?iso-8859-1?Q?kr88Eg3zyWJ6EE/dPjXbksXo5wtVTHWu03nhBNeDwPo7kKFX/H9+SbfcYt?=
- =?iso-8859-1?Q?wPaZOXm7MS52aDBzcEK37yNNKIV9KdG9Zqsgbj8w6HSNJJXCcfeM/50wcQ?=
- =?iso-8859-1?Q?FT1EuhKkacHBoz2OGw7vLb5LXdPNp7Qsncazy/UR3eCSos5L6Y7V6B2ki+?=
- =?iso-8859-1?Q?KJC7w6gXTsrFQukT+DPOcWPQeA9NOxqbu+KsTEUlulLfdvkdylPAav9Fb/?=
- =?iso-8859-1?Q?7uYnsZPlsq2wMaBOpQ7I/X7LSsmnU5kBUYFTTW9gJfzqZqBxnbAxYnyQ0E?=
- =?iso-8859-1?Q?trr4oBpA4twYRDI+ML0/rReZ2bzifI8cC3X9iBS4ENTztka/w5fOt/CgC3?=
- =?iso-8859-1?Q?WMDzKjX3rYwbAWlOW1InSWC8ob/L5HESNAsP556u4y0yCcYI1J+9Tyhsoe?=
- =?iso-8859-1?Q?3ABs1S+fcKjQZdRXor6v9VCII+WSTKpwPtUSkLmaouvGFiOpvPLXvXCtOR?=
- =?iso-8859-1?Q?NWrGiAOrqTeJyU/PNWcDMWVOqBbwvtrTLyhWMmnOqGgn2xba207e+WnjiM?=
- =?iso-8859-1?Q?+rqOtNuksl/+MkodL1lS46t34kC0n9cCgc8TB9QKIW0GF/wJnYNR/cNapn?=
- =?iso-8859-1?Q?pdpVY2RW+/tFEPkG1neweFZPPBP8Gn/Bhc/9cVfXvpqVoa0GCXXVhkTnP4?=
- =?iso-8859-1?Q?wj4ZncBbKPUvbSAhVSX9OtE6mUN1+Zc2kNWWcjBLWXV8dGPfeIOTs0cTx5?=
- =?iso-8859-1?Q?aHyFhDwkPH4jwtwhdmC/wusvwb4MwGdSLvR6lqd8ieWY7/oK7G7IZ4Zw66?=
- =?iso-8859-1?Q?ldXs407FOpnC5mEYK602yyuH1JmS6L1h1/u/6J5giN4zV8QkKalZZ18mUb?=
- =?iso-8859-1?Q?0ZeQ1m4T9mH+ScOCTCE5FpZDyKfi5ZlKvkJ43Zevea5YP/sstWWdpW9P5o?=
- =?iso-8859-1?Q?o7jyMmD1tHg0sXNPRmScfM7HNOoBZTeBB/6jxqiMYjiNq1VLJcor7Ex7Nj?=
- =?iso-8859-1?Q?2E1QR6u275UtYv5abpdpnyZGqwtmSeI0wvDi+pJxgKrN38?=
+ =?iso-8859-1?Q?wdt24B5kjtdRAMcvCskqrtk89DzVpFKxl22OCTLiUk5fqvg4566ytBAtVu?=
+ =?iso-8859-1?Q?JOF8c7Sn5EwKLy7at0yAUrUVQDDXwBAmCX4kQnC40LuLVbXgD9qPU4bulA?=
+ =?iso-8859-1?Q?ppzlEXxW6xw3kx3wKga5K3xLDYS44MIaG6215Uk6g+Coied4RXK7pE05Ky?=
+ =?iso-8859-1?Q?1NcKHLuRgDqqxzBqgdI584PbodaAUt51h/KtD0Ze9yiLtOQzq2KbQ4XsMx?=
+ =?iso-8859-1?Q?Ji0g281tQ3vnfYKwYLgyRZmI2tz8hWU2Cxd8Exc5sD1FqYLqd12mvBeUFV?=
+ =?iso-8859-1?Q?9hguHumJRar++Hd/odtpqIp8E1SYpMRoKTf4lEtfWqNi/xpJB3bMvEAS3z?=
+ =?iso-8859-1?Q?frTlLWn1b5S9szMGsalKh3iqxA3wQGSF6XctkfQVu3UHC5ks2xXffMgH1O?=
+ =?iso-8859-1?Q?kiJIUmKK53ClJPbO36tHA9kvEXCwEEoDP88CrCci4F5kBd8BJyD7/xPq79?=
+ =?iso-8859-1?Q?c/EXdulkB1FuqqlCsdmrS+DWKiN6QyHh8pZmPUpEwv5DrxT/JBuVEDgyN7?=
+ =?iso-8859-1?Q?XjI4VRXsG99QH0uSFK6VlqUGyIbdHU5tUogvJ0vCtJ61zKfaJx1OlKGUWM?=
+ =?iso-8859-1?Q?9fIm+Q4CRGdCzY9JpWOFnaCpl4ntrjsaeY1oCh/TsFVuOHQ2Ro6plIIczq?=
+ =?iso-8859-1?Q?Z6stqUY+TxV8kEjcEal13mqGkYPD+kUUV5aQv0uOdakwdYewBXhUPYLK8/?=
+ =?iso-8859-1?Q?rPkSSxRfqeN6Qs7ixz+X3mObai+1cS3a+cvlxqdpb5IMDWxXXYOUZqVANJ?=
+ =?iso-8859-1?Q?59TAnc4YTkw7WTsQTApMNM4d/TLzZlt8lEnfdqV1ewaMgSfqflMwUd4Tot?=
+ =?iso-8859-1?Q?cEkG5Ss3LGM5YK/+xMnCD/MOm+AiOqj7BtpMmfD7tyXwjRIF4PI+aNLGES?=
+ =?iso-8859-1?Q?5rgiAr1EzzQjlOHip7NDE+hJIsFTJdhKcuJ09ebcSckFOcbDS3c+Ncx3Dr?=
+ =?iso-8859-1?Q?QEfIeSPo+X9f0ltFTS1KdJ5UF/3bo+iA07g01a8teFYw3pSAyVIcD4fK6P?=
+ =?iso-8859-1?Q?pPO5ceIidOoF2N9j4bTnpB2jeAY0CudSeK1+CuQRZ993JFj9HEeoAGITld?=
+ =?iso-8859-1?Q?Y6axXUZRseqPwWbJZJcl5tjEwXLpw1ub2NXbsQeOByn7L4V/BGa3G0itZm?=
+ =?iso-8859-1?Q?gZDGkJBIX/2HXpox50HinKGSKnt4VO+A/T4zL8gZLc/4sP5K44k+Gd5nec?=
+ =?iso-8859-1?Q?hZadYjoe4lR2y3kxT4mGp3gJXdQBe8onjPMMru4xVmejatbddeXtvFQQ7O?=
+ =?iso-8859-1?Q?VdTpGkXCP/A32BURcAJKoOl+5nYKFcqqb7hDrk/A+o7K7ZReZIi4TM2Juw?=
+ =?iso-8859-1?Q?0evvYCq4JdtCiysvgAbQLtI2eLgA+jmpTzyUXLVdhos6M1yQ6QH9DhVeyO?=
+ =?iso-8859-1?Q?B6mK23s4bWBlVA1aAk07Qk6FNzDEVw2lKdRAxkeowpk8wYQAmWq81W2Mky?=
+ =?iso-8859-1?Q?NU1cQaPNv2HvHh+IqmFEVF2ezN6NB44D8g+ndOMQ6RIvxEwEZOb0vqMjVF?=
+ =?iso-8859-1?Q?SQv+4jHuXHtUT6YHQ3nduXGyhYlGOcJfgBxHKFBuh4fxDc0Gfs72PrO2xl?=
+ =?iso-8859-1?Q?5llKEw0+VL60I3mzIX9ZUhhUn5m+zXLWxyc6JqxrZ1X8Vmh3Svdn7/8j8d?=
+ =?iso-8859-1?Q?HNJ0BgMdGPtFcFB7COiFI0KIEIK6BAxPYn3DHSoSQYVeRuo25pM2pom9nJ?=
+ =?iso-8859-1?Q?DrsYp/I1vZmDVgN2/FDSsy7L/a1gWAtprXIF2AQZpSeN0j9bguhODtrUvp?=
+ =?iso-8859-1?Q?vdbM+WpjMRwwlUhBRkF1fH+TnV1gUK9UvSN9GA2rQzWeFd?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -115,32 +115,293 @@ MIME-Version: 1.0
 X-OriginatorOrg: crepuse.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: KUYPR01MB8186.apcprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3df6c7bc-ff8f-418e-dd06-08df285ac1be
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2026 12:17:17.2059
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6f07df7-d538-41a6-e1dd-08df285abd53
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2026 12:17:09.8338
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 9e189589-0b8b-4283-80ca-b0157c0a04fa
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hfvzRGymbUhdEdy8K3MqkRuhRTAmikOb3HjFaRgqZ3ucmKJiNRY2Ol/w+tX719MFyTlhd+8bpCtKPXlbl8d8kQ==
+X-MS-Exchange-CrossTenant-userprincipalname: J+vRo9kpzc5pGTTM1IBkPIzpVWQjqRx8NH4lLvYnpKcqhSJCoSCrLyr3x3iLXZ0D4rPJLFL7CCRG3l19JbkxxA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PPF1753F85B8
 
-Enable the internal codec, I2S2 and onboard microphone route. The board=0A=
-uses codec revision B; that driver support is already accepted in the=0A=
-ASoC for-7.4 tree as commit 157f7cba77a9. It is a runtime dependency,=0A=
-not a change to the existing codec binding.=0A=
+From: Mizuno Miotsuki <founder@crepuse.com>=0A=
 =0A=
-Changes since v1:=0A=
-- Normalize author/sender identity and preserve it in the patch body.=0A=
-- Recheck ordinary and strict checkpatch in the actual Git repository.=0A=
+Add polling support for the Nsiway NS2009 I2C touchscreen controller using=
 =0A=
-Mizuno Miotsuki (1):=0A=
-  arm64: dts: rockchip: Enable audio on DFRobot UNIHIKER M10 V1.2=0A=
+the input polling API and managed input allocation. Read 12-bit X/Y ADC=0A=
+values and report BTN_TOUCH from the raw Z1 contact threshold. Apply=0A=
+coordinate transforms through the common touchscreen helpers.=0A=
 =0A=
- .../dts/rockchip/rk3308-unihiker-m10-v1.2.dts | 30 +++++++++++++++++++=0A=
- 1 file changed, 30 insertions(+)=0A=
+This implementation derives from Icenowy Zheng's 2017 polling driver.=0A=
+Keep its historical threshold default while allowing a firmware override,=
+=0A=
+and retain the original copyright and author attribution.=0A=
+=0A=
+Report the touch key on every successful sample and let the input core=0A=
+filter repeated values. A private pen-down flag would become stale when=0A=
+the core clears key state during inhibit or reset. On a failed, short or=0A=
+malformed I2C read, discard the coordinates and release the contact so a=0A=
+failed bus cannot leave it stuck down. A later valid sample reports a new=
+=0A=
+contact.=0A=
+=0A=
+Validate the zero padding in the low nibble of the second byte as specified=
+=0A=
+by the 12-bit read-command format. Reject malformed responses before=0A=
+assigning the decoded value, and rate-limit the diagnostic output.=0A=
+=0A=
+Tested on UNIHIKER M10 V1.2 with a Linux 6.18 validation module: clicks,=0A=
+long presses, drags, release, axis orientation and three held-contact=0A=
+inhibit/uninhibit cycles. The validation module only changes the driver=0A=
+registration name to replace the existing built-in driver.=0A=
+=0A=
+Link: https://lore.kernel.org/all/20170315155140.54518-4-icenowy@aosc.xyz/=
 =0A=
 =0A=
-base-commit: ae965b9856f033145e292b0c29082a26bcc45efd=0A=
+Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>=0A=
+---=0A=
+ MAINTAINERS                        |   1 +=0A=
+ drivers/input/touchscreen/Kconfig  |  10 ++=0A=
+ drivers/input/touchscreen/Makefile |   1 +=0A=
+ drivers/input/touchscreen/ns2009.c | 175 +++++++++++++++++++++++++++++=0A=
+ 4 files changed, 187 insertions(+)=0A=
+ create mode 100644 drivers/input/touchscreen/ns2009.c=0A=
+=0A=
+diff --git a/MAINTAINERS b/MAINTAINERS=0A=
+index 696f2badc49c..e282c02ec13f 100644=0A=
+--- a/MAINTAINERS=0A=
++++ b/MAINTAINERS=0A=
+@@ -19472,6 +19472,7 @@ M:	Mizuno Miotsuki <founder@crepuse.com>=0A=
+ L:	linux-input@vger.kernel.org=0A=
+ S:	Maintained=0A=
+ F:	Documentation/devicetree/bindings/input/touchscreen/nsiway,ns2009.yaml=
+=0A=
++F:	drivers/input/touchscreen/ns2009.c=0A=
+ =0A=
+ NTB AMD DRIVER=0A=
+ M:	Basavaraj Natikar <Basavaraj.Natikar@amd.com>=0A=
+diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/=
+Kconfig=0A=
+index 9b9ae8ac3f7f..d4cdf1a7e057 100644=0A=
+--- a/drivers/input/touchscreen/Kconfig=0A=
++++ b/drivers/input/touchscreen/Kconfig=0A=
+@@ -691,6 +691,16 @@ config TOUCHSCREEN_MTOUCH=0A=
+ 	  To compile this driver as a module, choose M here: the=0A=
+ 	  module will be called mtouch.=0A=
+ =0A=
++config TOUCHSCREEN_NS2009=0A=
++	tristate "Nsiway NS2009 touchscreen controller"=0A=
++	depends on I2C=0A=
++	help=0A=
++	  Say Y here if you have a resistive touchscreen using the Nsiway=0A=
++	  NS2009 controller connected over I2C.=0A=
++=0A=
++	  To compile this driver as a module, choose M here: the module will be=
+=0A=
++	  called ns2009.=0A=
++=0A=
+ config TOUCHSCREEN_NOVATEK_NVT_TS=0A=
+ 	tristate "Novatek NT11205 touchscreen support"=0A=
+ 	depends on I2C=0A=
+diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen=
+/Makefile=0A=
+index bfd9de83389d..c5fc2062d7cf 100644=0A=
+--- a/drivers/input/touchscreen/Makefile=0A=
++++ b/drivers/input/touchscreen/Makefile=0A=
+@@ -68,6 +68,7 @@ obj-$(CONFIG_TOUCHSCREEN_MIGOR)		+=3D migor_ts.o=0A=
+ obj-$(CONFIG_TOUCHSCREEN_MMS114)	+=3D mms114.o=0A=
+ obj-$(CONFIG_TOUCHSCREEN_MSG2638)	+=3D msg2638.o=0A=
+ obj-$(CONFIG_TOUCHSCREEN_MTOUCH)	+=3D mtouch.o=0A=
++obj-$(CONFIG_TOUCHSCREEN_NS2009)	+=3D ns2009.o=0A=
+ obj-$(CONFIG_TOUCHSCREEN_NOVATEK_NVT_TS)	+=3D novatek-nvt-ts.o=0A=
+ obj-$(CONFIG_TOUCHSCREEN_HP600)		+=3D hp680_ts_input.o=0A=
+ obj-$(CONFIG_TOUCHSCREEN_HP7XX)		+=3D jornada720_ts.o=0A=
+diff --git a/drivers/input/touchscreen/ns2009.c b/drivers/input/touchscreen=
+/ns2009.c=0A=
+new file mode 100644=0A=
+index 000000000000..d5c1f9f96bb6=0A=
+--- /dev/null=0A=
++++ b/drivers/input/touchscreen/ns2009.c=0A=
+@@ -0,0 +1,175 @@=0A=
++// SPDX-License-Identifier: GPL-2.0-or-later=0A=
++/*=0A=
++ * Nsiway NS2009 resistive touchscreen controller=0A=
++ *=0A=
++ * Copyright (C) 2017 Icenowy Zheng <icenowy@aosc.xyz>=0A=
++ * Portions derived from silead.c:=0A=
++ * Copyright (C) 2014-2015 Intel Corporation=0A=
++ */=0A=
++=0A=
++#include <linux/i2c.h>=0A=
++#include <linux/input.h>=0A=
++#include <linux/input/touchscreen.h>=0A=
++#include <linux/module.h>=0A=
++#include <linux/property.h>=0A=
++=0A=
++#define NS2009_POLL_INTERVAL_MS		30=0A=
++#define NS2009_MAX_12BIT		0xfff=0A=
++=0A=
++#define NS2009_READ_X_LOW_POWER_12BIT	0xc0=0A=
++#define NS2009_READ_Y_LOW_POWER_12BIT	0xd0=0A=
++#define NS2009_READ_Z1_LOW_POWER_12BIT	0xe0=0A=
++=0A=
++/* Historical driver default; boards may override via firmware properties.=
+ */=0A=
++#define NS2009_DEFAULT_PEN_DOWN_Z1	80=0A=
++=0A=
++struct ns2009_data {=0A=
++	struct i2c_client *client;=0A=
++	struct touchscreen_properties prop;=0A=
++	u16 pen_down_z1;=0A=
++};=0A=
++=0A=
++static int ns2009_read_data(struct ns2009_data *data, u8 command, u16 *val=
+ue)=0A=
++{=0A=
++	u8 raw[2];=0A=
++	int error;=0A=
++=0A=
++	error =3D i2c_smbus_read_i2c_block_data(data->client, command,=0A=
++					      sizeof(raw), raw);=0A=
++	if (error < 0)=0A=
++		return error;=0A=
++	if (error !=3D sizeof(raw))=0A=
++		return -EIO;=0A=
++	/* The 12-bit result is left-aligned; the remaining bits must be zero. */=
+=0A=
++	if (raw[1] & 0x0f) {=0A=
++		dev_err_ratelimited(&data->client->dev,=0A=
++				    "invalid sample for command %#02x: %02x %02x\n",=0A=
++				    command, raw[0], raw[1]);=0A=
++		return -EIO;=0A=
++	}=0A=
++=0A=
++	*value =3D (raw[0] << 4) | (raw[1] >> 4);=0A=
++	return 0;=0A=
++}=0A=
++=0A=
++static void ns2009_poll(struct input_dev *input)=0A=
++{=0A=
++	struct ns2009_data *data =3D input_get_drvdata(input);=0A=
++	u16 x, y, z1;=0A=
++	int error;=0A=
++=0A=
++	error =3D ns2009_read_data(data, NS2009_READ_Z1_LOW_POWER_12BIT, &z1);=0A=
++	if (error)=0A=
++		goto read_error;=0A=
++=0A=
++	if (z1 < data->pen_down_z1)=0A=
++		goto release;=0A=
++=0A=
++	error =3D ns2009_read_data(data, NS2009_READ_X_LOW_POWER_12BIT, &x);=0A=
++	if (error)=0A=
++		goto read_error;=0A=
++=0A=
++	error =3D ns2009_read_data(data, NS2009_READ_Y_LOW_POWER_12BIT, &y);=0A=
++	if (error)=0A=
++		goto read_error;=0A=
++=0A=
++	/* The input core filters repeats and may independently clear key state. =
+*/=0A=
++	input_report_key(input, BTN_TOUCH, 1);=0A=
++	touchscreen_report_pos(input, &data->prop, x, y, false);=0A=
++	input_sync(input);=0A=
++	return;=0A=
++=0A=
++read_error:=0A=
++	dev_err_ratelimited(&data->client->dev,=0A=
++			    "failed to poll touch data: %d\n", error);=0A=
++	/* An unreadable sample must not leave an active touch stuck down. */=0A=
++release:=0A=
++	input_report_key(input, BTN_TOUCH, 0);=0A=
++	input_sync(input);=0A=
++}=0A=
++=0A=
++static int ns2009_probe(struct i2c_client *client)=0A=
++{=0A=
++	struct device *dev =3D &client->dev;=0A=
++	struct ns2009_data *data;=0A=
++	struct input_dev *input;=0A=
++	u32 value;=0A=
++	int error;=0A=
++=0A=
++	if (!i2c_check_functionality(client->adapter,=0A=
++				     I2C_FUNC_SMBUS_READ_I2C_BLOCK))=0A=
++		return dev_err_probe(dev, -EOPNOTSUPP,=0A=
++				     "required SMBus block read is unavailable\n");=0A=
++=0A=
++	data =3D devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);=0A=
++	if (!data)=0A=
++		return -ENOMEM;=0A=
++=0A=
++	input =3D devm_input_allocate_device(dev);=0A=
++	if (!input)=0A=
++		return -ENOMEM;=0A=
++=0A=
++	data->client =3D client;=0A=
++	data->pen_down_z1 =3D NS2009_DEFAULT_PEN_DOWN_Z1;=0A=
++	if (device_property_present(dev, "touchscreen-min-pressure")) {=0A=
++		error =3D device_property_read_u32(dev, "touchscreen-min-pressure",=0A=
++						 &value);=0A=
++		if (error)=0A=
++			return dev_err_probe(dev, error,=0A=
++					     "failed to read touchscreen-min-pressure\n");=0A=
++		if (!value || value > NS2009_MAX_12BIT)=0A=
++			return dev_err_probe(dev, -EINVAL,=0A=
++					     "touchscreen-min-pressure must be 1..4095\n");=0A=
++		data->pen_down_z1 =3D value;=0A=
++	}=0A=
++	input_set_drvdata(input, data);=0A=
++=0A=
++	input->name =3D "ns2009_ts";=0A=
++	input->phys =3D "input/ts";=0A=
++	input->id.bustype =3D BUS_I2C;=0A=
++=0A=
++	__set_bit(INPUT_PROP_DIRECT, input->propbit);=0A=
++	input_set_capability(input, EV_KEY, BTN_TOUCH);=0A=
++	input_set_abs_params(input, ABS_X, 0, NS2009_MAX_12BIT, 32, 0);=0A=
++	input_set_abs_params(input, ABS_Y, 0, NS2009_MAX_12BIT, 16, 0);=0A=
++	touchscreen_parse_properties(input, false, &data->prop);=0A=
++=0A=
++	error =3D input_setup_polling(input, ns2009_poll);=0A=
++	if (error)=0A=
++		return dev_err_probe(dev, error, "failed to set up polling\n");=0A=
++=0A=
++	input_set_poll_interval(input, NS2009_POLL_INTERVAL_MS);=0A=
++=0A=
++	error =3D input_register_device(input);=0A=
++	if (error)=0A=
++		return dev_err_probe(dev, error,=0A=
++				     "failed to register input device\n");=0A=
++=0A=
++	return 0;=0A=
++}=0A=
++=0A=
++static const struct i2c_device_id ns2009_id[] =3D {=0A=
++	{ "ns2009" },=0A=
++	{ }=0A=
++};=0A=
++MODULE_DEVICE_TABLE(i2c, ns2009_id);=0A=
++=0A=
++static const struct of_device_id ns2009_of_match[] =3D {=0A=
++	{ .compatible =3D "nsiway,ns2009" },=0A=
++	{ }=0A=
++};=0A=
++MODULE_DEVICE_TABLE(of, ns2009_of_match);=0A=
++=0A=
++static struct i2c_driver ns2009_driver =3D {=0A=
++	.driver =3D {=0A=
++		.name =3D "ns2009",=0A=
++		.of_match_table =3D ns2009_of_match,=0A=
++	},=0A=
++	.probe =3D ns2009_probe,=0A=
++	.id_table =3D ns2009_id,=0A=
++};=0A=
++module_i2c_driver(ns2009_driver);=0A=
++=0A=
++MODULE_AUTHOR("Icenowy Zheng <icenowy@aosc.xyz>");=0A=
++MODULE_DESCRIPTION("Nsiway NS2009 resistive touchscreen controller");=0A=
++MODULE_LICENSE("GPL");=0A=
 -- =0A=
 2.56.0=0A=
 =0A=
