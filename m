@@ -1,159 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013041.outbound.protection.outlook.com [52.101.83.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F14D42AF86
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:36:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791804984; cv=none; b=P0MpVePd5SLZ0U5E02IzukaL9AmXpwkjyeIWiLr1ctkyOzLEmMQ7oy8h3W9dJl8dgT/b0q76vLzRapaodBv5nqLKT/xnAWJf6SMFKi9vJYaPifrlQGu77KVj+vHNVZ6DSjfE/YL9F2QXt74yioGgdpDAtr7X1uPsoc1eoO5L2yk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791804984; c=relaxed/simple;
-	bh=FjmnLFlfVj86Z4Lsk90TGlztgG6qCa0yTtWjTAvBckg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=A50eXH+hN9+DZgQgyEhYJibr04K8yLY9syA9VZTSRIDLHzwbtH2qCwBYQOIBuNzfvrTSgUS6DHL/g038j8jOxAOzWZI6rnABFf34jrQ/FauVqajmqB7SzOlMrlXcH6FiRefX5eje8AV8vA++lJIbDWO6Zebhd6LZVqUl1U/W6JM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kAiFJ275; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41334189C2;
+	Mon, 12 Oct 2026 11:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791805048; cv=fail; b=I1qBLf7BDwPkMOhoJ2Tdvhfk/C8D5e81bOStjbpIoykape6lWYGf7/x9O+1YPmsFzvDm2rcBCJaGX0zsimxaZOTFUvWQZnW1Ggy8TOguv92kQGkKWgTFfM6J7E+K1gHT61yBJ2DEAUMozuXxE4JBoNXP0GjEgUbR/j6pI4w81iA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791805048; c=relaxed/simple;
+	bh=ivPw5fMlHTxOKMrpHokezTc061nssFOtjEgmYvbr8sQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=asHt8kWZQuUaoqi1jS8ga3ylR9kvTpr04NX9IcH7AlQ2Rp3w6bVz+VQPTGc8F9fNmOzBqi+Vj1PzkO0AGdwVDOlh1IFahPRPsttMqfwoP6XeNi/R0B70lYfs60QOTSqOgBmAe6EoHdQcyBZeJWQVGdS3zDg/KgcqAxd5LOhHVLU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=A8u8aQrJ; arc=fail smtp.client-ip=52.101.83.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kAiFJ275"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FDCC1F008A2
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:36:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791804982;
-	bh=ky47BzJ//yKIcUY2PnOFYEc1XjY4/LJ0O9+7vqs3eic=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kAiFJ275iQlKj/focLD/sUso6BSO7tjIuitoVCaDDHZ8kO5DgcHFnwqnwZ0AoQLpc
-	 PsWRuXwlfh3KvN5X29TmNPgGNN3blV21ra1yRTlqaLnS3L2k7y8NPU3G/xCbdGE/8Q
-	 HpIULSU9vFj7rbqVoMaoMr6cbSaxZem0uFro5y+nqMih6Sa3KyoWI/MX86q+tOQJfV
-	 Hz/9InoUrFxRXms0HvMvSwBZnQVbt8Y7Ta8bAXrAUanYKYjaJ8wf41GBXOIn9MrQ4V
-	 W2cLvqlmjN/kvLe87GjZH8MTY96oxqcNGFsVnvje4ke9Z98t/o4xd9YBpLFkdYDvZb
-	 +A81bukWrnqEA==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5bcb3726952so138586e87.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:36:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw0Pmr3yjqCdZR9s2CVwH1cKxBeqagW32BVi+K/nTlfiIJ88aHeKje2KXw4xRaUswkgdr0SaE5qyRikXWY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMo1DWKQhQwa/IXyCP2/62BtoFlJZKdzPBnu0kZ2DeceMccwrB
-	YdW7e+lzBmrOMhQ+X7ZwqqnwhSy2nqtXSHPymBgSLP8gynrkBzAM/wZEZYFu/heleK+FRxl3tm8
-	GYfaCw9I4Wk/yG17EaN9UKuTs4+h2nT0=
-X-Received: by 2002:a05:6512:3047:b0:5b8:f564:16f9 with SMTP id
- 2adb3069b0e04-5bcde6b8e70mr3320947e87.19.1791804980924; Mon, 12 Oct 2026
- 04:36:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="A8u8aQrJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cd5c1NF+TJEiAUJhPb/IG8waVXjJvnLQjQm9pzWX41WqttRZfF+vNvlMMqtjgunGDTb6RLV9WddSfJAuD9q35JA3cUPsLbaTAFOw6IXzL0O9FA1rmASp7CUhk6osWLDx1VzR3Rxr40oZWJYmZV7um4J78S6lY5BJCV67Jskxyf+wV6SrPMeNPGTYkKEgK5KHPvv67hS6mh4nhS8tWMt6+gDIfqW31lkS1LzUmFqoRgOy4ILg4UCqq9IK9A0GjOGEuSLAH7pZTwe9HlnGMLucBNkH1tzXHokn9JjF6PNpAYj6rchp+a65cOZTrKXW6DA4svHofL62tAumjGgQBGa6CQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ivPw5fMlHTxOKMrpHokezTc061nssFOtjEgmYvbr8sQ=;
+ b=tizqUFJb94ueYyJfr2uVypfn7UZsRFu8OISASRW6mcwSgz3xETtS2tthMCKDcdX9wCvbRXjhpmiqGtju2P4CuwoZgfFrNnempPiEzncgUswSXGozDPlMQpoqBm2GZhUBJvk8HkOODkZMF41L7XaT6qvaIt9m4CbbOJYCBdylXhqDKtrv4JhQC1Bv9Sg4JnKwdHRciqofD+etkKHLoHv2a6T2dXMkyfJqaz3yUdI4f7ikP3oqyEiImB5Z9to7VmfG2i8ZlfFuq2/ZAISwnzEfFuct6sUJCfhrE64R87cTYtxf/Af8GF9vQ+zQCENciLI5WpM0Z/w+l3x9zJHGMSI28w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ivPw5fMlHTxOKMrpHokezTc061nssFOtjEgmYvbr8sQ=;
+ b=A8u8aQrJbCxnc5MMkrTYt0bcyjPX1ETNDJSD+y5CrTY7TZ/IwmLg73ibeFEZE9teXNvIG5V/ntw2KVYMImgdFqv6bT7xF26vwuoICwtfj58InAP3A3GR7yujzISHl0QJEnMfHZkVO1UMe9Z3Oq44vTA4l7XTfU7qaym9MxeIRhuY4fs8MSCSR/LKx5P/MB8hGYg14EWvRr6Ye47YIoNrzcSm8jkoQQacr2UtOQhfrcPOKB3UcqD+wcyMmQViau1NOa+bHmrC1ASjAwcpy+exCpLtviSpXGFUFZZ6ejOO3Pl69cqRwYmjig0vMY5KVRHw9M+auCCYu42GYBppbqDc4Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PA4PR04MB7885.eurprd04.prod.outlook.com (2603:10a6:102:ce::14)
+ by PAXPR04MB8878.eurprd04.prod.outlook.com (2603:10a6:102:20d::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 11:37:22 +0000
+Received: from PA4PR04MB7885.eurprd04.prod.outlook.com
+ ([fe80::6e41:b858:46f8:c5c7]) by PA4PR04MB7885.eurprd04.prod.outlook.com
+ ([fe80::6e41:b858:46f8:c5c7%6]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 11:37:22 +0000
+Date: Mon, 12 Oct 2026 19:41:56 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v6 03/13] gpio: mxc: fix wakeup_pads bit operations
+Message-ID: <aszHhGylycuDIY35@shlinux89>
+References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com>
+ <20261011-gpio-mxc-cleanup-v6-3-cb47ce2ad758@nxp.com>
+ <CAHp75VfCrQAnVYV-7wiga-R8A4VKgjfV+EHo_7jy=FNmU=Ov6Q@mail.gmail.com>
+ <asytkrYip+v2vl/i@shlinux89>
+ <CAHp75VfqdVAYCTi2j0sB=rxBYaJ709-Wq7-aprfZZiBxbu=U_A@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHp75VfqdVAYCTi2j0sB=rxBYaJ709-Wq7-aprfZZiBxbu=U_A@mail.gmail.com>
+X-ClientProxiedBy: MA5P287CA0040.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:175::13) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012104645.975190-1-keng-yu.lin@hpe.com>
-In-Reply-To: <20261012104645.975190-1-keng-yu.lin@hpe.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 12 Oct 2026 13:34:15 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0iGhqaF1m-Vc2xdXQXj_BxPFFWCBTP=Ypg_gWQEqWkNfg@mail.gmail.com>
-X-Gm-Features: AclHuK8-y1dZbNQ0Rqfa3EbBgnELKusG9hIe29WvVNPE4Ch78O9H6Nl3kpfHVzQ
-Message-ID: <CAJZ5v0iGhqaF1m-Vc2xdXQXj_BxPFFWCBTP=Ypg_gWQEqWkNfg@mail.gmail.com>
-Subject: Re: [PATCH v2] PCI/PM: Restore BARs after powering up during enumeration
-To: Keng-Yu Lin <keng-yu.lin@hpe.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Mario Limonciello <mario.limonciello@amd.com>, rafael@kernel.org, 
-	Matthew Ruffell <matthew.ruffell@canonical.com>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, andy.liang@hpe.com, david.chang@hpe.com, 
-	s.collins@hpe.com, jenifer.golmitz@hpe.com, pravallika.kamma@hpe.com, 
-	zhen-dong.lai@hpe.com, zachary.pabor-ext@hpe.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB7885:EE_|PAXPR04MB8878:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72eb330c-eb97-4899-36dc-08df28552ded
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|1800799024|366016|6133799003|10067099003|18002099003|22082099003|3023799007|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	x/jKt/s19qzT1KiPZixQ5OB9ddwNAQvRJ8AU67BqzGeXB37f+3hp6CkUWDllOTnQkLp7Zl9mhPcEFGgEfR161ZnQlKO+Mv/HhTXXd0PJi3EX/vG3iGBO3EKyqMDJhMdiy+LWwFVf00X37v96eGEw3ztUIGVaKeIjXFdI9dzZ5Uz+wKSXQFWsoi/1w4ucAFo+zRle5hv7JLqwShYED0PwjkO1nhHzQwZgqQ/9Fx1PbURYBuNhhwOYlu7WcNuypj3iJnYTz7/xqvBU0Ojn2Q+S+oTnzSNsOwPg7wvW6uRg6UfDvDiwrZ6a6F8LXhT+bx7CsXzU2L4V1x2kYPHx5c7efOxDqKeQCpfULcL52lu58eIi7wkB0Lasd8E/c75YPyMj4344tIaQEfgOrg6dm4n+COHD7NX9lMixlf2flrH7kP+5sLEQb2tnFoQp8DuPhvEOLPLTaWI1mpDz2mMDNK2BDc7OXvoRaL1qTukQPfK50giED3fQFeaADOffgyyEaU2QBicr+/Ai70vXoqjl8ZsnMUhl1pNKSOzG3ITqzXQIPR3/SPCOeej1k+e1pBq1miFx7CDQ73xTd/TdRmBd4Wgb4lZP4oooncOXb0qqv0hi9c3R4+WRnF7Bh4HBde2OXnvJMCpmUPizseX8QS1K0caOVP7LCdg3tCFAOMJvxvkuPnc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB7885.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(1800799024)(366016)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dndvMHdYUnA0MHVUWVF2VStvZFo2OFFyS1VqMjNtWWRPUkllTFRYeEFSSmoz?=
+ =?utf-8?B?ZjQvUStSeXA5RG5RdVhkLzJRVGNmQTVVWmJkbUtXRStQMjNkQTI4NUZOYWhs?=
+ =?utf-8?B?V3VvbFE3TktOaTJEU2ZhK2NSN3JtTVN0ellLczV1OUVybGtPbTd6dmFoZ0hX?=
+ =?utf-8?B?SGhrV29NT0tOcHJNSmY5T0xDQVpzWHRsMW5wM3R1ODM5dTByN3lsSjFkMTd6?=
+ =?utf-8?B?TEEzcTBDZzFyL21hRG9qZ05yUnBwMnlVaHlPVXJKbG14bDNEQWNubXNTSTJ4?=
+ =?utf-8?B?V2NxM01McURnYmZzWEhnNkhTV2J2SkxNWnlpVy9PdWFab1M2VU5BUkF0QlFY?=
+ =?utf-8?B?aHN6TWt2bWNvVGxOZ0FENmpEZmZyVStxYUtnSWJUeCtkSzJXR1YwTzBJMkl4?=
+ =?utf-8?B?Nkd4WWFFVWtxbmVLVGQxc0dzQWdoTEx4VnpJRFlkSU9zRDRBSWFzbUJMZndz?=
+ =?utf-8?B?R3c4aWVHNlZCK0I3MWR0dHAxSExQUzRObTFPam90dlp0WjB6bytvV0dmZ08r?=
+ =?utf-8?B?N2VqRzJNMHk5eU5uRjdFWXdpVVc2ZVpHejFCWC9DLzcwN3FZZEFWQUxudjhj?=
+ =?utf-8?B?QlN3UWNxeGprcmtmbXpyUDNnZmRJdG1XSnlLMHZ2d2ZxclRHODY5Sk95Ukdr?=
+ =?utf-8?B?bnlmQUMrR0tmSFdMVnFrMk5BbWJXQk14M1l3MDhENEpRUG1wWnFMTElaM3l1?=
+ =?utf-8?B?OVhJdUhETFNnMllUSmFtQVplMkNZa3Q3SFpnKzJGUjQwT3BtaCtMdjQ0Unlo?=
+ =?utf-8?B?SnJSdGlJZlViL0pGQkQ5ZHZWcW91a29JVkdsbzVrZW5ueHVtNW0vT2kxalJW?=
+ =?utf-8?B?NVh6ekJWKys4c1psMWtPa0laSFEzZlYrTzN3eEV1Wk9UNnVKQ05idHRpZ1Ja?=
+ =?utf-8?B?TFFFV0dwVVhSTzVYQlh4STdhbnRGNm1ZZ1FuZWQ2UVRjdWgyeEtTclpQUEFs?=
+ =?utf-8?B?WFowZ3pxd2d6c2dGVEpNUHU0akg4QnNpcWk5RGlyVUZxNlFLa0JXTTgxNGJK?=
+ =?utf-8?B?QnJSazNXMlEzaFdkR0Qra3hqMFA2d3NyLzM1bVhQejE5NlVlV1ZFbDUyYmVM?=
+ =?utf-8?B?Y1QwRjRBOFZMQW42c3pjelVrWmxrclNldG1mbU9EaHU2emVmSzlhVWl3aHRM?=
+ =?utf-8?B?d0hlLzBmaG9kK1hNVTJFUCtCSEZibFhpZCtXUnlTVXpWVWpKYTdBdnEvZFFl?=
+ =?utf-8?B?VXdTT2l4L0F5dVJPd2dTVFdwbU96dzhNSWh0SENiNDBjSUF2VmtrNnZSUEJl?=
+ =?utf-8?B?c0ZnRGVRdWt6SnRiNi8xZmNjVkYxT0NRWnZwanpiYm9OS0tLM3J6YkJBNHFn?=
+ =?utf-8?B?Nk1mWGVDcHRiZzN3L0RJVWNvWHdPdXRSRGkxN0JTMHlPSVRQTkNqNFJ1cW9p?=
+ =?utf-8?B?clhacll4YUJnYWt4SjQvdXo2Y1NzcVRaWnRwUjlRTXdVQ2w4ZFE3WFlIUm5r?=
+ =?utf-8?B?N1JJRGwza1l0cXZxS0ZzSWZRdUg1ci9PLzBrYkdHa0x6OTkveC9TNW9DRWZO?=
+ =?utf-8?B?MEVwSTMzMU0waWo5S0dOU053eXl0NXJ4RlJNZUNHVjB1TFd0L3JJMzJFeitr?=
+ =?utf-8?B?eTRtZFNhZXpTMkI5QnhENitSd0ZNMFExTnlLeUxIVGtMSUlPNHg1WVZ6TFB2?=
+ =?utf-8?B?T0VFbGZiNlJ5ZDFrbHNEMzRrSHNESnA2aFZrWkFwRVVNWlhsY2Q4NFd3dzVL?=
+ =?utf-8?B?UWkrck84ajgwRDE5UmhuMFlJV0diS3oxaUdPNW9CTGFkNlp2dTNkTlRMcEk4?=
+ =?utf-8?B?K3ZvekxKeDZZdUI3Y045ZG1JaTljUzBQd2crNUxrVXNqenMwS0gxWDR4SlNY?=
+ =?utf-8?B?cGszVE8rV0FtbFZ6QnZMWEljdTVRZzhqMGJhNnROTUZWTTc3WEJBYTFrZU9q?=
+ =?utf-8?B?QkQ4a0FCaXIySVVSNFhSclBJNzdRV1ZwaVQxcTJWbGRiSEM0dEZLRjR5bDAy?=
+ =?utf-8?B?RFdML2tJVjd4dTdPL2NMSmN4OWgyQUNLcGRidy9XMmpWMFpwMCs1M3RrQVpx?=
+ =?utf-8?B?NHFoWFMxR3dmQUd4d1hMU2tPUWlEaEE3ODBuSW5YTjJlZ0s1QldMUGQ4K2My?=
+ =?utf-8?B?VmNUN0VFUTNNNHlOMmlpMm5Fdy9wT05zR2Q5Tmt0elpwbStZVjVhay90UXBU?=
+ =?utf-8?B?Sno2VEQwSFk1aWJFTEY4bUZ1ZU95UlpTM09wbiszbjBlRWczYmZ5Mm4xd3E5?=
+ =?utf-8?B?c09BczYwSjIwYUVDNy9wNkd6SzVkM0p3czBqSkNKK2ZhdWVpYnlORGNSc3Ji?=
+ =?utf-8?B?M0VNUGEyVUM0R1lRZCt1cUcxK0N2bGljL2VvNlVnTVp3V2NxRDcvSmtoWDVq?=
+ =?utf-8?B?MzVIbnlpbUxLaW1FN3M2OW8ya2F5TXJEWWNZRzlLOWR3NXZxQUdKcWtXaVdI?=
+ =?utf-8?Q?h4PxmU6PeBfSkoPwX/0czU6/yJ3H4x7MCQnAy?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72eb330c-eb97-4899-36dc-08df28552ded
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 11:37:22.7270
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vKQ4WxhnXGnEM+2ojlF+3ctSdZKMCZ32PT5bBAfoWPVCdA1mxdL9h9dmRaWZohUqDPdcKWYLacl4GjZvsbBuduB649dQ2oDDAECf2r2hqrumX0EwCx3fjqjeBx/c3Sj7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8878
 
-On Mon, Oct 12, 2026 at 12:47=E2=80=AFPM Keng-Yu Lin <keng-yu.lin@hpe.com> =
-wrote:
+On Mon, Oct 12, 2026 at 01:30:04PM +0300, Andy Shevchenko wrote:
+>On Mon, Oct 12, 2026 at 12:46 PM Peng Fan <peng.fan@oss.nxp.com> wrote:
+>> On Mon, Oct 12, 2026 at 12:15:28PM +0300, Andy Shevchenko wrote:
+>> >On Sun, Oct 11, 2026 at 2:54 PM Peng Fan (OSS) <peng.fan@oss.nxp.com> wrote:
+>> >>
+>> >> gpio_set_wake_irq() can be called concurrently for different pins on
+>> >> the same port, so use atomic bitops when modifying wakeup_pads.
+>> >
+>> >The code doesn't modify any reader part of this member. So, the above
+>> >paragraph is incorrect, right? Otherwise it needs to be clarified how
+>> >assign_bit() does change anything.
+>>
+>> I will replace with below:
+>>
+>> gpio_set_wake_irq() can be called concurrently for different pins on
+>> the same port. The IRQ core serializes per irq descriptor, but
+>> different pins have different descriptors, so concurrent calls for
+>> pins on the same port run without mutual exclusion. The plain |= and
+>> &= on wakeup_pads are non-atomic read-modify-write operations that
+>> can lose updates when two CPUs modify different bits simultaneously.
+>> Replace them with assign_bit() to make the modifications atomic.
 >
-> Commit 4d4c10f763d7 ("PCI: Explicitly put devices into D0 when
-> initializing") added pci_pm_power_up_and_verify_state() to pci_pm_init().
-> The helper ignores pci_power_up()'s return value indicating that BARs
-> need restoring.  Its resume callers restore saved configuration
-> afterwards; pci_pm_init() does not.
->
-> D3hot-to-D0 may reset a device and lose its BARs (PCI PM 1.2, sec 5.4.1).
-> After enumeration powers it up, pci_enable_device() reads D0 and skips
-> the full power-up path.  Previously, a device still in D3hot at enable
-> time took that path, including BAR restoration.
->
-> On AMD Venice SP7, two AMD xHCI controllers [1022:17d2] are in runtime
-> D3hot with No_Soft_Reset clear before kdump.  Diagnostic reads on
-> v7.3-rc6-37 show the following for 0000:01:00.4 in the crash kernel:
->
->                                    PMCSR      BAR0
->   before the platform power call   0003       f4100004
->   after the platform power call    0003       f4100004
->   after native D0 power-up         0000       00000004
->
-> The upper BAR DWORD stays zero.  pci_power_up() returns 1, but the BAR
-> address remains zero while dev->resource[0] still contains 0xf4100000.
-> Without BAR restoration, the last console messages are around:
->
->   pci 0000:01:00.4: enabling device (0000 -> 0002)
->
-> Restoring both controllers' BARs gives matching readbacks and allows
-> kdump to save a vmcore and reboot.  An AMD Turin xHCI [1022:1557] shows
-> the same BAR loss; restoring its BAR also allows kdump to complete.
->
-> Use pci_set_full_power_state() in pci_pm_init() to power up the device
-> and restore its BARs when needed.  It already checks the native power
-> state before restoring and updates ASPM when link state is present.
-> Leave pci_pm_power_up_and_verify_state() unchanged for the resume
-> callers, which restore saved configuration afterwards.
->
-> Read the initial power state first, as pci_enable_device_flags() does.
+>Right, but the code does change only the writer side. There is no
+>reader side that was changed. So this patch does *not* add any
+>atomicity. You also need to check if the reader side already uses
+>test_bit() or something like that. Otherwise it makes no sense.
 
-Is this really necessary or even useful before pci_set_full_power_state()?
+The writer-vs-writer race is the concern: two concurrent
+gpio_set_wake_irq() calls for different pins on the same port both do
+a non-atomic read-modify-write on the same wakeup_pads word. The old
+|= and &= compile to separate load/modify/store instructions that can
+interleave, losing one CPU's update.
 
-pci_power_up() updates dev->current_state regardless of its previous
-value AFAICS.
+assign_bit() uses an atomic RMW instruction, so concurrent writers to
+different bits in the same word are safe.
 
-> Otherwise, PCI_UNKNOWN can request a BAR restore even for devices
-> already in D0.  Keep the final pci_update_current_state() call so the
-> final cached state still accounts for platform power and failed config
-> reads.
->
-> Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
-> Fixes: 4d4c10f763d7 ("PCI: Explicitly put devices into D0 when initializi=
-ng")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Keng-Yu Lin <keng-yu.lin@hpe.com>
-> ---
->
-> Changes in v2:
-> - Use pci_set_full_power_state() in pci_pm_init(), following Mario's
->   suggestion to reuse the existing BAR restore code.
-> - Leave the shared resume helper and its interface unchanged.
-> - Keep the initial state readback and the final platform-aware refresh.
->
-> Unlike v1, BAR restoration uses the full helper's native PMCSR check.
-> It also updates ASPM when link state exists.
->
-> Tested v2 with kdump on both systems.  Normal boots made no BAR writes
-> from this path.  The crash kernels wrote only the cleared xHCI BARs:
-> two on Venice SP7 and one on Turin.  All readbacks matched.  kdump saved
-> 2.53 GB and 1.10 GB vmcores respectively before rebooting.
->
-> v1: https://lore.kernel.org/r/20261008133708.947908-1-keng-yu.lin@hpe.com=
-/
-> Review: https://lore.kernel.org/r/04f5463b-f123-4079-9286-06a241976d3a@am=
-d.com/
->
->  drivers/pci/pci.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index 8cc6a89130b5..d3a5871e1b36 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -3255,7 +3255,9 @@ void pci_pm_init(struct pci_dev *dev)
->         }
->
->  poweron:
-> -       pci_pm_power_up_and_verify_state(dev);
-> +       pci_update_current_state(dev, dev->current_state);
-> +       pci_set_full_power_state(dev, false);
-> +       pci_update_current_state(dev, PCI_D0);
->         pm_runtime_forbid(&dev->dev);
->
->         /*
->
-> base-commit: 7b63ef2d55f24519e7e9e5f4d15dbea03f126e40
-> --
-> 2.43.0
+The reader side (for_each_set_bit in noirq_suspend, wakeup_pads > 0)
+runs in noirq context where no concurrent writer can execute, so
+reader atomicity is not needed.
+
+Regards,
+Peng
+
