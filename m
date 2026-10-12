@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86CA53019D9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C1D3019BA;
 	Mon, 12 Oct 2026 02:18:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791771488; cv=none; b=kiLa7N3P08fRAf7DTjJYZuQDVENL1f0JnMWvfeLIzrh6DrCI3TuerloIWY1zcbuzabUvnnbv2CYv+o/fKORgbchpGWimAR922mpkxix0d43Xg706IL+Wr5T1Ol4eI92GQrRijuYR2BwhwqSmhEPLV05burVZeIaPiHzW+sqjkTU=
+	t=1791771488; cv=none; b=Atz0cc/Xa8GqZgoxaSj9uLSS7G+bbwzRXN4l88KGjxxTCb2BtZuEswvkO33Sz2tZE38xndRHbEB7ZiF/jlCRm25kGQb5A8fpQbE604HZhvZc42e6vxirxV3a1VJzRduIu7v89MvHFEQLgIokYMRrD5DbzXtRHtgYCsgRfVaUTcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791771488; c=relaxed/simple;
-	bh=7MGFQOvs/uHXmXb1V4YxkRGBMRJ2mPeougEEkwVrI9E=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rN9HsFFU9eWUNOUeyWf+NruC1l+ASkk40hizTbhielnaGypQHyDUkBfHRytfwKYnQRSXTlJCYBw1BUIKXlz2Aqio04btXmZelZ0Q4HoQHL7OMh3kR8nHS0U8EeqIXx+paRpa7akO8vdYvSA4PSxrCvpyN93wP6o5adb5/Rd0WUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Id/eo9jB; arc=none smtp.client-ip=10.30.226.201
+	bh=wqZgFcQv79nCxhdK/QeqPWm6bn1L/7fctlQZfxmiUdg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ctxP0Iyfj4iDRy1xWxUcTTJJMLzYv3Kukxb7ax1InDctk/ed1rJaGZVhEWjTVGNfphY6LDa/BrVe/1U2f2T2HX1cwHgPq+dDx4i/k3h2q+twL37mnis6ZDIqFBdOII1w/oVx6tiLPnyoHUGfEKvR+bE3zVi/4uu2i47xs5ygZug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FNWJzD3s; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Id/eo9jB"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 13657C2BCF5;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FNWJzD3s"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 33C75C2BCF7;
 	Mon, 12 Oct 2026 02:18:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791771488;
-	bh=7MGFQOvs/uHXmXb1V4YxkRGBMRJ2mPeougEEkwVrI9E=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=Id/eo9jB7G6rclOGgx8vSfJskV7V0EORpZI6qvirpbwRhDUhF6H6XSws9tpEqhA9B
-	 QNHVvowSFCfh0G3eTLm9ve15cAvOw+mb+ehn1ybupPkaWc3rBuCY4akOcM9IVypVPx
-	 NzJBP2jdOu4dpcRkbZK92/ruz7IVgAMJeYpnZnzjkC2yRIKaJjnwRm3WKqF7XOD0Ht
-	 ++ip/7T2yODZslKMM9yMuiUnLs8I/j+ei6CY6U2jz2RP0rOG23aunaeSmsUhyQjrFP
-	 UjtkpGETlAjuGOtsCY65W1l2gyRRbeZfV0HyaNd4MOSDmb+mlXM9hjTv/tFlio5w9l
-	 Du1QcDeS/NXyQ==
+	bh=wqZgFcQv79nCxhdK/QeqPWm6bn1L/7fctlQZfxmiUdg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=FNWJzD3syijxx/nawoyQYIN8WdGj0mycfm/Tje159OLnGiRmv/ltA0Io5pHIkmNiM
+	 oW4QPpR98SabhbSlXjoB/37bnIW7EBBkCIYOfFJhCYjlA2pUrpZCjlfNlXCY5HxqCg
+	 NUKE4YCX739e0Bu86hv//C3vjQgCR3ewemCo1QTE3/OjrgKwGXZdKKuPmoGsmEj6N6
+	 Rv8lnZRFbKUx3coM4nG0tACkfqEhzZNWv65bN7Sq9gFvnyPqDLxCWnWyOuSp1/qPzw
+	 WsjzsJ2YpFrukPO6eW48n7wR1+XMgZpZg9fRTfQ1M/2Ok312zCoM7EgqMqEENV/oSJ
+	 jgr8lV6OI/bzg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3789CA9ED5;
-	Mon, 12 Oct 2026 02:18:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15438CA9ED3;
+	Mon, 12 Oct 2026 02:18:08 +0000 (UTC)
 From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
-Subject: [PATCH 0/2] arm64: dts: qcom: sdm630: Fix the CPU idle states
-Date: Sun, 11 Oct 2026 23:18:06 -0300
-Message-Id: <20261011-sdm630-idle-states-v1-0-3181d488dc0f@gmail.com>
+Date: Sun, 11 Oct 2026 23:18:08 -0300
+Subject: [PATCH 2/2] arm64: dts: qcom: sdm630: Fix the CPU retention idle
+ state parameter
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,10 +41,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywrCMBCF4VcpszaQG0H6KuIiTSY6YtOSSUUIe
- XejLr8D52/AWAgZ5qlBwRcxbXlAnSYId59vKCgOg5baKamU4Lg6I8f6RMHVV2Rxtsn4YJxddIB
- x3Asmev+il+vffCwPDPVbgt4/p6mbAnYAAAA=
-X-Change-ID: 20261011-sdm630-idle-states-84f3ac364b2c
+Message-Id: <20261011-sdm630-idle-states-v1-2-3181d488dc0f@gmail.com>
+References: <20261011-sdm630-idle-states-v1-0-3181d488dc0f@gmail.com>
+In-Reply-To: <20261011-sdm630-idle-states-v1-0-3181d488dc0f@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -55,11 +55,11 @@ Cc: Abel Vesa <abelvesa@kernel.org>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Fabricio Akio <fabricioakio@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791771486; l=1578;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791771486; l=1587;
  i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
- bh=7MGFQOvs/uHXmXb1V4YxkRGBMRJ2mPeougEEkwVrI9E=;
- b=K54XIqDzise9CWqfWlth2suD/uFf9KjU3X0TOiVVZkVXubVu+GxcxuDA+tqX/J2uozOrKJXeQ
- 9pEKNsZoEiJB1zry3Q3gd0W+mqWh98Kc39rdPQgOYsruGY/IaCtrp8D
+ bh=JPfucNV2H7AMDe9ybxbNQCBK1Hyzzm9nRs65fQ2KOPs=;
+ b=oQp29R2EyUSznPiQGQnc1SYh2rurX09E6rz6/LF2N6c5QUF5eqrvTIMJEs5rI4W5EAZUvXEFG
+ D3oqHL25NynAR61z3Hk/8dKEyVGFtGfa+2+Yi2vE6+i4m00sRXxQyNL
 X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
  pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
 X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
@@ -67,39 +67,47 @@ X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
 X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
 Reply-To: fabricioakio@gmail.com
 
-Of the five idle states sdm630.dtsi gives each CPU, four are never
-entered. The three cluster states use PSCI parameters that are not in
-the encoding the vendor kernel uses, and cpuidle records no successful
-entry into them. Because they are the deepest states, an idle CPU
-keeps choosing one, each attempt returns at once, and the CPU spends
-its idle time retrying instead of sleeping. CPU retention sets the bit
-that marks a state as losing context. The first patch drops the cluster
-states, the second fixes the retention parameter.
+From: Fabricio Akio <fabricioakio@gmail.com>
 
-Tested on a Motorola Moto X4 (SDM630), whose board file is not in
-mainline yet, on sdm660-mainline's 7.2 kernel, whose idle states are
-these: with the screen off and the charger input suspended, the
-battery current drops from 277 mA to 117 mA.
+The CPU retention states set bit 30 of their PSCI power_state, which
+marks a state that loses context. Retention keeps it, and the vendor
+kernel requests it as 0x00000002.
 
-This firmware denies platform-coordinated mode at boot ("psci:
-[Firmware Bug]: failed to set PC mode: -3"), and the vendor kernel
-requests a cluster state only from the last CPU of a cluster.
-Restoring cluster idle that way, with the CPUs described as PSCI
-power domains, is left for a later series.
+With bit 30 set, no entry into these states succeeds on a Motorola Moto
+X4 (SDM630). With it clear they are entered about 50 times per second
+across the CPUs, and the failed idle entries across all states drop
+from about 30 to about 9 per second.
 
+Fixes: b190fb010664 ("arm64: dts: qcom: sdm630: Add sdm630 dts file")
+Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
 ---
-Fabricio Akio (2):
-      arm64: dts: qcom: sdm630: Drop the cluster idle states
-      arm64: dts: qcom: sdm630: Fix the CPU retention idle state parameter
+ arch/arm64/boot/dts/qcom/sdm630.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- arch/arm64/boot/dts/qcom/sdm630.dtsi | 112 ++++-------------------------------
- 1 file changed, 10 insertions(+), 102 deletions(-)
----
-base-commit: becb95e45ef0dda9ffb35156d909d3da7a2789c3
-change-id: 20261011-sdm630-idle-states-84f3ac364b2c
+diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+index 222ec5886818..a58bad0fb638 100644
+--- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+@@ -192,7 +192,7 @@ idle-states {
+ 			pwr_cpu_sleep_0: cpu-sleep-0-0 {
+ 				compatible = "arm,idle-state";
+ 				idle-state-name = "pwr-retention";
+-				arm,psci-suspend-param = <0x40000002>;
++				arm,psci-suspend-param = <0x00000002>;
+ 				entry-latency-us = <338>;
+ 				exit-latency-us = <423>;
+ 				min-residency-us = <200>;
+@@ -211,7 +211,7 @@ pwr_cpu_sleep_1: cpu-sleep-0-1 {
+ 			perf_cpu_sleep_0: cpu-sleep-1-0 {
+ 				compatible = "arm,idle-state";
+ 				idle-state-name = "perf-retention";
+-				arm,psci-suspend-param = <0x40000002>;
++				arm,psci-suspend-param = <0x00000002>;
+ 				entry-latency-us = <154>;
+ 				exit-latency-us = <87>;
+ 				min-residency-us = <200>;
 
-Best regards,
---  
-Fabricio Akio <fabricioakio@gmail.com>
+-- 
+2.56.0
 
 
