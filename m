@@ -1,145 +1,121 @@
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2382D2DC76A;
-	Mon, 12 Oct 2026 14:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814051; cv=none; b=IN6+ggYJyVrYToViO/k4Lqf6tF4jlOYbf0UQMCfnrpoAX/vJJ1zO0xwgXxVZiT0/oZ9v32FpbPvhKtzk8caUleMozm8pyTJHpMXqsg15iLq11LAqu7QqkKCGjMpSD5EJ28F2Km2pptIdoTKJqQ4fo2l4Q6LZXRU6jTlO+t5yAYg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814051; c=relaxed/simple;
-	bh=2aG/DogWSGTzP5ugFjBq1AH/kx5pc3t9kJDKFSOs67Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cb49OPMcfMnPXAk3oJgysvFDc5zhlWK66wcYaTIhXh3uo87VQd5fQA9Zczup6oU7oWvI6gd0jjf5VcnXH9NR4yFxzUc/dGceJIELgUWbGvmWiYqDXp/LrprOZ0brX0r4l3srqzv2LDtGjLJLGI3P23K1UP3R84thjMqFun9cK0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=EH2BHVH/; arc=none smtp.client-ip=37.230.196.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEAE47143B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:08:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791814102; cv=pass; b=Kh0pQ/p/M7dUolJppaWD5JF30PX3QDbUF1aNQLn1cDBSkuX9b+Fu51LR6w3BWJOKRuLzh6S/w45UYk/ccaNH60dZ/MC+XSkB5kATG1g4mSpwtA8i+R9Hk9RMGXnbp21wB3xHgMKuWBluHXHNiqx35kjANMt8fEzKrXihz249lCM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791814102; c=relaxed/simple;
+	bh=Ds1RsGrXdYNa+VIUsNtvM0HHuJhu03SNmjfL4ZgCOaA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZzBxKsmPri9lZhD6CW27HLWcW5hl2X/cIyjWZjvMGzNLYuWmKQ8HiIKevc38ySVKzluMAT8smQj7Ad+jZk5nf49S1aj4Beg1triYZtJucVwoukwpNh1TOf4tU2A1xTdWAQGC0GfAasJG6Zu+J3ePTGXTiE37u4lQPWSHwLMxkKU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tPVYZgPD; arc=pass smtp.client-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="EH2BHVH/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1791814037;
-	bh=2aG/DogWSGTzP5ugFjBq1AH/kx5pc3t9kJDKFSOs67Y=;
-	h=From:To:Cc:Subject:Date:From;
-	b=EH2BHVH/SvqtD895MO6RcAoDY3odmFVRsMNOBgkxf82+fEFfSQa83DrhZVsNQ7bLy
-	 aVXvLDD+7R8uLyI26PiZFnmdor6hSQfAnofQhgusVUSJGZPnAgi9kGFWzw9Myt2QEC
-	 LNNetWkN3LuzrbDlSy+viYWJbOd8QHYucGesAoKzEP7kTnfyjeCN4xhdbbqrT7n6Ef
-	 cGXR9/F05nTVajrxasPXK2LeIjoiPN+fWSwK9inVhXaznFzgsoPiR2UlMgRaPzJo9h
-	 XLV+zwwmfoWZxPmtOYv2Iz1Oev06y+xuN8wssOme1Cj5b63zcbh0pHaEfY7Jym2X+k
-	 re3sAKUBeqR6A==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id C97C3253AB;
-	Mon, 12 Oct 2026 17:07:17 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Mon, 12 Oct 2026 17:07:16 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.25.120])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j3K6C4ZB3z3KC;
-	Mon, 12 Oct 2026 17:07:15 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Fabio Aiuto <fabioaiuto83@gmail.com>,
-	Alexandru Hossu <hossu.alexandru@gmail.com>,
-	Luka Gejak <luka.gejak@linux.dev>,
-	Hans de Goede <hdegoede@redhat.com>,
-	Navaneeth K <knavaneeth786@gmail.com>,
-	Michael Straube <straube.linux@gmail.com>,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Dan Carpenter <error27@gmail.com>,
-	Andrei Khomenkov <khomenkov@mailbox.org>,
-	Dalvin-Ehinoma Noah Aiguobas <fliegbert2@gmail.com>,
-	Michael Huang <tehsiu.huang@gmail.com>,
-	Jinke Wu <coolbeaner@126.com>,
-	Nikolay Kulikov <nikolayof23@gmail.com>,
-	William Hansen-Baird <william.hansen.baird@gmail.com>,
-	Serhat Kumral <serhatkumral1@gmail.com>,
-	Nazar Kletskii <nazar.kletskii@gmail.com>,
-	Jennifer Guo <guojy.bj@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	lvc-project@linuxtesting.org,
-	stable <stable@kernel.org>
-Subject: [PATCH 5.10] staging: rtl8723bs: fix OOB read in OnAssocRsp() IE loop
-Date: Mon, 12 Oct 2026 17:06:40 +0300
-Message-ID: <20261012140642.1076-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tPVYZgPD"
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-53584e7c349so389751cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:08:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791814100; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oPNFqpp6b/F4qb/mJXh1UgrkyYQ16902mpxWBMftMwolpzC18rwgMg9oO9g/E7ghb6
+         E+xWcIhHDTxG/7UAURADVBLQTk+bxCgvxGCFX3ASriZbgPPl7rdQMXkxF7c9jy1QoXbN
+         eWWKOnqfkX1QNSmlh7pemztTv5ZiGi51ic20ZqClvc6dXqaNzRtceplZPwet+FFw2wTY
+         REz13KA+pxUg7lzHbyhRydAHWnmAspzwzAC37DnnV1yeT24iphxtkBx4ngTY3ahEvfLD
+         upzBwAFazU51tcZahb87ni63bSKf14T+ggkBiGCeSMkbJVRvj2gIPXVTQ5DyDakaJo8w
+         HQBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Ds1RsGrXdYNa+VIUsNtvM0HHuJhu03SNmjfL4ZgCOaA=;
+        fh=LuDSq2OKisxZo+CWzBY6Q+JY79LBfZptv79btVOs+Ss=;
+        b=TmFzKRHm3r1lTCTIQLBwjzgfz1lcrWzYnXjwO94W/GEGEPAMCKwSkX+GWKh2icnAlZ
+         IOv11i3c5l2dLiUCgu0LeynG+7SaYLi0vJ+0kFXmALWBqT+7c03YNC+14f9EbOz4OoQh
+         eFluKzz7OzxoM2DP57CxyWwf1jHWsOVzZCVj63u2ezwzr4C9UIU32CoYd8vgYoKB6rnl
+         5W4psAbDgPblRsgdB5Du+LI/geuEh1sqpXklatSNK+eJzU6o3UobqtEyjsD1yXddVs7/
+         s3QQZl+KIluMV9xsOSU+L6p3DYVpmKhBiEfWmVNQLvbMlJOxMPLVqLg0OYLp4u5dvvSq
+         pNZQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791814100; x=1792418900; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ds1RsGrXdYNa+VIUsNtvM0HHuJhu03SNmjfL4ZgCOaA=;
+        b=tPVYZgPDO3maEImsDRyVJf6N7ezrlrEpzV7H0nUFUrvZON8vVPHJdA1N1E1oGHANxm
+         dddNPzPx43eeazjaw2SZ6prv+MubwLIIHDWp2wSHYizVcbGXiHuKG1+kBW1ZK5k9ie4r
+         bC2WpAi6EYr/8UHrUNI7X0Ll4kNi3IaKMFPopJDI1CPkUVEp9MJeYmlxPeDEpqv8SzMf
+         iyaS/7scXE/IkVm123dFxnuNYblmTWhltgFepuUyR9iIuDn77YfhJ7gIGyXgRjSyq3VR
+         y6kN44xQ5f6P0Y6AdWuXZ71lOp1lc0ymOTY3h11v8cUpT7nrkjezl7j8ONy4TohReAL5
+         8l5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791814100; x=1792418900;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ds1RsGrXdYNa+VIUsNtvM0HHuJhu03SNmjfL4ZgCOaA=;
+        b=yt0uuUgvjkDzcSM82NyJAQZajR6qRVZwR45kLVALV4GUOItlwkiJyxUY2F3PRHm46l
+         g4cjIxr6Suk3WZrq0JpXAUUURRugwvR8DHST4+FVsxXsacLe5MqmEOmf4oWzZrcpfIG6
+         qcouVq2jcuU/nwT6QfcQJh2NkcancF8mOeYzY7Yqa3P/c/n75/rtZnNZQFyNag4MYs7k
+         t573rDwPRXrMtNq3VpKlHbawf/lpVX8l8JcpOMQayBJ/r2pNwjFCzpd3ndwSq85elYVs
+         TCR1OBPKx9kP6kPWWYHHC3aAcIXmZjSVO1acWWe7C5rSIOkvZ/CA77FXkovbG/TCDVKV
+         yNjw==
+X-Forwarded-Encrypted: i=1; AKwUvBwpRUoaFVSJa+6rrjPhK6Fxj9esviGU3G5O6bTQNZbsWqQxsWBiiEtam6EKt88htdAAq5kkkvWU1hBcQ4Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILhsDhE6/OSoSAkmzVjvrHPXHVBf1GTG/FqbtqAT4sqVvrcmWw
+	ldF0rPnTQyxaBwxnSV/6zvUZqFVOnIhyfBn+OGKUpnPduQI7poOHVToglwPqtpXEkWa1O5fsWgK
+	MyebE5oWOP+H2Ls0ZhYL5VXW3lBfF2mwImN7XzcfN
+X-Gm-Gg: AYBFou12q4KgUSpA25u/hS8yZ8rkexGmBvA4cha1W3JZV8u3EAU3QmOsql7KQsV3NXS
+	abtPr3/ZAnEWKG54QloMulKuL/m+D/8QDks23xT4I8QS9Tg9rFf6B+e4IFK/2jv13VnaslBERah
+	UsgJYthKz2wMIityn+/HFZLOEdfAUGAYxYiUrjejEz8nrMekKKhbPmKKBQ+jeFkNwJ3GcIfOsbU
+	ZzlCiKNEml9J3A2Di2xEtiHfGdkrgQlMtNhWtftr3e12ZbD8xx6glphHirhw5IfXzJIIyuurPb2
+	iNTa6HDAl9vUl1rICENIb83+OLDBoCq0r0UG2oFqCzyC5rEVpyh0XkXZg+GHw6l82i64iyj7q4K
+	GgytgHafL1PU=
+X-Received: by 2002:a05:622a:413:b0:533:9746:9a86 with SMTP id
+ d75a77b69052e-535b325f8d9mr32241681cf.5.1791814096393; Mon, 12 Oct 2026
+ 07:08:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/12 13:16:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, new-mail.astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;astralinux.ru:7.1.1;patch.msgid.link:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206601 [Oct 12 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/12 12:26:00 #28677215
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/10/12 13:15:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+References: <20261011223358.2327625-10-sashal@kernel.org>
+In-Reply-To: <20261011223358.2327625-10-sashal@kernel.org>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Mon, 12 Oct 2026 07:08:02 -0700
+X-Gm-Features: AclHuK84WqMsyxy-I57pRe8rAHj6B83pUNBHs476hJrJgTGppN2WMc_WLWeA8KM
+Message-ID: <CABdmKX2D1obDASTm+exAtrZSfkLikUxmzKxjsj8avyfUbEcsFg@mail.gmail.com>
+Subject: Re: [PATCH] selftests/cgroup: free the paths returned by cg_control()
+To: Sasha Levin <sashal@kernel.org>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <shuah@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Amir Goldstein <amir73il@gmail.com>, cgroups@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Alexandru Hossu <hossu.alexandru@gmail.com>
+On Sun, Oct 11, 2026 at 3:34=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
+te:
+>
+> cg_control() returns a path allocated with malloc(). The two callers
+> that pass it straight to inotify_add_watch() never free it, and pass
+> NULL to it if the allocation fails.
+>
+> Keep the path in a local variable, check it, and free it when done.
+>
+> Fixes: 5313bfe425c8a ("kselftests: cgroup: add freezer controller self-te=
+sts")
+> Fixes: 2de27980e1d46 ("selftests: memcg: Add tests for IN_DELETE_SELF and=
+ IN_IGNORED")
+> Assisted-by: LLM
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-commit f9654207e92283e0acac5d64fe5f8835383b5a23 upstream.
-
-The IE parsing loop in OnAssocRsp() advances by (pIE->length + 2) each
-iteration but only guards on i < pkt_len. When a malicious AP sends an
-AssocResponse whose last IE has only one byte remaining in the frame
-(the element_id byte lands at pkt_len-1), the loop reads pIE->length
-from pframe[pkt_len], which is one byte past the allocated receive buffer.
-
-Additionally, even when the header bytes are in bounds, pIE->length
-itself can extend the data window beyond pkt_len, silently passing a
-truncated IE to the handler functions.
-
-Add two guards at the top of the loop body:
-  1. Break if fewer than sizeof(*pIE) bytes remain (can't read header).
-  2. Break if the IE's declared data extends past pkt_len.
-
-Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Alexandru Hossu <hossu.alexandru@gmail.com>
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-Link: https://patch.msgid.link/20260522004531.1038924-6-hossu.alexandru@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ mdmitrichenko: adapt to 5.10: struct ndis_80211_var_ie still has the
-  CamelCase Length field and a one-element data[1] array here, so
-  sizeof(*pIE) is 3 rather than the 2-byte IE header. Use the explicit
-  header size 2, as the existing i += (pIE->Length + 2) does, so that a
-  valid IE ending exactly at pkt_len is not dropped. ]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-64444
- drivers/staging/rtl8723bs/core/rtw_mlme_ext.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-index 46ce8ca12c02..527121dbd1e7 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-@@ -1682,7 +1682,11 @@ unsigned int OnAssocRsp(struct adapter *padapter, union recv_frame *precv_frame)
- 	/* to handle HT, WMM, rate adaptive, update MAC reg */
- 	/* for not to handle the synchronous IO in the tasklet */
- 	for (i = (6 + WLAN_HDR_A3_LEN); i < pkt_len;) {
-+		if (i + 2 > pkt_len)
-+			break;
- 		pIE = (struct ndis_80211_var_ie *)(pframe + i);
-+		if (i + 2 + pIE->Length > pkt_len)
-+			break;
- 
- 		switch (pIE->ElementID) {
- 		case _VENDOR_SPECIFIC_IE_:
--- 
-2.47.3
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
