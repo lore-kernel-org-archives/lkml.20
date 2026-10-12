@@ -1,77 +1,222 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+Received: from sonic307-2.consmr.mail.bf2.yahoo.com (sonic307-2.consmr.mail.bf2.yahoo.com [74.6.134.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06A5392C4B;
-	Mon, 12 Oct 2026 14:35:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07F148E0EA
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:35:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.134.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815722; cv=none; b=XmAEBbBXuTTZ8CbcOVM7djUGdbDQ+J8E9ihiC9qgloD2mHl1Hf8CyueWDXnWaZ1qfAIWwHouE67hh212RT19I97Ox7PNWn40DcMMJet8ohyH1zuA1dWQhEc7aqJP/ODwSdHxQnWtsjQsOZsgjghktGn9iL1khzziOmX87eFBvLk=
+	t=1791815727; cv=none; b=UczWWOqt96yZ+BiAow5bI1sV/vrW+p7U99v9eLdgxo6N0V9IcJLbb2zr7S/7lBlKXpR//0OSoz2i0T+4L+T0urvHhNr5XUAa8sTktqsbvcMfnwnQJHiG7l8I06TPnVqb3O19ajrJ4TZaYB3+0H2LFnW0Sv6b2+SEs8/qFFCaBlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815722; c=relaxed/simple;
-	bh=NWrzgraRWu78nQaGz8kXexiJAg0Y4CmbzFwQ/Tmu2iY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hkDGQ7qH1R/+lVRgd5o62DIxdfMxHCSfSFFR+hUnr9MhbqxP3lK3Yg/rayO0owbc/DtfI+zF60g2Qtm8HvjpmOe+947tVpD2tkPiNPVDal2FxtNxepD/VeoNQJhliNnwxBFSEgJLy1crVlrVrsxPZid/X9XCpv1rE3jna3lFb30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=WgehxrWO; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1791815727; c=relaxed/simple;
+	bh=HT0TXwWMj17JblcErkt+7GOKgaMKNsDosmRrGsBJ9wE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=jdG0XeR3ezamZxoQeHZMsFivxOR/uKgR9dSuPPfTuRTTD4nNoqA7Nel2wYfo149+xTTiDPNKXEGni3BphBr1f8FIcnoP1v7mgKgf+ogR/GxpFDziBfQnrjKcYE+5AiBzNJcynQe6NJCuMbZAVhB31jjp1ewLdni7WLMbImwKBsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=mVG33PqZ; arc=none smtp.client-ip=74.6.134.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="WgehxrWO"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 26AAB80C78;
-	Mon, 12 Oct 2026 16:35:19 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id N8nqTXKk5jMd; Mon, 12 Oct 2026 16:35:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1791815718; bh=NWrzgraRWu78nQaGz8kXexiJAg0Y4CmbzFwQ/Tmu2iY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WgehxrWOhkK1/NgnfH91u2sT1CTQmfYkmqzSgrFtloKI7842Y8Hhu1K7ZSRzU67hF
-	 AQFhTV4xa/EE3ljrAo031E6uKGPeRNGv/ljxef4mNDJ0Uaey0X9jqpkcD1GQ4drXQI
-	 ngKIG5pBZq9pygGyyat06vwed54L+QGPrt4fxWSVLWPm1AjjRRN07PgAsaSUekf0Sx
-	 l5b8lBYWtshMrObPkkvzMSmgbYcbp6dDYapFI5AqIlgshwC7K8vY7xVL+HcT/NY4bG
-	 GmvEgYh+vHiZujvfa9bbGy1Rb8EuBAp+2QSeC28rdPxrxuyXheMmfw/8z+ioePObOy
-	 h78X9FH60ItCA==
-From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="mVG33PqZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791815718; bh=gCX/LDnnjg5pxVmTukcGyCAsVe2HawPgkJZ36yq3vhg=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=mVG33PqZkVQnOXFiLzFB/lVmj2+Es+x2tXhNqFhx7p1Ds1UNifjvgtxj/+w4o5dAHxmUEDzzMsRuuBLc9bC3SyG4XAL240caEc6Mf63dJ96m/M22NLyGwSQPnApDDnNHv3gE5ZmSEjg/XFpiHa4NM+1b85AOajkcW1ouB3z39eFVFa1l/zxzjS/A/X20pbXWZH8YuxZDfWNcszajscPM/vud1IBptna9HnwA7VHUnjmvz6vgiKSQW5vyR+J+6OIXCQlw9t1H5eUTTFVZh19D+xRJnhwWjlQTkpa8G2hlR2L7fqEjRPlV4SL57amNtuWII+AYeUa3ydjg8VzalPpZTw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791815718; bh=Wo13mhmOSTnhUysfpVMdm53A6a4zT0m0067Dns9QRb4=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=FnxyD4IYFWLV/OefR3XMDBf391oOyJKR6esD+5oLKxeirBYv1isT/r9K6n4T3RVtoOkUU/XMbWGEFe5eJ2ZaFZIrvlVd2bB4nT+0RmgPwI7HvWvGOPIoc72dRxLN22kWA2TNj6rYAD459eOwLndwOU+tt+8vcExYFa//tmYgZps1iB7LG1Qhn3kG5ErIibGq5nZk60skNAJvmX8NYNAcXHgvW4JbJnUcJaUY+vDEc+qDJCVTuRekuxTtuueEMOmgB6th4MO1ukZYgIt6HfN2G0ons5IoS0g1yAvWmfz9s+qDGWtPh6kHvH55Bmg+PmTIX2TwJpfrMAVWMvcW1lZrBg==
+X-YMail-OSG: NxPO.JEVM1nxbMNGZsNTEOTe_tePn1QUt9gZWGGt.H16ot3ff0hIVTQzeYDCDX6
+ G98firEUddHRSRBc1lr4dBxXHg49_n1M9y5ZkmKQ7ocWwn1J4tZLJaeS.57YOKwIZ1bhD71CPTiz
+ OgPp.qwFPBeJG7hYRdVxO53RdcxpOTDUehzjYrpeybRCVMV.kU7plH7PkpuiwaxSC9BRT_wjzBzH
+ LL.uHQdaYHaPtylnX1gHlcu0TFoMF3cyVFiR40jb6FuP8060Pey0hFvwzVoFT3K8OElAeW_DX5u3
+ rwegjz1F.hGCMHs05NsZpDFgcJPYcXTCaAMBmNghaVstBjDtt2XZ2RB73c2Tle0ldp_VxeHcYb76
+ yka2.BmeRCmj0jXpHbkVT_sWWf..wnga4gQoZLLPMs6P2afiCgtoK2.sSu2CqNE76p5hLxNtks8e
+ _nLrqftROY3_TNGqGG64lzvxFoyXIDr0Y_4VLF0q3RLoUx01ztMpklAWARxPkgIUrVcT6ATGK.hg
+ Iv_19XLieWUl72WhKERTWCwzPkPzDyyH2kJNJgjg0jl.SyfZeuOx79TAVWCWrvYOoz1Lb2uHKGsU
+ TR4_8n4Dt70xVpbwMx7X9POITMbz6H5WjacYprahm5mPk0mF28dSZqeH2DEuZP8LDbH13SPOp78h
+ iS3FsCBNp5Q82WRcQ1NTqrh1QJAp7RWQZfXL4sJpb3UzCS3IMmz0Vml3stB8aE640OwYU3zQfilW
+ 9EOjDrCvFDXaxtuNvn8QlHkmJ6szVjjkX535xaE77mzarovUky8XNf1TJ1dSHuK36QMfkvrJL1Yc
+ jieSg4LVrWmhtd.1tR833xI1C1VIRUQUWeeuB9N8IvCvxjHlcEqcsO2XNqV9n_QmC68zVDBcbGwQ
+ qokb0dylHM5ViIz3bOY1thAWedHsf.iFDTcVdHUCceKZ8pFejAMwaIGm3bhFyi7JaS2j2sZXQHvY
+ 5VW2pBbqkj5jFpNa.yZdpq1uuSdH9MUJ0zgckpAvkSZgO93mzkCFM0LMuSIaRGM_iRKhhohfN6AW
+ NZoDTDLwWndkf_JhHCQItTEU7JPvbpcs3fPzMh.gM_dWMrkaEoErwV41EGZaOv84jtlHM2aP5tzq
+ fzSAdIXgHMVFuAMtJ61SUNYm6UWOHx0sGNev7bEHGEjxoyFU2Wxe1._v8G_gfTh.tIlaYN2IHvXe
+ YPo.V8U61KPnsMuVL.Lygbxk_Ql.D4hahZ16A0TEZV1rxhcC2bDC0XhDMQzufgyysjQauPuFLEM0
+ N3BUBggDANrugJKHF50rttMmzZ8AfcyqY_rERJn_lNmdD9QQrWvFrqdlCeoRur1kX_zJmckDHaVJ
+ kN3DsAfbroHvp18MDaEiW4ZyxoyPwPaxQLmZUC7t4RMdpJgMN156brbm0Gdgfv0p3RClX2QPHx1.
+ llEdTfNVVZO_tobLUsY_iUma.x6hy.mg0dJVd__XW._5AZBzxdvrP8gmbDf6p_g7vVpsVve1.tXz
+ fQbnbmLG8qZ6yJEsdlbHbwobRAobeY.oMFtpPu69AVi_cpZTUK4B1mHznoACEjE2e5ST1hqpFLP3
+ ByuUxi3i8sdZQBXLQ9n0ypNrQCavlltg.h2ogfFITZPfC3AoQVUFBPcVxaGcWYAKwNCJZtWAd0CQ
+ EpYFkuaEidxCYCzMRXlI_p3_EhUAPu7RlEJpLh1zVzst_k7VM7bY6DCSuuz4Zd47Rg4TVWmBD5Lk
+ lDsw3z0O.xEp3JadhWRtywguHIdeiunys_vmHEZIXZzF2O5oixXQ3hj_wXpRQeoikABRtNgO8GNv
+ BDsnn9kochW_C9vg0iHcfQ2tuDD.a83G7SqzqvMEW3g96kPqx42P1JCQ0cbTHTptmFHFWLfWzki7
+ QId2t1ZA8UDF3vDN5DV3EbqPA6bzWlcMLYtYk1.t1LvnWREEjhWIl5bfqwUS6OfG86y1sLO6Chdn
+ S99FWag_lYdvkuKEoEQd9HhsPmrYMBuR4BXNbq5NOeY_CDFbe0csDv900G.6FDLBwwys1GfyEIju
+ wbHNuTpKaqMMKsmJqJXQ7RXkbf7eZ_7K03WX5Aeh.XF9xtTYABJMfPVstknSlpK6iOpobdyqPpGj
+ t_pmXOyyQpuDvQex8w13HY8Li.IcCtt2VDSAp45agmbYGM6Mh0oGPMq.9GK61v1CKfPei8X2y1PG
+ kBUOK1.XVnKTW4FkT.0ESkNn7tWXXMjQjMS2N14_Ka0G3eXSnbSE3jWIx4DixYaezI6TN0fZJKmE
+ .AgeZ5jwv_6mfyRry6Q9NKJ6l8KtaGtKiCs81M1_29ic-
+X-Sonic-MF: <deaner92@yahoo.com>
+X-Sonic-ID: 305669ed-14c4-4448-b4ec-cdc985f800df
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.bf2.yahoo.com with HTTP; Mon, 12 Oct 2026 14:35:18 +0000
+Received: by hermes--production-bf1-6d6877594b-clgz5 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID e251438cb2097fb36b325920ed61dcc7;
+          Mon, 12 Oct 2026 14:03:59 +0000 (UTC)
+From: Jeremy Dean Clifton <deaner92@yahoo.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	syzbot+40b06a86af225236fdb4@syzkaller.appspotmail.com
-Subject: Re: [PATCH] ALSA: hda: intel: Don't free card in the probe work
-Date: Mon, 12 Oct 2026 17:35:05 +0300
-Message-ID: <20261012143508.1830791-1-aliamemis@disroot.org>
-In-Reply-To: <875wz7idx3.wl-tiwai@suse.de>
-References: <20261011200648.1662935-1-aliamemis@disroot.org> <875wz7idx3.wl-tiwai@suse.de>
+	Jeremy Dean Clifton <deaner92@yahoo.com>
+Subject: [PATCH v3] dt-bindings: pwm: Convert NXP PCA9685 PWM controller to DT schema
+Date: Mon, 12 Oct 2026 14:03:46 +0000
+Message-ID: <20261012140346.3065-1-deaner92@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+References: <20261012140346.3065-1-deaner92.ref@yahoo.com>
 
-On Mon, 12 Oct 2026 09:19:36 +0200, Takashi Iwai wrote:
-> For avoiding the card free, can it be the refcounting like below
-> instead?
+Convert the NXP PCA9685 PWM controller binding to DT schema format.
 
-I tried it in QEMU and it hangs on every failed delayed probe even
-without a remove.  snd_card_free() waits for the release of card_dev,
-but the reference taken in azx_probe_work() is dropped only after
-azx_probe_continue() returns, so the work never finishes:
+Changes from the text binding:
 
-kworker/1:1+events:
-[<0>] snd_card_free+0x107/0x160
-[<0>] azx_probe_work+0x57d/0x1fa0
-[<0>] process_one_work+0x937/0x1800
-[<0>] worker_thread+0x4ba/0xd20
-[<0>] kthread+0x331/0x420
+Document the 'reg' property and make it required. It was missing
+from the text binding, although the example used it and the device
+cannot work without the I2C address.
 
-It also doesn't help azx_remove() which reads the card without a
-reference before cancel_delayed_work_sync() and frees it again after
-the work.
+Rename the example node to the generic 'pwm', as required by
+pwm.yaml.
 
-Which user-visible change did you mean?  The card now stays until the
-device is removed instead of being freed in the work.
+Describe both cells of the PWM specifier, and state that 'invert'
+and 'open-drain' apply to all outputs, as per the datasheet (INVRT
+and OUTDRV bits in MODE2).
+
+Assisted-by: LLM
+Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
+---
+Changes in v3:
+- Full name in From, Signed-off-by and maintainers. (Jeremy Dean 
+  Clifton)
+v2:
+https://lore.kernel.org/all/0aabb9f2-a144-4267-b67e-a0972d228f2a@yahoo.com/
+though the storage width was widened.
+- Use the same name in 'maintainers' as in the Signed-off-by. 
+
+v1:
+https://lore.kernel.org/all/20261006033518.34332-1-deaner92@yahoo.com/
+
+The schema and commit message were drafted with AI assistant.
+I verified each property against the driver source, the
+PCA9685 datasheet and the binding. Passes make dt_binding_check.
+
+ .../bindings/pwm/nxp,pca9685-pwm.txt          | 27 --------
+ .../bindings/pwm/nxp,pca9685-pwm.yaml         | 62 +++++++++++++++++++
+ 2 files changed, 62 insertions(+), 27 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
+ create mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
+
+diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
+deleted file mode 100644
+index f21b55c95738..000000000000
+--- a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
++++ /dev/null
+@@ -1,27 +0,0 @@
+-NXP PCA9685 16-channel 12-bit PWM LED controller
+-================================================
+-
+-Required properties:
+-  - compatible: "nxp,pca9685-pwm"
+-  - #pwm-cells: Should be 2. See pwm.yaml in this directory for a description of
+-    the cells format.
+-    The index 16 is the ALLCALL channel, that sets all PWM channels at the same
+-    time.
+-
+-Optional properties:
+-  - invert (bool): boolean to enable inverted logic
+-  - open-drain (bool): boolean to configure outputs with open-drain structure;
+-		       if omitted use totem-pole structure
+-
+-Example:
+-
+-For LEDs that are directly connected to the PCA, the following setting is
+-applicable:
+-
+-pca: pca@41 {
+-	compatible = "nxp,pca9685-pwm";
+-	#pwm-cells = <2>;
+-	reg = <0x41>;
+-	invert;
+-	open-drain;
+-};
+diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
+new file mode 100644
+index 000000000000..04d2ddd8f108
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
+@@ -0,0 +1,62 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pwm/nxp,pca9685-pwm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NXP PCA9685 16-channel 12-bit PWM LED controller
++
++maintainers:
++  - Jeremy Dean Clifton <deaner92@yahoo.com>
++
++allOf:
++  - $ref: pwm.yaml#
++
++properties:
++  compatible:
++    const: nxp,pca9685-pwm
++
++  reg:
++    maxItems: 1
++
++  "#pwm-cells":
++    const: 2
++    description:
++      The first cell is the PWM channel index, from 0 to 15, or 16 for the
++      ALLCALL channel, which sets all PWM channels at the same time. The
++      second cell is the PWM period in nanoseconds.
++
++  invert:
++    type: boolean
++    description:
++      Invert the logic state of all outputs (INVRT bit in the MODE2
++      register). The setting applies to the whole chip, not to individual
++      channels, and is typically used when the outputs drive an external
++      driver stage.
++
++  open-drain:
++    type: boolean
++    description:
++      Configure all outputs with an open-drain structure (OUTDRV bit in the
++      MODE2 register). If omitted, the outputs use a totem-pole structure.
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        pwm@41 {
++            compatible = "nxp,pca9685-pwm";
++            reg = <0x41>;
++            #pwm-cells = <2>;
++            invert;
++            open-drain;
++        };
++    };
+
+base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
+-- 
+2.43.0
+
