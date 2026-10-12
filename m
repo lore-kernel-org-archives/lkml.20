@@ -1,167 +1,221 @@
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B960384224
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:40:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791812453; cv=pass; b=DLehtjHASsrVWLt57zE/c3VMsKcnx0KdWW2aeXSRtj7SYQdcKd6vbMFdZb81ouWLNlYVo1RVFkgiNSttk41IGRr0VA8zDBMmTm56l19+2mbiqzJnVT9H2I4Mmv/bqmqwS+f5GuxK5k+HInMHyg/dut1qPAp16PrYaNGbdhM3KJw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791812453; c=relaxed/simple;
-	bh=tr28fG4ZEXTsiIAwMe0wjF7BnaOQzBQT7Xkb6b/2La0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sMyxS5pLNegz6mjIgxwKYFRZfAVXZlRDUhg+2vMlrCnweFeMx3sMbMqABA69VYrJq8WsTwLMBxMNKNi0s8Zf30Q4ZaAhSVt/ia2XxfRuE5RWckd/iWEZeb1bRGomqhun67VuBxDrWc5WDjd8I499Lx+77hE7lbCntgn8asS8Jz0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pRyjw5dn; arc=pass smtp.client-ip=209.85.222.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E7936DA0D;
+	Mon, 12 Oct 2026 13:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791812496; cv=none; b=q312GeiDOT1+m1i0aPIMtnGlSUqOoMVchTZGvym3tecrhTjQwVtI0XIy7SSELqoF9G594PqVWsOsL/U8+c5/7IfnR7OMG9g49+0T+inv9OsNxjf6n9GKp/4Ej9FSUExQ0jw299Q8tobaSf9EufkCgxHBxfp9niVlsNQEhfPrZd0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791812496; c=relaxed/simple;
+	bh=24sDrju+y2ikeqv6Uudjl+a0VtceSqSgG/hO99eU0zk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=SFG0bxr8f9v2de4or/lQnBIN0eqZAtUBFZ0QU4MyAcFrWkgIkv6BWLHwz+JHUGO9bHFUb7zbs1ot0i+aYr4rftAsAvqky0FX4APQqm2OE+D26RgcYcmCWu9MRJhLVUndaHOyBwc2Yooclt8PxAk/WaYUZGvaId3uj8qBsTl53II=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g12qFGIU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pRyjw5dn"
-Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-980c4f5c921so379837241.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:40:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791812450; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gMqqvmrhM5/N6ZvwcSyX2Pd7YfyumOpZtKsSF5U5565kL6WpsV3z3+g4s/oyYe66xM
-         eHN0NkmYRCIrqYFChY3TR9VkIOpnSrssB0MBOTniuLCDc+8dAC3tAh1POPD5cOiCyFoS
-         7L/kX1O6gi6rbpYl5z2vg4e8AcfLIIicsboe9t3JfenUmIL6y2X+8x21NnChAB1UHbKy
-         p/H+q5jvGF+2nL8g3/E56rYgs3hFDp+xqY5i6naxNkahRby2mvOLI6ixtru6vX28q8H3
-         B8U78kcElfar/GaYUCEAzg4bfNhgZGsT7tTAJ3mWUwmDbWUsAPoRwdLWejL+VZP25THM
-         aCEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fISPJgkN0H7LYXqIa8i3iQfM2z/jXKgb3BG/d5Eps08=;
-        fh=ec/pW8aEzasT8C9dEI087KdacSnYSfXjdM1t4sF5/Ic=;
-        b=ajmVtxLPCsr/sEHapHmMlNZxKVHctaGdiELH+ZPAEWsyE3VAlGMTZvIb5SeSYaYO2N
-         ziF7YVXGgsNHfxMvYYpob2M1Lp2vLw9zK0yjW3tADHoX382o6vNjT3GRXkd6x6qtac6a
-         RrAtsA1QP36jgwmddb2SU4vYSDiOqF4PzblFhbPJlAd+BKYFLWJnQ3HG2jyxDdllMuN3
-         j3PJsUaWk45IcpoL/dWAgCJdYzresm5br19tX3dzm3G/1VAqKVrJJq2U5g3JeosSTF0A
-         AF8J+plpQzXhiHaTqDTFbKoC3wV3yBNyB1bM7L0aYRcw/NWlyatmCsogMek8njcxEKaz
-         q/vw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791812450; x=1792417250; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fISPJgkN0H7LYXqIa8i3iQfM2z/jXKgb3BG/d5Eps08=;
-        b=pRyjw5dn/Kruk86zA3s6mVhdAv8ouj8o7tcJm6whzyn4iWhpQ3HHDSic7Xl1JDla1i
-         S93Ivg8rG53EMXchKK2D4dQI+ku4SKe1rMmTJrdsN5woBsaOK1lfMUPsYZuvFzrdiBik
-         znZmmtWYeAH/W0Uv9VUm0tgU7kOSG05qmowkKcBohyGzJjyxE4OWMkF9MTSDbASdNUYV
-         t/G6TP1PJSahD6Dg8URPLbg+mNMjnHolUiVZQz5FQ6/cuh0lMDaztNBLN8zAc7EJdY9s
-         0hPVlflfGWec5E8dbNP5LXf29vF03gaQqlokKoeNX/VuiqwOIWbGMe9raxJNqknwvteZ
-         pNxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791812450; x=1792417250;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fISPJgkN0H7LYXqIa8i3iQfM2z/jXKgb3BG/d5Eps08=;
-        b=XXVT3gw8xDHZ2awFgDiWt0q1cR17dyTSuKbYisFOe76/dwnzIg42qG50aoiik8oafd
-         q9rrUoPpn5DNoFYr/637uohnYg+Tu6Idso0KPxqNjB1TsmHh9j4FlJ3hhCybvaU8j04q
-         pu6F3uRHC/h0WQIO0CL44kForRiA9dkf+p4JRDpbkq6RWA8onxy9xkJoxBxIfsbBAzdJ
-         UqacwNDepVJ8Rwtsms/e6asrchx3cmH4WjyImgyQ5uuwuoO6xjjp5zWvqKg7OyqbxL93
-         tnq5gMbEsn463nVscmocaAF9jPJTorKrfNJ3lUtmSgwCKLfsTw7qviOum0xvaCTh8uys
-         ztdg==
-X-Forwarded-Encrypted: i=1; AKwUvByJGrTIQjmKMgQRxSgO3ZfHvaa8AHxodI3MuvJYwo2qR77XKhnNtAotG+d1Jpwt+jB+3Xivz3g4vfZW7Gs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImqjczAM/yoJWpdb2b4+zu+TSJS2X862R51CkdwDxX1UqVMdeZ
-	jL5Wy82nKtNjD6gtzq+3/oAFTZmMyedGIamuxzkPAFAWk2t1tkq5N8PhP6bZSpkRQ13wAFQt9UH
-	TW7W6cWyWTw/XphNvrS1Ha2w34yjtk7A=
-X-Gm-Gg: AYBFou0IqkDkns1oZm2uQL3SpAeH+COheOf/VDEUkVcM4u3Ia0EyleoIOcidNoDN63W
-	TjPI2Dldq39ge0189mZU7jaN0Ei+T6jo5EQ3TJ6KhEyfzs0Q5OEidigFDg7lbJXB8h7EDQx65Ow
-	INt3Pl2mWjgX3dqgrlPAZfOiRwwlkY2YS/26MLXk6sBPAXrC3tYnKHpkJE9Ac5JYS2yh+yfStUm
-	P320nP0o/ENalJqNYr1Gz1ItDBGJsYBEoUandG7pC2t1LwQ73EPRgbUPp/eRT06THA+wceoJT7l
-	Fb+Wxg6RkodLW5DyWpednKVBmiEhg8vCG/7IZxRsl6jaEfYFqCJlbHSSB3E8JsnB0ZxKH6O30VN
-	r3hUpY1l5
-X-Received: by 2002:a05:6102:f10:b0:7c1:918d:d188 with SMTP id
- ada2fe7eead31-7cb373e9685mr2247621137.35.1791812450478; Mon, 12 Oct 2026
- 06:40:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g12qFGIU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCA531F0089B;
+	Mon, 12 Oct 2026 13:41:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791812495;
+	bh=vncTLL2WhgPFsDyYZqLSKQgE2f5x8/rk+40ZNiAa/to=;
+	h=Date:From:To:Cc:Subject;
+	b=g12qFGIUgDZQDEfs6CczI8DuB6OkiM8YBZHvtpukQYiWNSf19N+oNBvcMK6XRxkm6
+	 NIhoKq+VtEHWK2IE/gSaCcGUBqR6R2nTtWbI5vpKug8guBvnJjLxan/FGd8RXzWli+
+	 ODAsVMkH8mxAGqKInqbsCVVZ7/7hl0qjmAOuji/wQGftyC3dA2WI7xkLb5gDIUFfcO
+	 jWLb3pb3mnxW3iKVcAljnSIqkC0oCU+NefsEDHBopQoleZqj41RDLEkHFe6uBhLPvE
+	 HmttljFQ9jhj572Fv+NkOOhgQiSlVfO1Vb92zDqBtJ3EtT88OZV+PRFPvfoFqCd36E
+	 uNgYTcwcaUeqQ==
+Date: Mon, 12 Oct 2026 14:41:31 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Paulo Alcantara <pc@manguebit.org>, Namjae Jeon <linkinjeon@kernel.org>,
+	CIFS <linux-cifs@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the vfs-brauner tree
+Message-ID: <aszji59b6B79a3Hi@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007182238.1154851-2-peter.hunt@opengear.com>
- <CAFEp6-2QsKyZfEdSotVPhxVNOyRzncUphqLY5cRwHXGJiEbzuA@mail.gmail.com>
- <20261009001714.1078580-1-peter.hunt@opengear.com> <20261010171531.1659006-1-peter.hunt@opengear.com>
- <CAFEp6-0vuU2sy3pfgyprMMiLOaKCoZMQN=nHQ+dQR1ku9dbwkw@mail.gmail.com>
-In-Reply-To: <CAFEp6-0vuU2sy3pfgyprMMiLOaKCoZMQN=nHQ+dQR1ku9dbwkw@mail.gmail.com>
-From: Daniele Palmas <dnlplm@gmail.com>
-Date: Mon, 12 Oct 2026 15:40:39 +0200
-X-Gm-Features: AclHuK99dZi0qD-kjTJ8chj2shsT6zJyFcPaX8IvEYin0Vx-u0gytz2jHkZuBVk
-Message-ID: <CAGRyCJFnszYkYbB8fJneue_DgJY_9yOwK2_T1aB-b+RuK7mqjA@mail.gmail.com>
-Subject: Re: [PATCH net-next v8 1/2] net: wwan: core: propagate modem control
- signals to port drivers
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Peter Hunt <peter.hunt@opengear.com>, ryazanov.s.a@gmail.com, 
-	johannes@sipsolutions.net, mani@kernel.org, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	netdev@vger.kernel.org, mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wYytuotjRGy3pYJc"
+Content-Disposition: inline
+
+
+--wYytuotjRGy3pYJc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Peter and Loic,
+Hi all,
 
-Il giorno lun 12 ott 2026 alle ore 14:15 Loic Poulain
-<loic.poulain@oss.qualcomm.com> ha scritto:
->
-> Hi Peter,
->
-> On Sat, Oct 10, 2026 at 7:16=E2=80=AFPM Peter Hunt <peter.hunt@opengear.c=
-om> wrote:
-> >
-> > Hi Loic,
-> >
-> > A follow-up to my reply, as I overstated one point and would rather ask
-> > than argue on both. (Adding Daniele, as the first question touches his
-> > recent QCDM ioctl work.)
-> >
-> > On the AT-only check: I said QCDM has no DTR semantics, but I don't
-> > actually know that. I've only verified DTR/RTS on the AT (DUN) port of =
-a
-> > Sierra EM9291. I don't know whether the DIAG channel behind QCDM ports
-> > honours DTR on these modems, or whether libqcdm relies on it now that
-> > QCDM ports have the TIOCM ioctls. So I see two options:
-> >
-> >   a) Keep it AT-only in all four places (open, close, removal, ioctl).
-> >   b) Call ->dtr_rts for any port with the TIOCM ioctls (AT and QCDM)
-> >      whenever the driver implements it, again in all four places, and
-> >      leave it to the driver to ignore ports where it doesn't apply.
-> >
-> > Which would you prefer? If you or Daniele know that QCDM/DIAG ports
-> > care about DTR, that would settle it for b).
->
-> I think we can go with option a) for now. The documentation I have
-> only references virtual RS-232 control signals for DUN, and we can
-> always revisit this later if additional use cases arise.
->
+After merging the vfs-brauner tree, today's linux-next build (x86_64
+allmodconfig) failed like this:
 
-Agree, I don't think control signals are used for diag.
+/tmp/next/build/fs/smb/client/cifsfs.c:1258:18: error: incompatible functio=
+n pointer types initializing 'int (*)(const struct mnt_idmap *, struct dent=
+ry *, struct file_kattr *)' with an expression of type 'int (struct mnt_idm=
+ap *, struct dentry *, struct file_kattr *)' [-Wincompatible-function-point=
+er-types]
+ 1258 |         .fileattr_set =3D cifs_fileattr_set,
+      |                         ^~~~~~~~~~~~~~~~~
+/tmp/next/build/fs/smb/client/cifsfs.c:1270:18: error: incompatible functio=
+n pointer types initializing 'int (*)(const struct mnt_idmap *, struct dent=
+ry *, struct file_kattr *)' with an expression of type 'int (struct mnt_idm=
+ap *, struct dentry *, struct file_kattr *)' [-Wincompatible-function-point=
+er-types]
+ 1270 |         .fileattr_set =3D cifs_fileattr_set,
+      |                         ^~~~~~~~~~~~~~~~~
+2 errors generated.
+make[6]: *** [/tmp/next/build/scripts/Makefile.build:290: fs/smb/client/cif=
+sfs.o] Error 1
+make[6]: *** Waiting for unfinished jobs....
+make[5]: *** [/tmp/next/build/scripts/Makefile.build:551: fs/smb/client] Er=
+ror 2
+make[5]: *** Waiting for unfinished jobs....
+/tmp/next/build/fs/ntfs/namei.c:793:40: error: passing 'const struct mnt_id=
+map *' to parameter of type 'struct mnt_idmap *' discards qualifiers [-Werr=
+or,-Wincompatible-pointer-types-discards-qualifiers]
+  793 |                 stream_vi =3D ntfs_create_named_stream(idmap, dir, =
+base_name,
+      |                                                      ^~~~~
+/tmp/next/build/fs/ntfs/stream.h:35:58: note: passing argument to parameter=
+ 'idmap' here
+   35 | struct inode *ntfs_create_named_stream(struct mnt_idmap *idmap,
+      |                                                          ^
+1 error generated.
 
-Regards,
-Daniele
 
-> >
-> > On the locking: I agree the data_lock/ops_lock split is awkward, and
-> > it's this series that made the two locks interact. Most of the races
-> > found in earlier versions came from it. My only concern is the blocking
-> > write case I mentioned, so the options as I see them are:
-> >
-> >   a) Use only ops_lock, with the whole ioctl handler under a guard and
-> >      mutex_lock_interruptible() so a waiting ioctl can be interrupted,
-> >      accepting the wait behind a blocking write on rpmsg ports.
-> >   b) Keep data_lock for the termios/TIOCM state and take ops_lock,
-> >      interruptibly, only around the ->dtr_rts call. v9 already limits
-> >      that to when DTR or RTS actually changes.
-> >
-> > I'm happy to do either in v9, which do you prefer?
->
-> I would also lean toward option a). We may want more fine-grained
-> locking in the future, particularly given the blocking write path, but
-> I think the current approach is acceptable for now.
->
-> Regards,
-> Loic
+Caused by the constification series for mnt_idmap interacting with:
+
+   2de2cdd9cc08f (ntfs: add pathname access for named streams)
+   121e0c35720b2 (smb: client: implement fileattr_set for compression flags)
+
+=66rom the cifs and ntfs trees.  I have applied the fixup below and can
+carry as needed.
+
+=46rom 6b75090639b332f5fa52a558edbba295d8bb42fc Mon Sep 17 00:00:00 2001
+=46rom: Mark Brown <broonie@kernel.org>
+Date: Mon, 12 Oct 2026 13:55:24 +0100
+Subject: [PATCH] cifs: Fix semantic conflict with const mnt_idmap
+
+/tmp/next/build/fs/smb/client/cifsfs.c:1258:18: error: incompatible functio=
+n pointer types initializing 'int (*)(const struct mnt_idmap *, struct dent=
+ry *, struct file_kattr *)' with an expression of type 'int (struct mnt_idm=
+ap *, struct dentry *, struct file_kattr *)' [-Wincompatible-function-point=
+er-types]
+ 1258 |         .fileattr_set =3D cifs_fileattr_set,
+      |                         ^~~~~~~~~~~~~~~~~
+/tmp/next/build/fs/smb/client/cifsfs.c:1270:18: error: incompatible functio=
+n pointer types initializing 'int (*)(const struct mnt_idmap *, struct dent=
+ry *, struct file_kattr *)' with an expression of type 'int (struct mnt_idm=
+ap *, struct dentry *, struct file_kattr *)' [-Wincompatible-function-point=
+er-types]
+ 1270 |         .fileattr_set =3D cifs_fileattr_set,
+      |                         ^~~~~~~~~~~~~~~~~
+2 errors generated.
+
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ fs/ntfs/named_stream.c | 6 +++---
+ fs/ntfs/stream.h       | 2 +-
+ fs/smb/client/cifsfs.h | 2 +-
+ fs/smb/client/ioctl.c  | 2 +-
+ 4 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/fs/ntfs/named_stream.c b/fs/ntfs/named_stream.c
+index d74bebf90966b..95a3c05f98211 100644
+--- a/fs/ntfs/named_stream.c
++++ b/fs/ntfs/named_stream.c
+@@ -553,7 +553,7 @@ int ntfs_stream_path_names(struct ntfs_volume *vol,
+  *
+  * Return: Referenced stream inode on success, or ERR_PTR() on failure.
+  */
+-struct inode *ntfs_create_named_stream(struct mnt_idmap *idmap,
++struct inode *ntfs_create_named_stream(const struct mnt_idmap *idmap,
+ 		struct inode *dir, __le16 *base_name, int base_len,
+ 		__le16 *stream_name, int stream_len)
+ {
+@@ -988,13 +988,13 @@ static ssize_t ntfs_stream_listxattr(struct dentry *d=
+entry, char *buffer,
+ }
+=20
+ #ifdef CONFIG_NTFS_FS_POSIX_ACL
+-static struct posix_acl *ntfs_stream_get_acl(struct mnt_idmap *idmap,
++static struct posix_acl *ntfs_stream_get_acl(const struct mnt_idmap *idmap,
+ 		struct dentry *dentry, int type)
+ {
+ 	return ERR_PTR(-EOPNOTSUPP);
+ }
+=20
+-static int ntfs_stream_set_acl(struct mnt_idmap *idmap,
++static int ntfs_stream_set_acl(const struct mnt_idmap *idmap,
+ 		struct dentry *dentry, struct posix_acl *acl, int type)
+ {
+ 	return -EOPNOTSUPP;
+diff --git a/fs/ntfs/stream.h b/fs/ntfs/stream.h
+index 5cbf6e8f6b681..76b6c9cca5cc0 100644
+--- a/fs/ntfs/stream.h
++++ b/fs/ntfs/stream.h
+@@ -32,7 +32,7 @@ struct inode *ntfs_stream_lookup_inode_by_name(struct ino=
+de *dir,
+ 		__le16 *name, int name_len);
+ struct dentry *ntfs_lookup_stream(struct inode *dir, struct dentry *dentry,
+ 		const struct ntfs_stream_path *path);
+-struct inode *ntfs_create_named_stream(struct mnt_idmap *idmap,
++struct inode *ntfs_create_named_stream(const struct mnt_idmap *idmap,
+ 		struct inode *dir, __le16 *base_name, int base_len,
+ 		__le16 *stream_name, int stream_len);
+ int ntfs_unlink_named_stream(struct inode *dir, struct dentry *dentry);
+diff --git a/fs/smb/client/cifsfs.h b/fs/smb/client/cifsfs.h
+index 7600467babb67..e54d3798eb2f7 100644
+--- a/fs/smb/client/cifsfs.h
++++ b/fs/smb/client/cifsfs.h
+@@ -91,7 +91,7 @@ extern const struct inode_operations cifs_namespace_inode=
+_operations;
+=20
+ struct file_kattr;
+ int cifs_fileattr_get(struct dentry *dentry, struct file_kattr *fa);
+-int cifs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
++int cifs_fileattr_set(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		      struct file_kattr *fa);
+=20
+=20
+diff --git a/fs/smb/client/ioctl.c b/fs/smb/client/ioctl.c
+index af4664f5b1202..bb8808289a468 100644
+--- a/fs/smb/client/ioctl.c
++++ b/fs/smb/client/ioctl.c
+@@ -181,7 +181,7 @@ static int cifs_set_compression(unsigned int xid, struc=
+t dentry *dentry,
+ 					    compression_state);
+ }
+=20
+-int cifs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
++int cifs_fileattr_set(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		      struct file_kattr *fa)
+ {
+ 	struct cifs_sb_info *cifs_sb =3D CIFS_SB(dentry);
+--=20
+2.47.3
+
+
+--wYytuotjRGy3pYJc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrM44oACgkQJNaLcl1U
+h9Cw9wf/St+OkogMQAK8WC5mWFoBvECPesBeX1RrsSKgM1lCig+xXdpCm1YFNbcl
+yxzbr5Etu6zWX0DWBah5ink3+8goi50+ZVEs0SmkdxO9COXcknKkjJytGgcXTPFF
+1js1fjzFWej4KGpT1MOezmORbGYU3BZu16VeshDPu3bDSj5aX6UkRlFChoOPpiTh
+vAjvkdwg27qTUDvn9XmndFIilG0IlRTBUd6Y1mlkhFumeVHvBkUSd6vrOi7O4lHD
+u4rThSMsvCpdk46Zy7o8tZx+z9hi05S9lBK6Ve9sdyTgpR0MB1G9UfKewrdm659K
+xQ55E+B2Cf9NglabCgVkvDLblEU7Rg==
+=C+Px
+-----END PGP SIGNATURE-----
+
+--wYytuotjRGy3pYJc--
