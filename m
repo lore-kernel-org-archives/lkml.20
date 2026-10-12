@@ -1,133 +1,187 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AABCB49AA59
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5AF74AA417;
+	Mon, 12 Oct 2026 16:33:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791822712; cv=none; b=UVceFCqII/Mc8l3eN/wUv6RFVgc+X6aFuxjAl9+UYTbHgOWu9PSjgvhM7CUFV3LIeVSYzY2nOwYBAHqb4TiQPkeLJtmXas12gwT0X0NLbDcjMRivdPOozD33SzgFnO+X8+nFgRU66isFPFuTkmQYn/H3gYyw0Ot3DnJkOUqtGro=
+	t=1791822807; cv=none; b=ZP4bo09rHuCrBtPT+N4lXjJY3H5kIK24PdsRsN4uRIt+eLCcWbGe5Y1VJZGhXbZYoiJ6sUJuAxwUEStlNIQDsmLFZhpjH8MoM5AWxdAxlAjT+DKHnaX6eBAo7ZIAn87N0G/hV2x9g4CVqab8vyGGwNPeFnLhlJfU57VWMo3MjSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791822712; c=relaxed/simple;
-	bh=mS1YxiGqsTFH3eCVQRZ5LafzdpFpPZaiEEMIm1jUIJY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SaDP4Vas/8jdKZEn11Q3/sQkn/zCy9aTpRsllDuwHKxF60j123LYq1SnM+LQaXrPB96CP79voM/LVjfsX2XNfjm1XfPRAi8mB6/n4KKs/5orr5OCD1lMtFyvGrqJu5slIqPRJsPZBGMFynq63vOTUF1EwWpJQrWX+jDilad7qaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ndDmZP/k; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791822807; c=relaxed/simple;
+	bh=jvItHi2UvJAznfCaLCZ6hV+RAv58pFYv8RxZJsURjeo=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=iaoUy/8m9ZonFm5pwbEMDPBjih0dZjRYZmssrgVTVqreyG1rOSDJlrxIRFGNZj+EcBS8x3IPk6XGHjWEpN6iemwF5VoKHkK4FzixM8HgQjlKOspqGjwAZtJQE1CG56tk3Bumh/pm3YAAeOmP4rG8bHygVa7Mj7Gi44RtY/jxbZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j0S0nwof; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ndDmZP/k"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso615403b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:31:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791822711; x=1792427511; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=27GJZuID13BymXdxFHBspHWoyDbWve6K8GH1xdrFhgI=;
-        b=ndDmZP/kV9CvrcjWVBsw6Tbk60BUMBcO6PVBKttymkruJn5lLY0z+u1aScRo8QB4Fv
-         QMdcLWtv8yleRuoZzCYwear0vG8G6zPeelk/wIjBhLX6eqVCIS/J9Cn0Q8Qaqb1xkagk
-         h/1smEHzwxqapyR4bHQVmaP5qCtBOGNn5SF9zO9TVvjhVPsWcZBGdh3ajXp4K6v+N93k
-         cTe7tUJyKgwHh8GhkRm+ggKRyTVfphYhlcIeS1BbcKNkaMKKFLpjNRP2PMVYwr2i+aTr
-         Zuf6xbtUoMlYWp77evMdOj8aahyI8RID+rmxwJBvSN5GDjTCqUt7WtxNvZJHw2NIGqpY
-         bH+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791822711; x=1792427511;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=27GJZuID13BymXdxFHBspHWoyDbWve6K8GH1xdrFhgI=;
-        b=L1UM3nL9lCqYKQR7kexVQSicvpH9V5Ia55I4SMzdkDUAQ9igheA2BezemWVvUP+zV+
-         qys1seRF6FD6MoFhojgOf/60y1o+7XedPGf7FCTrwPI2L+hrB8N85fVawMXqNOkY/93p
-         i5RML7sFSHWweVYllPQ+7tMuoofFprmQCieoqf673UYxfzk8cebrCTBk+BfoPYj3TwnR
-         slZQswxx/RHWiIwxKyoTVVz5FrNnGEfF/BWQw9YJ3Z5aCZU5knxa0v/3CV8TEyUtoDrm
-         Qp9LNJUlSs+Ppl5rufpDnlbIzk+6u93CyTiQxiebu/OMoNWdgMplXvTSzRNfXGl1Qpix
-         VG1Q==
-X-Gm-Message-State: AFq9FYJchVGbl4/4xztHoH3/BrF8pJUjVn1MLOCzN2GKp9z+M2Fzyd+G
-	vGvw+jcDS/v5xU6avM5oWH13DoDmTBhxVjbal41T5TzipuklND06HGm5
-X-Gm-Gg: AYBFou2+/7USgAQyvrJS4UnJsQUEiFa7Rx7uHS8MOSjz9HM43zZf2gg8Oe9R64mgEeb
-	O5+pLR3j1D5l3QFTMKQ12aZUsPtpEco6NjH09p+3UbTGYFN2GI4sHMOU0FQp2vGBT6+DDVeiEuP
-	FYXZ5vXh4Zje7kqgSWkQ8aAu0B4Z2/CVCkxdReGrXzpelqEgMiCeK7mvQrQBhnrl47O5DIW2aI0
-	nA2yBJLPMgyqYK57GeIvkTT722Y/SkaDBogOv9MwrIthW+8W0bmd8wd+AxKR+ocgVaDYCDWB9EC
-	519JSiqUBZ3M4zhXuwHf4whSUVZrMUweAYq45SRqUpuc+37uNngyYXQBBOrsndpl/WzV3ieVSaj
-	vExj7dfUZ0JrlxJp3QgqtDSWFpvGw+nq2+p85wVoHNa5kRshJvcHMdGi7XlmKt4AwtJnMxyPMW0
-	ZI71NflyATc7TKU8yvS5kPz3T/qoxJGdfP6gzCnGtguMQ3IR2eQHnYevbbdQ2eDjvJ9gBTYA==
-X-Received: by 2002:aa7:88c9:0:b0:890:cecb:99c6 with SMTP id d2e1a72fcca58-897c78de8e4mr8854215b3a.45.1791822710895;
-        Mon, 12 Oct 2026 09:31:50 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac1:7aa0:50::3cf:23])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3ccf7cdsm4069668b3a.30.2026.10.12.09.31.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 09:31:49 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: linux-fsdevel@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	Christian Brauner <brauner@kernel.org>,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+bffc332f376fdab5cef0@syzkaller.appspotmail.com
-Subject: [PATCH] minix: don't re-dirty the superblock buffer after a write failure
-Date: Mon, 12 Oct 2026 23:31:44 +0700
-Message-ID: <20261012163145.398471-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j0S0nwof"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42C661F0089B;
+	Mon, 12 Oct 2026 16:33:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791822805;
+	bh=wlX8X2NZGEScWXWg0vLkTJT/Pqvxgu0kjIejsLhRrl8=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=j0S0nwofyjl8bQ174JRosoDjc2X3x+g84LsGU2AXH8avlLzeRaiSfTHs7JxrJFgxj
+	 y3fpbOMTt00ID4dHLGCcLK9oThGNEWAtryz1TguI8O44t8pzWYHzMdJBuQeyPwh6OR
+	 s9ZmZC2fxiaZCdD9//jFQAhOTJbl3HqinBQ9fonLuUOuyBWQJXAP3O1RCF3c90Kkm8
+	 tUFFE4yLoDTJ92oX58AzDrRU9qVnQU6eidKeeQQtNyEiU9GPucoUtgUyq2KAtp0UXZ
+	 SOl2tMsa178mFzWqpsheUu1711k1lkRq7nmgczqwc/4DSdD70xClSm8rk6T6AyHJUF
+	 NPDGctDgiRmQA==
+Content-Type: multipart/mixed; boundary="===============2648014642368256279=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <7dcfb26401d414261ad488284abf342f0d11c7888a1dd3512b1a9ad1878478b1@mail.kernel.org>
+In-Reply-To: <20261012154024.29423-10-leon.hwang@linux.dev>
+References: <20261012154024.29423-10-leon.hwang@linux.dev>
+Subject: Re: [PATCH bpf-next v2 09/21] bpf: Add bpf_trampoline_multi_prog_attach/detach()
+From: bot+bpf-ci@kernel.org
+To: leon.hwang@linux.dev,bpf@vger.kernel.org
+Cc: ast@kernel.org,daniel@iogearbox.net,john.fastabend@gmail.com,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,qmo@kernel.org,shuah@kernel.org,leon.hwang@linux.dev,yatsenko@meta.com,avinash.duduskar@gmail.com,a.s.protopopov@gmail.com,ameryhung@gmail.com,jordan@jrife.io,rongtao@cestc.cn,eyal.birger@gmail.com,pulehui@huawei.com,tanjingguo@huawei.com,malin89@huawei.com,linux-kernel@vger.kernel.org,linux-trace-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Mon, 12 Oct 2026 16:33:22 +0000 (UTC)
 
-minix keeps the superblock buffer head (sbi->s_sbh) pinned for the
-lifetime of the mount and modifies it in place. If a write to the
-backing device fails, end_buffer_write_sync() clears BH_Uptodate on
-that buffer. minix_put_super() and minix_reconfigure() then call
-mark_buffer_dirty() on it unconditionally and trip:
+--===============2648014642368256279==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-  WARNING: fs/buffer.c:991 at mark_buffer_dirty+0x299/0x410
-  !buffer_uptodate(bh)
-  Call Trace:
-   minix_put_super+0x16d/0x460 fs/minix/inode.c:70
-   generic_shutdown_super+0x13d/0x2d0 fs/super.c:751
-   kill_block_super+0x44/0xa0 fs/super.c:1903
-   deactivate_locked_super+0xbe/0x110 fs/super.c:586
-   cleanup_mnt+0x204/0x2a0 fs/namespace.c:1392
+> bpf: Add bpf_trampoline_multi_prog_attach/detach()
 
-Reproduced by mounting a minix image on a loop device, making all
-writes to it fail with fail_make_request, and unmounting.
+TL;DR: bpf_trampoline_multi_prog_detach() may, if one unlink fails (e.g.
+-ENOMEM), still commit and free old images after a failed batch poke, so other
+targets could run freed trampoline memory.
 
-Skip the s_state update and the dirtying in minix_put_super() when the
-buffer is no longer uptodate, and fail a state-changing remount with
--EIO, the same way hfs handles its MDB buffers.
+> diff --git a/kernel/bpf/trampoline.c b/kernel/bpf/trampoline.c
+> --- a/kernel/bpf/trampoline.c
+> +++ b/kernel/bpf/trampoline.c
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+bffc332f376fdab5cef0@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=bffc332f376fdab5cef0
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+[ ... ]
+
+> @@ -1918,6 +1923,217 @@ static int bpf_text_poke_batch(struct bpf_text_poke **pokes, u32 cnt)
+> +static void bpf_trampoline_multi_prog_commit(struct bpf_trampoline *tr)
+> +{
+> +	struct bpf_tramp_image *old_image = tr->multi_attach.old_image;
+> +
+> +	tr->cur_image = tr->multi_attach.new_image;
+> +	tr->multi_attach.old_image = NULL;
+> +	tr->multi_attach.new_image = NULL;
+> +	tr->multi_attach.old_flags = 0;
+> +
+> +	if (old_image)
+> +		bpf_tramp_image_put(old_image);
+> +}
+> +
+> +static void bpf_trampoline_multi_prog_rollback(struct bpf_trampoline *tr)
+> +{
+> +	if (tr->multi_attach.new_image)
+> +		bpf_tramp_image_put(tr->multi_attach.new_image);
+> +
+> +	tr->flags = tr->multi_attach.old_flags;
+> +	tr->multi_attach.old_image = NULL;
+> +	tr->multi_attach.new_image = NULL;
+> +	tr->multi_attach.old_flags = 0;
+> +}
+
+[ ... ]
+
+> +void bpf_trampoline_multi_prog_detach(struct bpf_tracing_multi_link *link)
+> +{
+> +	struct bpf_tracing_multi_node *mnode;
+> +	int i, err;
+> +
+> +	trampoline_lock_all();
+> +
+> +	for_each_mnode(mnode, link) {
+> +		bpf_trampoline_multi_attach_init(mnode->trampoline);
+> +		err = __bpf_trampoline_unlink_prog(&mnode->node, mnode->trampoline, NULL,
+> +						   &trampoline_multi_prog_ops, NULL);
+> +		if (WARN_ONCE(err, "__bpf_trampoline_unlink_prog failed: %d\n", err))
+> +			bpf_trampoline_multi_prog_rollback(mnode->trampoline);
+> +	}
+
+If __bpf_trampoline_unlink_prog() fails for one trampoline here, can this
+leave other targets calling freed trampoline images?
+
+The failure is reachable.  bpf_trampoline_update() returns an error when
+bpf_trampoline_get_progs() or bpf_tramp_image_alloc() fails (-ENOMEM), or
+when bpf_jit_charge_modmem() returns -EPERM because bpf_jit_limit is
+exceeded and the task closing the link fd is not bpf_capable().  The comment
+in bpf_trampoline_multi_attach_free() already treats this failure as
+reachable on the ftrace detach path.
+
+Say the unlink fails for trampoline B:
+
+1. bpf_trampoline_multi_attach_init() has set old_image = cur_image, which
+   is still live in the text, and new_image = NULL.
+
+2. bpf_trampoline_multi_prog_rollback() then clears old_image to NULL as
+   well.
+
+3. bpf_text_poke_init() therefore builds a poke for B with old_addr and
+   new_addr both NULL (BPF_MOD_NOP to BPF_MOD_NOP), while B's entry still
+   holds a call or jump to its live image.
+
+4. On x86, bpf_arch_text_poke_batch() checks every poke before patching
+   anything:
+
+       if (memcmp(poke->ip, old_insn, X86_PATCH_SIZE))
+           return -EBUSY;
+
+   B's check fails, so no text is patched for any target in the link.  The
+   generic fallback rolls back the pokes it already applied, with the same
+   result.
+
+> +
+> +	for_each_mnode(mnode, link) {
+> +		link->pokes[i] = &mnode->poke;
+> +		bpf_text_poke_init(link->pokes[i], mnode->trampoline);
+> +	}
+> +
+> +	WARN_ON_ONCE(bpf_text_poke_batch(link->pokes, link->nodes_cnt));
+> +
+> +	for_each_mnode(mnode, link)
+> +		bpf_trampoline_multi_prog_commit(mnode->trampoline);
+
+The batch error only triggers WARN_ON_ONCE(), and
+bpf_trampoline_multi_prog_commit() still runs for every node.
+
+For every other target A in the link, old_A is passed to
+bpf_tramp_image_put() and freed after a tasks-rcu grace period.  A's entry
+still calls old_A, because it was never repointed, so the next run of target
+A executes freed trampoline memory.  Meanwhile new_A becomes cur_image
+without ever having been installed.
+
+For B itself, commit sets cur_image to NULL while the text still calls the
+old image.  That image is never put, so it leaks along with its trampoline
+reference.  If another prog (for example a plain fentry) is still attached
+to B and is later detached, bpf_trampoline_update() reaches total == 0 and
+calls unregister_fentry(), which dereferences tr->cur_image->image while
+cur_image is NULL.  Any new attach to B instead goes through
+register_fentry(), expects a nop at the entry, and fails with -EBUSY.
+
+The ftrace-based bpf_trampoline_multi_detach() avoids this.  On unlink
+failure it leaves cur_image unchanged, and bpf_trampoline_multi_attach_free()
+skips freeing old_image when old_image == cur_image.  Could the prog detach
+path get the same treatment?
+
+For example, on unlink failure the trampoline could be kept on its current
+image (new_image = old_image, so the poke is an identity poke and commit
+neither puts nor drops cur_image), or the node could be left out of the
+batch.  It also seems that images should not be committed when
+bpf_text_poke_batch() fails.
+
+This path is not called by this commit.  It is wired up later in the series
+by b56b0344ff12 ("bpf: Add tracing_multi link support for bpf progs"), where
+bpf_tracing_multi_link_release() calls bpf_trampoline_multi_prog_detach().
+The function is unchanged at the end of the series, so no later commit
+fixes this.
+
+
 ---
- fs/minix/inode.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/fs/minix/inode.c b/fs/minix/inode.c
-index daf83e4ff25c..5c0ad33b85e0 100644
---- a/fs/minix/inode.c
-+++ b/fs/minix/inode.c
-@@ -64,7 +64,8 @@ static void minix_put_super(struct super_block *sb)
- 	int i;
- 	struct minix_sb_info *sbi = minix_sb(sb);
- 
--	if (!sb_rdonly(sb)) {
-+	/* a failed write clears uptodate; don't re-dirty the stale buffer */
-+	if (!sb_rdonly(sb) && buffer_uptodate(sbi->s_sbh)) {
- 		if (sbi->s_version != MINIX_V3)	 /* s_state is now out from V3 sb */
- 			sbi->s_ms->s_state = sbi->s_mount_state;
- 		mark_buffer_dirty(sbi->s_sbh);
-@@ -146,6 +147,8 @@ static int minix_reconfigure(struct fs_context *fc)
- 	ms = sbi->s_ms;
- 	if ((bool)(fc->sb_flags & SB_RDONLY) == sb_rdonly(sb))
- 		return 0;
-+	if (!buffer_uptodate(sbi->s_sbh))
-+		return -EIO;
- 	if (fc->sb_flags & SB_RDONLY) {
- 		if (ms->s_state & MINIX_VALID_FS ||
- 		    !(sbi->s_mount_state & MINIX_VALID_FS))
--- 
-2.43.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/38273555988
+--===============2648014642368256279==--
