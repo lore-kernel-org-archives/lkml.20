@@ -1,104 +1,171 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C023D3CEA;
-	Mon, 12 Oct 2026 14:14:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814460; cv=none; b=EIdOKPdViTXNBRUE+HZb+1ISy7h7VggNOkOPiXr7qENQSGfu+C77qfF/RKdVsNLY8mHM2goZQOQKA05J36e6i0EQ2zUweMTLRtzBDn+EUovm5NA3jlYwNsiKGWKbeVS6cQv7yvj3aM55yfPilvvIZfKOxRAmdgzSQW52BSBWUXg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814460; c=relaxed/simple;
-	bh=kV73uqIkz1gigmsOedM7PoqESt/yOwPLUTsBM7w0c7I=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=tgKef5gDrnnjdR3UvVw1sl9uAtIhhWF6mVRQdRjfSnJxm6CRhpvHG0tgJeS7I0kugCY4xBl9Ve0/QrIOSJ4GgRPXHLfx6AgkWa9IvN9eUBdizPQI5iaPpd3Jkt6nSu/48dadBFhb2c2em+FiMz/Ct4EGYMkMCo0DnmgZtjF/zpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=OXuNRqHy; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=XENPiXtK; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6695148A8A4
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:14:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791814462; cv=pass; b=Ilrz517uv1wsAZMSi3EwDy3joIUKi2X1lwigjAmRUD0vBNdO+XHOqUsNL/DaXEUQ8J01NFcPA6Rt+WpsZ88g2S6j5Bkz9qTARnIc+WddwZ5q/GwKnOsNN1lF/adcvDHqg26PAdImjq3gqPNm2+ov8OS9J4aBnrLHQ4KdqZ76KxY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791814462; c=relaxed/simple;
+	bh=YEw3BCM/PoYgb0zSYAg0r4bFcJsnobtOYbAb7vYR2XY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CtCJVGIYdM9lLZGBonVShb7nAM7FRq8ek7rzpKuAqlZww5CUcaVhdqlYDfobBdp61m3qEAJ/nDyDx081r5iVlpjcg/3qfovO+r3/XlgFnAjF7ILP0cM8UaKiv8qDRfqdj/IOG6mG7lLFo1yfx7eAz+cNmeYG34C1bWLpx97PZOU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=PFD7WvcM; arc=pass smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="OXuNRqHy";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="XENPiXtK"
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1791814457;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MAhC3w4x6SO8S0tKilkyEO20IHMEvKk4g6c9AZ0BlC0=;
-	b=OXuNRqHyLqtOYD1KPGh3MgZUc5sohbm8SH+eE0LoWJRIbOOYgpzsl/dRA4BABC8giI4ldx
-	bzD4wpdTLcDH73kujqdeVkLAGpKreaIshxJxz0hrjWjl5AJI4EbGT0S7EsWF7RYyE9kyNN
-	e3plsfRcjnyR8YukDPUFuGfRHbu3HPG6DCWa8bXOej6YBLljWrHrU3xDxO0UcpfGIcpHZ0
-	gyipJyg+fID6ORT5GnGsx8osxrqHF2vMxH6/NciemG+97tkal6dRVC5VFegsaqcOOYUQnQ
-	cuY37HKgeDEkonf8HjGssENXrZEolsuoOeOW9FxASSikm5JVwnKIULecUezk9Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1791814457;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MAhC3w4x6SO8S0tKilkyEO20IHMEvKk4g6c9AZ0BlC0=;
-	b=XENPiXtKoyygKkz7Chpoc1n6BCA2zILBMJr1oHQTMKLxFqcGW7gnkeZLQAl/v7V7IITTQz
-	xXo3LDx7vMEjYfAw==
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Petr Mladek
- <pmladek@suse.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt
- <rostedt@goodmis.org>, Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, Oleg
- Nesterov <oleg@redhat.com>, Christian Brauner <brauner@kernel.org>,
- oe-lkp@lists.linux.dev, lkp@intel.com, linux-serial@vger.kernel.org,
- oliver.sang@intel.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nbcon/reboot: Flush nbcon consoles synchronously on reboot
-In-Reply-To: <87jynnxd5v.fsf@jogness.linutronix.de>
-References: <20261008150852.8286-1-pmladek@suse.com>
- <20261009065152.udyfFRHx@linutronix.de>
- <87jynnxd5v.fsf@jogness.linutronix.de>
-Date: Mon, 12 Oct 2026 16:20:16 +0206
-Message-ID: <87h5irxayv.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="PFD7WvcM"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so2566038a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:14:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791814460; cv=none;
+        d=google.com; s=arc-20260327;
+        b=f6RcBYl2csKJNgyR9yNKrwGdDrrf+yXpZ72FpfaYttIuhUPra2yFUOJMRKHynBzrQm
+         SSnDsO1iLwc08mZQh8aaBgghgLUaf/qXUaz9HavNB02qbdyruh8jVhPVf7C9ymnPASsA
+         203CY275Rx70Tw1v9Uyt9rrKxcwkoOeR9Td8SdspdyxDRK8OlTqv/YmfNKWaWQRlu3t9
+         VJTMMLvDAJBvH3b86O0xlMLkKqDGfhRzaz+Lgncjchu1degcIjNu7XCXdqYAb3Sl9BuB
+         IXFdM7+/2+qAKfbEzYJlCaWr/XkO29+4w0mfxMuL3geT8gqA4GuuWB2rfwT9yaHyGYL1
+         UKdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=NCzAE7gW6XqdbBbYpEXlyCwe1KctWvIRVnjVQu62JPA=;
+        fh=J0rJtEHgr9ntp+cfPlofKutMWkGuHsDtS88h7TePzXo=;
+        b=cRMQrvE/Q+iON2prz/noA9QWMVLYpvXopR7Ihep31sm6BQrHSpd9d0HYlBHbHJf+kk
+         jpBqhHpAfbvj4z4yrG38vEWTutindwyyqQEhgOl1BSR5t+3QGxIJEjxmADiqRlZ9NlwN
+         OlVFb2LZy3+SjWH0MFhTZCS1Akch9tTwqOACCS1mk8AdS14omwZoPLba/dRYvijjzNX9
+         MRAF44tpV57pD2tXsVVxcpx/ijywo1PnUdc0T5ssJqrpkrDTAgZUTpL5r0xcBWt2WvTI
+         Zc8ys6KgB6BwkhdOIEQozc59tWU1NNLa/T9Oe/Tb7xXjnSdXLTADpS+RimP2PAtdNzru
+         v+Gg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791814460; x=1792419260; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NCzAE7gW6XqdbBbYpEXlyCwe1KctWvIRVnjVQu62JPA=;
+        b=PFD7WvcM27AcnG3phS4McQrUsb04iVEtbyf5heCBdcP/cimwg6FrdevxtFPaxaHnbu
+         AI/PfZTDq7AG52oO0NRemPzFXWacTyFHnyvdR93Yubgk+5qG3d8E8gjYT3cUrt1OGB3/
+         jJuy4XVogm14EzL45B9i/t5ypMThQafSl/LjnJOgR+gaOZnNOdLotj34jV91W8CPpuIz
+         2+yX69C+y5I8tKog0b5f52gPC+UOoPKXPynuoqJsTHOl5H2GrEvbVWEqCX4IF+0+1Pm3
+         ymRp0Q2CXlcPgiyNTDMIWU/BAEcPwGUJS7uBZX08t4ZqGYgeYMEv3EQsWJqTvXJv3aCo
+         yFRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791814460; x=1792419260;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NCzAE7gW6XqdbBbYpEXlyCwe1KctWvIRVnjVQu62JPA=;
+        b=GLLjLwHJ5ZlDPZfox4FknvdpS8HejoC/GR9Q4WaRcoq0tViyvXfKjIbWQCFB6LYrtc
+         +D7cbFbj/42GcO5TaPHyTO0rJRQOa5EG46HKvsi1SaF6SGlyWjg+lw0ishDYxYV6oReB
+         cOp8mt2385eb/tKHY1ZH90SXHRH41iCm+Y8L97l2OBBsaQXifX06HWjy1Y2dw2UsY7+H
+         OJRZurTO4UNwb91alGtYGxgLBccSO3W1UtySd6DkWhH6tpWxoCAjQQ0xcjqW3sDZcCy2
+         MvDNipzUOT7mfCAUK6+YCDJICn7nzJQW0ROPAZBzRRMnhpFIobv0sO/TpddBldgdyKZ5
+         onew==
+X-Forwarded-Encrypted: i=1; AKwUvBzAtg5uXJbaP43zBqk+sy+Pd61GF6P7wm/t88DgJqAy/mK04p/NFW1qU1F2pCC0V+IpT1LGH9WwqO8cpN8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8d/BDb4TEt5sy1aJYOHjhPh8DSb2bnoEMj4+vY8j+txumzurY
+	Cko7aSmI7Ny4uLp357m5/6fnx2tpqLVMTEszq2D+4A92bNED6g7rbMfiQwW5Za/rYraa1X4B5rl
+	iLuaDpBrkd80KO1cnNQwqSLNLkC8S9U4H+jpUYeqW4g==
+X-Gm-Gg: AYBFou0ip1thed09uYWG2k1O7vfQwNiCaHot54r9vlAPiUy4t/SBb8d4nUaRyZVZH0g
+	MioTCJ+wgRd5hbjDX3JWDrxHOdLNXtrrWusGYgH+qdGvjI7MLvIfVStqIy2niPogDyexS/22nZi
+	aPo8no3wLa6mjxcZ4kQ9S/K/J6Mv5uPo5qj3fjU9s8oEMlPa++p9bF+/wIuJrffvolC8mslp4Yn
+	57ST1Ahp5AThY/2QJw0pVJmBULQlDHHd2Kb/0RyAKV8ypVmYKy6vdy0IjTuna5CDoxWLC9yBEsj
+	2SOrkCcAOwN9pcAETnlI5lm2NxiSntTp3HK87Ae5WEZ/FPSfRW5p3quX2nDtBJwfZGG8TgSjJNO
+	1bFlOXJ47WOQ=
+X-Received: by 2002:a05:6402:52d6:b0:6ad:b23f:e325 with SMTP id
+ 4fb4d7f45d1cf-6b17c29829emr7557284a12.20.1791814459546; Mon, 12 Oct 2026
+ 07:14:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <CAKfTPtC_DjYGmnHuV8x9HEoea87pfrpfNWwHT=sGeSP8UOL2Og@mail.gmail.com>
+ <20261012135920.3247-1-kayracizmeci@gmail.com>
+In-Reply-To: <20261012135920.3247-1-kayracizmeci@gmail.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Mon, 12 Oct 2026 16:14:07 +0200
+X-Gm-Features: AclHuK_KMpYrx2GnOO8HKVwMiaFe6JNjjeAU-8-ojEk_3mxXKNItDvclCFj-pCk
+Message-ID: <CAKfTPtDDWo4n_AS6fSryz3NenDvKw04shmGM3wcv_MF-teDHGQ@mail.gmail.com>
+Subject: Re: [PATCH] sched/eevdf: Fix vprot across reweighting
+To: Kayra Cizmeci <kayracizmeci@gmail.com>
+Cc: bsegall@google.com, christian.loehle@arm.com, dietmar.eggemann@arm.com, 
+	elif.topuz@arm.com, juri.lelli@redhat.com, kprateek.nayak@amd.com, 
+	linux-kernel@vger.kernel.org, mgorman@suse.de, mingo@kernel.org, 
+	mingo@redhat.com, peterz@infradead.org, rostedt@goodmis.org, sh@gentwo.org, 
+	vschneid@redhat.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-10-12, John Ogness <john.ogness@linutronix.de> wrote:
->> while this seems okay, didn't we have pr_flush() to flush the output on
->> shutdown/ reboot?
+On Mon, 12 Oct 2026 at 15:59, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
 >
-> We have the syscore.ops.shutdown registered notifier that gracefully
-> shuts down the kthread printers and transitions to atomic printing.
+> > I don't get why you need to a se->rel_vprot and all these changes . If
+> > we want to ensure that protection will not be re enabled because of
+> > rescale, we just need the below
 >
-> There is a pr_flush() in kernel_power_off(), but actually that is no
-> longer needed and should be removed.
+> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> > index 5c98d8dfce5d..e83836fe44ef 100644
+> > --- a/kernel/sched/fair.c
+> > +++ b/kernel/sched/fair.c
+> > @@ -4951,12 +4951,15 @@ static void reweight_eevdf(struct cfs_rq
+> > *cfs_rq, struct sched_entity *se,
+> >         update_load_set(&se->h_load, weight);
+> >
+> >         if (on_rq) {
+> > -               if (rel_vprot)
+> > -                       se->vprot += avruntime;
+> >                 se->deadline += avruntime;
+> >                 se->rel_deadline = 0;
+> >                 se->vruntime = avruntime - se->vlag;
+> >
+> > +               if (rel_vprot)
+> > +                       se->vprot += avruntime;
+> > +               else if (curr)
+> > +                       se->vprot = se->vruntime;
+> > +
+> >                 if (!curr)
+> >                         __enqueue_entity(cfs_rq, se);
+> >                 cfs_rq->h_nr_queued++;
+>
+> > or the below which is even simpler because vprot, vlag and deadline
+> > are rescaled with the same ratio but it implies useless div64_long()
+> > when the protection is already canceled
+>
+> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> > index 5c98d8dfce5d..5d1b16780b52 100644
+> > --- a/kernel/sched/fair.c
+> > +++ b/kernel/sched/fair.c
+> > @@ -4936,7 +4936,7 @@ static void reweight_eevdf(struct cfs_rq
+> > *cfs_rq, struct sched_entity *se,
+> >                 se->vlag = entity_lag(cfs_rq, se, avruntime);
+> >                 se->deadline -= avruntime;
+> >                 se->rel_deadline = 1;
+> > -               if (curr && protect_slice(se)) {
+> > +               if (curr) {
+> >                         se->vprot -= avruntime;
+> >                         rel_vprot = true;
+> >                 }
+>
+> Here:
+>
+> https://lore.kernel.org/all/20261001164609.244156-1-kayracizmeci@gmail.com/
+> https://lore.kernel.org/all/e4700a93-ebd5-4c7e-88b5-d606437a13c0@arm.com/
+>
+> Because on_rq can get false. And alive protection complicates things.
+> And this diff alone wouldn't work.
+>
+> IDK what else we could do to fix this both cases cleanly tbh.
+> But there could be a cleaner way.
 
-After reviewing [0] I am reminded why pr_flush() exists in
-kernel_power_off(). It is purely for legacy consoles on PREEMPT_RT.
+Before 819224e506bc ("sched/fair: Remove dead code on
+enqueue_task_fair()"), the reweight_eevdf() was not called for curr so
+the false was always true. If we can finally have enqueue curr then we
+should skip this case
 
-I am wondering if instead printk_kthreads_shutdown() should make an
-effort in this case (legacy + PREEMPT_RT):
-
-diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 0bbf6409d467a..10b655f05fa56 100644
---- a/kernel/printk/printk.c
-+++ b/kernel/printk/printk.c
-@@ -3776,6 +3776,15 @@ static void printk_kthreads_shutdown(void *data)
- 		 */
- 		nbcon_atomic_flush_pending();
- 	}
-+
-+	/*
-+	 * If legacy kthread printing is in use, give it a chance to
-+	 * flush any backlog. The kthread is not stopped because when
-+	 * forced, it is the only way legacy consoles can print.
-+	 */
-+	if (force_legacy_kthread() && printk_legacy_kthread)
-+		pr_flush(1000, true);
-+
- 	console_list_unlock();
- }
-
-That would still not cover the final "Power down", so probably the
-pr_flush() should also continue to exist in kernel_power_off(). But it
-is PREEMPT_RT + legacy specific, so I am not too happy about it.
-
-John
-
-[0] https://lore.kernel.org/lkml/a68e2e94-b4c6-4791-b581-ecbf3fee28e9@paulmck-laptop
+>
+> Thanks,
+>
+> Kayra
+>
+>
