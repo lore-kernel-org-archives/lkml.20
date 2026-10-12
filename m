@@ -1,129 +1,144 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from sender6-op-o19.zoho.com (sender6-op-o19.zoho.com [165.173.180.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9147B495022;
-	Mon, 12 Oct 2026 14:50:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816611; cv=none; b=WA8fY4s/4r9JKYn15JXAZVtz6URoYejlvMzkLlozaIh/FPt3M0cWUfoWCKGB/SIR1mASYnM4BjhusCrXlcWGlThKAvnTqPE9uALjykcRy3RBVv5hQv2S73tKeSP2l1ovDzvWiFXteEmy0VD28L0hGtTKqHJQonk3l4J4FCw1qb4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816611; c=relaxed/simple;
-	bh=ojlWEdTYH85IupYSdx+gfD5KiVSkj/6N624919m3v+A=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=tSi1oXiwZMOcYIfMvITsOGDDD2EkeC5NOaDEHjZmaE98gZN+6cARcepBZEzDyNewZwwvbwBcHwALh1bryJRALXyfIMprHkf9uUBha8W4gIGLloEDVgyh3CnZhGMqKvhMFZDLeGKw8GJGxZKrORYnvjwZwYAz1YkZof7LAenLLgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=EBOJWke6; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=qDeWqptg; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FC648FF92;
+	Mon, 12 Oct 2026 14:50:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791816622; cv=pass; b=bayJZJpjtzq/LGdLpKLw6bQpPHRtcIIhCa8U0uKKXkiDShxLAch7cpW24GMBf+oXo+IpBt6E/zcF518eZt8OaCuL+yKpPe4wIBgINjpxd9S50qZfDGvM3Hkslr8Ze73jGqWfQZpr8m11VsCnE9nudFHiKEw0qJIMuGcUzwnRj8Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791816622; c=relaxed/simple;
+	bh=ARDFzRcSX9tlNYnz3QhLpND0+k4nm4lAwCr2NId5MtI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=uAZoRseQ19USEKMs97Jlf7k95qheQYOCq6gey2UusXLrAfmd+6coC5aTQelgC/v3gUG9JHxE70MKK+o341ZfzSV2+ZUTF513Vd43Rc+lUv55WaKkL+JPY2QLMZ1sU+Hnr0dKpReyECh3VMFVYzC3NE634RVGyCGfHgCmMwWA48Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=T7Vc/dRG; arc=pass smtp.client-ip=165.173.180.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="EBOJWke6";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="qDeWqptg"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1791816603; bh=J2a6KtlKXaupIikV0psaf1D
-	FdBBvOwkAXf/qL/tKI/o=; b=EBOJWke6bO3lfrr5vCCEScZxRiNNnn7BUfiZcUvQYpUNB0Qiqx
-	cr3FO8OqlwbCYrUi6OMoItrPvl1lnmC/83fH0LzqLqbjNCn3HMt8LMbjBs5eN+4zG9A3BDZ4a41
-	cdAR+zDjSoAY9Bj9B25hYxNvAOT/3Z/uJWxG8BNZWD/UXrZD8ZQbLdksKC6SPu0tp/3bpUSTUqO
-	ljvOj1f3Sl0f0zHDmaGT1TSBGoC6KlSKbag4d6ossXTjfrmAk8atxQylEWxaYHyAhCuphya2c30
-	J5KtfA0YdbnCCUzmJlKHTLbYxLFd/q8w6sUzwuU/YjKytrcls0UVIdvaVeUq3I00gnQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1791816603; bh=J2a6KtlKXaupIikV0psaf1D
-	FdBBvOwkAXf/qL/tKI/o=; b=qDeWqptgJpz3d+0jRuAUhUJ4/EUQRdsRrx4tTjG+04yYDT45/d
-	rvmWqLJPcgnODe4DDWM3osut1TMGFqM0OTAA==;
-Date: Mon, 12 Oct 2026 15:50:04 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: qiang.zhang@linux.dev
-CC: boqun@kernel.org, frederic@kernel.org, joelagnelf@nvidia.com,
- linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org, paulmck@kernel.org,
- rcu@vger.kernel.org, urezki@gmail.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_rcutorture=3A_Clear_cbflood=5Fma?=
- =?US-ASCII?Q?x_for_tasks-rude_and_srcu-atomic_testing?=
-In-Reply-To: <20261012104134.16268-1-qiang.zhang@linux.dev>
-Message-ID: <CB7858D2-103F-4EB5-8A7B-55E1A65042FA@mainlining.org>
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="T7Vc/dRG"
+ARC-Seal: i=1; a=rsa-sha256; t=1791816584; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=dgXdmKngHhM318qjfVMYC74gMXGc+fVdLti7iaDwNAcMcB3a5zwQJOik7Wp4aFMi4tacvl3UURXkM4e7Oc26MTPZ+Z00w4QDK3KjHrV+wqi7dHrh/s8S/W27DQsrM+TIiWwaGxOcf66YwJl+ToXBCOGPIBvxUzzeez/ktRUtpbc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791816584; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=ARDFzRcSX9tlNYnz3QhLpND0+k4nm4lAwCr2NId5MtI=; 
+	b=b9u5Bca9K9oBoLiH5naAS8C3AXYHMV1+15EqYHygDl1zAOhsDmtwBUSG59FApnANcBkioBS7/4QZGZj519i5BBInp+Eh4NcRC0bV0IcIMNzgN8xOMNihrnH2t18yvvuMUJUyAYLaWrc5cNFsFiJ7bfa8+7ANkfSPPyi1uL8qe/U=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791816584;
+	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=ARDFzRcSX9tlNYnz3QhLpND0+k4nm4lAwCr2NId5MtI=;
+	b=T7Vc/dRGYaDXRQGVuvc+Y/eeiZjc1MZXWW4dkOriDDZ02Sw7GyWfNjW35slqbLh/
+	A2JtRd4QzJhJVsPNv/CtTeV+L1EOzG/LoB9KlqZedk5xmEmidSfR+MaHT1lEV3xNliY
+	31rcXmI4FFYUwcYwPrGTEHMMFQQMwFOmx6rrmjcOPS3NnJ55PnfuFXRVIMbUzkFtjYi
+	LSq1TNSKSgtAZpTEk4d2+eFP0QLrwJuMY+SX4C8467MmHI0tkCaZmIug/eqp2uHm4oU
+	karVUVAD+hUcefpumZT43yTtV8myiwOCm7nkvTHPzlI0fp8DijqnI5F5MrFUS56oKj+
+	WiFC5qA8xA==
+Received: by smtp.zohomail.com with SMTPS id 1791816582175167.0189182002764;
+	Mon, 12 Oct 2026 07:49:42 -0700 (PDT)
+Message-ID: <6b6b99fcd1c5f032a0b20d928bf7fa2e59ac5c87.camel@icenowy.me>
+Subject: Re: [PATCH 0/2] Add SPI display support for UNIHIKER M10 V1.2
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Miotsuki Mizuno <founder@crepuse.com>, "heiko@sntech.de"
+ <heiko@sntech.de>,  "neil.armstrong@linaro.org"	 <neil.armstrong@linaro.org>
+Cc: "airlied@gmail.com" <airlied@gmail.com>, "conor+dt@kernel.org"	
+ <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>,  "dri-devel@lists.freedesktop.org"	
+ <dri-devel@lists.freedesktop.org>, "jesszhan0024@gmail.com"	
+ <jesszhan0024@gmail.com>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
+ "linux-arm-kernel@lists.infradead.org"	
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"	
+ <linux-kernel@vger.kernel.org>, "linux-rockchip@lists.infradead.org"	
+ <linux-rockchip@lists.infradead.org>, "maarten.lankhorst@linux.intel.com"	
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>,  "noralf@tronnes.org"	 <noralf@tronnes.org>,
+ "robh@kernel.org" <robh@kernel.org>, "simona@ffwll.ch"	 <simona@ffwll.ch>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>
+Date: Mon, 12 Oct 2026 22:49:34 +0800
+In-Reply-To: <20261010232857.26950-1-founder@crepuse.com>
+References: <20261010232857.26950-1-founder@crepuse.com>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On 12 October 2026 11:41:34 BST, Zqiang <qiang.zhang@linux.dev> wrote:
->When running the tasks-rude and srcu-atomic tests, the fwd_prog_tasks
->kthread is created because the default value of fwd_progress is 1.
->however, the two RCU flavors not support ->call():
->
->1. tasks-rude: commit b428a9de9bba ("rcutorture: Stop testing RCU Tasks
->   Rude asynchronous APIs") removed .call and .cb_barrier from tasks-rude,
->   but left the .cbflood_max = 50000.
->
->2. srcu-atomic: srcu_torture_init_forbidden_apis() sets ->call to NULL
->   for SRCU_READ_FLAVOR_ATOMIC runs, but leaves ->cbflood_max untouched.
->
->In both cases, the non-zero ->cbflood_max fools the check above into
->creating the fwd_prog_tasks kthreads, even though those kthreads cannot
->possibly carry out any forward-progress test:
->
->1. The rcu_torture_fwd_prog_cr() returns immediately due to cur_ops->call
->   is NULL:
->
->[   68.022674] rcu_torture_fwd_prog_cr: No ->call(), so no
->forward-progress test 0
->[  129.462046] rcu_torture_fwd_prog_cr: No ->call(), so no
->forward-progress test 0
->[  190.902123] rcu_torture_fwd_prog_cr: No ->call(), so no
->forward-progress test 0
->[  252.343809] rcu_torture_fwd_prog_cr: No ->call(), so no
->forward-progress test 0
->
->2. The rcu_torture_fwd_prog_nr() is never even invoked, because its caller
->   requires cur_ops->stall_dur, and neither tasks-rude nor srcu-atomic
->   provide ->stall_dur (only rcu_ops does).
->
->Therefore, creating fwd_prog_tasks kthreads is pointless, this commit
->removes the .cbflood_max from tasks-rude and clears ->cbflood_max in the
->srcu_torture_init_forbidden_apis().
->
->simple verification output:
->
->[    3.062959][    T1] srcu-torture: rcu_torture_fwd_prog_init: Disabled,
->unsupported by RCU flavor under test
->[    2.922323][    T1] tasks-rude-torture: rcu_torture_fwd_prog_init:
->Disabled, unsupported by RCU flavor under test
+=E5=9C=A8 2026-10-10=E5=85=AD=E7=9A=84 23:28 +0000=EF=BC=8CMiotsuki Mizuno=
+=E5=86=99=E9=81=93=EF=BC=9A
+> Describe the onboard 240x320 RGB565 display with panel-mipi-dbi.
+> The series adds the panel compatible and enables SPI2, GPIO reset/D-C
+> and the PWM1 backlight. It uses the existing DRM and SPI drivers.
+>=20
+> This series is based on the separate board I2C2 preparation commit.
+> The prerequisite board patch was submitted separately:
+> https://lore.kernel.org/r/20261010232831.26908-1-founder@crepuse.com
+> It does not depend on the pending NS2009 driver or binding.
 
-Fixes tag?
+I just came across here via mailing list.
 
-This LGTM anyway so:
+It seems that NS2009 is designed to be mostly compatible with TI
+TSC2007, and the TSC2007 driver should be able to made work with
+minimal effort.
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Thanks,
+Icenowy
 
->
->Signed-off-by: Zqiang <qiang.zhang@linux.dev>
->---
-> kernel/rcu/rcutorture.c | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
->
->diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
->index 968343be4e0d..00db87256e78 100644
->--- a/kernel/rcu/rcutorture.c
->+++ b/kernel/rcu/rcutorture.c
->@@ -723,6 +723,7 @@ static void srcu_torture_init_forbidden_apis(void)
-> 	cur_ops->deferred_free = NULL;
-> 	cur_ops->exp_current = NULL;
-> 	cur_ops->start_gp_poll = NULL;
->+	cur_ops->cbflood_max = 0;
-> }
-> 
-> static void srcu_torture_init(void)
->@@ -1250,7 +1251,6 @@ static struct rcu_torture_ops tasks_rude_ops = {
-> 	.exp_sync	= synchronize_rcu_tasks_rude,
-> 	.gp_kthread_dbg	= show_rcu_tasks_rude_gp_kthread,
-> 	.get_gp_data	= rcu_tasks_rude_get_gp_data,
->-	.cbflood_max	= 50000,
-> 	.irq_capable	= 1,
-> 	.name		= "tasks-rude"
-> };
->
-
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+>=20
+> The 132-byte initialization firmware is available from:
+> https://github.com/mio-tsuki/panel-mipi-dbi-firmware/releases/tag/v1.0.0
+> Required filename: dfrobot,unihiker-m10-display.bin
+> SHA256:
+> 50412ae6d29c5bbfb7fac585528a761fb249d7944011a1b19c5e0f80a0418e5f
+> The test kernel embeds it with CONFIG_EXTRA_FIRMWARE. Public release
+> does not imply linux-firmware acceptance.
+>=20
+> The nominal active area is 43.2 x 57.6 mm, represented as 43 x 58 mm.
+> The published V1.3 schematic is not used as evidence for V1.2 supply
+> connections; optional power/io supply properties are omitted.
+>=20
+> SPI2 input is assigned 100 MHz. Active transfer register readback
+> showed BAUDR=3D2, corresponding to 50 MHz. No oscilloscope measurement
+> is claimed. GPIO_ACTIVE_HIGH reset matches the existing DRM helper
+> and leaves the physical reset pin HIGH after initialization.
+>=20
+> Built against Rockchip v7.4-armsoc/dts64, commit
+> ae965b9856f033145e292b0c29082a26bcc45efd. Target DTS/schema, binding
+> examples and strict checkpatch checks passed.=20
+> The exact display DTS booted through normal U-Boot three times in
+> this
+> retest with the original test kernel, without pstore instrumentation,
+> clk_ignore_unused or regulator_ignore_unused. Physical corner
+> patterns
+> were confirmed; full and partial updates and five DRM disable/enable
+> cycles completed. The exact display/touch combination also booted and
+> its physical output was confirmed.
+>=20
+> Earlier boots reset during early userspace; one partial USB log
+> recorded
+> an instruction abort. This was not reproduced in the latest retest.
+> The resets may have resulted from accidental contact with a loose
+> jumper wire during reboot. The cause has not been established, and no
+> software fix is claimed.
+> Exact-DTS cold boot and deep suspend/resume have not been tested.
+>=20
+> Mizuno Miotsuki (2):
+> =C2=A0 dt-bindings: display: panel-mipi-dbi-spi: Add UNIHIKER M10 display
+> =C2=A0 arm64: dts: rockchip: Enable display on UNIHIKER M10 V1.2
+>=20
+> =C2=A0.../display/panel/panel-mipi-dbi-spi.yaml=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 1 +
+> =C2=A0.../dts/rockchip/rk3308-unihiker-m10-v1.2.dts | 53
+> +++++++++++++++++++
+> =C2=A02 files changed, 54 insertions(+)
+>=20
+>=20
+> base-commit: f4f7ecd2e0e8debcbab4789717cc79d570d665e3
