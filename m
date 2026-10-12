@@ -1,150 +1,218 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCCA23B71D4;
-	Mon, 12 Oct 2026 19:06:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516653DAADE
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791831994; cv=none; b=BIoAjMNJCe9REYb0+foiDaFMNkzf0biR9G1UG+CSnsyp3QfVw0OvG14etfplNx1061OcZHW9wmVywZaCia5wlGf96D8hWy7EqyPruLPcfy6XYZgBQFj5lA7+ng8A4eRJEWXmvtguUSCCvRm+E+yb/8ehvwsEggz1jTHtaoWkBZo=
+	t=1791832007; cv=none; b=WXuK8TfaQSeIDfNUr8Oz5cErl+VTAU5TyoliK1JM5CeZojwRg3ZMP8tgJKTaY1t8kdh9QMdbye793jPMbjpHFpRwa5bBazXapOGr9mp/BCFsZ6sgatyFJY6ntLIfB7DRLSrtFNsVTWAdJTWebA/IZNF8XXm2lIJcpStlye3eiiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791831994; c=relaxed/simple;
-	bh=rBg66MgKskVg9KVd/lwZV92mZ+DOAeNKyT1uZoYbVhE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KSyy/OoOYM8EqeYKjKvLt50SEYxuVy8EH2zol6ufJ1EPh01B+6CsKhDHEm0fli33vejC6GXKXVTOo9o1At1lVhIkCHxxhp049unhag69JtSrAv4FGOJWzRtRJ5vV/NQt2FJCecXyuxq03Aa23X9+plW73+mCWI1Tw0oVdU21sOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MlI4FjyE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791832007; c=relaxed/simple;
+	bh=qc27dw1bGRtz0RsRjqoL5oDeZuL03UbAX3nPsjTnkxU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=lbFeYToGQhjN/OCf8kxHYZalZU3JcVJh9OUMJ5uIw+qc1vm0TuVj6MCglwXJ5XiZ3LOHi3Ignw/E9q644KA8OmL9cx844sCJqdIm08XlJfaFXNKQ/u+UbcIJJYfFps8rsAce9vWRy1gOjCWZda9LhsOPRXosuzLa309FNNmYoVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vS3NyB/2; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MlI4FjyE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D65E1F0089B;
-	Mon, 12 Oct 2026 19:06:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791831993;
-	bh=V1qJC9FEBLStLZYadjJB0z73Wt4b9XJZv0+3sG4ijwk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MlI4FjyE5ljwjZrb5hrekRS2ygoFn1xYSJeVgPuCBBQ/L+VQJBDcdaaKHzLq8udjB
-	 7C7Zqwo5qA10b0N8+zo/3WFhTXbw6InEzCqF6XUpiCOTcUKHvfQNWbV6dV3BhYMeNL
-	 iwVciTYvYfCvTS26VRHYWYhEudBeXwRlYFtpMUwCX9AITvR3EY4OyVNmeT8OA+ktAX
-	 la4SofIIcl2N+6A1BPKRoBOgYSvJb4I/91g3qngRinat2L9nLbEWu/5vRCQvvUqNky
-	 1C9oEpqItY2jPU7yCQdRokC7Peqrr6r/f6q9kkqFj2chcgewJ/ZZs3M+oltc6Ip+mb
-	 S2NcM0bA6Exkg==
-Date: Mon, 12 Oct 2026 20:06:29 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jelly Jia <Jelly.Jia@cixtech.com>
-Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, robin.murphy@arm.com,
-	devicetree@vger.kernel.org, Frank.Li@kernel.org,
-	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/6] dt-bindings: dma: arm,dma-350: Document the CIX
- Sky1 integration
-Message-ID: <20261012-twisted-cavalry-b52b5043fd5d@spud>
-References: <20261012084155.2547480-1-Jelly.Jia@cixtech.com>
- <20261012084155.2547480-5-Jelly.Jia@cixtech.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vS3NyB/2"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 7E1D24E411FE;
+	Mon, 12 Oct 2026 19:06:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2603C601A6;
+	Mon, 12 Oct 2026 19:06:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EFFD411D70CA7;
+	Mon, 12 Oct 2026 21:06:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791831996; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Bw7bv2pnfae4cMWiRM1MW1DbGUPZqrWolE0VMUTTkds=;
+	b=vS3NyB/2AQirlZc3zwonhlMtCW4/+Tm5UyQ7Um01rVmMrRno6RPzmzdCh8FU2cjHcaW3Th
+	5uHwUXZRnhNN+3Cnipgeglik203ebVueIHnAIS4Hdssa3eZ9OSIENz9o4BHC3Pl0W9YKh1
+	ne1qHRrPxjWs35WdViC8YO02zulN+MPqxYAUsTBHzZdQnrFaJL8K6+Dq6Wtr283XK1AFos
+	WWDG4W+AMdAIsRWfVef557tOkwe5WQNGfxMhePfq0y2CeEusWB8KA6k1vUaPBkidP1enHT
+	iPPJK8u8FDOfHxS8g3M7M0oVbJvFQ52fVNjzQIIX4EsLCpXM82TAyDtK9a84Gw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
+ <wens@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
+ Holland <samuel@sholland.org>,  Maxime Ripard <mripard@kernel.org>,
+  Richard Genoud <richard.genoud@bootlin.com>,  Masahiro Yamada
+ <yamada.masahiro@socionext.com>,  Boris Brezillon <bbrezillon@kernel.org>,
+  Brian Norris <computersforpeace@gmail.com>,
+  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
+  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
+  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH v6 01/18] mtd: rawnand: sunxi: drain interrupts before
+ reusing the completion
+In-Reply-To: <CADvTj4pmtGZ4c04q+5AE3trrfshToD7BPtF-8kPxPRZ25hOTRw@mail.gmail.com>
+	(James Hilliard's message of "Mon, 12 Oct 2026 12:26:00 -0600")
+References: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
+	<20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-1-2fb084fe0751@gmail.com>
+	<8733ua23xs.fsf@bootlin.com>
+	<CADvTj4pmtGZ4c04q+5AE3trrfshToD7BPtF-8kPxPRZ25hOTRw@mail.gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 12 Oct 2026 21:06:28 +0200
+Message-ID: <877bjmzqkr.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LbBYOngj9q7cuBu2"
-Content-Disposition: inline
-In-Reply-To: <20261012084155.2547480-5-Jelly.Jia@cixtech.com>
-
---LbBYOngj9q7cuBu2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Oct 12, 2026 at 04:41:53PM +0800, Jelly Jia wrote:
-> The CIX Sky1 DMA-350 integration is the same device with SoC glue around
-> it, so it is described by the arm,dma-350 node itself with an additional
-> "cix,sky1-dma350" compatible rather than by a separate wrapper node.
->=20
-> Extend the binding with the CIX compatible and the resources the
-> integration needs: a clock, which the CIX variant requires, an optional
-> reset, and an optional reserved memory region used when the controller
-> cannot reach all of system memory.
->=20
-> v2 -> v3:
-> - Drop the cix,irq-router property and its conditional: the Sky1
->   interrupt gate it described is set up by the boot firmware and is not
->   configured by Linux, so no property describes it.
-> - The CIX compatible now requires a clock.
->=20
-> Assisted-by: LLM checkpatch sparse dt_binding_check dtbs_check
-> Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
-> ---
->  .../devicetree/bindings/dma/arm,dma-350.yaml  | 26 ++++++++++++++++++-
->  1 file changed, 25 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml b/Doc=
-umentation/devicetree/bindings/dma/arm,dma-350.yaml
-> index 429f682f15d8..4e0f9ffb0039 100644
-> --- a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
-> +++ b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
-> @@ -11,10 +11,22 @@ maintainers:
-> =20
->  allOf:
->    - $ref: dma-controller.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: cix,sky1-dma350
-> +    then:
-> +      required:
-> +        - clocks
-> =20
->  properties:
->    compatible:
-> -    const: arm,dma-350
-> +    oneOf:
-> +      - const: arm,dma-350
-> +      - items:
-> +          - const: cix,sky1-dma350
-> +          - const: arm,dma-350
+On 12/10/2026 at 12:26:00 -06, James Hilliard <james.hilliard1@gmail.com> w=
+rote:
 
-Provided the device is actually functional if the fallback compatible is
-used, this patch is fine. Otherwise, please drop the fallback from here.
+> On Mon, Oct 12, 2026 at 12:02=E2=80=AFPM Miquel Raynal
+> <miquel.raynal@bootlin.com> wrote:
+>>
+>> Hi James,
+>>
+>> On 14/09/2026 at 15:09:47 -06, James Hilliard <james.hilliard1@gmail.com=
+> wrote:
+>>
+>> > A timed-out wait can return while the interrupt handler is still using
+>> > the previous operation's interrupt status and enable mask. Starting the
+>> > next wait calls init_completion() on the same object, which can reset =
+its
+>> > waitqueue lock while the old handler calls complete(). The old handler
+>> > can also complete the new wait or restore an obsolete interrupt mask.
+>> >
+>> > Initialize the completion once in probe and use reinit_completion() for
+>> > each interrupt-driven wait. On timeout, disable and synchronize the IRQ
+>> > before masking controller interrupts and acknowledging the waited-for
+>> > events. Draining the handler first also prevents a partial-event handl=
+er
+>> > from rewriting the enable mask after it has been cleared. Flush these
+>> > register writes before re-enabling the IRQ line, leaving the controlle=
+r's
+>> > interrupt sources masked.
+>> >
+>> > For successful waits, move complete() after the handler's register upd=
+ates
+>> > so that the next operation cannot race with those updates. Keep polling
+>> > unchanged and leave controller and DMA abort handling to the existing
+>> > callers.
+>> >
+>> > Fixes: 1fef62c1423b ("mtd: nand: add sunxi NAND flash controller suppo=
+rt")
+>> > Cc: stable@vger.kernel.org
+>> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+>> > ---
+>>
+>> So from the commit log I understand that you are fixing a race. The
+>> problem seems legitimate.
+>>
+>> >  drivers/mtd/nand/raw/sunxi_nand.c | 26 ++++++++++++++++++++------
+>> >  1 file changed, 20 insertions(+), 6 deletions(-)
+>> >
+>>
+>> ...
+>>
+>> > @@ -414,12 +416,13 @@ static irqreturn_t sunxi_nfc_interrupt(int irq, =
+void *dev_id)
+>> >       if (!(ien & st))
+>> >               return IRQ_NONE;
+>> >
+>> > -     if ((ien & st) =3D=3D ien)
+>> > -             complete(&nfc->complete);
+>> > -
+>> > +     /* Finish updating the interrupt state before waking the next op=
+eration. */
+>> >       writel(st & NFC_INT_MASK, nfc->regs + NFC_REG_ST);
+>> >       writel(~st & ien & NFC_INT_MASK, nfc->regs + NFC_REG_INT);
+>> >
+>> > +     if ((ien & st) =3D=3D ien)
+>> > +             complete(&nfc->complete);
+>> > +
+>> >       return IRQ_HANDLED;
+>> >  }
+>> >
+>> > @@ -435,16 +438,19 @@ static int sunxi_nfc_wait_events(struct sunxi_nf=
+c *nfc, u32 events,
+>> >               timeout_ms =3D NFC_DEFAULT_TIMEOUT_MS;
+>> >
+>> >       if (!use_polling) {
+>> > -             init_completion(&nfc->complete);
+>> > +             reinit_completion(&nfc->complete);
+>>
+>> The whole change around (re)init_completion looks relevant (here and in =
+the handler).
+>>
+>> >
+>> >               writel(events, nfc->regs + NFC_REG_INT);
+>> >               ret =3D wait_for_completion_timeout(&nfc->complete,
+>> >                                               msecs_to_jiffies(timeout=
+_ms));
+>> > -             if (!ret)
+>> > +             if (!ret) {
+>> > +                     /* Drain the handler before it can restore an ol=
+d IRQ mask. */
+>> > +                     disable_irq(nfc->irq);
+>>
+>> disable_irq() for serializing accesses to a single register?
+>
+> The intention was to drain an in-flight handler before cleaning up the
+> timed-out wait, rather than just serialize the register write.
 
-Thanks,
-Conor.
+I guess here you relate to the race explained below.
 
-> =20
->    reg:
->      items:
-> @@ -36,6 +48,18 @@ properties:
->      const: 1
->      description: The cell is the trigger input number
-> =20
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  memory-region:
-> +    maxItems: 1
-> +    description:
-> +      Reserved memory region used for DMA allocations when the controller
-> +      cannot reach all of system memory.
-> +
->  required:
->    - compatible
->    - reg
-> --=20
-> 2.54.0
->=20
+> disable_irq() provides that synchronization as well as masking the line.
+> It is only used on timeout, and this IRQ is requested without
+> IRQF_SHARED.
 
---LbBYOngj9q7cuBu2
-Content-Type: application/pgp-signature; name=signature.asc
+This is clearly debatable, since we can identify the IRQ, that flag
+could (should, maybe) have been set. With your approach it would have
+been even more impacting. But that's not the point.
 
------BEGIN PGP SIGNATURE-----
+> A spinlock could also address this, provided it covers the handler's
+> status/enable reads through complete(), together with the waiter's
+> cleanup and rearming. Protecting only the register writes would leave
+> the handler able to act on an old snapshot.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas0vtQAKCRB4tDGHoIJi
-0nx0AQDB5r7oymsF6TAu0ttlEHIJipo6PrYdifW37NZxxwRGFgEAxKFlJzEToRQY
-OfEGN5uC5Lzaagf0eTACGFQ70vFmFwk=
-=mNaw
------END PGP SIGNATURE-----
+I'm not sure what you call "only the register writes", you can call
+complete() from within the lock if that makes sense for this case,
+yes. complete() does not block so it is fine.
 
---LbBYOngj9q7cuBu2--
+...
+
+>> commit log, I now disagree with the first part of:
+>>
+>> >The old handler can also complete the new wait or restore an obsolete i=
+nterrupt mask.
+>>
+>> "complete the new wait"? I don't see how a stale handler completes the
+>> next wait given the handler is a hard IRQ and the interrupt enable
+>> register is cleared on timeout.
+>
+> The case I had in mind is an already-running handler on another CPU:
+>
+> CPU 0: Read st and ien for operation A.
+> CPU 1: Time out operation A, mask/acknowledge its interrupts,
+>        then eventually reinitialize the completion for operation B.
+> CPU 0: Call complete() based on the saved st and ien from operation A.
+
+For this to fire, the hard IRQ handler on CPU0 would have to be stopped
+between reading st/ien and calling complete() long enough to span:
+- A's timeout
+- A's cleanup
+- B's wait being rearmed
+On this hardware, how is this reachable?
+
+> Clearing the device's enable register does not invalidate those local
+> values or wait for the running handler to finish. Hard-IRQ context
+> prevents this overlap on the same CPU, but not across CPUs.
+>
+> That distinction was not explicit enough in the commit message. I'm
+> open to a different implementation; the requirement I wanted to preserve
+> is that the old handler cannot update the mask or signal the completion
+> after the waiter has cleaned up and reused it.
+
+Miqu=C3=A8l
