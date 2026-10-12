@@ -1,56 +1,96 @@
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E9C313A258;
-	Mon, 12 Oct 2026 01:50:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
+Received: from outboundhk.mxmail.xiaomi.com (outboundhk.mxmail.xiaomi.com [118.143.206.90])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5719934389F;
+	Mon, 12 Oct 2026 01:52:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=118.143.206.90
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791769820; cv=none; b=DbaC5+KfE/m4mxtmdV4Zy2vml6Yy+TCXybFF3OE2hGUKFSAodRAh7KvKRXcACjLMyx6YiiXHGs/w/WabGOGJK4G7UItkhNvRl8KNCxEIfodTB28sj1kVHLnLro2M6impOoFA3yErKoAM9VHbQdTmLpzZqByJrvUvQAQdx2dGt9o=
+	t=1791769928; cv=none; b=j8h7YSJKYVtDfQx17SpIPyfClRIFRXdoPN7o2BcKZwhXYY6goVBb6XEsa7GB9G7jRcO3LFLHKW/EhuatUxElaY1UJHvyK03iejgCy2RPLP3Gu5WYtRReaQwqFcMthcpWdqcltKTgvxJUPKkQqzGubv56/yXL6EuO4OkkvPrxxow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791769820; c=relaxed/simple;
-	bh=xSCbNFGAOGDMkbkNOkN74Oi39vk04K574tmwsN9O2eo=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=fxIJHDjUgPoDo+a9QyIDa3CQfTqF4qCn6BcVz6UoFl/orLS5te0pmetZj8WLSxms2gvmQTn8Oh4DKPxaEXW82VrD5/SQHQI8T99cS0T6k3szeHznihQTJ5eMlGjYY4gkwvVVZYGkbeEfmYcAsEVzDqcvRAXeLUVuh5L/U+guTjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 0246A9200B3; Mon, 12 Oct 2026 03:50:14 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id EFA6A92009E;
-	Mon, 12 Oct 2026 02:50:14 +0100 (BST)
-Date: Mon, 12 Oct 2026 02:50:14 +0100 (BST)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Hugo Villeneuve <hugo@hugovil.com>
-cc: Theodore Tso <tytso@mit.edu>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
-    "Dr. David Alan Gilbert" <linux@treblig.org>, 
-    Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-    Gerhard Engleder <eg@keba.com>, Jiayuan Chen <jiayuan.chen@shopee.com>, 
-    Joseph Tilahun <jtilahun@astranis.com>, linux-serial@vger.kernel.org, 
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC] serial: core: Don't clobber the baud rate on hangup
- via B0
-In-Reply-To: <alpine.DEB.2.21.2605261602100.1450@angie.orcam.me.uk>
-Message-ID: <alpine.DEB.2.21.2608051937450.55540@angie.orcam.me.uk>
-References: <alpine.DEB.2.21.2605242242330.1450@angie.orcam.me.uk> <20260526102915.c0dc51579182c0aeb1390bc4@hugovil.com> <alpine.DEB.2.21.2605261602100.1450@angie.orcam.me.uk>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	s=arc-20240116; t=1791769928; c=relaxed/simple;
+	bh=uDY1OtPjEfSqET3LcEeoQoG1zALRw1y0T3oJ1Qiaj58=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=S5v2PJ99019qXybioRtmyHuG2xWuPhoWtDtthuilnErWoCe/mOdwUAgMcVuYau5M0FHG3QK1SHevaXGqZhFpmFDMR8ZTKu+7oAH5mWHRkkKBlVXcvW4io1iSv6jXJ8fue+sROv6au2HcnkFS0IMYWzjivmFQIu4Ag5NhwZvdPmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=xiaomi.com; arc=none smtp.client-ip=118.143.206.90
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaomi.com
+X-CSE-ConnectionGUID: q0t2evFUTcahwmBUXNjhqQ==
+X-CSE-MsgGUID: snYutKplSDCAAIXpwG3p3w==
+X-IronPort-AV: E=Sophos;i="6.27,152,1786982400"; 
+   d="scan'208";a="165298655"
+From: =?gb2312?B?1uzi/ces?= <zhukaiqian@xiaomi.com>
+To: Ulf Hansson <ulfh@kernel.org>, "\"Rafael J. Wysocki\"" <rafael@kernel.org>
+CC: Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>, "Lorenzo
+ Pieralisi" <lpieralisi@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>,
+	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: cpuidle: psci: cluster PM domain left off when idle-CPU wakeup races
+ with dpm_suspend_late()
+Thread-Topic: cpuidle: psci: cluster PM domain left off when idle-CPU wakeup
+ races with dpm_suspend_late()
+Thread-Index: Ad1YnJkwJL8OoP4vTdmeCR9mrZsMxA==
+Date: Mon, 12 Oct 2026 01:51:54 +0000
+Message-ID: <f2743fab3df84a1db8139e17f66a76db@xiaomi.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 26 May 2026, Maciej W. Rozycki wrote:
-
-> > Please rebase your patch on greg's tty-next branch, because there have
-> > been some changes by me lately [1] to uart_get_baud_rate() and your
-> > patch will not apply.
-> 
->  Sure, if this does get beyond RFC.  Thanks for the heads-up!
-
- Now posted as v2 non-RFC at 
-<https://lore.kernel.org/r/alpine.DEB.2.21.2610120150230.55767@angie.orcam.me.uk/>.
-
-  Maciej
+SGksIGFsbA0KDQpUaGlzIGlzIHJlcG9ydGluZyBhIHJhY2Ugb2JzZXJ2ZWQgb24gdjYuMTguMjEg
+QW5kcm9pZCBLZXJuZWwgZHVyaW5nIHRoZQ0KQVJNIENQVSBzMmlkbGUuDQoNCkluIFBTQ0kgT1NJ
+IG1vZGUgd2l0aCB0aGUgaGllcmFyY2hpY2FsIENQVSB0b3BvbG9neSwgYSBDUFUgY2FuIGNvbWUg
+b3V0IG9mDQppZGxlIGFmdGVyIGRwbV9zdXNwZW5kX2xhdGUoKSBoYXMgYWxyZWFkeSBkaXNhYmxl
+ZCBydW50aW1lIFBNIGZvciBpdHMNCmRldmljZS4gVGhlIGlkbGUgZXhpdCB0aGVuIHJlc3RvcmVz
+IHRoZSBjbHVzdGVyIFBNIGRvbWFpbiB0aHJvdWdoIHRoZQ0KcnVudGltZSBQTSBwYXRoLCBob3dl
+dmVyLCBzaW5jZSB0aGUgcnVudGltZSBQTSBpcyBkaXNhYmxlZCwgaXQgYmVjb21lcyBhDQpuby1v
+cCBhbmQgdGhlIGRvbWFpbiBzdGF5cyBwb3dlcmVkIG9mZiBpbiBzb2Z0d2FyZSB3aGlsZSB0aGUg
+Q1BVIGlzIHJ1bm5pbmcuDQpUaGUgQ1BVIHRoZW4gc2lsZW50bHkgc3RvcHMgcmVxdWVzdGluZyB0
+aGUgY2x1c3Rlci9zeXN0ZW0gcG93ZXIgbGV2ZWwgaW4NCkNQVV9TVVNQRU5ELg0KDQpUaGUgcmFj
+ZQ0KLS0tLS0tLS0NCmRwbV9zdXNwZW5kX2xhdGUoKSB3YWtlcyBhbGwgaWRsZSBDUFVzIGZpcnN0
+IGFuZCBvbmx5IHRoZW4gd2Fsa3MgdGhlIGRldmljZQ0KbGlzdCwgZGlzYWJsaW5nIHJ1bnRpbWUg
+UE0gcGVyIGRldmljZSBhcyBpdCBnb2VzOg0KDQogIGRwbV9zdXNwZW5kX2xhdGUoKQ0KICAgIHdh
+a2VfdXBfYWxsX2lkbGVfY3B1cygpICAgICAgICAgICAgICAgPC0tIGFzeW5jaHJvbm91cyBjcHUg
+d2FrZXVwDQogICAgICBkZXZpY2Vfc3VzcGVuZF9sYXRlKGRldiwgLi4uKQ0KICAgICAgICBfX3Bt
+X3J1bnRpbWVfZGlzYWJsZShkZXYsZmFsc2UpICAgIDwtLSBkaXNhYmxlX2RlcHRoKysNCg0Kd2Fr
+ZV91cF9hbGxfaWRsZV9jcHVzKCkgb25seSByZXF1ZXN0cyB0aGF0IHRoZSBpZGxlIENQVXMgbGVh
+dmUgaWRsZTsgaXQNCmRvZXMgbm90IHdhaXQgZm9yIHRoZW0uIEEgQ1BVIHBhcmtlZCBpbiBhIGRl
+ZXAgUFNDSSBzdGF0ZSBjYW4gdGFrZSBhIGxvbmcgdGltZQ0KdG8gY29tZSBiYWNrIHRoYXQgaXRz
+IGlkbGUgZXhpdCBsYW5kcyBhZnRlciB0aGUgcnVudGltZSBkaXNhYmxlOg0KDQogIENQVTA6IGRw
+bV9zdXNwZW5kX2xhdGUoKSAgICAgICAgICAgICBDUFV4OiBwYXJrZWQgaW4gaWRsZQ0KICAtLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gICAgICAgICAgICAgLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLQ0KICB3YWtlX3VwX2FsbF9pZGxlX2NwdXMoKQ0KICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHBvd2VyaW5nIE9ODQogIGRldmljZV9zdXNwZW5kX2xh
+dGUocGRfZGV2KQ0KICAgIF9fcG1fcnVudGltZV9kaXNhYmxlKHBkX2RldikNCiAgICAgIGRpc2Fi
+bGVfZGVwdGgrKw0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBvd2VyZWQg
+T04NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfX3BzY2lfZW50ZXJfZG9t
+YWluX2lkbGVfc3RhdGUoKQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHBtX3J1bnRpbWVfZ2V0X3N5bmMocGRfZGV2KQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgbm8tb3A6IGRpc2FibGVfZGVwdGggPiAwDQoNClNvIGdlbnBkX3J1bnRp
+bWVfcmVzdW1lKCkgbmV2ZXIgcnVucyBhbmQgdGhlIGRvbWFpbiBpcyBuZXZlciBwb3dlcmVkIGJh
+Y2sgb24uDQpMYXRlciwgYXMgdGhlIENQVSBhbmQgaXRzIGRvbWFpbiByZW1haW5zIE9GRiwgUFND
+SSBDUFUgczJpZGxlIHNpbGVudGx5IHNraXBzIHRoZSBnZW5wZA0Kc3VzcGVuZC4gV2hlbiB0aGUg
+Q1BVIHBvd2VycyBvZmYgd2l0aCB0aGUgcnVudGltZSBQRCBkaXNhYmxlZCwgaXQgY2FuJ3Qgd2Fr
+ZXVwIHRvDQpPTiBuZXh0IHRpbWUgZXZlbiB3aGVuIHRoZSBTMklETEVfU1RBVEVfRU5URVIgaXMg
+c2V0Lg0KDQpBIGZpeCBjb3VsZCBiZSB3aXRoaW4gdGhlIGRwbV9zdXNwZW5kX2xhdGUsIHdhaXQg
+dW50aWwgYWxsIHRoZSBDUFVzIGJhY2sNCmJlZm9yZSB0aGUgcnVudGltZSBQTSBpcyBkaXNhYmxl
+ZC4gT3IsIGluIHRoZSBQU0NJIGRyaXZlciwgd2hlbiB0aGUgQ1BVcyB3YWtlIHVwIGFuZA0KUzJJ
+RExFX1NUQVRFX0VOVEVSIGlzIHNldCwgZm9yY2libHkgcmVzdG9yZSBpdHMgZG9tYWluIHRvIHRo
+ZSBPTiBzdGF0ZS4NCg0KV2hhdCBkbyB5b3UgdGhpbms/DQoNCg0KVGhhbmtzLA0KS2FpcWlhbg0K
+DQojLyoqKioqKrG+08q8/rywxuS4vbz+uqzT0NChw9e5q8u+tcSxo8Pc0MXPoqOsvfbP3tPat6LL
+zbj4yc/D5rXY1rfW0MHQs/a1xLj2yMu78si61+mho7371rnIzrrOxuTL+8jL0tTIzrrO0M7Kvcq5
+08OjqLD8wKi1q7K7z97T2sirsr+78rK/t9a12NC5wrahori01sahorvyyaK3oqOpsb7Tyrz+1tC1
+xNDFz6Kho8jnufvE+rTtytXBy7G+08q8/qOsx+vE+sGivLS157uwu/LTyrz+zajWqreivP7Iy7Ki
+yb6z/bG+08q8/qOhIFRoaXMgZS1tYWlsIGFuZCBpdHMgYXR0YWNobWVudHMgY29udGFpbiBjb25m
+aWRlbnRpYWwgaW5mb3JtYXRpb24gZnJvbSBYSUFPTUksIHdoaWNoIGlzIGludGVuZGVkIG9ubHkg
+Zm9yIHRoZSBwZXJzb24gb3IgZW50aXR5IHdob3NlIGFkZHJlc3MgaXMgbGlzdGVkIGFib3ZlLiBB
+bnkgdXNlIG9mIHRoZSBpbmZvcm1hdGlvbiBjb250YWluZWQgaGVyZWluIGluIGFueSB3YXkgKGlu
+Y2x1ZGluZywgYnV0IG5vdCBsaW1pdGVkIHRvLCB0b3RhbCBvciBwYXJ0aWFsIGRpc2Nsb3N1cmUs
+IHJlcHJvZHVjdGlvbiwgb3IgZGlzc2VtaW5hdGlvbikgYnkgcGVyc29ucyBvdGhlciB0aGFuIHRo
+ZSBpbnRlbmRlZCByZWNpcGllbnQocykgaXMgcHJvaGliaXRlZC4gSWYgeW91IHJlY2VpdmUgdGhp
+cyBlLW1haWwgaW4gZXJyb3IsIHBsZWFzZSBub3RpZnkgdGhlIHNlbmRlciBieSBwaG9uZSBvciBl
+bWFpbCBpbW1lZGlhdGVseSBhbmQgZGVsZXRlIGl0ISoqKioqKi8jDQo=
