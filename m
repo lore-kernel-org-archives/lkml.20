@@ -1,156 +1,187 @@
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5354A8A39
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:56:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791820562; cv=pass; b=s5KYAl8qdvuGjSG12DsedS7jSqssdRmu+vy1CYn+t4idqLHFplm+vhQ/G04U4mGfRpSZ43RWm6bhiJuVGNJdgKcgzENU+SrCBmlFeaPVT2VzZqEp6m+iDLvyptTJuUXI+LVzYX5nUuM/2zBFr7CYKSkrE5J0wQNNlxWpS0vqtOI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791820562; c=relaxed/simple;
-	bh=papDQ2BK9Hgi09DMMx3zK/DXGTb14uUZYc2cvSTwJIU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QdkPLYHSek9DXLB+/2NIYXhwYFT9ViOW56Vhz58RFzdCOZtTgj0ZGVR0YZtCB4MZntomxgSM8cHZBoVnh9PAup5ubnzMbb7Pbz6IpNPFZxgNPHh02Ou6WukbOL9Ltug2lSgQyEKA/ape1H4+cbwJC2tDmRZnDwX1fSDPLepeSq8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=Mrw+GB2U; arc=pass smtp.client-ip=165.173.182.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2914AA1EB;
+	Mon, 12 Oct 2026 15:56:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791820565; cv=none; b=pLnd7e+ThPztHbgtZlQtDtdDbpWda1FRcLfe4S4612aqH2kdTia2lQplQSJbVR+emRXid1i8TNsdZIGmuf55dR6/xzEL6OgQDgv5HjLFROMwPxuOTZpXSHO0ngRutMXydr1Myl9isd4MR+GHAzqIK5qALNAbD8uXgNJp437Z0Zo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791820565; c=relaxed/simple;
+	bh=b0XKFcwxPXoheG5vZ6kVIkZHetEjyzcldENTlm/sZ8k=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=d3eeLcAFaTd9EHzxOjRn7Eymes7k71S4yr1uxnu7qOri5E7TFH745MrhZCRmzhFX1ithuQHi6/nOX74VWDMkiNWyBFdqRWKW6Nx3EJ7qbNVY0PprgtG1JE+P6Z7zbSO2Yv/P8tYyyIMTV1xpBNgEpxOuc1L43mIo1jOlQc2xoZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=OZ/7OUTd; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Tssyn4EC; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=OZ/7OUTd; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Tssyn4EC; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="Mrw+GB2U"
-ARC-Seal: i=1; a=rsa-sha256; t=1791820540; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=e0m4+dphawrCJYI1PzvnAu3soR1RDDHOm+spJ1Gb3fFA/SZI4mExPjEQiQB0BJH3UjLe4iLHh75NjYayK5PkRpRCoOGXmEK0GJy5AC4TP3BtHucQrEa1qsJpVKrejYAXOGUnmj5U4ssLwjo6tL7tkw7go1a10OHr45KYAPpSu3Y=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791820540; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=jm4TT1SDEo47VcBxb5lbPFVvIhs7zf4LP41tfx+zFRg=; 
-	b=EKwdnLfqqxFrexpLuftxmRBJxWECPoM2NfvyFkOkq2vjB4tn/drqLFuir1r7FfOckZKt0296pD/eCK3M2XgDdXTJvien9FKMFwqwmERGMl1Zdt7oNmrt6+iC+Di7lPfMDjmoo1PYXdo3KYw77FVScF1TqjTznyFxzboLeelBzx0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791820540;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=jm4TT1SDEo47VcBxb5lbPFVvIhs7zf4LP41tfx+zFRg=;
-	b=Mrw+GB2Uck3M6+56WAUV7aa17/WvYPw0JrSsyl0sgll8QClwRutdMCXEW0HOj0Jc
-	sxVewap4LoAovmyc4Ao+8AHQte6Ggj/ZZg47hbxqG6KleVarRU25acgKKH6E3lSqB20
-	XuCW3i0UAqFaBLiuU68jE5Mmg4mdTmtnq5HXTuzk=
-Received: by smtp.zohomail.com with SMTPS id 179182053891231.867492227349658;
-	Mon, 12 Oct 2026 08:55:38 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 9E8DC181C18; Mon, 12 Oct 2026 17:55:22 +0200 (CEST)
-Date: Mon, 12 Oct 2026 17:55:22 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Andy Yan <andyshrk@163.com>
-Cc: linux-kernel@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>, 
-	Cristian Ciocaltea <cristian.ciocaltea@gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: update my email address
-Message-ID: <as0B960-TP8i3IYM@venus>
-References: <20261010134705.2131-1-andyshrk@163.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="OZ/7OUTd";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Tssyn4EC";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="OZ/7OUTd";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Tssyn4EC"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id AC31A21E37;
+	Mon, 12 Oct 2026 15:56:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791820561; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=trxIJ6g8YDuoBjr9o+264MF/tcKAtAK/xFK7YqbRuZA=;
+	b=OZ/7OUTdGoeXbmyAqD3VUDt+QtZnbh0msi1mS9S2RtgQFDWEOQN751iLBGZDv5KuIYi8Iz
+	QklgBu7awPCEKZerzVH+4prIwI8OC/UALrx9Z5r5WPEeq5XlvHwA9X72QFVFXL6RJI9gIG
+	RZdSxI8mUI2tLGwiTfw5H1siU0vEHN8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791820561;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=trxIJ6g8YDuoBjr9o+264MF/tcKAtAK/xFK7YqbRuZA=;
+	b=Tssyn4ECBazzwQBZSrZbOXnuS0IutOD6Py1cTGNIUD7I9PViQ+M3ufQRToKzdObwlg7r0I
+	JyCR61967mySf6CQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="OZ/7OUTd";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Tssyn4EC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791820561; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=trxIJ6g8YDuoBjr9o+264MF/tcKAtAK/xFK7YqbRuZA=;
+	b=OZ/7OUTdGoeXbmyAqD3VUDt+QtZnbh0msi1mS9S2RtgQFDWEOQN751iLBGZDv5KuIYi8Iz
+	QklgBu7awPCEKZerzVH+4prIwI8OC/UALrx9Z5r5WPEeq5XlvHwA9X72QFVFXL6RJI9gIG
+	RZdSxI8mUI2tLGwiTfw5H1siU0vEHN8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791820561;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=trxIJ6g8YDuoBjr9o+264MF/tcKAtAK/xFK7YqbRuZA=;
+	b=Tssyn4ECBazzwQBZSrZbOXnuS0IutOD6Py1cTGNIUD7I9PViQ+M3ufQRToKzdObwlg7r0I
+	JyCR61967mySf6CQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 543ED13408;
+	Mon, 12 Oct 2026 15:56:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 5sv1ChEDzWrGEQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 12 Oct 2026 15:56:01 +0000
+Date: Mon, 12 Oct 2026 17:56:00 +0200
+Message-ID: <878q42hq0f.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ali Ahmet =?ISO-8859-2?Q?Memi=BA?= <aliamemis@disroot.org>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+40b06a86af225236fdb4@syzkaller.appspotmail.com
+Subject: Re: [PATCH] ALSA: hda: intel: Don't free card in the probe work
+In-Reply-To: <20261012150949.1840175-1-aliamemis@disroot.org>
+References: <20261011200648.1662935-1-aliamemis@disroot.org>
+	<875wz7idx3.wl-tiwai@suse.de>
+	<20261012143508.1830791-1-aliamemis@disroot.org>
+	<87fqybge5a.wl-tiwai@suse.de>
+	<20261012150949.1840175-1-aliamemis@disroot.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="p6rznh6fkmmlu3s7"
-Content-Disposition: inline
-In-Reply-To: <20261010134705.2131-1-andyshrk@163.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/291.809.33
-X-ZohoMailClient: External
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-2
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: AC31A21E37
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[40b06a86af225236fdb4];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -2.01
+
+On Mon, 12 Oct 2026 17:09:41 +0200,
+Ali Ahmet Memiº wrote:
+> 
+> On Mon, 12 Oct 2026 16:57:37 +0200, Takashi Iwai wrote:
+> > OK, that's a problem, indeed.  How about replacing snd_card_free()
+> > with *_when_closed() version that doesn't block in addition?
+> 
+> The work doesn't hang anymore but removing the device while the probe
+> work is running hits the same UAF on the first try.  azx_remove() still
+> gets the card before cancel_delayed_work_sync() and the put_device() in
+> the work frees it:
+> 
+> BUG: KASAN: slab-use-after-free in snd_card_free+0x148/0x160
+> Read of size 1 at addr ffff888007724852 by task sh/97
+> Call Trace:
+>  snd_card_free+0x148/0x160
+>  pci_device_remove+0xb6/0x1d0
+>  device_release_driver_internal+0x38d/0x540
+>  pci_stop_bus_device+0x122/0x170
+>  ...
+> Freed by task 30:
+>  kfree+0x1e8/0x5e0
+>  device_release+0xcf/0x3c0
+>  kobject_put+0x169/0x320
+>  azx_probe_work+0x495/0x1fa0
+>  process_one_work+0x937/0x1800
+> 
+> > Staying the card means that the card slot will be kept, then if you
+> > probe another card afterwards, it'll end up with assignment on another
+> > card slot.
+> 
+> What about calling snd_card_disconnect() in the work on failure?  It
+> releases the slot right away and the card is still freed only in
+> azx_remove():
+> 
+> 	if (azx_probe_continue(&hda->chip, false) < 0) {
+> 		hda->init_failed = 1;
+> 		complete_all(&hda->probe_wait);
+> 		snd_card_disconnect(hda->chip.card);
+> 	}
+> 
+> With that, snd-dummy loaded after a failed probe gets card 0 and 20
+> rounds of the remove race were clean with KASAN.  I can send v2 if this
+> looks fine.
+
+Yeah, that sounds like a plan.
+Care to resubmit a fix with that approach?
 
 
---p6rznh6fkmmlu3s7
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] MAINTAINERS: update my email address
-MIME-Version: 1.0
+thanks,
 
-Hi,
-
-sending this to LKML without any extra receivers is almost the same
-as sending it to /dev/null . I believe this should go through the
-drm-misc tree ; so +cc Heiko, Cristian
-
-On Sat, Oct 10, 2026 at 09:46:48PM +0800, Andy Yan wrote:
-> Switch my contact address to andyshrk@163.com
->=20
-> Signed-off-by: Andy Yan <andyshrk@163.com>
-> ---
-
-FWIW:
-
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-Greetings,
-
--- Sebastian
-
->=20
->  MAINTAINERS | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f53047aa8d3c..17410260baa0 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -8575,7 +8575,7 @@ F:	Documentation/devicetree/bindings/display/panel/=
-synaptics,r63353.yaml
->  F:	drivers/gpu/drm/panel/panel-synaptics-r63353.c
-> =20
->  DRM DRIVER FOR SYNOPSYS DESIGNWARE DISPLAYPORT BRIDGE
-> -M:	Andy Yan <andy.yan@rock-chips.com>
-> +M:	Andy Yan <andyshrk@163.com>
->  S:	Maintained
->  T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
->  F:	Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-> @@ -8928,7 +8928,7 @@ F:	include/linux/platform_data/shmob_drm.h
->  DRM DRIVERS FOR ROCKCHIP
->  M:	Sandy Huang <hjc@rock-chips.com>
->  M:	Heiko St=FCbner <heiko@sntech.de>
-> -M:	Andy Yan <andy.yan@rock-chips.com>
-> +M:	Andy Yan <andyshrk@163.com>
->  L:	dri-devel@lists.freedesktop.org
->  L:	linux-rockchip@lists.infradead.org
->  S:	Maintained
-> @@ -12883,7 +12883,7 @@ S:	Maintained
->  F:	drivers/power/supply/ip5xxx_power.c
-> =20
->  INNOSILICON HDMI BRIDGE DRIVER
-> -M:	Andy Yan <andy.yan@rock-chips.com>
-> +M:	Andy Yan <andyshrk@163.com>
->  L:	dri-devel@lists.freedesktop.org
->  S:	Maintained
->  T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> ---
-> base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
-> branch: master
->=20
-> --=20
-> 2.43.0
->=20
->=20
-
---p6rznh6fkmmlu3s7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrNAuYACgkQ2O7X88g7
-+ppp0A/+LJw+KoDf4/fyKhcO5ZFjEcr/nRYn2qZU+FYAl2BjMusqp2ICAzYhmxf8
-YzW3oypMWCNGyKryTPF1mv41untbEVUTqNBFvTg7/Vf3LzQYLDTrz32ulyICUN8S
-XM2OQbw0r0a6+CmjGIjzrb1CBDmPhs7A56V829r35dGdAln4+auRnrojOcgzN428
-vpbao+7V6fYNWsj8MBScWnibX6Z7aGVe4si8KZ5I/x3CFDEjL7LNCMkuxHHYGUIt
-2OJ+icDa9n4f29QrJ8EgHLK13FtlRbfhpun9MqsHwsZY4pd1MJ5jO4J8/JpSm1KT
-i6AANe/sdRkMX3ZaaP0Y0qlo0qnGgD+Zp0ltZZB2Pz0RQOFaXueJ6bvN5jluwLX7
-PSzd2a3Y1vKn+axm9isz/6MiKfJx8HItJqit11rssvpyIhBm8uNTE6jhnjooKZet
-qRO9GViBvfUabiGVYydBPXN0msn+Cif3rJ0pP4qGOLL6O3qlSMbCjgv/gwvlsJou
-qg8SlFprXWycUrGk6WWDAayINJHJVvM3UFenm/9dikowKVPKMJrBsz1NOfGVaebd
-wuDQfbC9j9Bw1K1jvGmP/9kOOsn9S+xm/YobuvX+QRqvGcXZ3gcxvLmS4cKlwctY
-ij75UU8h+969/Ckj2x/+BaD1wZN4Fg7wPkbgLllARctAqxGNJwY=
-=+hHF
------END PGP SIGNATURE-----
-
---p6rznh6fkmmlu3s7--
+Takashi
