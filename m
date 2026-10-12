@@ -1,146 +1,192 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 64E981DF261;
-	Mon, 12 Oct 2026 11:08:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791803336; cv=none; b=O6q1SayTRts7lh4B+4scKzkBJrAzv8cz1WThYdZcO1ugxxdrr35z/0LnCP8ubHfqSu51tul547Sp54CScURY5YzD6a49p2f7WBxQ/TfRVQv9PtydMcXfge0rG8An5j9Jh+Of3hzCa3Je9ufTG6UN4l8uaftxB3KFP0ciqsqwJ/k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791803336; c=relaxed/simple;
-	bh=1Hcxmhs7YzpUmvxySV5KGDi41fGrFGMMIIK6BavKtUw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=keJACp3NJtkAX+89wVlMfExhAR9TxSxXL2hA/qgrpA+cv00W8AUk8nOJ/wND9kVNdegqxIjYYy9DwEyh/qlr4QgCkXpWPMFF3M7rc6+1sz7sn1sS4c9pu/fBYMxv7IUuTlWqlWfUYLCSBKCjn3x5mY2BNyrRWoFsW3Tal0yPqPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qcB4a4H/; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6D23D5C07;
+	Mon, 12 Oct 2026 11:09:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791803368; cv=pass; b=crSN6FUQfD8Q0fvgWE/fYpp7FkUgOi3h1SS78U1di+AbXiCUkglYyITA2cPYL0Vz6y6VBSw8lKOuzFnnhA0sRFCwlVX3vi/Ka2+gQB4RIhD0wNA5sSN/85J92UqLT6AkwdhlBve60QAxAHzszCys7EexSR3KlIpVf1OPYOFyHQ4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791803368; c=relaxed/simple;
+	bh=P2ClapjNuEAhaLeTQUhvTA2jI4GtQfghK6bt/c/RFbU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=gMdQjyQwEQHX1BRegGMJJstum11bBLtYR60WavgV/ygJ44I81ZiEYlRRgzV4CTwPhtdiXXNnlDeu9flcB3qvFKGgUaNtGkTjTHmJmaNsLU5szn4LWMRNkY39uvrDkzDYzf918UNOJPYJuysMtuQbHaoMVhmfDrerdmf0N8qsdKY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=LCcqgPpB; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=OfaCEm3N; arc=pass smtp.client-ip=85.215.255.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qcB4a4H/"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5510E1655;
-	Mon, 12 Oct 2026 04:08:50 -0700 (PDT)
-Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C4EB93F882;
-	Mon, 12 Oct 2026 04:08:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791803333; bh=1Hcxmhs7YzpUmvxySV5KGDi41fGrFGMMIIK6BavKtUw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qcB4a4H/e3/zyLeuwjBKRzIOz4KxK8O9Pd/mFnszBix80X4+DM9h5gXTQz46PIE2D
-	 651GcNke9l8jveaCHusuOFxFKeF58ksUFNEKrLgjZwKzSEFzYqvOyW4gNDMCICpMjF
-	 4EDe/ST+m/BnWzEW7xfx0XwwZ7y4TdR597OBef9M=
-Message-ID: <68905ee7-83b1-4d5f-a1e6-8ddd2ae291d1@arm.com>
-Date: Mon, 12 Oct 2026 16:38:47 +0530
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="LCcqgPpB";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="OfaCEm3N"
+ARC-Seal: i=1; a=rsa-sha256; t=1791803357; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=qOkaKGXC4HiCHe2i9KEmZiXMk/3rgQIcV9QIZPgLce0vQNEHaAytJ7dB4l9UUzsh4m
+    JmCchpz2i+Y1Na5OUDHNzis/SXd2VLi91c+SPAD0mbzjMKn++RLqpvhqY4RkkN900scz
+    PW+uL7ixdtR5uR3sAr0nVbx1WteAKNV8uu4qJ+oo14Sy3Mq9u5OeXnvDdXL+5xlgFYdi
+    VioBvMbrYpXn0sSxHNalqriyfVakiSXtP6uSmqAzFwQXi8LY97bpbRI1Oh6iD0+nMh7l
+    dNwOq2R4BN+8Sm0HMmjR4cCs7AskJ/UKhYqzW9lXYHUP5TlSKDyUKRdRwUZCFzw0TtYJ
+    j9cA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791803357;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=KA+pgc8ZZ48UwvpuWYp5dT31mq3skmDPd70xJMP+Sh4=;
+    b=Z6pzfFAVzkrFkaZjCV0KREqpeQxjAzqBkT4a6qVGIBWhEK1b0Wsz1rre++yRC3Zj08
+    kL0zlijnXcRc5VXNq9ti8a67xejFkS2GD8ctZAnrh6dvEirKNk+LFmqmOKiine1EJ17t
+    MsHQznP/nhHoLc9aAUMKRJDCLzLfA2MZkOjKKz4KZxh9VELgyLGImqoISkMSqxWJ4Y5r
+    2+9bHJ3sARt7Yv7xzct4tuVr+4sJiVIZ3fgCpytn0dq5ZrFYMnuwWuZYQnyRo3PrAl6n
+    jwB7vgCodfRqPElkujm53zdkOtUAcGFjL0kmmVTwKc+lk7wLZAUM/k3PhfNmfxD+Oc/J
+    zc6Q==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791803357;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=KA+pgc8ZZ48UwvpuWYp5dT31mq3skmDPd70xJMP+Sh4=;
+    b=LCcqgPpBVzq0L8OpgJ0KkpPaf2PXFqy4biXQH54ej3d3jjwZsg+cBiHn5iy/PNgcMH
+    zOAsJkCnAEFQQWPUpfquM4gsrODc7kQ4xIeqjq3Q39sNG5wV52ChB8Lkt7V2hf2K8xfv
+    4atDvwQVIJMs9X7ldBn049Qgh/tP2b/0RbUkoBUnukC7qlwnm0ogF6GhMVgyjBk/ZRFs
+    wXX3JYJFhdR3U5g0LVtCd7MEBfJOTMfjGmqZECOsJCmnYEfczCrpWii2waZzvMtoPRua
+    1NqDjzBaSABgnkPFrfovt+Kl5z1EMuQuGl+xWHXOzid4mLeIrS3OPIkzdz/1lOqH/SBE
+    DKeg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791803357;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=KA+pgc8ZZ48UwvpuWYp5dT31mq3skmDPd70xJMP+Sh4=;
+    b=OfaCEm3NV1tjpibiGzwLo+YtuNbqemGwSXORN79JaN+z/chkyZllFd6CnPok4bCRWB
+    F8+uHGuhZ+/RfPpkD+AQ==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZuk"
+Received: from [10.176.237.108]
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id z04e1c29CB9G6G4
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Mon, 12 Oct 2026 13:09:16 +0200 (CEST)
+Message-ID: <91cc71e731252e372d6cbfddf6a9f6ebbdf7bcca.camel@iokpp.de>
+Subject: Re: [PATCH] scsi: ufs: docs: Describe how to test with QEMU
+From: Bean Huo <beanhuo@iokpp.de>
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
+ <mkp@kernel.org>,  "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>, Jonathan Corbet <corbet@lwn.net>
+Cc: Bart Van Assche <bvanassche@acm.org>, Alim Akhtar
+ <alim.akhtar@samsung.com>,  Shuah Khan <skhan@linuxfoundation.org>, Randy
+ Dunlap <rdunlap@infradead.org>, Jeuk Kim <jeuk20.kim@samsung.com>,
+ linux-scsi@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Date: Mon, 12 Oct 2026 13:09:14 +0200
+In-Reply-To: <20261011103319.820657-1-stanleyjhu@google.com>
+References: <20261011103319.820657-1-stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/12] selftests/mm: improve mremap_test
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: akpm@linux-foundation.org, david@kernel.org, liam@infradead.org,
- vbabka@suse.com, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- shuah@kernel.org, jhubbard@nvidia.com, kaleshsingh@google.com,
- anshuman.khandual@arm.com, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261006092511.145776-1-sarthak.sharma@arm.com>
- <3a0673a6-744b-45a1-80fd-737a366fafc4@arm.com> <asyxQbp8EfVE9yQs@gremlin>
-Content-Language: en-US
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-In-Reply-To: <asyxQbp8EfVE9yQs@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Lorenzo!
+Stanley,=20
 
-On 10/12/26 3:43 PM, Lorenzo Stoakes (ARM) wrote:
-> On Mon, Oct 12, 2026 at 10:20:45AM +0530, Sarthak Sharma wrote:
->> On 10/6/26 2:54 PM, Sarthak Sharma wrote:
->>> This series fixes correctness issues in mremap_test, simplifies its
->>> test infrastructure and strengthens validation of remapped mappings.
->>>
->>> Patches 1-3 remove unused command line handling, unnecessary cleanup
->>> checks and redundant errno handling. Patch 4 converts the test to use
->>> kselftest helpers and removes manual failure tracking.
->>>
->>> Patches 5-8 fix handling of unavailable userfaultfd support, unexpected
->>> mremap() successes, data-corruption failures and cleanup after mmap()
->>> failures. Patch 9 removes perf tests and timing infrastructure.
->>>
->>> Patches 10 and 11 replace threshold-based random-data validation with
->>> sampled validation and a deterministic data pattern. Patch 12
->>> strengthens multi VMA validation by also checking the mapping state
->>> of holes after remapping.
->>
->> [...]
->>
->>> ---
->>> Sarthak Sharma (12):
->>>   selftests/mm: mremap_test: remove command line options
->>>   selftests/mm: mremap_test: drop munmap() checks from cleanup paths
->>>   selftests/mm: mremap_test: simplify errno handling
->>>   selftests/mm: mremap_test: use kselftest helpers
->>>   selftests/mm: mremap_test: skip test when userfaultfd is unavailable
->>>   selftests/mm: mremap_test: fail unexpected mremap successes
->>>   selftests/mm: mremap_test: fail on data corruption
->>>   selftests/mm: mremap_test: handle cleanup after mmap failures
->>>   selftests/mm: mremap_test: remove perf tests and timing
->>>   selftests/mm: mremap_test: replace validation threshold with sampled
->>>     checks
->>>   selftests/mm: mremap_test: replace random data with deterministic
->>>     pattern
->>>   selftests/mm: mremap_test: strengthen multi VMA validation
->>>
->>>  tools/testing/selftests/mm/mremap_test.c | 701 ++++++++++-------------
->>>  1 file changed, 291 insertions(+), 410 deletions(-)
->>>
->>
->> I wanted to address the concern Sashiko has over this patch series [1].
->> It says that mremap(..., MAP_FIXED) over a range containing multiple
->> VMAs should unmap the whole range first and then map the VMAs.
-> 
-> I don't think you need to spend time worrying about sashiko stuff about
-> mremap() behaviour in a test series :)
+Thanks, this is very useful, a few comments as below:
 
-:)
+On Sun, 2026-10-11 at 18:33 +0800, Stanley Jhu wrote:
+> QEMU emulates a UFS host controller and logical units, but the kernel
+> tree does not mention it, so developers without UFS hardware have no
+> documented way to exercise the UFS core.
+>=20
+> Add a short section with the required kernel options, an example QEMU
+> command line, and what the emulation does not cover.
+>=20
+> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+> ---
+> =C2=A0Documentation/scsi/ufs.rst | 33 +++++++++++++++++++++++++++++++++
+> =C2=A01 file changed, 33 insertions(+)
+>=20
+> diff --git a/Documentation/scsi/ufs.rst b/Documentation/scsi/ufs.rst
+> index a7b2b2ed1c3a..1ff1c8218bf1 100644
+> --- a/Documentation/scsi/ufs.rst
+> +++ b/Documentation/scsi/ufs.rst
+> @@ -19,6 +19,7 @@ Universal Flash Storage
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 3.4 SCSI Error handling
+> =C2=A0=C2=A0=C2=A0 4. BSG Support
+> =C2=A0=C2=A0=C2=A0 5. UFS Reference Clock Frequency configuration
+> +=C2=A0=C2=A0 6. Testing with QEMU
+> =C2=A0
+> =C2=A0
+> =C2=A01. Overview
+> @@ -208,3 +209,35 @@ the UFS specification. UFS subsystem will attempt to=
+ read
+> the value when
+> =C2=A0executing common controller initialization. If the value is availab=
+le, UFS
+> =C2=A0subsystem will ensure the bRefClkFreq attribute of the UFS storage =
+device is
+> =C2=A0set accordingly and will modify it if there is a mismatch.
+> +
+> +6. Testing with QEMU
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +QEMU emulates a UFS host controller as a PCI device named "ufs" and
+> +logical units named "ufs-lu". This can be used to test changes to the
+> +UFS core and to ufshcd-pci without UFS hardware.
+> +
 
-> 
->>
->> But this is not the case, as was discussed on the list earlier as well.
->> We iterate over the VMAs in the range and only unmap and then map the
->> region that the VMAs occupy. IOW, as quoted by Lorenzo [2], "the
->> sematics are such that gaps are not propagated (i.e. it is as if you
->> mremap()'d each individually)". So if we remap over an existing mapping,
->> the mapping region on which a hole is remapped should not be affected at
->> all. So this is a false positive.
-> 
-> I will be removing the gaps stuff in any case (as discussed elsewhere
-> too).
-> 
-> It's problematic, more so for the fact stuff can get mapped in gaps before
-> the mremap() operation.
+should here state the minimum QEMU version for the ufs device, and for mcq=
+=3Don,
+since the older version QEMU may not have them or one of them.
 
-Yup, makes sense.
+> +Enable the following kernel options on top of the architecture
+> +defconfig::
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0CONFIG_SCSI_UFSHCD=3Dy
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0CONFIG_SCSI_UFSHCD_PCI=3Dy
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0CONFIG_BLK_DEV_SD=3Dy
+> +
+> +Example for an arm64 guest with one 1 GiB logical unit::
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0qemu-img create -f raw ufs.img=
+ 1G
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0qemu-system-aarch64 -M virt -c=
+pu max -smp 4 -m 2G -nographic \
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0-kernel arch/arm64/boot/Image -initrd rootfs.cpio.gz \
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0-append "console=3DttyAMA0" \
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0-drive file=3Dufs.img,if=3Dnone,id=3Dlu0,format=3Draw \
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0-device ufs,id=3Dufs0,serial=3D0001,mcq=3Don \
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0-device ufs-lu,drive=3Dlu0,bus=3Dufs0,lun=3D0
+> +
+> +The logical unit appears as a SCSI disk (/dev/sda).
 
-> 
->>
->> While here, requesting for some feedback on this series, if anyone has
->> had a chance to look at it :).
-> 
-> Thanks for the series, this cycle has been very busy so I think this is one
-> for the next cycle (i.e. targeting 7.5).
-> 
-> So I'd recommend resending at 7.4-rc1?
+maybe here adds "for example"-> The logical unit appears as a SCSI disk (fo=
+r
+example /dev/sda)
 
-Sure, I'll resend around that time.
+> Drop "mcq=3Don" to
+> +test the single doorbell mode instead of MCQ. The same -device options
+> +work with qemu-system-x86_64.
+> +
+> +The emulation does not model UniPro, M-PHY, power mode changes,
 
-> 
->>
->> [1]
->> https://sashiko.dev/#/patchset/20261006092511.145776-1-sarthak.sharma%40arm.com
->>
->> [2] https://lore.kernel.org/linux-mm/agH1ZSdX_7QF8P_I@lucifer/
->>
-> 
-> --
-> Cheers, Lorenzo
+I am cconfused by this statement, since I checked QEMU, the latest QEMU acc=
+epts
+some UIC commands such as hibern8 enter/exit, if I am correct, here "accept=
+s but
+does not model" would be more precise, you can check  hw/ufs/ufs.c:
+
+static void ufs_process_uiccmd(UfsHc *u, uint32_t val)
+
+> +hibernation or clock gating hardware, and vendor host drivers are not
+> +exercised. Changes in those areas still need testing on real hardware.
+
+
+Kind regards,
+Bean
 
