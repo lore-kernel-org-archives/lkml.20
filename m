@@ -1,89 +1,189 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DBB30D406;
-	Mon, 12 Oct 2026 13:13:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8716849159B;
+	Mon, 12 Oct 2026 13:13:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791810784; cv=none; b=YycgwS7yLFFdqp+x++6FziUVfH8BY4hi9p/jG2ilDR6vox0DV9g2sVperbhvzpKN02RrpgkRjA8usiO6OVwjlcsrLNmSowTZIhV4ADFnDMnHUOlLoK6egYfWX5dmqMit2XbjsyRTA5K79WpMQ1LWcN9zKBGCPVc5JWusuODwp2s=
+	t=1791810791; cv=none; b=QQ6eWjhSpPRew87L1pYEPv+orMI2gFdNBEwC8elPDWO7b/HJ9I0/IU86C8vnQq51EIr21jW+JVWreLr0bX1uq5mk0ryL7BWTXCGRvzyHRcInEnfrlnyKAAjJPFHsPOJXONLbO93DSmvMa/sJ9S2jg2qECW4PTToapkMeDcgQS6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791810784; c=relaxed/simple;
-	bh=P454wXS9DdByiiPHUTNVgjn5IjNWcOJRLu+jD4eg/Pc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SaZB67FFtnOccWeiE8SGdaYjGF927nWfvHEiEXHSUdjtQKIYJpINvWYlW1cQ7yXzS2qUCqSF9pX8MmUu/McZt92qpq07Ql+L7u1QhNM+mFLct0cQBC15CYek6XZeV7CpdfuU8JQW75PKHDXtkRUGW/h3jFnOnJH5/MXiA1YR1ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KDpfWVnL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791810791; c=relaxed/simple;
+	bh=/I+jlN+d/FAE42fcXTvmir+ecIF2fyv2Zy+QazhUheM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EXGkj7VKmanoPPTc7dC6qg2vgMr+aSBSV2Tmg6h1ZOj6paWAiSZyknoD5Cql8rMxQtBhz/txWZXPJnwZBB4kZUyNOlWC0eYmM9Wn7F/tl8awozcf4XAc0QbCvy838j7+xsfDtmWRXxoICwzZl5RBCc2q2+BhO36hsCQxSYJxW5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fB8mi6Np; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KDpfWVnL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B66A21F0089C;
-	Mon, 12 Oct 2026 13:12:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fB8mi6Np"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1FD1F0089B;
+	Mon, 12 Oct 2026 13:13:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791810782;
-	bh=4I5B7wBeXWUXzc9QUIb5L0wjsowp8PcPTfJjf0v/5MY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KDpfWVnLq9UsVjiuPGdSN9B+cXar5q+l6DBPzhmkDs+Ueb+r/Z8+7AbiaQcbXCLc9
-	 VNOnSmW8xS6bS/TAcyQ0f/pSevPXUEVgqfdbxP3WlBTOMB/gY12NSlqp3+whay9o8u
-	 SfYjiqBSX2o4k3933OLtpyYsadTur2naFzobQrigUJwNpGTMCuSa4cotQ63NgKCJiU
-	 Si3VBhD4g2S5Nx4OULNzEaPPu0qIdUIZ8JnRW+28Kb7x0GLpy8BBhN8su+PDY+YWum
-	 JGXgi0p0A69k2YrSGKqWSjLUZW1fpovIgDPH9GwXKDR+IKcL1JCaw4IqS7rJkndVkz
-	 3pDHjpNGHf+kA==
-Date: Mon, 12 Oct 2026 15:12:53 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Manuel Huber <manuelh@nvidia.com>
-Cc: Andrew Halaney <andrew@amutable.com>, 
-	"bot+bpf-ci@kernel.org" <bot+bpf-ci@kernel.org>, "ast@kernel.org" <ast@kernel.org>, 
-	"daniel@iogearbox.net" <daniel@iogearbox.net>, "andrii@kernel.org" <andrii@kernel.org>, 
-	"agk@redhat.com" <agk@redhat.com>, "snitzer@kernel.org" <snitzer@kernel.org>, 
-	"mpatocka@redhat.com" <mpatocka@redhat.com>, "bmarzins@redhat.com" <bmarzins@redhat.com>, 
-	"dhowells@redhat.com" <dhowells@redhat.com>, "jarkko@kernel.org" <jarkko@kernel.org>, 
-	"paul@paul-moore.com" <paul@paul-moore.com>, "jmorris@namei.org" <jmorris@namei.org>, 
-	"serge@hallyn.com" <serge@hallyn.com>, "ebiggers@kernel.org" <ebiggers@kernel.org>, 
-	"tytso@mit.edu" <tytso@mit.edu>, "corbet@lwn.net" <corbet@lwn.net>, 
-	"skhan@linuxfoundation.org" <skhan@linuxfoundation.org>, "rdunlap@infradead.org" <rdunlap@infradead.org>, 
-	"dm-devel@lists.linux.dev" <dm-devel@lists.linux.dev>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"keyrings@vger.kernel.org" <keyrings@vger.kernel.org>, 
-	"linux-security-module@vger.kernel.org" <linux-security-module@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>, 
-	"fsverity@lists.linux.dev" <fsverity@lists.linux.dev>, "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, 
-	"martin.lau@kernel.org" <martin.lau@kernel.org>, "eddyz87@gmail.com" <eddyz87@gmail.com>, 
-	"yonghong.song@linux.dev" <yonghong.song@linux.dev>, "mason@kernel.org" <mason@kernel.org>, 
-	"ihor.solodrai@linux.dev" <ihor.solodrai@linux.dev>, Fan Wu <wufan@kernel.org>
-Subject: Re: [PATCH bpf-next v2 1/3] keys: add KEY_SPEC_DM_VERITY_KEYRING
-Message-ID: <20261012-wusste-werfen-loben-94aac9fd9cbe@brauner>
-References: <20261008-ajhalaney-dmverity-key-identifier-v2-1-008456d189cb@amutable.com>
- <910460850fd4163dadb804fbdf6c17f6a9dfec060f4d865a17df87336ea3e165@mail.kernel.org>
- <asgQxTE-6YtEgvYZ@toolbx>
- <DM4PR12MB61364B4F81AE7A8D1FB71E1BDE902@DM4PR12MB6136.namprd12.prod.outlook.com>
+	s=k20260515; t=1791810790;
+	bh=myeibkSBWUeD/TYhfikZwsBFUkc4eRrceW+dihMhzhs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=fB8mi6NpzeQZSPp1QB9G0x+fZt7POh8384PpwLX6EQmA1e/x8xzXYs6zCNU19qikf
+	 Oup9+VmBUv0OqwgfTJ3n2xjXSk6+5HGEIckUU1n1JtVTn2R3XmwZ9DmoyVYj2c/9R1
+	 rjDoM9bS11MqxMh9SBLVEUolWNqJlibopibGtMUmbVxYAQSeh8/3sPJXoUxfKD2Lhi
+	 dtWR/aTFtMtSslozfafMNIGJBLBxi5H1GXz4vtjfqv2zS/DbKWcIPG/k1Og8Akd7Ms
+	 FwgAISgx8XmI0hukJIH6GcbzO0r2ejkZaKz7oQUj2raAVmcKlPXSJ2SgnmOOVgTZNS
+	 ufxiCMHTecGVw==
+Subject: Re: [PATCH net] net: jme: keep RX MAC clock enabled for WoL
+From: netdev-bot+sashiko@kernel.org
+To: franck.baur.67@gmail.com
+Cc: cooldavid@cooldavid.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 12 Oct 2026 13:13:09 +0000
+Message-ID: <179181078924.434549.16666867636447785126@kernel.org>
+In-Reply-To: <20261011-jme-wol-submit-v1-1-9cc033e259e4@gmail.com>
+References: <20261011-jme-wol-submit-v1-1-9cc033e259e4@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <DM4PR12MB61364B4F81AE7A8D1FB71E1BDE902@DM4PR12MB6136.namprd12.prod.outlook.com>
 
-On Sun, Oct 11, 2026 at 09:35:43AM +0000, Manuel Huber wrote:
-> On Thu, Oct 08, 2026 at 02:57:00PM -0700, Andrew Halaney wrote:
-> > With the BPF keyring ID already being merged here in bpf-next, plus
-> > Jarkko's feedback/RB, I continued following the current pattern instead
-> > of walking back the BPF keyring ID, and dealing with the
-> > builtin/module/rodata differences I alluded to that would make that
-> > approach a little more annoying (at least with how I thought it thru).
-> 
-> Another data point for this design choice: after initial discussions
-> with Fan Wu, I am about to propose a dedicated .ipe keyring for IPE
-> policy-signature verification. The keyring would be exposed to
-> userspace so that a trusted entity can provision keys, modeled after
-> the .dm-verity keyring.
-> 
-> I do not want to introduce churn to this discussion. I am happy to
-> establish the reserved ID range and generic registration interface
-> upon proposing my changeset, to establish this separately, or to
-> follow any other suggestions. Getting guidance for this subject ahead
-> of time for the case where 'yet another keyring' is introduced would be
-> highly appreciated.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-I think another keyring for just .ipe is fine if they want that. I
-wonder what you use ipe for. I've implemented ipe via a simple bpf lsm
-in userspace (well, for dm-verity. We don't use IMA or fsverity.). It's
-available in systemd itself. 
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The patch turns the RX MAC clock on before arming WoL, but
+  resume never turns it back off.
+- [Medium] The patch's guarantee ('Keep the RX MAC clock running while
+  WoL is armed') can be undone by jme_link_change_work() running at the…
+
+--
+
+net: jme: keep RX MAC clock enabled for WoL
+
+This patch turns the RX MAC clock back on in jme_powersave_phy() just
+before jme_clear_pm_enable_wol() arms WoL. Earlier in the suspend path the
+MAC reset leaves GPREG1_RXCLKOFF set. On a JMC250 rev 03, Magic Packet
+detection does not work while the RX MAC clock is gated.
+
+> diff --git a/drivers/net/ethernet/jme.c b/drivers/net/ethernet/jme.c
+> index 25ec5f757c68..27ac7405f76f 100644
+> --- a/drivers/net/ethernet/jme.c
+> +++ b/drivers/net/ethernet/jme.c
+> @@ -1892,6 +1892,7 @@ jme_powersave_phy(struct jme_adapter *jme)
+>  		jme_set_100m_half(jme);
+>  		if (jme->reg_pmcs & (PMCS_LFEN | PMCS_LREN))
+>  			jme_wait_link(jme);
+> +		jme_mac_rxclk_on(jme);
+
+[Severity: Medium]
+Does anything turn the RX MAC clock back off on resume?
+
+jme_mac_rxclk_on() changes the cached copy as well as the register:
+
+    jme->reg_gpreg1 &= ~GPREG1_RXCLKOFF;
+    jwrite32f(jme, JME_GPREG1, jme->reg_gpreg1);
+
+jme_resume() calls jme_clear_pm_disable_wol(), jme_phy_on(),
+jme_set_link_ksettings() or jme_reset_phy_processor(),
+jme_phy_calibration(), jme_phy_setEA(), jme_reset_link() and
+jme_start_irq(). None of them calls jme_mac_rxclk_off() or
+jme_reset_mac_processor().
+
+jme_link_change_work() also skips its disable/reset block the first time
+it runs after resume, because jme_suspend() already called
+netif_carrier_off():
+
+    if (netif_carrier_ok(netdev)) {
+        jme_disable_rx_engine(jme);
+        jme_disable_tx_engine(jme);
+        jme_reset_mac_processor(jme);
+        ...
+
+After each WoL suspend/resume, if the link stays down, the RX MAC clock
+keeps running while the RX engine is disabled. Before this patch it was
+gated in that state.
+
+If the link comes up, jme_check_link() writes the cached reg_gpreg1, which
+no longer has RXCLKOFF set, to JME_GPREG1. jme_enable_rx_engine() then
+programs RXCS, RXDBA, RXNDA and RXQDC while the clock is already running.
+Its trailing jme_mac_rxclk_on() then has nothing to do.
+
+Doesn't this skip the order that commit 854a2e7c331a ("jme: Safer MAC
+processor reset sequence") introduced, where the RX engine is programmed
+with the clock gated and the clock is started afterwards?
+
+The commit message says "Keep the RX MAC clock running while WoL is
+armed". However, the clock stays on after WoL is disarmed, until the next
+link-down runs jme_disable_rx_engine() and jme_reset_mac_processor().
+
+Would calling jme_mac_rxclk_off() in jme_resume(), for example right after
+jme_clear_pm_disable_wol(), keep the WoL fix and restore the previous
+state?
+
+[Severity: Medium]
+Can jme_link_change_work() running at the same time gate the clock again
+after this call?
+
+jme_link_change_work() calls jme_disable_rx_engine() and
+jme_reset_mac_processor(). Both end in jme_mac_rxclk_off(). Neither
+caller of jme_powersave_phy() waits for linkch_task to finish first.
+
+On the suspend path, jme_suspend() only does:
+
+    atomic_dec(&jme->link_changing);
+
+The work uses that atomic as an ad-hoc lock:
+
+    while (!atomic_dec_and_test(&jme->link_changing)) {
+        atomic_inc(&jme->link_changing);
+        ...
+    }
+
+If the work has already passed that gate, the counter just drops to -1 and
+suspend continues without waiting. jme_stop_irq() masks the device
+interrupt but does not flush or cancel linkch_task. schedule_work() puts
+the work on system_wq, which is not freezable.
+
+Suppose the work is preempted after its netif_carrier_ok() check.
+jme_suspend() can then run the new jme_mac_rxclk_on() and arm PMCS. When
+the work resumes, it resets the MAC and gates the clock. If the link is
+down, the work never turns the clock back on.
+
+On the shutdown path:
+
+    jme_shutdown()
+        jme_powersave_phy(jme);
+        pci_pme_active(pdev, true);
+
+there is no jme_stop_irq(), no link_changing gate and no
+cancel_work_sync(). With the interface up, jme_set_100m_half() forces
+100M/half. That drops the link, raises INTR_LINKCH and schedules
+linkch_task. With the default reg_pmcs = PMCS_MFEN, jme_wait_link() is
+skipped, so jme_shutdown() returns right after the clock is turned on.
+
+If power-off happens before the link comes back up, could the work reset
+the MAC and leave WoL armed with RXCLKOFF set?
+
+jme_mac_rxclk_on(), jme_mac_rxclk_off() and jme_check_link() also do
+unlocked read-modify-writes of jme->reg_gpreg1, so concurrent updates to
+that cached value can be lost.
+
+The missing synchronization with the link-change work and the atomic gate
+are older than this patch. But this fix only works if nothing gates the
+clock after it is turned on.
+
+Should linkch_task be stopped from rescheduling and drained (for example
+with cancel_work_sync()) before WoL is armed?
+
+>  		jme_clear_pm_enable_wol(jme);
+>  	} else {
+>  		jme_phy_off(jme);
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261011-jme-wol-submit-v1-1-9cc033e259e4%40gmail.com
