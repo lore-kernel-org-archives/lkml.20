@@ -1,72 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-123.mail.aliyun.com (out28-123.mail.aliyun.com [115.124.28.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948C744A416;
-	Mon, 12 Oct 2026 09:08:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FE721D00A;
+	Mon, 12 Oct 2026 09:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791796082; cv=none; b=lpQk7U1EgY3bC3syP772KZ/XVCYncfPwlp4MDAPt0kUy+k7olzrbYfz2H9cU/xDw+H7tZu10s2SCyMGk9wkw/wafPvNcYQM8NrhjEhWsrzIWk6WOUh9T8vw4HhDIaHh1sDsLAtcjetgf/5IyW/+HVEHS0mKrlCHJYGgbG1NXnJ4=
+	t=1791796120; cv=none; b=mygkcxgrQlNbbtFlCoj96/q1pnRjBAGxTBdQCdRHnSb73ufzLIi5Bfz3y7BZqwFCk8kg0eFb+nd0Y9mNG8QOZFogYCNujK4qm9xKOQ/dVcUiUM7xr7HSggLLDBAnI0B/TRT+jg1yJA9Bw3pcKfqSiGy1mpqsyfwNn7qEdtrzkeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791796082; c=relaxed/simple;
-	bh=goq+JeHIaRhlCLADmOhVfg9jBpIH59a4o5nfeW4t5k0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VptVpPjd+C0axpT4dyz52d2LKCE4XYNGmlO2ggxraHeQhEuXi9fYntaOTJ3KeDb5JGYKXt6nft/I2ERA3l6rGzL3Qdfy9swGTJCHctwytOpRwRioOzdY6uVj21hYPti4Rc6IfJn1gOYQWjjx/G1E9u8onbBHqgee1cbhmwmTxlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cFJcVMsW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791796120; c=relaxed/simple;
+	bh=MaOtwmXSzQetw/GC1jtFEpyfaEqNpUZoYdI9UQryYpY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TiTyrbPoSbNHBaE7j2K9CXz0FtERBnChwHCoMxpwRG+E5iYpv9cDzdfuQ27UURZUEOaL+NzFHaHqeKCDP49GEJMniz4giSwMWrqsAA+pU8FUgB8O0O5QPbS6eeknIocau2kp2NHZEA4PMfbAH8Un+h0y1kY1iQPWa8nN2yAqDJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=UNSJ0/vC; arc=none smtp.client-ip=115.124.28.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cFJcVMsW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB5A91F0089B;
-	Mon, 12 Oct 2026 09:07:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791796081;
-	bh=goq+JeHIaRhlCLADmOhVfg9jBpIH59a4o5nfeW4t5k0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cFJcVMsWKwWrwG2WSeEddAr+C5puvHsl0QWEUiGCwGtadC23C7OeusX33uBRdc/Tp
-	 fzIHdehL/zlfEvtyrVpFSTGkxz5VyM7Txn6jgTXIICH8d0EtxDoLnCfEpYNbbObgdt
-	 UzyRMlWZeVegRPRS6LpEjua4yb9nqFnDJt7tb07eGGK2Y269QqMf7GHzZPm1cpeUw1
-	 q/JYvNIr5kAbeSwmPO9L3VHa9wkuLtCyT2HxejVLvynm15H7dexZhkJgxl0vYaT9Sg
-	 iBMZDlZkAJFA6IFKEpepWY0xRnr5YOfhMsPlzrkMTUolP2bZZtYbaK+Yx4+ui6tjpR
-	 P9XPCbFMMdCGA==
-Date: Mon, 12 Oct 2026 11:07:56 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Igor Velkov <iav@iav.lv>
-Cc: Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Rosen Penev <rosenp@gmail.com>, 
-	Gregory Clement <gregory.clement@bootlin.com>, Andrew Lunn <andrew@lunn.ch>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: gpio: pca95xx: add onnn,pca9655 with
- nxp,pca9555 fallback
-Message-ID: <20261012-cuddly-pastel-stork-1d11e5@quoll>
-References: <20261009-helios64-pca9655-v1-0-673ee4432650@iav.lv>
- <20261009-helios64-pca9655-v1-1-673ee4432650@iav.lv>
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="UNSJ0/vC"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1791796115; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=MG/7cNd6lBR1DZ0PeYAxMraG9cwX8AGNJsr6BTnFceI=;
+	b=UNSJ0/vCYFhIB2X+4COzG4FtbriM/mnb2YiDqpc0YySUhmx87lhkqBkepCz9Q3y14ylk9VBps5NyJQ99ijzkXj/m0CQ7iYk2dYpfz4iMaOzZjVfe2ZKM4p0MO11q8H8sBzWtJviGDFHuNeB8svbuPqo8pD2CtuR2QgneNCzMpbM=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.09176327|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00505407-0.000686733-0.994259;FP=15373143721677379251|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045213054;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jZykkhh_1791796114;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jZykkhh_1791796114 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 12 Oct 2026 17:08:34 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liuwb@xiaopeng.com
+Subject: [PATCH] NFSv4: fix bitmap length check in decode_bitmap()
+Date: Mon, 12 Oct 2026 17:08:34 +0800
+Message-ID: <20261012090834.920912-1-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261009-helios64-pca9655-v1-1-673ee4432650@iav.lv>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 08:45:36PM +0000, Igor Velkov wrote:
-> The ON Semiconductor PCA9655E is a 16-bit I2C GPIO expander that the
-> pca953x driver handles as a PCA9555: both entries of its OF match
-> table carry OF_953X(16, PCA_INT), and onnn,pca9655 has been there since
-> commit 6d49b3a0f351 ("gpio: pca953x: Add support for the On Semi
-> pca9655"). Document it with nxp,pca9555 as the fallback, the form the
-> comments in armada-388-clearfog.dtsi and armada-388-helios4.dts ask
-> for. The I2C core tries OF matching first, so the fallback form
-> probes; tested on Helios64, the first user.
+decode_bitmap() reads attrlen from the callback message and passes
+attrlen << 2 to xdr_inline_decode() as the number of bytes to
+consume.  The shift is done in 32-bit arithmetic, so an attrlen of
+0x40000000 wraps to zero, the bounds check in
+__xdr_inline_decode() passes, and the subsequent reads of
+bitmap[0..2] walk up to 12 bytes past the end of the received
+buffer.
 
-Last sentence is redundant. Patches should not explain standard Linux
-mechanics.
+Reject attrlen values larger than 3, the size of the bitmap array.
 
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+---
+Verified with an ASAN build of an exact user-space replica of
+decode_bitmap() and __xdr_inline_decode(): attrlen=0x40000000 with
+the message ending right after the attrlen word results in a
+heap-buffer-overflow READ of size 4, 0 bytes after the allocation.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ fs/nfs/callback_xdr.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Best regards,
-Krzysztof
+diff --git a/fs/nfs/callback_xdr.c b/fs/nfs/callback_xdr.c
+index 88e1af0fd..bea967e0c 100644
+--- a/fs/nfs/callback_xdr.c
++++ b/fs/nfs/callback_xdr.c
+@@ -109,6 +109,9 @@ static __be32 decode_bitmap(struct xdr_stream *xdr, uint32_t *bitmap)
+ 	if (unlikely(p == NULL))
+ 		return htonl(NFS4ERR_RESOURCE);
+ 	attrlen = ntohl(*p);
++	/* bitmap[] has only 3 words; also stops attrlen<<2 from wrapping */
++	if (unlikely(attrlen > 3))
++		return htonl(NFS4ERR_BADXDR);
+ 	p = xdr_inline_decode(xdr, attrlen << 2);
+ 	if (unlikely(p == NULL))
+ 		return htonl(NFS4ERR_RESOURCE);
+-- 
+2.43.0
 
