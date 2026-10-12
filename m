@@ -1,94 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6968E331EB7
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:22:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 160E713A258;
+	Mon, 12 Oct 2026 02:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791771728; cv=none; b=kqknCjpz98yo3Z5eGcqfIU8UW8RVBUeBtAriQITFQnKRBnjL8bWhdRb6/TxwH8Rhobv/BGC+d7I8nQmhx1XWOR3j61eAvgla7SK48LUNvqV6FOKzJeM1LaOgRzfsLOvVLBGmCmOOwz7NaoJzRUz8OU+sR/YTjHnXu6szCJ+rUFY=
+	t=1791772085; cv=none; b=l87u6w40Weywi1MSXe1ELnTmaZ8SbWFIhstYlrIsc2IxLtxWHlliEqWvJdLq2P6qAgC02jOCQdLTC/AgKGer6DQz0jehgdhTvtrwuO5Wh1Ks3f5lRlIGYsALTanfkhCiOtN/PIy6WbJq9Dr7TkT4Y9/d+bwHLy2tLd5dXQzkrWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791771728; c=relaxed/simple;
-	bh=Ymr2M8tmbeArtnwibozcSm+gURIEMEPwfokPOMw4nPE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Y+vAwlye7U9LExfzowMJoOpxBLEOdhbiaKbOpLB8DrRHHh6ikmv8fkCvQ9ODqKut2UhqwedGUp3WvxokBlkggX5LfaiMhb5Sx1JcI5csLpyt0OmfJEeBj7dzOIfLJPzKH6qjmcsBoQgJNPoIpCUsY/59smxlnKkrAnyo66N2DfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GbI7a29V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791772085; c=relaxed/simple;
+	bh=Oqwdrll2litYTk46snNda/ip8sTW7IigWnTE28krcMc=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
+	 In-Reply-To:Content-Type; b=kEFgvszjYEr3MC+/85JtxgtzuBRs2frNFPakfSSYvgDjOYGp/wCX5v4uHlB1PXxctP3HsjsnyB0tDrO2lWnZ8iCFpQl1hkAp8UDPnSURXmQRYZ99yOCHgn4fl1+riGkqNLS0gzDatPUCyfhtBnrldY1SHYfgNjRdiwAAXK9ThBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Tl5PVJf9; arc=none smtp.client-ip=113.46.200.218
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GbI7a29V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22ADF1F0089D
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:22:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791771727;
-	bh=u9uzcr9frkzVZVmeQUgcs1aHQ1jhJPMLYSxLsi7p5FE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GbI7a29V1lEbb3VAw9K0Achacd19fDBLBA1aTAZ7fvgkMeGdUMWLiHai5aMRn/IYW
-	 8muxmZnOXre70OyCTDQmaYQb8X0OEeNZXzqjpaCxLr54TjPrNFOfBzfoUkg80mEmvs
-	 rFIiHZs524us+P8UsoTCw0uzxt8i/mBsNNpEDFe6RutrpLI3aaHRoyzsfPadc84EOZ
-	 RYIoXn4JtW+/TwR0L7z97Lly7IDCa+MugD99N5ov3uAzrxNheSW9oJyHB+WBPXI/M5
-	 pNbCMYQfCjnlc2vRGGDAx6Xf8KrGQ8FFkXhCRFZHxVOTO/I2V1sT+fH2zmIr/psdMZ
-	 s51aoMvjebQhQ==
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so1973833a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:22:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzS4Lrsq4mbfPouXRQcR0Uy8Y1sH1RKbxoAssdOaGCw3kGCrlshFo3sHTve8MdwONIr0fCBKmmh63cr1Qo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwM7qZdQYoJpFuP72z28VWEc7i4JDaUjMDmO037yL8PpXinMOd
-	udJHdA4h6C+RWSEtAaBFEIrIwstYJC79i2kfc2DJKvFBPIZn7+NSmW5Hcmohi080SlSahMjWl7K
-	+6OHoQn0gX+DyACuY0at9TZKkZ/9ZMIU=
-X-Received: by 2002:a17:907:bb49:b0:c29:62d8:68af with SMTP id
- a640c23a62f3a-c31a9ffda78mr775633966b.47.1791771725753; Sun, 11 Oct 2026
- 19:22:05 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Tl5PVJf9"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=2Mc6VbMHK2g87/p5M/nYNGzz6kQ/wmXjSxwi+N0uiwc=;
+	b=Tl5PVJf9DImk2Ad3jqzV7/AmYEwvMO6x5wie5P8Hqa84S00PbhwIy/xtzHfW7bX0f7W+n3kvX
+	ZbUnJ5LQYJl5yQpd2V/mfB6bi9F7O65yWc2KmTw/n5YKoBeuEWrtWy9/kLgHHdnTXm6PgU7AW8Z
+	boFqfGuAP7HuSedptCr3U58=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4j31Jl3gr7zpStW;
+	Mon, 12 Oct 2026 10:15:19 +0800 (CST)
+Received: from kwepemr500012.china.huawei.com (unknown [7.202.195.23])
+	by mail.maildlp.com (Postfix) with ESMTPS id AB7D340579;
+	Mon, 12 Oct 2026 10:27:50 +0800 (CST)
+Received: from [100.103.109.54] (100.103.109.54) by
+ kwepemr500012.china.huawei.com (7.202.195.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 12 Oct 2026 10:27:49 +0800
+Message-ID: <19776b93-8c12-4c08-8237-a9c08385b511@huawei.com>
+Date: Mon, 12 Oct 2026 10:27:48 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011221648.6811-1-linkinjeon@kernel.org> <20261011221648.6811-2-linkinjeon@kernel.org>
- <CAMrLSE6bL_T5=c2KhJCP01F9pG8UpeTCaOxgCf1q8_KCAPuhxw@mail.gmail.com>
-In-Reply-To: <CAMrLSE6bL_T5=c2KhJCP01F9pG8UpeTCaOxgCf1q8_KCAPuhxw@mail.gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Mon, 12 Oct 2026 11:21:53 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8PNeg9+Rg6CzpFGbci40rArqEwQBu15ByT4K0V4YtkxQ@mail.gmail.com>
-X-Gm-Features: AclHuK8yrJk-Z70YiLRNC5EwxGnzS4aNdev-za7xQYggvftFWVek0nt_XYK88cM
-Message-ID: <CAKYAXd8PNeg9+Rg6CzpFGbci40rArqEwQBu15ByT4K0V4YtkxQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/4] ntfs: add pathname access for named streams
-To: CharSyam <charsyam@gmail.com>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, sebastian.n.feld@gmail.com, 
-	cedric.blancher@gmail.com, Lionelcons1972@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PING] PCI: Fix procfs PCI config access issues
+From: duziming <duziming2@huawei.com>
+To: <bhelgaas@google.com>, <kwilczynski@kernel.org>
+CC: <rientjes@google.com>, <gregkh@suse.de>, <iweiny@kernel.org>,
+	<djbw@kernel.org>, <Jonathan.Cameron@huawei.com>,
+	<linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<liuyongqiang13@huawei.com>
+References: <20260730032438.1643450-1-duziming2@huawei.com>
+ <14cd77b6-5541-4134-af52-62fb1d3664a0@huawei.com>
+In-Reply-To: <14cd77b6-5541-4134-af52-62fb1d3664a0@huawei.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemr500012.china.huawei.com (7.202.195.23)
 
-On Mon, Oct 12, 2026 at 10:27=E2=80=AFAM CharSyam <charsyam@gmail.com> wrot=
-e:
+
+在 2026/8/17 14:22, duziming 写道:
 >
-> Hi, Namjae.
+> 在 2026/7/30 11:24, Ziming Du 写道:
+>> Hi,
+>>
+>> As suggested by Bjorn and Krzysztof, this series aligns the procfs PCI
+>> configuration access implementation with its sysfs counterpart and fixes
+>> issues found while reviewing the two paths.
+>>
+>> The first four patches fix the offset truncation, inode size update 
+>> race,
+>> missing driver-exclusive resource warning, and unnecessary runtime PM
+>> operations at the end of sysfs configuration space. The final two
+>> patches align the procfs read and write implementations with their sysfs
+>> counterparts.
+>>
+>> Changes from v1:
+>>    - Merge the read and write offset fixes and move them before the
+>>      refactoring to avoid an intermediate signed/unsigned regression.
+>>    - Serialize i_size_write() with the inode lock.
+>>    - Add the driver-exclusive resource warning to procfs writes.
+>>    - Avoid unnecessary runtime PM get/put when sysfs config access 
+>> starts at EOF.
+>>
+>> Link: https://lore.kernel.org/all/20260303193253.GA3817951@bhelgaas/
+>> Link: 
+>> https://lore.kernel.org/linux-pci/20260414024544.2975605-1-duziming2@huawei.com/
+>> Link: 
+>> https://sashiko.dev/#/patchset/20260414024544.2975605-1-duziming2%40huawei.com
+>>
+>>
+>> Ziming Du (6):
+>>    PCI: Prevent overflow in proc_bus_pci_{read,write}()
+>>    PCI/proc: Serialize config inode size updates
+>>    PCI/proc: Warn on writes to driver-exclusive config regions
+>>    PCI/sysfs: Avoid runtime PM at config-space EOF
+>>    PCI: Align proc_bus_pci_write() with pci_write_config()
+>>    PCI: Align proc_bus_pci_read() with pci_read_config()
+>>
+>>   drivers/pci/pci-sysfs.c |   4 +-
+>>   drivers/pci/proc.c      | 124 +++++++++++++++++++++-------------------
+>>   2 files changed, 68 insertions(+), 60 deletions(-)
 >
-> I noticed a remount issue with streams_interface. During
-> reconfiguration, fc->s_fs_info points to a newly allocated
-> ntfs_volume, rather than
->   the mounted volume. Consequently, remounting with the existing
-> windows setting fails, while requesting none succeeds without changing
-> the
->   active setting.
+> Hi,
 >
->   The check should use the mounted volume:
+> Gentle ping on this patch.
 >
->   diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
->   @@ -275,8 +275,8 @@ static int ntfs_parse_param(struct fs_context
-> *fc, struct fs_parameter *param)
->                         result.uint_32 =3D=3D STREAMS_INTERFACE_WINDOWS;
+> Thanks
 >
->                 if (fc->purpose =3D=3D FS_CONTEXT_FOR_RECONFIGURE &&
->   -                 NVolStreamsWindows(vol) !=3D streams_windows) {
->   -                     ntfs_error(vol->sb,
->   +                 NVolStreamsWindows(NTFS_SB(fc->root->d_sb)) !=3D
-> streams_windows) {
->   +                     ntfs_error(fc->root->d_sb,
->                                    "Cannot change streams_interface on
-> remount.");
->                         return -EINVAL;
->                 }
->
->   Since pathname support is already committed to ntfs-next, I will
-> send this as a separate follow-up patch.
-Okay. You can send it.
-Thanks for the review.
+> Ziming
+
+Hi all,
+
+Just gently bumping this patch to the top of your inbox.
+
+I would really appreciate any feedback, review, or thoughts when you 
+have some spare cycles.
+
+Thanks, Ziming
+
