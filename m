@@ -1,114 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1481746F4A2;
-	Mon, 12 Oct 2026 09:00:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C67470EAC;
+	Mon, 12 Oct 2026 09:00:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791795649; cv=none; b=F0WEs1pqCIPHWxCaGcTUlrRO5ftLK7ylyndouZdRldSSE9xhnm+LIa4KlJd+iXO6Tu1qWz0D9r61/Gm7wWrS02q3tKLq7+fzeHh4hzdc36JCGNv4KhKGbI5GROLBKYXvF2QmDTV4Xa31auZJC5swW9ZKFQaQng8rrq1yLSwVBBM=
+	t=1791795653; cv=none; b=t6uStyFsC0tBmQttPWrU4SvPzSkDezI/Uzqc2HxPi9XBl88K+1kqxkax3kbvaaJ+J4yqdf2MjMxkrJy5y9L4+kJA6mNO9mZJeytxaFX+OgdCzi3pm3tTrPfC2Lm73xi/n+zO9yaMJicdKC+Eq+DGKf5lqYduvWf4+wg3vobk87w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791795649; c=relaxed/simple;
-	bh=wTiI0iHeI6+rCi9fxuVDCsRFsR0MNcgeOnonM/qR6OI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=klb6tC+4ayIVqw44k8gSGZV1TivVGCvragAu/iGoTLdxICs+tMHLik3lYFUoheVY3QUJgTOI+rGzW8/pWj6cPFDE3nrqqkDiUeaIJ8TTmfjTq9bo0UJb3DxEuz3DZ9W7sr7Lz+k0/EGPQSHNJW8xZsvdn0fi0vxKBg8P+T9Z2+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zpdx5wE8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791795653; c=relaxed/simple;
+	bh=5tORLlB1NmnCaqZWcBRLT7mvTW384+vIIsUT1gxozvM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cj6gqUupz/w0MGjB1PxC/XMIZK3zWeVFl9k0NNLNmF9OzlZetCxc65TRDrDrDBoh3wN2MLyU4UrdqfMzBvLoK45KsgPVJ7Erie7IrKJmLoMrBsRoVLIxPBwl6/aL0ZrjX2/Ap78IC9BfEjp3U8dvuRQsH9DqGTwKx5v4MGNtKqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JFa6ZKa7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zpdx5wE8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70C561F0089C;
-	Mon, 12 Oct 2026 09:00:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JFa6ZKa7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EF221F0089B;
+	Mon, 12 Oct 2026 09:00:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791795646;
-	bh=Yio4BxqjmUGLg3hJX/RSp3mDRnAATsmzLPWn0D1ZObI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Zpdx5wE8L+jfuZjwCH6Z7JnTXKaM16sioeBTHsLInaQZpvKQ/ClJuFoEpUK9/6WeY
-	 mq8t2kBJHAW3fyyTYJi5XbDisCrhr4JuXUciDEzOHt92vm3ZqgB45V9fzhXf0gZMFY
-	 wUXhK13ckQ35e9wzOV8MP4JQrlBw2F9IhowX+nvQTJEsSR/COi8sXGh80qcBvEXww4
-	 /Qx5vDLk/9cXuYGGQ36dlxz1u3IBKuMdzlX9D1N0zA5jIq8CMAYHN7jXX6uZr4coJL
-	 Ll1HSUS9hK4h85EZzJdfcO189aJ7SSdk+mJzL0QJmg3dJLVjHmtr0ozN0dRHGi2njO
-	 Js7Wk9GbSaHcA==
-From: Christian Brauner <brauner@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Andrew Halaney <andrew@amutable.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Willem de Bruijn <willemb@google.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>,
-	Eric Dumazet <edumazet@kernel.org>
-Subject: Re: [PATCH v4 00/10] net: support thread-specific pidfds for send and connect
-Date: Mon, 12 Oct 2026 11:00:25 +0200
-Message-ID: <20261012-panik-helligkeitsgrad-hackfleisch-c9830fcaf7fc@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005-work-unix-passpidfd-v4-0-350183b6e02a@amutable.com>
-References: <20261005-work-unix-passpidfd-v4-0-350183b6e02a@amutable.com>
+	s=k20260515; t=1791795650;
+	bh=IGVZIgY2Rf7RU1rp3siBeQNuADt+K6LsAK/yC2i51CA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JFa6ZKa7RVjAgA96Z2EuAlegSmefCm8teFDcnY2Fsn1cQB/IiCEI9FixhNKIvTdPk
+	 EhL2SJYQMW/xz5U09W6jDQIdhxRHzH5s31iT6Bz+F6Xm4pP/oZgGxXW3FTWliflPUF
+	 WTJZtsExMVU8AxJe/1vuf/mYAhRNoIxOQr4K/yEw1wbUF4KZwc7j61YMhygdlf/9pY
+	 9qOiyq1DhxYmkHJPpW/ZR1AWCAs3kDShlTZ/I69NFZ0HpFALacLKSTRwcIRC+5uJpF
+	 2hIy6++JC9xNmRIKBa8oJZpm6bUj+wbhghTEPsiFv4sYv/9oYzB1BvA0eIpQAJrynE
+	 9t5kk6KB02RvA==
+Date: Mon, 12 Oct 2026 11:00:46 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Miotsuki Mizuno <founder@crepuse.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "icenowy@aosc.io" <icenowy@aosc.io>, 
+	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 1/3] dt-bindings: vendor-prefixes: add Nsiway
+Message-ID: <20261012-gentle-nocturnal-tuatara-9dd2aa@quoll>
+References: <20261009144729.85832-1-founder@crepuse.com>
+ <20261011054223.93396-1-founder@crepuse.com>
+ <20261011054223.93396-2-founder@crepuse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2468; i=brauner@kernel.org; h=from:subject:message-id; bh=wTiI0iHeI6+rCi9fxuVDCsRFsR0MNcgeOnonM/qR6OI=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSdWbhdKTolOrw1Y90FxQXzOv/c3+7wfrPW15fSC46uO DKdfYVQX0cpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEbn9nZPh9gHmjx/nJ/6Jq 1mkv/b/vWMUKH8vVLv5H+fImXdw99eMdhn9GF79fKsm+3Swfc7mJp61jfVYt+6KMj9fXblgaEP5 j1ywGAA==
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261011054223.93396-2-founder@crepuse.com>
 
-On Mon, 05 Oct 2026 10:09:30 -0500, Andrew Halaney wrote:
-> SO_PASSPIDFD/SCM_PIDFD and SO_PEERPIDFD allow to retrieve a pidfd for
-> the thread-group leader. The coredump server using the coredump socket
-> cannot get a handle on the task that took the signal and is writing the
-> coredump easily. Workloads interested in per-thread authentification
-> have similar problems.
+On Sun, Oct 11, 2026 at 05:42:28AM +0000, Miotsuki Mizuno wrote:
+> Nsiway manufactures the NS2009 I2C resistive touchscreen controller.
+> Add its vendor prefix for the touchscreen binding.
 > 
-> Add SO_PASSPIDFD_THREAD/SCM_PIDFD_THREAD and SO_PEERPIDFD_THREAD. We
-> record the sending and the connecting thread in addition to the
-> thread-group leader.
-> 
-> [...]
+> Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>
+> ---
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-Ok, stable branch it is as discussed.
+And now I see more versions, all threaded in the same spot and repeating
+same issue.
 
----
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
 
-Applied to the vfs-7.4.shared.net-next.pidfd branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.shared.net-next.pidfd branch should appear in linux-next soon.
+Do not attach (thread) your patchsets to some other threads (unrelated
+or older versions). This buries them deep in the mailbox and might
+interfere with applying entire sets. See also:
+https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+Best regards,
+Krzysztof
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.shared.net-next.pidfd
-
-[01/10] pid: add helpers to operate on a struct pid array
-        https://git.kernel.org/vfs/vfs/c/fd0349aadbb9
-[02/10] af_unix: record the pid of the sending thread
-        https://git.kernel.org/vfs/vfs/c/c48ae5bcfc35
-[03/10] net: add SO_PASSPIDFD_THREAD to get a thread-specific SCM_PIDFD
-        https://git.kernel.org/vfs/vfs/c/be3a5e06b962
-[04/10] selftests/net: SO_PASSPIDFD_THREAD
-        https://git.kernel.org/vfs/vfs/c/4e2446c83f38
-[05/10] net: turn sk_peer_pid into an array indexed by pid type
-        https://git.kernel.org/vfs/vfs/c/95d9b7369665
-[06/10] af_unix: record the pid of the connecting thread
-        https://git.kernel.org/vfs/vfs/c/1592d89361e9
-[07/10] net: add SO_PEERPIDFD_THREAD to get a thread-specific pidfd
-        https://git.kernel.org/vfs/vfs/c/e10899b2a098
-[08/10] selftests/net: SO_PEERPIDFD_THREAD
-        https://git.kernel.org/vfs/vfs/c/02e658dffe50
-[09/10] pidfs: record the coredump on the dumping thread's pid too
-        https://git.kernel.org/vfs/vfs/c/3209535cd39e
-[10/10] selftests/coredump: check the dumping thread's pidfd
-        https://git.kernel.org/vfs/vfs/c/1f47b275d5d5
