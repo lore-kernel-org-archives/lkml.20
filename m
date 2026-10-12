@@ -1,253 +1,154 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1135245C6E6
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:41:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97E844AB88
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:41:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791794497; cv=none; b=ig3xp3U+M9a8BYSzwq4Xgr7VhHPbLRl1J1AkN0PJoCPFQbj6UcvNt+QTZrJG3OvnP+TMWigqCbByWl/nrLd/6PGbO5Bh2eMWYgeOiRHV6zT0OrwciaHkg4v27LcURhYK+serYnZ+w/Dig+65+nREBGHvWql/kFR9dyu291KutzU=
+	t=1791794516; cv=none; b=i3OKbxvycKSNSU7KQOp6jzxXCL8l85cVoZN7zLZ0fUtP9MX/ZRx6pDz2NdYT1arWs1aNXxlF4fYKFcTU2BKM5JwQscrru1a1tBj0IL4EMNRaK0dkZr9zstEMOtw1sljHtcb+/4QyCdnKTFlj9Eo349NpYFv6G+YD81Q/S+K/9HE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791794497; c=relaxed/simple;
-	bh=LZS/jB8OxtaqSVmy3Xx+Qc2sxRaxkntLWpMwitP5IxU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HIdSnoKOBcv2yRK+EX2OXPoQA5v6J1yQO33o9za9RYQGlBy4bmMufeXH1ge6BPJqAUaXV6jWHTkzRLv2hN6MfSJnuhKm2sGiHBmtInuiCVqh8hpmXFLcUpfGDZx4Le2UAXV4oZtINBDZ5H+kFx6uBMlCnw8ZbAj1LiEqaner6sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CZejEHbz; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791794516; c=relaxed/simple;
+	bh=Qanp8XpTcR8oBU9NgCmlUZCKBu56qLf1fhHTnhwauVY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FHOwyKTvpSfXgOW3vdcuvYL01QsL1B5bkeuRGtykz49aV7ojVXcVQZddZjv2QkJdy10Zi5SI0LfjwpMsxSpAfXNvaTR3WvPnrRVYHKIePYGxL+CA+5/do4N8XXvzEFPqu7nD40U59Cm8TZs5I2LvmjeNMw8XKzbvSTh/elwPfc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ISA+Fx0H; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CZejEHbz"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a01933b584so13991065e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:41:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791794492; x=1792399292; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+LcstUTzsAifjpiCuc4yYJc0qp8/5t8Xu98Ew8WwFTE=;
-        b=CZejEHbzVZz0tt8zcwuqVxh/jy+JLksEGjpJSzWFtoVqEj+soILRtkvC7hGj7kfqai
-         N+P0KBrYLspyuQC3Wilaut/G6dr0B8YGPHzwXFOUkl73/0NCj4BUjDY138wBAVbnQt39
-         /uz2lD4eg5FnUMKhlrgLc3KVMG1jOIPDKbymdXZhNX/5yMTIvkD+li5yzLqiobcsybEV
-         IEy+p9ZYbUnamUGMPopxZ+wK4oC//dAXmZs3aro8ottFa3yDQ5K7oUAzh/uun51D9uSp
-         EaIhQrKeFDis4+gz7Fl6yG+wluUuzDE+ai/HVO0aznxJCDzKtLOrXlLrtEUitHz+MCeJ
-         Acdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791794492; x=1792399292;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+LcstUTzsAifjpiCuc4yYJc0qp8/5t8Xu98Ew8WwFTE=;
-        b=Pz9u9PbUpiE0gnxjiYNqjhjzBa8VnYutVdt7oIPsBLJNWXVJky3QcRX0Ql/Z4fanx4
-         Yb+T0YovuE4PZdIS88i0PpzkHF8SdUf2A08DtZnFoZ+dAXWUne+MMa+gnr+tp3YKSWSy
-         ERo2/o3kc/lCiqkQT7Kl4cRabQzvE5odzt3JlVPM1FRzgO+Let9KCTux6Y8IcX/9+NcG
-         sqfsAlPIQSe8LFrty4G/Qz8lQwP0EYOhSPvV3fPAuZCmT34223vrEh5sscNDHdaObOgd
-         zk4pZ/ct+1uwou0BrZuXmAJ7Ozq9HwCCYlG41wk9vNUdA932ltgos4ok+eQ20qnk7dNp
-         P/kg==
-X-Forwarded-Encrypted: i=1; AKwUvBw6jtuhwheQ1Z+BB8SPQdLMI2/heZ2ca+GKNsxoNqkWDGkrtoa/MD2bJVwFCqyAqsIdDUF2x6RIF+w/npQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsYCOGBg0IvRQKcILoKPSy9uiz4C0KE3qFvFpGjfqfS5nB6eQf
-	aE9xR0QiqOAcaUb6o0rQk03R9KxerYI0/REL5+T5SF5EPowAwz7dMc/k
-X-Gm-Gg: AYBFou3IgZ3stmKalVd7u1XaqJsX2wFfmrQX8s8cqULl+N3qLkvZUjj45zKDzzd9EaF
-	J3bZCZvFmJLJ9RB4NpacCdbnWT+s19+xGFTRS73xVf63FaRGqaIo+j/DOJh9WqFrPVS7aw2gM8k
-	qnkAKTezcNHoyAxRRsow5NPBM/VFp/nL7AjPfsvr2SISqEt88rH3BpR1OU5684FvRIjq95lttm3
-	cHFzZBwWeFpV9lYHHUp9o8QNWwKZ1Ddowj1gBvZMbVUvz9q0USZnq/XzGe2LRfLGZ3EmNWYuuxr
-	3Y7AAZV6B7kfdg0HSrHAqHl3vf/HPVCyhYw+Lu3v3yBG139Pwij8OP7RTl1cUj9Fkf8JijbIZ/P
-	TvQT2JCHlQToT4NiyImtNriyw6sAg3Axt1YX1zwirKA8vQGHyu6hf/HlcbTOSH+KXtcEIaRTl1L
-	kToqHEo3FWsXO1Z/8G0OxCquXdJ+vgFQjwnBOYwYbzeOUjwVviP0dS1B+92XeXAaV7cPOW/3X0n
-	MmP6A1h2jbIal51KX/r
-X-Received: by 2002:a05:600c:a088:b0:4a0:333:253a with SMTP id 5b1f17b1804b1-4a18e49c331mr165974065e9.14.1791794491863;
-        Mon, 12 Oct 2026 01:41:31 -0700 (PDT)
-Received: from foxbook (bez186.neoplus.adsl.tpnet.pl. [83.28.37.186])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2caf4sm300091885e9.10.2026.10.12.01.41.30
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Mon, 12 Oct 2026 01:41:31 -0700 (PDT)
-Date: Mon, 12 Oct 2026 10:41:22 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Yiyu Zhou <yiyu@yiyuzhou.io>
-Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] xhci: give back halted TD when skipping endpoint reset
- after disconnect
-Message-ID: <20261012104122.0af52938.michal.pecio@gmail.com>
-In-Reply-To: <20261010064407.11030-1-yiyu@yiyuzhou.io>
-References: <20261010064407.11030-1-yiyu@yiyuzhou.io>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ISA+Fx0H"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=xi
+	B/mc8XaApxaPDniNNCfUu6SOnvJQaPDWT8rHnuIrc=; b=ISA+Fx0HcsaEn6AJxt
+	Xv6MAskDAExXqkuderFxpnFYN+zuaVu0jYYwRMF3ZhLKCAhQvijPXFgRBS5/vBKs
+	RVUS6qh9Y4HDyGrZ2FX8p7wdFvpOyat7U6pq7MvnMxTZRz9I/Ppd9V04SqwJqV7b
+	9QUUbtkGBFzQ2XVeG8WM+ILLU=
+Received: from WIN-TOG0NDEIICD.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3P7Efncxqike8Dw--.13686S2;
+	Mon, 12 Oct 2026 16:41:04 +0800 (CST)
+From: Shirong Zhao <shxzhaosr@163.com>
+To: dwmw2@infradead.org,
+	baolu.lu@linux.intel.com,
+	joro@8bytes.org,
+	will@kernel.org
+Cc: robin.murphy@arm.com,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] iommu: intel: Apply the device scope length check to every device scope walk
+Date: Mon, 12 Oct 2026 16:41:02 +0800
+Message-ID: <20261012084102.18-1-shxzhaosr@163.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3P7Efncxqike8Dw--.13686S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJFy5KryDXr43Kryftw17trb_yoWrXw1rpF
+	W8KrZ0yrW5trs7Gw13AayfZry5tws3A3y3CF45W3909a129Fy5WFyDGFySgr1rKFWDtF1f
+	ZayjvrWUCw15JF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jVUDJUUUUU=
+X-CM-SenderInfo: hvk06xhdrv2qqrwthudrp/xtbC7gA9e2rMnSB-EQAA3d
 
-On Fri,  9 Oct 2026 23:42:19 -0700, Yiyu Zhou wrote:
-> Commit 042aad8d0db6 ("xhci: prevent endpoint recovery after roothub
-> disconnect") makes xhci_handle_halted_endpoint() return early when the
-> root port is disconnected, and commit 7e0ef4332ed9 ("xhci: avoid xHC
-> endpoint changes after disconnect or link error.") also sets
-> EP_DROP_PENDING there, which keeps the doorbell from being rung until
-> the device is reset.
-> 
-> The callers rely on xhci_handle_halted_endpoint() to take over the
-> halted TD.  For example, finish_td() returns right after calling it,
-> expecting the TD to be given back once the Reset Endpoint command
-> completes.  With the early return, nobody gives the TD back.  Its URB
-> stays pending until the submitter times out and unlinks it.  Every URB
-> queued on the endpoint afterwards never starts, because the doorbell
-> is blocked, and also has to time out.
+dmar_walk_remapping_entries() already refuses to step by a zero length:
 
-Before 7.3 there was a similar device flag VDEV_PORT_ERROR which stuck
-until the device is reset or deleted. It only applied to USB3 devices.
-URBs were left hanging, but nobody cared, because disconnect() handler
-of the class driver would unlink them.
+	next = (void *)iter + iter->length;
+	if (iter->length == 0) {
+		/* Avoid looping forever on bad ACPI tables */
+		pr_debug(FW_BUG "Invalid 0-length structure\n");
+		break;
+	}
+
+Five walks over the same DMAR structures do not:
+
+  dmar_alloc_dev_scope()        - counts namespace/endpoint/bridge scopes
+  dmar_insert_dev_scope()       - attaches a scope to a PCI path
+  dmar_acpi_insert_dev_scope()  - same, by ANDD enumeration id
+  dmar_acpi_dev_scope_init()    - the ANDD entries at the end of the table
+  ir_parse_ioapic_hpet_scope()  - IOAPIC and HPET scopes
+
+Each advances its cursor by a length read out of the DMAR table, and
+nothing constrains it.  A zero length leaves the cursor where it is and
+the walk never ends; a short one steps through table payload a byte at a
+time, reinterpreting it as scopes.  dmar_alloc_dev_scope() and
+dmar_acpi_dev_scope_init() run on every boot with the IOMMU enabled, and a
+short length in the latter hands andd->device_name to acpi_get_handle().
+
+Use the check dmar_walk_remapping_entries() already uses.
+
+Checked against torvalds/linux at HEAD; both files are unmodified there.
+
+Found by EFSM.R17, which reports a loop whose cursor advances by a step
+memory can supply as zero while the exit condition depends on that cursor.
+Signed-off-by: Shirong Zhao <shxzhaosr@163.com>
+
+---
+ drivers/iommu/intel/dmar.c          | 16 ++++++++++++++++
+ drivers/iommu/intel/irq_remapping.c |  5 +++++
+ 2 files changed, 21 insertions(+)
+
+diff --git a/drivers/iommu/intel/dmar.c b/drivers/iommu/intel/dmar.c
+index ba675b0..1615ef6 100644
+--- a/drivers/iommu/intel/dmar.c
++++ b/drivers/iommu/intel/dmar.c
+@@ -94,6 +94,10 @@ void *dmar_alloc_dev_scope(void *start, void *end, int *cnt)
+ 			scope->entry_type != ACPI_DMAR_SCOPE_TYPE_HPET) {
+ 			pr_warn("Unsupported device scope\n");
+ 		}
++		if (!scope->length) {
++			pr_warn(FW_BUG "Invalid 0-length device scope\n");
++			break;
++		}
+ 		start += scope->length;
+ 	}
+ 	if (*cnt == 0)
+@@ -227,6 +231,10 @@ int dmar_insert_dev_scope(struct dmar_pci_notify_info *info,
  
-> Devices that disconnect and reconnect themselves during enumeration hit
-> this.  A PFU HHKB Professional HYBRID Type-S keyboard (04fe:0021) drops
-> off the bus about 300 ms after its first enumeration, while usbhid is
-> still probing its third interface.  The probe runs in hub_wq, so the
-> disconnect is not handled until the probe returns.
+ 	for (; start < end; start += scope->length) {
+ 		scope = start;
++		if (!scope->length) {
++			pr_warn(FW_BUG "Invalid 0-length device scope\n");
++			break;
++		}
+ 		if (scope->entry_type != ACPI_DMAR_SCOPE_TYPE_ENDPOINT &&
+ 		    scope->entry_type != ACPI_DMAR_SCOPE_TYPE_BRIDGE)
+ 			continue;
+@@ -743,6 +751,10 @@ static void __init dmar_acpi_insert_dev_scope(u8 device_number,
+ 		for (scope = (void *)(drhd + 1);
+ 		     (unsigned long)scope < ((unsigned long)drhd) + drhd->header.length;
+ 		     scope = ((void *)scope) + scope->length) {
++			if (!scope->length) {
++				pr_warn(FW_BUG "Invalid 0-length device scope\n");
++				break;
++			}
+ 			if (scope->entry_type != ACPI_DMAR_SCOPE_TYPE_NAMESPACE)
+ 				continue;
+ 			if (scope->enumeration_id != device_number)
+@@ -778,6 +790,10 @@ static int __init dmar_acpi_dev_scope_init(void)
+ 	for (andd = (void *)dmar_tbl + sizeof(struct acpi_table_dmar);
+ 	     ((unsigned long)andd) < ((unsigned long)dmar_tbl) + dmar_tbl->length;
+ 	     andd = ((void *)andd) + andd->header.length) {
++		if (!andd->header.length) {
++			pr_warn(FW_BUG "Invalid 0-length namespace entry\n");
++			break;
++		}
+ 		if (andd->header.type == ACPI_DMAR_TYPE_NAMESPACE) {
+ 			acpi_handle h;
+ 			struct acpi_device *adev;
+diff --git a/drivers/iommu/intel/irq_remapping.c b/drivers/iommu/intel/irq_remapping.c
+index 25c26f7..884347c 100644
+--- a/drivers/iommu/intel/irq_remapping.c
++++ b/drivers/iommu/intel/irq_remapping.c
+@@ -933,6 +933,11 @@ static int ir_parse_ioapic_hpet_scope(struct acpi_dmar_header *header,
+ 			ret = ir_parse_one_ioapic_scope(scope, iommu, drhd);
+ 		else if (scope->entry_type == ACPI_DMAR_SCOPE_TYPE_HPET)
+ 			ret = ir_parse_one_hpet_scope(scope, iommu, drhd);
++		if (!scope->length) {
++			pr_warn(FW_BUG "Invalid 0-length device scope\n");
++			ret = -EINVAL;
++			break;
++		}
+ 		start += scope->length;
+ 	}
+ 
 
-But probe breaks this scheme, it seems we do have no choice but to stop
-being lazy and give back the URB right there.
-
-Regression occurred when the mechanism has been generalized to USB2 by
-also looking at the PORTSC.CCS bit, even though the problems it tries
-to solve have been unique to USB3 so far.
-
-But this change seems sensible, because a USB3 port may autonomously
-exit the Error state to Disconnected on receiver termination loss, see
-xHCI 4.19.1.2.6, and PLS changes to RxDetect. It may even reach Enabled
-before software intervention; seems we should look at PORTSC.CSC too.
-
-(On a USB2 port, like this keyboard uses, such race doesn't exist).
-
-And since xhci_irq() clears these per-port flags when USB3 link comes
-back, there is no guarantee that the permanent EP_DROP_PENDING state
-will be latched on the lost device. Whether the HW bugs caused by link
-loss will still be happening on the "new" link is unclear; I only know
-about Renesas: it doesn't mind and actually recovers on reconnection.
-But the device is reset, which may or may not catch some xHC off guard.
-
-Not sure if going back to a sticky per-device bit wouldn't be better.
-One downside is that we need to flag all affected devices, which means
-a loop in IRQ. Not great, but there is never more than 255 devices, so
-maybe a few microseconds at worst. Likely not enough latency to break
-anything, and it saves some repetitive checks in other places.
-
-I could cook up a patch like that, I think it would make things easier,
-as there is no need for those very similar checks in urb_enqueue() for
-example, as seen below. But let's see what Mathias thinks.
-
-> On a root port the HID descriptor request and its four retries in
-> hid_get_class_descriptor() each wait for the full 5 second
-> USB_CTRL_GET_TIMEOUT:
-> 
->   [57685.006036] usb 3-2: new full-speed USB device number 24 using
-> xhci_hcd ...
->   [57685.291304] hid-generic 0003:04FE:0021.0017: input,hidraw1: USB
-> HID v1.11 Keyboard [PFU Limited HHKB-Hybrid] on
-> usb-0000:00:14.0-2/input1 [57711.221083] usbhid 3-2:1.2: can't add
-> hid device: -110 [57711.221613] usbhid 3-2:1.2: probe with driver
-> usbhid failed with error -110 [57711.221842] usb 3-2: USB disconnect,
-> device number 24
-> 
-> The re-enumeration that follows can stall the same way, leaving the
-> keyboard dead until reboot.  Behind an external hub, where the root
-> port stays connected, the same keyboard recovers in about 300 ms, as
-> it did on the root port before these commits.
-> 
-> Keep skipping Reset Endpoint on a disconnected or inactive port, but
-> give the halted TD back right away, with -EPROTO if no error status
-> was set yet.  The endpoint is not restarted until the device is reset
-> or dropped, so the ring dequeue pointer can stay where it is, as
-> xhci_invalidate_cancelled_tds() already assumes for cancelled TDs on
-> such endpoints.  Also refuse new URBs on an endpoint with
-> EP_DROP_PENDING set, like xhci_urb_enqueue() already does for an
-> inactive link, so they fail right away instead of timing out.
-> 
-> Fixes: 042aad8d0db6 ("xhci: prevent endpoint recovery after roothub
-> disconnect") Fixes: 7e0ef4332ed9 ("xhci: avoid xHC endpoint changes
-> after disconnect or link error.") Assisted-by: LLM
-> Signed-off-by: Yiyu Zhou <yiyu@yiyuzhou.io>
-> ---
-> Tested on v7.3-rc6 on a System76 Galago Pro (Intel 8086:51ed xHCI)
-> with the keyboard plugged directly into a root port, including twice
-> right after resume from suspend.  On every hotplug the keyboard still
-> dropped off during the probe of its third interface, and it was
-> re-enumerated with all three interfaces bound about 0.3 s later.
-> Before this patch, the same sequence hung usbhid for 26 s, and often
-> left the keyboard dead until reboot.
-> 
->  drivers/usb/host/xhci-ring.c | 24 ++++++++++++++++++++----
->  drivers/usb/host/xhci.c      |  5 +++++
->  2 files changed, 25 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/usb/host/xhci-ring.c
-> b/drivers/usb/host/xhci-ring.c index ec278a9f9540..82190380831d 100644
-> --- a/drivers/usb/host/xhci-ring.c
-> +++ b/drivers/usb/host/xhci-ring.c
-> @@ -979,6 +979,24 @@ static int xhci_reset_halted_ep(struct xhci_hcd
-> *xhci, unsigned int slot_id, return ret;
->  }
->  
-> +/*
-> + * Mark the endpoint to be dropped instead of reset, and give back the halted
-> + * TD now, as nobody else will.  The endpoint is not restarted before device
-> + * reset or drop, so there is no need to move the ring dequeue past the TD.
-> + */
-> +static int xhci_drop_halted_endpoint(struct xhci_hcd *xhci,
-> +				     struct xhci_virt_ep *ep,
-> +				     struct xhci_td *td)
-> +{
-> +	ep->ep_state |= EP_DROP_PENDING;
-> +
-> +	if (td)
-> +		xhci_td_cleanup(xhci, td, xhci_urb_to_transfer_ring(xhci, td->urb),
-> +				td->status ?: -EPROTO);
-> +
-> +	return -ENODEV;
-> +}
-
-Not sure if this is big enough to justify a new function, and the
-comment partly duplicates existing comment at the call site.
-
->  static int xhci_handle_halted_endpoint(struct xhci_hcd *xhci,
->  				struct xhci_virt_ep *ep,
->  				struct xhci_td *td,
-> @@ -993,10 +1011,8 @@ static int xhci_handle_halted_endpoint(struct xhci_hcd *xhci,
->  	 * Can cause host hang.
->  	 * Device will be reset to recover an inactive link, so don't do anything */
-> -	if (rhub_port->link_inactive || !rhub_port->connected) {
-> -		ep->ep_state |= EP_DROP_PENDING;
-> -		return -ENODEV;
-> -	}
-> +	if (rhub_port->link_inactive || !rhub_port->connected)
-> +		return xhci_drop_halted_endpoint(xhci, ep, td);
->  
->  	/* add td to cancelled list and let reset ep handler take care of it */
->	if (reset_type == EP_HARD_RESET) {
-> diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-> index a9e47e178c28..491a541b57b0 100644
-> --- a/drivers/usb/host/xhci.c
-> +++ b/drivers/usb/host/xhci.c
-> @@ -1691,6 +1691,11 @@ static int xhci_urb_enqueue(struct usb_hcd
-> *hcd, struct urb *urb, gfp_t mem_flag ret = -EINVAL;
->  		goto free_priv;
->  	}
-> +	if (*ep_state & EP_DROP_PENDING) {
-> +		xhci_dbg(xhci, "Can't queue urb, ep halted after disconnect or link error\n");
-> +		ret = -ENODEV;
-> +		goto free_priv;
-> +	}
-
-It would probably make more sense to log the conditions which set this
-flag then every failed submission attempt after the flag is set.
-
-This is the aforementioned "very similar check", because a few lines
-prior we have the related test for rhub_port->link_inactive.
-
->  
->  	switch (usb_endpoint_type(&urb->ep->desc)) {
->  
-> -- 
-> 2.55.0
-> 
