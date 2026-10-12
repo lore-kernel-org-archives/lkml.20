@@ -1,87 +1,77 @@
-Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com [148.163.139.77])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011010.outbound.protection.outlook.com [40.107.208.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0402F3B27DB;
-	Mon, 12 Oct 2026 15:50:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.139.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07072D7DD7;
+	Mon, 12 Oct 2026 15:50:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.10
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791820222; cv=fail; b=cGbytMdOYR09tE/OWa5XayGiWvHw0Wk2tJf1goRyvdjHu1d7YJqiw0H06AutO4awdKdV/LNLgdFxSErVfJLPUJf5NQ4Sh4/79rqE0NldLUFq3MejYkykVJtX7Jhg+CWawe6t/Wq8ppAlJD1sIY/PdTx81pAGVG+w6azJc56KlBM=
+	t=1791820252; cv=fail; b=Io04Mm4UPt+ngbqR5lOXlvzSjf+eaA/ba9baHTy75EJpoQuR+PQ7TYVRYN21DnrtiNYVIKH7z2KHsdd9+/ABNWF3yaKxvoufJndzut2xeujG0ZWYY1pYxtmY5OY1nQU0rQv6ziALBmjIKuA+Zp4sUDmfI5PvB6LEdmqFHiZsMJI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791820222; c=relaxed/simple;
-	bh=LcXk7csBS02ZH6YDLFV4BA/BWVXrQ9uxT8cLPOasfkY=;
+	s=arc-20240116; t=1791820252; c=relaxed/simple;
+	bh=qNRknCT1HzDDWqy1bc51K94upHhLWwLGgKmsftgcucc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=qWmlUt5dXPoQ29+caUHEsfIwCf2uZIyd2tnNFz/7r6gLkJZnfhYcBYlX7NRBPyN1sZOvVXugTa0ILDsBoUvgIAwDGeLFUtTi3R0hdmc9VB2t1m8tUdgx3EWVAqPHBki/SbgZ/tKMUgrcPlayKUWZSJG/DLUTN4GwNCPyr8Lf3Vs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b=jEGon7Gb; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=RVbYkxzT; arc=fail smtp.client-ip=148.163.139.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	 Content-Disposition:In-Reply-To:MIME-Version; b=jbJ5sTUtWhIvWXFB+jIqmQdCaWJNjIwB0+XWy1GsxLnlsomnv6K2EmVMP+200CEwgfVm65ldZAsPihiiBPKEbuSZ0r3I3oLb+v1OdKRJ0cAhzMG4tZgIDfqxNiDW1QfIWVwOYpHsezIqb73EbrQSW9whlsdQF5kFgbmnfOQ+p8Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=S1Oo9sll; arc=fail smtp.client-ip=40.107.208.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b="jEGon7Gb";
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="RVbYkxzT"
-Received: from pps.filterd (m0375854.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CFg0De2563730;
-	Mon, 12 Oct 2026 11:50:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=Q757ybuTG28sMUHepjjOmGiOO7MRAtngvBGPMr6naaQ=; b=jEGon7G
-	bt1qwXOCX2pQnputpGKZG6QFq4b+DnJjimWu70WuiuXx5bPdskWxY6361Ee5yukV
-	wf22WfAHsIhNxg/YTAeY2EYGNVFQu7KtzlUUqMIU15Y/uglhsbRyGT+P4n2SBMp1
-	exU+TSXMTuxrgmAnTQ1OwJWFeOWO7LV49k3x4THmINZ+lzrJmm//Uo7pXHlTReZj
-	1VhkzFjLWYtLVW3S17nOL7pTM5mGz22NF0SXVdhgeYsXBDu069LUsUbsTEckr5Y7
-	lA/WqVVSM63OtjHLlJFf83/t2TFz5g67qOfRePX9kDRAxYlZa36Z7h4+WnxtUr9v
-	N7IXNnpoWmHnb4A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=Q757y
-	buTG28sMUHepjjOmGiOO7MRAtngvBGPMr6naaQ=; b=RVbYkxzTSimniq+mFrshP
-	UQkqg2R4x/HWLnp6askNJJTpXliT14t1Qxsca27XdCQNjojSMcacFczFIVZPG7B2
-	LeRPJtVDvgQwk+8qPPI6COXA81MmFEeeM/9mCXhzluq0vkASGpRuD/+o4kOwTbx1
-	/HRzuzataQeHKliMc6mYr0xenEts6fvIaLe0P1BCHZqk5H+QpQt/22FL8lZxJcz7
-	zAlyHC7vB5AP1Ew+v4nBHnIAdmTARYiAFnUbtoZRkFv2wk9Q09GLBQiMgdI8NW3t
-	J0F7kPn/W32GkdQJ0OC4GGaBa0m52XtW6G3kJ74vrqf5C19EbvXXWU0KxRmvYyII
-	Q==
-Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11010070.outbound.protection.outlook.com [52.101.56.70])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4h87dgpqdf-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 11:50:06 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="S1Oo9sll"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F+vSpf/auC6o7A7/M4EhsCA5BF7TNgdaFY2qtwP2cv1mjnIRfy25eRReCO0CGP2RA+MZepApgIatJpZs7vfrpUv5bNysXI/vEPjBX9AUDEnaTG1cN/vtY2O+21XL3rIom5qv2ylyv4DaQ+FteW7pu2cSe1+VBro4PFHr/+RkD3q6XpSYLQU+SszMdO2M1ikWUtUXMlmDUaQbBgtfHNcBIrJFzgOJGPnokOqJy+QsPTSuOosRJWOHYq1Jo/tXsH7SSF6+UBMMkfKvwkMcNAe7v87BMlHeWcaQNewcI3v6AywZlI3eI9oVQ4fsWWOACVsddm7jEiSqMczjKG/oOFdNaA==
+ b=oFiwTZOArC3pBSvD18SNKPV5JrL7jA33tqf47JQnh5xQA8ih1dGnTrC25jkY+HKqmMozpPDtXghwlDKZEZCIf8upiAtxRawJbX/TsJcwd7qqk2M1EAKxpqD1nWzwL1+cCNqgz0NjflszbEAIEmDliNTMk33iyLuL+2mk8Qc65M4kLbPd0HZ6WC32bNzaNdF6QFI0/Mi36OayKEu0ILnJqeCXfFDbpPzMpSotHjEn8evh1F5jI3W8A1tMO6LlOkvtEuMdFuFgcUEVQu12Is2a5nP5H03cdP7jPC6jub4pydq1mE7vDz06l3P5GZdapcCAu5au1SeUa+1BcMJhVaV0jQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q757ybuTG28sMUHepjjOmGiOO7MRAtngvBGPMr6naaQ=;
- b=ovxHp2wsiZFmLwJOrzldreLlKiVmvnCyFipt7xrUaHNHtGTKShTRL+ynFkM1CPGD1P03yg2gP1LgDYCZoU/H26f89EQSPneFwJVGBOTUF74Tt6+lhdokZ1z10BiRXWBljjY9uGAiMdJj+6GOyT/gHXimmdQ2ggnYoF7bpEb89Tk9S8oq70pmNJRjJpYWZIr9CcZWqgKADf2i4FEl8R96KRrZ2pqsaEghP+e4ak7W1gXP6MoiHdmdrGZbfxjhPv4mOUD985LEci3hr0WxXAj6mncTbWfmhsegwMxhjC/KiEfFnGWkzkjCAf2ylPUFcTWUEAqkXpGiBM+cMtt5KfhEsQ==
+ bh=GmTcJKn1nqBIFUdjAJoZO7+nfjR1U+LjugHAkQ5Fl7w=;
+ b=FQk4xdTBMgktESSjDXYoOPWfUJlBConGX6gh028wxdNuHK+1Yz+U0jT6jSdghdPZymfAXnS5lgBtMYhjDhQ2OL7M43+SkvTQY0RmI8DBgN/DGNHb3nyXAao7YDSCRoZsLuWRtv39KRfdYv1qwc1JFH+qeh9RnytytO1qcHMjGsCXgIVfKZ7YBSXMeaI+FHTJ3nEckDE1dY6TaEZt342Oxcj3uUC6QzZt25zZNzrB/lIe6ppN+QmJ0ARe7iBZbT5t1JdpWNjwJQHRI1g8tnh319tw+FQ2/MrDP2c7plYQg6I4YzxdPu8Z1yHeDdjTSpMzPlEAtiZ3zvbNLRzWhVNjBw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GmTcJKn1nqBIFUdjAJoZO7+nfjR1U+LjugHAkQ5Fl7w=;
+ b=S1Oo9sllol6JdrBQdjEL5P66YBC+dNM1Hi38KHjrdp26pOkUbKlAv9VdH6+5Cb1Cw33CoNqu2WNPNYOiGEDax8ObJqOk9y/OtLEUbGaxRHL5HazHL7CDwBCxT9FGQcrcl/svSJsk///RUR9gN8dBmwJqWXMWid6yMqJOV0uYJGb4WQn3qg6DN2xlKHyOe9ddGYwbht3QUwb+4DsU7bo9Ifb3pjOUzqsb4ODgz6BF7PqcRuwTIE8E0lLWxDSYNDpBgG0g07nAhCcHQPPnP7MKxmWDG4Ulk8p49kEdtjtASzbanCPiP5jWwq4lXJ1u+Xj157NR/FN9vkJ/Dw8EF/1Cmg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=analog.com;
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com (2603:10b6:a03:28a::17)
- by SJ0PR03MB6440.namprd03.prod.outlook.com (2603:10b6:a03:397::13) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by DS0PR12MB8020.namprd12.prod.outlook.com (2603:10b6:8:14f::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Mon, 12 Oct
- 2026 15:50:02 +0000
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a]) by SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a%6]) with mapi id 15.21.0496.015; Mon, 12 Oct 2026
- 15:50:02 +0000
-Date: Mon, 12 Oct 2026 16:51:05 +0100
-From: Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>
-To: Alexander Sarmanow <as@discnull.de>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
-        Andy Shevchenko <andy@kernel.org>, Parthiban Nallathambi <pn@denx.de>,
-        linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH] iio: light: vcnl4035: Fix reversed ALS mode bit
-Message-ID: <as0B1EnPqfwRO1D-@nsa>
-References: <20261012144315.1678195-1-as@discnull.de>
-Content-Type: text/plain; charset=utf-8
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Mon, 12 Oct
+ 2026 15:50:42 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0496.015; Mon, 12 Oct 2026
+ 15:50:42 +0000
+Date: Mon, 12 Oct 2026 11:50:41 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Uladzislau Rezki <urezki@gmail.com>, linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] rust: alloc: move `NumaNode` to the `numa` module
+Message-ID: <as0B0dC0IUae9iTu@yury>
+References: <20260929-cpu-helpers-v3-0-e968ce5ee613@kernel.org>
+ <20260929-cpu-helpers-v3-3-e968ce5ee613@kernel.org>
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261012144315.1678195-1-as@discnull.de>
-X-ClientProxiedBy: MR1P264CA0176.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:58::10) To SJ0PR03MB5469.namprd03.prod.outlook.com
- (2603:10b6:a03:28a::17)
+In-Reply-To: <20260929-cpu-helpers-v3-3-e968ce5ee613@kernel.org>
+X-ClientProxiedBy: BN9PR03CA0208.namprd03.prod.outlook.com
+ (2603:10b6:408:f9::33) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,143 +79,252 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5469:EE_|SJ0PR03MB6440:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90ec3b10-1e9d-4449-300f-08df28786fd2
-X-LD-Processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|DS0PR12MB8020:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84efd7ba-2ef2-4ab6-0cfe-08df28789231
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|18002099003|22082099003|10067099003|261009223027099003|11063799006|56012099006;
+	BCL:0;ARA:13230040|376014|1800799024|7416014|23010399003|10070799003|366016|22082099003|10067099003|56012099006|11063799006|6133799003|4143699003|261009223027099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
- TafQVoLSnRnKaK/WrNQDp9urW0sZ1soQ0xEaYzimu2uzKp4w1K2Z6jPSQNzYl/Js2qRw87eXI6krTI7zcZiKnKMcEj0bTI+I+me82DZgTFVBHgRzEecF/jkVZkWyMOcX34drMlpKAYBCJy/cYzygfh8cm1CkpTwGkCiK3Y5+tF1NUBPLuBJhBVeq0lb7t201hgQXCydEN24QifvpS8Q00so+UFiAWUhYfGnj7yiJEJMjnbNWhx1njyL0XaLBlAQB2lwvxKnobEtu4aUAGR96f+ksJe+VRAaKRBabky+4RNTqOE9HBgOxuRo6ZWN9AlD5wokJP2A2eKOlnvWz4EWaLxPAz4LdnKcNmVQDb0xrP4khVCwnoSIA5s5WTwyHktwHJoCYy95Mx8z+hkEiho76o1Qk9E7TehczwRLlxxSdVnSWOhA8xewJo6LuC33Y8CuTOY26zZ9Yiv4PSXFd2iADSj/uYpdjdhynJo9wCG7ZUc4jPD4Xa55fTOxpQbfsB17CsBwjfqd7p46ouvISSJSBEWpjaxnoOBcUlFxSjV697E0v4KF/aGjPrnoTGYys9ZtP11PmpTPCTPxWZBupXPBM18tYEt9UjBC8bQOmtBCUc+CiKQ5jglvzgAuneu2U2/vZkASplAOY5syIigbvy7yJNA+wNPbyy6CiT8rNEpez+Y4=
+	GnDCuFlBoHC3D018Jexdy9qd34SHKmWR9ViqGNkYjMN/UB4eeT/1tMmO1oAEzAVUBO1Xxpn4BCIF4E0CwDg1rUgFaafnGBvflQLy3tebjXTU+JmwklUKySzH1cnOURY8Kc6AQKF+hux9MXxrHaSSdTX7yAeRuO3j94B5YHwfEzEidmiK0JdCb+CGiDy/XUCbHsVUucxNKP5wbFS0TI2gEyKAHvkmnXNGfxf2kEwKqYUju//O/94gnBJjFF4aVq5dKSGiJU63/lslvomhManbZXx//75UdW09u0h8FdO/sgkAkEqt1KX76D0e5cSwb0vwU2frOhDRXKiIkfS5bC2iiU+mRpd9yQCQTdx/LGWX3S5ZE3XYE2UL5i1LHVDmdJm+D6PXN+ZaEsRCbZdHuqBTW8Q1N3zdvQRRZUjSI0kRVSvf8QiS7BZT4eqbIuAwjf0HV72f6cCCjhD45VX6PodWeAflK9ofH0272V1HTq/UUKF/Y7XKovoP0Gig+X9oihBYIsVCEYfNK12ijJL/iARf4q1SbxBSUgadVNvPVSnCUAj70n3fMUdY0PHTs1c/0CYJWLEAPTDBEAgP0yXLvzYHMZa0opspr/ZpWFVwIZLeFogpcxYfjuqWW8aQxvi6hgRhX+FEwv8q14uRiZ0jhqHBwnwmTAq9SbCk7vo/uodfbfU=
 X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5469.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(18002099003)(22082099003)(10067099003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(10070799003)(366016)(22082099003)(10067099003)(56012099006)(11063799006)(6133799003)(4143699003)(261009223027099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?TlBxYkJSa3V2bjNIQ0FBeEU2Q2cxZVdiNWJFbVFhWmpybk5MUXdMZFpvVkFi?=
- =?utf-8?B?dW5URnZKWlRXTCswdmR0ZnI0eW9URDJ2aCsvSCt2c3BDM2ZUOUQ5V1JESUVT?=
- =?utf-8?B?TnAzL3p2K1dCc3FXTGpUcXorb3d5a0xCQXZ3TExiRnlMNGZwZXNoL2hsKzMy?=
- =?utf-8?B?UWtRUVRyeVBTZElIcHVYZXg2K0MyV0wzK0pOSyszQmVKY1pLeSs5VDRqeGRG?=
- =?utf-8?B?bVRIOC9jclpuOU5vWWUwUHI4cjkzOE5VUUNnV3c0Q2F5WnY1bUdMYUxsMVU0?=
- =?utf-8?B?bmtYeXdrNGxpZ0NVN29McHc3NkQwaG01ekt6a2g3dno3WlJCNFR3QStkSVBF?=
- =?utf-8?B?VFZCZWJFTWp2dy80U0ZzUlV1Z00zRURPR0hxc3hPcHVMZDE0QlVieStkblJV?=
- =?utf-8?B?SjkvWFd2ZUREVmxlREkzOGFDN0Y5Y25PeUwyb01KNld2QU5HSVBpVEdINk15?=
- =?utf-8?B?cEtDMEJUbFVOVEZHenlUcjdSck85N1M5VVFqVmtXaGZXOG40WTExVGxkQWtZ?=
- =?utf-8?B?QmlsNC9oL3NsZzlYN2FvSWtoOXNnWkVTUzZTS211TCtHYk1XWlk1UTRqNnI0?=
- =?utf-8?B?ejJWaHk0bEJQb0FWSXhoV29VVXhEWDhweXJOTENxbGM2dytESHp5ZFdBRkRy?=
- =?utf-8?B?NmsrM042bmRRbk9PN0VWdE4yZHFHd2RKWlZsenViYXNSOHFJVk1MN0JuaC9Y?=
- =?utf-8?B?M0JVSGV1K1Z2eTd2K1dEZUpqVkk1Wm8vdFlnbkx3L0REN3IyT2l5a25rejA0?=
- =?utf-8?B?WFVVMHNVYmVNa1BZaVpHSHdzZksyejJjV0YwaUhTOTFIZGd0T1QzM2VSSmNN?=
- =?utf-8?B?VmpOb0FYdEdoMWFxY2FTa01YOCtua1ZjTVR0LzdlVFBxNlBuWkV3ZmVqaWlT?=
- =?utf-8?B?Q05YME5QK0pjVkE3bW1YS09PdVo1cmM5STNwZ1UwWWg4RXRQTWptU1BOVy85?=
- =?utf-8?B?SXQzY2tTRCt3UExWeWh1RFNkTC9BR1pOaU13L3ppcnA1UFBabmFCczAva0p4?=
- =?utf-8?B?VHM3alFJdXFPMzJwY3E4eVJsL2V2MUJDcXZhVVZaSE5XRXBwSm5kQTJYS1Fl?=
- =?utf-8?B?bisyR09Qc0ZoUUk5VlpjeXVTL3VQS1AwUkZnd0FkL0RiRm1hVTg3TjJEdml3?=
- =?utf-8?B?TU5xZUlIbllINWRZcFVKNFYzWEYvS2V4SU14OWh4YVlxQWcxc2tpVmlqQ1Qv?=
- =?utf-8?B?VkdwK1hrSEc5Wi9Bc3dOeWZNTGpsdmpqMzV0Q1ZkbloweU1ySEsxRWdmZmsr?=
- =?utf-8?B?ZGMyV1dJcGdiWXpoSHlwWGVvSEFQWmlHeXQ3YlhqMXhLb0g0b1VxWnZkMmt3?=
- =?utf-8?B?amJlZnVQSEJDSno2aWVoWkNWU29XcElBak1VYVcrSy93SUVseEJXaVN2cTQx?=
- =?utf-8?B?c09teWMvR3ppZndveTIxS2F4cWtLYXBueFIyalNyVXNPNmVxRWpwQ01ITkdU?=
- =?utf-8?B?aGtvVUhOcGpLNEVMV0c3Yk5aL2lMZ3J6bnRjd2VCdEFuc1pLenRGNGxxVTcv?=
- =?utf-8?B?NEtkRld4SEVmNzVwNHcrQVovZ0YxekQ4KzJKTlhhSTNXdExSeHdHT21WSkdx?=
- =?utf-8?B?ZktVeVFkNFpQNTVpQmIwdTRwYjlUWlcydkRnNVBkTzhUZlJWVXIwMnhTQ0dn?=
- =?utf-8?B?dFJLTnhteVp3OWtrcVFTaXpjbFA2YlRHZzV6MEZ4SWhoeUpHZ0E2eUJGcWxF?=
- =?utf-8?B?alJNaEsreGlFVmRYMjV2eDV6cWNIOTlQTVpMT2ZWNmdERElBdkJCcmNjYWRJ?=
- =?utf-8?B?YmdNcUdMRmhzQkNUMWlXSU42T3dOeGlFTmUrRk9tNHZ4UUZlY25HeDlXOFh2?=
- =?utf-8?B?MEl2czN2V0hUSjBMWGk3VHdxZ090V3RVOVhWeE1taENka0RKdGwrNVJEb20v?=
- =?utf-8?B?ZkE4KzZISy9BZCtLbDBKOXEzSkIzNmUvTnhUOHVJdm5pY0xMZitoTis0TGM4?=
- =?utf-8?B?bG5kRFE5bGR1ZkY3Qk83VG9zVE5XOTRzT1QyZVFrVk9yeGVYK1RzUXpnUjNi?=
- =?utf-8?B?QlhuVmIwL3RSVHk1YUtYNWM4clAwTUVHajJxSk14T3NXNnROZEM3RkRDNG9M?=
- =?utf-8?B?ODdxaFZsQlIvQ3h2N0M5Znk1UEdaSEVaYmY2OTZGWVY1NVRVT1RTalZKa2Zq?=
- =?utf-8?B?OWlWbW5qcXQ4eWQyR3NxbXJVMDYvc2RNZXMrOHRvZURYd0NvS2MrZGtjcXVO?=
- =?utf-8?B?SkxGREpPKzgwcERkZUZaSUV0N3huek9aSklyMk1rRUh6MjFFK0ZTL0c5dmtw?=
- =?utf-8?B?SFpCU1NHWDRPU3pLbWdDUU5MUEhIVzVDTzZwZkRFZFBoZGVkbENlb0dWVStB?=
- =?utf-8?B?ak10UWZjV1dmZ0JaODU4ekk4WUp2dXA2UUQ2bFZucjl2WWpKOW9PZz09?=
-X-Exchange-RoutingPolicyChecked:
-	ytPuhwkzg6BklfGiQqy4TUnxZteYvSo4Y8tGYIbuvpfvGIuPH1CZBGGgO99nzPOL1y5wqlyJOhXwwKR1u56WUiaR0L/9m/73nfrjpU2Fe+LiWLYyd3kdH+t8xXyW4RQMqHTpBZlJEbyDkEs8ifYs7RwwxHUhIRkr7rgZWtKMa5l0Af8xZf/I9DzsbmaRTqfakNceHPbPsl4dJuEB4N2aUfKhndsWjiGs+TopgYUgS4Y5m/HF9lU0Ees617BI9/6rZ0abRMdo0UgZdZQWuz8rbV55KzC0OSrKe0f4v6u2ISg0p08vNirjMZPNym4yV2hLSJ++yWJ1Gz5LRpalTTMntQ==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90ec3b10-1e9d-4449-300f-08df28786fd2
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5469.namprd03.prod.outlook.com
+	=?us-ascii?Q?ZufqHf19OaaO8IpVmKLj8zswOEBq/231DFm5TRwWLS1MUQ/yH+XetYupL6BN?=
+ =?us-ascii?Q?/nDpvvUkNC0HE3NZyz0goC7eHpMw3E7mY654JHBoFcAKsvGdHqQcLdK7P4J4?=
+ =?us-ascii?Q?60wAk30AkHtyoQzer/33iSdz8busaB9ZAoPpIL6Ja9HBlG674uWdVmOA7HXH?=
+ =?us-ascii?Q?PuFLbkyi6o0o/Dy+oG5PrvCPc2b3xV9WE8n6bsijwCYbCOz0WOI5Q/ZqyhJ3?=
+ =?us-ascii?Q?pRS2E7k3Atlj+vVn81JzpCHqSqSa47RtJtO2F+fghBXy62jjY2ZxaD4ZIyzS?=
+ =?us-ascii?Q?i5JG/relrRoImmbn0RNP4kLK6oX/Mc72H0U+ViZlYLXb+j2sblwfdVzMhfFr?=
+ =?us-ascii?Q?JiyN2bdUDQJ75iGzlksohYXUkZk5DBeI/fpH3Vv6KeuHwqeI7Qg/fNL0FJjw?=
+ =?us-ascii?Q?tibMm55tFrisKe8+AOvVeEAJ8UnSeM7HIJ2AIia65y1k2vmnqP6F02skJT2a?=
+ =?us-ascii?Q?sDsCbiW88NWnX+Hso2o0fD0GDKIOc1uui63cSISaHko05gbJLUiHDI68KFuS?=
+ =?us-ascii?Q?k+H1SHDbz/ih6N3KjhXaragWhmb5sLkvOwv/NeJ6Fz1nwGgGfCtuLuNa7rdl?=
+ =?us-ascii?Q?dFuA8W82e+ZQA0TfDhXNSCPz2j/zuh9+912+EvgnfOtM0VffGfjncTeDd3oC?=
+ =?us-ascii?Q?pW4SItvc9I78lgulSHswMWgTJSVic6D8mke/3EqciSub3a+8rClDS26qV67M?=
+ =?us-ascii?Q?nMxGmHH1sj+S715zT1DRC5eTgAif/dwWln1F5cpm1PH+dbC1fo0PjFJlvwGi?=
+ =?us-ascii?Q?LJO0+lyISSHKi/v21GMd7XZUcrP2YU+XIuYfqGE0SzslPa2ktl5NOI/R112I?=
+ =?us-ascii?Q?bt7tsyswbDMBcBbktzLWfUIm0KdlVRkGefU5XUyeR1BTRba4QuMT2u6OwMU+?=
+ =?us-ascii?Q?TQrecON7O5iizWNQuXMfeVhLyEWJQvwpXfYeEYij6tw56ztZrqb6HStUrH8c?=
+ =?us-ascii?Q?Tj+IOrBOCcZ4ZXFHU9PljCVM39+/mWP1DBOJ9X+Q9UG+9DKnKwF7Z+3C6Nt9?=
+ =?us-ascii?Q?gkgcmCZuficyfr5m5KCpAkOVmWD3GWTbg0ae3KtRL0yG+3QeYBsAienLS4eX?=
+ =?us-ascii?Q?ohIhah1MHLNGlHRZs/s+wd46D5sn0YCMPc/zPnri4WDYBWBEpgBTq1i3BrZV?=
+ =?us-ascii?Q?8TmsHsoSfc6pg9W1TVcuT2DJiRnjZr1m9GfCMv3FJCpRUVJ9RrgLQOmZB9ET?=
+ =?us-ascii?Q?cMhjxNhOwjp2UdDhI+TGZMsuKL7IuactHaex4DOJmGtREEZYPSeSMfg0Y0n6?=
+ =?us-ascii?Q?xyqbD1m+6u+dhMzKG3fYKWdl3fU6Evx8O/y7X2bP4haj7wu5KbetVFGVmWdJ?=
+ =?us-ascii?Q?gNtqL23eVDxJ5cwb0k6M3REeyPfegn2MZETDtllLv7rBhnhKiz8rIbhuqXKX?=
+ =?us-ascii?Q?j/wb6y9UZxpQynTCd/TT7Ndx74um/kOSbidEw3rUmuenWqqRyzD5p/TvNmya?=
+ =?us-ascii?Q?gIqODzrn4E8oI2ZS+heyLIe2CVCKI1WWuHXPoA6qkvICOz6diOI0lKz1rkBT?=
+ =?us-ascii?Q?EOBy8ebXIPS8zE9nydrb6rGPaaheg/L6JXvk/dNe5ObiPhStCDyo2x2TmZGN?=
+ =?us-ascii?Q?s+enhzvmsXKGKAL9Gs80DOifCtfSe0+8FvpQnZXrqDMpewjy/PASUeGcxFMb?=
+ =?us-ascii?Q?K4KfJMT9M9LMWyiiJB+ajSUzBCQBbIGRhNHyslMT7kkKezmhkXnDE5xhAX88?=
+ =?us-ascii?Q?3KYJSrevYa7odfxbU9cBEJSoUODa2TSWsjqUOD4CQfgEh4f7dCb9wuXnspji?=
+ =?us-ascii?Q?IXpTzSN4iT5SHYuwxSk1qWk0yqEAWZ2SKfacOuo3d/SeXx3G66FI?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84efd7ba-2ef2-4ab6-0cfe-08df28789231
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 15:50:02.6031
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 15:50:42.6199
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Kcw2MWwLhf4NI76J2ZTovyUHG5jBA/ZwvjsMLf7EWJLAhEV4OT1sbLjlemkVvu7iYdSwX/uvV7NvqoHbOHiTlg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6440
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2MiBTYWx0ZWRfXzZMDpdabxjlU
- 436eMFBRurTP+bL/ScyyNOmOzYLJS7Y4Xtp1aLqCtSUJ1HfXJEzmSFFPDoJlHBLQTcUX/hQMIrS
- UtxQv+HaKNrm0JilvGBfxUqWBfdp4P/wzwrIYTWjuLKGJRw/HmrtFv0/0qPt3hUye7q/BHsXXfi
- 9LWNLOtDiawNiwplvYBpO/vvYuOYEPZA+SSVsJAEdCVc6iBEAHv9NrMoDe3YpWhChQt8x4yR/Gn
- XlFST2blqSLnnsPsFnOacBG35i6JTlnoTrjVZss9uySRftyW0c0TtwlWa3xn/Dq1A39VgOFOs5M
- o4bhN5SCQX42fE/ElAu3AYZN+xtZc9/87FOse/DeGWG/0FjXfeeIwCGdpRuf0FiYePen/oDHnYT
- GLvz2TPq6nebY7F2lm/E6QsjKFU0lbG5SBWITroqmw20hDf1XqRx0FM75gAjcNxA4ubhrErcS8Y
- rBoETShZYMUIsCkInwA==
-X-Proofpoint-ORIG-GUID: CXeAlnM8LNUHQJKIFl2wNlkG4P9Ube4Z
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2MiBTYWx0ZWRfXzZYq4feHGKSQ
- xNrP/d1894sP3ImFUPAuU8+H3QfDKhy+QvUqC5cyBlu9mO8/tLqXo4fpIyAL63zsXc6Nswgd/Ss
- P5XR/Qut5+oC4w0c6ystZBYcOWrc6wZZCU7Vf2NUoVU/2mqCSLdC
-X-Proofpoint-GUID: CXeAlnM8LNUHQJKIFl2wNlkG4P9Ube4Z
-X-Authority-Analysis: v=2.4 cv=Ea5d0/mC c=1 sm=1 tr=0 ts=6acd01ae cx=c_pps
- a=P6W5axN73kUBBlOjEPV+4Q==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=iZSIUCweCk2Oy3QsdGPA:22
- a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8 a=Dxi561lRB7pugceqXaYA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_05,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 spamscore=0 phishscore=0 suspectscore=0
- bulkscore=0 clxscore=1011 lowpriorityscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120062
+X-MS-Exchange-CrossTenant-UserPrincipalName: OwmXoKxun0d2G5yxBXcnZWTldY+NLRfjAM0AF6lvi6rDgAVNXlAqqCM9iSvLu/GkfhhCOElvmiX14j44SGDOEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8020
 
-On Mon, Oct 12, 2026 at 04:43:15PM +0200, Alexander Sarmanow wrote:
-> According to the datasheet (table 2) the ALS_SD bit behaves the opposite
-> way the current ALS mode defines are set, writing 0 powers the sensor
-> and writing 1 shuts it down.
+On Tue, Sep 29, 2026 at 07:56:50PM +0200, Andreas Hindborg wrote:
+> `NumaNode` identifies a NUMA node and is not specific to the allocator API.
+> Move it from the `alloc` module to the `numa` module so that NUMA related
+> items live together.
 > 
-> The current driver thinks the ALS is up while it's actually shut down
-> and it's down when the systems powers it up.
+> No functional change.
 > 
-> Fixes: 55707294c4eb ("iio: light: Add support for vishay vcnl4035")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Alexander Sarmanow <as@discnull.de>
+> Suggested-by: Alice Ryhl <aliceryhl@google.com>
+> Link: https://lore.kernel.org/all/aiZvKPFCkqJUsP0a@google.com/
+> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+
+Reviewed-by: Yury Norov <ynorov@nvidia.com>
+
 > ---
-
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-
-> Tested on a Raspberry Pi 3B+ with a VCNL4035 on I2C, running Raspberry
-> Pi OS downstream kernel 6.18.50. Checked with i2cget that bit 0 of the
-> config register 0x00 is 0 while PM runtime resume and 1 once it's
-> runtime suspended. Also builds cleanly against iio/testing.
+>  rust/kernel/alloc.rs           | 30 ++++--------------------------
+>  rust/kernel/alloc/allocator.rs |  6 +++---
+>  rust/kernel/alloc/kbox.rs      |  4 ++--
+>  rust/kernel/alloc/kvec.rs      |  4 ++--
+>  rust/kernel/numa.rs            | 35 ++++++++++++++++++++++++++++++++++-
+>  5 files changed, 45 insertions(+), 34 deletions(-)
 > 
->  drivers/iio/light/vcnl4035.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iio/light/vcnl4035.c b/drivers/iio/light/vcnl4035.c
-> index ce1bd42b0c7c..f1cc75245001 100644
-> --- a/drivers/iio/light/vcnl4035.c
-> +++ b/drivers/iio/light/vcnl4035.c
-> @@ -44,8 +44,8 @@
->  #define VCNL4035_DEV_ID_MASK		GENMASK(7, 0)
+> diff --git a/rust/kernel/alloc.rs b/rust/kernel/alloc.rs
+> index 21067bde6860..9daddf540e7d 100644
+> --- a/rust/kernel/alloc.rs
+> +++ b/rust/kernel/alloc.rs
+> @@ -22,7 +22,10 @@
+>  #[derive(Copy, Clone, PartialEq, Eq, Debug)]
+>  pub struct AllocError;
 >  
->  /* Default values */
-> -#define VCNL4035_MODE_ALS_ENABLE	BIT(0)
-> -#define VCNL4035_MODE_ALS_DISABLE	0x00
-> +#define VCNL4035_MODE_ALS_ENABLE	0x00
-> +#define VCNL4035_MODE_ALS_DISABLE	BIT(0)
->  #define VCNL4035_MODE_ALS_INT_ENABLE	BIT(1)
->  #define VCNL4035_MODE_ALS_INT_DISABLE	0
->  #define VCNL4035_DEV_ID_VAL		0x80
+> -use crate::prelude::*;
+> +use crate::{
+> +    numa::NumaNode,
+> +    prelude::*, //
+> +};
+>  
+>  use core::{
+>      alloc::Layout,
+> @@ -114,31 +117,6 @@ pub mod flags {
+>      pub const __GFP_NOWARN: Flags = Flags(bindings::__GFP_NOWARN);
+>  }
+>  
+> -/// Non Uniform Memory Access (NUMA) node identifier.
+> -#[derive(Clone, Copy, PartialEq)]
+> -pub struct NumaNode(i32);
+> -
+> -impl NumaNode {
+> -    /// Create a new NUMA node identifier (non-negative integer).
+> -    ///
+> -    /// Returns [`EINVAL`] if a negative id or an id exceeding [`bindings::MAX_NUMNODES`] is
+> -    /// specified.
+> -    pub fn new(node: i32) -> Result<Self> {
+> -        // MAX_NUMNODES never exceeds 2**10 because NODES_SHIFT is 0..10.
+> -        if node < 0 || node >= bindings::MAX_NUMNODES as i32 {
+> -            return Err(EINVAL);
+> -        }
+> -        Ok(Self(node))
+> -    }
+> -}
+> -
+> -/// Specify necessary constant to pass the information to Allocator that the caller doesn't care
+> -/// about the NUMA node to allocate memory from.
+> -impl NumaNode {
+> -    /// No node preference.
+> -    pub const NO_NODE: NumaNode = NumaNode(bindings::NUMA_NO_NODE);
+> -}
+> -
+>  /// The kernel's [`Allocator`] trait.
+>  ///
+>  /// An implementation of [`Allocator`] can allocate, re-allocate and free memory buffers described
+> diff --git a/rust/kernel/alloc/allocator.rs b/rust/kernel/alloc/allocator.rs
+> index cd4203f27aed..4af50e20933b 100644
+> --- a/rust/kernel/alloc/allocator.rs
+> +++ b/rust/kernel/alloc/allocator.rs
+> @@ -11,12 +11,12 @@
+>  use super::{
+>      AllocError,
+>      Allocator,
+> -    Flags,
+> -    NumaNode, //
+> +    Flags, //
+>  };
+>  
+>  use crate::{
+>      bindings,
+> +    numa::NumaNode,
+>      page, //
+>  };
+>  
+> @@ -122,7 +122,7 @@ unsafe fn call(
+>          // - Those functions provide the guarantees of this function.
+>          let raw_ptr = unsafe {
+>              // If `size == 0` and `ptr != NULL` the memory behind the pointer is freed.
+> -            self.0(ptr.cast(), size, layout.align(), flags.0, nid.0).cast()
+> +            self.0(ptr.cast(), size, layout.align(), flags.0, nid.as_raw()).cast()
+>          };
+>  
+>          let ptr = if size == 0 {
+> diff --git a/rust/kernel/alloc/kbox.rs b/rust/kernel/alloc/kbox.rs
+> index c63d6acdbb6f..0fa736c81287 100644
+> --- a/rust/kernel/alloc/kbox.rs
+> +++ b/rust/kernel/alloc/kbox.rs
+> @@ -13,12 +13,12 @@
+>  use super::{
+>      AllocError,
+>      Allocator,
+> -    Flags,
+> -    NumaNode, //
+> +    Flags, //
+>  };
+>  
+>  use crate::{
+>      fmt,
+> +    numa::NumaNode,
+>      page::AsPageIter,
+>      prelude::*,
+>      types::ForeignOwnable, //
+> diff --git a/rust/kernel/alloc/kvec.rs b/rust/kernel/alloc/kvec.rs
+> index c7546b9da4fa..b669ca10b3f7 100644
+> --- a/rust/kernel/alloc/kvec.rs
+> +++ b/rust/kernel/alloc/kvec.rs
+> @@ -14,12 +14,12 @@
+>      AllocError,
+>      Allocator,
+>      Box,
+> -    Flags,
+> -    NumaNode, //
+> +    Flags, //
+>  };
+>  
+>  use crate::{
+>      fmt,
+> +    numa::NumaNode,
+>      page::{
+>          AsPageIter,
+>          PAGE_SIZE, //
+> diff --git a/rust/kernel/numa.rs b/rust/kernel/numa.rs
+> index 164e622d325f..4a3a880308f3 100644
+> --- a/rust/kernel/numa.rs
+> +++ b/rust/kernel/numa.rs
+> @@ -4,12 +4,15 @@
+>  //!
+>  //! C header: [`include/linux/nodemask.h`](srctree/include/linux/nodemask.h)
+>  
+> -use crate::bindings;
+>  #[cfg(CONFIG_NUMA)]
+>  use crate::sync::atomic::{
+>      Atomic,
+>      Relaxed, //
+>  };
+> +use crate::{
+> +    bindings,
+> +    prelude::*, //
+> +};
+>  
+>  /// Returns the number of online NUMA nodes.
+>  #[inline]
+> @@ -27,3 +30,33 @@ pub fn num_online_nodes() -> u32 {
+>          bindings::nr_online_nodes
+>      }
+>  }
+> +
+> +/// Non Uniform Memory Access (NUMA) node identifier.
+> +#[derive(Clone, Copy, PartialEq)]
+> +pub struct NumaNode(i32);
+> +
+> +impl NumaNode {
+> +    /// Create a new NUMA node identifier (non-negative integer).
+> +    ///
+> +    /// Returns [`EINVAL`] if a negative id or an id exceeding [`bindings::MAX_NUMNODES`] is
+> +    /// specified.
+> +    pub fn new(node: i32) -> Result<Self> {
+> +        // MAX_NUMNODES never exceeds 2**10 because NODES_SHIFT is 0..10.
+> +        if node < 0 || node >= bindings::MAX_NUMNODES as i32 {
+> +            return Err(EINVAL);
+> +        }
+> +        Ok(Self(node))
+> +    }
+> +
+> +    /// Get the raw representation of this node identifier.
+> +    pub(crate) fn as_raw(self) -> i32 {
+> +        self.0
+> +    }
+> +}
+> +
+> +/// Specify necessary constant to pass the information to Allocator that the caller doesn't care
+> +/// about the NUMA node to allocate memory from.
+> +impl NumaNode {
+> +    /// No node preference.
+> +    pub const NO_NODE: NumaNode = NumaNode(bindings::NUMA_NO_NODE);
+> +}
 > 
-> base-commit: a22dc7ebb21a6bd4c8b63bc2c1dd46a24945aae7
-> 
-> Best regards,
-> Alexander
 > -- 
-> 2.47.3
+> 2.54.0
+> 
 > 
