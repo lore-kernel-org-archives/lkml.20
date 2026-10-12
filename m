@@ -1,82 +1,81 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF253EE1EE
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:55:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3D436A017
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:56:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791849337; cv=none; b=X/Ti5sm7/Kyv91MoxL7fsrSBM9iBYnMXTpy6P+mwPJv6x9YKKRXZ74qBFr1QFAx/anZFK17Ok5bmiKTpOKm8EuGgiFsygt4qQ/girOFn9b8xUQV40wr2+EtvEbwxxbQyUM46Yfbg/zs6Dk9eNqF3xtpWCkmzuaytzywhwzWm1p4=
+	t=1791849391; cv=none; b=TD3HsNz55h/U13FaWmY75p7J7rBb0ECCz8lNgyf5Oyye0i3Ry+OF+a8Rr4hiHbNHX3cbir4s1EiMFBDvWCYUOb5C6Xq7ilqG8ghFtAOT7wglSwid7jWAVYOIh2MG5TlevUfCAH7Cz67Lr85W1mY8ARrpRBygp4xTQWz+W3y6D3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791849337; c=relaxed/simple;
-	bh=VqE44AehCssWJGWUs9PIZgPZFXsZKmwiXJFANrHmelk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=luQWDJRkayCJxcAXMSOrwH4Gtm5hsX1VEjaniz+cmy92dw85DlCyOIolcU2vyJXfQUqUlXbB41LY9PaMVq1MTpioHunQ3805t5/NMFqQyOQ5dQGX2sGmDM2oj5qG6fZd2nguwgTPJsgQtxQr+bOoofMHIjBS9wQQ+bvo3u5lF9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ox9hkLEM; arc=none smtp.client-ip=209.85.128.54
+	s=arc-20240116; t=1791849391; c=relaxed/simple;
+	bh=07zRKt+iURfkbu1QFEt/0Wl2s591iOQMk67RKiSaS2s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XKRZB6xOj8jY8BoKoT5RaNL4VDe4X/iI4dcc7lwwhN7CLr8TLhf0GVctnXSRFmMV71qGnguBJtvd4FCSdwP/aOmwC/3DVMKYahCeYnWnyTidRNmOQstLp3owxfcFwDblCsTxwA2mM3hbYivqHIOlXN2k8JtI6Wv0KiYK054rqhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IP4vtR9d; arc=none smtp.client-ip=74.125.82.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ox9hkLEM"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so14137935e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:55:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IP4vtR9d"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3514b90bb89so4468787eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:56:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791849333; x=1792454133; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ECNai7xooL0OUYNeTiNMYW7R9qWrmdzEAeiMs3Y4J3w=;
-        b=ox9hkLEMbGjTqnmwQ/qup48AHnVeykL+HWI7J4Y+Jt1bKqNhm1ZXPnjHF/1wYzw2MC
-         u47QPXrI/iAu4p6/7bw1+C0zsO1s+s2K8KGkWTqXx7uIPtMhVVElUdX5Hc30ho1WSzOQ
-         iLbRyE8DJYEnZdtffHH2Rpr6E3BNiYkeTQ6Z14DaAlN4GebQq7nYnigtctUSIdyLqbtp
-         s/oHCI5l+WWMz50GNHhSSP75dH1XQqtYqrt6mMpWEqPMOfBJ3f7MUXLwzryPWpxc+aQ/
-         /QA+dkrnVL3kjM7JSBOzTu344ctnU+ICoFO13WuaxVsXy6L/FWJcTxJvaHmHD6e6oom7
-         /xWQ==
+        d=gmail.com; s=20251104; t=1791849390; x=1792454190; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1VeLk5FpKsQq/qjV/WEYAWBiUl9W5UJD8Aw3U9SBRbA=;
+        b=IP4vtR9dsiiVDwGRi5QnG0WuJVW8rTUKBPHM8AktVx6kAu5tNqlJuVkmfwcNPuRBw+
+         N1N8POprdLhfaEEuQuv9OgvwR4Nyh1rHNxuToWTF8jHgBUbIiVE4GedYNgDRhsZC8Khl
+         KaS0iBTksKzx6RmXclbssRPdhNWbUwUJA8cBcd9d/D5kz/Zn1tp1oAc4vaKJtESZ3FCo
+         91A10U4dZlF+LZ/WxJxb4A3qMDAViL8SkCS1daOo0P6ZFhJiFN5yDY+mcRoIJmiKwBQj
+         JdjIinDPRSTC0FoSyM03p/iTlBpaFUSTaymqwmpzroNwvP9FZrJRfhDN7dfP2vLqnh7H
+         r5FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791849333; x=1792454133;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ECNai7xooL0OUYNeTiNMYW7R9qWrmdzEAeiMs3Y4J3w=;
-        b=KOB0TdtzeF8mI6N1ReX6PPPj6/d7b6VPDnOi/RGrqK+66Lc0egPur6+ldAL9WGGJ5s
-         WDlXQr9y7x9jF1uxI0wjLPZop3VbTuEQ0DhlLXAZc5aJRiw7AxsNJUjzhTBksHlMEsw/
-         qQM7sHGs6jnVA5re0Ewm/bUTHS0BWi85Grj7Cgxa566TJ18yUDQyBnkosL/tSZd7GOb7
-         zlDTKopLmITlsSh14dXa3H53EOcNX1+rjPnIvDZK5rC2m2zALlJ5iPSSPGnlkwQ8Rszp
-         6NwUgtl+lorRX69bw0w4OkyE72FrMr91RN0Hp8nKrgmG1VjyMzJZy3/Pk32OMnKPKlRl
-         OEKA==
-X-Forwarded-Encrypted: i=1; AKwUvBz2qFrkJAo1zOcc+8c5LqUpqmWVX7ylXmvvbg5szEG7AgIXf36I+/v73XLm3hFJBui9S/PfNTHkm9dXLz8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNYLqdRHzqUxYffDN+LxdTXCIJUlbYxULbhq2DMM6LtW7RUQDM
-	wjMcomDBoeJgSOKbTtHdM8jLBoggxRIoMF0HgMmWFeH+qQ6aWIe9KSMR
-X-Gm-Gg: AYBFou3pxpCIG90YfdlZ+CytKT7bFF8du7hMmFZH/7k8ofpa+TZFg4q0g9VUvpOqMrn
-	LZ+JsynBr0DKHhElxCKxyYzuf+aHEyj+/U6+lkPdjMcR2oEbubQ4iYNSoF+po7dO2ORRgxjS4kG
-	cQJkfunyhgtgj/uquh4HEL+hde1hfUj0D5uDMXYBXMYtnS9RQPX1gXQyN2u/369PlrUEaKicVRu
-	NExZA9KzRh5C3AwncOD44fl9vEJSZqyzRNXfy1p/ccndgTiJkPQgap+DMbQFdgT/U6ulFyLmAor
-	Suld1xm1GGmOt77CM2zbke9++oV7HRz5bgW2nuMzCT5l9oIgp9e4f6qIASAVDmVjX+RL4tPzwDD
-	LBayW0Rx9zQwLviYfNNg70aUNj347Z9/35PB/Gr0xJT5dE7Qe26FMkfvgztZOV+obeiJqkRMI29
-	OXq/o/X58QIfHdAus3fH0YHeXLVruXC0r2rE+m1TNNL3SZCXLQdxHIKa01lyXgNn0pgC6aUSpZB
-	8QE8lV3P94yIValKZs2wNbjiOodqOeYa5mNAPMxN8NHy3gtxA6wDsZQWNo=
-X-Received: by 2002:a05:600c:5391:b0:49e:7a10:1b71 with SMTP id 5b1f17b1804b1-4a18e4a003cmr208047905e9.11.1791849333467;
-        Mon, 12 Oct 2026 16:55:33 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0967a0dsm1933762f8f.3.2026.10.12.16.55.31
+        d=1e100.net; s=20260707; t=1791849390; x=1792454190;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1VeLk5FpKsQq/qjV/WEYAWBiUl9W5UJD8Aw3U9SBRbA=;
+        b=zJRJLNIHQA1+KRUnod5FrUHULto67wkfKUHN4Z93yLPKC8gJR7sQqz+lQ5zjZu4cm4
+         DhaB/SHtLvfm2SfylN/lPt0fVCQDPQHbAHBb9sXGoytvggEQqA+3B194PwCqy3qRM9kI
+         uZ3G4b3sHhG9LJ57yfn+ewz7vPfWZV4B40pzDL5/Az99mLY93tfpkxR8hMscIqe+hUtA
+         qVqofsj1sUJbrzexOt7VvLaS6xPAyoQRiuOKc5slho3GnqQfI1d1SsZMCTAFE/r/5hCD
+         JaXgY3iU6P18bPNvZRaJ47LgdAn6A7Jna4rKivlMmSlGY8sAo71amOS8mEmK/U//TlP0
+         foMw==
+X-Forwarded-Encrypted: i=1; AKwUvBzfomyMnmnWq3SiYP7XgGLvTCdpUVLll8uNTxg4Th4B9VSRHYYxaZCeykKj2AceJEmENz1++0b//YRe1bU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpBgi9eexFPk3JZ7EOax8z0qNsqtEdVTz3OuelpuLgDDtGkcNd
+	wZyw6/5jtXc0iaV/ILNWlKRacRkfnY7RsEkmJKoHajHujlWO635k5htsGcg6ac6BQ2Q=
+X-Gm-Gg: AYBFou2HR4lG5gAaTrnwcBj218qVtVzSvjwVpFF7DQpPXGhNIxhlP42F1pupjmwS0Pn
+	pI4DzcH+IHjg10TkOg7Sei5c5IBf9fadJEKtpJcOAf39HrhdJ+6BBVZKOB7Bu8W4fEePib0Ur/J
+	OXpLWAbgXImE1yQej1cPyAqqWuz2A0T7cjkrQhwMKatCG0Uyi4moVxBfqLI4tdtyABf5m9QC7Cf
+	2r3kcJUGuoTu/MoTSMo96Xr9z5UJeLdPNkbL4ylC6TEQTvAVyZ9EAtBNMQH8OguNBfp960Wa742
+	NmSWnog85zz2jdCm0YkthDrgmcKS38QDT/UDd6ZTNWEJQzFoCKr7iCCkup3tqvL5849KAY2+3Br
+	7yyyQcMI7Nbpy705RjP4/kYOzEQXly3qKBv/eJRMUuOgJ7Uz0WXKKOF5V15gm9ax6sJMfrYk+zj
+	YKU5nijr4G9DFMufuZpCMpK9X4TJzWuEo8l6Rx0uTKx1UE3hdXuIgMaZ+unpO5EDgJBYTA5armV
+	AODT2swLPSCKSpHMYyutyKckxkRcE6RvN4z9eFWWv9R4Sjgh+/H58U/l8sUXbWNNzM6kNGcyfRH
+	PeA+xKC69lmhfllHiYC8IrTYqI0O+NG9mtwk7Sld4ZYS3s7i1QMjTO0wAfzguvEE
+X-Received: by 2002:a05:7301:4e88:b0:35a:efce:6190 with SMTP id 5a478bee46e88-35aefce65c3mr6631069eec.28.1791849389564;
+        Mon, 12 Oct 2026 16:56:29 -0700 (PDT)
+Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35b690af3easm8686145eec.1.2026.10.12.16.56.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 16:55:32 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: netdev@vger.kernel.org
-Cc: sgarzare@redhat.com,
-	bobbyeshleman@gmail.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>
-Subject: [PATCH net-next 2/2] vsock/test: cover SO_INQ
-Date: Tue, 13 Oct 2026 00:55:24 +0100
-Message-ID: <20261012235524.41468-3-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261012235524.41468-1-devnexen@gmail.com>
-References: <20261012235524.41468-1-devnexen@gmail.com>
+        Mon, 12 Oct 2026 16:56:29 -0700 (PDT)
+From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+To: Yixun Lan <dlan@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	E Shattow <e@freeshell.de>,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] riscv: dts: spacemit: mark K1 boot nodes bootph-pre-ram
+Date: Tue, 13 Oct 2026 07:56:22 +0800
+Message-ID: <20261012235624.77993-1-alan.tseng.cs@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,224 +84,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Check the SCM_INQ value after a partial receive, after draining the
-queue and at EOF, that no cmsg is sent while the option is off, and
-that out of range values and SOCK_SEQPACKET are rejected.
+A bootloader SPL on the SpacemiT K1 runs from SRAM and needs a handful
+of nodes before DRAM is up: the root clocks and clock controllers, the
+console UART, the boot media (SD, eMMC, QSPI NOR), the board EEPROM
+used to identify the board, and the PMIC rails it programs before DRAM
+training. Today mainline U-Boot carries the bootph-pre-ram tags for
+these in per-board -u-boot.dtsi files.
 
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
- tools/testing/vsock/vsock_test.c | 191 +++++++++++++++++++++++++++++++
- 1 file changed, 191 insertions(+)
+When I sent a U-Boot patch adding another such file for the Milk-V
+Jupiter, E Shattow asked for the tags to go upstream first, so every
+K1 board gets them and the U-Boot overlays can shrink [1]. Earlier
+there was no working mainline SPL for K1 to justify them; there is now.
 
-diff --git a/tools/testing/vsock/vsock_test.c b/tools/testing/vsock/vsock_test.c
-index b4ff9f946565..00bb68c00c07 100644
---- a/tools/testing/vsock/vsock_test.c
-+++ b/tools/testing/vsock/vsock_test.c
-@@ -2429,6 +2429,188 @@ static void test_stream_collapse_server(const struct test_opts *opts)
- 	close(fd);
- }
- 
-+#define SO_INQ_BUF_LEN 64
-+#define SO_INQ_CHUNK_LEN 16
-+
-+static int so_inq_set(int fd, int val)
-+{
-+	return setsockopt(fd, SOL_SOCKET, SO_INQ, &val, sizeof(val));
-+}
-+
-+/* Receive @len bytes and return the SCM_INQ value, or -1 if the kernel did
-+ * not attach one.
-+ */
-+static int so_inq_recv(int fd, size_t len, int expected_ret)
-+{
-+	char control[CMSG_SPACE(sizeof(int))] = { 0 };
-+	unsigned char buf[SO_INQ_BUF_LEN];
-+	struct iovec iov = {
-+		.iov_base = buf,
-+		.iov_len = len,
-+	};
-+	struct msghdr msg = {
-+		.msg_iov = &iov,
-+		.msg_iovlen = 1,
-+		.msg_control = control,
-+		.msg_controllen = sizeof(control),
-+	};
-+	struct cmsghdr *cmsg;
-+	ssize_t ret;
-+	int inq;
-+
-+	ret = recvmsg(fd, &msg, 0);
-+	if (ret < 0) {
-+		perror("recvmsg");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	expect_res(ret, expected_ret, "recvmsg");
-+
-+	for (cmsg = CMSG_FIRSTHDR(&msg); cmsg; cmsg = CMSG_NXTHDR(&msg, cmsg)) {
-+		if (cmsg->cmsg_level != SOL_SOCKET ||
-+		    cmsg->cmsg_type != SCM_INQ)
-+			continue;
-+
-+		memcpy(&inq, CMSG_DATA(cmsg), sizeof(inq));
-+		return inq;
-+	}
-+
-+	return -1;
-+}
-+
-+static void test_stream_so_inq_client(const struct test_opts *opts)
-+{
-+	int fd;
-+
-+	fd = vsock_stream_connect(opts->peer_cid, opts->peer_port);
-+	if (fd < 0) {
-+		perror("connect");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	control_expectln("SENT");
-+
-+	/* Wait for the whole payload to be queued, so the values below do not
-+	 * depend on how the transport delivers it.
-+	 */
-+	if (!vsock_ioctl_int(fd, SIOCINQ, SO_INQ_BUF_LEN)) {
-+		fprintf(stderr, "Test skipped, SIOCINQ not supported.\n");
-+		goto out;
-+	}
-+
-+	/* No ancillary data unless the option is enabled. */
-+	expect_res(so_inq_recv(fd, SO_INQ_CHUNK_LEN, SO_INQ_CHUNK_LEN), -1,
-+		   "SCM_INQ with SO_INQ disabled");
-+
-+	if (so_inq_set(fd, 1)) {
-+		if (errno != ENOPROTOOPT) {
-+			perror("setsockopt(SO_INQ)");
-+			exit(EXIT_FAILURE);
-+		}
-+
-+		fprintf(stderr, "Test skipped, SO_INQ not supported.\n");
-+		goto out;
-+	}
-+
-+	/* Partial read: the rest of the payload is still queued. */
-+	expect_res(so_inq_recv(fd, SO_INQ_CHUNK_LEN, SO_INQ_CHUNK_LEN),
-+		   SO_INQ_BUF_LEN - 2 * SO_INQ_CHUNK_LEN,
-+		   "SCM_INQ after partial receive");
-+
-+	/* Draining read while the peer stays connected. */
-+	expect_res(so_inq_recv(fd, SO_INQ_BUF_LEN - 2 * SO_INQ_CHUNK_LEN,
-+			       SO_INQ_BUF_LEN - 2 * SO_INQ_CHUNK_LEN), 0,
-+		   "SCM_INQ after draining receive");
-+
-+	control_writeln("DRAINED");
-+	vsock_wait_remote_close(fd);
-+
-+	/* Nothing is queued once the peer is gone, but 1 is reported so the
-+	 * caller keeps reading until it observes EOF, as TCP_INQ does.
-+	 */
-+	expect_res(so_inq_recv(fd, SO_INQ_CHUNK_LEN, 0), 1, "SCM_INQ at EOF");
-+
-+	if (so_inq_set(fd, 0)) {
-+		perror("setsockopt(SO_INQ)");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	expect_res(so_inq_recv(fd, SO_INQ_CHUNK_LEN, 0), -1,
-+		   "SCM_INQ after disabling SO_INQ");
-+
-+	close(fd);
-+	return;
-+
-+out:
-+	control_writeln("DRAINED");
-+	close(fd);
-+}
-+
-+static void test_stream_so_inq_server(const struct test_opts *opts)
-+{
-+	unsigned char buf[SO_INQ_BUF_LEN];
-+	int fd;
-+
-+	fd = vsock_stream_accept(VMADDR_CID_ANY, opts->peer_port, NULL);
-+	if (fd < 0) {
-+		perror("accept");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	memset(buf, 'A', sizeof(buf));
-+	send_buf(fd, buf, sizeof(buf), 0, sizeof(buf));
-+	control_writeln("SENT");
-+
-+	/* Keep the connection open until the peer has drained the queue: an
-+	 * early close would turn its last SCM_INQ value into the EOF one.
-+	 */
-+	control_expectln("DRAINED");
-+	close(fd);
-+}
-+
-+static void test_so_inq_validation_client(const struct test_opts *opts)
-+{
-+	int fd;
-+
-+	fd = socket(AF_VSOCK, SOCK_STREAM, 0);
-+	if (fd < 0) {
-+		perror("socket");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	if (so_inq_set(fd, 1)) {
-+		if (errno != ENOPROTOOPT) {
-+			perror("setsockopt(SO_INQ)");
-+			exit(EXIT_FAILURE);
-+		}
-+
-+		fprintf(stderr, "Test skipped, SO_INQ not supported.\n");
-+		close(fd);
-+		return;
-+	}
-+
-+	if (!so_inq_set(fd, 2) || errno != EINVAL) {
-+		fprintf(stderr, "SO_INQ accepted an out of range value\n");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	close(fd);
-+
-+	/* SCM_INQ counts bytes, which a message based socket cannot report. */
-+	fd = socket(AF_VSOCK, SOCK_SEQPACKET, 0);
-+	if (fd < 0) {
-+		perror("socket");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	if (!so_inq_set(fd, 1) || errno != ENOPROTOOPT) {
-+		fprintf(stderr, "SO_INQ not rejected on SOCK_SEQPACKET\n");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	close(fd);
-+}
-+
- static struct test_case test_cases[] = {
- 	{
- 		.name = "SOCK_STREAM connection reset",
-@@ -2633,6 +2815,15 @@ static struct test_case test_cases[] = {
- 		.run_client = test_stream_collapse_client,
- 		.run_server = test_stream_collapse_server,
- 	},
-+	{
-+		.name = "SOCK_STREAM SO_INQ functionality",
-+		.run_client = test_stream_so_inq_client,
-+		.run_server = test_stream_so_inq_server,
-+	},
-+	{
-+		.name = "SO_INQ option validation",
-+		.run_client = test_so_inq_validation_client,
-+	},
- 	{},
- };
- 
+Patch 1 tags the SoC nodes in k1.dtsi. Patch 2 tags the board-specific
+EEPROM, PMIC rails and SPI NOR on the boards that have them. The set of
+nodes matches what the mainline U-Boot SPL tags for the BPI-F3 and
+MusePi Pro.
+
+Testing: all K1 DTBs build, and dtbs_check is clean for them with and
+without this series. I have not run an SPL built from these trees on
+hardware. On a Milk-V Jupiter running Linux I checked that the EEPROM,
+PMIC and SPI NOR answer at the addresses described.
+
+[1] https://lore.kernel.org/u-boot/5d323a11-da4e-4071-bdeb-ab5c03e8f85e@freeshell.de/
+
+Hung-Chun Tseng (2):
+  riscv: dts: spacemit: k1: mark boot-critical SoC nodes bootph-pre-ram
+  riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
+
+ arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi |  7 +++++++
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts   |  7 +++++++
+ arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts |  8 ++++++++
+ arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts    |  8 ++++++++
+ arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts  |  5 +++++
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts  |  6 ++++++
+ arch/riscv/boot/dts/spacemit/k1.dtsi              | 12 ++++++++++++
+ 7 files changed, 53 insertions(+)
+
 -- 
-2.55.0
+2.43.0
 
