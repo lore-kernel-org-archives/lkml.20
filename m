@@ -1,179 +1,132 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2131412BFA
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:33:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791801213; cv=pass; b=bGhXJCX63qivrV6vDV65WkupfHNr2/+j7FHbvWPz29V37uQ1QSSeBuq1YHiaZV2FBT7Q3R+txAxFok0mzm7QJZq9hUMf1Ua5iFV/lBQPH5pBADaKxsIv7qW4ygyqLzDqw8U12ExcknwMnvCdSthDd+dyG9YyWGCbevhRTlKqBV4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791801213; c=relaxed/simple;
-	bh=K58spMtUXSSstSD13s5KRjPSopvKSNrgFnbERIc/EfE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ov9mtHtv3Mkl2S+mMCIX/dIgd40rG/jB39unQLwbQmYv1lOApne3M3KVPli46duTXQ/aw0mTQf8hFaFmlFjeY6F+TPXqNZ9vY65XnLBcyI0UpGgw+YPXmC1MfG4HWWARYmQ4reeXW72rCoSj5JNZbCm8ChZZdlF1hwcXNQekVPQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QyOsDOqV; arc=pass smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B6F3ABDA5;
+	Mon, 12 Oct 2026 10:33:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791801240; cv=none; b=GzvnhNbuUIl0tBFH1pp41Xxnn3KPNftDQT/VM0pnXMRt9rdSGE2ZJfPaJ7lX0iKoDDhUuPRwZetsuOfklvFpVEmTye4WT/MIpdMx2t//dAKsVFF11swtPO2ZavTR1ua3CwX9c4MihJU543M93AtCA7p8gL4O44OfMl7Zff/w0Qo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791801240; c=relaxed/simple;
+	bh=OhMtNDrimXppjoitpJALUEqM8XzTYMltqE4WibgaUF8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=APV1zJdJ/Orge4B+gSUoBlOMiOx//reG/noYMHIJYYcEQlffW9rIWpoCZl2aFex9s3o3MFoIPATYId2ymGwctGibtXu4ebEPuFAMdDkvIrvO2t92xMAbQNjPHmNjlG0pHiKgNuFH5Hnl0bqtzyZD7Ze/tnVmoxrCDMbZHlAHcqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fEKg6uip; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QyOsDOqV"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c31a34de844so257381866b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:33:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791801204; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kv3HgWqql4TcNV6K7bXuNxFzFCMOpyUQjbldZpFE1UZ8adNXCKyLxmM3LmsVJOkJLt
-         EEg+rtANpvjamAh0g3kM3a5BWz3hBiM/siXrU+JRp5N6vqV3oruJF8wi86xUz/bGKRrO
-         FCBtEokrkIrBpIk9EhBimF+hxc7t/xQo06NwJE96h/RSIiNXhbLTibu6zr95EbR7CGE+
-         EqT+mjNTuzLP1qj073phRSpPtVusXH5efbraO0MHS417GDyR+CZXWHbmItSnwAgRC7RH
-         35O0TTTi+i1ED6P1lvSEG04MIN2UdLxb8+N89oT55aNL91DPsM50Px0aX69PLlzzQ4FL
-         uCyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WCb6XoubVQ4Mh43VO0uwVKASyleTbzUvSNlnrWOxN8o=;
-        fh=QDwS8bThteRvxgBnWwQUXrWyfHn1sm/xsU9NPsKtaGA=;
-        b=AbSwszkpo9dMrJLtgY94B/91+Q5SGY3OKgUantzPlzH2eM3ZOQkOTvpzOPbDtSsPzB
-         BOI3QKm7u4RYyb72uAVS3M4Qdr1x/H4wvuPG02fnPcpCg2geVmoWe8uRT2Qtiwhjezmo
-         CXLbaGtaFCfhHR8xtoI56ElI4fphrxKHF8mP7oOsafLOQDkwm5dKCqblt4UJMDt5kl87
-         fCrJ2I051+kqEvsCQBs8RwEK0+Go4qSfEs/l+UIOXF+YAs+N3a3XFN1cvEkI2IQ5jWOq
-         tl8cKJKO1p/cSjwbWZFZUjA1cWmsm3KxNpmhdH2McgTYro61YuWXGilBFyd1EO4q9bbT
-         ucOA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791801204; x=1792406004; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WCb6XoubVQ4Mh43VO0uwVKASyleTbzUvSNlnrWOxN8o=;
-        b=QyOsDOqVPbs5F7/Mbyf5pAowaPjAOBQRB1civGx0dw2T3f66kyBZOEnNUkIsfMshCi
-         pPD/1eZhIQcBhaz60OG79w+vIA8u9qkNc5bZqjKctTUNeUmkKLLM79TS5tNFm/PlNwGu
-         4LfzZf+v/A0oZFqzp+SBylvb+wO8/2v2c98p1/Xr4g+HUqZpJxOTT6PlgDsPx2eRC1y5
-         BcF4PcKCyoddxie+AWlWgYfgGzB9i+Rb4bBKys8Foua1ZqKq18UhE4lYBUnXToWYpGHk
-         /TOjIhMJ1FFYDvOMndvZlqy+KbWAzxKDjuSON34Mjb4qxUkEmrMM14r8NiTlTGQZlzPj
-         0Otg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791801204; x=1792406004;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WCb6XoubVQ4Mh43VO0uwVKASyleTbzUvSNlnrWOxN8o=;
-        b=t3Ru5nsqsXogcME+3Ad31kWmiYH4GseaU2u+3zfpiNLu4TqlAQh1g18xzb7sOdKhlR
-         FN5gL0r+wNm1OJg4zUUCPKa88o2Iu0Phrc5728KwSq8JxKmdjERu9OjZsXnbvZf4C93e
-         KpdFS2y2MgpKippKWRLf0u1dBVbUq0C/dNkfLggWpj8aQqdJr+McXg2AzLoRvwVuABwN
-         glrvuktglefh/1sE0M01ILPL8RGLiquAPDUidxVZIGdeBKYcvNwXx0f7mGQ+4wH82ITo
-         Yd78SD9JIaxati6IKhmfUFbE42yv4qG26isXllch1wKSkKR0Ny8Olmldm3I3U8PAqqLR
-         PXIA==
-X-Forwarded-Encrypted: i=1; AKwUvBymIwZVKiPFD409gFedRZuDPlM7UsPCqKiEnir45QJ4LyLCjf9MUkdaJrJc2wvFs5RLZSNYPGXZJN4j1aM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKAB9ISZyR3W7PijoTtKExMQTOK14UYK4TLBublqyxrxZzng22
-	v69o4Pk5CHNPOKo1c9qmn8uUsjR6VerQhIp5KYLOAUKaTotGP/UzYEDisttmijV/0e98Zq0gAmt
-	gPUip5zv8nRFaTUi4ns5d/FinkdDYvNk=
-X-Gm-Gg: AYBFou2r747MJwNCMz34s9f1qYM7iCd5CfeGhtCZ6JfHbZt6iVtku6xIJ/ljXLLJcWp
-	ZBoNP85njCEr1ANNyPYLPxQMm2nitnzEX5qRIPvj/FodJuhC116tciloWC0EJ+zA1XxETkCruVk
-	74U/hX8Zo6B8d2k+1UC5JnzTK/2ck6ntuKeVs2FJ3BoL/7HgcHZvnG6ejkLEO8En+sfAZIKKO0C
-	9DHY7DKTuFsyOEYTNA6MWJN7l1IyQm9A7FBU8IFhQZZ9OnSyNQI7Sgx8LHfFPrQiL6p0De95715
-	+bLGD7facp4UEQuJaGc7tF2HHyVmP90s0UaonYdBBi8IPih9N3v/4ubu3SY2kKnsixgj2aiPoKP
-	d98hIRq2uLrHcH3X8Bh6zVq0pfaleK8dBqsSuG4Etemj4ZF1tJMrYh97qAyRrASMNRaNTgBNhs1
-	48mAsd0yi2h6eBFFw38Vl3vjqMSAf2t2FGZJxE2qND
-X-Received: by 2002:a17:907:2d88:b0:c2e:4373:521 with SMTP id
- a640c23a62f3a-c31aa0d2286mr787580766b.46.1791801204012; Mon, 12 Oct 2026
- 03:33:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fEKg6uip"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A6801F0089B;
+	Mon, 12 Oct 2026 10:33:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791801234;
+	bh=YNnBEk1ZblEqrRrnuFXhKbUtj1Kjb67w+8SQlGULyHY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fEKg6uipIJDU9BC6xLEMgoLYR9QG7W0hFPrT8AQqy8X2IQaQv99e7Fq09HEvCH/7m
+	 QeS0JYlgUSTRWU+B3s/P7udKfTuMZUdJC/3eZku2DYciVmbv5wXEzhgn1KnMpklBTJ
+	 vn2c9N0de6SuluS/nhj/Q4f+YIWeQ06tzo6l90oRfJf72m4iWPmr+sVAy89lUnVgm3
+	 kw3XKwdEGazJRTIyqblyFf3KzxNPxoYXt1dD+qWn5pClS0PO7kTIzPqLOg2Kbh0ZAg
+	 aqW0ULSvcobAVRgeguqucH/6oNpiq6OgjyZdiV0qYhlDj4J9xTfN+KgA8HZ8IFXmPB
+	 5DgvOhzM1Irmg==
+Date: Mon, 12 Oct 2026 11:33:48 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
+	jannh@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/madvise: keep the hardware dirty bit in MADV_COLD's
+ THP path
+Message-ID: <asyy7Nwik5yMTNbo@gremlin>
+References: <20261011132227.413217-1-samarth.colleges@gmail.com>
+ <42087cd7-473e-40a7-ae63-3c841c615c8f@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com>
- <20261011-gpio-mxc-cleanup-v6-6-cb47ce2ad758@nxp.com> <CAHp75VcadkqzMxShq1PLzqgNZypB+vqr3a_m1utu-NOx39iK1g@mail.gmail.com>
- <asyvcJxbM5aD8pzE@shlinux89>
-In-Reply-To: <asyvcJxbM5aD8pzE@shlinux89>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 12 Oct 2026 13:32:47 +0300
-X-Gm-Features: AclHuK8bE2RNRViMXGduuI7Gu1WFvoqdAJYcBik89ymBcvSwk0SX4J83VWey8Go
-Message-ID: <CAHp75Vfi8xqFU7nUjE1ktYKWgXGYy3XQKnz4nAJZeR2_o3ywkA@mail.gmail.com>
-Subject: Re: [PATCH v6 06/13] gpio: mxc: replace of_device_is_compatible()
- with hwdata flags
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <42087cd7-473e-40a7-ae63-3c841c615c8f@kernel.org>
 
-On Mon, Oct 12, 2026 at 12:54=E2=80=AFPM Peng Fan <peng.fan@oss.nxp.com> wr=
-ote:
-> On Mon, Oct 12, 2026 at 12:25:41PM +0300, Andy Shevchenko wrote:
-> >On Sun, Oct 11, 2026 at 2:54=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp=
-.com> wrote:
+-cc slopper.
 
-...
+On Mon, Oct 12, 2026 at 12:09:07PM +0200, David Hildenbrand (Arm) wrote:
+> On 10/11/26 15:22, samarth.colleges@gmail.com wrote:
 
-> >>  struct mxc_gpio_hwdata {
-> >>         unsigned dr_reg;
+> > diff --git a/mm/madvise.c b/mm/madvise.c
+> > --- a/mm/madvise.c
+> > +++ b/mm/madvise.c
+> > @@ -426,8 +426,14 @@
+> >  		}
 > >
-> >>         unsigned high_level;
-> >>         unsigned rise_edge;
-> >>         unsigned fall_edge;
-> >> +       unsigned int flags;
-> >
-> >Obviously you need another precursor patch to move from 'unsigned' to
-> >'unsigned int' in the whole driver.
+> >  		if (!pageout && pmd_young(orig_pmd)) {
+> > -			pmdp_invalidate(vma, addr, pmd);
+> > -			orig_pmd = pmd_mkold(orig_pmd);
+> > +			/*
+> > +			 * Rebuild from the entry pmdp_invalidate() exchanged
+> > +			 * out, not from orig_pmd: hardware may have set the
+> > +			 * dirty bit since orig_pmd was read, and a MADV_FREE'd
+> > +			 * (lazyfree) THP whose dirty bit is lost is discarded
+> > +			 * by reclaim, silently dropping the store.
+> > +			 */
+> > +			orig_pmd = pmd_mkold(pmdp_invalidate(vma, addr, pmd));
 >
-> Could we keep as it is? I try to avoid adding more changes if not critica=
-l.
+> Okay, you are saying we can lose the dirty bit that could get set concurrently.
+> And if we did an MADV_FREE before, we might not detect that the content was changed.
 
-No, be consistent. You can add a new member with just 'unsigned' type,
-but it's discouraged, sooner or later you should provide such a change
-anyway.
+Yeah, lazyfree -> write means you don't actually free it.
 
-> >>  };
+As per the manpage:
 
-...
+	For each of the pages that has been marked to be freed but has not yet
+	been freed, the free operation will be canceled if the caller writes
+	into the page.
 
-> >> +#define MXC_GPIO_HW_DATA_COMMON        \
-> >> +       .dr_reg         =3D 0x00, \
-> >> +       .gdir_reg       =3D 0x04, \
-> >> +       .psr_reg        =3D 0x08, \
-> >> +       .icr1_reg       =3D 0x0c, \
-> >> +       .icr2_reg       =3D 0x10, \
-> >> +       .imr_reg        =3D 0x14, \
-> >> +       .isr_reg        =3D 0x18, \
-> >> +       .edge_sel_reg   =3D 0x1c, \
-> >> +       .low_level      =3D 0x00, \
-> >> +       .high_level     =3D 0x01, \
-> >> +       .rise_edge      =3D 0x02, \
-> >> +       .fall_edge      =3D 0x03
-> >
-> >Why?! Just to save a few lines? This makes it harder to follow the data =
-part.
+This is anon memory only:
+
+	The MADV_FREE operation can be applied only to private anonymous
+	pages (see mmap(2)).
+
 >
-> If I expand the macro the imx7d, imx8qm, imx8qxp hwdata, 24 lines will be
-> duplicated. I would keep as it is.
 >
-> The current hwdata as below:
-> static struct mxc_gpio_hwdata imx7d_gpio_hwdata =3D {
->         MXC_GPIO_HW_DATA_COMMON,
->         .flags =3D MXC_GPIO_HAS_POWER_OFF,
-> };
->
-> static struct mxc_gpio_hwdata imx8qm_gpio_hwdata =3D {
->         MXC_GPIO_HW_DATA_COMMON,
->         .flags =3D MXC_GPIO_FALL_EDGE_WAKEUP_BROKEN | MXC_GPIO_HAS_PAD_WA=
-KEUP,
-> };
->
-> static struct mxc_gpio_hwdata imx8qxp_gpio_hwdata =3D {
->         MXC_GPIO_HW_DATA_COMMON,
->         .flags =3D MXC_GPIO_HAS_PAD_WAKEUP,
-> };
+> I suspect this found through the help of an LLM and not an actual use case in
+> practice?
 
-Yes, I saw it in the next patch(es) and commented there that what
-should be done is split of the common part to another data structure
-(or be wrapped into one with a .flags member).
+Seems very likely.
 
---=20
-With Best Regards,
-Andy Shevchenko
+>
+> Using MADV_COLD following MADV_FREE sounds odd at thirst. In particular, when
+> having MADV_COLD race with actual access.
+
+It's odd to MADV_FREE (lazyfree) then MADV_COLD (deactivate) yes,
+especially with racing accesses.
+
+I wonder if there are other cases where you could get weird races like
+this...
+
+In any case it seems a really hard thing to hit in reality. But I think we
+probably need to fix this because of the stated contract of MADV_FREE.
+
+I think probably we shouldn't have added that contract...
+
+>
+> On the PTE path we use clear_young_dirty_ptes(CYDP_CLEAR_YOUNG) which achieves
+> the same through ptep_test_and_clear_young().
+>
+>
+> ... where we also just do a
+>
+> pte = ptep_get(ptep);
+> set_pte_at(vma->vm_mm, address, ptep, pte_mkold(pte));
+>
+> in the generic variant and rely on the per-arch variant to do the right thing.
+>
+> Which makes me wonder whether we should actually have per-architecture PMD
+> helpers for that purpose?
+
+Is it achieving the same thing? There's an invalidation here also.
+
+pmdp_establish() is used to install a pmd_mkinvalid() entry and there's a
+flush_pmd_tlb_range().
+
+--
+Cheers, Lorenzo
