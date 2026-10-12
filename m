@@ -1,112 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EBA94DA9AA;
-	Mon, 12 Oct 2026 21:34:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC5D3B1014;
+	Mon, 12 Oct 2026 21:34:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791840890; cv=none; b=GFWSNgqpEnwkWoIGCb/Qes+4UBcY+3eIhOg9jPzh6JAcHE7wdFEHLcZRCHjCmQxVAFE30oktRfUAOtxk/0fXxvRpmwONdynaBC8LHrSG+Zaciqjp0WgLbamVC4zltGOafwlsOgQ1Id0ETlhVWua1116fX4kbzUOEVXDSql/aCrE=
+	t=1791840902; cv=none; b=KOcjhIN0XRHUj7A/kN0hLWJ+k5f/yyerV/Vi403XP3BY2HwOzHjfEkHGWBxpB+FDLZiqJYoJUWqHB6akDGc5SFqN+xWkPAZQD7kFXfa6EreblJ81s4xPL/3TqVFvPVNm5r6boXfA1KMQ4G7QHn8+VEOGwILw7Ah59P4HAzloTCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791840890; c=relaxed/simple;
-	bh=2rYQqctxIJ2NAfH8d5iXblRfcvOqUMnrMip1eofojvk=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=ZSyTMYmJ45xcWN2SDEBi89YMEBwokuqGNu+s8h/km3IiEWuT2ntYvii0AtBzvEfdJIdEgivkHpI1jhYQRrq6oRddTPhHyc48D/wjs5QBReA9/1bh0W17U/Our0Fxpi2uQQyM0ooPP/HhHBkgAUlig1HXkin+4plC93FoJLMlPEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HENcQPzl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791840902; c=relaxed/simple;
+	bh=lvohTgcIUTdVv/3jTN8MfoCLwpL+LX1XFpsOAy0DpFM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CkgmdtvxTyKncbGEdW40ARM8jRsQgbnN380ztpbQepm+/0LELyp4BEsc4HeFrnQ9CWpNrQRx3wXE6FjlilkhoPpr+CP2WiHIIV+29UTMVuTF97BigDn59KrvWjg6AJq8tEZbiHKVamdoD/YOVlvqxM7OIvqx+yRdFfkLIKA7N08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K63OnYb0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HENcQPzl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4411F008A1;
-	Mon, 12 Oct 2026 21:34:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K63OnYb0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DA5E1F0089B;
+	Mon, 12 Oct 2026 21:34:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791840888;
-	bh=+k/A8cNCSgFkxc2tpT06bk4634W3QnFn4AnLpYa6IdI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=HENcQPzl2lLQKWet8buJsvIU9gf4FXwjfIYCelfQDQPmPjJxz3KqOpYdwDZudafVZ
-	 Z3o1JqQOOZuYRCXPTmeBItGIj1dAX59mnCWc+gKqNyNkhZwsiqbIqYM8O2o9ZpB2e+
-	 wuuHRN9/wzrfpZfnfuT6IrfkNiYm7UtP+tlbdGQspPluyy03NXuhyH7QHXmwiSo2P9
-	 6DFwu/IAwnPSwde3a9dEyKgYmO6M32OMcppRRsMW5f4fdeqX51bd24gWO2IcZSY4BI
-	 dPrpJefJv6B7EK0qC8cOH/fZlaVeW2L1EVM4PKniM8V/vWcBj16QqQmlo1hwOJynt2
-	 pgw6vk/SA8FTQ==
-Date: Mon, 12 Oct 2026 16:34:47 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Imre Kaloz <kaloz@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	Andreas Larsson <andreas@gaisler.com>, sparclinux@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Shivasharan S <shivasharan.srikanteshwara@broadcom.com>,
-	Srinath Mannam <srinath.mannam@broadcom.com>,
-	Michael Chan <michael.chan@broadcom.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Vikas Gupta <vikas.gupta@broadcom.com>
-Subject: Re: [PATCH] PCI: Avoid D3 on PLX PEX 8532/8533/8548 downstream ports
-Message-ID: <20261012213447.GA1392402@bhelgaas>
+	s=k20260515; t=1791840896;
+	bh=AjGnxhYlDCCv+1mZTi6vjoL/ULALKRwCdfDd9nM7DPY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=K63OnYb0FIgYNM1YEQf/+fS9poG3lwOlPfSHWTrT6NR4afYzDLUGjXhnZ6z4dNBl4
+	 OvZjY+2EnEaO3Y6/tYQIExAID0uJha5jnJxzz/MbMRhQs9z/bnDyPNiz2+FkopjR+D
+	 09h1uPhcz6mMCYhAjJ6sZ0jWCvaT6YGa42WlQ95hlZ/HhH+WM42fWMZy1gr8InApe+
+	 HqBgJkfhrGQgzoGet6T0HNmNjsuVGNTd8CSlBuoEKrrOz8JH1e/iF8CFRmXJsWth4P
+	 bpDV1DtpV9QiOyZ/nZSA8jMRN0f9XSH1CkGdnW8TlsGkshgfSPMzUSH2Lpw+d1FpJP
+	 aT/uW/6/Lqwmg==
+From: Sasha Levin <sashal@kernel.org>
+To: workflows@vger.kernel.org,
+	ksummit@lists.linux.dev
+Cc: linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Mark Brown <broonie@kernel.org>,
+	Theodore Ts'o <tytso@mit.edu>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	Thorsten Leemhuis <linux@leemhuis.info>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH v2 1/5] agents: add infrastructure for agent resources
+Date: Mon, 12 Oct 2026 17:34:48 -0400
+Message-ID: <20261012213452.1863248-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261012213452.1863248-1-sashal@kernel.org>
+References: <20261012213452.1863248-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260927105609.8813-1-kaloz@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-[+cc several Broadcom folks, help with possible switch erratum]
+Add agents/ as a home for skills, prompts, and other resources for coding
+assistants. Describe the skill layout and how to read the procedures in
+coding-assistants.rst, and add a MAINTAINERS entry covering agents/.
 
-On Sun, Sep 27, 2026 at 12:56:09PM +0200, Imre Kaloz wrote:
-> Runtime PM suspends an idle downstream port of a PLX/Broadcom PEX
-> 8532/8533/8548 switch to D3hot, but that takes the whole switch down
-> with it: any device behind another port of the same switch then
-> faults with a fatal bus error on its next access, e.g. mptsas probe
-> on a Sun Ultra 45.
-> 
-> This surfaced on sparc64 once commit a5fb3ff63287 ("PCI: Allow PCI
-> bridges to go to D3Hot on all non-x86") let bridges enter D3hot. Keep
-> these downstream ports out of D3 by setting PCI_DEV_FLAGS_NO_D3.
+Assisted-by: LLM
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ Documentation/process/coding-assistants.rst | 12 ++++++++++++
+ MAINTAINERS                                 |  6 ++++++
+ 2 files changed, 18 insertions(+)
 
-I don't really have any objection to this, but I am concerned that
-this quirk only applies to a few specific devices, but
-https://admin.pci-ids.ucw.cz/read/PC/10b5 shows a TON of
-similar-looking switches that I assume have the same behavior, so
-this may be just the tip of the iceberg.
+diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
+index 051f0d819f68e..3288b32e993f5 100644
+--- a/Documentation/process/coding-assistants.rst
++++ b/Documentation/process/coding-assistants.rst
+@@ -19,6 +19,18 @@ For guidelines on content generated by AI coding assistants see:
+ 
+ * Documentation/process/generated-content.rst
+ 
++Agent resources
++===============
++
++The ``agents/`` directory holds skills, prompts, and other resources for
++coding assistants.
++
++Skills live under ``agents/skills/<name>/``, with a ``SKILL.md`` entry point
++in the `Agent Skills format
++<https://agentskills.io/specification>`_. Read the relevant resource
++directly from its repository path. Links within a skill are relative to
++that skill's directory.
++
+ Licensing and Legal Requirements
+ ================================
+ 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f53047aa8d3c1..9e522cda56f1b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -713,6 +713,12 @@ F:	Documentation/filesystems/afs.rst
+ F:	fs/afs/
+ F:	include/trace/events/afs.h
+ 
++AGENT RESOURCES
++M:	Sasha Levin <sashal@kernel.org>
++L:	workflows@vger.kernel.org
++S:	Maintained
++F:	agents/
++
+ AGPGART DRIVER
+ M:	David Airlie <airlied@redhat.com>
+ L:	dri-devel@lists.freedesktop.org
+-- 
+2.53.0
 
-> Fixes: a5fb3ff63287 ("PCI: Allow PCI bridges to go to D3Hot on all non-x86")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
-> ---
->  drivers/pci/quirks.c | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
-> 
-> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> index de9bbccda21f..a3c9250182a6 100644
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -2381,6 +2381,24 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_9050,
->  DECLARE_PCI_FIXUP_HEADER(0x1402, 0x2000, quirk_plx_pci9050);
->  DECLARE_PCI_FIXUP_HEADER(0x1402, 0x2600, quirk_plx_pci9050);
->  
-> +/*
-> + * An idle downstream port of a PLX/Broadcom PEX 8532/8533/8548 switch
-> + * autosuspends into D3hot, and that takes the whole switch down with
-> + * it -- any device behind another port of the same switch then sees a
-> + * fatal, non-recoverable bus fault on its next access. Keep these
-> + * ports out of D3 entirely.
-> + */
-> +static void quirk_plx_pex_no_d3(struct pci_dev *dev)
-> +{
-> +	if (pci_pcie_type(dev) == PCI_EXP_TYPE_DOWNSTREAM) {
-> +		dev->dev_flags |= PCI_DEV_FLAGS_NO_D3;
-> +		pci_info(dev, "avoiding D3 on this downstream port\n");
-> +	}
-> +}
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PLX, 0x8532, quirk_plx_pex_no_d3);
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PLX, 0x8533, quirk_plx_pex_no_d3);
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PLX, 0x8548, quirk_plx_pex_no_d3);
-> +
->  static void quirk_netmos(struct pci_dev *dev)
->  {
->  	unsigned int num_parallel = (dev->subsystem_device & 0xf0) >> 4;
-> 
-> base-commit: fe2ec83746e501645709761605c2464a44fd2929
-> -- 
-> 2.47.3
-> 
