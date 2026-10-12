@@ -1,197 +1,218 @@
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B693E0C7A;
-	Mon, 12 Oct 2026 10:04:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205CB3AEB5C
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:05:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791799481; cv=none; b=ILLYKnCg0Mgg97IKdWl6t4mwD1uEpDIcydALTsn7OzFzhCFkh1VG7yIMM0iRoc6IRgJDlfYwkk8XN5xg1WqUH5y4QX1vawp2pJegRdBSfnHLm08tlIrASMehsv0L10466csj73x1HHF1Lv6ynIchTKUB0VDUtQMa6Im8uwxTuXM=
+	t=1791799549; cv=none; b=Sx5WjHubN7zq/FjC/wMF5UYW/HYuBQUqmsxqMtFyKaBLdxb3qPm2hyyHlJbnlg3TKXqZW05RdYqfCaq7MLxgN3vkolMsQKkGvnO2m5uSLH+m699KRFe70vy/nlcN1wOs+c5llZLEMs1PLkGq9yGmMdu6XMbsWKMK+9+uNkRy2YA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791799481; c=relaxed/simple;
-	bh=vy4mldlWgn2BM/HDz16yO6KnMvCSECqq1Z9iQ4F/nEk=;
+	s=arc-20240116; t=1791799549; c=relaxed/simple;
+	bh=wbf/unsUpddvcemFJWU2NI1acSCN6KRJR1ye7ZGjUDg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XLfvrusLuO3HHUM76d6nRnAcfkNsfqj6qwNYDL4IpghtSy6Mg5bnw+glbUkqc0TQQj8MUJDdEFgW/clax+dHiqYRZknRotZTfC5cQUu+ICyZUfzR7uPw0qXYCtYEen4NMbWN4MKXHIJtL9J4qcd3jeSGBaxB7oJrvPkL9HEJItY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ObvDo3gn; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=QmfbedIY; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ObvDo3gn; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=QmfbedIY; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=oP7QXzRYlVV8aDmcqlWT9XGa9o4zyOex0wzK7S8sjQgCpjCRNdbGG2oTbAC4cHjwWvONP/571EQ+NZxppTqxZ85OrZ5NKBNXZcPVYlqONwExCKJ29hWQ53gOf0wUy7Xg1LsZeXHhSZu9/x4P0f6GgdopzJ0QNsUhJEkE9YbVI7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=r1q0whWV; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=oDfm5WoF; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=r1q0whWV; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=oDfm5WoF; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ObvDo3gn";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QmfbedIY";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ObvDo3gn";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QmfbedIY"
-Received: from kunlun.suse.cz (unknown [IPv6:2a07:de40:b306:2000::2])
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="r1q0whWV";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="oDfm5WoF";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="r1q0whWV";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="oDfm5WoF"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9ABD31F76C;
-	Mon, 12 Oct 2026 10:04:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791799476; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 3A5E41F76C;
+	Mon, 12 Oct 2026 10:05:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791799534; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=kV/uchDiV6BTnoljBvD8VleslGZ6Gbxx1QPYEt6Kc7A=;
-	b=ObvDo3gnEPoN+VUfHnzb0zfbkhh8LRHVzgywDABcSgf4o/28kL5BF+OzqFBJ7KxrndM8xb
-	kQE5RGqqOlzgupcdLJPSWMx8wR6KmxsiJyCQ2X38ctOCqm1yhQSlijtYL7eT3fTAn5wYsy
-	kSLsadb+VxyXS4NyCQVwrclCvoo8Ta4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791799476;
+	bh=I87OenGAaFJnkdPMc0Xbllbvz4ou1kPWUAGZPj9a3zA=;
+	b=r1q0whWVMl8ij6FoM8TFSzQ29tEvBKGilCKDf2s7GKOQBH9ojsmgGW8fEnGafxn0G7oegd
+	30Hkz3oe6lchrA7DnSGyz/goTqes+dhSABldmeAEutxExa+BY1j2GCw74hh7hYzPfFLfGK
+	XZXq+ndDB6c0DMYA5ujyrRQIBkdyBo8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791799534;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=kV/uchDiV6BTnoljBvD8VleslGZ6Gbxx1QPYEt6Kc7A=;
-	b=QmfbedIYDfCznU/qAZcKnNcBZ+C19RNjPp1M0SggWKes4puqwQGJeIjd3n3RtwXc2aNdrt
-	WMYTXHCNIy/XcUCA==
+	bh=I87OenGAaFJnkdPMc0Xbllbvz4ou1kPWUAGZPj9a3zA=;
+	b=oDfm5WoFEyBhtLQb32f150ZS2FgTd3I4sGkIipKcBQeMshmC0V8JitB6yhcWDoUvztrrCh
+	HCC2ymsTaMsB8rBA==
 Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ObvDo3gn;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=QmfbedIY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791799476; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791799534; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=kV/uchDiV6BTnoljBvD8VleslGZ6Gbxx1QPYEt6Kc7A=;
-	b=ObvDo3gnEPoN+VUfHnzb0zfbkhh8LRHVzgywDABcSgf4o/28kL5BF+OzqFBJ7KxrndM8xb
-	kQE5RGqqOlzgupcdLJPSWMx8wR6KmxsiJyCQ2X38ctOCqm1yhQSlijtYL7eT3fTAn5wYsy
-	kSLsadb+VxyXS4NyCQVwrclCvoo8Ta4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791799476;
+	bh=I87OenGAaFJnkdPMc0Xbllbvz4ou1kPWUAGZPj9a3zA=;
+	b=r1q0whWVMl8ij6FoM8TFSzQ29tEvBKGilCKDf2s7GKOQBH9ojsmgGW8fEnGafxn0G7oegd
+	30Hkz3oe6lchrA7DnSGyz/goTqes+dhSABldmeAEutxExa+BY1j2GCw74hh7hYzPfFLfGK
+	XZXq+ndDB6c0DMYA5ujyrRQIBkdyBo8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791799534;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=kV/uchDiV6BTnoljBvD8VleslGZ6Gbxx1QPYEt6Kc7A=;
-	b=QmfbedIYDfCznU/qAZcKnNcBZ+C19RNjPp1M0SggWKes4puqwQGJeIjd3n3RtwXc2aNdrt
-	WMYTXHCNIy/XcUCA==
-Date: Mon, 12 Oct 2026 12:04:35 +0200
-From: Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>
-To: Amit Machhiwal <amachhiw@linux.ibm.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	kvm-ppc@vger.kernel.org, Mark-PK Tsai <mark-pk.tsai@mediatek.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] tracing: Do not initialize tracefs work if tracing
- is disabled
-Message-ID: <asywswm6JClQDcOg@kunlun.suse.cz>
-References: <20261009163557.88467-1-amachhiw@linux.ibm.com>
- <20261009163557.88467-2-amachhiw@linux.ibm.com>
+	bh=I87OenGAaFJnkdPMc0Xbllbvz4ou1kPWUAGZPj9a3zA=;
+	b=oDfm5WoFEyBhtLQb32f150ZS2FgTd3I4sGkIipKcBQeMshmC0V8JitB6yhcWDoUvztrrCh
+	HCC2ymsTaMsB8rBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 11D4C13314;
+	Mon, 12 Oct 2026 10:05:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Bq/KOe2wzGphEgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 12 Oct 2026 10:05:34 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 9F8BFA1403; Mon, 12 Oct 2026 12:05:33 +0200 (CEST)
+Date: Mon, 12 Oct 2026 12:05:33 +0200
+From: Jan Kara <jack@suse.cz>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Jens Axboe <axboe@kernel.dk>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+e0624b5bf72b99131402@syzkaller.appspotmail.com
+Subject: Re: [PATCH] mm/filemap: mark lockless accesses to mapping->nrpages
+Message-ID: <u6yseen7xlqfudkps37rizde44u4yhfiqsoe4vvse734fsgrg4@mdfdypi2xgd6>
+References: <20261011112940.455497-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261009163557.88467-2-amachhiw@linux.ibm.com>
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [2.99 / 50.00];
+In-Reply-To: <20261011112940.455497-1-ngocthang2710.1999@gmail.com>
+X-Spam-Flag: NO
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.30 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
-	HFILTER_HOSTNAME_UNKNOWN(2.50)[];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ONCE_RECEIVED(1.20)[];
-	RDNS_NONE(1.00)[];
-	HFILTER_HELO_IP_A(1.00)[kunlun.suse.cz];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HFILTER_HELO_NORES_A_OR_MX(0.30)[kunlun.suse.cz];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-0.977];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[e0624b5bf72b99131402];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_TRACE(0.00)[suse.de:+];
 	TO_DN_SOME(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[goodmis.org,kernel.org,vger.kernel.org,lists.ozlabs.org,efficios.com,linux.ibm.com,gmail.com,mediatek.com];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b306:2000::2:from];
-	TAGGED_RCPT(0.00)[];
-	RCVD_COUNT_ZERO(0.00)[0];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim]
-X-Spam-Score: 2.99
-X-Spam-Level: **
-X-Spamd-Bar: ++
-X-Rspamd-Queue-Id: 9ABD31F76C
-X-Spam-Flag: NO
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
 
-On Fri, Oct 09, 2026 at 10:05:56PM +0530, Amit Machhiwal wrote:
-> If trace buffer allocation fails during early boot (e.g.  in
-> early_trace_init() -> allocate_trace_buffers()), tracing_disabled is
-> left set to 1 and the global trace array events list remains
-> uninitialized.
+On Sun 11-10-26 18:29:40, Nguyen Ngoc Thang wrote:
+> mapping->nrpages is updated under the i_pages lock but is read locklessly
+> as a cheap "anything cached?" hint, e.g. in invalidate_bdev() and
+> mapping_needs_writeback(). KCSAN reports the race:
 > 
-> Later during boot, tracer_init_tracefs() (invoked via fs_initcall)
-> queues tracerfs_init_work asynchronously without checking if tracing was
-> disabled.  When tracer_init_tracefs_work_func() runs, it calls
-> event_trace_init() and init_tracer_tracefs(&global_trace, NULL)
-> unconditionally.  This leads to __find_event_file() dereferencing an
-> uninitialized tr->events list, causing an early boot NULL pointer
-> dereference Oops:
+>   BUG: KCSAN: data-race in __filemap_add_folio / invalidate_bdev
 > 
->   BUG: Kernel NULL pointer dereference on read at 0x00000010
->   Faulting instruction address: 0xc000000000485be0
->   Oops: Kernel access of bad area, sig: 7 [#1]
->   ...
->   NIP [c000000000485be0] __find_event_file+0x70/0x3c0
->   LR  [c000000000448874] init_tracer_tracefs+0x274/0xc80
->   Call Trace:
->    init_tracer_tracefs+0x274/0xc80
->    tracer_init_tracefs_work_func+0x50/0x320
->    process_one_work+0x1e8/0x5c0
->    worker_thread+0x1dc/0x3d0
->    kthread+0x194/0x1b0
->    start_kernel_thread+0x14/0x18
+>   read-write to 0xffff8881004c4178 of 8 bytes by task 3600 on cpu 0:
+>    __filemap_add_folio+0x6b7/0x910 mm/filemap.c:919
+>    filemap_add_folio+0x1cd/0x380
+>    page_cache_ra_unbounded+0x1a4/0x3a0
+>    ...
+>    blkdev_read_iter+0x21e/0x2d0
+>   read to 0xffff8881004c4178 of 8 bytes by task 3601 on cpu 1:
+>    invalidate_bdev+0x25/0x70 block/bdev.c:98
+>    ext4_fill_super+0x2ccb/0x37b0
 > 
-> Check tracing_disabled at the beginning of tracer_init_tracefs_work_func()
-> and return immediately if tracing is disabled or failed to initialize,
-> preventing the crash.
+> The same counter also races with filemap_write_and_wait_range() through
+> mapping_needs_writeback().
+> 
+> The race is benign: a stale value only makes the caller do or skip a
+> harmless invalidate/flush pass. Annotate the readers with READ_ONCE() and
+> the writers in filemap with WRITE_ONCE().
+> 
+> Reported-by: syzbot+e0624b5bf72b99131402@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=e0624b5bf72b99131402
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 
-Thanks for the patch
+I think in this case the proper fix is to annotate the problematic read
+with data_race() to silence the checker. As you mentioned there's no real
+bug to fix so no reason to convolute the code with READ_ONCE() and
+WRITE_ONCE().
 
-Tested-by: Michal Suchánek <msuchanek@suse.de>
+								Honza
 
-> 
-> Fixes: 6621a7004684 ("tracing: make tracer_init_tracefs initcall asynchronous")
-> Cc: stable@vger.kernel.org
-> Reported-by: Michal Suchánek <msuchanek@suse.de>
-> Closes: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
-> Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
 > ---
->  kernel/trace/trace.c | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  block/bdev.c | 2 +-
+>  mm/filemap.c | 8 ++++----
+>  2 files changed, 5 insertions(+), 5 deletions(-)
 > 
-> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-> index e4a490d3d08c..7ac9e1c92702 100644
-> --- a/kernel/trace/trace.c
-> +++ b/kernel/trace/trace.c
-> @@ -9287,6 +9287,12 @@ static struct notifier_block trace_module_nb = {
->  
->  static __init void tracer_init_tracefs_work_func(struct work_struct *work)
+> diff --git a/block/bdev.c b/block/bdev.c
+> index cd8323083740..d97071160e86 100644
+> --- a/block/bdev.c
+> +++ b/block/bdev.c
+> @@ -95,7 +95,7 @@ void invalidate_bdev(struct block_device *bdev)
 >  {
-> +	/*
-> +	 * Do not attempt to initialize tracefs if tracing was disabled or
-> +	 * failed to allocate
-> +	 */
-> +	if (tracing_disabled)
-> +		return;
+>  	struct address_space *mapping = bdev->bd_mapping;
 >  
->  	event_trace_init();
+> -	if (mapping->nrpages) {
+> +	if (READ_ONCE(mapping->nrpages)) {
+>  		invalidate_bh_lrus();
+>  		lru_add_drain_all();	/* make sure all lru add caches are flushed */
+>  		invalidate_mapping_pages(mapping, 0, -1);
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index 00fd89cf6f55..007fe10b2e1d 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -144,7 +144,7 @@ static void page_cache_delete(struct address_space *mapping,
 >  
+>  	folio->mapping = NULL;
+>  	/* Leave folio->index set: truncation lookup relies upon it */
+> -	mapping->nrpages -= nr;
+> +	WRITE_ONCE(mapping->nrpages, mapping->nrpages - nr);
+>  }
+>  
+>  static void filemap_unaccount_folio(struct address_space *mapping,
+> @@ -314,7 +314,7 @@ static void page_cache_delete_batch(struct address_space *mapping,
+>  		xas_store(&xas, NULL);
+>  		total_pages += folio_nr_pages(folio);
+>  	}
+> -	mapping->nrpages -= total_pages;
+> +	WRITE_ONCE(mapping->nrpages, mapping->nrpages - total_pages);
+>  }
+>  
+>  void delete_from_page_cache_batch(struct address_space *mapping,
+> @@ -631,7 +631,7 @@ EXPORT_SYMBOL(filemap_fdatawait_keep_errors);
+>  /* Returns true if writeback might be needed or already in progress. */
+>  static bool mapping_needs_writeback(struct address_space *mapping)
+>  {
+> -	return mapping->nrpages;
+> +	return READ_ONCE(mapping->nrpages);
+>  }
+>  
+>  bool filemap_range_has_writeback(struct address_space *mapping,
+> @@ -916,7 +916,7 @@ noinline int __filemap_add_folio(struct address_space *mapping,
+>  		if (xas_error(&xas))
+>  			goto unlock;
+>  
+> -		mapping->nrpages += nr;
+> +		WRITE_ONCE(mapping->nrpages, mapping->nrpages + nr);
+>  
+>  		/* hugetlb pages do not participate in page cache accounting */
+>  		if (!huge) {
 > -- 
-> 2.54.0 (Apple Git-157)
+> 2.43.0
 > 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
