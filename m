@@ -1,56 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EEB24C33CA;
-	Mon, 12 Oct 2026 17:51:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48BD44BE44D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:53:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791827515; cv=none; b=uM/IW4Vsk6RmJLf4q2v/V/HP8HXt8rCKGazowKK3E7a+g4ExF4vSkRCMVYmFkhTXuObzuU3wmQlPoPrOUwrBIGic1JyevnCh56YICzyl4AaQdtFUtTAgacqQiZeP7gxCQqVsaJL6F79+9yT88b1L0hyrhNY9ZjwTucVUe6JF6+k=
+	t=1791827601; cv=none; b=PfSQ6CfhyBscPYh2OPzjerOFIYeZcEykGBQq85b9c//i8TRIJyXjkc6LO5aCQuEf49GVya0t/6zGmhNUHgpHE6vKVexpnjAYkC1IcOETlH89h7HNxRA0a1yBZEyuJ5JWkWUOyFxOtqyiDKeVcGSf+E3+w8+Bi7ngYpzN7cBv0DY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791827515; c=relaxed/simple;
-	bh=qDINUBxZZPw1zhFnyXj5oTfCOVb0IJMJx4thMwKV8YA=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=WLdltILvYXvRbZ+MQf1HwlDwlMAty59p9b6LgoB8/T7KoZlg2yPlUzrjr71Kv+ybSb23i1k2wIKaBCgRVAv7IXY6GzDRv9jIizuRalVWjrgGv057bbR9fb1W6dmV292w/Dc3FsUljWoHLSfpA8Iw79NNIAkjaoQd5JqVam2W2R4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oYo3Ib9T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791827601; c=relaxed/simple;
+	bh=5yEKgPOGicpMxBFlJWtx7YufLwPyGaBoBvclQixlx9w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=amk6Gzjzispisckxr/kzoAmdxt0JWsfxIDdwX2TvulI2ruZFSH+Dr9u9/8BXfQA0PSSvABza7aalQAIwlwB6i+JhW97XB+BFh3ZK1+/NOWUuZbrVI9VSjdpFujVd0EtOiylGRFpgpzhnZvLScAsUGp7QSzsVMea5IOLRuDeOC+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gX2Mf2H+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oYo3Ib9T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67F5D1F0089B;
-	Mon, 12 Oct 2026 17:51:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gX2Mf2H+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C3871F008A7
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:53:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791827513;
-	bh=kNahywYLBv8aIcm/NKKEaAKhrF/aTvhTm1jlesIR1Tw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=oYo3Ib9T2TZSshkFrVUqEOLiXFfRi1YL/5Ep6sBc6dUG5N/yAlaONNYFmgvEBgrHc
-	 b9gj1QMF/XT2BhOc8rgrHhkT2xYAb2qbmTW1urn3miOGHSekiPjh4ErT4cMJ0M/21i
-	 9a/MJ3coYndW9WG5251ppIixuze1q+EOYOT5rSnr4G9VGICdyxxTbg+z3lo8BYW+Vs
-	 EEGdBOaSVLLMudVkvldsDK3nm3hwVFj7QKz5ZiXF152X1DHBP1sEOZXa2Gl9mEU8N2
-	 i6fzl2GUCx66cs+DXUYZo9F4c9PdUJTvzejtHoBFarjZMvq7xew3/QlWrXnYjxjlVX
-	 Thln3g3+yC+Xg==
-Date: Mon, 12 Oct 2026 07:51:52 -1000
-Message-ID: <d9a3367a1852158f60cc2e89677fb12f@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Yafang Shao <laoar.shao@gmail.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, akpm@linux-foundation.org, david@kernel.org, gourry@gourry.net, hannes@cmpxchg.org, mkoutny@suse.com, shakeel.butt@linux.dev, roman.gushchin@linux.dev, yu.c.chen@intel.com, zhao1.liu@intel.com, bpf@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 0/3] BPF-based per-cgroup NUMA balancing mode selection
-In-Reply-To: <20261012120438.52849-1-laoar.shao@gmail.com>
-References: <20261012120438.52849-1-laoar.shao@gmail.com>
+	s=k20260515; t=1791827600;
+	bh=/y391TGDcvyQwXbh4hH2fOqRNprRkLpGxVrH7rsjr/U=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=gX2Mf2H+wdyhnGuKdQPEYnpgiXR6tGyRSYVFAj0MCv9xyMDq4vtC9NvpKqUgg5rDn
+	 cmyHy5ciRusumFmB/fifmDygC3dPav7JTjzV4Yho56kHWPOII1qlpLUyJgKL5doDOM
+	 cZD017xDd0YwSJjuptuLBXCDr4ztqZJN1ag+HPqIwstltmWGEUN+hXGHdgLqWPKZ7l
+	 0SIYH4Li68+kSQjp3SeOCLxni3/L6BvGPclTTkvkw7hJpwOkn2rjmlvq6KQmR71sXp
+	 ahoztaFy4i24oc5YkX5Jj0/ulDnmSYGVasGzBr9aDXsZPnU+2u9p5fYZ7J+5pJQYp5
+	 BPgrlCSY7DoWA==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bcdab9a82bso2381259e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:53:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByu5dcHSWMNbngmddPHiqNnQTHcO7t4+CJb1gH/d/WdMPBpV3+kMdfCxmudRrHbfE7eve+77s7S7nNHjnQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnNufEcu9s8QtP/P6j47rkkRdib4n7VrRr2SJ02RwOLSgxZpNQ
+	IGqnkigQ2yKSoRuzBrhcVcW1XnV3LJzl4aKKGZ8IutwOul/1EWhRlMaoCVV5XufIEpDiKcmv5N8
+	KfCVV2qGR7uwKEd2z8tg6KN7ItRL4A8U=
+X-Received: by 2002:a05:6512:1284:b0:5bc:b728:324 with SMTP id
+ 2adb3069b0e04-5bcde6be018mr3241540e87.12.1791827598373; Mon, 12 Oct 2026
+ 10:53:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <179095238036.1979087.7916496223328936920.acpi-device-id-docs-v2@gmail.com>
+In-Reply-To: <179095238036.1979087.7916496223328936920.acpi-device-id-docs-v2@gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 12 Oct 2026 19:51:14 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0irqbrMDNikcFmTRyakWvcLjDxB5y1vOymwZnp4kM8jqg@mail.gmail.com>
+X-Gm-Features: AclHuK9FQpA2UeIcQN6SBcLM8QgiLSCr43agXt6T5sZ9fbUoTPP4BGhwhasdvfs
+Message-ID: <CAJZ5v0irqbrMDNikcFmTRyakWvcLjDxB5y1vOymwZnp4kM8jqg@mail.gmail.com>
+Subject: Re: [PATCH v2] ACPI: device-id: document struct acpi_device_id
+To: miguelgarciaroman8@gmail.com
+Cc: rafael@kernel.org, u.kleine-koenig@baylibre.com, kmehltretter@gmail.com, 
+	andriy.shevchenko@linux.intel.com, corbet@lwn.net, linux-acpi@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Fri, Oct 2, 2026 at 4:47=E2=80=AFPM Miguel Garcia via B4 Relay
+<devnull+miguelgarciaroman8.gmail.com@kernel.org> wrote:
+>
+> From: Miguel Garcia <miguelgarciaroman8@gmail.com>
+>
+> struct acpi_device_id lacks kernel-doc, so extracting documentation from
+> its header describes ACPI_DEVICE_CLASS() but not the matching table entry=
+.
+>
+> Document the four members, ID and class-code matching, and the table
+> terminator. This complements the documentation header-split work
+> without changing its include directives.
+>
+> Link: https://lore.kernel.org/all/aqEWUBf1pewPP_K2@monoceros/
+> Assisted-by: LLM
+> Signed-off-by: Miguel Garcia <miguelgarciaroman8@gmail.com>
+> ---
+> Changes in v2:
+> - Use ACPI_DEVICE_CLASS() in the commit message, as requested by Andy.
+> - Move the drafting and validation notes below the commit message.
+> - Describe the related header-split work without assuming its status.
+> - No change to the source diff.
+>
+> v1: https://lore.kernel.org/r/20260913095111.2543502-1-miguelgarciaroman8=
+@gmail.com/
+>
+> An LLM drafted this comment and changelog after being asked to address
+> the missing documentation noted in the header-split discussion. The
+> field descriptions were checked against the ACPI matching code. The
+> extracted documentation passes kernel-doc and a focused Sphinx HTML
+> build with warnings treated as errors; checkpatch reports no warnings.
+>
+>  include/linux/device-id/acpi.h | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>
+> diff --git a/include/linux/device-id/acpi.h b/include/linux/device-id/acp=
+i.h
+> index 65800cefd..8c3b30ebf 100644
+> --- a/include/linux/device-id/acpi.h
+> +++ b/include/linux/device-id/acpi.h
+> @@ -9,6 +9,16 @@ typedef unsigned long kernel_ulong_t;
+>
+>  #define ACPI_ID_LEN    16
+>
+> +/**
+> + * struct acpi_device_id - ACPI device matching table entry
+> + * @id: NUL-terminated hardware ID (_HID) or compatible ID (_CID) to mat=
+ch.
 
-On Mon, Oct 12, 2026 at 08:04:35PM +0800, Yafang Shao wrote:
-> This series adds a bpf_numab_ops struct_ops which attaches to a
-> cgroup. The kernel consults the policies of the matching cgroup and of
-> every ancestor and combines what they return.
+This should be
 
-The op doesn't compute anything. It returns a fixed mode per cgroup and
-that's all the series uses it for. BPF is unnecessary here. This is a
-prctl() feature, not a struct_ops one.
++ * @id: NUL-terminated ACPI or PNP device ID (as defined by the ACPI
+specification) to match.
 
-Thanks.
+> + * @driver_data: Data private to the driver.
+> + * @cls: PCI-defined class, subclass and programming interface code (_CL=
+S).
+> + * @cls_msk: Mask selecting the class-code fields to match.
+> + *
+> + * Use @id for ID matching or ACPI_DEVICE_CLASS() for class-code matchin=
+g.
 
--- 
-tejun
+I would say here
+
+"Either @id is used for device ID matching, or @cls along with
+@cls_mask is used for class-code matching via ACPI_DEVICE_CLASS()."
+
+> + * Terminate the table with an entry whose @id is empty and @cls is zero=
+.
+
+s/is empty/represents an empty string/
+
+> + */
+>  struct acpi_device_id {
+>         __u8 id[ACPI_ID_LEN];
+>         kernel_ulong_t driver_data;
+> --
