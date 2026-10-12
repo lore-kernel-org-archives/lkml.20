@@ -1,44 +1,51 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620D637B41E;
-	Mon, 12 Oct 2026 19:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C104643550A
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:40:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791833967; cv=none; b=aTlX1xYUrccxR13sAbcUoU4pDsmop/1oItvEHQPemNfLm0BfQhTv29lxEFgEa63RkNDOC9FsiIX1zQwZ8N7n6Hqr1ULloWCMisQwbW1pyjNJZt0g/fWHhx5+/GQXC4B7lHKPrySnyBkllKHsFT/M6+n8CMHpT5/VwryYWBmmGSU=
+	t=1791834030; cv=none; b=tNTjphnx1mOQDl586XJx6QJ3t5dRug+w5weB/RlBmRHzt5hbHNs/uHlanyEJn52iEXhP5OWXa+nTERRecYxs+96ATmofhYQ6b25ReKeJTJQyB3xjS7Gpf8/cFLRRdlrgxb29bX5Jao6WWnHQhFbxCj4Cf0PEQoN2COD0yiWwFCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791833967; c=relaxed/simple;
-	bh=xpX0MeKdzj6x2w8OpMnaRMLLE/8wUIXF+fqvVCl6AYc=;
+	s=arc-20240116; t=1791834030; c=relaxed/simple;
+	bh=0rr8uH3MNk0yPU+CRZPr7sMXDh0YYZvMIzqHEWd8JN4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OEHQZCczMSH4TObvZnhOZefDhsVU+PaU0fKpTVKalT2ZrQZtMDSPux22bpEJzW3OiU4f/ydpAuvZiFzS++fFreZH76u0kmwoHCBg4jjZunTcwCS4HnI5j7thtB9P8dWUQtYs+FJhS3TXdey1VJfKCaEc3Gnctyuy74s7JzW+jy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fo6667aW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ayLUE8ApV4QmUiTNiu7JDflod9uLjOMv9vT5gabQp0Msq1FX6vcbBiGAqf27YkHZBi9gN5uN5/BadkXKOZh0topvZa9qdV684bdfzKQau7OgkJ5PjL6Cwh/HyXZPlF2wJ7uh4NW/9ba8Bh73G3Ser+8CT5YBmLv6NHcLmQ1zgRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=varram.me; spf=pass smtp.mailfrom=varram.me; dkim=pass (2048-bit key) header.d=varram.me header.i=@varram.me header.b=kaQcBx8T; arc=none smtp.client-ip=109.224.244.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=varram.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=varram.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fo6667aW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB65B1F0089B;
-	Mon, 12 Oct 2026 19:39:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791833965;
-	bh=dmphcHtLoa5lN5HKZf3N/rNWg+UFc8RVpn9tVq5WvJE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fo6667aWdwibX0X+nESPDpiEp8VM9vajSVdYVjODcvXynPJOd495Y8E7acv4Fh3AO
-	 kBwB1PV/gkcS35mMdIi3lJgPK3EUS9pHWugLCbrlPj31p8OrSwdF9sVEq5DjtHB0wE
-	 ElOow0LqSoID8aw3UG8jumaNQVSqplYoPKOj7hEwPhsbidU1FY0sHU6qpm3etSCyOj
-	 utwPMgMBHQ4UzngvTJ5N+NwmZSxQYNAHY2+B+V3GEfEYXsY5jF2sBbGrH80o5MYkAQ
-	 yW0VGOTjDCe00gX/WR9CXHJpW0OqdRDtwf6B505qVI3s67LNQOWKc6GLSQsZMXGI6/
-	 188RxfXr1t06w==
-From: SJ Park <sj@kernel.org>
-To: Suhaas Joshi <suhaas@s-joshi.in>
-Cc: SJ Park <sj@kernel.org>,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key) header.d=varram.me header.i=@varram.me header.b="kaQcBx8T"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=varram.me;
+	s=protonmail2; t=1791834018; x=1792093218;
+	bh=0rr8uH3MNk0yPU+CRZPr7sMXDh0YYZvMIzqHEWd8JN4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=kaQcBx8TVbXB0m2ELbR9skuUwmX07YJLisqJqiTpfAtDjUnUBykMbNYoq1tiD8v+u
+	 aslfAhwfuB78kW91IXBntdgB2eDUiDuEIn9lmE7bhQety41EQCp/kidwzTK6Y4yfYa
+	 IXLFrWUIGqnr2KSqNKhvVAemOTKX4LYZvbeGLFvOPH2+WP5g3sjHVUBC2AAu09HngN
+	 Vv0UbEQY+7d8lu3A1JWaMz9vefpTB9+/k88tHiZbwCw0TG8q20eTH9sm4zkasIs3kz
+	 BII035RvZ7I4c/lK4VoCgB8/Tpgjf7tzSHrrQRRfcxj0ZNFJ7d89FLmPjfPwyXcX9p
+	 gohv7WFGr1Hrw==
+X-Pm-Submission-Id: 4j3SVP636Mz2ScX5
+From: Varsh Satti <varsh@varram.me>
+To: Rickey Bartlett <subtexel@gmail.com>
+Cc: Nirmal Patel <nirmal.patel@linux.intel.com>,
+	Jonathan Derrick <jonathan.derrick@linux.dev>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof Wilczynski <kwilczynski@kernel.org>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	Kai-Heng Feng <kai.heng.feng@canonical.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] mm/damon/core: Copy only installed probe in damon_split_region_at()
-Date: Mon, 12 Oct 2026 12:39:18 -0700
-Message-ID: <20261012193918.373055-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261012150045.169377-2-suhaas@s-joshi.in>
-References: 
+Subject: Re: [PATCH] PCI: vmd: Flush initiator posted writes before demuxing interrupts on Meteor Lake
+Date: Mon, 12 Oct 2026 14:40:11 -0500
+Message-ID: <20261012194011.48215-1-varsh@varram.me>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260825043220.9047-1-subtexel@gmail.com>
+References: <20260825043220.9047-1-subtexel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,27 +54,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, 12 Oct 2026 20:30:40 +0530 Suhaas Joshi <suhaas@s-joshi.in> wrote:
+On Mon, Aug 24, 2026 at 09:32:20PM -0700, Rickey Bartlett wrote:
+> Meteor Lake VMD (8086:7d0b) is affected by erratum MTL016: the VMD can
+> signal its MSI before the posted writes carrying a child device's DMA
+> data have landed in memory.
 
-> In damon_split_region_at(), we copy the entire probe_hits[] and
-> last_probe_hits[] arrays of DAMON_MAX_PROBES size. However it is possible
-> that the number of probes installed is less than DAMON_MAX_PROBES, in which
-> case one or more iterations is/are redundant. To remedy this, iterate over
-> only as many times as the number of installed probes. To do so, accept a
-> struct damon_ctx pointer in damon_split_region_at(), and update all
-> invocations of the function to pass the new argument.
-> 
-> Also update damon_test_split_at() and damos_test_filter_out() in
-> core-kunit.h to supply a context to function paths that call
-> damon_split_region_at().
+Arrow Lake-H is affected too. It uses the same VMD device ID
+(8086:7d0b), so the existing match already covers it.
 
-Sashiko raises [1] a few questions, and those look valid to me.  Could you
-please address those by replying to the mail [1]?
+Hardware: ASUS ROG Zephyrus G16 GU605CP (BIOS GU605CP.307), Core Ultra 9
+285H, with a WD PC SN5000S (firmware 34230100) as the only device behind
+the VMD.
 
-[1] https://lore.kernel.org/sashiko-outbox-168321@kernel.org
+Without the patch, on 7.2.9, I got 13 "timeout, completion polled"
+events in about an hour of desktop use. Each one froze the desktop for
+up to 30 seconds. Disabling APST and ASPM
+(nvme_core.default_ps_max_latency_us=0 pcie_aspm=off) did not help: I
+still got 7 in a 10 minute boot.
 
+With the patch backported to 7.2.9, there were no timeouts in 13+ hours
+of normal use (~340k reads). Average read latency went from 77 ms to
+0.49 ms. Apart from context, the only change the backport needed was
+adding struct vmd_dev::features, which 7.2 doesn't have.
 
-Thanks,
-SJ
+Since this fixes 30 second stalls on laptops that are already shipping,
+would it be suitable for stable?
 
-[...]
+Tested-by: Varsh Satti <varsh@varram.me>
