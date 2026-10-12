@@ -1,166 +1,112 @@
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4A03B1014
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:38:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF1C945D903;
+	Mon, 12 Oct 2026 21:38:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791841095; cv=none; b=IFPbnJWUiVy1Oj7BXO8+PZcTE4zuGRsjbisFUJn4Vc0xcTc4+Ybzr+tv6HdMC34zPrtoyH6p2a0qboha1tuD8A6Wo9kE8JNDjXNt6S6yUsotC6L7s/KjrR/vEyorNpY2GF63/2HmF+jxSquWAS4n51vBv1/z9c+/k0hOeOJsodI=
+	t=1791841126; cv=none; b=SzJg+ihF+xAmTt3TeyK5s4CoBNhOxeMgvzA04uWRU3l4mV+9nfb5oFKjsyv9kTA55pU/9YgQtcVyxH5powq10Wjj2FuZ37W9JwU558J9dlHRoAMUv2JFqZGwxNM35BwQTHXkgwu6D9AFTWdxtdbX1hqEvytXiXrLKykwQOSa8ao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791841095; c=relaxed/simple;
-	bh=qQaH3L8BpbCXELnWiv04IgP9typ9bfpn74Gyn/ZyzO8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VMA1GHxTgtzlIlda5ZR0G6FBop98GjOUADHYFCOIYk2VjZTJPDr0qIy/457LgZqmp6kZUJFhyJaslSRmRGPc+nbXth/lxQbbrWEACeCiagbgLlhhqO3+jmZmjHLYtgrFSdgk4aw+g5zc/e6QbR/WJSft6nZVTfLuLEhhG4NUOAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=VeJmzXAk; arc=none smtp.client-ip=209.85.216.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1791841126; c=relaxed/simple;
+	bh=g96STZZmBcCP/AR7VqTLRRlb13HRj5IVmPfJhDh+I8I=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=GHAxRjDxsa9rkGMJ/Uq/wJ18XZkSxKvhFSR11tU5tBYhrC7ijROOSR0RkFcqMQ4L/iojQaBvCjmtKXDMweKSx2yd7FcAZHpqzmwsMRMCnj05vIr4hUW165aoU2K3YgbeGedNf5BSZtYktE1/bTRJLpLVWVskKa3B11dPri+EyWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HfHGAh/r; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="VeJmzXAk"
-Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so1343220a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:38:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791841094; x=1792445894;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=3vlSbo4Pdnjbh8waT5OPK3ABW3rN2NX05GJe3pGPoqU=;
-        b=IOFAyzh5gBrOZNw7WWvizY4Wb60u/BOwpUod0S2tfjd4S3G59FRSZzqnGIUWMeZNz6
-         JzjHXeBtAKNRxpMLE9ZpPE44exTeYbwJ2/0M196SpkcGROLErGPd7O3vjez1HIeEkjWx
-         S6AEvGgMgBotXk2ZX2d+QDAKAmbDyzy84OeFPLjRjXBn+H5H08VB8eBKHIiSQydJZmxo
-         nWfNNgNb/khov1wS6ZfGC+eP23XiFrHaE73hOR6D4l/tTJU6+qI242qy6h9MFpdA6DF+
-         FVKNofS/KurDiNx755W0N40PrWkZ+hVAb/i2Fvq7mA0OYouPdmfnR0/BdlMmmise6ryQ
-         Ofvg==
-X-Forwarded-Encrypted: i=1; AKwUvBy3ft6MX8fD3RTpNM5V8H0RHqCSqCeIyEzD7n1uvPx5NM1eACtpy4+BM3nDlHa9qv9oXURWOpUTPUqDqNU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKbkoxhi2e1JGltIEnSj2RYdxjFF922GaWXAMJYHliUJ+m10RUg
-	G5qzw/UzQBHIbuqs7+rkZqC2yjWgl2BXggwAmuzHpC+aLb3T/OFopF7Oy3m45N09EeBKewiby5x
-	U0ItXYjf+qH1xfLnLe5O9OiwbYS0BCW9ag3HT3ufA8Qau9bPDVXW8yE9IcchdNNHMH6NDkOe00T
-	tSeDW81BZhNnN7CFOFFFk5JG2dgvNz+YP0ZAOQUsXqNf4T7X3/F2O5kEyhDMCLpx0MOZ7/OPnhv
-	+xx6YSOlDluVoiQpK1/f6u9
-X-Gm-Gg: AYBFou0Lbvaf4UFuD1esQfJOak+mFJuh0Shyb0irn4Utqr34Bdpi2P0ab/SOk1u7Uit
-	M32/jxVRz4BljOFIEc83oWBomY/L7m3sTllnz9jO/2v357WDdw3vNN5ZH8Bgdcxd9gn6EpgA0z7
-	1JqL9ZwMwLIynTRGYb/z+V67rQWpxiwyYCaKWZX7oG0IL3ujVWVIvpGTY8nULQ1GWHVJ/FJBrxK
-	EmzeIdum+RDiNFn3z61PzI+GWzIrPLe2uCvQby11A/Go8XsqbEp1kkKZLgHjpwPvwJrPZ0eDpsf
-	KP6U1e4+vsOVxAJWybNMv5KuXRsk2dXkCsI2aKqD8s9K/qV/FtwOD1Cjltunx7l252xcCmaRRte
-	aaoRQA1nEkAYfQ+MydsUz+/bka/m6pELGUMK/9D3AbQsSGJLXypHy+Ezz589F6CowTvTGN4Mkzg
-	m4HGaVOaTpXO72Gjp9c675tjGTc0v5tQDrodpNxRjrJ+U=
-X-Received: by 2002:a17:90b:2d06:b0:3a7:cffb:8b8c with SMTP id 98e67ed59e1d1-3ab3ad0e976mr5455828a91.43.1791841093312;
-        Mon, 12 Oct 2026 14:38:13 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3abdd5d09d2sm2560871a91.8.2026.10.12.14.38.12
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 12 Oct 2026 14:38:13 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35b68bc1985so981601eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:38:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1791841091; x=1792445891; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3vlSbo4Pdnjbh8waT5OPK3ABW3rN2NX05GJe3pGPoqU=;
-        b=VeJmzXAkN/EWp8o3UehtbNvLRrnHv/mHMkHpWBiWtRVKUs9YBsZRG60qmxcUglBrlq
-         RFTAITuJpiZBXvocOjV4CKivJnOfZ74PCjKZaH0aDMuEaVjWtrgU07Hd4ZGkKNGZWWov
-         dIyZ+tEvHk47BqhYs+YF8iuQ+aEtmon6qRRrU=
-X-Forwarded-Encrypted: i=1; AKwUvBxqgEosTyH9kdFZD05kmC0R7d/kXCvbLiBpCI1sxKljUycZcwfrYx5emL0TxZ5WNiMcRmf5n8g6nKTGnHs=@vger.kernel.org
-X-Received: by 2002:a05:7022:e804:b0:13c:f65c:d5b5 with SMTP id a92af1059eb24-16a0b37d130mr15430924c88.3.1791841091450;
-        Mon, 12 Oct 2026 14:38:11 -0700 (PDT)
-X-Received: by 2002:a05:7022:e804:b0:13c:f65c:d5b5 with SMTP id a92af1059eb24-16a0b37d130mr15430890c88.3.1791841090564;
-        Mon, 12 Oct 2026 14:38:10 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1699718c547sm31698113c88.3.2026.10.12.14.38.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 14:38:09 -0700 (PDT)
-Message-ID: <6ad6d66a-57a2-4f9e-8245-0ab060f07606@broadcom.com>
-Date: Mon, 12 Oct 2026 14:38:07 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HfHGAh/r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791841120; x=1823377120;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=g96STZZmBcCP/AR7VqTLRRlb13HRj5IVmPfJhDh+I8I=;
+  b=HfHGAh/rug67yD5WO2hJpzPJjZoPCQvhs9pzDfzg+sHacDWizfQ1Nd7+
+   9lssjn9wWW9Gva75JcqCbZtq/43zHlPygEToHb9T7tWHSQ3m8pOWkJUWl
+   FvGANCF16VhYYHt+adhTSPGETYM2S6kMgM7f/BJRMkH8wN2EsIzk/HDj4
+   cgJuL0qa6rnsoRT70Sp5uK0uVDAVphQtWinZIav+UeYDHhURC1ybT6qsc
+   Jk6LjWfMkeE7qKj/71vJtKhoBLCVh2BfZqBD02/YE70J2TWKC0L4W1o5a
+   PwOQTSmait+40RCig7urafMYrzPj4w6iM7LxfD/R0YItTJjo3TBmqabyS
+   w==;
+X-CSE-ConnectionGUID: 2MWyUeGOSviZg+NFOd4/kA==
+X-CSE-MsgGUID: 0L8BGCIwSeqxhVs8jHrWfQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="459883"
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="459883"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 14:38:39 -0700
+X-CSE-ConnectionGUID: 8bEHUB5DQKOYOtTxB///zA==
+X-CSE-MsgGUID: vNVax3rlQNizq+iI9P1oEw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="986059"
+Received: from vcostago-desk1.jf.intel.com (HELO [10.241.243.117]) ([10.241.243.117])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 14:38:38 -0700
+From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+Subject: [PATCH 0/6] dmaengine: idxd: More error handling fixes
+Date: Mon, 12 Oct 2026 14:38:03 -0700
+Message-Id: <20261012-wt-idxd-fixes-v1-0-30a35a445077@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v4 7/8] net: bcmgenet: allow the MTU to be
- changed
-To: Nicolai Buchwitz <nb@tipi-net.de>, Doug Berger <opendmb@gmail.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Justin Chen <justin.chen@broadcom.com>,
- Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>,
- Florian Fainelli <f.fainelli@gmail.com>
-References: <20261012-nb-genet-mtu-nn-v2-v4-0-2e2e3bfaf8cc@tipi-net.de>
- <20261012-nb-genet-mtu-nn-v2-v4-7-2e2e3bfaf8cc@tipi-net.de>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261012-nb-genet-mtu-nn-v2-v4-7-2e2e3bfaf8cc@tipi-net.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMSw5AQBAFryK9NkkPyQRXEQtDoy2Qab9E3F1jW
+ fVS7wKhwCRQRBcE2ll4nhRsHEEz1FNPhltlSDBxmGFqjlXN2ZqOTxJja3Teu9xbQtBmCfQNmpT
+ Vz7L5kZr1PYH7fgCib7lPcQAAAA==
+X-Change-ID: 20260803-wt-idxd-fixes-1a06bb69b1e0
+To: Dave Jiang <dave.jiang@intel.com>, Vinod Koul <vkoul@kernel.org>, 
+ Frank Li <Frank.Li@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>, 
+ Shuai Xue <xueshuai@linux.alibaba.com>
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vinicius Costa Gomes <vinicius.gomes@intel.com>, 
+ Steve Wahl <steve.wahl@hpe.com>, 
+ Bogdan Codres <bogdan.codres@windriver.com>, 
+ Zhenzhong Duan <zhenzhong.duan@intel.com>
+X-Mailer: b4 0.17-dev-362b8
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791841118; l=1399;
+ i=vinicius.gomes@intel.com; s=20230921; h=from:subject:message-id;
+ bh=g96STZZmBcCP/AR7VqTLRRlb13HRj5IVmPfJhDh+I8I=;
+ b=XMKWBBNq1rje35jEwLRD9d4VmKuuSwDJfMIzOIR1X2AgaM4DhctIdntO5BTdziTcrHLqmUpzE
+ jxlatlD1YwnD6zvdahvne6U5fXY5JwDr/sdesnmeo2S6HGzXkzf+K++
+X-Developer-Key: i=vinicius.gomes@intel.com; a=ed25519;
+ pk=aJkrtgqgT6TZ8iIHSG8/rTPsmlYnjMrUjCsMYvCzntk=
 
-On 10/12/26 02:00, Nicolai Buchwitz wrote:
-> The driver never sets dev->max_mtu, so the MTU is stuck at ETH_DATA_LEN.
-> 
-> One descriptor reaches as far as the packet ready threshold, so derive the
-> maximum from it. The threshold registers are 8 bit in units of 16 bytes and
-> want a multiple of the 256 byte burst size. A descriptor is one page and
-> also holds skb_shared_info behind the frame. On 4K pages the page is the
-> tighter limit and leaves 3564 bytes. That includes room for a VLAN tag so a
-> VLAN interface can run at the parent MTU. The MAC accepts a little more
-> than one descriptor holds, so a double tagged frame at that maximum is
-> dropped as fragmented until a later patch reassembles those.
-> 
-> Resize the buffers and rewrite the registers in place. The PHY keeps
-> running and the link stays up. Two MTUs at or below ETH_DATA_LEN derive the
-> same values, so a change between them skips the restart.
-> 
-> A failed allocation retries at the previous size. If that fails too, take
-> the interface down. Running on rings that were never allocated is worse.
-> 
-> Suggested-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Link: https://github.com/raspberrypi/linux/issues/5561
-> Tested-by: Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>
-> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Mostly this series proposes fixes for issues in the error handling
+paths of the idxd driver. Patches 1/6, 2/6 and 3/6 are for issues that
+have been shown to happen in the real world.
 
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+Patch 6/6 is an exception, in the sense that it's not error path
+related, it's an issue that I introduced (my scripts were removing
+the idxd module after each dmatest run, so I didn't caught this).
+
+Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+---
+Steve Wahl (2):
+      dmaengine: idxd: Do not call destroy_workqueue with null idxd->wq
+      dmaengine: idxd: fix duplicate memory frees on initialization error path
+
+Vinicius Costa Gomes (4):
+      dmaengine: idxd: Fix potential double free on probe error path
+      dmaengine: idxd: Fix unwind bounds in device registration error paths
+      dmaengine: idxd: Fix error code handling in idxd_cdev_open()
+      dmaengine: idxd: Do not release interrupt handles on terminate_all
+
+ drivers/dma/idxd/cdev.c   |  8 ++++++--
+ drivers/dma/idxd/device.c | 11 ++++++++++-
+ drivers/dma/idxd/idxd.h   |  1 +
+ drivers/dma/idxd/init.c   | 21 ++++++---------------
+ drivers/dma/idxd/irq.c    |  1 +
+ drivers/dma/idxd/sysfs.c  |  9 +++++----
+ 6 files changed, 29 insertions(+), 22 deletions(-)
+---
+base-commit: 42c31fec1ca76b8b5f7759def122d418dff2cd4b
+change-id: 20260803-wt-idxd-fixes-1a06bb69b1e0
+
+Best regards,
+--  
+Vinicius
+
