@@ -1,132 +1,301 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC0B4DAFBC
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:16:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791832585; cv=none; b=bGZoL53NgSaFVpvIm1XrUpSqDlH5OPIH/cDtSZXZZys4Do84xRLVDkO2/zRXnI1MSF6Yy0/np4coIDDtnI1S73p6R3emxioBDCs6xp4SSdDXsuRzpex5bh0W6qFxuC4WbTLenF3SILevPmAWqOTlOpfObl7sByMYmG8phGJkDDo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791832585; c=relaxed/simple;
-	bh=F1N9sc0phttKEroqTY7fq4cUBOZftvRnSXLYqSUrN14=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=PObcs8c2SnaqVHLp+FKL/Pfeo2uG0pO5/t/V8IH56Gm12fmpR0vwibinqIEtKY+9sb4pWzCq4BX2aJTJFCsz9ZdvLmF+3GF0Mego84yDm74QwrHfFPLwF+9/62EjxKEl9mF5MqghMVS5Eu7UCF1T22DTp9qlOFjnx9fB9b5GCfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=burcliSJ; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD78A4D6C4E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:17:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791832657; cv=pass; b=ijH0itwhl9ptP4FxzQ24K3+H6PCjHEsuizg/mbq8oO1rSDCRNyBsqrYq+Wknsx0HeVf2pn0jwEaR5sapaOvSZumQN8myPoxnbWDPB6rfOUHpO/B0EzJJNCLKxSTfwQi1IcRkNePnqqPWOZnB7fjXd9CA3zKVjkD6cQxQ3eQwzRs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791832657; c=relaxed/simple;
+	bh=0NroonrhKu8HwhfLgxgL5i69Qnwboi0dL0/KlCJxyMU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=K5+VPAxVeYQ9353GEPfEF3AvqbR5jtMSWE+Z/At26oKhrrFNfo8ChKjU6aRTTPtjLbkOj6D+c2T3fLA4Mps0dysZ3frStBVbr75uzhuJjTr3lxHFqRZ3Lz+nbgjzYN57zSlbC5BvUtpGuLUhCb/TtTuGKGoD9YauiRmNSkAmA6c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iTBo5o5/; arc=pass smtp.client-ip=209.85.217.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="burcliSJ"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a168355946so19428855e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:16:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iTBo5o5/"
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7c02791cadcso633931137.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:17:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791832655; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gBfOMcTiv2s8wIKjOklYxQfkgzeFSZCxnBu2rPD19SAEsVy06kdxFxvpIjjLS5nj31
+         RFrZKPdFYO8O0sCPY+8Yp4BIuRgDvX0Kiz9+p8PHnHvSLYvC55HwJPJZLlhc8hnfS5ag
+         mG6N4ZgrXTqs9xtzTe03aKiZWC34U1BBZHYRyKq+lSOf39ANzJD1cRa/m/yB7BRxo8u5
+         OY0vPrVs4cd0HhmL5jBhlWNFHRvP9Ta6G0YiLB+ji5MEIxA+SpB4RcsiRhoYdRz53VXF
+         0uvp1JswFnl1yypCOQM+8nT6R8ZAoPNogSVb7by9UNr4cp4EKA4XSVjUMYNSt8wV9a8P
+         5TpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uPLLkky/mBMG1bxMgcOlfanOcStnyU9/PqoEofggCR0=;
+        fh=bunp9O1RO/PhxcqtEn7byx/i7o2+Df2Xws8fPsEsuWI=;
+        b=KdQGgKYNE9ZNUrUu/q40Ewb5a1kAFD5g3o5p5JRMxVCTlXEpKW0OYkw5xbvrP46EbA
+         lSEa+x/7gEUaix2CtDgw2b6K6q0BuP9AahKW56fc4heljcyZgE7LOEj0iHi3DX6h0CnV
+         aBw5W9rYJBhqCtEnjyWA0Q85ok3BCyllATY6M8yBLIxvhwkImrT2WLOw9mNpu+I/k62X
+         wnwz7vdWaRJlQ8/3QVpnuZ9dHJnHZ71p6P5ESNFCGdJQ26OMFVJk3J1cBqnCoaV/2QUY
+         8EF/+0GlC9INu6dBUZ3iKy3HJHY43x6NFl7fMeQrFtnK/d5ngsWYryZ+elw3MPIVCjoF
+         zSVg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791832581; x=1792437381; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=CRfRncq4FuUqEgsh+Q7MKNhu4iIEz6/gs4z1N6qwQUY=;
-        b=burcliSJwJy8wntjxL4duhuZcZ/y8xNQMOrS2+ed8KpsCZk0oCS5hVSf5VT9fWL6Ci
-         dctnORJH/vEmrkyvaNC3JF+H6Q2Zma+iT1N7AwwuNqIBZeU9eLOS0HONZod6fxaH3WO2
-         WRddL6QzfsVQXpzf3eggBoXY3SDMrkQc4Y/dqXJoK7SWNu1MT2s2kqzEH7n40kBo14Pu
-         +aydu3/+zEFmbeYZXFimx3uYfWeDLCz0kt1me3eR94tW+ufDdSZlsrnKfWp1kUNMj/hy
-         cShyHZjkLEwCF00gFwjtZdcxL0OWrpZstHGRHtatB4exdL4oi+1bWxcUJAC6BY0x2GBt
-         GvQg==
+        d=gmail.com; s=20251104; t=1791832655; x=1792437455; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uPLLkky/mBMG1bxMgcOlfanOcStnyU9/PqoEofggCR0=;
+        b=iTBo5o5/FNOLf3v5I8Re4H6xjyPIgHmkN/KIAfobFNA2HYBzQxLY65M30K9F/oVZZJ
+         sjqpLj1riiLHz6ophtubJXnAXqipCk3QxdItBALOLddjk+9sY1K9SDq7RX+iipE/7twr
+         MvtxCLp5zhQlElslIDkM/48RqMbyRu7damD8ANIlEU5DWfOwDZIFmcmQ9pP97+QzCeJW
+         mCEC2htvj75tpE/y9xakNZqICSbMIT/zbEWozYYmCuqRVW0jJmxv1Az4abWsNO0QJ3jm
+         eXf9QpufaG6/f887Pzzf3eOJIu6G9ILRl6lrMXUGFodkeAokvhfosmRftIZSYooTep0k
+         hr8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791832581; x=1792437381;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791832655; x=1792437455;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CRfRncq4FuUqEgsh+Q7MKNhu4iIEz6/gs4z1N6qwQUY=;
-        b=v1iz7ppYqovKM70G03w8Yy8D/bQ1ip1x3O9j8jojcsDAEyhh7uY7NVjc5pcl4HTOVE
-         ahXGupuu0HsxYThlfum6l45mNUhoVGzwaUWusr62HQKFDlmobCkPy19nD2rkdJrpwrFd
-         5S0veDdRvCDINnIOKeOZL4S27k5vAGzC0mzqh8K+X29Pty0HTJoNSpZl6kQKOlYuhvwS
-         VDjZNGztO9CUFjvymsGBUzKhcPh5gjcBTVGlE3dJi677RSAues3ssQz/IPLw1+zF12uv
-         +2bWYfHf2+JYiSwAki+QO2i7VaFJAICkVSirLgt8VEYxK/1MFxioEWTWl8v6Kbw8db5H
-         rLFA==
-X-Forwarded-Encrypted: i=1; AKwUvBz3AJYSnVgcVkmLYo10Dus2ahOGJQMTbvluV5rQyiw1a3P8Dj5eyB8XOl90nOwAerNyj5tqkDaBPGergTs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYINklatOh5dPmPoiECixNyyQeQYqFg6DMstUTRKrm4XOHl5I5ia
-	cE69nQKZQRQrna2QZ3SEfGg25wTsUvaFNVjoG3HmTvxlssU+oNsBVjou7lovZ7GP8ts=
-X-Gm-Gg: AYBFou3CHAYRzSNvc01CV3OIHm4OYAmS21FC9XVcVL3IeMaA1F3FvbczKSDYckYSjnU
-	VJYnLPN/nLW+GRkY/OuIbXHYgCmyH/XldIVC/e436TonJdOt4ftIqzmks+fq6vlqCfRvoLYIBpq
-	sfMcyBCmXC9d5tDUlM5zzhHY2BAZtmpphleuZH7Q39Tlz3asjIUHpafKy4IHcwEgiqB9qpMete1
-	jSjZeEy2u7c93YiT0MrijRWrx2cna29d+5+RTbjraME7zI74oo17BhEDPUbE+nm7VBY8eGX/SoV
-	N/7v0erArVXcxR4IRq4ANVxVtKyqRc82EDA6PMTyigu4Z19F2wb5rOEDU1hJPr4ddPW0bJj3cNP
-	/OFnIFZpzp134pDPkSGbtcLt6HxLWxY2GahUGl5r0zLTVSuvM7bs/RPXifTGWv1CSggsQzU5erM
-	QRCPiqvHu+2pD01FXvJFNaTIfgtrEunEmpSPQMf6mJhenx6PikU2fFNdeBsaMZ47S8jUfCAqiQy
-	jjWRk6ruwE3l6YIsbRMTd18E3ii
-X-Received: by 2002:a05:600c:8b70:b0:4a0:108:3b48 with SMTP id 5b1f17b1804b1-4a18e4a174amr194169405e9.7.1791832580955;
-        Mon, 12 Oct 2026 12:16:20 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf21276sm478285355e9.8.2026.10.12.12.16.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 12:16:20 -0700 (PDT)
+        bh=uPLLkky/mBMG1bxMgcOlfanOcStnyU9/PqoEofggCR0=;
+        b=ZLWb31hMhAkmrMmRpwh8jt28MJAM8UDWE/3wNlHaCnu+U8XGsHImwFBezCmpZ8T3he
+         Z2vfQmjFeGIKpnIVzWEpSsJeqvxZnmA7Isqg07t42uzcF/I2GHG4bzqzRPGHe6qMCY7G
+         6yivYEqi+li7qFfS1FzotNhBHeWIoQ7tzPywbfdp93R92SQoFJHmg42n+cAgaLzjTc6N
+         jB8quuYAu6poiVnYTdjXwnnOt1jO6lCPh2oxEdB6NCmjsd2uW4w5fSXZi8p7Tk+2WiOG
+         P7aZ5WDv1vb/Ptx7x4vG7t9TvEXPNQVSykLFqhaJgBm0VKZM4sG4sfE6n5ghTCRUC+jq
+         3POg==
+X-Forwarded-Encrypted: i=1; AKwUvBzUWRDEmVVviEu69bI/kaySKCKYvpFVMneMODhUsvwsgJ0F5Tefx0a4Kf21tjE/r//mpeCZDzPba+pDwCY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAXJZKG1U+cNkWrfCgxOdu99eQ6hvI2DlwcwV/WI5f7+5PK1Ib
+	WJ55jTleOr49VrCRcJIT0yfuJR9RZsB5FeH2PL4gqM6xpQvXspb+SvWcsu8ZhJAf1A0mbOBt/Gv
+	CaUp+VA43M7mE+XaQPFEtEjoS20hTjc0=
+X-Gm-Gg: AYBFou3Bg0KdW8j3F94ytEhAfZJGoSKImzc+7JScb5q+yc4kgQCA2u82TQ1HW9OcKPX
+	saQOrmzmKGax64+jYg+YBEmPSOTjiHNw74Akk7aXLU+RWZ31yQ9ZSxYmBMeIkROKQ/G3+H8R5n5
+	q7q3xvwmYO9DfK5vC9xQJA9CAzupwlvH5z9rKtcUQtYI5EMky5axO/0fDcSxphTg/PxcSoQvbk4
+	qai9kP19AfCUpjG14X6vBBCcnlUzhvlzRW6KhAIqRYQcYVttkYevXpQHOaVgi3Vox4VXMtUxb23
+	MO7qMl0FsxRQwd9svnJd+Fwj9FyXBQJvutm8L4F7eRHduwgPtQt1fXiZA9NGyd1/T0WkFvMPGtj
+	T5i0378ZHwdMbuppWVIlu7e/yDbXNm9wzXTqciUnFQBw1hWzy6AIjLATVz0V5bX3guPNTVIKH5Z
+	lIfcdS5Ux1btecCUEUYjbH6H2TqDJO9ffiywEDpOEyP8HB
+X-Received: by 2002:a05:6102:6c7:b0:7c1:8aa5:36d6 with SMTP id
+ ada2fe7eead31-7cb372821a6mr2739066137.11.1791832654562; Mon, 12 Oct 2026
+ 12:17:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v6 00/15] Add basic clocks and resets for JHB100 SoC
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, 
- Changhuang Liang <changhuang.liang@starfivetech.com>, 
- Brian Masney <bmasney@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Emil Renner Berthing <kernel@esmil.dk>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- Hal Feng <hal.feng@starfivetech.com>
-In-Reply-To: <20261012-grass-guru-1ba876eda895@spud>
-References: <20261008123338.11081-1-changhuang.liang@starfivetech.com>
- <179180050741.66744.3459927533880490879.b4-review@b4>
- <20261012-grass-guru-1ba876eda895@spud>
-Date: Mon, 12 Oct 2026 21:16:19 +0200
-Message-Id: <179183257960.266355.15581316876923702717.b4-reply@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1422; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=F1N9sc0phttKEroqTY7fq4cUBOZftvRnSXLYqSUrN14=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlnjZhzV537/L/M+KX8bkkb84JgjbmKcnd7zSVXvGQ/5
- +/C/0awo5SFQYyLQVZMkaWGu1r8naTWl1nTdW7DzGFlAhnCwMUpABPx2sbIcMUr0nD6Uoazbr/u
- /xA7XB+v681zct+D7QsW+fbozLtpuZPhnxWT2QFppxW/hcrua0zme85ue+FEzqEHjZ7nmtNjjC9
- E8wMA
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+References: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
+ <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-1-2fb084fe0751@gmail.com>
+ <8733ua23xs.fsf@bootlin.com> <CADvTj4pmtGZ4c04q+5AE3trrfshToD7BPtF-8kPxPRZ25hOTRw@mail.gmail.com>
+ <877bjmzqkr.fsf@bootlin.com>
+In-Reply-To: <877bjmzqkr.fsf@bootlin.com>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Mon, 12 Oct 2026 13:17:23 -0600
+X-Gm-Features: AclHuK_F8iNKqf1C4Ki3QntMVw0O_GSO7mPk67Uyart16gEEmw2VFpP4md4WlVw
+Message-ID: <CADvTj4ppQannShF+dkLreST94g_vSAg4QdMqxhNORzkvci3O1A@mail.gmail.com>
+Subject: Re: [PATCH v6 01/18] mtd: rawnand: sunxi: drain interrupts before
+ reusing the completion
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Maxime Ripard <mripard@kernel.org>, Richard Genoud <richard.genoud@bootlin.com>, 
+	Masahiro Yamada <yamada.masahiro@socionext.com>, Boris Brezillon <bbrezillon@kernel.org>, 
+	Brian Norris <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-10-12 20:03 +0100, Conor Dooley wrote:
-> On Mon, Oct 12, 2026 at 12:21:47PM +0200, Jerome Brunet wrote:
-> > > The JHB100 SoC includes CRG (Clock and Reset Generator) for multiple
-> > > subsystems:
-> > 
-> > Nothing really forces you to send them all together.
-> > 
-> > In the future, could you try to send one CRG driver at a time ?
-> > 
-> > It is fine to send big RFC to give context but after that, if you
-> > can make you series smaller, it is generally a good idea to do so.
-> > 
-> > This helps us iterate on the series faster and then you can fold our
-> > feedback in following series (instead of repeating the same comments
-> > on multiple instances of the same thing) Thanks.
-> > 
-> 
-> > Also your series does not apply on clk-next or -rc1 and no pre-requisite
-> > are mentioned in this cover letter. Consider using b4 to point out
-> > your pre-requisite if any
-> 
-> The dep should be the PR I sent to Brian, but I suspect what's happened
-> here is that the MAINTAINERS parts of those patches (which I had dropped
-> because they were all conflicting with my tree) didn't get reabsorbed
-> into this series. Very annoying for review of course, even if it's a
-> non-functional conflict. Of course rebase on top of clk-next would've
-> highlighted that to the submitter!
+On Mon, Oct 12, 2026 at 1:06=E2=80=AFPM Miquel Raynal <miquel.raynal@bootli=
+n.com> wrote:
+>
+> On 12/10/2026 at 12:26:00 -06, James Hilliard <james.hilliard1@gmail.com>=
+ wrote:
+>
+> > On Mon, Oct 12, 2026 at 12:02=E2=80=AFPM Miquel Raynal
+> > <miquel.raynal@bootlin.com> wrote:
+> >>
+> >> Hi James,
+> >>
+> >> On 14/09/2026 at 15:09:47 -06, James Hilliard <james.hilliard1@gmail.c=
+om> wrote:
+> >>
+> >> > A timed-out wait can return while the interrupt handler is still usi=
+ng
+> >> > the previous operation's interrupt status and enable mask. Starting =
+the
+> >> > next wait calls init_completion() on the same object, which can rese=
+t its
+> >> > waitqueue lock while the old handler calls complete(). The old handl=
+er
+> >> > can also complete the new wait or restore an obsolete interrupt mask=
+.
+> >> >
+> >> > Initialize the completion once in probe and use reinit_completion() =
+for
+> >> > each interrupt-driven wait. On timeout, disable and synchronize the =
+IRQ
+> >> > before masking controller interrupts and acknowledging the waited-fo=
+r
+> >> > events. Draining the handler first also prevents a partial-event han=
+dler
+> >> > from rewriting the enable mask after it has been cleared. Flush thes=
+e
+> >> > register writes before re-enabling the IRQ line, leaving the control=
+ler's
+> >> > interrupt sources masked.
+> >> >
+> >> > For successful waits, move complete() after the handler's register u=
+pdates
+> >> > so that the next operation cannot race with those updates. Keep poll=
+ing
+> >> > unchanged and leave controller and DMA abort handling to the existin=
+g
+> >> > callers.
+> >> >
+> >> > Fixes: 1fef62c1423b ("mtd: nand: add sunxi NAND flash controller sup=
+port")
+> >> > Cc: stable@vger.kernel.org
+> >> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> >> > ---
+> >>
+> >> So from the commit log I understand that you are fixing a race. The
+> >> problem seems legitimate.
+> >>
+> >> >  drivers/mtd/nand/raw/sunxi_nand.c | 26 ++++++++++++++++++++------
+> >> >  1 file changed, 20 insertions(+), 6 deletions(-)
+> >> >
+> >>
+> >> ...
+> >>
+> >> > @@ -414,12 +416,13 @@ static irqreturn_t sunxi_nfc_interrupt(int irq=
+, void *dev_id)
+> >> >       if (!(ien & st))
+> >> >               return IRQ_NONE;
+> >> >
+> >> > -     if ((ien & st) =3D=3D ien)
+> >> > -             complete(&nfc->complete);
+> >> > -
+> >> > +     /* Finish updating the interrupt state before waking the next =
+operation. */
+> >> >       writel(st & NFC_INT_MASK, nfc->regs + NFC_REG_ST);
+> >> >       writel(~st & ien & NFC_INT_MASK, nfc->regs + NFC_REG_INT);
+> >> >
+> >> > +     if ((ien & st) =3D=3D ien)
+> >> > +             complete(&nfc->complete);
+> >> > +
+> >> >       return IRQ_HANDLED;
+> >> >  }
+> >> >
+> >> > @@ -435,16 +438,19 @@ static int sunxi_nfc_wait_events(struct sunxi_=
+nfc *nfc, u32 events,
+> >> >               timeout_ms =3D NFC_DEFAULT_TIMEOUT_MS;
+> >> >
+> >> >       if (!use_polling) {
+> >> > -             init_completion(&nfc->complete);
+> >> > +             reinit_completion(&nfc->complete);
+> >>
+> >> The whole change around (re)init_completion looks relevant (here and i=
+n the handler).
+> >>
+> >> >
+> >> >               writel(events, nfc->regs + NFC_REG_INT);
+> >> >               ret =3D wait_for_completion_timeout(&nfc->complete,
+> >> >                                               msecs_to_jiffies(timeo=
+ut_ms));
+> >> > -             if (!ret)
+> >> > +             if (!ret) {
+> >> > +                     /* Drain the handler before it can restore an =
+old IRQ mask. */
+> >> > +                     disable_irq(nfc->irq);
+> >>
+> >> disable_irq() for serializing accesses to a single register?
+> >
+> > The intention was to drain an in-flight handler before cleaning up the
+> > timed-out wait, rather than just serialize the register write.
+>
+> I guess here you relate to the race explained below.
+>
+> > disable_irq() provides that synchronization as well as masking the line=
+.
+> > It is only used on timeout, and this IRQ is requested without
+> > IRQF_SHARED.
+>
+> This is clearly debatable, since we can identify the IRQ, that flag
+> could (should, maybe) have been set. With your approach it would have
+> been even more impacting. But that's not the point.
 
-Yes it was only the MAINTAINERS file which I did rebase to check if the rest
-applied correctly.
+Agreed. I mentioned this to describe the current registration, not to
+rule out IRQ sharing.
 
--- 
-Jerome
+> > A spinlock could also address this, provided it covers the handler's
+> > status/enable reads through complete(), together with the waiter's
+> > cleanup and rearming. Protecting only the register writes would leave
+> > the handler able to act on an old snapshot.
+>
+> I'm not sure what you call "only the register writes", you can call
+> complete() from within the lock if that makes sense for this case,
+> yes. complete() does not block so it is fine.
 
+Yes, agreed. I meant that protecting just the writel() calls would leave
+the snapshot unprotected. A lock covering the handler's st/ien reads
+through the register updates and complete(), with matching protection
+in the waiter's cleanup and rearming, would address that.
+
+>
+> ...
+>
+> >> commit log, I now disagree with the first part of:
+> >>
+> >> >The old handler can also complete the new wait or restore an obsolete=
+ interrupt mask.
+> >>
+> >> "complete the new wait"? I don't see how a stale handler completes the
+> >> next wait given the handler is a hard IRQ and the interrupt enable
+> >> register is cleared on timeout.
+> >
+> > The case I had in mind is an already-running handler on another CPU:
+> >
+> > CPU 0: Read st and ien for operation A.
+> > CPU 1: Time out operation A, mask/acknowledge its interrupts,
+> >        then eventually reinitialize the completion for operation B.
+> > CPU 0: Call complete() based on the saved st and ien from operation A.
+>
+> For this to fire, the hard IRQ handler on CPU0 would have to be stopped
+> between reading st/ien and calling complete() long enough to span:
+> - A's timeout
+> - A's cleanup
+> - B's wait being rearmed
+> On this hardware, how is this reachable?
+
+CONFIG_PREEMPT_RT provides a concrete mechanism. The driver requests this
+IRQ with flags =3D 0, without IRQF_NO_THREAD, so the handler is
+forced-threaded. A higher-priority task can preempt that IRQ thread
+after it reads st/ien:
+
+CPU0: The IRQ thread reads st/ien for A and is then preempted.
+CPU1: A's wait times out, performs cleanup, and eventually reinitializes
+    the completion and rearms the wait for B.
+CPU0: The IRQ thread resumes and calls complete() using A's snapshot.
+
+Clearing the controller's interrupt-enable register on CPU1 does not
+cancel the running IRQ thread or invalidate its saved values. The late
+complete() therefore acts on the completion now being used for B.
+
+This does not require a prolonged non-preemptible hard IRQ or a hardware
+stall.
+
+>
+> > Clearing the device's enable register does not invalidate those local
+> > values or wait for the running handler to finish. Hard-IRQ context
+> > prevents this overlap on the same CPU, but not across CPUs.
+> >
+> > That distinction was not explicit enough in the commit message. I'm
+> > open to a different implementation; the requirement I wanted to preserv=
+e
+> > is that the old handler cannot update the mask or signal the completion
+> > after the waiter has cleaned up and reused it.
+>
+> Miqu=C3=A8l
