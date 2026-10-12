@@ -1,363 +1,130 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6531E4B44C7;
-	Mon, 12 Oct 2026 16:43:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688A04B403F
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:43:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823435; cv=none; b=bO3UJK2ZzqEiy3o2roxgVnNIcPVYQOE1y91q7tHq6UkN35jicFuTT/F1m4xZwcoMBpNF3VMFR+p0OhwhKVNK7VpWPb/W1/OoqqVaR4Xj877S7UgfGHOj9IGsbZLgc48FApmlCshRINR2EVfyaYCxO9TY6I30473O5mXRY8ZiHWE=
+	t=1791823439; cv=none; b=TARNp0tm5uIFrA6q2Yy/n0mrscQetwl/JnfC4v0NL9YIlFHJLHhRLEHvgxZgbVTHBo6Qm2tjNqGu45rLC7Q5FJ4VAeGgJx2NA+nv4UsTpkle9BZ6CFnUfwJvJtMuu9U7ez1pD04FZiadm4xQAWhdXGjm9XZ1Wo65oLTjG8myBAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791823435; c=relaxed/simple;
-	bh=mjLbYWvXUmK1LylURo0MhiTbNk1TbsrpkKtnRsA0gDo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EOektGafYRd663uwn+gkvXo2lzejx2PCnBLR6UDtnOsL1F8KKFj7aYfgQDrBMxcQW9h+0ZgiIkyjntybBytLSKtZqQNGuECMi9afZOQmT4skplA61JYviHwFi/OU7MMHwHxtoRlulxCdCSN6izWiYtuG4GgPIGvYl6oFgP+95SE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PbavrD7w; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791823439; c=relaxed/simple;
+	bh=vUcOr0k/Biif+yJwcSpaOnOoZzKY8hxNFDDipC/t+ic=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JYPAY461oA/LtMDkyB/ciaYsQsllIEl9QU5RThMub+M2Dik3L1cH763+Nw8S6L6//XeFJqxeySFJWGxnzMfUlT9Bs2EttG2NAbGReirPWVQaGQ03jb0oy/pD5M4ppRZKYCqoYw3GE8R6PZub1ZCgCWX3EEVBDlrGI4EBU07W050=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=GB5zPK9U; arc=none smtp.client-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PbavrD7w"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791823433; x=1823359433;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=mjLbYWvXUmK1LylURo0MhiTbNk1TbsrpkKtnRsA0gDo=;
-  b=PbavrD7wRWBTShk7xcBzoLhKNe0YkuClPINrYKKeB6fvLjhpsOf1FqcW
-   ZbPfqmanBi13U33NIrurFMAr/MyXbJyzBTluGGGEdJ1B9q2eKdLgYLRMf
-   6GlJHEfVjm4qBCMkZ2yJr5uUsfncWKXPS0/y5cYU7pZsOYtC70FDNKmqZ
-   6xgAhsfGCK+7lycxQwE0mwgEh9UwLdC49QvwCtH+neGa0cQ89WLL8xQ0Z
-   MpeCRNSuDyBbCxI5ruJ/ep/UIoTglYh5qp2eegdpHKlmEoJXPPn4FuH3W
-   VAkBU34/meVRfQiG0eJXhXpyyjUvv+x7Fv9ugpflGcTTJCNQr6DWli+Tg
-   Q==;
-X-CSE-ConnectionGUID: vHQAp0G8TrOeWiAYPbViWw==
-X-CSE-MsgGUID: JqNvv6jUQf2V4bnBv9m+ug==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="410132"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="410132"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 09:43:53 -0700
-X-CSE-ConnectionGUID: TuAkskG2ROCdmH/lGED0gQ==
-X-CSE-MsgGUID: FVN6CfYpROW+miCti8QLPA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="1004953"
-Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 09:43:51 -0700
-From: Dawid Glazik <dawid.glazik@linux.intel.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	dawid.glazik@linux.intel.com,
-	maciej.lawniczak@intel.com
-Subject: [PATCH v2 3/3] ARM: dts: aspeed: add Intel JNCRP BMC
-Date: Mon, 12 Oct 2026 19:39:07 +0200
-Message-ID: <bf1ceb78c8b544d6fe8ce0e6980d75b0ab78430d.1791825961.git.dawid.glazik@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791825961.git.dawid.glazik@linux.intel.com>
-References: <cover.1791825961.git.dawid.glazik@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="GB5zPK9U"
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-92ed3993c1eso127724885a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:43:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791823437; x=1792428237; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=clFQh2LTi4YoRHqOFH1o1TqPcyiqW9KA/u/YoNL08DQ=;
+        b=GB5zPK9U/QAVyibiaaBYW5OaZUITyhx7NmzpHnWs6VtFIJ/JYwJ9yqD/W0FWTOv5Mw
+         lRZiBfAbJyKSahde/XJaCbcGInWgvKol1cFNbE8Zga6SNHYqKn8HDUVk79vZ8v9tfsg3
+         5bEA1G4Y3b6cPaDcycI4yeSzc6009yJ6mD19ZTzwnIgFRAvtZz3YsF5sGkg2N5r35lCV
+         H7m1oLjS4Hvw45cZaXdi5hADHmUIFWa6qsGiaVO0Hl5LSVLzOoeSdWzVj9GB11lSnpzB
+         N0iQmimrTkdmTgLvYT5n7HT9MRf5/ZMWlYJeJnfBI/Kt7YACK5VAEQhyycpCS4DRNaul
+         inBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791823437; x=1792428237;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=clFQh2LTi4YoRHqOFH1o1TqPcyiqW9KA/u/YoNL08DQ=;
+        b=OzzkfAlavEdfJIXSR8/hFwI3Yks/WK6uRoME4PZ5anwOcs7W9GVNfTnANT7VbyG2TO
+         iA5TIb9ieMklm9WkZmDqsKBlwlZxOfRtPOEb5UCBxZUXqNopCeVh/ACn/5a8Q/DvKOfw
+         emRFUj2ylKiTk09qPIkWRa8yVV2UjuCwh5YY6YRd2Rodhjs2ggk6UJHmrJ+3B79iKXcX
+         Tzz0/l9dLOg3yk3ew5GUee6gxBKdpS7pCd0Qsa7SIwOFVzo824uHLtxwPePC4Jlr1r29
+         ssJEfztIXwAn/4CSb6ydfJAR/i/xyL/AwbBxFT7PpgORRbDSAYcQGmPBspKdzMBEI6om
+         J0hg==
+X-Forwarded-Encrypted: i=1; AKwUvBwz9RNCFDxbh7bTzscGXx45AxQzx40qIIUmO0KaYfiX9/MkrHTGc5Ly5QbVPxdnJvJbd+7xC9ou6cvhFuc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLLHryLoVkA58eOC4Go5WqVJOHs88uZYzq0k/U0YfKeYwrOvGt
+	xvpqyRTqW+VcZQ1O6knJxCOVNiOIsMy/fDfgH7y6m00NMIALIZQJ1bgOETHYJyReliI=
+X-Gm-Gg: AYBFou0UJu86tPAvkWQ7pJRVFhDsFVqBFLCNplGx0yINXKP83mtxm4BAgPP1ykDow7D
+	6tmVbigM3AF7Ag7kVCJQMWKWRLHC/SuKK1ea8YwjewEe/bckmVmeRh8Euu0nNJLft3iNq91IhFC
+	oYcgxbydxpwyxc2V/Hv0nlLFX8xz9jLsVOrSyNAfGIOJTp7tsHvTaXSgYOBt5F37nAPM72Gnr7W
+	8O41kwNcgraxoxYXxBF8CHwqDGQ+UWH/8CaD89Q2Fnl/L4L4uM37KEDdBI99Cz6PTgXikB6SJkJ
+	J3fZnQKP+8U7jaHIZGynGUGCNlQFumWw6da94cRQADE5K10bZ6bJLF2BplLdcwCrLRt/xEZehdt
+	PPiPRmWl+HFpsYPNmRVdRNjFAD3KIZi0xODqhDX2g4SO7n3KBrjYliyyXekhesdf1+ADrmgcVz4
+	rlpWGA/SkJqSG5YDb9cl7ELmC0zjkpf33W0RwO16a5QjIMWsY/GqQQynvRC/LneyxPG9+5w+9HO
+	/k=
+X-Received: by 2002:a05:620a:44c4:b0:93b:d7a2:dd2b with SMTP id af79cd13be357-93ebd282089mr1696774585a.59.1791823437228;
+        Mon, 12 Oct 2026 09:43:57 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5090050sm24998885a.40.2026.10.12.09.43.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 09:43:56 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: p.zabel@pengutronix.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com,
+	danielt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] reset: introduce TC9564 reset support
+Date: Mon, 12 Oct 2026 11:43:51 -0500
+Message-ID: <20261012164354.3872326-1-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
 Content-Transfer-Encoding: 8bit
 
-Add the initial AST2600 device tree for the Intel JNCRP BMC platform.
+This series adds support for the reset controller present within
+the Toshiba TC9564 SoC.  It is being considered the first version
+of the series despite being previously posted as part of a combined
+clock/reset driver:
+  https://lore.kernel.org/lkml/20260918165234.687224-1-elder@riscstar.com/
 
-Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
----
-v2:
- - Replace bootargs console=ttyS4,115200n8 with stdout-path = &uart5
----
- arch/arm/boot/dts/aspeed/Makefile             |   1 +
- .../dts/aspeed/aspeed-bmc-intel-jncrp.dts     | 258 ++++++++++++++++++
- 2 files changed, 259 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts
+This SoC attaches to a host system via PCIe.  It includes a PCIe
+switch with three downstream ports.  To one of these ports an
+embedded PCIe endpoint is attached, and it implements two PCI
+functions.  BAR 4 for both PCI functions provides access to the
+registers that enable or disable a set of resets.
 
-diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed/Makefile
-index ea4645ef9872..f0d665b3dcee 100644
---- a/arch/arm/boot/dts/aspeed/Makefile
-+++ b/arch/arm/boot/dts/aspeed/Makefile
-@@ -55,6 +55,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-bmc-ibm-sbp1.dtb \
- 	aspeed-bmc-ibm-system1.dtb \
- 	aspeed-bmc-intel-avcrp.dtb \
-+	aspeed-bmc-intel-jncrp.dtb \
- 	aspeed-bmc-intel-s2600wf.dtb \
- 	aspeed-bmc-inspur-fp5280g2.dtb \
- 	aspeed-bmc-inspur-nf5280m6.dtb \
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts
-new file mode 100644
-index 000000000000..018647588c27
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts
-@@ -0,0 +1,258 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+// Copyright 2025 Intel Corporation
-+
-+/dts-v1/;
-+
-+#include "aspeed-g6.dtsi"
-+#include <dt-bindings/gpio/aspeed-gpio.h>
-+
-+/ {
-+	model = "Intel JNCRP BMC";
-+	compatible = "intel,jncrp-bmc", "aspeed,ast2600";
-+
-+	aliases {
-+		serial4 = &uart5;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart5;
-+		bootargs = "earlycon";
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x80000000 0x40000000>;
-+	};
-+};
-+
-+&rtc {
-+	status = "okay";
-+};
-+
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "bmc";
-+		spi-rx-bus-width = <4>;
-+		spi-max-frequency = <50000000>;
-+#include "openbmc-flash-layout-64.dtsi"
-+	};
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&uart5 {
-+	status = "okay";
-+};
-+
-+&mdio1 {
-+	status = "okay";
-+
-+	ethphy1: ethernet-phy@0 {
-+		compatible = "ethernet-phy-id001c.c916";
-+		reg = <0>;
-+		reset-gpios = <&gpio0 ASPEED_GPIO(C, 1) GPIO_ACTIVE_LOW>;
-+		reset-assert-us = <10000>;
-+		reset-deassert-us = <50000>;
-+	};
-+};
-+
-+&mac1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rgmii2_default>;
-+	clocks = <&syscon ASPEED_CLK_GATE_MAC2CLK>,
-+		 <&syscon ASPEED_CLK_MAC2RCLK>;
-+	clock-names = "MACCLK", "RCLK";
-+	phy-mode = "rgmii-id";
-+	phy-handle = <&ethphy1>;
-+};
-+
-+&lpc {
-+	lpc_snoop: lpc-snoop@80 {
-+		snoop-ports = <0x80>;
-+		status = "okay";
-+	};
-+};
-+
-+&gpio0 {
-+	status = "okay";
-+	gpio-line-names =
-+		/*A0-A7*/ "", "", "", "", "", "", "", "",
-+		/*B0-B7*/ "PWRGD_AUX_PWRGD_BMC_CPU", "", "", "", "", "", "",
-+				"FP_ID_LED_N",
-+		/*C0-C7*/ "FM_FORCE_BMC_UPDATE_N", "RST_RGMII_PHYRST_N",
-+				"FM_TPM_EN_PULSE", "", "", "",
-+				"DBP_HOOK3_CPU_FBRK_OUT_R_N", "DBP_PRSNT_IN_N",
-+		/*D0-D7*/ "CPU_ERR0_N", "CPU_ERR1_N", "CPU_ERR2_N", "DBP_ASD_BMC_PRDY_N",
-+				"FM_SPD_SWITCH_CTRL_N", "", "", "",
-+		/*E0-E7*/ "", "", "", "ID_BUTTON", "", "", "", "",
-+		/*F0-F7*/ "", "", "FM_AGGREGATOR_MODE_N", "", "", "",
-+				"FP_LED_STATUS_GREEN_R_N", "FP_LED_STATUS_AMBER_R_N",
-+		/*G0-G7*/ "", "", "", "", "", "", "", "",
-+		/*H0-H7*/ "", "", "", "", "", "", "", "",
-+		/*I0-I7*/ "", "", "", "", "", "", "", "",
-+		/*J0-J7*/ "", "", "", "", "", "", "", "",
-+		/*K0-K7*/ "", "", "", "", "", "", "", "",
-+		/*L0-L7*/ "", "", "", "", "PREQ_N", "FM_P3V3_SW_ENA", "", "",
-+		/*M0-M7*/ "", "", "", "", "", "", "", "",
-+		/*N0-N7*/ "", "", "", "", "", "", "", "",
-+		/*O0-O7*/ "", "", "", "", "", "", "NMI_BUTTON", "",
-+		/*P0-P7*/ "RESET_BUTTON", "RESET_OUT", "POWER_BUTTON", "POWER_OUT",
-+				"", "", "", "LED_BMC_HB_LED_N",
-+		/*Q0-Q7*/ "", "", "", "", "", "", "", "",
-+		/*R0-R7*/ "", "", "", "", "", "", "", "",
-+		/*S0-S7*/ "CPU_CATERR_IERR_N", "CPU_CATERR_MCERR_N", "FM_BMC_FRU_WP_N",
-+				"FM_INTRUSION_CABLE_PRES_N", "PWRGD_CPU_AUXPWRGD",
-+				"FM_P3V_BAT_SCALED_EN", "REMOTE_DEBUG_ENABLE", "",
-+		/*T0-T7*/ "", "", "", "", "", "", "", "",
-+		/*U0-U7*/ "", "", "", "", "", "", "", "",
-+		/*V0-V7*/ "SIO_S3", "SIO_S5", "", "SIO_ONCONTROL",
-+				"SIO_POWER_GOOD", "", "", "",
-+		/*W0-W7*/ "", "", "", "", "", "", "", "",
-+		/*X0-X7*/ "", "", "POST_COMPLETE", "", "", "", "", "",
-+		/*Y0-Y7*/ "FM_BMC_CMOS_CLR_R_N", "PLTRST_N", "FM_BMC_SAFS_EN",
-+				"IRQ_PSU_ALERT_LVC3_N", "", "", "", "",
-+		/*Z0-Z7*/ "", "", "", "", "", "", "", "";
-+
-+	spd-switch-cpu-hog {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(D, 4) GPIO_ACTIVE_HIGH>;
-+		output-low;
-+	};
-+};
-+
-+&sgpiom0 {
-+	ngpios = <128>;
-+	bus-frequency = <2000000>;
-+	status = "okay";
-+	gpio-line-names =
-+		/*A, 0-7*/ "CPU0_VRHOT_N", "LED_POSTCODE_0_LSB",
-+				"CPU0_THERMTRIP_N", "LED_POSTCODE_1",
-+				"CPU0_MEMTRIP_N", "LED_POSTCODE_2",
-+				"CPU0_MEM_VRHOT_N", "LED_POSTCODE_3",
-+				"CPU0_MEM_HOT_N", "LED_POSTCODE_4",
-+				"CPU0_MON_FAIL_N", "LED_POSTCODE_5",
-+				"CPU1_VRHOT_N", "LED_POSTCODE_6",
-+				"CPU1_THERMTRIP_N", "LED_POSTCODE_7_MSB",
-+		/*B, 8-15*/ "CPU1_MEMTRIP_N", "FM_ASYNC_WARM_RESET_REQ",
-+				"CPU1_MEM_VRHOT_N", "HPM_FRU_READ_DONE",
-+				"CPU1_MEM_HOT_N", "FM_ASYNC_GLOBAL_RESET_REQ",
-+				"CPU1_MON_FAIL_N", "BMC_BOOT_DONE",
-+				"CPU2_VRHOT_N", "NMI_OUT",
-+				"CPU2_THERMTRIP_N", "AGGREGATOR_MODE",
-+				"CPU2_MEMTRIP_N", "RST_I3C_PCIE_HUB_N",
-+				"CPU2_MEM_VRHOT_N", "",
-+		/*C, 16-23*/ "CPU2_MEM_HOT_N", "HPM0_PRESENT",
-+				"CPU2_MON_FAIL_N", "HPM1_PRESENT",
-+				"CPU3_VRHOT_N", "HPM2_PRESENT",
-+				"CPU3_THERMTRIP_N", "HPM3_PRESENT",
-+				"CPU3_MEMTRIP_N", "HPM0_SOURCE_TO_DESTINATION_FAIL",
-+				"CPU3_MEM_VRHOT_N", "HPM1_SOURCE_TO_DESTINATION_FAIL",
-+				"CPU3_MEM_HOT_N", "HPM2_SOURCE_TO_DESTINATION_FAIL",
-+				"CPU3_MON_FAIL_N", "HPM3_SOURCE_TO_DESTINATION_FAIL",
-+		/*D, 24-31*/ "FM_BMC_VAL_EN", "HPM0_FRU_VALID",
-+				"FM_SERIAL_BOOT", "HPM1_FRU_VALID",
-+				"FM_INTRUSION_CABLE_PRES_N", "HPM2_FRU_VALID",
-+				"USB_OC_P2_3_N", "HPM3_FRU_VALID",
-+				"FM_SYSTEM_COOLING_MODE0", "FM_S2D_DISCOVERY_DONE",
-+				"FM_SYSTEM_COOLING_MODE1", "", "", "", "", "",
-+		/*E, 32-39*/ "DBP_PMODE_S0_PWROK", "", "DBP_PMODE_PLTRST", "",
-+				"DBP_PMODE_GLOBALRESET", "", "DBP_PMODE_CPU_PWRGD", "",
-+				"FM_SMBUS_RDY", "", "FM_LEAK_DETECTION", "",
-+				"FM_LEAK_CBL_PRSNT_N", "", "FM_LEAK_CBL_FAULT_N", "",
-+		/*F, 40-47*/ "CPU0_SKTOCC1_N", "CPU0_SKT_FAULT_LED",
-+				"CPU0_SKTOCC2_N", "CPU1_SKT_FAULT_LED",
-+				"CPU0_MISMATCH", "CPU2_SKT_FAULT_LED",
-+				"CPU1_SKTOCC1_N", "CPU3_SKT_FAULT_LED",
-+				"CPU1_SKTOCC2_N", "", "CPU1_MISMATCH", "",
-+				"CPU2_SKTOCC1_N", "", "CPU2_SKTOCC2_N", "",
-+		/*G, 48-55*/ "CPU2_MISMATCH", "", "CPU3_SKTOCC1_N", "",
-+				"CPU3_SKTOCC2_N", "", "CPU3_MISMATCH", "",
-+				"HPM0_PRSNT_N", "", "HPM1_PRSNT_N", "",
-+				"HPM2_PRSNT_N", "", "HPM3_PRSNT_N", "",
-+		/*H, 56-63*/ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		/*I, 64-71*/ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		/*J, 72-79*/ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		/*K, 80-87*/ "FM_BOARD_REV_ID0", "", "FM_BOARD_REV_ID1", "",
-+				"FM_BOARD_REV_ID2", "", "FM_BOARD_SKU_ID0", "",
-+				"FM_BOARD_SKU_ID1", "", "FM_BOARD_SKU_ID2", "",
-+				"FM_BOARD_SKU_ID3", "", "FM_BOARD_SKU_ID4", "",
-+		/*L, 88-95*/ "FM_BOARD_SKU_ID5", "", "FM_BOARD_SKU_ID6", "",
-+				"FM_BOARD_SKU_ID7", "", "", "", "", "", "", "",
-+				"", "", "", "",
-+		/*M, 96-103*/ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		/*N, 104-111*/ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		/*O, 112-119*/ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		/*P, 120-127*/ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "";
-+};
-+
-+&i3c_global {
-+	status = "okay";
-+};
-+
-+&i3c1 {
-+	status = "okay";
-+	mctp-controller;
-+	i2c-scl-hz = <1000000>;
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+};
-+
-+&i2c5 {
-+	multi-master;
-+	status = "okay";
-+};
-+
-+&i2c6 {
-+	status = "okay";
-+};
-+
-+&i2c7 {
-+	multi-master;
-+	status = "okay";
-+};
-+
-+&i2c8 {
-+	multi-master;
-+	status = "okay";
-+};
-+
-+&i2c9 {
-+	multi-master;
-+	status = "okay";
-+};
-+
-+&i2c10 {
-+	multi-master;
-+	status = "okay";
-+};
-+
-+&i2c11 {
-+	status = "okay";
-+};
-+
-+&i2c12 {
-+	multi-master;
-+	status = "okay";
-+};
-+
-+&i2c13 {
-+	multi-master;
-+	status = "okay";
-+};
-+
-+&i2c14 {
-+	status = "okay";
-+};
-+
-+&i2c15 {
-+	multi-master;
-+	status = "okay";
-+};
+Both TC9564 PCI functions can provide PCI endpoint buses via
+devicetree.  Each PCI endpoint bus provides access to one of the
+function's BARs.  Subordinate devices (like the reset controller)
+can then be defined as nodes accessible on the endpoint bus.
+
+Only one of the two PCI functions is permitted to define the reset
+device node.
+
+Note:
+  Other TC9564 drivers have been posted together with DTS file
+  updates for the Qualcomm RB3gen2.  To allow this (and a few
+  other) drivers to be considered in isolation, I'm omiting
+  that here.  (I can add it to future versions if requested.)
+      
+
+					-Alex
+
+Alex Elder (2):
+  dt-bindings: reset: introduce toshiba,tc9564-reset.yaml
+  reset: toshiba: introduce a TC9564 SoC reset driver
+
+ .../bindings/reset/toshiba,tc9564-reset.yaml  |  56 +++++
+ MAINTAINERS                                   |   8 +
+ drivers/reset/Kconfig                         |  12 ++
+ drivers/reset/Makefile                        |   1 +
+ drivers/reset/reset-tc9564.c                  | 192 ++++++++++++++++++
+ include/dt-bindings/reset/toshiba,tc9564.h    |  26 +++
+ 6 files changed, 295 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
+ create mode 100644 drivers/reset/reset-tc9564.c
+ create mode 100644 include/dt-bindings/reset/toshiba,tc9564.h
+
+
+base-commit: becb95e45ef0dda9ffb35156d909d3da7a2789c3
 -- 
-2.43.0
+2.53.0
 
