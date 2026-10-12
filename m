@@ -1,125 +1,133 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742503438A0
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:21:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791804063; cv=none; b=GXAQ5VDjD+jUKmc50vpxxV8ZOzkQ36h+E6sQ9gF+qc0UVCK/ncg896eUScV0VP0o2n+YWmfBpcrIcJm/IOwj2akP8VBO/ad/CrAJB4wbubC8A9dJzd1d3I6R7/MYaN1naXxv3pBS4F8TiREuxxisiVr6nZoMnJkJw4AfT/aS5Bo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791804063; c=relaxed/simple;
-	bh=gs/gqQmiuGJPRgDVoAOyk42QBoxdjFJEltFMo7Qk9qE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JVknPxSTdLyrPw9rvvfdZjBipG9tkyoZtgujVF7rjCsvl+HhP1179Rflpb/32ZUrmAfMQVLgLn+vIPBasoAyEJhUx5JIDuxYBhRelk4GP0vDmNw1DVv0hDH/Q8sGM43N+eg2ZUe9xlLP60haQWblGYN17Wz/Dr4nT6xIY5bxd40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=L3AvtEs8; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3CD2399340
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:22:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791804131; cv=pass; b=P2V5MzcPuuX/V4Bdak2elTHDA8Ia4XWW3P2YVclZKw34mDmspBZAt5nH/7wqyUgRsgGHiM77TMNvo0BpzQzZBWDXQF1DytxFGW2RPq0sNPDaOU76Btp2y1Wd9nbPrCdrbNdFPgSUFXPn8OSjGiw4hoksrHfhBiyydWpFi5J2F9A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791804131; c=relaxed/simple;
+	bh=ImImow3e+fihOWO7VmT8//WIECuyQ9MyP0HEjqwJ2y4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lDv8dCRHDe6bsf8uQ5eh59PY9odeER1ytPA9r9BmloKYnTgG7orboRfiBevk0DV9GUee+S7UpyYckYc/koi5MnT7qBcfJLG10V1+D29bK+5qmgq9n4uRAMMnaoNGm/I/7f/nO/GB6C0zSyOAthR8N8dLBBC1LEvjSuuK3F0j9e8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F+HnvCps; arc=pass smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="L3AvtEs8"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-486e70f2457so742930f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:21:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F+HnvCps"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc74881317bso63984a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:22:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791804130; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VwD2mjrBq47jfOAZI07At6zxDJ5GWZRchevuQJz+yTvHkmzlPaeulqnMCxcOvDEHMR
+         H9Ufz0xQdWDiqp55hjyIsLGJwxSWb+bCrVKS2lwuLmjA44cxD/+WX/PkilTXNbqJt9De
+         dSbIYK4lymAuVcHLAdpKjVqlcS5e7f/xr9dAAQSbnAT36ix93+URam+lP9zUBLMBxAaD
+         hVHo/3THyTKDHUC+fSHX30iUyRT53ZvPM2Xgtz3Kwp4I87FqzakYWRsRxqeZ+hdE77S1
+         QAWLjKY6PrBbfp8/Agmmwhlsf4lMEKkrKBbmhnVjseWl33F0BQEd47c7YOMxepeZ9ic1
+         OLBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3niU6cqp7D6Vf8l66QKyYfhCi9eIbqKTTvZBBqGYZyk=;
+        fh=RHR2ZitK2JH6X8Q5KC8CYQNriDkIyKJ3fzJW0eyUD0U=;
+        b=rtkQ5SfNsosTxUQcDmlrvd+8/JpTUYRuxuSSOVFI8DfsL/Um0HRPpy5faVMzVO1saS
+         1Rw5E58CK34KwCpzjzEJLgIfi4FQ5cC5H1BclFD6MNuJiN99VSPvZkrr3nAeUmb9hIq4
+         xiUih0SN7+mEjXiVLt9A4MmPMkJG1/K0AFeGh8lhIJIGn6U6tJCZObvKaPafvpkbAycq
+         DsIgYiwJjZYG97+l4iponEbO1Bknd3jTLGxgcluMr5FltkKvAi9PZfuecltIy0f9kGPV
+         4G1iNzlN7o4DZ79BYMRIRSK3u4HQfGkk55pWNb4vvrNd2Bh2yK4Bn95ao1Ncxi1SHhhz
+         zQ+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791804061; x=1792408861; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791804130; x=1792408930; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Gsg8EifNScHEUVxvT3uqoxT1tHpvY4SS4mBwaSokXEI=;
-        b=L3AvtEs8ByG8jBWJvKz5CHDlx+exxI7Fyx/+ad9ngOaUsYSIKqKp5JqcDVNureawZe
-         wOEdzP/bFOVg0LbjdDDexYZ10TBPbHsUc9vlAj3IK3hXbuNBggVw77rZn1jM5zDGxTxr
-         p+4uabNMH2DAR93bQ//1iH/YcoAwbxgxwbW6XUfF9NlRiOHnBjxw4KwPhdC6plXjSIY6
-         MA4Ap/Lq6sew/sc65t8Xjw8SRDVunRI648zH4BDmOMEq/y5xivRh2LU5aeiGn9RPCq9V
-         Yms2OMKy/el84tZzOdoDETLHq4ScihZyZYVZGbIIGiXNebN2je9vdes25Om7fKTTp8zv
-         XYQg==
+        bh=3niU6cqp7D6Vf8l66QKyYfhCi9eIbqKTTvZBBqGYZyk=;
+        b=F+HnvCpsEua9MuqAFyVw22du5Pid1X/pNWVfMszv250sQYOVqrLA8gtoeEtF8PM9RX
+         /n6M07q1oyB3s4+fqPhZ+m+jrNoacOPlKtxM4m47fXZJqEXCqZulXG9btDlpd9KuO93c
+         RKrJ8Nc3Q4knawmB2m/E/r5DM/tAwsVgcr8MTvPRqf/9CbvCeXB53P2vx+dx6Q2GOgnv
+         cPsgpjtiXek4r6FZbLknHeiuHEs/xhRlseYtLsOSNbl5jpaPNZJ6E7PJRX7aVmNYVMsl
+         a3ydeOiiJfgFJ4ZkJ7o4hm0scYavx8LVdgv0FPulvbHvfMhTNHee2tz1uhppgHHDiwWQ
+         J34w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791804061; x=1792408861;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791804130; x=1792408930;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Gsg8EifNScHEUVxvT3uqoxT1tHpvY4SS4mBwaSokXEI=;
-        b=TyArs5/oQ9vFOou+6Gd9moUgSNdzDUG2Yi+wtdFjUfEKYpsRLDQRNxplbUmEwmwMs+
-         eDLQyVYVaCr2/d8tRc86eKsl9BgHehArwDVGrzDNEmwcU2tlc1OukxH8UucHkefYmutn
-         wZUAzQAgdig2uulwskVhtsoiIG2ZZY18r7wZrwSYEW1I0oEgg4sc0upo68TndEIfVMGw
-         aTBJ41QZqMU37WpUQJU2uP4viUgC+KeRN9CYjC9dzo0Pu+xTBd68pNbcjA3MlWNN5JKt
-         ByONNEkeLTQ+ugkH/XgXNZSUcMbNba26oLS/M9J7QvZWzdjjEjeF7cAWgpZ0+eK+mGd1
-         bcTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxGA1d1hBzbWTqXfqszva+Qb+cz2QJY5XlDUN4gw618bNesyiVP1baU30PZ/sbQ88CuHr2zOO6V7HHZvKc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvJdHiZ11QUi7vx51JK3yx5fQsBuEHbLhjwaeuGFwT8QALoKM1
-	3kUS2amgUq3UVjlXGsN+vo4/V2uexDutgOeHn2TU0khlmGE0mTBGdcVKzf+Np3sPkdQ=
-X-Gm-Gg: AYBFou1zX0F43CHMP4w5hprJtsh65GcNK3OsO5QoAPBFUH/Hj/CIBw68XtMGDqDLjlh
-	hJSbCgn6if3CuK/L5a0rZTW+nMVx9Ltu+fu7zaJy0Uqpa7BFEL3wiW25Dd7sAxrTVZ9tn4KA6Wk
-	BSRn8V4OEAeb5EtacO8KDDw0itKVerykRHvnKMb/POTt/lHgID8ZDpanoOP0OP8bOFKjunpGPiS
-	ybGfqlPt7cVqnpEkarS2ITL3M6wWmLMctVGR0EJZcun4RqGf+eSiKVJy3e2P7Rptgz3cXzUxNNp
-	SrF4hNJHXP73YRHe18qGePEzj5id/LjmXih0J5suBX1C79eyy0d1hzCO8qEZy649x0EDr6L42AB
-	c8AKIXHvgzMW4hst1MZMiHlkrkkRQsz+psAijLf0uXDqH+XILZ0uhCHc9ubJml+Du3A/I0RgdTG
-	j0ISWuMROSqKq9Dc46Fcrg+e3bslZO4QF9fTax+fNWnlVMsIoibKagVx+jPdbqd5G++9CCf2O29
-	Firjl9jLCFIwYFKOtmDlCjLwFbr6/5mnPjgYIUPD8iTJD7Wx8I85vJIGMz3Aw==
-X-Received: by 2002:a5d:644a:0:b0:486:f42f:6860 with SMTP id ffacd0b85a97d-48dbaaefc28mr12200183f8f.56.1791804060587;
-        Mon, 12 Oct 2026 04:21:00 -0700 (PDT)
-Received: from localhost (p200300f65f19a904ade4f69ba751c34c.dip0.t-ipconnect.de. [2003:f6:5f19:a904:ade4:f69b:a751:c34c])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48dba1be42esm21245073f8f.5.2026.10.12.04.20.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 04:20:59 -0700 (PDT)
-Date: Mon, 12 Oct 2026 13:20:58 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Nicola Fiorillo <nicfio@gmail.com>
-Cc: linux-media@vger.kernel.org, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] media: i2c: Add GC5035 image sensor driver
-Message-ID: <aszCC_ZVlsWxs8gB@monoceros>
-References: <20261009072733.39877-1-nicfio@gmail.com>
- <20261009072733.39877-2-nicfio@gmail.com>
+        bh=3niU6cqp7D6Vf8l66QKyYfhCi9eIbqKTTvZBBqGYZyk=;
+        b=vpd8cuNn8eASQEAW+p4q3CLntTZg6hyehF3VV7ibBb7a6gdwS7gxHc5bxbyaJVBuTv
+         hyybIC9436kVDKXGv/TAwvL1zy2aPnXPaEw5I7i5OuSaWQfjcJcnDjhkn5zttz0C4i4b
+         QnVjKGPmwFlFW1jdKzUtxCCabCOMLi1pqWuXLGs32cS4j671xG/m5gyIPq5Yx7iTLDG7
+         MiAx3pF/gipZB7oRwKSuel7PlITyX6rUwYdLUnkdGibR5SQxSAQhNhlZl/Nj/NbkvM0+
+         JGY/dvP2mMwSCeMw+ibSG5IZHXfUkUQkvqibnJ72nncg8gUKXv1/DIpGR6fYnxz2wjey
+         6Rtw==
+X-Forwarded-Encrypted: i=1; AKwUvBxBbgHo1MS7e1h2s4rWwh0o6yG1vLd1VJbJ0u+8xx6Cw/NI7gj/1AoGflkMAoxV3SjRso0vxwrfehKDeM4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfwNjBna/1xtx/f/7zbtOttnH3h8u4h0aEzHUAU4ioKViCzhOl
+	mdDY4Zk8IX/yERoPCIneF85vEZlzuU1PiBxJXrWUsPa+k5HliUroPlyL1Za/nsxqw6OzZG5Ycgs
+	1bua8kZWYOQ0q/LQ50sdzIQ1+ksb/nRQ=
+X-Gm-Gg: AYBFou0Y6Ei/qtCJbe0Y/usjCNY3MI0J1WB3g1RB6JinKmgK/m5bnCakinmpiFXT6TE
+	w3EO2i+o7ijVzFjHf0jgqscqpge/Mu7WP99UdOPmeI21GEFt+71ufNpgPWHLwzcDdjDXNbi3tIL
+	eI0CwI9Sd6QTO9mZWJIzJN8u/RPLQdh9Av/ozrWquby54P18oAjW4GTfCTYLXxhmtI2VfGb9O08
+	QAGbebrcOlvhGq7fs16frTh9jE83xKdl7zprbD5gE0cwxUYMI8QkL2/XdVLDM2xgB4U9apZHiqR
+	WsIkelwa8zkarYCgz3agFzVdywby0l50JG871V1eg4UcA6AFIhK2G833mPnWz0u2EMk+Sr79uFg
+	4QYLefeRZ9T3w
+X-Received: by 2002:a17:902:da4f:b0:2da:dd0a:99e0 with SMTP id
+ d9443c01a7336-2e8428a2c77mr122171625ad.2.1791804129626; Mon, 12 Oct 2026
+ 04:22:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pguj65rce3a254rn"
-Content-Disposition: inline
-In-Reply-To: <20261009072733.39877-2-nicfio@gmail.com>
+References: <20260930090813.73901-1-q.h.hack.winter@gmail.com>
+ <20260930090813.73901-2-q.h.hack.winter@gmail.com> <179110850671.434549.2584497019282941556@kernel.org>
+ <1791424156.460.8ed76b88c7@gmail.com> <asySLDyakgLAKVdf@secunet.com>
+ <CAH78Gvt0gUELPSeqf348P4-B8E7RH3L3PhFdgVdjfK=WKEpzdQ@mail.gmail.com> <asyytFvHJGf_KB_D@secunet.com>
+In-Reply-To: <asyytFvHJGf_KB_D@secunet.com>
+From: Qihang <q.h.hack.winter@gmail.com>
+Date: Mon, 12 Oct 2026 19:21:57 +0800
+X-Gm-Features: AclHuK_rUMnN31SSB_KN6FhkpZSAxBkc67iXhJ2qmDZZxPegZYe3XhyfD991XX0
+Message-ID: <CAH78GvuFZxvHWqpbBv3cOQAA-TqvjgS14vH-GsTF58wJ8_vLvA@mail.gmail.com>
+Subject: Re: [PATCH net 1/2] vti: fix tunnel device use-after-free across
+ async crypto resumption
+To: Steffen Klassert <steffen.klassert@secunet.com>
+Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>, 
+	Ido Schimmel <idosch@nvidia.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	linux-kernel@vger.kernel.org, Christian Hopps <chopps@labn.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Steffen,
 
---pguj65rce3a254rn
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 1/3] media: i2c: Add GC5035 image sensor driver
-MIME-Version: 1.0
+Sounds good -- thanks for taking the patchset.  Ccing Chris on the IPTFS
+part makes sense.  I'll follow the thread, and I'm happy to review it
+if that helps.
 
-On Fri, Oct 09, 2026 at 09:27:31AM +0200, Nicola Fiorillo wrote:
-> +#include <linux/mod_devicetable.h>
+Qihang
 
-Please don't use linux/mod_devicetable.h, the needed *_device_id
-structures are already provided by the respective subsystem headers.
-
-> +static const struct acpi_device_id gc5035_acpi_ids[] = {
-> +	{ "GCTI5035" },
-
-	{ .id = "GCTI5035" },
-
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(acpi, gc5035_acpi_ids);
-
-Best regards
-Uwe
-
---pguj65rce3a254rn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrMwpgACgkQj4D7WH0S
-/k4Afwf/YIp3/ci4EQEvLxgN5obEhDn/GYOqSjCfyIBjnmk/T4CNHJKJUrauMWpI
-NqlkItXPGb0wl/pybOf/8NIqFLUMvp6nnmNfy6DgqVOqSvUu6g2uOc3GQuPQOYVm
-iHU2XMyYoH8k6tkJ2+r74jv/D3SdxJnwraWOP1oB4D7+aF6Zcnui31vTnYPpzJga
-NKOix1Zfh7ouIyRS1o796416jo9ewjR63K9Rg3/FGYrJxCiYeWI5Wk+tH9npwHxe
-+qrCrExgWdLY5nKb7PUnm7oWCj8dnYZ3L3wPSd36CwkosLArYMh4sQIEyjCrD2jR
-554MVjU4V2EnykGc0mS4gfgtQaAC0w==
-=xAGb
------END PGP SIGNATURE-----
-
---pguj65rce3a254rn--
+On Mon, Oct 12, 2026 at 6:13=E2=80=AFPM Steffen Klassert
+<steffen.klassert@secunet.com> wrote:
+>
+> On Mon, Oct 12, 2026 at 05:07:43PM +0800, Qihang wrote:
+> > Hi Steffen,
+> >
+> > Thanks a lot for the guidance, much appreciated.
+> >
+> > Your three points make sense. For IPTFS, the skbs freed without the
+> > receive callback are the outer xfrm skbs, and it's only a handful of
+> > places in xfrm_iptfs.c -- a small shared helper would be cleaner than
+> > open-coding it at each site.  The two xfrm_input changes (set family
+> > before the early drop, and hold the skb->dev reference unconditionally)
+> > look straightforward too.
+> >
+> > Would you prefer to handle the IPTFS and xfrm_input fixes yourself
+> > (Christian for IPTFS?), or should I send them as part of this series?
+> > Either way is fine with me.
+>
+> I'll handle the full patchset, but Cc Chris on IPTFS.
