@@ -1,222 +1,196 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D14F3C09F8;
-	Mon, 12 Oct 2026 08:40:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA8745C6E6;
+	Mon, 12 Oct 2026 08:40:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791794444; cv=none; b=pR9vqLgVpiwWq8UVNK4pIxToIVSVq/heeo4q0Koy1FuY4LbIcWKg7KpJOT0kJIlSpAHLqZkVwGS8pDSXM4irNwnzVDMOiEJKpFbI303qTGuZJtF316H8YI4iZhf2ovC7PPTgUCpKycvFaw0LdZlZZFxgh84RYg3+w+wXXObNLuU=
+	t=1791794458; cv=none; b=h83jilmrCRCDcqDkzG2ecuuI/wSxvxMOVe0eneFq6p9aL3Y27yclOLCR1dZ0P6M125LNKd6m/9mz25j8u7rs3M9TYIA0pzm1Aifa2ZKFTWZ82K5m8gbj0IsJiksNnfI9siAUyzPOprwW431zFRMYm1yGaIvzjxJPuwPvt56WHdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791794444; c=relaxed/simple;
-	bh=H97ELR+tvImsQ4TESHAGuldi9zxY8l1VaVPrCUxUHUI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RcHh39+Z2DmIg8m0i6ObEi6ujr9cM3qiZK1u2zZbTHFYb9cIjzLmxCy5XqDyvJoden9De/qaiBJ5+NExGfU03fMubohPoRXihup3CmcwlTeq6MXKcmL0h8hLObW6e2LhxEqoDgTEnL0qYufaYA3izTz6iIpx9zEsAtfDSnNzebQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=K7bD2YBT; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Ezql2drQ; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=KBDOSqos; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Voy1d4Kr; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1791794458; c=relaxed/simple;
+	bh=mpvdjSjG6yKlGSAbffcGXjSwVQRMw+hHYg5VMZur0QU=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DVPYwM/ZA6ul3cihEcL+/+SUxJtGGIiB0kyvkCZRlFz4y6zjWt4afksKt/2W+dQ+R5rYU3jxzXqVuESz8PmG497JYyLE0f8C1r3OlafMGg2fhuhXaNasfj8Bx9DazAmv6Bl7hI1V0Z7Lghtt4ArmnIdVJycuQAvWszCD9p7tMYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PI99TSF0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="K7bD2YBT";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Ezql2drQ";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="KBDOSqos";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Voy1d4Kr"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id D004921CF4;
-	Mon, 12 Oct 2026 08:40:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791794440; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b1d9Dp9HUCpFEb5fVeS22xq/3HlibzKltDxJkQGJtHU=;
-	b=K7bD2YBTXmSCOBj1UGVFglEueuyXW1M7XjCOaWPuSChp+AbWVVK2j86rbeLBEAmhJbjGrL
-	XFL/Bh6WrA1EbIWKVXaInX92kOGIMTHekPGBJVwnyFawPeXwdD4J3WBKFnGU8/K9BcMZkh
-	Bl+pBYEe4wXnTyAkFFm5D6iBkupRWwU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791794440;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b1d9Dp9HUCpFEb5fVeS22xq/3HlibzKltDxJkQGJtHU=;
-	b=Ezql2drQWRVjELFifXNSfRgJnHvXQJSC0K4OU/vT3M4brdQHFqcw6bmnrMayPV/bybT1VI
-	e7XpLUFP8lz736Bg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=KBDOSqos;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Voy1d4Kr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791794438; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b1d9Dp9HUCpFEb5fVeS22xq/3HlibzKltDxJkQGJtHU=;
-	b=KBDOSqosmu9WXisSdaZQgyXcKeM+q96TzF7dmFdcyiCuBGIk1Lftmi05OPs4Nn+Tj+vj4u
-	B+6Jzqm4+J0yZqX95r7Fv9F/5Z8kQjFNG0OSYbQ9PHFhb7Ij4eeKVQ9GUl3LXrlCZhUbxI
-	ul3swCcOtRIXDIT7s+2zvqfVrZ4L7WU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791794438;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b1d9Dp9HUCpFEb5fVeS22xq/3HlibzKltDxJkQGJtHU=;
-	b=Voy1d4KrZlSpTEUdW39g6+PZkp3/ncviquE1ltePETq+sr+VbruhNIua6/i94t47FVFQ9j
-	djbd4V7+614kQRAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A90FE13408;
-	Mon, 12 Oct 2026 08:40:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id RV0mIQadzGqzMgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 12 Oct 2026 08:40:38 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 37DC3A1403; Mon, 12 Oct 2026 10:40:23 +0200 (CEST)
-Date: Mon, 12 Oct 2026 10:40:23 +0200
-From: Jan Kara <jack@suse.cz>
-To: Partha Satapathy <partha.satapathy@oracle.com>
-Cc: Jan Kara <jack@suse.cz>, amir73il@gmail.com, viro@zeniv.linux.org.uk, 
-	brauner@kernel.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [External] : Re: [PATCH 0/1] fsnotify: Check parent watches
- without child dentry flags
-Message-ID: <gnntcprg4f7ag7ictugnfza24nwfdmyubkuqac7plxbwtedfrz@xgxyvks3h2uv>
-References: <cover.1791373689.git.partha.satapathy@oracle.com>
- <qlw6x3hyky5yoievlkd6ylz3ov432hdjlzkcyboswqktnk43il@fvccpqnil5sp>
- <9499fb1a-85f2-41da-88b7-5e7de6fdff0a@oracle.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PI99TSF0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DC141F0089C;
+	Mon, 12 Oct 2026 08:40:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791794456;
+	bh=egYXV60732DYc0+bH0RPt7he1vgoVrW8edxdByobZDg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=PI99TSF0iYNzndubYyDTZ+03YppPeNcizePvAPTNFy3IVTg5zwBSx0BT9vJuAZS8m
+	 FOZNnzV5f7VV6Ga9hT3RDc1ouCrfFG8SwuJHiq3iWA6rwhPfGoWeR76fJSBEo/Laun
+	 d8B4zLo0vD6PtOupUwBgbhJZsZEiUSaNWmGXBCWjEPAduEipcQXf7p/29z1mTV2dCk
+	 chLLo8O9vuveoXYrYeop7nK6fl8gZ5jW3msYRPmEPJ96hfV++E6GxuAYt8H4iFRax8
+	 QRU44RDyUAw5iXXvC1AEx3wz8/KkoYeA6sNxW4JM3Y2H9sBLOLtpQCoXK8T5FYP6V3
+	 kO9BnCM22M7Mw==
+Subject: Re: [PATCH net-next V2] net/dcb: Validate bandwidth for non-ETS
+ traffic classes
+From: netdev-bot+sashiko@kernel.org
+To: tariqt@nvidia.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, alazar@nvidia.com,
+ cjubran@nvidia.com, gal@nvidia.com, kees@kernel.org,
+ linux-kernel@vger.kernel.org, oss-drivers@corigine.com, horms@kernel.org
+Date: Mon, 12 Oct 2026 08:40:55 +0000
+Message-ID: <179179445567.434549.13418460679554314301@kernel.org>
+In-Reply-To: <20261011083929.739261-1-tariqt@nvidia.com>
+References: <20261011083929.739261-1-tariqt@nvidia.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9499fb1a-85f2-41da-88b7-5e7de6fdff0a@oracle.com>
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: D004921CF4
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,gmail.com,zeniv.linux.org.uk,kernel.org,vger.kernel.org];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:dkim]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
 
-On Fri 09-10-26 17:18:17, Partha Satapathy wrote:
-> Hi Honza,
-> 
-> Thanks for suggesting this workload.
-> The setup and before/after timing comparisons are below.
-> 
-> Architecture:                x86_64
-> CPU(s):                      512
->   On-line CPU(s) list:       0-511
-> 
-> NUMA:
->   NUMA node(s):              2
->   NUMA node0 CPU(s):         0-127,256-383
->   NUMA node1 CPU(s):         128-255,384-511
-> 
-> Testcase :
-> Using /dev/shm  tmpfs to create  private test directory.
-> Create 1,024 files each fully populated with 4kb.
-> Add IN_MODIFY inotify watch to the directory.
-> Start a listener thread to read notifications and count queue overflows.
-> Start X(1,2,4..1024) client threads; each opens a different file once.
-> Wait until every client is ready, then release them together.
-> Each client starts its timer and performs 1000000
-> one-byte pwrite() at offset0 on its own file.
-> Each client stops its timer and closes its file.
-> Wait for all clients to finish, drain remaining notifications,
-> and stop the listener.
-> Print write times, throughput, notification count, and queue-overflow count.
-> Close inotify and delete the test files and directory.
-> 
-> Note : File creation, open, close, and cleanup are outside the timed
-> write loops.
-> 
-> Run 1:
-> -------
-> 
-> | Clients | Before average time | After average time | Time change |
-> |---:|---:|---:|---:|
-> | 1 | 1.392 s | 1.484 s | +6.6% |
-> | 2 | 2.205 s | 2.402 s | +8.9% |
-> | 4 | 3.969 s | 3.644 s | −8.2% |
-> | 8 | 5.851 s | 5.804 s | −0.8% |
-> | 16 | 10.607 s | 11.538 s | +8.8% |
-> | 32 | 21.093 s | 22.492 s | +6.6% |
-> | 64 | 48.698 s | 49.576 s | +1.8% |
-> | 128 | 100.208 s | 100.467 s | +0.3% |
-> | 256 | 198.773 s | 197.669 s | −0.6% |
-> | 512 | 400.056 s | 399.550 s | −0.1% |
-> 
-> 
-> Run2 :
-> --------
-> 
-> | Clients | Before average time | After average time | Time change |
-> |---:|---:|---:|---:|
-> | 1 | 1.491 s | 1.484 s | −0.4% |
-> | 2 | 2.391 s | 2.402 s | +0.5% |
-> | 4 | 4.050 s | 3.644 s | −10.0% |
-> | 8 | 6.630 s | 5.804 s | −12.5% |
-> | 16 | 11.931 s | 11.538 s | −3.3% |
-> | 32 | 22.513 s | 22.492 s | −0.1% |
-> | 64 | 50.231 s | 49.576 s | −1.3% |
-> | 128 | 100.699 s | 100.467 s | −0.2% |
-> | 256 | 198.771 s | 197.669 s | −0.6% |
-> | 512 | 401.860 s | 399.550 s | −0.6% |
-> | 1,024 | 803.812 s | 806.593 s | +0.3% |
-> 
-> 
-> Positive means After Fix took longer; negative means faster.
-> 
-> 
-> The measured write performance is broadly comparable before and after
-> the fix, with no consistent substantial regression or progressively
-> worsening slowdown as concurrency increases.
-> 
-> The differences vary between baseline batches: the increases at 16
-> and 32 clients in the first comparison disappear or reverse in the
-> second. At 128–1024 clients, average write times differ by approximately
-> 0.6% or less. These shifts are consistent with run-to-run variation;
-> the results do not show a persistent substantial slowdown from the fix.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Thanks for running these tests. Results are very interesting. Can you
-please share your benchmarking program with me?  I'll check it and try to
-play with it on my end. Thanks!
+Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
 
-								Honza
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] Round-trip mismatch: the kernel now rejects an ETS config that
+  ice itself reports.
+
+Pre-existing issues:
+- [Medium] This problem was not introduced by this patch, but NFP's ETS
+  path uses unchecked user-supplied prio_tc values as indexes into the…
+
+--
+
+net/dcb: Validate bandwidth for non-ETS traffic classes
+
+This commit moves the check that rejects non-zero tc_tx_bw for non-ETS
+traffic classes from the NFP driver into dcbnl_ieee_set(). Every driver
+now gets this check. NFP's ETS bandwidth-sum check is left as it is.
+
+> diff --git a/drivers/net/ethernet/netronome/nfp/nic/dcb.c b/drivers/net/ethernet/netronome/nfp/nic/dcb.c
+> index bb498ac6bd7d6..91fbfa3708fc8 100644
+> --- a/drivers/net/ethernet/netronome/nfp/nic/dcb.c
+> +++ b/drivers/net/ethernet/netronome/nfp/nic/dcb.c
+> @@ -218,9 +218,6 @@ static int dcb_ets_check(struct net_device *dev, struct ieee_ets *ets)
+>  		if (ets->tc_tsa[i] == IEEE_8021QAZ_TSA_ETS) {
+>  			ets_exists = true;
+>  			sum += ets->tc_tx_bw[i];
+> -		} else if (ets->tc_tx_bw[i]) {
+> -			nfp_warn(app->cpp, "ETS BW for strict/vendor TC must be 0.");
+> -			return -EINVAL;
+>  		}
+>  	}
+
+[Severity: Medium]
+This problem was not introduced by this patch, but NFP's ETS path still
+does not check the user-supplied prio_tc values. Can they index past the
+end of the 8-entry dcb->tc2idx[] array?
+
+Neither dcbnl_ieee_set() nor the DCB_ATTR_IEEE_ETS policy checks prio_tc.
+After this patch, dcb_ets_check() only checks the bandwidth sum. An
+all-strict config with all tc_tx_bw set to 0 and prio_tc[0] = 255 passes
+both checks. nfp_nic_dcbnl_ieee_setets() then stores the value as is:
+
+drivers/net/ethernet/netronome/nfp/nic/dcb.c:nfp_nic_dcbnl_ieee_setets() {
+    ...
+		dcb->prio2tc[i] = ets->prio_tc[i];
+    ...
+}
+
+nfp_nic_fill_ets() later uses it as an index:
+
+drivers/net/ethernet/netronome/nfp/nic/dcb.c:nfp_nic_fill_ets() {
+    ...
+		writeb(dcb->tc2idx[dcb->prio2tc[i]],
+		       dcb->dcbcfg_tbl + dcb->cfg_offset + NFP_DCB_DATA_OFF_PCP2IDX + i);
+    ...
+}
+
+This reads tc2idx[255], which is well past the end of the kzalloc'd
+nfp_app_nic_private. The byte read goes into the device's PCP2IDX table.
+update_dscp_maxrate() has the same index pattern:
+
+		writeb(dcb->tc2idx[dcb->prio2tc[dcb->dscp2prio[i]]],
+
+So does the setapp path, which looks up dcb->tc2idx[dcb->prio2tc[prio]].
+Should prio_tc[i] < IEEE_8021QAZ_MAX_TCS be enforced somewhere on this
+path?
+
+> diff --git a/net/dcb/dcbnl.c b/net/dcb/dcbnl.c
+> index 35164bfa563d1..ab71f53128760 100644
+> --- a/net/dcb/dcbnl.c
+> +++ b/net/dcb/dcbnl.c
+> @@ -1578,6 +1578,15 @@ static int dcbnl_ieee_set(struct net_device *netdev, struct nlmsghdr *nlh,
+>  
+>  	if (ieee[DCB_ATTR_IEEE_ETS] && ops->ieee_setets) {
+>  		struct ieee_ets *ets = nla_data(ieee[DCB_ATTR_IEEE_ETS]);
+> +
+> +		/* IEEE 802.1Qaz: BW allocation applies only to ETS TCs */
+> +		for (int i = 0; i < IEEE_8021QAZ_MAX_TCS; i++) {
+> +			if (ets->tc_tsa[i] != IEEE_8021QAZ_TSA_ETS &&
+> +			    ets->tc_tx_bw[i]) {
+> +				err = -EINVAL;
+> +				goto err;
+> +			}
+> +		}
+
+[Severity: Medium]
+Can this reject an ETS object that a driver itself reported back to user
+space?
+
+On ice in host-managed IEEE mode, take an all-strict config with all
+tc_tx_bw set to 0, or one with every priority mapped to a strict TC0.
+That config passes this new check. ice_dcbnl_setets() then gives TC0 100%
+bandwidth without looking at tsatable[0]:
+
+drivers/net/ethernet/intel/ice/ice_dcb_nl.c:ice_dcbnl_setets() {
+    ...
+	if (!bwcfg)
+		new_cfg->etscfg.tcbwtable[0] = 100;
+    ...
+}
+
+ice_dcb_bwchk() does the same when num_tc == 1 or total_bw == 0:
+
+drivers/net/ethernet/intel/ice/ice_dcb_lib.c:ice_dcb_bwchk() {
+    ...
+	if (num_tc == 1) {
+		etscfg->tcbwtable[0] = ICE_TC_MAX_BW;
+		return 0;
+	}
+    ...
+	if (!total_bw) {
+		etscfg->tcbwtable[0] = ICE_TC_MAX_BW;
+    ...
+}
+
+ice_pf_dcb_cfg() copies new_cfg into local_dcbx_cfg. ice_dcbnl_getets()
+then copies tcbwtable and tsatable into struct ieee_ets as they are. So
+both GET replies and the RTM_SETDCB notification from dcbnl_ieee_notify()
+report tc_tsa[0] = STRICT and tc_tx_bw[0] = 100.
+
+If that object is sent back to DCB_CMD_IEEE_SET, it now fails here with
+-EINVAL. Before this patch the same round trip worked on ice.
+
+Read-modify-write users such as iproute2's dcb ets set read the current
+ETS object before applying a change. Wouldn't a change to an unrelated
+field like prio-tc or willing now fail, unless the user also clears the
+strict TC's bandwidth each time? Save and restore of the reported object
+would fail the same way.
+
+Should drivers like ice be changed to stop reporting bandwidth for
+non-ETS TCs before the core enforces this rule?
+
+>  		err = ops->ieee_setets(netdev, ets);
+>  		if (err)
+>  			goto err;
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261011083929.739261-1-tariqt%40nvidia.com
