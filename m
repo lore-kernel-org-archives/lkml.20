@@ -1,130 +1,172 @@
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708886FC5
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:31:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791768695; cv=pass; b=ALIDwwcBNTBITSS/1L1vH1I+czr/Qk3rxKSbcWIU1ug7Mj46kWE2259/0PBCQ6GB/x757VbUMgk+nFxKw71bdHIXY0mSGkvDiOrE/tJN6syQMFMN850DokNt5iEIAdCm+wTh+SjlC2BuwQCVeHt4d7AoVWQqYGhra1RioUOli9Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791768695; c=relaxed/simple;
-	bh=0Tmomcd8MhaZy7Hldtrvy8J+0kEMP0m4Hbmqvr64CHM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jyuliH7+Kid466JVmk7+qmDeX12Tes8YJd/rbksdT1osuXc3+r9MeKa1qrhoVIfANkn/kp2kALoUb+rlSdkJbCFvuKAE02RB5pslONgMhS1msgSqVUiRD+u8EUEkOZ0FhYoIVqMRRnX9k5GnEBNa8jA30WnoiNDtRAGYDrksxMA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VMf27RsY; arc=pass smtp.client-ip=209.85.160.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854A2255E43
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791768707; cv=none; b=ca3PnSQrpYk7KnqiAbhF2mRZaWIZvSJTzIDKsNPUOQ9ChYRv9X0JFk/VwH5i7G7nGulch+XSdrbhCd2kBpw7g1SPW3bQigOQ2cZTm6R6V46G6bo2RYXEaFGbcYNDkrq/uBV7Ms13YFMSlfJg9yVIKUdR+9vynermjkEYz68ExPA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791768707; c=relaxed/simple;
+	bh=pqCW64MWKKqJ+b5EZyD/nzo8SaOHA3QqAsTpgswNy84=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dmAV2aiAuKQWZleiSEpaJZxu1/12+hKLZXBuQ+fcwi3Zlksl1xRXvFBB8hKkgbQUGsedSk7YVj5/VudV8u/FZXzX21EOHAf6qp/AJZb6wzzm50sa2Yck7niALK/M9vWxP7LanImdAJp+7Dr3X+VF4i4kypYdFr/utcY5FIKlUN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VJVKgIJM; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VMf27RsY"
-Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-49e13495e5cso2471428fac.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:31:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791768693; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IdkAwygmPAQZzzAZ39IquorTshBYx4dm5L5CWkdraHvPn6oqbE4GzrBZa0aeOm6e/F
-         ANcqUuIffDrBb/xKy7ztjs8y3sMm78wunXD8R8KzhfEg0sK/3xiqAuGU1imNMlzIH9vS
-         Q59k9ytgckGOpVtJ3viX5512NkjLRijJWxCb+hflmrHC2+u7rn76si/i58VJQNHuteFa
-         9bLs1vC2LdvUVq880K7H4rPiwWj8KJiqx7BuNAdNigADsRIaZzwKLmW/bRB18yppPtj9
-         +Lx8pwn8Cvl3idZk6/GPnAm0lRJJ7PMNFSEpZAf6uxHBmaZ+LSpMagIECi8P0E/tZTfR
-         OyzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=D69tJqwlSEswdhTD5958trOD3brbFNRONjBlwGMF72c=;
-        fh=eF0FL0+Ff6EfDXoES7j5liA279XfqB/Gb9UFMCBt+TA=;
-        b=I1zI4VMD9ppiE5D/JJ8+MpKhgXpom4lgLnBG617dn/e3bTgRtIpCQ0iVrsZ87Aqy11
-         emLzw133DI2x5tY+I3LGxY6bVFDbYlUJCjNsUT9UTbhmKMwihH+55TN8uKvrjMV9AMzj
-         /A1UOcN5VKnvwhbZVZWlRwW+B1234NeQudc6nFdb4BKZGpRI78pv+W7OIxaqUjA6rWG/
-         piKzDEHCN4JHqexpIR/q9IENTDytqSYOPCcGwDqyDauIll1I1ly0uF9V7ayuALO8R0+A
-         p0vBw5ubcR+KfmZXS/BSr+7/RFT9V/faPzz/o6j1MNSyDyeeGonFebQVckTQLgE+m+Xu
-         YL5A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VJVKgIJM"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso993327a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:31:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791768693; x=1792373493; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=D69tJqwlSEswdhTD5958trOD3brbFNRONjBlwGMF72c=;
-        b=VMf27RsYi0oLvZheOLSZ97aWAXOgjYzF5JePCYeuyWBa4Z5aDw/zDRl9WKWwUjtZyf
-         /2FYUgKgscP6uTXoyAvRU9gHGsv0VmPkjM0jvKxoXw/+ses5JmMrSXPm7xHCdGBjaV3a
-         OVJb4HaYFbms4MV2axx7GZjQbkgdFIJTitq9j3h4BZ8LtZqyQqQ6fgnRrK+Rdcqrc5qf
-         3rNHSV4lHOUqN+Xy4QwNj4QXtd9PXBfEKO/O0ncJelYsqKWhiGxG4fXDzCXBG/lctob9
-         +o8xyXP9V6ohW+KNZ1ItJ4L3HvGr+c8L4R8U55fALSHHg7CSXi7fXrEhSkG3eakEM77o
-         n3MA==
+        d=gmail.com; s=20251104; t=1791768706; x=1792373506; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s9fm9fZTpu/z3C1fJkYEh93qh6MI7pDV/XkQ0dbiT30=;
+        b=VJVKgIJMHzTJogF23AVRVa3nraTn4+MQktpB+/oCmw2nFkkObWiePaQ41DXvR3SCvr
+         bJd5Acja9FpdpvRmCoyrvFCGmprqegXeF+PZ53i30bijpB0UiIdHfjBqJUtX3mYUr9P9
+         oEyNmL/vu48298ESeu7tc+RUcOz4bDGfX1ItTlDLqrVgXagScx5vjmTw/l5OfQ4K/uKw
+         dJKsXNlPIV12FFVymi5aoeTF7B8cecsh7iJMDWE3IhwHnw258qvvmwIG+j/3sol21XYi
+         grBmGzg/kGcCWdDv8E1GXKp9qG8qqD8lmhy6QLKSRU76NHDsT0FoeGy4bI5bQDedSL5w
+         FD+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791768693; x=1792373493;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D69tJqwlSEswdhTD5958trOD3brbFNRONjBlwGMF72c=;
-        b=RBOd4dViLMU8PaKtq2oNgYYd7eGNS5FCMIy86CesymwT6K8rL+P0idaKkFRcgMb7+w
-         rsj4054nvQ1Dxibv8fjXh8N05TpjPLjXgFcDcqcPlyi00BgEWgeg7XxraVJPRCYKGO/F
-         SJLHoXqDskxlCV4WhUP/NRYwjTUSKp0aGwr7etJ5oxlJPTrUK0qJ2dQkSbgRW6Ar7+qG
-         Mc6ftd7Cf73zcm99q3BP6ArC9lkNNR0IfbKjcgFTg9x//YF/AsjAgw2vhhVWCYPpuJ1d
-         paDWZ2r8OUY9NN5mSl5NaAqKtnHPkeebTMC7S1px6x9h9ulHXwCI3SJwvtJtc+vMupt2
-         BVZg==
-X-Forwarded-Encrypted: i=1; AKwUvBy8GTB/evBbXbvtMKKiRsHsessbenIdg/lx7zTgx3AkTt20LHHylJ9Q4LCA618HGBuDrk/5n7wsyjR29LM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwa1A781iM3uqaNMZjzMT1c4wvCV66hOJFZBwuI8uHHZz5ez0z
-	K6SQWSJVFxCQeIPnkWBy2HJ93OEBiKOk4p7kJqkCtmLwS7R8m4s8OjAurIEfSSRCRNMyCRLY1LS
-	Ij7qkPWRXOJsOwgodhOYjhdKPQRxyNtM=
-X-Gm-Gg: AYBFou1L/mEg3F6SoE6UnAbSnySuOBM5RvlvSl+ElRnybgyBz4Pe/ha8umx+w0Mpo51
-	SmgT9TfzyXTvLO8oxLwsnquEJsYdFxCjK5M9Y4cwX6QkjPYddLqbXSS/P2OiK5ojxJ6eiKoWvk5
-	cY2OOupOySjeAWE7+COXv+IkEaadT8HMkLEIItZ9W1v149A/e3OZqKvlEtegIi6Y32v8SqQ1fDD
-	y15vlLNs34EsyW65xElg4wH9WrH2lmr/MUTFr9NWB0qrQ1CQCmWAdjb2nHqiXhXunx3zawrWulz
-	FMXuKOPxDmyN5evtH8vsGVFU/3fMzgVjzWO+96M5THvRezW0j5n7BTc=
-X-Received: by 2002:a05:6870:b3c9:b0:470:e96b:43e2 with SMTP id
- 586e51a60fabf-4a2a8a006damr5468714fac.14.1791768693370; Sun, 11 Oct 2026
- 18:31:33 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791768706; x=1792373506;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=s9fm9fZTpu/z3C1fJkYEh93qh6MI7pDV/XkQ0dbiT30=;
+        b=Jeqts3go3vfc/WcL7xQ0UvWsG+i0Zc0uEuYgazDVUYXbQQ60r6B2I/UQWalaGf7wxv
+         j5NDNWbBOSAcKKOZdpd6gS1ydTb084ahodb5q3BgBdQkQqm/Q4a1C8yx5sYHa0WmhKa4
+         GcoD7+G4A2weNJIUIlP7mk2rAPrN0aM9hzaXjWU9nNPL0aOJQezWhTVVhsAxSdzL9yAO
+         wc2zhPT6qT9JTk1enx635JOLcFqassr3z13cuVssDpt4iZi8+ucpJx5hZf6qyejDW97z
+         bC0NISD/R6fi3ZXMi0yfTI48Lj20TmafxgKByg3g0LRy2lXGSW0spZpcxLAwc+yolztc
+         DEoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBznedKaOVsbuWd+PeJAuPvop5rcx4lMwAAvC+jPN6eHEtoil/zOT3fcq24hFjzB+maVuhYBuR1mT7NO+xM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZnI4VnK4Lir+T2kb9DKxdy2tXHXWTiUEH9U/tc7IJA0bFdSNb
+	p5x0o4LfTD2UpGLEUzeEMIVho0/PZ1QaPu3y0THiAEe0BZHcGWJlug4U
+X-Gm-Gg: AYBFou2UVoWhmQiSkKGdIk1v4kTiZTnC7OpgLp/88SHOYz6zPsotaYPU01uDsip920G
+	XQoDGru67dFkTRUrRL/+JRsg/7fwUupgnu5InMRZALkF0wRiqTxFaSF9mHvhX6+whTtytiBph+H
+	YURSadQjv9eigGoanVGN3N38/7TOMlexKwDdSHPZNecovTYAI249oMGTXOyoRcuXaP+XyYw2Jbf
+	JC3KypDUDC4Uh4xm8c0tOhlGqU4RrSDfj1qQdGAFWt7FOtxniQypsiOWpLoyMAyYdTkQGbIjjFP
+	LZ18Hg+K715ZrOi/0GAIBX19hxAdhXai1H1qaV30wkuqMSBq7WnhX916JxyNMOnY31JaAJqvi+b
+	4375qq53g4bHYwRUu3uEi2eZK0eyW+S+frIN3Qg28C/lG/9kh7H5N4cqbNRA7DQHJccm1fVw4eD
+	vfgS7Wwk+HPqW88R3ehD4C/wAvnB83pYh3LDEW4PIquBYtDZlcdLsenIGJQy91fRBjyD2CSVs8r
+	v/K
+X-Received: by 2002:a17:90b:3d92:b0:3ab:36c4:b50d with SMTP id 98e67ed59e1d1-3ab3a3a0bc0mr7646379a91.9.1791768705777;
+        Sun, 11 Oct 2026 18:31:45 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab39238608sm14651247a91.17.2026.10.11.18.31.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 18:31:44 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com,
+	heming.zhao@suse.com,
+	akpm@linux-foundation.org,
+	zzzccc427@gmail.com,
+	kmehltretter@gmail.com,
+	ericterminal@gmail.com,
+	kees@kernel.org,
+	sunil.mushran@oracle.com,
+	christophe.jaillet@wanadoo.fr
+Cc: ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: [PATCH] ocfs2: Pin the node manager module for open debugfs files
+Date: Mon, 12 Oct 2026 09:31:38 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0089-v2-4c67f48d4e2d0fc85990@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1787667315.git.ukleinek@kernel.org>
-In-Reply-To: <cover.1787667315.git.ukleinek@kernel.org>
-From: Jassi Brar <jassisinghbrar@gmail.com>
-Date: Sun, 11 Oct 2026 20:31:22 -0500
-X-Gm-Features: AclHuK9zZWuXjCE2LSWgrYCxLXd-j7PFIMqmTq5GuyJPV1RCzAMsJ-tdOzTsoNU
-Message-ID: <CABb+yY2Sz4cH-uG4RYsk3DveG6m9OSV_4PQWj-8R1zwUC6PeOA@mail.gmail.com>
-Subject: Re: [PATCH v1 0/3] mailbox: rockchip: Some cleanups
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 25, 2026 at 9:19=E2=80=AFAM Uwe Kleine-K=C3=B6nig <ukleinek@ker=
-nel.org> wrote:
->
-> Hello,
->
-> while trying to understand how mailbox drivers work, I used the rockchip
-> driver as a reference for a working driver. I didn't succeed yet (so
-> it's unclear to me how the .send_data() callback can assume that data
-> points to a struct rockchip_mbox_msg).
->
-> This patch set is the result of picking up the patch opportunities I
-> noticed while looking through the driver.
->
-> Best regards
-> Uwe
->
-> Uwe Kleine-K=C3=B6nig (3):
->   mailbox: rockchip: Add a prefix for register defines
->   mailbox: rockchip: Simplify device variant handling
->   mailbox: rockchip: Convert to use dev_err_probe()
->
->  drivers/mailbox/rockchip-mailbox.c | 60 ++++++++++++++----------------
->  1 file changed, 27 insertions(+), 33 deletions(-)
->
->
-> base-commit: a8406e6c0b793ce0788019683837c40855b55995
-> --
-> 2.55.0.11.g153666a7d9bb
->
-Applied to mailbox/for-next
+The node manager debugfs file operation tables do not set owner.
+The debugfs full proxy obtains real_fops with fops_get() at open and
+keeps it until final release. Without an owner, this does not acquire
+a module reference. Normal unload can free the ocfs2_nodemanager
+module image while an open file still holds its operation table.
 
-Thanks
-Jassi
+Closing connected_nodes then makes full_proxy_release() read
+real_fops->release from freed module memory. Removing the debugfs
+entries during module exit does not drain retained open files.
+
+Set owner to THIS_MODULE in the o2net and heartbeat debugfs operation
+tables. The existing debugfs get/put pair then keeps the module and
+its callbacks alive until the last open file is released.
+
+A controlled test used an unloadable OCFS2 module and case-local probe
+filters without changing the candidate open, unload or release logic.
+Closing a retained connected_nodes file after normal unload produced:
+
+  BUG: unable to handle page fault for address: fffffbfff804cfef
+  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:full_proxy_release+0xbf/0x190
+  Call Trace:
+   <TASK>
+   __fput+0x39a/0xa60
+   fput_close_sync+0xff/0x200
+   __x64_sys_close+0x8c/0xf0
+   do_syscall_64+0x114/0x620
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+  Modules linked in: [last unloaded: ocfs2_nodemanager]
+
+Fixes: 2309e9e040fe ("ocfs2/net: Add debug interface to o2net")
+Fixes: 87d3d3f3931f ("ocfs2/hb: Expose the list of heartbeating nodes via debugfs")
+Fixes: 3ba169ccec1c ("ocfs2/cluster: Add new function o2net_fill_node_map()")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index 8e6ead433228..1d4f71190d27 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -1447,6 +1447,7 @@ static ssize_t o2hb_debug_read(struct file *file, char __user *buf,
+ #endif  /* CONFIG_DEBUG_FS */
+ 
+ static const struct file_operations o2hb_debug_fops = {
++	.owner = THIS_MODULE,
+ 	.open =		o2hb_debug_open,
+ 	.release =	o2hb_debug_release,
+ 	.read =		o2hb_debug_read,
+diff --git a/fs/ocfs2/cluster/netdebug.c b/fs/ocfs2/cluster/netdebug.c
+index f7ab66e70799..5d373002297d 100644
+--- a/fs/ocfs2/cluster/netdebug.c
++++ b/fs/ocfs2/cluster/netdebug.c
+@@ -183,6 +183,7 @@ static int nst_fop_release(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations nst_seq_fops = {
++	.owner = THIS_MODULE,
+ 	.open = nst_fop_open,
+ 	.read = seq_read,
+ 	.llseek = seq_lseek,
+@@ -415,6 +416,7 @@ static int stats_fop_open(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations stats_seq_fops = {
++	.owner = THIS_MODULE,
+ 	.open = stats_fop_open,
+ 	.read = seq_read,
+ 	.llseek = seq_lseek,
+@@ -427,6 +429,7 @@ static int sc_fop_open(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations sc_seq_fops = {
++	.owner = THIS_MODULE,
+ 	.open = sc_fop_open,
+ 	.read = seq_read,
+ 	.llseek = seq_lseek,
+@@ -476,6 +479,7 @@ static ssize_t o2net_debug_read(struct file *file, char __user *buf,
+ }
+ 
+ static const struct file_operations nodes_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= nodes_fop_open,
+ 	.release	= o2net_debug_release,
+ 	.read		= o2net_debug_read,
