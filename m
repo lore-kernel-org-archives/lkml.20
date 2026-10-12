@@ -1,109 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E0F318ED7;
-	Mon, 12 Oct 2026 05:58:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772C23AE18A
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:59:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791784684; cv=none; b=bCAmkOKhBRfh7iI9Q3e1C0Srm1TF1rfOB6rNVAAqcrXFoB6D42A4rmFZK59hhRXJ7v4tBaFaqExOCb2Go/tDRU3Mcu2pMPrbZOGbyedG9o3znaiicc2RtxJD9ihToPsVj09lnW23UYOiZxKpOP15qu8OeY5lQFbooTPYE+g8W54=
+	t=1791784750; cv=none; b=BYepqZCzLRnVRaZbM1G1JOuwY73n0sWC1LKv54fcaHkDi/mJAFfbGHA01VNbe3NaimEfiXXKjnaI6InPvAox5KwNAOXl63RbRyxehXSrqD214np6HFEIENxTpP3PDtCy6f4bs4NbCZbMm78fSqtLZq01Xuk4sSB1QNIoDwMVFeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791784684; c=relaxed/simple;
-	bh=oTrODFrVK+fs0ywHN/TMizl+ZxHTa7uPOGuTPcSvCYo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Wp/tdaAucfuraLbD4Q2mxgfqd+/sSosbiSeSC+Vw58hWm5OO8mo3CdGs+TYxQeY3ybXayw157Djyem/70YQiU5LPZBzeJbTKK1KQJSTwzK266f3fHJSANQ5Jwx6SzOZ5GV1RQH1kHQ4bUXxbs+P+7jjSgF/lbVCSOszeBe0+UdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+xDgTCD; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+xDgTCD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72D11F0089B;
-	Mon, 12 Oct 2026 05:58:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791784683;
-	bh=mPPQ++MUoadxPUoc9/p8ERrMgkZWA2CRtjIMkHUYcFs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=S+xDgTCDNGf/bXDt2GUumdgFwUaiiRg92DpydOgS6XwtmyObl+Xvy1vHFikY9bLJx
-	 Yl+yhN6Co6Tb9/Gjr2WQMUHwpZ6j4rWbhQa5EFexUM+kARq6i5rMxp0FCZjiT2QEGM
-	 dA7H55VdCQXsTy8A+eFcjkfI/WlSgHS/IsgTE+KE39AE5bXxhWOouCAsWPr/1zx6hF
-	 cXSFDnlwvQ71Z/Zu0uNOTNy0j17OzdMdg7x+Tg7RwbpdKggr+nPKWEaOuNVxUAO684
-	 UUO9xxvcvUxksAov51XdxNVuoVtXSnul8TFFBvWYp7f4F2XmXXwv5DN2Z1Qp90Yy6u
-	 4eUVIsAGQo4rw==
-Message-ID: <6bb8cb0b-e614-4d7b-9b61-fdea34c2f793@kernel.org>
-Date: Mon, 12 Oct 2026 07:57:58 +0200
+	s=arc-20240116; t=1791784750; c=relaxed/simple;
+	bh=V4bYiEtPvbsNwrfI4FTIqVOAh7K1SIyJuvRFG+HzNMA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dLBpxZDvJUDGB5QLofTkgm4vWygH98cBMCzf2MXGglaT1HCubxvEgTC9kEqYx/Vj6ya3zOlhU85sR/mLz/O4qBeb9DtG/NRwPCghKBV/hbLMtmHdVuVJJgyQwHv9hPWiniZRPwRwG7TLdSOf3Wf4wuqPnlGdEm/hE+OFrdIxj78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 06a39b54c60211f19a56ed5b684f684d-20261012
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:757bba7b-bf37-4f2b-a449-61fe3a784295,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:a7c0691b46c78e865f19011d80d8f37d,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 06a39b54c60211f19a56ed5b684f684d-20261012
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 142794637; Mon, 12 Oct 2026 13:59:02 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>
+Subject: [PATCH v3] ntfs: roll back the ACL xattr commit when the WSL mode update fails
+Date: Mon, 12 Oct 2026 13:58:59 +0800
+Message-Id: <20261012055859.52525-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] memory: tegra: Shut down Tegra210 EMC timers before
- teardown
-To: Myeonghun Pak <mhun512@gmail.com>, thierry.reding@kernel.org,
- jonathanh@nvidia.com
-Cc: linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
- ae878000@gmail.com
-References: <20261011160034.93d011b386c2-1-mhun512@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261011160034.93d011b386c2-1-mhun512@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/10/2026 22:00, Myeonghun Pak wrote:
-> The training and refresh timers can outlive the EMC state on removal
-> or probe failure after clock attachment, causing use-after-free.
-> 
-> Shut down both timers before detaching the clock provider and releasing
-> the timing tables to wait for callbacks and prevent rearming. Initialize
-> them before clock attachment, since set_rate() can start training.
-> 
-> This issue was found by static analysis.
+ntfs_set_acl_ex() commits the new ACL xattr before it rewrites the WSL
+mode EA, and removes it again when that rewrite fails.  Removing the
+new xattr is only the right undo when no ACL xattr existed before the
+update: when the update replaced an existing one, the old ACL is
+discarded along with the failed update.  The undo is best-effort as
+well: its result is discarded and the EA paths record no error state,
+so when it fails too, the new, typically more permissive, ACL is left
+on disk while i_mode, the mode EA and the cached ACL keep the old
+values.  Once the stale xattr is loaded again - after a remount, or
+when the cached ACL is discarded - a chmod 0640 -> 0777 that reported
+failure leaves the file accessible to the relaxed ACL while stat()
+still reports 0640.
 
-You are expected to name the tool or be silent. Reading code by LLM is
-not static analysis. It's statistical guessing, nothing to do with
-static analysis.
+Save the previous xattr before committing the new one, and roll back
+to it when the mode EA rewrite fails.  Remove the new xattr only when
+there was no previous one.  When the previous xattr cannot be read
+back, fail the update instead of replacing a value that could not be
+rolled back to.  A failed rollback is still recorded: NVolSetErrors(),
+which the next persistence point persists as VOLUME_IS_DIRTY, and a
+log message the errors= policy acts on.  The flag cannot be written
+to disk here directly: the target inode's mrec_lock is held and the
+$Volume mrec_lock cannot be nested under it.
 
-Best regards,
-Krzysztof
+Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
+Suggested-by: Hyunchul Lee <hyc.lee@gmail.com>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+Changes in v3:
+- Save the previous ACL xattr before committing the new one and roll
+  back to it when the update replaced an existing one, instead of
+  removing the new one (suggested by Hyunchul Lee)
+- Fail the update when the previous xattr cannot be read back, and
+  restore a zero-length previous xattr without XATTR_REPLACE
+---
+ fs/ntfs/ea.c | 86 +++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 82 insertions(+), 4 deletions(-)
+
+diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
+index 1104fd72cd2a..319c2c09632f 100644
+--- a/fs/ntfs/ea.c
++++ b/fs/ntfs/ea.c
+@@ -1038,8 +1038,9 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
+ {
+ 	const char *name;
+ 	size_t size, name_len;
+-	void *value;
+-	int err;
++	void *value, *old_value = NULL;
++	int err, old_len = -ENODATA;
++	bool old_exists = false;
+ 	int flags;
+ 	umode_t mode;
+ 
+@@ -1083,7 +1084,39 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
+ 	}
+ 
+ 	mutex_lock(&NTFS_I(inode)->mrec_lock);
++	if (acl && !init_acl) {
++		/*
++		 * Save the previous xattr so a committed set can be
++		 * rolled back to it.  A new inode cannot have one yet,
++		 * and one that cannot be read fails the update instead
++		 * of being replaced: what was not saved cannot be
++		 * rolled back to.
++		 */
++		old_len = ntfs_get_ea(inode, name, name_len, NULL, 0);
++		if (old_len >= 0) {
++			old_exists = true;
++			/* kmalloc(0) returns the non-NULL ZERO_SIZE_PTR. */
++			old_value = kmalloc(old_len, GFP_NOFS);
++			if (!old_value) {
++				err = -ENOMEM;
++				goto out_unlock;
++			}
++			err = ntfs_get_ea(inode, name, name_len,
++					  old_value, old_len);
++			if (err != old_len) {
++				kfree(old_value);
++				old_value = NULL;
++				if (err >= 0)
++					err = -EIO;
++				goto out_unlock;
++			}
++		} else if (old_len != -ENODATA) {
++			err = old_len;
++			goto out_unlock;
++		}
++	}
+ 	err = ntfs_set_ea(inode, name, name_len, value, size, flags, NULL);
++out_unlock:
+ 	mutex_unlock(&NTFS_I(inode)->mrec_lock);
+ 	if (err == -ENODATA && !size)
+ 		err = 0; /* Removing non existed xattr. */
+@@ -1095,8 +1128,52 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
+ 		mutex_lock(&NTFS_I(inode)->mrec_lock);
+ 		err = ntfs_ea_set_wsl_inode(inode, 0, &ea_size, NTFS_EA_MODE);
+ 		if (err) {
+-			ntfs_set_ea(inode, name, name_len, NULL, 0,
+-				    XATTR_REPLACE, NULL);
++			if (acl) {
++				int undo_err;
++
++				/*
++				 * Only a set needs undoing: a removal
++				 * leaves no new ACL behind, and repeating
++				 * it would either return -ENODATA again
++				 * or, once it dropped the last EA,
++				 * re-create an empty xattr.
++				 */
++				if (old_exists) {
++					/*
++					 * A zero-length xattr cannot be
++					 * restored with XATTR_REPLACE,
++					 * which would remove it again.
++					 */
++					int undo_flags = old_len ?
++						XATTR_REPLACE : 0;
++
++					undo_err = ntfs_set_ea(inode, name,
++							name_len, old_value,
++							old_len, undo_flags,
++							NULL);
++				} else {
++					undo_err = ntfs_set_ea(inode, name,
++							name_len, NULL, 0,
++							XATTR_REPLACE, NULL);
++				}
++				if (undo_err) {
++					/*
++					 * The ACL xattr is committed
++					 * already, so a failed rollback
++					 * leaves the new, typically more
++					 * permissive, ACL on disk while
++					 * i_mode, the mode EA and the
++					 * cached ACL keep the old values.
++					 * Record the error: the next
++					 * persistence point persists it as
++					 * VOLUME_IS_DIRTY.  Run chkdsk.
++					 */
++					NVolSetErrors(NTFS_I(inode)->vol);
++					ntfs_error(inode->i_sb,
++						   "Failed to undo the ACL xattr: %d",
++						   undo_err);
++				}
++			}
+ 			mutex_unlock(&NTFS_I(inode)->mrec_lock);
+ 			inode->i_mode = old_mode;
+ 			goto out;
+@@ -1109,6 +1186,7 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
+ 	}
+ 
+ out:
++	kfree(old_value);
+ 	kfree(value);
+ 
+ 	return err;
+-- 
+2.25.1
+
