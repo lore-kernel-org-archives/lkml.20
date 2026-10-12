@@ -1,113 +1,244 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849A044F560;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848F5448BB5;
 	Mon, 12 Oct 2026 11:24:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791804285; cv=none; b=iInxsNxY69iHFztWir2njxO5nrOf/jLI95lWKHlBC5C/FDhzC58Y8bq1hKGclaHKSbc2hfYKcqByXuXN2FCGvUflbeTAb0CAK3kuNGpoDfc0yJUknJ9MNiZww+3fvw6J2DB/3hKeWED3kYGqhjvo/Jdn85md86KyZrkLQ5GFeUU=
+	t=1791804285; cv=none; b=MIZlApEqWpf3IKCaMz6DFI8P52sF/IcH9/fcyFDDRz/+qQCz1TiLFCQ9mMp8tgPf4nn+4l0DeruM9+dHWzJ1t5mHfTUCHpto1YrlhAOnzvznTzpJ3GeknOqn9tqS1R4wUEOXJ8Ccc/mTAXu4LoEKfeehXOyk1UYKP/o4HfR1OhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791804285; c=relaxed/simple;
-	bh=AmbGlxaAfBu3C7pt+gVacg9JyIe4CSjqdXweiVH3+fo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m+BCSM186PUWvTt6Up/JTyz6qMvwDkNF6ZQt46Q1CBRh+TYLS1yaduD0MiVZIUhVR/jl7dNcJdj5+rRoJVm6NExog4B6hQtmVTdDg7TrFMcpk4WVrDl1D3ZLNslLehjkahXp+ENVtJ3RQ2JHfZybctu0Ifdvk7f9Jkx7kyZzsyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c92p8h7L; arc=none smtp.client-ip=100.103.45.18
+	bh=EF9JmhHwiG2ez0FSctO1R+zclH/QQBomg4fUPKmklas=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VW5vi+t5wnaEa5NGQksEcgNP6iqGNWUIY9fzZXjyjNlPT/InOquR8m2HhRFlnQyzhyU+L5hAHBTBVgqNoWONN5UszsNW+ktNsQgcJwq/YMTzHBLhgI1GwH5E9B2za+fW7MrFu3Wm7HVN1aF5wt4tS1iEV7X5dr+htzGGdA4SAq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Edo0rW14; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c92p8h7L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 056151F0089D;
-	Mon, 12 Oct 2026 11:24:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Edo0rW14"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8F31F0089C;
+	Mon, 12 Oct 2026 11:24:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1791804284;
-	bh=ZJRpPTUM8JL06w8zYKJ1/wwBBLjSlYsacYxXrQ3k0W8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=c92p8h7LUFMADYC5inPQHlLhogyH8CpAiYLZ/4B1pTVmXCkNYMb4vKPccmzQIiD5F
-	 PTigZNiw8POXQnz1DzIdyecZ+1XyLws+v17CAY3NJaITpWwgzlqspErTNjuc2epU8w
-	 nGyboDSKCHe7/l68Z8u35tFO66Lz7I1cLTjtFpJwWgzpwxI6V1wOffUr963OsRwNK0
-	 jxC4xIT7PXgtfQZ5+Ed4OkvyQhk9+GhwKnhiZIq5q/ALaXIJ9LGRl9wWDj5tjEUolD
-	 pg6skjMVfmZ8Gpt1piv/VMfImzYlDdSTAuz73AQSAdCiTZg640FJlnAdklekASRfSI
-	 g9dLVzo5y+TqQ==
-Message-ID: <1cb252eb-a7d9-4eac-8d28-8d7781ea430d@kernel.org>
-Date: Mon, 12 Oct 2026 13:24:37 +0200
+	bh=9GMzKpIODMM/9myLeb21YX/1xD+YcroTEP1Vj2+gWPc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Edo0rW14h07ZjkipRFlED3V3uz8DJfyf+WD/moWw8nyaY/9KdfkdhsK3pcygeC0Yq
+	 sigjnaGqQye7EXiYTWWhNwp2dkkGsMDLz8kxspX4Tp5EFAdRcV9nxR24pby5YBztg8
+	 szG5NuCxB3KAEyVaJ2RsOQ9glSbD1yOFGdGoVjuu9rogirHxTywUCytzkaD6MmsO0i
+	 gwOLPZXvFAoqiflVSZS4WzTlxhcqw6ximJOmOZ/YZIxEA9SS3m5N97lfFBzsARhr2e
+	 hq5WqOPYPpWTOXNgzhwMILBJ7k97UFOzLXQvJS1nX1iZugqPoU4CPWuSfpzYn1nvF9
+	 59lyViXkOam6Q==
+Subject: Re: [PATCH net-next v14 5/9] net: dsa: lan9645x: add vlan support
+From: netdev-bot+sashiko@kernel.org
+To: jensemil.schulzostergaard@microchip.com
+Cc: UNGLinuxDriver@microchip.com, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ woojung.huh@microchip.com, linux@armlinux.org.uk,
+ Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
+ geert+renesas@glider.be, magnus.damm@gmail.com, edumazet@kernel.org,
+ richardcochran@gmail.com, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+Date: Mon, 12 Oct 2026 11:24:42 +0000
+Message-ID: <179180428266.434549.5526720693163836060@kernel.org>
+In-Reply-To:
+ <20261008-dsa_lan9645x_switch_driver_base-v14-5-3d2a72661213@microchip.com>
+References:
+ <20261008-dsa_lan9645x_switch_driver_base-v14-5-3d2a72661213@microchip.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: arm: qcom: Add Talos Lyra EVK board
-To: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
- Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-References: <20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com>
- <20261012-talos-lyra-evk-v2-v2-1-dcc9316ebb59@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261012-talos-lyra-evk-v2-v2-1-dcc9316ebb59@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 12/10/2026 08:16, Ruchira Revdekar wrote:
-> From: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
-> 
-> Add the qcom,talos-lyra-evk compatible string for the Talos Lyra EVK
-> board, which pairs the Talos Lyra EVK SoM with a common carrier board.
-> 
-> Tested-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-No, this did not happen.
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
 
-Please do not add inapplicable/fake tags.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
+- [Medium] The commit message says "DSA does not pass
+  SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL to drivers, so an 802.1ad…
+- [Low] Concern: the commit message promises VLAN support for VLAN-aware
+  and VLAN-unaware bridges, but at this commit no .port_bridge_join…
+- [Low] Concern: runtime VLAN table writes ignore lan9645x_vlan_hw_wr()
+  failures.
 
-Best regards,
-Krzysztof
+--
+
+net: dsa: lan9645x: add vlan support
+
+This patch adds VLAN support to the lan9645x DSA driver. HOST_PVID (4095)
+is the port VLAN for standalone ports and UNAWARE_PVID (0) is the port VLAN
+for VLAN-unaware bridge ports. The VLAN table and the per-port VLAN state
+are serialized with fwd_domain_lock.
+
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> index c7de3836e6967..6818b91f4bed2 100644
+> --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+
+[ ... ]
+
+> @@ -296,6 +307,59 @@ static void lan9645x_port_phylink_get_caps(struct dsa_switch *ds, int port,
+>  	lan9645x_phylink_get_caps(ds->priv, port, config);
+>  }
+>  
+> +static int lan9645x_port_vlan_filtering(struct dsa_switch *ds, int port,
+> +					bool enabled,
+> +					struct netlink_ext_ack *extack)
+> +{
+> +	struct lan9645x *lan9645x = ds->priv;
+> +	struct lan9645x_port *p;
+> +
+> +	/* DSA core does not call this for the CPU port */
+> +	p = lan9645x_to_port(lan9645x, port);
+> +	mutex_lock(&lan9645x->fwd_domain_lock);
+> +	p->vlan_aware = enabled;
+> +	lan9645x_vlan_port_apply(p);
+> +	mutex_unlock(&lan9645x->fwd_domain_lock);
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+The commit message says:
+
+  "Only bridge vlan_protocol 802.1Q is offloaded. DSA does not pass
+  SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL to drivers, so an 802.1ad bridge
+  cannot be refused, and the classifier does not honour it."
+
+Is "cannot be refused" accurate? dsa_port_vlan_filtering() in
+net/dsa/port.c passes the driver's error back to the bridge:
+
+    err = ds->ops->port_vlan_filtering(ds, dp->index, vlan_filtering,
+                                       extack);
+    if (err)
+        return err;
+
+Could lan9645x_port_vlan_filtering() call br_vlan_get_proto() on the
+port's bridge and refuse with an extack when the result is not
+ETH_P_8021Q?
+
+That would cover two cases: turning on vlan_filtering on an 802.1ad
+bridge, and joining an 802.1ad bridge that already filters, because the
+join path syncs vlan_filtering through the same callback. Only a
+vlan_protocol change on a bridge that is already filtering would still
+get through.
+
+As written, an 802.1ad VLAN-aware bridge is offloaded silently with
+802.1Q semantics. lan9645x_vlan_port_apply_ingress() always marks
+untagged frames as C-tag:
+
+    val = ANA_VLAN_CFG_VLAN_VID_SET(pvid) |
+          ANA_VLAN_CFG_VLAN_TAG_TYPE_SET(0);
+
+With TAG_TPID_CFG=3, those frames would egress tagged with 0x8100, not
+0x88a8. C-tagged frames would be classified by their C-VID, not by the
+pvid.
+
+The tagger already reads br_vlan_get_proto() in
+lan9645x_xmit_get_vlan_info() in net/dsa/tag_lan9645x.c:
+
+    *tag_type = (proto != ETH_P_8021Q) ? LAN9645X_IFH_TAG_TYPE_S :
+                                         LAN9645X_IFH_TAG_TYPE_C;
+
+So on such a bridge, would the CPU injection path and the switch
+datapath disagree? The later "net: dsa: lan9645x: add bridge support"
+patch also leaves lan9645x_port_vlan_filtering() unchanged.
+
+[ ... ]
+
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.h b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.h
+> index 3a4abedafa2c1..c61efd115aaa4 100644
+> --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.h
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.h
+
+[ ... ]
+
+> @@ -238,6 +255,11 @@ static inline struct lan9645x_port *lan9645x_to_port(struct lan9645x *lan9645x,
+>  	return lan9645x->ports[port];
+>  }
+>  
+> +static inline bool lan9645x_port_is_bridged(struct lan9645x_port *p)
+> +{
+> +	return p->lan9645x->bridge_mask & BIT(p->chip_port);
+> +}
+
+[Severity: Low]
+This isn't a bug, but at this commit nothing writes bridge_mask and there
+is no .port_bridge_join, so lan9645x_port_is_bridged() always returns
+false. The bridged branches in lan9645x_vlan_port_get_pvid() and
+lan9645x_vlan_port_apply_egress() can't be reached until the later "net:
+dsa: lan9645x: add bridge support" patch adds lan9645x_port_bridge_join().
+
+Standalone ports look fine in the meantime. HOST_PVID contains all ports
+and the CPU, so enabling ANA_VLANMASK drops nothing.
+
+Could the commit message line "Add VLAN support for VLAN-aware and
+VLAN-unaware bridges." say that the bridged paths only become active
+with the bridge support patch?
+
+[ ... ]
+
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c
+> new file mode 100644
+> index 0000000000000..751da53375368
+> --- /dev/null
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c
+> @@ -0,0 +1,402 @@
+
+[ ... ]
+
+> +int lan9645x_vlan_port_add_vlan(struct lan9645x_port *p, u16 vid, bool pvid,
+> +				bool untagged, struct netlink_ext_ack *extack)
+> +{
+
+[ ... ]
+
+> +	if (p->chip_port == lan9645x->npi)
+> +		return lan9645x_vlan_cpu_add(p, vid);
+> +
+> +	old_vlan = lan9645x->vlans[vid];
+> +	old_pvid = p->pvid;
+> +
+> +	v = lan9645x_vlan_port_modify(p, vid, pvid, untagged);
+> +	v->portmask |= BIT(p->chip_port);
+
+[ ... ]
+
+> +	lan9645x_vlan_hw_wr(lan9645x, vid);
+> +	lan9645x_vlan_port_apply_ingress(p);
+> +	lan9645x_vlan_port_apply_egress(p, &info);
+> +
+> +	return 0;
+> +}
+
+[Severity: Low]
+The return value of lan9645x_vlan_hw_wr() is dropped here. The same
+happens in lan9645x_vlan_cpu_add(), lan9645x_vlan_cpu_del(),
+lan9645x_vlan_port_del_vlan() and lan9645x_vlan_set_hostmode(). In each
+case vlans[vid] is updated and 0 is returned even if the table write
+timed out.
+
+The comment in lan9645x_vlan_hw_wr() says this is intentional: a timeout
+most likely means the register bus is dead. Also, the next write for the
+same VID rewrites the whole entry from the shadow portmask.
+
+If the parent regmap bus can have transient errors, though, would it be
+better to return the error and restore the old shadow state, as
+ocelot_vlan_member_add() does? That would keep DSA's refcounted CPU port
+VLAN state in sync with the hardware.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008-dsa_lan9645x_switch_driver_base-v14-0-3d2a72661213%40microchip.com
