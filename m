@@ -1,106 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76074718EC;
-	Mon, 12 Oct 2026 10:29:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A044244F549;
+	Mon, 12 Oct 2026 10:30:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791800991; cv=none; b=F6wKFRV4ckxVs5SQTFx9gd8fbqKaHVl4F4t9UlseUCQN+eHh+EB49gfgs5ZVHYrRz6mMBSn0/5bkJ+mg/ts2z17Tv50TcXLtmKJnJmhiZoB3YjVclAJ2/nW3M4HVBj2xauBUmFDAJsIbuMGC2nn0lya+Is0wQi99Wkn+ebVsEtc=
+	t=1791801018; cv=none; b=iW7E+4xWd2ZYIUGaRc/MCLkYfJFpF43Rg4c4o/Be6z1OF3s/1SJ/KkaLIbHkFH8ktWosLd3DSXIQ9veB6XaeRoYJQOJljYLdyLMTpEtpoq1W97zZEqvcA3jap1gXhHDQoB2N4jikqFzzOcimWefyeFczwiQOETA/NTGtpzUofno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791800991; c=relaxed/simple;
-	bh=5zbNkMtb7e6SKEtLVkUM2VXhlBRXbHTju/tTSHxlOGo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=QXrKH9I+mGfAh7ZDA04XuIynZbyUuoOEgcoNn+Q/O/SK1oWXoTw1kJpvTgX25jV21lSmOWgNeNF+xHxsPMzmJtC6zcGVJouz2P03Sx1VU2Yn3pBOHvvE1lXDJfteDQxz6/L2GIOHghLCfMJNMHknvtkDwbco/e3kfFjtfbyvK6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kRu+XuQM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791801018; c=relaxed/simple;
+	bh=7HvmZ7z+FHzKUsgiySg15xR765kRqCbAiT/35Wu3I2U=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=cO2yANBgXwch+eAqugfrO4+wbp07uqpZQfYufuwudGV/hec375V8nD313swN7tnUo9O4Rws6S00enou4OtOZABUaVzLKwYD3wXtMJLfcwjeMYvHpGtr2eKTPbJCTFxVPTgGv83MML8hbFlar7bP19PeqqsyygY4oaXI3NWqPfJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EDcTx8pQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kRu+XuQM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9109C1F0089B;
-	Mon, 12 Oct 2026 10:29:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EDcTx8pQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45D131F0089E;
+	Mon, 12 Oct 2026 10:30:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791800985;
-	bh=li1gWyf1yXK2Y0+8Y+XJI0fZtOcno0yy1qKJ4a5DFLQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=kRu+XuQMs2afadLx1E/dMzg4UjakTRJyFch11x+nKfuPjfky+k/kNXDOoDhj3rW1N
-	 Vcpq9nfCc9DtqvN2BFOChx3riMtqSRoHOsOtlczK6tjDBlBNZWL8KKX3xlnOBCDDL3
-	 f0F01h3Oo3jSMMsgotPXe5Mff0ELWO78/1SvG8M9Qog5tkbflus98C/kST/AEaxLSY
-	 7gci+2byo1HErx2KJwEYiBm2aPoPPkW3jNs7jEj83RLZ6dvGnB88+MnD2lTvgkxSqC
-	 2jkjTNzSBrbhEVkFdz/snNWEEAzPObgs0kY49vAdZiiBAIcFYl31oeTesZd6W9y1UO
-	 lLKap5XQ8vVGA==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: David Matlack <dmatlack@google.com>
-Cc: kexec@lists.infradead.org,  linux-kernel@vger.kernel.org,
-  linux-kselftest@vger.kernel.org,  Jordan Richards
- <jordanrichards@google.com>,  Mike Rapoport <rppt@kernel.org>,  Pasha
- Tatashin <pasha.tatashin@soleen.com>,  Pratyush Yadav
- <pratyush@kernel.org>,  Shuah Khan <shuah@kernel.org>
-Subject: Re: [PATCH] selftests/liveupdate: Prefer KVM and HVF over TCG in
- vmtest.sh
-In-Reply-To: <20261008132813.1966023-1-dmatlack@google.com> (David Matlack's
-	message of "Thu, 8 Oct 2026 13:28:13 +0000")
-References: <20261008132813.1966023-1-dmatlack@google.com>
-Date: Mon, 12 Oct 2026 12:29:42 +0200
-Message-ID: <2vxzv777jjop.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	s=k20260515; t=1791801006;
+	bh=CQm+l37PhvY4sn7GzDvhkIVLaZRnc8rXgqLaKi2lNS4=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=EDcTx8pQf6FBbBicRtkHB94PH/CcsAFVpfUzXEF654Q5n138OEzGQRt8ulFmDzK6O
+	 tsFNL8ULHR21TBRlEuY4qxgx2VCgWwJy85bQtxjUGscogyLQlfkwSvhDhLY/ltRNOE
+	 WMzfOLpXhvqiF10HT2yCfmNZBa5soI7INHQgZPxydE11oPXVoGyLeywl3b17a4tUv2
+	 MpNu5bGPeWq8vvtz3b9f3jqAIDc1ZLEKMNkew0tnobRrKmR5aN9Usvd4rLqYmnykg9
+	 DVC1PuAudZ+OlHRidin8/phaWXlTSPIFhTA2M8E4J+t+d0hIfRW4K/7mhgda+8nynC
+	 io32n9jfn4L8Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A63E3811A63;
+	Mon, 12 Oct 2026 10:30:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] bpftool: Fix out-of-bounds read in kprobe_multi link info
+ dump
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179180100503.3336084.3203597964728952228.git-patchwork-notify@kernel.org>
+Date: Mon, 12 Oct 2026 10:30:05 +0000
+References: <20261010074435.1415234-1-chenyuan_fl@163.com>
+In-Reply-To: <20261010074435.1415234-1-chenyuan_fl@163.com>
+To: chenyuan <chenyuan_fl@163.com>
+Cc: bpf@vger.kernel.org, qmo@kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev,
+ song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
+ emil@etsalapatis.com, ihor.solodrai@linux.dev, laoar.shao@gmail.com,
+ linux-kernel@vger.kernel.org
 
-On Thu, Oct 08 2026, David Matlack wrote:
+Hello:
 
-> Pass the -accel options to QEMU in the order KVM, HVF, TCG, so that
-> vmtest.sh prefers to use KVM and HVF over TCG when they are available.
->
-> QEMU uses the first accelerator in the list that initializes, and TCG
-> always initializes, so the tests currently always run under TCG, even
-> though the commit that added vmtest.sh describes "automatic accelerator
-> detection (KVM, HVF, or TCG)".
->
-> Fixes: 89dd1421c554 ("selftests/liveupdate: add end to end test infrastructure and scripts")
-> Signed-off-by: David Matlack <dmatlack@google.com>
+This patch was applied to bpf/bpf-next.git (master)
+by Kumar Kartikeya Dwivedi <memxor@gmail.com>:
 
-IIUC HVF is only for MacOS. I don't think we care to run this script on
-MacOS.
+On Sat, 10 Oct 2026 15:44:35 +0800 you wrote:
+> From: Yuan Chen <chenyuan@kylinos.cn>
+> 
+> show_kprobe_multi_{plain,json}() walk the sorted kallsyms array against
+> the sorted addr/cookie array with j as a cursor into the latter. The
+> loop terminating condition is checked after the cursor has already been
+> used to access the array:
+> 
+> [...]
 
-Anyway, thanks for the fix
+Here is the summary with links:
+  - bpftool: Fix out-of-bounds read in kprobe_multi link info dump
+    https://git.kernel.org/bpf/bpf-next/c/0d5e3fc78a6f
 
-Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
-
-> ---
-> Tested by running run-vmtests.sh and then observed that arm64 correctly
-> fell back to using TCG after trying to use KVM and HVF, and that x86
-> reported no warnings.
->
-> arm64:
->   qemu-system-aarch64: -accel kvm: invalid accelerator kvm
->   qemu-system-aarch64: -accel hvf: invalid accelerator hvf
->   qemu-system-aarch64: falling back to tcg
->
-> x86:
->   (not warnings)
->
->  tools/testing/selftests/liveupdate/vmtest.sh | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/tools/testing/selftests/liveupdate/vmtest.sh b/tools/testing/selftests/liveupdate/vmtest.sh
-> index 64fd2ab55b76..69beda6c961d 100755
-> --- a/tools/testing/selftests/liveupdate/vmtest.sh
-> +++ b/tools/testing/selftests/liveupdate/vmtest.sh
-> @@ -180,7 +180,7 @@ function run_qemu() {
->  	echo "# Serial Log: $serial"
->  	timeout 30s \
->  	$qemu_cmd -m 1G -smp 2 -no-reboot -nographic -nodefaults \
-> -		  -accel tcg -accel hvf -accel kvm \
-> +		  -accel kvm -accel hvf -accel tcg \
->  		  -serial file:"$serial" \
->  		  -append "$cmdline" \
->  		  -kernel "$kernel_path" \
->
-> base-commit: 80cf37169daef112b6bea9ae7d9808355a045475
-
+You are awesome, thank you!
 -- 
-Regards,
-Pratyush Yadav
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
