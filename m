@@ -1,78 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E81181334;
-	Mon, 12 Oct 2026 08:34:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3F94657EA;
+	Mon, 12 Oct 2026 08:34:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791794054; cv=none; b=b3ble1FQ/sFqdnOtlahfarAz7EUCDiks11fPy+4WZqItACUuvtjTTKKYqM8YQ+WxUKSXa82UNkVPczbqLf/Y8SmoT/iLx8CBNAJst8wMN7QbS6HvvSrR9PwEAaLJJDU9MomaDWm8989G/S8oOKGUZk6HAMKguMdU23IqhfGViOQ=
+	t=1791794061; cv=none; b=YLlyBMVv8pvHy+Y75qCGIsmcmr+apMaaO9w+tBRFzVCTQJycdcC8omEEy3oIi/oWQe2Dtyimfoplu+UzxB9gMu0gbD+QwTGZlIh6pwesN6hnZoj1u3qm9njIVkCG0HhHbFr/eBrRVckQ6tjF6P2rG4gIfL9qVcuR7wDCAx8gP4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791794054; c=relaxed/simple;
-	bh=rlV7ifkIwC/KVr8kwqXO1WuvmE50SIJfXcvDBgln/zQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=t5LhbjBkQ0iHzlexX9Dg4pzRUQQjf/H34ndjg23MdYCHvPgAEitgO5HbcGaW5SRt/GPIXN5FjyesjOO/vLTtfpsyH6Ja4z0/H/xy5WWGRDhBNCT1JFYyOfbivk5tVauxXNwmVJXowsa9XdLT8ivqYC9AztaINxIlUwx+XBN2HKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fmNjlvgf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791794061; c=relaxed/simple;
+	bh=Frc+ADQTxRwKDWaoqMQMlUJQ/gCXB8qyIs31/48aD70=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Q9M+4TzfyewQOMPFz/6QALCAwHyUmcEtkx0IjB5idq86cn5Wzp36hHJXw5hA4qaoIaKuZM8X1dbNZa1nb/Sd6ceYvy4GG5v6jkb0SxQHRv3lRl4qsPf86/b67FSsrHqlELoJ7jUCiWvqwEHypBmj2SQ1kUdVUlNo0YgHmElwrS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TU1O25BR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fmNjlvgf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A161F0089B;
-	Mon, 12 Oct 2026 08:34:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TU1O25BR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71EF11F0089B;
+	Mon, 12 Oct 2026 08:34:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791794052;
-	bh=UEzaTZuBEiAvww4S+VIm/R7VA+NaE4gP3nzJQbGS++k=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=fmNjlvgfSwedvrVlmRLUtI75y5t1R0Ma58PBz3Mhcky4k4VeaVtrChwOIcDp6UxoB
-	 H8D8B98HnUa3B6x1UyvLcHYGiKEW04DA/IV5pXFSJMIaxsSqbLA38Y/VvrqdM0xq8O
-	 MA1cw5bKGR2MWEr+AgYn3Fz3eew7lgE40LYyEWgX3DWuNwsmnJi27E9abYqYzAkgJ5
-	 dxh9OYXhnAWxSzZzNl/qZrVbBB9B+ZV2+SzABld4IZSa1xS0A4Ti/MPm+6kNXtgXPM
-	 7YLMT03CQ4xgULzDcjT5Q3RxprsFfuLujTb+wsp3SE/nrR2MKnWuORZcIJzXwYlDqR
-	 3E9ME2CWGKCKQ==
-From: Christian Brauner <brauner@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Sam Ravnborg <sam@ravnborg.org>, Masahiro Yamada <masahiroy@kernel.org>, 
- Sasha Levin <sashal@kernel.org>
-Cc: linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-In-Reply-To: <20261011223358.2327625-14-sashal@kernel.org>
-References: <20261011223358.2327625-14-sashal@kernel.org>
-Subject: Re: [PATCH] samples: pidfd: fix userprogs typo
-Message-Id: <20261012-sinkflug-laute-eindecken-7c886e292bf0@brauner>
-Date: Mon, 12 Oct 2026 10:34:08 +0200
+	s=k20260515; t=1791794059;
+	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TU1O25BR+UKhvp7Ujpo7e//H0M2tFSdFcAV6Jo9wfl6vZXBnsSR6BJyQCVERDHjQj
+	 va32iT6qEPovrNp7FS0mYz19BBe5b45aLHfJvtgrUiIUBSfMu738c2laZNx02zitQ/
+	 BuLjzDth6Bg0CYa6DyE/3ZNJUt6nr27alYFQhPkEO5VZZ7c76NxqFd16MctRMA1msB
+	 BITZ+pC2zFd22Kv+c8AFbXpcWzFyFrMw2zyEH+DhUasZvqJS4sBcInbWm53pkwJLW+
+	 AftFaA/il5oXFArG8lZXxZe4kWyfFSCrz689wpW9EsWqKV3b2uvMKfoQEhLDuIVdis
+	 xJflm8ePbruNQ==
+From: netdev-bot+sinfo@kernel.org
+To: Linkui Xiao <xiaolinkui@126.com>
+Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, intel-wired-lan@lists.osuosl.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Linkui Xiao <xiaolinkui@kylinos.cn>
+Subject: Re: [PATCH iwl-net] ice: do not report success for a VF setting that
+ was not applied
+Date: Mon, 12 Oct 2026 08:34:18 +0000
+Message-ID: <179179405801.2527009.14010952920802573492@kernel.org>
+In-Reply-To: <20261012082910.283229-1-xiaolinkui@126.com>
+References: <20261012082910.283229-1-xiaolinkui@126.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-3d1b8
 
-On Sun, 11 Oct 2026 18:33:42 -0400, Sasha Levin wrote:
-> The Makefile adds pidfd-metadata to "usertprogs-always-y", which kbuild
-> does not know, so the sample has not been built since the conversion to
-> userprogs, even with CONFIG_SAMPLE_PIDFD=y.
-> 
-> Fix the variable name. pidfd-metadata.c builds without warnings with
-> gcc and clang for x86_64 and arm64.
-> 
-> [...]
+Hi!
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
-
-[1/1] samples: pidfd: fix userprogs typo
-      https://git.kernel.org/vfs/vfs/c/5355aea1165e
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
