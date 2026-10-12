@@ -1,273 +1,151 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010024.outbound.protection.outlook.com [52.101.193.24])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010021.outbound.protection.outlook.com [52.101.56.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FFA01F8691
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:37:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852441F8691;
+	Mon, 12 Oct 2026 20:37:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.21
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791837442; cv=fail; b=hkfPRifcpB/ysgGA4nVBwk3TaFtKE0Sf6KgJLYOex7NbG0zzJDsEanUjruiIPONuolMypKKTph6VU36dLsCF0LcHuK4vvTFWrDrsWOi2ksMC7iFPXNEjvH4ugmNA3iCVt9jyz45UIWRANp+13/P+RcGLX744hJzOCR329i1O1u4=
+	t=1791837448; cv=fail; b=BMAsPudN/xpzBsKdBDsdiEuQIhzLYnlWGUlgiL+fu1s+HFxGnBBOlA50hOphKG/sxJqG0iGBeklMjIfTbC2aY0+BWh0urFW2IVMMhqHUintdLO37yP/YAsBZaQHBIaOul+8eSH5+EC0DZ0O6PiYJMnmSxkoY7q7YtCXPtf9XuSc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791837442; c=relaxed/simple;
-	bh=XVA0Eth/5svyvhPWTD8TvSeFgwIVeo/suXHrbdG6snY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=U+P5d/UzBUy2B5iBa3fdSmA1a9BEaLxXm9W4W/ixq9dr1sEz0Jr5vVnawXb6rz3SrycF3JrhJd8Fukcs7nwT3wXq4gnDM/+xoEktUIjAUsoVmHDbK06SXUUenyRFcp8arqMQ3tl79QbOREITfeEg6AiAtpc76i71nNfgJ6snDCs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Z7/Suw5R; arc=fail smtp.client-ip=52.101.193.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1791837448; c=relaxed/simple;
+	bh=lMZ1x4G4it+CMwFwhK905qNI+FwXHRpJ5AMqWeh1c6E=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hvr/EgcnG4Sy0sHKzjJbdUI2G6cNf02cI7xDC2OOGGxHLA6Khl99DLjdF7ckqjqgw8nvqJXitdiocF/kzW3JcPd2+6h8xI15es4Rq+hEXHwGxGAMho3+F6hu8to4tWClpnmB+gRuIGIMoPhnqhueeIA7ZkNw6mfmIJ+tXHXAVgU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=pBYdJVaJ; arc=fail smtp.client-ip=52.101.56.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Z7/Suw5R"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="pBYdJVaJ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WWuS/b/swVKWJTgupcToHNXqOyYWZ3MTipvTtYUD7XmuoGCZQPvvAMSLxMv+aSYwkJgPIywQ7Y0k8AO7Yiuj2zwihCrkVaWqBGmxsRxZzYwMu0ANzFBHexFffVSH5OWk4ACknRutDPXjOQXJHVv78L8SYuC6hkIzzLKr15X2/8Us3JocO8o2/cF/qPP1wv1zlQVVPUtYPwRrK0TE23nZLHEGXZWOl2QGOjYUA4dgGxEdSa5OfPP394+hRbULz1occvF8Irq+jABofQOVGGnJ83/nbfCwc+7iGkprcrNXDpzgKjG4iP2VDNP+XDCPiYhUy7rRHpeaj2p5sulkDF9A2A==
+ b=CStAggHYQrtr6l9SGQx7j7uv1DTGi3N4xzcCnEqWcxq0ENtDCb5AE/waHu2Y1q8ouQpga25D1I6+QMNVW9Hs/11FXm4dngvxtrvDxVt9gw9m+leqpM2X7xHtaDl7A4cIiY0YybKt0JwCdc+a1RyDyYoZRbE1drI+BABR+7bkRSfz/UaMA7nOokBlNogtFoFHiMmO/ABUR9T5qaYgL9rUBpiotYgOABP/cbqTEiU94EBtt48q/RcTmjs0RVV9rCxOOf/rnUgSY5dulHNpmByFeT+mc4pVV/1Cb1o37tOqnXE6/h0MtcuytDvPvTv3RxVe7skhFVLb8a715VIZ1mWMug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Muu9gayDNDmpCZKTgTAlp8XP9HW86xb3/R873L87/TI=;
- b=PVctlLTzivL5QLf61ZrTyBGcdRiOwN3ylMdlhoaWLf5hwJ5sHam4qmJ74Eedt1t16T5SkxHe5QUGm1Iuxif9kcIYg6/e5kNCX5FSidGP+sMxhl0FDvXBNG6/7A8Oe1VcX8pI8Q6//sg0on00I7iEVnzRNJDY3n9a+9TWvjjLg43YaQEfvZUXaH2NexIwjMMsArC6qj/GdEXEaAqfptVjAQgGAOYEFi//x0HveONZ3alw8cDUHRTGBI+QGm/Srm5xZ1jaqqFJLF0WyuH+ValKayjpLhNZIt2JO6AItWK45DzTt5T61D/sr3PteAzYX9/f47v6eTSBVvlZiOcwTuPnTA==
+ bh=uXAypmjkzsPsccnpYZ+pz+KKsjx6A3pa0OCFGNmIXX8=;
+ b=lD3aVGBrpF/L5vL/VqqQ1MQ2wvOwB/dl/VhDMBtE+/R2xZBtnhVnRGsoRxDUhgx4gunWhKG6MWpEX9vCMhVM8/Vn4r3LC00nQzNtUC3MGuL8bxy5TxQ1vUCIGocUsnJGgelCIFMY63SzWrUSbM/yZ48F9iCB3G2VkIuQ2nakPfQ8Yffi4/h9GF98Xn3ufuTKU8COgpWeFJzCohbTTE7Ae9JO5eY9po48G8YpiHVjh/SCFpGSFZOQAsuiDETC1h5TMlSZlDOlIKWNoIXIEEoz2fGG+Hqu1IPUUMimBwR+b0BVJjqtF2jGiMjNsjAQh0n/X2aoed43MTTjkjqwgtazng==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ 216.228.117.161) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Muu9gayDNDmpCZKTgTAlp8XP9HW86xb3/R873L87/TI=;
- b=Z7/Suw5RNM6ZcgECV8aE7W5YUlYoPBiidgB93J9CfdTz67HgA/PA+mkbII6n2KX4Wswbv0q5Foq8+slKP3lrPnJefMDdh642/DC34A9E2jziG06rvE+qvm+CyQObxlzoGxTU5SIWu9lrpPo0d5nt3/iTnwK1lHa9AqWok1lQVMc=
-Received: from BN9P223CA0017.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::22)
- by DS7PR12MB8230.namprd12.prod.outlook.com (2603:10b6:8:ed::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.23; Mon, 12 Oct 2026 20:37:13 +0000
-Received: from BN2PEPF0000A88E.namprd04.prod.outlook.com
- (2603:10b6:408:10b:cafe::86) by BN9P223CA0017.outlook.office365.com
- (2603:10b6:408:10b::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 12
- Oct 2026 20:37:13 +0000
+ bh=uXAypmjkzsPsccnpYZ+pz+KKsjx6A3pa0OCFGNmIXX8=;
+ b=pBYdJVaJWDxtXZGjsXSAaDa475Pwy6m+k67R27FbTUy3HrB8TPZxl8vQCGMLh9/yHDSUzHxE6PFOiIvcZaiqHzK6hckfJgG2w+LIkQs13OCEI1mIyWB3I752qUqIxdxvJ6WbRUif133ERIKOXJZlOTabJgvqfsqj2fF6X+vbitustDiomFAGnAyybUGC2Q8Buz12xMG0c2l7Wa1FcUBsMqBkC8vfLR3O1jegGvvOobGOea+Q78WmfE5f+ow8yMkWJ0PMX89w6fRfuwWe5WqtQfhkdZapyrpu1wSqiVv57lTA4P/lvz7W1J0clGlLHq4wI/UfF5oZxaKs6GS/PnHYEQ==
+Received: from PH8PR07CA0048.namprd07.prod.outlook.com (2603:10b6:510:2cf::19)
+ by DS3PR12MB524383.namprd12.prod.outlook.com (2603:10b6:8:608::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
+ 2026 20:37:23 +0000
+Received: from CY8PEPF00000058.namprd21.prod.outlook.com
+ (2603:10b6:510:2cf:cafe::a3) by PH8PR07CA0048.outlook.office365.com
+ (2603:10b6:510:2cf::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon,
+ 12 Oct 2026 20:37:22 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN2PEPF0000A88E.mail.protection.outlook.com (10.167.248.180) with Microsoft
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CY8PEPF00000058.mail.protection.outlook.com (10.167.247.21) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 20:37:13 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 15:37:07 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 12 Oct 2026 15:37:06 -0500
-Message-ID: <2224aae6-dcc4-22e3-21ca-3a4a1b5c57ee@amd.com>
-Date: Mon, 12 Oct 2026 13:37:06 -0700
+ 15.21.546.0 via Frontend Transport; Mon, 12 Oct 2026 20:37:21 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 12 Oct
+ 2026 13:36:55 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 12 Oct
+ 2026 13:36:55 -0700
+Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Mon, 12 Oct 2026 13:36:54 -0700
+Date: Mon, 12 Oct 2026 13:36:51 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Joerg
+ Roedel (AMD)" <joro@8bytes.org>, Jean-Philippe Brucker <jpb@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Thierry Reding <thierry.reding@kernel.org>,
+	Krishna Reddy <vdumpa@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <linux-tegra@vger.kernel.org>, Peng Fan
+	<peng.fan@nxp.com>
+Subject: Re: [PATCH RFC v6 2/5] iommu/arm-smmu-v3: Delay stream allocation to
+ inside the mutex
+Message-ID: <as1E40DCc+u8I66P@nvidia.com>
+References: <20261011-smmu-shared-sid-v6-0-cb76b89dc612@nxp.com>
+ <20261011-smmu-shared-sid-v6-2-cb76b89dc612@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V4 02/19] accel/amdxdna: Remove mmap for doorbell
-Content-Language: en-US
-To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
-	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
-References: <yidong.zhang@amd.com>
- <20261009225343.3079074-1-yidong.zhang@amd.com>
- <20261009225343.3079074-3-yidong.zhang@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261009225343.3079074-3-yidong.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261011-smmu-shared-sid-v6-2-cb76b89dc612@nxp.com>
+X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A88E:EE_|DS7PR12MB8230:EE_
-X-MS-Office365-Filtering-Correlation-Id: bed1125b-38af-4ad9-8b6d-08df28a098ba
+X-MS-TrafficTypeDiagnostic: CY8PEPF00000058:EE_|DS3PR12MB524383:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe4b6ec2-d7e1-48f0-a06d-08df28a09e04
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|6133799003|18002099003|22082099003|10067099003|11063799006|4143699003|261009223027099003|56012099006;
+	BCL:0;ARA:13230040|36860700016|7416014|376014|1800799024|82310400026|23010399003|56012099006|11063799006|4143699003|261009223027099003|10067099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	AHlTBPq6FozOHmiln+On2a/bhcq7IDloIj+FtkJylL20JFkxFHmkloTCs+A79+Dj254llWioqOWn8zpsrItj2osq3PeR7+R/MBwftMib7yn9gxn2ztnMqiEGT+o2hqLHu9dUNps1FK2Q7a1PDlMkX3VWKrwBHSjed/Uq/bHq8/rzwMRUCzYL6NvhHfemeNuFD1xGQdSsUOucZFIuR/N3P93hzCuBClGa4bx4zPZ9zNfi6sa1JQzyD025E7fFqgQgtZREZL7gVTWirsFOgVFNP8l1i5jgH9UcLV5l3pUbf7UFgTCuiuy1vwO+/W2a5zQJdlU7XZ7BoNc5p0hK6DPMVuYwQ4EnzISBuLSxzbnDJHoEyL8ycS41+i1mjA6tdIRNTJgK7ocImuIzHzbr+wUC87hSXxb4JECMvrQHXwBLMOIxykxbGAHOoKKqLFRoo+dPV7H7zidwOmzP74iIHWcpwj9ANydmM8sqJRCcECN2JzvE8N6xSD1QNk1Gp0dT/Qj1/EC610RqH7nfPlAsrvIuyhiGXA22ukGjWv8IlW29Elx7siWfes93Z4QWiamP8eJP+zqGoxuaQSm/17iKXP/GgZ2H5MnFR1UfibM2dxhbYRSHGLt2hBb6/ZbKU0JFDYZPxfrwSImF+iHj7s6Te3hfwSBaiKKA6qsadwWJva0CjUaozNkJlFcHInLr+FT39mNqnt9ux8VAxH7mVldXr4CbqQ==
+	a/HacVqqyur3i3cWUw3FWP2dnSAQqNQDbgLr2zQ44aBWbDi+PwhySEZlfgHXOwuOwwlFUWzN4b72NmVU7ox1GILAatnjWYLONHb1a4I2bOo3cOaWxnErqAD8Ojtww9PxNmlBZYoM37Dk/ddRY8nBPlY7dYo+PlAlx3vlbs0EgSOKwZoVqwo1Z/0aY99nRBIMep/76dHnn3EutAqbO8enifwK94sEErxzIRhrK7hS16yXeCFsYctnjw2nGUP2rqrjKiMneek77NpdBxynij1uUX+voLI0DTCefeK77atqkMnzLmdBWi2tUmimhJ1rjza/mo/0zLXqiBRYWZLtYON8vEOdloWLt9DosPgy34Z90GuNdxjqjJ8GEIXFRMLvpaeSvyozPZ01HAz71eagCfJ7c+sB7QLsshKuqhK2WWnZp8QBg+VRqzdBQyLjTW58c/hw8xkAZ8lSq3odrKhnClT+IAbaJOlYx1xP8i7E8w8t8QQuHdxl1P5i9XLpeLuDKTU0ZiMgfZBrALt3ecxIPVjb4N9Zod7nwqz1AQ+JHebXLifDf6N4/fr7B9KW/8wKZ7iAKhaQhW3T2Vpnu+FCC47ntqq9/b1ruYL9U+TejVuswc39ZanqYDZ2t9xxWL1E24IOWSCYDYyd99qtYRzC7PcBIhK3cieGDnel/g6SC4iVEYalT179x9o2VlPePRcktMLpNQ7D4uR/jNThQPkj4+J6kA==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(6133799003)(18002099003)(22082099003)(10067099003)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(1800799024)(82310400026)(23010399003)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	AN+t4pW5VksgBGZAmBe9hMspa1VTeZKysr5W3sWEiiSwMojDUN9yHJsU3NAbYroZEjsZNNbedD8Cek6CSEEQlo8KPX4hWy3EWYFbSmKyHhlueeaKuaC1EnC82fFHYRMnnozx1U6wmaQFrnTb41IbVyteR5RaRCTtxi2HC4mnOkbGfhKUNcoBgA/G6gnVvSW4NPIhHK6JKRY51vDpUDPp6riIOoAoUsXyLNljLxXlpeZvbQF5QYmog194/kDMj0ghGW2yvZV9u0XGUL20D2Wv7ObZ5UzKJrGMRVdok05iFa9aOTijQiM5+iwAM/VN9n6CPUu30tKFqmHqKrnj8YunmctAuHUH7junaczxicxHOt3/MR70u+x92Z/Q/EjyhuQVZ0fw2Eq0WtpNmvsCoHR0W+eBCxU1eIccg0czV3vSWzRTsxX/iwQxFhPrrR5vfrmz
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 20:37:13.1722
+	ahXq5IutnJPmT3Y+Gc4An9gl1Q74q1c+5VVCbQ88Mf87xXyU0YHfr9p5Yq75MEYihe13EvooPROx2MBTDsLB+MhKPKOUWnm9/70nXnynZgW083meIEEgyb0/AMqgMVzMnmCPMoen/5A+o7d831CEsXTj6NsUq+MM7TJ3xFdm5ZKY8wtQR8v5xu16d9Vp6tulkD2cEsxopIXs64Mu0spL8j0XJIerIaGrfwawF4tc4TmnDF7zDlIQS6RpHyiuP1XP86st6OcA6SzCLbENligvrAYTuqBEQqAELREVhPzSqXDtJoI/KEb8MOoJs8InKhd7R3cw56supleFoJfsAW/CgqHnqd6p+JEI3F43iOOWlCm1JUdzWkJeBLWu0BLYr8KYGeeV0KDEr/revzxS3SQH18YaBaHbMyAqG7qyppItc0V7jXAWeyQEAGjY8vPXhwFF
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 20:37:21.9383
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bed1125b-38af-4ad9-8b6d-08df28a098ba
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe4b6ec2-d7e1-48f0-a06d-08df28a09e04
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A88E.namprd04.prod.outlook.com
+	CY8PEPF00000058.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8230
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS3PR12MB524383
 
+On Sun, Oct 11, 2026 at 07:31:26PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+> 
+> Move arm_smmu_stream allocation from upfront (before the mutex) into
+> the mutex-protected loop in arm_smmu_insert_master(). Instead of
+> pre-allocating all stream objects and then inserting them into the RB
+> tree, first look up whether the SID already exists in the tree via the
+> new arm_smmu_find_stream() helper. Only allocate and insert a new
+> stream when no existing entry is found.
+> 
+> Duplicated Stream IDs from bridged PCI devices are now actively
+> skipped rather than stored as duplicate pointers. A separate write
+> index (n) tracks only unique entries, and master->num_streams is set
+> to the deduplicated count. This eliminates the need for duplicate-
+> pointer tracking in all cleanup paths.
+> 
+> Extract arm_smmu_find_stream() from arm_smmu_find_master() to provide
+> stream-level lookup, which will also be used by subsequent shared-SID
+> patches.
+> 
+> Extract arm_smmu_free_master_streams() to share the stream cleanup
+> logic between the error rollback in arm_smmu_insert_master() and
+> arm_smmu_remove_master().
+> 
+> The sort is moved after the mutex section, since streams are now
+> populated inside the loop rather than beforehand.
+> 
+> Suggested-by: Nicolin Chen <nicolinc@nvidia.com>
+> Suggested-by: Robin Murphy <robin.murphy@arm.com>
+> Assisted-by: LLM
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 
-On 10/9/26 15:53, David Zhang wrote:
-> Make kernel submission the default, so mapping the doorbell back to user
-> space is not needed:
-> - Remove .mmap handler and use standard drm_gem_mmap.
-> - Set hwctx->doorbell_offset to AMDXDNA_INVALID_DOORBELL_OFFSET on
->    context creation so userspace does not receive a valid-looking BAR
->    offset.
->
-> Signed-off-by: David Zhang <yidong.zhang@amd.com>
-> ---
->   drivers/accel/amdxdna/aie4_ctx.c        | 20 +--------------
->   drivers/accel/amdxdna/aie4_pci.c        | 33 -------------------------
->   drivers/accel/amdxdna/aie4_pci.h        |  1 -
->   drivers/accel/amdxdna/amdxdna_pci_drv.c | 17 +------------
->   drivers/accel/amdxdna/amdxdna_pci_drv.h |  1 -
->   5 files changed, 2 insertions(+), 70 deletions(-)
->
-> diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie4_ctx.c
-> index 8408b0d2696f..8157f2a6fd10 100644
-> --- a/drivers/accel/amdxdna/aie4_ctx.c
-> +++ b/drivers/accel/amdxdna/aie4_ctx.c
-> @@ -158,7 +158,7 @@ static int aie4_hwctx_create(struct amdxdna_hwctx *hwctx)
->   	}
->   
->   	priv->hw_ctx_id = resp.hw_context_id;
-> -	hwctx->doorbell_offset = resp.doorbell_offset;
-> +	hwctx->doorbell_offset = AMDXDNA_INVALID_DOORBELL_OFFSET;
->   
->   	return 0;
->   }
-> @@ -313,21 +313,3 @@ int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout)
->   
->   	return ret <= 0 ? ret : 0;
->   }
-> -
-> -int aie4_hwctx_valid_doorbell(struct amdxdna_client *client, u32 vm_pgoff)
-> -{
-> -	struct amdxdna_hwctx *hwctx;
-> -	unsigned long hwctx_id;
-> -	int idx;
-> -
-> -	idx = srcu_read_lock(&client->hwctx_srcu);
-> -	amdxdna_for_each_hwctx(client, hwctx_id, hwctx) {
-> -		if (vm_pgoff == (hwctx->doorbell_offset >> PAGE_SHIFT)) {
-> -			srcu_read_unlock(&client->hwctx_srcu, idx);
-> -			return 1;
-> -		}
-> -	}
-> -	srcu_read_unlock(&client->hwctx_srcu, idx);
-> -
-> -	return 0;
-> -}
-> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-> index e99ad35870ef..f81c43a1f884 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.c
-> +++ b/drivers/accel/amdxdna/aie4_pci.c
-> @@ -524,38 +524,6 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
->   	return 0;
->   }
->   
-> -static int aie4_doorbell_mmap(struct amdxdna_client *client, struct vm_area_struct *vma)
-> -{
-> -	struct amdxdna_dev *xdna = client->xdna;
-> -	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
-> -	const struct amdxdna_dev_priv *npriv = xdna->dev_info->dev_priv;
-> -	phys_addr_t res_start;
-> -	unsigned long pfn;
-> -	int ret;
-> -
-> -	if (!aie4_hwctx_valid_doorbell(client, vma->vm_pgoff)) {
-> -		XDNA_ERR(xdna, "Invalid doorbell page offset 0x%lx", vma->vm_pgoff);
-> -		return -EINVAL;
-> -	}
-> -
-> -	if (vma_pages(vma) != 1) {
-> -		XDNA_ERR(xdna, "can only map one page, got %ld", vma_pages(vma));
-> -		return -EINVAL;
-> -	}
-> -
-> -	res_start = pci_resource_start(pdev, xdna->dev_info->doorbell_bar) + npriv->doorbell_off;
-> -	pfn = PHYS_PFN(res_start) + vma->vm_pgoff;
-> -	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
-> -	vm_flags_set(vma, VM_IO | VM_DONTEXPAND | VM_DONTDUMP);
-> -	ret = io_remap_pfn_range(vma, vma->vm_start,
-> -				 pfn,
-> -				 PAGE_SIZE,
-> -				 vma->vm_page_prot);
-> -
-> -	XDNA_DBG(xdna, "doorbell ret %d", ret);
-> -	return ret;
-> -}
-> -
->   static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_info *args)
->   {
->   	struct amdxdna_dev *xdna = client->xdna;
-> @@ -667,7 +635,6 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
->   	.fini			= aie4_vf_fini,
->   	.hwctx_init		= aie4_hwctx_init,
->   	.hwctx_fini		= aie4_hwctx_fini,
-> -	.mmap			= aie4_doorbell_mmap,
->   	.cmd_wait		= aie4_cmd_wait,
->   	.get_aie_info		= aie4_get_info,
->   };
-> diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-> index 3fd5eace3ed7..c6219544dc0f 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.h
-> +++ b/drivers/accel/amdxdna/aie4_pci.h
-> @@ -69,7 +69,6 @@ int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev);
->   int aie4_hwctx_init(struct amdxdna_hwctx *hwctx);
->   void aie4_hwctx_fini(struct amdxdna_hwctx *hwctx);
->   int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
-> -int aie4_hwctx_valid_doorbell(struct amdxdna_client *client, u32 vm_pgoff);
->   
->   /* aie4_sriov.c */
->   #if IS_ENABLED(CONFIG_PCI_IOV)
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> index d9e2e71d3e05..3140af69e29c 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> @@ -250,21 +250,6 @@ static int amdxdna_drm_set_state_ioctl(struct drm_device *dev, void *data, struc
->   	return ret;
->   }
->   
-> -static int amdxdna_drm_gem_mmap(struct file *filp, struct vm_area_struct *vma)
-> -{
-> -	struct drm_file *drm_filp = filp->private_data;
-> -	struct amdxdna_client *client = drm_filp->driver_priv;
-> -	struct amdxdna_dev *xdna = client->xdna;
-> -
-> -	if (likely(vma->vm_pgoff >= DRM_FILE_PAGE_OFFSET_START))
-> -		return drm_gem_mmap(filp, vma);
-> -
-> -	if (!xdna->dev_info->ops->mmap)
-> -		return -EOPNOTSUPP;
-> -
-> -	return xdna->dev_info->ops->mmap(client, vma);
-> -}
-> -
->   static const struct drm_ioctl_desc amdxdna_drm_ioctls[] = {
->   	/* Context */
->   	DRM_IOCTL_DEF_DRV(AMDXDNA_CREATE_HWCTX, amdxdna_drm_create_hwctx_ioctl, 0),
-> @@ -323,7 +308,7 @@ static const struct file_operations amdxdna_fops = {
->   	.poll		= drm_poll,
->   	.read		= drm_read,
->   	.llseek		= noop_llseek,
-> -	.mmap		= amdxdna_drm_gem_mmap,
-> +	.mmap		= drm_gem_mmap,
->   	.show_fdinfo	= drm_show_fdinfo,
->   	.fop_flags	= FOP_UNSIGNED_OFFSET,
->   };
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> index a997d27a504d..84c8973e9197 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> @@ -57,7 +57,6 @@ struct amdxdna_dev_ops {
->   	int (*resume)(struct amdxdna_dev *xdna);
->   	int (*suspend)(struct amdxdna_dev *xdna);
->   	int (*sriov_configure)(struct amdxdna_dev *xdna, int num_vfs);
-> -	int (*mmap)(struct amdxdna_client *client, struct vm_area_struct *vma);
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
->   	int (*hwctx_init)(struct amdxdna_hwctx *hwctx);
->   	void (*hwctx_fini)(struct amdxdna_hwctx *hwctx);
->   	int (*hwctx_config)(struct amdxdna_hwctx *hwctx, u32 type, u64 value, void *buf, u32 size);
+Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
