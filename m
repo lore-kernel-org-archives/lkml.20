@@ -1,99 +1,119 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D49B38DC74;
-	Mon, 12 Oct 2026 04:18:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB1539A070
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791778706; cv=none; b=gjdZLdM71iPKqwAUJLJ9gd7OgA3aaB+xDdROYewOB4jBluOTg0RCcNhwIaXM0Tt57kxihWRBbtBkP3SfjpU/Vx5N0O9hwZsddjZlFPwAVu0iwDv1ZpbHojG4R9423R7c8K5YSmXcoxlBHDUOUkx6eb5h/ZmNiHFuxuwzXJtZVf8=
+	t=1791778770; cv=none; b=FnM/qFs4XhF6e8ytK5x6h8qjaySOMXTowyiV9VIA/DxAEhPAvmpHyWgNsFR6AbIQIFUiIp3I6w4GuJVqE8scuVX4oRs450Qk5Py9gN7JvJ0Y99tsfVv6QgZyNXM/KML7JY9VPCJ+MNIrZEOQ19l0saGtAJbqHBpxzCLaT1qEq70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791778706; c=relaxed/simple;
-	bh=ShqiIO+0C4dqBr7y0+/PYE+wO7QxUHXqzbfogHmVcFE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=otyahTLLlRXaHoxBDSIuu2PoEIGhuOXrNk2eTTZWvIfvCmjFkUPpQ3EF8Y7nHJ9p++dLnrptXOs0dIsk2DimAq4tceiujZkdNItaczZDFhzdvonkX2Bq43Hmk9aaMx2pZWTsGbzEizhNfIljUm8zqXBoZqa9zTB8c1s63CEmbMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Ys5Tgezo; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791778770; c=relaxed/simple;
+	bh=q9wggIScG0yYQHYBn8qso5oELnUyYQWG4oIpv6QMBcE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jp6QH2OxsBVhmMYdtmb1CZxF83EvGxiBJdXSIGhcBsbN+EwRIiq7kAThxtVTjjk35E+5oEJsQlRUgz6IEn2PyNaggLQhrbh21rhawXCDBL6CkPI4b2G4m6HuvHpDlSt5M2dWhpDveAqofe3BXAPVFZCjjtf3O02pL8wRTdqHIl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=jT/CAMLu; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Ys5Tgezo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=zy
-	4SkW+De5fmcOdbmplwsroUT0S8hLQyOd2wp72yl7A=; b=Ys5TgezoQAEMvy6n2M
-	c4Yrx6Cf7dGzhi9Gj7UN71xihdDXXzorA/nYr/Oob4+QuTWuo56uwTNx7oRqCTRE
-	KtQcCEa3YvLmhdqekEQ00/lPSy998SPHur1NONj5sqSHyvIUQfh6qCDHmrLgPwbG
-	lxi0rTIA8sX4fTgN+G7cjDkWs=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3_5mAX8xqgQIyEA--.14690S2;
-	Mon, 12 Oct 2026 12:18:09 +0800 (CST)
-From: Yongxin Yang <yangyongxin@kylinos.cn>
-To: rafael@kernel.org
-Cc: lenb@kernel.org,
-	pavel@kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yongxin Yang <yangyongxin@kylinos.cn>
-Subject: [PATCH v2] PM: hibernate: Log hibernation mode at S4 entry
-Date: Mon, 12 Oct 2026 12:17:33 +0800
-Message-Id: <20261012041733.798932-1-yangyongxin@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261010031903.123484-1-yangyongxin@kylinos.cn>
-References: <20261010031903.123484-1-yangyongxin@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="jT/CAMLu"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-353804b591eso2511201eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:19:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791778768; x=1792383568; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=efFkaQFetsAOpWM7VNvA0yYFgrxZuGTjrhnbsOnuNRI=;
+        b=jT/CAMLuUu3UuUVx17HX02eMHxxg7gAJdwJ95UHpzktwoGPrVwXfyaFVaq2OPw446V
+         KWPtS4WoyX/Nnsoqxy8Dc7BvS4xgYV0ATl6KHJ0lb2zdoQnzKClW1pXg7Z2hpARuNtg1
+         USIzHEN9V7u1WxFi5guo5yV1C7uO/Z31AKQIWDeVDP9lWkvF81iww+/gnRZCLqRcA1xV
+         zU5rmSJVJbHHg27rO2Mhn28/JiLL6t6uf2Sj8CIYOpQgsTDT7CcBLLs/okVKmKpZfP1a
+         jQSC502wZaI+qjccEQvk5i4nm9QuLp2tF0afkuCE5q0UpErTEl7rN7bHycmYDLpcQ/iq
+         fInw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791778768; x=1792383568;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=efFkaQFetsAOpWM7VNvA0yYFgrxZuGTjrhnbsOnuNRI=;
+        b=xL1JgmG2qX4cGSGWtGHqQZduBXxUCNvwnHi+uTySu0q0L5qjN3LGre72H1Y0bOHku2
+         wcIHhXVnivdNO4txJ1OSH4HVu5BAUgqUQ1DgCr414srb5kCjHNiIWW+ACmqwIceEWyxi
+         FWDAwrhpvFzFOwtyYgk9wiYdIAn8n/PPxKGDoGjU3LyJ792HvYFKXtipzvDlzWdyyBtE
+         xWWhlXXM4sCKWdZUaez70FNoWxUiMzK/Kon+2z4EPSqbWF8ntBeap/c6w3FWOpV4O0BT
+         1PiCL0Bq9DQ5K6FxUZrudcdJ9DqUZGaHojKKGi5+bXrOpTr/t0sUYfhfMyqmZXCxO7Zw
+         MV2g==
+X-Forwarded-Encrypted: i=1; AKwUvBywl7Gx1HuoMy9u5ronoU2JC0BnAeZfCS2tNAfNoG7fVDPKoXsTChIfBl3RSqvpVcMhTVe5YTyQNaK3mvA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjiw5va0fkxonjjuGD63qbwbSedDct8geQsq2jhowwGCQF2g9J
+	qPpeWHxCDjzIaTYJZ411foIfIKUxbqCM7YkGyauUNaSoQYh+D4XOGnMSAVQyEbQ6SqM=
+X-Gm-Gg: AYBFou1fYYJI5rpfAfi/rs9yIYD2W2tj7SCH0SQ5Q6YuCMEFJBk75sA4m6XkqNYdTbw
+	6EfS5Xa8/SXpxRN5FPMAWGXoWFd7Vuq35nXEX8iUps3RL1bQ4DA4HVUibRh4JfA3G1hVcPphySO
+	wfGNvu+J77lcjNqJwjOmBunsffTulx1HB6G9gP8U/S4ZQKm+aBlOh3+LbKqhV1XVROzjk3XNpI7
+	u+5LecReVl5KbKWadWBNM7yTnscAGOvY9CEy0/zbsJfUSIroalouba6AhcropT5GOi+tejA7hXj
+	+R6kZuvIrT1fBK17SDPwVxJBanFGc1QRKXh++Nv5KViOEoTjO9+d1sSNlKAANpwh9w2T2GGTqRz
+	af8kdaH7XzVmnPYSpwQKsEtNi6K7IBP9I8DYmZ7SK+a9qt9MwbcKXq3npPAPWUI1Nmld3GeqM+F
+	rQ5PwqpjfkMZrntR26gplPWbKRiX+tK2/sTdZmlUGYZdtpzo/iNAERp9TydBUx3y76Ya6ikfAJ
+X-Received: by 2002:a05:7023:a47:10b0:14c:1f57:3e86 with SMTP id a92af1059eb24-16a5f5ddf6bmr11356001c88.47.1791778767995;
+        Sun, 11 Oct 2026 21:19:27 -0700 (PDT)
+Received: from localhost ([122.172.82.240])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becefdsm25739266c88.7.2026.10.11.21.19.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 21:19:27 -0700 (PDT)
+Date: Mon, 12 Oct 2026 09:49:24 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Roman Vivchar <rva333@protonmail.com>, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] cpufreq: mediatek: Suspend at the opp-suspend
+ OPP, and mark one on MT8173
+Message-ID: <asxfzG7bNohf-gcB@vireshk-B250M-D3H>
+References: <20261009-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-v2-0-ba13f826eae1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3_5mAX8xqgQIyEA--.14690S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tFW3JF4rCF1UJFWUtF1xAFb_yoW8Ww1kp3
-	yqqr4kta9rZ3W2y3W0qFWrJF98Z39agw45JFnFgr9rArn2qa9YyF4SgF10vrWjk3s7ta1S
-	qF1qv34DJr47uF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Ud5rsUUUUU=
-Sender: yang_yongxin123@163.com
-X-CM-SenderInfo: 51dqwsp1rqw5tlqrjji6rwjhhfrp/xtbDAAHFY2rMX4EbWQAA3d
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-v2-0-ba13f826eae1@gmail.com>
 
-The S4 path is the only place where the kernel decides whether a
-completed image write ends in poweroff or reboot, but it leaves no
-trace of that decision in the log. If the resume path later fails or
-hangs, the tester cannot tell which outcome was requested, so a report
-of "S4 rebooted instead of powering off" cannot be attributed to
-configuration or to platform behavior.
+On 09-10-26, 14:44, Ryan Brue wrote:
+> mediatek-cpufreq has no .suspend callback, so each cluster enters system
+> sleep at whatever OPP the governor last chose. On the Amazon Fire HD 10
+> (2017), an MT8173 tablet that is not upstream yet, entering
+> suspend-to-RAM with both clusters at their highest OPP (2106 and
+> 1703 MHz) measured 63.5 and 63.6 mA, against 52.0 and 52.0 mA with this
+> series. Those are 15-minute windows of the PMIC's coulomb counter,
+> alternating with and without the change; one count is about 2.9 mA.
+> Earlier, on the board's previous firmware path, s2idle drew 210-232 mA
+> against 158 mA.
+> 
+> Patch 1 takes the suspend frequency from the OPP table's opp-suspend
+> entry, as cpufreq-dt does, rather than always using the lowest OPP. That
+> keeps it opt-in per SoC: this driver also runs mt2701, mt7622, mt8183,
+> mt8186 and others I cannot test, and no MediaTek table has opp-suspend
+> today, so they are unchanged. Patch 2 marks the lowest OPP of both MT8173
+> clusters.
+> 
+> Patch 2 also reaches elm, hana and the EVB, which I cannot test either.
+> What they get is a switch to 507 MHz in cpufreq_suspend(), which runs
+> before any device is suspended, so the regulators it needs should still
+> be up. cpufreq_suspend() also runs from device_shutdown(), so reboot and
+> power-off switch first as well; on the tablet, reboot -f still resets in
+> 1.4 s.
+> 
+> Patch 2 does nothing without patch 1 and is harmless on its own, so the
+> two can go through the cpufreq and MediaTek trees independently.
 
-Append the mode name to the existing "hibernation entry" message, so
-that line reads "hibernation entry (reboot)", "hibernation entry
-(shutdown)" or "hibernation entry (suspend)" instead of a bare
-"hibernation entry". The name comes from hibernation_mode, the same
-value power_down() later switches on (1 = platform, 2 = shutdown,
-3 = reboot, 4 = suspend).
+Applied. Thanks.
 
-No functional change.
-
-Signed-off-by: Yongxin Yang <yangyongxin@kylinos.cn>
----
- kernel/power/hibernate.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-index e365e440cd52..2a285d29cbe3 100644
---- a/kernel/power/hibernate.c
-+++ b/kernel/power/hibernate.c
-@@ -794,7 +794,14 @@ int hibernate(void)
- 		goto Unlock;
- 	}
- 
--	pr_info("hibernation entry\n");
-+	pr_info("hibernation entry (%s)\n",
-+		hibernation_mode == HIBERNATION_REBOOT ? "reboot" :
-+		hibernation_mode == HIBERNATION_PLATFORM ? "platform" :
-+#ifdef CONFIG_SUSPEND
-+		hibernation_mode == HIBERNATION_SUSPEND ? "suspend" :
-+#endif
-+		hibernation_mode == HIBERNATION_TEST_RESUME ? "test_resume" :
-+		"shutdown");
- 	pm_prepare_console();
- 	error = pm_notifier_call_chain_robust(PM_HIBERNATION_PREPARE, PM_POST_HIBERNATION);
- 	if (error)
 -- 
-2.25.1
-
+viresh
