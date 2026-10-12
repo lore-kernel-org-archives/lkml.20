@@ -1,190 +1,123 @@
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net [217.70.183.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6146B3A6B66;
-	Mon, 12 Oct 2026 21:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791841745; cv=none; b=MCR50mYXC2g+3Ss+OA+tPJOYVJDZKgtr/J14HOVJFm5Kk/LcpUyGjdREm/ry3ARjGGjcvvIhMiDivuXN9uR6cosjWezzKCgDBrhgm1pgzgRHRDGorCCVLbhVjLVuTK8aa5U6RGlNfjoj5IbvspZ6YpL5e7PLq08v9Y+Kva+J3aE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791841745; c=relaxed/simple;
-	bh=9O+S18ohAa+SRT4nMaiVCkc2ADc0xfm/vCDAJ+1cTq4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YH22WY3oeoThtfKM+nhztHZP3m9n4vXHQB/ZUUA9Lnt1XgwKIyfcti6rw6kgfQhmNr30pFHmN5ASUYQ/tnlZskBq0UhwVmx/e7en75HHtzkB//lgZx4rwJjhHnpSz1cB2oaprqpE1nQpYfeTwRlSbdYFlDs5wpMbJGT0I2B3Hdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=gLUx9aJu; arc=none smtp.client-ip=217.70.183.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7C63CAA55
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:49:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791841782; cv=pass; b=SsJTnepkC+E0R9IX6Q8gP2agBw5m0cmqQyrySzeG5W1dVA3t4IWcDq8Yk3uQNK/xxruqgnh7MidoPqwH94BOWp/FAG89LV07AqYs0ESQxu/Eapt9+rB6t/ptgNEUsIL0HgnuV5jV7YkmBfQPQzkWkWIP5Gaqtsk24wrHTkhQqGg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791841782; c=relaxed/simple;
+	bh=F7Bf62sHsaul0v1F9+XvEQQt1rpIakpJfffk6zIiLPY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BRcTBhwOMLNzSx1oVtXpg8dKH+fOlquHxsS0wd8xqNUT/4nSsWHxqmpksRyMUB15fE2n/nDELLrJl5E5aezpFkSvx730k9IN8zFhgfU573r6ktYwOPjVOGgWwnxlq+FOrrek3nG/Ni2wHuOLV9L5EPD0Mcz/n/6qjXY9eQQvOwg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lrDXj1ck; arc=pass smtp.client-ip=74.125.224.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="gLUx9aJu"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 3B0C93E999;
-	Mon, 12 Oct 2026 21:48:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
-	t=1791841740;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FfsCaxlmAmcvq19B1+qtzJN0P3yMbGAFyPsksLli2yQ=;
-	b=gLUx9aJuNgxFyIUIbnYuPTldKuqQCfbTPojdP3mwZ93EriGQcTnFMRp+zPDsFxQgCrfe+U
-	U2rHqdcwbDnAg70FOfjfgH3LD0z+4blCpeSwllqODTv7wbXAxMY7f+iMf/0kl9KvwINhiB
-	71jEQN5B9P7w12Gb1NKVQuNuGUHcYX8MTIjLvJ2NvQIZ69WEuRFQRiAmnn9RVeNM3ZIGCc
-	whm/68RVLbrGmLHZawkt1m+5dj1z2fGQYsTONafbeyrYmIuP4xOaCGhjjiJLTbUaiIUWN/
-	SiVEYsvAezZ/Fnqppa7ljaTtW+p+CmQC01ghcV3djHkrw+qGfNtkVz2mx2Q3zQ==
-Message-ID: <d3237240-0de8-46d4-b58b-5a3a12fe4840@gtucker.io>
-Date: Mon, 12 Oct 2026 23:48:57 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lrDXj1ck"
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-6790844c9b0so1616220d50.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:49:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791841780; cv=none;
+        d=google.com; s=arc-20260327;
+        b=efkq8qjNaseORzkRiJfvpX6/xBvuUAlINYiAYV1MZxk49EluQ5zHU+MSNQUyU625AO
+         wK+PP02apyt95l7Tt13RE1mqMA9AcCLZbu92y+CBlyy0Ea/MUGYFjFHyy9FjOKqnrrfM
+         P+D1q47v2GtknPzaVSbRXorefe4xdk5RjHin+tuemNGtaHSiK696veKZ2dA5TmkBJFX8
+         N5bmVZjuDllzp+0z81VIuRjTl6jIpn8H88G231PqI4TwAOjlUejyoTV5XyH+93F1h9ZI
+         UP0esqF8LrYwiNV9MdHzh/WsnLeRROR8cdtalPU61Mi0mn+XjrNAehukCSVy+bXOkrUo
+         O8yA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=F7Bf62sHsaul0v1F9+XvEQQt1rpIakpJfffk6zIiLPY=;
+        fh=u1KgfbmFJuj5TTW4EdszapfG5WzYTsef8LQI1/VG26w=;
+        b=I6UFdDPjrsnUFcxejlc13ovpJMc/LhRELbPfLzmUDquUKNlGc72c+d1ibeX4Dgj+xy
+         Xd/kmlfHZktxQTXnPf1C9B0bjBfGrUWR0FJZifpvH6FDUwE8+U6zjV705QwcwDZG+gcm
+         1E54aWKo97/h8a/+Zbb24ACXljvOG9t3ZC26Yc7whjXH68/OZYu+jBSdlZnrU967usLR
+         EbEDLNYlybJijOB27OePqpRl6b2s/T6FqQeRQYO5LlzNeSeLft+3DfykvoUF56mFSIun
+         RbTdqvF+AcpCa0vI/odh3N18OaBbfeTv8t6Fo1rMZGvUk9mcm+A9sd7SD6/syGOw9kGc
+         HcKw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791841780; x=1792446580; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F7Bf62sHsaul0v1F9+XvEQQt1rpIakpJfffk6zIiLPY=;
+        b=lrDXj1ckKQN9sdh5pNMzq0VynDjPentnknB0wENtX5XMQaiATTvRCKJMKr4nEmRLpv
+         60YWwNqUMu6rPnmsa8lVRmC7/HycnRz3uHDX5BofrLcYa7PwziTco0QQyQUUg8FoSK3J
+         f/zy4v93CIF8cktHaWBZt4c/g79/4rTUrUVCGqo0hwwJJTINCS/TlZC0Drz/bzjBUvx+
+         R9jqU/ygUGWDTo3d14O430owyCtsgTtKMbyy1mgywHdK+K5zIpTRRpPF5cuB9HZgOHzg
+         DKPLJJvOiQ+vaaYQkhZZxH8T8HVQTRcHFJdap8aG3v28/4E8JCLbdFowVDCyulEyWnNc
+         ydww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791841780; x=1792446580;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=F7Bf62sHsaul0v1F9+XvEQQt1rpIakpJfffk6zIiLPY=;
+        b=Hlg62QrqmB0lpeKgppsWYYKBJ83Yh3F4qC6eKkaISWkJI3+s32OG0E4sRJikFQSQ+T
+         ETqwX3L/RTlQgJH0fCpxbnZ+0YZIBcQmWGlbgdNCArJrp4u2xNR4Qvci1dxTwD/dvTkQ
+         e1jIMq+xdmjgzb0/fSQGoQbMqdkgWKeT6rIN5jihV78rLFpeGpZWi6CCZ3RR3De443Gg
+         DrFkvjL5BT7PIVopMH5eWGIX13FJfYDEoOAyoEfOmpzY8EFnKwPy2ug0pBPiudouEsej
+         zy4dDK445/Rr4GxnsURwqUuUrhMv0lxxjVMzkK50IE4qDxaoQc6YPk6VoY7blIT7wK7D
+         oj1A==
+X-Forwarded-Encrypted: i=1; AKwUvBxI5B959f4bVAVH3R4r2nHEWiOnf7oDRvjvJZmsHlyMftUS+vWLVYktACEyYGRvw+3vvILAnZKLvb4ycU0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBAdC6kB/TJlyOenFsbaU0TupbGLg8HDQ4pDC+b2AuQ4QVy8r4
+	AUE3j64KovWvHzrR0lhbyp8XdpdVJUbY+Sf8R1OxGoCem6kDI1z9hjAevvPiDKhReoLLBY5LCLu
+	vGTVakJN8RP8HPBuI9GLz5PrSVmhMr1oqPA9lGc4m
+X-Gm-Gg: AYBFou0HJh0RFaAXG4yIenf5mRDhvqd681grZZbkES0v2yYxi49l1gKLZPq+yzrUKRj
+	EivBKfsyIycDsCcrKHwEWQrkWgfcDFGPc8rB8LpHaZtSO0s/j2sNyaOL6kyA7RXlfTZZIjbWUgf
+	adT9a81HoeLuwaBMMwNrdO2tcpovLQ+pIa3VuPbnVS+e2GBrqpU58kf63+L5BtpX8v0diHWa7z5
+	V2tBNxfOrMIE1g5CxjeOL4vKQ6sNHznQrgghQThaRnKRCjndckLzNROFAz2M63wfv81UOCy1c2+
+	AqTtzDDRjt3hIg2atgQaMg9OaoIqoHmc2vSBvKV/4S4kqAn+SJESHU6lI0Ppn8IkXwP0BQYIEuh
+	dtbcwKewtQg==
+X-Received: by 2002:a05:690e:4186:b0:679:2a5f:52e0 with SMTP id
+ 956f58d0204a3-67936ad3896mr3031391d50.94.1791841779960; Mon, 12 Oct 2026
+ 14:49:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] Documentation: dev-tools: cover registry option in
- container.rst
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Miguel Ojeda <ojeda@kernel.org>
-Cc: =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- linux-doc@vger.kernel.org, workflows@vger.kernel.org,
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <06ee7c694c3e9716bff5c9b1b8e9dc95cc0b38d3.1791751900.git.gtucker@gtucker.io>
- <d7d6735e4b287ae0cb6f873ee8763820cb6e1d7e.1791751900.git.gtucker@gtucker.io>
-Content-Language: en-US
-From: Guillaume Tucker <gtucker@gtucker.io>
-In-Reply-To: <d7d6735e4b287ae0cb6f873ee8763820cb6e1d7e.1791751900.git.gtucker@gtucker.io>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-GND-Sasl: gtucker@gtucker.io
-X-GND-Cause: dmFkZTE0jojyXgEUHXX0d8eRXkelO3JGbn4IXQXnMYmpdj9XbD/qUxwqWX2CDnIQN6FbJQVWtTd5mStCLbA8n5c1DZ4t+eaSIA1GBTKssV75K0AdeuwX+qA2VQcc8l0PeC1pYz9ofLjXNqTkiROngoLbdR5/2jAsEHYKKDqPjq6WryD7YCL+9O2Euhofp5Vk6sfe6EBXFSYXCGSdSUSfXjJaGDpL5080jPTQiQ1oBbBNJ+cRGOTT9LarMwITY5qt9LfLju6Lqx49ITD8NjllaG6p05txA9FILob9OQ9450XNJe5Fx6b4BCUFTqkbin3p1PeI0Vb3OEgk4heo98PwBCdF35GnNjGy7FQAhJOu9lwl2R5YWMZOr7oVNsynRVWZG0MRFRK77d09euIYVDBmQxX2BRBmBR1rWAQUnqcVo+8S5E/Z2Jg9kj6BiqcbHASvwZKq13foxPziMvbMsoZ5W+z2mB/7ygRwPFtFF55bChQkUV7aLI9BHQMgo0HVLnedcYywyiuRirsMEZRXKx9p2Km5UmwkLm22rwy8tMc10oW26y152FU2vJwLmFWi7rXwoaTaKHHkPTPfI8+2fksAhR3dlpVn32/AIcUQeiEOlc7cB2Ox2qPWo/iDm2WlEfZ1LzMn9KbqSki2n/wqN9cRag88eUAQy9nxeBD2XAZBkk7lRDmZwQ
-X-GND-State: clean
-X-GND-Score: -100
+References: <20260921230603.2518652-1-samagazaryan@google.com>
+ <20260921230603.2518652-4-samagazaryan@google.com> <araSUuwTSx0aIuDp@lizhi-Precision-Tower-5810>
+ <22623823-a2c7-4627-b123-12d1baed0e93@intel.com>
+In-Reply-To: <22623823-a2c7-4627-b123-12d1baed0e93@intel.com>
+From: Sam Agazaryan <samagazaryan@google.com>
+Date: Mon, 12 Oct 2026 14:49:29 -0700
+X-Gm-Features: AclHuK-u983zXDJaYfr4f2s0wFVToPP9tOVKNN3Vc-Sa_lJ8nkqL5rmnPK1aDb4
+Message-ID: <CAHreonGHGeg-SqA-OwyLKUy_Do-x16H4_ce6J8ndYkuyE2Dotw@mail.gmail.com>
+Subject: Re: [PATCH v5 3/5] i3c: use actual_len for read transfers
+To: Adrian Hunter <adrian.hunter@intel.com>
+Cc: Frank Li <Frank.li@oss.nxp.com>, linux-i3c@lists.infradead.org, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Meagan Lloyd <meaganlloyd@linux.microsoft.com>, Vitor Soares <vitor.soares@toradex.com>, 
+	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>, 
+	Boris Brezillon <boris.brezillon@collabora.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/10/2026 10:54 pm, Guillaume Tucker wrote:
-> Add the corresponding documentation entry for the new --registry
-> command line option and TOML configuration file.  Update the examples
-> accordingly to show how this can be used to override a registry name
-> already defined within a default image name.
+> Also i3c_dev_do_xfers_locked() should probably clamp actual_len to len.
 
-Sashiko wrote:
+Done - fixed the missing rx_bytes line and clamped
+actual_len to len in i3c_dev_do_xfers_locked() in v6.
 
- > Does the patch contain these examples?
- >
- > The commit message mentions showing how to override a registry name
- > already defined within a default image name, but the examples added
- > in the patch only show overriding the registry setting in the
- > configuration file, not an embedded registry within an image
- > string.
+>> There are not dependence, suppose mctp-i3c.c change go through other tree
+>> It'd better use sperate patch to fix it.
+>>
+>> Need fix tag.
+>
+> Isn't mctp-i3c.c dependent on the len -> actual_len change in
+> any of the master drivers?
 
-By 'default' I meant an image name that would be used without
-specifying it on the command line with the -i option.  That's not the
-same as the [DEFAULT] section in the TOML file.  But it's true it
-could be clarified by mentioning an image name from a profile section
-instead, so I'll reword this in the v2.
+Yeah that was my reasoning for adding it here since we're converting
+all drivers to stop overwriting xfer.len.
 
-> Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
-> ---
->   Documentation/dev-tools/container.rst | 33 +++++++++++++++++++++++----
->   1 file changed, 29 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/dev-tools/container.rst b/Documentation/dev-tools/container.rst
-> index 5dde95f6b222..3f2ba1fcf3bf 100644
-> --- a/Documentation/dev-tools/container.rst
-> +++ b/Documentation/dev-tools/container.rst
-> @@ -48,6 +48,13 @@ Available options:
->       Profile section to use in the config file.  This will override any values
->       defined in the ``DEFAULT`` section.
->   
-> +``-R, --registry REGISTRY``
-> +
-> +    Container registry name.
-> +
-> +    Any registry already included in the image name will be replaced or removed
-> +    when using this option with no value.
-> +
->   ``-r, --runtime RUNTIME``
->   
->       Container runtime name.  Supported runtimes: ``podman``, ``docker``.
-> @@ -274,6 +281,15 @@ Supported options in each section are:
->       Name of the container image to use, equivalent to the ``-i`` command line
->       option.
->   
-> +``registry``
-> +
-> +    Name of the container image registry to use, equivalent to the ``-R``
-> +    command line option.  This will be used as a prefix before the image name
-> +    with a ``/`` separator.
-> +
-> +    For example, a ``docker.io`` registry and a ``myuser/myimage`` image will
-> +    result in ``docker.io/myuser/myimage`` as the full image path.
-> +
->   ``runtime``
->   
->       Name of the container runtime, equivalent to the ``-r`` command line option.
-> @@ -288,6 +304,7 @@ Here's a sample configuration with an extra ``clang`` profile::
->   
->     [DEFAULT]
->     runtime = "podman"
-> +  registry = "docker.io"
->     image = "tuxmake/korg-gcc"
->   
->     [clang]
-> @@ -306,10 +323,18 @@ Using the configuration file, it can now be simplified into this::
->   
->     scripts/container -p clang -- make defconfig
->   
-> -Then to override the default user, the ``-u`` option can still be used::
-> +Then to override the default runtime, the ``-r`` option can still be used::
-> +
-> +  scripts/container -p clang -r docker -- make defconfig
-> +
-> +Likewise, to override the registry name::
-> +
-> +  scripts/container -p clang -R my.registry.com -- make defconfig
-> +
-> +Or to not use any registry at all but only a local image::
->   
-> -  scripts/container -p clang -u0 -- make defconfig
-> +  scripts/container -p clang -R -- make defconfig
->   
-> -This also illustrates how values take precedence over each other: the runtime
-> +This also illustrates how values take precedence over each other: the registry
->   is loaded from the ``DEFAULT`` section, the image from the ``clang`` section
-> -and the user ID from the command line ``-u`` option.
-> +and the runtime from the command line ``-r`` option.
+Also, will add a Fixes tag for v6.
 
-Sashiko wrote:
-
- > Does this explanation still match the example directly above it?
- >
- > The text explains that the registry is loaded from the DEFAULT
- > section and the runtime from the command line -r option. However,
- > the immediately preceding example is "scripts/container -p clang -R
- > -- make defconfig", where the registry is explicitly cleared and
- > there is no -r option used.
-
-I see the issue, registry and runtime were swapped in the sentence.
-This would be correct:
-
-     This also illustrates how values take precedence over each other:
-     the runtime is loaded from the ``DEFAULT`` section, the image
-     from the ``clang`` section and the registry removed via the
-     command line ``-R`` option.
-
-I'll fix this in the v2 as well.
-
-
-There were a couple of other comments already addressed in the first
-patch about using hostnames rather than domain names, so nothing
-further to add here about them.
-
-And if anyone is wondering why it's useful to be able to override the
-registry, a typical use case is when making modified images locally
-before pushing them to a registry or when pulling images from a
-development registry instead.  Say, in the TOML file a user can set
-some standard images to be pulled from a public registry.  Then when
-building a variant of an image, the user can just use the -R option
-to pick it up instead of editing the file or duplicating profile
-entries.  Validating the image names seems useful and it's a small
-extra to be able to override the registry part once it's all parsed
-into objects.  So it seems worth the extra few lines of code.
-
-Guillaume
+Thanks,
+Sam
