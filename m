@@ -1,65 +1,112 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDA225228D;
-	Mon, 12 Oct 2026 06:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A38D25228D;
+	Mon, 12 Oct 2026 06:40:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791787232; cv=none; b=TVaZmS3GbXDIijje8tAGQslLvg1cwh5/TaL+H3ygDG2U0MtaVIixyLMnOlTJLEzdTmiD2u/aOjVtulWSj0aLKkd1KvvWRWLPLMwCSe36u9bK6/lY3YnWDgGqYBWbMhtcOPrGQCYyNZV0MbAop0ak+L+gJpLSe2kyOM//Z8spzPs=
+	t=1791787238; cv=none; b=BA+94W9jatcW5iYNhKyvFltEoKu50NjtprigpdKSN4egtKuglZphMtfU1eacGvU3WDvzCnjkqFzuj9P9vqAAM1gQDFumB+UT97F0DGvaC0LGWyBYybIYY1jeNvbF9B9cxYPlGQnb6/uTYV6d0uWmn/1WTEmY6MR+nHzzKkwruYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791787232; c=relaxed/simple;
-	bh=jzqAnj9dQp7NNHUBLaKUmEe9895MvJL714GIHZiesNc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=vGr/PdP2WwifYztgy/W7FE1QAYOGF6k6cDkGHIE+yCYnwYdH7K2WYnud4n0c0WrUQfWqPFffMpRnueZUiAGlnjy5BcKldqN9V6dYVQ/vXcLLmIvd2gG/VDQH8agS+tq+2FzUwdhC4xlol7hsX2aHBMBToMLMcNBoyWGxxmD7kMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
-Received: from Vostro-3710.. (unknown [14.220.232.127])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 50af51f8a;
-	Mon, 12 Oct 2026 14:40:17 +0800 (GMT+08:00)
-From: Chukun Pan <amadeus@jmu.edu.cn>
-To: shawn.lin@rock-chips.com
-Cc: amadeus@jmu.edu.cn,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	heiko@sntech.de,
-	krzk+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	robh@kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: rockchip: Add Radxa E54C
-Date: Mon, 12 Oct 2026 14:40:10 +0800
-Message-Id: <20261012064010.1837103-1-amadeus@jmu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <4903cefa-4926-4bae-93e9-1165bb9ae646@rock-chips.com>
-References: <4903cefa-4926-4bae-93e9-1165bb9ae646@rock-chips.com>
+	s=arc-20240116; t=1791787238; c=relaxed/simple;
+	bh=+hh4i2moavrGqPX1n2c2RQbAaD9fjE5awV5cn9mPTwY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G1phZvRKGRtVi1Hc+kedRuc51/LeofVb47932VM9rbOgLle9JiIa91AFaqJPcMPyRvCzmY/rQ2nY294znBHARn7vALT3JANetLimxsLgJ2Dv2eCkoaGBF7o6zZ5lfPnlObfYzSv1CvXVgy+Qeql7XXzJt68OCUkNOQTkFiqQm+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fXdRBOaM; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fXdRBOaM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 982AE1F0089B;
+	Mon, 12 Oct 2026 06:40:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791787237;
+	bh=+hh4i2moavrGqPX1n2c2RQbAaD9fjE5awV5cn9mPTwY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fXdRBOaMG4LWZ/2UNKOjJHXzXsjEEdugfLfJYCZGs2lMAQVa2x7W+HihvaplfEacq
+	 7IbI+fvuLpPPZAeu2/21ZUbXm0jO8tNgsefFbWZPZeo3rryEwk7zayhX6jf9HUjtn/
+	 WnlFpv6C5Hv9nQSTySBgN/AnvwMVShGffMJDl5l46fP/jRWeY2csVxwP/ZyOz38yZL
+	 JNSQeIkRmDrZ+FBwUNp9v5FnV9/XjE3e6TZ7zHOYF3KRR6vAGspQ2jaojWVxTTURB0
+	 rLa5R1i+nzS0xFDtZzTUTED+qgJd/qQV+Gt/WPn8Rexq+NWIAIHFE6/zAo1JxZpRfT
+	 wLDQHjABJtivw==
+Date: Mon, 12 Oct 2026 08:40:33 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Val Packett <val@packett.cool>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
+Message-ID: <asyAObcpbFy3OeE2@houat>
+References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa12ed733ee03a2kunmf7c7b69346eed7
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGUsfVhpPTEJKHUpNSE0fGFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpJTFlXWRYaDxIVHRRZQVlPS0hVQkJJTk
-	tVSktLVUpCS0JZBg++
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="hjbswlulvbwt55yj"
+Content-Disposition: inline
+In-Reply-To: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
 
-Hi,
 
-> I was checking all PCIe part of rockchip dts files and wondered why it's
-> marked as an always-on regulator. But if it's actually not, it'd be 
-> better to improve it later. That would make reset rootport mechanism
-> work better.
+--hjbswlulvbwt55yj
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
+MIME-Version: 1.0
 
-Please refer to page 21 of the schematic[1]. The 3V3_PCIE regulator
-is enabled by the PMIC and cannot be controlled by the kernel. So I
-think it's correct to mark it as always-on.
+On Thu, Oct 08, 2026 at 04:14:22PM +0300, Dmitry Baryshkov wrote:
+> Panel drivers don't have an atomic state and so they can't handle
+> additional data to be stored at the atomic_check time or to be retrieved
+> at the enable/disable time. For example, it prevents panel drivers from
+> supporting multiple display modes or making DSC being optional in a
+> clean way. Drivers like panel-novatek-nt35950, save the connector
+> pointer in get_modes() and later dereference
+> connector->state->crtc->state from prepare() without holding any locks.
+> The panels also have no way to reject the configuration they cann't
+> handle, as it doesn't take part in the atomic check.
+>=20
+> The panel already embeds a drm_bridge, and the bridge has an atomic
+> state which is property handled. Subclass it to provide atomic state for
+> the panels. The callbacks can find the state of the other related
+> objects (e.g. CRTC state to get the display mode).
+>=20
+> The atomic state is opt-in. A panel that doesn't implement the state
+> callbacks keeps working exactly as before, with the plain bridge state,
+> so there is no need to touch the existing drivers. The panels which do
+> implement them can only be driven through the embedded bridge, since
+> there is no commit to hand over when the host calls drm_panel_prepare()
+> and friends directly. Those entry points warn and refuse to handle such
+> panels. There are still a dozen of display drivers calling these
+> functions, and the panels used with them can not be converted until the
+> hosts are switched to the panel bridge.
 
-[1] https://dl.radxa.com/e/e54c/hw/radxa_e54c_v1.2_schematic.pdf
+I really don't think we should extend the panel API. All panels are
+bridges now, consumers only care about bridges as well, and the bridges
+API provides what you want already.
 
-Thanks,
-Chukun
+Why not simply turn the panel drivers we want into bridges, possibly
+with a bunch of specialized helpers to manage a panel state, and call it
+a day?
+
+Maxime
+
+--hjbswlulvbwt55yj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCasyA3QAKCRAnX84Zoj2+
+ds8VAX4iLOr+i95wQQ2TEBtzi+Nu8K8umIW4GcZ4OjJ36hZ+u+qwcByShXAbYA53
+8a6SJLMBgNYv/aCiJAjGcMe8sPjtzRy5XUqYsKrIHhZVX29GqIkmxtUxqNgYWrUF
+Z+ps/5hToQ==
+=SZYX
+-----END PGP SIGNATURE-----
+
+--hjbswlulvbwt55yj--
