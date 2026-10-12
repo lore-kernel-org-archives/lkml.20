@@ -1,366 +1,135 @@
-Received: from mta0.migadu.com (out-5.mta0.migadu.com [91.218.175.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C87644BB294
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:46:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9244A8435;
+	Mon, 12 Oct 2026 15:46:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819969; cv=none; b=tk0B98NXlX1+0jOxpzubdMoOBin37MACcvA+LeKum5ivXfWp57iPgo595Out+OU5DVoZmLS8GFJ8+8gb01UOgHfMmpW+sq9RSUbECosgSlCFMxyJAfm14yYMRRhmudvRIsm8+pQPpC1XJswWGKyQ/RjUbXr6u+RBxpl5VSm7rQo=
+	t=1791819980; cv=none; b=Z+A+zBsC6llwX78cje5KR8vHXgKvXFwSl9HG404vJn9f/c6F+0lROnAd1bCkCEirMi2T0efQaapDl7Ie7iurXLavnGtBTeFQXmaBQst/n4xpqyl6638F3eFLo3gjmhKHCQqbvu1rwVVEIoxydydfEDxBXsd/teiUHFSyBd6WYvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819969; c=relaxed/simple;
-	bh=KvRZvRz3NhpBkGwqE7ktqm26nu6cQsva4SgdJGpByuc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T8nNgDFURh9lV3Y5aLjPPiCtnLOYxq01Ora2duDr5LgDfqGGjqZ3eGvtaNvIF7bStNingP2UEIxP27NPxAN+/dVfPaV/86dvy7wf/TECmzknDh+kiD8PaiFXGEjGtf1XNuUNI98k1aP+olT86AaMTmduJI54C/59xXqYnJxrEco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=m1QCQGEj; arc=none smtp.client-ip=91.218.175.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791819980; c=relaxed/simple;
+	bh=/pmaFO0/r973GUxNK0BC9x/YwBobKQEpEqwEyNX/hFQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bLIPz7pBQwiazQQnlfY7uH1tBo284annB5qxA2IQBOTvP2r/H3wraLyWBmU+fHzYmqmRNK0wJrWk604tvtNeH5dxLfMRIAZaFQhbmSbRAgdDD2Igl3JSBx2tT4ZYuNLou5huYwbenJ0ghiNv9j3WC5BIebCrw4ZoOg2OphfaoDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BpoZHBQ3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="m1QCQGEj"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=KvRZvRz3NhpBkGwqE7ktqm26nu6cQsva4SgdJGpByuc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791819964; v=1; x=1792424764;
- b=m1QCQGEjbWdqoB4CBTtFOaGtLR6t0gKlDZH13S7iu6m+Ie/G6syucTqPTBs/o6mz9E1NYgJh
- HE3rMkoVksIGeCYub1Z1DQ7/8vXSoFVS5IvzJVBjdgKnOqbDMR/GJpAvKH2WgfYcDtmQe22Nlv6
- ttFtWIug0dsyJtZfZ5A/kFHE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2e51c42e85681683;
-	Mon, 12 Oct 2026 15:46:04 +0000
-X-Mizu-Trace-ID: 2e51c42e85681683
-X-Migadu-Flow: FLOW_OUT
-From: Leon Hwang <leon.hwang@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Quentin Monnet <qmo@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Leon Hwang <leon.hwang@linux.dev>,
-	Mykyta Yatsenko <yatsenko@meta.com>,
-	Avinash Duduskar <avinash.duduskar@gmail.com>,
-	Anton Protopopov <a.s.protopopov@gmail.com>,
-	Amery Hung <ameryhung@gmail.com>,
-	Jordan Rife <jordan@jrife.io>,
-	Rong Tao <rongtao@cestc.cn>,
-	Eyal Birger <eyal.birger@gmail.com>,
-	Pu Lehui <pulehui@huawei.com>,
-	Jingguo Tan <tanjingguo@huawei.com>,
-	Lin Ma <malin89@huawei.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf-next v2 21/21] selftests/bpf: Benchmark tracing_multi bpf progs attachment
-Date: Mon, 12 Oct 2026 23:40:23 +0800
-Message-ID: <20261012154024.29423-22-leon.hwang@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261012154024.29423-1-leon.hwang@linux.dev>
-References: <20261012154024.29423-1-leon.hwang@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BpoZHBQ3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09011F0089B;
+	Mon, 12 Oct 2026 15:46:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791819979;
+	bh=etgzfBpuaaj+cySZG8Ntkb7v7DpcXVXb4LYAEZaIZto=;
+	h=From:Date:Subject:To:Cc;
+	b=BpoZHBQ38wo3x0mhzk0kwn6g36OoW8AMGYsKUwPoVGDRdoc/zfu7oprOZBXGrE9xk
+	 thlmDeJC5JAEhRYhEHvBV4xkZzV23ZtYuj+BKDaKADj5P/8UycDZrGdxIW3FV5FxUE
+	 UneXk42MOqmSdWOcz8cYH2mey+pG5EIfw3LJ1a1KKme91VhdB0Wl5I8Lwe+T8PFGfb
+	 wa7VK7pvFOlDbaT4iuxtaIT3oun4z71XISttdcqlZ+MSHp0DFJQFxn+FBMdyzaRjHS
+	 QguwdT2kEyk2gYS5Yhw/E7pJCSxNFzEPJAnMDhfwlMPqgKegywJFDH9V82Ejqn22vc
+	 9mZN9B2Dm8ddg==
+From: Jeff Layton <jlayton@kernel.org>
+Date: Mon, 12 Oct 2026 11:46:10 -0400
+Subject: [PATCH] f2fs: opt in to multigrain timestamps
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-mgtime-f2fs-v1-1-a934ef646c44@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDC0NT3dz0kszcVN00o7Ri3cREk0Qjg5REw2TDJCWgjoKi1LTMCrBp0bG
+ 1tQCxYb6JXQAAAA==
+X-Change-ID: 20260815-mgtime-f2fs-aa4a20da1c1b
+To: Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>
+Cc: linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2320; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=/pmaFO0/r973GUxNK0BC9x/YwBobKQEpEqwEyNX/hFQ=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBqzQDKQP+W13Upb7oA1KbdCiEVR3HC6BiuiTeWH
+ NgRNDXgupOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCas0AygAKCRAADmhBGVaC
+ FUrCD/9mwE8gB6f33Dy6XBwn5SIS4s0tpENweEU4JT8G65ZuB57NNC6O0T5nAfyr1Cg0EmuuKjV
+ h/Yb4yixHrDpCKYuMQ4uVhvwloRZx+vkj64qAV8s2eMWHDjJkF8UEmni1GordMh966wlajTm1vf
+ +LH5z3KnXx9lC0yQlpHbrgnx/8tEQStYfWsk2cOR5B9GN7hXS54f2kpChoDsWnVVo4st3kICPor
+ KXym54AMayJ3gO7Egmi2vLvRcjhkpJ3IW5FRgI2k6DGgBgWB7OLt/zee5h/lR8GWtOd3vBoeUTI
+ VQLRAzSewNAgUtaXaI9Bsa17RQ5eqXC3aJsxFuUypfqoUAOvOnS/YWvw/i9I5RePyFXTpi6uXj3
+ z1DK4FzTXstDwzxXEu1iLS6KvlEVP1BvEvipkiClIUra4KkMjXXQfEYA4E5fyRSo4/kubhOsnYX
+ araUa8XZAruPDypwE8BvcIQuS7qaIPHQbGqrx4UTRtfMbkBJ1Gt4cTdPCf6WVKq3rxczmJxme58
+ 8WnLOAs/u7aYd9GYPNz4j1KW1ZSOJoeJMZB1NsqpBU3St6MfKF7XzSlhAOVm7KM9b9ScaDw89+L
+ goWJNcFDkkaGqUZ+F/B04B7uqf7ZF3dsI4aYvMqEHRcnqDBVIfCpHaQbuewcABDWi24iv2YZ1tG
+ ifyBShBLq1gl3FQ==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 
-Add an x86-64 one-shot generic benchmark comparing 1000 individual
-fentry link creations with one fentry.multi link creation for the same
-1000 bpf prog targets.
+Set FS_MGTIME on f2fs_fs_type.
 
-fentry.multi is much faster than fentry when attaching to 1000 targets
-on a 16c16g QEMU VM on an AMD EPYC 9745 server.
+f2fs meets the multigrain requirements:
+- ctime updates use inode_set_ctime_current()
+- f2fs_getattr() calls generic_fillattr()
+- f2fs_setattr() calls setattr_copy()
+- s_time_gran is 1ns
 
-./bench tracing-multi-attach-progs
-Setting up benchmark 'tracing-multi-attach-progs'...
-tracing-multi-attach-progs: prepared 1000 identical BPF program targets
-tracing-multi-attach-progs: fentry created and attached 1000 programs/links in 338.171ms
-tracing-multi-attach-progs: fentry.multi created one program and attached one 1000-target link in 47.345ms
-tracing-multi-attach-progs: fentry.multi creation/attachment speedup is 7.14x
+Exception: with CONFIG_F2FS_FS_POSIX_ACL, f2fs_setattr() uses a local
+__setattr_copy() that sets timestamps directly, bypassing
+setattr_copy_mgtime(). Make it call setattr_copy() with ATTR_MODE
+cleared, then do the f2fs mode/ACL handling as before. ACL builds now
+also honor ATTR_CTIME_SET via inode_set_ctime_deleg(), as non-ACL
+builds already do.
 
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+Assisted-by: LLM
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- tools/testing/selftests/bpf/Makefile          |   1 +
- tools/testing/selftests/bpf/bench.c           |   5 +
- .../benchs/bench_tracing_multi_attach_progs.c | 193 ++++++++++++++++++
- .../bpf/progs/tracing_multi_attach_progs.c    |  24 +++
- 4 files changed, 223 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/benchs/bench_tracing_multi_attach_progs.c
- create mode 100644 tools/testing/selftests/bpf/progs/tracing_multi_attach_progs.c
+ fs/f2fs/file.c  | 14 +++++---------
+ fs/f2fs/super.c |  2 +-
+ 2 files changed, 6 insertions(+), 10 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/Makefile b/tools/testing/selftests/bpf/Makefile
-index 80d8bbbc3084..23bed732d1bd 100644
---- a/tools/testing/selftests/bpf/Makefile
-+++ b/tools/testing/selftests/bpf/Makefile
-@@ -625,6 +625,7 @@ $(OUTPUT)/bench_bloom_filter_map.o: $(OUTPUT)/bloom_filter_bench.skel.h
- $(OUTPUT)/bench_bpf_loop.o: $(OUTPUT)/bpf_loop_bench.skel.h
- $(OUTPUT)/bench_bpf_for.o: $(OUTPUT)/bpf_for_bench.skel.h
- $(OUTPUT)/bench_strncmp.o: $(OUTPUT)/strncmp_bench.skel.h
-+$(OUTPUT)/bench_tracing_multi_attach_progs.o: $(OUTPUT)/tracing_multi_attach_progs.skel.h
- $(OUTPUT)/bench_bpf_hashmap_full_update.o: $(OUTPUT)/bpf_hashmap_full_update_bench.skel.h
- $(OUTPUT)/bench_local_storage.o: $(OUTPUT)/local_storage_bench.skel.h
- $(OUTPUT)/bench_local_storage_rcu_tasks_trace.o: $(OUTPUT)/local_storage_rcu_tasks_trace_bench.skel.h
-diff --git a/tools/testing/selftests/bpf/bench.c b/tools/testing/selftests/bpf/bench.c
-index d5f494184f9d..c7502187e654 100644
---- a/tools/testing/selftests/bpf/bench.c
-+++ b/tools/testing/selftests/bpf/bench.c
-@@ -529,6 +529,9 @@ extern const struct bench bench_trig_fmodret;
- extern const struct bench bench_trig_tp;
- extern const struct bench bench_trig_rawtp;
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index edc352569e87..71211244f42f 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -1100,17 +1100,13 @@ static void __setattr_copy(struct mnt_idmap *idmap,
+ 			   struct inode *inode, const struct iattr *attr)
+ {
+ 	unsigned int ia_valid = attr->ia_valid;
++	struct iattr sattr = *attr;
  
-+/* tracing_multi link attachment benchmark */
-+extern const struct bench bench_tracing_multi_attach_progs;
+-	i_uid_update(idmap, attr, inode);
+-	i_gid_update(idmap, attr, inode);
+-	if (ia_valid & ATTR_ATIME)
+-		inode_set_atime_to_ts(inode, attr->ia_atime);
+-	if (ia_valid & ATTR_MTIME)
+-		inode_set_mtime_to_ts(inode, attr->ia_mtime);
+-	if (ia_valid & ATTR_CTIME)
+-		inode_set_ctime_to_ts(inode, attr->ia_ctime);
++	sattr.ia_valid &= ~ATTR_MODE;
 +
- /* uprobe/uretprobe benchmarks */
- extern const struct bench bench_trig_uprobe_nop;
- extern const struct bench bench_trig_uretprobe_nop;
-@@ -615,6 +618,8 @@ static const struct bench *benchs[] = {
- 	&bench_trig_fmodret,
- 	&bench_trig_tp,
- 	&bench_trig_rawtp,
-+	/* tracing_multi */
-+	&bench_tracing_multi_attach_progs,
- 	/* uprobes */
- 	&bench_trig_uprobe_nop,
- 	&bench_trig_uretprobe_nop,
-diff --git a/tools/testing/selftests/bpf/benchs/bench_tracing_multi_attach_progs.c b/tools/testing/selftests/bpf/benchs/bench_tracing_multi_attach_progs.c
-new file mode 100644
-index 000000000000..6cc6851eb488
---- /dev/null
-+++ b/tools/testing/selftests/bpf/benchs/bench_tracing_multi_attach_progs.c
-@@ -0,0 +1,193 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <stdio.h>
-+#include <string.h>
-+#include "bench.h"
-+#include "testing_helpers.h"
-+#include "tracing_multi_attach_progs.skel.h"
-+#include "bpf/libbpf_internal.h"
-+
-+#define TARGET_CNT 1000
-+
-+static struct ctx {
-+	struct tracing_multi_attach_progs *targets[TARGET_CNT];
-+	struct tracing_multi_attach_progs *fentries[TARGET_CNT];
-+	struct tracing_multi_attach_progs *fentry_multi;
-+	int target_fds[TARGET_CNT];
-+	__u32 target_btf_ids[TARGET_CNT];
-+	int fentry_prog_fds[TARGET_CNT];
-+	int fentry_multi_prog_fd;
-+} ctx;
-+
-+static void prepare(void)
-+{
-+	int err, i;
-+
-+	setup_libbpf();
-+
-+	for (i = 0; i < TARGET_CNT; i++) {
-+		struct tracing_multi_attach_progs *target;
-+		int btf_id, fd, obj_token_fd;
-+
-+		target = tracing_multi_attach_progs__open();
-+		if (!target) {
-+			fprintf(stderr, "failed to open target program %d\n", i);
-+			exit(1);
-+		}
-+
-+		bpf_program__set_autoload(target->progs.dummy_fentry, false);
-+		bpf_program__set_autoload(target->progs.dummy_fentry_multi, false);
-+		err = tracing_multi_attach_progs__load(target);
-+		if (err) {
-+			fprintf(stderr, "failed to load target program %d: %s\n",
-+				i, strerror(-err));
-+			exit(1);
-+		}
-+
-+		fd = bpf_program__fd(target->progs.target);
-+		obj_token_fd = bpf_object__token_fd(target->obj);
-+		obj_token_fd = obj_token_fd < 0 ? 0 : obj_token_fd;
-+		btf_id = libbpf_find_prog_btf_id("target", fd, obj_token_fd);
-+		if (btf_id <= 0) {
-+			fprintf(stderr, "failed to find target BTF ID: %s\n",
-+				strerror(-btf_id));
-+			exit(1);
-+		}
-+
-+		ctx.targets[i] = target;
-+		ctx.target_fds[i] = fd;
-+		ctx.target_btf_ids[i] = btf_id;
-+	}
-+}
-+
-+static long create_and_attach_fentry(void)
-+{
-+	int link_fds[TARGET_CNT];
-+	long start_ns, end_ns;
-+	int err, i, j;
-+
-+	start_ns = get_time_ns();
-+
-+	/* An ordinary fentry program is bound to one target when it is loaded. */
-+	for (i = 0; i < TARGET_CNT; i++) {
-+		struct tracing_multi_attach_progs *fentry;
-+
-+		fentry = tracing_multi_attach_progs__open();
-+		if (!fentry) {
-+			fprintf(stderr, "failed to open fentry program %d\n", i);
-+			exit(1);
-+		}
-+
-+		bpf_program__set_autoload(fentry->progs.target, false);
-+		bpf_program__set_autoload(fentry->progs.dummy_fentry_multi, false);
-+		err = bpf_program__set_attach_target(fentry->progs.dummy_fentry, ctx.target_fds[i],
-+						     "target");
-+		err = err ?: tracing_multi_attach_progs__load(fentry);
-+		if (err) {
-+			fprintf(stderr, "failed to load fentry program %d: %s\n",
-+				i, strerror(-err));
-+			exit(1);
-+		}
-+
-+		ctx.fentries[i] = fentry;
-+		ctx.fentry_prog_fds[i] = bpf_program__fd(fentry->progs.dummy_fentry);
-+	}
-+
-+	for (i = 0; i < TARGET_CNT; i++) {
-+		link_fds[i] = bpf_link_create(ctx.fentry_prog_fds[i], 0, BPF_TRACE_FENTRY, NULL);
-+		if (link_fds[i] < 0) {
-+			err = errno;
-+			for (j = 0; j < i; j++)
-+				close(link_fds[j]);
-+			fprintf(stderr, "failed to create fentry link %d: %s\n",
-+				i, strerror(err));
-+			exit(1);
-+		}
-+	}
-+	end_ns = get_time_ns();
-+
-+	for (i = 0; i < TARGET_CNT; i++)
-+		close(link_fds[i]);
-+
-+	return end_ns - start_ns;
-+}
-+
-+static long create_and_attach_fentry_multi(void)
-+{
-+	LIBBPF_OPTS(bpf_link_create_opts, opts);
-+	long start_ns, end_ns;
-+	int err, link_fd;
-+
-+	opts.tracing_multi.ids = ctx.target_btf_ids;
-+	opts.tracing_multi.fds = ctx.target_fds;
-+	opts.tracing_multi.cnt = TARGET_CNT;
-+
-+	start_ns = get_time_ns();
-+
-+	ctx.fentry_multi = tracing_multi_attach_progs__open();
-+	if (!ctx.fentry_multi) {
-+		fprintf(stderr, "failed to open fentry.multi program\n");
-+		exit(1);
-+	}
-+
-+	bpf_program__set_autoload(ctx.fentry_multi->progs.target, false);
-+	bpf_program__set_autoload(ctx.fentry_multi->progs.dummy_fentry, false);
-+	err = tracing_multi_attach_progs__load(ctx.fentry_multi);
-+	if (err) {
-+		fprintf(stderr, "failed to load fentry.multi program: %s\n",
-+			strerror(-err));
-+		exit(1);
-+	}
-+
-+	ctx.fentry_multi_prog_fd = bpf_program__fd(ctx.fentry_multi->progs.dummy_fentry_multi);
-+	link_fd = bpf_link_create(ctx.fentry_multi_prog_fd, 0, BPF_TRACE_FENTRY_MULTI, &opts);
-+	end_ns = get_time_ns();
-+	if (link_fd < 0) {
-+		err = errno;
-+		fprintf(stderr, "failed to create fentry.multi link: %s\n",
-+			strerror(err));
-+		exit(1);
-+	}
-+
-+	close(link_fd);
-+	return end_ns - start_ns;
-+}
-+
-+static void cleanup(void)
-+{
-+	int i;
-+
-+	tracing_multi_attach_progs__destroy(ctx.fentry_multi);
-+	for (i = 0; i < TARGET_CNT; i++) {
-+		tracing_multi_attach_progs__destroy(ctx.fentries[i]);
-+		tracing_multi_attach_progs__destroy(ctx.targets[i]);
-+	}
-+}
-+
-+static void setup(void)
-+{
-+	double fentry_multi_ms, fentry_ms;
-+	long fentry_multi_ns, fentry_ns;
-+
-+	prepare();
-+	fentry_ns = create_and_attach_fentry();
-+	fentry_multi_ns = create_and_attach_fentry_multi();
-+	fentry_ms = fentry_ns / 1000000.0;
-+	fentry_multi_ms = fentry_multi_ns / 1000000.0;
-+
-+	printf("%s: prepared %d identical BPF program targets\n",
-+	       bench->name, TARGET_CNT);
-+	printf("%s: fentry created and attached %d programs/links in %-.3lfms\n",
-+	       bench->name, TARGET_CNT, fentry_ms);
-+	printf("%s: fentry.multi created one program and attached one %d-target link in %-.3lfms\n",
-+	       bench->name, TARGET_CNT, fentry_multi_ms);
-+	printf("%s: fentry.multi creation/attachment speedup is %-.2lfx\n",
-+	       bench->name, fentry_ms / fentry_multi_ms);
-+
-+	cleanup();
-+	exit(0);
-+}
-+
-+const struct bench bench_tracing_multi_attach_progs = {
-+	.name = "tracing-multi-attach-progs",
-+	.setup = setup,
-+};
-diff --git a/tools/testing/selftests/bpf/progs/tracing_multi_attach_progs.c b/tools/testing/selftests/bpf/progs/tracing_multi_attach_progs.c
-new file mode 100644
-index 000000000000..0ea4513904cd
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/tracing_multi_attach_progs.c
-@@ -0,0 +1,24 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <vmlinux.h>
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+
-+char _license[] SEC("license") = "GPL";
-+
-+SEC("syscall")
-+int target(void *ctx)
-+{
-+	return 0;
-+}
-+
-+SEC("fentry")
-+int BPF_PROG(dummy_fentry)
-+{
-+	return 0;
-+}
-+
-+SEC("fentry.multi")
-+int BPF_PROG(dummy_fentry_multi)
-+{
-+	return 0;
-+}
++	setattr_copy(idmap, inode, &sattr);
+ 	if (ia_valid & ATTR_MODE) {
+-		umode_t mode = attr->ia_mode;
++		umode_t mode = sattr.ia_mode;
+ 
+ 		if (!in_group_or_capable(idmap, inode, i_gid_into_vfsgid(idmap, inode)))
+ 			mode &= ~S_ISGID;
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 1314b6ccced9..535666bfa50c 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -5699,7 +5699,7 @@ static struct file_system_type f2fs_fs_type = {
+ 	.name		= "f2fs",
+ 	.init_fs_context = f2fs_init_fs_context,
+ 	.kill_sb	= kill_f2fs_super,
+-	.fs_flags	= FS_REQUIRES_DEV | FS_ALLOW_IDMAP,
++	.fs_flags	= FS_REQUIRES_DEV | FS_ALLOW_IDMAP | FS_MGTIME,
+ };
+ MODULE_ALIAS_FS("f2fs");
+ 
+
+---
+base-commit: d5b6dc381db93ff2d1888f7d99c06e0bd85f4083
+change-id: 20260815-mgtime-f2fs-aa4a20da1c1b
+
+Best regards,
 -- 
-2.55.0
+Jeff Layton <jlayton@kernel.org>
 
