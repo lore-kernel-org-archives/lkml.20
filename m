@@ -1,138 +1,132 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF41748E0D3;
-	Mon, 12 Oct 2026 14:24:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A650B48C8CE;
+	Mon, 12 Oct 2026 14:24:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815045; cv=none; b=U3J2sQZ3V0US61PGWNcmYV45HzgShNiRRSICSE/IrxHr4Z6ARoiHmdUUAbC3aXmQnv3Qd49/WSKV1EZItCq08Yxhg6OUye9nQp9BmGJFdzB/BvuWmLWNSytsUpdZY6h3w0bIT2VHA5zBACUep9JmFhCQuYQv/ghKS0rdiVIOJ6Q=
+	t=1791815078; cv=none; b=jsXYx9jRXqLIlJRZBAH78frpBp9pTDgZgfq3y0wcW1i+4B3lmFa7p5OOf++nuGfpCV3PpXXylxQfZwz+8e6PWhdo2hHt6gc6u40xQIZ7Rd7K+FJBhyCAUoKln8MVH4w7qKbPW+LdYoN5CrL1DdPE35YfI9pwKFFhgjzy3kMeH70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815045; c=relaxed/simple;
-	bh=e5u7Q6/lf+tkTUuzF7jxOV25e2hAJ1vVxdBBAWz1Occ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Pwhbmb2477E4DzsnYM5rTJ0jw7Uw4V9n3A4UTQMN1oyJIwesMhXg9aTQmmfTLSLvWUUs6z9KMaQ19LTKXQ6RsH8A9o4ZNXYrAQ5ko4gUFNH9St80FQWdsjUWCGZna92+x+xrNXF++1jYR5jNDNP8JfdaVDt/Kb8LFXIjii2ztN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=zf7kh9tQ; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1791815078; c=relaxed/simple;
+	bh=2QoL7nRRa1pad96nZNWX529scXZNTnYWlkJSIGTMQeI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tdpNhje2pETD8qolG36O4qWVM9e0ylxzb/TlxVt4Au7LgnKYg5upxn0XmOu+JrhTJDJQNuda4Ukz4PamGdauMQwz0mL4HZpPNJtnPLCTzLPzG1zxAshgVANuwsCtdd8+/J1bfCa6Lm9jPCcaqGl4niWV29tJnsI/s6nCnA2+Pvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=RjYCaVJq; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="zf7kh9tQ"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 55138A012B;
-	Mon, 12 Oct 2026 16:23:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791815032; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=QVj3/QJ0hK8bdL+nizOsq34wKHXNf3Wx2LzCotAFaeM=;
-	b=zf7kh9tQpNkyVPBEAXbq81UOCDmvnBwRxr9dZoexhY3/rU/YDft8JwSL7vg7fJxTS5ce5x
-	cEZjfxQqwHX4uRIGeDLMfQEDSX+ZKrlmwjVIM744fEabEnsVfSpEHwSU0A9eM2ky/pHgWc
-	6zl0Mm+KKZDcRWgxDshLoIrO2DtljfkVvMczC8PdyHoYG5XeHe29NPXyyxRwie8Rnvqhtn
-	C0MjHlWBc6phmNRB0p8oHzzGJ0hUBxUpa8pMcTajjj1KjFydWPJljAl/KV2BGlbaZPhJlM
-	iQc1VYF458G9zvGcX08HRTdT++PeyKRPZ4baNE5TBd38FhXzvVL6Z7qxCJ2Wlw==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Mon, 12 Oct 2026 16:23:50 +0200
-Subject: [PATCH v2] serial: amba-pl011: keep transmitter enabled when
- disabling RS485
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="RjYCaVJq"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCET2n231410;
+	Mon, 12 Oct 2026 14:24:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Z0zqr2
+	040U643kzjXUxh/wPHVOn0U8xux3ZlU3Vj0Ck=; b=RjYCaVJqcI431d52H9m85z
+	HNIbex57BGCbkr4WS3pdKY45IsCbAfGOn2McRJz4sL9S+J3SG4Jk1fEheMAi2+BB
+	jxfATMbc3TYHX0Q8xLOaEh2otBVeF/iMa+5Ze+yGFtFKtRfeAl+Yqax3w+MKlhXF
+	VItFooj35V7trczWJRxE79ntatLzRymEAN0izhrlnOQ+xh2tYCf8DgB7qFaqAIAD
+	WRuPBV2IURfMvcEWRKEdMKlcjpQz7gJieA0O7/1sjm9LaYrSi0tK9Ar7UmcaYTK1
+	eox3g3wHPeyU9xIlhpHzb80YiEqLZb7ucMlBfpgLwocdrNh0CvyAAME1p+Cxve+Q
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1w10ct-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 14:24:36 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC56Oe1238622;
+	Mon, 12 Oct 2026 14:24:35 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h7yppnpfu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 14:24:35 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CEOWQe48431448
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 14:24:32 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1DC4920043;
+	Mon, 12 Oct 2026 14:24:32 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 930DD20040;
+	Mon, 12 Oct 2026 14:24:31 +0000 (GMT)
+Received: from [0.0.0.0] (unknown [9.87.157.242])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 14:24:31 +0000 (GMT)
+Message-ID: <23ca27cd-9574-4b91-bcba-8c735ef22894@linux.ibm.com>
+Date: Mon, 12 Oct 2026 16:24:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 19/32] s390/hypfs: Convert inline assembly to
+ EX_TABLE_INSN
+To: Heiko Carstens <hca@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Niklas Schnelle <schnelle@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Vineeth Vijayan <vneethv@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Harald Freudenberger <freude@linux.ibm.com>,
+        Holger Dengler <dengler@linux.ibm.com>,
+        Stefan Haberland
+ <sth@linux.ibm.com>,
+        Jan Hoeppner <hoeppner@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+References: <20261001103247.1989111-1-hca@linux.ibm.com>
+ <20261001103247.1989111-20-hca@linux.ibm.com>
+Content-Language: en-US
+From: Ilya Leoshkevich <iii@linux.ibm.com>
+In-Reply-To: <20261001103247.1989111-20-hca@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-fix-pl011-rs485-txe-v2-1-e9bf7d218389@tipi-net.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQ6CMBBEf4X07JpuwSqe/A/DAcpW1hggbSUY0
- n+3xbu3ecmbmU14ckxeXItNOFrY8zQmUIdCmKEdHwTcJxZKKo0SESyvML9ycr66nCCsBFYjoal
- 1betWpObsKGn76r35sX93TzIhT2VjYB8m99lvF8ze/4cFAaGUqtNGllV3trfAM8NI4diTaGKMX
- xkdK0XKAAAA
-X-Change-ID: 20261011-fix-pl011-rs485-txe-f61e1c969f9a
-To: Russell King <linux@armlinux.org.uk>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Lino Sanfilippo <LinoSanfilippo@gmx.de>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- stable@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX2xveK+ewKL36
+ 2/20DzSAk8XeI8lVMe0wbMiXCoSrI8OlCNN87UjBNKydI8dyZXbs83fqAN3CoFy1szUenBgUzxQ
+ v8UDjnlye6dHT+XVn251yD8QcJ8A/mU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX0uVScLcnJ3yG
+ kUMG6hxPVdKMHdwhBawN0KXfZc4gqxaB+EfbWVjbe+DcD/NvNhlUVQsreZajjk6TYm7xi/Z9eGc
+ nBIl+5cqC8rD0b/oLQU6QEtJwsyKWH3IpbFAWnZaA+6B0YeGCHXzvks3LsWaB3i5uMAhfgeONG9
+ TZKONYLTLA4pfxWeENa88oDSPre+H40r0hwSgXL1GG1+p7d+WmstZpyKDpegG5juzz4HyMRhue8
+ dYcvFQ4a/REqULDCmF3cqu2W7qvqJeTsL6bLmmwTHBEgRgFQS0T5x4zuZ4sLEttBcJDaopSdBGP
+ +YlEcNDClVzZIikG8k+G0BtQ4UpM002zlD3krGPvWSTb8dQuMEWrYC16Or+AQA93kfGfdN/psdx
+ Ipjx5D9+WKusCgBbSWYXij1E0cd3sq1Mhq19dHet5wnDGxDFDOcyhfRmHh8sQUoQqiLTO/JdvoY
+ MKylmnC4NqgvIAKK9lA==
+X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6acceda4 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=vHXguKSWSAAYGWRtGo0A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: C-yvgY5URwjGOOxZ2MAPSkHLqHPoH7f5
+X-Proofpoint-GUID: C-yvgY5URwjGOOxZ2MAPSkHLqHPoH7f5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
+ spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120056
 
-Disabling RS485 on an open port calls pl011_rs485_tx_stop(), which
-turns off the transmitter. Only the RS485 TX path turns it back on, so
-any later output stays queued and tcdrain() hangs until the port is
-closed.
 
-pl011_rs485_tx_stop() also checks only the hardware FIFO. If a DMA
-transfer has started but has not filled the FIFO yet, the transmitter
-is turned off under the transfer and the DMA channel never recovers.
 
-When leaving RS485 mode, cancel pending deferred starts and stops, leave
-the transmitter enabled and start any TX that was still waiting for
-delay_rts_before_send.
+On 10/1/26 12:32, Heiko Carstens wrote:
+> Convert the diag2fc exception table entry to use EX_TABLE_INSN.
+> With EX_TABLE_INSN entries always point to the faulting instruction,
+> so nopr padding is no longer needed and removed.
+> 
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> ---
+>   arch/s390/hypfs/hypfs_vm.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
 
-Fixes: 8d479237727c ("serial: amba-pl011: add RS485 support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
----
-Noticed while implementing a DMX master on a CM5 with its PL011.
-Userspace turns RS485 mode off to send the break, and the port then
-stopped transmitting.
-
-Tested on that board with an RS485 transceiver at 9600, 115200 and
-250000 baud.
----
-Changes in v2:
-- Start TX that was still waiting for delay_rts_before_send instead of
-  dropping it (sashiko)
-- Link to v1: https://patch.msgid.link/20261011-fix-pl011-rs485-txe-v1-1-302b6c034b7f@tipi-net.de
-
-To: Russell King <linux@armlinux.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jiri Slaby <jirislaby@kernel.org>
-To: Lino Sanfilippo <LinoSanfilippo@gmx.de>
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-serial@vger.kernel.org
----
- drivers/tty/serial/amba-pl011.c | 25 ++++++++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-index c4824c201e1c..2ad6ccfdb52c 100644
---- a/drivers/tty/serial/amba-pl011.c
-+++ b/drivers/tty/serial/amba-pl011.c
-@@ -2397,8 +2397,31 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
- 	struct uart_amba_port *uap =
- 		container_of(port, struct uart_amba_port, port);
- 
--	if (port->rs485.flags & SER_RS485_ENABLED)
-+	if ((port->rs485.flags & SER_RS485_ENABLED) &&
-+	    !(rs485->flags & SER_RS485_ENABLED)) {
-+		bool tx_pending = uap->rs485_tx_state == WAIT_AFTER_RTS;
-+		u32 cr = pl011_read(uap, REG_CR);
-+
-+		/*
-+		 * Leaving RS485 mode, which only enables the transmitter while
-+		 * sending. Don't stop it, as that stalls a DMA transfer still
-+		 * in flight. Drop pending deferred starts and stops and keep
-+		 * it enabled.
-+		 */
-+		hrtimer_try_to_cancel(&uap->trigger_start_tx);
-+		hrtimer_try_to_cancel(&uap->trigger_stop_tx);
-+		uap->rs485_tx_state = OFF;
-+
-+		cr |= UART011_CR_TXE | UART011_CR_RXE;
-+		pl011_write(cr, uap, REG_CR);
-+
-+		/* Start TX that was still waiting for delay_rts_before_send */
-+		if (tx_pending && !uart_tx_stopped(port) &&
-+		    !pl011_dma_tx_start(uap))
-+			pl011_start_tx_pio(uap);
-+	} else if (port->rs485.flags & SER_RS485_ENABLED) {
- 		pl011_rs485_tx_stop(uap);
-+	}
- 
- 	/* Make sure auto RTS is disabled */
- 	if (rs485->flags & SER_RS485_ENABLED) {
-
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261011-fix-pl011-rs485-txe-f61e1c969f9a
-
-Best regards,
---  
-Nicolai Buchwitz <nb@tipi-net.de>
+Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
 
