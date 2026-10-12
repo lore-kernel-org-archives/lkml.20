@@ -1,72 +1,78 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156164779B1
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:52:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9563CAA53
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:52:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791798732; cv=none; b=PVp7+JLlcbXRn7kC8Pjj2zqyBum9HT0TjkOapk89/EsheM0P7x73Z7oG/g/X06M6+um9K2qXSXKbRcLr1LiI3B20jfSQS80bCdLV547sBu4k7tG6Bc2WmUjVQWAndMW9sTN+mhpg3S++e6q8UmSymmOpGwZ73SnAW7u00mry+4Q=
+	t=1791798750; cv=none; b=CfRlzCXR4v9TIIfVIh3MbYCkH0QE82z1ZxjmYHIU2Ld+MzwqScNG0pEVef1YhCS0A3BSQw/Nqr3GLVlJCy4CBZcqF1gB6uxKYppWOWOG9fxmmRdoCIDJRR3F7BLOGlEgC9rviw3P8bByrK9FrIT7E4mhxxQ+H9VtFSGScP+7UtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791798732; c=relaxed/simple;
-	bh=lyNEUIfOOV8CCcma+col5p8udJ7MQBe7JD2s3+fTC7c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SXJqvn/BIcKLOvYYEr7HRpt4KbwaPjyXVRBZCC6gmZ+8cno7ot6zH3g/E/YK0NilK0aw7qL/WhbMaUb8FJiGZjcWDmJSA5TvM3pKdFoHGaaWFGCyT9li39gA6pjc7ryCnJJqbN93z9PVudYfCofNREiBB/OvmBu6cNCAIQyYmOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qv5n5VDS; arc=none smtp.client-ip=209.85.215.182
+	s=arc-20240116; t=1791798750; c=relaxed/simple;
+	bh=Vi1ALl7kg2UrCvpyRmaj8txmtK4YxEiunv813XtuRmM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lpn2/aQIcpsgR4S/iMeFLqq/K5gIMqheCjxqkQtipKHSrQpK6LADdilOkZ/iElQYaK332YRnKa18OhjvFnjp9vDWAReYM9W2Bma3/BXQSaKH2Esu/MHrImyOnEix/FmNcY3ViwBOOfScWuCyegBq84f3GnBUQEqw3tglb3t/6gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ihzoDHUi; arc=none smtp.client-ip=209.85.214.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qv5n5VDS"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc751eddf25so965219a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:52:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ihzoDHUi"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e8662d5e95so8969545ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:52:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791798729; x=1792403529; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LROCyt0+QHWtXH+zBhZ3dcjjP0w1s/UVlhWoFjFikoc=;
-        b=qv5n5VDSDrR/stik47mb8H0Bv/3di5vLJSOkD2Ap9qVT3mDTgkQ8BZlx99wsvlJw5v
-         BgmMo0ra+fzNFA9N4kAcBirQ3KfhdGRufV/XopaWBE6D0W4DsEN/TPg+06+zaczRaYpZ
-         o337mYGGjwqEw5vXV95KPkvbpcQuzOdimgiz8f9nZvVnS7nRMOHXAddKqz0u5OOILg/3
-         KONTrDwx/xKgan+IB1fiyuITK7Add3G6eivIYtq4eEbUsN8FoKoizLkzHqkaSA+lkapr
-         70FqQPt5idMbHvA7VLnxgrzRO5oYR6WH87QST1eDdmuj5H8CShBeJtJHPk7vTmpvMe5r
-         nfwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791798729; x=1792403529;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791798748; x=1792403548; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LROCyt0+QHWtXH+zBhZ3dcjjP0w1s/UVlhWoFjFikoc=;
-        b=CNj2HgHgyYOQJAx6RuaQQ66SfsZPiAZE+Vdh6slQz1xX62RehhcSTeeWyBI6AXn6Zb
-         JGdtx18lX+gngvwIPSUlyuC7ZERI6IKPcp5jsm5M/IfFozEmA7PFnOoklZnQJozKJrV5
-         iiT0uMpYyx0pjUsvi+WbUQgZUpyMFN6BO30cowJhc2v877X6YxtbaM80pC/ZQuBlUtWY
-         zAJAEDoUBBKLgWvaF4ic/4eOaIe/nKPNN50p0kXU3azpyWEWYJMY4MGn1tEls8fHIx8l
-         u6ea1kzfvnJlQTaaEWcB4doXx3G+Ok1UfJkrl4RKzdS7Uv4JTsa4CQLehJ75px5TVqw9
-         aSdg==
-X-Forwarded-Encrypted: i=1; AKwUvBwR7AVXzslg80OvCmP7OhtkKO0mguV0AHk1Bw6evlAtwhXNifNdLag+OPu2QFScMtbNzXF1Itvp6neLEbM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVWoK3KAaGV6GZnWI+kHEYpghWB44eACikshrpDrIkQ2PsCbFU
-	YxGTvoQGYKTr2173l9eHjM8L6J9ofbrvewVhMNvNP4ydbnARrFeGQu5t
-X-Gm-Gg: AYBFou1Qy4YB+lw3Aw9mbWVE+zpDKtfZFOaN1FIQTIO8uhcDe+S0Nh2w9UPLVGWQE6t
-	6h7vJDN/9SzxQZZDIxfmXX5923SRdo08PBQ7UXya1LCotBlqlbcC3CPGKXwYgJbJ3wGObIHNpkR
-	teLDb3CNj5C6jRdLIMKrJjVqP1CVS0n1J3cgSrmx6GCkeFwhdbJEMHER3RdZgEhJGKPYGwuqHno
-	UWy9NsG10RKkBW3OUob6vQ+m+/U75xDbmhD0ZXkFtxIWtW2NClaQe7rqSMyt8dTzXuqroQUjDrm
-	5WPi6dI5yy9IHm88KXgJ6Iuggls2A5v8mCAAnC/lAMpULY8hMSIQ6y94eA3kcTlSZ7OP9d+i84q
-	fc16aR0ITnG33yRZkMVvh+207AfYm6snmyR1W9tli3rodseBfmXLBxXaqLWRzOugOw9QV6vuT/x
-	fNfQ8sndh7qxx0G2YU/gN2lhCNRW5c5lpKYxbGwtFKHDbAJicE+/FRQNOWwNcJ7PyLvIdGO5SNo
-	lry3yyAGvMlNkierEZTRouv89kd6fQaUb9tXT4Vq7Qmg6D4QFBxk4of2xQFtxPzdjvbpKh3vg==
-X-Received: by 2002:a17:90b:5830:b0:39e:6c68:c787 with SMTP id 98e67ed59e1d1-3ab3acea00dmr8175486a91.61.1791798729006;
-        Mon, 12 Oct 2026 02:52:09 -0700 (PDT)
-Received: from codespaces-2362ac.m2fxbej512jepnsor2itp05j3d.ix.internal.cloudapp.net ([23.97.62.130])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ca1e04sm16506403a91.1.2026.10.12.02.52.07
+        bh=Vi1ALl7kg2UrCvpyRmaj8txmtK4YxEiunv813XtuRmM=;
+        b=ihzoDHUihaQ8Uw09id/gGCVWjav4AOTwLwfeWyh6DrFJGBHaOyecyA+kVk653hN5ry
+         b5Duho3sf8eMig/cPHLyCWBtssYqpJ934LvthVbAyInkHb/4RTsh1RyteKvtQ3vzF+mT
+         F++es+xnU/mE77mfT7ihPWVFvbxKO85xJpleD+PxWx1p0Q/6yxVARg11wO1icrzBNrsh
+         2beVp8TaK4Yd5sBC+k4BGU9YxqqXamQUhfVh452F9pEHX1P8mR/rijQ+IBpW5F1gHg9s
+         YQdFTFmW+pXOcJsAcaU+OUgiOSjdnHT8cffIqBPC7ID2M7keVpw7FfI6SHdCfuR7gxtD
+         Tm7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791798748; x=1792403548;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Vi1ALl7kg2UrCvpyRmaj8txmtK4YxEiunv813XtuRmM=;
+        b=rlFMbni6MovgM2tqHuwFd3p73H8VR8dxUOPMmbFuJyJizVmGYGxBmrVu2icJ5OSblO
+         X1UYRGQngCqAFdNmA+SliE8bgRK/1KxMZi1TKCsO8Tf+xNx4j/WGZF/o3Te1MPr2+fjZ
+         BnWZ0U+SvRKjryItKXlB4Fj5y0OQMUl8+Kn9vHh9JALejnyWT+rKNZP0nYpDKFRSboxK
+         2Zw4qX/TNmYJm9qTX5mrT5q7yQylZApoGmfkhqkza3Pv2wYwZhgsBs/hcQedToz8GTJD
+         m766Sg49ZyrwIOKe47y+7pVK5aJml7FtNg/aDJhl1lCuDjCsFUDLWRqhDKvFs8FV1Al5
+         kFRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxM/7JBVLBisD8+8KTGDWNi7gm1SqGw/pEuJyZzdeZrhn0VwVNh0QLNbMl+Tua9bkqC39xPYimo8Ty6/Rg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSolCEd5vl05eTCEtoMOT/AhUdZBXTU6snsjcH/B/TJNW14wbF
+	fpWv8kOcMm5WG0YPOIc7wpcpAtIZl16QtNPNJdXe7VHZgi0AuPrNW3r+
+X-Gm-Gg: AYBFou0TfFumGHVe9LNkdHvecuaXAvMYfjTVdBeJay3wkATXjh2saNbte/y1xArmCp0
+	n+BQwuHGcXM+AnsnbXYYMNTIau+4iMCO339kREhkCPnmto0GWSGtwoVM2H22rW/XObyonZBBSAb
+	UL1yQd6ggKlrFHy6uswdDJIWg4y2PMR6ortXydc7LLpgWkrwfzQjvWAWHYPTyx1tavClaNDTYKm
+	ZcoP2Ei5t0IB/BrZpY8rQhZIWBCvzYTIf/UzRus5NB3oNegbnMrCF3OcIVgijfHmMS4x3+nrY0L
+	tWb5xNgRDjKrW6iblcdrxQ4r8QMqPa6SFfSB3asrERBMDF52nfRaMZ8WosacJhhzYYehxGldcMG
+	ntkRTbT/V2ctLis+zeHDv/Gz1Uy2SZg4/mULigReqcPsqqs5Um+ljhJA7Qjq9JNWV4McltYcWEa
+	6XT5Pv9yve9D5jcx+Gwa1gQ3Sy2oOdJvKxYfwmQgcQv3WSq0o7subLUJM5Pka1iqLO7LdtPfDpW
+	vU9vAbAKXtq0F3GKgUxodOP8d3CDATmSUWOdCzA11N42w==
+X-Received: by 2002:a17:902:e849:b0:2e8:4ef1:6fd8 with SMTP id d9443c01a7336-2e84ef177e6mr69032995ad.60.1791798747897;
+        Mon, 12 Oct 2026 02:52:27 -0700 (PDT)
+Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8419ff572sm41045275ad.2.2026.10.12.02.52.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 02:52:08 -0700 (PDT)
-From: Seongjae Jeong <jsjlee1020@gmail.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
+        Mon, 12 Oct 2026 02:52:26 -0700 (PDT)
+From: Wenjie Qi <qwjhust@gmail.com>
+X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
+To: Chao Yu <chao@kernel.org>
+Cc: Jaegeuk Kim <jaegeuk@kernel.org>,
+	linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
-	Seongjae Jeong <jsjlee1020@gmail.com>
-Subject: [PATCH] f2fs: detach remaining IPU bio on error in f2fs_inplace_write_data()
-Date: Mon, 12 Oct 2026 09:51:30 +0000
-Message-ID: <20261012095130.17231-1-jsjlee1020@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	qiwenjie@xiaomi.com,
+	qwjhust@gmail.com
+Subject: Re: [PATCH v3 3/5] f2fs: cache: wake up f2fs_writeback when exceeding threshold
+Date: Mon, 12 Oct 2026 17:52:17 +0800
+Message-ID: <20261012095217.1744886-1-qiwenjie@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261012091737.308136-1-chao@kernel.org>
+References: <20261012091737.308136-1-chao@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,109 +81,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-add_bio_entry() adds an IPU bio to bio_list and takes an additional
-reference. However, the drop_bio path in f2fs_inplace_write_data()
-only calls bio_endio() and clears *(fio->bio), without removing
-the bio_entry from bio_list or releasing the additional reference.
+Hi Chao,
 
-This leaves a completed bio on the bio_list, allowing a later
-submission path to submit it again.
+> f2fs_writeback won't be woken up unless there are enough dirty caches for
+> f2fs_write_{meta,node}_caches() to gather.
 
-Add a helper to detach the bio_entry from bio_list and release the
-caller's reference regardless of whether the entry is found.
-Call this helper in the drop_bio path and call bio_endio() only if
-the helper successfully removes the entry. If another path has already
-removed the entry for submission, leave completion to that path.
+The collectable-cache check and no-progress throttling address my concerns.
 
-Fixes: 955772787667 ("f2fs: drop inplace IO if fs status is abnormal")
-Signed-off-by: Seongjae Jeong <jsjlee1020@gmail.com>
----
- fs/f2fs/data.c    | 41 +++++++++++++++++++++++++++++++++++++++++
- fs/f2fs/f2fs.h    |  1 +
- fs/f2fs/segment.c |  6 ++++--
- 3 files changed, 46 insertions(+), 2 deletions(-)
+Reviewed-by: Wenjie Qi <qiwenjie@xiaomi.com>
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 6d4ba5e77906..ca8fce5ad778 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -989,6 +989,47 @@ static int add_ipu_page(struct f2fs_io_info *fio, struct bio **bio,
- 	return ret;
- }
- 
-+bool f2fs_detach_bio_entry(struct f2fs_sb_info *sbi, struct bio *bio)
-+{
-+	enum temp_type temp;
-+	bool found = false;
-+
-+	for (temp = HOT; temp < NR_TEMP_TYPE && !found; temp++) {
-+		struct f2fs_bio_info *io = sbi->write_io[DATA] + temp;
-+		struct list_head *head = &io->bio_list;
-+		struct bio_entry *be;
-+
-+		if (list_empty(head))
-+			continue;
-+
-+		f2fs_down_read(&io->bio_list_lock);
-+		list_for_each_entry(be, head, list) {
-+			found = (bio == be->bio);
-+			if (found)
-+				break;
-+		}
-+		f2fs_up_read(&io->bio_list_lock);
-+
-+		if (!found)
-+			continue;
-+
-+		found = false;
-+
-+		f2fs_down_write(&io->bio_list_lock);
-+		list_for_each_entry(be, head, list) {
-+			found = (bio == be->bio);
-+			if (found) {
-+				del_bio_entry(be);
-+				break;
-+			}
-+		}
-+		f2fs_up_write(&io->bio_list_lock);
-+	}
-+
-+	bio_put(bio);
-+	return found;
-+}
-+
- void f2fs_submit_merged_ipu_write(struct f2fs_sb_info *sbi,
- 					struct bio **bio, struct folio *folio)
- {
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 089a62c054ea..63da4c2a9553 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -4357,6 +4357,7 @@ void f2fs_destroy_bioset(void);
- bool f2fs_is_cp_guaranteed(const struct folio *folio);
- int f2fs_init_bio_entry_cache(void);
- void f2fs_destroy_bio_entry_cache(void);
-+bool f2fs_detach_bio_entry(struct f2fs_sb_info *sbi, struct bio *bio);
- void f2fs_submit_read_bio(struct f2fs_sb_info *sbi, struct bio *bio,
- 			  enum page_type type);
- int f2fs_init_write_merge_io(struct f2fs_sb_info *sbi);
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 794e0d99fc7c..6bd60746d140 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -4300,8 +4300,10 @@ int f2fs_inplace_write_data(struct f2fs_io_info *fio)
- 	if (fio->bio && *(fio->bio)) {
- 		struct bio *bio = *(fio->bio);
- 
--		bio->bi_status = BLK_STS_IOERR;
--		bio_endio(bio);
-+		if (f2fs_detach_bio_entry(sbi, bio)) {
-+			bio->bi_status = BLK_STS_IOERR;
-+			bio_endio(bio);
-+		}
- 		*(fio->bio) = NULL;
- 	}
- 	return err;
--- 
-2.53.0
-
+Best regards,
+Wenjie
