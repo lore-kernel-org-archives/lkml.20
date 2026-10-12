@@ -1,124 +1,97 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433EC46EF6B
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:16:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791796569; cv=pass; b=X623FkUJlPZrFSBZyvoZnAgviKOw8cttjYRldsbj2yGQwYMSIXpyEY7XGBirEbnctYleLlzYezZ1t87NmCptHSh6+pxhVbPjC2o9v15thnlPFx6/l05PArtQQWdnRtRVHBpJgz81UGeSd1RU/wIE64SAcEpTt3qwoK99XFBAwEY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791796569; c=relaxed/simple;
-	bh=Drzvt49CpeOh1RLsB1Atdeu2NC85y5Tl0IIhLhry96Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N0MTHbO8IfzF47148qLYUzWuN09+Sba1ZqoR7t6lUZ/dCdDqCFBalRN6HT64k8nTDK++WirDYZ7Z/DL6Z69aazuqPBcZHeeZU86cxsR+FrA27lwDCvXtzFVkQtvAuGF8Kbe6f1grdpwa1903zaxe1Gb9q9lRnnPM6pngUy/Q+ws=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N1QSJswy; arc=pass smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459EB46EF8D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:16:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791796578; cv=none; b=AyyUEz6yQ3CKSr0Scv6J4YbehJ4yzJKAL2+OEQk24pHrAPR9zE5baw0Yu0gtN18y0UX2GsFfdcHi8/9wvFNbiKxxUzEonCRiyfmNwQaYaXVv5pdxfIZYTXMFlxETXh3pfH2mchEHnh2i48iwpoyfsLI0oUhD5BqNP5h7B0M9R4c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791796578; c=relaxed/simple;
+	bh=Q4JU9KpIqco4E3X/lHGLuCUuN5OWqYKKu0TR1+mWIxs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RowneaS2lzrvuc77iZH6NHuGTMz2CG2RgHFW9nvp72LMga0IFoiSyd4b4LQ5VH0oDEYT4kNRq8Gl01Wlui6AbrKMUkfCgh45hnIatJCnV/1IISw2qEAfvCUSxdiLGOl5FYhz1skSuxEbK+1frMm50PfbLJv8dtZRchABr5Kd7M4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KXf0mKLq; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N1QSJswy"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2a4e013a44so237517466b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:16:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791796566; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EppOf0vv1pTwBn0dtla4ko41bm33JHZseLBERAGxqBv/a0mV5+2BkviUuW/qUyekWA
-         eooMhRcs4ie8wokr12ReF45pHHFnekh5iyUzCYPZlJbv1B6Rl78giCKggScCNxQcPTxU
-         eftjmbW4VVBQtRD9F1w0WglIrVr2PP1m7jJ/urTzRj5kEusEr4w4o0BsFuilwH42tDNu
-         tfY5/x+cjIYxQF8oazg8yCn0nEvsq7I8WNNxmAaZKEWD1sE7oNzUtphqPsWXZccszbU5
-         qnaIr75pZuAfy6SZm6xgscnjqndokoBgHrfT0nZbvblcH/CM77mgBHyO8UCNaAnHOaQM
-         zjOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Drzvt49CpeOh1RLsB1Atdeu2NC85y5Tl0IIhLhry96Y=;
-        fh=KX5Z09deC5cNgFJtR2EEkP8qDbn7hUCttUzXulrZwic=;
-        b=Uhg6YrA5XwD8MP/a7SG6Ww99dC9fv+Zcj1IFGRnE6o1T64LP1kQmEQtQ0RzniT0SE2
-         xA5ALbKfsfU4DCD7h4JGeDSelG6qCZ56S3AoQYlIww7pgKsSAXweu+QErWzsRM1C3w+A
-         6LLySIHQdzPHw/H1licNXa3Snx7rWorQIYpJIle9jhB1euO3fZ8fOUfZFelFDGdHMeJ3
-         8a9EMplI7Ohz196n/UIt9SLJvNY64/xqQW74TaSMSjQJzT4GWzALd7iTbjGlsi3Cde2h
-         PZCBFjUcPOiIklvSR7iVn4Mb9Z03HCot/+ddqJ22cwwQpe3zjAC5yYldvRK58F/KrK4N
-         3S8A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791796566; x=1792401366; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Drzvt49CpeOh1RLsB1Atdeu2NC85y5Tl0IIhLhry96Y=;
-        b=N1QSJswyp5sWme0XW6RXjdxvsHXNVC1zjC+lWQqA6tmTDv4+ygjyjxIBwy0/NRnLf8
-         9dDNDBKh6Lyb7vnHnamVVe/a4ZFj2ypFfKPobbCdwgP/wnjGOm+A4h7T1jEs9e+nbwcr
-         eMElEBKO9nkNl7Ep7K0qK1laDe/VNUuuO9HrGBrmHWuH/JzpwgrZmsVhXqkJSm118lRr
-         4p6NvCSqy5uWR4dP7m0wOKTOoO3D47Q3R4cBCqVAQCP7FdTFbfa4bnd0WkZifg8sueQO
-         7rp086GUnFulB3Y7G7H0nl9GvjJUji2pHpqwK5RWxKyUTsF4khKJOQ2SPDSG4xtQ0/Km
-         SXkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791796566; x=1792401366;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Drzvt49CpeOh1RLsB1Atdeu2NC85y5Tl0IIhLhry96Y=;
-        b=xzCy2ivd6mK99m0BRjNW9HagtVKJnYHjurKNDOGJQ/dJcT9heJvoCLHqczCRqG9ETC
-         2fUSkiAvmrUYDA35gY9n3c6lfwmKr+GLVpYulpiPZp6/Y7dTHhwPcDnVVWzeE38+24Bx
-         LD8owk4UoCkgRPccDq+e9rkWzglnaHh8L9FcbKEa3Iz8Fb3bb1IE3uYXLoZRNbmqi3EB
-         7Uv8B1x6jEdDoiJlIly28bI69VMeFCQ3SXp+0yzysvRcYH71VGLhTiCHoWsqBCctfa+o
-         83rHi7ytE8I9JERW6nNulZZOwb/hCW6ncB5iJ4ZTq6VrbJ4q3q37eDgtkeiARGutbJCq
-         El1w==
-X-Forwarded-Encrypted: i=1; AKwUvBxpWrir0o/6y5F966+awFwcx+opV67ppi9Gu+SGdz/j2QNdwLDU8u1g699TjggTPgR7N38A739jyL4O50w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4iwpVippKh3wYeXwNuu5Fg0iJgBIwhy6lVl343St1ImuiM+EQ
-	UKAXz0PFmt/6KcQ7Q25kbw+yO0JFuez/cJPlLSHPdtevLAlTWT2RuR5geoch78btAxGvm04FuWC
-	bcx8MTU0pA6rsZ7lQoFAjxR8roF4iyJc=
-X-Gm-Gg: AYBFou2CeLVg9XzGpULSJ01ewxDZ6yCcCJYfHSXucwG7PehvD/NXyA6VUP/A5Nxa2L0
-	sYNxg0AUxHz4mQ6LCS//BDa8sX0QuXS9HMNjA/pP+KBRsNO7nyR9hU5KoaOyXU/mx/LqL7+Y34D
-	D0jPRgcZ6WnBjtEpYhC4BYJaP/1vZRPDexPrZVtSmGF1CixmNoQ/FVzmdBb80MrBokt0sYINgB4
-	qng6Kn460vW0eMfRL/yIV59VOiLR2pXXJxusgRerOsm6d/0LW7fRLaGJAGPlTiMbuAynzq18r7X
-	upgC08As+sOEDuG8XZTMXiNbuvkBp9zZ8U/7ROcuZuxeC4kKFXfySQL53I4oX0FUIYX0D76AmIy
-	ycFikZsUvNv8ZM/7vig6aHv0ESE6PjhGgf3dcRTmUDxVTIKG/2ylxN8ZbTqvACMVMeWc5zBhIPd
-	xi8tCfwg8LBJlrURusJbRtolZwytzI5JWJSjX8DMXU
-X-Received: by 2002:a17:906:7948:b0:c29:60b7:3f14 with SMTP id
- a640c23a62f3a-c31aa02b449mr838815766b.46.1791796566369; Mon, 12 Oct 2026
- 02:16:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KXf0mKLq"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 6FDF24E411F9;
+	Mon, 12 Oct 2026 09:16:13 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 42153601A6;
+	Mon, 12 Oct 2026 09:16:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E357711D70194;
+	Mon, 12 Oct 2026 11:16:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791796571; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Sn02TEo+skQseKCCe0yo8KhgJfoqXwV2TUHXH7rQBWA=;
+	b=KXf0mKLql10uD4xoWayinX/w7giW5N1DhzeCpDfhSH2Ar+LXhSl2h+3/4TqW+6jqyWkC2n
+	/RyNNV0foFL7k4c5Xo62zooWLmCByvAoJ5Pps1vCoLCSGgoph8BHC7LUr9HoyOfgzB3/yu
+	Uay8MY6vA0QIhXn9JZIaAbXDLdVw7M8ET3B4z795XuTv+kl6TiTCltwOsFwU7HaHssVAzF
+	rSLTvqSDckV0ZrnkueeOv+gZq9lliLhw8qyQMwos9LYKddwYn2AfhUiW5Pivl0wKpCtxSe
+	w/2j7BSL1sbGLOFW4Y6TIiM3RPBcUwqQ2R72bEmIcyHnFq+bEbY1avnsiQTkBQ==
+Date: Mon, 12 Oct 2026 11:16:06 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, Wolfram Sang
+ <wsa+renesas@sang-engineering.com>, Daniel Lezcano
+ <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Pascal Eberhard <pascal.eberhard@se.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v7 0/4] timers: Add support for RZ/N1 SoCs timers
+Message-ID: <20261012111606.3784d993@bootlin.com>
+In-Reply-To: <8eb0b435-e5d4-4429-a807-24e15b0659fa@oss.qualcomm.com>
+References: <20261001082225.125956-1-herve.codina@bootlin.com>
+	<8eb0b435-e5d4-4429-a807-24e15b0659fa@oss.qualcomm.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com> <20261011-gpio-mxc-cleanup-v6-3-cb47ce2ad758@nxp.com>
-In-Reply-To: <20261011-gpio-mxc-cleanup-v6-3-cb47ce2ad758@nxp.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 12 Oct 2026 12:15:28 +0300
-X-Gm-Features: AclHuK973sM-FWRDdJi0fSTDjgQG7reB3UnWpT5L7Xl9I9NH2wEexbwNU5tVEtc
-Message-ID: <CAHp75VfCrQAnVYV-7wiga-R8A4VKgjfV+EHo_7jy=FNmU=Ov6Q@mail.gmail.com>
-Subject: Re: [PATCH v6 03/13] gpio: mxc: fix wakeup_pads bit operations
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, Oct 11, 2026 at 2:54=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp.co=
-m> wrote:
->
-> gpio_set_wake_irq() can be called concurrently for different pins on
-> the same port, so use atomic bitops when modifying wakeup_pads.
+Hi Geert,
 
-The code doesn't modify any reader part of this member. So, the above
-paragraph is incorrect, right? Otherwise it needs to be clarified how
-assign_bit() does change anything.
+On Fri, 2 Oct 2026 11:49:49 +0200
+Daniel Lezcano <daniel.lezcano@oss.qualcomm.com> wrote:
 
-> wakeup_pads is a u32, while assign_bit() operates on unsigned long
-> pointers. On 64-bit platforms, this causes an 8-byte read-modify-write
-> on a 4-byte field, corrupting the adjacent is_pad_wakeup. So change
-> wakeup_pads to unsigned long and reorder to avoid wasting words.
->
-> And fix the enable/disable path unconditionally sets/clears the
-> wakeup_pads bit even when enable_irq_wake()/disable_irq_wake() fails.
-> Only update the bit on success.
+> On 10/1/26 10:22, Herve Codina (Schneider Electric) wrote:
+> > The Renesas RZ/N1 SoCs family has two timers block controller
+> > available.
+> > 
+> > Each controller is charge of 8 timers (six 16-bit timers + two 32-bit
+> > timers).
+> > 
+> > Each timer has its own interrupt, its own prescaler that can be used to
+> > divide the clock by 25 (timers block are fed with a 25 MHz clock) and
+> > all timers can work in either one-shot or periodic mode.
+> > 
+> > This series adds support for those timers blocks.
+> > 
+> > Best regards,  
+> 
+> Applied, patch 1,2 and 4
+> 
 
---=20
-With Best Regards,
-Andy Shevchenko
+Daniel applied almost all patches of the series.
+
+The only missing one is patch 3 which has to be applied on your tree.
+
+IMHO, we have the green light to apply it.
+
+Can you consider it?
+
+Best regards,
+Hervé
