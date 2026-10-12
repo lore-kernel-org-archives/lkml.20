@@ -1,84 +1,125 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77801446BF8;
-	Mon, 12 Oct 2026 11:54:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0443E399340;
+	Mon, 12 Oct 2026 11:55:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806078; cv=none; b=qz8PFTVc09ljJxm3YYqUmn+ERDbgHoIxWt3EIaa4NTunftUyMsOb+L295pH8TM9uSVX4guFTmdc3ukqBbZ6kn04uTcZzmxSCHjnKWrESro6il7DLjq1F7ChIuOT4sHkkEdhBVarDGUS4Gqds6z2iqwDBdp6uguG82pydnzWyVKA=
+	t=1791806121; cv=none; b=WcoVzIWkkiH+kEUUrr8OmnezYIDAea7+8SKXCYTq4EmoEWAtRFvVgKUrKTh77QvMkuoB6mIiWU6FxW2CWvy2lonILQuFURHT6E2O4g7iLWu4CuV1ZQM4gPm0f6/IA+72GIVVEKW3sIy4pBLKcjKePmekVhRP0x0EYc0+DdxLa4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806078; c=relaxed/simple;
-	bh=DkAq1DQFR/tlPeGtKw7uvWOqlsvCVtZWd047RazSY9k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hSho6n8uuw3N6h9IcIpDpTM3MWJKO+KAe9w1Wtlvyis5pir/dnLYKRSRfE+fb0quUVRa3ArPF40yERr3Bp+ChUDXV9WS9KuPV2Z7OeBER1s+lHqre2k+HW2ryKk/FStF5IYERer3xwDWC0RJm7OZ2+XkDrd93oSTkEwdEPKLpvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=GHwbY3mV; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1791806121; c=relaxed/simple;
+	bh=ATvL8+jGoCFF+CbvlDbPWvSLChLAja5Ob6x7FC9QxVA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NABDbrnyw2EmXkwDMWjmSIrHXeDPzLorm/6rZSlT4ZeG0pf/L1TDWf7LVZHU3o5v2kAc1t8NgIXsl+Ky4C0hUfILAaP/vzsNXkU1t29IT26lVRXxCB3iZKOXJTCp9KXDN6iKeOTJ+GxQs2QIZLwePckRFnLf3tTL/+b+V9I0X7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n43wZqvk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="GHwbY3mV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=tX7Kon+sEtkNnm6BjlNO1s3cXPA4vmv+FnhZk7PJB3M=; b=GHwbY3mVKHVcZ1b0mVwD9OjtG5
-	q/j1wLjyUjU0nzziiI40ohPCX3D/k+VOq02YoA5PgAiVxcwKmI0Q405eoe+F3l6LYAhhBBf9ZUN7n
-	lRuUQsjLvS1efEnAIDWLUoCfZmM9d7pgE7qUC5VQA3WTq6v8H+UKsHUUnPL2kUZ2OzQM6fVQiJmwF
-	z2fOeQFKS80BrQ94p2gw+ahXAofBtYvXuoU3ELN30t+XRbwG82ruMh6BEtwJvmGQGVV6XwNg/XtiY
-	z64/Vn7BORWN5ktJFdM67PAjWB3OcubRtaxZGI9qMD8yXK4Ph1AeXRBiNa2w+bXVrAPcUNxXrhG7V
-	R+ZzfRtw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xGEbv-00000004hXa-0hAL;
-	Mon, 12 Oct 2026 11:54:31 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id B8EA930063F; Mon, 12 Oct 2026 13:54:30 +0200 (CEST)
-Date: Mon, 12 Oct 2026 13:54:30 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Gabriele Monaco <gmonaco@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Nam Cao <namcao@linutronix.de>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-	Wen Yang <wen.yang@linux.dev>,
-	Tobias Schaffner <tobias.schaffner@siemens.com>,
-	Viktor Malik <vmalik@redhat.com>
-Subject: Re: [PATCH v2 01/15] sched: Add task enqueue/dequeue trace points
-Message-ID: <20261012115430.GD2823843@noisy.programming.kicks-ass.net>
-References: <20261001152042.124445-1-gmonaco@redhat.com>
- <20261001152042.124445-2-gmonaco@redhat.com>
- <20261001154934.GT88198@noisy.programming.kicks-ass.net>
- <d75888885e2c94c1bc717faa864f609c43db874f.camel@redhat.com>
- <20261002102939.GB2823843@noisy.programming.kicks-ass.net>
- <56972260b9221128d7aaf5bb60f90611ec9d7235.camel@redhat.com>
- <20261002191842.GA1259248@noisy.programming.kicks-ass.net>
- <20261004035714.18140850@fedora>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n43wZqvk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBBB01F0089B;
+	Mon, 12 Oct 2026 11:55:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791806119;
+	bh=EFBfQFk5/U3oNT5PftLrBoxKpWYLq06VaTtaCGifA+Q=;
+	h=From:To:Cc:Subject:Date;
+	b=n43wZqvkpRiBHTT8srVSaSF0QkmteVpPPVz/AjMHgwTfz2Hhd0T8eeE5NQjiOdjcU
+	 p8tgxSiKBAyVs9/yTPLNCJLwyvV9diis+mZSfSgX0foXGNit0XJ5Mvw7k6f7nD/Akd
+	 62rLWO5ZY8lH0rIcmp+ZYjidpWABrGpE3ZSEFu0GE2ZnQmwmy1K7CbwiuoBwssBKok
+	 jGXcHbMh3mf2ZR9xabtXfJRDYToLQa0Atye5wmuRnNaXO+Shlb8VEV6ZysUnORPkkX
+	 ZFQp6ClSZrEsUcFjePPmIMOafuD419/ZMuBV5siF5ynAtyw3yq5R3SAjYc/gIl54DE
+	 lhPI+9KfMuuRg==
+From: Daniel Gomez <da.gomez@kernel.org>
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+Cc: Daniel Gomez <da.gomez@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Julia Lawall <Julia.Lawall@inria.fr>,
+	Corinn Tiffany <corinn.tiffany@inria.fr>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Philipp Stanner <pstanner@redhat.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Samsung GOST <gost.dev@samsung.com>
+Subject: [GIT PULL] Rust XArray for v7.4
+Date: Mon, 12 Oct 2026 13:50:26 +0200
+Message-ID: <20261012115028.73246-1-da.gomez@kernel.org>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261004035714.18140850@fedora>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 04, 2026 at 03:57:14AM -0400, Steven Rostedt wrote:
-> On Fri, 2 Oct 2026 21:18:42 +0200
-> Peter Zijlstra <peterz@infradead.org> wrote:
-> 
-> > So personally I have 0 interest or use for html. Mail is text, code is
-> > text, we use a text editor (neovim is my current poison of choice).
-> > Nowhere is there html. So then having to look at rst is just crap. rst
-> > gets in the way of actually reading the thing. All down-sides, no
-> > up-sides.
-> 
-> This is specifically your opinion. I really liked text files, but I have
-> fallen to the dark side and found reading the Documentation directory
-> from docs.kernel.org so much nicer than reading the text files directly.
+Hi Matthew,
 
-For me it means having to use a mouse. It means having to deal with dumb
-shit like non monospace fonts and endless annoying stuff like that.
+I'm sending the Rust XArray for the current v7.4 cycle, although it is
+probably too late for it. Just let me know if you need me to resend it
+later, rebased or under a different tag.
 
-I know I'm a minority, but the web *SUCKS*. There are no wins for me.
+Thanks,
+Daniel
+
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/da.gomez/linux.git tags/rxarray-v7.4
+
+for you to fetch changes up to 4ce73d98a0a6e5bba46ed1fc9a61511bdccea776:
+
+  rust: rxarray: add rust xarray support (2026-10-12 08:36:28 +0200)
+
+----------------------------------------------------------------
+Rust XArray for v7.4
+
+Add a Rust implementation of the XArray (rust/kernel/rxarray.rs),
+introduced as an experimental Rust reference implementation [1] of
+lib/xarray.c, as discussed at LPC26 [2]. This lets Rust users, such as
+the null block driver and possibly Tyr (under evaluation), experiment
+with and evaluate both implementations.
+
+The goal is to evaluate whether Rust helps with the most common class of
+XArray bugs, misuse of the API by its callers, such as the long-dormant
+page cache corruption that almost blocked the LBS work [3]. The RFC v1
+cover letter has the full motivation, benchmark baseline and
+roadmap [4].
+
+This initial version supports store, load, load_mut and erase. It has
+been tested with the included KUnit tests and doctests.
+
+Outside of rust/kernel/rxarray.rs, this touches:
+ - MAINTAINERS: new XARRAY [RUST] entry, maintained by Daniel Gomez and
+   Matthew Wilcox, with Andreas Hindborg as reviewer.
+ - lib/Kconfig: new XARRAY_RUST option.
+ - rust/kernel/lib.rs: register the rxarray module.
+The C XArray implementation is unchanged.
+
+Link: https://rust-for-linux.com/rust-reference-drivers/ [1]
+Link: https://lore.kernel.org/all/20261009212431.0-da.gomez@kernel.org/ [2]
+Link: https://lore.kernel.org/all/A5A976CB-DB57-4513-A700-656580488AB6@flyingcircus.io/ [3]
+Link: https://lore.kernel.org/all/20260923-rxarray-next-v1-0-92eedf185649@samsung.com/ [4]
+----------------------------------------------------------------
+Daniel Gomez (1):
+      rust: rxarray: add rust xarray support
+
+ MAINTAINERS            |   12 +
+ lib/Kconfig            |   11 +
+ rust/kernel/lib.rs     |    2 +
+ rust/kernel/rxarray.rs | 1407 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 1432 insertions(+)
+ create mode 100644 rust/kernel/rxarray.rs
