@@ -1,146 +1,214 @@
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 983684477F1
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791793079; cv=pass; b=aivJDZBd3HQ6nzsZ3+hiz2vN+EawN19RMnVq52PNyfGdJOIgswvwGyzKJZabv1h8b2SUECBGO7+KOSx7N1FXiVT/zycJM92T+1QffEWF4Rl/qbnBoCB7QnDOA7Uap7qcYXAXD+zesZkhHWJz9IIUfw7rK3hcXlcdzwPBV3Oopec=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791793079; c=relaxed/simple;
-	bh=1GLLejLzmf38Sqpzl/J1qn5yJLV3HZP8rb7jIFgq2Vc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qBbzsGIjrjwlULZwgHqK6umszQwANUOOWJ0soKMnSdkk6XFKSvC7ra1x4l+3M0Eh7DZW0Gpd/m6rv5MeQ5XxXOwrqdg9IqZ6f/LbSksI5VwqQytdWr7ClQeMTrOioB8DKSXjb7si4aGT/mBzuGSoJngr0aBoouh/3Gw4eN1Qwgo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=shopee.com; spf=pass smtp.mailfrom=shopee.com; dkim=pass (2048-bit key) header.d=shopee.com header.i=@shopee.com header.b=ZDd4GRkQ; arc=pass smtp.client-ip=74.125.82.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=shopee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shopee.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93024477F1;
+	Mon, 12 Oct 2026 08:18:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791793092; cv=none; b=O4KmJNYowMghFiijWS4t9cbDT0Zkw6glwuRB5jNklfYA+UsdsO6cAqSMdZVmu1updF0mjfNw9NWHYIm2xyeuvV2iQPLIIHBl/h9z2Ih6Wu4GfpHEsgWAc6ZkfF2wxaT1tq+3G3Va8MVV+hzQpeV8lWKM7TA+nipkXkQ/pZCbdXw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791793092; c=relaxed/simple;
+	bh=z/lN3bdEWK4vKXWPBUIZM295/d1FC17NSqu8RfgoQkI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bWW/HjZRdQg6zRFzKeO2tTY3bdSydz2zqjCqpCBeZLtLI8APJ26DD5iRnZOdEVoRzrVSmng5MO18hhauDIXO4ijARILb1EwbQtiNLQGuquSNZCrw9cEHnzwwQecPAE3kfnlEny8R2wXsB4J7DRL6n9TMmr3bCB1mCAmhH35Od0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=b0/65HId; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shopee.com header.i=@shopee.com header.b="ZDd4GRkQ"
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33c2520ad38so3647912eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:17:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791793078; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Psvvjjlx+eUiZGekj6rdZIwpMCyyVkFWyowhVnsKQ4vtYP4MYsQ3kJ0eTKOYc61PaT
-         gO/0cE4dYX2eSPHI314kzOuxMDaRcQuh0o6wOR4R8sKd52juFKLykmSdtmlcQA712A5D
-         PsMeOn5cAtW816G2JXDCNE2o21Ybw3Gj3AbC9XVfcoQ1YQZCmwyXEoGaAH8j6GUpZm/d
-         vQjgxqDtIR8jiCcRjsK7B1ZbQRXze6OnX39219fkCVJCd5H7a8pN1EK59AhOkBhewlf7
-         v+kn6z7hpEP+SJKdXU4Q/+xJd9Yaaz2zn3rXq7PWnR2paPoP88cxVzt5gkhFksPmT3xx
-         czSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=9Dd4TAZB19XGjWX3ZomXrsadjEIedrZeOBjDL75jfIE=;
-        fh=6Vybm5cYq65ziCeu5yI7TtzVrMmXqbebnN5/+PIdXVE=;
-        b=e8v/Hlq/4rxVZCtuvkgnntcHr1eRiIltHfx1F33RMV+1T4gqNeEIxPAlvplK6d6sRL
-         i2BfbsQROqPCKDr/E7CQUIDlijmprbcNB7UpWjsifDNxarpGVfe7rTjKZUunDNtRIa7W
-         SnHB2tpyIvhk9wF7UzgYF7YMBcntUjMWyatMDj1MZU6ofkbtDs77Wfqp39wuksX95O+b
-         Y1ti+87k6DwVo6d5wh8x3Ynm+f6K4iYFgOHe3V5rbPpeD4c8TcREHviUsU90z1WckK7y
-         vn9jgwEHXeLOUUv7cG2SmvhjqfcvkW1RdVEEW8ThNPOvzOMzwl5YDShMjOvmgIFtc+LD
-         wLQg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=shopee.com; s=shopee.com; t=1791793078; x=1792397878; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9Dd4TAZB19XGjWX3ZomXrsadjEIedrZeOBjDL75jfIE=;
-        b=ZDd4GRkQlr+cV2bZlli0MKa/uFLU2ghsGslO1Hg2wxhjtJjoK+re0KjPo6MeivTaVv
-         8RWOEGa7LS4jHPM990Ls5MHaK1OldubIiPigS47fRYHIwWf+imiS9biO58axwmZJoOob
-         4t6dXZ5Bc1+RTWUUXl4zrQj0h2Ql2s2/t5GYcgok+Z1g78tDU33KD57ynQADbVV4+3Sf
-         NzPSZ/mfCOwGhKiOTBTa5wHmE8ztD6WiRwXztk/dyptbzTvDN7qHNO16tvK0a5eHFv4P
-         Cgx6/MdGhkmX8bga6Hw19GVes9xX7OMwdxzY+AbP1ruj2P8sXsiH3nw2LAu8x3DqtRgI
-         OOKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791793078; x=1792397878;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9Dd4TAZB19XGjWX3ZomXrsadjEIedrZeOBjDL75jfIE=;
-        b=C4ZD41ggKtFIJvz268LGxp6RodZ7I6RLmUT/yHALir7D4oxvJT4k1747+mX4H4LFf9
-         QNU/GfDH5xxaTAWYFHvuwSyBqTDXM6DiTZfTxMIgVGhkrGO47MYosxeScbjK9g7PCkLz
-         Hv+a2n4bbNHMJd5RnRNKFnLDV3B/KMo4uj3OXfNZqGn32F1JiA7F5BdEmk6ja2u0Jf/V
-         f41SP8UvWiAaWQxavsSSQyw4V30+G4F16tZn/jdPlVJHyBU4zMIU1CjblX2mGi3QH2cF
-         yy0Yn6vSmZTwmsU7ieZnPv6XN2mqcBdw3G+TOme+5J9gt5feRtVYiJSkskw3EeGdf5+M
-         nARg==
-X-Forwarded-Encrypted: i=1; AKwUvBxeg45c+U23QgxoTNQAU831Hu2QPHLaYMaAYh54XIYiUXcyl8N0g9nlWCqpHc2PjzKgXtCy9A4JyFLvJps=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJGCJ7YKeCb7GdZCwherjcCVvc9hMvWnJ6adXviPHhvX22k9AMJ
-	5ojNjPsQgrE/MF74dbiXFVcWMebdoOllezpm274OGr+5ogC/15wIUmgtfju5nDIi4iBWebOduUx
-	q/kj8YrUMCsUFSIhHfiBETZ+GXCfhgz/tiH1+IPT+NA==
-X-Gm-Gg: AYBFou3ur/X9DxxwXBOqXTo5xGpAljkgzgtpMJeiJ7QtI32DEpHQn5vBboiIWUODEKx
-	1UHk+/uisTHEMfKclgfJk1D4c+TdXH1sDU2d87kqOkHebeBsdFNWjQ7epeAkR9B0IL3+Bj/TQc3
-	2Oy9KNP6VAC8bQ0ya6kF/pHFUBIJX8TLjr4sB8tbP1jWS/xafv8Gssy3/zVMKnHsIKe7aUoytKa
-	urOxclT4SOf1X0wjeGUKvTQnphil3i4LGw0wPZlEZN7NV+Tkl6KhDGV/ZWBhqJQWIjt1STORa/6
-	/UteDBjBva4bwYSYEGPtBXgeJYO9SZGRUzfsTOWsFXolzt6dtvkIPes=
-X-Received: by 2002:a05:701b:4305:b0:149:d501:b990 with SMTP id
- a92af1059eb24-16a5f3f191dmr9983232c88.25.1791793077611; Mon, 12 Oct 2026
- 01:17:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="b0/65HId"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j39MJ4NJ3zKpDj;
+	Mon, 12 Oct 2026 10:18:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1791793084; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AorKVAymubQ0em8KS7yftkf1mZWNaB5OzkWMcun9Dsk=;
+	b=b0/65HIdkmGeeRlNauoUzK9EsuMqwLdNZ+YnkFvrpO1RcvO7vmhcILZugMIspOUrWdWRB6
+	2boupsKeI5QieNxavknH6QpntGV9SPsi3OsHNPfUCWW+KLNQy3omRuJOiKh9/MPlmYBxpO
+	/q9Xw/aN3F13tXodL3vsFCYV8wB0zD8UnvsBncgvIvaiyBBxhhV6JyRayagFo6C54+7up8
+	8/PENomwXjcYCnvwIWYKdE+lqmptRdJApbSEGcHl7SC/DJkKWiymxixPEjZNywn0k+CC3K
+	ABiwTvQVZnrDAAr1MC7xnEqTCQKIGGQPqtFDlwcQXgKJWLfi0+NXlNW/sVrRrg==
+Message-ID: <48e62f95f7c3bd5515d0b0d83971346056837403.camel@mailbox.org>
+Subject: Re: [RFC PATCH v5 0/6] rust: Add drm::JobQueue
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Daniel Almeida <daniel.almeida@collabora.com>, Philipp Stanner
+	 <phasta@kernel.org>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>,  Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?=
+ Roy Baron	 <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg	 <a.hindborg@kernel.org>, Trevor Gross
+ <tmgross@umich.edu>, Tamir Duberstein	 <tamird@kernel.org>, Alexandre
+ Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=	
+ <work@onurozkan.dev>, David Airlie <airlied@gmail.com>, Simona Vetter	
+ <simona@ffwll.ch>, Boris Brezillon <boris.brezillon@collabora.com>, 
+	John.harrison@igalia.com, da.gomez@kernel.org,
+ linux-kernel@vger.kernel.org, 	linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	rust-for-linux@vger.kernel.org, Janne
+ Grunau <j@jannau.net>
+Date: Mon, 12 Oct 2026 10:17:57 +0200
+In-Reply-To: <F09C7397-AF97-4947-89D5-759498BCF7B0@collabora.com>
+References: <20261009191124.1022902-2-phasta@kernel.org>
+	 <F09C7397-AF97-4947-89D5-759498BCF7B0@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911032905.63683-1-mingyu.he@shopee.com> <aqRXqcynCx88D2QK@linux.dev>
-In-Reply-To: <aqRXqcynCx88D2QK@linux.dev>
-From: Mingyu He <mingyu.he@shopee.com>
-Date: Mon, 12 Oct 2026 16:17:46 +0800
-X-Gm-Features: AclHuK-_Zx2LzZN02tzISzVWGha4IvMdOMWo2JFUzwRP2aZsF1MCrxc-_yMLwpY
-Message-ID: <CAAoBcuS=sqOAPFr9Gda9aTwuCMHMPzBMEee8qvPNHtNxrRWKuw@mail.gmail.com>
-Subject: Re: [PATCH] memcg: keep propagating stats updates to ancestors
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
-	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Yosry Ahmed <yosry@kernel.org>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	littleswimmingwhale@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+X-MBO-RS-META: qbp939n4yhzmrx5bq3xkb6exkanmqfnw
+X-MBO-RS-ID: 15191c5d53db699b10a
 
-Hi Shakeel,
++Cc Janne
 
-  This came from a reproducible workload with a custom in-kernel consumer,
-  not a conjecture or an AI analysis. I uses aggregated file pages statistics to
-  decide whether reclamation is needed.
+On Sat, 2026-10-10 at 21:22 -0300, Daniel Almeida wrote:
+> Hi Philipp,
+>=20
+> > On 9 Oct 2026, at 16:11, Philipp Stanner <phasta@kernel.org> wrote:
+> >=20
+> > Changes in v5:
+> > =C2=A0- Add back the Revocable<JobQueueInner=E2=80=A6> from my earliest=
+ RFCs. Reason
+> > =C2=A0=C2=A0 is still the same: JQ dropping while dependency fences sig=
+nal could
+> > =C2=A0=C2=A0 deadlock. Similarly, this solves a dependency kicking of t=
+he work
+> > =C2=A0=C2=A0 item again while drop() is running.
+>=20
+> Can you expand a bit on this? IIUC the problem is introduced by trying to=
+ take
+> the jq lock on signal? If so, this could be avoided by queuing the worker=
+ from
+> that path instead?
 
-  Tracing showed leaf stats_updates at 6656 while root stayed at 6144
-  (the threshold). Further updates stopped at the leaf, and root flush
-  requests were skipped.
-  In one reclamation check, memcg_page_state(leaf, NR_FILE_PAGES) returned
-  about 2.64 GiB from the aggregated statistics. In the same invocation,
-  a bpftrace probe sequentially summed the leaf's per-CPU NR_FILE_PAGES
-  counters and obtained about 6.58 GiB. This sum was not an atomic snapshot,
-  but it exposed a large discrepancy with the value used by the check.
+That's a good point, but I'm not entirely sure if it would result in
+well-defined behavior in Rust. Let's say we design it like this:
 
-  The periodic flush does restore progress. But issue for this consumer is
-  the missed reclamation decisions before that flush, not permanently lost
-  accounting.
+struct JobQueue {
+  inner: Lock<JobQueueInner<=E2=80=A6>>, // <- contains job lists with dep =
+wakers who want to start 'work'
+  work: ScopedWork, // <- tries to access 'inner'
+}
 
-  Regarding the BPF interface, the implementation in the tree I found is:
+Now:
 
-  __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
-  {
-          mem_cgroup_flush_stats(memcg);
-  }
-  This bpf function still uses memcg_rstat_updated() benethe.
-  It doesn't handle the issue.
+JQ drops -> jq.inner drops -> takes lock -> iterates over jobs,
+deregistering all dep fences
 
-  I originally called mem_cgroup_flush_stats() before reading the counters.
-  After observing this issue, I switched the consumer to css_rstat_flush()
-  on the relevant subtree.
+Simultaneously, a job that the iteration has not yet reached gets
+ready, schedules 'work'. The Workqueue backend runs 'work' right away,
+it starts spinning on Lock<JobQueueInner>
 
-  If waiting for the 2 seconds periodic flush is acceptable for this
-function even
-  under continued updates, I agree there is no need to change it.
+Dropping of jq.inner releases the Lock around inner. Thus, now the work
+item can take the lock, right when 'work' is about to drop and, thus,
+before it could be canceled.
 
-  However, the comment in memcg_rstat_updated() states:
+So this would be UAF, wouldn't it? Correct me if I'm wrong.
 
-          If @memcg is already flushable then all its ancestors are
-          flushable as well
+I still use the system_wq (will be changed, TODO). Could we solve the
+problem with the right drop order if we have a distinct wq?
 
-  Concurrent counter resets can invalidate that assumption, as the trace
-  shows. If the early exit is retained as an acceptable trade-off, could
-  we update the comment to acknowledge this and the reliance on a later
-  flush to restore progress?
+>=20
+> > =C2=A0- Do not call run_job() with a lock held, since run_job() might s=
+leep.
+> > =C2=A0=C2=A0 AFAICS, this also makes the proposed XArray solution impos=
+sible and
+> > =C2=A0=C2=A0 demands that we use a list.
+>=20
+> Can you expand on this a bit?
 
-  Thanks,
-  Runli
+That run_job() might sleep was AFAIK proposed in our workshop at LPC. I
+think it can't allocate because of the fence critical section path,
+though.
+
+Anyways, we have to borrow a job to the driver in run_job(), but
+simultaneously we cannot / should not hold the lock of the data
+structure (no matter whether XArray or list or ringbuf) in which the
+job resides.
+
+So what you effectively have to do is take $DATA_STRUCTURE's lock, pull
+out the job, release the lock, call run_job() to borrow the job, and
+after running take the lock again to update the data structure.
+
+AFAIU this issue was what you were describing in our workshop when you
+were trying to protect xarray's tip-job with a distinct lock?
+
+
+Note in my last patch that this opens up a race path with
+jq.complete_jobs() which we want to address, but that is solvable.
+
+>=20
+> > =C2=A0- Re-add the earlier credit-count-system, so that run_job() is
+> > =C2=A0=C2=A0 infallible. Simplifies the design quite a bit. (Danilo)
+>=20
+> What is AGX=E2=80=99s position on this? IIRC, this credit system could no=
+t represent
+> their submission model exactly, like it can for others.
+
+Let's ask them :)
+@Janne, WDYT?
+
+[=E2=80=A6]
+
+> > 1.
+> > I believe that callers of jq.new_job() and jq.submit_job() do not need
+> > an outer serialization mutex. Reason is that JQ serializes with its
+> > internal lock. Sequence numbers cannot take over older seqnos because i=
+t
+> > is submit_job() who sets the seqno.
+>=20
+> I guess this makes sense, so long as submit_job() doesn=E2=80=99t take &m=
+ut self?
+
+It can be &self now. Earlier we wanted `&mut self` to enforce locking
+by the driver, but as I said I don't see a reason for that anymore.
+
+> >=20
+
+[=E2=80=A6]
+
+> > 2.
+> > I, furthermore, believe that a driver will not need to hold a
+> > driver-lock while calling jq.complete_jobs_up_to_seqno().
+>=20
+> In tyr, we hold _no_ locks.
+>=20
+
+Huh? I understood that very differently at LPC. My understanding was
+that you had to work hard to get around locking issues between driver-
+lock and JQ-lock.
+
+
+>  The driver signals the fences, and this will
+> enqueue the worker thread.
+
+That is not our intended design anymore, because we want the Job to
+hold the DriverFence, the JobQueue to hold the FenceContext, and the
+JobQueue to hold the jobs.
+
+Thereby, the DriverFence's data: T is also the Job's data: T, which IMO
+is the only thing that makes sense, because the job's data is what will
+be relevant for the fence backend_ops, and, therefore, is what needs to
+be protected by the RCU grace period (see above).
+
+The consequence is that jobs are to be completed with sth like
+
+JobQueue::complete_jobs_up_to(seqno: u64, state: Result)
+
+
+>=20
+
+Thanks for your input, appreciated!
+
+Philipp
