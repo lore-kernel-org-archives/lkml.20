@@ -1,192 +1,121 @@
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936B87080D
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:16:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791778569; cv=pass; b=EuvAs1Bj7+AbkQPGZuIpUouptv7V3StKZ5XHh2oTtOrNm6WJDHO5C9g6o23jm1DOzJV6tWRXACcIgfflApGSQU6U+7vBWkGcEEEO/DTgK5zG2Unce6RSF4eYJdW0c7dyE4qycXCYhZobhqHC9BF5plXlVi3SzP/kTJ4HP5KUm94=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791778569; c=relaxed/simple;
-	bh=4aAnPaETAOU+Ufhay9D/FXsDB1jN6gSDnOn1vFCvUOQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LYpxt2gHGAowE5fn1ZRu6yMxkwXpiv8yai7d3QHlb6GMXeas2NF37WHvOhGC/iu9WMEUe80HkOmjXVsB46xQnjHkJ+OzGIfPHWzjkPajMbY/HIY6kUKdtWVyR3lgYTzJYHKtaMiE9S0gTf/GSui42Ub2Ap1BBCar31c6UxoyhT0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CIqbqb8Z; arc=pass smtp.client-ip=209.85.128.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F7F33750BE
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:16:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791778584; cv=none; b=qvpkMwvXkih7P7gxu1RktHFZXh6sSPzJoY5fyVz9UcgN6D7Y928IC8BRj9AYl8Ts5e2sc7QLSl+4k1p2TtGb2iTdGwcN6Sg89KTm/5nTMgpNGKKYLx84u7GeZt8pU6e7JCl67jXh9pLR1LgL0+oeSritcHOiezT1kqVSLPrIpwQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791778584; c=relaxed/simple;
+	bh=m2VcwnNvFW/954+yXantAC920BnpuaNj2ZtpR7Wqf1A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GsveVcIjKUTt7r/aKVj0/hKCaVOiOHlepKbabGJhLlxIQSEy4ryUd5FkCidMTcL4OLOjeYpDfSY/HP9nDjrfK38+fUIrw+I/5XigzOMXaUjX7M2yGTm7DnPdX2MYVnuHqFr1M7hZmioR51/TA8xzKLX5XXPiYdNOSDoFs5bxb8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=m3B5T2TO; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CIqbqb8Z"
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8ab37e44643so7629497b3.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:16:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791778567; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VOYI/Egja9xc0BeCdFISMzxHhh/AXwzV7SYhdudVqiX9LSVWdVaCXXLy1pd+xr3vyw
-         FLTAVmyudUlDcWLAQa8z0MccasOiG8mnrX3AYVjSPWjzLLUHOEgP0CMmknqjSPn3RSgG
-         GMTSkSUv0uz2CuGSelb54vZ73K48VdilcG7P/7adcqKL+dPsCp86YmnTNeclth/nPoV1
-         jh0sngnWqi0iHO6PiNuXXuczoF/DlB/L6PCbX5ejWhLic+7pEaWzo2yKXk0nNCyg/gEI
-         WoBpHSvdGXtVs7NUtMuKaLVZ2J3YwkomQIfgGyjslQ5zvl0JmrTICOi9sYkABojh/Pqx
-         /Cbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FmrFlC4CymhdGvHPqaBIxxVKsVUaCyNEYowNbJO6Wtg=;
-        fh=69KUFEyFq1D4rcSpzz7iF0QMmT4T4sXsaEgm1+D2k9A=;
-        b=rF2hUKP17w2wMAn2dPwL0+Ik610enDJ1nk21S2Lk0J31SEqAMy79dDXVboqH9mAW1Y
-         aUhUy0T0FxTt/6u/4dVAH/aYefPUYlP1tJhWsIBrHqjUw0QF054MKy3dQ0JmQhi1Jysm
-         tKcILhKnkGzdrhsnz8Dhwmc2XOYvK5MK08PUpUVvtwnhKG6Mc0W2qEfC9WEcPQLyEq74
-         42ruCyDFNutC2s4QgAa9pJmlgAqiSuwJou54E8ysjHbWTdc0Cl0pb1cxotZsXiQGt4jo
-         GyPt0hdF2y8yhUdf1grmt5U/vGKlYBGpmBHzQOPL6Jc3WfFbUQhgxaaC2BY7rEoZGedQ
-         2i6Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="m3B5T2TO"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e8b20a899fso2971015ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:16:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791778567; x=1792383367; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FmrFlC4CymhdGvHPqaBIxxVKsVUaCyNEYowNbJO6Wtg=;
-        b=CIqbqb8ZW3ZGCzesQ5obng9/Viri0Mxcq5PFOEUwB6lqhZ8wkL6YqmkLNx6m1yHYOh
-         oMBrz0bTeyzqLTCJTSnFkTJ2mNykI4ILIN2OuhyCntPTu8F/h9yYSyj5TgkVkhBUV2ki
-         HqCy68yFR95mnNn2wx2x/EBQFyZsWhrI/oS9C7QAZKQpVzPaZWY2oGLoi+ODBIZAVvQ+
-         l4dwQSgp1IOxMbz+U7EIv6WKHtzjNgYIq1/lpwkkCjIZ9z4ubBn1XcZ4UR8l0iEzfLsu
-         vgpX1kF0Jy/PWYFBh8JE4BNCJswJOhQjlYaO5ThUWA9LKAFMCNkciDt3BUuu2/9fcOb/
-         0/4g==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791778579; x=1792383379; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aKpzAlPRldho6ARyI6EXFQgi6l3fYjFwuBpuGWoUMxo=;
+        b=m3B5T2TOvw0xierihqtuGqMUk9CE6m0QM9MAJyFf0U/qN6Q7Gv/ehBZovAaIjQ1eud
+         jVlz2RgrtOyrNP2rCuhM2DJsVyiAL8HPC3ZgRZmKhMeRzT2+uWFqcm8sQH29SPGhfMVE
+         p5NxoAhrZlnh4BSmTwKDaDaulwoLMdw/sAjvOcB6e1Mfiptq+9zFYiegjmesUN//AvMK
+         7aMfTKJOE+sUpZYu3Dnwni2IyoDe+/p0MnVMhwdjySLpDEhkYVBnqxrx9HCr6BZGPaPR
+         B7iP8s+PE0MgcVpq5pvY444afIcIN4pasxA7Llrel8lzWxLjZ511OvcOj+/MmjfL1ArR
+         JzSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791778567; x=1792383367;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FmrFlC4CymhdGvHPqaBIxxVKsVUaCyNEYowNbJO6Wtg=;
-        b=t5g2xQnrGkyhrzM8FQxmDDV7xcQ2uxPZsycbjatZJD79ujWOkh0910d8zXlViiL8mH
-         KKAucASdyFlJuDJT62ZHyW5fvf0Su2XuqDnHfOrh1o4Rolmn0lcOhZAOVNKuBTUlMMLX
-         k+SczBHwOM8yx0NRDJ4FapLhQYvX75Q82nusfzLrJFwRAzk0HsstWPiMad0KiVbxMu7f
-         8Z3auADL4qkCCNJO2NVbc3Y2iLPZv7uuCrIqgs+Ittp+sl9c1ccemmGx8d2m805tKSr+
-         vEUX088ZL18fqIubdXqFaKhlx2Si6o5vdpnOoIvjn0dD7yAwMEmhCwUnV+wd/q7Ffq83
-         UzBw==
-X-Forwarded-Encrypted: i=1; AKwUvBxb2RsPcpg+h6EXBeAYOvaq2Nh40p9jzNbMxdf8210n3RZCTh6eMf6SV0LsBksJwckSM+8YK161Nmp8l6w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKibmTmwAPWZbBzGjsbezroOGzxbTxy1fblg87E+/zDSIlplvqE
-	jqNw+n1/gETJxsfvKUn+TXfc2MIah8luMKbt7RHQlumn6Ppk65eVPtc/dhf21nejh96L50xDUpd
-	fgQLCBZy2GaOUrJbDv4iVGZCOTy8jhUw=
-X-Gm-Gg: AYBFou0gCoMlSIU8XipEI3G7De9ff9tSyif7/t2jhp6V3zTkJn2Z/ibEElbSrtmXqVp
-	x1kTTIUavXVZSQhZICDulsb38HuANiCgZKjGuzs25B9XzLjTH+3AkMTEwNwqmJf54M78nA0Yya0
-	c1TW0qnP05th5by/vCXST02OpHu73uPPyDC8qRlB+fCIHInv/vjabjqs+DlrpDM9qezqvOON47R
-	dK6C2yUtTsQ/J59fpXjdtMd5ilWQRMBuC7BZzvOkUaJOEK9XFjdTcuh320aOjzLxaxMRTk27bhy
-	U315TCdebgq2PBWwp6QqBquV95xy7RpPfGkXt5S4g6FQyLUyjDtgvK+5kp7vNxkTxldXA1Zix75
-	8oTS06kfWkE7N
-X-Received: by 2002:a05:690c:61c6:b0:8ab:3918:33c9 with SMTP id
- 00721157ae682-8b07edfb3ebmr24808907b3.96.1791778567173; Sun, 11 Oct 2026
- 21:16:07 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791778579; x=1792383379;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aKpzAlPRldho6ARyI6EXFQgi6l3fYjFwuBpuGWoUMxo=;
+        b=gAsU15XR41i1tNTiHBwsIKVsSf+UDUcUrsfOEIly0AbBpgd+70Pu0T7Rjcm4WTH+cv
+         bxkcKR/h8JkZe6wIs8K8/abGzHkzjrIPKng5riJoZnxO66kRRmWo0VrbGmOQqAFXYiFx
+         EjxXJoW/bCmiEjdcFbTqCfClRkO9DEDijarUYze5w9bXC4sSTlYye4ZFq4j/Dyq/K5H3
+         WY8jzGXolrasVWl7jg6tIamI+IFZgi0XVa9vAmSftJEWyFJasMy1arkmbWy+yMSBFV2m
+         7+0CZUljUqgY8Jp93WPcvO3zKx5MIE98BYo7i9iZSFqf579TIuzy0TGbzLc6hYrY/B/H
+         M4tw==
+X-Forwarded-Encrypted: i=1; AKwUvByY+mn6RelhEQscOfbNl5L/Gtf8dFFPGA2ZYxn7Rdw4MeNHjfd4Ez/t3XfckUziYB5Yg6nfVAUHjPkcil8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFikqanYjVBYJyW1z19pWBTi6ZWCqBHfoA5U3MORp7EpHr3DBI
+	7wbggQey7z+lJr6ptzRXySR1teNz40dQGjUnmi51Bi5ezfcipfKboWoSlhQ6TrGfroA=
+X-Gm-Gg: AYBFou0Y1zRPdAuqVw88NdC8MkUi5y9F/EPi9hHltfszTLMp02GEp65Rzh56VrFpESv
+	4DxEh4K5ZHujx9dJiX+q+anNl+9rgQnMoNT0XgvswDgUzsCHPze+wzNmyIf/H4LHs7XBMxRc7H+
+	iyy24tnubvZJzKTGgG3ln6S4jTQK6VQ2WAIvSIihxK9FuAp0wYwicxp8pSwiGePkI/WA1P6cFt0
+	p860QH/9lfaIWXRayBK6U0EGSYUkJAxMgE1eUiXAd8eCijEvqCK+Qitzs3c9Q9OjAg7bSpRFM+S
+	ATFDzY3bu/QyjhnO6AIyfHcJAo+epO+opKowmE4OVhLGTtk7ujkOxTaiwVPHpblNpNnGjfsk8n0
+	rdij+ydxfRobS8H/vKZ4/OGn4f+BkgEB+dGUNOqHHvB1hEfXOZHvIqaM4MmrfguIItun7BzE7Aq
+	b3rAzOQsNJ2i/1jP7jmjZcGNxeOjWh3KwVTraOCtvWSfO96Ig7/BDuShy5y/bfTUa+R76tutzLV
+	J1fnw==
+X-Received: by 2002:a17:902:ecc3:b0:2df:5836:d1d0 with SMTP id d9443c01a7336-2e842ab65abmr73108105ad.30.1791778579446;
+        Sun, 11 Oct 2026 21:16:19 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421af46asm38240025ad.39.2026.10.11.21.16.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 21:16:17 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Alexander Duyck <alexanderduyck@fb.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org
+Cc: kernel-team@meta.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Dimitri Daskalakis <daskald@meta.com>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>,
+	Bobby Eshleman <bobbyeshleman@meta.com>,
+	Daniel Zahka <daniel.zahka@gmail.com>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Subject: [PATCH net v3 0/5] eth: fbnic: harden Rx and Tx completion handling
+Date: Mon, 12 Oct 2026 13:15:55 +0900
+Message-ID: <cover.1791775409.git.yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261010093843.103169-1-kanishkasolanki456s@gmail.com> <DM14QKTSWM6K.YSJFASLMY53E@nvidia.com>
-In-Reply-To: <DM14QKTSWM6K.YSJFASLMY53E@nvidia.com>
-From: Kanishka Solanki <kanishkasolanki456s@gmail.com>
-Date: Mon, 12 Oct 2026 09:45:55 +0530
-X-Gm-Features: AclHuK-CkT6UlEdY9rvyIC5NaUw_85FFG0zYLy6H2r1vScvrdc1APxGJLTHTkV4
-Message-ID: <CA+khhQvUULygvTwxEzQ5mae_saCRnk1GYXNWw+U99QpkpZ=1pQ@mail.gmail.com>
-Subject: Re: [PATCH] mm/page_owner: make page_owner stack depth runtime configurable
-To: Zi Yan <ziy@nvidia.com>
-Cc: akpm@linux-foundation.org, vbabka@kernel.org, surenb@google.com, 
-	mhocko@suse.com, brendan.jackman@linux.dev, hannes@cmpxchg.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 10, 2026 at 5:12=E2=80=AFPM Zi Yan <ziy@nvidia.com> wrote:
->
-> On Sat Oct 10, 2026 at 5:38 AM EDT, Kanishka Solanki wrote:
-> > The stack depth for page_owner allocations was previously fixed at
-> > PAGE_OWNER_STACK_DEPTH (16).
-> >
-> > Replace the fixed stack depth constant with a compile-time max ceiling
-> > (PAGE_OWNER_STACK_DEPTH_MAX =3D 64) and expose a module parameter
-> > 'stack_depth' via module_param_named. This allows users to configure
-> > the stack recording depth between 1 and 64 at boot or runtime via sysfs=
-,
-> > while preventing unbounded stack usage.
->
-> What is your motivation? If you see page owner stack gets cutoff due to
-> insufficient depth, explain your use cases first.
->
-> >
-> > Signed-off-by: Kanishka <kanishkasolanki456s@gmail.com>
-> > Signed-off-by: Kanishka Solanki <kanishkasolanki456s@gmail.com>
-> > ---
-> >  mm/page_owner.c | 15 ++++++++-------
-> >  1 file changed, 8 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/mm/page_owner.c b/mm/page_owner.c
-> > index fbbda7ba914b..fcb584070f1d 100644
-> > --- a/mm/page_owner.c
-> > +++ b/mm/page_owner.c
-> > @@ -15,11 +15,10 @@
-> >
-> >  #include "page_alloc.h"
-> >
-> > -/*
-> > - * TODO: teach PAGE_OWNER_STACK_DEPTH (__dump_page_owner and save_stac=
-k)
-> > - * to use off stack temporal storage
-> > - */
-> > -#define PAGE_OWNER_STACK_DEPTH (16)
-> > +#define PAGE_OWNER_STACK_DEPTH_MAX (64)
->
-> This uses more stack. Do not do this.
->
-> > +
-> > +static unsigned int page_owner_stack_depth =3D 16;
-> > +module_param_named(stack_depth, page_owner_stack_depth, uint, 0644);
-> >
-> >  struct page_owner {
-> >       unsigned short order;
-> > @@ -172,15 +171,17 @@ static inline struct page_owner *get_page_owner(s=
-truct page_ext *page_ext)
-> >
-> >  static noinline depot_stack_handle_t save_stack(gfp_t flags)
-> >  {
-> > -     unsigned long entries[PAGE_OWNER_STACK_DEPTH];
-> > +     unsigned long entries[PAGE_OWNER_STACK_DEPTH_MAX];
-> >       depot_stack_handle_t handle;
-> >       unsigned int nr_entries;
-> > +     unsigned int max_entries;
-> >
-> >       if (current->in_page_owner)
-> >               return dummy_handle;
-> >
-> >       set_current_in_page_owner();
-> > -     nr_entries =3D stack_trace_save(entries, ARRAY_SIZE(entries), 2);
-> > +     max_entries =3D min_t(unsigned int, page_owner_stack_depth, ARRAY=
-_SIZE(entries));
-> > +     nr_entries =3D stack_trace_save(entries, max_entries, 2);
-> >       handle =3D stack_depot_save(entries, nr_entries, flags);
-> >       if (!handle)
-> >               handle =3D failure_handle;
->
->
->
->
-> --
-> Best Regards,
-> Yan, Zi
->
+The Rx and Tx completion descriptors carry buffer ids, offsets and
+lengths that the device writes and the driver consumes without
+validating. v2 bounded the Rx buffer index against the array only, which
+the review found insufficient: an in-range id naming an unposted slot
+still reaches a NULL page, a bare META completion still builds an skb from
+a NULL buffer, and the offset, length and the Tx completion head are not
+checked at all.
 
+This series validates each of these against what was actually posted and
+takes the existing drop path, and bounds the XDP Tx completion loop so a
+head outside the ring cannot spin it.
 
-Hi Zi,
+Patch 1 validates the Rx buffer id at every use and drops a bare META
+completion. Patch 2 validates the offset and length. Patch 3 returns a
+pending packet before a new header reuses its slot. Patch 4 is unchanged
+from v2 and returns the page reference for a dropped fragment. Patch 5
+bounds the Tx completion head.
 
-Thank you for the feedback.
+v2: https://lore.kernel.org/netdev/cover.1791659860.git.yhlee@isslab.korea.ac.kr/
 
-I misunderstood the original TODO comment in mm/page_owner.c:
-/*
-- TODO: teach PAGE_OWNER_STACK_DEPTH (__dump_page_owner and save_stack)
-- to use off stack temporal storage
- */
-You are right. I will drop this patch.
+Yehyeong Lee (5):
+  eth: fbnic: only act on Rx completions naming a posted buffer
+  eth: fbnic: validate the Rx completion offset and length
+  eth: fbnic: return a pending Rx packet before reusing its buffer
+  eth: fbnic: return the page reference taken for a dropped Rx fragment
+  eth: fbnic: bound the XDP Tx completion head to the ring
 
+ drivers/net/ethernet/meta/fbnic/fbnic_txrx.c | 192 +++++++++++++++----
+ 1 file changed, 158 insertions(+), 34 deletions(-)
 
-Thank you
-Kanishka
+-- 
+2.43.0
+
