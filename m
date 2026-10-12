@@ -1,107 +1,192 @@
-Received: from mta1.migadu.com (out-253.mta1.migadu.com [95.215.58.253])
+Received: from mta0.migadu.com (out-194.mta0.migadu.com [91.218.175.194])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D411B4A0EF8
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:40:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.253
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497204A1E17
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:41:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819606; cv=none; b=mCYrFxMEi0RZzix5gR7LrhXgUesRZc3ZJwpce8gPrpipYWnu/XnjxmkxKv1gJrxM6KlpuYa+ltmALX7oW1+XXaZn9491kaZmXnvumgm0l52rYOYBd2MGI4AJbP/BvJleZXnO8Zsng82iQCvxWgdgWmQTChjSLBLdF0silFBL4xg=
+	t=1791819668; cv=none; b=hZrGmN0VYlhGSAXK+clpwiWSVWwNQM9xk8Qe0cmuhmwWrhTXvcANV7qGSmQ7w5kyRmjge5LfDqf2Hn+69tV5ZGAwCe+eT6Be0OP4CcItiRzuEz/kJUlW7waHdI1r7QpmHd3asZWkttPEXUuOs55nC5iyGtwJZ8RYxyV5CkIxmHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819606; c=relaxed/simple;
-	bh=zPGOdscwfUn5mgzb0Gu30YtAw5dbLao3e/+fpf4jvD8=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=ctrt6kFOdXnM9aHW8EbTW46vd/8uaKHsDVIi1O3qCbo57du4oUGrS5TALGQrT4osnUKtZzImB4M5vQqitdumCMO389UR4EWhwPABkr9wUy43UjwMp71EyVGnB8GFwYrjReSeZmc2HieI05YJUcBWtC53bfGbSYJzY9a5tnb43n8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iqcjYwO2; arc=none smtp.client-ip=95.215.58.253
+	s=arc-20240116; t=1791819668; c=relaxed/simple;
+	bh=sdKl1gtqk3xvj688fGKe4A5/EYlWEX/GrlUAafq8bb4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EFUP7U1DjPa/adj9EQl+C/dPtBVH7itoAgNK0On+SHRBGg0swgKcz57uwxv2elMaGCp3b0pIJzR0+R+8u4zQBzX1HHofbP/ZBBV0Rx8PfkJIBhZG/0xGhsNFueyJkg93nlwV7eRI1LQCq+EzmS2kAYhBxmSXTvG0fO1aoUx/hXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pWJxWQF4; arc=none smtp.client-ip=91.218.175.194
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iqcjYwO2"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pWJxWQF4"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=zPGOdscwfUn5mgzb0Gu30YtAw5dbLao3e/+fpf4jvD8=;
+DKIM-Signature: a=rsa-sha256; bh=sdKl1gtqk3xvj688fGKe4A5/EYlWEX/GrlUAafq8bb4=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791819602; v=1; x=1792424402;
- b=iqcjYwO2LqFj4OZJ+hoO9/P5tFqoC6njYvBztokFZcdncyIoi0uVOp+CeeHxfgXFJB+LYLYO
- c3z3K46re8hN9scIxBUF0/kLIgYO9BmCG6DVWH8t2TTUG0cBv+egOaW3mb9tjHG8u3zHR+EycYh
- CmrYPlInjHPH0yTcks+dDrGQ=
+ t=1791819664; v=1; x=1792424464;
+ b=pWJxWQF4vchaxmyQ0GSqQVXRVmZrkAst8SOWXlMYPXmbpF9iUY9l+wpZq7Y84BtziWqE6+5W
+ fn+XG0zmJmF4m1RUiFEEMpvY4GjlimRirTX4uc06etuDTm978u5AaR4FVxkk8jEfVKC4E0y2vt8
+ yiQ0S0FFEh16t/StQzgJzZtg=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8cfabf6460186618;
-	Mon, 12 Oct 2026 15:40:02 +0000
-X-Mizu-Trace-ID: 8cfabf6460186618
+Received: by smtp.migadu.com with ESMTPS id c6c90b0003de49e1;
+	Mon, 12 Oct 2026 15:40:34 +0000
+X-Mizu-Trace-ID: c6c90b0003de49e1
 X-Migadu-Flow: FLOW_OUT
+From: Leon Hwang <leon.hwang@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Quentin Monnet <qmo@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Leon Hwang <leon.hwang@linux.dev>,
+	Mykyta Yatsenko <yatsenko@meta.com>,
+	Avinash Duduskar <avinash.duduskar@gmail.com>,
+	Anton Protopopov <a.s.protopopov@gmail.com>,
+	Amery Hung <ameryhung@gmail.com>,
+	Jordan Rife <jordan@jrife.io>,
+	Rong Tao <rongtao@cestc.cn>,
+	Eyal Birger <eyal.birger@gmail.com>,
+	Pu Lehui <pulehui@huawei.com>,
+	Jingguo Tan <tanjingguo@huawei.com>,
+	Lin Ma <malin89@huawei.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf-next v2 00/21] bpf: Add tracing_multi link support for bpf progs
+Date: Mon, 12 Oct 2026 23:40:02 +0800
+Message-ID: <20261012154024.29423-1-leon.hwang@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 12 Oct 2026 15:40:01 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <341ceaef821fe23a887a90701d9fda6516066edf@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH 5.10] staging: rtl8723bs: fix OOB read in OnAssocRsp() IE
- loop
-To: "=?utf-8?B?0JzQuNGF0LDQuNC7INCU0LzQuNGC0YDQuNGH0LXQvdC60L4=?="
- <mdmitrichenko@astralinux.ru>
-Cc: stable@vger.kernel.org, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Sasha Levin" <sashal@kernel.org>, "Fabio
- Aiuto" <fabioaiuto83@gmail.com>, "Alexandru Hossu"
- <hossu.alexandru@gmail.com>, "Hans de Goede" <hdegoede@redhat.com>,
- "Navaneeth K" <knavaneeth786@gmail.com>, "Michael Straube"
- <straube.linux@gmail.com>, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, "Dan Carpenter" <error27@gmail.com>,
- "Andrei Khomenkov" <khomenkov@mailbox.org>, "Dalvin-Ehinoma Noah
- Aiguobas" <fliegbert2@gmail.com>, "Michael Huang"
- <tehsiu.huang@gmail.com>, "Jinke Wu" <coolbeaner@126.com>, "Nikolay
- Kulikov" <nikolayof23@gmail.com>, "William Hansen-Baird"
- <william.hansen.baird@gmail.com>, "Serhat Kumral"
- <serhatkumral1@gmail.com>, "Nazar Kletskii" <nazar.kletskii@gmail.com>,
- "Jennifer Guo" <guojy.bj@gmail.com>, "Hans de Goede" <hansg@kernel.org>,
- lvc-project@linuxtesting.org, "stable" <stable@kernel.org>
-In-Reply-To: <fa2a1e43-8b9f-2c0c-609c-ca17bd20b7c0@astralinux.ru>
-References: <20261012140642.1076-1-mdmitrichenko@astralinux.ru>
- <7e9af4f7528da1307cf62e53cf6b00fa9c4f674f@linux.dev>
- <fa2a1e43-8b9f-2c0c-609c-ca17bd20b7c0@astralinux.ru>
+Content-Transfer-Encoding: 8bit
 
-October 12, 2026 at 5:33 PM, "=D0=9C=D0=B8=D1=85=D0=B0=D0=B8=D0=BB =D0=94=
-=D0=BC=D0=B8=D1=82=D1=80=D0=B8=D1=87=D0=B5=D0=BD=D0=BA=D0=BE" <mdmitriche=
-nko@astralinux.ru> wrote:
+Similar to the tracing_multi link support for kernel functions [1], add
+support for bpf progs.
 
+With this support, I'll be able to enhance the function-graph feature of
+bpfsnoop [2]. It will trace all bpf progs, including their subprogs, to
+draw a full function call graph including bpf prog call sites.
 
->=20
->=20On Mon, 12 Oct 2026 at 17:19 MSK, Luka Gejak <luka.gejak@linux.dev> w=
-rote:
->=20
->=20>=20
->=20> It seems to me that this was sent by accident by running git format=
--patch -1
-> >=20
->=20>  You probably forgot to commit so git made last commit into a patch=
- file.
-> >=20
->=20>  Either way staging rtl8723bs is getting removed in linux 7.4 so an=
-y
-> >  further commits for rtl8723bs are discouraged.
-> >=20
->=20Hi Luka,
->=20
->=20Thanks for taking a look. This was intentional: it is a backport of
-> your reviewed fix f9654207e922 for the 5.10.y stable tree (hence the
-> [PATCH 5.10] prefix). The upstream commit is tagged Cc: stable and is
-> already in 5.15.y and newer, but 5.10.y is still missing it
-> (CVE-2026-64444).=20
->=20
-> As far as I understand, the removal in 7.4 affects mainline only; the
-> driver is still part of 5.10.y, so the fix is still relevant there.
->=20
->=20Best regards,
-> Mikhail
->
+The attachment could speed-up when there are hundreds of targets. For
+example, on high CPU core count servers, it probably runs 200 tc-bpf
+progs as Kubernetes CNI, and each tc-bpf prog might have 4 subprogs.
+Hence, there will be 1000 targets to trace for bpfsnoop's function-graph
+feature.
 
-Understandable, I wasn't aware it isn't backported as it seems to me
-it was merged quite some time ago.
+With tracing_multi link support for bpf progs, bpfsnoop will be able to
+attach to all targets quickly.
 
-Best regards,
-Luka Gejak
+When attaching to 1000 targets, fentry.multi is much faster than fentry
+on a 16c16g QEMU VM on an AMD EPYC 9745 server.
+
+./bench tracing-multi-attach-progs
+Setting up benchmark 'tracing-multi-attach-progs'...
+tracing-multi-attach-progs: prepared 1000 identical BPF program targets
+tracing-multi-attach-progs: fentry created and attached 1000 programs/links in 338.171ms
+tracing-multi-attach-progs: fentry.multi created one program and attached one 1000-target link in 47.345ms
+tracing-multi-attach-progs: fentry.multi creation/attachment speedup is 7.14x
+
+Unlike the tracing_multi link support for kernel functions, the support
+for bpf progs does not rely on the ftrace
+CONFIG_HAVE_SINGLE_FTRACE_DIRECT_OPS. Hence, the support for bpf progs
+will apply to all archs that have trampoline support by design.
+
+Links:
+[1] https://lore.kernel.org/bpf/20260606123955.345967-1-jolsa@kernel.org/
+[2] https://github.com/bpfsnoop/bpfsnoop
+
+Changes:
+v1 -> v2:
+* Drop the factoring update_fentry_multi() helper.
+* Add bpf_arch_text_poke_batch() to x86_64 JIT backend.
+* Add bpf_text_poke_batch() helper.
+* Move trampoline_lock_all(), trampoline_unlock_all(), and
+  bpf_trampoline_multi_attach_init() out of the
+  CONFIG_HAVE_SINGLE_FTRACE_DIRECT_OPS guard.
+* Factor out bpf_trampoline_multi_prog_attach/detach() to get rid of
+  CONFIG_HAVE_SINGLE_FTRACE_DIRECT_OPS.
+* Shrink CONFIG_HAVE_SINGLE_FTRACE_DIRECT_OPS guard scope for
+  bpf_tracing_multi_attach().
+* Explain justification in cover letter. (Andrii)
+* Check '!funcs[i]' before libbpf_find_prog_btf_id() in libbpf. (Sashiko)
+* Add BPF_F_TRACING_MULTI_TGT_PROGS in link info UAPI. (Sashiko)
+* Verify '\0' before skipping '_' when parsing prog name from symbol
+  name in bpftool. (Sashiko)
+* Expose libbpf's libbpf_find_prog_btf_id() in attach failure tests.
+  (Sashiko)
+* Select the target prog according to the 'first' value. (Sashiko)
+* Add qsort() in link info test's setup_tmulti_bpf_prog_targets().
+  (Sashiko)
+* Drop '((u64)tgt_prog->aux->id << 32) | ids[i]' in link fdinfo.
+  (bot+bpf-ci)
+* Use different cookie values for different targets in cookie tests.
+  (bot+bpf-ci)
+* v1: https://lore.kernel.org/bpf/20260809150111.45000-1-leon.hwang@linux.dev/
+
+Leon Hwang (21):
+  bpf: Initialize ftrace_managed in bpf_trampoline_get()
+  bpf: Drop unnecessary ftrace_location() in
+    register/unregister/modify_fentry_multi()
+  bpf, x86: Factor out bpf_arch_text_poke_prepare_insns() helper on
+    x86_64
+  bpf, x86: Factor out bpf_arch_text_poke_check_ip() helper on x86_64
+  bpf, x86: Introduce bpf_arch_text_poke_batch() on x86_64
+  bpf: Add bpf_text_poke_batch() helper in trampoline
+  bpf: Check tgt_prog before is_tracing_multi_id() in verifier
+  bpf: Move helpers out of CONFIG_HAVE_SINGLE_FTRACE_DIRECT_OPS guard in
+    trampoline
+  bpf: Add bpf_trampoline_multi_prog_attach/detach()
+  bpf: Shrink CONFIG_HAVE_SINGLE_FTRACE_DIRECT_OPS guard scope for
+    bpf_tracing_multi_attach()
+  bpf: Add tracing_multi link support for bpf progs
+  libbpf: Add tracing_multi link support for bpf progs
+  bpf: Add tracing_multi link fdinfo support for bpf progs
+  bpf: Add tracing_multi link info support for bpf progs
+  selftests/bpf: Add tracing_multi bpf prog attach test
+  selftests/bpf: Add tracing_multi bpf prog attach failure tests
+  selftests/bpf: Add tracing_multi bpf prog cookie test
+  selftests/bpf: Add tracing_multi bpf prog rollback test
+  selftests/bpf: Add tracing_multi bpf prog link info test
+  selftests/bpf: Test tailcall with fentry.multi
+  selftests/bpf: Benchmark tracing_multi bpf progs attachment
+
+ arch/x86/net/bpf_jit_comp.c                   | 100 +++++-
+ include/linux/bpf.h                           |  38 +-
+ include/uapi/linux/bpf.h                      |   9 +-
+ kernel/bpf/core.c                             |   5 +
+ kernel/bpf/trampoline.c                       | 339 ++++++++++++++++--
+ kernel/bpf/verifier.c                         |  22 +-
+ kernel/trace/bpf_trace.c                      | 243 ++++++++++---
+ tools/bpf/bpftool/link.c                      |  63 +++-
+ tools/include/uapi/linux/bpf.h                |   9 +-
+ tools/lib/bpf/bpf.c                           |   1 +
+ tools/lib/bpf/bpf.h                           |   2 +
+ tools/lib/bpf/libbpf.c                        |  43 ++-
+ tools/lib/bpf/libbpf.h                        |   4 +-
+ tools/lib/bpf/libbpf_internal.h               |   1 +
+ tools/testing/selftests/bpf/Makefile          |   1 +
+ tools/testing/selftests/bpf/bench.c           |   5 +
+ .../benchs/bench_tracing_multi_attach_progs.c | 193 ++++++++++
+ .../selftests/bpf/prog_tests/fill_link_info.c | 169 ++++++++-
+ .../selftests/bpf/prog_tests/tailcalls.c      |  64 ++++
+ .../selftests/bpf/prog_tests/tracing_multi.c  | 254 +++++++++++++
+ .../bpf/progs/tracing_multi_attach_progs.c    |  24 ++
+ .../selftests/bpf/progs/tracing_multi_bpf.c   |  61 ++++
+ 22 files changed, 1495 insertions(+), 155 deletions(-)
+ create mode 100644 tools/testing/selftests/bpf/benchs/bench_tracing_multi_attach_progs.c
+ create mode 100644 tools/testing/selftests/bpf/progs/tracing_multi_attach_progs.c
+ create mode 100644 tools/testing/selftests/bpf/progs/tracing_multi_bpf.c
+
+-- 
+2.55.0
+
