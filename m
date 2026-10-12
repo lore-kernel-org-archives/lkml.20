@@ -1,123 +1,98 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6CF427FB9
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:27:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E673CB55E;
+	Mon, 12 Oct 2026 21:27:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791840425; cv=none; b=qXzLfrenb4duR2RJoEhx9SVeJZn39m84f7pH/0sBYpNx5HM2tO/A145KtvayWgpsvahNyRCD6Aeymr/W9/DXv1JlaKQkx5NcuFe83ezURBv5S0kNbD03LExMmWe6vjInVsJ1cVECTpBVBzAyP/KtZCROmrFmVpT+YmlNVj3iBDw=
+	t=1791840448; cv=none; b=EULBXxCU+EqferwibbuMCvh2ri0pf0HImLr3smAZA2YuMR68eIOQisd3eZfvUkNJYEazYlCKjgvGp48RLnbfcsr0yMmnl2fGBGeixWqEkQJaVhRAZNvkBufQziw25M2van7tDPHvrSCK4CITf66oJYvFoMpngOy98MtO5QaOhy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791840425; c=relaxed/simple;
-	bh=vFCTPi6RkqhF5HPuqeIigpw8olvShpvLUVqeUIoJdYg=;
+	s=arc-20240116; t=1791840448; c=relaxed/simple;
+	bh=oeSC2qlhQvedVTlGtVaXxMIyAYpEvR3Z38T+wufwsno=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pSvUJPE4N/L/+duKKo0sqJLF7Vz0sJ464Ls9foEh3D21AtKsHM85U29IOM+l0Am/dKDpgWIDkvzIBBWuZRbb4BloyhQ4hgewFe12y0RYunzKmght6BFhlVqtrqvtpdU5YSldcDen/fmQ+bq+eZLegb1y7q8EKw0krPIq3bCrhlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=UuPUM0He; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	 Content-Type:Content-Disposition:In-Reply-To; b=u/YZPtRbdRD1ZucW/OS5G9mqvC7C1Ia4xWuWlyjjOZsQ0lcyAnIqM1xfsT3JH6hSXoc/VVakdG/fwQoRxrwijx77iWjjXf2BjaqHeAFP7ER/UQWW65qLfsZiAAty5ivCogadNib9hKk0BmgtS/JV0hU3vQjOPx0v2Pp3HOn3bLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PwzOYhwh; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="UuPUM0He"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-881269371acso2062309b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:27:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1791840423; x=1792445223; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=00lr0ueSHjjLFpqBUflLoQS+JH73YrWnwKwvoX92I9o=;
-        b=UuPUM0HeTJ/ADEIghcha+FZah2r1LoSTx/oKR1mcAhddvveQVx+4banNqP2RU3CsTY
-         LJ++V2f0XycCs4OQM6j3dOCi6hmgN3I4a8ATKZmItwuAeFCIyAYiX63tMUmNaQWXeqxA
-         FRo9JNB3KvPQjw97HmOqQMAZsH5OM2xHx1E5PcmH8ODMIXZOgEV9UHxwryORjEAM539C
-         k1h4aIjiBHEEI6b3aCwPPZBxbriyEzUxl4P+CQQYn7av7Rx1194ZgGy+P1sOpMKVKiVa
-         o5B4e38Yv9ieFFKRRqYzydXFevulTXLoTGVb6YqtbgNIWFIv7Wy51EHhDGn3CIb8oRyR
-         +13w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791840423; x=1792445223;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=00lr0ueSHjjLFpqBUflLoQS+JH73YrWnwKwvoX92I9o=;
-        b=lTYQUQ0HWJDlmC6glCvVBl65BkbmG/rX8/nFH1lBrvTdEDt1OPKWT3rBLlPAtkUMa4
-         HTUyiHy7AczzvEIumSoqa3FcViutHavqaPFCgpdlo3yktH6lTbkwBoRHzrPUSN6sMKTG
-         QniMOjCXDz30/ENrccd6MMW/5ATL7f/x+fw8DG3jn/2u40I/c2KM7CS+Ddc5ksbT3l1o
-         OE5yuR7gB/Z2t55dnt6e7hltTG6DIDTbqimgyDP9D8cpCMC7LIsY0s+6oWy6n8v9eME0
-         NT3SiAdtaLLrsfOpY0dy5JbeF/InA4qDYlD7RDQJqy2NaIShPIWLUB/IQr8cdg+rUuu+
-         mOHw==
-X-Forwarded-Encrypted: i=1; AKwUvBzydihxYIIrlPZn982TuxAWvnnhbh7uU1wOC3ofKt2F7ebggVRppGiaRPNVXWrotB3AOfpPaeKhbAUJRHg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmOcWhmpJdJooG45B1tptZj3QhtdYqJjiG4cWG+vduQHf/TYg/
-	4P8oxLtjL/x2YdjYSSMuZXO3Pnf/jacVAiXNfqu9kuFp9keddNd6xEEQApN92ycqUxU=
-X-Gm-Gg: AYBFou1asACrryhtAyMwua8wdn94uhS5m0cnIdArPNLzqd0SJ0z8kBmJwHmplVmcYyC
-	OrkjDMSfU4DijJVXN2rmW1qtUdbEczztobWq1P1pfD23kW8JvTz2vo5P9KxFpagYY5LLiyQiW+z
-	CR4dMfhHrUuqJyqOZrXVuNmLTSP5igc/2AJUAw/MoQtfXjegmdUIIRvWUob0QGVgINIlfY9D8I6
-	MRJZyX/YOfcfV5XTIxBsB4B6Dvj/fXMPveQP8N0bc4BB2uPU40+crwx+IynjGiEBwTsvGUBudhL
-	MoylbEKqqVRrIg6/apsNjkpWfEs+cv5x0TczmRDWQTtt9G48oBQoIp5Wc0u1GV4wluvqR6rv5+a
-	V8GMS8dcNIBGLiU1KCb4J4AMmVIC4yNpUI9pkzPnmGi5/5WYaoYPlkyBjWVHAgyQ3B/ZDDCJXcr
-	TjZrUZp0oT4FOlsc4PUxGcP5X6WEbbfkVso1eifGGVqoP2kALiSQbknrU46475wBdONCtwui+Vs
-	0A686zojy78AkLyDYZe7rk=
-X-Received: by 2002:a05:6300:6698:b0:3e1:4fbc:5ce9 with SMTP id adf61e73a8af0-3e164f32a4emr6971521637.20.1791840423279;
-        Mon, 12 Oct 2026 14:27:03 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:58::])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e53f8bsm4705338a12.24.2026.10.12.14.27.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 14:27:02 -0700 (PDT)
-Date: Mon, 12 Oct 2026 14:27:01 -0700
-From: Joe Damato <joe@dama.to>
-To: netdev@vger.kernel.org, Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 2/2] bnxt_en: Pad short SW USO segments to
- BNXT_MIN_PKT_SIZE
-Message-ID: <as1QpaiN8tTtZ1vx@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>, netdev@vger.kernel.org,
-	Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org
-References: <20261009215426.2377946-1-joe@dama.to>
- <20261009215426.2377946-3-joe@dama.to>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PwzOYhwh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791840447; x=1823376447;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=oeSC2qlhQvedVTlGtVaXxMIyAYpEvR3Z38T+wufwsno=;
+  b=PwzOYhwh+R+k2e78QTxy6CSmKgVclsnSitCqyemMYe0ZETqqJn3CExIy
+   RCYqyAURmCBZUWM6sCPZrcWJDAsYhzOMZrodfjKmN1Gsy4XBztrKYbSMJ
+   HGL9M+fJRpZPeZX7wUym9zQLoLOM8G2zp2685vvhi0i5u/a/aoAt4enB0
+   A4TzevmyNpMuK6tK4JmMaTM5pmIuFmALkOjwd8yXDVjOsVip/f53ILARP
+   RCAUWj7enqLP6AhkyJiT1g9SIhJlW/CtosCkcMFpLXqZxbVHG+6MGM8sq
+   3aTUFgqYd8biQf7WuoyB7TaV/4pgDw2CIvAXzblCKys5rarXOYfILv20v
+   A==;
+X-CSE-ConnectionGUID: X12oABbaTLOVpHulteHZgg==
+X-CSE-MsgGUID: 7g+NzS88SPSouNEF60ehHQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="441380"
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="441380"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 14:27:21 -0700
+X-CSE-ConnectionGUID: Ih2SfVXsRVq+Tk7DXmiFOQ==
+X-CSE-MsgGUID: 740QfzMHTjeoi21wm1gxlw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="1108316"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 14:27:18 -0700
+Date: Tue, 13 Oct 2026 00:27:15 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: raffaele.tranfaglia@gmail.com,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: iio: addac: adt7316: use dev_err_probe() for
+ ldac GPIO
+Message-ID: <as1Qs5H5-SG3gik4@ashevche-desk.local>
+References: <20261011-adt7316-dev-err-probe-v1-1-27a4a8ac74f3@gmail.com>
+ <aszvaazebS2NISxS@nsa>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261009215426.2377946-3-joe@dama.to>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aszvaazebS2NISxS@nsa>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Oct 09, 2026 at 02:54:24PM -0700, Joe Damato wrote:
-> Each SW USO segment is hdr_len + seg_payload bytes. With IPv4, hdr_len
-> is 42 bytes, so a segment carrying less than 10 bytes of UDP payload is
-> sent shorter than BNXT_MIN_PKT_SIZE. This happens with a short last
-> segment (e.g. gso_size 1400 and 1405 bytes of payload) or with a
-> gso_size below 10 bytes.
+On Mon, Oct 12, 2026 at 03:35:30PM +0100, Nuno Sá wrote:
+> On Sun, Oct 11, 2026 at 07:56:22PM +0100, Raffaele Tranfaglia via B4 Relay wrote:
 
-[...]
+> > Use dev_err_probe() when requesting the ldac GPIO fails. This
+> > avoids logging an error when the GPIO controller is not ready yet
+> > and the request returns -EPROBE_DEFER, and records the deferral
+> > reason. It also simplifies the error path.
 
-> diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
-> index ef04c9d08066..80d5c4f963a9 100644
-> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
-> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
-> @@ -82,11 +82,19 @@ int bnxt_sw_udp_gso_xmit(struct bnxt *bp, struct bnxt_tx_ring_info *txr,
->  	if (unlikely(num_segs <= 1))
->  		goto drop;
->  
-> +	/* bnxt_features_check() makes the stack segment these, but paths
-> +	 * that skip validate_xmit_skb() (e.g. generic XDP_TX of a GRO'd
-> +	 * skb) can still get here. Padding every segment would need more
-> +	 * BDs than bds_needed reserves below, so drop instead.
-> +	 */
-> +	if (unlikely(bnxt_sw_gso_pad_len(hdr_len, mss)))
-> +		goto drop;
-> +
+> Not sure what's Jonathan policy in here (or don't remember :)).
+> Personally, I don't see much benefit on this kind of patches. I'm aware
+> you might be eager to have something upstream but for staging I guess
+> the real value is in having someone willing to really cleanup the driver
+> so that we can take it out of staging (naturally that also means having
+> HW or someone willing to test it).
 
-I could be wrong, but I think if [1] is applied this drop can go away (?)
+This is a real fix for a (rare enough) problem. Without this it's possible
+to get your dmesg flooded with the messages instead of the useful logs, so
+I'm definitely in favour of taking it.
 
-[1]: https://lore.kernel.org/netdev/20260928223648.2739371-6-kuba@kernel.org/
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
