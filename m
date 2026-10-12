@@ -1,46 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369AF32824B;
-	Mon, 12 Oct 2026 14:25:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79DE248F02A;
+	Mon, 12 Oct 2026 14:25:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815132; cv=none; b=dc3ax3gIxsRxlq86WJErdpM3JfgYTv5/ds3g9HKvpJT6LwzLhdrGI6Nodl8KX0JWtfkUtLXjhFMohv/fa0NpIcFU3KhKyC5J+5zb/UKmdZXUWFkR47ufwKibVRfmlzNKUaMjRlbGkoNDXjr3ccc6jL/uhbQVrRSGTxdvljtAG8w=
+	t=1791815135; cv=none; b=cJPlpVUKCCjZU5nq0y6L/gaCFCHCs0qrbO9rPJ8rusH7PgaHFNZ0mO7vMlP1c4p/OSj5SX+eMJCWdSuyvEFCWMv7vwSQSnc0yEDMLZ++ei5DZ5QlgBVQdDXgB4HCurUFBYAL144hlTGNSMR5C7EMSPZPaemaFxqNZ+16mMjxIcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815132; c=relaxed/simple;
-	bh=rSb27zLdpu0dYHiznSvxveaV1ziAQuwRQHdiQPEcrPg=;
+	s=arc-20240116; t=1791815135; c=relaxed/simple;
+	bh=UDRC4k6jtpTAzdj3jNapRGpGuYwQR6PtAri6UYSXh4k=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=leHLBLb+vXCL4vi6CZNqtDlkhS1HZd8oq6csHU/MdRi1yN88KUL3lYaInBBpTRI8dRZogR8h27hwmJAnZglTYwyW3aBa94siAA2yq28x2WcIWS8QAzRVIgdeYdoAs/c3Ux6o3UEPotEGn9lHpldw1Rzl1bTVQ6ELQbC9GuX1tj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HsEHvGOL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=TQhZk7+SMiSaIPfxIj54DiGz3/mSMx/QKt+QltcVxlvtCgqdSqN28aeyuCh59lB3pa/cd2UjoLhPdExJe/LVx9VsinGGot0f3ON2P5Xz68pqqEEmjM8FRCfFscTnvenRycO+NYN0MzXvfjs+bwQkz8iPKeRZ4fOM3m+6i2BMIeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pefmkigp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HsEHvGOL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C76201F0089B;
-	Mon, 12 Oct 2026 14:25:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pefmkigp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCC871F0089D;
+	Mon, 12 Oct 2026 14:25:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791815130;
-	bh=mjEQR7BUyCacDd88k8LcDx+pGeS9YyLHTLECabn56ew=;
+	s=k20260515; t=1791815134;
+	bh=GymSLpD5tWybWbzvODs1GBKhiva8NA/oeqm8YClEZCE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=HsEHvGOLdNLNMk2ekkqfnbimIZtTFazE3X2Si695B0muhw/PzGvKqP3A5J6ZuAzNF
-	 LAjghAXJhElYFUuAdhUCTbo4Qjag0MpvECSP92lMxOABK5smPyGLKfVkl36zIRbIyd
-	 AyXIr+tcFX2N/thWxGZWc7H6kL7xTu7C6/RIb5fXsw4ILJxcwJiFNZ2B/XdoBES3UU
-	 B0Ps5MlRbBXkKKzZqblXBe2f8hJsmW/p62EJPJNQPy+c4Xvxu/TtGOui01Fi4DNQDo
-	 GqJWzJWVAKzzHcktQSPCkr/8e961uSm5F+sxJO2SAOEGwi/juK2vymTbAW7fTTw4IE
-	 fyYVyTxzonySw==
+	b=Pefmkigp0UcoEhgTPopHOuP1kSQn/b1bhb3XGJfOXGeEnYZtybBD9kTP29WrXxfvy
+	 BiNJxEJ1yAYk+rb9/B6V9iNi520It04Iz4S0hEXooi4jkbKIsXmvk6oBh5Tl/5v8fX
+	 VRpYZ7hP/PKkJGa/yYoO6fzSgGenLqLGIWKDCKkiSyDc0M+lxtJqAdihySalpFQDQP
+	 h8RJ6/tRgDEQU26UlLiEjy53BWh6CIaNypMD0i9TrEJ3ZJU1tw/qYfUVkdhfpcXEF1
+	 kCfBCOh64ASVUZBhQ5D92ssEMTCnuH1d/awEO5TwBoUv4RCUBBJPhWGPx9CtzWQjUu
+	 1IRmHvbUi4zsw==
 From: Christian Brauner <brauner@kernel.org>
-To: Carlos Maiolino <cem@kernel.org>, 
- "Darrick J . Wong" <djwong@kernel.org>, 
- Joanne Koong <joannelkoong@gmail.com>, Brian Foster <bfoster@redhat.com>, 
- Christoph Hellwig <hch@infradead.org>, Damien Le Moal <dlemoal@kernel.org>, 
- Hannes Reinecke <hare@suse.de>, Daniel Gomez <da.gomez@samsung.com>, 
- Pankaj Raghav <p.raghav@samsung.com>, Dave Chinner <dchinner@redhat.com>, 
- Andrea Parri <parri.andrea@gmail.com>
-Cc: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <cover.1790342457.git.parri.andrea@gmail.com>
-References: <cover.1790342457.git.parri.andrea@gmail.com>
-Subject: Re: [PATCH v3 0/4] iomap: fix error handling regressions
-Message-Id: <20261012-puschen-bibliothek-normung-535ea9605a95@brauner>
-Date: Mon, 12 Oct 2026 16:25:25 +0200
+To: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+Cc: "Darrick J . Wong" <djwong@kernel.org>, linux-xfs@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261006154005.232338-1-ampr.mhd@gmail.com>
+References: <20261006154005.232338-1-ampr.mhd@gmail.com>
+Subject: Re: [PATCH] fs/iomap: document ret parameter of
+ iomap_iter_continue
+Message-Id: <20261012-semmel-mineral-nudelsalat-81f8544c3e8b@brauner>
+Date: Mon, 12 Oct 2026 16:25:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,17 +46,9 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev-3d1b8
 
-On Mon, 28 Sep 2026 10:48:05 +0200, Andrea Parri wrote:
-> Fix three independent error handling regressions in iomap:
-> 
->  - clear the writeback context after a failed ->writeback_submit() call,
->    preventing an already completed ioend from being submitted again;
->  - preserve an iomap iteration error when iomap_fiemap() has a pending
->    extent to emit; and
->  - preserve a direct I/O data path error when sub-block tail zeroing
->    succeeds.
-> 
-> [...]
+On Tue, 06 Oct 2026 19:10:05 +0330, Muhammad Mahdi Amirpour wrote:
+> Document the ret parameter of iomap_iter_continue to avoid a
+> kernel-doc warning.
 
 Applied to the vfs-7.4.iomap branch of the vfs/vfs.git tree.
 Patches in the vfs-7.4.iomap branch should appear in linux-next soon.
@@ -78,12 +65,6 @@ trailer updates or similar. If in doubt, please check the listed branch.
 tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
 branch: vfs-7.4.iomap
 
-[1/4] iomap: don't resubmit an ioend after ->writeback_submit() failed
-      https://git.kernel.org/vfs/vfs/c/9646682717e6
-[2/4] xfs: add an error tag to inject a ->writeback_submit() failure
-      https://git.kernel.org/vfs/vfs/c/e50b5a3028d0
-[3/4] iomap: don't lose a fiemap iteration error when emitting the last extent
-      https://git.kernel.org/vfs/vfs/c/ec2874845c99
-[4/4] iomap: don't lose a failed direct I/O bio's error when zeroing the tail
-      https://git.kernel.org/vfs/vfs/c/750148e10873
+[1/1] fs/iomap: document ret parameter of iomap_iter_continue
+      https://git.kernel.org/vfs/vfs/c/92e2f4295403
 
