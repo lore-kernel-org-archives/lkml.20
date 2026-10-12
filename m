@@ -1,218 +1,177 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B854337F320;
-	Mon, 12 Oct 2026 19:11:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 905904D37B3;
+	Mon, 12 Oct 2026 19:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791832264; cv=none; b=IJTChqWjdBAlNva86TOrHpZgXOF9cFqAiz1ROXx8e5AQcPyI4aHvossqsEgksShB1TOmsLmvGVV78IYlaSj2NzuZAJKBtkt7SnZfX2ZxRvAi7Ok5FfTWqsQ1CQUXYPJbI4W3TklLHCdRyxlGKu8x4t3WPjS/hpPk9oE0rjTlIko=
+	t=1791832324; cv=none; b=SmJ4/klyXVJvnXRNACJv51OPrSHbPxyo7xhvDCPIUcO2n+CJbw/hEWpgAGm2xzkk+UtFFVcEggOh+JfjVW0kxbFFi0ANADDJi4Hvu80Wht6C6fc2wqJD8cFJr4t8pHSJn5GPxZcd0h1jopEa/h7BHOhISv0PYM+vAW34dhFkk0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791832264; c=relaxed/simple;
-	bh=hTgo6ISqNRh5soM1E73Ih7Ke+NcFmuniqA9wgEnZSBM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PFyOVsxQd+2LZOjRlqw3UV4WJC4ABqpJsdwT3yUDnR2EsbkpzLGEy+g7dECM9wXrG8D3eet52ehBLjVvpy3Lb0sz4TQs2v49lZrhKjUj9v1sSF6sn/0uAQFwF5Op5P+8rF8HeS0vQ8qeCT43UiIosQLc7PWh6ctd1lf3mXZeyYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=Epq4trkH; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1791832324; c=relaxed/simple;
+	bh=FdkP+D43EN+xQd/ndnjr780pUFvJoTrEDYoQqVAKW9Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l0UQiJo/+lDQDa5CJ9dKoqj/m51mCTrh3Sx6jpn1CoJKCwTk1aBgCJTTPutRND9ZIt/o43Oc4InVsPyeofAztQJZD8ih39/qeGtvXFKngLN2FM19E10q0DeZ4N/KuJegboSEoC0SZnFkvlhTGVPQ7ZqQ19zsS8yKEjO5T9yEnv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BEu0ArYB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="Epq4trkH"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 83961D1E43;
-	Mon, 12 Oct 2026 22:10:59 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 83961D1E43
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1791832260;
-	bh=oX/4OcZXXFOiri4TI4gmPKuewisOsNilUSM6pFOgoaw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=Epq4trkHGz+C+duuSbGz+pki7UKqWv1qZkj9SPOwF59MX3lUx3VvYN1NpZar0MU4Z
-	 c/7onQ5GfQK8Q4N9TyNtR8fPZ7TR4CYPMENoRPZ4D2p6vb28XDM+1pmscoBk9fW8MZ
-	 uU+UrA+oyF1VertRa7afGIDJ+bj9vxq6AA+B0nmEUuKHaSfdxX1hQaLDfM/11a8K+f
-	 X/NTFu3u6GzXmswIu4oofjfsYOzKbvZkd89TLaEQToa4jQXvyqGfKMu6GTfd2c+eYP
-	 vp1By4QXE3oE1cH57i91yuVcyMNA+COasHc8Fz3Vg8eoE1P/wBJu/+EeYJ6pXn6MN6
-	 wSEkJGHOp1z+Q==
-Message-ID: <07adea400dbab7f1204354070c738f495d5d1646.camel@rendec.net>
-Subject: Re: [PATCH v5 9/9] irqchip/al-fic: support per-child affinity via
- interrupt redirection
-From: Radu Rendec <radu@rendec.net>
-To: Eliav Farber <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>, 
- Talel Shenhar <talel@amazon.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Mon, 12 Oct 2026 15:10:57 -0400
-In-Reply-To: <20261011050449.41903-10-farbere@amazon.com>
-References: <20261011050449.41903-1-farbere@amazon.com>
-	 <20261011050449.41903-10-farbere@amazon.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BEu0ArYB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58B361F0089B;
+	Mon, 12 Oct 2026 19:11:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791832322;
+	bh=t5mO4SpyqVviWjSaaEv8n4NUJ8+LaAHDu09XG7kSbFs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BEu0ArYB5XZKL/22X+idpyNhILy00Ml5Fj2jTZ7Fk/4tKlvNrtbcuHyIbatS1i6+H
+	 EgraXbynE/kQHml4oxd8zg6gA+C0hu9dN4/bgco2QE++oQB5bH8DxThhNACrQfpLo5
+	 XjczelQ46llI8hh5qdyeZlOGyGOojXJ0MYtBFM6yqvzpX+4jdT2meUTVQWDtflbCXM
+	 6iF5pmWBFtkh91Se1FhzLeFVS17tfaVz+ddcjoVeEnKq4qW/b4a4Az4vnWO1vg7GEy
+	 PxJnHj6TKtLcX2c2xZZNIY6SbIQi0/ch6peXKK7YGg1Kjv6Q5wlicS2sXtSXi+SohG
+	 UEkXkdb5KImtQ==
+Date: Mon, 12 Oct 2026 20:11:27 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+	Paul Moore <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen" <mkp@kernel.org>, 
+	Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, selinux@vger.kernel.org, linux-sound@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
+	kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, fuse-devel@lists.linux.dev, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Bert Karwatzki <spasswolf@web.de>, 
+	Emil Tsalapatis <emil@etsalapatis.com>
+Subject: Re: [PATCH v5 13/38] bpf: arena: mark arena_map_mmap() mappings
+ VM_MIXEDMAP
+Message-ID: <as0uGOcxjg74Xw7_@gremlin>
+References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-13-923b70125b1e@kernel.org>
+ <5b8ef0ce-7429-4d74-b4da-a0561c59b1e2@kernel.org>
+ <as0Buhi_-VCC7xLZ@gremlin>
+ <4124106e-c51e-4476-bd67-63e4641bf14a@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4124106e-c51e-4476-bd67-63e4641bf14a@kernel.org>
 
-On Sun, 2026-10-11 at 05:04 +0000, Eliav Farber wrote:
-> The FIC multiplexes up to 32 sources into one parent GIC SPI, and a
-> child's handler runs in the parent's context, so a child has no affinity
-> control of its own. irq_set_affinity() therefore fails with -EINVAL, and
-> drivers that treat that as fatal cannot probe when their interrupt
-> arrives through a FIC group. The parent routing cannot be changed on
-> behalf of one child either, because several FIC groups may share one SPI
-> and all of them would move with it.
->=20
-> Use the interrupt redirection infrastructure. Dispatch children with
-> generic_handle_demux_domain_irq() and set irq_set_affinity to
-> irq_chip_redirect_set_affinity(), so a child whose affinity excludes the
-> CPU taking the parent interrupt runs on its target CPU in IRQ work
-> context. The interrupt is still taken on the parent's CPU; only the
-> child's handler body moves.
->=20
-> Redirection defers the whole flow handler, so the cause bit is cleared in
-> al_fic_irq_pre_redirect(), which runs in parent context on both the
-> inline and the redirected path. A level configured group is masked there
-> too, because its cause bit re-latches while the input stays asserted; the
-> deferred handle_level_irq() masks again and unmasks when the handler is
-> done. An edge configured group is only acked, since handle_edge_irq() has
-> no unconditional unmask. irq_ack is a noop because irq_pre_redirect runs
-> on every dispatch and the ack must not happen twice.
->=20
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> ---
-> v5: rewritten from scratch. Thomas Gleixner rejected the
-> =C2=A0=C2=A0=C2=A0 IRQ_SET_MASK_OK_DONE approach below ("That's a horribl=
-e hack and just
-> =C2=A0=C2=A0=C2=A0 pretends to solve a problem. We have the interrupt red=
-irection
-> =C2=A0=C2=A0=C2=A0 infrastructure to handle that correctly."). This patch=
- instead wires
-> =C2=A0=C2=A0=C2=A0 al-fic into that infrastructure (irq_chip_redirect_set=
-_affinity(),
-> =C2=A0=C2=A0=C2=A0 generic_handle_demux_domain_irq(), and an irq_pre_redi=
-rect callback
-> =C2=A0=C2=A0=C2=A0 that moves the ack - and, for a level configured group=
-, the mask -
-> =C2=A0=C2=A0=C2=A0 into parent context), per Radu Rendec's confirmation o=
-f this shape on
-> =C2=A0=C2=A0=C2=A0 the v2 thread and the dw_pci driver he and Thomas poin=
-ted at as a
-> =C2=A0=C2=A0=C2=A0 reference. Tested on our hardware: with a child's affi=
-nity pinned
-> =C2=A0=C2=A0=C2=A0 away from the CPU taking the parent SPI, the handler b=
-ody runs on the
-> =C2=A0=C2=A0=C2=A0 target CPU and the ack still happens on the parent's C=
-PU, with no
-> =C2=A0=C2=A0=C2=A0 re-fire storm on a level configured group, and no chan=
-ge to the
-> =C2=A0=C2=A0=C2=A0 inline (non-redirected) path. This replaces every vers=
-ion of the
-> =C2=A0=C2=A0=C2=A0 irq_set_affinity callback below; the v2-v4 history is =
-kept for the
-> =C2=A0=C2=A0=C2=A0 record of how the approach got here.
->=20
-> v4: no change. The question Radu Rendec raised on this patch - whether an
-> =C2=A0=C2=A0=C2=A0 unconditional IRQ_SET_MASK_OK_DONE is the right contra=
-ct, or whether
-> =C2=A0=C2=A0=C2=A0 it should fail with -EINVAL - is still open.
->=20
-> v3: no change. The question Radu Rendec raised on this patch - whether an
-> =C2=A0=C2=A0=C2=A0 unconditional IRQ_SET_MASK_OK_DONE is the right contra=
-ct, or whether
-> =C2=A0=C2=A0=C2=A0 it should fail with -EINVAL - is still under discussio=
-n on the v2
-> =C2=A0=C2=A0=C2=A0 thread and is answered there.
->=20
-> v2: add Co-developed-by/Signed-off-by: Talel Shenhar. No code change from
-> =C2=A0=C2=A0=C2=A0 v1.
->=20
-> =C2=A0drivers/irqchip/irq-al-fic.c | 46 +++++++++++++++++++++++++++++++++=
-+--
-> =C2=A01 file changed, 44 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
-> index 13a945a1d312..77cff6308eba 100644
-> --- a/drivers/irqchip/irq-al-fic.c
-> +++ b/drivers/irqchip/irq-al-fic.c
-> @@ -142,7 +142,13 @@ static irqreturn_t al_fic_irq_handler(int irq, void =
-*data)
-> =C2=A0	pending &=3D ~gc->mask_cache;
-> =C2=A0
-> =C2=A0	for_each_set_bit(hwirq, &pending, NR_FIC_IRQS)
-> -		generic_handle_domain_irq(domain, hwirq);
-> +		/*
-> +		 * Redirect a child whose affinity excludes this CPU to its
-> +		 * target CPU via irq_work. The ack moves to
-> +		 * al_fic_irq_pre_redirect(), because the whole flow handler is
-> +		 * deferred when that happens.
-> +		 */
-> +		generic_handle_demux_domain_irq(domain, hwirq);
-> =C2=A0
-> =C2=A0	return pending ? IRQ_HANDLED : IRQ_NONE;
-> =C2=A0}
-> @@ -157,6 +163,32 @@ static int al_fic_irq_retrigger(struct irq_data *dat=
-a)
-> =C2=A0	return 1;
-> =C2=A0}
-> =C2=A0
-> +#ifdef CONFIG_SMP
-> +/* The ack happens in al_fic_irq_pre_redirect() on both paths instead. *=
-/
-> +static void al_fic_irq_noop(struct irq_data *data) { }
-> +
-> +/*
-> + * Runs in the parent interrupt context on every dispatch, redirected or=
- not.
-> + * Clear the cause bit here: once the flow handler is deferred, the FIC =
-keeps
-> + * driving its output until the irq_work runs, and a level parent SPI re=
--fires.
-> + *
-> + * A level configured group is masked too, because its cause bit re-latc=
-hes
-> + * while the input stays asserted; the deferred handle_level_irq() unmas=
-ks
-> + * when the handler is done. An edge configured group is only acked, sin=
-ce
-> + * handle_edge_irq() never unmasks unconditionally and the mask would st=
-ay.
-> + */
-> +static void al_fic_irq_pre_redirect(struct irq_data *data)
-> +{
-> +	struct irq_chip_generic *gc =3D irq_data_get_irq_chip_data(data);
-> +	struct al_fic *fic =3D gc->private;
-> +
-> +	if (fic->state =3D=3D AL_FIC_CONFIGURED_LEVEL)
-> +		irq_gc_mask_set_bit(data);
-> +
-> +	irq_gc_ack_clr_bit(data);
-> +}
-> +#endif /* CONFIG_SMP */
-> +
-> =C2=A0static int al_fic_register(struct device_node *node,
-> =C2=A0			=C2=A0=C2=A0 struct al_fic *fic,
-> =C2=A0			=C2=A0=C2=A0 enum al_fic_id fic_id)
-> @@ -195,9 +227,19 @@ static int al_fic_register(struct device_node *node,
-> =C2=A0	gc->chip_types->regs.ack =3D AL_FIC_CAUSE;
-> =C2=A0	gc->chip_types->chip.irq_mask =3D irq_gc_mask_set_bit;
-> =C2=A0	gc->chip_types->chip.irq_unmask =3D irq_gc_mask_clr_bit;
-> -	gc->chip_types->chip.irq_ack =3D irq_gc_ack_clr_bit;
-> =C2=A0	gc->chip_types->chip.irq_set_type =3D al_fic_irq_set_type;
-> =C2=A0	gc->chip_types->chip.irq_retrigger =3D al_fic_irq_retrigger;
-> +#ifdef CONFIG_SMP
-> +	/*
-> +	 * The FIC has no hardware affinity control, so give each child real
-> +	 * affinity by redirecting its handler to the target CPU.
-> +	 */
-> +	gc->chip_types->chip.irq_ack =3D al_fic_irq_noop;
-> +	gc->chip_types->chip.irq_pre_redirect =3D al_fic_irq_pre_redirect;
-> +	gc->chip_types->chip.irq_set_affinity =3D irq_chip_redirect_set_affinit=
-y;
-> +#else
-> +	gc->chip_types->chip.irq_ack =3D irq_gc_ack_clr_bit;
-> +#endif
-> =C2=A0	gc->chip_types->chip.flags =3D IRQCHIP_SKIP_SET_WAKE;
-> =C2=A0	gc->private =3D fic;
-> =C2=A0
+On Mon, Oct 12, 2026 at 08:56:23PM +0200, David Hildenbrand (Arm) wrote:
+> On 10/12/26 17:55, Lorenzo Stoakes (ARM) wrote:
+> > On Mon, Oct 12, 2026 at 05:08:09PM +0200, David Hildenbrand (Arm) wrote:
+> >> On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
+> >
+> >>> diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
+> >>> index 7b6847200b43..b69fe5e34339 100644
+> >>> --- a/kernel/bpf/arena.c
+> >>> +++ b/kernel/bpf/arena.c
+> >>> @@ -620,8 +620,9 @@ static int arena_map_mmap(struct bpf_map *map, struct vm_area_struct *vma)
+> >>>  	 * clears VM_MAYEXEC. Set VM_DONTEXPAND to avoid potential change
+> >>>  	 * of user_vm_start. Set VM_DONTCOPY to prevent arena VMA from
+> >>>  	 * being copied into the child process on fork.
+> >>> +	 * This is a kernel page so set VM_MIXEDMAP.
+> >>>  	 */
+> >>> -	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTCOPY);
+> >>> +	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTCOPY);
+> >>>  	vma->vm_ops = &arena_vm_ops;
+> >>>  	return 0;
+> >>>  }
+> >>>
+> >>
+> >> Historically, VM_MIXEDMAP really just means: can contain refcounted and
+> >> non-refcounted things. Everything with a struct page is refcounted.
+> >>
+> >> I think we are now changing the semantics to mean "maps kernel pages". I think
+> >
+> > Yes.
+> >
+> > It was sort of implicit before given insert_page() etc. but still really meaning
+> > that it _might_ be both.
+>
+> Yeah, it's in the name. Mixed: pfn and/or ordinary.
 
-Reviewed-by: Radu Rendec <radu@rendec.net>
+Well the name is confusing as a great many users never mix anything, and it's
+far from obvious you need to set one.
+
+Anyway, one for later. Maybe a mask like VMA_NON_MM_MANAGED_MASK or something
+better than that...
+
+>
+> >
+> >> this is fine, but we really have to update the documentation (and possibly
+> >> rename this thing to something more expressive?)
+> >
+> > Yeah I completely agree.
+> >
+> > I will rename it, but I think that's best for 7.5 obviously! :)
+>
+> Yes.
+>
+> VM_PFNMAP / VM_MIXEDMAP - These contain kernel-mapped data which cannot be
+> 			  reasonably reconstructed on page fault.
+>
+> the description is already pretty clear. just not that kernel-mapped pages
+> *must* use one of these.
+
+I think mixed map could do with a rename because it implies it _is_ mixed rather
+than could be.
+
+But again one for the future!
+
+>
+> (again, the ->fault thing returning allcoated kernel memory is nasty)
+
+Yeah added to my todo to fix that. Hateful.
+
+--
+Cheers, Lorenzo
