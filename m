@@ -1,288 +1,179 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EE9421EFB;
-	Mon, 12 Oct 2026 12:08:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D7F40F742
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:09:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806900; cv=none; b=hUEDCuJHRWtR4JGg8r2nFYmb3Nrd628Rve5BF35gs22DuPibTZr33YagbcGlAXi91k1kUXPo5aUD4KETsWqLZ7TtNX4eKUThlok+ttMRm6fapErpD/JGNWt/iXXSghpmn/8hee/VHCXuNha3tC2yEnfh+NF/ydFdXFgO2hpQBZc=
+	t=1791806956; cv=none; b=SaBiIJ47l1ulyinJMJGPgrpCD2xUDUlc3iVLtpDBqcwRGg03PdjWUm5woGMqJWd7axW/2HyifOxbMyE2Ee6t4MUSYzIvZfGza5unfF9wcdSjTc9dXD43x/mpwBvQeC/hVoHnsBVHtbxTH6Y6IOfCkb5v3Cs5TWGZu3C5B402xzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806900; c=relaxed/simple;
-	bh=xSrGuh9vlWH6PaqJUqXiXJoV/rg2YETpWui1f9Lu7bc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZpzW4WALO9CdvZPBr+2pqejvL6Snx67ijJ/TTd5vZZTby+84YtRSgaJHdnl5S9jl1cFIx90tANvprhqY+vNRQ4o5oQj55DFUHR3LZUpjwYP8l3wMO9T37UeIRhX488YFPrSaxHhG/jPgfCMiUQYibqTZ0vKyQcL5DY5MUF5b6V4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VVLd+1QO; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Ey7fcp18; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VVLd+1QO; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Ey7fcp18; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791806956; c=relaxed/simple;
+	bh=7gDGeRMtHjE8XIaoNvoEv+Yb06Mc7LJbe9EfpStF7KQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rm/IYKTqia4SWJ3y13YXsdbumq/OaIe+8nuazzww3UWe/+wHlZ8S2F4qBnzsqQoySaCQF/g5FfBhHwyf3eh5jqBInjCOtLGkRqAOKXtpd/FZCsll3jsbkmEbiQv6idWVKNQJ50oR8DOiQDu3EqHAE8M+mbh88q3oE/WuNwodF9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UWi2RKW2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hAC+k40I; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VVLd+1QO";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ey7fcp18";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VVLd+1QO";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ey7fcp18"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E1B7521DF6;
-	Mon, 12 Oct 2026 12:08:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791806895; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=WvADoobcQwjPCCRIQkVH+8ppTjgfgndh1wPf3i42xI0=;
-	b=VVLd+1QOJcRdyRMIsD3e2HrVo94LEa7rPhPhVc+XAAnlYJo60INVyl62VSpWU7qFvWlt0f
-	6OzxrNSlMNI0DDhPNlArHhUAb6LiLNnfm6tsG/vb44mC9XViGXWDOl+5dTj4DKdId/ct5G
-	4sDXvx0kG7WMnoDuOfhDkOOC7cMkLE0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791806895;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=WvADoobcQwjPCCRIQkVH+8ppTjgfgndh1wPf3i42xI0=;
-	b=Ey7fcp18BLwuqlIrNwuZapbPdvMT/LrXSqF7evKRgsScVbyN8xMsqDv/D6azGB49WJefL9
-	fLitqGCoXLTajYBw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791806895; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=WvADoobcQwjPCCRIQkVH+8ppTjgfgndh1wPf3i42xI0=;
-	b=VVLd+1QOJcRdyRMIsD3e2HrVo94LEa7rPhPhVc+XAAnlYJo60INVyl62VSpWU7qFvWlt0f
-	6OzxrNSlMNI0DDhPNlArHhUAb6LiLNnfm6tsG/vb44mC9XViGXWDOl+5dTj4DKdId/ct5G
-	4sDXvx0kG7WMnoDuOfhDkOOC7cMkLE0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791806895;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=WvADoobcQwjPCCRIQkVH+8ppTjgfgndh1wPf3i42xI0=;
-	b=Ey7fcp18BLwuqlIrNwuZapbPdvMT/LrXSqF7evKRgsScVbyN8xMsqDv/D6azGB49WJefL9
-	fLitqGCoXLTajYBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 743B91342D;
-	Mon, 12 Oct 2026 12:08:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Y0oYCq/NzGpLFwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Mon, 12 Oct 2026 12:08:15 +0000
-Message-ID: <07fa4562-6e34-48b4-ba2c-eb053c2aa7b8@suse.de>
-Date: Mon, 12 Oct 2026 14:08:14 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UWi2RKW2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hAC+k40I"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC0dkA2679953
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:09:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=y9ZrP8rOv+ZZPiV33sAcp+pu
+	UevN4wv31y+rDLa7hTw=; b=UWi2RKW2sZm6BnjUxRR2CvQBnKnxgU9HZhDsLrvi
+	LzLSc6d4E0oVS9yGxgs/zaE2FTKaLwzs21iMLwwSr6/4I2WXr3Gokte81URTNt3x
+	PTPSPVB/x1HppSgyVmHeQcQQRIsk7UPBheJEVEm+39QqlMgg7iCzxhjB9bJCOKSx
+	sHjGOFbMCofnBqG2M3js0yJK9vwzlA7BjFnCrSDg/nLpIKyMZoDh+DVpRB5WEns1
+	Gb+lSDI9qlThzyMNCZlR847MAjdUmatY0ejSIlBAaH3lsH4zVIVyuaQ9DHoQIcEr
+	eqBpYSPmW1+2UKj2Ll2MKIiMUTsKzs721U6mqki7RuLFUw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8sd1su1s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:09:13 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e82060977so365006985a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:09:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791806953; x=1792411753; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=y9ZrP8rOv+ZZPiV33sAcp+puUevN4wv31y+rDLa7hTw=;
+        b=hAC+k40IBn7K5VunIfRkuowOMSts/ogyFAvHTkKMNz2k9lUc3gD2xiFPj55r5hgt2H
+         U4RPuGOKhhwGZvwaZ1yQJ+4HySkpvxYC91e1thu53ZDWPVA2GCTtLAO4YvD/0N7qQh7b
+         tBGegtEk07v96Bbyoh2MSdT+Jtaw/ZolC0D9EDD6wDRe3lGHioQL2BGsjrxBf7bcCjw/
+         1RSDZ9gc/b3343TQcKo3Lpoi6UiOqqVHSP3U+Dkd9TbQ5VfFuc/oMK0nYC9T6i7So2dN
+         RYSq+b/PNuB5NSh4yFU6jcs+uM1wC9/tGBj8wF60usVZj8qwOaMl4DWwX4ZaVEs6cQ7f
+         oPFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791806953; x=1792411753;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y9ZrP8rOv+ZZPiV33sAcp+puUevN4wv31y+rDLa7hTw=;
+        b=ffafrAx78husqAdNwc3qg4dFnEx0l838krFl12JY0CcTWXiGNmVxRXLouMhtTChqtM
+         8XDOkK+fF751POC1N4whU+6Wgvq/1fVw5huuIQSpwJNn3TUJ6BR6PnC2nZwXBn9kLVuw
+         ZglInvb3D9aspar4e/NFElRuDNmawC5RzRIGf86sZ2V/uvpvTtEjOikIuAxK0rtlIhhS
+         KVF7Ph9mfK+ltbKxe6QTMDrap68h7x1J8mJHdC/I4U7qGalZ2BCg6jpgrMJ5wriGIZrc
+         x5VjUNIdJynpr8LgPJxB1HuphckJ3U9GKm0B8KkOvCFIDDuCTNGJRudR38s2R/Z/YR4M
+         wV0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwTzn6AwsX7hbfL5URGkqVGLhlsnaHX14y7o2J7lMaaC6ry3gRhT/ZV4Co93fqiryBiv9gL+X5CthZ8+UY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK49I4xp5VSnIJ+xXQh0xFBaLmjWD5uTWX3WwDOxuY4okLZ5muS
+	6710ErDNlr5L8z1QjTpCGg9NlOObUBqVtOWxMeadQb+IJ2YbjQT+YyH6pd80R5cW0UxyHU0VV5Q
+	Tm/95tP372PUR8NT5OjVYDxgjENTXjn0qCYlQzuPykeg9YJGicFFw+TOgf5jjYTgibzg=
+X-Gm-Gg: AYBFou1BizGTVtLub2DRZNx5dsg/yDKO6YJYE1WcH3+EH525Hq39cr4wfmTWaQJWnyc
+	70Zu6ZzDZ+PGZiCQFY2PFegFy3OfEZ+qbIOTZTfR+l0r9xWjBSZDR/Kpdlgo4Xz+tb4idTqGuvm
+	zEMKIuZX0Y+ILFP6EncTuRevJKsn/HbOM3bp5ZYiIcR0y4Xb72Snj30bDJ+N0P4SI7IZOi5SOTM
+	5DpfW5239Ip1l3cJOedmWNNxgTfEw+IK7tafXSvpPeAMwX46+H54eLrdipbyoJQjZgzCKOvp6Bu
+	adlMVaHEyHtCgEbPYae/OEyWanJ2+v8FPd12KtJBS2SU6pJVjEeRpxKOjACEjkq7Hz6Wu1GfTLY
+	D/yiQG6oY/ewbHmGDrKl3Zhnq+eNMcI7ywkrx85U2rEmBu2RlTDFXxVk53vOcTbBWeRcuH9ziK5
+	5pCTd8cNTY45LE
+X-Received: by 2002:a05:620a:2841:b0:93e:618f:8127 with SMTP id af79cd13be357-93eb95e2a8dmr1542314385a.8.1791806953113;
+        Mon, 12 Oct 2026 05:09:13 -0700 (PDT)
+X-Received: by 2002:a05:620a:2841:b0:93e:618f:8127 with SMTP id af79cd13be357-93eb95e2a8dmr1542310685a.8.1791806952605;
+        Mon, 12 Oct 2026 05:09:12 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c3caaafbsm31078121fa.19.2026.10.12.05.09.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 05:09:09 -0700 (PDT)
+Date: Mon, 12 Oct 2026 15:09:05 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Xilin Wu <sophon@radxa.com>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/6] drm/msm/dpu: do not assume a merged datapath when
+ validating mode clock
+Message-ID: <iqkzz4wnfeeul4nkkemhcvjluucot5ia7pfin5ghu3tkwkjfso@raqzz43t7lxz>
+References: <20261008-lm_fixes_final-v4-0-fa986071c3c1@oss.qualcomm.com>
+ <20261008-lm_fixes_final-v4-2-fa986071c3c1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] vt: Distinguish between blanking and VESA blank mode
- in con_blank
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: jirislaby@kernel.org, deller@gmx.de,
- James.Bottomley@hansenpartnership.com, simona@ffwll.ch,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-parisc@vger.kernel.org,
- sashiko-reviews@lists.linux.dev
-References: <20261012094114.38549-1-tzimmermann@suse.de>
- <20261012094114.38549-3-tzimmermann@suse.de>
- <2026101255-extending-concrete-2fc7@gregkh>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <2026101255-extending-concrete-2fc7@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.29 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmx.de];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,gmx.de,hansenpartnership.com,ffwll.ch,vger.kernel.org,lists.linux.dev];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo,suse.com:url]
-X-Spam-Score: -4.29
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008-lm_fixes_final-v4-2-fa986071c3c1@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: Ycn-gI5rqiMmEenlMnTjT4VXR4vTFbnU
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0NyBTYWx0ZWRfX3mcBRmrhcSsg
+ jCqj0uXlP6sqR4RQnAyoHHfuOfYUEWLdmn8MOGaHCyJ/6IVz4SKH5k6VlUkVtsEqZ/Uhy37OAy4
+ +HM4Y7LiR/tYiHKdiTMlcdg7NDONUGQ=
+X-Authority-Analysis: v=2.4 cv=QtHLTlyd c=1 sm=1 tr=0 ts=6acccde9 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=7qsbTKUd7HEg1-mJ9OQA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-GUID: Ycn-gI5rqiMmEenlMnTjT4VXR4vTFbnU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0NyBTYWx0ZWRfXxaTUV7cm6ipl
+ Ek3ri4Zpyamrsr4wadWR1tVShEwT0UjhK2EmALkwuMKdvJ73oyDMWmaaBUcyNNCHawH+IdY9ZM2
+ 2crJE/FguhyESoKRGkZkVy12sB6z4M+BrFm1klUnAB5WXDovdLN8AQBb3eMn5K+R5M55ryBye+5
+ YtPeV2Ikiz+JYFAWk159REbFQ81nDxgRbup4ej8KJr3E3r9c91aS6OCrPhd3JpjSG4d2mJvi4GH
+ MIcxBc4UK6euxt8E2fQgcbW93t5znlEZvPZArPhNGRw7zxnfQwgWS07q7L8pP8LpD5pQavd1SSV
+ wfRRS+BOS8hmo/8rYJORqhCthgYIgC6Ct4vxwxpC/xldMnty4UgWfMLlBdrCqKqZOJjvhTI/LL4
+ MxyMW7dxe34I2w6lopBRh0KiYnIuFbiHb3LtPxQTReNhq8HZqOFwsOR/RWcexEdRTB0I2fVaFex
+ aWz26/2+KAX2mdwXN4Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 clxscore=1015
+ lowpriorityscore=0 suspectscore=0 impostorscore=0 phishscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120047
 
-Hi
+On Thu, Oct 08, 2026 at 10:53:48PM +0530, Mahadevan P wrote:
+> dpu_crtc_mode_valid() halves the adjusted mode clock whenever the
+> hardware has a 3d_mux block, assuming the mode will be driven by two
+> layer mixers. Modes no wider than MAX_HDISPLAY_SPLIT are driven by a
+> single mixer, so for those the check permits twice the pixel rate the
+> datapath can sustain.
+> 
+> Divide by the mixer count the mode will really be driven by, as reported
+> by dpu_crtc_num_lm_for_mode(). Split modes still get the halved rate,
+> single mixer modes are held to what one mixer sustains, and parts
+> without a 3d_mux divide by one.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 0b51a4c5db57..209b25dbeb6c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -1631,8 +1631,7 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
+>  	adjusted_mode_clk = dpu_core_perf_adjusted_mode_clk(mode->clock,
+>  							    dpu_kms->perf.perf_cfg);
+>  
+> -	if (dpu_kms->catalog->caps->has_3d_merge)
+> -		adjusted_mode_clk /= 2;
+> +	adjusted_mode_clk /= dpu_crtc_num_lm_for_mode(dpu_kms, mode);
 
-Am 12.10.26 um 13:29 schrieb Greg KH:
-> On Mon, Oct 12, 2026 at 11:27:39AM +0200, Thomas Zimmermann wrote:
->> The con_blank callback in struct consw encodes blanking and display
->> blank mode in a single parameter named blank. Its semantics equal
->> the FB_BLANK constants from the fbdev subsystems. Yet it is of type
->> enum vesa_blank_mode, which describes VESA DPMS levels of the attached
->> monitor. Although related, this is something else.
->>
->> For this reason, calls to con_blank fill the blank parameter with
->> values that appear non-sensical at first. For example, to blank the
->> console, but keep the monitor on, vt passes VESA_VSYNC_SUSPEND (eq '1').
->> This is because consoles interpret '1' as pixels-off-but-monitor-on.
->> The constant VESA_VSYNC_SUSPEND actually means monitor-vsync-off. And
->> the argument used for monitor-vsync-off is VESA_VSYNC_SUSPEND+1.
->>
->> To fix this by splitting blank into two parameters, blank and blank_mode.
->> The new blank is a boolean to control the display blanking. If cleared,
->> the console creates display output, if set the console does not. The
->> new parameter blank_mode specifies the VESA blank mode for the monitor
->> and equals VESA DPMS levels. If blank is set, blank_mode gives a hint
->> to the console, on how to set up the signal to the monitor.
->>
->> The actual interpretation is up to the console. Newportcon and sticon
->> only handle blank or not-blank. Fbcon and vgacon implement blank plus
->> the VESA DPMS handling. The implementation of both consoles is again
->> somewhat confusing because types and values do not match. Clean up
->> both with the new blank/blank_mode logic.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->>   drivers/tty/vt/vt.c                 | 11 ++++----
->>   drivers/video/console/dummycon.c    |  4 +--
->>   drivers/video/console/newport_con.c |  4 +--
->>   drivers/video/console/sticon.c      |  4 +--
->>   drivers/video/console/vgacon.c      | 44 +++++++++++++++--------------
->>   drivers/video/fbdev/core/fbcon.c    | 19 +++++++------
->>   include/linux/console.h             |  9 ++++--
->>   7 files changed, 51 insertions(+), 44 deletions(-)
->>
->> diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
->> index 9e7b4419b422..f762c965351d 100644
->> --- a/drivers/tty/vt/vt.c
->> +++ b/drivers/tty/vt/vt.c
->> @@ -4671,7 +4671,7 @@ void do_blank_screen(bool entering_gfx)
->>   	if (console_blanked) {
->>   		if (blank_state == blank_vesa_wait) {
->>   			blank_state = blank_off;
->> -			vc->vc_sw->con_blank(vc, vesa_blank_mode + 1, false);
->> +			vc->vc_sw->con_blank(vc, true, vesa_blank_mode, false);
-> I hate adding random bool to function parameters as now you need to go
-> look them up to try to determine exactly what happened.
->
-> Why not just 2 different callbacks:
+With the 64-bit division fixed, LGTM. When submitting patches to these
+drivers please make sure to build for armhf as well as for the arm64.
 
-Sounds like a cleaner design.
-
-
->
->> -static bool vgacon_blank(struct vc_data *c, enum vesa_blank_mode blank,
->> +static bool vgacon_blank(struct vc_data *c, bool blank, enum vesa_blank_mode blank_mode,
->>   			 bool mode_switch)
->>   {
->> -	switch (blank) {
->> -	case VESA_NO_BLANKING:		/* Unblank */
->> +	if (blank) {
->> +		switch (blank_mode) {
->> +		case VESA_NO_BLANKING:	/* Normal blanking */
->> +			if (!mode_switch && vga_video_type == VIDEO_TYPE_VGAC) {
->> +				vga_pal_blank(&vgastate);
->> +				vga_palette_blanked = true;
->> +				return 0;
->> +			}
->> +			vgacon_set_origin(c);
->> +			scr_memsetw((void *)vga_vram_base, BLANK,
->> +				    c->vc_screenbuf_size);
->> +			if (mode_switch)
->> +				vga_is_gfx = true;
->> +			return 1;
->> +		default:		/* VESA blanking */
->> +			if (vga_video_type == VIDEO_TYPE_VGAC) {
->> +				vga_vesa_blank(&vgastate, blank_mode);
->> +				vga_vesa_blanked = blank_mode;
->> +			}
->> +			return 0;
->> +		}
->> +	} else { /* Unblank */
->>   		if (vga_vesa_blanked) {
->>   			vga_vesa_unblank(&vgastate);
->>   			vga_vesa_blanked = VESA_NO_BLANKING;
->> @@ -814,24 +834,6 @@ static bool vgacon_blank(struct vc_data *c, enum vesa_blank_mode blank,
->>   		vga_is_gfx = false;
->>   		/* Tell console.c that it has to restore the screen itself */
->>   		return 1;
->> -	case VESA_VSYNC_SUSPEND:	/* Normal blanking */
->> -		if (!mode_switch && vga_video_type == VIDEO_TYPE_VGAC) {
->> -			vga_pal_blank(&vgastate);
->> -			vga_palette_blanked = true;
->> -			return 0;
->> -		}
->> -		vgacon_set_origin(c);
->> -		scr_memsetw((void *) vga_vram_base, BLANK,
->> -			    c->vc_screenbuf_size);
->> -		if (mode_switch)
->> -			vga_is_gfx = true;
->> -		return 1;
->> -	default:		/* VESA blanking */
->> -		if (vga_video_type == VIDEO_TYPE_VGAC) {
->> -			vga_vesa_blank(&vgastate, blank - 1);
->> -			vga_vesa_blanked = blank;
->> -		}
->> -		return 0;
->>   	}
-> This can be vgacon_blank() and vgacon_unblank(), right?  That way we
-> have a hint as to what is happening and don't have to try to remember
-> that a bool as parameter 2 is blank/unblank.
-
-Yeah, we can do that.  We'd also not need the VESA mode in the unblank 
-case. It's always VESA_NO_BLANKING there.
-
-Best regards
-Thomas
-
->
-> thanks,
->
-> greg k-h
->
+>  
+>  	/*
+>  	 * The given mode, adjusted for the perf clock factor, should not exceed
+> 
+> -- 
+> 2.34.1
+> 
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+With best wishes
+Dmitry
