@@ -1,147 +1,252 @@
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1A46FC5
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FDB6FC5
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:34:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791768817; cv=pass; b=P+DoXd+3lMyd6nUDHKGL1CdfW9x5afb2yQkPXsNYLx3lQr+Y62cPq6T/Np2EP539Bivi9yNwz4ib1V+XTuwZUTHM0Ko5oLkAuOOwr7PM5kbgWSJ+9uCzxXsK+L+zST6DF6XXBheZqkVuQ2JXfqv33QUEVDms+ptkQJ6bYzCSmJs=
+	t=1791768870; cv=pass; b=TJEH1W3rUYzUtbUou0AEMv47/2lb6OOecBdaTEymJ/66n6o2o5ZiblkiiEBuo9yth+IPWk9WthvFmoGgEG2ihZNAaqF0e2QOCiIOxuxNz5OwYAyBsbyzMlxjYl+uG198WyaAL4xLrLm0UyL68ALLKqzbkeQXclBwH1Jb21bWUsI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791768817; c=relaxed/simple;
-	bh=ScZ2jn1jN9ahyKzbPLc1GllGnjcjnL0NJZyRLezyHog=;
+	s=arc-20240116; t=1791768870; c=relaxed/simple;
+	bh=k2HzGmqyeadeBzQW8i+doTwWk61csXAnKcDwOMAX0GE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tK067IzlkU1KJ6vEwVPxQbG5cA+3c5Mlxa2fDorGU5rvuITyi9FGwIXb8LviOHamVhSMsPjWt+oHWXTos6Nn6gffc4cuAFRHGNQ7WpxG1iBmUsyNbofCpn+GJ6mE2vL9ugtMmVLBsCsJnVxkNtghdjyFi3Ze78j1CcezXnJW7PM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kYLUTUKr; arc=pass smtp.client-ip=209.85.161.47
+	 To:Cc:Content-Type; b=BFLSNYk6FCVJ7DcBmB2uF1yu4u9USVGuJdcF57RsfZCesyH3BQpLOpf8vnxcc4ZQZNhMGcVls7IQV+2dCRGSwcjlrS42gIV6VK8PENsr29fpMiR8e5hPol7ZNY8lkIXwvl9pdZHjEOGVUnrYcoQ1Bziz9NmdzU9ihMnX2czXkKA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AHD4XUFY; arc=pass smtp.client-ip=209.85.161.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kYLUTUKr"
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6f74f6b46abso42851eaf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:33:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791768815; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AHD4XUFY"
+Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6dcf573c429so939299eaf.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:34:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791768868; cv=none;
         d=google.com; s=arc-20260327;
-        b=TkHsYWVLGtkEZ3WU0Z21BSbtV984VhgLrh7YCW08AS+7+Ix86wsoOaXwnrJ4Za+/KZ
-         Qx6PwmCkvO1llAOXFRsTVrbkrhMiSgs2rxv6qoL91t9yF/Z73k1z4vz1+016MVN1xLhf
-         HIQy1QX8mpO0FxCAG1HmuipD8iKg/s/t6e3Mr2H/5TWsWb5rh90YpdrcCa7KqRU9Y3/A
-         dDU1UeRyVM2n70pnEc/ndl3Lq1TFyr/zP4GeNIJvS//toMA1yds+MEjg8eoDPzrzzmin
-         zbcYl11S7NLgrfpM82gcShvTiMbOj3ewB4QArFN/i67Sd9OU9IJLttm/xaF1AIhhMEYF
-         +Enw==
+        b=qLS/QrFHU66u6rUWvONwqQNvKz3k6nsyYLVp466ppYidXBI1t1NuXwr5LjnY3bVcuh
+         OLYsG9G6Q4IRqmAC3nOP9gZq8eK2gMIkFKwGhiTC42rAbS6E/jORzTy3E9OeCA160ZhE
+         13VNE8OTmQqo/TkT+v1NtcGXGIFqFzUMjv1kWFUr6FrxORmw/F1fkfZVUIAQu31eojWf
+         i6/xLmd3YfPctgG0IdEnpaf2m19FeZQj0eb42fH6r/aitOjyhZzON3T/qnX0+0w+M6H+
+         rr/EAh6LWcBF/72XKfV6HGbI4oxZIIGXJv1yVr7Lm63XNhjWgY9grpgptWNp093zX/69
+         afkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=LNoJ4HxuYSJ0Xf/3dUjucPRkmyWxxHLDqr594GDd0MU=;
-        fh=9jlOByjS6Z8StF0G5ubyWlDnggq6eeQtZdsvXAwhBK8=;
-        b=PxCB+l8MRjvsZmcQfVdCVwNb7T4FqA7JSTxWVpEYcMlEUbaHnsOFDUnWhupEycYE14
-         s0An0Ljs5ap/nZOt/XQZjH8Knh2yp6KMP6lqVHrc7ja3b3Tlr7XTxk4/5eW4P272imQF
-         dFFOpZpw5A+GV9UQzDCnqZPEbgD1yqQ0azTLlQMSLY4f0ggeh+2doQdK+jVJw8y/VfgF
-         llY4UmMVWeY3Sogb/PmpB3gj1CFLDPH6AJT0gHvFnNTocHJ1fyOMBQ8j7U6WTxkMEBpR
-         R8gPRjUY8psidcDRqXIBhK8IjkpodwUua1JK32bLqE7zSDW8nEAuB4WHi91vKcs8Yrmi
-         kqpQ==;
+        bh=pDa+xMMOc/P3nrGCK4nQLiDZ2Nmx/iXraUyvbmKuLDc=;
+        fh=4anB93v4NSXI2URlTVGpHlj3GL8mWiHt+2d6ZUAZX1k=;
+        b=j3oloY1YfAh+5G8noMlgTsAwEW/sPx/7vl7wwKuR4WUH+rCwu8oBjbsEQVnElNQhQB
+         9RAeIUqxtlBplSUuLnJGQ7lv7DhsSJHVnjdIbnhbA1wMDSWo1cHi9P8KGB9uXodj+LgS
+         L7BvvX06ZoaTTefi/TlEXwfQ4NFe9Yo092z8MHQolu7M9jUS28fmzKYFQKejy6yt48Vm
+         Tb65Gg4FiKD10tJgTaRGxDFk0nIte89GrPpKBPiaE7hp7dBqZ8BPcPiM0z6jmJarhkn6
+         2upzHuH/mzQ05tTabiYiNp8DLtstzD5NQafH/g1LoUsxwii0ChJFOavyZLy10Q55IzyM
+         a3VQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791768815; x=1792373615; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791768868; x=1792373668; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=LNoJ4HxuYSJ0Xf/3dUjucPRkmyWxxHLDqr594GDd0MU=;
-        b=kYLUTUKrklmK173IsWvDWF6oQSFzxLlRXTqLwljDxMRQN/cUc39yeGlL/rpDdJS4HF
-         bA5s8fuVhMF245KGd/X8+KMtwICJh2nJa5OLoFdbIJMOnWuelYbdx5cMIXqTHkeWhGaK
-         8x2NOOicvJqE8uC8PMjniXbpR1j/dLk0o7G1qJEvshtm1tGwE+7XMimWuSxMCgQG+P+9
-         qzu7JDFAT9/kV5C5e15oLF8cwqoE9Mb2jyGPkLiUVTGnt1/LFQ3YTx+NvSLoqKoQkGJQ
-         iTNw5iemdpu2n55Bu/68OSDVaKsI6NHcYEroYG9DG0oSFRTKe3esXJL4yz/k6Npi4xGy
-         at0w==
+        bh=pDa+xMMOc/P3nrGCK4nQLiDZ2Nmx/iXraUyvbmKuLDc=;
+        b=AHD4XUFYDMngRPW7l4ht/3ozFUEfHb26ZlklT+/cWN8VLJuhHWAspgR8tNRt31vRWM
+         7s/Kl7Se/2N8mvcB91lA65jMTly1fP/kFY6exRpGjx3u7Jcd3D7AFrO0WIYWsSlcICmu
+         fXo+OjVX110rGjuSNaZLqfGJsZpChVSdXoBV+FdMli0vtYbXcgqa8s7j6LL4HZ00pD4z
+         zbRQ/zQcjvIDKoB5rStrrbfDxJZNue66iNhWGvT6GmZHqbwPWluzgDYEjfAAyRwGtxzk
+         pKR94GGfZjwnmckrtoaD3nfOty0c/zAWZNaEn898veJ4VupHOikhZ+9zDMXKPZ6IRadV
+         M2EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791768815; x=1792373615;
+        d=1e100.net; s=20260707; t=1791768868; x=1792373668;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LNoJ4HxuYSJ0Xf/3dUjucPRkmyWxxHLDqr594GDd0MU=;
-        b=gALOfJza8TKoHsT5BkRIMLUxp2GPpHeizk9l7QNYZfYbL1+uGXV8A0yAPurqw2o6fD
-         NFByIn/e8kXV6loelQazOix06VsdRTxpTkRqzpFK+P54yXH2Y0r7DWI3Fe0CW1olK42m
-         XubStF11y+X40sG5aPK08dowuh7dVvYiZIdys+Eb6FIL4GdYkNq0uIff8q+ap9kL9pTC
-         n7vn45SgR2QcwqL045v/+pHBI0qW0kfKLQxHobRqeoQAsYjzrp1Z6YXc8q5SLvxFsV8v
-         mi2axWymmvuu+QNK4JJPbBnqZ8mAUkHyfyhokiRnuLpo4Ascx2a+joDoRWElhlP/I/wY
-         KuUw==
-X-Forwarded-Encrypted: i=1; AKwUvBxf1+zOedcDYfyAl2OYKAGoJNVT7PQttjTF2qFSe3BaGru9TF5lgpKuhySSeS48b2PC7cVVQf0tIcbBq2E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK61/g52sBr9fLSateWsfLctA9EcrMCMVfQqU4xZUTW4NC0NJIs
-	v4iXSuOyQkn71SLNdlYe7XeANRk4Bmm3vEpiSPxvFvcJ3zzFFHOZNfA3TmuVuBFT7Xuiz41yn40
-	j5KyQjcBIAl6GAxiBgc1yy1nJpElXZ6Q=
-X-Gm-Gg: AYBFou3R0v5iezoaeendqCMYkjW+KTlhSVTEKoCwxPGOg6F4fUE6ApveUGEWCxraKQw
-	oyp/7EXvi4mdIn9B99zin2NGa9bvfYkKmv581wi6861j04rLHIbjaeOqgwJSmT5W9A7LfDG7mhg
-	w92V2yUTpJyqiH/u/f429rSFJiAVUomPeScINbAUKbrrJQHYbKFkpcAmtG/IXG9+haXu9rzvcU1
-	73b6Czpo1yt0J7ut/hemwA/+D3ezcDgRSuuKg2JohErSOWBv7i1er5I8lsoguNEDoNlSXI8kadr
-	pzmbZmmQiy/W6agVF+WThSER7w+sn9KCexw+uQSZ0B7+7ttV5f0Miu0=
-X-Received: by 2002:a05:6820:603:b0:6f6:8edc:2d4a with SMTP id
- 006d021491bc7-6f68edc32d9mr783126eaf.19.1791768815434; Sun, 11 Oct 2026
- 18:33:35 -0700 (PDT)
+        bh=pDa+xMMOc/P3nrGCK4nQLiDZ2Nmx/iXraUyvbmKuLDc=;
+        b=PPT4KK6ct6CtwVdv6puIjEX0CNPlYkh+9GchxNQ3eQKNXwzZO284OgA47BTOWqzKE6
+         z+2sVoVWxhFPDFRA3bv688UeLk3EvFr2ATneBjpcrItK81gmoD/pNcw0mleJzaSV22UL
+         lVmpYeyptLttsSOxgMjHkQ+GiAN/zkMB5VrunOaWL3N+NAsYG68LV6fR3nVeO3h8ilw+
+         BAwcMu+YhRsC0LlwG3AlfVMEFcq1bGDEBFZGxugcTjli46zU5REc/Thm/oLjiwGJtcpk
+         UJf7Ef2oqCwmlMmJKprTA3Piy795EyIrIjQWTda633epCAwWFu9qSeU5jcn7w35hlV0l
+         yDVw==
+X-Forwarded-Encrypted: i=1; AKwUvBzEWiP8NOVuAPVAVC2mgZE2ukhorg6wkuiqW2AUmn9eEBLfl0igK1dyZXJnE4VsntZhWGyfGJxvAAjNx3o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLp/NrMb8fueSPP9+MwcrTsneMDsbgymy7mFuc+9eee8EXFfCOB
+	7lWxfs7qp0qfgW/j6cAi7n76IUzQ2uye91qyew17Dhu3WKy6xEs33wqoVlKTnKua4kpF6VqgFS6
+	Gz4nmQ1I1Q8okO+NqD8bXIDl7DkTEiOs=
+X-Gm-Gg: AYBFou15fg1icinA2FxVhfZ0cf7lqvZzDxQGnG02QORe4VsgSn6baEoqAGgBou2oSax
+	f4zwC5H26CjwaQc3Dy7c2UaoybmyqmAXWEnkH+SKhF4DArNBZ+M+7uY6avs8X40H9Hj/yObj9AJ
+	MihloviG3lW2fDah0liMqqMWGEBnwPqvSNY/lzPKhR1dIduWCmkW3gAAI8sB9uVL38smhH//fhm
+	yv/SemcLsgn5p3+EY1GCVaDkRCHRmB/ic8n3SgXbFFssgUe7qi1XaEQKLSIjBl9QvhqCeEiUm4Q
+	N7qgcLbdqziMfnoWaFoP8MTencROQ4KrT9/LPx/wnJeHLoXAfZhLVXHpLTG7ckrO6Ok=
+X-Received: by 2002:a05:6820:8187:b0:6da:4b62:b6b2 with SMTP id
+ 006d021491bc7-6ef0e6e5a0cmr5570778eaf.40.1791768867820; Sun, 11 Oct 2026
+ 18:34:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930200158.174118-1-b-padhi@ti.com>
-In-Reply-To: <20260930200158.174118-1-b-padhi@ti.com>
+References: <20261001230538.2751621-1-robh@kernel.org>
+In-Reply-To: <20261001230538.2751621-1-robh@kernel.org>
 From: Jassi Brar <jassisinghbrar@gmail.com>
-Date: Sun, 11 Oct 2026 20:33:24 -0500
-X-Gm-Features: AclHuK9mSjV4BCyKuLSYCUP_iYl7bD7WHz4EW_eabE8Mz2jrNqdpetz4EBbM-kk
-Message-ID: <CABb+yY3pO19Ygxw3yo_NcF1p=b7qsn16UcNjkNzfmCdA1d=sKA@mail.gmail.com>
-Subject: Re: [PATCH v3 0/2] mailbox: ti-msgmgr: Fixes for polled rx and
- trailing bytes
-To: Beleswar Padhi <b-padhi@ti.com>
-Cc: nm@ti.com, afd@ti.com, u-kumar1@ti.com, linux-kernel@vger.kernel.org, 
-	vigneshr@ti.com
+Date: Sun, 11 Oct 2026 20:34:16 -0500
+X-Gm-Features: AclHuK9RPfsi9QYxKe1xshyF9l4fH-kCDWKjWiJN_CiVUkSbujLN4YSrez-akBg
+Message-ID: <CABb+yY0WsGARMBkmyG_gbHexw0rYmdaBGEgomkARGF+3xEuSuQ@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: mailbox: Convert hisilicon,hi3660-mbox to DT schema
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Wei Xu <xuwei5@hisilicon.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 3:03=E2=80=AFPM Beleswar Padhi <b-padhi@ti.com> wro=
-te:
+On Thu, Oct 1, 2026 at 6:05=E2=80=AFPM Rob Herring (Arm) <robh@kernel.org> =
+wrote:
 >
-> This series fixes two issues in ti_msgmgr_send_data(), found while
-> refactoring the ti-msgmgr mbox client (TI-SCI).
+> Convert the hisilicon,hi3660-mbox binding to DT schema format. The
+> binding and driver give no clue about what the 2 interrupts are, so more
+> details can't be added.
 >
-> Patch 1 fixes a duplicate message transmission in polled rx mode.
-> Patch 2 stops reading past the end of the message buffer when the
-> message length is not a multiple of 4. This is a preparatory patch for
-> when the mbox client can send data which is not a multiple of 4.
+> Assisted-by: LLM
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+>  .../mailbox/hisilicon,hi3660-mailbox.txt      | 51 -----------------
+>  .../mailbox/hisilicon,hi3660-mbox.yaml        | 57 +++++++++++++++++++
+>  2 files changed, 57 insertions(+), 51 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/mailbox/hisilicon,h=
+i3660-mailbox.txt
+>  create mode 100644 Documentation/devicetree/bindings/mailbox/hisilicon,h=
+i3660-mbox.yaml
 >
-> This series is independent and can be applied directly.
->
-> v3: Changelog:
-> 1. Add Fixes: tag in [PATCH v3 2/2].
->
-> Link to v2:
-> https://lore.kernel.org/all/20260930143810.2419010-1-b-padhi@ti.com/
->
-> v2: Changelog:
-> 1. Use memcpy() to construct the trailing word to handle host endianness
-> (Sashiko bot)
->
-> Link to v1:
-> https://lore.kernel.org/all/20260929200159.4033010-1-b-padhi@ti.com/#t
->
-> Testing Done:
->  - Boot tested on all TI K3 SoCs.
->  - Boot tested on keystone K2G EVMs.
->  - Tested that these patches do not introduce any new warning or error.
->
-> Logs:
-> https://gist.github.com/3V3RYONE/18d0c3ce912ab208b53b5887435ff09a
->
-> Thanks,
-> Beleswar
->
-> Beleswar Padhi (2):
->   mailbox: ti-msgmgr: Do not report rx poll timeout as a send failure
->   mailbox: ti-msgmgr: Read exact number of trailing message bytes
->
->  drivers/mailbox/ti-msgmgr.c | 32 +++++++++++++++++++++++++-------
->  1 file changed, 25 insertions(+), 7 deletions(-)
->
+> diff --git a/Documentation/devicetree/bindings/mailbox/hisilicon,hi3660-m=
+ailbox.txt b/Documentation/devicetree/bindings/mailbox/hisilicon,hi3660-mai=
+lbox.txt
+> deleted file mode 100644
+> index ec2da5c9e647..000000000000
+> --- a/Documentation/devicetree/bindings/mailbox/hisilicon,hi3660-mailbox.=
+txt
+> +++ /dev/null
+> @@ -1,51 +0,0 @@
+> -Hisilicon Hi3660 Mailbox Controller
+> -
+> -Hisilicon Hi3660 mailbox controller supports up to 32 channels.  Message=
+s
+> -are passed between processors, including application & communication
+> -processors, MCU, HIFI, etc.  Each channel is unidirectional and accessed
+> -by using MMIO registers; it supports maximum to 8 words message.
+> -
+> -Controller
+> -----------
+> -
+> -Required properties:
+> -- compatible:          : Shall be "hisilicon,hi3660-mbox"
+> -- reg:                 : Offset and length of the device's register set
+> -- #mbox-cells:         : Must be 3
+> -                         <&phandle channel dst_irq ack_irq>
+> -                           phandle     : Label name of controller
+> -                           channel     : Channel number
+> -                           dst_irq     : Remote interrupt vector
+> -                           ack_irq     : Local interrupt vector
+> -
+> -- interrupts:          : Contains the two IRQ lines for mailbox.
+> -
+> -Example:
+> -
+> -mailbox: mailbox@e896b000 {
+> -       compatible =3D "hisilicon,hi3660-mbox";
+> -       reg =3D <0x0 0xe896b000 0x0 0x1000>;
+> -       interrupts =3D <0x0 0xc0 0x4>,
+> -                    <0x0 0xc1 0x4>;
+> -       #mbox-cells =3D <3>;
+> -};
+> -
+> -Client
+> -------
+> -
+> -Required properties:
+> -- compatible           : See the client docs
+> -- mboxes               : Standard property to specify a Mailbox
+> -                         Cells must match 'mbox-cells' (See Controller d=
+ocs above)
+> -
+> -Optional properties
+> -- mbox-names           : Name given to channels seen in the 'mboxes' pro=
+perty.
+> -
+> -Example:
+> -
+> -stub_clock: stub_clock@e896b500 {
+> -       compatible =3D "hisilicon,hi3660-stub-clk";
+> -       reg =3D <0x0 0xe896b500 0x0 0x0100>;
+> -       #clock-cells =3D <1>;
+> -       mboxes =3D <&mailbox 13 3 0>;
+> -};
+> diff --git a/Documentation/devicetree/bindings/mailbox/hisilicon,hi3660-m=
+box.yaml b/Documentation/devicetree/bindings/mailbox/hisilicon,hi3660-mbox.=
+yaml
+> new file mode 100644
+> index 000000000000..c42ce576a029
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mailbox/hisilicon,hi3660-mbox.yam=
+l
+> @@ -0,0 +1,57 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/hisilicon,hi3660-mbox.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Hisilicon Hi3660 Mailbox Controller
+> +
+> +maintainers:
+> +  - Wei Xu <xuwei5@hisilicon.com>
+> +
+> +description:
+> +  Hisilicon Hi3660 mailbox controller supports up to 32 channels.  Messa=
+ges
+> +  are passed between processors, including application & communication
+> +  processors, MCU, HIFI, etc.  Each channel is unidirectional and access=
+ed
+> +  by using MMIO registers; it supports maximum to 8 words message.
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: hisilicon,hi3660-mbox
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    description: Mailbox interrupt vectors for message processing
+> +    maxItems: 2
+> +
+> +  '#mbox-cells':
+> +    description: >
+> +      The cells content are as follows:
+> +        - Channel number
+> +        - Remote destination interrupt vector
+> +        - Local ack interrupt vector
+> +    const: 3
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - '#mbox-cells'
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    mailbox@e896b000 {
+> +        compatible =3D "hisilicon,hi3660-mbox";
+> +        reg =3D <0xe896b000 0x1000>;
+> +        interrupts =3D <GIC_SPI 0xc0 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 0xc1 IRQ_TYPE_LEVEL_HIGH>;
+> +        #mbox-cells =3D <3>;
+> +    };
 > --
-> 2.34.1
+> 2.53.0
 >
 Applied to mailbox/for-next
 
