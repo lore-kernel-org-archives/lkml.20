@@ -1,198 +1,207 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8CA3B4E88;
-	Mon, 12 Oct 2026 23:21:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791847316; cv=fail; b=BPAODDbFDt2+TzHQOKWqlFk7mmyJ13Oi3pim69Fue/Eu9oFTadQBxP8wTBYKcwr8bqB0G+9UpiSrfz5hcAChQj2lCnzJTgYmLlVj5c327s7o2sUMXd4/VjacmA4aFGV3IiQQQhXtpduq8OEpxZosrPiKu0YFnh7aELrp0frCBTs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791847316; c=relaxed/simple;
-	bh=jpI3wMKJpUhvDY4D4yaIOfRUMQ355bnzMjbwT/IVpbk=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=VQdkSaaFZSBInQiniIwxUI6eeddwUrXDxf6rGaEK3yEvZg1mufWESnOXrvc/7jiohQfX+66CMTQ0Lm7LwwPvz7FM4qxZPdOfi00MAGfsky7ziwKKL8VNnyM7Szkm898hb1VDc39IaqIcjXw0IUvhpKYRcgo01MBYLNLZ80hE23I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Qf63zsOR; arc=fail smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F8935AC1C;
+	Mon, 12 Oct 2026 23:26:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791847594; cv=none; b=bEwz3yhg5KcZ40WbMP7lq0zwObrZIpTWe4Hz/T5Gn8I46SGKPXOEo6tcaStk6JF0P5rimq0T82uheT0gR4OKHU0yqnIPtnvP1SxMxrYV3Njd0E7tomWR21ksCUEyNpManYn8VhdY2//d6m9d2FD/LHR3VEV4lPlVG9P8hOlE91E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791847594; c=relaxed/simple;
+	bh=CFP4aMNI2bgpYnMs8TabKyKWiaNn/Tmv6D9ZgpJC2Io=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=Zt0gTPcWLhv43S91kV6ZoJV1Nh/RKKLs7OF7T8lMf5l1YIk818fh21itLdqEElRshlKCTSLGqHBQgAQB/KOK9arm0YfDGXHc7yWxDxSSzIBYhRzgL0rIPfTZFlQ4M9GwvhOlO+nunPiTuqg/T3xVvuTld14IUdTjV2Gar0t9jvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JAxh+F2A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Qf63zsOR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791847313; x=1823383313;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=jpI3wMKJpUhvDY4D4yaIOfRUMQ355bnzMjbwT/IVpbk=;
-  b=Qf63zsORZCx4Uy4509akcWJsKOLOztp6b8hsBjrZ4x/TDpwvsPK7lx1w
-   F44+8JWkwHy0EZZS5dhnttzQToWQW9agsqeVB1td0+Zr/O8HdqX5BxE9e
-   NZbQRNVmru7yij/Mu3DEGuo+1kViVtnpaVBxXVQTncVtxduVM8rTaQg3m
-   3ntSd10wY2Vhcc3gJYZWhY0Y11ZryXZsAms3QzWJ7ZooNYtf8hN5XExr/
-   uWoiPhRr95FwBTubzXUKPVMGewA92bbkcmbFoM3T4LgRkFB+U6nDHoL7g
-   1sYyNdJ2c+jITo/j4PHlVSLcDBMLfs1ihYK9nurM33xuUHJ7TmBCjOH5U
-   w==;
-X-CSE-ConnectionGUID: IY5qWwP7SD+H4PEDwpTVIQ==
-X-CSE-MsgGUID: xCX8tyX9QyKb+GASxEgueA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="468815"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="468815"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 16:21:53 -0700
-X-CSE-ConnectionGUID: yF3uc81gTfSBz2u/2np/jg==
-X-CSE-MsgGUID: /ifafl9YQ1m9QlYmIZ4GLA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="913889"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 16:21:53 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 16:21:52 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Mon, 12 Oct 2026 16:21:52 -0700
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.22) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 16:21:51 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aUtS/iJntPbOO+8NJW/3WzE012DnMKUYa3qNDOlYbUC9OjsnyUbE8nktEbT2tZ18mMDJlyx4rTtR/TNFIBi75VIGarcq6xGwlXTefeXVhdYDakMTK3utsm+WVDsMxO6jl6k8iVx+pPkEXVg78MhXzJlBAGkBaqinKN1vK22UGYakjTQZR1DeEpUawRR8nMZyNQG8pRQ/JZUGJ7S0BD03UZ90RR4G2iSEfqsh2UJzcJsm8K/SIVZCYnW0fV5BiuVXjTbMNpXyJZxUUNGC3Z1pBx2ZAkokz/vCMma8VblhJUjax2hfm+mtqovByksS0x9bI99GMK4eYLzJH1djx2ZAzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F2ZYwyzP4aTuCNofEhfshnJdMGJQki1wgz3zu1bOvf8=;
- b=juUCEHiCqWTxhQup/KeBPcuDXb28yiClsSTbx4Vr30QQ8pQTYwCog+CLvtvxQ6r4VoU2HCCB0CLd2FJldlxgBUKMDQdC/j+2GFEbo7GJTGohewTe1iqdpXOPezAFb1AxwBcpaQFfSKREZZbHrUnJDiY8lr59xxlqWzi2oOx0RdlX3lS7swaDteFkca81QZaKEeHtt9zGXjUmLaKPTmpjXAPcPiQDtKcES0YQnrAZzs5jNieFxMTbOaWwTgFa7i4TYzZdK1lcwjCjE/cVxAsspwEzON8IBewm+KY9zb4wZRoPptPZ+b+il1blnfVcjCWz6xCpNp13C6qkkzrw39rt6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
- by PH8PR11MB7117.namprd11.prod.outlook.com (2603:10b6:510:217::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 23:21:49 +0000
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
- 23:21:49 +0000
-Date: Mon, 12 Oct 2026 16:21:45 -0700
-From: Alison Schofield <alison.schofield@intel.com>
-To: <jianyungao89@gmail.com>
-CC: <linux-kernel@vger.kernel.org>, Dan Williams <djbw@kernel.org>, "Vishal
- Verma" <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>, "open
- list:DEVICE DIRECT ACCESS (DAX)" <nvdimm@lists.linux.dev>, "open list:DEVICE
- DIRECT ACCESS (DAX)" <linux-cxl@vger.kernel.org>
-Subject: Re: [PATCH] dax: fix mapping_store() returning 0 instead of error
- code
-Message-ID: <as1riZMcDaX5niW9@aschofie-mobl2.lan>
-References: <20261011131857.30481-1-jianyungao89@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261011131857.30481-1-jianyungao89@gmail.com>
-X-ClientProxiedBy: SJ0PR03CA0287.namprd03.prod.outlook.com
- (2603:10b6:a03:39e::22) To DS4PPF0BAC23327.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JAxh+F2A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9ABD1F0089B;
+	Mon, 12 Oct 2026 23:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791847592;
+	bh=Z2oSTbM4zUcpYMcqO/5/tHZYwS6dFdbbOC1MdPLdirg=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=JAxh+F2AukERQbbncuqU+qjuDmbdx7O/LNm+WzxrSs8NojOIMnh2LTxdt/eIjj7AU
+	 JFoQujP/NR9y9ENDlL0jR3DF03W2sGnTPVu1og3htry3TGoBKQa+xtJuq/NltWXT7U
+	 QiJWpcLuPjWwB2J0r8TgyI2y8m0SH4TgGAx1v9HK/yOwWmWU4N2YLUMr8iSiFTUNo4
+	 Q3oG0ZVTExQ5k/1WrzOAlrQLoVfQfNcN/8uwYHdTUCw07/Z9hZ6wxZyxKowdvOu5/K
+	 GbRlnCWCX6A7C/qq7Nh64or4CwUuHapOKdop35XGCwhUtp9l+5TJZDAXt7ZVRifVoS
+	 S2n9NASxwaVtQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|PH8PR11MB7117:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb5f0880-72ee-46e5-4757-08df28b7971c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|11063799006|56012099006|22082099003|18002099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info: JMt0qvyecfE1fCGt51B86peW8NvpxcoslUfTKM3Da7PD4OFlY1of/fgToZSUs1XjRXEPuCbYEOp/gJasfxtC1EPeLaW1OmOh3QMX/QF4QL1XPBvev+dRo+XPbnkkBZWlZBfx5GKeWuI+K2hXv381A0nMNvYgVItIliu0VCOyFGr+qtZh6ds6sKLL2GQLaKq6ABP+Bvp4pe17JbuMRStfrH79n0b+lB8qfGjSt7wMm++tWBF7+64IWIgalgPzIdZAiInJD/iVhC0x46K4DqOCyfzDK0XJqhjc+HLqNziIoqAGAQprdDt3dAsmptYpXirWyeWgdLuG1M8uyAoLSHSktJwAleuphsxoyLI3rvvF2g5GSD7BFkXUSXndm2Fd57Zc4LdEm9YPpPonJNKRk/jxfB9W5ItQIQeBmLG7n/AzblW9c+NeAAOGlG8rRi/oB1NuMzd0aDeuMDcvhGMjfPS2mMbBgN1HzBQKYiPpasy6UqRbv+nYpUE4YYTVasTXyLyw4dkLKnyVsuF1UwMGAo8H3eTMa3OSNxRUU0MteJaruc6O0yImobej/1w7Gv4tiVaN6Hhg8paMOy83YnnomdfAbv4kbOGpdUDDkf015eruFr77bbBOPnMZdrVQtijf4nS7zkFNGFDUxyDiJtoCY+UUb92iK0EWs/ipVFbpdM2TXYM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(11063799006)(56012099006)(22082099003)(18002099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ABpEiWvCjJ8UQUqTLku0dEImqTa7mhY2nQuk5d/CR/uUUhuC/SczYbBsZLoI?=
- =?us-ascii?Q?tt4n194B4HnrORU4WLh0Inp1L/GaH1MLfsdLIUU+jIWigpRV2EoKdHguSJbX?=
- =?us-ascii?Q?kcrhnPbHFXj8jjOZlxPMnmbvmhPHcofCsLIKNV3OOWcq5M8IGdydr0MT1pWd?=
- =?us-ascii?Q?nBgV2Ah+BthE1CF1zQbs53bil9nhimUUWsKZQ8HTyCWlm1HRYPvZZDC6kDaJ?=
- =?us-ascii?Q?SByVB7NPtN/QJ22TyAaeSyUscT0Y4FIrEoQ4Fe5b7X8NfUQid+wLody5VCVd?=
- =?us-ascii?Q?eaVuw8NNwm6777BkiOk9rrwCn93LPS0osHLo4tE6VkSk6U6mOJGXiBiut5sw?=
- =?us-ascii?Q?Wuax6qP+7kv5rAxUmP/2fRGw46fPHacf/OdW0GjzEpBgHCReZBcaYzI6QKx4?=
- =?us-ascii?Q?Tz+ZYf0fBC4LiuIRUcprUUAAX0c/FJyPtITaumlrS/h84tYlfXpU0g0fHgK+?=
- =?us-ascii?Q?GN4V/rA0j4XNr2bzFdn1d1nssMyztFIFP//tZighzFkKSsHkUAtf9O6K55dv?=
- =?us-ascii?Q?4/tPjTHCEUgGMBMpW9um+IoKvZd/Flv3N/dUM3+n6wcYkMyNBzK0WQ9Vrwih?=
- =?us-ascii?Q?x9oJ33bUla48qp8VZDPCjJEVlgcXAlkPK+y6XLqXov56Ew6elVyiwnjRkd/s?=
- =?us-ascii?Q?oB6eArVOQCbJaZNvgo9llFbcf4LT56aajRKpCIh9KI3iHLJUij8XgeklXbUo?=
- =?us-ascii?Q?zY3J/1RVALmLIcmVx7/nAQQkeeiIrPJ8kWEyH3RZFwmM/PLFS1CFQit3NP+r?=
- =?us-ascii?Q?qCHD/+7mRuaIfcZlmjtPSbosqBNR4Rf2Q4OBPga0nriT+FH/6P6caVduy+Fc?=
- =?us-ascii?Q?EdEmLVmuDtfb3kvlA3gxSElTvmHV39BmBujA1RA8OiVdSRFPueItra8H6QsP?=
- =?us-ascii?Q?J67eKP62qQF9L+JlXkDMjLdDM9Os0NmxPwmQ8LyR7u/0RbcFcUdRMaelQVWR?=
- =?us-ascii?Q?TvmJY7vK94p58EdAwCwMoRFCymvgwthw4sodeyOOiPSrsfAgZGqF7XD7RWj5?=
- =?us-ascii?Q?bCNLIyDdZXUfyFyBzR2L5orolkyMbnrb1HKaHiXh1y6qUsMlAzq9Zc4fWhKI?=
- =?us-ascii?Q?6BeVQcZ6RRPpxhxajYqxJVu4sXI2pNbVoDqUyIZGoHQSB1VgvSXvRU8JQm/Y?=
- =?us-ascii?Q?GDzeR+AHfPLuB3wZ8LwhtdTzFxS+xTqTyFaBy9cifgF4ejHDGrLVwQ49obWk?=
- =?us-ascii?Q?HseYg9xl+UpOyORtIe7kfDCTIAdI26gXN7a5THSkaMImauHjf18mWU9BcukG?=
- =?us-ascii?Q?/xI3xc1hJuvJ2xVfdpSnnuxdFCuW53Y/yYQUK/A6bvJ+U4SNTRBQugD1nXmC?=
- =?us-ascii?Q?+gTEPueKZ2xdDH/V7ZQe+rmYFRrMc0gNt2X5QTGiJieMG9iZPs3tYVkEO/FL?=
- =?us-ascii?Q?gC0hKeRelQqEZHxaUPAwrtIv2NdefFfjywmmoYV97J2ZRLctJIx9dsOWbbh/?=
- =?us-ascii?Q?IQOpRMqch2v2MGicWt7niRxGs6zwGcw/AMPJLk/ow23kfuP5UujQwnt+QSWT?=
- =?us-ascii?Q?Miji41U2exElNsfC6hY5JhfTc9F8qOz/yi86Iwl6pDLNb5JnAXrZRMV3Sxg1?=
- =?us-ascii?Q?1waushzohwR9PDFGqgGcV9SbPrtR/9BG2QZUJAeLlSEXfMUZjV88CDZoYVlK?=
- =?us-ascii?Q?KJThjD1w/SD2KUkb1fMKXMJjd8Bz3S6iaAwosIoFuftvxJ1afkPNL7w/7lwo?=
- =?us-ascii?Q?EDUDaKwmJwNZ5JzBvX8WxCiJ0EhtrezcDy5X4tA00nqdKMrpzSgk0maSdGVT?=
- =?us-ascii?Q?KgJwzaegNoDNgAUrQeF6ZjXM/2/lF0s=3D?=
-X-Exchange-RoutingPolicyChecked: iVocGvILH9UHPGrR8S90TYnBuuwOfBJwQsemOlYIcKoG+oa0DyPCTTZJWEaBIirqIW01mxgNfwcpx3JCQNjvBFZbw07Tj3lXmezqBEi9b7ioVp/A0bmppHxdaom+iG+b+hp2TWBwyEQWpOX1914kAGyVf59K1l/TnkJGyhVp8TDpgLkThzwlOJawPQ9BYVBzKlKnmYo4Vm/jsQxiZWgLr5UnkT7a2BlKBjdBqQnp5hOJ5WWS/64hujCHUoXnD1ysHOCiD8bhmPGSrWfPQuanbJuOb7KAK9E/sknyrU/aVfWWydQ+00UX7LbQ8wYj5pqkLyFSt5liQ+g3acXudWkEVw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb5f0880-72ee-46e5-4757-08df28b7971c
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 23:21:49.1900
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KP5aRJRHCJd9JBRrtYDgwXs2pxuUAcgC3sP3q4QV6qtaIozsRFyRt6AS9VFlXJHGGBR3pMyo6CCAICCuQ54Mn0BtYHFQAJmrkuDO1pscSsA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB7117
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 2/3] media: i2c: dw9719: Update DW9800K driver
+From: bod@kernel.org
+To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org
+In-Reply-To: <20260914-b4-dw9800k_cleanup-v2-2-6553273aaa33@fairphone.com>
+References: <20260914-b4-dw9800k_cleanup-v2-0-6553273aaa33@fairphone.com>
+ <20260914-b4-dw9800k_cleanup-v2-2-6553273aaa33@fairphone.com>
+Date: Tue, 13 Oct 2026 00:26:27 +0100
+Message-Id: <179184758746.1635143.1022569720918218811.b4-reply@b4>
+X-Mailer: b4 0.17-dev-e5aa4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4370; i=bod@kernel.org;
+ h=from:subject:message-id; bh=CFP4aMNI2bgpYnMs8TabKyKWiaNn/Tmv6D9ZgpJC2Io=;
+ b=owEBbAKT/ZANAwAKASJxO7Ohjcg6AcsmYgBqzWyjdwwWy+9VQceeQqJ3cMcWaUfh3Tk5B4O/e
+ p1sLFsHhPGJAjIEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCas1sowAKCRAicTuzoY3I
+ OsGiD/ioa1OoVrs66OIRi+B/GV887AKeug8FyrMyxBrbn3GmS1yUeJNPUQzhJLCVquaeRuS1zxo
+ dMT4X9l7booBjvui0sc4ZJmYbsOyOITkI6RRK0hUqRZQfRz5r1DPMdzv3BNkdw//1OtlrUcVXF1
+ AUXYPTBlooIfpkp8ExYXmDPStqJdP8nEwP+/VAjZEfhvWmfwpOfPy56RsnLEQ9pR5l6nPBc0ykF
+ cKsn6JhwJA3zJGGNrWqtgF6k74zopXAwWIUKGvYHrYJnqGCp+lDHFl3lEZWf0MSWCKyCOfPVlUS
+ +pwoH/CY4MB99AiZP33xbc0NZo6Wke8UztBavqT7BuCBOPjuoNnrq6/HvyjXON2UoLvsLtDNVgE
+ bdbSAeRDtsqdKpsT2h/b9bnxud/ywdmLNtKTQ7NkFmlPcJZ2TinylzON7MYK/E4p77iRq/AXEoi
+ 7rtB+GAYbcA3wtQz2ag63TLuDD2RC0qePwQyO9+shZrejKR3+F4uFRYhN80kqgWJ1cBiNJDaRWB
+ cd692hoKsH2w2zIC9hRV+D/+wvmrlOJ09eC38FKguhxm9TvHjLyu5nPiTg5xsQW6MiOT5qR6jFi
+ HkZPUbu9AmRAMMppf8Uf7k5fEusJRVQaFZ9+M0xQbs0gOObBlkLlzUActiU7BDn0DUfzL6d9uGl
+ 3kEMfxc90e3iN
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On Sun, Oct 11, 2026 at 09:18:57PM +0800, jianyungao89@gmail.com wrote:
-> From: Jianyun Gao <jianyungao89@gmail.com>
+On 2026-09-14 12:25 +0200, Griffin Kroah-Hartman wrote:
+> The previous DW9800K driver code was created without access to a
+> datasheet for the part, now that we have one we can clean up some
+> misunderstandings and add some features for further expandability.
 > 
-> When the region driver is not loaded, mapping_store() returns rc
-> which is 0 at that point, instead of an error code. Set it to
-> -ENXIO to match the equivalent check in size_store().
+> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 
+1. Be more explicit about which misunderstandings and features you mean.
+2. Generally speaking for each thing you might write in the commit log
+   a) Misunderstanding X
+   b) Thing fixed y
 
-Hi Jianyun,
+   I'd recommend making those standalone patches.
+3. Since you appear to be describing Fixes: here you should
+   c) Have a Fixes: tag
+   d) Cc: stable@vger.kernel.org
 
-The change looks correct, but there is another path in mapping_store() with
-the same problem. When alloc_is_aligned() fails, rc is still zero, so the
-sysfs write reports success without allocating the requested range.
-
-Muchun Song already posted a patch addressing both cases.
-https://lore.kernel.org/nvdimm/20260924025035.1265035-1-songmuchun@bytedance.com/
-
-Please take a look and add your reviewed-by tag to Muchun's patchset
-or comment if it doesn't meet your needs.
-
--- Alison
-
+>  drivers/media/i2c/dw9719.c | 71 ++++++++++++++++++++++++++++++++++++++++------
+>  1 file changed, 62 insertions(+), 9 deletions(-)
 > 
-> Fixes: 9567da0b408a ("device-dax: Introduce bus + driver model")
-> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
-> ---
->  drivers/dax/bus.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/dax/bus.c b/drivers/dax/bus.c
-> index b809e1a264af..262f97b5e7aa 100644
-> --- a/drivers/dax/bus.c
-> +++ b/drivers/dax/bus.c
-> @@ -1192,7 +1192,7 @@ static ssize_t mapping_store(struct device *dev, struct device_attribute *attr,
->  		return rc;
->  	if (!dax_region->dev->driver) {
->  		up_write(&dax_region_rwsem);
-> -		return rc;
-> +		return -ENXIO;
+> diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
+> index 3b7ba88fd67c044ef9005a0aac6a5d26ab939a90..982be59b9ee17a12e8c25ab790ccb8351454c91c 100644
+> --- a/drivers/media/i2c/dw9719.c
+> +++ b/drivers/media/i2c/dw9719.c
+> @@ -68,9 +68,18 @@
+>  #define DW9761_VCM_PRELOAD		CCI_REG8(8)
+>  #define DW9761_DEFAULT_VCM_PRELOAD	0x73
+>  
+> -#define DW9800K_DEFAULT_SAC		1
+> +#define DW9800K_ID			0xEB
+> +#define DW9800K_DEFAULT_SAC		3
+>  #define DW9800K_MODE_SAC_SHIFT		6
+> -#define DW9800K_DEFAULT_VCM_FREQ		0x10
+> +
+> +#define DW9800K_RESONANCE		CCI_REG8(7)
+> +
+> +#define DW9800K_DEFAULT_DIV		0x01
+> +#define DW9800K_DIV_SHIFT		6
+> +#define DW9800K_DIV_LOW_SHIFT		2
+> +
+> +#define DW9800K_DEFAULT_SACT		0x20
+> +
+>  
+>  #define to_dw9719_device(x) container_of(x, struct dw9719_device, sd)
+>  
+> @@ -90,6 +99,8 @@ struct dw9719_device {
+>  	u32 mode_low_bits;
+>  	u32 sac_mode;
+>  	u32 vcm_freq;
+> +	u32 div;
+> +	u32 sac_time;
+>  
+>  	struct dw9719_v4l2_ctrls {
+>  		struct v4l2_ctrl_handler handler;
+> @@ -140,10 +151,6 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+>  			dw9719->sac_mode = DW9718S_DEFAULT_SAC;
+>  			dw9719->vcm_freq = DW9718S_DEFAULT_VCM_FREQ;
+>  			goto props;
+> -		case DW9800K:
+> -			dw9719->sac_mode = DW9800K_DEFAULT_SAC;
+> -			dw9719->vcm_freq = DW9800K_DEFAULT_VCM_FREQ;
+> -			goto props;
+
+As an example this change should be argued on its merits - you need to lead
+your reviewers to water and then see how they'd like to drink.
+
+>  		default:
+>  			break;
+>  		}
+> @@ -165,6 +172,12 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+>  			dw9719->sac_mode = DW9761_DEFAULT_SAC;
+>  			dw9719->vcm_freq = DW9761_DEFAULT_VCM_FREQ;
+>  			break;
+> +		case DW9800K_ID:
+> +			dw9719->sac_mode = DW9800K_DEFAULT_SAC;
+> +			dw9719->vcm_freq = DW9719_DEFAULT_VCM_FREQ;
+> +			dw9719->div = DW9800K_DEFAULT_DIV;
+> +			dw9719->sac_time = DW9800K_DEFAULT_SACT;
+> +			break;
+>  		default:
+>  			dev_err(dw9719->dev,
+>  				"Error unknown device id 0x%02llx\n", val);
+> @@ -185,14 +198,54 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+>  		/* Optional indication of VCM prescale */
+>  		device_property_read_u32(dw9719->dev, "dongwoon,vcm-prescale",
+>  					 &dw9719->vcm_freq);
+> +
+> +		/* Optional indication of clock pre-scale select */
+> +		device_property_read_u32(dw9719->dev, "dongwoon,clock-presc",
+> +					 &dw9719->div);
+> +
+> +		/* Optional indication of SAC timing */
+> +		device_property_read_u32(dw9719->dev, "dongwoon,timing-control",
+> +					 &dw9719->sac_time);
 >  	}
->  	rc = down_write_killable(&dax_dev_rwsem);
->  	if (rc) {
-> -- 
-> 2.34.1
-> 
+>  
+>  	switch (dw9719->model) {
+>  	case DW9800K:
+> -		cci_write(dw9719->regmap, DW9719_CONTROL, DW9719_ENABLE_RINGING, &ret);
+> +		int ring, sac;
+> +
+> +		/*
+> +		 * Enable ringing for SAC3-SAC5
+> +		 *
+> +		 * sac_mode	reg	Mode
+> +		 * ===========================
+> +		 *	0	0X	Direct
+> +		 *	1	1X	LSC
+> +		 *	2	00	SAC2
+> +		 *	3	01	SAC3
+> +		 *	4	10	SAC4
+> +		 *	5	11	SAC5
+> +		 */
+> +		switch (dw9719->sac_mode) {
+> +		case 0:
+> +			ring = 0;
+> +			sac = 0;
+> +			break;
+> +		case 1:
+> +			ring = 0;
+> +			sac = 2;
+> +			break;
+> +		default:
+> +			ring = DW9719_ENABLE_RINGING;
+> +			sac = dw9719->sac_mode - 2;
+> +			break;
+> +		}
+
+For example what is ringing - a patch should cover "enable ringing it does
+thing X" and then the code should be a straight-forward reading of thing X,
+matching the commit log.
+---
+bod
+
