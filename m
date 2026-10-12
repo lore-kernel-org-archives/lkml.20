@@ -1,121 +1,239 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23ECF3E49F4
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:09:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814179; cv=pass; b=IbRn1PCqoKerrXxfQdhL9er47QMWrxhn62gmZnixEuOObORKZKfEoYZFjJLSfeACxtosMVqF0fR/FqREQBxgYTxuuIrugZWoBfoYCWL2Uay6vVY2lfRHDq2LK8fmENm/Zrn+wbYyln9Uc0QYCEVRsAu3LUcjmhRelj3xDW3JRPA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814179; c=relaxed/simple;
-	bh=f//bn3Au1jT6Q43njaKS85w9HYMFtsLKrhgAT3zEK20=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AlKi2Tq3WFFFN4fGmCk73g8fFv5fodMBQqG3EvnzL3ef88s7UfFM7hBp0H1AkSocN0NcmBIwtdlh5n4uGIRxVhUEKNVqYqY8n1ey5eKKWu6PoQzblq/0I8HAVtU3IC7kLY5h17BzHFhAcl4k7n7UX21zqiG/DRXTl/Qzt0ZBIDk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=D3xm7Npa; arc=pass smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA943EC830
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:10:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791814223; cv=none; b=YXHDLBsOM1G1EnhL7FP596wE/eHmWDCPXrxKXqqqAh6fEWEkGXIqMIsndMxGrhz1sEASa/eSUNkEX2Duj7OUAGw3J7YYtc/35caY1DQfjYG/sOgu/NySBJ5m3od1/roAQ937x7EzQosONXmuNkSXOlW1p9LTWykbqeKkNrlW+7o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791814223; c=relaxed/simple;
+	bh=lJ9HeBQvoi7aTD8Fn3TXMGHURAyLMsO99BpjSsTEAOI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GXe4Er9caNKRVhtaMH3llDXYkm7lQWAzl4v5gpoFHEkPxxBBjzVExVYBCIPIKT0TwT7O42fuhvufHvF7dXB7FTo/g1pAi9oDk710Uklo3agFKKtXSnCzS8gdR/eKUfpPIn9bm2vqywOD7yxDOXhrHudbf4UNIGZd2ehZb1lxiSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eCt22NtS; arc=none smtp.client-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="D3xm7Npa"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-5337c7b9937so385561cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:09:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791814177; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rynXRkx7mmilQJz+byfYXrnZrP6FSCgBHK2G/gf0jHsnMkGo/57phYxAhvnC4vH8vU
-         Tnq1E6ymoKqXnMOrTwKgPKcpa+lr+SbHaNXBEGoJGSKNrTjwWjHYY0o0vM4MkCsCesID
-         87CKDqt3OYdLn1KdFrLjASbWYL7AGHo+JX9ksYcVLFgOsyhP3dFSFvxfH1eB6GKh5l+Z
-         Xv3hj6RICdy5UAG4idp6ZtBHSewOv7qwohUwfoLWEVXNPvEkhByXn+bDtRRxGvdZvuzm
-         7w1db/UT7uVSqnyao1mXPuOjKOTmFlZXhadxvtE+OFocTc+KFpD3TaJ+PSE2WTs/5bup
-         uj7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=234EAT9IzNiTaPSt/Xe9A57JM4OoTLyfezE2eXJPMhQ=;
-        fh=zKQvKddIj/NIc/tpqVFiQVgg2WSIpE8M5y4Gl8jwdZk=;
-        b=eCSI5OlJRfeK/zWAde3U5k3ZoEt9o1i6vvfBMEZohmnmcUtU+HJqFKS9SB9ilqeTmp
-         4GZ1zFJLUfr9aTPlQ3S8ECzcBYmVigp7kcCLNBgDFGLvTCse7plbrBR/I9aWbHbpAVW9
-         G5FzSj5omqefdAesln3WW4GtmnnY4XeAioHlzADG+6dHbsNUwX9qKqgrrJBbWgWWGxBR
-         k8rZJiCC3G49SFbkv4zWrJiksdtGu8m2wToIoGc5JdcVSJwnKy5eXL4bCWqQS5fqLA2m
-         2YrT9HyuMfOPtFXtE38j7P9qDMl8fjAtWDS3KRDEnlWc0pPpEx/lTvSKpqCyDU3xlM9i
-         tlKw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eCt22NtS"
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5bcb3726952so264966e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:10:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791814177; x=1792418977; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791814220; x=1792419020; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=234EAT9IzNiTaPSt/Xe9A57JM4OoTLyfezE2eXJPMhQ=;
-        b=D3xm7NpaDHEtO/HB6QtEhOfS8W3GYYV+LWrxBdJTRlqjfjvC9BOx9iVpOm0xqTcSZP
-         ncmbpWNbE1WESg0H6jnfDM8j7to+0oOuz+Ojjd/TtA1pwBJ97Trft86WWjkamOIA/fHn
-         szx7pBQcqETdY+YhDQhIlycPFxdqsIqpdp9EATqRtMY+wscNOOG9EtPZa1AUukXLQHBz
-         04VES/X+BBT2Kbpk9hoeyn+ppqqrAsi6kH46VseaBWm2jHGnErjl73K0OfBJmnfHWsiL
-         TlLkws8hMUoF0oDldlrfJIrtth5dxGR0z2KEtwZlpO+YgzN5Vjr7NVcjZnjoH/4koi22
-         /QGg==
+        bh=2eI8B9IRSkr08wGu9ziy/drqG3G2v7BSelh/3Qqv4WQ=;
+        b=eCt22NtS7uuE7Y8UATkEGTDSCmuselKkhBobN0HtZIBeGFxXzpkl58LdjhSjIDwuJB
+         LoliuZIbTGW7KA/XqinTYeMBnb3qOTP+5Y8bImBbIJwgEhZvdhE2N6fCUt1/HAKO2LYw
+         cA3B2ZRaaMTzHAwHhgc3qtoZo96E4mQsQbOGqu9eIkTtv0DuU0JhRkH81esPEMWJDROT
+         Oc6AMmvGe0RCr+ityeNzcLrKjSeOFbixveb52cS5ZTzLxRPQxcQIAPZW/JV8OtmXjWnv
+         qS+0J17tjZnc65wz1A46YnLR0Dq9zgYPw9x3twsUdFSZtZMg5rNmN0vfa0vosWD1KRSZ
+         z7eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791814177; x=1792418977;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791814220; x=1792419020;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=234EAT9IzNiTaPSt/Xe9A57JM4OoTLyfezE2eXJPMhQ=;
-        b=nmsZBkaCr/bHqVdecUmbjtB6GdTJt14ptf1sJyRGC+N1naOYHQiYxDuITke5J47JwP
-         686VfOgUg2Jb08TGdgq8tMB243yMnYoivsCuAMo2KbOo2MLP3520R23IZItlGgF106UX
-         udcus2iTGRcP8P1Ynvzv358XE9AeH/SqLq0AajypvoxfpmRHF6eNzPvPif1defAdfBHW
-         xmrNsqlUMvMZWg0wj3+fYMyxwMCzw1ZmFQ6Se6FNy+eFeNAN5W833NqUO3UCljY2+ZYg
-         mOVhlaQm6Pi30zjN4yy2fg3pKdAQBeoibCyYiEKfgXp+75GSKqVkyKn+t7+1GssGpdO9
-         R1XQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwevl0A26UufaHZWDkjCNfAkw9TmLcLxKmoJ7wv2vezjdaZJkgaEk9LZsZ3kLVNNXCshE6vB8YP74oU32I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL40u8ErjhT58v4cKM/kYSAUyTwm0vtHa9kFgXV+Jo/9uJpjV3X
-	FfEeNGQN5FZZ0mgvo0uB1eryiKZ9PHhpX9WYgF4QwJZirQqJ9fqvGjTGBa6EY9dbwg7HQONUjXf
-	cPrHoPYKjdSmpHLZX9rmlGMRl4IIX7VTLQQJy2rG+Ed3x/p8WGwQYEZt8tiE=
-X-Gm-Gg: AYBFou0SrKZccXpLKVccgjOW03d8bSl3LsDO9n+7noAFhbk+Bp/5Oq4EbwLKF3bbk1M
-	sdLmthI88GcQrKWpSwxq6+kt6/RNTTEUgYSMrnvN6kNdxBtabDRvQv3bSXseNRQUhi26+uKBVAJ
-	PODxEWqZhWzztKd0an+321m6i67OOAjjX7G36vV1YuuCd3OHEIvMCdyFEpmozXK+3hLFUsawrya
-	Z/cF1ZvXSJioLHr5i/gnLf+RkInUxtT/VRm0HbudWWMWYgGvRfiokhElOUbmGS04hIxTKJk/4xA
-	zEjBCYBbLJdzIqovWWW6ZM2khghiw3wgrZ1j3tMJHFa2VYhXPwkl3ZCh0Cm4x9Y3+lJ9wTOtpNi
-	ZrPAaOVWACOg=
-X-Received: by 2002:a05:622a:580c:b0:531:282:6560 with SMTP id
- d75a77b69052e-535b4fbbfa8mr31251691cf.15.1791814176455; Mon, 12 Oct 2026
- 07:09:36 -0700 (PDT)
+        bh=2eI8B9IRSkr08wGu9ziy/drqG3G2v7BSelh/3Qqv4WQ=;
+        b=Zd2F8W0ED1P73oB952XNQSnH09HI0X+BS71YpwxQlSGX5Ap1lVAeFrJM4peSIwX45J
+         rmy0Qa/Br6igVmDEnkcO1ryyg0rbaSfGLVaNk39uPTIF7Cn5JdOIZR0Eo76HnLEZHjkG
+         mpshIwe8R0Ylk7hTyCBzvICG1l9QHly3DD1lu1auux3WNdDjxLIXAh/CUpyQz5bM528u
+         machFRLvWfkeIV2GM+yXr8OFXEADIFUtHlvUL3dJbdgScARbX9ROVvNWdlrQWFMgxv8a
+         KA+xZvCCW2rim1isHB+AXcHQDsvL5Ol1nn9bPPi92xCmCVjfGp5AswRhpE4CyqHnwBrW
+         G8qg==
+X-Forwarded-Encrypted: i=1; AKwUvBzf4itNmobGcTVzJonCJnnh5xEQIGpfJBw13BtQU77VCSay/0BtjXnodf/ihRzm5Xa/X/jPPq68yOF8WyM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJCzHSHT6/HizOQRIpts1EbFBLsXpXME5rgz4Em0bMUW+2hnDeZ
+	ZsMJkx50WkJQoRHOO0CjYQQxrXfyMIDOpu1fLUJc4J2iPvi0AKsZVdZ7
+X-Gm-Gg: AYBFou1BC71EM6m+rUVRm3KhZfbA2uKAKAmtWlvtn4fado9+0wWjsqHgV4nAQIDZILY
+	GhW6Fq+uTnPW5jgaqsnVlD73DGKFIzMXNJ5Px8GJkwShw6ZLl2b5Xj+zu1FhhC1aqAmbE9lbTc6
+	NdiYjBQ+NcujMicxYj+EgA6PLGuPvxv34JPrxFck43yeqTXkEQvap0emj7CoZYHGgEMpap5NG7x
+	pgXHHEVKFj8jSLHwMsrU9zrsY7xrJi9xVKG0aZdusc4aec60XWyhJaOdoX3n29oxjaK1r5BXN61
+	cdc3xgjOUTfcdnEx2Q0PuvklbxU+WQJ+dC8gV8HY3v2rw0qxhoTXlmF9Ube0R5D1JaNhQ7W1JSz
+	g6wGoK4u9yV2hz8w06OLiDmNYqDB/JHhO2R4VNvhMBDRGUd0WkQVn1ZdBfixEoWq2X19VxJ/1+3
+	pzdbCccxUhOoj5WSAlkks1t+ObO8zf16BlLoEs7IRFCK2SPWwTtwWjrIhNU9rbuUAvzEu+qELvc
+	VbwzhPYK5UX2QV+8hsRtng=
+X-Received: by 2002:a05:6512:3d24:b0:5b6:1a7c:59cb with SMTP id 2adb3069b0e04-5bcde6d3d68mr3270336e87.37.1791814220153;
+        Mon, 12 Oct 2026 07:10:20 -0700 (PDT)
+Received: from localhost (soda.int.kasm.eu. [2001:678:a5c:1202:7b92:9ac1:b9ef:5287])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcdde90fecsm2861974e87.24.2026.10.12.07.10.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 07:10:18 -0700 (PDT)
+Date: Mon, 12 Oct 2026 16:10:16 +0200
+From: Klara Modin <klarasmodin@gmail.com>
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org, 
+	akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com, hannes@cmpxchg.org, 
+	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com, yosry@kernel.org, 
+	shikemeng@huaweicloud.com, chengming.zhou@linux.dev, david@kernel.org, 
+	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
+Subject: Re: [PATCH v4 00/14] mm, swap: extendable swap devices (xswap phase
+ I)
+Message-ID: <aszb4OgUUCh5JHle@soda.int.kasm.eu>
+References: <20261003003136.750633-1-hebaoquan@kylinos.cn>
+ <asZt7-8mcxqc1a02@soda.int.kasm.eu>
+ <asylV5YyyaHs8rP3@fedora>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011223358.2327625-9-sashal@kernel.org>
-In-Reply-To: <20261011223358.2327625-9-sashal@kernel.org>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Mon, 12 Oct 2026 07:09:21 -0700
-X-Gm-Features: AclHuK_P4xsv10L2lCkSOtMkvWLnLa5t9EHv_n5RaY8Tn_1YY4noJVhURld5zAc
-Message-ID: <CABdmKX3+V+kqgC8H3MHHsawkTYFb7ebJe8pO7uRS6-i4rijwNA@mail.gmail.com>
-Subject: Re: [PATCH] selftests: memcg: don't close an uninitialized fd
-To: Sasha Levin <sashal@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <shuah@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Amir Goldstein <amir73il@gmail.com>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asylV5YyyaHs8rP3@fedora>
 
-On Sun, Oct 11, 2026 at 3:34=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
-te:
->
-> test_memcg_inotify_delete_file() and test_memcg_inotify_delete_dir()
-> jump to cleanup before the inotify fd is created when cg_name() or
-> cg_create() fails, and cleanup then closes whatever fd holds:
->
->   test_memcontrol.c:1685:6: warning: variable 'fd' is used uninitialized =
-whenever 'if' condition is true [-Wsometimes-uninitialized]
->
-> Initialize fd to -1.
->
-> Fixes: 2de27980e1d46 ("selftests: memcg: Add tests for IN_DELETE_SELF and=
- IN_IGNORED")
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+Hi Baoquan,
 
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
+On 2026-10-12 17:16:22 +0800, Baoquan He wrote:
+> Hi Klara,
+> 
+> On 10/07/26 at 06:28pm, Klara Modin wrote:
+> > On 2026-10-03 08:31:22 +0800, Baoquan He wrote:
+> ...snip...
+> > > The only argument create takes is a priority. The size comes from
+> > > xswap.max= at boot, so there is one place to ask for a size and one to
+> > > ask for a priority, and a priority can be given per device while a size
+> > > cannot:
+> > > 
+> > >   # echo > /sys/kernel/mm/xswap/create          default priority
+> > >   # echo 100 > /sys/kernel/mm/xswap/create      priority 100
+> > > 
+> > 
+> > > The default is the highest priority, SWAP_FLAG_PRIO_MASK. An xswap
+> > > device is then the first one tried, ahead of any ordinary swap device.
+> > > Setting a lower priority is allowed.
+> > 
+> > Nice, this is now a good default which the user should not have to
+> > change.
+> 
+> Thanks a lot for careful reviewing, and sorry for late reply.
+> 
+> > 
+> > > 
+> > > The device does not move once it exists, so the address space cannot be
+> > > changed from this interface either. xswap.max= at boot and this together
+> > > are the whole configuration.
+> ...snip...
+> > > Open items
+> > > ----------
+> > > 
+> > > - xswap_create() sets si->pages to the whole address space (twice RAM by
+> > >   default) and _enable_swap_info() adds it to nr_swap_pages and
+> > >   total_swap_pages, which is what __vm_enough_memory() uses for
+> > >   overcommit. That raises the commit limit by 2xRAM for a device whose
+> > >   real capacity is bounded by the zswap pool and by how well the workload
+> > >   compresses. The question is which semantics overcommit should follow:
+> > >   worst-case backing, or the address space.
+> > > 
+> > > - destroy takes a bare swap type. The type is an internal index that
+> > >   alloc_swap_info() recycles as soon as SWP_USED clears, so a value read
+> > >   earlier can name a different device by the time it is written. The
+> > >   swapoff ABI uses a path for this reason. It wants a generation or
+> > >   another stable handle.
+> > > 
+> > > - The new interfaces (/sys/kernel/mm/xswap/create and destroy, xswap.max=,
+> > >   the new type string in /proc/swaps) are not documented yet.
+> > 
+> > To me it feels a bit weird to have the interface split between a kernel
+> > parameter and sysfs, meaning I have to configure this in two places now.
+> > As far as I gather, there's also nothing that needs the limit to be
+> > fixed at boot since it is applied at creation. If we want to expose this
+> > limit to users (as xswap does) it would be nice to have a 'max'
+> > shorthand for tha largest possible value, i.e. SWAPFILE_CLUSTER *
+> > UNIT_MAX (or whatever it might be in the future). That would I guess in
+> > practice give the same behaviour as vm.overcommit_memory=1 which might
+> > or might not be desirable.
+> 
+> Thanks for the comment.
+> 
+> Here xswap.max= is a global boot parameter, while not a per-device or
+> runtie knob. It sets the space space (si->max) of the xswap device
+> at boot and can't change at runtime. So on the two places: the size is
+> a global setting, fixed at boot; the priority is per device, it is in
+> the create interface. They are different things.
+> 
+> The default is 2xRAM. From our earlier discussion, this is the largest
+> size we think is sensible, and in practice I don't think it is not
+> reachable in reality. If a system has swapped out 70% of its memory, and
+> even more at 100%, it is already doubtful that it can still function
+> normally. So 2xRAM is an upper bound, not a target.
+
+I'm just not sure this is the case. An application could have a
+relatively small working set but a much larger amount of cold memory it
+rarely touches. In my GCC 17 example, I saw even greater ratios later in
+the build process. This is from your previous xswap version where I got
+around the 2x RAM limit by using multiple xswap devices:
+
+MemTotal:        3966828 kB
+SwapCached:          868 kB
+SwapTotal:      80232412 kB
+SwapFree:       69467760 kB
+Zswap:            792048 kB
+Zswapped:        6342024 kB
+AnonPages:       2072820 kB
+AnonHugePages:      4096 kB
+
+This is almost 160 % of RAM in zswap and is getting close to the limit
+in practice.
+
+In addition, if I read your writeback series correctly, if data from
+xswap is written back to a block device, the space of the written back
+data cannot be reused in the xswap device (please correct me if I am
+wrong). For low memory systems, I frequently set aside a lot more swap
+than they have memory. If I do not grow the xswap address space size, I
+could risk it getting full if enough of the block-based swap is used.
+
+Looking at the example again, about 10 GiB of swap is reported as used,
+but some of that is being reported twice (once through xswap and once
+through the backing device) due to being written back (which I still
+think is not so great). In this case, the system has 16 GiB of
+block-based swap, meaning that the default limit would leave the xswap
+device full if even half of it is used through writeback. If I would
+only have a single default-sized xswap device in this example I would
+likely have hit this in practice.
+
+> 
+> On the max short name: it would set the address space to the largest value
+> the format allows. As you said, that is close to vm.overcommit_memory=1,
+> and it is not a real capacity, so we may not want it as the default.
+> 
+> We keep xswap.max= only for special needs. Otherwise we may not need to
+> change it.
+> 
+> Chris suggested a CONFIG option for the size. While CONFIG is not friendly
+> to distros, you must rebuild the kernel to change it.
+
+For my use case I would probably prefer a CONFIG option if that is the
+only way. I typically build all my kernels on the same machine and send
+the image either directly or for netboot. Setting the kernel command
+line can be very different depending on the system (Different EFI
+bootloaders, U-Boot and all its vendor versions).
+
+> 
+> By the way, I remember you mentioned you ever did a test making swapped
+> out pages about 110% of system RAM, could you share your testing steps
+> or scripts so that I can give it a shot on my testing system? If it's
+> not convenient, then never mind.
+
+It's nothing fancy. I just build the Gentoo package for the GCC 17
+pre-release on my RISC-V BPI-F3. As I understand, the pre-release
+sources will also enables some extra debugging and correctness checks
+which will make the build slower and maybe also use more memory. Note
+that I do not see the same memory usage on other arches which is I
+believe due to the implementation of the RISC-V autovectorisation (GCC
+14 saw a large jump and that was the release which added it). I do add
+configure options --with-matchpd-partitions=20 and
+--with-insnemit-partitions=50 since especially insn-recog.cc tends to be
+huge and the default partition of 10 it will still be quite large.
+
+My datapoints are from just dumping some fields of /proc/meminfo every
+ten seconds.
+
+> 
+> Thanks
+> Baoquan
+
+Regards,
+Klara Modin
