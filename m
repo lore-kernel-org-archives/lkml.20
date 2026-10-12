@@ -1,131 +1,109 @@
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9D947F3B8;
-	Tue, 13 Oct 2026 10:22:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984D53A4F32;
+	Tue, 13 Oct 2026 10:23:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791886967; cv=none; b=WiPBFmZnf+kpR8SR9SA/+DZEXFfoTMKyxHeF9/QgZGTSfjl/2gsGpDxbQDqfJNZXFv6sjxSG5HVWYQ8gIvZlrP7f//QMzu91b8Q3dw/UJaSj2s6HxO9WC5HXhKRjM81zWOJUa5wjMgrCAdSMdIsksVIQJYVxECtQeAazc//esdg=
+	t=1791886993; cv=none; b=lRTQgObyY8rcrlnJV3tsMm3UT9IWJKVBMsr8ek6ncjW5WLpT1son8Jmavp1bx20awprosqiAVMQM9nSsES1g2p2BwgNvVGL8331gFLLvY9WhXbY8mUGjQNjZiuRXkuJrcBcA5gmO/fYBgPR4U4xKkRkH+N9FZ3YBIf4qQajqQyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791886967; c=relaxed/simple;
-	bh=WZA0rpgNDPllMGHYFpaR7CapTB61WQRWESEX/CO/DCQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mbA8T7n1SzrSru39Zg6An1ZV8tKNQFUbkLMgrfbTq/qHBYSpxLThbOzhCe0ou+mujxS10Q6+vB5xvx1mMx/t1z5Nh8uYO1Bid1OPl33VMEakloc4tyO2StM5fWJgfpP4FRPUb3z8mDZy9ZmW4n0AMDkW/Puo7VHle3FX8yC35Ug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=KKL6+TeR; arc=none smtp.client-ip=54.254.200.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1791886993; c=relaxed/simple;
+	bh=7auzHROxwCa0x3P2VrRV0vJTEms8q47s1btmheBl0JE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=duU/DE61aWasUyX3l7NMM9EX1x+IfJchmPtgKxFGG+cFz2+ldJthRDIanydCBorREy7F8Wbb/GjL7BoSMyC+EwkMTP3tWz2Bu0Cyrhcb6GYPy6jFUFpDSYzJBNet1SzXd8UEz23GXoTcafFM2r12j4cb1o+BnZf8do0vE6yu4xM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XEAKpzXE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="KKL6+TeR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1791886923;
-	bh=73a7iF8QhYAPAVCH/uv9rDskxAl4Kqe7zyPqPoQ5kNU=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=KKL6+TeRZGsFSh8cI7ZczNJ/+FJiCuzWNybrXZDNg8PUsuOUOVbIKr9C7feQmPxDh
-	 8Ej77BYTryXRTKOpxYEILsFV6UABt0GHpwfQOLuPs9n/zyQcKfxr/hCqdRUxsBrFcc
-	 DXB0XRG5lRdBMOn/YLG7yTdZs8aBTQVVem1MadRU=
-X-QQ-mid: zesmtpip4t1791886905t506ed474
-X-QQ-Originating-IP: TOJr8cRyLA1Mrrq41Do0OvkT36/bWABJz8yebZs47VU=
-Received: from localhost.localdomain ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 13 Oct 2026 18:21:33 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 9452578437465061866
-EX-QQ-RecipientCnt: 9
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	kartikey406@gmail.com,
-	harshit.m.mogalapalli@oracle.com,
-	johannes@sipsolutions.net
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: [PATCH v2 5.10.y] wifi: cfg80211: release locks on error in cfg80211_wext_siwgenie()
-Date: Tue, 13 Oct 2026 18:20:45 +0800
-Message-Id: <20261013102041.2113948-4-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261013102041.2113948-1-guanwentao@uniontech.com>
-References: <20261013102041.2113948-1-guanwentao@uniontech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XEAKpzXE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A91FB1F00893;
+	Tue, 13 Oct 2026 10:23:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791886992;
+	bh=nGd/gnG38xb4r55IKJgw3DekjfU8cgdyygoiic+d/ig=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=XEAKpzXExAJMGU1avUw2yu3GxuAK00w7NsXpWPgW12XxBtdRsThcXS9DwQON1UFLf
+	 5H1pJWjiGG9iV2nnjv6zlMQEx5U0oLoLral4+KTjijYb68RS++JOU2MATCk27qEIXf
+	 K2qjI9MFswF8b30ZpfWiz2bP3tD4F/w7GsQEl5vTHvdtStAwBpUynYpZ0zpDJYV0iP
+	 WhWyjIZajzJ4Jb8k5uoLiQ+FDKbm7HGwyjpFhJfjOb0zeJUCJpJit80Uqpj4CQyCow
+	 NU3gMgx6YJduaAwvRo5r4lHc0KnzV4+3ubYYPoAeby072+yaxMrxfapbw2SXpFE3CJ
+	 SyAt8uGONCaCA==
+From: Mark Brown <broonie@kernel.org>
+To: HyeongJun An <sammiee5311@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261008130953.2446692-1-sammiee5311@gmail.com>
+References: <20261008130953.2446692-1-sammiee5311@gmail.com>
+Subject: Re: [PATCH 0/6] ASoC: Fix controls that write another control's
+ bits
+Message-Id: <179183114142.390394.17556910038919824947.b4-ty@b4>
+Date: Mon, 12 Oct 2026 19:52:21 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: ONNzAaE3j5jC5+eN2W0q6T0FRz9SsEITHtDQkxbWwj4Fmfxz6M7Hbaev
-	XGZPgaHjBMAoFxO+9itNeE1qmXrNyHMIOcGFcQ0RvsAPiK/1RslINak71MnoVCNX0IcuTvW
-	g4sFpdRVvUGi3jwOALrkafh/yOJiR6/5fT6P3fIh3lY7qv9cHV4bMfVVpPNai9GWkRzxlJZ
-	CuwIdKepvvjjyQxSd7hiRM+CoSrpPlfJX0nS+w9ydtiw6VEoeW/g4RE0op3kUJsruo7Y4Qe
-	0sip/0OdMpLeSQ/sIHRRyPPhdmI0PJUvVxwpl8jArZWdc0SBYOY1LCtXYyBIh9xaUb2R5Zx
-	cXMk0V7A2MVaN0ifzQwtmOVC9NRwS4Mdj6jU51S2prPazEKxRtyn3V2J1QdIK77mlOCpF4f
-	PcXKHJI59OEqb1BjQvPjnkVHAiAAkJ2hGV4SfNcHXZbqLdxVxWtnhvUrs7jzF+8aCNPGvLe
-	6O/O/8kvgpoGTejbF7nC7BK14vPXDQ3KQgn+n7s72uTVKsONn/y7N0eyuHdQ94ghqsfRALh
-	pT2D3U81fmhmIYs1fbva7LrKzYVrDW5R8q/dChnzqvyb3cACkF80rr8+0qEUGmdFpBQvAPq
-	LZ8DdjHaSC+lhs0vLfWmVYdCfuoMLr9TUOAnwJz3qhnglUpRYx0FciDFD5GESXIUlVoeaiN
-	a/8/cnEFJg4ZhQIpWJTY9yW1U4qwvUG3d32atdAphaHQpsPkixx2ZORWVJ8gTUE4k+eFFMT
-	ehy7wPLD53bD3JToEjg2V7aWjCtcVw4P3I6nwC8FdsG9WpDvfDKbE+0+vKMp51L7J3F/0y2
-	mX3QY9+VtN19OrxYucq1pexDPQtzOOIPNOkDCSImQo56gXacShOEZdvySKWuNT5mxzkkNqm
-	j628tELB83hLgg+HX1xk3RM35MJz0xcFWJdVDf8dM50ekZW6pI+f7eUv0z/hbCZ3qk0tO5P
-	Sz1k3rAPIaoOCr1DVCAyYhLQlUqkVJqT9AccpQ8k70GCVmQxeDXWCnIwb7a65PrfKONCgQu
-	ywlyU6Wj0Z5GPZgf1+Q7iNT1doTvC4foCgb2DrWQrpvjrBFbwfFcxh04AeTAlSSxV2+QVD7
-	JXD6dtHbR9Qx2ZG9ADe8xDth1DzaGhlvivcSlIxOxOkukpgnwo7b1owe9jeIIXwz5TRPIDf
-	b80QGHRn8GeYgjeg3lyUOCyTBeg9jUCcsWnFJS8AhcUMzOisWBk8PVyS2eQM4vhMkch3Cq3
-	R0K4sjN0=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2273; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=7auzHROxwCa0x3P2VrRV0vJTEms8q47s1btmheBl0JE=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLOsfXWOi7W8EreZaMwtyyqk/eHm4BSVNvvd/0Xnp09M
+ Wem46SNHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZgIlxbDP8VvH5xnF8Y5CYWy
+ Hz/AfmDiF/4NHXxrV6W+O9/w+DjHwy5Ghulc2/g1Ozv4toUlZDllcq5Szy2fczZSYHGcs2vzFuX
+ 1DAA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-This error path returns while wdev_lock() is still held, so one
-malformed IE request can permanently block later operations on this
-wiphy. Route the error through out to release the lock.
+On Thu, 08 Oct 2026 22:09:46 +0900, HyeongJun An wrote:
+> ASoC: Fix controls that write another control's bits
+> 
+> In the es8316 thread Mark suggested checking at registration time for
+> controls whose register fields overlap [1]. Before adding such a check,
+> I wanted to see what it would find in the tree today.
+> 
+> A script expanded the control tables of every ASoC driver built by
+> allmodconfig and looked for two controls in one table whose register
+> fields overlap. It found 80 pairs in 33 drivers. Most are real bugs.
+> The rest are deliberate, where two names drive the same field, such as
+> the AC and DRC mode thresholds in sta32x.
+> 
+> [...]
 
-This bug is stable-specific: it was introduced by the stable backport
-commit 269498ce6c1e ("wifi: cfg80211: validate IEs in
-cfg80211_wext_siwgenie()") of upstream
-commit a2f5286ca4f3 ("wifi: cfg80211: validate IEs in
-cfg80211_wext_siwgenie()").  Upstream is safe because that function
-runs under guard(wiphy)(), added by
-commit f42d22d3f7963 ("wifi: cfg80211: define and use wiphy guard"),
-while this tree still uses explicit locking and the separate wdev
-mutex that upstream removed in
-commit 076fc8775dafe ("wifi: cfg80211: remove wdev mutex").  Backporting
-those locking reworks is not appropriate as a minimal stable fix.
+Applied to
 
-This is a fix for stable v5.10.271 backport commit, so no upstream commit.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
 
-Reported-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Closes: https://lore.kernel.org/all/93db0eae-f479-4343-a126-59987ae0dc22@oracle.com/
-Fixes: 269498ce6c1e ("wifi: cfg80211: validate IEs in cfg80211_wext_siwgenie()")
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
----
-changelog v2:
-update commit message as greg suggested.
----
----
- net/wireless/wext-sme.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Thanks!
 
-diff --git a/net/wireless/wext-sme.c b/net/wireless/wext-sme.c
-index d27ec0163b08b..943e94f4a2634 100644
---- a/net/wireless/wext-sme.c
-+++ b/net/wireless/wext-sme.c
-@@ -339,8 +339,10 @@ int cfg80211_wext_siwgenie(struct net_device *dev,
- 			/* nothing */
- 		}
- 
--		if (!for_each_element_completed(elem, extra, ie_len))
--			return -EINVAL;
-+		if (!for_each_element_completed(elem, extra, ie_len)) {
-+			err = -EINVAL;
-+			goto out;
-+		}
- 
- 		ie = kmemdup(extra, ie_len, GFP_KERNEL);
- 		if (!ie) {
--- 
-2.39.5
+[1/6] ASoC: cs42l56: Put the Limiter Cushion control on the limiter register
+      https://git.kernel.org/broonie/misc/c/203436d2aeb7
+[2/6] ASoC: cs42l52: Fix the NG Type Switch bit
+      https://git.kernel.org/broonie/misc/c/8b08b98796d2
+[3/6] ASoC: pcm3168a: Fix the DAC zero flag polarity bit
+      https://git.kernel.org/broonie/misc/c/b26edc925c1c
+[4/6] ASoC: max98371: Fix the Speaker DHT Min Volume bits
+      https://git.kernel.org/broonie/misc/c/f7934340c56a
+[5/6] ASoC: wm8978: Fix the 128x oversampling switch bits
+      https://git.kernel.org/broonie/misc/c/d0567ca9a2fa
+[6/6] ASoC: nau8822: Fix the 128x oversampling switch bits
+      https://git.kernel.org/broonie/misc/c/4db45fc1da3d
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
