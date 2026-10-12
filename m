@@ -1,242 +1,164 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA6D476CCA
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:22:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8B647D451
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791800554; cv=none; b=tyfFLQ0xpG35bXcZy2vBkkvxpp6d6YnFoJz6OR7VrOD8Eg18PEPbUjKhtxEYlgZ4BJDF/HkGUp3WsCSRUYGCpsrR6iPtZ9N2XcGBnR/sCH/6DZ2xSr/BWP/nnrTOyxu9++8nW89IFLiPwYkJMVsunJ4uQhx714FLXiAoYDvy/ns=
+	t=1791800606; cv=none; b=RxKOhLjDVGQpP4QteEDcjjKFfPfnYDmHcy58l/A3godnMxiZov6fmjD6fOfZBzOcN0KDooIERHm8ReVUCPDaZyB31EYZPb67YVM1MzZCH/3fP3Sw5siRjkcoCP3sSeTDlcBB2PAdZNLfdB+aHFFLNsgxTYuS8kvGFlGJ0fMpkmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791800554; c=relaxed/simple;
-	bh=M1Sj3kzNC+GMMWQ2nazgRKa95NoWiNxGs2o+qP8xuTo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gmdUEi7YG2xTNAs4RSLYrlwf8SrVdasQSf8veUzrqXlK+Yq/In2eZxlcbsh2umNoYxSmbuCndTx1uY1YNiActjlWo/w6Eyu6Vj19lSJ63dIhfZK29Sjh/sov/UymE0Tzz1CLsmALzqkluqEBLkYmCaWje5ZSzoaBGfy9f7wqdX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PIHJO2z/; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791800606; c=relaxed/simple;
+	bh=B9qbRywECfyJEffntEQqfPP1MOzHae408HOr3lKU468=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MJPrfAngNoJtp+mVVPn6oj76/MP9vJw7MxCi9S8NeGMDv8Ss+tG69C7/rQte+MRGW9Eos9JwjQCcAcm8+pHqCpLfrCGqDNKCrglDtCxaC5tpfN9MI+JB6N1MMPRV9+t9GL8rwP0lmPqxJR859SbLu+KqknZNmPt9L+6PY+iov54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NKW0ZQ5y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PIHJO2z/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791800541; x=1823336541;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=M1Sj3kzNC+GMMWQ2nazgRKa95NoWiNxGs2o+qP8xuTo=;
-  b=PIHJO2z/N9ZDTD+3/OWjK4+G3BNotwP7JMQDNihi0b3KSbww+f7odu4E
-   t2kePag7ZZVJHjCw1iy+Wz1FVm52FUCiDgqdGz0IHeTha/f/wXYJN6SxR
-   BVHYSTNElg01zRxMbk4wDZoz5vXf8xJy5YlaG7/xOpqFcHnhX1h2+n0rt
-   UtH+wTu+IoRGskPUpq6MSjN31me4nF6bbRGOXri2gutnm2Tk4sWWqhGgE
-   Wo3U9ZxEOWwZrcVoaJPOjSgQWpCJT6J1skvIc7+p5sfJDhkPZv0QTjSPh
-   XkRi/52ZcI+cWSXOQFPQC+Uh7a79zdBRwRy7cJknxOm5HC44frdKHxZnz
-   g==;
-X-CSE-ConnectionGUID: cdGhTE3AQBCqyOHo0M9N+w==
-X-CSE-MsgGUID: C6esoG/GTs2Of37XV6FaUA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="498598"
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="498598"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 03:22:20 -0700
-X-CSE-ConnectionGUID: a5g6dXxORMeX0LymIqJyHw==
-X-CSE-MsgGUID: sMDpN8WpTFeLs8ylClHjTg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="1048223"
-Received: from gklab-103a-104.igk.intel.com ([10.91.103.104])
-  by fmviesa001.fm.intel.com with ESMTP; 12 Oct 2026 03:22:18 -0700
-From: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
-To: Baolu Lu <baolu.lu@linux.intel.com>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Ning Sun <ning.sun@intel.com>,
-	Michal Camacho Romero <michal.camacho.romero@intel.com>,
-	x86@kernel.org,
-	iommu@lists.linux.dev,
-	tboot-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Mateusz Mowka <mateusz.mowka@intel.com>,
-	Adam Pawlicki <adamx.pawlicki@intel.com>,
-	Pawel Randzio <pawel.randzio@intel.com>,
-	Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
-Subject: [PATCH v5 2/2] iommu/vt-d: Disable PMRs and skip force-IOMMU when TXT TPRs are active
-Date: Mon, 12 Oct 2026 12:22:11 +0200
-Message-ID: <20261012102211.1739615-1-michal.camacho.romero@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <7f637b22-110b-4e49-b083-6062bcad37c4@linux.intel.com>
-References: <7f637b22-110b-4e49-b083-6062bcad37c4@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NKW0ZQ5y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99F191F0089F;
+	Mon, 12 Oct 2026 10:23:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791800592;
+	bh=3z5VmndhUnm6M1SGNXwdEBCW+kXS3dFLbMdOYvBRK1Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NKW0ZQ5y5yu1KDZuEBDuq5AHnO+AwF0hXY5f0rqVjf7do3lWR/THYgKzQho7s0jeK
+	 MBrHdg5cRFWD2E9foRCc7WCGn85Zp/lHvT6ZvNroYolUnwgskLYqEtD5BxQ+vHYZX9
+	 SHpdfxBv70t9HBT0b8smDkNIak8/XmUgNYsIoh4E8MaLt5KDGSRGh/ghhGHW+GsY/A
+	 wSX4XJkuCVFay9yP7JJ8W0QxDvqWHNcUUzSIojEMBFShyoJolY4cI3Pio4I2lXDfxG
+	 Ey/w3BlhSghn051P12y8YUkfvHW4Et5Xv2JzpBjaQyTH5zs/197ZWd0S+UBDCrfIMl
+	 ythKfl/uJSmlw==
+Message-ID: <8245424a-f068-4be5-9e58-713cbff1f8ae@kernel.org>
+Date: Mon, 12 Oct 2026 12:23:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm: memory: fix truncation removing mapped folios
+To: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org
+Cc: ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, qi.zheng@linux.dev, jack@suse.cz,
+ pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <542c97482eae84f86704bcee56482633d1b32321.1791616645.git.baolin.wang@linux.alibaba.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <542c97482eae84f86704bcee56482633d1b32321.1791616645.git.baolin.wang@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When Intel TXT Protection Regions (TPRs) are present in the DTPR table,
-hardware-level DMA protection is already enforced by the SINIT ACM.
-In this case:
+On 10/10/26 09:22, Baolin Wang wrote:
+> Ayush reported an issue that shmem/tmpfs folios are still mapped when
+> truncating them on production:
+> "
+> BUG: Bad page cache in process ...  pfn:...
+> page dumped because: still mapped when deleted
+> "
+> 
+> I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
+> branch, and I got the following crash info. From the dump message, we can
+> see that truncate_inode_folio() is really trying to remove mapped folios,
+> which is incorrect.
+> 
+> "
+> [  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
+> index:0x3880 pfn:0x191647
+> [  189.171995] memcg:ffff0000cc073d40
+> [  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
+> [  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
+> workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
+> .......
+> [  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
+> [  189.172026] ------------[ cut here ]------------
+> [  189.172027] kernel BUG at mm/filemap.c:155!
+> [  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
+> .......
+> [  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
+> 7.3.0-rc4+ #277 PREEMPT(lazy)
+> .......
+> [  189.183986] Call trace:
+> [  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
+> [  189.184391]  __filemap_remove_folio+0x34/0x160
+> [  189.184633]  filemap_remove_folio+0x4c/0xb0
+> [  189.184859]  truncate_inode_folio+0x34/0x58
+> [  189.185087]  shmem_undo_range+0x220/0x658
+> [  189.185308]  shmem_fallocate+0x2f0/0x470
+> [  189.185527]  vfs_fallocate+0x128/0x328
+> ......
+> [  189.187078]  el0t_64_sync+0x184/0x188
+> "
+> 
+> After analysis, I believe the race exists between truncation and MADV_DONTNEED,
+> and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
+> MADV_DONTNEED synchronously releases the pagetable page before calling
+> tlb_flush_rmaps(), this could cause another thread's truncation to skip
+> zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
+> as non-zero. A possible race scenario is as follows:
+> 
+> CPU 0                           CPU 1
+> shmem_fallocate                 madvise_dontneed_single_vma
+>   unmap_mapping_range            .......
+>   ......
+>   (filemap_map_pages() remap folios)
+> 				  zap_pte_range
+>   truncate_inode_folio		    zap_empty_pte_table(pmd clear)
+>     unmap_mapping_folio
+>     ......
+>       zap_pmd_range (saw pmd none, skip)
+> 
+>   filemap_remove_folio
+>     BUG_ON(folio_mapped)
 
-- Parse DTPR Table and count number of enabled TPRs,
-  by using tboot_check_tprs() function.
-- Skip forcing IOMMU enablement in tboot_force_iommu(), since TPRs
-  already provide DMA protection.
-- Tear down PMRs during intel_iommu_init() when TPRs are active,
-  while PMRs are redundant with TPR-based protection.
-- While TPR protection is enabled, call tboot_disable_tprs()
-  from intel_iommu_init() to disable TPR protection, after the IOMMU
-  adresses translation mechanism is set up.
-- Deallocate TXT heap memory using tboot_free_txt_heap_mem() when it is
-  no longer needed.
+That reminds me of sync_with_folio_pmd_zap() usage in page_vma_mapped_walk().
 
-Link: https://uefi.org/sites/default/files/resources/633933_Intel_TXT_DMA_Protection_Ranges_rev_0p73.pdf
-Link: https://cdrdv2-public.intel.com/315168/315168_TXT_MLE_DG_rev_017_7.pdf
+Isn't that the better approach?
 
-Signed-off-by: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
----
-Hi Baolu,
-
-Thanks for the careful review, and for catching the timing problem. You
-are right. In the v4 patch version the disabling of TPRs was done too early.
-I've introduced both in the IOMMU and TBOOT code sections a new
-improvements, which eliminate the timing problem. Summary of how
-each point is handled:
-
-Answer for Question No.1 (DMA protection gap between disabling TPRs and
-                          IOMMU taking over):
-   The actual tboot_disable_tprs() call was moved to the very end
-   of intel_iommu_init(), after the loop that enables the DMA
-   remapping hardware (iommu_enable_translation() function call). Until IOMMU
-   address translation mechanism is set up, the TPRs remain enabled.
-
-Answer for Question No.2 (the commit message sentence "disable TPR
-                          regions early, allowing the kernel to manage
-                          DMA protection prior to the OS boot"):
-   That sentence was wrong and I apologise for the confusion - it
-   described exactly the broken behaviour you pointed out. Two things
-   were incorrect in it:
-
-     - "disable TPR regions early" - as you noticed, by disabling the only
-       active DMA protection before the IOMMU is set up is precisely what created the
-       unprotected window. "Early" was the wrong thing to do, not a
-       feature.
-
-     - "allowing the kernel to manage DMA protection prior to the OS
-       boot" - this message was also unnecessary and misleading.
-
-   What I actually meant to describe is a hand-off: the TPRs provide the
-   pre-IOMMU DMA protection, and the kernel must tear them down only once
-   IOMMU-based DMA protection is active. The commit message has
-   been corrected to reflect the real flow:
-
-Answer for Question No.3 (how can tboot_is_tpr_enabled() return true
-                          when TPRs were already disabled):
-   In the Patch v4 this was indeed contradictory because the disabling happened
-   earlier. With the reworked flow it is consistent:
-
-     - The helper was renamed to tboot_is_tpr_protection_enabled() and
-       now takes num_of_enabled_tprs, the value recieved from the
-       tboot_check_tprs() at the start of intel_iommu_init(), before any
-       TPR is touched. Basing on the number of enabled TPRs, the helper can
-       determine whether the TPR protection is currently active.
-
-     - Because the actual tboot_disable_tprs() call is now the last step,
-       the TPRs are still active. They are disabled after activating the
-       IOMMU-based DMA protection.
-
-I have also dropped the stale "Reviewed-by: Lu Baolu" tag as requested,
-since the changes are substantial enough that the earlier review no
-longer covers them.
-
-Regards,
-Michal Camacho Romero
-
- drivers/iommu/intel/iommu.c | 42 ++++++++++++++++++++++++++++++++++---
- 1 file changed, 39 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 2e3b3ab216f8..ea32730701cf 100644
---- a/drivers/iommu/intel/iommu.c
-+++ b/drivers/iommu/intel/iommu.c
-@@ -2558,11 +2558,18 @@ static int __init probe_acpi_namespace_devices(void)
- 	return 0;
- }
- 
--static __init void tboot_force_iommu(void)
-+static __init void tboot_force_iommu(s64 num_of_enabled_tprs)
- {
- 	if (!tboot_enabled() || intel_iommu_tboot_noforce)
- 		return;
- 
-+	/*
-+	 * If TPR is enabled we don't need to force IOMMU, TPR set by SINIT
-+	 * ACM will take care of DMA protection.
-+	 */
-+	if (tboot_is_tpr_protection_enabled(num_of_enabled_tprs))
-+		return;
-+
- 	if (!dmar_can_force_on(DMAR_FORCEON_TBOOT))
- 		panic("tboot: Failed to force IOMMU on\n");
- 
-@@ -2584,7 +2591,15 @@ int __init intel_iommu_init(void)
- 	 * Intel IOMMU is required for a TXT/tboot launch or platform
- 	 * opt in, so enforce that.
- 	 */
--	tboot_force_iommu();
-+	void __iomem           *txt_heap = NULL;
-+	struct acpi_table_dtpr *dtpr     = tboot_get_dtpr_table(&txt_heap);
-+	s64 num_of_enabled_tprs = 0;
-+	if (dtpr) {
-+		/* For the existing DTPR Table, verify TPRs activity status */
-+		num_of_enabled_tprs = tboot_check_tprs(dtpr, &txt_heap);
-+	}
-+	
-+	tboot_force_iommu(num_of_enabled_tprs);
- 	if (!dmar_policy_force_on())
- 		platform_optin_force_iommu();
- 
-@@ -2623,7 +2638,8 @@ int __init intel_iommu_init(void)
- 		 * calling SENTER, but the kernel is expected to reset/tear
- 		 * down the PMRs.
- 		 */
--		if (intel_iommu_tboot_noforce) {
-+		if (intel_iommu_tboot_noforce ||
-+			tboot_is_tpr_protection_enabled(num_of_enabled_tprs)) {
- 			for_each_iommu(iommu, drhd)
- 				iommu_disable_protect_mem_regions(iommu);
- 		}
-@@ -2697,7 +2713,24 @@ int __init intel_iommu_init(void)
- 			iommu_enable_translation(iommu);
- 
- 		iommu_disable_protect_mem_regions(iommu);
-+
- 	}
-+
-+	if (tboot_is_tpr_protection_enabled(num_of_enabled_tprs) && dtpr) {
-+		/*
-+		 * TPRs are enabled. It is necessary to disable active TPRs
-+		 * to enable DMA usage by the system.
-+		 */
-+		num_of_enabled_tprs = tboot_disable_tprs(dtpr, &txt_heap,
-+		                                         num_of_enabled_tprs);
-+		if (num_of_enabled_tprs != 0)
-+			panic("tboot: Failed to disable TPRs. DMA is still blocked.\n");
-+	}
-+
-+	/* Release the TXT heap memory if it was allocated */
-+	if (txt_heap)
-+		tboot_free_txt_heap_mem(&txt_heap);
-+
- 	up_read(&dmar_global_lock);
- 
- 	pr_info("Intel(R) Virtualization Technology for Directed I/O\n");
-@@ -2707,6 +2740,9 @@ int __init intel_iommu_init(void)
- 	return 0;
- 
- out_free_dmar:
-+	if (txt_heap)
-+		tboot_free_txt_heap_mem(&txt_heap);
-+
- 	intel_iommu_free_dmars();
- 	up_write(&dmar_global_lock);
- 	return ret;
 -- 
-2.55.0
+Cheers,
 
+David
