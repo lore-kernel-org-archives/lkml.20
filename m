@@ -1,218 +1,179 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205CB3AEB5C
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:05:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C347472075
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:05:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791799549; cv=none; b=Sx5WjHubN7zq/FjC/wMF5UYW/HYuBQUqmsxqMtFyKaBLdxb3qPm2hyyHlJbnlg3TKXqZW05RdYqfCaq7MLxgN3vkolMsQKkGvnO2m5uSLH+m699KRFe70vy/nlcN1wOs+c5llZLEMs1PLkGq9yGmMdu6XMbsWKMK+9+uNkRy2YA=
+	t=1791799562; cv=none; b=qpqzOTRdAPNGNANVQRYWpODKsDdbM5FI3XoIjFHDOl4MuXtGRJzvfxVqXPjKtzAoohP8bRokE25M5NnknixJBJF1DHP6TB6+VuRBjEy+xQbi3Khe6wExhsl32IVcxGVSJFP6f6Xw7rdOzuxxjrdFYMrI7BPqCSYa5HYCykvj4VY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791799549; c=relaxed/simple;
-	bh=wbf/unsUpddvcemFJWU2NI1acSCN6KRJR1ye7ZGjUDg=;
+	s=arc-20240116; t=1791799562; c=relaxed/simple;
+	bh=nQY+dkd2goVTCIQrl1D8DmJBUcETTbuQIxc4GvTWaic=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oP7QXzRYlVV8aDmcqlWT9XGa9o4zyOex0wzK7S8sjQgCpjCRNdbGG2oTbAC4cHjwWvONP/571EQ+NZxppTqxZ85OrZ5NKBNXZcPVYlqONwExCKJ29hWQ53gOf0wUy7Xg1LsZeXHhSZu9/x4P0f6GgdopzJ0QNsUhJEkE9YbVI7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=r1q0whWV; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=oDfm5WoF; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=r1q0whWV; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=oDfm5WoF; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y/tBrrwUYpwzKxRGVxLUH6LWrqvp1UwUtwlSjgk47Ur1p4OYo4b8lNDbSnb0EROofQBRKoNZ3HNTup9rEf6lV3emNCMYK6Op+LrJvmRVSnLdaTdiwuqzqFwUygb+esMAOLCWKUbzwKy+RTL1YsTQATAbA6JoojMYnwE7Ie4OwF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=V6M2O3mj; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=GxLDu8zH; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="r1q0whWV";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="oDfm5WoF";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="r1q0whWV";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="oDfm5WoF"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3A5E41F76C;
-	Mon, 12 Oct 2026 10:05:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791799534; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="V6M2O3mj";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="GxLDu8zH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791799553;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=I87OenGAaFJnkdPMc0Xbllbvz4ou1kPWUAGZPj9a3zA=;
-	b=r1q0whWVMl8ij6FoM8TFSzQ29tEvBKGilCKDf2s7GKOQBH9ojsmgGW8fEnGafxn0G7oegd
-	30Hkz3oe6lchrA7DnSGyz/goTqes+dhSABldmeAEutxExa+BY1j2GCw74hh7hYzPfFLfGK
-	XZXq+ndDB6c0DMYA5ujyrRQIBkdyBo8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791799534;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I87OenGAaFJnkdPMc0Xbllbvz4ou1kPWUAGZPj9a3zA=;
-	b=oDfm5WoFEyBhtLQb32f150ZS2FgTd3I4sGkIipKcBQeMshmC0V8JitB6yhcWDoUvztrrCh
-	HCC2ymsTaMsB8rBA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791799534; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I87OenGAaFJnkdPMc0Xbllbvz4ou1kPWUAGZPj9a3zA=;
-	b=r1q0whWVMl8ij6FoM8TFSzQ29tEvBKGilCKDf2s7GKOQBH9ojsmgGW8fEnGafxn0G7oegd
-	30Hkz3oe6lchrA7DnSGyz/goTqes+dhSABldmeAEutxExa+BY1j2GCw74hh7hYzPfFLfGK
-	XZXq+ndDB6c0DMYA5ujyrRQIBkdyBo8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791799534;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I87OenGAaFJnkdPMc0Xbllbvz4ou1kPWUAGZPj9a3zA=;
-	b=oDfm5WoFEyBhtLQb32f150ZS2FgTd3I4sGkIipKcBQeMshmC0V8JitB6yhcWDoUvztrrCh
-	HCC2ymsTaMsB8rBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 11D4C13314;
-	Mon, 12 Oct 2026 10:05:34 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Bq/KOe2wzGphEgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 12 Oct 2026 10:05:34 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 9F8BFA1403; Mon, 12 Oct 2026 12:05:33 +0200 (CEST)
-Date: Mon, 12 Oct 2026 12:05:33 +0200
-From: Jan Kara <jack@suse.cz>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
-	Jens Axboe <axboe@kernel.dk>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+e0624b5bf72b99131402@syzkaller.appspotmail.com
-Subject: Re: [PATCH] mm/filemap: mark lockless accesses to mapping->nrpages
-Message-ID: <u6yseen7xlqfudkps37rizde44u4yhfiqsoe4vvse734fsgrg4@mdfdypi2xgd6>
-References: <20261011112940.455497-1-ngocthang2710.1999@gmail.com>
+	bh=gM32j3c/6k1T9DJjaPNm2Usf6gwsdJf8L04anPnbMP8=;
+	b=V6M2O3mjIxq8DXrYWhX/oJGgA6Mptqga2eq9jAbMgoeUJPiPuoxf82jC+8fYcoEToWYRiV
+	psQ7c2jgIO4DCcqgp8GPOBc/07oU7BjEg/mVI9edqEWGUq9EzbJAVBwNf/sve93yEMhiNP
+	z4dAKMx+EB8z3oJQsx7CTYeIBe/JoZU=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-534-huaPBG3jM0qYD_XvwGtSCQ-1; Mon, 12 Oct 2026 10:05:51 +0000
+X-MC-Unique: huaPBG3jM0qYD_XvwGtSCQ-1
+X-Mimecast-MFC-AGG-ID: huaPBG3jM0qYD_XvwGtSCQ_1791799551
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ecdc701a2so184361685a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:05:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791799551; x=1792404351; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=gM32j3c/6k1T9DJjaPNm2Usf6gwsdJf8L04anPnbMP8=;
+        b=GxLDu8zHyh3eMOawTERBuoQ5zfWt+qiwuJ8OKMs58u7GPKeHKwSRQLP3NeKmvqCNCd
+         O9rRDb1tQBjy67LxiwfVwON+G4MgdIePqqgRkQe9JmntZrgHpYEMYDawZdaMJrcgp+u6
+         27XnfWKTjeqcRHkfb3LgP8+9GvHEBcU/mDJCmlwN7QJ2zlamZ4KaWFSsPPDtg6YaNYr0
+         Y7eZUiKttKrMUqibtpsuzXeGePR/V8Qjqx3BJbRMoBaFYN1nFjEsGiRo2HhRT2NRyJlP
+         +NO1AJClOk+ZYySYaT/K2CUwocBt5y5q0yhPLt0yhX35O0idUC/iEROR+ijse/DaUh3I
+         o8mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791799551; x=1792404351;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gM32j3c/6k1T9DJjaPNm2Usf6gwsdJf8L04anPnbMP8=;
+        b=QxKwrosDbgxtD6yntSPDK3edAg/igj1ecTAnSRR4DLTyRQWVigYyg+Biul7xp58/QL
+         fYYdfoSXIMWYFI3Vs2KokQgA6UcYAaN++nRzcqRF7uk514eDHIQheyvuGYGcEAXyXgEi
+         TOrIVl/aN560WVazgZnEXNuym5CmlMFOOGl9ilIsJoP3aFaAZs13S7tIeJTPwbzTkrno
+         fRAhySDaLJxpq9OQNCvPV/3Skhaljruhxmesy4/Epo2mlC7nGAjvaBdrQiqGhoLLyFML
+         W+yMSilxq8j6G0Cv18byZkTB1VXOjNHUUKJpQu5LH+L2FzTlHgLayaO08oEzjuZ9V7pI
+         F5jg==
+X-Forwarded-Encrypted: i=1; AKwUvByNIrqIFQJUj3NBk3nZmxDWllSLzHh6CEOu1n/Jzra6hsxwo1KTTP7OmKjTAX3nyzf3lt8rMQ9Z54RjLQQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBpiBIWp32+kgmSmWBSyLVskHQf3Nz3AIbbnxxUOnfJ6/sv3yq
+	zwlvYxHttXE7YcQC2QldZDzApeRoO08EpFRfaRTBh4DdZTFJnC38AnO8+uLzW0cMzLNgmJ5yyQV
+	vKETbGQxj2XQu+Aoxw2jcycLjKy2AQ6wrOaQgpG/3CaCL7iYfVxTSgxgKVKET9fNo7Q==
+X-Gm-Gg: AYBFou1TAfR44Y6saVP0mqDHB/Az56BD3z99GL9DG3GAmYBWPC55x+InmxVZZnhgTRL
+	TBVojuLRvr90QnK2gZun9n8ACApZfJq+86xIqOPiQQfoc2BEl2RF2sgk4qy1oPq3wN5EiSkgs2z
+	pi40jjsIaHWlg9t+q3dF7iSyXXP9nkzdIpwfhgSWsFyPyT4eBB6wt5vwD5OEMfUIKjtft4f/GzR
+	JCCFJR5T03OQDkpZtszXb1QZPPPlc6gFgbNnfl10spZKEWfTltGlkJjQzxYJFSICPnYUz1ZcsIe
+	FEZOhXHrIvxLr0nNRCLxiJD1zM02YewY0egtVHmirDvEzdaRNBW7F5sVRIgHeAxjynPrKpN8QAC
+	Jq7l1+N0Fsb0J+eG0y6ozSH3F8a4ZP4J2xdU=
+X-Received: by 2002:a05:620a:7017:b0:93e:e651:5b95 with SMTP id af79cd13be357-93ee65167e2mr322914785a.30.1791799550725;
+        Mon, 12 Oct 2026 03:05:50 -0700 (PDT)
+X-Received: by 2002:a05:620a:7017:b0:93e:e651:5b95 with SMTP id af79cd13be357-93ee65167e2mr322908785a.30.1791799550188;
+        Mon, 12 Oct 2026 03:05:50 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb984889fsm828780685a.13.2026.10.12.03.05.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 03:05:49 -0700 (PDT)
+Date: Mon, 12 Oct 2026 06:05:46 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Albert Esteve <aesteve@redhat.com>, Chen-Yu Tsai <wens@kernel.org>,
+	David Gow <david@davidgow.net>, David Gstir <david@sigma-star.at>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Eric Chanudet <echanude@redhat.com>,
+	Francois Dugast <francois.dugast@intel.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Johannes Thumshirn <morbidrsa@gmail.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Julian Braha <julianbraha@gmail.com>,
+	Kevin Hilman <khilman@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Nicolas Schier <nsc@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>,
+	Trevor Gamblin <tgamblin@baylibre.com>,
+	Vlastimil Babka <vbabka@kernel.org>, Waqar Hameed <whame@whame.dev>,
+	lpcosse-keysigning@baylibre.com, users@linux.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: PGP keysigning at LPC/OSSE 2026
+Message-ID: <asyw827yeYmzQflV@redhat.com>
+References: <lpcosse2026-keysigning@baylibre.com>
+ <lpcosse2026-keysigning-list@baylibre.com>
+ <aspYFzgcxfOvOUrZ@monoceros>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DvZJssh5pd/DBY8Q"
 Content-Disposition: inline
-In-Reply-To: <20261011112940.455497-1-ngocthang2710.1999@gmail.com>
-X-Spam-Flag: NO
-X-Spam-Score: -2.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[e0624b5bf72b99131402];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
+In-Reply-To: <aspYFzgcxfOvOUrZ@monoceros>
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
-On Sun 11-10-26 18:29:40, Nguyen Ngoc Thang wrote:
-> mapping->nrpages is updated under the i_pages lock but is read locklessly
-> as a cheap "anything cached?" hint, e.g. in invalidate_bdev() and
-> mapping_needs_writeback(). KCSAN reports the race:
-> 
->   BUG: KCSAN: data-race in __filemap_add_folio / invalidate_bdev
-> 
->   read-write to 0xffff8881004c4178 of 8 bytes by task 3600 on cpu 0:
->    __filemap_add_folio+0x6b7/0x910 mm/filemap.c:919
->    filemap_add_folio+0x1cd/0x380
->    page_cache_ra_unbounded+0x1a4/0x3a0
->    ...
->    blkdev_read_iter+0x21e/0x2d0
->   read to 0xffff8881004c4178 of 8 bytes by task 3601 on cpu 1:
->    invalidate_bdev+0x25/0x70 block/bdev.c:98
->    ext4_fill_super+0x2ccb/0x37b0
-> 
-> The same counter also races with filemap_write_and_wait_range() through
-> mapping_needs_writeback().
-> 
-> The race is benign: a stale value only makes the caller do or skip a
-> harmless invalidate/flush pass. Annotate the readers with READ_ONCE() and
-> the writers in filemap with WRITE_ONCE().
-> 
-> Reported-by: syzbot+e0624b5bf72b99131402@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=e0624b5bf72b99131402
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+--DvZJssh5pd/DBY8Q
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I think in this case the proper fix is to annotate the problematic read
-with data_race() to silence the checker. As you mentioned there's no real
-bug to fix so no reason to convolute the code with READ_ONCE() and
-WRITE_ONCE().
+On Sat, Oct 10, 2026 at 05:31:55PM +0200, Uwe Kleine-K=F6nig wrote:
+> On Sun, Sep 27, 2026 at 02:33:22PM +0200, Uwe Kleine-K=F6nig wrote:
+> > For the procedure to actually sign the certificates, see
+> > https://baylibre.com/blog/pgp-keysigning-2/. A bundle of all
 
-								Honza
+For anyone on Fedora, here's how I was able to get caff working.
 
-> ---
->  block/bdev.c | 2 +-
->  mm/filemap.c | 8 ++++----
->  2 files changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/block/bdev.c b/block/bdev.c
-> index cd8323083740..d97071160e86 100644
-> --- a/block/bdev.c
-> +++ b/block/bdev.c
-> @@ -95,7 +95,7 @@ void invalidate_bdev(struct block_device *bdev)
->  {
->  	struct address_space *mapping = bdev->bd_mapping;
->  
-> -	if (mapping->nrpages) {
-> +	if (READ_ONCE(mapping->nrpages)) {
->  		invalidate_bh_lrus();
->  		lru_add_drain_all();	/* make sure all lru add caches are flushed */
->  		invalidate_mapping_pages(mapping, 0, -1);
-> diff --git a/mm/filemap.c b/mm/filemap.c
-> index 00fd89cf6f55..007fe10b2e1d 100644
-> --- a/mm/filemap.c
-> +++ b/mm/filemap.c
-> @@ -144,7 +144,7 @@ static void page_cache_delete(struct address_space *mapping,
->  
->  	folio->mapping = NULL;
->  	/* Leave folio->index set: truncation lookup relies upon it */
-> -	mapping->nrpages -= nr;
-> +	WRITE_ONCE(mapping->nrpages, mapping->nrpages - nr);
->  }
->  
->  static void filemap_unaccount_folio(struct address_space *mapping,
-> @@ -314,7 +314,7 @@ static void page_cache_delete_batch(struct address_space *mapping,
->  		xas_store(&xas, NULL);
->  		total_pages += folio_nr_pages(folio);
->  	}
-> -	mapping->nrpages -= total_pages;
-> +	WRITE_ONCE(mapping->nrpages, mapping->nrpages - total_pages);
->  }
->  
->  void delete_from_page_cache_batch(struct address_space *mapping,
-> @@ -631,7 +631,7 @@ EXPORT_SYMBOL(filemap_fdatawait_keep_errors);
->  /* Returns true if writeback might be needed or already in progress. */
->  static bool mapping_needs_writeback(struct address_space *mapping)
->  {
-> -	return mapping->nrpages;
-> +	return READ_ONCE(mapping->nrpages);
->  }
->  
->  bool filemap_range_has_writeback(struct address_space *mapping,
-> @@ -916,7 +916,7 @@ noinline int __filemap_add_folio(struct address_space *mapping,
->  		if (xas_error(&xas))
->  			goto unlock;
->  
-> -		mapping->nrpages += nr;
-> +		WRITE_ONCE(mapping->nrpages, mapping->nrpages + nr);
->  
->  		/* hugetlb pages do not participate in page cache accounting */
->  		if (!huge) {
-> -- 
-> 2.43.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Install the pgp-tools package (2.10-17.fc44) since there is no
+signing-party package.
+
+As for the mailer-send configuration of caff, neither example on Uwe's
+blog post worked for me.
+
+- $CONFIG{'mailer-send'} =3D [ 'msmtp', '--account=3Dyouraccount' ];
+  would fail with that msmtp.pm couldn't be found.
+
+- $CONFIG{'mailer-send'} =3D  [ 'smtp'
+  would just time out trying to relay the email through kernel.org. I
+  probably had something misconfigured on my end here.
+
+In order to get email sending from caff working, I had to:
+
+- install the msmtp package and configure my ~/.msmtprc file.
+  Use the following line if you want to fetch your password from your
+  password manager.
+
+     passwordeval "pass korg-smtp-pass"
+
+ - In my ~/.caffrc file, I set the mailer-send entry to:
+
+    $CONFIG{'mailer-send'} =3D [ 'sendmail' ];
+
+- Make sure that /etc/alternatives/mta-sendmail is a symlink that points
+  to /usr/bin/msmtp.
+
+Brian
+
+--DvZJssh5pd/DBY8Q
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQSkbTJwWGWqPd7cKQS30t0nXX7AhwUCasyw9gAKCRC30t0nXX7A
+h+INAQDnRNFUNmnjZYXHMdPylUtKHJvcIjNtms5bnsimWIou9gD8CWOausGkGX1Y
+grcOFsuJVso9ddqkjJA/0CA+h6lTgQk=
+=AW/1
+-----END PGP SIGNATURE-----
+
+--DvZJssh5pd/DBY8Q--
+
