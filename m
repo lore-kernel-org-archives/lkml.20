@@ -1,157 +1,119 @@
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833AC44F54A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:26:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791797181; cv=pass; b=Oi2nOcPgpZz5lmoE1llCheltsK23ph9PUbzaCR6pjCV8b+ZYnecnetJl+UA2uoudOyHTOVtPX9Kb0alKFUQW98qS0aBIrz75sucQ7A2ZtXi5ukZTXQmg69yCZgj0fry84wdmBm6esdZEyQ5QuCdpYu954INBC6lT/mVZAj/EI0Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791797181; c=relaxed/simple;
-	bh=DK3zBs5Q5Ki8kuPnph8eZ24Oy0HqvpqhIG3ePWhuHBo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uGFSxdpulp2flpgkJwDUtAcy1/pDHmRfkD1kODfxpZLiO5x9JY+ZV8EZchG9e9XJe2msC9o7hJnoXN+jPO8fixOm86J1cGzDe8eQatnIQnhwILcoUf6abr/pFhH6eC82dt9pd6RbMi0BBY/ywgim28b+Qm+zOAcaM755J4JJybo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A/z/fuYU; arc=pass smtp.client-ip=209.85.208.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82766415B6B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:27:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791797261; cv=none; b=eT5VmwrkKzfaOfwp/HsOVn8yHu14VpYtMFA4HHBr8Djlvurwlvu2xStWdxkpYJYo3P2UydubtBJMqHvpfp2qTdePK0Y6WfzaSwv9BBCpW1XB8FNJmMKJEidn0x0Ps2pieM+Kr1vArnZq+gwi/UILXQk6f02c0nEK509ZHZ29/9g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791797261; c=relaxed/simple;
+	bh=7yg7WgszV0u6qvYQzsbMXRSi0jgQj/GC+iPyvh5zAqs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hN8DG7Yqvi7ApfUrfQYObDmXuCSiJff3X0L0d0scQBjAMyEJtraZ2Om6hIGaTW+qKL8+qXCr6UqTmCALjy0nOTGcE3RbiOMu5qbchfML5N6FnWqUcGDFBfmrb+2npAiRWjb1hoGQiuHPBAvLCd3JLA8z8epr9SSNXmtOUT2oj0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=JeWX2P4S; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A/z/fuYU"
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a1eb6fa0f4so18142261fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:26:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791797178; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ToAAB+qqY8XDZkJQj89r49HZMXmVlCH8cazbqL3qPwNSQ8zrBc/91GfyIlmaAN/s64
-         fgMj2/EfEoaoWEDVNYk4XC6PjnJl7A2qZc8DJTN06DioTSzd3aio9Voouy/Ww7xR6HXR
-         Wh6STfUczANrmIU45/DTQgJehSALm3AQ/4wfWgdkd0T+vSVsGvBaY91UdX1DlGVAH09W
-         /02UeMyuRdq2iP30cqa8PqdMEpWZt3fXAvMzCnF4X6xwldvrjN8wOtrtFaUGTWD3HTIt
-         b3OzHVBhKTJyotdHiA8pqyccfxA74HwccoritN58B6Suure4hTNlbpK7LWrlLfF5/pUe
-         Dbmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=u1DLHRcFWGRMXj45+dEiiprV4k2SPY5qTAHRqmLZ7S0=;
-        fh=wKRZk+9TKl7+39hsBIbF7xzg0bLXQltEyo3O1aKWGhY=;
-        b=May4S2XmoKQBhfqRvW1yelRoS5P7Mvipz3vmHOIsr/mv5NTuDvdHjCD1rnPpSxk5TH
-         H7rmEiB8LVo1YM5Dpw6qguOHjZU9PawocYDutHHhjb82hGmOesWI1Oe4e2dUOw4XRvMF
-         k/5CWG6aE4VzaA/x4KQTngEiseLAKH4XNEbGQhK042nibyl4JDSPD0pylcIgiCFClj8y
-         NWa/I2LvlpSfj5iw8K53ibmZ5knbLbrAAe12roK8W82rfvKcea2YmWDyp3NHYv0VdX1U
-         Faaitnv5KgkVM0ORr/oj2tzpLTHCJr2EoUnh5feVBNNybmNAFeG4I/ZHE7raqJ0x0nkL
-         RNew==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="JeWX2P4S"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-89a1740f0a0so569455b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:27:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791797178; x=1792401978; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=u1DLHRcFWGRMXj45+dEiiprV4k2SPY5qTAHRqmLZ7S0=;
-        b=A/z/fuYUh1wxDQRcYOC0JSCiBb5akQHm2vkscE3JR1uYNxvXq4CkDUyT/kJeQm61ZQ
-         XTwYuN7zs0APLCuvy6VNGM7igEvHBt80TRGJAMDRgjzA/ESBRM38XrZEkOuq8XhnLqG7
-         OZA2bycqNJMMd9U1kAbAY3Hn+OAzRx1x2wxMpIN01gCAj7OkY9N74gJVnJZ6fcFiBMvS
-         uBTp8DTaHtm/gjTxCkFY9v7aj40+8PYnXEUz7wJycwS1jHM3IECB271q6LIEo+c/EeCx
-         Ii4U0GGpl0YtsoZfFCYNsehB6kR/+t/c7uxq6Yk+lUnB2oHejikVgOWGoFHnB9V0Xjaj
-         qpig==
+        d=chromium.org; s=google; t=1791797260; x=1792402060; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zDXr90I4Mp/V2LyY9TJ2U43WGzZOgE+mNjJL1cCHqJA=;
+        b=JeWX2P4SpS/G56Z4uyD2AsiLCkPOJtOgnX0d8onqJCsmTATcpng6vmg2ByaCbjoMgb
+         DLn4QBrr7u62FM8zgoYL23dsxqowUhGKp/hQX+u8EEfphqxKOBAfEJyAzvj1NFomnHJG
+         nN1t8ufbbLSOlRGalcSHtJ6RsCkItOcsQT+TA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791797178; x=1792401978;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u1DLHRcFWGRMXj45+dEiiprV4k2SPY5qTAHRqmLZ7S0=;
-        b=jNOv26opiwt2htyyeX7CzbpQ7FnFCpSz7mH8DP6ZLyX0TqYW2FIkeBTgLZn7qtzXL/
-         4pyG9bzWV2HgNEPA00wxM6qdf/4RM88OjQbedWEq3Q3yi4zkuEIgmeqI/T5lFLaR9SnU
-         Oh54QCb8NhY00WDgK24j2cC5pHGQOwA6xXJLyxJZMPrlHJvL2Xl18eEhLxhT33HXkse/
-         CQomce8/RDo8lCrTYnl4W0jGo2WZZ1wtkigrhrmEUjLbJMIdVq73XOyn7mKEJhqxFwII
-         ffw7J42dfZJL2owkk32b5DI5L6ifK8Ly6IibVTNaaz800Z+6nJFY7B48pk+Gm/vHblzc
-         oZEw==
-X-Forwarded-Encrypted: i=1; AKwUvBzCNkZQXRpE7HHijIhU8ufoPB2fuBRW230k6VyXD7jyDBpSpA4HOLBk9IbP4v0fd1Jsqx7shqLytu9dtzI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKrpeQAvKJ974jRc7SAorUhFw2O0zrhDU9Yq5zUep43FOdu6jqd
-	zljjggZx0ePtjK1qCYbgSzV0rAtGn54UnExLb/sBVj6mICoSTRVfsFEWHO+757zSVa1mhSA6OyK
-	1SpRFDbn1lSwhXI0Y9xOtmEPRdB+I3o8=
-X-Gm-Gg: AYBFou0v+drPoHCc1SWbM+ItWUjN9vjCTe/MAiVCUbqXuZ1NAp73SoixbcS1X75oPKX
-	3UnUk+S4NoAyzIDihcw8NGFJF2qTgSz1wXb2063zvqtEO8kbbXtP+WGeIVzS9+H0q474TxxA92w
-	cO7t/aZcRjfZrV537Ou/QphHoNZ27DXWzkXr3RbOx2GoVaZgeQ0pOu4SF8nS2EEYrTrV+OXeaVW
-	LOmywrzPuxJJXIaOM24j1HzU0Ua0hJcLpVfk+8EAnGAS5kcBNdd9ukyQGSIVHTEQXXepehE6wjO
-	xNjz9e4krCykHzHGScDz2q9HCrdXyas6c7ew/TYH0MP+3R/kwIV2wayhyA9+B8nD5FIv2j0zmJN
-	iy8ckWDr2veO3obLmxn4BC7k2qPRiPtHq2XLdRY1dbSI6hONTGgfAna16DjwPayF8GFRjalgI/o
-	r2m2vpIvnP5P3HU/jW9pwXihkLWexvOZARjqw7Pcnq
-X-Received: by 2002:a2e:b888:0:b0:3a9:9b74:b035 with SMTP id
- 38308e7fff4ca-3a9c5352a7dmr19646981fa.10.1791797178338; Mon, 12 Oct 2026
- 02:26:18 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791797260; x=1792402060;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zDXr90I4Mp/V2LyY9TJ2U43WGzZOgE+mNjJL1cCHqJA=;
+        b=qVhS4i/zBeMZ7zQ2qhvHzfvJCx8ju3F6iOT+7S2XUYvdeCHQbl7Kjz8d4D718yEgDl
+         dlHMcRxzvlnuKf1mqZ46o0jNNeoIDvGe4YEGVeZ2o+RZ1iwdDU0kLDRSvDVGg+4y2Y7W
+         ST7zbimmPVlIHlw7U+MC2+p9QBhdQXgkgNtw75HFc4tjWihSPko/wW1G27Hn/xP95d6q
+         78GB4jdVaVLqAJGidrm0VZ0hxEysEOepPthOZo4cdDZyIwDjts0Jw7kNpuWIo8oIFZrr
+         FTEQXes700wsZV78LF7tzOZRESEHoHWv0aXW2007kvl3z8UsfcldRKiBsoJZW+5IW8Pb
+         zObg==
+X-Forwarded-Encrypted: i=1; AKwUvBw6tXeV/VSaC0DOmrYueTS5UQuQ9O87GuJHMiWsiT3o+Axs09Di8Ls5ZTOWTmva7JOocdGsNm5Z9F0dEhA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXkkhJ1pZsvMD/UpLKswkLLQlwrQrHLX85oe09Na6gvWeHnwwR
+	jw1XE34JW6yVTJFTYWBltMYKLMWvLlXYEVPz3QmqE4Ps+nuvNro7bUFWyhR1AMeHDQ==
+X-Gm-Gg: AYBFou3dkUR0MmDRhYOj4GhfHaeODRuhyQHpfB09HONlZTDOLUGXjfVe2vffNNUd1lq
+	0EgV+4jCTsl7Z0RBiLS7bTEth9XReYNPPvd31yYnbiVidiqFuojz2tP+Bdo/YVTTPlbZ7ANXBcH
+	bkbQkCJtj8JYasdLOirZ+gZPH7FITL6ZLNAzhK+vGof+qQK4/nwROIPPVjJ+iCQbe0wEHf8Ln1/
+	FYQgSqus/hZFLCrvjwW5Pq2Q8ez4kFETQwXZLxqiAHZ6ah78oCxaDghnCFtRldW7jZ7KvhkNzzl
+	rlY9Ju6vz82gVewNNjQQ59ho9DzNQmoQnJZQwTj7oeHPPxYnoqidzhKsqzlaKsYzm28gebrZlmg
+	SwKmqxNmA7ULFSnEDhcX6CN9muFOSaTIbRbsPu8SbH1ONlLMVDH9nMtNkqHjR5qN9shz2+VHhQU
+	OEnKZRjOokFhG8Jynkep6BbGBCHym/3fkOkrzlft42YrqGw/7kJ2i9cllSnmNwWCpXe+mZ4Kpvj
+	6BnZeaBaH/leZguasqxogzWLiZre3XDn+h6xJiatnnnaMQ8t2n00zQ=
+X-Received: by 2002:a05:6a21:3418:b0:3de:583e:97ad with SMTP id adf61e73a8af0-3e16bf04c22mr6687300637.62.1791797259847;
+        Mon, 12 Oct 2026 02:27:39 -0700 (PDT)
+Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:203d:7:faa:a1f:d46f:934f])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e53f8bsm4117869a12.24.2026.10.12.02.27.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 02:27:39 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alan Stern <stern@rowland.harvard.edu>
+Subject: [PATCH v4] usb: hub: Set proper message when usb_hub_create_port_device() fails
+Date: Mon, 12 Oct 2026 17:27:24 +0800
+Message-ID: <20261012092725.575885-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com> <20261011-gpio-mxc-cleanup-v6-6-cb47ce2ad758@nxp.com>
-In-Reply-To: <20261011-gpio-mxc-cleanup-v6-6-cb47ce2ad758@nxp.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 12 Oct 2026 12:25:41 +0300
-X-Gm-Features: AclHuK9GwblMnTPQvaiV3jDrr3vRaqwQVyHQB-cZx-ew8f4fHdAz2Ca3vyaKuZQ
-Message-ID: <CAHp75VcadkqzMxShq1PLzqgNZypB+vqr3a_m1utu-NOx39iK1g@mail.gmail.com>
-Subject: Re: [PATCH v6 06/13] gpio: mxc: replace of_device_is_compatible()
- with hwdata flags
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 11, 2026 at 2:54=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp.co=
-m> wrote:
+Right now when usb_hub_create_port_device() fails, it prints a separate
+error message to say which port failed, but otherwise leaves |message|
+set to the default "out of memory", which is somewhat misleading.
 
->
-> Replace the runtime of_device_is_compatible() check for "fsl,imx7d-gpio"
-> with a flags field in mxc_gpio_hwdata to move the power-off capability
-> from a per-instance bool populated at probe time to static per-compatible
-> data.
->
-> Introduce MXC_GPIO_HAS_POWER_OFF and a dedicated imx7d_gpio_hwdata
-> instance that carries it, along with a mxc_gpio_has_power_off() helper
-> that replaces every former port->power_off test.
->
-> While at it, factor the register offsets shared by imx35 and imx7d into
-> a MXC_GPIO_HW_DATA_COMMON macro to avoid duplicating twelve identical
-> initializers.
+Set |message| to an error message that is more specific to this error
+path instead of using the default "out of memory" message.
 
-...
+Assisted-by: LLM # local reviews
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+Changes since v3:
+- Print custom error message directly and use generic error message for
+  later, instead of using more stack space
 
->  struct mxc_gpio_hwdata {
->         unsigned dr_reg;
+Changes since v2:
+- Simplify to just using a small buffer on the stack (Alan)
 
->         unsigned high_level;
->         unsigned rise_edge;
->         unsigned fall_edge;
-> +       unsigned int flags;
+Changes since v1:
+- Explicitly track and free the allocated custom error message instead
+  of using devm_kasprintf()
+- Link to v1:
+  https://lore.kernel.org/all/20260728100005.413868-1-wenst@chromium.org/
 
-Obviously you need another precursor patch to move from 'unsigned' to
-'unsigned int' in the whole driver.
+Sorry Andy, I ended up not using your __free(kfree_const) patch. My LLM
+was telling me that it won't work correctly if CONFIG_USB=m.
+---
+ drivers/usb/core/hub.c | 1 +
+ 1 file changed, 1 insertion(+)
 
->  };
+diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+index 0e929a4c9fa1..4c85fdf7a233 100644
+--- a/drivers/usb/core/hub.c
++++ b/drivers/usb/core/hub.c
+@@ -1758,6 +1758,7 @@ static int hub_configure(struct usb_hub *hub,
+ 		if (ret < 0) {
+ 			dev_err(hub->intfdev,
+ 				"couldn't create port%d device.\n", i + 1);
++			message = "couldn't create port device";
+ 			break;
+ 		}
+ 	}
+-- 
+2.56.0.385.gd3acb90ef8-goog
 
-...
-
-> +#define MXC_GPIO_HW_DATA_COMMON        \
-> +       .dr_reg         =3D 0x00, \
-> +       .gdir_reg       =3D 0x04, \
-> +       .psr_reg        =3D 0x08, \
-> +       .icr1_reg       =3D 0x0c, \
-> +       .icr2_reg       =3D 0x10, \
-> +       .imr_reg        =3D 0x14, \
-> +       .isr_reg        =3D 0x18, \
-> +       .edge_sel_reg   =3D 0x1c, \
-> +       .low_level      =3D 0x00, \
-> +       .high_level     =3D 0x01, \
-> +       .rise_edge      =3D 0x02, \
-> +       .fall_edge      =3D 0x03
-
-Why?! Just to save a few lines? This makes it harder to follow the data par=
-t.
-
---=20
-With Best Regards,
-Andy Shevchenko
