@@ -1,145 +1,204 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3612148FF92;
-	Mon, 12 Oct 2026 13:11:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4BD32ABCA;
+	Mon, 12 Oct 2026 13:12:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791810723; cv=none; b=X5jKVQ4+dnr0j2oTfObxlbXYYICP+l1oFHCrha+RDsfe9v080F712woU6Cg/zaiGQ3gJohkffhXI4M21dL2SyP8I0P7CPWWw58jvi3Jkql27NWlwSHDqHmisyxOvq0alHoDn+nDq7GE7Us3ZrWqaBAgWbZ+TRuva89H85fWI9RI=
+	t=1791810769; cv=none; b=p4R71tRs9q3dzL+BxlDJ82GnOe/eKQSE+cePTO3w2lKVK5XeaR6ZRGB1cWt5/W+4jAackQdJaWAH3sTyPI9zr8+zs1bZUAdkWyOOS8+Am8AdTlEMmSZRNKv7xf3FJAQb3ioBzO4Vkae8Vjt5GziN/8+HsJjtLhhMRdwULQEY45s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791810723; c=relaxed/simple;
-	bh=Nkx+fuyyHbMXI9LDGyl2hrkQ1GnC5CkIj2IiCqvgBTY=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gN+k4k9U+qKCp5/3CEVs6D7uH/9cgplq3NLX0FElsBWJOXks0/E9gygD0WsPs005V1XtVb95gCMlrHbEyBMpovvvqoKBi5NELyNhvW0A7xZdO176vlcVfaelLbMAYxMfhVJyalYuweczbUbyZHy/BxeSYodwwcJYJ2X9YmnTzdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=amTz9pBm; arc=none smtp.client-ip=113.46.200.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1791810769; c=relaxed/simple;
+	bh=DFOmA+AOsDzyJf+XM9lhlS/m5FZtFNfid60UCzwXUMk=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=R7bEOaBwdk0u4fSUqEa557TYL9Qy89BaNiMrpK45j1jQQOGBJjLf2u8OWnEHf+/fSb148gemVIdyteaI+G7akWtPJ9A0S53I2n3kMKzZOt/vQb4c9jENS/1GjKZpwFqva886DcZgXHHRD5ZKIcS4OjVApAzzdXpKLcE9DAUCMj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Y/QH6/jX; arc=none smtp.client-ip=185.70.43.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="amTz9pBm"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=vCl96fkIx2Mng4xm9S4ZU1G29me8F7avnYo+HCV8dlU=;
-	b=amTz9pBm+3/W0aYtWEk1foQLzzUel4Grd4VhiYcFIx5D+zi4f9Jaexo/PSHykV8tsQYvHzLPV
-	s8SFCp8dODlLmqiqWmeR6ymRpdRaTtnzetcGmUNCEkFY8NE6QUSaXej83gbGJYJ9Tc/EpL4Yv3b
-	0nscQ1wkbZ8WYwaWvAUmUic=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4j3HcQ0MwYzcZxr;
-	Mon, 12 Oct 2026 20:59:50 +0800 (CST)
-Received: from kwepemf100015.china.huawei.com (unknown [7.202.181.14])
-	by mail.maildlp.com (Postfix) with ESMTPS id 59B1920333;
-	Mon, 12 Oct 2026 21:11:49 +0800 (CST)
-Received: from dggphicprd10024.huawei.com (10.243.6.112) by
- kwepemf100015.china.huawei.com (7.202.181.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 12 Oct 2026 21:11:48 +0800
-From: Abbott Liu <liuwenliang@huawei.com>
-To: <tony.luck@intel.com>, <bp@alien8.de>, <guohanjun@huawei.com>,
-	<rafael.j.wysocki@intel.com>, <jic23@kernel.org>,
-	<mchehab+huawei@kernel.org>, <ardb@kernel.org>,
-	<danielf@os.amperecomputing.com>, <luoshengwei@huawei.com>,
-	<jason@os.amperecomputing.com>, <linux-edac@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <liuwenliang@huawei.com>
-CC: <yangzhuohao1@huawei.com>, <douzhaolei@huawei.com>,
-	<zouyipeng@huawei.com>, <wangbing6@huawei.com>, <nixiaoming@huawei.com>
-Subject: [PATCH v6 0/2] RAS: Fix ARM processor error bounds checking
-Date: Mon, 12 Oct 2026 21:11:38 +0800
-Message-ID: <20261012131140.1526599-1-liuwenliang@huawei.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Y/QH6/jX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1791810756; x=1792069956;
+	bh=C0687MqkzK93a2FUh3Kh8XN9xkTwPB8dxYC9MnSBE8Q=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Y/QH6/jX5C/F8Qc2vuvgGi0SimPOcowAYhf/sq0CbVcpDBcj9F+PkCCFBy1Rktvxk
+	 WNTyNbH6tg+HnAX6UStkn7cmA+1J0NPF3tnJxvPzzUg7IflDSMtsggPcS+wKYe60UZ
+	 miXGKCC6ym0hl0Y+etMFzNf06G1mrgM4LIIYO+WV5muwVEgrLqp3qw7q1JoANGJhej
+	 xXviJpjK6dJWLfltOUYiPnlhuuLi3FEGfCrfSR1Jcj2BCsTZr0b1FcgjAOd4Zf/utC
+	 5pe4nFsrdD3Aljh9Y2X0TRVo/us71sM7cdNdPiESCDyqrwtigfqa6Ybpd+JSBYh9cF
+	 VEa+TiC8me+Xg==
+Date: Mon, 12 Oct 2026 13:12:31 +0000
+To: Manivannan Sadhasivam <mani@kernel.org>, Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: Rob Herring <robh@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, linux-pci@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] PCI: qcom: Power the controller down when hibernating
+Message-ID: <179181074907.22199.10556821368232442334@pm.me>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: e9ee3dd7f4a0228c554bdcf4c5721b50102305e0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemf100015.china.huawei.com (7.202.181.14)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Commit 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past
-allocated memory") and commit 05954511b73e ("RAS: Report all ARM
-processor CPER information to userspace") introduced bounds checking
-for malformed ARM processor error records in log_arm_hw_error().
-However, two issues remain:
+qcom_pcie_suspend_noirq() leaves the controller powered when a device
+below it cannot go to D3cold, and qcom_pcie_resume_noirq() then carries
+on with the controller as it was.
 
-1. The ctx_info bounds check condition is inverted: it adds
-   ctx_info->size when the context header is already past the end of
-   the section instead of when it is within bounds.
+That is fine for suspend. The same two functions also run as
+freeze_noirq and restore_noirq for hibernation. Devices are normally
+still in D0 at freeze, so a controller with a device behind it is left
+powered and the image records it as running. That image is resumed
+after a power cycle, by a kernel that may never have brought the
+controller up.
 
-2. When vsei_len < 0, the error path does not verify pei_len and
-   ctx_len. Since these are derived from err_info_num and
-   context_info_num, they may describe regions beyond the allocated
-   record, causing trace_arm_event() to read out of bounds.
+On a Lenovo Yoga Slim 7x (X1E80100) this resets the machine on every
+resume from hibernation. The Wi-Fi card is behind pcie4, whose link
+only comes up once the power sequencing drivers have been loaded from
+the root file system. The kernel that loads the image resumes before
+that, so it never powers pcie4, and the restored kernel then reads the
+DBI registers of that controller:
 
-Patch 1 fixes the inverted bounds check for context info iteration.
-Patch 2 sanitizes pei_len/ctx_len/ven_err_data in the vsei_len < 0
-error path to prevent out-of-bounds reads in trace_arm_event().
+  qcom_pcie_resume_noirq()
+    qcom_pcie_icc_opp_update()
+      dw_pcie_find_capability()
+        dw_pcie_read_dbi()
 
-The ctx_info->size overflow (a size over 0x7fffffff making the signed
-sz negative, as reported by Hanjun Guo) is deliberately left
-unaddressed in this series: a size overflow implies a corrupted
-firmware record, and then section_length may be corrupted as well.
-For example, a real section length of 1024 could be reported as
-16000, and the context walk can go out of bounds even without any
-size overflow. Guarding ctx_info->size alone therefore does not add
-meaningful protection.
+The machine resets at that read. pcie6a, which holds the NVMe drive and
+is brought up by both kernels, gets through the same path.
 
-Changes in v6:
-  - Drop patch 3 ("RAS: Fix integer overflow in ARM processor error
-    context walk"): an overflowing ctx_info->size implies a corrupted
-    firmware record, in which case section_length may be corrupted as
-    well, and the context walk can go out of bounds even without a
-    size overflow, so guarding ctx_info->size alone does not add
-    meaningful protection.
-  - Add a note to the patch 1 commit message with the same
-    reasoning, as cover letters are not preserved in git history.
-  - No code changes in this version.
+Give the driver a freeze_noirq callback of its own that forces the link
+into L2 and powers the controller down, whatever state the devices
+below it are in. A hibernation image then always holds a controller
+that is down, and thaw_noirq and restore_noirq bring it up through
+dw_pcie_resume_noirq(), like after any other loss of power. Suspend and
+the poweroff phase of hibernation keep the D3cold check.
 
-Changes in v5:
-  - Collect Reviewed-by tags from Hanjun Guo for patches 1 and 2.
-  - Added comments to patch 3.
-  - No code changes in this version.
-
-Changes in v4:
-  - Remove the empty line between the Fixes: and Signed-off-by: tags
-    in patches 1 and 2, per Hanjun Guo's comments.
-  - Add braces around the else branch that assigns ven_err_data in
-    patch 2, as suggested by Hanjun Guo.
-  - Add new patch 3 to check each context entry with 64-bit
-    arithmetic and stop the walk at the first entry that does not fit
-    in the section, so a ctx_info->size over 0x7fffffff cannot
-    overflow the signed int sz and walk ctx_info past the section,
-    addressing Hanjun Guo's overflow comment.
-
-Changes in v3:
-  - There was no change, and the email was sent by mistake.
+Suggested-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Signed-off-by: Birk Skyum <birk.skyum@pm.me>
+---
+This applies on top of "PCI: qcom: Implement shutdown() to avoid
+SMMU/NoC errors on reboot" v6 [1], which adds the force parameter of
+dw_pcie_suspend_noirq() and is not in pci/next yet.
 
 Changes in v2:
-  - Split the original single patch into two separate patches, one
-    for each distinct fix, to ease review and backporting.
+- Do it in pcie-qcom, with a freeze_noirq callback that forces the link
+  down, and leave dw_pcie_suspend_noirq() as it is (Krishna).
+- poweroff_noirq keeps the D3cold check, so a wake-enabled device is
+  treated there as it is today (Sashiko).
+- Link to v1: https://lore.kernel.org/r/179157746908.73485.2343672865542690=
+797@pm.me
 
-v5:
-  RAS: Fix ARM processor error bounds checking
-  https://lore.kernel.org/all/20260921080337.3000957-1-liuwenliang@huawei.com/
+Tested on a Lenovo Yoga Slim 7x with v7.2 plus [1] and this patch,
+booted both for the image and for the resume.
 
-v4:
-  RAS: Fix ARM processor error bounds checking
-  https://lore.kernel.org/all/20260909112832.805314-1-liuwenliang@huawei.com/
+- A hibernation with a real power-off resumes (one run).
+- pm_test=3Dcore and test_resume pass (two runs each).
+- Both controllers go down at freeze and both links come back at thaw
+  and at restore. NVMe and Wi-Fi work afterwards.
+- On a fresh boot of that kernel the image is looked for at 20.7 s and
+  the pcie4 link comes up at 22.0 s, so the kernel that loads the image
+  has not brought pcie4 up.
+- A suspend (deep) and wake still works, and neither link is retrained
+  across it.
 
-v2:
-  RAS: Fix ARM processor error bounds checking
-  https://lore.kernel.org/all/20260825134323.4181892-1-liuwenliang@huawei.com/
+Things to know about the test:
 
-v1:
-  RAS: Fix out-of-range section_length in ARM processor error handling
-  https://lore.kernel.org/all/20260820131829.1006371-1-liuwenliang@huawei.com/
+- 7.2 has no global interrupt in this driver, so my backport of the
+  shutdown callback in [1] leaves out the two lines that disable it.
+- The test kernel also carries the smp2p patch [2], a later version of
+  the pinctrl change [3] and a change to the GENI serial driver that is
+  not posted, all for other hibernation problems on this laptop. The
+  Bluetooth driver had [4] applied.
+- ath12k was unloaded and the remote processors were stopped for the
+  hibernation. With ath12k unloaded the Wi-Fi card is in D0 at freeze,
+  and the wait for L2 times out on pcie4 ("Timeout waiting for L2
+  entry! LTSSM: 0x11"), as it did with v1. pcie6a does not show that.
 
-Abbott Liu (2):
-  RAS: Fix inverted context info bounds check in ARM processor errors
-  RAS: Fix out-of-bounds read when tracing arm_event
+[1] https://lore.kernel.org/r/20260909-shutdown-v6-0-62b7bd123236@oss.qualc=
+omm.com
+[2] https://lore.kernel.org/r/179158127177.70185.5691100900886332545@pm.me
+[3] https://lore.kernel.org/r/179163141354.18006.80461347454353634@pm.me
+[4] https://lore.kernel.org/r/179163212446.46972.2306254853726299632@pm.me
 
- drivers/ras/ras.c | 24 +++++++++++++++++++-----
- 1 file changed, 19 insertions(+), 5 deletions(-)
+ drivers/pci/controller/dwc/pcie-qcom.c | 27 +++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
 
--- 
-2.43.0
+diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controlle=
+r/dwc/pcie-qcom.c
+index 170932e42..212e344fc 100644
+--- a/drivers/pci/controller/dwc/pcie-qcom.c
++++ b/drivers/pci/controller/dwc/pcie-qcom.c
+@@ -2475,7 +2475,7 @@ static void qcom_pcie_shutdown(struct platform_device=
+ *pdev)
+ =09pm_runtime_disable(&pdev->dev);
+ }
+=20
+-static int qcom_pcie_suspend_noirq(struct device *dev)
++static int qcom_pcie_suspend(struct device *dev, bool force)
+ {
+ =09struct qcom_pcie *pcie;
+ =09int ret =3D 0;
+@@ -2488,7 +2488,7 @@ static int qcom_pcie_suspend_noirq(struct device *dev=
+)
+ =09if (!pcie)
+ =09=09return 0;
+=20
+-=09ret =3D dw_pcie_suspend_noirq(pcie->pci, false);
++=09ret =3D dw_pcie_suspend_noirq(pcie->pci, force);
+ =09if (ret)
+ =09=09return ret;
+=20
+@@ -2537,6 +2537,22 @@ static int qcom_pcie_suspend_noirq(struct device *de=
+v)
+ =09return ret;
+ }
+=20
++static int qcom_pcie_suspend_noirq(struct device *dev)
++{
++=09return qcom_pcie_suspend(dev, false);
++}
++
++/*
++ * A hibernation image is resumed after a power cycle, by a kernel that ma=
+y
++ * not have brought this controller up. Power the controller down even if =
+a
++ * device below it cannot go to D3cold, so that the image never holds a
++ * controller that is running. Thaw and restore bring it up again.
++ */
++static int qcom_pcie_freeze_noirq(struct device *dev)
++{
++=09return qcom_pcie_suspend(dev, true);
++}
++
+ static int qcom_pcie_resume_noirq(struct device *dev)
+ {
+ =09struct qcom_pcie *pcie;
+@@ -2653,7 +2669,12 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_QCOM, 0x1000, =
+qcom_fixup_class);
+ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_QCOM, 0x1001, qcom_fixup_class);
+=20
+ static const struct dev_pm_ops qcom_pcie_pm_ops =3D {
+-=09NOIRQ_SYSTEM_SLEEP_PM_OPS(qcom_pcie_suspend_noirq, qcom_pcie_resume_noi=
+rq)
++=09.suspend_noirq =3D pm_sleep_ptr(qcom_pcie_suspend_noirq),
++=09.resume_noirq =3D pm_sleep_ptr(qcom_pcie_resume_noirq),
++=09.freeze_noirq =3D pm_sleep_ptr(qcom_pcie_freeze_noirq),
++=09.thaw_noirq =3D pm_sleep_ptr(qcom_pcie_resume_noirq),
++=09.poweroff_noirq =3D pm_sleep_ptr(qcom_pcie_suspend_noirq),
++=09.restore_noirq =3D pm_sleep_ptr(qcom_pcie_resume_noirq),
+ };
+=20
+ static struct platform_driver qcom_pcie_driver =3D {
+
+base-commit: 591d89f23a7cbc668579521513c7f53b0968754c
+prerequisite-patch-id: d3815646fb89c43e4d28ab00c7ea2f3ae1ee4e4f
+prerequisite-patch-id: 7de2989d30c1a223386b0d6bf991d820759e976e
+prerequisite-patch-id: 42cb336b2b595db9faa485068e6b77b733713fc8
+--=20
+2.53.0
+
+
