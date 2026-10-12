@@ -1,154 +1,144 @@
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD3644C51C
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:41:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB0E93B6BFA
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:42:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805292; cv=none; b=Jcq9QozjrsL88Z1ZphQkZrWOJNKd0xEn432I1FLQtCVe23IdjPjIAJTHcigmnt1U0TkGYhPgygsDY3z+hLB3eoIXR17lPSYQ5kFZzUM/ncPKcw4MGI/UMEpl6jaOchlhCIu7pphgIJFJzf/xKy4SDh7jM/oy92GxoyzY+VP/eB8=
+	t=1791805342; cv=none; b=rmdj8PEibMSoimRQZLkoM7NQWsCGeK43qR7MCehIgVJ2xK6SG/VY/qmf8J4on2vidhSHSbXLY7soWYszRqR54PR1RCicA1DhjUh2w2feE6xCxkaDDTlvdGJWE73UdAm5pJmmj0TsmfKsPBjOul2o+CWV61nAB9PZe5TdZkbRIdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805292; c=relaxed/simple;
-	bh=95jCYiJWQiCrs/vInDlMxb9wHLPwGaoq+Y3wOL6bs/s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Dib5/wiNE+bl6hORsnGSHAAJ+IdUeRHV2Sn5DgdNH4CGRKSMTtJtyJP0NMRfAWDqyLCf9WeUhzosMbWY+3qnRNwY17aBztQ1hS4giwEJdFUoii6rJ7GZlCNZe8vpZpSPOl5W1ecTPdQ3BbW8e5r32M6yICuwOhLtneyAV1VTarA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=Kra58w4S; arc=none smtp.client-ip=74.125.82.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791805342; c=relaxed/simple;
+	bh=VKI97pXXbDOPAdJtvmTPkLbLkX30Qa+ghl895QoxYZc=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=QS3phI/TXqCYTUe2yPi4zXRuRI96SWHZ2xrUDMB4sRlOY3wYFKXhH52DwT0gD0f7+EV8xZOpFxBlUDoCwCkmDNdSdj2V5WNefLO+5l+IhufgOP45n37Bvk43TaviJIIaGODIBICZ35PMfbAS3IBu0g93qRR5pmDJI2ZmG0+7bcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--mclapinski.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gvW+AzwV; arc=none smtp.client-ip=209.85.208.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--mclapinski.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="Kra58w4S"
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-141395927feso3017124c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:41:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gvW+AzwV"
+Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6aaa3fa0bd5so2294372a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:42:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791805290; x=1792410090; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qCV9uGPk0pzpjywYVsVOm5n8J7lulX2bkipjkVr5CFQ=;
-        b=Kra58w4SuUQJDRCsqBuQjrF3OLPuHY/ogD+pCUUVRmXJ/TuvtT4KZ/chkMtnJ0n+4f
-         KedKA1zKwJUPg0hygIi/XeOXzT/PjZfRLgebRXDuu35oc4ZWX6VQd42kcxAFjQNcVn92
-         RK0NLxYkgf3tez9MNZowsvXNGd3S4VbnqDITV+4uK6Rf/959TWflkN4lw2g3HiofnmJo
-         Wjv1ZNr2JB5g0+v5H60/BZXXpqFtEUJSumEuS6Ts9PBo7TevCxg/NmO6Ing5KjgOGlML
-         xhzp6JGIQZznA/9sbHAXF7487vIWkr7lDsOrEtfCTGV1SRV81AjMNOG66rlSLW8Eyqgy
-         EQ8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791805290; x=1792410090;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20251104; t=1791805339; x=1792410139; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qCV9uGPk0pzpjywYVsVOm5n8J7lulX2bkipjkVr5CFQ=;
-        b=hXegY/SByM4KvCJq+HE/StYSUDwalGY2pxHtME9JU4tPq3h6lbEbHOHFDgjO/QRwIM
-         Hfz9Q9xs3ms+uGnn715/WBjiDPq/wkB1lAi++vk1dOz1ZaRhLKgaovNeQYJmMRYQTMIg
-         qbCnLIJW63mNbEoMg0xQ4qswMknOaTDfdRzzSGVhVCtWqYPS+zhn58LcqSiaCofBzPyc
-         K6pTtXQbOF90WUwE4pOeJjCmVpkqE+uFD5kG/sOjGGacIqX9O5EW7sDYeodAe3R2ey1k
-         9x/AxkJ9tZ+ailG/g6NgZigb5IFgsjG53Zf1yoTc7iFyd3zVyPRcJTk41+d7rzEktXnz
-         r2jQ==
-X-Forwarded-Encrypted: i=1; AKwUvBweTm4/lKjtW2P+4iBp8G7821xok70H4035mErcO1yY3MC5N72JcrasSAd96P3iZMB5RO67n4d/GdS+yjE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLafstZV1avIatQDhen8xBg4SGM0zIjUSikVzlHnApKtODl+KAb
-	rphsc+XTAYmVVKwEQs3H6iCWGJgfrGYtSjrEYMP8C9y5FsL/mHrYRLpwerbIsEkr4LR1VUEazUV
-	I1dIpsRE=
-X-Gm-Gg: AYBFou19sxuli49AtAG0EbGeS4EGZk/+mBYSVuv7o7fB8IdFFj30FZwH+npMyqyh15d
-	CeZqhhY2CFf5gM/5yyIAIAR3gZjPOM1JgXBPT+wwuOLCQwxpDSCuZG2nE5zOfUHIpGP7Af3nDLm
-	EgwP0ur8nBWO/I81kCqrNdY0Y4BwIuZHjTgFp4sZ5IuiQ5y6nfByQ3vjgJh0oGGrUSdEJJqUAKj
-	3VirKgxrFn82q0Mbe/y++0nq9tJZ3lmABkXpVhZa3ERXgHiUAl1ZtKz1seVQ14GR7Kls8493pdy
-	KikHM/mBVCC3C/ty1sPCAz3RLGHWvaXmpZBniz4i5pAMxw7IxrF5oTeqLpXAF1ID9tWoMBPI/J0
-	C/BgXTSl/Jxh8iYZ9SETF7TERVWrm/3c7G6LE20QHj3VBs39nVLkzjB31OzhK6+tGKc6tdicauj
-	s82wobMBXLIOTFOfO1E3Gk0kq/19qfOAxox76pvFixAzp8IjN4IcEgip4dXd/Co9GyuzKbxtcSa
-	vMHrMLKzmom4Unjh6G/8A==
-X-Received: by 2002:a05:7022:b057:10b0:160:a80f:3ed2 with SMTP id a92af1059eb24-16a5dbfecb9mr12854417c88.10.1791805289820;
-        Mon, 12 Oct 2026 04:41:29 -0700 (PDT)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:7bd2:1202:246d:44ce])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1746482c978sm8725533c88.13.2026.10.12.04.41.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 04:41:29 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: ching2048@areca.com.tw,
-	mkp@kernel.org,
-	James.Bottomley@HansenPartnership.com
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	thenzl@redhat.com,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: [PATCH v3 3/3] scsi: arcmsr: wrap the type B completion index before using it
-Date: Mon, 12 Oct 2026 20:41:03 +0900
-Message-ID: <459990a0367f7268c0056098f6e2631700e20327.1791803953.git.yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791803953.git.yhlee@isslab.korea.ac.kr>
-References: <cover.1791803953.git.yhlee@isslab.korea.ac.kr>
+        bh=g+XeNA9wYZ+w0/rnkp+EWuJy/8oZE7v6bL2HMqqjnD8=;
+        b=gvW+AzwVyFZ8wnvJ5TfFai6m9hi4XTNoXxWNffvrh6/hTtXNg6SSYFwA14VWb3mrL9
+         AhOA4dwHBOOJx08UqqDG0yc8pmaTynzl9rul3DpUjmc+ozJ/shymOHoTA1zawyW3fqyD
+         e1EPbeRXbsoYWhwj3WuDRn6wqxbqz7wpAE2kPM6mFKrGoIDnzPnQgSEOD1XNVvs70o1C
+         MLa/95c1b5MB2kNede+UxNGGXrx+FHsyTOTcT30vk/d2C4TJIaGQ/gy2KD2yDifnjqoA
+         9UlxVyPXmgdJDr+SXyyp6epZyGhzgJduM2FEK5ZBAFsu6sypnVr98D8G6x1L7ELih+19
+         m4dQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791805339; x=1792410139;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g+XeNA9wYZ+w0/rnkp+EWuJy/8oZE7v6bL2HMqqjnD8=;
+        b=yY7M8dFRo2ETsFYyqny8gfiK+R6u/CMTH/6BPTB+Tj7pFbPLZ2ZEr4jLh03NrzIvUc
+         7TFU/DZmm2+mcTl4lMPjFKHXNHsKf9UsqEWqkeb5HHbGRNtzQ2aDDo2SUTGZ/I3WthUI
+         iCnfORhdPRiii6rsWJi4izG+6M26BXDJ65WuNULdckIcxSXb03Yrqsl/c/yW5aGGGYyh
+         TjjC++rr87OBXIqYlPWWoG3UfbmkUUqEOzeTM1CBcKqcXtlTZZShATnsycSkzCEZAyUQ
+         lV5Xc1B5NmU4jPyAt2HItzZ6WnwX9qq9rzGghbRWZbA7kXwSYt0hWcoTdbkQTcVogBKu
+         nkTA==
+X-Forwarded-Encrypted: i=1; AKwUvBzJIbOHlX7xHfttv5jRhQpou7OiUNaFyRuyqBDVcP2xk/DJOHo4bturXcC2RuJt8aGNJm1B6FhSOa0+4I8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9DQzToa/W7iXdLrCGZNNWvhmXZ3SyVQjOR3kk519wnMv1RDnU
+	gF1Zk3w3B4a1cV7hURwMAxjhRraGAAhpiZkRLXxQiMOasjFuRrCABCIhW1JgHMLlvPmeHqLldDZ
+	27Oy+HI0LFEKc/Mk/24pqmA==
+X-Received: from edl6-n2.prod.google.com ([2002:a05:6402:4246:20b0:6aa:e587:e1c1])
+ (user=mclapinski job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:4341:b0:6a7:ee56:814b with SMTP id 4fb4d7f45d1cf-6b17c27a61bmr7787882a12.25.1791805338876;
+ Mon, 12 Oct 2026 04:42:18 -0700 (PDT)
+Date: Mon, 12 Oct 2026 13:42:13 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261012114213.1757207-1-mclapinski@google.com>
+Subject: [PATCH RESEND] PCI/DOE: Poll briefly for a response before sleeping
+From: Michal Clapinski <mclapinski@google.com>
+To: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org
+Cc: Lukas Wunner <lukas@wunner.de>, linux-kernel@vger.kernel.org, 
+	David Matlack <dmatlack@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Michal Clapinski <mclapinski@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-struct MessageUnit_B lives in the dma_alloc_coherent() area shared with
-the adapter, and holds the completion ring next to the index into it:
+doe_statemachine_work() waits for a response by sleeping
+PCI_DOE_POLL_INTERVAL (PCI_DOE_TIMEOUT / 128) between status reads,
+which is 7 ms at HZ=1000 and 4 ms at HZ=250. Exchanges are served from
+the device's local mailbox logic and typically complete within tens of
+microseconds, so nearly all of that sleep is wasted. Every DOE-capable
+endpoint pays it once per supported feature during enumeration.
 
-	uint32_t	done_qbuffer[ARCMSR_MAX_HBB_POSTQUEUE];
-	uint32_t	postq_index;
-	uint32_t	doneq_index;
+Poll with usleep_range(20, 50) for the first ~2 ms before falling back
+to the jiffies-based wait. On an Intel Emerald Rapids system, time spent
+in pci_device_add() for a DOE-capable endpoint drops from 41.8 ms to
+14.0 ms.
 
-arcmsr_hbaB_postqueue_isr() takes doneq_index from there and subscripts
-done_qbuffer[] with it, and only afterwards reduces it:
-
-	index = reg->doneq_index;
-	while ((flag_ccb = reg->done_qbuffer[index]) != 0) {
-		...
-		reg->done_qbuffer[index] = 0;
-		index++;
-		index %= ARCMSR_MAX_HBB_POSTQUEUE;
-		reg->doneq_index = index;
-	}
-
-So the first iteration uses the value as it was found, unmasked.  An
-index beyond ARCMSR_MAX_HBB_POSTQUEUE (264) reads past done_qbuffer[]
-and, should the word it finds be non-zero, stores a zero there as well.
-arcmsr_hbaB_polling_ccbdone() has the same ordering.
-
-Reduce the index where it is read instead, which leaves the rest of the
-loop unchanged.
-
-Measured with a KASAN build.  struct MessageUnit_B is 2176 bytes with
-done_qbuffer at offset 1056, so a reported index of 600 reads 3456 bytes
-in:
-
-  BUG: KASAN: slab-out-of-bounds in arcmsr_hbaB_postqueue_isr+0x1f5/0x270 [arcmsr]
-  Read of size 4 at addr ffff88800c08cd80 by task init/1
-  ...
-   which belongs to the cache kmalloc-4k of size 4096
-  The buggy address is located 1280 bytes to the right of
-
-Fixes: 1c57e86d75cf ("[SCSI] arcmsr: initial driver, version 1.20.00.13")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Signed-off-by: Michal Clapinski <mclapinski@google.com>
 ---
- drivers/scsi/arcmsr/arcmsr_hba.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+I was asked if I can do this with interrupts instead. I don't see a way
+to do that during device enumeration that won't collide with the
+drivers.
+---
+ drivers/pci/doe.c | 28 +++++++++++++++++++++++-----
+ 1 file changed, 23 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/scsi/arcmsr/arcmsr_hba.c b/drivers/scsi/arcmsr/arcmsr_hba.c
-index e635b76daae9a..d13bd0febb81a 100644
---- a/drivers/scsi/arcmsr/arcmsr_hba.c
-+++ b/drivers/scsi/arcmsr/arcmsr_hba.c
-@@ -2568,7 +2568,7 @@ static void arcmsr_hbaB_postqueue_isr(struct AdapterControlBlock *acb)
- 	bool error;
- 	unsigned long cdb_phy_addr;
+diff --git a/drivers/pci/doe.c b/drivers/pci/doe.c
+index 6b5d9ba8e969..5e93d78a1a97 100644
+--- a/drivers/pci/doe.c
++++ b/drivers/pci/doe.c
+@@ -27,6 +27,9 @@
+ /* Timeout of 1 second from 6.30.2 Operation, PCI Spec r6.0 */
+ #define PCI_DOE_TIMEOUT HZ
+ #define PCI_DOE_POLL_INTERVAL	(PCI_DOE_TIMEOUT / 128)
++#define PCI_DOE_POLL_FAST_MIN_US	20
++#define PCI_DOE_POLL_FAST_MAX_US	50
++#define PCI_DOE_POLL_FAST_TRIES		40
  
--	index = reg->doneq_index;
-+	index = reg->doneq_index % ARCMSR_MAX_HBB_POSTQUEUE;
- 	while ((flag_ccb = reg->done_qbuffer[index]) != 0) {
- 		cdb_phy_addr = (flag_ccb << 5) & 0xffffffff;
- 		if (acb->cdb_phyadd_hipart)
-@@ -3671,7 +3671,7 @@ static int arcmsr_hbaB_polling_ccbdone(struct AdapterControlBlock *acb,
- 	/* clear doorbell interrupt */
- 	writel(ARCMSR_DOORBELL_INT_CLEAR_PATTERN, reg->iop2drv_doorbell);
- 	while(1){
--		index = reg->doneq_index;
-+		index = reg->doneq_index % ARCMSR_MAX_HBB_POSTQUEUE;
- 		flag_ccb = reg->done_qbuffer[index];
- 		if (flag_ccb == 0) {
- 			if (poll_ccb_done){
+ #define PCI_DOE_FLAG_CANCEL	0
+ #define PCI_DOE_FLAG_DEAD	1
+@@ -487,7 +490,7 @@ static void doe_statemachine_work(struct work_struct *work)
+ 	int offset = doe_mb->cap_offset;
+ 	unsigned long timeout_jiffies;
+ 	u32 val;
+-	int rc;
++	int rc, tries = 0;
+ 
+ 	if (test_bit(PCI_DOE_FLAG_DEAD, &doe_mb->flags)) {
+ 		signal_task_complete(task, -EIO);
+@@ -525,10 +528,25 @@ static void doe_statemachine_work(struct work_struct *work)
+ 			signal_task_abort(task, -EIO);
+ 			return;
+ 		}
+-		rc = pci_doe_wait(doe_mb, PCI_DOE_POLL_INTERVAL);
+-		if (rc) {
+-			signal_task_abort(task, rc);
+-			return;
++		/*
++		 * Exchanges are served from the device's local mailbox
++		 * logic and usually complete in tens of microseconds, far
++		 * below the jiffies granularity of PCI_DOE_POLL_INTERVAL.
++		 * Poll for up to ~2 ms before falling back to it.
++		 */
++		if (tries++ < PCI_DOE_POLL_FAST_TRIES) {
++			if (test_bit(PCI_DOE_FLAG_CANCEL, &doe_mb->flags)) {
++				signal_task_abort(task, -EIO);
++				return;
++			}
++			usleep_range(PCI_DOE_POLL_FAST_MIN_US,
++				     PCI_DOE_POLL_FAST_MAX_US);
++		} else {
++			rc = pci_doe_wait(doe_mb, PCI_DOE_POLL_INTERVAL);
++			if (rc) {
++				signal_task_abort(task, rc);
++				return;
++			}
+ 		}
+ 		goto retry_resp;
+ 	}
 -- 
-2.43.0
+2.56.0.385.gd3acb90ef8-goog
 
