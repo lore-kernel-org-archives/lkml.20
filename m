@@ -1,405 +1,276 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013024.outbound.protection.outlook.com [40.107.162.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89AD02253EB;
-	Mon, 12 Oct 2026 13:18:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843F12253EB;
+	Mon, 12 Oct 2026 13:19:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.24
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791811135; cv=pass; b=SS3uAj7DCk2BhILgw6GkB4A4jxsqsH4GiU3uPMBMr7HLsZ5TYdg9j9Z0wKiAVlB8bPZkkMi9hj1A4/H2rzWz8/CnYYvXdc5jyHo05/0+uZ9lx1XcJ6I0Wst8ozlopEHxGcs8kynQIdAkimTl+AMnrV1uKCn3fb75psW9k/5yUjo=
+	t=1791811144; cv=fail; b=lYZg08ITPRJ0tUyJJJ99LHCooeSNPmHdWcin6SIMEhOb/8hrISSRlUT3Fz3974Gfjmxga+kgBDNMHAPIX09Aa8rG9Gxp40Ptk31kLg//5csdnf8vnslqtiwJ2DekxsarOZ5jwz1mxYNrsBAfiTCyf4kMRhj0LsbpZP3JiZaRrow=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791811135; c=relaxed/simple;
-	bh=2yhZZaOrQxsobXMDAWqu2vt1FJ0JABBZoi5ayoXNvpo=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=n7ns9Nk6U08w9dL5K6e3NNhvTNmyihYZLSX5Q5MDD2W2tY00V6rcYB4FecHZsWZXQ5pe/3obqTSz+hzYhldNwUNEcPpUN3mIhEzpIOf6BezrK+aQGi5PhmLFLzN2gIWB9Ki37DZxLIe8FZz4oDAldNXNosXpmZfFdIj/GVd48EA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=ZSWLaBkR; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	s=arc-20240116; t=1791811144; c=relaxed/simple;
+	bh=ROB1Xf+TvXuzsrvpRMjnv5/L/HPgSvCmZX8AVp+e8Jc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=lZim/f4TY969Rw96USJVMZy5w7LjAswHNm3blF9IaoBK9s4Cco6SCLHDO33az7pML7YKsHB0qZAtY5KIR6aT406HJFbMSuVSYqpn3H2R3n67Cra8W6QKRqbZHeN3Efmzyho9TbxepKoU973G982QAsFwvoy+F8mvoOIHUFNsY7A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=TOGy+2c8; arc=fail smtp.client-ip=40.107.162.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="ZSWLaBkR"
-ARC-Seal: i=1; a=rsa-sha256; t=1791811122; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=A+K/0nWODc2mGNFn3BDcAZT37aIc0Pn40w2ONpPBJnglx8cjxToeWc06RxrN60B6V7cU5DrkrTbsj8pODFVwbMuacxoWh7TjCbF5+8/k+2sK75ZkLGG2jlu/D7K1/sgvTwnFcERxqeLF6Q2he4noJlzRy5tXuq89XS4WU3RftRE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791811122; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=N6ioNyzBt/xFoPdVedoNIpQfcgtRNqWGcbASu5Y/h1Y=; 
-	b=d1gBf4hxy96tLThDCsyTMSgmGGa25xOyvFZFE8BkyW+NpYBc+gtE9zoeO+ionwTqg4DsSRGfzT2prHMJL+l9YtcECWjHnpQPeUcG70KuB2LsrBS15exvZ7jaSzbCK9uFrfhI1mD7lZfup6Oz2o1E+fl7lLU6K0ykXObHe4IYL6k=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791811122;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
-	bh=N6ioNyzBt/xFoPdVedoNIpQfcgtRNqWGcbASu5Y/h1Y=;
-	b=ZSWLaBkR89FjBaNvEo3jzbQdPE35ghsz7QCGMNMcnWHKiCPH2PvTwz+3EOmBS6wQ
-	i2bcZX/XpSHFgf0xty5o6cSvxVfmZTjVb5LujWlz+WzblmnwBQ7ozV+Z4Rg2Ey1YyBI
-	AhAm/ztgva/7sW5WVdIPYgRPS3eviPim0zYYbuFghE/6xu+bpKDCSb+lQnrXJZiYA6p
-	InZuXfV4xURkmhHQ5uvjaVKotcnxktMajvh8/NFc9atHj65bnYxVymVpUU72vFgQwPD
-	bY8Gyh9JSe1HUGiC1qBylQzDUhxGVCmw0yjfgGAF1gjC8Ovx6duidfiH0ZMdHR9VdR3
-	FUxqmDKKBg==
-Received: by smtp.zohomail.com with SMTPS id 1791811121347690.662621604263;
-	Mon, 12 Oct 2026 06:18:41 -0700 (PDT)
-Message-ID: <fada38eed34b0a76c7e65f702ecaed8e61ae9c1d.camel@rong.moe>
-Subject: Re: [PATCH v2 2/5] platform/x86: uniwill-laptop: Implement rainbow
- animation as trigger
-From: Rong Zhang <i@rong.moe>
-To: Armin Wolf <W_Armin@gmx.de>, hansg@kernel.org, 
-	ilpo.jarvinen@linux.intel.com
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	wse@tuxedocomputers.com, platform-driver-x86@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org
-In-Reply-To: <30de83b7-8016-4b33-9e5c-6138b32766ab@gmx.de>
-References: <20261007144101.323289-1-W_Armin@gmx.de>
-	 <20261007144101.323289-3-W_Armin@gmx.de>
-	 <035799dd461fe0e7a60564e11f10fd23eb3daabf.camel@rong.moe>
-	 <9087d109-d757-43bc-b80d-64df7dc9ff82@gmx.de>
-	 <b31878aeb4af648106adc74efbb2d1e839f9f8ea.camel@rong.moe>
-	 <30de83b7-8016-4b33-9e5c-6138b32766ab@gmx.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 21:13:32 +0800
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="TOGy+2c8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TqSYDltBd1LMeVhe8QgkAeR5xNcM37S27ecWcIYsOzIz0S2Yjw4o1DFUokDfqzd+LBLDG2BzDFfnx46L6cyWuUlvF8lGjW3SOP/Iu6qIX8bdX84x3CJ3vIF1BWd26n/FmsmxdcX+BwBKI2Wk46wYo6WSmzLY9hC4OPWXjwjfMjzld/AI4JcuIT5eevnZyd7LzcOvE8fxwf+VeK4g13sSInMhrk7ENcOJz9ac/wMAOoTfAhRLgvLcuhj8pjSL5zbPtSf70MB1UPWZDyLB6iwaR/9q7Py99yN0SEDqjMeGhFJLS+wzNWKHEp0md1e/EO/MR9lEDHp7jNbYhTaE36cgHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Dk75LqYt1alYz1PWaWOdD4b/cjZLZXMEv/OmqxUE6lk=;
+ b=g4n/rU5ODzCBPcD+qnEMR0sDqAVWj0M2KBUw1nD30a7+cSqH4uoyW8KkWlWEplDRoBA32+QYN8S6flO0ERrIgeDYa5b391pSUzH/G0h5yw3VtLUV3g1GUUCo3fFdztEOkhKEx0fUUQ6Z2z11/8x6XnlVJuapkn/IgXjHtd8nyv6QtTVsEAASZB3HZlcV7N/iSfssdpc3dCWd2rnTIlOiR7m9SiQc0J/QvlN6v9Al8gb3L6zFK+6adKjHCiOX/OY73JcgIl1VwEOFDgR6M2ansrAIi7gbn3oq7zOiAOALlbKNooBiBv4pWp0B81hqJOWExO6tSR0NL8dcqVrjOY03lg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Dk75LqYt1alYz1PWaWOdD4b/cjZLZXMEv/OmqxUE6lk=;
+ b=TOGy+2c8NpsMuIqFQ7RB0y/CRF7BpRJWjyd5Aga8Ww5uv1zkIu0rWD/BRwl1uamwjPEFLB5EtuuRPcB/lgxBTOPETEmfefh+vAs+IfEK1m/dpEDN72tknaKzSgE5xfDRUjGrwGgZeo2PX6f1r3vCI43zj6RHeX6lDLdRvCKwLFkehR6IqKQw+otgjQtD52UHwFI/neqQKIwL9Tz8ldgRhfuISnRp6VJ2xrHOf4zvwuB2oPjn2H9vBIvBQ30rCQFuI2lC/ZEYs28gRnT/0oVW8lPzgwErtlcSGbAs/0+2kr1GWfJMSEEsg75XhBsncQWsQeICVJ4wg6UTDzGxXqbaTQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by DB8PR04MB6953.eurprd04.prod.outlook.com (2603:10a6:10:111::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 13:18:58 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
+ 13:18:58 +0000
+Date: Mon, 12 Oct 2026 21:23:32 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
+To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	Nicolin Chen <nicolinc@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Krishna Reddy <vdumpa@nvidia.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>
+Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH RFC v6 5/5] iommu/arm-smmu-v3: Wire up shared-SID STE
+ ordering and feature gating
+Message-ID: <aszfVNP6DGzWYdK0@shlinux89>
+References: <20261011-smmu-shared-sid-v6-0-cb76b89dc612@nxp.com>
+ <20261011-smmu-shared-sid-v6-5-cb76b89dc612@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011-smmu-shared-sid-v6-5-cb76b89dc612@nxp.com>
+X-ClientProxiedBy: MA5PR01CA0215.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1f3::19) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-10+b1 
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DB8PR04MB6953:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70b9dda4-40c2-434f-b921-08df28635f9f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|7416014|376014|366016|6133799003|10067099003|22082099003|18002099003|13003099007|11063799006|261009223027099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	By+ZwRpqBnzT6dsOJMDr36133UM+WAhbP5daSKBpaAvtaQuKh8pW2mogy96cMaPPAzC+80ZGrVOhw8Z/Ebf92Xb5NFOREajxPGiI0wMZGsC5hF6a5a3aXFZkT06W9r8HjSWVsQmL32Du0dpOUoA0f/AMp3QQWZWLVSVv1LHtr3ZCntFSOdpbQoRDu2thiopB071rQg+tdhn0uZOfO73JWBtClRVUZm+ZAqRgQaZ8Qp2eeL9fHk28eM+HJ93TAVvAoExl5MMUohMHNkX+klXHWuSC9zMUlpdEb68Z/wsbGj28R6GZ6ysyrChRxYEVa1IC8MgxJyDOqV9ehtsTBNyLEXWo172Vm/ELx9EkrVu3Gxu+3Bwse1QLa5GkY7ddt4/FFIkG+DIgLDXqjZwIJdLSGB+kQvWY0SKn8YNWEsp6MtpLuX3FcfY00U+aXMrCHhCeXrLGgHanje8bnrvJUlGFBtM8qfeICe/WDVn7iFVgUhl/UQrGd/vglYpvwA3IHzxUvuuCVawadnuwqKIzikEAsNJz7LE9VddLjGteguervnQVtdKGQwlWTWIz7wp3ONFNsjr9B2OEYpc76mfqO+CFTs5OdGgdbEmyWYrv0NaGZ7s=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(7416014)(376014)(366016)(6133799003)(10067099003)(22082099003)(18002099003)(13003099007)(11063799006)(261009223027099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?PTLtNWnhqfAzNA65MedZ1FOFnAb/7zqp1UBLaxBc2jISYsp1Fc590pJJGy9q?=
+ =?us-ascii?Q?rYM1IaaDGpPvOkNlKqZk8g57fDSKN3sVQHj5WlyYzAppvgi20PhhzqRgs3x5?=
+ =?us-ascii?Q?m7KsIyBNvRt/rpcRc5xUCVETp5iGkXVt7L53EeEeulR8ViaGNkizBwZ5wiNe?=
+ =?us-ascii?Q?nDlxaXzrvdL62yaCjkhchY5x8RCh8vJok2pspACNo+BppSZulnLyEsT8HQ13?=
+ =?us-ascii?Q?AeC7pgU9f60sxojvQ0JYGlw7Yj96OuHMcK8vTQlHN2r7eRWBJeIiCLcKy7o4?=
+ =?us-ascii?Q?9j9Qdvu0f69H8ifOfySEawRcVM9vlaD89CQymVUi06l93D/OrOV5GIw6EkrL?=
+ =?us-ascii?Q?b8PWTqvVV4hhqqAomvAFUHnehoLtWTGtJS+OXhwSDmXoXkWrPeAm7Vt00OfV?=
+ =?us-ascii?Q?m2aZREoBAaoX9k6Kd4FrnqQ7YMPeghUoLI2IA0OtzSJQ12AfhlyqSQaBzgkl?=
+ =?us-ascii?Q?MEyoFJ73zlZgfrDIaGXDkO5y9tI6KwxDKFUGyTKmHxOAYTX7S8Fl8r9+QWeF?=
+ =?us-ascii?Q?UJxy8LYR/6GgK4k6w3ey5sZxfNlpLU0V/xix0C6dwgk+RWGqhbNvgpwBaUnO?=
+ =?us-ascii?Q?CyNxjFHDXaQ3qdUvvLDXjAoHRRpFJroNtw0A3bR8b2x2d+XqRY55D/1nFhFK?=
+ =?us-ascii?Q?5uf85ag/ywXMHKufbJMA/ULTyIgBFqCrx3hBjBKHYRQpQXw2WpKW6hezP7AA?=
+ =?us-ascii?Q?3QrsRISdwycxti69Zyd2PH2R9wlgTabjPP0cdeiJvg9EX/vmU3jBlglEOQM7?=
+ =?us-ascii?Q?XJg6BfswI3ZMn2nq1CbLjYE9AyzpkCX8+3Q8FVRWmpx7zqPGLgQ+ZGQZ1arU?=
+ =?us-ascii?Q?ADkjxPHf3POrI/s960Qy6Cz1AXeWx1gZ+49sYorwBErXaWODpws5f8BwOt10?=
+ =?us-ascii?Q?nenyN1WfE3R2DyWeGZxzOQ8v58/GB1I9NHBWXAtIv6FJj6abTyaryAPXlh8H?=
+ =?us-ascii?Q?+JB7gMZxELgaUjlxgmKoE0+NHKJue845g2UYETwSdca4SOSZ0/9unmDaHomC?=
+ =?us-ascii?Q?mWBkr7Smr0PjfCsURuigwXJR1xXKZlLBY6056ZuPkDLAaNLdheQMQMEqtOWs?=
+ =?us-ascii?Q?wzP6YfXemmKWNCMCIQy+bsjkOg9hAsvsMRBoJeZZB33BydLYHHsleoltRHjW?=
+ =?us-ascii?Q?/y3HGxsPO29eqHpJ73JKhBYFbfFB/3ScldQ02kgMTVeWCerA6ifqejijqArz?=
+ =?us-ascii?Q?jG3hWDxn2u5BpVBqzURMb77oEsmZKUUgiBbZr5Kuynqz1dl4KLeLJAcqHe7c?=
+ =?us-ascii?Q?B4k7fq95v6n2esRKfEtQPCIwPI9JpV71I8zWpGoCT1NZOjhETCcWcWAjZtT5?=
+ =?us-ascii?Q?tmLSYrAzz9ar7g50EXavo+2n+MFrhscurgrNRBwHz/s+qzNf8rh/S/3AGUB5?=
+ =?us-ascii?Q?maQT8eEMgPRKIgf22nagX16k5qlagfiYaXvqhJENWMlALxhe16zdnzlXwu4q?=
+ =?us-ascii?Q?R4UjzfiOqebEy16k+c3GB/en4ArHhjms7rO9o2eAGnL7sN6wTN6NSBsL63k7?=
+ =?us-ascii?Q?Ec+IjOPFvWjayZ3ywpAtcWJHFZ/OYnIQ9UTY9zUAgO9caEWNRsepRBAyVaTx?=
+ =?us-ascii?Q?5OS/IGJXL3AGpI+5tTGZBIp5Z9vYiGZTjeluvO/80uQK5Dk1Vbj1gsbsSSJK?=
+ =?us-ascii?Q?vnfguB7QlW6CXiU2R7JJ3YnmEqU46iaquyh3sHhdO/OcCiThTiU62k/MQwkb?=
+ =?us-ascii?Q?WyPxfPi+nyC83s1EWbypO2UUX2sV5Gmjkkcp6SDApVAYKLJQqQ7AdAcrhwrN?=
+ =?us-ascii?Q?YDyFVQBbi1/XInhwN9l+ZyrOFkCnBOq7gyb4DYOohQRMOOwtK3y3?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70b9dda4-40c2-434f-b921-08df28635f9f
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 13:18:58.4025
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fzD0cE2CHLbny92t5pHYNsa5MmfrQzPIw56xnbdAwhbJ41mHWTvGdEO9WFLXVnjF3cEYsIjuyoWDFXR265C6MK7w4S5DMmaeC5m623PH11f1dfaxWYpemicZSPrirBxd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6953
 
-Hi Armin,
+Hi Robin, Nicolin,
 
-On Mon, 2026-10-12 at 00:48 +0200, Armin Wolf wrote:
-> Am 11.10.26 um 21:47 schrieb Rong Zhang:
->=20
-> > Hi Armin,
-> >=20
-> > On Sun, 2026-10-11 at 02:52 +0200, Armin Wolf wrote:
-> > > Am 10.10.26 um 13:20 schrieb Rong Zhang:
-> > >=20
-> > > > Hi Armin,
-> > > >=20
-> > > > On Wed, 2026-10-07 at 16:38 +0200, Armin Wolf wrote:
-> > > > > It turns out that some models require the lightbar to be activate=
-d
-> > > > > in order to display the rainbow animation, so users have to acces=
-s
-> > > > > both the "rainbow_animation" sysfs attribute and the LED sysfs
-> > > > > interface when enabling the rainbow animation. This can cause sho=
-rt
-> > > > > glitches when the lightbar was previously disabled.
-> > > > >=20
-> > > > > Fix this by replacing the sysfs attribute with a custom LED trigg=
-er
-> > > > > called "uniwill-rainbow". Selecting this trigger will atomically
-> > > > > activate the lightbar and enable the rainbow animation mode. This
-> > > > > can potentially break userspace applications using the old sysfs
-> > > > > attribute, but so far no such application is known to exist (yet)=
-.
-> > > > >=20
-> > > > > Signed-off-by: Armin Wolf <W_Armin@gmx.de>
-> > > > > ---
-> > > > >    .../ABI/removed/sysfs-driver-uniwill-laptop   |  10 ++
-> > > > >    .../ABI/testing/sysfs-driver-uniwill-laptop   |  11 --
-> > > > >    .../admin-guide/laptops/uniwill-laptop.rst    |   5 +-
-> > > > >    MAINTAINERS                                   |   1 +
-> > > > >    drivers/platform/x86/uniwill/Kconfig          |   1 +
-> > > > >    drivers/platform/x86/uniwill/uniwill-acpi.c   | 133 ++++++++++=
-+-------
-> > > > >    6 files changed, 95 insertions(+), 66 deletions(-)
-> > > > >    create mode 100644 Documentation/ABI/removed/sysfs-driver-uniw=
-ill-laptop
-> > > > >=20
-> > > > > diff --git a/Documentation/ABI/removed/sysfs-driver-uniwill-lapto=
-p b/Documentation/ABI/removed/sysfs-driver-uniwill-laptop
-> > > > > new file mode 100644
-> > > > > index 000000000000..c226efc23b59
-> > > > > --- /dev/null
-> > > > > +++ b/Documentation/ABI/removed/sysfs-driver-uniwill-laptop
-> > > > > @@ -0,0 +1,10 @@
-> > > > > +What:		/sys/bus/platform/devices/INOU0000:XX/rainbow_animation
-> > > > > +Date:		November 2025
-> > > > > +KernelVersion:	6.19
-> > > > > +Contact:	Armin Wolf <W_Armin@gmx.de>
-> > > > > +Description:
-> > > > > +		Forces the integrated lightbar to display a rainbow animation =
-when the machine
-> > > > > +		is not suspended. Writing "1"/"0" into this file enables/disab=
-les this
-> > > > > +		functionality.
-> > > > > +
-> > > > > +		Reading this file returns the current status of the rainbow an=
-imation functionality.
-> > > > It'd be more helpful by documenting the removal date, version and w=
-hat
-> > > > has replaced it.
-> > > True, i will write a patch to address this.
-> > [..snip..]
-> >=20
-> > > > > -
-> > > > >    static ssize_t breathing_in_suspend_store(struct device *dev, =
-struct device_attribute *attr,
-> > > > >    					  const char *buf, size_t count)
-> > > > >    {
-> > > > > @@ -1258,7 +1213,6 @@ static struct attribute *uniwill_attrs[] =
-=3D {
-> > > > >    	&dev_attr_super_key_enable.attr,
-> > > > >    	&dev_attr_touchpad_toggle_enable.attr,
-> > > > >    	/* Lightbar-related */
-> > > > > -	&dev_attr_rainbow_animation.attr,
-> > > > >    	&dev_attr_breathing_in_suspend.attr,
-> > > > >    	/* Power-management-related */
-> > > > >    	&dev_attr_ctgp_offset.attr,
-> > > > > @@ -1288,8 +1242,7 @@ static umode_t uniwill_attr_is_visible(stru=
-ct kobject *kobj, struct attribute *a
-> > > > >    			return attr->mode;
-> > > > >    	}
-> > > > >   =20
-> > > > > -	if (attr =3D=3D &dev_attr_rainbow_animation.attr ||
-> > > > > -	    attr =3D=3D &dev_attr_breathing_in_suspend.attr) {
-> > > > > +	if (attr =3D=3D &dev_attr_breathing_in_suspend.attr) {
-> > > > >    		if (uniwill_device_supports(data, UNIWILL_FEATURE_LIGHTBAR))
-> > > > >    			return attr->mode;
-> > > > It'd be better to convert breathing_in_suspend into an LED device
-> > > > attribute. See led_classdev->groups.
-> > > We cannot do this because this field is being used by the multicolor =
-LED class.
-> > Whoops, I didn't notice that.
-> >=20
-> > > I can try to find a workaround for this.
-> > (+CC Lee, Pavel, linux-leds)
-> >=20
-> > IMO the best way to solve the dilemma is to introduce class_group for
-> > led-class-multicolor and led-class-flash, or else we will have to
-> > introduce (or have already introduced?) more workarounds for other
-> > drivers.
->=20
-> I think we should rather use a separate device_type for multicolor/flash =
-LED devices,
-> because this allows us to inject the sysfs groups without having to intro=
-duce yet
-> another field.
+On Sun, Oct 11, 2026 at 07:31:29PM +0800, Peng Fan (OSS) wrote:
+>From: Peng Fan <peng.fan@nxp.com>
+>
+>For shared SIDs, only the first master to attach writes the STE
+>(tracked by ste_installed under streams_mutex); subsequent masters
+>skip the write.  On teardown, skip the ABORT STE write while other
+>masters still share the SID, and reset ste_installed so the next
+>domain attach cycle re-writes the STE.
+>
+>Fault events on shared SIDs cannot be attributed to a specific
+>master, so arm_smmu_find_master() returns NULL when the stream's
+>shared_masters list is non-empty.
+>
+>Disable SVA, IOPF/stall, and vSMMU nesting for shared-SID masters
+>since all three require unambiguous SID-to-device mapping.  Clear
+>stall_enabled for both the new master and the existing first master
+>when sharing is detected in arm_smmu_insert_master(), so the STE
+>is never programmed with the stall bit.  This prevents
+>unrecoverable bus lockups since CMD_RESUME cannot be issued without
+>a unique SID-to-device mapping.
+>
+>Assisted-by: LLM
+>Signed-off-by: Peng Fan <peng.fan@nxp.com>
+>---
+> .../iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c    |  2 +-
+> drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c    |  3 ++
+> drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c        | 60 +++++++++++++++++-----
+> 3 files changed, 52 insertions(+), 13 deletions(-)
 
-Sounds neat. Nice inspiration!
+...
 
->=20
-> Would it be acceptable if multicolor/flash LED support cannot be build as=
- a module anymore?
+>+
+>+static bool arm_smmu_skip_shared_ste(struct arm_smmu_device *smmu,
+>+				     u32 sid, bool is_abort)
+>+{
+>+	struct arm_smmu_stream *stream;
+>+
+>+	lockdep_assert_held(&smmu->streams_mutex);
+>+
+>+	stream = arm_smmu_find_stream(smmu, sid);
+>+	if (!stream || list_empty(&stream->shared_masters))
+>+		return false;
+>+
+>+	if (is_abort) {
+>+		stream->ste_installed = false;
+>+		return true;
+>+	}
+>+	if (stream->ste_installed)
+>+		return true;
+>+	stream->ste_installed = true;
+>+	return false;
 
-In fact, even LEDS_CLASS is tristate (though rarely built as a module
-because LEDS_TRIGGERS promotes it to bool).
+sashiko has comments: https://sashiko.dev/#/patchset/20261011-smmu-shared-sid-v6-0-cb76b89dc612%40nxp.com
 
-From my perspective, forcing LEDS_CLASS_FLASH and LEDS_CLASS_MULTICOLOR
-as bool will be too harsh for distros. We don't need to build them into
-vmlinux, as long as an internal register function with an extra
-device_type parameter is exported. We've already had several glue exports
-declared in drivers/leds/leds.h.
+We just need to support a simple case that platform devices(single SID) which
+could share there SIDs, such as MMC-0 and MMC-1 share one SID.
 
-Thanks,
-Rong
+Shared-SID masters are restricted to platform devices sharing a single SID.
+SVA, IOPF, and vSMMU nesting are all rejected for shared-SID masters (patch 5),
+so VFIO passthrough and direct domain replacement scenarios do not apply.
+The only domain transitions are the default DMA domain attach at probe time
+and ABORT on unbind. Or I may miss something.
 
->=20
-> Thanks,
-> Armin Wolf
->=20
-> >=20
-> > For this cycle let's keep the attribute as is.
-> >=20
-> > [..snip..]
-> >=20
-> > > > > +
-> > > > > +static struct led_trigger uniwill_lightbar_trigger =3D {
-> > > > > +	.name =3D "uniwill-rainbow",
-> > > > > +	.activate =3D uniwill_lightbar_trigger_activate,
-> > > > > +	.deactivate =3D uniwill_lightbar_trigger_deactivate,
-> > > > > +	.trigger_type =3D &uniwill_lightbar_trigger_type,
-> > > > > +};
-> > > > > +
-> > > > >    #define LIGHTBAR_MASK	(LIGHTBAR_APP_EXISTS | LIGHTBAR_S0_OFF |=
- LIGHTBAR_S3_OFF | LIGHTBAR_WELCOME)
-> > > > >   =20
-> > > > >    static int uniwill_led_init(struct uniwill_data *data)
-> > > > > @@ -1587,12 +1593,18 @@ static int uniwill_led_init(struct uniwil=
-l_data *data)
-> > > > >    	data->led_mc_cdev.led_cdev.max_brightness =3D 1;
-> > > > >    	data->led_mc_cdev.led_cdev.flags =3D LED_REJECT_NAME_CONFLICT=
-;
-> > > > >    	data->led_mc_cdev.led_cdev.brightness_set_blocking =3D uniwil=
-l_led_brightness_set;
-> > > > > +	data->led_mc_cdev.led_cdev.trigger_type =3D &uniwill_lightbar_t=
-rigger_type;
-> > > > > +	data->led_mc_cdev.led_cdev.hw_control_trigger =3D uniwill_light=
-bar_trigger.name;
-> > > > > +	data->led_mc_cdev.led_cdev.hw_control_set =3D uniwill_led_hw_co=
-ntrol_set;
-> > > > A private trigger does not need hw_control_set, which is only meant=
- to
-> > > > coordinate between different drivers, i.e., in the case when the LE=
-D
-> > > > device and the hardware control trigger are located at different dr=
-ivers.
-> > > >=20
-> > > > I've also updated the documentation in commit 8e04e5382aa9 ("leds:
-> > > > trigger: Add hw_offloaded() callback and provide
-> > > > trigger_may_offload_to_hw attribute"), quoted below:
-> > > >=20
-> > > >      Alternatively, a private trigger can be implemented along with=
- the LED
-> > > >      driver if the LED's hardware control doesn't fit any generic t=
-rigger. To
-> > > >      associate the private trigger with the LED classdev, their `tr=
-igger_type`
-> > > >      must be the same. To declare that the private trigger provides=
- hardware
-> > > >      control for the associated LED classdev, set the `hw_control_t=
-rigger`
-> > > >      string to the trigger's name. Since both the LED classdev and =
-the private
-> > > >      trigger are in the same LED driver, it's not necessary for the=
-m to
-> > > >      coordinate via `hw_control_*` callbacks.
-> > > >=20
-> > > > I'd suggest calling uniwill_led_hw_control_set() directly from the
-> > > > trigger's [de]activate callbacks, just like other drivers.
-> > > I decided to use this callbacks in order to be able to add support fo=
-r the keyboard backlight
-> > > animation in the future (if we someday find a device that supports th=
-is feature).
-> > The name "uniwill-rainbow" sounds irrelevant to keyboard backlight
-> > animation. In this case the latter needs a new private trigger with a n=
-ew
-> > name, and it can have different [de]activate callbacks. IOW, we don't
-> > need hw_control_set() either.
-> >=20
-> > Otherwise, using hw_control_set() makes sense to me as long as the
-> > current name is relevant.
-> >=20
-> >=20
-> >=20
-> > Since I've CC'ed leds folks:
-> >=20
-> > Per-key lighting is becoming increasingly common for keyboard backlight=
-.
-> >=20
-> > I am actually thinking about introducing LED array/matrix support to th=
-e
-> > leds subsystem. An LED array/matrix device is just a special LED device
-> > that controls all constituent LED devices, so that we can:
-> >=20
-> > - implement keyboard backlight animation (or LampArray autonomous mode)
-> > as an array/matrix hardware control trigger [1]
-> > - tune the lighting of the whole array/matrix at once by tuning the LED
-> > array/matrix device [2]
-> > - tune per-key lighting by tuning constituent LED devices
-> > - apply generic LED triggers to the whole array/matrix [1]
-> > - apply different generic LED triggers to different constituent LED
-> > devices
-> > - properly deconflict the above operations
-> >=20
-> > It definitely requires a lot of work to get things (especially locking
-> > and atomicity) right, but it should be very helpful for devices with pe=
-r-
-> > key lighting once done. I believe missing proper LED array/matrix suppo=
-rt
-> > was the main reason why tuxedo_nb04_wmi_ab [3] implemented a virtual
-> > LampArray HID device far before any userspace LampArray tool emerged.
-> >=20
-> > [1]: The constituent LED devices will be inoperable when a trigger is
-> > active on their array/matrix LED device.
-> >=20
-> > [2]: The leds subsystem won't emulate this. The driver must implement
-> > brightness_get() and brightness_set[_blocking]() for the LED array/matr=
-ix
-> > device.
-> >=20
-> > [3]: I know Texudo folks are working on adding hid-lamparray to connect
-> > it to the LED subsystem. I've had another independent implementation wi=
-th
-> > HIDRAW sniff, no hid-generic dependency, autonomous mode as a trigger,
-> > non-RGB LampArray support, and per-key LED device support in my local
-> > tree, but that's another story. I will firstly push it further without
-> > LED array/matrix support. Then I will try to add LED array/matrix
-> > support, with hid-lamparray being the first user.
-> >=20
-> > Thanks,
-> > Rong
-> >=20
-> > > > >   =20
-> > > > >    	if (value & LIGHTBAR_S0_OFF)
-> > > > >    		data->led_mc_cdev.led_cdev.brightness =3D 0;
-> > > > >    	else
-> > > > >    		data->led_mc_cdev.led_cdev.brightness =3D 1;
-> > > > >   =20
-> > > > > +	if (value & LIGHTBAR_WELCOME)
-> > > > Check !LIGHTBAR_S0_OFF too?
-> > > >=20
-> > > > If the last state is LIGHTBAR_S0_OFF|LIGHTBAR_WELCOME (probably cau=
-sed by
-> > > > an outdated driver without this patch), the trigger's activate call=
-back
-> > > > will be called on probe, lighting up the previously off LED. Is thi=
-s
-> > > > intentional?
-> > > >=20
-> > > > Thanks,
-> > > > Rong
-> > > Yes, this is intentional. LIGHTBAR_WELCOME implies !LIGHTBAR_S0_OFF, =
-some devices
-> > > even assume this.
-> > >=20
-> > > Thanks,
-> > > Armin Wolf
-> > >=20
-> > > > > +		data->led_mc_cdev.led_cdev.default_trigger =3D uniwill_lightba=
-r_trigger.name;
-> > > > > +
-> > > > >    	for (int i =3D 0; i < LED_CHANNELS; i++) {
-> > > > >    		data->led_mc_subled_info[i].color_index =3D color_indices[i]=
-;
-> > > > >   =20
-> > > > > @@ -3540,17 +3552,31 @@ static int __init uniwill_init(void)
-> > > > >    		pr_warn("Enabling potentially unsupported features\n");
-> > > > >    	}
-> > > > >   =20
-> > > > > -	ret =3D platform_driver_register(&uniwill_driver);
-> > > > > +	/*
-> > > > > +	 * We cannot register the trigger inside the .probe callback of=
- the
-> > > > > +	 * platform driver, because each trigger needs a unique name.
-> > > > > +	 */
-> > > > > +	ret =3D led_trigger_register(&uniwill_lightbar_trigger);
-> > > > >    	if (ret < 0)
-> > > > >    		return ret;
-> > > > >   =20
-> > > > > +	ret =3D platform_driver_register(&uniwill_driver);
-> > > > > +	if (ret < 0)
-> > > > > +		goto err_platform;
-> > > > > +
-> > > > >    	ret =3D uniwill_wmi_register_driver();
-> > > > > -	if (ret < 0) {
-> > > > > -		platform_driver_unregister(&uniwill_driver);
-> > > > > -		return ret;
-> > > > > -	}
-> > > > > +	if (ret < 0)
-> > > > > +		goto err_wmi;
-> > > > >   =20
-> > > > >    	return 0;
-> > > > > +
-> > > > > +err_wmi:
-> > > > > +	platform_driver_unregister(&uniwill_driver);
-> > > > > +
-> > > > > +err_platform:
-> > > > > +	led_trigger_unregister(&uniwill_lightbar_trigger);
-> > > > > +
-> > > > > +	return ret;
-> > > > >    }
-> > > > >    module_init(uniwill_init);
-> > > > >   =20
-> > > > > @@ -3558,6 +3584,7 @@ static void __exit uniwill_exit(void)
-> > > > >    {
-> > > > >    	uniwill_wmi_unregister_driver();
-> > > > >    	platform_driver_unregister(&uniwill_driver);
-> > > > > +	led_trigger_unregister(&uniwill_lightbar_trigger);
-> > > > >    }
-> > > > >    module_exit(uniwill_exit);
-> > > > >   =20
+>+}
+>+
+> void arm_smmu_install_ste_for_dev(struct arm_smmu_master *master,
+> 				  const struct arm_smmu_ste *target)
+> {
+>-	int i, j;
+>+	int i;
+> 	struct arm_smmu_device *smmu = master->smmu;
+>+	bool is_abort;
+> 
+
+....
+
+>@@ -4360,9 +4391,11 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
+> 				break;
+> 			}
+> 
+>-			if (list_empty(&stream->shared_masters))
+>+			if (list_empty(&stream->shared_masters)) {
+> 				list_add_tail(&stream->master->shared_masters_elm,
+> 					      &stream->shared_masters);
+>+				stream->master->stall_enabled = false;
+
+Sashiko comment:
+https://sashiko.dev/#/patchset/20261011-smmu-shared-sid-v6-0-cb76b89dc612%40nxp.com
+
+"
+Does this dynamically modify the software stall state of the active first
+master without reprogramming the active SMMU hardware STE?
+When a second device sharing a SID is dynamically probed, this clears the
+software stall_enabled flag for the existing active master. However, this
+software state change is never actively flushed to the live hardware Context
+Descriptor (CD), leaving the stall bit active in the SMMU hardware.
+If the first device triggers a page fault while in this mismatched state,
+the SMMU hardware will pause the transaction and generate a stall event.
+Because arm_smmu_find_master() returns NULL for shared SIDs, won't
+arm_smmu_handle_event() drop the event?
+Alternatively, if a fault was already reported to the IOPF queue just before
+the second device's probe, wouldn't arm_smmu_page_response() see the cleared
+stall_enabled flag and return early?
+In both cases, the required CMD_RESUME is never issued. Can this result in
+a permanent, unrecoverable lockup of the SMMU bus? Should this sharing be
+rejected if the existing master is already actively using SVA or IOPF?
+"
+
+I am thinking to simplify reject if stall_enabled is true:
+ 			if (list_empty(&stream->shared_masters)) {
++				if (stream->master->stall_enabled) {
++					dev_warn(master->dev,
++						 "Shared StreamID 0x%x rejected: existing master has stall enabled\n",
++						 sid);
++					ret = -EBUSY;
++					break;
++				}
+
+Otherwise things will be a bit complicated.
+
+May I get your suggestions?
+
+Thanks
+Peng
+
+
+>+			}
+> 			list_add_tail(&master->shared_masters_elm,
+> 				      &stream->shared_masters);
+> 			master->streams[n++] = stream;
+>@@ -4522,6 +4555,9 @@ static struct iommu_device *arm_smmu_probe_device(struct device *dev)
+> 	    smmu->features & ARM_SMMU_FEAT_STALL_FORCE)
+> 		master->stall_enabled = true;
+> 
+>+	if (arm_smmu_is_shared_sid(master))
+>+		master->stall_enabled = false;
+>+
+> 	ret = arm_smmu_master_prepare_ats(master);
+> 	if (ret)
+> 		goto err_disable_pasid;
+>
+>-- 
+>2.34.1
+>
+>
+>
