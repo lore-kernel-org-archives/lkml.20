@@ -1,30 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D732931DC;
-	Mon, 12 Oct 2026 23:36:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9609394462;
+	Mon, 12 Oct 2026 23:36:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791848207; cv=none; b=FBGn2+0AIBxTEHiIVpa2S2AtLK62o75IGxGRJZBz9hP+vPZZub4dZOIysYkV8PpP+QzX1iyhFslefM/nC5SPP+io/Z09xS13IakAdVawpasXhzOwOPYr2MSakzcyawK0rTPr+VxXht8rrgAA92yUVHW/gXw1hVrfuUtZ62uFOdE=
+	t=1791848209; cv=none; b=pSLH3Oo4+hPyuUGQ3WY0L82J9lzocSBr6X5holezmKdzGV74NmLDmfBs5s4SDs25+0IVm/rc5KUx196zWyD2ky0rJqbc6uSpFBe3eZnSYKD36fADIU1v6oT0ZePxL6L1WHbA34Y3706utw8aYXBvxGmp2fK7DxxHyRt224QXy0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791848207; c=relaxed/simple;
-	bh=JgrQqBc7drMB24xVZlkTZA0BGVYt6L6Yu2oXQRrJeTM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DIQW/4LdIA1Z+sEAvxPmzgBLlQGTcNESpoisyU0QPTfzhXZxd1LC8T2BF2OlEqLWhMYGn4bmURrG3IVfT6bYhFRfkHaUa3ahzxHL6bijn1a4+chqyxqH4QAfmPizsFalNHp1LEJa0KeDqqO7NKmnS6ZA5geICzf1TFlIi6QjRxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vz5+dybg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791848209; c=relaxed/simple;
+	bh=amVWWUN5rpHOjWkI1RO+rznJ3bqHpJhiiqIpF15eTjc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ENG3xqKuJB7at3qAyoI2yR854ycnGLXNQE3R5WsUxOlQw6HRfdpWu+9zLo8eAhT7xG+wR7Rh/l8cGYXTGWg+SMjS/rLOCzTwHRe1TX2RbfribyqYxq8QZbuiFMkQWVKB9qk92PRGjbifg3oCC3eUQjJL/o3Qo+V8IpwQ28M8Krs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dmO6XhEx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vz5+dybg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A89241F0089B;
-	Mon, 12 Oct 2026 23:36:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dmO6XhEx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A7A71F008A4;
+	Mon, 12 Oct 2026 23:36:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791848206;
-	bh=aalcpPHEI/cFORApeGAdtVePJhBXOoIxU8ls0due+JQ=;
-	h=From:To:Cc:Subject:Date;
-	b=Vz5+dybgarR5LlJHlBOaF3KlzaWSHNHbC9uyHi2dP130GmKZRQfGnd8rX6BAFAVJr
-	 t3aRyO1O5D6h+WPY2fAZKZehX7ozWzyEoE3zuL/bnc7cG1aoNpKzc+Oxg1DnPx0H+p
-	 xsaZKycvbJuGzk2Hk34mLM45f8Dq4ZrtWNvd/rlLHtyR33J6aKSEMk9hyNw5BKrUzj
-	 kPsWCJZNi/wjUADQO8jTUet2wLQ7yVhW2BLwRk9lMh2JI040lsqBeOAN5opinZR17h
-	 3gvsBVktXCGt0Fg+oTEwZgfbOJT3jsDVeaphQZWNroY8QKegmaizTOyzuy175Zz19Y
-	 akPVeSGZ5qmaw==
+	s=k20260515; t=1791848207;
+	bh=jZF5PmLSKMhczl4qsvAUjYB8e0P0nm2RYjou6Iamgwg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dmO6XhExl8apbtxakG/rQBodXXoHuMwyXpfhuMEy1gDU9hg7FNQ6ReEzgN0zGmFUp
+	 sD97uRleIWeDhBuzzCnizjnJuSxDjDZX3vqf/iNvEb5TcwATBUaDf3MAtcnS7QTep5
+	 SKlKhWSJAnfJtMzqQNCsmilgEDxeYbJ8aq09eNCm9sPtGbnT05SDebhYM8NvkBz60v
+	 Rq+iFodoT0rxk5UD3U1lKVPpk/bM8VGXEg5yrFlrUpEYdfwCjrnpXHtbYQOICWLoU4
+	 LJi2AN6BogVNzBMZZIwR3Dyj5shALnMTN9+cz/zOWdteSJqMeIbQE04LbRbbSGll45
+	 Bfn2K+NDAI6Nw==
 From: Yosry Ahmed <yosry@kernel.org>
 To: Sean Christopherson <seanjc@google.com>
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
@@ -35,10 +36,12 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Yosry Ahmed <yosry@kernel.org>
-Subject: [PATCH v3 00/27] KVM: nSVM: Optimize nSVM TLB flushes
-Date: Mon, 12 Oct 2026 23:36:11 +0000
-Message-ID: <20261012233638.2546339-1-yosry@kernel.org>
+Subject: [PATCH v3 03/27] KVM: VMX: Generalize VPID allocation to be vendor-neutral
+Date: Mon, 12 Oct 2026 23:36:14 +0000
+Message-ID: <20261012233638.2546339-4-yosry@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+In-Reply-To: <20261012233638.2546339-1-yosry@kernel.org>
+References: <20261012233638.2546339-1-yosry@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,197 +50,289 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series optimizes TLB flushes for nested SVM by using and maintaining
-a separate ASID for L2 for each vCPU (similar to VMX's handling of VPIDs),
-rather than sharing the same ASID and flushing everything on every nested
-transition.
+In preparation for sharing with SVM, generalize the VMX VPID allocation
+code and move it to common code as a TLB tags allocator. Parameterize
+the TLB tags allocator by the number of tags, and allocate the bitmap
+dynamically. Opportunisitcally use guards to acquire the lock instead of
+spin_{lock/unlock}().
 
-The series also drops the dynamic ASID allocation scheme and uses a
-static ASID per vCPU (or two if using nested), bringing it closer to how
-VMX handles VPIDs. Modern CPUs (Rome, Milan, Genoa, Turin) advertise 32K
-ASIDs, so there is no need for dynamic allocation.
+Keep the number of allowed tags capped at VMX's hardware cap, to avoid
+allocating a huge bitmap if L0 advertises a huge number of ASIDs to an
+L1 KVM. Realistically, the number of actual hardware ASIDs wouldn't be
+that large so there is no benefit.
 
-The Hyper-V bits only got build tested. The SEV bits were only tested
-using the SEV selftests.
+Initialize the TLB tags allocator during hardware setup/unsetup, and
+reserve tag=0 during initialziation, similar to how VPID=0 is currently
+reserved in the VMX-specific bitmap during hardware setup.
 
-Otherwise, this series was tested in two ways:
-1. A new selftest:
-  - Tests most basic scenarios where L1 flushes the TLB for L2, as well
-    as when KVM triggers a TLB flush for both L1 and L2.
-  - On AMD, also tests that flushing (or changing) L2's ASID flushes
-    nested NPT translations for all nCR3 roots, not just the current one.
-  - Fails reliably when injecting manual TLB bugs (e.g. commenting out a
-    flush).
-  - Caught an actual bug when I was rebasing the series on top of
-    Paolo's MMU structures rework.
-  - Works for both SVM and VMX.
-  - Was used to repro a separate nVMX TLB bug [1].
+Allow nr=0 to allow allocating all ASIDs to SEV on AMD without failing
+hardware setup, if at all possible, in which case any tag allocation
+fails (SEV won't use the tag allocator).  The number of tags includes
+tag=0, which is not usable. The interface is a little confusing in that
+regard, but this will be changed soon when reserved tags are explicitly
+introduced.
 
-2. An AI generated script (now 1300 lines of bash that I still don't dare
-   to read):
-  - Runs 20 L1 VMs, split into two groups:
-    - 10 L1 VMs with vCPUs pinned 1:1 to dedicated host CPUs, each
-      running a single L2 VM with as many vCPUs as L1. This avoids TLB
-      flushes on vCPU migration and L2 ASID switching, which would
-      otherwise hide missed flushes.
-    - 10 L1 VMs with vCPUs confined to half as many host CPUs, each
-      running 4 L2 VMs. This overcommits CPU in both L0 and L1 to
-      exercise TLB flushes on vCPU migration and L2 ASID switching.
-  - Each L2 VM runs a workload that writes to most of its memory and then
-    validates its content from a different vCPU.
-  - L2 VMs overcommit memory in L1, and are periodically recycled to
-    exercise ASID reallocation.
-  - L0 periodically reclaims memory from L1 VMs proactively (exercise
-    L0-induced TLB flushes).
-  - The number of ASIDs is synthetically reduced (using a test-only
-    patch) such that some L1 vCPUs use the fallback ASID for L2.
-  - Runs with NPT enabled/disabled in L0 and L1.
-  - Catches most manually injected TLB bugs, some only semi-reliably.
-  - Caught an actual bug when testing the fallback ASID logic with
-    synthetically reduced number of ASIDs (in v1).
+Keep allocate_vpid() and free_vpid() as wrapper that check enable_vpid
+to avoid checking at all callsites, and add init_vpids() and
+destroy_vpids() to wrap init/destroy calls as well.
 
-Overall, I think I am happy with the testing I put this series through,
-hence dropping the RFC tag at last.
+No functional change intended.
 
-Breakdown:
-- Patch 1 is a bug fix that can be taken separately.
-- Patches 2-11 implement the change to use static ASIDs per vCPU for
-  SVM (including SEV-specific handling and fallback ASID optimization),
-  and can also be taken separately if needed.
-- Patches 12-26 add the L2 ASID and proper handling for it, leading to
-  dropping the unconditional flushes on nested transitions.
-- Patch 27 adds the nested TLB flush selftest.
+Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+---
+ arch/x86/kvm/mmu.h     |  8 +++++
+ arch/x86/kvm/mmu/mmu.c | 78 ++++++++++++++++++++++++++++++++++++++++++
+ arch/x86/kvm/vmx/vmx.c | 40 +++++-----------------
+ arch/x86/kvm/vmx/vmx.h | 28 ++++++++++++---
+ 4 files changed, 119 insertions(+), 35 deletions(-)
 
-v2 -> v3:
-- Reworked INVLPGA emulation to free L2's shadow roots when NPT is
-  disabled and L1 flushes L2's ASID, instead of syncing the flushed
-  address.
-- Dropped "KVM: x86/mmu: Rename __kvm_mmu_invalidate_addr() to
-  kvm_mmu_sync_addr()" and "KVM: x86/mmu: Refactor kvm_mmu_invlpg() to
-  allow skipping the GVA flush", as they are no longer needed.
-- Use READ_ONCE()/WRITE_ONCE() to access the per-CPU fallback ASID vCPU
-  tracking [Sashiko].
-- Added a "memory" clobber to invlpga() in selftests [Sashiko].
-- Clarified that VMRUN does not modify TLB_CONTROL in the changelog of
-  "KVM: nSVM: Handle nested TLB flush requests through TLB_CONTROL".
-- Collected Reviewed-by from Lai.
-- Typo fixes.
-
-v1 -> v2:
-- Rebased on top of kvm-x86-next-2026.10.02. Drop the fixes to the
-  dynamic ASID allocation that landed since v1 when switching to static
-  ASIDs, as they are no longer needed (bumping the ASID generation on CPU
-  online, resetting the ASID generation of both VMCBs on pCPU switch,
-  and tracking pending full flushes per-CPU).
-- Dropped "KVM: SVM: Duplicate pre-run ASID check for SEV and non-SEV
-  guests", and keep syncing the ASID into the VMCB before VMRUN until
-  static ASIDs are used, to avoid leaving vmcb02's ASID uninitialized
-  for SEV guests in between [Sashiko].
-- Explicitly initialize svm->asid during SEV VM migration in a separate
-  patch, before the VMCB is initialized [Sashiko].
-- Free any existing non-SEV ASID on the destination vCPUs during SEV VM
-  migration to avoid leaking it, and decide whether an ASID needs to be
-  freed based on the ASID range rather than the VM type [Sashiko].
-- Update the L2 ASID (and vmcb02) during SEV VM migration if nested was
-  already initialized on the destination vCPUs [Sashiko].
-- Moved "KVM: nSVM: Drop svm->nested.initialized" before introducing the
-  L2 ASID, so that the vmcb02 pointer can be reliably used to check if
-  nested is initialized.
-- Moved the WARN on L1 and L2 unexpectedly sharing an ASID to the patch
-  that actually uses different ASIDs [Sashiko].
-- Added KVM_REQ_MMU_SYNC_ALL_ROOTS, and sync all nested NPT roots (not
-  just the current one) when L1 flushes or changes L2's ASID, as shadow
-  NPT mappings are not tagged by ASID.
-- Reset the last L2 ASID if nested VMRUN fails, to avoid losing the
-  nested NPT sync.
-- Extended the selftest to cover flushing with multiple nested NPT roots.
-- Typo and changelog fixes.
-
-RFC v2 -> v1:
-- Dropped the RFC tag.
-- Document KVM's handling of number of ASIDs in CPUID rather than
-  increase the number of advertised ASIDs [Jim, Sean].
-- Explicitly support reserved TLB tags rather than a minimum TLB tag
-  [Sean].
-- Set an upper bound on the number of TLB tags [Sean].
-- Allow reserving all ASIDs to allow allocating all ASIDs to SEV (if at
-  all possible). [Sashiko].
-- Actually handle TLB flushes for nested on SEV [Sean, Sashiko].
-- Optimize fallback ASID flushes by tracking the last vCPU using it on
-  each pCPU instead of flushing it on every VMRUN [Sean].
-- Drop svm->nested.initialized and properly NULLify the vmcb02 pointer
-  instead (and use it).
-- Make sure servicing local TLB flushes is done when both the VMCB and
-  guest_mode are consistent [Sashiko].
-- Always initialize last_asid to 0 to flush the TLB on the first use of
-  L2's ASID [Sashiko].
-- Open-code TLB flush handling on nested VM-Enter and VM-Exit instead of
-  burying it in svm_switch_vmcb() [Sean].
-- Always flush the hardware ASID on nested transitions if L1 and L2
-  share it (e.g. when using the fallback ASID, or for SEV guests) to
-  prevent TLB entry leakage between L1 and L2.
-- Rename __kvm_mmu_invalidate_addr() to kvm_mmu_sync_addr() [Sean].
-
-RFC v1: https://lore.kernel.org/lkml/20250326193619.3714986-1-yosry.ahmed@linux.dev/
-RFC v2: https://lore.kernel.org/kvm/20260616004155.1435766-1-yosry@kernel.org/
-v1: https://lore.kernel.org/kvm/20260728003557.1136583-1-yosry@kernel.org/
-v2: https://lore.kernel.org/kvm/20261008001425.2458927-1-yosry@kernel.org/
-
-[1] https://lore.kernel.org/kvm/20260722230128.1587363-1-yosry@kernel.org/
-
-Yosry Ahmed (27):
-  KVM: nSVM: Flush the TLB after forcefully leaving nested
-  KVM: SVM: Document number of ASIDs CPUID setting
-  KVM: VMX: Generalize VPID allocation to be vendor-neutral
-  KVM: x86/mmu: Support specifying reserved TLB tags
-  KVM: SVM: Add helpers to set/clear ASID flush in VMCB
-  KVM: SVM: Fallback to flush everything if FLUSHBYASID is not available
-  KVM: SEV: Do ASID initialization at VMCB initialization
-  KVM: SEV: Expose sev_get_asid() outside of sev.c
-  KVM: SEV: Explicitly initialize the per vCPU ASID on SEV VM migration
-  KVM: SVM: Use a static ASID per vCPU
-  KVM: SVM: Only flush the fallback ASID when used by a different vCPU
-  KVM: nSVM: Drop svm->nested.initialized
-  KVM: nSVM: Add a placeholder ASID for L2
-  KVM: x86: hyper-v: Rename kvm_hv_vcpu_purge_flush_tlb()
-  KVM: x86: hyper-v: Allow purging all TLB flush FIFOs
-  KVM: nSVM: Flush both L1 and L2 ASIDs on KVM_REQ_TLB_FLUSH
-  KVM: nSVM: Always switch VMCB before leaving guest mode
-  KVM: nSVM: Split nested_svm_transition_tlb_flush() into entry/exit fns
-  KVM: nSVM: Service local TLB flushes before nested transitions
-  KVM: x86: Add KVM_REQ_MMU_SYNC_ALL_ROOTS
-  KVM: nSVM: Handle nested TLB flush requests through TLB_CONTROL
-  KVM: nSVM: Flush the TLB if L1 changes L2's ASID in vmcb12
-  KVM: nSVM: Do not reset TLB_CONTROL in vmcb02 on nested VM-Enter
-  KVM: nSVM: Flush L2's ASID when emulating INVLPGA
-  KVM: nSVM: Flush the ASID on nested transitions if shared by L1 and L2
-  KVM: nSVM: Use different ASIDs for L1 and L2
-  KVM: selftests: Add a test for nested TLB flushes
-
- Documentation/virt/kvm/api.rst                |  20 +
- arch/x86/include/asm/kvm_host.h               |   1 +
- arch/x86/kvm/cpuid.c                          |   4 +-
- arch/x86/kvm/hyperv.h                         |  33 +-
- arch/x86/kvm/mmu.h                            |  15 +
- arch/x86/kvm/mmu/mmu.c                        |  92 +++
- arch/x86/kvm/svm/nested.c                     | 151 +++--
- arch/x86/kvm/svm/sev.c                        |  37 +-
- arch/x86/kvm/svm/svm.c                        | 160 ++++--
- arch/x86/kvm/svm/svm.h                        |  55 +-
- arch/x86/kvm/vmx/vmx.c                        |  40 +-
- arch/x86/kvm/vmx/vmx.h                        |  28 +-
- arch/x86/kvm/x86.c                            |  13 +-
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../selftests/kvm/include/x86/processor.h     |   1 +
- tools/testing/selftests/kvm/include/x86/svm.h |   5 +
- tools/testing/selftests/kvm/include/x86/vmx.h |  21 +
- .../testing/selftests/kvm/lib/x86/processor.c |  36 ++
- .../selftests/kvm/x86/nested_tlb_flush_test.c | 526 ++++++++++++++++++
- 19 files changed, 1076 insertions(+), 163 deletions(-)
- create mode 100644 tools/testing/selftests/kvm/x86/nested_tlb_flush_test.c
-
-
-base-commit: 6bd2905303c58679e303941b7d8ae8c074cd95ce
+diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
+index 2ae7f9ed4cf86..de79e002edf8f 100644
+--- a/arch/x86/kvm/mmu.h
++++ b/arch/x86/kvm/mmu.h
+@@ -410,4 +410,12 @@ static inline bool kvm_is_gfn_alias(struct kvm *kvm, gfn_t gfn)
+ {
+ 	return gfn & kvm_gfn_direct_bits(kvm);
+ }
++
++typedef unsigned int kvm_tlb_tag_t;
++
++int kvm_init_tlb_tags(unsigned int nr);
++void kvm_destroy_tlb_tags(void);
++kvm_tlb_tag_t kvm_alloc_tlb_tag(void);
++void kvm_free_tlb_tag(kvm_tlb_tag_t tag);
++
+ #endif
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index aadd5bdc2c97a..97d49247d9d82 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -8178,6 +8178,84 @@ void kvm_mmu_pre_destroy_vm(struct kvm *kvm)
+ 		vhost_task_stop(kvm->arch.nx_huge_page_recovery_thread);
+ }
+ 
++static struct {
++	spinlock_t	lock;
++	unsigned long	*bitmap;
++	unsigned int	nr;
++} tlb_tags;
++
++int kvm_init_tlb_tags(unsigned int nr)
++{
++	/*
++	 * Limit the number of TLB tags to VMX's hardcoded maximum of 0x10000
++	 * to avoid wasting memory for the bitmap in the unlikely scenario the
++	 * CPU supports an inordinate number of ASIDs (on AMD).  If userspace
++	 * wants to concurrently run tens of thousands of vCPUs, they'll likely
++	 * need a solution that works for both Intel and AMD.
++	 */
++	const unsigned int MAX_NR_TLB_TAGS = VMX_NR_VPIDS;
++
++	if (!nr)
++		return 0;
++
++	if (nr > MAX_NR_TLB_TAGS) {
++		pr_warn_once("Number of TLB tags capped (%u instead of %u)\n",
++			     MAX_NR_TLB_TAGS, nr);
++		nr = MAX_NR_TLB_TAGS;
++	}
++
++	tlb_tags.bitmap = bitmap_zalloc(nr, GFP_KERNEL);
++	if (!tlb_tags.bitmap)
++		return -ENOMEM;
++
++	/*
++	 * 0 is the host's TLB tag for both VMX's VPID and SVM's ASID, and is
++	 * returned on failed allocations (e.g. no more tags left).
++	 */
++	__set_bit(0, tlb_tags.bitmap);
++
++	tlb_tags.nr = nr;
++	spin_lock_init(&tlb_tags.lock);
++	return 0;
++}
++EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_init_tlb_tags);
++
++void kvm_destroy_tlb_tags(void)
++{
++	bitmap_free(tlb_tags.bitmap);
++	tlb_tags.bitmap = NULL;
++}
++EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_destroy_tlb_tags);
++
++kvm_tlb_tag_t kvm_alloc_tlb_tag(void)
++{
++	kvm_tlb_tag_t tag;
++
++	if (!tlb_tags.bitmap)
++		return 0;
++
++	guard(spinlock)(&tlb_tags.lock);
++
++	tag = find_first_zero_bit(tlb_tags.bitmap, tlb_tags.nr);
++	if (tag >= tlb_tags.nr)
++		return 0;
++
++	__set_bit(tag, tlb_tags.bitmap);
++	return tag;
++}
++EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_alloc_tlb_tag);
++
++void kvm_free_tlb_tag(kvm_tlb_tag_t tag)
++{
++	if (!tag || WARN_ON_ONCE(tag >= tlb_tags.nr))
++		return;
++
++	guard(spinlock)(&tlb_tags.lock);
++
++	__clear_bit(tag, tlb_tags.bitmap);
++}
++EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_free_tlb_tag);
++
+ #ifdef CONFIG_KVM_VM_MEMORY_ATTRIBUTES
+ static bool hugepage_test_mixed(struct kvm_memory_slot *slot, gfn_t gfn,
+ 				int level)
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index b341af4c6057a..a1caa2bd04d7a 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -598,9 +598,6 @@ DEFINE_PER_CPU(struct vmcs *, current_vmcs);
+  */
+ static DEFINE_PER_CPU(struct list_head, loaded_vmcss_on_cpu);
+ 
+-static DECLARE_BITMAP(vmx_vpid_bitmap, VMX_NR_VPIDS);
+-static DEFINE_SPINLOCK(vmx_vpid_lock);
+-
+ struct vmcs_config vmcs_config __ro_after_init;
+ struct vmx_capability vmx_capability __ro_after_init;
+ 
+@@ -4092,31 +4089,6 @@ static void seg_setup(int seg)
+ 	vmcs_write32(sf->ar_bytes, ar);
+ }
+ 
+-int allocate_vpid(void)
+-{
+-	int vpid;
+-
+-	if (!enable_vpid)
+-		return 0;
+-	spin_lock(&vmx_vpid_lock);
+-	vpid = find_first_zero_bit(vmx_vpid_bitmap, VMX_NR_VPIDS);
+-	if (vpid < VMX_NR_VPIDS)
+-		__set_bit(vpid, vmx_vpid_bitmap);
+-	else
+-		vpid = 0;
+-	spin_unlock(&vmx_vpid_lock);
+-	return vpid;
+-}
+-
+-void free_vpid(int vpid)
+-{
+-	if (!enable_vpid || vpid == 0)
+-		return;
+-	spin_lock(&vmx_vpid_lock);
+-	__clear_bit(vpid, vmx_vpid_bitmap);
+-	spin_unlock(&vmx_vpid_lock);
+-}
+-
+ static void vmx_msr_bitmap_l01_changed(struct vcpu_vmx *vmx)
+ {
+ 	/*
+@@ -8415,6 +8387,8 @@ void vmx_hardware_unsetup(void)
+ 
+ 	if (nested)
+ 		nested_vmx_hardware_unsetup();
++
++	destroy_vpids();
+ }
+ 
+ void vmx_vm_destroy(struct kvm *kvm)
+@@ -8640,8 +8614,6 @@ __init int vmx_hardware_setup(void)
+ 	kvm_caps.has_bus_lock_exit = cpu_has_vmx_bus_lock_detection();
+ 	kvm_caps.has_notify_vmexit = cpu_has_notify_vmexit();
+ 
+-	set_bit(0, vmx_vpid_bitmap); /* 0 is reserved for host */
+-
+ 	if (enable_ept)
+ 		kvm_mmu_set_ept_masks(enable_ept_ad_bits);
+ 	else
+@@ -8681,6 +8653,10 @@ __init int vmx_hardware_setup(void)
+ 
+ 	vmx_set_cpu_caps();
+ 
++	r = init_vpids();
++	if (r)
++		return r;
++
+ 	/*
+ 	 * Configure nested capabilities after core CPU capabilities so that
+ 	 * nested support can be conditional on base support, e.g. so that KVM
+@@ -8688,8 +8664,10 @@ __init int vmx_hardware_setup(void)
+ 	 */
+ 	if (nested) {
+ 		r = nested_vmx_hardware_setup(kvm_vmx_exit_handlers);
+-		if (r)
++		if (r) {
++			destroy_vpids();
+ 			return r;
++		}
+ 	}
+ 	vmx_nested_ops.enabled = nested;
+ 
+diff --git a/arch/x86/kvm/vmx/vmx.h b/arch/x86/kvm/vmx/vmx.h
+index 6c9dd5b2365d5..a8df797163ecc 100644
+--- a/arch/x86/kvm/vmx/vmx.h
++++ b/arch/x86/kvm/vmx/vmx.h
+@@ -182,7 +182,7 @@ struct nested_vmx {
+ 	u64 pre_vmenter_ssp;
+ 	u64 pre_vmenter_ssp_tbl;
+ 
+-	u16 vpid02;
++	kvm_tlb_tag_t vpid02;
+ 	u16 last_vpid;
+ 
+ 	int tsc_autostore_slot;
+@@ -256,7 +256,7 @@ struct vcpu_vmx {
+ 			u32 ar;
+ 		} seg[8];
+ 	} segment_cache;
+-	int vpid;
++	kvm_tlb_tag_t vpid;
+ 
+ 	/* Support for a guest hypervisor (nested VMX) */
+ 	struct nested_vmx nested;
+@@ -297,9 +297,29 @@ struct kvm_vmx {
+ 	u64 *pid_table;
+ };
+ 
++static __always_inline int init_vpids(void)
++{
++	return enable_vpid ? kvm_init_tlb_tags(VMX_NR_VPIDS) : 0;
++}
++
++static __always_inline void destroy_vpids(void)
++{
++	if (enable_vpid)
++		kvm_destroy_tlb_tags();
++}
++
++static __always_inline kvm_tlb_tag_t allocate_vpid(void)
++{
++	return enable_vpid ? kvm_alloc_tlb_tag() : 0;
++}
++
++static __always_inline void free_vpid(kvm_tlb_tag_t vpid)
++{
++	if (enable_vpid)
++		kvm_free_tlb_tag(vpid);
++}
++
+ void vmx_vcpu_load_vmcs(struct kvm_vcpu *vcpu, int cpu);
+-int allocate_vpid(void);
+-void free_vpid(int vpid);
+ void vmx_set_constant_host_state(struct vcpu_vmx *vmx);
+ void vmx_prepare_switch_to_guest(struct kvm_vcpu *vcpu);
+ void vmx_set_host_fs_gs(struct vmcs_host_state *host, u16 fs_sel, u16 gs_sel,
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
