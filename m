@@ -1,33 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2EAB3783D5;
-	Mon, 12 Oct 2026 08:43:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D432449988
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:44:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791794624; cv=none; b=cIR6Yp5VAG3Rzh/sH1VAmxJb7R0BqKYBjv2YJRjtmLI12nCOPZ+1xR+EBzu42GCLV0qAR+s7cBp+b84mDk6PLpuM1dXn+QYfA8F9apuZQXjoRXZ+trJu2R7aZWP5tXkj/L5wcuCOM+ZVh9vIe9tjUb1uvHbrS3b1tywCxWJmAlM=
+	t=1791794656; cv=none; b=pLKPtmCyaDS4mZ7fSrRX5V2+/+lwgnrP8S1R/DMoPwpQ6w654dvS/lTvi40AFuUZqjKTRL6IGqtvd77SrQDkH5Dj7ChHTw4wMuQ6G9dcWShoOb6R5j2U6tViovu5vPRogGTrNMux8X4osB9IYV9A5leYPHM2mXs4UiBChelqP5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791794624; c=relaxed/simple;
-	bh=MEV4eIgzi1c7OgWrYKh4Iq2spLBW4CmEOtx8B3r4OLc=;
+	s=arc-20240116; t=1791794656; c=relaxed/simple;
+	bh=RXqvJkUmC7zN/V2K+XiNWWgBkFCnWAJVf9UZod5Dsaw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VhTc7PNbZAlueqQjIMOb33TQaEmBHA2GXXBBW85QTKiQQfIzkiR7yGgLl58wN4mYSH0Oz2ljM3viOuNf4fK8yBrFDbiJmC247NSbveEe5BCvWon7u5G1/Y8WL9KR/e/Dv7ogJYpeaCHXRGtv9GMmqJB8OIAKH2OkLT9dwP+Pc8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YP+8rVBy; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=UnG8I5TZdhQc38nkGaXG6NLvXJJ5bHiHSVsJB85SJppIPKU6ozK8qQ878rgFbeKw+nN7KyfDqELRkon6yK2XBKbo9REc0WBVntoKDYXP8t+jUfQh9Q/tpNtZqxdfpxT7uqCK9pvVcXasuR8yWpN7BI7MQ5xvUE+anLXg6V+IipE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TI/f+71o; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EtO3UpS5; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YP+8rVBy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5C021F0089B;
-	Mon, 12 Oct 2026 08:43:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791794623;
-	bh=guyaaiXCI/rOcpPuJT7JKgOohKhp9or0AqS1UexNjOU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YP+8rVByzmm+woAzbMGm2wcdkoZFXDhKzdV2KQZ7ILx9YfpQnAeAwIE8e4SAYxxmt
-	 5fOYwXZpsGafpMF2VTiqjUcYnkWbO+CKSKCAwQdvJ+I6NJjmmAWRfoCvWiNlg3sK5g
-	 vZY68JIjTkTibsf2VqUIR7u3dlBv3QjtZDvbfkaJ1tSjP8Oj75Hkh6DJNz+gnZfgkS
-	 +Sx6XFG4ZmbkAy5hhyDFq4pVRcJeO1bPnb22/Iw4UoZpF9Jgj3FPIOsapgUM4i4VMm
-	 T3evCNJkxY8TYM0XrkCqJpzAcBD87emk9TJgyAB7Mtdomf6nV8xjePKV0A0VyYdxXD
-	 gku/DdoCfja+w==
-Message-ID: <d0f00c80-7ba7-4701-97bc-4f1d3a91d48c@kernel.org>
-Date: Mon, 12 Oct 2026 10:43:34 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TI/f+71o";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EtO3UpS5"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8KAdk2796152
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:44:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Y8ppqiJky8MVWsFGfbBMBrD30oFhk9S3lgnHFDVpbFg=; b=TI/f+71ocIV7xEfr
+	Pz6XvHWCbtyXpQ6j9aTj95e0Obnxj9+0i3IHjeSyQFzOhBBj4HQ5PYvQwY30Ru/L
+	aB2dlzbnkzkZFMG5Gq87f/EX4eC12TbD6y2msF06FhmEB2cuC6QnLD+oVZaWxxdd
+	zOuW+71vcucC0RgQMsrL2o8anEpEhE+NbincLPbf8ZZTcZySjG9J6Y663YqQEtf5
+	vBogQf8albLnUCLNm0RPou5kN3zTaHRHiakJqRfn3OAelU3MKsvgwpmsQu3lAGjj
+	YiT7TPQSbvHf7Z9D+bPpyIw29IRlBcICGubmon8TkUGdvIUiuPZg0voQY3IBwiLQ
+	u/DTgw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8uh3g82y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:44:14 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3aaf955db5fso2469458a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:44:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791794654; x=1792399454; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y8ppqiJky8MVWsFGfbBMBrD30oFhk9S3lgnHFDVpbFg=;
+        b=EtO3UpS5UfwD98EZpmJ435zaiPOU88ZnJGbQQbJMbduukQFPym/pXomj2jA6LKqrJ7
+         IyIX4JuxUp/Al+owd2KqrQce3eDghA0sWeqrLw29nxfSB4fQWJLiqlMR3aSJkIJp0snz
+         ng0Cj+njNvTCtrqRZbf3aYMl6YpZSkwtZ1lJKPbd2qAeJGdwEbSsFfUa643WVvaVyhAl
+         WUEWijYesXU7IbJeLVUBBxm8yw611zbCddB3MAt1dRm/HPLMDoPEJ+MYu3VwIKLZcneB
+         U1Am+HaJzupekIIbo1BQuJYv1X8acpsln6WlXpr/EnE4u+eBHwY47uszzPHfZGF2Y+CM
+         fKWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791794654; x=1792399454;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y8ppqiJky8MVWsFGfbBMBrD30oFhk9S3lgnHFDVpbFg=;
+        b=v4aSpIxzA49qOK4UggMnPIMg0f5K7YF6RQIU7Lnm914xnRXljPhdjrO268IIT/lQ27
+         +Qk27rTLG6K2zJo9dljHt3pCTjjAodL+SL8djsJOftzxgAqLqqtPCnUrXZoMWZIW4cLB
+         yxsGz2TPY4DAZmJtcoc2UZEaz3pgYnf8zN1mAHx8yxMrtnVh4YvdTeDK04PdHOAn6drg
+         JimObcTj701R00+PM2pvea2FNwGddxPxR5awQ+U+SDMEtGAj5oBeaaani2yMuW7TAYDk
+         oxcyyB2QVOqMqu5/7Q4kbsSG2ADNDWxrIRnsBqizQmX/y7gwa/rMNsbfwwZkUIT73ygL
+         OJKg==
+X-Forwarded-Encrypted: i=1; AKwUvByeyiNAhxTHQl7bhOy46Hn4AMzqBm8c1b+1Vj6ifwAKxxbgxS5hMf2MqF7VPItoShFmDcHN2Sp/iw/DAQw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQKhiMkKu7/W4a1zA7ZGt/iC2kBwI5gUYnRE8pkghTdR2Sf/EF
+	FkxXEu0YJw01rf+Lw8l5HKvMsNHfS5TtSh6A48Q8LJFY9KF2glp64B3wqmh761Q9a+IEZDL5E9j
+	j7X/+6Fa3FiljA1QmgSFQmQbeOmdmV3J9xA5/4Sp2O1osYV3qh/3ahUtgipD6KqnBmPo=
+X-Gm-Gg: AYBFou0F27TDWa6gEXh11ewHCkS97aU9Sq7dD5ISIsUj7ZyPcxA4AjDFk59m7mzc/2A
+	LSAosFSMMKE14p+fzPP4KLDqqf4wMUxRHLoRRrWqDPW0jOuuhPdNUirDaCwpvCgGDJP+FeVlXeK
+	1/VMhq8RQxHcw/tOSVOMUIEU0w5T8sdWbg4MF67AbixGK9XXGC5QRJMrEwb3GNK1tavPP5VBvHO
+	d+j2ov0b3yazl2M0mWWYqxRKp+u3kOkMtYDpWcIp/LvhgmGBr2hFw+ID2Qfh7BlcFIB6+jcS4DZ
+	1YWCDtC1m9lN5jNBU+LVWvIvX2H5OSdbHBvQxQ4LmvLW/9QIqveFicuiZHyGw8EMvA7nMwRWMW+
+	MjYstP8YTxgTsXSPZSWCARAVLdBqh7YAPnIp0qreDYxBCDf+LEP2mowMRksFUi2E6Fdj3ww==
+X-Received: by 2002:a17:90b:4d86:b0:3a6:d8e0:c359 with SMTP id 98e67ed59e1d1-3ab3a2fe039mr7006562a91.2.1791794653586;
+        Mon, 12 Oct 2026 01:44:13 -0700 (PDT)
+X-Received: by 2002:a17:90b:4d86:b0:3a6:d8e0:c359 with SMTP id 98e67ed59e1d1-3ab3a2fe039mr7006544a91.2.1791794653066;
+        Mon, 12 Oct 2026 01:44:13 -0700 (PDT)
+Received: from [10.133.33.27] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3abe588fa31sm5195536a91.14.2026.10.12.01.44.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 01:44:12 -0700 (PDT)
+Message-ID: <3c28f89e-8b49-4937-b4c8-66da180a5706@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 16:44:06 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,80 +89,124 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] riscv: dts: allwinner: Keep MQ Pro Wi-Fi powered during
- suspend
-To: khaliforce <kforce@gmail.com>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, devicetree@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <179172282222.4040500.483739720170904755.mq-pro-sdio-suspend@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v7 08/35] drm/msm/dp: add support to send ACT packets for
+ MST
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org,
+        Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
+ <20260929-msm-dp-mst-v7-8-4b81473185e7@oss.qualcomm.com>
+ <aolbmfnrk6qkfifib6bmhslaro5z2734ydfip4mnn3go4efpsy@2d4m6nnh7ogv>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <179172282222.4040500.483739720170904755.mq-pro-sdio-suspend@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <aolbmfnrk6qkfifib6bmhslaro5z2734ydfip4mnn3go4efpsy@2d4m6nnh7ogv>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzNCBTYWx0ZWRfXyjCsdJtF6yHb
+ IKv2y04EvXZnpMjhDLpP6+sBRslilckZKgrQSiIie/TMdZvA6tUpzkieHZWsQhaH/3SyuiGuC4I
+ kQyWUunzqerBEX01MDCuJDgRpNDsP0lO7LOS3CE2AYZ38q+1egyJm0FJWntrq8ma67i3eWE0KeH
+ In2q+SUzrQzIIoN+Upcl+koAyfnocBxRmLSDbJ42r89Kg6eNE/+/dJY07CZa1YvKpHAaJOSXzCF
+ 8oBQrByeNryZcjL5HmpM7Wnv+oFEQTNeAZDPoSecVgHGVi8Dsu4cNiy5FBSKX3mqUiuALb+kaOP
+ E7DAV42qSeWwlxb4vjOaE//M6gMSV+uZNQLaKBoY6NzOJol7DVYosqyBtVI/pxVJG3tgX8ogGQX
+ 9ezfeGK77WgT7EW1D4Y+rhViKOKi5e5aGuesNIGmBQ3pOjJNeTjwGipBCnhl+hqkjnDCF2580s4
+ fQekmqlPyRoHrjxcGQw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzNCBTYWx0ZWRfX/TGSlc85phSH
+ RBBTlP3z+UJwM/TeFmH7nqGnPTVbclM2zTAVU7qUEcYrK6nX1PyKKnn3oOPgmHn/+rNpGzD8ND6
+ rppJFimxsV8qz8iIN+XA5mpKBYNs+yg=
+X-Authority-Analysis: v=2.4 cv=QO391QLL c=1 sm=1 tr=0 ts=6acc9dde cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=G1Bnig19-K7uSukdqRAA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: X_f3Bzh5y5pWY7yB-UHzIw_bK7E9na5I
+X-Proofpoint-GUID: X_f3Bzh5y5pWY7yB-UHzIw_bK7E9na5I
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0 suspectscore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120034
 
-On 11/10/2026 14:47, khaliforce wrote:
-> The RTL8723DS driver requests MMC_PM_KEEP_POWER during suspend.
-> The MQ Pro SDIO host lacks this capability.
-> The request returns -EINVAL and aborts suspend.
-> 
-> Add keep-power-in-suspend to the board's SDIO controller.
-> 
-> Tested on MangoPi MQ Pro.
-> RTC-triggered s2idle wake and Wi-Fi reconnection pass.
-> 
-> Signed-off-by: khaliforce <kforce@gmail.com>
 
-Please read submitting patches document about properly attributing patches.
 
-Best regards,
-Krzysztof
+On 10/1/2026 6:32 PM, Dmitry Baryshkov wrote:
+> On Tue, Sep 29, 2026 at 12:25:32PM +0800, Yongxing Mou wrote:
+>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>
+>> Whenever virtual channel slot allocation changes, the DP
+>> source must send the action control trigger sequence to notify
+>> the sink about the same. This would be applicable during the
+>> start and stop of the pixel stream. Add the infrastructure
+>> to be able to send ACT packets for the DP controller when
+>> operating in MST mode.
+>>
+>> Add REG_DP_MST_ACT, the ACT trigger register used by this sequence.
+>>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 44 ++++++++++++++++++++++++++++++++++++-
+>>   drivers/gpu/drm/msm/dp/dp_ctrl.h    |  5 ++++-
+>>   drivers/gpu/drm/msm/dp/dp_display.c |  3 ++-
+>>   drivers/gpu/drm/msm/dp/dp_display.h |  1 +
+>>   drivers/gpu/drm/msm/dp/dp_reg.h     |  1 +
+>>   5 files changed, 51 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> index e1614bc49a7c..65d22505c2b6 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> @@ -142,6 +142,7 @@ struct msm_dp_ctrl_private {
+>>   	bool core_clks_on;
+>>   	bool link_clks_on;
+>>   	bool stream_clks_on[DP_STREAM_MAX];
+>> +	bool mst_active;
+> 
+> I really don't like the idea of having this flag in two locations. Here
+> and in the msm_dp_display_private. Can we have it in one place only?
+> 
+These two fields are intended to represent different states with 
+different lifetimes.
+
+msm_dp::mst_active tracks whether the DP connection has an active MST 
+session. The controller field records whether the current 
+controller/link is operating in MST mode and remains valid until the 
+link is shut down.
+
+I agree that using mst_active for both fields makes them look like 
+duplicated state. I propose renaming the controller field to mst_mode 
+while keeping the display-side field as mst_active.
+
+Would you agree with this change?
+>>   };
+>>   
+> 
+> [...]
+> 
+>>   
+>>   static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+>> index 83117e7619f3..472429d09200 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.h
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
+>> @@ -19,6 +19,7 @@ struct msm_dp {
+>>   	struct drm_bridge *bridge;
+>>   	bool audio_enabled;
+>>   	bool power_on;
+>> +	bool mst_active;
+>>   	unsigned int connector_type;
+>>   	bool is_edp;
+>>   
+> 
+
