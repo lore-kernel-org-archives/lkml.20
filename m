@@ -1,100 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00DB346F4A1;
-	Mon, 12 Oct 2026 09:04:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CFC36C0DC;
+	Mon, 12 Oct 2026 09:04:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791795879; cv=none; b=sRWua8eGmwviDTP3T4P9Tub1+6dKHgtcYjJV3WfhOQ0c7JG8tbxfBBQO03ERxRl6LbTcUf7B1SMPT04AWdNkRmTwO6ERW2KDYhFUG5Y0j9nkcJU4OfcgP3KDwFd3Uoq/u/+/9ZJ4mmuWzFJGxq0xUybQc5gsgeRA/Yrc+4yrf78=
+	t=1791795892; cv=none; b=FIcInFy/2cMO9z0KVCZpRLe0FUNPsvRTV49eBSz6edxiJu9qbKgfjaoZdHQmyzzmHm7bizGVG9vptZkYrwypyj2OFEAMVsGArPfvVJRAlU+Y+22x1+hT53419cj3RHRJM9Q6AVx5400srApQNp1lmpWngswjUKQBhF0LdwRzyS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791795879; c=relaxed/simple;
-	bh=rqSJmZkc3v7G/5AS5Mdsxc3B7f1mI1+jW4CgqSEVauE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h0ulLaRXX0fchNuzYGMvhI+2oFybl51NZFUjjcuNGlVc1FUwg8xCx9T+YKG7bT9I10G0S9mUdrr5phOl3BBEPpc9/Um+S64FsfEolBR9fkiBCLlRz0BRFb+TtYueLmQX5daerg2XEn8Uvp0qQs8PRm0JDcyC9mxYL7CIiMBa9x0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l8sjmvwc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791795892; c=relaxed/simple;
+	bh=lLTpIHYpYUa57FBSvGgpqtvhGOIrMfjUlzelti97PcM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=f3KO88ChmZMAJZVt7yOLfCoaXL/mDzlO2KVCjseMYjg9iVjDIF1/vv8n8UoJxAKBWI9UerfzQ1yEd7/F1bNDUn4L/YU7+xYcT8pEhPaBH2RtBwTGJkL9mSTviHhTAGmXtnkM9cZYvzgTxbHq3zoC4iLGSgBtSSHulZFJn8a7pY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K9B89yWO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l8sjmvwc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B72531F0089D;
-	Mon, 12 Oct 2026 09:04:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K9B89yWO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5C0B1F0089B;
+	Mon, 12 Oct 2026 09:04:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791795876;
-	bh=mMjotEINmFuNpUySn99N3cbT1ZYDRfEhnSMUQy3XpDE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l8sjmvwcIRZvTEitj0bazjj0wX42kFZ9TYCVq9kGVXuVf3G6QGlJZ0g8bVR5tCATa
-	 P8GP3Q2QH7Mrt5oxVuJ+kvmPn/jpnRAgVjfnecb8qN9rc30V3/KZYT9O79gFFU9xiz
-	 CseJg36l88rHwU6kBq56QW2Me7AkZ+mqrmfCefJoZDAKX7s0sznUKK+tOlcAN6f2MG
-	 E/yai18KpJG4obvN+mNXrLm7S3g/SePZkaf3p/zvpWvDFy0yQyTYe3mSQCrBQ89X+0
-	 0wRxN8VlBVpOG3V5yXbub4tV6qiJfWcm2prLnHF9ygGYefAXooTAR/832vccSQzCCX
-	 pdjufN/IOptzw==
-From: Kees Cook <kees@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Kees Cook <kees@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	x86@kernel.org,
-	llvm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [PATCH 2/3] x86/kcfi: Emit the FineIBT paranoid "cs" prefix as a byte
-Date: Mon, 12 Oct 2026 02:04:25 -0700
-Message-ID: <20261012090436.1676525-2-kees@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261012090424.i.497-kees@kernel.org>
-References: <20261012090424.i.497-kees@kernel.org>
+	s=k20260515; t=1791795891;
+	bh=atWcPEqChcNkQrikQiv9vIO2eUPRsDg6I2Azqhyct0o=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=K9B89yWONxOJ0NYr0nOS+pxZ9ncy19H85q63u5tFtFqLCnxiGVb1+XvR4xqw+0uzH
+	 Klz5YmUvrEUtWQuGux+VS/GNQci8r5oJhE930jk53f0ei2JdgRMDt4GtsOQ48eYNQG
+	 mSuVwu6rswvf1FIj/4FYiNCr7EPTxDYg7gyALi2SYwWkZ2ccvs2QRcHFZku4gY3SAL
+	 jUyGGdaWAyzDxDvN8RtBmJGY7i1iosZAvFzFD81R4D9oR1wS5843h3WvNX8Kel9cKQ
+	 0KlTSxlIRBV/+GWcC4TohwMDnSM014WHMHYR6L+o6UoOVIgUCYpyWmYKY7ULCqc4J2
+	 LcWKTFim79zBQ==
+From: Christian Brauner <brauner@kernel.org>
+To: Ian Kent <raven@themaw.net>, tjdqudcks0424@naver.com
+Cc: autofs@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261007173542.593624-1-tjdqudcks0424@naver.com>
+References: <20261007173542.593624-1-tjdqudcks0424@naver.com>
+Subject: Re: [PATCH] autofs: ignore notification errors from a replaced
+ pipe
+Message-Id: <20261012-erbarmen-freigaben-unausstehlich-50d9737a22be@brauner>
+Date: Mon, 12 Oct 2026 11:04:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1535; i=kees@kernel.org; h=from:subject; bh=rqSJmZkc3v7G/5AS5Mdsxc3B7f1mI1+jW4CgqSEVauE=; b=owGbwMvMwCVmps19z/KJym7G02pJDFlnFs1UWRLUqjG75YHRLqNVr7tX7zwV5qtk283Y06Mvq yfRlijeUcrCIMbFICumyBJk5x7n4vG2Pdx9riLMHFYmkCEMXJwCMJHkzQx/OM6vefVf598zk7Bf C+7VudlNefhncurmZ75zdBKeXJy6XpaR4d7C0Ig/O3w7O+aquX9uzStSbkr3uaIvHqkeer6iZiY 7AwA=
-X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-3d1b8
 
-The "cs" prefix on the LEA in the FineIBT paranoid caller template is
-padding: it places the LEA's 0xf0 immediate byte where it doubles as the
-LOCK prefix that makes the failing Jcc raise #UD. GNU as warns about it
-in every CONFIG_FINEIBT=y build:
+On Thu, 08 Oct 2026 02:35:42 +0900, tjdqudcks0424@naver.com wrote:
+> autofs_notify_daemon() takes a reference to the current notification
+> pipe under wq_mutex, then drops the mutex before writing the request. The
+> write can block while the daemon enters catatonic mode and installs a
+> replacement pipe.
+> 
+> If the old pipe's reader is then closed, the delayed write returns -EPIPE
+> and the generic error path enters catatonic mode again. That transition
+> acts on the current superblock state, closes the replacement pipe, and
+> releases the new daemon generation's wait queues.
+> 
+> [...]
 
-  Warning: segment override on `lea' is ineffectual
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-Clang's integrated assembler does not warn, and both assemble the same
-bytes. Emit the prefix with ".byte 0x2e" to silence GNU as.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Build tested ARCH=x86_64 defconfig with CONFIG_CFI=y, with GCC 17.0.0
-(experimental, with the kCFI series) and GNU as 2.47, and with Clang
-24.0.0git: GNU as no longer warns, and the template assembles to the
-same bytes as before with both. Under QEMU with cfi=fineibt,paranoid,
-the paranoid caller check catches LKDTM's CFI_FORWARD_PROTO with both.
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-Assisted-by: LLM
-Signed-off-by: Kees Cook <kees@kernel.org>
----
- arch/x86/kernel/alternative.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
-index 91b1cdd16569..1300ca50e770 100644
---- a/arch/x86/kernel/alternative.c
-+++ b/arch/x86/kernel/alternative.c
-@@ -1448,7 +1448,8 @@ asm(	".pushsection .rodata				\n"
- 	"fineibt_paranoid_start:			\n"
- 	"	mov	$0x12345678, %eax		\n"
- 	"	cmpl	-11(%r11), %eax			\n"
--	"	cs lea	-0x10(%r11), %r11		\n"
-+	"	.byte	0x2e				\n"
-+	"	lea	-0x10(%r11), %r11		\n"
- 	"#fineibt_caller_size:                          \n"
- 	"	jne	fineibt_paranoid_start+0xd	\n"
- 	"fineibt_paranoid_ind:				\n"
--- 
-2.55.0
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/1] autofs: ignore notification errors from a replaced pipe
+      https://git.kernel.org/vfs/vfs/c/d4ca8f75bc42
 
