@@ -1,96 +1,151 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F9D455637
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:50:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB5D46D09B;
+	Mon, 12 Oct 2026 08:51:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791795056; cv=none; b=ZBgT2udFspfxt4WBd7MdsnHx6YafNEiCZ1JGimjswm+DW/6MTwRlme9bmKKNJRZs0F/WeCwzCdF878fj445U9iyo8nx7SSjs/7NlZLjikcnCj4lNPUJchX39g67pOr620tfkM3QbmDBlGuppW1ivMsT/gBJCVzdJH9MnpszEVtI=
+	t=1791795062; cv=none; b=n/u2MN7U/rMVT2g4TJqvNKEiDdUR2IQuv++QvONurtj8kHpX12KTcn7+ytedmN22lSvKZu+8dFZcmPfzpH/9kkyyOYHsjeHyHeEMSsqmYvE3FMRXt9PhGYRU/xo03nN0a7f94QO1wHwYqYRX+ebwajs6N5HvE7h1zhbP4cWb3LQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791795056; c=relaxed/simple;
-	bh=IcJKK2Xbe+MifqNSgHnnBJtgk2lSgXJqJa+FoludifE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QzSq9O9aziFqPJ096F0nqUxcr6ViVEKKnT6h1GVC/OJyJc2QkeJ4ugBdPZ5VOedqr0r0UVykkpf/fklEke8utr8pNSuibMjLkMcbQ/thp5prkOG0LnNS9ei72mDLMigNZBUwg+3K0Q4CAD3fesPomDjHokDfmNhmzf1nDiEzTRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=W8pNyzph; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791795062; c=relaxed/simple;
+	bh=reiBIdHoLCLchV16rS2mUhkqhpuQr52DAA5xPqT8FCE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VLgqqDV4L5VKr6RZSnr2Mct6zqE2n0yaIJAd2uvSzQaf29dn3iPxOGkGSlxb116Z4QSsnyC0DTXpfNTZx5QuA4BT/ESzx3Z20bi953eheYd9KwMFxqDafD/CxWDo+jPDJlc0+o6lfwHbSkP/w7nTsTAQjY34UDHShrq8JEp36aY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a98O/BCq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="W8pNyzph"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=7p2yZbclHLQHu2eW9vFtLMXS7m5g7KhDBCyX8hpJqg8=;
-	b=W8pNyzphSXQU24CAa4ej22qYeCvxgAxiAV/qefTllhNCnEHwUB59zm8yyZCS6T
-	hjr/z1WpXWXsap0YqnfjTaGl3LTcTskJ+Vw+ToCTLlvRbnXP4xFy7jub+HqEaKRo
-	yi0UZ6ao3v5bwuhJWFxMRmwatjBDmWlEQ1u3tna4HjiJ8=
-Received: from [IPV6:2409:8900:1a87:d0a0:cf38:5aca:d24d:b7a4] (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wC3_7pdn8xquxyjEA--.31934S2;
-	Mon, 12 Oct 2026 16:50:38 +0800 (CST)
-Message-ID: <9659cb42-240a-4c46-9cc1-c0e73ef4b24f@163.com>
-Date: Mon, 12 Oct 2026 16:50:37 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a98O/BCq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C95661F0089B;
+	Mon, 12 Oct 2026 08:50:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791795060;
+	bh=Oo77ofVgiaIxk7/HrKuQfjrMk2AzM4yZPId3+7w7fvk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a98O/BCqbhHG2B1sOa/v0bIuNQWRfDrKDF+LKT5WJDfjFQuFAhmADi3OaIuCg7g05
+	 FE3TzyQYdv9tVBix7xQdchnWrvdNrXW2UPUdkw+CNm0iNoycyRu7npZ1zvMzzvWWyC
+	 OU5TzZfqJgU14HdjCeBaOpDvbThSdoNYpXskij0webDBwdCmQLEIbhQ2iMSkOiZFtY
+	 rgNFRJ2axy5nVPM9HACbGCWxmljvLHPhMjxzUJCmMDNNDjm/NNfIxVsUcnyEd++dzB
+	 /Uqx87F/5dqH4XN2vOeUWIA5qU6TuncVYXoeKFDcS8M+jNbEa27NGnN/7r+Z+Fy4q8
+	 hhRULsAqye2/g==
+Date: Mon, 12 Oct 2026 10:50:56 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jelly Jia <Jelly.Jia@cixtech.com>
+Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, robin.murphy@arm.com, devicetree@vger.kernel.org, 
+	Frank.Li@kernel.org, cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/6] dt-bindings: dma: arm,dma-350: Document the CIX
+ Sky1 integration
+Message-ID: <20261012-velociraptor-of-improbable-upgrade-bfe14a@quoll>
+References: <20260907033404.596839-1-Jelly.Jia@cixtech.com>
+ <20261009051846.1115962-1-Jelly.Jia@cixtech.com>
+ <20261009051846.1115962-5-Jelly.Jia@cixtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] ntfs: enforce the encrypted-file policy on the read
- paths
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>,
- Namjae Jeon <linkinjeon@kernel.org>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev,
- linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>
-References: <20261012062040.3826828-1-zhanxusheng@xiaomi.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20261012062040.3826828-1-zhanxusheng@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wC3_7pdn8xquxyjEA--.31934S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WF4fWrW5GFy5KrWrKw45KFg_yoW8Gw17pF
-	9xKa4Yqw1vyr9F93Z2vF1aqr1rurWrJay5XFZYyw1fCws5JFyrGry0v3W0ga48CF4rKw45
-	ur45tasIvr4DArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UgyCAUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6R7Ml2rMn17OggAA3H
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261009051846.1115962-5-Jelly.Jia@cixtech.com>
 
+On Fri, Oct 09, 2026 at 01:18:44PM +0800, Jelly Jia wrote:
+> The CIX Sky1 DMA-350 integration is the same device with SoC glue around
+> it, so it is described by the arm,dma-350 node itself with an additional
+> "cix,sky1-dma350" compatible rather than by a separate wrapper node.
+> 
+> Extend the binding with the CIX compatible and the resources the
+> integration needs: a clock, a reset, an optional reserved memory region
+> used when the controller cannot reach all of system memory, and the
+> syscon that routes the channel interrupts to the AP interrupt
+> controller on Sky1. The cix,irq-router property is only valid together
+> with the CIX compatible.
+> 
+> Assisted-by: LLM checkpatch sparse dt_binding_check dtbs_check
 
+Only LLM. Drop all other tools, which guidance asked you to put here
+build process tools?
 
-在 2026/10/12 14:20, Zhan Xusheng 写道:
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> 
-> EFS-encrypted attributes are refused with -EOPNOTSUPP in exactly one
-> place, ntfs_read_folio(), because decryption is not implemented.  Two
-> read paths get there without passing that test and return the raw
-> on-disk ciphertext instead, so the same read returns either ciphertext
-> or -EOPNOTSUPP depending on which path serves it.
-> 
-> Patch 1 is readahead, which marks the folios uptodate so ->read_folio
-> is never called.  read(), mmap(), splice() and fadvise() all populate
-> the page cache this way, so one test closes all four.
-> 
-> Patch 2 is direct I/O, which bypasses the page cache entirely and has
-> no such backstop.
-> 
-> Both commits are in v7.1.  I have not added Cc: stable; returning
-> ciphertext rather than an error is a correctness bug but not a
-> privilege boundary crossing, so that call is better made by the
-> maintainers.
-> 
-> Found by reading the code.  I have no EFS-encrypted NTFS volume, so
-> there is no reproducer; the paths were traced in the source.
-> 
-> Zhan Xusheng (2):
->    ntfs: do not read ahead encrypted files
->    ntfs: reject direct I/O reads of encrypted files
-> 
->   fs/ntfs/aops.c | 7 ++++---
->   fs/ntfs/file.c | 4 ++--
->   2 files changed, 6 insertions(+), 5 deletions(-)
-> 
-> 
-> base-commit: d6d3455d8751854e0d1820f14184682e23ac4475
+How is it even possible to assist here with sparse? And really,
+mentioning checkpatch is just wrong. EVERY patch must run through
+checkpatch, with no exceptions.
 
-The series looks good to me.
+Do not attach (thread) your patchsets to some other threads (unrelated
+or older versions). This buries them deep in the mailbox and might
+interfere with applying entire sets. See also:
+https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
 
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+> Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
+> ---
+> v1 -> v2:
+> - Folded the integration into arm,dma-350.yaml: the Sky1 DMA-350 is the
+>   same device, so it keeps the generic compatible plus a device
+>   specific "cix,sky1-dma350" compatible, and the integration resources
+>   are described on the controller node.
+> - Dropped the separate cix,sky1-dma350.yaml wrapper binding.
+>  .../devicetree/bindings/dma/arm,dma-350.yaml  | 33 ++++++++++++++++++-
+>  1 file changed, 32 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+> index 429f682f15d8..3b991985c416 100644
+> --- a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+> +++ b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+> @@ -11,10 +11,23 @@ maintainers:
+>  
+>  allOf:
+>    - $ref: dma-controller.yaml#
+> +  - if:
+> +      not:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              const: cix,sky1-dma350
+> +    then:
+> +      properties:
+> +        cix,irq-router: false
+
+Entire allOf block goes after required: part.
+
+>  
+>  properties:
+>    compatible:
+> -    const: arm,dma-350
+> +    oneOf:
+> +      - const: arm,dma-350
+> +      - items:
+> +          - const: cix,sky1-dma350
+> +          - const: arm,dma-350
+>  
+>    reg:
+>      items:
+> @@ -36,6 +49,24 @@ properties:
+>      const: 1
+>      description: The cell is the trigger input number
+>  
+> +  clocks:
+> +    maxItems: 1
+
+So all devices have clocks and resets?
+
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  memory-region:
+> +    maxItems: 1
+
+and memory-region?
+
+> +    description:
+> +      Reserved memory region used for DMA allocations when the controller
+> +      cannot reach all of system memory.
+> +
+> +  cix,irq-router:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Syscon phandle for the CIX Sky1 subsystem register block that routes
+> +      DMA-350 channel interrupts to the AP interrupt controller.
+
+Best regards,
+Krzysztof
 
