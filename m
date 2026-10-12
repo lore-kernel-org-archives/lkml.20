@@ -1,60 +1,74 @@
-Received: from mail-106100.protonmail.ch (mail-106100.protonmail.ch [79.135.106.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-71.mta0.migadu.com [91.218.175.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE48155C97
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:31:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A18B72253EB
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:32:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791765097; cv=none; b=Q1PDfyKaqPEyvAaf7ncAE1VmXNbEfam8iLcrJu9dsKdlEfo9TU4ln6OFlN3ScLBVzK7QRZ2zG3Td/kr2V0qG1gyC++3a7KwjaWp17K3U4vvf7r8w+qSNDxV8XfWzVYp5n4ji7PHcVtNChTruoQbBJOnBfyZdyaTBXbwX8yFduQU=
+	t=1791765150; cv=none; b=k2PNJqdsEUgYiZAnq+noHOSCuI8CCWG5mugmMGL8+98eq+xqANmgaGyvVk8XEC7gZQ0ksxXi5mYSxWLIgxaio2H20QbAVhTIy1hs9lY+nCwe7itAoPr+kolvkcGssq9YMTQzmhUUyxBR4Va8Rl1VHF93K2rGUukGm4uZ+0piNZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791765097; c=relaxed/simple;
-	bh=RUXX/8LcvZ0vB1NfOTbwuI0qJ0UfI9cCnFbhhtoelG0=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=bS4FG9nOAUQi7QeaSOs6YIEkQiB0zacbDqUw0Bv4TIrA/SC+FCFTqY+SMDoO+SwDtTWbbO95dAayLRnKDfT1faqRq8QJgob3EczbZ8O+ZUMh5UoLMIYfMENaIwAGX2xzJ1UHa4DOy0XUndWtqAnmcFuQEdzqzkqodwUEvLD5frQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=turntrout.com; spf=pass smtp.mailfrom=turntrout.com; dkim=pass (2048-bit key) header.d=turntrout.com header.i=@turntrout.com header.b=UEFk7vRp; arc=none smtp.client-ip=79.135.106.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=turntrout.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=turntrout.com
+	s=arc-20240116; t=1791765150; c=relaxed/simple;
+	bh=ZYleLiMnCKQ5GR57alNWmxsZ5L0Mu0IfJp1Z8IGCjP4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W/InQSh2lt3RC0+o/YgDZ35B+/SYHXJh9F266He/lpOvFVg9A5It5ZoVTSj81vKRBDipo4aVJHkSYbs1FEFoz2Sgl9kX52UY9b/iAqdyid1Wtw+5sdDXkvbqfzX9bt1VZatQadYZZqXRyH/CE4iek+hD27DLomnOa0pyHIKLeWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hLuXZeuC; arc=none smtp.client-ip=91.218.175.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=turntrout.com header.i=@turntrout.com header.b="UEFk7vRp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=turntrout.com;
-	s=protonmail2; t=1791765086; x=1792024286;
-	bh=IraLLtnBNwHo1dM/C9RlUNjtzUQvG9INhNh3pggIMIc=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=UEFk7vRpRCSPplihQDiOD1uO6ySs+QMPaxpFBTtGFzM52D4r012i+QTpgMsMbJb5E
-	 EudQ8AppMjgbI1g9hMRpU4WZnJBhlIqcRfPwQNFiJSRj3Y83DNjFVM89ryfzBYYTLW
-	 42peD8xg4hWQAh02dwu41N4oAJlOOkwvP/CYnIzXgUvm1OVS0AoFlmPz1LZPu1zKiM
-	 MDlqOv0HBJvI5+tGc078l+FsF0igFRwedzX5D7JjsYe0cr4okybh2j5Ibl2r2gC31i
-	 lWTjFkhzGsjNls6LSeMK9ZtZ7D4iYBbnZUZnAMsNWFwXDx7PQUFujy3ZYGYVY9qqVl
-	 6QV9AqKHzstsQ==
-Date: Mon, 12 Oct 2026 00:31:21 +0000
-To: Paolo Bonzini <pbonzini@redhat.com>
-From: Alex Turner <alex@turntrout.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, nsaenz@amazon.com, vkuznets@redhat.com, snambakam@linux.microsoft.com
-Subject: Re: [PATCH v3 00/28] KVM: x86: Introduce memory protection attributes
-Message-ID: <20261012003036.61996-1-alex@turntrout.com>
-Feedback-ID: 110371027:user:proton
-X-Pm-Message-ID: 68202226d966a1c20801d528891e7db282e9f536
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hLuXZeuC"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZYleLiMnCKQ5GR57alNWmxsZ5L0Mu0IfJp1Z8IGCjP4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791765146; v=1; x=1792369946;
+ b=hLuXZeuCS7xOG6V2OdMWOiLi5LTm7HxaDWVJbJfWbZxaXY3YBiq/s5aCAywU0d5GaUWIHo/H
+ xGbQfOrdj8bEnRiADwbr5/aAfH2C+478aF7K6V5Rma5C3/cRhkTyTzYjA5fPlsKQ4xcavcfjPzt
+ EAzV02JApgZ6AkwUvDC+iD7g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id cd0d990a187f0bd6;
+	Mon, 12 Oct 2026 00:32:26 +0000
+X-Mizu-Trace-ID: cd0d990a187f0bd6
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 12 Oct 2026 08:32:19 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: netdev-bot+sashiko@kernel.org
+Cc: andrea.mayer@uniroma2.it, davem@davemloft.net, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
+	edumazet@kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	liuhangbin@kylinos.cn
+Subject: Re: [PATCH net-next v2 2/5] seg6: add RFC8986 flavor support for
+ End.X
+Message-ID: <aswqk7xW9RWdBROt@fedora>
+References: <20261009-srv6_flavors_endx-v2-2-56ac7f838f41@kylinos.cn>
+ <179162766256.434549.13511080924871737471@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179162766256.434549.13511080924871737471@kernel.org>
 
-A second user, with no guest cooperation: we run untrusted AI coding
-agents in Cloud Hypervisor microVMs, and the host builds the guest
-kernel. We would set NW on its text after boot, so that a ring-0 write
-exits to the VMM as tamper evidence.
+On Sat, Oct 10, 2026 at 10:21:02AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] End.X now accepts the flavor pair NEXT-C-SID + PSP but only
+>   applies NEXT-C-SID.
 
-Two questions:
-1. Does NX distinguish supervisor from user execution? Without that,
-   ring 0 can copy its text to an unprotected GFN and repoint its page
-   tables. Is MBEC/GMET-backed NX planned, or should the VMM
-   write-protect guest page tables?
-2. For the emulator EFAULT gap you noted in patch 26: will a write the
-   emulator performs on an NW gfn always exit?
+Andrea has post a patch set to fix this.
 
-We can test the series from Cloud Hypervisor if that helps.
-
+Thanks
+Hangbin
