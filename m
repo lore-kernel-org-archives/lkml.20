@@ -1,430 +1,257 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 933163A4274;
-	Mon, 12 Oct 2026 22:17:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4412A38C423;
+	Mon, 12 Oct 2026 22:18:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791843482; cv=none; b=n+KuxlqtDiaLcXCN1DMrJJt3RsHhf5wXiq3kXBFFC9hI/He240S0bkEM+ksK9wfdw861i9TKZyWjHMhNM4/Lwn1i4zgdCuRXuP4qe11y+AQAFQ26C+ZvKN/nJX8CICYRDzxO56biT9A0Pi8Vu2APXdhjNFEByi+W0jfrPbpqVmA=
+	t=1791843526; cv=none; b=B+G8+u9waSRARyOqDTKWyebuQm2cGQc0WLxLIDh/pUXbWJwzuKSeZ/7HhNblJrImrXBR968DwxTg79CWd5qT++1NWz/mMRuEeX2ml1v8w+rk9l6c3r6SyVmUQ10xwI/nUAkh/uJpcwk183e2LAcQXry71bOizHOkhH0qAhPYGjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791843482; c=relaxed/simple;
-	bh=H6XU54GjI8a1J5iog3yJ3YPePSfn1DViM/fO9P9xxcc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gVG9vQjC4RzwJFK8BDCOLTH294V4e02AZh179CnvBtrOCywQVvwPMy6KXrpDEwwFa44YAvUahkxF/fQJ9QMTcGjkGZwvdrnJKzsiUzuv/lM9DezynOwXBDnxUiJTplEbju2H908HdVwtbz2jK5SYIdGaXLgOC6Z1+vZ5Z7Jqvdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=OTAXt/0i; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1791843526; c=relaxed/simple;
+	bh=6q1dtZ4mFmGnR51E/lgbvW0mQS6LBiXKQ/GO0QIZaYE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=bX0l3WjkLUmKHrlhwxgBy7lFAeS/31SFV3Ub20F1jjmA2tcvZsWdR2m8DiGBq/2rMrN22gGXyfIrFsfaBnItjk2wy2xB/UhybKAiVyqojCCy5niZ12NKgha+VjT+99wcSFa7BglIhzxrpXpqzwKC41PVXKpSyFBxIKFeN/ktN3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WRzyh2Na; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="OTAXt/0i"
-Received: from killaraus.ideasonboard.com (i68975AE2.versanet.de [104.151.90.226])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 52F734E6;
-	Tue, 13 Oct 2026 00:15:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791843356;
-	bh=H6XU54GjI8a1J5iog3yJ3YPePSfn1DViM/fO9P9xxcc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OTAXt/0iRokKTx1gT1k3F7xzJKJfQ6VAQFyhdXDshqU+iMd0fgZLdM3lEGciF75NB
-	 9ru3tgh4DFbehI95WtGW1oG8LUqpO9CuOTY3MYyJYX6oaf7GDhEGyi6ZTCEjOAHocY
-	 HS4fzR1SppZbPxPzU8c1cvJyM3Yd+wiJyxgglSRE=
-Date: Tue, 13 Oct 2026 00:17:56 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Nicola Fiorillo <nicfio@gmail.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/7] media: Add GalaxyCore GC5035 and GC8034 sensor
- drivers
-Message-ID: <20261012221756.GC56180@killaraus.ideasonboard.com>
-References: <20261009072733.39877-1-nicfio@gmail.com>
- <20261012143443.34897-1-nicfio@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WRzyh2Na"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F2381F0089B;
+	Mon, 12 Oct 2026 22:18:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791843524;
+	bh=SdztuT0CNnTRxqqFV8Jd29fRStGataYciuWQTe88Lno=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=WRzyh2NaOnyCk+x5vq84UE/CiaqgreCrQ8DcuAFs/hjqCahoZ4AxVCtVbPKnxbnEi
+	 SBXeYwTir5rsEnH8CYXbue+kf8thLFgZNZt0VZqttar8BlzicVrBs5P6se/tdOuAmr
+	 LDyvVM5UK63bLnT2Wd1+CybjUfwJD7CPWdD1SEf166OleHqPvLvMbwdM8rZWHa5Rj8
+	 NI3uwFN0mtNGxrp417pLAUBZHKwn2nWh3Ndckz+eX+n+K97yTbdSnLG2nCHxWlrJTd
+	 JVh6Y8xoPxJebFf0RufXiLajj9ZPnKdzV1HHVvqPjugiLuy2nFyfmUZ2KmzAt2+m+C
+	 v4a8yj+vUCr5Q==
+Date: Mon, 12 Oct 2026 17:18:43 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Richard Cheng <icheng@nvidia.com>, Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>, Len Brown <lenb@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>, Lizhi Hou <lizhi.hou@amd.com>,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com, linux-gpio@vger.kernel.org,
+	linux-acpi@vger.kernel.org, linux-cxl@vger.kernel.org,
+	Allan Nielsen <allan.nielsen@microchip.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	stable+noautosel@kernel.org
+Subject: Re: [PATCH v13 10/10] PCI: of: Avoid np->data usage for the node
+ changeset
+Message-ID: <20261012221843.GA1409528@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261012143443.34897-1-nicfio@gmail.com>
+In-Reply-To: <20261012142826.159178-11-herve.codina@bootlin.com>
 
-On Mon, Oct 12, 2026 at 04:34:36PM +0200, Nicola Fiorillo wrote:
-> Hi all,
+On Mon, Oct 12, 2026 at 04:28:24PM +0200, Herve Codina wrote:
+> of_pci_remove_node() and of_pci_remove_host_bridge_node() check
+> whether the node is dynamic but not whether it has valid private data.
 > 
-> this is v2 of the drivers for the GalaxyCore GC5035 (front camera, 2
-> lanes) and GC8034 (back camera, 4 lanes) sensors of the Chuwi Hi10 X1
-> tablet, with IPU6.
+> During the node creation, an OF changeset is used and this changeset is
+> stored in np->data to be available for removal functions.
 > 
-> Laurent, on v1 you asked to make the drivers configurable, with analog crop
-> and binning if the sensor supports it.
+> If, for instance, a PCI host bridge is created using a device-tree
+> overlay, the related node will have the dynamic flag set but np->data
+> will be NULL. This leads to NULL pointer dereferences.
 > 
-> This version does the following:
+> Checking for a non-NULL np->data pointer to determine if the node has
+> been created by the PCI node creation process is not enough. Indeed,
+> on some platforms like PowerPC, the OF_RECONFIG_ATTACH_NODE notifier
+> (e.g., in the pci_dn_reconfig_notifier() function) intercepts node
+> additions and populates np->data with its own structure, such as a
+> struct pci_dn. In that case, np->data is not NULL but it is not related
+> to our changeset stored during the PCI node process creation.
+> 
+> Avoid the usage of np->data to store the changeset used during the PCI
+> node creation. Store our changeset in a more relevant structure: either
+> struct pci_dev when the node is created for a PCI device or struct
+> pci_host_bridge when the node is created for the PCI host bridge.
+> 
+> With that done, no ambiguity remains on removal. Indeed, this changeset,
+> if non-NULL, is the one used during PCI node creation. Check and use
+> this changeset on the removal process.
+> 
+> Fixes: 407d1a51921e ("PCI: Create device tree node for bridge")
+> Fixes: 1f340724419e ("PCI: of: Create device tree PCI host bridge node")
+> Cc: <stable+noautosel@kernel.org> # Issue not triggered but could be a problem
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 
-Sorry, this cover letter is too long. Please ditch the LLM and rewrite
-it manually, only including the important information. The series isn't
-reviewable as-is, it gives me no confidence you're understanding what
-you're doing. Same for commit messages and comments in the drivers,
-please rewrite them manually.
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>
 
-> - No more mode tables for the geometry: the readout window and the sensor
->   output crop are computed from the crop rectangle every time streaming
->   starts (patches 1 and 2).
-> - The crop is set with the CROP selection on the source pad (patches 4 and
->   5). Vertically it is an analog crop: the readout window gets smaller and
->   the frame gets shorter (the GC5035 at 640x480 runs at up to 106 fps).
->   Horizontally it is the sensor internal output crop instead: narrowing
->   the readout window horizontally gives black images on the GC5035, and on
->   the GC8034 it goes through a column register that gives corrupted images
->   at many values.
-> - 2x2 binning is there on the GC5035 (patches 6 and 7): the 1296x972
->   format gives the average of four samples of the same colour, with the
->   same field of view as the default crop. The vendor sequence changes the
->   PLL, so I measured the link frequency in that mode: 176.3 +/- 0.9 MHz,
->   against the 175.2 MHz given by the PLL registers (with the same method,
->   at full resolution, 420.7 +/- 1.5 against 422.4). Patch 6 adds this
->   frequency to ipu-bridge. On the GC8034 binning only exists in the 2-lane
->   vendor sequences; with 4 lanes it breaks the CSI-2 stream, so it isn't
->   there.
+> ---
+>  drivers/pci/of.c    | 32 ++++++++++++++++++++------------
+>  include/linux/pci.h | 11 +++++++++++
+>  2 files changed, 31 insertions(+), 12 deletions(-)
 > 
-> I kept the crop in patches 4 and 5 and the binning in 6 and 7, separate,
-> because I saw that for the IMX908 you decided to postpone the crop until
-> the common raw sensor model
-> (<20261001133138.GM944070@killaraus.ideasonboard.com>). If you want to do
-> the same here, patches 1-3 work on their own, at a fixed resolution like
-> v1, and I'll redo crop and binning on the common model when it lands.
+> diff --git a/drivers/pci/of.c b/drivers/pci/of.c
+> index 0a5797652e18..fbed24a244d0 100644
+> --- a/drivers/pci/of.c
+> +++ b/drivers/pci/of.c
+> @@ -732,15 +732,20 @@ void of_pci_remove_node(struct pci_dev *pdev)
+>  {
+>  	struct device_node *np;
+>  
+> +	if (!pdev->cset)
+> +		return;
+> +
+>  	np = pci_device_to_OF_node(pdev);
+> -	if (!np || !of_node_check_flag(np, OF_DYNAMIC))
+> +	if (!np)
+>  		return;
+>  
+>  	fw_devlink_set_device(&np->fwnode, NULL);
+>  	device_remove_of_node(&pdev->dev);
+> -	of_changeset_revert(np->data);
+> -	of_changeset_destroy(np->data);
+> +	of_changeset_revert(pdev->cset);
+> +	of_changeset_destroy(pdev->cset);
+>  	of_node_put(np);
+> +	kfree(pdev->cset);
+> +	pdev->cset = NULL;
+>  }
+>  
+>  void of_pci_make_dev_node(struct pci_dev *pdev)
+> @@ -800,18 +805,17 @@ void of_pci_make_dev_node(struct pci_dev *pdev)
+>  	if (ret)
+>  		goto out_clear_devlink_dev;
+>  
+> -	np->data = cset;
+> -
+>  	ret = device_add_of_node(&pdev->dev, np);
+>  	if (ret)
+>  		goto out_revert_cset;
+>  
+> +	pdev->cset = cset;
+> +
+>  	kfree(name);
+>  
+>  	return;
+>  
+>  out_revert_cset:
+> -	np->data = NULL;
+>  	of_changeset_revert(cset);
+>  out_clear_devlink_dev:
+>  	fw_devlink_set_device(&np->fwnode, NULL);
+> @@ -828,16 +832,21 @@ void of_pci_remove_host_bridge_node(struct pci_host_bridge *bridge)
+>  {
+>  	struct device_node *np;
+>  
+> +	if (!bridge->cset)
+> +		return;
+> +
+>  	np = pci_bus_to_OF_node(bridge->bus);
+> -	if (!np || !of_node_check_flag(np, OF_DYNAMIC))
+> +	if (!np)
+>  		return;
+>  
+>  	fw_devlink_set_device(&np->fwnode, NULL);
+>  	device_remove_of_node(&bridge->bus->dev);
+>  	device_remove_of_node(&bridge->dev);
+> -	of_changeset_revert(np->data);
+> -	of_changeset_destroy(np->data);
+> +	of_changeset_revert(bridge->cset);
+> +	of_changeset_destroy(bridge->cset);
+>  	of_node_put(np);
+> +	kfree(bridge->cset);
+> +	bridge->cset = NULL;
+>  }
+>  
+>  void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
+> @@ -899,8 +908,6 @@ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
+>  	if (ret)
+>  		goto out_clear_devlink_dev;
+>  
+> -	np->data = cset;
+> -
+>  	/* Add the of_node to host bridge and the root bus */
+>  	ret = device_add_of_node(&bridge->dev, np);
+>  	if (ret)
+> @@ -910,6 +917,8 @@ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
+>  	if (ret)
+>  		goto out_remove_bridge_dev_of_node;
+>  
+> +	bridge->cset = cset;
+> +
+>  	kfree(name);
+>  
+>  	return;
+> @@ -917,7 +926,6 @@ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
+>  out_remove_bridge_dev_of_node:
+>  	device_remove_of_node(&bridge->dev);
+>  out_revert_cset:
+> -	np->data = NULL;
+>  	of_changeset_revert(cset);
+>  out_clear_devlink_dev:
+>  	fw_devlink_set_device(&np->fwnode, NULL);
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index d31a8d107b1e..7b0ba9ec7b5c 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -339,6 +339,9 @@ struct pcie_link_state;
+>  struct pci_sriov;
+>  struct pci_p2pdma;
+>  struct rcec_ea;
+> +#ifdef CONFIG_PCI_DYNAMIC_OF_NODES
+> +struct of_changeset;
+> +#endif
+>  
+>  /* struct pci_dev - describes a PCI device
+>   *
+> @@ -598,6 +601,10 @@ struct pci_dev {
+>  	u8		tph_mode;	/* TPH mode */
+>  	u8		tph_req_type;	/* TPH requester type */
+>  #endif
+> +
+> +#ifdef CONFIG_PCI_DYNAMIC_OF_NODES
+> +	struct of_changeset *cset; /* Changeset used for OF node creation */
+> +#endif
+>  };
+>  
+>  static inline struct pci_dev *pci_physfn(struct pci_dev *dev)
+> @@ -670,6 +677,10 @@ struct pci_host_bridge {
+>  	unsigned int	broken_l1ss_resume:1;	/* Resuming from L1SS during
+>  						   system suspend is broken */
+>  
+> +#ifdef CONFIG_PCI_DYNAMIC_OF_NODES
+> +	struct of_changeset *cset; /* Changeset used for OF node creation */
+> +#endif
+> +
+>  	/* Resource alignment requirements */
+>  	resource_size_t (*align_resource)(struct pci_dev *dev,
+>  			const struct resource *res,
+> -- 
+> 2.55.0
 > 
-> Some choices you may disagree with, and that I'm happy to change:
-> 
-> - set_fmt changes the crop: for userspace that does not set the crop
->   first, it centres it on the default crop, as ov01a10 does. And 1296x972
->   selects binning and sets the default crop back, unless the crop is
->   already 1296x972: libcamera first sets the largest size and then the one
->   it wants, and with binning tied to the current crop it never got it. If
->   you prefer binning through COMPOSE, or waiting for the common model,
->   I'll change it.
-> - In binning the timings are in sensor lines (the sensor reads one row of
->   the array per line and outputs one every two lines): exposure and VBLANK
->   keep the register unit, with a one line step, and the frame period
->   computed from HBLANK and VBLANK is the measured one. This is why
->   PIXEL_RATE is 70.08 MHz, HBLANK 164 and VBLANK at least 1024.
-> - enum_frame_size lists 1296x972 separately, although it is within the
->   full mode range, so that libcamera sees the binned mode.
-> - The GC8034 PIXEL_RATE (256 MHz) is the one that gives the measured frame
->   periods with the sensor line length; it is more than the 4-lane link
->   carries (215 Mpixel/s), but over a whole line, blanking included, the
->   average is about 196 Mpixel/s.
-> - The analogue gain is the index of the sensor gain steps, which are not
->   linear, as in the vendor code.
-> 
-> I don't have the datasheets: I measured the geometry, the limits and the
-> timings on the tablet, and the comments in the code say what is measured.
-> In short:
-> 
-> - The sizes reported as NATIVE_SIZE and CROP_BOUNDS (2608x1964 and
->   3282x2500) are the largest area that gives image data; around it there
->   are constant rows and columns. They are not the physical array, which is
->   not documented.
-> - CROP_DEFAULT is the image of the vendor sequence, the same as v1: at the
->   default crop v2 produces the same image as v1.
-> - The timings follow a model that matches the measurements from 64 lines
->   to the full height; for the GC8034 this corrected PIXEL_RATE to 256 MHz
->   (v1 declared 255.9 MHz).
-> - The size limits (GC8034 at least 512 and at most 3280 wide, at most 2448
->   high; GC5035 at least 64x64) come from tests where outside those limits
->   the stream breaks or the timings leave the model.
-> 
-> The series is based on media next (d7e7bca71). I tested it on the
-> tablet, with a 7.3-rc1 kernel and the modules built from these patches:
-> - v4l2-compliance from git (1616bf9e3c81) with -z: 54/54, no warnings, on
->   both, and on the GC5035 both at full resolution and in binning; full
->   output below.
-> - A set of crop tests (default, bounds, centre, corners, minimum, requests
->   to be rounded or outside the area): rectangle applied, measured frame
->   period, complete frames and position to the pixel, all as expected, in
->   two runs per sensor.
-> - Binning: controls, frame period (also with a long VBLANK and at the
->   maximum exposure), signal doubling with double exposure, output equal to
->   the per-colour 2x2 average of a full resolution frame with no offset, 20
->   starts and stops in a row, and switching from the full mode to binning.
-> - libcamera (simple pipeline): 60 frames out of 60 in three
->   configurations per camera; on the GC5035 at 1280x960 it picks binning.
-> - W=1, sparse, smatch, checkpatch --strict and coccinelle clean on every
->   patch; i386 build clean.
-> 
-> Changes since v1:
-> - Patches 1 and 2: geometry removed from the register table and computed
->   from the crop, all written as 16-bit values; NATIVE_SIZE and CROP_BOUNDS
->   are the measured area instead of the vendor readout window; the default
->   exposure no longer exceeds the maximum when VBLANK is reduced; GC8034:
->   PIXEL_RATE set to 256 MHz and the blanking register computed from
->   VBLANK; dropped linux/mod_devicetable.h and used a designated
->   initializer in the ACPI table, as Uwe asked.
-> - Added Dan's Reviewed-by to patch 3.
-> - Patches 4, 5, 6 and 7: new.
-> 
-> I used a frontier LLM (Claude) to write the code and to do the
-> measurements; I stated it in the Assisted-by tags. The English of this
-> letter is a translation from my Italian.
-> 
-> Nicola
-> 
-> v4l2-compliance (git 1616bf9e3c81, -z PCI:0000:00:05.0 -u <subdev>):
-> 
-> GC5035 (2592x1944):
-> 
-> v4l2-compliance 1.33.0-5515, 64 bits, 64-bit time_t
-> v4l2-compliance SHA: 1616bf9e3c81 2026-10-06 07:30:20
-> 
-> Compliance test for intel-ipu6 device /dev/v4l-subdev4:
-> 
-> Driver Info:
-> 	Driver version   : 7.3.0
-> 	Capabilities     : 0x00000000
-> 	Client Capabilities: 0x0000000000000002
-> interval-uses-which Media Driver Info:
-> 	Driver name      : intel-ipu6
-> 	Model            : ipu6
-> 	Serial           : 
-> 	Bus info         : PCI:0000:00:05.0
-> 	Media version    : 7.3.0
-> 	Hardware revision: 0x00000000 (0)
-> 	Driver version   : 7.3.0
-> Interface Info:
-> 	ID               : 0x030001fd
-> 	Type             : V4L Sub-Device
-> Entity Info:
-> 	ID               : 0x000001f9 (505)
-> 	Name             : gc5035 2-003f
-> 	Function         : Camera Sensor
-> 	Pad 0x010001fa   : 0: Source
-> 	  Link 0x020001fb: to remote pad 0x1000096 of entity 'Intel IPU6 CSI2 2' (Video Interface Bridge): Data, Enabled, Immutable
-> 
-> Required ioctls:
-> 	test MC information (see 'Media Driver Info' above): OK
-> 	test VIDIOC_SUDBEV_QUERYCAP: OK
-> 	test invalid ioctls: OK
-> 
-> Allow for multiple opens:
-> 	test second /dev/v4l-subdev4 open: OK
-> 	test VIDIOC_SUBDEV_QUERYCAP: OK
-> 	test for unlimited opens: OK
-> 
-> Debug ioctls:
-> 	test VIDIOC_LOG_STATUS: OK (Not Supported)
-> 
-> Input ioctls:
-> 	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-> 	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-> 	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-> 	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-> 	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-> 	Inputs: 0 Audio Inputs: 0 Tuners: 0
-> 
-> Output ioctls:
-> 	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-> 	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-> 	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-> 	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-> 	Outputs: 0 Audio Outputs: 0 Modulators: 0
-> 
-> Input/Output configuration ioctls:
-> 	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-> 	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-> 	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-> 	test VIDIOC_G/S_EDID: OK (Not Supported)
-> 
-> Sub-Device ioctls (Source Pad 0):
-> 	Try Stream 0
-> 	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-> 	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-> 	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-> 	Active Stream 0
-> 	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-> 	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-> 	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-> 	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-> 
-> Control ioctls:
-> 	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
-> 	test VIDIOC_QUERYCTRL: OK
-> 	test VIDIOC_G/S_CTRL: OK
-> 	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
-> 	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
-> 	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-> 	Standard Controls: 13 Private Controls: 0
-> 
-> Format ioctls:
-> 	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
-> 	test VIDIOC_G/S_PARM: OK (Not Supported)
-> 	test VIDIOC_G_FBUF: OK (Not Supported)
-> 	test VIDIOC_G_FMT: OK (Not Supported)
-> 	test VIDIOC_TRY_FMT: OK (Not Supported)
-> 	test VIDIOC_S_FMT: OK (Not Supported)
-> 	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-> 	test Cropping: OK (Not Supported)
-> 	test Composing: OK (Not Supported)
-> 	test Scaling: OK (Not Supported)
-> 
-> Codec ioctls:
-> 	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-> 	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-> 	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-> 
-> Buffer ioctls:
-> 	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
-> 	test CREATE_BUFS maximum buffers: OK
-> 	test VIDIOC_REMOVE_BUFS: OK
-> 	test VIDIOC_EXPBUF: OK (Not Supported)
-> 	test Requests: OK (Not Supported)
-> 	test blocking wait: OK (Not Supported)
-> 
-> Total for intel-ipu6 device /dev/v4l-subdev4: 54, Succeeded: 54, Failed: 0, Warnings: 0
-> 
-> GC5035 in binning (1296x972), same output except:
-> 
-> Total for intel-ipu6 device /dev/v4l-subdev4: 54, Succeeded: 54, Failed: 0, Warnings: 0
-> 
-> GC8034:
-> 
-> v4l2-compliance 1.33.0-5515, 64 bits, 64-bit time_t
-> v4l2-compliance SHA: 1616bf9e3c81 2026-10-06 07:30:20
-> 
-> Compliance test for intel-ipu6 device /dev/v4l-subdev5:
-> 
-> Driver Info:
-> 	Driver version   : 7.3.0
-> 	Capabilities     : 0x00000000
-> 	Client Capabilities: 0x0000000000000002
-> interval-uses-which Media Driver Info:
-> 	Driver name      : intel-ipu6
-> 	Model            : ipu6
-> 	Serial           : 
-> 	Bus info         : PCI:0000:00:05.0
-> 	Media version    : 7.3.0
-> 	Hardware revision: 0x00000000 (0)
-> 	Driver version   : 7.3.0
-> Interface Info:
-> 	ID               : 0x03000203
-> 	Type             : V4L Sub-Device
-> Entity Info:
-> 	ID               : 0x000001ff (511)
-> 	Name             : gc8034 1-0037
-> 	Function         : Camera Sensor
-> 	Pad 0x01000200   : 0: Source
-> 	  Link 0x02000201: to remote pad 0x100008c of entity 'Intel IPU6 CSI2 1' (Video Interface Bridge): Data, Enabled, Immutable
-> 
-> Required ioctls:
-> 	test MC information (see 'Media Driver Info' above): OK
-> 	test VIDIOC_SUDBEV_QUERYCAP: OK
-> 	test invalid ioctls: OK
-> 
-> Allow for multiple opens:
-> 	test second /dev/v4l-subdev5 open: OK
-> 	test VIDIOC_SUBDEV_QUERYCAP: OK
-> 	test for unlimited opens: OK
-> 
-> Debug ioctls:
-> 	test VIDIOC_LOG_STATUS: OK (Not Supported)
-> 
-> Input ioctls:
-> 	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-> 	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-> 	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-> 	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-> 	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-> 	Inputs: 0 Audio Inputs: 0 Tuners: 0
-> 
-> Output ioctls:
-> 	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-> 	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-> 	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-> 	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-> 	Outputs: 0 Audio Outputs: 0 Modulators: 0
-> 
-> Input/Output configuration ioctls:
-> 	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-> 	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-> 	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-> 	test VIDIOC_G/S_EDID: OK (Not Supported)
-> 
-> Sub-Device ioctls (Source Pad 0):
-> 	Try Stream 0
-> 	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-> 	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-> 	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-> 	Active Stream 0
-> 	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-> 	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-> 	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-> 	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-> 
-> Control ioctls:
-> 	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
-> 	test VIDIOC_QUERYCTRL: OK
-> 	test VIDIOC_G/S_CTRL: OK
-> 	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
-> 	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
-> 	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-> 	Standard Controls: 12 Private Controls: 0
-> 
-> Format ioctls:
-> 	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
-> 	test VIDIOC_G/S_PARM: OK (Not Supported)
-> 	test VIDIOC_G_FBUF: OK (Not Supported)
-> 	test VIDIOC_G_FMT: OK (Not Supported)
-> 	test VIDIOC_TRY_FMT: OK (Not Supported)
-> 	test VIDIOC_S_FMT: OK (Not Supported)
-> 	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-> 	test Cropping: OK (Not Supported)
-> 	test Composing: OK (Not Supported)
-> 	test Scaling: OK (Not Supported)
-> 
-> Codec ioctls:
-> 	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-> 	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-> 	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-> 
-> Buffer ioctls:
-> 	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
-> 	test CREATE_BUFS maximum buffers: OK
-> 	test VIDIOC_REMOVE_BUFS: OK
-> 	test VIDIOC_EXPBUF: OK (Not Supported)
-> 	test Requests: OK (Not Supported)
-> 	test blocking wait: OK (Not Supported)
-> 
-> Total for intel-ipu6 device /dev/v4l-subdev5: 54, Succeeded: 54, Failed: 0, Warnings: 0
-> 
-> 
-> Nicola Fiorillo (7):
->   media: i2c: Add GC5035 image sensor driver
->   media: i2c: Add GC8034 image sensor driver
->   media: ipu-bridge: Add GalaxyCore GC5035 and GC8034
->   media: i2c: gc5035: Add crop support
->   media: i2c: gc8034: Add crop support
->   media: ipu-bridge: Add the GC5035 binning link frequency
->   media: i2c: gc5035: Add 2x2 binning support
-> 
->  MAINTAINERS                          |   12 +
->  drivers/media/i2c/Kconfig            |   20 +
->  drivers/media/i2c/Makefile           |    2 +
->  drivers/media/i2c/gc5035.c           | 1351 ++++++++++++++++++++++++++
->  drivers/media/i2c/gc8034.c           | 1175 ++++++++++++++++++++++
->  drivers/media/pci/intel/ipu-bridge.c |    4 +
->  6 files changed, 2564 insertions(+)
->  create mode 100644 drivers/media/i2c/gc5035.c
->  create mode 100644 drivers/media/i2c/gc8034.c
-> 
-> 
-> base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
-
--- 
-Regards,
-
-Laurent Pinchart
