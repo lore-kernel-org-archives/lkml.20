@@ -1,302 +1,136 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34AD489FD9
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:28:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791808091; cv=none; b=YdFFLEN1bmEOFpdKZjWxPLnba6FQNtmlMWJcWlR2ugDCtnGTPMBAxrmuI1emHWAM7upi1ZOjc84vmPJm557sv2hZuIxOhKJuQ63gVFo+mNaajftNGQ0fWrzuXnKZGs6VnUn/5pwH4bZlOZ1ho/JSuEG9qfsqObZF2L6tiBvYWgQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791808091; c=relaxed/simple;
-	bh=j1NuzG7okDyCIBmbWk4T9+gTMmJEPwWecx4vfBAD8Yk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gFHutxVvR38rg4HWCQbx719a1yuPrHnuXk3QFRdcIl0udFZoveuTxVZIkYoZd/kTrWYWmjJdXKTFCM60bUzEjCJXDXMeoTI0pRTM2qI2HSYeuVhw9LEJqT6ztqJYeBSKiQ5en3cdhGqSgcg2Fy8hu7XOUkt4V0tG6dKIP2Jl/VI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dQYwo5Mj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BQJ2fPuZ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FCBE48A2B5
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:28:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791808111; cv=pass; b=AvnBfD8oTwkFzKWfNV94X2bTkphud123LNKCpsEVxH5cy84VsLsbSMJy5yip9kVg9uFD2qHiNISVkntnQbQf+prS2p8Np9PTMtyUx0KngHweA9Hn3saeduzu/SkYpJupblkMz/ZPaQEE5Z2LjerwjDHuiWrGe0MdeGzvy+FirPA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791808111; c=relaxed/simple;
+	bh=YHrMauSfalkQT8DKMHgEaX6NxUN+ODq7GRVz3H+3fmg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iEnFuzzWi2uvvt5n+m9vO2TSwsir1W2B2lvs6taMbMArSBs/crZAL8uwd09F7+f5k9YAkp3d1E7rmOUwfGw2SY/cTwAqC62rVaBNmDYa7B5UJBJce0N9qP/HWhwWmjaI6NpbuMkkUUd8y01iMgXf/i1+/m5NtqFmV7MPTJR8km0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NRk3wjL7; arc=pass smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dQYwo5Mj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BQJ2fPuZ"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC0ALi3292357
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:28:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OyL0SJk1xJCKjUnKWxUveX80pGedAgDOn+gj9J70eB8=; b=dQYwo5MjcKGHPJIr
-	MlhgOtNKWALkqQL3bheJYCFbF9GAeimCGrQrNt109P0QutklaLcToSAQQ/PmzQWy
-	nIiqMTnUU7Rdq4DRo5mMs4TO3lTg4uqmCCJRaUqs+4xGvzyGNoXsMLCjFSL/3hTV
-	G0qY48CvAEpKg12fnzhXqdW5ohPRLaaD+6IQtcdp0XFAKlSi1rqFqiQs3nqzQold
-	0MWDkbRzPJd7aVnsHyNR20qSeeb11n2ZeAe+YV4CfwGA8Z57ZVy5iCKX8VLRxRFT
-	7f7bcgPXIHhJSJLA8OD6ZERn5AbMtr8DL+5cgYfxcB3XWUxF4XdAw7QJU79TsNvt
-	4/ZnFA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8uh3h9re-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:28:09 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39512608fb1so3152061a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:28:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NRk3wjL7"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c33bb2f3e6cso200178566b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:28:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791808108; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Wwxqab0UpQG+nGQnMHel+Q7eVcwhHrR0tPdSXSXhzDh/682Im7JY9pXLQlZFlnNU+s
+         7qdXlJXbxgCFx7o6+igBoW+5gq4bLh91ECWUAs2YUlXYGkd8Ip9T5pgA/L1jHEaNWWwX
+         PqooZbOjxYw65GmTLZpGNntH59t8lAImKT4mWayHkxmdfwRRD9hU1DRsakbC17Lc0ICH
+         X1wCJLFdNvazCmoOFnoLHtfmST/HIEIM53Z3oXD9tI01bVxPti3ILUhvTbDrwOnZJ26U
+         +SFbYSckmnghJD56y11MWANa/ewfCf4krzg0W0CJM4dq5/1qYVUGkTGyIyvewmMOtnt/
+         NYrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=nJ5NhrhBncW0QRsUS8hp2zICmLShi/rx8K0hvOJwI3o=;
+        fh=vQrh1IDDLnwnhLs2zK9c2CjXGlEkuR89BXT9BfiyOUQ=;
+        b=YhKSRKx+muZvD/hBvsMlM4Y32rd5y935LWlorLuTxqb+kbd2VPtCsbSVSsf2JuZhyl
+         tp7ajtyk37tv+OV/yq2VbYseVQaFPf8+zs4PJ4BlMPWAuJvlVh3+xekVIps+CQJCPh2y
+         Pop+Y7UAY8sf75smNaY01vj6SbIT4tpXPuqFaletdzQlYLEsr8XJglKhpXhyimz/GwZU
+         2BeGz1S/O5r/x0Hp1HM+f1iD9/Sz6Z2i/KGHQuMO0PMThzLmrYjfM03iW64q42FfQJrv
+         SuQW6o/YMeKMMei2VN1F2n3fpF0+61lUERZL3XU/AkBkJFmxIVjJ7BaLH+CvcCjMLaje
+         k3Ug==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791808088; x=1792412888; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1791808108; x=1792412908; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OyL0SJk1xJCKjUnKWxUveX80pGedAgDOn+gj9J70eB8=;
-        b=BQJ2fPuZHO96J2YPDSDPZGgbOi6S2qhsr3WHM1DjX8w5Afn8hnRiMYSuoQLzUZ8UJa
-         2ZTQzP1JAxd+qhKsTd2KDyX2hBByXqcp+wJH/Iv9jdoMFhm/fRe6kFGlQEnQ+D8OPl4v
-         S8do9Wp4ZARNKfF4jhLt4NOXJ8M+03NEwUId6hUqqN12c5VlXjPwZtqIRKdCmreBuYhz
-         hevsUYBca/MESQrYIwb4Wglz9p/5mltUIx+wnvCfSd+lqMjjFTt1rlzSq2eeQAdjrJMl
-         O2bmx7nOHFFKU4s4/s/+RVO11sr6i/9D/BJNdObDvVHnyLF3Xd+YwvC4rFgcZV1j321e
-         QEAg==
+        bh=nJ5NhrhBncW0QRsUS8hp2zICmLShi/rx8K0hvOJwI3o=;
+        b=NRk3wjL7sTj5vV9qr1WIr0OdT2E7hygTKFH3y3vr+rWh8G6jxbanKDzC1ZS6KdOLUF
+         vdzArGK1rNYOQn5wYyA8x+22XlQQ8TwQMjGaNWJYZlIyeGjo1FJjx3QcnEiAvJlf64Vt
+         xA+uJnGOfWtV9txZQP2G7TbmaEUaIZ9fttAwNNWT6p02WIgyFgDGKQdzyrBYT1FcWii0
+         h4VDjH7E+3sZ6TV63SV0uy6fZJjAgc4eG+5yjjWxr7bJiq5+G4YHxOg5ISE8rrGnXn4L
+         +v4NFprTnjRLd0+Ycq3+8ttLBlbLfC5r6QGQWzAihJWYy1d1wqPIsT48552t1c0ai9R7
+         JM1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791808088; x=1792412888;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OyL0SJk1xJCKjUnKWxUveX80pGedAgDOn+gj9J70eB8=;
-        b=R2SVy+W4WrIGCDXSd9Qc/Kdnv1mMbJ7UmvjFsKQpnjAAEpjsW/MswS9Sdhubbeuce5
-         Bglqkx/Lsvuw3Ho0HmnZVJ/I3QRHxiS5dUehWKwxASKLeWe3nTQJqVKPxnOb8QuoftVU
-         FI3dj9p4Uq6jGEZoBbaboE58GzsfQeWqHs6rHiBVLY0a27Wmaoe/n73bgEXT1tj2X2bx
-         fuXVy/i2NIQaTfYoj39ZbyA2IlS/OgQnkefVFyyH725GsVlCpf9Nx5RZPIuw4o8GhGQh
-         m48U4IHE2RoE7maJphkq1J4kdAvc3/Ed4FPwj25f2FZXhextdpok+wBP538VMlBkeqrm
-         xG4A==
-X-Forwarded-Encrypted: i=1; AKwUvBwH6BvVz/awlCKXqLNXcsmRHAwNHmEKadQOupP8qJzViXR5l1s5SuUGmJ02k9YgkPyTn9o76cAMUyCXxlU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzO4XiiMETQgvRTk4WL/hXHxUA4c5PIViprF3w0TfxBG5KD0WM
-	IHvWq7zqqBXvxR9yqnObmh0jmfTYpp61ugM5gl7it/Ce+GI8QJ1RsjN9I+PiY3st2GaIyoMpAGF
-	BK8a1em+hY43xJtLONm3jLIWOnmO8+t67y2aZGUgCtgAyVASHvLuQkCoX4P67jFDcfcA=
-X-Gm-Gg: AYBFou2nnXKAJCQ0DiXp7YuRBnkubUhznd0ScKUkf/XrhjP18LmFCUjYU3+X4qz4dbx
-	uyOD47uagCejZaNqoJFLSziu9M/m8v3HeG9UM+y5Shg6qB+GdE1MpIaTailGQE8qCrPiboxo1D1
-	OV1/otzIUMUKsdXdbBRNul89eP02SI6r7LMNly3TqpCbdqGdGsmDqtUVjj8MqMdj98TuOtLR3De
-	uxHcDSFWWjuTjI8KLfh311TfouALZrs3ouS+fB4qpU4ZuCsX/xB95k8aXxno6Nqb+1vnQevvzxn
-	sZu1+7QeQm55hL7w9AYBLvxi0HMJZ8z+xo+VOiE41ciitfEZqtoBUeAmUD9eSnlff1/75wpjKBZ
-	4bfJoMWPxm7aRIMWpp+os6Kdx0t72WDFcpk1EuIsPMmBbBQ==
-X-Received: by 2002:a17:90b:3c8c:b0:3aa:6b5d:a018 with SMTP id 98e67ed59e1d1-3ab3af94c34mr7276489a91.67.1791808088325;
-        Mon, 12 Oct 2026 05:28:08 -0700 (PDT)
-X-Received: by 2002:a17:90b:3c8c:b0:3aa:6b5d:a018 with SMTP id 98e67ed59e1d1-3ab3af94c34mr7276466a91.67.1791808087785;
-        Mon, 12 Oct 2026 05:28:07 -0700 (PDT)
-Received: from [10.239.221.166] ([152.57.95.120])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed0332sm17600087a91.3.2026.10.12.05.28.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 05:28:07 -0700 (PDT)
-Message-ID: <dcdd3921-69db-4781-814c-6a83a7d3bbd7@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 17:58:02 +0530
+        d=1e100.net; s=20260707; t=1791808108; x=1792412908;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nJ5NhrhBncW0QRsUS8hp2zICmLShi/rx8K0hvOJwI3o=;
+        b=GO7Hg6fFs4B9W8SR2gEjHFxNHnkpXBHt1sb/zoMQgFVxlqgkq1k19w/bUcMAqdAInf
+         exTVXcfXZRusWfZSN/EVhhQwhIrIve9Vd3UrOl/HXhOnBUaR0kEFB3Sf82uXc27fGbcQ
+         7s6QdxwcKt+KUy6Be/zUgniOTKVYR1lgNSoCCEPI0pcV8tKSS8Fn5kmVIpJl+Yh9dXfp
+         fo7Ytuk4fY8mH81sKwIpv6rIuxLOci3LobPwt3iAR8Rh42loGfGFX/8LLVtpG2VVUR59
+         ZCKwES3npLIe5NEeRUUsQx7tNqgyn4kIoJ+OUfhqo8vY85VQDUyZ6GlJsiUzK2dNnRmL
+         Dtvg==
+X-Forwarded-Encrypted: i=1; AKwUvBzkApVDbhlxeD3202JCie6QjD6oM+BpUwsC7Lk7N/VZxcZMY2mUAjqx8enRh1qFvveVDL80sv/6k1ScBnM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfE7soUjgECRv3a1edHzEH1eLuxoKCYBguw0/7fXaojKWZl3Uy
+	Ek48kliZWpeaXrt7mv6SZ68J5SnjfzwTXaVGd9PX6ND3WPKeo5GrBC9MBFlwDucKfIP1vmVHVfm
+	8mALNeqJhUlpQl8hN1+csMZtCeEC3/VbSMnzO88MmpQ==
+X-Gm-Gg: AYBFou04JSoADVlRLC4k84VDpkU1E4ePh2TQYY61P6/WSfIhovBVEdkKJO//GreJpJ3
+	aome/cvGU4XPPKJfwKfUW54nU5IImajdEeu+knk1Ncq86q7eqhCK2gRvNvnCQXLodUQPoWb0pLs
+	e+cubESuk76ZjMGD141TmZYvXBGaf4cCGzye/8ZwXJ3pjXoUOUDpDc6RBIPtTvPCa8dR2e48TWD
+	gU1ee/goXa8BCoha9QcApWGo7GsrVf56ZBhGV5mnROrP9RSb5eXuhiZ0BLXtVHI7aYCdOUuCTKX
+	sq0b3MLYEd8vpCe4xKRyHokdR8Ur4MOEjt8CKPa+5X3jqDMnNuj/qRiVbh75+8m0lFeD14V5eey
+	W96NzwZN1R1U=
+X-Received: by 2002:a17:907:d1a:b0:c2a:704c:8c8e with SMTP id
+ a640c23a62f3a-c31a9fced4fmr998696466b.11.1791808108454; Mon, 12 Oct 2026
+ 05:28:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH net-next] netfilter: nf_conntrack: add ct expression
- support for netdev egress chains
-To: Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: fw@strlen.de, phil@nwl.cc, netfilter-devel@vger.kernel.org,
-        coreteam@netfilter.org, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261006085844.2694120-1-hari.chandrakanthan@oss.qualcomm.com>
- <asT_37n_6viz9dJa@chamomile>
-Content-Language: en-US
-From: Hari Chandrakanthan <hari.chandrakanthan@oss.qualcomm.com>
-In-Reply-To: <asT_37n_6viz9dJa@chamomile>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0OSBTYWx0ZWRfX2QyBl22PZYou
- CHzv9SOYlh92z8A3ac4OGsddYOpCJ+kdznD/e3Tq0RVVvcsRshDaBUJOkMNOOEI/V1ZUn+uQPV+
- hVtPAWslOjuGJO1rdM3+kP7eJZ8RKRFFBn9jOMtBCvod9FUk3VJd+1BQL4ioftXCi7ccVDGNsQV
- vxylR5RohZKiwTHWaZ4qWoDYSnqyrYu4V8Vd6MCOEpevbMWQklF0dHd/GW5zo//V8w+8EoEmZ0V
- XsH6+KsG1tXNScwzCrG7iSN4eBYAjDqFvWhqQDgWu94AonpdaczfueOUmOs1W2yVYSItv2MJELz
- GciMt2YbVo7M+nKsFU5qFRat36FCkRxsxQT/ApPya5zC9VratJhPS+r5ct9pHcE48twsK+frbfp
- DG2AN+Ab6H3dqGMMOHyY+k3G+Y6ucM4pmuxshO8hmtbuDjQ8/hPyzYyd86ka4LJrsrMTNes4jti
- ol7XVxDj6IvCK7sCngQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0OSBTYWx0ZWRfX/f8Xw6E4u0gI
- ZVxfBmYYuICUAxtSgc0uIM4G8tKsjR9tEB7K0eDdroFddNYcpD+A+R2xIrOwNrz36nF00MbOM+z
- dzEFfyh/4sklRKZcixIWY8fR2V4UPuM=
-X-Authority-Analysis: v=2.4 cv=QO391QLL c=1 sm=1 tr=0 ts=6accd259 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=8t6FrhTGQU2+Ya5TYW0Vxg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=oc923GDM-3h-CEzwMGEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-ORIG-GUID: 4yhA4DT2TcRggSKq1StpiIy5zAnPK8nx
-X-Proofpoint-GUID: 4yhA4DT2TcRggSKq1StpiIy5zAnPK8nx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120049
+References: <20261012105001.131311-1-elif.topuz@arm.com>
+In-Reply-To: <20261012105001.131311-1-elif.topuz@arm.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Mon, 12 Oct 2026 14:28:15 +0200
+X-Gm-Features: AclHuK-s3iDVNN4vEHh7YmQNqYhUQTaVfn0z-VxtT97Cul1Wu5lYlL5NBonlShc
+Message-ID: <CAKfTPtA_TkR3bmhknaZtJ0VUWtAM=05tHK1i5ixL9cuutGNsBA@mail.gmail.com>
+Subject: Re: [PATCH] sched/eevdf: Remove redundant RUN_TO_PARITY check
+To: Elif Topuz <elif.topuz@arm.com>
+Cc: peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com, 
+	linux-kernel@vger.kernel.org, dietmar.eggemann@arm.com, 
+	kprateek.nayak@amd.com, christian.loehle@arm.com
+Content-Type: text/plain; charset="UTF-8"
 
-
-On 10/6/2026 7:34 PM, Pablo Neira Ayuso wrote:
-> On Tue, Oct 06, 2026 at 02:28:44PM +0530, Hari Chandrakanthan wrote:
->> Add support for using the ct expression in nftables netdev egress chains.
->> This enables QoS policy enforcement at the netdev egress hook by
->> allowing ct operations such as copying connmark to packet mark.
->>
->> Add an explicit NFPROTO_NETDEV case in nf_ct_netns_get() and
->> nf_ct_netns_put() that enables conntrack for IPv4, IPv6 and bridge when a
->> ct expression is added to a netdev chain.
->>
->> Restrict ct expression use in the netdev family to egress hooks only, as
->> the connection entry is not yet available at ingress.
->>
->> Sharing this change as an RFC, to get feedback. The patch has been tested
->> by configuring nft rules at netdev egress hook to set ct mark and copy
->> ct mark into skb->mark. Also, the patch is validated at netdev ingress to
->> ensure the nft rule with ct mark set action is rejected.
->>
->> Signed-off-by: Hari Chandrakanthan <hari.chandrakanthan@oss.qualcomm.com>
->> ---
->>   net/netfilter/nf_conntrack_proto.c | 26 ++++++++++++++++++++++++++
->>   net/netfilter/nft_ct.c             | 22 ++++++++++++++++++++++
->>   2 files changed, 48 insertions(+)
->>
->> diff --git a/net/netfilter/nf_conntrack_proto.c b/net/netfilter/nf_conntrack_proto.c
->> index 7a40e4e0e33e..b8ee46262901 100644
->> --- a/net/netfilter/nf_conntrack_proto.c
->> +++ b/net/netfilter/nf_conntrack_proto.c
->> @@ -587,11 +587,36 @@ static int nf_ct_netns_inet_get(struct net *net)
->>   int nf_ct_netns_get(struct net *net, u8 nfproto)
->>   {
->>   	int err;
->> +	bool bridge_acquired = false;
->>   
->>   	switch (nfproto) {
->>   	case NFPROTO_INET:
->>   		err = nf_ct_netns_inet_get(net);
->>   		break;
->> +	case NFPROTO_NETDEV:
->> +		err = nf_ct_netns_do_get(net, NFPROTO_BRIDGE);
-> Hm. This is pulling in the bridge conntrack hooks.
+On Mon, 12 Oct 2026 at 12:53, Elif Topuz <elif.topuz@arm.com> wrote:
 >
->> +		if (err < 0) {
->> +			mutex_lock(&nf_ct_proto_mutex);
->> +			if (nf_ct_bridge_info) {
->> +				/* Module present but hook registration failed.*/
->> +				mutex_unlock(&nf_ct_proto_mutex);
->> +				return err;
->> +			}
->> +			mutex_unlock(&nf_ct_proto_mutex);
->> +			/* Bridge module absent, netdev egress handles routed
->> +			 * traffic too, bridge conntrack is only needed for
->> +			 * bridged frames.
->> +			 */
->> +		} else {
->> +			bridge_acquired = true;
->> +		}
->> +		err = nf_ct_netns_inet_get(net);
-> And inet too.
+> update_protect_slice() is only called from wakeup_preempt_fair() when
+> RUN_TO_PARITY is enabled. Remove RUN_TO_PARITY check inside
+> update_protect_slice() and use cfs_rq_min_slice() directly.
 >
-> I understand this is to deal with a situation where only ct rule is
-> placed in netdev/egress.
+> Signed-off-by: Elif Topuz <elif.topuz@arm.com>
 
-Yes.
+Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
 
+> ---
+>  kernel/sched/fair.c | 9 ++-------
+>  1 file changed, 2 insertions(+), 7 deletions(-)
 >
-> Is it really worth? I would expect users already have rules refering
-> to ct from either bridge and/or netdev would match here.
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index b42a0ca2a69e..f493fa29aed6 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -1133,13 +1133,8 @@ static inline void set_protect_slice(struct cfs_rq *cfs_rq, struct sched_entity
+>  static inline void update_protect_slice(struct cfs_rq *cfs_rq, struct sched_entity *se)
+>  {
+>         u64 vruntime = min_vruntime(se->vruntime, avg_vruntime(cfs_rq));
+> -       u64 slice = normalized_sysctl_sched_base_slice;
+> -       u64 vprot;
+> -
+> -       if (sched_feat(RUN_TO_PARITY))
+> -               slice = cfs_rq_min_slice(cfs_rq);
+> -
+> -       vprot = min_vruntime(se->vprot, vruntime + calc_delta_fair(slice, se));
+> +       u64 slice = cfs_rq_min_slice(cfs_rq);
+> +       u64 vprot = min_vruntime(se->vprot, vruntime + calc_delta_fair(slice, se));
 >
-> It looks a bit like too much to enable them all for the "a ct rule in
-> netdev/egress only".
+>         if (sched_feat(PREEMPT_SHORT) && slice != se->slice)
+>                 vprot = min_vruntime(vprot, ineligible_vruntime(cfs_rq));
 >
-> Probably better solution would be to enable nf_conntrack_in() from the
-> netdev hook (just an earlier call), but this also needs to enable
-> packet defrag from there. Then, enabling all inet and bridge is not
-> required, because netdev/ingress would handle the creation/lookup of
-> the conntrack.
-
-Thanks for suggesting the alternate solution.
-Yes, we can call nf_conntrack_in() at netdev/ingress and nf_confirm()
-at netdev/egress, avoiding the need to enable the inet and bridge
-hooks when ct expressions are used only with netdev hooks.
-I’ll share tested patches to add this support, including the handling of
-packet defrag.
-
->> +		if (err < 0) {
->> +			if (bridge_acquired)
->> +				nf_ct_netns_put(net, NFPROTO_BRIDGE);
->> +			return err;
->> +		}
->> +		break;
->>   	case NFPROTO_BRIDGE:
->>   		err = nf_ct_netns_do_get(net, NFPROTO_BRIDGE);
->>   		if (err < 0)
->> @@ -615,6 +640,7 @@ void nf_ct_netns_put(struct net *net, uint8_t nfproto)
->>   {
->>   	switch (nfproto) {
->>   	case NFPROTO_BRIDGE:
->> +	case NFPROTO_NETDEV:
->>   		nf_ct_netns_do_put(net, NFPROTO_BRIDGE);
->>   		fallthrough;
->>   	case NFPROTO_INET:
->> diff --git a/net/netfilter/nft_ct.c b/net/netfilter/nft_ct.c
->> index 3c4c2faa7398..e90e73475b0c 100644
->> --- a/net/netfilter/nft_ct.c
->> +++ b/net/netfilter/nft_ct.c
->> @@ -649,6 +649,15 @@ static void nft_ct_get_destroy(const struct nft_ctx *ctx,
->>   	nf_ct_netns_put(ctx->net, ctx->family);
->>   }
->>   
->> +static int nft_ct_validate(const struct nft_ctx *ctx,
->> +			   const struct nft_expr *expr)
->> +{
->> +	if (ctx->family != NFPROTO_NETDEV)
->> +		return 0;
->> +
->> +	return nft_chain_validate_hooks(ctx->chain, 1 << NF_NETDEV_EGRESS);
->> +}
->> +
->>   static void nft_ct_set_destroy(const struct nft_ctx *ctx,
->>   			       const struct nft_expr *expr)
->>   {
->> @@ -732,6 +741,7 @@ static const struct nft_expr_ops nft_ct_get_ops = {
->>   	.init		= nft_ct_get_init,
->>   	.destroy	= nft_ct_get_destroy,
->>   	.dump		= nft_ct_get_dump,
->> +	.validate	= nft_ct_validate,
->>   };
->>   
->>   #ifdef CONFIG_MITIGATION_RETPOLINE
->> @@ -742,6 +752,7 @@ static const struct nft_expr_ops nft_ct_get_fast_ops = {
->>   	.init		= nft_ct_get_init,
->>   	.destroy	= nft_ct_get_destroy,
->>   	.dump		= nft_ct_get_dump,
->> +	.validate	= nft_ct_validate,
->>   };
->>   #endif
->>   
->> @@ -752,9 +763,19 @@ static const struct nft_expr_ops nft_ct_set_ops = {
->>   	.init		= nft_ct_set_init,
->>   	.destroy	= nft_ct_set_destroy,
->>   	.dump		= nft_ct_set_dump,
->> +	.validate	= nft_ct_validate,
->>   };
->>   
->>   #ifdef CONFIG_NF_CONNTRACK_ZONES
->> +static int nft_ct_set_zone_validate(const struct nft_ctx *ctx,
->> +				    const struct nft_expr *expr)
->> +{
->> +	if (ctx->family == NFPROTO_NETDEV)
->> +		return -EOPNOTSUPP;
->> +
->> +	return 0;
->> +}
->> +
->>   static const struct nft_expr_ops nft_ct_set_zone_ops = {
->>   	.type		= &nft_ct_type,
->>   	.size		= NFT_EXPR_SIZE(sizeof(struct nft_ct)),
->> @@ -762,6 +783,7 @@ static const struct nft_expr_ops nft_ct_set_zone_ops = {
->>   	.init		= nft_ct_set_init,
->>   	.destroy	= nft_ct_set_destroy,
->>   	.dump		= nft_ct_set_dump,
->> +	.validate	= nft_ct_set_zone_validate,
->>   };
->>   #endif
->>   
->> -- 
->> 2.34.1
->>
+> base-commit: 4a3b51aab6e25244d97936aa65e6d5425adf98e1
+> --
+> 2.34.1
+>
