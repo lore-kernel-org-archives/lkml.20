@@ -1,136 +1,299 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 490A4448BAB
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:42:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8683B6BFA;
+	Mon, 12 Oct 2026 11:43:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805379; cv=none; b=HH7AnjiiH1tWlXcpLPRvne+OMmqYBGvAlfFDc80AnXGToprC71Csx503nhGqeY98i2FJpmJYzfHoTpPSnItxPajT1xLAyqWERL+1q2nqCX0oAqOcWMChAF82CAg2q1q2veoXlGDOxIS1rprSZPh0dySCG39klkl9ir2/vmz2GP8=
+	t=1791805412; cv=none; b=IMv6ZqYYKdg7mI3KJvgGPIi2N2XKmm9VyT/mFI4jMdiSudLH7Proa3IOvcM0O2thpEtGaSOuC03m7T5jMOxQxcmxt3I/W/iMhmjfLvW8PbX7mE0yziOfsxxMpibK9VJJQj3u5E7khJXYYzz8U2n5rIDio4zg9F1rTGt7EEyWQYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805379; c=relaxed/simple;
-	bh=KV4/MIaxjxvl/mfkomvVLh4IYnI2BQ2FQLL4/zF1OZQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cRie5FVd9hqx4LK0DYtZ5n5RCdHd046nMaXNU6h670wxlp7la0kOHjv5aggz4w0mTeYxS1I7WsRjOHedXDaGtDh/R6cNeMGVbX6dwgk7iblKxN1UdWNr2PvticerAum/PHvF23ic4B1bJ0XHJgvjgdj4H6H0YgIpKmOcpjh3Z90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NcBMTxOo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791805412; c=relaxed/simple;
+	bh=QywlOtHVCWjGzDGEYVoq8CHeQJUpWd2ryrHm5jfxzoo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jG0tCbPKB740w0E0nw5kkBuQsR8GuJhIH+29MlmLCHaNRmNsbn5kgRT9fWnT4tFE+FOyp/m+u70LfV4Ur4jDvu1Vk3ukiqKaOb7k1kJn3e0p7sP/E6B5RvlqenZG5GfFwazJkpJ5VqjRSdBgqX2ZoLovxmgGaKXS4XooL2WbbwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XD8fruwF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NcBMTxOo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A60271F0089D
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:42:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XD8fruwF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00E911F0089D;
+	Mon, 12 Oct 2026 11:43:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791805376;
-	bh=5fWTotOXdxMB1fdZYWBlyYnTKfDeGXR3zegL+SWwZxw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NcBMTxOoNuN5lMbRYeObWkI4+/y2kgoHlB7Cy4rp0Azh0kcaI9DlYseknut9ojBAU
-	 b3b+hzx2eZ+TGppR60MByPoStKkFu1PBoWWVihPv0aLHfC3cjG95vfNlByb6eXhrUi
-	 7++f4fyTeyG9kC26PtTaCgj41aVC2SBT80DZ+76RGl+tp4TxDynKF8NRaBeKgjs1AK
-	 0Ig9kkm6ukfAQLn+/U7lAw6hDk4rhkYmzifLjfPgjvEM8qfFd1ohID1YUe5f6FVQwO
-	 1eNCn105cPJXQnnuhT4AhSHGqMTT4n9FB/Jh5HWzvETSCuLKa35Pm3GoMGWYriOoE1
-	 vNZ50XIQcx1hA==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 2FE4F198003A;
-	Mon, 12 Oct 2026 07:42:54 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Mon, 12 Oct 2026 07:42:55 -0400
-X-ME-Sender: <xms:vcfMaiCvTyfdTem2aCTdRR2fQHh2fmWWdWpclGh4Qo3RbfV5Aw2ncQ>
-    <xme:vcfMakEgVtzACRrXXG_gkXwYahjFz0QAWdf7uVopJYporAN_8br61BK5kSPd4rYMC
-    DY59tasWZP6s0MDkqMmW6QFcrS_WjILdf25lEs2ZdxGifw56N9-wQgb>
-X-ME-Received: <xmr:vcfMalMsPWZnoZA4jTaxTIr0EZ-0X8nTssFkoAaw0OKOh1237etfFdXFla8>
-X-ME-Proxy-Cause: dmFkZTFn0qRlGtejrvSmFoeFSa9WhtjXZQ5i4Fb9PhPmjj4k3K+OZ0pehOpB/bFOKjg4jc
-    CfFj88JdJguPIbqmtpkWLW99EuflPx74ldu3tiD9XSu7qCMOi7iygh2zECXFc8XAtIoy8x
-    QPQsWQmGbCBXCpZo652nD2bZ/plxf/uJYOQQyqHfgItaDIwapusOqgZ3W2uDwHMxTzKYzg
-    qZQLzD5GIiFrxdVPpGcRAq2itikQkPfQhvekCLb1KmYgI/VQpTpri7tgpKupHPsEBaurff
-    e9fuWvjPnSUBcO6kERYEjyVFV+F/YGaG2syeF1kyEuCsmU5h7DjwIx6yGwDgJ/X0o0j/Sb
-    iZFfVIAZ4m5cH4Upaz2ppy/PyTIlciXuKLzPDwF772Sd1Sw3TNCTkOAQe1ctBQYZMb4eZB
-    31N6lUTYY/vr+Uyc/MggZ4yOB+XE6Q2Qf8GaWHJBWlbbj6bsr7wJKSuN2L59o7jSra2yI1
-    u9W4/wkajjVLUgFr7OpqPEoZ10FV+fnSd69sl7MMUDvkcBMxXYyKbTBO1d0qv3X9S8JEP0
-    yLGZq0IkRTvIWePOmV1iaP30F7Gwe3EaimqEX2FQxoi+SscqXMfSYxdb+AZ6lulfl796xt
-    Es1zntiFChjaraJ7k/TfIlB7SOCE6fg3wDlYesdgVuf8wkWHzsoKvzOfaesw
-X-ME-Proxy: <xmx:vcfMatjQFQjc-IVZxdZ4cE5-hFIHubHuhTKKObbzygU9Ar7Fufwr7w>
-    <xmx:vcfMat2DXfYPfXaonnXMgbz3s-Vi81Z6ACIeaYvXhefLJI0rG1bjNA>
-    <xmx:vcfMainxi_-dOAJaCK-CPUte-gUH7vf4OvjXjOWBrorEj3RJP8Y-pw>
-    <xmx:vcfMakugCN_SAuzCPpkm2rMPrc8Ejya-VdNzHNydIrRZCZnAQfTG1w>
-    <xmx:vcfMaq3tOVcze-ZHetV07OyuAo6JoFtnASWa1IaiJElqJg26r4-kWT4z>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 12 Oct 2026 07:42:53 -0400 (EDT)
-Date: Mon, 12 Oct 2026 12:42:52 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Dmitry Voytik <voytikd@gmail.com>
-Cc: Chao Gao <chao.gao@intel.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, linux-coco@lists.linux.dev, x86@kernel.org, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] coco/tdx-host: add Kconfig description
-Message-ID: <aszHlWi_aLIh8r9F@thinkstation>
-References: <20261003223237.513456-1-voytikd@gmail.com>
+	s=k20260515; t=1791805408;
+	bh=5UxJrnWb6DUWlRK98/7z/XIw7Ci0cIBCbPmLnyjbiss=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XD8fruwFh0qa/PYAcaRWNY4ybAX/Xa59SwCqMrxJZWurpcbLbolbAJ4VrdISih0xY
+	 81j5lHiFbzQAhtzYc2mLNjdtmsi6DWFYpow2gqnC8qzT5I5H4AAJGLv19RrF1CiNv7
+	 SAPhp4LCJbJrSTE85fkrRBYrCpdShlI4StCjIAPeeiKBts4lEUeJjydmHDti7wdN4a
+	 hRkDQugJ+4U+FAlcnGMtOsU01Hxn0KT6ptuqbw4Vqlc6T+j9PxeRDI7xBXkVPtFJNs
+	 S0fO0+KmizjW3fxR3LYObD2cTT2QYAWZaEg3HnYFcF+/gtQZUAU+ig2scqm8o9J5JI
+	 cA15IWBJHOiYA==
+Subject: Re: [PATCH mptcp-next] selftests: mptcp: sockopt: test passive Fast
+ Open early write push
+From: netdev-bot+sashiko@kernel.org
+To: rameshsv06@gmail.com
+Cc: matttbe@kernel.org, martineau@kernel.org, geliang@kernel.org,
+ netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
+ rameshkumar.t@phytecembedded.in, kuba@kernel.org
+Date: Mon, 12 Oct 2026 11:43:27 +0000
+Message-ID: <179180540754.434549.14278237692861809718@kernel.org>
+In-Reply-To: <20261008111003.136143-1-rameshkumar.t@phytecembedded.in>
+References: <20261008111003.136143-1-rameshkumar.t@phytecembedded.in>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261003223237.513456-1-voytikd@gmail.com>
 
-On Sun, Oct 04, 2026 at 12:32:37AM +0200, Dmitry Voytik wrote:
-> Fix the issue when the driver always gets compiled as a module.
-> How to reproduce the issue:
-> 	make mrproper
-> 	make defconfig
-> 
-> 	./scripts/config \
-> 	  -e CMA \
-> 	  -e ALLOC \
-> 	  -e KVM \
-> 	  -e KVM_INTEL \
-> 	  -e KVM_INTEL_TDX \
-> 	  -e INTEL_TDX_HOST \
-> 	  -e TDX_HOST_SERVICES \
-> 	  --refresh
-> 	make olddefconfig
-> 	make mod2yesconfig
-> 	grep '=m$' .config
-> 
-> 	returns only this driver as module:
-> 	  CONFIG_TDX_HOST_SERVICES=m
-> 
-> "make menuconfig" doesn't let switch from =m to =y either.
-> 
-> Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
-> ---
->  drivers/virt/coco/tdx-host/Kconfig | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/virt/coco/tdx-host/Kconfig b/drivers/virt/coco/tdx-host/Kconfig
-> index 57d0c01a4357..5a13ec6f51e8 100644
-> --- a/drivers/virt/coco/tdx-host/Kconfig
-> +++ b/drivers/virt/coco/tdx-host/Kconfig
-> @@ -1,6 +1,10 @@
->  config TDX_HOST_SERVICES
-> -	tristate
-> +	tristate "TDX host user interface driver"
->  	depends on INTEL_TDX_HOST
->  	select FW_LOADER
->  	select FW_UPLOAD
->  	default m
-> +	help
-> +	  See INTEL_TDX_HOST for details.
+Thank you for your contribution! Sashiko AI review found 7 potential
+issue(s) to consider.
+
+Critical: 0 · High: 1 · Medium: 3 · Low: 3
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The new test never runs the code path it was written to cover.
+- [Medium] do_fastopen_tests() runs the TFO subtests without first
+  checking that the kernel supports MPTCP Fast Open.
+- [Medium] The TFO branches of client() and server() in mptcp_sockopt.c
+  skip every MPTCP-level check.
+- [Medium] Even if passive TFO were actually triggered (see the
+  sysctl/cookie finding), the test has nothing that keeps the handshake…
+- [Low] The commit author is 'T S Rameshkumar <rameshsv06@gmail.com>',
+  but the only Signed-off-by is 'T S Rameshkumar…
+- [Low] parse_opts() in mptcp_sockopt.c now accepts '-f' (the getopt
+  string changed from "h6" to "h6f"), but die_usage(), which both -h and…
+- [Low] Result checking in the TFO path is fragile and weaker than in the
+  non-TFO path.
+
+--
+
+selftests: mptcp: sockopt: test passive Fast Open early write push
+
+This adds a -f option to mptcp_sockopt. It enables TCP_FASTOPEN on the
+MPTCP listener and TCP_FASTOPEN_CONNECT on the client, then exchanges a
+short request and reply. mptcp_sockopt.sh gains do_fastopen_tests(),
+which sets net.ipv4.tcp_fastopen=3 in ns_sbox and runs the helper over
+IPv4 and IPv6.
+
+> Signed-off-by: T S Rameshkumar <rameshkumar.t@phytecembedded.in>
+
+[Severity: Low]
+The author is T S Rameshkumar <rameshsv06@gmail.com>, but the only
+Signed-off-by uses rameshkumar.t@phytecembedded.in. checkpatch reports
+this as FROM_SIGN_OFF_MISMATCH.
+
+Could the Signed-off-by, the author, or an explicit From: line be
+updated so they match?
+
+> diff --git a/tools/testing/selftests/net/mptcp/mptcp_sockopt.c b/tools/testing/selftests/net/mptcp/mptcp_sockopt.c
+> index d68515b7903b8..861de909abbd8 100644
+> --- a/tools/testing/selftests/net/mptcp/mptcp_sockopt.c
+> +++ b/tools/testing/selftests/net/mptcp/mptcp_sockopt.c
+
+[ ... ]
+
+> @@ -271,7 +280,7 @@ static void parse_opts(int argc, char **argv)
+>  {
+>  	int c;
+>  
+> -	while ((c = getopt(argc, argv, "h6")) != -1) {
+> +	while ((c = getopt(argc, argv, "h6f")) != -1) {
+
+[Severity: Low]
+This isn't a bug, but die_usage() still prints:
+
+	fprintf(stderr, "Usage: mptcp_sockopt [-6]\n");
+
+Should the usage string also list the new -f option?
+
+[ ... ]
+
+> @@ -726,13 +738,36 @@ static int server(int pipefd)
+
+[ ... ]
+
+>  	alarm(15);
+>  	r = xaccept(fd);
+>  
+> -	process_one_client(r, pipefd);
+> +	if (do_tfo) {
+> +		char buf[64] = {0};
+> +		ssize_t n;
 > +
-> +	  If unsure, say N.
+> +		n = read(r, buf, sizeof(buf) - 1);
+> +		if (n <= 0)
+> +			die_perror("read tfo syn data");
+> +
+> +		n = write(r, "PONG_REPLY", 10);
+> +		if (n != 10)
+> +			die_perror("write tfo reply");
 
-I would rather keep it hidden and make it follow KVM_INTEL instead:
+[Severity: Medium]
+Even if passive TFO were triggered, what keeps the handshake incomplete
+while this write runs? server() does xaccept() -> read() ->
+write("PONG_REPLY").
 
-config TDX_HOST_SERVICES
-        tristate
-        depends on INTEL_TDX_HOST
-        select FW_LOADER
-        select FW_UPLOAD
-        default KVM_INTEL
+On loopback, the server stack is likely to process the client's final
+ACK in softirq before the process returns from accept(), or between the
+read() and the write().
 
-INTEL_TDX_HOST depends on KVM_INTEL, so this gives =m with kvm-intel as a
-module and =y with it built in, which covers your mod2yesconfig case.
+Nothing in the test holds that ACK back (for example, a netfilter rule
+that drops the final ACK). Nothing checks that the socket is still in
+SYN_RECV when the write happens either.
 
-Does it work for you?
+Wouldn't a normal write on an established socket still be reported as a
+"Fast Open early write" pass?
+
+> +
+> +		n = read(r, buf, 1);
+> +		close(r);
+> +	} else {
+> +		process_one_client(r, pipefd);
+> +	}
+
+[Severity: Medium]
+This TFO branch, and the one added to client(), skip every MPTCP-level
+check. In the non-TFO path, process_one_client() and
+connect_one_server() call do_getsockopts() (MPTCP_INFO, MPTCP_TCPINFO,
+...). They also check mptcpi_rcv_delta and the bytes_sent, received and
+acked counters.
+
+The new branches only do a plain write/read exchange and never call
+getsockopt(SOL_MPTCP, ...).
+
+If MPTCP with TFO silently fell back to plain TCP, wouldn't this still
+pass?
+
+> @@ -844,6 +879,26 @@ static int client(int pipefd)
+>  
+>  	alarm(15);
+>  
+> +	if (do_tfo) {
+
+[ ... ]
+
+> +		setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+> +		n = read(fd, buf, sizeof(buf) - 1);
+> +		if (n <= 0 || strcmp(buf, "PONG_REPLY") != 0)
+> +			xerror("Fastopen early write failed: received %zd bytes '%s'", n, buf);
+
+[Severity: Low]
+On a stream socket, read() can return fewer than the 10 bytes the
+server wrote. Could a short read here cause a spurious failure, since
+the result is compared exactly against "PONG_REPLY" with strcmp()?
+
+On the server side, the return value of the final read in server() is
+stored but never checked:
+
+		n = read(r, buf, 1);
+		close(r);
+
+process_one_client() checks for EOF instead:
+
+	ret3 = read(fd, buf, 1);
+	if (ret3 != 0)
+		xerror("expected EOF, got %lu", ret3);
+
+Should the TFO path do the same, so that read errors or unexpected extra
+data are not silently ignored?
+
+[ ... ]
+
+> diff --git a/tools/testing/selftests/net/mptcp/mptcp_sockopt.sh b/tools/testing/selftests/net/mptcp/mptcp_sockopt.sh
+> index b4e3eddc9cf21..e88a8bbeb6e36 100755
+> --- a/tools/testing/selftests/net/mptcp/mptcp_sockopt.sh
+> +++ b/tools/testing/selftests/net/mptcp/mptcp_sockopt.sh
+> @@ -359,6 +359,39 @@ do_tcpinq_tests()
+>  	return $?
+>  }
+>  
+> +do_fastopen_tests()
+> +{
+> +	local lret=0
+> +
+
+[Severity: Medium]
+Should this function check for MPTCP Fast Open support before it runs?
+
+On a kernel without that support, one of two setsockopt() calls fails:
+TCP_FASTOPEN in server() or TCP_FASTOPEN_CONNECT in
+sock_connect_mptcp(). die_perror() then exits with 1. The script
+records "Fast Open early write v4" as a failure and sets ret, where a
+skip would be expected.
+
+do_tcpinq_tests() in this script already handles this case:
+
+	if ! mptcp_lib_kallsyms_has "mptcp_ioctl$"; then
+		mptcp_lib_pr_skip "TCP_INQ not supported"
+		mptcp_lib_result_skip "TCP_INQ"
+		return
+	fi
+
+run_tests_mptfo() in mptcp_connect.sh does the same with
+mptcp_lib_kallsyms_has "mptcp_fastopen_".
+
+> +	ip netns exec "$ns_sbox" sysctl -q net.ipv4.tcp_fastopen=3
+
+[Severity: High]
+Does this test ever reach the passive Fast Open path it is meant to
+cover?
+
+The value 3 is TFO_CLIENT_ENABLE | TFO_SERVER_ENABLE. It does not set
+TFO_CLIENT_NO_COOKIE (0x4) or TFO_SERVER_COOKIE_NOT_REQD (0x200). Also,
+sock_connect_mptcp() does not set TCP_FASTOPEN_NO_COOKIE.
+
+Each mptcp_sockopt -f run makes a single connection, first to 127.0.0.1
+and then to ::1. So no cookie is cached for either destination in
+ns_sbox. On the client, tcp_fastopen_defer_connect() then gets false
+from here:
+
+net/ipv4/tcp_fastopen.c:tcp_fastopen_cookie_check() {
+    ...
+	if (cookie->len > 0)
+		return true;
+	tcp_sk(sk)->fastopen_client_fail = TFO_COOKIE_UNAVAILABLE;
+	return false;
+}
+
+As a result, connect() does a normal handshake and sends a cookie-request
+SYN with no data.
+
+On the server, tcp_try_fastopen() only generates a cookie:
+
+	if (foc->len == 0) {
+		/* Client requests a cookie. */
+		tcp_fastopen_cookie_gen(sk, req, skb, &valid_foc);
+
+No TFO child socket is created. accept() returns an ESTABLISHED socket,
+PING_DATA arrives after the handshake, and PONG_REPLY is an ordinary
+write.
+
+Neither side checks that TFO actually happened. There is no
+TCPI_OPT_SYN_DATA check on tcpi_options and no TcpExtTCPFastOpenPassive
+check, and the server doesn't compare the payload it reads.
+
+Wouldn't this pass whether or not the MPTCP passive TFO early write path
+works?
+
+This also seems to contradict the commit message, which says the server:
+
+  "accepts an incoming connection with SYN payload data, and immediately
+  writes reply bytes before the 3-way handshake fully completes"
+
+For comparison, run_tests_mptfo() in mptcp_connect.sh connects to each
+address twice, so the second connection has a cookie:
+
+	run_tests_lo "$ns1" "$ns2" 10.0.1.1 0 "-o MPTFO"
+	run_tests_lo "$ns1" "$ns2" 10.0.1.1 0 "-o MPTFO"
+
+[ ... ]
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008111003.136143-1-rameshkumar.t%40phytecembedded.in
