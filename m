@@ -1,348 +1,169 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MA0PR01CU012.outbound.protection.outlook.com (mail-southindiaazon11021141.outbound.protection.outlook.com [40.107.57.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB49C472536
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:05:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806761; cv=none; b=FsRU1VZkGGRt9VwR5Dddxj05bznLqC1XpYriEoTv4LeWcfA+u2X5OLyPmxSJs8wA5R66Ss5NG8xaHd6wcChZaMCQaL1Z1j3JddSzk3EAzN7e2zqmOF8cIajha4bScD3iaBLysMMMncXjzlH1VcZevWlwkvOChqAgbkhr+9EIqMM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806761; c=relaxed/simple;
-	bh=Ac+dvp6Se/lnGpXxhzxfsk1QvvcSamsF74N5zYBUtXM=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECBC4825DE;
+	Mon, 12 Oct 2026 12:06:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.57.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791806765; cv=fail; b=SngmcR4Vq3OfdHf82vPpmSWHqEXsXSd1igqwHdOL4FgDLhAwORCu+Kl31rsTmTU52VRpW6mcaXUlJZD5pAsU4FSn0UN/zwZyA2a7yIAPckc4Pq1xrmY42L+2LpmvKxLzTLiiG9wdfKK0dl5hRwyEvVLVx1zUeXre7pPso/L6K3Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791806765; c=relaxed/simple;
+	bh=CzpcgKrgxbJMWmObGMkT92nKjmTQ+jrcNCioXz2sPBU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sMFoJ6+JjKON1pcYcOk+jzfpXxN9NK8k6gUjbyeAwogBviezAAjrDtNdQSh4BihTna3Vat/Q5FsUZ+EGlRQu32K03WynWD1yI7tqe0vXPklYEo/RG4lGG6QOETWlZpaozLb9f/2OHv59W9Ywh4UPgupeD84ct3L3jZdDW1PczTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B6PFteKV; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B6PFteKV"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ab4178ee33so865042a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:05:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791806756; x=1792411556; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mm12iLYNj8dHfuhY6D2/uuvm2SSZhahDIiqNgtVt6Cg=;
-        b=B6PFteKV7Uddo+/i9D8Y/7RfCE00Sbx1SGuhXYrBqqwvof7zllIKbQeigDW32CEB3B
-         XHDN72ku+3SlsUKOLhKdgGKwj/RWJDXYM/iMhQJus/agVscKhuu36R0TqXfFzTvsI4YJ
-         z+xP9z5Doz0uNSMb9rypX0AmT8uPrjM37vKiPUlinz6X7Qyh8iM7w43zl9YMGY6hz6Cz
-         YbGG8h0jgn1cKDboUspw9psGdY0fdz7zg4EiXP6It2CIHouO9tv2y7z2FBoOZihGBM2L
-         F9VA9vOCrkOHw5GU0hh0E79St67xkBLYQbanVWgiOqM+CyJ+MUrUDX7xBkRVdzbed6il
-         lhFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791806756; x=1792411556;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mm12iLYNj8dHfuhY6D2/uuvm2SSZhahDIiqNgtVt6Cg=;
-        b=unLpkRpFBVApzx1A0CNo8WEVJOPR5+roJTq/r6cWAIPHxld8ZcWkYzdaQ2kZ0hZPkE
-         i2rmrtalUrOoOxxxhQaT85GtXyp7DB7VKeMT7RrmPckbVpsLZhnBj/NBWNOtubI2A66D
-         /5bI7cUNKmE3OrST2L2XAWK/ZgXPbrSikf/6hdO8kba/TydFBguVQYb/Y+u3o/MJa+IM
-         WChWOaQNPqU41ISctD0BFKNUGYiVCO07VR/LI3B1bCjoUFKDd9hXOfIX6BI/vNvWbPck
-         BNDZ4eaJcM7s1o0IwPadz4TISKCdvsjoHet6Z8Uho8KBgaWeLyjXqpKsIzQpL/dpC+T7
-         PKjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzr9r+N9IVaQhtntSsEzZQFgBjeO6HV5cCldTRGt0g/20GeJ8UjgcR3+w876vx1DbPvOkkr8J1JWLb6hcA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzUr/dX1hCG2EZq5GtBJZCp2orvfJ9ucGObt69pFcU0IL50BAI
-	Se/as3quhr44HpkVIUztZKbOJ3125kQjx4f1TVMmG3Cp1H+JixJP6QIR
-X-Gm-Gg: AYBFou1v2Yzwi/jIXWXOLnNUsHQkYhLFfkOjXhkO25cF/FpjhOzz7e7Dd50VxAJDkdY
-	pMDyIs38ig7ayLcQTrXRT4KiGa9L8FdvFwB92HCQNI7FdK8l8Zr0dDbCV1ymY5r87KNHgeW3hkl
-	nM76Z+4ulNWicNkeEVSsXVrPoKbWHnszVj7rs8vdyzHMZOi+RfZkgx/ao5lAnrJC91a/rNq0o7w
-	Q3Ax3fkVoLKpNgC2PLHNBQ7jg8+QvMuDKwh4oNgjegMaGPc+t4UY84JAkxlvUBYuPuErJJf6IvH
-	6nbpOliuwbjWhls+PuA9pCmp6xDtbx+bvPvrJYQKptA+wZJ3y9uAaX6z7AggSy5OAp5oQ+9IoEa
-	1Knt0C0201AlIzmodRoko/F59y0BENXnJHK1MKFq15nkLvl65SUC5cucUIoiuAJSmR1ErPwl1z0
-	gfxJNOe2wk/9I+9bB0OgPzAXqyEHs2TAUwX+Y9ZCimm8TAe6eiFv2+D1ZkUmVZ/pHgX7s9YB9PW
-	noJxwV64U+S1HRHJhzAiGQlPZTxuLwIX1q2upGHMbVsTg==
-X-Received: by 2002:a17:90b:224c:b0:3ab:2ad1:f10a with SMTP id 98e67ed59e1d1-3ab3a0ef48emr6942972a91.0.1791806755712;
-        Mon, 12 Oct 2026 05:05:55 -0700 (PDT)
-Received: from yafangs-Air ([101.82.170.24])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab371c32cesm15722454a91.16.2026.10.12.05.05.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 12 Oct 2026 05:05:55 -0700 (PDT)
-From: Yafang Shao <laoar.shao@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	gourry@gourry.net,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shakeel.butt@linux.dev,
-	roman.gushchin@linux.dev,
-	yu.c.chen@intel.com,
-	zhao1.liu@intel.com
-Cc: bpf@vger.kernel.org,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
+	 Content-Type:MIME-Version; b=LPR2ag4/+ToQNEBJxKtBIqCLS5Vi+gy+3nySYcAiuiEQwozEqUno3C/fFzMsg09QkOHEbrE7eK6FDIKL5grXc0ZLydKLkEV1IF3aeo3lkTG6n1WY4pE1oErSL5tn04uAZ4Up7ovmLE5jHqstKB/pvcsZGPZIPPChstootq/vc+I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=40.107.57.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vn8wEDVRCM+nZLNMkXQrUvuKnfeFVIVd4u8dP3gVOMCDwfbJ3pkrbGCfokdGUjFPTBuUklwdU7WscIMzrGdjvsbsabuq3+nooZO39MzeulD+K7wVxb1CobctpNl9lQgSzE4i8ZhlSe6VqKSZy9aFaL4ugbZcO7qQQr0jIGyl4X4iD7ODQOYgKOaRjwuMAyZ449CLTINkDJVWJB8LgxZz2G/uRCeW8BUpnzMgfG/Og5PsC4ewHzSoFo1PYeAY186uRkMV1YaN8aeogdU9DWuc3q4IOE40v2kfq7AnVxxuFKfPtGPLfqt0sACg2rHdsOYXjyZKna0WmW8RlH6H7cVAsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HvFfR2URAFIUF/lV+6LIrgRLtDwMCAVp1KWThQLN6qg=;
+ b=r2pn/kN75wULDf/fLtXkPxQewDRznOUhbEf6MbxG/BSHAb7tr6/WEZskhGgAlR1+Wpx2+s6GK5DP9tF2C9JoN24UaodXeDGmiPFV1UDNyo86mfJIt65pC4PcUSgFVE+meIxL42qId9lHALmLPPD0gBA2wCx+r77bxOYyqAT8ET63lC4zrE529yA67ayz74eYO8m2Bkr2kEuSXCJrGmiwSJhJHXmIZ6KRd+JiKb5bQ95tKU9+ub3SQhGbOcD8cbHDpvmSKhfx5C3+g41BwD1tJ/4mtAOKZqQO4d/3Zn4XI8Cp+DuqPbMS12UokC+18dLkN2FjHU97gMWf9xB/ZbP/uA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
+ header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=ebytelogic.com;
+Received: from PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::104)
+ by PNWP287MB6007.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:343::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 12:05:58 +0000
+Received: from PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
+ ([fe80::3a7f:fb1:6998:b89e]) by PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
+ ([fe80::3a7f:fb1:6998:b89e%3]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
+ 12:05:58 +0000
+From: Hitesh Patel <hitesh@ebytelogic.com>
+To: linux-media@vger.kernel.org
+Cc: gjorgji.rosikopulos@oss.qualcomm.com,
+	bryan.odonoghue@linaro.org,
+	bod@kernel.org,
+	mchehab@kernel.org,
+	vladimir.zapolskiy@linaro.org,
+	loic.poulain@oss.qualcomm.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	atanas.filipov@oss.qualcomm.com,
+	jigarkumar.zala@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yafang Shao <laoar.shao@gmail.com>
-Subject: [RFC PATCH v2 1/3] sched: add helpers for numa balancing
-Date: Mon, 12 Oct 2026 20:04:36 +0800
-Message-ID: <20261012120438.52849-2-laoar.shao@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261012120438.52849-1-laoar.shao@gmail.com>
-References: <20261012120438.52849-1-laoar.shao@gmail.com>
+	ravi@ebytelogic.com,
+	Hitesh Patel <hitesh@ebytelogic.com>
+Subject: [PATCH v4 4/4] media: qcom: camss: Do not link CSID source pads the CSID does not have
+Date: Mon, 12 Oct 2026 17:35:42 +0530
+Message-ID: <20261012120542.1140157-5-hitesh@ebytelogic.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261012120542.1140157-1-hitesh@ebytelogic.com>
+References: <20261012120542.1140157-1-hitesh@ebytelogic.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PNYP287CA0057.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:23e::26) To PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c04:1::104)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PN2PPF076CDA63A:EE_|PNWP287MB6007:EE_
+X-MS-Office365-Filtering-Correlation-Id: a5bb4b10-9797-4796-5537-08df28592ce7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|10070799003|376014|52116014|7416014|366016|1800799024|22082099003|18002099003|10067099003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	vZjCC/3K0134NKSDuwkRBhKRQawVpoa/zsCcI7CdQvmeMvPDD4uAbFAbWRai1rxGBaAFUzlceMmB663Uia0K2xBM/rBVw+DfrWfNbUlwWYPqP6KGPJtjoYdbt9WJkkytDQW/i+LPgQG34o5MVrT+UtYQsCQlb5a+PyKa2heZuElS2xLSwwDCnZf3cJVruA0RnweUeqlsl4xkelExMgNamyAH6gzXtf0aubXFDBQ9EV0C3GgP8oePuDPj9KXjmU0Zne5Hz7P9iuUxeGU2Yol2swFDr/hOzvN2Yx16W9XFRDRCeGXFIzyl8khEAnrT5ZYuJfxysRvU0qg3aLK9aBEHTy7FzC1A0nEaNiPK8hgGyJvGIvCkmz85Pr2sGk17BI5z/C2Y2n6NAXVZYQepMLwnRCVBIc/Q7cWcLaTNKpwQHKbs32SW3vYIpaOpaesUUvTL/xOT/ZMxmGhGU5eCWJ24GEe3eOeSBJ4li9D8m2Fx0+QI4G/wzqIo/ibX5zGJWZudNGCF9LVfHELFSqJ0zPtEd3+VgdLzgUbC8yn/+vKPSAiK5iyfTLoj3KaVs2RpBNAK/+gOUM+9pmuyYliWz2D6d5obuZhC916UQ/bLghunir1DduBRseyUdEMgMUkHsF73sBGmwghbaMoO0b0qo+WUe5E1p+Z2QfxCxlzNRvZ/RDE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(376014)(52116014)(7416014)(366016)(1800799024)(22082099003)(18002099003)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?LWejfwnl9aZFAR7keQvSFriM1Tn0JOEKKu/bzy1tbF59z0e1dv1LDEGkczZk?=
+ =?us-ascii?Q?AO0ijLoCLQajFlkw692c//NCzSqi+HTj/vlu2FfxeSN+f0WmSmxogTPiB0fo?=
+ =?us-ascii?Q?7e8gGqgwd3hj0QLEgL7cM5uXL0HCjaa2keGBiKtnwA+J8D78Q/FGSaULsxlt?=
+ =?us-ascii?Q?0bxMRbR6Q5eL1MzHpc+yWbEPgX3zRX5GMkiSyd2c+/UeKnH1cZbLiaQFHciN?=
+ =?us-ascii?Q?cnLzqLGO5BiYn5oDM2ij5PxnQtzgI0lKiodWpvkUm/ubSAL6h4vf0m1HGdq8?=
+ =?us-ascii?Q?OqSXfPcnFyHL6U14Wx0IiL7G1KMj8wRa5EcL/O5LaN36kQXlhyb9Hw/1ap1k?=
+ =?us-ascii?Q?EaVK/oLMKoXMd8xtbIdjiYvOHMUeqXajaA4IKqJGFQfu5jvE3JJeLmob0FXp?=
+ =?us-ascii?Q?4AYDjBV96+rO4mbu1OMLcZyorJ5A4EQUL5QmlQohk8zFmVeUc9bO3ZligTgo?=
+ =?us-ascii?Q?qv4ul4xC3yT+IL09huASLJzsr6ZITkaZN1NewOnoabsTVlEVlLLXHrKIy9x/?=
+ =?us-ascii?Q?U5PrN+Fa+UEGWP5VmcVmzVh0euUEuXz1qjnzhEbaSe5rCxCiXX/BWlS749Ij?=
+ =?us-ascii?Q?q1JVvNlPa/qi8NwCZH9Pp5aA70TvKQRmzmoQlnhbHvLoPlgW63/T4h8dCfQM?=
+ =?us-ascii?Q?WgLeokdVrEbb1jlbrAjMAVAD5KM75ftZzYCdW+jh2JbbSmWBphXug78sf1E4?=
+ =?us-ascii?Q?o91GhhgvLUhnyOvY//fvUSH2+wmkykPMG07AlPLN6iC1BKnn5XMRIj7QGtip?=
+ =?us-ascii?Q?FstecWm6r0+zkvpBgvc1GzP2WeOjdIzrG/Yx1A536dSPEChObMwyM3kzSyBm?=
+ =?us-ascii?Q?s7CzfwY5v5HMY/GSRRDZHp1PUERVozHK4DM48KnGP8llO0CEkrsaP02+1HvE?=
+ =?us-ascii?Q?iHDIL93BDJtt4nw0UTdGabK5wEeAsIpx6RfeHl+2hFncYPe7QkVVmPOM2jKw?=
+ =?us-ascii?Q?/tY8Ml3eDcvSBozNX+8QajVVXyS0/NI0k+1bLsTQHTYGcjv7Zq/bAH94q2CE?=
+ =?us-ascii?Q?jyMWMyeGcVc0TfsKB5KvQUjkzpwgMswoMx/FWZ+nbtQgiA8zwYVyfKr1U5Ow?=
+ =?us-ascii?Q?SnVf0BAwJgcROUn7Su55eukg/mpuUdOB3SpopJa9IXl5BR7UzjNJvMwim4mi?=
+ =?us-ascii?Q?0zjp0lOtjB9ya3zH+uHkU/du0rMnEahtTvJIdo4RuTGWns5JjgiXCocnMYMb?=
+ =?us-ascii?Q?nsd2XSpFFdEmnT9NpIXbeRxlCdjk0rHzBSaC2eYDBGEASl5RF+Uk+L4Ur/yl?=
+ =?us-ascii?Q?CnyM+SVrwcwTsglqSuvH/wzDr66Tf41fsjYT7jUwl5Es5HfweG3vTPY/Lllb?=
+ =?us-ascii?Q?cDD9UDeS/amGAdW6mT/h7mapw0zGmyJJ3cDH3BOCywIzUfMVS5s1lsrhKyKc?=
+ =?us-ascii?Q?PIhbsK+e+Ux1Ot22XdUpojdD6fPBUPPJvYPdBPZyksB0xlmvCDjDWl7kQIuW?=
+ =?us-ascii?Q?cD4bcpJVu7VOKTB25LaMwW90HNGFpL+FtYKpWn7t+VrT6j8ms6kSgSmxaUXW?=
+ =?us-ascii?Q?GDLs/DbAvxMO5ra+qJoBunlwqXXzEQ9K2rD/9TlustmW1fwjWP6PtjzGPWUF?=
+ =?us-ascii?Q?Ob23DicVFwG81JdU3oUSQamIwyrxJsvtfDsUMzxoB4dT0t+7h3VY4UOtms7T?=
+ =?us-ascii?Q?XUAT0+W6K/9Cl5Kp1Ost+T27WRULDgc0npxUULXVaF7pBvm/QY8554Z6E/BX?=
+ =?us-ascii?Q?HzNxONLd9bkrMCXjfd2+5n5XgUmPj0PxTU61k+DlVdlwvKXMpaVUEZOQyWmh?=
+ =?us-ascii?Q?QkxzYCVV9uf39FV1QCpbubeq9AqbKGp9ZG9l+XydZ/9q6boQljARSq9mWSjk?=
+X-MS-Exchange-AntiSpam-MessageData-1: yS3hlsp5Ba/j3Q==
+X-OriginatorOrg: ebytelogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5bb4b10-9797-4796-5537-08df28592ce7
+X-MS-Exchange-CrossTenant-AuthSource: PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 12:05:58.2089
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8StbKX55L9YakteDvoPA4wPDWCaHIHeVe/qDGirOoRnvnfiQfqfu3YvXjuAEQcuqpk8jUpQaxW0do5z6yy4lIA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNWP287MB6007
 
-Two new helpers task_numab_enabled() and numab_mode_tiering() are
-introduced to replace the scattered direct accesses to the
-sched_numa_balancing static key and the sysctl_numa_balancing_mode
-bitmask.
+A non-lite CSID registers MSM_CSID_PADS_NUM - 1 pads, one source pad per
+RDI0..2, while a lite CSID keeps all MSM_CSID_PADS_NUM pads:
 
-No functional change.
+  num_pads = csid_is_lite(csid) ? MSM_CSID_PADS_NUM : MSM_CSID_PADS_NUM - 1;
 
-Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
+camss_link_entities() still links source pad MSM_CSID_PAD_FIRST_SRC + j
+of every CSID to line j of every VFE. On SC7280 the non-lite csid0 is
+linked to vfe_lite0, which has four lines, so the loop asks for csid0
+source pad 4 and the driver fails to probe:
+
+  WARNING: drivers/media/mc/mc-entity.c:1150 media_create_pad_link
+  qcom-camss acb3000.isp: Failed to link msm_csid0->msm_vfe3_rdi3 entities: -22
+  qcom-camss acb3000.isp: probe with driver qcom-camss failed with error -22
+
+The pad count depends on lite-ness, not on streams_enable, so every
+platform that links all CSIDs to all VFEs fails to probe as soon as the
+CSID streams support is applied, whether or not the streams API is
+enabled for that platform. SM8250 escapes it only because
+csid_vfe_fixed_pairing links csid[i] to vfe[i] alone.
+
+Skip the VFE lines for which the CSID has no source pad.
+
+Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
 ---
- include/linux/sched/numa_balancing.h | 31 ++++++++++++++++++++++++++++
- kernel/sched/fair.c                  | 16 +++++++-------
- kernel/sched/sched.h                 |  1 -
- mm/memory-tiers.c                    |  3 ++-
- mm/migrate.c                         |  7 ++++---
- mm/vmscan.c                          |  6 +++---
- 6 files changed, 48 insertions(+), 16 deletions(-)
+ drivers/media/platform/qcom/camss/camss.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/include/linux/sched/numa_balancing.h b/include/linux/sched/numa_balancing.h
-index 52b22c5c396d..353772b49c5f 100644
---- a/include/linux/sched/numa_balancing.h
-+++ b/include/linux/sched/numa_balancing.h
-@@ -8,6 +8,7 @@
-  */
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index a9bd79ca3..4b73f8862 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -5028,6 +5028,9 @@ static int camss_link_entities(struct camss *camss)
+ 					struct v4l2_subdev *csid = &camss->csid[i].subdev;
+ 					struct v4l2_subdev *vfe = &camss->vfe[k].line[j].subdev;
  
- #include <linux/sched.h>
-+#include <linux/sched/sysctl.h>
- 
- #define TNF_MIGRATED	0x01
- #define TNF_NO_GROUP	0x02
-@@ -32,6 +33,28 @@ extern void set_numabalancing_state(bool enabled);
- extern void task_numa_free(struct task_struct *p, bool final);
- bool should_numa_migrate_memory(struct task_struct *p, struct folio *folio,
- 				int src_nid, int dst_cpu);
++					if (MSM_CSID_PAD_FIRST_SRC + j >= csid->entity.num_pads)
++						continue;
 +
-+extern struct static_key_false sched_numa_balancing;
-+
-+/*
-+ * Whether NUMA balancing applies to @p.  The @p argument is unused for
-+ * now: a later patch will consult a per-cgroup BPF policy with it.
-+ */
-+static inline bool task_numab_enabled(struct task_struct *p)
-+{
-+	return static_branch_unlikely(&sched_numa_balancing);
-+}
-+
-+/*
-+ * The global sysctl state, for the system-wide tiering machinery: this
-+ * reflects kernel.numa_balancing_mode only and takes no task.
-+ */
-+static inline bool numab_mode_tiering(void)
-+{
-+	if (sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING)
-+		return true;
-+	return false;
-+}
- #else
- static inline void task_numa_fault(int last_node, int node, int pages,
- 				   int flags)
-@@ -52,6 +75,14 @@ static inline bool should_numa_migrate_memory(struct task_struct *p,
- {
- 	return true;
- }
-+static inline bool task_numab_enabled(struct task_struct *p)
-+{
-+	return false;
-+}
-+static inline bool numab_mode_tiering(void)
-+{
-+	return false;
-+}
- #endif
- 
- #endif /* _LINUX_SCHED_NUMA_BALANCING_H */
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 57360f5cdde4..45086e6f246c 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -39,6 +39,7 @@
- #include <linux/sched/cputime.h>
- #include <linux/sched/isolation.h>
- #include <linux/sched/nohz.h>
-+#include <linux/sched/numa_balancing.h>
- #include <linux/sched/prio.h>
- #include <linux/static_call.h>
- 
-@@ -2963,8 +2964,8 @@ bool should_numa_migrate_memory(struct task_struct *p, struct folio *folio,
- 	this_cpupid = cpu_pid_to_cpupid(dst_cpu, current->pid);
- 	last_cpupid = folio_xchg_last_cpupid(folio, this_cpupid);
- 
--	if (!(sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING) &&
--	    !node_is_toptier(src_nid) && !cpupid_valid(last_cpupid))
-+	if (!(numab_mode_tiering()) && !node_is_toptier(src_nid) &&
-+	    !cpupid_valid(last_cpupid))
- 		return false;
- 
- 	/*
-@@ -4194,7 +4195,7 @@ void task_numa_fault(int last_cpupid, int mem_node, int pages, int flags)
- 	struct numa_group *ng;
- 	int priv;
- 
--	if (!static_branch_likely(&sched_numa_balancing))
-+	if (!task_numab_enabled(p))
- 		return;
- 
- 	/* for example, ksmd faulting in a user's mm */
-@@ -4206,8 +4207,7 @@ void task_numa_fault(int last_cpupid, int mem_node, int pages, int flags)
- 	 * node for memory tiering mode.
- 	 */
- 	if (!node_is_toptier(mem_node) &&
--	    (sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING ||
--	     !cpupid_valid(last_cpupid)))
-+	    (numab_mode_tiering() || !cpupid_valid(last_cpupid)))
- 		return;
- 
- 	/* Allocate buffer to track faults on a per-node basis */
-@@ -4665,7 +4665,7 @@ static void update_scan_period(struct task_struct *p, int new_cpu)
- 	int src_nid = cpu_to_node(task_cpu(p));
- 	int dst_nid = cpu_to_node(new_cpu);
- 
--	if (!static_branch_likely(&sched_numa_balancing))
-+	if (!task_numab_enabled(p))
- 		return;
- 
- 	if (!p->mm || !p->numa_faults || (p->flags & PF_EXITING))
-@@ -10697,7 +10697,7 @@ static long migrate_degrades_locality(struct task_struct *p, struct lb_env *env)
- 	unsigned long src_weight, dst_weight;
- 	int src_nid, dst_nid, dist;
- 
--	if (!static_branch_likely(&sched_numa_balancing))
-+	if (!task_numab_enabled(p))
- 		return 0;
- 
- 	if (!p->numa_faults || !(env->sd->flags & SD_NUMA))
-@@ -15351,7 +15351,7 @@ static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
- 	if (queued)
- 		return;
- 
--	if (static_branch_unlikely(&sched_numa_balancing))
-+	if (task_numab_enabled(curr))
- 		task_tick_numa(rq, curr);
- 
- 	task_tick_cache(rq, curr);
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index e656c7059bf8..38e21c8c57dd 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2465,7 +2465,6 @@ extern struct static_key sched_feat_keys[__SCHED_FEAT_NR];
- 
- #endif /* !CONFIG_JUMP_LABEL */
- 
--extern struct static_key_false sched_numa_balancing;
- extern struct static_key_false sched_schedstats;
- 
- static inline u64 global_rt_period(void)
-diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
-index 54851d8a195b..ec7b9aadda98 100644
---- a/mm/memory-tiers.c
-+++ b/mm/memory-tiers.c
-@@ -7,6 +7,7 @@
- #include <linux/memory-tiers.h>
- #include <linux/notifier.h>
- #include <linux/sched/sysctl.h>
-+#include <linux/sched/numa_balancing.h>
- 
- #include "internal.h"
- 
-@@ -64,7 +65,7 @@ static const struct bus_type memory_tier_subsys = {
-  */
- bool folio_use_access_time(struct folio *folio)
- {
--	return (sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING) &&
-+	return numab_mode_tiering() &&
- 	       !node_is_toptier(folio_nid(folio));
- }
- #endif
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 15b45832bcfa..4d2ba87eaa34 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -41,6 +41,7 @@
- #include <linux/ptrace.h>
- #include <linux/memory.h>
- #include <linux/sched/sysctl.h>
-+#include <linux/sched/numa_balancing.h>
- #include <linux/memory-tiers.h>
- #include <linux/pagewalk.h>
- 
-@@ -818,7 +819,7 @@ void folio_migrate_flags(struct folio *newfolio, struct folio *folio)
- 	 * memory node, reset cpupid, because that is used to record
- 	 * page access time in slow memory node.
- 	 */
--	if (sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING) {
-+	if (numab_mode_tiering()) {
- 		bool f_toptier = node_is_toptier(folio_nid(folio));
- 		bool t_toptier = node_is_toptier(folio_nid(newfolio));
- 
-@@ -2718,7 +2719,7 @@ int migrate_misplaced_folio_prepare(struct folio *folio,
- 	if (!migrate_balanced_pgdat(pgdat, nr_pages)) {
- 		int z;
- 
--		if (!(sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING))
-+		if (!(numab_mode_tiering()))
- 			return -EAGAIN;
- 		for (z = pgdat->nr_zones - 1; z >= 0; z--) {
- 			if (managed_zone(pgdat->node_zones + z))
-@@ -2770,7 +2771,7 @@ int migrate_misplaced_folio(struct folio *folio, int node)
- 	if (nr_succeeded) {
- 		count_vm_numa_events(NUMA_PAGE_MIGRATE, nr_succeeded);
- 		count_memcg_events(memcg, NUMA_PAGE_MIGRATE, nr_succeeded);
--		if ((sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING)
-+		if ((numab_mode_tiering())
- 		    && !node_is_toptier(folio_nid(folio))
- 		    && node_is_toptier(node))
- 			mod_lruvec_state(lruvec, PGPROMOTE_SUCCESS, nr_succeeded);
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index f11491ee9ed5..af46869bb15e 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -65,6 +65,7 @@
- 
- #include <linux/swapops.h>
- #include <linux/sched/sysctl.h>
-+#include <linux/sched/numa_balancing.h>
- 
- #include "internal.h"
- #include "page_alloc.h"
-@@ -5029,8 +5030,7 @@ static bool should_abort_scan(struct lruvec *lruvec, struct scan_control *sc)
- 	if (!current_is_kswapd() || sc->order)
- 		return false;
- 
--	mark = sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING ?
--	       WMARK_PROMO : WMARK_HIGH;
-+	mark = numab_mode_tiering() ? WMARK_PROMO : WMARK_HIGH;
- 
- 	for (i = 0; i <= sc->reclaim_idx; i++) {
- 		struct zone *zone = lruvec_pgdat(lruvec)->node_zones + i;
-@@ -6974,7 +6974,7 @@ static bool pgdat_balanced(pg_data_t *pgdat, int order, int highest_zoneidx)
- 		enum zone_stat_item item;
- 		unsigned long free_pages;
- 
--		if (sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING)
-+		if (numab_mode_tiering())
- 			mark = promo_wmark_pages(zone);
- 		else
- 			mark = high_wmark_pages(zone);
+ 					ret = media_create_pad_link(&csid->entity,
+ 								    MSM_CSID_PAD_FIRST_SRC + j,
+ 								    &vfe->entity,
 -- 
-2.52.0
+2.43.0
 
