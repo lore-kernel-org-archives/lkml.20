@@ -1,95 +1,75 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28F73438A0;
-	Mon, 12 Oct 2026 11:51:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C2D41E6C0;
+	Mon, 12 Oct 2026 11:52:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805916; cv=none; b=cievcEQQ7mc3brTWOXDlltgOjmU8voMvt9jnvOurUosfpODHGgFEUhDgn887MLoX8tt4z5J1uxAoMipzSn5y/F3MA1skIZqYWDIEcUwuuYHlAPSmYZ8sS6+R8m7KgpO7VOz2+s2oDOrncHvcn0/fjrpBOEhgTrnpJTSsq7KPLqE=
+	t=1791805970; cv=none; b=Zh2Xkbs9X6FuaxSgtKLZPoSvAByIiNFFGlYE4X1CsTvAcw3WTITfXvPydlB502EuIkbe/hsHyArRsIl4Wag/oXblTG4I9HjDB6vw1Vd8g0ak/rip3xa1H1BPWW99fbifewvVL+txNRZLlRRS0XyOvYc/BKg2MTkJTh4V39MDNvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805916; c=relaxed/simple;
-	bh=RJtJANzAk6DHDx/mlpc2S7FJYP+FwI/6QcnRA5HKNdc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NXFq9kPAZyfnTa8aOUil7Y27X/s68yGDakW3Pl6PR9xRb1/KOxQw5qagk5JLssrZucr2KOa7d/Z8PrbwzXb3OYGAzFZ+QN6XG+zuDlozFwO6oZ4SOBwLekZrbkxwIE1nWw5z+Rzt0Y1BkbTnqsqKlPcuwFfSRXod6TLWS6SSwh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=BskqUePM; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791805970; c=relaxed/simple;
+	bh=KHIxhXzSkAuW+qP0EW3Rz3g2m0B72N+eURwljqbpp4E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=b/YiqOBq+zdb611rSCyKJKiXli3KbJVV9wTYniI+w9Ud0Vd2wDfOSx7K3b1NnQYPzjKfKMF9V1+Zly58Bth4WgwOWro6Zp8iToWy+Bufs+DxW0K/8sviYZorhe45Ysva1d0yjCoT1Us8GNTxpJQa0H+w/4iqtJe0gdGfhwK/Ctc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=RbG02Kk8; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="BskqUePM"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=4mYreJU3/9ctvW9f76EbuNSnfvvRh98Nwxnm3uacts0=; b=Bs
-	kqUePMTC7jcHUtnJucA9TnYpbUhUKv1Uctr6KxiXAtZL0wQ/GCI1fL5cTpFII4G2tgbIQaJTXL/zw
-	8QqUvkJR2NggrKSgQ/uT04a08g9tnOxLIRG9h/SaOjiV8CGf5Nws2txlq3SHTc2/eS/rIXjLDrUzW
-	i/H9MLWPECre39w=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xGEZ6-00AJcu-Et; Mon, 12 Oct 2026 13:51:36 +0200
-Date: Mon, 12 Oct 2026 13:51:36 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: James Clark <jjc@jclark.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Doug Berger <opendmb@gmail.com>,
-	=?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Miroslav Lichvar <mlichvar@redhat.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 5/5] net: mdio: bcm-unimac: implement
- timestamped MDIO writes
-Message-ID: <68eeee64-7f62-459c-b53d-61ec04b4d8e3@lunn.ch>
-References: <20261009143506.2507607-1-jjc@jclark.com>
- <20261009143506.2507607-6-jjc@jclark.com>
- <3b1a2994-5251-4800-8c61-b63d7a435b21@broadcom.com>
- <60accbd89cfaf0d4be1da5ec2fafd975@tipi-net.de>
- <CANz3_EYfcBopo=HgRioXkhoT6P+4WWpfFT7UeWkXd5eM_RNpSA@mail.gmail.com>
- <41c32f5a6f38ec9df8a79ce896912fb9@tipi-net.de>
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="RbG02Kk8"
+From: Yureka Lilian <yureka@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1791805962;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9o+Wh8H2pwweiTuS3F6yQGK56k7KHqCuFGUKo3GwUZM=;
+	b=RbG02Kk868NtQmGAqNp8de6Qn5apIp6ZamXscVJCD9VqlhXDeE3K5juTqvoMNiTXIhhcpF
+	TmhcNgHCOk5iuOavxmxbduHhUGCaw5ndvNKSsNo4r3YZYM/yf1Z0Jk3nSB86zooG6qvNre
+	lPZ1dIDfH5Yc//sIvcNaNFsSwuceHMg=
+Date: Mon, 12 Oct 2026 13:52:34 +0200
+Subject: [PATCH 3/5] dt-bindings: i2c: apple,i2c: Add t8140-i2c compatible
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <41c32f5a6f38ec9df8a79ce896912fb9@tipi-net.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-apple-a18-pro-dt-pinctrl-i2c-v1-3-6c757966a99e@cyberchaos.dev>
+References: <20261012-apple-a18-pro-dt-pinctrl-i2c-v1-0-6c757966a99e@cyberchaos.dev>
+In-Reply-To: <20261012-apple-a18-pro-dt-pinctrl-i2c-v1-0-6c757966a99e@cyberchaos.dev>
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-i2c@vger.kernel.org, Yureka Lilian <yureka@cyberchaos.dev>
 
-On Sun, Oct 11, 2026 at 03:22:04PM +0200, Nicolai Buchwitz wrote:
-> Hi James
-> 
-> On 11.10.2026 09:20, James Clark wrote:
-> > On Sat, Oct 10, 2026 at 10:18 PM Nicolai Buchwitz <nb@tipi-net.de>
-> > wrote:
-> > > I dug a bit deeper on a CM4: AFAIU the MDC runs off the GISB clock,
-> > > which the firmware sets to 200 MHz (CPRMAN 0x1d8, PLLD_PER 750 MHz /
-> > > 3.75). Bumping that divider to 4.0 at runtime moves the MDIO busy time
-> > > by exactly the same ratio, so that's the one. The 250 MHz you have in
-> > > mind is genet250 / genet125, the RGMII side, a different generator.
-> > > 
-> > > So instead of a fixed clock or a compatible match this could just be
-> > > BCM2711_CLOCK_GISB in clk-bcm2835 (critical, firmware owns it) and
-> > > clocks = <&clocks BCM2711_CLOCK_GISB> on the mdio node. I can send
-> > > that
-> > > if it helps.
-> 
-> I've put together 3 patches, which do the clock plumbing:
-> https://github.com/nbuchwitz/linux/commits/devel/bcm2711-gisb-clk/
+The i2c block on the Apple Silicon T8140 (A18 Pro) SoC is compatible
+with t8103. Add "apple,t8140-i2c" as SoC specific compatible under
+"apple,t8103-i2c".
 
-It would be nice to extend this and set the divider based on this to
-give 2.5Mhz, as required by 802.3, as the default. Allow boards to
-override this using the clock-frequency property.
+Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+---
+ Documentation/devicetree/bindings/i2c/apple,i2c.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-	Andrew
+diff --git a/Documentation/devicetree/bindings/i2c/apple,i2c.yaml b/Documentation/devicetree/bindings/i2c/apple,i2c.yaml
+index 641f24b0ef4b..ea4ddc838d86 100644
+--- a/Documentation/devicetree/bindings/i2c/apple,i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/apple,i2c.yaml
+@@ -28,6 +28,7 @@ properties:
+               - apple,t6031-i2c
+               - apple,t8122-i2c
+               - apple,t8132-i2c
++              - apple,t8140-i2c
+           - const: apple,t8103-i2c
+       - items:
+           - enum:
+
+-- 
+2.55.0
+
