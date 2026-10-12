@@ -1,298 +1,213 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022077.outbound.protection.outlook.com [52.101.101.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81BEF4AA1D2
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:06:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791821181; cv=none; b=p+MGQeXWRmQ5vkkRTV7TIwegPpZElshRZ9juakXH5rcIOapVM3CDS9iUDN5Qwf0ye2VfWssMlGYEI1bc0aXU4vlbBxe16aTYVg9NYUcO9Mvy0JbaHogOkKhCnb7VQiCyInSTJTKoblXESSGPiftD5VGKJRF9Dhb+6aFjgBBJ32I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791821181; c=relaxed/simple;
-	bh=FPE6lFxWc9DnYvUXJlDfkkDZj6dWavl9Pxcfbehndng=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=DOzuuxIuTdszTEkHHdkxlDaEwqBCMhCqsEvztx9tFATymVmogkB8pykCHYglhhKIvuE1cHYufF8qZhNKzLYGgExYrmlelqzH1wGkKEivWBRn2F/eP90QEp9tpXFftAHc7w47XAy2ulEOpt4IWgwKF0+apo5GShseWJE8fuIM1wM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=T0weBhrM; arc=none smtp.client-ip=209.85.216.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="T0weBhrM"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ab7f1efe5dso4432378a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:06:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791821179; x=1792425979; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N0gJxV9q069cDnnvv0s7lw8y9qkvt50eFibR5j1Ye/0=;
-        b=T0weBhrMkSiuaTUVWrxMTPQiMtjtP+RzVFWoqSmlD5KMmQ6HZwmx0PT3bwHdyov1iY
-         hDbUDpb5u0VL3iCCmTBETyfUbYjYPh9XBV2IPmvttywZjL/WuY5IkY/U3qnFFgbGaAdZ
-         vsPOBAYDEeBwy54Gs7fYW0ScEzkZmWrjn4GY7l0zQ6h3xYJM/Ur2DyImqfbWi+3Mb9/J
-         MQupb+VLjR8Ai5srbTasvwOXP5WqXgZG2OItHXMm3D9JJts2TJyuTYj+ivEL9tcwFx5K
-         ObMvoO0N3FPxQPViwA3H1jj1IoS7DB9Qur7WhHbKvoh8Bj98m+In4BM2HtJLYSN1KO46
-         8gTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791821179; x=1792425979;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N0gJxV9q069cDnnvv0s7lw8y9qkvt50eFibR5j1Ye/0=;
-        b=xNY08fCS9pYr5svu65M+76VfOaCiBsGHaMteIyF2e13hbjjHZrh5mhADQ60ZhJiHjU
-         uIwssU9GLRweapoZE8YEec5bhBVERC3J8oSpuOFhE5/kfvLONx1JXFCnqpABwPKsNV/h
-         9RLuuDytNf91u3o8+pK8XgswceyQkglbRVEQsWMkbNOY3grpvj9Ib5n7owjs992BRIJg
-         e3eNQAFl3vqt0ucDaEIvqQgRG83U1tERc1OCFH03KqaX36xVENaKrJj2p/b9W13A4MxG
-         wBmm86wO7LshbWfWkck4/rFp2CQDy3ixDYCX6yZbnkuZZWF+4VP4lfZRx2SM3isvgypw
-         09sw==
-X-Forwarded-Encrypted: i=1; AKwUvByCtx/UWQSzU8ngcRHzPG/n3732FWdD7Arr3I1JurXwYiAdNlH4hxV2Htu3t3cMZZrt3e2MllyTCPj4VJ0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9X40RHab/uKsPVTGixVGNYLI1PKma5Kumd2xgxk2hb6R/c2WZ
-	+qBPPChvPHtjM+WpB/q+3DiSlk5KEQU4KMMuOADKa+hv9hIaZQVfbGhgz117hfCfJuua4Rtgpdi
-	6w/u89A==
-X-Received: from pgc11.prod.google.com ([2002:a05:6a02:2f8b:b0:cc9:f607:b137])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1dd0:b0:3ab:1ad0:db41
- with SMTP id 98e67ed59e1d1-3ab3a9a4f3bmr8187213a91.62.1791821178312; Mon, 12
- Oct 2026 09:06:18 -0700 (PDT)
-Date: Mon, 12 Oct 2026 09:06:17 -0700
-In-Reply-To: <asz8GKNO9aQANr5E@google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E672E4A499F;
+	Mon, 12 Oct 2026 16:06:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.77
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791821196; cv=fail; b=jSVRWDn/6ZNTCsEGdmpaQNehpkC42nsC6rGV6YhYiuUYriIqXeWTUHMdJEr8V30fvo+/iFB3qPi/VDZo/xf4+zArxlBFkU5/xRtmAw7tSOqjLYUbp8IUI7G9e7Qnnf6JNQY8OIRy+5bWxdmA65RIuDaKKIFdsyUCEF36jDyt2vQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791821196; c=relaxed/simple;
+	bh=XkgEY4BJh1GMthR1Pm0aJw9KLOpcpcvWjtgUwpRkNVI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=JZJjKSW7Pphdk5GeIZ7ZsxXTzbOcl3GwlIZWaWfCAf7WJlXjBYMHAMW6VywfBUGENG+ZbXzjJBafyLgyTrBxhQL6uM67H/kQeurRLQ24iZN5VYxRDfzqJwumUHgMW+pUoZ9fHLyuvOb5veep78ia7+sL2Vqditztk1DxPasynmc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.101.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xwZkCCz/IqZRlV7LIQ5UIeTqhjxrjnKP52+El3N7pMbyRgh1Cx7jfnK3Q8dPKDmV0W38L73pgP8EK6OraUEPTqKReFN4GZZnPmJADWZX7XJclSPR0YQioqrp305JyQOdEcHBH1pt3l2lvlyMXie6vZFEgZzemD6Wa0i2f72DdJ9HtDbjFgE1UehlQKZzfuxwnWIlUtccCzCsyNSuxqXYW+yHXYJPVf4c0TABOGVhRj5xT9pcCVz7g/VEA36/qNuoqRZiubOI57thTIxpdPMhzBC7x7268fW/JQi1L5t4mbAstgZTdRh4mYEABDs0M4ygf84mypJkrdhxfT4JYydlWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=6UlGVb8yqOyKxBL28u3gWHa732jfYEvAfw3EiaQSFOY=;
+ b=fO/OwB1zqb+BxQdI91M1I6vwLkw8uWHSbw0Oi1Ml7l0ac9qH3UGhjyf793jzHt0zKNHZh7Nknrdqd0UaemxVDdGoHJ4bP+TPfQDtZnDDYj4yvbtx+UXkhwIbi6fIRiBen2tzmqirV9jY3FY/W5bIR2ZdKeDej/wpEyMbGUD02Y3DX5JRO3Sl5F+heDbPQZwIlej1hLvzKdsLm0uQisEPzNH4AbFxz7q9k2MNPDn9P0OtDJ/H5skm8HaVUleNgw96YTuh3djdrz2q/9Jg1U171253HsvR8bDN8B+oP7ffdGaOGDPBwNNxXVX3bNWKRyIgcJHq7tABKhhOa4XAQK+kEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LOYP123MB3119.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:e7::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Mon, 12 Oct
+ 2026 16:06:30 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
+ 16:06:30 +0000
+Date: Mon, 12 Oct 2026 12:06:25 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Ming Lei <tom.leiming@gmail.com>
+Cc: axboe@kernel.dk, hare@suse.de, sean@ashe.io, tj@kernel.org, 
+	neelx@suse.com, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] blk-mq: dispatch kworker to housekeeping CPU when hctx
+ cpumask is empty
+Message-ID: <pvnvyzf3cbebpxmobjntvovrruxgnygm7pwgx3tl2jczc7ji5z@ygmd6z4cfxh4>
+References: <20261012012905.267920-1-atomlin@atomlin.com>
+ <CACVXFVMTr8mORGSVM4JWHrLYgk+9O0J20bjaL_08uYmRCbzC3A@mail.gmail.com>
+ <o2hxbjxbkg3wv25lyj3nluwv4e6cb6q5qaukrhjzwg2hodwk5c@wgpc25peito7>
+ <asxLLWOQQzolER0a@fedora-laptop>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <asxLLWOQQzolER0a@fedora-laptop>
+X-ClientProxiedBy: BLAPR05CA0023.namprd05.prod.outlook.com
+ (2603:10b6:208:36e::25) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
- <20260722-tdx-selftests-v14-13-15ad654a50db@google.com> <f7b3a63c-7a1d-445f-b062-4cea5343d266@intel.com>
- <asz8GKNO9aQANr5E@google.com>
-Message-ID: <as0FedYcvJvdOaq2@google.com>
-Subject: Re: [PATCH v14 13/22] KVM: selftests: Support guest_memfd in-place conversion
-From: Sean Christopherson <seanjc@google.com>
-To: Xiaoyao Li <xiaoyao.li@intel.com>
-Cc: Lisa Wang <wyihan@google.com>, Ackerley Tng <ackerleytng@google.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
-	Chenyi Qiang <chenyi.qiang@intel.com>, Erdem Aktas <erdemaktas@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Roger Wang <runanwang@google.com>, 
-	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Ashish Kalra <ashish.kalra@amd.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Michael Roth <michael.roth@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LOYP123MB3119:EE_
+X-MS-Office365-Filtering-Correlation-Id: 671725e3-5c78-4871-c5a6-08df287ac6a9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|56012099006|261009223027099003|10067099003|4143699003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	Na8dD7iov+YqIcUDQBXJCNZqH2X9fzp9cXwQ8VTQTd2lSFsJqtQ1qkubEcaNj4GkYXJPhLf4/tMH8z5VtD5Ya4sg7herWFbEt8eAXfBhHYcQV+dBomVsFrBL+Tyq5DKJZ8szfyoJR8ycwVtkeF4CnKxKjXjuml6Ji4nTvNDLMZ+mrXWhIoZIMz1PZ5/EHaSs/KFnLCxp5Tx9RbKZQ0IAcfPsC14SNoxOskdEMpH8IHb73iPMw5fRnNRNMha7JMVTd9DIy0Cs2ngzhXKVJY4pEmMY8WvoSQEqG6JQz2DbMV3biFJcRe8OYUOPoSfPQ09azzYe+Hd4l26gVyGBXcXgS1FW5jNLmt+ZDcycX+1dOd8/l/EGKoUuqlCZuaF3o0B2TBOOiH6xtDd14299wyUJU/hSIuovMkjj6EBZYDZwfajbI7p+SPHJ2pJ3btvgmPQRBdH19fKQyPUFfJN9ZibWtNuLQFe5ev0SAjotAitkuJhabtewZ7k+edmfls/o1nfAt7bBlgWH6Ccd5dFOFsQQBWSG6pxY61vvcmktcGtk9M9slw03f0X2AcDR/NOkNdWp221yBgaX1bKyi6kNkRN0roD3wOO+kygNP5vztMBN4AdVoRkqxoXQAWO4dBiK4/bJiy7fj0320YL57zkgBp8+RDGZ9IbmwmIKu3pKb8GqlQw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(56012099006)(261009223027099003)(10067099003)(4143699003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K2pOaFlRYjRQLzZ0UytZVXNPbmV4RnZ0YllJdVpJcVpDaDRLRXVxT3YxM2lB?=
+ =?utf-8?B?SkY4MDNuSEJrQUtiNUFaV0U3MnpKempuazkvajBkK3JsNGU2Uklvc0hONHBU?=
+ =?utf-8?B?amU4Tmg4eGlpVHBuSVpyVGI1dHB4VDNHWDNVY0trZjAyakRSdWNVSSthRnZa?=
+ =?utf-8?B?RGhtWE14MEFwdjdzVE5veXRGOGJSck1PSGJKaWRhZ1M0NGc2ckd3NmVRaWxk?=
+ =?utf-8?B?VkJJMGF4WXRwb0hTYmFRVlBpL01iaHQ5QUFkVTlLNUZSSlpzbHpYRmpyQmFN?=
+ =?utf-8?B?d0RPdnRKbzVyYTdMWHdGd2dTczEvTi9RSGNXU2NOeWhKc0laZ3I2ZlV3bmFD?=
+ =?utf-8?B?aVBLZlp4b3ZQRlVSSmZrekZ0T2JQRFczcFRFNWw0QkczTWxXV2NULy9lU294?=
+ =?utf-8?B?MnozdmV6NGVsMnJFSGl2TlYzRlB6ZytOcXNwSnowbGdqaGZYcHdGaWJPU3N1?=
+ =?utf-8?B?eXJlVGFKY0locmdwVWhCQ2hSbzFHVE9FOFFVRUsxcjNJV2NmU01ZM2R0cFNV?=
+ =?utf-8?B?dkRlbE1kSnBtL0dRcVlhNlk1Nzl1QWd5Rk1jSnptaE5YRzBOSW1DUm5NTFI4?=
+ =?utf-8?B?ZXZLY3lxbTJQZUFaNGF0MkdrSldCdFZDR003QjhwMDV4UmsxVXlaQUxKTzFq?=
+ =?utf-8?B?QmhtTUVEdDI4dTN3WEpRMzYzVlZwUG5BTndkM0V0djBuaTBBZTJGU3ZHb2V4?=
+ =?utf-8?B?d2REei9IVlVyajVaQXJlUHV4R1g1OURLU1NMSzVCbGhwT2tBZGRQTm5NSmdO?=
+ =?utf-8?B?TlZHR0Evc0F6ZFhFWXJJR2tSdi96VndESWtQb2VsdStmMlg4RG14Vzkxalh1?=
+ =?utf-8?B?MHpmN3lodTgybGZLZys0WVdKaXdZUlQ3M21pT2lwNEF5QzdVMzdJSVpUM2hR?=
+ =?utf-8?B?UzRzVisycGdIUkxyWmwzeEdvc1F0cWlGUXJjdnlKMkRyRndXc3JLZG1vcmQz?=
+ =?utf-8?B?UG96ZXhOeGhjY0lRTUVaWUQvcnN4cHh0em0yNS81cGNTaVZOQ1R3b29jV3gw?=
+ =?utf-8?B?MitCUGFvcTBMWVBnbnpYU01uYkFNM21ROXZ6TjFIbnplNFFPd0x1VWpSaDVz?=
+ =?utf-8?B?R3lWU09EcURpNTdrWXhxWHRLUVJYNGIwcGZtKzJhMzdrWkZ3dnR6bFZHK1I0?=
+ =?utf-8?B?SzB4KzQ5Z1NKY1d1SUxXQnpnNEZraDlnbG1GWUZyZWdUTkl0cDF0ZXFPei9K?=
+ =?utf-8?B?MFZYdFd3Y3FNY2tVa3Q0SGh0TURVNEJrUWtaWHBQZ2dnQTA3ZklDaGtuZzhC?=
+ =?utf-8?B?aXpYMjc0WGZ5NVc4bWhpU1owQ1JqMmp4MEphT0ZnVWZrcmFDaXV3d2JtUmxO?=
+ =?utf-8?B?QW8xS3VxazRvSElqWndkQTloQUU0ZkF1RmdWMTFoYmlJTys4Q0tXeFoxcExu?=
+ =?utf-8?B?RVVHMmZPRk5Gczg2RDVoUjA5ZFhMVUVPaWQ0cWRwVis4ZkVVM0lUdEFEaHp0?=
+ =?utf-8?B?MFhzdFdsWk5sc2hBS2FqQ3lSM3pnemk2Q01sTzNGOEhONTdjVldYUWhOMVJ2?=
+ =?utf-8?B?ZjkrOVZrNGQ3NjZJeHNoeHU1S1RSRko0c3JEMjlxUi9JeEQ4WGxlYTVCWlA2?=
+ =?utf-8?B?NVVHYVVpT291ZGlxbWVTcUY3NlkycXN5aWV1TjBBL0lXOTNWOXpES2JMZ041?=
+ =?utf-8?B?TnM0Z3VrazZTa0cxUTJGTEJjVDh1dXowVGxXdGg0SWtWZ0RPOERpeXc4cHJn?=
+ =?utf-8?B?RStmYVFQRTliS1FvaHdDSGdqTDVOT2pzeEFTNU9NU0J4cWNhcWp1VGxxVkxz?=
+ =?utf-8?B?UXp4WlYycldpR0NDTXkybi82Z0VYUjduajFjQjFCZXJZazV4RTF2Q09PVURa?=
+ =?utf-8?B?anVwRFEwNUNORzBsQVhLeVBOSkJqckRFMUtpZ1MvQVI5UFhDNnc5NTlIbE5v?=
+ =?utf-8?B?VXZYSVoxbm1JZ2djSFN4YlZSbWZzOFg0V0o1ejJ0a0g4YVBsWUtYb1pTWEZh?=
+ =?utf-8?B?TjFRbmxtdTBVT2VWSnFPelZINTJvVEZMVEFKVnhTaS9kUElJKzU5Y01vYW1r?=
+ =?utf-8?B?ZFJvSzVxcjBNajd0VnEwb2ZydE1UUkx4bGxQSDVKbUw5Sy9rYzBmZkhZNjF5?=
+ =?utf-8?B?VHBuWXFPS0tNU1dVZVhhMHVITGRqdWd5L0lEKzNPa2N0RXpaLzEzcXNLai9i?=
+ =?utf-8?B?SDN5NkRFclQ3SGxJcHU3bE9UTkNUYmJUTVBkdXpGK21XUWtZQ2J0cnpUM1Fz?=
+ =?utf-8?B?M05IK1NIK25SQXBWdDlZc0Z3VTdnWENmelZIQWlEcEp1L2hXSkxCVEphOWlQ?=
+ =?utf-8?B?S3NnRmgvOWpHbEs2NFJRdlE1S3RzSGxveG1xZDZZWHJ2d09tQmthM3luY3h2?=
+ =?utf-8?B?MFV1QWVJNDRRMG11bjJPNGRiYUtScXF5RlFZbUVFWUx0YlBSdG1NZz09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 671725e3-5c78-4871-c5a6-08df287ac6a9
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 16:06:29.7465
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TpDa6dYblYvn4KYZ/KUCU7NhY5m/GBkjqBMyPvYBuGrfOPCE3z1oOHVdHI9MB3l/qlc2GuTTYrJ1c6NCxerDRg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP123MB3119
 
-+Ashish, Tom and Mike, dropped a bunch of others that probably don't care about
-the CCP/PSP driver.
+On Sun, Oct 11, 2026 at 09:51:25PM -0500, Ming Lei wrote:
+> > Since kblockd_workqueue is WQ_PERCPU, the responsibility rests with blk-mq
+> > to provide a non-isolated CPU when dispatching &hctx->run_work, no?
+> 
+> Does every WORK_CPU_UNBOUND user have to handle it?
 
-On Mon, Oct 12, 2026, Sean Christopherson wrote:
-> On Tue, Aug 18, 2026, Xiaoyao Li wrote:
-> > On 7/23/2026 7:13 AM, Lisa Wang wrote:
-> > > -	flags = 0;
-> > > -	if (is_guest_memfd_required(shape))
-> > > +	if (is_guest_memfd_required(shape)) {
-> > >   		flags |= KVM_MEM_GUEST_MEMFD;
-> > > +		if (kvm_has_gmem_attributes)
-> > > +			gmem_flags |= GUEST_MEMFD_FLAG_INIT_SHARED |
-> > > +				      GUEST_MEMFD_FLAG_MMAP;
-> > > +	}
-> > > -	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, 0, 0, nr_pages, flags);
-> > > +	vm_mem_add(vm, VM_MEM_SRC_ANONYMOUS, 0, 0, nr_pages, flags,
-> > > +		   -1, 0, gmem_flags);
-> > >   	for (i = 0; i < NR_MEM_REGIONS; i++)
-> > >   		vm->memslots[i] = 0;
-> > 
-> > IMO, this diff belongs to the gmem in-place series.
-> 
-> Yep, you're 100% right.  I pushed this to "coco" for now...
-> 
-> diff --git tools/testing/selftests/kvm/lib/kvm_util.c tools/testing/selftests/kvm/lib/kvm_util.c
-> index 3f559f207408..0c67d964a9aa 100644
-> --- tools/testing/selftests/kvm/lib/kvm_util.c
-> +++ tools/testing/selftests/kvm/lib/kvm_util.c
-> @@ -494,6 +494,7 @@ struct kvm_vm *__vm_create(struct vm_shape shape, u32 nr_runnable_vcpus,
->         u64 nr_pages = vm_nr_pages_required(shape.mode, nr_runnable_vcpus,
->                                                  nr_extra_pages);
->         struct userspace_mem_region *slot0;
-> +       u64 gmem_flags = 0;
->         struct kvm_vm *vm;
->         int i, flags;
->  
-> @@ -509,10 +510,20 @@ struct kvm_vm *__vm_create(struct vm_shape shape, u32 nr_runnable_vcpus,
->          * for CoCo VMs that require GUEST_MEMFD backed private memory.
->          */
->         flags = 0;
-> -       if (is_guest_memfd_required(shape))
-> +       if (is_guest_memfd_required(shape)) {
->                 flags |= KVM_MEM_GUEST_MEMFD;
->  
-> -       vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, 0, 0, nr_pages, flags);
-> +               /*
-> +                * Allow mmap() and initialize the gmem instance as SHARED if
-> +                * in-place conversions are supported, so that the memory can
-> +                * be populated/initialized like any other memory region.
-> +                */
-> +               if (kvm_has_gmem_attributes)
-> +                       gmem_flags |= GUEST_MEMFD_FLAG_INIT_SHARED |
-> +                                     GUEST_MEMFD_FLAG_MMAP;
-> +       }
-> +
-> +       vm_mem_add(vm, VM_MEM_SRC_ANONYMOUS, 0, 0, nr_pages, flags, -1, 0, gmem_flags);
->         for (i = 0; i < NR_MEM_REGIONS; i++)
->                 vm->memslots[i] = 0;
-> 
-> but the entire in-place conversion series may need to be dropped because there's
-> a potential deadlock, and I don't see an obviously non-awful way to fix it.
+[Adding Tejun Heo]
 
-The underlying problem is that drivers/crypto/ccp/sev-dev.c does memory allocations
-and copy_{to,from}_user() while holding sev_cmd_mutex in a variety of locations.
+No, because almost all other subsystems passing WORK_CPU_UNBOUND do so on
+unbound workqueues (e.g. system_unbound_wq).
 
-I genuinely think the right fix is to not do that, i.e. to perform invasive surgery
-on the driver so that it holds sev_cmd_mutex only for the operations that really
-truly need its protection.  Because taking page faults while holding a *system*-wide
-lock is asking for trouble.  Deadlock aside, if one of the user pages being accessed
-happens to be swapped out, tasks could be blocked on sev_cmd_mutex for quite some
-time waiting for the page to come back from disk or wherever.  Rinse and repeat, and
-I wouldn't be surprised if VM creation/boot can stall for hundreds of milliseconds
-or worse.
+In kernel/workqueue.c, when WORK_CPU_UNBOUND is queued on a WQ_UNBOUND
+workqueue, workqueue core already handles CPU isolation automatically via
+wq_select_unbound_cpu(), which respects wq_unbound_cpumask and steers the
+work item to a housekeeping CPU.
 
-The alternative would be to take sev_cmd_mutex around the kvm_gmem_populate() call
-in snp_launch_update(), but even if the CPP maintainers were willing to provide hooks
-to allow that, I'm not willing to take such a hack in KVM.
+kblockd_workqueue is unique in that it is allocated as WQ_PERCPU to
+preserve per-CPU locality for multi-queue devices. For WQ_PERCPU
+workqueues, workqueue core cannot silently migrate WORK_CPU_UNBOUND to a
+remote CPU because callers of bound per-CPU workqueues expect local per-CPU
+execution. Thus, blk-mq is in the unusual position of passing
+WORK_CPU_UNBOUND to a bound per-CPU workqueue with the expectation that it
+avoids isolated cores.
 
-So, very sadly, I think in-place conversion is dead for 7.4, and will need to be
-revived on top of an overhaul of sev_cmd_mutex locking.
+> > I suspect, steering the asynchronous dispatch to a housekeeping CPU is both
+> > architecturally necessary and fully aligned with the rest of the kernel,
+> > no? When a queue is plugged, throttled, or returns BLK_STS_RESOURCE, blk-mq
+> > defers execution to a background workqueue. That work runs asynchronously
+> > at some indeterminate time in the future, long after the thread has
+> > returned to its time-critical user loop. Having a kworker suddenly preempt
+> > the thread later is likely not desired.
+> 
+> We are talking about `if a task executing on an isolated CPU submits I/O `.
+> 
+> If the task has been submitting IO on isolated CPU, why can't we keep
+> scheduling WQ on isolated CPU for running blk-mq queue? I am not sure your change
+> makes any difference from user viewpoint.
 
-Or I guess maybe a less painful temporary workaround would be to disable support
-for SNP if in-place conversion is enabled.  That would avoid extending the in-place
-conversion bottleneck for TDX, pKVM, and CCA, without having to take a gross hack
-to make SNP play nice.
+When a task submits I/O, synchronous submission occurs directly in syscall
+context. Note, in the following example, IOCB_DIRECT is applied since the
+file was opened with file->f_flags & O_DIRECT:
 
-E.g. this as a workaround for 7.4 (not yet tested)
+  __x64_sys_write
+    ksys_write
+      vfs_write
+        else if (file->f_op->write_iter)
+          new_sync_write(file, buf, count, pos)
+            // filp->f_op->write_iter(&kiocb, &iter)
+            ext4_file_write_iter
+              if (iocb->ki_flags & IOCB_DIRECT)
+               ext4_dio_write_iter(iocb, from) 
+                 iomap_dio_rw(iocb, from, &ext4_iomap_ops,
+                              &ext4_dio_write_ops, dio_flags, NULL, 0)
+                   __iomap_dio_rw
+                     ...
+                     iomap_dio_submit_bio
+                       blk_crypto_submit_bio(bio)
+                         if (!bio_has_crypt_ctx(bio) ...)
+                           submit_bio(bio)
+                            ...
+                             __submit_bio
+                               blk_mq_submit_bio(bio)
+                                 // blk_mq_run_dispatch_ops(q, blk_mq_try_issue_directly(hctx, rq))
+                                 __blk_mq_run_dispatch_ops(q, true blk_mq_try_issue_directly(hctx, rq))
+                                   blk_mq_try_issue_directly(hctx, rq)
+                                     __blk_mq_issue_directly(hctx, rq, true)
+                                       // q->mq_ops->queue_rq(hctx, &bd)
 
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index fad72cab76cf..df885b8214d4 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -3213,6 +3213,14 @@ void __init sev_hardware_setup(void)
- 	sev_snp_supported = sev_snp_enabled && cc_platform_has(CC_ATTR_HOST_SEV_SNP);
- 
- out:
-+	/*
-+	 * FIXME: Allow SNP with in-place guest_memfd conversion once the PSP
-+	 * driver no longer takes its global mutex outside of mmap_lock (which
-+	 * leads to deadlock with sev_gmem_post_populate()).
-+	 */
-+	if (gmem_in_place_conversion)
-+		sev_snp_supported = false;
-+
- 	if (sev_enabled) {
- 		init_args.probe = true;
- 
-> [ 2260.466972] ======================================================
-> [ 2260.473150] WARNING: possible circular locking dependency detected
-> [ 2260.479329] 7.3.0-smp--ce115a0096358-seanjc-soink #75 Tainted: G     U     O       
-> [ 2260.486981] ------------------------------------------------------
-> [ 2260.493161] sev_snp_vmsa_pu/24505 is trying to acquire lock:
-> [ 2260.498821] ffffffffc01f7900 (sev_cmd_mutex){+.+.}-{4:4}, at: sev_issue_cmd_external_user+0x39/0x60 [ccp]
-> [ 2260.508387] 
->                but task is already holding lock:
-> [ 2260.514213] ffff93c9dd1cf070 (mapping.invalidate_lock#4){++++}-{4:4}, at: kvm_gmem_populate+0x18c/0x300 [kvm]
-> [ 2260.524275] 
->                which lock already depends on the new lock.
-> 
-> [ 2260.532446] 
->                the existing dependency chain (in reverse order) is:
-> [ 2260.539917] 
->                -> #2 (mapping.invalidate_lock#4){++++}-{4:4}:
-> [ 2260.546878]        down_read+0x3d/0x160
-> [ 2260.550716]        kvm_gmem_fault_user_mapping+0x43/0x180 [kvm]
-> [ 2260.556663]        __do_fault+0x3f/0x110
-> [ 2260.560588]        do_pte_missing+0x515/0x1000
-> [ 2260.565035]        handle_mm_fault+0x7f2/0x1290
-> [ 2260.569567]        do_user_addr_fault+0x47d/0x6c0
-> [ 2260.574271]        exc_page_fault+0x67/0xa0
-> [ 2260.578458]        asm_exc_page_fault+0x26/0x30
-> [ 2260.582991] 
->                -> #1 (&mm->mmap_lock){++++}-{4:4}:
-> [ 2260.588997]        __might_fault+0x59/0x80
-> [ 2260.593096]        _copy_to_user+0x23/0x60
-> [ 2260.597197]        sev_ioctl_do_platform_status+0x50/0x80 [ccp]
-> [ 2260.603116]        sev_ioctl+0x220/0x2b0 [ccp]
-> [ 2260.607560]        __se_sys_ioctl+0x6d/0xb0
-> [ 2260.611749]        do_syscall_64+0xfe/0x460
-> [ 2260.615933]        entry_SYSCALL_64_after_hwframe+0x4b/0x53
-> [ 2260.621506] 
->                -> #0 (sev_cmd_mutex){+.+.}-{4:4}:
-> [ 2260.627426]        __lock_acquire+0x160d/0x2940
-> [ 2260.631957]        lock_acquire+0xf1/0x300
-> [ 2260.636050]        __mutex_lock+0x8f/0xdf0
-> [ 2260.640147]        sev_issue_cmd_external_user+0x39/0x60 [ccp]
-> [ 2260.645982]        sev_gmem_post_populate+0x189/0x230 [kvm_amd]
-> [ 2260.651901]        kvm_gmem_populate+0x1ed/0x300 [kvm]
-> [ 2260.657066]        snp_launch_update+0x1a7/0x250 [kvm_amd]
-> [ 2260.662551]        sev_mem_enc_ioctl+0x371/0x3d0 [kvm_amd]
-> [ 2260.668036]        kvm_vm_ioctl+0x52c/0x580 [kvm]
-> [ 2260.672761]        __se_sys_ioctl+0x6d/0xb0
-> [ 2260.676946]        do_syscall_64+0xfe/0x460
-> [ 2260.681133]        entry_SYSCALL_64_after_hwframe+0x4b/0x53
-> [ 2260.686706] 
->                other info that might help us debug this:
-> 
-> [ 2260.694695] Chain exists of:
->                  sev_cmd_mutex --> &mm->mmap_lock --> mapping.invalidate_lock#4
-> 
-> [ 2260.706077]  Possible unsafe locking scenario:
-> 
-> [ 2260.711993]        CPU0                    CPU1
-> [ 2260.716520]        ----                    ----
-> [ 2260.721052]   lock(mapping.invalidate_lock#4);
-> [ 2260.725498]                                lock(&mm->mmap_lock);
-> [ 2260.731503]                                lock(mapping.invalidate_lock#4);
-> [ 2260.738463]   lock(sev_cmd_mutex);
-> [ 2260.741868] 
->                 *** DEADLOCK ***
-> 
-> [ 2260.747778] locks held by sev_snp_vmsa_pu/24505: 3, last CPU#35:
-> [ 2260.753785]  #0: ffff93c9d54bd3a8 (&kvm->lock){+.+.}-{4:4}, at: sev_mem_enc_ioctl+0x73/0x3d0 [kvm_amd]
-> [ 2260.763083]  #1: ffff93c9d54bc0a0 (&kvm->slots_lock){+.+.}-{4:4}, at: snp_launch_update+0x145/0x250 [kvm_amd]
-> [ 2260.772991]  #2: ffff93c9dd1cf070 (mapping.invalidate_lock#4){++++}-{4:4}, at: kvm_gmem_populate+0x18c/0x300 [kvm]
-> [ 2260.783356] 
->                stack backtrace:
-> [ 2260.787718] CPU: 35 UID: 0 PID: 24505 Comm: sev_snp_vmsa_pu Tainted: G     U     O        7.3.0-smp--ce115a0096358-seanjc-soink #75 PREEMPT 
-> [ 2260.800310] Tainted: [U]=USER, [O]=OOT_MODULE
-> [ 2260.804668] Hardware name: Google, Inc.                                                       Arcadia_IT_80/Arcadia_IT_80, BIOS 34.86.0-102 01/25/2026
-> [ 2260.818127] Call Trace:
-> [ 2260.820579]  <TASK>
-> [ 2260.822687]  dump_stack_lvl+0x54/0x70
-> [ 2260.826351]  print_circular_bug+0x2e4/0x300
-> [ 2260.830537]  check_noncircular+0xf5/0x120
-> [ 2260.834553]  __lock_acquire+0x160d/0x2940
-> [ 2260.838565]  ? __lock_acquire+0x65e/0x2940
-> [ 2260.842664]  ? rcu_is_watching+0x11/0x40
-> [ 2260.846587]  ? trace_sched_exit_tp+0x25/0xb0
-> [ 2260.850861]  lock_acquire+0xf1/0x300
-> [ 2260.854440]  ? sev_issue_cmd_external_user+0x39/0x60 [ccp]
-> [ 2260.859928]  ? lock_is_held_type+0xc7/0x120
-> [ 2260.864112]  ? sev_issue_cmd_external_user+0x39/0x60 [ccp]
-> [ 2260.869599]  __mutex_lock+0x8f/0xdf0
-> [ 2260.873178]  ? sev_issue_cmd_external_user+0x39/0x60 [ccp]
-> [ 2260.878663]  ? pfn_valid+0x89/0x220
-> [ 2260.882155]  ? pfn_valid+0x1fb/0x220
-> [ 2260.885736]  ? lookup_address+0x49/0x70
-> [ 2260.889577]  sev_issue_cmd_external_user+0x39/0x60 [ccp]
-> [ 2260.894890]  sev_gmem_post_populate+0x189/0x230 [kvm_amd]
-> [ 2260.900289]  kvm_gmem_populate+0x1ed/0x300 [kvm]
-> [ 2260.904938]  ? snp_bind_asid+0xd0/0xd0 [kvm_amd]
-> [ 2260.909561]  snp_launch_update+0x1a7/0x250 [kvm_amd]
-> [ 2260.914528]  sev_mem_enc_ioctl+0x371/0x3d0 [kvm_amd]
-> [ 2260.919493]  kvm_vm_ioctl+0x52c/0x580 [kvm]
-> [ 2260.923706]  ? kvm_gmem_ioctl+0x192/0x1e0 [kvm]
-> [ 2260.928266]  __se_sys_ioctl+0x6d/0xb0
-> [ 2260.931930]  do_syscall_64+0xfe/0x460
-> [ 2260.935595]  ? entry_SYSCALL_64_after_hwframe+0x4b/0x53
-> [ 2260.940822]  ? trace_irq_disable+0x25/0xc0
-> [ 2260.944921]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
-> [ 2260.949972] RIP: 0033:0x474bdb
-> [ 2260.953031] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-> [ 2260.971770] RSP: 002b:00007ffd188ac3f0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-> [ 2260.979337] RAX: ffffffffffffffda RBX: 0000000028691b30 RCX: 0000000000474bdb
-> [ 2260.986468] RDX: 00007ffd188ac4a0 RSI: 00000000c008aeba RDI: 0000000000000007
-> [ 2260.993600] RBP: 0000000000135000 R08: 00000000004d50b8 R09: 00000000004e1b78
-> [ 2261.000734] R10: 0000000000000002 R11: 0000000000000246 R12: 00007ffd188ac4c0
-> [ 2261.007867] R13: 0000000000137000 R14: 0000000028693db0 R15: 0000000000137000
-> [ 2261.015001]  </TASK>
-> 
+
+However, if dispatch must be deferred (e.g. BLK_STS_RESOURCE),
+blk-mq queues &hctx->run_work. Now, if &hctx->run_work is queued on the
+isolated CPU, it must be executed by the local kworker. Because that
+kworker runs under SCHED_NORMAL, the user's SCHED_FIFO task completely
+starves the kworker. As a result, blk_mq_run_work_fn() never executes,
+hardware dispatch stalls, and the I/O pipeline hangs indefinitely.
+Albeit, I believe an enabled Fair server, under the EEVDF scheduler, will
+prevent this stall.
+
+Anyhow, offloading deferred dispatch to an online housekeeping CPU allows
+the kworker to run immediately and complete dispatch without priority
+inversion. As noted in commit a46c27026da1:
+    "it isn't expected to let block IO disturb these CPUs. blk-mq kworker
+     shouldn't be scheduled on isolated CPUs."
+
+
+Kind regards,
+-- 
+Aaron Tomlin
