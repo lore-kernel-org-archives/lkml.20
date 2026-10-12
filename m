@@ -1,149 +1,225 @@
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2628A283FE5
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:28:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47BF32E6BC
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:28:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791797318; cv=none; b=I997eHVOXP9pqFMKanSK7mLGP2Un7VDB7F4RipTqxyPjugwovXf9fVbRPBmT0lCntUGBVqEf4boNGz7y7DVWVhGjTbYmnBqiBn3G9o1r4q1c1hwrwpA9mbdkEIjbAEQiWSyQJN8V1YsX+knAnJUeCULxEQ5LNmRPLUMLoCP7w+A=
+	t=1791797339; cv=none; b=WziRlmFTw4ugdniCAIQSGt5EchZ12KDE6edwdXaZ+yaY/hBsJLeOn9+lqRy78T8U3/J2pAqn+72iLpB+JvKsShAe+dEVwBL5gpUv9QZ/9OHTHf7nsssakN1M1oC+KzEnJ1mIkdYNdrFJrp7bPHvKnAZjX0HPwWWbe3ecFw5w2/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791797318; c=relaxed/simple;
-	bh=Hc5IqB/VGWVrLlg3554ibi6siDL3bjCd/j8xJddtpUw=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=MHxmmHY5zH5FXpBsWTcXKws5mU6TFLjXM1UugdCj49413otYYaNiI+xlJ2j8dKzDKUmyQBwUZqWn00CQGzPUB/llCN9qEuf/iMqfBZ4BTyuTCroGJgXPxo1Dbm2s3cTsqNRCIJjH0DzmLEit3cNNWSpyDGeBeayOJwEbGmn2x4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-8242e72d404so3471717a34.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:28:36 -0700 (PDT)
+	s=arc-20240116; t=1791797339; c=relaxed/simple;
+	bh=HyAYHeh1Vo0SrqzbBagm0y+GX6OcPB+IoMqBVEfh+Zs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uUXLOi4yOdkv9230px4RVIznnPetKjYMHXrNz9mjwBMoAuvogevGbukfxUjSaKIHlOk4AGNKFY5Z1Yq0yhWzLeMU11xzaje4mlc3oGOp77RLMxfNbxMLij+m1zf0+agIc8PyqGSnuYDmGwaCG5oJ2C97OTi7joSI8h4lPeoXnYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Bbc6jrA4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Qz3QUg2P; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Bbc6jrA4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Qz3QUg2P"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8L8LF2296398
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:28:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6zN8RehjJsYWPFVmwb24sNULXmAN9Lv2jI4egGwK8oA=; b=Bbc6jrA42muGp6HO
+	oHKS+YUI6IhV4RWCKAeyLGKtG31nv2MYtBZDcMC2gL7niCl0QTJaT6u/eglnQpeD
+	AnpshpMQET3PGlJtVkNQwxXSA1ndc6lcVRaZQv06eXoFxYVu62I5IXmiqaPUCKzs
+	/mXRvLQ3kSDuDAhcavgI1Ot6KXibFERbSfuPrJvCvqFBQMBQr+Mt5cdPOAEMAlyt
+	bgV82iEcXh5TXGwarphcbD8/sChwrGpy+slqpsAsVEObbF34B/iBT34Di5A7LoR1
+	Lz7E9hihErRoJ7SG0aSjaMuz6Zz/t3Mlxn24sv3t+1sVad2dfudMyInC2zzxt1OM
+	zDx/pw==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7cxxp0bk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:28:55 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfa4e4684bso30551435ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:28:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791797330; x=1792402130; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6zN8RehjJsYWPFVmwb24sNULXmAN9Lv2jI4egGwK8oA=;
+        b=Qz3QUg2P4sT9JBSMR+fXKJl4jUnbwbvhcyK5oRQEeSV/ax0e00Sn9Ziha4ftU1M44S
+         aoEu7fyN6j7E9lb9h15/I9AFK3w7qUIKv+WQFLWFchn0M08A20S3NO25TrFtrbRrshfh
+         8L+L3QisaDifLlDrME4vz+mqvE25QU/vCQzWFTE43gsGMgFf05dv7eD69az4Kn6Oe77a
+         cHpX2b26V4wMNQdYT5twzWypKhFcjZg3X4SROhgygEgy2NiOwC7+fS+gl0SSMk7PiCJK
+         W8S1yV0JTrEys8w3fCHxPhBhTLuofUvFdlXxXr8nUStRTdIcMUaoaBhIxL63kseN3OU4
+         FA9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791797316; x=1792402116;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=joKYai7R5O8PhQUhZxfJ4rVVG7ut68PsGeDc2YSwNI8=;
-        b=2S3YlxwPi+YF0mY6HcWz96LKCPkHiDLI43BqOw9jCUiKDBnyUKqgalw9F/UkUrCKPa
-         J/i/MKplJY2tQ+TygPFRX980qMERs68GR/JzQC5H9s4a0dv8q6+wlZkZMtKkvyd617pu
-         ZNov3YXVqSthXWShIoD9O2p9nFX6fl7BUeyn0eSduywdFplu3LVxWccHWyl5oM+vFdui
-         AvjP0to4B2sicigPiNdJhmTUmuxweDIO/IE3lHZcRv2sFBV9/psT68lvvzaMkgEkCP0x
-         71VvXzqIW7yLhrT8nNj2mzVEGKD9xSAfy1OiGqkMOv6QcmHzHtKXy8DYMwiQNQnD1ibh
-         pzlg==
-X-Forwarded-Encrypted: i=1; AKwUvBw6trprUsjZr6t1vC+N/o+ZOQ0khngXtUL9PUA8oJpdnDs98fBx7IOUmX7kUgkZGK+68wcEk8AJ6tETmw4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAQtOn/S6YPcskAm5k2cnjDwjk5CP2yMPc0qxUdn7pTt4av3XN
-	1M8PVaxF3Ed5Vib1YEd1R4+4LK3JMLKpewI7tx8xClQETQA3n29KXUGBMFxUl04EmLGNk3rJH0+
-	rKpRNunNJrX0ct1VBNCNx0kF9g5mL68J8WdSaUC1uU8LvlOc4KAXK3Em3Em4=
+        d=1e100.net; s=20260707; t=1791797330; x=1792402130;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6zN8RehjJsYWPFVmwb24sNULXmAN9Lv2jI4egGwK8oA=;
+        b=ofAWhtVJoDb8Dabak2aPqHNPNH02qBdvgVGQcUEQa/qFBNWAhRF0CgGeN/GwjXnyWX
+         AJ/BSJlVZZoCqhOHWV3Zfw5Y4ZjqvsukfMem3dwUtI4BATZPwlSWkOy2LvxtfRSoBDRj
+         6NhwDYrE0D75NhOCi+KPbOaoPF8xmQnSUQXrZclaNk4HLTJofsehzv2gNjGxrp13LEvE
+         APROdjD8V8w6WeG3x1+MW0CCmvyMw8tlKQUDeAz8hYUWWFhq7EBKudGV72BqNY/tEBpi
+         5jfywVn5y7AYr98Dq8MAkmXxjxN4l0RuYC3ZlS7bif7aiOmz5I3RKWJc1KiLsr+pHy0+
+         fjkw==
+X-Forwarded-Encrypted: i=1; AKwUvBzhR3ora4KBO4ChIvOmoKCQYW761ddKJgpUeEHg7JA6mW3LH0TAeAR/SBZ4nEEUJ4hiruR9iWLCsbNUJYs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLli8qnAh5BSQVR0vHgq5QykZH14kTl7SPQkMf21TAbakv5JF+4
+	5tX6VDIv2xC0G2diYDJIV84FJMkqrIc7/JVZZjIHzdVtyaM2xKPmQ1MPVAlyg9OOMI6Wh4L6fP4
+	0q8JoyCublf4LTiqUyYu1xd6Aef0OMDZRcPGtu088oWm67w1S7uf2p2sioLRUHPDOSk8=
+X-Gm-Gg: AYBFou1V5X0p5yfA8ucO0VL/gonXGkCoAtWIo4Eb5r2u0vqtQvaaWHx+h+fA+cgdn00
+	W8YNF4R9ckvKXAqmcKbEaxDNPR60232ww76xbddYEd39l84/Uf1V5pAkGBl6PJ7yvQkjuo7m/sy
+	A2CBRlBxopLPKCG1DxjgDulp651roDD2V7mNoR3pZW1TlPCKRiz+zPAvxByAtoqlRBjjlmcbVNF
+	SJG6p0NBqvzt14QW9FauGq2JCUjAaqOt9hOlO84GJcZc+nlD8EFGIINGATedbvn7mEXU0LXS+xA
+	YNheGaWndvV58vTiWg1ng23OqmWavxiylO+TO8q/IKA0+7BpQmDcEBkGLzvDPB8SQjXQlKAWI2m
+	hlpXzhYWTSSHXffHEtsb7J2pAwRo99g==
+X-Received: by 2002:a17:903:4b4f:b0:2e3:1d30:8654 with SMTP id d9443c01a7336-2e842cd4527mr77385305ad.10.1791797330365;
+        Mon, 12 Oct 2026 02:28:50 -0700 (PDT)
+X-Received: by 2002:a17:903:4b4f:b0:2e3:1d30:8654 with SMTP id d9443c01a7336-2e842cd4527mr77385075ad.10.1791797329860;
+        Mon, 12 Oct 2026 02:28:49 -0700 (PDT)
+Received: from [10.218.5.182] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421b1807sm40875295ad.43.2026.10.12.02.28.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 02:28:49 -0700 (PDT)
+Message-ID: <273f7f8c-e24d-4322-a418-4fd5ed84b0bd@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 14:58:43 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6611:b0:4f5:59e4:a8b with SMTP id
- 5614622812f47-50c55d7c357mr7109729b6e.58.1791797316091; Mon, 12 Oct 2026
- 02:28:36 -0700 (PDT)
-Date: Mon, 12 Oct 2026 02:28:36 -0700
-In-Reply-To: <20261012044322.503949-1-dungvn2345@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6acca844.8cdf6287.1eb53.0122.GAE@google.com>
-Subject: [syzbot ci] Re: net/sched: sch_netem: prevent packet length underflow
- with negative overhead
-From: syzbot ci <syzbot+cid9cb71b48d5b38c3@syzkaller.appspotmail.com>
-To: davem@davemloft.net, dungvn2345@gmail.com, edumazet@kernel.org, 
-	hagen@jauu.net, horms@kernel.org, jhs@mojatatu.com, jiri@resnulli.us, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	pabeni@redhat.com, stable@vger.kernel.org, stephen@networkplumber.org
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-
-syzbot ci has tested the following series
-
-[v2] net/sched: sch_netem: prevent packet length underflow with negative overhead
-https://lore.kernel.org/all/20261012044322.503949-1-dungvn2345@gmail.com
-* [PATCH net v2] net/sched: sch_netem: prevent packet length underflow with negative overhead
-
-and found the following issue:
-divide error in netem_enqueue
-
-Full report is available here:
-https://ci.syzbot.org/series/eff5cc04-13f7-4a28-9b83-b6e0de530bc2
-
-***
-
-divide error in netem_enqueue
-
-tree:      net
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/netdev/net.git
-base:      af32da41b0327b9c6a37856ba82b6760d6c8d10e
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/bf12d8a1-2cda-46fc-9150-cadd809b1c71/config
-
-Oops: divide error: 0000 [#1] SMP KASAN PTI
-CPU: 0 UID: 0 PID: 17390 Comm: syz.0.2912 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-RIP: 0010:netem_enqueue+0x20f6/0x3300
-Code: 8b 74 24 38 48 8b 44 24 50 42 80 3c 28 00 74 08 4c 89 f7 e8 cc f4 51 f8 49 8b 0e 4c 89 f8 48 f7 25 b7 9c 8b 04 48 89 4c 24 78 <48> f7 74 24 78 48 b9 ff ff ff ff ff ff ff 7f 48 39 c8 48 0f 42 c8
-RSP: 0018:ffffc900082cf4b0 EFLAGS: 00010a07
-RAX: 3599740d73380000 RBX: 0000005c44b22572 RCX: 000000000000002c
-RDX: 0000000000000077 RSI: 00000000000001ed RDI: 00000000000001ee
-RBP: ffff88810e973000 R08: ffffffff917a717f R09: 1ffffffff22f4e2f
-R10: dffffc0000000000 R11: ffffffff81776d40 R12: ffff888026e62330
-R13: dffffc0000000000 R14: ffff88810e9732b0 R15: 0000020000176c00
-FS:  00007f87167196c0(0000) GS:ffff88818c4bf000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f8716718ff8 CR3: 000000002756e000 CR4: 00000000000006f0
-Call Trace:
- <TASK>
- netem_enqueue+0x16f1/0x3300
- dev_qdisc_enqueue+0x4e/0x260
- __dev_queue_xmit+0x1b6c/0x3920
- packet_sendmsg+0x3f11/0x51a0
- sock_sendmsg_nosec+0x13a/0x180
- __sys_sendto+0x408/0x5a0
- __x64_sys_sendto+0xde/0x100
- do_syscall_64+0x166/0x520
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f871579e1d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f8716719028 EFLAGS: 00000246 ORIG_RAX: 000000000000002c
-RAX: ffffffffffffffda RBX: 00007f8715a25fa0 RCX: 00007f871579e1d9
-RDX: 00000000000005dc RSI: 0000200000000280 RDI: 0000000000000009
-RBP: 00007f8715835888 R08: 0000200000000140 R09: 0000000000000014
-R10: 0000000000004009 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f8715a26038 R14: 00007f8715a25fa0 R15: 00007ffc85273198
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:netem_enqueue+0x20f6/0x3300
-Code: 8b 74 24 38 48 8b 44 24 50 42 80 3c 28 00 74 08 4c 89 f7 e8 cc f4 51 f8 49 8b 0e 4c 89 f8 48 f7 25 b7 9c 8b 04 48 89 4c 24 78 <48> f7 74 24 78 48 b9 ff ff ff ff ff ff ff 7f 48 39 c8 48 0f 42 c8
-RSP: 0018:ffffc900082cf4b0 EFLAGS: 00010a07
-RAX: 3599740d73380000 RBX: 0000005c44b22572 RCX: 000000000000002c
-RDX: 0000000000000077 RSI: 00000000000001ed RDI: 00000000000001ee
-RBP: ffff88810e973000 R08: ffffffff917a717f R09: 1ffffffff22f4e2f
-R10: dffffc0000000000 R11: ffffffff81776d40 R12: ffff888026e62330
-R13: dffffc0000000000 R14: ffff88810e9732b0 R15: 0000020000176c00
-FS:  00007f87167196c0(0000) GS:ffff88818c4bf000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f8716718ff8 CR3: 000000002756e000 CR4: 00000000000006f0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] clk: qcom: gcc-eliza: Use retention for PCIe power
+ domains
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261011-eliza-pcie-gdsc-retention-v1-1-9349dba7e0b6@oss.qualcomm.com>
+Content-Language: en-US
+From: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+In-Reply-To: <20261011-eliza-pcie-gdsc-retention-v1-1-9349dba7e0b6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: SXzg_8YKWRLCthb_YnpwElD1A5YDULF3
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzNyBTYWx0ZWRfX6Yw1uu/gLl+t
+ 7/4sX1VTcZh705V6/o9lGAqODgx2KqzRP5QGuSnmIMJokjlv3RWAhEp42QrTRKL6w00WxhZzmrP
+ RlcCIGPtfqP9KhZMHuTmmBQivj++Bbk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzNyBTYWx0ZWRfX096NPhzgIMCY
+ C9l+6R1LGaUOf4cdRVn16RQo7Kse/Ah+KqTxH0uX9I4JaO+Jr6McOV8ciwyfnKTnIMOvLeRfU9w
+ pwlLtJ8Mn03b/8JqTgRmSUYIJ6h4yJHAsPOqHYGljbBI0wAuUpn/raqb/anze/cwQmJ+50d09pG
+ jKXUZGaBjF8jw6wncE2y49QhYLB56PrH14FZ/1AEGUy2rhATpyhEqOyTDr2xVfa/JjLV2kBbh0M
+ JgIuyt8LdPdRCN1LRO3PFTJwJ/XXrrqlUGcWkNOv1FrjfQAeJ+IbEehAifKTPl0ZgRolkS7DaPS
+ GaMMHDodd9KsvL7zO+ee4ny0oR8zBZmoFDwCOJedyn7l4OQAskpS/nE8XXnWcoYeLlrI8AGlxfX
+ WEOjXl83pAj1u6vfIXQb4mFtxqEzRoS/E6/mVPRU7N2ddeXlChIz0U9bBByNPK6j7B7EGpkcb1U
+ pRDXE0A+pXFJgAn32zQ==
+X-Authority-Analysis: v=2.4 cv=AsJ7T+9P c=1 sm=1 tr=0 ts=6acca857 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Z9TVNPNHG0Lt5lYLwu8A:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: SXzg_8YKWRLCthb_YnpwElD1A5YDULF3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120037
 
 
-***
 
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
+On 10/12/2026 1:29 AM, Abel Vesa wrote:
+> When resuming from system suspend on Eliza CQS EVK, gcc_pcie_0_gdsc
+> gets stuck off when powering back on, preventing the system from resuming.
+> 
+> Use retention for all four PCIe GDSCs, as on SM8550, to preserve their
+> state across suspend and allow the system to resume.
+> 
+> Fixes: 3d356ab4a1ec ("clk: qcom: Add support for Global clock controller on Eliza")
+> Assisted-by: LLM
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  drivers/clk/qcom/gcc-eliza.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
 
----
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
 
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
+Hi Abel,
 
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
+Using PWRSTS_RET_ON keeps the GDSC forever ON after first enable and the GDSC never
+collapses.
+
+For similar issue on Lemans (pcie_0_gdsc gets stuck off when powering back on), picking
+the below changes from PCIE side helped to power ON the GDSC properly without any issue.
+
+https://lore.kernel.org/all/20260728-hotplug_pci-v1-1-d1f38cfb9122@oss.qualcomm.com/
+https://lore.kernel.org/all/20260729071514.859778-1-manivannan.sadhasivam@oss.qualcomm.com/
+
+Can you please try if above changes are helping on Eliza also?
+
+Thanks,
+Jagadeesh
+
+
+> diff --git a/drivers/clk/qcom/gcc-eliza.c b/drivers/clk/qcom/gcc-eliza.c
+> index 064771726e9b..21fd93a1f6b2 100644
+> --- a/drivers/clk/qcom/gcc-eliza.c
+> +++ b/drivers/clk/qcom/gcc-eliza.c
+> @@ -2715,7 +2715,7 @@ static struct gdsc gcc_pcie_0_gdsc = {
+>  	.pd = {
+>  		.name = "gcc_pcie_0_gdsc",
+>  	},
+> -	.pwrsts = PWRSTS_OFF_ON,
+> +	.pwrsts = PWRSTS_RET_ON,
+>  	.flags = POLL_CFG_GDSCR | RETAIN_FF_ENABLE | VOTABLE,
+>  };
+>  
+> @@ -2729,7 +2729,7 @@ static struct gdsc gcc_pcie_0_phy_gdsc = {
+>  	.pd = {
+>  		.name = "gcc_pcie_0_phy_gdsc",
+>  	},
+> -	.pwrsts = PWRSTS_OFF_ON,
+> +	.pwrsts = PWRSTS_RET_ON,
+>  	.flags = POLL_CFG_GDSCR | RETAIN_FF_ENABLE | VOTABLE,
+>  };
+>  
+> @@ -2743,7 +2743,7 @@ static struct gdsc gcc_pcie_1_gdsc = {
+>  	.pd = {
+>  		.name = "gcc_pcie_1_gdsc",
+>  	},
+> -	.pwrsts = PWRSTS_OFF_ON,
+> +	.pwrsts = PWRSTS_RET_ON,
+>  	.flags = POLL_CFG_GDSCR | RETAIN_FF_ENABLE | VOTABLE,
+>  };
+>  
+> @@ -2757,7 +2757,7 @@ static struct gdsc gcc_pcie_1_phy_gdsc = {
+>  	.pd = {
+>  		.name = "gcc_pcie_1_phy_gdsc",
+>  	},
+> -	.pwrsts = PWRSTS_OFF_ON,
+> +	.pwrsts = PWRSTS_RET_ON,
+>  	.flags = POLL_CFG_GDSCR | RETAIN_FF_ENABLE | VOTABLE,
+>  };
+>  
+> 
+> ---
+> base-commit: becb95e45ef0dda9ffb35156d909d3da7a2789c3
+> change-id: 20261011-eliza-pcie-gdsc-retention-daa497d5578f
+> 
+> Best regards,
+> --  
+> Abel Vesa <abel.vesa@oss.qualcomm.com>
+> 
+> 
+
