@@ -1,121 +1,113 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-100.mail.aliyun.com (out28-100.mail.aliyun.com [115.124.28.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC403E765A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:01:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F71418348;
+	Mon, 12 Oct 2026 11:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791802864; cv=none; b=Otl3++GQtJAhanY5wviIEa8SysCepeErpKfTs+AHdHnOR48Jw35OkeWNDRkD2Xqb7GuXwjxa0v+vuQQDWaQAfNSomxn1tY72rB/qNhannq4G1+idOoGyDOUjOPFunnKNPjKoPAqiSFNaBMk6UthgqEO7UwGh0SUmRYcXkVLiSQ0=
+	t=1791802883; cv=none; b=cfAt8uYMD6f+U8/Ai0R9kQpfyBb3JEa2QKv8fqGUB62ixoGNUnwy6BFRj1lxxSQ8pvd7uDBhE07+acOtEoVjzl/3KjAivDOp0ME9vZnBYm3IrInVero5OyVj4ekAh7bQ8c9IASs6m1YrNec8gGFgCqnWx4h6/eBL/AwsWgjFJSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791802864; c=relaxed/simple;
-	bh=ECa/km7TTkzQyUivVJJXBNUalNhCAj0gH9DLvE9VgHs=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=akXbyFMzjLrtUl/5kmN0K5NmXwCPWoawO0mJRlrN6qb/NBv4seUeCS9F0OWCnEaC3s1/dD2v59hTtVcEhYT8pHYFV5s+VKSsptvnTFsZ2WDPeAp5OPgxdZX2H4VFIkIT2wvYj9s0F+EtOsB9J6BdUSoaeJzFYuH5f5aIIMHJNEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b28d7ffab1so3110334b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:01:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791802862; x=1792407662;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Q/5hKMUMifbGvAuxSZxRnWCHyabLAx5K6ZHkM6LEJvE=;
-        b=mRFTMsPc7xfhzMuHEUylesBOPstpkuraMYxtoVqJsTQPLMqq+h/1XnT7U68wPZZWhd
-         m7qjrrDTycu7B+4O589iUtqqRl0W41lrzZmZBW6gEatwq5wupoA/+oYmGLSMsJjZHypr
-         vUY3CzcweOJCvW/TAereI7z2jvPrN9DF2he20adulcHlZCDFe4fvHBxSGLWxtZVwDEZG
-         ty7llbtgvEBZbuoL4OHIqpGnfb7sgXmBOSzXp+pj2DivI3ORCrLmBH0F6t2vVC31zJnt
-         0yT9p2jdfv/Fj9dYOiE6gt0Dt4HDEuedwQZMU3nEq7Jk92T7gT6snjsivTB/h9Wi47K/
-         VoNg==
-X-Forwarded-Encrypted: i=1; AKwUvBzfYXiiGlTs4HzysYSSWQ8ERIa/islADBRJO5Jvllnyxg6gIUxqocr6Ig7JDJJukeFdJHazMWhoGD3HsPM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8laTYM+rSxt+ebTHiFzmZE/LF7a/TlI1yuS342RgNC3aAG+1S
-	0VvMCyu4mnZpsfF5iAOm5kIKTRcf7+knbT9Ay3SfUuAO+TV7zD4o5pTRaboo5rcnpPbb/+r79MR
-	5EPXHMK6RBf7ZkORBRjhOArCN/UzqsqxNg6B/m56lo0mbz//O9nVYqewNebY=
+	s=arc-20240116; t=1791802883; c=relaxed/simple;
+	bh=ejVccV6KXhEpNNiDe7h4LA5TD8U1+7UmqMcA2H9iIxc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=atQWo17Q4xIalEpjOPQ+6TdQPZBsdFhO10QNdpykMl9K9WpaYe09lT4xJopwSzrAcKbU7vspWdQK/+4yCWwUI+TTY7iHkZ6cO368dJ+FZKIoHblsv0EG71VmehYkncs5TbM5VoP8zjV8j9hqx12i2LhZTg1yJPVbBSZTfL6tYp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=uaYVNQ3I; arc=none smtp.client-ip=115.124.28.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="uaYVNQ3I"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1791802871; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=VTrnbtefp3lyWGpNDEx0a/iBNIMGyHW9EmaIxO2JWps=;
+	b=uaYVNQ3IGTtlemAuOxC2yvDmluqDYyu+OipoIkMDyOTlWTkkd0AVVH6uVbjf9FVVI7oSlAT9t9KP3MezZrUxW54Jwk5VJOJaiwdKvQAnvUNnTp9Dh/SsBVu5ljnpzoQDti0PrLGdLUOXx2+2kQ79CpmzVf47qeIWvi/RR6ikGzA=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1011182|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00218585-0.00104216-0.996772;FP=9292473355862164528|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037028158;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.ja6sMHr_1791802869;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.ja6sMHr_1791802869 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 12 Oct 2026 19:01:10 +0800
+From: liuc63 <liuc63@xiaopeng.com>
+To: Peter Chen <peter.chen@kernel.org>
+Cc: rogerq@kernel.org,
+	pawell@cadence.com,
+	gregkh@linuxfoundation.org,
+	stable@vger.kernel.org,
+	liuwb@xiaopeng.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] usb: cdns3: validate endpoint index from setup packet
+Date: Mon, 12 Oct 2026 19:01:07 +0800
+Message-ID: <20261012110107.2458022-1-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:238f:b0:4af:aaca:7be3 with SMTP id
- 5614622812f47-50b5c9bb14emr6337520b6e.12.1791802862051; Mon, 12 Oct 2026
- 04:01:02 -0700 (PDT)
-Date: Mon, 12 Oct 2026 04:01:02 -0700
-In-Reply-To: <20261012103322.472-1-hdanton@sina.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6accbdee.8cdf6287.1eb53.0125.GAE@google.com>
-Subject: Re: [syzbot] [nvme?] BUG: corrupted list in nvmet_fc_remove_port
-From: syzbot <syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com>
-To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Liu Chao <liuc63@xiaopeng.com>
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-KASAN: user-memory-access Read in nvmet_fc_tgt_a_get
+cdns3_ep_addr_to_index() computes (ep_addr & 0x7F) + 16 for IN
+endpoints.  wIndex is supplied by the USB host, so ep_addr & 0x7F can
+be up to 127, giving an index up to 143.  The eps[] array has only
+CDNS3_ENDPOINTS_MAX_COUNT (32) entries.
 
-=========
-==================================================================
-BUG: KASAN: user-memory-access in instrument_atomic_read include/linux/instrumented.h:82 [inline]
-BUG: KASAN: user-memory-access in atomic_read include/linux/atomic/atomic-instrumented.h:32 [inline]
-BUG: KASAN: user-memory-access in refcount_read include/linux/refcount.h:170 [inline]
-BUG: KASAN: user-memory-access in __refcount_add_not_zero include/linux/refcount.h:176 [inline]
-BUG: KASAN: user-memory-access in __refcount_inc_not_zero include/linux/refcount.h:317 [inline]
-BUG: KASAN: user-memory-access in refcount_inc_not_zero include/linux/refcount.h:335 [inline]
-BUG: KASAN: user-memory-access in kref_get_unless_zero include/linux/kref.h:133 [inline]
-BUG: KASAN: user-memory-access in nvmet_fc_tgt_a_get+0x82/0x1d0 drivers/nvme/target/fc.c:1201
-Read of size 4 at addr 000000000008c617 by task syz.1.88/6756
+Both cdns3_req_ep0_get_status() (GET_STATUS) and
+cdns3_ep0_feature_handle_endpoint() (SET/CLEAR_FEATURE) pass the
+unvalidated index straight into priv_dev->eps[index] and then
+dereference the result.
 
-CPU: 0 UID: 0 PID: 6756 Comm: syz.1.88 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- check_region_inline mm/kasan/generic.c:-1 [inline]
- kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
- instrument_atomic_read include/linux/instrumented.h:82 [inline]
- atomic_read include/linux/atomic/atomic-instrumented.h:32 [inline]
- refcount_read include/linux/refcount.h:170 [inline]
- __refcount_add_not_zero include/linux/refcount.h:176 [inline]
- __refcount_inc_not_zero include/linux/refcount.h:317 [inline]
- refcount_inc_not_zero include/linux/refcount.h:335 [inline]
- kref_get_unless_zero include/linux/kref.h:133 [inline]
- nvmet_fc_tgt_a_get+0x82/0x1d0 drivers/nvme/target/fc.c:1201
- __nvmet_fc_free_assocs+0x10c/0x380 drivers/nvme/target/fc.c:1480
- nvmet_fc_remove_port+0xc5/0x350 drivers/nvme/target/fc.c:2931
- nvmet_disable_port+0x13e/0x1f0 drivers/nvme/target/core.c:400
- nvmet_port_subsys_drop_link+0x1e8/0x210 drivers/nvme/target/configfs.c:1123
- configfs_unlink+0x44f/0x6b0 fs/configfs/symlink.c:258
- vfs_unlink+0x27b/0x6e0 fs/namei.c:5678
- filename_unlinkat+0x3d3/0x610 fs/namei.c:5748
- __do_sys_unlinkat fs/namei.c:5777 [inline]
- __se_sys_unlinkat+0x83/0x1a0 fs/namei.c:5769
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fd82566e1d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fd824cad028 EFLAGS: 00000246 ORIG_RAX: 0000000000000107
-RAX: ffffffffffffffda RBX: 00007fd8258f6090 RCX: 00007fd82566e1d9
-RDX: 0000000000000000 RSI: 0000200000000780 RDI: ffffffffffffff9c
-RBP: 00007fd825705888 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fd8258f6128 R14: 00007fd8258f6090 R15: 00007ffe18669a38
- </TASK>
-==================================================================
+Besides the out-of-bounds index, eps[index] may also be NULL for
+endpoints that are not enabled, as cdns3_init_eps() only populates
+entries for endpoints enabled in USB_CAP3.
 
+Add a bounds check against CDNS3_ENDPOINTS_MAX_COUNT together with a
+NULL check in both functions, matching the fix already applied to
+aspeed_udc in commit ee0d382feb44 ("usb: gadget: aspeed_udc: validate
+endpoint index for ast udc").
 
-Tested on:
+Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
+Cc: <stable@vger.kernel.org>
+Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+---
+Changes in v2:
+ - Also check priv_dev->eps[index] for NULL, as endpoints not enabled
+   in USB_CAP3 are left NULL by cdns3_init_eps() (Peter Chen)
+ - Correct the reference: the same-class fix ee0d382feb44 is for
+   aspeed_udc, not renesas_usb3; cite it with the commit title and
+   drop the CVE mention (Peter Chen)
+ - Fix the function name cdns3_ep0_handle_status() ->
+   cdns3_req_ep0_get_status() in the commit message
 
-commit:         24a19b95 Linux 7.3-rc7
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1710023e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=df4bbab1c2172b9f
-dashboard link: https://syzkaller.appspot.com/bug?extid=c98b21427617af7f547a
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1432149c580000
+v1: https://lore.kernel.org/linux-usb/20260917103145.3047850-1-liuc63@xiaopeng.com/
+---
+ drivers/usb/cdns3/cdns3-ep0.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/usb/cdns3/cdns3-ep0.c b/drivers/usb/cdns3/cdns3-ep0.c
+index e29989d57..d26fa89b6 100644
+--- a/drivers/usb/cdns3/cdns3-ep0.c
++++ b/drivers/usb/cdns3/cdns3-ep0.c
+@@ -251,6 +251,9 @@ static int cdns3_req_ep0_get_status(struct cdns3_device *priv_dev,
+ 		return cdns3_ep0_delegate_req(priv_dev, ctrl);
+ 	case USB_RECIP_ENDPOINT:
+ 		index = cdns3_ep_addr_to_index(le16_to_cpu(ctrl->wIndex));
++		if (index >= CDNS3_ENDPOINTS_MAX_COUNT ||
++		    !priv_dev->eps[index])
++			return -EINVAL;
+ 		priv_ep = priv_dev->eps[index];
+ 
+ 		/* check if endpoint is stalled or stall is pending */
+@@ -368,6 +371,8 @@ static int cdns3_ep0_feature_handle_endpoint(struct cdns3_device *priv_dev,
+ 		return 0;
+ 
+ 	index = cdns3_ep_addr_to_index(le16_to_cpu(ctrl->wIndex));
++	if (index >= CDNS3_ENDPOINTS_MAX_COUNT || !priv_dev->eps[index])
++		return -EINVAL;
+ 	priv_ep = priv_dev->eps[index];
+ 
+ 	cdns3_select_ep(priv_dev, le16_to_cpu(ctrl->wIndex));
+-- 
+2.50.1
 
