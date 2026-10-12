@@ -1,166 +1,265 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDB048FF9A;
-	Mon, 12 Oct 2026 13:00:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1FBC3493D52
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791810021; cv=none; b=TNmhciQE4vOVblsJP0zpLX0crzOc7epU6gt4OA9o/ZDGHKijYCq2XJ1ozX+xmlHgX1AtB06sEBlve7HCvnSpnlcVuUUfZDHS2WxtbNO3Gg68bSG9lYk2KTc8gmacq9EL5rLj0pQJ3cQsspdfBY1dh4He0S9ScL1fgXrZ1iLivvU=
+	t=1791810024; cv=none; b=AKoLOxrUZQD2Aeh9koW2HrI7sjHZtP4wjb1qv6xy9ssYAfpisEGUyijR5MmNoBtvmiTGJW5APsA/gC7sK7qdFipvs1GHG9tURLE99RKp0ahJXx1QAQyAEmD7sTcQLnsBDQVcT3nyz9HrZH6NfupSjVP8BugV3U1bZfgYKqVYpFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791810021; c=relaxed/simple;
-	bh=9vVY7JvYGiLxbgR4xXx5LWf5RUauYGYIN+Ah5OAAfQY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o62nIt1gij9GVhOaej7xyAI6tDnmZuMP71CFyKI1g1Cxs8VvxyB2cVK4ZXMaB+ooR+2XeMGH6zFtKNnUY8aYoaLOr6BM0eoO7Ks5bcEi+mhK/aUt5otrQYzWC5lkBlapPPkMB4WTyoJ4Z7GMrAipTcj3xhD9WGtCBNWv5MoT3RI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FgBgZy6N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791810024; c=relaxed/simple;
+	bh=OY4b9rx8njkewz7edHPqtfOF8iTdPo2fNGb90LhNQYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TabVhu5I03+BbhT/DaMuWIyr3+F1llL3AdOc9kgu0M9bp/G7+OYD7zoYjHHuqr6JX9CZ/PD7abpyVCK8/s1Sr/Rlly5LP26qD9bqQ/GJhro5mYt7CPmJnOhKiNVLk2j4hr0bq+zMRoyVBx8ZEFnE9YNmvNGLKa2fL0EvYev1pmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=C0gPS15O; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FgBgZy6N"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5C05D1F0089D;
-	Mon, 12 Oct 2026 13:00:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791810015;
-	bh=5BYBDdsrBPzdPmwiu6bK4pvgzZ4Lynv4YX6NpbW2zRU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FgBgZy6NAcfM7Bn93ECi/gnRh0tPwYpbaJvcxQITlhSDXSdS9Uo+s2/u6wTdfG9jf
-	 vRmUza39BwTXg9c8lmEjOoRiBiYQNV56Bqcg6/Om6/jvT1A560janiK6cc18R6aDBT
-	 vG5XFMcrs5Rm4Z5I6Gly1en9a29Mdbq6aT2Szg26LpCtASd4dOdgFf5JndKZcNU5iT
-	 TnNa8jY6Q+lidrCIcDqGFSQvnQ18GJ+4z0jTjVzQW6B0MqScJF+qbrMA+S/TvpEcFH
-	 0taVYm24Ij6mKI5L8Y5+liVAZlBLShiIc3IdsR5xUTryN5EzzEic1HRqwgGY9e2aRT
-	 o4E1SzXpB7Fyw==
-Date: Mon, 12 Oct 2026 16:00:12 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org,
-	serge@hallyn.com, akpm@osdl.org, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com, jjzuming@gmail.com
-Subject: Re: [PATCH] KEYS: Protect user key quota access during instantiation
-Message-ID: <aszZ3KPvMMHLEJ0s@kernel.org>
-References: <pm-key-management-objects-candidate-0001-v6-9876bf3e2116d47c065e@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="C0gPS15O"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 449FC1655;
+	Mon, 12 Oct 2026 06:00:16 -0700 (PDT)
+Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com [10.42.46.160])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4BF2B3F66F;
+	Mon, 12 Oct 2026 06:00:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791810019; bh=OY4b9rx8njkewz7edHPqtfOF8iTdPo2fNGb90LhNQYU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=C0gPS15O87hxl3kVvzGa0IMQ3LcqSbwlrv/boamrDkXnoWwy8wznFdfGieRVDYdGs
+	 xcjbysZc6c32PPDGTALwmAe7IlzW49O9kNWU8blEWtB74HlLmtjurB5ITTx1o0IEA7
+	 V6F9VPfSdb8BWayEAHHak9SdHv99Mk8UiXG7NNas=
+From: Ketil Johnsen <ketil.johnsen@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Ketil Johnsen <ketil.johnsen@arm.com>
+Subject: [PATCH v4 09/12] drm/panthor: Create kernel BO from existing GEM
+Date: Mon, 12 Oct 2026 14:59:37 +0200
+Message-ID: <20261012125940.3291951-10-ketil.johnsen@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261012125940.3291951-1-ketil.johnsen@arm.com>
+References: <20261012125940.3291951-1-ketil.johnsen@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <pm-key-management-objects-candidate-0001-v6-9876bf3e2116d47c065e@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 11:15:43AM +0800, Cen Zhang wrote:
-> The owner account must remain alive throughout payload quota
-> reservation. The user key type calls generic_key_instantiate(), which
-> dereferences key->user in key_payload_reserve(), without holding
-> key->sem. The construction mutex excludes other instantiators but does
-> not exclude keyctl_chown_key().
+From: Boris Brezillon <boris.brezillon@collabora.com>
 
-I'm not following the term "owner account". It is neither an
-actor in the concurrency scenario. What do you exactly mean
-by it?
+Refactors/splits existing panthor_kernel_bo_create().
+Adds panthor_kernel_bo_create_from_gem() so we can create kernel BOs
+from imported protected memory in future change.
 
-> 
-> A kernel caller can allocate an in-quota user key, retain its reference
-> and instantiate it with a nonempty payload after publishing its serial.
-> A concurrent task with Setattr permission and CAP_SYS_ADMIN can chown
-> the still-uninstantiated key through KEY_LOOKUP_PARTIAL. If the key
-> holds the last reference to its non-root account, instantiation has no
-> authorization key, and the new owner has sufficient quota, this ordering
-> is possible:
-> 
->   Instantiator                       Chown task
->   key_instantiate_and_link()          keyctl_chown_key()
->     lock key_construction_mutex        down_write(key->sem)
->     generic_key_instantiate()
->       key_payload_reserve()
->         load old = key->user
->                                        transfer quota to new owner
->                                        replace key->user
->                                        up_write(key->sem)
->                                        key_put(key)
->                                        key_user_put(old)
->                                          kfree(old)
->         read old->uid
-> 
-> Chown's final free falls between the old pointer load and the uid read.
-> The read can therefore access freed struct key_user storage despite the
-> caller retaining the key itself. Hold the read side of key->sem in a
-> local user instantiation callback across generic_key_instantiate().
-> Chown then cannot replace and release the account until the quota
-> accesses finish. If chown goes first, instantiation takes the semaphore
-> and uses the new account instead.
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+Co-developed-by: Ketil Johnsen <ketil.johnsen@arm.com>
+Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
 
-And account gets repeated here. I'm not sure hat accounts we are
-talking about here.
+---
 
-I.e.
+v4:
+- First version of this change as a separate commit
+---
+ drivers/gpu/drm/panthor/panthor_gem.c | 94 ++++++++++++++++++---------
+ drivers/gpu/drm/panthor/panthor_gem.h |  7 ++
+ 2 files changed, 71 insertions(+), 30 deletions(-)
 
-1. I get the scenario.
-2. I read all of the text but I do not understand what I'm reading.
+diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+index 2e39a32fcd673..f1939b4aafed1 100644
+--- a/drivers/gpu/drm/panthor/panthor_gem.c
++++ b/drivers/gpu/drm/panthor/panthor_gem.c
+@@ -1033,7 +1033,6 @@ panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
+ 		bo->base.resv = bo->exclusive_vm_root_gem->resv;
+ 	}
+ 
+-	panthor_gem_debugfs_add_usage_flags(bo, usage_flags);
+ 	panthor_gem_debugfs_bo_add(bo);
+ 	return bo;
+ 
+@@ -1260,7 +1259,9 @@ void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo)
+ 	panthor_kernel_bo_vunmap(bo);
+ 
+ 	drm_WARN_ON(bo->obj->dev,
+-		    to_panthor_bo(bo->obj)->exclusive_vm_root_gem != panthor_vm_root_gem(vm));
++		    to_panthor_bo(bo->obj)->exclusive_vm_root_gem &&
++			    (to_panthor_bo(bo->obj)->exclusive_vm_root_gem !=
++			     panthor_vm_root_gem(vm)));
+ 	panthor_vm_unmap_range(vm, bo->va_node.start, bo->va_node.size);
+ 	panthor_vm_free_va(vm, &bo->va_node);
+ 	if (vm == panthor_fw_vm(ptdev))
+@@ -1271,46 +1272,33 @@ void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo)
+ }
+ 
+ /**
+- * panthor_kernel_bo_create() - Create and map a GEM object to a VM
++ * panthor_kernel_bo_create_from_gem() - Create kernel BO from existing GEM object
+  * @ptdev: Device.
+  * @vm: VM to map the GEM to.
+- * @size: Size of the buffer object.
+- * @bo_flags: Combination of drm_panthor_bo_flags flags.
++ * @bo: BO to use for our kernel BO.
+  * @vm_map_flags: Combination of drm_panthor_vm_bind_op_flags (only those
+  * that are related to map operations).
+  * @gpu_va: GPU address assigned when mapping to the VM.
+  * If gpu_va == PANTHOR_VM_KERNEL_AUTO_VA, the virtual address will be
+  * automatically allocated.
+- * @name: Descriptive label of the BO's contents
++ * @vm_map_size: Size of the BO to map to the VM.
+  *
+  * Return: A valid pointer in case of success, an ERR_PTR() otherwise.
+  */
+ struct panthor_kernel_bo *
+-panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
+-			 size_t size, u32 bo_flags, u32 vm_map_flags,
+-			 u64 gpu_va, const char *name)
++panthor_kernel_bo_create_from_gem(struct panthor_device *ptdev,
++				  struct panthor_vm *vm,
++				  struct panthor_gem_object *bo,
++				  u32 vm_map_flags, u64 gpu_va, u32 vm_map_size)
+ {
+ 	struct panthor_kernel_bo *kbo;
+-	struct panthor_gem_object *bo;
+-	u32 debug_flags = PANTHOR_DEBUGFS_GEM_USAGE_FLAG_KERNEL;
+ 	int ret;
+ 
+-	if (drm_WARN_ON(&ptdev->base, !vm))
+-		return ERR_PTR(-EINVAL);
+-
+ 	kbo = kzalloc_obj(*kbo);
+ 	if (!kbo)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	if (vm == panthor_fw_vm(ptdev))
+-		debug_flags |= PANTHOR_DEBUGFS_GEM_USAGE_FLAG_FW_MAPPED;
+-
+-	bo = panthor_gem_create(&ptdev->base, size, bo_flags, vm, debug_flags);
+-	if (IS_ERR(bo)) {
+-		ret = PTR_ERR(bo);
+-		goto err_free_kbo;
+-	}
+-
++	drm_gem_object_get(&bo->base);
+ 	kbo->obj = &bo->base;
+ 
+ 	if (vm == panthor_fw_vm(ptdev)) {
+@@ -1319,24 +1307,27 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
+ 			goto err_put_obj;
+ 	}
+ 
+-	panthor_gem_kernel_bo_set_label(kbo, name);
+-
+ 	/* The system and GPU MMU page size might differ, which becomes a
+ 	 * problem for FW sections that need to be mapped at explicit address
+ 	 * since our PAGE_SIZE alignment might cover a VA range that's
+ 	 * expected to be used for another section.
+ 	 * Make sure we never map more than we need.
+ 	 */
+-	size = ALIGN(size, panthor_vm_page_size(vm));
+-	ret = panthor_vm_alloc_va(vm, gpu_va, size, &kbo->va_node);
++	vm_map_size = ALIGN(vm_map_size, panthor_vm_page_size(vm));
++	ret = panthor_vm_alloc_va(vm, gpu_va, vm_map_size, &kbo->va_node);
+ 	if (ret)
+ 		goto err_unpin;
+ 
+-	ret = panthor_vm_map_bo_range(vm, bo, 0, size, kbo->va_node.start, vm_map_flags);
++	ret = panthor_vm_map_bo_range(vm, bo, 0, vm_map_size,
++				      kbo->va_node.start, vm_map_flags);
+ 	if (ret)
+ 		goto err_free_va;
+ 
+ 	kbo->vm = panthor_vm_get(vm);
++	if (vm == panthor_fw_vm(ptdev))
++		panthor_gem_debugfs_add_usage_flags(
++			bo, PANTHOR_DEBUGFS_GEM_USAGE_FLAG_FW_MAPPED);
++
+ 	return kbo;
+ 
+ err_free_va:
+@@ -1348,12 +1339,55 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
+ 
+ err_put_obj:
+ 	drm_gem_object_put(&bo->base);
+-
+-err_free_kbo:
+ 	kfree(kbo);
+ 	return ERR_PTR(ret);
+ }
+ 
++/**
++ * panthor_kernel_bo_create() - Create and map a GEM object to a VM
++ * @ptdev: Device.
++ * @vm: VM to map the GEM to.
++ * @size: Size of the buffer object.
++ * @bo_flags: Combination of drm_panthor_bo_flags flags.
++ * @vm_map_flags: Combination of drm_panthor_vm_bind_op_flags (only those
++ * that are related to map operations).
++ * @gpu_va: GPU address assigned when mapping to the VM.
++ * If gpu_va == PANTHOR_VM_KERNEL_AUTO_VA, the virtual address will be
++ * automatically allocated.
++ * @name: Descriptive label of the BO's contents
++ *
++ * Return: A valid pointer in case of success, an ERR_PTR() otherwise.
++ */
++struct panthor_kernel_bo *
++panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
++			 size_t size, u32 bo_flags, u32 vm_map_flags,
++			 u64 gpu_va, const char *name)
++{
++	struct panthor_kernel_bo *kbo;
++	struct panthor_gem_object *bo;
++
++	if (drm_WARN_ON(&ptdev->base, !vm))
++		return ERR_PTR(-EINVAL);
++
++	bo = panthor_gem_create(&ptdev->base, size, bo_flags, vm, 0);
++	if (IS_ERR(bo))
++		return ERR_CAST(bo);
++
++	kbo = panthor_kernel_bo_create_from_gem(ptdev, vm, bo, vm_map_flags,
++						gpu_va, size);
++	if (!IS_ERR(kbo)) {
++		panthor_gem_debugfs_add_usage_flags(
++			bo, PANTHOR_DEBUGFS_GEM_USAGE_FLAG_KERNEL);
++		panthor_gem_kernel_bo_set_label(kbo, name);
++	}
++
++	/* panthor_kernel_bo_create_from_gem() acquires a GEM ref if the import
++	 * succeeds, so we can release it unconditionally here.
++	 */
++	drm_gem_object_put(&bo->base);
++	return kbo;
++}
++
+ /**
+  * panthor_dummy_bo_create() - Create a Panthor BO meant to back sparse bindings.
+  * @ptdev: Device.
+diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
+index 4da3f59693ce4..03dd3927b5d16 100644
+--- a/drivers/gpu/drm/panthor/panthor_gem.h
++++ b/drivers/gpu/drm/panthor/panthor_gem.h
+@@ -318,6 +318,13 @@ panthor_kernel_bo_vunmap(struct panthor_kernel_bo *bo)
+ 	}
+ }
+ 
++struct panthor_kernel_bo *
++panthor_kernel_bo_create_from_gem(struct panthor_device *ptdev,
++				  struct panthor_vm *vm,
++				  struct panthor_gem_object *bo,
++				  u32 vm_map_flags, u64 gpu_va,
++				  u32 vm_map_size);
++
+ struct panthor_kernel_bo *
+ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
+ 			 size_t size, u32 bo_flags, u32 vm_map_flags,
+-- 
+2.43.0
 
-> 
-> Keep locking out of the shared helper, which is also called by
-> big_key_update() with key->sem write-locked.
-
-On the other hand this could be a bit more verbose.
-
-> 
-> KASAN report as below:
-> 
->     BUG: KASAN: slab-use-after-free in key_payload_reserve+0x54d/0x560
-> 
-> 
-> Fixes: 5801649d8b83 ("[PATCH] keys: let keyctl_chown() change a key's owner")
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> Assisted-by: LLM
-> 
-> ---
-> 
-> diff --git a/security/keys/user_defined.c b/security/keys/user_defined.c
-> index 6f88b507f92791bd9569673c5d6534d76c58a978..b6e09921c11658c09eb7d7954b2abd5b2b7017c1 100644
-> --- a/security/keys/user_defined.c
-> +++ b/security/keys/user_defined.c
-> @@ -15,6 +15,7 @@
->  #include "internal.h"
->  
->  static int logon_vet_description(const char *desc);
-> +static int user_instantiate(struct key *key, struct key_preparsed_payload *prep);
->  
->  /*
->   * user defined keys take an arbitrary string as the description and an
-> @@ -24,7 +25,7 @@ struct key_type key_type_user = {
->  	.name			= "user",
->  	.preparse		= user_preparse,
->  	.free_preparse		= user_free_preparse,
-> -	.instantiate		= generic_key_instantiate,
-> +	.instantiate		= user_instantiate,
->  	.update			= user_update,
->  	.revoke			= user_revoke,
->  	.destroy		= user_destroy,
-> @@ -86,6 +87,19 @@ void user_free_preparse(struct key_preparsed_payload *prep)
->  }
->  EXPORT_SYMBOL_GPL(user_free_preparse);
->  
-> +/*
-> + * Keep the owner account stable while reserving quota during instantiation.
-> + */
-
-Also here as a kernel developer I do not comprehend what I do when I
-keep "an own account stable". I don't have kernel idioms that match.
-
-> +static int user_instantiate(struct key *key, struct key_preparsed_payload *prep)
-> +{
-> +	int ret;
-> +
-> +	down_read(&key->sem);
-> +	ret = generic_key_instantiate(key, prep);
-> +	up_read(&key->sem);
-> +	return ret;
-> +}
-> +
->  static void user_free_payload_rcu(struct rcu_head *head)
->  {
->  	struct user_key_payload *payload;
-
-Not disagreeing with the fix but yeah would really like something else
-than gibberish around the concurrency scenario.
-
-Br, Jarkko
