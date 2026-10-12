@@ -1,45 +1,68 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C48845FFC7;
-	Mon, 12 Oct 2026 08:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BEBC45DF7F;
+	Mon, 12 Oct 2026 08:30:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791793821; cv=none; b=AVnSPE4KGRsEk1jkYwBlq2uos2K1AvlEneDy9hJPboncU2q7TsvE2/OIR/KYbyUOuc56fsKYgOs2wJFGAKW4z8lNy50Ulzt/nOye2nS00+N8hWWYmPtWJy/g3vWEjQrmDD0ah0LCOQlC4k3mUI5DItA2ivLEA0KHl5OBnvNYtlM=
+	t=1791793827; cv=none; b=AHxI+uYmDA+Vz5ZGO1PfiVHopR1UuQ8pvzoHngSS0lPd2cTfcX3FSApFNmZuj/ydmwfQ+y1iDZnyxFjin9fD+W+lzlF0fZiZRBdLpZeR4FCCkQiwcZzau/Uy6FrEj0hXMVuZZKru/dbQD7YNuADYBAVwKTlbT4UHxdBU1mmUBbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791793821; c=relaxed/simple;
-	bh=atkKp1Ug09t6FC57/JzSaN2rzxlVDbFpPdEAccjsnKo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=F8Uj5R3Egtm3Gl7KKjcKMnYZ2TialV5ENCEMvSPflf1yB+VWtDBUtIB4ADFse1VJF0jBVLdsDQMFmU/cxqtcVRsGJ0FL8fEbWDU0deM3/vm+V0sYO0EFc8GWJer2EzKsbRm9VxgD3JzNBjTJyKL0ZPibXJrbvaJO89TyMSY4Ekc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=MWJUXpCH; arc=none smtp.client-ip=220.197.31.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1791793827; c=relaxed/simple;
+	bh=7SuiUUrCRAdFrE+hAncZbZDrVkC2BEmn3y523fpju0I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=P5lGjA0LNilBJh+i7pT1Jq53X3/iExTDl4XB8BTH74Gs9A/cuaPiElWnNmdvWfPUVL2QlbeiALie6UJXWXsMrPwmNE1q1X7P/1GnsGUpm+KG5CEUx58cjDPZw+yA9Czvx0oG/otyj0o6x75dGjXqHbBSewTBqJvwJXmOkqO3UI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=gvSD1nhN; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="MWJUXpCH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=/a
-	rq3bSiNUhGTgx5pBQcL/wrpeLjPO31tz1LQ4YP/D4=; b=MWJUXpCH8MV8b2ZjXV
-	T6V1yMhz/BkgyCoZfS27C7lmG/tmk4F2801CG27mceAPC/gDMhnBDdeecqLW/61X
-	w3ZZlgVAkHW1vMZrGW8pRUwYIi5sJ18ATp3XP+t551w1x25JtAEbmXuAwQsdWKu1
-	+1teoQolx0YcCAEsIFoSHC9fU=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3NzBXmsxquD7DBA--.7129S2;
-	Mon, 12 Oct 2026 16:29:12 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>
-Subject: [PATCH iwl-net] ice: do not report success for a VF setting that was not applied
-Date: Mon, 12 Oct 2026 16:29:10 +0800
-Message-Id: <20261012082910.283229-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="gvSD1nhN"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C5E7es3427792;
+	Mon, 12 Oct 2026 08:29:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=YPTyzvFkIPPeVNCTj
+	5M+M+KYpF8fo/2iX9cI4SgFZ3M=; b=gvSD1nhNTEyRZ6iSQStv5Alo8pKbXu/3i
+	2v3TWkHphBaI94o0I7FjIzDUeJLyW/iu2nwQWJI9dKKcyMxZz/+Igge8z/CHWlkE
+	1eg62JMG6Bcyj4J6e1TUbpBWCxAVvRf6JHOaEPaBpt3bGgPOFnmCu8k9ICS73o00
+	im3xDgZDMBPu2bkOHTt3lSoaNXiAXsxzhjBPBCnEjRuTBIQ2Mu8Gq//gBmclcJon
+	TtaIOUHKzuGXqWwTiuobybiKsNtaLj8DTzFolxjze6s/cfrXms3CGtBs0zmhU9ct
+	NP6OcCsuZUnke1iOZTYWxkQ9WjV6nH79/RMT1gl+LT8oOd/tL/zcg==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv37x3s-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 08:29:51 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8K36I1013624;
+	Mon, 12 Oct 2026 08:29:51 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h82cyc307-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 08:29:51 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69C8TlrI40567208
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 08:29:47 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 55E7A2004B;
+	Mon, 12 Oct 2026 08:29:47 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B01A320043;
+	Mon, 12 Oct 2026 08:29:44 +0000 (GMT)
+Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibmuc.com (unknown [9.39.28.91])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 08:29:44 +0000 (GMT)
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
+        chleroy@kernel.org, sshegde@linux.ibm.com, amachhiw@linux.ibm.com
+Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v3 3/4] KVM: PPC: Book3S HV: XICS: Avoid NULL ptr deref in kvmppc_xive_cleanup_vcpu()
+Date: Mon, 12 Oct 2026 13:59:19 +0530
+Message-ID: <20261012082922.218799-4-gautam@linux.ibm.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261012082922.218799-1-gautam@linux.ibm.com>
+References: <20261012082922.218799-1-gautam@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,128 +70,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3NzBXmsxquD7DBA--.7129S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCFWUArW8tr4kJFyxCw45Wrg_yoWrtr1fpF
-	Z5KFWqqr4DXF4I93sIgF4UZFWYka4FqFWUGr95GFyFkws8ArnYvFWFyrZFvFy8A3yxCa43
-	tFsru34DuFyDWaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07ULFxUUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlRiKYWrMmlh3xAAA3x
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: E6FkFc5lJdHulTY41z7ZBupEsn7Kn9tN
+X-Proofpoint-ORIG-GUID: TFHuhYM2uPHaOR87y_dagTQqV2B3CRYN
+X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6acc9a80 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=tG5QLYm-1oz9L0MxXuoA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzMiBTYWx0ZWRfX3FAueNjvOx2k
+ 3hcUxjfGqXe/GaN7zWjeksitRi4lje82F3e52gRNpUl6rIjshNSAJAtfVYscHHnxGhy4LikBPf6
+ TngVDzvZJ2vjsTSOPvXBqXLLiY2O6ak=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzMiBTYWx0ZWRfX+W1LwoOonPS8
+ ZV1RNS8BqGv3/WoSi8wxVteqLu6bvPpEHcDaley7jww/fHzAWcUEvnVd+KtYu1AfjVBPP+Q1RPT
+ bJPoY4njtqitlx96xw8fWfdDzj1LLyCdaIvuiYNzqcdTw92XuiudYb/MmV5Wq3Tjy6Qs/Yhmipb
+ p8D7slOPaLLbWM7o635Bak//fTsRriYWlg+IGovIbyWG21waVwI96+boZP8y2jZ8FskZnoYpDxx
+ NSIGzlHySOB/8DaqsFOgCteRNDWaxomwWd3MNCS0EuE82MzS3CgjwnWLcTrM0vl8UYtwMoFL8x9
+ EZIb3fEdpq4UnKV/FzxmyRvPFmHb+EY3+g7FU0B3bIIGK6dCB48uSv7pXFPIMWlKFAv6G5YIgMn
+ 2ZQ73hXhEthUI4aLHalMB33Jezb8f5hOTY/SVSFOS0oecqYUwwvE/Rw4+Zt172wZw8pyNkz23AA
+ pUBYtUGqQ2dYHoTbXqA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120032
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+In kvmppc_xive_connect_vcpu() if there is a failure before
+xc->vp_ipi_data is setup, it can result in a NULL pointer dereference in
+kvmppc_xive_cleanup_vcpu() when accessing the MMIO page in
+xive_vm_esb_load(). Fix this by adding a check before masking
+the VP IPI before accessing the MMIO pages.
 
-__ice_set_vf_mac(), ice_set_vf_trust() and ice_set_vf_port_vlan() all
-check that the VF is ready for configuration, take vf->cfg_lock and then
-call ice_reset_vf() to push the new setting into hardware. The result of
-ice_reset_vf() is not looked at, and it could not be: it returns 0 both
-when the reset ran and when it bailed out because the VF is disabled.
-
-The check runs before the lock is taken, so a reset can disable the VF
-in between. ice_reset_all_vfs() raises ICE_VF_DIS in pf->state before it
-walks the VF table, rebuilds every VSI and clears the bit again. An
-ndo_set_vf_mac() that passed ice_check_vf_ready_for_cfg() just before
-that then waits for cfg_lock, stores the new address in vf->dev_lan_addr
-and vf->hw_lan_addr and calls ice_reset_vf(), which sees the VF
-disabled, stops its queues and returns 0 without reprogramming anything.
-__ice_set_vf_mac() reports success, so ip link and the devlink port
-function now show a MAC address the hardware never got, and the switch
-keeps enforcing the previous one until something else resets the VF.
-
-ice_set_vf_trust() and ice_set_vf_port_vlan() have the same shape: the
-port VLAN lands in vf->port_vlan_info and the trust flag in vf->trusted
-before the reset is skipped.
-
-Re-check ice_is_vf_disabled() once cfg_lock is held and fail with
--EINVAL, the same code ice_check_vf_ready_for_cfg() returns for a
-disabled VF. The VF is being reset or removed at that point, so the
-caller should retry rather than be told the setting is in place.
-Changing what ice_reset_vf() returns on that path is not an option, too
-many callers rely on it meaning "nothing to do".
-
-The race was found by code inspection of the ndo VF handlers, it was not
-reproduced at runtime and no error message was observed.
-
-Fixes: e6ba5273d4ed ("ice: Fix race conditions between virtchnl handling and VF ndo ops")
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+Fixes: 5af50993850a ("KVM: PPC: Book3S HV: Native usage of the XIVE interrupt controller")
+Cc: stable@vger.kernel.org # 4.12+
+Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
 ---
- drivers/net/ethernet/intel/ice/ice_sriov.c | 30 ++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+v3:
+1. Add some more info to the patch description.
 
-diff --git a/drivers/net/ethernet/intel/ice/ice_sriov.c b/drivers/net/ethernet/intel/ice/ice_sriov.c
-index e04de0215596..de0631673149 100644
---- a/drivers/net/ethernet/intel/ice/ice_sriov.c
-+++ b/drivers/net/ethernet/intel/ice/ice_sriov.c
-@@ -1327,6 +1327,15 @@ int __ice_set_vf_mac(struct ice_pf *pf, u16 vf_id, const u8 *mac)
+v2:
+1. New patch - Introduced to fix the scenario where NULL ptr deref is
+possible. (Sashiko)
+
+ arch/powerpc/kvm/book3s_xive.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/powerpc/kvm/book3s_xive.c b/arch/powerpc/kvm/book3s_xive.c
+index 67219044fb8c..b27127c43315 100644
+--- a/arch/powerpc/kvm/book3s_xive.c
++++ b/arch/powerpc/kvm/book3s_xive.c
+@@ -1818,7 +1818,8 @@ void kvmppc_xive_cleanup_vcpu(struct kvm_vcpu *vcpu)
+ 	kvmppc_xive_disable_vcpu_interrupts(vcpu);
  
- 	mutex_lock(&vf->cfg_lock);
+ 	/* Mask the VP IPI */
+-	xive_vm_esb_load(&xc->vp_ipi_data, XIVE_ESB_SET_PQ_01);
++	if (xc->vp_ipi_data.eoi_mmio)
++		xive_vm_esb_load(&xc->vp_ipi_data, XIVE_ESB_SET_PQ_01);
  
-+	/* The VF can have been disabled by a reset after the check above, and
-+	 * ice_reset_vf() then skips the reprogram and still returns 0. Fail
-+	 * here instead of reporting a MAC address that hardware never got.
-+	 */
-+	if (ice_is_vf_disabled(vf)) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
- 	/* VF is notified of its new MAC via the PF's response to the
- 	 * VIRTCHNL_OP_GET_VF_RESOURCES message after the VF has been reset
- 	 */
-@@ -1345,6 +1354,8 @@ int __ice_set_vf_mac(struct ice_pf *pf, u16 vf_id, const u8 *mac)
- 	}
- 
- 	ice_reset_vf(vf, ICE_VF_RESET_NOTIFY);
-+
-+out_unlock:
- 	mutex_unlock(&vf->cfg_lock);
- 
- out_put_vf:
-@@ -1401,6 +1412,14 @@ int ice_set_vf_trust(struct net_device *netdev, int vf_id, bool trusted)
- 
- 	mutex_lock(&vf->cfg_lock);
- 
-+	/* See __ice_set_vf_mac(), the VF can have been disabled after the
-+	 * check above and ice_reset_vf() would skip the reprogram.
-+	 */
-+	if (ice_is_vf_disabled(vf)) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
- 	while (!trusted && vf->num_mac_lldp)
- 		ice_vf_update_mac_lldp_num(vf, ice_get_vf_vsi(vf), false);
- 
-@@ -1409,6 +1428,7 @@ int ice_set_vf_trust(struct net_device *netdev, int vf_id, bool trusted)
- 	dev_info(ice_pf_to_dev(pf), "VF %u is now %strusted\n",
- 		 vf_id, trusted ? "" : "un");
- 
-+out_unlock:
- 	mutex_unlock(&vf->cfg_lock);
- 
- out_put_vf:
-@@ -1721,6 +1741,14 @@ ice_set_vf_port_vlan(struct net_device *netdev, int vf_id, u16 vlan_id, u8 qos,
- 
- 	mutex_lock(&vf->cfg_lock);
- 
-+	/* See __ice_set_vf_mac(), the VF can have been disabled after the
-+	 * check above and ice_reset_vf() would skip the reprogram.
-+	 */
-+	if (ice_is_vf_disabled(vf)) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
- 	vf->port_vlan_info = ICE_VLAN(local_vlan_proto, vlan_id, qos);
- 	if (ice_vf_is_port_vlan_ena(vf))
- 		dev_info(dev, "Setting VLAN %u, QoS %u, TPID 0x%04x on VF %d\n",
-@@ -1729,6 +1757,8 @@ ice_set_vf_port_vlan(struct net_device *netdev, int vf_id, u16 vlan_id, u8 qos,
- 		dev_info(dev, "Clearing port VLAN on VF %d\n", vf_id);
- 
- 	ice_reset_vf(vf, ICE_VF_RESET_NOTIFY);
-+
-+out_unlock:
- 	mutex_unlock(&vf->cfg_lock);
- 
- out_put_vf:
+ 	/* Free escalations */
+ 	for (i = 0; i < KVMPPC_XIVE_Q_COUNT; i++) {
 -- 
-2.25.1
+2.54.0
 
