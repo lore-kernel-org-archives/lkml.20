@@ -1,134 +1,215 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F7C48C3F2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E4F48A2D1
 	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791813139; cv=none; b=mbcPKc10VFMBHoQJ+yoGbK/YZ1nrjvJa1nUEWA++HI0ZN4f4EOdP5jjjg/W5vsPZ5tuTit5jk8LsGrynjsqFFqfoEbOqYHcJiW4hAuJzvfMOBGZI6SJ+V23KHtuh14j8UvSk5RLNkk1zTuoyjsSzrLlW6IRMtbeelupCTwiPlW4=
+	t=1791813141; cv=none; b=HjmCONnrCQgsdxtk889zkLTROEt7WytySoAC27VX8c0oTtkeunyjq3aR+WuQ1s9xTCcvqUC3WXGUMuKOHYd5NwQos/EAi4ixb7h9rVHsL/tI+KDL0ilaZFEvIoq1ZA9s7bOzOuovl6hvnnB8QccuIznyUEtuOwLqThNuvGyyozo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791813139; c=relaxed/simple;
-	bh=jmnOUUfdHIW4UoVgCq1OlOIoITSusSw0zexra8ko+BQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ph0mPwaPxJ0ln/LzyjpJDswLnefn0Ehl3QgO3yrxAxl+RxWhw9xxVqOuhV7gBhmwx9FB4h0wStOy74liv5nzw3asl/Vl8tEbWCc02QscNlrN4zhpnqUVl+3N1y7Os41UfduNyd+bKzLjb9tNAm8T6O6kBlgqmZ392krL1+kze5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=MZM/09ls; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
+	s=arc-20240116; t=1791813141; c=relaxed/simple;
+	bh=TmrDgwIsBwwzPv80GnSL6PFlsZHILn4PMmXvaiqLLF0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kddc+2WZJ7c53m7c2StqwwcfY+z8Ct9suudJV4v4pyCxykiQyj6W96MTqrrBU69s4qmAiZ1PnF6csi7danfVC9m0PnZW8CzVdYDvWIEJzZU0iM8SHU1LyOujyTxyZoh+96y69Q38b3ZSoEc06tLx2T2w5WTAD2vjNN8wmumHcD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=a58vcaqc; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="MZM/09ls"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48c14a06c95so1447500f8f.1
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="a58vcaqc"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-887fb6c0ad1so440121b3a.0
         for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:52:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=imd-tec.com; s=google; t=1791813136; x=1792417936; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Fm13zV7fU/tYSB8SyrRHgmdMzw/bsTAxkTm7l9ON6TQ=;
-        b=MZM/09lsT9mjPUi7/UosPBBGCd4RitSZSVanuT6qsJayyQ2yDP857ltXR+AbQc7GaC
-         s+q3LuN/w0VtkAxnAyJnzx6zddWs7Dp2TMdwsIBU5msWOKR0Jiyo2MXF/oB7TUK5VbNk
-         5jizdoVZ06Zl4jCWwC9dBXAApGDly8FTNRLplBSWMNkWqAAoUdwQS7xwE2Yo2xWWqPr/
-         Sve08sU0RELvh30bYCvqqryDWk4VQbX+W0Sy840Ctjpc1y+DNwnwgnVGMiooT3xw7FTy
-         QZ3ShY8dK87RYN+/3hpcedQMCvOmczBXm517gRm/OkSKUnl9l4NpGfIgH+wLwHb7U0h2
-         Poiw==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791813137; x=1792417937; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VUNiGziCUNl+CT1ZqXgl34E50ZrFvZEoRDfOve+S9JE=;
+        b=a58vcaqcqb31nvvheENTQc3TJZJ3c8qP6d9NiFVlddOPyg5hTQjOM0ID1aNoW/YFg/
+         1mLesTY29GGjN9B3iwgZqthZdxADBJJtL5aQGtFudXTIdG1DT0w/NmCybyMxiZWgw0zZ
+         oNHteQdf0o3PQG8W9OLgcRbvDgWpYiM+tCUyt1mxrMryxU9MHdgi9b8lyxoO+bzwXv2K
+         2o7sg+s5h2wDQpbloc+RDqafUg9f5oafvJRDIMm7F22GHVU4DsLdr/S5H1AIJ+EXEmQE
+         pmD3lkDhFLAed0O+YRA0LOru1czE6dxKdMIBO0XajXdhZOehjtmzYpQu7+q6quYiTuKA
+         wCGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791813136; x=1792417936;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fm13zV7fU/tYSB8SyrRHgmdMzw/bsTAxkTm7l9ON6TQ=;
-        b=fZBFZtVgO+X7b63XhIlKa2aNvH6psNCpLHScAu1wCxSNDsrb1cKJ/i98yHDaOD6lOq
-         pB5/8RNsh7noaL8RD4JO1qV9O6+PaDvZPOm5+f77p1N0x6Xca7SeKKJCM8x7LkLQxYzD
-         by2FQTJ4LGEtb2bfvAmkAOIcy3XOHCILwXzfTfgNnkuGB/2AltKyZRSl85ryj+3pEVDQ
-         CWIUOhjEFenQ+nNIPf47sVeUE5PzpNRJKyTYrK1PPk+iUfSvTlzicbv69oafvkZYchdX
-         0Xw1sFwDwcw6B4XTRM7Do/59FHe/eXaLlU3EMQpjq+GNY9Trx1tkuqQtqmdPqcm+OSEy
-         ooPg==
-X-Forwarded-Encrypted: i=1; AKwUvBwd8+TYWg8Ld/ECAhC4TF/MTCI+95hfKHQahJ4ccwzLWBg9fgzdhEwm3Xftwlzow+3175quWWJDKGNil8c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLEX/Jk5ztLRJH6O7psWqAqQe4szZ36HgiKY+e5jWQKgprrqN4P
-	HnXQVa6mOkF2va9ZfKrwny3vkUNjoMQKWlvMPndHT+vN3FM+SbWTuqcqN+PUDRJvofo=
-X-Gm-Gg: AYBFou0zg5sshoISsglFMMnzHQ+PgVKgtYHJ9XkMpLfMubPFbcNiNnbfSQE46X4WHC3
-	iY36pH4WcdfmibJS2WwGCKiHQp01O+2KDZfAxmJHGCNiBzQ+oO01r77vrrLPPTL99WJzKfx+Bdt
-	ivX1WFNTKQjUbAPX66mgATigiHKbZiRagmVnA0tK/+XzOIHdlAO6GwegJQFjwt3tB8w7M5jz0YS
-	txZZunsaYyUO9A0QfXS5/eOXEUAYdoxWgcpK1Mhy6AsiPlQCgJzHeULtCw6KTVBuRobGmlAQxon
-	L2hm+2kU9YpGFwnwsCalOwgteX0qRqxANxRHe0kqdJJvP1HRm9aNUBijjymYOYyYea2jYbxI5aG
-	JG5eDRyiLKeHQQGin+4G2NlcDityJPdh94hI5R8l2jjC1SbX/cpQRMTyRVyclySCiDz7PD3dOP6
-	RYoi/sCMN45fiVoX42t4jaLxJpnLARGKQnSXqEzKE1rjFU0lrqqiOQ66DN0OZ8HSUSGd3TnmYdk
-	x1siM4+7W3AfcmMpSiWqiDRNIyZs+8i9/8x4+cwNj/IlPbz9L9I8e4OUlyzTBwSD8A9BatJrQ6I
-	8Q49rLnzKQrlAV4u/slkrQ==
-X-Received: by 2002:a05:6000:290b:b0:487:2805:6834 with SMTP id ffacd0b85a97d-48dbace156emr16771065f8f.42.1791813136282;
+        d=1e100.net; s=20260707; t=1791813137; x=1792417937;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VUNiGziCUNl+CT1ZqXgl34E50ZrFvZEoRDfOve+S9JE=;
+        b=pwWIZCEqK6cSdLQWKAdoI92rkzfOqYxnI3SbfJ9yV/20nw3gcmzzywITPxNzviNkid
+         5GOf7TdXGkccknT+IBN08zQqwsqQFiNNY0VM6DJm8aZAxstLp0ciyVezaYb6yxP2a74s
+         mqNzWOHGc1qiOurlso9bd3a4op6i8OEgZS08TTf/e8ntM1bvjRzzXVjPPdLZVV2veI+R
+         zIJ+T69nV/8dwCPjxWAId763F+UddIcmk9DtoSdeFXZDPFyq5GVZoEov3vYRSLbu90lZ
+         OdOBGYrvzI4v4ank4L4Wn5cgJfjNXTKgXLT+/+Ym7TzwaOkXqE8doarG2S4c1hOg/DUL
+         //6g==
+X-Gm-Message-State: AFq9FYJvwkaIcL/l9Vrx3zeqsGljZU88g72W7QoOw8j0AuScMqiwTx4f
+	Ek0DPk+zV5s0gzF+JX2o/rX2KGKfgp7pSEa7JAjSDQnrMoj7VoxdUwiQ7pjir2s/UdY=
+X-Gm-Gg: AYBFou3mWZ41lyTQIRrIsiC45BTj/U0ASuq0RYCF4ZXIz5No+XRrS4wyZCGUmRo+UyI
+	sevBrYR+mJMVd2jv2uDeSn1XrG5/+6235vg4WyNWSsXU4dp5wE+XMEx1acxRteBiyvvVPRcQi6E
+	MBpfbi1OJRPCxhXHO8fMZnOGuJQ05PsViVPqGYu00V5fhjsKvQpuwZBWQt/1Ib83OuviEbkKHy4
+	RhC2v3BPLA6H579Tc8NSZwCk8W06lNEkBQL1iSi9wGAcRsLPtgtRI9APJCd98qbNUrxknYmUHyx
+	kAvfkYuEUmQ9ZJRAID+CuzrKQ4NDcyUK27DrFa1vjRxnQAw3SZtlMRdWWbCXLX0bhcQxXG/Be12
+	dhdbTCLSGgHtqlKb74ffM12ODQ1dAihLjOL8dnRmOey4MSJu4m1/SZcklK29uyvRIwKoxLBTAZt
+	KZzVKCv0+CT39tFQznqzQtUlQu8xOh/xcA+sUQ7PbBwHxsXCeY/0XnVweOQEDSeSNf70Q3NlNZI
+	HJ6xVZJ1e43YlroNSrUaA==
+X-Received: by 2002:a05:6a20:5493:b0:3dd:a00a:c5be with SMTP id adf61e73a8af0-3e16c03cd8emr10688105637.49.1791813136750;
         Mon, 12 Oct 2026 06:52:16 -0700 (PDT)
-Received: from [127.0.1.1] ([82.71.135.85])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e3519sm21355523f8f.16.2026.10.12.06.52.14
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:7bd2:1202:246d:44ce])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e08c89sm4298333a12.8.2026.10.12.06.52.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 06:52:15 -0700 (PDT)
-From: William Bright <william.bright@imd-tec.com>
-Date: Mon, 12 Oct 2026 14:52:02 +0100
-Subject: [PATCH v2 3/3] arm64: dts: qcom: sm8550: Add the CSI TPG regions
- to camss
+        Mon, 12 Oct 2026 06:52:16 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: mkp@kernel.org,
+	target-devel@vger.kernel.org,
+	linux-scsi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hannes Reinecke <hare@suse.de>,
+	Bart Van Assche <bvanassche@acm.org>
+Subject: [PATCH] scsi: target: tcm_fc: reject overlapping write-data frames
+Date: Mon, 12 Oct 2026 22:51:59 +0900
+Message-ID: <506886f3051941899c26b3dd4d2a32a3c0cf9846.1791812937.git.yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-sm8550-camss-tpg-v2-3-06dbbe36ecd2@imd-tec.com>
-References: <20261012-sm8550-camss-tpg-v2-0-06dbbe36ecd2@imd-tec.com>
-In-Reply-To: <20261012-sm8550-camss-tpg-v2-0-06dbbe36ecd2@imd-tec.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Depeng Shao <quic_depengs@quicinc.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- William Bright <william.bright@imd-tec.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Add the three CSI test pattern generator register regions to the
-camss node, matching the updated binding. The TPG blocks sit at
-0xacf6000, 0xacf7000 and 0xacf8000 and are used to generate test
-frames without a sensor attached.
+ft_recv_write_data() executes a WRITE once the received byte count reaches
+se_cmd->data_length.  Frames are placed by their FCP relative offset but
+nothing tracks which offsets were filled, so an initiator that sends two
+frames at the same offset reaches data_length with part of the buffer never
+written: two 4096-byte frames at offset 0 of an 8192-byte write get the
+count to 8192 and leave the second half untouched.
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: William Bright <william.bright@imd-tec.com>
+The buffer is not zeroed (transport_generic_new_cmd() clears zero_flag for
+a data CDB), so that gap keeps the previous page contents, which the
+backend then writes to the device for the initiator to read back.  There is
+no oops; poisoning the buffer and sending such a pair leaves 4096 bytes of
+it committed unchanged, and the patched driver refuses the overlapping
+frame.
+
+Track the range received and drop a frame that falls inside it.  With no
+overlapping frame accepted, the byte count reaches data_length only when
+the whole buffer has been written, so it stays a valid completion test;
+in-order and out-of-order complete writes are unaffected.
+
+Fixes: 3699d92a4d7b ("[SCSI] tcm_fc: Adding FC_FC4 provider (tcm_fc) for FCoE target (TCM - target core) support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- arch/arm64/boot/dts/qcom/sm8550.dtsi | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/target/tcm_fc/tcm_fc.h |  8 +++++
+ drivers/target/tcm_fc/tfc_io.c | 57 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 65 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-index d21c04b1a306..1270ea8e4fdd 100644
---- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-@@ -3862,7 +3862,10 @@ camss: isp@acb7000 {
- 			      <0x0 0x0ac71000 0x0 0xf000>,
- 			      <0x0 0x0ac80000 0x0 0xf000>,
- 			      <0x0 0x0accb000 0x0 0x1800>,
--			      <0x0 0x0accf000 0x0 0x1800>;
-+			      <0x0 0x0accf000 0x0 0x1800>,
-+			      <0x0 0x0acf6000 0x0 0x400>,
-+			      <0x0 0x0acf7000 0x0 0x400>,
-+			      <0x0 0x0acf8000 0x0 0x400>;
- 			reg-names = "csid0",
- 				    "csid1",
- 				    "csid2",
-@@ -3881,7 +3884,10 @@ camss: isp@acb7000 {
- 				    "vfe1",
- 				    "vfe2",
- 				    "vfe_lite0",
--				    "vfe_lite1";
-+				    "vfe_lite1",
-+				    "csitpg0",
-+				    "csitpg1",
-+				    "csitpg2";
+diff --git a/drivers/target/tcm_fc/tcm_fc.h b/drivers/target/tcm_fc/tcm_fc.h
+index 00e5573c62966..b75b1373a49c9 100644
+--- a/drivers/target/tcm_fc/tcm_fc.h
++++ b/drivers/target/tcm_fc/tcm_fc.h
+@@ -103,12 +103,20 @@ struct ft_lport_wwn {
+ /*
+  * Commands
+  */
++#define FT_WRITE_SEGS	4	/* out-of-order write ranges tracked per cmd */
++
+ struct ft_cmd {
+ 	struct ft_sess *sess;		/* session held for cmd */
+ 	struct fc_seq *seq;		/* sequence in exchange mgr */
+ 	struct se_cmd se_cmd;		/* Local TCM I/O descriptor */
+ 	struct fc_frame *req_frame;
+ 	u32 write_data_len;		/* data received on writes */
++	u32 write_contig_end;		/* end of the contiguous data received */
++	u8 write_nseg;			/* out-of-order ranges held below */
++	struct ft_write_seg {
++		u32 off;
++		u32 end;
++	} write_seg[FT_WRITE_SEGS];
+ 	struct work_struct work;
+ 	/* Local sense buffer */
+ 	unsigned char ft_sense_buffer[TRANSPORT_SENSE_BUFFER];
+diff --git a/drivers/target/tcm_fc/tfc_io.c b/drivers/target/tcm_fc/tfc_io.c
+index 45329284f52f5..53d7c7268865d 100644
+--- a/drivers/target/tcm_fc/tfc_io.c
++++ b/drivers/target/tcm_fc/tfc_io.c
+@@ -189,6 +189,56 @@ static void ft_execute_work(struct work_struct *work)
+ 	target_execute_cmd(&cmd->se_cmd);
+ }
  
- 			clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
- 				 <&camcc CAM_CC_CPAS_AHB_CLK>,
-
++/* Record a frame's range; refuse one that repeats data already received. */
++static bool ft_add_write_range(struct ft_cmd *cmd, u32 off, u32 len)
++{
++	u32 end = off + len;
++	unsigned int i, j;
++	bool absorbed;
++
++	if (off < cmd->write_contig_end)
++		return false;
++	for (i = 0; i < cmd->write_nseg; i++)
++		if (off < cmd->write_seg[i].end && cmd->write_seg[i].off < end)
++			return false;
++
++	if (off != cmd->write_contig_end) {
++		for (i = 0; i < cmd->write_nseg; i++) {
++			if (cmd->write_seg[i].end == off) {
++				cmd->write_seg[i].end = end;
++				return true;
++			}
++			if (cmd->write_seg[i].off == end) {
++				cmd->write_seg[i].off = off;
++				return true;
++			}
++		}
++		if (cmd->write_nseg >= FT_WRITE_SEGS)
++			return false;
++		cmd->write_seg[cmd->write_nseg].off = off;
++		cmd->write_seg[cmd->write_nseg].end = end;
++		cmd->write_nseg++;
++		return true;
++	}
++
++	cmd->write_contig_end = end;
++	do {
++		absorbed = false;
++		for (i = 0; i < cmd->write_nseg; i++) {
++			if (cmd->write_seg[i].off != cmd->write_contig_end)
++				continue;
++			cmd->write_contig_end = cmd->write_seg[i].end;
++			for (j = i; j + 1 < cmd->write_nseg; j++)
++				cmd->write_seg[j] = cmd->write_seg[j + 1];
++			cmd->write_nseg--;
++			absorbed = true;
++			break;
++		}
++	} while (absorbed);
++
++	return true;
++}
++
+ /*
+  * Receive write data frame.
+  */
+@@ -267,6 +317,11 @@ void ft_recv_write_data(struct ft_cmd *cmd, struct fc_frame *fp)
+ 		goto drop;
+ 	if (frame_len + rel_off > se_cmd->data_length)
+ 		frame_len = se_cmd->data_length - rel_off;
++	if (!ft_add_write_range(cmd, rel_off, frame_len)) {
++		pr_err_ratelimited("%s: xid 0x%x: offset %u len %zu repeats data\n",
++				   __func__, ep->xid, rel_off, frame_len);
++		goto drop;
++	}
+ 
+ 	/*
+ 	 * Setup to use first mem list entry, unless no data.
+@@ -345,6 +400,8 @@ void ft_invl_hw_context(struct ft_cmd *cmd)
+ 				 */
+ 				cmd->write_data_len = lport->tt.ddp_done(lport,
+ 								      ep->xid);
++				cmd->write_contig_end = cmd->write_data_len;
++				cmd->write_nseg = 0;
+ 
+ 				/*
+ 				 * Resetting same variable to indicate HW's
 -- 
 2.43.0
 
