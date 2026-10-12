@@ -1,64 +1,66 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546A0EEB3
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:01:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D147EEB3
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:01:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791781264; cv=none; b=farxNvY+eStyI8XlcRiCnSoU7cNeNsIsohoYnpcNqYGflLrGoo0cwkoWXibslLD5UfzUww3JV4i0q9pvZPHa9+BEzaKX6xbvDc0ttgZV/CFcucB1gZYU3x0X5TfIW3F+dvAK0k0Hiy2HqLjjVxXd9UBAK9uF8W1QQ22FdwKUe3Y=
+	t=1791781268; cv=none; b=RfQ1rXjuJ9xITpNoNFhSfdWCNPNB+Z8mAbSiRkdeTHJE6oaqkST9hn5+fIZGlFClywJx45r7pRbpUNZ6pHtZ5vereFfPnFoyUx1KB8vDXydHvbnUXH8N3rK/OFKgq5aGUHYjy+KMIXZNnjVbbIGku8AZOj972iUSag27reVTG48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791781264; c=relaxed/simple;
-	bh=YSPqAppYIDiXgXhCpT7joAM6e8KmwPlOW/NJw44Sujg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BAaCuBeqmnmqI9wN9BDiJoo/hxgwpFf5uJDuKnpzjMYGmNs4EEntISiiMo+agOSmVtCO2gVtRhNbTvuZK4rbDMeFKUeJiYvHK37nJXCUG2h6O9bzVgu1tbMKR+vWMPJeF7VjlDPAkKMXtgYM4H2rgg/Mc823pLNMH891OtdiaWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R1DScy+v; arc=none smtp.client-ip=74.125.82.177
+	s=arc-20240116; t=1791781268; c=relaxed/simple;
+	bh=BMJJIUo89AHm+KS5JhgtKCwCsLx80MkkhGmJjgjhK/Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sBQdI2gAh8TCvLn1ug/eqwaCHJ0giswszozhYKkPriNnfoW4nk3tTLpMHS9ZQ3JViUqgbaFU7Ok/nnYhhe7SBrmzPt5HwGnqC3DrdYpPzlvodQo8RPUtLKeMYRUOXI0Hpy6gOn5cRQ8JuPk9Re+7X+oID3ieQjTNrFYBqsVaNEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=efX2MOkZ; arc=none smtp.client-ip=74.125.82.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R1DScy+v"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35aa0cf7c40so499956eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:01:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="efX2MOkZ"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso5311624eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:01:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791781262; x=1792386062; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Sh12r1iPHZpHQ+j2VdLQ1JnDQGI9QrQoo85Y6cAkElk=;
-        b=R1DScy+vk2oTJOu5T6UDU51IGBE/NrMiLGxqfpqxOIYx3ZSusrtpaNZByUUo+m7nHH
-         9qYvxj5MGE8RgOOO+9qKpvCuhZ9Rg2K1NLQ0fo4i8YSeWpq/gFtXNtQz4BQqt5JIaIl6
-         m/STNEUo64bsXYVCM13ICz8FSbm4CDyFUP0aGCX3UCT4dnKYRJKlwofVNwXv18zNc4S2
-         Zz8IgYV+KJ09nFkXP34/UghRzsWe8ZNVtVcZfRbVjEEDty0YwAo5WWbbndhNNCT8MyqG
-         sxuSz1T835+X6dhLJGvkBqCtWhBHlqkrt+6t0KURsAnZAm6vmo2Yc0/l9hj8j/u1Dlpb
-         4pYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791781262; x=1792386062;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791781266; x=1792386066; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Sh12r1iPHZpHQ+j2VdLQ1JnDQGI9QrQoo85Y6cAkElk=;
-        b=HfrzMbUfjIJ3cgSRSqfa5psAdZisKXgyyEmzJjt2SaEQs79TTxh/D9MseImVXjiOWK
-         IpbVH4MjzdGtGI3WNuocK7/bxtWkIYNGRqXUZWu9zuUYalkfmj91VECqvgKdRTeLZj+u
-         5wCMQezAy6tLx2FlVclaC3gT22HexnLp2rCTlBXp2ylROADjjPqKAKVq4PlnAlqizo0d
-         KnLJ6QnfRVsq5i4f/Xkte/5m7zxORUbmgznsUfyg7k+n+J7eRHsbjKqCoVCqCsKmWx/o
-         +oNG4FT+JBnYtgYsrKJxzSi91uOWMHLhwqqim/Zfk+vL0P4HyhfO2aAfDjTia3jUMs4N
-         DZ+g==
-X-Forwarded-Encrypted: i=1; AKwUvByun8i+aOZDzhOA08ex1fbqfgoaEt2rRWjKJUVHiUocFRzF4YHgh6He5MX3RJ+ApZh3tO3nyhcGvTvYihM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJToDwUJhERECB4QNjBPwOJhiZHsIIUD3qwA/tnr5J2DaAvSgQZ
-	Km6Fs+TNZ6u8cZ4vOV3OtrD9Hf1e8lKXeIzxaSXexev5SVde+CkYteFu
-X-Gm-Gg: AYBFou078ZGfwxBI71mAYmhl4+0W1JvYiic60zmy7Fkm0LYkn+w1wuC2+b4nt+CZ5dc
-	Hx0jEQxqUKhZmEDTo02KwaeQpoR22pVSSE1niJJxU8IuQwNMwf0c2vbn/dsofPY9p9aCrt/AIn8
-	fwWIY1kDxCyX3WI1Snudwq8iJKnaKjpo7CCGjL/jp69UvAGQPK+kzJ82qr2+5XmZAtnaqa//Boy
-	xSEv2DMtGM6QbPpLXczmb1AJG08vMdEKbnGyrjdSHgN9Z5qLasrqsof3dI1tcgmIJJzSeISWuiG
-	nKwVfostwFvjxd0WjHdlJQmS6KfSo32IA4U/IYtN5o7bPttS4FUH8u/Sc/Sk5SKTe1bJw0SuC8w
-	HougRiQ4z5TN7KtqUW+8J//tJ+1ffGH3eIk6cm2oyvR4vf9l/7nWzIygsxClwggFJL3OQNMHAp+
-	fruePr7B8+7+dqa14ui6h0+a1lnh8Ix05CRa8Gr2HdWdG2TuqFh/Vzp9qhrfPGwTLDEXIbtLCGX
-	C1wN2w6cf+PWnjMMx5+VNpHbEX7vykGEY4HOwzvgHvMwTicxzasRmoC38CDtCl0a5illGYW4Bts
-	XWLIrnFBTysMPz/Ci9oqUpxgd14I5nb4sDWjGi4orpT1hZwMS9ngx2gct2+pPVoQjKr8BbReIHv
-	V7SPnWetWljgFU5PGDbqZMaQLlctLn6z9mylo/utyhAemRohiUrhG9qM=
-X-Received: by 2002:a05:7300:e9d6:10b0:354:1db3:674e with SMTP id 5a478bee46e88-3541db367f0mr12293844eec.6.1791781262172;
-        Sun, 11 Oct 2026 22:01:02 -0700 (PDT)
+        bh=ecf3X1IOsNALR5NxITC6Vc2q5JRAsfQx1ofnyJmbhxU=;
+        b=efX2MOkZOwS9z9omEBMCG/5d/juxL8ATpSERoh4y7WOWtoEFp5aXmrT9yWOdZZ2OF3
+         mvCFOXu1XJWRUNL3vm3YEfrRnR3QQkd0nVUsN3mMUiDQ3beJFzzydoITZbpeHnf3t+Sx
+         GbYAXpspBzuEVSeJL4QiFfnCKlxiIU/LKMOlOf+7hcfXNwBUghn1gR8MzUjnEjzqC00W
+         NVcxPcCJD847/3W/qubw323qboY5AwPJJPMdUY//avoXAAz8LXkorOx6Yn6yfls3RX+p
+         p0Zl35ned47OKRVI3UtC3g0ittsEcK3hG/gQIs5DW+gc94d7SuCgRabd0iRQnasDnfsj
+         VTaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791781266; x=1792386066;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ecf3X1IOsNALR5NxITC6Vc2q5JRAsfQx1ofnyJmbhxU=;
+        b=VH66n1200SyW/So85p++oo4gpPl/FW9Oiz7GGCQSYTpG8T6McTlq56gJzcbZzMXp9w
+         9D4J4uRMYP0uOQ16Oa5XzYAqU23RN2dkEX3dEb3hlX8Hv463at5ugLSrnJvQ4XbnzRqQ
+         nBnvwSYiw6vBT53RQsBRZuQQvSs6KG0vZaPI+U3BctQ6ZF0x/A3nJrTj/2vFX5cjhPtL
+         iKEQrToqhDC28AgI/STC/Scz17A4+trKhjMljEgQLZQ7WVmGNl2/oWoiBz27N9n8FatH
+         B7li+xaowOkf1AlRGPIcbcO/n5Pz5uynnIt+uq//t+/k19K+4q0hBOtdNSkroR+5jnAf
+         E6sQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzysM6QzanMHhjMgTlYh3xpCeI5tewv71tr4wBBJpwv2OUT+P3Z2PfsqdquAr9pRoL75Eo6acXX3jbuKCI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLaXkAg2V9W7cI+M+r5ThYYXOpfC88SX1vlu88m4ZbLWO/mETgh
+	SJNhJv/+H9CQoDc5Afql/CnCLw3QBDMiyfcEzUdGsRS+PzZf/zafJuPf
+X-Gm-Gg: AYBFou1L/3yJPOr0TgYuw7U35LcQJxdJJHnzwXlR3WsACci+JkfLwUEXc/7V1w3L4ZK
+	eUa6avTGuL0eAU73M0MpwqWCXrmAxIIp3/ocbFk3RPri+6OUZ+EeWfXOghI5z/XCwHPSRVsF7v1
+	rEcEvSWoUuftoQkweAVI7TWpK3CApfDCGT9OnIE2JMGuoKxfabsWF4irZ8bx0ITKNZO3MQYQnvD
+	HugXXD+Fmt4qXLpji4ixXVaL7jcbUPkPV3Cmwi+g5sv+RlluTGAmx+QNfv0+j2nXOGVnK/oxj29
+	HSo5Z70uZrMkZIZeAfw8dp8jIFySlHW9BEFnH6YMR1x/c0a4OakbpSLHbFlmyo5eSmUli+bg85M
+	rqX2Hkti21ZQEl8+rtpzDt3VRyiEmbdMiQ46Ye8ZFfM/N73nQdBxXhcfNVN8znZOhPFNFVYGZh/
+	WH89L0quqUb3433GpP66FGjErr5DU0n4MUpbRBvZ+E3vQeql28yPQg2YaRvomSdZbtSzz4u0/y5
+	ZO6lzPZQx215DZJxbodV7I9o/Bw3eNNpJUmuGpbi4pPyYhzKJ6nvIG5LhQAVrui9QpV38EO7mTC
+	cMR3glIc75oEOfwF8gtvf+G77IhwgnOanuYui7MZ3HymT/2AIc+Ci/r/qfwtEcmhz3TK+aj8B5e
+	NZiTrsgKL8GLzNFxFWz8IA2dwI0xs2K57CZ7y9c9Ae1hXat5LiIsZIYTdVSJw2Rl0PA==
+X-Received: by 2002:a05:7300:e9c6:10b0:35a:c54:f446 with SMTP id 5a478bee46e88-35a0c54fcadmr4140505eec.40.1791781266170;
+        Sun, 11 Oct 2026 22:01:06 -0700 (PDT)
 Received: from FT6N242TWK ([223.181.119.248])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-353814b556esm31804877eec.18.2026.10.11.22.00.58
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-353814b556esm31804877eec.18.2026.10.11.22.01.02
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 11 Oct 2026 22:01:01 -0700 (PDT)
+        Sun, 11 Oct 2026 22:01:05 -0700 (PDT)
 From: Shashank Mohan Jain <jain.sm@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: David Lechner <dlechner@baylibre.com>,
@@ -69,10 +71,12 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	Frank Li <Frank.Li@nxp.com>,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] iio: magnetometer: fix the register restore on resume in mmc35240 and mmc5633
-Date: Mon, 12 Oct 2026 10:30:53 +0530
-Message-ID: <20261012050055.48850-1-jain.sm@gmail.com>
+Subject: [PATCH v2 1/2] iio: magnetometer: mmc35240: leave cache-only mode before the cache sync
+Date: Mon, 12 Oct 2026 10:30:54 +0530
+Message-ID: <20261012050055.48850-2-jain.sm@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261012050055.48850-1-jain.sm@gmail.com>
+References: <20261012050055.48850-1-jain.sm@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,50 +85,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The resume callbacks of mmc35240 and mmc5633 call
-regcache_sync_region() before they take the regmap out of cache-only
-mode. Since v7.3-rc1 regmap refuses a sync in cache-only mode with a
-WARN and -EINVAL (86fc3483a4d6 and afc8e3ee8307), so both drivers now
-warn on every resume and no longer restore their control registers.
+mmc35240_resume() marks the register cache dirty and calls
+regcache_sync_region() while the regmap is still in cache-only mode.
+It calls regcache_cache_only(false) only after the sync. This
+ordering has been wrong since the resume support was added; it happened
+to work until regmap started rejecting a sync in cache-only mode.
 
-The kernel-doc added by 86fc3483a4d6 says that the caller has to
-disable cache-only mode before the sync, so the two patches change the
-order in the drivers.
+Since commit afc8e3ee8307 ("regcache: Validate cache_only state in
+regcache_sync_region()") a sync in cache-only mode is refused with a
+WARN and -EINVAL. Every resume now gives
 
-The Fixes tags name the commit that added each resume callback
-(553a776b7908 for mmc35240, 6e5f6bf2e3f0 for mmc5633), as suggested by
-Bui Duc Phuc in review of v1: the wrong order predates the regcache
-change (86fc3483a4d6 / afc8e3ee8307), which only turned it into a WARN
-and a failed restore.
+  WARNING: drivers/base/regmap/regcache.c:536 at regcache_sync_region+0x1a4/0x1c0
+  ...
+   mmc35240_resume+0x30/0x70
+   dpm_run_callback+0x7d/0x1c0
+   device_resume+0x175/0x270
+  ...
+  mmc35240 1-0030: Failed to restore control registers
 
-I have no hardware for either chip. The patches were tested in qemu
-with the drivers bound to an i2c-stub device and a suspend/resume
-cycle through /sys/power/pm_test; the details are in the changelogs.
-A scan of drivers/ and sound/ for other resume paths which sync before
-leaving cache-only mode in the same function found only these two.
+and the control registers are not written. If the chip lost its state
+during suspend, it runs with the reset value of CTRL1 while the cache,
+and with it the sampling frequency attribute, still has the configured
+value. Writing the same frequency again does not repair this, because
+regmap_update_bits() finds no difference to the cache.
 
-Based on mainline (a5ebb76233b7, v7.3-rc6+); the patches also apply
-to next-20261009.
+Leave cache-only mode first, then mark the cache dirty and sync it.
 
-Changes since v1:
- - repoint the Fixes tags to the commits that added the resume
-   callbacks (553a776b7908, 6e5f6bf2e3f0), per Bui Duc Phuc's review;
-   the code change is unchanged.
- - note in each changelog that the ordering predates the regcache
-   change that exposed it.
+Reproduced in qemu with the driver bound to an i2c-stub device: set
+in_magn_sampling_frequency to 25 (CTRL1 = 0x02), clear CTRL0 and CTRL1
+of the stub behind the driver's back to emulate the power loss, and run
+a suspend/resume cycle with "devices" in /sys/power/pm_test. Without
+this change CTRL1 is still 0x00 after resume and the warning is
+printed. With it, and also with the regcache commit reverted, CTRL1 is
+0x02 again and there is no warning. Not tested on real hardware.
 
-Shashank Mohan Jain (2):
-  iio: magnetometer: mmc35240: leave cache-only mode before the cache
-    sync
-  iio: magnetometer: mmc5633: leave cache-only mode before the cache
-    sync
+Fixes: 553a776b7908 ("iio: magnetometer: mmc35240: Add PM sleep support")
+Assisted-by: LLM
+Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
+---
+Prepared with Claude Code (Anthropic), model Claude Opus 5.5
+(claude-opus-5-5).
 
  drivers/iio/magnetometer/mmc35240.c | 3 +--
- drivers/iio/magnetometer/mmc5633.c  | 3 +--
- 2 files changed, 2 insertions(+), 4 deletions(-)
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-
-base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
+diff --git a/drivers/iio/magnetometer/mmc35240.c b/drivers/iio/magnetometer/mmc35240.c
+index 6f40cba4b1..7f028d7f1f 100644
+--- a/drivers/iio/magnetometer/mmc35240.c
++++ b/drivers/iio/magnetometer/mmc35240.c
+@@ -532,14 +532,13 @@ static int mmc35240_resume(struct device *dev)
+ 	struct mmc35240_data *data = iio_priv(indio_dev);
+ 	int ret;
+ 
++	regcache_cache_only(data->regmap, false);
+ 	regcache_mark_dirty(data->regmap);
+ 	ret = regcache_sync_region(data->regmap, MMC35240_REG_CTRL0,
+ 				   MMC35240_REG_CTRL1);
+ 	if (ret < 0)
+ 		dev_err(dev, "Failed to restore control registers\n");
+ 
+-	regcache_cache_only(data->regmap, false);
+-
+ 	return 0;
+ }
+ 
 -- 
 2.43.0
 
