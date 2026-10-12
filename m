@@ -1,160 +1,107 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACF64A49A3;
-	Mon, 12 Oct 2026 16:11:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80DB49E5FE;
+	Mon, 12 Oct 2026 16:11:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791821482; cv=none; b=oDpze+pcNOFzr01g+hqR2zIU6iXCXlbCoeYMIpOesq2nQeLMSZqYa2EVtUouxyzDS32fEMWvURj2xXNwsG0FZxqrqr7eRqBdgXLz2c1fqMTnBzGaPUKM/JZ44r4BtfhPpy7ZS/7w+lwPPqn6/euhf1Wse75htWDKmeyzqli4Faw=
+	t=1791821511; cv=none; b=J7YyCshfQBRCQfUcE90oMAvWXek+68r9h2YEp9INL4StK5y5RciyyLh6rUCwNl0HPI9dCS/s0cKgkBQ+Ka4d3nufYVqDMCWCPlXkP+bhVezaEsj/s1s/0+lE0BlpQdXH+Sj3ppNTfHYI+Nztl6ZP75k8xeKyyA1JvesY25tMNxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791821482; c=relaxed/simple;
-	bh=rOEAXF3BQzK906VvVGNARu+kIxU5Lq+9e563AwOngnU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=O/hES+dQSs5PE46onjXhwBsOHurJc0RFCr0FSSRAHofE66edTT7hhYBRnjq2KAlR63C/73ljClW4N6rRg+mrx7hq72DpLxHARE3ljLkn5CpIUO5+jcxy9uU5kjBEUnz6+qL3q3AMo4wA4wMWhDSA6VOVmE0+ARKnS9oEC7j/LIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=co4p3bmr; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791821511; c=relaxed/simple;
+	bh=6FSgLmlRieYCPz+3j2mwBhdGAKy2QiwnJyeM5ucEzcM=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=aDZvDuOo5vbAo8SgKQqte3ShNP9U47krzz2fq0ZlUf7LOz+p4vRIrRaVX6GCZHvjLOBLmMoARGMTfleIEmyhE0jsI5URrgw9kcvoorJCUdV+SWXM9hEuARC3qphXXXYAY2NeNExM9dG6fT61RtDTQLAQAyyQM1Up+Zl9d8lFpJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ctUAn24i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="co4p3bmr"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CFidkm3645459;
-	Mon, 12 Oct 2026 16:11:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=31eHh1
-	bv4GcUP4pOr40VRPORlIPH9Zlxl9dmfA5dLgE=; b=co4p3bmrobKsu68OYXZyiw
-	6yHU2yzDOYceiKmcKYr1aC0wDVcAk8DSEPDi93CKa6A6f4i+dG3qM9PD+GTB9Jqf
-	bOXpUjHG8wAnJV8ddxlDMiU9VdDwvDd0WBhBjyTFRpTb9kSbKvLnegU+ttlbEpbY
-	q5y03DGvLoC+ZkwRWeph/hajR540YSSEF4ahBKmrcw8OpiwCMa8Orl2oLcrhPoOK
-	85Wp25ZADpT9EYqj4d/ttBlwII2ZcMkBhc38lTyfPI49L+2PDQQoP9kNp2gqpOHS
-	zEZ7xPRPPoz7u0P+x0O0qlzrZi/aN678YU8uxr581y2pq/FlrsHvOqI9fRpr8R2g
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv09f93-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 16:11:00 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CFo0bl1594698;
-	Mon, 12 Oct 2026 16:11:00 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h816gwuwq-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 16:10:59 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CGAtGv44106208
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 16:10:56 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D905020040;
-	Mon, 12 Oct 2026 16:10:55 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9BF402004B;
-	Mon, 12 Oct 2026 16:10:55 +0000 (GMT)
-Received: from [9.224.92.241] (unknown [9.224.92.241])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 12 Oct 2026 16:10:55 +0000 (GMT)
-Message-ID: <126474a4cf510aacd256dca642eb013f7e10dda1.camel@linux.ibm.com>
-Subject: Re: [PATCH v2 0/3] s390/pci: Updates to PCI insn tracing
-From: Gerd Bayer <gbayer@linux.ibm.com>
-To: Heiko Carstens <hca@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Robin
- Murphy <robin.murphy@arm.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>
-Cc: Niklas Schnelle <schnelle@linux.ibm.com>,
-        Benjamin Block	
- <bblock@linux.ibm.com>,
-        Ramesh Errabolu <ramesh@linux.ibm.com>,
-        Matthew
- Rosato	 <mjrosato@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev	 <agordeev@linux.ibm.com>,
-        Christian Borntraeger
- <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Gerald
- Schaefer <gerald.schaefer@linux.ibm.com>,
-        Farhan Ali	
- <alifm@linux.ibm.com>, Cam Miller <cam@linux.ibm.com>,
-        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        iommu@lists.linux.dev, Gerd Bayer <gbayer@linux.ibm.com>
-Date: Mon, 12 Oct 2026 18:10:55 +0200
-In-Reply-To: <20261012160049.19350J7a-hca@linux.ibm.com>
-References: <20261012-rpcit_trcfh_upstream-v2-0-1812db73dfa5@linux.ibm.com>
-	 <20261012160049.19350J7a-hca@linux.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ctUAn24i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 789541F0089B;
+	Mon, 12 Oct 2026 16:11:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791821508;
+	bh=sjrJKhT2IROUQqK2omAaK4ws05KJ8UAbS6zJzFtHQUI=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=ctUAn24iI2rL/oR620R6zxqpq3Z8NEhkftAF+WHGMFv7Xkweg9/ZNUyUqdhR+pgG9
+	 2plUxunF6z8pqWkcboL/4rTWQ+KigPyVGV0azmutdBnt3zbiXx7LFKy+uwHSRnHIN5
+	 lv21xUxRp5lmsvFaHfI6lnCHaIEAbS5vvQb7u2FXHDWcmzvGDA8HW0Ei880BNPz9yc
+	 jmiIjyJip3DkGAVRLkay0gwEAFNwyxwnTmrc8sn4SEsEBN/KTUdJFoOHwJVt1cyrpC
+	 7le9wXmxgwzlNwkR17WdwGHuNBisSc+NsRscGnNEC+uzturoBHF725GrD7cjAZyl+D
+	 uNSsrgeFKKdFw==
+Content-Type: multipart/mixed; boundary="===============5565528010280399983=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2MiBTYWx0ZWRfXw1zEiqwu96KY
- xgfrizNKR+jfzXBHlp3I+sm+fhYg62Xqc0txEfBmwMn78RH1G6i7mgctNZPA/a3saUVVAg/0VGY
- W0yjiIgOEgY0z6sfH2jutBsndPNaY+vodNM5Bsw63+y1bn/V317ESyPXUmnWgNdYHi0ym0MFZVE
- SAPrPRV3xICMs8DT/8QI1jwFcDXSrThslkz4AGx0fkz+mEORqhTyvgtJK/UBX9oDm4YExV0Zx+K
- qJLrkuPd3XWtR4rmg4Q2yaHVxMmTSV8HTFfu+ch9zrTYBk3IV3zHqB+vK47Oxd92jnSBT42qiaE
- bBBvUxidgpf9TtStE4bXhIvvtpBQqckdDM4PHSyVOgpbeLjaZo/fODZnuB2qsEU2i0LYnejDQDg
- OrDaHn55vTWUfzB/OBF3T9oSSADRwmECK/QJ9m6sroJ0oLzv2+2yssXgF/V4d9b+thUorBZXCHI
- BPsLrtc0TZvzY8ozeWw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2MiBTYWx0ZWRfX25ylB/nGXg3v
- z3SmDruxbEo81SRi61hQ9QewIPjBX80yxWaTah4jjghUI1DjE2w1Ww/HMZwwHaUYZZEK9PCGxyL
- HyFfvip3kPaEMYzYKiaoZ4BU/W6IJjY=
-X-Proofpoint-ORIG-GUID: DqazMTh9qk3ls8E9N84OmfuN0xEscDFi
-X-Authority-Analysis: v=2.4 cv=a6KlZkSF c=1 sm=1 tr=0 ts=6acd0694 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=ElJ84iuNPfpE-5LpT_4A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: DqazMTh9qk3ls8E9N84OmfuN0xEscDFi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_05,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
- phishscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120062
+Message-Id: <99aeee9b4fb782792f6f20be06470233aad1b47aaaa00b4073cc431552f48cac@mail.kernel.org>
+In-Reply-To: <20261012154024.29423-7-leon.hwang@linux.dev>
+References: <20261012154024.29423-7-leon.hwang@linux.dev>
+Subject: Re: [PATCH bpf-next v2 06/21] bpf: Add bpf_text_poke_batch() helper in trampoline
+From: bot+bpf-ci@kernel.org
+To: leon.hwang@linux.dev,bpf@vger.kernel.org
+Cc: ast@kernel.org,daniel@iogearbox.net,john.fastabend@gmail.com,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,qmo@kernel.org,shuah@kernel.org,leon.hwang@linux.dev,yatsenko@meta.com,avinash.duduskar@gmail.com,a.s.protopopov@gmail.com,ameryhung@gmail.com,jordan@jrife.io,rongtao@cestc.cn,eyal.birger@gmail.com,pulehui@huawei.com,tanjingguo@huawei.com,malin89@huawei.com,linux-kernel@vger.kernel.org,linux-trace-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Mon, 12 Oct 2026 16:11:45 +0000 (UTC)
 
-On Mon, 2026-10-12 at 18:00 +0200, Heiko Carstens wrote:
-> On Mon, Oct 12, 2026 at 04:21:48PM +0200, Gerd Bayer wrote:
-> > With this series applied (+ a test patch to trace RPCIT even in CC0
-> > situations) an entry in /sys/kernel/debug/s390dbf/pci_error/hex_ascii
-> > looks like the following (removed time-stamp and ASCII transcription,
-> > replaced instruction address with "<IA>"):
->=20
-> ...
->=20
-> > Signed-off-by: Gerd Bayer <gbayer@linux.ibm.com>
-> > ---
-> > Changes in v2:
-> > - 1/3 and 3/3: Replace unnamed bitfields with named dummy members for
-> >   padding (address Sashiko findings)
-> > - Link to v1: https://lore.kernel.org/r/20261007-rpcit_trcfh_upstream-v=
-1-0-8a2718cfb90b@linux.ibm.com
-> >=20
-> > ---
-> > Gerd Bayer (3):
-> >       s390/pci: Adjust alignment in insn trace
-> >       s390/pci: Use 32-bit fh outside of inline asm
-> >       s390/pci: Add function handle to RPCIT insn trace
-> >=20
-> >  arch/s390/include/asm/pci_insn.h |  2 +-
-> >  arch/s390/pci/pci_insn.c         | 42 ++++++++++++++++++++++++++++++++=
-+-------
-> >  drivers/iommu/s390-iommu.c       |  8 +++-----
-> >  3 files changed, 39 insertions(+), 13 deletions(-)
->=20
-> Even though this touches drivers/iommu/s390-iommu.c I assume this
-> should go upstream via s390. Is this correct?
+--===============5565528010280399983==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Hi Heiko,
+> bpf: Add bpf_text_poke_batch() helper in trampoline
 
-that was my assumption, yes. I hope the iommu-maintainers agree, since
-patch 2 touches s390 internals, exclusively.
+TL;DR: The new static bpf_text_poke_batch() has no caller in this patch, so it
+may trigger -Wunused-function and, with CONFIG_WERROR=y, break the build and
+bisection; consider squashing it or marking __maybe_unused.
 
-Thanks,
-Gerd
+> diff --git a/kernel/bpf/trampoline.c b/kernel/bpf/trampoline.c
+> index 21d460866dfe..a2fd0bd8c685 100644
+> --- a/kernel/bpf/trampoline.c
+> +++ b/kernel/bpf/trampoline.c
+
+[ ... ]
+
+> @@ -1863,6 +1864,56 @@ void bpf_trampoline_multi_detach(struct bpf_prog *prog,
+>  	  CONFIG_HAVE_SINGLE_FTRACE_DIRECT_OPS &&
+>  	  CONFIG_BPF_SYSCALL */
+>
+> +static int bpf_text_poke_cmp(const void *a, const void *b)
+> +{
+
+[ ... ]
+
+> +static int bpf_text_poke_batch(struct bpf_text_poke **pokes, u32 cnt)
+> +{
+
+bpf_text_poke_batch() is static and nothing calls it in this commit.  Will
+this trigger a -Wunused-function warning for any config that builds
+trampoline.o?
+
+  kernel/bpf/trampoline.c: warning: 'bpf_text_poke_batch' defined but not
+  used [-Wunused-function]
+
+With CONFIG_WERROR=y that becomes a build failure, which would break
+bisection at this point in the series.
+
+The first callers, bpf_trampoline_multi_prog_attach() and
+bpf_trampoline_multi_prog_detach(), only arrive later in the series in
+59e80b53cc6b ("bpf: Add bpf_trampoline_multi_prog_attach/detach()").  That
+commit also wraps these helpers in #ifdef CONFIG_BPF_SYSCALL so they are not
+unused in !CONFIG_BPF_SYSCALL builds.
+
+Could this helper be squashed into the commit that adds its first user?  If
+it stays separate, could it be marked __maybe_unused until that user arrives?
+
+> +	int i, err;
+> +
+> +	/*
+> +	 * Sort pokes for two purposes:
+
+[ ... ]
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/38273555988
+--===============5565528010280399983==--
