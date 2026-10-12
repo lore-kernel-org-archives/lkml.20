@@ -1,83 +1,83 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DEA4657D6
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:30:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2131412BFA
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:33:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791801049; cv=pass; b=utRiTfgohtPbrWqlYz9VJ5zLvozQaVxAQwOf7VZ9tZyAoFHo3u4Ck+wzElsTV44DynlDnidQR7Y6cDfT6vt/ilTyNS8jwhIhlwxoZa18Anx3Ba+VGPclxqGEMuIAUz7xP6y8+pbIwk1s5W4Hv85KE38V+w/qmMA2pjAlKzSZZeM=
+	t=1791801213; cv=pass; b=bGhXJCX63qivrV6vDV65WkupfHNr2/+j7FHbvWPz29V37uQ1QSSeBuq1YHiaZV2FBT7Q3R+txAxFok0mzm7QJZq9hUMf1Ua5iFV/lBQPH5pBADaKxsIv7qW4ygyqLzDqw8U12ExcknwMnvCdSthDd+dyG9YyWGCbevhRTlKqBV4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791801049; c=relaxed/simple;
-	bh=IB3vRWAv26Z0PCb3g+aKE9Rqo053txGYE69qpbQkWQc=;
+	s=arc-20240116; t=1791801213; c=relaxed/simple;
+	bh=K58spMtUXSSstSD13s5KRjPSopvKSNrgFnbERIc/EfE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OAcD7Uyx92xnWpcP2NqhYlZuUOJsJMHLvc6JV14GposQ4P90w6LUYT6z13ZqLr//DYPUW4iUL7XsKLQbkG++ag/ibGX6LCTWjLzMDBk21hUuSFal1gbOP7zTPvw5fKOZ797CsaR4WJQDt8IqerM9SeXbhe12t/q36mSnIUL805M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JxDrdibd; arc=pass smtp.client-ip=209.85.218.43
+	 To:Cc:Content-Type; b=ov9mtHtv3Mkl2S+mMCIX/dIgd40rG/jB39unQLwbQmYv1lOApne3M3KVPli46duTXQ/aw0mTQf8hFaFmlFjeY6F+TPXqNZ9vY65XnLBcyI0UpGgw+YPXmC1MfG4HWWARYmQ4reeXW72rCoSj5JNZbCm8ChZZdlF1hwcXNQekVPQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QyOsDOqV; arc=pass smtp.client-ip=209.85.218.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JxDrdibd"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2dc8cb0decso175539466b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:30:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791801041; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QyOsDOqV"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c31a34de844so257381866b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:33:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791801204; cv=none;
         d=google.com; s=arc-20260327;
-        b=EpWIUMuUzGwI9kkIHgtDRlVrlz1tHc6TRr51zSt/xDVrsdcpBz0jJ5NxZ6MTgf7aou
-         EzyZPjVvqJ8yj711/HzCIxkjTK+Xq+9tRzGNp32BkAF2YTAf9K/oUm54YFmfmn9z/t3e
-         KqL3lYOz9NoHyzPwdcTJvVcL9KhgQoOojqrabTikK+zw+ZxhpfLYcU1DRv1ngqczGHug
-         tLlpI/TLxl0b93Y2j/D5NvMZ07mNRWVGj30OGkefj9slGedqOaFuxt7XVHFLZJYKXaWR
-         Tm5c5JesYMG7Ke0gMDL/+F9FHX/TQKMyBFqSY0EApsAceeH1KGQw/VRG6hJuTnG0TOPe
-         8Xqw==
+        b=kv3HgWqql4TcNV6K7bXuNxFzFCMOpyUQjbldZpFE1UZ8adNXCKyLxmM3LmsVJOkJLt
+         EEg+rtANpvjamAh0g3kM3a5BWz3hBiM/siXrU+JRp5N6vqV3oruJF8wi86xUz/bGKRrO
+         FCBtEokrkIrBpIk9EhBimF+hxc7t/xQo06NwJE96h/RSIiNXhbLTibu6zr95EbR7CGE+
+         EqT+mjNTuzLP1qj073phRSpPtVusXH5efbraO0MHS417GDyR+CZXWHbmItSnwAgRC7RH
+         35O0TTTi+i1ED6P1lvSEG04MIN2UdLxb8+N89oT55aNL91DPsM50Px0aX69PLlzzQ4FL
+         uCyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=IB3vRWAv26Z0PCb3g+aKE9Rqo053txGYE69qpbQkWQc=;
-        fh=zU1Y/9Ci27cRrIaCk81CwWeAgjRd6sFFiBqUDrBRg1g=;
-        b=RbpNy6Xy3usW81nslhofJIUd34JASLsM9fTXbKvctuaPnDJJFVlY7wG4PLqNm+Xo1Z
-         O0qp7TSKF0+XDXPMIsip7ngcBAOxIGrln8DVk+Ze7+VMuOEOyKCb3dxlrLwpeZiFgP2O
-         57eJSyBJ6EPil/IaecKp/ZLtdImd1BT/EYQ98UiFywqmixNPaHStGgN9VqZlwFAKnRej
-         ZEa3yUEVARv80P0E/LVV37F3x3Fh3BK4qooXabJFv53m+EcznUpYpSa31ox+Y15Cf6O7
-         DelTIQY5nJRd1w7Uyq6VMKI1Ux64lWOSKZCURvabrInDDH213RGDjwqE+fNh3C0kPc0H
-         e21Q==;
+        bh=WCb6XoubVQ4Mh43VO0uwVKASyleTbzUvSNlnrWOxN8o=;
+        fh=QDwS8bThteRvxgBnWwQUXrWyfHn1sm/xsU9NPsKtaGA=;
+        b=AbSwszkpo9dMrJLtgY94B/91+Q5SGY3OKgUantzPlzH2eM3ZOQkOTvpzOPbDtSsPzB
+         BOI3QKm7u4RYyb72uAVS3M4Qdr1x/H4wvuPG02fnPcpCg2geVmoWe8uRT2Qtiwhjezmo
+         CXLbaGtaFCfhHR8xtoI56ElI4fphrxKHF8mP7oOsafLOQDkwm5dKCqblt4UJMDt5kl87
+         fCrJ2I051+kqEvsCQBs8RwEK0+Go4qSfEs/l+UIOXF+YAs+N3a3XFN1cvEkI2IQ5jWOq
+         tl8cKJKO1p/cSjwbWZFZUjA1cWmsm3KxNpmhdH2McgTYro61YuWXGilBFyd1EO4q9bbT
+         ucOA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791801041; x=1792405841; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791801204; x=1792406004; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=IB3vRWAv26Z0PCb3g+aKE9Rqo053txGYE69qpbQkWQc=;
-        b=JxDrdibdlfh4aeRXmzmgxuwDKumTFnNV5hbsVLB0Dk8K2AsIt5PppPNoOjJyM07sk/
-         pQMUikMfpfLU8Ch9VVa+3w2yC5hwQNVFfsLxuOoMqVuMP4rdrbvDXfncHtTNYl8nrBxb
-         4o/WGIpWXM3gR5iMBmEp9VjAfS8vv37e2ZsRMUJplSKfWiCIS3EEaewmcLa0ppZ1ylCZ
-         KKonEDcDKbRx4P6SdzQMeJctNngJj3lgyE4UcaNrMyNDUGzEqy0cmFcAyBKz62RWbTCK
-         N6ULrcbz7VIiOBlmE0DfhroWZz74/Pt8I0kwyzy7kTyhkweUaB118SLVzJo1iv2HeTSf
-         hEPw==
+        bh=WCb6XoubVQ4Mh43VO0uwVKASyleTbzUvSNlnrWOxN8o=;
+        b=QyOsDOqVPbs5F7/Mbyf5pAowaPjAOBQRB1civGx0dw2T3f66kyBZOEnNUkIsfMshCi
+         pPD/1eZhIQcBhaz60OG79w+vIA8u9qkNc5bZqjKctTUNeUmkKLLM79TS5tNFm/PlNwGu
+         4LfzZf+v/A0oZFqzp+SBylvb+wO8/2v2c98p1/Xr4g+HUqZpJxOTT6PlgDsPx2eRC1y5
+         BcF4PcKCyoddxie+AWlWgYfgGzB9i+Rb4bBKys8Foua1ZqKq18UhE4lYBUnXToWYpGHk
+         /TOjIhMJ1FFYDvOMndvZlqy+KbWAzxKDjuSON34Mjb4qxUkEmrMM14r8NiTlTGQZlzPj
+         0Otg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791801041; x=1792405841;
+        d=1e100.net; s=20260707; t=1791801204; x=1792406004;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IB3vRWAv26Z0PCb3g+aKE9Rqo053txGYE69qpbQkWQc=;
-        b=brhaXn+TH1FfifQ26H3x7BIctMVT1Gmhrm0gvQ8Cr+XKTI/rgW/YCqElomCSKG8+aE
-         CfcAt53aBtSc/6GxdjGSZCm7w5IiF4WArPqxICcfnGhHfzdoTT5s95N59hO2lrzDRZOj
-         BlP6IF8AQvPoBEyDUioUmPKtRHYrv5cFqivbiwe9SUTIYqpNT2qj8FOGOEDRnqY7FN1J
-         a58o0qiCm4a5FkZASJg5OWRI72DxHN/8DTudIWkAYQ9A48PdF/ynF+JPw98hCEuoL6iP
-         VsxVHqI1rz+NYq1uwxICeoRtD/jDRfiSxgPBOcumgeBKvexrOmy2eXvG2GXlZPK7btPt
-         gCCw==
-X-Forwarded-Encrypted: i=1; AKwUvBx1xoTNNns5NfWoUUyHyh8tRXHbpNlgTGINP4HXAYX2iXiRXpi7VOZbiA9Uz9nDLo4xMlBwKSyrPIhW8Ms=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/ZMff3TbxHie6l3/UgM/SdOD57OyfnaOJ6wYv/DQGtgqqM3d4
-	YIBnoqnAZbSZIcorn+kqxnGeF3LuIrJayeWmwwx1MClUaq0NxQRVnY6mBPyOY02rH8SjZoecTN4
-	Uc7ktMKQba/ZSBrNQeXxdKTF4V1E2OBE=
-X-Gm-Gg: AYBFou1+g7OoJCbx4feAqYPo8g2W8cNnSH2xtL4lvBzNxtZ1lHZXzlc51WtWkpapGbI
-	w6RU1uqoIS6hCXp4y3Y+A2uyBw1ZWm1CsZciGREtCPnruUOIv2XDdtBsttglIFk08FxnWaEE2Iv
-	uHgjqyfuOCFmO426c05EShax4U7mi7mezVmpPNzGjC6AbFAOtSuZS5sj1jN5ThTRAHBzl0xiCKb
-	Pdn9c4/5gsBC7Yv2DOHc5o5BxoHuYks4ccvs3BpxeogsRUCORaQ4P3H/Aj9yiiC4aixIzp3k224
-	vt8GJisUZRaWF1MVu6tmw0j8BIePmnz7LX1fSd93erUThHqjcq21ZVUY48Krhz1aNULtpxgQOUM
-	gKbew4U2P6LiK5hQB0cV1e5cZ2T25WQOKT2J4uYkLMQptmiW/GK9yHiHHVPwiUiAD7S87bI1lPf
-	pVxznbEqALClCQX73Tx5nySHH7RkCTmrmBbAcWfsOJ
-X-Received: by 2002:a17:907:3d4f:b0:c26:19e3:e979 with SMTP id
- a640c23a62f3a-c31aa02999amr829174566b.25.1791801040894; Mon, 12 Oct 2026
- 03:30:40 -0700 (PDT)
+        bh=WCb6XoubVQ4Mh43VO0uwVKASyleTbzUvSNlnrWOxN8o=;
+        b=t3Ru5nsqsXogcME+3Ad31kWmiYH4GseaU2u+3zfpiNLu4TqlAQh1g18xzb7sOdKhlR
+         FN5gL0r+wNm1OJg4zUUCPKa88o2Iu0Phrc5728KwSq8JxKmdjERu9OjZsXnbvZf4C93e
+         KpdFS2y2MgpKippKWRLf0u1dBVbUq0C/dNkfLggWpj8aQqdJr+McXg2AzLoRvwVuABwN
+         glrvuktglefh/1sE0M01ILPL8RGLiquAPDUidxVZIGdeBKYcvNwXx0f7mGQ+4wH82ITo
+         Yd78SD9JIaxati6IKhmfUFbE42yv4qG26isXllch1wKSkKR0Ny8Olmldm3I3U8PAqqLR
+         PXIA==
+X-Forwarded-Encrypted: i=1; AKwUvBymIwZVKiPFD409gFedRZuDPlM7UsPCqKiEnir45QJ4LyLCjf9MUkdaJrJc2wvFs5RLZSNYPGXZJN4j1aM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIKAB9ISZyR3W7PijoTtKExMQTOK14UYK4TLBublqyxrxZzng22
+	v69o4Pk5CHNPOKo1c9qmn8uUsjR6VerQhIp5KYLOAUKaTotGP/UzYEDisttmijV/0e98Zq0gAmt
+	gPUip5zv8nRFaTUi4ns5d/FinkdDYvNk=
+X-Gm-Gg: AYBFou2r747MJwNCMz34s9f1qYM7iCd5CfeGhtCZ6JfHbZt6iVtku6xIJ/ljXLLJcWp
+	ZBoNP85njCEr1ANNyPYLPxQMm2nitnzEX5qRIPvj/FodJuhC116tciloWC0EJ+zA1XxETkCruVk
+	74U/hX8Zo6B8d2k+1UC5JnzTK/2ck6ntuKeVs2FJ3BoL/7HgcHZvnG6ejkLEO8En+sfAZIKKO0C
+	9DHY7DKTuFsyOEYTNA6MWJN7l1IyQm9A7FBU8IFhQZZ9OnSyNQI7Sgx8LHfFPrQiL6p0De95715
+	+bLGD7facp4UEQuJaGc7tF2HHyVmP90s0UaonYdBBi8IPih9N3v/4ubu3SY2kKnsixgj2aiPoKP
+	d98hIRq2uLrHcH3X8Bh6zVq0pfaleK8dBqsSuG4Etemj4ZF1tJMrYh97qAyRrASMNRaNTgBNhs1
+	48mAsd0yi2h6eBFFw38Vl3vjqMSAf2t2FGZJxE2qND
+X-Received: by 2002:a17:907:2d88:b0:c2e:4373:521 with SMTP id
+ a640c23a62f3a-c31aa0d2286mr787580766b.46.1791801204012; Mon, 12 Oct 2026
+ 03:33:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,14 +85,15 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com>
- <20261011-gpio-mxc-cleanup-v6-3-cb47ce2ad758@nxp.com> <CAHp75VfCrQAnVYV-7wiga-R8A4VKgjfV+EHo_7jy=FNmU=Ov6Q@mail.gmail.com>
- <asytkrYip+v2vl/i@shlinux89>
-In-Reply-To: <asytkrYip+v2vl/i@shlinux89>
+ <20261011-gpio-mxc-cleanup-v6-6-cb47ce2ad758@nxp.com> <CAHp75VcadkqzMxShq1PLzqgNZypB+vqr3a_m1utu-NOx39iK1g@mail.gmail.com>
+ <asyvcJxbM5aD8pzE@shlinux89>
+In-Reply-To: <asyvcJxbM5aD8pzE@shlinux89>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 12 Oct 2026 13:30:04 +0300
-X-Gm-Features: AclHuK89C5O-S_Ib4WjyrexO79x7Ht_pFlIF6GUEOqfiEQUn-PMquRFiuZzNiXE
-Message-ID: <CAHp75VfqdVAYCTi2j0sB=rxBYaJ709-Wq7-aprfZZiBxbu=U_A@mail.gmail.com>
-Subject: Re: [PATCH v6 03/13] gpio: mxc: fix wakeup_pads bit operations
+Date: Mon, 12 Oct 2026 13:32:47 +0300
+X-Gm-Features: AclHuK8bE2RNRViMXGduuI7Gu1WFvoqdAJYcBik89ymBcvSwk0SX4J83VWey8Go
+Message-ID: <CAHp75Vfi8xqFU7nUjE1ktYKWgXGYy3XQKnz4nAJZeR2_o3ywkA@mail.gmail.com>
+Subject: Re: [PATCH v6 06/13] gpio: mxc: replace of_device_is_compatible()
+ with hwdata flags
 To: Peng Fan <peng.fan@oss.nxp.com>
 Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
 	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
@@ -102,44 +103,76 @@ Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Fr
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 12:46=E2=80=AFPM Peng Fan <peng.fan@oss.nxp.com> wr=
+On Mon, Oct 12, 2026 at 12:54=E2=80=AFPM Peng Fan <peng.fan@oss.nxp.com> wr=
 ote:
-> On Mon, Oct 12, 2026 at 12:15:28PM +0300, Andy Shevchenko wrote:
+> On Mon, Oct 12, 2026 at 12:25:41PM +0300, Andy Shevchenko wrote:
 > >On Sun, Oct 11, 2026 at 2:54=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp=
 .com> wrote:
-> >>
-> >> gpio_set_wake_irq() can be called concurrently for different pins on
-> >> the same port, so use atomic bitops when modifying wakeup_pads.
+
+...
+
+> >>  struct mxc_gpio_hwdata {
+> >>         unsigned dr_reg;
 > >
-> >The code doesn't modify any reader part of this member. So, the above
-> >paragraph is incorrect, right? Otherwise it needs to be clarified how
-> >assign_bit() does change anything.
+> >>         unsigned high_level;
+> >>         unsigned rise_edge;
+> >>         unsigned fall_edge;
+> >> +       unsigned int flags;
+> >
+> >Obviously you need another precursor patch to move from 'unsigned' to
+> >'unsigned int' in the whole driver.
 >
-> I will replace with below:
+> Could we keep as it is? I try to avoid adding more changes if not critica=
+l.
+
+No, be consistent. You can add a new member with just 'unsigned' type,
+but it's discouraged, sooner or later you should provide such a change
+anyway.
+
+> >>  };
+
+...
+
+> >> +#define MXC_GPIO_HW_DATA_COMMON        \
+> >> +       .dr_reg         =3D 0x00, \
+> >> +       .gdir_reg       =3D 0x04, \
+> >> +       .psr_reg        =3D 0x08, \
+> >> +       .icr1_reg       =3D 0x0c, \
+> >> +       .icr2_reg       =3D 0x10, \
+> >> +       .imr_reg        =3D 0x14, \
+> >> +       .isr_reg        =3D 0x18, \
+> >> +       .edge_sel_reg   =3D 0x1c, \
+> >> +       .low_level      =3D 0x00, \
+> >> +       .high_level     =3D 0x01, \
+> >> +       .rise_edge      =3D 0x02, \
+> >> +       .fall_edge      =3D 0x03
+> >
+> >Why?! Just to save a few lines? This makes it harder to follow the data =
+part.
 >
-> gpio_set_wake_irq() can be called concurrently for different pins on
-> the same port. The IRQ core serializes per irq descriptor, but
-> different pins have different descriptors, so concurrent calls for
-> pins on the same port run without mutual exclusion. The plain |=3D and
-> &=3D on wakeup_pads are non-atomic read-modify-write operations that
-> can lose updates when two CPUs modify different bits simultaneously.
-> Replace them with assign_bit() to make the modifications atomic.
+> If I expand the macro the imx7d, imx8qm, imx8qxp hwdata, 24 lines will be
+> duplicated. I would keep as it is.
+>
+> The current hwdata as below:
+> static struct mxc_gpio_hwdata imx7d_gpio_hwdata =3D {
+>         MXC_GPIO_HW_DATA_COMMON,
+>         .flags =3D MXC_GPIO_HAS_POWER_OFF,
+> };
+>
+> static struct mxc_gpio_hwdata imx8qm_gpio_hwdata =3D {
+>         MXC_GPIO_HW_DATA_COMMON,
+>         .flags =3D MXC_GPIO_FALL_EDGE_WAKEUP_BROKEN | MXC_GPIO_HAS_PAD_WA=
+KEUP,
+> };
+>
+> static struct mxc_gpio_hwdata imx8qxp_gpio_hwdata =3D {
+>         MXC_GPIO_HW_DATA_COMMON,
+>         .flags =3D MXC_GPIO_HAS_PAD_WAKEUP,
+> };
 
-Right, but the code does change only the writer side. There is no
-reader side that was changed. So this patch does *not* add any
-atomicity. You also need to check if the reader side already uses
-test_bit() or something like that. Otherwise it makes no sense.
-
-> >> wakeup_pads is a u32, while assign_bit() operates on unsigned long
-> >> pointers. On 64-bit platforms, this causes an 8-byte read-modify-write
-> >> on a 4-byte field, corrupting the adjacent is_pad_wakeup. So change
-> >> wakeup_pads to unsigned long and reorder to avoid wasting words.
-> >>
-> >> And fix the enable/disable path unconditionally sets/clears the
-> >> wakeup_pads bit even when enable_irq_wake()/disable_irq_wake() fails.
-> >> Only update the bit on success.
-
-
+Yes, I saw it in the next patch(es) and commented there that what
+should be done is split of the common part to another data structure
+(or be wrapped into one with a .flags member).
 
 --=20
 With Best Regards,
