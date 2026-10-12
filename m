@@ -1,387 +1,255 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91343750D7;
-	Mon, 12 Oct 2026 19:45:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791834316; cv=none; b=E6wWgnifWBbxt94tyB6dB5F60gQDdznKVSs7I7LxwQS9gx6MP3zEO+XhmdYqAHUrzuy183cfKv8rC5mnGvX7FIEXqNAi8BBoPjMSTAKyTxSdIWawPxxp//eZOT1nVUDWGuCMDhXdOHjJT5Kx67GYfoUwB1rXu/5Q9oSnXs4DYPo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791834316; c=relaxed/simple;
-	bh=cc+Ex5Pf9MIkayOb7OWzUPtrUX1g6irviRgr90qyPkY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VZ/UzGca1TeYwdbKaA5jkLWOGj5IQMFtAdpUWzi8ln6P2F4ceLsZ7Op0g2W1xhVybJOOirvSFu/QV4PybBUXQNUhpXGhbi4HWqVamglPS6ulaGJjv1oiGTQ9yHptguujrlopJXQi1bwhQaHNU7ZEitiStB3j5nMjv9ldvK+Z/YA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hwIp+PW3; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE333D8127
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:46:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791834390; cv=fail; b=WqQWR1XP/KDTPA1QVhIAllUaymQjPxAkIUtTZSf33EvtDl66X/eVEZjhJTFqybIi7trU4xvSZ1AHUwrbZrqe4PdE+QxeD+aM6aYScgVIE72iHTAkR1O+zIEJCLgQ5HK6bkO7NQ3xGd/saFOItXp+q6hg3ZHTo0SNYPweXNgyrq4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791834390; c=relaxed/simple;
+	bh=Bp1cjQI2G2zGM6kJl8qVPW15Ho+NAWgc/ZZWzK6JTLo=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Dr7My/+4UKf1SThnfUsa4v9tTLVmYF29US+AI/dCIlSJAeuA6rKf04kEjNPYZXTx7INXtefFaGxpbKj1UCcQaPY6ddhzlRzT3He+Z1A9AXFIEHhLYkuLF44kWP2aj+PbJuy72mK+PWCDSjSS21I6vV3hnll1Jl3x8PQf+wIdmpk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QSA9J+uO; arc=fail smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hwIp+PW3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C35751F0089B;
-	Mon, 12 Oct 2026 19:45:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791834314;
-	bh=DXWntqGWQj73+xnSqgXATZJNzk0A8N0jjDplCxsKpH0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=hwIp+PW3HaOTTMBYr9WRzn0dwzZXqdSlW/55xedlbRrKk5zqs1lOfvynxr8ZI5Tus
-	 vERcOpjekc+IdnLxgS0stOMX9qbYpolSESAiUYFMIdiQcY0+oy6nHtNhaXezvyCKOy
-	 O6ruVfoPSKfB5WPgpenAfjxgxx9b7ZqVczvaBADPx2quiWaoZrnVZ1i66MzxbV/vZG
-	 0vqTjW02Bj90z95VZSahk6SgJtxhcDggUzIYnMiUIiLObA6/lO66ZTrE17pWsVNuZo
-	 UJi5TqyLtH465nrhdbH7BHMFP05xbwoag/I6CusBrtSyySRXOZezzWb4ETkr+XhxTI
-	 F2dMOnxmuEIVw==
-Subject: Re: [PATCH net-next] net/iucv: serialize HiperSockets receive with
- the socket lock
-From: netdev-bot+sashiko@kernel.org
-To: hexlabsecurity@proton.me
-Cc: pabeni@redhat.com, kuba@kernel.org, twinkler@linux.ibm.com,
- edumazet@kernel.org, wintera@linux.ibm.com, davem@davemloft.net,
- nagamani@linux.ibm.com, hidayath@linux.ibm.com, netdev@vger.kernel.org,
- horms@kernel.org, linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 12 Oct 2026 19:45:13 +0000
-Message-ID: <179183431327.434549.446348148837850426@kernel.org>
-In-Reply-To: <20261011-b4-disp-410518f4-v1-1-753bf3258292@proton.me>
-References: <20261011-b4-disp-410518f4-v1-1-753bf3258292@proton.me>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QSA9J+uO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791834389; x=1823370389;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=Bp1cjQI2G2zGM6kJl8qVPW15Ho+NAWgc/ZZWzK6JTLo=;
+  b=QSA9J+uOnDkdTtp4xG6yKI8Voc5oJMw8AZN0ozB6FiWYFKBWpuNltioR
+   PN3SN/1joWvcw4B17gkUo3+HJHxq7o2uEXyTTzNDKQbdTotEsNWsFZ1v8
+   QCHBr1g45H2SEIeFqLUpUUGQCkH+7LiIXN3xMvMUx+VTRTqppzFVreZlX
+   dGDIhDjRywUoti1Sf6s7BLr1aAMnH+xt0Iv8CXYLL7aEC3QzFUPf3fVVA
+   aKVCFzD1ZFUajzEMox01b41+4N67oDPY7eQDOW+7ceszy6RVt6ObqgKy9
+   Mnl4gcoSYzqKeL9hR/XFkPGW4zQ4bzDd8wLbOa6Xg/NhIY99nSF5HRpok
+   w==;
+X-CSE-ConnectionGUID: n7MQafY1SceTUYwYxfKMdQ==
+X-CSE-MsgGUID: ozBb9jbrSyarKQbCMzpGGw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="435966"
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="435966"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 12:46:28 -0700
+X-CSE-ConnectionGUID: eE49OXTQS5mhiVDV0Bl/dA==
+X-CSE-MsgGUID: tETE5sHSRAewJEIzE79MyQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="1091479"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 12:46:27 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 12:46:27 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Mon, 12 Oct 2026 12:46:27 -0700
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.7) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 12:46:26 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=D1lIjbVPim3LNANl9m//AxZn1LUH6CcJcjGxs9qqe35UsreSRsaOlbjE4akPziEi8L9EH9ke1K3C4LGizFm5kDIcbg/KQuSWizMhWl+8yFL1MdpNNwU0uJD4Hyjt2LpFsYjWFkSlSMg/Hu4vsJwR1RYisMRwwdJ7Ct1Ka9mWcgi8c0zxkPh7pNEkujQtgMYNUK1cPtFTWzUP8cg8p0q20+2aIOKfo03V9xnNhvlRSS1aTMkWh851yejAck3ElTUzsRBgzxdx2h00CS6Yi9S9CQ0RuELonpCvvWfmyJsSt4+jXAb3hd0LETE77c/TJn32uCIj0C49JqOsuUW2LP3HAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xXFLtctUL3rmj6wngyHxrs84N4+LP0xyHP299DzUD5k=;
+ b=D3bf/3WNE/Ehh7qnpTs+9opG6hsOqF4nZYVxq2Ijp8aPnZFVWbz3YImjNRBBk2VBz6jgHIHTaf+MMpdRlo4t1ydRVcV6ISJBmwa6RnfBSW8sCzLbea7Oqg3/t/tKCq0f5lzmSgKohBMOf5AbKrKXsR2bJEZHlyv3yWSR78QCXVq3BfddwYZo/XdlGRt/5K+v2X6eKzPKoZuDz1uNjMcZsQhLnpdwEeqjME/71PD2gwcMvbzshHqHRs4JTdsPuDCt6/Kg5gKzfRgAw38h71rKjZxs2BlVfG5owhIZMs5m/spcc1745Pc4HS4wWgFcEkrxoJX1zWz5FEUYqsBcH5ejhg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CH3PR11MB7180.namprd11.prod.outlook.com (2603:10b6:610:148::5)
+ by IA1PR11MB6324.namprd11.prod.outlook.com (2603:10b6:208:388::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
+ 2026 19:46:25 +0000
+Received: from CH3PR11MB7180.namprd11.prod.outlook.com
+ ([fe80::70dc:90b2:50b4:31a8]) by CH3PR11MB7180.namprd11.prod.outlook.com
+ ([fe80::70dc:90b2:50b4:31a8%7]) with mapi id 15.21.0496.015; Mon, 12 Oct 2026
+ 19:46:24 +0000
+Date: Mon, 12 Oct 2026 15:46:08 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Guillaume Tucker <gtucker@gtucker.io>
+CC: Matthew Brost <matthew.brost@intel.com>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Mallesh
+ Koujalagi" <mallesh.koujalagi@intel.com>, Badal Nilawar
+	<badal.nilawar@intel.com>, Michal Wajdeczko <michal.wajdeczko@intel.com>,
+	Riana Tauro <riana.tauro@intel.com>, Stuart Summers
+	<stuart.summers@intel.com>, Jonathan Corbet <corbet@lwn.net>,
+	<intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/xe/log: fix documentation title levels
+Message-ID: <as05AF81CNjbCEas@intel.com>
+References: <2320050536ca29afe69ecd163eb974a40df571fc.1791740369.git.gtucker@gtucker.io>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <2320050536ca29afe69ecd163eb974a40df571fc.1791740369.git.gtucker@gtucker.io>
+X-ClientProxiedBy: SI1PR02CA0039.apcprd02.prod.outlook.com
+ (2603:1096:4:1f6::9) To CH3PR11MB7180.namprd11.prod.outlook.com
+ (2603:10b6:610:148::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR11MB7180:EE_|IA1PR11MB6324:EE_
+X-MS-Office365-Filtering-Correlation-Id: c7b21ef9-ebcc-45b8-b7f9-08df28997f4c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|56012099006|5023799004|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: 5cWTBdK6aL0BnVje9ol5LI5Qpjt6qTH6K+lWH6BN/qROvIDBcOXUvMrkIjMBbXoIaT4V5T/hQ3hvUaGwbWZLUkY1MrucdhipvC9BA399BwsAZ16nso3iDjAbmN/PWj+7kPSkkkzLlRB/skvgWZnJf+IWncdzVAGXScsfTntUXsJOwla7dri2uL1x+MP6yQuTvcj45/Wfj1qRi3OP4rfFfmRVgK+F5UbEOKz9RAPA8eVKfQDKVfOKh3EY/PwTY3yeacu+xfoY8H9DMrquPShwjLu5ZYAYFMqBP38s5dbNC/aOYN348k+WC9j6NAvDIgVfr9hFGyt6jNnk0Sx/hxu/3i0KIl+zZVdqyMfaH1eZXlgWl3OtqJ3OQjImYPGU5OaQzkXf5xXMvZNqlJoi3KPcgm9ztb3Y31WGwQhqrB/+NCXZKu+/JHOTWe6nOFRjRRlLu604dYdlkYGqQ+pFp2uhkd7gn/+2rlgf2dFAQd/FUgm54EEXlY6G2YfbwzUC+5l/kkQpeQo9rlqbfushccFPtYzxTYQ1LyTuzdGWB66pvImjzGLnDnVPDLkOLm0EEVxQFuCDkYcngrqbobpwrTgLaNWmK6kUIGFkkzHtQqqyIzfmPued+AHqln9viv1blogPR7RdzRmUiOW6Qboh/hJEz+cxsmDwujHefIz4n/s+kCM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB7180.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(56012099006)(5023799004)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?u2zIwTQOFRm70UU2aR9J9mwIDa9ImYL02wr+cn57+QmC7ozcS0tUeiufAKi1?=
+ =?us-ascii?Q?0hDSuoE6fylWLBtw7lpain7eETiTKz0tXWp3maIhGh25US4S1ZLUx85NxuVs?=
+ =?us-ascii?Q?qEMdL75QyN5YtpiZTfIaFybq9I6qxRZhotv2yAyzZzgc5JapurV8Esk7Zb2/?=
+ =?us-ascii?Q?/Lv+1VyerDEAghuD3gpcODI/YXhxEcbnWyvB4RPdb6wF0pMYtkoFrdl7JrHl?=
+ =?us-ascii?Q?J70K3t1gcYOUikR+kt1NemOd2QxN8dbhoCzYGoSOtaEMObt9+7+jGXafEs+U?=
+ =?us-ascii?Q?HDUxT1Ja70GMHEplKwNZYCdVxowxJ4BfqjrrYj4b6m7o/8oN9FeFSA4bwtbf?=
+ =?us-ascii?Q?ZU5xogDxP78Jy/6mnAzq/2ST173rGU/lEtKhgsvyfpbZeku++rSWCurGQWUd?=
+ =?us-ascii?Q?ZGq84cj6GdP2aJfZ46se0RDc+L9fKTJ2SxJWJtFtgbFXg4FjLqjmz6UEkklR?=
+ =?us-ascii?Q?U0diEH7rMRjTCNlGAATuvSbtSI0bO1NYfslgLquoxrkWzE1An8RJhYhoKE0s?=
+ =?us-ascii?Q?KPWTyIAvDGJdJL/oI+Si0xj3yYhIJFypN5nNlcMyBRUgDZQl9pFZS1htd+OA?=
+ =?us-ascii?Q?aTHvPnuY9/A5pHQBicqLt7H7wsTVqbzXOM0kq2xFCpLqQJrc8ZcyJ+i9FyQk?=
+ =?us-ascii?Q?IDDlfDb12sw9v7eUC0OKArqa1g9EFuUqD3kIyQiLbxhikfUO4+Yciyr2gb56?=
+ =?us-ascii?Q?O9WNMfKIa0ILwRxDEM9xX4qrVUs66wAOfBIgTLPvTxjLw+riJ7cs6o2IKlge?=
+ =?us-ascii?Q?FReFth1uTGrT9/1uNJz7UyVtXl1O56cEQRhiJxjEI6HOYVQNlMQEn9tCUkLJ?=
+ =?us-ascii?Q?E8m0OIqLus77SdPvRfVjMhvrvGBT8OBL+ve1k0CTIIrrTLquYyjWQVrvJOKM?=
+ =?us-ascii?Q?AG4rSK1wYhSkVu0xrleXPwKOwV0InRDZGkpPUsDZhkWnPyBYCoN5XPNnUlH7?=
+ =?us-ascii?Q?ncmbUbHoEm6gjn2WNPJjJziA9Nt1oVzTuZYo77mNW6s9r+9AEvG4yBzoviNQ?=
+ =?us-ascii?Q?W6wt3ozp6zWkZm8PHqyGkUVZ1xBkoga7NWtCl9Xrp//ywvH43WDnMbJFR3IV?=
+ =?us-ascii?Q?XdJ6VK0evAAEQFOWixJ2s0ZMfjtP30yqs2fHnZAAg41uPWT8+wSEOX0m5Unk?=
+ =?us-ascii?Q?+VYcsLRAcccmWm7PHUGABKDUOVhB/GXb9DXgHh+aKjd8kTgwuTNIb5OBfAks?=
+ =?us-ascii?Q?7jwQXgwhzf11p5X/hOeE2FWljyColM2XWRXDXE5iiZyk2UKb+tjSrb/6TUPO?=
+ =?us-ascii?Q?XMMq0I95nrXUMtiPUKnNpYcx2SjjTmIR8x6xflsKJUREiyd3ijwLk59XqFhf?=
+ =?us-ascii?Q?YiBJ2U1Q1LqQB5eukLry58AA1IGRDCpD2qjRwFg/ls9T2PQR3we81CXlCXFT?=
+ =?us-ascii?Q?BgKwVRdW9yBM5xP3jXySWqh3RKLZMpf4m9oCRRasvrbjeMc7FCvPYtjrb6De?=
+ =?us-ascii?Q?MybOrSpe813voM40EmGLKxgZAGsUMvD1v6b5rncp613+LKMyEgnSPjLguKr3?=
+ =?us-ascii?Q?T4CN8TKn+OYaHZSjrq4Znkp37cMLgd/rx6kWJugLVw2Erth94NwkLeHnIeLs?=
+ =?us-ascii?Q?v/7XF4gnfUExdGvPH+XkoMwgHSZIm+9x34Fmfr7e9oA+fwd4RwxG9we9WxAs?=
+ =?us-ascii?Q?G3ffJtbfwDUebd0I3Fuis5TIfPzXrS0q+Y3+8JOArEy2Hss71MQTtwILra7m?=
+ =?us-ascii?Q?w+JWnNA44S/8+ffZjMhNWC2leDemoogMblE+AKe9zdO4WlxPASPT3T/BZzgj?=
+ =?us-ascii?Q?lnyTypxW0w=3D=3D?=
+X-Exchange-RoutingPolicyChecked: GaCwEqM3sv6Pqo0lMmcUgftj6yYeAwWB5URDVAvFxj0L8CR6OidjISU8InWYj+GqAUsTElrhaaMhOryqI4+E0x0CX224lMt005dDUXK6AbKBy5CUPmtNM7dPXAkY1GjvHWMve0CBviUnrNlqVyN+0dSCxy0Hwq13XQsFx18nC/dICwIGqo4bzIvTiWZ5gc3SwXzpfvS8SzdnbkoK6Akp5s+y889fAiIZ7ZH7z9j23ZqvOBLn1fZaoXYte2e0Sdh0aN6wK8SUZnEE71y+TBez9DF7As9HkhxEQhdinKIszjempnQvtC5PykK9OKPKp4PG+aXO9gy2ZutQdFp93o2++w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7b21ef9-ebcc-45b8-b7f9-08df28997f4c
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB7180.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 19:46:24.6060
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9OM+RMslPe57VULYGZ6LInWuyT0O0MoxR/iJzFoew1omWxj2xKejGDdskIt9gJ17d+SFaNUacMPhKdBKzjwrVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6324
+X-OriginatorOrg: intel.com
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+On Sun, Oct 11, 2026 at 07:46:53PM +0200, Guillaume Tucker wrote:
+> Fix an htmldocs build error in the gpu/xe section by moving all the
+> titles one level higher in the Xe SIGID page to keep a consistent
+> hierarchy.  This is the error message:
+> 
+>     Documentation/gpu/xe/xe_sigid.rst:10: (SEVERE/4) Title level inconsistent:
+> 
+> All the other pages in the xe section use <h2> titles so follow the
+> same convention here as well.
 
-Critical: 0 · High: 0 (1) · Medium: 3 · Low: 1 (1)
+it looks like we have more stuff to fix in the xe_migrate.c still...
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+thanks for this patch.
+pushed to drm-xe-next
 
-- [Medium] afiucv_hs_backlog_add() takes the data budget from the live
-  READ_ONCE(iucv->msglimit) + 1, on the assumption that this equals the…
-- [Medium] The comments on afiucv_hs_defer() and afiucv_hs_backlog_add()
-  size both budgets on one claim: data and WIN frames only ever wait…
-- [Medium] Repeated SHT frames can still push msg_recv past msglimit, so
-  recvmsg() takes WARN_ON(1), __iucv_sock_close() and -EFAULT instead of…
-- [Low] The commit message describes user-visible bugs that date back to
-  3881ac441f64 ("af_iucv: add HiperSockets transport"): a FIN or SYN|ACK…
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but it is high
-  severity.
-- [Low] In iucv_sock_recv_skb(), a reader that is asleep when the peer's
-  FIN arrives gets -ENOTCONN, while a recvmsg() that starts after the…
-
---
-
-net/iucv: serialize HiperSockets receive with the socket lock
-
-This patch makes afiucv_hs_rcv() take bh_lock_sock() once. While a task
-owns the socket, frames are deferred to the socket backlog, which is
-bounded by frame count and drained by a per-socket sk_backlog_rcv. It also
-runs recvmsg() under lock_sock(), lets sendmsg() wait for send memory
-without the lock, and sends the FIN and first SHT past sk_sndbuf.
-
-Link: https://lore.kernel.org/all/20260724222917.134769-1-hexlabsecurity@proton.me/
-
-> diff --git a/net/iucv/af_iucv.c b/net/iucv/af_iucv.c
-> index 5ba875798aa41..1fcb47a087551 100644
-> --- a/net/iucv/af_iucv.c
-> +++ b/net/iucv/af_iucv.c
-
-[ ... ]
-
-> @@ -374,26 +377,28 @@ static void iucv_sever_path(struct sock *sk, int with_user_data)
->  static int iucv_send_ctrl(struct sock *sk, u8 flags)
->  {
-
-[ ... ]
-
-> -	skb = sock_alloc_send_skb(sk, blen, 1, &err);
-> -	if (skb) {
-> -		skb_reserve(skb, blen);
-> -		err = afiucv_hs_send(NULL, sk, skb, flags);
-> +	/* Control frames go out after a shutdown too. The FIN and the first SHT
-> +	 * end the stream and may exceed sk_sndbuf, like TCP's FIN; at sk_sndbuf
-> +	 * the others get -EAGAIN and arm SIGIO, as sock_alloc_send_skb() does.
-> +	 */
-> +	force = flags == AF_IUCV_FLAG_FIN ||
-> +		(flags == AF_IUCV_FLAG_SHT &&
-> +		 !(sk->sk_shutdown & SEND_SHUTDOWN));
-
-[Severity: Low]
-The only trailers are Suggested-by, Link and Signed-off-by. There is no
-Fixes: tag.
-
-The changelog describes bugs users can see that go back to 3881ac441f64
-("af_iucv: add HiperSockets transport"):
-
-- a SHT or FIN lost to a full send buffer
-- a window update that fails and keeps its credit, so recvmsg() hits
-  WARN_ON(1) and returns -EFAULT
-
-The notes below the --- line say this iucv_send_ctrl() change could go to
-net on its own with Fixes: 3881ac441f64. They also say the credit drop in
-recvmsg() fixes a bug in net today.
-
-If both stay folded into one net-next patch, will stable pick them up?
-Could the iucv_send_ctrl() fix, and possibly the credit drop, go to net
-as separate patches with Fixes: tags?
-
-[ ... ]
-
-> @@ -1245,6 +1267,47 @@ static void iucv_process_message_q(struct sock *sk)
->  	}
->  }
->
-> +/*
-> + * Like skb_recv_datagram(), but sleep with the socket lock released, so that
-> + * release_sock() runs the backlog and a deferred FIN reaches the reader.
-> + */
-> +static struct sk_buff *iucv_sock_recv_skb(struct sock *sk, int flags, int *err)
-> +{
-
-[ ... ]
-
-> +		if (!timeo)
-> +			break;
-> +		if (sk->sk_state != IUCV_CONNECTED) {
-> +			*err = -ENOTCONN;
-> +			break;
-> +		}
-
-[Severity: Low]
-This is a pre-existing issue and was not introduced by this patch. A
-reader that is asleep here when the peer's FIN arrives gets -ENOTCONN. A
-recvmsg() that starts after the FIN returns 0 through the IUCV_DISCONN
-shortcut at the top of iucv_sock_recvmsg().
-
-The old path, skb_recv_datagram()->__skb_wait_for_more_packets(), also
-returned -ENOTCONN in this case, because IUCV_CONNECTED equals
-TCP_ESTABLISHED. So this keeps the existing behaviour.
-
-Should a blocked reader also see EOF here, like a reader that arrives
-after the FIN?
-
-[ ... ]
-
-> @@ -1322,8 +1386,9 @@ static int iucv_sock_recvmsg(struct socket *sock, struct msghdr *msg,
->  			atomic_inc(&iucv->msg_recv);
->  			if (atomic_read(&iucv->msg_recv) > iucv->msglimit) {
->  				WARN_ON(1);
-> -				iucv_sock_close(sk);
-> -				return -EFAULT;
-> +				__iucv_sock_close(sk);
-> +				err = -EFAULT;
-> +				goto out_err;
->  			}
->  		}
->
-> @@ -1350,13 +1415,18 @@ static int iucv_sock_recvmsg(struct socket *sock, struct msghdr *msg,
->  		}
->  		spin_unlock_bh(&iucv->message_q.lock);
->
-> -		if (send_win) {
-> +		if (send_win && sk->sk_state == IUCV_CONNECTED) {
->  			err = iucv_send_ctrl(sk, AF_IUCV_FLAG_WIN);
->  			if (err) {
->  				sk->sk_state = IUCV_DISCONN;
->  				sk->sk_state_change(sk);
->  			}
->  		}
-> +		/* the peer won't take this credit: drop it, or a SHT's
-> +		 * zero-length skb counts past msglimit
-> +		 */
-> +		if (send_win && sk->sk_state != IUCV_CONNECTED)
-> +			atomic_set(&iucv->msg_recv, 0);
-
-[Severity: Medium]
-Can repeated SHT frames still drive recvmsg() into the WARN_ON(1) and
--EFAULT above?
-
-On the peer, every shutdown(SHUT_WR) while connected sends another SHT:
-
-iucv_sock_shutdown()
-    ...
-    } else
-        iucv_send_ctrl(sk, AF_IUCV_FLAG_SHT);
-
-These SHTs don't use any window, since only sendmsg() increments
-msg_sent. Here, each one becomes a zero-length skb, and consuming it does
-atomic_inc(&iucv->msg_recv).
-
-msg_recv is only reset through send_win. send_win is only set when
-backlog_skb_q is empty after the requeue loop, and the new credit drop
-depends on send_win too.
-
-Suppose the peer sends a full window of data, then enough repeated SHTs
-that the receive queue spills into backlog_skb_q. backlog_skb_q may then
-stay non-empty while msg_recv keeps climbing.
-
-Would the first SHT read then push msg_recv past iucv->msglimit? That
-would make recvmsg() call __iucv_sock_close() and return -EFAULT instead
-of EOF. The comment in afiucv_hs_backlog_add() says "a repeated one
-carries nothing", but such an SHT still seems to count here.
-
-[ ... ]
-
-> @@ -1894,7 +1966,6 @@ static int afiucv_hs_callback_syn(struct sock *sk, struct sk_buff *skb)
->  	}
->
->  	nsk = iucv_sock_alloc(NULL, sk->sk_protocol, GFP_ATOMIC, 0);
-> -	bh_lock_sock(sk);
->  	if ((sk->sk_state != IUCV_LISTEN) ||
->  	    sk_acceptq_is_full(sk) ||
->  	    !nsk) {
-> @@ -1904,7 +1975,6 @@ static int afiucv_hs_callback_syn(struct sock *sk, struct sk_buff *skb)
->  		err = dev_queue_xmit(skb);
->  		if (nsk)
->  			iucv_sock_kill(nsk);
-> -		bh_unlock_sock(sk);
->  		goto out;
->  	}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this refusal path
-leak nsk?
-
-iucv_sock_kill() does nothing unless SOCK_ZAPPED is set:
-
-static void iucv_sock_kill(struct sock *sk)
-{
-	if (!sock_flag(sk, SOCK_ZAPPED) || sk->sk_socket)
-		return;
-	...
-}
-
-iucv_sock_alloc() clears SOCK_ZAPPED, and only __iucv_sock_close() sets
-it. None of these paths call __iucv_sock_close(). So each SYN refused
-here seems to leave a whole iucv_sock linked on iucv_sk_list, still
-holding its sk_alloc() reference. That covers a listener not in
-IUCV_LISTEN and a full accept queue.
-
-The same applies to the iucv_sock_kill(nsk) after a failed
-dev_queue_xmit() of the SYN|ACK further down. There, the
-dev_hold(niucv->hs_dev) reference would leak too, and
-unregister_netdev() of that device could wait forever.
-
-A peer on the HiperSockets LAN can repeat connect() against a listener
-with a full accept queue, so this can grow without bound. The leaked
-sockets also lengthen the iucv_sk_list walk in afiucv_hs_rcv() for every
-frame.
-
-With this patch, deferred SYNs reach the same path through
-afiucv_hs_backlog_rcv()->afiucv_hs_dispatch()->afiucv_hs_callback_syn().
-The changelog also names the full-accept-queue refusal as the model for
-the new refusal past the budget.
-
-[ ... ]
-
-> @@ -2066,6 +2131,64 @@ static int afiucv_hs_callback_rx(struct sock *sk, struct sk_buff *skb)
->  	return NET_RX_SUCCESS;
->  }
->
-> +/* data, SHT and WIN frames: they leave sk_state alone */
-> +static bool afiucv_hs_is_data(u8 flags)
-> +{
-> +	return !flags || flags == AF_IUCV_FLAG_SHT || flags == AF_IUCV_FLAG_WIN;
-> +}
-> +
-> +/*
-> + * Frames that change sk_state wait while the user owns the socket. Data, SHT
-> + * and WIN frames go through, but never past waiting ones: sk_backlog.len stays
-> + * set until __release_sock() has run them all. So they wait only behind a FIN,
-> + * which voids them, or a SYN|ACK, when we have sent nothing for a WIN to ack.
-> + */
-> +static bool afiucv_hs_defer(struct sock *sk, u8 flags)
-> +{
-> +	return !afiucv_hs_is_data(flags) || sk->sk_backlog.len != 0;
-> +}
-
-[Severity: Medium]
-Does this classification hold up for frames the dispatcher doesn't act
-on?
-
-While the socket is owned, every flags value outside {0, SHT, WIN} is
-deferred and charged to sk_backlog_ctrl. That includes values that
-afiucv_hs_dispatch() only frees in its default case. It also includes a
-SYN|ACK or SYN|FIN for a socket that isn't IUCV_BOUND, which the
-callbacks just drop.
-
-On a socket that isn't listening, the control limit is
-sk_max_ack_backlog + 2, which is 2. Two such frames in one ownership
-period would leave no room for a real FIN. The FIN would then go to
-kfree_skb_reason(skb, SKB_DROP_REASON_SOCKET_BACKLOG) and never be
-resent.
-
-Each deferred stray frame also makes sk_backlog.len non-zero. Later data
-and pure WIN frames are then deferred too and charged to the
-msglimit + 1 data budget.
-
-With traffic in both directions, msglimit data frames plus two or more
-pure WINs, could data frames be dropped as well? Before this patch these
-stray frames were freed right away.
-
-Would it make sense to drop unknown flags in afiucv_hs_rcv() before
-deciding whether to defer?
-
-> +
-> +/*
-> + * Not sk_add_backlog(): its limit is in bytes, and nothing resends a frame it
-> + * drops. Count frames instead. Data, SHT and WIN frames get msglimit + 1: a
-> + * peer that keeps to the window has at most msglimit data frames and one SHT
-> + * waiting (a repeated one carries nothing); WINs need no room (see above). The
-> + * rest get sk_max_ack_backlog + 2: a SYN|ACK and a FIN, or a listener's SYNs up
-> + * to its accept queue and one more. Both counts restart only once
-> + * __release_sock() has run every frame: a flood cannot keep the owner draining.
-> + */
-> +static void afiucv_hs_backlog_add(struct sock *sk, struct sk_buff *skb,
-> +				  u8 flags)
-> +{
-> +	struct iucv_sock *iucv = iucv_sk(sk);
-> +	unsigned int *count, limit;
-> +
-> +	if (!sk->sk_backlog.len) {
-> +		iucv->sk_backlog_data = 0;
-> +		iucv->sk_backlog_ctrl = 0;
-> +	}
-> +	if (afiucv_hs_is_data(flags)) {
-> +		count = &iucv->sk_backlog_data;
-> +		limit = READ_ONCE(iucv->msglimit) + 1;
-
-[Severity: Medium]
-Can this budget end up smaller than the window the peer was granted?
-
-The SYN advertises the msglimit that is current at connect() time:
-
-afiucv_hs_send()
-	if (flags == AF_IUCV_FLAG_SYN)
-		phs_hdr->window = iucv->msglimit;
-
-However, iucv_sock_setsockopt(SO_MSGLIMIT) still accepts the option in
-IUCV_BOUND. A HiperSockets socket stays in IUCV_BOUND from the moment
-iucv_sock_connect() sends its SYN until the SYN|ACK arrives. That window
-is open after:
-
-- a non-blocking, timed-out or interrupted connect()
-- another thread calls setsockopt() while a blocking connect() sleeps in
-  iucv_sock_wait() with the lock released
-
-If msglimit is lowered in that window, the peer can still send a full
-window of the old size. Those frames wait behind the deferred SYN|ACK.
-Every frame past the new msglimit + 1 is dropped here with
-SKB_DROP_REASON_SOCKET_BACKLOG and never resent, so stream data is lost
-without any error. The msg_recv > iucv->msglimit check in
-iucv_sock_recvmsg() would also use the lowered value.
-
-The notes below the --- line call this the one remaining gap, but the
-code still allows it. Could SO_MSGLIMIT be rejected once a HiperSockets
-SYN has gone out? Alternatively, could the advertised window be saved and
-used for this budget?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261011-b4-disp-410518f4-v1-1-753bf3258292%40proton.me
+> 
+> Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
+> ---
+>  drivers/gpu/drm/xe/abi/xe_sigid_abi.h | 16 ++++++++--------
+>  1 file changed, 8 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/abi/xe_sigid_abi.h b/drivers/gpu/drm/xe/abi/xe_sigid_abi.h
+> index 2f3440505f69..277b15fce9cc 100644
+> --- a/drivers/gpu/drm/xe/abi/xe_sigid_abi.h
+> +++ b/drivers/gpu/drm/xe/abi/xe_sigid_abi.h
+> @@ -10,14 +10,14 @@
+>   * DOC: Xe Error Signatures (SIGID)
+>   *
+>   * What SIGID stands for
+> - * ---------------------
+> + * =====================
+>   *
+>   * SIGID is short for *Signature Identifier*. It is a small, stable integer
+>   * that names one of the *recognised fault sites* -- nothing more. It is the
+>   * primary handle used for triage and maps directly to a specific report site.
+>   *
+>   * Numbering
+> - * ---------
+> + * =========
+>   *
+>   * SIGIDs are a single flat list numbered sequentially within the assigned range,
+>   * in the order the fault sites were introduced. Values are stable: once assigned
+> @@ -25,7 +25,7 @@
+>   * SIGID value is deprecated in place, never re-purposed.
+>   *
+>   * Why this exists
+> - * ---------------
+> + * ===============
+>   *
+>   * Today the driver reports faults with ad-hoc ``xe_err()`` / ``xe_gt_err()``
+>   * strings that have no stable shape. That is fine for a human reading dmesg,
+> @@ -37,7 +37,7 @@
+>   * firmware versions, and (eventually) across other Intel devices in a node.
+>   *
+>   * What a SIGID is not
+> - * -------------------
+> + * ===================
+>   *
+>   * SIGID deliberately does not encode the detailed reason or the outcome. Those
+>   * are carried alongside it::
+> @@ -51,7 +51,7 @@
+>   * different severities depending on the instance and the recovery taken.
+>   *
+>   * When to use SIGID logging
+> - * -------------------------
+> + * =========================
+>   *
+>   * The xe_log_*() helpers are for these recognised fault sites only --
+>   * important, operator-relevant faults and events. The driver's only job is to
+> @@ -63,7 +63,7 @@
+>   * those that correspond to a published fault site.
+>   *
+>   * SIGID log output (dmesg vs. the machine record)
+> - * -----------------------------------------------
+> + * ===============================================
+>   *
+>   * The dmesg line stays close to a normal xe error message so it remains
+>   * readable for admins; the only stable, machine-matchable token on it is
+> @@ -74,7 +74,7 @@
+>   * carrying the same SIGID (generation is a planned follow-up).
+>   *
+>   * How to pick a SIGID (the uniqueness rule)
+> - * -----------------------------------------
+> + * =========================================
+>   *
+>   * Pick per *report site*, not per incident. Each site emits the single most
+>   * specific recognised SIGID *for that site* -- so the question is never
+> @@ -95,7 +95,7 @@
+>   * after making significant changes to the site that emits this SIGID.
+>   *
+>   * Scope: software vs hardware emitted signatures
+> - * ----------------------------------------------
+> + * ==============================================
+>   *
+>   * Some SIGID represents fault sites that the *driver itself* detects and
+>   * reports from the software POV: probe abort, wedged, survivability, driver-
+> -- 
+> 2.47.3
+> 
