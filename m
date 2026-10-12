@@ -1,95 +1,76 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B638847ACF8
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:06:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E41D48A2AF
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:06:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806796; cv=none; b=lcQ2PWv2Q9XJyxd78REEnidMEmO5hegP80i3LCqcQjyI9r+2BvGhuGWXKEIpL86oZhqC1+thoda0CMMlcGSUP7NxgVHkNngrZU97D/Dh/ILMVs304Ls3Lqv+Ay+ejWz6py2trmZF9x43BROE0dxcUfx7CAy52trhsimYoq+GRkY=
+	t=1791806808; cv=none; b=tzQLxIqcZNkuxd488SvdsrsGG/rwZCHyPSgMOKbrbb+sryV5PzenIwHddsZXJ4NJLYAiMBeagL9ELWyhoY5rkSumzMpwiQVQyTxh6Ye6E1WWbbT7TBWjXz2x/LrwDfYCiwsgByE9NYfjQHL+o7I8K665dxwDim5ZtlegTbHW7XY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806796; c=relaxed/simple;
-	bh=a3t9J4KhhuluYeHnkyUEnJaoH/t0rZuNGK4OciI2mfU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qL421Pax4ENdTiBbVCu6hKVBcfg2zV/VrZx+V2o0Q8uYmTG217SI1mPb+YPGURFhu7Zx6kSsZfXbWMPCaqVreqnyKUABMdlx1O29YRa/6VG7raUSfTH8LcEYWplqpcGFuzxcXuMRz6/PZubR954aXwW3y60swstttJaPA29xOuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qu7xCNQu; arc=none smtp.client-ip=209.85.216.47
+	s=arc-20240116; t=1791806808; c=relaxed/simple;
+	bh=8oH4TL7RAbryPBAVqMIJN9TJPC564BJuwxMAzKfRubo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mmj553QsoI032Wrocr6IglM43ObDkPJi/88u8WfzmsbOzihsMA+PQm7Q8HSPylUi8rhugP21Ie0wYqnO1o18JLbkFV8x/eGh7YpMJPUHdflEnQmlYhvPPOQBCYeGL4jCSURwjgzittffqhur1vS7joZfmlty5cKFh0Zn3z3vUCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IDaYsVY9; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qu7xCNQu"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ab41538192so1316724a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:06:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IDaYsVY9"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ab98332238so816732a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:06:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791806790; x=1792411590; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Hy+eARgrFpDT0ZhRfOHwtN1niTEnWD5P7Xvkvc+A7GA=;
-        b=qu7xCNQuZxg7HnZm7MZ5SyGTFeHWXbZUK2V+xehWTo6sw6xZwvT4nj9i8fu7GiDrFk
-         ISxM3ESThnlH4om3Y/kop1iZwqe5Lop+bnfNbOKyrdOa4j7qL3gIYRjnIE/ta5dwDISI
-         BNOYnPPBnXn3sQlD2w5Dza5Lvk8nld1T7UogXLvsUju48NhJLfqax6bwreWG9kTNvlTp
-         CQR3ltoD769f5ajYqnZ9eEgmFKNO1HL7Ljt8sqXuK7NDFTTS9DJozzMIscwFhEFl2lLg
-         Rgd4kxZLirAySfbL6dhVwoiy1T+NJ1o3RLxDqU725jEQDT8Lcepw0XygMB0ewdg20Iz1
-         h9TQ==
+        d=gmail.com; s=20251104; t=1791806802; x=1792411602; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DGD6iaaJXJ3iIdLAE1x/VkAzNUZDtkUZz0KaCdzwHZw=;
+        b=IDaYsVY9VJ8CUC/hjiZTf87bPbAxzYRT3GKQokIKJJ/MofHeeKIyP4R23h667WXhO6
+         gZyWDV1ddrGbyPFkQrGz+xWH2aWo+kcVCMgcgmpSk11kuWaWEK8295S0WG68Z/MUVGiM
+         VgFGmIVbcYYZULXgGemZY98QtDMk6EbFLwSBZTzuhd+DOyv0tDTfs7gNcJGClOFFIFy9
+         uJTqrW3Q+ajktHToQHreui4JQkKLT5tmIsiADmIOadLUIF7mRZXworQtj18oAurt3xh2
+         3OZhAt4PKdj75fvTZPIc2cQxRUf5BkDsDxyhKvnezjJdv7oR1Q4renjFDYrnFxayYOBe
+         6XtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791806790; x=1792411590;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hy+eARgrFpDT0ZhRfOHwtN1niTEnWD5P7Xvkvc+A7GA=;
-        b=LL7vuuOPmxj1N9l059SNHW5oHTavLjvutI7zdfHr1Nw2A9BgZppg+f29uz32rSfRTG
-         TmHUcHzS3njRF95B4aZa3N5dxgvbXPQWm31E4rj56pn10NhijvUj5Gs5G63OxxMXM7Bo
-         GFpNz3Hn+h2eU/BXvP47aXd+jYu4l5J1hynx6K2CTtuWl2Csys+Pc5Fn6pfD62loCy5r
-         j9LN+sSin6wbV0meeK7nvH/0H4gS1xQ5deIupQGpVHdlejmOe08NLOxpFRoBRpxChR52
-         DEiCLf3pd7WJlVxKz//QvpQH6o1E64bomABU6oGod50YJdPA4LOGgV4bT8+BhhtEQ+6K
-         3gYg==
-X-Forwarded-Encrypted: i=1; AKwUvBxNMsd1TgU78XKlfvxk0KUf+GfGwwjswFi8KGFs3VzPLT67lGq8zM07OaBfBcuejTPa/sE4ey6V64jnCcQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPs8yQD5YRNscCPn5BrSbbq8nQ2T6de5B9V1Kr9dIJ1NmVwqf5
-	wzu8HvFIlcqmx698GpjZm1BaY0MY0/zaen1/lARVkWOG7WRU0Oj7G9Ef
-X-Gm-Gg: AYBFou3VMPgYQ5X8NoRXadnsbJSabUAF7jA7/rBuOds0lxzGr3qgHjI6OrbHyT+nLtD
-	1OAdjthFkt4AWuIfDQKqybXLrCXpLItWutw0fyhxwo+euDE31XKk/Fk0WdcDSLjYqqUrI5N01uY
-	1HZP7godPuPIDdaATvzu524zK9LRHCq0aOmywODCufonhDB0PRgM9M4u0UKEOQ+XHAAwTnzWdvE
-	xQ4tYjG5TFGS9DQRuk53Ks7BKUu9VxLeMIEUaKulZuyxQB88hpUkBDLbORx6XKlCzAHVqkodEY4
-	cANiV4FAXiTRF7D3Ig4+ww0vddaYsxJDISfhhEiOl6dRNF/B1Bq4PdQ4/nPVuFHX5FUpYaYQn5Q
-	9TMpNWQz7kdqpZ/6fVDqLGO3TyOX12SIccSTlCDXgKF9F7obLmpg8RDOc5wt4nrcFkuiwQ8p/KT
-	zBxVpg0pRXa2T7+YOzvABnw2WwpOa+mAOF3VtBA+uXZy/LqmAP6EEXlCMy5GFsddgVum9n4+qTx
-	aBFIIyt0MFA+BBRjvnStpJ0nJaeTjgQ6I428rm0MG6o90bbktfounui
-X-Received: by 2002:a17:90b:5444:b0:3a7:9ad9:68e1 with SMTP id 98e67ed59e1d1-3ab3a735fddmr8030646a91.13.1791806789634;
-        Mon, 12 Oct 2026 05:06:29 -0700 (PDT)
-Received: from yafangs-Air ([101.82.170.24])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab371c32cesm15722454a91.16.2026.10.12.05.06.18
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 12 Oct 2026 05:06:29 -0700 (PDT)
-From: Yafang Shao <laoar.shao@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	gourry@gourry.net,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shakeel.butt@linux.dev,
-	roman.gushchin@linux.dev,
-	yu.c.chen@intel.com,
-	zhao1.liu@intel.com
-Cc: bpf@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1791806802; x=1792411602;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DGD6iaaJXJ3iIdLAE1x/VkAzNUZDtkUZz0KaCdzwHZw=;
+        b=qZ/NLJf3Lk8rl1azKWQfrlQPc9GWDQZsfgF1h8U51aH3IUnzpo7GzhLbP172FgNPhW
+         3XHSurbst/ixyuTOzX1FmuCPzvZPp5xfndGNosFsBZ66bLdVzW0tDlhmIQc3IPW5nAoB
+         4bfxWzI/8oKxYS+s+RuNQd6Z2nessS2C7HcORdoYoYgwfT2gGm/55B1xkoM1h0VlMCEK
+         5DzwV3AWxJ+95s2+79dQu3GFSub8tbXokNy21HnmHaILlW+f/yf3bydWt254m/PhXPAy
+         2Vjl6M04fZRuO+O+Xa1eqq53lx/PeYbv/sNSmZ6yLfdPRQu9aaNcK5Fm0nxk8sRthhqU
+         mgnA==
+X-Forwarded-Encrypted: i=1; AKwUvBzlpxvbA2DlrOVvvzbSBr9V8d/hz1zQ+o/wBELkcHqXtPgyq0H9cHLdZDvhakuIxp6ht1b4KZzJg6v8fbI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3SahpVtmYzMMUv7Z2UdAwFf9sLE6DB4CVHlmWwG6hEy9pjyZC
+	byYDgW7pe8gRF6a4FZ5zHaSEtdNTZXRd9p7SHGtm/Ef4MowAQoWjIqaA
+X-Gm-Gg: AYBFou1LKR0jJb9/ZDd/iuvDXM9tzas2HkxiYgBKgQ+EKA6DdAffmFa5a8C6YF5QYEb
+	jqa/95G64Iz3MJJl8y+nj2eHJ2ZmrvOWcXNFJugmxcbsHGOG75Ifi58Umfrtex/50OFhLJPw/ng
+	AweMlA6ZBwVRJYpciuS3y5bzug/xfI2ABE/v0tJV/68gJ/6QV0rawt4ceOAHAk7ewVT/UvNwmk/
+	NACoT/biX7wo/u6bCWxIQSwSYqyTTBgm10dRwrOzh3cirNIvlDsFSMJ7nJtS+KxM9EGSw7t11Jp
+	SKKMhA5EPnqew7ZJcH5+v8qzo7fx9JZ/Y973Ewli0mNjGwiz7/QRN2G9jRfCJMU7DWPqwNC4EPb
+	qgZLDU2SXCAG3D01JW6zWZ4TQOXYOHWMPcZDZChNSO2RijPD2h7rQkrmDwKCk5vAmvrmRZninIj
+	V4CxhHpeig1b5ovNrpxDWjY/AbN/RSyesLEH3x3Ex8q/ZJcbltfjeUpdaeMG3oHocqYG2vAA==
+X-Received: by 2002:a17:90b:1dd1:b0:3a6:fec5:c179 with SMTP id 98e67ed59e1d1-3ab3ad2b1b8mr7980498a91.41.1791806802412;
+        Mon, 12 Oct 2026 05:06:42 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac1:7aa0:50::3cf:23])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3abdd5d09aesm6160087a91.7.2026.10.12.05.06.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 05:06:41 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: axboe@kernel.dk,
+	willy@infradead.org,
+	jack@suse.cz,
+	akpm@linux-foundation.org
+Cc: linux-block@vger.kernel.org,
 	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yafang Shao <laoar.shao@gmail.com>
-Subject: [RFC PATCH v2 3/3] selftests/bpf: add tests for the bpf_numab_ops struct_ops
-Date: Mon, 12 Oct 2026 20:04:38 +0800
-Message-ID: <20261012120438.52849-4-laoar.shao@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261012120438.52849-1-laoar.shao@gmail.com>
-References: <20261012120438.52849-1-laoar.shao@gmail.com>
+	syzbot+e0624b5bf72b99131402@syzkaller.appspotmail.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH v2] mm/filemap: annotate lockless reads of mapping->nrpages
+Date: Mon, 12 Oct 2026 19:06:36 +0700
+Message-ID: <20261012120636.16106-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,341 +79,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Five cases:
-- attach/detach with counter proof
-- hierarchy aggregation
-- multi-policy combination
-- inheritance
-- a surface-dispatching policy
+mapping->nrpages is updated under the i_pages lock but is read locklessly
+as a cheap "anything cached?" hint, e.g. in invalidate_bdev() and
+mapping_needs_writeback(). KCSAN reports the race:
 
-Assisted-by: LLM
-Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
+  BUG: KCSAN: data-race in __filemap_add_folio / invalidate_bdev
+
+  read-write to 0xffff8881004c4178 of 8 bytes by task 3600 on cpu 0:
+   __filemap_add_folio+0x6b7/0x910 mm/filemap.c:919
+   filemap_add_folio+0x1cd/0x380
+   page_cache_ra_unbounded+0x1a4/0x3a0
+   ...
+   blkdev_read_iter+0x21e/0x2d0
+  read to 0xffff8881004c4178 of 8 bytes by task 3601 on cpu 1:
+   invalidate_bdev+0x25/0x70 block/bdev.c:98
+   ext4_fill_super+0x2ccb/0x37b0
+
+The same counter also races with filemap_write_and_wait_range() through
+mapping_needs_writeback().
+
+The race is benign: a stale value only makes the caller do or skip a
+harmless invalidate/flush pass. Mark the two lockless readers with
+data_race().
+
+Reported-by: syzbot+e0624b5bf72b99131402@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e0624b5bf72b99131402
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
- .../selftests/bpf/prog_tests/bpf_numab_ops.c  | 250 ++++++++++++++++++
- .../selftests/bpf/progs/bpf_numab_ops.c       |  57 ++++
- 2 files changed, 307 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/bpf_numab_ops.c
- create mode 100644 tools/testing/selftests/bpf/progs/bpf_numab_ops.c
+v2: Use data_race() on the two readers instead of READ_ONCE()/WRITE_ONCE()
+    pairs, as suggested by Jan Kara. v1: https://lore.kernel.org/all/20261011112940.455497-1-ngocthang2710.1999@gmail.com/
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/bpf_numab_ops.c b/tools/testing/selftests/bpf/prog_tests/bpf_numab_ops.c
-new file mode 100644
-index 000000000000..3e5dac8e3131
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/bpf_numab_ops.c
-@@ -0,0 +1,250 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <test_progs.h>
-+#include <time.h>
-+#include "cgroup_helpers.h"
-+#include "bpf_numab_ops.skel.h"
-+
-+#define CGROUP_PATH	"/bpf_numab_ops"
-+#define CHILD_PATH	CGROUP_PATH "/child"
-+
-+/*
-+ * task_tick_fair() consults the per-cgroup NUMA balancing policy on every
-+ * tick of a running task, so a short busy loop is enough to prove that the
-+ * hook runs. This works regardless of the global numa_balancing sysctl
-+ * state and regardless of the machine's NUMA topology: both the enabled
-+ * and disabled code paths end up calling every attached policy.
-+ */
-+static void burn_cpu_ms(int ms)
-+{
-+	struct timespec now;
-+	u64 deadline;
-+
-+	clock_gettime(CLOCK_MONOTONIC, &now);
-+	deadline = now.tv_sec * 1000ULL + now.tv_nsec / 1000000ULL + ms;
-+
-+	do {
-+		clock_gettime(CLOCK_MONOTONIC, &now);
-+	} while (now.tv_sec * 1000ULL + now.tv_nsec / 1000000ULL < deadline);
-+}
-+
-+static void test_attach_detach(void)
-+{
-+	struct bpf_numab_ops *skel;
-+	struct bpf_link *link = NULL;
-+	int cgroup_fd, before;
-+
-+	cgroup_fd = test__join_cgroup(CGROUP_PATH);
-+	if (!ASSERT_GE(cgroup_fd, 0, "join_cgroup"))
-+		return;
-+
-+	skel = bpf_numab_ops__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		goto cleanup;
-+
-+	link = bpf_map__attach_cgroup_opts(skel->maps.numab_enable_ops,
-+					   cgroup_fd, NULL);
-+	if (!ASSERT_OK_PTR(link, "attach_enable_ops"))
-+		goto cleanup;
-+
-+	skel->bss->enable_cnt = 0;
-+	burn_cpu_ms(300);
-+	ASSERT_GT(skel->bss->enable_cnt, 0, "enable_cnt");
-+
-+	/*
-+	 * Detach and let a grace period pass so that no reader is still
-+	 * walking the old effective array, then verify the hook stopped
-+	 * running.
-+	 */
-+	before = skel->bss->enable_cnt;
-+	bpf_link__destroy(link);
-+	link = NULL;
-+	sleep(1);
-+	burn_cpu_ms(300);
-+	ASSERT_EQ(skel->bss->enable_cnt, before, "enable_cnt_after_detach");
-+
-+cleanup:
-+	bpf_link__destroy(link);
-+	bpf_numab_ops__destroy(skel);
-+	close(cgroup_fd);
-+}
-+
-+/*
-+ * Attach to the parent cgroup while the task lives in the child: the
-+ * child's effective array must aggregate the parent's policy.
-+ */
-+static void test_hierarchy(void)
-+{
-+	struct bpf_numab_ops *skel;
-+	struct bpf_link *plink = NULL;
-+	int parent_fd, child_fd = -1;
-+
-+	parent_fd = test__join_cgroup(CGROUP_PATH);
-+	if (!ASSERT_GE(parent_fd, 0, "join_parent_cgroup"))
-+		return;
-+
-+	child_fd = create_and_get_cgroup(CHILD_PATH);
-+	if (!ASSERT_GE(child_fd, 0, "create_child_cgroup"))
-+		goto cleanup;
-+
-+	if (!ASSERT_OK(join_cgroup(CHILD_PATH), "join_child_cgroup"))
-+		goto cleanup;
-+
-+	skel = bpf_numab_ops__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		goto cleanup;
-+
-+	plink = bpf_map__attach_cgroup_opts(skel->maps.numab_enable_ops,
-+					    parent_fd, NULL);
-+	if (!ASSERT_OK_PTR(plink, "attach_to_parent"))
-+		goto cleanup;
-+
-+	skel->bss->enable_cnt = 0;
-+	burn_cpu_ms(300);
-+	ASSERT_GT(skel->bss->enable_cnt, 0, "enable_cnt_from_parent_policy");
-+
-+cleanup:
-+	bpf_link__destroy(plink);
-+	bpf_numab_ops__destroy(skel);
-+	if (child_fd >= 0) {
-+		close(child_fd);
-+		join_cgroup(CGROUP_PATH);
-+		remove_cgroup(CHILD_PATH);
-+	}
-+	close(parent_fd);
-+}
-+
-+/*
-+ * Attach two policies to the same cgroup. Both must run: the kernel
-+ * combines what they return.
-+ */
-+static void test_multi(void)
-+{
-+	struct bpf_numab_ops *skel;
-+	struct bpf_link *link1 = NULL, *link2 = NULL;
-+	int cgroup_fd;
-+
-+	cgroup_fd = test__join_cgroup(CGROUP_PATH);
-+	if (!ASSERT_GE(cgroup_fd, 0, "join_cgroup"))
-+		return;
-+
-+	skel = bpf_numab_ops__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		goto cleanup;
-+
-+	link1 = bpf_map__attach_cgroup_opts(skel->maps.numab_enable_ops,
-+					    cgroup_fd, NULL);
-+	if (!ASSERT_OK_PTR(link1, "attach_enable_ops"))
-+		goto cleanup;
-+
-+	link2 = bpf_map__attach_cgroup_opts(skel->maps.numab_disable_ops,
-+					    cgroup_fd, NULL);
-+	if (!ASSERT_OK_PTR(link2, "attach_disable_ops"))
-+		goto cleanup;
-+
-+	skel->bss->enable_cnt = 0;
-+	skel->bss->disable_cnt = 0;
-+	burn_cpu_ms(300);
-+	ASSERT_GT(skel->bss->enable_cnt, 0, "enable_cnt");
-+	ASSERT_GT(skel->bss->disable_cnt, 0, "disable_cnt");
-+
-+cleanup:
-+	bpf_link__destroy(link2);
-+	bpf_link__destroy(link1);
-+	bpf_numab_ops__destroy(skel);
-+	close(cgroup_fd);
-+}
-+
-+/*
-+ * Attach to the parent first, then create and join the child cgroup. The
-+ * child must inherit the parent's effective array via cgroup_bpf_inherit().
-+ */
-+static void test_inherit(void)
-+{
-+	struct bpf_numab_ops *skel;
-+	struct bpf_link *plink = NULL;
-+	int parent_fd, child_fd = -1;
-+
-+	parent_fd = test__join_cgroup(CGROUP_PATH);
-+	if (!ASSERT_GE(parent_fd, 0, "join_parent_cgroup"))
-+		return;
-+
-+	skel = bpf_numab_ops__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		goto cleanup;
-+
-+	plink = bpf_map__attach_cgroup_opts(skel->maps.numab_enable_ops,
-+					    parent_fd, NULL);
-+	if (!ASSERT_OK_PTR(plink, "attach_to_parent"))
-+		goto cleanup;
-+
-+	child_fd = create_and_get_cgroup(CHILD_PATH);
-+	if (!ASSERT_GE(child_fd, 0, "create_child_cgroup"))
-+		goto cleanup;
-+
-+	if (!ASSERT_OK(join_cgroup(CHILD_PATH), "join_child_cgroup"))
-+		goto cleanup;
-+
-+	skel->bss->enable_cnt = 0;
-+	burn_cpu_ms(300);
-+	ASSERT_GT(skel->bss->enable_cnt, 0, "enable_cnt_inherited");
-+
-+cleanup:
-+	bpf_link__destroy(plink);
-+	bpf_numab_ops__destroy(skel);
-+	if (child_fd >= 0) {
-+		close(child_fd);
-+		join_cgroup(CGROUP_PATH);
-+		remove_cgroup(CHILD_PATH);
-+	}
-+	close(parent_fd);
-+}
-+
-+/*
-+ * A surface-dispatching policy must load, attach and run from the task
-+ * surface.  The folio surface runs from the scanner and fault paths,
-+ * which need a scan pass and foreign-node folios to consult, so folio_cnt
-+ * is left for debugging rather than asserted here.
-+ */
-+static void test_mixed(void)
-+{
-+	struct bpf_numab_ops *skel;
-+	struct bpf_link *link = NULL;
-+	int cgroup_fd;
-+
-+	cgroup_fd = test__join_cgroup(CGROUP_PATH);
-+	if (!ASSERT_GE(cgroup_fd, 0, "join_cgroup"))
-+		return;
-+
-+	skel = bpf_numab_ops__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		goto cleanup;
-+
-+	link = bpf_map__attach_cgroup_opts(skel->maps.numab_mixed_ops,
-+					   cgroup_fd, NULL);
-+	if (!ASSERT_OK_PTR(link, "attach_mixed_ops"))
-+		goto cleanup;
-+
-+	skel->bss->task_cnt = 0;
-+	burn_cpu_ms(300);
-+	ASSERT_GT(skel->bss->task_cnt, 0, "task_cnt");
-+
-+cleanup:
-+	bpf_link__destroy(link);
-+	bpf_numab_ops__destroy(skel);
-+	close(cgroup_fd);
-+}
-+
-+void serial_test_bpf_numab_ops(void)
-+{
-+	if (test__start_subtest("attach_detach"))
-+		test_attach_detach();
-+	if (test__start_subtest("hierarchy"))
-+		test_hierarchy();
-+	if (test__start_subtest("multi"))
-+		test_multi();
-+	if (test__start_subtest("mixed"))
-+		test_mixed();
-+	if (test__start_subtest("inherit"))
-+		test_inherit();
-+}
-diff --git a/tools/testing/selftests/bpf/progs/bpf_numab_ops.c b/tools/testing/selftests/bpf/progs/bpf_numab_ops.c
-new file mode 100644
-index 000000000000..c9abff2cd694
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/bpf_numab_ops.c
-@@ -0,0 +1,57 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include "vmlinux.h"
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+
-+/* Counters, bumped from the NUMA balancing hot paths. */
-+int enable_cnt;
-+int disable_cnt;
-+int task_cnt;
-+int folio_cnt;
-+
-+SEC("struct_ops")
-+u32 BPF_PROG(numab_mode_enable, struct task_struct *p, struct folio *folio)
-+{
-+	__sync_fetch_and_add(&enable_cnt, 1);
-+	return BPF_NUMAB_NORMAL;
-+}
-+
-+SEC(".struct_ops.link")
-+struct bpf_numab_ops numab_enable_ops = {
-+	.numab_mode = (void *)numab_mode_enable,
-+};
-+
-+SEC("struct_ops")
-+u32 BPF_PROG(numab_mode_disable, struct task_struct *p, struct folio *folio)
-+{
-+	__sync_fetch_and_add(&disable_cnt, 1);
-+	return BPF_NUMAB_DISABLED;
-+}
-+
-+SEC(".struct_ops.link")
-+struct bpf_numab_ops numab_disable_ops = {
-+	.numab_mode = (void *)numab_mode_disable,
-+};
-+
-+/*
-+ * A surface-dispatching policy: exactly one of @p and @folio is set, so
-+ * the prog answers the task surface and the memory surface separately.
-+ */
-+SEC("struct_ops")
-+u32 BPF_PROG(numab_mode_mixed, struct task_struct *p, struct folio *folio)
-+{
-+	if (p) {
-+		__sync_fetch_and_add(&task_cnt, 1);
-+		return BPF_NUMAB_NORMAL;
-+	}
-+	__sync_fetch_and_add(&folio_cnt, 1);
-+	return BPF_NUMAB_TIERING;
-+}
-+
-+SEC(".struct_ops.link")
-+struct bpf_numab_ops numab_mixed_ops = {
-+	.numab_mode = (void *)numab_mode_mixed,
-+};
-+
-+char _license[] SEC("license") = "GPL";
+ block/bdev.c | 3 ++-
+ mm/filemap.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/block/bdev.c b/block/bdev.c
+index cd8323083740..233750f87e6d 100644
+--- a/block/bdev.c
++++ b/block/bdev.c
+@@ -95,7 +95,8 @@ void invalidate_bdev(struct block_device *bdev)
+ {
+ 	struct address_space *mapping = bdev->bd_mapping;
+ 
+-	if (mapping->nrpages) {
++	/* Lockless hint; a stale value only costs or skips a harmless pass */
++	if (data_race(mapping->nrpages)) {
+ 		invalidate_bh_lrus();
+ 		lru_add_drain_all();	/* make sure all lru add caches are flushed */
+ 		invalidate_mapping_pages(mapping, 0, -1);
+diff --git a/mm/filemap.c b/mm/filemap.c
+index 00fd89cf6f55..4c9d98efb7fb 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -631,7 +631,8 @@ EXPORT_SYMBOL(filemap_fdatawait_keep_errors);
+ /* Returns true if writeback might be needed or already in progress. */
+ static bool mapping_needs_writeback(struct address_space *mapping)
+ {
+-	return mapping->nrpages;
++	/* Lockless hint; a stale value is harmless */
++	return data_race(mapping->nrpages);
+ }
+ 
+ bool filemap_range_has_writeback(struct address_space *mapping,
 -- 
-2.52.0
+2.43.0
 
