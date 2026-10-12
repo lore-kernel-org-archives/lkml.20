@@ -1,546 +1,270 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1CA4B8262;
-	Mon, 12 Oct 2026 17:41:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36BB14BF92A
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:42:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791826871; cv=none; b=h+iSzQKBLbsjK98dDWCrx4uitErXGSH7KPWpzwXaOJwad6u2zFfypwp9dbF5kNuVKU555/idAOxUwWkO1dhUNLg7tKSbDmhoneGWw8AuSHfRsb1bufADyJoNwmxEf2lCnMBoGSlXnzEUXzzlU1MKc6yUWqDNPyoius/ta3lHWz8=
+	t=1791826931; cv=none; b=egaB9AzC376zUk2EiD6s/ntfQnmt7S/26xME0wLCEG7V7tHLHvzJHx0uGVHADtdFvVEi8a64pAPO5c9LHrXq6IZ+ULD+nGhSAWMcJx111AswA+M2R3RYGuNTLZhEYMa7JI9EtcpDG64z13wILIG7AYAKexYXo1te8lA7DU27Fmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791826871; c=relaxed/simple;
-	bh=VKXUlOxOu608S094FOJXDT1LqtRM2ShgCtmkrCFolrM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JQlcH/iqithPWx/uBU2lItjQ9lBqfT5IVLM6C8Du/kbbplJ+PnFtMVigZuByk0N2hLJ2w00YiExCuRUQ9S1z2hHmT+DcEM+CbmFV+24WsdSOo5+oj7CDjPfTJ2IQY2PEigWQhYMh4MULxrEwddD7+W86vqEUU9jJ5SrB4rybqjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=sqRLGpJD; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791826931; c=relaxed/simple;
+	bh=kDfoMWmAYHZy2nSafS6SQrl9vzfIoQ8TNQJ3qLvqrLw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Q98KoNE/sKnh2I+usHC9McLMneXn7VgMudzoI0zj60lCutHsP8VBPA/VLTSLvaBBWrFK50addXc5MrF7/SuV1oVbjiJNnHK9NgbCUxbPtA+m3Wrf/7PPXPHpHaunF/wT9PyFfc7dFaOaJ3ejWLYXCBDRu5tZHzoM1JKimrBPQGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G6hv0RjO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="sqRLGpJD"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CFiUrQ664649;
-	Mon, 12 Oct 2026 17:41:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=09s+Mx
-	XtIoHjt1pZrBnTtti9mB+xNPpfbcSxwta6P5Y=; b=sqRLGpJDQb4Brr0Y4LqIQM
-	jNPosbJgo2d+pQD1jxp6qXj02HlE6BLXvwSaBckMxDiBimOTAvrbmUUCxzB7G1AY
-	W/YOj2R0nXkxohryOybbU/sYjGBaQSZnWjMMZZK8R0TYC/zqdB6tKv2/D8bb7gzu
-	OazsGzOHqju3WI+L7YAV67soBBm6VTWvzYvNpi4O6WJU4DLmdmWUlzHTn6vPts3O
-	7vs9K0igLitTXg5VI3zg8wicehug1MfxW58NtO7J1Wuiic5RlVo5n2u9dFCLzyrb
-	tVSogulYkJeJH+xw7zQm0y1SH/4Ny317XJn3cnkg5G0B3uyhZzstAxUINAu0acfw
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1w1tfh-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 17:41:06 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CG4urp1564911;
-	Mon, 12 Oct 2026 17:41:06 GMT
-Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h802vpc5u-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 17:41:06 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
-	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CHeJm825625224
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 17:40:19 GMT
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F0A0958052;
-	Mon, 12 Oct 2026 17:41:04 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C496758056;
-	Mon, 12 Oct 2026 17:41:03 +0000 (GMT)
-Received: from [9.61.249.103] (unknown [9.61.249.103])
-	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTPS;
-	Mon, 12 Oct 2026 17:41:03 +0000 (GMT)
-Message-ID: <4d6b3e6c-c1af-4a1f-9a8b-4266f386a299@linux.ibm.com>
-Date: Mon, 12 Oct 2026 13:41:03 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G6hv0RjO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C70F51F0089B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:42:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791826929;
+	bh=1W+0UCXLuughcp6e8ltm0COK4feqcaALMQ+e08Exoh4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=G6hv0RjOnlllaDTR7PVKH4uK2OqND+01PupYnue9erwhxlvENu1TxAsvzDEgpaAcl
+	 FJ3nv4Op2vYXRheDJyhyUgHn0DjTYJW+jnVUGQyVkLMZA85UkRe4Q8kA83iO2EEQQQ
+	 XPB154WJRbyo6GIWjgR5JnojBfhtsvbu3iQqHOIsFHl3GdKQWfNCzMkCPl1FgbHsUe
+	 I40wpId/dPWAOfGlQaqbR3PEQ2XAmw5J0irzOZLURr2xT2JGyN4pJ50rc4kHYveoeU
+	 Mzoi6KJpZcxW/g41JyLoRP9Yo0goT3anKZLazB/6/Cj+idCZT8waklOkZcJFHjquQY
+	 LCioaQSXF597w==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so1523537e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:42:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBztbKRYehy5o/tSgPAuQ7VeUN+Px1jiZ5adqeD8Ew2DJGsCGt248CcQXFi3/ekPE/MK0GPdX5HD5vXl1eE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYID7SbamdFZ0Nywy5y9c5lblLACvxye8VBo/Y5JPqQ7p0HAIgfG
+	G/l1LuN5FsnQLn2pOqB1s+Q6RhtgFT16hxZGYxtPtVLcr7ozmUOzpBaxl03aUdy3Eq2ZhzGVEXJ
+	fqfVxTeX8afbsSx+74JmEw2435mFe8K0=
+X-Received: by 2002:a05:6512:3053:b0:5bc:d9d6:6aa8 with SMTP id
+ 2adb3069b0e04-5bcde6bd2d9mr3548313e87.23.1791826928190; Mon, 12 Oct 2026
+ 10:42:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 2/4] s390/pci: Reuse FMB buffer and preserve state in
- device re-enablement
-To: Gerd Bayer <gbayer@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
-Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
-        borntraeger@linux.ibm.com, svens@linux.ibm.com, schnelle@linux.ibm.com,
-        mjrosato@linux.ibm.com, alifm@linux.ibm.com, farman@linux.ibm.com,
-        pasic@linux.ibm.com, alex@shazbot.org, frankja@linux.ibm.com,
-        imbrenda@linux.ibm.com
-References: <20261007135926.82935-1-oelghoul@linux.ibm.com>
- <20261007135926.82935-3-oelghoul@linux.ibm.com>
- <722e46379f3e7825ac1d40805ae67d236fcc6867.camel@linux.ibm.com>
-Content-Language: en-US
-From: Omar Elghoul <oelghoul@linux.ibm.com>
-In-Reply-To: <722e46379f3e7825ac1d40805ae67d236fcc6867.camel@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2OCBTYWx0ZWRfX8/epJLFADu+5
- DIbsigP65oXrvb0XHSUsNAP+r11lc15h0vcpK64cTXr6t+Nx6SVrZYc/tzgNQ6ayaxmMHHbV894
- Prc4wYeiQNiyRTN4y8LFAt+Bb5o/JZk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2OCBTYWx0ZWRfX/hKTdQ5irUQ3
- k3kSpE1AaadlY609Ia9Iximfvd9gtm17Dc+nptPp5bQ3Vct2Q1qomZc7doXCtGYtmgkdXde6And
- GEf+41R8CQFb7MMoQmyEUllFA+PhY5B9gJHIOPZiIfMOv9AEt+xSRDtp7zXr5pv1sSumBA5uGLt
- qtbWBihezc9IiHdAhSwxmuB7WBh/ky2xb4uapu4W3Q5D1UixT/tAsriGNogbTQNR2Ef+uepu0Wq
- bUIGWDiE1o2JKKi7SGNZ+Jqy/a8NMmGoxuyWk0XoGnHfcC8fWtVeoxNIIWFPgdgayAfnoPbHNZW
- ZmcrAphWkX/daTkTFltRzh8ae0lGHsCvle3IndQcPL04v1tRSJKlj04iXHS26OZNdgdNhfEVcvE
- 8kqUgxgbBI8xIqoUjNZPACnA/O7Cn8+yHZLZ9zIb8Ml0bqlrK5KpbGSR8PsgRgk0tL47mpOXRyP
- xljHPd0Mmc5ucvlPpUA==
-X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6acd1bb3 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
- a=mWVGzeLskVhEkvpM98QA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: yp8yh1qBA6mx6VlJ2MQh5RPWVSGnquna
-X-Proofpoint-GUID: yp8yh1qBA6mx6VlJ2MQh5RPWVSGnquna
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_05,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
- spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120068
+References: <20261002080703.77402-1-luriwen@kylinos.cn>
+In-Reply-To: <20261002080703.77402-1-luriwen@kylinos.cn>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 12 Oct 2026 19:40:04 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0iwMvhT+O5ynqrV_X+FVLAa2fQw61zoM0t=aKMmtcPCFQ@mail.gmail.com>
+X-Gm-Features: AclHuK-K4CqwtVQ7g1Lp4Kukd8lnoHpe1WAuzaA1j06xjbQ4nK2RGuKK-l7OXwU
+Message-ID: <CAJZ5v0iwMvhT+O5ynqrV_X+FVLAa2fQw61zoM0t=aKMmtcPCFQ@mail.gmail.com>
+Subject: Re: [PATCH v6] ACPI: PM: Make s2idle available on all ACPI platforms
+ with suspend support
+To: Riwen Lu <luriwen@kylinos.cn>
+Cc: rafael@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/12/26 5:22 AM, Gerd Bayer wrote:
-> On Wed, 2026-10-07 at 09:59 -0400, Omar Elghoul wrote:
->> Don't free the FMB buffer when disabling measurement in
->> zpci_fmb_disable_device(). Instead, make the buffer persistent for the
->> lifetime of the device and reuse it across enable/disable cycles. Defer
->> freeing the buffer until teardown in zpci_release_device().
-> 
-> I lost track if this was discussed before: Would it make sense to break
-> this out into a separate patch, so that memory allocation/life-time
-> questions are decoupled from function-measurement preservation?
-
-I think we did discuss that before and I expressed a preference for
-leaving them in together, but since this patch seems to be growing I
-guess splitting it would make review easier.
-
-> 
->> Introduce the bool fmb_requested to struct zpci_dev to track whether FMB
->> enablement has been requested. This decouples tracking the enablement
->> from whether the buffer had been previously allocated, allowing us to
->> account for implicit disablement by firmware in zpci_disable_device().
->> Audit the only consumer of zdev->fmb and update its liveness check to
->> reflect this change.
->>
->> Separate the buffer allocation and measurement enablement step into the
->> new function zpci_fmb_reenable_device(), which allocates the FMB buffer
->> on first use, zeroes it on reuse, resets the software IOMMU counters,
->> and enables measurement. Make zpci_fmb_enable_device() delegate to this
->> function, and call the latter from zpci_reenable_device() when
->> fmb_requested is true.
->>
->> Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
->> ---
->>   arch/s390/include/asm/pci.h |   2 +
->>   arch/s390/pci/pci.c         | 106 +++++++++++++++++++++++-------------
->>   arch/s390/pci/pci_debug.c   |   2 +-
->>   3 files changed, 70 insertions(+), 40 deletions(-)
->>
->> diff --git a/arch/s390/include/asm/pci.h b/arch/s390/include/asm/pci.h
->> index 88a125b92bdd..77c8c49ba6c8 100644
->> --- a/arch/s390/include/asm/pci.h
->> +++ b/arch/s390/include/asm/pci.h
->> @@ -208,6 +208,7 @@ struct zpci_dev {
->>   	struct zpci_fmb *fmb;
->>   	u16		fmb_update;	/* update interval */
->>   	u16		fmb_length;
->> +	bool		fmb_requested;	/* desired FMB enablement state */
-> 
-> How about calling this "statistics_on" - derived from the sysfs
-> attribute, to decouple this "user intent" even more from the actual ISA
-> level enablement?
-
-Sure.
-
-> 
->>   
->>   	u8		version;
->>   	enum pci_bus_speed max_bus_speed;
->> @@ -351,6 +352,7 @@ void zpci_remove_parent_msi_domain(struct zpci_bus *zbus);
->>   /* FMB */
->>   int zpci_fmb_enable_device(struct zpci_dev *);
->>   int zpci_fmb_disable_device(struct zpci_dev *);
->> +int zpci_fmb_reenable_device(struct zpci_dev *zdev);
->>   
->>   /* Debug */
->>   int zpci_debug_init(void);
->> diff --git a/arch/s390/pci/pci.c b/arch/s390/pci/pci.c
->> index c055a9ad0972..bda91d79bafd 100644
->> --- a/arch/s390/pci/pci.c
->> +++ b/arch/s390/pci/pci.c
->> @@ -167,43 +167,13 @@ int zpci_unregister_ioat(struct zpci_dev *zdev, u8 dmaas)
->>   /* Modify PCI: Set PCI function measurement parameters */
->>   int zpci_fmb_enable_device(struct zpci_dev *zdev)
->>   {
->> -	u64 req = ZPCI_CREATE_REQ(zdev->fh, 0, ZPCI_MOD_FC_SET_MEASURE);
->> -	struct zpci_iommu_ctrs *ctrs;
->> -	struct zpci_fib fib = {0};
->> -	unsigned long flags;
->> -	u8 cc, status;
->> -
->>   	lockdep_assert_held(&zdev->fmb_lock);
->>   
->> -	if (zdev->fmb || sizeof(*zdev->fmb) < zdev->fmb_length)
->> +	if (zdev->fmb_requested || sizeof(*zdev->fmb) < zdev->fmb_length)
->>   		return -EINVAL;
->>   
->> -	zdev->fmb = kmem_cache_zalloc(zdev_fmb_cache, GFP_KERNEL);
->> -	if (!zdev->fmb)
->> -		return -ENOMEM;
->> -	WARN_ON((u64) zdev->fmb & 0xf);
->> -
->> -	/* reset software counters */
->> -	spin_lock_irqsave(&zdev->dom_lock, flags);
->> -	ctrs = zpci_get_iommu_ctrs(zdev);
->> -	if (ctrs) {
->> -		atomic64_set(&ctrs->mapped_pages, 0);
->> -		atomic64_set(&ctrs->unmapped_pages, 0);
->> -		atomic64_set(&ctrs->global_rpcits, 0);
->> -		atomic64_set(&ctrs->sync_map_rpcits, 0);
->> -		atomic64_set(&ctrs->sync_rpcits, 0);
->> -	}
->> -	spin_unlock_irqrestore(&zdev->dom_lock, flags);
->> -
->> -
->> -	fib.fmb_addr = virt_to_phys(zdev->fmb);
->> -	fib.gd = zdev->gisa;
->> -	cc = zpci_mod_fc(req, &fib, &status);
->> -	if (cc) {
->> -		kmem_cache_free(zdev_fmb_cache, zdev->fmb);
->> -		zdev->fmb = NULL;
->> -	}
->> -	return cc ? -EIO : 0;
->> +	zdev->fmb_requested = true;
->> +	return zpci_fmb_reenable_device(zdev);
-> 
-> I'm not quite happy with "reenable" now becoming the "work horse" for
-> enabling function measurement at the pci device. I append a suggested
-> change at the end (since it's lengthy). My train of thought was:
-> Introduce symmetric zpci_fmb_req_{dis|en}able_device() that toggle the
-> "statistics_on" boolean, then call zpci_fmb_{dis|en}able_device() that
-> does the actual zpci_mod_fc(). This allowed zpci_reenable_device() to
-> call zpci_fmb_enable_device() if case of "statics_on", while the writes
-> into sysfs would call zpci_fmb_req_{dis|en}able_device().
-> 
-> And another after-thought, since the whole _device postfix on these
-> function names seems redundant, how about the following names:
-> 
-> zpci_request_fm_on()
-> zpci_request_fm_off()
-> zpci_enable_fm()
-> zpci_disable_fm()
-
-That's fine by me. It makes sense and as an added bonus, it makes it
-easier to fix the issue you report where the state isn't correctly
-preserved after zpcictl reset (please see below.)
-
-> 
-> 
->>   }
->>   
->>   /* Modify PCI: Disable PCI function measurement */
->> @@ -215,22 +185,68 @@ int zpci_fmb_disable_device(struct zpci_dev *zdev)
->>   
->>   	lockdep_assert_held(&zdev->fmb_lock);
->>   
->> -	if (!zdev->fmb)
->> +	if (!zdev->fmb_requested)
->>   		return -EINVAL;
->>   
->> +	zdev->fmb_requested = false;
->>   	fib.gd = zdev->gisa;
->>   
->>   	/* Function measurement is disabled if fmb address is zero */
->>   	cc = zpci_mod_fc(req, &fib, &status);
->>   	if (cc == 3) /* Function already gone. */
->>   		cc = 0;
->> +	if (cc)
->> +		return -EIO;
->>   
->> -	if (!cc) {
->> -		kmem_cache_free(zdev_fmb_cache, zdev->fmb);
->> -		zdev->fmb = NULL;
->> +	return 0;
->> +}
->> +EXPORT_SYMBOL_GPL(zpci_fmb_disable_device);
->> +
->> +/* Re-enable PCI function measurement: clear the software IOMMU counters
->> + * and (re-)enable the FMB. This function is used to restore the desired
->> + * FMB enablement state when measurement may be implicitly disabled by
->> + * firmware (i.e., via CLP in zpci_disable_device())
->> + */
->> +int zpci_fmb_reenable_device(struct zpci_dev *zdev)
->> +{
->> +	u64 req = ZPCI_CREATE_REQ(zdev->fh, 0, ZPCI_MOD_FC_SET_MEASURE);
->> +	struct zpci_iommu_ctrs *ctrs;
->> +	struct zpci_fib fib = {0};
->> +	unsigned long flags;
->> +	u8 cc, status;
->> +
->> +	lockdep_assert_held(&zdev->fmb_lock);
->> +
->> +	if (!zdev->fmb) {
->> +		zdev->fmb = kmem_cache_zalloc(zdev_fmb_cache, GFP_KERNEL);
->> +		if (!zdev->fmb)
->> +			return -ENOMEM;
->> +	} else {
->> +		/* reuse the same FMB buffer for as long the zdev lives */
->> +		memset(zdev->fmb, 0, sizeof(*zdev->fmb));
->>   	}
->> -	return cc ? -EIO : 0;
->> +
->> +	/* reset software counters */
->> +	spin_lock_irqsave(&zdev->dom_lock, flags);
->> +	ctrs = zpci_get_iommu_ctrs(zdev);
->> +	if (ctrs) {
->> +		atomic64_set(&ctrs->mapped_pages, 0);
->> +		atomic64_set(&ctrs->unmapped_pages, 0);
->> +		atomic64_set(&ctrs->global_rpcits, 0);
->> +		atomic64_set(&ctrs->sync_map_rpcits, 0);
->> +		atomic64_set(&ctrs->sync_rpcits, 0);
->> +	}
->> +	spin_unlock_irqrestore(&zdev->dom_lock, flags);
-> 
-> I know this is pre-existing, but how about breaking out the buffer and
-> counter preparation/clearing into a helper function?
-
-I believe it has been done in a previous version of this series at which
-point we had two callers for it. Since we don't have another caller now
-I didn't think of splitting it up.
-
-> 
->> +
->> +	fib.fmb_addr = virt_to_phys(zdev->fmb);
->> +	fib.gd = zdev->gisa;
->> +	cc = zpci_mod_fc(req, &fib, &status);
->> +	if (cc)
->> +		return -EIO;
->> +
->> +	return 0;
->>   }
->> +EXPORT_SYMBOL_GPL(zpci_fmb_reenable_device);
->>   
->>   static int zpci_cfg_load(struct zpci_dev *zdev, int offset, u32 *val, u8 len)
->>   {
->> @@ -737,8 +753,14 @@ int zpci_reenable_device(struct zpci_dev *zdev)
->>   	}
->>   
->>   	rc = zpci_iommu_register_ioat(zdev, &status);
->> -	if (rc)
->> +	if (rc) {
->>   		zpci_disable_device(zdev);
->> +		return rc;
->> +	}
->> +
->> +	guard(mutex)(&zdev->fmb_lock);
->> +	if (zdev->fmb_requested)
->> +		zpci_fmb_reenable_device(zdev);
->>   
->>   	return rc;
->>   }
->> @@ -1003,6 +1025,12 @@ void zpci_release_device(struct kref *kref)
->>   	if (zdev->has_resources)
->>   		zpci_cleanup_bus_resources(zdev);
->>   
->> +	if (zdev->fmb) {
->> +		zdev->fmb_requested = false;
->> +		kmem_cache_free(zdev_fmb_cache, zdev->fmb);
->> +		zdev->fmb = NULL;
->> +	}
->> +
->>   	zpci_bus_device_unregister(zdev);
->>   	zpci_destroy_iommu(zdev);
->>   	zpci_dbg(3, "rem fid:%x\n", zdev->fid);
->> diff --git a/arch/s390/pci/pci_debug.c b/arch/s390/pci/pci_debug.c
->> index c7ed7bf254b5..9a960310d4dd 100644
->> --- a/arch/s390/pci/pci_debug.c
->> +++ b/arch/s390/pci/pci_debug.c
->> @@ -97,7 +97,7 @@ static int pci_perf_show(struct seq_file *m, void *v)
->>   		return 0;
->>   
->>   	mutex_lock(&zdev->fmb_lock);
->> -	if (!zdev->fmb) {
->> +	if (!zdev->fmb_requested) {
->>   		mutex_unlock(&zdev->fmb_lock);
->>   		seq_puts(m, "FMB statistics disabled\n");
->>   		return 0;
-> 
-> Oh, and while playing around with this patch (with and without my
-> additional modifications), I realized that statistics/function
-> measurement gets re-enabled when I run `zpcictl --reset-fw <bdf>` to a
-> function - despite it being switched off before the reset.
-
-Great catch -- the FMB re-enablement in zpci_reenable_device() was just
-one of the two places that needed it, I missed to add it in
-pcibios_enable_device() instead of the existing unconditional enable. I
-will fix this in the next version.
-
-re: splitting up the functions into a pair of request functions and a
-pair that actually do the MPCIFC: it will make resolving this issue more
-straightforward, because preserving the state in pcibios_enable_device()
-will require us to disable FMB without clearing its flag in
-pcibios_disable_device() as well, which is cleanly possible with the
-changes you suggested.
-
-Thanks!
-
-> 
-> Thanks,
-> Gerd
-> 
-> 
-> [ here's the patch to avoid zpci_fmb_reenable_device(): ]
-> 
-> 
-> diff --git a/arch/s390/include/asm/pci.h b/arch/s390/include/asm/pci.h
-> index 77c8c49ba6c8..26c6b616cc25 100644
-> --- a/arch/s390/include/asm/pci.h
-> +++ b/arch/s390/include/asm/pci.h
-> @@ -350,9 +350,10 @@ int zpci_create_parent_msi_domain(struct zpci_bus
-> *zbus);
->   void zpci_remove_parent_msi_domain(struct zpci_bus *zbus);
->   
->   /* FMB */
-> -int zpci_fmb_enable_device(struct zpci_dev *);
-> -int zpci_fmb_disable_device(struct zpci_dev *);
-> -int zpci_fmb_reenable_device(struct zpci_dev *zdev);
-> +int zpci_fmb_req_enable_device(struct zpci_dev *);
-> +int zpci_fmb_req_disable_device(struct zpci_dev *);
-> +int zpci_fmb_enable_device(struct zpci_dev *zdev);
-> +int zpci_fmb_disable_device(struct zpci_dev *zdev);
->   
->   /* Debug */
->   int zpci_debug_init(void);
-> diff --git a/arch/s390/pci/pci.c b/arch/s390/pci/pci.c
-> index bda91d79bafd..c0bd76eac717 100644
-> --- a/arch/s390/pci/pci.c
-> +++ b/arch/s390/pci/pci.c
-> @@ -165,7 +165,7 @@ int zpci_unregister_ioat(struct zpci_dev *zdev, u8
-> dmaas)
->   }
->   
->   /* Modify PCI: Set PCI function measurement parameters */
-> -int zpci_fmb_enable_device(struct zpci_dev *zdev)
-> +int zpci_fmb_req_enable_device(struct zpci_dev *zdev)
->   {
->   	lockdep_assert_held(&zdev->fmb_lock);
->   
-> @@ -173,20 +173,25 @@ int zpci_fmb_enable_device(struct zpci_dev *zdev)
->   		return -EINVAL;
->   
->   	zdev->fmb_requested = true;
-> -	return zpci_fmb_reenable_device(zdev);
-> +	return zpci_fmb_enable_device(zdev);
->   }
->   
->   /* Modify PCI: Disable PCI function measurement */
-> -int zpci_fmb_disable_device(struct zpci_dev *zdev)
-> +int zpci_fmb_req_disable_device(struct zpci_dev *zdev)
->   {
-> -	u64 req = ZPCI_CREATE_REQ(zdev->fh, 0,
-> ZPCI_MOD_FC_SET_MEASURE);
-> -	struct zpci_fib fib = {0};
-> -	u8 cc, status;
-> -
->   	lockdep_assert_held(&zdev->fmb_lock);
->   
->   	if (!zdev->fmb_requested)
->   		return -EINVAL;
-> +	return zpci_fmb_disable_device(zdev);
-> +}
-> +EXPORT_SYMBOL_GPL(zpci_fmb_req_disable_device);
+On Fri, Oct 2, 2026 at 10:07=E2=80=AFAM Riwen Lu <luriwen@kylinos.cn> wrote=
+:
+>
+> The ACPI s2idle code lives in sleep.c and is guarded by
+> ACPI_SYSTEM_POWER_STATES_SUPPORT, which is only selected by x86 and
+> loongarch.  Consequently, ACPI platforms using HW-reduced ACPI (like
+> arm64) have no ACPI s2idle support at all and cannot handle ACPI
+> wakeup events (power button, lid, GPEs) during suspend-to-idle.
+>
+> s2idle is a pure software suspend state that does not depend on
+> firmware S-states, so move it out of sleep.c into a new s2idle.c and
+> tie it to a separate hidden symbol, ACPI_S2IDLE, that is enabled by
+> default whenever suspend support is there (following the ACPI_LPIT
+> pattern).  No user-visible option is introduced, no platform needs to
+> select anything, and x86/loongarch builds are unaffected.
+>
+> The s2idle code is initialized from acpi_bus_init() via
+> acpi_s2idle_init() which replaces the acpi_s2idle_setup() call from
+> acpi_sleep_suspend_setup().  The weak acpi_s2idle_setup() is kept
+> unchanged for the existing x86 override.
+>
+> Signed-off-by: Riwen Lu <luriwen@kylinos.cn>
+> ---
+> v1 -> v2:
+>  - Fix acpi_s2idle_setup() declaration error when SUSPEND is disabled in
+>    x86 builds.
+>
+> v2 -> v3:
+>  - Select ACPI_S2IDLE if SUSPEND is enabled for
+>    ACPI_SYSTEM_POWER_STATES_SUPPORT, so the select no longer violates the
+>    ACPI_S2IDLE dependency on SUSPEND.
+>
+> v3 -> v4:
+>  - Add pr_fmt() in s2idle.c so log messages keep the "ACPI: PM: " prefix
+>    that sleep.c used; without it the moved pr_info/pr_warn would lose the
+>    subsystem prefix.
+>  - Drop the redundant #ifdef CONFIG_SUSPEND / #else wrapper in s2idle.c.
+>    The !SUSPEND branch was dead code, because CONFIG_ACPI_S2IDLE itself
+>    depends on SUSPEND, so s2idle.c is only compiled when SUSPEND is set.
+>  - Make acpi_s2idle_init() return void.  The int return value was always =
+0
+>    in the real implementation and -ENXIO in the stub, and the only caller
+>    (acpi_bus_init()) ignores it; a void interface is honest and the stub
+>    becomes a clean no-op.
+>  - Mark the weak acpi_s2idle_setup() default __init, matching the x86
+>    override (which is already __init) and allowing the code to be discard=
+ed
+>    after init.
+>  - Use SPDX-License-Identifier: GPL-2.0-only in s2idle.c for consistency
+>    with sleep.c (the file the code was split out from).
+>  - Trivial cleanups: remove a double blank line in the Makefile and drop
+>    the redundant "Warning: " prefix from a pr_warn() message.
+>
+> v4 -> v5:
+>  - Add #include <linux/interrupt.h> to s2idle.c.  enable_irq_wake(),
+>    disable_irq_wake() and rearm_wake_irq() are declared there.
+>
+> v5 -> v6:
+>  - Turn ACPI_S2IDLE into a hidden bool with default y, following the
+>    ACPI_LPIT pattern, instead of a user-visible option selected by
+>    ACPI_SYSTEM_POWER_STATES_SUPPORT.  No prompt, no conditional select
+>    and no arch-specific changes: x86 and loongarch builds stay as they
+>    are and arm64 gets s2idle automatically.
+>
+>
+>  drivers/acpi/Kconfig    |   5 ++
+>  drivers/acpi/Makefile   |   1 +
+>  drivers/acpi/bus.c      |   3 +
+>  drivers/acpi/internal.h |  10 ++-
+>  drivers/acpi/s2idle.c   | 163 ++++++++++++++++++++++++++++++++++++++++
+>  drivers/acpi/sleep.c    | 145 -----------------------------------
+>  6 files changed, 180 insertions(+), 147 deletions(-)
+>  create mode 100644 drivers/acpi/s2idle.c
+>
+> diff --git a/drivers/acpi/Kconfig b/drivers/acpi/Kconfig
+> index f165d14cf61a..11b574b394a4 100644
+> --- a/drivers/acpi/Kconfig
+> +++ b/drivers/acpi/Kconfig
+> @@ -113,6 +113,11 @@ config ACPI_SLEEP
+>         depends on ACPI_SYSTEM_POWER_STATES_SUPPORT
+>         default y
+>
+> +config ACPI_S2IDLE
+> +       bool
+> +       depends on SUSPEND
+> +       default y
 > +
-> +int zpci_fmb_disable_device(struct zpci_dev *zdev)
+>  config ACPI_REV_OVERRIDE_POSSIBLE
+>         bool "Allow supported ACPI revision to be overridden"
+>         depends on X86
+> diff --git a/drivers/acpi/Makefile b/drivers/acpi/Makefile
+> index d1b0affb844f..f1e89e45e876 100644
+> --- a/drivers/acpi/Makefile
+> +++ b/drivers/acpi/Makefile
+> @@ -35,6 +35,7 @@ acpi-$(CONFIG_ACPI_SYSTEM_POWER_STATES_SUPPORT) +=3D sl=
+eep.o
+>  acpi-y                         +=3D device_sysfs.o device_pm.o
+>  acpi-$(CONFIG_ACPI_SLEEP)      +=3D proc.o
+>
+> +acpi-$(CONFIG_ACPI_S2IDLE)     +=3D s2idle.o
+>
+>  #
+>  # ACPI Bus and Device Drivers
+> diff --git a/drivers/acpi/bus.c b/drivers/acpi/bus.c
+> index 808c6746be14..afde30bb17aa 100644
+> --- a/drivers/acpi/bus.c
+> +++ b/drivers/acpi/bus.c
+> @@ -1428,6 +1428,9 @@ static int __init acpi_bus_init(void)
+>         /* Initialize sleep structures */
+>         acpi_sleep_init();
+>
+> +       /* Initialize default acpi s2idle ops */
+> +       acpi_s2idle_init();
+> +
+>         /*
+>          * Get the system interrupt model and evaluate \_PIC.
+>          */
+> diff --git a/drivers/acpi/internal.h b/drivers/acpi/internal.h
+> index 40f875b265a9..5a08315d308a 100644
+> --- a/drivers/acpi/internal.h
+> +++ b/drivers/acpi/internal.h
+> @@ -267,13 +267,19 @@ static inline bool acpi_ec_dispatch_gpe(void)
+>                                    Suspend/Resume
+>    ----------------------------------------------------------------------=
+---- */
+>  #ifdef CONFIG_ACPI_SYSTEM_POWER_STATES_SUPPORT
+> -extern bool acpi_s2idle_wakeup(void);
+>  extern int acpi_sleep_init(void);
+>  #else
+> -static inline bool acpi_s2idle_wakeup(void) { return false; }
+>  static inline int acpi_sleep_init(void) { return -ENXIO; }
+>  #endif
+>
+> +#ifdef CONFIG_ACPI_S2IDLE
+> +extern bool acpi_s2idle_wakeup(void);
+> +extern void acpi_s2idle_init(void);
+> +#else
+> +static inline bool acpi_s2idle_wakeup(void) { return false; }
+> +static inline void acpi_s2idle_init(void) {}
+> +#endif
+> +
+>  #ifdef CONFIG_ACPI_SLEEP
+>  void acpi_sleep_proc_init(void);
+>  int suspend_nvs_alloc(void);
+> diff --git a/drivers/acpi/s2idle.c b/drivers/acpi/s2idle.c
+> new file mode 100644
+> index 000000000000..b5cd9649acda
+> --- /dev/null
+> +++ b/drivers/acpi/s2idle.c
+> @@ -0,0 +1,163 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * s2idle.c - ACPI suspend-to-idle support.
+> + *
+> + */
+> +
+> +#define pr_fmt(fmt) "ACPI: PM: " fmt
+> +
+> +#include <linux/acpi.h>
+> +#include <linux/device.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/suspend.h>
+> +#include <linux/irq.h>
+> +
+> +#include "internal.h"
+> +#include "sleep.h"
+> +
+> +static bool s2idle_wakeup;
+> +
+> +int acpi_s2idle_begin(void)
 > +{
-> +	u64 req = ZPCI_CREATE_REQ(zdev->fh, 0,
-> ZPCI_MOD_FC_SET_MEASURE);
-> +	struct zpci_fib fib = {0};
-> +	u8 cc, status;
->   
->   	zdev->fmb_requested = false;
->   	fib.gd = zdev->gisa;
-> @@ -200,14 +205,13 @@ int zpci_fmb_disable_device(struct zpci_dev
-> *zdev)
->   
->   	return 0;
->   }
-> -EXPORT_SYMBOL_GPL(zpci_fmb_disable_device);
->   
->   /* Re-enable PCI function measurement: clear the software IOMMU
-> counters
->    * and (re-)enable the FMB. This function is used to restore the
-> desired
->    * FMB enablement state when measurement may be implicitly disabled by
->    * firmware (i.e., via CLP in zpci_disable_device())
->    */
-> -int zpci_fmb_reenable_device(struct zpci_dev *zdev)
-> +int zpci_fmb_enable_device(struct zpci_dev *zdev)
->   {
->   	u64 req = ZPCI_CREATE_REQ(zdev->fh, 0,
-> ZPCI_MOD_FC_SET_MEASURE);
->   	struct zpci_iommu_ctrs *ctrs;
-> @@ -246,7 +250,7 @@ int zpci_fmb_reenable_device(struct zpci_dev *zdev)
->   
->   	return 0;
->   }
-> -EXPORT_SYMBOL_GPL(zpci_fmb_reenable_device);
-> +EXPORT_SYMBOL_GPL(zpci_fmb_enable_device);
->   
->   static int zpci_cfg_load(struct zpci_dev *zdev, int offset, u32 *val,
-> u8 len)
->   {
-> @@ -660,7 +664,7 @@ int pcibios_enable_device(struct pci_dev *pdev, int
-> mask)
->   
->   	zpci_debug_init_device(zdev, dev_name(&pdev->dev));
->   	mutex_lock(&zdev->fmb_lock);
-> -	zpci_fmb_enable_device(zdev);
-> +	zpci_fmb_req_enable_device(zdev);
->   	mutex_unlock(&zdev->fmb_lock);
->   
->   	return pci_enable_resources(pdev, mask);
-> @@ -671,7 +675,7 @@ void pcibios_disable_device(struct pci_dev *pdev)
->   	struct zpci_dev *zdev = to_zpci(pdev);
->   
->   	mutex_lock(&zdev->fmb_lock);
-> -	zpci_fmb_disable_device(zdev);
-> +	zpci_fmb_req_disable_device(zdev);
->   	mutex_unlock(&zdev->fmb_lock);
->   	zpci_debug_exit_device(zdev);
->   }
-> @@ -760,7 +764,7 @@ int zpci_reenable_device(struct zpci_dev *zdev)
->   
->   	guard(mutex)(&zdev->fmb_lock);
->   	if (zdev->fmb_requested)
-> -		zpci_fmb_reenable_device(zdev);
-> +		zpci_fmb_enable_device(zdev);
->   
->   	return rc;
->   }
-> diff --git a/arch/s390/pci/pci_debug.c b/arch/s390/pci/pci_debug.c
-> index 9a960310d4dd..f2f0e7f44842 100644
-> --- a/arch/s390/pci/pci_debug.c
-> +++ b/arch/s390/pci/pci_debug.c
-> @@ -156,10 +156,10 @@ static ssize_t pci_perf_seq_write(struct file
-> *file, const char __user *ubuf,
->   	mutex_lock(&zdev->fmb_lock);
->   	switch (val) {
->   	case 0:
-> -		rc = zpci_fmb_disable_device(zdev);
-> +		rc = zpci_fmb_req_disable_device(zdev);
->   		break;
->   	case 1:
-> -		rc = zpci_fmb_enable_device(zdev);
-> +		rc = zpci_fmb_req_enable_device(zdev);
->   		break;
->   	}
->   	mutex_unlock(&zdev->fmb_lock);
+> +       acpi_scan_lock_acquire();
+> +       return 0;
+> +}
+> +
+> +int acpi_s2idle_prepare(void)
+> +{
+> +       if (acpi_sci_irq_valid()) {
+> +               int error;
+> +
+> +               error =3D enable_irq_wake(acpi_sci_irq);
+> +               if (error)
+> +                       pr_warn("Failed to enable wakeup from IRQ %d: %d\=
+n",
+> +                               acpi_sci_irq, error);
+> +
+> +               acpi_ec_set_gpe_wake_mask(ACPI_GPE_ENABLE);
+> +       }
+> +
+> +       acpi_enable_wakeup_devices(ACPI_STATE_S0);
+> +
+> +       /* Change the configuration of GPEs to avoid spurious wakeup. */
+> +       acpi_enable_all_wakeup_gpes();
+> +       acpi_os_wait_events_complete();
+> +
+> +       s2idle_wakeup =3D true;
 
+So the problem with the current approach is that the code above is not
+useful on arm64 (and any systems without full ACPI HW support for that
+matter).
+
+This observation applies to the majority of the ACPI s2idle callbacks.
+
+While I kind of agree with moving that code to a separate file, I
+don't think it is useful to compile all of that code unconditionally
+if CONFIG_ACPI is set.
+
+> +       return 0;
+> +}
+> +
+
+[cut]
