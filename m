@@ -1,115 +1,162 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7673C13E3
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:58:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3398E3BCD0D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:59:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791831514; cv=none; b=XxcMAVOMLv06yaxlxNGMoyLrSR7Ud5SmSvXA3ekMEqIUkZXVIYwmK65KX72F728Wa1lEDQILLWXsDFYB/OrNXcrF8JaiGafgieCV2YhotVCJszqwXCRxvbaRbCN58NRymblOckKnExl/ElCleVfLPOlpqoyNUJqRIw+ENJJmgEU=
+	t=1791831555; cv=none; b=meiJvSx2oZwCWlciS/y7XQz0Jdqs/d0N9LkqxliYnfDUwBpdovqA02Pb9IzqEcUuKrzG/1fc6/jPZ1dQ4k4FPuSC/k0h5C4A+LT41HlCx2E5UK8xPqgMhgTlb/zl3gtH+riCQmNZj4dtPeBBMUn7p+LonxtPOCnoClCWC748xrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791831514; c=relaxed/simple;
-	bh=NBSMnbPM1W36hu/yHVHtW29ZlumpRPrEdi13YOl8g8g=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:
-	 References:In-Reply-To; b=IK18osM6zpnHwsW4Uoyfgv4POyKifQ8pGkfQ65918NMd4keFNKaIU+bWgiPL0x79Jv+DJf3TbHcmiI6rDOeI6ZGxg2O8faZJeA/Z3VP7asCmijLpoxy7+V8tOpORT4j/Nm4jVOBmEV/BrlGJ26fASmgmw8OVFhSqcoe6LOiUZwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TgTJFtvg; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791831555; c=relaxed/simple;
+	bh=0nXGACBN/x6TX9kfCTgsb4l252RYCW0IICb3v/pKq/A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lgkrzo+0uvk9YsVxoedcZ/n4safjonF3Sl/ur8CSeLEqvEjuBgO87GZiFz5jxnjQGc6krQjoL9eEsCVLFURxdm4uGhG7SD1VchiVlZ53M+6s5X52VAkHM/JZGueVib3klBSjIy6l19NZnRndBxlJNeoJ2yxq9GsGtvqTKQPRs68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=REy5hcig; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TgTJFtvg"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c3156e7705cso355743566b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:58:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791831511; x=1792436311; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:message-id:date:content-type
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CEpxS2BqSJXJl5+I6AvkY7ywhTC6yC4LVyF9hL1MSqo=;
-        b=TgTJFtvgl3933XLabcoNzo57A2oyy0ZPYzrFZY85SskmoE8/AuClWWQr7xKRW5Hq1w
-         XORCAmTl/Ftc3yr1uwv7YMLzbDcHm17aKMbSqOjs85rOby+252ZVkFEx8nBP06QXPJPA
-         Kc4guISjtpB4PCEQQjZ0amZ/WjG7VeeM/SpkKTxc718mqEEJSfxo1ZZPYN8n+JyAtE9R
-         ntTXrCf1DfIhjdSMFMoYCbEC8Egub3NDIifUUYE6eS0wferEGotXUotwNpya2HRA5k8G
-         l9niSDbxX5dM4n1O8PmWvVBzbm0lgKFLNraeb2lLQSoc3Hb5vGQbAgMy1Jadw/yqM676
-         O6/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791831511; x=1792436311;
-        h=in-reply-to:references:to:from:subject:message-id:date:content-type
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CEpxS2BqSJXJl5+I6AvkY7ywhTC6yC4LVyF9hL1MSqo=;
-        b=XM0QiysK/3Mc5ltV214hrLMFM3DAcRdFaCcLwgsaggFBHlzaY6hb87ZZjkQ/KBRYjm
-         lzMaw88qdgflnhFr/SLFM4R7AwKdLsCmvXLj2ge2yblWpYJym029blmgSqeHWhZxZr6P
-         UqlvAERR5gDPOJmfZz/B6jYHffFWhXdZkTpsFJ2cmwUwEJHfN/VMRggijTIwKqTkHZNC
-         EDFhAw7ADyuYHuEQsZq/pJf5pFP+jewwCLZqb10wwh8qQJPiW4ZUheV9Nz+EyAc8cgBA
-         yddG1nH+Ndq9LsJkevd/U/IAnbZEu/gVVUADts37mby70AbRfL6v3u8a1OwWZw+Q9x7S
-         iSlw==
-X-Forwarded-Encrypted: i=1; AKwUvBxqiMCnMbqqH1PWkcCeKx1e6H2jPpy44CXAWHLwnPry3/v86ajK5N08IKizYJeFohlX/x7Kfjmtn0uwYQU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIExcrQ8mOYJMIz3XwB+ljQBjvng+I0/hFanuseOxyEC7W6n/f4
-	MSb+LVLhEEeqapmLeUq/esz0rBomgRYhbQAxCP6TypNtc+kGfbM8OEJw
-X-Gm-Gg: AYBFou0+Np1yS4WrhPHYYlYi0X6pnN/Ahyx3G4tRN3+V+dgC20Jt6dR5r2nE55FFTrI
-	pg7YGt91zPdAETDK8OaaqXoeEa2KWrBtNzHCm+WYBQMB+E9ZF72nHMN/+bbqvxV6sSKVuUB2DfM
-	DU46V96VuMMa2TnWyuQSabs3nMD/BihNBS8Zo/lxQyfUoNewaqRoEdwwas8pAkUTa4Pzfs5+kp+
-	H+LH3r29iS3nnXx3pV+LRoS++0MR5mUcDcf7X50iEUkE4K0EodlHRz5vW/qJPTPiGdmVwS460N5
-	PISHkqeGCt6f0vS+YwJxen90ZaVpdi0YMePcmjkUkzCdXK2MLxdHEZJ76OhkOGVrX7vsXITHfn8
-	M0a0WOJOTS+TkL+R1CJ6do4rgt2C7GIZba9v7ZAXe+05SZ1z0MVyvRXPmdmgY2CjhcGcpj2rK9E
-	Ktx0CigcfuAmaVYbZumNDknI1jFtdGwyTGc3DDfXU1VtFQNlvXoMtJBNJpybryVxEQ
-X-Received: by 2002:a17:906:4786:b0:c2e:513a:e964 with SMTP id a640c23a62f3a-c31aa0e1b8emr1079340166b.49.1791831510652;
-        Mon, 12 Oct 2026 11:58:30 -0700 (PDT)
-Received: from localhost ([46.205.201.71])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ae4a94sm499682466b.82.2026.10.12.11.58.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 11:58:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="REy5hcig"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D62021F008A7
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:59:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791831553;
+	bh=xt5R5QIossr8PvFGF9z1aq+prpu9O6h0Df/bSvqtdU8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=REy5hcigSNpGZuCUMAJoRMuOB7E2gF7kAwGnmZhEGf9Ej5RotAWpfUfmnuE+lSgRx
+	 u+tNL9R+v9uE2pNpgwmI0n8ea8XkQAXFZ8gnJ6ZVFQInQ86gEth2M/3/oXraD0uEKK
+	 z+Nz/nmt0bwaS7EokprAftNYFCVs1OhD/z1P32QhAWGWfl9FrHsE1td0bIP8m4M8xO
+	 Re0yPBez7TkJG2yQeixupmnqnJMrRVsRnwm/1rVEQ12XdwGzmme6n8fZcyjOIWfFou
+	 DE9Sai51wLi1KOC3h24/MEYz5Ab9ukZ8A/XONplO7u2fw9LIKsiUcbsovxuBsxi+Yu
+	 1OGnQ8/lo+ayQ==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so1580590e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:59:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwErgT2ckpRm9huz5eTDmNVA/nPOubTbugae/o4Ltk/xJeI8bSYyQoKGIN+q2DJQhziplFoNmuGLNGRU4Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI81b0HfA4W2cjD8kNdSLySdctN/mJySIa9xTLBthe8kQi+mllX
+	r9KL1/Aaev4jto2kJNNJZKxQM4biL6etT9p090rfyJDQGwEV2A4cgevY9S4JXCq3YBU66KaCInc
+	zCYj86hwqP1HND1nmboyUXVTpuDiLm4E=
+X-Received: by 2002:a05:6512:6405:b0:5bc:e4ae:718d with SMTP id
+ 2adb3069b0e04-5bce4ae7220mr3129853e87.64.1791831552263; Mon, 12 Oct 2026
+ 11:59:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20261007155820.3194105-1-sh_def@163.com>
+In-Reply-To: <20261007155820.3194105-1-sh_def@163.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 12 Oct 2026 20:57:08 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0iHXc4+si4TspPB+oNyPNED+9s90B7VJwrMa91J6GOGCg@mail.gmail.com>
+X-Gm-Features: AclHuK_mNZ2wKn_gme-IIZoeUlw1tE_wMnFnbScf3dXt5ZLPmlcVDWESBz1-BKc
+Message-ID: <CAJZ5v0iHXc4+si4TspPB+oNyPNED+9s90B7VJwrMa91J6GOGCg@mail.gmail.com>
+Subject: Re: [PATCH v2] cpufreq: schedutil: Serialize start against rate limit updates
+To: Hui Su <sh_def@163.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, Ingo Molnar <mingo@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 12 Oct 2026 20:58:28 +0200
-Message-Id: <DM339BDR8JE2.1FJ5827JZIBWD@gmail.com>
-Subject: Re: [PATCH v4 4/5] Input: hynitron-cst816x: time out gesture key
- release
-From: "Oleh Kuzhylnyi" <kuzhylol@gmail.com>
-To: "Daniel Golle" <daniel@makrotopia.org>, "Dmitry Torokhov"
- <dmitry.torokhov@gmail.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- <linux-input@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.17.0
-References: <cover.1791233147.git.daniel@makrotopia.org>
- <d73d26d8c9d75fa230e3dd64058acb65f45da64d.1791233147.git.daniel@makrotopia.org>
-In-Reply-To: <d73d26d8c9d75fa230e3dd64058acb65f45da64d.1791233147.git.daniel@makrotopia.org>
 
-On Mon Oct 5, 2026 at 11:12 PM CEST, Daniel Golle wrote:
-> The controller reports a gesture code once and can then stay quiet
-> until the next touch, which leaves the gesture key pressed for as long
-> as the panel is left alone. Release the gesture keys 40 ms after the
-> last report that carried a gesture code, so that the release comes
-> from whichever happens first, the timeout or a report without a
-> gesture code. The 40 ms matches TSC200X_PENUP_TIME_MS, chosen there
-> for the same want of a lift event from the controller, and has to stay
-> above the interval between consecutive reports of a held gesture.
+On Wed, Oct 7, 2026 at 5:59=E2=80=AFPM Hui Su <sh_def@163.com> wrote:
 >
-> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+> rate_limit_us_store() is called with the governor attribute set
+> update_lock held, but sugov_start() updates freq_update_delay_ns from
+> the same tunable without taking that lock.
+>
+> This allows the two paths to interleave as follows:
+>
+>         sugov_start()             rate_limit_us_store()
+>
+>         read old rate_limit_us
+>                                   write new rate_limit_us
+>                                   publish the new delay
+>         publish the old delay
+>
+> The sysfs tunable then contains the new value while
+> freq_update_delay_ns contains the old one. Unlike a transient torn
+> read, the stale delay remains in effect until another rate limit update
+> or governor restart.
+>
+> Serialize sugov_start() against sysfs stores by taking the existing
+> governor attribute set lock around sugov_update_rate_limit_us(). Use
+> gov_attr_set_lock() and gov_attr_set_unlock() to keep locking details
+> within the attribute set interface. This keeps the fix off the scheduler
+> hot path.
+>
+> Fixes: 9bdcb44e391d ("cpufreq: schedutil: New governor based on scheduler=
+ utilization data")
+> Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+> Signed-off-by: Hui Su <sh_def@163.com>
 > ---
-> v4: follow the keycode lookup and the single read of patch 3
-> v3: use timer_shutdown_sync() in the devres teardown action
->     (Sashiko AI review)
-> v2: skip the release when the interrupt handler re-armed the timer
->     while the timer callback waited for the lock (Sashiko AI review)
+> Changes in v2:
+> - Wrap governor attribute set locking in helpers as suggested by
+>   Zhongqiu Han.
 >
->  drivers/input/touchscreen/hynitron-cst816x.c | 52 ++++++++++++++++++--
->  1 file changed, 49 insertions(+), 3 deletions(-)
+> v1: https://lore.kernel.org/lkml/20260929103635.3780346-1-sh_def@163.com/
 >
+>  include/linux/cpufreq.h          | 10 ++++++++++
+>  kernel/sched/cpufreq_schedutil.c |  4 ++++
+>  2 files changed, 14 insertions(+)
+>
+> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
+> index 35ce665edfd8..5448eb0a0885 100644
+> --- a/include/linux/cpufreq.h
+> +++ b/include/linux/cpufreq.h
+> @@ -694,6 +694,16 @@ static inline struct gov_attr_set *to_gov_attr_set(s=
+truct kobject *kobj)
+>         return container_of(kobj, struct gov_attr_set, kobj);
+>  }
+>
+> +static inline void gov_attr_set_lock(struct gov_attr_set *attr_set)
+> +{
+> +       mutex_lock(&attr_set->update_lock);
+> +}
+> +
+> +static inline void gov_attr_set_unlock(struct gov_attr_set *attr_set)
+> +{
+> +       mutex_unlock(&attr_set->update_lock);
+> +}
 
-Tested on Raspberry Pi 4B with CST816S panel.
-Reported coordinates and gestures are valid.
+I'd rather not do this.
 
-Thank you!
+> +
+>  void gov_attr_set_init(struct gov_attr_set *attr_set, struct list_head *=
+list_node);
+>  void gov_attr_set_get(struct gov_attr_set *attr_set, struct list_head *l=
+ist_node);
+>  unsigned int gov_attr_set_put(struct gov_attr_set *attr_set, struct list=
+_head *list_node);
+> diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_sche=
+dutil.c
+> index 49ccd6f1c185..b847311c307d 100644
+> --- a/kernel/sched/cpufreq_schedutil.c
+> +++ b/kernel/sched/cpufreq_schedutil.c
+> @@ -861,7 +861,11 @@ static int sugov_start(struct cpufreq_policy *policy=
+)
+>         void (*uu)(struct update_util_data *data, u64 time, unsigned int =
+flags);
+>         unsigned int cpu;
+>
+> +       /* Serialize against rate_limit_us_store(). */
+> +       gov_attr_set_lock(&sg_policy->tunables->attr_set);
+>         sugov_update_rate_limit_us(sg_policy);
+> +       gov_attr_set_unlock(&sg_policy->tunables->attr_set);
 
-Tested-by: Oleh Kuzhylnyi <kuzhylol@gmail.com>
+But instead, I'd add a wrapper around sugov_update_rate_limit_us() that wou=
+ld do
 
-Best regards,
-Oleh Kuzhylnyi
+    guard(mutex)(&sg_policy->tunables->attr_set->update_lock);
+
+before calling it and I'd invoke that wrapper from here.
+
+Also, the comment should explain why the locking is needed which it
+doesn't do now.
+
+> +
+>         sg_policy->last_freq_update_time        =3D 0;
+>         sg_policy->next_freq                    =3D 0;
+>         sg_policy->work_in_progress             =3D false;
+>
