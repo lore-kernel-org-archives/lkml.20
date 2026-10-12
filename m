@@ -1,273 +1,132 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010039.outbound.protection.outlook.com [52.101.69.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471BD49B45D
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:12:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791817940; cv=none; b=Z/MW+D5hZilPBHtqpZ1f9NRyNZl/d/oNZ3jpHzmv5C/rog3v5+/5DUc/q2wiCCvUOOde05voOJQQKuhnzfbmrkrHgd+5Tp1+YHo2FTSuqPrjbk66yttBm5yaL7MsUjmWjQQxxPckc5QhUY4//EradmBkQj7R5KrTUJWu/nexZ58=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791817940; c=relaxed/simple;
-	bh=B6NHRXPrUrRowHMKwGnNjBxaLCD9lUFYYYPqcfEwvHI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nkRphAOBVHTkTkWsjp7PmIJbWxbdSlZr8dhdSyptdYeqYtEdi+rLKUpc3jeMsYpXHtCHgcpRQssqr+vskgBk33udBiToxrEYH1JKbFiGBiyUb6hmzo6Wz3oyCodvSFmlXWpwYwl+29+8Z2n8DExlQYjsKO1h9LuJxyLqIjNpTzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QEw4ceLz; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 860C7495501;
+	Mon, 12 Oct 2026 15:12:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.39
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791817953; cv=fail; b=ZdJwzzG13NG73cHlx2PA6RQ1cMa128aIyx4siwD7MleuWS/GyHKvAzgyUFscQ1ZnwmqQ0MK764uH3n8//XVW4diaX+YkatB4wO+AIP1qadMxGP2ET1hgvAAr3hOHEqVDWzbm/3U1ri+qzWLirwIDORUJ9GuHN+jVfzrIdVwT7IA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791817953; c=relaxed/simple;
+	bh=246lUTh84wes9rVp5+feMfGNJO2SgItFiQRXinm/DoU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=BbiTxdbyAa5hdROZcwQOT9H7DWjTQb1/zQ5usyUpHz1zZluHchJuy167CZPaayftOP3PEAO3AJhjdMvBB9N2lz2IPfifUX3dCNhbddRcjAf7vWimdQnhJqc1fxOFFJz+3pxyYTWk2WBPajpICSitihdp2xfuVnd7ny8fAhD9LtE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=WtAC90JJ; arc=fail smtp.client-ip=52.101.69.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QEw4ceLz"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 9F6634E411F7;
-	Mon, 12 Oct 2026 15:12:17 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 71B30601A6;
-	Mon, 12 Oct 2026 15:12:17 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AFF8411D70CD6;
-	Mon, 12 Oct 2026 17:12:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791817935; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=P/Q4nFBYsii5RLmePNAPJ+fdVFCY7TJHBVJr5R7oOUU=;
-	b=QEw4ceLzWeB8qinUu3mC0wNsLS4KwoVzdMeNR1LuDZOqpeG4PwWut/oihiBkHGQnbMZxhl
-	OZp32Dlsdo/K2c61sEs2QPrVvPALXX8V2EcPeErhamuicCpfdVR20vOzkjxnlgKCaJU0Yr
-	exCKtpfmW3UbWGlASwH576cy09yT7rUudgRtXAeGCZNYkyHiGgHQwOTi9/PvsrPO8E6Lls
-	N2qpi/NxPYL9Cm/9PeF0JNTF7bdFq7AaEr90/6sAOncIfSe0wPcROPU/Prd7nCb56dQ7c9
-	rdyz+0CVJcpxqT964ronT75nEzdCaq9aXxGrcGzf01uBswPl3tFKxLGSMOIsqA==
-From: Kory Maincent <kory.maincent@bootlin.com>
-Date: Mon, 12 Oct 2026 17:11:03 +0200
-Subject: [PATCH RFC v3 8/8] drm/mediatek: Use dp_connector helpers to
- expose link training state
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="WtAC90JJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BV7Iq7fHVZbMKJ2Y9+ycCc3Ehkz60vihLoSMAZExpjIxRRUgyrkTNq1egS/9FcQsXMzXuVtcEhPpe19nQjLTuwo7+wHnm/Za2iUCy0FjhuyNGEpBqLJ/p4mOPF3lf1KVkb8e0LG6VJrHJlAJ6/3HHchA/Qyf0Kxk7NSBsgwTWNptv9pFSjRHAN/t3c1lNmMxw5tfBS1z4fj3lIqGvmEhXHyKFotXeXYW+HNLRkE0P8/UiDilp6OnrhVEqbASyma663QA9izWe8iqBBkhQ1PQ0aQeWiFghd/Ea2+AbgSeNE+iDCc3qAuaJRuv3Ky8LzX+D2NYBeamB0SS98tT+qrNZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=246lUTh84wes9rVp5+feMfGNJO2SgItFiQRXinm/DoU=;
+ b=o4gTYm1sQOnd+JbFRkTFB4dE9Uxchl9aos48rQTestVKidC4TK8WbauNmUV2iG+ASXc7TXcHmQyMhY5aTbK+3UBgSRNPvJGLDxziSztPa2/Ye04nNgWTzLG6hao4k1F2CPSR7EoadLRocblK3PgYUg3BwnqcGvNUeNkxQz2hSn8TD0oKFTfFJNez/iDxJkrL0Kw6F1eVbB0zJ5Zm4wCoRrtwJn8VexH8szerBSzfpsZKYrrldirzJdpn3T9xO7bNdECywI7peyq0alq+svsajfIyROSMTWsF2jy8kat48m77/O5DesKYyqowJU4b6WlZfJNxOxx3b8jLxfHS3EDMyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=246lUTh84wes9rVp5+feMfGNJO2SgItFiQRXinm/DoU=;
+ b=WtAC90JJRoMZasEAlz3pBKKkhCuOVbpoOjWkeBYHlryCNQYmWoljPcNwYvqS8nCHW9NR18aSUuIdhkN9EDRGQGAGNy8kDvs6iz6iFjRUC8i5zrkL63omFNiQSogAhUSOdeJFJQk2GdFS66MJkUb4HPCv4DQPhOgXYXJQofYbgwHuIDGLMU/gSyc4Wfrjo5XBXurCemhfSK6nQi4rxIUi/K8XOk5uSOoeh2uZ+lBvu7bZ2/bJdQExKKwvSB8ZgeHNjG/t9a9ASAXMtdhCZGEWo/1h6DgDiesbS9a66HJU04xZmittHIHQb59/RQsmIrDPPeZ0VPJDcxyYm62Phs9YDw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM8PR04MB7811.eurprd04.prod.outlook.com (2603:10a6:20b:236::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 15:12:29 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 15:12:29 +0000
+Date: Mon, 12 Oct 2026 10:12:20 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Jelly Jia <Jelly.Jia@cixtech.com>
+Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, robin.murphy@arm.com,
+	devicetree@vger.kernel.org, Frank.Li@kernel.org,
+	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/6] dmaengine: arm-dma350: Add slave support and CIX
+ Sky1 integration
+Message-ID: <asz41HFj_wkgooln@SMW015318>
+References: <20260907033404.596839-1-Jelly.Jia@cixtech.com>
+ <20261009051846.1115962-1-Jelly.Jia@cixtech.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009051846.1115962-1-Jelly.Jia@cixtech.com>
+X-ClientProxiedBy: PH7P222CA0014.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:33a::16) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-feat_link_cap-v3-8-7517f4aba0f3@bootlin.com>
-References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
-In-Reply-To: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Mark Yacoub <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, 
- Manasi Navare <navaremanasi@google.com>, 
- Drew Davenport <ddavenport@google.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, 
- Kory Maincent <kory.maincent@bootlin.com>
-X-Mailer: b4 0.16.1-dev-17221
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM8PR04MB7811:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87a4fd7b-9f20-4718-f6d0-08df28733b86
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|19092799006|1800799024|366016|376014|7416014|6133799003|18002099003|22082099003|10067099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	XQX6hpZK01Gh6FMZHLBinfH8JjiKM8hvX30gwY8UF6huU2RHJaHhgzU/NvDYnAinKqBPDbVQHScM1HNfHWg5VQ63NJ913t0nixuOCPKoO6kQUo2I/RwaeLQHsGn7f9XkhVMHppHxzHO4mZ75spLlh1hTszIbrFRZt4g+ETHA6sQ9LjfyrKPyfI/k5qj9wwwyh8/NhOBIK2/L0WQ2SS9tyzRlHvEeWCwRmgLTxejvZ4tPOEVIJ+JG10a23Op/Aw0yxX73ixoDblCafgvqN+Rx5/4oumv3E8JPV/dJEyXAuFKY7hAJMajzEj+IbfKkxugH08a/JKGcPYjl0rNo9SPM20FsFFSIQwVw1hNiOUcfaQPUPjHR0JQ+HaLebH8KwWJWuZB1OV7a5iz9+6MA+UtqMTTVZ9f3RyuqLiLRIgWqLKPPPeeTeRlFH/0f1r078rghfjVTfDLbGUMa+YEOzXft3D3R8cwnopEM+wbjI1EWvPDtrYbMC25W20KUgQQr06AJqqvDsUbhX5IRbCEM1LO6lTtkUSJxzaqRLBkYebbewyLMKF7SkI5TrmewxQdjs43RARPI/FOvK5/G7Jc2r+iOMZg8doHWskOvUve1y5X+el4lVuUJQNhxSwGBhpZXiS0AViWXtJ5SY3MvzpxfHl45iwp9pI/eqbNq6B/Q98zp65g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(1800799024)(366016)(376014)(7416014)(6133799003)(18002099003)(22082099003)(10067099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?NGndspdE6rPQDlEQxF0eC5+A5mPyxxPMVYcIVjmFpyHom8cMvfug/2ODCEm3?=
+ =?us-ascii?Q?Msbtw3JcN/FBOOXaM23nKkwgm7nj0Uf2t3X5rPvoBQw+yO0mFaayFMNTFgTG?=
+ =?us-ascii?Q?r8LzNR+JcZy4ibDP0NiR2gdy3q/nQyrtN2boYy6j66kPvfbjGO/uUT2Yr81s?=
+ =?us-ascii?Q?N8F6trL8ugUgtH4k5R9vy8fNcxT6f1R4BzgyuocYcMkQwniI8aTMbg5lihUK?=
+ =?us-ascii?Q?Fn80D3udMNi+/RtvL+mCJc4ukN6BXZiuikYwhcYR0cEBA+/tStV8LyhZbA8K?=
+ =?us-ascii?Q?+IPuOsZyzakSgJ2pYjFCgKSp8LHHuJcJB8zQluFf9NTaoonGPUPR7z1WWU4X?=
+ =?us-ascii?Q?951B0nvu1V0v1SvW+jgJ/DWqbYwxw9oHv1oV29FeijhP6kNOgVLe1J7gqzAe?=
+ =?us-ascii?Q?UOZuIJPKvfD7FivTpj8IgS7seRkTaCcfmumsXRALyHph0NpnE8lFdIGx+WtO?=
+ =?us-ascii?Q?7Or9jVoMyOYDZINUAn3LNS7KTNAMBEN+DBeSwWR1h2Ftd5gY3rAU12Xkj+CL?=
+ =?us-ascii?Q?NQ8fX6aPqsyaIXZ2IJaGY+d7QfYK43ZT+JG7EoAL7zUuFivjP98FBpwHoOGW?=
+ =?us-ascii?Q?DpX31BmNciNXAbVJWS6HXrkS1ZIYktkRHh8NPE2nmgjEkSTsTolzvlm2qi6q?=
+ =?us-ascii?Q?6eipIt3VWlm2vhhBDdCtArSjkCI/gFWp9qkTCfnNeeVhkEhIO4IPOMzsQOmt?=
+ =?us-ascii?Q?/ZtkxpIVEEvqPH45dxmWorS7i+WZR/DbxDgzgxy8eVNfrRRzFSQ8VdSUYCp8?=
+ =?us-ascii?Q?sBrU7U0t9m92IJ3nykPFl+HiVQfNzPVQw/KXQ9mYZEGLzXZFJWBZh+Kfj456?=
+ =?us-ascii?Q?QeplRmLeaXEznGCzRKzkX9hNsH5QaUuFDn9D7/a1qIA4DaaLcdS3QuwshR1t?=
+ =?us-ascii?Q?o+4Nt9fkrxVWxPon0c7Drwdyl3tlxrKcuuiXmIk+qsJQYokE5giBraTVUWcj?=
+ =?us-ascii?Q?eXu+3XUvrirnnYOV7RZzTRKqTkuUCfozt3dxja1OBbzj8S4OnICRbdEs5Uej?=
+ =?us-ascii?Q?+NvXbMRAydkL/bhtQcSoPbfsHIVQqalIPKIFtj7o5cTSydcMoBfapP6Gxsbx?=
+ =?us-ascii?Q?1+LWR/6mIXaEvWn2Wsm8iKBPUmK6aZQGZrwClLV42dKAxSUss04G1UAmIw2M?=
+ =?us-ascii?Q?TzczNtjd+7bWaDH5PrQZFpQXu5IN68xS1bHCByCOhEdxRHVilgW+thNBhfrF?=
+ =?us-ascii?Q?SOQsxnDkewfiZ7BItxhKb8Cyv0pHGZ5ZiZUqJEy0iRanyGvFpPUGBRNQVXUh?=
+ =?us-ascii?Q?kb1D+aBZ19ZeM2P3eqLZwwW7hvO2wl9Mt/hXZ7mCPvRpbuc1MfmrL1DSCIWU?=
+ =?us-ascii?Q?C+1f5xnZCB2bCkBQkJwk4b6A4jhkeEDFdZj4kG0fcE0/8yqbHOoF5Pq3QvK6?=
+ =?us-ascii?Q?M9zunwDoYBovHEAcYIymmM59KIX3W1r3xLi+00gYlLzxMG2jWgwHu1GgumLA?=
+ =?us-ascii?Q?YXBbiaq/5ZmSXyyoYAzlU6Lq7roZR43ZJuD9lkgBfq//GyycmeFjTm7UCP5u?=
+ =?us-ascii?Q?/ZSnuWC+seOV/T//aG5myuwShwkyTAG6VGXTE+co2q91WLp/YIqgo5LedW0Y?=
+ =?us-ascii?Q?7EfrV0MDipngyp6I6+FHYceXUwXqLDBT2M3/+Wl8+J4BZ6Jk4uvlNo/ENe39?=
+ =?us-ascii?Q?An6nCikz7Hmup47zqQaPPQve0Zlv3W5IwFWjuhipb8lKsVDzSqpQDdhm8019?=
+ =?us-ascii?Q?n5JAPo8CaBPCykxNGBi689A5iU505TWybGs0Uf6eNcC2PPqXCUHAbKtW5XkN?=
+ =?us-ascii?Q?nMnSdp6X1uXFGQK3I89yI080UuK539GOxHKrN7Vo8QPtZblSbtQj?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87a4fd7b-9f20-4718-f6d0-08df28733b86
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 15:12:29.7248
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eJWrDvIG2s6zvHeDUCElWmM6WjrfS5ol3mncnXDBtB/6Ii9YIfBCC3J/sBHmxInSOeL0fwBBoBG4aJxPK35UYuakhtdvmsPqWi2q8ObcmJnhQunRQZZmGj4VrdX8ozrQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7811
 
-Adopt the DRM core DisplayPort helpers by setting DRM_BRIDGE_OP_DP and
-populating the bridge dp_link_caps at probe time. Report the sink
-capabilities on hotplug, reset them on disconnect, and report the link
-parameters once link training succeeds.
+On Fri, Oct 09, 2026 at 01:18:40PM +0800, Jelly Jia wrote:
+> Hello,
+>
 
-Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
----
-Not tested. I believed I had a board with this device, but it actually uses
-an anx7625 bridge. I'm unable to test it; it would be appreciated if
-someone else could, so the change isn't dropped.
+Please avoid post new version patch set to old thread, which will mess up
+patchworks and other tools.
 
-Changes in v3:
-- Sync and report sink capabilities from the HPD thread for DisplayPort,
-  or in atomic_enable for eDP. Reset them on unplug, or atomic disable
-  and only report link parameters after successful training.
-- Add connection_mutex lock for DisplayPort in the IRQ thread.
-
-Changes in v2:
-- Remove voltage swing and pre emphasis properties.
----
- drivers/gpu/drm/mediatek/mtk_dp.c | 79 +++++++++++++++++++++++++++++++++++++--
- 1 file changed, 75 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
-index f656b85b84212..2e2596eaa342e 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-@@ -1812,6 +1812,35 @@ static void mtk_dp_train_change_mode(struct mtk_dp *mtk_dp)
- 	mtk_dp_reset_swing_pre_emphasis(mtk_dp);
- }
- 
-+static void _mtk_dp_report_link_train(struct mtk_dp *mtk_dp)
-+{
-+	u32 rate, nlanes;
-+	bool dsc = false;
-+
-+	rate = drm_dp_bw_code_to_link_rate(mtk_dp->train_info.link_rate);
-+	nlanes = mtk_dp->train_info.lane_count;
-+
-+	drm_dp_set_cur_link_params(mtk_dp->conn, rate, nlanes, dsc);
-+}
-+
-+static void mtk_dp_report_link_train(struct mtk_dp *mtk_dp)
-+{
-+	struct drm_modeset_lock *lock;
-+	int ret;
-+
-+	if (!mtk_dp->conn)
-+		return;
-+
-+	lock = &mtk_dp->conn->dev->mode_config.connection_mutex;
-+	ret = drm_modeset_lock_single_interruptible(lock);
-+	if (ret)
-+		return;
-+
-+	_mtk_dp_report_link_train(mtk_dp);
-+
-+	drm_modeset_unlock(lock);
-+}
-+
- static int mtk_dp_training(struct mtk_dp *mtk_dp)
- {
- 	int ret;
-@@ -2015,6 +2044,8 @@ static irqreturn_t mtk_dp_hpd_event_thread(int hpd, void *dev)
- 			ret = mtk_dp_training(mtk_dp);
- 			if (ret)
- 				drm_err(mtk_dp->drm_dev, "Training failed, %d\n", ret);
-+			else
-+				mtk_dp_report_link_train(mtk_dp);
- 
- 			mtk_dp->enabled = true;
- 		}
-@@ -2145,9 +2176,12 @@ mtk_dp_bdg_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- 	struct mtk_dp *mtk_dp = mtk_dp_from_bridge(bridge);
- 	enum drm_connector_status ret = connector_status_disconnected;
- 	bool enabled = mtk_dp->enabled;
-+	int err;
- 
--	if (!mtk_dp->train_info.cable_plugged_in)
-+	if (!mtk_dp->train_info.cable_plugged_in) {
-+		drm_dp_sink_reset_caps(connector);
- 		return ret;
-+	}
- 
- 	if (!enabled)
- 		mtk_dp_aux_panel_poweron(mtk_dp, true);
-@@ -2160,9 +2194,18 @@ mtk_dp_bdg_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- 	 * whether we connect to a sink device.
- 	 */
- 
--	if (drm_dp_read_sink_count(&mtk_dp->aux) > 0)
-+	if (drm_dp_read_sink_count(&mtk_dp->aux) > 0) {
- 		ret = connector_status_connected;
- 
-+		err = drm_dp_sink_sync_caps(connector, &mtk_dp->aux, NULL);
-+		if (err)
-+			drm_dbg_kms(mtk_dp->aux.drm_dev,
-+				    "%s: error sink caps synchronisation (%d)\n",
-+				    mtk_dp->aux.name, err);
-+	} else {
-+		drm_dp_sink_reset_caps(connector);
-+	}
-+
- 	if (!enabled)
- 		mtk_dp_aux_panel_poweron(mtk_dp, false);
- 
-@@ -2390,12 +2433,20 @@ static void mtk_dp_bridge_atomic_enable(struct drm_bridge *bridge,
- 	if (mtk_dp->data->bridge_type == DRM_MODE_CONNECTOR_eDP) {
- 		mtk_dp_aux_panel_poweron(mtk_dp, true);
- 
-+		ret = drm_dp_sink_sync_caps(mtk_dp->conn, &mtk_dp->aux, NULL);
-+		if (ret)
-+			drm_dbg_kms(mtk_dp->aux.drm_dev,
-+				    "%s: error sink caps synchronisation (%d)\n",
-+				    mtk_dp->aux.name, ret);
-+
- 		/* Training */
- 		ret = mtk_dp_training(mtk_dp);
- 		if (ret) {
- 			drm_err(mtk_dp->drm_dev, "Training failed, %d\n", ret);
- 			goto power_off_aux;
- 		}
-+
-+		_mtk_dp_report_link_train(mtk_dp);
- 	}
- 
- 	ret = mtk_dp_video_config(mtk_dp);
-@@ -2435,6 +2486,7 @@ static void mtk_dp_bridge_atomic_disable(struct drm_bridge *bridge,
- 	if (mtk_dp->data->bridge_type == DRM_MODE_CONNECTOR_eDP) {
- 		mtk_dp->enabled = false;
- 		mtk_dp_aux_panel_poweron(mtk_dp, false);
-+		drm_dp_sink_reset_caps(mtk_dp->conn);
- 	}
- 
- 	mtk_dp_update_plugged_status(mtk_dp);
-@@ -2740,11 +2792,14 @@ static int mtk_dp_edp_link_panel(struct drm_dp_aux *mtk_aux)
- 	return 0;
- }
- 
-+static int mtk_dp_rates[] = {162000, 270000, 540000, 810000};
-+
- static int mtk_dp_probe(struct platform_device *pdev)
- {
-+	struct drm_connector_dp_link_caps *source_caps;
- 	struct mtk_dp *mtk_dp;
- 	struct device *dev = &pdev->dev;
--	int ret;
-+	int ret, i, max_rate;
- 
- 	mtk_dp = devm_drm_bridge_alloc(dev, struct mtk_dp, bridge,
- 				       &mtk_dp_bridge_funcs);
-@@ -2758,6 +2813,20 @@ static int mtk_dp_probe(struct platform_device *pdev)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to parse dt\n");
- 
-+	source_caps = devm_kzalloc(dev, sizeof(*source_caps), GFP_KERNEL);
-+	if (!source_caps)
-+		return -ENOMEM;
-+
-+	source_caps->nlanes = mtk_dp->max_lanes;
-+	source_caps->link_rates = mtk_dp_rates;
-+
-+	max_rate = drm_dp_bw_code_to_link_rate(mtk_dp->max_linkrate);
-+	for (i = 0; i < ARRAY_SIZE(mtk_dp_rates); i++)
-+		if (mtk_dp_rates[i] > max_rate)
-+			break;
-+
-+	source_caps->nlink_rates = i;
-+
- 	/*
- 	 * Request the interrupt and install service routine only if we are
- 	 * on full DisplayPort.
-@@ -2809,6 +2878,8 @@ static int mtk_dp_probe(struct platform_device *pdev)
- 
- 	mtk_dp->bridge.of_node = dev->of_node;
- 	mtk_dp->bridge.type = mtk_dp->data->bridge_type;
-+	mtk_dp->bridge.dp_link_caps = source_caps;
-+	mtk_dp->bridge.ops = DRM_BRIDGE_OP_DP;
- 
- 	if (mtk_dp->bridge.type == DRM_MODE_CONNECTOR_eDP) {
- 		/*
-@@ -2849,7 +2920,7 @@ static int mtk_dp_probe(struct platform_device *pdev)
- 			}
- 		}
- 	} else {
--		mtk_dp->bridge.ops = DRM_BRIDGE_OP_DETECT |
-+		mtk_dp->bridge.ops |= DRM_BRIDGE_OP_DETECT |
- 				     DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HPD;
- 		ret = devm_drm_bridge_add(dev, &mtk_dp->bridge);
- 		if (ret)
-
--- 
-2.43.0
-
+Frank
