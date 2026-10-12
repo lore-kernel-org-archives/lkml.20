@@ -1,60 +1,62 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic307-9.consmr.mail.ne1.yahoo.com (sonic307-9.consmr.mail.ne1.yahoo.com [66.163.190.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672F848EC6F;
-	Mon, 12 Oct 2026 14:25:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1C548EC95
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:25:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.190.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815145; cv=none; b=nE9KlzFK9zC/3w3VfFFAIEG/QrUR/l8AMu/fYU0Ut6keQzRSSeqUdMS2ZF7ZndIJXX1mI5DXWbu5vIBo0r2MletRQCq8pkLl6JNAdIk0BXF8bgLh89YubYANM+BPr27IlYNW7NpPQt4Aj78H/4WZGUKfJkRlC9nCKGqSkXtoNEo=
+	t=1791815148; cv=none; b=jiglkhqeuVzYR3bheoQ0HQ8aHtXo4CoGeG7yQy941BF+ZIym7OfhMKOx+adVlqTYnrXFaYqE6GG0OJuoNXdUvlx15Sw8V45uRF4AoZbUSNsqEidkZlNKHLI1TJOwnS5JJ9b2ldDXshYuzAldEMLjjthRztgDHlC/clNoLFoK23I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815145; c=relaxed/simple;
-	bh=ZnMDo5vOahzFNQi+LRKoxEqbLmczXQP3eJ4WHRLekuk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dFSzzdZtErB1pMg6exgQgDjLxbQfJn7ND20vz9mfcc8thw/+b9DTrho3ownboWOWyPkWcsCs2LAFAKjbg+y8x/twov5b8iXYNY6UwR2zKTzc5Fh3oK9ZsOh1a8O0qPexkGXO+cFCaDjTqeLYgeT6VOWkun5il9+EBrc/eWOKhRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=r0U2rbND; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791815148; c=relaxed/simple;
+	bh=gqeA3YGrzYhrDVDyUZzUyv97cEqLCeLmz633sVfH6MI=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=O90fLI72fEHPKz1S50yfw+DKPfbCp0qPMGjqfWgC7z+sDAFQ9iiL4FGPN2A8/SrY3pez4KrS3+884eCf56wLZrko612fDG5MnOZUTt61Oyv4HSzyP8HaEJJ9uNlVmv94n1s416dW1oU1d1lmfJYTsCozpZPCS+8QOQUN0Yoe/AQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=Mo0AAn95; arc=none smtp.client-ip=66.163.190.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="r0U2rbND"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCEMZ32640926;
-	Mon, 12 Oct 2026 14:25:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=UC/1HS
-	KFrnndW30cwCJSCuZubK267SkBMIgLL1uHNn4=; b=r0U2rbND0lenMx9TtcMN2W
-	d+tR5xm5M5IHvtVJ1MUpyZ+3D4DQAU4MJrz7PVMVwLwkjKf1M2ImI5ddykgwFINk
-	O3M3Qkqi+aSmsLezEP3q5gyz4DZaXdlNaH5oVSxC3CWI/mAf1k6tzTKueGDIDtAp
-	sKz2TUuCr+Mye72gDIue3uXlbueNy/2LGffBmD22YvlMM9waNGM3tD7rd/r0byWU
-	7DPVi1uNqSc/OH+vmiweKg7NUf/NoODRWbWatV5ph5HpQWjEUkxfpWjV21BlR5uE
-	ybK/tLrX7skhRO7Gnf6xJtWIfb070oZR74gd88z/7ry4hVAoAcQqMKyJs2oR/piw
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwh9bg4-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 14:25:43 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC52h7013510;
-	Mon, 12 Oct 2026 14:25:42 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h81wfwc00-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 14:25:42 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CEPdGI46596546
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 14:25:39 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F2C4C2004B;
-	Mon, 12 Oct 2026 14:25:38 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 76B8020049;
-	Mon, 12 Oct 2026 14:25:38 +0000 (GMT)
-Received: from [0.0.0.0] (unknown [9.87.157.242])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 12 Oct 2026 14:25:38 +0000 (GMT)
-Message-ID: <ad955834-a484-485e-a83e-8cdced2778e7@linux.ibm.com>
-Date: Mon, 12 Oct 2026 16:25:38 +0200
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="Mo0AAn95"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791815139; bh=F5gNCyG2q0mjkOp6cibi0HD2gZBiEPKlLCXkZDkPLBA=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=Mo0AAn95sGWv+js0saK4o/jTyNwTM8WJgC4KIJ2Beyyfrbc/9/jn1hZjJyUJxzkNKsGpDmU0QqjdCiOaefavWaqkIK0nTpnghFGZ3OemBOa451wDvhkgLOlBytvUzrov0B0UA0a/xKXtniS8F0j1SYmPA8kv7dO+aiUDpgIKuV1E6A0FXB8QPXAZZyJVUhsfSBj8ek+PGsMwXbPkvwjYeyykRMCIIgWoOf0pzGchBMv/jrfFmW7xqJJ/2xCcGakMBb46d59W5kdkV3mv754tNagXIQHydnrYy2CJpqVIv3LEvj29fzeILIY14Bx1cxKG+92J9TlikkmxHVnITVMcOg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791815139; bh=2J1uf0WHRnnN1rMHn7lpEwu8f7vHJmSN/ZTo40rQbfl=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=ijUVaEHOGi5QLUXQycpAw9ifh7HHaBHYQDJbFRb1ER+pXreZbqJ0IDHArbUwg1da3ne1fLsLd5YuND6dTda+Z/E9aA8HVo+nxPbiFxbPviFbifxPRS/b0g6NS1Qq7wkzrkSzqOHl87SYSL08xX/oTDYcT9+vF0siSw4ueHTnfqDzoDTd+LNlogg3A3OcSMJOBvis1BznD4zvPm9V26sh1uyxgwacGDLAC7dffv4E/86lGUMKFa//Jf2Ij7CyPwsUDegZCfNseG6vN4HW4Kd6847YH5vmxZw7wb3QOp9dT7fWB1movP0A9DbAacJk42CPYbjsmSYq7S2sqTg29ddXIA==
+X-YMail-OSG: csD59ZsVM1lydLlEYKzVS_pjoNEbjDU0EDP6V.p069Bi4LCnnn7I4M0bjLERNKl
+ oX5m0DDlhnHPTQ1A6jqnWIVFKcvCzOOBXkScxFA1v84hq_GM9BKdyIXuOMEGhsK6w4RDT_AsvmIT
+ Wv.nnRVLdWXtVtXBJmq2c9Ojzd3P3pmhFdESDnDUPLBLFkvJ_bc7vZkjgYybR9vBd33SffMEVgwQ
+ j6fQltXrXkyTc7WgaLIdd4LDPD_OHX_p9rUIMZ2FcN0NRyOlKFzsPV4nLu.zKt6uD_NYHpV86D25
+ G9ZIoIj4wxDRMhxGl7qkEBUXqO3dPHKN77NO7uSOU5cyjH0mP1HN9sQFvPwn7F3dZ2VvfG7VjEXb
+ ZFabTKL8wLH_sIvWWP.ZEqpyvYdoY0FNL0JWYrcbqg.TMUODtqabtm5sA6C.5Ny3CYwq.RpbiJK3
+ jKm4GKRGLFbhKagzc2XGCHaqFokdRWaq7KLlIv29D51tnA3AldLfSRYT2CsKtA00C5yzz2h.Q3bX
+ thI5iOa8PqYFq2VFCrpG6n2clAb3PoQ4TajotBAZqOYxBdCEFm49iil5alode_JunrtZva6GU7j4
+ OJ9xNj5C8baB2Npj_5B0XXVjWjs78fd_WwNBDMEBa6n983r4F.qocx2rgHaCasPYhRyFAPZxd4eu
+ YoJcECgChuSDnAsQ1FFKXcXQN8Hkd_htP2IpulwF3YkVzriw1OLZ8fPT7q8x_CKMOf6yZzcETNzQ
+ p3VkAtCg57_XoOChU6o2.MuMlAfMFd.ehQuXxcx89cFuYX_l01DEcCN2Kydy5mavPTz676DESY7F
+ 7aTigtryft2Svigc2tPdIF0SDjXv.NgdqnV5jBDR47nak9yPyaHZ9De4PbQ9XoHb4ezoG8MM5gxm
+ ydzHl4ga8DKM6o2RUSAkKqVByvIV38zKfm_D13wfSfCZQHhJGOJ8V8nnpiU10mBIOkysyh2zzZf0
+ DyHDEtVj4a0t7Jg4uRV3hhEmihittzZKgBH5F_fvpYrimc0Gtuz7MZCBYNID4FhAxa7D6JWmkA1e
+ TgaXUydayX0Hqn3eFJxpyA9hG1ipmpB_vs0jFkeLuIms5B4eUWgNbcs_A9pLR2HgDw5LL0DTQsO1
+ 89.jKn5HXiNFVUSNXbkqiOZ5ekxqVQ_xsLJgpsOUwPhy_tZvVk3G5MVcIONr1phuZDWzxx0dvMFP
+ RDgt33P.sP1_Lkq9RbLjsKngpKRTx2JO7AXwd9VQn_El_WR0dsUjOdE0wTnSzHc8QzkEqkox_iGN
+ B.epJIzXMmF7CpBIoZlSidanDfNfJCArpdeW0PjGc3N3IfEbMLK85XDgeOFODzaXxDXp_XxKrR33
+ Tx.lnwD72ETV51r_e5GLndzIszVpSKVt.5w5FBRKCbd65kp_x.5T63VcJAs5EIvvVermJcYF7cNw
+ yJGLPqL.Yc920ZEYd37nbZtYTyfg.qAGBCJhlNfKrRizY6ygjW0QwhEcqLBpwesebRSIHagYiZUa
+ pgWCssksHXB0Z5Q6C4GP_K_BSfL3TlFsMS.G0SJZ4o15nCXxe1grgLim7QerwNV7aBmjFntTKSqo
+ Qj6MhlbLQ_LcmWtVBydP5Wrkd.O0cBKkWGtznE7geb5a9TOwN9WcdMxWqMddsc6YRnQ7tIKlRZFg
+ WHzc4xdKmDb_.awplupw8K6jEvh7YjYRWqVyZiATdenTnyIF_oST6XYryaMhe2seoZSWJETKHpkZ
+ dirbSyyEgNlNU4vQIx2O.4SlK3tDfG0xob0YdlTFCo0_sb9Lo5y0VWS9di1LoHLRLQi0FVrlLfDD
+ BLa_QQkpgXlG2anlSoCfUEARbmC1sYM9bCXEVC7gkqI0LSjU6Lu9cxMSnRwiL7FZPr4LCQZuZO0z
+ oLxmqwUWvGgyHoKawSivQUIYA_D1bqG.y12IyfwVu_HOD6f_0eXjSikbmzS.i1ijEMpmEYaMS.ud
+ sQbAe7ijjlZAT5IkiL.U1EIBts_GvnIjSve2LsimsIDVljgNort3NzMUB39qY1nXC8vC7eubsUNG
+ mKIOsdbqm0jLbHimQ_g.VVWNPApshAFKc8Oq.5.wW6LBUYq_ff.eT9xWj.f72w20YrOLq3haYfn5
+ UQJsyuzlQ6PsK1GvRIzF1EOAIJeDZUMRBxK_jPDtAv_XI2Qr3gPMW8iw7uuo7siByTLyVxjtqI2E
+ 5Uy4rINUnmG3Z0B0AA4kB9PD6cW_HO71V0xprtxgYgdDgBzJQYbxWcIBYTKguG5wvy5Nff61ltvw
+ C0mh_TeHVk9Kdjziw.5xEnMwr3epvlCdnfLziZtyxZgGKEuLYm07vTur3tlrVScgKDfk5AWaz0l0
+ C_l.SCOa741LSsCJjUyYf4NbjF2mQcJrDeT.JZPfvtJwc3zkyrCk-
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: 5f644e29-6e1b-43b8-b297-afd9f063bd2e
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.ne1.yahoo.com with HTTP; Mon, 12 Oct 2026 14:25:39 +0000
+Received: by hermes--production-bf1-6d6877594b-qr7mx (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 736e5eb114076bbced4dad4c53ac869e;
+          Mon, 12 Oct 2026 14:15:21 +0000 (UTC)
+Message-ID: <5adc200f-27a8-4520-a7dd-bd8a3fa14db5@yahoo.com>
+Date: Mon, 12 Oct 2026 16:15:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,70 +64,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 22/32] s390/traps: Convert inline assembly to
- EX_TABLE_INSN
-To: Heiko Carstens <hca@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Niklas Schnelle <schnelle@linux.ibm.com>,
-        Matthew Rosato <mjrosato@linux.ibm.com>,
-        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-        Vineeth Vijayan <vneethv@linux.ibm.com>,
-        Peter Oberparleiter <oberpar@linux.ibm.com>,
-        Harald Freudenberger <freude@linux.ibm.com>,
-        Holger Dengler <dengler@linux.ibm.com>,
-        Stefan Haberland
- <sth@linux.ibm.com>,
-        Jan Hoeppner <hoeppner@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-References: <20261001103247.1989111-1-hca@linux.ibm.com>
- <20261001103247.1989111-23-hca@linux.ibm.com>
-Content-Language: en-US
-From: Ilya Leoshkevich <iii@linux.ibm.com>
-In-Reply-To: <20261001103247.1989111-23-hca@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH net-next v4 1/9] dt-bindings: net: dsa: realtek: add
+ RTL8367S-V
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <38872e6f-1264-4a93-9f81-8212173e909d@yahoo.com>
+ <5dbd1b29-72d0-454d-83e1-19f7232a0ee0@yahoo.com>
+Content-Language: pl
+In-Reply-To: <5dbd1b29-72d0-454d-83e1-19f7232a0ee0@yahoo.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX2DhDzsbm0m6y
- kcwYr8gSDXQNYhmdQTzMP9Z5rl9BIqcUTSkumXv+r9+CnXB2FtMcozgZxlLYj3TgrrJiK51Fncu
- zUhjAb8sMVIBXkp0nBvLvMvk7iqABv0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX4/+cRyHa7VdW
- XJA1jW2BjNSRUJ9gHqScx6UbnwNenW4I7rUwFnr0tj/tHfll5z1vwuaKm7s6EwmgZY9Be7w9zmx
- +o8ce8NRdKVARvgQh0h+MV6ojUJIJZdohhdIHSpyEws4h1AHvO6Zl6eCZl84S1SIuSh0Mtgm3Gn
- 5IeSl9iLPwjj2neImWcrGJWg2mryOjBXMvBTmCYwltea5nAStKUBt/TVDpUFjyH7viPBcgRNbem
- HpjYZ463+X4FTCzktRCcI01i0aw+G3FPyc7ptdZnBSV7t9GIn+VhzDxnp1LJPK/Tw0MtvUrmCXx
- JNTCMTpKCNNEMHafqTKegztsRu+3Q+WODy1KQUOcnhAAJjj+rJbbwE06RU0xE88e/bFZHEwTnVR
- I8oPO4FH7zPmRtAQM3fNVg6yyX3bDzCcX+MGlYmxD0ictu/e6Lo49AHFGwd8/6BPsOXuxjfc3oj
- chV6mE6Z5wwJcLeIGLw==
-X-Proofpoint-GUID: zXR6wpaC_CJrN-uBSPrLCml1Aqrx3YKG
-X-Authority-Analysis: v=2.4 cv=RoFQvymK c=1 sm=1 tr=0 ts=6accede7 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
- a=w_t0WWM1F-p4_GTPpoYA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: zXR6wpaC_CJrN-uBSPrLCml1Aqrx3YKG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 bulkscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120056
+X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-
-
-On 10/1/26 12:32, Heiko Carstens wrote:
-> Convert the monitor call exception table entry to use EX_TABLE_INSN.
+On 10/12/2026 2:09 AM, Mieczyslaw Nalewaj wrote:
+> The RTL8367S-VB (chip ID 0x6642) is supported by the rtl8365mb driver
+> with the changes that follow in this series. It is identified by its
+> chip ID register, so it does not need a compatible string of its own.
+> List it under realtek,rtl8365mb.
 > 
-> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
-> ---
->   arch/s390/kernel/traps.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
+> Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Sorry, the product name in the subject line was cut off by mistake. 
+It should be "RTL8367S-VB" instead of "RTL8367S-V".
 
-Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
+I will fix this in the next version, or if no other changes are needed,
+please let me know if I should resend just this patch.
 
+
+Mieczyslaw Nalewaj
