@@ -1,359 +1,166 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011004.outbound.protection.outlook.com [40.93.194.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2031E3CBE6E
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:41:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.4
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791837708; cv=fail; b=micZwnSXm/1H/x/m7NnuR7UAFqGKHylRplEbdjlVsC095BO2Wsnjss+JWMz3sqfwE2HX516qB8lAw83jcErsiCf0P6FCWa6PyWUMWQKcQ6sl3ViiQhhYqDs603DvQB8MYiau/Gx3p8FGPje/lCHB2QS9akhCq+LDTuBCydbcftM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791837708; c=relaxed/simple;
-	bh=k8RQnb9fT5Fa9M6pZDc0OB/9eKP3YND91AXiBTRCD5k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Xcf/cWuCxl0IQyOfteW3uvN2PenF4Q8LoAzCIR+c197arj6a80/zX2id3a89mwJcXBcXm6CsB8kcZcVAElOfyD4flBHh73VQSVWewtM7/7n3YLNuTZNrDvUy0GMJmE8WERMaMbw3pr4+vuoUadGq1zIfcVo1/QggENinWWoEj2s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4jXZNMm1; arc=fail smtp.client-ip=40.93.194.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1650E486E7E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791837746; cv=none; b=S4zsXRCRrSbBzgHVsPYE+aKtuGTJPSic+rZ3nKCkOa68ifqcTv/o/ANqGi5Z3o9w4EXDYTkUNhTIyWGSaPADuHaJg6TMstaQ1zDycLzHwWBGIYKpZB4LRvccSJN1bMBvCM0ryUrrxAMNC46QmBdo4g+5PYtEscPROe7AgoGv6K8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791837746; c=relaxed/simple;
+	bh=wMbEwuPPMU/11A0D4bqsr+2FfGjvtTzmXYLOKlRkP2c=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WKtAXjMj6rqSEO9c5AA9mhkdHjiPFwf5jE7jceWOrTjgj1wRAz1JprlGhtqwEaSQ1jIopqPFXzcbaSMYA37yH7j9xstlh8bEx3yZnfWJsED17GsQAGL3b02BEaI9k6hipKzncpA+uOyeqLLlMsVbEOhz/EiXRuNs6afIDKpXExM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jSevQDVv; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4jXZNMm1"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PwH5wjjmiw1C3wkP4KZbT5jf9IK07hYXdrIGzXGcLiRgNRUSg1SJE5fM/9POcKmyLgjnlZOHEbkndXKccKnSzZITvrbnXzebuG1eNh6FClLgkmaoWni5ssxOKixYjZ9IX7/EYims4xdgivYV+fTos7Gka3gD/W+zlZ3sKlIQEeB8fNjBJQLMjzzIC7H9FQ+nK1qA/T7xnuT6ngY+vtxFUjb+hNILHviRksvbN2FAmXT6H3DCDTcBwTb8fAetoksir0P4xv658t0phDK+CmtnmuiAq/VBvPOcGIyhB46haq7ikcGxcqocrq+7BXMHLIIzs7xWolFBr6qhq8jj+DJbrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F7cMC5DLSCXywjex8gy/LA6TNCuRls1vb16zqmHnJgY=;
- b=R1GUj7duUL8Duw9K48H8ncfaFm2YbwiqnM5vQ2j9Ufg61Lf4VQHRuIb0vczRAoUIiNDb4izvKucAxBE7YgQloTJGQSvF45vSAO3bBeE8eeQiUy99fBo7ifatY+4aT6OknYokxsMNkkDMOq9Vingk7hsKPl6ebDiElPSY4Kw6seBHA+CZkQRsHNKgq0uRjfj/7uH3NSKTmAslOReoVuwFs8hQMuVgaVr3MpF4h/W5uKLz6nvoCXX7BlobLh1TL1xkaOD4nVJB6zwgAWqj7Mvij/C64W1Z/W6w7qTDSsIrGO60LxSqkb+aW6taF904FefUEt1mP/+LHsulFEHPz3TinA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F7cMC5DLSCXywjex8gy/LA6TNCuRls1vb16zqmHnJgY=;
- b=4jXZNMm1E4RNLwuDsH+xGBC4GiuvSrdyf2Yy4+VJ5APoI6xXUP5+M90OR1Y5EpUiluTfFQ+nN9LfAns/mmWJfVrT0k6eaX+JGl/VGivZVZaEeSsEovguXbYTf1mgd76sOLZERb1p+vD7H5CfvOUhO0Iyu+W8ddHmjA8RkSLRyjw=
-Received: from SJ0PR03CA0212.namprd03.prod.outlook.com (2603:10b6:a03:39f::7)
- by DS0PR12MB7969.namprd12.prod.outlook.com (2603:10b6:8:146::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Mon, 12 Oct
- 2026 20:41:40 +0000
-Received: from CO1PEPF00012E65.namprd05.prod.outlook.com
- (2603:10b6:a03:39f:cafe::97) by SJ0PR03CA0212.outlook.office365.com
- (2603:10b6:a03:39f::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 12
- Oct 2026 20:41:39 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF00012E65.mail.protection.outlook.com (10.167.249.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 20:41:39 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 15:41:33 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 15:41:33 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 12 Oct 2026 15:41:32 -0500
-Message-ID: <29fad348-94d1-3f83-91d1-df3c19d27af0@amd.com>
-Date: Mon, 12 Oct 2026 13:41:37 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jSevQDVv"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso2178434f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:42:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791837743; x=1792442543; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fqf3rGQ/R9PQCmxqvsD5ZLcC98lXYPCxdFatXGsliLY=;
+        b=jSevQDVvqgyzAZ6nabtjMS7tsPrh8FIYaAW/xJ7mRTxeAWp+bUNrYPSxAQI7DCZJ5A
+         iibwNJZDotNl8x7+amDSeG80FyEOr9hhhyGPNk8PFoECNgwKjB9IKj7dWXC5bWCwAYRN
+         5IZdPN1I18E+RE08ctbgtkU2UhAqZka5r3g65+jUwlFfrBpbRQ6M1zHNgK4HDRAbcSzn
+         QXzMdLzj7DtYshYmMkOhBh7VNN3CnutJmyIFsPKyJ5tyxtAhDSpUd5OfgNx6Tc/lu45y
+         oh6aikiZJYfJDjU47zh6yO09Pjz4q7hn/NnHOY4apML0fREO0yTop7crmxe9QXbCWify
+         ICzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791837743; x=1792442543;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fqf3rGQ/R9PQCmxqvsD5ZLcC98lXYPCxdFatXGsliLY=;
+        b=E1Nf7+/1ff4VHV8Df4TTWUPD+xheigMCqG9DAKReBM4qmIMTx3Wmzdf9YOaNQOfn8X
+         2z6t024bbctCuKn6V1fhg3iKZsZe2fM6Pg7WkVtmhuffhBnR6A7Cdl9R7+fqYRAv2/e7
+         jSFuloSloWCDaNomR017T+rUVbbiCpg2+DlbAHB838Di0NbkdFHa6OayQnu59qEFdw46
+         vJBzKkkIFNJRVI/tjEPzqRkgu549On3Icqwm+w3fqxU8G53vRkkScIv/TxRN9sZpce5R
+         yhRMRooP0EXMD5p0i/rZd0UAk87n5sd9P0CDtADH3IAgFG0yF76HAnw15D+OpHuehTEm
+         OmUA==
+X-Forwarded-Encrypted: i=1; AKwUvByJx1+Bnj66eapWBica59Wnn3LCB2fex1Y2LwKRQ0LXYMUf4uVyg0MDFUfAEBZj1wZuAL1ahDezHAjX+rc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKOPtlTsTncYx/qiavBQilXcdmZYbRn1QFCOwzPwhyjvRpBFu8
+	3J5gOHYo/OdKh5+M6FPUynCwrO/qMLNC/U8fl8p6EQEBNURccMnO6k5K
+X-Gm-Gg: AYBFou2YWKpJYPsE794Y4dECCgKga9d257ja3N/85BSJhGb0CVEB/VzKHq8NA2Rcy1R
+	OmiT9+lSGLnyIOBrxlvuDfZ5ndHRtDtTGJGbDC5llPEAQTqJVVzCtfo+A2Qv3VMbb7JCcFSfzmJ
+	3jX0R5XTbhkLXyc0XA3RL5AgYAUhObB3wckQRC+hEuHekDWsuldJPsBVMMfMNDuoRUdNLsgyNOm
+	gtG6Ly+XQRzD8xvi2wbNaoHSm2tdQF4UiEIaGyqa9OzfBAHiJFgX7vzXNVszV0IWAKzMt0fZuuh
+	uL1x0vUefEpXXkeC027HNmkfSqbeW9kO9Ayxy7BDMPJmKrTNw6i17KIfsGlGlsDp4i46fsUOZeq
+	fteb8bFhkbfTF3lJzRxEHAyEIdMomirFaYsJC1jEOHJvFm1RJstrHLvIGvNPBOJ9XJT3fStjLHH
+	z0GrM2XsWyCPSNALelWf+Md2iVqpexe55QK9eURdYony+2ga3/T4dN+kMXogx/2ZaAc08JpDusu
+	cnV6TTf6wiVUktBwXvOtSSeaPczr7Ef1a+ix1UbR3Fp0MayzougKHkU4S2d+exsalJZV5dXQxy2
+	di8oXy/y+ult1NOHSy4ddBxuhenX8bilXQKgxWPVj50JD1znhmU4WPRYagRqd6EEAuT0beF7o8s
+	=
+X-Received: by 2002:adf:efc6:0:b0:486:e9ab:2b88 with SMTP id ffacd0b85a97d-48dbaadb11amr14086227f8f.24.1791837742943;
+        Mon, 12 Oct 2026 13:42:22 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a8ab-0f01-016a-c770-797f-eaee.310.pool.telefonica.de. [2a02:3100:a8ab:f01:16a:c770:797f:eaee])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac3970sm1186179f8f.37.2026.10.12.13.42.21
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 12 Oct 2026 13:42:22 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Guo Ren <guoren@kernel.org>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	kasan-dev@googlegroups.com,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] riscv: Always inline on_thread_stack()
+Date: Mon, 12 Oct 2026 22:42:11 +0200
+Message-Id: <20261012204211.3351-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V4 05/19] accel/amdxdna: Add NPU3 classic device support
-Content-Language: en-US
-To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
-	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
-References: <yidong.zhang@amd.com>
- <20261009225343.3079074-1-yidong.zhang@amd.com>
- <20261009225343.3079074-6-yidong.zhang@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261009225343.3079074-6-yidong.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E65:EE_|DS0PR12MB7969:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e7e1d80-3765-4f04-c35d-08df28a13779
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|1800799024|36860700016|376014|10067099003|18002099003|22082099003|3023799007|4143699003|261009223027099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	fhTuIMJZzi1pVcdpFvYftGv/cQYTtu3QHtEec5i4Azdg3DIKqUBLP3L2pK8m8eAnpS53l/sds6yUBDnYAAlF3PFugzaK8aj/7u7Dy38wUatPF6rz2clejt9LaCc8/JUCeCEHiNTrM0KG+AtDas7iVO+dMZBha+S1Cwy9ZppDqGAc9yJbHiofK2MISo/ptV4eEiDDkq2bsHqZbho8ZM0WJrvsbRhgqkYIHXkBjB47GkPr7uGUUGl25C2N/8LADtwfH6Nb62c5r1apPpLdH74mX7L/EaKcLYjCr6aW4pgWoyTW+RkX3+XEPTS3ZQk0exDK7CgAAwEToPu3azod4fMtfFle+ggxrcXSvTlnu+mU2I2vNJThkk/gp5sU59SKJHlpsm5y3ix6fEicObXU1v41HSbFFEajz0LN7059iZXdSjgPcmJdAxL2BA/MOEX66xCUkyU8KfmE/msvNMr2Q2KH05Ap/lF6+sx0nw/kZ1H4elE6v2kXBeb01gC8ulWVmrr1ZjTzZzgc24dDdMsjSqGHIfaLFTzr8MpyiB8fHE+yyy0LFWu0oo/CzRnzPVpMitt28TVNz1SrhLuy8rL3118dh6A9suZ/G81I8/5yDRGPG0rg0wv1Um7vIy3sPSmmxd28MlmISpyQoFU+cL9R75YeXW0ozYwEuU8Gdep0XfJu5L6t8Jl3GUr9rmDx7sd/gFfRMvLDlvUAdqs5Sx1q2UKY5g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(1800799024)(36860700016)(376014)(10067099003)(18002099003)(22082099003)(3023799007)(4143699003)(261009223027099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	RZqkBiLdO1Q9p0R8foBCJrmjauS3TqBc+qUDpafXl5cXSUAp/sLTms7VT4xdIZUtnVZHmKTIBDrq9GRxWvQckR4rWGAQmCOmLQm6YKaoO22m9L8VxyV4C7oOpEdSVAMf0jhnzwObsZPvX2P+pkW5r0yLmX6VIbl9zweZdjp+g5pOSaYXYV9r277N+luJAJP81Ror7kGmlcjwPV0m4tF6J95fDcLm9p/OjFFrNzVg1m1ssyii9XWpWoBNto434ljz3zn9GRvMLHbdDf4Wf+Nx9XeLlBrmqgk3DxI2Y4aepS4W1I8cDf7QqoaZeDNXXsthpOoUPJuuGTlwiCXQAgInui+GKv2rRASmkPdNi3nw2b7rCibLW5QdxMmmtvjBmj9aInjizn80eXmcSCLtcv7u/PpsFl/oYjtHH/+CqpkLF2/9MzgrA8sk1cY6BkaEpGjC
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 20:41:39.4116
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e7e1d80-3765-4f04-c35d-08df28a13779
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00012E65.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7969
+Content-Transfer-Encoding: 8bit
 
+With CONFIG_IRQ_STACKS=y, GCC may outline on_thread_stack().
+CONFIG_KCOV_INSTRUMENT_ALL instruments it, and do_irq() calls it before
+irq_enter_rcu() increments the hardirq count.
 
-On 10/9/26 15:53, David Zhang wrote:
-> Add NPU3 classic device operations (aie4_classic_ops) and register
-> definitions, as well as the PCI device ID and firmware declarations for
-> NPU3 classic devices. Remove device IDs 0x1B0B and 0x1B0C because those
-> devices will not be released.
->
-> Suspend and resume support is added in a later patch, once the
-> kernel-mode queue (KMQ) can drain in-flight commands.
->
-> Signed-off-by: David Zhang <yidong.zhang@amd.com>
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
-> ---
->   drivers/accel/amdxdna/aie4_pci.c        | 83 +++++++++++++++++++++++++
->   drivers/accel/amdxdna/aie4_pci.h        |  1 +
->   drivers/accel/amdxdna/amdxdna_pci_drv.c | 23 ++++---
->   drivers/accel/amdxdna/amdxdna_pci_drv.h |  1 +
->   drivers/accel/amdxdna/npu3_regs.c       | 14 +++++
->   5 files changed, 115 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-> index e9cd2af224d3..1eeb1cb73b27 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.c
-> +++ b/drivers/accel/amdxdna/aie4_pci.c
-> @@ -366,6 +366,51 @@ static void aie4_vf_hw_stop(struct amdxdna_dev_hdl *ndev)
->   	aie4_mailbox_fini(ndev);
->   }
->   
-> +static int aie4_classic_hw_start(struct amdxdna_dev_hdl *ndev)
-> +{
-> +	int ret;
-> +
-> +	ret = aie4_fw_start(ndev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = aie4_mailbox_init(ndev);
-> +	if (ret)
-> +		goto stop_fw;
-> +
-> +	ret = aie4_query(ndev);
-> +	if (ret)
-> +		goto mailbox_fini;
-> +
-> +	ret = aie4_attach_work_buffer(ndev);
-> +	if (ret)
-> +		goto mailbox_fini;
-> +
-> +	ret = aie4_partition_init(ndev);
-> +	if (ret)
-> +		goto mailbox_fini;
-> +
-> +	return 0;
-> +
-> +mailbox_fini:
-> +	aie4_mailbox_fini(ndev);
-> +stop_fw:
-> +	aie4_fw_stop(ndev);
-> +	return ret;
-> +}
-> +
-> +static void aie4_classic_hw_stop(struct amdxdna_dev_hdl *ndev)
-> +{
-> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
-> +
-> +	drm_WARN_ON(&xdna->ddev, !mutex_is_locked(&xdna->dev_lock));
-> +
-> +	aie4_partition_fini(ndev);
-> +	aie4_suspend_fw(ndev);
-> +	aie4_mailbox_fini(ndev);
-> +	aie4_fw_stop(ndev);
-> +}
-> +
->   static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
->   				 const struct firmware **npufw,
->   				 const struct firmware **certfw)
-> @@ -628,6 +673,29 @@ static int aie4_vf_init(struct amdxdna_dev *xdna)
->   	return aie4_vf_hw_start(xdna->dev_handle);
->   }
->   
-> +static int aie4_classic_init(struct amdxdna_dev *xdna)
-> +{
-> +	int ret;
-> +
-> +	ret = aie4m_pcidev_init(xdna);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = aie4_alloc_work_buffer(xdna->dev_handle);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = aie4_classic_hw_start(xdna->dev_handle);
-> +	if (ret)
-> +		goto free_work_buf;
-> +
-> +	return 0;
-> +
-> +free_work_buf:
-> +	aie4_free_work_buffer(xdna->dev_handle);
-> +	return ret;
-> +}
-> +
->   static void aie4_pf_fini(struct amdxdna_dev *xdna)
->   {
->   	aie4_sriov_stop(xdna->dev_handle);
-> @@ -640,6 +708,12 @@ static void aie4_vf_fini(struct amdxdna_dev *xdna)
->   	aie4_vf_hw_stop(xdna->dev_handle);
->   }
->   
-> +static void aie4_classic_fini(struct amdxdna_dev *xdna)
-> +{
-> +	aie4_classic_hw_stop(xdna->dev_handle);
-> +	aie4_free_work_buffer(xdna->dev_handle);
-> +}
-> +
->   const struct amdxdna_dev_ops aie4_pf_ops = {
->   	.init			= aie4_pf_init,
->   	.fini			= aie4_pf_fini,
-> @@ -654,3 +728,12 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
->   	.cmd_wait		= aie4_cmd_wait,
->   	.get_aie_info		= aie4_get_info,
->   };
-> +
-> +const struct amdxdna_dev_ops aie4_classic_ops = {
-> +	.init			= aie4_classic_init,
-> +	.fini			= aie4_classic_fini,
-> +	.hwctx_init		= aie4_hwctx_init,
-> +	.hwctx_fini		= aie4_hwctx_fini,
-> +	.cmd_wait		= aie4_cmd_wait,
-> +	.get_aie_info		= aie4_get_info,
-> +};
-> diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-> index bdbb2d7cf0e7..940e67347d74 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.h
-> +++ b/drivers/accel/amdxdna/aie4_pci.h
-> @@ -96,5 +96,6 @@ static inline int aie4_sriov_stop(struct amdxdna_dev_hdl *ndev)
->   
->   extern const struct amdxdna_dev_ops aie4_pf_ops;
->   extern const struct amdxdna_dev_ops aie4_vf_ops;
-> +extern const struct amdxdna_dev_ops aie4_classic_ops;
->   
->   #endif /* _AIE4_PCI_H_ */
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> index 3140af69e29c..f5f7831c4e80 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> @@ -28,8 +28,14 @@ MODULE_FIRMWARE("amdnpu/17f0_20/npu.sbin");
->   MODULE_FIRMWARE("amdnpu/1502_00/npu_7.sbin");
->   MODULE_FIRMWARE("amdnpu/17f0_10/npu_7.sbin");
->   MODULE_FIRMWARE("amdnpu/17f0_11/npu_7.sbin");
-> +MODULE_FIRMWARE("amdnpu/17f1_10/npu.sbin");
-> +MODULE_FIRMWARE("amdnpu/17f1_10/cert.sbin");
->   MODULE_FIRMWARE("amdnpu/17f2_10/npu.sbin");
->   MODULE_FIRMWARE("amdnpu/17f2_10/cert.sbin");
-> +MODULE_FIRMWARE("amdnpu/17f1_13/npu.sbin");
-> +MODULE_FIRMWARE("amdnpu/17f1_13/cert.sbin");
-> +MODULE_FIRMWARE("amdnpu/17f2_13/npu.sbin");
-> +MODULE_FIRMWARE("amdnpu/17f2_13/cert.sbin");
->   
->   /*
->    * 0.0: Initial version
-> @@ -55,10 +61,9 @@ MODULE_FIRMWARE("amdnpu/17f2_10/cert.sbin");
->   static const struct pci_device_id pci_ids[] = {
->   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x1502) },
->   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x17f0) },
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x17f1) },
->   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x17f2) },
->   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x17f3) },
-> -	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x1B0B) },
-> -	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x1B0C) },
->   	{0}
->   };
->   
-> @@ -69,10 +74,12 @@ static const struct amdxdna_device_id amdxdna_ids[] = {
->   	{ 0x17f0, 0x10, &dev_npu4_info },
->   	{ 0x17f0, 0x11, &dev_npu5_info },
->   	{ 0x17f0, 0x20, &dev_npu6_info },
-> +	{ 0x17f1, 0x10, &dev_npu3_classic_info },
->   	{ 0x17f2, 0x10, &dev_npu3_pf_info },
->   	{ 0x17f3, 0x10, &dev_npu3_vf_info },
-> -	{ 0x1B0B, 0x10, &dev_npu3_pf_info },
-> -	{ 0x1B0C, 0x10, &dev_npu3_vf_info },
-> +	{ 0x17f1, 0x13, &dev_npu3_classic_info },
-> +	{ 0x17f2, 0x13, &dev_npu3_pf_info },
-> +	{ 0x17f3, 0x13, &dev_npu3_vf_info },
->   	{0}
->   };
->   
-> @@ -140,8 +147,9 @@ static int amdxdna_drm_open(struct drm_device *ddev, struct drm_file *filp)
->   	mmgrab(client->mm);
->   	xa_init_flags(&client->hwctx_xa, XA_FLAGS_ALLOC);
->   	xa_init_flags(&client->dev_heap_xa, XA_FLAGS_ALLOC);
-> -	drm_mm_init(&client->dev_heap_mm, xdna->dev_info->dev_mem_base,
-> -		    xdna->dev_info->dev_heap_max_size);
-> +	if (xdna->dev_info->dev_heap_max_size)
-> +		drm_mm_init(&client->dev_heap_mm, xdna->dev_info->dev_mem_base,
-> +			    xdna->dev_info->dev_heap_max_size);
->   	mutex_init(&client->mm_lock);
->   
->   	mutex_lock(&xdna->client_lock);
-> @@ -176,7 +184,8 @@ static void amdxdna_client_cleanup(struct amdxdna_client *client)
->   	xa_for_each(&client->dev_heap_xa, heap_id, heap)
->   		drm_gem_object_put(to_gobj(heap));
->   	xa_destroy(&client->dev_heap_xa);
-> -	drm_mm_takedown(&client->dev_heap_mm);
-> +	if (client->xdna->dev_info->dev_heap_max_size)
-> +		drm_mm_takedown(&client->dev_heap_mm);
->   
->   	mutex_destroy(&client->mm_lock);
->   	mmdrop(client->mm);
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> index 0002e6ef32ba..953bf783b3f7 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> @@ -169,6 +169,7 @@ struct amdxdna_client {
->   
->   /* Add device info below */
->   extern const struct amdxdna_dev_info dev_npu1_info;
-> +extern const struct amdxdna_dev_info dev_npu3_classic_info;
->   extern const struct amdxdna_dev_info dev_npu3_pf_info;
->   extern const struct amdxdna_dev_info dev_npu3_vf_info;
->   extern const struct amdxdna_dev_info dev_npu4_info;
-> diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
-> index 93f749acb5d5..c82433d62901 100644
-> --- a/drivers/accel/amdxdna/npu3_regs.c
-> +++ b/drivers/accel/amdxdna/npu3_regs.c
-> @@ -105,3 +105,17 @@ const struct amdxdna_dev_info dev_npu3_vf_info = {
->   	.cert_feature_tbl	= npu3_cert_feature_table,
->   	.ops			= &aie4_vf_ops,
->   };
-> +
-> +const struct amdxdna_dev_info dev_npu3_classic_info = {
-> +	.mbox_bar		= NPU3_MBOX_BAR,
-> +	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
-> +	.psp_bar                = NPU3_PSP_BAR_INDEX,
-> +	.smu_bar		= NPU3_SMU_BAR_INDEX,
-> +	.doorbell_bar		= NPU3_DOORBELL_BAR,
-> +	.default_vbnv		= "RyzenAI-npu3",
-> +	.device_type		= AMDXDNA_DEV_TYPE_UMQ,
-> +	.dev_priv		= &npu3_dev_priv,
-> +	.fw_feature_tbl		= npu3_fw_feature_table,
-> +	.cert_feature_tbl	= npu3_cert_feature_table,
-> +	.ops			= &aie4_classic_ops,
-> +};
+Normal KCOV records this interrupt coverage in the task's buffer, making
+results timing-dependent.
+
+With CONFIG_KCOV_SELFTEST=y, current->kcov_area remains NULL. In QEMU, a
+timer interrupt called the helper before hardirq accounting. KCOV treated
+it as task coverage and dereferenced NULL. Fault handling recursed to stack
+overflow and stopped boot.
+
+On a BeagleV Ahead, the unpatched kernel did not finish the selftest within
+120 seconds. Three patched boots completed it and reached init.
+
+Mark the helper __always_inline to keep it in noinstr do_irq(), following
+commit 1894a4030582 ("x86: Always inline on_thread_stack() and
+current_top_of_stack()"), which fixed the same out-of-line call from x86
+noinstr code.
+
+Fixes: 163e76cc6ef4 ("riscv: stack: Support HAVE_IRQ_EXIT_ON_IRQ_STACK")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Tested with GCC 15.2.0 and QEMU 10.2.1 on v7.3-rc7. Both images
+used byte-identical configs and v7.3-rc7 rebases of these seven pending
+patches (canonical commit IDs shown):
+
+  3a25097bf845 kcov: use unsigned int for kcov_start() mode parameter
+  e39a9c820c37 kcov: add kcov_pause()/kcov_resume() helpers
+  ae2662563c3e hrtimer: pause KCOV during deferred rearm
+  554af946139e sched: pause KCOV in __schedule()
+  7f608b777204 sched: pause KCOV in try_to_wake_up()
+  2ba73ec2a246 sched: pause KCOV in wake_up_new_task()
+  5ee777070fac context_tracking: exclude from KCOV instrumentation
+
+                              plain inline  __always_inline
+KCOV selftest started                  yes              yes
+KCOV selftest finished                  no              yes
+Reached /init                           no              yes
+
+The plain-inline image stopped after printing "kcov: running self test"
+and reached the 45-second limit. The patched image reached /init in two
+60-second runs. Those runs timed out after the marker because the test
+/init deliberately loops.
+
+The first common patch is a type prerequisite. The remaining pause and
+exclusion changes suppress separate KCOV callbacks that otherwise obscure
+this test. CONFIG_RISCV_ISA_V_PREEMPTIVE was disabled to avoid a separate
+vector-entry callback. The only A/B source difference was this patch.
+
+The same images were tested on a BeagleV Ahead (TH1520, four C910 CPUs).
+The plain-inline image did not finish the selftest or reach /init during
+120 seconds after the start message. It reported RCU stalls, and CPU 1
+did not answer NMI requests. No panic or stack-overflow message was
+printed. All three patched runs completed the selftest in about 0.301
+seconds and reached /init.
+
+ arch/riscv/include/asm/stacktrace.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/riscv/include/asm/stacktrace.h b/arch/riscv/include/asm/stacktrace.h
+index b1495a7e06ce..c7c991452e11 100644
+--- a/arch/riscv/include/asm/stacktrace.h
++++ b/arch/riscv/include/asm/stacktrace.h
+@@ -16,7 +16,7 @@ extern void notrace walk_stackframe(struct task_struct *task, struct pt_regs *re
+ extern void dump_backtrace(struct pt_regs *regs, struct task_struct *task,
+ 			   const char *loglvl);
+ 
+-static inline bool on_thread_stack(void)
++static __always_inline bool on_thread_stack(void)
+ {
+ 	return !(((unsigned long)(current->stack) ^ current_stack_pointer) & ~(THREAD_SIZE - 1));
+ }
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.53.0
+
