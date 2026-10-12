@@ -1,188 +1,216 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013007.outbound.protection.outlook.com [52.101.83.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2B248BD3C;
-	Mon, 12 Oct 2026 11:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805708; cv=fail; b=V+Um1GPmqUEdUDOdHVip9BFuQV3/6wG7vunr7L9Q+toRQ8RhIwYE0l7gFR/N/5vRvyETp90TlXakaEbEtWX1amNjRdFNjsU1ZJRdYMnS8dtfuu3nXwSnrBI7P7m1YN8U2gx5sVKhKYYhZ0NFKeisauE8CAOfH9kWS5l+3HL1S9M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8106148BD42
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:48:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791805708; cv=none; b=jBoVhWvC7mEfIhG7dW5Juzf5sZmsHQWOzOrvNLzYvXTkJdxdiyntHRWV6pmHNUrMtxBxTq29YxYYZUlELbQqD0I00agGJPWvW1dofOdYYz4QGAvnrBvtF2fO7lffHk6letlwCYAoYG7dlsBmZFgb4WB2/+hVfTC17koSfbcigY4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791805708; c=relaxed/simple;
-	bh=iIGAA3vQLvi166plxm85m1QxdrifmD+rrTNVjy6UF7A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=OdDjEJkYESiBi6JQh9uN1/bvx9Cpehj9qce5MLT9d+X5dj4Nn/s3AKk8f6pw8v2fj26IGtnxz02jrFryMdyk51l80kxhY9NKosKtlvHs6KoC6Kz2grU0gp9g7G0aUg6gIvkfLkEveENHfxMUnHYZOKq7rsDBHx6P4Ytst3niEJg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=afG5JUFL; arc=fail smtp.client-ip=52.101.83.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	bh=0oxDBpOhzf70gCV6Rcb98poq3pdLezeW/LliRDDx8QM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=eJE4bxRMXFR1wzJZ97mT5jMYGL9YkM7cVbdTkU3054ozeNLghb5Yc8OpCfH9W8fUE1bXLP34fP5seDr9I8WEKuyfzybi+zgGtv/Wd/g7vTvre1W1Hm4o2rwUQ5nGB7vrUbbowiy++itEibGqf217aLlACdPrjkvfpWCIa4HMaEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m1/0/QC8; arc=none smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="afG5JUFL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XXgZA6dGzIMhQfIMc4YS2wzpj12tvIQtbn6leFOZvvq0nkOZVr0fIHlOvHX1PAOaNlJ4LDVn3AP3G6jcqeUKLDCOUszXUcJPkhrHPho8aJe10/JYtJptBt/GyiIRttnw0AjEVaCNUzJfnn30MkfqGqHhDWoQbHNaXCJwf39b32lyP2zCZ3Ojh/YIsoyiQLfCDNGmQkkTyA4kTWSsrwEOMekmsTO/4B9vBcwMhih4m01Yfl4ei5fRQIxlJ27nlbfw7Q8GhDAuy8rNfeu96yiK4hWNYEbylbcxtqnlleoERoxwuLWIl79AXxkn5vt7mKD/Aw2SZatNueae0eIZh2CYAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J8/Tj0wcZLE1F9U9O4Ca79JiDIyYITR9OWta3SpU4Zg=;
- b=hGnHSEAt26XA8oVBC9+cxXS3mBTcuQpwDFqXN/6fiBiaGKACLTxpM/pF98cuZeDxeH66fYHNIWA/PHCLasreH69k4rSsw7VlKKZM6SLdSofSGJTE9OxhgMXOKXGbA9CqSJm4ZX7CJUkWu3WZsx7uzvQrhMPwiVu+aNDyeg8zHIedfHDnezuX3NDXvVCsxdLc0JvLmy34ev++mSa79Biniz1O4ya9ajd3XJ2lM6x0xihg0n8y/mj2djebnQynqXLAfPWVVmKSi25npiVoGB9H8EHYvXiKzH+PNIA3BqPFwaD/qb0yIoSdqPrZXwn8qOj/LUsZHMbBDJ18Pj34voCRyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J8/Tj0wcZLE1F9U9O4Ca79JiDIyYITR9OWta3SpU4Zg=;
- b=afG5JUFLiH6Oaf43d6f6AHy7eG1t4kFqMRgE+U5aVspCC4KNMIazki4NZbaAQ77UleHVXG5qjYvcrp0QErOiacSFmok8aHZoxTsPjrnBP+Id8EAWLx9AWpzzlhKBzdoqsr3eKyAp7p08Q99+oW+iBGS8kehmoGELvDbMwbZSrSj3XRlbaQq7uT2TkcGerNeC/1FqvzjtSsXUZLaAQG82in7pioTRXmeD0LZ2u+mGaR11a9gKC41gsgAemDCTRh1TinhMHfbQPSfpZjNFKf7MaA/G0dbLptwzhcmLmDwo1FEmbnv2yqqedYg8GXLXaLUe8rBjTD2lS5HTxkX31fJjQg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PA4PR04MB7885.eurprd04.prod.outlook.com (2603:10a6:102:ce::14)
- by PA4PR04MB7823.eurprd04.prod.outlook.com (2603:10a6:102:c1::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 11:48:21 +0000
-Received: from PA4PR04MB7885.eurprd04.prod.outlook.com
- ([fe80::6e41:b858:46f8:c5c7]) by PA4PR04MB7885.eurprd04.prod.outlook.com
- ([fe80::6e41:b858:46f8:c5c7%6]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 11:48:21 +0000
-Date: Mon, 12 Oct 2026 19:52:55 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v6 08/13] gpio: mxc: use local dev variable
-Message-ID: <aszKF2TIOIIZNq2b@shlinux89>
-References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com>
- <20261011-gpio-mxc-cleanup-v6-8-cb47ce2ad758@nxp.com>
- <CAHp75VeonKZtX8moOdXrmTJbjH5Ew5iVdDDc3KfqQ9r_tvHg1g@mail.gmail.com>
- <asyw9ns870F0g7UD@shlinux89>
- <CAHp75VcO8YEBbt--P8WO-_Vu1O0mR2nsdqeBSG=JgavCEoR3Dg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHp75VcO8YEBbt--P8WO-_Vu1O0mR2nsdqeBSG=JgavCEoR3Dg@mail.gmail.com>
-X-ClientProxiedBy: MA5P287CA0257.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1f1::12) To PA4PR04MB7885.eurprd04.prod.outlook.com
- (2603:10a6:102:ce::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m1/0/QC8"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-535853983f0so19154131cf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:48:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791805696; x=1792410496; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Me7p/ggVeagEeCEw7m+G/8lxfOB/uR4E2Mzy17xQ+jU=;
+        b=m1/0/QC8DpttAw8dnF6lwZAOsXEkBxPp1Ai1iIlPX8NMelLMJLNvI17/G4L5EzRZjV
+         eBjk7wys/OuqfXl5WaAdcy3SrgIh4y2oFhDuoy4Bxq4MgeRIC30/SPVGV73dKwjGzY7M
+         0O6VHXeu4RZW/C52RgJC92oM6L7lDgxFdhITnLvovOy7njJbgMg2IvgK4+bCBDW2PYfz
+         LbrobViA8v79E+Dzno/gXhMzGsDtSPsD14IrY/nzDQJDjJqFT0tTXcemTDAxk64yRLp1
+         CBY2q6ykxx53uZXWyWN+HLullWoX3NjH13OIZ5Z9DfjVqBOT6bNcxSySnTSkIrkptk9t
+         oqoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791805696; x=1792410496;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Me7p/ggVeagEeCEw7m+G/8lxfOB/uR4E2Mzy17xQ+jU=;
+        b=L9tmPhkOqNczkpi754qTI/Y6iWeUAuKa5XX6Ii/jr1+7wDMPVPFfeOTIOK10ACvOGU
+         4PbWNE5RaKBSgEdqXmcWZQcgWMsgLLrzJAX5qJDtlIklVVwLyNm/doKqW1l31aLIG6z2
+         +4Y5V3hCToWz0tSvoZzXjlvThd7cP4HMR9hzT5qejVeC11V8erudUZJ4zMyvltv3UfET
+         OwdcCjSrS8ZCT1LzsPzr7qYl1ATcrXAWb6WibkMMuGxcts36T0C2gWHVeBS1eadOUbd7
+         2orO/eQ/KMUJNtqqGZA6hRWjue1rhfFEcnJjd9x5AkmXVJcPE5uD3jUpJm7ZM0VSAhJd
+         VxAg==
+X-Forwarded-Encrypted: i=1; AKwUvByubJfjuufkl8xia4zL21oWOSCDRiWngbXqmYGUGkJ6vAF7sLEgE3wZXq85W1n0YCCo5iMGUsdMLHaYwQ8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpJabJUmlBft9pqBdGiVuQ3HB5jdUHYzBzgHQjkTjpSawUHrjW
+	QAo7ZRr2hbNwV6x634P/DC5Hk9742vAFX0j6o2lso5cQWYGmezO5TWi8
+X-Gm-Gg: AYBFou1uEo6YKerq1pAI/buL2JtraLMYivvmubovR+wA3vIhjFE9ZLn31gS1+EY25wT
+	Od9z5GpQbwR561i/8lDLrbkHqWexEKQ/VJ/Hb+IYn0czqburdEfl001XSSFqrMNqcjzPKrmszXl
+	nCw/+Zu6hFCxiX1WsMA2bIM/36NW4whaLQ/D8Y8r7ucmvDOD85rSYjPQLTkXHexgXmG1ry9rgBa
+	7NezAx8DEr3wGniptSvRdPx5k1i/ejvb5khiIdHnMLc22FPo7HtNlTdtM+FQ0rVdfMCdtedW6rA
+	hFhZ99LpNgXZR0UJ1lsXZNJP46yJK0w+tKNiCHOqRzy1qJPk9rh/ziTX3tvZ3ypFYnieG4z5zTq
+	yLcczsAmjuhPjhWN5eReduknBz40VK7F4UI7JXtWFnLfWjFTr/43laxlV/JZl10oLOkUYLWfhbk
+	eJYtJOGnULGnNYpiv+k2S+MIuepBFDhGvzJXNFFgFCig5hl9yfgRdgjrG9DbMYtdbhBk+nebQwi
+	nE=
+X-Received: by 2002:a05:622a:34a:b0:535:1fe8:1f6e with SMTP id d75a77b69052e-5359fac509cmr151798411cf.12.1791805696150;
+        Mon, 12 Oct 2026 04:48:16 -0700 (PDT)
+Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550de014sm93335216d6.44.2026.10.12.04.48.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 04:48:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB7885:EE_|PA4PR04MB7823:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3454ab5c-1728-48de-978c-08df2856b6e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|19092799006|1800799024|23010399003|11063799006|4143699003|56012099006|22082099003|18002099003|6133799003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	38KilsvXUDCjVNdUBM+JjNB5cyaf7WIksEro1QL4I9ho2iBuap7l7g8jrzPL3K41qRpKEGKleJ7VczCGQQjiT2oDRDJG8AWyxPKPq6xUlJKX/eLQs5O3Zy9+CQHCpb2d2sSY71uhnz7VepMZ3XRXE91S9G4aCJH74ELk1JNeZRYxjZWfApZl486Ql+QeSc9aiNsHq4QA18jxTQqmS5NizZMLTYoKAmNxxxRTkOQVykQzIIxsXxuYkjnNJo94giE3hd86r3KZvO1egnWqfhmYKIFJTT0vND+oPwvb0man98eQCwFaN3NSevMuulcwJYtRZsPu1EF8juDVE8QdP/MfibJbtY+v7OP89T8+4WABC0F/Lq7bW7suujjCZmp0JAW2sqFyL81gXahNK+vERQBzOInvJsnFW4mfg82nLxS4kkhiohHTqOjsiJ7s7O6awz1E2UWRrFZCGG+UOJpnC7qCaMyLpvPRMQ+kFPBtiP7DCLN+ezYhuDvNFwunmzAttnKnQptznPFaj5wbrQa/Vm76b7p25ExXw0OQi3avU13Wy4ovDxxDSHkz8Q1O/uzLTFg0ViLMwCP3xCty4pgz4ZZtQHb9zlGIjO9OyW3WkqjAhymkgWYd40Tfh/JSGDJHE/P3+eE9L9tCDy6BAp4q12G5lP4t8sT1DjasY3kBvqV92K4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB7885.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(19092799006)(1800799024)(23010399003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RXlnY2c4WDJhaWt1TWZLWkljbEFTS3hWMHNkQjk5ZFgwSmd0bXo3NDlDVndZ?=
- =?utf-8?B?WVlGNnpHZndEbmphNkF3NmVYWVhnKzdoaHIvNExUTWxWUHN6N28velArY2VG?=
- =?utf-8?B?MVY4em5hbzcvM2FSSVZhZGFRZVA3V1JpWEJieTlIZ0gwVng1NmM0T1Y5bk5h?=
- =?utf-8?B?WkpkTE91UkpZYWkyY3haVktTaUNHWEhXU1Y4RjhqdWI2VS9MMUFoK28vYTlw?=
- =?utf-8?B?aElNTW8wUk1kTGVGV2ZrZEpZOVU3Z2J0RTJ1aG5FTVpnaDNHMHBxUTFDYzJq?=
- =?utf-8?B?RnZ6UzAxOElVajZ4STJQakR0QXNnaTdkalRYV0Y5eUlSa2tjWEwvSCtma1NU?=
- =?utf-8?B?Vy9kSmRvOFE1UmVnb1ZyUnpRR3U1enhubnUrc01FYzJoWXRESjF3M2h3bnZV?=
- =?utf-8?B?cTl4ZjJnbGJhSXZ1RFMveTdoeU5VM3pTaG85MUxvby9VZi9LYjlGMjd4SFhi?=
- =?utf-8?B?alMzeUVPQktMdnBIeGkvdU93MlVwSmlTU2pCVEpGalZSODN5RVlGWG94Uzdu?=
- =?utf-8?B?VVBka0J5RVdkays0L3RyeTV3RE9nZXRCYjZ5UjFYMWNDcitBOVFrQldZeTRW?=
- =?utf-8?B?MGtvM045aS9zUWNJSk0xUFpxVUVqYWR3L1NLajIzSkdrRENtTmprdlN0a2Rk?=
- =?utf-8?B?UEltUlY5SnBKMWt5RUxGZ0FRWUlHS3gybjRkTUp1OXQ1ZlI2VEZVSWQyeHVr?=
- =?utf-8?B?dzlQRnZEYUlmc1pjUFprclhDWFZFaFZUcnpHaEZDMVpwc2M5VWpPdW1MZ3VP?=
- =?utf-8?B?eFdYOFhTWWcxWEVBWmRWVFZmVW9QWitrYit6WGI3NzZlc0hJWVI0SG9kZUhW?=
- =?utf-8?B?aVBxSzFvN1hBOWZtM1RvbnN1MjlPRk95ZTZmWCtyL1d1dFFDZWVKczRkWGth?=
- =?utf-8?B?S3B1WVZqdUNmREV6YThqLzRpRlV2YmdZUFVwR0xDT0E3dWhhRURaMUdNaXlW?=
- =?utf-8?B?cWFMRWJESEhUYlJjTUZ4dFpBekZKc0pwdlhBUnhGb20yZldPWnI4cU1UY3Vx?=
- =?utf-8?B?T2ZmaEFwK2ZzVW1NYk9yUENxOHByMElGVGo5NkVEaTk3Z2hTVnR4SER3K01u?=
- =?utf-8?B?SXQzM1hQTnRvM1k4ZEdHQ3RxbUMwSzlydW1rdjdoREEzeHdtVGx6WFRMZzh2?=
- =?utf-8?B?RkVmeHBXek53b3NCTDQwdG5abUgyOFNRY1UvYUVPMWltTDFJOC94R0l5RThD?=
- =?utf-8?B?Q0Y3eHUyMHJUY2d0bVdyYk1xTVRkNC9UVkRtT0FYZC9jWExvWnRVbllWbVRT?=
- =?utf-8?B?STJnZzZJc0J6S2V5NmsrUjgwbWMydXh0UFFSaXhRaG5md1ZOMUlwWjBEakpQ?=
- =?utf-8?B?OW5QUDhLQU1UMWNlL2ZtL3hYKy9DZzUrd2ZCeGRwWEtmTlpjc1Q3RWRDYVAw?=
- =?utf-8?B?RDJ0NGE3TTMzQndhaWlaNEo4YlMySFIzaXhIS1NwcEtzQ1ZKMEpVVGdjb0dT?=
- =?utf-8?B?YVNnMjhVRGpWQ1ZEbGtpNEdOSlhYSFNkNHJuZkk2em5XaldHdEw4dnVnZFNJ?=
- =?utf-8?B?VEJySHJneS9NR1BsTW1qdWtjVmwvZ244Znh5a1ZtK2toa2FJNklhS2M1OTc4?=
- =?utf-8?B?NThSenpuRzd5L1RuM293T1RTTS90MnVGaXJ6TFJVS1QrU1NsWFBiaENLODJp?=
- =?utf-8?B?K29oaWZzTHlhZDdDNlZrbmxtN2hwSnlheXlYWDRxWkh6U3dUOGRIRXErcnNB?=
- =?utf-8?B?WnM3cHdVMXFlS3ZnNzI2TUlJcFpCbGJ0RlZKSDh4MjFaOWt3Z2hVRllueUd1?=
- =?utf-8?B?czB3NHZCZ255Zy85UU5kaHMwR1IzQWVwZWc2aGsrTEdNK3ROd2V6OWFINm0r?=
- =?utf-8?B?U2NnckdONU1wbEwzRG9RdDJ1dDA3dG5uYjhOY0tkOTRHMjF5M29Vdko2OFdN?=
- =?utf-8?B?RjN0L0RRSDhqU1VLdFltb1AwK2w5MEMwMk8rUmFzQzlEZDZNVGQ2a3JUK0ts?=
- =?utf-8?B?Tk1tNFdZTHU5d2JwS2NOYWF3SlNucmtwRGZUU3QvTWkyRFZmWjlCT3U4ZnBq?=
- =?utf-8?B?eFMwb3p1VTVVWG1aZloydVZxRWgybDc2WnlkbzZKUks2QVAzSUNVYTN4UDUr?=
- =?utf-8?B?YVVQTFduUHNJVjJ2L2ZnNkR4WStmc3lZVnBZNklnN256U0dnRWR4dXJpMUNN?=
- =?utf-8?B?cVA0Q3dtS3ZGUmVQakIvM3J5NTIxMnFpRVlSdnVtT1dPYmpIc1JHM0hJQm1K?=
- =?utf-8?B?eGdOb3dVYWhQOWpMSDJJUWtSS2dJK1A2TE9nZ0hJV2p5VG9wOEJjM3p3NWV1?=
- =?utf-8?B?ODdJc3hDcTY1eGFzai9MNnBtR2xkSFZRN05DWGdiZzU1Q00vNmoyTWl1eEl2?=
- =?utf-8?B?L2Z1bVJUT0djNFNsazk4MnpQMmxVUEVFaS9uYWR1em1NSjJSNHE2TTFURWhv?=
- =?utf-8?Q?Xte+gUrzpcfn/S6YumfevWvvZxJf9c7fY/RW3?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3454ab5c-1728-48de-978c-08df2856b6e7
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB7885.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 11:48:21.3120
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MItpWdwSB2NGL0Yc/Ttsk/KzQS+GzR0ahAl7//ToLvaKbni1v2vE6reUR3xOjLg6W739AbNWBAAuyPX2lObSChOj9G1qvKiOo/y8w8tC/qg1v05RZiN5OAZfxqypaegh
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7823
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 12 Oct 2026 07:48:13 -0400
+Message-Id: <DM2U3VVRLFCT.27LGHISXCP8MM@gmail.com>
+To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
+Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
+ <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <pabeni@redhat.com>,
+ <ast@kernel.org>, <daniel@iogearbox.net>, <hawk@kernel.org>,
+ <john.fastabend@gmail.com>, <sdf@fomichev.me>, <edumazet@kernel.org>,
+ <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <bpf@vger.kernel.org>
+Subject: Re: [PATCH net-next 1/4] eth: mpnic: count packets, bytes, and
+ drops per ring
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20261009-mpnic-counters3-v1-1-7dc7644cc500@gmail.com>
+ <179163314562.434549.8676548639859788609@kernel.org>
+In-Reply-To: <179163314562.434549.8676548639859788609@kernel.org>
 
-On Mon, Oct 12, 2026 at 01:39:41PM +0300, Andy Shevchenko wrote:
->On Mon, Oct 12, 2026 at 1:01 PM Peng Fan <peng.fan@oss.nxp.com> wrote:
->> On Mon, Oct 12, 2026 at 12:30:07PM +0300, Andy Shevchenko wrote:
->> >On Sun, Oct 11, 2026 at 2:54 PM Peng Fan (OSS) <peng.fan@oss.nxp.com> wrote:
+On Sat Oct 10, 2026 at 7:52 AM EDT, netdev-bot+sashiko wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
 >
->...
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
 >
->> >>         struct device_node *np = pdev->dev.of_node;
->> >
->> >Why not this one? Is it even used? Perhaps you want to have
->>
->> of_alias_get_id() is used, there is no counterpart in fwnode api for it.
->>
->> >  struct fwnode_handle *fwnode = dev_fwnode(dev);
->> >
->> >here?
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
 >
->What about using to_of_node() for that one and fwnode for IRQ APIs?
+> - [Medium] mpnic_clean_rcq()
+>   (drivers/net/ethernet/meta/mpnic/mpnic_txrx.c) leaves good Rx frames=E2=
+=80=A6
 >
->> >> +       struct device *dev = &pdev->dev;
+> --
 >
->...
+> eth: mpnic: count packets, bytes, and drops per ring
 >
->> >> -       dev_info(&pdev->dev, "%s failed with errno %d\n", __func__, err);
->> >> +       dev_info(dev, "%s failed with errno %d\n", __func__, err);
->> >
->> >This message simply needs to be killed, with initcall_debug in the
->> >kernel command line you will get something similar from driver core.
->>
->> ok. Let me fold the change in this patch, I would not introduce
->> another patch to just drop this line.
+> This commit adds packet, byte and drop counters to the Tx work, Tx
+> completion and Rx completion rings, and reports them through
+> ndo_get_stats64. Rx frames that the device flagged with an uncorrectable
+> error count as errors, and any other Rx failure counts as a drop.
 >
->Why not? This is a logically different change. Since the driver was
->not touched for a long time there is a technical debt, you can first
->send fixes separately, followed by a number of the drops like this one
->(remove a noisy line), followed by new features. Make it three patch
->series.
+>> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/=
+ethernet/meta/mpnic/mpnic_txrx.c
+>> index 5495e9a9aa651..4bf6404941158 100644
+>> --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+>> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+>
+> [ ... ]
+>
+>> @@ -591,16 +609,25 @@ static int mpnic_clean_rcq(struct mpnic_napi_vecto=
+r *nv,
+>>  			break;
+>>  		case MPNIC_RCD_TYPE_META: {
+>>  			struct sk_buff *skb =3D NULL;
+>> +			u32 pkt_bytes =3D 0;
+>> =20
+>>  			if (likely(!(rcd &
+>>  				     MPNIC_RCD_META_UNCORRECTABLE_ERR_MASK) &&
+>> -				   !state->pkt.add_frag_failed))
+>> +				   !state->pkt.add_frag_failed)) {
+>> +				pkt_bytes =3D xdp_get_buff_len(&state->pkt.buff);
+>>  				skb =3D xdp_build_skb_from_buff(&state->pkt.buff);
+>> +			}
+>> =20
+>> -			if (likely(skb))
+>> +			if (likely(skb)) {
+>>  				napi_gro_receive(&nv->napi, skb);
+>> -			else
+>> +				bytes +=3D pkt_bytes;
+>> +			} else {
+>>  				mpnic_put_pkt_buff(&state->pkt, true);
+>> +				if (rcd & MPNIC_RCD_META_UNCORRECTABLE_ERR_MASK)
+>> +					errors++;
+>> +				else
+>> +					dropped++;
+>> +			}
+>> =20
+>>  			state->pkt.buff.data_hard_start =3D NULL;
+>>  			packets++;
+>
+> [ ... ]
+>
+>> @@ -619,6 +646,13 @@ static int mpnic_clean_rcq(struct mpnic_napi_vector=
+ *nv,
+>> =20
+>>  	rcq->head =3D head;
+>> =20
+>> +	u64_stats_update_begin(&rcq->stats.syncp);
+>> +	u64_stats_add(&rcq->stats.rcq.packets, packets - dropped - errors);
+>> +	u64_stats_add(&rcq->stats.rcq.bytes, bytes);
+>> +	u64_stats_add(&rcq->stats.rcq.dropped, dropped);
+>> +	u64_stats_add(&rcq->stats.rcq.errors, errors);
+>> +	u64_stats_update_end(&rcq->stats.syncp);
+>> +
+>
+> [Severity: Medium]
+> Should rx_packets and rx_bytes still count frames that the device
+> reported as good but the driver then dropped?
+>
+> In the MPNIC_RCD_TYPE_META branch, two cases reach dropped++ while
+> MPNIC_RCD_META_UNCORRECTABLE_ERR_MASK is clear:
+>
+>   - mpnic_add_rx_frag() set state->pkt.add_frag_failed
+>   - xdp_build_skb_from_buff() returned NULL
+>
+> Subtracting dropped here takes those frames out of rcq.packets. Their
+> bytes are lost as well, because bytes +=3D pkt_bytes only runs when an sk=
+b
+> was built. When xdp_build_skb_from_buff() fails, pkt_bytes has already
+> been computed and is then thrown away.
+>
+> mpnic_get_stats64() and mpnic_aggregate_ring_rcq_counters() pass these
+> values directly into rx_packets and rx_bytes. The rtnl_link_stats64
+> kernel-doc in include/uapi/linux/if_link.h says:
+>
+>  * @rx_packets: Number of good packets received by the interface.
+>  *   For hardware interfaces counts all good packets received from the de=
+vice
+>  *   by the host, including packets which host had to drop at various sta=
+ges
+>  *   of processing (even in the driver).
+>  ...
+>  * @rx_bytes: Number of good received bytes, corresponding to @rx_packets=
+.
+>
+> Leaving out frames the hardware flagged as uncorrectable matches this,
+> since they go to rx_errors. Good frames dropped for lack of resources go
+> to rx_dropped, but by this text they should also be counted in
+> rx_packets and rx_bytes.
+>
+> Could this subtract only errors from packets, and add pkt_bytes in the
+> dropped case too?
+>
+> The later commits in the series ("eth: mpnic: report per-queue stats",
+> "eth: mpnic: count Tx queue stops and wakes" and "eth: mpnic: count Rx
+> allocation failures") keep both the packets - dropped - errors
+> subtraction and the byte counting that only happens on success. So the
+> problem is still there at the end of the series.
 
-ok. let me first prepare the fixes part.
+hmmm, I suppose that is technically correct. I wonder how many drivers
+correctly handle skb allocation failures this way. I'll send a v2.
 
-Thanks
-Peng
-
->
->-- 
->With Best Regards,
->Andy Shevchenko
->
+pw-bot: cr
