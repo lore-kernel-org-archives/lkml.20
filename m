@@ -1,110 +1,142 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mta0.migadu.com (out-144.mta0.migadu.com [91.218.175.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CEB43033E6
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:57:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5652E3E5ED1
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:57:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791813438; cv=none; b=KD2FuirOIEDXfH1MiM0SYOdMVtAGifah5n9EAdU01ODJTP+F+hKCgXWZs/Mx9iQ6ycEGm97FUd71ogtswcWOvL2eTWNZ/eXrDpIywUo8a/QzidL2ud1WxDbRirfjGBaHutmk/R0fj8nzDoVHQFGQRIFBnllIWJfeS86C5J9aYME=
+	t=1791813447; cv=none; b=b0DbccAPX9ATbvIaxPc2/j7353QHD7o8BXU6v5DzcCR9Nki+AlV4YQGe0hvg4HeAQ/5yz+ZHZR6cE5CPAVm4jpm+8Qu+Jjec6IjZj9dBOQ7oraBWlIMEhSOiIki0QvRxXbRjJAx1Jqp1AaP2o9+YXmqm3Tfb28R3aCtIvTPlhqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791813438; c=relaxed/simple;
-	bh=/iY5j2p4b5QwDQlKEMYgEYpvGS9pC1Ctd69uP/eW8Rk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eHRwBh5/5MfMttcCzAdZMmgNdqWS0R7JsJkoRF47o/HNBM1zWC6Sqwn2zMFPDakGL/pybkosjfUFnR0XsTdkfOY0hbqMRxKRoTx/Dme1RZ2eof/e7eGBRYzsvvm/SXkRyY+2l1hT9wZNvZg5ame4t5wWch1d/1NnfXZJYx0Mv/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=leArUqYg; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791813447; c=relaxed/simple;
+	bh=x6wBnpNMUdYNXU0gqwEl8PQ7hY4EkntWRDU828VTuOY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r1cVoGIhq3AltY+9oJOomJGZ7jnAwaKx+XyDcK4/H7Bp9ynIudPqp0gdydsSLJ+Vz/723ata36cT3i3N/QabfFKfofKE3aLNX5qQT4QnG+jnHPUYHM1Zyi02/NjI89xd14aEPLulQv5zqq/ABALW1KTts2PDuxOG/KFgGKRPnlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vrxvn3+Q; arc=none smtp.client-ip=91.218.175.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="leArUqYg"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a16c399641so19727025e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:57:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791813436; x=1792418236; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=34EJoNLsVra8nCHZLNhyhOI+5/614M9XjyOHIoY4piw=;
-        b=leArUqYgKp6Zd79qG6MdtrHyxPewrSZjNC85UQSCUIvHmdNa4v2XkiKGyU9fWcusc8
-         2+S/Bw9tm8LviyF+HLFf1yAA9F/VRweoQxLUWwEHqybMTKygMbvwLziu6lI+ryOoNcA2
-         OEAL7DrsDrtn3WrXuD5hoWIfnHraHhBYy4agYxTutQzfV3pYmy6IhdGflq/1Q01LgJT0
-         R9hiKPsNxIuQn27E6qN9oiLxt1lQZy6c70/32UBRLkfFpLKd3W35F9g1ElPAPTQ8wGyA
-         IfwdPwbsCsGz5Tza8jNBFfvGwQiAz/z2f1tYZV4xyMNU5jPc5qYFDZq/dbwF8M2RuFmV
-         jDrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791813436; x=1792418236;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=34EJoNLsVra8nCHZLNhyhOI+5/614M9XjyOHIoY4piw=;
-        b=IXwCVSo0W2ger1WZpvvAAr3FkwiKNik98EiLANf86Yj6ywTB/GDyxUB7gCBpabJx2r
-         C7sT23P+8JQUyAAlmsYiqOwKiqU36xQIIsaISa08ouvvSiusvHiyI+g/eLnJwuuQWDC5
-         +SNH/rqbWsYPhllMBKbyur1Ug6w7bVJNREG4C3P9HpEalj+wxVK1d3PNLCoSFPc9U/Oh
-         1Ky/hvSIIOzQ92uWxydKoSJGAqVio6pUIYjsCyHRF8omg8CAwlFRKc76xaURS1LlSbpQ
-         Iy4DOk5zO4aIYMyz7sA38yk5HeuhUpB4jIwlOsXPozDTRiQ4HHyxcXdw/L1TIKGEe905
-         yeMw==
-X-Forwarded-Encrypted: i=1; AKwUvByNthUT1OAdaYvITUlmZYhZ1zbh9ItlPb20bLwT39V3DFYmkqNv7xA5nEMZtVU5ZOYULQLEmoXL70sihr0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsBTkmdY7BKUyxlaDATin0Z4ghJVh6Dp3ai6pX9CS/0moHRVYa
-	OBHEhsFXoSc5Urkvwd62MiNBlMeBzwtznWJPUdn6Jh0MeEDHTR9pWwSS
-X-Gm-Gg: AYBFou3pj7/npX0F6qJbcI6/rZTEOQr0fSs4VwiuZF2nM0iFno1Yz4dOrIYUxt77APj
-	wLxMJlb/8ffA8seRy85onhGIW6/bcOGjUXHG4fgw8lWFmwzirTsPceYoO4YGMCXC1dHU9ggFCoa
-	AQsuclI9lyPf22bD8d0fGgtmfxYY+rCquvgQ50CvUSsGkFvMJtuenv/ieeq4JPWdX1LH0Y4dV+g
-	YJk4JHw8yq05tnNiS7lx7ql0E0IwM7qAfK0j+gXkb7s16g82SBIzbTIhXv3eAu8m25VbVQlidjT
-	sIyQsjE81AYVOsAed0qWIkwJ6x0Z2s9GzTzb73+k4OUT6uBhgF/7MV0KMhsIR92VX9aH6GW6nN3
-	aMv2Lgey3R1upQ0eOJLElJma1fnc9dco3zSLLaMfdOd8DcDiYNl+QSNCVpjZMQYlWeRzX/VuCZ2
-	fR6kFPHulvU1wGom7TiCjemQmpodLPvw8e0n+gL/e5FU3CF2YSDDikyuIMgAmSayfAH/rNC8Ge4
-	kAwTsUzpS94Ve83iUZe+fwngZ2E23znP9nLhkmfY/GPxWXZyivmvSitiTsCtfeiOb2ump/3oRt+
-	NTNBaQDfIzrT9b/CJPlIPFTvZL0431Tr4jkdFvQ8QhfYxPH/cmnPIFxqTsZomNOalsa/sQINN/H
-	o0p8qu1kgSfMyLsWbvYkg0f2OtMsGO215/oyZsTvYZCJMh5aJqobeNnBg+9UnwXXpB415iFRyFe
-	mGmMjwucZQT6KcjDE=
-X-Received: by 2002:a05:600c:3b99:b0:4a0:1ea2:10c6 with SMTP id 5b1f17b1804b1-4a18e48eeb6mr236849945e9.17.1791813435810;
-        Mon, 12 Oct 2026 06:57:15 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2343asm539977905e9.9.2026.10.12.06.57.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 06:57:15 -0700 (PDT)
-Date: Mon, 12 Oct 2026 15:57:13 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Nikhil Gautam <nikhilgtr@gmail.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org
-Subject: Re: [PATCH 0/1] iio: atlas-ezo: Fix humidity channel read support
-Message-ID: <20261012155713.00003254@gmail.com>
-In-Reply-To: <20261012114553.3327-1-nikhilgtr@gmail.com>
-References: <20261012114553.3327-1-nikhilgtr@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vrxvn3+Q"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=x6wBnpNMUdYNXU0gqwEl8PQ7hY4EkntWRDU828VTuOY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791813443; v=1; x=1792418243;
+ b=vrxvn3+Q+ds8vw3lPoTlz4TGkW2K6r5QQ68mgXDaRPV19sO6QMRSFumWsX60JHhnwUiv1rSR
+ 9lixhWfWMj8fA2dIBHiDnXq5FLB9UGqul2WUxMdwVCR6WWC/E3g+Xjht3feMCN68ruUQw+necOM
+ 90oRH+AdEABQsohw9hlQyPlg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 34a32a671e085a21;
+	Mon, 12 Oct 2026 13:57:23 +0000
+X-Mizu-Trace-ID: 34a32a671e085a21
+X-Migadu-Flow: FLOW_OUT
+From: KaFai Wan <kafai.wan@linux.dev>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Menglong Dong <menglong8.dong@gmail.com>,
+	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	llvm@lists.linux.dev
+Cc: KaFai Wan <kafai.wan@linux.dev>
+Subject: [PATCH bpf-next 1/1] bpf: Determine freplace staticness from BTF linkage
+Date: Mon, 12 Oct 2026 21:56:24 +0800
+Message-ID: <20261012135624.2749743-1-kafai.wan@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 12 Oct 2026 17:15:52 +0530
-Nikhil Gautam <nikhilgtr@gmail.com> wrote:
+bpf_check_attach_target() rejects a freplace whose target is a static
+function, using the subprog "unreliable" flag as a proxy for "static".
+That flag is raised whenever a subprogram's BTF prototype disagrees with
+the registers at its call site.
 
-> The atlas_ezo_read_raw() function currently rejects channels whose
-> type is not IIO_CONCENTRATION. As a result, the relative humidity channel
-> cannot access the raw or scale values, even though the driver defines support
-> for IIO_HUMIDITYRELATIVE.
-> 
-> Remove the early channel type check so that both concentration and
-> relative humidity channels can be handled by the existing mask-specific logic.
-> 
-> Nikhil Gautam (1):
->   iio: atlas-ezo: Fix humidity channel read support
-> 
->  drivers/iio/chemical/atlas-ezo-sensor.c | 3 ---
->  1 file changed, 3 deletions(-)
-> 
+`147400e9c27c ("bpf: Compute parameters liveness in
+bpf_compute_live_registers()")` made that work for static callees: a
+static function with an unused argument no longer matches its BTF
+prototype at the call site and is marked unreliable.
 
-No need to add a cover letter if you're just sending one patch.
+Since LLVM commit `29b36a16f111 ("[BPF] Emit ABI-accurate BTF
+prototypes for DW_CC_nocall")` in 23.1.0 [1] that premise is gone:
+BTFDebug may now drop arguments removed by the optimizer, so for
 
-Thanks.
+	__noinline static int subprog(struct __sk_buff *ctx)
+	{
+		return bpf_ktime_get_ns();
+	}
 
+compiled with clang 23 the BTF describes subprog() as
+
+	[75] FUNC_PROTO '(anon)' ret_type_id=2 vlen=0
+	[76] FUNC 'subprog' type_id=75 linkage=static
+
+There is then no argument left to compare, the subprog stays reliable,
+and the check in bpf_check_attach_target() is skipped. The freplace is
+then rejected by the later linkage check instead, reporting "subprog()
+is not a global function", and the selftest "exceptions" fails.
+
+Determine staticness from the BTF linkage instead, and keep the
+unreliable check for global functions whose BTF does not match their
+call site.
+
+There is no functional change: freplacing a static function was rejected
+before and is still rejected with the same -EINVAL. Selftest "exceptions"
+is updated to match.
+
+[1] https://github.com/llvm/llvm-project/pull/198426
+Fixes: 147400e9c27c ("bpf: Compute parameters liveness in bpf_compute_live_registers()")
+Signed-off-by: KaFai Wan <kafai.wan@linux.dev>
+---
+ kernel/bpf/verifier.c                               | 3 ++-
+ tools/testing/selftests/bpf/prog_tests/exceptions.c | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 2f190abe3448..e9814e3ac370 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -22079,7 +22079,8 @@ int bpf_check_attach_target(struct bpf_verifier_log *log,
+ 		}
+ 		conservative = aux->func_info_aux[subprog].unreliable;
+ 		if (prog_extension) {
+-			if (conservative) {
++			if (aux->func_info_aux[subprog].linkage != BTF_FUNC_GLOBAL ||
++			    conservative) {
+ 				bpf_log(log,
+ 					"Cannot replace static functions\n");
+ 				return -EINVAL;
+diff --git a/tools/testing/selftests/bpf/prog_tests/exceptions.c b/tools/testing/selftests/bpf/prog_tests/exceptions.c
+index cea01d638f6f..1bd15c4c125b 100644
+--- a/tools/testing/selftests/bpf/prog_tests/exceptions.c
++++ b/tools/testing/selftests/bpf/prog_tests/exceptions.c
+@@ -333,7 +333,7 @@ static void test_exceptions_success(void)
+ 				       bpf_program__fd(skel->progs.exception_throw_subprog),
+ 				       "throwing_subprog"), "set_attach_target"))
+ 				goto done;
+-		}), "throwing_subprog() is not a global function", 0);
++		}), "Cannot replace static functions", 0);
+ 
+ 	if (test__start_subtest("non-throwing extension -> non-throwing subprog"))
+ 		/* non-throwing extension -> non-throwing global subprog : OK */
 -- 
-Kind regards,
-Joshua Crofts
+2.43.0
+
