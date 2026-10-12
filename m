@@ -1,182 +1,176 @@
-Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7983164BB
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:21:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A56344D9D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:21:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791811293; cv=none; b=axv1SiZ2dO791NIrDd0fkCeeXeJoYFB8UUXd2o0ajKulICCpyzT3WwRsO0I6xQv/msjAbAT1/eIv95dIb/AMNxMr/9cfwY5Zxp48WamWPL7v4D6Us9kQrY3sdtAi1TO48ZTr5m+3ZONWf6Qw6ge5SRseefmgFzJk4LFaxkugNGc=
+	t=1791811303; cv=none; b=GjfZoV/Rx32MtpGZBA+kddyOrMg1c2BAQSh2k076p3YKl/Q0apz0bQ8mr7srYcqH+HR2c/UC7JVVc98/In/RnzDE/pK19+cotqI8pcx/BhbMoICZ3EiR61DRtYEz3j5N/Ah4t5urxnvIF+LlgVkFJeEY5FHtWVEteqxtuUL+NyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791811293; c=relaxed/simple;
-	bh=NSJbphe7D00V6VsNq0MpqR9yG171dFhzRqBa0FnDYyo=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=WJ196ClLo2cWHUgacQglS8QU2EyFGCpuD42QNaE0vig16SOOAaZw+xslkiA4EssvoRmo/Eqk5yLBeVISoIO0EQC+pD8Xq+z3SDd46Qa/ufvQX6S5nc8jMsb9HCdWLC0G1M1OLsI+ZxAH5rrtGo7wiI4Eg2X5IA+3cljr3UMmHjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=epVLkHC7; arc=none smtp.client-ip=162.62.57.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	s=arc-20240116; t=1791811303; c=relaxed/simple;
+	bh=fH3LzlK0G+6cdVw1UBUL8BjAzugIuxnjoK/VeZpGwFs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cYvl+lEnsy5thsd3pn2fgNzl3s3iSUkCNsxGudlR3fYa1ymdhaSL+CRN12DId7XFuDxKR42CRyfoaAbyAfC5oWXJ1rE8qutc2pJnuPAKrhoUsilmCgJPBQrq6AprV8XI268R31cWSGEjBI65ga5XPnNPRETBvLQ3jB/Y20GG9S8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LeY1ceSL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c22qkA8U; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="epVLkHC7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1791811280;
-	bh=tHfMjB9wTitmw3WTeZq++IFexcprMDF2yE5QCi0jjxI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=epVLkHC7HlE52Gjr2Gw1rqP2Nl+o7f9dO6Pu+at523SgOUC5oxJ0VwRpWDEbnVUhl
-	 abeoxCP1tUquuWGc3N8ZG2rkxRjzNX+nFFTa5hzo1HvQoldjpI7qXbz2Vo0kWtsZvf
-	 uAsdn15t82LO5INfk18jCpuV4txDNRhOq0FAJ/2U=
-Received: from RE0700.barrietech.com ([122.233.58.214])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id 50A0E8FD; Mon, 12 Oct 2026 21:20:10 +0800
-X-QQ-mid: xmsmtpt1791811210t37a5ncsa
-Message-ID: <tencent_4EDD66523CED299DB0C99498B4D8C939A009@qq.com>
-X-QQ-XMAILINFO: M/NR0wiIuy702phmobPKm7JW6GBjJE7rjy8JudSBa4zpdcbIV8eBw6wusuER7F
-	 kbRemxbv258Q0rHRmq9yjJVe8QOMsxoTSI2PqTiAJZsYeyCySgLShhqdRfNW/Hswcd45pXFuB3we
-	 lXKlzbIx8CWsNsVFQ22fBp3O/Usqf3IfEiOgrDhDBBNZClx0H/a4Aexv/v52S6vgh69jSgAW1iTM
-	 mvF82hEFq/U1XPXR/KEIpDirBn3ElStl/PsbuZH6pdj0nnwlPP7C466eOrmgY4aKBCkZ/tGS0heH
-	 ZEEQcH9v976aRN8UooPXjNCj14pppElTGhic/2oaWTGjTjz2PBGF9lKTn74NxKZEGqq11F3kg241
-	 OWBbH2OsmfOZGFErfH1EX0LNLBgv7n/S7AQ3SWGI94Nm1ILpRfFVOEtASdElFbSCTypRvpAcXaG6
-	 +dijQrDi/PNOnrDDTND6sWfs+nLIMvlxJlgTam+gqwkpIhljQRh968q9zQWcyU+F/VX/zQiBtPFb
-	 86LbqlGx4NXb5Akwb5tk1MureJNz0fDhI9yq1KDgQcZ064itfOiYQ9jlhCPe5Sm1ezCMs9JFFnZZ
-	 gelvuNZOsxpztU0eqEf5tK33dnptgrN5xSODBydbqw7CNbNaZfTOwbKgdrfZASQCCpW5yXRp7Pok
-	 TuVhaEg0mgsgIwY6FxKBZO3ZRVnQSn871J3qqkh9uD6+lcw/h9K78b1dhO+uj+201Fh9uUeZ7Cs6
-	 BqrFUPNe6T7dcU2E6LmlyfFtLDZbYSqVClDXuGI+pF2+DL0hk15jWBU/OHUMvyIS+UV6mNiCsvfc
-	 59mEwz6D6yMUc5MyEgk6JQLpr4qbqSMKgKlnJhXnJtmF0SRUJaWxceLvCgE6NQuHUK6AtGnE9dF4
-	 idRy8DAv6RpXE+hKo/QxHMO3ngPq6iMUq2zxtQMODZLWisa4C8cLSK5kohCEDpYPiueuHMz2TLXX
-	 VvCAB8gi6khToCy1rQeys92aetG1tSdB3CoP4uIK2+QuJsHwMBUZAbKzDUuVXxJe7up4iyQw2ZrO
-	 tZFvn2Kl4smeHVPJ+tVEbfn2NWnDPYF/O6rb/tjivJV9up550/AioK1ioggwkjlEdtQZmGtqt/iF
-	 DXVINxIO9htiWDAm6hRC46Gdn7iZ1KesOUGKlP6BOJyJDdAY1jKekBlykGpY2YI2hqxavC
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-From: zhoumin <teczm@foxmail.com>
-To: hirofumi@mail.parknet.co.jp
-Cc: linux-kernel@vger.kernel.org,
-	teczm@foxmail.com
-Subject: [PATCH v2] fat: roll back the new entry when create/mkdir fails to build the inode
-Date: Mon, 12 Oct 2026 21:20:06 +0800
-X-OQ-MSGID: <20261012132006.763156-1-teczm@foxmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <87jynnff0g.fsf@mail.parknet.co.jp>
-References: <87jynnff0g.fsf@mail.parknet.co.jp>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LeY1ceSL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c22qkA8U"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC0W7O2252715
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:21:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=gg2xEwxVLLgp8a6YohmCiiIF
+	Vna8WCqyVDg5jFOpISE=; b=LeY1ceSLMRzrbGK0i7Z7mPYEYYJBA52eYbFUqHZ5
+	lH4tuVs2C8RAmfmDdQCryHjM3W/3FncLC273SoU8DcSq5155BH80/fj/2ufG9nsQ
+	SIP0qc9rZb+lNTgRFh17mdoX2xQQN+dyfa9JYhUtG31tDRCIBkA6nhqrehadIJnR
+	mq5QwG0vE+eFzkB11XbF6Fh6lGR5emeefKwbKXdUwZKSDc+7A+bnrWKQuW+ju64K
+	fS7XhqVWqLXk3W77TvjlYt9O/XFM32F3cK2qcdl3ZaU2HGyD/miw9l2nCqhUryZR
+	K7e0WmpJdmYnXBhUrzGWSlJwQ7Fk0yV9Van44js0aRv7iQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8j7135dg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:21:39 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35a04491c56so1114783eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:21:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791811299; x=1792416099; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gg2xEwxVLLgp8a6YohmCiiIFVna8WCqyVDg5jFOpISE=;
+        b=c22qkA8U3K8E4pLHhe7IqhGqt5ugQ1P+zKWEWW2iZS6mD6KzmfWohpCro/S6j1LZ6u
+         PqeFkhlHgF0o00Dxe+D7dnG2phPmc/ar8W5T3yDQe7S2VKEg838ySysvtE5zjfhPA1WO
+         U6GrCpDgCPsZzf7Nq9TyQnS9QtPd665/Zx8PuH6FjkyTgcR0umnObLHrKaOfz/jmCRE+
+         VGWECNPZxCXUT+oyGyhu3YCaWh5/HFa9c+rLLS+FCMfvEhWKJigMgq4G+yErYKmrqxKg
+         cHhDCnNg0mDI766qoKqLEOX/88dd0mxw/ndVXSrpIe9k1qSMXhyfUJgKuWkgsupIEZga
+         syBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791811299; x=1792416099;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gg2xEwxVLLgp8a6YohmCiiIFVna8WCqyVDg5jFOpISE=;
+        b=u+deBjuyn4Lwq0YyZwg+rKYVSu9YDTnUVvwTPQEp47PyVGTCY1Vhh62Ha1v+00FNsF
+         T7GLgdcqD9iligayW95Yjdf5AObp6nDdMnpWGyB/yjhqHRBP03tt2yN6kaGAAHQtGKX3
+         IZnlKZDR6BRUJdlhtR0HhbIgXOHzS+v5kJgHbPiZ+MkJyLi+ikenM2mV5zK21t7VvnFI
+         eOYZlPfbVG0cBCf/nagXUr4yXz7vmXLgCGx+9ytcuqR2MhQK/XbRZz23wfZsX+y/tiWd
+         6UvMujqUXswnYuTgO1cY7T9rNR1VqXmB8YRfM9qRWr2tJn8upBxGaLYAxPVjIfLhfw4q
+         5/+A==
+X-Forwarded-Encrypted: i=1; AKwUvBytxHJbmimdDM4sNwyvQkhHUn45Qkq2lw8AEMpTdVKX0/0mYGUIZ20BWamwKfJpRrKALBaXIsajBRG9d5o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3aSmDPggUINkDX7rBjrFikBs/DIidvoBrLWTDNl7SgopNRgDr
+	DTtbR27XbvAla5hJ/fNyWSCI0H9WZ2Lf0GaFqBkUfK6kE0hnN8l49XtbaAChfHs6HWwNU7uO1AY
+	CpCbjp0B9CEWBjlKcb3YJDYJ9lvQyblG15sr0p2raQEb3W2cmWXeQeha+MvJfPBOsTpc=
+X-Gm-Gg: AYBFou3KSCpNdmbhlHBuYSPru+tciXgVrgIMNwJbzegAWbGFqJ1MpGLw2eZGY7xhwvg
+	Q3fedlVPtzCv6647oWhHuqr1KOWUFQ9fLxGzBtULzzu7wmyk4meXxUMJ+xMbf+YKSbDYaioWMw6
+	hXjLnLf76hcuTJoBS3A/XtPxKf6LzP92gQ/PRgwC7VVAk5IDUw37uzIk2LEbQSiSknbDqNvCTTg
+	6Wgjc8ekw+5f2LWAUShNdnh3bLVpse5fpQuOHxQc+YmKyFkKK5xFhhg7LTheqFRJcbMPlSPvnYT
+	5cSdIWpjXGYSZHht+pCBa2vgKL0QOGSYgmdPIXtiyXdxpvjp34m03ClksjYJFU32b9ih1lvJix3
+	vePLtDMMtc0w71FH9IPWFEbq0pTWoi4/YxFux44i//w==
+X-Received: by 2002:a05:7022:3b8e:b0:166:fc9a:11b3 with SMTP id a92af1059eb24-16a1206fed8mr14144249c88.12.1791811298538;
+        Mon, 12 Oct 2026 06:21:38 -0700 (PDT)
+X-Received: by 2002:a05:7022:3b8e:b0:166:fc9a:11b3 with SMTP id a92af1059eb24-16a1206fed8mr14144192c88.12.1791811297876;
+        Mon, 12 Oct 2026 06:21:37 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3593b8b2ec7sm19151010eec.4.2026.10.12.06.21.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 06:21:32 -0700 (PDT)
+Date: Mon, 12 Oct 2026 21:21:22 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Shivam Rawat <shivrawa@qti.qualcomm.com>,
+        Aastha Pandey <aastha.pandey@oss.qualcomm.com>
+Subject: Re: [PATCH 0/5] drm/msm: Support for GPU in Nord
+Message-ID: <asze0jREeXmrItcs@QCOM-aGQu4IUr3Y>
+References: <20261009-nord-gpu1-v1-0-a06a6c57bde7@oss.qualcomm.com>
+ <assuimpZe3J5E2rs@QCOM-aGQu4IUr3Y>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <assuimpZe3J5E2rs@QCOM-aGQu4IUr3Y>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1MyBTYWx0ZWRfXyYwkhHEHWHIK
+ +9OPSe2FL/tuzcemh+F9a+eeGfYhZpzTZIfcucPLA2K2+E+QoLXzMEnSbRfL9KYO5tGb7+Y/ZkQ
+ +CKexoVUSSwtGJHTqG4YXlI9lSFb/tE=
+X-Proofpoint-GUID: uq4lpMW2kWsL5kpVk4REwBpQgFZUwI-f
+X-Proofpoint-ORIG-GUID: uq4lpMW2kWsL5kpVk4REwBpQgFZUwI-f
+X-Authority-Analysis: v=2.4 cv=ePGGH3p1 c=1 sm=1 tr=0 ts=6accdee3 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=VSReoY4tmV1E6dsv7MgA:9 a=CjuIK1q_8ugA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1MyBTYWx0ZWRfX06ETwdvGkOAt
+ zHubJAv8fxedXv+zErq4z39y77nDHkNoAuZIZWCbkHcSpWbCICHz+8kY8JAahkiOBtEm4zjue2h
+ ijufeFT+ksTgTpp5udnpZYlFx/PTreRdCK6kleeVxklVA6iNtVbN+RlcH1hKeKn9PzhPTJg66BP
+ rfwX25JDq+EOlnJtn/u0+bngzwgAtRgg8ZfhEo2oza/8jwGhRZALsSC7suo7ogjyzBz+/8/m2oa
+ xb+Gi+ZkTeHMb1mcNEtyIgZEFzMezFjAg3fFoLTOHHaSEVOGBPT+sUYZqMz8PxPsRyoWoWFAz5T
+ IMZCgLClKLLEDePVW3A0AlLhZlMxCY1HOLiEc2QaPH7j17e5iLdtHxVKpPwO7g4cb9XMLQLrdTI
+ wGV1GeRz0Rr8vpqtyTSn1Fnpb6TJ4IXTsXYt7J+P+YvsiGoiHAZl7u01xPdygoYe/aB+dkCQlo7
+ TBnEfKBXZVRjkIm860w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 malwarescore=0 adultscore=0
+ bulkscore=0 phishscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120053
 
-vfat_create(), vfat_mkdir(), msdos_create() and msdos_mkdir() add the
-on-disk entry before calling fat_build_inode() to set up the VFS
-inode.  If fat_build_inode() fails, the error is returned but the
-entry stays on disk and the file or directory shows up after remount.
+On Sun, Oct 11, 2026 at 02:36:58PM +0800, Shawn Guo wrote:
+> On Fri, Oct 09, 2026 at 02:36:34AM +0530, Akhil P Oommen wrote:
+> > Nord is the first Snapdragon chipset with 2 integrated GPUs. It has
+> > an Adreno 753 GPU which is very similar to the existing A750 (SM8650
+> > chipset) and an Adreno A735 which is similar to the Adreno X1-45 GPU.
+> > This series adds support for the A753 GPU. A735 support will come later
+> > in a separate series.
+> > 
+> > The driver and dt-bindings patches are for Rob Clark and the devicetree
+> > bits are for Bjorn to pick up.
+> > 
+> > Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> > ---
+> > Aastha Pandey (1):
+> >       arm64: dts: qcom: nord: Add GPU cooling
+> > 
+> > Shivam Rawat (4):
+> >       drm/msm/a6xx: Add Adreno 753 support
+> >       dt-bindings: display/msm: Document Adreno 753 GPU/GMU
+> >       arm64: dts: qcom: nord: Add Adreno 753 GPU and GMU nodes
+> >       arm64: dts: qcom: nord-rrd: Enable Adreno 753 GPU
+> 
+> I tested it on RRD board (against next-20261009). While kmscube seems
+> running fine, I saw the following errors.
+> 
+> root@qcom-armv8a:~# kmscube
+> [   30.192468] adreno 3d00000.gpu: [drm:adreno_zap_shader_load [msm]] *ERROR* Unable to authorize the image
+> [   30.192503] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu [msm]] *ERROR* gpu hw init failed: -22
+> [   30.202644] platform 3d6a000.gmu: [drm:a6xx_gmu_set_oob [msm]] *ERROR* Timeout waiting for GMU OOB set GPU_SET: 0x0
 
-Remove the entry in that case.  For mkdir, also free the directory
-cluster and decrement the parent's link count.
+Turns out to be an issue on hypervisor. With an updated hypvm.mbn, the
+issue is gone.
 
-Signed-off-by: zhoumin <teczm@foxmail.com>
----
-Changes since v1:
- - Only undo the parent nlink and free the cluster when
-   fat_remove_entries() succeeds.
- - Use a block scoped err2.
- - Reuse out_free instead of an open coded fat_free_clusters().
-
- fs/fat/namei_msdos.c | 22 ++++++++++++++++++----
- fs/fat/namei_vfat.c  | 22 ++++++++++++++++++----
- 2 files changed, 36 insertions(+), 8 deletions(-)
-
-diff --git a/fs/fat/namei_msdos.c b/fs/fat/namei_msdos.c
-index d46d1a3851f2..7f2c68149efd 100644
---- a/fs/fat/namei_msdos.c
-+++ b/fs/fat/namei_msdos.c
-@@ -292,11 +292,17 @@ static int msdos_create(struct mnt_idmap *idmap, struct inode *dir,
- 	if (err)
- 		goto out;
- 	inode = fat_build_inode(sb, sinfo.de, sinfo.i_pos);
--	brelse(sinfo.bh);
- 	if (IS_ERR(inode)) {
-+		int err2;
-+
- 		err = PTR_ERR(inode);
-+		err2 = fat_remove_entries(dir, &sinfo);
-+		if (err2)
-+			fat_msg(sb, KERN_WARNING,
-+				"failed to roll back new entry (%d)", err2);
- 		goto out;
- 	}
-+	brelse(sinfo.bh);
- 	fat_truncate_time(inode, &ts, FAT_UPDATE_ATIME | FAT_UPDATE_CMTIME);
- 	/* timestamp is already written, so mark_inode_dirty() is unneeded. */
- 
-@@ -381,12 +387,20 @@ static struct dentry *msdos_mkdir(struct mnt_idmap *idmap, struct inode *dir,
- 	inc_nlink(dir);
- 
- 	inode = fat_build_inode(sb, sinfo.de, sinfo.i_pos);
--	brelse(sinfo.bh);
- 	if (IS_ERR(inode)) {
-+		int err2;
-+
- 		err = PTR_ERR(inode);
--		/* the directory was completed, just return a error */
--		goto out;
-+		err2 = fat_remove_entries(dir, &sinfo);
-+		if (err2) {
-+			fat_msg(sb, KERN_WARNING,
-+				"failed to roll back new entry (%d)", err2);
-+			goto out;
-+		}
-+		drop_nlink(dir);
-+		goto out_free;
- 	}
-+	brelse(sinfo.bh);
- 	set_nlink(inode, 2);
- 	fat_truncate_time(inode, &ts, FAT_UPDATE_ATIME | FAT_UPDATE_CMTIME);
- 	/* timestamp is already written, so mark_inode_dirty() is unneeded. */
-diff --git a/fs/fat/namei_vfat.c b/fs/fat/namei_vfat.c
-index da3e89c0b16a..b366e0163272 100644
---- a/fs/fat/namei_vfat.c
-+++ b/fs/fat/namei_vfat.c
-@@ -771,11 +771,17 @@ static int vfat_create(struct mnt_idmap *idmap, struct inode *dir,
- 	inode_inc_iversion(dir);
- 
- 	inode = fat_build_inode(sb, sinfo.de, sinfo.i_pos);
--	brelse(sinfo.bh);
- 	if (IS_ERR(inode)) {
-+		int err2;
-+
- 		err = PTR_ERR(inode);
-+		err2 = fat_remove_entries(dir, &sinfo);
-+		if (err2)
-+			fat_msg(sb, KERN_WARNING,
-+				"failed to roll back new entry (%d)", err2);
- 		goto out;
- 	}
-+	brelse(sinfo.bh);
- 	inode_inc_iversion(inode);
- 
- 	d_instantiate(dentry, inode);
-@@ -870,12 +876,20 @@ static struct dentry *vfat_mkdir(struct mnt_idmap *idmap, struct inode *dir,
- 	inc_nlink(dir);
- 
- 	inode = fat_build_inode(sb, sinfo.de, sinfo.i_pos);
--	brelse(sinfo.bh);
- 	if (IS_ERR(inode)) {
-+		int err2;
-+
- 		err = PTR_ERR(inode);
--		/* the directory was completed, just return a error */
--		goto out;
-+		err2 = fat_remove_entries(dir, &sinfo);
-+		if (err2) {
-+			fat_msg(sb, KERN_WARNING,
-+				"failed to roll back new entry (%d)", err2);
-+			goto out;
-+		}
-+		drop_nlink(dir);
-+		goto out_free;
- 	}
-+	brelse(sinfo.bh);
- 	inode_inc_iversion(inode);
- 	set_nlink(inode, 2);
- 
--- 
-2.53.0
-
+Shawn
