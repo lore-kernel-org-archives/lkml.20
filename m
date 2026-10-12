@@ -1,193 +1,216 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56052AD36;
-	Mon, 12 Oct 2026 09:40:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E060C30CD95
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:40:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791798049; cv=none; b=AhIoQpDPjMAiXxRLQ6ez+kut24y2Il/QXWC6Z3EsFdFr2vZrtjQrbi5hRaw6ETV3tR4GZdeA1Lkdknh2YH1rqintpSfaffucvyRNy8uz4Vh2S5AZsmatYz5KXSJ5Om/ly3vvDK9IQ37i32thI6OfTrwv9TvRJcZDtK17Fq3h/jU=
+	t=1791798062; cv=none; b=dPsZmZQZHjNT1OLMJ4o0N2Pf7ljLqBK+HvEgEJu0fDgdVXze0UCneuGMRw4RvuEjMRmN+v48dcz+oO+a/GP50ki9mef3FkiUZpqI4x7RhrxlTjN3O0eRGnT2GQWGL+lhka66IWr+lDZb0z/f98Rr1dQxUriBmyMgkXusiCB5dd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791798049; c=relaxed/simple;
-	bh=a6FvpKy2Z1vtgnntPtKf+UWcUhRmkqdd5O8tdJ5HVP8=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Lz9nPz53l6TTu4ZHPxndkl1hEbSWukYoUSmGvU88FuflWQj92IqQdN+ZRO+1Xx2dlSWeHprzIBFX1uHVWBIbYZ5Hc5VL0wiKfVRNMcC/S8FfoFUJbRnHaO9dnqfy97Z7U+vz+l7CJgjmYIccP6tK7+1bgeWwJUNAOFJ3hjXdH0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e8rGZPJm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791798062; c=relaxed/simple;
+	bh=lmbfP6/LQtekS5d2UAKODhzYECFpFLpPjSLkUfC8pXI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GMZ9a86OTjdOwOt6u6HduHkGHWNPEnj5Vef6rpMnkagVnsHmM4cee1wSgc4KfvJY8TpyivM2xWJtKsjpDr+0YEwalzl7UfzJ4LmVMygRDMaM0yXav3KC6OrvAmf6FICr5xMREXQqxFJRaJDo1KEBsPCr5YANgdVpBsPKCm90Eig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=KmzPzZGG; arc=none smtp.client-ip=209.85.222.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e8rGZPJm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 193621F0089D;
-	Mon, 12 Oct 2026 09:40:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791798047;
-	bh=ZzTdgKXEL3BVoaE1Vc+qFEalY2IjFij49xzMtVOaX44=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=e8rGZPJmlk9vGjVE0GMJXTi2yzoes3DQkJN+9veJ4/H2CH8S0wVK3juo+U3mReCok
-	 PMYI611mdsSD8QHFqUACqHfsp2ueJAycQdtvWXxhTSDzpU0zAc+Cn5EVIAApzZWVfM
-	 iezEHOJGExTU4pM/GYeUrusXlODXp9UUxf1E/zE5zgj9qP1evZSu85mS3GUBqPDWd/
-	 fySIBvvi3rhHWcmDYaJN5Ij1ro1QXJE839m5LdjwnNPqvhPPj88d6Z6C8klEBKwDAG
-	 6e//OQda/9ZKKiHNnMNjD4QZnhKTP+o6hwLIbMtMEU6Hfn5BefVsaDf+xjuwaCEmPR
-	 Zs/2U7ABgq/Tw==
-Subject:
- Re: [PATCH net-next] net/mlx5: Remove max_external_SFs device resource
-From: netdev-bot+sashiko@kernel.org
-To: tariqt@nvidia.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
- cjubran@nvidia.com, cmi@nvidia.com, cratiu@nvidia.com, gal@nvidia.com,
- jiri@resnulli.us, corbet@lwn.net, kees@kernel.org, leon@kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, mbloch@nvidia.com, moshe@nvidia.com,
- ohartoov@nvidia.com, rdunlap@infradead.org, saeedm@nvidia.com,
- shayd@nvidia.com, skhan@linuxfoundation.org, horms@kernel.org
-Date: Mon, 12 Oct 2026 09:40:45 +0000
-Message-ID: <179179804565.434549.2194696630956114111@kernel.org>
-In-Reply-To: <20261011093828.784454-1-tariqt@nvidia.com>
-References: <20261011093828.784454-1-tariqt@nvidia.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="KmzPzZGG"
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93e76469b93so95450385a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:40:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1791798059; x=1792402859; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TFmCIpUfagd6jNTqIQiMG7oS1DzngqujJGbDwYFy81o=;
+        b=KmzPzZGGAxQjOkzm1xv8X3AhmKEYRXzDhSZS090y2Bu8N7FEvbfBDH7tniySi1WnB7
+         ksTf4RwnRBOExs+JIUYJctnAxgIPBdvZikViTPWNAsKzAugyjfnSOK7qPBKOl5vndkCO
+         pdRxN4bwvGdIPV0An0q+XE3OpCUJDJ0ru+RqzWMWsQNBDF5ST/az65NN1LEn0p31rrUr
+         LWlS4Ou/S/sAx2MOxgMZ4PGVrTwXML6dq+Qi8B9NS/6KzlI5vZhXfwa2I9Ki2MQYCTUV
+         V2OUO5JG5qrRxEs5MkR4Ti65NZOLRrVsLKXuMRcX2PKIX9nAKRKPIfh7kslewmgTqof9
+         F/jQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791798059; x=1792402859;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TFmCIpUfagd6jNTqIQiMG7oS1DzngqujJGbDwYFy81o=;
+        b=LtxTDDqlKmwloFt0gyWi0eg1dgDZuOsRnneoMvLDYjLRYNkJecmAVUk+QYa5A9o5rG
+         Y5A11gS7XZ/4tva/Mt/m1tqSVTxKs5dl9wSL3sb/G7IOuaiX/HZNBbRhn00u+oEgcAQt
+         4TkI+Lnt12yuvn6FNWzuJF9KeeFvOMedyI5vdT+45vjxSIwdTTJ+K4h3daTy0zVOc/a3
+         9e6oUkSJqk4QlrbAKxv0lxb8YeB7/mmNtAyBb5V6FKA2vEDkI0ZyQGZY1XL/BJU4CDXF
+         vulHg2lN11qSSoVu6Ki/svr59ZuQfAVKXKClvB2sFvz+QK6mKpLQtbCYUGsstXhTR+Fc
+         wHRA==
+X-Forwarded-Encrypted: i=1; AKwUvBw7CIFgaVp5wlrcbtRYECwOKsZzZbpQrnlxyIEcMv8bkEcrwzw6zL9EVjKvV0eC28JnkQcn3ApXFbWmGnY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2MDyfkBlOAobj6vAx2IOD+n0FqyXzpsqikdx/cOKL4jE0ax10
+	o4GIhZFTd9jAVlClmt61zmNbWG12yhwV8pOD6YI7wlstlI3t7H6FcG2/8nhbw1oY/g==
+X-Gm-Gg: AYBFou0yFNw99XlTE6qJJGFC1TbpgegvGgSr8dTHXzVZ5qQMUiXK+V+rqTz9JAK+Fiu
+	RE+0kPEIFKghcEeKR3CW3ncrfy2iiZI663On7RbtkmDQlKhl4p/ZwX+nmcdaLzhu6kByjySRjwJ
+	CKyhO9HIKtJt+pRWFGOUX045/Q29eRvHWcz37Ke4YyR3EcwK8xHmQAZT15nX4y0kH/F4TgpPhNM
+	bAs+u9zUX1HcLe8P/ISdGupGsnBBjNx5qUi5TNsVccPsjitQzmBKkQXfGIIQevlFhIl5WznSi1I
+	gpTcO2f/2L+vWFW0vloT7UdWoQJaQnjZExVY+/k4k/X6JUnbuAY/vJzMLEMGZV6uKPea7/zssJ6
+	I7haox6HxK48GKDp0FttgykW/K12+jZUyDaTEUJHYdSS0F71XqUBswY3WPoE2sqhIL7tJNX5W7t
+	GdNHT8ovASmwsOKUf5j9zLhoDazED6zL//sk7C7/JKPy5ArLQV0XPhQq1nmyQlGhX3UmsjcouL3
+	OSoasHadw0iA5NICJxssw==
+X-Received: by 2002:a05:620a:710d:b0:93e:5daa:67a4 with SMTP id af79cd13be357-93ebd225a6cmr1469980085a.29.1791798058677;
+        Mon, 12 Oct 2026 02:40:58 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b815fd211sm21817986d6.48.2026.10.12.02.40.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 02:40:58 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Sungjong Seo <sj1557.seo@samsung.com>
+Cc: Yuezhang Mo <yuezhang.mo@sony.com>,
+	exfat@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] exfat: free clusters beyond EOF when a write fails or is short
+Date: Mon, 12 Oct 2026 05:40:46 -0400
+Message-ID: <20261012094046.2592731-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Commit 82a81a7352bc ("exfat: add iomap buffered I/O support") and commit
+867b9c96dc83 ("exfat: add iomap direct I/O support") made a write
+allocate the clusters for its whole range in one step. They also dropped
+exfat_write_failed(), which freed the clusters beyond the end of the
+file after a failed or short write.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+However, a write can stop early, for example when the process is killed
+or when a part of the buffer cannot be read. As of now, the clusters for
+the part that was not written stay allocated beyond the end of the file.
+exfat_cont_expand() does not expect them, so a later write or truncate
+that extends the file fails with ENOSPC. The directory entry records
+only the size of the file, so the space can be lost for good once the
+volume is unmounted.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The issue can be reproduced on a 64M volume made by mkfs.exfat and
+mounted on /mnt, with a write of 1M from a buffer that has only its
+first 4K mapped:
 
-- [Medium] The patch removes the device-scope devlink resource
-  `max_external_SFs` (resource id 2, MLX5_DL_RES_MAX_EXTERNAL_SFS) from…
-- [Low] The commit message says "Users can look up SF limits per-port
-  directly via 'devlink port show'".
+    #include <fcntl.h>
+    #include <stdio.h>
+    #include <sys/mman.h>
+    #include <sys/stat.h>
+    #include <unistd.h>
 
---
+    int main(void)
+    {
+            char *p = mmap(NULL, 8192, PROT_READ | PROT_WRITE,
+                           MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+            int fd = open("/mnt/f", O_CREAT | O_WRONLY, 0644);
+            struct stat st;
 
-net/mlx5: Remove max_external_SFs device resource
+            munmap(p + 4096, 4096);
+            printf("write: %zd\n", write(fd, p, 1 << 20));
+            fstat(fd, &st);
+            printf("blocks: %ld\n", (long)st.st_blocks);
+            printf("ftruncate: %d\n", ftruncate(fd, 1 << 16));
+            return 0;
+    }
 
-This commit removes the device-level max_external_SFs devlink resource
-from mlx5. The reason given is that the per-port max_SFs resources on
-each PF port representor make it redundant. The devlink-resource.rst
-examples are updated to match.
+Before commit 82a81a7352bc ("exfat: add iomap buffered I/O support"),
+the result is:
 
-> Users can look up SF limits per-port directly via 'devlink port show'
-> to correlate with controller number and pfnum.
+    write: 4096
+    blocks: 8
+    ftruncate: 0
 
-[Severity: Low]
-Is 'devlink port show' the right command here? Port-scoped resources are
-returned by DEVLINK_CMD_RESOURCE_DUMP in net/devlink/resource.c. The port
-get reply does not include them:
+After that commit, the result is:
 
-net/devlink/resource.c:devlink_nl_resource_dump_doit() {
-    ...
-	resource_list = devlink_port ?
-		&devlink_port->resource_list : &devlink->resource_list;
-    ...
-}
+    write: 4096
+    blocks: 2048
+    ftruncate: -1
 
-The devlink-resource.rst updated by this patch lists port resources with
-'devlink resource show pci/0000:03:00.0/196608' and 'devlink resource
-show scope port'.
+This patch will bring back exfat_write_failed() and call it when a write
+ends before the end of its range, so that the clusters beyond the end of
+the file are freed again. It waits for direct I/O in flight first, as
+exfat_setattr() does before it frees clusters.
 
-Could the commit message say that the max_SFs values come from devlink
-resource show, and that devlink port show only maps the port index to
-controller and pfnum?
+Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
+Fixes: 867b9c96dc83 ("exfat: add iomap direct I/O support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+Based on the exfat dev branch (1cae92a58966).
 
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/sf/hw_table.c b/drivers/net/ethernet/mellanox/mlx5/core/sf/hw_table.c
-> index 1724bf7e0e7af..c36dbd7de8778 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/sf/hw_table.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/sf/hw_table.c
-> @@ -262,24 +262,17 @@ static void mlx5_sf_hw_table_res_unregister(struct mlx5_core_dev *dev)
->  	devl_resources_unregister(priv_to_devlink(dev));
->  }
->  
-> -static int mlx5_sf_hw_table_res_register(struct mlx5_core_dev *dev, u16 max_fn,
-> -					 u16 max_ext_fn)
-> +static int mlx5_sf_hw_table_res_register(struct mlx5_core_dev *dev,
-> +					 u16 max_fn)
->  {
->  	struct devlink_resource_size_params size_params;
->  	struct devlink *devlink = priv_to_devlink(dev);
-> -	int err;
->  
->  	devlink_resource_size_params_init(&size_params, max_fn, max_fn, 1,
->  					  DEVLINK_RESOURCE_UNIT_ENTRY);
-> -	err = devl_resource_register(devlink, "max_local_SFs", max_fn, MLX5_DL_RES_MAX_LOCAL_SFS,
-> -				     DEVLINK_RESOURCE_ID_PARENT_TOP, &size_params);
-> -	if (err)
-> -		return err;
-> -
-> -	devlink_resource_size_params_init(&size_params, max_ext_fn, max_ext_fn, 1,
-> -					  DEVLINK_RESOURCE_UNIT_ENTRY);
-> -	return devl_resource_register(devlink, "max_external_SFs", max_ext_fn,
-> -				      MLX5_DL_RES_MAX_EXTERNAL_SFS, DEVLINK_RESOURCE_ID_PARENT_TOP,
-> +	return devl_resource_register(devlink, "max_local_SFs", max_fn,
-> +				      MLX5_DL_RES_MAX_LOCAL_SFS,
-> +				      DEVLINK_RESOURCE_ID_PARENT_TOP,
->  				      &size_params);
->  }
+Tested on v7.3-rc6 with fs/exfat taken from that branch (KASAN, and a
+second build with lockdep), on volumes with 512-byte, 4K and 32K
+clusters: the program above, the same write with O_DIRECT, a process
+killed in the middle of one 48M write(), a fragmented volume, and
+asynchronous direct writes in flight while writes on the same file
+fail. With the patch no clusters are left beyond EOF and all the space
+is free again after the file is deleted.
 
-[Severity: Medium]
-Does the per-port max_SFs fully replace max_external_SFs?
+Without the patch, the killed 48M write leaves a 1.5M file with 48M
+allocated; after a remount and deleting the file, only 15M of the 62M
+volume are free.
 
-max_external_SFs has been visible on pci/<bdf> since commit 6486c0f44ed8
-("net/mlx5: Expose max possible SFs via devlink resource"). It was
-registered at probe, gated only by mlx5_vhca_event_supported(). Anything
-that looks it up by name, or by resource id 2, will no longer find it in
-any eswitch mode.
+The inode_dio_wait() is needed. In a test build without it, a direct
+write that fails while asynchronous direct writes are extending the
+file frees their clusters, and fsck.exfat reports "less clusters are
+allocated".
 
-The replacement is registered only on this path:
+ fs/exfat/file.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-mlx5_esw_offloads_load_rep()
-  mlx5_esw_offloads_devlink_port_register()
-    mlx5_esw_devlink_port_res_register()
-
-Both ends of that path can skip it:
-
-eswitch_offloads.c:mlx5_esw_offloads_load_rep() {
-	if (esw->mode != MLX5_ESWITCH_OFFLOADS)
-		return 0;
-    ...
-}
-
-esw/devlink_port.c:mlx5_esw_devlink_port_res_register() {
-    ...
-	if (vport_num != MLX5_VPORT_HOST_PF &&
-	    !mlx5_esw_is_spf_vport(esw, vport_num))
-		return 0;
-    ...
-}
-
-In legacy mode (the default at probe), or when the host PF representor
-isn't loaded, does any devlink resource still report the external host
-SF capacity?
-
-mlx5_sf_hw_table_init() still computes max_ext_fn through
-mlx5_esw_sf_max_hpf_functions() and uses it for MLX5_SF_HWC_EXT_HOST. So
-the driver still has the value, but no longer exposes it.
-
-Also, mlx5_esw_offloads_devlink_port_register() only reports a failure
-from mlx5_esw_devlink_port_res_register() through mlx5_core_dbg(). If
-that registration fails, nothing exposes the value at all.
-
-max_local_SFs stays device-level and is always visible, so the two
-limits are now exposed in different ways.
-
-SF port creation already requires switchdev mode, so in legacy mode the
-missing value is planning information rather than something needed at
-runtime. Even so, neither the commit message nor the devlink-resource.rst
-update says that a user-visible resource is being removed. Neither says
-that the port-level max_SFs entries exist only in switchdev mode.
-
-Could this be stated, or could the device-level entry be kept for
-compatibility?
-
+diff --git a/fs/exfat/file.c b/fs/exfat/file.c
+index f106db945d8d..dc57d2c2f0f0 100644
+--- a/fs/exfat/file.c
++++ b/fs/exfat/file.c
+@@ -804,6 +804,19 @@ static int exfat_extend_valid_size(struct inode *inode, loff_t new_valid_size)
+ 	return ret;
+ }
+ 
++/*
++ * The clusters for a write are allocated before the data is copied. Free the
++ * ones that a failed or short write has left beyond the end of the file.
++ */
++static void exfat_write_failed(struct inode *inode)
++{
++	inode_dio_wait(inode);
++	filemap_invalidate_lock(inode->i_mapping);
++	truncate_pagecache(inode, i_size_read(inode));
++	exfat_truncate(inode);
++	filemap_invalidate_unlock(inode->i_mapping);
++}
++
+ static ssize_t exfat_fallback_buffered_write(struct kiocb *iocb,
+ 		struct iov_iter *from)
+ {
+@@ -862,7 +875,7 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 	struct file *file = iocb->ki_filp;
+ 	struct inode *inode = file_inode(file);
+ 	struct exfat_inode_info *ei = EXFAT_I(inode);
+-	loff_t pos, valid_size;
++	loff_t pos, valid_size, end;
+ 	int err;
+ 
+ 	if (unlikely(exfat_forced_shutdown(inode->i_sb)))
+@@ -881,6 +894,7 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 	}
+ 
+ 	pos = iocb->ki_pos;
++	end = pos + iov_iter_count(iter);
+ 	if (pos > i_size_read(inode))
+ 		truncate_pagecache(inode, i_size_read(inode));
+ 
+@@ -909,6 +923,8 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 		ret = iomap_file_buffered_write(iocb, iter,
+ 				&exfat_write_iomap_ops, NULL, NULL);
+ 	}
++	if (ret != -EIOCBQUEUED && end > i_size_read(inode))
++		exfat_write_failed(inode);
+ 	if (ret < 0)
+ 		goto unlock;
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261011093828.784454-1-tariqt%40nvidia.com
+2.53.0
+
