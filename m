@@ -1,241 +1,251 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013062.outbound.protection.outlook.com [40.107.201.62])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1DAF372EC0;
-	Mon, 12 Oct 2026 17:09:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.62
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791824964; cv=fail; b=TRHjyMrwei87P1lLYbvYprc4u0ohOyxtE/BYASxVwu6SdROTA7DN90iqX7us7SHTC9dlSR6QwCcShYF3TKRQGENWGIFznIiz0A3RTO3LioZ7XUzwP74v8foigvCYojrYQ+guubMjrTvISvTvb41sHbFdKLpNNCcANMc//OqIKp4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791824964; c=relaxed/simple;
-	bh=RnuBUNqzuZr8KwwWaUrLOdH6lB0ePsNaTH9aynIlass=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=jNsLu5Rp1U5qkS0/k52A1O/9RKb11+wOYwhw/v3mX243rcFm8o43z1GvtS3ch8upXgB1AsE89v7Q6A0d7A08rXzMEasUQcjO5wIhoi+jVr92GKqniuExCWKZ9mx1ktDJ+MRwyMc+lxMwYgiv35KTROrAvstL/4o4CqhjDC8Out0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=e8HBBF4M; arc=fail smtp.client-ip=40.107.201.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B05499F26
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:09:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791824971; cv=none; b=qa04YaoFwNAxRQNz6sYFVQwSTX1hFaUI6JHsGXY/PCgXps8W8N2uKZvCxsqFu2GXQUB9jTBRqpkZrACHBqgPKwbZSqTZKcHgPdePzEC0sMhr4UIqB5Uuhl68UrKbxRjPVGNzE8AsCCW7GQYZSLRoCgsT2KU3hlc0KLrHxZIoQYc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791824971; c=relaxed/simple;
+	bh=8wEKSUItEPd2uhqNs/vQ0MschtnHLAx0CDzMjdHn1Ks=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bINqXkJF3G6Xjxzw1jplz9/54LUU7T0QFioHKUV041tWs5fWmYJLvHj3nFZRWLlEUv8vmqD3MPLbeJoz/NSesBqMt6SpKqQe/GTvO6c5jLqseTHsJj+HeTspi/Uqup15N01f868SKAKLS98Cci/Z8Tp+SxYnuTgu4n6rZ8ErPLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SlyNYKcI; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="e8HBBF4M"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=atM/Lc5Z6CouNdWMLXVbIGgowpaVDwQoBYm8Epv3JElDIH8qVZwPuSAeU0Ex4JKZIxXpQwE+Qx89DdcGz2tiJgJ68AWD7uI5Wz8D4979U7hbvIvsq5Qztpff80ItXeDa/lXhnG38gZXSuxEgYkfwnO9UQIqfChic5tgbHLCyuQMx6fqUOzNO/FOIYibMo2dwQfpdXBBoylM/dgHbmvFe1+qt6WBvmUbeJTVfN2cLzxkej9VYy8Pse0l9k6Wwg5JA1f3c5DWsbAzG2GH7ky8dAxfGmHTDKb5skXk0sMoqz4u4ErZOKSC27s9sob7Fl4IkrbgKyPDCPasfIDEG8ECcnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a78GyJlxxsVMzxzYrHbGSQyGFFR7+Vw8kmc/8FmBqFs=;
- b=rEeL7ldhqkyO1SuT+hvUnCqYLsm3UmDgjAf5YObh9wk18l1+r7pnNT9T4dO47lB3O94eGqbGqETbV3NyfVovmgUUGrWUHkD9/hXUMMyv+vnwDZzpJUKrmLxtOcXkAlsvqpRQOU7DTPirHJHMMzQsW/EcfFOUqXYbJpDjVFBlD0rags1QasO/vVEIs3PDP+QMozpikyI9oO7o28YRbOdmwM315M2pRwLh/RqBQc+X31z+MtEwn9QOLxwrMp/EZPYZv95u3gsbMUfIlao0IlaoXFrS/LgMBS9TLRkA6tMaOShwb1/o9yuTT0xPHWtZ4mdJXNWuLQE5TJVhqxp+9Mz6Qg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a78GyJlxxsVMzxzYrHbGSQyGFFR7+Vw8kmc/8FmBqFs=;
- b=e8HBBF4MFmQvf9O4/QCcPA+aLnYsot+N9jEsplRiII54kdBFnND1O2+4fZaxix+z5Ym4YsFS1iI5AvKpasQOvDHRFgW4Fq2LnV88y+0bKvMMlyJsLX94DfrwWqsbcGSBxx59eNvBzqKBLQEqh4THmUltmyIxJ7L02GPtUMW+Dyk=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by BL1PR12MB5803.namprd12.prod.outlook.com (2603:10b6:208:393::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 17:09:15 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 17:09:14 +0000
-Message-ID: <642c49e1-7d47-44fd-b597-e5ff0877bb56@amd.com>
-Date: Mon, 12 Oct 2026 12:09:11 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] PCI/PM: Restore BARs after powering up during
- enumeration
-Content-Language: en-US
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
- Keng-Yu Lin <keng-yu.lin@hpe.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
- Matthew Ruffell <matthew.ruffell@canonical.com>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, andy.liang@hpe.com, david.chang@hpe.com,
- s.collins@hpe.com, jenifer.golmitz@hpe.com, pravallika.kamma@hpe.com,
- zhen-dong.lai@hpe.com, zachary.pabor-ext@hpe.com, stable@vger.kernel.org
-References: <20261012104645.975190-1-keng-yu.lin@hpe.com>
- <CAJZ5v0iGhqaF1m-Vc2xdXQXj_BxPFFWCBTP=Ypg_gWQEqWkNfg@mail.gmail.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <CAJZ5v0iGhqaF1m-Vc2xdXQXj_BxPFFWCBTP=Ypg_gWQEqWkNfg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH2PR18CA0030.namprd18.prod.outlook.com
- (2603:10b6:610:4f::40) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SlyNYKcI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791824968;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qWyRtyFTfyFKVw0PwgTVGU5UynezuYC/0INjQ7CdKI8=;
+	b=SlyNYKcIiHWm6ZPs061+z0Z3EFGeWd8IgbAu//3FWhZQTJXapo5wqLRBTdDQIVuVpvneGF
+	dd3Iik3DLocecXSC1VeZHrdhccJ2WMtKNUxYxmrs91pvMaDynazVPm4UQjnQ8rnNuzGbTu
+	UgQyGIsHmSAEdFKcKEq3WPNChHZr/9k=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-563-34vftE9GPXKR3pjWWSTB8A-1; Mon,
+ 12 Oct 2026 17:09:24 +0000
+X-MC-Unique: 34vftE9GPXKR3pjWWSTB8A-1
+X-Mimecast-MFC-AGG-ID: 34vftE9GPXKR3pjWWSTB8A_1791824963
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CA1C319540EE;
+	Mon, 12 Oct 2026 17:09:22 +0000 (UTC)
+Received: from [100.91.18.181] (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 98CA61800473;
+	Mon, 12 Oct 2026 17:09:20 +0000 (UTC)
+Message-ID: <11ac41af-f80c-493f-a541-3737808d7137@redhat.com>
+Date: Mon, 12 Oct 2026 13:09:19 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|BL1PR12MB5803:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7bbb265f-642a-4134-775e-08df28838aed
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|56012099006|11063799006|4143699003|261009221727099003|261009223027099003|261009223327099003|261009221227099003|261009220027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	aAgLSaWoyrVTHDRMAOQASkF2xmMUMTQynEPisY9kBoDBqW+A7mB+b45KK4i797klYbSFnqqbeu+TpoKc/BIwRbGnP/AEDz8y5rHBOfIjKl/FVFkayBzUdVyiu5ZpVcd0sme8fP1h3XmKUAl5yzjgQjQfLMTW4UaiReYqUaHHWCxjjgviaXfrbra5ykvHg0AJCFMWdc8D1qVo44qA63lthzW9B/xd42sRrAKwCxMOMUdMpLbAozDnpV2KTfibdAi6dsr0QQpQv13+5uoWSZbdGbzXRFLut5KzT1WAkBGB1m6xd6Mnhh6tZUpZzISaqvuHQ2d5Z/BVlfiXsyZqoWM4qPdLlWQPdDE3sdS37ZzAAT2WPpzHWCpc674EFkm8UGvmN4MfS+8iP9MueHAYstJEyeUrXkEZqukDtaEaCWqAA7hL/nHx2UvTK+KFGHAR477GbMpIEMc60Wyf773+FFXbiOsRtZrNT6yZtSQm3y6lo/yZhRjIG9fDqdR8bEBTxbvYjsVl2SXmxeqerwIlKhg20Jmr3x+5E4Zq3dTHSvgiNPt0YTKUJtsDcWqf/26YhTeWqJIkyDM9DowumcpKwYX7f1S3HEu3R5MP165ssPY7PkeB5XHRPfHwysyxv5g1sRBw
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(56012099006)(11063799006)(4143699003)(261009221727099003)(261009223027099003)(261009223327099003)(261009221227099003)(261009220027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RWV2QVpEUDJkcVhYc2txLzd4emZNSG9PTnlnL3lDRis4M3FETVllV1hnVmtY?=
- =?utf-8?B?dnFnTnc2cmJoQ3NvUzdnZUVvQ2cvKzFoNDRybG1DZ1ZFdW1vcVROY25BU1Ir?=
- =?utf-8?B?WkVtdlBkdXlDZXZ5WXlHNG9ZVmh4ek1jYllYcVJkZDBTVithL3c0bEJGL1M0?=
- =?utf-8?B?ZWZXdjFySFFzakk3RWM0eUpuZGw1Wi92anBSMjFXbURtV25aL1VyVVVlRDc3?=
- =?utf-8?B?TUl3TjhmbWVCSmFLNEM3YU9tR2lNNlFMeFhCOXF3SUQyWWR6TGNFTnQvVHBX?=
- =?utf-8?B?TzBtRTJGalR5NGNnL2k5bTdkbTl5OTlieFNZdHlUL0dObGk1SnUzZUJZSXVR?=
- =?utf-8?B?eWplWDE3Qm9wTU1vZ0hnM1VRS2VYN2FWWlQyNnc3KzdLWE0xUDE0YkowVTkr?=
- =?utf-8?B?TlY0bmFRUXh0MWo0SjUzU0NXOXRBQTNhbjVSSnhRVlFxWkxKTERIeFFFVmpU?=
- =?utf-8?B?OVV5MVNVM2pQSTZ2TFNVMTVkenZmdTZraklhN0x5QVlmY3hDRXU3ekdhTHpl?=
- =?utf-8?B?S1BrWWdqdzRZN0VsNEgzWFVOQVFzcFExQjJVZjhpZ3A1VEZSZllncHdNckw5?=
- =?utf-8?B?SXJ2RFlDQkxxUlEvYzB1YnY1bmw1YjgxdEQ4b0NvWkRodjQvb0JqaWRSSGhQ?=
- =?utf-8?B?WFplWVlUUFFLcllSa3U1NjA1eTNMUDBHVmc3Qi96SmlCM2tQazRJaWpIL1hB?=
- =?utf-8?B?NWV1eEtCK1Rkc3J0eHhmbzJ5ektueDAxc1BBbHBhSlIzZ3RKaEFXbm5WWkVx?=
- =?utf-8?B?T0tsenlLMUF4NkhOYzFpOGR5V2IxVUxnUDJQbHZnSGhBQUd6TnRhQnladXVQ?=
- =?utf-8?B?YTVRUEpHOUFUMURqNVZKUkgvL0lHUW1ra2lwaTBEa1FZNERScEs3OGxQUms2?=
- =?utf-8?B?d2VmT09yWTJWcmtVdnVOajFJWnVGUnIwUTdoUjFCQkhPYlV4am04NEdZcGFq?=
- =?utf-8?B?WC9TYUg4bjlvWlNxNnFEeDZTemVvUVlJU29aclkybko4YzFMdzlDcHlua2Mz?=
- =?utf-8?B?RWdKQVV1TVplZEJmbVhSbEgvalpsZFFFQTBKUnhnUEVyWHdjNTRFd2VQbytF?=
- =?utf-8?B?WUowMmw5eW9oWWRFSGxTQ3Q5cTIzY0toZVc1blIvT28zK1ZKY3ZSL3dUUWRF?=
- =?utf-8?B?aTRESi9lejdRSjh3dWNQejBmeHJVREVHbldVdm5zTUxjc3ZjRTZxYllhRWxn?=
- =?utf-8?B?N213bWtxR3NqODlLWnIyR3ZEYzZBODU5U2IveGVIWnBtYlpueldOUVdzYnpy?=
- =?utf-8?B?eTlnUnRTaHU3MEI3VGg3NmZoeEVPWGQzd2NPdjM5RTYyeVl4R2trZTNyS0NB?=
- =?utf-8?B?ajVnQzRMVEYvblR0NC9yVGp1S3J6WGhXQWZaaTg2dUlzUUk1bml0OUtVQ3Zw?=
- =?utf-8?B?TDVnWW91T3Bma09CejlMNjRFeXJLNXl6RDFja0dtVkRrYnl0K2p5dW5FMVc4?=
- =?utf-8?B?YTdKMkRsWmxXV3NRTkdxNFFETkJZQ29KQVJDUHdkc2RxeVo4ZmhMQldxUlJs?=
- =?utf-8?B?V3NMbWFPbC9ZS2gvTHNjUkdhZWVBSVEyWnpCRFUzaTM3MVBobkxNbGtKb2NS?=
- =?utf-8?B?MWMvM2J1WjlzZlhmekFoVDBnZ2JIb29keWNyVkQvVllKSEV5Mm1ueVFMK1Fo?=
- =?utf-8?B?OCtldmc2b3hMRmxWMmJNbDFybDJka3lLbS9xRHhWWjI0MzdxRk84UWd2eFVr?=
- =?utf-8?B?MUlPR1c2ZTVvRnAzbzRtR0tIS090Qk1xZnp4TkNkTEE3T2lxWnpHRGhiZ2RR?=
- =?utf-8?B?QmdXcGc0RVp3SWRRTkFMT3FPK1E2U1F6cGZjVE9SVlJyZWMxdnBqSm9Yd0Nz?=
- =?utf-8?B?ZG1vd2ZpcUNWM1lwMWREM3VHNXpNL3hWa0J1ZTNWVEgyQ2w5RXpIblZrbHVr?=
- =?utf-8?B?Nk5Tc1dNK0lVS0lJdzNDOU9iRGZNVG1PMkxnV0NlT3dZMDR0djhRTnkxYkZQ?=
- =?utf-8?B?WUFsVHl3UldXL3hFTVlxRTBGWmxDNnp6TmpvNlR1S0hpdEpVRTFaTlQ2VkRy?=
- =?utf-8?B?bnYwN09mS25pOVJDcWtGV2kwcHI0Zm8wTjNmM2REQzRDSkVSVGd4WDlZcEVK?=
- =?utf-8?B?K0RpWHlBMXJzWDdpMFYyM1hnc3BWU1RjVWYzcWFabmdrbEJyOEx6UlNEV0pD?=
- =?utf-8?B?M2VhWmJ4SFovZmtWTzErVVJlRXUrQmV4c0J5UXl4UmttaHE3ditqWXRDRmov?=
- =?utf-8?B?YU1SZzNJaWUwZFgyS0FhbjVWYlQvTVFoVVdHVFVVV3puRFNOaFdrZU10d3Vw?=
- =?utf-8?B?bHpmeWRYdlNtdHhBNFYrRTIydnNxL2N4eENNdmo1UlA0aXJRMUdleVRJTlEz?=
- =?utf-8?Q?SUNwKhxZP54HfvIpVh?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7bbb265f-642a-4134-775e-08df28838aed
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 17:09:14.8576
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kJnU5J98JIpSqdOwR0v1LODGEag+JPzSSSr+4nxrZOE4sKTce6GuO0aKnZ+H3MrLWBlOjz9Wyhi8OvqLfSyGZQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5803
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] cgroup/cpuset: Invalidate remote partition on
+ housekeeping conflict
+To: Ridong Chen <ridong.chen@linux.dev>,
+ Guopeng Zhang <guopeng.zhang@linux.dev>, Tejun Heo <tj@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20260929023805.31648-1-guopeng.zhang@linux.dev>
+ <585bc1e0-f538-444e-b8b4-28185ee6b19c@linux.dev>
+ <cf408084-9b6a-436d-a63a-8a247a49006f@linux.dev>
+ <47f5db16-b1ca-44a0-8714-38b0cf4db9e8@linux.dev>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <47f5db16-b1ca-44a0-8714-38b0cf4db9e8@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
+On 10/11/26 9:35 PM, Ridong Chen wrote:
+>
+>
+> On 10/11/2026 7:23 PM, Guopeng Zhang wrote:
+>>
+>> Hi Ridong,
+>> 在 2026/10/11 09:42, Ridong Chen 写道:
+>>>
+>>>
+>>> On 9/29/2026 10:38 AM, Guopeng Zhang wrote:
+>>>> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>>>>
+>>>> Widening an ancestor's exclusive CPU mask can add a boot-isolated CPU
+>>>> to a valid remote partition root without touching the partition's own
+>>>> control files. The partition then load balances that CPU, silently
+>>>> defeating isolcpus=domain for it.
+>>>>
+>>>> This can be reproduced on a 32-CPU system booted with
+>>>> isolcpus=domain,4:
+>>>>
+>>>>       cd /sys/fs/cgroup
+>>>>       echo +cpuset > cgroup.subtree_control
+>>>>       mkdir -p A/B
+>>>>       echo +cpuset > A/cgroup.subtree_control
+>>>>       echo 2-4 > A/cpuset.cpus
+>>>>       echo 2-3 > A/cpuset.cpus.exclusive
+>>>>       echo 2-4 > A/B/cpuset.cpus
+>>>>       echo 2-4 > A/B/cpuset.cpus.exclusive
+>>>>       echo root > A/B/cpuset.cpus.partition
+>>>>       cat A/B/cpuset.cpus.effective               # 2-3
+>>>>       echo 2-4 > A/cpuset.cpus.exclusive
+>>>>       cat A/B/cpuset.cpus.partition               # root
+>>>>       cat A/B/cpuset.cpus.effective               # 2-4
+>>>>
+>>>> The last write returns 0 and leaves the hierarchy in this state:
+>>>>
+>>>>       root (cpuset.cpus.effective=0-1,5-31)
+>>>>       |
+>>>>       \-- A (member):           cpuset.cpus=2-4
+>>>>           |                     cpuset.cpus.exclusive=2-4
+>>>>           \-- B (root, remote): cpuset.cpus=2-4
+>>>>                                 cpuset.cpus.effective=2-4
+>>>>
+>>>> B is a remote partition: it takes its CPUs directly from the root
+>>>> cpuset, and A only passes its exclusive list down. Before the last
+>>>> write, that list is 2-3, so B holds 2-3 and CPU 4 stays in the
+>>>> root cpuset as a boot-isolated CPU. The write widens A's exclusive
+>>>> list to 2-4, which additionally grants CPU 4 to B. Nothing rejects
+>>>> the grant: B remains a valid root partition, and CPU 4 is still
+>>>> listed in cpuset.cpus.isolated while sitting in a load-balanced
+>>>> partition.
+>>>>
+>>>> remote_partition_enable() already rejects such grants through
+>>>> prstate_housekeeping_conflict(). remote_cpus_update(), which applies
+>>>> ancestor changes to a remote partition, does not.
+>>>>
+>>>> Both paths also open-code remote partition validation. Move those
+>>>> checks into validate_remote_partition(), and check the resulting
+>>>> effective exclusive CPU mask for a housekeeping conflict there. The
+>>>> existing prs_err path then invalidates the remote partition instead of
+>>>> assigning it a boot-isolated CPU.
+>>>>
+>>>> Fixes: f62a5d39368e ("cgroup/cpuset: Remove 
+>>>> remote_partition_check() & make update_cpumasks_hier() handle 
+>>>> remote partition")
+>>>> Suggested-by: Ridong Chen <ridong.chen@linux.dev>
+>>>> Suggested-by: Tejun Heo <tj@kernel.org>
+>>>> Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+>>>> Reviewed-by: Waiman Long <longman@redhat.com>
+>>>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>>>> ---
+>>>>
+>>>> Changes since v2:
+>>>> - Pass the enable/update mode explicitly to 
+>>>> validate_remote_partition()
+>>>>     instead of deriving it from cs->remote_partition, which can 
+>>>> remain set
+>>>>     after a failed partition state transition, as suggested by Tejun.
+>>>>
+>>>> Changes since v1:
+>>>> - Consolidate remote partition validation in a common helper, as
+>>>>     suggested by Ridong.
+>>>> - Check housekeeping conflicts against the resulting effective 
+>>>> exclusive
+>>>>     CPU mask.
+>>>> - Rebase onto cgroup/for-7.3-fixes.
+>>>>
+>>>>    kernel/cgroup/cpuset.c | 69 
+>>>> ++++++++++++++++++++++++++++--------------
+>>>>    1 file changed, 47 insertions(+), 22 deletions(-)
+>>>>
+>>>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>>>> index 1fcec89a28b9..d0a45241c070 100644
+>>>> --- a/kernel/cgroup/cpuset.c
+>>>> +++ b/kernel/cgroup/cpuset.c
+>>>> @@ -1561,6 +1561,43 @@ static inline bool is_local_partition(struct 
+>>>> cpuset *cs)
+>>>>        return is_partition_valid(cs) && !is_remote_partition(cs);
+>>>>    }
+>>>>    +/**
+>>>> + * validate_remote_partition - Validate a remote partition CPU change
+>>>> + * @prs: partition root state to validate
+>>>> + * @updating: true for an update, false for an enable
+>>>> + * @excpus: resulting effective exclusive CPU mask
+>>>> + * @addcpus: exclusive CPUs to be added
+>>>> + * @delcpus: exclusive CPUs to be deleted, can be NULL
+>>>> + *
+>>>> + * Return: PERR_NONE if valid, otherwise an appropriate error code
+>>>> + */
+>>>> +static enum prs_errcode
+>>>> +validate_remote_partition(int prs, bool updating,
+>>>> +              struct cpumask *excpus,
+>>>> +              struct cpumask *addcpus,
+>>>> +              struct cpumask *delcpus)
+>>>> +{
+>>>> +    if (!capable(CAP_SYS_ADMIN))
+>>>> +        return PERR_ACCESS;
+>>>> +
+>>>> +    if (!updating &&
+>>>> +        (!cpumask_intersects(excpus, cpu_active_mask) ||
+>>>> +         cpumask_subset(top_cpuset.effective_cpus, addcpus)))
+>>>> +        return PERR_INVCPUS;
+>>>> +
+>>>
+>>> Do we really need the updating flag? I mean, whether or not it's an 
+>>> updating partition, it should still be an invalid remote partition, 
+>>> right? So why do we have to distinguish between updating and not 
+>>> updating?
+>>>
+>>
+>> Both paths do invalidate the remote partition when validation fails, but
+>> the flag was added when factoring out this helper to preserve the
+>> different semantics of the two paths.
+>>
+>> For example, suppose the top cpuset has only CPU 4 left:
+>>
+>>      top_cpuset.effective_cpus = 4
+>>
+>> When enabling a new remote partition:
+>>
+>>      addcpus = 4
+>>
+>> cpumask_subset(top_cpuset.effective_cpus, addcpus) is true, and the
+>> existing enable path returns PERR_INVCPUS.
+>>
+>> Now suppose an existing remote partition owns CPUs 2-3 and is updated
+>> to add CPU 4:
+>>
+>>      old excpus = 2-3
+>>      addcpus    = 4
+>>      new excpus = 2-4
+>>
+>> The same cpumask_subset() condition is true, but the existing update
+>> path returns PERR_NOCPUS. The active CPU check also differs: the enable
+>> path requires the resulting mask to contain at least one active CPU,
+>> while the update path only checks whether the resulting mask is empty.
+>>
+>
+> What we want to do is to unify the remote partition check. I think 
+> enabling and updating should return the same error when the same 
+> condition check fails.
+>
+> So I think we may change it 'a little' if it is reasonable. In my 
+> opinion, returning PERR_NOCPUS when the top_cpuset.effective_cpus 
+> becomes empty is reasonable. And I do not want to see some special 
+> case, which makes the code complicated.
+>
+> I would like to see what Longman's opinion is.
 
+There are slight inconsistency in the type of sanity check done in 
+different code paths. So I like the idea of extract them out into a 
+common helper to make them consistent. As for the special updating flag, 
+I think we should remove it as long as it won't cause a false positive. 
+BTW, I am going to post a v3 version of my cpuset patch that will 
+combine the addmask & delmask into a single new_cpus mask that should 
+make the elimination of the updating flag possible.
 
-On 10/12/26 06:34, Rafael J. Wysocki (Intel) wrote:
-> On Mon, Oct 12, 2026 at 12:47 PM Keng-Yu Lin <keng-yu.lin@hpe.com> wrote:
->>
->> Commit 4d4c10f763d7 ("PCI: Explicitly put devices into D0 when
->> initializing") added pci_pm_power_up_and_verify_state() to pci_pm_init().
->> The helper ignores pci_power_up()'s return value indicating that BARs
->> need restoring.  Its resume callers restore saved configuration
->> afterwards; pci_pm_init() does not.
->>
->> D3hot-to-D0 may reset a device and lose its BARs (PCI PM 1.2, sec 5.4.1).
->> After enumeration powers it up, pci_enable_device() reads D0 and skips
->> the full power-up path.  Previously, a device still in D3hot at enable
->> time took that path, including BAR restoration.
->>
->> On AMD Venice SP7, two AMD xHCI controllers [1022:17d2] are in runtime
->> D3hot with No_Soft_Reset clear before kdump.  Diagnostic reads on
->> v7.3-rc6-37 show the following for 0000:01:00.4 in the crash kernel:
->>
->>                                     PMCSR      BAR0
->>    before the platform power call   0003       f4100004
->>    after the platform power call    0003       f4100004
->>    after native D0 power-up         0000       00000004
->>
->> The upper BAR DWORD stays zero.  pci_power_up() returns 1, but the BAR
->> address remains zero while dev->resource[0] still contains 0xf4100000.
->> Without BAR restoration, the last console messages are around:
->>
->>    pci 0000:01:00.4: enabling device (0000 -> 0002)
->>
->> Restoring both controllers' BARs gives matching readbacks and allows
->> kdump to save a vmcore and reboot.  An AMD Turin xHCI [1022:1557] shows
->> the same BAR loss; restoring its BAR also allows kdump to complete.
->>
->> Use pci_set_full_power_state() in pci_pm_init() to power up the device
->> and restore its BARs when needed.  It already checks the native power
->> state before restoring and updates ASPM when link state is present.
->> Leave pci_pm_power_up_and_verify_state() unchanged for the resume
->> callers, which restore saved configuration afterwards.
->>
->> Read the initial power state first, as pci_enable_device_flags() does.
-> 
-> Is this really necessary or even useful before pci_set_full_power_state()?
-> 
-> pci_power_up() updates dev->current_state regardless of its previous
-> value AFAICS.
-> 
-
-To add to this comment; I would expect that if it's an ACPI device that 
-it is currently in ACPI_STATE_UNKNOWN at the time this function is 
-called.  So it should be a no-op for those devices.
-
-I'd say you can just update current state since you're forcing it to D0.
-
->> Otherwise, PCI_UNKNOWN can request a BAR restore even for devices
->> already in D0.  Keep the final pci_update_current_state() call so the
->> final cached state still accounts for platform power and failed config
->> reads.
->>
->> Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
->> Fixes: 4d4c10f763d7 ("PCI: Explicitly put devices into D0 when initializing")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Keng-Yu Lin <keng-yu.lin@hpe.com>
->> ---
->>
->> Changes in v2:
->> - Use pci_set_full_power_state() in pci_pm_init(), following Mario's
->>    suggestion to reuse the existing BAR restore code.
->> - Leave the shared resume helper and its interface unchanged.
->> - Keep the initial state readback and the final platform-aware refresh.
->>
->> Unlike v1, BAR restoration uses the full helper's native PMCSR check.
->> It also updates ASPM when link state exists.
->>
->> Tested v2 with kdump on both systems.  Normal boots made no BAR writes
->> from this path.  The crash kernels wrote only the cleared xHCI BARs:
->> two on Venice SP7 and one on Turin.  All readbacks matched.  kdump saved
->> 2.53 GB and 1.10 GB vmcores respectively before rebooting.
->>
->> v1: https://lore.kernel.org/r/20261008133708.947908-1-keng-yu.lin@hpe.com/
->> Review: https://lore.kernel.org/r/04f5463b-f123-4079-9286-06a241976d3a@amd.com/
->>
->>   drivers/pci/pci.c | 4 +++-
->>   1 file changed, 3 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
->> index 8cc6a89130b5..d3a5871e1b36 100644
->> --- a/drivers/pci/pci.c
->> +++ b/drivers/pci/pci.c
->> @@ -3255,7 +3255,9 @@ void pci_pm_init(struct pci_dev *dev)
->>          }
->>
->>   poweron:
->> -       pci_pm_power_up_and_verify_state(dev);
->> +       pci_update_current_state(dev, dev->current_state);
->> +       pci_set_full_power_state(dev, false);
->> +       pci_update_current_state(dev, PCI_D0);
->>          pm_runtime_forbid(&dev->dev);
->>
->>          /*
->>
->> base-commit: 7b63ef2d55f24519e7e9e5f4d15dbea03f126e40
->> --
->> 2.43.0
+Cheers,
+Longman
 
