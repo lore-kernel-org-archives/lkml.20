@@ -1,161 +1,83 @@
-Received: from mta0.migadu.com (out-41.mta0.migadu.com [91.218.175.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC5E4A8424
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:42:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961434A840E;
+	Mon, 12 Oct 2026 15:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819769; cv=none; b=sDHDaruSjYiPooW0+cbh3lyTEfhZI/fsTQcSGj83oDhIswqwgPZtEb+krbUDgNtzvyboqm6iOooDxkLpkjkLSxjymr6FrkkqGhZDTxD+z3pSRWxB9qii2s6Z1/XX2/EOS16JR77ph+BMzk9JmFzd6vBb2GgJXhPGw8jRVGjqmB0=
+	t=1791819770; cv=none; b=m6ZPM+oFFJ8jTw8SzNUd0JxuOtX5ERL8fn0A9vtWeDkvd7cQb8EpC34KRxNrpd3gwbFrbreb7GADKBm+4gIae/zi30NT/MZgPmntRcIu5Ai1PA8wz8DJitqbMFemXDWEZfnV4IEzKMAUvWIQ1RDfcUCME5E3TgPc2cftXcyC5VY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819769; c=relaxed/simple;
-	bh=TBFr013muSrjqmBXfU5VS9nJWYXKQcqCrP4RWXqPIVA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Rve0aJ4bgmU43F9vsPkOFT8jOQMNr0GA4eadyFPpCM/q5I7QvQY8yTFw0yyBHp54WN+nQYaO2tcGIYXx5veTrnV5gjL9946yg4QDUJAtjAeyjRDadn1N45X8nllvJyQZpoYuKze1TxVVJow9WUQBmrnp+HAFtnJY6fk2WyfJw8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=P7v/SAbm; arc=none smtp.client-ip=91.218.175.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791819770; c=relaxed/simple;
+	bh=BGGlCmXSJ9dc9pT6uMdwXBc9H2tpB4yFNU8GFLb6ywo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MFWkZl5Q13XdFuzrERrnwmP1XA6wDyrDHg+h+axJKziYSgWTI89bPAzCKdl+9C3XjKC0KKHl3SrgHil+UYhRve3KWIUA8KIBnOFcO0I1HYwc0ZioagNDJX380DZ1r2RafmbRZuzPoJxCqOzR9rBTw6KipdYPdvzvoMKHJAiyluY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R7dAvg7i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="P7v/SAbm"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=TBFr013muSrjqmBXfU5VS9nJWYXKQcqCrP4RWXqPIVA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791819765; v=1; x=1792424565;
- b=P7v/SAbmi55gY7Odc6FAfweFYRmsjYVBB4aDYvVXh9/idvunfyHxfWrEFuPYK2OcCDneR3Ph
- A78kvwNeNwjnyFEClAxQWsdMzqH+5tB3/xDLFoVunz11tM6wQDKvX+pCRXbhywjQB6EPPEZ91Dt
- 7O0SF8QzindCurB2Fzs96iEM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6ac1c4d5fb4ef64e;
-	Mon, 12 Oct 2026 15:42:45 +0000
-X-Mizu-Trace-ID: 6ac1c4d5fb4ef64e
-X-Migadu-Flow: FLOW_OUT
-From: Leon Hwang <leon.hwang@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Quentin Monnet <qmo@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Leon Hwang <leon.hwang@linux.dev>,
-	Mykyta Yatsenko <yatsenko@meta.com>,
-	Avinash Duduskar <avinash.duduskar@gmail.com>,
-	Anton Protopopov <a.s.protopopov@gmail.com>,
-	Amery Hung <ameryhung@gmail.com>,
-	Jordan Rife <jordan@jrife.io>,
-	Rong Tao <rongtao@cestc.cn>,
-	Eyal Birger <eyal.birger@gmail.com>,
-	Pu Lehui <pulehui@huawei.com>,
-	Jingguo Tan <tanjingguo@huawei.com>,
-	Lin Ma <malin89@huawei.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf-next v2 06/21] bpf: Add bpf_text_poke_batch() helper in trampoline
-Date: Mon, 12 Oct 2026 23:40:08 +0800
-Message-ID: <20261012154024.29423-7-leon.hwang@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261012154024.29423-1-leon.hwang@linux.dev>
-References: <20261012154024.29423-1-leon.hwang@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R7dAvg7i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E495C1F0089C;
+	Mon, 12 Oct 2026 15:42:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791819769;
+	bh=SyHM0rJpa0i6/JQi3L2s4V3dPDYMlVLe2JZQsMF0C/0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R7dAvg7iyUGmIBekAWeOAmUXAljLV/GroY44/lp6nL99leW7X4yFzRaKKYaYFwdW8
+	 WcdwUvnLQY+Lgqt8DVmyBt3qYG+t0X14lhcZ/iILBobtCSngmJ+WjaGlLw7clzrhkC
+	 eleCv4qDQtHX2t491MSa6g+MEkSdOp40qKUbovojRYbiDrZr45Jw4zo9u/h9TAqkkS
+	 iHud9xSDjJ31VeT/TBTQwQYhmGzVDqAz14dVqVDqzPwW/2qHcxJKvKAUAsWHvZyEDT
+	 u5xG8hrvJQwvbnQxJsESuFRcmVQ1wtU7uIDHdPHrFC7KyWwQg+atAwr0U9WcLzeGkY
+	 Nq2yr6KRVzg/w==
+Date: Mon, 12 Oct 2026 21:12:39 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	peter.chen@oss.qualcomm.com, qiang.yu@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] phy: qcom: qmp-pcie: Add qref and refgen
+ regulator vote for QCS8300 and SA8775p PHY
+Message-ID: <asz_4F1zUeTlMVvG@debian>
+References: <20260916102023.2054761-1-ziyue.zhang@oss.qualcomm.com>
+ <20260916102023.2054761-3-ziyue.zhang@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260916102023.2054761-3-ziyue.zhang@oss.qualcomm.com>
 
-Before calling bpf_arch_text_poke_batch(), check the duplicated target
-pokes by sorting the pokes.
+On Wed, Sep 16, 2026 at 06:20:21PM +0800, Ziyue Zhang wrote:
+> Add a new sa8775p_qmp_phy_vreg_l that includes vdda-phy, vdda-pll,
+> vdda-qref, vdda-refgen and refgen supplies, and use it for QCS8300
+> and SA8775p PCIe PHY configurations. This avoids modifying
+> sm8550_qmp_phy_vreg_l and breaking SM8550 and SM8650.
+> 
+> These supplies were missing from the original driver, which was found
+> to be the root cause of occasional system crashes observed on QCS8300
+> and SA8775p platforms. Without voting for these supplies, the PCIe PHY
+> lacks stable reference clock and voltage, so the PHY never becomes
+> ready and initialization times out:
+> 
+>   [    7.303119] qcom-qmp-pcie-phy 1c04000.phy: phy initialization timed-out
+>   [    7.309948] phy phy-1c04000.phy.0: phy poweron failed --> -110
+> 
+> Note that due to a hardware issue, QREF actually depends on refgen3
+> rather than refgen2 as documented; refgen3 is therefore voted manually
+> via the refgen supply as a workaround.
+> 
+> Fixes: a05b6d5135ec ("phy: qcom-qmp-pcie: add support for sa8775p")
+> Fixes: ebf198f17b5a ("phy: qcom-qmp-pcie: add dual lane PHY support for QCS8300")
+> Signed-off-by: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
 
-Sorting pokes is needed for smp_text_poke_batch_add() on x86_64 for better
-performance, see arch/x86/kernel/alternative.c::smp_text_poke_batch_add().
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-If the arch does not implement bpf_arch_text_poke_batch(), fallback to
-text-poke each target via bpf_arch_text_poke().
+- Mani
 
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
----
- kernel/bpf/trampoline.c | 51 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
-
-diff --git a/kernel/bpf/trampoline.c b/kernel/bpf/trampoline.c
-index 21d460866dfe..a2fd0bd8c685 100644
---- a/kernel/bpf/trampoline.c
-+++ b/kernel/bpf/trampoline.c
-@@ -13,6 +13,7 @@
- #include <linux/bpf_verifier.h>
- #include <linux/bpf_lsm.h>
- #include <linux/delay.h>
-+#include <linux/sort.h>
- 
- /* dummy _ops. The verifier will operate on target program's ops. */
- const struct bpf_verifier_ops bpf_extension_verifier_ops = {
-@@ -1863,6 +1864,56 @@ void bpf_trampoline_multi_detach(struct bpf_prog *prog,
- 	  CONFIG_HAVE_SINGLE_FTRACE_DIRECT_OPS &&
- 	  CONFIG_BPF_SYSCALL */
- 
-+static int bpf_text_poke_cmp(const void *a, const void *b)
-+{
-+	const struct bpf_text_poke *pa = *(struct bpf_text_poke * const *)a;
-+	const struct bpf_text_poke *pb = *(struct bpf_text_poke * const *)b;
-+	unsigned long ipa = (unsigned long) pa->ip;
-+	unsigned long ipb = (unsigned long) pb->ip;
-+
-+	return (ipa > ipb) - (ipa < ipb);
-+}
-+
-+static int bpf_text_poke_batch(struct bpf_text_poke **pokes, u32 cnt)
-+{
-+	int i, err;
-+
-+	/*
-+	 * Sort pokes for two purposes:
-+	 * 1. Check duplicated poke target IPs.
-+	 * 2. Sorted poke target IPs would be friendly for poking them on x86,
-+	 *    see arch/x86/kernel/alternative.c::smp_text_poke_batch_add().
-+	 */
-+	sort_nonatomic(pokes, cnt, sizeof(*pokes), bpf_text_poke_cmp, NULL);
-+
-+	for (i = 1; i < cnt; i++)
-+		if (pokes[i - 1]->ip == pokes[i]->ip)
-+			return -EINVAL;
-+
-+	err = bpf_arch_text_poke_batch(pokes, cnt);
-+	if (err != -EOPNOTSUPP)
-+		return err;
-+
-+	for (i = 0; i < cnt; i++) {
-+		struct bpf_text_poke *p = pokes[i];
-+
-+		err = bpf_arch_text_poke(p->ip, p->old_t, p->new_t, p->old_addr, p->new_addr);
-+		if (err)
-+			goto rollback;
-+	}
-+
-+	return 0;
-+
-+rollback:
-+	for (i--; i >= 0; i--) {
-+		struct bpf_text_poke *p = pokes[i];
-+
-+		WARN_ON_ONCE(bpf_arch_text_poke(p->ip, p->new_t, p->old_t, p->new_addr,
-+						p->old_addr));
-+	}
-+	return err;
-+}
-+
- static int __init init_trampolines(void)
- {
- 	int i;
 -- 
-2.55.0
-
+மணிவண்ணன் சதாசிவம்
