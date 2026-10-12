@@ -1,102 +1,126 @@
-Received: from mta1.migadu.com (out-72.mta1.migadu.com [95.215.58.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403492253EB
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:33:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7DE917A586
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:38:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791765228; cv=none; b=l5ftxWirr3pWWD/aPNmSiAOKGKqMmiMRjqiVnGcGIXXAn1bnV0Z2NCPUOVhmCK6y/3nyjbpJMA2ONTlfsTFX43g7kIMfqO3mYJcsI/bbwdG5r2GLwiXOljJfEwGspP6q4xw579Vaa5EZhOPGoOg+XCh3TthA4AxdEqDRgdpMSbM=
+	t=1791765514; cv=none; b=Mo36j6MZuURpJ5V75K669/tGIdlyPkoRK9B801HJ119wYFd44UYsIZCE1BAAJIoiuGtGk0+i5/HStV3FR8UjtAcV3l+MGkazptYBdvyBVKY9qCO3ljM+fs0wpCEFTErGR8M/2jcvJzfQ+uYmtyLRzMthozT1/J/Ru9YB3hTV8nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791765228; c=relaxed/simple;
-	bh=A2FhU4MuJrHd8/v0XQVjBT/Ve73V1hi6TGe39ZtD+us=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZTmcfXi61dl2wzIfBLkW6OrFD8p7uhn9G9OZo5afdEruFQTIxIkB+4SumVnCKR0aGFro8FSQB+bc8s3oXxNo/T+dOMPPPBfOdcaDUPTj4MES2Ij1RJ21l84PPKGTXg1KZs6r0BkBVannkazStyrd1Z/om6n+ybKSpQDaKmwK6ZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RBMk80ND; arc=none smtp.client-ip=95.215.58.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791765514; c=relaxed/simple;
+	bh=rL46dvqgWAO0JHhL8ZpJm5OF9TLhrI4cxOyg7tTEA0Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ORrqA0ROiE//EhKEnYl0jBXfPkWs9rWHuINTkDZxM2J8Si/CBHDD6TCsoxSTPG4siRBePx5Tv6WrAZoo8xwH5KWBgZ9IRhHE3tSzuo/a6emUcXq+oOoULSWZ5ZJANR3cTSZoBCscCTfgGQLZQklFMj3R6p8ihTOuFexjwnDhz+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lhZdW02N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RBMk80ND"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=A2FhU4MuJrHd8/v0XQVjBT/Ve73V1hi6TGe39ZtD+us=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791765225; v=1; x=1792370025;
- b=RBMk80NDpXKeQ5ttoN8JcctbGvBNnJ4Ps8rVmSKIIx9nOC/g7b2OkJA1CAcPkxhLFKNQI2L6
- xgGV0eKFx75tFOiJBARNfm6nIVU63RRiT3Ij6w15Camj9g0Py9pxeMVY3qdAsUajX2Vl2pZSyN3
- upbh9WHOnzDcfzNfzmHmj19I=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 7e21eccb68bbde6a;
-	Mon, 12 Oct 2026 00:33:44 +0000
-X-Mizu-Trace-ID: 7e21eccb68bbde6a
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 12 Oct 2026 08:33:33 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: netdev-bot+sashiko@kernel.org
-Cc: andrea.mayer@uniroma2.it, davem@davemloft.net, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
-	edumazet@kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	liuhangbin@kylinos.cn
-Subject: Re: [PATCH net-next v2 3/5] selftests: seg6: move SRv6 End PSP setup
- into its own helper
-Message-ID: <aswq3SlvWG_ydFQR@fedora>
-References: <20261009-srv6_flavors_endx-v2-3-56ac7f838f41@kylinos.cn>
- <179162766399.434549.2048681726157385482@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lhZdW02N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971ED1F0089F
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:38:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791765513;
+	bh=+nU6vAv03n1Uau01SCXRAGP4ph0cczKwpJTRadSH7xs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=lhZdW02NzNfeSF8pmHzlfeWHFnSmwYxVhJ/6eaI75ZFC7vVB9pPhgaSlutUD8BwO9
+	 v6gIHR/ZbFQGgmN5uX8TA685cKonpV98o0P02emeh0QI4C2d7Q+Wpn0nfKOFx+o4+S
+	 CS0ZD9kQEpzrMbCAiZ2JK2qGTAfkbwPuSoKF4P3+d4xtwfXYZeLawFRJg8EoZb91Xc
+	 JKRcMZpbVxGJZRE+saazNdXNMKvxdGSJS6kI3DE07PQXvwjz9F3Sh8xWfWQzrApd2k
+	 xspU8FexGzfJ/OnglixrLTHp3YIv5Pia55PW1s5f9YrBjvHik17+9yxYCBdcsvYodX
+	 l/UlkbTbHeE/Q==
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c247f6687dcso215748566b.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:38:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByBTY1TUXMoFlSIsmKUu3C9Xyn3huhQmytlVKCCtgchNhPY9KXwuVjq8vPgq3eQR4gcs5JQ9BlDpt7l808=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXkWs9IaN7/8x9PX2TyY5ZMzSjKetmpzl+gUVXuI1evi4r9o+w
+	EIj8Xa0DpUr22dT/lZRlHFavqlIgacNQ7In6DULpZ4LTSw7LEGAO4egJnXyTz+yUfuypCBfGiBm
+	S3gsvOeVBvsxTH3kXZ3H2x8ItWW5Yipw=
+X-Received: by 2002:a17:907:3d4d:b0:c28:599b:7782 with SMTP id
+ a640c23a62f3a-c31aa0120b4mr776028966b.21.1791765512192; Sun, 11 Oct 2026
+ 17:38:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179162766399.434549.2048681726157385482@kernel.org>
+References: <20261011221648.6811-1-linkinjeon@kernel.org> <CAMrLSE5=KsOYNdRokkb=_do_XUA_cehpAUdp1TrrUcnmv3rxBg@mail.gmail.com>
+In-Reply-To: <CAMrLSE5=KsOYNdRokkb=_do_XUA_cehpAUdp1TrrUcnmv3rxBg@mail.gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Mon, 12 Oct 2026 09:38:19 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd88HhEJWToBKRtv=iq+CraLrd=i5z_VPCS0H6KNy-qvjA@mail.gmail.com>
+X-Gm-Features: AclHuK9f-uc6ErdSm2O3DG1kspls-aeWXnBYr2fSP4gaPlKzxY0WxL13Rh7rkWM
+Message-ID: <CAKYAXd88HhEJWToBKRtv=iq+CraLrd=i5z_VPCS0H6KNy-qvjA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/4] ntfs: add named stream ioctls support
+To: CharSyam <charsyam@gmail.com>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, sebastian.n.feld@gmail.com, 
+	cedric.blancher@gmail.com, Lionelcons1972@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 10, 2026 at 10:21:03AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in case
-> you want to address the nit picks below when you respin.
-> 
-> Low priority / nit picks for your consideration:
-> 
-> - [Low] The comment in cleanup()
->   (tools/testing/selftests/net/srv6_end_flavors_test.sh, lines 328-330)…
-> 
-> --
-> 
-> selftests: seg6: move SRv6 End PSP setup into its own helper
-> 
-> This commit moves the End PSP policy setup out of setup() and into a new
-> helper, setup_end_flv_psp(). host_srv6_end_flv_psp_tests() now calls that
-> helper with set -e and SETUP_ERR wrapped around it. cleanup() also changes
-> so that a setup error only gives SKIP when ret is not already ksft_fail.
-> 
-> > diff --git a/tools/testing/selftests/net/srv6_end_flavors_test.sh b/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> > index 30a939392eea4..5ebd6a0344d69 100755
-> > --- a/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> > +++ b/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> > @@ -328,7 +328,7 @@ cleanup()
-> >  	# check whether the setup phase was completed successfully or not. In
-> >  	# case of an error during the setup phase of the testing environment,
-> >  	# the selftest is considered as "skipped".
-> > -	if [ "${SETUP_ERR}" -ne 0 ]; then
-> > +	if [ "${SETUP_ERR}" -ne 0 ] && [ "$ret" -ne "$ksft_fail" ]; then
-> 
-> [Severity: Low]
-> This isn't a bug, but the comment above this condition in cleanup() still
-> says that any setup error makes the selftest "skipped". Should it be
-> updated to match the new condition?
-> 
-> With this patch, host_srv6_end_flv_psp_tests() starts a second setup
-> phase after router_tests and host2gateway_tests have already run.
-> 
-> Suppose one of those earlier tests sets ret to ksft_fail, and then
-> setup_end_flv_psp() fails. cleanup() then runs with SETUP_ERR=1 and ret=1.
-> The SKIP branch is not taken, and the script exits 1 instead of
-> ksft_skip.
+On Mon, Oct 12, 2026 at 8:47=E2=80=AFAM CharSyam <charsyam@gmail.com> wrote=
+:
+>
+> Hi, Namjae.
+>
+>   I have two comments on the named stream write path. I tested both cases
+>   with the NTFS module in a QEMU guest.
+>
+>   1. In __ntfs_inode_non_resident_attr_pwrite(), count =3D=3D PAGE_SIZE d=
+oes
+>      not imply that pos is page aligned. Both full-page branches need to
+>      check the alignment of pos:
+>
+>          while (count) {
+>                  bool full_page =3D count =3D=3D PAGE_SIZE &&
+>                                   IS_ALIGNED(pos, PAGE_SIZE);
+>
+>                  if (full_page) {
+>                          /* __filemap_get_folio() path */
+>                  } else {
+>                          /* read_mapping_folio() path */
+>                  }
+>
+>                  if (full_page) {
+>                          offset =3D 0;
+>                          attr_len =3D count;
+>                  } else {
+>                          offset =3D offset_in_folio(folio, pos);
+>                          attr_len =3D min_t(size_t, (size_t)count,
+>                                           folio_size(folio) - offset);
+>                  }
+>                  ...
+>          }
+>
+>      To reproduce this, I filled an 8 KiB stream with 'A' and wrote
+>      4096 bytes of 'B' at offset 1. The ioctl reported success, but byte =
+0
+>      became 'B' and byte 4096 remained 'A'. With the condition above,
+>      byte 0 remained 'A' and byte 4096 became 'B', as expected.
+This has already been fixed in ntfs-next by commit 7de32a72b75b7
+(=E2=80=9Cntfs: require page-aligned full-page attribute writes=E2=80=9D).
 
-This is intend. The test should report failed instead of skip if a test failed.
-
-Thanks
-Hangbin
+>
+>   2. An error on a later page returns the error even if earlier pages
+>      were written. The ioctl then returns the error without copying
+>      bytes_returned to userspace, and ntfs_inode_attr_pwrite() skips the
+>      base file's mtime/ctime update.
+>
+>      I reproduced this in QEMU by injecting a test-only -EIO after the
+>      first page of an 8 KiB overwrite. The ioctl returned EIO with no
+>      transferred byte count, while the first 4 KiB changed from 'A' to
+>      'B' and the second 4 KiB remained 'A'. The base file's mtime did not
+>      change. The changed data remained after sync and remount. With a
+>      test fix that updates the base timestamps when an earlier page was
+>      written, mtime changed in the same test; the ioctl still returned EI=
+O.
+>
+>      What partial-write behavior is intended for NTFS_IOC_STREAM_WRITE?
+>      Returning the completed byte count as a short successful transfer
+>      would follow write(2) conventions, but the stream is currently
+>      extended to pos + count before copying, so EOF handling would also
+>      need attention. If the ioctl should return the error, its UAPI shoul=
+d
+>      explain that partial changes may remain and define whether their
+>      length is reported. Either way, timestamps should reflect data that
+>      changed.
+Okay, I will fix it.
+Thanks!
