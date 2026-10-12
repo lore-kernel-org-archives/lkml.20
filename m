@@ -1,131 +1,168 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E450F49503F
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:04:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791817490; cv=pass; b=kgI9tKn10NejFmtz82znle2I9EgkSBPyjrX4sjQGbDpbVFA+0bwbn2anlWJ8cArfLnNnDMB1ifhwlYycwG/IgvCLujAy7QYZFiDgHD4BLcC15ANLcDiPvFxz3j/bxRiUqxeGHjd/QWTOeanZWT8+C0zJMCrcazviIK+gM5h5q9A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791817490; c=relaxed/simple;
-	bh=weLDaF45D5gfbSr+gWQVb1K25MVNkySML0rAhgC7w2M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=POorDYgKmy5a1VRtXovP51vqLvAd+NkqXyrC2w146H70KRT+8XRiOZJVOIWaY1c8lIAnmIdY/U5BTTgaTIaVBNiIakwsLqGFwvCvprLjvG3ItGCtoisf8Ys+DZz6eQyCsFq2PXN8dyqozBBlBVgTaM3Zl7RCv7wrLB/pCKlOB/I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h2cJcnjo; arc=pass smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1CB49504C;
+	Mon, 12 Oct 2026 15:05:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791817507; cv=none; b=H9tBrf+4MR4a140Ygt32WCi+zowFtJidcRkLxpFEy3ut0oh7Ed7m6kOPyx+GUJq9m6wiE7Ly2ikfagc0gKCDj60fEBX+Rif5jnAopuiPAbKw93abCqPy4m3zbhimRN6sDS+Uex/CxtV+JihrVEhWSdBTKnp/vly0mnbKJhOnQNg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791817507; c=relaxed/simple;
+	bh=APoFoeCcyjjVob9cG3jtYYK/fAIAW2eerUQTI1xUOoU=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SdfGGo1mSnNBeuJwuEShCPdwDj5PJAOcWt1kY8CxJz1uBeAdqBvlIj2pqIxtzGdagHfbLNbBG0cA5MKAiE0RnD/ssmgJfB/K8bsaEEiZomgCe3uD9jAS6Wc2+IpQ84jXX1Vjjgy+/XkTnXokHDxj2kwKkgzqpALxFJVnbhmzIWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YpSa3YKZ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EvAnx7cb; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YpSa3YKZ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EvAnx7cb; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h2cJcnjo"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33c30fcf33fso262465eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:04:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791817489; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GQY9IF4yza1VWVsMvuxYtyMWhprdlqFoIGhrcloF+vc8lDeeXfh8TGfRSYk16ccvlg
-         +4Ibp7A3bEy4wjmxzlFGYLnP0/G5M9pwT7HFv+5WjS32uT4uRFHNUc4jpu3SOGR4XbJd
-         qwNpZm07fFW+wyg86mxiLR4oNpMVeg6rl923qaxjgV2kVTwzI+09/jcJWSj7hs0F3fYe
-         xZDAeVMOby9m9xGhsBH+H+1TDCc6D0pdpyq5BgVZua+HW2HFPE+/acg/TvH6HS23qWhT
-         x9T+XbMCftJ+lFlf/Z9C/xxyZkyUmSgY/UW0MJeSlyJE9a87HCFH/Afu4Wh4fXgMVept
-         8QaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=weLDaF45D5gfbSr+gWQVb1K25MVNkySML0rAhgC7w2M=;
-        fh=H4aFUEw8gxbp606jkVwN2z43eefzbQJhStJsA4APXLQ=;
-        b=bDid8MK4v9aU9lbO+ebPmqtWvSMAEKihAygTXBv1eHWmqQ1HNVJcRBsSqBhxI9q13g
-         2/tRZVEs56ZhIuetzRErU43b6uwnBE7PvOh7o9D16DOp1EcBkhFpv/YiIlMDQuAOrOLx
-         mgjyLmx9NKlxBI7oWtCgqmzsPnV2CFPma/8EwPwfOzYvTKlVwqsBzBpw9QPFPSka48YZ
-         rpWplS9kjktIfAzqWTjPDaVk1ErBhUS7yM48iKsAQ2K5Y27ZF2e3BSV14aurxKx9Zsvm
-         Um7JEDtlHdfkezzwtCzxuumtnS4b5FAvxIqsNc9gRXIcqB/ZkTDOc1bZKohSDKbTIUax
-         2+DA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791817489; x=1792422289; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=weLDaF45D5gfbSr+gWQVb1K25MVNkySML0rAhgC7w2M=;
-        b=h2cJcnjoK7KPnNOYtTw8p9ogrjKw/aAYzRzXqarHkUxgkShk3UOD1BOvEKTUmvKo/p
-         Z0WtF4EJyN//37B69pbySmNmn+xEPLzVLD/kckHT2+pc+iGYmQizTLW6BdGxNOX8+Kp3
-         TTOHHTD/zvZq2/fUWqlDy8hUqBA9tDm97Js9V5B1ndQfOfpscPVrUIhPAUas0GD73wbO
-         a2CWIsqBVmlsQZiHsgDDB3jvKVx+ehT/gQtj3KrWzlk82mcplXnurc4o6h7cKSiQn7Iu
-         lraaZ2cdXktMWNVSUSOTMKipzO/XRnBcDgpGsf28DqW2Af6rkaZCSj/92RLkNF1x9e1r
-         5v1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791817489; x=1792422289;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=weLDaF45D5gfbSr+gWQVb1K25MVNkySML0rAhgC7w2M=;
-        b=nJ6sB+gAJ6szufVrK2MGLGcJdO9mXCUCNWuXWFu0g1A2HCepM1F1ourD4YZAhLp995
-         QlHgkAVBzPOeXEaUwWTMByuwGQqO2bzuXmCqgdEZgV7RuwPTZ/n5kUk6KqH8mLFP84ol
-         JNOghlg8BAEk4dPxqtBlADNkLM5e82+HkrBo+Js/14+CZIiotiuJ3yhc9OcELAtxkwNK
-         N6E5MR8SoNWRf9vYSiCkixsnORHcZMkyD7hFF+2urx7UgEdlWCcH5tLCDwVWL2QhVVit
-         lsXA0/5Zfdqmos51TR4kQI+RI23Qq14FuCwPcJM/2564fuJKzc29ecf9INFBO3roe9dy
-         hvZg==
-X-Forwarded-Encrypted: i=1; AKwUvBzLJS9pdKRalp30YjpXbaSsZTFLqPvmiZOL5Mk4/oYR8l8GfSf0xhqwkebHE1KHutCCIpYjIxTeyk2k9ks=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4wNIfOxWA2BBJRw9Ik0/LUyzOzaKxH99pLM+V3DSbRdtw4wey
-	yTZp3iRQ+PV9arkshbv22NjyhLTxHJZXiqc+bVG5K0sV18JOVnispw6xSI/PoUEPW6wK0lHL11l
-	IcXErd/7I227qL5zb07dBKa+idwGsDX0=
-X-Gm-Gg: AYBFou3GinJNmzwwpSwm6h4nPvtsloSeHvF3dI7IMQkn53x2kvB/nwnfi5SZ5Zli8AS
-	uvFzT2+k9IuviZqwBaf1mwnD4ru6T4uiEiGZaRXv0oyOUcctQScIo2TpPR9xicKjR+ZFou22rXF
-	11Td+dpqKIFSjhuGrJTB9vrve6f3p9rB0l/G4QSCuFQplohTsBTjtGrfqavcIl76q5IQMQxwxNC
-	r7KfWQ7WBL9HAYZfzQwtDNF3M65J2BMcXAopvMR+PtJt3qfx/PSjODZrDgPE/XJKua39mvjLKr8
-	Bp9jvCvxUFinSxy7Jmqer5Re/FCpMPv7OjfGAQMEoJ6ya+rtqYoX22YlBYjtNUGCJvHO2vMnZFJ
-	MeYOK5+Tl74rZKJNDklOY2EyBooOfPJ5yQ5urCtIlug6TBrFkBIuzcLtzplTbkSX4+CFPC0MNVb
-	V0+gpxzL2uXIcI8MvzR0zoHX/xELkRncf0dovnXKF+OMA1b9Sx0to=
-X-Received: by 2002:a05:693c:8810:20b0:35b:cb5b:c71e with SMTP id
- 5a478bee46e88-35bcb6b1c6cmr1408019eec.1.1791817488630; Mon, 12 Oct 2026
- 08:04:48 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YpSa3YKZ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EvAnx7cb";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YpSa3YKZ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EvAnx7cb"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 7F76321EAC;
+	Mon, 12 Oct 2026 15:05:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791817504; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q0UFnOdmom+RLOd8YdaASPQ6IXqZv5F6V2UgU/8NwTc=;
+	b=YpSa3YKZZTvzcNc9sNoRpIQGy0VQVcC75ssA6qc5y5cu12CZnynQk4D8tSyG6U5lGY2sOE
+	e97t9+D+9B5yXoKlFfr5uEkeui+PRh4e0xN7t6QxprW+ctIsmZ3dQgoCvJ7rwO3HoSj1j8
+	UjmIS8Lfi+gdQfZoeEiU5Ji/nRYyJm8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791817504;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q0UFnOdmom+RLOd8YdaASPQ6IXqZv5F6V2UgU/8NwTc=;
+	b=EvAnx7cbHLrDQqYGKeGhFPoEj/q2yvDgoD/QtthLshLkCT1BDEExhGozERx/d7aWOv8D9z
+	58465fr31+sPryDQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=YpSa3YKZ;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=EvAnx7cb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791817504; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q0UFnOdmom+RLOd8YdaASPQ6IXqZv5F6V2UgU/8NwTc=;
+	b=YpSa3YKZZTvzcNc9sNoRpIQGy0VQVcC75ssA6qc5y5cu12CZnynQk4D8tSyG6U5lGY2sOE
+	e97t9+D+9B5yXoKlFfr5uEkeui+PRh4e0xN7t6QxprW+ctIsmZ3dQgoCvJ7rwO3HoSj1j8
+	UjmIS8Lfi+gdQfZoeEiU5Ji/nRYyJm8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791817504;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q0UFnOdmom+RLOd8YdaASPQ6IXqZv5F6V2UgU/8NwTc=;
+	b=EvAnx7cbHLrDQqYGKeGhFPoEj/q2yvDgoD/QtthLshLkCT1BDEExhGozERx/d7aWOv8D9z
+	58465fr31+sPryDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1887A13408;
+	Mon, 12 Oct 2026 15:05:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id JK6BOh/3zGqvWQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 12 Oct 2026 15:05:04 +0000
+Date: Mon, 12 Oct 2026 17:05:03 +0200
+Message-ID: <87cxtfgdsw.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ma Ke <make_ruc2021@163.com>
+Cc: david.rhodes@cirrus.com,
+	rf@opensource.cirrus.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	sbinding@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3] ALSA: hda: cs35l41: Fix ACPI device reference leak on probe failure
+In-Reply-To: <20261012084152.3740340-1-make_ruc2021@163.com>
+References: <20261012084152.3740340-1-make_ruc2021@163.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260929-cpu-helpers-v3-0-e968ce5ee613@kernel.org> <20260929-cpu-helpers-v3-2-e968ce5ee613@kernel.org>
-In-Reply-To: <20260929-cpu-helpers-v3-2-e968ce5ee613@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 12 Oct 2026 17:04:35 +0200
-X-Gm-Features: AclHuK9wzT4BzJuJCArQ1hZV1Y7wL2rurxN8icBv3GPL7rh5gvUSjCGJZPgPXPU
-Message-ID: <CANiq72moeX-F-XkOWewwSEJHX6F5j+7NxNis7qhPU4aDOFRRpA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/3] rust: add a wrapper for the `nr_online_nodes` C function
-To: Andreas Hindborg <a.hindborg@kernel.org>, Yury Norov <yury.norov@gmail.com>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Uladzislau Rezki <urezki@gmail.com>, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Linux-MM <linux-mm@kvack.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 7F76321EAC
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_TO(0.00)[163.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[163.com];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+X-Spam-Flag: NO
+X-Spam-Score: -3.51
 
-On Tue, Sep 29, 2026 at 7:58=E2=80=AFPM Andreas Hindborg <a.hindborg@kernel=
-.org> wrote:
->
-> +//! NUMA topology utilities.
-> +//!
-> +//! C header: [`include/linux/nodemask.h`](srctree/include/linux/nodemas=
-k.h)
+On Mon, 12 Oct 2026 10:41:52 +0200,
+Ma Ke wrote:
+> 
+> cs35l41_hda_probe() takes an acpi_device through
+> cs35l41_hda_read_acpi() and stores it in cs35l41->dacpi. Only the
+> failures that happen later reach the err: label, which is where that
+> reference and cs35l41->acpi_subsystem_id are released, so the early
+> return taken when cs35l41_hda_read_acpi() fails leaves both behind.
+> 
+> Keep the ownership in the caller instead of dropping the reference
+> inside cs35l41_hda_read_acpi(). That removes the need to work out
+> whether a given failure path has already released it, and with it the
+> double put that cs35l41_hda_parse_acpi() would otherwise cause when it
+> fails after having released the device itself.
+> 
+> cs35l41_hda_parse_acpi() and the !physdev path no longer put the
+> reference, and the early failure enters the existing err: cleanup tail
+> through a new err_acpi label.
+> 
+> The label sits between the reset of the codec and the gpio cleanup, so
+> an early failure also releases the reset and chip-select descriptors
+> that cs35l41_hda_parse_acpi() may already have taken, while still
+> skipping cs35l41_safe_reset() on a codec that was never brought up.
+> 
+> cs35l41->dacpi comes from devm_kzalloc() and is only assigned once the
+> ACPI device has been found, so the put is a no-op when the lookup
+> itself failed.
+> 
+> Found by code review.
+> 
+> Fixes: 447106e92a0c ("ALSA: hda: cs35l41: Support mute notifications for CS35L41 HDA")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ma Ke <make_ruc2021@163.com>
 
-Cc'ing Yury and Rasmus since it refers to this file.
+Applied to for-next branch now.  Thanks.
 
-`page_alloc.c` also has the definition of the variable in the
-`MAX_NUMNODES > 1` case, so I guess the MM page alloc folks should
-also be Cc'd -- doing it too here.
 
-In any case, I am happy to pick this one up if they are OK with it.
-
-Thanks!
-
-Cheers,
-Miguel
+Takashi
