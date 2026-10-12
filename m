@@ -1,64 +1,64 @@
 Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502D1438466
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:57:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1D4434E56
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:57:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791788266; cv=none; b=sftS5wope6zeMK2q/g4uAQjiF0XXsCoSGbx3StUA5k7eYG2by4It7HPL/gYQIDqOR0xoK8YSViUWtJ4GEaxuCyI1RXatd2ojFUHadoMij/4ccgZ3jOMH0ZGn1WW30ELAe6luwQ17rplqsT/etZeME5drGzyp1Ufb2sT6tw3K1EY=
+	t=1791788268; cv=none; b=F8RQRcf03JcVrfp/4YMvboGeCthvjh1dQqW9CEWmZpEwEINtLxxPuajkoo1Mro7pZWyjGmiYBtQsNrF8x75att+d7UiGSo2smuyq52cxWWUUeW2OtBBVlOLGh5A3zaesjirrvRWtL7p2ttddxmcYEfSWPm/HNvnL0YLps0xSIsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791788266; c=relaxed/simple;
-	bh=bvgUSkY/ZkHuBwSfrmAs0SVNeagbkaaEQadDhf6Ehx8=;
+	s=arc-20240116; t=1791788268; c=relaxed/simple;
+	bh=P6spEShhJuUJwspagHXdV60BnHh9HGtQLAR7l/RQSpU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nwIJlSCSkS5ACt6SamY7LhZsZWuGfvmabn/c4yUpcxwJqlSmM6VwMlSIFKAMw99SfEOs1njLTKptXIs0vk0q0wk3+K8g+ytNeSs+javBVMeIt35TzOBm3R76EEjSD5QniUHCT3a52C1ntptdZV3iPVALavjId8UmKJxxk0983Wo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lzsqWwd+; arc=none smtp.client-ip=209.85.128.47
+	 MIME-Version; b=mR1OwlIevQJ4wAIzIYMc1Q87dGsgJziETZ3GzZ1kSSoy/Rm/Xf1s00E4DzW2qvD0Jhl29+w7kGtQzJfW6R+hLQbaaCWiD1AEbBbsFfB/NYVSWxT6rsqSY1qB3yKuyvjok2s58LH7GAcOijdyp3FvKhN1s6oR6hs6YnVPgAt1hq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W3RDrDtA; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lzsqWwd+"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a0213948d3so9092415e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:57:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W3RDrDtA"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so15809805e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:57:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791788263; x=1792393063; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791788266; x=1792393066; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bvgUSkY/ZkHuBwSfrmAs0SVNeagbkaaEQadDhf6Ehx8=;
-        b=lzsqWwd+KFRCvZeH7z1xLX4+9qhGLTGdrfzIqua4n4C1PmpgyX9DQfM+OPAy1BLyVf
-         zdwT5pCv4ZiMiA2z4DkCwuz2um7N5ZRtcOtBofCvZvEyYVmalYmBqsQ4qGAwup5TOs27
-         3+sO7zSGomtaIIqXH7E0pKaNuHVSQ9J5MN5k78k7xG2R0vVZazkc/+SgUHW/Az5S/b2I
-         eZ22cTxrpzH3UQNze19tpJNz+weEo33f6HfJsykcB88JEMeh3157JMbVHJGy7gJ9J1gs
-         j07ZmAEmZOX8Wvnly8u28GUdwWI52bmvv9rMpXTMoAqsg9WGCeJRolKQdPDGgfMPjPfM
-         VhGg==
+        bh=pb/kn1bilH8QkmWf3l7OGZJ5xTA+QDSeNfAS3mOibcg=;
+        b=W3RDrDtAIOYkUhFlQ5UGdWxsBhOi0ff0QXxOaoHXVd+9QOoIropo7mQ+/EMKyExkIu
+         uCfQ3DjcD2LItXYzZrXeZn3CiPwvxpGwEY0FytBQXhqNTCTaLl8hjcYFg+4WsZuOM9A2
+         9fZ6oJBpKhs3AXRWhs1cH8Rj3TXuj8HOZuxOJjv4yoyrxYtezT5ZIuIrVAxBM6abFycC
+         1onZKZs7POJfMn1UDaw+gjz4WDPR4x82mlmBe3bB1/KZ3jaxrKZxxeNancAov25pN78/
+         DlydDTTjo/9r/zGZ9qxKn1TDRr4Wga61gDIyyXuODxC/leXGOnt5hIFbOheY2PSl/ALV
+         uZug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791788263; x=1792393063;
+        d=1e100.net; s=20260707; t=1791788266; x=1792393066;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bvgUSkY/ZkHuBwSfrmAs0SVNeagbkaaEQadDhf6Ehx8=;
-        b=gWhSp3f2D1gbOwkqeESy2SAd0IT/S8p8bi8hZ7jJfw2ia/0MrlGqa/VK1aPC09HCp/
-         s+ijDuvovdHkV/deiK7+qJhqIM1z8OUAg77rkTYysfc01nFKDaAs+dzYvE8aIwj1/rLJ
-         SEgZVdSjsRjq9vwbhLdKWqVW0rD2qkCmQ9wmjxpj0epN2uoValmwTzYLCxRXtpW4RtCU
-         ADn/nTH1n0fWClWsrZPLg2FH1S8zrAVs5c6rj4LtlHflsKYRGlxPoTweS7++uqLIhWoE
-         +aSTL24kdL9L5EuxoPP0rrQ7evAGB+icWoNcLSCFyQtLfjyLfauksXimLv33p2kfaCLo
-         VOUw==
-X-Forwarded-Encrypted: i=1; AKwUvBzGQ3SFge7uYiSswn98EKhJXG6xhYrcORFwTjMBU1Dh5OMB79MeIF2geUrJnnNIOUEzMKOcMSYYX3ttYWw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItpI7qv+D0/Da3qSxVSwS+Mek/F0orHMgw8i8v9byf4w3JwPbZ
-	sSljEQf7YnG/RKzvZWfQQ5ze3omy76YcwvOFj70GxYNE52FVYqcu73sk
-X-Gm-Gg: AYBFou1hD3bjOFv9mCJW/v+6CPVSk4+YfkkzrAg+ffP2irM9wQ4VNRpc4nEMktG9/I0
-	RWfkPMlHOm5yUiJ71sZdR3IuytxNGxMX/UJuIe4fukXzIl8vHwPG76VzBvMhn5OwInW2SQhE+zg
-	VFYweuRgaa/WsmVgbPbH2SRwrQEewWciseq3p3QzC/X5fOwLnTdyuH4QEGjNPDZbgs9GvRyKWr+
-	yOU8R8s4qfqtB0qmagC9ZBP+sUyplj4dORlFLs7PdFFscncNoPcs4cO3Nyk/Kg3BijKra4XVeBU
-	Qh4pCgOTHtHPRo8KkI0ZEx9aCS+O0YeM+eeHXV/kKXJo6YSV6JJr253IotL/1BTiVviDUWJZ1Gy
-	zhb3NQzEKzftD9kavAX/Cq25fTZoT+yvFlIomFhpeL6u+Ca0qQnQK3Hjbpjy5lp9GbcqQisTKgF
-	GGLxlX7o3926CXz1sa2gTKKoyKD3HOnqqtSGxOS8sSDcKgsxBBtilYKJG5bOhGNXPAASdAsacNz
-	H/u
-X-Received: by 2002:a05:600d:8644:20b0:4a1:9eb2:b2a8 with SMTP id 5b1f17b1804b1-4a19eb2b2dfmr25139195e9.29.1791788263224;
-        Sun, 11 Oct 2026 23:57:43 -0700 (PDT)
+        bh=pb/kn1bilH8QkmWf3l7OGZJ5xTA+QDSeNfAS3mOibcg=;
+        b=yEtW3RdnRnkDMpjUq3lDKmLYCekLCXp12ZNCENuC9yNoldSiAv4tgawiyLxGoHhO9D
+         6rAbhVHI1vMj59lJd/ZO+bD3eU3P/n70N5zPGRDWpkdaCoslmhvKkcEMDlBhXQDLQY3b
+         c4ZCaCjRlDeRBU4eh1MR6uxYoIhb/0RZepi0h1SecHcvJ7FRVz52ia5qdHAXyJang6gq
+         ymwXMx5a2nPo9s+8Xg45inrgzFl/COLuHT0DtuVhKg7rGsrpuzWe3GmVMvCJ1PX710lw
+         FqVJCtt2A7dIrYSOx3KN4OGgaie+u4akBHyUb+s+s9qOu8pb1C/4VY1wCkDB89oQ+xM2
+         Qw+A==
+X-Forwarded-Encrypted: i=1; AKwUvBzky1UHnwbqn0Vd1EsEHF0KBnUX1rYz4WyayidOfrE35oUh6hcDG2RV5aR2qtQhpmq30KCxRj13lMqiGms=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3DxxvOeLxP0g+hac9rHtOArAt27y03WQMQ77ElFg58JYwXtcd
+	HpUEjZy/YvxlsF86A/J5VXOIrk0oDyFwY7aexdhKEYFA8fKiVswjwEXS
+X-Gm-Gg: AYBFou2CMxSRdZumEkfstM53uDXKIgS1UF1PN7RIjKKujGMuYs6/NSc9hA7HuXPHWBF
+	bZ9A73OlXLTwin9/j9su0fuonVU+hWNSyySe1UmD+T+wpW7Ord3+PsS7K0SpJnuOUc10GxoGWzA
+	jcQps5VU1+zRNArGK9186vfAu0c/+hLVZUBJ7l/6coDyJzLhe9eqr0q3Kojc0khLlkpwBwlhTbb
+	mzU2cO3tMfjXzVb6qF6oSAT5555QbgbJ2j5BxPw//5lNxmjCgQUgPLEOnqE2jV/6MHvpwLQw4xa
+	4edwbGdZUyfdUWxZto236hs7RL1Z69jUQ9w+IRk1RYuUnbZc+vYZMp2t38M6DFwnjKBePAf3THx
+	CeZmzok2kAtWvdPSOXkKFdwfchcyHokseCqnGsZeW06tHDmmQrOyhgDsMWjhbxHPYClvWrdvhhS
+	iLNs+LrD1ZC4zyy1mdUGFTGD+eQZdUE2GoJEauGKLkH/+n779fCk2JLkxS5AfWOGbEbUuZo2+OU
+	vq2qA==
+X-Received: by 2002:a05:600c:190a:b0:4a1:746e:589a with SMTP id 5b1f17b1804b1-4a18e4aea54mr176998935e9.18.1791788265546;
+        Sun, 11 Oct 2026 23:57:45 -0700 (PDT)
 Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ae1c4fsm17553553f8f.58.2026.10.11.23.57.42
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c85009csm208854355e9.2.2026.10.11.23.57.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 23:57:42 -0700 (PDT)
+        Sun, 11 Oct 2026 23:57:44 -0700 (PDT)
 From: Mehmet Fide <mehmet.fide@gmail.com>
 To: Ping-Ke Shih <pkshih@realtek.com>
 Cc: Luka Gejak <luka.gejak@linux.dev>,
@@ -66,11 +66,11 @@ Cc: Luka Gejak <luka.gejak@linux.dev>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Mehmet Fide <mehmet.fide@screeningeagle.com>
-Subject: Re: [PATCH rtw-next v5 2/3] wifi: rtw88: update the beacon from a wiphy work
-Date: Mon, 12 Oct 2026 08:57:41 +0200
-Message-ID: <20261012065741.17636-1-mehmet.fide@gmail.com>
+Subject: Re: [PATCH rtw-next v5 3/3] wifi: rtw88: support channel switch in AP mode
+Date: Mon, 12 Oct 2026 08:57:43 +0200
+Message-ID: <20261012065743.17665-1-mehmet.fide@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <97931e8606134d8390762041a638e556@realtek.com>
+In-Reply-To: <04b18579ec644839af3d5baa1790618f@realtek.com>
 References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -83,34 +83,27 @@ Content-Transfer-Encoding: 8bit
 Hi Ping-Ke,
 
 On 2026-10-12 Ping-Ke Shih wrote:
-> What "mac80211 state" did you mean? Without wiphy_work, it can't state
-> it?
-
-bss_conf.csa_active: patch 3 gates the TIM download of this work on it,
-and mac80211 writes it under the wiphy lock. That was the only reason
-for the wiphy work; the work needs nothing else from mac80211.
-
-> rtw88 doesn't use wiphy work/lock yet. and you are the first one to use
-> wiphy_work. Mixing to use wiphy work/lock and ieee80211_work with driver
-> lock looks not good. Should we just use ieee80211_work to avoid confusing?
+> > -       if (!test_bit(RTW_FLAG_RUNNING, rtwdev->flags))
+> > +       if (!test_bit(RTW_FLAG_RUNNING, rtwdev->flags) ||
+> > +           rtw_fw_csa_active(rtwdev))
 >
-> Or we should migrate to wiphy work/lock?
+> As my comment in patch 2/3, I think we should cancel the work at core_stop.
+
+Yes. In v6 rtw_core_stop() cancels csa_beacon_work next to
+update_beacon_work and clears csa_vif, which also covers the firmware
+recovery, so the wiphy_lock() in rtw_fw_recovery_work() goes away.
+
+> > +               if (conf->csa_active)
+> > +                       rtw_fw_csa_start(rtwdev, vif);
 >
-> For me, I prefer you use ieee80211_work with driver lock for now, because
-> I guess I don't have time to verify the migration...
+> Is this a necessary case? Can't rtw_ops_channel_switch_beacon() handle it?
 
-Agreed, v6 does that and this patch goes away: update_beacon_work stays
-as it is, cancelled in rtw_core_stop(). The countdown work of patch 3
-becomes an ieee80211 delayed work under the driver mutex as well, and
-the gate in the TIM download reads the driver's own csa_vif under the
-mutex instead of mac80211's csa_active, so no wiphy lock is needed
-anywhere in rtw88. The countdown work still reads csa_active once per
-beacon interval as its exit condition, a plain read like mt76 does in
-its beacon path.
-
-> Or you should add wiphy lock on IPS path, and cancel the work.
-
-Not needed once both works are regular ones: rtw_core_stop() cancels
-them, and the IPS path and the firmware recovery both go through it.
+It is the restart case. After ieee80211_restart_hw(),
+ieee80211_reconfig() replays BSS_CHANGED_BEACON with csa_active still
+set, and drv_channel_switch_beacon() is only called from
+__ieee80211_channel_switch(), so without this the countdown would not
+resume after a firmware recovery. v6 says so in a comment, and the
+same path stops the countdown when the beacon comes back without
+csa_active, which is how mac80211 ends a switch.
 
 Mehmet
