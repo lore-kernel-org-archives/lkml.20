@@ -1,102 +1,147 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E3D3CE489;
-	Mon, 12 Oct 2026 19:58:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C163BBA0D;
+	Mon, 12 Oct 2026 19:58:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791835089; cv=none; b=FN9X0akVBHzrmsZsPEZ2YtrxJQ0TYRZHa/YerZmNsPwmi9Z/v8kcBY2rpp2Sb6wfLGHZqhm9kVstmk0WHrvBruwhgTpqtQqy4vmYHo4y8mS7ROH/HM0BGgrMfFSCDG5S+Gb8ZejFQv+ST1G6bztuyCQn5ss5n8QH9ed1NwXxUGM=
+	t=1791835113; cv=none; b=aU/VyiR5gASDqSjsk+TVKUm1q/izBPfBjLLj9VDjCORnXssYZ6Hkff3ZKZlA8p0E2XMQ5WHDo9STgKlTJ7GfWrIvKGVs2oLtjHeoAzr7Zx8O7HBSctxn5lBTGpn5gZBoGRP5aPsQAdQ04gbfeJfxExwcO3p0jQv6p7vm/HCWtDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791835089; c=relaxed/simple;
-	bh=N5wVf6huEusiIDNk/5c7GdFjensv5aDGIBXaan7le38=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=GHyi2PORWQXnhlwSRD2Xwty9Eq13hjpMfZto2WinocpIQZ1lblOR1+4R2u6mzfJjiJfq19scnU4ShhlRu9BHuZyii3FFHd2pRjb5YUEwCSIBo+fv0IcsGMjjHg7LIR69NRS88zMhfG4HDJGl3CPsRrmOmLVr1IlWhT1DQNZ03F0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gregoirelayet.com; spf=pass smtp.mailfrom=gregoirelayet.com; dkim=pass (2048-bit key) header.d=gregoirelayet.com header.i=@gregoirelayet.com header.b=PF8ax70J; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gregoirelayet.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gregoirelayet.com
+	s=arc-20240116; t=1791835113; c=relaxed/simple;
+	bh=svyaTnJKl2TYexbkp/vhzflZQy5dYZbMzF9dkVFPBPg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YJEVg6BUyK9Waa759g5kFIhr5rKLJ3n0HOUM8bbRg+M7u1FjgUnP6TEO4uWUyqVmsSr1BcC9mBYyBkIT8OQ0+WWTRdfeqyH8YGKjPpK1cHFqn5TTVSpstUJKQrvmxMPml3WTx3l1PVx57lmVFPmedji6vouAx+kzzWw3BNg0Iq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E1wktWQk; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gregoirelayet.com header.i=@gregoirelayet.com header.b="PF8ax70J"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j3Stq0Bq7zKncP;
-	Mon, 12 Oct 2026 21:57:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gregoirelayet.com;
-	s=MBO0001; t=1791835075;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=N5wVf6huEusiIDNk/5c7GdFjensv5aDGIBXaan7le38=;
-	b=PF8ax70J4DdyyWDaVMYwj5BE9zGWp42Vu/wpb0TiSgmOPrO0MuzhosaYT7WyWPyJ9DKebB
-	3bu6rYTuPlqXT7cBNYoP8GQf/lF5l1+r6gi0evdglP3kqA7RyKAXytMGtGdqj4z21Rsskd
-	ryFxVMS3Ohw+HdfqHJ4jweB5DBklDOKt1f2nwZP4HwEk7+5VY/KmGHN9diO/P5xb4gs/tR
-	AYlgjOD7NuvkvInPEdUtdqa5ikxa7ptY6CYyZ4osKwLC8bSqeuQfx9yn4P3O5JlHXrfLq1
-	eo5rNPpmPXUcyDvjgIFSSfx+O/RQByINOzwoMXIaNbB3bPwL8qAGrrq+rPWXIg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of git@gregoirelayet.com designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=git@gregoirelayet.com
-Date: Mon, 12 Oct 2026 21:57:51 +0200 (CEST)
-From: git@gregoirelayet.com
-To: Tan Siewert <tan.siewert@9elements.com>, Phil Rosenthal <phil@phil.gs>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Corey Minyard <corey@minyard.net>,
-	"openipmi-developer@lists.sourceforge.net"
- <openipmi-developer@lists.sourceforge.net>,
-	Andy Shevchenko <andy@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
-	Ninad Palsule <ninad@linux.ibm.com>, Andrew Lunn <andrew@lunn.ch>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>
-Message-ID: <1803265916.1474637.1791835071520@app.mailbox.org>
-In-Reply-To: <e2e3d98b-9a89-4845-aa7d-0e23a1d95f70@9elements.com>
-References: <20261008-aspeed-vuart-v1-1-d2be17c99cd7@phil.gs>
- <CAHp75VdiO9tPX2vLqsX2-omNvs-YjkWWD-HOiqyDSzpJrrZ_5w@mail.gmail.com>
- <60996F21-A12C-4FCC-9D5E-9D188A4ADBEA@phil.gs>
- <CAHp75VdmMwXRQFKLG8c4yAsVA5=eFZA3jagtMGb-qVswcQ88Wg@mail.gmail.com>
- <2F1931BE-F0F0-4F21-BED4-67080A40AEA9@phil.gs>
- <e2e3d98b-9a89-4845-aa7d-0e23a1d95f70@9elements.com>
-Subject: Re: [PATCH] serial: 8250_pci: Add support for ASPEED BMC VUARTs
- over PCIe
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E1wktWQk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791835110; x=1823371110;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=svyaTnJKl2TYexbkp/vhzflZQy5dYZbMzF9dkVFPBPg=;
+  b=E1wktWQk423SIUVeiUw8NtWu85Up7HtqaSPjUaTSdoUsztcEir15elsh
+   zeR+Tkj+7juLaLkLHyWRUgQtkmHlC84x1tVOk3id9A0DB48xAeKRxppFg
+   W+Y7GVHhzDX6xqNLJp3UYrHEywkbQjDUKbsJKtk3KJmTd8406SrFS0Nz4
+   4MeQzEm9oMcB9fPTCNzqgW7NdhXDSl2CBq13/7gu3IX8StUfILV58v6vu
+   EJzgbzfY3WGT+McnLDz8mKuBUXNlDxyMi8aRJBXcRftoWkbVL1bv5jICT
+   qec3sLjk2inBcBqwECLoGAFOTCzPsEMN4uidyFgzwRr7mdDkJ/sEYhQ6z
+   A==;
+X-CSE-ConnectionGUID: QCxK83cwRp6ovqYt3u1qEg==
+X-CSE-MsgGUID: JsN7fqizRGy1o9yQmxXFkQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="447846"
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="447846"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 12:58:30 -0700
+X-CSE-ConnectionGUID: Qfp4xOXGRHaLFx0Gl49dRg==
+X-CSE-MsgGUID: XQRCHPb8RSGkWbPwEH2PVg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="2730507"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 12:58:27 -0700
+Date: Mon, 12 Oct 2026 22:58:24 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Brian Norris <briannorris@chromium.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org,
+	linux-iio@vger.kernel.org, Andy Shevchenko <andy@kernel.org>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Fabrice Gasnier <fabrice.gasnier@st.com>,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 3/5] PM: runtime: Propagate last_busy from dependent to
+ dependency
+Message-ID: <as074Em1m9d5s1yO@ashevche-desk.local>
+References: <20261002230714.507921-1-briannorris@chromium.org>
+ <20261002160309.3.I40c0bc917fa0b13111251844e9a54feb1d9cd7d2@changeid>
+ <asEdiIT7l49vhn7i@ashevche-desk.local>
+ <asPm6HYpEIAYJ4a3@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Priority: 3
-Importance: Normal
-X-Mailer: Open-Xchange Mailer v8.52.252
-X-Originating-Client: com.openexchange.ox.gui.dhtml
-X-Rspamd-Queue-Id: 4j3Stq0Bq7zKncP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asPm6HYpEIAYJ4a3@google.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hey !
+On Mon, Oct 05, 2026 at 11:05:28AM -0700, Brian Norris wrote:
+> On Sat, Oct 03, 2026 at 06:21:44PM +0300, Andy Shevchenko wrote:
+> > On Fri, Oct 02, 2026 at 04:03:07PM -0700, Brian Norris wrote:
 
-> @Gr=C3=A9goire do you remember why `8250_aspeed_vuart` sets the PCIe clas=
-s=20
-> code to `0xff000000`?
+...
 
-The ASPEED chip can expose multiple things over the PCI bus (VUART, KCS, ma=
-ilbox and shared memory). From my research, there is no such thing in the P=
-CI specification for MFD PCIe class, or a way to specify multiple classes.
+> > > Cc: Ulf Hansson <ulfh@kernel.org>
+> > 
+> > Can go under the '---' cutter, so it won't pollute the commit message in the
+> > Git history.
+> 
+> This is a well-documented convention.
+> 
+> Documentation/process/submitting-patches.rst
+> 
+>   If a person has had the opportunity to comment on a patch, but has not
+>   provided such comments, you may optionally add a ``Cc:`` tag to the patch.
+>   This tag documents that potentially interested parties have been included in
+>   the discussion.
+> 
+> I'm directly referencing Ulf's suggestions (Link tag), so I'm also
+> making it explicit that I'm CC'ing him.
 
-Also, assigning a PCI class as UART or IPMI KCS would cause some drivers to=
- probe it automatically, binding the resource.
+This piece of the documentation was written long time ago before we have got
+the kernel.org controlled mailing archives (now it's lore.kernel.org). I argue
+that this piece is outdated and we need to look at all aspects of the commit
+message. Perhaps having one might not lead to the issue, but exempli gratia 20
+is. I still think it should be moved to under '---' to show the good example.
 
-Even then, UART and IPMI KCS drivers assume specific offsets for the data p=
-aths which are incompatible with the ones from ASPEED.
+> > > Signed-off-by: Brian Norris <briannorris@chromium.org>
+> > > ---
+> > 
+> >  Cc: ...
+
+...
+
+> > > +/*
+> > > + * Propagate last_busy timestamp from one device to another. This can, for
+> > > + * example, prevent overactive suspend when a dependency's usage is primarily
+> > > + * driven by one of its dependents.
+> > > + */
+
+^^^
+
+> > But here you already have an outdated ones, no? Why is this not a problem?
+> 
+> The "target" device (a supplier or parent) can't suspend before this
+> point, because the dependent device still holds a reference -- so an
+> "outdated" last_busy is not relevant yet. The target last_busy *might*
+> become relevant after this point, so this is the point at which it needs
+> updated (propagated).
+> 
+> That's what I mean in the commit message by:
+> 
+>   propagate last_busy timestamps from a dependent device to its
+>   dependencies any time it may allow a dependency to suspend -- i.e.,
+>   when releasing a refcount for its parent or suppliers.
+> 
+> Please let me know if I should add some clarification somewhere --
+> perhaps also in the comments here on rpm_propagate_last_busy()? Or if
+> you see some other problem in the reasoning.
+
+Perhaps a word to the top function comment?
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Setting it to Unassigned class 0xFF seems to be a good fit.=20
-
-
-I hope this clears things out.
-
-Regards,
-Gr=C3=A9goire
