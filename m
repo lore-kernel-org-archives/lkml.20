@@ -1,95 +1,120 @@
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E1738655A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:52:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791773529; cv=none; b=oks4Kyld1yqUW46GmDy+0FePPW9cUGpEny1nFDsB2Gny6MMJ2kDCFOYE9TtKbPoqJzLx8JmRSfMpoFAPXQ0Ln5hGdytsTFR549JkpHJV+o2m+OFgGRHWQoJo7L1C7c8p8IxuDTptaqXZzBwOTxWUGqadbBy3AYwmBZk/HXBdRCM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791773529; c=relaxed/simple;
-	bh=+RnKcGIJ6G/VhbRqdt/Bc2gRi+Za13jvUFodR/Krc4I=;
-	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
-	 Content-Type:References; b=VJ7L/AygeHQWWhaFMDLy467+44L1zk+WaTXtXkIDf2/ttf+pKfACwggDlHSI+njOCptdckf8wd+aCfwz3g5wg35k4XiNrt5qLNZsv1GO1ST3ROzEn5qqRTx4eO6pxTKjU6oQRNfAvpECJbfCl687QsGlLyzM0WydwNQLL3D1zLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=s5sw5q3O; arc=none smtp.client-ip=203.254.224.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5890375F88
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:52:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791773536; cv=pass; b=p/S4QskwLnh9MS1nKJkqmStxvO2gz9ibH/J9XbB05OQoYmkmV8f1iCiRQ0G7GHkVYPaMNyrHxtcwiZ9U8+rSon3A9bGp2FGOp1GgWMJl6c4lyUwyNz5fZXijHksC80wxslCUw/Uqm5Sl8rsfq0xmNvQyNNp6+Uop6IGfr0+OjHc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791773536; c=relaxed/simple;
+	bh=LzWchX4KsEIH4caQu/AQaehulhvxSRbR4oh0X/6NURc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Mj59uocMRO2Et1b3ZtgehEfe/7enLwqOduBE21Gt4aDZf4DruYdUu7afhocQiL29XzjhiQFFHDIP/mtC85MVBHql9vuKspDt/fDgaKE2LY+mRp4s0a7oACDTldYHSSR1UNjf6i/5nrpf4VvElNVrHdSyYIvDCj+mSFn8qgbQ2+o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O2RD32nv; arc=pass smtp.client-ip=209.85.210.175
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="s5sw5q3O"
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261012025206epoutp02a903bf170efd63dae249e312824ff776~dqIeKyqMp2877628776epoutp02L
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:52:06 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261012025206epoutp02a903bf170efd63dae249e312824ff776~dqIeKyqMp2877628776epoutp02L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791773526;
-	bh=+RnKcGIJ6G/VhbRqdt/Bc2gRi+Za13jvUFodR/Krc4I=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=s5sw5q3Osg3mDz9lFSGn+NPOyx2lWPhSmhKes4yADIBg9gE+Sn8YD5B5MupfD5e6j
-	 YUEhI/udWZeN2yH7b8eMlF+w+xoI7XmTEpLmGX4E7E3CR/YgK7kjZ8cMlmiyxDU59+
-	 +4tdVyb2Y1ITrl7qig1/AKq9cjgCst/ccCP94yS0=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261012025206epcas2p102b727ce702f793063d25dd96cf972cd~dqIdzYhFL0573505735epcas2p1P;
-	Mon, 12 Oct 2026 02:52:06 +0000 (GMT)
-Received: from epcas2p3.samsung.com (unknown [182.195.38.204]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4j327B0zy4z6B9mD; Mon, 12 Oct
-	2026 02:52:06 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O2RD32nv"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-89a595332c7so415280b3a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:52:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791773535; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IIa++gBHqLAxMqufgrq6upnhlCouw8tUvfInfC1AM+/zvrSdY2wQM4cb0UPVh9PWu9
+         McjpZHTjYRy4kZ3jt5/BCR5+eaEKrjtiNCMo+343Gv48TrE5x/uYyq10gtZRlFzPsHv6
+         LDi5YrK93pea/l4/PBktnPIBqx9pwsn+ty5+0Puqakwbd/wm80TPr4b1nilIono0lRaG
+         JNw9VR8SiFzhSHP5tKc9+f9zAR3gifQeiybnxIrwvLY8xL+wJ22VFjT3V8nX3G/dYVeV
+         NqBGwKvZwuxzWRkARHSx95nAFtcZPBOiTDDBeAs19niePE0m1uBSWc3yHFN0xiZlx8cg
+         jh8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=LzWchX4KsEIH4caQu/AQaehulhvxSRbR4oh0X/6NURc=;
+        fh=tNhqkk8vAlxl8HN46sg441veFeiaqP1Pc9PD3iQObVg=;
+        b=r7BMaBqyYeaumX4vBo2ceiEMHSyKt5fgX4EIR61a0vbgBDpT78ZtfRYENa+jlPz0t4
+         +Y3mBZofj5kCLwLqcwc/hv7auq28TNg2sv12XlNZn8jbQXrYAEGOrG71SUvNSSiMUHTL
+         4CB0/IOtNhKV84qdZqAEZOBHpb4u8Qjfrrm9MhjQWp3QhmfM2675ZXgYyOrkaypT1fS9
+         M0AcIWaH02Hg2NKI1g6rXtSKGRE95JWKlSNT7F87HYK7pefkiajIW/MZfbQHK9aEj8rc
+         bynL+N7gCdJ24TSuRH3XKt3uhxkEt4R1H6d0yYJPZNnQ82y68aoMZ8AUwvH1Ewbvzyty
+         jrFA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791773535; x=1792378335; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LzWchX4KsEIH4caQu/AQaehulhvxSRbR4oh0X/6NURc=;
+        b=O2RD32nvFSCACmAB2a2ahKZAuBt3SqkBwGRNjYB5DgSzo3xzGtazuXg3eFVH0HGG7f
+         e4qs5kqwTLdIuca8nWoLpZZ5/InNOUsWgracb1Nuj2mO/cvEGj1geNNt0BlcO2SPKOm2
+         v3eDRf9mE7mWTYDU5bP0jCTLIrDoOwS6jPlfEdDYQIkIJubAY6ti2dt/ncnbMget7FoM
+         11+dXA1vx7LXpFy9SLWL4VgsqpbCSn7FLYfvuNK4YDDvDCy3UuOKF7XRpRGUt2f1/eVx
+         bnHDjrP0G8p2gurg3JobpR6UoBT1HpPsaYQlbkiv81D0ZtZP5AyOlvgJtT2WKsXgF515
+         CoEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791773535; x=1792378335;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LzWchX4KsEIH4caQu/AQaehulhvxSRbR4oh0X/6NURc=;
+        b=mflEOlnYQJI6MwLs53Do7QC4ytHzkWGquq5Br0XFyB+Ry8BmAf4L1/1hIzX2LU+Wul
+         3RTyWt6XqLAy0HuolETPfjzhyXNDDxPBij5PyxQP1BUZITj7KmjEyMz7aDqK9jnhZ8R2
+         UP4iwguellR/O1Z/uvVJ/YAc4xxZ7Jo0J88TCRDWC7i7EkH4OguMa7iG5MiKY6a4EP6v
+         6DCO3Owt58rQ8Vz1SwPTgn5lejfggAcSmN+TO5Wb87JKwocpcyG+TFqCRE5luZICzK+V
+         H/G9sGxqttPFwF/ZG5YYFTX6nAzbpiqJg7tlqNq++JzKlHTcgCaU3u8PVu0CDgNoIEuj
+         xRaA==
+X-Forwarded-Encrypted: i=1; AKwUvBwvVu8z1peJGsZdyqceyL8v5AkZAi2oqeg3ZcO42jPViqHQHMBSl9b3YSfUkYMnzp0hPC4qy2E7uah3rKM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJd/BjZvskxeUOIszl77GfI3EN4nmEqLT+cOwb7Hn12pclrUQTu
+	XAq39mxHpFXwhlK53I6MQdLW4t1zAGsF/JchZd+09vn9V8GQMDT77I40uOXgaOAT5ohL04ZTxaH
+	UgTUxZpCmnKHPWLBFeLehkvJTz0R0OOQXKGFb
+X-Gm-Gg: AYBFou0alsYIsaR1/iTp074BKO9zawqKTLaKENvckuSwvkLXXP8S+033/2A+avgjOHQ
+	byrfjv02/T3vLf0+q1l1XT+NO+l3xOrCYIDbdZwmmpET0oMsz0+4JcnReH1DCMwpmzHOBIRryYx
+	qkmYb7RTB75DsABtXDNmRdIxZU5mimRQvsV5ODh73yMyAktaFbAH0Cm0NrIS2MDajnUTVZrXEUz
+	b9zoq4b4Amh3hFP6+qHHB3ghPTWXvJHN0CqdY7dMUb6uzLvve8wtE1U6950wuTvglBEorrw4dae
+	oWwXbhMMzrPI3pxXjyHgsMtyJ0SeKoY3HS2RKQvOFNKgQ2qGccgykMKJjIKIikrcSBwFXrVUv+e
+	OWhc1Wm0vMdVX+4e6Aiid+cVoniNuNaEvuwg0B6WjUPXhf/uHuDfp8T6JapvqDPkyYsVScPuiHv
+	zxpA==
+X-Received: by 2002:a05:6a00:709a:b0:899:f6e7:b6c6 with SMTP id
+ d2e1a72fcca58-899f6e7bac4mr1931950b3a.40.1791773535113; Sun, 11 Oct 2026
+ 19:52:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Subject: RE:(2) (2) [PATCH] nfsd: do not return overlapping extents in a
- block layout
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: Chuck Lever <cel@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>
-CC: Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Olga
-	Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey
-	<tom@talpey.com>, Christoph Hellwig <hch@lst.de>, Sergey Bashirov
-	<sergeybashirov@gmail.com>, Carlos Maiolino <cem@kernel.org>, Amir Goldstein
-	<amir73il@gmail.com>, "linux-nfs@vger.kernel.org"
-	<linux-nfs@vger.kernel.org>, "linux-xfs@vger.kernel.org"
-	<linux-xfs@vger.kernel.org>, "linux-fsdevel@vger.kernel.org"
-	<linux-fsdevel@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <e80265ff-322b-4a52-ba51-393e3e4f503e@app.fastmail.com>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261012025205epcms2p7f506779d61fc0b40561296ef119be2e0@epcms2p7>
-Date: Mon, 12 Oct 2026 11:52:05 +0900
-X-CMS-MailID: 20261012025205epcms2p7f506779d61fc0b40561296ef119be2e0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261007165105epcas2p264fc1fd07bab1fb877a6695062f48322
-References: <e80265ff-322b-4a52-ba51-393e3e4f503e@app.fastmail.com>
-	<20261007165101.GD2705364@frogsfrogsfrogs>
-	<20261007-nfsd-block-trim-v1-1-53370f97047a@samsung.com>
-	<20261008014706epcms2p7f60dc9a1db6ca16a6fff03de67688c2e@epcms2p7>
-	<CGME20261007165105epcas2p264fc1fd07bab1fb877a6695062f48322@epcms2p7>
+MIME-Version: 1.0
+References: <20261011051924.60456-1-jain.sm@gmail.com> <20261011051924.60456-3-jain.sm@gmail.com>
+In-Reply-To: <20261011051924.60456-3-jain.sm@gmail.com>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Mon, 12 Oct 2026 09:52:04 +0700
+X-Gm-Features: AclHuK-BPvUlZy6fKGO0CDqbainrKzygQvr87oFj_CMEFCIi9XC7UM8Pf7ZICr4
+Message-ID: <CAABR9nE2AEee6dtw_J45qmMUxfT+TJah-E7pk2Q2A27xcZVcaA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] iio: magnetometer: mmc5633: leave cache-only mode
+ before the cache sync
+To: Shashank Mohan Jain <jain.sm@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 8, 2026 at 10:14 AM, Chuck Lever wrote:
-> I don't quite understand the logistics / ordering, as it appears to
-> invite a conflict depending on which tree the ->map_blocks series
-> goes through.
+Hi Shashank,
 
-The comment as you updated it in nfsd-testing (now 170b788af22d) is
-fine, nothing more is needed there.
+Thanks for the fix.
 
-The ->map_blocks series will not go in on top of the current trees.
-Patch 1 is in xfs for-next (e3c682dd1130) and patch 8 builds on
-170b788af22d, so I will post patches 4 to 8 again after the merge
-window, rebased on -rc1, when both are in mainline. The series then
-applies to mainline alone and does not depend on nfsd-testing or xfs
-for-next. Details are in my reply to patch 8.
+>
+> Fixes: afc8e3ee8307 ("regcache: Validate cache_only state in regcache_sync_region()")
+> Assisted-by: LLM
+> Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
+> ---
+> Prepared with Claude Code (Anthropic), model Claude Opus 5.5
+> (claude-opus-5-5).
+
+Note that the wrong ordering in mmc5633_resume() predates afc8e3ee8307;
+the sync in cache-only mode just happened to work before,
+and afc8e3ee8307 only exposed it.
+So the Fixes tag might better point to the commit that introduced the
+resume handler:
+
+6e5f6bf2e3f0 ("iio: magnetometer: Add mmc5633 sensor")
+
+Best regards,
+Phuc
