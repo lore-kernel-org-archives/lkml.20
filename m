@@ -1,68 +1,74 @@
-Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C6E4D17A7
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:24:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB2D4B44C7
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:25:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791829483; cv=none; b=b36F+HVQCQ8EW/OYRw7tZaS5/Fg09E+pq7chaNcY5BNHzA6Z3bS+QhKKYDKzEVE/mEUdihgxdbQO+kz7AiXsuLAfZW0MhwH4LMwvPO2mOK26oUxW2w9JoaMlcQoJX2RvXe/GproTDbMWUgj23oBOk2DW9aFGM+uuHbHXWITuY4Q=
+	t=1791829549; cv=none; b=lJG1RfCvKnyzOeYNYO+3Io+87NVe8C7hGPXCqpjcbXf+fKZ9/mJNON0sMd390w6Pm6zGeZoD5z+qTDQVuKS95WhT/4PVhXQqBBM2zULwVqWlzfrxvZEl8yfwT9ajmd783eqvXI62Rj1/3SLOCBzMdpTF/C3yYGizwsRd7CRrGuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791829483; c=relaxed/simple;
-	bh=ILjixpa1Z6s/+qhrU+GyCpiEGP3d0AUWEEgb/Jq7zFk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QuxlnJ9YZsSeKUthKDTI94XpkC4UX9Dm3OwE0ZUUJt2jYMhF6dxzR6GrSxTybKxesKijEAcj2moQJBRwpNQFlS85fdcdRL3Gkzds5m7WvGHnDPUU6wTmDwdrnfEgY0MlbO5rdqRk+y1AZn44UgcfMwcOAhVaqzSXE/JmAEmvSMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=rVCVZ4py; arc=none smtp.client-ip=185.70.43.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791829549; c=relaxed/simple;
+	bh=VV9B0quQC0vnYg8lPUKY8P7CfU5mhpyJAmZtKD8vso8=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=Gc+UF+4yKl3270QGlZWpMBBZBHcKRkW95zKF6jQdqaYlEUiJh1hE+Fl9hd6Br3N8f5rHRAjWLBtcgSN2WE+wpl6rQne5/5Okez3wdjIucyAPN93bhqi3550GKy4QeXxWLNkFsN5t0viVimjjs4ZAmCBT4sVTaB0x+HFqnoGhwUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZOg8Tdw4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="rVCVZ4py"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791829478; x=1792088678;
-	bh=ILjixpa1Z6s/+qhrU+GyCpiEGP3d0AUWEEgb/Jq7zFk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=rVCVZ4pyWfqM1LJ6AKoZuDZojXsV+VOJe8u5DMAqJZptoj4kzZJvZTPVre2eli6ll
-	 0s5MtTkx5HHE66dNuma7ZlJoZEizszIKSzOPXXDvtVOkW0mCnBww3bOF7g7fDFzCQ4
-	 yhKGrwR64uRdn3JZNGx07CGzU3SJawN0X9vTQu6Y+78ZDDYA+7tz14zSn+TokM5b29
-	 llEXglzceQzPb9GGM4Z9yL7E273BBmAR8I/enfzDQvCs5gjYQ8/kDeFT5fULKNnQmy
-	 YRnRQj3mun1xKW1iohyCFEsoHijTiKQ4y7mppzamfPUPOceHRnbBSwprum7Y+zD/gH
-	 Pdzp3Mp2DTz4Q==
-Date: Mon, 12 Oct 2026 18:24:32 +0000
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-From: Lorenzo Delgado <lnsdev@proton.me>
-Cc: Lorenzo Delgado <lnsdev@proton.me>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, Thorsten Blum <blum@kernel.org>, Francis Laniel <laniel_francis@npnm.eu>
-Subject: Re: [PATCH 2/2] rust: uaccess: use NonEmpty in strcpy_into_buf()
-Message-ID: <20261012182426.4013900-1-lnsdev@proton.me>
-In-Reply-To: <CANiq72niDTiewxWGC=PTCoG1xeb6hVmeKT+5N8DDHV2bQdQ0Ug@mail.gmail.com>
-References: <20261012-nonempty-slice-v1-0-37d1fecff82c@proton.me> <20261012-nonempty-slice-v1-2-37d1fecff82c@proton.me> <CANiq72niDTiewxWGC=PTCoG1xeb6hVmeKT+5N8DDHV2bQdQ0Ug@mail.gmail.com>
-Feedback-ID: 53083996:user:proton
-X-Pm-Message-ID: 240db68821d1338579c9a7134214b422732702c3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZOg8Tdw4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D356D1F008A2;
+	Mon, 12 Oct 2026 18:25:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791829548;
+	bh=cN/1Ibo/BGJkFECWHysuohSCByy3I3nR0KXPKPwCc/g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ZOg8Tdw4eIwnWFHh0o9GaPAoP2u6DXTGU8rH4dN8I5U32VpgKw1A1Z6A/UIGroSlL
+	 pvkQO4q/JNf8sTiv0N0kT9xKHCnpFjQceDIvjXWYquuifBoOfOxCLGVJecIlOZMbOY
+	 NCk+jVrflm6HKBl0g3fBMCTVOM/TPrTWssMk8Kna4DveqaWu3kcI+3Gv4OEDQB6Xuo
+	 WD6v4tlKtVcvyl77kKRXTNVUFZ1PR3Ze3X87BJ9BqEbupU6PD2LDpTckA+YEdabX07
+	 xddYEvhKSvOnjv1FIrTJ8i1oNx/VyCZmO7HMIFHs8dHTnR4VB6ynSytTfDuQ4tio9l
+	 3wzVtmcx3Sing==
+Date: Mon, 12 Oct 2026 08:25:47 -1000
+Message-ID: <4a5abe9a312053d13afde2704d0b7061@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>, linux-kernel@vger.kernel.org, syzbot+8922e6b8343f70be92e8@syzkaller.appspotmail.com, Breno Leitao <leitao@debian.org>
+Subject: Re: [PATCH] workqueue: annotate the lockless nr_running read in need_more_worker()
+In-Reply-To: <20261012143605.281358-1-ngocthang2710.1999@gmail.com>
+References: <20261012143605.281358-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 2:22 PM Miguel Ojeda <miguel.ojeda.sandonis@gmail.c=
-om> wrote:
->
-> Hmm... I thought the idea was to request a `NonEmpty` in the signature.
->
-> Is it not possible for some reason?
+Hello,
 
-It's possible. I kept the signature as is to limit the change to the
-inside of the function, but you're right: the point of the newtype is
-to put the requirement in the signature. In v2 it will take
-`&mut NonEmpty<[u8]>` and the `EINVAL` case goes away.
+On Mon, Oct 12, 2026 at 09:36:05PM +0700, Nguyen Ngoc Thang wrote:
+> Subject: [PATCH] workqueue: annotate the lockless nr_running read in need_more_worker()
 
-Since callers will usually pass a fixed-size array, v2 also adds a
-constructor from `&mut [T; N]` that checks `N > 0` at compile time, so
-they don't need a runtime check either.
+The read is under pool->lock. The lockless side is the increment in
+wq_worker_running(). Can you fix the subject?
 
-Thanks,
-Lorenzo
+> The race is benign: nr_running only goes 0 -> 1 here, and a stale 0
+> merely causes a spurious wakeup of an idle worker. Annotate the read
+> with data_race().
 
+The increment can also go 1 -> 2: a worker sleeping in a work item wakes
+up after kick_pool() woke another worker which is now running. The reason
+it's benign is that the only lockless write is an increment. Decrements
+and the reset are under pool->lock, so a reader holding the lock sees
+either the old or the new count. 0 costs at most a spurious wakeup.
+Nonzero is correct because the incrementing worker is running and
+re-checks the worklist under pool->lock before it stops counting. Can you
+update the description accordingly?
+
+> +	/*
+> +	 * wq_worker_running() bumps nr_running without pool->lock. A stale
+> +	 * read at worst causes a spurious wakeup, so the race is benign.
+> +	 */
+
+This duplicates the comment on nr_running in struct worker_pool. A pointer
+to that would do.
+
+Thanks.
+
+-- 
+tejun
