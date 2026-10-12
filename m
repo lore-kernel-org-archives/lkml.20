@@ -1,100 +1,156 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DA3F4A5EA5;
-	Mon, 12 Oct 2026 15:55:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791820557; cv=none; b=fDNRXC6PxE0nPJM2K8zNqu0zw5gQkMEs8IzEtly9AThM4xyZ+bTVoNs5meXBelyqvcOM5jggeiUQX5bs9XYfriiTxZdO7vybiqT2Z1pftwFr9QmwN2DytsjArEAVZM2eb12cwZFHzaVXkZlAXYroM9SCovE2LMu+zVHtrqtHmKA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791820557; c=relaxed/simple;
-	bh=4FmKRksIO7Bny3rPzmqieKmk9ZT0xdfNxBEHw2BnAxc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=dOBwjacIGfLtqcL6/UDUAQSzVlVb2m4wUW+sFC4V7OwLpNuyTLjzDFSW4oi4J2Uj44SoCY2vzwj1odRn4WtPZhwd0evI2v967e8SJyueSxoPKmJOscnLACACxnM2Cu/w2B3LzVFUgCGVDCw+gjt+P0Y/G9zTvoF5/0PuzmAZZT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UrRsszOk; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5354A8A39
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:56:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791820562; cv=pass; b=s5KYAl8qdvuGjSG12DsedS7jSqssdRmu+vy1CYn+t4idqLHFplm+vhQ/G04U4mGfRpSZ43RWm6bhiJuVGNJdgKcgzENU+SrCBmlFeaPVT2VzZqEp6m+iDLvyptTJuUXI+LVzYX5nUuM/2zBFr7CYKSkrE5J0wQNNlxWpS0vqtOI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791820562; c=relaxed/simple;
+	bh=papDQ2BK9Hgi09DMMx3zK/DXGTb14uUZYc2cvSTwJIU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QdkPLYHSek9DXLB+/2NIYXhwYFT9ViOW56Vhz58RFzdCOZtTgj0ZGVR0YZtCB4MZntomxgSM8cHZBoVnh9PAup5ubnzMbb7Pbz6IpNPFZxgNPHh02Ou6WukbOL9Ltug2lSgQyEKA/ape1H4+cbwJC2tDmRZnDwX1fSDPLepeSq8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=Mrw+GB2U; arc=pass smtp.client-ip=165.173.182.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UrRsszOk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791820556; x=1823356556;
-  h=from:to:cc:in-reply-to:references:subject:message-id:
-   date:mime-version:content-transfer-encoding;
-  bh=4FmKRksIO7Bny3rPzmqieKmk9ZT0xdfNxBEHw2BnAxc=;
-  b=UrRsszOk9rNtXndkm/zxajuRXkRRbUtyF4OQwexjfp8HajpjaIgmPf1Q
-   PEAcFaAoUy1lo01KZynIbhSU94N1CsNagQXlruNZgEdlRFhev3axejrNc
-   eBhTucQ8uEeARM6ABoaRXwyViImm37iE88OwHZzcozIWxUJQP4hLNzbU6
-   kZ2xeTq82kXA4tWoaI9OXfTH9dJcCYaET2PO0c+mZMQ/P9s4GM5xXwjuL
-   y0HVbxF++8FMYQNvdmTwLIpHpSRRQXMffI3CG6nXjxRqELYCaBhEVqSrX
-   ElnkJ7NWRqIvZcsLyxOf16Ux9Dk1kQa7XuBfuKJP5RaBCfglafMb5Qoyr
-   g==;
-X-CSE-ConnectionGUID: A+m60B2MQi2Zhje0yGNNzg==
-X-CSE-MsgGUID: UDGRwmlxTVe3rI7AB0/utw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="417117"
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="417117"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 08:55:56 -0700
-X-CSE-ConnectionGUID: 6nyPggpLSYymnaC9VpvNTQ==
-X-CSE-MsgGUID: TK4xHRppRUeHGNLCQgARow==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="908837"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.202])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 08:55:52 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>, 
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Maya Matuszczyk <maccraft123mc@gmail.com>, 
- linux-arm-msm@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261001-qcom-hamoa-ec-suspend-irq-v2-1-ec71a7cdec79@oss.qualcomm.com>
-References: <20261001-qcom-hamoa-ec-suspend-irq-v2-1-ec71a7cdec79@oss.qualcomm.com>
-Subject: Re: [PATCH v2] platform: arm64: qcom-hamoa-ec: Disable the SCI IRQ
- during suspend
-Message-Id: <179182054705.17897.3149043112275162830.b4-ty@b4>
-Date: Mon, 12 Oct 2026 18:55:47 +0300
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="Mrw+GB2U"
+ARC-Seal: i=1; a=rsa-sha256; t=1791820540; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=e0m4+dphawrCJYI1PzvnAu3soR1RDDHOm+spJ1Gb3fFA/SZI4mExPjEQiQB0BJH3UjLe4iLHh75NjYayK5PkRpRCoOGXmEK0GJy5AC4TP3BtHucQrEa1qsJpVKrejYAXOGUnmj5U4ssLwjo6tL7tkw7go1a10OHr45KYAPpSu3Y=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791820540; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=jm4TT1SDEo47VcBxb5lbPFVvIhs7zf4LP41tfx+zFRg=; 
+	b=EKwdnLfqqxFrexpLuftxmRBJxWECPoM2NfvyFkOkq2vjB4tn/drqLFuir1r7FfOckZKt0296pD/eCK3M2XgDdXTJvien9FKMFwqwmERGMl1Zdt7oNmrt6+iC+Di7lPfMDjmoo1PYXdo3KYw77FVScF1TqjTznyFxzboLeelBzx0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791820540;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=jm4TT1SDEo47VcBxb5lbPFVvIhs7zf4LP41tfx+zFRg=;
+	b=Mrw+GB2Uck3M6+56WAUV7aa17/WvYPw0JrSsyl0sgll8QClwRutdMCXEW0HOj0Jc
+	sxVewap4LoAovmyc4Ao+8AHQte6Ggj/ZZg47hbxqG6KleVarRU25acgKKH6E3lSqB20
+	XuCW3i0UAqFaBLiuU68jE5Mmg4mdTmtnq5HXTuzk=
+Received: by smtp.zohomail.com with SMTPS id 179182053891231.867492227349658;
+	Mon, 12 Oct 2026 08:55:38 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 9E8DC181C18; Mon, 12 Oct 2026 17:55:22 +0200 (CEST)
+Date: Mon, 12 Oct 2026 17:55:22 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Andy Yan <andyshrk@163.com>
+Cc: linux-kernel@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>, 
+	Cristian Ciocaltea <cristian.ciocaltea@gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: update my email address
+Message-ID: <as0B960-TP8i3IYM@venus>
+References: <20261010134705.2131-1-andyshrk@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="p6rznh6fkmmlu3s7"
+Content-Disposition: inline
+In-Reply-To: <20261010134705.2131-1-andyshrk@163.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/291.809.33
+X-ZohoMailClient: External
 
-On Thu, 01 Oct 2026 10:46:36 +0300, Abel Vesa wrote:
 
-> EC SCI events require I2C transfers to retrieve the event information.
-> During system resume, an SCI interrupt can be delivered before the I2C
-> controller is ready to handle transfers, resulting in failed event reads:
-> 
->   geni_i2c a84000.i2c: error turning SE resources:-13
->   qcom-hamoa-ec 3-0076: Failed to read EC SCI Event: -13
-> 
-> [...]
+--p6rznh6fkmmlu3s7
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] MAINTAINERS: update my email address
+MIME-Version: 1.0
 
-Thank you for your contribution, it has been applied to my local
-review-ilpo-next branch. Note it will show up in the public
-platform-drivers-x86/review-ilpo-next branch only once I've pushed my
-local branch there, which might take a while.
+Hi,
 
-FYI [if applicable to your patch], as per Linus' policy change, also
-fixes are mostly routed through for-next unless the fix is for a
-commit introduced in the most recent cycle or is clearly a regression
-fix.
+sending this to LKML without any extra receivers is almost the same
+as sending it to /dev/null . I believe this should go through the
+drm-misc tree ; so +cc Heiko, Cristian
 
-The list of commits applied:
-[1/1] platform: arm64: qcom-hamoa-ec: Disable the SCI IRQ during suspend
-      commit: 16624ca212e67afd0bffe983d5e9600e87e321bc
+On Sat, Oct 10, 2026 at 09:46:48PM +0800, Andy Yan wrote:
+> Switch my contact address to andyshrk@163.com
+>=20
+> Signed-off-by: Andy Yan <andyshrk@163.com>
+> ---
 
---
- i.
+FWIW:
 
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+Greetings,
+
+-- Sebastian
+
+>=20
+>  MAINTAINERS | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index f53047aa8d3c..17410260baa0 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8575,7 +8575,7 @@ F:	Documentation/devicetree/bindings/display/panel/=
+synaptics,r63353.yaml
+>  F:	drivers/gpu/drm/panel/panel-synaptics-r63353.c
+> =20
+>  DRM DRIVER FOR SYNOPSYS DESIGNWARE DISPLAYPORT BRIDGE
+> -M:	Andy Yan <andy.yan@rock-chips.com>
+> +M:	Andy Yan <andyshrk@163.com>
+>  S:	Maintained
+>  T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>  F:	Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+> @@ -8928,7 +8928,7 @@ F:	include/linux/platform_data/shmob_drm.h
+>  DRM DRIVERS FOR ROCKCHIP
+>  M:	Sandy Huang <hjc@rock-chips.com>
+>  M:	Heiko St=FCbner <heiko@sntech.de>
+> -M:	Andy Yan <andy.yan@rock-chips.com>
+> +M:	Andy Yan <andyshrk@163.com>
+>  L:	dri-devel@lists.freedesktop.org
+>  L:	linux-rockchip@lists.infradead.org
+>  S:	Maintained
+> @@ -12883,7 +12883,7 @@ S:	Maintained
+>  F:	drivers/power/supply/ip5xxx_power.c
+> =20
+>  INNOSILICON HDMI BRIDGE DRIVER
+> -M:	Andy Yan <andy.yan@rock-chips.com>
+> +M:	Andy Yan <andyshrk@163.com>
+>  L:	dri-devel@lists.freedesktop.org
+>  S:	Maintained
+>  T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+> ---
+> base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+> branch: master
+>=20
+> --=20
+> 2.43.0
+>=20
+>=20
+
+--p6rznh6fkmmlu3s7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrNAuYACgkQ2O7X88g7
++ppp0A/+LJw+KoDf4/fyKhcO5ZFjEcr/nRYn2qZU+FYAl2BjMusqp2ICAzYhmxf8
+YzW3oypMWCNGyKryTPF1mv41untbEVUTqNBFvTg7/Vf3LzQYLDTrz32ulyICUN8S
+XM2OQbw0r0a6+CmjGIjzrb1CBDmPhs7A56V829r35dGdAln4+auRnrojOcgzN428
+vpbao+7V6fYNWsj8MBScWnibX6Z7aGVe4si8KZ5I/x3CFDEjL7LNCMkuxHHYGUIt
+2OJ+icDa9n4f29QrJ8EgHLK13FtlRbfhpun9MqsHwsZY4pd1MJ5jO4J8/JpSm1KT
+i6AANe/sdRkMX3ZaaP0Y0qlo0qnGgD+Zp0ltZZB2Pz0RQOFaXueJ6bvN5jluwLX7
+PSzd2a3Y1vKn+axm9isz/6MiKfJx8HItJqit11rssvpyIhBm8uNTE6jhnjooKZet
+qRO9GViBvfUabiGVYydBPXN0msn+Cif3rJ0pP4qGOLL6O3qlSMbCjgv/gwvlsJou
+qg8SlFprXWycUrGk6WWDAayINJHJVvM3UFenm/9dikowKVPKMJrBsz1NOfGVaebd
+wuDQfbC9j9Bw1K1jvGmP/9kOOsn9S+xm/YobuvX+QRqvGcXZ3gcxvLmS4cKlwctY
+ij75UU8h+969/Ckj2x/+BaD1wZN4Fg7wPkbgLllARctAqxGNJwY=
+=+hHF
+-----END PGP SIGNATURE-----
+
+--p6rznh6fkmmlu3s7--
