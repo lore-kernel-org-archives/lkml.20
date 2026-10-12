@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B041F475329;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB50C4BE45A;
 	Mon, 12 Oct 2026 17:31:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791826277; cv=none; b=A1burkzaDA+2QyCSGvrHq7R75QlUXCimWNzUMbFJuZBsTKET6ogXASIjhp2ycUmGjawYrdk3AdduhAZCJKpBlUsinglAHX1Cfy08bGmVCo6t3hRyCBVltrlHbJWaEPxNaMmi0DD3k9wt+JEEXWb21vdgeLruydcT8HQk0UbEJlM=
+	t=1791826277; cv=none; b=CeZR5yOJxIhwNQ8KLpatmT+b/7eEboGKCqGU/QtkKW55bRc5u4yYcn44qtZXqtXZnVb4e2gJMePDS1zJuxD2TmSuqFYXv0BhkPFYeYcxjWOQ0Pw3HHgv/hhaIxSFywj7ul0mU/3kcLt2VHA6vJ3O1pT66E+2IroxUwjwCt0RqQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791826277; c=relaxed/simple;
-	bh=N8m7KBF7NQ6WTdonuJlgr8ReC1ccHJp/7yH4LqgQIjs=;
+	bh=yjwMnulK+7PsCmoshENmTrwlTw63e0jVyYn0HMLlb5E=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cUS6OVcpOjis5wKOJAOmzsKTeaKqdcmYzFG7Ab9ZI+TORt/WKPRZwJGf0cnqqVfLP7Gw5YZbICEIuZ+rQyUCaV0ogLDGrBv3P7OIjwgtnn5gfsmwlRplGyUUlPCWLqvPf1HnAl5ThTGCdQCgo1LfGXijTzwIeYOAqq5Dclaur+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hHfXm3v2; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Or1276nlnUvnepJYfczf1KchHFwGWMU8Txr5+KNkG1D+ozSbKAdxT53lBUtnXq0TM4xY5gDw3kYpCIU6X/Q5OKFYOTWMtPH/GlVUiK2GB+V2znC8EmJjTSegLU4i90szYANWtEr2KViruSOteAMNIcV3Ba5QJ+xdaQ5QpMmd9fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OFEqFVc9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hHfXm3v2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6873EC2BCFB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OFEqFVc9"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 89C5DC4AF63;
 	Mon, 12 Oct 2026 17:31:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791826277;
-	bh=N8m7KBF7NQ6WTdonuJlgr8ReC1ccHJp/7yH4LqgQIjs=;
+	bh=yjwMnulK+7PsCmoshENmTrwlTw63e0jVyYn0HMLlb5E=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=hHfXm3v2rcv7rcOW0Fllomt6djHS5XVPrpuev+TnS2CePE+z547YdCo3WnDSfXR14
-	 aiDboY0KEsROL2tpNvJvpA78jWYTOTutoV8AplB6DsYEAD1B3xeOVld/T34ebBb70N
-	 iaXB8HgSMGz1On2fNKanqtq47F5pgo/5dpksuj1sxw8Kxbg2c77QATjhE+X7tXc/l1
-	 LZH6DS2bSJlfXFrIHT9hxoNmL6d8YpuWPpdiqRS0KfGeu8iZFw7itgXbo8490DsZ1Y
-	 5Vy78nCeb5Ea4NMmewT6NRErMvLEN/e1cSdKfWfgctOXG3yzQE4QnuUtrRble9Xka0
-	 Uza7G13rbuicQ==
+	b=OFEqFVc9sjAtTN0LUFFzk8JSK8xXSqSMeL7fUl6w0dsFyOQtlgKS5ExdFq3SWJXaL
+	 gYrkRrRs/+LA9qPKNb6P+a2MFlRC/K6+krDuHoQUPV1ISPMc228mxFTA5mq+VQtEhT
+	 au3ic/1AcCIyV8RBpReyoTUKcbK/K3dFy6nvVxSxVOcimvOsit//mA/90/ZoJuUnbF
+	 3nTmejQy7UvWbiEhrQoC3Fb60EKQdLSu3sdq0GeG1OAsmRLmspgce0jg/coy3Hk7aX
+	 BUwyY4KQkZ8v8CkN7hKsQ8tdsMzcMSnkJm82h8yEUnS9FH3wO8eivZlqX0NArsVkRl
+	 /zaWzanlY0cyw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47140CA9EDD;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BB27CA9EC5;
 	Mon, 12 Oct 2026 17:31:17 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Mon, 12 Oct 2026 20:31:16 +0300
-Subject: [PATCH v4 02/10] dt-bindings: arm: Add Cortina Systems CS7542 and
- Securifi Almond+
+Date: Mon, 12 Oct 2026 20:31:18 +0300
+Subject: [PATCH v4 04/10] ARM: goldengate: Add support for the CS75xx SoC
+ family
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-b4-cs75xx-v4-2-df250d903682@gmail.com>
+Message-Id: <20261012-b4-cs75xx-v4-4-df250d903682@gmail.com>
 References: <20261012-b4-cs75xx-v4-0-df250d903682@gmail.com>
 In-Reply-To: <20261012-b4-cs75xx-v4-0-df250d903682@gmail.com>
 To: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>, 
@@ -56,14 +56,13 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
  Jason Li <jason.li@cortina-access.com>, 
- Fil Dunsky <filipp.dunsky@gmail.com>, 
- Conor Dooley <conor.dooley@microchip.com>
+ Fil Dunsky <filipp.dunsky@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791826275; l=1646;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791826275; l=6074;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=iqp1aP4N83y9unmltEz85GKl1p1MyHyOFw1KaFYcgAM=;
- b=YfFBW+mEJboETAXwIGE37o9HWcNnG5b7p04v4ilO4lJP5VFXrxGkpfUUQHDMKxF1pcV0MlxNm
- 08VrR6NEm3wD7K3PFxUyRK/n5UR1B+k7Umx3yTa0FxONMOA8R8+my5d
+ bh=zfbrHgwVvfHwIIgMRTlC0mOyEgdqYMp7BSBl1VNydmo=;
+ b=g9qaYpKZq9DE46Vkfbl7C9ddFE4XrwNLxr29rvib8ZWkR8bp26To7fqGL9fcq/m03zShTedcm
+ LC9a9Ro/A4sAkkMRGZBvLa0/vwbW6sIhsuHWwDvTq0qCJPtGOKWqVYv
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -73,54 +72,178 @@ Reply-To: filipp.dunsky@gmail.com
 
 From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Add the top-level binding for boards built around the Cortina Systems
-CS7542 ("Goldengate G2") network processor, a dual Cortex-A9 SoC, and
-the first such board, the Securifi Almond+ touchscreen router.
+The Cortina Systems CS75xx ("Goldengate G2") are network processors
+with two Cortex-A9 cores, an SCU, GIC, the Cortex-A9 global and private
+timers and a PL310 L2 cache controller. The family includes at least
+the CS7522 and the CS7542; the CS7542 is used, among others, in the
+Securifi Almond+ router.
+
+Apart from the vendor this has little in common with the Cortina
+Systems Gemini (SL3516/CS3516) supported by mach-gemini: Gemini is a
+single ARMv4 FA526 with Faraday peripherals (FTINTC010, FTTMR010,
+FTGPIO010, a 16550 UART) built for ARCH_MULTI_V4, while the CS75xx is
+an ARMv7 MPCore whose UART, GPIO, interrupt controller and NAND
+controller are different blocks. It therefore gets its own directory,
+named after the Goldengate codename like in the vendor kernel. The
+Kconfig symbol, ARCH_CORTINA_ACCESS, covers the whole family and is
+named after Cortina Access, which last sold these chips and also makes
+the newer 64-bit parts.
+
+The generic DT machine is sufficient for the platform, so only the SMP
+bring-up needs code: the bootloader parks the secondary core in a WFI
+loop that polls a global software register, so boot it by writing the
+physical address of secondary_startup to the register named by the
+cpu-release-addr property and sending it a wakeup IPI.
+
+The CPU is a Cortex-A9 r2p1, so select the errata workarounds that apply
+to that revision and can be enabled on a multiplatform kernel. The PL310
+is r3p2 and needs none of the PL310 workarounds.
 
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- Documentation/devicetree/bindings/arm/cortina.yaml | 31 ++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ arch/arm/Kconfig                   |  2 ++
+ arch/arm/Makefile                  |  1 +
+ arch/arm/mach-goldengate/Kconfig   | 18 ++++++++++
+ arch/arm/mach-goldengate/Makefile  |  2 ++
+ arch/arm/mach-goldengate/platsmp.c | 72 ++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 95 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/cortina.yaml b/Documentation/devicetree/bindings/arm/cortina.yaml
+diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+index 0cc289a71..87ff65256 100644
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -391,6 +391,8 @@ source "arch/arm/mach-footbridge/Kconfig"
+ 
+ source "arch/arm/mach-gemini/Kconfig"
+ 
++source "arch/arm/mach-goldengate/Kconfig"
++
+ source "arch/arm/mach-highbank/Kconfig"
+ 
+ source "arch/arm/mach-hisi/Kconfig"
+diff --git a/arch/arm/Makefile b/arch/arm/Makefile
+index 573813ef5..21d7a443c 100644
+--- a/arch/arm/Makefile
++++ b/arch/arm/Makefile
+@@ -187,6 +187,7 @@ machine-$(CONFIG_ARCH_DOVE)		+= dove
+ machine-$(CONFIG_ARCH_EXYNOS)		+= exynos
+ machine-$(CONFIG_ARCH_FOOTBRIDGE)	+= footbridge
+ machine-$(CONFIG_ARCH_GEMINI)		+= gemini
++machine-$(CONFIG_ARCH_CORTINA_ACCESS)	+= goldengate
+ machine-$(CONFIG_ARCH_HIGHBANK)		+= highbank
+ machine-$(CONFIG_ARCH_HISI)		+= hisi
+ machine-$(CONFIG_ARCH_IXP4XX)		+= ixp4xx
+diff --git a/arch/arm/mach-goldengate/Kconfig b/arch/arm/mach-goldengate/Kconfig
 new file mode 100644
-index 000000000..1c04b1781
+index 000000000..d2963df0a
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/arm/cortina.yaml
-@@ -0,0 +1,31 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/arm/cortina.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/arch/arm/mach-goldengate/Kconfig
+@@ -0,0 +1,18 @@
++# SPDX-License-Identifier: GPL-2.0-only
++config ARCH_CORTINA_ACCESS
++	bool "Cortina Systems CS75xx (Goldengate G2)"
++	depends on ARCH_MULTI_V7
++	select ARM_ERRATA_754322
++	select ARM_ERRATA_764369 if SMP
++	select ARM_GIC
++	select ARM_GLOBAL_TIMER
++	select CACHE_L2X0
++	select CLKSRC_ARM_GLOBAL_TIMER_SCHED_CLOCK
++	select HAVE_ARM_SCU if SMP
++	select HAVE_ARM_TWD if SMP
++	help
++	  Support for the Cortina Systems CS75xx (Goldengate G2) family of
++	  network processors, such as the CS7542 used in the Securifi
++	  Almond+ router. These SoCs have two Cortex-A9 cores with a PL310
++	  L2 cache controller, a packet processing engine, PCIe, NAND and
++	  the usual low speed peripherals.
+diff --git a/arch/arm/mach-goldengate/Makefile b/arch/arm/mach-goldengate/Makefile
+new file mode 100644
+index 000000000..b839201c9
+--- /dev/null
++++ b/arch/arm/mach-goldengate/Makefile
+@@ -0,0 +1,2 @@
++# SPDX-License-Identifier: GPL-2.0-only
++obj-$(CONFIG_SMP)	+= platsmp.o
+diff --git a/arch/arm/mach-goldengate/platsmp.c b/arch/arm/mach-goldengate/platsmp.c
+new file mode 100644
+index 000000000..d9285297b
+--- /dev/null
++++ b/arch/arm/mach-goldengate/platsmp.c
+@@ -0,0 +1,72 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * SMP support for the Cortina Systems CS75xx SoCs
++ *
++ * The bootloader parks the secondary core in a WFI loop that polls a
++ * global software register and jumps to the address found there once it
++ * becomes non-zero. The register is described by the cpu-release-addr
++ * property of the secondary CPU node.
++ */
 +
-+title: Cortina Systems CS75xx platforms
++#include <linux/io.h>
++#include <linux/of.h>
++#include <linux/of_address.h>
++#include <linux/smp.h>
++#include <asm/smp_plat.h>
++#include <asm/smp_scu.h>
 +
-+maintainers:
-+  - Fil Dunsky <filipp.dunsky@gmail.com>
++static int cs75xx_boot_secondary(unsigned int cpu, struct task_struct *idle)
++{
++	struct device_node *np;
++	void __iomem *release;
++	u64 addr;
++	int ret;
 +
-+description:
-+  The CS75xx ("Goldengate G2") family are network processors from Cortina
-+  Systems. The CS7542 has two Cortex-A9 cores with an SCU, GIC, private
-+  timers and a PL310 L2 cache controller, a packet processing engine, three
-+  PCIe root ports, a NAND flash controller and low speed peripherals.
++	np = of_get_cpu_node(cpu, NULL);
++	if (!np)
++		return -ENODEV;
 +
-+properties:
-+  $nodename:
-+    const: '/'
-+  compatible:
-+    oneOf:
-+      - description: CS7542 based boards
-+        items:
-+          - enum:
-+              - securifi,almondplus
-+          - const: cortina,cs7542
++	ret = of_property_read_u64(np, "cpu-release-addr", &addr);
++	of_node_put(np);
++	if (ret) {
++		pr_err("CPU%u: missing cpu-release-addr\n", cpu);
++		return ret;
++	}
 +
-+additionalProperties: true
++	release = ioremap(addr, sizeof(u32));
++	if (!release)
++		return -ENOMEM;
 +
-+...
++	writel(__pa_symbol(secondary_startup), release);
++	iounmap(release);
++
++	/* The secondary core waits in WFI, wake it up */
++	dsb_sev();
++	arch_send_wakeup_ipi_mask(cpumask_of(cpu));
++
++	return 0;
++}
++
++static void __init cs75xx_smp_prepare_cpus(unsigned int max_cpus)
++{
++	struct device_node *np;
++	void __iomem *scu_base;
++
++	np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
++	scu_base = of_iomap(np, 0);
++	of_node_put(np);
++	if (!scu_base) {
++		pr_err("failed to map SCU\n");
++		return;
++	}
++
++	scu_enable(scu_base);
++	iounmap(scu_base);
++}
++
++static const struct smp_operations cs75xx_smp_ops __initconst = {
++	.smp_prepare_cpus	= cs75xx_smp_prepare_cpus,
++	.smp_boot_secondary	= cs75xx_boot_secondary,
++};
++
++CPU_METHOD_OF_DECLARE(cs7542_smp, "cortina,cs7542-smp", &cs75xx_smp_ops);
 
 -- 
 2.53.0
