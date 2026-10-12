@@ -1,302 +1,367 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F10D371043;
-	Mon, 12 Oct 2026 13:34:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23192931EE
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:35:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791812099; cv=none; b=n3Xll3P0vBqey+eYMU4+KloZMW9vhe6661G28mNbleklGd/brDERlgzNgkwF6lY7PIbK8d6b2udqEIKY+9tfcO+IzVKF25nZjk0eWQrbVyvYQ+7wl9lQB9r9gZij+Q/zDgnXwEKt+hBStICUBqSyBXj+FPJ1Faxpx/6lBchyoYk=
+	t=1791812132; cv=none; b=kVllYXVI+W6X/2LAsmXNgb4Bk/hGjr2vPs/Tp4f0YrEr4EjYduTwC3heJuksfO0uHtt0eOjjunaAGh8c+QADAA794sFeacyKp5tHXncc1s/pGBP3VgEMAQqkspG/yxYVNeHBjdKUVAWUFyIZTSY6liiFeFpx9ev8qMVhx8JsW84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791812099; c=relaxed/simple;
-	bh=OhfL0GL8GJ86jahX5GdCFWMjyPBxJk0gmFh2OTmphns=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=aXweN2WKn+L8e6S0MD5dSL5XqafRdwTjdPiNE3/kaSbS07jS8VTdzKHJ3UGRjrUO1AKxnZK5KgjWMQZGzChB811V9Qi7v1X8WVSHyntmNOTiz4Rge1UbcXecb4LxwqB63yfkOAcyvMkBGo0eHXgTWgxyLou2SNs8pplZWjA5Hds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ff8bMTf+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791812132; c=relaxed/simple;
+	bh=Df7cRe39XCFBf5ghSaQ0O4E5i4ULUUkT6f4bsZEcirs=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=khY45RH6MNkEyYTHDIvAmg6cCUjkooJtZUnp+8ewlr+YcwrqwtuHnF18Xre3verdRQUJ89MB4NEuoPyDyk6nNLxCfAdfGJJyajELUO/51GKOwqwg1DnZAiKk1Od4UKp1M82Iuq0H3k3bL8fjhGxitd4CKUHS2oQrjiH0vxCMxyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T0OXtpK1; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ff8bMTf+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F8B11F0089B;
-	Mon, 12 Oct 2026 13:34:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791812097;
-	bh=w/DeowNBJKbFIs3vJCMnI0ObhW5niXOTwHtocWeV7dk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Ff8bMTf+7myqyUnSdtIx3d2O/3g8e2CsnV0ApHhxc8mJHmLFGYOtFne1SPzVtb20A
-	 H5Jfhi8h/9KcszNJNv6VIp+4oz3QP8E346tD2NZq8fChiwlgf7oF/z9nyGV10NNPiA
-	 0Tf5e9YM5xqh4tBg3V1vYzGZ3qbF7/1R8ktMci3PKEfwBSPubC7449KPomT9VCWF+2
-	 4DObNNzKzEwXQS51+RoivQyzqk8zd9g8QdvhrtboPrTav+4jytLZQAzz77ZiOPZeJw
-	 sXycZDc6F2sHuwcvq6tO9+ayJ6P1ZeQDABtWQZkr4oPPk/lsaAXmAkD1vGmUI7oMs6
-	 pz3fRo3/FsAtw==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
- <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
- kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
- Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
- Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
- Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
- Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
- <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
- <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
- <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
- netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
- "Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, Weiming Shi
- <bestswngs@gmail.com>, Nikolay Aleksandrov <razor@blackwall.org>, David
- Wei <dw@davidwei.uk>, Alexander Lobakin <aleksander.lobakin@intel.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Mina Almasry
- <almasrymina@google.com>
-Subject: Re: [RFC net-next 03/15] net: Add memory provider capabilities
-In-Reply-To: <asPPqXsmAygSdO94@devvm7509.cco0.facebook.com>
-References: <20261002190018.696925-1-bjorn@kernel.org>
- <20261002190018.696925-4-bjorn@kernel.org>
- <asPPqXsmAygSdO94@devvm7509.cco0.facebook.com>
-Date: Mon, 12 Oct 2026 15:34:54 +0200
-Message-ID: <87h5irca9t.fsf@all.your.base.are.belong.to.us>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T0OXtpK1"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so1482215a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:35:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791812130; x=1792416930; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MeQxm9U061wfkbN1bmnqTcMp3bHt7ytVuTw275ipvM0=;
+        b=T0OXtpK1/rf9N65gbPGt6SHRsUDyO9EU4SIj1lOzH1LTYNrzkW2XqDgVfW7MXluHzA
+         adHkl3dBp3rH2IcHWNDFIPxuRImaQICGM5v7Ib9VhL0Bu+rCitupvTdCFWe4mLenLU87
+         RtAhYVXI8xOAY30wh9o6EWBEjZ8be89QCVJiZXM1LH3YRhxCe5ZmGjB+7cG984CTw8D2
+         tAwdceGNNUAqf/8Tdk8Ur7SpP1FfUOiFXhJQBxkWCMaSgKWCj+JwFrDL3d2u15YkFDso
+         9hV822LTNcsU1OD+YFpisNpHw86Ow0GkhF+YgsYAdNa6x6T1j0P+jtZi27WocXhklpF7
+         1lPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791812130; x=1792416930;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MeQxm9U061wfkbN1bmnqTcMp3bHt7ytVuTw275ipvM0=;
+        b=YbHCYZwWRbU/j8cOSyMzjkab2vXW4K8WR5QhcpAEopmLYgbZZiSTloUm93Z6CkNe0Y
+         RsBA9c1xK5U968kv10HI5WEfXt0jMnaNJ4ulL2PkRz9lzQpLmSQ2hVFBt77EST2hA4ar
+         dsYf81IZvRCdL+VIxre0GsY/8RwrRCOn/JyZM8Wpd14agKcG0Ecq4AQ7LAL1gQ0K3qdo
+         qP7ytFQLh87MihAJhK+8QSvTJAawGG6SuW80DKoiuMvIFJjgk2zbfY7u18rnHocbUMsW
+         FfdRMaEaMwi1hiG0O6LIExximt61gPEwifPq6fNz0oJ5DUgEibBxYy4D1gQ7EQNgNgF0
+         B/SQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzHcRy4J2iePnB3ImMquL9eW6VdumUrIvqcJVXFdJHJYbX32dbrFtFPnt5K0cYsfHghxID30CowQwiaKsc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKErUz3yQ41jjRShq3LzT9nby3ungp6B1+IvS0WxIC92lmtprBx
+	3zjIK5rb8k9CQq42jF1eb2WhpcLoupvqXGw2/JpdTtiLg38ivcUi83Cp
+X-Gm-Gg: AYBFou2AXlUB1AegpYREb2ry2e2YHpsjhrnRpdnvTHnH9ecsbcGtEyS+4BMPrjP2z43
+	uXMurPQVvW6HTmuuxlw4C7ucE3Mk6TX9mDFXEvZQfHsyyKg2yhPsboAv75LHohc7kpIwoG30sHy
+	nIlGhdmnoW7LBev1C6R4mcDO6T3nPKksOpfaHX+yKiuVOQ7tF802zhOdwJrDoE2CdXMkSaQne/n
+	1Q6hEHNfLxNEZXSpteB2FjPde7HpmdBZNURdJSbnwf6QooVpk3vJFOWjixSeMRoB2qw5xKdKy+0
+	EacxBQ1kOAylrluHBej5fsoo0jFLG4ZLrK7zo1XzBwgB3agm+4wKLqK4zJLjQGLIVsFJ6kPLBXs
+	k/fy6Ww6C6w7YBhLjLs3QsBjEMqPB4MOK3uI/8WxXx7eWm48P/xd58nN2yEGdESGBr6fg2aL4zI
+	N2CjiE2FQmk6bEoQNO5RfWxoHFxBAUpl8HeKh+SrbyZwYMNqy5bTrMUdPlozXOI/OqY3ZjaIbMY
+	RBCCBvXYIu4aHIM
+X-Received: by 2002:a17:90b:5486:b0:39e:6a7f:1dcd with SMTP id 98e67ed59e1d1-3ab3ab1d56cmr8607323a91.41.1791812129973;
+        Mon, 12 Oct 2026 06:35:29 -0700 (PDT)
+Received: from smtpclient.apple ([202.8.105.124])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed053csm17002811a91.4.2026.10.12.06.35.21
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 12 Oct 2026 06:35:28 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.66.1.3\))
+Subject: Re: [PATCH v2] sched/cache: Remove the old cache group footprint on
+ exec
+From: Jemmy Wong <jemmywong512@gmail.com>
+In-Reply-To: <aspT_A1vl-RwKmoP@chenyu-dev>
+Date: Mon, 12 Oct 2026 21:34:58 +0800
+Cc: Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>,
+ Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>,
+ chen.yu@linux.dev,
+ linux-kernel@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <CEF1F3DC-07E5-44DA-9602-56A5B5810F09@gmail.com>
+References: <20261010111612.31345-1-jemmywong512@gmail.com>
+ <aspT_A1vl-RwKmoP@chenyu-dev>
+To: Chen Yu <yu.c.chen@intel.com>,
+ Tim Chen <tim.c.chen@linux.intel.com>
+X-Mailer: Apple Mail (2.3901.200.66.1.3)
 
-Stanislav Fomichev <sdf.kernel@gmail.com> writes:
+Hi Chenyu,
 
-> On 10/02, Bj=C3=B6rn T=C3=B6pel wrote:
->> The current memory providers, devmem and io_uring zero-copy RX, give
->> memory that the CPU cannot read. The core allows them only on queues
->> with header-data split on, a zero header-split threshold, and no XDP
->> program. AF_XDP needs a provider that the CPU can read and that
->> works with XDP.
->>=20
->> Add a capability field to the provider operations, with
->> MP_CAP_READABLE as the first flag. Apply the header-split and XDP
->> rules only to providers without it. A queue with an AF_XDP buffer
->> pool still rejects other providers, but it accepts the provider made
->> from that same pool.
->>=20
->> Provider memory can become free while a queue is restarted, and no
->> device event reports it. After a restart, and after a failed restart
->> is rolled back, schedule the queue's NAPI if the queue has a
->> provider, so the driver tries to refill.
->>=20
->> Signed-off-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
->> ---
->>  Documentation/networking/netmem.rst     |  7 ++-
->>  include/net/page_pool/memory_provider.h | 11 +++++
->>  include/net/page_pool/types.h           |  7 +--
->>  net/core/dev.c                          |  4 +-
->>  net/core/netdev_rx_queue.c              | 57 ++++++++++++++++++++-----
->>  net/ethtool/rings.c                     | 18 +++-----
->>  net/xdp/xsk_buff_pool.c                 |  3 +-
->>  7 files changed, 78 insertions(+), 29 deletions(-)
->>=20
->> diff --git a/Documentation/networking/netmem.rst b/Documentation/network=
-ing/netmem.rst
->> index 217869d1108d..aacd185843ac 100644
->> --- a/Documentation/networking/netmem.rst
->> +++ b/Documentation/networking/netmem.rst
->> @@ -48,8 +48,11 @@ Driver RX Requirements
->>     - PP_FLAG_DMA_SYNC_DEV: netmem dma addr is not necessarily dma-synca=
-ble
->>       by the driver. The driver must delegate the dma syncing to the pag=
-e_pool,
->>       which knows when dma-syncing is (or is not) appropriate.
->> -   - PP_FLAG_ALLOW_UNREADABLE_NETMEM. The driver must specify this flag=
- iff
->> -     tcp-data-split is enabled.
->> +   - PP_FLAG_ALLOW_UNREADABLE_NETMEM. This opts the page pool into the =
-memory
->> +     provider configured on its RX queue. For a provider without
->> +     MP_CAP_READABLE, the driver must specify it only for a payload pool
->> +     with tcp-data-split enabled. A readable provider may also back a
->> +     regular or header pool.
->>=20=20
->>  5. The driver must not assume the netmem is readable and/or backed by p=
-ages.
->>     The netmem returned by the page_pool may be unreadable, in which case
->> diff --git a/include/net/page_pool/memory_provider.h b/include/net/page_=
-pool/memory_provider.h
->> index 255ce4cfd975..d18ec079ffe2 100644
->> --- a/include/net/page_pool/memory_provider.h
->> +++ b/include/net/page_pool/memory_provider.h
->> @@ -9,6 +9,15 @@ struct netdev_rx_queue;
->>  struct netlink_ext_ack;
->>  struct sk_buff;
->>=20=20
->> +/**
->> + * enum mp_caps - memory provider capabilities
->> + * @MP_CAP_READABLE: The CPU can access provider buffers. They may back
->> + *	header and regular page pools, and XDP programs may run on them.
->> + */
->> +enum mp_caps {
->> +	MP_CAP_READABLE		=3D BIT(0),
->> +};
->> +
->>  struct memory_provider_ops {
->>  	netmem_ref (*alloc_netmems)(struct page_pool *pool, gfp_t gfp);
->>  	bool (*release_netmem)(struct page_pool *pool, netmem_ref netmem);
->> @@ -17,11 +26,13 @@ struct memory_provider_ops {
->>  	int (*nl_fill)(void *mp_priv, struct sk_buff *rsp,
->>  		       struct netdev_rx_queue *rxq);
->>  	void (*uninstall)(void *mp_priv, struct netdev_rx_queue *rxq);
->> +	u32 caps;
->>  };
->>=20=20
->>  bool net_mp_niov_set_dma_addr(struct net_iov *niov, dma_addr_t addr);
->>  void net_mp_niov_set_page_pool(struct page_pool *pool, struct net_iov *=
-niov);
->>  void net_mp_niov_clear_page_pool(struct net_iov *niov);
->> +bool netif_mp_lacks_cap(struct net_device *dev, u32 cap);
->>=20=20
->>  int netif_mp_open_rxq(struct net_device *dev, unsigned int rxq_idx,
->>  		      const struct pp_memory_provider_params *p,
->> diff --git a/include/net/page_pool/types.h b/include/net/page_pool/types=
-.h
->> index 03da138722f5..a96376613dda 100644
->> --- a/include/net/page_pool/types.h
->> +++ b/include/net/page_pool/types.h
->> @@ -22,9 +22,10 @@
->>  					*/
->>  #define PP_FLAG_SYSTEM_POOL	BIT(2) /* Global system page_pool */
->>=20=20
->> -/* Allow unreadable (net_iov backed) netmem in this page_pool. Drivers =
-setting
->> - * this must be able to support unreadable netmem, where netmem_address=
-() would
->> - * return NULL. This flag should not be set for header page_pools.
->> +/* Allow memory-provider (net_iov backed) netmem in this page_pool. Dri=
-vers
->> + * setting this must honor the provider's capabilities. Unless the prov=
-ider has
->> + * MP_CAP_READABLE, netmem_address() returns NULL, and the flag must no=
-t be set
->> + * for a header page_pool.
->>   *
->>   * If the driver sets PP_FLAG_ALLOW_UNREADABLE_NETMEM, it should also s=
-et
->>   * page_pool_params.slow.queue_idx.
->> diff --git a/net/core/dev.c b/net/core/dev.c
->> index 5ac08da8b9d7..12b532c09a9c 100644
->> --- a/net/core/dev.c
->> +++ b/net/core/dev.c
->> @@ -10423,7 +10423,7 @@ int netif_xdp_propagate(struct net_device *dev, =
-struct netdev_bpf *bpf)
->>  		return -EBUSY;
->>  	}
->>=20=20
->> -	if (dev_get_min_mp_channel_count(dev)) {
->> +	if (netif_mp_lacks_cap(dev, MP_CAP_READABLE)) {
->>  		NL_SET_ERR_MSG(bpf->extack, "unable to propagate XDP to device using =
-memory provider");
->>  		return -EBUSY;
->>  	}
->> @@ -10499,7 +10499,7 @@ static int dev_xdp_install(struct net_device *de=
-v, enum bpf_xdp_mode mode,
->>  		return -EBUSY;
->>  	}
->>=20=20
->> -	if (dev_get_min_mp_channel_count(dev)) {
->> +	if (netif_mp_lacks_cap(dev, MP_CAP_READABLE)) {
->>  		NL_SET_ERR_MSG(extack, "unable to install XDP to device using memory =
-provider");
->>  		return -EBUSY;
->>  	}
->> diff --git a/net/core/netdev_rx_queue.c b/net/core/netdev_rx_queue.c
->> index 00a7011eb4d5..610e31d1a717 100644
->> --- a/net/core/netdev_rx_queue.c
->> +++ b/net/core/netdev_rx_queue.c
->> @@ -82,8 +82,12 @@ __netif_get_rx_queue_lease(struct net_device **dev, u=
-nsigned int *rxq_idx,
->>  /* See also page_pool_is_unreadable() */
->>  bool netif_rxq_has_unreadable_mp(struct net_device *dev, unsigned int r=
-xq_idx)
->>  {
->> -	if (rxq_idx < dev->real_num_rx_queues)
->> -		return __netif_get_rx_queue(dev, rxq_idx)->mp_params.mp_ops;
->> +	const struct memory_provider_ops *ops;
->> +
->> +	if (rxq_idx < dev->real_num_rx_queues) {
->> +		ops =3D __netif_get_rx_queue(dev, rxq_idx)->mp_params.mp_ops;
->> +		return ops && !(ops->caps & MP_CAP_READABLE);
->> +	}
->>  	return false;
->>  }
->>  EXPORT_SYMBOL(netif_rxq_has_unreadable_mp);
->> @@ -95,6 +99,32 @@ bool netif_rxq_has_mp(struct net_device *dev, unsigne=
-d int rxq_idx)
->>  	return false;
->>  }
->>=20=20
->> +/* Return true if an installed memory provider lacks @cap. */
->> +bool netif_mp_lacks_cap(struct net_device *dev, u32 cap)
->> +{
->> +	const struct memory_provider_ops *ops;
->> +	int i;
->> +
->> +	netdev_assert_locked_ops_compat(dev);
->> +
->> +	for (i =3D dev->real_num_rx_queues - 1; i >=3D 0; i--) {
->> +		ops =3D dev->_rx[i].mp_params.mp_ops;
->> +		if (ops && (ops->caps & cap) !=3D cap)
->> +			return true;
->> +	}
->> +
->> +	return false;
->> +}
->> +
->> +/* Provider memory may become available while the queue is replaced,
->> + * without a device event to report it.
->> + */
->> +static void netdev_rx_queue_kick(struct netdev_rx_queue *rxq)
->> +{
->> +	if (rxq->mp_params.mp_ops && rxq->napi)
->> +		napi_schedule(rxq->napi);
->> +}
->> +
->>  static int netdev_rx_queue_reconfig(struct net_device *dev,
->>  				    unsigned int rxq_idx,
->>  				    struct netdev_queue_config *qcfg_old,
->
-> [..]
->
->> @@ -142,6 +172,8 @@ static int netdev_rx_queue_reconfig(struct net_devic=
-e *dev,
->>  	}
->>=20=20
->>  	qops->ndo_queue_mem_free(dev, old_mem);
->> +	if (netif_running(dev))
->> +		netdev_rx_queue_kick(rxq);
->>=20=20
->>  	kvfree(old_mem);
->>  	kvfree(new_mem);
->> @@ -165,6 +197,11 @@ static int netdev_rx_queue_reconfig(struct net_devi=
-ce *dev,
->>=20=20
->>  err_free_new_queue_mem:
->>  	qops->ndo_queue_mem_free(dev, new_mem);
->> +	/* Freeing the replacement can hand provider memory back to the old
->> +	 * queue, which still runs unless the rollback failed.
->> +	 */
->> +	if (err !=3D -ENETDOWN && netif_running(dev))
->> +		netdev_rx_queue_kick(rxq);
->>=20=20
->>  err_free_old_mem:
->>  	kvfree(old_mem);
->
-> These are separate fixes?
+Thanks for the review and for spotting the race.
 
-Thanks for taking a look!
+> On Oct 10, 2026, at 11:04=E2=80=AFPM, Chen Yu <yu.c.chen@intel.com> =
+wrote:
+>=20
+> On Sat, Oct 10, 2026 at 07:16:12PM +0800, Jemmy Wong wrote:
+>=20
+> [ ... ]
+>=20
+>> void sched_cache_exec_mmap(struct task_struct *p, struct mm_struct =
+*mm)
+>> {
+>> struct sched_cache_group *old;
+>> @@ -1778,8 +1797,13 @@ void sched_cache_exec_mmap(struct task_struct =
+*p, struct mm_struct *mm)
+>> /*
+>> * Acquire the new reference before publishing the pointer, then drop
+>> * the old one. @p is current and the only writer of its own pointer.
+>> + *
+>> + * Footprint subtraction must stay ahead of task_numa_free() in
+>> + * bprm_execve(), which clears p->total_numa_faults. Nothing here
+>> + * enforces that order.
+>> */
+>> old =3D sched_cache_replace_grp(p, =
+sched_cache_group_get(mm->sched_cache_grp));
+>> + sched_cache_footprint_sub(old, p);
+>=20
+>=20
+> Yes, it fixes the stale footprint issue for a vfork(). While looking =
+at this fix I
+> realize that maybe even with this patch applied, we might still can =
+not fix the losing
+> footprint, due to an existing race condition:
+>=20
+>  CPU0: execve()                    CPU1: CLONE_VM task
+>  ------------------------------    -------------------------------
+>                                    task_numa_placement()
+>                                      read footprint
+>  sched_cache_exec_mmap()
+>    read footprint
+>    write footprint - own faults    <-- the fix
+>                                      write footprint + own diff
+>                                      <-- overwrites the subtraction
+>=20
+> So the footprint might still be lost because CPU1 overwrites it, and
+> there seems to be no lock protected against the race(I did not find =
+one).
 
-The old pool can hold buffers the new pool needs. We need another refill
-after those buffers return. I'll split that from the capabilities patch.
+Right, and there is no lock. grp->footprint is only ever written by =
+plain
+READ_ONCE()/WRITE_ONCE() in task_numa_placement(), exit and (with v2) =
+exec.
+
+> An enhanced way is to turn the raw footprint write into cmpxchg.
+> It reduces the race, and since numa balancing scan interval=20
+> numa_scan_period is not small, the overhead of using
+> atomic write is low, I'm thinking of something below(only compile =
+tested):
+
+This looks right to me, including applying the placement diff once.
+I've taken it into my local tree with a few tweaks, explained
+inline below. Feel free to push back on any of them.
+
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 57360f5cdde4..4123f0535cd9 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -1771,6 +1771,11 @@ void sched_cache_fork_cleanup(struct =
+task_struct *p)
+> RCU_INIT_POINTER(p->sched_cache_grp, NULL);
+> }
+>=20
+> +#ifdef CONFIG_NUMA_BALANCING
+> +static void sched_cache_footprint_update(struct sched_cache_group =
+*grp,
+> + unsigned long delta, bool add);
+> +#endif
+> +
+> void sched_cache_exec_mmap(struct task_struct *p, struct mm_struct =
+*mm)
+> {
+> struct sched_cache_group *old;
+> @@ -1780,9 +1785,28 @@ void sched_cache_exec_mmap(struct task_struct =
+*p, struct mm_struct *mm)
+> * the old one. @p is current and the only writer of its own pointer.
+> */
+> old =3D sched_cache_replace_grp(p, =
+sched_cache_group_get(mm->sched_cache_grp));
+> +#ifdef CONFIG_NUMA_BALANCING
+> + if (old && p->total_numa_faults)
+> + sched_cache_footprint_update(old, p->total_numa_faults, false);
+> +#endif
+> sched_cache_group_put(old);
+> }
+
+I folded it in without the forward declaration by ordering the helpers =
+ahead
+of the callers. The condition lives in sched_cache_footprint_drop(), =
+with an
+empty stub when CONFIG_NUMA_BALANCING is off, so exec and exit share one =
+call:
+
+	old =3D sched_cache_replace_grp(p, =
+sched_cache_group_get(mm->sched_cache_grp));
+	sched_cache_footprint_drop(old, p);
+	sched_cache_group_put(old);
+
+Moving the check into the helper costs no call: I confirmed in the
+generated code that sched_cache_footprint_drop() is inlined into both
+exec and exit, so the early-out test still sits in the caller.
+
+The "must stay ahead of task_numa_free()" note moved onto that helper.
+Nothing enforces the order; sched_cache_exec_mmap() just remains before
+task_numa_free(current, false) in bprm_execve().
+
+> +#ifdef CONFIG_NUMA_BALANCING
+> +static void sched_cache_footprint_update(struct sched_cache_group =
+*grp,
+> + unsigned long delta, bool add)
+> +{
+> + unsigned long old =3D READ_ONCE(grp->footprint), new;
+> +
+> + do {
+> + if (add)
+> + new =3D old + delta;
+> + else
+> + new =3D old - min(old, delta);
+> + } while (!try_cmpxchg(&grp->footprint, &old, new));
+> +}
+> +#endif
+
+#ifdef CONFIG_NUMA_BALANCING
+static void sched_cache_footprint_update(struct sched_cache_group *grp, =
+long diff)
+{
+	unsigned long old =3D READ_ONCE(grp->footprint), new;
+
+	do {
+		if (diff < 0)
+			new =3D old - min(old, -(unsigned long)diff);
+		else
+			new =3D old + diff;
+	} while (!try_cmpxchg_relaxed(&grp->footprint, &old, new));
+}
+
+static void sched_cache_footprint_drop(struct sched_cache_group *grp,
+				     struct task_struct *p)
+{
+	if (grp && p->total_numa_faults)
+		sched_cache_footprint_update(grp, =
+-(long)p->total_numa_faults);
+}
+#else
+static inline void sched_cache_footprint_drop(struct sched_cache_group =
+*grp,
+					    struct task_struct *p) { }
+#endif
+
+Two changes in that helper:
+- try_cmpxchg_relaxed() rather than try_cmpxchg().
+  try_cmpxchg() is fully ordered on success; on arm64 with LSE that
+  is casal. Its release half keeps the CAS from being observed before
+  any earlier access from this CPU, and its acquire half keeps later
+  accesses from being observed before the CAS. In exec_mmap() those
+  earlier accesses include e.g. the tsk->mm and tsk->active_mm stores
+  just above, which need no ordering against grp->footprint.
+
+- Signed @diff rather than (delta, bool add), so the sign is not split
+  across an abs()/">0" pair at the call site. Subtraction still clamps,
+  with the negate done in unsigned arithmetic to keep the clamp in one
+  type.
+
+One question about the clamp: shouldn't atomic updates balance each
+task's placement diffs against its exit/exec subtraction? Assuming no
+overflow, old < delta would suggest an accounting bug that clamping
+hides. Is there a legitimate path where the contributions do not =
+balance?
+
+If not, we could use atomic_long_t and atomic_long_add(diff,
+&grp->footprint) instead of the CAS loop, provided the footprint fits
+in a signed long. atomic_long_add() is already unordered; readers would
+use atomic_long_read().
+
+> void sched_cache_exit_mm(struct task_struct *p)
+> {
+> struct sched_cache_group *grp =3D sched_cache_replace_grp(p, NULL);
+> @@ -1793,12 +1817,8 @@ void sched_cache_exit_mm(struct task_struct *p)
+> * reference, so the group footprint converges as its threads exit.
+> * Unlocked for performance; clamp to avoid underflow.
+> */
+> - if (grp && p->total_numa_faults) {
+> - unsigned long fp =3D READ_ONCE(grp->footprint);
+> - unsigned long sub =3D min(fp, p->total_numa_faults);
+> -
+> - WRITE_ONCE(grp->footprint, fp - sub);
+> - }
+> + if (grp && p->total_numa_faults)
+> + sched_cache_footprint_update(grp, p->total_numa_faults, false);
+> #endif
+> sched_cache_group_put(grp);
+> }
+> @@ -3890,7 +3910,7 @@ static void task_numa_placement(struct =
+task_struct *p)
+> unsigned long total_faults;
+> u64 runtime, period;
+> spinlock_t *group_lock =3D NULL;
+> - long __maybe_unused new_fp;
+> + long __maybe_unused fp_diff =3D 0;
+> struct numa_group *ng;
+>=20
+> /*
+> @@ -3986,14 +4006,8 @@ static void task_numa_placement(struct =
+task_struct *p)
+> * go negative. Clamp to zero to prevent the
+> * unsigned footprint from wrapping.
+> */
+> - scoped_guard(rcu) {
+> - grp =3D rcu_dereference(p->sched_cache_grp);
+> -
+> - if (grp) {
+> - new_fp =3D (long)READ_ONCE(grp->footprint) + diff;
+> - WRITE_ONCE(grp->footprint, max(new_fp, 0L));
+> - }
+> - }
+> + /* Update grp->footprint once, to limit the c2c cost. */
+> + fp_diff +=3D diff;
+> #endif
+> }
+>=20
+> @@ -4008,6 +4022,18 @@ static void task_numa_placement(struct =
+task_struct *p)
+> }
+> }
+>=20
+> +#ifdef CONFIG_SCHED_CACHE
+> + if (fp_diff) {
+> + scoped_guard(rcu) {
+> + grp =3D rcu_dereference(p->sched_cache_grp);
+> +
+> + if (grp)
+> + sched_cache_footprint_update(grp, abs(fp_diff),
+> +     fp_diff > 0);
+> + }
+
+grp is declared inside the guard, and the signed diff is passed through:
+
+	if (fp_diff) {
+		scoped_guard(rcu) {
+			struct sched_cache_group *grp;
+
+			grp =3D rcu_dereference(p->sched_cache_grp);
+			if (grp)
+				sched_cache_footprint_update(grp, =
+fp_diff);
+		}
+	}
+
+> + }
+> +#endif
+> +
+> /* Cannot migrate task to CPU-less node */
+> max_nid =3D numa_nearest_node(max_nid, N_CPU);
+>=20
+> --=20
+> 2.25.1
+
+Thanks,
+Jemmy
 
 
-Bj=C3=B6rn
