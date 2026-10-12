@@ -1,48 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C552D594F;
-	Mon, 12 Oct 2026 09:33:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261751A682C;
+	Mon, 12 Oct 2026 09:34:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791797604; cv=none; b=XSC0RFa0JPH4m2hbJ3lOrgNdaDXG7meex3pQLkmQJhy21Tp8gkfOvtAaYbM0n1c2/d05hLYNu79gYDMTx7LQAeV9rhiM+oejCMU/JbCS3MR7Gpf+Jr+yq/S4+oBm+oNF7GF0ShHwtOr2IpgV2sKy5CzsXYGZdXs0HhlcjGp4gMc=
+	t=1791797665; cv=none; b=VwJKUSduy2Qy1cJaxql0T5RcPMWFkc/Ws9Y0KrJlJfbF2aLGVco7bmBvAjtIbKDpSkqYweVkcjedIXnCPVU9m2vLzwQEaqoit87AHCeVnwOS/hWFwZEnS/6uXoxHLSits6tDoO9tGY8JPWig09KQtH0OM6PYaOPO0RQ9PPlz2qE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791797604; c=relaxed/simple;
-	bh=e8VPPlAfWahF7zgLAUVUYwlsb+VSvnH+lc7RJgI3mDE=;
+	s=arc-20240116; t=1791797665; c=relaxed/simple;
+	bh=5CrkGArHbC39YyF7d9PHMzlVGOY2DeCO1mhmVGwfDo8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yu3e4NJjkMYAyblSIiNSMZBW38Wzhli0W+2O3mh1rJ2rwVTynoi2KwhcDGaEzhYjNTmZ3MQGSTP+nbbIPUMU4KZr5P4Q9VMjXYYg92wbFOsTc1pqtBk9USJaVZEbY5jlfOJyS0pTjlZnQFYFMBX5j/J/RDWT1+T5Q04uHG5J80g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/8tSBD7; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZOR3eB3hzFji19GjpDnM8ZbQPcJ49IkO4ngv63PbhsaKkvmzPVCArzu85QV+KlQWIyQnQlrJY3amn6rJJuValTTPYwT8HocpAwGnYBxvdQ9QMIKt2DvaZkdhSYDUNHdQ1WxzA/v7HGIKPU+E2aakEY/bJrwUdCHo5xakapisIug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TVLSiB2f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/8tSBD7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BDC71F0089C;
-	Mon, 12 Oct 2026 09:33:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TVLSiB2f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F332F1F0089B;
+	Mon, 12 Oct 2026 09:34:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791797602;
-	bh=NCBaLoV31wqphlVvEaFSt1x8hpc/UDTsLJLp1gfaYF4=;
+	s=k20260515; t=1791797663;
+	bh=UYCpGx3UOIc4nh/12sRQYB8M7w5AmmkLzNcu80mAkCo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B/8tSBD7dqH40URDKUKpPoZIengaDGRGdRz1+xBS2LOL9azOI1kKmuVSOvwWU5KGG
-	 Xs+2RnmVkSWCii6D+GiRhZfrEc/hx/giDzmIjfDMvl7cQlMSmKNyMjQMSAmYAdgTub
-	 GF1j7Fd/0Wr03jOGywP7OZoQTaQ0HAjlW7AdtT6H5HA6W5xw2xJvpNySrafXA1CPRx
-	 EPZWLx/UlYCeS8GT3/BvZ7OZ8hJ+yRYQYvVHUHw6pw/mRfmuVXvuncIW5u4XK5OvXv
-	 lswcFccpowIfqEAYHBfedmARXtfFsJP3dPUVHcU4JDHDw6bzxXJjFIm9uQAe2T950W
-	 xktXnnFJClkqg==
-Date: Mon, 12 Oct 2026 11:33:18 +0200
+	b=TVLSiB2fj39wYmvRK0+/RPtgapfIw/n4RNYfgeecqYKnTfNNCASUAyPN+3uu/OTxk
+	 6pVrFbzJO5Zvm1mZWbLarVudEFB64XxYWFi+wQ2qVorS3VJn0wkLG8VQRUCY+l6D1F
+	 8iEpXWrve7TAd9VLMGj04SFdpvKBrbx+cWt4fteIv8fD2rAte/JA3eg587a1E8mQxE
+	 zHfp/sM2ObJkPC2phs3mvXVDFLHVw4IuUNKubun415CsCGlbOkwNG9Xh/IlGPN+WQ6
+	 QRgAO4vteeD8T7Kz+9zEvB9Ub9F3aZ3H9Kjlja0LnM9VXwGsQdKxaC2RtJNJzHL8Ac
+	 GinbaWsnBT2Sg==
+Date: Mon, 12 Oct 2026 11:34:19 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kyrie Wu <kyrie.wu@mediatek.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Bin Liu <bin.liu@mediatek.com>, 
-	kyrie wu <kyrie.wu@mediatek.corp-partner.google.com>, Hans Verkuil <hverkuil@kernel.org>, 
-	irui wang <irui.wang@mediatek.com>, Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v18 09/13] media: dt-bindings: mediatek,jpeg: Add
- mediatek, mt8196-jpgdec compatible
-Message-ID: <20261012-original-visionary-gharial-ee41cc@quoll>
-References: <cover.1791614327.git.kyrie.wu@mediatek.com>
- <016a61397c01b8745622ff54f1e27b5209b3f34d.1791614327.git.kyrie.wu@mediatek.com>
+To: Jun Yan <jerrysteve1101@gmail.com>
+Cc: MyungJoo Ham <myungjoo.ham@samsung.com>, 
+	Chanwoo Choi <cw00.choi@samsung.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Auchter <michael.auchter@ni.com>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: extcon: tusb320: add SGM7220 fallback
+ compatible
+Message-ID: <20261012-flawless-economic-marten-a937c4@quoll>
+References: <20261010081907.479226-1-jerrysteve1101@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,29 +45,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <016a61397c01b8745622ff54f1e27b5209b3f34d.1791614327.git.kyrie.wu@mediatek.com>
+In-Reply-To: <20261010081907.479226-1-jerrysteve1101@gmail.com>
 
-On Sat, Oct 10, 2026 at 04:07:13PM +0800, Kyrie Wu wrote:
-> Compared to the previous generation IC, the MT8196 uses SMMU
-> instead of IOMMU and supports features such as dynamic voltage
-> and frequency scaling. Therefore, add "mediatek,mt8196-jpgdec"
-> compatible to the binding document.
+On Sat, Oct 10, 2026 at 04:19:06PM +0800, Jun Yan wrote:
+> The SGM7220 is register-compatible with the TI TUSB320, even reporting
+> the same device ID, so it can be described in a device tree using
+> ti,tusb320 as the fallback compatible string.
 > 
-> Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> Link: https://www.sg-micro.com/rect/assets/bec47c84-84b4-4015-8d61-9433e0d76583/SGM7220.pdf
+> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+> ---
+>  .../bindings/extcon/extcon-usbc-tusb320.yaml           | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
 
-So this has subject "media: dt-bindings:" but a new patch you added here
-has completely different subject prefix. Including the re-introduced
-nit, I am sure I already asked you.
-
-A nit, subject: drop second/last, redundant "bindings". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
-
-This is random way of coding, not even checking your git history before
-sending to lists.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
