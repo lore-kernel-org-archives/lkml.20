@@ -1,614 +1,68 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2AC248F008
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:35:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ADED48EBF7;
+	Mon, 12 Oct 2026 14:36:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815745; cv=none; b=jLC0EAw3nwX84GV/7UjBg+qi7Y3/KzdAw+HX8efm53i0rkQP9SoFwAjUxHJUOEu+DauFlCWbvV5sHwmzZEJNADtzffua/hd0blTSNLA8vr/q327LSLA1jkVRk7Gm1buM8CR2kRUpd2k3ej/bi+DRN4EfvsiuejglJswhPuRwe2M=
+	t=1791815769; cv=none; b=UpKjL1DJgA9cQFL2TMvxJ48xSUOOOrSaPkQTxxQnvrDGUYON1isf5PZQDKrbNkIz+PPnhJxf3WwPhFCOXJWsxNBxeVxL3wv5pVu7lixE0lP1F5/O+x3sVPiXNhRSv8yx7FfTegKkkc2Sl7ko6P87mEO/wugTCAnBXAxRqCFetKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815745; c=relaxed/simple;
-	bh=NNpOYsEE0OLdWxV3fwZxQNADaDUeMbd5YqxGbzRUYf0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LFofDXzvOblsJOHsa5MTiX1ekOJbVABpAHNc47HG2i6hObAkTJFe9L3VWF4j0EuGaWRWOQ8bWS4RBbMV5hjHhkxVnPd/5915qTgp91r3r6vO1T6i69HQ3H7f2//qCt8ja/73TKaieeg5v3OBkjtq5bYAEExZ96x4CpqUPfTASCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mpH6QQH1; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791815769; c=relaxed/simple;
+	bh=ruAB98NV4MtKZb7ATPssY5Pyex7av3lefwqTbyxb1dk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qG8BWUSmAqvDxLHVoW8DjpstGUDq3n9WtatUr2Ay2A+9UUDzbFPvTz1xkx1f5Zmdg59JrONcczQV/9w8+xJ4FVdulY6dzDJtOTgOub97CN4Vr8wFZo8Delq/fO6BX48FQn1+bLhdOEiIeMoNCRxD5rZmfS8uNJMOrsFgVhUyT/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=SaNRFaRd; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mpH6QQH1"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48b0ef9c76eso1639699f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:35:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791815740; x=1792420540; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eJVV7sosZ7dX2r5WpBxnrPbZzqaa3XswMBcMUCO90ho=;
-        b=mpH6QQH1BDJImSTt9bbKKVHhdpi1qq5ZMeaAvz37UmJEm8bP3GNZd1ivoJUGnJF122
-         rVQo0w5VvJ+J90Xrq9bz0d4o0PeyskIwwnaSAlg8T3mjt5rMs+PxNmqRnJYlezOtnVty
-         zMsVKme3078KxLzRRzuIji+QUyCp7MYP1R5U8kH9ZRUc4lhfkOC0juzIJBu85pWLDGro
-         nH0RUZlEtAdUKQ5waO5DyUpIjs+c7hhusdz/cm1on8uaZLwWB4OS4oNpluRRYYc6FRWt
-         k+EY5DW1/l5lEfBgK7dhs33ueZA1KjrnsA4BqrSH/Cqo3GEd8OiGk31rqUv5BCz8JZmp
-         9RuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791815740; x=1792420540;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eJVV7sosZ7dX2r5WpBxnrPbZzqaa3XswMBcMUCO90ho=;
-        b=i2uLZU4KuRuyoQZ66QG7GAktsMll1shbklOngl9+MBaRCfEUhf/+DwblEzrw9xt0Mi
-         +S/QHag92wRYSrBp0gShNToQWEvWuPU83AxbA3aWEd8qq01uG3Sc9wbGaBWgN3Jt4jhg
-         zksCsopiPVtJaacaVOXEj8C3yLmOo3gjTTWsr05ZW1OecrmZ/elVHK4/xbNMJLHGKqB/
-         CoofWoRgxcmRPR7FybQUsgKkGKqZVxprsJcB0fpiqI3qhh0vI6OpdL99wc/d6KrIthQP
-         s/OMeyqhz9OJXymvuLaQ4zXdmzDZ0a9QvPkVeGiDwuLq/V+8py15oEWEET389gSRrEv3
-         Wk0g==
-X-Forwarded-Encrypted: i=1; AKwUvBykn/TubB++skPvCtzkaQIjZCLfIpEoNkDhnVIYWn0TBacUPJZWFZr01QlMBTY6gHPnpyTFRFG9HOSKpC0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKFsZ8GMJ19ApVuSDCxcNZD3YBKsDvoYoVpZywalsHNz6hr7r+l
-	kSMxjHmTZOWg8U3jc9ULDvKOkbF5WGs7mYkAgXPX9X89MkVWI9mX8wLA
-X-Gm-Gg: AYBFou2slYwzTm2kzS+djZxgfwkVsB8tJnQ0/6vMB84zE/qnJG2aV99IEoJcV0awB1H
-	615a/9bkm6zFJaaugu+XFrWFcdCnBKXHiI5lgLH6Izfi/BWprKJCeWllIh8rWkrZWDVCO1A2tkc
-	vBL95YXwfo4r2Fldv0CtDFqqcr8wSBP//NunTiVbGKRdwO7ltSKBNdFC4kg2pAaQzecys70oMHG
-	Wb28xyoyXY/3d/uzou7stzaAD6nPZH4kBzkC+afgcj2ohODFd96cmqlI3xPQxAUM0t958eElbbo
-	R406C5PAzGcfJ8oMVwKOyvlsWbZl0M8X8weFQokAUxWOquF1024ENgBRo8TZjME9a4ML9o2tjdz
-	BFVht/eU8bElEKJfqWFXrY/lmOABrKtWgpnVHdlktvQolYBjWD1WBsOq55nJTUCDHXK5EjDIorL
-	72+QDfAKBOWXOg04rEW5rg5+xvjKV7snGUQCwk888jb2w/U1qe/Dhr/W7VDfGk9p8Ec8Ks/rXIl
-	MpsDj10lWpKmUFGGgJYS6ycd6OzTSe5n/DvtTlClBF3Uz4FO+iLXV7bfCrpIrDm/45HNjivspVv
-	kMizOB1MNSNjTjYrm0cTulG7bcGZ2Xs8aM/4wTlJiSLrDy0+BZMVbgtZrs3jD1E4rmg/lT4LUPG
-	zQ+0/8lMg2WAwwu4GOQcdktAPQVohc+LyrZohlKTmT2lSl24SxcXNlg==
-X-Received: by 2002:a5d:5d83:0:b0:48b:11df:c496 with SMTP id ffacd0b85a97d-48dba9d2da5mr17734573f8f.28.1791815739671;
-        Mon, 12 Oct 2026 07:35:39 -0700 (PDT)
-Received: from localhost.localdomain (host-95-239-230-248.retail.telecomitalia.it. [95.239.230.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e33d2sm20899559f8f.9.2026.10.12.07.35.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 07:35:39 -0700 (PDT)
-From: Nicola Fiorillo <nicfio@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 7/7] media: i2c: gc5035: Add 2x2 binning support
-Date: Mon, 12 Oct 2026 16:34:43 +0200
-Message-ID: <20261012143443.34897-8-nicfio@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261012143443.34897-1-nicfio@gmail.com>
-References: <20261009072733.39877-1-nicfio@gmail.com>
- <20261012143443.34897-1-nicfio@gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="SaNRFaRd"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=krFACiaW3QUm8OgBNfKBi5AprBUH06s+4jeaJgDuJho=; b=SaNRFaRdunTEj4UKEw+1hKjwTo
+	8MWTmSZJhrOC7IZYFF1AMp4LNX9y+JB99m216dBI4RlC68LpM4RTIxP82ssbYh0MxCfvmltV/L5lq
+	dXrr3KajSRmwLfS1e7OOaGqTBMX87A1XMmNt2hmqKyWZx0MqVz+lrTnfZWHDs3jcl9ug=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xGH81-00ALAe-6f; Mon, 12 Oct 2026 16:35:49 +0200
+Date: Mon, 12 Oct 2026 16:35:49 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Kyle Switch <kyle.switch@motor-comm.com>
+Cc: olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, mmyangfl@gmail.com,
+	horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
+	wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
+Subject: Re: [PATCH net-next v13 3/5] net: dsa: motorcomm: use fixed-width
+ GENMASK_U*() helpers
+Message-ID: <44b1b1d3-06eb-4a95-9b24-71a2d25db977@lunn.ch>
+References: <20261011025043.1859940-1-kyle.switch@motor-comm.com>
+ <20261011025043.1859940-4-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011025043.1859940-4-kyle.switch@motor-comm.com>
 
-Setting the format to half the size of the default crop rectangle
-selects 2x2 binning of that rectangle: 1296x972 with the same field of
-view as 2592x1944, averaging four pixels of the same colour. The crop
-rectangle goes back to the default one, so that the size alone selects
-the mode, whatever crop rectangle earlier calls left; only a crop
-rectangle of that size, set first, keeps 1296x972 unbinned. The register
-settings are the ones of the vendor sequence for that mode, which only
-work as a whole. Any other format, or a new crop rectangle, gives the
-unbinned output as before. enum_frame_size lists 1296x972 as a second,
-discrete size.
+On Sun, Oct 11, 2026 at 10:50:41AM +0800, Kyle Switch wrote:
+> Some masks assigned to u16 and u32 fields are defined with
+> GENMASK(),which is an unsigned long constant and wider than
+> the field type on 64-bit builds. Convert the affected
+> internal_mask entries in chip.c and the YT921X_MBUS_CTRL_*
+> masks used by mdio_bus.c to fixed-width helpers.
+> 
+> This is a type cleanup only, with no functional change.  Other
+> GENMASK() uses in the driver are intentionally left untouched.
+> 
+> Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
 
-The vendor sequence changes the PLL. The link frequency in this mode is
-175.2 MHz: the time needed to send a line of a given width, found from
-the shortest line length that gives complete frames, gives 176.3 +/- 0.9
-MHz (and 420.7 +/- 1.5 MHz at full resolution, where it is 422.4 MHz).
-LINK_FREQ and PIXEL_RATE follow the mode. The timings are expressed in
-sensor lines, as at full resolution: the sensor reads one row of the pixel
-array per line and outputs one row every two lines. This keeps the frame
-length and exposure registers in their own unit, with a one line exposure
-step, and the frame period computed from HBLANK and VBLANK is the measured
-one. With the vendor readout window a frame lasts at least 1996 lines, so
-binning runs at up to 24 fps, against 28.8 fps at 2592x1944: it is meant
-for lower noise and bandwidth, not for speed.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Binning is only offered when the firmware lists the 175.2 MHz link
-frequency.
-
-Tested with v4l2-compliance (54/54, no warning, in both modes) and
-libcamera, which picks the mode for 1280x960 at 24 fps: the frame period
-is the computed one, also with a longer VBLANK and at the maximum
-exposure, the signal doubles with the exposure in sensor lines, and the
-output matches the 2x2 average per colour of a full resolution frame,
-with no offset.
-
-Assisted-by: claude-opus-5-5 coccinelle sparse smatch
-Signed-off-by: Nicola Fiorillo <nicfio@gmail.com>
----
- drivers/media/i2c/gc5035.c | 296 +++++++++++++++++++++++++++++++------
- 1 file changed, 249 insertions(+), 47 deletions(-)
-
-diff --git a/drivers/media/i2c/gc5035.c b/drivers/media/i2c/gc5035.c
-index b7190aa52..f8cd56a46 100644
---- a/drivers/media/i2c/gc5035.c
-+++ b/drivers/media/i2c/gc5035.c
-@@ -13,6 +13,7 @@
-  */
- #include <linux/align.h>
- #include <linux/array_size.h>
-+#include <linux/bits.h>
- #include <linux/clk.h>
- #include <linux/container_of.h>
- #include <linux/delay.h>
-@@ -142,6 +143,36 @@
- #define GC5035_PIXEL_RATE		(GC5035_LINK_FREQ * 2 * \
- 					 GC5035_DATA_LANES / GC5035_RGB_DEPTH)
- 
-+/*
-+ * 2x2 binning, with the vendor register sequence for 1296x972. It sets the
-+ * PLL multiplier to 0x49 and adds a divider by 2 (register 0xfa), which
-+ * gives a 175.2 MHz link frequency. The frame period scales with the PLL
-+ * setting as expected, and the bandwidth limit of the link was measured at
-+ * 176.3 +/- 0.9 MHz in this mode (420.7 +/- 1.5 MHz at full resolution with
-+ * the same method): the time needed to send a line of a given width was
-+ * found from the shortest line length that gives complete frames.
-+ *
-+ * The sensor reads one row of the pixel array per line and outputs one row
-+ * every two lines. Expressing the timings in sensor lines keeps the frame
-+ * length, vertical blanking and exposure registers in the same units as at
-+ * full resolution: the line length is 1460 pixels at 70.08 MHz, and the
-+ * vendor readout window, which is used in this mode, needs at least 1996
-+ * lines per frame. Binning is only available on the default crop rectangle,
-+ * and the output starts at (4, 4) in binned coordinates, which is (8, 8) in
-+ * the area: GRBG, like the default rectangle.
-+ */
-+#define GC5035_PLL_MULT_BIN		0x49
-+#define GC5035_LINK_FREQ_BIN		(GC5035_XCLK_FREQ * \
-+					 GC5035_PLL_MULT_BIN / 8)
-+#define GC5035_PIXEL_RATE_BIN		(GC5035_LINK_FREQ_BIN * 2 * \
-+					 GC5035_DATA_LANES / GC5035_RGB_DEPTH)
-+#define GC5035_HTS_BIN			1460
-+#define GC5035_VTS_MIN_BIN		1996
-+#define GC5035_WIN_TOP_BIN		GC5035_ROW_START_OFFSET
-+#define GC5035_WIN_LEFT_BIN		3
-+#define GC5035_WIN_HEIGHT_BIN		1960
-+#define GC5035_WIN_WIDTH_BIN		2608
-+
- /*
-  * No datasheet is available. From the GC5035 driver posted by Tomasz Figa in
-  * 2020: IOVDD at least 50 us before AVDD and DVDD, at least 1200 MCLK cycles
-@@ -158,8 +189,14 @@
- 
- #define GC5035_MBUS_CODE		MEDIA_BUS_FMT_SGRBG10_1X10
- 
-+enum {
-+	GC5035_LINK_FREQ_FULL_INDEX,
-+	GC5035_LINK_FREQ_BIN_INDEX,
-+};
-+
- static const s64 gc5035_link_freq_menu[] = {
--	GC5035_LINK_FREQ,
-+	[GC5035_LINK_FREQ_FULL_INDEX] = GC5035_LINK_FREQ,
-+	[GC5035_LINK_FREQ_BIN_INDEX] = GC5035_LINK_FREQ_BIN,
- };
- 
- static const char * const gc5035_test_pattern_menu[] = {
-@@ -210,11 +247,16 @@ struct gc5035 {
- 	struct gpio_desc *powerdown_gpio;
- 
- 	struct v4l2_ctrl_handler ctrls;
-+	struct v4l2_ctrl *link_freq;
-+	struct v4l2_ctrl *pixel_rate;
- 	struct v4l2_ctrl *exposure;
- 	struct v4l2_ctrl *vblank;
- 	struct v4l2_ctrl *hblank;
- 
- 	struct regmap *regmap;
-+
-+	/* The firmware lists the link frequency of the binned mode. */
-+	bool binning;
- };
- 
- /*
-@@ -376,6 +418,56 @@ static const struct cci_reg_sequence gc5035_regs[] = {
- 	{ GC5035_REG_STREAM, GC5035_STREAM_OFF },
- };
- 
-+/*
-+ * Written after gc5035_regs for 2x2 binning: the registers that the vendor
-+ * sequence for 1296x972 sets differently, in its order, without the geometry.
-+ * The sequence only works as a whole: without the PLL settings the image is
-+ * saturated, without the MIPI ones (page 3) the CSI-2 receiver gets errors,
-+ * and without the analog ones the four pixels are not averaged.
-+ */
-+static const struct cci_reg_sequence gc5035_bin_regs[] = {
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	{ CCI_REG8(0xf5), 0xe4 },
-+	{ GC5035_REG_PLL_MULT, GC5035_PLL_MULT_BIN },
-+	{ CCI_REG8(0xf9), 0x12 },
-+	{ CCI_REG8(0xfa), 0x01 },
-+	{ CCI_REG8(0x33), 0x20 },
-+	{ GC5035_REG_PAGE_SELECT, 0x03 },
-+	{ CCI_REG8(0x01), 0x87 },
-+	{ CCI_REG8(0xf7), 0x11 },
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	{ CCI_REG8(0x9d), 0x0c },
-+	{ CCI_REG8(0x21), 0x60 },
-+	{ CCI_REG8(0x29), 0x30 },
-+	{ CCI_REG8(0x44), 0x18 },
-+	{ CCI_REG8(0x4e), 0x20 },
-+	{ CCI_REG8(0x8c), 0x20 },
-+	{ CCI_REG8(0x91), 0x15 },
-+	{ CCI_REG8(0x92), 0x3a },
-+	{ CCI_REG8(0x95), 0x45 },
-+	{ CCI_REG8(0x96), 0x35 },
-+	{ CCI_REG8(0xd5), 0xf0 },
-+	{ CCI_REG8(0x97), 0x20 },
-+	{ CCI_REG8(0x1f), 0x19 },
-+	{ CCI_REG8(0xd0), 0xb3 },
-+	{ GC5035_REG_PAGE_SELECT, 0x02 },
-+	{ CCI_REG8(0x14), 0x02 },
-+	{ CCI_REG8(0x15), 0x00 },
-+	{ GC5035_REG_PAGE_SELECT, 0x01 },
-+	{ CCI_REG8(0x49), 0x00 },
-+	{ CCI_REG8(0x4a), 0x01 },
-+	{ CCI_REG8(0x4b), 0xf8 },
-+	{ CCI_REG8(0x4e), 0x06 },
-+	{ CCI_REG8(0x44), 0x02 },
-+	{ GC5035_REG_PAGE_SELECT, 0x03 },
-+	{ CCI_REG8(0x02), 0x58 },
-+	{ CCI_REG8(0x22), 0x03 },
-+	{ CCI_REG8(0x26), 0x06 },
-+	{ CCI_REG8(0x29), 0x03 },
-+	{ CCI_REG8(0x2b), 0x06 },
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+};
-+
- static inline struct gc5035 *to_gc5035(struct v4l2_subdev *sd)
- {
- 	return container_of(sd, struct gc5035, sd);
-@@ -462,52 +554,89 @@ static int gc5035_enum_frame_size(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_state *sd_state,
- 				  struct v4l2_subdev_frame_size_enum *fse)
- {
-+	struct gc5035 *gc5035 = to_gc5035(sd);
-+
- 	if (fse->code != GC5035_MBUS_CODE)
- 		return -EINVAL;
- 
--	if (fse->index > 0)
-+	switch (fse->index) {
-+	case 0:
-+		/* Without binning, the output size is the crop size. */
-+		fse->min_width = GC5035_MIN_WIDTH;
-+		fse->max_width = GC5035_AREA_WIDTH;
-+		fse->min_height = GC5035_MIN_HEIGHT;
-+		fse->max_height = GC5035_AREA_HEIGHT;
-+		break;
-+	case 1:
-+		/* 2x2 binning of the default crop rectangle. */
-+		if (!gc5035->binning)
-+			return -EINVAL;
-+		fse->min_width = GC5035_WIDTH / 2;
-+		fse->max_width = GC5035_WIDTH / 2;
-+		fse->min_height = GC5035_HEIGHT / 2;
-+		fse->max_height = GC5035_HEIGHT / 2;
-+		break;
-+	default:
- 		return -EINVAL;
--
--	/* The output size is the size of the crop rectangle. */
--	fse->min_width = GC5035_MIN_WIDTH;
--	fse->max_width = GC5035_AREA_WIDTH;
--	fse->min_height = GC5035_MIN_HEIGHT;
--	fse->max_height = GC5035_AREA_HEIGHT;
-+	}
- 
- 	return 0;
- }
- 
-+/* Binning is the only case where the output is smaller than the crop. */
-+static bool gc5035_is_binned(const struct v4l2_rect *crop,
-+			     const struct v4l2_mbus_framefmt *format)
-+{
-+	return format->width < crop->width;
-+}
-+
- /*
-- * Update the controls that depend on the output size. Called with the state
-- * lock held, which is also the control handler lock.
-+ * Update the controls that depend on the output size and on binning. Called
-+ * with the state lock held, which is also the control handler lock.
-  */
- static int gc5035_update_ctrls(struct gc5035 *gc5035,
-+			       const struct v4l2_rect *crop,
- 			       const struct v4l2_mbus_framefmt *format)
- {
--	s64 vblank_max, exposure_max;
-+	bool binned = gc5035_is_binned(crop, format);
-+	s64 vblank_min, vblank_max, exposure_max;
-+	u32 hts;
- 	int ret;
- 
--	ret = __v4l2_ctrl_modify_range(gc5035->hblank,
--				       GC5035_HTS - format->width,
--				       GC5035_HTS - format->width, 1,
--				       GC5035_HTS - format->width);
-+	ret = __v4l2_ctrl_s_ctrl(gc5035->link_freq,
-+				 binned ? GC5035_LINK_FREQ_BIN_INDEX :
-+					  GC5035_LINK_FREQ_FULL_INDEX);
-+	if (ret)
-+		return ret;
-+
-+	ret = __v4l2_ctrl_s_ctrl_int64(gc5035->pixel_rate,
-+				       binned ? GC5035_PIXEL_RATE_BIN :
-+						GC5035_PIXEL_RATE);
-+	if (ret)
-+		return ret;
-+
-+	hts = binned ? GC5035_HTS_BIN : GC5035_HTS;
-+	ret = __v4l2_ctrl_modify_range(gc5035->hblank, hts - format->width,
-+				       hts - format->width, 1,
-+				       hts - format->width);
- 	if (ret)
- 		return ret;
- 
--	vblank_max = GC5035_VBLANK_MIN +
--		     round_down(GC5035_VTS_MAX - format->height -
--				GC5035_VBLANK_MIN, GC5035_VBLANK_STEP);
-+	vblank_min = binned ? GC5035_VTS_MIN_BIN - format->height :
-+			      GC5035_VBLANK_MIN;
-+	vblank_max = vblank_min +
-+		     round_down(GC5035_VTS_MAX - format->height - vblank_min,
-+				GC5035_VBLANK_STEP);
- 	/*
- 	 * As in ov01a10, setting the format or the crop rectangle resets the
- 	 * vertical blanking.
- 	 */
--	ret = __v4l2_ctrl_modify_range(gc5035->vblank, GC5035_VBLANK_MIN,
--				       vblank_max, GC5035_VBLANK_STEP,
--				       GC5035_VBLANK_MIN);
-+	ret = __v4l2_ctrl_modify_range(gc5035->vblank, vblank_min, vblank_max,
-+				       GC5035_VBLANK_STEP, vblank_min);
- 	if (ret)
- 		return ret;
- 
--	ret = __v4l2_ctrl_s_ctrl(gc5035->vblank, GC5035_VBLANK_MIN);
-+	ret = __v4l2_ctrl_s_ctrl(gc5035->vblank, vblank_min);
- 	if (ret)
- 		return ret;
- 
-@@ -521,10 +650,10 @@ static int gc5035_update_ctrls(struct gc5035 *gc5035,
- }
- 
- static void gc5035_fill_format(struct v4l2_mbus_framefmt *fmt,
--			       const struct v4l2_rect *crop)
-+			       const struct v4l2_rect *crop, unsigned int bin)
- {
--	fmt->width = crop->width;
--	fmt->height = crop->height;
-+	fmt->width = crop->width / bin;
-+	fmt->height = crop->height / bin;
- 	fmt->code = GC5035_MBUS_CODE;
- 	fmt->field = V4L2_FIELD_NONE;
- 	fmt->colorspace = V4L2_COLORSPACE_RAW;
-@@ -594,31 +723,42 @@ static int gc5035_set_selection(struct v4l2_subdev *sd,
- 	*v4l2_subdev_state_get_crop(state, 0) = rect;
- 	sel->r = rect;
- 
--	/* No binning or scaling: the output size is the crop size. */
-+	/* A new crop rectangle disables binning: the output is its size. */
- 	format = v4l2_subdev_state_get_format(state, 0);
--	gc5035_fill_format(format, &rect);
-+	gc5035_fill_format(format, &rect, 1);
- 
- 	if (sel->which == V4L2_SUBDEV_FORMAT_ACTIVE)
--		return gc5035_update_ctrls(gc5035, format);
-+		return gc5035_update_ctrls(gc5035, &rect, format);
- 
- 	return 0;
- }
- 
- /*
-- * No binning or scaling: the output size is the size of the crop rectangle. A
-- * new width or height centres the crop rectangle on the default crop
-- * rectangle along that axis, within the area, for userspace that does not set
-- * the crop rectangle first. The default size gives the default rectangle back.
-+ * Half the size of the default crop rectangle selects 2x2 binning and sets
-+ * the default crop rectangle back, unless the crop rectangle already has
-+ * that size: the size alone selects the binned mode, with the full field of
-+ * view, and a crop rectangle of that size set first stays unbinned.
-+ * Otherwise the output size is the size of the crop rectangle: a new width
-+ * or height centres the crop rectangle on the default crop rectangle along
-+ * that axis, within the area, for userspace that does not set the crop
-+ * rectangle first. The default size gives the default rectangle back.
-  */
- static int gc5035_set_fmt(struct v4l2_subdev *sd,
- 			  const struct v4l2_subdev_client_info *ci,
- 			  struct v4l2_subdev_state *state,
- 			  struct v4l2_subdev_format *fmt)
- {
-+	static const struct v4l2_rect crop_default = {
-+		.left = GC5035_CROP_LEFT,
-+		.top = GC5035_CROP_TOP,
-+		.width = GC5035_WIDTH,
-+		.height = GC5035_HEIGHT,
-+	};
- 	struct gc5035 *gc5035 = to_gc5035(sd);
- 	struct v4l2_mbus_framefmt *format;
- 	struct v4l2_rect *crop;
- 	u32 width, height;
-+	unsigned int bin;
- 	int pos;
- 
- 	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
-@@ -631,13 +771,18 @@ static int gc5035_set_fmt(struct v4l2_subdev *sd,
- 				    GC5035_AREA_HEIGHT), 4);
- 
- 	crop = v4l2_subdev_state_get_crop(state, 0);
--	if (width != crop->width) {
-+	bin = gc5035->binning && width == GC5035_WIDTH / 2 &&
-+	      height == GC5035_HEIGHT / 2 &&
-+	      (width != crop->width || height != crop->height) ? 2 : 1;
-+	if (bin == 2)
-+		*crop = crop_default;
-+	if (bin == 1 && width != crop->width) {
- 		pos = GC5035_CROP_LEFT + (GC5035_WIDTH - (int)width) / 2;
- 		pos = clamp(pos, 0, GC5035_AREA_WIDTH - (int)width);
- 		crop->left = ALIGN_DOWN(pos, 2);
- 		crop->width = width;
- 	}
--	if (height != crop->height) {
-+	if (bin == 1 && height != crop->height) {
- 		pos = GC5035_CROP_TOP + (GC5035_HEIGHT - (int)height) / 2;
- 		pos = clamp(pos, 0, GC5035_AREA_HEIGHT - (int)height);
- 		crop->top = ALIGN_DOWN(pos, 2);
-@@ -645,11 +790,11 @@ static int gc5035_set_fmt(struct v4l2_subdev *sd,
- 	}
- 
- 	format = v4l2_subdev_state_get_format(state, 0);
--	gc5035_fill_format(format, crop);
-+	gc5035_fill_format(format, crop, bin);
- 	fmt->format = *format;
- 
- 	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE)
--		return gc5035_update_ctrls(gc5035, format);
-+		return gc5035_update_ctrls(gc5035, crop, format);
- 
- 	return 0;
- }
-@@ -664,7 +809,7 @@ static int gc5035_init_state(struct v4l2_subdev *sd,
- 	crop->width = GC5035_WIDTH;
- 	crop->height = GC5035_HEIGHT;
- 
--	gc5035_fill_format(v4l2_subdev_state_get_format(state, 0), crop);
-+	gc5035_fill_format(v4l2_subdev_state_get_format(state, 0), crop, 1);
- 
- 	return 0;
- }
-@@ -803,11 +948,42 @@ static int gc5035_write_geometry(struct gc5035 *gc5035,
- 	return ret;
- }
- 
-+/*
-+ * Binning: the vendor readout window, which starts at the first row and
-+ * column of the area, and the output crop in binned coordinates.
-+ */
-+static int gc5035_write_geometry_bin(struct gc5035 *gc5035,
-+				     const struct v4l2_rect *crop,
-+				     const struct v4l2_mbus_framefmt *format)
-+{
-+	int ret = 0;
-+
-+	cci_write(gc5035->regmap, GC5035_REG_PAGE_SELECT, GC5035_PAGE_0, &ret);
-+	cci_write(gc5035->regmap, GC5035_REG_WIN_TOP, GC5035_WIN_TOP_BIN, &ret);
-+	cci_write(gc5035->regmap, GC5035_REG_WIN_LEFT, GC5035_WIN_LEFT_BIN,
-+		  &ret);
-+	cci_write(gc5035->regmap, GC5035_REG_WIN_HEIGHT, GC5035_WIN_HEIGHT_BIN,
-+		  &ret);
-+	cci_write(gc5035->regmap, GC5035_REG_WIN_WIDTH, GC5035_WIN_WIDTH_BIN,
-+		  &ret);
-+
-+	cci_write(gc5035->regmap, GC5035_REG_PAGE_SELECT, GC5035_PAGE_1, &ret);
-+	cci_write(gc5035->regmap, GC5035_REG_CROP_TOP, crop->top / 2, &ret);
-+	cci_write(gc5035->regmap, GC5035_REG_CROP_LEFT, crop->left / 2, &ret);
-+	cci_write(gc5035->regmap, GC5035_REG_OUT_HEIGHT, format->height, &ret);
-+	cci_write(gc5035->regmap, GC5035_REG_OUT_WIDTH, format->width, &ret);
-+	cci_write(gc5035->regmap, GC5035_REG_PAGE_SELECT, GC5035_PAGE_0, &ret);
-+
-+	return ret;
-+}
-+
- static int gc5035_enable_streams(struct v4l2_subdev *sd,
- 				 struct v4l2_subdev_state *state,
- 				 u32 pad, u64 streams_mask)
- {
- 	struct gc5035 *gc5035 = to_gc5035(sd);
-+	const struct v4l2_mbus_framefmt *format;
-+	const struct v4l2_rect *crop;
- 	int ret;
- 
- 	ret = pm_runtime_resume_and_get(gc5035->dev);
-@@ -819,8 +995,18 @@ static int gc5035_enable_streams(struct v4l2_subdev *sd,
- 	if (ret)
- 		goto err_rpm_put;
- 
--	ret = gc5035_write_geometry(gc5035,
--				    v4l2_subdev_state_get_crop(state, 0));
-+	crop = v4l2_subdev_state_get_crop(state, 0);
-+	format = v4l2_subdev_state_get_format(state, 0);
-+	if (gc5035_is_binned(crop, format)) {
-+		ret = cci_multi_reg_write(gc5035->regmap, gc5035_bin_regs,
-+					  ARRAY_SIZE(gc5035_bin_regs), NULL);
-+		if (ret)
-+			goto err_rpm_put;
-+
-+		ret = gc5035_write_geometry_bin(gc5035, crop, format);
-+	} else {
-+		ret = gc5035_write_geometry(gc5035, crop);
-+	}
- 	if (ret)
- 		goto err_rpm_put;
- 
-@@ -912,6 +1098,17 @@ static int gc5035_parse_fwnode(struct gc5035 *gc5035)
- 				       gc5035_link_freq_menu,
- 				       ARRAY_SIZE(gc5035_link_freq_menu),
- 				       &link_freq_bitmap);
-+	if (ret)
-+		goto done;
-+
-+	if (!(link_freq_bitmap & BIT(GC5035_LINK_FREQ_FULL_INDEX))) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "link frequency %lu Hz not supported\n",
-+				    GC5035_LINK_FREQ);
-+		goto done;
-+	}
-+
-+	gc5035->binning = link_freq_bitmap & BIT(GC5035_LINK_FREQ_BIN_INDEX);
- 
- done:
- 	v4l2_fwnode_endpoint_free(&bus_cfg);
-@@ -923,7 +1120,6 @@ static int gc5035_init_controls(struct gc5035 *gc5035)
- {
- 	struct v4l2_fwnode_device_properties props;
- 	struct v4l2_ctrl_handler *ctrl_hdlr;
--	struct v4l2_ctrl *link_freq;
- 	s64 exposure_max;
- 	int ret;
- 
-@@ -934,13 +1130,19 @@ static int gc5035_init_controls(struct gc5035 *gc5035)
- 	ctrl_hdlr = &gc5035->ctrls;
- 	v4l2_ctrl_handler_init(ctrl_hdlr, 9);
- 
--	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, NULL, V4L2_CID_LINK_FREQ,
--					   ARRAY_SIZE(gc5035_link_freq_menu) -
--					   1, 0, gc5035_link_freq_menu);
-+	/* The binned mode frequency is only listed when the firmware has it. */
-+	gc5035->link_freq =
-+		v4l2_ctrl_new_int_menu(ctrl_hdlr, NULL, V4L2_CID_LINK_FREQ,
-+				       gc5035->binning ?
-+				       GC5035_LINK_FREQ_BIN_INDEX :
-+				       GC5035_LINK_FREQ_FULL_INDEX,
-+				       GC5035_LINK_FREQ_FULL_INDEX,
-+				       gc5035_link_freq_menu);
- 
--	v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_PIXEL_RATE,
--			  GC5035_PIXEL_RATE, GC5035_PIXEL_RATE, 1,
--			  GC5035_PIXEL_RATE);
-+	gc5035->pixel_rate =
-+		v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_PIXEL_RATE,
-+				  GC5035_PIXEL_RATE_BIN, GC5035_PIXEL_RATE, 1,
-+				  GC5035_PIXEL_RATE);
- 
- 	/* Ranges for the default crop rectangle, see gc5035_update_ctrls(). */
- 	gc5035->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &gc5035_ctrl_ops,
-@@ -977,7 +1179,7 @@ static int gc5035_init_controls(struct gc5035 *gc5035)
- 	if (ctrl_hdlr->error)
- 		return v4l2_ctrl_handler_free(ctrl_hdlr);
- 
--	link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	gc5035->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
- 	gc5035->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
- 
- 	gc5035->sd.ctrl_handler = ctrl_hdlr;
--- 
-2.47.3
-
+    Andrew
