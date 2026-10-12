@@ -1,187 +1,103 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2914AA1EB;
-	Mon, 12 Oct 2026 15:56:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83244A6885;
+	Mon, 12 Oct 2026 15:56:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791820565; cv=none; b=pLnd7e+ThPztHbgtZlQtDtdDbpWda1FRcLfe4S4612aqH2kdTia2lQplQSJbVR+emRXid1i8TNsdZIGmuf55dR6/xzEL6OgQDgv5HjLFROMwPxuOTZpXSHO0ngRutMXydr1Myl9isd4MR+GHAzqIK5qALNAbD8uXgNJp437Z0Zo=
+	t=1791820571; cv=none; b=GN/uH6f7z8jVoST+yNOB8gaKaroPjkAmbbv1hKTNdFZsspAOmn4mK0lBsRmJHvyhhJPJ2q8c5A5eeOdaaXCmUu+2PUUkP9yNGh3Vu8TXYmzn0pioKbvoIh2xwK8nzvHYZ6mvWIwBPlOrXEDU/RMm73CLN4q7BCEXgxZkq07GJX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791820565; c=relaxed/simple;
-	bh=b0XKFcwxPXoheG5vZ6kVIkZHetEjyzcldENTlm/sZ8k=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=d3eeLcAFaTd9EHzxOjRn7Eymes7k71S4yr1uxnu7qOri5E7TFH745MrhZCRmzhFX1ithuQHi6/nOX74VWDMkiNWyBFdqRWKW6Nx3EJ7qbNVY0PprgtG1JE+P6Z7zbSO2Yv/P8tYyyIMTV1xpBNgEpxOuc1L43mIo1jOlQc2xoZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=OZ/7OUTd; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Tssyn4EC; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=OZ/7OUTd; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Tssyn4EC; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791820571; c=relaxed/simple;
+	bh=F8TxNbzPoPpeOKAIMlDONgvTVGQu2v1xJvBOhBytrPA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=s89LGIurxcj9mvhoPmquUATKslGQzunkSs+X3b1u9rs/HXk2arSi0sFOvJMUeWo9kuoFF8mIVtyrtK0clCpcQna8VtVNQlfTcZOb7lAtmFINGMIEv5yPEEF46XIYHm0OgVlw8oY4gbFb6ZuyJrDpCilk/UzOgqBih5ZyVE7qUmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dlrli8/w; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="OZ/7OUTd";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Tssyn4EC";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="OZ/7OUTd";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Tssyn4EC"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id AC31A21E37;
-	Mon, 12 Oct 2026 15:56:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791820561; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=trxIJ6g8YDuoBjr9o+264MF/tcKAtAK/xFK7YqbRuZA=;
-	b=OZ/7OUTdGoeXbmyAqD3VUDt+QtZnbh0msi1mS9S2RtgQFDWEOQN751iLBGZDv5KuIYi8Iz
-	QklgBu7awPCEKZerzVH+4prIwI8OC/UALrx9Z5r5WPEeq5XlvHwA9X72QFVFXL6RJI9gIG
-	RZdSxI8mUI2tLGwiTfw5H1siU0vEHN8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791820561;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=trxIJ6g8YDuoBjr9o+264MF/tcKAtAK/xFK7YqbRuZA=;
-	b=Tssyn4ECBazzwQBZSrZbOXnuS0IutOD6Py1cTGNIUD7I9PViQ+M3ufQRToKzdObwlg7r0I
-	JyCR61967mySf6CQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="OZ/7OUTd";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Tssyn4EC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791820561; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=trxIJ6g8YDuoBjr9o+264MF/tcKAtAK/xFK7YqbRuZA=;
-	b=OZ/7OUTdGoeXbmyAqD3VUDt+QtZnbh0msi1mS9S2RtgQFDWEOQN751iLBGZDv5KuIYi8Iz
-	QklgBu7awPCEKZerzVH+4prIwI8OC/UALrx9Z5r5WPEeq5XlvHwA9X72QFVFXL6RJI9gIG
-	RZdSxI8mUI2tLGwiTfw5H1siU0vEHN8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791820561;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=trxIJ6g8YDuoBjr9o+264MF/tcKAtAK/xFK7YqbRuZA=;
-	b=Tssyn4ECBazzwQBZSrZbOXnuS0IutOD6Py1cTGNIUD7I9PViQ+M3ufQRToKzdObwlg7r0I
-	JyCR61967mySf6CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 543ED13408;
-	Mon, 12 Oct 2026 15:56:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 5sv1ChEDzWrGEQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 12 Oct 2026 15:56:01 +0000
-Date: Mon, 12 Oct 2026 17:56:00 +0200
-Message-ID: <878q42hq0f.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Ali Ahmet =?ISO-8859-2?Q?Memi=BA?= <aliamemis@disroot.org>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+40b06a86af225236fdb4@syzkaller.appspotmail.com
-Subject: Re: [PATCH] ALSA: hda: intel: Don't free card in the probe work
-In-Reply-To: <20261012150949.1840175-1-aliamemis@disroot.org>
-References: <20261011200648.1662935-1-aliamemis@disroot.org>
-	<875wz7idx3.wl-tiwai@suse.de>
-	<20261012143508.1830791-1-aliamemis@disroot.org>
-	<87fqybge5a.wl-tiwai@suse.de>
-	<20261012150949.1840175-1-aliamemis@disroot.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dlrli8/w"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791820570; x=1823356570;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=F8TxNbzPoPpeOKAIMlDONgvTVGQu2v1xJvBOhBytrPA=;
+  b=dlrli8/wvbhatkTRWXqIkzTp+MOhqYSajVHTY+SEd5mmMK3cr+6KcUrD
+   KUg6vrEm9PeI0Oqhx/C0qWNMGZMoc/AaXsWghWHAE3EBtkOr2E6O4bblx
+   ZGkk6fs2nc0uJtGDtwVc1ObbRQacJL4CMT5IM5TP8miw6op0S5Vdud+A/
+   TZ2/mmRW1GSK9/BlhNrv5ThixfT862D0YGgBOKwuzBVhoOf+T5OLiwyHK
+   pHGmCf/fmUaamcCRghcFIzgf9y3vkkalJrMNpN6VldU5HIpbYQMn0JKfg
+   3T9PkWLmENw80KdPVVIf87LZr15SJHf2Hv4d7eRqyoCNwrzAM1f5PcuXo
+   g==;
+X-CSE-ConnectionGUID: nnPSzgJVRuqZ2M4SG/DlQA==
+X-CSE-MsgGUID: FOOHPNTaQTOMK6SLdeBaUw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="625462"
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="625462"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 08:56:09 -0700
+X-CSE-ConnectionGUID: ebtEE5rbREmyhX9hYdD/XQ==
+X-CSE-MsgGUID: voR0x8qcQeW2r36sxaKJHA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="970372"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.202])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 08:56:04 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: =?utf-8?q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>, 
+ Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Henrique de Moraes Holschuh <hmh@hmh.eng.br>, 
+ Qiling Zhu <kmatzkaczor244@gmail.com>, 
+ Oleksii Kryvenko <diver.ua@gmail.com>, ibm-acpi-devel@lists.sourceforge.net, 
+ platform-driver-x86@vger.kernel.org, regressions@lists.linux.dev, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261010031827.3306077-1-dmitry.torokhov@gmail.com>
+References: <20261010031827.3306077-1-dmitry.torokhov@gmail.com>
+Subject: Re: [PATCH] platform/x86: thinkpad_acpi: fix deadlock in hotkey
+ input open/close
+Message-Id: <179182055606.17897.2748712319508628576.b4-ty@b4>
+Date: Mon, 12 Oct 2026 18:55:56 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-2
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: AC31A21E37
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	TAGGED_RCPT(0.00)[40b06a86af225236fdb4];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -2.01
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Mon, 12 Oct 2026 17:09:41 +0200,
-Ali Ahmet Memiº wrote:
-> 
-> On Mon, 12 Oct 2026 16:57:37 +0200, Takashi Iwai wrote:
-> > OK, that's a problem, indeed.  How about replacing snd_card_free()
-> > with *_when_closed() version that doesn't block in addition?
-> 
-> The work doesn't hang anymore but removing the device while the probe
-> work is running hits the same UAF on the first try.  azx_remove() still
-> gets the card before cancel_delayed_work_sync() and the put_device() in
-> the work frees it:
-> 
-> BUG: KASAN: slab-use-after-free in snd_card_free+0x148/0x160
-> Read of size 1 at addr ffff888007724852 by task sh/97
-> Call Trace:
->  snd_card_free+0x148/0x160
->  pci_device_remove+0xb6/0x1d0
->  device_release_driver_internal+0x38d/0x540
->  pci_stop_bus_device+0x122/0x170
->  ...
-> Freed by task 30:
->  kfree+0x1e8/0x5e0
->  device_release+0xcf/0x3c0
->  kobject_put+0x169/0x320
->  azx_probe_work+0x495/0x1fa0
->  process_one_work+0x937/0x1800
-> 
-> > Staying the card means that the card slot will be kept, then if you
-> > probe another card afterwards, it'll end up with assignment on another
-> > card slot.
-> 
-> What about calling snd_card_disconnect() in the work on failure?  It
-> releases the slot right away and the card is still freed only in
-> azx_remove():
-> 
-> 	if (azx_probe_continue(&hda->chip, false) < 0) {
-> 		hda->init_failed = 1;
-> 		complete_all(&hda->probe_wait);
-> 		snd_card_disconnect(hda->chip.card);
-> 	}
-> 
-> With that, snd-dummy loaded after a failed probe gets card 0 and 20
-> rounds of the remove race were clean with KASAN.  I can send v2 if this
-> looks fine.
+On Fri, 09 Oct 2026 20:18:24 -0700, Dmitry Torokhov wrote:
 
-Yeah, that sounds like a plan.
-Care to resubmit a fix with that approach?
+> Commit d6479c25ecef ("platform/x86: thinkpad_acpi: Use
+> input_device_enabled()") changed hotkey_poll_setup() to acquire
+> tpacpi_inputdev->mutex and call input_device_enabled(tpacpi_inputdev).
+> 
+> However, the input core already holds dev->mutex when invoking a
+> device's open() and close() callbacks. Because hotkey_inputdev_open()
+> and hotkey_inputdev_close() call into hotkey_poll_setup(), attempting to
+> acquire tpacpi_inputdev->mutex again results in an immediate
+> self-deadlock.
+> 
+> [...]
 
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
 
-thanks,
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
 
-Takashi
+The list of commits applied:
+[1/1] platform/x86: thinkpad_acpi: fix deadlock in hotkey input open/close
+      commit: 16a7b5e0e4e3ba9997658b218559fff7ac1ccfb3
+
+--
+ i.
+
