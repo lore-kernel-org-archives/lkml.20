@@ -1,121 +1,107 @@
-Received: from mta0.migadu.com (out-102.mta0.migadu.com [91.218.175.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232E2453A45
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:47:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E95316199;
+	Mon, 12 Oct 2026 08:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791794869; cv=none; b=Bweyy7adigI1x1XQH15tct6jFWI6ho2wdbUbkC/r0WuN4JY5Byspwtiy1IQeYf++X7+CosNYaUCcf4vEpcliJQJ9Hxt1lgfQA8w+csr07I0l75KCW65x0LWDPbiJXUyeb3ExnawZtMAtw9bdePMPtPkluMPofkh/EbkZQlpCtVk=
+	t=1791794878; cv=none; b=IW9aWnWBmjgU/LqHkLFvxIzPyayXJ0k0WWek5tw2W8M6DZhdmemVFFU1nbt/39pNbQjj5TTpIQqHaGgPYhL2FSm+85AEAFbl7GZNHWZ7s8uzlJqVu1V/pbnvwKkI4At9BFFfruhyYRzyTbF2RDmRRDPhl2sF4E0T9qww6CTRerk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791794869; c=relaxed/simple;
-	bh=SEZ6etcTUGf9RNiXMMSRKfIgUoYwJmmBOcXlKCaLB1c=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XEmpJ/zg+mkOU4BT/vn5/euauRjfmufkIA1ooHp23+Dw7ipoOmGrHO4JYi4NTE3GeRvcEwUIZOD/0plILFzFLgSmGvD977RCEZK6i8hxXAbsvyw83Ehc+/hqKIz0yc3bOr9geMDBSwBKouEuDlXTgPpOnLSaPjyk/2yRKTCC174=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LifUpA1O; arc=none smtp.client-ip=91.218.175.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791794878; c=relaxed/simple;
+	bh=mRB61DVyw+6l1YCLi7gajc8GDTZlCa37b8N06fNjsZo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xm0+kzDgGo47f+u5TJsTHLx38cTIgxPBgcJLX5W1mEvFYzk5m5thLXZaeQKAb+wM8Obks4cIlgdzTCQT31aSW9uiW5YRAGedpunVZ7vOWqxzjzFadmKvF8ZEUVCI2pES9ZuG25231uFfp5ColzEKUgxDw6ZsnV8QLXSW/+I6DMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KTFuMnT3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LifUpA1O"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SEZ6etcTUGf9RNiXMMSRKfIgUoYwJmmBOcXlKCaLB1c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791794866; v=1; x=1792399666;
- b=LifUpA1OiIiDsoTE2x+/KfBOlpw5lBYJmid7KmgnX26wU7RSeNLTCIwLjTY3ssOWJWLi1PBX
- u35Uy39rnR0B6wIACwpoR99Q/bFmB+dCdWDXXN3/YZ0JoJU+rz0uVM1bm2ch7364Yazc9LiOyeI
- fQdoCSbveYyVF2dbY2DrY7oQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ea7dd119e4327306;
-	Mon, 12 Oct 2026 08:47:46 +0000
-X-Mizu-Trace-ID: ea7dd119e4327306
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Fuad Tabba <tabba@google.com>
-Subject: [PATCH v1] KVM: arm64: vgic-v4: Don't forward an LPI with no target vCPU
-Date: Mon, 12 Oct 2026 09:47:43 +0100
-Message-Id: <20261012084743.2228612-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KTFuMnT3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DC281F0089E;
+	Mon, 12 Oct 2026 08:47:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791794877;
+	bh=zIaovKbpORetJFMV2g32jUqq0XNo4TNii9P+2eJRh9A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KTFuMnT3Km982dOJoJpLE0aOF8IO2hCdp+tHoH1o9jUMWN+3J5nwqs8RgjapMhKAH
+	 +kGFwU/wOTUngnha0SCSVetVj5mc5E4Z1bnNEl/Yv50XbXeEbqNKYPiS96tqfGpgsK
+	 Mb/9sj0Nbl6E7F3Rnejogj7kMVlDXL/aSmq4KevRlCsXfVjyZZXjr4h3fFuLR5SIgI
+	 G4N8QD6UHgWhcYA/+ZerDOmDtjUWe1dBygcF0AgHYBVlYr9KczhqGv3g39Z8JuC9+1
+	 dfVaMwSmcrugzZL5qlVzStPfJz2ejU/prqunnozY8fACRn2mtX9h7j07tRYUTtG3sL
+	 Ywr3gbA3ks96g==
+Date: Mon, 12 Oct 2026 14:17:44 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Peter Chen <peter.chen@kernel.org>, Pavankumar Kondeti <quic_pkondeti@quicinc.com>, 
+	Stephen Boyd <stephen.boyd@linaro.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-phy@lists.infradead.org, Greg Kroah-Hartman <gregkh@suse.de>, 
+	Peter Chen <peter.chen@nxp.com>
+Subject: Re: [PATCH 08/10] usb: chipidea: host: calibrate the PHY after
+ starting the host
+Message-ID: <asyeTY7H9lCzA4m-@debian>
+References: <20260810-msm8974-usb-hsic-v1-0-e5f93ea76ffa@oss.qualcomm.com>
+ <20260810-msm8974-usb-hsic-v1-8-e5f93ea76ffa@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260810-msm8974-usb-hsic-v1-8-e5f93ea76ffa@oss.qualcomm.com>
 
-KVM keeps one vgic_irq per LPI. The MAPTI that creates it sets its
-target vCPU from that MAPTI's collection, and a later MAPTI of the same
-LPI leaves the target alone. Mapping one LPI from two events is
-UNPREDICTABLE (IHI 0069H.b, 5.2.10), but nothing stops a guest doing
-it. If the first MAPTI names a collection the guest never maps and the
-second a mapped one, the LPI translates through the second event with
-a NULL target vCPU.
+On Mon, Aug 10, 2026 at 06:42:12PM +0300, Dmitry Baryshkov wrote:
+> Some PHYs need a final programming step after the host controller is
+> up: the Qualcomm HSIC PHY latches the device connect at the moment
+> HSIC mode is engaged, so that write must happen with the root port
+> already running, or an already-connected HSIC device (the strobe/data
+> lines have no hotplug) is never seen. The generic PHY framework
+> provides phy_calibrate() for exactly this kind of post-init fixup and
+> dwc3 already calls it; the chipidea host does not, leaving no place
+> for such PHY work.
+> 
+> Call phy_calibrate() once the HCD has been added, next to the existing
+> i.MX HSIC active-event hook which serves the same purpose. PHYs
+> without a calibrate op are unaffected.
+> 
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/usb/chipidea/host.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/usb/chipidea/host.c b/drivers/usb/chipidea/host.c
+> index ced6076a8248..62bb2999edb6 100644
+> --- a/drivers/usb/chipidea/host.c
+> +++ b/drivers/usb/chipidea/host.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/string_choices.h>
+>  #include <linux/pinctrl/consumer.h>
+> +#include <linux/phy/phy.h>
+>  
+>  #include "../host/ehci.h"
+>  
+> @@ -192,6 +193,9 @@ static int host_start(struct ci_hdrc *ci)
+>  			(ci->platdata->flags & CI_HDRC_IMX_IS_HSIC))
+>  			ci->platdata->notify_event
+>  				(ci, CI_HDRC_IMX_HSIC_ACTIVE_EVENT);
+> +
+> +		if (ci->phy)
+> +			phy_calibrate(ci->phy);
 
-When the VMM routes an assigned device's MSI to that event on a host
-with GICv4 enabled, kvm_vgic_v4_set_forwarding() takes the vPE from the
-NULL target vCPU and the host oopses:
+As Konrad noted, phy_calibrate() handles NULL pointer. So you don't need the
+check. With it removed,
 
-  Unable to handle kernel paging request at virtual address 0000000000001980
-  [...]
-  Call trace:
-   its_build_vmapti_cmd (drivers/irqchip/irq-gic-v3-its.c:943) (P)
-   its_irq_set_vcpu_affinity (drivers/irqchip/irq-gic-v3-its.c:1380)
-   irq_set_vcpu_affinity (kernel/irq/manage.c:670)
-   its_map_vlpi (drivers/irqchip/irq-gic-v4.c:326)
-   kvm_vgic_v4_set_forwarding (arch/arm64/kvm/vgic/vgic-v4.c:485)
-   kvm_arch_irq_bypass_add_producer (arch/arm64/kvm/arm.c:2977)
-   irq_bypass_register_consumer (virt/lib/irqbypass.c:44)
-   kvm_irqfd (arch/arm64/kvm/../../../virt/kvm/eventfd.c:496)
-   kvm_vm_ioctl (arch/arm64/kvm/../../../virt/kvm/kvm_main.c:5270)
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Leave such an LPI to the software path, which copes with a NULL target,
-as kvm_vgic_v4_set_forwarding() already does when the MSI doesn't
-translate.
+- Mani
 
-Fixes: 196b136498b35 ("KVM: arm/arm64: GICv4: Wire mapping/unmapping of VLPIs in VFIO irq bypass")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
-Tested on QEMU, which emulates the GICv4 ITS, with a local reproducer
-that sets up the two MAPTIs and forwards a vfio-pci MSI to the LPI. It
-oopses without the fix and passes with it. Not tested on GICv4 hardware.
-
-Based on v7.3-rc3.
-
- arch/arm64/kvm/vgic/vgic-v4.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/arch/arm64/kvm/vgic/vgic-v4.c b/arch/arm64/kvm/vgic/vgic-v4.c
-index ed236f083f0d7..545e55317c863 100644
---- a/arch/arm64/kvm/vgic/vgic-v4.c
-+++ b/arch/arm64/kvm/vgic/vgic-v4.c
-@@ -466,6 +466,13 @@ int kvm_vgic_v4_set_forwarding(struct kvm *kvm, int virq,
- 	if (irq->hw)
- 		goto out_unlock_irq;
- 
-+	/*
-+	 * Silently exit if the LPI has no target vCPU, as one mapped by
-+	 * multiple ITEs (UNPREDICTABLE) can have.
-+	 */
-+	if (!irq->target_vcpu)
-+		goto out_unlock_irq;
-+
- 	/*
- 	 * Emit the mapping request. If it fails, the ITS probably
- 	 * isn't v4 compatible, so let's silently bail out. Holding
-
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
 -- 
-2.39.5
-
+மணிவண்ணன் சதாசிவம்
