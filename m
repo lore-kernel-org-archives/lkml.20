@@ -1,173 +1,148 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F0F218E91
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:22:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F8345DF63
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:22:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791796938; cv=none; b=n6Ce0HR0FJkLkPcht6GTqH+hP2gTH/dSZmC7zUWAMouYOo0ZDFe3XwOVAstQD/toD/35dIy6rtckQTGM2CGKNOCeD0KuZFptIYChvd5x6iROuxH3qh7GXLr1dX6/CBEuDubNl43n6+qjdiZVsl2ljZdrprhcbhPiFikXr5TPhk8=
+	t=1791796938; cv=none; b=VRESuYPAIwyLl2DsJg4zcmzQ7wUUSe13Ot1evX9SKnfhRONHgs06HHq72/jvpRiGfVSZ9u0ovk8Fj2D1mdf93VByqSVaF5dzEh6KW4oX6kpQWCA2aSfCTSfqlSwrzpGA3rTzq0nB2LSWWbeCla4e7RYOetXz5BUc/I2fVp4yv6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791796938; c=relaxed/simple;
-	bh=pQUX3gB6259Y2UtIUjapVUVyofx9zTRpyf+VPMi7T7E=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=aGPPchHZh9eC7eYCBLvP0BXha8HQd4zhkZ/ZkFw8wajbCMj2PaVdzq81l+15IEgI+H3I2+5wVIDSoEQ2UkJxV1+/2dFyxdXzmASkBlSQOeILaulcI94MoVPxf3wqiyGivRl6d/4KGIMV5sfhUM/Iv92MV5lnUFZwk3yOeLJJAdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QRjzm/mV; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	bh=qZdH4O7AYhrATR5UPQCOt1R0Dm2794679njvxbHtNZs=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=diR/68FcBiWRp4XEZ2Pt8uYPYvU7bNWXXLhBP2hKMsgQfivkf7gN4YAHDIHHLIDrjEe1R2O8LJeP5leUZm/NcU1yapkd7acP8PEsYMm9/zLPOOyeEYS7hKPQUcnXynknas8uHLQ0y+WpjDl/IC4J8UZuIZkcGU473run0Z+3ec0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=M9FE6G7p; arc=none smtp.client-ip=209.85.208.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QRjzm/mV"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso13936815e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:22:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="M9FE6G7p"
+Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6b13fb91795so1849051a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:22:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791796935; x=1792401735; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FLb0lJXlFmNtssjfM0yj8AimWlA+OyKOOXSxBmbtCKA=;
-        b=QRjzm/mV+40n+tlKsPcpOBbWM633wqptMhwhhmXz/g3yAFMMzy+A4lzmek0y8hFxx7
-         ogqdXKyqMNXMVQOyc00m3QX5Azvqfw8gF664uX6gTi0mJnY/Ew0+Foy5PhHeZbvXM8ZO
-         jnQcZcQWwJXhmNz7jqP6TR5PpE92pgOmrvdU2ycGIKFa6hV714yck9LZNXji6+bWSd4T
-         yepgPO0P036VC5AQ8HZQqcLB/fZABECsT/7++Ppl0Qm41gH7UqfdW4MqJDsBbn6fz1oX
-         ANuqvEX94axp2vxj6dC78rrXTGMBuSc2dj+Hkpt+yJz/u/2Ilrso01mKpxCUozRoypsi
-         O1oQ==
+        d=google.com; s=20251104; t=1791796935; x=1792401735; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pr1oOrP9lLyuo1XWNgakeB/AtMIvjuEaKOp04OdVG9s=;
+        b=M9FE6G7pm8+JQd7clGgJSMQMsHxG4FcsTzhC7xf8q/wAea2vSXvhl3dQ6rmF7y9t3F
+         Svbsbadms2mVaXgv7cURU42AiwopSy2H7beGohRfrPZKw9qfYpgXQIK+jbzEtsKXb/G3
+         zYTXqrrL2GlXQXL3jx7d9d8TTwYkv+awzRYxjdAiwIkKiffSsFyjzzHs0Yt+v/Dmaftr
+         pakbLAcECSxNWlPtK7/cu7mFhMMcxyc24Qhkz1q4esMDKLcu34y3KUDrf4aLaKcYT249
+         gwA/irJQwwkEdHLxkR8yh/Wn6Gqlw6Ix/CBZg7dpE96m9vRF4d734BpQM9qnXnJ5NVYD
+         gGYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791796935; x=1792401735;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FLb0lJXlFmNtssjfM0yj8AimWlA+OyKOOXSxBmbtCKA=;
-        b=DWFJyY+Eq5qDbXQy/U/JIUzGY2bqfSw/3YcCEgwGDtdffqT46BqeORj++9M95A5qVO
-         3M2xIHdyUBuvHdxLUZDsVWUyrap1CAsjPGOq0nH17YLXU3cmLDZyWstvBU9dRwbWa7wP
-         bBGKiK7quKWkTYOAkOlVdiXPnP/hQH/LaCJDZSdQoK8XxR1PBD1pyT+38iPYcQIE2myi
-         GF3l7asJnrjpO7JxAgVBWn9XyHYF52p6YXjdR5QCRKIUVE6jxCnNnC1xjRNvujq7Vh1R
-         entFovJm8nRC3MOrMkLJwhRMR1fFvXE+zVgre5BQYlSXegJSq5CRg2BUMiMmkju8UJgD
-         ZdjA==
-X-Forwarded-Encrypted: i=1; AKwUvBwe0OIoA6AJQ6ENIxBQEoVey5SJXQA6/eq63ZJf2R08EeC0fIhSSnkSbn74TJf9+8roOECwgRyX1VlygXk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLde9qkCWWmXoFWnSguocbHzW0aDgvMSvQrHF5fxv1CTNc93Nj/
-	oKoVKSxkA7lR3kZ8wKRvyn48qPjmHuXt+1j4kcZLg1NLWGQLvlGKDdDlr8mbmNLHPFw=
-X-Gm-Gg: AYBFou2lkTGQIAdP7MU3AfiPy1dic34+bkhIful0QEWCo/7pjs4zxPJGjtK4P/Goi9E
-	0TuDgn+buYB+l4p9G/R3KsAdlvPbei4Pwy/xy/zW3+xtU8jbJ7S88fq9zXZR0A8X4y2ysvN4TgM
-	kjDJEr1+fowQe0hl4XNiMArlNfRIhO8QwPFpjnqmep07iKLtbm/ySKYPF7D5/JkE68ji6qLOMFM
-	GkJ1yFxYNeYegNehsM7NHHLjixGaMd0lW1KVKDL5WuG1RiNK94bvObzsz81v5aVUURKwGX7Fwv+
-	1pQgTzcVhRN3OTcwhIvZEyiYOEx9e/eWrAe8V2Gizr93LWTwPvkuP6qSQoZqJyoi+tqus04D90l
-	4pmGY2xjqt+I/3E/bbPfz0Xl9fBPPQWu7GmoCoxGoNZjUO1ru6OD/Yc6I/QZW2cQhqFFW0IrVyS
-	vJUulTAxH8m5sLe/fBwg+R86p1EVxw+gbiV8VeXpu4DosysVSNlPr/11lRmistKaGXG/GOvr1N6
-	xv7lEbko94A3bAmyDwNgZMpHRg5xLeUbCO7WY/0u7OkLDuzF60=
-X-Received: by 2002:a05:600c:3144:b0:4a1:70b2:8dbb with SMTP id 5b1f17b1804b1-4a18e4b0347mr158264505e9.19.1791796934769;
-        Mon, 12 Oct 2026 02:22:14 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:417e:f4c4:5b8:8c48? ([2a01:e0a:106d:1080:417e:f4c4:5b8:8c48])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db99b820asm19844601f8f.24.2026.10.12.02.22.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 02:22:14 -0700 (PDT)
-Message-ID: <03223155-d632-464a-9be3-a11f9928d05b@linaro.org>
-Date: Mon, 12 Oct 2026 11:22:13 +0200
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Pr1oOrP9lLyuo1XWNgakeB/AtMIvjuEaKOp04OdVG9s=;
+        b=LqjoTm9ModXmUCSr62rcEEdRcYnJ6P0k9Ng0LfikLMIxCPU3f8MHxLQ7fytebqhUe1
+         VWC+9YAomckI9OS3AoTRnVhULJKEUGHQgq5jIq0LcIyzp+VIXueSep8C1mCb+mP9Dooz
+         Cdoac4/iTRhfGIFc9pQUn5RN7C6S7HYtudqEylLNWk7J9rO+iFQSQ/RFB7Memr7LrVPh
+         GtcP+XwkLDW0g62yO4JHVmG1qmEwpHIPzh9GjGBv4VAAl3vSBUioJ7YjFSk8da/egi+B
+         3cg+zm80afvr6ib2+/V11JGMVtfbb6PoafWRh27c4AYEwWd+BASN88VuxH4dfxSXkZml
+         3+Yg==
+X-Forwarded-Encrypted: i=1; AKwUvBwzoMLh7Z7PPid7N+zGuE0UNKDfG3tjngISeJWFXlkMBkKod0Eysk/HlmsG5CEvRUUWEXQ7Ek8zyVAdCyw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIiMQ0RYZdVPK5lZKm7lG5PpKbfsSuvjSy4ZJwixZXNwEOBjv5b
+	ns7qTmlDwnbBn9LPRSF/Ggn90PpiWf+BpXUbqQRDu2LC7xxeJ/Er9D4rWOomUNO7lroSEUcL6B8
+	Ri25qrO5Jn7Xlj17E5g==
+X-Received: from edgi18-n2.prod.google.com ([2002:a05:6402:a592:20b0:6b1:d06e:c41d])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:4007:b0:6b1:bc9f:8ff9 with SMTP id 4fb4d7f45d1cf-6b1bc9fbad6mr2241822a12.19.1791796934924;
+ Mon, 12 Oct 2026 02:22:14 -0700 (PDT)
+Date: Mon, 12 Oct 2026 09:22:05 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2] irqchip/meson-gpio: Allow the GPIO interrupts to wake
- the system
-To: iav@iav.lv, Thomas Gleixner <tglx@kernel.org>
-Cc: Radu Rendec <radu@rendec.net>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261010-meson-gpio-wake-v2-1-790ecc6df792@iav.lv>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261010-meson-gpio-wake-v2-1-790ecc6df792@iav.lv>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIALymzGoC/4WNTQ6CMBBGr0Jm7Zi2yp8r72FYSDuUJsCQVquG9
+ O5WLuDyfcl73waBvKMAl2IDT9EFx0sGdShAj/fFEjqTGZRQlRRSol2fcUZP2YuEHMkPE7+w7Es
+ lTF01TUuQ5dXT4N57+NZlHl14sP/sP1H+1r/JKFFiq4Xu1cnUZ9FeLbOd6Kh5hi6l9AWvxMlIv QAAAA==
+X-Change-Id: 20261011-gpuvm-reserve-overflow-5b520d76889e
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2158; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=qZdH4O7AYhrATR5UPQCOt1R0Dm2794679njvxbHtNZs=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqzKbAZCxgbuvZpmzhGqCkC+sxMkw/LXH8lC89s
+ sFjPoV/2hCJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCasymwAAKCRAEWL7uWMY5
+ RgoGD/9etRZnhqzgz4+aTvIsG5m4qctxSa/0Jc0d4vNdp+pVJVCoB7mzqZKsEx4FcdqcBH1yibL
+ xDx/r4o9rS2J5/fs1iRdK5hlHbmRwgSeSJQ7tjroVofepWKRvffMc8OPptts9JPZuARG/tHBOjO
+ sLqoKfdhs0IfMZ24Vk+h22l9+K2vNrlL8GWKlbhj2morTQUohh2bjhY0VsWIqwTQ9jdNb5+/VsP
+ RvP4sP0kbFmczBwp2iCue3WHMppqaPrzIep+8+xnINKJZd7vxhQEtdjQqdGmN3obDbEQNuYI8Up
+ b2X0F6dLw9iHZ2Qq9Uxb0VlwNkgqIe/+gMVSxHHZwkBSo8Qe5oZBcsQ7qgy7zHO8qJqmBv2FDO5
+ 4XevzMinvfWp7xNV0SGOp2mkuJ3tNJV1FZBoos/YFUDfbF/0C68y5PMpWbKBfn6X3EYVAw6Een/
+ k8+IFUvx92Ct1FubBoPL0rIW08/+I1tU+ku9At+BUoSdSPxAfU+syYvWu8HBC9e42RU0aOKfmy1
+ 5HUaakBQjOmFtDYzknjjEr8VVZzkoBIXacN1Z20Vrk20dqvVMAcahmWt/yYUPF3hiZhoOPhWwlt
+ ew/BoLBNIXjMCx3/19vUL2Ov+C+cmQCwjd393SaECGXLfMd9paXYbRuRShn8+XztT7EcSmXYQOT BFfZxCBC1bPwdbw==
+X-Mailer: b4 0.14.3
+Message-ID: <20261012-gpuvm-reserve-overflow-v2-1-519ef15e2172@google.com>
+Subject: [PATCH v2] drm/gpuvm: skip setting kernel_alloc_node range on overflow
+From: Alice Ryhl <aliceryhl@google.com>
+To: Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	"=?utf-8?q?Thomas_Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, 
+	Boris Brezillon <boris.brezillon@collabora.com>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	stable@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
+Content-Type: text/plain; charset="utf-8"
 
-On 10/10/26 20:20, Igor Velkov via B4 Relay wrote:
-> From: Igor Velkov <iav@iav.lv>
-> 
-> meson_gpio_irq_chip has neither .irq_set_wake nor IRQCHIP_SKIP_SET_WAKE,
-> so enable_irq_wake() fails with -ENXIO for every interrupt routed through
-> it, and such an interrupt never gets IRQD_WAKEUP_STATE.
-> 
-> That matters for suspend-to-idle. suspend_device_irqs() keeps only the
-> wakeup interrupts enabled; the rest are suspended and masked by the flow
-> handler when they first fire. A GPIO interrupt that fires during s2idle
-> therefore brings a CPU out of idle once, gets masked, and the system
-> sleeps on. For mem the firmware chooses the wakeup sources, and this
-> flag changes nothing there.
-> 
-> Set IRQCHIP_SKIP_SET_WAKE, like the other hierarchical irqchips with a
-> GIC parent. The GIC sets the same flag, so irq_chip_set_wake_parent()
-> would end there anyway.
-> 
-> Tested on ODROID-HC4 with the PCF8563 alarm interrupt routed through this
-> controller: with the flag the alarm wakes the board from s2idle 4/4, and
-> /sys/power/pm_wakeup_irq names it; without the flag the board stayed in
-> s2idle past the alarm until a power cycle (0/5).
-> 
-> Assisted-by: LLM
-> Signed-off-by: Igor Velkov <iav@iav.lv>
-> ---
-> Changes in v2:
-> - Reworded, as Neil asked: say that the test and the effect are for
->    suspend-to-idle, describe how genirq handles the interrupt there, and
->    note that for mem the firmware picks the wakeup sources.
-> - Repeated the run without the flag: 0/5 (v1 said 0/1).
-> - Link to v1: https://lore.kernel.org/r/20261008-meson-gpio-wake-v1-1-b0af1598d469@iav.lv
-> ---
->   drivers/irqchip/irq-meson-gpio.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/irqchip/irq-meson-gpio.c b/drivers/irqchip/irq-meson-gpio.c
-> index 91a9c337fe6d..e0329ef5e4a2 100644
-> --- a/drivers/irqchip/irq-meson-gpio.c
-> +++ b/drivers/irqchip/irq-meson-gpio.c
-> @@ -538,7 +538,7 @@ static struct irq_chip meson_gpio_irq_chip = {
->   #ifdef CONFIG_SMP
->   	.irq_set_affinity	= irq_chip_set_affinity_parent,
->   #endif
-> -	.flags			= IRQCHIP_SET_TYPE_MASKED,
-> +	.flags			= IRQCHIP_SET_TYPE_MASKED | IRQCHIP_SKIP_SET_WAKE,
->   };
->   
->   static int meson_gpio_irq_domain_translate(struct irq_domain *domain,
-> 
-> ---
-> base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-> change-id: 20261008-meson-gpio-wake-f3bfa3bb2e5a
-> 
-> Best regards,
+When the reserved VA range overflows in drm_gpuvm_init(), insertion of
+kernel_alloc_node is skipped, leaving its vm pointer NULL. However,
+va.range is still set to a non-zero value, which causes drm_gpuvm_fini()
+to dereference the NULL vm pointer when removing the node. Thus, only
+initialize kernel_alloc_node's address and range when the overflow check
+succeeds.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Note that this fixes unsoundness in the Rust GpuVm::new() abstraction:
+passing a backwards reserve_range (start > end) when overflow checks are
+disabled causes `end - start` to wrap around, triggering the overflow in
+drm_gpuvm_init() and dereferencing NULL when the GpuVm is dropped.
 
-Thanks,
-Neil
+Cc: stable@vger.kernel.org
+Fixes: e6303f323b1a ("drm: manager to keep track of GPUs VA mappings")
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+---
+Changes in v2:
+- Collapse the two if statements into one.
+- Add Cc: stable.
+- Link to v1: https://lore.kernel.org/r/20261011-gpuvm-reserve-overflow-v1-1-9c0cb23d7409@google.com
+---
+ drivers/gpu/drm/drm_gpuvm.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
+index d1c80ad3dead..8e74d171125b 100644
+--- a/drivers/gpu/drm/drm_gpuvm.c
++++ b/drivers/gpu/drm/drm_gpuvm.c
+@@ -1126,13 +1126,12 @@ drm_gpuvm_init(struct drm_gpuvm *gpuvm, const char *name,
+ 	gpuvm->mm_range = range;
+ 
+ 	memset(&gpuvm->kernel_alloc_node, 0, sizeof(struct drm_gpuva));
+-	if (reserve_range) {
++	if (reserve_range &&
++	    likely(!drm_gpuvm_warn_check_overflow(gpuvm, reserve_offset,
++						  reserve_range))) {
+ 		gpuvm->kernel_alloc_node.va.addr = reserve_offset;
+ 		gpuvm->kernel_alloc_node.va.range = reserve_range;
+-
+-		if (likely(!drm_gpuvm_warn_check_overflow(gpuvm, reserve_offset,
+-							  reserve_range)))
+-			__drm_gpuva_insert(gpuvm, &gpuvm->kernel_alloc_node);
++		__drm_gpuva_insert(gpuvm, &gpuvm->kernel_alloc_node);
+ 	}
+ }
+ EXPORT_SYMBOL_GPL(drm_gpuvm_init);
+
+---
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+change-id: 20261011-gpuvm-reserve-overflow-5b520d76889e
+
+Best regards,
+-- 
+Alice Ryhl <aliceryhl@google.com>
+
