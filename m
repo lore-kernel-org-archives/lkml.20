@@ -1,198 +1,127 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BE831A807
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:49:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA96CA4E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:50:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791784198; cv=none; b=MfeJJ/lwsm+YWfy4jEQOKSQR+FmXQ/6HePfPTNOIHnsjwoUVWEIn7fkzHJ12XUMBAL318+IX3isLwsYPnLWyc4xHqFJwR6hhtlwjctJTbBknYIbE+twV6S9bKurf+cHt03+4pM2p2ZbVnR/UxmiLOTyiUJE6ZCDy0GwN1c9f4Vk=
+	t=1791784205; cv=none; b=qpyqBXgtfD3MltVpe2anDAH5DLLqLmlq963BlGR8mkxsfyDGX3etPK/UT3+Bzhk4fVCh7eF3FukDr7+BAoG+aoG2Mok6JZR90EASMUybA0ZlAtdlsuZ5wfQuCc0g9yWRZTlp2eSHVBNW2hs9hR9VMaGrjCyp87Eg1/OVkt3BR7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791784198; c=relaxed/simple;
-	bh=cEejnuTxNoYUAGMwNf0H3DF/Refb8wM9pJqbSHSjCjM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=riXNaXE5rMv8WvLioK6wowrhJasbbigvuymqPVGGRBfrDSQLgovfAqyueB/EHzYXLtfrNV5R78EYO8I30xvD8u3IX1e/adNJXVHG/JiLwRykEHAbl8gbqdEF3GYxImnY6nfrtez87Ybboh/Ta0wT01adWvi8fJ4t+S7lRZ3bV5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KNwi3vaF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A7lnuLYn; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KNwi3vaF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A7lnuLYn"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C5604U4068832
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:49:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1pPPLwjmVufFsK6SDXsEs5dgYISVMn+cFpVZ28+JrPU=; b=KNwi3vaFD3SQfj1a
-	o/nqZfjagrL2NX5VhMo6lbcNEGaP8yTkgyerpQb8sm9IehuBoL9qMJszqbmSLie4
-	WhsJezbS3i+1n6ZP0PZJ4JJ6PXwlfC3zlRI2R9xLxV5oyXWs+7+wsrgGpWsUXQzI
-	FIJxeI0pQFnYhJsOAyhiHcTDVTzrl6qjOsLVXAsOniQlmH0M1C7SbrBMOVxpPJR9
-	6phyiEj3tRjf0RBL1Y/ADtZGScd49q+j8PPGeLev6X8zDf6Jtor1nzD68fAgKpuw
-	PR5efBLge/4Tx+OUg8p9vclBerTopImzHXtkLLpbiuVpJfRHVJtYv0ZuEmfSmFCO
-	ZTWlJg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7ehjmtat-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:49:56 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfc52ddc55so16462285ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:49:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791784196; x=1792388996; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1pPPLwjmVufFsK6SDXsEs5dgYISVMn+cFpVZ28+JrPU=;
-        b=A7lnuLYnzlm2vS2XKUT/7tZFEzSMfpN0TfEemGEfYrHR86ZtBGI5Mr+JjBjWEdJGrH
-         3qRBFEpn/hbwpmB+Yg8heIwYSwjJU/mthfQYdUuVaV5pPf+RFvU5jAQfwD28plFioEDa
-         MhqEjSIaSwc2cdq7Tz+u2WSHYMbUX/3yFxqsWpEmz2DUKZTGd92+ueIsiv74zB+xOGYz
-         UdvgATUNEMVtGLiDUX+J5iRtmzCbKiiSInr4WrvbZUAaLE+KoJc2GIEs5k0FTfj8OfxJ
-         gBJx9qr3WWWIjknX2YlQigFAxnlvDA42a5rZIvVDigx62lUHjAFloIhsyQC7TvubgJdg
-         2QxA==
+	s=arc-20240116; t=1791784205; c=relaxed/simple;
+	bh=s+oknHcvljrP36U+54yN/qpp//cigPqxFj/ohJ2uJiA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=OkgbZuxL8+42Jn+bluFRMw5ZP2Qiw69W2q1rOT76KElSATZ28M9AddzKmZeZqsnYLoX/hlzFVeWMJCeCG8X8srp8wHtwEsqQXQduQyoSmtQeL64QfuKmH4z6+43Hl+9+TEcDj0/1SLJGIMvnClaPNpNUkRQf9V6XtILNwzqttFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-81c1dde0219so3565277a34.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:50:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791784196; x=1792388996;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20260707; t=1791784203; x=1792389003;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=1pPPLwjmVufFsK6SDXsEs5dgYISVMn+cFpVZ28+JrPU=;
-        b=Vlj2d6rb3JNX8GJXUVBcLPb/prIXChC9KgwoqEqi7cfl6oPXAS2uho33rfQ4BOA5yj
-         Pm32zlLhRccwFTjIn841zmqAwlo0ZJVUY8rwU1lLSopvvUbxKTcxIGztg4bIKJDm6Ch4
-         XHPK9sFtt4OS8VZ1NxFQ1Lqebg2rAe+uQ3hT4OigZAi+Kx0KgvclGExqMgOScNwmcvGn
-         zaM/rYfpa0XK5yhCQD+suDRDA+7k6kXYmfoJ4Je7+xAh3mdPG0TOJndvl4+xqZyq0MIf
-         cNmiFPg+C/rBdffTlw3WMFLvZwdW+7WLF+q+MViFejsUOmw81A54GOu55wjR+n8bas63
-         aX/A==
-X-Forwarded-Encrypted: i=1; AKwUvBxpxtWm8VMO3bYC4irHtU/5WM3rmwzuokGAnpoeezFz6YlvanKy6mTU61lD8nqk2ALLcMd3jj5zHpvXV18=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8DS1xoUQV91po1ujlOf4Fx4aKuVm4d4xmaiHX3TqMhLZFugjc
-	ZWsYjj6+4nKI7VDRGvjoCM48TnD90l89g/GZnrnszYEE66egXLT5JiYIIXo9t30tvItQYweI/DK
-	cuMhf4iSAtzZVj0vGN5DVRo+VlCr8ojfgScpKQ72ZISvEvVoCDWbLSiYedqQxhpRR0jg=
-X-Gm-Gg: AYBFou2WEhWftdQY8L3XutmdWlkTNJQCQKTU6q/pTL4RLpqZu/0w36bArXduhyK6f7H
-	vgc4WdfIVulzeQgXFrNpRYBepEA2n+ctMvxPIiSrxaENUw0CKOpulJkL8XMUV8HAhlef1hZ7+IR
-	eR0UQ8uVCmC0Y+W/crCyEhCedSTYFGOBCSsVHfJGZ1cdPS8lj17LpQtlnzObiUbZpKMU5E0RJfD
-	X0bz2F70F/rZ7B9aM/esnhphFdIOtOqHueed9J1AMFuqNNBsu4fSexFMWumAtO9C5JMdEA+pqVC
-	CTPzpxkb8r+1POAG5A6+FTBUqTpfEC4HwMr/mJ70QIstTxoFDbG8ByagWsdTbyqgU1gva07fj0P
-	Icdd78pC9giqQjW60ltUerqL7SxT9fTI=
-X-Received: by 2002:a17:903:244e:b0:2e5:d33a:88dc with SMTP id d9443c01a7336-2e842aadef1mr75953235ad.17.1791784195791;
-        Sun, 11 Oct 2026 22:49:55 -0700 (PDT)
-X-Received: by 2002:a17:903:244e:b0:2e5:d33a:88dc with SMTP id d9443c01a7336-2e842aadef1mr75953085ad.17.1791784195337;
-        Sun, 11 Oct 2026 22:49:55 -0700 (PDT)
-Received: from [10.231.194.200] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e4cf3sm37758925ad.72.2026.10.11.22.49.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 11 Oct 2026 22:49:54 -0700 (PDT)
-Message-ID: <8ec100c6-e8c9-45a1-9bc8-e4cef580af86@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 13:49:50 +0800
+        bh=d+TozmeYfldkWVDrTiVz5fqLt1+wlVAIJGjeE0YfbA4=;
+        b=aUpNlFRrPDcc/ouaoCU2YXKucH2JHMAiCn9jUIW9Nh6hiFkjRzz2LBi4IhkEy02azG
+         vy48v9HRmcmxpymA2DsmMHwTE2ga4YxqdfwVi1bSXJkkJyYaY7uEqHlFhkq8ejQx4S3P
+         Ur+TbbsByFX783G8ZAbbmwqkAvY+XlcCNHphk6+Qmu1bCnzelDiJJHam+XMLVQoWRhQg
+         6evdw7271EqiCFCfv+55s7BoW5kcv/SwEJ6P3ZavbelKc156DhbXgD0dqdFJ7JV4zT4X
+         MJ11HV1MMMq6IwGeOviiIIuqKeZ6EO4zKgNn9s6o0m8PUG20MdRC1wURHv8rISNG6cJZ
+         UYSw==
+X-Forwarded-Encrypted: i=1; AKwUvByEQtVdcj7AYDZOLLEUwVunG1vOKkgV7Rk2uOjvqwKEm3rMSoYjdzigHML3ySXOw6dsKsJkt96MEKT2+L8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKFGOjZd5mAy50oSp0QdRPz2LoM/O0cws1AAxllEKGwSjbQ4cuR
+	xCq6AxRnrjS23Xa+QYGzMwhN0z5PVKt/T7F2h9fuIg6Emnt0WPzixl7xHz0mSlO8wLkPZevF7gW
+	7BAAY5toXvd1AqH6x+BK4xGfY0efaSrwehgqOrzvAPCB3G7KZ3BUAPFRdG8c=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] wifi: ath12k: avoid IDR mutation during vif mgmt
- TX cleanup
-To: Jiale Yao <yaojiale02@163.com>, Jeff Johnson <jjohnson@kernel.org>,
-        Vasanthakumar Thiagarajan <quic_vthiagar@quicinc.com>,
-        Balamurugan Selvarajan <quic_bselvara@quicinc.com>,
-        Sriram R <quic_srirrama@quicinc.com>,
-        Carl Huang <quic_cjhuang@quicinc.com>, linux-wireless@vger.kernel.org,
-        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261003092104.520135-1-yaojiale02@163.com>
- <20261003092104.520135-6-yaojiale02@163.com>
-From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20261003092104.520135-6-yaojiale02@163.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAyMiBTYWx0ZWRfX1BNAPnoqFBXB
- XW/Ao8tplB1HBtDqRmmERQd32IXg4L0YQJTM5TF3RioDwx5U4RYqffjxGnhtMMidYoycXGfjbYe
- gkZmgh0DVghtZsSG2uF2srkAM4V7V1q+74mI+JesuxrjrIH3Gtz1Ak0dmPJ7hbezQzfbc/QH2Zg
- muQm3ecz3SSk2I86fAaVgrCP4zKgCdrZOyI7LKZmcrR0e3zSQiM+1xC+vF0EPM6BuBmcgcy+8Sa
- JGaIobm+aq2KJ0zgqSF1iBsebrbN7J5lghXLTOL7u2lqhrrPqjDCB0GWmiLg+3K+8nHiiR9ZqGG
- SD6DL84QsbWAVMdDqLW8SZ3uk+EfzudgjFJrR9kiR/JGX1LB4Jz3a4K3PIpKv4TtHLwGD1lDb5J
- LO6JdhgzQDcP29Pnkuz6iriHMjZcTp3RBGK6WNCddsqnl3Jlm6jddI+0IHewFVqwFLvq36nPLf6
- gKXlvYwbaGZZOYS3SDg==
-X-Proofpoint-ORIG-GUID: F1bVRIlAMJ3Og-fQve6XVgEy8Hqd3bxW
-X-Authority-Analysis: v=2.4 cv=MpTHeGae c=1 sm=1 tr=0 ts=6acc7504 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=Byx-y9mGAAAA:8 a=YGf98eWBf9nrUm2w2I4A:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: F1bVRIlAMJ3Og-fQve6XVgEy8Hqd3bxW
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAyMiBTYWx0ZWRfX95OC5C+DiOJh
- RkCgA4KGXJrmMjGgtP9pvCBeRoKkuTMpEZcRGbsQFsP8xqxkk6QydPQCJSheyWqzrBbvcztPhyB
- m+ZBdbtNGWPtUk+eed+9J1Yqlq7TawI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 spamscore=0 adultscore=0 bulkscore=0
- suspectscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120022
+X-Received: by 2002:a05:6808:1992:b0:4b2:5529:ed3c with SMTP id
+ 5614622812f47-50c438a3cf6mr9309098b6e.7.1791784203475; Sun, 11 Oct 2026
+ 22:50:03 -0700 (PDT)
+Date: Sun, 11 Oct 2026 22:50:03 -0700
+In-Reply-To: <20261012051140.410-1-hdanton@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6acc750b.8cdf6287.1eb53.0110.GAE@google.com>
+Subject: Re: [syzbot] [nvme?] BUG: corrupted list in nvmet_fc_remove_port
+From: syzbot <syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com>
+To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+BUG: corrupted list in nvmet_fc_remove_port
+
+ non-slab/vmalloc memory
+list_del corruption. prev->next should be ffff8880387ec820, but was 0000000000000000. (prev=ffffffff9aecd340)
+------------[ cut here ]------------
+kernel BUG at lib/list_debug.c:64!
+Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
+CPU: 0 UID: 0 PID: 6847 Comm: syz.0.45 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+RIP: 0010:__list_del_entry_valid_or_report+0x15a/0x190 lib/list_debug.c:62
+Code: e8 8b f8 37 fd 43 80 3c 2c 00 74 08 4c 89 ff e8 4c bf 58 fd 49 8b 17 48 c7 c7 40 6e cc 8b 48 89 de 4c 89 f9 e8 27 88 4c fc 90 <0f> 0b 4c 89 f7 e8 5c f8 37 fd 43 80 3c 2c 00 74 08 4c 89 ff e8 1d
+RSP: 0018:ffffc90004f8fc30 EFLAGS: 00010246
+RAX: 000000000000006d RBX: ffff8880387ec820 RCX: 4b2bacb912474a00
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000001 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: ffffed101708490b R12: 1ffffffff35d9a68
+R13: dffffc0000000000 R14: ffffffff85f7e800 R15: ffffffff9aecd340
+FS:  00007f415b0fd6c0(0000) GS:ffff8881249bb000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fa587c4b8c0 CR3: 0000000037614000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __list_del_entry_valid include/linux/list.h:140 [inline]
+ __list_del_entry include/linux/list.h:261 [inline]
+ list_del include/linux/list.h:275 [inline]
+ nvmet_fc_remove_port+0xbc/0x340 drivers/nvme/target/fc.c:2924
+ nvmet_disable_port+0x13e/0x1f0 drivers/nvme/target/core.c:400
+ nvmet_port_subsys_drop_link+0x1e8/0x210 drivers/nvme/target/configfs.c:1123
+ configfs_unlink+0x44f/0x6b0 fs/configfs/symlink.c:258
+ vfs_unlink+0x27b/0x6e0 fs/namei.c:5678
+ filename_unlinkat+0x3d3/0x610 fs/namei.c:5748
+ __do_sys_unlinkat fs/namei.c:5777 [inline]
+ __se_sys_unlinkat+0x83/0x1a0 fs/namei.c:5769
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f415babe1d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f415b0fd028 EFLAGS: 00000246 ORIG_RAX: 0000000000000107
+RAX: ffffffffffffffda RBX: 00007f415bd46090 RCX: 00007f415babe1d9
+RDX: 0000000000000000 RSI: 0000200000000780 RDI: ffffffffffffff9c
+RBP: 00007f415bb55888 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f415bd46128 R14: 00007f415bd46090 R15: 00007ffda341e7e8
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:__list_del_entry_valid_or_report+0x15a/0x190 lib/list_debug.c:62
+Code: e8 8b f8 37 fd 43 80 3c 2c 00 74 08 4c 89 ff e8 4c bf 58 fd 49 8b 17 48 c7 c7 40 6e cc 8b 48 89 de 4c 89 f9 e8 27 88 4c fc 90 <0f> 0b 4c 89 f7 e8 5c f8 37 fd 43 80 3c 2c 00 74 08 4c 89 ff e8 1d
+RSP: 0018:ffffc90004f8fc30 EFLAGS: 00010246
+RAX: 000000000000006d RBX: ffff8880387ec820 RCX: 4b2bacb912474a00
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000001 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: ffffed101708490b R12: 1ffffffff35d9a68
+R13: dffffc0000000000 R14: ffffffff85f7e800 R15: ffffffff9aecd340
+FS:  00007f415b0fd6c0(0000) GS:ffff8881249bb000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fa587c4b8c0 CR3: 0000000037614000 CR4: 00000000003526f0
 
 
+Tested on:
 
-On 10/3/2026 5:21 PM, Jiale Yao wrote:
-> ath12k_mac_vdev_delete() walks txmgmt_idr with idr_for_each(), and its
-> callback removes each entry belonging to the interface. Removing the
-> current entry can invalidate the radix-tree iterator retained by
-> idr_for_each().
-> 
-> Move the walk into a helper that uses idr_for_each_entry(). It performs a
-> fresh lookup for every iteration, so each matching entry can be removed
-> through the locked removal helper without retaining iterator state across
-> the removal.
-> 
-> Fixes: d889913205cf ("wifi: ath12k: driver for Qualcomm Wi-Fi 7 devices")
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->  drivers/net/wireless/ath/ath12k/mac.c | 21 +++++++++++----------
->  1 file changed, 11 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
-> index c0acb92b7320..108ace48cc97 100644
-> --- a/drivers/net/wireless/ath/ath12k/mac.c
-> +++ b/drivers/net/wireless/ath/ath12k/mac.c
-> @@ -9196,16 +9196,18 @@ void ath12k_mac_tx_mgmt_pending_free(struct ath12k *ar)
->  		ath12k_mac_tx_mgmt_free(ar, buf_id);
->  }
->  
-> -static int ath12k_mac_vif_txmgmt_idr_remove(int buf_id, void *skb, void *ctx)
-> +static void ath12k_mac_vif_txmgmt_cleanup(struct ath12k *ar,
-> +					  struct ieee80211_vif *vif)
->  {
-> -	struct ieee80211_vif *vif = ctx;
-> -	struct ath12k_skb_cb *skb_cb = ATH12K_SKB_CB(skb);
-> -	struct ath12k *ar = skb_cb->ar;
-> -
-> -	if (skb_cb->vif == vif)
-> -		ath12k_mac_tx_mgmt_free(ar, buf_id);
-> +	struct ath12k_skb_cb *skb_cb;
-> +	struct sk_buff *skb;
-> +	int buf_id;
->  
-> -	return 0;
-> +	idr_for_each_entry(&ar->txmgmt_idr, skb, buf_id) {
-> +		skb_cb = ATH12K_SKB_CB(skb);
-
-this has the same UAF risk as Ramesh pointed in ath11k patch (patch 3/5).
-
-> +		if (skb_cb->vif == vif)
-> +			ath12k_mac_tx_mgmt_free(ar, buf_id);
-> +	}
->  }
->  
->  static int ath12k_mac_mgmt_tx_wmi(struct ath12k *ar, struct ath12k_link_vif *arvif,
-> @@ -10967,8 +10969,7 @@ static int ath12k_mac_vdev_delete(struct ath12k *ar, struct ath12k_link_vif *arv
->  	ath12k_peer_cleanup(ar, arvif->vdev_id);
->  	ath12k_ahvif_put_link_cache(ahvif, arvif->link_id);
->  
-> -	idr_for_each(&ar->txmgmt_idr,
-> -		     ath12k_mac_vif_txmgmt_idr_remove, vif);
-> +	ath12k_mac_vif_txmgmt_cleanup(ar, vif);
->  
->  	ath12k_mac_vif_unref(ath12k_ab_to_dp(ab), vif);
->  
+commit:         24a19b95 Linux 7.3-rc7
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=160b540d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=df4bbab1c2172b9f
+dashboard link: https://syzkaller.appspot.com/bug?extid=c98b21427617af7f547a
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1493540d580000
 
