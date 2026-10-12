@@ -1,138 +1,373 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3370B31F984;
-	Mon, 12 Oct 2026 05:01:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A62E2DC789;
+	Mon, 12 Oct 2026 05:04:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791781301; cv=none; b=DjeRnamMRPHDrTuyIia9ynLb9dubjItpB2WgdUqEHG2/3vrkDw09AsHMfG4UlSLbN+sr8yDOk7hx8YVudvKqMKxVdscCY0Uz82CvmmirfU8YesFMy3lWp0Yc4dteEmM2VvQS7HsIDtko0lPi5MLXaLFJtEBh9kLEqKAAmeJZhOo=
+	t=1791781462; cv=none; b=E+mDWzStsTGNzt1RKcjyEWFxMtQGfOVQBJOpqDoI71rjYHIUC4d9vqubDyx4QSP97QXrBxAff92Yx8DK8BSS/zftvv2dxKvGlR9T5oFBLqk+TIJwAevUcdNAXLvH6VWLIuQFjp3BDS9IP1upi3fGPegAgvuC2nT8BWYySwNWYdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791781301; c=relaxed/simple;
-	bh=P2V6OYVGOm19mMOBP6huSevFwW0x+XnqnWNiq2jBc0Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=e7jO5hsO8+ClNffUARu2GTXu+IrcFV3vuEfkierOkhLsKLhpxItL212l6ns++Z3L3szjM2UZcKBcUPnUGzL656EROVnNnLNYyUYdipyQqdwx3jmkQ3iOKKTPsthciLSaj9iEe3GEGTrccbXo61l8coSPRybJV9mIxghc/JbRQtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g+zRNY+V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791781462; c=relaxed/simple;
+	bh=C4Ea626KD2fOLwnOzLsKy66i+uyKiHvSgwm19t6Ixhk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NP+mRPTg/28Q8SuX+LdG8KV+B+Zd76s1cDJBuuz3vW45fAhQwTR2QC0dCTwks+IOEO20AamrNPscKBCsLjo5URvKFWfD3Nha8ZKcs80CV8XN76F1joLtiqoX7XTxyVLn75DcfXQh1BN+NhFw+1nslh0YqbVr1/mGCjaZDDsxSOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=DkX5FW+e; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g+zRNY+V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B91B11F0089B;
-	Mon, 12 Oct 2026 05:01:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791781299;
-	bh=GvXeU1FpwRVSbdTdJ/hdSUawHa245vliMRzvYSrPHZw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g+zRNY+V/b7hSm19zWhlsRx+MWTLhnMBeDgZdW0Voj8niBfMFn61p8dEEXP3l8T5c
-	 sv6wuIiWXiF/McwJ7zOJXddkQAYIs5QXzBJEm1WC1rdkjlIYXj5/ZLG8MU4saOPSjw
-	 aE6i9EGdSRHBBqYl7z5I2YTBVN+pE+9kgPtaq1nm4pRadmz5Ey8hSmMUXY726U362q
-	 3s2PyZHsUxP0Ft2SSHmbPNhfVUKIxdZ63GyFLY6//sl6PQN6ydB7+L2Do51UVuAK9O
-	 UC+0CwiYiqmggGWtsGqSiHa4S+aH0+SZs1DESmpsVFp7d7p9iYD+wMMpgmeRmboOvW
-	 q7ImBhlHCScgA==
-From: Kees Cook <kees@kernel.org>
-To: Bill Wendling <morbo@google.com>,
-	Kees Cook <kees@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Gow <david@davidgow.net>,
-	Petr Mladek <pmladek@suse.com>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Shuvam Pandey <shuvampandey1@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Ian Bridges <icb@fastmail.org>,
-	Justin Tee <justin.tee@broadcom.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Shivaprasad G Bhat <sbhat@linux.ibm.com>,
-	Thorsten Blum <blum@kernel.org>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Ira Weiny <iweiny@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v5 00/12] seq_buf: Add seq_buf_strlen()
-Date: Sun, 11 Oct 2026 22:00:45 -0700
-Message-ID: <179178124413.1284057.2168341749556875841.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261005155653.late.426-kees@kernel.org>
-References: <20261005155653.late.426-kees@kernel.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="DkX5FW+e"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C2F1K73019042;
+	Mon, 12 Oct 2026 05:04:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=uFU+80
+	0bsccEesRqUvmAZL8rkHq2KyNXzUK3BpApTmQ=; b=DkX5FW+ef8GuEuJ39as0op
+	1dIYFeNLUk/6glGuRGp/1lbaFHMxPT286whRxbhPxQZXzl7/QwL2yT2fQY6ZcADn
+	f6RjXBhhbV255H34DBz+xORxklanf3fbOCAm3sIb535cEZ60PCO0qLrl+UZtfarl
+	LdM8c4eqAcQ1YcprlJ6RyFn7PxkZ/mQIUkpQ94TazyHFFbFUJiFTI+mcUqdSWodm
+	tQwNThnI6wT86SgHrE8IBptudwrlHqEZkwncAiSS46z23jxXbRu3TwvZt1Ey8I7m
+	LK6hYhiAK3gkaXhpjeqRjDls3Rpl+oa7GHgg2JCyHbodHPHMXYxgVd++kkCMqXjA
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv3789u-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 05:04:02 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69C1o6ih522249;
+	Mon, 12 Oct 2026 05:04:01 GMT
+Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h80pjks8c-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 05:04:01 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
+	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69C53x7466519326
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 05:03:59 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0BF505810F;
+	Mon, 12 Oct 2026 05:03:59 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0949858115;
+	Mon, 12 Oct 2026 05:03:56 +0000 (GMT)
+Received: from [9.67.163.79] (unknown [9.67.163.79])
+	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 05:03:55 +0000 (GMT)
+Message-ID: <93cc87b4-14ce-43d9-a29e-d9a6795bb0d5@linux.ibm.com>
+Date: Sun, 11 Oct 2026 22:03:55 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 4/8] ibmveth: step past bad RX correlators
+ instead of spinning or oopsing
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
+        npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com,
+        sshegde@linux.ibm.com, nnac123@linux.ibm.com, andrew+netdev@lunn.ch,
+        davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+        pabeni@redhat.com, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org, horms@kernel.org, davemarq@linux.ibm.com,
+        bjking1@linux.ibm.com, stephen@networkplumber.org
+References: <20261009183258.18624-5-mmc@linux.ibm.com>
+ <179166081271.434549.2458181310224040226@kernel.org>
+Content-Language: en-US
+From: mingming cao <mmc@linux.ibm.com>
+In-Reply-To: <179166081271.434549.2458181310224040226@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: u8b1v0peDjrQLPqgg1Rb4ofNq2OGPsxd
+X-Proofpoint-ORIG-GUID: cYnn2M_sA5Qw1tEFTV2dg9lLqStR4cIJ
+X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6acc6a42 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=CpsONLjkRwPTLDU7ZUkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAxOCBTYWx0ZWRfX0LOxcmnFJ4dc
+ BI4qRXd4zf5kCznDK4thDyVPE7LxnW6oc8+nvUrnRYyWjT3eyIYM8xEwWRYdV34qf3QJm7+tNkW
+ RJQP5Y2dciV0/C+ywTBya3FZAddMm30=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAxOCBTYWx0ZWRfX8zhWFzwWO9wA
+ omUqgpMfkwrOTzz7Wldo7Ho54u3HX8h2b4/k1I+nDwVQ+5KLiFzbE81ov0ge9dzjKSTmGqPIEmZ
+ FX7ZdEJyQQpYnA/WWiZosTaFFavqhGq+fGgu/0I6mBsogyOvzmGfELCJ7r4CGhduK/JSE1ptDHz
+ foMRmpq/HRlAEOgl1r8941PnkogOu6mfx0AOP3/A2tjckvkg6KKher9V2jWpX7zdztg2o3Zf6KP
+ B3uSAEzlPicXNJDwzrARJW7SFIkvn9vxozHZB8PYUOkkqbZTiMFqLgPtk68s+O/zWDEtqSyA8ED
+ G4Ln8vOGoyXtGj2s85vuSeeb0zI5e4e500F88QwR7PPInNyByhUF3GtOaKhNpQYmot19ZCS4TbA
+ 1RZXRId0ON99Pcp/4b7WmM8PJVoo9YX5Mx9maYPFQkCaDS0pCuAusBstQuQ6+Mk673ubn1GW8GF
+ fJgVFWS8Qoh+S9UeXzg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120018
 
-On Mon, 05 Oct 2026 08:56:50 -0700, Kees Cook wrote:
-> While working on seq_buf conversions[1], we found there was a need for
-> seq_buf_strlen() (since calling strlen(seq_buf_str()) would be a waste
-> of time: seq_buf already knows the length), seq_buf_init_append() (to
-> start a seq_buf from an existing string buffer), and seq_buf_terminate()
-> (as there are many callers using seq_buf_str() just for its termination
-> side-effect). And while implementing that, we found a bunch of other
-> related things that needed fixing. This is that ever-growing series,
-> with tests for each fix.
-> 
-> [...]
 
-Applied to for-next/hardening.
+On 10/10/26 12:33 PM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+>
+> Critical: 0 · High: 3 (1) · Medium: 0 · Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+>
+> - [High] This patch's short-frame check is incomplete.
+> - [High] Returning budget - 1 does not make ibmveth_poll()'s schedule-
+>    and-continue path safe when threaded NAPI and busy polling are both…
+> - [High] net/ibmveth: TOCTOU double-fetch of RX correlator in
+>    harvest_buffer
+>
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but
+>    ibmveth_rx_csum_helper() calls ip_fast_csum(iph, iph->ihl) whenever…
+>
+> --
 
-[01/12] seq_buf: Do not print an empty line from an overflowed seq_buf_do_printk()
-        https://git.kernel.org/kees/c/a09fb764832d
-[02/12] seq_buf: Do not pop from an overflowed seq_buf
-        https://git.kernel.org/kees/c/b7e688b5635a
-[03/12] scsi: lpfc: Print rx monitor records straight into the seq_buf
-        https://git.kernel.org/kees/c/cc9d25b45119
-[04/12] seq_buf: Copy what fits when seq_buf_puts() and seq_buf_putmem() overflow
-        https://git.kernel.org/kees/c/505a4aeea2c9
-[05/12] seq_buf: Clear what a writer did not claim when a seq_buf overflows
-        https://git.kernel.org/kees/c/ea5666e56723
-[06/12] seq_buf: Add seq_buf_strlen()
-        https://git.kernel.org/kees/c/8d1478bfd63b
-[07/12] seq_buf: Add seq_buf_terminate()
-        https://git.kernel.org/kees/c/88c652df02cc
-[08/12] bpf: Remove dead newline stripping from format_disasm_line()
-        https://git.kernel.org/kees/c/c8cd1725d259
-[09/12] seq_buf: Add seq_buf_init_append()
-        https://git.kernel.org/kees/c/61ef3f1490f8
-[10/12] powerpc/papr_scm: Return the string length from the sysfs show functions
-        https://git.kernel.org/kees/c/63ae65caa98a
-[11/12] nvdimm: ndtest: Return the string length from flags_show()
-        https://git.kernel.org/kees/c/9ac219976ecf
-[12/12] docs: core-api: Document the seq_buf API
-        https://git.kernel.org/kees/c/e3f8dfafd7d6
 
-Take care,
+Thank you for the review. I agree with all four High findings on this
+patch.
 
--- 
-Kees Cook
+I will address them in v4 on the same net-next base (d8674294aefe).
+Patches 1-3 and 5-8 are unchanged from v3. Patch 4 fixes the poll
+tail (no restart_poll after napi_complete_done; mask then queue the
+NAPI), passes the correlator poll already read into harvest, and
+keeps the buffer-bound and ETH_HLEN drops without claiming they cover
+the RX offload helpers.
 
+The helper header checks (short frames, ihl,
+doff, fragments, and the ip_fast_csum() case) are split into a new
+patch 9 at the end of the series, with their own Fixes: tags and KUnit
+cases.
+
+I will post v4 on netdev shortly.
+v4 was tested with KUnit on qemu pseries and on a POWER10 LPAR (the v3
+suite plus large-send iperf3 over IPv4/IPv6 at MTU 1500 and 9000).
+
+Thanks,
+Mingming
+
+pw-bot: cr
+
+> ibmveth: step past bad RX correlators instead of spinning or oopsing
+>
+> This patch makes ibmveth_poll() advance the RX ring past slots with a bad
+> correlator, including correlators that name an inactive pool, instead of
+> breaking out and restarting on the same slot. It counts those slots as
+> drops and schedules a reset. It also drops frames that do not fit the pool
+> buffer or are shorter than an Ethernet header, and returns budget - 1 once
+> napi_schedule() has queued the NAPI.
+>
+>> diff --git a/drivers/net/ethernet/ibm/ibmveth.c b/drivers/net/ethernet/ibm/ibmveth.c
+>> index cee0e9783b2ab..55c0b5d6e0a9f 100644
+>> --- a/drivers/net/ethernet/ibm/ibmveth.c
+>> +++ b/drivers/net/ethernet/ibm/ibmveth.c
+> [ ... ]
+>
+>> @@ -1481,19 +1525,46 @@ static int ibmveth_poll(struct napi_struct *napi, int budget)
+> [ ... ]
+>
+>>   		} else {
+>>   			struct sk_buff *skb, *new_skb;
+>>   			int length = ibmveth_rxq_frame_length(adapter);
+>>   			int offset = ibmveth_rxq_frame_offset(adapter);
+>>   			int csum_good = ibmveth_rxq_csum_good(adapter);
+>>   			int lrg_pkt = ibmveth_rxq_large_packet(adapter);
+>> +			u64 correlator = ibmveth_rxq_correlator(adapter);
+>> +			unsigned int pool, room, off, len;
+>>   			__sum16 iph_check = 0;
+> [Severity: High]
+> The commit message says the bound uses the pool "from the correlator
+> that was validated, read once, not from a second read of the ring".
+> Doesn't ibmveth_rxq_harvest_buffer() still do that second read?
+>
+> ibmveth_poll() now reads the correlator once with
+> ibmveth_rxq_correlator(). It uses that value to look up skb in
+> ibmveth_rxq_get_buffer() and to compute room. Every harvest after that
+> ignores it, though: this call, the copybreak call and the one on the
+> bad-frame path. ibmveth_rxq_harvest_buffer() loads
+> queue_addr[rx_queue.index].correlator again with a plain load and
+> passes that to ibmveth_remove_buffer_from_pool(). Nothing ties the
+> second value to the one poll validated.
+>
+> Suppose the entry changes between the two loads, so skb is looked up
+> from slot A and harvested from slot B. On this reuse=false path:
+>
+> - rx_buff_pool[].skbuff[B] is cleared and dma_addr[B] is unmapped.
+>    B goes on free_map, and the skb that was in slot B is leaked.
+>
+> - skb A goes to napi_gro_receive() while it is still in skbuff[A],
+>    still DMA mapped and not on free_map. The driver still treats it
+>    as a posted buffer.
+>
+> - On close or reset, ibmveth_free_buffer_pool() finds skb A in
+>    skbuff[A], unmaps it and calls dev_kfree_skb_any() on it after the
+>    stack has already freed it.
+>
+> The copybreak and bad-frame paths would recycle slot B instead of A
+> in the same way.
+>
+> ibmveth_rxq_correlator_valid() does not catch this, because both
+> correlators can be in range and name live skbs.
+>
+> PHYP should not rewrite an entry once the toggle is set. But this
+> patch treats the correlator as untrusted, and the changelog says it
+> is read once. Should ibmveth_rxq_harvest_buffer() take the correlator
+> from its caller, so poll uses one value for lookup, bound check and
+> harvest? The new KUnit harvest test could read the ring entry itself
+> before calling it.
+>
+> [ ... ]
+>
+>> +			pool = correlator >> 32;
+>> +			room = min_t(unsigned int, skb_tailroom(skb),
+>> +				     adapter->rx_buff_pool[pool].buff_size);
+>> +			off = offset;
+>> +			len = length;
+>> +			if (unlikely(len < ETH_HLEN || off >= room ||
+>> +				     len > room - off)) {
+>> +				if (net_ratelimit())
+>> +					netdev_err(netdev,
+>> +						   "bad RX frame offset %u length %u (buffer %u), dropping\n",
+>> +						   off, len, room);
+>> +				ibmveth_rxq_harvest_buffer(adapter, true);
+>> +				netdev->stats.rx_dropped++;
+>> +				frames_processed++;
+>> +				continue;
+>> +			}
+> [Severity: High]
+>
+> The commit message says this check fixes the case where "the checksum
+> helpers would write past a short frame". Is an ETH_HLEN minimum enough
+> for that?
+>
+> Once this check passes, ibmveth_poll() and its helpers assume a full IP
+> header and TCP header and never look at skb->len:
+>
+> ibmveth_poll()
+>      iph_check = iph->check;
+>      ibmveth_rx_mss_helper()     /* lrg_pkt or iph_check == 0xffff */
+>          skb_shinfo(skb)->gso_size = ntohs(tcph->check);
+>          tcph->check = 0;
+>          hdr_len = offset + tcph->doff * 4;
+>          skb_shinfo(skb)->gso_segs =
+>                  DIV_ROUND_UP(skb->len - hdr_len, ...);
+>      ibmveth_rx_csum_helper()    /* csum_good */
+>          iph->check = ip_fast_csum((unsigned char *)iph, iph->ihl);
+>          struct tcphdr *tcph = (struct tcphdr *)(skb->data + iphlen);
+>          if (tcph->check == 0x0000) {
+>              tcph->check = ~csum_tcpudp_magic(...);
+>
+> A frame of about 14 to 92 bytes passes the new check, but these helpers
+> still read and write past the end of the frame. In
+> ibmveth_rx_mss_helper(), skb->len - hdr_len can also wrap.
+>
+> On the copybreak path, those accesses land in the uninitialized tailroom
+> of new_skb.
+>
+> On the non-copybreak path, they land in the pool buffer past the frame.
+> That path runs when the GFP_ATOMIC copybreak allocation fails, or when
+> rx_copybreak is set at or below the frame length.
+>
+> The new bound also accepts a short frame at the very end of the buffer.
+> For pool 0 with room = 512, off = room - 34 and len = 34 leave
+> skb->tail == skb->end after skb_put(). eth_type_trans() then leaves 20
+> bytes of IPv4 header, so tcph sits at skb->end.
+>
+> Wouldn't the tcph->check writes then land in struct skb_shared_info
+> (hwtstamps, gso_type, tskey or dataref, depending on ihl)?
+> skb_partial_csum_set() rejects this only after the write has already
+> happened.
+>
+> Should there be per-protocol skb->len checks, or pskb_may_pull(), before
+> the IP and TCP headers are parsed, rather than a fixed minimum?
+>
+> [Severity: High]
+>
+> This isn't a bug introduced by this patch, but since this patch hardens
+> the RX path: should ibmveth_rx_csum_helper() check iph->ihl before it
+> calls ip_fast_csum()?
+>
+>      if (iph->check == 0xffff) {
+>          iph->check = 0;
+>          iph->check = ip_fast_csum((unsigned char *)iph,
+>                                    iph->ihl);
+>      }
+>
+> On ppc64, ip_fast_csum_nofold() in arch/powerpc/include/asm/checksum.h
+> documents that ihl "is always >= 5" and does:
+>
+>      for (i = 0; i < ihl - 1; i++, ptr++)
+>          s += *ptr;
+>
+> ihl is unsigned, so with ihl == 0, ihl - 1 wraps to 0xFFFFFFFF and the
+> loop reads about 16 GiB starting at the RX buffer, in NAPI softirq
+> context.
+>
+> The ihl, check and ethertype fields and the IBMVETH_RXQ_CSUM_GOOD flag
+> all come from the sending partition. Could a single IPv4 frame with
+> ihl = 0 and check = 0xffff from a peer on the same virtual LAN oops or
+> stall this partition?
+>
+> [ ... ]
+>
+>> @@ -1581,10 +1661,16 @@ static int ibmveth_poll(struct napi_struct *napi, int budget)
+>>   	if (ibmveth_rxq_pending_buffer(adapter) && napi_schedule(napi)) {
+>>   		lpar_rc = h_vio_signal(adapter->vdev->unit_address,
+>>   				       VIO_IRQ_DISABLE);
+>> +		rescheduled = 1;
+>>   		goto restart_poll;
+>>   	}
+>>   
+>>   out:
+>> +	/* napi_schedule() already queued us. Returning budget would
+>> +	 * make busy_poll_stop() queue the napi a second time.
+>> +	 */
+>> +	if (rescheduled && budget && frames_processed >= budget)
+>> +		return budget - 1;
+>>   	return frames_processed;
+>>   }
+> [Severity: High]
+>
+> Does returning budget - 1 cover the case where threaded NAPI and busy
+> polling are both enabled?
+>
+> busy_poll_stop() clears NAPI_STATE_IN_BUSY_POLL before it calls the
+> driver poll. Its own comment says "Unless rc == budget we no longer own
+> the NAPI instance". From there:
+>
+> busy_poll_stop()
+>    ibmveth_poll()
+>      napi_complete_done()             /* succeeds */
+>      h_vio_signal(..., VIO_IRQ_ENABLE)
+>      napi_schedule()
+>        ____napi_schedule()
+>          set_bit(NAPI_STATE_SCHED_THREADED, &napi->state);
+>          wake_up_process(thread);
+>      goto restart_poll;               /* keeps processing the ring */
+>
+> The woken kthread sees NAPI_STATE_SCHED_THREADED in napi_thread_wait()
+> and calls __napi_poll()->ibmveth_poll() on another CPU. Meanwhile the
+> original call is still running from restart_poll.
+>
+> Can the two pollers then race, with no lock, on rx_queue.index and
+> toggle, rx_buff_pool[].skbuff[], free_map and producer_index? For
+> example, one harvest with reuse=false could clear and unmap an skb while
+> the other poller passes the same skb to napi_gro_receive().
+>
+> The budget - 1 return only runs after this overlap. Continuing to poll
+> after napi_schedule() predates this patch, but this patch now reasons
+> about NAPI ownership after napi_schedule(). Would it be better to stop
+> processing once napi_schedule() succeeds, instead of jumping back to
+> restart_poll?
+>
