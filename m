@@ -1,157 +1,102 @@
-Received: from mta1.migadu.com (out-63.mta1.migadu.com [95.215.58.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0496838E8A4
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A17F279DAD;
+	Mon, 12 Oct 2026 02:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791770378; cv=none; b=pv0Vvjc97bLl5brXRtkcxYhMS2RY69L9E6ESXF/14+SezdTcAX4wjJrGqsbeVSDxIu9sUd3/Mt6MLdygfP0dm8NBBya4VeYaewAoKaAfcNffA6GdcfrpcOShWALRP/Iyzldyivx9KrvpCrhufoEKrndKeElU2h9FCYvPkW9aiq0=
+	t=1791770583; cv=none; b=kRE3iTzpSSVkezUyUdjAz9Af+xi6bcUJfxaq7st+0Fo8nr2Dxf0eT6Lx6wVZQhSWmVrxmZBpPrYggEwG+ePRszZj9/H1jeZ+JxbC2ZjZGoGNklam/VPiH16mkejb4XVdoybR4cNtnt1tcMAgE5EAwuzG+XUt1aKkTf9AJccCbNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791770378; c=relaxed/simple;
-	bh=moBHlWf8jgOs/rYSsRmHzU2nJBmQG8lbqQxc+Xan938=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=vFdqDr/ch9jZ+kZxC3+wcRn2+SGgSCo15zVL5kH7UAhRhvfOgbgUU6dmdX6JbMUrB7w1R8nywYwnqs1jKsTDw25lgNKn3UWoqXCJL7+thjFgxvyOyjS8KQOYE3SSQ4RKuWY9YUYTU1ty4RmvxP7g/VOpIXG1tvLEMdcmVpa4y2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=D4tnk9S6; arc=none smtp.client-ip=95.215.58.63
+	s=arc-20240116; t=1791770583; c=relaxed/simple;
+	bh=XSz3dyHTqtERnvgwM+cY1AD94ekMbdw0EAqvOmXU5AE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qSsp7y6O372aofdMcuSIWcfB3q97AVCoLoD4PCXIHZ43OnZgn7ouU4fvspTMRHvxlS95lEMfKPHd20u1o/KaRABp9HKbnc5UNbOSGG70IO8a4iyOiZWeJJazG1zatW8uoUKIOHOZi4pP8WHdivMsLbXIviN7yKVHmO8qd8WLuJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eK9DgGet; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="D4tnk9S6"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=moBHlWf8jgOs/rYSsRmHzU2nJBmQG8lbqQxc+Xan938=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791770375; v=1; x=1792375175;
- b=D4tnk9S6wtHb6mDP/quLnO0cCahq120jKBiAAaR0yD/g5GVM2DejYzLPz0delcFFnUnXp8Zh
- dcKtqCzsJ76ozUA5xawJ+be8Wo3NGNSSkVMd8Wxear9pDleXsokAf3LWVieSBK34ypsIE09I+W1
- WyH++gLMseLHFJ8luyCF+1SU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 967f2161ab6b936c;
-	Mon, 12 Oct 2026 01:59:34 +0000
-X-Mizu-Trace-ID: 967f2161ab6b936c
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <06f54345-4ca6-455f-9519-138e0b6db24b@linux.dev>
-Date: Mon, 12 Oct 2026 09:59:22 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eK9DgGet"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AAAA7C2BCF7;
+	Mon, 12 Oct 2026 02:03:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791770582;
+	bh=XSz3dyHTqtERnvgwM+cY1AD94ekMbdw0EAqvOmXU5AE=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=eK9DgGetCgaNwpDent9qs+fLGnLJfbXgqf1fUxtejk+zOw4osV4ct6Mq7MbmK1a+p
+	 GLNKiSbpAmokoyWPNCZwFftY5GD0fv/QWVnDNV4mkqaVDc4RWy3V4m3+lpnQoSQfMU
+	 EqRjN9eVmYY/ENzU0csoEVzrdSE4OCr386Kgn7hM0SFaMCkfakMeZNT4ne+WyORO28
+	 ALNnvl0hSLWzVKAKuKB1zoO5yrD58+PudQ8yOYRFFCu2k/vjpgweJlkBJY5YBTAytI
+	 DD26N5YUJfZXW7MPkCBLe1ZldQVmHYu4BAlEUgXLDJ7DclbxFmRk4aZI3OSwJUg4Bg
+	 tvL08QyjCK1Cg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 882BFCA9ED0;
+	Mon, 12 Oct 2026 02:03:02 +0000 (UTC)
+From: fromdisposition via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
+Subject: [PATCH 0/2] arm64: dts: qcom: sm8350: Add CPU capacities and power
+ coefficients
+Date: Mon, 12 Oct 2026 02:02:42 +0000
+Message-Id: <20261012-sm8350-cpu-capacity-v1-0-3d141e0099d5@fromdisposition.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf] bpf, sockmap: Fix UAF when map user reference is
- revived
-To: Jan-Gerd Tenberge <janten@gmail.com>, bpf@vger.kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, john.fastabend@gmail.com,
- jakub@cloudflare.com, edumazet@kernel.org, kuniyu@google.com,
- pabeni@redhat.com, willemb@google.com, davem@davemloft.net, kuba@kernel.org,
- horms@kernel.org, yonghong.song@linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261008095656.92793-1-janten@gmail.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20261008095656.92793-1-janten@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAyA4VcZORto2nWoryI7dDFqBGdpNnGMv
+ btVj9/h/1cwKSoGx2aFIi81fY4VtGuAb2m8Cuq5GrzzHTnyaI99iA45z8gpJ9ZpwUBtTJ1QPAw
+ BapmLXPT9u576v20e7sLTdwXb9gE0JqpidwAAAA==
+X-Change-ID: 20261012-sm8350-cpu-capacity-3145a6e159b3
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, fromdisposition <me@fromdisposition.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791770585; l=1537;
+ i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
+ bh=XSz3dyHTqtERnvgwM+cY1AD94ekMbdw0EAqvOmXU5AE=;
+ b=U23YOaR7XK9GzWkuj/cnPh3OoUJIJwH82r9TkwwEFj0m8p6VLsXPuJi0/N6Ipx2Yp4BnbUY6w
+ LppzmtD4EXGCqGnI4kZKZftGRgj6SzHJEhemlWLjTO7CzQ7FStchHDU
+X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
+ pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
+X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
+ auth_id=1163
+X-Original-From: fromdisposition <me@fromdisposition.org>
+Reply-To: me@fromdisposition.org
+
+Give the SM8350 CPUs their capacities and dynamic power coefficients, so
+that the scheduler sees the three clusters as they are and energy aware
+scheduling gets an energy model. Both come from Qualcomm's downstream
+device trees.
+
+Downstream, the capacities are the same for v1 and v2 silicon, but the
+power coefficients are not: patch 2 takes the v2 ones, which the device
+tested here (v2.1) carries too. I have no v1 part to check them on; if
+v1 boards matter, patch 2 can wait without holding up patch 1.
+
+Tested on a Razer Edge 5G (SM8350 v2.1), whose board support is not
+upstream yet: cpu_capacity reads 308, 785 and 1024 once the kernel has
+scaled the values by each cluster's maximum frequency (1804, 2419 and
+2995 MHz), sched_energy_aware is 1, and the energy model covers all
+three clusters. Compared with the same kernel without these patches, an
+unpinned CPU-bound task now runs mostly on the X1 and a light periodic
+task on the A55s. dtbs_check shows no new warning for the SM8350 boards.
+The values come from Razer's kernel release for this device
+(Nicole-msm-5.4.254-20240515).
+
+---
+fromdisposition (2):
+      arm64: dts: qcom: sm8350: Add CPU capacities
+      arm64: dts: qcom: sm8350: Add CPU dynamic power coefficients
+
+ arch/arm64/boot/dts/qcom/sm8350.dtsi | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+---
+base-commit: d053e38e614fb2e383b298ce8fc308a780d7f209
+change-id: 20261012-sm8350-cpu-capacity-3145a6e159b3
+
+Best regards,
+--  
+fromdisposition <me@fromdisposition.org>
 
 
-On 10/8/26 5:56 PM, Jan-Gerd Tenberge wrote:
-> bpf_map_put_uref() invokes map_release_uref after usercnt reaches zero,
-> before bpf_map_put() drops the map reference. BPF_MAP_GET_FD_BY_ID can
-> find the map during that callback and raise usercnt again.
->
-> The sockmap and sockhash release callbacks unconditionally drop programs
-> without taking sockmap_mutex. A concurrent attach through the revived fd
-> can therefore publish a new program before the stale callback drops it.
->
-> For a bpf_link attachment, this leaves plink set while pprog is NULL, so
-> link release warns and leaves the attachment slot unusable. The callback
-> can also drop the program between sock_map_prog_update() and the later
-> bpf_prog_inc(). If the program fd is closed concurrently, this removes
-> the last reference and schedules an RCU free. The subsequent increment
-> then resurrects a zero reference and leaves link->prog pointing to memory
-> that will be freed. A KASAN reproducer triggers a slab-use-after-free when
-> reading information from that link.
->
-> Triggering the race requires CAP_SYS_ADMIN in the initial user namespace,
-> because reviving the map uses BPF_MAP_GET_FD_BY_ID. A deterministic KASAN
-> reproducer is available privately on request. It was used to verify the
-> UAF before this change and its absence afterwards.
->
-> Serialize the release callbacks with program updates using sockmap_mutex
-> and recheck usercnt under the mutex. If the map was revived, leave its
-> programs intact. Move the map user-reference put in link release outside
-> the mutex to avoid recursively taking sockmap_mutex when it drops the last
-> user reference.
->
-> Fixes: 699c23f02c65 ("bpf: Add bpf_link support for sk_msg and sk_skb progs")
-> Assisted-by: LLM
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jan-Gerd Tenberge <janten@gmail.com>
-
-
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-
-
-> ---
->   net/core/sock_map.c | 18 ++++++++++++++----
->   1 file changed, 14 insertions(+), 4 deletions(-)
->
-> diff --git a/net/core/sock_map.c b/net/core/sock_map.c
-> index 38df84284328..32ccf4ca3c76 100644
-> --- a/net/core/sock_map.c
-> +++ b/net/core/sock_map.c
-> @@ -26,7 +26,8 @@ struct bpf_stab {
->   
->   /* This mutex is used to
->    *  - protect race between prog/link attach/detach and link prog update, and
-> - *  - protect race between releasing and accessing map in bpf_link.
-> + *  - protect race between releasing and accessing map in bpf_link, and
-> + *  - protect race between map user-reference release and prog/link updates.
->    * A single global mutex lock is used since it is expected contention is low.
->    */
->   static DEFINE_MUTEX(sockmap_mutex);
-> @@ -372,7 +373,10 @@ static void sock_map_free(struct bpf_map *map)
->   
->   static void sock_map_release_progs(struct bpf_map *map)
->   {
-> -	psock_progs_drop(&container_of(map, struct bpf_stab, map)->progs);
-> +	mutex_lock(&sockmap_mutex);
-> +	if (!atomic64_read(&map->usercnt))
-> +		psock_progs_drop(&container_of(map, struct bpf_stab, map)->progs);
-> +	mutex_unlock(&sockmap_mutex);
->   }
->   
->   static struct sock *__sock_map_lookup_elem(struct bpf_map *map, u32 key)
-> @@ -1226,7 +1230,10 @@ static void *sock_hash_lookup(struct bpf_map *map, void *key)
->   
->   static void sock_hash_release_progs(struct bpf_map *map)
->   {
-> -	psock_progs_drop(&container_of(map, struct bpf_shtab, map)->progs);
-> +	mutex_lock(&sockmap_mutex);
-> +	if (!atomic64_read(&map->usercnt))
-> +		psock_progs_drop(&container_of(map, struct bpf_shtab, map)->progs);
-> +	mutex_unlock(&sockmap_mutex);
->   }
->   
->   BPF_CALL_4(bpf_sock_hash_update, struct bpf_sock_ops_kern *, sops,
-> @@ -1743,6 +1750,7 @@ struct sockmap_link {
->   static void sock_map_link_release(struct bpf_link *link)
->   {
->   	struct sockmap_link *sockmap_link = container_of(link, struct sockmap_link, link);
-> +	struct bpf_map *map = NULL;
->   
->   	mutex_lock(&sockmap_mutex);
->   	if (!sockmap_link->map)
-> @@ -1751,10 +1759,12 @@ static void sock_map_link_release(struct bpf_link *link)
->   	WARN_ON_ONCE(sock_map_prog_update(sockmap_link->map, NULL, link->prog, link,
->   					  link->attach_type));
->   
-> -	bpf_map_put_with_uref(sockmap_link->map);
-> +	map = sockmap_link->map;
->   	sockmap_link->map = NULL;
->   out:
->   	mutex_unlock(&sockmap_mutex);
-> +	if (map)
-> +		bpf_map_put_with_uref(map);
->   }
->   
->   static int sock_map_link_detach(struct bpf_link *link)
->
-> base-commit: ff47652a4b66c067c765a7ad464d930b5a9367cc
