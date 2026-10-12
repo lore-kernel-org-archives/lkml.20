@@ -1,73 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED0239CCFF
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:31:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5E44734E5;
+	Mon, 12 Oct 2026 09:31:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791797509; cv=none; b=ZbHF2KM8DjpRtbBqhBDqV0NIHf/wkM9ZiV2cgwWbm3iU6DlMANs0NKzy8xsfOnDgvG3gt6YKVTN3cczIfXFKfDaoHSe41hM7uQqA6UKRvTEYvdhcx5g0F5l41ZQzWgSNJpJvzQnpo6lSAdzpVEOzH/QqRwK+flLH3Q/5OavDhiA=
+	t=1791797521; cv=none; b=GTKme2/9dwmmMzjGDCDkv+GSw6mN69Q5hRUZAv1iGQwovL8bHWst5L2eI4ofvwQ5BQfHZZBShPqtCLeJeCTe4z8R0JS9VJO7jCv6kecweUDaouekHK6QtARWsrYC3GAGTSuSnSlBytbaOgpfnHifDVbb7eceB6OUF7OeuqMwJco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791797509; c=relaxed/simple;
-	bh=7d+W8JcOuTnss765s5W03emeZFctX4CPjHCVsfnVPQw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DMamJDiAVceCeC5PT6T3AOCWzSB/Wm5MAHIEXoQ+Lxrji5GQJsG5YlfTJR9CcuFkEnH1qiEUjHOgs/Y6RRTgfTaZIV1qxVx94nB/NjNFaBZp18MVzVZNiQgczq0/xu7qD6gVcgnQ03fpHo9JKWybRVsNpMygYXaZ+LHZiVRb6LU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ngriNN4R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791797521; c=relaxed/simple;
+	bh=YlXB2sfR/8uHmt7u6McLV75lOgXzbBw1zIigD7BXieU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JcXU21B6wpY+p5NyJGICrgh/i5ZONlQrz2rac/jUBCELvNP8ZVY4h9cCXQ/y+duNuwhN+hd4V+ZE8fU7RqEqTzZrX/eHry/Ayyd3nehkf+U7fLZOSFbgXlk3QbMGsJ8f98IwzSklu9mjv/9ecpPXy3e9CpzY6apLLUAP6CvNCcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cmqAbzqc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ngriNN4R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42DB61F0089C
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:31:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cmqAbzqc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA4601F0089B;
+	Mon, 12 Oct 2026 09:31:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791797507;
-	bh=7d+W8JcOuTnss765s5W03emeZFctX4CPjHCVsfnVPQw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ngriNN4RLU9FX8a655ahE78vNrb14uR8AGryXOpdmh6hOuaMcNan6THx6zRWpyMoS
-	 Cv5MITcTF8xf/CWhluQxKCeASMqT1HrWpgr9l6C5Cr82xLFCpdbiPSuCrdRsG8y6hB
-	 il4/FDm7+JwFDE/dy1UE/Zli9A7OJ8v/KyNLpTOOelIfteMiMtanK4pJBE8Z3ivvev
-	 hU/qsnsjZWFovXZTOAdRCK9CVYpGYpBdnuLRaPWD8xJwzQaFG+JvvPKa2XGE6E5bBj
-	 7zsGIln5UlMIrQtCBz9X1R4BhPUC4+e8ZeBS/vW773n2boBXDdUOE8RAwcBgZYW/v6
-	 jcoTtRVe+be9g==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5ba3fba0080so1043816e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:31:47 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwPLnGmpGXLTX2OMj/tQg+X0Y6Y/l0AMowigpDb51VBNvvyVGBMH4VFmTncIeMTTNgg0vGnoWWDoihdqtw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKsVwWEU/SzdpTml+loU3OaSO3m1RcmSRM6SoNUmYVJ4ARscNSN
-	XKe5DE5tFB8XnfCps2TbLENvQ7ifZ8W6W9Wr0xzSI313qR4JLf8fvZVUWTtC1LgkBLHJj2YBOph
-	7yJVqSXuDLXcF2z4/5Co4nbVK7Ouvql8=
-X-Received: by 2002:a2e:a9a3:0:b0:3a6:5993:c976 with SMTP id
- 38308e7fff4ca-3a9c514fd30mr20214681fa.6.1791797505811; Mon, 12 Oct 2026
- 02:31:45 -0700 (PDT)
+	s=k20260515; t=1791797517;
+	bh=9H3LKXnRsRjgTOnxDKBRlZJ3/mRIKDiFks9Hh8YiVWg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cmqAbzqcGelilGuTJJ6bjDCEq00JPGjCkgjHDvwpLU0uf6s9uW1SO/JXMG7yFF3u1
+	 RkgTY1PpW9MgXdChn8b8XkoNTL019lOy9OJtHJQc0jWyLIQzZuoexjKVuri3ge1BQj
+	 oz+hn4nT+HIfRHkvCtXm8i3zL4SJP6Jj6hsyc7UVopcHddJShX+cfaJDb+ZDRYrYZG
+	 HIYsIwOf5OhmPGN5kHu5McqeuAyqVFY262E3xkO2ZER2l6SBco613s9IO3Ziu6+Zfi
+	 CfaCcViWqhonjPe2y+izstLmnQoR2zGWoY4EXC4UwYDwVvX8O8sNBuRuMYDoHnskqX
+	 e4IWc+YRzvKRQ==
+Date: Mon, 12 Oct 2026 11:31:53 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kyrie Wu <kyrie.wu@mediatek.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Bin Liu <bin.liu@mediatek.com>, 
+	kyrie wu <kyrie.wu@mediatek.corp-partner.google.com>, Hans Verkuil <hverkuil@kernel.org>, 
+	irui wang <irui.wang@mediatek.com>, Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v18 12/13] dt-bindings: mediatek: Add MT8196 JPEG SMMU
+ bindings
+Message-ID: <20261012-determined-magenta-camel-ff2ca8@quoll>
+References: <cover.1791614327.git.kyrie.wu@mediatek.com>
+ <77ae5bfdedb1240420fd1aced446c9dfee38283e.1791614327.git.kyrie.wu@mediatek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <38872e6f-1264-4a93-9f81-8212173e909d@yahoo.com> <5dbd1b29-72d0-454d-83e1-19f7232a0ee0@yahoo.com>
-In-Reply-To: <5dbd1b29-72d0-454d-83e1-19f7232a0ee0@yahoo.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 12 Oct 2026 11:31:32 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmzfFW4d9onNw4iD7SDc7hY-Px3YwFqFgo1LmLv7qscXQ@mail.gmail.com>
-X-Gm-Features: AclHuK9yvP7hkoo691nQns0lXY5nu7PEOfpJpeZtM3PjduiUHsbehs1kfnqV10U
-Message-ID: <CAD++jLmzfFW4d9onNw4iD7SDc7hY-Px3YwFqFgo1LmLv7qscXQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v4 1/9] dt-bindings: net: dsa: realtek: add RTL8367S-V
-To: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Cc: andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org, davem@davemloft.net, 
-	edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk, 
-	luizluca@gmail.com, maxime.chevallier@bootlin.com, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <77ae5bfdedb1240420fd1aced446c9dfee38283e.1791614327.git.kyrie.wu@mediatek.com>
 
-On Mon, Oct 12, 2026 at 2:09=E2=80=AFAM Mieczyslaw Nalewaj <namiltd@yahoo.c=
-om> wrote:
+On Sat, Oct 10, 2026 at 04:07:16PM +0800, Kyrie Wu wrote:
+> Document the decoder and encoder phandles and describe the dedicated
+> JPEG SMMU configuration syscon for MT8196.
+> 
+> Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+> ---
+>  .../media/mediatek,mt8195-jpegdec.yaml        | 16 ++++++++
+>  .../media/mediatek,mt8195-jpegenc.yaml        | 16 ++++++++
+>  .../mediatek/mediatek,mt8196-jpeg-smmu.yaml   | 41 +++++++++++++++++++
+>  MAINTAINERS                                   |  2 +
+>  4 files changed, 75 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/soc/mediatek/mediatek,mt8196-jpeg-smmu.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegdec.yaml b/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegdec.yaml
+> index 28a9a9b..b1dccc3 100644
+> --- a/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegdec.yaml
+> +++ b/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegdec.yaml
+> @@ -73,6 +73,22 @@ patternProperties:
+>        power-domains:
+>          maxItems: 1
+>  
+> +      mediatek,smmu-config:
+> +        $ref: /schemas/types.yaml#/definitions/phandle
+> +        description:
+> +          Phandle to the MT8196 JPEG SMMU configuration syscon used to
+> +          program this decoder's GUSER_ID fields.
+> +
+> +    allOf:
+> +      - if:
+> +          properties:
+> +            compatible:
+> +              contains:
+> +                const: mediatek,mt8196-jpgdec-hw
+> +        then:
+> +          required:
+> +            - mediatek,smmu-config
 
-> The RTL8367S-VB (chip ID 0x6642) is supported by the rtl8365mb driver
-> with the changes that follow in this series. It is identified by its
-> chip ID register, so it does not need a compatible string of its own.
-> List it under realtek,rtl8365mb.
->
-> Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Why are you adding incomplete hardware in one patch and then immediately
+fixing it later?
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Please read writing bindings doc (and part about complete hardware
+support).
 
-Yours,
-Linus Walleij
+Best regards,
+Krzysztof
+
