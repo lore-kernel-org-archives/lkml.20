@@ -1,42 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18B83AAF5C;
-	Mon, 12 Oct 2026 09:43:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 684CE2E9730;
+	Mon, 12 Oct 2026 09:44:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791798234; cv=none; b=Zo02MiRMKSDKo2whvicsj9fWDCo6Y7Au1dADiaF2DZaclA004lCdTumhg4wpRP1HeA3a0oqq+dml+V703Co6eSTJrj3msbEUGtTFBwGKPXk9b9213xiYE7cjrdYBlU6x/bicTep66u6A3ZafvwKgyWqVfSv8j8gHTaCIyQ7uuy8=
+	t=1791798295; cv=none; b=Lu8Z56V2y3+HF8xgOait19jHSTbae7ATc9CX/ujlbm5F5JXt0E5rKdt51eSdnfCqWvCXuR+d7F0hGRBUue9Kmtcxey8puPODIwQEYu/6rxOHfe5enP8kY7KBTT/nWeU8dMK6bpa3OnaE3c4iZB4WUaaHmhr6L+024+7YEyP4uDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791798234; c=relaxed/simple;
-	bh=VIMNNJNGn25Dr7GqLIZip7ZIs8se4jphDPs2Kc9ADf8=;
+	s=arc-20240116; t=1791798295; c=relaxed/simple;
+	bh=yuLT1Aiglo+Ty6j3F8LY9eHFptxWtv6MITN3oVH/yZs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DadcOd+OJtTmrEI+vTXOm165DB5eaT9CaY7/RewOdoqI2zS39blH7MGYFpDkEtGGgEsu5ynSkTVJb5Qg8Vhze1xQVMio4Eo2BB83sNn+fAuOX+Ot/XZbGGwuWiQHaFTw109f0BsC3pDD6/Z/3RRfGH0JCkCyFlLsm0HUnf+RHf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VvQ3uqex; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rp6bmgZlKJcY3UJJDjfDgtYoj6sCTywoy4zuVvu3rxcxZQQHH827qVL3BT5eAMmGYvma6rgChL4AwQ6YaXdEFEmF9zDhq9UBjnfr40zr1lzGvW5k4Cw7/7Pfi2IAJgbhE5Rm+BFV//u0ADLcU0gvoZVcInKeNi9K46IXpC6FDLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BVa/HCKL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VvQ3uqex"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27A101F0089B;
-	Mon, 12 Oct 2026 09:43:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BVa/HCKL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98BF81F0089B;
+	Mon, 12 Oct 2026 09:44:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791798233;
-	bh=n8g3m07kswQUB2aEv58Z2fxCH8Bc2AGaIzxQdV0JnjE=;
+	s=k20260515; t=1791798294;
+	bh=z9+4BbO9ibDxBWVau+TMbeg/ZMgTtPx2Di1N+vz6DeE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VvQ3uqexE/Ntit4Uo3Vnyg1hfJ5wxdiRHSmkrQz2UynJivsnVns11WZvmUtdFQ+Np
-	 vUZms2MpfqdwiihALNylI7gBnQTtYqomf0s4nk9GNPPpWxLzNEQ+uKoX1kmdD/Wz7x
-	 HW8OL9GhTXSMosGLbjUQjO6ff1Iu6loj56wKj8lyybKhGOjVzh4+yPQ7WDkAdhPhtP
-	 sm8dS4tSZL8Zhe3PsLI2/i0H1mwr359RzrwTlwKwOc2+L+C1lMAnEfDi9xCKMejdGP
-	 oEAJKfI9cm3VlT2tfIBYBOEx5BbO1LIdLTiTEarIzuNRfYTBxEVGLXJJbArYMhF5Ts
-	 PjH/vNLgk6Hlg==
-Date: Mon, 12 Oct 2026 15:13:45 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Xu Yang <xu.yang_2@oss.nxp.com>
-Cc: ivaylo <ivo.ivanov.ivanov1@gmail.com>, vkoul@kernel.org, 
-	neil.armstrong@linaro.org, dmitry.baryshkov@oss.qualcomm.com, linux-phy@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev
-Subject: Re: [PATCH] phy: phy-snps-eusb2: fix FSEL_48_MHZ_VAL definition
-Message-ID: <asyrexEOKzZkoD23@debian>
-References: <20260908085953.3315953-1-xu.yang_2@oss.nxp.com>
- <aaf8a5ef-2abe-4269-804e-4d2dd1bc4d3e@gmail.com>
- <ogfpkqixf3xkyvh4bbpvui5ybfaro6g35g6u5kb56k2jsyrsmt@jm67at6cpksf>
+	b=BVa/HCKLeVdW5UdRtj2DJEeLg6z1EyDf5HeeP6TLrn2MrtVdmAungKcieZ44zcC9X
+	 SSDVoxBpowXpwC28cT7Dm/O/S/xFSbUHk1hVsWMdQdiRcjC5OVTwyEwSaZ1EuJ0OmP
+	 JDuV4j+JCgsYz/tXYbevN3zgQqr5ERXT4C1vPCu/g7zgQ4Rr798ZvaF2JEcN0+Jca/
+	 nF5Ns+vDDtlcSw5t7NygtlpAK1HUvcFtUf765JFx7KH9tty2xVzNdD90/qIsq+DDpQ
+	 esO8rIGHAxNT/p+iH08Zuto19FZBuXVt6mfOw8xTuXa3Qir+dA8PYOjW9VHdg6WeL2
+	 9eYa4ruhAkIOg==
+Date: Mon, 12 Oct 2026 11:44:49 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Miotsuki Mizuno <founder@crepuse.com>
+Cc: "heiko@sntech.de" <heiko@sntech.de>, 
+	"neil.armstrong@linaro.org" <neil.armstrong@linaro.org>, "airlied@gmail.com" <airlied@gmail.com>, 
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "jesszhan0024@gmail.com" <jesszhan0024@gmail.com>, 
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>, 
+	"maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org" <mripard@kernel.org>, 
+	"noralf@tronnes.org" <noralf@tronnes.org>, "robh@kernel.org" <robh@kernel.org>, 
+	"simona@ffwll.ch" <simona@ffwll.ch>, "tzimmermann@suse.de" <tzimmermann@suse.de>
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel-mipi-dbi-spi: Add
+ UNIHIKER M10 display
+Message-ID: <20261012-wondrous-pronghorn-of-potency-aa0cf1@quoll>
+References: <20261010232857.26950-1-founder@crepuse.com>
+ <20261010232857.26950-2-founder@crepuse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,38 +52,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ogfpkqixf3xkyvh4bbpvui5ybfaro6g35g6u5kb56k2jsyrsmt@jm67at6cpksf>
+In-Reply-To: <20261010232857.26950-2-founder@crepuse.com>
 
-On Wed, Sep 09, 2026 at 10:49:41AM +0800, Xu Yang wrote:
-> On Tue, Sep 08, 2026 at 04:17:57PM +0400, ivaylo wrote:
-> > On 8.09.26 12:59, Xu Yang wrote:
-> > > From: Xu Yang <xu.yang_2@nxp.com>
-> > > 
-> > > According to Synopsys eUSB2 PHY Databook, FSEL_48_MHZ_VAL should be 0x6
-> > > for supported 48 MHz reference clock.
-> > 
-> > I don't see this as a justified change. Samsung's implementation of eUSB2
-> > differs from the generic Synopsys interface, as is visible from the
-> > differences
-> > between QCOM's implementation and Samsung's.
-> > 
-> > From what I see for exynos2200, the FSEL value is 0x2 for both 24 MHz and
-> > 48 MHz. The differentiating part is that the upper PLL divider is 0x0 for 24
-> > MHz
-> > and 0x1 for 48 MHz. The current programming was taken from the samsung\
+On Sat, Oct 10, 2026 at 11:28:59PM +0000, Miotsuki Mizuno wrote:
+> The DFRobot UNIHIKER M10 V1.2 has a 240x320 SPI display with an
+> ILI9341-compatible command interface. Its initialization sequence can
+> be supplied to the existing panel-mipi-dbi driver as firmware.
 > 
-> For Product Code H483-0, it's 0x2 for 24 MHz and 0x6 for 48 MHz. The PLL divider
-> is 0x0 for 24 MHz and 0x1 for 48 MHz too. So it does seem like something mismatch
-> in your side. Because the FSEL_*_MHZ_VAL is common definition in the driver, this
-> means FSEL_48_MHZ_VAL is not common anymore. But if you have confirmed it's simply
-> like that, it's fine. Others need to add their specific definition in the future.
+> Add dfrobot,unihiker-m10-display as the panel-specific compatible,
+> with panel-mipi-dbi-spi as the fallback.
 > 
+> Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>
 
-If the values differ between vendor implementations, then please deal with it
-using compatible check or drvdata.
+Same issues as with all your patches.
 
-- Mani
+Best regards,
+Krzysztof
 
--- 
-மணிவண்ணன் சதாசிவம்
