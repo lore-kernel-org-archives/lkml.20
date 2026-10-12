@@ -1,21 +1,60 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8505337EFE2
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D39F3264F4;
+	Mon, 12 Oct 2026 13:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791811430; cv=none; b=a9KoixseDlUblYTPtEd/lR+h7EikcOWKhef2WzRR/CimL6XZGeEm6L9ucp4BIHCA95TPFlr+/3tiCGdDQC8bbwHiPW/PEJaLu3ScabJcEaqjGM3PouL62miFA0ENYj57+dJ2lXBUayL0LVNgMNlr8jHsYjTmx7rexkwHGWf2208=
+	t=1791811462; cv=none; b=cnyxhBA65qejhfzY7xUh5os7/JTmQL7nXJMUc3Fxp8zhoiNZntwoDhcOHwMnbNyogoNRZotkkHEo04TVtf6CqQCZEwqeEvwgQ4Dhr3g6dIERej6B1pvFZpRIyeL6BVF9/6ak4+qQ4Za4KChdHK8rxjjsix/DkOh1L2t4MT+oSGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791811430; c=relaxed/simple;
-	bh=n5H1n3aEuPpw+7+ZuzT44Lymtj7M50dvpqId62qMxg4=;
+	s=arc-20240116; t=1791811462; c=relaxed/simple;
+	bh=YBNkHbEZPsqh0Jd1xqE1mM9CcjFwBtt75I4Pbv0/FDo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IIucGR+43ndDGblWc8cy9csA1yW/xU2LsWeIY6PIfSdKKr0jXHK43HrXwEYJ9NLS0zot3k16j79DolH9fwqAoABoNWbL+T9XXAUCjMfGkG+uhR6AyDCLswm0Mnf9UAdU4e0s46vwAVpaPZVgOpK4tilWKdUI4CY6uk0TLzHfcu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 227F11F0089D;
-	Mon, 12 Oct 2026 13:23:46 +0000 (UTC)
-Message-ID: <f76142b2-6472-456e-b810-187e8f40eb01@linux-m68k.org>
-Date: Mon, 12 Oct 2026 23:23:44 +1000
+	 In-Reply-To:Content-Type; b=qIIFXivy5nExYS/94P7t3Sbw2qGXU/kRUwYPutPWXZQ8p0/2ABpXWXy3txBZgCM+ThK6Cd7/f3YuuvRF38qJQVzA/cvWiTyerVacOoXdsxcJjZT6rsxD+19EOAJ4Hkb7BYjOjuoVxjy9/K92+McSBN46SfzCo3++HtJNeynNXhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=eMYLeD5w; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="eMYLeD5w"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCEJ6p3209807;
+	Mon, 12 Oct 2026 13:24:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=pGUHEE
+	s4gL6Umddybd+7K5An02Z75pQ3o/KZGJwSSsk=; b=eMYLeD5wPiQ30rASwKiDrI
+	o56GH1T2rJklS54DyaElTaKq1ZUQ43ZqoZhm9jDvsJNdU5d7UH2KP2MfLv/AiMf4
+	42cygwqpyWGw3j3vMd2gtgt5xDX1LRcVHCEvLP9ZhjfB8H5pRs1slWW6mhRVlm57
+	u7YQT3zb8uiU1dqLNC8vSzqpyt40Jfe3v1SrE3Fc3otqLWuKfkbc9cSpr2WFmefT
+	y1fwEdcBF1Jh/RxpIYpaWFduApYQ1JjyJ9Dm/p9th4LMXIIK4CdWHcmanTe3IgVQ
+	Wv41C5zRP7J82bmsasw7Z9liS4BXOHF6rD+9ygELjAAQPqZVdKlthvok1YeoMjFw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv08rvk-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 13:24:20 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCJrpP1255390;
+	Mon, 12 Oct 2026 13:24:19 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h802vneek-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 13:24:19 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CDOFCo43909580
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 13:24:15 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9207320043;
+	Mon, 12 Oct 2026 13:24:15 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 077C420040;
+	Mon, 12 Oct 2026 13:24:15 +0000 (GMT)
+Received: from [0.0.0.0] (unknown [9.87.157.242])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 13:24:14 +0000 (GMT)
+Message-ID: <e2b60d29-bf49-4f58-83c6-6899a1079156@linux.ibm.com>
+Date: Mon, 12 Oct 2026 15:24:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -23,287 +62,71 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] m68k: Handle put_user faults more carefully
-To: Michael Schmitz <schmitzmic@gmail.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Finn Thain <fthain@linux-m68k.org>
-Cc: linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org
-References: <88e752e0bca92c7b65533cc1b334052dd272f8ef.1790842086.git.fthain@linux-m68k.org>
- <02c53c37-d2ee-4c03-a8f9-0a757c3af59e@gmail.com>
- <CAMuHMdVbfUH1ZoFcS64t=gyE_cskMWv6gGvL8pjGirSGvAKu2w@mail.gmail.com>
- <dfcbbc59-4204-478b-b8da-867621056c62@gmail.com>
- <5bb9f586-6939-433e-9e06-a9bbc08a69a0@polyxeno.com>
- <d52fd72d-fe72-4fd3-9ae8-5ed999d18b5f@gmail.com>
+Subject: Re: [PATCH 12/32] s390/lib/uaccess: Convert inline assembly to
+ EX_TABLE_INSN
+To: Heiko Carstens <hca@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Niklas Schnelle <schnelle@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Vineeth Vijayan <vneethv@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Harald Freudenberger <freude@linux.ibm.com>,
+        Holger Dengler <dengler@linux.ibm.com>,
+        Stefan Haberland
+ <sth@linux.ibm.com>,
+        Jan Hoeppner <hoeppner@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+References: <20261001103247.1989111-1-hca@linux.ibm.com>
+ <20261001103247.1989111-13-hca@linux.ibm.com>
 Content-Language: en-US
-From: Greg Ungerer <gerg@linux-m68k.org>
-In-Reply-To: <d52fd72d-fe72-4fd3-9ae8-5ed999d18b5f@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Hi Michael,
-
-On 8/10/26 09:54, Michael Schmitz wrote:
-> Hi Greg,
-> 
-> thanks for running these tests!
-> 
-> On 6/10/26 01:42, Greg Ungerer wrote:
->> Hi Michael,
->>
->> On 3/10/26 09:55, Michael Schmitz wrote:
->>> Hi Geert,
->>>
->>> On 03/10/2026 5:28 AM, Geert Uytterhoeven wrote:
->>>
->>>> Hi Michael, Finn,
->>>>
->>>> On Thu, 1 Oct 2026 at 20:57, Michael Schmitz <schmitzmic@gmail.com> wrote:
->>>>> On 1/10/26 22:08, Finn Thain wrote:
->>>>>> Running 'stress-ng --sysbadaddr -1' on my MC68040 system immediately
->>>>>> produces an oops:
->>>>>>
->>>>>>        Unable to handle kernel access at virtual address f1c422fb
->>>>>>        Oops: 00000000
->>>>>>        Modules linked in:
->>>>>>        PC: [<00005a1a>] do_040writeback1+0xae/0x160
->>>>>>        SR: 2010  SP: 96087dc2  a2: 01500000
->>>>>>        d0: 00000000    d1: 014e8000    d2: 00000081    d3: 00000000
->>>>>>        d4: 00000481    d5: c043dfff    a0: 014e8000    a1: 00632fd5
->>>>>>        Process stress-ng (pid: 221, task=1b729d30)
->>>>>>        Frame format=7 eff addr=014e9eb8 ssw=0c81 faddr=c043dfff
->>>>>>        wb 1 stat/addr/data: 0001 00000481 c043dfff
->>>>>>        wb 2 stat/addr/data: 0081 c043dfff 2f746d70
->>>>>>        wb 3 stat/addr/data: 0005 014e9ed4 2f746d70
->>>>>>        push data: c043dfff 800daa70 00000000 014e9f1c
->>>>>>        Stack from 014e9ed4:
->>>>>>          2f740000 8017c000 014e9f10 00006830 00000081 c043dfff 2f746d70 2f746d70
->>>>>>          0081a000 00000400 c043dfff 800daa70 c043dfff 80016a20 00000003 014e9f88
->>>>>>          000026c8 014e9f1c 00000001 2f746d70 0081a000 00000400 c043dfff 0081afff
->>>>>>          c043dfff 01500000 00000001 ffffffff 00000000 20000046 41d67008 014e9f58
->>>>>>          04810005 00810045 c043dfff 014e9f84 2f746d70 c043dfff 2f746d70 c043dfff
->>>>>>          80016a20 8017c000 00000000 0081affb 00000005 014e9fc4 00128bc6 c043dfff
->>>>>>        Call Trace: [<00006830>] buserr_c+0x510/0x698
->>>>>>          [<000026c8>] buserr+0x20/0x28
->>>>>>          [<00128bc6>] sys_getcwd+0xc8/0x15a
->>>>>>          [<000027a2>] syscall+0x8/0xc
->>>>>>          [<0008800d>] sanity_check_segment_list+0x17/0x11e
->>>>>>
->>>>>>        Code: 000c 0e90 1800 220f 0281 ffff e000 2041 <2228> 0008 0281 00ff
->>>>>>              ff00 67a4 6026 4280 122e 0013 206e 000c 0e10 1800 220f 0281
->>>>>>
->>>>>> 0000596c <do_040writeback1>:
->>>>>>        596c:       4e56 fffc       linkw %fp,#-4
->>>>>>        5970:       2f02            movel %d2,%sp@-
->>>>>>        5972:       202e 0008       movel %fp@(8),%d0
->>>>>>        5976:       4282            clrl %d2
->>>>>>        5978:       3400            movew %d0,%d2
->>>>>>        597a:       220f            movel %sp,%d1
->>>>>>        597c:       0281 ffff e000  andil #-8192,%d1
->>>>>>        5982:       2041            moveal %d1,%a0
->>>>>>        5984:       2228 0008       movel %a0@(8),%d1
->>>>>>        5988:       0281 00ff ff00  andil #16776960,%d1
->>>>>>        598e:       6600 0104       bnew 5a94 <do_040writeback1+0x128>
->>>>>>        5992:       4e7b 2000       movec %d2,%sfc
->>>>>>        5996:       4e7b 2001       movec %d2,%dfc
->>>>>>        599a:       0240 0060       andiw #96,%d0
->>>>>>        599e:       0c40 0020       cmpiw #32,%d0
->>>>>>        59a2:       6700 0084       beqw 5a28 <do_040writeback1+0xbc>
->>>>>>        59a6:       0c40 0040       cmpiw #64,%d0
->>>>>>        59aa:       6730            beqs 59dc <do_040writeback1+0x70>
->>>>>>        59ac:       4a40            tstw %d0
->>>>>>        59ae:       6752            beqs 5a02 <do_040writeback1+0x96>
->>>>>>        59b0:       4280            clrl %d0
->>>>>>        59b2:       220f            movel %sp,%d1
->>>>>>        59b4:       0281 ffff e000  andil #-8192,%d1
->>>>>>        59ba:       2041            moveal %d1,%a0
->>>>>>        59bc:       2228 0008       movel %a0@(8),%d1
->>>>>>        59c0:       0281 00ff ff00  andil #16776960,%d1
->>>>>>        59c6:       6600 0086       bnew 5a4e <do_040writeback1+0xe2>
->>>>>>        59ca:       7201            moveq #1,%d1
->>>>>>        59cc:       4e7b 1000       movec %d1,%sfc
->>>>>>        59d0:       4e7b 1001       movec %d1,%dfc
->>>>>>        59d4:       242e fff8       movel %fp@(-8),%d2
->>>>>>        59d8:       4e5e            unlk %fp
->>>>>>        59da:       4e75            rts
->>>>>>        59dc:       4280            clrl %d0
->>>>>>        59de:       322e 0012       movew %fp@(18),%d1
->>>>>>        59e2:       206e 000c       moveal %fp@(12),%a0
->>>>>>        59e6:       0e50 1800       movesw %d1,%a0@
->>>>>>        59ea:       220f            movel %sp,%d1
->>>>>>        59ec:       0281 ffff e000  andil #-8192,%d1
->>>>>>        59f2:       2041            moveal %d1,%a0
->>>>>>        59f4:       2228 0008       movel %a0@(8),%d1
->>>>>>        59f8:       0281 00ff ff00  andil #16776960,%d1
->>>>>>        59fe:       67ca            beqs 59ca <do_040writeback1+0x5e>
->>>>>>        5a00:       604c            bras 5a4e <do_040writeback1+0xe2>
->>>>>>        5a02:       4280            clrl %d0
->>>>>>        5a04:       222e 0010       movel %fp@(16),%d1
->>>>>>        5a08:       206e 000c       moveal %fp@(12),%a0
->>>>>>        5a0c:       0e90 1800       movesl %d1,%a0@
->>>>>>        5a10:       220f            movel %sp,%d1
->>>>>>        5a12:       0281 ffff e000  andil #-8192,%d1
->>>>>>        5a18:       2041            moveal %d1,%a0
->>>>>>        5a1a:       2228 0008       movel %a0@(8),%d1
->>>>>>        5a1e:       0281 00ff ff00  andil #16776960,%d1
->>>>>>        5a24:       67a4            beqs 59ca <do_040writeback1+0x5e>
->>>>>>        5a26:       6026            bras 5a4e <do_040writeback1+0xe2>
->>>>>>        ...
->>>>>>
->>>>>> The cause is a deliberately misaligned access in the 'bad_end_addr' test
->>>>>> case in the 'sysbadaddr' stressor. The location being accessed here,
->>>>>> 0xc043dfff, was contrived to span the boundary between a r/w anonymous page
->>>>>> and an unmapped page. The address was then passed to the getcwd syscall
->>>>>> which faulted in copy_to_user().
->>>>>>
->>>>>> The fault for the mapped page appears to be handled okay -- up until
->>>>>> do_040writeback1() called put_user() which produced a second fault due to
->>>>>> the unmapped page.
->>>>>>
->>>>>> Michael Schmitz helpfully deciphered the oops and explained the exception
->>>>>> processing leading up to it.
->>>>>>
->>>>>>        "regs->pc does point to the PC in the format 7 frame which is the PC
->>>>>>        the fault was detected at, but not (in case of a writeback fault)
->>>>>>        the PC of the faulting instruction [that is, MOVES.L].
->>>>>>
->>>>>>        "The writeback would still cross the page boundary, and fault if the
->>>>>>        unmapped page still isn't present. We would not see the PC of the
->>>>>>        movesl in that case, and fail to find the PC in the exception
->>>>>>        table."
->>>>>>
->>>>>> One solution is to add a NOP instruction after the MOVES.L to flush the
->>>>>> pipeline and take the fault. That way, the PC value in the exception frame
->>>>>> becomes dependable so the exception table works.
->>>>>>
->>>>>> Theoretically, there seems to be another bug in the existing code. If
->>>>>> the instruction following the MOVES faulted, then after the fixup,
->>>>>> execution would resume at the instruction which caused the fault. This
->>>>>> appears to be a loop. After this patch, that cannot happen.
->>>>>>
->>>>>> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
->>>>>> Signed-off-by: Finn Thain <fthain@linux-m68k.org>
->>>>>> ---
->>>>>>     arch/m68k/include/asm/uaccess.h | 10 ++++++----
->>>>>>     1 file changed, 6 insertions(+), 4 deletions(-)
->>>>>>
->>>>>> diff --git a/arch/m68k/include/asm/uaccess.h b/arch/m68k/include/asm/uaccess.h
->>>>>> index 31d133faa45e..728a6dfb7414 100644
->>>>>> --- a/arch/m68k/include/asm/uaccess.h
->>>>>> +++ b/arch/m68k/include/asm/uaccess.h
->>>>>> @@ -31,11 +31,12 @@
->>>>>>     #define __put_user_asm(inst, res, x, ptr, bwl, reg, err) \
->>>>>>     asm volatile ("\n"                                  \
->>>>>>         "1:     "inst"."#bwl"   %2,%1\n"                \
->>>>>> -     "2:\n"                                          \
->>>>>> +     "2:     nop\n"                                  \
->>>>>> +     "3:\n"                                          \
->>>>>>         "       .section .fixup,\"ax\"\n"               \
->>>>>>         "       .even\n"                                \
->>>>>>         "10:    moveq.l %3,%0\n"                        \
->>>>>> -     "       jra 2b\n"                               \
->>>>>> +     "       jra 3b\n"                               \
->>>>>>         "       .previous\n"                            \
->>>>>>         "\n"                                            \
->>>>>>         "       .section __ex_table,\"a\"\n"            \
->>>>>> @@ -53,11 +54,12 @@ do {                                                              \
->>>>>>         asm volatile ("\n"                                      \
->>>>>>                 "1:     "inst".l %2,(%1)+\n"                    \
->>>>>>                 "2:     "inst".l %R2,(%1)\n"                    \
->>>>>> -             "3:\n"                                          \
->>>>>> +             "3:     nop\n"                                  \
->>>>>> +             "4:\n"                                          \
->>>>>>                 "       .section .fixup,\"ax\"\n"               \
->>>>>>                 "       .even\n"                                \
->>>>>>                 "10:    movel %3,%0\n"                          \
->>>>>> -             "       jra 3b\n"                               \
->>>>>> +             "       jra 4b\n"                               \
->>>>>>                 "       .previous\n"                            \
->>>>>>                 "\n"                                            \
->>>>>>                 "       .section __ex_table,\"a\"\n"            \
->>>>>> Reviewed-by: Michael Schmitz <schmitzmic@gmail.com>
->>>>>>
->>>>>> in case it helps.
->>>>>>
->>>>>> Anecdotally, I've seen similar uaccess faults causing kernel oops on 030
->>>>>> as well, so this may not merely be an artificial unaligned access issue.
->>>> Shouldn't this include
->>>> https://lore.kernel.org/20240429030945.22451-3-schmitzmic@gmail.com
->>>> ?
->>> Along with https://lore.kernel.org/20240429030945.22451-2-schmitzmic@gmail.com, perhaps.
->>>
->>> Can't recall the details, but Finn's solution was to add a nop in order to make the fault PC reliable. That's not a great deal of overhead in the case of put_user(). My changes to copy_to_user try to avoid flushing the pipeline inside of a loop, and only use the nop after exiting the loop. The cost of that is larger exception tables. Not sure which is worse.
->>>
->>> What's more, I can't be certain that my 'fault is taken two instructions past faulting instruction' observation is 100% reliable. AFAIK this has only been tested on 030 and 040. Coldfire(MMU) and 060 tests are still missing.
->> ColdFire seems to have more, or maybe just different problems for "stress-ng --sysbadaddr -1".
->> Running a kernel with and without this patch resulted in:
->>
->> # stress-ng --sysbadaddr -1process '/usr/bin/stress-ng' started with executable stack
->> stress-ng: info:  [40] defaulting to a 86400 second (1 day, 0.00 secs) run per stressor
->> stress-ng: info:  [40] dispatching hogs: 1 sysbadaddr
->> *** ILLEGAL INSTRUCTION ***   FORMAT=4
->> Current process id is 250
->> BAD KERNEL TRAP: 00000000
->> Modules linked in:
->> PC: [<00000000>] 0x0
->> SR: 2004  SP: 013da6cc  a2: bfccd950
->> d0: 00000000    d1: 00000002    d2: bfccd814    d3: 00000001
->> d4: 80174c1e    d5: 800bd9ac    a0: 800bd9ac    a1: 800bdb54
->> Process stress-ng-sysba (pid: 250, task=f7e050bd)
->> Frame format=4 eff addr=44090004 pc=80115870
->> Stack from 013ea000:
->> Call Trace:
->> Code: 0000 0000 0000 0000 0000 0000 0000 0000 <0000> 0000 0000 0000 0000 0000 0000 0000 0002 a6c4 0002 a6c4 0002 a6c4 0002 a6c4
->> Disabling lock debugging due to kernel taint
->> note: stress-ng-sysba[250] exited with irqs disabled
->> *** ILLEGAL INSTRUCTION ***   FORMAT=4
->> Current process id is 42
->> BAD KERNEL TRAP: 00000000
->> Modules linked in:
->> PC: [<00000000>] 0x0
->> SR: 2004  SP: affae50f  a2: 012d1f80
->> d0: 00000000    d1: 0000000b    d2: 01057db0    d3: 00035b9a
->> d4: 00000000    d5: bfccd814    a0: bfccd814    a1: 0050c21c
->> Process stress-ng-sysba (pid: 42, task=1b5bfafe)
->> Frame format=4 eff addr=480a2004 pc=00035ab2
->> Stack from 013d3f28:
->>          00000000 000000fa 00000000 00000004 01057db0 00000000 0000000b 00000000
->>          00000000 012d1f80 000336b4 00000100 00000122 fffffff6 bfccd76c 00035c1c
->>          000000fa bfccd814 00000000 00000000 bfccd76c 00000000 0000000a 000000fa
->>          00000000 8011685e 80119990 00935414 0002ce18 013d3fcc 00000000 00000000
->>          00000000 00000000 8011685e 013d3fcc 00000005 bfccd7a0 80010686 0002a6bc
->>          0002df3c 000000fa bfccd814 00000000 00000000 bfccd814 00000000 800bdb54
->> Call Trace: [<000336b4>] child_wait_callback+0x0/0x86
->>   [<00035c1c>] sys_wait4+0x82/0x92
->>   [<0002ce18>] buserr_c+0x130/0x1dc
->>   [<0002a6bc>] buserr+0x28/0x30
->>   [<0002df3c>] system_call+0x58/0xac
->>
->>
->> I have not debugged any further yet.
-> 
-> This rather looks like stack corruption - does that ColdFire system pass signal tests OK?
-
-Update on this. It runs "stress-ng --signal 8" with no problems.
-Or did you have some other specific test you wanted checked?
-
-Regards
-Greg
+From: Ilya Leoshkevich <iii@linux.ibm.com>
+In-Reply-To: <20261001103247.1989111-13-hca@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1MiBTYWx0ZWRfXxooNvt22xZX3
+ ohN6uIIdhsFeWIidBkkbC2OtqWvNoO+4Yexs/PivchUSE6ocS/N8ztuo5Cz/ZnCCqjEu6AsRUCe
+ OHA+qMIdxgWEPmX4L5vCeF5TbZSvnPR7+nAvJ6pFk6YKiUvblHANZ6Irf2SixkeDw8rLOPoEI2C
+ hM+kHTeA+pD66zsa2cRt7BZBl8yf6dZVLmYcYubR48uXtuC7MUu7BFzFEeBDTG0p3G20GEFuuvl
+ 8uh7As6O5cOZ81lKN4Qup6gg6uLVPdWUmxTqivaGKR7T9CdJUpiGiMPWYPNXf1HVqq4oGWhE04K
+ YEi9Cg0eHjPg2LWt/GF+iAKkQGyac4fl7bGfl2Mvh28RV4aG8tsfrcQsF3MsBI6ko1LJKcy8sPj
+ h5ll6r+c6xEnuzFaehcv0zsNtQAlT9lS8sTdIA+72jTtVbKvHKmQJMrO+f3WVoNF+Eq6OcvVsi1
+ a4Z4vVwIb329CUd+e4g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1MiBTYWx0ZWRfXwezRul7r+ZXn
+ kTbfzMslF7rraP7Nhs23aTBlmfl/NDMou1tqOAollQZi0QXROr6s2HusIaaDdFKl8nUJeNTmIgW
+ VkTQe3PaQwmr30v3N3vQpu5yebXC+ew=
+X-Proofpoint-ORIG-GUID: _cPOcdzj20g98XEY4JA_J4DvsDQl9Gio
+X-Authority-Analysis: v=2.4 cv=a6KlZkSF c=1 sm=1 tr=0 ts=6accdf84 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=96qpflwuWjVpj6ZkvKIA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: _cPOcdzj20g98XEY4JA_J4DvsDQl9Gio
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
+ phishscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120052
 
 
 
-> That said - the register dump is misleading - from what I've read, ColdFire only has a single exception frame format, 2 longwords in size. The first longword of that frame contains frame format code, fault status, vector no. and status register. This is what's shown in the 'eff addr' longword here. The following longword is the actual faulting instruction PC as saved in the exception frame by the processor - this does not match what is given as PC at the start of the register dump (saved by the kernel on exception processing entry).
+On 10/1/26 12:32, Heiko Carstens wrote:
+> Convert all uaccess exception table entries to use EX_TABLE_INSN.
+> With EX_TABLE_INSN entries always point to the faulting instruction,
+> so duplicate entries are removed.
 > 
-> I don't know what kind of ColdFire processor you used, so can't work out what happened on exception entry and in particular, where the PC in the kernel stack frame was taken from. No matter what, I think we ought to clean up the frame format 4 section in show_registers() to account for the different frame format on ColdFire, then perhaps also use the correct PC to dump the infringing code section. Makes no sense to try and debug this without correct debug info ...
-> 
-> I can prepare a patch to show what I mean, but can neither compile or test that...
-> 
-> Cheers,
-> 
->     Michael
-> 
-> 
->>
->> Regards
->> Greg
->>
->>
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> ---
+>   arch/s390/lib/uaccess.c | 29 ++++++++++++-----------------
+>   1 file changed, 12 insertions(+), 17 deletions(-)
+Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
 
