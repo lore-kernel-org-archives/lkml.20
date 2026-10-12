@@ -1,36 +1,32 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FCC93E49F4;
-	Mon, 12 Oct 2026 13:59:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from fraori-sdnproxy-3.icoremail.net (fraori-sdnproxy-3.icoremail.net [132.226.202.154])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DAE9F371887;
+	Mon, 12 Oct 2026 14:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=132.226.202.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791813601; cv=none; b=e7NK6yoGWg/lqXcpb6HzZS2larGwtLkH75uINehR6/U0ugD6ecR1vXyQOp1pO41L5KBnekp2KOilwClBtk48AdcMoMOlMln1L9QNH9LGwnVDPDZkF5agwuZxJZjNo1YEhFcsXYLGmTNmFKGwOe2Jw212gpk+uU+eBAAYv6pv2rE=
+	t=1791813611; cv=none; b=XuNk9e2AheSMNl/1MycQoeyHYT0PiDNkrBdxWXbSUQdNSUyov+wLBIGoZ4J86XDzFQVskJusni6thRv/zH+lvX27ZNbBzI4sP8HrR3ghemng4aGuijlUUzcAByGLRV3auYP+684reOsOv3aeza7fXUUvz8y3w7Z9sjfQm+zycNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791813601; c=relaxed/simple;
-	bh=erU+Vtn/XrxY5Ctqe6ZEUQit+ugO8G22dILw7aKewDo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jETfpl9FcBC1a/aOgPo/Hf3XU+LG1ng1xHjfxktDGpbZkeF/3hvuOb791ot4G9VIBIPhz+qOnDbfdajUszglUUo4tknshzdLq/X5lamy7VBnHPgsTNm9oGL8cZz2XGoC+5DM4PMXczkDgurfY1uFLa3HJMAScMblW2TuOL+IqJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+	s=arc-20240116; t=1791813611; c=relaxed/simple;
+	bh=+454kcILR8zK32RYcwr3Kr93+ihEIHEWJW2gb1jr0xo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I3FzT+wCvfzLD78rKJFmiO3fGmn6a2hIlwitLypiONbZjjOo1zM8JZTKWSW08pDcb/dRt/hW9QsuS5cs1C+irstVWvgoE0oxKtAYZStZvVuOgLaDp6sP+jH5/kpykZTsncjGGxcJ+vrGqXJY1UBbSD4zfkuS/J/KUL6yXztSGG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=132.226.202.154
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
 Received: from zju.edu.cn (unknown [112.11.3.216])
-	by mtasvr (Coremail) with SMTP id _____wB3MfzP58xquOV9AQ--.10080S3;
-	Mon, 12 Oct 2026 21:59:45 +0800 (CST)
+	by mtasvr (Coremail) with SMTP id _____wDHGLTd58xq1uV9AQ--.10259S3;
+	Mon, 12 Oct 2026 21:59:57 +0800 (CST)
 Received: from localhost.localdomain (unknown [112.11.3.216])
-	by mail-app1 (Coremail) with UTF8SMTPA id yy_KCgBHmonO58xqFDBYAA--.8506S2;
-	Mon, 12 Oct 2026 21:59:43 +0800 (CST)
+	by mail-app1 (Coremail) with UTF8SMTPA id yy_KCgD3BILb58xqVDBYAA--.50401S2;
+	Mon, 12 Oct 2026 21:59:56 +0800 (CST)
 From: Jiacheng Xu <stitch@zju.edu.cn>
-To: kuba@kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	jiri@resnulli.us,
-	netdev@vger.kernel.org,
+To: dgilbert@interlog.com
+Cc: James.Bottomley@HansenPartnership.com,
+	mkp@kernel.org,
+	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jiacheng Xu <stitch@zju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH net] netdevsim: avoid NULL dereference after failed probe
-Date: Mon, 12 Oct 2026 21:59:41 +0800
-Message-ID: <20261012135941.78329-1-stitch@zju.edu.cn>
+	Jiacheng Xu <stitch@zju.edu.cn>
+Subject: [PATCH] scsi: sg: update local scatter size when clamping
+Date: Mon, 12 Oct 2026 21:59:55 +0800
+Message-ID: <20261012135955.78357-1-stitch@zju.edu.cn>
 X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -39,91 +35,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgBHmonO58xqFDBYAA--.8506S2
+X-CM-TRANSID:yy_KCgD3BILb58xqVDBYAA--.50401S2
 X-CM-SenderInfo: qtrxiiaqttimo62m3hxhgxhubq/
-X-CM-DELIVERINFO: =?B?AKuJvgXKKxbFmtjJiESix3B1w3tMoM3snk/k5SVzZVydjEqe1eefKHnLf95EnB4iem
-	egW7q+4qg3kAwHIt6WUKLmaHqT5b+eSmyf0J41sJ7TquGnO3lAKCf+U/R+SzNK7XS1KTT9
-	anvBD+gP1d0mrvw2xw1gR/p1tPmVcNBN/fZxSumT
-X-Coremail-Antispam: 1Uk129KBj93XoW7Kw15XFWUuryxurW3Cw47KFX_yoW5Jr4rpa
-	98KFy5trykWws7Wwn8ZF40yFyrWw18Jw43ury3A3s3ur12qryqqryYgF90k3W0y3yxJFy5
-	XrWDCFW8uFZ0yrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+X-CM-DELIVERINFO: =?B?255eEgXKKxbFmtjJiESix3B1w3tMoM3snk/k5SVzZVydjEqe1eefKHnLf95EnB4iem
+	egW7q+4qg3kAwHIt6WUKLmaHrAYAC/Um2/qw0nbt36ozCid7sL/XXcUebIL95v3N9MDi+0
+	MlqMv3umpxrZBGWAZEFTd8iemmd9atX43uoutfAA
+X-Coremail-Antispam: 1Uk129KBj93XoW7KrWkKF4DKw17Ww47Jw45CFX_yoW8JF4kpr
+	WxZryjyw48Ga1jk3Wqq3W5G3ZY93s3Ga47Kay8Zw15u395K34Dur15JFWrWFZ5Xr4rCrWk
+	J3yqqwn8ua9rCacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
 	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUvqb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	0xBIdaVrnRJUUUvvb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
 	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
 	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
 	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
 	6rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AK
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
 	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7xvr2IYc2Ij64
 	vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2Iq
 	xVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r
-	1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY
-	6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
-	AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x
-	07jj7KsUUUUU=
+	126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY
+	6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
+	AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuY
+	vjxU72NtDUUUU
 
-device_register() reports whether device registration succeeded, not
-whether the matching driver's probe succeeded. If nsim_drv_probe()
-fails, the driver core leaves the nsim_bus_dev registered while the probe
-error path clears its driver data.
+When scatter_elem_sz is set to a value smaller than PAGE_SIZE through
+its writable sysfs module parameter, sg_build_indirect() updates the
+global scatter element size variables but leaves the local num
+variable unchanged.
 
-new_device_store() subsequently marks the nsim_bus_dev initialized. A
-write to its new_port or del_port attribute therefore passes the init
-check and calls nsim_drv_port_add() or nsim_drv_port_del() with no valid
-nsim_dev. Both helpers pass the NULL driver data to priv_to_devlink(),
-leading to a NULL pointer dereference.
+If the parameter is set to zero, get_order(num) is called with zero,
+for which its result is undefined. On 64-bit systems, the current
+implementation returns an order of 64 - PAGE_SHIFT. This causes:
 
-This can be reproduced by creating a netdevsim device for which
-nsim_drv_probe() fails and then writing to the new_port or del_port
-attribute of the registered device.
+    ret_sz = 1 << (PAGE_SHIFT + order);
 
-Serialize the driver data check and the port operation with the device
-lock, and reject the operation with -ENODEV when no driver data is
-present. This also prevents driver unbind from freeing nsim_dev between
-the check and its use, and follows the locking used by sriov_numvfs.
+to shift a 32-bit integer by 64 bits, triggering:
 
-Fixes: 794b2c05ca1c ("netdevsim: extend device attrs to support port addition and deletion")
-Cc: stable@vger.kernel.org
+    UBSAN: shift-out-of-bounds in sg_build_indirect
+
+Update num together with the global values when clamping it to
+PAGE_SIZE.
+
+Fixes: 6460e75a104d ("[SCSI] sg: fixes for large page_size")
 Signed-off-by: Jiacheng Xu <stitch@zju.edu.cn>
 ---
- drivers/net/netdevsim/bus.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+ drivers/scsi/sg.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
-index 41483e371f05..0ab51306ad0a 100644
---- a/drivers/net/netdevsim/bus.c
-+++ b/drivers/net/netdevsim/bus.c
-@@ -93,8 +93,13 @@ new_port_store(struct device *dev, struct device_attribute *attr,
- 		return -EINVAL;
- 	}
- 
--	ret = nsim_drv_port_add(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF, port_index,
--				addr_set ? eth_addr : NULL);
-+	device_lock(dev);
-+	if (!dev_get_drvdata(dev))
-+		ret = -ENODEV;
-+	else
-+		ret = nsim_drv_port_add(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF,
-+					port_index, addr_set ? eth_addr : NULL);
-+	device_unlock(dev);
- 	return ret ? ret : count;
- }
- 
-@@ -115,7 +120,13 @@ del_port_store(struct device *dev, struct device_attribute *attr,
- 	if (ret)
- 		return ret;
- 
--	ret = nsim_drv_port_del(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF, port_index);
-+	device_lock(dev);
-+	if (!dev_get_drvdata(dev))
-+		ret = -ENODEV;
-+	else
-+		ret = nsim_drv_port_del(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF,
-+					port_index);
-+	device_unlock(dev);
- 	return ret ? ret : count;
- }
- 
+diff --git a/drivers/scsi/sg.c b/drivers/scsi/sg.c
+index 5408f002e6c0..69013335e433 100644
+--- a/drivers/scsi/sg.c
++++ b/drivers/scsi/sg.c
+@@ -1876,6 +1876,7 @@ sg_build_indirect(Sg_scatter_hold * schp, Sg_fd * sfp, int buff_size)
+ 	num = scatter_elem_sz;
+ 	if (unlikely(num != scatter_elem_sz_prev)) {
+ 		if (num < PAGE_SIZE) {
++			num = PAGE_SIZE;
+ 			scatter_elem_sz = PAGE_SIZE;
+ 			scatter_elem_sz_prev = PAGE_SIZE;
+ 		} else
 -- 
 2.25.1
 
