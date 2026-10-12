@@ -1,76 +1,162 @@
-Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82742469821;
-	Mon, 12 Oct 2026 17:11:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.54.11.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC48C4A1DFB
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:11:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791825082; cv=none; b=ISFRC3UX+3Xbw1M96Ns2fl1ikrw6r0i4PYRtgpKnumnMswCB2XGWeKXgJdbCgzo8DxM+0UCdSPvwPWC25HSDO3PcczWeP1ZTAmaEPoKh0XdIEFyLTjePIXTypvtjIGltQIkDGZHt/ekYs6PpW89OLCnKkVd51BWxCCUOqOK3KJo=
+	t=1791825084; cv=none; b=g+caIu0z2mFBG7KmttJ3PaA3NNf/cbms9WnQJhfgDEScAeLVzdfGAKs1xOeWGoy7u0VEM7u1+XpnSmfXGDFGqIpZUswO8VPeh1ZdNsgZVNxCj+MMJL3w/YFjQwHjK/PO0kslThdNr0C2YZmBPeS5NMFvuQxtoG6rpz17kzQhNz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791825082; c=relaxed/simple;
-	bh=tsuWgfJbP8i+H/KSYcgRJdb/DSsDNVFZsS0EDbxmRWE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HS4zNYNRMMs/MZGAXML0852oyTIkg/cCYqs05pAC+jH7VI9VjYyxwlBgpr8ZZzoFL7lysCmdRmbkJNpp/WXe+IoU0Zr0JAhTqZ9b4n5MgjfaHhLf/LXhLZrqEe3G3x4Bpeyg0hggDxU6umIQ5UV3NolFRi8Oi2Fnhs+1jrtJamg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br; spf=pass smtp.mailfrom=inf.ufrgs.br; dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b=vD5zQFc2; arc=none smtp.client-ip=143.54.11.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
+	s=arc-20240116; t=1791825084; c=relaxed/simple;
+	bh=NyXOCQz0IHMV+KX1ZnDo8YCjMKOponZ8LmuUVuhrrFg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QED7WByS+N/mRW0ENA44gBVev0RzTP26bw9nEWigFUjif7IHGbvMrIJ5Hucg80l19UgnXE/QHbeYpK07jVx1NaM03uEfTiIchmVv1KWr3OlFhCSIOtyVZ4iUUSluGMMGG3Nnpwr4wATvEGQMptwPjpp9hbCkmGfSa8sfuWFkNPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i9yb8Aru; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="vD5zQFc2"
-Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.6.233.4])
-	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id DC25B121120;
-	Mon, 12 Oct 2026 14:11:14 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
-	s=dkim2026; t=1791825075;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=dbHnS9Oj8ZPgP59bb06QSsJaW5K7trLBID6A4Cj59LI=;
-	b=vD5zQFc2c0hhSHNIxhJC29Y4NEc/26fbiIQDSjwQjwQ709iRPKUyzNIRKeMkXDslXM1Nrk
-	+Qo9pii+AWEJFRMQgut8n1gIBNrr04m+U1U3I3M/whiU/cccx1a2DKNW1FXVLgVoFPS4tz
-	iOcg03/9CPyr8i/GAbWOfpfNHBRBlWUC9W9kU44vOmKWrWQ6BS8teoK7GmtCDaezIu6D3a
-	MhCcKm6vAaHOo8/beAdLdIgqZqznbif3/7G3rnJXgQVHQ9tpuTamRM360p/6X8R1hXGIPP
-	dNtkVAbqXgpkO/zlBs48/Jt9h/dC+E34copd/1CIpl+A63Vjc2HHZkhZj9+Q3A==
-From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Subject: [PATCH v2 0/3] fat: allocate multiple clusters in fallocate
-Date: Mon, 12 Oct 2026 14:11:03 -0300
-Message-ID: <20261012171106.146243-1-matheus.aalmeida@inf.ufrgs.br>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i9yb8Aru"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 452741F0089C;
+	Mon, 12 Oct 2026 17:11:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791825082;
+	bh=eIpXBxc1Zh+5tYOYTOcIg/Ba6/+mSunX8M4pzhxilnw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=i9yb8AruVWhFnaBylkZ3cCIq17GgdHNPTtRN/iIoerfLgW5ZLo57/VPpwKXuTXpX9
+	 Rxqv6XA8bqubOEVIZ66EY4jsNKQP6dsMn5011o4a9WCImjqbGvlBj4xK5AaVrf9Dw5
+	 L4ZbFwjbTLxhk9coLPjuPVFKyMMLSNCGbA+zXpkbdeW5YeRe7GVGiArf1Sad+EA5dw
+	 N1gI/wrGWHCZFNKNzRFGKqQkuyrK80Fu14ktFl9La2Bv5kRdsKUQQOoSps/8oaxzWn
+	 COJjN6dXrswLvINJaSw35/yg/vS+E9oOkIE58zsgJLAGfsPBYTdfctD/24yKKPFym2
+	 WN/sATU+rv9bw==
+Date: Mon, 12 Oct 2026 20:11:10 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: Sourabh Jain <sourabhjain@linux.ibm.com>, kexec@lists.infradead.org,
+	Alexander Graf <graf@amazon.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	George Guo <guodongtai@kylinos.cn>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH] kho: fix global scratch size calculation
+Message-ID: <as0UrrAvqjvUPyQx@kernel.org>
+References: <20260922131217.698809-1-sourabhjain@linux.ibm.com>
+ <asC3-4WNiTF3n7l1@kernel.org>
+ <2vxzo6czjaa9.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2vxzo6czjaa9.fsf@kernel.org>
 
-Hi,
+On Mon, Oct 12, 2026 at 03:52:46PM +0200, Pratyush Yadav wrote:
+> On Sat, Oct 03 2026, Mike Rapoport wrote:
+> 
+> > On Tue, Sep 22, 2026 at 06:42:16PM +0530, Sourabh Jain wrote:
+> >> KHO calculates the global scratch size based on memblock-reserved kernel
+> >> memory. It passes NUMA_NO_NODE to memblock_reserved_kern_size() for
+> >> this calculation.
+> >> 
+> >> When memblock_reserved_kern_size() is called with NUMA_NO_NODE, it
+> >> counts both:
+> >> 
+> >> - memory reserved for a specific NUMA node
+> >> - memory reserved with NUMA_NO_NODE
+> >> 
+> >> KHO needs to distinguish between these two types of reservations.
+> >> When calculating the size of global scratch memory, KHO only needs to
+> >> account for reservations made with NUMA_NO_NODE. Reservations made for
+> >> a specific NUMA node must not be included in the global scratch size.
+> >> 
+> >> Add memblock_reserved_size_nid() to calculate reserved memory for a
+> >> given reservation type and NUMA node. When NUMA_NO_NODE is passed, it
+> >> counts only memory reserved with NUMA_NO_NODE.
+> >> 
+> >> Use the new API for lowmem, global, and per-node KHO scratch size
+> >> calculations. For lowmem and global scratch, count only memory
+> >> reservations that were made with NUMA_NO_NODE. For per-node scratch,
+> >> count only memory reservations that were made with the corresponding
+> >> NUMA node ID.
+> >> 
+> >> Remove memblock_reserved_hugetlb_size() since it has the same
+> >> implementation as the new API and differs only in the memblock
+> >> reservation flag being checked. The new API handles both kernel and
+> >> HugeTLB reservations through its reservation type argument.
+> >> 
+> >> Define the new helper as a static function in the KHO implementation,
+> >> since it is only used by KHO and has no users outside
+> >> kernel/liveupdate/kexec_handover.c.
+> >
+> > I looked again and this feels like a band-aid to me.
+> >
+> > I think we need to step back and rethink the order of the
+> > scratch/kho-bootmem sizing and consider how NUMA and lowmem are involved
+> > there.
+> 
+> Could you elaborate? How else would you calculate the sizes?
+> 
+> To me, the idea sounds fine (although I also share your comments on the
+> code style). This is what the global scratch size should have been doing
+> from the get-go. Today it over-allocates by counting both global
+> allocations and _all_ per-node allocations.
+ 
+> There is a separate problem with CONFIG_NUMA=n, but for that I think we
+> should just have a different allocation path where we only do lowmem and
+> global scratch.
 
-This series adds support for allocating multiple clusters in a single
-fat_add_clusters() call in fat_fallocate().
+I mean more fundamental code refactoring that takes into the account all
+cases (and I could miss some)
 
-The multi-cluster TODO in inode.c is not implemented, as doing so would
-require speculative preallocation or an iomap conversion.
-
-Changes in v2:
-- Keep the directory entry path unchanged.
-- Add fat_alloc_chain() for callers that only need the first cluster,
-  sharing the internal implementation with fat_alloc_clusters().
-- Add benchmark results to the fallocate commit log.
-
-Matheus Alves de Almeida (3):
-  fat: remove cluster allocation size limit
-  fat: support adding multiple clusters
-  fat: allocate multiple clusters in fallocate
-
- fs/fat/fat.h    |  3 ++-
- fs/fat/fatent.c | 62 +++++++++++++++++++++++++++++++++++++------------
- fs/fat/file.c   | 10 ++++----
- fs/fat/inode.c  |  8 +++----
- 4 files changed, 57 insertions(+), 26 deletions(-)
+- NUMA vs no-NUMA
+- systems that have global scratch containing lowmem scratch vs those that
+  don't
+- and of course fix global scratch over-allocation
+ 
+> >> On powerpc, the difference can be seen in the scratch_len values
+> >> reported by:
+> >> 
+> >> cat /sys/kernel/debug/kho/out/scratch_len
+> >> 
+> >> Before this change, the global scratch allocation was 0x12000000
+> >> (288 MB):
+> >> 
+> >> 0x1000000   (16 MB)
+> >> 0x12000000  (288 MB)  <- global allocation
+> >> 0x5000000   (80 MB)
+> >> 
+> >> After this change, the global scratch allocation is 0xd000000
+> >> (208 MB):
+> >> 
+> >> 0x1000000   (16 MB)
+> >> 0xd000000   (208 MB)  <- global allocation
+> >> 0x5000000   (80 MB)
+> >> 
+> >> The 80 MB difference is the per-node reservation that was previously
+> >> being included in the global allocation.
+> >> 
+> >> The same issue also affects lowmem scratch memory, but its impact is
+> >> limited because the lowmem scratch memory calculation is restricted to
+> >> the first 4G of memory. The changes also cover the lowmem scratch
+> >> memory case.
+> >> 
+> >> Cc: Alexander Graf <graf@amazon.com>
+> >> Cc: Andrew Morton <akpm@linux-foundation.org>
+> >> Cc: George Guo <guodongtai@kylinos.cn>
+> >> Cc: Mike Rapoport <rppt@kernel.org>
+> >> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+> >> Cc: Pratyush Yadav <pratyush@kernel.org>
+> >> Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> >> Cc: linux-kernel@vger.kernel.org
+> >> Cc: linux-mm@kvack.org
+> >> Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+> [...]
+> 
+> -- 
+> Regards,
+> Pratyush Yadav
 
 -- 
-2.43.0
-
+Sincerely yours,
+Mike.
