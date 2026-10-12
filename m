@@ -1,191 +1,233 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794022AD03;
-	Mon, 12 Oct 2026 09:38:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=210.61.82.184
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791797894; cv=fail; b=rrpnNvjB82CtMisx7bjBPcN+uYHS6zoP1YvABjyugK8RiND/r88D8I1LUlgLIUPA/BhLROxyQGOH8cFXy39OTSOj+BtJdGZAZ4VUR2TZG187Nz5Enaf5DL1ELMxasqd7mh4j3QZsammP6mge2BUFmOolcbARAyw397kcWW4Dejs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791797894; c=relaxed/simple;
-	bh=8p3AXTshQLfuxw3SckwYBQiHkFhhf9Bt9IbWS5+B0I0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=hFdttLMGHLaZO5ah174oLnGRQIWE3Oi/EeYBWKytg7YEEOKNOMf8yMgQmXMwTkoPCV8LXricGKlJkjD4fS6dg3JIEJFaeXm62NRX9OeVY/HlISfIp0dq9eTiUcPxy5eD7v3IqSgWos6hlssyteYFxm9/eAZzjo8BFsNnJtTNgTY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=R0d3UWka; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=CaoowNG6; arc=fail smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16043BB68F;
+	Mon, 12 Oct 2026 09:38:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791797910; cv=none; b=lIYyS/dPx/NUyfdYrrTkm5lLrmEH7277deaF/cpIduAgG2blx/zcRax4PvR3iKHnAKGkXpDkND7oFWL9unJ+73PON8DtfcpU0BKvM6U0w/s6m7K1MGubX+d/h2HdTu5EiAppq89ET9FpAUEM8LLiFgBvHFR9KrLuFkwRPEEZgvI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791797910; c=relaxed/simple;
+	bh=tfbFnAU+bkfMyVOGrALjDaWvKjqRTuArOAIj34eUUO4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZPN39D4Fd494Kd5eyZgWI7Fj9c8Ke6zUTLg+n1AhSUN6yxVsjozw6gmDCqazegXE5Z9fQUE5or0oW89bYwu5Hch7o0OJjo2TxwhwULD4sezMR0sVm+01NA6GkIhXgTQMCNG0VAdQvvnRJRjXT8X7Te859gFl0H4JXkBRS6nFXrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=YoJuOtRL; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=qc3PUMzI; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=jBvpIfag; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=RzBeEw0C; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="R0d3UWka";
-	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="CaoowNG6"
-X-UUID: a04b72f4c62011f18dc8c9802ae25ab1-20261012
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=8p3AXTshQLfuxw3SckwYBQiHkFhhf9Bt9IbWS5+B0I0=;
-	b=R0d3UWka44XKNES6T43neU1t2AgZ9u94p2wqnLBG/ZAKkmbacpsXOsmTTBAd7sZG0iyrAD1Tb9T0DD6yhMXgFYROy1acG+t3tS8W8qL92fRQbWjz4N/J9dEuMTjtJHzPtZuWO7SrRcjRoqT/PjhViQNJa7ZS9SfxDv2dFzkngQc=;
-X-CID-CACHE: Type:Local,Time:202610121738+08,HitQuantity:2
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:a2963281-0455-4ac1-9ee6-22133d2c3a8d,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:291e20b,CLOUDID:67a6fc15-ff64-486b-95f0-abac4a26d7e7,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
-	Content:0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-
-	1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: a04b72f4c62011f18dc8c9802ae25ab1-20261012
-Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
-	(envelope-from <ck.hu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1742102678; Mon, 12 Oct 2026 17:38:05 +0800
-Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 12 Oct 2026 17:38:04 +0800
-Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Mon, 12 Oct 2026 17:38:04 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uwb1QmdxOJ56e6xpwMur/IpXxoEi9GdIeBgdCemZzfwHOxIW+gu6faU4xhMi2YUuLTXQLPcRFQxSQyVDzOPogPx0X+/acJ+OEJU13+Iayyf4PRw5P82CH/XBtL4EE+p/bTM5XIjolp1ks8cYofy4TyS74TtvhhSdScJnL2PJTquyQT61UtuFHDWznBCUbnZyi0C6Xr1GQJrw5i9YmoIiu0E5mvL46brPYtkYuSI1VwuNxtCYfl8AQ6VaE3nPgON5FfYhpIlSE3LHNOv/OF8Ij48OdLFa9BkdFR8dhDGjl1Ji7eN/JkyhLl9PUoB0/wR8VN8SDQaqE3WOrntlgGOp3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8p3AXTshQLfuxw3SckwYBQiHkFhhf9Bt9IbWS5+B0I0=;
- b=SF9F0TYCY3ZJlIplnpvqF3ERdtiLr/yFHH7K/xb/UX8ger0K3sBRLt5b5ml5jF3OzNH5nPMDnpvdn6UGV2jjJKrNH/JouSLnB/0N9s40mbsRHBHcYNJnrlqXoj41aFfFevuw/qLOOV9Jh15tOCwG1+bt2fgL24HCS0ipDiDl9L1hJFDaGe9SJrZ174Uv8tijhjH5DALKsIQ1EQUdmYz+kdZY3kO9jUZgeKrW2Ryo2tEDmtrghJqIEVNdVrLUCuVPKNi1biqqnBdjo8dI2rEBXyIwYWJkmQbs3kgdQjkEfXbg7hDV/27ew7s4t+uWLuOoDXQHBw6wXt76C3T6MGh0Fw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8p3AXTshQLfuxw3SckwYBQiHkFhhf9Bt9IbWS5+B0I0=;
- b=CaoowNG69PpO/pOEgJI+5T3ebyOQaZcXX8Lqs4L4BH6GkWd1hRNhYb+b6eS/qesQGvvXll7mlpvHqoefgCRX1eeGVOV3ZMbk4n9Sj0xOY1p2YHK+nqw8Ibp/ns1E1pmavBeEH3GOzuB/P6kalFpn2xYqsVe0PrNjm6idWmSQXt8=
-Received: from KUYPR03MB9902.apcprd03.prod.outlook.com (2603:1096:d10:91::20)
- by PS1PPF3DFA809DD.apcprd03.prod.outlook.com (2603:1096:308::2d3) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 09:37:58 +0000
-Received: from KUYPR03MB9902.apcprd03.prod.outlook.com
- ([fe80::9598:2e59:20dd:960b]) by KUYPR03MB9902.apcprd03.prod.outlook.com
- ([fe80::9598:2e59:20dd:960b%5]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 09:37:58 +0000
-From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-To: "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
-	"l.scorcia@gmail.com" <l.scorcia@gmail.com>
-CC: "fparent@baylibre.com" <fparent@baylibre.com>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>, "robh@kernel.org" <robh@kernel.org>,
-	=?utf-8?B?Q2h1bmZlbmcgWXVuICjkupHmmKXls7Ap?= <Chunfeng.Yun@mediatek.com>,
-	"simona@ffwll.ch" <simona@ffwll.ch>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"jbrunet+clk@baylibre.com" <jbrunet+clk@baylibre.com>,
-	"bmasney+clk@redhat.com" <bmasney+clk@redhat.com>, "chunkuang.hu@kernel.org"
-	<chunkuang.hu@kernel.org>, "vkoul@kernel.org" <vkoul@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "linux-phy@lists.infradead.org"
-	<linux-phy@lists.infradead.org>, "p.zabel@pengutronix.de"
-	<p.zabel@pengutronix.de>, "dri-devel@lists.freedesktop.org"
-	<dri-devel@lists.freedesktop.org>, "chunhui.dai@mediatek.com"
-	<chunhui.dai@mediatek.com>, "wenst@chromium.org" <wenst@chromium.org>,
-	"airlied@gmail.com" <airlied@gmail.com>, "mani@kernel.org" <mani@kernel.org>,
-	"neil.armstrong@linaro.org" <neil.armstrong@linaro.org>,
-	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>, "sboyd@kernel.org"
-	<sboyd@kernel.org>, "nicolas.frattaroli@collabora.com"
-	<nicolas.frattaroli@collabora.com>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH 5/7] drm/mediatek: mtk_hdmi: Set tz_disabled for mt8167
-Thread-Topic: [PATCH 5/7] drm/mediatek: mtk_hdmi: Set tz_disabled for mt8167
-Thread-Index: AQHdWK5oImZCcqX9mUShHJS/iwRdXLb5qV4A
-Date: Mon, 12 Oct 2026 09:37:58 +0000
-Message-ID: <336193864f64d9e11372f0411f9e6d71c6ff083a.camel@mediatek.com>
-References: <20261010115539.9237-1-l.scorcia@gmail.com>
-	 <20261010115539.9237-6-l.scorcia@gmail.com>
-In-Reply-To: <20261010115539.9237-6-l.scorcia@gmail.com>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.52.3-0ubuntu1.1 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: KUYPR03MB9902:EE_|PS1PPF3DFA809DD:EE_
-x-ms-office365-filtering-correlation-id: 6d971248-943f-4329-2fc6-08df28448076
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|42112799006|23010399003|1800799024|7416014|376014|366016|6133799003|10067099003|22082099003|18002099003|3023799007|38070700021|11063799006|4143699003|56012099006;
-x-microsoft-antispam-message-info: RUnh6TrHwwyH3KtnsPHKLryeQ08OxzFRoBKBayuYu4hA2wklYaaOOnhGaHC7ZkiD2nht0fVaiGeUDp8rQbtLJG0sRQRP0HLDmhbJvv/CocXOx7bWKoa80i1D9QzB2DUmSIufLb7yg7c4LPaJCG3nBLRl1WinpJHDwLs7fZ7a44Yz+djyikkoelDnc4gciUsicQHd5ZSNmD4nB6uPxJJ/wUJeR/vWpZLnxZ/gcgIIfew+hXRWcsqHJz7lwxt8IOIvOax7xjSIs8em58CIb9YSFdf6143MKcEkFCl422FpPmuNJOnoZ8f8onyevApTIi//2HgAkUz4dtLvzv/OgZQpJNDNdA0KIYYwkpZ5phoDEsi0IdBi+qjEE5APYn3xelV7s3/8fIs08aTqhhtLZgecZogXZWmL2PVYaOA1Hmwt2goYSpjZAN6iPeU1FtyjxAl/+Pmu0yUPuviSxS5+wc5OVsLEkWsWZF7ILcYDuqU7h3jE3h9hWuJZUjTtZ/WHf5PxiSjIXGHYXuqqlEguBS0IPX/itaNUirlFGFgBBvQUYPq/4giqQQ9c+4ajKtECxxDkNE8eMBHVqJaxWXFwWBgCilofdL0ot7FpehcGAAoU7ogo5zYPjSDD874IP3a1Q7uuexIWMfTzqhBHfgHOUWZt4lKWebmV2J7thl1A3I3/IGtpQWAgc0tOpESfbenKHt+W/SiBsmxBMqDGIp9hgkVGBhEdI0pzp9BKrl5VHpbRqPk=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KUYPR03MB9902.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(23010399003)(1800799024)(7416014)(376014)(366016)(6133799003)(10067099003)(22082099003)(18002099003)(3023799007)(38070700021)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?V3NjMjNLOVVpdC9wS3dic1BWTnh0WnBaNGtxd3FrL0NBK3QwNUxZdXFab01w?=
- =?utf-8?B?eVVpVkNoYWt5ak9LQkRKWUlhYWNaWDQxQlhuT1FhTkNwOEx2K201ZCtIVzJi?=
- =?utf-8?B?ZUpDbnRtNndmaEpQck8vSlByUFErZGI2alRDeWtLNGtMVGFmdUc4MGZpekEv?=
- =?utf-8?B?VVlIZCt1Vm84WHM0VnhjK1NvdlAvZjFuZEcraXNMN1dVcjVwYk14QnRIc3ht?=
- =?utf-8?B?Vm1EaUV3TlkrZjVQQVJpdW8rU2tTZ1VacGpjRG1CWGYvbThOcXNLQWlKU0lL?=
- =?utf-8?B?RUxDS1J2WVZ5UEEyMEkwRTdBcUdVcnBYQWxzL0RKeDZpNkwvckNaeEhkaUxK?=
- =?utf-8?B?dWd1QTdXWjlVcDl1L0Z3Y0RjNVloUk9ja29rOVQ3b2VGNFpjSXNxZzF6ck5K?=
- =?utf-8?B?SHRlclQwekxPNDdBRXBENVVFelM0UWVURG1vSDlTOGZGYThlRVd3V3Y1UmNI?=
- =?utf-8?B?cHR3WUEzZFk4bm9KOW9ER0o5N3l2cS93N0FIYmpkYnhoZi94QVFzcWpRZ0hu?=
- =?utf-8?B?VTlpQUx5NEVvRnZsb0JtQlppeHZqL1RzS0ZmQTN3RUNLTXFXbWxHQ0tFb0pk?=
- =?utf-8?B?WlFOS3pBaWFLQnlCZndWYjVGT2Q5OVF2dGdSTU5QdzRnbVNoVTBFWDg3UWlC?=
- =?utf-8?B?alhHdklvTFNHeWI0Zk12Um1JY2N6MER2L1JmQWpSZUoxTCtkNmY2Y2RVaDZS?=
- =?utf-8?B?Z2ozaTlaZlhQMGlzN0pEeDJ0WHkrOVlZTnlIUjF1SE5mUUd2NktIdmw3Tk1n?=
- =?utf-8?B?N3kvTmZnWWVSYUMySVk2dzQ5dCtER3hLamJFU1pPeXRIVXJuRGErMnRoRXdN?=
- =?utf-8?B?YWtQRk9YUVlCL0VWVnRLVmd6UHpiLzJnWjFReDVzcG1OcE50YUV5Q24wbnVk?=
- =?utf-8?B?Y0lKRVk3ZDJvOU5FZ0dWcWw2TmljbDdoeDZsdjVlTkJxaDVpOVo2RDVZemFI?=
- =?utf-8?B?M2dSWkR1dXZrdFVKMzl4cnZYN3V5SHgzSlh6MHFmUVFZaFpPdnJwZXptZUlj?=
- =?utf-8?B?eGEybXduTUtxT0pJS1Qrc3lLbXNneWk2UGp0YWRTaFBEQVVhUGpHblErQzIz?=
- =?utf-8?B?SEdqdlpyQ05qY1JSbm5aSDZHRVRCZG8ya09kSFBTcUltTkpjaE5sbFBlb1hP?=
- =?utf-8?B?aEw2Ky9TOHFaMTloM3pqajRqUzgwby9meGFEQlJyRDlCZVJKYnFMdUlnSWhF?=
- =?utf-8?B?TWtxSVRMN01qeE02VGRwQ1htYW41cWQrOXhoVHBYT1YydGRjVlhNS0k3Z2sy?=
- =?utf-8?B?ZW1jNmZ0NXl4cXRqdDlLK3JFL2prd0tHMkZNYVFTaWgxRWowd2g2VnBseDUz?=
- =?utf-8?B?MWoraXZ1YkVrcFpobXp2N3ljMzNhZEk1TTVacGs2K0dRcDJIU0hubTlyOUFn?=
- =?utf-8?B?T3B2MHF2UEdDejNWV3N2YUx1Rmg3YnBQbjZUUXJjcUc0WmJyZVNlWGtKSFVj?=
- =?utf-8?B?d3pWNDhGeVV5VDFVUHZKR3lzb0F6L2ZmUVRabm4zbEhoelVKQUR4LzhCTTlk?=
- =?utf-8?B?Rm9TZmxnQ3dnWG1qcXJLT21EeHEzOW1YdysxZEc2aE5XcTdYSXBUS09WZ25i?=
- =?utf-8?B?VExjNGM5VzhPK0ludlBya3lMOGR6dVlETGVHcE5QNk43eFBQY2pVQnJvTTYz?=
- =?utf-8?B?aXh4dkorQ2huQzNMTTJsMWR3WG1uUlBHSldMQThtQllLOGRsMjZ0MU9DZ3F3?=
- =?utf-8?B?cnJOdGF3eW5LRVBCTk44T1NnbnU3Rk1tNEtGUVFjb2V2Z3p1eEhGSzA4OWNl?=
- =?utf-8?B?VCtTU09BTG56MDJDU3hLVTFqSDd3cmV3TmRucEVlSFQrRTllQW5KQXE5V2hO?=
- =?utf-8?B?SmtlN3ZDYzB4bXc4bzlLT3FnUXNnK2NwMndGV21jSHRKejNFQnR5bDI5N0VK?=
- =?utf-8?B?c0dnSGR4UDFxMk15YmtmdktqTGRQQ1pOalBwZStkcGtzeXNQYjBSbTJUMXFV?=
- =?utf-8?B?Mmt3d0oyODEvUEJiT2dJSXQ3SmVWWjZJUTR4UGMwTFNqcWRreHhnOWRDRThT?=
- =?utf-8?B?NTdWVHpjdy9NelFGaDdjVENQOHBWZm81b3JUUElla3lRWnIrRjRBVGgwNC9T?=
- =?utf-8?B?YWI4b2lVTmhxbk5IQzcwdEwzMkpyem9aNkJyRlNXckxiWHVlYkhCSm9rNENs?=
- =?utf-8?B?M1BFLzVzZVAxUms3YklNVXV6TERqbkZSeU9qQ3dNY05SWWNiZldHdExUdHFz?=
- =?utf-8?B?QXRRVEpERFBwV2gyY05ZcmdUQ2FFWUVSWjdvbVY5bUg3Vis2RTgwZ3loNEhw?=
- =?utf-8?B?RUhFWmJ4RXR5aElRNkhFQUIwSEp3VkUvQmRLSHcybjA3NGZWYmJrL21yL1NR?=
- =?utf-8?B?M1JSVUdEd29RMStkeFZJTWZHNkM0ZWo1OFZGVkZGQjViUnpnRTBFZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <847B05B4A0614844941810AD1637B314@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="YoJuOtRL";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="qc3PUMzI";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="jBvpIfag";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="RzBeEw0C"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 9C4B021DFB;
+	Mon, 12 Oct 2026 09:38:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791797906; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kg1XO9faP6m/0SQ0V7ZFc78dVzs5U9T2ADjMTseWY8Q=;
+	b=YoJuOtRLPgh7f9CbXokLXvzdhWKhzjqBlnoKGbBdQ2JFfo5v6bHzZqfF3ssrwLSFxpmeMf
+	S4DW2FMmIXpecJOfF0nR97pcWGAd6H16WoccOxqdLe8VAPvA2lKlgndgjVwufvrceMYQNh
+	mTA6YGXv/eYFMMMGiZjIGJxfP15l6wY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791797906;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kg1XO9faP6m/0SQ0V7ZFc78dVzs5U9T2ADjMTseWY8Q=;
+	b=qc3PUMzIZdRUvmkFX5yMIvkOt1BCm4OSqtnP7bOa5Nr0IXlAsxHow1k47xh8ElUhwuTbTt
+	Xscz2vfer4lh8iBg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=jBvpIfag;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=RzBeEw0C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791797904; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kg1XO9faP6m/0SQ0V7ZFc78dVzs5U9T2ADjMTseWY8Q=;
+	b=jBvpIfagC8+JRjzlAttwUE8YIgln3zHFXhf9IsjhBcll+k3u9GNlXPolhkO4u1PP85Z5hY
+	TUl/8mBKyLyqYYV0FRrNb3cTukjTSpV1VR26p5pas6xj4mMfAWVjODWkQze95jrCxNsmIJ
+	zdIUBH79iDepCo6E/PKuyMnXDZ++Ed4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791797904;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kg1XO9faP6m/0SQ0V7ZFc78dVzs5U9T2ADjMTseWY8Q=;
+	b=RzBeEw0C8Lhoivs5CAGhjdOHh77P0kP84OlOsbNGbTTmYBf7bIgGzxSqDGms1qUgRsSFov
+	rUsfpc/ZMyD+pqCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 73A5313314;
+	Mon, 12 Oct 2026 09:38:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id GTppFJCqzGqZcwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 12 Oct 2026 09:38:24 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 05E1EA1403; Mon, 12 Oct 2026 11:38:20 +0200 (CEST)
+Date: Mon, 12 Oct 2026 11:38:19 +0200
+From: Jan Kara <jack@suse.cz>
+To: Nikolaos Karaolidis <nick@karaolidis.com>
+Cc: Christian Brauner <brauner@kernel.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Zhihao Cheng <chengzhihao1@huawei.com>, 
+	Mateusz Guzik <mjguzik@gmail.com>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] fs: don't lose inodes that another LRU walker is
+ isolating
+Message-ID: <zec4khbtx7uap5swffdwxfesiz7as3ey5ulzyruwbztqfpymzs@n5t4xbsoz6c6>
+References: <20261009142431.713875-1-nick@karaolidis.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: u6gnRqy9FB8UIhiMHRcOQaUIpZ9Q/TJNt2TEfNlVrcyJ0y2D/aIiYeyzWZCpCKakMvxiPbCK94TRuwflWF2up3DKQL+ClkDGjnH1i9B7FprDFm9jHFYHDtvKq78PBzaLx1DdYTsehq710v9i5oGxrRWM3uZGJyNjjjRHrBzxE7VUl9yIs/cp7p+llOwcc7dDfGFYKXMzRkzkrre5CzkavJ3IDrGgaKBHxQhV4rpvUt/EcEUEE7XsSFGJp2wJDNF8+UflThhke2O4ps9A3+QG57c6grDIoUDDEU2OpzrH/v/qphORYt6y2y0XvzktK4vaDC0d2ZpGhPazbVDdSc6Tug==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: KUYPR03MB9902.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d971248-943f-4329-2fc6-08df28448076
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2026 09:37:58.7908
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: aX+dzs8sEGd0QbyefNK8RxzwvReMbjBlRw2SDkw2fsUaJ1bLUy+5p31S6OobSkf4j/hvoeGZRkYag7nggC07ng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS1PPF3DFA809DD
-X-MTK: N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009142431.713875-1-nick@karaolidis.com>
+X-Rspamd-Action: no action
+X-Spam-Score: -4.01
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	URIBL_BLOCKED(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,karaolidis.com:email,suse.cz:email,suse.cz:dkim];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,zeniv.linux.org.uk,suse.cz,huawei.com,gmail.com,vger.kernel.org,kvack.org];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,suse.cz:dkim,karaolidis.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 9C4B021DFB
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-T24gU2F0LCAyMDI2LTEwLTEwIGF0IDEzOjU0ICswMjAwLCBMdWNhIExlb25hcmRvIFNjb3JjaWEg
-d3JvdGU6DQo+IEV4dGVybmFsIGVtYWlsIDogUGxlYXNlIGRvIG5vdCBjbGljayBsaW5rcyBvciBv
-cGVuIGF0dGFjaG1lbnRzIHVudGlsIHlvdSBoYXZlIHZlcmlmaWVkIHRoZSBzZW5kZXIgb3IgdGhl
-IGNvbnRlbnQuDQo+IA0KPiANCj4gSnVzdCBsaWtlIG10MjcwMSwgTWVkaWFUZWsgbXQ4MTY3IGRv
-ZXMgbm90IHJlcXVpcmUgYW4gQVJNIHN1cGVydmlzb3IgbW9kZQ0KPiBjYWxsIHRvIHRvZ2dsZSBI
-RE1JIG91dHB1dC4NCg0KUmV2aWV3ZWQtYnk6IENLIEh1IDxjay5odUBtZWRpYXRlay5jb20+DQoN
-Cj4gDQo+IEZpeGVzOiA1MTFjZjdkMTIzMzEgKCJkcm0vbWVkaWF0ZWs6IGhkbWk6IEFkZCBNVDgx
-NjcgY29uZmlndXJhdGlvbiIpDQo+IFNpZ25lZC1vZmYtYnk6IEx1Y2EgTGVvbmFyZG8gU2NvcmNp
-YSA8bC5zY29yY2lhQGdtYWlsLmNvbT4NCj4gLS0tDQoNCg==
+On Fri 09-10-26 14:24:31, Nikolaos Karaolidis wrote:
+> When inode_lru_isolate() finds an unused inode that still has page
+> cache, it sets I_LRU_ISOLATING, drops i_lock and the list_lru lock,
+> invalidates the page cache, clears the flag again and returns
+> LRU_RETRY so that the restarted walk can free the inode.
+> 
+> Another walker of the same list can reach the inode in that window.
+> It sees a non-zero i_state and takes the inode off the LRU, as it
+> would an inode that is in use. Page cache deletion requeues the inode
+> once the mapping is shrinkable, so this is harmless if it happens
+> before the last deletion. If it happens after, nothing puts the inode
+> back: it stays in memory, unused, clean and without page cache, out
+> of reach of the shrinker and of drop_caches, until it is looked up
+> again or the filesystem is unmounted.
+> 
+> Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode
+> lru traversing context") the pin was an i_count reference, and the
+> final iput() put the inode back on the LRU.
+> 
+> Skip inodes that are being isolated and leave them to the walker that
+> pinned them, which restarts its walk once it has unpinned them.
+> 
+> The window is reached by any unused inode with page cache on
+> CONFIG_HIGHMEM kernels, and otherwise by inodes whose page cache is a
+> single shadow entry at index 0. On an i386 HIGHMEM guest, eight
+> concurrent "echo 2 > /proc/sys/vm/drop_caches" over 2000 freshly read
+> one-page ext4 files leave roughly 400 of the inodes off the LRU per
+> round; on x86_64, with the files' pages first evicted through
+> memory.reclaim, 3 to 4 per round. With this patch, none in either case.
+> 
+> Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
+
+Looks good. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
+> 
+> Found while working on reclaim of inodes pinned by page cache in
+> ZONE_MOVABLE.
+> 
+> Tested on master af32da41b032 (v7.3-rc6-232) in QEMU/KVM with a small
+> stress program: mount an ext4 image, read 2000 one-page files, run 8
+> concurrent "echo 2 > /proc/sys/vm/drop_caches", drop caches again
+> single-threaded (2, then 1, then 2), and count the filesystem's inodes
+> still in memory via how many the umount frees:
+> 
+>   i386 HIGHMEM:      ~390 of 2000 lost per round without the patch
+>                      (3 runs x 20 rounds), 0 with it
+>   x86_64, pages evicted through memory.reclaim first (single shadow
+>   entry left):       ~4 per round without, 0 with
+>   x86_64 with KASAN, PROVE_LOCKING, DEBUG_VM, DEBUG_LIST:
+>                      6109 lost in 50 rounds without, 0 with, no splats
+> 
+> The reproducer is a single C file run as init; I can post it if useful.
+> 
+> I went with skipping the inode rather than requeueing it on unpin
+> (which would be closer to what the final iput() did before
+> 2a0629834cd8) because it avoids the remove/re-add and leaves the inode
+> where the pinning walker finds it again. Happy to switch if preferred.
+> 
+> Jan, this applies cleanly before or after "fs: Basic infrastructure for
+> offloading inode reclaim" (v2 3/5); happy to rebase onto that series if
+> you'd rather take it there.
+> 
+> For stable: 6.18 and older need inode->i_state instead of
+> inode_state_read(). I have only tested master.
+> 
+> An LLM was used to check the analysis against the code, write the
+> reproducer and draft the changelog; I have reviewed all of it.
+> 
+>  fs/inode.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/fs/inode.c b/fs/inode.c
+> index a9d37be390a1..74dfc379b377 100644
+> --- a/fs/inode.c
+> +++ b/fs/inode.c
+> @@ -942,6 +942,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+>  	if (!spin_trylock(&inode->i_lock))
+>  		return LRU_SKIP;
+> 
+> +	/* Another walker is dropping its page cache, leave it to that one */
+> +	if (inode_state_read(inode) & I_LRU_ISOLATING) {
+> +		spin_unlock(&inode->i_lock);
+> +		return LRU_SKIP;
+> +	}
+> +
+>  	/*
+>  	 * Inodes can get referenced, redirtied, or repopulated while
+>  	 * they're already on the LRU, and this can make them
+> 
+> base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+> --
+> 2.55.0
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
