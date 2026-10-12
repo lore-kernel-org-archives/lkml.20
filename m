@@ -1,99 +1,102 @@
-Received: from fraori-sdnproxy-3.icoremail.net (fraori-sdnproxy-3.icoremail.net [132.226.202.154])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DAE9F371887;
-	Mon, 12 Oct 2026 14:00:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=132.226.202.154
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58F9A468C23
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:00:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791813611; cv=none; b=XuNk9e2AheSMNl/1MycQoeyHYT0PiDNkrBdxWXbSUQdNSUyov+wLBIGoZ4J86XDzFQVskJusni6thRv/zH+lvX27ZNbBzI4sP8HrR3ghemng4aGuijlUUzcAByGLRV3auYP+684reOsOv3aeza7fXUUvz8y3w7Z9sjfQm+zycNE=
+	t=1791813626; cv=none; b=G+fdqZRnnlgyY4m312dUwvayI6gxwcu0xC5986uGMpIyF7DAClPDy/6aHWbu1RZiEoioi0kCmEESUpuWX/XM3moeWGFwCV7ZYWN+fbb47va8Bx4eWkubkpQ3XKLuW6yFOjWUUYqcOH39qJouh+sG18u0icDsbp62zpRq6rexwm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791813611; c=relaxed/simple;
-	bh=+454kcILR8zK32RYcwr3Kr93+ihEIHEWJW2gb1jr0xo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I3FzT+wCvfzLD78rKJFmiO3fGmn6a2hIlwitLypiONbZjjOo1zM8JZTKWSW08pDcb/dRt/hW9QsuS5cs1C+irstVWvgoE0oxKtAYZStZvVuOgLaDp6sP+jH5/kpykZTsncjGGxcJ+vrGqXJY1UBbSD4zfkuS/J/KUL6yXztSGG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=132.226.202.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [112.11.3.216])
-	by mtasvr (Coremail) with SMTP id _____wDHGLTd58xq1uV9AQ--.10259S3;
-	Mon, 12 Oct 2026 21:59:57 +0800 (CST)
-Received: from localhost.localdomain (unknown [112.11.3.216])
-	by mail-app1 (Coremail) with UTF8SMTPA id yy_KCgD3BILb58xqVDBYAA--.50401S2;
-	Mon, 12 Oct 2026 21:59:56 +0800 (CST)
-From: Jiacheng Xu <stitch@zju.edu.cn>
-To: dgilbert@interlog.com
-Cc: James.Bottomley@HansenPartnership.com,
-	mkp@kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jiacheng Xu <stitch@zju.edu.cn>
-Subject: [PATCH] scsi: sg: update local scatter size when clamping
-Date: Mon, 12 Oct 2026 21:59:55 +0800
-Message-ID: <20261012135955.78357-1-stitch@zju.edu.cn>
-X-Mailer: git-send-email 2.51.0
+	s=arc-20240116; t=1791813626; c=relaxed/simple;
+	bh=aa5DERomGGvC4qLnGZLTEOZG21c+T/FPi1X9gvZMK+c=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=CPu1jbVyhTn1kJBqwqGF5JB9NdTJfLJ/R2w7Q5IS5u28B2TFn+nOSE4dRI8+wXE8ZHN46dFjfCRjb/MN9HC2Fw9GOyY9l051jwTGNn2gppO3E1PQJusKWEC2QA5gpgxgOhVKpI5d/2yt/lOH45ABYQEyQs+VL6Sr7oufzMaJFJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=lu6vWgvc; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="lu6vWgvc"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a01933b584so16850445e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:00:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791813621; x=1792418421; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X1FOHZ/aarWttDJsXYH5g4xTlMJF5XYAWbfKp7MZzrk=;
+        b=lu6vWgvchcpBFY5SNlqPvGSSmfvvdX4X5c7xI+C0mmQ3cAmkXZrrCUmB0s9gH+91fV
+         dGQcDt34QdkoxOt52cMwPJHxVnVGqunZjf812+SRrIKhsbm6EtLdA6UWPRqwtpz1Uk5l
+         +p9K9yOWFIpomCKOw3cT+45TnakRZxWgm1GrVYmR3UgQy+J2TFwfgw6WdRCSy2yx++F3
+         ylxNYYCvZrPjpPzHazfsZgYY5arKRdH7XBC24ToG7Hy8hQnJMdbdSE8G9Jm3FS3mMj5/
+         Ke7ATVSZeuVBgIPEha/fH0Ban1JLx5vdsr9HkZfMQQQ2OSPmJE65XmmTcxvzjqFw5htW
+         hWNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791813621; x=1792418421;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X1FOHZ/aarWttDJsXYH5g4xTlMJF5XYAWbfKp7MZzrk=;
+        b=u8W7cX9PnavQijQAC+/2eVa5DTM60mQVlPGC6++fTUvmJoz1E0FNToXOzl0RT6aY1i
+         0V3KzanhCfoA6+FVCk4zdkboUCucOvpuNtOD94tDAOxBJ0PdttO2dyACaOIEHR/InRE/
+         i/4vP7NpfF/IukYUIL2cFyCZNIr4uwouYRy8BO0glNv4qe1mGeR014Mb7AzibisuKQPs
+         s6vjbIJwccwj1ypL//GMXlA0ZHeuIo794p1Gkh6nMIY8stH+lrjJspCG5zGkM5SKqavp
+         FAcnXSSmfa3uoCNvUvvdjFaAUDEQHo4NZELa3xKlxcnoYwI1aXJF97VKAa1O1W72gYgD
+         6FRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwkHJw9JK0yn3hlOp3W6RZmmKj+Wf3n35cctt4Lfvatja0pMPdLW7UPoiGKujb9kRb8/wxIYLu7k2uH1rI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCbwxv3UbHxf7/dWt1yM5ntkKh5hteWZPEBIHLAWEew8ZybJj7
+	PNLENgj0Ja10+rR7AWaawTjdvrGB5D28Wn0Zn/tm2XbuMw7Fs6RQKCWH6OLQ9K+a2nM=
+X-Gm-Gg: AYBFou3J8UqYOTJDIdgFBZxpc5rq7gpyFl64s7ITD5bYZMy5adUVGrg4pQughs0qbhU
+	T2MuNBNEPytsyZefALCFzQG5PrVzbjWpR9b8Z1c4DaoH7zSR36uqqC7ycbhsCJTPLIxMvTFAkzI
+	Fwnp4UkhoH6F4cmRdEMi7crUc9yBvhThlC79X+T9MB5hy2Og0W8+44HXyvQwYiNbUfxBOWPT2Gv
+	vXJMEAlcH2L/WOcj8KefNABpdZJERX+vn2LX5fuFwG2SsPgByhAPIiHyQRou4SxqB6y/86WT8Uk
+	q5/bnjns+A//N2uRQPvTeqdkrwmxp6vlJVDYJ+CcpZJn9P+9ViOm6neTrFG9l+sMKrMuDWb8ib+
+	jpg3uPhZUB8spcdYICwyBL8300cUnpJGGI/UQqiYOteCL0d1pCrgDTo3rKRZK/7k1ThqzXXl0se
+	LVhdan50n05mu+G+g4hjKJImF+Cm1h1IH2zSdVuZHiokPGU6Ce3BUNHqbGwmwKMd/gI/MUPRkcu
+	yxP/9RpQ6Ho6IVwCw==
+X-Received: by 2002:a05:600c:a088:b0:4a0:2644:80db with SMTP id 5b1f17b1804b1-4a18e4d55a2mr179206085e9.35.1791813621497;
+        Mon, 12 Oct 2026 07:00:21 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ab981asm20197430f8f.30.2026.10.12.07.00.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 07:00:19 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ gabriel.fernandez@foss.st.com
+Cc: linux-clk@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261012131859.215240-1-gabriel.fernandez@foss.st.com>
+References: <20261012131859.215240-1-gabriel.fernandez@foss.st.com>
+Subject: Re: [PATCH] clk: stm32: fix clock array size for STM32MP21
+Message-Id: <179181361097.33566.11163084689857836132.b4-ty@b4>
+Date: Mon, 12 Oct 2026 16:00:10 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgD3BILb58xqVDBYAA--.50401S2
-X-CM-SenderInfo: qtrxiiaqttimo62m3hxhgxhubq/
-X-CM-DELIVERINFO: =?B?255eEgXKKxbFmtjJiESix3B1w3tMoM3snk/k5SVzZVydjEqe1eefKHnLf95EnB4iem
-	egW7q+4qg3kAwHIt6WUKLmaHrAYAC/Um2/qw0nbt36ozCid7sL/XXcUebIL95v3N9MDi+0
-	MlqMv3umpxrZBGWAZEFTd8iemmd9atX43uoutfAA
-X-Coremail-Antispam: 1Uk129KBj93XoW7KrWkKF4DKw17Ww47Jw45CFX_yoW8JF4kpr
-	WxZryjyw48Ga1jk3Wqq3W5G3ZY93s3Ga47Kay8Zw15u395K34Dur15JFWrWFZ5Xr4rCrWk
-	J3yqqwn8ua9rCacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUvvb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
-	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7xvr2IYc2Ij64
-	vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2Iq
-	xVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r
-	126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY
-	6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
-	AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuY
-	vjxU72NtDUUUU
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=186; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=aa5DERomGGvC4qLnGZLTEOZG21c+T/FPi1X9gvZMK+c=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlnnn/a9NpW/ihXqd0BQdk/jza5dC680t825+WcdZfjt
+ KSurgu83FHKwiDGxSArpshSw10t/k5S68us6Tq3YeawMoEMYeDiFICJKE9kZFijtTo89LBn7NeG
+ 3pPeBScT+vqqkr6F229zO/r80GTe2FpGhn5urf3rMkKSGfcaP9r8Ze/FWpc9tyc92Lk0e53QOrv
+ j31kB
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-When scatter_elem_sz is set to a value smaller than PAGE_SIZE through
-its writable sysfs module parameter, sg_build_indirect() updates the
-global scatter element size variables but leaves the local num
-variable unchanged.
+Applied to clk/linux.git (clk-pile), thanks!
 
-If the parameter is set to zero, get_order(num) is called with zero,
-for which its result is undefined. On 64-bit systems, the current
-implementation returns an order of 64 - PAGE_SHIFT. This causes:
+[1/1] clk: stm32: fix clock array size for STM32MP21
+      https://git.kernel.org/clk/linux/c/57e9b2c11056
 
-    ret_sz = 1 << (PAGE_SHIFT + order);
-
-to shift a 32-bit integer by 64 bits, triggering:
-
-    UBSAN: shift-out-of-bounds in sg_build_indirect
-
-Update num together with the global values when clamping it to
-PAGE_SIZE.
-
-Fixes: 6460e75a104d ("[SCSI] sg: fixes for large page_size")
-Signed-off-by: Jiacheng Xu <stitch@zju.edu.cn>
----
- drivers/scsi/sg.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/scsi/sg.c b/drivers/scsi/sg.c
-index 5408f002e6c0..69013335e433 100644
---- a/drivers/scsi/sg.c
-+++ b/drivers/scsi/sg.c
-@@ -1876,6 +1876,7 @@ sg_build_indirect(Sg_scatter_hold * schp, Sg_fd * sfp, int buff_size)
- 	num = scatter_elem_sz;
- 	if (unlikely(num != scatter_elem_sz_prev)) {
- 		if (num < PAGE_SIZE) {
-+			num = PAGE_SIZE;
- 			scatter_elem_sz = PAGE_SIZE;
- 			scatter_elem_sz_prev = PAGE_SIZE;
- 		} else
--- 
-2.25.1
+Best regards,
+--
+Jerome
 
