@@ -1,305 +1,139 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D85A3E168C;
-	Mon, 12 Oct 2026 10:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D7B1442FCD;
+	Mon, 12 Oct 2026 10:02:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791799314; cv=none; b=TI/JmBJyHzu5Fm/2iEXcmhng1i1yINVHSP+FsOWVQhLl6/GXaoG0WOBe5bV2imzDJoHmDl9EEdkM60Je68ukLJCYs7TFBdkwTg0B16/mNUbrlMp/cmWdKtsMMI+DmaZ6lEfl16nuPr+8yE3xRwNBhuOTJ6XsyOi7iZKAMaS5j+w=
+	t=1791799327; cv=none; b=Z40TrUSF0nePwYrxNBID4dj7X2LEbRKp3RC0WDV5bAgVosX7EntUhNR9jsXtcQ3CIxNFAfbIbkzAa1Q85UDjCtfdlPLeShipLJum8thxA5KJq+fkOpBl9l8tcRYvKMTPWT36QSo6ABi6k+KgkLpT4aNd19IgqJ1INltMvnFbGYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791799314; c=relaxed/simple;
-	bh=mpuYQsI6xWk3hX2nX9RHy3ytd04GSKnCGPLAttYUXx4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sfcc0eE+Qtmk+IbLrP0IMTn8IDEsc91IJmFM944Y5tiSFJwZW7cFijZZNNrXNQXxbskZODd/mUkj5FxnxbXdXFFhYSNoyYyPCN/flTmt6TrC8tpRYXVtmVDCS69oAPj5GrwFsQZrzhw2z5VqSsjGcIJG9fjD3Ts2fhD/fJWW8JA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SgHLz8zQ; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791799327; c=relaxed/simple;
+	bh=0pyzztU0NngLfC81+czlzcRfIB90PorUF3VMb7LsUPQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OCdOq8FAKjoDy+BErKRJBU0OjQeyEhfuP5bqkaIEU2+gvZsi0drt1LAyXzqvvPd1uOxSbqRksbpQKATQqXhema/WYS5/IazyklsLIdWZaKLm5kzwJAKP14dDzL4X5sVym7UIkgKeRR/QH8IJH4PQqAzDPd4HtEea8hP5bMH9rYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=EZcingkA; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=tPN1omDS; arc=none smtp.client-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SgHLz8zQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791799312; x=1823335312;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=mpuYQsI6xWk3hX2nX9RHy3ytd04GSKnCGPLAttYUXx4=;
-  b=SgHLz8zQXbWeUJcpQcVqVf6YF/CxbN9ZiPZexpEQZ+zywrIb0o+c6L4Y
-   7ewOV7H7U4A5JVjxFd1AF/8vwW6IAqYGydv1jdK9P4DkoltQ2gl/98OOo
-   k7Ra/LdAUWm/D/cWQe9FSiclhEM8gseqBC1jDlTARF3ub5WLrZ8QT4ywQ
-   GPSRIR6smRw9/DKOFWeOlF1hk3YnSdB9B/fl0f54wufFl25IYc3SZaFuL
-   wtKVo2SKII0b9///kot8QcJ7ED5HvNsWcXY59i4tQQxxbSif86LsxK9Sk
-   AiTDazfnpmEu8MZ9Xm4j8YvbOwLdh8EM+qf2UvBfZN3suRp8+wsERD9Uf
-   Q==;
-X-CSE-ConnectionGUID: c7O2ngFaR2Gy8lNRJufXnw==
-X-CSE-MsgGUID: efrerJCtSVyHKDqbHKPoVQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="528029"
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="528029"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 03:01:46 -0700
-X-CSE-ConnectionGUID: m/KwgN84SPaRxWl5T2UkcA==
-X-CSE-MsgGUID: wRRGoWXGRlG3wnM+ClWRqw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="1163697"
-Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.165])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 03:01:43 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 522AB121B9E;
-	Mon, 12 Oct 2026 13:01:46 +0300 (EEST)
-Date: Mon, 12 Oct 2026 13:01:46 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: max.bretschneider@leica-geosystems.com
-Cc: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: ov08d10: add get_selection support
-Message-ID: <asywCh3X0yJVcxRd@kekkonen.localdomain>
-References: <20261011-ov08d10-get-selection-v1-1-5debe6436765@leica-geosystems.com>
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="EZcingkA";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="tPN1omDS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1791799314;
+	bh=0pyzztU0NngLfC81+czlzcRfIB90PorUF3VMb7LsUPQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=EZcingkAMEWMaAaPt8HKTsVxiilOYo02mN/DcePLSTSfWwplEJsldWjdeMkl6Ubl3
+	 w5s290+l0MP/pXOBnt6siqgKbViir7WQBFbOthvLxe7t3xKDBmqIavVm3RIkIDU3EM
+	 F6Vv/SlevaGk25TU9uizzolVZCzum2Vm6qpMd/aWpiaBx25Zn60jEEeLh9vRrhqAVM
+	 u2bzxYD9gU93THLBiNyJYcCrr/GUg42CBGqXS20yGHYkPO8+KzTYeeeSAQW39Ltc1S
+	 ix9aEVz25BTrGURLkVhPN8E0WYGGsn5Gu2Vnu80+jDmjzjJyTZPixUNW4Ch0HmEcFq
+	 y/SvZ/axS46Hw==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id E119F48257; Mon, 12 Oct 2026 10:01:54 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1791799313;
+	bh=0pyzztU0NngLfC81+czlzcRfIB90PorUF3VMb7LsUPQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=tPN1omDSDJ3Eji9VdMbsc5JmlemifaoNvVyG1qUc/uRqxanyttMZF7246Gmajcyo8
+	 6mlBxFVYJT+PEYY62YRA3yLFovFo3j5jrTdPPqdS25myrghGOFEVVf51cOOVTUNea5
+	 NpTn91jxf8FEqsRcpt1CGvG9ZWS/On4MXU273tJp5iWXu69RDu6s9lo3P5gQP+V8Dg
+	 NN8H77fdxspFCNNR0YEJhIJn7O9y9TFXjjXwACJtjD6Rhl4ksOVHtM6oq/HPcT5zjm
+	 jANexW+X10DgkyPF1ksWEUJIBSr3y1PepTiNNqLkF6rRMx3XDRdKDQCzPgYSE6d8te
+	 CgfOzTYm3faPA==
+Received: from [IPV6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb] (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 9A9C348257;
+	Mon, 12 Oct 2026 10:01:53 +0000 (UTC)
+Message-ID: <b4709a5d-ba7f-471c-8092-7a6887033e41@birger-koblitz.de>
+Date: Mon, 12 Oct 2026 12:01:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011-ov08d10-get-selection-v1-1-5debe6436765@leica-geosystems.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v6 01/10] r8152: split r8156_init per chip and
+ factor out wait_autoload_done
+To: Chih Kai Hsu <hsu.chih.kai@realtek.com>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "kuba@kernel.org" <kuba@kernel.org>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ nic_swsd <nic_swsd@realtek.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "edumazet@google.com" <edumazet@google.com>, "bjorn@mork.no"
+ <bjorn@mork.no>, "pabeni@redhat.com" <pabeni@redhat.com>,
+ "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>
+References: <20261008081556.47901-1-nic_swsd@realtek.com>
+ <20261008081556.47901-2-nic_swsd@realtek.com>
+ <633a0f2b-67b3-4896-8464-6a4d0c05498f@birger-koblitz.de>
+ <816bbc26531f411283f43e24c6156b5c@realtek.com>
+From: Birger Koblitz <mail@birger-koblitz.de>
+Content-Language: en-US
+In-Reply-To: <816bbc26531f411283f43e24c6156b5c@realtek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Max,
+Hi Chi-Kai,
 
-Thank you for the patch.
-
-On Sun, Oct 11, 2026 at 09:55:23PM +0200, Max Bretschneider via B4 Relay wrote:
-> From: Max Bretschneider <max.bretschneider@leica-geosystems.com>
+On 12/10/2026 11:24 am, Chih Kai Hsu wrote:
+> Hi Birger,
+> I'm sorry for making the previous reply hard to read, so I resent this.
 > 
-> The driver does not implement .get_selection, so it never reports the
-> analogue crop rectangle of the active mode. Userspace has no way to
-> learn which region of the pixel array a given mode reads out, and
-> cannot assume a fixed one, because the modes differ: the full mode
-> reads 3280x2460 at offset (4,8), while the 3264x2448 and the 2x2
-> binned 1632x1224 modes read 3264x2448 at offset (12,16).
+> On Thursday, October 8, 2026, 8:18 PM, Birger wrote:
+>> Hi Chih Kai,
+>>
+>> I have a hard time to understand why you want to separate out one init
+>> function into 4 different ones, for each chip one. Especially, if, as you say no
+>> functional changes are intended, which might justify the re-factoring in this
+>> manner. By multiplying the functions, it will become more difficult to maintain
+>> the code: if an issue is found in the init-sequence, it may now be necessary to
+>> fix it 4-times and future developments touching the init-sequence will also
+>> need to be replicated multiple times. In total, there would afterwards be 8(!)
+>> different init sequences including the other ones for the RTL8152 and different
+>> versions of the RTL8153. The same pattern repeats with _up(), _down() and
+>> other configuration functions.
 > 
-> Consumers that derive the sensor scale from the analogue crop and the
-> output size therefore compute a wrong result for the cropped and
-> binned modes, and may reject those configurations.
+> The split is meant to make each function readable on its own. In a single shared
+> function, every chip difference is a tp->version range check, and the function is
+> hard to follow. Your concern is valid: if a fix needs to be applied to the four chips,
+> it will need to be applied four times. But if a chip gets chip-specific fixes, the init
+> or other functions will be more complex with several tp->version checks.
 > 
-> Track the analogue crop rectangle per mode, store it in the subdev
-> state when the format is set, and report it through .get_selection.
-> Also report V4L2_SEL_TGT_CROP_DEFAULT, V4L2_SEL_TGT_CROP_BOUNDS and
-> V4L2_SEL_TGT_NATIVE_SIZE from the pixel array geometry. Implement
-> .init_state so a newly allocated state holds a valid format and crop,
-> and add the v4l2_subdev_init_finalize() and v4l2_subdev_cleanup()
-> calls required to use the subdev active state.
+> On the other hand, using a single shared function will make the function very
+> complex when new ICs are added.
 > 
-> The pixel array geometry and the per-mode offsets are taken from the
-> sensor datasheet and the recommended reference register sets.
+Thanks a lot for looking into this! I think we agree on that 
+maintainability of the code is a very important quality. Where you 
+believe that using per-chip init functions is necessary for that, please 
+follow that road, striking a balance between as many as necessary and as 
+few as possible. Maybe look int the different generations of chips to 
+see whether there are better ways to combine or split the 
+init_functions() than is the case now.
+
+>>
+>> Would it not make more sense to try to further combine the init sequences or
+>> try to disentangle the code by establishing common library routines put into a
+>> _lib.c file and possibly different .c files for the different generations of the chips?
+>> For example, it appears that the
+>> rtl8157/9 belong to one generation of chips, based on the rtl8156 design. On
+>> the other hand, rtl8152/3 appear to be a different generation with various
+>> family members. That would allow to build a basis for future development like
+>> to rely on using phylink to handle the PHYs integrated in the chips, which all
+>> appear to be already supported by the Realtek-PHY driver.
 > 
-> Signed-off-by: Max Bretschneider <max.bretschneider@leica-geosystems.com>
-> ---
-> Tested on a Hexagon/Leica CS50 (i.MX8MP, rkisp1) running 6.16.12 with the
-> equivalent of this patch applied, where it fixes configuration of the 2x2
-> binned 1632x1224 mode with libcamera's rkisp1 CAC algorithm enabled.
-> Compile-tested against media/next.
-
-Can you test on a newer kernel? That being said, there are unlikely to be
-issues without that, but it's better to be sure.
-
+> I agree that chips with the same generation or very similar sequences should be combined.
 > 
-> Modelled on imx335.
-> ---
->  drivers/media/i2c/ov08d10.c | 74 ++++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 73 insertions(+), 1 deletion(-)
+> I prefer to combine the callbacks, including init, up, down, and enable.
+> - For init, I can merge r8156b_init into r8156_init and r8159_init into r8157_init.
+> - For up/down, I can move the sequence shared by rtl8156_up/rtl8157_up and by the down
+>   functions into common helpers, as rtl8152b/3 do with exit_oob/enter_oob.
+> - For enable, I can combine rtl8156_enable and rtl8156b_enable.
 > 
-> diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
-> index 0710d2243cc0..b32a1246df45 100644
-> --- a/drivers/media/i2c/ov08d10.c
-> +++ b/drivers/media/i2c/ov08d10.c
-> @@ -65,6 +65,14 @@
->  #define OV08D10_REG_FLIP_OPT			0x32
->  #define OV08D10_REG_FLIP_MASK			0x3
->  
-> +/* OV08D10 native and active pixel array size */
-> +#define OV08D10_NATIVE_WIDTH			3288
-> +#define OV08D10_NATIVE_HEIGHT			2476
-> +#define OV08D10_PIXEL_ARRAY_LEFT		4
-> +#define OV08D10_PIXEL_ARRAY_TOP			8
-> +#define OV08D10_PIXEL_ARRAY_WIDTH		3280
-> +#define OV08D10_PIXEL_ARRAY_HEIGHT		2464
-> +
->  #define to_ov08d10(_sd)		container_of(_sd, struct ov08d10, sd)
->  
->  struct ov08d10_reg {
-> @@ -110,6 +118,9 @@ struct ov08d10_mode {
->  
->  	/* Number of data lanes */
->  	u8 data_lanes;
-> +
-> +	/* Analogue crop rectangle, in native sensor coordinates */
-> +	struct v4l2_rect crop;
->  };
->  
->  /* 3280x2460, 3264x2448 need 720Mbps/lane, 2 lanes - 19.2 MHz */
-> @@ -630,6 +641,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
->  		},
->  		.link_freq_index = 0,
->  		.data_lanes = 2,
-> +		.crop = { .left =  4, .top =  8, .width = 3280, .height = 2460 },
->  	},
->  	{
->  		.width = 3264,
-> @@ -643,6 +655,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
->  		},
->  		.link_freq_index = 0,
->  		.data_lanes = 2,
-> +		.crop = { .left = 12, .top = 16, .width = 3264, .height = 2448 },
->  	},
->  	{
->  		.width = 1632,
-> @@ -656,6 +669,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
->  		},
->  		.link_freq_index = 1,
->  		.data_lanes = 2,
-> +		.crop = { .left = 12, .top = 16, .width = 3264, .height = 2448 },
->  	}}
->  };
->  
-> @@ -955,6 +969,36 @@ static int ov08d10_set_ctrl(struct v4l2_ctrl *ctrl)
->  	return ret;
->  }
->  
-> +static int ov08d10_get_selection(struct v4l2_subdev *sd,
-> +				 const struct v4l2_subdev_client_info *ci,
-> +				 struct v4l2_subdev_state *sd_state,
-> +				 struct v4l2_subdev_selection *sel)
-> +{
-> +	switch (sel->target) {
-> +	case V4L2_SEL_TGT_CROP:
-> +		sel->r = *v4l2_subdev_state_get_crop(sd_state, 0);
-> +		return 0;
-> +
-> +	case V4L2_SEL_TGT_NATIVE_SIZE:
-> +		sel->r.left = 0;
-> +		sel->r.top = 0;
-> +		sel->r.width = OV08D10_NATIVE_WIDTH;
-> +		sel->r.height = OV08D10_NATIVE_HEIGHT;
-> +		return 0;
-> +
-> +	case V4L2_SEL_TGT_CROP_DEFAULT:
-> +	case V4L2_SEL_TGT_CROP_BOUNDS:
-> +		sel->r.left = OV08D10_PIXEL_ARRAY_LEFT;
-> +		sel->r.top = OV08D10_PIXEL_ARRAY_TOP;
-> +		sel->r.width = OV08D10_PIXEL_ARRAY_WIDTH;
-> +		sel->r.height = OV08D10_PIXEL_ARRAY_HEIGHT;
-> +		return 0;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
->  static const struct v4l2_ctrl_ops ov08d10_ctrl_ops = {
->  	.s_ctrl = ov08d10_set_ctrl,
->  };
-> @@ -1194,6 +1238,9 @@ static int ov08d10_set_format(struct v4l2_subdev *sd,
->  
->  	mutex_lock(&ov08d10->mutex);
->  	ov08d10_update_pad_format(ov08d10, mode, &fmt->format);
-> +
-> +	*v4l2_subdev_state_get_crop(sd_state, fmt->pad) = mode->crop;
-> +
->  	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
->  		*v4l2_subdev_state_get_format(sd_state, fmt->pad) =
->  								fmt->format;
-> @@ -1297,6 +1344,19 @@ static int ov08d10_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
->  	return 0;
->  }
->  
-> +static int ov08d10_init_state(struct v4l2_subdev *sd,
-> +			      struct v4l2_subdev_state *sd_state)
-> +{
-> +	struct ov08d10 *ov08d10 = to_ov08d10(sd);
-> +	const struct ov08d10_mode *mode = &ov08d10->priv_lane->sp_modes[0];
-> +
-> +	*v4l2_subdev_state_get_crop(sd_state, 0) = mode->crop;
-> +	ov08d10_update_pad_format(ov08d10, mode,
-> +				  v4l2_subdev_state_get_format(sd_state, 0));
-> +
-> +	return 0;
-> +}
-> +
->  static const struct v4l2_subdev_video_ops ov08d10_video_ops = {
->  	.s_stream = ov08d10_set_stream,
->  };
-> @@ -1306,6 +1366,7 @@ static const struct v4l2_subdev_pad_ops ov08d10_pad_ops = {
->  	.get_fmt = ov08d10_get_format,
->  	.enum_mbus_code = ov08d10_enum_mbus_code,
->  	.enum_frame_size = ov08d10_enum_frame_size,
-> +	.get_selection = ov08d10_get_selection,
+That sounds like a good plan, it would be great to reduce the number of 
+these little helper functions being used, where suitable. It would 
+greatly improve readability.
 
-It'd be nice to have the same ordering as in the driver (and also not place
-the get_selection callback in the middle of control handling).
+Best,
+   Birger
 
->  };
->  
->  static const struct v4l2_subdev_ops ov08d10_subdev_ops = {
-> @@ -1315,6 +1376,7 @@ static const struct v4l2_subdev_ops ov08d10_subdev_ops = {
->  
->  static const struct v4l2_subdev_internal_ops ov08d10_internal_ops = {
->  	.open = ov08d10_open,
-> +	.init_state = ov08d10_init_state,
->  };
->  
->  static int ov08d10_power_off(struct device *dev)
-> @@ -1470,6 +1532,7 @@ static void ov08d10_remove(struct i2c_client *client)
->  	struct ov08d10 *ov08d10 = to_ov08d10(sd);
->  
->  	v4l2_async_unregister_subdev(sd);
-> +	v4l2_subdev_cleanup(sd);
->  	media_entity_cleanup(&sd->entity);
->  	v4l2_ctrl_handler_free(sd->ctrl_handler);
->  	pm_runtime_disable(ov08d10->dev);
-> @@ -1565,17 +1628,26 @@ static int ov08d10_probe(struct i2c_client *client)
->  	pm_runtime_set_active(ov08d10->dev);
->  	pm_runtime_enable(ov08d10->dev);
->  
-> +	ret = v4l2_subdev_init_finalize(&ov08d10->sd);
-
-Can you convert this driver to fully utilise sub-device state, as you're
-initialising it here?
-
-There's probably not much to do, but in particular the active format should
-be stored in sub-device state and the control handler's lock be used as the
-state lock. Also storing the active mode in the context struct would be
-nice to avoid. These should constitute a separate patch (that also includes
-init_finalize()/cleanup() calls) before this one.
-
-> +	if (ret) {
-> +		dev_err(ov08d10->dev, "failed to init subdev state: %d\n", ret);
-> +		goto probe_error_media_entity_cleanup;
-> +	}
-> +
->  	ret = v4l2_async_register_subdev_sensor(&ov08d10->sd);
->  	if (ret < 0) {
->  		dev_err(ov08d10->dev, "failed to register V4L2 subdev: %d\n",
->  			ret);
-> -		goto probe_error_media_entity_cleanup;
-> +		goto probe_error_subdev_cleanup;
->  	}
->  
->  	pm_runtime_idle(ov08d10->dev);
->  
->  	return 0;
->  
-> +probe_error_subdev_cleanup:
-> +	v4l2_subdev_cleanup(&ov08d10->sd);
-> +
->  probe_error_media_entity_cleanup:
->  	pm_runtime_disable(ov08d10->dev);
->  	pm_runtime_set_suspended(ov08d10->dev);
-> 
-
--- 
-Kind regards,
-
-Sakari Ailus
