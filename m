@@ -1,117 +1,98 @@
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99D43911C0
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:17:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469DC374A0B;
+	Mon, 12 Oct 2026 13:18:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791811063; cv=none; b=YmLGN3Rp1erksg01JVNfK2QSZBYoVDts7GO8m0x2zl7l/vmiZv53v94C3ZDmLNfFJmNznQOwQhpvr6WH+0a0O4jepn6uJa8TJ1RYZGK+38a+NZwoQpVRNRfs4GcSgjFnV0uCcR8GzlfviZ4wiPvS9zmk8md48pEHVEIS0DF/JDw=
+	t=1791811107; cv=none; b=ekas9nq0/10ngVssNf9RHkFaFhbUsPr6NKk6cA65UgliXkmx/drBVJsPzJveiAJD3/XnsqmifHOaCCT5kr9uIMElKi+glnO+2uRCYpgKSA5Y9q8xLtcYy3sdKCHrRYsjGgEQ5mJf4KlpYNiuFb4Fv0UPb6QDjjESQ3gRKDIs7Gw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791811063; c=relaxed/simple;
-	bh=sWZj4fi9PchIWq6iTv6FoJJcUWY4ROJjikopBkr9icg=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=fp4pEVlyT57rhUFuCJCPEM6OGjtin8WEpcrBMhuGS7qlMRxH1w1mGqRcHC7m7UVYJhh5RIaJWY3arIHS+wggxRHk5ZUNhmhvFkPE+iV+/t7KK17250E68ltB+IqVKO/E2C24e/0FRAb+6QXLE6dlD+cBQRN/HPb8/1RMFzgJYEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gyFHEdYS; arc=none smtp.client-ip=209.85.128.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
+	s=arc-20240116; t=1791811107; c=relaxed/simple;
+	bh=AzjuoH0vknrDz4e3haaF13WLjGpDY0yTb/N/9QPV9qc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nLdLtWATuEYrchUgBg84JzpYDbpH15G+VZJoV+UHmLLIjSDyqJG20cFz/SBPmdEVnqe4Vej9Q7ahQmNzfL2GbE6YNGHhwBC27iHDJ6+ygHIgpgn0K6L5iePckB/4cQGlsIiozAk8MmLBBR3g+83EJD5+J5PgrRiKB0Y4J8d1qxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=5FRHr7lv; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gyFHEdYS"
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a170fa0879so14440165e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:17:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791811060; x=1792415860; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+fEAaRgfVTrd4ivzqjJHoxub+cLoCC1NeXyWvtmvqHk=;
-        b=gyFHEdYStsj+LBr9NGC7a1w2pOu/0BpTT7rrJLqnUMTFuP4gQzld2wMQaPLXFyx9eQ
-         SyaiOIIz/N6aHSi4Ykh0Lw8MZX7I8NWsbkFVMS6CjiaUz7XMEvZ/lrqsljWiHBwF5Z4I
-         CxMAWnsaF3Kzx3GpPPCCRDWLUv+2Hsf1DmkeMeov2iAE+dwU6xTTC3fJPXq8XlQuPDZE
-         HADKt6GkqgXddLHoL9FJg/pgwLj8gQezXCbP/bYFFQq9jOmhRaLhs+Ztt9lwx5qifkZz
-         fj6kLCF5ub1LQUqaWvFqpNJWGKf6/7p9ol7OSsrDAVRgcJb7HMGUFvXtFMMGzCvtgqvZ
-         Q+2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791811060; x=1792415860;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+fEAaRgfVTrd4ivzqjJHoxub+cLoCC1NeXyWvtmvqHk=;
-        b=soSxeRvqeHqcp0TT5Cnai7N2s9YJNO0UaIUhqlETdt3pTo9MB8M+xvEaS21//D+eEH
-         hWmrStnI0/NqxXqIUDJ5eMjIPuJUM0NRn9Th/fRNV1SG/QvhTa18c6jwFBBAQAcD5k4r
-         ZVWWYA8n79Phu1NSulb6oYTAM2W03FBdPRMSp7KsUBml82kS+3Wq7iUrKJnQOza3AvNH
-         vhjFYILwjg5ZaXqFOEAezi3ThL/+QLHt7ry1bUL8kKSsNR/vChQ/z5lqRIfYRsVGds2G
-         IsoPt8yiKKe2WhIVPa56NO4eWIJaEIxGe+jI+jgYqv3bAhHQ0l5DRStX2bCBfcKUWoGs
-         GETw==
-X-Forwarded-Encrypted: i=1; AKwUvBw4r7zV6Q+6hlYe44kpI87wbz4QB+SqxP+65ffxyvKQFw9euE1xzr3TmoLUiuWQ0QQIRq+hqc1bhjn67Bw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIj1CbRGUIyHamUtJ8XqXSPep57NrNw+feVwzCjcHSrLsmz3Kly
-	9frQSer0BlyCmKd3M0twksDlvol8Ml1epx2uJWNGhGJqPBiwdNUUMsyNPaJQ0+AYuKB+/gUBhji
-	P9v2Q6A3/OH1rpQ==
-X-Received: from wmoo9.prod.google.com ([2002:a05:600d:109:b0:4a1:8741:47d4])
- (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:8b28:b0:49f:ff7b:f056 with SMTP id 5b1f17b1804b1-4a18e4a3c24mr156632435e9.9.1791811060039;
- Mon, 12 Oct 2026 06:17:40 -0700 (PDT)
-Date: Mon, 12 Oct 2026 13:17:39 +0000
-In-Reply-To: <20261012115928.1372317-1-smariotti@disroot.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="5FRHr7lv"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=s6P2PLaoKfqE5tTicRYyiqRKnLpbtn3os9hoyNl9VUA=; b=5F
+	RHr7lvu58c3UpyMIhbyKOyYeeBVwV76JqvoZoDUmUuBgavwobHJPrDwqAehoDLGN22jCKOiP3a6uB
+	YJOs/TfCX9nJxJQcPCOM56h6q1qFAOnwFygem++CsJJUVEGb9abtVvsVFQhSV0+igy9ieNZEC3rpI
+	Opm4O7Jf4vnbUtA=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xGFuu-00AKP8-2g; Mon, 12 Oct 2026 15:18:12 +0200
+Date: Mon, 12 Oct 2026 15:18:12 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: James Clark <jjc@jclark.com>, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Doug Berger <opendmb@gmail.com>,
+	=?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Miroslav Lichvar <mlichvar@redhat.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 0/5] net: mdio: add timestamped MDIO writes for
+ PHY gettimex64
+Message-ID: <23454c46-95cf-4e46-9621-149bf9350199@lunn.ch>
+References: <20261009143506.2507607-1-jjc@jclark.com>
+ <804e7c63-e762-4040-9d60-35d21df75531@lunn.ch>
+ <db3a0f73c1883645f51294ca46cffe05@tipi-net.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261012115928.1372317-1-smariotti@disroot.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-Message-ID: <DM2W05XKJT97.2ATHPA28J84ZH@google.com>
-Subject: Re: [PATCH] selftests/sched_ext: Fix build error in dequeue_remote selftest
-From: Kuba Piecuch <jpiecuch@google.com>
-To: Samuele Mariotti <smariotti@disroot.org>, <tj@kernel.org>
-Cc: <void@manifault.com>, <arighi@nvidia.com>, <changwoo@igalia.com>, 
-	<jpiecuch@google.com>, <shuah@kernel.org>, <sched-ext@lists.linux.dev>, 
-	<linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <db3a0f73c1883645f51294ca46cffe05@tipi-net.de>
 
-On Mon Oct 12, 2026 at 11:59 AM UTC, Samuele Mariotti wrote:
-> Building the dequeue_remote selftest with newer compilers (e.g., gcc 16)
-> triggers the following error:
->
-> dequeue_remote.c:39:32: error: variable =E2=80=98sum=E2=80=99 set but not=
- used
->
-> The 'volatile' qualifier prevents the writes from being optimized away,
-> but does not silence the warning, since 'sum' is indeed only written and
-> never read.
->
-> Consume 'sum' via an empty asm() with a register input constraint, as
-> already done for the dequeue selftest in commit 3788e3251653
-> ("selftests/sched_ext: Fix build error in dequeue selftest"). This forces
-> the compiler to keep the accumulated value (preserving the CPU stress loo=
-p)
-> and avoids the build error.
->
-> Fixes: cc07fae1de5d ("selftests/sched_ext: Add a test for ops.dequeue() o=
-n remote local DSQ moves")
->
-> Signed-off-by: Samuele Mariotti <smariotti@disroot.org>
-> ---
->  tools/testing/selftests/sched_ext/dequeue_remote.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/tools/testing/selftests/sched_ext/dequeue_remote.c b/tools/t=
-esting/selftests/sched_ext/dequeue_remote.c
-> index f2c1901030de..af344581d5f1 100644
-> --- a/tools/testing/selftests/sched_ext/dequeue_remote.c
-> +++ b/tools/testing/selftests/sched_ext/dequeue_remote.c
-> @@ -43,6 +43,7 @@ static void worker_fn(int id)
-> =20
->  		for (j =3D 0; j < 20000 + id * 1000; j++)
->  			sum +=3D j;
-> +		asm volatile("" : : "r"(sum));
->  		if (id & 1)
->  			usleep(100);
->  		else
+On Sun, Oct 11, 2026 at 08:07:13PM +0200, Nicolai Buchwitz wrote:
+> Hi Andrew
+> 
+> On 11.10.2026 15:50, Andrew Lunn wrote:
+> > > For example, using PTP_SYS_OFFSET_EXTENDED on the Raspberry Pi CM5 to
+> > > synchronize the system clock from the BCM54210PE PHY PHC leads to the
+> > > system clock being 32 µs ahead of the PHC. On the CM4, it is about 7
+> > > µs.
+> > > (The difference is because the MDIO clock frequency is higher on the
+> > > CM4: 10 MHz as opposed to 2.08 MHz on the CM5.)
+> > 
+> > IEEE 802.3 says the clock should be 2.5Mhz. Does the CM4 use a
+> > clock-frequency DT property to enable this faster clock?
+> > 
+> > 	Andrew
+> 
+> The Pi 400 is the only BCM2711 board with clock-frequency in DT
+> (1950000, from a downstream "Limit MDIO clock speed" commit with no
+> further explanation). There the driver's assumed 250 MHz reference
+> gives divider 63, which with the real 200 MHz (see my comments on
+> patch 5) is about 1.56 MHz.
+> 
+> Pi 4 and CM4 (the one with the PTP PHY) have no clock-frequency, so
+> the driver keeps the firmware's divider 9, and 200 MHz / 20 is the
+> 10 MHz James mentions.
 
-LGTM, thank you Samuele!
+For CM4, i think the PHY is on the board? Does the MDIO bus get
+exported via a connector? If it is a closed system, then running the
+bus faster by default is O.K, since it is impossible to connect a
+device which is only standards compliant. But if the bus does get
+connected to the carrier board, it would be better to stick to 2.5MHz.
 
-Reviewed-by: Kuba Piecuch <jpiecuch@google.com>
-
+	  Andrew
