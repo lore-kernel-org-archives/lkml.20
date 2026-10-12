@@ -1,141 +1,165 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E7313A258
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:29:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F592D7386
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:29:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791772157; cv=none; b=j1LuXepVUa94SJB1oAUcRMw2QZS5kQzKsg9zjilzDzagJJS8hCgZ58YFz+oMTT4MsR25MaUoY1j5JmZIvmARQG7kR25MXWwONlT2NgDtxIuXVV0Sz1S3YACezubyfC34ooLwj3oQeMEFw/52n33u7QHD4htbMnxsQjvNnsEdAVY=
+	t=1791772185; cv=none; b=rKqQThdS+Ye9Wh11IFsHBC50N7bZ1WTQhe+JCLGaJy6c3IhhE5NbAoyNUB0fRDFG1BOPKe7L+cOqPKvR+mB5hqLxbSazeL5GX5Dn5SosGxOBghk5aD1cYPvDnbaERKVZxwmKuhNffvoWaW1LdF1m+rl/Q05s9xLwP6vL/PjBHhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791772157; c=relaxed/simple;
-	bh=zpS3Xh9soiHmpvQs4oVazp8AuGt6Nt+Yz/sxg+zMKD8=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=jdHGp+OZmudl4LIwvsdt7Eo9RxgVWyvWJFGubNwsvbC17PhtBhcKhqVczJtL6Z7eovk46ts/wW2ezSncsYGf8QaaqzuuX6KVh4JUOaDS6NA8zXoGqinW+39MjjM39Ld7h1nra3vvETpRZQaO/xG57ZD7GJ0lCiGq25uHqocLE7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=VPFuaUKN; arc=none smtp.client-ip=220.197.31.6
+	s=arc-20240116; t=1791772185; c=relaxed/simple;
+	bh=aNua3oUvGdiiyi0IaOm3Wy23ZZe5ewykSyJsnUaV4qM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tRVIEy4ETRn5XvkfwqV4KQLE63EML0kYG+7o8smFo0qDnaPVbKEptzsB0jIWVN+nOLWmh2iN7277AammrxYkDEpgQRYTNJmv9dyEZdZINbtBTD6/dG/0jJA79H68pifNWBQKVCs3Icio9Vuire7gNbgvkSDtiyXXaof23OJJlTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g72fH5zT; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="VPFuaUKN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
-	Content-Type; bh=9NJwlbvFs2Xih6NO4DxbF7QZlsJTzh8UHyan52roRtA=;
-	b=VPFuaUKNMgSvdL1OUFwEz+hJU7rYTjTReazy7gLUF+jXYYCh+sHCu5RgL9v70g
-	BYdlVIwEYrwrBO2qpK+9QZK06alOquVvbyJj5M85Yfm9vb6Yf18Z5oLuftqEiBjB
-	vIW/WbgT5GDgH8XDcJ8VGsPmxUhsIWF+J06a62KPaRpRo=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PikvCgC3B_vaRcxqz7qHBQ--.16377S2;
-	Mon, 12 Oct 2026 10:28:43 +0800 (CST)
-Message-ID: <6ACC45B6.1080909@126.com>
-Date: Mon, 12 Oct 2026 10:28:06 +0800
-From: Hongling Zeng <zhongling0719@126.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g72fH5zT"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e87c66e556so5341315ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:29:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791772183; x=1792376983; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YUzX3KLBEtejWmrVDJ7UhZNCGyRwxK6E6dSqlqcUQmw=;
+        b=g72fH5zTwhBHwK4XVyxvUDaaL4jNaOssXAqvpxTADvecwdqwpqjvwrVfPx5/qBzXR/
+         lR/GU6n2TmnvNgWzpUYKJNHzCXLhUyP5bi/oDEghCyiKbLibZcx0wauGlXHGpbk43NfD
+         GA7pg419Fl6B/TDxzaVSf7402OPFGnXMAJmwAmfYIVmtFnsqZaW6h7iuwsaTFXAZlLkR
+         dTLZf8A3B3GGwOUcVoIFmbJMAI47Tf/czO04N5DKwbPc4ePsFhDhTGooNZgWszTBNjiI
+         rXB6lOmyBZ6LV7lOnxprjB28xy9NvDm2l2HRrZcAgVCQBeYhUwP1a2sU2Y2+UPEKiNm0
+         nyng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791772183; x=1792376983;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YUzX3KLBEtejWmrVDJ7UhZNCGyRwxK6E6dSqlqcUQmw=;
+        b=MDfWZsgLNenjCoLHiXJsCfj5hWqZJAIj9CXFLVWpDz4U81/twVSM7TYj6goPDS3Frt
+         q/b99jcG+TmrOEafN+As78y7Ds+4T0tAK+89iJRGGwuwwuNo+69FYyPgrvlJ/S7w2srU
+         1KLMsukDHBPzmzpnQTtcjYA4klxmXs8AXsbEui2IQ2poK5LOEyyJCOcD8KU4xUFQBJeD
+         odi/D/2FhjRZ2mblUtHrz7CO//HBURawqVIcpVYipkgf3/EvcRQ4HeZUlpkzYH3mk8km
+         Dv4TlQCHt0qnX/yJEhZKiItlts6GGZ+YSpdAiqIHsPX8R5u8bdN25Cpb+mlpgoW076u6
+         A2gA==
+X-Forwarded-Encrypted: i=1; AKwUvBwpMTEYCsaZ9QI/AwWNEpQDq9YEv9EDt5IgSv7eATI76UhnBoKZH/Bkfo7ktmj10/rQmVqk4dk5jBE3QrI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxFgWjD82NGa+ml12kNY7UwTyrSldSbUoE8qWlROf8HjQPmDKk
+	o3FePCx7JkmXtSmmXYkdvXuDSXIqIXEsZbWthxH+KJy0vKxTqK6Bqthu
+X-Gm-Gg: AYBFou3yKBYPntFhkKSYlM71cDQscF+hSLp5VoHP1fVA8faqYZCGtzzxs77yt4UYMw7
+	HG3msQZy+bQMebqlH5wMCRCZGnKLePSKFdLlno9R+G+xPZk5dbFKs0SH/Ut4j4wVGDbSjtWJsOs
+	SLID+fcp11vel+Ahap+LZUo8NrgMp+5MTBj1+7wlBneWmKmlCi1S7+x5UU/XfhaUTfhjzZLHmkx
+	uWzo+yCLI9BB7749Y1QB1SMjChkP/mKZWIwVSQORzzAp7H556q/fr6of6Lyh++zwgFWXGLM7Off
+	oevbeJj6j9OjysPQ4mgYoc/yDW0O69nmRt+Nr7j9jHFCnyMpieHlnNSDPM7iWJQ5BWorj3ETXqN
+	iVg62YpsC7nZGPdhCyNRFbfPYdmvMgaKcsG5aKQ395jq18rpGx6TsrtoNBBMMgr9mloEtD+gmNe
+	N3C+jqA40bk+IBpeRhOsOCFAgSD9IGSepkj9+OaXvvzVs4XHXw+rQcPpPpIMP8DQgKV34q39MSo
+	FQxgn3icuc2lA==
+X-Received: by 2002:a17:902:ffcf:b0:2df:34c0:72fe with SMTP id d9443c01a7336-2e84054243bmr52558625ad.35.1791772182510;
+        Sun, 11 Oct 2026 19:29:42 -0700 (PDT)
+Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e6cdsm37873555ad.28.2026.10.11.19.29.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 19:29:42 -0700 (PDT)
+From: Vernon Yang <vernon2gm@gmail.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	ljs@kernel.org,
+	roman.gushchin@linux.dev,
+	dave@stgolabs.net
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Vernon Yang <yanglincheng@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] mm: vmscan: don't count per-node proactive reclaim as memory pressure
+Date: Mon, 12 Oct 2026 10:29:17 +0800
+Message-ID: <20261012022917.1102467-1-vernon2gm@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-To: Hyunchul Lee <hyc.lee@gmail.com>, 
- Hongling Zeng <zenghongling@kylinos.cn>
-CC: linkinjeon@kernel.org, ntfs@lists.linux.dev, 
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ntfs: record an error when the ACL xattr undo fails
-References: <20261004022622.631203-1-zenghongling@kylinos.cn> <asR8LDWW5S3Ex0Gi@hyunchul-PC02>
-In-Reply-To: <asR8LDWW5S3Ex0Gi@hyunchul-PC02>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PikvCgC3B_vaRcxqz7qHBQ--.16377S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGFWxCrWfuF17XrWfur1rZwb_yoW5ur1fpr
-	sxJFy5KrWDt342yFna9r48Xa4F934fKF48Jw1fKwnFkwnaqr1SqrWSgr1UWFy8ArWrtw4F
-	vF4UXws8uay5WFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jI0PfUUUUU=
-X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrhtVJmrMRdsVIgAA3J
 
+From: Vernon Yang <yanglincheng@kylinos.cn>
 
-在 2026年10月06日 12:42, Hyunchul Lee 写道:
-> Hi Hongling,
->
-> On Sun, Oct 04, 2026 at 10:26:22AM +0800, Hongling Zeng wrote:
->> ntfs_set_acl_ex() commits the new ACL xattr before it rewrites the WSL
->> mode EA, and removes it again when that rewrite fails.  The removal is
->> best-effort: its result is discarded and the EA paths record no error
->> state, so when the removal fails too, the new, typically more
->> permissive, ACL is left on disk while i_mode, the mode EA and the
->> cached ACL keep the old values.  Once the stale xattr is loaded again -
->> after a remount, or when the cached ACL is discarded - a chmod 0640 ->
->> 0777 that reported failure leaves the file accessible to the relaxed
->> ACL while stat() still reports 0640.
->>
->> Check the removal and record the failure: NVolSetErrors(), which the
->> next persistence point persists as VOLUME_IS_DIRTY, and a log message
->> the errors= policy acts on.  The flag cannot be written to disk here
->> directly: the target inode's mrec_lock is held and the $Volume
->> mrec_lock cannot be nested under it.
->>
->> Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
->> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
->> ---
->>   Change in v2:
->>   -undo only a committed set: undoing a removal returned -ENODATA for an
->>    already-removed xattr and was recorded as a volume error, or re-added
->>    an empty xattr once the removal had dropped the last EA
->> ---
->>   fs/ntfs/ea.c | 30 ++++++++++++++++++++++++++++--
->>   1 file changed, 28 insertions(+), 2 deletions(-)
->>
->> diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
->> index b4fcfbe2da4c..b3e079e2dc03 100644
->> --- a/fs/ntfs/ea.c
->> +++ b/fs/ntfs/ea.c
->> @@ -1084,8 +1084,34 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
->>   		mutex_lock(&NTFS_I(inode)->mrec_lock);
->>   		err = ntfs_ea_set_wsl_inode(inode, 0, &ea_size, NTFS_EA_MODE);
->>   		if (err) {
->> -			ntfs_set_ea(inode, name, name_len, NULL, 0,
->> -				    XATTR_REPLACE, NULL);
->> +			/*
->> +			 * Only a set needs undoing: a removal leaves no
->> +			 * new ACL behind, and repeating it would either
->> +			 * return -ENODATA again or, once it dropped the
->> +			 * last EA, re-create an empty xattr.
->> +			 */
->> +			if (acl) {
->> +				int undo_err = ntfs_set_ea(inode, name, name_len,
->> +						NULL, 0, XATTR_REPLACE, NULL);
-> Could we restore the previous ACL xattr instead of unconditionally
-> remove it?
-Hi   Hyunchul
-   Good point. Removing the new xattr also loses the old one when it
-   replaced an existing ACL.
+When the cgroup has no memory pressure at all, writing to
+/sys/devices/system/nodeX/reclaim triggers proactive reclaim on
+NUMA node, causing increase in the writer cgroup's memory PSI.
 
-   v3 saves the previous xattr before the commit and restores it on a
-   mode EA failure, removing the new one only when there was no previous
-   one. A failed rollback is still recorded with NVolSetErrors().
+Due to this reclaim is performed in the context of the write(),
+accounted as memory pressure on the writer, like
+commit e22c6ed90aa9 ("mm: memcontrol: don't count limit-setting reclaim
+as memory pressure"). This is unexpected, the similar scenarios (e.g.
+senpai) will continue to occur, only this time it is for the
+/sys/devices/system/nodeX/reclaim knob.
 
-Thanks!
+The Documentation/ABI/stable/sysfs-devices-node documentation also
+notes that "This interface is equivalent to the memcg variant."
 
+This patch unifies the semantics of the memcg and node interfaces:
+per-node proactive reclaim is no longer counted as memory pressure,
+and the per-node proactive reclaim interface no longer produces
+phantom pressure.
 
->> +
->> +				if (undo_err) {
->> +					/*
->> +					 * The ACL xattr is committed
->> +					 * already, so a failed removal
->> +					 * leaves the new, typically more
->> +					 * permissive, ACL on disk while
->> +					 * i_mode, the mode EA and the
->> +					 * cached ACL keep the old values.
->> +					 * Record the error: the next
->> +					 * persistence point persists it as
->> +					 * VOLUME_IS_DIRTY.  Run chkdsk.
->> +					 */
->> +					NVolSetErrors(NTFS_I(inode)->vol);
->> +					ntfs_error(inode->i_sb,
->> +						   "Failed to undo the ACL xattr: %d",
->> +						   undo_err);
->> +				}
->> +			}
->>   			mutex_unlock(&NTFS_I(inode)->mrec_lock);
->>   			inode->i_mode = old_mode;
->>   			goto out;
->> -- 
->> 2.25.1
->>
+I ran demo[1] that performs per-node proactive reclaim 10000 times
+in qemu, writer cgroup memory.pressure as follows:
+
+without patch:
+
+some avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+full avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+
+with patch:
+
+some avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+full avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+
+[1] https://github.com/vernon2gh/app_and_module/tree/main/reclaim_node_psi
+
+Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+---
+V1 -> V2:
+- Check `sc->proactive` to differentiate between proactive reclaim or
+  page allocation. (Thanks Barry)
+
+V1 : https://lore.kernel.org/linux-mm/20261005062236.564210-1-vernon2gm@gmail.com/
+---
+ mm/vmscan.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 91295070ca33..2e9ca5e4c741 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -7994,7 +7994,8 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
+ 					   sc->gfp_mask);
+ 
+ 	cond_resched();
+-	psi_memstall_enter(&pflags);
++	if (!sc->proactive)
++		psi_memstall_enter(&pflags);
+ 	delayacct_freepages_start();
+ 	fs_reclaim_acquire(sc->gfp_mask);
+ 	/*
+@@ -8011,7 +8012,8 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
+ 	memalloc_noreclaim_restore(noreclaim_flag);
+ 	fs_reclaim_release(sc->gfp_mask);
+ 	delayacct_freepages_end();
+-	psi_memstall_leave(&pflags);
++	if (!sc->proactive)
++		psi_memstall_leave(&pflags);
+ 
+ 	trace_mm_vmscan_node_reclaim_end(sc->nr_reclaimed, NULL);
+ 
+-- 
+2.53.0
 
