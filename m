@@ -1,147 +1,165 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACEAD35C1A6;
-	Mon, 12 Oct 2026 15:21:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048CF49B215
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:21:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818489; cv=none; b=F8bpl3laoC4N72Pekqx8C6EMJGUJdxvsPvfRQGMndXfUs6OBx96eoyq/xFJOrhdVQVVZsKbWPQFjC99fTFc22hLTujdu/wvI1IO0zBJeWxKEt0Q2VDrEUGi9LGf1gzvic5T3giW3apEYLCBySMWipjacXdYxCyKFU+X5myQWBRU=
+	t=1791818491; cv=none; b=WK+ubXKcvcgQYJjhrr0iHEua1qJvruGKe9qC6L8J08f2CIv/aJqiDRe4kG1/9ws/AIQ4pYDPQJrGa2EqTyuivI4thvagZ1Pq716+vDfzKYjHReP6cjsT1FUNNjCarjxknHWJW8P9enVxukQFWntp1lQ4IhqXHEEHE8wbOZoq7no=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818489; c=relaxed/simple;
-	bh=V3T2KqP05PPNQNzMnOJGikVCS700ULWiyxMbOFqWao0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eP7mNFqgiEl8oqGm+gD8X9+C+TeIlGBremkWuBDY3egbl3LCA8dzaWS1VxrEsnHjZ6hdH0RC2jml002M8kixnXyu1I8HZDxJWEeGG28jPnSk3Tbw+coumVPu4UFkMCtOuFT7sIfknKB2rmDU83fQnyESLPZlZD/w3mi+FJx46Gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=m/zyFzFq; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1791818491; c=relaxed/simple;
+	bh=zxKxNhPCmHb0zZ96ffPqcnWSUZG23uY3BM1v2Yapxr8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KngkuMAx4Oj3jaj0F6e5GT6X5kFud2ls/v6PnYeGtV40Pra7MNzTMyK78fgW0XV+LQMU+TIjqmEMVoSK49MMPmBZDE8v563NsZOAKj+sYLhPd6t++Mv9fMpbCZRJuHBo4mfyd74bILYwBxdxB7C34sLrWKsXbzbPGw4moc5qd/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k+ZDl6n+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="m/zyFzFq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=bX+SBpFYzPiBpusGse8IzndZlRu6fhKhDRIRSp1NJCY=; b=m/zyFzFqnIQbIMgFdQ6cTjDeO+
-	nKdANjlgOCsb5Ig7GjV+yb2g8UA99n+yx/dKBzRgWyAatmboZgtAef9IUp5tpMlxt/an5qcXYMOHg
-	JuwAYZSKuAvIV5EObJpNRVF2B3WfyXbQmrSkMMvNL3B5EUYqiGAH6wAQztpxS3TuSDy6xSQoAYX+q
-	RYwbo2ln3veFYdVslCuaET23JX0zXoEIg3a2RvFZyo5RTv19mKiQU6RcFCb8MHlgB6ON1VQYD/kA7
-	Vv65fgu5M815N1+cKQmjbu3Xnl2kHpv7LoFR++1dYiUJDQfdGbm7fMDL9g7xLXBJ+/DWBmyj2sc5B
-	GpSXlvyA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xGHq6-0000000EZME-0CGZ;
-	Mon, 12 Oct 2026 15:21:22 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 6C50830045A; Mon, 12 Oct 2026 17:21:20 +0200 (CEST)
-Date: Mon, 12 Oct 2026 17:21:20 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Andy Lutomirski <luto@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [RFC PATCH] entry: Account the deferred hrtimer rearm as hardirq
- context for lockdep
-Message-ID: <20261012152120.GT4121339@noisy.programming.kicks-ass.net>
-References: <20261008204649.62265-1-mikhail.v.gavrilov@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k+ZDl6n+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC68D1F0089B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:21:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791818489;
+	bh=cwC1Bdu1ASAiuFFXOFyC9fhoty/NDnJ2PKsLdMCimZg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=k+ZDl6n+xNZrGH/v9gzTOj1yxcL3cazCis2vu30JUSUWuDAgbGLr4BQZP729XRZiG
+	 HZ3euZLRvFTKQkipe9Ex87xI/sJhX7fuCgrTATUaLAqpfJzdUSdd8iGd6//ILAiTm8
+	 hXwSE1Yg+Oy0jZmxsYVtWz7y3XbVTZcaPiV8jkgGtnKSJiGAcisWCZF5KCZgJHW1D/
+	 kwoS8rvDJpTMOKHHbnlVzDACyj+3nSdBCiPjscauxIvpG49NjhY2xDg9Heapu/ahcb
+	 ZfTMf3oyrUKqlJ9qJ3i2+Z6CjhlgbqNGvrZPcF842dOLYMGDST82bYWdGQFzhd11nB
+	 jtCVEsSmWZOvw==
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5bb7c6980f1so1393698e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:21:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzUOL6fK0AkY8RkcKdxx+8CiLOi8uTilA4D30XlISVUh7O1xKVfOS8/GRz0+Anytl2B9CDy6YWR0g9YXVI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIgu59MFY6qQ6JB+4dtuqlLEOQUeg88oq4XO2iiZ7awcTs6B/Wi
+	lFc0v9WPQWOOKTCicKkk2E/tj/qeAoWVdhilluibA2lZChqu0vApZxAm4lEaChEE/1t/J185h+R
+	5mvtMnTtE84e69Qm9ZcP/SBaWLW1Mqi8=
+X-Received: by 2002:a05:6512:2352:b0:5ba:429b:c5bf with SMTP id
+ 2adb3069b0e04-5bcde8c83f1mr3340556e87.51.1791818488065; Mon, 12 Oct 2026
+ 08:21:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008204649.62265-1-mikhail.v.gavrilov@gmail.com>
+References: <20260923082932.1049270-1-uajain@igalia.com> <20260923082932.1049270-3-uajain@igalia.com>
+In-Reply-To: <20260923082932.1049270-3-uajain@igalia.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 12 Oct 2026 17:19:22 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0j81xESWT9=c4_s0vNbkEtvPCj6j7o6dF0GxsqHPPng3A@mail.gmail.com>
+X-Gm-Features: AclHuK9qA-xWxmBPQNVBYGde9U5B3Rbdhlz_WDt6Uv35GXNVWBAp_iL0-qqzPIE
+Message-ID: <CAJZ5v0j81xESWT9=c4_s0vNbkEtvPCj6j7o6dF0GxsqHPPng3A@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] acpi: battery: Handle Valve steamdeck devices quirk
+To: Umang Jain <uajain@igalia.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kernel-dev@igalia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 09, 2026 at 01:46:49AM +0500, Mikhail Gavrilov wrote:
-
-> Commit 15dd3a948855
-> ("hrtimer: Push reprogramming timers into the interrupt return path")
-> moved the reprogramming of the clock event device out of the timer
-> interrupt into the interrupt return path. On return to kernel mode
-> irqentry_exit_to_kernel_mode_after_preempt() performs it after
-> irq_exit_rcu() has already left lockdep's hardirq context. lockdep
-> therefore records hrtimer_bases.lock and the timekeeper sequence count
-> as taken by the interrupted context, on top of the locks that context
-> holds, and every distinct held-lock stack an interrupt hits adds two
-> lock chains. When the rearm runs from irq_enter_rcu() or
-> __irq_exit_rcu() it is still inside lockdep's hardirq context, and there
-> the same acquisitions reuse one pair of chains.
-
-Urgh.
-
-> Not touched, and a question for you: the rearm in hrtick_schedule_exit()
-> also stacks chains on the preempted task's locks, under the runqueue lock.
-> Chains with hrtimer_bases.lock under the runqueue lock, this rearm among
-> them, were 4.9% of the pool in the boot above. Should it get the same
-> treatment?
-
-I'm thinking those would be there before the patch too. We've always
-done hrtimer_start() from there. You might not have seen it because
-hrtick was default disabled for most.
-
-
->  include/linux/irq-entry-common.h | 19 +++++++++++++++++--
->  1 file changed, 17 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-common.h
-> index 0bb6c03481fa..521cc30cef08 100644
-> --- a/include/linux/irq-entry-common.h
-> +++ b/include/linux/irq-entry-common.h
-> @@ -468,6 +468,21 @@ static inline void irqentry_exit_to_kernel_mode_preempt(struct pt_regs *regs,
->  		irqentry_exit_cond_resched();
->  }
->  
-> +/*
-> + * The deferred hrtimer rearm is the tail of the timer interrupt, moved to the
-> + * interrupt return path so that it runs after a possible reschedule. By now
-> + * irq_exit_rcu() has left lockdep's hardirq context. Re-enter it for the
-> + * rearm, so that the hrtimer base lock and the timekeeping sequence count are
-> + * not chained onto the locks held by the interrupted context, which would add
-> + * new lock chains for every lock stack an interrupt hits.
-> + */
-> +static __always_inline void irqentry_hrtimer_rearm_deferred(void)
-> +{
-> +	lockdep_hardirq_enter();
-> +	hrtimer_rearm_deferred();
-> +	lockdep_hardirq_exit();
-> +}
+On Wed, Sep 23, 2026 at 10:28=E2=80=AFAM Umang Jain <uajain@igalia.com> wro=
+te:
+>
+> Valve steamdeck devices can report battery status as
+> charging, even when low-powered power supply is connected
+> to the device. The battery status is reported as charging
+> through sysfs, even though in reality, it is discharging.
+>
+> To handle this case, we introduce a battery quirk for steamdeck
+> devices ACPI_BATTERY_QUIRK_VALVE_STEAMDECK. Additionally, it has been
+> found that on such devices, Battery Charge Time ("_BCT") is reported
+> accurately, hence use that information for report charging vs
+> discharging status. Battery Charge Time("_BCT") with an eligible power
+> supply unit will have valid values whereas with a low-powered supply
+> unit, it shall report ACPI_BATTERY_VALUE_UNKNOWN. Use this as a
+> differentiator to determine, whether the battery of steamdeck devices
+> is really charging or not.
+>
+> Signed-off-by: Umang Jain <uajain@igalia.com>
+> ---
+>  drivers/acpi/battery.c | 28 +++++++++++++++++++++++++++-
+>  1 file changed, 27 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
+> index a1b7a821abaf..8defafd2b7c7 100644
+> --- a/drivers/acpi/battery.c
+> +++ b/drivers/acpi/battery.c
+> @@ -95,6 +95,14 @@ enum {
+>          * on a full charge, but showing degradation in full charge cap.
+>          */
+>         ACPI_BATTERY_QUIRK_DEGRADED_FULL_CHARGE,
+> +       /*
+> +        * Valve steamdeck devices can get discharged even when battery s=
+tatus
+> +        * is charging. This happens typically when low power supply unit=
+ is
+> +        * connected. To accurately determine this scenario, we shall rea=
+d
+> +        * battery charge time ("_BCT"). This is the key differentiator t=
+o
+> +        * determine whether the steamdeck is actually charging or not.
+> +        */
+> +       ACPI_BATTERY_QUIRK_VALVE_STEAMDECK,
+>  };
+>
+>  struct acpi_battery {
+> @@ -236,7 +244,7 @@ static int acpi_battery_get_property(struct power_sup=
+ply *psy,
+>                                         : POWER_SUPPLY_STATUS_DISCHARGING=
+;
+>                                 return 0;
+>                         }
+> -               else if (battery->state & ACPI_BATTERY_STATE_CHARGING)
+> +               else if (battery->state & ACPI_BATTERY_STATE_CHARGING) {
+>                         /* Check the rate and capacity to validate the st=
+atus. */
+>                         if (!acpi_battery_is_full(battery) ||
+>                             (battery->rate_now !=3D ACPI_BATTERY_VALUE_UN=
+KNOWN &&
+> @@ -246,6 +254,12 @@ static int acpi_battery_get_property(struct power_su=
+pply *psy,
+>                                 /* Full and zero rate. */
+>                                 val->intval =3D POWER_SUPPLY_STATUS_NOT_C=
+HARGING;
+>                         }
 > +
->  /**
->   * irqentry_exit_to_kernel_mode_after_preempt - Establish trace, lockdep and RCU state
->   * @regs:	Pointer to current's pt_regs
-> @@ -491,7 +506,7 @@ irqentry_exit_to_kernel_mode_after_preempt(struct pt_regs *regs, irqentry_state_
->  		 */
->  		if (state.exit_rcu) {
->  			instrumentation_begin();
-> -			hrtimer_rearm_deferred();
-> +			irqentry_hrtimer_rearm_deferred();
->  			/* Tell the tracer that IRET will enable interrupts */
->  			trace_hardirqs_on_prepare();
->  			lockdep_hardirqs_on_prepare();
-> @@ -502,7 +517,7 @@ irqentry_exit_to_kernel_mode_after_preempt(struct pt_regs *regs, irqentry_state_
->  		}
->  
->  		instrumentation_begin();
-> -		hrtimer_rearm_deferred();
-> +		irqentry_hrtimer_rearm_deferred();
->  		/* Covers both tracing and lockdep */
->  		trace_hardirqs_on();
->  		instrumentation_end();
+> +                       if (test_bit(ACPI_BATTERY_QUIRK_VALVE_STEAMDECK, =
+&battery->flags) &&
+> +                           test_bit(ACPI_BATTERY_BCT_PRESENT, &battery->=
+flags) &&
+> +                           battery->charge_time =3D=3D ACPI_BATTERY_VALU=
+E_UNKNOWN)
 
-The first question I had was about __exit_to_usermode_prepare(), that
-also does hrtimer_rearm, but doesn't get wrapped. I'm thinking that's
-not a problem because at that point the lock stack is empty and all
-that. But perhaps a comment?
+Would it be practical to evaluate _BCT here without storing
+charge_time in the battery object?
 
-That said; I wonder if we want more of irqentry_exit_to_kernel_mode()
-wrapped like this. The schedule_preempt_irq() thing will now also stack
-rq->lock and the like on top of 'random' kernel stacks, rather than
-keeping it in 'empty' hardirq contexts.
-
-Or am I making a mess of things?
-
+> +                               val->intval =3D POWER_SUPPLY_STATUS_DISCH=
+ARGING;
+> +               }
+>                 else if (battery->state & ACPI_BATTERY_STATE_CHARGE_LIMIT=
+ING)
+>                         val->intval =3D POWER_SUPPLY_STATUS_NOT_CHARGING;
+>                 else if (acpi_battery_is_charged(battery))
+> @@ -1072,6 +1086,18 @@ static void acpi_battery_quirks(struct acpi_batter=
+y *battery)
+>                 set_bit(ACPI_BATTERY_QUIRK_DEGRADED_FULL_CHARGE, &battery=
+->flags);
+>                 battery->capacity_now =3D battery->full_charge_capacity;
+>         }
+> +
+> +       if (test_bit(ACPI_BATTERY_QUIRK_VALVE_STEAMDECK, &battery->flags)=
+)
+> +               return;
+> +
+> +       if (dmi_name_in_vendors("Valve")) {
+> +               const char *name;
+> +
+> +               name =3D dmi_get_system_info(DMI_PRODUCT_NAME);
+> +               if ((name && (!strncmp("Jupiter", name, 7))) ||
+> +                   (name && (!strncmp("Galileo", name, 7))))
+> +                       set_bit(ACPI_BATTERY_QUIRK_VALVE_STEAMDECK, &batt=
+ery->flags);
+> +       }
+>  }
+>
+>  static int acpi_battery_update(struct acpi_battery *battery, bool resume=
+)
+> --
