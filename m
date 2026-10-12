@@ -1,62 +1,64 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBE9372ED3
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:20:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B9F37AA65
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:20:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791786048; cv=none; b=EQ3oTo6kXrW37XPSGPTHatmo2Kr+0ruxKi175geFRi3pVew3sNqskKBhjqZUu0iLz2vURmQ0d1JA+R0MzEitZRC/dIcMBX1PER48nF2otbfjcqzTVP4cFUbmKRzbPejw8mmfxJkhIcZoUhkVs4M+vtge+4/prnu7ctVtZCAnS2I=
+	t=1791786051; cv=none; b=XZ4g87+YqlmnkckxhG0ey76pAbiBvvuIv1ssntb+QrEzsJh0ZsPlpO94dg2mjHUL/rW0Dip4heoGMCmDBmc+u6iTV4C+mO/Wu87GF1oQLvW00NS/BnUgnYL3qusKD2E4mHSyJBtmkJkF8Q4J/pKdnJkxmiSEikiBPryXb93U7UY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791786048; c=relaxed/simple;
-	bh=KjaORzNmIC0hbf9pMq5xRub4erK67RsKQRLJdDK1qSA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T9p0Tc+3c1yxkxc4DYVMJvOYY0qC5vJ7PrBcwrB3gL7fXyO4Ee5BLDmmCpwh4HO5z2QOM7tv5rlaeMeNdqa70zAZIgAwjgqLHPIs4YSvA58+/7G/Hb6stEpAAAHl6Kax3e+ca3UJMKX7F290gYV8/nlqIwHmvdCdPtaRbg7n5pM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DNJQ76Y2; arc=none smtp.client-ip=209.85.215.172
+	s=arc-20240116; t=1791786051; c=relaxed/simple;
+	bh=8oXkWJxXLk6r2mXf+O8P0D81zPxTgLXqzVRb/j1nEE4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WXOHJcrNeXK4nTKP5YghksILj4CT6t/g56JagKZwEbc6HFAn6vZvyuHYNt5THtrf9QC/6AR3it0X6vYu2W4oD/DXG9uey6/tGNGraE9yJKnwZRvmbVsDkqR+4h6fBba7puIojIXo9iqEMKAsL8+OwJUouyQTrfVvOgDWl2DiPg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lIqlz2a0; arc=none smtp.client-ip=209.85.210.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DNJQ76Y2"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc7cc8aafe6so499194a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:20:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lIqlz2a0"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-88aea027391so662378b3a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:20:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791786047; x=1792390847; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ilUEX6P5SXdjM30xs4/YiTd6UosFP69OH0rOy8mkCZ0=;
-        b=DNJQ76Y2PqmxhnZmiK7oAUK4/HanWySX1WrsBUT5hw4Ukkl9ys9w3FiTiTz5XiAOAo
-         vuNsSGZxEuWFzQ7SwESldwzhwYZfWu20+WGWd5rp5ZYqCuYhCAOAiIC99x9PkEtUcFDi
-         eJ+47ZuaPLfXHuxcz/BtxrKcEpQf4K2NmH99GtoJJNWCXgmPnOuZulayUXoM+mImYszi
-         uYLLQ0u+OpUhk8T1znECEVfQk0s5mK8LVsHxXpxRdJ3kLiF3hCERec/C7oHhbIY/4spI
-         tU4qINq6RfxcSVX4mFv7xR1FeOoRvczJALpxMT8aapP8uf0Osx0S+V26Bl5vpGhUgmOb
-         UqYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791786047; x=1792390847;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791786050; x=1792390850; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ilUEX6P5SXdjM30xs4/YiTd6UosFP69OH0rOy8mkCZ0=;
-        b=CgTAK8qwBP5O7cxTGvD5Hi85CoLyFRbMscJTpAgUdrAci2PrApazBKjhJ2LqMBU4vD
-         2IgKZ4NmiZ+Im/b8hI1SZatPnCxHdSDQbhiokRPKt7Sw4F4y9kINkE88Op4R2VPQ4TCm
-         6r9OksFCzgO4MWQRSjI5Dann982B2BkCFgFBg5bM3O4lh36ssWZ//rNsCDUVeFOH083A
-         EP4CJg9dUqvBbgrQ5Siu/Xy7xFBm9WIMINdJhN1u3/I2L1r0nX8dlaRGp+uxCTULnG4y
-         SX3vT5Lb+bhoE7+5EcPHqc2bh9PLUDsGZtaeW+vuYtS+87tU0396AtsJ76P9kV8ufcgb
-         rXBA==
-X-Forwarded-Encrypted: i=1; AKwUvByaLcYD7awqoxvCrVQR5x6NEtafsl3sybNw1qe6YJ9SkOSFDCAT2A3CzAA8+1LZNO8z6qD8/1EDXTTm+iw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGgShdG7r+8gDrYtIRJNLB1mIfjhbIdawbIXuqctovBthKN98U
-	5brPY5d8DhKtmzZvfCi42CPHZ7zvjhM8a4mXu7YPnFKt1KY9AOGTsAzE11nh/g==
-X-Gm-Gg: AYBFou3iwuABN4bSOhpvEp8iOQu+nkU3rI8AvLlsvpX9s+ORhEC+wsXpLezneVtkBKQ
-	0fTmHK5SJg6IkxIMYwTb4QcZqYYSAPz+OclIu1elNt3Bc+zd/4+B3PhZ10Ptqg4FkqEQ9Aca6JM
-	urH89o0As6d3syc8CIgBiAZ0OJ4xFgFaY/e535Czafww7vWQqAwQ1S+bbZYgQZu20tS1XQo+s9y
-	taLvWqIXWwgdayVAmCcGLe156wcjUIt83D3I+oyotkbwKdqJZ/QOjcUYTls7r4zhY8NwHFXG4zA
-	39FJ2hZ3FEgN3tk4912TvvpOEisYN09OJkXdVHk/QGqgLKaoF/Sji0DIQVSBssy6jGWi6G/CPv7
-	Orrp+xs8QGqFgdqqSv+/mWp2ghZ4r42Y01BFHRh+8PUv3MN+jlpnL8dFRZMvq2ZvU4C48l5TFSc
-	+nRDRy8vO59Z9Wyl01QiUJ8j+keO/wlXbPM6f3YL2HKarIylIyAl0uIWnL10lORaxxGJUpHR06+
-	3lvOZPVOh8=
-X-Received: by 2002:a17:90b:1e47:b0:3a4:ee64:b82c with SMTP id 98e67ed59e1d1-3ab3b06bb4bmr6635992a91.66.1791786046779;
-        Sun, 11 Oct 2026 23:20:46 -0700 (PDT)
+        bh=AbHsI6frsHIB41psCPxLJ9ys+iCKk7bXzIuJcw6lvTw=;
+        b=lIqlz2a0ewTWkLFUyeAGwJ/iHw5z4RyRLv6AvnatjX4QVlsvGgCSK/0FWzyxbjd9kK
+         i+ZxYNcNePGwEYN7aJ7RH4eYV1MY9IleRp+vz5yXF5/urPmAnUFmS/kxOY81Ixxnrwjh
+         wgzlS50cBk1d8BHJMbskRTxrIQzzmZnXe+qGhFdnREcKGvZksN+dOMGSZlYFo6gkS16M
+         k1kQ+be4TJZ2cnktY403AJat8/NbaeFWNZifCZm4sCt18ZvqCbCjiSx01E6kMr/AbKX1
+         pjw08YKsBjO2XdDl1SpwKgDyt8TytvdMs41OP6T9kDb4Qs14mKOG1gjBjC++HTkq/2U2
+         kGqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791786050; x=1792390850;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AbHsI6frsHIB41psCPxLJ9ys+iCKk7bXzIuJcw6lvTw=;
+        b=RGO0TNwpXrnIcdEvDqBfi/t05ISE9JMbnQkhkzME+44G3nMLwWcey8mdqn4nmnNEwi
+         XX93xsUpxGBRt0YXB6tm8kjDVlto8y3Y/rmXqs0yYZrrTnPoOHkJsBFLf/GTCNmkr2mV
+         EkEikVNDzErRtO8ky2rKvcd1Z5LT9vEsFCyWT13irSRnpKpW3l+jnQcwRxAx+KM1QI1T
+         G9pKIgwWUPIzVOk/DG5gdBJNgK8F2HI8ZLjM6CCMIR3eiSzwGi67lWtsixWPJTpDOdbg
+         QN92EO6Z+XMSrqWuCjvfE7OoZtZ1Hfi+867B3RMgA/8azXGrTEKN79UPS+FjFeJyGBwa
+         NeHw==
+X-Forwarded-Encrypted: i=1; AKwUvBxgIZw0uUYJObbbmNx3m30OJvxXt3DjIw6wfpfj7Wqt8Gi+Q4GuZreGup3m0fmvxksJFCZpaLn7tOZXp54=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpmoh43/3EBNAdIgxD2MbsKavlrWTFEcIY9xSNfI4cNOKITeaz
+	QL+dbF7qEgen7HYOcv7lg6B5MIvDCS2BM+n4D9Uze3GJU3P536jJIsCa
+X-Gm-Gg: AYBFou15MICd1cEdAMPn4TYP+Wj6i6/Jjv4RxHqybEUHhInThuQXl7701T6agg5fR9E
+	g9PbiKl/I27DO7KE0e4WTRs8Sfq3fGCL4WK69M3UP7sVzcmzmX2INgjJr4sdAM6mGMsOjQaAXtp
+	6YSGwriyIMZVn2pS5ysBCLbYsVakd9LkQ+AyC11N8Wx7IPOfkNzMQTEGF9uMuPIEYFe0B/8oahy
+	qQWW/AonebnUCupRzYO4z8QcaXgveCWOWjqlIuQdD7510h99U8Xl5ctz5gia7M/oiMcLbh8ddR/
+	wsyhXh0K3kJ4xBj5qNaK9zEAO+yxdbVVqBQIgScV+0cKv8CMhtScYCeTGgIpEuJKM8NtKn8sSU9
+	QHG9ZoaTkEBi30H1uNhWZgJ0l3ZkZkL7FzBAZ/+Y1Mfa02X1C5Xhid/kMaYCPOdbxqL8hJH5KvP
+	i3qV3Q4mukPGX9+Biw8ciDERODWQzYH7aOonFMc4fUKckX6GIlTKjXc4T+3QKcTexxAYpZodG0J
+	FBbio46x7LNEHABBeyC/Q==
+X-Received: by 2002:a05:6a21:3297:b0:3de:463c:7fcd with SMTP id adf61e73a8af0-3e16baa6e51mr6873235637.4.1791786049787;
+        Sun, 11 Oct 2026 23:20:49 -0700 (PDT)
 Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d93c2c75sm3990091a12.0.2026.10.11.23.20.44
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d93c2c75sm3990091a12.0.2026.10.11.23.20.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 23:20:46 -0700 (PDT)
+        Sun, 11 Oct 2026 23:20:49 -0700 (PDT)
 From: Zhan Xusheng <zhanxusheng1024@gmail.com>
 X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 To: Namjae Jeon <linkinjeon@kernel.org>
@@ -64,10 +66,12 @@ Cc: Hyunchul Lee <hyc.lee@gmail.com>,
 	ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Zhan Xusheng <zhanxusheng@xiaomi.com>
-Subject: [PATCH 0/2] ntfs: enforce the encrypted-file policy on the read paths
-Date: Mon, 12 Oct 2026 14:20:38 +0800
-Message-ID: <20261012062040.3826828-1-zhanxusheng@xiaomi.com>
+Subject: [PATCH 1/2] ntfs: do not read ahead encrypted files
+Date: Mon, 12 Oct 2026 14:20:39 +0800
+Message-ID: <20261012062040.3826828-2-zhanxusheng@xiaomi.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261012062040.3826828-1-zhanxusheng@xiaomi.com>
+References: <20261012062040.3826828-1-zhanxusheng@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,37 +82,47 @@ Content-Transfer-Encoding: 8bit
 
 From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-EFS-encrypted attributes are refused with -EOPNOTSUPP in exactly one
-place, ntfs_read_folio(), because decryption is not implemented.  Two
-read paths get there without passing that test and return the raw
-on-disk ciphertext instead, so the same read returns either ciphertext
-or -EOPNOTSUPP depending on which path serves it.
+ntfs_read_folio() refuses EFS-encrypted files with -EOPNOTSUPP because
+decryption is not implemented.  ntfs_readahead() has no NInoEncrypted()
+test and passes them to iomap_readahead(), which maps the runlist and
+fills the folios with the raw on-disk ciphertext.  The folios are
+marked uptodate, so the read that follows never reaches ->read_folio
+and returns ciphertext instead of -EOPNOTSUPP.
 
-Patch 1 is readahead, which marks the folios uptodate so ->read_folio
-is never called.  read(), mmap(), splice() and fadvise() all populate
-the page cache this way, so one test closes all four.
+ntfs_read_locked_inode() sets NInoEncrypted() and NInoNonResident() for
+a non-resident encrypted $DATA attribute and rejects the
+encrypted-and-compressed combination, so none of the three existing
+conditions fires.  read(), mmap(), splice() and fadvise() all populate
+the page cache through readahead.
 
-Patch 2 is direct I/O, which bypasses the page cache entirely and has
-no such backstop.
+Skipping readahead leaves the folio unpopulated, so the read falls back
+to ntfs_read_folio() and gets the intended error.
 
-Both commits are in v7.1.  I have not added Cc: stable; returning
-ciphertext rather than an error is a correctness bug but not a
-privilege boundary crossing, so that call is better made by the
-maintainers.
-
-Found by reading the code.  I have no EFS-encrypted NTFS volume, so
-there is no reproducer; the paths were traced in the source.
-
-Zhan Xusheng (2):
-  ntfs: do not read ahead encrypted files
-  ntfs: reject direct I/O reads of encrypted files
-
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
+---
  fs/ntfs/aops.c | 7 ++++---
- fs/ntfs/file.c | 4 ++--
- 2 files changed, 6 insertions(+), 5 deletions(-)
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-
-base-commit: d6d3455d8751854e0d1820f14184682e23ac4475
+diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
+index 517d9a1563e7d..ad781674fef1a 100644
+--- a/fs/ntfs/aops.c
++++ b/fs/ntfs/aops.c
+@@ -240,10 +240,11 @@ static void ntfs_readahead(struct readahead_control *rac)
+ 	};
+ 
+ 	/*
+-	 * Resident files are not cached in the page cache,
+-	 * and readahead is not implemented for compressed files.
++	 * Resident files are not cached in the page cache, readahead is not
++	 * implemented for compressed files, and ntfs_read_folio() refuses
++	 * encrypted files because decryption is not implemented.
+ 	 */
+-	if (!NInoNonResident(ni) || NInoCompressed(ni) ||
++	if (!NInoNonResident(ni) || NInoEncrypted(ni) || NInoCompressed(ni) ||
+ 	    NInoWofCompressed(ni))
+ 		return;
+ 	iomap_readahead(&ntfs_read_iomap_ops, &ctx, NULL);
 -- 
 2.43.0
 
