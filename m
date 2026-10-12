@@ -1,336 +1,210 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011070.outbound.protection.outlook.com [52.101.52.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2CBE36E477;
-	Mon, 12 Oct 2026 06:09:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791785345; cv=fail; b=VQ3ShBfyAzX5mOc4xIQUKn89+bpl2vYKFRvF9eXdqzKJ+VLpcSILxNfhx8C9pa3ORLR45nkVD0XEN8NerMLdyDE2VVgBt2XvQv4pSNEa21ZonSFWdXcjL8oWXGJ297md7wRyLkNMcSE5UKizvDolJLCamUx9OBwQ8ZC8fqV8V2A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791785345; c=relaxed/simple;
-	bh=LmjosT6kLaPczGdyy1VlL1z22GYmTRa4zmhYXZk4MCY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jjFbm+9tPf9QPheV2lEWGc3qdpyjzdpi1gbFjWQ2FdRtlYlr03SZtMI36psvjGavGVLd9rMz+4CAi+v6MKtFPfYgMy7AZHuswmk+9ggEe236OQq2Pru79PU2kKAdkL2EX03I+rPp1zhS3RdvJgA6kfE7PlOff+53rDjJubLV+d4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=RbaYzL5L; arc=fail smtp.client-ip=52.101.52.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1B93644A3
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791785426; cv=none; b=sDryEbHt5CK9x2gj98KNEFywuEUeq8Gd77kKNGDroCKMIvRgitY9/nDNcdr7H91H3RycNbqX3gTNzxt/TvL02A6bLvjx3gO+ipeGWhdlWpSUWienYSSHaw0XovtENjXuikvzTRft0/IpOXB0ItDjQXLt2JV7F868grdwQDV593o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791785426; c=relaxed/simple;
+	bh=A3al1tmuV0A0Vdqcy9xJt/695r+kavRLV9q//wj6SQc=;
+	h=From:To:Cc:Subject:Content-Type:MIME-Version:Date:Message-ID; b=pykzM63cfO9jGukTsVG07XF4rn5n7FSfEPochmwoQBKY7YEtZV+Rumqmdkn6eY44il75egw1PAQwzJKtgrTRwKpCA15mIA7795L4LsUggf29G0xXFrF9vrYdkTw8jAkcp7uelIGSr2MHsvXA1s2ajcTVupAsoUVUI1BIw5KDuSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I6WwLmoN; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="RbaYzL5L"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wtqDKiFyX4dzkUpSZV37BkDLT2yTPlU6kUTzd0Bdks6vFNLMnLWDru0DqbciAr9jJHd2RNVHyfZH3mXNUgAlbMUIATUQVmzzv5J3dJ/k60TvM0wyIQ0DDQfQNC53QWIvYYXqaIXVvS+OxaanB8Hi7JhqOY12lR/P5Gh8N/wVVQWEyjRHk999mBTNFMWAfGZ4A+Bw2bA9bqvNx0bFxFAzwyzWs9jTTP8Vxpy9LZ+KA9INJz7K2ConTK1a6Rad9JimodvSighHBVGlaRqhIj2JP52sX4vXs6F+iuitA0oTaJ51BlVz5kU4aTC69BIJ2AOjdTR91/a0cY5Wh5MBIojEEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tFDtviAjCI6Fm2/ci961TLfayoagnPWvlihuuzr/lfU=;
- b=vHej2989CbFUCOSlSk+S7zofGeOTKCctipZY1qPuCz7Uhhr+U74yGqQHfPJZ6hs0WtR2eaq2yyqoPWD5fvfbvv/a9sTUZpXW8mVkUiDV25cGG3TIohsE/tUi1XNYzswNIoKLakoDxfYQXCURVSg7hpwXWDeBQmhJRXcWQ16IEao2it/dVUu+XokRcvgReWHBFgoeR11mlIVePjQvwSi8PXxsWGxkoTi+JOj13U6fNk4Rh35on8aTTKOptBMCqxThT3tUC/fpIIT7Qk0gzUdGYgkbhTKm9Lgbdzphh6nwgsbavt78RneK8fSKpA60Q1wxif8QILnUrL4Ml1a06c7EJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tFDtviAjCI6Fm2/ci961TLfayoagnPWvlihuuzr/lfU=;
- b=RbaYzL5LTSARrDV/EaZgk+YBVW5ctgtWHenrIYWbHHy+IKI5ViTjvFuuDk57gXm/NezAzYvzJoAXSd+Adm4AVtEw5uQoYuJx7RsPKzvno/HwZ3wZMU1n/pLtM3squIPlC0fdvUOjuA3jnjeUC7Do2y7dS9erh4aUfrZWzHiOBrY=
-Received: from BN9PR03CA0395.namprd03.prod.outlook.com (2603:10b6:408:111::10)
- by EAYPR12MB141103.namprd12.prod.outlook.com (2603:10b6:303:300::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 06:09:00 +0000
-Received: from BN2PEPF0000A804.namprd02.prod.outlook.com
- (2603:10b6:408:111:cafe::51) by BN9PR03CA0395.outlook.office365.com
- (2603:10b6:408:111::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 12
- Oct 2026 06:08:59 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF0000A804.mail.protection.outlook.com (10.167.245.168) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 06:08:59 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 01:08:53 -0500
-Received: from localhost.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53 via Frontend
- Transport; Mon, 12 Oct 2026 01:08:51 -0500
-From: Baorui.Liu <baorliu@amd.com>
-To: <rafael@kernel.org>
-CC: <lenb@kernel.org>, <robert.moore@intel.com>, <linux-acpi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <acpica-devel@lists.linuxfoundation.org>,
-	Baorui.Liu <baorliu@amd.com>, kernel test robot <lkp@intel.com>
-Subject: [PATCH v5] ACPI: button: Report wakeup key only for power button wakeups
-Date: Mon, 12 Oct 2026 14:08:47 +0800
-Message-ID: <20261012060847.486-1-baorliu@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260922024232.816-1-baorliu@amd.com>
-References: <20260922024232.816-1-baorliu@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I6WwLmoN"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-398b3c37877so673144a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:10:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791785424; x=1792390224; darn=vger.kernel.org;
+        h=message-id:date:mime-version:content-transfer-encoding:content-type
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VV0FhVrq0sGfMbGLK+HF2R3XMkBDiQek25otMQXj59Q=;
+        b=I6WwLmoN9he7sPSZt2uGN5RHX45q2X4i10kKyCHzWDGZznGu8/DJ2oZ87u4ybLRKE9
+         3YUHTKEV7CLVlTmw6Df3Og6VllyEwfFsJT/uX9hR/tNO0bdU/G2N5E89OPlv5RCnhjY5
+         sbIENHtaZ8vhmcDgq/+RYpE8CyVmkc+T5paEss3XATIFUfJe8jls8LOPUBpuaeVjENyl
+         69288WgL13zfnhh6THXQEUPjxIt5Q6tDYcDokhrQyVtFhP5oS2UAojAn7TDXQAiqM1Ue
+         Nz2l2TVA4joAOb7WA4ChlyoxbEyquJ7ygpCO3uu6QUlg8Zh8nCxrbcqTh5NyWBagSPLz
+         6ilQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791785424; x=1792390224;
+        h=message-id:date:mime-version:content-transfer-encoding:content-type
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VV0FhVrq0sGfMbGLK+HF2R3XMkBDiQek25otMQXj59Q=;
+        b=dkMr2wdbZvSnZ+a9XR24yH9QJh8FBy5ltClBsBw1ebZs9B41FMMgwK2+BspryAralF
+         Ofti7/7Rwsru11fDTLwlRW44axxkzocKw8twcykys8xzj0WDezi/VukgHzhu8hbRQ8oK
+         SyXl59FZ0UQYg+YrNWhFS31kMZxkNv+iqrF+XOHhTupOaH3IWAMbFmMbbz19hybfTI1L
+         aKekH0h9P+Bithe7uJbjSJV+mcrdQFmqw10+F4VsyK64SP5nkZ7faOzl0NdJdiPa8p9X
+         Cn2bbg5qksQiO/k0BeDIkThtYtPyc7agv3hJO6hx7i4CXy9UGjOgVlaRONtOmoffkFUn
+         W37Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx+z6Jgdb1U4AOlmfBkHAXnq/to8l3cZCyUuPzEypwJYKkSZkApuYE30AND0Uk3a5cY2jbjyMq2JrqYEKs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKR1oQ2+RbMUfUZPdgAwCUdSgzcu7CgyjK52AQbQWjw5MNKwBLI
+	0dcyuZv7G6QcfkuOYJyGdmzV0Jo/5/RJ7+r8Ac5uSmODu/LZeR3UBPQS
+X-Gm-Gg: AYBFou2ZqnPWw302dZXX8mE3f9/rS5c9ou6tYlrgJlbMHQYSyU/h3OqmOkXWhcIaVwJ
+	mTaJ4dfJCtyJ5XRdr2ZFFe98Y2ZQFl+/ygELRtjzF+oJzVKmtb8gYjKSAmbweIG+UCPD3RYhZV0
+	I5XtEA6LC9K6WgYAFGdOhng8vLewyu09TdJlg599anDtXI4g1eAGlPHPI7KNjyv5R8aumcYzeMw
+	5PV8FDZ0acbeA6p0On72CJ4+jwFSfLJKyWBRW6/40+x/skU06aWwbSBy02Mf4u5FvM3/FBGQfUl
+	t2WW5cZAWw1VdGBLQLw6pNmVqZ+ybKx40LZjWcxuYr4p8m8duQkhRH1gamVLMJU8upi33M9QObC
+	6GaVI9V3ejdM2mvIEhQz911izEJsISXjlyp2Z6D5ksT8At35CQCrmgkAoby0sKTRnLnhBpwLYP3
+	68IAGV51wwKQMoPBd7PPU3ZODOdWR3S53rGR3xLUjkYecyZDd96t7v4tkum+yuxqIMFbE8miF+4
+	Sl2co5W48JBBiEkgFS4YP7IMpUutsQm6iay5XfY6scfQzdGb39bjLjhhmTj19JdsOcoXYWaMw==
+X-Received: by 2002:a17:90b:4b85:b0:3a0:7261:d58e with SMTP id 98e67ed59e1d1-3ab3ab60609mr6810362a91.22.1791785424078;
+        Sun, 11 Oct 2026 23:10:24 -0700 (PDT)
+Received: from [127.0.1.1] ([121.165.170.166])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab39238608sm15480827a91.17.2026.10.11.23.10.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 23:10:23 -0700 (PDT)
+From: khaliforce <kforce@gmail.com>
+To: Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org
+Subject: [PATCH] serial: 8250_dw: retain programmed timing for BUSY waits
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A804:EE_|EAYPR12MB141103:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8aa2024c-f4a9-4fae-2a56-08df28274e5d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|6133799003|10067099003|22082099003|18002099003|260925022911599003|260925021311599003|260925021911599003|13003099007|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	qqsMGMkmzA0k57izhIPjz0aRe2w22AsSIJQwxtZoxmn6pAhg+wKZYasWMbpNFQecCy+3EcUYkZfR9aQmbRVdAfxMjtVDuUbfsUg/kToYirk3mmuauMLZ76djdvQx/oASOTTTqFenFQRhHAOVIdC95uw6Oj2zN9CyvOhSIV+BeTqPT+yRGwbJA/XGDddvY9H2a7bNRP452Bgcf5sJBs3yyf6d+APyoEXOGhw3a1VhOcJH2DRV3M4wBkojfSVHYcmnq64dPY7okB3b5Mu0ty5yPnhPJhbFBNWXDoW3OGmvtgqhhdUIQJZ8zpFFKoccy+jHJw6F/eNRsDsYbMkrfxiKNnwlqUxYE0kKiwWE0GYmVLaMKDkKkml2mzTTsAQzgx6d33vd5XD4b2tbn7JBljRkXPWvd3PcXOTgLgGNmcSYH7H9TV9d5H0PVJdPjlRnhWnrTr05X7XMykfzS8hbeQFUHh3bZlvhdePmnKXvqsxtyRpn2OFrjvAk+yoZjeLiUFUn9TYxqZYAMhlGxJIhHF+KIjazP0zD9+3bamUEJuuqUzMalNyU0Arf+mycQmNMg/LZTfyf0iAdXJEdyHJgmpjwWIl9dvxlBHnDdvYpuZzGyj9tLgGGSCoMQbmpuF4mCOGtBx41M5tHoIdxXdOnQU0sndwp2EnWK3U13vVbteJWeF0=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(6133799003)(10067099003)(22082099003)(18002099003)(260925022911599003)(260925021311599003)(260925021911599003)(13003099007)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	VcHQgi+MYsLWUUpRl/k8YgFi3x04/J96YmkQAmt85qEoRp+E+Vori0/+VWA+HsFM4YkID/uaoBR/FAcf54A/TdO4c5T2i59Vc94SPQKnNSGrIfanTWo6TZ86Qx0nrNrr/mVX5p+dY3ttFGy8TtnsTB/7/bV8JdLdjt6Zq6i4kX0kD3XT8ckrxdIs2Dz+S/fBLsuQVrGKvxrNNBY4DNBFNfKRs8Qj1lSaWw4KDdnS/7Yq+hK1lc4mm9W5FhrLJaqJwMCuI5lRWQ/LxGP8SelGCeJPfhbgdUSuJG5ZcUSqCsLZ+prsx0RF1Lox6oZVYr7HYfbSaEeI5udj3SsB/E72z62xBscQ8/UQzaLlFN05HfwFOOqFB59L7J6ymmYViXpuhOm7iVfO2ZNAHLDHS7Cy3GRrrljYMuX5/YBsRQPj59xL8SQVYErvCQCELOHy7y21
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 06:08:59.3016
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8aa2024c-f4a9-4fae-2a56-08df28274e5d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A804.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB141103
+Date: Mon, 12 Oct 2026 06:10:20 -0000
+Message-ID:
+ <1791785420.8010663.945898876521967.uart-busy-frame-time@gmail.com>
 
-The ACPI button driver reports KEY_WAKEUP from the Power Button input
-device to let userspace know that the system was resumed by a power
-button wakeup.
+Baud changes update frame_time before the programmed divisor changes.
+A switch to a faster baud rate therefore shortens the DesignWare BUSY
+wait.
+The wait can expire while a frame at the old baud rate remains active.
 
-However, reporting KEY_WAKEUP from generic system resume paths can make
-userspace observe a Power Button wakeup even when the system was resumed
-by a different wake source.
+Use the programmed frame duration for FIFO and BUSY waits.
+Account for UART clock changes.
 
-This is reproducible on an AMD Android 15 Xen guest. With a kernel
-without this fix, a non-power-button S3 resume:
-
-  echo mem > /sys/power/state
-  xl trigger android s3resume
-
-makes the Power Button input device report KEY_WAKEUP. The same test on
-a kernel with this fix no longer reports KEY_WAKEUP from the Power Button
-input device.
-
-Track whether a power button event/notify is observed while the ACPI
-button device is suspended, and report KEY_WAKEUP on resume only in that
-case.
-
-When the fixed power-button status bit is set during early S3 resume,
-clear it to avoid a deferred KEY_POWER delivery to userspace, and mark
-wakeup_pending so button resume can still report KEY_WAKEUP. Also clear
-wakeup_pending before setting suspended to avoid a race with a power
-button SCI during suspend entry.
-
-Declare acpi_button_power_wakeup_pending() with IS_REACHABLE so that
-CONFIG_ACPI_BUTTON=m does not leave an unresolved reference in built-in
-sleep.c.
-
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/r/202609290454.LJrhMCb3-lkp@intel.com/
-Signed-off-by: Baorui.Liu <baorliu@amd.com>
+Fixes: a7b9ce39fbe4 ("serial: 8250_dw: Ensure BUSY is deasserted")
+Signed-off-by: khaliforce <kforce@gmail.com>
 ---
-Changes since v4:
-- Fix LKP build ERROR when CONFIG_ACPI_BUTTON=m by declaring
-  acpi_button_power_wakeup_pending() with IS_REACHABLE().
+Compared the complete patch off/on on MangoPi MQ Pro UART0.
+Kept other port patches, kernel options and DTB identical.
+Tested BUSY changes from 9600, 1200 and 300 to 115200.
+All 11 paired changes fail without the patch and pass with it.
+Each trial returns 64 matching loopback bytes.
 
- drivers/acpi/button.c | 46 ++++++++++++++++++++++++++++++++++++++++++-
- drivers/acpi/sleep.c  | 27 +++++++++++--------------
- include/acpi/button.h | 13 ++++++++++++
- 3 files changed, 70 insertions(+), 16 deletions(-)
+ drivers/tty/serial/8250/8250_dw.c    | 20 ++++++++++++++++++--
+ drivers/tty/serial/8250/8250_dwlib.c |  4 ++++
+ drivers/tty/serial/8250/8250_dwlib.h |  4 ++++
+ 3 files changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/acpi/button.c b/drivers/acpi/button.c
-index cdbb1023a8ee..c07de417df5d 100644
---- a/drivers/acpi/button.c
-+++ b/drivers/acpi/button.c
-@@ -191,6 +191,7 @@ struct acpi_button {
- 	bool last_state;
- 	ktime_t last_time;
- 	bool suspended;
-+	bool wakeup_pending;
- 	bool lid_state_initialized;
- 	bool gpe_enabled;
- };
-@@ -397,6 +398,34 @@ static void acpi_lid_forget(struct acpi_device *adev)
- }
+diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+index 51d026f20825..03be503bcef0 100644
+--- a/drivers/tty/serial/8250/8250_dw.c
++++ b/drivers/tty/serial/8250/8250_dw.c
+@@ -17,6 +17,8 @@
+ #include <linux/device.h>
+ #include <linux/io.h>
+ #include <linux/lockdep.h>
++#include <linux/math64.h>
++#include <linux/minmax.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+@@ -131,6 +133,9 @@ static int dw8250_idle_enter(struct uart_port *p)
+ 	struct dw8250_data *d = to_dw8250_data(p->private_data);
+ 	unsigned int usr_reg = d->pdata ? d->pdata->usr_reg : DW_UART_USR;
+ 	struct uart_8250_port *up = up_to_u8250p(p);
++	unsigned int frame_time = d->data.frame_time ?: p->frame_time;
++	unsigned int saved_frame_time = p->frame_time;
++	u64 scaled_frame_time;
+ 	int retries;
+ 	u32 lsr;
  
- /* Driver Interface */
-+/**
-+ * acpi_button_power_wakeup_pending - Mark fixed power button wakeup pending.
-+ *
-+ * Used when the fixed power-button status bit is observed and cleared during
-+ * early S3 resume, so KEY_WAKEUP can still be reported from button resume
-+ * without delivering a deferred KEY_POWER to userspace.
-+ */
-+void acpi_button_power_wakeup_pending(void)
-+{
-+	struct acpi_device *adev;
-+	struct device *phys_dev;
-+	struct acpi_button *button;
-+
-+	adev = acpi_dev_get_first_match_dev(ACPI_BUTTON_HID_POWERF, NULL, -1);
-+	if (!adev)
-+		return;
-+
-+	phys_dev = acpi_get_first_physical_node(adev);
-+	if (phys_dev) {
-+		button = dev_get_drvdata(phys_dev);
-+		if (button && button->type == ACPI_BUTTON_TYPE_POWER)
-+			button->wakeup_pending = true;
+@@ -139,6 +144,12 @@ static int dw8250_idle_enter(struct uart_port *p)
+ 	if (d->uart_16550_compatible)
+ 		return 0;
+ 
++	if (d->data.frame_time && d->data.frame_time_uartclk && p->uartclk) {
++		scaled_frame_time = (u64)frame_time * d->data.frame_time_uartclk;
++		scaled_frame_time = DIV_ROUND_UP_ULL(scaled_frame_time, p->uartclk);
++		frame_time = min_t(u64, scaled_frame_time, U32_MAX);
 +	}
 +
-+	acpi_dev_put(adev);
-+}
-+EXPORT_SYMBOL_GPL(acpi_button_power_wakeup_pending);
-+
- int acpi_lid_open(void)
- {
- 	guard(mutex)(&acpi_lid_lock);
-@@ -476,6 +505,9 @@ static void acpi_button_notify(acpi_handle handle, u32 event, void *data)
+ 	d->in_idle = 1;
  
- 	acpi_pm_wakeup_event(button->dev);
- 
-+	if (button->type == ACPI_BUTTON_TYPE_POWER && button->suspended)
-+		button->wakeup_pending = true;
-+
- 	if (button->suspended || event == ACPI_BUTTON_NOTIFY_WAKE)
- 		return;
- 
-@@ -498,6 +530,11 @@ static void acpi_button_notify_run(void *data)
- 
- static u32 acpi_button_event(void *data)
- {
-+	struct acpi_button *button = data;
-+
-+	if (button->type == ACPI_BUTTON_TYPE_POWER && button->suspended)
-+		button->wakeup_pending = true;
-+
- 	acpi_os_execute(OSL_NOTIFY_HANDLER, acpi_button_notify_run, data);
- 	return ACPI_INTERRUPT_HANDLED;
- }
-@@ -507,6 +544,12 @@ static int acpi_button_suspend(struct device *dev)
- {
- 	struct acpi_button *button = dev_get_drvdata(dev);
- 
-+	/*
-+	 * Clear wakeup_pending before marking suspended. Otherwise a power
-+	 * button SCI between the two stores could set wakeup_pending and then
-+	 * be overwritten here, losing a real wakeup.
-+	 */
-+	button->wakeup_pending = false;
- 	button->suspended = true;
- 	return 0;
- }
-@@ -523,12 +566,13 @@ static int acpi_button_resume(struct device *dev)
- 		acpi_lid_initialize_state(button);
- 	}
- 
--	if (button->type == ACPI_BUTTON_TYPE_POWER) {
-+	if (button->type == ACPI_BUTTON_TYPE_POWER && button->wakeup_pending) {
- 		input = button->input;
- 		input_report_key(input, KEY_WAKEUP, 1);
- 		input_sync(input);
- 		input_report_key(input, KEY_WAKEUP, 0);
- 		input_sync(input);
-+		button->wakeup_pending = false;
- 	}
- 	return 0;
- }
-diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
-index 132a9df98471..30e268987e37 100644
---- a/drivers/acpi/sleep.c
-+++ b/drivers/acpi/sleep.c
-@@ -22,6 +22,7 @@
- #include <linux/syscore_ops.h>
- #include <asm/io.h>
- #include <trace/events/power.h>
-+#include <acpi/button.h>
- 
- #include "internal.h"
- #include "sleep.h"
-@@ -504,12 +505,11 @@ static void acpi_pm_finish(void)
- 
- 	acpi_resume_power_resources();
- 
--	/* If we were woken with the fixed power button, provide a small
--	 * hint to userspace in the form of a wakeup event on the fixed power
--	 * button device (if it can be found).
--	 *
--	 * We delay the event generation til now, as the PM layer requires
--	 * timekeeping to be running before we generate events. */
-+	/*
-+	 * If woken by the fixed power button, provide a wakeup event on that
-+	 * device. KEY_WAKEUP input reporting is handled by the button driver
-+	 * via wakeup_pending; do not synthesize KEY_POWER here.
-+	 */
- 	if (!pwr_btn_event_pending)
- 		return;
- 
-@@ -626,14 +626,11 @@ static int acpi_suspend_enter(suspend_state_t pm_state)
- 	/* Reprogram control registers */
- 	acpi_leave_sleep_state_prep(acpi_state);
- 
--	/* ACPI 3.0 specs (P62) says that it's the responsibility
--	 * of the OSPM to clear the status bit [ implying that the
--	 * POWER_BUTTON event should not reach userspace ]
--	 *
--	 * However, we do generate a small hint for userspace in the form of
--	 * a wakeup event. We flag this condition for now and generate the
--	 * event later, as we're currently too early in resume to be able to
--	 * generate wakeup events.
-+	/*
-+	 * ACPI 3.0 (P62): OSPM should clear the fixed power-button status bit
-+	 * so the event does not reach userspace as KEY_POWER. Remember that a
-+	 * power-button wake occurred so button resume can report KEY_WAKEUP
-+	 * and acpi_pm_finish() can emit a PM wakeup event.
+ 	/* Prevent triggering interrupt from RBR filling */
+@@ -156,8 +167,10 @@ static int dw8250_idle_enter(struct uart_port *p)
+ 	 *
+ 	 * FIXME: frame_time delay is too long with very low baudrates.
  	 */
- 	if (ACPI_SUCCESS(status) && (acpi_state == ACPI_STATE_S3)) {
- 		acpi_event_status pwr_btn_status = ACPI_EVENT_FLAG_DISABLED;
-@@ -642,8 +639,8 @@ static int acpi_suspend_enter(suspend_state_t pm_state)
++	p->frame_time = frame_time;
+ 	serial8250_fifo_wait_for_lsr_thre(up, NULL, p->fifosize);
+-	ndelay(p->frame_time);
++	p->frame_time = saved_frame_time;
++	ndelay(frame_time);
  
- 		if (pwr_btn_status & ACPI_EVENT_FLAG_STATUS_SET) {
- 			acpi_clear_event(ACPI_EVENT_POWER_BUTTON);
--			/* Flag for later */
- 			pwr_btn_event_pending = true;
-+			acpi_button_power_wakeup_pending();
- 		}
- 	}
+ 	serial_port_out(p, UART_MCR, up->mcr | UART_MCR_LOOP);
  
-diff --git a/include/acpi/button.h b/include/acpi/button.h
-index af2fce5d2ee3..c909c00664c7 100644
---- a/include/acpi/button.h
-+++ b/include/acpi/button.h
-@@ -15,4 +15,17 @@ static inline int acpi_lid_open(void)
- }
- #endif /* IS_ENABLED(CONFIG_ACPI_BUTTON) */
+@@ -167,7 +180,7 @@ static int dw8250_idle_enter(struct uart_port *p)
+ 		if (!(serial_port_in(p, usr_reg) & DW_UART_USR_BUSY))
+ 			break;
+ 		/* FIXME: frame_time delay is too long with very low baudrates. */
+-		ndelay(p->frame_time);
++		ndelay(frame_time);
+ 	} while (--retries);
  
-+/*
-+ * sleep.c is built-in and calls this helper. Use IS_REACHABLE so that when
-+ * CONFIG_ACPI_BUTTON=m the call site gets an inline stub instead of an
-+ * unresolved vmlinux link reference (0day/LKP ERROR).
-+ */
-+#if IS_REACHABLE(CONFIG_ACPI_BUTTON)
-+extern void acpi_button_power_wakeup_pending(void);
-+#else
-+static inline void acpi_button_power_wakeup_pending(void)
-+{
-+}
-+#endif /* IS_REACHABLE(CONFIG_ACPI_BUTTON) */
+ 	lsr = serial_lsr_in(up);
+@@ -188,6 +201,7 @@ static int dw8250_idle_enter(struct uart_port *p)
+ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+ 			       unsigned int quot, unsigned int quot_frac)
+ {
++	struct dw8250_port_data *d = p->private_data;
+ 	struct uart_8250_port *up = up_to_u8250p(p);
+ 	int ret;
+ 
+@@ -200,6 +214,8 @@ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+ 		goto idle_failed;
+ 
+ 	serial_dl_write(up, quot);
++	d->frame_time = p->frame_time;
++	d->frame_time_uartclk = p->uartclk;
+ 	serial_port_out(p, UART_LCR, up->lcr);
+ 
+ idle_failed:
+diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
+index 8859e66d2d71..d74ff203f904 100644
+--- a/drivers/tty/serial/8250/8250_dwlib.c
++++ b/drivers/tty/serial/8250/8250_dwlib.c
+@@ -39,8 +39,12 @@ static unsigned int dw8250_get_divisor(struct uart_port *p, unsigned int baud,
+ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+ 			       unsigned int quot, unsigned int quot_frac)
+ {
++	struct dw8250_port_data *d = p->private_data;
 +
- #endif /* ACPI_BUTTON_H */
-
-base-commit: 4a819ee5f2834330656d6ac168c4c8cf27fdeec2
+ 	dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
+ 	serial8250_do_set_divisor(p, baud, quot);
++	d->frame_time = p->frame_time;
++	d->frame_time_uartclk = p->uartclk;
+ }
+ 
+ void dw8250_do_set_termios(struct uart_port *p, struct ktermios *termios,
+diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
+index 1fe52332e774..5472c13ca92e 100644
+--- a/drivers/tty/serial/8250/8250_dwlib.h
++++ b/drivers/tty/serial/8250/8250_dwlib.h
+@@ -88,6 +88,10 @@ struct dw8250_port_data {
+ 	u32			cpr_value;
+ 	u8			dlf_size;
+ 
++	/* Timing for the programmed divisor. */
++	u32			frame_time;
++	u32			frame_time_uartclk;
++
+ 	/* RS485 variables */
+ 	bool			hw_rs485_support;
+ };
 -- 
-2.34.1
+2.53.0
 
