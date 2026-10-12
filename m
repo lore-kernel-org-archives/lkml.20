@@ -1,121 +1,158 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB5041A542;
-	Mon, 12 Oct 2026 11:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD42641F5F3
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:12:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791803531; cv=none; b=MiThqZE5RDuPYakW98LBppx/Bp1X1M7xH6d2h0svWhn8os44I7TDcQXKOnsq5kQh2b2APY7R7CDGYS9vbXze0M3ahxicL2SAyA8CrzzEs3WQL+xatJ1/N0xPU7kOBWqdvcMzP/WVl5hlehgxNi4ZDGmCEF0wJ6iZs1Ow5Pot9Mo=
+	t=1791803535; cv=none; b=I4oqzMgUYr26UV5ghEVmtbvGyBJd4pi1MoxPJrSyMB+diCRjWRadgYrB42NXYOWUB0obBeGxb7AB453P0CgpihTScsitFzUnvCL5aTxMWR3g7Sq9/RI5PEBFDIwmSrdxdIyH9MaiPkQ1NwSJQYDaTMCx8vbwQ/gPz2IfpamlQzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791803531; c=relaxed/simple;
-	bh=nZs3kj2lNaalH1+p3+RR3O6jeaNUBusYsGw6zgy3TYM=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=L3UnROqUlyi0AJsd85bTS7So8fJkIL2VgsQIgi7ttuNZX/b2X3UqpMng7+ayIzq0ldyqg6NWPBiZzNCHflnP6k2NcHWicFwAwFmdONHgRj46zuKKU6WQe02QIM9InNjZ6EQVYfbqvcRnHetSmnhyNPwsaBBMRroPPv5pWgQu4dE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=j78RixCl; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1791803535; c=relaxed/simple;
+	bh=9tKgi4nob0gWR6jL8cW6sSvoweRp2FvqFVGmLEAabvk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LhbwaFzoLTV+/PDl9fFk5A/UGNkHx0JH2VuMSRglsqAoDOENT3mchcKIGc1XXlzqwBdY3vGSf1ZLluJGJ2q1nILFgAhBmJFyDMKz73ySTTK+k/z2CAVi4AeRVbh9opZhkpvFtFOKR5PTvrn+JBo9ibl7hF8vnVQgdlKd0tqmSNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=eJLxshFX; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="j78RixCl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1791803470;
-	bh=nZs3kj2lNaalH1+p3+RR3O6jeaNUBusYsGw6zgy3TYM=;
-	h=From:To:Subject:Mime-Version:Date:Message-ID;
-	b=j78RixClS3ozVS2UXxJmzMEtNEAQSmCEM6wu7WWotzufIkOy7aBFS6ZrglaIySgOh
-	 c54KVy4AJlVGOmm9rfvpTT6B9gX06WTVdGnmvb6F0gMeNBngXIRJwSGQcQpZPhyXMU
-	 IX0hcasD09p/AZxKQnMtTFDNDBMHe2jEQLkayYLw=
-EX-QQ-RecipientCnt: 9
-X-QQ-GoodBg: 1
-X-QQ-SSF: 00400000000000F0
-X-QQ-FEAT: D4aqtcRDiqQnft7kyUuJbd/1GndRJklzmB5VJlBX//o=
-X-QQ-BUSINESS-ORIGIN: 2
-X-QQ-Originating-IP: KqBQrdTSqcq3t7jmzfl59pNSB+M2WPNNwagki+MOhVI=
-X-QQ-STYLE: 
-X-QQ-mid: lv3gz7b-6t1791803463t0f97a533
-From: "=?utf-8?B?V2VudGFvIEd1YW4=?=" <guanwentao@uniontech.com>
-To: "=?utf-8?B?RXJpYyBCaWdnZXJz?=" <ebiggers@kernel.org>, "=?utf-8?B?Y2hlbmh1YWNhaQ==?=" <chenhuacai@kernel.org>
-Cc: "=?utf-8?B?SHVhY2FpIENoZW4=?=" <chenhuacai@loongson.cn>, "=?utf-8?B?QXJkIEJpZXNoZXV2ZWw=?=" <ardb@kernel.org>, "=?utf-8?B?bGludXgtY3J5cHRv?=" <linux-crypto@vger.kernel.org>, "=?utf-8?B?V0FORyBYdWVydWk=?=" <kernel@xen0n.name>, "=?utf-8?B?bG9vbmdhcmNo?=" <loongarch@lists.linux.dev>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?VGlhbnlhbmcgWmhhbmc=?=" <zhangtianyang@loongson.cn>
-Subject: Re: [PATCH 1/2] lib/crc: loongarch: Use hardware unaligned load in CRC32(C) loops
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="eJLxshFX"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so14890775e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:12:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791803532; x=1792408332; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=F75F9HJtYHpGQDNYPN6c7t7CsTnjwZyQElA+GAGdfiI=;
+        b=eJLxshFXW66ujj/jUXKO15xOdtOFscSAK+pmJ2/+1NXsGcHUBQR29/z3ASxDTsccvO
+         mY7d2/ZnwtDkYW12WxhQHq65i53s7v4TnjwFmYz+PAa7Djc0epEJV3Brj3UnW5r1v4LA
+         hzZyVjyaO0aMEXQfdtTOsHAJSqRat0Om3IfRn6yIWy8doINC+cTJ38Rhh7nLVwM8HmIG
+         CLfbIA92w+QDrS3TNTnaGKDZqMZOOavlf5Bx2mBEc/qgtWwQD/ORXoTq9MAu3953eXAk
+         3LQRkmwvtK2Op6NJP95x1UtoJSc4arU+RKW43jrpEYaJlYgoMBi6f98AtldAVcWwrgvM
+         uHZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791803532; x=1792408332;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F75F9HJtYHpGQDNYPN6c7t7CsTnjwZyQElA+GAGdfiI=;
+        b=vG2f23OCFIDnBnm5oGItZK5/LznKl+4GxZ59ZPM++XKjjUMKwmBoLajfhrRU+IRbgk
+         FqyzF32wZ46IL0z1wm0gTinA6xVBzqLpDP4nGH1cwREksk79vsVe/vBnsgAzEjNxuwVC
+         wooCSWiqSlZJQIGIG6RKVh7U8kxWv6C9KWijwLXFcLzCfUrh1J8AKG+TCKg7iu3IhAvU
+         MHtP0/IWxbVxK4Xk61YnzBDzAwW7sJoOHDvHGZ+zJAaYR/cC5BmlRYC16uk4G/pCyqPa
+         w2WeW5r/P9wHxlRdNDOvInFVGTUwtrLvRlO9t9V4YM/Z+JxtDtUP0DZoX2ErRNkM9Zif
+         7jpQ==
+X-Forwarded-Encrypted: i=1; AKwUvByzdLNFdE0cjLJmnvmrYJQ/qcnRoTmJMO5i14HrsNFIx8yQB9rV0bV7epR0KBObz8ctJdBA1jm00MhpPS0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQt4olzXwfuGSnR9arv2c+MWZnxMSXgoGzdlhy6T36Wu973WEj
+	+MwliK27oobw64Er0V5D3C8mEn4j1Bt7uP0xONaY4ihiNNqB4TmHnRlIXQHNy97ufLY=
+X-Gm-Gg: AYBFou2caLu7w58mb+1MkU+zC6ahbIlA4V55QZEK4tPTi2UoV9ccoVRfIsnrKUbnoRm
+	6x8OEzDlzReipx3akzp2s6+3/7swn3Sh0t9ZGKyIpGWA9XrgSRweho/p2iJesDhEZ1H3QzdvmZ7
+	i+yyTwsI/LMheNDYmlbSAOn88UoLkN6vH2eWt/740oRfmKMokCb9EfQ86FEruicVxSIiX7FWiva
+	c7WFaO93mCO3+eKOYsrp7rt4D7RaHC9dlaVbWBboczHKOmuveyZtIHvYhi+G3OZYbKs8wjPvDkd
+	iw5Qy8av1ieeBrPWmdb2SvNXiGL/N1UavC0q8JH+QTBJ5Z376qbX0np/+GXM2NJvv/S5Gr0l4IE
+	bEE86HcxC7ZTXhe+9dMdAM996whJxXfbIYfrhycoWJXMtLBfCklOutgfuxetWqprG1rgdp1hBLn
+	ORiMSiL6hOBEpMfKgO8AiYulsSo3r40eiA8VXoxBI+hqzGRfCiUwZiPEM8bw44B6/M1ph95f3oZ
+	m6b98HvwhGpi376FE748G4/a793fybx9gXAuhgskLOKZL23sFoNnE1/kOF2ZZs=
+X-Received: by 2002:a05:600c:3e0a:b0:4a0:1c10:1419 with SMTP id 5b1f17b1804b1-4a18e4cd667mr168009045e9.26.1791803531853;
+        Mon, 12 Oct 2026 04:12:11 -0700 (PDT)
+Received: from localhost (p200300f65f19a904ade4f69ba751c34c.dip0.t-ipconnect.de. [2003:f6:5f19:a904:ade4:f69b:a751:c34c])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48db94e33c7sm20513096f8f.10.2026.10.12.04.12.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 04:12:10 -0700 (PDT)
+Date: Mon, 12 Oct 2026 13:12:09 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: radu.sabau@analog.com
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: imu: Add driver for the ADI ADIS16607
+Message-ID: <aszAHLVf7MEqvht7@monoceros>
+References: <20261001-adis16607-v1-0-9c89cee35d56@analog.com>
+ <20261001-adis16607-v1-2-9c89cee35d56@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Mon, 12 Oct 2026 19:11:02 +0800
-X-Priority: 3
-Message-ID: <tencent_339CC94656CDACB222608A27@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261011142930.492999-1-chenhuacai@loongson.cn>
-	<20261011150052.GA168780@quark>
-	<tencent_4750F9C704AA3CFA1E7309B7@qq.com>
-	<CAAhV-H59DV-qF98M1Uu=Y4k1a8YNw0_RnP_nH-yr8fZu-jnFXQ@mail.gmail.com>
-	<20261012072200.GA828441@google.com>
-In-Reply-To: <20261012072200.GA828441@google.com>
-X-QQ-ReplyHash: 2622650919
-X-BIZMAIL-ID: 4090006467155062447
-X-Address-Ticket:version=;type=;ticket_id=;id_list=;display_name=;session_id=;
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1])
-	by smtp.qq.com (ESMTP) with SMTP
-	id ; Mon, 12 Oct 2026 19:11:03 +0800 (CST)
-Feedback-ID: lv:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: OKtLSpNs8ToSZKHt+nifouT4Rm94oxgaSlhKKpObqDQemN9yC6e/Bde+
-	+/jeAsDo2it+diCEkjmYmBqaejRqruK7s5YjuTMPdq3bQdPy1AgOydY2NQ6ye4PGy5+Px1A
-	IIpHhhZSJGWb27TIptty0fWu6/MLiqi93KuJoBRWRTRmeZiLWp35yCUvh69JOdwjUL9M4Id
-	MdFfdmgYrLVat46HJcgk5zOzAMW6PXfPxoikvk64b2HX/brQD35A1YxU5Z4s9o+2cdkgXCv
-	axlJbtcxj85MG5TqFoNMrn8b4ioKxRAew8NGwOvaz1QCKV5fAnWviQuDLkL/Hre0LCMUe2J
-	qHSbupLwrJcjkjOtb+fes6weZ7DDnTQNwD0onASWz+gSiVeX038rPFbZUeh4Q21HH2UEtRL
-	wWKLNu+lLwzTrU/xKQ87SsA1Q5w6Kw4ejzmRMRCzbWK2kJWLC0mICZWup6BPdk42HlGt/bf
-	bis0vw+4KxjUJXcYRkecOCkddejBsrQ64m2wtJSk/hPROoxN1s/u1sxIvCpv5G9jMf1fwNz
-	oUyu9SFhIKDZWk869I7FOVGxoWsBBnQoD3VyDwd1OhFP9uWGwlz1wo0hp1G+1pu9EH1INKl
-	+WgKO090AgfmPg75J/XGFnxD+73ZT3g2QnchtpKMyTz6SujNNirHFoGloQsKg0Elp7PASs6
-	nAP2pMdA1KOPMCB8k+rybVDyY/yxL3DliCvrVxjAcIhFIKFZHQFyzEEw1gsPcfNTBqU13ZU
-	HnNsCrZW/VTScQuT1Fad4dzcqVNoKRibw8VjA3yuiREQr32m7xOODLSviZTuaiGGNnN+Nx2
-	ApicplIxElpm2kiD0mEwk8lK8rVXI+qWqYkrfDVFHFrC3c/Dv4lc595q586UiOOKwaKav2D
-	f25og0Itml9UEgLEU6lMBKDMog1HICH2ykJTKmgSYfE2ijnUGUW5jl0EoP7dtXzlQ/ZoZ8u
-	4o+4x0i90Hi3WKhJTUzgBsY/VgozwK20dJyb4JQVx6S17PVG1IyBtpkHacAMTimbKyf98E8
-	eNUTLcPNMzcfRB098nz6BiOqEgJ3jtM2oDpMxfMDZyeRQ3591GYEzkNHBHVT6XkLKLUuHTA
-	k82Ud3UWSGRC73kVYfeOqRhWD0JFpaKTKCE7oeV1UVC
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ztwc4ffmxytpfg57"
+Content-Disposition: inline
+In-Reply-To: <20261001-adis16607-v1-2-9c89cee35d56@analog.com>
 
-SGkgRXJpYywNCg0KPiBPbiBNb24sIE9jdCAxMiwgMjAyNiBhdCAwMjo0Mzo0N1BNICswODAw
-LCBIdWFjYWkgQ2hlbiB3cm90ZToNCj4gPiBZZXMsIHdlIGNvbnNpZGVyZWQgbW9kaWZ5aW5n
-IHtnZXQscHV0fV91bmFsaWduZWRfKiBnbG9iYWxseS4gQnV0IGl0IGlzDQo+ID4gbm90IGFy
-Y2gtc3BlY2lmaWMgY29kZSBhbmQgd2UgaGF2ZSBubyB3YXkgdG8gb3ZlcnJpZGUgaXQuDQo+
-ID4NCj4gPiBPbiB0aGUgb3RoZXIgaGFuZCwgdGhlIGJ5dGUtdG8tYnl0ZSB7Z2V0LHB1dH1f
-dW5hbGlnbmVkXyogaXMgYWx3YXlzDQo+ID4gY29ycmVjdCwgd2UgYXJlIGZyZWUgdG8gb25s
-eSBvcHRpbWlzZSB0aGUgaG90IHBhdGggKGxpa2UgY3JjMzIgY29kZSkuDQo+IA0KPiBUaGUg
-dW5hbGlnbmVkIGFjY2VzcyBtYWNyb3MgYXJlIHVzZWQgaW4gbG90cyBvZiBvdGhlcg0KPiBw
-ZXJmb3JtYW5jZS1jcml0aWNhbCBjb2RlLiAgSGFja3MgaW4gcmFuZG9tIHBsYWNlcyBkb24n
-dCBzY2FsZS4NCkFncmVlLCBmcm9tIHRoZWlyIHNpZGUsIHRoZXkgdGhvdWdodCBtYXkgbGlr
-ZTogdGhlIGNoYW5nZSBpcyBtaW5pbWFsPw0KTXkgdGhvdWdodCBsaWtlIHdoYXQgb3RoZXIg
-YXJjaCBkaWQsIHVzZSBhbHRlcm5hdGl2ZSB0byBwYXRjaCB0aGUge2dldCxwdXR9X3VuYWxp
-Z25lZF8qPw0KDQo+ID4gPiA+IFNpbmNlIGxvb25nYXJjaCBtYWRlIHRoZSBpbmNvcnJlY3Qg
-ZGVjaXNpb24gdG8gbm90IHNwZWNpZnkgdW5hbGlnbmVkDQo+ID4gPiA+IGFjY2VzcyB1bmNv
-bmRpdGlvbmFsbHksIHNpbWlsYXIgdG8gUklTQy1WIGl0IGNhbiBiZSB3b3JrZWQgYXJvdW5k
-IG9ubHkNCj4gPiA+ID4gYnkgb3ZlcnJpZGluZyB0aGF0IGluIHRoZSBrY29uZmlnLiAgRm9y
-IGxvb25nYXJjaCB0aGF0IGFwcGVhcnMgdGhhdA0KPiA+ID4gPiBhbHJlYWR5IGJlIGltcGxl
-bWVudGVkOyBqdXN0IHVuc2V0IENPTkZJR19BUkNIX1NUUklDVF9BTElHTiB3aGVuIHlvdQ0K
-PiA+ID4gPiBrbm93IHRoZSBrZXJuZWwgd2lsbCBydW4gb25seSBvbiBDUFVzIHRoYXQgaGF2
-ZSBmaXhlZCB0aGlzIGJ1Zy4NCj4gPiA+IEkgdGhpbmsgdGhhdCB3ZSBoYXZlIHRoZSB1c2Ug
-Y2FzZXMgdG8gcHJvdmlkZSB0aGUgZ2VuZXJhbCBrZXJuZWwgaW5zdGVhZCBvZiB0aGUgdHdv
-IGtlcm5lbCB3aXRoDQo+ID4gPiBkaWZmZXJlbnQgY29uZmlnLCBzbyB0aGUgaW1hZ2UgaW5j
-cmVhc2Ugd2lsbCBiZSB0b2xlcmF0ZWQuDQo+ID4gWWVzLCB0aGUgZGVmYXVsdCBjb25maWd1
-cmF0aW9uIGlzIHRvIGtlZXAgQ09ORklHX0FSQ0hfU1RSSUNUX0FMSUdOIHNldA0KPiA+IGZv
-ciBzaW5nbGUga2VybmVsIGJpbmFyeS4NCj4gDQo+IFNvIGRvbid0IGRvIHRoYXQuICBJdCBk
-b2VzIG5vdCB3b3JrIGZvciBkaXZlcmdlbnQgdW5hbGlnbmVkIGFjY2Vzcw0KPiBzdXBwb3J0
-LCBhcyB0aGUgb3RoZXIgYXJjaGl0ZWN0dXJlcyBoYXZlIGxlYXJuZWQgbG9uZyBhZ28uDQpG
-cm9tIFJJU0MtViB3b3JrYXJvdW5kIGxlYXJuLCB0aGVpciBtb2RlbCBpcyBkaWZmZXJlbnQs
-DQp0aGV5IHdhbnQgdG8gZGVmYXVsdCB1bmFsaWduZWQgYWNjZXNzLCBhbmQgdHJhcCBhbmQg
-ZW11bGF0ZSB0aGUgYWNjZXNzLg0KDQpUaGlzIExvb25nQXJjaCBtb2RlbCBpcyBwb2ludCB0
-byBkZWZhdWx0IHNhZmVseSBhbGlnbmVkIGFjY2VzcywNCmFmdGVyIGRldGVjdGVkIHRoZSB1
-bmFsaWduZWQgYWNjZXNzIHN1cHBvcnQsIG5leHQgdG8gdXNlIHRoZSB1bmFsaWduZWQgdG8g
-c3BlZWQgdXAuDQpPciBkaWQgYW55dGhpbmcgSSBtaXNzaW5nPw0KDQpCUnMNCldlbnRhbyBH
-dWFu
 
+--ztwc4ffmxytpfg57
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/2] iio: imu: Add driver for the ADI ADIS16607
+MIME-Version: 1.0
+
+On Thu, Oct 01, 2026 at 12:11:50PM +0300, Radu Sabau via B4 Relay wrote:
+> +#include <linux/mod_devicetable.h>
+> [...]
+> +#include <linux/spi/spi.h>
+
+Please don't use <linux/mod_devicetable.h>. <linux/spi/spi.h> is good
+enough to provide spi_device_id and of_device_id already.
+
+> +static const struct spi_device_id adis16607_id[] =3D {
+> +	{ "adis16607-2", (kernel_ulong_t)&adis16607_2_chip_info },
+> +	{ "adis16607-3", (kernel_ulong_t)&adis16607_3_chip_info },
+> +	{ }
+
+Please use named initializers, i.e.
+
+	{ .name =3D "adis16607-2", .driver_data =3D (kernel_ulong_t)&adis16607_2_c=
+hip_info },
+
+> +};
+> +MODULE_DEVICE_TABLE(spi, adis16607_id);
+> +
+> +static const struct of_device_id adis16607_of_match[] =3D {
+> +	{ .compatible =3D "adi,adis16607-2", .data =3D &adis16607_2_chip_info },
+> +	{ .compatible =3D "adi,adis16607-3", .data =3D &adis16607_3_chip_info },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, adis16607_of_match);
+> +
+> +static struct spi_driver adis16607_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "adis16607",
+> +		.of_match_table =3D adis16607_of_match,
+> +	},
+> +	.probe =3D adis16607_probe,
+> +	.id_table =3D adis16607_id,
+> +};
+> +module_spi_driver(adis16607_driver);
+> +
+> +MODULE_AUTHOR("Radu Sabau <radu.sabau@analog.com>");
+> +MODULE_DESCRIPTION("Analog Devices ADIS16607 IMU driver");
+> +MODULE_IMPORT_NS("IIO_ADISLIB");
+> +MODULE_LICENSE("GPL");
+>=20
+> --=20
+> 2.43.0
+>=20
+>=20
+
+--ztwc4ffmxytpfg57
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrMwIcACgkQj4D7WH0S
+/k7IjAf/aT3gFonGq9cs0V+D6m1lYBsVjBu3cKVYbQMkl+/IULwA3CPqPV1apAio
+0KeyWJep0LQ92IHMvA+lIto+uTLywmqhWQSmMwaTnu3cbVr8xJa+upbV+hiJMOTm
+6Q0DAv+UvHZ2D8WSGHh3LprDnR+kKGSoyJfsBnx3DSU2cW7zYf18Oq8kuCD9TBDo
+U/fNRDEQeQTJSErdE+CLoGpd3cachuTxyw+slgvbjcARYreo51weR/XnnNbeORZa
+tWWr3bv7LKZdpC8TS6lQrqB6AO8WTzc0fzhRSOt7BD3zs09sZPBILr2yqD52vFlF
+Mo+3i15UQUp4Z8KamAPH3ZIaN+oJow==
+=QDxW
+-----END PGP SIGNATURE-----
+
+--ztwc4ffmxytpfg57--
