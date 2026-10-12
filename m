@@ -1,179 +1,177 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896E848CD41
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:41:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791808917; cv=none; b=X984kWjbDe2lUGRj+GPJUK7r4/UIdTOP+7R5JaActSjH8vgRoNXMpz+kdvwHdK/lWvU0oQLsDdDFoCq6LR5lMkYS744UvlknMP3xaMm+YA055j+NeeK+50TLVWVj4oEXU4zFYPsiPdPs0YNdaofkR2qd+XAVAiQ/yqfO6jOFNrs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791808917; c=relaxed/simple;
-	bh=fTbE9jEKzwFilVsT1wBMbrJGGOMy63D3FXQUrSYtsOA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DXqJjJzWXbrPGXmKSKuIlRCehzmnyklpXs8A5IGJBrYAefDZ7Ecvi222An3Ou+qtOC/HV03t9fI3dVchAhglmX41SiHE44M6g8oMAwTTJQcdwU3wNukzm35ix9OSDqIu0asIo2X/uSlE34Gobxe3193YNt5keI42nYcgOSNZMxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=O5PWUpTI; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=j8VZI+pX; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C435489FDF
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:42:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791808931; cv=pass; b=ObD4aVTPD1kn0WW2t4TwjGZz3iSYik2PJGVCtQuSRGZjF/tNjT9GfhnALbzcbWZ3wxTrRGf2x7iFsAE7Qbk8GZU3hnd1Kid+gJjeQOjNKtWeC11A5tCMusj/v5cDUDXFOByKwiFGmZELd2B3Is/lwmCINSW4btDgV1vV9glYW9o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791808931; c=relaxed/simple;
+	bh=gZ+ZE2irNcCkbIJzz5yMUxpWrnl3D7VkqM+gD/VpeLk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cvM0rUztId7JKlcQ3tT+2xwoh8NC9ExKAxu4iXVsCtc4axsPk1jT/QfRz9CBE7VUlSaSDlSyJR3eFwHYeO8Ftk7zUiq3mWSqBjPfiAwfRqBMc3Jqc8MxwqOj1F2Kyze7HGCR2buEeqNHCoE/ucdPyXB05aXFaNpYxJGwuAyG3ks=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MgV5C7mw; arc=pass smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="O5PWUpTI";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="j8VZI+pX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791808914;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=q0FDVH7bS9jUSQCplEP5poIwYU+n+m1RgShCpvyE0D0=;
-	b=O5PWUpTID2R73iOz3GYmlzrFNf9TKor7m70So7CVPdLgIhEhf0W6x+dmIBJehFnwcLYZZo
-	EOJgzDTodNqZxoax7DTyCURo2mWBjzCUfbEHQwiowkBlVr4q0oJLoSQmXvBg8U5+7fyBT5
-	/x5JtU319iBVm+Tdd+z84uQTYaIh/gE=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-647-VVAj6UL4PMKHP2Q7CV2x-w-1; Mon, 12 Oct 2026 12:41:53 +0000
-X-MC-Unique: VVAj6UL4PMKHP2Q7CV2x-w-1
-X-Mimecast-MFC-AGG-ID: VVAj6UL4PMKHP2Q7CV2x-w_1791808912
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a16fefb7acso14645215e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:41:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MgV5C7mw"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-535179e995bso25116331cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:42:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791808929; cv=none;
+        d=google.com; s=arc-20260327;
+        b=p+rzyKtGixkbL/OXKsJ3gwR1nQVN6k3fe9s02E1dkwCBuO4r3VURDOSNjUCNLq8g7Y
+         aIDsJ8xrU/vQSB4Irpbi2x6uQUND5/H51PSM6HdxOCjZycsMa03TAFsKvWOvug8TnJht
+         Zq73FdI6dqoGQOnSWp+tohJStsvxvyuUWVkHq0qr6YSIoq4AyYsTaDkwOYZyuCllsjpr
+         JcbkCcxJL0MHcqRJduGhVb4t8HuX+RF7rXebm3JBM/Psry4f1kmIY+2FigdbziDPklnn
+         ULm2Pr/xcA4upqxKxYrJUVNO4KJp5Asqxoq57FS4DqGREptRrDuZvepoQoOqmbgJSNsN
+         nhpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=XLvTYpWxwPTdcMS4isD9oU1yCHW9ZVlEU7PXJurtVs8=;
+        fh=sIvo74ylPOLXeVLLBbonncQJ3EIPb0NV9knTMb8VWQs=;
+        b=fkjZ39KG1WsghCcw0Ts20MyoKaWuD2NTQWbF1Pgb0SC0+//XWmzFW1T5pb28Q4DCpQ
+         iAPjxKA8wDmsNQqBDFhyc7hOOFYsp216oYf2Tr78jY5Q4OlzNPnNLlIEcY20LHsw4DGn
+         +dvSwSiY/kcI5NubJABlp2SHDSFntbxcdLcv+XYgswayZ1XiuZBNU6xQea0ZaPOXn3OA
+         3NUAXouHfr0MhquNNRzAHtQMuHifjJ3w6ebTI56Kb+eF+eaoSu8n5msli3ns1DQ9Ea4b
+         E+kuqdEI7YK/+No+duVLmsNkpHBWaM+X9S78ctoI/YI2AgpX2JURSYlEPoX8oKf27z4l
+         ohVA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791808912; x=1792413712; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791808929; x=1792413729; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=q0FDVH7bS9jUSQCplEP5poIwYU+n+m1RgShCpvyE0D0=;
-        b=j8VZI+pXWH9yXelVuYaCn8t6ipBqyFSs56sSb6AmDzFlQ2/Gpi1k+uLYoZq4LALMsK
-         emkqUSNVGU1ky5XnBDTuoJ79X+dJ2np6TK9wC66wxzQPDQx1b7OPA9HoA2yJzRb7jtmI
-         eceC8UULeUnGs9ejgmB2tV9spJe6VK8yJ0+1YIGdi6MQfUgMOkuR5IDV6epH7RhYwSG5
-         LHxCqcBBo5Qju8qS64DgD7S+bX7NmtfgCg9FCGzSgURqbkQ15CRsc/ILkdOsqdd7Cknx
-         jMVYmpIwI+eNHzDrq2qgE5PNZHD/8mWwB/nRO1X7XEo3CVv+r+OUhJT+vOTIoP7mqcND
-         9T3A==
+        bh=XLvTYpWxwPTdcMS4isD9oU1yCHW9ZVlEU7PXJurtVs8=;
+        b=MgV5C7mwWjOq0Hdk4u/OiYRw7XEkLs7VtwlWQ9/M6YTFhR0gV/qzjQdqHWBvzmVs/f
+         kVNXcBIX5j0SWR0pcuuCURmGr9pndHHP1eCG3Gk5ea4uoR6ncmkKxtqq48aGk51198vv
+         dQo+xm2k1XLfC//92RFL8/W3PmzHny/mk5WIxPdw7FCKmJVSyxdq00gxg+lLhv7FiYyI
+         kgacOR7dhb+2nejP4FQs76Y9tKzaODUzzOeyfSq943AIK6BZpmcTDG/AB64n4aCsWsR+
+         +VCoRrjevwwhUD0sIgCQH4XP6HIgRFqKKxiFaduJnZMwUJ7mOwzngiFXU3vTGfiINpkD
+         dZ7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791808912; x=1792413712;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791808929; x=1792413729;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=q0FDVH7bS9jUSQCplEP5poIwYU+n+m1RgShCpvyE0D0=;
-        b=cUV1DYGszNAerTMsRWkGXeghZblCdqQBtFhWw9w73OasUnn1B2tUngJmtKYgY+jniT
-         TyHjYtgrMN29xZal1QSbV8T0HhIjDWVRCEFqS6UpeWlWwI/yURTh5qkmlR1a1BmCYq4A
-         Mks8z97uVHQ5ymbcq2lz2LiI2THxUpug7WhTn41qlufsBHh6wl5oBpePvqo08gxI6ZkK
-         WF86Aqyv9EEWvqIParu73lpYjru/UTAIiuF4+Q41dhSPDU7MzGb5gilH/KU4RKwgVi0C
-         7pXNJeh7HT8a3upXYmnagcDnjABh/BXgCNWBVxXlZ7Mc3l8JNHGs5QEjsg13L0DNqIFK
-         jAVw==
-X-Forwarded-Encrypted: i=1; AKwUvBz64MKRm0p+tHQfnaehcT34dBrxv/OwM1r6gO0N988C03lEL5H0eVsvHV5NeakYEHRYFwrIr67J8GtGmrM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmKQPD31lsHgVW+e+F0v+CLPvCGqTFh9TKdAz2SRyGd3Gzk9Lk
-	XzzOw2l+to/JeRih2dCwd/kQPwn8UqtTFDv8WFjUMuIkhBpScPKLO6fwLmvaDaNje6+JCvVwYRG
-	bxnYgWOjPlQcozb6RDKsawYx1vM5TI4i2b9UaG9MIr2yF5AxXWUVT6PZScgFLRErQCA==
-X-Gm-Gg: AYBFou0Jm0xYROrek3x5s6dU4F7ifOgY1neKKJeeNFAt4eJwHP+UAclyEO/Iuyy6o8Y
-	K6fUATpR34SPepIr8lHXhF+4DfcpBeFtJjaSL8HpE7/7vdE21txOL9IbLGjjHyc2cfhkrU0u0Sh
-	wyHqbfCjUS1/VyHVsWdCGc/HM6KcMinlu5Dh4MYn7OGEPU2Sh4rceyJpjuzXZrFI5BAVRkHxtRk
-	kG6TEiF4Cf+WS0DplnPDccWcF4E9UTLlvEcmsMcgL0PmH/cQJEueqRARKolJuIatmtLrHZMiNMA
-	8EY/TriXOll7uIzKTXfRfOWYp+Qn6J0X4CKhXMYZVYFD6EFrosn9hk1bfeTz4cFV7BmXEKqq9r9
-	GSRV0qpSb4bEN68cxjOiw0qUeDSIx
-X-Received: by 2002:a05:600c:3554:b0:49e:6778:c2bd with SMTP id 5b1f17b1804b1-4a18e4a01a1mr185138825e9.6.1791808911993;
-        Mon, 12 Oct 2026 05:41:51 -0700 (PDT)
-X-Received: by 2002:a05:600c:3554:b0:49e:6778:c2bd with SMTP id 5b1f17b1804b1-4a18e4a01a1mr185138475e9.6.1791808911641;
-        Mon, 12 Oct 2026 05:41:51 -0700 (PDT)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([176.206.14.6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19c8244edsm118181005e9.2.2026.10.12.05.41.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 05:41:50 -0700 (PDT)
-Date: Mon, 12 Oct 2026 14:41:45 +0200
-From: Juri Lelli <juri.lelli@redhat.com>
-To: "Ionut Nechita (Wind River)" <ionut.nechita@windriver.com>
-Cc: mingo@redhat.com, peterz@infradead.org, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	arighi@nvidia.com, frederic@kernel.org,
-	linux-kernel@vger.kernel.org, dhaufe@simplextrading.com,
-	create0818@163.com, frn1furkan10@gmail.com
-Subject: Re: [RFC PATCH] sched/deadline: keep nohz_full tickless while the
- fair server is deferred
-Message-ID: <aszViUxPLBuH0h7L@jlelli-thinkpadt14gen4.remote.csb>
-References: <araOR8aTAU_R5lwQ@jlelli-thinkpadt14gen4.remote.csb>
- <20261005132038.353661-1-ionut.nechita@windriver.com>
+        bh=XLvTYpWxwPTdcMS4isD9oU1yCHW9ZVlEU7PXJurtVs8=;
+        b=yU1O/nq9xr8uDF0UAs4ZhT5Re+SCbBud/DGIBJpavEgx5KVhw+3OgrGmMWJ1vTRDXl
+         m4xaqhC3Jw9RhqOQrtK1eBXYEbYp13M3lIdynvmWPVhCeg7nItWM8UXAq1pMwQkmTI92
+         yif6gsirOinYxKn/o0xsZORJcR4AGFBaVieTmMbbxvc+qb3igcUN7ZFc/5QaDay6NyZn
+         ik/zdOamVrsQzjiTZqKGrhYskPO63+JbdtuGWO/VrNvr0f2bmoo5mRKjYsEVu8SrzHF/
+         3qywi7UFcrgDWvr2cVk21k2maS3E8NDpgUccukKC8KOsRiRaT4sNm6F/XfiWPqR4UL3+
+         Dn9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxS2n5EUmq8lx+nMonnp6pEXCil6aO8n4jT/XHrQSTKQE4On+OLiqQ252WTKkNWVa+R0G8PV3LrgT9bzGk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKhEq7c0n0LmTQmzSwTczsZnuPtqpb7Vy7Q15gqfHSDzyN03Tk
+	C7Ws3U0lOlzuSIEzvBOkWzWCK6RvCUoUAHNmVnK0abbtak8vnc2tVIyReF/XShsABbpWwWE+x6d
+	kHfG8rHdUyZ98yGFMWyjUk/oXsIKoLeY=
+X-Gm-Gg: AYBFou3frxHP0UEaxr0/3+CxHuGdpS45acZ1tvtfGKru3cPKK7pVozo5Dk1DxauwqdP
+	4UFBHsid+LJqOZnS4Dy43DSNjiIN3WZppbz8ZJx/JGij5pwCK1gB0G4bAMEaNsZGhx1sEIMDuno
+	RcuuoHoqZvDZfxXsLwutsR3ETOphzo+5idPK8y2thsxEOJuEhCFmIMuAiq2r0hFZm24vKN8SE/Y
+	6L/UfjH1smGW22+17PI2URWMe4ZbLLVF++QcusdYKqJ6okWRviI6F3KgMm2uOggUXp+/tXp6qXq
+	2HHEgQGChGnfGz95rrbF0ek2m1OU7QikUZx7NHtihDO+Qhhnv2oHo3rtIMSzb7513mw8orKHnkQ
+	z6k+tre6iobO21Y7jYIjkODqRjP6BPROMWtLvj7IdAuLSj3h/W3k3uWQdvV8DTx2XeakvCyi4ZF
+	L+KWA2ZL3iuikGHO3tQEJJ/Ku0aixqNlrfK00CiOxvQGLF4PZ8q1exbgUMtjiztI2vuagVnWxua
+	/QA68e+TD4sbo4DVpjjkUBYNMu1dYlPbG7ZxXMm
+X-Received: by 2002:a05:622a:908:b0:535:2818:96eb with SMTP id
+ d75a77b69052e-5359fa71b69mr143345491cf.24.1791808928110; Mon, 12 Oct 2026
+ 05:42:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005132038.353661-1-ionut.nechita@windriver.com>
+References: <20261011051906.60397-1-jain.sm@gmail.com> <20261011051906.60397-3-jain.sm@gmail.com>
+ <20261012122112.GA31242@lst.de> <CA+FWx=n=66eHOgMFb=unfgqFrhw3prW0EOf1bYHfLATV2-o1_A@mail.gmail.com>
+ <09399f27-11eb-431b-914d-397f42de9dc3@kernel.org>
+In-Reply-To: <09399f27-11eb-431b-914d-397f42de9dc3@kernel.org>
+From: shashank Jain <jain.sm@gmail.com>
+Date: Mon, 12 Oct 2026 18:11:54 +0530
+X-Gm-Features: AclHuK8hQNk2gI97zQz-VM1322jb3tqxRIS3mXkTKLOB9Z2zsNL0Wvwn8f4-lFc
+Message-ID: <CA+FWx=kgeR8tz46tijYE-s=v+PTJjGfM+3ucQOo0ZuDyqFdYQw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] block: fix the length of a smaller last zone in blkdev_get_zone_info()
+To: Damien Le Moal <dlemoal@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>, 
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>, Hannes Reinecke <hare@suse.de>, 
+	Chaitanya Kulkarni <kch@nvidia.com>, "Martin K. Petersen" <mkp@kernel.org>, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Mon, Oct 12, 2026, Damien Le Moal wrote:
+> How do you plan to issue a BLK_ZONE_REP_CACHED report? "blkzone report"
+> does not have that yet. I am planning to send a patch for it.
 
-On 05/10/26 16:20, Ionut Nechita (Wind River) wrote:
-> From: Ionut Nechita <ionut.nechita@windriver.com>
-> 
-> On a nohz_full core, arming the fair (dl-)server when an RT task coexists
-> with runnable CFS tasks is needed so CFS still gets its reserved
-> bandwidth (default 50ms/1s). Doing that from sched_can_stop_tick() by
-> returning false, however, keeps the tick running for the whole time the
-> CFS task waits, not just while the server runs.
-> 
-> The deferred server spends most of its period in the zero-laxity wait
-> state: throttled, off the dl_rq, waiting for dl_timer. That wait is
-> driven by an hrtimer and needs no tick. Measured on an isolated
-> nohz_full core with a SCHED_RR hog and a CFS task visiting the core
-> about once per second, the tick never stopped again: 200
-> irq_vectors:local_timer_entry per second, with tick_stop reporting
-> dependency=SCHED, against ~19/s with the fair server disabled
-> (fair_server/cpuX/runtime=0).
-> 
-> Split the two concerns:
-> 
->   - sched_can_stop_tick() arms rq->fair_server when RT and CFS coexist
->     and a runtime is configured, but does not force the tick for a
->     merely deferred server. A non-deferred dl_server_start() enqueues
->     the server immediately, which is rechecked right after and does
->     keep the tick.
-> 
->   - inc_dl_tasks()/dec_dl_tasks() call sched_update_tick_dependency()
->     for dl_server entities. Servers skip add_nr_running()/
->     sub_nr_running(), so until now nothing re-evaluated the tick when
->     dl_timer enqueued the server or when it was throttled again. The
->     tick is now started when the server is enqueued, so its runtime is
->     enforced from the tick, and dropped again once it leaves the dl_rq.
-> 
-> The server is deliberately never stopped from sched_can_stop_tick().
-> dl_server_start()/dl_server_stop() carry the running_bw bandwidth
-> accounting of rq->dl.running_bw through the "active contending" /
-> "active non contending" state machine, with an inactive_timer in
-> between. Stopping the server from a path that runs on every enqueue and
-> dequeue cycles that state machine at a rate it is not meant for: a stop
-> that finds the inactive timer still armed subtracts running_bw that the
-> matching start did not add back, which underflows running_bw and trips
-> WARN_ON_ONCE() in __sub_running_bw() and WARN_ON() in
-> task_non_contending(). Teardown is left to the existing lazy path in
-> __pick_task_dl(), which stops the server when it has no fair task to
-> pick. The cost is that a tickless core keeps taking the server's defer
-> and inactive timers, which is a few interrupts per period, not a tick.
-> 
-> All of this is confined to nohz_full CPUs: sched_update_tick_dependency()
-> returns early for housekeeping CPUs, so sched_can_stop_tick() (and with
-> it the new arming) only runs where the tick can be stopped.
-> 
-> Based on the upstream proposal "sched/deadline: Make dl-server nohz full
-> aware" by Juri Lelli, adapted to this tree, which has the fair server but
-> not the SCX ext_server.
-> 
-> Ref (upstream proposal, v2):
-> https://lore.kernel.org/lkml/20260513-upstream-fix-dlserver-nohzfull-b4-v2-1-d3e9cbe5c845@redhat.com/
-> 
-> Fixes: 557a6bfc662c ("sched/fair: Add trivial fair server")
-> Signed-off-by: Ionut Nechita <ionut.nechita@windriver.com>
-> ---
-> RFC notes:
-> 
-> This is the tickless variant I described earlier in the v2 thread, now as
-> a proper patch. It is against this tree (fair server, no SCX ext_server);
-> the ext_server handling still needs to be added for an upstream v3.
+Good point. Two options, and I am happy to follow your preference:
 
-Your approach seems promising. Would you be able to send it out as a v3
-(including SCX support) based on tip/sched/core? It would be easier to
-review and test.
+- Use "blkzone report" with the cached flag once your util-linux patch
+  lands - that matches the existing zbd tests and avoids a bundled tool.
+  I would hold the blktests submission until it is available.
+- Or carry a small C helper in the blktests src/ directory that issues
+  BLKREPORTZONEV2 with BLK_ZONE_REP_CACHED directly, so the test is
+  self-contained and does not depend on the util-linux version.
 
-Thanks!
-Juri
+I lean towards the first, to match the zbd conventions and your blkzone
+work; tell me which you prefer and I will align the test with it.
 
+Thanks,
+Shashank
+
+On Mon, Oct 12, 2026 at 6:07=E2=80=AFPM Damien Le Moal <dlemoal@kernel.org>=
+ wrote:
+>
+> On 2026/10/12 14:29, shashank Jain wrote:
+> > On Mon, Oct 12, 2026, Christoph Hellwig wrote:
+> >> Can you add this to blktests as a reproducer?
+> >
+> > Will do. I'll send a blktests test under tests/zbd/ that sets up a zone=
+d
+> > null_blk device with a smaller last zone and checks that BLKREPORTZONEV=
+2
+> > without BLK_ZONE_REP_CACHED matches BLKREPORTZONE, and that the cached
+> > report's last-zone length does not extend past the device. I'll post it
+> > to the blktests project separately and reference this series.
+>
+> How do you plan to issue a BLK_ZONE_REP_CACHED report? "blkzone report" d=
+oes not
+> have that yet. I am planning to send a patch for it.
+>
+> >
+> > Thanks,
+> > Shashank
+> >
+> > On Mon, Oct 12, 2026 at 5:51=E2=80=AFPM Christoph Hellwig <hch@lst.de> =
+wrote:
+> >>
+> >> On Sun, Oct 11, 2026 at 10:49:06AM +0530, Shashank Mohan Jain wrote:
+> >>> blkdev_get_zone_info() sets the length of every zone to the zone size
+> >>> of the device. The last zone of a zoned block device may be smaller
+> >>> than the others: blk_revalidate_zone_cb() accepts that and remembers
+> >>> the capacity of that zone in disk->last_zone_capacity. For such a zon=
+e
+> >>> the length reported from the cached information is too large, and
+> >>> start + len is beyond the end of the device. A conventional last zone
+> >>> is also given the capacity of a full zone.
+> >>>
+> >>> Example with a zoned null_blk device of 10 MiB (20480 sectors) with
+> >>> 4 MiB zones, last zone:
+> >>>
+> >>>   BLKREPORTZONE:       start 16384 len 4096 capacity 4096
+> >>>   BLKREPORTZONEV2 with
+> >>>   BLK_ZONE_REP_CACHED: start 16384 len 8192 capacity 4096
+> >>
+> >> Can you add this to blktests as a reproducer?
+> >>
+> >> The patch looks good:
+> >>
+> >>
+> >> Reviewed-by: Christoph Hellwig <hch@lst.de>
+>
+>
+> --
+> Damien Le Moal
+> Western Digital Research
