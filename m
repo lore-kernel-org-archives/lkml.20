@@ -1,72 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C92E3CF1E7;
-	Mon, 12 Oct 2026 14:28:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D332F48EBF7;
+	Mon, 12 Oct 2026 14:28:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815286; cv=none; b=ZNS8LD/yu6rIS2As4KwK2j69KR5pYasgWf9CK3oi6bqNmmBiL65ZaaWX0dNDyHJ6011KlAGnh0TQcaDew+GwMsQcYcbNZrpKI2CbOM/bDXIM+2UOEhhroD0JpdLYgNux/vHfg6m26F6HkuV/261VUOJ1VMpJLYAWVvp1/2fhZrQ=
+	t=1791815320; cv=none; b=Gzew2OdgoSNC0+i2aIAxJnYjVZq4/nzWAl3fv0Rum/0MYRe6WN/ir/7P1/SjVIfODVzi0+igaKqUijMJVdt/qfOSAqoYEGKm03a6+AeFqgpUJm4Yx/0Qqwfxo/E37jCpLkTsbdTtcl7/SNQDGBrdFxvlD1Wo10csIPO+ZPAWDwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815286; c=relaxed/simple;
-	bh=ghEZQOv8zy0HoC2fCCYOiPaB5g3DcIonwickNLJfxj0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RJFMQ+YNG3waawM+XsT9UFlDXbQSdw8IYIdTWN7dl1TbuN2qrjhVIZ0RdCfvYWf3CuwSXMokCt1kUHtzqpwLCjW4vbSmK27YaT4rf7CbpwkSJW6DBAosE+cc4FDGlHrcFAyp5DjMUCnsu9ZKttMH5V6NQrG/qOfQ33I99P0WNB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oMf6Ze/1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791815320; c=relaxed/simple;
+	bh=LSC1F0gNJ/tf/eKcy6aMkllJELOSTn3WRLxZHRhf+iM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cBkJ9llJPceP/VbW7F7oog5bXVGcrLI5rv/lAtkKbjDw2LbHB6ZoNGTuNu2au/LrMhcEA6gLE3Tc9Jok/D+6RvW5Q817iXCRNkpcS3UkJYZ++ZTDSq+E2HBEAzy9tKoXZqehAueNWB2UHOg5piTpu5LhzHTX8t4GbDIBYyPaLe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GcfbZTTg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oMf6Ze/1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72B361F0089B;
-	Mon, 12 Oct 2026 14:28:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GcfbZTTg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E317C1F0089B;
+	Mon, 12 Oct 2026 14:28:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791815284;
-	bh=jJkYG1PF/wRZtcnLQD4tSTi4HXCWksgCTc7BhPtqd9g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oMf6Ze/1bhc0nbfftS6JAU2tp3+zT5Dv1XEt5AjMVEHsWQIwOtG1GqJY0XccSF5lL
-	 929hXp/lLWitwAKomo8ZfuiSnqY0AjpWZDVHH7dSr/EzDQJbSkkt2iQEc1I7La4AxD
-	 YdarSXunGk5KxIGvtMjHVAJH2j3LirSM8dTXt6GQDzzXXs6zr61Gal6cC8D9G1uK0Q
-	 c0kMbrOmGZmpgMy6QX8DLE//WxUptTAgt5yIzwP5hi2dUiKM5t0/iBptjp/jYLlIex
-	 j5UHdSznIqRwkBrgSun+AIlSj+uTABJEOHA7cXn/IERzrgQ84ySL7rTglMCsI4/rEm
-	 /0ti4WotsrNwA==
-Date: Mon, 12 Oct 2026 08:28:02 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Naman Jain <namjain@linux.microsoft.com>
-Cc: linux-nvme@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Michael Kelley <mhklinux@outlook.com>, linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 3/3] nvme-pci: defer completions when rescheduling is
- needed
-Message-ID: <aszuckZVkc2-kXM3@kbusch-mbp>
-References: <20261009050556.2817978-1-namjain@linux.microsoft.com>
- <20261009050556.2817978-4-namjain@linux.microsoft.com>
- <askIoNon8UVyNJiJ@kbusch-mbp>
- <8aba4809-6655-4bfd-a83a-25c5ab816645@linux.microsoft.com>
+	s=k20260515; t=1791815319;
+	bh=7Ra23l3UluV2Cpx9BMhq8NI40t3M4atItfHJ192B4XQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=GcfbZTTgbU0fzk+m7DOLqejre/IO+PHAtVQLLD05wEBbqN6Ix6qcG+FzaUpQM5pfi
+	 mDKkkPhL8npi39hBD9RtV4P2Bh6fD8dat3R0Jdj9CMD+ystKPFTBLNrf0fjhJ/QFoI
+	 2PktMRB/yq3By/b9J3NHFBdeTLN7s0t2ga2MoxlwYBAupJesc9Uq/QdIEOnDPYjPbN
+	 O8oiN5MtRfZ38OTAPaTdRqtlCWJg8Fvy+xyTwyvrcLBa5BsIe5UPrFUnGKZw61Zc+j
+	 VTEideLjpP6kpWhGfV56rfzViBtrXNqsdVdYhRNruy4Kpzmf5EbaW4lH0DGkc668eW
+	 7DdIq/vOhFwOg==
+Date: Mon, 12 Oct 2026 15:28:30 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: jianyungao89@gmail.com
+Cc: linux-kernel@vger.kernel.org, Dan Williams <djbw@kernel.org>, Vishal
+ Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>, Alison
+ Schofield <alison.schofield@intel.com>, nvdimm@lists.linux.dev (open
+ list:DEVICE DIRECT ACCESS (DAX)), linux-cxl@vger.kernel.org (open
+ list:DEVICE DIRECT ACCESS (DAX))
+Subject: Re: [PATCH] dax: fix dax_core_init error return code
+Message-ID: <20261012152830.5406d532@jic23-hlaptop>
+In-Reply-To: <20261011132017.31131-1-jianyungao89@gmail.com>
+References: <20261011132017.31131-1-jianyungao89@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8aba4809-6655-4bfd-a83a-25c5ab816645@linux.microsoft.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026 at 12:17:38PM +0530, Naman Jain wrote:
-> > The disable_irq_nosync still does non-posted transactions for msi and
-> > msi-x. NVMe has a shortcut for msi, but there's currently nothing for
-> > msi-x. For that case, I have a prep patch I consulted with Thomas, and
-> > the result is below. I'm delayed sending it out while catching up from
-> > travel, but I think this will be even more efficient.
-> > 
+On Sun, 11 Oct 2026 21:20:17 +0800
+jianyungao89@gmail.com wrote:
+
+> From: Jianyun Gao <jianyungao89@gmail.com>
 > 
-> Thanks for sharing. I'll give it a try. IIUC, after your patch goes in, I
-> should be using disable_irq_nowait() in above and see better performance.
+> dax_core_init() mistakenly returns 0 on error paths. Change the
+> error return to use rc so the actual error code is propagated
+> to the caller.
 
-Yes, exactly. It should save hundreds of CPU cycles on every switch from
-irq to polling.
+What is the user visible impact of this failing?
 
-> Please correct me if I am wrong. I'll monitor your patch in LKML for future
-> versions.
+> 
+> Fixes: 9567da0b408a ("device-dax: Introduce bus + driver model")
+> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+> ---
+>  drivers/dax/super.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/dax/super.c b/drivers/dax/super.c
+> index 45f84b0eb909..0f35f65363ee 100644
+> --- a/drivers/dax/super.c
+> +++ b/drivers/dax/super.c
+> @@ -723,7 +723,7 @@ static int __init dax_core_init(void)
+>  
+>  	rc = dax_fs_init();
+>  	if (rc)
+> -		return rc;
+> +		goto err_fs;
+I don't see an advantage in this bit.  It is a fairly common preference
+to error out directly where there is nothing to do.
 
-I need a user for the new API. NVMe is the only one I have in mind
-right now, so this new irq disable would have to be tied to the series
-that does the adaptive polling.
+>  
+>  	rc = alloc_chrdev_region(&dax_devt, 0, MINORMASK+1, "dax");
+>  	if (rc)
+> @@ -738,7 +738,8 @@ static int __init dax_core_init(void)
+>  	unregister_chrdev_region(dax_devt, MINORMASK+1);
+>  err_chrdev:
+>  	dax_fs_exit();
+> -	return 0;
+> +err_fs:
+> +	return rc;
+I'm not sure about this one.  Will need input from the DAX
+folk on whether they were deliberately eating the error return
+here. Not that I can immediately think of a reason to do so!
+
+Jonathan
+
+
+>  }
+>  
+>  static void __exit dax_core_exit(void)
+
