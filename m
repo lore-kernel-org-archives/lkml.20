@@ -1,538 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012018.outbound.protection.outlook.com [52.101.66.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C98B3CAA55;
-	Mon, 12 Oct 2026 19:31:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791833484; cv=none; b=nMdk7x+vjSQgPSm2qRqvY4lPmixMi8yfw7BQRGXev89uRYTWE39zmc4Zr2H28+cXlZO/rdPe8D/a+SE0ZeO9GarM1DDg0dAB7+oV79tKJYJ/nBtbpE+UwsyKNA2v+JUksT3xbmUbsArOxq8QB/LgtxD4xaDgFJh1WoSKozWuBFM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791833484; c=relaxed/simple;
-	bh=OrQ1YY4DuoZLuAGX+lVhjHZRvOjKZdU580NnKoeD0w0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D/XD5sIu4jzPWydXhS3JohslWV0TVFMheuQWzU0KHb53+/WAP0TxZOtEOQQNhx2/IbRXmlnEQQxfvDUyvnYGi863e7HXGiQknbG1jkap/DwyhwsFbWi3oRiIK03bLwfdQNIVzZIsVss5cPYz8l0z5C1V6W1HuO510KqL/Yaij4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S6eWxkca; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDB63D34B3;
+	Mon, 12 Oct 2026 19:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791833501; cv=fail; b=WPyss+SdXdjWoRSjVtRtwuDrehsViW3rav66J4WmVcSvsOv5khYman+DRusHbSqDWF4y54ga7pZmme10RZb+gVvQRBALrSlu6lsb4bCmiDFB6FtLKybRsIOA59l51olQ6YC4bB2xmr2kDt9GS/EcUKmS2Q8T5N5rur1kSQ5PdHE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791833501; c=relaxed/simple;
+	bh=c/S+7TrjYNa9kuK4ps9hxIPQq1KXEfurcnpbqlPH0Bk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=PxXMRImwb9HgAsYz2iTYwPe1iQLvGY7r259pX5AfFM+RE4lOsbssoXosJyrMj3rIvI2k6mvUz3ReyMEUyDqZtqozFvfd0vSn16F8ClFXwVaWK6iz2wjVAeM5asIomhKzMgm2T1d+AvfLFZiFl3n5ffqftDyeVtt9gfTT4MCkS7g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Bp3eGOPM; arc=fail smtp.client-ip=52.101.66.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S6eWxkca"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB19F1F0089B;
-	Mon, 12 Oct 2026 19:31:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791833483;
-	bh=RGtllKCd8fsk4pyX+3nLVPSM5ErTPJMjld7HACxueTg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S6eWxkcajw/hDLS/OZTMmXHQ7mFN9T1DqZcUetQ5/S1WPmFdDRWqrxAgP0NbNwkQI
-	 LoCQL4s/lM7F/5XRn26R1Fbey3Pk+bjLpaWDeMre3dmh3volfveyo5mvMMs8n1gjB5
-	 Pet7h7SnK2Q66rFkB0SpG/6JtAvA8TeaNdCu/6WVCBzgJR6RMAPqBn6/6OGNNULo0v
-	 ZUBDJM/iut736HTi7rHo1rLgMNVGA5cX/55i3bhlTdTRpKC/vj9ph1WdsE6VwjA9yP
-	 gWAdpdXQm/nHmJ7r1ZqWq+MMeclfQRlBNubxiLrhiW0GS0bTrcQp7J7aHkLzC6j0o6
-	 Pz9RG+Rg3Qglw==
-Date: Mon, 12 Oct 2026 12:31:21 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Changbin Du <changbin.du@gmail.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH v3] perf bench: Add atomic operations benchmark
-Message-ID: <as01ic9P29WcdJj_@google.com>
-References: <20261008041123.1970315-1-changbin.du@gmail.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Bp3eGOPM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yUr9ARrQyZRAT2iKzOhIRB7PODRxpGWuTtvSvLA/xl0qPr9qopZ10EdXf3Y1T0I3/wv0c+sOyIq7QnC3/OBTpxpkOROZbJ6mLDZbd4xDu9AdXD3D1oom+H46fO/piwhf7bMbjsfGXr5OQCpxQMHYcXIn2XKsOfijyD6Nnpdb5jbDteqfBYvRe4xNQvWZjFfmtslh43KvW019nppU0Z675vzxwp7xRN1IFyAqEurKHGBmXOlL4FQqqeNrMDmCrrBBNGNUKVSlq9Y7uDY2nDxj++SrTUOMmpO3uFtvl9uzmAtvXEi1kcg3K2tiAmDhEtGb5pShYrBp0LP968DuRSnfKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ovwFXanajD5EMXLXvnKfWBFmhe3k4aP8PCEEH0zPLKw=;
+ b=TKrtywF0iMbnCD/nq1f+B3emgLIaA3dTb/DeBPzvRo4bAMu5TvJQ2cLWXUh6vmv/qrQ9IAKi9hjo31CzcCxomxTAZNfrhCPsNAtZFAFSJxOYVZqEftEeOudoGd5oBjI8USvMu2vzHCU2MDhZtb83Kc2baDqBje+3AdFUHUjkxGjTB5qaFeBLhUWlju/bMXqvbR7YVf0cuQDkcKD83TU/yr6DuUeauf0kDhn83dkPZS1NYPGQjT+zlJfByBKQ3RGyXqIPThdLIGLcZavItEZJfeBzwYSXAcoNKW7RcqHTvG+n1vOUeLVjiUoQD66lgBs5Mx79jJ9ByamCb+czvUGcXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ovwFXanajD5EMXLXvnKfWBFmhe3k4aP8PCEEH0zPLKw=;
+ b=Bp3eGOPMu79Oj1Q74mFtjC+ldxQRR+zx840kAISd0KE8jTd4RtyJfPE/Azb7xkUf6uJy2MhP1DKPoPRhgDre70ELJbgRfzTUbYBgcx9DJGxAP9sQY54092PMvfy+PcgzTu+PldD0vwq4VXfdX+dRJEwEI25FIzhktD/cpP67HgqeMu4qh0LwNzB4gaz8Z9Blyvp8UI4jEs2QvVJ1UXoD4rrK4b3I2VAFoSYqwx8ZwmiVq6N49NbJRBpqNQv04lzFP4iNHOxImc3Gpp/OmHtFZiA2IJ/8W+rzYNCCbpO1M6sEtkbZ+CZWt03t2vY1TOfJQVtFycB9F4cE0GdZL/cW6Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI3PR04MB213044.eurprd04.prod.outlook.com (2603:10a6:800:375::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 19:31:38 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
+ 19:31:38 +0000
+Date: Mon, 12 Oct 2026 14:31:30 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Frank Li <Frank.Li@nxp.com>, Mark Brown <broonie@kernel.org>,
+	kernel@pengutronix.de, linux-spi@vger.kernel.org,
+	imx@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH spi-next 3/3] spi: spi-fsl-lpspi: cache content of
+ Interrupt Enable Register (IER)
+Message-ID: <as01km6qZJ-pxOa4@SMW015318>
+References: <20261009-spi-fsl-lpspi-more-cleanups-v1-0-2d4549d5205e@pengutronix.de>
+ <20261009-spi-fsl-lpspi-more-cleanups-v1-3-2d4549d5205e@pengutronix.de>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-spi-fsl-lpspi-more-cleanups-v1-3-2d4549d5205e@pengutronix.de>
+X-ClientProxiedBy: CY5P221CA0143.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:930:6a::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261008041123.1970315-1-changbin.du@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI3PR04MB213044:EE_
+X-MS-Office365-Filtering-Correlation-Id: e80e9f0e-9892-485e-7603-08df28976f14
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|366016|376014|10067099003|22082099003|18002099003|11063799006|4143699003|261009223027099003|261009221227099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	7c03Y/jQn5w7KeWQ5Q5yh47+yHdub+LJIIlmfgNAEpafVzORLyow+7U42SoCs7Sn+Ln6kak/NxsWuZ/GDf8RdgqDfcyP52ibF9KbIJsouWO1MviWSOHpjz6irBJfGi8G+kasW3YPKhz3JOrtKKg2to+0HCkFYbCAOKBzW/SmHHyXHOIZ1nC37165C30kCNeAO+KHvg8bJlSOa5syUDjYJ6q1Rzb06Q+QFN4tKcI8yjJhkT2NtEqpXaPvdBwYI7kNkx+GZV6iNTkYTb9gjplHJ15Z+EAIdgrAPNzr0FUOWbSdqQP5hyXZIwIM7xg+iaXLh0h+NjuRlgX/BlwJUZ7bh3M4Auqjlrs4KZjKjMCSSwqYy0AJ+/qLP7LB05Os+c0xejnyo+VLY+orPRVrsh6jWvGAc/RxongIR5ad/N7a6RP6tz7uOAPunXNlWnVTkMg/MwN1qLbwyzauxfBS3JMNI4g9SJH3e6SZQuDGQoFiYMaEdoqLDFXf8/7PQslzSPlkdyj/7juWD1PFKCUPsZwSKfQwHFWHQUeMQk++oBhvzDJACe7muvKYbqnJ2L3f5Vztpy9dcsCIb2gI+b2Ll2KD515M9COOntBAS0ZrVXB6MyXXRCAhotYVEKZFo7h9m1DcC6+qAywGATTzdTxxFsTEfSaFN84284BVwt7upj0e2nk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(366016)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003)(261009223027099003)(261009221227099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?SSJTbzu+sdjsuNeiUkTP41iXYQPm3Le5qrwzgAwdhhtiYv2phbyy8AWGLxRP?=
+ =?us-ascii?Q?iZdM+YrzemjxCLDoDx9o9YjshbWg+IungmrekHmi1pD8yeXYl1iwpsPe+OKO?=
+ =?us-ascii?Q?mx4f4EYObsU11gFKwY27pvmxlZTwdsr/wN64OATnksaP90EvK1jgj/T+B/nI?=
+ =?us-ascii?Q?Ftsf03tzQoRHVMJphz+p7XsoPogeKDzvyZqrQB4YBGf0rZjsUEe/+X4T/EIN?=
+ =?us-ascii?Q?I/ODXghHNuuYuFJRagkNQmzqubklsTWedEiHO9tLlOt4SrddxCd+7+ZNqLF6?=
+ =?us-ascii?Q?DByXK9IAudNcFI6rdwQVKa2KjbBQRefypVGrllEK0rDYqiw65xepLwmM7rM5?=
+ =?us-ascii?Q?jkPlEFgizu9B49CQtRglSzJPY1ejVK+f1FB5xDSzP46nqAgH1fOUZMnP9qb9?=
+ =?us-ascii?Q?7tXgnbGvQkIng63gTD8HGV5fYkYYkNA5VHK63beyh/Ms8RXwIbZ/LKn1LWNH?=
+ =?us-ascii?Q?umztihiMTdRK3uIG53g+mas20GgS93xhj4uEVZzULv0U12Bh7LwryabEktMm?=
+ =?us-ascii?Q?4vKELrBw2ipyM2zYOQSUNYCJYF0+Vqvj21afp+egi8Pzc1rWEkmUtA2rHvLJ?=
+ =?us-ascii?Q?K1EpkaBzbfrMD487ibcDTqnddGQmYFQTpIZ5ptgt7Sw270HUijLGnFjA+AS9?=
+ =?us-ascii?Q?y5fwjy1qsBl15Tkhm9TbGhM89vlEwZc00gcIHC8XLlPCDGr9+wkxasG0NdCI?=
+ =?us-ascii?Q?IeKezy4wjiS04BUi3JYo0+07H79Y54djgJCHnUJQZWACN3SIVrwEYerEZXaz?=
+ =?us-ascii?Q?ZTFy668fCO1ObnoXEfmX4jB8KgTVYSQoMyHcuFlkhRqpDjWVmazovRwgXOQe?=
+ =?us-ascii?Q?Itd/xk4mB3ZHNZlmFfX7jidxzZ2MlO8xoarUMpA3rTUUUAQ/e5p60r0QEQMC?=
+ =?us-ascii?Q?nbOeTUQPomS/8sVw0iuxtPzBpIMpIpLMLn1a14PUZ8soPst2n1HXUNCOr4g1?=
+ =?us-ascii?Q?f/diWTnKMezXv7I4byLn3CTdTXZY2deHquB0MWuAGuvFxqeWf1Wsxl/kmumf?=
+ =?us-ascii?Q?bdVmDfFR6ejA7LtD+jiALTBjCTDjSMudOWGuC4KUXhApckVADtJ4q+xFvpgV?=
+ =?us-ascii?Q?XnE9v/qpNoz/XEQIbMjsSaMcMgb5qct/6h/q15BOnof2vkEigyhSI7o3If41?=
+ =?us-ascii?Q?f96pQQOSWK8q3rtDkkm4NEyekheYn4zZN5KlJv4r71yVLHoU2QSC8UNQyr+K?=
+ =?us-ascii?Q?JifZ3ZCfz1wx+X869iDDozdV3vmGKK08VP5NNZlqcsjw8kwCfdYUeXMp68Qj?=
+ =?us-ascii?Q?d9JrnZQW1ekaPRHyzx1PgmIzKfNiby1WoZeTGllsnWE167gssKYlfkPgla4j?=
+ =?us-ascii?Q?7ntKY8pp08YKD9WaDvtijnBsZvwA41U/29KROmOhs8QBlJvJCNfperM9qZE3?=
+ =?us-ascii?Q?52aADte9s7uVu/fnKI7oiV98IWw0BGyryyREhOdosC4klkqidovrv29kXOaD?=
+ =?us-ascii?Q?tgiLf3TrInG8jyiHShQWaOvjw+XqjHnyluDdw56oPLTn+z2ihzXgF3m4gPti?=
+ =?us-ascii?Q?IylwqGsLA/wR40xmy3B31JI4BxUJ/rbl7RQOpstEU/HWCKsv9ydjDQXdWhev?=
+ =?us-ascii?Q?XGK18VZrcbFoXU/0wUQ5Wyl1wx209cde0o893bXJ4nUiv016kuxp9miFUtrz?=
+ =?us-ascii?Q?aHcQ3sYwgR/WwutYzvAW1uTHQEH2GVvZBa/KlUVXB+GWlRilqIinSu8Z/4Se?=
+ =?us-ascii?Q?oip7zLJRcsfHBZzsjg67H76NW7tVNziouwWtfRU7ekTMnX3WPDrfb1TtNwOh?=
+ =?us-ascii?Q?XXc2HEbuYr1v9ukjsyrUk5Yyc8WtUhrCebkYOt9bQ/YwSRmcQDJ3?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e80e9f0e-9892-485e-7603-08df28976f14
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 19:31:38.1744
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: e7ta4tcq4THyuivtQ1GmiiYDfoRt0/Jx3AUHT1QDSj77/PV7yVfbKu/s++zmo9MU5BEWmZQLHhSPyPpHLlQIO5CjqwTxWtIKvVBOd/BaLuqa4d/tQ8rSRYeKbBByCWf2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI3PR04MB213044
 
-On Thu, Oct 08, 2026 at 12:11:23PM +0800, Changbin Du wrote:
-> Add a new 'atomic' collection to perf bench for benchmarking
-> atomic read-modify-write operations with multi-threaded
-> contention testing. It provides two subcommands:
-> 
->   - atomic cas: contended compare-and-swap operations
->     (__atomic_compare_exchange_n)
->   - atomic inc: contended fetch-add operations (__atomic_fetch_add)
-> 
-> Both support configurable thread count and iteration count to
-> measure atomic contention effects.
-> 
-> Why this benchmark is needed:
-> - Atomic read-modify-write operations are fundamental to lock-free
->   algorithms and data structures. Understanding their performance
->   characteristics under contention is critical for designing
->   high-performance concurrent applications.
-> - The benchmark helps identify atomic operation latency and
->   scalability issues across different thread counts, revealing
->   contention patterns that are not visible in single-threaded tests.
-> - Useful for evaluating atomic implementation quality on different
->   architectures and for regression testing after changes to atomic
->   primitives or memory ordering.
-> 
-> Measurement methodology:
-> - Each thread starts a private timer (clock_gettime CLOCK_MONOTONIC)
->   after synchronizing on a pthread_barrier, ensuring all threads
->   begin simultaneously.
-> - Each thread performs a hot loop of the selected atomic operation
->   (compare-and-swap or fetch-add) on a shared unsigned long counter,
->   incrementing it from 0 to iterations.
-> - The shared counter is cache-line aligned (64 bytes) to isolate
->   contention to the target cache line and avoid false sharing.
-> - The wall-clock time is measured as the max of all per-thread
->   runtimes (the time for the slowest thread to finish).
-> - The first repeat is excluded from statistics as a warmup phase
->   to avoid cache-cold effects.
-> 
-> Example usage:
-> $ perf bench atomic all
-> # Running atomic/cas benchmark...
->   Threads: 2, iterations/thread: 100000000, repeats: 10 (warmup: 1)
->   Avg wall-clock time: 3286.297 msec  (stddev 6.820 msec)
->   Total ops: 200,000,000
->   Throughput total: 60,858,769 ops/sec
->   Per-thread times and throughput (last repeat):
->     fastest:  3304.312 msec  (30263489 ops/sec)
->     slowest:  3325.518 msec  (30070504 ops/sec)
->     avg:      3314.915 msec  (30166688 ops/sec)
-> 
-> # Running atomic/inc benchmark...
->   Threads: 2, iterations/thread: 100000000, repeats: 10 (warmup: 1)
->   Avg wall-clock time: 2170.716 msec  (stddev 7.306 msec)
->   Total ops: 200,000,000
->   Throughput total: 92,135,503 ops/sec
->   Per-thread times and throughput (last repeat):
->     fastest:  2196.458 msec  (45527849 ops/sec)
->     slowest:  2208.764 msec  (45274198 ops/sec)
->     avg:      2202.611 msec  (45400669 ops/sec)
-> 
-> Output fields explained:
-> - Threads: number of contending threads
-> - iterations/thread: atomic operations each thread performs
-> - repeats: number of test runs (first is warmup)
-> - Avg wall-clock time: mean time for all threads to complete
-> - stddev: standard deviation across repeats
-> - Total ops: threads x iterations/thread
-> - Throughput total: aggregate ops/sec across all threads
-> - Per-thread times: fastest/slowest/avg thread completion time
-> - Per-thread throughput: per-thread ops/sec (shows scheduling imbalance)
-> 
-> Assisted-by: opencode:DeepSeek-V4-Pro
-> Signed-off-by: Changbin Du <changbin.du@gmail.com>
+On Fri, Oct 09, 2026 at 12:16:37PM +0200, Marc Kleine-Budde wrote:
+> To improve performance avoid reading the Interrupt Enable Register (IER)
+> from the hardware, cache in struct fsl_lpspi_data::reg_ier.
 
-Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+Do you have bench mark data? I am not sure how much gain by only avoid
+a register read.
 
-Thanks,
-Namhyung
+Frank
 
+>
+> Introduce struct fsl_lpspi_data::reg_ier, to cache the current value.
+> Extend fsl_lpspi_intctrl() to update the cache and replace the open coded
+> writing of the IRQ register in fsl_lpspi_prepare_message() with
+> fsl_lpspi_intctrl().
+>
+> In fsl_lpspi_isr() don't read the IER from the hardware, but use the cached
+> value from struct fsl_lpspi_data::reg_ier.
+>
+> Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 > ---
-> Changes in v3:
-> - Use native word size (unsigned long) for the shared counter instead
->   of u64 to avoid libatomic on 32-bit targets.
-> - Include <stdint.h> explicitly for UINT64_MAX.
-> 
-> Changes in v2:
-> - Add an 'atomic inc' subcommand for contended __atomic_fetch_add.
-> - Hoist the load out of the CAS retry loop; the failed
->   __atomic_compare_exchange_n already returns the current value.
-> - Cast the seconds delta to u64 before multiplying by NSEC_PER_SEC to
->   avoid 32-bit overflow.
-> ---
->  tools/perf/Documentation/perf-bench.txt |  32 +++
->  tools/perf/bench/Build                  |   1 +
->  tools/perf/bench/atomic.c               | 268 ++++++++++++++++++++++++
->  tools/perf/bench/bench.h                |   2 +
->  tools/perf/builtin-bench.c              |   9 +
->  5 files changed, 312 insertions(+)
->  create mode 100644 tools/perf/bench/atomic.c
-> 
-> diff --git a/tools/perf/Documentation/perf-bench.txt b/tools/perf/Documentation/perf-bench.txt
-> index c5913cf59c98..871c3aa5fc43 100644
-> --- a/tools/perf/Documentation/perf-bench.txt
-> +++ b/tools/perf/Documentation/perf-bench.txt
-> @@ -58,6 +58,9 @@ SUBSYSTEM
->  'numa'::
->  	NUMA scheduling and MM benchmarks.
->  
-> +'atomic'::
-> +	Atomic operation benchmarks.
-> +
->  'futex'::
->  	Futex stressing benchmarks.
->  
-> @@ -283,6 +286,35 @@ SUITES FOR 'numa'
->  *mem*::
->  Suite for evaluating NUMA workloads.
->  
-> +SUITES FOR 'atomic'
-> +~~~~~~~~~~~~~~~~~~~
-> +*cas*::
-> +Suite for evaluating compare-and-swap (CAS) atomic operations under
-> +multi-threaded contention.
-> +
-> +*inc*::
-> +Suite for evaluating atomic fetch-add (increment) operations under
-> +multi-threaded contention.
-> +
-> +Options of *cas* and *inc*
-> +^^^^^^^^^^^^^^^^^^^^^^^^^^
-> +-t::
-> +--threads=::
-> +Number of threads contending for the shared counter (default: 2).
-> +
-> +-i::
-> +--iterations=::
-> +Number of iterations per thread (default: 100000000).
-> +
-> +The per-thread fastest/slowest/avg summary is only printed when
-> +running with more than one thread.
-> +
-> +Note that the cas benchmark counts successful compare-and-swap
-> +operations only; retries and the loads between them are additional
-> +atomic instructions not included in the ops/sec count, so cas and
-> +inc throughputs are not directly comparable at the instruction
-> +level.
-> +
->  SUITES FOR 'futex'
->  ~~~~~~~~~~~~~~~~~~
->  *hash*::
-> diff --git a/tools/perf/bench/Build b/tools/perf/bench/Build
-> index 67b76fe20ba6..c64c52468d3d 100644
-> --- a/tools/perf/bench/Build
-> +++ b/tools/perf/bench/Build
-> @@ -3,6 +3,7 @@ perf-bench-y += sched-pipe.o
->  perf-bench-y += sched-seccomp-notify.o
->  perf-bench-y += syscall.o
->  perf-bench-y += mem-functions.o
-> +perf-bench-y += atomic.o
->  perf-bench-y += futex.o
->  perf-bench-y += futex-hash.o
->  perf-bench-y += futex-wake.o
-> diff --git a/tools/perf/bench/atomic.c b/tools/perf/bench/atomic.c
-> new file mode 100644
-> index 000000000000..a7e906cf2ec1
-> --- /dev/null
-> +++ b/tools/perf/bench/atomic.c
-> @@ -0,0 +1,268 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2026 Changbin Du <changbin.du@gmail.com>
-> + *
-> + * Benchmarks for atomic read-modify-write operations.
-> + *
-> + * Measures throughput (ops/sec) of contended atomic operations on a
-> + * single shared counter across multiple threads. Each thread performs
-> + * a hot loop of the selected operation -- compare-and-swap (cas) or
-> + * fetch-add (inc) -- competing with all other threads for the same
-> + * cache line.
-> + */
-> +#include "bench.h"
-> +#include <linux/compiler.h>
-> +#include "../util/debug.h"
-> +
-> +#ifndef HAVE_PTHREAD_BARRIER
-> +int bench_atomic_cas(int argc __maybe_unused, const char **argv __maybe_unused)
-> +{
-> +	pr_err("%s: pthread_barrier_t unavailable, disabling this test...\n", __func__);
-> +	return 0;
-> +}
-> +
-> +int bench_atomic_inc(int argc __maybe_unused, const char **argv __maybe_unused)
-> +{
-> +	pr_err("%s: pthread_barrier_t unavailable, disabling this test...\n", __func__);
-> +	return 0;
-> +}
-> +#else /* HAVE_PTHREAD_BARRIER */
-> +#include <stdlib.h>
-> +#include <stdio.h>
-> +#include <stdbool.h>
-> +#include <stdint.h>
-> +#include <pthread.h>
-> +#include <time.h>
-> +#include <inttypes.h>
-> +#include <err.h>
-> +#include <linux/types.h>
-> +#include <linux/time64.h>
-> +#include <subcmd/parse-options.h>
-> +#include "../util/stat.h"
-> +
-> +static unsigned int threads	= 2;
-> +static unsigned int iterations	= 100000000;
-> +
-> +static const struct option options[] = {
-> +	OPT_UINTEGER('t', "threads", &threads,
-> +		     "Number of threads contending for the counter"),
-> +	OPT_UINTEGER('i', "iterations", &iterations,
-> +		     "Number of iterations per thread"),
-> +	OPT_END()
-> +};
-> +
-> +static const char * const cas_usage[] = {
-> +	"perf bench atomic cas <options>",
-> +	NULL
-> +};
-> +
-> +static const char * const inc_usage[] = {
-> +	"perf bench atomic inc <options>",
-> +	NULL
-> +};
-> +
-> +enum atomic_op {
-> +	OP_CAS,
-> +	OP_INC,
-> +};
-> +
-> +static int bench_op = OP_CAS;
-> +
-> +static unsigned long shared_counter __aligned(64);
-> +static pthread_barrier_t start_barrier __aligned(64);
-> +
-> +struct worker_stats {
-> +	u64	runtime_ns;
-> +};
-> +
-> +static void *worker(void *arg)
-> +{
-> +	struct worker_stats *ws = (struct worker_stats *)arg;
-> +	struct timespec tstart, tend;
-> +	u64 i;
-> +
-> +	pthread_barrier_wait(&start_barrier);
-> +
-> +	clock_gettime(CLOCK_MONOTONIC, &tstart);
-> +	switch (bench_op) {
-> +	case OP_CAS:
-> +		for (i = 0; i < iterations; i++) {
-> +			unsigned long old_val, new_val;
-> +
-> +			old_val = __atomic_load_n(&shared_counter, __ATOMIC_RELAXED);
-> +			do {
-> +				new_val = old_val + 1;
-> +			} while (!__atomic_compare_exchange_n(&shared_counter,
-> +							      &old_val, new_val,
-> +							      false,
-> +							      __ATOMIC_RELAXED,
-> +							      __ATOMIC_RELAXED));
-> +		}
-> +		break;
-> +	case OP_INC:
-> +		for (i = 0; i < iterations; i++)
-> +			__atomic_fetch_add(&shared_counter, 1, __ATOMIC_RELAXED);
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +	clock_gettime(CLOCK_MONOTONIC, &tend);
-> +
-> +	ws->runtime_ns	= (u64)(tend.tv_sec - tstart.tv_sec) * NSEC_PER_SEC +
-> +			  (tend.tv_nsec - tstart.tv_nsec);
-> +
-> +	return NULL;
-> +}
-> +
-> +static void print_default_format(struct worker_stats *wstats,
-> +				 struct stats *time_stats)
-> +{
-> +	double time_avg, time_stddev;
-> +
-> +	printf("  Threads: %u, iterations/thread: %u, repeats: %u (warmup: 1)\n",
-> +	       threads, iterations, bench_repeat);
-> +
-> +	time_avg    = avg_stats(time_stats);
-> +	time_stddev = stddev_stats(time_stats);
-> +
-> +	printf("  Avg wall-clock time: %.3f msec  (stddev %.3f msec)\n",
-> +	       time_avg / (double)NSEC_PER_MSEC,
-> +	       time_stddev / (double)NSEC_PER_MSEC);
-> +	printf("  Total ops: %'" PRIu64 "\n",
-> +	       iterations * (u64)threads);
-> +	printf("  Throughput total: %'.0f ops/sec\n",
-> +	       (double)(iterations * (u64)threads) /
-> +	       (time_avg / (double)NSEC_PER_SEC));
-> +
-> +	/*
-> +	 * Per-thread statistics from the last measured repeat show
-> +	 * fairness / imbalance in CPU scheduling.
-> +	 */
-> +	if (threads > 1) {
-> +		u64 min_ns = UINT64_MAX, max_ns = 0, total_ns = 0;
-> +		double min_thru, max_thru, avg_thru;
-> +
-> +		for (unsigned int t = 0; t < threads; t++) {
-> +			if (wstats[t].runtime_ns < min_ns)
-> +				min_ns = wstats[t].runtime_ns;
-> +			if (wstats[t].runtime_ns > max_ns)
-> +				max_ns = wstats[t].runtime_ns;
-> +			total_ns += wstats[t].runtime_ns;
-> +		}
-> +
-> +		min_thru = (double)iterations * NSEC_PER_SEC / min_ns;
-> +		max_thru = (double)iterations * NSEC_PER_SEC / max_ns;
-> +		avg_thru = (double)threads * iterations * NSEC_PER_SEC / total_ns;
-> +
-> +		printf("  Per-thread times and throughput (last repeat):\n");
-> +		printf("    fastest:  %.3f msec  (%.0f ops/sec)\n",
-> +		       min_ns / (double)NSEC_PER_MSEC, min_thru);
-> +		printf("    slowest:  %.3f msec  (%.0f ops/sec)\n",
-> +		       max_ns / (double)NSEC_PER_MSEC, max_thru);
-> +		printf("    avg:      %.3f msec  (%.0f ops/sec)\n",
-> +		       (total_ns / threads) / (double)NSEC_PER_MSEC, avg_thru);
-> +	}
-> +}
-> +
-> +static int run_benchmark(void)
-> +{
-> +	pthread_t *thread_ids;
-> +	struct worker_stats *wstats;
-> +	struct stats time_stats;
-> +	unsigned int r, t;
-> +
-> +	thread_ids = calloc(threads, sizeof(pthread_t));
-> +	if (!thread_ids)
-> +		err(EXIT_FAILURE, "calloc");
-> +
-> +	wstats = calloc(threads, sizeof(struct worker_stats));
-> +	if (!wstats)
-> +		err(EXIT_FAILURE, "calloc");
-> +
-> +	init_stats(&time_stats);
-> +
-> +	for (r = 0; r < bench_repeat + 1; r++) {
-> +		u64 max_runtime_ns = 0;
-> +
-> +		shared_counter = 0;
-> +		pthread_barrier_init(&start_barrier, NULL, threads);
-> +
-> +		for (t = 0; t < threads; t++) {
-> +			if (pthread_create(&thread_ids[t], NULL,
-> +					   worker, &wstats[t]))
-> +				err(EXIT_FAILURE, "pthread_create");
-> +		}
-> +
-> +		for (t = 0; t < threads; t++)
-> +			pthread_join(thread_ids[t], NULL);
-> +
-> +		pthread_barrier_destroy(&start_barrier);
-> +
-> +		for (t = 0; t < threads; t++) {
-> +			if (wstats[t].runtime_ns > max_runtime_ns)
-> +				max_runtime_ns = wstats[t].runtime_ns;
-> +		}
-> +
-> +		/*
-> +		 * Exclude the first repeat (warmup) from statistics so
-> +		 * that cache-cold and lazy-init effects are not counted.
-> +		 */
-> +		if (r > 0)
-> +			update_stats(&time_stats, max_runtime_ns);
-> +	}
-> +
-> +	switch (bench_format) {
-> +	case BENCH_FORMAT_DEFAULT:
-> +		print_default_format(wstats, &time_stats);
-> +		break;
-> +
-> +	case BENCH_FORMAT_SIMPLE:
-> +		printf("%.0f\n",
-> +		       (double)(iterations * (u64)threads) /
-> +		       (avg_stats(&time_stats) / (double)NSEC_PER_SEC));
-> +		break;
-> +
-> +	default:
-> +		fprintf(stderr, "Unknown format: %d\n", bench_format);
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	free(thread_ids);
-> +	free(wstats);
-> +
-> +	return 0;
-> +}
-> +
-> +static int run_atomic_bench(int argc, const char **argv,
-> +			    const char * const *usage)
-> +{
-> +	if (parse_options(argc, argv, options, usage, 0)) {
-> +		usage_with_options(usage, options);
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	if (threads < 1) {
-> +		fprintf(stderr, "Invalid thread count: %u\n", threads);
-> +		return 1;
-> +	}
-> +
-> +	if (iterations < 1) {
-> +		fprintf(stderr, "Invalid iteration count: %u\n", iterations);
-> +		return 1;
-> +	}
-> +
-> +	return run_benchmark();
-> +}
-> +
-> +int bench_atomic_cas(int argc, const char **argv)
-> +{
-> +	bench_op = OP_CAS;
-> +	return run_atomic_bench(argc, argv, cas_usage);
-> +}
-> +
-> +int bench_atomic_inc(int argc, const char **argv)
-> +{
-> +	bench_op = OP_INC;
-> +	return run_atomic_bench(argc, argv, inc_usage);
-> +}
-> +#endif /* HAVE_PTHREAD_BARRIER */
-> diff --git a/tools/perf/bench/bench.h b/tools/perf/bench/bench.h
-> index 8519eb5a42fa..85e3ac471875 100644
-> --- a/tools/perf/bench/bench.h
-> +++ b/tools/perf/bench/bench.h
-> @@ -30,6 +30,8 @@ int bench_mem_memcpy(int argc, const char **argv);
->  int bench_mem_memset(int argc, const char **argv);
->  int bench_mem_mmap(int argc, const char **argv);
->  int bench_mem_find_bit(int argc, const char **argv);
-> +int bench_atomic_cas(int argc, const char **argv);
-> +int bench_atomic_inc(int argc, const char **argv);
->  int bench_futex_hash(int argc, const char **argv);
->  int bench_futex_wake(int argc, const char **argv);
->  int bench_futex_wake_parallel(int argc, const char **argv);
-> diff --git a/tools/perf/builtin-bench.c b/tools/perf/builtin-bench.c
-> index 02d47913cc6a..62bebdedd3b8 100644
-> --- a/tools/perf/builtin-bench.c
-> +++ b/tools/perf/builtin-bench.c
-> @@ -14,6 +14,7 @@
->   *  syscall ... System call performance
->   *  mem   ... memory access performance
->   *  numa  ... NUMA scheduling and MM performance
-> + *  atomic ... Atomic operation performance
->   *  futex ... Futex performance
->   *  epoll ... Event poll performance
->   */
-> @@ -115,6 +116,13 @@ static const struct bench uprobe_benchmarks[] = {
->  	{ NULL,	NULL, NULL },
->  };
->  
-> +static const struct bench atomic_benchmarks[] = {
-> +	{ "cas",	"Benchmark CAS (compare-and-swap) operations",	bench_atomic_cas	},
-> +	{ "inc",	"Benchmark atomic fetch-add operations",	bench_atomic_inc	},
-> +	{ "all",	"Run all atomic benchmarks",			NULL			},
-> +	{ NULL,		NULL,						NULL			}
-> +};
-> +
->  struct collection {
->  	const char		*name;
->  	const char		*summary;
-> @@ -128,6 +136,7 @@ static const struct collection collections[] = {
->  #ifdef HAVE_LIBNUMA_SUPPORT
->  	{ "numa",	"NUMA scheduling and MM benchmarks",		numa_benchmarks		},
->  #endif
-> +	{ "atomic",	"Atomic operation benchmarks",			atomic_benchmarks	},
->  	{"futex",       "Futex stressing benchmarks",                   futex_benchmarks        },
->  #ifdef HAVE_EVENTFD_SUPPORT
->  	{"epoll",       "Epoll stressing benchmarks",                   epoll_benchmarks        },
-> -- 
+>  drivers/spi/spi-fsl-lpspi.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/spi/spi-fsl-lpspi.c b/drivers/spi/spi-fsl-lpspi.c
+> index b25f94b2ef73..5b158b0cb5af 100644
+> --- a/drivers/spi/spi-fsl-lpspi.c
+> +++ b/drivers/spi/spi-fsl-lpspi.c
+> @@ -122,6 +122,7 @@ struct fsl_lpspi_data {
+>  	void (*rx)(struct fsl_lpspi_data *fsl_lpspi);
+>
+>  	u32 remain;
+> +	u32 reg_ier;
+>  	u8 watermark;
+>  	u8 txfifosize;
+>  	u8 rxfifosize;
+> @@ -199,6 +200,7 @@ LPSPI_BUF_TX(u32)
+>  static void fsl_lpspi_intctrl(struct fsl_lpspi_data *fsl_lpspi,
+>  			      unsigned int enable)
+>  {
+> +	fsl_lpspi->reg_ier = enable;
+>  	writel(enable, fsl_lpspi->base + IMX7ULP_IER);
+>  }
+>
+> @@ -525,7 +527,7 @@ static int fsl_lpspi_prepare_message(struct spi_controller *controller,
+>  	fsl_lpspi_set_cmd(fsl_lpspi);
+>
+>  	/* No IRQs */
+> -	writel(0, fsl_lpspi->base + IMX7ULP_IER);
+> +	fsl_lpspi_intctrl(fsl_lpspi, 0);
+>
+>  	/* Controller disable, clear FIFOs, clear status */
+>  	writel(CR_RRF | CR_RTF, fsl_lpspi->base + IMX7ULP_CR);
+> @@ -808,7 +810,7 @@ static irqreturn_t fsl_lpspi_isr(int irq, void *dev_id)
+>  	u32 temp_SR, temp_IER;
+>  	struct fsl_lpspi_data *fsl_lpspi = dev_id;
+>
+> -	temp_IER = readl(fsl_lpspi->base + IMX7ULP_IER);
+> +	temp_IER = fsl_lpspi->reg_ier;
+>  	fsl_lpspi_intctrl(fsl_lpspi, 0);
+>  	temp_SR = readl(fsl_lpspi->base + IMX7ULP_SR);
+>
+>
+> --
 > 2.53.0
-> 
+>
+>
