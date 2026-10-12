@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3E335C6AA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74ED04BE457;
 	Mon, 12 Oct 2026 17:32:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791826378; cv=none; b=ma6hpzf57zQP55uf1j0VLEYg8lBiEEEH4pVoHBR+i/PmGa8JMkBbcNoD5ppydALS7vUad3BPri16WQhBnqPF5tmlmKoTN2CdGo7XafPWfF4pmY2jFV90KamU+91Y/Gxss1lShXl+XK+/OHmXQ494dbM4FY0Vm+k3YY7qzL0fW8Q=
+	t=1791826378; cv=none; b=EB36LTDSTIr84GDZ8h6qsiSz8xe63gdJSZ+Eq9By//dhwZjaDjfWgpz25S6org8HdYic/RLCoY+mZaNGWb/sDyTq6WBQiodebOc2Ib3pTG67zFFonGvdrIf1AHEB7oblPh6PIBTKvsK9vey5sA48h6B/cYYxaGZLUJwjpdw82lk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791826378; c=relaxed/simple;
-	bh=Zzzint5ECeIvn557DthDmutEppVqwPr3W2qzFUq9hXQ=;
+	bh=Ben9ds7l5snlJMg8NPMQQZULDqBGhQj1SfVWHLiwrlA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Fr9UOGYjOjVbZk8BSOTyu0DNssE7bi0r07vkejytm218sltH3MvgEwqVZQ4ie4Oawy5l2+WcQbtBfnmZ4+wWyv5N9E/V2Pdtfb+iEJPLVo9uueiBWPfUuPRYHRQ+5Syiu5V5JsNRsLQI7R7C+h4jaKhtQySoCT9+BPhe9FcU4pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YPQcRPHM; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=O7FzunkPv36brVQZwB9yHmhwaelt9NfzyKy1PVmM31uX0P575H2RHGYLIXdW8iQOhM94Emg+GfhXu4TgGGKA94/aV2LnqxsbUhdHHi6pCdYhwGkxLxwNRUtnieIVmk0WghDFYSt0vua2cFUqLI2Hw0SF6qWBglZvFkJpMqsW+a4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EIIuX59b; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YPQcRPHM"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1AFD1C2BCFB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EIIuX59b"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3BC38C2BCFD;
 	Mon, 12 Oct 2026 17:32:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791826378;
-	bh=Zzzint5ECeIvn557DthDmutEppVqwPr3W2qzFUq9hXQ=;
+	bh=Ben9ds7l5snlJMg8NPMQQZULDqBGhQj1SfVWHLiwrlA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=YPQcRPHMiHFpvaPYGgkrdMBZTa95ZZvUJkCelMbYhi0ppjX7g59fzGEKaHn8gjLXT
-	 qJr1ehexZU5WkNl0ew9KmHVNkREqnuz2+XUQSU9mKCcExPJGRsGC/Vu25BdDrRM7rT
-	 VGJv1pTS2pe/CbniYxDMYaBPyGXOe6O2fliSpQTCy6DI1T05tk+8O0DGojOCd7g9rq
-	 jxte83/3LC4EuZrCpYeAHA2bChzumdLVrafGP7R7wvJ/vrQ6s1WQDANFjRXaJ5Q0fO
-	 FHjLEoSZOCYaoJAU29gfkwfStVe27ZsVY5olQAILSX3wAeTwbHREacoBmXOlh2WmPz
-	 03Pd9HNWbbeXw==
+	b=EIIuX59bzzt1wIQ7KqG0rE1JlLqb50B8/qB4Hs2CUqVf5lLRrACGTOcJJKuLzzwJt
+	 7VrEa9afCWi6BllLDIGl7AlYxFPGM8zJxsZTe9YY0grbPKFk1Q46bzFQUUkiHOfWGA
+	 IgmiOBuhv7qwqILLATbrKQg1DyedNl0GY6tSz6utUDW7vKmhfVRpzU4I8Wc6eh4h4p
+	 srKK3obCAemayA3akBIxHY9MN5GrVnFF6UY0Q8fD/tzRm49OtK7OAUsKyU6NgSo1XO
+	 n0huE6bsON2MkO2lGGfqstFpgEHW8wB8eHZG3Hx5V9sa8SmuAIkW2RrNb3EM2wDhpy
+	 FTM9ngvCtmLRA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EF49ECA9EDE;
-	Mon, 12 Oct 2026 17:32:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 21CA7CA9EC5;
+	Mon, 12 Oct 2026 17:32:58 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Mon, 12 Oct 2026 20:32:56 +0300
-Subject: [PATCH 01/11] dt-bindings: interrupt-controller: Add Cortina
- Systems CS7542 peripheral interrupt controller
+Date: Mon, 12 Oct 2026 20:32:58 +0300
+Subject: [PATCH 03/11] dt-bindings: gpio: Add Cortina Systems CS7542 GPIO
+ controller
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-b4-cs75xx-s2-v1-1-8a7641b7b79c@gmail.com>
+Message-Id: <20261012-b4-cs75xx-s2-v1-3-8a7641b7b79c@gmail.com>
 References: <20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com>
 In-Reply-To: <20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com>
 To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
@@ -56,11 +56,11 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org, 
  Fil Dunsky <filipp.dunsky@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791826375; l=2339;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791826375; l=2368;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=A+5dV3NaQB/TuZqJfC9IFKI7zbkGEtJkk6VbEFbSsyk=;
- b=aS7EyPYv896uSAFVSpeoN2KGEke+u9sKmCFiUaXmk3QSkRG6Bj2JkJpRbyXEwmVEax2tFvalI
- as0O/tKQFgdCq5Oms7G/wa9kkkM1FEZ/zREBL8A3vtQyeS7uNmEA5wL
+ bh=uz2ou1IT1ghc6GBy1z+YYFHHajTQ9VyMONdxfzPSdIk=;
+ b=8+fbyqjLofqG9WBhmK3gaslEb9wRm4Pc5xw3UL1wayW/7eXxOp9epY3IB4OdC3VgYa5cymASk
+ Oxp0F5tSARSCXp2/j+1xmBxbShTVxqPqFd0+4f2NQ2MHlJX6TOvnV+q
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -70,62 +70,73 @@ Reply-To: filipp.dunsky@gmail.com
 
 From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-The low speed peripherals of the Cortina Systems CS75xx SoCs share one
-GIC interrupt. A small controller in the peripheral register block
-reports which of its 15 sources are asserted and allows masking them.
+The Cortina Systems CS75xx SoCs have five banks of 32 GPIO lines. Each
+pin is shared between a GPIO line and a peripheral function, selected by
+the bank's GPIO_MUX register in the global control block, which is
+described as the second register region of the bank.
 
 Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- .../interrupt-controller/cortina,cs7542-intc.yaml  | 57 ++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
+ .../bindings/gpio/cortina,cs7542-gpio.yaml         | 68 ++++++++++++++++++++++
+ 1 file changed, 68 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/cortina,cs7542-intc.yaml b/Documentation/devicetree/bindings/interrupt-controller/cortina,cs7542-intc.yaml
+diff --git a/Documentation/devicetree/bindings/gpio/cortina,cs7542-gpio.yaml b/Documentation/devicetree/bindings/gpio/cortina,cs7542-gpio.yaml
 new file mode 100644
-index 000000000..2963acaf7
+index 000000000..b54421d65
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/interrupt-controller/cortina,cs7542-intc.yaml
-@@ -0,0 +1,57 @@
++++ b/Documentation/devicetree/bindings/gpio/cortina,cs7542-gpio.yaml
+@@ -0,0 +1,68 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/interrupt-controller/cortina,cs7542-intc.yaml#
++$id: http://devicetree.org/schemas/gpio/cortina,cs7542-gpio.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Cortina Systems CS7542 peripheral interrupt controller
++title: Cortina Systems CS7542 GPIO controller
 +
 +maintainers:
 +  - Fil Dunsky <filipp.dunsky@gmail.com>
 +
 +description:
-+  The low speed peripherals of the Cortina Systems CS75xx (Goldengate G2)
-+  SoCs (two software interrupts, two timers, the AXI bridge, SPI, the five
-+  GPIO banks, I2C, MDIO, SSP and the random number generator) share one GIC
-+  interrupt. This controller has a status register showing the level of the
-+  15 sources and an enable register to mask them. The sources are cleared in
-+  the peripherals themselves.
++  The Cortina Systems CS75xx (Goldengate G2) SoCs have five banks of 32
++  GPIO lines, each with its own interrupt. Every pin is shared between a
++  GPIO line and a peripheral function; the choice is made per pin in the
++  GPIO_MUX register of the bank, which is part of the global control
++  block.
 +
 +properties:
 +  compatible:
-+    const: cortina,cs7542-intc
++    const: cortina,cs7542-gpio
 +
 +  reg:
-+    maxItems: 1
++    items:
++      - description: GPIO bank registers
++      - description: GPIO_MUX register of the bank
 +
 +  interrupts:
 +    maxItems: 1
 +
++  gpio-controller: true
++
++  "#gpio-cells":
++    const: 2
++
++  gpio-line-names:
++    maxItems: 32
++
++  gpio-reserved-ranges: true
++
 +  interrupt-controller: true
 +
 +  "#interrupt-cells":
-+    const: 1
-+    description:
-+      The number of the source, 0 to 14. All sources are active high level
-+      interrupts.
++    const: 2
 +
 +required:
 +  - compatible
 +  - reg
 +  - interrupts
++  - gpio-controller
++  - "#gpio-cells"
 +  - interrupt-controller
 +  - "#interrupt-cells"
 +
@@ -133,14 +144,15 @@ index 000000000..2963acaf7
 +
 +examples:
 +  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    interrupt-controller@f0070004 {
-+        compatible = "cortina,cs7542-intc";
-+        reg = <0xf0070004 0x8>;
-+        interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
++    gpio@f00701f0 {
++        compatible = "cortina,cs7542-gpio";
++        reg = <0xf00701f0 0x20>, <0xf0000020 0x4>;
++        interrupt-parent = <&intc>;
++        interrupts = <7>;
++        gpio-controller;
++        #gpio-cells = <2>;
 +        interrupt-controller;
-+        #interrupt-cells = <1>;
++        #interrupt-cells = <2>;
 +    };
 
 -- 
