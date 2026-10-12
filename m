@@ -1,265 +1,121 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788A23C2794
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:30:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791786643; cv=none; b=Hcg0fjAHeZ7JQqmeDqelG8ALhi2gO9MZ+M6md7Zc5meIB43tD5e/7E0XmFpFBFmbXy1dcCnnDj2jpSmAWqur4XOIoARz7jtrywmw3mgGwon2MWpLZmd34+JXQu5bp9f8BfnPt3/mOYXg0tA3WSAFhsJGm3e8ygTELQwB0Izrn84=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791786643; c=relaxed/simple;
-	bh=DIC6OCNj7W0ie9aWmsBbkazgykPqmbs95QVc83oRswE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G0bLaKpFPAAdg/cHATZyPqhKTHZjLCFIctKWapYiQvXpIRcGsG9UpkcvUOY66zOfVokZnlPsp3+xHERTuPC2Nv2Z8G26Pb8+SXW0QRa1aM7Xq8+KTfe69M3XFJD9Zb7R+rGcjVtNWGoyS/KmnXkjIGQsf/pRP8caZCi/xCY6IJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VMkDLIV6; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEB43D2FEC;
+	Mon, 12 Oct 2026 06:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791786689; cv=pass; b=l/zIaEyh7Q8vsSoxtFJmA/XgzX/FpltgIJepymcHn9ruy1z/2iTyN0AYskNvjrW5xbD75Yz/SqazwMrdI+LphRwPsW8T34E4l8fkZWsFEO+AlzsdZD+Wq5nIrpP2rRp239Drvb2auPCLdfMMCU4o8vjOA1/0cMq4JIqn8K6hHdM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791786689; c=relaxed/simple;
+	bh=nZBa6AonUag7BVGD69Cp5RFNERuQJ1C1Cp8onbxhXgg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tsUrqJQIOuJykfuG5Dc5etAN/qyStROeF5GbsAs7vFScxsJ4Q+1KckgBdKRuDACWgruUloJYjxH+qngEoymuEMCCVM9GLNy7Go90H4AKfypKLL+Z0dlbY2uiRbUgbU9cq74PMMUV0YLAkRZ8lkZb3/IG6iTVohIloggqQhGKi+g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=bsX3X1Uu; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VMkDLIV6"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e61ac64ec3so14270055ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:30:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791786640; x=1792391440; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0Ym9pmTvHGCvGzIEIbpXI+Ln1kCI6J80Q0tQm6YawUg=;
-        b=VMkDLIV6ud3CAWLFqKRoklpYVzeBtDG32BNqek2g89HOqTDVDFYvXG9ap1+FBUcrWG
-         RV1IUGT5LyV7RVOujKX0Ssnjnfnq2Z0PqybPi6JCoCXI6QvfM5ORQUP8kHqFwRYixwAL
-         FA1FGxlC+WFGMIsCMM1tcLSg+afYRw9b88jTWq0dvej941Y7ugs0jYrtrzAT3rM0OWHy
-         NCq866a31OZ6qhhBk/bkuHqR/dvWo3+Jd54qsX1/5uIJgy7TmPVo5tUXw2YjDe2LPEz0
-         Qk1Uwx2pOXIGV2DjGuZzRmGm+2079DEhPkPnFsySuurEgcyAYb7YZW7URPtpyrXpJFIH
-         ZGXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791786640; x=1792391440;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0Ym9pmTvHGCvGzIEIbpXI+Ln1kCI6J80Q0tQm6YawUg=;
-        b=tK21Df1DD021GwLe/Q2kUUa4YOU93zl0NzZdJ3YIskki6Rwak0e3++z5e6APnYI/bS
-         5iOZh8jUJWya+w82tXB78DsqeEDTk7EtnN5ZnIHmbCzoSBVISqffK2zOqHopzMHAOBpv
-         GnVJe6P53njNcsyKYcZj8wiWD9vvAODofeuftFdVjZddt7i12OPzBEx1SdOmLCyGgrqa
-         oxwJV7M1g2EMCfrSB8DJfla/cPNQYv/BY7gLoC6hF2f1TUNVFhlPS9LCw7Yf0od/o6jN
-         1EySgeyknHYPt0BIiG52DVsb5ubGOdlUD7a4wUBjcD+QMA7v/vkGI0odg2mWwHc9d+a1
-         xX4w==
-X-Forwarded-Encrypted: i=1; AKwUvBz8AQOIdGiRlMckvAmxIoewG2yX5jKZcDBzjdo4LgvL+7rjanCGgXlUhxLk403v4F/O2RsL5B4e5ACB9ms=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIB5wU37u3i6ObO/J1Y4m9Qzq3is7soQ6V9IFgU5NkzNgKnh1g2
-	HLavSrRjuQMKT6wBIzozZakMEXVxiB2EMzqDj+JtxGvr/5nEI0Rjjb46
-X-Gm-Gg: AYBFou0HuVG/5eH+mVm4vjHHddtUy5X5SiAgUOhqobJB9QhhA+WCbRjP/J/gSwyLZZe
-	Zf1K33NV4fjsiFHqGRcA4fWWcz4wHi8IuDXVhKZgIrIht/lL8/NkRBkm1E9k4+GNFBkQcBnwpGK
-	e42qOTIK1sF57+IQyrVezMzZRuTkKIDrqOMZvaA2vMy2yFBMw+x3VPqMK9b/8n0k8bO05oEfrwL
-	qUDQX7OEekI2bwr+6P0XzOuF2WUqvvN5OvE5UlHTwVG5vtJTtFR44HgPLpucmzL+1Oc2FBQzeVa
-	5lQtXoqPOxLZ9B7HWH0T4s9M64WZQEV0YswLrRYBvmljkbug4+flHghIv7zaNhO7xIt+ev6FNWC
-	neEevogFYecInR90O5rxSM947C2G0B1z8BrOb2+s6h7yxpTUjZ4YnStoXxNla1nEdGff+RTa/H/
-	rYOKN20eCgOLz11CABZxednQH0CYDTsRghl4s+V9mNCle6NrfQ0C7+oxsyxFnuHHamQR9C0J+fx
-	N5uYjjsweig+o530PZb2UTztDYFhY/FKb2zCew8cKGk02JMRiCTkA0Inq4nAv8=
-X-Received: by 2002:a17:903:15c8:b0:2e2:dc6c:a6d6 with SMTP id d9443c01a7336-2e842aa60cbmr66919225ad.16.1791786639721;
-        Sun, 11 Oct 2026 23:30:39 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422da9b1sm39071745ad.66.2026.10.11.23.30.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 23:30:39 -0700 (PDT)
-From: Joey Lu <a0987203069@gmail.com>
-To: sboyd@kernel.org
-Cc: ychuang3@nuvoton.com,
-	schung@nuvoton.com,
-	yclu4@nuvoton.com,
-	arnd@arndb.de,
-	bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH 3/3] clk: nuvoton: ma35d1: remove the unused ADC divider driver
-Date: Mon, 12 Oct 2026 14:30:20 +0800
-Message-ID: <20261012063020.3331443-4-a0987203069@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012063020.3331443-1-a0987203069@gmail.com>
-References: <20261012063020.3331443-1-a0987203069@gmail.com>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="bsX3X1Uu"
+Received: from ratatoskr.trumtrar.info (unknown [IPv6:2a00:1f:f805:2b01:a03:2f4:308a:7b52])
+	(Authenticated sender: str@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id AB440200873;
+	Mon, 12 Oct 2026 08:31:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791786679;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+wlCTTzhEmqwNRCCk2BDRDkJcEczD//wMLoJIXIrJ0M=;
+	b=bsX3X1UugO7MVUGGjtlWOAo9WLj/IjNMRKkykNkzWEhnHxwuozekinpWsURNkOYFIRugW/
+	g0IWKEGRErxzfocrKJR8B8kbAJcpfvKVZZEb462nEBsanfXz8u7R8L4DMJG+thRuv5MR7Q
+	I7VPlskh6TYBrM9wm+K9V+zKH4Lu7W7TM4RwPV2fJ2/YaPuZ6zTXZbmaRyX8xxlnGsT+X+
+	8zN9Ia3uDD4lOvdSvO4IGNDdT+8qd/ADHYPZD8rhD6IqBqx12/UeD9w8/LDdiRBgzbJNwr
+	+FQQB1uHUMXXJfmLnux2vJd0NueAHeYRyAHBGxiYUXbTKW4W+yKKz3oKTfR0dw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791786679; a=rsa-sha256;
+	cv=none;
+	b=VoBo1IQY9+CdR34kE0NM77gARDMyM+SpSbhUS+BOp0vxPlmCWxGJSn9NcYLTL6mednhMJM
+	E+1+8cpDu4ENQGUu4vT0nvxXKSfCUA0Hcza41g67SUXqk8+uOaxVBR6VRiUwElw6MmWYvQ
+	vdZyokFwNHdwHYJEAm4XVaL4ibkp2CVoWXP+38dTIGe73ZD+RKUMtDUNodkw8QDQO/K9M9
+	73EK7DLv+s9NUPJ2CbZJp0IQ/rbQWvbyMPlLb4uJMHcuqyKQxzqkH93vqyfrKMN4TMaUcq
+	fbyrtK8DZTnGr1Ogx7PGku1bRw8O8EhnuDPKwQL8hNGhQbFNPm40L/b2CqRTug==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=str@pengutronix.de smtp.mailfrom=s.trumtrar@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791786679;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+wlCTTzhEmqwNRCCk2BDRDkJcEczD//wMLoJIXIrJ0M=;
+	b=eijU7suQCQNxtaZOHQfSxHuQmBv9nWsc7bHlsHP3INtAUPhk0TXqnrpP66CeRSVkLg5M6j
+	TFZ6y/D2JVPiyyUI52l0RgN+f2jjY+1lW1r3Yaa4rxK5VTFYo4VwsbjlOcZl1Qdu7aP4O5
+	v+lRtehUC3c1KOB9hpqQFnfbIdz1d3V8ZrCqTe4B2upbf9kxt2lcwN2FnX0deiFCnSMDOC
+	M42sl7qFKyt95r2SbuN98DZaYJ5NaLgYukq2LFlUdw/x//cQg+WWdCwgVBjfuf8holEtRw
+	uOTYBZ567YcRMIsamLtHlX0P7w1kmp9pf//vdXW9DfGKHlPRKeITL2Q+nUYKWg==
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Mon, 12 Oct 2026 08:30:31 +0200
+Subject: [PATCH v10 2/4] dt-bindings: arm: fsl: add compatibles for Skov
+ i.MX8MP boards
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-2-0906e57486a3@pengutronix.de>
+References: <20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-0-0906e57486a3@pengutronix.de>
+In-Reply-To: <20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-0-0906e57486a3@pengutronix.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>
+Cc: Steffen Trumtrar <s.trumtrar@pengutronix.de>, 
+ =?utf-8?q?S=C3=B8ren_Andersen?= <san@skov.dk>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1629;
+ i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
+ bh=nZBa6AonUag7BVGD69Cp5RFNERuQJ1C1Cp8onbxhXgg=;
+ b=owGbwMvMwCUmtVehiCsuTInxtFoSQ9aZum3O3xj5458sVVu2z7731dxpe/ZdEN/p965I5pxl8
+ vq29SviO0pZGMS4GGTFFFlUFlbwiXp88IycJsIFM4eVCWQIAxenAEzEspGR4etxhizF3S+LLkVl
+ P5a4x5Nb/i/lsenTLXUWDfZFqxpZ5Rj+e7BEL/iXcuPGrOMC6v/Ml5daXO+Z63FDbEXL9AIJ876
+ FjAA=
+X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
+ fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 
-The ADC divider is now registered with the generic clk divider, so
-clk-ma35d1-divider.c and its ma35d1_reg_adc_clkdiv() prototype have no
-users. Remove them, including the divider table it built with one entry
-per possible divider value.
+Add a compatible for all revC-based Skov boards with a touch panel.
 
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
+Also, in preparation for adding a new device tree variant with a
+different 7" panel than the already mainline ones, also describe that DT
+compatible in the binding.
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- drivers/clk/nuvoton/Makefile             |   1 -
- drivers/clk/nuvoton/clk-ma35d1-divider.c | 133 -----------------------
- drivers/clk/nuvoton/clk-ma35d1.h         |   5 -
- 3 files changed, 139 deletions(-)
- delete mode 100644 drivers/clk/nuvoton/clk-ma35d1-divider.c
+ Documentation/devicetree/bindings/arm/fsl.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/clk/nuvoton/Makefile b/drivers/clk/nuvoton/Makefile
-index c3c59dd9f2aaa..3d95466e69b9c 100644
---- a/drivers/clk/nuvoton/Makefile
-+++ b/drivers/clk/nuvoton/Makefile
-@@ -1,4 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0-only
- obj-$(CONFIG_CLK_MA35D1) += clk-ma35d1.o
--obj-$(CONFIG_CLK_MA35D1) += clk-ma35d1-divider.o
- obj-$(CONFIG_CLK_MA35D1) += clk-ma35d1-pll.o
-diff --git a/drivers/clk/nuvoton/clk-ma35d1-divider.c b/drivers/clk/nuvoton/clk-ma35d1-divider.c
-deleted file mode 100644
-index e992e7c303419..0000000000000
---- a/drivers/clk/nuvoton/clk-ma35d1-divider.c
-+++ /dev/null
-@@ -1,133 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- * Copyright (C) 2023 Nuvoton Technology Corp.
-- * Author: Chi-Fang Li <cfli0@nuvoton.com>
-- */
--
--#include <linux/clk-provider.h>
--#include <linux/device.h>
--#include <linux/regmap.h>
--#include <linux/spinlock.h>
--
--#include "clk-ma35d1.h"
--
--struct ma35d1_adc_clk_div {
--	struct clk_hw hw;
--	void __iomem *reg;
--	u8 shift;
--	u8 width;
--	u32 mask;
--	const struct clk_div_table *table;
--	/* protects concurrent access to clock divider registers */
--	spinlock_t *lock;
--};
--
--static inline struct ma35d1_adc_clk_div *to_ma35d1_adc_clk_div(struct clk_hw *_hw)
--{
--	return container_of(_hw, struct ma35d1_adc_clk_div, hw);
--}
--
--static unsigned long ma35d1_clkdiv_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
--{
--	unsigned int val;
--	struct ma35d1_adc_clk_div *dclk = to_ma35d1_adc_clk_div(hw);
--
--	val = readl_relaxed(dclk->reg) >> dclk->shift;
--	val &= clk_div_mask(dclk->width);
--	val += 1;
--	return divider_recalc_rate(hw, parent_rate, val, dclk->table,
--				   CLK_DIVIDER_ROUND_CLOSEST, dclk->width);
--}
--
--static int ma35d1_clkdiv_determine_rate(struct clk_hw *hw,
--					struct clk_rate_request *req)
--{
--	struct ma35d1_adc_clk_div *dclk = to_ma35d1_adc_clk_div(hw);
--
--	return divider_determine_rate(hw, req, dclk->table, dclk->width,
--				      CLK_DIVIDER_ROUND_CLOSEST);
--}
--
--static int ma35d1_clkdiv_set_rate(struct clk_hw *hw, unsigned long rate, unsigned long parent_rate)
--{
--	int value;
--	unsigned long flags = 0;
--	u32 data;
--	struct ma35d1_adc_clk_div *dclk = to_ma35d1_adc_clk_div(hw);
--
--	value = divider_get_val(rate, parent_rate, dclk->table,
--				dclk->width, CLK_DIVIDER_ROUND_CLOSEST);
--
--	spin_lock_irqsave(dclk->lock, flags);
--
--	data = readl_relaxed(dclk->reg);
--	data &= ~(clk_div_mask(dclk->width) << dclk->shift);
--	data |= (value - 1) << dclk->shift;
--	data |= dclk->mask;
--	writel_relaxed(data, dclk->reg);
--
--	spin_unlock_irqrestore(dclk->lock, flags);
--	return 0;
--}
--
--static const struct clk_ops ma35d1_adc_clkdiv_ops = {
--	.recalc_rate = ma35d1_clkdiv_recalc_rate,
--	.determine_rate = ma35d1_clkdiv_determine_rate,
--	.set_rate = ma35d1_clkdiv_set_rate,
--};
--
--struct clk_hw *ma35d1_reg_adc_clkdiv(struct device *dev, const char *name,
--				     struct clk_hw *parent_hw, spinlock_t *lock,
--				     unsigned long flags, void __iomem *reg,
--				     u8 shift, u8 width, u32 mask_bit)
--{
--	struct ma35d1_adc_clk_div *div;
--	struct clk_init_data init;
--	struct clk_div_table *table;
--	struct clk_parent_data pdata = { .index = 0 };
--	u32 max_div, min_div;
--	struct clk_hw *hw;
--	int ret;
--	int i;
--
--	div = devm_kzalloc(dev, sizeof(*div), GFP_KERNEL);
--	if (!div)
--		return ERR_PTR(-ENOMEM);
--
--	max_div = clk_div_mask(width) + 1;
--	min_div = 1;
--
--	table = devm_kcalloc(dev, max_div + 1, sizeof(*table), GFP_KERNEL);
--	if (!table)
--		return ERR_PTR(-ENOMEM);
--
--	for (i = 0; i < max_div; i++) {
--		table[i].val = min_div + i;
--		table[i].div = 2 * table[i].val;
--	}
--	table[max_div].val = 0;
--	table[max_div].div = 0;
--
--	memset(&init, 0, sizeof(init));
--	init.name = name;
--	init.ops = &ma35d1_adc_clkdiv_ops;
--	init.flags |= flags;
--	pdata.hw = parent_hw;
--	init.parent_data = &pdata;
--	init.num_parents = 1;
--
--	div->reg = reg;
--	div->shift = shift;
--	div->width = width;
--	div->mask = mask_bit ? BIT(mask_bit) : 0;
--	div->lock = lock;
--	div->hw.init = &init;
--	div->table = table;
--
--	hw = &div->hw;
--	ret = devm_clk_hw_register(dev, hw);
--	if (ret)
--		return ERR_PTR(ret);
--	return hw;
--}
--EXPORT_SYMBOL_GPL(ma35d1_reg_adc_clkdiv);
-diff --git a/drivers/clk/nuvoton/clk-ma35d1.h b/drivers/clk/nuvoton/clk-ma35d1.h
-index 3adee440f60a3..06300511987ae 100644
---- a/drivers/clk/nuvoton/clk-ma35d1.h
-+++ b/drivers/clk/nuvoton/clk-ma35d1.h
-@@ -10,9 +10,4 @@
- struct clk_hw *ma35d1_reg_clk_pll(struct device *dev, u32 id, u8 u8mode, const char *name,
- 				  struct clk_hw *parent_hw, void __iomem *base);
- 
--struct clk_hw *ma35d1_reg_adc_clkdiv(struct device *dev, const char *name,
--				     struct clk_hw *parent_hw, spinlock_t *lock,
--				     unsigned long flags, void __iomem *reg,
--				     u8 shift, u8 width, u32 mask_bit);
--
- #endif /* __DRV_CLK_NUVOTON_MA35D1_H */
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index cb99fb74805bc..3ff8cd69b0830 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -1153,8 +1153,10 @@ properties:
+               - skov,imx8mp-skov-revb-mi1010ait-1cp1 # SKOV i.MX8MP climate control with 10.1" panel
+               - skov,imx8mp-skov-revc-hdmi # SKOV i.MX8MP climate control without panel
+               - skov,imx8mp-skov-revc-bd500 # SKOV i.MX8MP climate control with LED frontplate
++              - skov,imx8mp-skov-revc-jutouch-jt070tm041 # SKOV i.MX8MP climate control with 7" JuTouch panel
+               - skov,imx8mp-skov-revc-jutouch-jt101tm023 # SKOV i.MX8MP climate control with 10" JuTouch panel
+               - skov,imx8mp-skov-revc-tian-g07017 # SKOV i.MX8MP climate control with 7" panel
++              - skov,imx8mp-skov-revc-touch # SKOV i.MX8MP climate control revision C with touch panel
+               - ultratronik,imx8mp-ultra-mach-sbc # Ultratronik SBC i.MX8MP based board
+               - ysoft,imx8mp-iota2-lumpy  # Y Soft i.MX8MP IOTA2 Lumpy Board
+           - const: fsl,imx8mp
+
 -- 
-2.43.0
+2.51.0
 
