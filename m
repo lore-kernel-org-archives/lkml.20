@@ -1,180 +1,105 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846993E7BD5
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:11:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44AC43DA7F9;
+	Mon, 12 Oct 2026 14:12:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814298; cv=none; b=b8zs3q3dpcrvjm0tf2xV+9+F+Y+7P/SNNTnp9DkCsUol5+POMhgaXYXaEl2StIeiC/91ccjkLN8eX3O5wwKoV97j1A0k8kB71qoQp3JiRMVVorjOzjdJUvdJ67YWXoxLdacZnzxmxQYdDidWpKfHXnJROdRyYzXeKck6dtvMzo0=
+	t=1791814373; cv=none; b=kgnqsKOzqrh69vL4pvCA+hDHb6RhY1kL3MF0YJMdow+E+I/vlSl5m7yXd0qJ1L1WK+DUHR9+e+vNsJYc0XrTJh3iTDnigyM/AR4FE9L8Nv8h0+62H5aVMMw2LsM9qutK4gex2Mw64vBeBeOcNpTXctgkEWSphP7FZp+TfICblTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814298; c=relaxed/simple;
-	bh=O/sYz3hEDtYzWeOz8YVEvIUVPQJcn4FymHOI0/mQ3Os=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BdvrFvFfIjbZMDm6GAEOna7VCMqVcH2P/ykkzxILD0JPvsMch6dnM9g0+E2Bnabrpa0WCo8pv3YhGwOSc7BDyFF7ZydTB/y8EHPS3QNFxxKMe2GxKzxK6uJPMnCmI2+LvKHeVHkPoRhUZ4Vauqezn9NZuS2/2//xlaiFw5yJ1v8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Q/ItDqlP; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=LRIAU1qp; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Q/ItDqlP; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=LRIAU1qp; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1791814373; c=relaxed/simple;
+	bh=7DrTE4LfL6ef3tZN5qq9xmNqooBTwIUSrcWTQ89zea0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=loJ5cZS3E2Qc8RgafG/Z8KMKHtKhFMVFHN7qhZTvemGxKL1IVtcU1PDVMgYmXdoKldyl4h8p6nAqPc5z60uREAmx/OMeYXX2lazf1daN86TOz5fa2PUjL8PdqVYtys0Wgbgz3CnXn9OB5qSuaz5GC+5Ww7SfSUuqu6kkFRyCCaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=X2Qn2SkH; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Q/ItDqlP";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="LRIAU1qp";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Q/ItDqlP";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="LRIAU1qp"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id F38631F38C;
-	Mon, 12 Oct 2026 14:11:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791814284; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DPswPjxS+qpu6i6zUA1Kx2e7xk6K1phiFUxlGK+8LzY=;
-	b=Q/ItDqlP4+w6WAkwfX1k0X6ujm7G5QavPCe48S224sz6BsucbPMJNtLmPOqv7Iw1sey5dp
-	HztsPyQnoX2GdkoGZJjnTzxEzFj1wb6Q9Ul4k04zOj38m0UWtk/PDuaFk9ML5xEJUxkqxc
-	qXo4ZqYGAGyU1KkQ1CnYcNqJ7pdJz+s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791814284;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DPswPjxS+qpu6i6zUA1Kx2e7xk6K1phiFUxlGK+8LzY=;
-	b=LRIAU1qpo+jKKhvV0DnAfTof5Tws0j22vsCLRZkQC8mjOBkp6Z2hipd8JsI89ugai94uMv
-	zISIs3YOUTzdbABQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="Q/ItDqlP";
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=LRIAU1qp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791814284; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DPswPjxS+qpu6i6zUA1Kx2e7xk6K1phiFUxlGK+8LzY=;
-	b=Q/ItDqlP4+w6WAkwfX1k0X6ujm7G5QavPCe48S224sz6BsucbPMJNtLmPOqv7Iw1sey5dp
-	HztsPyQnoX2GdkoGZJjnTzxEzFj1wb6Q9Ul4k04zOj38m0UWtk/PDuaFk9ML5xEJUxkqxc
-	qXo4ZqYGAGyU1KkQ1CnYcNqJ7pdJz+s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791814284;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DPswPjxS+qpu6i6zUA1Kx2e7xk6K1phiFUxlGK+8LzY=;
-	b=LRIAU1qpo+jKKhvV0DnAfTof5Tws0j22vsCLRZkQC8mjOBkp6Z2hipd8JsI89ugai94uMv
-	zISIs3YOUTzdbABQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CA4DB13314;
-	Mon, 12 Oct 2026 14:11:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id mJoYKYvqzGrFHwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 12 Oct 2026 14:11:23 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 55267A1407; Mon, 12 Oct 2026 16:11:23 +0200 (CEST)
-Date: Mon, 12 Oct 2026 16:11:23 +0200
-From: Jan Kara <jack@suse.cz>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: axboe@kernel.dk, willy@infradead.org, jack@suse.cz, 
-	akpm@linux-foundation.org, linux-block@vger.kernel.org, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+e0624b5bf72b99131402@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] mm/filemap: annotate lockless reads of
- mapping->nrpages
-Message-ID: <zzneb5ezerl2353crj7xzivjbpdv5vgvqqvxkbvg77nwhdmldn@fenjftsskl34>
-References: <20261012120636.16106-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="X2Qn2SkH"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 49D8A8064A;
+	Mon, 12 Oct 2026 16:12:49 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id BTPy5UdRZVcP; Mon, 12 Oct 2026 16:12:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1791814368; bh=7DrTE4LfL6ef3tZN5qq9xmNqooBTwIUSrcWTQ89zea0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=X2Qn2SkH1Q0/OLKoO0ySpOHILe9hC60RqFeBsu431h+wSieSbT8VT7LpZ9GNA3DTX
+	 SE34oIBZ4LIOvc7XemJTkmX2RtJXhPMfzB+9zmVR4QEDLoTZcGscUF6R+fsU/mv8ek
+	 ndTX430MUoJxkG4bpg2jBxT/iNUIULImurGDardr4osfzvuwIZoEX3q59Ian9/LJLr
+	 fP0qG3O284mxxYDoKi+wsvFzGI2Zn0eFjT5LwqcPREeeUDXKYU45fSxEw6L2Q+e+O2
+	 tFskZ0IrFTEdtMOXSlGaRFyi6MORTBqEXur03nj5cTZlGeminkAoZbDEO9RNplRqtp
+	 JSCfRyBx4hY5w==
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: control_led: Fix deadlock between sysfs writes and card disconnect
+Date: Mon, 12 Oct 2026 17:12:35 +0300
+Message-ID: <20261012141238.1823718-1-aliamemis@disroot.org>
+In-Reply-To: <874ieridp1.wl-tiwai@suse.de>
+References: <20261011180627.1594051-1-aliamemis@disroot.org> <874ieridp1.wl-tiwai@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012120636.16106-1-ngocthang2710.1999@gmail.com>
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: F38631F38C
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[e0624b5bf72b99131402];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,syzkaller.appspot.com:url,appspotmail.com:email,suse.cz:dkim]
-X-Spam-Flag: NO
-X-Spam-Score: -2.51
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon 12-10-26 19:06:36, Nguyen Ngoc Thang wrote:
-> mapping->nrpages is updated under the i_pages lock but is read locklessly
-> as a cheap "anything cached?" hint, e.g. in invalidate_bdev() and
-> mapping_needs_writeback(). KCSAN reports the race:
-> 
->   BUG: KCSAN: data-race in __filemap_add_folio / invalidate_bdev
-> 
->   read-write to 0xffff8881004c4178 of 8 bytes by task 3600 on cpu 0:
->    __filemap_add_folio+0x6b7/0x910 mm/filemap.c:919
->    filemap_add_folio+0x1cd/0x380
->    page_cache_ra_unbounded+0x1a4/0x3a0
->    ...
->    blkdev_read_iter+0x21e/0x2d0
->   read to 0xffff8881004c4178 of 8 bytes by task 3601 on cpu 1:
->    invalidate_bdev+0x25/0x70 block/bdev.c:98
->    ext4_fill_super+0x2ccb/0x37b0
-> 
-> The same counter also races with filemap_write_and_wait_range() through
-> mapping_needs_writeback().
-> 
-> The race is benign: a stale value only makes the caller do or skip a
-> harmless invalidate/flush pass. Mark the two lockless readers with
-> data_race().
-> 
-> Reported-by: syzbot+e0624b5bf72b99131402@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=e0624b5bf72b99131402
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+On Mon, 12 Oct 2026 09:24:26 +0200, Takashi Iwai wrote:
+> Hm, it's not clear to me how this happens: I see no controls_rwsem
+> down around snd_ctl_led_disconnect() call.  Could you elaborate about
+> it a bit more?
 
-...
+It's taken in the call_snd_ctl_lops() macro in control.c:
 
-> diff --git a/mm/filemap.c b/mm/filemap.c
-> index 00fd89cf6f55..4c9d98efb7fb 100644
-> --- a/mm/filemap.c
-> +++ b/mm/filemap.c
-> @@ -631,7 +631,8 @@ EXPORT_SYMBOL(filemap_fdatawait_keep_errors);
->  /* Returns true if writeback might be needed or already in progress. */
->  static bool mapping_needs_writeback(struct address_space *mapping)
->  {
-> -	return mapping->nrpages;
-> +	/* Lockless hint; a stale value is harmless */
-> +	return data_race(mapping->nrpages);
->  }
+	guard(rwsem_read)(&(_card)->controls_rwsem);
+	guard(rwsem_read)(&snd_ctl_layer_rwsem);
 
-Rather than annotating inside mapping_needs_writeback() it would be more
-future-proof to annotate the two callers of mapping_needs_writeback(). Just
-in case some user which require reliable answer appears in the future...
+so snd_ctl_dev_disconnect() calls ->ldisconnect() with controls_rwsem
+held for read.  snd_ctl_led_sysfs_remove() then waits in kernfs_drain()
+for the attach write which is blocked on down_write(controls_rwsem) in
+snd_ctl_led_set_id().
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+I hit it in QEMU with snd-dummy writing to attach in a loop while
+unloading the module.  It hung on the third iteration:
+
+rmmod:
+[<0>] kernfs_drain+0x2eb/0x510
+[<0>] __kernfs_remove+0x2e6/0x890
+[<0>] kernfs_remove_by_name_ns+0x7d/0x100
+[<0>] remove_files+0x8d/0x1b0
+[<0>] sysfs_remove_group+0x71/0xd0
+[<0>] sysfs_remove_groups+0x67/0xd0
+[<0>] device_remove_attrs+0x181/0x270
+[<0>] device_del+0x31f/0x8d0
+[<0>] device_unregister+0x12/0x30
+[<0>] snd_ctl_led_sysfs_remove+0x161/0x2f0
+[<0>] snd_ctl_led_disconnect+0x16/0xd0
+[<0>] snd_ctl_dev_disconnect+0x151/0x210
+[<0>] snd_device_disconnect_all+0xf0/0x180
+[<0>] snd_card_disconnect.part.0+0x25d/0x4c0
+
+attach writer:
+[<0>] set_led_id+0x2d9/0xc60
+[<0>] kernfs_fop_write_iter+0x33c/0x510
+[<0>] vfs_write+0x516/0x1340
+
+and lockdep reports it as well:
+
+  Possible unsafe locking scenario:
+        CPU0                    CPU1
+        ----                    ----
+   rlock(snd_ctl_layer_rwsem);
+                                lock(&card->controls_rwsem);
+                                lock(snd_ctl_layer_rwsem);
+   lock(kn->active#37);
+
+   #1: ffff88800768a1f0 (&card->controls_rwsem){++++}-{4:4}, at: snd_ctl_dev_disconnect+0x10e/0x210
+   #2: ffffffff881fdf28 (snd_ctl_layer_rwsem){++++}-{4:4}, at: snd_ctl_dev_disconnect+0x11a/0x210
