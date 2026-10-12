@@ -1,291 +1,127 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D431415B87
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:06:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BDE3ACA75
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:07:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791803184; cv=none; b=UdGZjsQR8McsKtarCUz8pnD2xb3k5/7UHHfZYCXZXomo0oDyIKK2VjBAon0CkXEP6fWvCfGyLYArYq3jaqKqV+moDVtZmGdoDdgCue0W1dJPyKcsrLQ/oUf0jlZDZoCDntMMJmwZwuZxVtefjqZn3Kc871vL3soZZWc3++/NrGk=
+	t=1791803277; cv=none; b=sLIjwWeQGsPDUaSzYuF5i7VRxIUokD2KpAP73s1tZqDwhUdJDsvYW+erhXsqHi38V7xYTAVTeuwexaFoqGcDUBr8rhguV5pms3za74ExoI6N4z2zs+lrkqXiUOi6kdYpp9BcldeNGkPNQGvkKB9TYU2JLmD4I9xNUhdO9Z9rZ+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791803184; c=relaxed/simple;
-	bh=A72ciOolcvKp1dYuivzjI6CjBbAygAt15osgfOUzlcs=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Yrq4FCye0CGd1GB89H5WM+iZoUN404mSJ27c6MGtXulQythCo0FpsA7u9OXAett7Q7d6fMoXza+qAVs8IQ3N6VnZDCAUI3JAt2biiKLVu57dGZ/vruGNU6o1GUdtE7/XgsUvgb6dBZ5InzgK0GklLGIND18MMxKfLKs8v1EsuS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cHBzu5+w; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BEgfZKne; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791803277; c=relaxed/simple;
+	bh=gCRdoiNYDO3HoZ+F+DE/NVCumhqnZCgJkbrzQXX3S2s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DJCs5NHBnpuujdKS3USkOkyauxFBZz3GXQIcoiYimKPan4nkkgQMmBvCYCrYdYsLNPl8N2DQg0lMCvw0g1xcYiGHIePe9SmYOuobLOdIwrQVUNI/wrjRdrdrMLFQW/ORhkXcUpQFhsEJUP4jzTxvC9RqguzTpqFMXoicDKkCjfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=TfPBNzEK; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cHBzu5+w";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BEgfZKne"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CA3a6T543705
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:06:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UPAzFbkqHrqh1U+dVDo3vXYHCvqIopcxz3ms4FKDc10=; b=cHBzu5+we6WupVaS
-	tnvfDd9JbxZgNF5hGfQTVs5xFNqTepMf2Qw7L3+s41Vn9hRxK5ybm0FKXmM9FXOw
-	MRwHoAa3LqyzpxYiQQThNlJizRKqor3BZEwnTKvbpxqlIINX0o3GMy1g1mfnc4st
-	zXQK0YT6AaLKgNwL8tbi2tq53279pxm5yd5Ar3GEHvdv/DqBf6WhrmxAPTXfwsDr
-	TyoUlebmiXb7a/JuLR4m6sa0puT5QNyZV24l4hRfqf+ZPoK+TnS5lk4at0642KNj
-	jWNkYbZLPqCfx4Z3/SBt4xEiousrB4wyPzJBPNTY18tYtQm+4B6J3Qp3O/XpyeKD
-	btVMxg==
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8wfcrahs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:06:19 +0000 (GMT)
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-892be308686so16763247b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:06:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="TfPBNzEK"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a16c399641so18056285e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:07:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791803178; x=1792407978; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UPAzFbkqHrqh1U+dVDo3vXYHCvqIopcxz3ms4FKDc10=;
-        b=BEgfZKneC0jSgXSFryRnRClhjlY7q2xlHwTcDYPVcdAxMu99fKfFV6yfldd6GqgGwM
-         p7Og6UtJB0740UBSHssngdFL6f6ziTManbCPPVCF1W2nLuARICY8tMh2ib6mcgqd5kCw
-         vwd8+h6ey34l7+aLbx/qLskxbL3q1VK5h5P3i1vS4yVjGjXVfHVnKxWG9j85uAiNF3PL
-         Nj+Tg++WHDVElSVEGTChmQCdqHGYjY9xZ0UVM1t6r4VV37ciFtgyXgcJIo5UaGoKIQk1
-         xAVKBfGlY9sNeIXiQero6K9lUGTOYUueBfI90WFuvHAq80poOiXjx76IOg+8/cNC5Ntm
-         b5wA==
+        d=baylibre.com; s=google; t=1791803274; x=1792408074; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7P/6e9/DIRLq+PtH8UCLLUQW4yirs+qPLm89lZGge2k=;
+        b=TfPBNzEK5DiuXD12hFxOCHT50LgQKTdxX7RyAnutOsQhuQmXjFbMJXC9otwGIj5pTF
+         /VHvBM2dMRzdHrb2gPiimpvuuA4KmGQqe4pMVwH0i/IkwXO9pUX4EwPhVIlh+rfg5FWi
+         gXrP5SPjLJQBDTD8spXc/l85MTJHHxB349tjn8dpCPITfN7Gh4/WCvOAF+L0zzWdh04H
+         Gb+YsusLm1S99JKoe8Ky818qQGWcI7PXvc68l+a5JEvTUhKUoZ7tdkqq5cU5CYlaO5VX
+         GPgeNVPv7LQrvJfpSUsipuw8gIfWEIPwexbkg3GTmpIqQD1g2cinA+bKbx+JlIurnem+
+         77ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791803178; x=1792407978;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UPAzFbkqHrqh1U+dVDo3vXYHCvqIopcxz3ms4FKDc10=;
-        b=V89kl9QmAzIXbpQUJl6JLWFsID021QmpWPQDFfPdpphc2o/f/NvxUetZjI38+eacdY
-         9QjorPHXvl0QDKtjBB3q+mmtwqxFpo443LcJ/UJD2rogHJ3YLFAzvFzZzgL6zbEPiY26
-         2LQwLOkWxULO32Bho+1Pdoibvn31CTY+JkFfqz7YnPiRAOwd/G6UihFvjeoDldO1IjfN
-         LogIWkLSCGdOmsq9ZUPZrBJV8x6RJzP7HCIaDiB+PlB4kxPP8Nc3oxQEtfRMi4ZO0F9+
-         69e2eirelFCI8RKodPQlosR+QDUtjpoBbGqWCNLUca+Psw/6mqi9rw78eD5vggaAjFVL
-         LVeg==
-X-Forwarded-Encrypted: i=1; AKwUvBye/o+P090BrCOxbI994dTkwykZ4Je762R4SlYUh0LUwlMuR3e0HMladGUTN3ia+fDRyTfcxQjuzvoSlc4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK52qePutktHnZDimmKMV0JPUUciXEta/W/xU7CaawVUAdAHDfu
-	9cvF4j3ffjpndPSBsjFU1/SEKziFVgXDX/9A0f+GIVNsPewZU2qLgQ9QeZGzdezubU1SUqyM29O
-	qPHbrAyIXzgh1gw53p140VMIIS3nwEcbh+jN6ndRo/DobvlNd4LglTJOKAxSUmYXcUw==
-X-Gm-Gg: AYBFou1771f3kbtwrbcalH0QV3cDU+ov2z9IsjCcFZJW3pKA9QojgTWqPH05toXV+AZ
-	/CkJuvEte6jyk5phpYnypUUmY/ip0uAdwzexSKlIC+4zWdY2g0WG0WABl5qVAW/UFcV5RMQAOVG
-	f9mJbJNpCVWjrFgNuJd+eflmqpLPwx8g/UrfbzwEUOTZc1tgI1QI/NPmhihZdXaIgg70AEVmGRL
-	ncl099UIt2ws/YsPSaZNKraY2YbXpvgr3PcUNAIHHRaukrwNf4D+0tQ9nMarQRewxh1vMVKntuI
-	k7V+TxB2b7dvUWbulgg9k74IGkYWy7OwOd8QWgtM/zLs2oHX4im6DgdIXPjNcglKJGjz3h1yL9B
-	K4fV+pC6SBJRB28asnoX0N/0xXZ2UUQ==
-X-Received: by 2002:a05:690c:e3ca:b0:8b0:a587:9447 with SMTP id 00721157ae682-8b0a587af48mr7610167b3.38.1791803178294;
-        Mon, 12 Oct 2026 04:06:18 -0700 (PDT)
-X-Received: by 2002:a05:690c:e3ca:b0:8b0:a587:9447 with SMTP id 00721157ae682-8b0a587af48mr7610007b3.38.1791803177727;
-        Mon, 12 Oct 2026 04:06:17 -0700 (PDT)
-Received: from [10.218.33.235] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f22edfasm31501227b3.34.2026.10.12.04.06.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 04:06:17 -0700 (PDT)
-Message-ID: <8774f401-7efa-4577-8d03-6fe652e856e3@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 16:36:06 +0530
+        d=1e100.net; s=20260707; t=1791803274; x=1792408074;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7P/6e9/DIRLq+PtH8UCLLUQW4yirs+qPLm89lZGge2k=;
+        b=Lph71qiFbbJgo8c/2lvafexIY4dKBy4hKyHxt5V3jFrqEyEHR00jCDg5LeSjZrqB9f
+         vjfyBKtf52qzEAZaxXOie7oJmSX1C6fYRJe8Dpn/1E8ltkWJm5acT7aFRwQFfO3Ep/pB
+         0/3YhGEQO5sZcDkS2QMh3wpjTWYdjeVhp1iGxvsMJTfwugD0xLfeCTmydL6d9kZqnoCQ
+         AP9MqnTLMWDFBlYlR7MNuCEbRDIY8NXeHTVi4xn3ZnKs3ryDSMRbdBIMguCg6giXmlI4
+         9ghwaZUJFMs+bFdSTl7In5PHF4sMMm3g2AvLutQsXjs5nN0XeQmtkAwxspMPT2NkXYg5
+         i8uQ==
+X-Forwarded-Encrypted: i=1; AKwUvByQcnTpLHmAGY9lS1OBX1YfODO5kq/1fYLDen6Qv6oqV6LkJjF977a3+ygEGYSkUIVJwWHEqF0I9iDqsR8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIg6OKmkJZM4LEP2TCU89Syx3ePgWLNmFA8JxWtMlzQ/F2/ubhp
+	JDsCDGYy624VMJ4exJ6qwmCkopviCtF3YbFE5qfy4At0AY7BQwCGSjgpPhYfNBmNOtc=
+X-Gm-Gg: AYBFou0tvzTsZ1G8cooVHba3POZDg/CxY6yY4UxuXP9FFIKv1wt4PU5j0vckE3w7l6W
+	Ew2w7tOXN4I/ZCNt0DPrGLqgy7TEhIEMJ+TOIjlXQw6/PUmS6aQokQgp8lfNo73c0av0MjHqBFW
+	Cciwd75CYS8BnWADqRRF1t0mcS2P+z+VeOVwN3KUsC1n7NgG1Z9kXqYpWoG8F6WxVrxxTGRUfxQ
+	czYwOdHoeMCVWH/N9LWI86w2zbxwkHnFtxBLt8uttKYQyzdEEf/0bQDXX0W6KypHgoUAgR3HiS8
+	SE69vJ/rXfVxZ9QFdQNHPc7KpYLlaMMEcN8z0CpQ0L/+snf/kXEhKbLDbmJTzVkn+bn9aoLI3Vj
+	603kHqPHpPOmqHcq9ZPpXE1Rq7xdmXhytEXzGZRffCrzljPM21+c/KBr2qBMMh0X9R9yr6YvZ71
+	f6qI6s7+Ps2nwzTz1Yusrd7+glc5VVTnDyqE/va/yKXdFiutiIlQpwTuHgFwRrkJ6hWHAkhor6b
+	ptwnq8eRHp+ZdeXB8uO05Ze6PIOKPJiYWc8eP/g+LUFWmRuPDKdQlV2prp2Yw==
+X-Received: by 2002:a05:600c:3e1b:b0:4a0:1fb9:2f51 with SMTP id 5b1f17b1804b1-4a18e487239mr186335915e9.14.1791803274028;
+        Mon, 12 Oct 2026 04:07:54 -0700 (PDT)
+Received: from localhost (p200300f65f19a904ade4f69ba751c34c.dip0.t-ipconnect.de. [2003:f6:5f19:a904:ade4:f69b:a751:c34c])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a18bead84esm279131425e9.13.2026.10.12.04.07.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 04:07:52 -0700 (PDT)
+Date: Mon, 12 Oct 2026 13:07:52 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Jake Steinman <j@metarealtyinc.ca>
+Cc: Ramshouriesh R <rshouriesh@gmail.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Bryan O'Donoghue <bod@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+	Bingbu Cao <bingbu.cao@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] media: i2c: hm1092: Add ACPI enumeration and the
+ 19.2 MHz configuration
+Message-ID: <asy-3JrGjoZCseXU@monoceros>
+References: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com>
+ <cover.1791608336.git.j@metarealtyinc.ca>
+ <b0d32a3b82eca233652f878b7ca91e4dc2d8e863.1791608336.git.j@metarealtyinc.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-Subject: Re: [PATCH v4 2/3] power: reset: pscrr: add watchdog pretimeout
- reason tracking
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Sebastian Reichel <sre@kernel.org>,
-        Wim Van Sebroeck
- <wim@linux-watchdog.org>,
-        Guenter Roeck <linux@roeck-us.net>, Benson Leung <bleung@chromium.org>,
-        Tzung-Bi Shih <tzungbi@kernel.org>,
-        Oleksij Rempel <o.rempel@pengutronix.de>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-watchdog@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        =?UTF-8?Q?S=C3=B8ren_Andersen?=
- <san@skov.dk>,
-        Guenter Roeck <groeck@chromium.org>,
-        Matti Vaittinen <mazziesaccount@gmail.com>,
-        Ahmad Fatoum <a.fatoum@pengutronix.de>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        avaneesh.dwivedi@oss.qualcomm.com,
-        Umang Chheda <umang.chheda@oss.qualcomm.com>
-References: <20260805-pscrr-reboot-reason-v4-0-54ef517084cc@oss.qualcomm.com>
- <20260805-pscrr-reboot-reason-v4-2-54ef517084cc@oss.qualcomm.com>
- <07562f41-c269-48b7-9ca2-be324282a456@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <07562f41-c269-48b7-9ca2-be324282a456@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: gGn5sJcwPfintD5U8A_0MiOvbVdA-mnZ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0NCBTYWx0ZWRfX2QkcXCgxXoOI
- VcKT/QXTWjkAb0G8mQFB6I9lW7gVy1dC6rb19hZ1b1pn4bivxxfO+kSTmZumFf2qcJPBPkW0NDe
- P3zzGel5o2PTgsK1SunjV7SwN0YblXY=
-X-Proofpoint-ORIG-GUID: gGn5sJcwPfintD5U8A_0MiOvbVdA-mnZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0NCBTYWx0ZWRfXx6HYONs6/+/Z
- Nk6qbMJzuDZV+Kg+86Jp2c70mDdt3T0Otj9AN99zG0bYJHNBbv/QsCjAeiPf5oYihHvCc5iAcHQ
- xf41fz09j4D2rKG5xyo1yZJxfe9C3rrbrKYQHNUftS9NF85Tr7DfpSIl9UxP4xjukqA3tExsNMa
- L866mBH1CzKyJy3ZGGKFRi3WC4VsR7CQlqtG77oc+vXfQSYlLselppaX8dQXG7998JXvBBAxCcw
- HqIlRMj0JnOKc7IlFL6jTPDb70xFHC6xFhqWF8GlsUgzdHPFYfkNH4Dkxeh+ZHLezu0y+dkR9k0
- RtGx6jBs5cj0XwKiy4H33uUVep9jEeDu7GblpT1yfABhKnFdYQOUfx6HP2Qra/2/LysoKMN8Rep
- qrwT4XnJYIldR/EnjlVeBXQesBbm2V3eYNuHi+GGlDCxXPHkWZlcXzxQbPZ6KIEDITZrAVBycRn
- 4IwQW6mkjI14zayP0aA==
-X-Authority-Analysis: v=2.4 cv=PbhqFShd c=1 sm=1 tr=0 ts=6accbf2b cx=c_pps
- a=72HoHk1woDtn7btP4rdmlg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=fO_Mk5cv7Jo2rvO2W84A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=kA6IBgd4cpdPkAWqgNAz:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 clxscore=1015 impostorscore=0 spamscore=0
- phishscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120044
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="kqxvnpytatkx6bm3"
+Content-Disposition: inline
+In-Reply-To: <b0d32a3b82eca233652f878b7ca91e4dc2d8e863.1791608336.git.j@metarealtyinc.ca>
 
 
-Hi Daniel Lezcano,
+--kqxvnpytatkx6bm3
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 1/2] media: i2c: hm1092: Add ACPI enumeration and the
+ 19.2 MHz configuration
+MIME-Version: 1.0
 
-On 07-Oct-26 4:24 PM, Daniel Lezcano wrote:
-> On 8/5/26 10:54, Faruque Ansari wrote:
->> Watchdog pretimeout resets are not recorded with a dedicated 
->> reason,
->> causing subsequent boots to report PSCR_UNKNOWN and making it 
->> difficult
->> to distinguish them from other unexpected resets.
->>
->> Add PSCR_WATCHDOG_PRETIMEOUT as a dedicated reason code and 
->> prevent the
->> panic notifier from overwriting a watchdog pretimeout reason with
->> PSCR_KERNEL_PANIC when the pretimeout governor triggers a panic.
->>
->> Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
->> ---
->>   drivers/power/reset/pscrr/pscrr.c     | 11 +++++++----
->>   include/linux/power/power_on_reason.h |  1 +
->>   include/linux/reboot.h                |  4 ++++
->>   kernel/reboot.c                       |  1 +
->>   4 files changed, 13 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/power/reset/pscrr/pscrr.c b/drivers/power/ 
->> reset/pscrr/pscrr.c
->> index 8c45b84059a9..b7e6239e207e 100644
->> --- a/drivers/power/reset/pscrr/pscrr.c
->> +++ b/drivers/power/reset/pscrr/pscrr.c
->> @@ -529,12 +529,15 @@ static struct notifier_block 
->> pscrr_reboot_nb = {
->>   static int pscrr_panic_notifier(struct notifier_block *nb,
->>                   unsigned long action, void *unused)
->>   {
->> -    struct pscrr_provider_dir *dir;
->> -    set_psc_reason(PSCR_KERNEL_PANIC);
->> +    /*
->> +     * Do not overwrite a watchdog pretimeout reason already 
->> set by the
->> +     * pretimeout path before it triggered this panic.
->> +     */
->> +    if (get_psc_reason() != PSCR_WATCHDOG_PRETIMEOUT)
->> +        set_psc_reason(PSCR_KERNEL_PANIC);
-> 
-> It does not sounds correct.
-> 
-> May be you should move the set_psc_reason() to different places 
-> for panic.
-> 
-> I did not explore the panic() function but I would suggest to 
-> have something like:
-> 
-> panic(..., ) --> defaults to PSCR_KERNEL_PANIC
-> 
-> panic_with_pscrr(..., reason)
-> 
-> Then pscrr_panic_notifier() only does the record
+Hello,
 
-Thanks for your review.
+On Sat, Oct 10, 2026 at 12:59:21AM -0400, Jake Steinman wrote:
+>  #include <linux/i2c.h>
+> +#include <linux/mod_devicetable.h>
 
-I agree that handling the kernel panic reason in this notifier 
-may not be the ideal approach today. However, my intention is to 
-add userspace crash recording support in the future as well. 
-Since this notifier already serves as the common point for 
-recording restart reasons, it seems like the most appropriate 
-place to handle userspace-triggered reboot reasons when that 
-support is added.
+Please don't add new usages of <linux/mod_devicetable.h>. The subsystem
+headers provide their respective *_device_id structures already. So
+<linux/i2c.h> already provides i2c_device_id (and of_device_id). If you
+still think you need a specific header for these structures, please use
+<linux/device-id/$subsystem.h>.
 
-For consistency, I added the handling for kernel panic and 
-watchdog reset reasons here as well. While they are not strictly 
-required for the current use case, this notifier is the most 
-suitable place to record reboot reasons. Keeping all reboot 
-reason handling in one place will also make it easier to add 
-userspace reboot/crash recording support in the future, without 
-introducing a separate mechanism later.
+Best regards
+Uwe
 
+--kqxvnpytatkx6bm3
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
-Faruque Ansari
+-----BEGIN PGP SIGNATURE-----
 
-> 
->> -    list_for_each_entry(dir, &pscrr_dirs, node)
->> -        pscrr_do_record(dir, get_psc_reason());
->> +    pscrr_record_current();
->>       return NOTIFY_DONE;
->>   }
->> diff --git a/include/linux/power/power_on_reason.h b/include/ 
->> linux/power/power_on_reason.h
->> index 8c99bdd75021..8e3889fa43ef 100644
->> --- a/include/linux/power/power_on_reason.h
->> +++ b/include/linux/power/power_on_reason.h
->> @@ -21,5 +21,6 @@
->>   #define POWER_ON_REASON_EC_PANIC "EC panic"
->>   #define POWER_ON_REASON_EXTERNAL "external reset"
->>   #define POWER_ON_REASON_KERNEL_PANIC "kernel panic"
->> +#define POWER_ON_REASON_WATCHDOG_PRETIMEOUT "watchdog pretimeout"
->>   #endif /* POWER_ON_REASON_H */
->> diff --git a/include/linux/reboot.h b/include/linux/reboot.h
->> index a117dd5eaecd..6d5ecc6cdc00 100644
->> --- a/include/linux/reboot.h
->> +++ b/include/linux/reboot.h
->> @@ -243,6 +243,9 @@ extern void orderly_reboot(void);
->>    *
->>    * @PSCR_KERNEL_PANIC: Reset that followed a kernel panic.
->>    *
->> + * @PSCR_WATCHDOG_PRETIMEOUT: Recorded when a watchdog 
->> pretimeout fires, before
->> + *  the pretimeout governor brings the system down.
->> + *
->>    * @PSCR_REASON_COUNT: Number of defined power state change 
->> reasons. This
->>    *    value is useful for range checking and potential future 
->> extensions
->>    *    while maintaining compatibility.
->> @@ -267,6 +270,7 @@ enum psc_reason {
->>       PSCR_CPU_CLK_FAIL,
->>       PSCR_XTAL_FAIL,
->>       PSCR_KERNEL_PANIC,
->> +    PSCR_WATCHDOG_PRETIMEOUT,
->>       /* Number of reasons */
->>       PSCR_REASON_COUNT,
->> diff --git a/kernel/reboot.c b/kernel/reboot.c
->> index 979ecf3b093c..fad4ef9681a6 100644
->> --- a/kernel/reboot.c
->> +++ b/kernel/reboot.c
->> @@ -1110,6 +1110,7 @@ static const struct psc_reason_desc 
->> psc_reason_descs[] = {
->>       [PSCR_CPU_CLK_FAIL]     = { "cpu-clock-failure", 
->> POWER_ON_REASON_CPU_CLK_FAIL },
->>       [PSCR_XTAL_FAIL]     = { "crystal-failure",      
->> POWER_ON_REASON_XTAL_FAIL },
->>       [PSCR_KERNEL_PANIC]     = { "kernel-panic",      
->> POWER_ON_REASON_KERNEL_PANIC },
->> +    [PSCR_WATCHDOG_PRETIMEOUT] = { "watchdog-pretimeout", 
->> POWER_ON_REASON_WATCHDOG_PRETIMEOUT },
->>   };
->>   /**
->>
-> 
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrMv4UACgkQj4D7WH0S
+/k43Jwf9GrlIGDCBYKcBqQkWsgG0oiIQfvX7JHkUjt+RJwtNvuv6MTPBtuNY8dcB
+Pigqb0PhlmTGfJaqgKSkc+tcny8ZN5928YFLO8q/KhLOq5fAkEksTgaGzWEw//CJ
+GZKtUP/v5FIPb3hBLX7uNvKEDc1ZflbJd0Wxw+OSLIHwwsn2IbRcG2p9hRdxYc6b
+6col15XvOq2Edshj3Rs+1f732N+aDBEYSvsdQmDkvZ6pSGGpDRUPCBbvfYg9vSo6
+X4dffxXERL5epamRzrBNqZGl+BnzjdfZ1pU7Mi+jt8PAm5u4Q1fvPIgx6VN6TtYY
+XUhHIk84okjCO1QVAMEyAnEaAtwRJw==
+=RGI1
+-----END PGP SIGNATURE-----
 
+--kqxvnpytatkx6bm3--
