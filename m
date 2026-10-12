@@ -1,172 +1,133 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C74246EF6B;
-	Mon, 12 Oct 2026 09:47:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79E534EF0C
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:48:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791798476; cv=none; b=NLsUdm/hlh6jDO+sKSZHpcI5SH/MgSrepDnDkrrs4oBBWhQmVrFZRniA4GdoK0NDNb0WefALsf1Z3+XDE9tSooMwA25oFM/OnCUBYIiEYDgqN/62Yois7SVdMb6a+1W+slKPZunhnKOALtplIf8nybG7YQI8sE5udhTWtLhf/YM=
+	t=1791798516; cv=none; b=B+OVyHlL6oZZdp97nFkjf9pVuK9JgRPAKA+G2oz/BTelQYma3m7Y9F10QKx2PSxwYcmtdyRFAPoTlx6d3t05IQUfyRkqXnIZl8NUStS3rydX4DEuNBY6oIfgP6XnqqFcxOnfbN1XN567ve6NgR+miDBnx6ViYQVFt8EESeYZWqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791798476; c=relaxed/simple;
-	bh=LEk/A/nrJyywMNg3MM69Syjo6/JmBTolLn8hKM1th50=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qkjrbfGHtF5Ba8a0cGxCkFVcXRrKey4cDgz2/pFsPsYxbxU7eac/Oq86o4msvJNYVZD7dILRul8gJ4xlBAmann7YS0u0igYF2wBZigMIs4jztb5n3KP2NjpZ9bPGq3nQULJwu3TL/rFLCxztEpvx4BqouxV/1lrEP1fBeR7emXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=yhr/xUfg; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=VFZx090F; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=OcE8jk2U; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=coWOxpQO; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1791798516; c=relaxed/simple;
+	bh=Xwo1yCAMK5tqAeCHkGuwh4MMuZ0ul0FuqvfPBWClix4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EBMXHTyILVZ9841koT9Lr6WSbXxR0tg6CqpbQynxXFMJobQ7rt4JP4G3XioRInJ6WyHvR8iRiI366oLzZ0XKm6MlMTvIyvAfs09kdK7E6ATtYNzsf2Iqifn86sw/j1f3RPoJdZg4FplDswBLOzYJq5neubqqByHQueMLNejF3ZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TORYaqkV; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="yhr/xUfg";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="VFZx090F";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="OcE8jk2U";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="coWOxpQO"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id CC6781F78F;
-	Mon, 12 Oct 2026 09:47:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791798472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1XtAnjY5kuB4iyaUZjBNl24UZ1rbK0xSs9L8uM9evPQ=;
-	b=yhr/xUfgauf8MOgSogCvtvtL4chYrx+Xoyc8bmEyprv2FWXRTCiJR5eqo8MbDWim5Boalb
-	wIl4B+F5VDkKmE1ghX1FSbBC/ttQivWS9jLYDo1mTMTWLsBjtAOteCpLtDCxCAewZeMFA6
-	lVXOrHJJMtNmYozZUHzZwtERQ8i/crg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791798472;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1XtAnjY5kuB4iyaUZjBNl24UZ1rbK0xSs9L8uM9evPQ=;
-	b=VFZx090F859J+UsL2O/mlsn/BD9mN7HU/G1B9wHLxQOGe9s7OvXq5CP1UgV8lDZVFg8wDc
-	tlV2AYBpbdimi3CQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=OcE8jk2U;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=coWOxpQO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791798471; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1XtAnjY5kuB4iyaUZjBNl24UZ1rbK0xSs9L8uM9evPQ=;
-	b=OcE8jk2UYrLK2rP8vUosEYXaW3bb92WsnsxKV/1QQDWvx463l56ViXJxvSXNjRFpqnwkI9
-	Fz6PyFWBIHc7Y98tVOQdTqn9Tbv9LdSKMmRuc+aT/K+BA4BiEvz7KxUj8n+cdUn7dLgb/6
-	vii8HS7V5KYTLAdLqo+s6YJUuheKpfQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791798471;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1XtAnjY5kuB4iyaUZjBNl24UZ1rbK0xSs9L8uM9evPQ=;
-	b=coWOxpQO/8FARLxH8xLc69bcFhBRTKrI+hgeFxNMvVw862niU3olZ9bMVn8ZcHQeMEYHYe
-	XqN9WnOIMNu7Y0Dw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A8D2D13314;
-	Mon, 12 Oct 2026 09:47:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id P45vIseszGo2fgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 12 Oct 2026 09:47:51 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 3BE2DA1403; Mon, 12 Oct 2026 11:47:36 +0200 (CEST)
-Date: Mon, 12 Oct 2026 11:47:36 +0200
-From: Jan Kara <jack@suse.cz>
-To: jianyungao89@gmail.com
-Cc: linux-kernel@vger.kernel.org, Dan Williams <djbw@kernel.org>, 
-	Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	"open list:FILESYSTEM DIRECT ACCESS (DAX)" <linux-fsdevel@vger.kernel.org>, 
-	"open list:FILESYSTEM DIRECT ACCESS (DAX)" <nvdimm@lists.linux.dev>
-Subject: Re: [PATCH] dax: fix wrong error code returned from
- dax_dedupe_file_range_compare()
-Message-ID: <g43wbteg6ntidsfrhlb56okwjmu2lerja563uldjrgoxplpsmv@as744f3re7hm>
-References: <20261010021010.19575-1-jianyungao89@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TORYaqkV"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ab41538192so1224730a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:48:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791798515; x=1792403315; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AE3qN2Gya+sk1Ul6ZbTJH8NleA3l4oK8s0FP1HbUA3M=;
+        b=TORYaqkVFtclOWs603SYkBWWxbqnriwpP+x52DkpssGyR5Unfd/daaOYmfUzIzbDe2
+         UROnVRll3Vn0U/sZ51Qosr5Wl92DBaiYgY1lOmzexCtjjlOWEJ06/EJa+ud1VWNel3X9
+         um22y+RmZykC3PnCNi6rRrMRLBojjLpNcz4x7nPtfPaCrLmHTxEACWD9mtBLZyaorTwh
+         SG95Igkt9EIDDU9dSLWqQ8vmfGdYYuJx/6yzyMyCWBxDzZnL8f7Jll1Dn9fB9U9/XhP4
+         KVgfb8YVgCfQ5TUYyALGeysPFYWpscTiow9rK/nM6Q4Vig4GBg2bEMhgquvgmF6Bvw9f
+         Ev0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791798515; x=1792403315;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AE3qN2Gya+sk1Ul6ZbTJH8NleA3l4oK8s0FP1HbUA3M=;
+        b=o2k4JY2VHAdR44coIscUv2Np8hzn9zBfg2OHfHrNo8AD4EKmXjZmaWlwqyY31sMY38
+         lzIIz5jDt3gYulGq3kKUyIBHT+dn0vk1iCF6NFHlsa96jc7vQdrH74tJCm/3vMOvGZLK
+         ha2+RjD7OcEHMTE3B9GIEhzbomcn+FcpimngZtS1NKyWHSO8np0UTa6N3JcMe9218eoE
+         YE0WJa3ZUiKi/bfNLKbrpT3m7PDp2gtObMrreAEPHgvBEJ7Ntm4eVTaVk/zNbnMdefWx
+         DYvbTf/f0f67OuoU/KdA4ODRz2r4BKeg2EHWGdE4yfWqkbERh0UgCF6qs91JflE/kZiV
+         V1ww==
+X-Forwarded-Encrypted: i=1; AKwUvBwZx8JOdffXGTdrMiaRWIGbg+mlny9B32agmbcdqGocMq/TmYqiEmDKL2Ic6N+6niql/rtx8GNwBq8P+dM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7p5b3pAfFwyRjZ6EVz2s0NOcDckHViaUO36mEpWkgHhRsisn/
+	gR0qp+PM7qB4ByDyoNA0q2FJWs5ub8dEy/TEU+VuSXcvX2OYMjMyi3xJ
+X-Gm-Gg: AYBFou1y1mCuuhbvGx/D3KO8ciNqbsrLw9xFHVEcew1YWRmqWqOQ1IDgkOiVtwrYxfW
+	vqyvvDFpMYnY7FwA42E2JTRt4CWYrrU5WVoyaBVLJvbFokmzZb93NmoKnFxnQUGgNqKhzfiSys3
+	K5bRNVV7qf5O8UcgHAFwdIrHqojqjPMo2zTIExHkJ+cfN39X/e2Y6UsWQJZF4eZBB1tc0AQYF6s
+	lwfnxFI3CIII9HygKnOIHUXlnPCgZY/PF4Un3FNcDFYDPodQDLHK0ykbRHLsQ6Yeqy0kQoTpF8x
+	6m74Dt8XXKcT8+JWT5esMQkPbCAOGx2gIkPkFMLAJaleNBOKnGs36gB+Pr704ErG6+RLRgpZEeL
+	v1ZAPLxxM5z257O89zzvoI8J52xMHId5GvuWJ0eSYziWyy7b86nbKTJm96hRX4n7ab6IcpY8mIN
+	RPSdE+O2feQauzHcD57HpsHngKzKLZX55w7uEG25/623YDZyfV0xlAEPbILjMUKnaSgGnZyp5+6
+	oEYuOs16+KAU8FZsDO5J5aYNsw+j49g4iYEPZYOjwU1yGmRVke/s7tCsYkeZL7mjxx6jHkE29Ob
+	4Qc5/nZ3Zwivhg==
+X-Received: by 2002:a17:90b:58cb:b0:3ac:e6a:1b2b with SMTP id 98e67ed59e1d1-3ac0e6a4ed3mr1023251a91.0.1791798515002;
+        Mon, 12 Oct 2026 02:48:35 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed053csm16189628a91.4.2026.10.12.02.48.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 02:48:34 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	kwilczynski@kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Manikanta Maddireddy <mmaddireddy@nvidia.com>
+Cc: Vidya Sagar <vidyas@nvidia.com>,
+	Niklas Cassel <cassel@kernel.org>,
+	linux-pci@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH v2 1/2] PCI: tegra194: Use dev_err_probe() for PERST# GPIO
+Date: Mon, 12 Oct 2026 16:48:14 +0700
+Message-ID: <20261012094815.28160-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010021010.19575-1-jianyungao89@gmail.com>
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: CC6781F78F
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
+Content-Transfer-Encoding: 8bit
 
-On Sat 10-10-26 10:10:09, jianyungao89@gmail.com wrote:
-> From: Jianyun Gao <jianyungao89@gmail.com>
-> 
-> When dax_range_compare_iter() returns a negative error code (e.g. -EIO),
-> dax_dedupe_file_range_compare() incorrectly returns 'ret' which holds the
-> positive return value from iomap_iter() indicating more iterations remain.
-> This positive value leaks to the caller, where vfs_dedupe_file_range()
-> interprets it as success (bytes_deduped = len), causing userspace to
-> incorrectly believe deduplication completed.
-> 
-> Return 'status' instead to propagate the actual error code.
-> 
-> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Looks good. Feel free to add:
+Use dev_err_probe() when getting the PERST# GPIO to simplify error
+handling and properly handle -EPROBE_DEFER.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
 
-								Honza
+Changes in v2:
+ - Follow the subject line capitalization style.
+ - Use "PERST#" in the subject, commit log, and dmesg text to match
+   spec usage.
 
-> ---
->  fs/dax.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/dax.c b/fs/dax.c
-> index 6ba50142eeb2..1f6a4fbb97bd 100644
-> --- a/fs/dax.c
-> +++ b/fs/dax.c
-> @@ -2261,7 +2261,7 @@ int dax_dedupe_file_range_compare(struct inode *src, loff_t srcoff,
->  		status = dax_range_compare_iter(&src_iter, &dst_iter,
->  				min(src_iter.len, dst_iter.len), same);
->  		if (status < 0)
-> -			return ret;
-> +			return status;
->  		src_iter.status = dst_iter.status = status;
->  	}
->  	return ret;
-> -- 
-> 2.34.1
-> 
+ drivers/pci/controller/dwc/pcie-tegra194.c | 15 +++------------
+ 1 file changed, 3 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
+index 63a0f56cad8e..2f8e828c4d9a 100644
+--- a/drivers/pci/controller/dwc/pcie-tegra194.c
++++ b/drivers/pci/controller/dwc/pcie-tegra194.c
+@@ -1200,18 +1200,9 @@ static int tegra_pcie_dw_parse_dt(struct tegra_pcie_dw *pcie)
+ 
+ 	/* Endpoint mode specific DT entries */
+ 	pcie->pex_rst_gpiod = devm_gpiod_get(pcie->dev, "reset", GPIOD_IN);
+-	if (IS_ERR(pcie->pex_rst_gpiod)) {
+-		int err = PTR_ERR(pcie->pex_rst_gpiod);
+-		const char *level = KERN_ERR;
+-
+-		if (err == -EPROBE_DEFER)
+-			level = KERN_DEBUG;
+-
+-		dev_printk(level, pcie->dev,
+-			   dev_fmt("Failed to get PERST GPIO: %d\n"),
+-			   err);
+-		return err;
+-	}
++	if (IS_ERR(pcie->pex_rst_gpiod))
++		return dev_err_probe(pcie->dev, PTR_ERR(pcie->pex_rst_gpiod),
++				     "Failed to get PERST# GPIO\n");
+ 
+ 	pcie->pex_refclk_sel_gpiod = devm_gpiod_get_optional(pcie->dev,
+ 							     "nvidia,refclk-select",
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.43.0
+
