@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A17F279DAD;
-	Mon, 12 Oct 2026 02:03:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A2082F5324;
+	Mon, 12 Oct 2026 02:03:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791770583; cv=none; b=kRE3iTzpSSVkezUyUdjAz9Af+xi6bcUJfxaq7st+0Fo8nr2Dxf0eT6Lx6wVZQhSWmVrxmZBpPrYggEwG+ePRszZj9/H1jeZ+JxbC2ZjZGoGNklam/VPiH16mkejb4XVdoybR4cNtnt1tcMAgE5EAwuzG+XUt1aKkTf9AJccCbNI=
+	t=1791770583; cv=none; b=tnx48yfyYZLepjD84zj8dtdPPeM5/m3SjFCcGxVhlj1NbBLfwub6H3tnsSGKRLNUzmk9pFb+FTtuGJ8K0aYUkU5wgHDblSzxIHw/5QUkh68FkFn50sL7JiPHiU5NDdZq4FMwAmsu5mJjYBkl+O5wv3ly+e1bGA2E3a0Ugmr8BdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791770583; c=relaxed/simple;
-	bh=XSz3dyHTqtERnvgwM+cY1AD94ekMbdw0EAqvOmXU5AE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qSsp7y6O372aofdMcuSIWcfB3q97AVCoLoD4PCXIHZ43OnZgn7ouU4fvspTMRHvxlS95lEMfKPHd20u1o/KaRABp9HKbnc5UNbOSGG70IO8a4iyOiZWeJJazG1zatW8uoUKIOHOZi4pP8WHdivMsLbXIviN7yKVHmO8qd8WLuJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eK9DgGet; arc=none smtp.client-ip=10.30.226.201
+	bh=j7G+Yjj/NtWByECic8e61S0QvcYNk0zX7apU8jeT5KQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Lg6Iuw0tKqQjGxcgNgHi986MLoyuSnZGYNiXkERivyfC1Gxm26xuFCtWMQFF0jthzuHRJtBZQ6anw4HHqwcOghXXg4YcVREcpxrzClR+Y5K1w0NPWoLqdTFAcmVecGfuvwKko4Qg8iHhsL+z+1qPMMGZc7lv7rEob8iju4/ni9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gaXHEep9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eK9DgGet"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AAAA7C2BCF7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gaXHEep9"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CD969C2BCFF;
 	Mon, 12 Oct 2026 02:03:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791770582;
-	bh=XSz3dyHTqtERnvgwM+cY1AD94ekMbdw0EAqvOmXU5AE=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=eK9DgGetCgaNwpDent9qs+fLGnLJfbXgqf1fUxtejk+zOw4osV4ct6Mq7MbmK1a+p
-	 GLNKiSbpAmokoyWPNCZwFftY5GD0fv/QWVnDNV4mkqaVDc4RWy3V4m3+lpnQoSQfMU
-	 EqRjN9eVmYY/ENzU0csoEVzrdSE4OCr386Kgn7hM0SFaMCkfakMeZNT4ne+WyORO28
-	 ALNnvl0hSLWzVKAKuKB1zoO5yrD58+PudQ8yOYRFFCu2k/vjpgweJlkBJY5YBTAytI
-	 DD26N5YUJfZXW7MPkCBLe1ZldQVmHYu4BAlEUgXLDJ7DclbxFmRk4aZI3OSwJUg4Bg
-	 tvL08QyjCK1Cg==
+	bh=j7G+Yjj/NtWByECic8e61S0QvcYNk0zX7apU8jeT5KQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=gaXHEep9QQTH/mAnHq5NB1pcd2WKTaruoJ3ypA3/YtPSXm2KjV4aQyOvShISk5Mv0
+	 FPN3xKBZVGnXDHzpS1HNyzEcyP5q6sZdqdwROYdzizE0TDAuF2reNCsTxArw3E5pKR
+	 X9VmWaQbf5AnbD/Aw06jwu0GtVw1p8yvO7bqcZsm1FM7SuBVeBCexxxMF2hhcDtm47
+	 aQn9URk0KRxTfkYC44OSfhALR42eyHsSRvvHbipLkl9vBGafyj7MPx6SQCM71pYh7c
+	 Z5C0PCSnmE6cCTEn9JpueehDv4SYEMSlRclCZlIRksg8jJLvBFc2dwJ706LlFq63u1
+	 DDEbPEeqy5ScQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 882BFCA9ED0;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ADA8ACA9ECF;
 	Mon, 12 Oct 2026 02:03:02 +0000 (UTC)
 From: fromdisposition via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
-Subject: [PATCH 0/2] arm64: dts: qcom: sm8350: Add CPU capacities and power
+Date: Mon, 12 Oct 2026 02:02:44 +0000
+Subject: [PATCH 2/2] arm64: dts: qcom: sm8350: Add CPU dynamic power
  coefficients
-Date: Mon, 12 Oct 2026 02:02:42 +0000
-Message-Id: <20261012-sm8350-cpu-capacity-v1-0-3d141e0099d5@fromdisposition.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,10 +41,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAyA4VcZORto2nWoryI7dDFqBGdpNnGMv
- btVj9/h/1cwKSoGx2aFIi81fY4VtGuAb2m8Cuq5GrzzHTnyaI99iA45z8gpJ9ZpwUBtTJ1QPAw
- BapmLXPT9u576v20e7sLTdwXb9gE0JqpidwAAAA==
-X-Change-ID: 20261012-sm8350-cpu-capacity-3145a6e159b3
+Message-Id: <20261012-sm8350-cpu-capacity-v1-2-3d141e0099d5@fromdisposition.org>
+References: <20261012-sm8350-cpu-capacity-v1-0-3d141e0099d5@fromdisposition.org>
+In-Reply-To: <20261012-sm8350-cpu-capacity-v1-0-3d141e0099d5@fromdisposition.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -52,11 +51,11 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, fromdisposition <me@fromdisposition.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791770585; l=1537;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791770585; l=2954;
  i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
- bh=XSz3dyHTqtERnvgwM+cY1AD94ekMbdw0EAqvOmXU5AE=;
- b=U23YOaR7XK9GzWkuj/cnPh3OoUJIJwH82r9TkwwEFj0m8p6VLsXPuJi0/N6Ipx2Yp4BnbUY6w
- LppzmtD4EXGCqGnI4kZKZftGRgj6SzHJEhemlWLjTO7CzQ7FStchHDU
+ bh=9YQsAJJ10PCMm3NOvwDq8LDOChng3jMGGzkFZbGKX94=;
+ b=jTMFiRafgePd8fwXWjQRx2dh96IVRXVW8Aj+VEPFWMg5pvMxvhPIvBwCfKSD9tSqLn9dxO0GB
+ rlzyNnSEA0BAzE3x1ioWADeTW1eoN3zGxKmHdO2g3hRNjZ14MNmIqAo
 X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
  pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
 X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
@@ -64,39 +63,91 @@ X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
 X-Original-From: fromdisposition <me@fromdisposition.org>
 Reply-To: me@fromdisposition.org
 
-Give the SM8350 CPUs their capacities and dynamic power coefficients, so
-that the scheduler sees the three clusters as they are and energy aware
-scheduling gets an energy model. Both come from Qualcomm's downstream
-device trees.
+From: fromdisposition <me@fromdisposition.org>
 
-Downstream, the capacities are the same for v1 and v2 silicon, but the
-power coefficients are not: patch 2 takes the v2 ones, which the device
-tested here (v2.1) carries too. I have no v1 part to check them on; if
-v1 boards matter, patch 2 can wait without holding up patch 1.
+Without dynamic-power-coefficient no energy model is registered for
+these CPUs, so energy aware scheduling stays off.
 
-Tested on a Razer Edge 5G (SM8350 v2.1), whose board support is not
-upstream yet: cpu_capacity reads 308, 785 and 1024 once the kernel has
-scaled the values by each cluster's maximum frequency (1804, 2419 and
-2995 MHz), sched_energy_aware is 1, and the energy model covers all
-three clusters. Compared with the same kernel without these patches, an
-unpinned CPU-bound task now runs mostly on the X1 and a light periodic
-task on the A55s. dtbs_check shows no new warning for the SM8350 boards.
-The values come from Razer's kernel release for this device
-(Nicole-msm-5.4.254-20240515).
+Take the values from Qualcomm's downstream overlay for v2 silicon
+(lahaina-v2.dtsi in msm-5.4): 100, 499 and 760 for the A55, A78 and X1.
+For the A78 and the X1 it replaces the 515 and 845 of lahaina.dtsi.
 
+Assisted-by: LLM
+Signed-off-by: fromdisposition <me@fromdisposition.org>
 ---
-fromdisposition (2):
-      arm64: dts: qcom: sm8350: Add CPU capacities
-      arm64: dts: qcom: sm8350: Add CPU dynamic power coefficients
+ arch/arm64/boot/dts/qcom/sm8350.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
- arch/arm64/boot/dts/qcom/sm8350.dtsi | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
----
-base-commit: d053e38e614fb2e383b298ce8fc308a780d7f209
-change-id: 20261012-sm8350-cpu-capacity-3145a6e159b3
+diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+index df6e9d1fa..dcd1fc9c1 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+@@ -61,6 +61,7 @@ cpu0: cpu@0 {
+ 			clocks = <&cpufreq_hw 0>;
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <512>;
++			dynamic-power-coefficient = <100>;
+ 			next-level-cache = <&l2_0>;
+ 			qcom,freq-domain = <&cpufreq_hw 0>;
+ 			power-domains = <&cpu_pd0>;
+@@ -86,6 +87,7 @@ cpu1: cpu@100 {
+ 			clocks = <&cpufreq_hw 0>;
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <512>;
++			dynamic-power-coefficient = <100>;
+ 			next-level-cache = <&l2_100>;
+ 			qcom,freq-domain = <&cpufreq_hw 0>;
+ 			power-domains = <&cpu_pd1>;
+@@ -106,6 +108,7 @@ cpu2: cpu@200 {
+ 			clocks = <&cpufreq_hw 0>;
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <512>;
++			dynamic-power-coefficient = <100>;
+ 			next-level-cache = <&l2_200>;
+ 			qcom,freq-domain = <&cpufreq_hw 0>;
+ 			power-domains = <&cpu_pd2>;
+@@ -126,6 +129,7 @@ cpu3: cpu@300 {
+ 			clocks = <&cpufreq_hw 0>;
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <512>;
++			dynamic-power-coefficient = <100>;
+ 			next-level-cache = <&l2_300>;
+ 			qcom,freq-domain = <&cpufreq_hw 0>;
+ 			power-domains = <&cpu_pd3>;
+@@ -146,6 +150,7 @@ cpu4: cpu@400 {
+ 			clocks = <&cpufreq_hw 1>;
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <973>;
++			dynamic-power-coefficient = <499>;
+ 			next-level-cache = <&l2_400>;
+ 			qcom,freq-domain = <&cpufreq_hw 1>;
+ 			power-domains = <&cpu_pd4>;
+@@ -166,6 +171,7 @@ cpu5: cpu@500 {
+ 			clocks = <&cpufreq_hw 1>;
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <973>;
++			dynamic-power-coefficient = <499>;
+ 			next-level-cache = <&l2_500>;
+ 			qcom,freq-domain = <&cpufreq_hw 1>;
+ 			power-domains = <&cpu_pd5>;
+@@ -186,6 +192,7 @@ cpu6: cpu@600 {
+ 			clocks = <&cpufreq_hw 1>;
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <973>;
++			dynamic-power-coefficient = <499>;
+ 			next-level-cache = <&l2_600>;
+ 			qcom,freq-domain = <&cpufreq_hw 1>;
+ 			power-domains = <&cpu_pd6>;
+@@ -206,6 +213,7 @@ cpu7: cpu@700 {
+ 			clocks = <&cpufreq_hw 2>;
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <1024>;
++			dynamic-power-coefficient = <760>;
+ 			next-level-cache = <&l2_700>;
+ 			qcom,freq-domain = <&cpufreq_hw 2>;
+ 			power-domains = <&cpu_pd7>;
 
-Best regards,
---  
-fromdisposition <me@fromdisposition.org>
+-- 
+2.53.0
 
 
