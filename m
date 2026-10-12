@@ -1,99 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E10E38655A;
-	Mon, 12 Oct 2026 16:49:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E54340417
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:50:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823793; cv=none; b=WNZGG7HZDtC9ULQpk1qg3Qwb7IQRgfThVF5XvFIoPSckYIrtABM5b28Eq4TJb1BH15Htv+KB3GO8SQkMFA/g0/seIWQlEqE49hbR/W6PZjvNcmBAt6/7inig8JASxoKetZlNbGaxMc6Dh0fvPQkR/J/rL+HLixEwIeSnAr4Om8s=
+	t=1791823807; cv=none; b=t8K63xYfBFKgL25FWsiaEMRquvEBWBa0Re25jV9gwMcpWz32FQ6MvR300s41vjUns8+E43o/dp+0NQPeXMioZXlpaJ78HK5c+k+0cxFzLlYw2JfINFmjkJcVt7TllCEU4YoBgJ86TbH8aO31t1CCUp1hftbB8IGDmk2AtxmHesI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791823793; c=relaxed/simple;
-	bh=+XyFJs8RhG/8oKKrqGof4RtlE5Q8SdDjgEM5hbR6+Cs=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Iex20X8XsKJlGeMz9uFTdJGcRXVPTVnHFuMX90TVV+b5q2vj3/H/0J9T73fNqkqnFMQuZc784pLwWR5A+33jPI6olGCQ9noBkBrbk8mo3nBrheJxafZMynbsMa4/4Gh9uGgkhxsEGSAU6xfMNU1DgtnkpBiO41NUOimcyBy5a5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ey4VgB97; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ey4VgB97"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90C751F0089B;
-	Mon, 12 Oct 2026 16:49:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791823792;
-	bh=M8qRe9VTl0D9VD9F/blrY1eiQ5R8O+L6LPf4pYWuS20=;
-	h=Date:From:To:Cc:Subject;
-	b=ey4VgB97gFXCDI9FAbEfyL0VEJ3geO4Ey9xSMFSUxus2xVO9mlMtEYiUFrfHjZm5T
-	 VEA14Hm8SbQ500ntt9jQqGy8m0pWcIrQ6kaBA4DRT6/Y15rASM6T0SKCXsTPUNdxzQ
-	 /No28EPT4lV8Ibe7MNc15WSgruTQkV6Wa0NXg7JRT+3gqjuaGufKMpvtG4XhkscFnj
-	 +bt1vwPzP0yHO1bPYfbtirJnvjbI8d2k90GOS99carZ9P4f0Kn2nizgAuw5bvrpSLq
-	 u03pAUA5MV0+8/axpUeqRUWMBs4dtEmM3RFDCU9iwzbH94KT7LN0lPrEdTMnfkiSGy
-	 MbMgYiAm7q0dA==
-Date: Mon, 12 Oct 2026 17:49:49 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jassi Brar <jassisinghbrar@gmail.com>
-Cc: Douglas Anderson <dianders@chromium.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Rob Herring <robh@kernel.org>
-Subject: linux-next: manual merge of the mailbox tree with the devicetree tree
-Message-ID: <as0PrXGZghcYA-ZI@sirena.org.uk>
+	s=arc-20240116; t=1791823807; c=relaxed/simple;
+	bh=6Z70wDoT/5a83+5AkYDmMtORIbigJzq77HfyCnclnO0=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=SVMaRYmfTJD5xVpX1e+HR6UT53iHjRgkn5+l8gt5XquiDz8rFhKQgrDaC+79ynhpmYxuGzOlREkIxbXg6akyzx4RDBL2IkExrYu1XLGPOv9CP/fJUkIbVAq4nJgn8oB+GbioAwBw+h/FYB+22wP7QB4lJPhxzqnpHsWZ0OpbIR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a7de733fa9so3656784b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:50:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791823805; x=1792428605;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=iHk7Hn9YMA3vzaCNuo12jeQBxbUUzoGWSox3nek4ris=;
+        b=HErfh9y55XjIDmd86nBOUK3RLsHKY3VeiW8Fys+KeEKbNjpVYElC0UP1IkJMUSVRF7
+         dA91QaRYFbJf4cDi0DP268zQItZXUdo14yFZp/8oJB3cMk2OB4I2Y8jkCUwvg3RDd4eh
+         gMj27xAWVqQBCuUZQ4RQxfgTho4DP1/+BsAczNCOBzyBBhz03Yc5Ob0GFZxIQfteOcCj
+         UZpIkBECt151cp0XxevLL013+7Iff3/VJar+9jVz8QKvGSvYFzaNFVJeh8M+0TjI9nU5
+         //M+J65zB6a7m98hFbGpcIvE4YWnoxZq/s/B4eA9X2LYMBqz87GOC1pIN635Kz68Jmj5
+         5qYg==
+X-Gm-Message-State: AFq9FYI5E92OaTvONIjFo9QrKVJ2awSgW6LwGfyhyZkvNcz/gpPe6tBF
+	9ajfbirFKBiLOYADkbwstv+wYp71cXNkfSipmYkJLeEsSeyr3hhn89zIuWiMmN3PTOWWS3xwlvO
+	9jnb+s+TFytxXjojO7NRZYiGHpWVxrA4ctX8OdFiRQ0gx7ygQIZX4C0g451M=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="L9kfO2VW4phAu214"
-Content-Disposition: inline
+X-Received: by 2002:a05:6808:6f8f:b0:4ea:686e:fe86 with SMTP id
+ 5614622812f47-50c5b464a7emr9329026b6e.63.1791823805546; Mon, 12 Oct 2026
+ 09:50:05 -0700 (PDT)
+Date: Mon, 12 Oct 2026 09:50:05 -0700
+In-Reply-To: <CAEfrx+AZJwj-=yiMc+EjXdNKcTbMn9cFRyUdArmWX47kiTYV-g@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6acd0fbd.8cdf6287.1eb53.012f.GAE@google.com>
+Subject: Re: [syzbot] KCSAN: data-race in __se_sys_inotify_add_watch / fsnotify_handle_inode_event
+From: syzbot <syzbot+181b8b439f5207144b16@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, spannme41@gmail.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot tried to test the proposed patch but the build/boot failed:
+
+init/main.c:14:2: error: ASDF
 
 
---L9kfO2VW4phAu214
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Tested on:
 
-Hi all,
+commit:         24a19b95 Linux 7.3-rc7
+git tree:       https://github.com/torvalds/linux.git master
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ea1e6d8de13bab08
+dashboard link: https://syzkaller.appspot.com/bug?extid=181b8b439f5207144b16
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=12ecb5d1580000
 
-Today's linux-next merge of the mailbox tree got conflicts in:
-
-  Documentation/devicetree/bindings/mailbox/hisilicon,hi3660-mailbox.txt
-  Documentation/devicetree/bindings/mailbox/hisilicon,hi6220-mailbox.txt
-
-between commit:
-
-  cfbc5d96e8ff4 ("dt-bindings: mailbox: Delete old 'mailbox.txt' bindings f=
-ile")
-
-=66rom the devicetree tree and commits:
-
-  5e80d2b8ecd02 ("dt-bindings: mailbox: Convert hisilicon,hi6220-mbox to DT=
- schema")
-  559f3950caa69 ("dt-bindings: mailbox: Convert hisilicon,hi3660-mbox to DT=
- schema")
-
-=66rom the mailbox tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-(delete the files)
-
---L9kfO2VW4phAu214
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrND6wACgkQJNaLcl1U
-h9CsVgf+MyJdHT6RbAQfMRnyGN2FtzyhB9dnq/MAFLt02peHWwlgPnwxTS9wQTOW
-6381b9uFSchcJUiGymhMt2s/xjQ+WzUd4KhjVQR4I+FRwf7qfCKtbN9q78fDdOdQ
-L7WEl3nKt/W4AEFBhJQ6znteNN8L+I+vrhITGJqTcfC3OilsRWqjBFO+ug9OpCMW
-7f4JKsaEtZwAD8NUV/X8Dez+dCeQYM05eM4w9Tg/Xo6jZhfYnwTPFkeBQvcNzQnL
-Cx4korQ7yKYjRu/dJRyTmL/mVkOIhszazVqOjdjHD0slWqPeuFGqYJJc9TOK57Tk
-QO55cqUBC+xMD1P4FbBBvltpzWrjkw==
-=CDq8
------END PGP SIGNATURE-----
-
---L9kfO2VW4phAu214--
