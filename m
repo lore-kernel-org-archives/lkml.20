@@ -1,151 +1,96 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1F45E3B14AD
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:03:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8CA3C9EE0;
+	Mon, 12 Oct 2026 12:03:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806586; cv=none; b=sR58B5tT4KYlnZYMoW+Q1B/M7dwgIIhaf2ruKoNgux8wEIZ0QoseID42AOZDw0kkT0E11pJ//FBczzKWXxuMSfyOiAM7/65xpoacnqT0g6gcp4IOVvFR0bESkqBjVUcuygrPBEG2KD/T7ZswyTec2TkZLILEgXBYvFw6TaIiHks=
+	t=1791806608; cv=none; b=s4Zeo+EmgCdCQ08y6LXYZIlDqzXJ8jYRsTz6qcgLi7kA4bKjZUhBsKcnhUcF/6rETjV3Prqg1J7xt7lvaTx3/0A6fCIhS0wVw9v5qOzqC4wRmZ3DDDvN9kSacXppAykJZ/GwJxQVRd8ISRqrBK/IGagReEV6lmNh1sOpExf66Gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806586; c=relaxed/simple;
-	bh=87JAwL4Wo/puwTtUIlo0MwTa0OtKrL9jDLQqKX3bxp4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QpCjCfWwFytv45uuUjb5SjJZjM1Oq+Fb8AAAruzX5cVYe13wgcxnfvHiuqsliz2PXWwlwO5jR6MUL8X1DEEd67l9ccEcZiyW+aS2v9Z/iTt2Rg9lYt6akGS5BOvJpfHhnRb90Uooql1iPShwyBeRHZOUsuU+VTih+h/E+VPGvqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=TICF56M6; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791806608; c=relaxed/simple;
+	bh=/ZZ0fgr8G0s902ax4FUxuZ1iYpydpIsNtcAH8jejZ4o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xp6ZWz88F+bhCiXC8W3U8lhgAJNFXM95GYJbdpeOELCbwewig0Wikdju/IleO6mP68OUp6kv4aE3QmmxFFdoAnjYq7XS9cPdx0278ijGoJmDF3ZUrE5iDv/5xKhER/hSgDfCuxuVzNb5Jphqkk+8a++9hQRbJs2N5UdcanBX17Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=w66lYjJY; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="TICF56M6"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 344871655;
-	Mon, 12 Oct 2026 05:03:01 -0700 (PDT)
-Received: from [10.0.128.125] (Suzukis-MBP.cambridge.arm.com [10.0.128.125])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5B77B3F882;
-	Mon, 12 Oct 2026 05:03:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791806584; bh=87JAwL4Wo/puwTtUIlo0MwTa0OtKrL9jDLQqKX3bxp4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=TICF56M6nNaNZ0BA/yq8qr6ucOZMhtXGjlDncoubsa5DUKj+9gHLENQWxXlo6Lk+9
-	 OFjfHSt6tCbGetm28hbc4ZnkyisTwvY2JNmfqM3953GySDxovOIbFO2V3xR8grjucT
-	 m9Nmq1OaAXoA507w4TpvDFdwL9+qVjjP2yQ1K1g4=
-Message-ID: <6f5dcdd6-21ca-4392-9d6c-fa262a8cf7de@arm.com>
-Date: Mon, 12 Oct 2026 13:03:00 +0100
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="w66lYjJY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=0nZec0j/vltLFTiegdvyacQqA6mcFK7PhOPa5liUkac=; b=w66lYjJYMm4H8JjWbHnCKPaVIi
+	MqR3rdrl5tSSqZW5rCo7d7xvD4zFqR7cMZMuix6HuR7karG9jLP69hGWlbAr4CuQukNMsgBcfqvbK
+	QsfFdLOklb7DH4pkAOgB8QrxQctmxKbi3IPEUwS9NuOtUz2/5Ou/Wpt8m8t9RPkKOrKg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xGEkM-00AJjG-9E; Mon, 12 Oct 2026 14:03:14 +0200
+Date: Mon, 12 Oct 2026 14:03:14 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: James Clark <jjc@jclark.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Doug Berger <opendmb@gmail.com>, Nicolai Buchwitz <nb@tipi-net.de>,
+	=?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Miroslav Lichvar <mlichvar@redhat.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 5/5] net: mdio: bcm-unimac: implement
+ timestamped MDIO writes
+Message-ID: <2554f883-89f4-4688-95ae-aded7a84592b@lunn.ch>
+References: <20261009143506.2507607-1-jjc@jclark.com>
+ <20261009143506.2507607-6-jjc@jclark.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] KVM: arm64: Reject the stage-2 flush hypercalls
- under pKVM
-Content-Language: en-GB
-To: Fuad Tabba <fuad.tabba@linux.dev>, maz@kernel.org, oupton@kernel.org,
- kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Cc: catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com,
- seiden@linux.ibm.com, yuzenghui@huawei.com, mark.rutland@arm.com,
- vdonnefort@google.com, qperret@google.com, Sascha.Bischoff@arm.com,
- steven.price@arm.com, tabba@google.com
-References: <20261011143648.211337-1-fuad.tabba@linux.dev>
- <20261011143648.211337-3-fuad.tabba@linux.dev>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261011143648.211337-3-fuad.tabba@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009143506.2507607-6-jjc@jclark.com>
 
-On 11/10/2026 15:36, Fuad Tabba wrote:
-> The stage-2 TLB and context flush hypercalls remain callable once pKVM
-> has finalised, and five of the six dereference a host-supplied
-> struct kvm_s2_mmu pointer. Under pKVM none has a valid caller: the host
-> walks no guest stage-2, its TLB flushes go through the handle-based
-> __pkvm_tlb_flush_vmid, and kvm_arch_vcpu_load() skips both the VMID
-> update and the CPU context flush.
-> 
-> Move them into the band the dispatcher rejects once pKVM has finalised.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260914130152.F0D5F1F000FF@smtp.kernel.org/
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->   arch/arm64/include/asm/kvm_asm.h   | 12 ++++++------
->   arch/arm64/kvm/hyp/nvhe/hyp-main.c | 11 ++++++-----
->   2 files changed, 12 insertions(+), 11 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_asm.h b/arch/arm64/include/asm/kvm_asm.h
-> index ea319c496bb26..b182c908c1a98 100644
-> --- a/arch/arm64/include/asm/kvm_asm.h
-> +++ b/arch/arm64/include/asm/kvm_asm.h
-> @@ -64,6 +64,12 @@ enum __kvm_host_smccc_func {
->   	__KVM_HOST_SMCCC_FUNC___vgic_v3_get_gic_config,
->   	__KVM_HOST_SMCCC_FUNC___vgic_v5_save_apr,
->   	__KVM_HOST_SMCCC_FUNC___vgic_v5_restore_vmcr_apr,
-> +	__KVM_HOST_SMCCC_FUNC___kvm_flush_vm_context,
-> +	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_ipa,
-> +	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_ipa_nsh,
-
-For a moment (pardon my inexperience with pKVM code base) I thought we
-could get this called via
-
-pkvm_stage2_relax_perms() ->... kvm_stage2_relax_perms() for the host, 
-but we are in EL2 already and it is a direct call.
-
-So, yes makes sense to me.
-
-FWIW:
-
-Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-
-> +	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid,
-> +	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_range,
-> +	__KVM_HOST_SMCCC_FUNC___kvm_flush_cpu_context,
->   
->   	MARKER(__KVM_HOST_SMCCC_FUNC_MIN_PKVM),
->   
-> @@ -72,12 +78,6 @@ enum __kvm_host_smccc_func {
->   	/* Hypercalls that are always available and common to [nh]VHE/pKVM. */
->   	__KVM_HOST_SMCCC_FUNC___kvm_adjust_pc,
->   	__KVM_HOST_SMCCC_FUNC___kvm_vcpu_run,
-> -	__KVM_HOST_SMCCC_FUNC___kvm_flush_vm_context,
-> -	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_ipa,
-> -	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_ipa_nsh,
-> -	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid,
-> -	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_range,
-> -	__KVM_HOST_SMCCC_FUNC___kvm_flush_cpu_context,
->   	__KVM_HOST_SMCCC_FUNC___kvm_timer_set_cntvoff,
->   	__KVM_HOST_SMCCC_FUNC___tracing_load,
->   	__KVM_HOST_SMCCC_FUNC___tracing_unload,
-> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> index 7c939baf9c1ba..b2657a3c65b40 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> @@ -913,16 +913,16 @@ static const hcall_t host_hcall[] = {
->   	HANDLE_FUNC(__vgic_v3_get_gic_config),
->   	HANDLE_FUNC(__vgic_v5_save_apr),
->   	HANDLE_FUNC(__vgic_v5_restore_vmcr_apr),
-> -	HANDLE_FUNC(__pkvm_prot_finalize),
-> -
-> -	HANDLE_FUNC(__kvm_adjust_pc),
-> -	HANDLE_FUNC(__kvm_vcpu_run),
->   	HANDLE_FUNC(__kvm_flush_vm_context),
->   	HANDLE_FUNC(__kvm_tlb_flush_vmid_ipa),
->   	HANDLE_FUNC(__kvm_tlb_flush_vmid_ipa_nsh),
->   	HANDLE_FUNC(__kvm_tlb_flush_vmid),
->   	HANDLE_FUNC(__kvm_tlb_flush_vmid_range),
->   	HANDLE_FUNC(__kvm_flush_cpu_context),
-> +	HANDLE_FUNC(__pkvm_prot_finalize),
+> +static int unimac_mdio_sts_delays(struct unimac_mdio_priv *priv,
+> +				  u64 *pre_ns, u64 *post_ns)
+> +{
+> +	u32 cmd, config, divisor;
+> +	int ret;
 > +
-> +	HANDLE_FUNC(__kvm_adjust_pc),
-> +	HANDLE_FUNC(__kvm_vcpu_run),
->   	HANDLE_FUNC(__kvm_timer_set_cntvoff),
->   	HANDLE_FUNC(__tracing_load),
->   	HANDLE_FUNC(__tracing_unload),
-> @@ -969,7 +969,8 @@ static void handle_host_hcall(struct kvm_cpu_context *host_ctxt)
->   
->   	/*
->   	 * If pKVM has been initialised then reject any calls to the
-> -	 * early "privileged" hypercalls. Note that we cannot reject
-> +	 * early "privileged" hypercalls, and to the ones the host has no
-> +	 * use for in protected mode. Note that we cannot reject
->   	 * calls to __pkvm_prot_finalize for two reasons: (1) The static
->   	 * key used to determine initialisation must be toggled prior to
->   	 * finalisation and (2) finalisation is performed on a per-CPU
+> +	/* The delays assume the controller is idle. */
+> +	ret = read_poll_timeout(unimac_mdio_readl, cmd,
+> +				!(cmd & MDIO_START_BUSY),
+> +				1, 1000, false, priv, MDIO_CMD);
+> +	if (ret)
+> +		return ret;
+> +
+> +	config = unimac_mdio_readl(priv, MDIO_CFG);
+> +	if (config & MDIO_SUPP_PREAMBLE)
 
+The preample has a fixed size, so you can take this into account,
+reduce your 64 to 32.
+
+> @@ -138,19 +192,38 @@ static int unimac_mdio_write(struct mii_bus *bus, int phy_id,
+>  	if (ret)
+>  		return ret;
+>  
+> +	if (sts) {
+> +		ret = unimac_mdio_sts_delays(priv, &pre_ns, &post_ns);
+> +		if (ret)
+> +			goto out;
+> +	}
+> +
+
+Maybe just repeat unimac_mdio_write(), rather than try and squeeze all
+this sts stuff into what is a simple function.
+
+	Andrew
