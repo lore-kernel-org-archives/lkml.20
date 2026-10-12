@@ -1,109 +1,106 @@
-Received: from h3cspam01-ex.h3c.com (smtp.h3c.com [60.191.123.56])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849C218DB1A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:50:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.191.123.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F220E3B05BD
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:50:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791795024; cv=none; b=tl/p3ysGp1zpDJmweKrXUg6uqfo8RKYp1H7Wpk0KeG6k/dOsyZEopdhFPBd0ZFkqLYDmMfcWq8aR47yPfYbNwKwZ/44H7vEPmywO8MGZsyqEWJZhNKXvwQq14Th+7qbsgveK36XoCd1+4teTk6ZHu5VoCAt8eUie5Evc3bMh1v4=
+	t=1791795045; cv=none; b=ZTXL+uHILeS9mFLO7Yiu8Mm1husJTlna7nc/dnHLB4ceEb0igqSfFwiKNSW1EhUyMyp3MTUgTBH7alyQGkR9+cx9ffwNefikgIqtVn5MhYjqk4ozwOy5nCLCwm5TqM+1cW19Jy49mSx3G1M5nvtzw31wAF5ior/nBxDsEnDWths=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791795024; c=relaxed/simple;
-	bh=/KK/czsRL45mXBKZgTtPvGztDqX9i0JJRCslH/bDN/M=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NU5mATPOIHTXsHhhNp/W8h5jedDgDUVeA/Jm3Z7O2yyRKmN1uEvxw6+BQ2Lkj+Cu+VDiNpSVGDhpQnmEt7vOen39hjjoNExBFXM8LarUpNUQbDhj3R5R1CkExnidVzq2gNo66WRAsx1IYuwXOrkqeYX6Vi3ZvNtz3OxKWrzVrQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=h3c.com; spf=pass smtp.mailfrom=h3c.com; arc=none smtp.client-ip=60.191.123.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=h3c.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h3c.com
-Received: from h3cspam01-ex.h3c.com (localhost [127.0.0.2] (may be forged))
-	by h3cspam01-ex.h3c.com with ESMTP id 69C7wsJd036931
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:58:54 +0800 (+08)
-	(envelope-from lin.nan@h3c.com)
-Received: from mail.maildlp.com ([172.25.15.155])
-	by h3cspam01-ex.h3c.com with ESMTP id 69C7wBEf032117;
-	Mon, 12 Oct 2026 15:58:11 +0800 (+08)
-	(envelope-from lin.nan@h3c.com)
-Received: from DAG6EX09-BJD.srv.huawei-3com.com (unknown [10.153.34.11])
-	by mail.maildlp.com (Postfix) with ESMTP id 7098A2284EA2;
-	Mon, 12 Oct 2026 16:01:00 +0800 (CST)
-Received: from localhost.localdomain (10.142.164.48) by
- DAG6EX09-BJD.srv.huawei-3com.com (10.153.34.11) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.1258.27; Mon, 12 Oct 2026 15:58:10 +0800
-From: Nan Lin <lin.nan@h3c.com>
-To: <richard@nod.at>, <chengzhihao1@huawei.com>
-CC: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-        <lin.nan@h3c.com>, <wangxiaoqing@h3c.com>, <zhou.kete@h3c.com>
-Subject: [PATCH] ubifs: fix host inode TNC offset when deleting an xattr
-Date: Mon, 12 Oct 2026 15:50:46 +0800
-Message-ID: <20261012075046.1268480-1-lin.nan@h3c.com>
-X-Mailer: git-send-email 2.33.0
+	s=arc-20240116; t=1791795045; c=relaxed/simple;
+	bh=BiWfORhl14Y2kc2Yj7jd3L+ojV0uPdptlcen5uHcHjo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tbr0Dznis9fPsYCBhjdmskS47xQPlUpkarmp+kX9z2+zQzlm/jahQ91k9asGHaJylAVsM7hLdFjd6iAagAq7f4jsO3uThqE7pISJutj5Ptz9MLQJNFaGvtbpqd/wbSupty2xXtf6aqK7PaB/4cDSLrxFsV5+IJw3LMkETdXx00I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cpdo3P5F; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cpdo3P5F"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8iQRe4053600;
+	Mon, 12 Oct 2026 08:50:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=BiWfORhl14Y2kc2Yj7jd3L+ojV0uPd
+	ptlcen5uHcHjo=; b=cpdo3P5FbPN7vIJppiN5mRYuP8ZcwUvpn3fivzVOs0AJLL
+	3OuNo6ztWeMWRpH3SAOw7MxELnNIoUHupffXRQmxpjWaZGzzBB3m8DqPSujVS4dh
+	fQkLkEDdgao9LbkQGunPfqBFC33B4YAETVCAUnntwBPgV58Udx2EyeimlGxieWPI
+	DE90VcgE3mflQBhWJBixA30/THtpBJFYeAhqKSvuqPtZR+mF+LUdSPtjcO4rnSrV
+	3QOwBWbPirzifxkYjAtldk7FfvbdVIw0IOkwGjs8iUwVoul30Lhu9coexm0AKO3r
+	lyDDBfyfo0HrR6i6dkI1bKIE48VykzEhPPhihZOQ==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dug80tx-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 08:50:33 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8Jxwr964540;
+	Mon, 12 Oct 2026 08:50:32 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h7yppmj85-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 08:50:32 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69C8oS5U42271188
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 08:50:29 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D79022004B;
+	Mon, 12 Oct 2026 08:50:28 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id AB46B20040;
+	Mon, 12 Oct 2026 08:50:26 +0000 (GMT)
+Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com (unknown [9.39.28.91])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon, 12 Oct 2026 08:50:26 +0000 (GMT)
+Date: Mon, 12 Oct 2026 14:20:23 +0530
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] powerpc/configs: Add debug configs for debugging
+Message-ID: <asyep4EEG-lNR72Z@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
+References: <20260827121309.94434-1-gautam@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BJSMTP02-EX.srv.huawei-3com.com (10.63.20.133) To
- DAG6EX09-BJD.srv.huawei-3com.com (10.153.34.11)
-X-DNSRBL: 
-X-SPAM-SOURCE-CHECK: pass
-X-MAIL:h3cspam01-ex.h3c.com 69C7wsJd036931
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827121309.94434-1-gautam@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=Cr0q4X4D c=1 sm=1 tr=0 ts=6acc9f59 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=IJYSnQM5NmKPltgcYjgA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: zxRbLfwKOAkQ6L-WkQ334uuldg0AC3tT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzNCBTYWx0ZWRfX+7A8nYdbXtTK
+ 9HPc+8FntGbdM23TDe91xjxoRgMpKCdi9rvq99wcDco9xEk5zw1Fjl+D723ZHHzh2pRYAxrWEij
+ aaMeBIj2GF/YDw55xjRbm0SQHAuBwxQ087fz26MEALiHrHg2MdfDHLLFAZPKc2ikkc9fPvKE0a/
+ RtJdpK1rdtHA5+61yr5CRWXI0pXoaZrcrohSRC+Gm4OwZzGo5iC2U1XZp9Z9k19xjLfMabo2qip
+ /muKc91xasTCDqWTCdvT/ta6VsG4DJC+J+8hoem56bTJXA9NbnJRtZghmFW24ucV0YIkNduqbRu
+ v9cls0XIpnAy1ZoU4nLGuKuog+IwWMXM2nW8XuCHfuT4ndjSg5IMafc0bd/ZRlcEjniW25MxxyT
+ lduwFR6Lcl9FS+4b86FWFuA9iNE3pkjbQ6la4JNeaSfW/h30FDWhE90Z138unMVZ6dJjsvx7GEG
+ 8cFUMkMV3L1FUmMHd+A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzNCBTYWx0ZWRfX3y8RLIVeRzzo
+ YGEwIyGulW2tIzjx6vwKPEVi3XtHyQfV9n5PEOknuQG6fNhxBW3C7vjwKTC6m0KBlSXC2tgBDy+
+ 6bzEu8GSOYa1fSwl5/ebh2am1dO/wfU=
+X-Proofpoint-ORIG-GUID: TFBK63VZaVlyVjvdV8XDPWzN1hYeF049
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120034
 
-When ubifs_jnl_delete_xattr() deletes an extended attribute, it writes
-a group of three nodes to the base head: the xent node, the xattr
-inode node and the host inode node. The host inode node is actually
-packed at xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ, but the
-position registered into TNC is computed backwards as
-xent_offs + len - hlen. The two differ by the group tail padding,
-ALIGN(hlen, 8) - hlen.
+Hi,
 
-Whenever the host inode's data_len is not a multiple of 8, the offset
-registered in TNC points 1 to 7 bytes past the real node header. The
-wrong offset gets committed into the on-flash index, and on the next
-mount read_znode() fails the offs & 7 alignment check, returns -EINVAL
-and switches the filesystem to read-only mode, reporting
-"bad indexing node ... error 2".
+Can this patch be pulled in? Or is something else needed here?
 
-Which inodes are affected depends on data_len:
- - block/character devices always carry data_len = 4 and are always
-   affected;
- - symlinks carry data_len = strlen(target) and are affected unless
-   the target length happens to be a multiple of 8;
- - regular files, FIFOs and sockets carry data_len = 0 and are
-   unaffected.
-
-The bug reproduces by setting an xattr on a symlink with attr -Rs and
-removing it with attr -Rr: after unmount and remount, readlink()
-fails, the index node is rejected with error 2 (bad branch offset) and
-the filesystem turns read-only.
-
-Fix the offset computation by accumulating the group layout forward
-instead of subtracting from the total length: register the host inode
-at xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ, which matches the
-packed position exactly. The host node length hlen is already correct
-and stays unchanged.
-
-Signed-off-by: Nan Lin <lin.nan@h3c.com>
----
- fs/ubifs/journal.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
-index 40a95a2fad50..1a32d641e658 100644
---- a/fs/ubifs/journal.c
-+++ b/fs/ubifs/journal.c
-@@ -1943,7 +1943,9 @@ int ubifs_jnl_delete_xattr(struct ubifs_info *c, const struct inode *host,
- 
- 	/* And update TNC with the new host inode position */
- 	ino_key_init(c, &key1, host->i_ino);
--	err = ubifs_tnc_add(c, &key1, lnum, xent_offs + len - hlen, hlen, hash);
-+	err = ubifs_tnc_add(c, &key1, lnum,
-+				xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ,
-+				hlen, hash);
- 	if (err)
- 		goto out_ro;
- 
--- 
-2.33.0
-
+Thanks,
+Gautam
