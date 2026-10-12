@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E46469842;
-	Mon, 12 Oct 2026 16:55:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9802E473C86;
+	Mon, 12 Oct 2026 16:55:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791824151; cv=none; b=M47Rb/gXmgGeeuwlh78vnQbFyqFimsFHlbdfi8lYCQX4GWVJa5+Nlx0vetmxJIDV2M65x8Id1KgjZrJSpdKLmEewsBAtNeuZqIf+2MZ7z9xj53H+Rv19XhhT24fHeKyvv//9NGJKOydRlBKes3SpP6Gaot7jQ5WkwbB2PRKcXnY=
+	t=1791824158; cv=none; b=kIPrnqfZ+VrrtUAKjZRhorodh8BcNvmqHEd2mRqyZ/QT9x2SwTDVHB/NZhnH3Kwb2GBwrc0znLK3NfRN0cnuzVukGKWaHbrZuHGgTVaTxuBOAQNAnqs3CTjISsjElYkA6gD3Xkvl6jEVzVm/6wbTAZT10oTnn8EqW5HnhtJfcqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791824151; c=relaxed/simple;
-	bh=rqhd2X8rCiSv3ROSKJKuqr8uJGti7MKNiSBRvFkccQA=;
+	s=arc-20240116; t=1791824158; c=relaxed/simple;
+	bh=8PfRb4F6T8PTmLOEscZxJ0VQZfdbFjMDkr7PsqzSJqs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=toYXoHS5aeWkQun97J6RILhJFLTVEr/iQUDIWS0HzOvb+PjshO2/HSld6/AW3sphefqoPvM+ziFKTtF2TAPOgR2J8m/OZqMaSymPexZtL3Nn7cSzToccy0nhcqjWM9e5jyJj/p+ua73wR1bvRGh8Dxlu1D/upkylc0FSM32uE5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iw6b+w/Y; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=uUaBIcoSk9t+g7d/Ap0HU60GuX70AphGSKomcfyvmyY/WUlKCcs9amrPKp1YSAfakNAhEhx9Sn4jI9WaJjtbkrliGcZ2lB42OBzpXjK7f381dhoFdwruJHjny1jx23kkrj5Rf2BqIhWx5te+Sz/TqNWL44vV3WhWZ2JC6Lpz/OU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=juKjH216; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iw6b+w/Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 328371F0089C;
-	Mon, 12 Oct 2026 16:55:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="juKjH216"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37D491F0089B;
+	Mon, 12 Oct 2026 16:55:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791824150;
-	bh=J7HfjIRGk/NqR0+5Ufhz1l0P5qFNkr4N0pj7z0Zjx8s=;
+	s=k20260515; t=1791824157;
+	bh=XefMaEXBmEqHcEQ5YNmg1VfAi/T6WG7TKJ0/JS9cw9w=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Iw6b+w/YwdvpaDOggPl6kVhXz4RZy2KQysvehJV8ygCRljQpiDzBTmTtoepl+ccaK
-	 QKIqQDHBdABXijxQAW97dkA0vACEgcptpmvLIJ0rMKHU93zIfXl0DOpTPt5veC62Cz
-	 H9EsLcUyPoxXx7noMrF7YFCLDT2Y6DP130qqBHkFqNNXgQsXpdMQA3wxf8vpP1kW40
-	 fgRpgOa2iqcfkyEfHSH8Owy/T9d9X+RMTDS5YCH90C4/8VauKtXe3DyzVl6Zb2K/DF
-	 h3Vlu6w9TXCmMdoKG1xwEp4ig5xw9hDIy4+QLIpSVvA48fV0J94sYwAfO5kgAHC7oR
-	 eMbItKXoH8aqQ==
-Message-ID: <32d71681-157c-4d86-a019-e08357ce6352@kernel.org>
-Date: Mon, 12 Oct 2026 18:55:46 +0200
+	b=juKjH216km4+edbert49BSfZToM+0+96zgU7ysxHQSdm6JazwoEnzvyg2X4DATqpp
+	 jvZZgFXsKO53w//PjvvuvibZFdkmVd5rxJZaLguHgz2f3SEldwA6oUCDU9KjOGBSk3
+	 uwz7Ci/KkAcv7YvHbk+Ys0pV9piDNm0Zhs5RcCovqbpIXy1p321wbjr+uT54xBgVUT
+	 KiDeHY/qAQYMqpCA1t2GKjC88kTa6v3CgiEMHEnTlje5fC/BjZTHptAcTxN6PyCGEQ
+	 vpzdDcFR8EphNdC8d7qQH9+zlWY2i/HZy10TJGJbLoTNeubNgNTSgs3prft/d677qQ
+	 CBphw/sf8FZHw==
+Message-ID: <70c0e971-d76e-4aed-b672-faa0863b07e6@kernel.org>
+Date: Mon, 12 Oct 2026 18:55:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,103 +35,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v6 1/8] mm/slab: Mark the kmem_buckets_create()
- context as a Context: section
+Subject: Re: PGP keysigning at LPC/OSSE 2026
+To: Nicolas Schier <nsc@kernel.org>, Brian Masney <bmasney@redhat.com>
+Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Albert Esteve <aesteve@redhat.com>, Chen-Yu Tsai <wens@kernel.org>,
+ David Gow <david@davidgow.net>, David Gstir <david@sigma-star.at>,
+ Eric Biggers <ebiggers@kernel.org>, Eric Chanudet <echanude@redhat.com>,
+ Francois Dugast <francois.dugast@intel.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Johannes Thumshirn <morbidrsa@gmail.com>,
+ Joshua Crofts <joshua.crofts1@gmail.com>,
+ Julian Braha <julianbraha@gmail.com>, Kevin Hilman <khilman@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Peter Zijlstra <peterz@infradead.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ Trevor Gamblin <tgamblin@baylibre.com>, Vlastimil Babka <vbabka@kernel.org>,
+ Waqar Hameed <whame@whame.dev>, lpcosse-keysigning@baylibre.com,
+ users@linux.kernel.org, linux-kernel@vger.kernel.org,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+ Steven Rostedt <rostedt@goodmis.org>
+References: <lpcosse2026-keysigning@baylibre.com>
+ <lpcosse2026-keysigning-list@baylibre.com> <aspYFzgcxfOvOUrZ@monoceros>
+ <asyw827yeYmzQflV@redhat.com> <as0HujW2cskdsHqd@levanger>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-To: Kees Cook <kees@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
- David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org,
- Pedro Falcato <pfalcato@suse.de>, Kuniyuki Iwashima <kuniyu@google.com>,
- linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261006092030.got.500-kees@kernel.org>
- <20261006092035.166776-1-kees@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261006092035.166776-1-kees@kernel.org>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <as0HujW2cskdsHqd@levanger>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/6/26 11:20, Kees Cook wrote:
-> kmem_buckets_create() had the same sentence about calling context as
-> kmem_cache_create(), but lacked the "Context:" prefix, so kernel-doc
-> rendered in the body instead of as a "context" section.
+On 12/10/2026 18:15, Nicolas Schier wrote:
+> On Mon, Oct 12, 2026 at 06:05:46AM -0400, Brian Masney wrote:
+>> On Sat, Oct 10, 2026 at 05:31:55PM +0200, Uwe Kleine-König wrote:
+>>> On Sun, Sep 27, 2026 at 02:33:22PM +0200, Uwe Kleine-König wrote:
+>>>> For the procedure to actually sign the certificates, see
+>>>> https://baylibre.com/blog/pgp-keysigning-2/. A bundle of all
+>>
 > 
-> Give it the missing prefix. Additionally fix the "a interrupt" typo
-> __kmem_cache_create_args() had.
+> before too many of you are struggling with uploading the own key with
+> the new signatures as I did, here is what worked for me on Debian:
 > 
-> Fixes: b32801d1255be ("mm/slab: Introduce kmem_buckets_create() and family")
-> Assisted-by: LLM
-> Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-> Acked-by: Pedro Falcato <pfalcato@suse.de>
-> Reviewed-by: Hao Li <hao.li@linux.dev>
-> Signed-off-by: Kees Cook <kees@kernel.org>
+>   gpg --keyserver keyserver.ubuntu.com --keyserver-options no-self-sigs-only --send-key KEYID
 
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+No one syncs (and no one should) with ubuntu keyserver, so this solves
+nothing. I know Konstantin sometimes polls from them, but that's rather
+workaround not a solution.
 
-> ---
->  mm/slab_common.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+So if you send signatures ONLY there, it might be moot as no effect.
+
+For people within the keyring, please send the update to the keyring (or
+Uwe will do it for you).
+
 > 
-> diff --git a/mm/slab_common.c b/mm/slab_common.c
-> index b19ba1b31484..270408ce5a9d 100644
-> --- a/mm/slab_common.c
-> +++ b/mm/slab_common.c
-> @@ -311,7 +311,7 @@ __kmem_cache_alias(const char *name, unsigned int size, slab_flags_t flags,
->   * &SLAB_TYPESAFE_BY_RCU - Slab page (not individual objects) freeing delayed
->   * by a grace period - see the full description before using.
->   *
-> - * Context: Cannot be called within a interrupt, but can be interrupted.
-> + * Context: Cannot be called within an interrupt, but can be interrupted.
->   *
->   * Return: a pointer to the cache on success, NULL on failure.
->   */
-> @@ -422,7 +422,7 @@ static struct kmem_cache *kmem_buckets_cache __ro_after_init;
->   *		to/from userspace.
->   * @ctor: A constructor for the objects, run when new allocations are made.
->   *
-> - * Cannot be called within an interrupt, but can be interrupted.
-> + * Context: Cannot be called within an interrupt, but can be interrupted.
->   *
->   * Return: a pointer to the cache on success, NULL on failure. When
->   * CONFIG_SLAB_BUCKETS is not enabled, ZERO_SIZE_PTR is returned, and
+> And you can check if that worked by visiting:
+> 
+>   https://keyserver.ubuntu.com/pks/lookup?fingerprint=on&op=index&search=KEYID
+> 
+> 
+> Thanks to Uwe for the whole lot of hints and patience!
+> 
 
+
+Best regards,
+Krzysztof
