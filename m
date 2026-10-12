@@ -1,183 +1,127 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88BC047DD6A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:16:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9974B37B40E;
+	Mon, 12 Oct 2026 14:16:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814605; cv=none; b=KRzfnzG6cDs+ifQZe9VgZvVz/9XqNiSD4/IBXSid8eX2JFX8Pflh9uNCS6RPzy9/RjVp3zskCw3Ed0ZfA8BnBgx8FWjohe4F0FGBu/EKV+LamBNEYp69alCtmTu+LRFzRqhTlGfzWeO00ewOunPDp/RE9OCTDTnyCLnSz63OdEQ=
+	t=1791814611; cv=none; b=QZ1WsnmlY12yMwN43me4zqU29uVHG9/9r5lySDznacOSouP1f2L5tbwW7QBpFT/eC5BtUS6m1r+ZTPhUFjVEZejwc39OHC2Fcs/2gnSudb1URtMT2JlR/lwh8W/o6ut2LjaTrH8kE9b3aB7O+pUyd9pkTihV4qwv8mTClMHF7Es=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814605; c=relaxed/simple;
-	bh=shmolJxvI3RFleQ+crYUcs8/qC3TjBJhcdJjT+VCboI=;
+	s=arc-20240116; t=1791814611; c=relaxed/simple;
+	bh=zUapPwQ2aKvZomxvp1cPcukKwSEq6FU5BGbY1W2S4VE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dMi3kQeL1jIF1VOiDCwBj9xs3yjdzKNqmUqSFCo8GAuFAdnTTG/S61ZdWNTGWHzy4waXj95S+ViWHLl/7VsUMH92FdC2MxSCCFD8SaBM8lRkqU6rCqpzMorVSv0PQF4dzW4rpZ6ok3DNBClci6MtN+/BR8707+i3ADBaQ4+JxvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DtHDBal2; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=oHKd88Xf; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=XAHwq4ssLNhj5yZlSzRbmTMTrKWQUKQj7EWP6lnYBzjRRyw+xMin590uH/2pK4Bwh13PywjflgYfUXiiJTcRIyfDroLa/rh30a/aBd5zqhRifaaiKKMuGGmi3/6T+NA38FoiTBTl9tgieAJ4seuk6+1YqB+gKoJWWe/eTda0x24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=fYx5llzJ; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DtHDBal2";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="oHKd88Xf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791814602;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ae0YyaBMRBi9QvMtuCD5/ZgDBRqhVmjNOSyXkR59Fsc=;
-	b=DtHDBal2TcbY3x48zZQ2fODPURa6Snyw3VCVVF5mc+QLbmkew6d1r0dEdZpve0vD2Y3XNZ
-	Q3ZTDz0dsj+FadMGvX5vtjb89t7wb/c8TiUGZPpbalu+KZY1lfGSWXPNmlKKgR4OWicFb9
-	ZyTyB4a9IrF58+mVftpzvvtvBlW9Ass=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-345-th5W4GSoOyWqsOSDgpnVWg-1; Mon, 12 Oct 2026 14:16:35 +0000
-X-MC-Unique: th5W4GSoOyWqsOSDgpnVWg-1
-X-Mimecast-MFC-AGG-ID: th5W4GSoOyWqsOSDgpnVWg_1791814593
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a01d1fb07bso23775935e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:16:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791814593; x=1792419393; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ae0YyaBMRBi9QvMtuCD5/ZgDBRqhVmjNOSyXkR59Fsc=;
-        b=oHKd88XfEsFMdU8xqoTQL3gKLdZ1RHWqf/TOGwdH4PB1lVb56Rta5eD4Ne0/yRxey+
-         e3Wnkwt2ly7NZfMSBR7kFEi6EXAeiiAbzxijQBN58unWZTtReS/PUeilOtijAcnzDL8n
-         jR2Cw6Vw4dh64wjAyZhYciJW73fDK+oSyxeBdffiTDa4kuZRenzd9cEQFsjFRlr683Bc
-         r2FTTw7n+gQ9GB8sLyyoMglOFjM+tgMpAAxswXhP37GUY7mkexkPVGnT/sYTecqqb6VQ
-         W5AIoxAqQJWT2iRiR3NaYScAZo+6XigllSV+E+ZKMdnYdWSxcL00kAsYSOJUliYE8Ieh
-         wnAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791814593; x=1792419393;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ae0YyaBMRBi9QvMtuCD5/ZgDBRqhVmjNOSyXkR59Fsc=;
-        b=ElzZsgmL2pXD0KnkQjKOvRT8aVbdRsEEoq0v6ABvERgsskmXJAXUKXb1V9EdzKw/ee
-         90tszzg8LH+ol6e2BvNAH3HO/nqvkfIrhAj48ZDZmE7Et8r/IfNu732jCJOYkYa7FXN8
-         5XrQc7OHATLLE5VllYRtmSmMnFhg+aI1B1AAttx0rGKeKrxSVQzfLYN8ncWa9XeulpbD
-         SzyIhdMxrLM5Q3xa97KAjvDw7DxkxWvCkwc0VVTNsRJiOmyveRk8Zl8PoZcsW5Xg8Etb
-         OIhejQswvgseJ/NmOTn3DM0CFsQAh/+1OugRKEeuiq9XSy/80lX6BpCcE6DMsH4CYfQ2
-         joHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwJYLbt3/RUhdFbKpMHekUW29DL6jyHWVJtMkH3GtbnG100MGELOPLPlxotaohYCkT5yNgAS4SQuoiSx3U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtMx2SRFm3FssTzsI8wuzizIfHpPY3IdSLooxNIDMYRW4FOpd5
-	svyEb3FRiP67zz3zN9mgh0cCjGAKtxeRWWVwyJEkzeshkPx2VPaAdIkdc4v0wdQHZuFMyXY8FDW
-	nVB9uM08ZNmFLK58UwomKx3VyPAvDTb3MpDYe5IE6ZANsS8kNReTuh75aj2wZqmVYcA==
-X-Gm-Gg: AYBFou1dmbfPssuj2niE+MljkSWuZn8LJxkC51CvqJvC5+UnbTTVCLMHFUylmNeL7TR
-	ZdkqiMdkB6+2aTqqaeCt9AvJVBle40eWb08DzMGLfl5+xkCEvlxjreS1NaMO9cmiZ2sRfhdFqnm
-	bI1Zko4D7Q261xVOK1ozyws27eoHAjf1/OCKIrMQkLWjfQX+2yja3/43sgmNeDgqDNc0G4aosyW
-	rNi7v8Yc2KMi30IqrcY40fYW1umxmwQXp5HOvNlxPBooZmqbXipRXYkanXLhAWYX8hIJWqxDl4K
-	M5elv++h7QJ0U3Yo9mj0C6pX2njdc4yF0gIF0WUfQHhxzo9bA5hIOXwtAzCanxa5N8/4gY6kAPB
-	j/BM=
-X-Received: by 2002:a05:600c:620e:b0:4a1:7c56:d4e2 with SMTP id 5b1f17b1804b1-4a18e4b2aebmr194094755e9.16.1791814593116;
-        Mon, 12 Oct 2026 07:16:33 -0700 (PDT)
-X-Received: by 2002:a05:600c:620e:b0:4a1:7c56:d4e2 with SMTP id 5b1f17b1804b1-4a18e4b2aebmr194094035e9.16.1791814592552;
-        Mon, 12 Oct 2026 07:16:32 -0700 (PDT)
-Received: from sgarzare-redhat ([94.32.38.194])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18dcd7dd3sm186331845e9.2.2026.10.12.07.16.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 07:16:31 -0700 (PDT)
-Date: Mon, 12 Oct 2026 16:16:26 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: linux-integrity@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Stuart Yoder <stuart.yoder@arm.com>, 
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, Chu Guangqing <chuguangqing@inspur.com>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] tpm_crb: Remove dead code from crb_map_res()
-Message-ID: <aszqTFP9fTZg_gXa@sgarzare-redhat>
-References: <20261010235500.2915629-1-jarkko@kernel.org>
- <asy0K_6VkuAn9rTB@sgarzare-redhat>
- <aszhPcubTH8HKxh2@kernel.org>
- <aszmcDeBBIJ5zvPw@kernel.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="fYx5llzJ"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCE8Rq2640423;
+	Mon, 12 Oct 2026 14:16:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=fHxkFbND7s0PwNKQHtSlf9ChYeWos7
+	FxmdOLHyQZpbc=; b=fYx5llzJqTfzAzeOZXPcPAtaqIttivVn8cxMPNwFhNcb/b
+	fHXcNIzRjd2+io4HzWD9/JRWuhFJW/l1nR6BDTSDH0Wu4n/OgcuVQVngg6E4vbph
+	HGB5YrEnmAXqfJK2lk4jT0v8jJ2HwUXu3qARtnpsNG9XTJRDjtiVLAF1fr+zmNyB
+	CQQyWCD6xrumkjqEEDz/vWg8hVlz/bU/aWuMfl6DXX50dD2UY9lB9KnBBzmJKRda
+	KbvXPx7XClxqbQ8Le7qMXoiy60iaz3y242exTJa9GKigiBv0/ZCOjYlEW0Iphkw1
+	XJZAFZxhxEAQqFbxh4r5TfNCwCqk0fYRK6je3cew==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwh9a81-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 14:16:49 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC52et013510;
+	Mon, 12 Oct 2026 14:16:49 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h81wfwb2v-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 14:16:48 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CEGjbG43647352
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 14:16:45 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1132820040;
+	Mon, 12 Oct 2026 14:16:45 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BD6EF2005A;
+	Mon, 12 Oct 2026 14:16:44 +0000 (GMT)
+Received: from osiris (unknown [9.111.15.154])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon, 12 Oct 2026 14:16:44 +0000 (GMT)
+Date: Mon, 12 Oct 2026 16:16:43 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Ilya Leoshkevich <iii@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH 2/4] s390/percpu: Drop unused output register from
+ arch_this_cpu_add()
+Message-ID: <20261012141643.19350G0b-hca@linux.ibm.com>
+References: <20261012114249.2898572-1-hca@linux.ibm.com>
+ <20261012114249.2898572-3-hca@linux.ibm.com>
+ <4907dbfd-3c5c-483b-be25-b0df83af2d20-agordeev@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aszmcDeBBIJ5zvPw@kernel.org>
+In-Reply-To: <4907dbfd-3c5c-483b-be25-b0df83af2d20-agordeev@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX3l647wqa2ejN
+ 3StxpWiCKBaucG+BgR0XsGDdFy8MfzORXiPrv/5fLN9wIDp0fOsSm0HVwSBNGHvDcLNhVweZ/Eg
+ hjL0UssjxD5Hna03v0ZSjqzZONxksX8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX62O8dxaLVue1
+ 4/4UQ/YBfA+t+Q+iLErIRaMR4nTDpLEpAy2wVEztFZVrwjNbF0xaghW02YS8GfAZ3lbIYcVys91
+ j3z77fJGWGxxyuwTwc97gTgIbDrtQcUyaMXcOn6nkVi1aJr4U6pltpLD48fBKJlGHfHFdQ1DmSR
+ b0Lx52l6OdsbD56X6hetx7/sURqXik4ewNUA21e8Gsr3eNVO1zqbBs9O2/Nddm0AQY52Fn+Hq0U
+ TIusMStQJggSXKorkhYUeHVXOtSlhFtToj3/w8wmxKIkAUccvxbWEs5PvayVmNFC6/Jll7iJJOc
+ rsE+oRTwa60h4W+TA9T6mBuPJ7Ym1i0pNDqa42jbX/IC09bst895lh3WXAXpy3cHyk5ZvCbCgI2
+ hP0DnX8qe6zUlrPguF+E6ocr6KiySM6bpr3TQ5cnuUV82oWxg+qlKBzkmMB6K+un0fUSZIQtrhX
+ p67B7eK8Gn4/10TK7RQ==
+X-Proofpoint-GUID: PG5kwf3nh9OHtsl6I_W3Yr0--kh8mfM7
+X-Authority-Analysis: v=2.4 cv=RoFQvymK c=1 sm=1 tr=0 ts=6accebd1 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=8vtpdM4DfG_b6hf76xgA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: PG5kwf3nh9OHtsl6I_W3Yr0--kh8mfM7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120056
 
-On Mon, Oct 12, 2026 at 04:53:52PM +0300, Jarkko Sakkinen wrote:
->On Mon, Oct 12, 2026 at 04:31:45PM +0300, Jarkko Sakkinen wrote:
->> On Mon, Oct 12, 2026 at 12:23:05PM +0200, Stefano Garzarella wrote:
->> > On Sun, Oct 11, 2026 at 02:54:57AM +0300, Jarkko Sakkinen wrote:
->> > > In all the pre-existing call sites both @iomem and @iobase_ptr are either
->> >
->> > Do you mean @iores ?
->> >
->> > > both NULL or have a valid address.
->> > >
->> > > Add an invariant for the expeced conditions and remove a dead basic block.
->> > > The second block is dead given that if @iomem turns out not to be NULL,
->> > > neither can't be @iobase_ptr.
->> > >
->> > > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
->> > > ---
->> > > v2:
->> > > - Updated the commit message in order to clarify things better.
->> > > - Updated the invariant in order to address checkpatch.pl --strict
->> > >   errors.
->> > >  drivers/char/tpm/tpm_crb.c | 9 +++------
->> > >  1 file changed, 3 insertions(+), 6 deletions(-)
->> > >
->> > > diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
->> > > index ceb4100ba400..833226966fa2 100644
->> > > --- a/drivers/char/tpm/tpm_crb.c
->> > > +++ b/drivers/char/tpm/tpm_crb.c
->> > > @@ -570,15 +570,12 @@ static void __iomem *crb_map_res(struct device *dev, struct resource *iores,
->> > >  	if (start != new_res.start)
->> > >  		return IOMEM_ERR_PTR(-EINVAL);
->> > >
->> > > +	if (!iores != !iobase_ptr)
->> > > +		return IOMEM_ERR_PTR(-EINVAL);
->> > > +
->> > >  	if (!iores)
->> > >  		return devm_ioremap_resource(dev, &new_res);
->> > >
->> > > -	if (!*iobase_ptr) {
->> >
->> > Sorry to insist, but in the commit description we talk about @iobase_ptr
->> > can't be null, and I agree, but here we were checking the value of the
->> > pointer, so IMO this code was not dead.
->> >
->> > But again, I know nothing on this code. So, if you think it's correct go
->> > head, I'm surely missing something.
->>
->> Ugh, you're actually right, and this is not, and should not have sent
->> this. And it is for lazy init.
+On Mon, Oct 12, 2026 at 03:24:20PM +0200, Alexander Gordeev wrote:
+> On Mon, Oct 12, 2026 at 01:42:47PM +0200, Heiko Carstens wrote:
+> > The laa/laag instructions return the old memory content, but
+> > arch_this_cpu_add() does not need it. Instead of allocating a dedicated
+> > output register old__ just to discard the returned value, change the
+> > val__ constraint from "d" to "+&d" so it is used as input/output
+> > register.
+> > 
+> > This reduces register pressure.
+> 
+> Do you know whether the compiler is may be smart enough to select the
+> same register for old and val himself?
 
-Yeah, a lazy init makes sense.
+In theory, if the constraints would allow that, yes. But for the preemptible
+percpu inline asm all output operands need to be early clobbered. Therefore
+gcc is forced to not do that.
 
->>
->> I need to sanity check my test environment because I thought I was
->> testing this with swtpm emulated tpm_crb but tests passed, and this
->> should not work.
->>
->> Sorry and thanks :-)
+> My concern is if we force the compiler to do so we might lose optimiztions
+> where the val could be reused after the op.
 
-You're welcome!
-
->>
->> Just wanted to make it explicit that I was making somehting extremely
->> stupid.
-
-Don't beat yourself up, it happens to all of us! Thanks for taking the 
-time to check and clarify!
-
->
->Probably too much multitasking lately with all these bugs.
->
->Lessons learned is that from now on I keep my own contributions
->and reviewing in separate sessions. Things have gotten much
->busier than they used to be so need to adapt and learn how
->to have focus on all actitivies :-)
-
-Yeah, it's something that's happening here too, and it's a real pain to 
-deal with! :-(
-
-Thanks,
-Stefano
-
+The overall size change of the kernel image is six bytes :).
+I guess we shouldn't spend too much time with this.
