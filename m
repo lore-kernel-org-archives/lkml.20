@@ -1,162 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A58592236EB;
-	Mon, 12 Oct 2026 13:29:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A5130C606
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:29:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791811776; cv=none; b=tMVL4dnwOahsTDCua7kIRCtPuN9ZHUO0QnsBtj2V8I+gRTBaTRYY9fAQxxHlb/ZgcVS6xDfQVT9e/Zv1OXQdG9hklA6icH/Yb1lFWYBSjYTM3xECLTWiT6xHZ/c4xniSIsraC07zx4FbPKa7dpTPlBhNtccQDjJ0kijsrdFrFzE=
+	t=1791811790; cv=none; b=Z9CPNTx02a1NbQdnXDklpV4Ub1cwkXTLIUCeNt69K2/UyzTa0zHC+APayQY46zrCFWnVUPXPdw1j9eAVLfYph9kG4yLO6q4AUvSj40Ob96jGUqz9c7K/VndtegqujG2G0ynlH3cKwm+SIE7JPqPqDvuGqKYfnOA8RF3N/O+AO4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791811776; c=relaxed/simple;
-	bh=1/h8OGci7sib4x6nRXRpLYPTLvff9hRPycVbbE11w10=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EndohHbj9pNFW9ihhbB5hwwfY6fRIfvMGbcQi7+ZB1JZNhtesudqvc7zbrfXNB94fWFNVjrwy8/dqKNxHFG+0Sg4OOjFmcMo3jC7nE5kOMoIIWvTnM3m6Z1qs6I0pPS5rhGiQXoW/PCsFotxUgPoXdLZHondkFjYNTruZJQ0DbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P3rJo9mF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791811790; c=relaxed/simple;
+	bh=OU4Y8whvWD2Hibdk8gEf9G/ATmDWla5lyVMlVtfiR0g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hw7q4SMNjFjc5Xe98b7CP3G94xpbfvGgh0aK1Aq/NabMar2uyAG74YQK9gPNwT/mHMr3uj4I//jAgyc56jaj5ugBDRAuWlfUMz6/oYetQiVew032yvj8y3gpo8KTb/2Kzh87TI3ERG4ZPdeKmUxx1pB8yw+4QshNPzJmOxMxkqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXw70XOy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P3rJo9mF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FA4A1F0089B;
-	Mon, 12 Oct 2026 13:29:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXw70XOy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEC551F0089D;
+	Mon, 12 Oct 2026 13:29:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791811775;
-	bh=Qt71Wpe5vZz/eJo/NTKl4S8jSBeNz9JRB3NW9TiAP+Q=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=P3rJo9mFl5uX74K17iAzES6Zh2fPEWw9qO3gf5/8cWp9MOsdEz+NTkndRuUKl+t+c
-	 KIcZT0heGNIsx6tsIMrp+iApc7TRZhqXhTHCYzlfM5o50ETlVCcV8mW6eNAxvSN2A5
-	 3+zmYEJB/R8wTQ2v3gkji3eBPzdwMtQpLmKEhw71k3EH6gNn2bWu4b4upI0JZZRu5h
-	 GUfRzaVMdKjTt6X6Zu8AO7h2uxOHI9w9uzINRrjLXOIOYP8oubO+gVnZsRrWvSvQF2
-	 q2X2yjUWcKRnpsoGiO5kBgsPfVOGk1PyEM4SSN7+WbMRD5Vm+FLl9V/HU3TbqcJKN2
-	 FYrjLoPnICjHA==
-Subject: Re: [PATCH net v3] net/rds: ib: zero the unwritten tail of a short
- receive fragment
-From: netdev-bot+sashiko@kernel.org
-To: shubham@octane.security
-Cc: netdev@vger.kernel.org, linux-rdma@vger.kernel.org, achender@kernel.org,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, linux-kernel@vger.kernel.org, gio@octane.security,
- tjdqudcks0424@naver.com
-Date: Mon, 12 Oct 2026 13:29:34 +0000
-Message-ID: <179181177407.434549.13953919662725859235@kernel.org>
-In-Reply-To: <20261008124940.13371-1-shubham@octane.security>
-References: <20261008124940.13371-1-shubham@octane.security>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1791811789;
+	bh=eZnvW1f6ZKKDs4epQ72esmcLtWFbZaDp3PtMSfBkwKM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JXw70XOyZ/GydVd5g4rGWFnG4oNaR04Scx4JVWCXdDCDoHo58O/hj3Z9+gqAHYglt
+	 IzOGuY5L3VN1DLqzLjk3xtI2cVTMMMFSsMy0Eh3FLyk1yxCLkW/lDJ6FN+Up1spRAN
+	 mZRHqltvSw9+05Zf+vA+LcP/8BUYcI6ynnVvWGzBJez3LDOYWjXb4bs0+iwEG2Uknf
+	 m4E20m+wgeTD7+vDczrmk1PDIJ42zx9wZNYyAuEf/3UYYVB2gg8aR8R1niBhHwwnUD
+	 /UAwSmQM+jpImaaq3VaWpuoMco9dGlMzrT3qHjEs+1zm63H9ntcWn8bW5JK5JNYrx8
+	 idUvrWZD2GR/A==
+Date: Mon, 12 Oct 2026 14:29:46 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Sasha Levin <sashal@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [GIT PULL] regulator fixes for v7.3-rc6
+Message-ID: <3ca592b2-a411-4353-ae13-06e84021955b@sirena.org.uk>
+References: <20261010234834.6C7001AC57D0@finisterre.sirena.org.uk>
+ <CAHk-=wiSL2hmOhLz6f_pY-SD+Q=2q+swkENsHhWvwtL8az1Wqw@mail.gmail.com>
+ <asuOoUt8XcOJJmSE@laps>
+ <CAHk-=wgAJjTXvGBehCycoObUb45sXdW_-WkLkcd0cZp+fonYHQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="kcDg+wdYtDzc6CQA"
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wgAJjTXvGBehCycoObUb45sXdW_-WkLkcd0cZp+fonYHQ@mail.gmail.com>
+X-Cookie: 98% lean.
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+--kcDg+wdYtDzc6CQA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On Sun, Oct 11, 2026 at 11:27:51AM -0700, Linus Torvalds wrote:
 
-- [Medium] The patch closes the info leak, but its v3 approach rests on a
-  false premise, and the commit message leaves out what the new memset…
+> Bah. It's not like I need reminding about how much I dislike pgp, but
+> this whole "people change their keys without giving a reason or
+> telling me" is something that *should* change, and doesn't require
+> fixing that horrible program.
 
---
+> PLEASE, people. Don't just throw your keys out into the wild blue
+> yonder and then assume that's it. The people who *care* about your
+> keys should be told about it, and why you suddenly changed your key.
 
-net/rds: ib: zero the unwritten tail of a short receive fragment
+Sorry, I was under the impression that the keyring you were using was
+tied in with the kernel.org keyring and didn't realise that you needed
+notifying separately.  This is me adding new subkeys to my existing key
+so that I have backups of them and am not stuck with the single
+smartcard I generated subkeys on 10 years or so ago and can also have a
+physical token I can plug into USB C ports.
 
-This patch zeroes the unwritten tail of an RDS/IB receive fragment page in
-rds_ib_process_recv() when the received payload is shorter than
-RDS_FRAG_SIZE. The goal is to stop rds_ib_inc_copy_to_user() from copying
-stale page contents to userspace when a peer sends a fragment shorter than
-its h_len implies.
+--kcDg+wdYtDzc6CQA
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Closes: https://lore.kernel.org/netdev/20261006205204.1322102-1-tjdqudcks0424@naver.com/
+-----BEGIN PGP SIGNATURE-----
 
-> diff --git a/net/rds/ib_recv.c b/net/rds/ib_recv.c
-> index bd6cb3ffaa571..9695c7f24eaa7 100644
-> --- a/net/rds/ib_recv.c
-> +++ b/net/rds/ib_recv.c
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrM4MkACgkQJNaLcl1U
+h9AzvAf8CpfwofupBOVZvtEeTjQIZbUlKK7dp74jnySWca9oRKO6EUbaLhT2/tZO
+rZBYgronPAa3mJkpkrHWFR+YC0BGTOog4sKLhOwqYqiu4lxJkjM76o02hAd+24Si
+hwahdq9B6vqIUF17RUE/5Y4hp88cCwmN8S55ZsIVcCJ7sRBNDDhGceRZp7cYMU69
+Ofrp9blh9foBb+gdM5Wtoh9Zso3/ZrY4iE6PKXxFm16rYNefqK3Vn5iEswTtv2hc
+IsFyNde1wQJS0QnHGKUjugp+UUW93AAXgzG3mcaZjFlxdq35g5Xl6E8qO2mz578W
+fhHygPdADFzZ7ssJ58YeNSzVfShoXg==
+=kaxg
+-----END PGP SIGNATURE-----
 
-[ ... ]
-
-> @@ -949,6 +950,19 @@ static void rds_ib_process_recv(struct rds_connection *conn,
->  		}
->  	}
->  
-> +	/* The device wrote only data_len bytes into this recycled fragment
-> +	 * page.  Zero the unwritten tail so a later rds_ib_inc_copy_to_user(),
-> +	 * which copies up to the peer-declared h_len, cannot hand stale page
-> +	 * contents to userspace.
-> +	 */
-> +	if (data_len < RDS_FRAG_SIZE) {
-> +		void *frag = kmap_local_page(sg_page(&recv->r_frag->f_sg));
-> +
-> +		memset(frag + recv->r_frag->f_sg.offset + data_len, 0,
-> +		       RDS_FRAG_SIZE - data_len);
-> +		kunmap_local(frag);
-> +	}
-
-[Severity: Medium]
-Isn't this condition true for the final fragment of almost every well-formed
-message? A message whose h_len is not a multiple of RDS_FRAG_SIZE always
-ends with a short fragment. So a 100 byte message now pays for a kmap and a
-memset of roughly 4KB in the receive completion path.
-
-For well-formed traffic that work doesn't look necessary, because
-rds_ib_inc_copy_to_user() already stops at h_len:
-
-net/rds/ib_recv.c:rds_ib_inc_copy_to_user() {
-    ...
-		to_copy = min_t(unsigned long, to_copy, len - copied);
-    ...
-}
-
-The stale tail can only be reached when a peer sends a short non-final
-fragment, meaning data_len < min(RDS_FRAG_SIZE, ic->i_recv_data_rem).
-
-The v3 changelog gives this reason for dropping the v2 length check:
-
-  A zero-copy send with a small iovec segment can legitimately produce a
-  non-final fragment shorter than RDS_FRAG_SIZE
-
-Can that happen on RDS/IB? rds_sendmsg() rejects zero-copy on every
-transport except TCP:
-
-net/rds/send.c:rds_sendmsg() {
-    ...
-	if (zcopy) {
-		if (rs->rs_transport->t_type != RDS_TRANS_TCP) {
-			ret = -EOPNOTSUPP;
-			goto out;
-		}
-    ...
-}
-
-On the copy path, rds_message_copy_from_user() gets its sg entries from
-rds_page_remainder_alloc(). Every entry it returns is a full PAGE_SIZE
-except the last one. rds_ib_xmit() then splits each entry with:
-
-	len = min(RDS_FRAG_SIZE, sg_dma_len(scat) - rm->data.op_dmaoff);
-
-That means only the last fragment of a message should ever be short.
-
-Would it be better to bound the memset by
-min(RDS_FRAG_SIZE, ic->i_recv_data_rem), which is already set at this
-point? Rejecting that case as v2 did is another option. Either one should
-still close the leak and leave well-formed traffic alone.
-
-As written, a peer that sends short non-final fragments also gets its
-message passed to the application with zero-filled holes, as if it were
-valid.
-
-The commit message also says:
-
-  Fragments that fill the page are unaffected.
-
-In the common small-message case the final fragment doesn't fill the page.
-Could the changelog say that the memset runs on most messages?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008124940.13371-1-shubham%40octane.security
+--kcDg+wdYtDzc6CQA--
