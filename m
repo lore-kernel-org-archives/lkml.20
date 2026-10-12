@@ -1,197 +1,251 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011052.outbound.protection.outlook.com [52.101.52.52])
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022139.outbound.protection.outlook.com [52.101.96.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E338472;
-	Mon, 12 Oct 2026 02:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 963D7331EB7;
+	Mon, 12 Oct 2026 02:21:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.139
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791771651; cv=fail; b=CYDtFdN0OsJTrl7cFuR4NW3Boxc7G0+G3bOGaxSMjsITT1H7WTqdijMXkyMeKJszG5iNOVd2qd+5W5v3i5Z46ieXl7BROmCuGoVNoe+ob4MCgxYPaU/vcSiHwhwXiYrow5zY3Ead+Bs2+ZMPnHcaJ4FFuyH55wbI+1H88Ns0NaY=
+	t=1791771672; cv=fail; b=GAh+J/IMBY8zV71Y9pFVXrPQ1ohOdHthkxJwb08jhEjlBfHQcorzXVRGmaRoQZekc1QoJn7iysyZq00t1Pec0Pay3cwe6DHzXPHfC7VhivLlhT8yjhUBofWS2AUUp87ejYdiKhtrgQlWNU8nSkx+1aCxGnRrsxTAJnOfTv0w58s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791771651; c=relaxed/simple;
-	bh=IRAFds+CvaeaeUjLV9SjFdfM7Fsn9On8V9e2LYld7CQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=kOGhmUOjFdSpUjBbmDh51iwFvqJ6qBA5FsnrAP3slv2r3VCFJmNj4g4XYOX6NUUromrk84umMePvNMzMEOUTtRLOo1kvKheOKLNUQzKsNqaIw3L6muRHRz1Qng4gUunDx+V/bPxZcHbwdiNuvq9xs1cUABsdKITBMDH0EeMxzp8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=gCIKESSe; arc=fail smtp.client-ip=52.101.52.52
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="gCIKESSe"
+	s=arc-20240116; t=1791771672; c=relaxed/simple;
+	bh=GEIKj4m1fhwdj2XFgP/RRjQnbnTXDxKewbG92H4OE0E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=brlVpFNB6Dxztob+PlTWRwGhmwuuIIgiF05pKx1dUqR+Jyozez5hL4vxk28iszk3m5Bx37EaYyYAXttH0Jiv1T7sh3120WpwxLUw7cCCdamPDnB0Roht1Ya7QDxFLGBABENg5cNXnLv+ZUjf/fjndnWRZTgwGWqUjgwMvuERFGQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.139
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OjiJyE4oBixCXBJ71q8nNpUWxhVVNK+6xA5GIvCry1OMIo3vP5wainuOoAqWDL5oFWSc5MkLU2o4/jknaLksw3ZsrzulUpuRNOYhnNEFBlZLCMjHed+nq+O26Jhvd3uXuWXGmaURZB0Ko55TuMGzi8GT4macjlUz+e01asvkiM3+naKGEZOQpaKIweqFb7NuGIp5uSNmO3dlK4VbdMgP6BI0udYDTBXk8xcUR89UaoDJ8UfGda5UVVEMig9AIpvo0s3H4qbnkVBuC/Sb+XRg/po5KZ3cmR86YFphDIXCV/q/PccfhvQW/QeyCVK/DwrhW1Z/em06fHZ6ftkYHbfPLg==
+ b=mmDoiIJeozDUqWjwcPJZ47wHP/5P4Ta4q/+w+rTeiYcS/zZiZuuZMAgHX2PXwWvw9g0T6WmTO7DqdkTyexjr7flNwp/HLMtOYOmaw2vGXXyZqkT56Bxelj4japoW9d7zTsvYv5cuq6zRmFC5ysBCoJTpj8dz3mz+eGPn5qIV/sWi3fA/VZawMYDkjzs794pAzOabuBbRBqMtNcQwFisly4E59RP0uLeKN6/mT8/Yig4KMt0snjIR74dR2b/hzX2gk3p8sw9g8dRrrO2ohuoEvk77hibuFck60UOpnXoXp9RM7DJIoCfZ5C2B2mN/QUYfIsRQVDG7mgsDFCgybQ7fRQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/IS2zb749TnbguDxAdOqQAlQ2h/ai1/MCN8zs0xG4Ik=;
- b=X/0EHToI0G/FLLuo0ljSg/wVAiK1ouu4oUZ2+LP9Has07oKKnvbmEvDwcppgfBALPhC428sfux6ymN1R0aLMvxyBJlZTi7LzOz6uGrx2RYlEndzWOAAO6KMWklPFEjutxl61iXweWSEt/esMi/wmKpEuKcmr0w/S7g8fqnDU198tr+F3GDqdAOUk+8/BIG4X8nAjjV17qQ+tyDik1Kq9s4//4Mm2FKueC19bvXsF2LdJ9EJSCKhcJnxfOxnjAMkFUTquRJIMR+AwJ9Nay89NpJp0PhGOs6rsYwL6U1lySx6vsoAleLLUm/ojEk+pPs56hcCKOTo72YSoHqGddxikbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux.ibm.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/IS2zb749TnbguDxAdOqQAlQ2h/ai1/MCN8zs0xG4Ik=;
- b=gCIKESSeYvgY6mGz/Bih7CY32wcmGzhpD/MfJC0eZwhGNAiFnzzJTEHmCQ6UXnheo4wMJWn1g2swm+q144gYOljDLkKXv4jIdfHpe7mHwFaPvt9ZAIp+GPExkWTWk3mbWS4qJq63B0q8cGwRYxzNZ5xpHejgGMU7lP76dqtM3WA=
-Received: from CY8P222CA0019.NAMP222.PROD.OUTLOOK.COM (2603:10b6:930:6b::10)
- by IA0PR12MB7603.namprd12.prod.outlook.com (2603:10b6:208:439::9) with
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=tnRrXxMozwxCDOR/xoFAfuq/2jmNqNvLH9vgASxzDIY=;
+ b=JMMHBksQiCWl6jLaaF0x31QKvhuBTLAkEer8Kyga7w8i0z+Ri/RsRmCRGF6zGwOkKBn9gtUAKfmVbxaKfaMMzWTM3pxY+dhKuyQwjO2H1WYE3YH+Z9ZOplpnZytGATcN9APOBiVH9vCwZ8XAjoi8yVHcLkdGi8qQBhtPk5rnMXmy5saCyb6Nh0TFsh/j/WSEICokwA/u3TwmH5oF4vwVrwPsYGfl8eEMhKTEaiTr+OG6eQ8ZAlN4jzVO04SGkDt/oFuVe5kl7CdbRr6lmbQ/9dnFWLSTRrcLZj2CwXyYOCbomnSHikmpBTkxsCavVIje7mpqELFAXMxw/nebfACsJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by CW1P123MB8152.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:25e::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Mon, 12 Oct
- 2026 02:20:44 +0000
-Received: from CY5PEPF00000E77.namprd02.prod.outlook.com
- (2603:10b6:930:6b:cafe::e) by CY8P222CA0019.outlook.office365.com
- (2603:10b6:930:6b::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon,
- 12 Oct 2026 02:20:44 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY5PEPF00000E77.mail.protection.outlook.com (10.167.247.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 02:20:44 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 11 Oct
- 2026 21:20:38 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 11 Oct
- 2026 21:20:38 -0500
-Received: from [10.136.45.168] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Sun, 11 Oct 2026 21:20:31 -0500
-Message-ID: <91a1bbf9-0409-408f-bedf-a5414be4d1a2@amd.com>
-Date: Mon, 12 Oct 2026 07:50:25 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 02:21:06 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 02:21:05 +0000
+Date: Sun, 11 Oct 2026 22:21:01 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Ming Lei <tom.leiming@gmail.com>
+Cc: axboe@kernel.dk, hare@suse.de, sean@ashe.io, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] blk-mq: dispatch kworker to housekeeping CPU when hctx
+ cpumask is empty
+Message-ID: <o2hxbjxbkg3wv25lyj3nluwv4e6cb6q5qaukrhjzwg2hodwk5c@wgpc25peito7>
+References: <20261012012905.267920-1-atomlin@atomlin.com>
+ <CACVXFVMTr8mORGSVM4JWHrLYgk+9O0J20bjaL_08uYmRCbzC3A@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACVXFVMTr8mORGSVM4JWHrLYgk+9O0J20bjaL_08uYmRCbzC3A@mail.gmail.com>
+X-ClientProxiedBy: BN9P221CA0016.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:408:10a::18) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v3 07/13] s390/topology: Initialize sbm topology
- during topology_init_early()
-To: Mete Durlu <meted@linux.ibm.com>, Peter Zijlstra <peterz@infradead.org>,
-	Chen Yu <yu.c.chen@intel.com>, Tim Chen <tim.c.chen@linux.intel.com>, "Ingo
- Molnar" <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, "Vincent
- Guittot" <vincent.guittot@linaro.org>, Andrew Morton
-	<akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>,
-	<linux-kernel@vger.kernel.org>, <linux-arch@vger.kernel.org>,
-	<linux-s390@vger.kernel.org>, <linuxppc-dev@lists.ozlabs.org>,
-	<linux-mips@vger.kernel.org>, <loongarch@lists.linux.dev>,
-	<driver-core@lists.linux.dev>, Heiko Carstens <hca@linux.ibm.com>, "Vasily
- Gorbik" <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>
-CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
-	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, Shrikanth Hegde
-	<sshegde@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>
-References: <20261001192849.74788-1-kprateek.nayak@amd.com>
- <20261001192849.74788-8-kprateek.nayak@amd.com>
- <bd5201d9-19bb-410e-8954-6c53a5aeb753@linux.ibm.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <bd5201d9-19bb-410e-8954-6c53a5aeb753@linux.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PEPF00000E77:EE_|IA0PR12MB7603:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3d2a92ea-c84a-42ab-ce6c-08df28076b5a
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CW1P123MB8152:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5cc09047-2195-4ded-a47e-08df2807781c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|82310400026|7416014|36860700016|1800799024|10067099003|22082099003|18002099003|921020|11063799006|4143699003|261009223027099003|56012099006;
+	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|4143699003|56012099006|18002099003|22082099003|6133799003|261009223027099003|3023799007|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	HmtDj/4B8qxEAX9mScbcfsTQ6fArSAJ+XYsmMiTGqQNBipuMlodvZLBMycfn3Fzpy6TD0N09DZHautRaf6dsvVFvxeGh9LqcwNCbXTYX544Y+irK6CMObDa+B49nS0BQRiLuqQ25K77wlTQuc3Dd8uFsNGjlG0Y9OZPSGzprgWIS5dPgg3ZAgj6EfjapHf96KZvl7InKiy+QiPVeklrR3r72mJ+Ki5kigB5/F6zQodgwXkGAmaCgQ6KKCnRm/JgPwBznOeB08lw+jF80lKxIC56K9YXTAS4tmXkceTZIm9V7ZLKerKMs7mBv3EbIMZyHhMQMKD/ZdhGxDaAWVEo3scWYsSpSkNJGXzp9f2lcqzU3esQf2n98bI3Ysh3Nhgvd9otyPWs9n4YrFxQF0/GVQAGagdmr4eyV3qovvuJLLqUSYq/cSDPuLFg3XBpATmhEDf/oDFyy9v/iclQkHlMxPoXFWrngDvC5dEDCYhVRkUYo+544ekvcsjjb1n/i9fj1rydGrdgkJOPY0N17vSGWNEE3BC38oktpIg+InD0Zg7D+AhJDaDt0TunxAMKX/aKj0ttOkaTagHoDahmhZ7jF2CtEYFvJ22mYAGa22EjgC79obbqkMEkZDABCksTFqBGocE9IBiSVGTEnkvy0qW7W2IYLhm8bcHOFWBmw5HAHimE+yrN+d/HZrliCa5eC9y+2wLEZZEH+7uGyB5iLXORslvxw7PpMyZ3vjsE1OYyDjNjMaaRresoOf5GzeVxYlM1T
+	yjn4vP34LUF/DPnue62O1CEbW1jT4AZCRoMVaQV1bM1umn9EtiQKUSS6mhAJwml8kMMvX6355a2TM46dEEt6HwWDN7GlT0bwFU5UBtF7X6XnpSfTNm9y9vPPsN3+GwCiEnKxNlC1jfeJFEi/VKNSvYpt0EjPzjf91iLPUQLIikT03aBRBkIqgLE3z0fSYM4S9Zd27HVQnF867LOnxo7WJfvSlIPKS2JRwpcPVCUMTybnl+nX5Z9iZ+4SNOfhoCiMpPH/ysWjI52tLUVsWUKjhafovpDt+jxN2gqq6sUrw2bMxy6T3HudS8t0WSYmLF0luPEbObp61MMdJVB8Jp9sCD1v0yKtTFyt/FAb6MfPRsK+mv/mmEGlqu0cQkC52Z1+rYFzQ2qw6IUVcydNq7om4blQz4FKeMXpilYM1hk4dJBPrKICQCgw3fgX0pTK2RgdewAtQOFB4Gh7kdT3s55LCxOWMAPuQE5a7BLLtrppPZlfMulxHJw9C/6M6pFRQUxW07Xzylz6ePq3uN63IyYL4zsfHCiBcfYQAgX3vR+fxaAj+zMLkbokBxK5taaVfkZwUrcrTSF7u53nwIk31j7qipZGhP1Yz6AoDt5NPsurfWY=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(7416014)(36860700016)(1800799024)(10067099003)(22082099003)(18002099003)(921020)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(4143699003)(56012099006)(18002099003)(22082099003)(6133799003)(261009223027099003)(3023799007)(10067099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	tbryS9J7ew9vgONnMPsBMAyt9IqFcxoStBzef1+0CeylkZNpnw/dOhMHh6hWJULl5Ks0+Fx7OaVtBrCnlIuRrxSqsP6M73p8UpiagR6M3iIxjr/9em/qvsEKj9nlDeCtN5MujxambkTrN4r3e80N5oqMqCrmzRTUeGASCcK3OsKsKmQ2PyKZ41DREb/Ytb1me/elKhDvKP5RpKdMwwnX2/xyHb/7nyGwUjnqVjq7NvvNr54l92ajdKL04HC06DpxLhW8zgfEUcx8fTsm2m25T/+FiPFVWoadLPe52H1EsPOKsDFNHS02q+AXu7zkhkOBACWrKN1UKlSjzXEXMZj+SBUCYd74xNpCwhBRvAxCSCy6m2+EJpKu0ehSOs4BZHTbgtZdqFj6LY5UniUlA0eyOiqPgZJVM5JYNl7WYXKIyOlzTx4dRfY8RKadDSjIH8Fz
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 02:20:44.0010
+	=?utf-8?B?ZHAxbVJCUFVBTnFnQXJ6Zmp0WEp4WU5aREFoWXdicG9yNFdiOVRLZGUxbHVM?=
+ =?utf-8?B?ckMycElmTzk0MUNsV0VnLzFrMXNXcHdsZGhIcGt2Q0tTSzZQMWJ2NDBORUQ2?=
+ =?utf-8?B?ODdhRDVqYTllVXF4RTRpc2ZRZjh4VjdxTXJEdzR5b3dZa2VNMTFGejB3WFo3?=
+ =?utf-8?B?UGlxU0xJY0JyU2ZXNU9ibkI2Y3RqaVk1S0VQd0JiWnNOazVFWWlQWnI1VSt4?=
+ =?utf-8?B?MU9TSVhsMGdSRGZ3VE91QzBqdUdLVHAxRytTcWwrbkFOcE5SR2pVMkN5Z2xX?=
+ =?utf-8?B?M2phWXFpK05jbjVvdGE3aXp6ejNaTHBzSEcwbUpxeFpjdnduSStpRU5FQm5Q?=
+ =?utf-8?B?NVpvaFFmdmNEcmhRdGluRDJYZnQzVkJvQmNoRTVQQzhpc29OZXFRcjYyVVU2?=
+ =?utf-8?B?TTl3Ly8rUTc4Rzc2K0VaUHdoUWdZZWFiSTNTWUluaXA5RGdxZFVKSUVUVW9R?=
+ =?utf-8?B?bXZacDlhS3QvVzhkaWlIR0YxYytNbW9YN3FFeTJvdGJQQStucThNWnNYZ0Ey?=
+ =?utf-8?B?OWlMNytFb0dvYTdtTDVRdDUrMmxKNVZJQzJJdEhPNm1Ua0JoWE5HbW01NFM0?=
+ =?utf-8?B?Z2wrSUg5QXl3c3BLZDFFUUtCS2o1MGIrNDIvV1RPZjY5ZUpRNHVScG1VL3Ji?=
+ =?utf-8?B?MXRjWXpPZ1kvSXNsTzdZV3hzcXZ2VHdrWFhlVnk5OUg4eWtEakFRM0hJT0Ey?=
+ =?utf-8?B?N28vOHMwUFA0OWxRb2daTytuQ1Rrd0gzODlHdGpMdnNRMDBCY0hDRHZvcHRp?=
+ =?utf-8?B?NlBmU1pBNW1qbFhmZUJwOTJmUnRMalJEUjB3UGhFZVRFaTVtY3FxUU9NWHVh?=
+ =?utf-8?B?ek5qdDZ6ZjJCQWlsdDNycjRlakVFaVJvYTJCRWxjMHhaWmFuUklkcDZiWTM1?=
+ =?utf-8?B?TGg1c0FnaGN1TmxncEEzenNycExZTEVsVmtJK3cxSW4rZ1NvUGN2Tys0ZVNk?=
+ =?utf-8?B?bU9vbVFLM0JTTnY3SDlNbFExMFhzbFVNL0VLY3YzbENSRXd4QVlIT1R2RFdq?=
+ =?utf-8?B?OWRkTWxYYUZuazY4MGplSEVvUGNCTkR0eHJWeXE1a2NFRGRFWWR1RFMzUzJX?=
+ =?utf-8?B?T1R5YnVNSTNJaW5vWHUxdUkrSkZOd3JCdXUrL3BpMnpMZTZFVk91SnZ4SWJh?=
+ =?utf-8?B?QjE5c25FUjd1Nk43VWlhVnp0M2ExRkJSRmNKY2lQd2NGYWg3YnZTbDB5Qmli?=
+ =?utf-8?B?NUZBZy9CUUdqcU1KUFh4WGRwTFY1V09KRVVnRjRnZURKdkY4Yko3ejlNaWdD?=
+ =?utf-8?B?YlVrYldLK0pTZlplOTI5M0o0Q3hYSytsT1dFNzJqMU12bDlma3pZQWhGK0FF?=
+ =?utf-8?B?K3BQb0ZyTFRHdWFqbXovUm9yVkRTd3pNZFFCU2pPV0p2MVNwQitScDU4ajk5?=
+ =?utf-8?B?RFdrUWIxNlJCOFdnVVErUWFjNGpmdHJJRXRKN0EwL2pKbmNHeTlUaWIwWjYy?=
+ =?utf-8?B?MXZtWWlNWVJWbnVnVEVPT2Q0L0pEeHBSSWZJREhXVlRkc0E1aFZ5UXR3cXZq?=
+ =?utf-8?B?d3AyTWNUdlJyNGhVWkw5K3dLYWloNTJPeUJTektKTjFHYzJhRnBPc2h2TVRp?=
+ =?utf-8?B?czF5K1hBTnNmdWNuTHlueEVVSDlrRitSRnlRZVlrdGtXNmtPa2JjengrMkx5?=
+ =?utf-8?B?NytydENuY3g3WEV4dnRvTTRVOStEQ1FGaE1HTEt1MnovTVlINjJjSXlNcVc4?=
+ =?utf-8?B?b1JUamJEVU9zaXEwYk83dm5mdlhvNnhCTU5OdWJQVTBTOFE4emJKN2VIbml5?=
+ =?utf-8?B?QmhVVSt4NHR3cDJjZWVwaEdmckQ0R0tWSzJzSEVZTmZLUU9PTUlkNC9WU1Q0?=
+ =?utf-8?B?eTRKRkw2ZXhHZG4rbE9ubldsZmRoYStwKytVL3FVMTYwMCsvNlppNzErK2Z4?=
+ =?utf-8?B?YjljN040T2l3TU1GQ3QvcEc0ZERVRS95Yk9QblBkSEJkT1h3RWgxa042Rm1R?=
+ =?utf-8?B?d3lsL0ttY2lIQzFwUVJKOGJkZlZ6RURvR0NJTnFZTVlIbXJvc251SlZEc0g4?=
+ =?utf-8?B?RCtKS3FGNXk3SmwvS0NEVzB4WUJ6UXNnajRoZUJacDdjcXVoN3VoOExtTkxB?=
+ =?utf-8?B?VmppaWNaRk9RVGM3dDkwK0VITEYrVG1RMmIvMFRKQ0lJNXJ3VFlRc2IvOEQ0?=
+ =?utf-8?B?UlhTRkhjVWFLV2x6bzZpYkt6aERsOGk4ZDVMbmI1ckcyM0I0RFNrT05mSXZu?=
+ =?utf-8?B?bTdzVjEraGRZaHBtVkRDNTdlbVJ3WFJPRkQzMEFjdTNwci9HZUV0WSs1VFVB?=
+ =?utf-8?B?ZmFOVk9IZy9WdFp4b1pKTEpkQmRqNjJQTHI5NkZCcHlJcXpuVE1KaGxxemhi?=
+ =?utf-8?B?Z3VxQndtUDZtUFdrUlBJcGc3UjZxR3JLRnpxYklsOGNEeHFidjlmUT09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5cc09047-2195-4ded-a47e-08df2807781c
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 02:21:05.6201
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d2a92ea-c84a-42ab-ce6c-08df28076b5a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY5PEPF00000E77.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7603
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v3P+6AQ+uexmFtefQ94PPc+XtA2sqDDIAhueR1IKaOKZ5OzYn5BdoPzX6H/vCmZac29IWCqL1PZz2d3nHIiqlw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P123MB8152
 
-Hello Mete,
-
-On 10/7/2026 3:49 PM, Mete Durlu wrote:
-> On 01/10/2026 21:28, K Prateek Nayak wrote:
->> When the topology mode is TOPOLOGY_MODE_HW, topology_init_early()
->> already parses the set of socket present on the system.
->>
->> Use the socket_info to configure the sparsebitmask (sbm) properties for
->> the system - namely the number of sockets and maximum threads in a
->> socket instance.
->>
->> arch_sbm_cpu_instance_id() traverses all socket instances to find
->> a matching CPU which is not optimal but instance ID is only checked
->> when the CPU is coming online. Since this is a rare event, the
->> inefficiency is tolerable.
->>
->> Signed-off-by: K Prateek Nayak <kprateek.nayak@amd.com>
->> ---
->> Build tested with LKP's s390 randconfig with QEMU cmdline:
->>
->>    qemu-system-s390x \
->>    -cpu max \
->>    -smp 2 \
->>    -m 2048 \
->>    -kernel ./arch/s390/boot/vmlinux  \
->>    -append "console=ttyAMA0 earlycon ignore_loglevel log_buf_len=10M print_fatal_signals=1 LOGLEVEL=8 sched_debug" \
->>    -nographic
->>
->> Note: Since ctop needs KVM acceleration to emulate TOPOLOGY_MODE_HW, the
->> actual spasemask setting is only build tested at the moment.
->>
->> XXX: Any way around this using cross-compile and QEMU?
->> ---
->>   arch/s390/kernel/topology.c | 52 +++++++++++++++++++++++++++++++++++++
->>   1 file changed, 52 insertions(+)
->>
->> diff --git a/arch/s390/kernel/topology.c b/arch/s390/kernel/topology.c
->> index 1377c6f3f670..80dc51f5ce6f 100644
->> --- a/arch/s390/kernel/topology.c
->> +++ b/arch/s390/kernel/topology.c
->> @@ -20,6 +20,7 @@
->>   #include <linux/init.h>
->>   #include <linux/slab.h>
->>   #include <linux/cpu.h>
->> +#include <linux/sbm.h>
->>   #include <linux/smp.h>
->>   #include <linux/mm.h>
->>   #include <linux/nodemask.h>
->> @@ -561,6 +562,55 @@ static int __init detect_polarization(union topology_entry *tle)
->>       return tl_core->pp != POLARIZATION_HRZ;
->>   }
+On Sun, Oct 11, 2026 at 08:56:07PM -0500, Ming Lei wrote:
+> On Sun, Oct 11, 2026 at 8:29 PM Aaron Tomlin <atomlin@atomlin.com> wrote:
+> >
+> > Commit a46c27026da1 ("blk-mq: don't schedule block kworker on isolated
+> > CPUs") excluded isolated CPUs from hctx->cpumask to prevent worker
+> > threads from executing block work on isolated CPUs. When all CPUs mapped
+> > to a hardware queue are isolated (i.e. blk_mq_hctx_empty_cpumask(hctx)
+> > evaluates to true), blk_mq_hctx_next_cpu() returns WORK_CPU_UNBOUND with
+> > the intention of offloading execution.
+> >
+> > However, kblockd_workqueue is allocated as a per-CPU workqueue
+> > (WQ_PERCPU). When WORK_CPU_UNBOUND is queued on a per-CPU workqueue, the
+> > workqueue core resolves the target CPU via raw_smp_processor_id().
 > 
-> topology_init_early() is called once during early boot and never again.
-> Considering that s390's topology can change during runtime this
-> implementation won't work as sbm won't be able to adapt.
-> On s390 max_threads_per_instance can change during runtime.
+> Then it looks like you need to fix WORK_CPU_UNBOUND, which has more wide uses,
+> if you think it is one problem.
+
+Hi Ming,
+
+Since kblockd_workqueue is WQ_PERCPU, the responsibility rests with blk-mq
+to provide a non-isolated CPU when dispatching &hctx->run_work, no?
+
+> > Consequently, if a task executing on an isolated CPU submits I/O and
+> > triggers an asynchronous queue dispatch with zero delay, &hctx->run_work
+> > is queued directly onto the local isolated CPU's worker pool. This
 > 
-> Like sashiko pointed out, this approach also does not consider
-> any newly added cpus.
+> If your theory is correct, why do botter to change to
+> housekeeping_any_cpu(HK_TYPE_TIMER)
+> if the user is submitting IO from an isolated CPU?
+
+I suspect, steering the asynchronous dispatch to a housekeeping CPU is both
+architecturally necessary and fully aligned with the rest of the kernel,
+no? When a queue is plugged, throttled, or returns BLK_STS_RESOURCE, blk-mq
+defers execution to a background workqueue. That work runs asynchronously
+at some indeterminate time in the future, long after the thread has
+returned to its time-critical user loop. Having a kworker suddenly preempt
+the thread later is likely not desired.
+
+
+> > diff --git a/block/blk-mq.c b/block/blk-mq.c
+> > index 025a799f35b9..9480c3aac898 100644
+> > --- a/block/blk-mq.c
+> > +++ b/block/blk-mq.c
+> > @@ -2252,8 +2252,11 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
+> >         bool tried = false;
+> >         int next_cpu = hctx->next_cpu;
+> >
+> > -       /* Switch to unbound if no allowable CPUs in this hctx */
+> > -       if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
+> > +       /* Switch to housekeeping CPU if no allowable CPUs in this hctx */
+> > +       if (blk_mq_hctx_empty_cpumask(hctx))
+> > +               return housekeeping_any_cpu(HK_TYPE_TIMER);
+> > +
+> > +       if (hctx->queue->nr_hw_queues == 1)
+> >                 return WORK_CPU_UNBOUND;
 > 
-> IMHO, there is a slight redesign required so that smb_set_topology()
-> and smb_init() can be called each time a topology rebuild is necessary.
+> Why is SQ so special here to keep WORK_CPU_UNBOUND?
 
-So based on my limited understanding, doesn't store_topology() populate
-the mask for the entire system on s390? Are you saying that can change
-or that stsi() may return a partial topology for only the online CPUs?
+Indeed, it is not special here, and neither is the offline CPU fallback
+path (!cpu_online(next_cpu)). Both currently return WORK_CPU_UNBOUND and
+suffer from the exact same issue if triggered from an isolated CPU.
 
-Since s390 default enables hotplug, I couldn't easily grep the hotplug
-bits so please forgive if I missed something.
+To address this consistently without penalising non-isolated CPUs with
+unnecessary cross-CPU bounces, we can define a small helper. Furthermore,
+the following will address the valid issue raised by Sashiko [1]
+comprehensively, using the new helper:
+    1.  When executing on an isolated CPU
+        cpu_is_isolated(raw_smp_processor_id()) evaluates to true.
+        It redirects to an online housekeeping CPU
+        (housekeeping_any_cpu(HK_TYPE_TIMER)), preventing kworkers from
+        running on isolated cores across all three cases:
+            - Single-queue devices (nr_hw_queues == 1)
+            - Hardware queues with empty cpumasks
+              (blk_mq_hctx_empty_cpumask(hctx))
+            - Offline CPU fallback paths (!cpu_online(next_cpu))
 
+    2.  When executing on a housekeeping CPU cpu_is_isolated() is false.
+        It returns WORK_CPU_UNBOUND, which kblockd_workqueue executes on
+        the local CPU (raw_smp_processor_id()), preserving optimal cache
+        locality with zero CPU bouncing.
+
+    3.  When CPU isolation is not configured cpu_is_isolated() uses a
+        static branch (static_branch_unlikely(&housekeeping_overridden)),
+        compiling to a NOP that returns WORK_CPU_UNBOUND with zero
+        overhead.
+
+[1]: https://sashiko.dev/#/patchset/20261012012905.267920-1-atomlin%40atomlin.com
+
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index e28c467a18bb..9fb1a93b2bb1 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -2244,6 +2244,13 @@ static bool blk_mq_hctx_empty_cpumask(struct blk_mq_hw_ctx *hctx)
+         return hctx->next_cpu >= nr_cpu_ids;
+ }
+
++static inline int blk_mq_hctx_unbound_cpu(void)
++{
++    if (cpu_is_isolated(raw_smp_processor_id()))
++        return housekeeping_any_cpu(HK_TYPE_TIMER);
++    return WORK_CPU_UNBOUND;
++}
++
+ /*
+  * It'd be great if the workqueue API had a way to pass
+  * in a mask and had some smarts for more clever placement.
+@@ -2256,7 +2263,7 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
+
+     /* Switch to unbound if no allowable CPUs in this hctx */
+     if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
+-        return WORK_CPU_UNBOUND;
++        return blk_mq_hctx_unbound_cpu();
+
+     if (--hctx->next_cpu_batch <= 0) {
+ select_cpu:
+@@ -2281,7 +2288,7 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
+          */
+         hctx->next_cpu = next_cpu;
+         hctx->next_cpu_batch = 1;
+-        return WORK_CPU_UNBOUND;
++        return blk_mq_hctx_unbound_cpu();
+     }
+
+         hctx->next_cpu = next_cpu;
+
+
+
+Kind regards,
 -- 
-Thanks and Regards,
-Prateek
-
+Aaron Tomlin
