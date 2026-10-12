@@ -1,443 +1,546 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011050.outbound.protection.outlook.com [52.101.62.50])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F93E39DBF4;
-	Mon, 12 Oct 2026 17:40:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791826841; cv=fail; b=hREPqJeohTB3g4a/93dCnmvIRleSojaicBpPUo8WkxIm6mEYD3W0iGaeYWia1J/t3U6a/o6vKtWzNAbYqkdvBkFFTCP80HkYtIak/1ziEA1RTXHZNq0by0tEYBCtxA1MqEq5WqFcESc1ZMdz4UfCvR0o2w6w9YWDXmtvNm/cels=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791826841; c=relaxed/simple;
-	bh=ZbmvPR1HPzLx43r3nFHyB4xSm+vrHppxxeJHs3ynM38=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=IO1MkJ7r8FZwpapmK+x5j6lkh0MAYqxxTlf4aGsfl2PmJ3Lh2dtLWG/8KMBxENl0zCTQxtt1ywr3BEnKlLWdJUvCntL3RPFqOjCePd5VGx/9rSNKi+s1OQ0th1rhhQYAJqpYSwmZihDOf8WIGX7lekCe4QOdgOfB+WsH3GnCIoQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=acluh5M4; arc=fail smtp.client-ip=52.101.62.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1CA4B8262;
+	Mon, 12 Oct 2026 17:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791826871; cv=none; b=h+iSzQKBLbsjK98dDWCrx4uitErXGSH7KPWpzwXaOJwad6u2zFfypwp9dbF5kNuVKU555/idAOxUwWkO1dhUNLg7tKSbDmhoneGWw8AuSHfRsb1bufADyJoNwmxEf2lCnMBoGSlXnzEUXzzlU1MKc6yUWqDNPyoius/ta3lHWz8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791826871; c=relaxed/simple;
+	bh=VKXUlOxOu608S094FOJXDT1LqtRM2ShgCtmkrCFolrM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JQlcH/iqithPWx/uBU2lItjQ9lBqfT5IVLM6C8Du/kbbplJ+PnFtMVigZuByk0N2hLJ2w00YiExCuRUQ9S1z2hHmT+DcEM+CbmFV+24WsdSOo5+oj7CDjPfTJ2IQY2PEigWQhYMh4MULxrEwddD7+W86vqEUU9jJ5SrB4rybqjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=sqRLGpJD; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="acluh5M4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b6p2bqLY6HrqHtCFDsOEr1Xlqq+R80CJXheHM7w2r5fI4SN2zr6jc7KkH3eWpieLN5QFYg8jI6MKx1SHf+/ZgDhMjhsmVCYhMZ/+rxdRCXbv5eRclojE4THE34J3T9Nb2OrtzlDdIQCJRvtkmNxfhMIOIr2a+VjxiCM/EjTZC56FUvIE+UVS8ia3hzrCOwMzbmyF1YdQ+9fFvrl9whAtt/vZYRnDWARtxl5EYh8K/70EZRLXo5Jhy+CkSAf6GRFsPaPkRtWjwdavunD4OEpBLCutgUD2uVkfL1x1xyMQ4qupMPYiBQJfHCqtmzxY/pPVC6cxyeSkCsvMzoWMKHNPhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Oe2iANi7T5IaT+aqwG4sM399c++FzPsevCrtlLUpkHM=;
- b=wm2d/MayErx6/7wq0ZGjE1aGk4v32/uIMtjDPw6ZbthwF+/jenGpW4BA4r+gaprxdGOcJOCCOy95bZce0pcpmxtky7p1vpwLEydMU7Tc1BZ2gVDnqaSXV0wv9OdkS4zuhwmrWXboratve0ketifHe9r2itct4wngS9hhRgF+iRLY/ObLVRxL6+jfqU/lqTK30Y+8MVWybKODOqF1DrYE2l6dPqLRwkgKi95IOV38fSLmNatSRCP/TVuICTpb8tTQUU7hfHwvoRdGntNCdcUCrUBiyEcjp2bBvym3jDTkCU677LK/39Egb/YPxatycg1HfMn0oqEkSi3swOwvmpcVNA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Oe2iANi7T5IaT+aqwG4sM399c++FzPsevCrtlLUpkHM=;
- b=acluh5M4pc5Uf5/GWT4v6gQUHsDIi26sK7XbNGPp0Z22psu3T/GtCQHynwODcgtPyuEBjUC6yTB2L8ZF/tEMtASvs44EDJG0CBbWlO+EVv72gaiMK0N9mJQ7fp1hGCU6Cf1YkXvIIAi2IrUzWrqdljKlts8JJk1NyyazQ6F8rx9oPZgs/z3yFcGeszsB19SxBzxzxPXryExFCsHLEiCHnjBKxpahE8jOrcoIIMprqjis7neEtQ51FAMfLBZ/nF/ifRpWsn4XEbEW8GT0JOIB5dGEJE8hhF3gzUaIDGAsdBKHqPyp7p6oZVy6AumNAIn6Ntg2qDFRv9w5Y5+P7RKX6g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19)
- by BL3PR12MB6378.namprd12.prod.outlook.com (2603:10b6:208:3b1::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 17:37:59 +0000
-Received: from PH7PR12MB5974.namprd12.prod.outlook.com
- ([fe80::f5a5:bbc3:e9da:f8a0]) by PH7PR12MB5974.namprd12.prod.outlook.com
- ([fe80::f5a5:bbc3:e9da:f8a0%3]) with mapi id 15.21.0496.010; Mon, 12 Oct 2026
- 17:37:57 +0000
-From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Donald Shannon <donalds@nvidia.com>,
-	devicetree@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC] dt-bindings: NVIDIA LSTP USB adapter: shape of the channel nodes
-Date: Mon, 12 Oct 2026 20:37:36 +0300
-Message-ID: <20261012-lstp-dt-rfc-v1-aambrozewicz@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PNYP287CA0044.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:23e::21) To PH7PR12MB5974.namprd12.prod.outlook.com
- (2603:10b6:510:1d9::19)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="sqRLGpJD"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CFiUrQ664649;
+	Mon, 12 Oct 2026 17:41:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=09s+Mx
+	XtIoHjt1pZrBnTtti9mB+xNPpfbcSxwta6P5Y=; b=sqRLGpJDQb4Brr0Y4LqIQM
+	jNPosbJgo2d+pQD1jxp6qXj02HlE6BLXvwSaBckMxDiBimOTAvrbmUUCxzB7G1AY
+	W/YOj2R0nXkxohryOybbU/sYjGBaQSZnWjMMZZK8R0TYC/zqdB6tKv2/D8bb7gzu
+	OazsGzOHqju3WI+L7YAV67soBBm6VTWvzYvNpi4O6WJU4DLmdmWUlzHTn6vPts3O
+	7vs9K0igLitTXg5VI3zg8wicehug1MfxW58NtO7J1Wuiic5RlVo5n2u9dFCLzyrb
+	tVSogulYkJeJH+xw7zQm0y1SH/4Ny317XJn3cnkg5G0B3uyhZzstAxUINAu0acfw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1w1tfh-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 17:41:06 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CG4urp1564911;
+	Mon, 12 Oct 2026 17:41:06 GMT
+Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h802vpc5u-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 17:41:06 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
+	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CHeJm825625224
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 17:40:19 GMT
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F0A0958052;
+	Mon, 12 Oct 2026 17:41:04 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C496758056;
+	Mon, 12 Oct 2026 17:41:03 +0000 (GMT)
+Received: from [9.61.249.103] (unknown [9.61.249.103])
+	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon, 12 Oct 2026 17:41:03 +0000 (GMT)
+Message-ID: <4d6b3e6c-c1af-4a1f-9a8b-4266f386a299@linux.ibm.com>
+Date: Mon, 12 Oct 2026 13:41:03 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5974:EE_|BL3PR12MB6378:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3844c4fb-757a-4888-8c66-08df28878d8b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|10067099003|3023799007|261009223027099003|11063799006|6133799003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	JGXxQpggx5TPcwx6hSqVak5iuVgldhWYEq0Wy0P9lcBf9bfvq+zooRoC1mRaa020KdJuL3I0PtQflQBwVFXIz8tVFsGJv6azp3ZikyDhBoij9DJSmW2RBeoHSpWbhOkNh50n/tcTWyvfz5tuvTugDFJbv4Y3B8E40xc9c611d7U82HfePXCzh+RH22UirEwxiwotgOlaUvIj5NrzZq0EWiQlGB3RBH/nFq/pxz+NgxSG5o3BrwLUWrV5C4mAqYRqpVktImDVJbfMFg5Y1rO5mcLaHXy6dR7aUAMCxAhun8QNWPlOIqIqvj/xQkYwae5rhzGrB1w3ul9mFvv6iv+3oajFsWSti6eUrINL9IZ28ujCnYjdgtRhwfi1tHKDnpdW7VQogy2yy2FsE9PXWivqcKdCWwV0iYm8m/Yg+coUd5MCK0deL/mJG928HbdT1AszqyubPYN7S+9cgGDPLE8ahhVN9XpoLRlztsl7y8PJaEq3SwGHqnHnV6DMlCx+Ld0Ufpu5lOxR/LSH1pJb3H1QQV4s5ugONYuZQb9H0GEzX4Tu5tLc2Z0QGwJMD1+mQL0lUQIcWLWmjFcmfUbYIUlOEV9M6onUHyY75ZMGRg3aIuNZGGRKSZeJFGZLsgUdb+sOtPdIKbeaiGFxwLyEESDVjBvsoN+94Tml/9isXzu8NVM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5974.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(10067099003)(3023799007)(261009223027099003)(11063799006)(6133799003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?C6LYpOeHbHm8crCw08TA2hKgzRif75V3Pdo4t6HseaMRYI7ook0JDlRUPwQs?=
- =?us-ascii?Q?qFGbr2FUxNQ6zCe7l+JlFtwlaxWidUnZaneU+1K1Q/Rp2s45xJL3DZi7YLCX?=
- =?us-ascii?Q?5OsFNkF7SARxYDGb4BA26fijS0R5r6TTz7Ygrex7/VlrJ9HfyO2G5y7Ik8ji?=
- =?us-ascii?Q?IcRc9wlnaMexy/elP2YMQS7ANQ1smQZpFzKbHc7d7l7e+fN3N0MFwYk+LxuF?=
- =?us-ascii?Q?Ogw4LVB9fQYfOd6VtcKcVgt06LBM39UkG775dsgHxY064j8aCapOYt8OkEql?=
- =?us-ascii?Q?k23AiovACWJ44oaDn/EDdrBpGLwT5UX4PmawYzZtnVlSfu6FVN8pv8Q2bqcr?=
- =?us-ascii?Q?DtahjEJxzhtKgnmc8SzKah1OL7x+9G/3PjMShQM2nkzRSJrlRZa6pt2NOkS2?=
- =?us-ascii?Q?Fc4R7OWGIbgKnbvIR2DdLnhdqhGEL4fWn6fdHxXs3UVJ8CL+dWl1WpnSsZfm?=
- =?us-ascii?Q?xAAfFLJOa3CkEZqcjkISEEb2Vqwh+8tG8dTRxxgWxLv29HsVd5BIqR+JXd7P?=
- =?us-ascii?Q?SiGaNc4QKrG0Pzz0zxZUKR2CgYc2+rC2ICT0I8tx2r3nYzen7JT2cE1SWOqz?=
- =?us-ascii?Q?dvUycBI1Wyt7WRV1JpmYXcwGo0ero8CkG8gQEicFW7b1nl7S/qgFYGeqDmsR?=
- =?us-ascii?Q?ipiFSemNmemftLcN8DlLkplqh+8Hq+r4Ey52e+rCL/b7F+AQH5WNd61E5nXB?=
- =?us-ascii?Q?WI9me1t0HZE9un6im/+OKeCn7UndUfSAIOc0ofdlmIT+tnu+rQvMpvTVX2ZG?=
- =?us-ascii?Q?oKaWyuyGVVX3O77cykXXSP0VZ9316VSlk9yBrSdD6rZbpX2+ca92LCbJUIEm?=
- =?us-ascii?Q?crlrMYFLG0KChnzeE+qnBalKskdLw0zthFSLuAFL9rwMEW7mmMWDrYheMFfB?=
- =?us-ascii?Q?rFLJcWS+CWB0eflb2/wEKvXqJGHCz748aPujr44uzclfg9HztYlSc8f/AXHN?=
- =?us-ascii?Q?zN1tqcZOO7U+wi89y4TucD7NNdjBwceba4ktWS2HVJqi+aWNnArVneuaZDZh?=
- =?us-ascii?Q?cLNPS5chtjanbw/OhJcyJah2WnXdKlGqawmOTMcxug5M6sVFMIfqjbST8uxj?=
- =?us-ascii?Q?nca5Q28r293Sx1JLYgKTSwQLLhJjZHz/YF0glGeAGAfMeeTzlbcYkYxj3JWs?=
- =?us-ascii?Q?6y1Lv7AxGtoxa5hE7HDIByQdvDKxipmCvd8k4INpOC5nTrhk7LDubA/dtt6c?=
- =?us-ascii?Q?sUvB5QfyG+2iOb4tWKtwARxThj3OFXAGYCVVKm0Akz+pxPtEIxTxfYLNeKDI?=
- =?us-ascii?Q?55ZtsiLCbEK51Z3NgqHRQiq75hjzSU73jhNV+4H5DdrWUudxJ30KlDmt88ky?=
- =?us-ascii?Q?3RiC3YvEB+DKPvzLGohgDspg6kQw1wMbm0vqPnCVriaus0FU9/MZdDw4Z9AZ?=
- =?us-ascii?Q?EQPXm+VzCQ/RHd1KVCuLPVWi0kTsgACZnh3ytVvitkqptwfPHwRXdy0JO5AN?=
- =?us-ascii?Q?wjDzSontOr190fJ0q5LlNAdDmpEsGl9xCY8tQAjghzffVHBPVOeeH5Bje2/3?=
- =?us-ascii?Q?kcjcgX2BJy/puoXzsHF1RfLJ20z8HJs+Pm5g02ouWJ0eCpZ5Y3Ap0Gcw6Rr/?=
- =?us-ascii?Q?4ckpma22i6QOljMbGP2FUNFvVEnkMc3kmTUTGbl9xiY/BpN+A+y0109tGD9Q?=
- =?us-ascii?Q?2g0N+9Tthj9vm6gMgyRI3iDUs7NpdG7lPLZhzx+UZ8XFxMRMGt7BytMKOCA4?=
- =?us-ascii?Q?nyQqzPon+nmgs4m4Zd69ectE7nCepgqbux6zpD5cgY91q6FcBv3Z0IAvRg9n?=
- =?us-ascii?Q?UqvtopcK0w=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3844c4fb-757a-4888-8c66-08df28878d8b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5974.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 17:37:57.2504
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8iwuqXgALoXzWe2E/dwUqsYjFt6SHXNN7lUY4TIy/dX7wtCd+yqvsBfLyOf3R2RlHA3TNc8i7QU91Q0EgB2VaQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6378
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 2/4] s390/pci: Reuse FMB buffer and preserve state in
+ device re-enablement
+To: Gerd Bayer <gbayer@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        borntraeger@linux.ibm.com, svens@linux.ibm.com, schnelle@linux.ibm.com,
+        mjrosato@linux.ibm.com, alifm@linux.ibm.com, farman@linux.ibm.com,
+        pasic@linux.ibm.com, alex@shazbot.org, frankja@linux.ibm.com,
+        imbrenda@linux.ibm.com
+References: <20261007135926.82935-1-oelghoul@linux.ibm.com>
+ <20261007135926.82935-3-oelghoul@linux.ibm.com>
+ <722e46379f3e7825ac1d40805ae67d236fcc6867.camel@linux.ibm.com>
+Content-Language: en-US
+From: Omar Elghoul <oelghoul@linux.ibm.com>
+In-Reply-To: <722e46379f3e7825ac1d40805ae67d236fcc6867.camel@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2OCBTYWx0ZWRfX8/epJLFADu+5
+ DIbsigP65oXrvb0XHSUsNAP+r11lc15h0vcpK64cTXr6t+Nx6SVrZYc/tzgNQ6ayaxmMHHbV894
+ Prc4wYeiQNiyRTN4y8LFAt+Bb5o/JZk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2OCBTYWx0ZWRfX/hKTdQ5irUQ3
+ k3kSpE1AaadlY609Ia9Iximfvd9gtm17Dc+nptPp5bQ3Vct2Q1qomZc7doXCtGYtmgkdXde6And
+ GEf+41R8CQFb7MMoQmyEUllFA+PhY5B9gJHIOPZiIfMOv9AEt+xSRDtp7zXr5pv1sSumBA5uGLt
+ qtbWBihezc9IiHdAhSwxmuB7WBh/ky2xb4uapu4W3Q5D1UixT/tAsriGNogbTQNR2Ef+uepu0Wq
+ bUIGWDiE1o2JKKi7SGNZ+Jqy/a8NMmGoxuyWk0XoGnHfcC8fWtVeoxNIIWFPgdgayAfnoPbHNZW
+ ZmcrAphWkX/daTkTFltRzh8ae0lGHsCvle3IndQcPL04v1tRSJKlj04iXHS26OZNdgdNhfEVcvE
+ 8kqUgxgbBI8xIqoUjNZPACnA/O7Cn8+yHZLZ9zIb8Ml0bqlrK5KpbGSR8PsgRgk0tL47mpOXRyP
+ xljHPd0Mmc5ucvlPpUA==
+X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6acd1bb3 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=mWVGzeLskVhEkvpM98QA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: yp8yh1qBA6mx6VlJ2MQh5RPWVSGnquna
+X-Proofpoint-GUID: yp8yh1qBA6mx6VlJ2MQh5RPWVSGnquna
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_05,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
+ spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120068
 
-Hi Rob, Krzysztof, Conor,
+On 10/12/26 5:22 AM, Gerd Bayer wrote:
+> On Wed, 2026-10-07 at 09:59 -0400, Omar Elghoul wrote:
+>> Don't free the FMB buffer when disabling measurement in
+>> zpci_fmb_disable_device(). Instead, make the buffer persistent for the
+>> lifetime of the device and reuse it across enable/disable cycles. Defer
+>> freeing the buffer until teardown in zpci_release_device().
+> 
+> I lost track if this was discussed before: Would it make sense to break
+> this out into a separate patch, so that memory allocation/life-time
+> questions are decoupled from function-measurement preservation?
 
-Together with this mail I am posting the driver series for the NVIDIA
-LSTP USB adapter ("[PATCH 00/11] Add NVIDIA LSTP USB adapter drivers",
-https://lore.kernel.org/r/20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com);
-patches 1-4 are its bindings. Here I would like your view on the binding
-shape, in particular on the child nodes, and on one vendor property of
-the I2C channel, without making you dig through the series for the
-reasons. The schema excerpts and an example are below; the full bindings
-are in patches 1-4 and in the out-of-tree repository, under
-devicetree/bindings/ at
-https://github.com/NVIDIA/lstp_module/tree/public-next-v1
+I think we did discuss that before and I expressed a preference for
+leaving them in together, but since this patch seems to be growing I
+guess splitting it would make review easier.
 
-What the device is
-------------------
+> 
+>> Introduce the bool fmb_requested to struct zpci_dev to track whether FMB
+>> enablement has been requested. This decouples tracking the enablement
+>> from whether the buffer had been previously allocated, allowing us to
+>> account for implicit disablement by firmware in zpci_disable_device().
+>> Audit the only consumer of zdev->fmb and update its liveness check to
+>> reflect this change.
+>>
+>> Separate the buffer allocation and measurement enablement step into the
+>> new function zpci_fmb_reenable_device(), which allocates the FMB buffer
+>> on first use, zeroes it on reuse, resets the software IOMMU counters,
+>> and enables measurement. Make zpci_fmb_enable_device() delegate to this
+>> function, and call the latter from zpci_reenable_device() when
+>> fmb_requested is true.
+>>
+>> Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
+>> ---
+>>   arch/s390/include/asm/pci.h |   2 +
+>>   arch/s390/pci/pci.c         | 106 +++++++++++++++++++++++-------------
+>>   arch/s390/pci/pci_debug.c   |   2 +-
+>>   3 files changed, 70 insertions(+), 40 deletions(-)
+>>
+>> diff --git a/arch/s390/include/asm/pci.h b/arch/s390/include/asm/pci.h
+>> index 88a125b92bdd..77c8c49ba6c8 100644
+>> --- a/arch/s390/include/asm/pci.h
+>> +++ b/arch/s390/include/asm/pci.h
+>> @@ -208,6 +208,7 @@ struct zpci_dev {
+>>   	struct zpci_fmb *fmb;
+>>   	u16		fmb_update;	/* update interval */
+>>   	u16		fmb_length;
+>> +	bool		fmb_requested;	/* desired FMB enablement state */
+> 
+> How about calling this "statistics_on" - derived from the sysfs
+> attribute, to decouple this "user intent" even more from the actual ISA
+> level enablement?
 
-LSTP is a vendor-specific USB interface that carries several "channels"
-over one pair of bulk endpoints. The channel types are SPI host, I2C
-host, GPIO (with interrupts and LED pins), UART and an IPMI message
-channel. It is implemented by NVIDIA's SMA, an MCU (0955:cf11), and by
-other vendors' parts: two hub/bridge chips have it built in (0424:4940,
-174c:2214).
+Sure.
 
-The device reports its channels itself: their number, each one's ID
-(1-255) and its type. Firmware decides the set, so one VID:PID carries
-different channel sets on different boards, and one interface can carry
-several channels of the same type. Boards in production have up to eight
-I2C channels and two IPMI channels on one interface.
+> 
+>>   
+>>   	u8		version;
+>>   	enum pci_bus_speed max_bus_speed;
+>> @@ -351,6 +352,7 @@ void zpci_remove_parent_msi_domain(struct zpci_bus *zbus);
+>>   /* FMB */
+>>   int zpci_fmb_enable_device(struct zpci_dev *);
+>>   int zpci_fmb_disable_device(struct zpci_dev *);
+>> +int zpci_fmb_reenable_device(struct zpci_dev *zdev);
+>>   
+>>   /* Debug */
+>>   int zpci_debug_init(void);
+>> diff --git a/arch/s390/pci/pci.c b/arch/s390/pci/pci.c
+>> index c055a9ad0972..bda91d79bafd 100644
+>> --- a/arch/s390/pci/pci.c
+>> +++ b/arch/s390/pci/pci.c
+>> @@ -167,43 +167,13 @@ int zpci_unregister_ioat(struct zpci_dev *zdev, u8 dmaas)
+>>   /* Modify PCI: Set PCI function measurement parameters */
+>>   int zpci_fmb_enable_device(struct zpci_dev *zdev)
+>>   {
+>> -	u64 req = ZPCI_CREATE_REQ(zdev->fh, 0, ZPCI_MOD_FC_SET_MEASURE);
+>> -	struct zpci_iommu_ctrs *ctrs;
+>> -	struct zpci_fib fib = {0};
+>> -	unsigned long flags;
+>> -	u8 cc, status;
+>> -
+>>   	lockdep_assert_held(&zdev->fmb_lock);
+>>   
+>> -	if (zdev->fmb || sizeof(*zdev->fmb) < zdev->fmb_length)
+>> +	if (zdev->fmb_requested || sizeof(*zdev->fmb) < zdev->fmb_length)
+>>   		return -EINVAL;
+>>   
+>> -	zdev->fmb = kmem_cache_zalloc(zdev_fmb_cache, GFP_KERNEL);
+>> -	if (!zdev->fmb)
+>> -		return -ENOMEM;
+>> -	WARN_ON((u64) zdev->fmb & 0xf);
+>> -
+>> -	/* reset software counters */
+>> -	spin_lock_irqsave(&zdev->dom_lock, flags);
+>> -	ctrs = zpci_get_iommu_ctrs(zdev);
+>> -	if (ctrs) {
+>> -		atomic64_set(&ctrs->mapped_pages, 0);
+>> -		atomic64_set(&ctrs->unmapped_pages, 0);
+>> -		atomic64_set(&ctrs->global_rpcits, 0);
+>> -		atomic64_set(&ctrs->sync_map_rpcits, 0);
+>> -		atomic64_set(&ctrs->sync_rpcits, 0);
+>> -	}
+>> -	spin_unlock_irqrestore(&zdev->dom_lock, flags);
+>> -
+>> -
+>> -	fib.fmb_addr = virt_to_phys(zdev->fmb);
+>> -	fib.gd = zdev->gisa;
+>> -	cc = zpci_mod_fc(req, &fib, &status);
+>> -	if (cc) {
+>> -		kmem_cache_free(zdev_fmb_cache, zdev->fmb);
+>> -		zdev->fmb = NULL;
+>> -	}
+>> -	return cc ? -EIO : 0;
+>> +	zdev->fmb_requested = true;
+>> +	return zpci_fmb_reenable_device(zdev);
+> 
+> I'm not quite happy with "reenable" now becoming the "work horse" for
+> enabling function measurement at the pci device. I append a suggested
+> change at the end (since it's lengthy). My train of thought was:
+> Introduce symmetric zpci_fmb_req_{dis|en}able_device() that toggle the
+> "statistics_on" boolean, then call zpci_fmb_{dis|en}able_device() that
+> does the actual zpci_mod_fc(). This allowed zpci_reenable_device() to
+> call zpci_fmb_enable_device() if case of "statics_on", while the writes
+> into sysfs would call zpci_fmb_req_{dis|en}able_device().
+> 
+> And another after-thought, since the whole _device postfix on these
+> function names seems redundant, how about the following names:
+> 
+> zpci_request_fm_on()
+> zpci_request_fm_off()
+> zpci_enable_fm()
+> zpci_disable_fm()
 
-The DT is therefore optional. It is only for an adapter hard-wired on a
-board, and it adds only what the device cannot report: peripherals on
-the SPI and I2C buses, GPIO line names, hogs, consumers by phandle, and
-LEDs.
+That's fine by me. It makes sense and as an added bonus, it makes it
+easier to fix the issue you report where the state isn't correctly
+preserved after zpcictl reset (please see below.)
 
-Proposed shape
---------------
+> 
+> 
+>>   }
+>>   
+>>   /* Modify PCI: Disable PCI function measurement */
+>> @@ -215,22 +185,68 @@ int zpci_fmb_disable_device(struct zpci_dev *zdev)
+>>   
+>>   	lockdep_assert_held(&zdev->fmb_lock);
+>>   
+>> -	if (!zdev->fmb)
+>> +	if (!zdev->fmb_requested)
+>>   		return -EINVAL;
+>>   
+>> +	zdev->fmb_requested = false;
+>>   	fib.gd = zdev->gisa;
+>>   
+>>   	/* Function measurement is disabled if fmb address is zero */
+>>   	cc = zpci_mod_fc(req, &fib, &status);
+>>   	if (cc == 3) /* Function already gone. */
+>>   		cc = 0;
+>> +	if (cc)
+>> +		return -EIO;
+>>   
+>> -	if (!cc) {
+>> -		kmem_cache_free(zdev_fmb_cache, zdev->fmb);
+>> -		zdev->fmb = NULL;
+>> +	return 0;
+>> +}
+>> +EXPORT_SYMBOL_GPL(zpci_fmb_disable_device);
+>> +
+>> +/* Re-enable PCI function measurement: clear the software IOMMU counters
+>> + * and (re-)enable the FMB. This function is used to restore the desired
+>> + * FMB enablement state when measurement may be implicitly disabled by
+>> + * firmware (i.e., via CLP in zpci_disable_device())
+>> + */
+>> +int zpci_fmb_reenable_device(struct zpci_dev *zdev)
+>> +{
+>> +	u64 req = ZPCI_CREATE_REQ(zdev->fh, 0, ZPCI_MOD_FC_SET_MEASURE);
+>> +	struct zpci_iommu_ctrs *ctrs;
+>> +	struct zpci_fib fib = {0};
+>> +	unsigned long flags;
+>> +	u8 cc, status;
+>> +
+>> +	lockdep_assert_held(&zdev->fmb_lock);
+>> +
+>> +	if (!zdev->fmb) {
+>> +		zdev->fmb = kmem_cache_zalloc(zdev_fmb_cache, GFP_KERNEL);
+>> +		if (!zdev->fmb)
+>> +			return -ENOMEM;
+>> +	} else {
+>> +		/* reuse the same FMB buffer for as long the zdev lives */
+>> +		memset(zdev->fmb, 0, sizeof(*zdev->fmb));
+>>   	}
+>> -	return cc ? -EIO : 0;
+>> +
+>> +	/* reset software counters */
+>> +	spin_lock_irqsave(&zdev->dom_lock, flags);
+>> +	ctrs = zpci_get_iommu_ctrs(zdev);
+>> +	if (ctrs) {
+>> +		atomic64_set(&ctrs->mapped_pages, 0);
+>> +		atomic64_set(&ctrs->unmapped_pages, 0);
+>> +		atomic64_set(&ctrs->global_rpcits, 0);
+>> +		atomic64_set(&ctrs->sync_map_rpcits, 0);
+>> +		atomic64_set(&ctrs->sync_rpcits, 0);
+>> +	}
+>> +	spin_unlock_irqrestore(&zdev->dom_lock, flags);
+> 
+> I know this is pre-existing, but how about breaking out the buffer and
+> counter preparation/clearing into a helper function?
 
-The device and interface nodes follow usb-device.yaml:
-- a device node with compatible "usbVID,PID";
-- under it, an interface node with a two-cell reg = <interface config>;
-- for a class 0 device with one configuration and one interface, a
-  combined node instead.
+I believe it has been done in a previous version of this series at which
+point we had two callers for it. Since we don't have another caller now
+I didn't think of splitting it up.
 
-Each channel is a child of the interface (or combined) node:
-- named after its type: spi@N, i2c@N, gpio@N, serial@N, ipmi@N;
-- with reg = <channel ID>;
-- with a compatible naming the channel type.
+> 
+>> +
+>> +	fib.fmb_addr = virt_to_phys(zdev->fmb);
+>> +	fib.gd = zdev->gisa;
+>> +	cc = zpci_mod_fc(req, &fib, &status);
+>> +	if (cc)
+>> +		return -EIO;
+>> +
+>> +	return 0;
+>>   }
+>> +EXPORT_SYMBOL_GPL(zpci_fmb_reenable_device);
+>>   
+>>   static int zpci_cfg_load(struct zpci_dev *zdev, int offset, u32 *val, u8 len)
+>>   {
+>> @@ -737,8 +753,14 @@ int zpci_reenable_device(struct zpci_dev *zdev)
+>>   	}
+>>   
+>>   	rc = zpci_iommu_register_ioat(zdev, &status);
+>> -	if (rc)
+>> +	if (rc) {
+>>   		zpci_disable_device(zdev);
+>> +		return rc;
+>> +	}
+>> +
+>> +	guard(mutex)(&zdev->fmb_lock);
+>> +	if (zdev->fmb_requested)
+>> +		zpci_fmb_reenable_device(zdev);
+>>   
+>>   	return rc;
+>>   }
+>> @@ -1003,6 +1025,12 @@ void zpci_release_device(struct kref *kref)
+>>   	if (zdev->has_resources)
+>>   		zpci_cleanup_bus_resources(zdev);
+>>   
+>> +	if (zdev->fmb) {
+>> +		zdev->fmb_requested = false;
+>> +		kmem_cache_free(zdev_fmb_cache, zdev->fmb);
+>> +		zdev->fmb = NULL;
+>> +	}
+>> +
+>>   	zpci_bus_device_unregister(zdev);
+>>   	zpci_destroy_iommu(zdev);
+>>   	zpci_dbg(3, "rem fid:%x\n", zdev->fid);
+>> diff --git a/arch/s390/pci/pci_debug.c b/arch/s390/pci/pci_debug.c
+>> index c7ed7bf254b5..9a960310d4dd 100644
+>> --- a/arch/s390/pci/pci_debug.c
+>> +++ b/arch/s390/pci/pci_debug.c
+>> @@ -97,7 +97,7 @@ static int pci_perf_show(struct seq_file *m, void *v)
+>>   		return 0;
+>>   
+>>   	mutex_lock(&zdev->fmb_lock);
+>> -	if (!zdev->fmb) {
+>> +	if (!zdev->fmb_requested) {
+>>   		mutex_unlock(&zdev->fmb_lock);
+>>   		seq_puts(m, "FMB statistics disabled\n");
+>>   		return 0;
+> 
+> Oh, and while playing around with this patch (with and without my
+> additional modifications), I realized that statistics/function
+> measurement gets re-enabled when I run `zpcictl --reset-fw <bdf>` to a
+> function - despite it being switched off before the reset.
 
-A channel matches its node on reg plus compatible; node names are not
-used. A channel without a node is still usable. A channel whose node has
-status = "disabled" is not used at all.
+Great catch -- the FMB re-enablement in zpci_reenable_device() was just
+one of the two places that needed it, I missed to add it in
+pcibios_enable_device() instead of the existing unconditional enable. I
+will fix this in the next version.
 
-The spi, i2c and gpio channel schemas are separate files in their
-subsystem directories, each $ref'ing the generic controller schema. The
-serial and ipmi channel schemas are defined inline in the USB binding,
-which $refs the other three.
+re: splitting up the functions into a pair of request functions and a
+pair that actually do the MPCIFC: it will make resolving this issue more
+straightforward, because preserving the state in pcibios_enable_device()
+will require us to disable FMB without clearing its flag in
+pcibios_disable_device() as well, which is cleanly possible with the
+changes you suggested.
 
-Example (from the binding, with nvidia,retries added to the I2C channel
-and status added to the UART channel):
+Thanks!
 
-    usb {
-        #address-cells = <1>;
-        #size-cells = <0>;
+> 
+> Thanks,
+> Gerd
+> 
+> 
+> [ here's the patch to avoid zpci_fmb_reenable_device(): ]
+> 
+> 
+> diff --git a/arch/s390/include/asm/pci.h b/arch/s390/include/asm/pci.h
+> index 77c8c49ba6c8..26c6b616cc25 100644
+> --- a/arch/s390/include/asm/pci.h
+> +++ b/arch/s390/include/asm/pci.h
+> @@ -350,9 +350,10 @@ int zpci_create_parent_msi_domain(struct zpci_bus
+> *zbus);
+>   void zpci_remove_parent_msi_domain(struct zpci_bus *zbus);
+>   
+>   /* FMB */
+> -int zpci_fmb_enable_device(struct zpci_dev *);
+> -int zpci_fmb_disable_device(struct zpci_dev *);
+> -int zpci_fmb_reenable_device(struct zpci_dev *zdev);
+> +int zpci_fmb_req_enable_device(struct zpci_dev *);
+> +int zpci_fmb_req_disable_device(struct zpci_dev *);
+> +int zpci_fmb_enable_device(struct zpci_dev *zdev);
+> +int zpci_fmb_disable_device(struct zpci_dev *zdev);
+>   
+>   /* Debug */
+>   int zpci_debug_init(void);
+> diff --git a/arch/s390/pci/pci.c b/arch/s390/pci/pci.c
+> index bda91d79bafd..c0bd76eac717 100644
+> --- a/arch/s390/pci/pci.c
+> +++ b/arch/s390/pci/pci.c
+> @@ -165,7 +165,7 @@ int zpci_unregister_ioat(struct zpci_dev *zdev, u8
+> dmaas)
+>   }
+>   
+>   /* Modify PCI: Set PCI function measurement parameters */
+> -int zpci_fmb_enable_device(struct zpci_dev *zdev)
+> +int zpci_fmb_req_enable_device(struct zpci_dev *zdev)
+>   {
+>   	lockdep_assert_held(&zdev->fmb_lock);
+>   
+> @@ -173,20 +173,25 @@ int zpci_fmb_enable_device(struct zpci_dev *zdev)
+>   		return -EINVAL;
+>   
+>   	zdev->fmb_requested = true;
+> -	return zpci_fmb_reenable_device(zdev);
+> +	return zpci_fmb_enable_device(zdev);
+>   }
+>   
+>   /* Modify PCI: Disable PCI function measurement */
+> -int zpci_fmb_disable_device(struct zpci_dev *zdev)
+> +int zpci_fmb_req_disable_device(struct zpci_dev *zdev)
+>   {
+> -	u64 req = ZPCI_CREATE_REQ(zdev->fh, 0,
+> ZPCI_MOD_FC_SET_MEASURE);
+> -	struct zpci_fib fib = {0};
+> -	u8 cc, status;
+> -
+>   	lockdep_assert_held(&zdev->fmb_lock);
+>   
+>   	if (!zdev->fmb_requested)
+>   		return -EINVAL;
+> +	return zpci_fmb_disable_device(zdev);
+> +}
+> +EXPORT_SYMBOL_GPL(zpci_fmb_req_disable_device);
+> +
+> +int zpci_fmb_disable_device(struct zpci_dev *zdev)
+> +{
+> +	u64 req = ZPCI_CREATE_REQ(zdev->fh, 0,
+> ZPCI_MOD_FC_SET_MEASURE);
+> +	struct zpci_fib fib = {0};
+> +	u8 cc, status;
+>   
+>   	zdev->fmb_requested = false;
+>   	fib.gd = zdev->gisa;
+> @@ -200,14 +205,13 @@ int zpci_fmb_disable_device(struct zpci_dev
+> *zdev)
+>   
+>   	return 0;
+>   }
+> -EXPORT_SYMBOL_GPL(zpci_fmb_disable_device);
+>   
+>   /* Re-enable PCI function measurement: clear the software IOMMU
+> counters
+>    * and (re-)enable the FMB. This function is used to restore the
+> desired
+>    * FMB enablement state when measurement may be implicitly disabled by
+>    * firmware (i.e., via CLP in zpci_disable_device())
+>    */
+> -int zpci_fmb_reenable_device(struct zpci_dev *zdev)
+> +int zpci_fmb_enable_device(struct zpci_dev *zdev)
+>   {
+>   	u64 req = ZPCI_CREATE_REQ(zdev->fh, 0,
+> ZPCI_MOD_FC_SET_MEASURE);
+>   	struct zpci_iommu_ctrs *ctrs;
+> @@ -246,7 +250,7 @@ int zpci_fmb_reenable_device(struct zpci_dev *zdev)
+>   
+>   	return 0;
+>   }
+> -EXPORT_SYMBOL_GPL(zpci_fmb_reenable_device);
+> +EXPORT_SYMBOL_GPL(zpci_fmb_enable_device);
+>   
+>   static int zpci_cfg_load(struct zpci_dev *zdev, int offset, u32 *val,
+> u8 len)
+>   {
+> @@ -660,7 +664,7 @@ int pcibios_enable_device(struct pci_dev *pdev, int
+> mask)
+>   
+>   	zpci_debug_init_device(zdev, dev_name(&pdev->dev));
+>   	mutex_lock(&zdev->fmb_lock);
+> -	zpci_fmb_enable_device(zdev);
+> +	zpci_fmb_req_enable_device(zdev);
+>   	mutex_unlock(&zdev->fmb_lock);
+>   
+>   	return pci_enable_resources(pdev, mask);
+> @@ -671,7 +675,7 @@ void pcibios_disable_device(struct pci_dev *pdev)
+>   	struct zpci_dev *zdev = to_zpci(pdev);
+>   
+>   	mutex_lock(&zdev->fmb_lock);
+> -	zpci_fmb_disable_device(zdev);
+> +	zpci_fmb_req_disable_device(zdev);
+>   	mutex_unlock(&zdev->fmb_lock);
+>   	zpci_debug_exit_device(zdev);
+>   }
+> @@ -760,7 +764,7 @@ int zpci_reenable_device(struct zpci_dev *zdev)
+>   
+>   	guard(mutex)(&zdev->fmb_lock);
+>   	if (zdev->fmb_requested)
+> -		zpci_fmb_reenable_device(zdev);
+> +		zpci_fmb_enable_device(zdev);
+>   
+>   	return rc;
+>   }
+> diff --git a/arch/s390/pci/pci_debug.c b/arch/s390/pci/pci_debug.c
+> index 9a960310d4dd..f2f0e7f44842 100644
+> --- a/arch/s390/pci/pci_debug.c
+> +++ b/arch/s390/pci/pci_debug.c
+> @@ -156,10 +156,10 @@ static ssize_t pci_perf_seq_write(struct file
+> *file, const char __user *ubuf,
+>   	mutex_lock(&zdev->fmb_lock);
+>   	switch (val) {
+>   	case 0:
+> -		rc = zpci_fmb_disable_device(zdev);
+> +		rc = zpci_fmb_req_disable_device(zdev);
+>   		break;
+>   	case 1:
+> -		rc = zpci_fmb_enable_device(zdev);
+> +		rc = zpci_fmb_req_enable_device(zdev);
+>   		break;
+>   	}
+>   	mutex_unlock(&zdev->fmb_lock);
 
-        hub@1 {
-            reg = <1>;
-            #address-cells = <1>;
-            #size-cells = <0>;
-
-            /* Three interfaces; the LSTP channels are on interface 2. */
-            device@3 {
-                compatible = "usb955,cf11";
-                reg = <3>;
-                #address-cells = <2>;
-                #size-cells = <0>;
-
-                interface@2 {
-                    compatible = "usbif955,cf11.config1.2";
-                    reg = <2 1>;
-                    #address-cells = <1>;
-                    #size-cells = <0>;
-
-                    spi@1 {
-                        compatible = "nvidia,lstp-spi";
-                        reg = <1>;
-                        #address-cells = <1>;
-                        #size-cells = <0>;
-
-                        flash@0 {
-                            compatible = "jedec,spi-nor";
-                            reg = <0>;
-                            spi-max-frequency = <18750000>;
-                        };
-                    };
-
-                    i2c@2 {
-                        compatible = "nvidia,lstp-i2c";
-                        reg = <2>;
-                        #address-cells = <1>;
-                        #size-cells = <0>;
-                        nvidia,retries = <5>;
-
-                        temperature-sensor@48 {
-                            compatible = "ti,tmp102";
-                            reg = <0x48>;
-                        };
-                    };
-
-                    gpio@3 {
-                        compatible = "nvidia,lstp-gpio";
-                        reg = <3>;
-                        gpio-controller;
-                        #gpio-cells = <2>;
-                        gpio-line-names = "LED", "INT";
-                    };
-
-                    ipmi@4 {
-                        compatible = "nvidia,lstp-ipmi";
-                        reg = <4>;
-                    };
-
-                    serial@5 {
-                        compatible = "nvidia,lstp-uart";
-                        reg = <5>;
-                        status = "disabled";
-                    };
-                };
-            };
-        };
-    };
-
-Schema excerpt (usb/nvidia,lstp.yaml):
-
-    allOf:
-      - $ref: /schemas/usb/usb-device.yaml#
-      - $ref: "#/$defs/channels"
-      - if:
-          properties:
-            "#address-cells":
-              const: 1
-        then:
-          patternProperties:
-            "^interface@": false
-        else:
-          patternProperties:
-            "^(spi|i2c|gpio|serial|ipmi)@": false
-
-    properties:
-      compatible:
-        enum:
-          - usb955,cf11
-          - usb424,4940
-          - usb174c,2214
-
-    patternProperties:
-      "^interface@[0-9a-f]{1,2}(,[0-9a-f]{1,2})?$":
-        type: object
-        $ref: "#/$defs/channels"
-        properties:
-          compatible:
-            pattern: "^usbif[0-9a-f]{1,4},[0-9a-f]{1,4}\\.config[0-9a-f]{1,2}\\.[0-9a-f]{1,2}$"
-          reg:
-            maxItems: 1
-        ...
-
-    $defs:
-      channels:
-        patternProperties:
-          "^spi@[0-9a-f]+$":
-            $ref: /schemas/spi/nvidia,lstp-spi.yaml#
-          "^i2c@[0-9a-f]+$":
-            $ref: /schemas/i2c/nvidia,lstp-i2c.yaml#
-          "^gpio@[0-9a-f]+$":
-            $ref: /schemas/gpio/nvidia,lstp-gpio.yaml#
-          "^serial@[0-9a-f]+$":
-            type: object
-            properties:
-              compatible:
-                const: nvidia,lstp-uart
-              reg:
-                maxItems: 1
-            required: [compatible, reg]
-            additionalProperties: false
-          "^ipmi@[0-9a-f]+$":
-            type: object
-            properties:
-              compatible:
-                const: nvidia,lstp-ipmi
-              reg:
-                maxItems: 1
-            required: [compatible, reg]
-            additionalProperties: false
-
-The gpio schema (gpio/nvidia,lstp-gpio.yaml) defines:
-- gpio-controller, #gpio-cells = <2> and gpio-line-names (up to 255);
-- interrupt-controller with #interrupt-cells = <2>;
-- hog children;
-- a "leds" child holding led@N nodes on leds/common.yaml, for the pins
-  the device reports as LEDs.
-
-The i2c schema (i2c/nvidia,lstp-i2c.yaml) is the generic controller plus
-one property:
-
-    allOf:
-      - $ref: /schemas/i2c/i2c-controller.yaml#
-
-    properties:
-      compatible:
-        const: nvidia,lstp-i2c
-
-      reg:
-        description: Channel ID reported by the device firmware.
-        maxItems: 1
-
-      nvidia,retries:
-        description: |
-          Number of times the host re-issues a transfer that fails on
-          arbitration loss or a busy bus before giving up.
-
-          Ignored when the channel config reports non-zero bus arbitration
-          retries.  Such a device is expected to retry both arbitration loss and
-          a busy bus itself before reporting failure, so the host adds no
-          attempts on top.
-        $ref: /schemas/types.yaml#/definitions/uint32
-        maximum: 255
-        default: 3
-
-    required:
-      - compatible
-      - reg
-
-    unevaluatedProperties: false
-
-The spi schema (spi/nvidia,lstp-spi.yaml) is the generic controller with
-compatible and reg only.
-
-Questions
----------
-
-1. Per-channel child nodes with their own compatible.
-
-   The channel type is discoverable, so the compatible does not choose a
-   driver for an unknown device. Instead it checks that the node written
-   for channel N describes the kind of channel the firmware put at N. The
-   alternative is to imply the type from the node name, which
-   writing-bindings.rst says not to treat as ABI. Is a compatible per
-   channel type acceptable here, or would you rather have a different
-   property, or no type at all?
-
-2. gpio@N in particular.
-
-   I know the CP2112 review moved its GPIO controller off a subnode and
-   onto the USB device node (silabs,cp2112.yaml). That works because
-   CP2112 has exactly one GPIO block. Here a GPIO channel is one of
-   several channels behind one interface, at an ID the firmware assigns,
-   and the protocol does not limit an interface to one GPIO channel.
-   Putting gpio-controller on the interface node would need:
-   - a three-cell specifier (channel, line, flags);
-   - gpio-line-names, hogs, interrupts and the leds child keyed per
-     channel.
-   We think gpio@N, like i2c@N and spi@N, is the cleaner way to describe
-   that. Do you agree, or do you prefer the interface node as the
-   provider?
-
-3. ipmi@N and serial@N have no resources of their own.
-
-   They allow only compatible, reg and status. writing-bindings.rst says
-   not to create nodes just to instantiate drivers, and these do not:
-   each channel is used whether or not it has a node. Their purpose is
-   status = "disabled", which keeps the channel from being used at all.
-   A board uses it when a channel the firmware reports must not be
-   exposed to the host OS on that board. Is that a sufficient reason for
-   the nodes?
-
-   If not, would you prefer a property on the interface node listing the
-   channel IDs not to use, or dropping the two node types (and
-   disabling) altogether?
-
-4. Device and interface nodes.
-
-   The device node lists the three VID:PIDs in one enum, since the
-   channel layer is the same on all three. The interface node allows the
-   optional "usbifVID,PID.configC.I" compatible from usb-device.yaml.
-   - Is one binding for three USB devices from three vendors acceptable,
-     given that the LSTP interface is what is described?
-   - usb-device.yaml's interface pattern
-     "^interface@[0-9a-f]{1,2}(,[0-9a-f]{1,2})$" makes the ",C" suffix
-     mandatory. Its description, and ours, say the suffix is omitted for
-     configuration 1, so our pattern has "(...)?". Which is intended?
-
-5. File layout.
-
-   The series has gpio/, i2c/ and spi/ schemas, each with its own patch,
-   ahead of usb/nvidia,lstp.yaml, which $refs them and defines serial@N
-   and ipmi@N inline. Would you rather have everything in usb/?
-
-6. nvidia,retries on the I2C channel.
-
-   The channel config tells the host whether the device itself retries
-   a transfer that loses arbitration or finds the bus busy. When it
-   does, the host adds no attempts. When it does not, the host re-issues
-   such a transfer, three times by default. nvidia,retries sets that
-   count per board, for example for a bus shared with another master.
-
-   It is a property rather than something the OS sets later because the
-   peripherals described under the channel are probed as soon as the bus
-   is registered, before anything in userspace could change the count.
-   The nearest precedents I found are device properties, not controller
-   properties: sbs,i2c-retry-count (power/supply/sbs,sbs-battery.yaml)
-   and adi,overcurrent-retries (hwmon/adi,ltc4283.yaml).
-
-   Existing boards use the property without the vendor prefix, as
-   "retries"; our out-of-tree driver keeps reading that name, and the
-   upstream binding and driver would know only nvidia,retries. Is a
-   vendor property for this acceptable, or would you rather keep it out
-   of the binding and leave the count to the host default?
-
-Thanks,
-Adrian
