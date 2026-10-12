@@ -1,188 +1,146 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012018.outbound.protection.outlook.com [52.101.66.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDB63D34B3;
-	Mon, 12 Oct 2026 19:31:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791833501; cv=fail; b=WPyss+SdXdjWoRSjVtRtwuDrehsViW3rav66J4WmVcSvsOv5khYman+DRusHbSqDWF4y54ga7pZmme10RZb+gVvQRBALrSlu6lsb4bCmiDFB6FtLKybRsIOA59l51olQ6YC4bB2xmr2kDt9GS/EcUKmS2Q8T5N5rur1kSQ5PdHE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791833501; c=relaxed/simple;
-	bh=c/S+7TrjYNa9kuK4ps9hxIPQq1KXEfurcnpbqlPH0Bk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=PxXMRImwb9HgAsYz2iTYwPe1iQLvGY7r259pX5AfFM+RE4lOsbssoXosJyrMj3rIvI2k6mvUz3ReyMEUyDqZtqozFvfd0vSn16F8ClFXwVaWK6iz2wjVAeM5asIomhKzMgm2T1d+AvfLFZiFl3n5ffqftDyeVtt9gfTT4MCkS7g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Bp3eGOPM; arc=fail smtp.client-ip=52.101.66.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F86346EF6B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:33:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791833608; cv=none; b=mOMU+GNrcQvCmWWlByc/sotLtWnCDQQUQ8E2wFZptTxkw8fBiknxNB1GYOqH4tL0I7UraMbj/XTc4cgce28MgjOZrGxe3SerzE5O2sDvCu6OiJOQ5k9UMj/xryepDYV/AawvDEz4rXw5HglBCkXMDWdn0gfp1CFKXCaqPGgX8IQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791833608; c=relaxed/simple;
+	bh=K3vL916hwAzIEhpMQoKwDIcw4kalgkk+rOVRXH/u/q4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uViQ3braQnjlpUBcYtyfAWCFT7eFqb9CESxufAY+3rQseI0ZTR4b9nA+ByniS47in7ygbnUyphfpjQvluIOm9V5o8U94tFH9Ce40FaLihZpbJNfh6P6sb4qjaxb6VH83WsZUYB7WBh4M76BC6SJhGjrdNFbdeDBo0sRSOw301LE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=adrianschlegel.com; spf=none smtp.mailfrom=adrianschlegel.com; dkim=pass (2048-bit key) header.d=adrianschlegel-com.20251104.gappssmtp.com header.i=@adrianschlegel-com.20251104.gappssmtp.com header.b=XXIf3e5w; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=adrianschlegel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=adrianschlegel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Bp3eGOPM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yUr9ARrQyZRAT2iKzOhIRB7PODRxpGWuTtvSvLA/xl0qPr9qopZ10EdXf3Y1T0I3/wv0c+sOyIq7QnC3/OBTpxpkOROZbJ6mLDZbd4xDu9AdXD3D1oom+H46fO/piwhf7bMbjsfGXr5OQCpxQMHYcXIn2XKsOfijyD6Nnpdb5jbDteqfBYvRe4xNQvWZjFfmtslh43KvW019nppU0Z675vzxwp7xRN1IFyAqEurKHGBmXOlL4FQqqeNrMDmCrrBBNGNUKVSlq9Y7uDY2nDxj++SrTUOMmpO3uFtvl9uzmAtvXEi1kcg3K2tiAmDhEtGb5pShYrBp0LP968DuRSnfKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ovwFXanajD5EMXLXvnKfWBFmhe3k4aP8PCEEH0zPLKw=;
- b=TKrtywF0iMbnCD/nq1f+B3emgLIaA3dTb/DeBPzvRo4bAMu5TvJQ2cLWXUh6vmv/qrQ9IAKi9hjo31CzcCxomxTAZNfrhCPsNAtZFAFSJxOYVZqEftEeOudoGd5oBjI8USvMu2vzHCU2MDhZtb83Kc2baDqBje+3AdFUHUjkxGjTB5qaFeBLhUWlju/bMXqvbR7YVf0cuQDkcKD83TU/yr6DuUeauf0kDhn83dkPZS1NYPGQjT+zlJfByBKQ3RGyXqIPThdLIGLcZavItEZJfeBzwYSXAcoNKW7RcqHTvG+n1vOUeLVjiUoQD66lgBs5Mx79jJ9ByamCb+czvUGcXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ovwFXanajD5EMXLXvnKfWBFmhe3k4aP8PCEEH0zPLKw=;
- b=Bp3eGOPMu79Oj1Q74mFtjC+ldxQRR+zx840kAISd0KE8jTd4RtyJfPE/Azb7xkUf6uJy2MhP1DKPoPRhgDre70ELJbgRfzTUbYBgcx9DJGxAP9sQY54092PMvfy+PcgzTu+PldD0vwq4VXfdX+dRJEwEI25FIzhktD/cpP67HgqeMu4qh0LwNzB4gaz8Z9Blyvp8UI4jEs2QvVJ1UXoD4rrK4b3I2VAFoSYqwx8ZwmiVq6N49NbJRBpqNQv04lzFP4iNHOxImc3Gpp/OmHtFZiA2IJ/8W+rzYNCCbpO1M6sEtkbZ+CZWt03t2vY1TOfJQVtFycB9F4cE0GdZL/cW6Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI3PR04MB213044.eurprd04.prod.outlook.com (2603:10a6:800:375::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 19:31:38 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
- 19:31:38 +0000
-Date: Mon, 12 Oct 2026 14:31:30 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Frank Li <Frank.Li@nxp.com>, Mark Brown <broonie@kernel.org>,
-	kernel@pengutronix.de, linux-spi@vger.kernel.org,
-	imx@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH spi-next 3/3] spi: spi-fsl-lpspi: cache content of
- Interrupt Enable Register (IER)
-Message-ID: <as01km6qZJ-pxOa4@SMW015318>
-References: <20261009-spi-fsl-lpspi-more-cleanups-v1-0-2d4549d5205e@pengutronix.de>
- <20261009-spi-fsl-lpspi-more-cleanups-v1-3-2d4549d5205e@pengutronix.de>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009-spi-fsl-lpspi-more-cleanups-v1-3-2d4549d5205e@pengutronix.de>
-X-ClientProxiedBy: CY5P221CA0143.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:930:6a::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=adrianschlegel-com.20251104.gappssmtp.com header.i=@adrianschlegel-com.20251104.gappssmtp.com header.b="XXIf3e5w"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so27171515e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:33:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=adrianschlegel-com.20251104.gappssmtp.com; s=20251104; t=1791833605; x=1792438405; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lXnE2SxGJ5rLYuIMSksp63RAMKlg3urlDD6GhDVjHOI=;
+        b=XXIf3e5wTRXopiqCvr0hU83zZWWxYWOmRKZhvkYQKVDNr0nNJcEH8uTstzBgbbiVsN
+         sp2b07jf37g9yvJBy92qyZ37F1F2J/br2819a4sCtGmgKIk0QafmL3sFHgNF1iK/Rucn
+         sXoOygaXICDozzEASbX2Vo2ACc+jBIuBPZeqQTrwhazo89cirKQfmx5F5ZJ5VRpoLxNA
+         HrEFvXBdZakOyJt0SSPEyPQgTx6kNfJVvYI27Y8DATWwJyLvkRqTuDfIacs6YmG5O53Q
+         L9a5q1Zo0wCilzrtn7Co2/iO19lOXcUuY8USI+0uIJC7hK+f6081AZDCNKKxbk/kyEB9
+         hLaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791833605; x=1792438405;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lXnE2SxGJ5rLYuIMSksp63RAMKlg3urlDD6GhDVjHOI=;
+        b=b7157x4tRfH983wlMepxeN99x4LRxUjdXUPrybg+CgJLBZuDEjIhIIYgqWmyy2SFMp
+         CXEdMSIKqgdzWYPRt4rhLyz9bvQ7YBxfGIPFh5vAftPRfxiSxXiqDJ1FZuyZgMts8grI
+         fhK9ELLjMNjX+WUaF8TfFm/1+Kul9iMuxCQebhR8KENh8LKW0Li9gbOdFCNANXi4S993
+         MXrsN54TYezzzgemK8l6hojII6gVG0oJ5URowzUPf4TsDjEKD9PafT58sdaaziGQmHX/
+         QQ4fLqS7yflfaks/BOMfTBn42k3LJHTRW7snu1XOGVfKe8d1SX5iFY71yj1Au2h/v6C8
+         1Vcg==
+X-Forwarded-Encrypted: i=1; AKwUvBxwnghZyKuN4Qi0fzYUwxWYi46wKhbfbg7VpVYLbc9JO9H4dCyJ8Y1lWR/MeFFtuZiHPDZsj3UOSS/dZxo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTFbVusTSlRzFQBfTV2L41m8mYfVWuf7wGcQsdigycEsgidNBC
+	EplgAQubx+UYkGg5f9T2beMPuYXqeDehNLAcOVi3PswGYwpkhuQzTs9PQkdN0dH9mw==
+X-Gm-Gg: AYBFou2hrZufSRXyfg4r1xKXvgADyH+PzP254QEoTlkT/qdVQLWfebcsMJ1S7vtVKzI
+	JkSuCl1DDfOf3JrpSWiJgEMDmr1G0YDpJ8z9oo5SkqyXQD/nUNdwrz2WIy4maoB/zJ4SbV1heLT
+	2q8lWLJpdvOef6nJdOISRRHkwjOAKJuzm1kZ4bArKB7svpup68o+CJKyaB2GLXMZ1zkIxJ83j4y
+	depqB1AYtxbsNhUAZf++c92WkIbE9xpK4cqmoyvHeAMeSItKo7illxcblxg7WBtshYk4Y/yywFF
+	nzF0Ie8IgvdMERRT80HbfFDeoQy+PS7S143+cppQ4T8NYSPK1GuMecOMFvu4GBZO+NakAFw3/HB
+	7AxBpGkkiUTJxssphdFW2DcSCin6w6ozOKjUoTpv/HhzIydGDu3di8dYbXyCAOJxYKzzMxQtTb/
+	Vy1JCYqZAKn7GvaQVevnwUIeP+BDMxmGSLt2hqqNP04Wz+ZAN00wkIuUQNHaburgj/NLRks2xYz
+	GdB8KaHc/91imPkoZmKOAwLHwHMiOlusjmbua3vYw==
+X-Received: by 2002:a05:600c:5489:b0:4a0:1c94:7042 with SMTP id 5b1f17b1804b1-4a18e4a5244mr199061695e9.8.1791833604640;
+        Mon, 12 Oct 2026 12:33:24 -0700 (PDT)
+Received: from Adrian-Arch.home ([2a02:1210:1c09:3100:bf3b:aefa:a3ba:26f8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2343asm570950955e9.9.2026.10.12.12.33.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 12:33:24 -0700 (PDT)
+From: Adrian Schlegel <me@adrianschlegel.com>
+To: tony.luck@intel.com,
+	bp@alien8.de
+Cc: x86@kernel.org,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Adrian Schlegel <me@adrianschlegel.com>
+Subject: [PATCH v3] x86/mce: Do not treat cache hierarchy errors as memory errors
+Date: Mon, 12 Oct 2026 21:33:05 +0200
+Message-ID: <20261012193305.38931-1-me@adrianschlegel.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261003222012.19685-1-me@adrianschlegel.com>
+References: <20261003222012.19685-1-me@adrianschlegel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI3PR04MB213044:EE_
-X-MS-Office365-Filtering-Correlation-Id: e80e9f0e-9892-485e-7603-08df28976f14
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|366016|376014|10067099003|22082099003|18002099003|11063799006|4143699003|261009223027099003|261009221227099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	7c03Y/jQn5w7KeWQ5Q5yh47+yHdub+LJIIlmfgNAEpafVzORLyow+7U42SoCs7Sn+Ln6kak/NxsWuZ/GDf8RdgqDfcyP52ibF9KbIJsouWO1MviWSOHpjz6irBJfGi8G+kasW3YPKhz3JOrtKKg2to+0HCkFYbCAOKBzW/SmHHyXHOIZ1nC37165C30kCNeAO+KHvg8bJlSOa5syUDjYJ6q1Rzb06Q+QFN4tKcI8yjJhkT2NtEqpXaPvdBwYI7kNkx+GZV6iNTkYTb9gjplHJ15Z+EAIdgrAPNzr0FUOWbSdqQP5hyXZIwIM7xg+iaXLh0h+NjuRlgX/BlwJUZ7bh3M4Auqjlrs4KZjKjMCSSwqYy0AJ+/qLP7LB05Os+c0xejnyo+VLY+orPRVrsh6jWvGAc/RxongIR5ad/N7a6RP6tz7uOAPunXNlWnVTkMg/MwN1qLbwyzauxfBS3JMNI4g9SJH3e6SZQuDGQoFiYMaEdoqLDFXf8/7PQslzSPlkdyj/7juWD1PFKCUPsZwSKfQwHFWHQUeMQk++oBhvzDJACe7muvKYbqnJ2L3f5Vztpy9dcsCIb2gI+b2Ll2KD515M9COOntBAS0ZrVXB6MyXXRCAhotYVEKZFo7h9m1DcC6+qAywGATTzdTxxFsTEfSaFN84284BVwt7upj0e2nk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(366016)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003)(261009223027099003)(261009221227099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?SSJTbzu+sdjsuNeiUkTP41iXYQPm3Le5qrwzgAwdhhtiYv2phbyy8AWGLxRP?=
- =?us-ascii?Q?iZdM+YrzemjxCLDoDx9o9YjshbWg+IungmrekHmi1pD8yeXYl1iwpsPe+OKO?=
- =?us-ascii?Q?mx4f4EYObsU11gFKwY27pvmxlZTwdsr/wN64OATnksaP90EvK1jgj/T+B/nI?=
- =?us-ascii?Q?Ftsf03tzQoRHVMJphz+p7XsoPogeKDzvyZqrQB4YBGf0rZjsUEe/+X4T/EIN?=
- =?us-ascii?Q?I/ODXghHNuuYuFJRagkNQmzqubklsTWedEiHO9tLlOt4SrddxCd+7+ZNqLF6?=
- =?us-ascii?Q?DByXK9IAudNcFI6rdwQVKa2KjbBQRefypVGrllEK0rDYqiw65xepLwmM7rM5?=
- =?us-ascii?Q?jkPlEFgizu9B49CQtRglSzJPY1ejVK+f1FB5xDSzP46nqAgH1fOUZMnP9qb9?=
- =?us-ascii?Q?7tXgnbGvQkIng63gTD8HGV5fYkYYkNA5VHK63beyh/Ms8RXwIbZ/LKn1LWNH?=
- =?us-ascii?Q?umztihiMTdRK3uIG53g+mas20GgS93xhj4uEVZzULv0U12Bh7LwryabEktMm?=
- =?us-ascii?Q?4vKELrBw2ipyM2zYOQSUNYCJYF0+Vqvj21afp+egi8Pzc1rWEkmUtA2rHvLJ?=
- =?us-ascii?Q?K1EpkaBzbfrMD487ibcDTqnddGQmYFQTpIZ5ptgt7Sw270HUijLGnFjA+AS9?=
- =?us-ascii?Q?y5fwjy1qsBl15Tkhm9TbGhM89vlEwZc00gcIHC8XLlPCDGr9+wkxasG0NdCI?=
- =?us-ascii?Q?IeKezy4wjiS04BUi3JYo0+07H79Y54djgJCHnUJQZWACN3SIVrwEYerEZXaz?=
- =?us-ascii?Q?ZTFy668fCO1ObnoXEfmX4jB8KgTVYSQoMyHcuFlkhRqpDjWVmazovRwgXOQe?=
- =?us-ascii?Q?Itd/xk4mB3ZHNZlmFfX7jidxzZ2MlO8xoarUMpA3rTUUUAQ/e5p60r0QEQMC?=
- =?us-ascii?Q?nbOeTUQPomS/8sVw0iuxtPzBpIMpIpLMLn1a14PUZ8soPst2n1HXUNCOr4g1?=
- =?us-ascii?Q?f/diWTnKMezXv7I4byLn3CTdTXZY2deHquB0MWuAGuvFxqeWf1Wsxl/kmumf?=
- =?us-ascii?Q?bdVmDfFR6ejA7LtD+jiALTBjCTDjSMudOWGuC4KUXhApckVADtJ4q+xFvpgV?=
- =?us-ascii?Q?XnE9v/qpNoz/XEQIbMjsSaMcMgb5qct/6h/q15BOnof2vkEigyhSI7o3If41?=
- =?us-ascii?Q?f96pQQOSWK8q3rtDkkm4NEyekheYn4zZN5KlJv4r71yVLHoU2QSC8UNQyr+K?=
- =?us-ascii?Q?JifZ3ZCfz1wx+X869iDDozdV3vmGKK08VP5NNZlqcsjw8kwCfdYUeXMp68Qj?=
- =?us-ascii?Q?d9JrnZQW1ekaPRHyzx1PgmIzKfNiby1WoZeTGllsnWE167gssKYlfkPgla4j?=
- =?us-ascii?Q?7ntKY8pp08YKD9WaDvtijnBsZvwA41U/29KROmOhs8QBlJvJCNfperM9qZE3?=
- =?us-ascii?Q?52aADte9s7uVu/fnKI7oiV98IWw0BGyryyREhOdosC4klkqidovrv29kXOaD?=
- =?us-ascii?Q?tgiLf3TrInG8jyiHShQWaOvjw+XqjHnyluDdw56oPLTn+z2ihzXgF3m4gPti?=
- =?us-ascii?Q?IylwqGsLA/wR40xmy3B31JI4BxUJ/rbl7RQOpstEU/HWCKsv9ydjDQXdWhev?=
- =?us-ascii?Q?XGK18VZrcbFoXU/0wUQ5Wyl1wx209cde0o893bXJ4nUiv016kuxp9miFUtrz?=
- =?us-ascii?Q?aHcQ3sYwgR/WwutYzvAW1uTHQEH2GVvZBa/KlUVXB+GWlRilqIinSu8Z/4Se?=
- =?us-ascii?Q?oip7zLJRcsfHBZzsjg67H76NW7tVNziouwWtfRU7ekTMnX3WPDrfb1TtNwOh?=
- =?us-ascii?Q?XXc2HEbuYr1v9ukjsyrUk5Yyc8WtUhrCebkYOt9bQ/YwSRmcQDJ3?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e80e9f0e-9892-485e-7603-08df28976f14
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 19:31:38.1744
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e7ta4tcq4THyuivtQ1GmiiYDfoRt0/Jx3AUHT1QDSj77/PV7yVfbKu/s++zmo9MU5BEWmZQLHhSPyPpHLlQIO5CjqwTxWtIKvVBOd/BaLuqa4d/tQ8rSRYeKbBByCWf2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI3PR04MB213044
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 12:16:37PM +0200, Marc Kleine-Budde wrote:
-> To improve performance avoid reading the Interrupt Enable Register (IER)
-> from the hardware, cache in struct fsl_lpspi_data::reg_ier.
+On Intel and Zhaoxin, mce_is_memory_error() also returns true for cache
+hierarchy errors. All callers expect it to report memory errors only.
 
-Do you have bench mark data? I am not sure how much gain by only avoid
-a register read.
+The CEC uses it to count corrected DRAM errors. A corrected cache error
+only names the cache line that was affected, not a faulty DRAM page.
+With a faulty CPU core, the CEC therefore soft-offlines healthy pages.
+On an i9-9900K this caused about 500 soft-offline attempts per hour.
 
-Frank
+Report only memory controller errors on Intel and Zhaoxin, as is
+already done for AMD.
 
->
-> Introduce struct fsl_lpspi_data::reg_ier, to cache the current value.
-> Extend fsl_lpspi_intctrl() to update the cache and replace the open coded
-> writing of the IRQ register in fsl_lpspi_prepare_message() with
-> fsl_lpspi_intctrl().
->
-> In fsl_lpspi_isr() don't read the IER from the hardware, but use the cached
-> value from struct fsl_lpspi_data::reg_ier.
->
-> Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-> ---
->  drivers/spi/spi-fsl-lpspi.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/spi/spi-fsl-lpspi.c b/drivers/spi/spi-fsl-lpspi.c
-> index b25f94b2ef73..5b158b0cb5af 100644
-> --- a/drivers/spi/spi-fsl-lpspi.c
-> +++ b/drivers/spi/spi-fsl-lpspi.c
-> @@ -122,6 +122,7 @@ struct fsl_lpspi_data {
->  	void (*rx)(struct fsl_lpspi_data *fsl_lpspi);
->
->  	u32 remain;
-> +	u32 reg_ier;
->  	u8 watermark;
->  	u8 txfifosize;
->  	u8 rxfifosize;
-> @@ -199,6 +200,7 @@ LPSPI_BUF_TX(u32)
->  static void fsl_lpspi_intctrl(struct fsl_lpspi_data *fsl_lpspi,
->  			      unsigned int enable)
->  {
-> +	fsl_lpspi->reg_ier = enable;
->  	writel(enable, fsl_lpspi->base + IMX7ULP_IER);
->  }
->
-> @@ -525,7 +527,7 @@ static int fsl_lpspi_prepare_message(struct spi_controller *controller,
->  	fsl_lpspi_set_cmd(fsl_lpspi);
->
->  	/* No IRQs */
-> -	writel(0, fsl_lpspi->base + IMX7ULP_IER);
-> +	fsl_lpspi_intctrl(fsl_lpspi, 0);
->
->  	/* Controller disable, clear FIFOs, clear status */
->  	writel(CR_RRF | CR_RTF, fsl_lpspi->base + IMX7ULP_CR);
-> @@ -808,7 +810,7 @@ static irqreturn_t fsl_lpspi_isr(int irq, void *dev_id)
->  	u32 temp_SR, temp_IER;
->  	struct fsl_lpspi_data *fsl_lpspi = dev_id;
->
-> -	temp_IER = readl(fsl_lpspi->base + IMX7ULP_IER);
-> +	temp_IER = fsl_lpspi->reg_ier;
->  	fsl_lpspi_intctrl(fsl_lpspi, 0);
->  	temp_SR = readl(fsl_lpspi->base + IMX7ULP_SR);
->
->
-> --
-> 2.53.0
->
->
+Fixes: fa92c5869426 ("x86, mce: Support memory error recovery for both UCNA and Deferred error in machine_check_poll")
+Signed-off-by: Adrian Schlegel <me@adrianschlegel.com>
+---
+v3:
+- Shorten and wrap commit message (Boris, Tony)
+- Refer to the SDM section by name instead of number (Tony)
+
+v2:
+- Fix mce_is_memory_error() itself instead of adding a CEC-local helper (Tony)
+- v1: https://lore.kernel.org/r/20260927151904.30524-1-me@adrianschlegel.com
+
+Tested with mce-inject (sw) in a VM with an Intel CPU model. A corrected
+cache error (status 0xcc5ffc0000100179) is no longer counted and its
+page stays online. A corrected memory controller error (status
+0x8c0000000000009f) is still counted and its page soft-offlined.
+
+ arch/x86/kernel/cpu/mce/core.c | 18 +++++-------------
+ 1 file changed, 5 insertions(+), 13 deletions(-)
+
+diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
+index ab469605f..54ed053fa 100644
+--- a/arch/x86/kernel/cpu/mce/core.c
++++ b/arch/x86/kernel/cpu/mce/core.c
+@@ -540,21 +540,13 @@ bool mce_is_memory_error(struct mce *m)
+ 	case X86_VENDOR_INTEL:
+ 	case X86_VENDOR_ZHAOXIN:
+ 		/*
+-		 * Intel SDM Volume 3B - 15.9.2 Compound Error Codes
++		 * Intel SDM Volume 3B "Compound Error Codes".
+ 		 *
+-		 * Bit 7 of the MCACOD field of IA32_MCi_STATUS is used for
+-		 * indicating a memory error. Bit 8 is used for indicating a
+-		 * cache hierarchy error. The combination of bit 2 and bit 3
+-		 * is used for indicating a `generic' cache hierarchy error
+-		 * But we can't just blindly check the above bits, because if
+-		 * bit 11 is set, then it is a bus/interconnect error - and
+-		 * either way the above bits just gives more detail on what
+-		 * bus/interconnect error happened. Note that bit 12 can be
+-		 * ignored, as it's the "filter" bit.
++		 * Memory controller errors have an MCACOD of 000F 0000 1MMM CCCC:
++		 * bit 7 set, bits 8-11 and 13-15 clear. Bit 12 is the "filter"
++		 * bit and is ignored.
+ 		 */
+-		return (m->status & 0xef80) == BIT(7) ||
+-		       (m->status & 0xef00) == BIT(8) ||
+-		       (m->status & 0xeffc) == 0xc;
++		return (m->status & 0xef80) == BIT(7);
+ 
+ 	default:
+ 		return false;
+-- 
+2.55.0
+
