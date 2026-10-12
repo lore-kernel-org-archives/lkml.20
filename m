@@ -1,123 +1,217 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEB1A440638
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:57:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791838666; cv=pass; b=PCmIjRmmSnAEd9y65psZZ1El1J2I5T4E5qzlxXeaSDKGRMLU58dvr16nqcCrhhpDCdU7eufjBnARdINU7gtiZ0jNBlV8gwX3OAZm7O5S+WqESaxsvqQDP+VWzHmx2Ise7cP1A/yxPgI2HGMNKUBBw/ibiIHe4PiRTyaSStKLNQs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791838666; c=relaxed/simple;
-	bh=qfhNpMKikTUE4GXuTXMhSz598q5HToAtxwd6kVZHfsk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gzYMI9TA2DWz6WrXJgNnpltaST7nik7aWqfyJ6rn7bzhtrXuvrM9CE7SEW0mxwDS1SuDRr1NZS25tQKc55yDb6jpti+DyOD/YlONZHxHLPR4acIZ/4gPvoCn8fr7pLl6DNzaYZtgRCmfv5qMqrA6Xc90mCrej1Z7Uc999MUM4E4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bbz16QiI; arc=pass smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AB14BB293
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:57:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791838681; cv=none; b=TD0G5MlJ7/rFCBZzIWfavugkjNHoNGbl88h984PDf4/0DgQDJiHrdYxv4KMvGwobKXafEJreDJ45IYAwyHQd5saEf2dzEFti0kqDyG7T3YQKODYpzJf4HQ5QZXQhcCzbWVPCKqWjZgSzDlvmCnxmY7sUf4bLA0VG4QPVkcA8ZaY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791838681; c=relaxed/simple;
+	bh=69wTGs4Xn/TUvF1hRWSuKqp7L2UjaEJpt8IiVUoiboQ=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=LZYn1E1ELmQqFmjSczVFi+eK0G29xV7xiTLxE48mklh5SWZB54D2iJyNLu1wbvVpJgwCIBo1Xx8QGIN1ghl6/Vu1g5AxTvCtjo/Jkd1/6hIRR08uYHM0QJdxCGnHC9HO6Z5/ev/k0aXreL6QBrJ4WnDAJSogP2D/EJ2DIwB35rE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NP+l9G46; arc=none smtp.client-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bbz16QiI"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bcdab9a82bso2524551e87.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:57:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791838663; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OUuurEbx2OB90lbfwqMPOFeH+NV4F9crj89o46zPVo33uogUaxfNjXvaMAq0HKmHsu
-         LGwwDc8W6i9gYSiWJPBx0B8cKQT8avRaOCz9bvDi0cnsB0NNHeK6Aq4GEunCiAv97o8I
-         Y+ts+LR84mSrSTTSEd1F1UNiV8CVt9NS+ytpCwTQSLfyeQ1SUENkr1RYtbW1hdjR1Rxz
-         uYYn1S33WPRWyoPWKwPFUQD/vtwgRo1SHsy7/sWA7tFBH1nmOOkMlQA9yKpRIiEsDm26
-         J/CnOhz459LDg3LaLUdk1XmtGyBAdpGniRrY3wfQzVFdTWJoakkRpKmg+0/8Gkob9o3m
-         uacg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=jLix4JrWc+gaL1YtlKdXsZNF8UYItzc7REKQDH8C5y4=;
-        fh=ltGB/jql7pWFDlAWI1rA5+so1YEQXn8Yl1NDKOYkkcc=;
-        b=AUytqyZDs7LxzZCwOqY+dB1qIt/3oNSSx5KImZT/8LEKVO9CoshJ/gu26p09wSLQ94
-         wDeGyD5v/tM4iZTbFod4HdhlVeGO4HCT3kyYo8LzNO1ngsLOPdRDExpr86SQIwrrWkIQ
-         Cin44Uyo9OxNeobRpbfKcPIYELxXTpEwL9yB2pBA88Wdl+fZMyWjdBYpVb+69hKKS/ZS
-         1Rx0A4/LFVMucg8j95qTqgEsGeNnC+mAYK4SBhCDodz6VGPq7FVuAdCn/SVDoOk/ZQU1
-         o4dRy40SOk1sU9bUHis/0ps2wEajMFKd5VrHdcoVlugLsoIHGr/5gwb8/rPE11VhLQMi
-         1gew==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NP+l9G46"
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30c0d568830so4906281eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:57:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791838663; x=1792443463; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jLix4JrWc+gaL1YtlKdXsZNF8UYItzc7REKQDH8C5y4=;
-        b=Bbz16QiI9Ar3XCnJJS2neAbkOd1tzEK8qJMur6Va/i2SojzGri0Z/wTNMwdO0kbDDm
-         JONh0CLLZJhp3l7V3dbmAhiPsSh+TfkDsuDw+tWbXGb6okvORkv5ccMQYwwTdefC1Uh5
-         B8T85pvKrT3DTCkeFmw0HKAF/Kx7mqsXEw6o6nrT0XmTo+Ds/8PrDYvFI0oWA2p+l9oz
-         LNtY+KPUlRTFSEbzn5dxe0YBvA5bvpRVdA3S3Mtx5k51shqQmRg4+SWmcjDJ+oZtB7cC
-         E791JiFSd+XewQgw2D69Ugr1dCsZBKTw3XQMGT8rRj/PHtE18OABbAAzf6TCElUeDSyj
-         Hc6Q==
+        d=google.com; s=20251104; t=1791838679; x=1792443479; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/3lYEjUykJzoWYMUJo97frndFTA57IALGq9VPrtnj7o=;
+        b=NP+l9G468y3hSZlhhcR8SUp5CwE4FrZZ33kvgu/64agUXmXe3+Zwbv4BUHiS2wJlLI
+         kkq/sRwSJxMgpL/SQDlfkN4oGpcfHWJV8K/7vgb5jFBmXTG4enHdYQg9uuAT+6wClOat
+         AF59SEas0WQQ33g9e5+Mi/LnlmaEaA8tHfhYD0JuXIT027U/cwB7KYpzpXdv7HwK8Cwx
+         JLmRP3ItceTJTfrxbq1JHkX83vRe1dMnth0XxPXfNetVYCpaY+GbaAMgvsPcGWfAPWT4
+         DgWGuhwr5o5poGLptRDFH0iyoVeSXqbvbXAV0NB4eZgpTYygCTmcBnPOt0LBxtGWpmHW
+         cwlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791838663; x=1792443463;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jLix4JrWc+gaL1YtlKdXsZNF8UYItzc7REKQDH8C5y4=;
-        b=TmzEzGlPfF+vFeW0HRdaYdKpdVUqQz3RCTtKN5Eux68mJyKGY7UPXi/rR/wOePN15V
-         btlbaj5YUmT+SipEWLRowJXLrBK+PlWj2ZRSLgcm9sA1+7Ls9XjswfVzlpnUCBbQ19WD
-         s9pGU/D4W3b9i9wXvIuICdIgT0aDePGWoJRJov8esyxr9OqZQn4pyfpu8tSjilXaRHBe
-         q8ClpgnaHRiceGwkIK/lqKLIRXNe02fBwBD5sA4CJTwOKm+9bQTx0Hq+AXo5QScJgmCD
-         3iaRwuh2xT6Dg2alMf+47ZbNNobc/568b+/7pvUoYZwXMd5Vr/9NqAtL0JXQXzdoZA5D
-         xf9A==
-X-Forwarded-Encrypted: i=1; AKwUvByLuTmk/KTDBSYBnUb3bbq1ujC1b4/0TRGUAYGquBVEhkWAWyhGSDTa1tHfqzGxA0HymSw5X5NQqR/FeIw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKuVFF5Xc+iop2+526CBceHuAoXoeLWmKlvyyZcCOQUx78xKooQ
-	WaZnSalGiEKZF3eVSUC+JBg/7PkptdXWLmYCYpI1vNjWlX4nK1UN9zwjWkL9VYOHzgbDXFj71+c
-	hikog6u7ML+BIezCrs4js1FS3wJ4cfzM=
-X-Gm-Gg: AYBFou0Kh88pcYqzz2XL0hzna4jhx976/IurKmU131zRwnTermgnj3c9ybRlw+4/qAJ
-	GAKQcNUF71t0rUCspI3uhl3IJTvmLgoFdtUWBK+UNE6btlbcgYFAeLRDfCSe0vMPktKxMl94E2t
-	AMQFCY4sRzCWGIqymIk9VSDaPg9qNY8SRtfBNiPrD0yCcLkC+ef5WlPa+ks4B5/sxRLWQ9jNm6p
-	PwgPv8dh02K0E9xDQMQbZ+CIK/a+o8R7dVZQZjH44Z84tbHDSagVG8cTnu8AcZKloHsbCPJIP+R
-	tkeyMZIWLwvdXkn74/XAhq8x5uj2fyhujvbLujDvgSb7bQTbZCx4eVLZYg==
-X-Received: by 2002:a05:6512:12cf:b0:5bc:d0fd:8c13 with SMTP id
- 2adb3069b0e04-5bcde6c99b0mr3562593e87.30.1791838662732; Mon, 12 Oct 2026
- 13:57:42 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791838679; x=1792443479;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/3lYEjUykJzoWYMUJo97frndFTA57IALGq9VPrtnj7o=;
+        b=jLWB4kLCwoz/JDrnKsQTEQnfhl7imljyuzsUIr1ncVmuBTuvXFZ8BTvuDBkUGsp9ej
+         zQ26FhIPwsPUp2PzDZLFcuhEp8E0CX4GLi0mcm+vJTi5B1BbHMeOE9xuM12YMU2HRtEH
+         1saxD/03juyFfvyzsKjupgeXcX51jyFnxoZP+SRvMVc4CXbGBT/V5WkjAvQGXcHFXJFG
+         t1MdvMnsg62dF69ihcYXOAjkowfjgfHjHT093Dbb2rQNPx7MLrBjZ2Uu+Jy4v79aflqR
+         1kp1uDc4uXNSEob/WIcistycTUh7qizOgKSj9t+y4worjVQIWeGfnCumL4VIZufKHy2z
+         zBjw==
+X-Forwarded-Encrypted: i=1; AKwUvBy7XLs2O6Y2K6FkEYJvyaqWMLcBNLrVGtjSE0vM+i3s2QI+NppxbkVQlbwd9y3wgoy97+LdcHuD64ipMLc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSZ4hh8p9idKJVqvOdplAoXvth4uHiUd+uNI+891DKou5X1Asc
+	xvA41vJSp3HujzOJDZIpr++qTXDrh4CEgMAXBypGn3xUkK8pMeZEheCMo6eDheQtxDQCxq1YmSr
+	Cn6flYUy4tbVvzuzNzKOowAG2fiD5+X9vRg==
+X-Received: from dycmb8-n1.prod.google.com ([2002:a05:693c:20c8:10b0:351:731f:c917])
+ (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:693c:638e:20b0:351:7bdb:6eb1 with SMTP id 5a478bee46e88-3537e03ce72mr14556990eec.11.1791838678452;
+ Mon, 12 Oct 2026 13:57:58 -0700 (PDT)
+Date: Mon, 12 Oct 2026 13:53:35 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261009-sdm660-icc-sync-state-v1-1-77b8d2501cb2@gmail.com> <0ee83fd8-dcc2-4666-a864-de52fdef1c7f@oss.qualcomm.com>
-In-Reply-To: <0ee83fd8-dcc2-4666-a864-de52fdef1c7f@oss.qualcomm.com>
-From: Fabricio Akio <fabricioakio@gmail.com>
-Date: Mon, 12 Oct 2026 17:57:05 -0300
-X-Gm-Features: AclHuK9R2roF5QsBv8_V9u4Vazf51mZ_EeLjSM2qy9Ih7_PcYXeb3AMjJuQTvEI
-Message-ID: <CANxzQdH196iquX=kKFm450W63E6=v9H1N-=OQygr64z90a_11Q@mail.gmail.com>
-Subject: Re: [PATCH] interconnect: qcom: sdm660: Enable keep_alive and sync_state
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Georgi Djakov <djakov@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Marijn Suijten <marijn.suijten@somainline.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexey Minnekhanov <alexeymin@postmarketos.org>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Martin Botka <martin.botka@somainline.org>, linux-arm-msm@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAM9IzWoC/x2MWwqAIBAAryL73UJaGHSV6MN0qyV6sIIE4t2TP
+ gdmJkMkYYowqgxCiSPfVwXdKPC7uzZCDpXBtMbqVhtc+UVHgqeLB96JRDgQ2mUIvba+C4OH2j5 CVfy/01zKB+uEsTBnAAAA
+X-Change-Id: 20261012-fix-aer-mask-override-6b7d416c3d7c
+X-Mailer: b4 0.14.3
+Message-ID: <20261012-fix-aer-mask-override-v1-0-49a0d7aeaea0@google.com>
+Subject: [PATCH 0/2] PCI/AER: Fix and document aer_inject's aer_mask_override
+From: Priyank Rathod <rathodpriyank@google.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Lukas Wunner <lukas@wunner.de>, 
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
+	"=?utf-8?q?Ilpo_J=C3=A4rvinen?=" <ilpo.jarvinen@linux.intel.com>, Dave Jiang <dave.jiang@intel.com>, 
+	Prarit Bhargava <prarit@redhat.com>, Huang Ying <ying.huang@linux.alibaba.com>, 
+	Terry Bowman <terry.bowman@amd.com>, Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org, 
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Priyank Rathod <rathodpriyank@google.com>, Jonathan Cameron <jic23@kernel.org>
+Content-Type: text/plain; charset="utf-8"
 
-> None should be necessary on 660, except on bus_0 / RPM_CNOC_PERIPH_CLK,
-> which is not associated with any interconnect master on this platform
-> (so it will actually get disabled through clock cleanup!)
+The aer_mask_override parameter of aer_inject does not work for
+Correctable or Non-Fatal injections: the hardware Mask registers are
+restored before the threaded AER handler reads them, so
+aer_get_device_error_info() drops the injected error as masked.  The
+only injections for which the parameter ever produced a handled error
+were Fatal errors on device types whose AER registers
+aer_get_device_error_info() doesn't read (e.g., Endpoints or Upstream
+Ports), and even there only because the -EINVAL pre-check was skipped,
+not because of the mask writes.  The '!' vs '~' operator bug in the
+same code is a separate defect that transiently unmasks every error of
+the device.
 
-I tested removing the keep_alives on a Moto X4 (SDM630), on the
-sdm660-mainline 7.2 tree with this patch:
+Why fix rather than remove the parameter: it dates from 2011
+(457d9d088b02 ("PCI: aer-inject: Override PCIe AER Mask Registers"))
+and is mentioned in the RHEL 6.2 Technical Notes, so test scripts may
+still rely on it; it is also the only way to exercise handling of
+errors that are masked by default (e.g., Header Log Overflow or
+Poisoned TLP Egress Blocked, or the Internal Errors on non-CXL
+devices) without reprogramming the device via setpci, which the
+kernel's own pci_restore_aer_state() may later undo.
 
-  keep_alive on    result
-  ---------------  ------------------------------------
-  none             resets during boot
-  all but bimc     resets during boot
-  all but mnoc     boots, powers off in the first suspend
-  bimc and mnoc    boots, 10/10 suspends
-  all five         boots, 2/2 suspends
+Patch 1 stops touching the hardware Mask registers, emulates the
+override in config space reads while the injected error is pending in
+the emulated Status registers, like the status emulation itself, and
+keeps the emulated value from being written back to hardware by
+pci_restore_state().  The '!' vs '~' fix is folded in because on its
+own it has no observable effect on the injection outcome (the masks
+were restored before the interrupt anyway) and the lines are removed
+by the emulation.
 
-So on payton those two seem required, and the other three not.
+Patch 2 documents the parameter in the AER HOWTO, which never
+mentioned it.
 
-I also checked bus_0: it isn't disabled here, its active-only clock is
-CLK_IS_CRITICAL at 19.2 MHz since your commit e1cd74b6dccb ("clk: qcom:
-smd-rpm: Set XO rate and CLK_IS_CRITICAL on PCNoC"), and the RPM votes
-logged on the device show it held at 19.2 MHz while the CPUs run.
+What the mask writes in aer_inject() do today, with the register
+values of the sample session below (PCI_ERR_COR_MASK 0000c040 with
+BadTLP masked, PCI_ERR_UNCOR_MASK 02400000 untouched, COR_STATUS
+BAD_TLP = 00000040 injected):
 
-Would a v2 with keep_alive on bimc and mnoc only look right to you?
+  intended:  cor_mask   &= ~00000040   0000c040 -> 0000c000
+             uncor_mask &= ~00000000   02400000 -> 02400000
+  actual:    cor_mask   &= !00000040   0000c040 & 0 -> 00000000
+             uncor_mask &= !00000000   02400000 & 1 -> 00000000
+
+So between the write and the restore every Correctable and every
+Uncorrectable error of the device is unmasked, including the ones it
+masks by default (CorrIntErr, HeaderOF, UncorrIntErr, ...).  Both
+registers are restored to 0000c040/02400000 before
+irq_inject_interrupt() is called, so when the threaded AER handler
+reads them through the emulated config space it gets the hardware
+value and evaluates
+
+  status & ~mask == 00000040 & ~0000c040 == 0
+
+i.e. it drops the injected error as masked and the emulated status bit
+is left pending.  With the patch the hardware is never written and the
+override is applied where it is consumed, in the read:
+
+  aer_isr() reads PCI_ERR_COR_MASK while 00000040 is pending in the
+  emulated COR_STATUS:  0000c040 & ~00000040 -> 0000c000, so
+  status & ~mask == 00000040 and "[ 6] BadTLP" is handled.
+  Any read after the status was cleared, or after rmmod: 0000c040.
+
+The write side, for a pending Unsupported Request with
+PCI_ERR_UNCOR_MASK 02500000 (UR masked):
+
+  pci_save_state()     reads 02500000 & ~00100000 -> 02400000
+  pci_restore_state()  writes 02400000; aer_inject sets the hidden bit
+                       again: 02400000 | 00100000 -> 02500000
+
+Sample session in a QEMU q35 VM (pcie-root-port + e1000e at 01:00.0,
+pcie_ports=native, v7.3-rc1 with aer_inject built before and after the
+patch, injections done with the aer-inject tool):
+
+  # setpci -s 01:00.0 ECAP_AER+0x14.L
+  0000c000
+  # setpci -s 01:00.0 ECAP_AER+0x14.L=0000c040        (mask BadTLP)
+  # insmod aer_inject.ko aer_mask_override=1
+  # aer-inject -s 01:00.0 cor.conf                    (COR_STATUS BAD_TLP)
+
+Before:
+
+  pcieport 0000:00:01.0: AER: Correctable Error message received from 0000:01:00.0
+  # grep BadTLP /sys/bus/pci/devices/0000:01:00.0/aer_dev_correctable
+  BadTLP 0
+  # setpci -s 01:00.0 ECAP_AER+0x10.L                 (emulated COR_STATUS)
+  00000040                                            (left pending)
+
+After:
+
+  pcieport 0000:00:01.0: AER: Correctable Error message received from 0000:01:00.0
+  e1000e 0000:01:00.0: PCIe Bus Error: severity=Correctable
+  e1000e 0000:01:00.0:   device [8086:10d3] error status/mask=00000040/0000c000
+  e1000e 0000:01:00.0:   [ 6] BadTLP            | Receiver    | Data Link Layer
+  # grep BadTLP /sys/bus/pci/devices/0000:01:00.0/aer_dev_correctable
+  BadTLP 1
+  # setpci -s 01:00.0 ECAP_AER+0x10.L
+  00000000
+  # rmmod aer_inject; setpci -s 01:00.0 ECAP_AER+0x14.L
+  0000c040                                            (hardware untouched)
+
+The same with a masked Unsupported Request (UNCOR_STATUS UNSUP,
+PCI_ERR_UNCOR_MASK 02500000): before, only "Uncorrectable (Non-Fatal)
+Error message received", UnsupReq count 0 and the emulated status
+00100000 left pending; after, "[20] UnsupReq" is decoded, the count is
+1 and pcie_do_recovery() runs.  Recovery fails in this VM ("Data Link
+Layer Link Active not set in 100 msec"), which leaves the injected
+error pending for the last test.  With aer_mask_override=0 the
+injection is still refused: "The correctable error(s) is masked by
+device".
+
+Reset while the injected UR is still pending, i.e. pci_save_state()
+reads the Mask register through the emulation and pci_restore_state()
+writes it back:
+
+  # setpci -s 01:00.0 ECAP_AER+0x08.L           (emulated: UR unmasked)
+  02400000
+  # echo 1 > /sys/bus/pci/devices/0000:01:00.0/reset
+  # rmmod aer_inject; setpci -s 01:00.0 ECAP_AER+0x08.L
+  02500000                                            (hardware untouched)
+
+With the read-side emulation alone (an earlier version of this patch)
+the last read returned 02400000: pci_restore_state() had written the
+emulated value to the device and UR stayed unmasked in hardware after
+the unload.  That is why the patch also keeps the hidden Mask bits set
+in writes to the Mask registers.
+
+Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
+---
+Priyank Rathod (2):
+      PCI/AER: Make aer_mask_override effective for injected errors
+      Documentation: PCI: Document aer_inject's aer_mask_override parameter
+
+ Documentation/PCI/pcieaer-howto.rst | 23 ++++++++++++
+ drivers/pci/pcie/aer_inject.c       | 73 +++++++++++++++++++++++++------------
+ 2 files changed, 73 insertions(+), 23 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20261012-fix-aer-mask-override-6b7d416c3d7c
+
+Best regards,
+-- 
+Priyank Rathod <rathodpriyank@google.com>
+
