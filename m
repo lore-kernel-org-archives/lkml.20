@@ -1,175 +1,139 @@
-Received: from mta0.migadu.com (out-238.mta0.migadu.com [91.218.175.238])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13EEF4ACC95
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:45:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0904A4830;
+	Mon, 12 Oct 2026 15:46:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819959; cv=none; b=S6SoiiqdCld6Jve8srlfK0RRbwRfAefjBLlTG9twaR9t8ciW1jTp2m18J3Oqzci6KKHZbZt0dC8aY6HIDYvfnTfjxY80w+sbeXQHFew2h4pj7vN4SOemNJTX9nvasNyRsKXRCx7I5fgEZrCpEg4ST5qS8PU6R5XHKkhMABkZaEc=
+	t=1791819965; cv=none; b=ekRk8jo4OU+VznqE0iVkANgVhX84vCclDqIIMBZwsFrsUVR+GBSK5NoTGu8JC031/Nq1bGXTCLmmt5YSzGWmKhzjXW6sgcMrnQsXw/vdr0OIv3SzvM4hgTtVdVWF+SLYK9AemGbaOkyNxLWGZMa5GfK/GsAJp/2CGXN5jTJqFOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819959; c=relaxed/simple;
-	bh=xr2q62gwuAr1TaH+xNK4Z7LHuLNXJWJUKTZkvVQhn/Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mac5fDUhSrgssbWOAltP9UPA01odzG4uX+VQYAnVQlAdwF2y2sovyeF5jup0woaaqCkquKX9tIMiuLqhkjrncJskl1zTKxC+GCSnpuuHS6oi2GdJpgK6ayGjM8XngIQOoDc1HLJnJo3mK8iXfV1hkqfzhb4sjcMBbIht+1zUo0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xCNtle/N; arc=none smtp.client-ip=91.218.175.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791819965; c=relaxed/simple;
+	bh=vAtwzVVEMN7ViYzjxev2teLqUJXMDTV8YhHJcC5YniU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IapCjC39moJbfNkyEHJBbJjr2Oe2M/GxfSkbXO0UJwpNPyhSfuy/S10f/DQyKjKDhfHP6tSKvGqho1jlcFhoXRLZhmda6TiLlwb+bQu4rr5q+wThgYL3r+QSHiXNLRIFAzHIt619aqPjk4pUH1+Xj5rTjneizXFQ5O0q5sCTKrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UjL2vW/I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xCNtle/N"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=xr2q62gwuAr1TaH+xNK4Z7LHuLNXJWJUKTZkvVQhn/Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791819956; v=1; x=1792424756;
- b=xCNtle/NIeJpJln6HwAPU1sLsqJ9UoBP3dias1BCI6qwxmpO9uPkWnZ5OZpgFriptWvcXjJq
- 3toFRFvFc1tOubmSjL6+0F8f874CR3OsjDRk6qs3oxaxiKRhMvoStgSZwqSGHtDX0dxIANUuQBN
- amIdklhQo4h7SKYC8HIsCqmA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f9a5a2d869978260;
-	Mon, 12 Oct 2026 15:45:50 +0000
-X-Mizu-Trace-ID: f9a5a2d869978260
-X-Migadu-Flow: FLOW_OUT
-From: Leon Hwang <leon.hwang@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Quentin Monnet <qmo@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Leon Hwang <leon.hwang@linux.dev>,
-	Mykyta Yatsenko <yatsenko@meta.com>,
-	Avinash Duduskar <avinash.duduskar@gmail.com>,
-	Anton Protopopov <a.s.protopopov@gmail.com>,
-	Amery Hung <ameryhung@gmail.com>,
-	Jordan Rife <jordan@jrife.io>,
-	Rong Tao <rongtao@cestc.cn>,
-	Eyal Birger <eyal.birger@gmail.com>,
-	Pu Lehui <pulehui@huawei.com>,
-	Jingguo Tan <tanjingguo@huawei.com>,
-	Lin Ma <malin89@huawei.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf-next v2 20/21] selftests/bpf: Test tailcall with fentry.multi
-Date: Mon, 12 Oct 2026 23:40:22 +0800
-Message-ID: <20261012154024.29423-21-leon.hwang@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261012154024.29423-1-leon.hwang@linux.dev>
-References: <20261012154024.29423-1-leon.hwang@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UjL2vW/I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDE871F0089B;
+	Mon, 12 Oct 2026 15:46:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791819963;
+	bh=ka8TcM+6T34eu+vzuysDAS0t/Z43sjGbumdHzP6fyMc=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=UjL2vW/IBhWZlgwcwKaMOK1iF+A2BoAWP7OKl5zPfvSy/gRV1cLQgiaLlQIaO76td
+	 mGRXEnlPYsbacpBamv26npV5sJs5TxkI0Vi8pUMcQb4mINwUu7vgvgO3+XWuKI3SN5
+	 IhYDAvxzSMZPcTcy/ieOAG0TJQxUYe1TmjEcYt9QNWfliM7HlKmBvNmw/osG3Ih0Th
+	 Jz7fZGotExxzIknBeCqI3UH8Wto6/uCS0SSfJ0XDfB0SNSB0xvKg1Wd0QfuY73CSYT
+	 yBKLqM5OsJmZv9SbrNH13ge9CVjTQUFGIkXV8DWiyg2ypecwi+03J/Y9pel0jaxEAA
+	 +Xzxg98PkejrA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 6F5C3CE04A0; Mon, 12 Oct 2026 08:46:03 -0700 (PDT)
+Date: Mon, 12 Oct 2026 08:46:03 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kent Gibson <warthog618@gmail.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/6] gpiolib: wait for pending label frees before
+ cleaning up desc_srcu
+Message-ID: <40aa9190-df23-449e-b547-165b8826db8d@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261012-gpiolib-chip-removal-v1-0-aambrozewicz@nvidia.com>
+ <20261012-gpiolib-chip-removal-v1-1-aambrozewicz@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-gpiolib-chip-removal-v1-1-aambrozewicz@nvidia.com>
 
-Positively verify that a tail call from a BPF subprog works when the
-subprog is traced by fentry.multi.
+On Mon, Oct 12, 2026 at 04:49:55PM +0300, Adrian Ambrozewicz wrote:
+> desc_set_label() frees the old label with call_srcu() on gdev->desc_srcu.
+> gpiodev_release() calls synchronize_srcu() and then cleanup_srcu_struct()
+> on it, meaning to run the pending frees first, but synchronize_srcu()
+> only waits for a grace period, not for callbacks queued before it to be
+> invoked. Once the srcu_struct uses per-CPU callback lists, a label freed
+> on one CPU, for instance by gpiochip_free_hogs() at the start of
+> gpiochip_remove(), can still be waiting for its invocation timer there
+> when synchronize_srcu() returns on another, and cleanup_srcu_struct()
+> warns:
+> 
+>   WARNING: kernel/rcu/srcutree.c:706 at cleanup_srcu_struct+0x239/0x330, CPU#0: init/1
+>   Call Trace:
+>    <TASK>
+>    gpiodev_release+0x20/0x60
+>    device_release+0x3e/0x90
+>    kobject_put+0x67/0xf0
+>    release_nodes+0x3a/0x60
+>    devres_release_all+0x8a/0xf0
+>    device_unbind_cleanup+0x21/0xa0
+>    device_release_driver_internal+0x1c6/0x210
+>    bus_remove_device+0xea/0x180
+>    device_del+0x152/0x460
+>    platform_device_del+0x20/0x80
+>    platform_device_unregister+0xd/0x30
+>    gpio_sim_device_deactivate+0x26/0x80
+>    gpio_sim_device_config_live_store+0x254/0x3e0
+>    configfs_write_iter+0xc2/0x130
+>    vfs_write+0x252/0x530
+>    ksys_write+0x6c/0xe0
+>    do_syscall_64+0x109/0x5d0
+>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> cleanup_srcu_struct() then flushes the callbacks itself, so the label is
+> still freed, but the warning is what the comment above that check says
+> srcu_barrier() is for. Use it.
+> 
+> A gpio-sim chip with one hogged line, set live and back in a loop, warns
+> within 4 to 60 cycles in three runs on a 4-CPU guest booted with
+> srcutree.convert_to_big=1; with this change, three runs of 1000 cycles
+> pass. With the default srcutree parameters the srcu_struct only goes
+> per-CPU under contention and the loop did not hit it in 3000 cycles; the
+> warning was first seen that way, once, on a KCSAN arm64 guest unbinding
+> a USB-attached GPIO controller whose firmware node hogs a line, and
+> since then on real hardware with v7.3-rc5 arm64 KCSAN kernels, when
+> unbinding a USB GPIO expander whose driver is not yet upstream, built
+> both as an out-of-tree module and into the kernel.
+> 
+> Fixes: a86d27693066 ("gpiolib: fix the speed of descriptor label setting with SRCU")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
 
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
----
- .../selftests/bpf/prog_tests/tailcalls.c      | 64 +++++++++++++++++++
- 1 file changed, 64 insertions(+)
+From an SRCU viewpoint:
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/tailcalls.c b/tools/testing/selftests/bpf/prog_tests/tailcalls.c
-index 88d223110ecd..3b122520711b 100644
---- a/tools/testing/selftests/bpf/prog_tests/tailcalls.c
-+++ b/tools/testing/selftests/bpf/prog_tests/tailcalls.c
-@@ -16,7 +16,9 @@
- #include "tailcall_sleepable.skel.h"
- #include "tailcall_callback.skel.h"
- #include "tailcall_bpf2bpf2.skel.h"
-+#include "tailcall_bpf2bpf4.skel.h"
- #include "tailcall_bpf2bpf_fexit.skel.h"
-+#include "tracing_multi_bpf.skel.h"
- 
- /* test_tailcall_1 checks basic functionality by patching multiple locations
-  * in a single program for a single tail call slot with nop->jmp, jmp->nop
-@@ -2065,6 +2067,66 @@ static void test_tailcall_large_stack(void)
- 	tailcall_large_stack__destroy(skel);
- }
- 
-+/*
-+ * Verify that a tail call from a BPF subprog works when the subprog is
-+ * traced by fentry.multi.
-+ */
-+static void test_tailcall_bpf2bpf_fentry_multi(void)
-+{
-+	static const char *funcs[] = { "subprog_tail_2" };
-+	struct tracing_multi_bpf *skel_tracing = NULL;
-+	LIBBPF_OPTS(bpf_tracing_multi_opts, opts);
-+	struct tailcall_bpf2bpf4 *skel_tc;
-+	struct bpf_link *link = NULL;
-+	int fds[ARRAY_SIZE(funcs)];
-+	char buff[128] = {};
-+	int err, key;
-+	LIBBPF_OPTS(bpf_test_run_opts, topts,
-+		.data_in = buff,
-+		.data_size_in = sizeof(buff),
-+		.repeat = 1,
-+	);
-+
-+	skel_tc = tailcall_bpf2bpf4__open_and_load();
-+	if (!ASSERT_OK_PTR(skel_tc, "tailcall_bpf2bpf4__open_and_load"))
-+		return;
-+
-+	skel_tracing = tracing_multi_bpf__open_and_load();
-+	if (!ASSERT_OK_PTR(skel_tracing, "tracing_multi_bpf__open_and_load"))
-+		goto out;
-+
-+	key = 0;
-+	fds[0] = bpf_program__fd(skel_tc->progs.classifier_2);
-+	err = bpf_map_update_elem(bpf_map__fd(skel_tc->maps.jmp_table), &key, &fds[0], BPF_ANY);
-+	if (!ASSERT_OK(err, "bpf_map_update_elem"))
-+		goto out;
-+
-+	key = 2;
-+	err = bpf_map_update_elem(bpf_map__fd(skel_tc->maps.jmp_table), &key, &fds[0], BPF_ANY);
-+	if (!ASSERT_OK(err, "bpf_map_update_elem_loop"))
-+		goto out;
-+
-+	opts.fds = fds;
-+	opts.funcs = funcs;
-+	opts.cnt = ARRAY_SIZE(fds);
-+	link = bpf_program__attach_tracing_multi(skel_tracing->progs.test_fentry, NULL, &opts);
-+	if (!ASSERT_OK_PTR(link, "bpf_program__attach_tracing_multi"))
-+		goto out;
-+
-+	err = bpf_prog_test_run_opts(bpf_program__fd(skel_tc->progs.entry), &topts);
-+	if (!ASSERT_OK(err, "bpf_prog_test_run_opts"))
-+		goto out;
-+
-+	ASSERT_EQ(topts.retval, sizeof(buff) * 3, "retval");
-+	ASSERT_EQ(skel_tc->bss->count, 33, "count");
-+	ASSERT_EQ(skel_tracing->bss->test_result_fentry, 33, "fentry.multi count");
-+
-+out:
-+	bpf_link__destroy(link);
-+	tracing_multi_bpf__destroy(skel_tracing);
-+	tailcall_bpf2bpf4__destroy(skel_tc);
-+}
-+
- void test_tailcalls(void)
- {
- 	if (test__start_subtest("tailcall_1"))
-@@ -2138,4 +2200,6 @@ void test_tailcalls(void)
- 		test_tailcall_bpf2bpf_fexit_links();
- 	if (test__start_subtest("tailcall_large_stack"))
- 		test_tailcall_large_stack();
-+	if (test__start_subtest("tailcall_bpf2bpf_fentry_multi"))
-+		test_tailcall_bpf2bpf_fentry_multi();
- }
--- 
-2.55.0
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
 
+In this, I am assuming that the comment is correct, and that we only
+need to wait for pending frees, not readers.
+
+							Thanx, Paul
+
+> ---
+>  drivers/gpio/gpiolib.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+> index 772c6f04f489..1984f3416437 100644
+> --- a/drivers/gpio/gpiolib.c
+> +++ b/drivers/gpio/gpiolib.c
+> @@ -895,7 +895,7 @@ static void gpiodev_release(struct device *dev)
+>  	struct gpio_device *gdev = to_gpio_device(dev);
+>  
+>  	/* Call pending kfree()s for descriptor labels. */
+> -	synchronize_srcu(&gdev->desc_srcu);
+> +	srcu_barrier(&gdev->desc_srcu);
+>  	cleanup_srcu_struct(&gdev->desc_srcu);
+>  
+>  	ida_free(&gpio_ida, gdev->id);
+> -- 
+> 2.43.0
+> 
