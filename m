@@ -1,126 +1,119 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978D749504C
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:04:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791817449; cv=none; b=ZAa+2fV6Sowcv2b6TlerEWq9yhMgv/FowwBaBxHFd2ai0bWTkG45y4ffqFxBe2IQ3hiP1ATFWmzCZy9yoY68jDUB2mMkve1iTd9o9w9w3uBe1GU1eZGnp5osfePk2aPNDPOPBUm9NDx2VuOVSBbErIxAnEamYjRr2qNq8kkvjR0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791817449; c=relaxed/simple;
-	bh=H9V8PNkfJ5sW8/jSQUrOuBSl7Cz74i70YCcDktWR95I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pI9vBj2wD6qdQg4zzDMIAZ+00GEdkoxxPxxr4ucRTJruGxJiEZsBOFBnTLTjbQqfcGO5R4H/+9CKlOSGqzY/GgnpppC3SG9I3vCbG377JnqzgtVz35Ybl/6SwMv9axZfUay3my5KBqEY+t9xu2BLbEuO4h1f8iKsm2TBR67IMm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GtDQ8gBs; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743BB496D3D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:04:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791817455; cv=pass; b=NgJvbQbejWyTsouuENflPJgnQqaQjC0PrqXsqH7wYeWRMHXYUVM/1Nrqcyjnlj5EGEEOU5l+POMt7lZYDdRjyZSfadCcCOo5wO/OQcQpgLj9XQcYFg1tG77muakicIW7U6SsBh8gVf/bq7yD4JcLR7tRNzF2k2kmtVGqDdEfDKU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791817455; c=relaxed/simple;
+	bh=ct2YHHtAR1NATrFfSOMu/0HJEb3d5oH3R82Bkhe1BMs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BrJO2JywRsBTv+wutKXF4IcS4PlkBfT1YiF5CDWe/nzESSb7voK4bo1W013mmd6Oj9JdAIAcWuMkAP7EYRomK6vdnbRnnbg5KOxqSS+bmPTBPywzxO3CP2GU8dhG0hLWdJqXPPwDj3bhWCq5RRK6yiahLZ3npHKA1d/jsfNlkW0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HKw0COGX; arc=pass smtp.client-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GtDQ8gBs"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a166199820so12703855e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:04:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HKw0COGX"
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-141395927feso3522143c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:04:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791817452; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VaaaIqWwxkgTBUzTohzBYuN5vqtFjW4kZ1vqMPN/2PMNJrjigsQOZUsS4c7ZtjUMMp
+         bgf1hFe8IB2Z0LVQd3ZGf0nDaeryYHXC516+kZFl8eXDLBSWTbO5pgKY/0i7sWrL9hiQ
+         3i08Os8ZDMnIFrjFsp/p7Wys9m3rPfQdbKsgkx558VgtoMh9H83FmczEs8VviYX/nQmw
+         EgLPHuTNbQQsrZAXOWkBI0CZwu235IjKGQ7m/bZp1oGq1tssiurCEEKmS/1/KCOOrrbr
+         dzJgpJA9OGXxPp2GqBiq4S+F53DndqStWuzRHEVGhghD2ny315JwJxnNgzoBB1kWTyMH
+         Qe1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=4QUJm2y7YWLZYYR5r6CyKB7wSH0Mitj4c5bG4qa2oPc=;
+        fh=gukKv2ZBRtjQIwchGkb8RLBcG8R9C9bop3DNM+jngwc=;
+        b=EZqn3bXiEYIrFF2fA2RhHDGspbbYw5sLcoRqXV9wauSTBhjhnrHM+dqJcCbA0kSWOL
+         A94KJfZUGXVECj9TcgbjjnbJ0Wq0pbfXzsbRfoMAZCKbWigA3FnBBnQZwWAycMWeecvN
+         yjuvhQD8ylC8cxsIdhRtZBuamukOySmUjfR83Qa+3bBh7DK31TonN/ScJFI619OEjb27
+         28Bq+To0M/AtXxJcWA9k3W3R5Q47XAfMa/3i1wEYxYkaMlydwONJCPS4jk18Y8Jh0mZy
+         Pnb/vo2CpQHL9YNAxbC5iQqaqVsIFZKKO3VaqgASaj6UB/ZJ4hOs0HNYqM8oPBtyHk2A
+         2l/Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791817446; x=1792422246; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h/nvV2cklHSmRo+LXEn+M2vsUBu+RuTvY4bWwWcFK2s=;
-        b=GtDQ8gBsJ9gD9Re77yG6s3DvyZgNclTzIa6ItH9WeA9o9ZcDq6vfkQC8/oyW9Kefjp
-         rKJgSf1T8bd6zFvorCZd0NOgalkyDCwm6LWu/m45y/sWtDlZ4jUrpYaoZTXxxobQ+qog
-         n+pOYUheJZCTzrRpVuBuQ5h2B8ZzAWczpqns7hJbO/HM1tPsFd1+XXkZlC+SEBpFXCWk
-         1GpFog40Q3hInVzpZj31jhnuzKtaWRnyyFvTvooe5256pg0qw3a808MAEdfN7N8DYeoi
-         MGCBphO2+lCvg4vv6yfxsvrKGIkvV8IlGep1oLyiDnulXVRF6AZyrqg3OqieXIf+P3Be
-         c+Ww==
+        d=google.com; s=20251104; t=1791817452; x=1792422252; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4QUJm2y7YWLZYYR5r6CyKB7wSH0Mitj4c5bG4qa2oPc=;
+        b=HKw0COGX9Ot2fd1g2rSqSxW9WorjwKzFbnZBPRmuYheEoiNNqEeriMmw16r4lieTfb
+         Sal9x/w7lL7N+4n1RjZM4lfzI1mTypDafCvVTrmlz9u5fztU64oxznlBDZk9t9H6+NPa
+         jjDWxMeqWrT9i3wksytlwMPNdzo25VCkqTHq2xFzBLeHthnCG4jY0M2+rtTvCiK9T/KQ
+         17+OOu4pmHQZa4qCYCiEwlFCQH5Oz5mdAOCUdi5RuvuQTigFNKygGiDIh3QMpyULNw3N
+         JeKmUAOjn6qiEL+8h6CXLKoRJXjzdp3mqCzhPYnsSF4BcacUqlOUuftE31fqu+/WUOKT
+         N3Ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791817446; x=1792422246;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h/nvV2cklHSmRo+LXEn+M2vsUBu+RuTvY4bWwWcFK2s=;
-        b=0r6wfaomxP55ZlxaULaFlAUmlkUUwPnp5ibSKgzhsd2KiluzjRHObn3ptFjLFYm8Og
-         n1e+E6/sl4EYKyca4wrKC8XYJOodvZpNus8h2wnUmyoDMMJ0L16TLmkPopAwJFnXuIuk
-         /RcpGY0GWdDWrY7LzrJMcELx1vY/jVikVOvrLij4ps2Y7KVezXlDgEDLuVVAy2em809d
-         SL+dpi9+gz6NkEOwjA8jNyPWJLVzUfXkNis7kaly/skt+sYhFslyP/c8Q7qx3oMz8aN2
-         FS/iKrjGTBt7d+mAwPDfdfhbwUoVxqmBXq4vFC5mHP/HrqSDnPZz7Bp/WeCsiQuzdxOJ
-         liwg==
-X-Forwarded-Encrypted: i=1; AKwUvBy7fswzz9Ci+w6m7JeFJmBk9mSfiHD17i8PAbZAImuPr1ut4/2mIKabciVqREbhtuFUncPiHfll5S0+cSE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLuxLg6f+2fnJJrB2w5jnuIjfTABW9Z+/mZ5eumIyrwW8Xz6s1P
-	DnAMhA9P/yIIbcLOF4BSjpcs9nRQFqrNBXg+Kx925wHAGvGhxxgQ8hXK
-X-Gm-Gg: AYBFou1SnQbgbejzYNJk8TwpMHQvYrqdaIMOhob5MfHlH0G3J37z2bvsaoymryCBzPn
-	bUZYPfUc1LjhoAplo4h5ZW2C4LpHHsiegnFGbdQ3hF/27eULkUN4QEnsvWXVQ84Fi5SWPjnAQOw
-	D7N4vAstxpJ/yRuE5OCi4AoMxkrqCjBMUgQMo9m9kRDUsIKWfmN/20udfHVzfLU3lONr9wCfX+q
-	gzTQPBawHPc8VTFT2QSw0fmKoyMZzuVHZk6B+7rnPROp/m81VLZnQvc5awQ0LP7XQpBOr612LiY
-	EJdsYROH7dHvjoUcJEq5t6HsrD1XJl2tQrwcwaWh3OU1PrIYVdAngc8bozr1h1QMQ6GHXOl4BpY
-	htYo3bkHDWTlXt7/qEeOploujjyDerS/ZRARAuEfTiE6IYjFBcnhZnvIbyWjKFcDa0Y/YCgeslu
-	Zn7mhDFtksOySymxd+KbtD4EKicnJl5Sud/00wNHOhqFOIZx0j29xpVcohSSbaH3bf1cpHJTS3B
-	ke0m1pERVGq55LtwX0FeiLjGNxHpXPjksth1Y3q
-X-Received: by 2002:a05:600c:8b02:b0:4a1:6d2d:d8bb with SMTP id 5b1f17b1804b1-4a18e4a00dfmr199483155e9.12.1791817445597;
-        Mon, 12 Oct 2026 08:04:05 -0700 (PDT)
-Received: from omarchy-pc.home ([2a02:1210:1420:2d00:f162:21b0:b215:be1d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c198134sm294214765e9.15.2026.10.12.08.04.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 08:04:03 -0700 (PDT)
-From: Gabor Tanz <gabor.tanz@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] HID: quirks: Always poll the Anne Pro 2 with product ID a292
-Date: Mon, 12 Oct 2026 17:03:57 +0200
-Message-ID: <20261012150357.685671-1-gabor.tanz@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1791817452; x=1792422252;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4QUJm2y7YWLZYYR5r6CyKB7wSH0Mitj4c5bG4qa2oPc=;
+        b=QfAbhrYVEnVfwU3kaTHIHFCLxblzRKH+I02lLRKLWn6t2dIeh7+YKTrjiloJKTNHhU
+         5dUDbdY+KQoMztKdb0YgOIxY23qNPyiZjxUmBDxHRIlwD95+FkXWQbATcgoPMk5Ldfy7
+         bfd/M4/4E7rbV1X0Ocbg7tFUjdQ5IUq4AZx/ChOdseIuKeiK6QdrDPTDpDE+ZfM2HtjX
+         TSn1tRHnjiQyLOdGVSuZBHQThPMqnllditCBZuMKOOvNZn+qK7mIsicZsrZO0HbeSwWb
+         w6HuJVY9bDQsu9uJ4iYiXT2WtuAUrKRqR1yMYC2E9b3+vEzjUs5JXbNSzgaLKyBJUdd0
+         FQ4w==
+X-Forwarded-Encrypted: i=1; AKwUvBykp8kX7HgAzHLtPj4jbSsg97RV9hjnDCpDW4x/oVuVBzVAGKJ5rWz2IavWRbKfPDQb3rT+0auoSBI3yVo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIcQ/8eukpubayAxZycYIJAVTx7U56kWKZ/su9W1E4bHE1PPhub
+	yu46dwdcIGtsQomUByUajUHhwYI+f6+ZqXcz6UuDX2jI40hv3s6zXLcUew9UOn8mktACtyZf5ff
+	+Dwd0G9BGgwoR0Akfj2K52Rf6h0Al28lkVlMJTnp5
+X-Gm-Gg: AYBFou07GsKXEkLcq6z3Q6Q82asdYsbeErAWkPVJho4537B+D07khYLjJbnAwXfklZx
+	S4NMLHelYypLe99ps6e/FlefTyu9A/80JUSEdYxveKh0taNc+1WoXWNBFHTpN7d1w9Quy9Qg6Yr
+	J7rNlfNQH+mnZr0e5jyoAlCMxaZofBOfd3WJVJHBrl/LTVZIkeeXtMpFXQjQj4GNcyv2aSWwgkO
+	Mzqh8CaqtdzmrKyj+T6Myyor75TL/WGs0hPDXHOocCnr6tIVTeJfrIy5Pl49oqlabrl+wDz6DyD
+	CI1Ro2TORrUV5XPR2K/FLQYkGNrJrWsEE+Mc1ux26RvTy6fsEc/YX4RzlcqNLfEAp2X5hmnN/Jd
+	Yu9bDNcvNqg==
+X-Received: by 2002:a05:7022:3f0c:b0:168:3243:c91a with SMTP id
+ a92af1059eb24-16a5dbfde08mr14809417c88.13.1791817451365; Mon, 12 Oct 2026
+ 08:04:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261012134159.912183-1-elver@google.com> <20261012134159.912183-2-elver@google.com>
+In-Reply-To: <20261012134159.912183-2-elver@google.com>
+From: Alexander Potapenko <glider@google.com>
+Date: Mon, 12 Oct 2026 17:03:34 +0200
+X-Gm-Features: AclHuK88gg1MNQf0tKC3CQVs4jdrfXCck0NjLOHXH7T1xUhHlrbtWu0XiGM6pmY
+Message-ID: <CAG_fn=Umb8c1yjp-wEPPFSNXfNdr5UHb5BBd4tV=iwNSehCxxQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] rust: kcsan: add KUnit test for data race detection
+To: Marco Elver <elver@google.com>
+Cc: Boqun Feng <boqun.feng@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Asahi Lina <lina+kernel@asahilina.net>, 
+	Yury Norov <ynorov@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
+	Joel Fernandes <joelagnelf@nvidia.com>, workflows@vger.kernel.org, 
+	linux-doc@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-The wired Anne Pro 2 identifying as 04d9:a292 stops delivering keyboard
-input after a period of inactivity. Unplugging and reconnecting the
-keyboard restores input.
+>  rust/bindings/bindings_helper.h |   1 +
+>  rust/kernel/Kconfig.test        |  11 +++
+>  rust/kernel/kcsan_test.rs       | 120 ++++++++++++++++++++++++++++++++
+>  rust/kernel/lib.rs              |   2 +
+>  5 files changed, 135 insertions(+)
+>  create mode 100644 rust/kernel/kcsan_test.rs
 
-Keeping ObinsKit running prevents the problem. A read-only userspace
-reader that keeps USB HID interface 1 open also prevents it, as does
-usbhid.quirks=0x04d9:0xa292:0x00000400 without either application running.
-
-Commit ca28aff0e1dc ("HID: quirks: Always poll Obins Anne Pro 2
-keyboard") added HID_QUIRK_ALWAYS_POLL for product ID a293.
-The variant identifying as 04d9:a292 exhibits the same symptom.
-Apply the quirk to this product ID as well.
-
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Gabor Tanz <gabor.tanz@gmail.com>
----
- drivers/hid/hid-ids.h    | 1 +
- drivers/hid/hid-quirks.c | 1 +
- 2 files changed, 2 insertions(+)
-
-diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
-index cb7f16d75..3b19b742d 100644
---- a/drivers/hid/hid-ids.h
-+++ b/drivers/hid/hid-ids.h
-@@ -747,6 +747,7 @@
- #define USB_DEVICE_ID_HOLTEK_ALT_MOUSE_A081	0xa081
- #define USB_DEVICE_ID_HOLTEK_ALT_MOUSE_A0C2	0xa0c2
- #define USB_DEVICE_ID_HOLTEK_ALT_KEYBOARD_A096	0xa096
-+#define USB_DEVICE_ID_HOLTEK_ALT_KEYBOARD_A292	0xa292
- #define USB_DEVICE_ID_HOLTEK_ALT_KEYBOARD_A293	0xa293
- 
- #define USB_VENDOR_ID_IMATION		0x0718
-diff --git a/drivers/hid/hid-quirks.c b/drivers/hid/hid-quirks.c
-index 96a36c5ba..d15a587f1 100644
---- a/drivers/hid/hid-quirks.c
-+++ b/drivers/hid/hid-quirks.c
-@@ -102,6 +102,7 @@ static const struct hid_device_id hid_quirks[] = {
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_HAPP, USB_DEVICE_ID_UGCI_FIGHTING), HID_QUIRK_BADPAD | HID_QUIRK_MULTI_INPUT },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_HAPP, USB_DEVICE_ID_UGCI_FLYING), HID_QUIRK_BADPAD | HID_QUIRK_MULTI_INPUT },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_HOLTEK_ALT, USB_DEVICE_ID_HOLTEK_ALT_KEYBOARD_A096), HID_QUIRK_NO_INIT_REPORTS },
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_HOLTEK_ALT, USB_DEVICE_ID_HOLTEK_ALT_KEYBOARD_A292), HID_QUIRK_ALWAYS_POLL },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_HOLTEK_ALT, USB_DEVICE_ID_HOLTEK_ALT_KEYBOARD_A293), HID_QUIRK_ALWAYS_POLL },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_HP, USB_PRODUCT_ID_HP_LOGITECH_OEM_USB_OPTICAL_MOUSE_0A4A), HID_QUIRK_ALWAYS_POLL },
- 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_HP, USB_PRODUCT_ID_HP_ELITE_PRESENTER_MOUSE_464A), HID_QUIRK_MULTI_INPUT },
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
--- 
-2.55.0
-
+FWIW `make rustfmtcheck` fails for me on kcsan_test.rs
