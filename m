@@ -1,192 +1,146 @@
-Received: from mta0.migadu.com (out-61.mta0.migadu.com [91.218.175.61])
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F98F44F55C
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:17:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.61
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791793074; cv=none; b=jLx0EGFMloIYXO1OyT7WdZDhj0Y1NTRwdIf8mZlcEvzz8mX/BB6OAD0hAapTsl2lXRXc1yVJZfoxKc+E5kK7Ky5l2tLr3MxQIE8CobhsXy0GQnmzQbfK66PrUTG+ZJurQYv180Fc0QeGXbz6ybXDVlPrDYjwfvN/cI+SaDRR6Cg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791793074; c=relaxed/simple;
-	bh=oiQs+XaAPXnhj3q2rBXJEJ5pvTTgbC4S2aepl5uzLe4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u1HzeZdMrYmvxiCrLLLIhaig+VRMLN118e9DkC4zCHPFtORXAEwchH/aIAdRj8Ns4XpSdfWoeMJJoaGC/j3VoJknNkpQll2mgc37qzoYlbdqLADVxBYbQrKQrP1o9/SlmVE1q5nuea7DU1RE/fDSk/O1bwkupBaWzX/QKVAqEI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=r9Yw1yA4; arc=none smtp.client-ip=91.218.175.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 983684477F1
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:17:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791793079; cv=pass; b=aivJDZBd3HQ6nzsZ3+hiz2vN+EawN19RMnVq52PNyfGdJOIgswvwGyzKJZabv1h8b2SUECBGO7+KOSx7N1FXiVT/zycJM92T+1QffEWF4Rl/qbnBoCB7QnDOA7Uap7qcYXAXD+zesZkhHWJz9IIUfw7rK3hcXlcdzwPBV3Oopec=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791793079; c=relaxed/simple;
+	bh=1GLLejLzmf38Sqpzl/J1qn5yJLV3HZP8rb7jIFgq2Vc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qBbzsGIjrjwlULZwgHqK6umszQwANUOOWJ0soKMnSdkk6XFKSvC7ra1x4l+3M0Eh7DZW0Gpd/m6rv5MeQ5XxXOwrqdg9IqZ6f/LbSksI5VwqQytdWr7ClQeMTrOioB8DKSXjb7si4aGT/mBzuGSoJngr0aBoouh/3Gw4eN1Qwgo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=shopee.com; spf=pass smtp.mailfrom=shopee.com; dkim=pass (2048-bit key) header.d=shopee.com header.i=@shopee.com header.b=ZDd4GRkQ; arc=pass smtp.client-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=shopee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shopee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="r9Yw1yA4"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oiQs+XaAPXnhj3q2rBXJEJ5pvTTgbC4S2aepl5uzLe4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791793069; v=1; x=1792397869;
- b=r9Yw1yA480UQrT66imwaLswS7CZn4oX+fMt7jmieYKMuZU4LQfE6oIIP5C7UCcXkKcDfehT8
- eM10ev1x6JvfVP7/6/Jh8lDIFp3VxXpSVvFudxcXJc30IS+bKgxBOPdB7RHAXQ4xwDaPteHRUDn
- YO0wSWfo61PmlygbqCjc0ZCc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 108c7064bb8ec50c;
-	Mon, 12 Oct 2026 08:17:49 +0000
-X-Mizu-Trace-ID: 108c7064bb8ec50c
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 12 Oct 2026 16:17:41 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	David Ahern <dsahern@kernel.org>, Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
-	Justin Iurman <justin.iurman@gmail.com>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	Ahmed Abdelsalam <ahabdels@cisco.com>,
-	Stefano Salsano <stefano.salsano@uniroma2.it>
-Subject: Re: [PATCH net-next 3/5] seg6: apply the PSP flavor together with
- NEXT-C-SID in SRv6 End
-Message-ID: <asyXpWXMeKnPw9U6@fedora>
-References: <20261011192310.55-1-andrea.mayer@uniroma2.it>
- <20261011192310.55-4-andrea.mayer@uniroma2.it>
+	dkim=pass (2048-bit key) header.d=shopee.com header.i=@shopee.com header.b="ZDd4GRkQ"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33c2520ad38so3647912eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:17:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791793078; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Psvvjjlx+eUiZGekj6rdZIwpMCyyVkFWyowhVnsKQ4vtYP4MYsQ3kJ0eTKOYc61PaT
+         gO/0cE4dYX2eSPHI314kzOuxMDaRcQuh0o6wOR4R8sKd52juFKLykmSdtmlcQA712A5D
+         PsMeOn5cAtW816G2JXDCNE2o21Ybw3Gj3AbC9XVfcoQ1YQZCmwyXEoGaAH8j6GUpZm/d
+         vQjgxqDtIR8jiCcRjsK7B1ZbQRXze6OnX39219fkCVJCd5H7a8pN1EK59AhOkBhewlf7
+         v+kn6z7hpEP+SJKdXU4Q/+xJd9Yaaz2zn3rXq7PWnR2paPoP88cxVzt5gkhFksPmT3xx
+         czSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=9Dd4TAZB19XGjWX3ZomXrsadjEIedrZeOBjDL75jfIE=;
+        fh=6Vybm5cYq65ziCeu5yI7TtzVrMmXqbebnN5/+PIdXVE=;
+        b=e8v/Hlq/4rxVZCtuvkgnntcHr1eRiIltHfx1F33RMV+1T4gqNeEIxPAlvplK6d6sRL
+         i2BfbsQROqPCKDr/E7CQUIDlijmprbcNB7UpWjsifDNxarpGVfe7rTjKZUunDNtRIa7W
+         SnHB2tpyIvhk9wF7UzgYF7YMBcntUjMWyatMDj1MZU6ofkbtDs77Wfqp39wuksX95O+b
+         Y1ti+87k6DwVo6d5wh8x3Ynm+f6K4iYFgOHe3V5rbPpeD4c8TcREHviUsU90z1WckK7y
+         vn9jgwEHXeLOUUv7cG2SmvhjqfcvkW1RdVEEW8ThNPOvzOMzwl5YDShMjOvmgIFtc+LD
+         wLQg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=shopee.com; s=shopee.com; t=1791793078; x=1792397878; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9Dd4TAZB19XGjWX3ZomXrsadjEIedrZeOBjDL75jfIE=;
+        b=ZDd4GRkQlr+cV2bZlli0MKa/uFLU2ghsGslO1Hg2wxhjtJjoK+re0KjPo6MeivTaVv
+         8RWOEGa7LS4jHPM990Ls5MHaK1OldubIiPigS47fRYHIwWf+imiS9biO58axwmZJoOob
+         4t6dXZ5Bc1+RTWUUXl4zrQj0h2Ql2s2/t5GYcgok+Z1g78tDU33KD57ynQADbVV4+3Sf
+         NzPSZ/mfCOwGhKiOTBTa5wHmE8ztD6WiRwXztk/dyptbzTvDN7qHNO16tvK0a5eHFv4P
+         Cgx6/MdGhkmX8bga6Hw19GVes9xX7OMwdxzY+AbP1ruj2P8sXsiH3nw2LAu8x3DqtRgI
+         OOKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791793078; x=1792397878;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9Dd4TAZB19XGjWX3ZomXrsadjEIedrZeOBjDL75jfIE=;
+        b=C4ZD41ggKtFIJvz268LGxp6RodZ7I6RLmUT/yHALir7D4oxvJT4k1747+mX4H4LFf9
+         QNU/GfDH5xxaTAWYFHvuwSyBqTDXM6DiTZfTxMIgVGhkrGO47MYosxeScbjK9g7PCkLz
+         Hv+a2n4bbNHMJd5RnRNKFnLDV3B/KMo4uj3OXfNZqGn32F1JiA7F5BdEmk6ja2u0Jf/V
+         f41SP8UvWiAaWQxavsSSQyw4V30+G4F16tZn/jdPlVJHyBU4zMIU1CjblX2mGi3QH2cF
+         yy0Yn6vSmZTwmsU7ieZnPv6XN2mqcBdw3G+TOme+5J9gt5feRtVYiJSkskw3EeGdf5+M
+         nARg==
+X-Forwarded-Encrypted: i=1; AKwUvBxeg45c+U23QgxoTNQAU831Hu2QPHLaYMaAYh54XIYiUXcyl8N0g9nlWCqpHc2PjzKgXtCy9A4JyFLvJps=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJGCJ7YKeCb7GdZCwherjcCVvc9hMvWnJ6adXviPHhvX22k9AMJ
+	5ojNjPsQgrE/MF74dbiXFVcWMebdoOllezpm274OGr+5ogC/15wIUmgtfju5nDIi4iBWebOduUx
+	q/kj8YrUMCsUFSIhHfiBETZ+GXCfhgz/tiH1+IPT+NA==
+X-Gm-Gg: AYBFou3ur/X9DxxwXBOqXTo5xGpAljkgzgtpMJeiJ7QtI32DEpHQn5vBboiIWUODEKx
+	1UHk+/uisTHEMfKclgfJk1D4c+TdXH1sDU2d87kqOkHebeBsdFNWjQ7epeAkR9B0IL3+Bj/TQc3
+	2Oy9KNP6VAC8bQ0ya6kF/pHFUBIJX8TLjr4sB8tbP1jWS/xafv8Gssy3/zVMKnHsIKe7aUoytKa
+	urOxclT4SOf1X0wjeGUKvTQnphil3i4LGw0wPZlEZN7NV+Tkl6KhDGV/ZWBhqJQWIjt1STORa/6
+	/UteDBjBva4bwYSYEGPtBXgeJYO9SZGRUzfsTOWsFXolzt6dtvkIPes=
+X-Received: by 2002:a05:701b:4305:b0:149:d501:b990 with SMTP id
+ a92af1059eb24-16a5f3f191dmr9983232c88.25.1791793077611; Mon, 12 Oct 2026
+ 01:17:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011192310.55-4-andrea.mayer@uniroma2.it>
+References: <20260911032905.63683-1-mingyu.he@shopee.com> <aqRXqcynCx88D2QK@linux.dev>
+In-Reply-To: <aqRXqcynCx88D2QK@linux.dev>
+From: Mingyu He <mingyu.he@shopee.com>
+Date: Mon, 12 Oct 2026 16:17:46 +0800
+X-Gm-Features: AclHuK-_Zx2LzZN02tzISzVWGha4IvMdOMWo2JFUzwRP2aZsF1MCrxc-_yMLwpY
+Message-ID: <CAAoBcuS=sqOAPFr9Gda9aTwuCMHMPzBMEee8qvPNHtNxrRWKuw@mail.gmail.com>
+Subject: Re: [PATCH] memcg: keep propagating stats updates to ancestors
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
+	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Yosry Ahmed <yosry@kernel.org>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	littleswimmingwhale@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Oct 11, 2026 at 09:23:08PM +0200, Andrea Mayer wrote:
-> Since commit bdf3c0b9c10b ("seg6: add PSP flavor support for SRv6 End
-> behavior"), an SRv6 End route can be set up with both the NEXT-C-SID and
-> the PSP flavors, e.g.:
-> 
->   ip -6 route add fcbb:0:100::/48 encap seg6local action End \
->           flavors next-csid,psp lblen 32 nflen 16 dev dum0
-> 
-> In RFC 9800, the NEXT-C-SID flavor (NEXT-CSID in the RFC) changes the
-> End processing only when the Argument is not zero [1]. With a zero
-> Argument (i.e. when the IPv6 DA carries no further C-SID), End is
-> processed as in RFC 8986, and the PSP flavor (when set) applies
-> unchanged [2]. If the packet arrives with Segments Left 1, PSP must
-> then remove the SRH.
-> 
-> However, on a route with both the NEXT-C-SID and PSP flavors,
-> input_action_end() always uses the NEXT-C-SID processing. The
-> NEXT-C-SID processing handles a packet with a zero Argument as End
-> without flavors, ignoring PSP. Therefore, if this packet arrives with
-> Segments Left 1, the SRH is not removed.
-> 
-> Fix this by using the NEXT-C-SID processing only when the Argument is
-> not zero or the route has no RFC 8986 flavor. Otherwise, the packet is
-> processed as End with its RFC 8986 flavors, in end_flv8986_core(). With
-> a zero Argument and Segments Left 1, PSP now removes the SRH before the
-> packet is forwarded. If seg6_pop_srh() cannot remove the SRH, the packet
-> is dropped, as on a route with the PSP flavor alone.
-> 
-> Found by manual code inspection and reproduced in a VM without kernel
-> changes or error injection. A following commit adds tests for this case
-> to srv6_end_flavors_test.sh. The tests reproduce the issue: they fail
-> without this change and pass with it.
-> 
-> [1] - https://datatracker.ietf.org/doc/html/rfc9800#section-4.1.1
-> [2] - https://datatracker.ietf.org/doc/html/rfc9800#section-4.1.7
-> 
-> Fixes: bdf3c0b9c10b ("seg6: add PSP flavor support for SRv6 End behavior")
-> Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-> ---
->  net/ipv6/seg6_local.c | 50 ++++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 47 insertions(+), 3 deletions(-)
-> 
-> diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-> index 26cd4facbe36..427d12fedfc3 100644
-> --- a/net/ipv6/seg6_local.c
-> +++ b/net/ipv6/seg6_local.c
-> @@ -551,6 +551,47 @@ static bool seg6_next_csid_enabled(__u32 fops)
->  	return fops & SEG6_F_LOCAL_FLV_NEXT_CSID;
->  }
->  
-> +static bool seg6_flv8986_enabled(__u32 fops)
-> +{
-> +	return fops & SEG6_LOCAL_FLV8986_SUPP_OPS;
-> +}
-> +
-> +/* check whether the NEXT-C-SID processing has to be used for the packet,
-> + * instead of the RFC8986 flavors set for the given SRv6 End* behavior
-> + * instance.
-> + *
-> + * This function returns:
-> + *  - true, when the packet has to go through the NEXT-C-SID processing;
-> + *  - false, when NEXT-C-SID is not configured or the packet has to be
-> + *    processed on the basis of the RFC8986 flavors.
-> + */
-> +static bool seg6_use_next_csid(struct sk_buff *skb,
-> +			       const struct seg6_flavors_info *finfo)
-> +{
-> +	const struct in6_addr *addr;
-> +	__u32 fops = finfo->flv_ops;
-> +
-> +	if (!seg6_next_csid_enabled(fops))
-> +		return false;
-> +
-> +	addr = &ipv6_hdr(skb)->daddr;
-> +
-> +	/* NEXT-C-SID and the RFC8986 flavors combine according to the
-> +	 * DA.Argument (see RFC9800, sections 4.1.1 and 4.1.7):
-> +	 *
-> +	 *       DA.Argument   RFC8986 flavors   processing
-> +	 *   (1) != 0          any               NEXT-C-SID only, SL unchanged
-> +	 *   (2) == 0          none              the behavior, e.g. End
-> +	 *   (3) == 0          one or more       the behavior with its flavors,
-> +	 *                                       e.g. End with PSP
-> +	 *
-> +	 * In (2), the packet still goes through the NEXT-C-SID processing,
-> +	 * which runs the behavior (e.g. End) when the DA.Argument is zero.
-> +	 */
-> +	return !seg6_flv8986_enabled(fops) ||
-> +	       !seg6_next_csid_is_arg_zero(addr, finfo);
+Hi Shakeel,
 
-nit: based on the comment, maybe we can change the order to
+  This came from a reproducible workload with a custom in-kernel consumer,
+  not a conjecture or an AI analysis. I uses aggregated file pages statistics to
+  decide whether reclamation is needed.
 
-	return !seg6_next_csid_is_arg_zero(addr, finfo) ||
-	       !seg6_flv8986_enabled(fops);
+  Tracing showed leaf stats_updates at 6656 while root stayed at 6144
+  (the threshold). Further updates stopped at the leaf, and root flush
+  requests were skipped.
+  In one reclamation check, memcg_page_state(leaf, NR_FILE_PAGES) returned
+  about 2.64 GiB from the aggregated statistics. In the same invocation,
+  a bpftrace probe sequentially summed the leaf's per-CPU NR_FILE_PAGES
+  counters and obtained about 6.58 GiB. This sum was not an atomic snapshot,
+  but it exposed a large discrepancy with the value used by the check.
 
-No need to change if there is no new version patch.
+  The periodic flush does restore progress. But issue for this consumer is
+  the missed reclamation decisions before that flush, not permanently lost
+  accounting.
 
-> +}
-> +
->  /* Processing of SRv6 End, End.X, and End.T behaviors can be extended through
->   * the flavors framework. These behaviors must report the subset of (flavor)
->   * operations they currently implement. In this way, if a user specifies a
-> @@ -865,7 +906,10 @@ static int end_flv8986_core(struct sk_buff *skb, struct seg6_local_lwt *slwt)
->  	if (srh && !seg6_hmac_validate_skb(skb, srh))
->  		goto drop;
->  #endif
-> -	flvmask = finfo->flv_ops;
-> +	/* NEXT-C-SID, when configured, has already been evaluated by the
-> +	 * caller. Only the RFC8986 flavors are left here.
-> +	 */
-> +	flvmask = finfo->flv_ops & ~SEG6_F_LOCAL_FLV_NEXT_CSID;
->  	if (unlikely(flvmask & ~SEG6_LOCAL_FLV8986_SUPP_OPS)) {
->  		pr_warn_once("seg6local: invalid RFC8986 flavors\n");
->  		goto drop;
-> @@ -919,8 +963,8 @@ static int input_action_end(struct sk_buff *skb, struct seg6_local_lwt *slwt)
->  	if (!fops)
->  		return input_action_end_core(skb, slwt);
->  
-> -	/* check for the presence of NEXT-C-SID since it applies first */
-> -	if (seg6_next_csid_enabled(fops))
-> +	/* NEXT-C-SID is evaluated first, when configured */
-> +	if (seg6_use_next_csid(skb, finfo))
->  		return end_next_csid_core(skb, slwt);
->  
->  	/* the specific processing function to be performed on the packet
-> -- 
-> 2.43.0
-> 
+  Regarding the BPF interface, the implementation in the tree I found is:
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+  __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+  {
+          mem_cgroup_flush_stats(memcg);
+  }
+  This bpf function still uses memcg_rstat_updated() benethe.
+  It doesn't handle the issue.
 
-Thanks
-Hangbin
+  I originally called mem_cgroup_flush_stats() before reading the counters.
+  After observing this issue, I switched the consumer to css_rstat_flush()
+  on the relevant subtree.
+
+  If waiting for the 2 seconds periodic flush is acceptable for this
+function even
+  under continued updates, I agree there is no need to change it.
+
+  However, the comment in memcg_rstat_updated() states:
+
+          If @memcg is already flushable then all its ancestors are
+          flushable as well
+
+  Concurrent counter resets can invalidate that assumption, as the trace
+  shows. If the early exit is retained as an acceptable trade-off, could
+  we update the comment to acknowledge this and the reliance on a later
+  flush to restore progress?
+
+  Thanks,
+  Runli
