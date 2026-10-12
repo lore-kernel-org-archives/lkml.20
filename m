@@ -1,118 +1,139 @@
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 160E713A258;
-	Mon, 12 Oct 2026 02:28:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B98352C54;
+	Mon, 12 Oct 2026 02:28:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791772085; cv=none; b=l87u6w40Weywi1MSXe1ELnTmaZ8SbWFIhstYlrIsc2IxLtxWHlliEqWvJdLq2P6qAgC02jOCQdLTC/AgKGer6DQz0jehgdhTvtrwuO5Wh1Ks3f5lRlIGYsALTanfkhCiOtN/PIy6WbJq9Dr7TkT4Y9/d+bwHLy2tLd5dXQzkrWc=
+	t=1791772116; cv=none; b=aCctzdux4Ib0bY/QFDgVECkDzEu0rOfauFeFeYok7mQ1DM9CCv5uxmOFLFPrylh1KdZQzGb6amxuDdD0x2nzIUyOhpT1g3yPdKqryary+4vWd2tGE1aAeXEqY0LjIozH+maCMcYs9U5uNLdH4JjFYk82RsqG+dNRjFjLMOfKcjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791772085; c=relaxed/simple;
-	bh=Oqwdrll2litYTk46snNda/ip8sTW7IigWnTE28krcMc=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
-	 In-Reply-To:Content-Type; b=kEFgvszjYEr3MC+/85JtxgtzuBRs2frNFPakfSSYvgDjOYGp/wCX5v4uHlB1PXxctP3HsjsnyB0tDrO2lWnZ8iCFpQl1hkAp8UDPnSURXmQRYZ99yOCHgn4fl1+riGkqNLS0gzDatPUCyfhtBnrldY1SHYfgNjRdiwAAXK9ThBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Tl5PVJf9; arc=none smtp.client-ip=113.46.200.218
+	s=arc-20240116; t=1791772116; c=relaxed/simple;
+	bh=zY9BHHSzwwt4KjZhmqV6rcmpH/tSF0SIHOYQi6OAukw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Qw3KtMyr17VnFMHg34n1AOJaAFwrrcB4/BOF8BjpLn0xvG6HknyLD16XmDa3LMPcrjKM3YHfeshfb7LlyEmslcTXooPKwSs69UzLjs9H+nNb8O+DOl3OdFcPXBxzTGFZEBORjB8nplnThetYfeG70/gpF9t4gKwh4CAvT4/w5tA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=JiTf0fEC; arc=none smtp.client-ip=211.75.126.72
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Tl5PVJf9"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=2Mc6VbMHK2g87/p5M/nYNGzz6kQ/wmXjSxwi+N0uiwc=;
-	b=Tl5PVJf9DImk2Ad3jqzV7/AmYEwvMO6x5wie5P8Hqa84S00PbhwIy/xtzHfW7bX0f7W+n3kvX
-	ZbUnJ5LQYJl5yQpd2V/mfB6bi9F7O65yWc2KmTw/n5YKoBeuEWrtWy9/kLgHHdnTXm6PgU7AW8Z
-	boFqfGuAP7HuSedptCr3U58=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4j31Jl3gr7zpStW;
-	Mon, 12 Oct 2026 10:15:19 +0800 (CST)
-Received: from kwepemr500012.china.huawei.com (unknown [7.202.195.23])
-	by mail.maildlp.com (Postfix) with ESMTPS id AB7D340579;
-	Mon, 12 Oct 2026 10:27:50 +0800 (CST)
-Received: from [100.103.109.54] (100.103.109.54) by
- kwepemr500012.china.huawei.com (7.202.195.23) with Microsoft SMTP Server
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="JiTf0fEC"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69C2SNWS03453551, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791772103; bh=VykuBYPEDqyCk7vwbC+T9UweQm2nZymqGpSEYUIZXcY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=JiTf0fECyHQfp2zT2pACYWAYRQ9RV1dF7kgkhJP3o/5NAfyxVPZoxREing7SOAvEh
+	 Q7dkhSyUm4z4h67rWu4VGdUr4CgW3GeI4Fgkdpx/pHhDeo+2CRXYm0c4UN/6ZuL4Vc
+	 KaOkmPGxOS1XOrGx9pG0OQQq3Kise5GizAuGveLeLgi2NL8Z3SKw9mhRj1gi2uhluu
+	 UCl/uoN7XGczCyrnIZvWgodyOWVy4UUQCTK3FVAWJFdq23NqO4YF8tLIGFGJ+xcFGa
+	 nQVvOSZ0rrGmy+rceJbP1D+DM7bRteBuxVTn9M8A5Ji/KnMTiq6K4pNlBX5ReSuwDo
+	 ww9fR5N9SOF0g==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69C2SNWS03453551
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 12 Oct 2026 10:28:23 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 12 Oct 2026 10:27:49 +0800
-Message-ID: <19776b93-8c12-4c08-8237-a9c08385b511@huawei.com>
-Date: Mon, 12 Oct 2026 10:27:48 +0800
+ 15.2.2562.49; Mon, 12 Oct 2026 10:28:29 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 10:28:28 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Mon, 12 Oct 2026 10:28:28 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Jeremy Fareau <jeremy.fareau@gmail.com>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Kalle Valo
+	<kvalo@kernel.org>, Brian Norris <briannorris@chromium.org>
+Subject: RE: [PATCH wireless 2/2] wifi: rtw88: restore the control frame
+ filter when the device is started
+Thread-Topic: [PATCH wireless 2/2] wifi: rtw88: restore the control frame
+ filter when the device is started
+Thread-Index: AQHdVjwePr+h2BpVHUOerR9jRc5abrb5MP0w
+Date: Mon, 12 Oct 2026 02:28:28 +0000
+Message-ID: <87ffcecc1de34fbfa1a59a4013ee29ed@realtek.com>
+References: <20261007091225.413-1-jeremy.fareau@gmail.com>
+ <20261007091225.413-3-jeremy.fareau@gmail.com>
+In-Reply-To: <20261007091225.413-3-jeremy.fareau@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PING] PCI: Fix procfs PCI config access issues
-From: duziming <duziming2@huawei.com>
-To: <bhelgaas@google.com>, <kwilczynski@kernel.org>
-CC: <rientjes@google.com>, <gregkh@suse.de>, <iweiny@kernel.org>,
-	<djbw@kernel.org>, <Jonathan.Cameron@huawei.com>,
-	<linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<liuyongqiang13@huawei.com>
-References: <20260730032438.1643450-1-duziming2@huawei.com>
- <14cd77b6-5541-4134-af52-62fb1d3664a0@huawei.com>
-In-Reply-To: <14cd77b6-5541-4134-af52-62fb1d3664a0@huawei.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemr500012.china.huawei.com (7.202.195.23)
 
+Jeremy Fareau <jeremy.fareau@gmail.com> wrote:
+> Commit ed51a86b787f ("wifi: rtw88: Enable receiving control frames in
+> monitor mode") writes REG_RXFLTMAP1 from configure_filter(),
 
-在 2026/8/17 14:22, duziming 写道:
->
-> 在 2026/7/30 11:24, Ziming Du 写道:
->> Hi,
->>
->> As suggested by Bjorn and Krzysztof, this series aligns the procfs PCI
->> configuration access implementation with its sysfs counterpart and fixes
->> issues found while reviewing the two paths.
->>
->> The first four patches fix the offset truncation, inode size update 
->> race,
->> missing driver-exclusive resource warning, and unnecessary runtime PM
->> operations at the end of sysfs configuration space. The final two
->> patches align the procfs read and write implementations with their sysfs
->> counterparts.
->>
->> Changes from v1:
->>    - Merge the read and write offset fixes and move them before the
->>      refactoring to avoid an intermediate signed/unsigned regression.
->>    - Serialize i_size_write() with the inode lock.
->>    - Add the driver-exclusive resource warning to procfs writes.
->>    - Avoid unnecessary runtime PM get/put when sysfs config access 
->> starts at EOF.
->>
->> Link: https://lore.kernel.org/all/20260303193253.GA3817951@bhelgaas/
->> Link: 
->> https://lore.kernel.org/linux-pci/20260414024544.2975605-1-duziming2@huawei.com/
->> Link: 
->> https://sashiko.dev/#/patchset/20260414024544.2975605-1-duziming2%40huawei.com
->>
->>
->> Ziming Du (6):
->>    PCI: Prevent overflow in proc_bus_pci_{read,write}()
->>    PCI/proc: Serialize config inode size updates
->>    PCI/proc: Warn on writes to driver-exclusive config regions
->>    PCI/sysfs: Avoid runtime PM at config-space EOF
->>    PCI: Align proc_bus_pci_write() with pci_write_config()
->>    PCI: Align proc_bus_pci_read() with pci_read_config()
->>
->>   drivers/pci/pci-sysfs.c |   4 +-
->>   drivers/pci/proc.c      | 124 +++++++++++++++++++++-------------------
->>   2 files changed, 68 insertions(+), 60 deletions(-)
->
-> Hi,
->
-> Gentle ping on this patch.
->
-> Thanks
->
-> Ziming
+Using LLM is okay, but please reword yourself. I don't think this sentence
+is necessary.
 
-Hi all,
+> but that
+> register is reset to the chip default by the chip's mac_init() during
+> power_on().
 
-Just gently bumping this patch to the top of your inbox.
+Maybe the default value of rtwdev->hal.rxfltmap1 should be set at
+rtw_core_init()? But I don't have clear thought how to switch between
+normal and monitor modes (or even sta + monitor mode).=20
 
-I would really appreciate any feedback, review, or thoughts when you 
-have some spare cycles.
+>  mac80211 only calls ieee80211_ops::configure_filter() when
+> its own filter flags change, so after a stop/start cycle the flags are
+> unchanged and the control frame filter silently reverts: monitor mode
+> stops delivering control frames again.
 
-Thanks, Ziming
+This problem is also only encountered in monitor mode, right?
+Let's do it under monitor mode condition?
+
+>=20
+> Keep track of the value configure_filter() last asked for and restore
+> it in rtw_core_start(), next to the RCR restore, which exists for the
+> same reason.
+>=20
+> Measured on an RTL8814AU and an RTL8812AU in monitor mode on channel 6,
+> 40 s captures taken after a down/up cycle.  Control frames go from 0 to
+> 23184 and from 0 to 483 respectively; without this change both are 0.
+>=20
+> Fixes: ed51a86b787f ("wifi: rtw88: Enable receiving control frames in mon=
+itor mode")
+> Assisted-by: LLM
+> Signed-off-by: Jeremy Fareau <jeremy.fareau@gmail.com>
+> ---
+>  drivers/net/wireless/realtek/rtw88/mac80211.c | 5 +++--
+>  drivers/net/wireless/realtek/rtw88/main.c     | 8 ++++++++
+>  drivers/net/wireless/realtek/rtw88/main.h     | 1 +
+>  3 files changed, 12 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c
+> b/drivers/net/wireless/realtek/rtw88/mac80211.c
+> index 827f38390969..84d869f1efe0 100644
+> --- a/drivers/net/wireless/realtek/rtw88/mac80211.c
+> +++ b/drivers/net/wireless/realtek/rtw88/mac80211.c
+> @@ -300,9 +300,10 @@ static void rtw_ops_configure_filter(struct ieee8021=
+1_hw *hw,
+>=20
+>         if (changed_flags & FIF_CONTROL) {
+>                 if (*new_flags & FIF_CONTROL)
+> -                       rtw_write16(rtwdev, REG_RXFLTMAP1, 0xffff);
+
+REG_RXFLTMAP1 should be 0xffff in monitor mode, right?
+Maybe, just set the value in monitor mode. No need rxfltmap1_cur to store
+current value. Maintaining two variables is hard and confusing...
+
+> +                       rtwdev->hal.rxfltmap1_cur =3D 0xffff;
+>                 else
+> -                       rtw_write16(rtwdev, REG_RXFLTMAP1, rtwdev->hal.rx=
+fltmap1);
+> +                       rtwdev->hal.rxfltmap1_cur =3D rtwdev->hal.rxfltma=
+p1;
+> +               rtw_write16(rtwdev, REG_RXFLTMAP1, rtwdev->hal.rxfltmap1_=
+cur);
+>         }
+>         if (changed_flags & FIF_ALLMULTI) {
+>                 if (*new_flags & FIF_ALLMULTI)
+
 
