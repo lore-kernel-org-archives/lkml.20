@@ -1,35 +1,34 @@
 Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6FA43B6CE;
-	Mon, 12 Oct 2026 11:52:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E90C485509;
+	Mon, 12 Oct 2026 11:52:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805971; cv=none; b=cFZ8xbR5dxjjnjTPKcorAn0379jrkt3yxIrVc8LX0V3OSERVBao5D/3x1BMBu+cMp9isGwbpPN8/wtn5stvQSxnjCRynFxfzDtJ7Ww3LkZ+upHszK6MEInzAxP7hNxb1MdtJl/X98TXI5pz9MoWcsG7+pi07SkKvHZsaGRofc3I=
+	t=1791805973; cv=none; b=oddVaAKXwLr3ch/skOweI7J4gqPJbpU6nFIZ2GbaGbkng2eY33spPLT1P/N4ukfZ0hqM9tBWGe3nGnvt2tvOIQip58rVUmSddKUL5kyr5n4pu0m6tssKCcFqLJwNBcyo8j9Yo41y5MWgLH722hMF9xbyE4jXJa4G3PTd7zYbBBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805971; c=relaxed/simple;
-	bh=pN2Spl3bOj4EMARvrHbeXiss0yT3R2BDthvf7IzL5Nw=;
+	s=arc-20240116; t=1791805973; c=relaxed/simple;
+	bh=+7rKD+tskaiyLFgkwQWQcGT/SaKg1e2MykFP8i9VJKs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eZp7BHk02ZQwowMuYS1OHm3gNHPIVpxBzMnrRbBE/0Xwxv5u206y41HdhcDKkBN8XCwekpCT4LDGwVXITgmOlog0JmPCgPysu4fmSFi338zgMnd/XVHWrV9apRVRe8l7N35S5Gjaf+LOmGgXwRCC7LUF8vKTbCBOmZyAo7TrvlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=yubsY+Ys; arc=none smtp.client-ip=195.39.247.168
+	 In-Reply-To:To:Cc; b=loVz75vP9PtExXWO7gx4GhqdshS3XG0z2Hx70YPC1/A1BCltPJR/Dvq6Eize7YeO3CCd6f8H4k+sgiUgdfjFpku43pI4SYm8MTAZ0vi2mr3bi2gZZ9OlPzYR76xFeMzvQqqrO9CODymeYl/yQRQF+nQ7WKBTLnzc96sltlkKrR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=Wp7KX2VL; arc=none smtp.client-ip=195.39.247.168
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="yubsY+Ys"
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="Wp7KX2VL"
 From: Yureka Lilian <yureka@cyberchaos.dev>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1791805961;
+	s=mail; t=1791805963;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5XRtjL0/iwMeo8iuZcV+Re1/5O1DqBVnsRc9l0KWEZ4=;
-	b=yubsY+YskhxkFmcm5Rn7jrQcwFAPvlo6QLrt62mnPJCZvA68eszGfJ8bD7BmvgMo+ZgjWY
-	KY6m7Ep5ZxfquUjdkVpAHZw7HSINthzzSjEOJWiPx14cRLXlOg2Q5PFHeGj6P6TXxMfpUK
-	MoORNx+cEInMFD6WlkICSRiExAe81kc=
-Date: Mon, 12 Oct 2026 13:52:33 +0200
-Subject: [PATCH 2/5] arm64: dts: apple: t8140: Group cache-related
- properties of cpus
+	bh=2uSr6m5IUUmdJMVXqWyhLpSygHVE/kttYLhxfsdJVqg=;
+	b=Wp7KX2VLLuZAs3LTcrC7KEjIJ4XLO/WSyu1zfa9D5A8/o46sENRr4dQ8ijiZBhAFRbpg1+
+	/rkv6TjIIeJ3O4oGzZXvfglHiqsgO5KT85VMFhuWKC2wAaUxXyCKv6QvG1uDFI3f8MVMpn
+	abTQ36GvOj81eXhH57dgy+geFgtDmJo=
+Date: Mon, 12 Oct 2026 13:52:36 +0200
+Subject: [PATCH 5/5] arm64: dts: apple: t8140: Add i2c nodes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-apple-a18-pro-dt-pinctrl-i2c-v1-2-6c757966a99e@cyberchaos.dev>
+Message-Id: <20261012-apple-a18-pro-dt-pinctrl-i2c-v1-5-6c757966a99e@cyberchaos.dev>
 References: <20261012-apple-a18-pro-dt-pinctrl-i2c-v1-0-6c757966a99e@cyberchaos.dev>
 In-Reply-To: <20261012-apple-a18-pro-dt-pinctrl-i2c-v1-0-6c757966a99e@cyberchaos.dev>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
@@ -49,85 +48,66 @@ Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-i2c@vger.kernel.org, Yureka Lilian <yureka@cyberchaos.dev>
 
-The dt-check-style from 7.3 raised an issue on the ordering, but
-the one from current linux-next allows the cache properties to be
-grouped, improving readability.
+Add the i2c nodes in the Apple Silicon T8140 (A18 Pro) SoC. In the
+MacBook Neo, i2c0 is used for the audio chip while the internal USB hub
+and mux are connected to i2c2.
 
 Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
 ---
- arch/arm64/boot/dts/apple/t8140.dtsi | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ arch/arm64/boot/dts/apple/t8140.dtsi | 40 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/apple/t8140.dtsi b/arch/arm64/boot/dts/apple/t8140.dtsi
-index 150d91bdf6fc..40559da62923 100644
+index 339a6b4f283d..3b4f7695552b 100644
 --- a/arch/arm64/boot/dts/apple/t8140.dtsi
 +++ b/arch/arm64/boot/dts/apple/t8140.dtsi
-@@ -60,8 +60,9 @@ cpu_e0: cpu@0 {
- 			compatible = "apple,tahiti-e";
- 			reg = <0x0 0x0>;
- 			cpu-release-addr = <0 0>;
--			d-cache-size = <0x10000>;
- 			enable-method = "spin-table";
+@@ -297,6 +297,46 @@ pinctrl_ap: pinctrl@31a000000 {
+ 			             <AIC_IRQ 269 IRQ_TYPE_LEVEL_HIGH>;
+ 
+ 			apple,npins = <216>;
 +
-+			d-cache-size = <0x10000>;
- 			i-cache-size = <0x20000>;
- 			next-level-cache = <&l2_cache_0>;
- 		};
-@@ -71,8 +72,9 @@ cpu_e1: cpu@1 {
- 			compatible = "apple,tahiti-e";
- 			reg = <0x0 0x1>;
- 			cpu-release-addr = <0 0>;
--			d-cache-size = <0x10000>;
- 			enable-method = "spin-table";
++			i2c0_pins: i2c0-pins {
++				pinmux = <APPLE_PINMUX(171, 1)>,
++				         <APPLE_PINMUX(170, 1)>;
++			};
 +
-+			d-cache-size = <0x10000>;
- 			i-cache-size = <0x20000>;
- 			next-level-cache = <&l2_cache_0>;
- 		};
-@@ -82,8 +84,9 @@ cpu_e2: cpu@2 {
- 			compatible = "apple,tahiti-e";
- 			reg = <0x0 0x2>;
- 			cpu-release-addr = <0 0>;
--			d-cache-size = <0x10000>;
- 			enable-method = "spin-table";
++			i2c2_pins: i2c2-pins {
++				pinmux = <APPLE_PINMUX(165, 1)>,
++				         <APPLE_PINMUX(164, 1)>;
++			};
++		};
 +
-+			d-cache-size = <0x10000>;
- 			i-cache-size = <0x20000>;
- 			next-level-cache = <&l2_cache_0>;
- 		};
-@@ -93,8 +96,9 @@ cpu_e3: cpu@3 {
- 			compatible = "apple,tahiti-e";
- 			reg = <0x0 0x3>;
- 			cpu-release-addr = <0 0>;
--			d-cache-size = <0x10000>;
- 			enable-method = "spin-table";
++		i2c0: i2c@385010000 {
++			compatible = "apple,t8140-i2c", "apple,t8103-i2c";
++			reg = <0x3 0x85010000 0x0 0x4000>;
++			clocks = <&clkref>;
++			interrupt-parent = <&aic>;
++			interrupts = <AIC_IRQ 1108 IRQ_TYPE_LEVEL_HIGH>;
++			pinctrl-0 = <&i2c0_pins>;
++			pinctrl-names = "default";
++			#address-cells = <0x1>;
++			#size-cells = <0x0>;
++			power-domains = <&ps_i2c0>;
 +
-+			d-cache-size = <0x10000>;
- 			i-cache-size = <0x20000>;
- 			next-level-cache = <&l2_cache_0>;
- 		};
-@@ -104,8 +108,9 @@ cpu_p0: cpu@10100 {
- 			compatible = "apple,tahiti-p";
- 			reg = <0x0 0x10100>;
- 			cpu-release-addr = <0 0>;
--			d-cache-size = <0x20000>;
- 			enable-method = "spin-table";
++			status = "disabled";
++		};
 +
-+			d-cache-size = <0x20000>;
- 			i-cache-size = <0x30000>;
- 			next-level-cache = <&l2_cache_1>;
- 		};
-@@ -115,8 +120,9 @@ cpu_p1: cpu@10101 {
- 			compatible = "apple,tahiti-p";
- 			reg = <0x0 0x10101>;
- 			cpu-release-addr = <0 0>;
--			d-cache-size = <0x20000>;
- 			enable-method = "spin-table";
++		i2c2: i2c@385018000 {
++			compatible = "apple,t8140-i2c", "apple,t8103-i2c";
++			reg = <0x3 0x85018000 0x0 0x4000>;
++			clocks = <&clkref>;
++			interrupt-parent = <&aic>;
++			interrupts = <AIC_IRQ 1110 IRQ_TYPE_LEVEL_HIGH>;
++			pinctrl-0 = <&i2c2_pins>;
++			pinctrl-names = "default";
++			#address-cells = <0x1>;
++			#size-cells = <0x0>;
++			power-domains = <&ps_i2c2>;
 +
-+			d-cache-size = <0x20000>;
- 			i-cache-size = <0x30000>;
- 			next-level-cache = <&l2_cache_1>;
++			status = "disabled";
  		};
+ 
+ 		serial0: serial@385200000 {
 
 -- 
 2.55.0
