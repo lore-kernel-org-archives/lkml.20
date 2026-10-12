@@ -1,165 +1,180 @@
-Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020074.outbound.protection.outlook.com [52.101.225.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B994146C4BD;
-	Mon, 12 Oct 2026 09:23:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.74
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791797006; cv=fail; b=DTE82oh2X1J8HKTuHii9o12oVk1l5JeyIromo7D73YgCd6Ml9JIaJx5aGiHTnORizq2DceP6s7mSYTnVXyq57haiRBhtL8rhnn+dNer21aY1H5i0lrmttm3iC55WXh4QMh2Y5ngkRuSAx99KSfEPLufT7iDJpGYfU7Sdfeq4unM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791797006; c=relaxed/simple;
-	bh=TQGbWmU8jMewnvF6A/3dkXSYFsTTU4EYdyniK8n2rGk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rigO8rxIuvy3MZ23bCqYJtOeAltpburxXJFXK5U6BbMrZGe+oEr0lnJOk9GqUW8puxaRusnmMwAlXfH+7cSGni9URB5fyINfeqYBY1wHDArDhXSspWlZwDHPgm8pl01jaHFRklb2OMTNjH2nuj4C3PeD94Ojnkow0g5eaPEyrww=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.225.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sw592U/ibzkwLUyL/Fzki4E27JtE93MqedeSENArjvjoYdg4rB4BeHoDHesjXA1LzXkCou/yVNoqx3EpEhnAFtOtvD5JnglESqkQIqK0mKk5aVtq7O2G5cBJw9IWSaHbae5qC5EZZDTGDiyLMAieRy3bFv9WGbSsYeGBqe0MY1SepEgcyK30binhsMwDgsOgEZ8S7WM/QLrWNDO4NLSHk/hIKZkQULu+5JSMYRlOWnYs6IzyzQHGyTBJ3ggqahjulz5k2oXfhEuTtT9/7bzNxjyz1oeyP+ruAnhIOZtlMF1ZVvPp9Q1G44nMERU9QTsYLJPSZvXHGtvrf+BAwfmbRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qQlupJC5FkgbH146Haxfj5z3FDIEsWENpahvrReXOYA=;
- b=kNb7cogZlbbkFWxWMARCFhP7hYbvcJVZV0oc8UKMe2suSihTsuB5MgXF0l5Jb8K8vWPeoF7nRZ4ON9885j0FsgOxnUqmUH0QUdbxIALpodRMY7qZt+yKCX2AdGzicXENDeaRgAJR3o5+k+au494khsC51klhyMYgSj9vs0tPV95k5FR0/23peCVBo7Z6qn1xqDUxKf4j84sF1xR6FJ4cZBItBLDEscgaGE6jzJ0x3O8+iEVVxYYGWkeoLYs0ek1C8HYfuEX9pQ4mXhxTaNN9yIWsrODJlswrryHNoSfwN8cB9iQDmE82XgfP1iFpGiKPJBNJhHgt/1+598WapivnyQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
- header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=ebytelogic.com;
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
- by MA5P287MB5040.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:1c9::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 09:23:18 +0000
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 09:23:18 +0000
-From: Hitesh Patel <hitesh@ebytelogic.com>
-To: bryan.odonoghue@linaro.org,
-	gjorgji.rosikopulos@oss.qualcomm.com
-Cc: Hitesh Patel <hitesh@ebytelogic.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-	Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/8] media: qcom: camss: Add streams API support for CSIPHY
-Date: Mon, 12 Oct 2026 14:53:02 +0530
-Message-ID: <20261012092302.118764-1-hitesh@ebytelogic.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <5f238c7a-c17e-4127-afad-38eb2cea9c34@linaro.org>
-References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com> <20260911062213.195007-2-gjorgji.rosikopulos@oss.qualcomm.com> <5f238c7a-c17e-4127-afad-38eb2cea9c34@linaro.org>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PNYP287CA0023.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:23d::33) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c04:1::97)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F7C843CEF7
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:23:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791797020; cv=none; b=PzEe3z+VUCrHofRd6UgshPqnp6fIQVEOfnN4VEgiY+vd7Z+VVl+A/S3dbc8ZHYS0kVqEVg9Pf53OBak2p8/Icspsnety5L9D7vwwENs+pK0cG+Y3L1HWbDO4Gnm7VsV6q7aEvkSfhw6IEMLkcxay43MvTjoas02q4QkyWBZ0l+I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791797020; c=relaxed/simple;
+	bh=nHzUwHePOxq2aoo85Lh6q2Qyb0zVMyTUscHVEyJRWUE=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=K2YNvCiE5v/SNwDhSrcJic5Cae8+2pe7OFyLBMq3mi36NXastjHVUy95GgC3x+Ej81zhdTV9jijQB2Q6LTFCWwxBto5c+RZniz1BqRV2yXwIq35n+18pbkn2q3UIRu/WHYQHR9bIDyQWn3YqyJhMcMgO0q/xE7/NM80Sr3/N+oY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=iv8u8IJq; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="iv8u8IJq"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so12295295e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:23:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791797016; x=1792401816; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FHs5QmsAznY6JYFFT0GfFNt0MOtPZ8zk+n24R7ETBWM=;
+        b=iv8u8IJqF1vobad+EkHp32mlRF3wQ82LRZUH71f/9sfsudbnWnnhFua5PoUloi2D5w
+         eWjJnXP/yxLkTW6fZPJHrAKxfpPyIwc6ytWAWJ6wfCVWl3MKHsa/Huvp0IRkNRIV0cla
+         +5zDNc4VMVGXCANMAbx3ovWU1BFBqyzTR+rBdHKEfQM4ZmMLtvwybY3XA7v/xKXMKmxN
+         SXZzs4Pl8pC5xFQNUgqD6bmmDVbcxEI1g2UKLJFfa59tY+XxwohSk8yFP7auSqxEE1ia
+         HQOJYl9qHSxbFcLBBUJa9E4xO0v71D8AS83OL4bvS4nvqvtrDRobKMC0h5brUGxoyizK
+         Fzgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791797016; x=1792401816;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FHs5QmsAznY6JYFFT0GfFNt0MOtPZ8zk+n24R7ETBWM=;
+        b=FwKcPd++vsvGrhSJYcF2KtM1YgZxmpW+cg+cgEV3kiIbE5ASFqw3yzCBf3OpmgZruq
+         XfO2MsgQTW001R+jDxEOaN+r/Mx7ckBwVzc3aJulV2OxKaWC0Sz04JamZ+9fXAyapmUm
+         vcrKseBmMvHxXYWHC1c3IBDHLNsqxX9g6aZFwlEUjHtfJo4LXx5BcY+pqbtYORGCxk+w
+         9Xivi2yYi4LTEtaI2LJR96voR0XJfCThAmKfMo6ygbDdys/78UlOIC84rRo0kjdVuJLJ
+         zOrMm16ly5deQyk06H/A6SluxSPaKAVSQLIrHN8cZeWI9nfeP21C1qB0XafCFoNOVE+M
+         MnWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzZnpknz2Me4kqYlIdFYrcWsgNLMeAD/pLKFC7jDeNq1i7f9T+axl4cr6kEJw4xQAz3rdB+/ys+MbSL83A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxOkDR9Edn6G3MM8v5FC4blg0mugtUqpkxvlJsOXKh39ij2OdL
+	Sz/YOrhske2ExAnOl817zulp1ERXpG4+ECi2KuQ21de0o+904lJ+cfaqtH6cevy7B/o=
+X-Gm-Gg: AYBFou33BG4aWq9uZTJuFeA3k5qvgiDASQltxAaWpmT6a4k79caArz/RFqsffcJbv/T
+	cMVq9K5lJNuigiQmEsMghNWA/p2ucldgJmmMJJkgnth12KBUfrKoGoPh1VbzAs9UU5gNkpRrISk
+	3sRd1emprDa3MjtXx3powDD3oDAujs1fBziiVHeQOg4SsgwqtJockdtKUh5BuXiYUbAHkBGpC64
+	6kVOLmCtEofao1QLf1QXoKAGX6NFsslZofDyD4Lq4OttkFGX5Q8pS6xEwkdSGpJTFmO/xlq8ss2
+	FVsXod8bd1xba+IGOlVlS2H9LIBMgWBcf5MfpMChsNgZU7h620rFjjNbAHmgXhtpU/X5F7vUsRZ
+	TPi9LcDXpVJDHHmw4mn0JwR/9s/g28eIki5PxpLZEDResOVyybsdmRbeR25mT1UE9Zzi+5c/O6f
+	23e2wnpYkW5Bg4QZA8nkkkNGsLErwf4rSX0EDO2kzmU0tO9oUztNphgBIkYwqlVJxf510Qdr+HA
+	0Ple1tNSmzq2HQK7O8j+gyKZDS/BqrVQkrlwzcCg87xATIJcyQ=
+X-Received: by 2002:a05:600c:3e8d:b0:4a1:7701:f863 with SMTP id 5b1f17b1804b1-4a18e4aeae4mr156670605e9.15.1791797016157;
+        Mon, 12 Oct 2026 02:23:36 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:417e:f4c4:5b8:8c48? ([2a01:e0a:106d:1080:417e:f4c4:5b8:8c48])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bb68abfsm304568075e9.0.2026.10.12.02.23.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 02:23:35 -0700 (PDT)
+Message-ID: <27d5c013-9346-4159-aded-12ed8ce4e951@linaro.org>
+Date: Mon, 12 Oct 2026 11:23:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|MA5P287MB5040:EE_
-X-MS-Office365-Filtering-Correlation-Id: de0290a7-0500-4a19-b2db-08df28427368
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|7416014|376014|366016|1800799024|10070799003|23010399003|56012099006|4143699003|261009223027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	gPb+nnZmyRIfq8iVEJ4uvYVbevXgLZGGyUcZQ5uGqNSBzC6PaBDnjgWSMyJv5ghPHwXsKa9qQW5q1UiBwK8xbYWHqOLWYIVihVTIzMZg1Gca5bQwbrhin4dNbqR9KCziSYnhvZsLfby7TYNnCMDXQfXubYOwDwLRlzilGidV+DRyESS4dyanK8K867jFkjvOuNzSGMDmp47hqDd1XD9ocqSlq/Kf09Hc+bvpx/XRE4tvr0k7dpamfqdpe6r6FsoM6Bna5rJw+dgGN9cBfNLZ9DOJuJXAhc2TzyjeSkXyg35Eann8AutfYIa8MFex6jmr30umwiF1ImBtFEM6iHYEERtvolB8A6psH8G3T4uOtAIimsNDr1BEqVwkpIgrA/Ydujkl0pTLUqh9MEZc8ExsQurx9IUkqH22PUfV9HWmhRzzcIHj+bPGxSKvGdUB2/W9dOV2s/zw4kzerDDT5cDs/d+WEnlmd8YXXHVXh40f7ygxrfLUfQNeROuan/9wAP2LNr0SVW+nh8LpSZptdm2wUZQgxNB1ZG1JE9otzp0nXU0dtxVViGZIQxXT91Qg75mkRAUEWI2VAq3ZUgt71cyEZo3wS8AzlllR+l2tkJHjMM6A9aZv4m++srBxzgHjXSIksRrSVI11B/6uehvHoOGkFK9WwtXDFVZ1Db9bQJ288JU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(52116014)(7416014)(376014)(366016)(1800799024)(10070799003)(23010399003)(56012099006)(4143699003)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Vhq0SP8DS3dbzjXEtIpfwuD8RZb8hU8noBySdeYXpaL+FWeWvNottMwo2doB?=
- =?us-ascii?Q?hrrePNL0TromoqT5WUB7rYBHp3laLJ0GmZYHJZAJeRIbPC0x55ituLl2ua49?=
- =?us-ascii?Q?tTmkpNMqnKyZxGxbXeYuFseoF/qF2ld4h6+D+v2Q6AMLV2UzPKXleNOt9r12?=
- =?us-ascii?Q?WP0Qq911BZNgxb1B32HWWInr1eIRtRpaksUKH3NmORMS5Xzh/cYJwtmWA1TZ?=
- =?us-ascii?Q?krPcb+AdrYgJMLsCzasgy/crqiMTDhXK0joyseITm05CTZYaclFoK0oElwL9?=
- =?us-ascii?Q?J1FDFKkpw+NtQ/irRYNAfIJNB1cj62/nxTqmmoAeHBpm51u+rPNybKrYqnWy?=
- =?us-ascii?Q?TKrQR35VDlQ/DteAtKeh5dJomlGuQeNJQZShYFqkjpjlWyjQ4L9PY1/DGAhM?=
- =?us-ascii?Q?HuVrIcvsViM/qawKFHvMGc3oiKQvN78W27f18P0oxx94VpU3NHQe5O78p58X?=
- =?us-ascii?Q?VR50r/H9lPZI+7jhMC/F1u5xht0ZgJ5mOCajbd1Lh59ZsUSHoasF+M48PPOm?=
- =?us-ascii?Q?4p5ZOAM/zMWIrCJ0w+bZW1I7BXWtgHptxe1olObvjD44U3IOI1QHj0IVpWiC?=
- =?us-ascii?Q?mAd90GmKaiQzvZPcCLR+QytIUIdYydSJHY6mr32wy7NRYvJVddsu7bk3dRPc?=
- =?us-ascii?Q?VBUryKnbjtcdrOR9DkstdB/fqzyF19GX3rJgnwOxASoCLDwTxitXwE3ChNb0?=
- =?us-ascii?Q?zphxJCWP4MF6K47fu5tnd9k6KefKAHlwXlylkCZ42DdK4HlA2qv7T5mrGbdq?=
- =?us-ascii?Q?5PKfP1huVcmWK88nfPxyqiprCLkwJEJnoGYdu2+mvbhU4C1alGylU+Rguen1?=
- =?us-ascii?Q?FWGzryIRQUl8fAewRMnbvqNgw8KYunC0lwyiJ1rA7fmarGZeAJiqOsUoN9yr?=
- =?us-ascii?Q?PiLUn9ObhCD4TS3pq00u2ucUeaSESQwHsWLhf5SKY0xTpGyyXHXbTdh8+Nc9?=
- =?us-ascii?Q?PjVV5iKlt4SRoL0kNKFzKFLA9exBcNXF5O6+mwxYNG2y3DYc8Hu1XXBAX9GZ?=
- =?us-ascii?Q?ScCEd6yB91vJmUTIL5voXd84/hl16BpjqF5jTAaBc5lU76P2fFu77I+GNHPE?=
- =?us-ascii?Q?JCniNAe+rs2ozuNNTPYH/wSrSJVM5+RajGhkmOvV9iUvX1/AnTSoqSNakT1O?=
- =?us-ascii?Q?F9QAaIeOW9ep7QxFj8K3MF+CkB2MoQ3V30QROVqEJ8LayKjuWrXgSHafo+4/?=
- =?us-ascii?Q?oA+JYqdG8jHLt/J1NT/aukFnt5FBMBEJhxVNIbDczd0CH/LHA2YkE4NAjZH2?=
- =?us-ascii?Q?43zKvFosJ7rM7MmEAElY3YA/3z8Bq56YGxnyIdn5wpE6pN41T6WZ4HzgtznK?=
- =?us-ascii?Q?rwuVqkiXE2J/HMWLWrcibC6r0jqp0uJBdJ2+Ezuh8UpEh98Tm2Yap8bOuMZm?=
- =?us-ascii?Q?Y//oap4yEE9nUju/zNgu6bhIAsoeNEnK7JsQmnr29P3pM2WNW2gPFxyRG0U6?=
- =?us-ascii?Q?GtxrVoqlUtUWdADHzCRhrOEyxsHwFMlk5f2OWv7iN2EvMAOgUhFUD1ohpTn8?=
- =?us-ascii?Q?1lvBaaSfoLXoJg3Vrqv670m3EuQc8IEENfqAA0NDnEWlcDN2GVX/3rBVwbSI?=
- =?us-ascii?Q?AwX3pksySL8Ac51MCBe/F2QeQJrP68na9si52nr+lllUiFXUdvif17AKoZJF?=
- =?us-ascii?Q?Wlzsm7p1qhuJXCGfTTGJ4KC1UdlcRai7CR9RXdNG+Fq7csCE9zEquqN2/GJa?=
- =?us-ascii?Q?D8fnLt173mfgcSoEfMu21yZHc9Ir8MWaxOSydOjh7dTNwO4pDMcuczqPCHAx?=
- =?us-ascii?Q?vFcxycB1XmkowCFu4DxVLSqo4QzKgB+eW1Owo9VQCvC5alpkZ3I4nwXiqyk5?=
-X-MS-Exchange-AntiSpam-MessageData-1: fhQCT9hU0Ue4Ew==
-X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de0290a7-0500-4a19-b2db-08df28427368
-X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 09:23:18.4744
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zl9Gd3oEJtluL1nAs1wHcyWu18f0moThUmzw/UuqQtSJLf1hUJXZ0amfOyy8Jgr3RmqpYHir/3XRjCVcsu4jjA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA5P287MB5040
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 0/4] mmc: meson-gx: honour the busy timeout for R1b
+ commands
+To: iav@iav.lv, Ulf Hansson <ulfh@kernel.org>
+Cc: Kevin Hilman <khilman@baylibre.com>, Jerome Brunet
+ <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-mmc@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261009-meson-gx-busy-timeout-v3-0-67d0db3a8328@iav.lv>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261009-meson-gx-busy-timeout-v3-0-67d0db3a8328@iav.lv>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 11/10/2026 23:39, Bryan O'Donoghue wrote:
-> ++<<<<<<< HEAD
->   +      if (camss->legacy_phy)
->   +              v4l2_subdev_init(sd, &csiphy_v4l2_ops_legacy);
->   +      else
->   +              v4l2_subdev_init(sd, &csiphy_v4l2_ops);
+On 10/9/26 19:02, Igor Velkov via B4 Relay wrote:
+> For a command without data the driver programs a fixed 1024 ms into the
+> CMD_CFG timeout field and does not tell the core how long the controller
+> can wait for busy. Erase and cache flush then fail with -110 on eMMC.
+> Patch 3 fixes card_busy, which reported a busy card free; patch 4 makes
+> the core rely on it.
+> 
+> Tested on ODROID-N2+ (S922X), 256 GB eMMC, btrfs root with discard=async,
+> Armbian builds in docker as load. Without the series (7.3-rc6): 262
+> errors in 3 h and 68 in 2.5 h in two runs; the first came 4 and 43 min
+> into the build. With v1 (7.3-rc6): 0 in 16 h, 2.4 h of it under the
+> build. With v3: 0 in a 37 min kernel build and in a 20 GiB write +
+> fstrim; a sanitize went out as R1 and the core polled DAT0 for 523 ms
+> until the card was back in TRAN. On 7.1 with the previous eMMC module
+> a synthetic test (20 GiB write + fstrim) gave 48 errors without the
+> patches, 0 and 0 with them.
+> 
+> ODROID-N2 (S922X), 128 GB Kingston eMMC, 20 GiB write + fstrim:
+> without the series an erase hit the 1024 ms limit and failed with -110
+> in 3 of 3 runs. With v3, in 3 such runs and a fill of the card to 85 %
+> with rm + fstrim, 5 erases took over 1024 ms, up to 1219 ms, and
+> completed; 0 errors.
+> 
+> ODROID-HC4, SD card in SDR104 at 1.8 V: 0 errors in 5 boots.
+> 
+> The timeout is rounded up to a power of two: the field holds powers of
+> two only, and the timeout is a lower bound. MMC_CAP_WAIT_WHILE_BUSY is
+> not set: I have not checked that the controller waits for busy on every
+> R1b command, HS400 switches included.
+> 
+> ---
+> Changes in v3:
+> - Clamp cmd->busy_timeout to the range of the field before rounding it
+>    up to a power of two: the rounding of a value above 2^31 overflowed
+>    unsigned int (Sashiko).
+> - New patch 3: card_busy reports busy from DAT0 alone. It required
+>    DAT0..3 all low and reported a busy card free (Sashiko).
+> - Link to v2: https://lore.kernel.org/r/20261008-meson-gx-busy-timeout-v2-0-8bde1adfb5b4@iav.lv
+> 
+> Changes in v2:
+> - Split into three patches, as Neil asked: name the limit of the
+>    timeout field, program the R1b timeout from cmd->busy_timeout, report
+>    max_busy_timeout.
+> - Link to v1: https://lore.kernel.org/r/20261008-meson-gx-busy-timeout-v1-1-d92f3c68c409@iav.lv
+> 
+> ---
+> Igor Velkov (4):
+>        mmc: meson-gx: name the limit of the CMD_CFG timeout field
+>        mmc: meson-gx: honour the busy timeout for R1b commands
+>        mmc: meson-gx: report busy from DAT0 alone
+>        mmc: meson-gx: report the longest busy wait the controller can do
+> 
+>   drivers/mmc/host/meson-gx-mmc.c | 26 ++++++++++++++++++++++----
+>   1 file changed, 22 insertions(+), 4 deletions(-)
+> ---
+> base-commit: fd9af27f6c2319713bb23832066585f8a59a1771
+> change-id: 20261005-meson-gx-busy-timeout-7e8e3fdcb3e3
+> 
+> Best regards,
 
-That conflict is the legacy/generic-PHY ops split in camss-csiphy.c, which
-landed after this series was written. I hit the same thing when I tested the
-series on RB3 Gen2, because our board runs qualcomm-linux qcom-next (v7.2),
-whose camss-csiphy.c already carries that split.
+This looks much better!
 
-I resolved it there as follows, in case it saves someone the work:
+For me it looks all good, so:
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
- - a second ops table, csiphy_streams_v4l2_ops_legacy, carrying the legacy
-   core ops alongside the streams pad ops, so the selection becomes a 2x2
-   of (legacy_phy, streams_enable) rather than an either/or;
-
- - csiphy_enable_streams()/csiphy_disable_streams() call
-   csiphy_set_stream_legacy() when csiphy->phy is not available, so the
-   lane enable/disable on the 0 -> 1 and 1 -> 0 stream transitions goes
-   through whichever of the two paths the platform actually has.
-
-With that, the streams API and the legacy PHY path coexist and both
-continue to work on SC7280.
-
-I am happy to post that as a patch on top of the series, or to hand the
-hunks to Gjorgji for folding into v2 - whichever you prefer. I have the
-hardware set up and can re-verify either way.
-
-On the wider point from the SC7280 thread:
-
-> Set it @ the SoC not for each csiphy and csid.
-
-Agreed, and legacy_phy itself is the precedent - it is a field on
-struct camss_resources, set once per SoC. Moving streams_enable there
-makes the two flags consistent and removes the per-subdev repetition my
-own patch was adding. Gjorgji, if you would rather I prepare that part,
-say so; otherwise I will leave it to v2 and verify the result.
-
----
-Hitesh
+Thanks,
+Neil
