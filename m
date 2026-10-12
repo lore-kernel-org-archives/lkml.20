@@ -1,117 +1,79 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB314908B3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1195493649
 	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:49:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816556; cv=pass; b=d3pvxFpeS8o8SMOFfRdHrJaeRgSQnVXaSnN39bmzlKGUfWYrrTCbodBEZeF7B7M70Yl6+7lLfQXtoZmr6tRqiwEGvoiGUVHtBHjHvpbNw71v6Z0UZsLmlSgIjxZ6GfqwiPe0Ukv3F5a5lXbPY3jpoJTb0YTXYSWsjQrlM8tRFTM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791816556; cv=none; b=Lrp3E6vMzKoDf/4SRZDo9E+6raeEwmCNSAQX5TAR7vx3dE1JNiU996umGSFhAw30/41ZuMqglK7LWL2MKBG3+DkdnrwEZGY+ReouLzQvcnpCo/X/m9eIA4edVUZlBl+vW6k9cbD5S4+1PJoj+hqAedHYv365po5QQSwDYaJOiFQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791816556; c=relaxed/simple;
-	bh=ibqQrytkwD4dZGH6qzBtr8PizCkzDsq89TU6EwA853g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Yv8ZpaoBx7ENxG1Kp4TPvzmzephfqeaqCmx21RGgloFDmExz2Ar450kDU4khyBkP/r2fjWGLqjVGK7cueyqDY6boWFKFQPqso79we78HLJcRnfH4Gox4lix4sJsv46M4PFe62z6zYWRQlOgRDNyISS0/NkSsa7Q/2lQ6UNfbxsE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=j52znOYi; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	bh=HSaqZ/vs2+B1i4yUCchBv9N9j074kQN43Wfdo51BDR4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tzwwcYxMScQe/sTWBvYtdDD3FNeIpwM0v+I4O8AhlZdnM/8Z0yDPIBzgeLS+T8VCuKCNtsLnTXLlGOH6gwfTNWZ8b7XvMmYxqUBM/nbvJKg7D9dIBogZPEJCHWT6V96BY+FRI2OTu6zIuuVNmyZ8Aof/g5azmke1emGvyvZB5ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZPZPQl7N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="j52znOYi"
-ARC-Seal: i=1; a=rsa-sha256; t=1791816530; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=VWfcLbsOi4B39gH9aqmIUn1YAx4fs67w4cEsAhxbMCGxg9bM5PdZPVCiQD1U67NAE1QIbTaFbjTpfxKLPwjhefM9Nm5HgrCrLnrof3IS6B23jFQnjsmjr/N7FOzgNiys4MFyiI6xUeU0CshYPLqtxQgu7DiabymE1tkchUC+Wv8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791816530; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=2nQ1TX+5x9cuc2w92LZrFtQlD1LLotYmanIFBBwFcIM=; 
-	b=ekbF9U2SOqSH4uLYgKC/mDrCaIYe69aCUrbnaMG0FT+F4CTfGAoQYw9zVw/Std1/HOpY9C5hIj5+6hqNuzH1C9M0xSToMLqjzAN4eeltqxF5l4zgap/FodAIE4z6mNuU7sCo/eNrqrB2cX+yyabOLdprmTaHfkABoOsWs0FFZYs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791816530;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=2nQ1TX+5x9cuc2w92LZrFtQlD1LLotYmanIFBBwFcIM=;
-	b=j52znOYiE5tRqrYRzp9MKJUACWH2QyKdx3ZIPB/C4YspQ0tC4unTJeRVuBCiCUF7
-	g5l/u5QX1XBEsPbDPhJCLjh18NwUVnHS+8nYIMLk+ehpQ4PgwRPxtV3b8GSWTKaAMrJ
-	o0FIwqX63dN+OnKIdQlUbJ02YJyBtpb3QBuZtLp8=
-Received: by smtp.zohomail.com with SMTPS id 1791816529194709.4607257124592;
-	Mon, 12 Oct 2026 07:48:49 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Mon, 12 Oct 2026 15:48:01 +0100
-Subject: [PATCH v15 09/15] drm/panfrost: Warn of RPM get failure at device
- remove time
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZPZPQl7N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C94451F0089B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:49:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791816555;
+	bh=HSaqZ/vs2+B1i4yUCchBv9N9j074kQN43Wfdo51BDR4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ZPZPQl7NvfqRwodKtoxsYDEEQHsp56Kws6ml4P1Q8+nS/hrE9HZZ7AqHg/e+WXsG9
+	 DKRVTolyVopvHMErEpbl0xCbJfKSCn6JvNdWNVpTg03Pa47q9Esd9p1HLO5V0s/C4L
+	 POvps5/JJ/y7jrxQFag3HBQ4wVR2M5lu6Jz8B1wz3MZXIuhwoqWXMHKeh6toUFQdS/
+	 ViBh9KRG9cWJrYDAhVqJN/kBCgj52oCGSnly9JhtKx0DBPHHrhN+Wc+zIj654HPZ2S
+	 8ITdrEc1tfslVRPgdbMKY+ZMFCEVx+RAXNzCMUJxJImuNSrgnb1hbcom3+KaK2ZXC+
+	 tYpqgZsAg/KIQ==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bcd17f3a93so1640666e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:49:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByuhfUBbeIQLv5frhRWDiEnwpWwfkzrGCOWuRyOZ0cXMeaRDJPd5lYZkf3KYfr3dkvZ4T5NRtZzRkE1mCg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJL74vDuS9zKCWgbtA9MiQqw/YJ8K+cVLUVhy39kJXjRfQ/9VY2
+	GOwGbkOP+EeZWm7NL0XgKk2aMYIB9AvQChEb+wacnb7kgTRvLUhOPFHXC9mB2eNy2NHwmHSLYeN
+	4KYNQiozuYRpGbxbduQbpMTtihPIDBcg=
+X-Received: by 2002:a05:6512:1302:b0:5b9:8480:88b0 with SMTP id
+ 2adb3069b0e04-5bcde6cd81emr3590336e87.46.1791816554296; Mon, 12 Oct 2026
+ 07:49:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261012-claude-fixes-v15-9-bc0a6c498553@collabora.com>
-References: <20261012-claude-fixes-v15-0-bc0a6c498553@collabora.com>
-In-Reply-To: <20261012-claude-fixes-v15-0-bc0a6c498553@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1257;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=ibqQrytkwD4dZGH6qzBtr8PizCkzDsq89TU6EwA853g=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqzPMa2BsSvslULVxkJ/r0QxpZGiBeyYlrG9g4f
- Wz8YTbPWQ+JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaszzGgAKCRAOJn5M7lND
- PYwlC/oD7QfjG0brIQ49qFvx2tc+8h75rFTi0CTI5TcxkzUcgtPzvOdOCiKUO/YwYCL/jMcGyL1
- dE5du+WW0Z92h1iR0WpTuhkEs7P0lg07xB4Vvpg5CM+GE1qOuNbRfL5lrXQLjX4ApvGtV5Tn1hx
- qt3kp+NFyV78xykGwfnEO2yv0TPPSAWUIeny1C0BNTC72ttIrD+YgFweyIUhHZMbpgJ9sOkvzAn
- qHWLaWVOiU07exnlRn+G/3TEbgd4Mr3m3qs+2HGBHnWJQpg9rjjqIjNSPX5jG0LQfmhCauBStJ9
- ZQM6dByIujHaCYfwvKToECCtkz0H5qIHbEZ2kMKxmsxMuIgzkJmuwTWN2TkG57Ys0mfL+zmdjQA
- c1qoNraucQTCMO7z1BDB4/HcW72K++1gqwUi+QTR773sCENL7ZFv2ddASgRFSiVzuL1V5f+tr0p
- WvT6yw2lb3N/5PtD1VBiTY7sMCLnuWnxDlmPZ5kQ5UoGUUMzggy/1lUKI8bhgsbBR9sDk=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+References: <20260922121058.972734-2-maobibo@loongson.cn> <10bd45f8-2d37-42f0-b7d2-a4a84933c9b3@loongson.cn>
+ <CAAhV-H40TW01vpaNSDgm86DVM4Mwf0sUvnAt2KEwUB=pPFhhqw@mail.gmail.com>
+In-Reply-To: <CAAhV-H40TW01vpaNSDgm86DVM4Mwf0sUvnAt2KEwUB=pPFhhqw@mail.gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 12 Oct 2026 16:47:10 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gpFDaS8sLdDBbS4tU-F7fKPKOkXtb7nqjfNhagEB_Cgw@mail.gmail.com>
+X-Gm-Features: AclHuK_yh6nJbDMby3wJpiRQ5ov-r1gjRQklEy0qVxrWW-6ieFaflZzFuZVP5uI
+Message-ID: <CAJZ5v0gpFDaS8sLdDBbS4tU-F7fKPKOkXtb7nqjfNhagEB_Cgw@mail.gmail.com>
+Subject: Re: [PATCH v4 1/4] ACPICA: actbl2.h: Add bit constants of the Flags
+ field in the IOVT IOMMU structure
+To: Huacai Chen <chenhuacai@kernel.org>, Bibo Mao <maobibo@loongson.cn>
+Cc: linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev, lenb@kernel.org, 
+	linux-kernel@vger.kernel.org, lixianglai@loongson.cn, 
+	loongarch@lists.linux.dev, maciej.wieczor-retman@intel.com, 
+	pawel.chmielewski@intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Rather than just failing silently, let's warn the user of device removal
-not being able to take a PM reference, because it should be seen as fatal.
+On Mon, Oct 12, 2026 at 9:21=E2=80=AFAM Huacai Chen <chenhuacai@kernel.org>=
+ wrote:
+>
+> On Mon, Oct 12, 2026 at 3:16=E2=80=AFPM Bibo Mao <maobibo@loongson.cn> wr=
+ote:
+> >
+> > This change is already merged in acpica tree.
+> >
+> > slightly ping.
+> I will merge the last three patches once the acpica changes are synced
+> to git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git.
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
----
- drivers/gpu/drm/panfrost/panfrost_device.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+I've applied the $subject patch as 7.4 material.
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index a6deabb39fd2..687230225743 100644
---- a/drivers/gpu/drm/panfrost/panfrost_device.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -9,6 +9,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
- #include <drm/drm_drv.h>
-+#include <drm/drm_print.h>
- 
- #include "panfrost_device.h"
- #include "panfrost_devfreq.h"
-@@ -385,7 +386,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
- 
- void panfrost_device_fini(struct panfrost_device *pfdev)
- {
--	pm_runtime_get_sync(pfdev->base.dev);
-+	drm_WARN_ON(&pfdev->base, pm_runtime_get_sync(pfdev->base.dev) < 0);
- 
- 	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
- 	pm_runtime_disable(pfdev->base.dev);
+When it propagates to linux-next, I can expose it on an immutable
+branch if that helps, in which case please let me know.
 
--- 
-2.55.0
-
+Thanks!
