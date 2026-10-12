@@ -1,162 +1,196 @@
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f7.google.com (mail-ej2-f7.google.com [74.125.228.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D421D4E06EC
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:46:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.17
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791834392; cv=none; b=eqhKMS8ZabmJbBwzEaJV0P3NBPHcy11EF3yeUNmmqJJV1S8nGqeD8NQv+kHNdxwortuDQMFaRBPgMxu08WO15zt339SmUW+/1DZIFpzmyjheKBSOk4otA/FqRPa3El26hgHN3v7/WaOhuOUPIBdb444Pr2mOVqfABYfZADNQ1ak=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791834392; c=relaxed/simple;
-	bh=SN53F77NdYCtAEJZRRSye0TNxqG5SZP+TUKigpp+ovg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QwLdFfCfB89aYOwT2+JzlwOIRYBnUoHzrd3KOoeP3qm2z1Zzy/CqFwv+udX8iAV99NNRYXc1nM6Ml63qHQKXGR7MypYsrmMROhcaNI1N7683DV2oOa1lsZ7aHUYhGKqTltS90X/CxpL2aV52tF4oSaFVWZtieuhJqDVvDWTvRRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=midirus.com; spf=pass smtp.mailfrom=midirus.com; dkim=pass (2048-bit key) header.d=midirus.com header.i=@midirus.com header.b=uZIdrEW9; arc=none smtp.client-ip=185.70.43.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=midirus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=midirus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C278645561F
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:48:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.135
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791834489; cv=pass; b=i0YUaOwbckw1MN+FHeYbG4IR0OSuqlRbtxKQuDXHq0IoMHUx9vooClPvxp7o4RYnYyclJy/zg96tKkPb2t55xn2/XzxWqJWZQbHwm28WzAfovp63q3Yt/KLDxN/Xa09oTxUKRp+DYF0JBSUr90e5rThzNXyrc+YkfwzbKJJAKlg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791834489; c=relaxed/simple;
+	bh=UUoBuGmd8fFx8whvNQfzDXZoaxMzirKFYCsoIfjrUgE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=abN+IP2AXh/bPGfswgEzrvZOIBbi8hHCmqiGrHeb2LCqLSv7BwtcgTwqzfLVbfb/8Is0pua9xUU4BnSlOl93D0oH1QLWEj0LCg7ss6OInXk8ilv3FL/v8ohMO5n8ro4vAc9nEYBiUNof1MNPi3F3ylsOsNHye2x9CvoN5mtZWPg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PbfXMxYo; arc=pass smtp.client-ip=74.125.228.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=midirus.com header.i=@midirus.com header.b="uZIdrEW9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=midirus.com;
-	s=protonmail; t=1791834377; x=1792093577;
-	bh=7eUeVZarUBPNmnvtSEi9wLI7Tja8/hA2NLZl7ky89hg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=uZIdrEW9/NrOscsimbd7pG+xUT2o7srorJk7pgFnRU86hHCZu/x02wMEPTT5Vr4KZ
-	 WmwE3JhfQctmCTaYcUBg0CgODbbGi4fPb/oC9qibI7e+9vrD7yaZHgdEhZswWsePzv
-	 dhgM/mrY2o27M+rpKVWZTFCMwGGf/Hf+giErG7kxHjUvzyAVH5asEBeKtulP4knObu
-	 ujEcxTjB8CnWTW1Dz+un1ECzhGh4Pfi093im+VeYl+FxlxpdWKY/VJ99esjbBILPr7
-	 +wdJEWTJ8YXcQSYrsXvvD9D1MD45lDGlQD8YKAfFDTrR7A9hDst0cN9asJ03mWd2bM
-	 mFsML3WdRRRlA==
-Date: Mon, 12 Oct 2026 19:46:11 +0000
-To: Takashi Iwai <tiwai@suse.de>
-From: Tristan de Cacqueray <tristan@midirus.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, linux-sound@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 0/3] rust: snd: Introduce experimental ALSA rawmidi abstractions
-Message-ID: <87ik36em81.fsf@midirus.com>
-In-Reply-To: <87ld83gl9g.wl-tiwai@suse.de>
-References: <20261011-rust-snd-v1-0-7974ecdcd345@midirus.com> <87ld83gl9g.wl-tiwai@suse.de>
-Feedback-ID: 135030709:user:proton
-X-Pm-Message-ID: 7553b34d4b22bd294f68b24f3dd9bb1a0aaae7e5
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PbfXMxYo"
+Received: by mail-ej2-f7.google.com with SMTP id a640c23a62f3a-c2e15e7ab2bso177454466b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:48:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791834486; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MQwZfX/ynki1f9tFJdFq7Cr0YcyKFGB5Ibkm6kOdQ0mWdaP4hWo9OhFmkkTaFDSy4c
+         UsuuAVXI0yNKhZwsNpkDzotVQhAG6QmhdGAPI65maq6mxjRUeeyu4ep7Ensul0SwqbJK
+         wfwSwuJBCEHF+Xv/Rvu2KQEC/AapXhBQAFLtbjcrpbfnhJD7Hg5FIOH3yMQeLlJz/He0
+         9iemtImUjV2Jc01Atv7yuT7Z8v56WVlYanmOkK+6AFqtgeAaw41GR/CK5rffrzzvmJWz
+         77KhJJTORxvSZn02udQ12GWxRLV41P1zEC91A1MSMrWuP73HQVXgKQ7nUzwLDD1SJy6Z
+         O1Og==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=hePjOQgDk2oAPjPtpp2sw4T2GMv65ZXd7JkCbKndfRI=;
+        fh=+MIGFNNYSBR7o1qVxrNxAsyhECDi+lDSvhXucySBefo=;
+        b=D7POQKGzfSQQUbeCP+EwKY6qzh3QdEfDSF8XOqq1HcwqNlCDMIl8TX3XqN2BPfshXm
+         deDBRm5sF7o0nxYoBNijhBm3J43llWxlC+Dkm729NLZ6WerGp7D/TQfbTi++YTmRfaQw
+         DhqRKhuhOLHUjKpW67+YKRTv+bcky6Rn/Cu4ko6ZkSsliEIB948n0rH4HKzECjwuP/25
+         4Vf14psgZkAaO/as9HBi8AJfQbdPVZTTfl+gBoeofNLOIYghjVJYEHvxHI6RPSMc3URr
+         ocsM2hTgRtvbXN0C4d6KsoVFu44eCavo2bf/guQryT0GuWDnJiqOzI9McOtuUUwsgxuS
+         UY2Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791834486; x=1792439286; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hePjOQgDk2oAPjPtpp2sw4T2GMv65ZXd7JkCbKndfRI=;
+        b=PbfXMxYoV+IJF6WFfYZACO/m2TGUiukl+htKnJ3c3arVPN7w8DiFr79bHOG2XR6U5y
+         x30gxpDgXdwMQlMTN76JFPdGylJo3bQmBSZjoYxk/EyhfoTiId7bXMELzH197SEtpH9/
+         KEBbiwL/x+v15i2bgvu2kuEtKZn60JcpMiUu9xXXwAvMeJW5OWK2WfocRE7n+Rxz5n7k
+         X43nul5EkCvnxhnxYNLlSGeOaQOM1H0IIYrRIXBCZi+1jXvIlor3kDEoN54vhQtt6B40
+         zz1GKPGRvTAX3HDqSHkt1A7549o3VA7x228AZOAxtswbuY87vHALOakHDwRbJcOtLRrW
+         TfiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791834486; x=1792439286;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hePjOQgDk2oAPjPtpp2sw4T2GMv65ZXd7JkCbKndfRI=;
+        b=ezAmAEbu1UJVAg1pFSN6NRV5iU5MAe/lMcKDRWsF9slqNl9vw3dYxbANndulVqPWwy
+         x0TbhecsZskwiijj22AGCWN44nnmyxhE2WWq5cb3k3r4nG/1BxkWee5UccAxiuswY5Mr
+         VFlfz4Pws/CNfvHng2rLjjkzwS+kXKyYRHWZ+/z62Qu+Rh2oT6mgyFNSHvijywaP7jeE
+         +Q8BUH64E4CE/yeHSF1sNhIeS2QanckES4CCsUbIPF9s/+quduuODiVMNAEG05Yu0a+7
+         V4iA6U56yl5488qqWO1k8e9KNIcKvInBcxebrJYVwILDpVazqv+bp0ukMiP1jNbPfDhg
+         RgyA==
+X-Forwarded-Encrypted: i=1; AKwUvBy2MFdXBOGqwdcSlGLxH/VuUHqRvGN9BUpkM65hyyw5GbgK/bqt6FNpGCFB9XvYfH6ITF8R6Vfzt6bIeE8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpBHlIcdYdBURJunf2DKkjZi/+dd+n1D8uH3HfBKRUPwIpBZo8
+	1mGp/k7ImZ0b6jeU8OtcmrEGYivKAIlnQBOP+qhd8OTyc+y1WnJeYSHLqqxGnlYS3lHasXd/fMT
+	DibT+psWt3u6CSfHXWjNZMqUzLWzgWDQ=
+X-Gm-Gg: AYBFou3iZ3pcd7/pyK+rM5g33cngL9h36MUwQC7nry0AcNAi72iw4VLJVCZu7cA5/uz
+	i4gYM8BFz5xOX/qr2jskm7F6/nGbhR6XQxXAaKARKEEQb5sHopCdGL9AHXW8FBJWEjwaJS7DJIK
+	1nU5JvEPe0yUgV/8HkAH/FunqoCL+ll6kJuUD9pJvmJW6AV094hfaWF2vy12gFcXmjUtWDqcS2V
+	8uqD1wxY7D4EzYDf9LzCw4F179shBxES6yOqwrmzlxj2JigCw1vi/b99zPW2tGVZhxcgDm/fHGi
+	/MAAW/xiT6WKiMdunLB2JHgbw7wpli4VZOiFsoMoDAAadQD/1QIe8MIIKA==
+X-Received: by 2002:a17:907:7b8d:b0:c2d:d9f4:2c85 with SMTP id
+ a640c23a62f3a-c31aa0c129fmr992438966b.41.1791834485955; Mon, 12 Oct 2026
+ 12:48:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
+ <20260919-s32g_serdes-v3-4-9d68868c1e89@oss.nxp.com> <6aabb56e-406f-4d13-9fd8-54822202039f@bootlin.com>
+ <assmUIvWMuZsp8OO@lsv051416.swis.nl-cdc01.nxp.com>
+In-Reply-To: <assmUIvWMuZsp8OO@lsv051416.swis.nl-cdc01.nxp.com>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Tue, 13 Oct 2026 03:47:58 +0800
+X-Gm-Features: AclHuK-mWeAUUjbT2q4HaMO7I1jbUFx_FPbAu9P_i7ekNoCvSs5mbKy3dUi7DkU
+Message-ID: <CALj3r0gQkUARS1e+2CGB3JsrGJ2XrzuoChfz0cWYRpK4kq1Uxg@mail.gmail.com>
+Subject: Re: [PATCH RFC v3 04/12] net: pcs: add NXP SerDes XPCS shared core
+To: Jan Petrous <jan.petrous@oss.nxp.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>, NXP S32 Linux Team <s32@nxp.com>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Bogdan Hamciuc <bogdan.hamciuc@nxp.com>, 
+	Ionut Vicovan <ionut.vicovan@nxp.com>, Andrew Lunn <andrew@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Clark Wang <xiaoning.wang@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Richard Cochran <richardcochran@gmail.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	imx@lists.linux.dev, linux-pci@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, 
+	Vincent Guittot <vincent.guittot@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Jan,
 
-On Mon, Oct 12, 2026 at 14:23 Takashi Iwai wrote:
-> On Sun, 11 Oct 2026 15:02:11 +0200,
-> Tristan de Cacqueray wrote:
->>
->> Hi Takashi and the Rust for Linux maintainers.
->>
->> I just noticed your mail about an early Rust prototype for the sound
->> subsystem right before I was about to submit this RFC!
->>   https://lore.kernel.org/alsa-devel/878q48579z.wl-tiwai@suse.de/
->>
->> Nevertheless, please allow me to share what I had in mind through this
->> small proof of concept for the `rawmidi` API. I am looking for feedback =
-on
->> the scope, coordination, and the ownership model rather than a detailed
->> review for merging.
->>
->> My use case is a new hardware controller using a custom serial protocol.
->> While developing its Rust driver, I needed an interface to ALSA rawmidi.
->> I'm particularly interested in handling rawmidi substream safely to avoi=
-d
->> issues like the one fixed by
->>   221253723dc5 ("ALSA: bcd2000: Fix race between rawmidi and disconnect"=
-)
->>
->> So, I wrote some bindings to see how that would look like. This series a=
-dds
->> experimental snd_card and snd_rawmidi wrappers, input/output callback
->> traits, and a sample rawmidi faux device using delayed work to simulate
->> incoming MIDI data.
->>
->> This is not merge-ready. In particular, the prototype does not yet enfor=
-ce
->> the devres lifetime of the card or the lifetime of its rawmidi wrapper. =
-The
->> substream helper also relies on the driver clearing it before close
->> returns.
->>
->> Here are my questions:
->>
->>   1. Does this rawmidi experiment overlaps with your prototype?
->>      If so, I would be happy to coordinate or adapt this experiment to i=
-t.
->
-> No, my patchset doesn't contain rawmidi support yet.
-> The sound card abstraction would conflict quite, sure, but it wouldn't
-> be too hard to adapt, I guess.
->
+Thanks for the pointers. A few thoughts.
 
-That's great, I can rebase my rawmidi abstraction onto your branch.
+> Yes. The S32G accessor is the same DW indirect scheme pcs-xpcs-plat
+> implements (page into the viewport at 0xff, then the low address byte
+> at a 4-byte stride), so there is no reason for S32G to carry its own
+> copy of the XPCS code. The next version drops the shared core, exposes
+> each XPCS instance as a mii_bus from the SerDes PHY driver and creates
+> the PCS with xpcs_create_pcs_mdiodev(), much like the RK3568 glue.
+> Details in my reply to Andrew.
+>
+> The part that does not fit pcs-xpcs-plat as-is is ownership, not
+> access: the XPCS windows sit inside the SerDes subsystem register
+> space, and their bring-up is ordered against the PCIe lane and the
+> other XPCS instance, so the bus is registered by the SerDes PHY driver
+> rather than by a standalone snps,dw-xpcs device. The accessor itself
+> is a few lines; if Alex's pcs-xpcs-regmap is merged first I will use
+> it rather than open-code another bus.
 
->>   2. Is rawmidi a useful initial target for ALSA Rust abstraction?
->
-> Sure, why not, if it's actually needed? :)
->
+On the transport split: I think the cleanest path is to split the MMIO
+accessor out into its own module, say pcs-xpcs-mmio, exporting the
+read/write helpers. Then pcs-xpcs-plat can call into those exported
+symbols instead of open-coding the page/stride scheme, and S32G can do
+the same for its indirect window. That way nobody carries a private
+copy of the accessor. If that turns out to be too invasive for plat,
+keeping a separate pcs-xpcs-plat copy is workable too, but I'd rather
+avoid it.
 
-I think Rust could help make midi_ops implementation safer. Would it make
-sense to port the virmidi driver as a demonstration, or would you
-recommend a different driver as a starting point?
+If Alex's pcs-xpcs-regmap lands first, that's the natural place for
+the S32G accessor; pcs-xpcs-mmio would only be needed if the regmap
+approach doesn't fit.
 
->>   3. Does your prototype mirror the C API 1:1, or for example, does it h=
-ide
->>      the substream lifecycle? That's the design choice I'm least sure ab=
-out.
->
-> It's mostly a straightforward wrapping of C API, but there are a few
-> twists to adapt Rust-way.  The card can be managed in RAII style, too,
-> for example.
->
-> I haven't prepared for submission, but you can find the current
-> changes in test/sound-rust branch of sound git tree (either kernel.org
-> or github.com):
->   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/log/?h=
-=3Dtest/sound-rust
->   https://github.com/tiwai/sound/tree/test/sound-rust
->
-> Those are over 50 commits on top of 7.3-rc5, and I'll likely rebase a
-> bit to rearrange before submission, so beware of changes in future.
->
-> The commits begin with a few Rust kernel changes for fixing and
-> addition for the sound support, including the PM support from Beata
-> Michalska (just took what have been posted), followed by ALSA core
-> abstractions for the card, PCM and controls.
->
-> Then it continues to the implementations of 3 actual sound drivers for
-> PCM/control: the dummy driver (with platform and hrtimer), and the
-> ens1370 and intel8x0 drivers for PCI devices to be run on VM.
->
-> After that, the extension to USB abstraction follows, including the
-> isochronous support patches by Colin Braun, and then the USB-audio
-> driver implementation (that can run on an actual bare metal), as well
-> as the USB runtime PM support.
->
+> S32G needs the same kind of thing: skip the generic soft reset, and no
+> EEE registers. I will start with the existing PMA-ID mechanism, since
+> that is what TXGBE and FBNIC use today, and switch to a callback if one
+> is agreed in the Rockchip thread. I'll Cc you on those patches.
 
-Thank you for sharing the branch. I'll take a look.
+On the shared-core duplication: rather than copying the whole XPCS
+core, I'd look at how the existing users express their quirks.
 
->
-> BTW, until now, I haven't planned for any serious consideration to
-> merge Rust stuff yet.  Partly because the above was a pure experiment
-> for me, but another big obstacle is that the whole Rust C binding is
-> limited to built-in vmlinux.  With a distribution kernel maintainer
-> hat on, this is absolutely NO-GO -- we really want to avoid built-in.
-> (Graphics is a kind of exception nowadays because of boot support,
-> though.)  Can this be worked out soon...?
->
+Wangxun has a genuinely different PMA ID, so it can branch on the
+ID before the reset path and keep the generic core untouched.
 
-Wow, that sounds like a major limitation that I wasn't aware of. I'm not
-familiar with the status of this issue, but I'd be happy to help if
-there's something I can contribute.
+The older NXP devices do the opposite: they fake the PCS ID at the MDIO
+layer so the core sees a magic value it then interprets. That leaves
+the magic in the core and a fake ID in the glue, and it doesn't scale
+to a third user.
 
-Thank you for the prompt reply Takashi. I really appreciate it!
--Tristan
+For S32G, I'd prefer one of these two approaches:
 
+- A flag in struct dw_xpcs, e.g. DW_XPCS_NO_RESET, that the glue sets
+  and the core checks before the soft reset and EEE paths. Works when
+  the quirk applies to a whole instance regardless of the PMA ID.
+- A platform callback, e.g. plat->pma_config(), where the glue can
+  return early to skip the parts it doesn't need. More flexible, but
+  also more surface area; I'd only go there if flags aren't enough.
+
+Either is better than another fake ID, because the quirk stays visible
+at the point where it matters instead of being hidden behind a made-up
+value in the transport layer.
+
+One question: how does S32G relate to the earlier NXP devices already
+in pcs-xpcs.c? Same IP, same PCS ID, same quirks, or something else?
+If they're the same family, it would be good to clean all of them up
+in one go rather than adding a third mechanism on top of the old
+fake-ID one.
+
+Separately, I have a plan to propose platform callbacks for the XPCS core
+at some point, regardless of whether S32G ends up needing them. The
+core currently has no way for a platform glue or PMA to limit or override
+parts of the generic behaviour, and I think that gap needs closing.
+The exact shape can be discussed once RK3568 lands. Happy to Cc you on
+the related thread when that happens.
+
+- Coia
