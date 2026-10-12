@@ -1,144 +1,122 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010057.outbound.protection.outlook.com [52.101.201.57])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F363F329F
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:44:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823447; cv=fail; b=DESVWsmA9LbUDlMaBB28/IY3DzTIryJz+UZPkJ7f/SqNIpieYcCFuYpZXum62j/bB3PN7+gcfuXEGMpbFmnxmUfbT+M0VuWrFhuu2QV7O/qMFvIB5NSQifWnnvCSBJuDHBbhH4jvtRr9t66I1Njp1V9IicO9CI7rpL6GHLoCHzM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791823447; c=relaxed/simple;
-	bh=PbSn1rWwjus53SJSt2b2JT2TyXG/4CkQpPY75cMZ/qs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=hdIkde0boy/EHmT/gmXGwpBTLVFm0DURvpSEeFqXdb4rYwVozDBbZqyGuMhod8GXW6tqmEn62n6WrY7hHCn3iKBBYz7vkqvA6Ul2bLZ8Oa0i8qKNBzIOMlxcrZuHiS5b0PgVyqaitVsfZSqqKMUqZZm/l+1BG4r/AAvMVnuCfg4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=AS0SFEVK; arc=fail smtp.client-ip=52.101.201.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219E349C4C3
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:44:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791823472; cv=none; b=INE5Gu3ocXB/UxsXOB+OrqneE8iVjDNMNdeGyWsmVwhGZbKHfmDsLHjthhUS2cqdMCCkJCZiTW0fsgkTwLpYTq+/qqYC6QRn5y+mB3L15C0AbR7wKGffeorodw6B5jsIomEK1qj4UjIBmIY3NG1UzuHKi7lSuS/otwzh9ytvBFg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791823472; c=relaxed/simple;
+	bh=rIw4+SIpOyE8y8Up8P2niQvSmYAUDOt+08ZKgVbIVmA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=R1OjoFGx8kh1VMmca3PRJZww5rARdMJ0DdUwIe7uuZWhk1H3SBG43+GJ/tIHQWc4pQ/Ndfr+ILkmk2tuszayp3N4IwxpmoJidaifGGrrmmL9Wp4kPIzE1gmvCxyWz9shl84OIW4/4QNlidgvF2octTJQkNPTZ7c2lhWxKzKT360=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=z6bRrKRK; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="AS0SFEVK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oYG86FvHAaCG0zFLyxFM0ky1GS+LmO6ZyGOU6v/+WUwKbi2Ry7IEfIpNMWdDz1gMJ7lGetLiT9nv5Zxh+cXLzXSyFSpN8m0tZ7z43C/1IFWzpW4/5t2QoY0KJWl1ZR5BuVsy8DK31pmHcH6SavPVKkU2ULyy9As1nf4cZzScxrgXB+tGzXjsLF7W99FsTGE+H6X83ND5Z71+iN2ol1jvY3r+lCbdLByo6KAu2MTZQ3rTh2rB0Y+yy/wPawjVobcxOtSpbQI+0Ms+l7x09dqt2PxiFCjoGcO/j/O6g0tXNF8VE0oGq8sf3h/Bu2TIbNaEuQhUHmke8h5gyenQJYtLsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x6ycvoK0mY7fJ1RJe/3MsiMrJ/HB/V9u19f5ZVoOxgw=;
- b=TueHqGdNBRXJ6Hb0tMabZOBhC1ydgLEdfb0uqseg4ShltuSZIolc8SyayoMU/wS5hl6v0JhV8UokXUqQb2BjXXjTCB7q4JIx0t8qfnuG4KoeIT7ECP5n67FncPyZ976w++S8YIybNKUZAY+A9ea2aLnAhnj3nyJYeFHaEeSVE91YPXshHLOVdUTrb8qoyeMiBm0ctiUK19nQUNIluKw06XJZ50Gm14LDIK5AQWUZX4sfIzxyBUxcFADabg8PJIkKzj3+MTh1pOq+kJSS7ucklxqNAJLWeHcs2IAsmlLzzT5rvLnQ8K1KoXuBX83ATXJhw9K3Q26tcwRIWJx+31XHag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x6ycvoK0mY7fJ1RJe/3MsiMrJ/HB/V9u19f5ZVoOxgw=;
- b=AS0SFEVK3Veu3EbMaNQ/63TkPmb5DvZOd2b5VPLNPMqoF/k5zStBjSAUDCHCffxncoeTTSaCGpxC7T8B1WLWUe1nKSJTWOOenPzBlBnpzcxvkGg/NlyCMdVE85KnJwu/fLnPUOX/V+zJjA5oJKLaGQgLnKpqNJ2zTXNSmEHDX1Y=
-Received: from DS0PR17CA0005.namprd17.prod.outlook.com (2603:10b6:8:191::6) by
- CY8PR12MB7538.namprd12.prod.outlook.com (2603:10b6:930:95::21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.17; Mon, 12 Oct 2026 16:43:57 +0000
-Received: from CY8PEPF0000005E.namprd21.prod.outlook.com
- (2603:10b6:8:191:cafe::5e) by DS0PR17CA0005.outlook.office365.com
- (2603:10b6:8:191::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon,
- 12 Oct 2026 16:43:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY8PEPF0000005E.mail.protection.outlook.com (10.167.247.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.0 via Frontend Transport; Mon, 12 Oct 2026 16:43:55 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 11:43:49 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 11:43:49 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 12 Oct 2026 11:43:48 -0500
-Message-ID: <6a124bdc-06ac-79c3-7c26-d9867f9c5abe@amd.com>
-Date: Mon, 12 Oct 2026 09:43:53 -0700
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="z6bRrKRK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=ZI1jrhehYU+RLKzgYORjc8QBBzD771a1CdXAHNaSzhg=; b=z6bRrKRKJWtCYbq8O15zAVKj2D
+	bBzZr2i0KPOh74I4rQGdau7VTdAKbFhVeChAGUfakuuH16JYr91BIvvM2DR8J5GTsNfTmOADDDUxf
+	gSoyRlC/x31Z4YlNZF5zkwo55heQMtbGri91zlsdtqFHHohb+H9DxwCDSKr6LDuUCTXSZfauun/tz
+	NrO/lXE2WYRRkEAAhCYmJkoGjtPR5hOBGyZDTq5cfSZ+MeN5U9LIoWoSrQ37zsIatc5ItLcALCsSm
+	JbN9AMSF08rKqA3DshjDy6cC4kBWFUfdh/eTx9n1MZZ2KPNuYZ72C+gPT77kQZbxoDI5Mp78yAqb9
+	DNXK2IKQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Sandy Huang <hjc@rock-chips.com>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Algea Cao <algea.cao@rock-chips.com>,
+	Daniel Stone <daniels@collabora.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	kernel@collabora.com,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Diederik de Haas <diederik@cknow-tech.com>,
+	Maud Spierings <maud_spierings@hotmail.com>,
+	=?UTF-8?q?Robin=20R=C3=A4ber?= <robin.raebi@gmail.com>,
+	Igor Paunovic <royalnet026@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v12 00/16] Add HDMI 2.0 support to DW HDMI QP TX
+Date: Mon, 12 Oct 2026 18:05:01 +0200
+Message-ID: <179182109533.3793653.8971698569867906952.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
+References: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] accel/amdxdna: Reject device heap BO when dev_mem_size is
- not set
-Content-Language: en-US
-To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
-	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
-References: <20261008232416.2646054-1-yidong.zhang@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261008232416.2646054-1-yidong.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PEPF0000005E:EE_|CY8PR12MB7538:EE_
-X-MS-Office365-Filtering-Correlation-Id: 077a5b32-bc6a-4e0a-c1a1-08df2880014f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|261009223027099003|11063799006|56012099006|10067099003|22082099003|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	OiAIDkbbsG+mby9udan1xE53+7uXDe0IwAdLfLdyv9JI5g7b3JjNDIZavSfMFuO19cYVVrK9KS/Z2G92YpDZHY6l6p4J96siTKlw9FZSANfAuxjQORJgyLcJtEJFZ8Eu9U//Gh45wcRalbV9aiwrQOp7HtX3BSjvvj3ODoqTirNzz62gOh6Lep4G9be1lsy/SrdPyUEN5UMeBdZG5xFjGvFOC1kPqhUWABOg+njxyT/X2komg0nQQ7Lo+E+Ucx0TsgzBWbf8OLDVskR1eLaXZF9dVBaNwA2+jaBG92pMVLmMONZ81r1ZkZq7kZGX+N+yk0JztB5VgI2YeZqpQ/xi1YbE9QVbgK6VYUCAs3/L8Qv+pn8mBQX1JeIonqqodggCJS+ozUZzTkLiLqNEGK1IExYjwhzmDYIvQ5gEu1FKpap8oqg2QqUXSfd8yOXif7w4eE8eI0EImPpyu9OEwOjrNTPqFe8D6SD+UmFXGSUbFua1cjwe3cobTXmyuboP4jZAPB0zjnL51zCc9pJAP/uA1ol18eWJDG2RQP++Be1v0bKUKdR4R0YzsQJcqIZGhFCd8LXDv/I73Nb35bw8IZWZ/6uwz/G7bdQ46RLMqCP47RD0/6pMdGWbH2rP7CHHzCGNoDfogBOfAgMvHA3VFLP8y8UJuruCojRa04Sx+ZhZHOtDUKOYfyUuvs0LjXYwIP4ldhHavG+3I3dyXvX5NKlgSg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(261009223027099003)(11063799006)(56012099006)(10067099003)(22082099003)(6133799003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	pO6GIuF2HyukAQjoVVz9NFnNo2j/qjH1ApfBKa3xGAjQWGr4IeEKOtoh9MM4O5inziut+fGeCy2vq1KpYZ5cITV7W6MfYL7dBr35/ugAcPRk5Gcfiw1qIJQVgFlZqDhhKJ2754Ljc5nRPE2lWNuLndJVsKerpq21Obhg8XfrSNY05vburQBHV7vJiou8iNDp/ttjngTzgXNI2GXvB6mrs8uDMg081ma83+hgeVXXJI/p4PwQ5cPRKa2QJB/WXelwKTJW0TQMV2AvusiOMX0gb18EbqqO/oT4i8Q30fyq8UIemqcozMmMViWRo1iYubdAacv2PGryiBvUBQdwE/OMVe5y07AMoaTsSQxQoWnucJ//PoMrcB55DGrwWSMfmv1Zz9YSF2JVxpB1dUgFOyc3JaSJKDYDe1envHx3bUZYFLZg1u7+0a1pPuaJt6Qfp/Iy
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 16:43:55.1943
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 077a5b32-bc6a-4e0a-c1a1-08df2880014f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY8PEPF0000005E.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7538
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Applied to drm-misc-next
 
-On 10/8/26 16:24, David Zhang wrote:
-> NPU3 devices do not set dev_mem_size, since they do not use a device
-> heap. Creating an AMDXDNA_BO_DEV_HEAP BO on such a device hits the
-> WARN_ON(!is_power_of_2(dev_mem_size)) check, which any user with
-> access to the device node can trigger.
->
-> Return -EOPNOTSUPP when dev_mem_size is 0.
->
-> Fixes: d76856beb4a4 ("accel/amdxdna: Refactor GEM BO handling and add helper APIs for address retrieval")
-> Signed-off-by: David Zhang <yidong.zhang@amd.com>
-> ---
->   drivers/accel/amdxdna/amdxdna_gem.c | 5 +++++
->   1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-> index f4832337ec31..f14484bc31ec 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-> @@ -1140,6 +1140,11 @@ amdxdna_drm_create_dev_heap_bo(struct drm_device *dev,
->   	struct amdxdna_gem_obj *abo;
->   	int ret;
->   
-> +	if (!xdna->dev_info->dev_mem_size) {
-> +		XDNA_DBG(xdna, "Device heap is not supported");
-> +		return ERR_PTR(-EOPNOTSUPP);
-> +	}
-> +
->   	WARN_ON(!is_power_of_2(xdna->dev_info->dev_mem_size));
->   	XDNA_DBG(xdna, "Requested dev heap size 0x%llx", args->size);
->   	if (!args->size || !IS_ALIGNED(args->size, xdna->dev_info->dev_mem_size)) {
+On Mon, 05 Oct 2026 03:38:01 +0300, Cristian Ciocaltea wrote:
+> Enable HDMI 2.0 display modes (e.g. 4K@60Hz) on the Synopsys DW HDMI QP
+> TX controller, as found in Rockchip RK3576 & RK3588 SoCs, by making use
+> of the scrambler infrastructure introduced recently in the DRM core and
+> HDMI display helpers.
+> 
+> The first group of patches wires up the SCDC scrambling feature itself
+> in the DW HDMI QP bridge driver, while improving i2c fault handling,
+> and providing enable/disable HPD PHY ops and a HPD notify helper.
+> 
+> [...]
+
+Applied, thanks!
+
+[01/16] drm/bridge: dw-hdmi-qp: Demote i2c bus error messages to debug level
+        commit: 7de65917d29cc0747bdbd5f30ad2f8a3d0a236b9
+[02/16] drm/bridge: dw-hdmi-qp: Provide .{enable,disable}_hpd() PHY ops
+        commit: 23594060f8019e400c55abe4b982f4ddfbb06471
+[03/16] drm/bridge: dw-hdmi-qp: Remove unused workqueue include and define
+        commit: 994452efe9c7871d7a6de8c31ba6e5a2c9733e99
+[04/16] drm/bridge: dw-hdmi-qp: Add HDMI 2.0 scrambling support
+        commit: 046dbe428a69e0e2a8d09ac7de75ebc9bd469a46
+[05/16] drm/bridge: dw-hdmi-qp: Provide dw_hdmi_qp_hpd_notify() helper
+        commit: a58efc1aa0bb67abe1946be72a1c67d17d78aadf
+[06/16] drm/rockchip: dw_hdmi_qp: Fix invalid drvdata access in PM ops
+        commit: b6e19848c9db535d81d6db85c7cc1324e6611791
+[07/16] drm/rockchip: dw_hdmi_qp: Cancel pending HPD work on suspend
+        commit: 5d0aa771a5308f6a6c83eeaa89351a472ae580c3
+[08/16] drm/rockchip: dw_hdmi_qp: Add missing newlines in dev_err_probe() messages
+        commit: 7554a1cb23148a3ab0b74c7edd47356c26b40ead
+[09/16] drm/rockchip: dw_hdmi_qp: Use local dev variable consistently in bind()
+        commit: 1fe516676a1ca0678b27408f7b5f91b4e9f5bbc9
+[10/16] drm/rockchip: dw_hdmi_qp: Avoid spurious HPD IRQ thread wakeups
+        commit: 8bba3185c107b6bb6d59a1fb0c516e24dd90dee4
+[11/16] drm/rockchip: dw_hdmi_qp: Mask RK3576 HPD IRQ in io_init
+        commit: 383fad9dac0c136334cf257fa1a1ce5180e08740
+[12/16] drm/rockchip: dw_hdmi_qp: Implement .{enable,disable}_hpd() PHY ops
+        commit: 40e100d4af8f29df7ddc7e867412bf81836fb32c
+[13/16] drm/rockchip: dw_hdmi_qp: Factor out HPD interrupt (un)mask helpers
+        commit: b0d607d0c35b206b3ec0497dedbd0fa48f108144
+[14/16] drm/rockchip: dw_hdmi_qp: Control the HPD IRQ line via the bridge HPD ops
+        commit: 91f92a7487c4efef52b13bc864f5c16858791ba4
+[15/16] drm/rockchip: dw_hdmi_qp: Use dw_hdmi_qp_hpd_notify() for HPD reports
+        commit: bba9ac0a9047f3df5d5160140785c1d885debb06
+[16/16] drm/bridge: dw-hdmi-qp: Drop unused .setup_hpd() phy op
+        commit: fc9370d7b1c927f5a7f20e1251b8ee7bc0698954
+
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>
