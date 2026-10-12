@@ -1,87 +1,33 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA3444162A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:03:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A4A437448
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:04:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791788637; cv=none; b=tTS9CMs2dOdUFSSKrs1AEhkUdve3qBjOxNl6TB1/SOPFDsGe1bpvE2uDb/OshzWIYvwXNcbmL6lNhnioZaEZaqs6M3ZkllvWxGdESGlI9eBj+rNUu+9RuMBmoPxcnfm5rR0jtm3e3UyXdnbic1kTQVEqG60d9bDVkgxzhksD778=
+	t=1791788652; cv=none; b=M1uilLQgYmXPgMF1eDRnj8cjguYWRRGsieI67XT4DNKJ8Ihv5MM/BLCDtIMQPq3T982nteXVfUosfrP5ClS6TRqp43wrdTdwtZlEanVqa/LrZjfp9bOh2vCZMFTYV3df7KAThf77axsaUqX2MPmWIGNHx9QyGf9ski7DZeUlWNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791788637; c=relaxed/simple;
-	bh=eT6fsLMbR2UFOkDeve1mfrjortSWd6vQ21sGeyzPJH8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Zq0qHu4yZslvGe6HSU0HXQBBHe7zww5LC7gMBvNoGuBo6vy4ZBz8zSV4xP2meew4Uw63/ceoQqulrVNU7AKk2kA7yhs3X+kBAjzRbjF/iUzdtKquYr5JuHvW2j+nvUJOOluGiHY77enSP/LvJyIjFU4AR3WtAr//RyNZhEIpTIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JX464/J/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ij1NV7Fu; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791788652; c=relaxed/simple;
+	bh=WcnB2um1H9pVv0xHDJMpuje9BWJkoedAkp2uOsBdJ4w=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=UmtlJM2TMvjzYCufrlN85Z7Mhc8uiv7wn3Dn7fJ5mfRnZdxAdDpM5qR7OhWrbYpjgL/DC1j3xlrcJL7X2Fn+axVZx1AUDpVzazOcvXYSdE8fEbNl0YYkPUpaR9NprA9LzK01z3YjHjNMwK8GR0JhBxKEOLuKwv6frbmsMCNl7kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C0ID0Pp6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JX464/J/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ij1NV7Fu"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C55Tf72436411
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:03:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NynDrnHfo4gRdlUbmNX8OMBngvYIhwZ35iVPdJaj4Cc=; b=JX464/J/kz3FmytP
-	qTNVQLk1Eig1Uydwo6YyaYYNPzRD5itv6JcUaN96VOIOornTBHL6/APxv7PyeFcu
-	kW0J2lcWrn7LytvFbVS4IPXtrV7BLjfXWUHoGkIOQFGbYJ0mOvU7RdZNbssuhwzd
-	RkTNLQnMZkOdfluOcFAWechqQhmah5i4u+VywGnOzX9EXINcNgVPo9HXq7bYgkme
-	fe/1b/bKp9vOAKUIxblU2oG/B600bV8PzbNhQhzeiV3081LpwmFBgUv6CMNYwnVS
-	tB8HGSJwT+bzjBzNddL0h39ihuh1uHHfiyrWKnel4G588bUTNOf5W2Yi9pNwQLNT
-	BDoYUA==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7b2fdkuk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:03:54 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91b8c60c550so5769506d6.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:03:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791788633; x=1792393433; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NynDrnHfo4gRdlUbmNX8OMBngvYIhwZ35iVPdJaj4Cc=;
-        b=Ij1NV7FuHUIzBhLfw9WU8HG4J86dIVDpUiR1VWjF0jwXZcLdcvPTeF9nMZea09IL+o
-         qUDP3oAYYcMjJofX7BbECOJHJe4vY9BhrcH79VOEVHjiKl8OocjGNJSg5og57eY3oDgS
-         loMlWVpuR4uiplcLHPhE41GHP90vgX3ET4rTK0CAA1T70nNrp12BgPgCnd0evNQIHwbb
-         S4bHqnNY7inNICKoNU/Gu+IaVRPhJquSOaqd4s4hMW1ouv38X0m7fWUMw0CSv9J9er5W
-         hpuuauzYQ+Mt3XSNPpCRWlyXI72q1GkjXmFUjD8lJc0yGGWTeBOJJbYz0aX2fYdxKpW3
-         GkXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791788633; x=1792393433;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NynDrnHfo4gRdlUbmNX8OMBngvYIhwZ35iVPdJaj4Cc=;
-        b=DQvq0pQDlGTvFhObFHklECiu6ySfj1P8+Ig1Kj1jrSUnRcr3jWnJri0bApcWYE8NnE
-         w/kDqvXghXWIGVw+tUz+ikLWkLjPqv72XVOB2ntiD9kWMpoYjW2GdymuFr8VULCbcmvb
-         v41Egxkis3821gTQB07mKzsKwYl5JdqtKAdyYbgkQJu7dWIGsmYPfJZTJwLxMhngRcLT
-         Rgo8youJH5iQz0i4oyXVJqfTHFCMjFgaxJTf9uYF4CQJ6vaDyrfd5+DDH5RKAILNwzOn
-         8ECfccqRGpXf2wRpZZOnczvQKVnvzIJ63GPIQ6SMrLmkuV0VarohykERsXbKBbeYHuFk
-         hLzA==
-X-Forwarded-Encrypted: i=1; AKwUvBygdiXmM4jKZRhysJCzUL6elaa3TuxAS0i0ELH+E0+v3xsJ5ZYnX17A9dyKik1fUBzDGfCSJK1z5XcVsLA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLy3et+Ih7n0nxZ4tfUqvCv0ptDe5wzUSxEwRqkzD4qpIB6ILk1
-	pGea0TabTBdvKY98sMNEeVlbIXSSTuK0o3GMMsbROE++vz+W/3gQDwkMGLsGF/w/4yVZe8sXxQc
-	lkOyhMWtN5d+3CDWYCWD1M8P+C+phh8a1+LXQusv6r48LUPSodgda/VMQSwdaUriY/Cc=
-X-Gm-Gg: AYBFou3oWfszMy7QjrqCzyT+RfPpZ+WjtFksSShRWE64p0fm+2g0D36miW0tmAgzATj
-	DUdPnxXMjOHWrJ9VUoewqposetoYGJZpFjxV0IVEvPZlmmc87g9BBrEY6/Mb+HoTDo4/GSalwPB
-	/0KBpkAnCLE1f1MnpEJojJwSTKDpcQor4cFt+pn3ckX9O+DuR418UovEdgWxpGZTY1uCarwN8F4
-	waTrVkXRQzcLypJPAi5ZplTEJ/9X/Cj93BIuwOIKJ2D+Dv8r++0LoeTO7mJHnvjy6eHZ1IlFMPg
-	fp7UgYvi+nSCcYuuO4St7jn3iUTM+qL95rdEvUsnnTDBZVf+lYxOdXzfsOEg1KkqNZzBs97VkAp
-	BPAWFRbIBgc12aalD8Pmps+F5faiiCk+Kjqr+od4=
-X-Received: by 2002:a05:620a:2b87:b0:93e:c12c:43f9 with SMTP id af79cd13be357-93ec12caf14mr1338995485a.70.1791788633424;
-        Mon, 12 Oct 2026 00:03:53 -0700 (PDT)
-X-Received: by 2002:a05:620a:2b87:b0:93e:c12c:43f9 with SMTP id af79cd13be357-93ec12caf14mr1338993085a.70.1791788632921;
-        Mon, 12 Oct 2026 00:03:52 -0700 (PDT)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e49792bsm425187655e9.4.2026.10.12.00.03.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 00:03:51 -0700 (PDT)
-Message-ID: <0dd23635-2456-4554-b5d7-083acb05a8fe@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 10:03:49 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C0ID0Pp6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD8691F0089B;
+	Mon, 12 Oct 2026 07:04:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791788651;
+	bh=iHPc9noxhd63rd41CVHU5eVdztT5EDmfh56KyaO4ybA=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=C0ID0Pp6/BEYUKz/LDKKQ516W8hD0MvkSmzjb4Jq93PRM7QkBPUWaMpNLu/aBKYCS
+	 sFulN1eLptiyFAVAfE7faNQgrR2PNh5JdzWEeVM55B7bCJEVIQiJOWtLcF0Kvup1EO
+	 cvBaQNX0VAt2z+YF8OdkTOQV/EKYHXaTENzDlKDwb2BY+h+6Ejp1KpRAX7VQvrrU8D
+	 NWrdYZDz8TMO8E4yQvr84RTtuV9Znj0niAt4wDRBfj0ZhBWJGNropWc01I0tUU3VNb
+	 se4oMLGEnOW7mV4C0tfckBUS1CiqS860VczTlRzhxsq/DO1AuriB7iRI65M+twUS8k
+	 eH7p6NUmw+hDA==
+Message-ID: <c08a6a2c-123f-4bbe-81c2-f294d8bb6214@kernel.org>
+Date: Mon, 12 Oct 2026 15:04:05 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,152 +35,222 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] media: qcom: camss: Add streams API support for
- CSIPHY
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
- <20260911062213.195007-2-gjorgji.rosikopulos@oss.qualcomm.com>
- <5f238c7a-c17e-4127-afad-38eb2cea9c34@linaro.org>
+Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>,
+ Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
+ Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org,
+ David Hildenbrand <David.Hildenbrand@arm.com>,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>,
+ Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [PATCH v3 08/17] f2fs: prepare mmap write faults for large folios
+To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+ linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20261009161224.4163796-1-zhaonanzhe@xiaomi.com>
+ <20261009161224.4163796-9-zhaonanzhe@xiaomi.com>
 Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <5f238c7a-c17e-4127-afad-38eb2cea9c34@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261009161224.4163796-9-zhaonanzhe@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAyNyBTYWx0ZWRfX9Ex+8FddSet6
- s826B9JoZUf9RPYGAGGuph2qKncIpLpFDSc70ofvsQvymmKhUxMdTrPMNeme/d25tZrCUdt0cIR
- Zdi0Crc/q3rX3hFdgrKgSUWpX31dm00=
-X-Proofpoint-GUID: 3KHDVFIZ2LL2q7eeYJVk6mgZr20zQqy5
-X-Authority-Analysis: v=2.4 cv=NddzRGD4 c=1 sm=1 tr=0 ts=6acc865a cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=vXUyycre0_kZgye-AP4A:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAyNyBTYWx0ZWRfXy6kDtUM4BnTc
- NUeUkYDPVF1jnCp/U50A7kVNyT+HSF52c9EkHYZicIGP2tNmbsPYe2dXCrR47YL0C/lfVCziMRR
- QPCYjpM1EdNPwMQnqBKGHIWev108XzW9/BPtP7UTgvq6Eg1tKm9+gFlAP3ZRFOM+yCKpIBRRLLe
- 4gAPPdS5OMFoA0OpVAqtHfUbddppCHiFpphEHqTbQsrLnFy3YjLmme22AdDdNFKcJ61t8xgUkXt
- 6DmjZxKZB2MdL2geTH6mo41oNvRlApKrauk8TeM+3HnhJwvHcD6pelEMy/tNmMl9pqN07EK7l+W
- rABCTvcrvTHD3na/daaEJXb1ILcRrfFfTJN/XqGCleeYUvq2BsO20L91cefHeAqYl9tWRliP7t7
- h7MWQwTb2614FUM8Ii3qv/wUSG2R85lJ42P8blXjfnVgw2nlFKYPyK4Crd9nXFCgS26NOw8LArU
- V7HSnfXRmrtHjPhde6g==
-X-Proofpoint-ORIG-GUID: 3KHDVFIZ2LL2q7eeYJVk6mgZr20zQqy5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 impostorscore=0 malwarescore=0 clxscore=1015
- priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120027
 
-Hi Bryan,
-
-
-On 10/12/2026 1:39 AM, Bryan O'Donoghue wrote:
-> On 11/09/2026 07:22, 
-> Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
->> From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
->>
->> Add the V4L2 subdev streams API to the CSIPHY driver: a passthrough
->> routing table (one VC per stream) and NO_STREAM_MIX routing validation.
->>
->> enable/disable_streams pad ops track active streams per pad via a
->> per-pad enabled_streams[] bitmask, so that multiple source-pad
->> consumers can share a single propagated sink stream without redundant
->> or colliding propagation to the sensor. The shared D-PHY lanes are
->> enabled once, on the transition from no active streams to at least
->> one, and disabled once all streams have gone idle.
->>
->> This is opt-in per CSIPHY instance via the new streams_enable resource
->> flag; no platform sets it yet, so CSIPHYs continue to use the legacy
->> non-streams subdev ops unchanged.
->>
->> Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-> + static const struct v4l2_subdev_core_ops csiphy_core_ops = {
-> +       .s_power = csiphy_set_power,
-> ++>>>>>>> media: qcom: camss: Add streams API support for CSIPHY
->    };
+On 10/10/26 00:12, Nanzhe Zhao wrote:
+> Now write protect `mmap` also need to support large folio,
+> Change `f2fs_vm_page_mkwrite` to achieve that.
 > 
->    static const struct v4l2_subdev_video_ops csiphy_video_ops = {
-> @@@ -932,17 -981,17 +1133,30 @@@ int msm_csiphy_register_entity(struct c
->    {
->          struct v4l2_subdev *sd = &csiphy->subdev;
->          struct media_pad *pads = csiphy->pads;
-> ++<<<<<<< HEAD
->   +      struct camss *camss = csiphy->camss;
->   +      struct device *dev = camss->dev;
->   +      int ret;
->   +
->   +      if (camss->legacy_phy)
->   +              v4l2_subdev_init(sd, &csiphy_v4l2_ops_legacy);
->   +      else
->   +              v4l2_subdev_init(sd, &csiphy_v4l2_ops);
->   +
->   +      sd->internal_ops = &csiphy_v4l2_internal_ops;
-> ++=======
-> +       struct device *dev = csiphy->camss->dev;
-> +       bool streams_api = csiphy->res->streams_enable;
-> +       int ret;
+> Note it currently marks the whole large folio dirty
+> to avoid data loss which causes write amplification.
+> Further optimization is welcome.
+> 
+> The folio_zero_segment() in mkwrite is extended to zero the
+> post-EOF part of the faulted folio for both order-0 and large
+> folios, so the f2fs_zero_post_eof_page() call that was added
+> to cover the removed shortcut is no longer needed.
+> 
+> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> ---
+>   fs/f2fs/f2fs.h |   4 ++
+>   fs/f2fs/file.c | 102 ++++++++++++++++++++++++++++++++-----------------
+>   2 files changed, 71 insertions(+), 35 deletions(-)
+> 
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index 2cf98f49c876..a78c69b6abb0 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -4488,6 +4488,10 @@ int f2fs_write_single_data_page(struct folio *folio, int *submitted,
+>   				enum iostat_type io_type,
+>   				int compr_blocks, bool allow_balance);
+>   bool f2fs_ffs_test_blk_uptodate(const struct folio *folio, pgoff_t index);
+> +struct f2fs_folio_state *f2fs_ffs_find_or_alloc(struct folio *folio);
+> +void f2fs_ffs_mark_subrange_dirty(struct folio *folio, size_t offset, size_t len);
+> +bool f2fs_ffs_clear_subrange_dirty_and_test(struct folio *folio, size_t offset,
+> +					    size_t len);
+>   void f2fs_write_failed(struct inode *inode, loff_t to);
+>   void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length);
+>   bool f2fs_release_folio(struct folio *folio, gfp_t wait);
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index e7471949faf2..6eb0c8e05b66 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -118,13 +118,48 @@ static vm_fault_t f2fs_filemap_fault(struct vm_fault *vmf)
+>   	return ret;
+>   }
+>   
+> +static int f2fs_get_block_mkwrite(struct inode *inode, struct folio *folio,
+> +				  pgoff_t index, bool need_alloc)
+> +{
+> +	struct dnode_of_data dn;
+> +	int err;
 > +
-> +       v4l2_subdev_init(sd, streams_api ? &csiphy_streams_v4l2_ops
-> +                                             : &csiphy_v4l2_ops);
-> +       sd->internal_ops = streams_api ? &csiphy_streams_internal_ops
-> +                                       : &csiphy_v4l2_internal_ops;
-> ++>>>>>>> media: qcom: camss: Add streams API support for CSIPHY
->          sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-> +       if (streams_api)
-> +               sd->flags |= V4L2_SUBDEV_FL_STREAMS;
->          snprintf(sd->name, ARRAY_SIZE(sd->name), "%s%d",
->                   MSM_CSIPHY_NAME, csiphy->id);
->          sd->grp_id = CSIPHY_GRP_ID;
-> @@@ -968,22 -1025,16 +1190,35 @@@
->          ret = v4l2_device_register_subdev(v4l2_dev, sd);
->          if (ret < 0) {
->                  dev_err(dev, "Failed to register subdev: %d\n", ret);
-> ++<<<<<<< HEAD
->   +              goto media_entity_err;
->   +      }
->   +
->   +      if (!IS_ERR(csiphy->phy)) {
->   +              ret = phy_init(csiphy->phy);
->   +              if (ret) {
->   +                      dev_err(dev, "%s init fail %d\n", csiphy->name, 
-> ret);
->   +                      v4l2_device_unregister_subdev(sd);
->   +                      goto media_entity_err;
->   +              }
->   +      }
->   +
->   +      return 0;
->   +
->   +media_entity_err:
->   +      media_entity_cleanup(&sd->entity);
-> ++=======
-> +               goto err_v4l2_subdev_cleanup;
-> +       }
+> +	set_new_dnode(&dn, inode, NULL, NULL, 0);
+> +	if (need_alloc) {
+> +		err = f2fs_get_block_locked(&dn, index);
+> +	} else {
+> +		err = f2fs_get_dnode_of_data(&dn, index, LOOKUP_NODE);
+> +		f2fs_put_dnode(&dn);
+> +		if (f2fs_is_pinned_file(inode) &&
+> +		    !__is_valid_data_blkaddr(dn.data_blkaddr))
+> +			err = -EIO;
+> +	}
 > +
-> +       return 0;
+> +	if (err)
+> +		return err;
 > +
-> + err_v4l2_subdev_cleanup:
-> +       v4l2_subdev_cleanup(sd);
-> + err_media_entity_cleanup:
-> +       media_entity_cleanup(&sd->entity);
+> +	f2fs_folio_wait_writeback(folio, false, true);
 > +
-> ++>>>>>>> media: qcom: camss: Add streams API support for CSIPHY
+> +	/* wait for GCed page writeback via META_MAPPING */
+> +	f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
+> +
+> +	return 0;
+> +}
+> +
+>   static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+>   {
+>   	struct folio *folio = page_folio(vmf->page);
+>   	struct inode *inode = file_inode(vmf->vma->vm_file);
+>   	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+> -	struct dnode_of_data dn;
+>   	bool need_alloc = !f2fs_is_pinned_file(inode);
+> +	pgoff_t pidx = folio->index + folio_page_idx(folio, vmf->page);
+> +	loff_t pos = (loff_t)pidx << PAGE_SHIFT;
+> +	loff_t isize;
+> +	loff_t folio_start;
+> +	loff_t valid_end;
+> +	size_t dirty_len;
+> +	size_t subpage_off;
+> +	pgoff_t i, nr;
+>   	int err = 0;
+>   	vm_fault_t ret;
+>   
+> @@ -161,7 +196,7 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+>   
+>   #ifdef CONFIG_F2FS_FS_COMPRESSION
+>   	if (f2fs_compressed_file(inode)) {
+> -		int ret = f2fs_is_compressed_cluster(inode, folio->index);
+> +		int ret = f2fs_is_compressed_cluster(inode, pidx);
+>   
+>   		if (ret < 0) {
+>   			err = ret;
+> @@ -179,66 +214,63 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+>   
+>   	f2fs_bug_on(sbi, f2fs_has_inline_data(inode));
+>   
+> -	err = f2fs_zero_post_eof_page(inode,
+> -		(folio->index + 1) << PAGE_SHIFT, true, false);
+> -	if (err)
+> -		goto out_pagefault;
+> -
+>   	file_update_time(vmf->vma->vm_file);
+>   	filemap_invalidate_lock_shared(inode->i_mapping);
+>   
+>   	folio_lock(folio);
+> +	isize = i_size_read(inode);
+> +	folio_start = folio_pos(folio);
+> +	subpage_off = offset_in_folio(folio, pos);
+> +	valid_end = min_t(loff_t, folio_start + folio_size(folio), isize);
+> +	dirty_len = valid_end - folio_start;
+> +
+>   	if (unlikely(folio->mapping != inode->i_mapping ||
+> -			folio_pos(folio) > i_size_read(inode) ||
+> -			!folio_test_uptodate(folio))) {
+> +			pos >= isize ||
+> +			!f2fs_ffs_test_blk_uptodate(folio,
+> +			folio->index + (subpage_off >> PAGE_SHIFT)))) {
+>   		folio_unlock(folio);
+>   		err = -EFAULT;
+>   		goto out_sem;
+>   	}
+>   
+> -	set_new_dnode(&dn, inode, NULL, NULL, 0);
+> -	if (need_alloc) {
+> -		/* block allocation */
+> -		err = f2fs_get_block_locked(&dn, folio->index);
+> -	} else {
+> -		err = f2fs_get_dnode_of_data(&dn, folio->index, LOOKUP_NODE);
+> -		f2fs_put_dnode(&dn);
+> -		if (f2fs_is_pinned_file(inode) &&
+> -		    !__is_valid_data_blkaddr(dn.data_blkaddr))
+> -			err = -EIO;
+> -	}
+> +	nr = DIV_ROUND_UP(dirty_len, PAGE_SIZE);
+>   
+> -	if (err) {
+> -		folio_unlock(folio);
+> -		goto out_sem;
+> +	for (i = 0; i < nr; i++) {
+> +		err = f2fs_get_block_mkwrite(inode, folio, folio->index + i,
+> +					     need_alloc);
+> +		if (err) {
+> +			folio_unlock(folio);
+> +			goto out_sem;
+> +		}
+>   	}
+>   
+> -	f2fs_folio_wait_writeback(folio, false, true);
+> -
+> -	/* wait for GCed page writeback via generic cache */
+> -	f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
+> -
+>   	/* page is wholly or partially inside EOF */
+> -	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
+> -						i_size_read(inode)) {
+> -		loff_t offset;
+> +	if (folio_start + folio_size(folio) > isize) {
+> +		size_t offset = offset_in_folio(folio, isize);
+>   
+> -		offset = i_size_read(inode) & ~PAGE_MASK;
+>   		folio_zero_segment(folio, offset, folio_size(folio));
+>   	}
+> +
+> +	if (folio_test_large(folio)) {
+> +		if (!f2fs_ffs_find_or_alloc(folio)) {
 
-Thanks for pointing this, i am working on new version soon v2 will be 
-on top of csiphy changes.
+Can we call f2fs_ffs_find_or_alloc() after f2fs_convert_inline_inode()? I feel
+it's so later to fail due to -ENOMEM.
 
-~Gjorgji
+Thanks,
+
+> +			folio_unlock(folio);
+> +			err = -ENOMEM;
+> +			goto out_sem;
+> +		}
+> +		f2fs_ffs_mark_subrange_dirty(folio, 0, dirty_len);
+> +	}
+>   	folio_mark_dirty(folio);
+>   
+> -	f2fs_update_iostat(sbi, inode, APP_MAPPED_IO, F2FS_BLKSIZE(sbi));
+> +	f2fs_update_iostat(sbi, inode, APP_MAPPED_IO, dirty_len);
+>   	f2fs_update_time(sbi, REQ_TIME);
+>   
+>   out_sem:
+>   	filemap_invalidate_unlock_shared(inode->i_mapping);
+> -out_pagefault:
+>   	sb_end_pagefault(inode->i_sb);
+>   out:
+>   	ret = vmf_fs_error(err);
+>   
+> -	trace_f2fs_vm_page_mkwrite(inode, folio->index, vmf->vma->vm_flags, ret);
+> +	trace_f2fs_vm_page_mkwrite(inode, pidx, vmf->vma->vm_flags, ret);
+>   	return ret;
+>   }
+>   
 
