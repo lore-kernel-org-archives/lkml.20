@@ -1,98 +1,119 @@
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E67E2F8E98;
-	Mon, 12 Oct 2026 06:03:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC4E365A0B;
+	Mon, 12 Oct 2026 06:03:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791784999; cv=none; b=oqfAn0W00xzc/CwPD/Zv5En5eqbxI3fBXvCMH9tVdsW0tNp4nhoT9YExjUQsOFCAgVeKJBYzPf0AE7bY2vUJxW+2lkXZqceISzHzhQnRZBX36SmyKM1b2RUN9WTR93QYza6ng7cYLfp8yaznelc45H1s6LHQm8JHIiKAcpF8O8w=
+	t=1791785010; cv=none; b=eWxhWi1T3PTikxkWmVLmryNQpWlkmDMdY6qqhO+wIoA9LMZYqFcc/fUzU7yOpZu4mLby0B70FQKevjat/qSbusmSXhGmnMTuYPz11cFkeZQRo4GwwJ3Xmv/KNd9dGdQjemvkOVcasojtSXvfndqmqZuPGRJiIc6IeSgnELgdJyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791784999; c=relaxed/simple;
-	bh=e/TewaTiF6EcG1AXZE9pKEnPUE8+0RLucAw4agDXg3o=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Q+6R0E8DpSotjmlkSn9o+NKlYtjcQt4h+Ldu6IePO+RsmW4Ub5erNhvCH607s6cF6DN6F24ecFk3CTdwxfAvowJ0xyvYIPP70Agcyql0ZULJmaH3px7fIKZOQ4L3D/CifRmCZ5qfuIi70SfqbMfT5KeHmyzl456wSdUWIvN66js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=2dHLSujQ; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=I2rRky5g; arc=none smtp.client-ip=210.171.160.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	s=arc-20240116; t=1791785010; c=relaxed/simple;
+	bh=oHXc5p0pSS/n7ZP6g/85X8idEaDmUpalhQ6+/cl7uDU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lTPSrmr3cM5oX41iTYYCnMTHsFGDpERqEyT7xCE7h1SsmX8KLIUv+l9fmCz7kreCqU8Uv0fc/dX6SsqZbgc36NTbWlXgZGrTuHgOt8Pah433ptVHzRLcc0dPATwI+xIIoQ4iN3g2xCbn6A5pQfR+ry9aepCheabaOIOp6/R5iDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kepFskVv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="2dHLSujQ";
-	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="I2rRky5g"
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id 6567726F7696;
-	Mon, 12 Oct 2026 15:03:15 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1791784995;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ojyM3xGEEUOo4/eDYFDRNDtXOfSKRPG0G206rrYc4Ss=;
-	b=2dHLSujQ/Un2/NS5bh+87y1lPSKQjQA7O6CDWRKwL4J/+s/OXqeNypyeuM9cFG+rw8X7gO
-	+NUgQBRp2kAoIuezAN45Z5UoZ8Ud95TAX05WOug+hQRYH75JzbU2HqMzSUfQr7uPtop+Xg
-	yJD076qTYWpiOCO4pSNEmwV/51P4rsOUiKqmCOrA52qc1jDCEpn6XPlha9RVUqp3D9+U+r
-	pfHn0m1cBhAN83EmHsjcCuoDZS7ItquyA/rblzr15q4MT9aFiJiLtAGhpSQTjGaNP4T+PH
-	kf7BWj/4eQR3ZdS4nU7KUFDI0VUwaM9w6aVZBzy1F4DQ2IE3tc0J5EsRZoWi6A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1791784995;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ojyM3xGEEUOo4/eDYFDRNDtXOfSKRPG0G206rrYc4Ss=;
-	b=I2rRky5gBen1MJKvxp+76hb2Rq4fe1hEF3HSeQxsSxkTRZRZYFYnWWRtWt5e1SG43Gh3ap
-	6WYm8GgS2xavCIBg==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id C78F1E001C4;
-	Mon, 12 Oct 2026 15:03:14 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id B039022000BB; Mon, 12 Oct 2026 15:03:14 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Cc: linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] fat: return only first cluster when allocating
-In-Reply-To: <3b610d3340eaa7c22bb1dd95b1ee9b95@inf.ufrgs.br>
-References: <20261008020941.55784-1-matheus.aalmeida@inf.ufrgs.br>
-	<20261008020941.55784-3-matheus.aalmeida@inf.ufrgs.br>
-	<87zewkkqtu.fsf@mail.parknet.co.jp>
-	<3b610d3340eaa7c22bb1dd95b1ee9b95@inf.ufrgs.br>
-Date: Mon, 12 Oct 2026 15:03:14 +0900
-Message-ID: <87o6czlal9.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kepFskVv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 134791F0089B;
+	Mon, 12 Oct 2026 06:03:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791785007;
+	bh=7s31RLb+A+Cl+AgPE135NUAXOUdyJaO/bVhnzCsnTDE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=kepFskVvWslTNBq88YopkJYJsrNA/n1GG2Q++TQVgUsEAwgYPbteKuVxElJ3UvgS9
+	 sVmnDL7LMZ4wqq+mhqzWpw2B4EmGIYiamBzjwsTjZPo1gINA5LVvyvoVcugi2s8qZP
+	 ppun+Cy4m0BiH5ahaEJaCIWtlIG+uqGpmr+n7aT8QVbYDHzy6fm9yJqzdtNWxChA3w
+	 XUZZWFymgVzqpy8j4awUfR3I/GWJNy2MbnhtZKNwDGV2TLQV93lPQ8u9Wt/SQ0QniY
+	 Z4k20dqZldWPvSPm31KsVD/KXLhqebf1L1Xg4/BlIGl4L0Z8pcH0PXsn7jDppadV8I
+	 iKcEUGUVm/Byg==
+Message-ID: <2bdabb3c-5af3-4784-aa8c-8981e83a163b@kernel.org>
+Date: Mon, 12 Oct 2026 08:03:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: pwm: Convert NXP PCA9685 PWM controller
+ to DT schema
+To: Jeremy Dean <deaner92@yahoo.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <ukleinek@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261009211523.56122-1-deaner92.ref@yahoo.com>
+ <20261009211523.56122-1-deaner92@yahoo.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261009211523.56122-1-deaner92@yahoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+On 09/10/2026 23:15, Jeremy Dean wrote:
+> Convert the NXP PCA9685 PWM controller binding to DT schema format.
+> 
+> Changes from the text binding:
+> 
+> Document the 'reg' property and make it required. It was missing
+> from the text binding, although the example used it and the device
+> cannot work without the I2C address.
+> 
+> Rename the example node to the generic 'pwm', as required by
+> pwm.yaml.
+> 
+> Describe both cells of the PWM specifier, and state that 'invert'
+> and 'open-drain' apply to all outputs, as per the datasheet (INVRT
+> and OUTDRV bits in MODE2).
+> 
+> Assisted-by: LLM
+> Signed-off-by: Jeremy Dean <deaner92@yahoo.com>
 
-> Em 2026-10-11 15:57, OGAWA Hirofumi escreveu:
->> Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
->> 
->>> fat_alloc_clusters() returns every allocated cluster number in an array.
->>> For larger allocations, like growing a file, this array would need to be
->>> very large.
->>> 
->>> Make fat_alloc_clusters() return only the first allocated cluster in the
->>> chain. Update fat_add_new_entries() to follow the chain when it needs
->>> the second cluster.
->> 
->> This would be more common case than fallocate(), so penalize this part
->> would not be good.
->> 
->> Thanks.
->
-> That makes sense.
->
-> I can change the approach so that fat_alloc_clusters() and the directory
-> entry path are left unchanged. For fat_add_clusters(), I would add a
-> separate fat_alloc_chain() helper which allocates the whole chain but
-> only returns the first cluster.
->
-> Would that approach be preferable?
+As explained already - this is not correct. Read submitting patches -
+you need to use full name, not first given names.
 
-Sounds good if both share the almost all codes.
-
-Thanks.
--- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Best regards,
+Krzysztof
