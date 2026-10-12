@@ -1,77 +1,98 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C774DA9D7
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:24:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360923AA507;
+	Mon, 12 Oct 2026 21:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791840293; cv=none; b=e0Lo6GIsJxkLJqsc8hE0auAt7T3xwhfIuMFvzUG4hx4eWGxDcCpoMPVVEbm4hMMmoo1ZMR2lZLSSw2i77ZruWegLzWUmH7vGujiDNANrWp8HLoNcgMJP22KJ72i5HPjiF63NwqdP6qq0bFRWeiIl/Ope5L62EF1dYU8FvbTGMHQ=
+	t=1791840298; cv=none; b=LzU3OASDLbvtk6b315pVvlSqkIBDZ/jLiE/IQ1kHf2mG9MT8NrumE1Pzxc620qPjdUARwPzdO5Su792HxxnTufu4RlLnlv8IzCrPGK1iRgdbPxPoa3UMS2SduAt/OADnKhpU3EcG+rMXBvKrJEcnisYwRbDq2wlqcoTuGKWKBes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791840293; c=relaxed/simple;
-	bh=e+yshuvUKLNBxPQz0hFPdC4WfzScc7rtftTtupKp/kM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IrQeM2s2jr9SJd066Gwmvnkn1O5BscluWYafgrt+ckFPZGJw3x/NKoiSWsqdRXh+eOGOOVLQ26rLfwuxTL69kLlo5FncNiXns+ed+liG7MajBT5kbbh+WV/sDtSuvFHsexQM1CjY/wBXjdz/evBYnO18GhMAsRLcYPmieUFoKRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=G2vg8GJ6; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1791840298; c=relaxed/simple;
+	bh=0cp5hZ2iucO8/tXQJoU8nvd6BpH3JUU+IYecuY2GfZ0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O4Qqy3gsvNteM2V+gQEo8Wdt/Atc/du0jsWT6JDbDHpLwksPj7xkTmQNv0L7aRPD84OcGXBKECBoiP74EV/KI2oAAKLffGOFXjAskKYrd4OyqwIjzyZv+jLx4d9juy8Jd4G7YBmY8xPKFxK34UgjYmklfYOvKc0BINI3wrOhFfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Jcvroff5; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="G2vg8GJ6"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=nwOkb7E+8xqXn3L0SCFJZ9ds1kFmnCw+l2ll9ov+m50=; b=G2vg8GJ66qMDMBMGAwXmNZJZ7C
-	pJ0osvXFOZ7CQVl0ycz6rCLa6bUn9s5n6FlzehHEWy/wrUuOIQStGkcUgs1CiAmtuhDhG/9IYGu9i
-	srY/4tqzQhDnfPVxIBeY43kFCfG1Gr1RHhsOI6W6zY9/+hnEZMa09SLO0E0zFGgVlXDxucdDc/N58
-	ZqtV4l9J7f3mj0KkwI2nmSUQYXkSX7jCe6Nax/uJPAzgd0Pjz8V5S0oJRdpQvZNCHE7LsLe34L2y9
-	B2vFy3CLAmlTK2d0RxbTDMq2ziOqyYhisoN+bn+NRIyM1YxsjDC59Vn7KctK55xT4CjK0ou2TWx6h
-	FKZffFsg==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Sidong Yang <sidong.yang@furiosa.ai>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] accel/rocket: Validate task regcmd fields
-Date: Mon, 12 Oct 2026 23:24:42 +0200
-Message-ID: <179184026446.3911056.10147379714812166378.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261004164727.466164-1-sidong.yang@furiosa.ai>
-References: <20261004164727.466164-1-sidong.yang@furiosa.ai>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Jcvroff5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791840298; x=1823376298;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0cp5hZ2iucO8/tXQJoU8nvd6BpH3JUU+IYecuY2GfZ0=;
+  b=Jcvroff5GIOWXL2sZ0OecbVoFdl81iGNNYPLQr1KK9nwVMvwcy51EdI/
+   Vf6vhDVqOD6IPnuBJvuFstMYoPHdHDG3Gzb8B3VbASXZXAV9tMcV4L4Fs
+   p6BTzFd0nhQFW1wHUPYzRNRPv2Wey5lDSq97/XEQtXRlvPcWM4LCaZNY+
+   A3REYxlJuaRwdNfIliWWUL02Rrt2stkWeWwPlvaiw55BVgculMva1f/zw
+   CK8/NmZ4W/FtsO6NWaqWAeZSAh0Jh2TUdI6Q9JhCd33r/fXtXSHWaXzIy
+   RutM5UZO5ctpMet2gnr3FP4aMX9K2uA/Thsh0GIohlndhWAUk4EvHIils
+   w==;
+X-CSE-ConnectionGUID: mzPvIgI/S7CEmSxNWlvM7Q==
+X-CSE-MsgGUID: /OJmCYf4R96gzWZoIAKdvQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="447699"
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="447699"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 14:24:57 -0700
+X-CSE-ConnectionGUID: FdVplnmlSbaFwrkKv3CYGQ==
+X-CSE-MsgGUID: 7wB45rYsTmatw69rC8gqew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="1049946"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 14:24:55 -0700
+Date: Tue, 13 Oct 2026 00:24:53 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Alan Stern <stern@rowland.harvard.edu>
+Subject: Re: [PATCH v4] usb: hub: Set proper message when
+ usb_hub_create_port_device() fails
+Message-ID: <as1QJfxzU_cSDH2R@ashevche-desk.local>
+References: <20261012092725.575885-1-wenst@chromium.org>
+ <as1IrOAaNLuSqtEU@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as1IrOAaNLuSqtEU@ashevche-desk.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Mon, Oct 12, 2026 at 11:53:04PM +0300, Andy Shevchenko wrote:
+> On Mon, Oct 12, 2026 at 05:27:24PM +0800, Chen-Yu Tsai wrote:
 
-On Mon, 05 Oct 2026 01:47:24 +0900, Sidong Yang wrote:
-> Patch 3 rejects misaligned regcmd addresses and out-of-range regcmd
-> counts at submission. It is unchanged from v1.
+...
+
+> >  		if (ret < 0) {
+> >  			dev_err(hub->intfdev,
+> >  				"couldn't create port%d device.\n", i + 1);
+> > +			message = "couldn't create port device";
+> >  			break;
 > 
-> Patches 1 and 2 fix two pre-existing issues from Sashiko's review of
-> v1. Of its other findings, the ignored submit error [1], the
-> iommu_group leak [2] and the unchecked allocation in rocket_job_open()
-> [3] are handled by patches already on the list. Until [1] lands, a job
-> that patch 3 rejects is dropped, but the ioctl still returns 0. The
-> __u32 regcmd cannot truncate an IOVA, as the rockchip IOMMU aperture is
-> 32-bit.
+> We can now even use
 > 
-> [...]
+> 			message = "couldn't create port device";
+> 			dev_err(hub->intfdev, "%s %d.\n", message, + 1);
 
-Applied, thanks!
+Of course this has to be
 
-[1/3] accel/rocket: Don't tear down the scheduler when drm_sched_init() fails
-      commit: a6709a58a01c8fc357e316bee31f369c2ea56235
-[2/3] accel/rocket: Use an unsigned index to copy the job's tasks
-      commit: f31a7b1f277d64f0d0d5907e13b69fe01a0bd250
-[3/3] accel/rocket: Validate task regcmd address and count on submission
-      commit: 725953d4da85cfb97a4c309fad6346b72f8529e7
+			dev_err(hub->intfdev, "%s %d.\n", message, i + 1);
 
-Best regards,
+but in any case it's up to you depending on the template used for the rest of
+the messages in this function.
+
+> >  		}
+
 -- 
-Heiko Stuebner <heiko@sntech.de>
+With Best Regards,
+Andy Shevchenko
+
+
