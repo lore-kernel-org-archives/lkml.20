@@ -1,110 +1,174 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013032.outbound.protection.outlook.com [52.101.72.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9D494ADD8E
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:29:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791822579; cv=none; b=LumqnwM4u2vFA3F4qiRE79RRZTx2WuMJAR4n0d9JyPnzcvJDE9BV5R7jejzWO/zqBQzaGZ0FI/+pXmo0HVoGoezeS7oE9II+kOZFZWRCNFMZIXIRlXm+G/r86fijvwRntAJpcezoBpRD4xE1gdJMjV9IA37ZvDdBTfP1BlMRJPg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791822579; c=relaxed/simple;
-	bh=hkFw7GD0kixzmUhmCerFThh0RM1GM3D3f/V5OA/0KIc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=omGBhn/nSQVnl+j5qrMUlaf3Be+Wa6iZj5tWEXnDG3Dss6oKxy2+LPWGOgdxfVFedg+V/NmcxvNWsOwnq/9eTgWH75JdNoxkNutEQKtNw9TRCmMJCPyayrO60IdOZWmdi3+ckdlOHaCdfyy046SSG0ErVUx+fZz+K3mAf5Bi6mI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MFChu+Jj; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2FA4A9D5D;
+	Mon, 12 Oct 2026 16:30:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791822613; cv=fail; b=lVrAQGfuypx5S0IAhysYwZUqXfPbTTjvJ4mEEY0wzngoshH5B56wkBxbQBCUs9zCsHPxI/E8zTECy7+Q5B/lUc4SJ3BYQlwAI9qWMIYydGJ2z+wqiCvcePyr3WBscMW4p2K1If7lzBaoELuR5aAu1gApTzqdKx1bFDeKZAui7SQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791822613; c=relaxed/simple;
+	bh=QozWiRmZ4Zcq0I2FpHEOTRZ4+YZ/q2cysUcKGDB7MC4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Rj570A++GcsqHclzyFQL66ybpzy+PdMoTs4/L6y4+KPCIA/CXZCzhrVfYrON0U6Gk3+iuBTVawTiEeg4DrGi4HZgAnM380Q2AKov7c3SDghKOtje0ZjqzhLFmP4oEwigHRFEOaTl/GTyEAFSN0oIl08+Plb+wR2eNccJArmnocE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Z9cbE8JP; arc=fail smtp.client-ip=52.101.72.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MFChu+Jj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791822576;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h3baO3l4zJVyQoXIGpBeaGOaFvwgIuBfFmQM/C5Os8E=;
-	b=MFChu+JjkmlV1o8jf9PXNBcjN0QAmzhOtKa8ZG5YDzO7jVoDg5aiGeLsQaymyIf5DYPQQ9
-	GnR6PhGWw0d9iAxb2xK1AxZTRz7md02CKRIgfFKxylFljTZlqzr7jLTT7vh4WCzyfpgFUP
-	kjKi2q4zXtIaCT3ResflkBfcQGm5GzY=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-614-cJNaKXcqNgqnyVGa5PJLNw-1; Mon,
- 12 Oct 2026 16:29:31 +0000
-X-MC-Unique: cJNaKXcqNgqnyVGa5PJLNw-1
-X-Mimecast-MFC-AGG-ID: cJNaKXcqNgqnyVGa5PJLNw_1791822569
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 34E7119540CF;
-	Mon, 12 Oct 2026 16:29:29 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 24C2230001B9;
-	Mon, 12 Oct 2026 16:29:25 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Mon, 12 Oct 2026 18:29:28 +0200 (CEST)
-Date: Mon, 12 Oct 2026 18:29:24 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Cc: w15303746062@163.com, David Laight <david.laight.linux@gmail.com>,
-	jlayton@kernel.org, chuck.lever@oracle.com, viro@zeniv.linux.org.uk,
-	brauner@kernel.org, alex.aring@gmail.com, jack@suse.cz,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] fs/fcntl: fix SOFTIRQ-unsafe lock order in fasync
- signaling
-Message-ID: <as0K5CT8IIaCWsfR@redhat.com>
-References: <d15a25fe784b5d4449c7ce4e56f1428d7ff28885.camel@kernel.org>
- <20260523135210.590928-1-w15303746062@163.com>
- <asI5Fn87_SoEd4G5@redhat.com>
- <asuxzwl4iWjjEjRD@redhat.com>
- <437297ff-1bb4-49a7-a979-abccdd1814f8@stu.xidian.edu.cn>
- <asz_NnX9_KaJdaf_@redhat.com>
- <dbf95fb6-1685-463c-a533-79024d7a0a18@stu.xidian.edu.cn>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Z9cbE8JP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qxuxP+NAnvAJKvVIPg9kHev/bbuzClzbyXLiTRJxHaF2SYnNCHo7WMl+FvXcVLTn0im3ZHhMyGQY5sMD5yLN71W1lMfmHjR5qZSGXQq1veWXVO/HhKUmHqRG9ospUI/Ty4GLtmZdCGaOIOdsOfEPh35QESCllB2K/7pxjAZoINNLL5wHxRyPPBuLAlxvLWFuHE7n/xFRbXEKoGzvZNZIIB7YOlhehJD4d5MGkAfvi8smzKNP+ML9NSpM7WFoWF68vOpiaaQVzhNgmFCKQ4+BRymHI20X/zbVPEXiw3rI9MrCYw26PoW0NohqIFgSBjLekGN1kp9Cnu/V8x2LyjElTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HNgwyircA3f7PFdz2njO8x8rSz+LCkATQ+ndGKpSSmA=;
+ b=rrV9cB0+vRNj7x290Ell4uTKPl73+XOq7qrCsng996cygDZyRTJIy/jz6KaAxCGbmc3v3v9obeHWTOjOs0XmmtutmVJwrS4ND6hOkcGFXrrlWBzhf9FvRvvxMl9xd3upPmuJxMYDDgE95KRWtyC1MTp3VccjXF+oIfzWyRP9QILawg0YEk9JAK7kuFc83LWQxkvNu4+cYV76WQCNlCYWWA9W6KaR20goc4YHy3hHAJ2gxTGNHn9EX5eIUPIGv4v9sILSb69HaDA9aWcubfpn2NSvDfrxNcH6prBuhT32jPzIG4BKYAMbBQ/fqCWgruDbpA5m76+ypQTq74ni096VMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HNgwyircA3f7PFdz2njO8x8rSz+LCkATQ+ndGKpSSmA=;
+ b=Z9cbE8JP+9i1nN5GrnLn0LkRpwx9YiP6KZPcy8G2tmuT6dX5ra7/fFlASW6Sf5WrRgLNfAKVpW7TPfjRKG4BA8jJNQnIm8cDgBFwOjUFsLhxqQ5nI3h4/JaLp+tnNk5Ut8K2/kKJHRG5vbFHjvHQIbzZPB38LswAgZNFbHc1l0XWKpIIOeEj0ZHfZnK5S7MwV+Cy717RfpEalym1ZKgC/tdHutzB0y4Df+Mevn/dJmXNIEA5CO0/1lmOMB3+ldAKG7g/zZwXIOF/k94ZVseb7ytc/Ji1XvajSiEeL6OKUJ0P3dSQBlWloggioZf64u0iVkoLRV7uXmWWIKHhK5MPUA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by MI9PR04MB290196.eurprd04.prod.outlook.com (2603:10a6:290:86::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
+ 2026 16:30:08 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 16:30:07 +0000
+Date: Mon, 12 Oct 2026 11:29:56 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Leonardo Costa <leoreis.costa@gmail.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH 1/3] dt-bindings: display: bridge: simple: Add the
+ Toradex Apalis iMX6 VGA DAC bridge
+Message-ID: <as0LBIphr-rlTE4U@SMW015318>
+References: <20261012-v1-apalis-imx6-enable-vga-v1-0-8905d8746504@toradex.com>
+ <20261012-v1-apalis-imx6-enable-vga-v1-1-8905d8746504@toradex.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-v1-apalis-imx6-enable-vga-v1-1-8905d8746504@toradex.com>
+X-ClientProxiedBy: CY8PR10CA0046.namprd10.prod.outlook.com
+ (2603:10b6:930:4b::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dbf95fb6-1685-463c-a533-79024d7a0a18@stu.xidian.edu.cn>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI9PR04MB290196:EE_
+X-MS-Office365-Filtering-Correlation-Id: eae95202-ecbf-4fc5-9798-08df287e13f0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|366016|19092799006|23010399003|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	JXV1DeTdZy3V47Cdy9qBX394+EqphRQLWzL598V5VhPzfNd5n3BBjWPjQuaLoAOAlDX4Xqe+BvJ39tVQ6m+nWIWLNz+R33IVfEa1v9XdHLNySdYVzP/RBXfl1Ck21dF6v6qpZviR32zJFA5BBkzdhNtmk9uGc/h+CLR/0u6mU1kYBwQ8anxJnA7EC39YhWbLrMKd6iQnY03/cWo1nDKBQ7KinvVF+j52KfiCCKkc0tDsMh+qPifbUCy6xqjfv6bM41DdFfmjnozX4We2Ibu1ebaX3Cbt2x6tI5Ksnxs2xcEszELg+/38NcgrqlzTjgQgp7/qtOyys/WhsCRAdgD/S5WlgZ2c7Gy31NfWU1rtGyIxvNTy1MnqTkiX3EpwqoH5sga1mshQC7r685X9nn6bTmAeat3tpJidiFAx8MwzZ5jsH2yAqrvdI849IqdFMx0aSSqLZNyH0RofQZ17nI+tNB1c2DTWO98nQSNZla1xgTz0MgvnpPl/whai5w1yE8aAEDKMmZ9KdFAQlqzHwdNQcF8PMpHo01fV29HUcBb4KiWeVt7X5GPmpfJ1mKCVtfcLWS/6fGNtNPPSWSfMhN9ncouk1TnjPDI8vrVbw+NS08gQ0DiSlJ5Xoljwyno54DxjBgX26Rox35VH4afMGoOuB/Nd6Zo89FUs6viquXmb7is=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016)(19092799006)(23010399003)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?O/oBgiFoDeLY3nEACpJY2TqB/x3QDrDotTnIl/mAKTxx0sfHy5jIq7t1N3AX?=
+ =?us-ascii?Q?UH0Q0jVGflftH5FBC190Or+wwRq/LhOxKohFv9LO6V/MVL7Crmtn0TSPks2i?=
+ =?us-ascii?Q?sct1uhFQ8kbnQSM0ajShbqka1L2BJQb8lbstQ0eNS3ffmW2izAurjb6h63D/?=
+ =?us-ascii?Q?Y4T2yeU/Bxwa5TEFRfPCJEOE9hM2lIC7jv2EYfL6SP9jJiahpLgRl9DBPNoz?=
+ =?us-ascii?Q?e+kHwi1x2AairaaS0eIP8hnyVkEU5VjcHayJTRiawW7aozS2UybwAr7d3qUX?=
+ =?us-ascii?Q?5qDsne/3cPR4rIRSbw3aZU2zjoi2hNVGuugS7RCVpgiwjnxTYeVMiWZDX0m6?=
+ =?us-ascii?Q?SYwMSknAoDtl/pE3EE4jy67gDhChvm1XTgdiWkUulsJMsDcT9o/0+amNtwUs?=
+ =?us-ascii?Q?gR0hAc4hdY8gaXHK+LYR0yUCAhz72/9/NRi39r/GhebK7440E6FHzy144DCn?=
+ =?us-ascii?Q?gh/T1SMe8kyLT1bA6i6KgNfcqm2IsiACJVW01lLh8/ErPOa930+dQq7tWmIQ?=
+ =?us-ascii?Q?2Hh41nMy/bcS9FytDCbyDvy547kgwLWeNQEuyYKhDiHdEVLEfoh2bUtq754I?=
+ =?us-ascii?Q?p4IrDB15e+LY47qb6slv9e/mD/6gQ4dG7bJGweXQKEh6eCdvKJEIH+CQ3POQ?=
+ =?us-ascii?Q?V2QoSmy3Fo5nW7EsfbB0IGRMhxVOXfec+/zOoUpcvV3iQjSLexLllb5Mycla?=
+ =?us-ascii?Q?tTWjvIzv/228dsb7lrDxJKhavGdrGQyHTzMl4v0ggf/+1pYtTrIlmFhyjs+k?=
+ =?us-ascii?Q?BwV9Xu6/tJA8Hx/LKP8T6Wpfh/d7sAssngEwJkShPsHC0p/S6hiGuHwy1VdG?=
+ =?us-ascii?Q?Nd0rgMMX0auNh53D+wctXAEyTod0Q/rBbOJ50y5Cv1cwsXxRvC9mVRxMD265?=
+ =?us-ascii?Q?XCY6PeKAHNqvQyPO28JWSDF3aSOjqt3rMnd8Vq+HXs7Kqkg1uM78dsRd4qDj?=
+ =?us-ascii?Q?jxR2B/bDtQ+Gt5gVeLPPNFNLlYtWLsx/mBSL6uySmERSKADqFOe9EFCp9GIS?=
+ =?us-ascii?Q?kmLgKfdpJ7+Gxn0KS+xrapzrBV9SKoe/M89ZE3+CY/PKG+NnvxWFsfNk7uoH?=
+ =?us-ascii?Q?mFOuUH+vwtpJRseC7X8/XM3h/r3UDO5PIk1KJI+L7LLGvxaSPq3Vh9rbJCaA?=
+ =?us-ascii?Q?A75gwGzPxsJhVroTGj39bdt2YQJtuI3QL9NzOti8q2+0wV8UQk7TAcc6rl8d?=
+ =?us-ascii?Q?W+jVpmNZUT2lwU7+TD6DVcNKvMG7DHn0Nls5h2Erem6MdPXv4gPgoC4sbDiY?=
+ =?us-ascii?Q?SwOtr0uljeogJ6JsZBpF0BcwdgD5L163LpVJjPGEcE4BwbhWBcRbASImc+Lq?=
+ =?us-ascii?Q?Vr17IlnHpBuKTtDdWb0CWpx0aQcjMDa0sFM9XOY66yOYInvIU59K0npanktp?=
+ =?us-ascii?Q?tXaiNCC9e51ryZBS9tPxKrAaY2YfyJPRhan4RT9uaL9rH2nJ1BEyPtRJDtud?=
+ =?us-ascii?Q?2RE4TkW38aWdkWhr340tixsGmN2fQ6F8/pnEjV7Tf/BL4dMP6Pq4mTcs2M1Z?=
+ =?us-ascii?Q?KyWSSHL2v89g9twwxVHlpzuA8qjCjyLLUDi2/OHLCuTz/5Nrtr6fFBd4wHOy?=
+ =?us-ascii?Q?bCo1SqDaoDb8JH3wz09HUC22Y3v+xlm5tX53ghiONYuoW2bkoUJBAiLxIElj?=
+ =?us-ascii?Q?Ya2jKMU7/7hjvyNXKuMNM9BSr0y4Xh8jzFohut+LvWo1G9PwZ5FVQWlNn1cd?=
+ =?us-ascii?Q?Ir3duPi8IsyiGKQBWamZzPUIZctqcc7zoZHpeqViyNsWfX9zx0BKeCHWydsf?=
+ =?us-ascii?Q?zHoNC5kMU+uBJUL9nwB2eclGJkHeHWX/4BdAhn7S5rp2Nqp9jrCn?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eae95202-ecbf-4fc5-9798-08df287e13f0
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 16:30:07.8531
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lmNCrQovN3wqI+aNrlNb9O15h/WkrwvsuDB/3bJbfNAb5jdYLBPze1+G2MixJK3Gu5zVoVXx7l2DvjxGmRtrfSruOQISLPthZwg5k+jvjxrJtuAiqQeaC53FXeDzU3u5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB290196
 
-On 10/13, Mingyu Wang wrote:
+On Mon, Oct 12, 2026 at 04:25:23AM -0300, Leonardo Costa wrote:
+> From: Leonardo Costa <leonardo.costa@toradex.com>
 >
-> report7.txt corresponds to the warning quoted in my previous reply
-> (syz.2.658/3606).
+> The VGA bridge on Apalis iMX6 consists of a simple resistor ladder that
+> converts a digital 16-bit RGB signal to VGA. The VGA output is gated by
+> an active-low data-enable signal.
+>
+> Add a dedicated compatible for the bridge, since the generic
+> dumb-vga-dac doesn't describe a data-enable signal.
+>
+> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> ---
 
-...
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
->   kill_fasync fs/fcntl.c:1159 [inline]
->   kill_fasync+0x13c/0x520 fs/fcntl.c:1152
->   __pass_event drivers/input/evdev.c:240 [inline]
->   evdev_pass_values.part.0+0x62a/0x8f0 drivers/input/evdev.c:278
->   evdev_pass_values drivers/input/evdev.c:253 [inline]
->   evdev_events+0x3ba/0x440 drivers/input/evdev.c:306
->   input_pass_values+0x70c/0x860 drivers/input/input.c:128
->   input_event_dispose drivers/input/input.c:353 [inline]
->   input_handle_event+0xdb3/0x1490 drivers/input/input.c:370
->   input_inject_event+0x1ea/0x3b0 drivers/input/input.c:424
->   evdev_do_ioctl+0x547/0x1980 drivers/input/evdev.c:1070
->   evdev_ioctl_handler drivers/input/evdev.c:1270 [inline]
->   evdev_ioctl+0x14f/0x1b0 drivers/input/evdev.c:1279
->   vfs_ioctl fs/ioctl.c:51 [inline]
->   __do_sys_ioctl fs/ioctl.c:597 [inline]
->   __se_sys_ioctl fs/ioctl.c:583 [inline]
->   __x64_sys_ioctl+0x194/0x210 fs/ioctl.c:583
-
-Thanks. So yes, this is what I suspected...
-
-kill_fasync() is called under dev->event_lock (input_inject_event() abobe)
-in process contect.
-
-If another CPU takes the same dev->event_lock in softirq context and we race
-with write_lock(tasklist) on yet another CPU, deadlock is indeed possible...
-
-I'll try to take a look, but I can't promise too much ;)
-
-Oleg.
-
+>  Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
+> index 7636c24906ba..a86231a4a908 100644
+> --- a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
+> +++ b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
+> @@ -37,6 +37,7 @@ properties:
+>            - ti,opa362
+>            - ti,ths8134
+>            - ti,ths8135
+> +          - toradex,apalis-imx6-vga-dac
+>
+>    ports:
+>      $ref: /schemas/graph.yaml#/properties/ports
+>
+> --
+> 2.43.0
+>
+>
