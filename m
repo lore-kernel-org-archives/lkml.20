@@ -1,94 +1,109 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A609733FE33
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:23:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6563321C2
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:26:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791779003; cv=none; b=oI6AdeEptenOyeQECzufNfx9YEKMd3ZO/jQcgPsuGlH4WHtF/utnReoQcbz8P1M+kzPdrZ4q86i1kV77K0tN8+chL7y22z+IpHE45Sh+OBaF+K30pLQ06VtevwLp42r/NtVHUCDw3IEhHnFBxvzdqllmugmbPDnTlQ6CSOdwEQg=
+	t=1791779193; cv=none; b=mZn3LOv17qUAzLDPvv+WNZdiJjF27oaAQ94+yTjYVwk+4qOMkRyyKZIWNBRn6/p7JnQdR45IkDQiMVGKuZOEqL594mZpIUfMB7vzsb0FkfUZtchPagf+HG9+ErIoWEMTj51LENR9RI2VishKyj0Jg05z8JSdUJx3US/ZqJsRGgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791779003; c=relaxed/simple;
-	bh=lPCfJay/62/aqSCtdYw6Mj/fly70GzFauxJDKqH6fbU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ix2cyPvBf7oWboDXhMJvf8Wl1Wi4HAABA4OXGQPZd7QOQ/SCVrXQJxYW/lzxwMPvo/WuX/qvsTqImgwVBxXiSWG76KhztEJS7j4xLKc7VZX1kUTjrJMX8mkV2rlCnI5PGpwByKi188Idl4un0+i0+SBpxUWEAeRHIHMtH4th3b4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=BlxmtSrm; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791779193; c=relaxed/simple;
+	bh=aiBAhlv2Ev/TS2fJoaSo8lPZ16KTHkhhUdlu5+WAv2k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eEdFQqUWqd2no6gDRuCFiv62e/jWH0mB+wUS3AZq5FRpYYzhnmyMo+5ROzTlUmd2jvsm7wxUCNvrvkM7CKHXVNzXgMyz4oiZ+npsf6waCaEX9n919cHgqNj7pGWVnK+N8/oaypXRXOK5sDiZ36rGFc9E5qOUoRMaRrG8rTh2ncs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lIyXC9ZR; arc=none smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="BlxmtSrm"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-ccca948203aso421986a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:23:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lIyXC9ZR"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3535a54bed9so2057207eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:26:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791779001; x=1792383801; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lPCfJay/62/aqSCtdYw6Mj/fly70GzFauxJDKqH6fbU=;
-        b=BlxmtSrmH7cn1/S+LP0TEfR92I7gedMMyGH5KYuJfDihYIG4DIM1JTz2TE+pvR3eRV
-         aL8uV0cK69E39t9GjBk/0YGqq0BwdokG0eySP1zKUY3XK8HQdp/dIJBYbVmZFQ+gmKWS
-         ZyJ1Ubb6c8M81U/IZc4BodZxUutiQf0STW+2rTumHXrVOp8ZA+jT07muz7yQGd83uoXw
-         lafwT1tZFZo9/MXJd9gHoeSvVNS0V+IR9P2inH9y25NTP/AMQMGnVxXYCroobO75rgBI
-         zvEa3RGEJZ4ld/ChBOC+n705NdUTui6StuAgbLCS6WuBTB1uTk7YCwy1fsj9NKApxihY
-         tE/Q==
+        d=linaro.org; s=google; t=1791779190; x=1792383990; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7HtE6pXgrE7ezeCTTTPF8rtN8BUz+TwVSZ4PqyPsxjA=;
+        b=lIyXC9ZRTxk0Pyu64Ps6Qb9V02ILbh9g5XbSzkL0vx4eHhch9/qQBj6ylSEqehzdvz
+         Zha3CnGBtiFrgmk6rm+7foq8F49NK8BTYp7e3gNRlXTQahGSrC4FCVZ4p+qxWWVwDyZc
+         GpQE17ly6+9N7L9x+8If7gJCGZhFns/vuAx0jRiaNkx/3XlY5vNFfbo3A/UqYlHMqoov
+         uQ/ErFPg63Q75WcVxYrQ2+0UvzlAJf1Do09BILXCksPOuVdDmhNsM59ihCxAQYrqj6fs
+         7cQDUIJlCRvVAv3t68M/+Rt2ubc40kafOE4xITlWT3ukS4iMLtFEHLLLoOwtnZ5+ajf1
+         L/QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791779001; x=1792383801;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lPCfJay/62/aqSCtdYw6Mj/fly70GzFauxJDKqH6fbU=;
-        b=vOXuUnMOx5wkm1wZ/uXmYTwtpUa9mSDC+ox7PRfe9pxofDCCggib851pf603srrVRA
-         B+3Mg9QHXFRPbiMkrlMboQvFx0P4o1QNsatogiusnPabgZRGcmT/kVOYdMEshjyNG5Jx
-         oPAo1EikPey52eDdMTTjEVplimjH1WKba49fAQAi5OzH+bFsUCQU3r/36xIeK+xbRjmh
-         N08z+bNY5pM68obrWItCW/0AJN0V/bGlbCbdy6TkS7A/+iRg6rv1xD+iqFkKL4KpYiWI
-         GodjrwmsOnSwXdBi2bgx/Chx6UkbKaR7vUjiTMARTpKk9qpg2ItBhGordhoExkfAMTuW
-         2ENw==
-X-Forwarded-Encrypted: i=1; AKwUvBzhRWvRaZfqdhEElJ/5CIZNCwX6O49UWamUuvweG+dgpg3YWzLyCCsXlUhUcQEBxArHdBiTQZk6ohG6h+U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKm4YzZFiTZxm9rvKqauGCK/UG66urN+h8Zr+TDyq87J4JrKIMd
-	2Xgsmd+sX1R9VOmTeamDTdVF1NTvX+mfveMWSMQlM7EKRGJnh5PDFkzYrkWQ+crlb5g=
-X-Gm-Gg: AYBFou1B6/+sQebIBCywGc4LDr+44wBZWtOwe1zL8wxHvIDpajZXdlh1hJg3e9uN27h
-	WuqTLm7wtD0o+gtmZb7rvEpYE6zLoeUgv+9n2WPqFZ4ypUsEFAVFxn7FFVf+sKWSEG3+f55U2Sr
-	Ae68f5iaLHg584LsQdJW4tZ03E+qsqW1WVs9d0TvXV7Czj0AEAS/YBLm1mGA5oaVwpt+CYW/0nZ
-	ARGXGUEZMlrkvGGpsvsQQZWn1kiyRQNq3G/MjGJAvQgR78EVqDnW1Yl5HxH3y/IaPeyoPyEWTgZ
-	y5Uaev2Jz3hAeXAon7cXIZALP5XKs2H4cq+gzoKbBz4dY0uyiywsLAGiWu+kHDFc/APKj8of7e4
-	r57qLIRZD1+au3r78tpv0FbWaSXRclzRWHhU77kLHzECh5XNMCwB/IrW6CJUeBE/lbVVQFe70TX
-	NCZqRzXOrRqqg/e2iYe3l1IpvFjUhKv7BAYt24t5zBnEN88YkyvodNzX0H4cd7yiEe17uXWc9EU
-	nkCMUbUZbWBjV/m
-X-Received: by 2002:a17:90b:1d4f:b0:3ab:c80:936f with SMTP id 98e67ed59e1d1-3ab3a94ffa7mr6274668a91.16.1791779000936;
-        Sun, 11 Oct 2026 21:23:20 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9639bsm13989543a91.4.2026.10.11.21.23.16
+        d=1e100.net; s=20260707; t=1791779190; x=1792383990;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7HtE6pXgrE7ezeCTTTPF8rtN8BUz+TwVSZ4PqyPsxjA=;
+        b=u3P8SNal2m9HyzzMKoOZEfKLlC6/0tUcYIUNPcLKJGg3qJA+F/f89LAaiYhWsnwHBX
+         hOW2i5Ldv0MADROF1YfFISC93rKkmdjgHJnF9AnnjavDM1UEv4VrVDdbCFRVfO/d+M11
+         B1wvb5gODhJReaKp+++I6/VPZKjeZ+3w7I3dDeHlggf70q27IWOGGzC/wsFzJbKMDet6
+         hWOiklYV8DMabR4yRemZ+pbjf+KkXddMyW/hxaVZQwHuwRfzh1xYIS08Vzi69sK0q69f
+         xP+vf9tkiZdeRKY+XvZRevafcQCfty3qPDX3p+vSW47VXzkClamMFD9YQajnVmxtdkh6
+         eBIA==
+X-Forwarded-Encrypted: i=1; AKwUvBwdtpCWifvW+O+JxKDKwtbF0/yrgXMFh2ZZMrrIRI+WTWmzSW964IMy430CCga29Q8E2ohffBGr62N3/Ww=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4ITEK+MX6mwWmixjaaX3kJwN0ixm/VzQY42l9oGNqF+t1fu1u
+	ZgwM8VtTOGm8xq7ZxAvmTpujon1lg23Er695guvHj91IHsxyltwayhrjj0EO8avNLvg=
+X-Gm-Gg: AYBFou3msLzscV8pyUrRPvJspCzCdZt4/OOPIyCJvOLEfi9FK7An/Pjp1/N9bxiXeEv
+	RD8lojfTvmh1i7Ix6t1kq5JYzqQWmeTZHUVKbXfWMAMduFdC8q84JUUIv8JIEG1XuCUnHZkeO3G
+	t1jNqQm0Hlki9LSbrSXvhnN5Uy/LQft8KIcv8xIsnV8KwvgLcR1H0CtbFtBEQSPr1ksNjSEwpCz
+	lYgdv2ebU5b8hkyfyO93/eSdI0l86sGEB+EaRnIWoMEyErCWs4UzVWURuip8o3szCGPpHEjUj7p
+	WHGaTqMOfKNoZpiLNctbY0G8gv5TtVMb/zISQ9bCBzkJVidMnGQIssPiSl/lmc6jJ4ek+UPI6H0
+	dzX1c6vFznpiJu9wKy0bCaBdVeJ/cYNJXRXMo3qXfC9I7U3hxFos1cLbOapR/RYXtZQrv4B0UkJ
+	WjsxwDn8TYkrwdqzAuz6r9l14y5bLEzglayR/kLYVPooj5BRVPJh2pGSPCrJCI5BsE/Rodu3TQ7
+	A==
+X-Received: by 2002:a05:7300:ce94:b0:345:84eb:7153 with SMTP id 5a478bee46e88-3537e033341mr12296308eec.11.1791779189344;
+        Sun, 11 Oct 2026 21:26:29 -0700 (PDT)
+Received: from localhost ([122.172.82.240])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c61eaa0sm32289042eec.0.2026.10.11.21.26.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 21:23:20 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Alexander Duyck <alexanderduyck@fb.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org
-Cc: kernel-team@meta.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Dimitri Daskalakis <daskald@meta.com>,
-	Mohsin Bashir <mohsin.bashr@gmail.com>,
-	Bobby Eshleman <bobbyeshleman@meta.com>,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: Re: [PATCH net v2 0/2] eth: fbnic: validate the Rx completion path
-Date: Mon, 12 Oct 2026 13:23:10 +0900
-Message-ID: <20261012042310.2167618-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791659860.git.yhlee@isslab.korea.ac.kr>
-References: <cover.1791659860.git.yhlee@isslab.korea.ac.kr>
+        Sun, 11 Oct 2026 21:26:28 -0700 (PDT)
+Date: Mon, 12 Oct 2026 09:56:25 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: xiong yining <xiongyining1480@phytium.com.cn>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	linux-pm@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org, chenbaozi@phytium.com.cn
+Subject: Re: [PATCH] selftests: cpufreq: stop CPU hotplug loop after cpufreq
+ update test
+Message-ID: <asxhcagRL3myS3m_@vireshk-B250M-D3H>
+References: <20261010100148.297720-1-xiongyining1480@phytium.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261010100148.297720-1-xiongyining1480@phytium.com.cn>
 
-pw-bot: cr
+On 10-10-26, 18:01, xiong yining wrote:
+> Original test uses a fixed 5000 iteration loop to trigger CPU hotplug
+> for verifying cpufreq synchronization between CPU hotplug and sysfs
+> writes.
+> 
+> Two issues exist:
+> 1. Background hotplug task keeps running after test completes, causing
+> redundant CPU on/offline operations.
+> 2. When cpufreq frequency setup is slow, the hotplug loop may exit
+> before frequency updates finish, which breaks test purpose.
+> 
+> Introduce a file-based stop flag to control the infinite hotplug loop.
+> After all cpufreq updates complete, create the stop flag file and
+> wait for the hotplug task to exit.
+> 
+> This makes hotplug run only during cpufreq sysfs write test,
+> align with test objective.
+> 
+> Signed-off-by: xiong yining <xiongyining1480@phytium.com.cn>
+> ---
+>  tools/testing/selftests/cpufreq/special-tests.sh | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
 
-Superseded by v3: https://lore.kernel.org/netdev/cover.1791775409.git.yhlee@isslab.korea.ac.kr/
+Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+
+-- 
+viresh
