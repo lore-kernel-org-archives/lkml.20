@@ -1,207 +1,263 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-106.mta0.migadu.com [91.218.175.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777B2453A31;
-	Mon, 12 Oct 2026 08:19:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B85345519D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:19:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791793162; cv=none; b=e0+vBlmFliNPHY717l7frvhHiiju4ZHyAp9A09dnjhvRk3GrWWOMv+9LnooywiShg8ueMnv8rBy84pRjVLgsyszIqieRXeqXlpplZ7f0ZC1l0cUKpHSmePz/LZN21Tppl/GCRbqGXLd04T3bmKZ6317zozIw71mqZ0KAXLm1Zhc=
+	t=1791793180; cv=none; b=k3D27lwbYToxvzGKCXPM3qNqX5AQyMfQGVaSoiR6ZlSRafZn/Wveqfr7/d89ame5GgYs55kmFBkJAoBQyOmB7cI6BEwvyk8AdDLEtgv3gzYsBzCmv5SZKeuDsPg/fzMJYkQdd8uBPDKZXYMLYuwtgxu+y7kPpz/d+7+ltZYlbjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791793162; c=relaxed/simple;
-	bh=8m/PI2rzRR7e4izvpKwNRDaoYx1A00e6WCIv/1VKjt0=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=F5ynKK9uJw/aM9JIK4LN8QYk0PvjaXk4CNmpa/BUodXVqwB55WikM43B9sU/iqeL972PebLfV+AcwDk54aufTmB8EEbggLW98Ma1+gJV8+rpfL/qbYZjKkCK1rq3kiNTypusPCNRIZlJ1klNHBxpDhcKOMaTridUuoNFCkallp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=PTx6Ibnf; arc=none smtp.client-ip=188.68.63.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1791793180; c=relaxed/simple;
+	bh=+0IUaIU2Hg6vgVtzIiAk0ER+tmaZVB6S423CcHSSaeE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y4FHI3PDRYgmN3PnaxTpw1vLgr3O5Roqyre85iS9v90QP/7rhrhb5lkdzoYfF4Od+kVjp+7DWLx/SZZThzaRTNtyJAbRz1bPng4tSnL+qh2cwxm0+LgKajC7ABMPI5LaGOsSqMZW7kCIOaUan4GHWHolG0vf7reeT/r++lg27eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iNboU+L/; arc=none smtp.client-ip=91.218.175.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="PTx6Ibnf"
-Received: from mors-relay-2502.netcup.net (localhost [127.0.0.1])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4j39DW2Ng8z6KNr;
-	Mon, 12 Oct 2026 10:12:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1791792731;
-	bh=8m/PI2rzRR7e4izvpKwNRDaoYx1A00e6WCIv/1VKjt0=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
-	b=PTx6Ibnfz5eXEKUXAxXEsgBww+gw/0RXLy7t1V5r2qGbZ4a2vsSiRkVjXSW8rOMq6
-	 zMKhQMFNNq46CrUsQ8d8beTdzEwNsP9NSd/TCsyvAX/CHmfpTANxUcTD2zGgksEgri
-	 hUR/hZqC7Ub6DGv6NA8AsIm2JouIVxjJ5hooRJ4LNOwC7aT7DpM1JneG6wqezChCJ7
-	 qlqKOdtIpWiQ77BSu8V3JypSQeDQCM6YwLDFJuyFM30rEdGNkCxbdtHOwC7FIdNqAZ
-	 XnRueyYDCofKWFkdWUGCEzHAE+6GRvZgt7Ld9jpP8+gOFtUqvDc7QXfG5m97mdMBCZ
-	 wB5n1jWeZgJiQ==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4j39DW1djNz4xrZ;
-	Mon, 12 Oct 2026 10:12:11 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4j39DT0hwsz8svZ;
-	Mon, 12 Oct 2026 10:12:08 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 89CBF5FA0A;
-	Mon, 12 Oct 2026 10:12:03 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <d1ef135e-1b5d-4656-9229-348c7029efbb@leemhuis.info>
-Date: Mon, 12 Oct 2026 10:12:02 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iNboU+L/"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=+0IUaIU2Hg6vgVtzIiAk0ER+tmaZVB6S423CcHSSaeE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791793176; v=1; x=1792397976;
+ b=iNboU+L/0zPXBbaUU1Zuxl5Aal+SpGnmXDnNI35U8ow2GegPNNMnJeV5uua8w1Y6AhSCyFpP
+ 9rMYAS+3UEmx5gjsvoHLht1Q5eKaPXVD8UhYAPHvhp5qfDa3YID5H5wZq1gje8MdOKbvwe3dQIp
+ akXJtTW7r8Oo2OzYyX0Xf7/Q=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id a4ab9e5f10eb1965;
+	Mon, 12 Oct 2026 08:19:36 +0000
+X-Mizu-Trace-ID: a4ab9e5f10eb1965
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 12 Oct 2026 16:19:22 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	David Ahern <dsahern@kernel.org>, Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
+	Justin Iurman <justin.iurman@gmail.com>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	Ahmed Abdelsalam <ahabdels@cisco.com>,
+	Stefano Salsano <stefano.salsano@uniroma2.it>
+Subject: Re: [PATCH net-next 5/5] selftests: seg6: add tests for PSP with a
+ consumed SRH
+Message-ID: <asyYCoMwGjh6XG3S@fedora>
+References: <20261011192310.55-1-andrea.mayer@uniroma2.it>
+ <20261011192310.55-6-andrea.mayer@uniroma2.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Subject: Re: [RFC PATCH 0/3] dma-buf: warn-only mode for DMABUF_DEBUG
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Rob Clark <rob.clark@oss.qualcomm.com>,
- Jianfeng Liu <liujianfeng1994@gmail.com>,
- Diederik de Haas <diederik@cknow-tech.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Vinod Koul <vkoul@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20261005064133.7305-1-kmehltretter@gmail.com>
-Content-Language: de-DE, en-US
-In-Reply-To: <20261005064133.7305-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <179179272424.2732199.1316107687235030751@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 89CBF5FA0A
-X-NC-CID: e7ESKfmUIpuYlmbQcZtXdDyJbZbz3Y/HlwjoxMOnU+MFOoIgJ9w=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011192310.55-6-andrea.mayer@uniroma2.it>
 
-On 10/5/26 08:41, Karl Mehltretter wrote:
-> With DMABUF_DEBUG, dma_buf_map_attachment() gives the importer a copy of
-> the exporter's sg_table without the struct pages and offsets, and
-> without the lengths where sg_dma_len() is a separate field. An importer
-> that uses those fields stops working. That is the point of the option,
-> but the failure usually shows up somewhere else and says nothing about
-> the cause.
+On Sun, Oct 11, 2026 at 09:23:10PM +0200, Andrea Mayer wrote:
+> Extend srv6_end_flavors_test.sh with tests for the SRv6 End behavior
+> with the PSP flavor, alone and together with NEXT-C-SID, on packets that
+> carry a consumed SRH in front of the SRH to process.
 > 
-> Commit 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on
-> DEBUG_KERNEL kernels"), which I wrote, went into v7.3-rc4. It made the
-> default from commit 646013f513f3 ("dma-buf: enable DMABUF_DEBUG by
-> default on DEBUG kernels") take effect, and distribution configs
-> usually have DEBUG_KERNEL=y. Two reports followed:
+> Each test sends a ping along an existing SRv6 Policy, and a router on
+> the path inserts an extra SRH in front of the Policy's SRH. An End
+> behavior on another router consumes the extra SRH, and the router
+> connected to the host must then remove only the Policy's SRH. A test
+> passes if the ping succeeds.
 > 
-> - Jianfeng Liu: hardware video decode with drm/msm ends in GPU
->   translation faults [1]. He then sent a revert [2].
+> These tests set seg6_enabled to 1 on the hosts, which must accept the
+> extra SRH, and set it back to 0 at the end. PSP itself is checked
+> by the other PSP tests, which run with seg6_enabled set to 0.
 > 
-> - Diederik de Haas: rockchip fails to import buffers when playing
->   video, on a config based on Debian's [3].
->
-> In [2] Rob Clark said the problem goes beyond msm and cannot be fixed
-> quickly,
+> Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+> ---
+>  .../selftests/net/srv6_end_flavors_test.sh    | 144 +++++++++++++++++-
+>  1 file changed, 142 insertions(+), 2 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/net/srv6_end_flavors_test.sh b/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> index baa1b09a1aab..b5dbf53a7f23 100755
+> --- a/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> +++ b/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> @@ -22,8 +22,7 @@
+>  # flavors will be supported in the kernel.
+>  #
+>  # The purpose of the PSP flavor consists in instructing the penultimate node
+> -# listed in the SRv6 policy to remove (i.e. pop) the outermost SRH from the IPv6
+> -# header.
+> +# listed in the SRv6 policy to remove (i.e. pop) the SRH from the IPv6 header.
+>  # A PSP enabled SRv6 End behavior instance processes the SRH by:
+>  #  - decrementing the Segment Left (SL) value from 1 to 0;
+>  #  - copying the last SID from the SID List into the IPv6 Destination Address
+> @@ -258,6 +257,60 @@
+>  # the hosts). The loopback address of a host is reached only through the
+>  # router connected to that host: the ping succeeds only if the SRH is removed
+>  # by that router.
+> +#
+> +# Traffic with a consumed SRH
+> +# ---------------------------
+> +#
+> +# A packet can carry more than one SRH. The SRv6 End behavior skips an SRH with
+> +# SL=0 and processes the next header [1].
+> +#
+> +# The traffic of this section reuses the Policies (i.a), (i.b), (i.c) and (i.d).
+> +# A router on the path inserts an extra SRH in front of the Policy's SRH, and
+> +# another router then consumes the extra SRH.
+> +#
+> +# The Policy (i.a) has SID List=fcff:3::e,fcff:4::ef1,fcff:2::ef1,cafe::2. A
+> +# packet from hs-1 to hs-2 goes as follows:
+> +#
+> +#  - rt-1 applies the Policy and sends the packet to rt-3:
+> +#      IPv6 DA=fcff:3::e | Policy's SRH, SL=3 | Payload
+> +#
+> +#  - rt-3 (End) processes the Policy's SRH and sends the packet to rt-4:
+> +#      IPv6 DA=fcff:4::ef1 | Policy's SRH, SL=2 | Payload
+> +#
+> +#  - rt-4 (End with PSP and SL>1, acting as End) processes the Policy's SRH.
+> +#    The new DA is fcff:2::ef1:
+> +#      IPv6 DA=fcff:2::ef1 | Policy's SRH, SL=1 | Payload
+> +#    On rt-4, the route added by the test for fcff:2::ef1 then inserts the
+> +#    extra SRH, with SID List=fcff:3::e,fcff:2::ef1, and the packet goes back to
+> +#    rt-3:
+> +#      IPv6 DA=fcff:3::e | extra SRH, SL=1 | Policy's SRH, SL=1 | Payload
+> +#
+> +#  - rt-3 (End) consumes the extra SRH and sets the DA back to fcff:2::ef1:
+> +#      IPv6 DA=fcff:2::ef1 | extra SRH, SL=0 | Policy's SRH, SL=1 | Payload
+> +#
+> +#  - rt-2 (End with PSP) skips the extra SRH, processes the Policy's SRH and
+> +#    removes it:
+> +#      IPv6 DA=cafe::2 | extra SRH, SL=0 | Payload
+> +#
+> +# The extra SRH reaches hs-2, which skips it as its SL is 0. The other
+> +# Policies work in the same way:
+> +#
+> +#   (i.b) hs-2 -> hs-1: on the packets with DA=fcff:1::ef1, rt-2 inserts the
+> +#         extra SRH with SID List=fcff:3::e,fcff:1::ef1, and rt-3 consumes it.
+> +#   (i.c) hs-1 -> hs-2: on the packets with DA=fcbb:0:02a1::, rt-4 inserts the
+> +#         extra SRH with SID List=fcff:3::e,fcbb:0:02a1::, and rt-3 consumes it.
+> +#   (i.d) hs-2 -> hs-1: on the packets with DA=fcbb:0:01a1::, rt-3 inserts the
+> +#         extra SRH with SID List=fcff:4::e,fcbb:0:01a1::, and rt-4 consumes it.
+> +#
+> +# The Policy (i.b) has no router between rt-2 and rt-1. For this reason, rt-2
+> +# applies the Policy, inserts the extra SRH and sends the packet to rt-3:
+> +#      IPv6 DA=fcff:3::e | extra SRH, SL=1 | Policy's SRH, SL=1 | Payload
+> +# rt-3 consumes the extra SRH, and rt-1 removes the Policy's SRH.
+> +#
+> +# The hosts need seg6_enabled set to 1 to accept the extra SRH, and it is set
+> +# back to 0 at the end. These tests only check that the ping succeeds: PSP
+> +# itself is checked by the PSP flavor and NEXT-C-SID,PSP tests, which run with
+> +# seg6_enabled set to 0.
+>  
+>  # shellcheck source=lib.sh
+>  source lib.sh
+> @@ -967,6 +1020,92 @@ host_srv6_end_flv_next_csid_psp_tests()
+>  	check_and_log_hs_lo_addr_connectivity 2 1 "${END_CSID_PSP_FUNC}"
+>  }
+>  
+> +# On a router, add a route for a SID with seg6 encap in inline mode. The packets
+> +# that the router forwards to that SID get an extra SRH with the End SID of the
+> +# router that consumes it.
+> +# args:
+> +#  $1 - router on which the route is added
+> +#  $2 - SID of the route
+> +#  $3 - router with the SRv6 End behavior that consumes the extra SRH
+> +setup_rt_consumed_srh()
+> +{
+> +	local rt="$1"
+> +	local sid="$2"
+> +	local end_rt="$3"
+> +	local nsname
+> +
+> +	nsname="$(get_rtname "${rt}")"
+> +
+> +	ip -netns "${nsname}" -6 route \
+> +		add "${sid}" table "${LOCALSID_TABLE_ID}" \
+> +		encap seg6 mode inline \
+> +		segs "${LOCATOR_SERVICE}:${end_rt}::${END_FUNC}" \
+> +		dev "${DUMMY_DEVNAME}"
+> +}
+> +
+> +cleanup_rt_consumed_srh()
+> +{
+> +	local rt="$1"
+> +	local sid="$2"
+> +	local nsname
+> +
+> +	nsname="$(get_rtname "${rt}")"
+> +
+> +	ip -netns "${nsname}" -6 route \
+> +		del "${sid}" table "${LOCALSID_TABLE_ID}"
+> +}
+> +
+> +set_hs_seg6_enabled()
+> +{
+> +	local val="$1"
+> +	local hsname
+> +	local hs
+> +
+> +	for hs in ${HOSTS}; do
+> +		hsname="$(get_hsname "${hs}")"
+> +
+> +		ip netns exec "${hsname}" \
+> +			sysctl -wq net.ipv6.conf.all.seg6_enabled="${val}"
+> +		ip netns exec "${hsname}" \
+> +			sysctl -wq net.ipv6.conf.veth0.seg6_enabled="${val}"
+> +	done
+> +}
+> +
+> +host_srv6_end_flv_consumed_srh_tests()
+> +{
+> +	local sid
+> +
+> +	log_section "SRv6 connectivity test hosts (h1 <-> h2, consumed SRH)"
+> +
+> +	set_hs_seg6_enabled 1
+> +
+> +	# Policy (i.a): rt-4 inserts the extra SRH consumed by rt-3
+> +	sid="${LOCATOR_SERVICE}:2::${END_PSP_FUNC}"
+> +	setup_rt_consumed_srh 4 "${sid}" 3
+> +	check_and_log_hs_connectivity 1 2
+> +	cleanup_rt_consumed_srh 4 "${sid}"
+> +
+> +	# Policy (i.b): rt-2 inserts the extra SRH consumed by rt-3
+> +	sid="${LOCATOR_SERVICE}:1::${END_PSP_FUNC}"
+> +	setup_rt_consumed_srh 2 "${sid}" 3
+> +	check_and_log_hs_connectivity 2 1
+> +	cleanup_rt_consumed_srh 2 "${sid}"
+> +
+> +	# Policy (i.c): rt-4 inserts the extra SRH consumed by rt-3
+> +	sid="$(build_csid_container 2 "${END_CSID_PSP_FUNC}")"
+> +	setup_rt_consumed_srh 4 "${sid}" 3
+> +	check_and_log_hs_lo_addr_connectivity 1 2 "${END_CSID_PSP_FUNC}"
+> +	cleanup_rt_consumed_srh 4 "${sid}"
+> +
+> +	# Policy (i.d): rt-3 inserts the extra SRH consumed by rt-4
+> +	sid="$(build_csid_container 1 "${END_CSID_PSP_FUNC}")"
+> +	setup_rt_consumed_srh 3 "${sid}" 4
+> +	check_and_log_hs_lo_addr_connectivity 2 1 "${END_CSID_PSP_FUNC}"
+> +	cleanup_rt_consumed_srh 3 "${sid}"
+> +
+> +	set_hs_seg6_enabled 0
+> +}
+> +
+>  test_iproute2_supp_or_ksft_skip()
+>  {
+>  	local flavor="$1"
+> @@ -1071,5 +1210,6 @@ router_tests
+>  host2gateway_tests
+>  host_srv6_end_flv_psp_tests
+>  host_srv6_end_flv_next_csid_psp_tests
+> +host_srv6_end_flv_consumed_srh_tests
+>  
+>  print_log_test_results
+> -- 
+> 2.43.0
+> 
 
-What's the status here given that 7.3 will likely be released in a few
-days? Note, I can see from the discussion that this is a complex problem
-that can't be quickly solved. That's how it is sometimes. But I wonder
-if the current state of things is the best compromise for now or if
-Rob's revert or some other option would be better.
+Tested-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
 
-Ciao, Thorsten
-
-> and Christian König offered to set the default to N for
-> another few months [4]. I listed more importers that look affected and
-> mentioned this RFC in [5]. As of v7.3-rc6 the default is unchanged.
-> 
-> This series adds DMABUF_DEBUG_WARN as a sub-option of DMABUF_DEBUG. The
-> importer still gets a copy, but one that keeps the CPU side of the
-> exporter's table. The entries are marked with a new bit in dma_flags.
-> sg_page(), sg_nents_for_len() and sg_split() print a rate limited
-> message with a stack trace when they see the bit. These CPU-side
-> accesses can continue after the report instead of failing because the
-> fields were cleared. The report is not a WARN(), so it does not taint
-> and does not trigger panic_on_warn. Strict mode remains the default and
-> continues to remove the CPU-side fields.
-> 
-> Known limits:
-> 
-> - Only access through sg_page(), sg_nents_for_len() and sg_split() is
->   seen. sg_page() covers sg_phys(), sg_virt() and the page iterators.
->   An importer that reads sg->length or sg->offset directly is not
->   noticed.
-> 
-> - When the option is enabled, every sg_page() tests the flag.
-> 
-> - It selects NEED_SG_DMA_FLAGS, which adds dma_flags and may increase
->   the size of struct scatterlist. It also relies on dma_flags being
->   initialised, as the DMA mapping code already does.
-> 
-> - It finds importers. It does not fix them.
-> 
-> Question for the maintainers: could warn mode be what DEBUG_KERNEL
-> kernels get by default, with strict mode kept for CI? Or is an opt-in
-> sub-option all that is wanted, if anything? The series does not change
-> any default.
-> 
-> Testing, on the commits as posted:
-> 
-> - KUnit, the dma-buf suites, under UML and on x86_64 in QEMU, in strict
->   and in warn mode: 56 passed, 1 skipped (it needs 2 CPUs) each time.
-> 
-> - Builds: x86_64, arm64 and ARM926 with DMABUF_DEBUG_WARN=y, ARM926
->   without DMABUF_DEBUG. Without DMABUF_DEBUG the generated code of
->   dma-buf.o and lib/scatterlist.o is the same as before, except for
->   line numbers.
-> 
-> - IIO DMABUF capture on a Zynq in QEMU, with local device models. The
->   IIO dmaengine buffer calls sg_nents_for_len() on the attachment's
->   table. In strict mode with NEED_SG_DMA_LENGTH the capture fails with
->   -EBUSY. In warn mode it works, the kernel is not tainted, and the log
->   has:
-> 
->   DMA-BUF: importer used the CPU side of an exporter's sg_table
->   CPU: 0 UID: 0 PID: 48 Comm: iio-dmabuf Not tainted 7.3.0-rc4+ #2 VOLUNTARY
->   Call trace:
->    [...]
->    dump_stack_lvl from sg_nents_for_len+0xd8/0xe4
->    sg_nents_for_len from iio_dmaengine_buffer_submit_block+0x4c/0x33c
->    iio_dmaengine_buffer_submit_block from iio_dma_buffer_submit_block.part.0+0x5c/0x104
->    iio_dma_buffer_submit_block.part.0 from iio_dma_buffer_enqueue_dmabuf+0x68/0xa0
->    iio_dma_buffer_enqueue_dmabuf from iio_buffer_chrdev_ioctl+0x520/0x9a4
->    iio_buffer_chrdev_ioctl from sys_ioctl+0x460/0x914
-> 
-> - sur40 behind xHCI and intel-iommu on x86_64 in QEMU, with a one-line
->   test-only change in sur40. Here sg_page() is called in
->   iommu_dma_map_sg(), and the trace leads back to sur40_poll(). The
->   capture itself did not finish in that setup.
-> 
-> Details are in the notes on the patches. Not tested on hardware.
-> 
-> Based on v7.3-rc4-70-gfe2ec83746e5.
-> 
-> An LLM agent helped with the code and the testing.
-> 
-> [1] https://lore.kernel.org/r/20260923074256.9357-1-liujianfeng1994@gmail.com
-> [2] https://lore.kernel.org/r/20260926022026.10539-1-liujianfeng1994@gmail.com
-> [3] https://lists.freedesktop.org/archives/dri-devel/2026-September/600904.html
-> [4] https://lore.kernel.org/r/50a9c1f1-6889-4bd5-b4f7-0500d30d3dd9@amd.com
-> [5] https://lore.kernel.org/r/arrAvk4aYQ4sDEzN@gmail.com
-> 
-> Karl Mehltretter (3):
->   dma-buf: keep the DMA flags in the DMABUF_DEBUG copy
->   dma-buf: add a warn-only mode to DMABUF_DEBUG
->   dma-buf: test the debug scatterlist wrapper
-> 
->  drivers/dma-buf/.kunitconfig |   1 +
->  drivers/dma-buf/Kconfig      |  23 ++++
->  drivers/dma-buf/Makefile     |   1 +
->  drivers/dma-buf/dma-buf.c    |  48 ++++++-
->  drivers/dma-buf/st-dma-buf.c | 253 +++++++++++++++++++++++++++++++++++
->  include/linux/scatterlist.h  |  26 +++-
->  lib/scatterlist.c            |  22 +++
->  lib/sg_split.c               |   2 +
->  8 files changed, 372 insertions(+), 4 deletions(-)
->  create mode 100644 drivers/dma-buf/st-dma-buf.c
-> 
-> 
-> base-commit: fe2ec83746e501645709761605c2464a44fd2929
-
+Thanks
+Hangbin
