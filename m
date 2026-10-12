@@ -1,224 +1,304 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013057.outbound.protection.outlook.com [40.107.201.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E7C4C6EEE;
-	Mon, 12 Oct 2026 18:07:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791828476; cv=none; b=J4+bA1Kt0WDqIZJgGwy/+fxsTbb/38vf821vuook5LLREADkT08DfyjKwWSPLquf59cqMOb1enE2FGn/9eCRgmVo0gKQMIAhqf+4HXYmmavyXFQ2E9IGlfOWDmUh74897mKsTHYmb3UaIWRNTEpAmkUjWR4/aV6ILotoXPYjihU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791828476; c=relaxed/simple;
-	bh=QZ16+1BqTvxVlZnvetZ5guF0tnfS/81HjExGSkHLxxo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GpcwcvGFwdNbgAFyEl0MuRYya2iot4xtE/pmBG16py7gFVFSQYfMdnGfSj+Nn/lcSa1OX6ur2uHw5wt/FFQeZF+xG4051lrnOajqfxusLfoUCXJLTiZWg4pEBMUAqJwzh+y6fbCprjQBIiSRmXDfp8QblvD9ZvnU9TYX9piZP0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jwx+5rDY; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F3E4CA294
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:08:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791828507; cv=fail; b=ervieIE8HNZAnrDAMF4K7rbxwyNaRJbHIV5IJxj2/MrJmvEOpwp7sKIvEngDhPIcvZJD0qccSTEDIyBPgOTz5vCBOS3jpzK6Q0rzijDOh+d6dEAVy1ibHK4X9s7r/VgYzaDuLIlhhQOylehQezkw/asGVEynnUy5KCpdVGptIyE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791828507; c=relaxed/simple;
+	bh=tE1gvLmbnN4bm2eht084eeb9BIXKyzw9RZiqHjMeE1c=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EUD9OXaokJPK1ON5wfNbfHsiNxVnDDRwAsCrfbXpVJmo8tOhyd/KOH+Wa/JEoRMPv2WBSWZeG1V3qoAGYctQ9mEdfvEjt2/OQO6aJGtysyAEO8lfGeXPbjlR3NpKwq8x8iLjkHlpRQQt1fs+Zr8kgua5Rtm6Tpb2QbnczqVjNj0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=seEoc3TB; arc=fail smtp.client-ip=40.107.201.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jwx+5rDY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58BFE1F0089B;
-	Mon, 12 Oct 2026 18:07:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791828474;
-	bh=5a6IsUlcXJHOADvAwqphif4IshvHpUsfPxJJpTYlkEY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jwx+5rDYQjOIUBj08GLlEX9Web1Y8AehnEyD+NKJ+6JGLiDzQ2ykGnZMGinpwVxEm
-	 t43H8LUI4C36o21aCrvggHyN9RyNzw2SGdD/OyPLFBA80sFmKNnm84NtWUvo2kYU8N
-	 cYNbAPpDSSO2uHexKXokGU+9jMdh9g5QSHt0uWmtCrNqLoFovjiA4CtdU2HJfp322U
-	 9aldNEnM+7h1H81AjZw6XqSBXIUYwZUU/Fk7ap4BPata9FLOdT63qFOxwbma7qOQ8U
-	 Nq/+WfROCztx3KWcWvYYP+Ey80vw0kj1tlhrwaXghvM9DOVKk2/vrEDswVQZvybKaC
-	 EY265kFEoC1fg==
-Message-ID: <5a7597e2-e4f6-46ef-a4b4-2f0746b5009a@kernel.org>
-Date: Mon, 12 Oct 2026 20:07:14 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="seEoc3TB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hEJO3Jq2cW/HDZWlmFkVJ0GlBnhVPGuuGus+2L9BtFoLwyk4XffDOIpDawugeOezGCxnm5DH4l6DnI6by60XDCOd2nv8fCjwT/CKLkvUXKkxbIlv1R9tXLHYAxRrDSefyCCQe+N3EYiGOs3vOOGUrKQ7W4UNHelQIEMaOObhsdFIUBep64C8d4MPcw6OK1V4wJVsE1aBj4q1glWMDtNpLl7HHM/kCXYoGzTVARQrJc4VtoDfGg39z+9sVAOOf7ScYXhrzzh3o5syRWGAspOZDVjco614na2kLnc7ejkSwdrZOovoSwgBMX8mIZJwNqthk5VrQSruhcnNlBFsg9FZ9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jDZPliZLu16Pr4nGdKyynvulGsy/2Iu+j/vvG+eqCDY=;
+ b=TNflixKVLGIWqECdYC+QQ2mZyuVd3j5LHlic8zC9jchK8hUSZvOj6BoKI9Y4THcuUnOrIar31x2fQkJzXVb+Yd1EktrKNhgLa4jeQ2oBst6ST6SuBQLNmS8VUvlzefgvldVIG395HFgEjk1iiiqfIDZraDRulsA4Rkt/VHaPIpkJDJRRKnvYxkQ8R0xjb33W0gRx2wEsWcFPK9ZCl7feiYWcD1SbEiByjOegychYph16sn+p9FSHMi82Owwg823cuZtMiWFQCumwG55dhhW27R/2zEGdK1+uDMh6fwIbP5iSZEvZ7guYA0tE55SJ9R5aYDX+skq/g1OLuAtNaaybTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jDZPliZLu16Pr4nGdKyynvulGsy/2Iu+j/vvG+eqCDY=;
+ b=seEoc3TBonZ+fcs5VMo4lpB5dLAfMVpsioakWPLuvOv0L6BESgsjMOz6wKNIo4QfeHRck5RfE5j0gLC5+RYFF7KvrxrjwkJb/8aGspyzG2jUoAR9UAj3N8vlGhHFeanFW6jn4GOG/Kil/sNHSWtEwrgEFF/fH+m4WwliB3BcGP4=
+Received: from BY3PR10CA0002.namprd10.prod.outlook.com (2603:10b6:a03:255::7)
+ by CYXPR12MB9426.namprd12.prod.outlook.com (2603:10b6:930:e3::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
+ 2026 18:08:18 +0000
+Received: from MW1PEPF00018894.namprd03.prod.outlook.com
+ (2603:10b6:a03:255:cafe::24) by BY3PR10CA0002.outlook.office365.com
+ (2603:10b6:a03:255::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 12
+ Oct 2026 18:08:18 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MW1PEPF00018894.mail.protection.outlook.com (10.167.249.171) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 18:08:17 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
+ 2026 13:08:11 -0500
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Mon, 12 Oct 2026 13:08:11 -0500
+From: Max Zhen <max.zhen@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+	<dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+	<karol.wachowski@linux.intel.com>, <lizhi.hou@amd.com>
+CC: Max Zhen <max.zhen@amd.com>, <linux-kernel@vger.kernel.org>,
+	<sonal.santan@amd.com>
+Subject: [PATCH V1] accel/amdxdna: Expose NPU device busy time via DRM fdinfo
+Date: Mon, 12 Oct 2026 11:08:08 -0700
+Message-ID: <20261012180808.2548697-1-max.zhen@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 15/38] mm/vma: only allow mmap to clear
- VMA_MAYWRITE_BIT if not mm-managed
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- "David S. Miller" <davem@davemloft.net>,
- Andreas Larsson <andreas@gaisler.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, bpf@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>,
- Bert Karwatzki <spasswolf@web.de>
-References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
- <20261009-b4-mmap-prepare-vma-flag-sanify-v5-15-923b70125b1e@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-15-923b70125b1e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF00018894:EE_|CYXPR12MB9426:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5a952bce-36c0-4a9f-96cd-08df288bcab4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|6133799003|18002099003|10067099003|3023799007|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	E1GKTxy/MwTaLwAjctnW4RoShEmh9xqG9LmVucMFWT86egVGlvYXJFkdGSPK5rPzWy1iYBgkp5sIk7QtzS21Ai4popzQoGsxY68ZERZB55U64OEe0xVA9ygWsR2SV9BFzLOE6dqksaXJmQRGMQfoPHaAVGNXUK3SrjQ0oMJD0WC5iO59Ys+reexQRQ6qitzqTod7Ki6f2VD0oRVX3gRW0r0EAZLjLpcQDlYu/MxjWrG3rBW/BUTIcVyPt4Nxz6Daw7kUv8IFWcWvQFd7/ypjQGUgPPZsVGWToTrfA83iCc5WCYG4GjK+CTAFwU25sPMMJ6qfC35RuqEQN/GtH9gZKLkkGF7KBo3i8j5CgncBfRrUh24tPCMXLl2gHmDV6CQDUMe5/aDeMKv8YnvTjV2l5TzmeR88/i2lFD5qCO3N5ZiYByosInJZGZAUE/IJdwWzplBtcqh1FxbEKk6aNNPLwLk647fBGUDGNb/lp6K4P3aGSfQbTc8KnXeIqs8BTE0nfHzdrJDlC2ChWCugEewdiagp4OB4d34pqrUOao0kiBvkFZYzb6V2JGgcKNUzylmpo9UOIGbOsZ5tn18bHZJJ3wRKU8ANMB5k9oSbmP22qV2EMEwYOKCF5kkH2p/vWmb9eENxaHdF3ZF7wE9CNBIK9SAa5zB34ySg1XKkXdVej/9LIofVMwF2cC2kzGq4cO08rzDBaV8D06+5R+LxUKCNGA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(6133799003)(18002099003)(10067099003)(3023799007)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	NBqrioBAAhgfZr4+3wGlSlMhFFT4G4DxsMWl3YmVZcWPmSr16sFYz9/Vni0nY/ZQAz5eDsv2sHzTHupf2PAHktWO3LgRmpUMP+av+niLg0pja1/dwGQez0MgH/ze5E93hPSVx/2iZ1fYeAkRCyjTYi5Y7mRw9Ap2PDG24dzRbcdGPGwjwlVQWjr2I7E1mpuWDSyB9+YtZP5vNlBOdT7n0ST/ScYDAP0MvgGUgssT/yFlZKoPPO5NtP+0Q+NW7jmDeSmBKB/Z4yZx34NujO2eeypLmd1xaFsEUNjdCc3CUYzQjpwFezj07Aw3AHOt/5a+G7tjdfh8VBO/LPkQAxFdr8O9NZgJL8BV59h9cUMflEYUr/JQJFYYLGNcrOp6byrefg1fut+u2ARDY85oM7BQ9sbCp8jK2qQI9UTyjSwmaRB+anjUiVIzO8xp06Vzxk5x
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 18:08:17.5596
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5a952bce-36c0-4a9f-96cd-08df288bcab4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MW1PEPF00018894.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9426
 
-On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
-> For ordinary files the only way the VMA_MAYWRITE_BIT flag is cleared is if
-> the underlying file is itself read-only.
-> 
-> This means that mprotect() cannot mark a shared mapping of a read-only file
-> as read/write, as doing so would violate the read only attribute, and
-> permit writes.
-> 
-> In general, we do not want file systems to be able to do this for
-> read/write files.
-> 
-> Doing so would violate fundamental user expectation of file attributes and
-> likely break userspace.
-> 
-> However, drivers pose a tricky problem here - the /dev/xxx file may be
-> read/write but provide access to a resource which is fundamentally
-> read-only.
-> 
-> Therefore we must allow drivers to be able to clear VMA_MAYWRITE_BIT.
-> 
-> To achieve both of these things, forbid this for mm-managed mappings as
-> identified by vma_flags_is_mm_managed().
-> 
-> This constrains this ability to drivers which own the mapping's contents,
-> whether memory-mapped I/O, kernel-allocated pages, or ordinary pages they
-> map themselves, and so define its semantics.
-> 
-> Every in-tree mmap hook which clears VMA_MAYWRITE_BIT, some twenty sites
-> across drivers, filesystems and bpf, establishes a mapping which is not
-> mm-managed,
-> with usbmon and the ALSA PCM status page converted earlier in this series
-> to do so.
-> 
-> Note that drivers may, if they do not gate on VMA_SHARED_BIT, be able to
-> disable MAP_PRIVATE-file-backed mapping CoW semantics.
-> 
-> This is perhaps not always intended, but we retain this capacity to
-> maintain existing behaviour.
-> 
-> As no driver which clears VMA_MAYWRITE_BIT establishes an mm-managed
-> mapping, no functional change is intended.
-> 
-> Acked-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
+Expose NPU device engine busy time through DRM fdinfo to enable
+standardized userspace monitoring and profiling.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Add support for reporting per-engine busy time in nanoseconds
+via fdinfo using the "drm-engine-<driver-name>" key. The value
+reflects the accumulated NPU device execution time for a given
+process, allowing userspace tools to observe NPU device
+utilization without driver-specific ioctls.
 
+Signed-off-by: Max Zhen <max.zhen@amd.com>
+---
+ Documentation/accel/amdxdna/amdnpu.rst  |  1 +
+ drivers/accel/amdxdna/aie.c             | 39 +++++++++++++++++++++++++
+ drivers/accel/amdxdna/aie.h             |  4 +++
+ drivers/accel/amdxdna/aie2_ctx.c        |  6 ++++
+ drivers/accel/amdxdna/amdxdna_pci_drv.c |  6 ++++
+ drivers/accel/amdxdna/amdxdna_pci_drv.h |  9 ++++++
+ 6 files changed, 65 insertions(+)
+
+diff --git a/Documentation/accel/amdxdna/amdnpu.rst b/Documentation/accel/amdxdna/amdnpu.rst
+index 064973bf4893..d72af1b51ccf 100644
+--- a/Documentation/accel/amdxdna/amdnpu.rst
++++ b/Documentation/accel/amdxdna/amdnpu.rst
+@@ -289,6 +289,7 @@ Example of the output showing the implemented key value pairs:
+         drm-driver:	amdxdna_accel_driver
+         drm-client-id:	3219
+         drm-pdev:	0000:c5:00.1
++        drm-engine-npu: 14003870 ns
+         amdxdna_accel_driver-heap-alloc:	60 KiB
+         amdxdna_accel_driver-internal-alloc:	67588 KiB
+         amdxdna_accel_driver-external-alloc:	0
+diff --git a/drivers/accel/amdxdna/aie.c b/drivers/accel/amdxdna/aie.c
+index dd6f36f222c7..bf8eb66baab8 100644
+--- a/drivers/accel/amdxdna/aie.c
++++ b/drivers/accel/amdxdna/aie.c
+@@ -118,6 +118,45 @@ void amdxdna_vbnv_init(struct amdxdna_dev *xdna)
+ 	amdxdna_update_vbnv(xdna, info->rev_vbnv_tbl, rev);
+ }
+ 
++void amdxdna_io_stats_job_start(struct amdxdna_client *client)
++{
++	int depth;
++
++	guard(spinlock)(&client->io_stats.lock);
++
++	depth = client->io_stats.job_depth++;
++	if (!depth)
++		client->io_stats.start_time = ktime_get_ns();
++}
++
++void amdxdna_io_stats_job_done(struct amdxdna_client *client)
++{
++	u64 busy_ns;
++	int depth;
++
++	guard(spinlock)(&client->io_stats.lock);
++
++	depth = --client->io_stats.job_depth;
++	if (!depth) {
++		busy_ns = ktime_get_ns() - client->io_stats.start_time;
++		client->io_stats.start_time = 0;
++		client->io_stats.busy_time += busy_ns;
++	}
++}
++
++u64 amdxdna_io_stats_busy_time_ns(struct amdxdna_client *client)
++{
++	u64 busy_ns;
++
++	guard(spinlock)(&client->io_stats.lock);
++
++	busy_ns = client->io_stats.busy_time;
++	if (client->io_stats.job_depth)
++		busy_ns += ktime_get_ns() - client->io_stats.start_time;
++
++	return busy_ns;
++}
++
+ int amdxdna_get_metadata(struct aie_device *aie,
+ 			 struct amdxdna_client *client,
+ 			 struct amdxdna_drm_get_info *args)
+diff --git a/drivers/accel/amdxdna/aie.h b/drivers/accel/amdxdna/aie.h
+index 0483d582b7f8..1fc5ddfe696a 100644
+--- a/drivers/accel/amdxdna/aie.h
++++ b/drivers/accel/amdxdna/aie.h
+@@ -117,4 +117,8 @@ void aie_smu_fini(struct smu_device *smu);
+ int aie_smu_set_clocks(struct smu_device *smu, u32 *npuclk, u32 *hclk);
+ int aie_smu_set_dpm(struct smu_device *smu, u32 dpm_level);
+ 
++void amdxdna_io_stats_job_start(struct amdxdna_client *client);
++void amdxdna_io_stats_job_done(struct amdxdna_client *client);
++u64 amdxdna_io_stats_busy_time_ns(struct amdxdna_client *client);
++
+ #endif /* _AIE_H_ */
+diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+index d927c8c9d557..9c6b7353cbe9 100644
+--- a/drivers/accel/amdxdna/aie2_ctx.c
++++ b/drivers/accel/amdxdna/aie2_ctx.c
+@@ -290,6 +290,7 @@ aie2_sched_resp_handler(void *handle, void __iomem *data, size_t size)
+ 	int ret = 0;
+ 	u32 status;
+ 
++	amdxdna_io_stats_job_done(job->hwctx->client);
+ 	cmd_abo = job->cmd_bo;
+ 
+ 	if (unlikely(job->job_timeout)) {
+@@ -322,6 +323,8 @@ aie2_sched_drvcmd_resp_handler(void *handle, void __iomem *data, size_t size)
+ 	struct amdxdna_sched_job *job = handle;
+ 	int ret = 0;
+ 
++	amdxdna_io_stats_job_done(job->hwctx->client);
++
+ 	if (unlikely(!data || size != sizeof(u32))) {
+ 		job->drv_cmd->result = U32_MAX;
+ 		ret = -EINVAL;
+@@ -344,6 +347,7 @@ aie2_sched_cmdlist_resp_handler(void *handle, void __iomem *data, size_t size)
+ 	u32 cmd_status;
+ 	int ret = 0;
+ 
++	amdxdna_io_stats_job_done(job->hwctx->client);
+ 	cmd_abo = job->cmd_bo;
+ 
+ 	if (unlikely(job->job_timeout)) {
+@@ -405,6 +409,7 @@ aie2_sched_job_run(struct drm_sched_job *sched_job)
+ 	kref_get(&job->refcnt);
+ 	fence = dma_fence_get(job->fence);
+ 
++	amdxdna_io_stats_job_start(job->hwctx->client);
+ 	if (job->drv_cmd) {
+ 		switch (job->drv_cmd->opcode) {
+ 		case SYNC_DEBUG_BO:
+@@ -432,6 +437,7 @@ aie2_sched_job_run(struct drm_sched_job *sched_job)
+ 
+ out:
+ 	if (ret) {
++		amdxdna_io_stats_job_done(job->hwctx->client);
+ 		dma_fence_put(job->fence);
+ 		aie2_job_put(job);
+ 		mmput(job->mm);
+diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+index bb339e641416..67a02d6b7f97 100644
+--- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
++++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+@@ -14,6 +14,7 @@
+ #include <linux/iommu.h>
+ #include <linux/pci.h>
+ 
++#include "aie.h"
+ #include "amdxdna_cbuf.h"
+ #include "amdxdna_ctx.h"
+ #include "amdxdna_debugfs.h"
+@@ -151,6 +152,8 @@ static int amdxdna_drm_open(struct drm_device *ddev, struct drm_file *filp)
+ 	filp->driver_priv = client;
+ 	client->filp = filp;
+ 
++	spin_lock_init(&client->io_stats.lock);
++
+ 	XDNA_DBG(xdna, "pid %d opened", client->pid);
+ 	return 0;
+ 
+@@ -287,6 +290,9 @@ static void amdxdna_show_fdinfo(struct drm_printer *p, struct drm_file *filp)
+ 	size_t heap_usage, external_usage, internal_usage;
+ 	char *drv_name = filp->minor->dev->driver->name;
+ 
++	drm_printf(p, "drm-engine-npu:\t%llu ns\n",
++		   amdxdna_io_stats_busy_time_ns(client));
++
+ 	mutex_lock(&client->mm_lock);
+ 
+ 	heap_usage = client->heap_usage;
+diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+index a997d27a504d..510356a31532 100644
+--- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
++++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+@@ -143,6 +143,13 @@ struct amdxdna_device_id {
+ 	const struct amdxdna_dev_info *dev_info;
+ };
+ 
++struct amdxdna_io_stats {
++	spinlock_t			lock; /* protect io stats */
++	int				job_depth;
++	u64				start_time;
++	u64				busy_time;
++};
++
+ /*
+  * struct amdxdna_client - amdxdna client
+  * A per fd data structure for managing context and other user process stuffs.
+@@ -169,6 +176,8 @@ struct amdxdna_client {
+ 	size_t				heap_usage;
+ 	size_t				total_bo_usage;
+ 	size_t				total_int_bo_usage;
++
++	struct amdxdna_io_stats		io_stats;
+ };
+ 
+ #define amdxdna_for_each_hwctx(client, hwctx_id, entry)		\
 -- 
-Cheers,
+2.34.1
 
-David
