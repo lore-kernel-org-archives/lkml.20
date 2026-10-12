@@ -1,124 +1,123 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BDB63644D4
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:16:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3355F36826B;
+	Mon, 12 Oct 2026 06:17:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791785816; cv=none; b=vAVBGPiJtF8NKPAwI1gssU5vlUSWYQihQ5JXHiz8jw1iMB3pvA5mzszpSN6DU/Gh6SkUnT75jEKTzsduTBlMVuW9Om+Fb/IFFWE9JO/pN8OcSetAZsM2eNZGlSQXj0G6ZJjCdg5URIceXdZnJM1o5rMSVB4n4AotED9EJ5xQH/Q=
+	t=1791785876; cv=none; b=J9MBQsFVOilsLiCFsBn6+xgErCkp0l0nofQpF9mI/1/z1hn7zuTbqDGo0FQCxq7ASccczZ/F+Au0MVCpqc2Iu08hKK/ZrXkY3eHPQ9B4k13Oyg5AqGtbBw4rBk1DwdOTE011FvmznU9rHnkwoDo5PTFYwWjQwFNZ4xIi2uxXbUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791785816; c=relaxed/simple;
-	bh=snM8WfXNnH3pDt4D2M/joNrGQEf4z8EjAt8k+qCcXb8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=O6/mDByjoqMmW71mXUVi/bN1wi8Bd0xPUDzJqyGB3gfIQKu3Rf5VW9N1DDIWP65nStqLlMqpi9YZ65+9MaIlhIIfReMOsa6AYaPMLiygAcoZtZY5fu14O7Goa5cf9RH6+ty+/b0/e5v2npiZrB25gl0T3kmE6bz9XuDzyv/Ct4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ULk5RKNx; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1791785876; c=relaxed/simple;
+	bh=oZ3QOPsy+VxetgWZo1EG+wRxp3I5AHDMksJYvUQGj3I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cWi1S0phn1eCY9zwQvjih9qiAR97k8HtfKaHngTU/qKin0ckRJLFbHdTK0OlF0lld1McfRtyy5LMWGJKHp44N04iVItvDv8frVpXRyQBd3AlRaqVZNLo4gvEvTXaB2H8iqwlArW2OMw9KOHwlzaDyJo84f8fPWpmZi/OxJXHeBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EMqOPxLa; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ULk5RKNx"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1819024e9so1411905e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:16:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791785813; x=1792390613; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=1x1HBT+V5Jzo4Yrrf6P1gbvWZUJLbFZju+Mc+bmQL6A=;
-        b=ULk5RKNxmJ0rxgSgWa6N7iMdIsz1Qajo1h1b3pmSONgeoyoUfu7BvHR9y3098ZNdbP
-         dkPDecBi9oF8PgeTlWjIxUmUoYcZE8dD9KgLQL7d8XPsuBs8JWTHElgEO4kGOrZ/Ywa2
-         ltjaW0u3K9YxxiINel2gQ2vCGhApMlvICi+AucVqkbTi7dF+W28zjYkHpPKOydunAwz3
-         1aXTv+A66p4fVpElTWGpLKA3UnVj50wH00AOw4jaM11Ks4Q1jUnYVgxLqSJH9ZXwX5Kc
-         C6GV5TgIqgrViGtSZpfcl1UNp8tkHbjI7gOLdK+ibpDaKwnE0PHRh/XEk5usgat/SVOB
-         GwRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791785813; x=1792390613;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1x1HBT+V5Jzo4Yrrf6P1gbvWZUJLbFZju+Mc+bmQL6A=;
-        b=AUAISt23q9WkifrO7Xr205+Blxk/wYDyZlWvBmQi1WdjyKxHw1ARmhMJHV4CU16kcr
-         o7zH27Y8tgYVEtgXpsg4lplFzIhX0HqaPPALtb4pGoJxXFilvzaIdT78y6nOdHkzEut6
-         /IwwjSmk7v8KKH1YJc8/KjeG8ipUrMYwyEi/e0rDa7zz/LbBTFoZwAywZ8OdWf4ibAv4
-         XkpPIMyXN6xHZppip54p7kT4h0B8Rsws6un7LNqCIKdV/hFLx11O+vCTNn4A1cX1P97O
-         CfOM5sNTOTEcOrTNIdOk7IqMf9gNnXD+51+HZQWQYlAys6LmomqGSsOWP/JlYpLnY5q9
-         waPA==
-X-Forwarded-Encrypted: i=1; AKwUvBwfH5lS6zO/WIBGdBfgvrAubxqabv8wgS1RM3r2mDn6hJwa1SRWXOpzsOaz5SJjdR5BNe3B796eNhKbE7Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBI5RWu95dOwwf48VhjngXZ62ZFd8ywEl3oK9ie8UIz+mn4YYO
-	CaWOORnPBcMWHp+YIF+WFRmIjdQy3e1JPUBrnWgh8ihYCNlQPSZA821cqhJw/DTDbJk=
-X-Gm-Gg: AYBFou3uaSagHmcy94IhXGEjd0dm75I1XuZ7CHKseX0+cIRhx7fzUWp/d9GeJVh97CN
-	ygSI4EcwbkG26HJ/0IoZSp2Es3RMsygkmxezztvgzO3XYy9qjdhux2piweT1ywFElIa1AjPksWt
-	oJm+k/yIcl4gZeyiZdE31rqefYOkgDg0PwPIwNic+eNAzIZMmhqth4LraPhxuYuSea8c4YFCatU
-	2aG76YIE8HXPX78/1jz3X1bZYWzekCGwEiwEx7ZlZlPZPN6EshNP7k164vnmYzKlJ8aBm8rR8CB
-	ZCGIdaqbumNKoq4GLj0Cc9hCZkU8rwUZ3REXryVwWZrlxqxXQ3jLmmpJoOqLOaL6lUOX7ih1Y1i
-	6TMFjTVaGpl0qjGLa+Y7U6ca+4B6BjUVj7QNZeL2l1/5+S1fcoedWRXNOqmCU3w0ybNWDNL/Bux
-	/lr7BkKycRfHpe1y9mstqE9nnsEmWJZBQGudBSACY1QrZOaBdrPP/uoaJ+eNxC6KwZYw==
-X-Received: by 2002:a05:600c:a086:b0:4a0:1f9e:5f78 with SMTP id 5b1f17b1804b1-4a18e3ea887mr138006205e9.0.1791785813436;
-        Sun, 11 Oct 2026 23:16:53 -0700 (PDT)
-Received: from mordecai ([2001:1ae9:6037:1b01:4005:7ef3:2241:3a83])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dc1abcaecsm13993931f8f.18.2026.10.11.23.16.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 23:16:53 -0700 (PDT)
-Date: Mon, 12 Oct 2026 08:16:51 +0200
-From: Petr Tesarik <ptesarik@suse.com>
-To: Thorsten Blum <blum@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- Hans Peter Anvin <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
- Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
- x86@kernel.org
-Subject: Re: [PATCH 1/3] x86/tsc: Replace magic constants with xxx_PER_SEC
-Message-ID: <20261012081651.355a5bb2@mordecai>
-In-Reply-To: <asjuNlFdLGsNUJh9@kernel.org>
-References: <20261009100436.1133518-1-ptesarik@suse.com>
-	<20261009100436.1133518-2-ptesarik@suse.com>
-	<asjuNlFdLGsNUJh9@kernel.org>
-Organization: SUSE LINUX
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.53; x86_64-suse-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EMqOPxLa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791785875; x=1823321875;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=oZ3QOPsy+VxetgWZo1EG+wRxp3I5AHDMksJYvUQGj3I=;
+  b=EMqOPxLajyJSC6e7A3GUlru5WgUmH2T0YZ9VGJkg5zSxAv0QVNd6EUSK
+   eDD6pxS/8LFwapG+gbLsREQuFgHh2Ds1O/l7aAn0KhowityByMcUTNoeF
+   GaLbRvJP0ILSzzFpPqNESxUttnzXEAhu73aG6Twv+o21YjdWLWwf9maCE
+   NbLaJKpUxexFbFSn0grkIFVvSo96f6y29geP+lKemfXypYcjLYsav5I2h
+   6ee8ATQm1iL4EtGZ2mn40Tmu/KnMBdf3N7+iNGUo9MZ8Ij2dYP9xMQ2Mi
+   jOBqhY/dCqMU4y0+cqOp+xi7bdoVkvR4Dvjskk0kfLrq9xPwStu+osEse
+   Q==;
+X-CSE-ConnectionGUID: hqqCrO5iSZKvpz/WfdTJKw==
+X-CSE-MsgGUID: y8djZ3FETx2i4a8I/hgLAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="372058"
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="372058"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 23:17:54 -0700
+X-CSE-ConnectionGUID: 7vFgkGqGTYquOR2yNhJYLg==
+X-CSE-MsgGUID: spKNAYhPTCuAT4cnrPMzcg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="2643050"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa011.fm.intel.com with ESMTP; 11 Oct 2026 23:17:49 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xG9M2-00000000B65-1eKe;
+	Mon, 12 Oct 2026 06:17:46 +0000
+Date: Mon, 12 Oct 2026 14:17:16 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mingyou Chen <qby140326@gmail.com>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilya Gladyshev <ilya.gladyshev@linux.dev>
+Cc: oe-kbuild-all@lists.linux.dev, KentoNion <kento@kekto.ru>,
+	platform-driver-x86@vger.kernel.org,
+	ted eric <ericted8810@gmail.com>, Armin Wolf <W_Armin@gmx.de>,
+	linux-kernel@vger.kernel.org, Chris Taraszka <chris@miget.com>,
+	Matias Civadda <matias.civadda2342001@gmail.com>,
+	=?utf-8?B?6auYIOS/iuaWhw==?= <btx342@gmail.com>,
+	powerfullz <wleizc7319@gmail.com>,
+	=?utf-8?B?5a2ZIOiqiemTrQ==?= <wolf109909@outlook.com>,
+	=?utf-8?B?TWlsb8Wh?= Vlku <vlku.milos.fun@gmail.com>,
+	Rsplwe <i@rsplwe.com>, Bozhen Peng <bozhenpeng93@gmail.com>,
+	Anton Karasev <uselessfire@gmail.com>,
+	Jame Jao <jaojame6@gmail.com>, Mingyou Chen <qby140326@gmail.com>
+Subject: Re: [PATCH v10 5/5] platform/x86: bitland-mifs-wmi: Add quirks table
+Message-ID: <202610121439.FWm3hssT-lkp@intel.com>
+References: <20261011135748.11792-6-qby140326@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011135748.11792-6-qby140326@gmail.com>
 
-On Fri, 9 Oct 2026 15:37:58 +0200
-Thorsten Blum <blum@kernel.org> wrote:
+Hi Mingyou,
 
-> On Fri, Oct 09, 2026 at 12:04:34PM +0200, Petr Tesarik wrote:
-> > Make it clear that these constants refer to the conversion between seconds
-> > and milliseconds or nanoseconds.
-> > 
-> > No functional change intended.
-> > 
-> > Signed-off-by: Petr Tesarik <ptesarik@suse.com>
-> > ---
-> >  arch/x86/kernel/tsc.c | 8 ++++----
-> >  1 file changed, 4 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-> > index 723347e2cf7f8..bac81d37a90ce 100644
-> > --- a/arch/x86/kernel/tsc.c
-> > +++ b/arch/x86/kernel/tsc.c
-> > @@ -253,7 +253,7 @@ noinstr u64 native_sched_clock(void)
-> >  	 */
-> >  
-> >  	/* No locking but a rare wrong value is not a big deal: */
-> > -	return (jiffies_64 - INITIAL_JIFFIES) * (1000000000 / HZ);
-> > +	return (jiffies_64 - INITIAL_JIFFIES) * (NSEC_PER_SEC / HZ);
-> >  }  
-> 
-> Maybe use TICK_NSEC here?
+kernel test robot noticed the following build warnings:
 
-Note that the current code always rounds down. TICK_NSEC rounds to the
-nearest integer, but since it makes no difference for any possible
-value of HZ (100, 250, 300, 1000), I'm going to go for it anyway.
+[auto build test WARNING on 98f039265e580291d5e76a11b2072541fbb1c393]
 
-That said, there are other occurences of NSEC_PER_SEC / HZ in the
-kernel, so I'm going to clean them up too (in a separate patch).
+url:    https://github.com/intel-lab-lkp/linux/commits/Mingyou-Chen/MAINTAINERS-Add-maintainer-entry-of-bitland-mifs-wmi-driver/20261011-215744
+base:   98f039265e580291d5e76a11b2072541fbb1c393
+patch link:    https://lore.kernel.org/r/20261011135748.11792-6-qby140326%40gmail.com
+patch subject: [PATCH v10 5/5] platform/x86: bitland-mifs-wmi: Add quirks table
+config: i386-randconfig-1006-20261012 (https://download.01.org/0day-ci/archive/20261012/202610121439.FWm3hssT-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261012/202610121439.FWm3hssT-lkp@intel.com/reproduce)
 
-Thank you!
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610121439.FWm3hssT-lkp@intel.com/
 
-Petr T
+All warnings (new ones prefixed by >>):
+
+   drivers/platform/x86/bitland-mifs-wmi.c:136:1: error: expected identifier or '(' before '}' token
+     136 | };
+         | ^
+>> drivers/platform/x86/bitland-mifs-wmi.c:100:46: warning: 'bitland_mode_map' defined but not used [-Wunused-const-variable=]
+     100 | static const struct bitland_profile_mode_map bitland_mode_map = {
+         |                                              ^~~~~~~~~~~~~~~~
+
+
+vim +/bitland_mode_map +100 drivers/platform/x86/bitland-mifs-wmi.c
+
+    99	
+ > 100	static const struct bitland_profile_mode_map bitland_mode_map = {
+   101		.balanced	= WMI_PP_BALANCED,
+   102		.performance	= WMI_PP_PERFORMANCE,
+   103		.quiet		= WMI_PP_QUIET,
+   104		.full_speed	= WMI_PP_FULL_SPEED,
+   105	};
+   106	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
