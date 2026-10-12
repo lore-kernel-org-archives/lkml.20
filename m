@@ -1,80 +1,51 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EE548EC94
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 161C848D89C
 	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791809999; cv=none; b=qguGUc8GP0F/G2qBQAt5fFTETRqAghd1VALLXzF0WBsr8nO/juoSrjvYUUyM5qqQuz13uQ7NvBlvozBn6Ud7mTCEhebzcSEb92nNzfJfmofq7zYbwBAYY1QU6I9Zno9Wswg79CchuxoSkVNxr8uBOUTcak2wNgBmIhLNxbVCQk4=
+	t=1791810002; cv=none; b=V2sC9fwtWV2RfkQotEfZcs0KY8il7uoWYqAewCvDCDhWbcfq5JkjoP+q1BU+cr0eEPmVYsmhy/5pImUeieDmu6Jntqc4eHF+rW0by26FjF9GRVjpQ5lVT1LG6cFcvRDNz7ljL1kmXFTfyKPZlYu5chUX8bIo+fgfdLUSjHEl1O8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791809999; c=relaxed/simple;
-	bh=vbVRB+XAfZvGBptDaxyFBy0L6X6qfAhFcflwuzt2ToE=;
+	s=arc-20240116; t=1791810002; c=relaxed/simple;
+	bh=SwCssg1TtHWQq2cdAinXB1qI41TqJtYDamzkLDOC6fA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o/Ciz2qpzwecQcCImt9OGQQ4UYAESTWWdGTNM4pnDmh/XXHpmatXkxOIACzioioy+VVmmz3oMG8d1z8lQPhojxoVomg2o4Nly8alqRtWl1Wo0kCvQEOSGHnTn6bHBSN8g7arggIuANSWhEKT0jLArBXi8mB7SfNZMiN00q5H+xM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=m9Fw9/Jd; arc=none smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
+	 MIME-Version; b=rnQCI67V4guOOUHhJU2Zj0Q/X3h2HFPQXYF7CSpvtCU53EOz7jnsC3JM2zE5sEnIzj+b+g+DZgVeC7lz9Ee77kIiyvwyd/NJubjww3Xjk7KGE8LeYT/Uilj061veu4dM8W94awVbo3KeMVx+h7Pvoq4od6czxxNo+t+dqzocKxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=HdAw3cBO; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="m9Fw9/Jd"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3514e7cbbbaso4758630eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:59:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1791809997; x=1792414797; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NfErURfU2L/OAAJKu6lDn6CF9WwV6WN3auE0sc7fkD4=;
-        b=m9Fw9/JdT7zVBMhw0E3rlXzFTYRFAi1+7rVI/COJIXrHow+sAIwXCl9g3P/CnRzzFn
-         DOULJy92j2ozVGbsPxG5G70EyGKDXAYjeQcZWudb/Ecss+KZiX0P+CIHTWhWRY/+f4Pf
-         J2WGyNQbplTBE6apklFFfuOYxeDSCtGjaC/+VrdZGUNzJfsxQAUD4AdJwJmv95O46fP+
-         hCwK5C1zZe97BOnfdiGTC9X7XvxSnin43uostm4WOAdZPrxzjxMqBvIaEa/IBzUTK20N
-         /DI9UfPACtAMRwGKdgvA2Rsgtqhz2P3XWe5ufX7lnkxGCLpdNXAXFMjkXRfsNTvfwAyB
-         D57w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791809997; x=1792414797;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NfErURfU2L/OAAJKu6lDn6CF9WwV6WN3auE0sc7fkD4=;
-        b=UAbxWeE12lihLS4qRrUGxHMGLjcPtifcQDA0C9SPKw/SycDmxlk2j9k/f9XaZzXBN7
-         3Uosp4GZmodslVVjcbaQ3Rjg4J8hxNQjNFfHtTnr+KtQl2munNYkv1sJZWH+FfGGbgo7
-         eu7EQcQV0BXjgAEkBTmqTnCcUoK2oNtDVcP4gHhNHUacxnaPAhKzLfHBk25iG+iP6WDz
-         fFBKgxjRTbkJp6wKGv6GiMbvEKTJU5H9xE0gXinvVSblr31fbqwzywnlUHdASuavIMlx
-         4LGkuyAi/ZXQNhx0pzewq+2VxMDn2rMlO2lRv83h/Nq3vvrekqybFT8LFmIeVkCvRR8s
-         aOrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxcZfAIR4XnwULxg8HOUl5WGgUjpB2bHNmINU5nYOW/YSPglxW9VPFYp1/C7BxCNGaRddSGiGt0G26tZbw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2kmi8O0Q8wCN3OE8pX6VLwLy3qbsJuhNukksRphR2jYV1fYTI
-	XIchQXR2cVyB4gUDAdEyO836+UdxUrVWq9rz1f5fRV3QHjC+HMklp44qwAU67UMfSYE=
-X-Gm-Gg: AYBFou2lDBveXnSdf+DFCs0bxb2b8eOz/In1VQ0zm3bDe3xiCLOqkAxgl9gMM+Kcb3A
-	uzIE++o9RGVFx9gDDuxO72aYb2K2PmsMoka/9DbF6tgZnIjevoPM8VH71/0QSfo9Vd3ynmHOSpf
-	wb0kJIFdj9b1MALTpEEWPp+2zHAhrH1CDpcLThesX5tEBo0gKSFDfTZIr+ODDpG6PbdPe5T0zXs
-	W8I5KQEmYcun87wsoOOQzJZczggnM7THVHiDW0wM320og8SUsvEHY4hnxoiw7alroTCQABV9+Wx
-	mKfPowNmshz0UrIYprkGASRNUxhd1xC3sRvNLPLrnEwfv7eQQs2YNtR1K94BEk9qWCVHq7gt1xH
-	YV5/Px1+JfDNTQuEa4bYBjUFilnfWlG28NbSBPxbsSt8rZUCONkpZs3UaD5TbviVIWuRUQaBJR0
-	U3gvF420096VWqYHo39xtnQ7JmnXrUIyWGvTMAA38OpyiYV+awPC73/aUaNIcqc6DFQUm4wSeCz
-	FcNjJ2C0ZoPKdTi3n3mxe+w48b4ueRU1kquAq6YrnN5KK1MTc5tlsH3o4aLM+o=
-X-Received: by 2002:a05:693c:409a:b0:33e:a173:4aab with SMTP id 5a478bee46e88-3537df8cd39mr13479385eec.14.1791809996829;
-        Mon, 12 Oct 2026 05:59:56 -0700 (PDT)
-Received: from devbox.ts.blockcast.net ([69.25.95.32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb61asm35348067eec.21.2026.10.12.05.59.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 05:59:56 -0700 (PDT)
-From: Omar Ramadan <omar@blockcast.net>
-To: Taehee Yoo <ap420073@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="HdAw3cBO"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2E3411A00;
+	Mon, 12 Oct 2026 05:59:54 -0700 (PDT)
+Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com [10.42.46.160])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3A31D3F66F;
+	Mon, 12 Oct 2026 05:59:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791809997; bh=SwCssg1TtHWQq2cdAinXB1qI41TqJtYDamzkLDOC6fA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=HdAw3cBO1/tCgaMzK0D2MgS4llSSUEKQ3hye7w4v3eiQ3q+hMh0qxVj8vEAdqXhzt
+	 kYbJ62I5aISbD1mepAjka+MXBYlAXnF/eKPYXfW1bF4nKosadA8oGKdSn0DrdNCrxs
+	 ZT6ILx2aahPEIAMHxgZcy5WWkgyMd1/jx5N5dyJw=
+From: Ketil Johnsen <ketil.johnsen@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>
+Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	Simon Horman <horms@kernel.org>
-Subject: [PATCH net v3 5/6] amt: make pre-query report drops visible
-Date: Mon, 12 Oct 2026 12:59:42 +0000
-Message-ID: <20261012125943.558629-6-omar@blockcast.net>
+	Ketil Johnsen <ketil.johnsen@arm.com>
+Subject: [PATCH v4 01/12] drm/panthor: De-duplicate FW memory section sync
+Date: Mon, 12 Oct 2026 14:59:29 +0200
+Message-ID: <20261012125940.3291951-2-ketil.johnsen@arm.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012125943.558629-1-omar@blockcast.net>
-References: <20261012125943.558629-1-omar@blockcast.net>
+In-Reply-To: <20261012125940.3291951-1-ketil.johnsen@arm.com>
+References: <20261012125940.3291951-1-ketil.johnsen@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,45 +54,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A gateway cannot forward an IGMP or MLD report until it has received the
-relay's Membership Query for that family.  The Query supplies the
-response MAC the Update echoes, so dropping an early report is required,
-but doing so silently leaves operators with a dark multicast path and no
-indication why the join never happened.
+Handle the sync to device of FW memory sections inside
+panthor_fw_init_section_mem() so that the callers do not have to.
 
-Emit a family-specific debug message before taking the existing drop
-path.  That path already increments tx_dropped, so each discarded report
-is accounted exactly once.
+This small improvement is also critical for protected FW sections,
+so we avoid issuing memory transactions to protected memory from
+CPU running in normal mode.
 
-Assisted-by: LLM
-Signed-off-by: Omar Ramadan <omar@blockcast.net>
+Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Reviewed-by: Steven Price <steven.price@arm.com>
 ---
- drivers/net/amt.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/panthor/panthor_fw.c | 23 +++++++----------------
+ 1 file changed, 7 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/net/amt.c b/drivers/net/amt.c
-index 2feb418..fec3265 100644
---- a/drivers/net/amt.c
-+++ b/drivers/net/amt.c
-@@ -1249,9 +1249,17 @@ static netdev_tx_t amt_dev_xmit(struct sk_buff *skb, struct net_device *dev)
- 		/* Gateway only passes IGMP/MLD packets */
- 		if (!report)
- 			goto free;
-+		/* A validated report can only be forwarded after the relay's
-+		 * family-specific Membership Query supplies the state echoed
-+		 * by the Membership Update. Log this readiness failure before
-+		 * the shared drop path accounts it.
-+		 */
- 		if ((!v6 && !READ_ONCE(amt->ready4)) ||
--		    (v6 && !READ_ONCE(amt->ready6)))
-+		    (v6 && !READ_ONCE(amt->ready6))) {
-+			netdev_dbg(dev, "drop %s report: no Membership Query for this family yet\n",
-+				   v6 ? "MLD" : "IGMP");
- 			goto free;
-+		}
- 		if (amt_send_membership_update(amt, skb,  v6))
- 			goto free;
- 		goto unlock;
+diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+index 4f1fab66a13bf..5f9f7a92c56a8 100644
+--- a/drivers/gpu/drm/panthor/panthor_fw.c
++++ b/drivers/gpu/drm/panthor/panthor_fw.c
+@@ -449,6 +449,7 @@ static void panthor_fw_init_section_mem(struct panthor_device *ptdev,
+ 					struct panthor_fw_section *section)
+ {
+ 	bool was_mapped = !!section->mem->kmap;
++	struct sg_table *sgt;
+ 	int ret;
+ 
+ 	if (!section->data.size &&
+@@ -467,6 +468,12 @@ static void panthor_fw_init_section_mem(struct panthor_device *ptdev,
+ 
+ 	if (!was_mapped)
+ 		panthor_kernel_bo_vunmap(section->mem);
++
++	/* An sgt should have been requested when the kernel BO was GPU-mapped. */
++	sgt = to_panthor_bo(section->mem->obj)->dmap.sgt;
++	if (!drm_WARN_ON_ONCE(&ptdev->base, !sgt))
++		dma_sync_sgtable_for_device(ptdev->base.dev, sgt,
++					    DMA_TO_DEVICE);
+ }
+ 
+ /**
+@@ -639,7 +646,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+ 
+ 	if (section_size) {
+ 		u32 cache_mode = hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_CACHE_MODE_MASK;
+-		struct panthor_gem_object *bo;
+ 		u32 vm_map_flags = 0;
+ 		u64 va = hdr.va.start;
+ 
+@@ -676,14 +682,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+ 		}
+ 
+ 		panthor_fw_init_section_mem(ptdev, section);
+-
+-		bo = to_panthor_bo(section->mem->obj);
+-
+-		/* An sgt should have been requested when the kernel BO was GPU-mapped. */
+-		if (drm_WARN_ON_ONCE(&ptdev->base, !bo->dmap.sgt))
+-			return -EINVAL;
+-
+-		dma_sync_sgtable_for_device(ptdev->base.dev, bo->dmap.sgt, DMA_TO_DEVICE);
+ 	}
+ 
+ 	if (hdr.va.start == CSF_MCU_SHARED_REGION_START)
+@@ -738,17 +736,10 @@ panthor_reload_fw_sections(struct panthor_device *ptdev, bool full_reload)
+ 	struct panthor_fw_section *section;
+ 
+ 	list_for_each_entry(section, &ptdev->fw->sections, node) {
+-		struct sg_table *sgt;
+-
+ 		if (!full_reload && !(section->flags & CSF_FW_BINARY_IFACE_ENTRY_WR))
+ 			continue;
+ 
+ 		panthor_fw_init_section_mem(ptdev, section);
+-
+-		/* An sgt should have been requested when the kernel BO was GPU-mapped. */
+-		sgt = to_panthor_bo(section->mem->obj)->dmap.sgt;
+-		if (!drm_WARN_ON_ONCE(&ptdev->base, !sgt))
+-			dma_sync_sgtable_for_device(ptdev->base.dev, sgt, DMA_TO_DEVICE);
+ 	}
+ }
+ 
 -- 
 2.43.0
 
