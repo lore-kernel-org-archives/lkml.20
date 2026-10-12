@@ -1,151 +1,192 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2DB37205F
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:35:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05052282F17
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:36:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791768951; cv=pass; b=M2vPhcGDbJv+5W7E58nVw5H6mlKGzxwOetqtHVPcIo5JgbFOcbHHrT0PVNVTNdEARYX6i0Gp/ZtU6DX5aWbCniuhjJq5aZNiC9Bq79ZbLRiZZC/w+itJJEgwUE+kCITbg3Hj1IagQBEdZDxvJOzcAUiefPm6msTvQgM73evXjH8=
+	t=1791768975; cv=pass; b=XDIQ7flgmbgoV7mEWRN3i3QKxBQSm+YXG0vGFJMZj7UVra5gja/cmYusUuQ3BSeA/IdEG22KvtUYh5eO1XU5L6Ta7qwBzOPynD/O3gzX5rnvzVjveaKmd77EP7B09BKBz3zSbkFDHkXz6UOK9N4zUNNKryYJg3sYicW8/7Tko7I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791768951; c=relaxed/simple;
-	bh=JfaZunMAGesDXlAQR97ItVhMeHGWpdeT5fixAIyjgD0=;
+	s=arc-20240116; t=1791768975; c=relaxed/simple;
+	bh=ljdQEShiOOPAwoOVt2hU51AqAKYjVmOAfF1W+KHoDbk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cb97lYWsqpEirPqPHPePxlcveU9HBBz3iRz34LFJqn3yM1ie91coPyDGGCkIOoDrbQ8R+oRbWA1VeDWBnQKK7yGPCKBAUxsVMg4MyBl0uIaHjluaS0Zh2ryrLrFQY3AUTtVrnRBjNsQDec3SqcloVxemIVOY6hKpM04cI1Z3Jnc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ciGPkrR9; arc=pass smtp.client-ip=209.85.208.44
+	 To:Cc:Content-Type; b=uNHEiqybsSW2k3dR7LhH/2Au9ZNm8zDZFAmN1f5L1CJHl2a+Q9G/1L0860Z3krvKE2CQgPLW6noXMKu9CwrV8Na/PgcFsSH/V0g+djbk0P7b0GY+XCH/xhEMlVnWaYrzNAXl2MX/MixhI2maI7TcWRGpq3Sqh00xmrWXLE1ghzQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oTKuXld/; arc=pass smtp.client-ip=209.85.218.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ciGPkrR9"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b1aa29e06bso950710a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:35:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791768949; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oTKuXld/"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c20ce3c118aso79253366b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:36:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791768972; cv=none;
         d=google.com; s=arc-20260327;
-        b=PtXalYhkeTwYU7lp0o0gQlfSa7QP7lngJuHsCxnomSHcucMhK1p8hZOPHaUEIEsKOt
-         EyL6VcIIw5rbfaMjFG5H5SJyvomLHwCgrCuNlnC9j+OT4A/txkiwKSbQGABpr2xRZiBL
-         p9gGoW/whbH58NMK7+hBbsu2SSXRQ63eyPvKgC+p1C+QGuNPXjSv0k1PBBRLENo36GTC
-         eAl+Dad27XzYJ52aDipulXYS2YicZKryrpvco1e1J4l3JSIYUAxKxfr+7aKzvl14T0TE
-         LRwnPAnlouzk37uV3NURbPAHg0uqGgVUMMT3Zcap5Azvj+acWLdya6ou96jhocZQf1iX
-         Zq2Q==
+        b=RxWR/pHZfBV9B4vI4vpW/B6cNyrWPv7EjyQ74jjoqy1m5RRQNTslBZLxULck9PYYkq
+         KyaOK8qlfYmUTOCs3nqx6x6Fh+cAGyKXYfG6iaSFxQ1s7M9lUSkqiE3t0nRrmebY0pT8
+         7TwEJVdEgdvGHgBLd4JVKQ72NqaXBLWbnGqhbTCzEOPTUdgzo1wXhOP1yzwsL6YIvDOw
+         9snf9gCDuLoLYQ9euF1un8IGF+zSCTVlOIo7emOglD/jNNnpnXAbOOkAXTRTP8y/JVp9
+         RpTxHM5XKmzK0nULD2VRgJDKX0HFUcGTeofETSKjSPks9GC0Q3NKK45NZgS3SQTgagXa
+         pnnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=6VRgPYh8KzHTJLITlkZ0kqibdjDtY4WnhSrTw9ugLHc=;
-        fh=UvguE5qQuqH8xMlZ35qQ37KYd1StFz3BQ1mSAYKuMGw=;
-        b=cDJ64dR43slyb6VDgVzUvjCD9eyE1qPAcE6PdGRVgCWUQJrX6L8kKG3IFUYgk+BU9O
-         CJRHedlKkKLMJ8o4gqRT79VuGtgXrmrCQQJrGvmV0LkgYHK9aWaFbcGRzAzTKUGt+NMb
-         UYIt8mLqXg4H0Y7QQrfvKOwkhoOwNlcBi8Jpz8SaXJLAVPas36Dnkdqby4Tr9gTZxL8T
-         9RFfqn3HOvT7iChub5HYPbPAGPWvP1npJ9HLkhL2m1f+JibYtv1//2Gtobg+NzJl848m
-         T6EpSMulGc0icbH9gOuKij6lZF5+KV+VvNZkpBkrnAj18VY4k+hdV4F71es5P0rcxFOP
-         /E0Q==;
+        bh=pRJzm3jHrj/ruI7adqKm9pQj0ydMWP7SFKiDw7dmzpQ=;
+        fh=SFoZIu3loKb0p88X6Nm2jcjO8NjSos7X0LR0soZJLts=;
+        b=q74FXFrh5uwy0v6gReZXlgJLa0UAoJifGqfz/6d5GxgyRYXVXvjJZtWQkVaSG5NbX1
+         WI+peHmyM7k4JxAWI/k8wscfCJsEq67u7lTzwaAjcF3o7olnzR3RLX27SxpUHY5aJOWg
+         b6M0/gXSp2ppQCVVC/i0FnGtvwgyVr8XGwtfhDAvVgXDUmjB9+/uRkrefTMIBO54PD7X
+         9w9ocIq6dMVmPZ/vJLaYpgPxl69z6pQ97SHyQVo+nzncfVRvOIHFB9N0MmU4A7d2xrWq
+         zTzw85Cf47kxXZ4z/7er0fRs6R6W168mrDKSes+lCKowqg96Woc0+CT+9+UmFmVJTOla
+         OaGA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791768949; x=1792373749; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791768972; x=1792373772; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=6VRgPYh8KzHTJLITlkZ0kqibdjDtY4WnhSrTw9ugLHc=;
-        b=ciGPkrR9JQN+Ovldmk31twwMsF6Su3UDZcF3VSZGqeqvsFof/s7STPvYDSmzsusl+K
-         o3bHaMX5pbZLjQ3kFDmw30oHMdXMd2y6DOYVJDg7R3NrkyAxSoXB06FWUXXwhVVfC4b1
-         czcG2q78Jjg9HXMPjPb/AAbZ/Fw8dsuKjvYUICzLBD7f4qvDKMpcknsVI7OlFjCASGvl
-         NcG2LojaKPDzTOIAzeUyAuSplZ2rZ/LWplCngMf6sjEKkKb4dQdooUZVVMk+iNgSo3uP
-         Ui6w78b16V87edDq5p1xGuQzYxWxoVeLo55610Jg7mLIs6Lch4naVq89D+5hER44HfQS
-         MaJA==
+        bh=pRJzm3jHrj/ruI7adqKm9pQj0ydMWP7SFKiDw7dmzpQ=;
+        b=oTKuXld/DxFjSjT9BygcAvSfzel1vRme8z/npCS6w1r9xByOHpVn4dI4NDKurDUu0Z
+         tvh06AMYfBMxmtYtgVoYEt6VPUKbsyKXjUKfOEfF4nc2q2/6n5VMTTW7bbQhm2scj3EA
+         7wdJEfUCP9creWtBIeG2KcrvMY/Q48ZitiZHB7JDqiWuysIDIr3K6wrGccT3lFc1UTVp
+         Tyw5M8EdBkk/eyMr4/iXZZG/qpEBufDoGIhTljWxM+4QVoJuhOaks5ZKBuVkOm454ZyY
+         68wuzsRbWKyo2FyN5QzaTvygQQgOL/BiAxXVBac9mfzyEGmvkdmJmwcJ9sOxYjzsTR9o
+         uMxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791768949; x=1792373749;
+        d=1e100.net; s=20260707; t=1791768972; x=1792373772;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6VRgPYh8KzHTJLITlkZ0kqibdjDtY4WnhSrTw9ugLHc=;
-        b=VteUZ9/OWN9xcXeYTcvGq7mden2HwdTob/pc293GAmWOjW0yPWqcfDWQpUJBjEzFAm
-         /bhZIhqIDtsi2ZXt4rP07HLDenToGy4p46DFouTMk1DQKxKUt8cfvZHidRq09GXPfv/s
-         +800LNiTO7N70qedb9aJpfjRI/rbywpNlooAsL3ITkjD92n772xEwks2XPbk8Ism6dvz
-         E6CHvcT8nujGBJOsrMre/ULgVKfhVN9v/nhSzfURUpM0vxs26vi9AIK3hnoKdHpe0ctg
-         eWpbb5j+J3oddNtCJ/JBXNizlAWXEMx5/OB+6Bfsika5e5M0JmuKbWz5yYA2KZcC1svC
-         hJQA==
-X-Forwarded-Encrypted: i=1; AKwUvBxASwRYEvS57/nHkDCESUpJNyn3yL7V90/N59dkuX26KQ0R0yHvilrH8QKzLAqHm8q785X1cgIZD3Ug7vg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIRtO64sZJI5/cZwZCYCZhyRaI68lStaF/ORF/2q/DcNhthH9o
-	jewWek063rqkDxae9yuKxxMefpfE/mETLszfxq/q5sssU2fnd0gzA7O+4Rrr5ylPkUEGom76tka
-	c8lP2nk1lbB3ElkK74X9N/JRx/bPoCnA=
-X-Gm-Gg: AYBFou0uzAPwls/oljlcHzC5v4BXES0N806z3/SJ2HT/OUTUHn9wnU/w8Of1ZV7T8vA
-	nNxWMJywTJ1x9kMAQ+bQNtDoNxbee8FWsvstocP5rNzi8jAKqUpP41/qIczhwjJa30qRYTcgDjK
-	64pA7U0HGJIp91ii9ccOYQN3eByFRLkNw/vs1DMJuXBbWUM5xGgtxKf1WPkhEG/7XcvSuMmUQv0
-	kRgiuq7L4HyiY3t84YRwGNj6AYftRwdc+y18y4R/D+i14yZzxDEC+wrQ8QH+KCoHA+tWWJTAVx8
-	6BEZ991olRm84kOdpMyjoeNPUgQHeFao4Jad8ZaaFDUQz7H9QRALulsa
-X-Received: by 2002:a05:6402:3217:b0:6ac:765e:def6 with SMTP id
- 4fb4d7f45d1cf-6b17c1e0c23mr7390623a12.2.1791768948600; Sun, 11 Oct 2026
- 18:35:48 -0700 (PDT)
+        bh=pRJzm3jHrj/ruI7adqKm9pQj0ydMWP7SFKiDw7dmzpQ=;
+        b=Pzeo63euyUAXR8P9uOk4oPTFuvMABFo9foL3celG24Q7+FYUwdPZlIXMUzrbcIg2Qd
+         fS8VTTHZWrNAcYNT0vYKwlWm6UjNKtBdpRVkn8yBgh+KIzPZQGXnoeOFSOFNJuoVB7lf
+         Dy1ny4E7IBUIKq3zJKq3r7aArH0gxhaXOby8vQJEeMg3slyVhwIOyZiaJetWPI16mk+O
+         YoTTDwN2PZOehc35A8W7FhRNSNUrkFbTu92HZL2BakzcLRp10aAw5eniRuwfiPWF5GHl
+         33zjlq7ZjeVD4QFG3E2Gr2GDOa1LeuQtqjgwp57Th0bMWo2W8GKXMVIoT0pB8E4IBCw2
+         oxFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwWkzmzGXcLzA35d1AHctw5JNM6kEySJ0wEyuFxVHqG9M2mKszo1hyUTTnuOkhpYkFVjgRkuDjttKpVaBI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2PUraxe40HFM+QfBQ+kkJCtz7Itd2mnKoMrHkKaRmZ8c65HBi
+	ckePabIEe7ED7gEBlX7VddX4c6v2hqWK/U/nhKEWfx5/AZdWYgRFe7G1uBVogn+FHo5uvmIM2fy
+	TEnjb04z9kzELN64keG1uk0xuHMWLTis=
+X-Gm-Gg: AYBFou09/5vaOU/5YvsySEVIj4bzkWo1r65naa5H/AG1nd2l4jkK8KLFKBhcCc2nSpM
+	HQWNzq5gCjQSCuOCRxm1p/9D4IkB51pQNGjjCtkKh39Pt+kxVBkuiXqSoCkcnO5eO+zs8lqN/k7
+	3CSTCEGOSI7Ra5qmfI8XTQWAeQIsnFR8067ORujc7o9xye8NW8zs9tvm4wFopbe+b+jFSax+haT
+	M+3LRQV69Mo7ub17D7EZg0T2EWQcGUQtMV5csnLJyxRuan3HUDT2ErnInaWFP1j/bbVNzpzy6ec
+	9T4+1xA1/T9nnmXnUIbWm1zhArs1ReTuk661dg2vx1AAed9ObHywq5kRWFzFDsR3WTA=
+X-Received: by 2002:a17:906:f59d:b0:c2a:b008:8cc0 with SMTP id
+ a640c23a62f3a-c31a70e5566mr895411366b.28.1791768972219; Sun, 11 Oct 2026
+ 18:36:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902092545.2542183-1-gonglinkai@kylinos.cn>
-In-Reply-To: <20260902092545.2542183-1-gonglinkai@kylinos.cn>
+References: <20260825191619.2326087-1-danesh.petigara@broadcom.com>
+In-Reply-To: <20260825191619.2326087-1-danesh.petigara@broadcom.com>
 From: Jassi Brar <jassisinghbrar@gmail.com>
-Date: Sun, 11 Oct 2026 20:35:35 -0500
-X-Gm-Features: AclHuK-4frNmPmeXD-8EnQyzFi7h4d42JHBY5L468Uub689krlQD4pNfaRnqfoA
-Message-ID: <CABb+yY0EV=op1m9PVG7F3RK8eTSzGg5dNzJobmTk8cLuEk7iHg@mail.gmail.com>
-Subject: Re: [PATCH] mailbox: arm_mhuv2: time out if the receiver never comes up
-To: Linkai Gong <gonglinkai@kylinos.cn>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>, Tushar Khandelwal <Tushar.Khandelwal@arm.com>, 
-	linux-kernel@vger.kernel.org
+Date: Sun, 11 Oct 2026 20:35:59 -0500
+X-Gm-Features: AclHuK-jmGcB6_gt3zARFl7Qv6jk6y3pW7z7G2xY6_LMJwZ-HcWR-1b9JgRQ8VI
+Message-ID: <CABb+yY0mdSPB+rvtmttUu0R11=4u-Zepmwkfd8ALCT5cPr0AYw@mail.gmail.com>
+Subject: Re: [PATCH] mailbox: bcm74110: Cap rx_svc_init_list growth to prevent
+ PMC-induced OOM
+To: Danesh Petigara <danesh.petigara@broadcom.com>
+Cc: justin.chen@broadcom.com, florian.fainelli@broadcom.com, 
+	james.quinlan@broadcom.com, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 2, 2026 at 4:25=E2=80=AFAM Linkai Gong <gonglinkai@kylinos.cn> =
-wrote:
+On Tue, Aug 25, 2026 at 2:16=E2=80=AFPM Danesh Petigara
+<danesh.petigara@broadcom.com> wrote:
 >
-> mhuv2_tx_init() waits forever for access_ready. Fail probe
-> after 1s instead of hanging boot.
+> From: Florian Fainelli <florian.fainelli@broadcom.com>
 >
-> Fixes: 5a6338cce9f4 ("mailbox: arm_mhuv2: Add driver")
-> Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
+> bcm74110_rx_push_init_msg() allocates a GFP_ATOMIC struct for every
+> BCM_MSG_SVC_INIT word received from the PMC co-processor and appends it
+> to rx_svc_init_list with no cap on list length.  The only consumers of
+> this list (bcm74110_rx_pop_init_msg_block / bcm74110_rx_flush_msg) are
+> called only during probe and at shutdown respectively; after probe
+> completes, PMC firmware can continuously inject BCM_MSG_SVC_INIT words,
+> exhausting GFP_ATOMIC reserves and causing a whole-device denial of
+> service.
+>
+> Add BCM74110_INIT_MSG_MAX (16 entries) as the maximum list depth.
+> bcm74110_rx_push_init_msg() now checks the count under the existing
+> rx_svc_list_lock before allocating; if the cap is reached the message is
+> dropped and a rate-limited warning is emitted.  The new rx_svc_init_count
+> field is decremented by bcm74110_rx_pop_init_msg() on successful dequeue
+> and reset to zero by bcm74110_rx_flush_msg() on shutdown.
+>
+> Fixes: 52436007b862 ("mailbox: Add support for bcm74110")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> Assisted-by: Anthropic:claude-sonnet-4.6 cursor
+> Signed-off-by: Danesh Petigara <danesh.petigara@broadcom.com>
 > ---
->  drivers/mailbox/arm_mhuv2.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
+>  drivers/mailbox/bcm74110-mailbox.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 >
-> diff --git a/drivers/mailbox/arm_mhuv2.c b/drivers/mailbox/arm_mhuv2.c
-> index f035284944c0..1cf4282e1583 100644
-> --- a/drivers/mailbox/arm_mhuv2.c
-> +++ b/drivers/mailbox/arm_mhuv2.c
-> @@ -27,6 +27,7 @@
+> diff --git a/drivers/mailbox/bcm74110-mailbox.c b/drivers/mailbox/bcm7411=
+0-mailbox.c
+> index c8709d509912..bec138d76914 100644
+> --- a/drivers/mailbox/bcm74110-mailbox.c
+> +++ b/drivers/mailbox/bcm74110-mailbox.c
+> @@ -97,6 +97,8 @@ struct bcm74110_mbox_chan {
+>         int                             type;
+>  };
 >
->  #include <linux/amba/bus.h>
->  #include <linux/interrupt.h>
-> +#include <linux/iopoll.h>
->  #include <linux/mailbox_controller.h>
->  #include <linux/mailbox/arm_mhuv2_message.h>
->  #include <linux/module.h>
-> @@ -968,6 +969,7 @@ static int mhuv2_tx_init(struct amba_device *adev, st=
-ruct mhuv2 *mhu,
->  {
->         struct device *dev =3D mhu->mbox.dev;
->         int ret, i;
-> +       u32 val;
+> +#define BCM74110_INIT_MSG_MAX          16
+> +
+>  struct bcm74110_mbox {
+>         struct platform_device          *pdev;
+>         void __iomem                    *base;
+> @@ -105,6 +107,7 @@ struct bcm74110_mbox {
+>         int                             rx_chan;
+>         int                             rx_irq;
+>         struct list_head                rx_svc_init_list;
+> +       unsigned int                    rx_svc_init_count;
+>         spinlock_t                      rx_svc_list_lock;
 >
->         mhu->frame =3D SENDER_FRAME;
->         mhu->mbox.ops =3D &mhuv2_sender_ops;
-> @@ -1011,8 +1013,11 @@ static int mhuv2_tx_init(struct amba_device *adev,=
- struct mhuv2 *mhu,
->  out:
->         /* Wait for receiver to be ready */
->         writel_relaxed(0x1, &mhu->send->access_request);
-> -       while (!readl_relaxed(&mhu->send->access_ready))
-> -               continue;
-> +       if (readl_relaxed_poll_timeout(&mhu->send->access_ready, val, val=
-,
-> +                                      100, 1000000)) {
-> +               dev_err(dev, "receiver not ready\n");
-> +               return -ETIMEDOUT;
+>         struct mbox_controller          controller;
+> @@ -148,7 +151,15 @@ static void bcm74110_rx_push_init_msg(struct bcm7411=
+0_mbox *mbox, u32 val)
+>         msg->msg =3D val;
+>
+>         spin_lock(&mbox->rx_svc_list_lock);
+> +       if (mbox->rx_svc_init_count >=3D BCM74110_INIT_MSG_MAX) {
+> +               spin_unlock(&mbox->rx_svc_list_lock);
+> +               kfree(msg);
+> +               dev_warn_ratelimited(&mbox->pdev->dev,
+> +                                    "PMC INIT msg list full, dropping me=
+ssage\n");
+> +               return;
 > +       }
->
->         return 0;
+>         list_add_tail(&msg->list_entry, &mbox->rx_svc_init_list);
+> +       mbox->rx_svc_init_count++;
+>         spin_unlock(&mbox->rx_svc_list_lock);
 >  }
+>
+> @@ -225,6 +236,7 @@ static int bcm74110_rx_pop_init_msg(struct bcm74110_m=
+box *mbox, u32 func_type,
+>                                  list_entry) {
+>                 if (BCM_MSG_GET_FIELD(msg->msg, FUNC) =3D=3D func_type) {
+>                         list_del(&msg->list_entry);
+> +                       mbox->rx_svc_init_count--;
+>                         found =3D true;
+>                         break;
+>                 }
+> @@ -248,6 +260,7 @@ static void bcm74110_rx_flush_msg(struct bcm74110_mbo=
+x *mbox)
+>
+>         spin_lock_irqsave(&mbox->rx_svc_list_lock, flags);
+>         list_splice_init(&mbox->rx_svc_init_list, &list_temp);
+> +       mbox->rx_svc_init_count =3D 0;
+>         spin_unlock_irqrestore(&mbox->rx_svc_list_lock, flags);
+>
+>         list_for_each_entry_safe(msg, msg_tmp, &list_temp, list_entry) {
 > --
-> 2.25.1
+> 2.54.0
 >
 Applied to mailbox/for-next
 
