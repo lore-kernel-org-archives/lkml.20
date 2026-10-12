@@ -1,188 +1,202 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11AB72D6E5A;
-	Mon, 12 Oct 2026 05:33:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D2A2264CA
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:36:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791783188; cv=none; b=D//t0TIPDmQH5Uduwl4KSVYr+It3bBJrfg9jmiL1QHSSyuIRSkaKDcriymldke2J6L1TZqzJRnBOfpmWgAQWi3bdJkjLks6ZfQfptIgkYvEhK0LqehFbTIQZAZJ+dsJ0lOIzAYNKTdI7HE4YMuGm5Yr6KFo81krREYCUsTWCeEw=
+	t=1791783410; cv=none; b=EThPCms6uYl+DMmX2H5PlueP+MXZTH0Gk1rzVn8B6idgXn6zwmllTOfNXYn31L15x26zJS0CEsM1/XwHsBo1uRTbOfc6G9Dfbk1FJH9AmXphyDT2Dw6VGt3qyLVZ8FLsAkt/Xo8PIuRdQruFuM9FXi6BdsVY91Es1MtTG1/dSec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791783188; c=relaxed/simple;
-	bh=+N7syFePuL/8+6jnO6RbQDpK4WiHjXipxZJg7MTUD80=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PmHcXT3yIMdQIKvvxgFg1H+M0pistB0OWSQdzuA8Bb1LWHvDNTR5EZ6V3KSsME7oc+sjDptWzPpQatX5ollhXDyYFGcA9470VQ0fgDEtMaKoFzGH9jyFNIYFahUWi9skunMKzgUWSIZRcNsK5leH5SgnHjHkCuyFoljnfFSqOpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V4W0v1aO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791783410; c=relaxed/simple;
+	bh=kWOQyRPzED4J6Z4ZfUGv2vz505kNFqT1fa0pCQy3lXU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ssIj7RjN7ZeieajKZTGZWnpaLL5Wo2hpHGHYAZZq0vzPVwYuDDDj3nBoWhOJ6GVV8E5crXF9ALUKrBHcBqIPmCHQzlDufK7OLrRv6+K8iWF2eBYF2ukxQrnXJ7tAkCnFZdF+9I6Yf0ph34IXdKIu0vxy7/YJAfkOc0I2wRCXHzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CBpD5qhZ; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V4W0v1aO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02041F0089B;
-	Mon, 12 Oct 2026 05:33:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791783185;
-	bh=OYzQIzmc9o8ylzODnM24SFQCJ9GyZn3u1i7kDIbbMMA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=V4W0v1aO22sZw0xe/xCPakKlsqutA5op7vbEYv14RcVmqw1bOOtJrq+bCUW2JQFWn
-	 At3P/QshCM/Kr2vam19R8pU4SvgN6cTVYkKRAVpJ2SBhK+4S+BJ3mszVqNWSu/m4/h
-	 QJMqpSA3mcdFigINhSOsiCC9XaX0+8Oi0j4uyZTBOaxdoMLpVsEvxpTOSwnb1T1l3H
-	 1ZvIcltmtbLEm8OCbZr/v27jPBcb7fd6k5E3xceEBq4aEgWVVcRxN/0HBv7uocueEV
-	 9Rl1D7R1nz5rxcaQbyIloSgVogGbvac38XHxNxxPnSKz0oQSnPK+q4vNLte4tGTUge
-	 midO/EZTV3luA==
-Subject: Re: [PATCH net] tcp: keep the route window metric when SO_RCVBUF is
- set before connect
-From: netdev-bot+sashiko@kernel.org
-To: jain.sm@gmail.com
-Cc: edumazet@kernel.org, ncardwell@google.com, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, kuniyu@google.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 12 Oct 2026 05:33:04 +0000
-Message-ID: <179178318451.434549.11240799371877264283@kernel.org>
-In-Reply-To: <20261011052006.60585-1-jain.sm@gmail.com>
-References: <20261011052006.60585-1-jain.sm@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CBpD5qhZ"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc758830601so984537a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:36:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791783407; x=1792388207; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3YfFK5/qq9t394ytyKSs2GhlrPJ7z3Fz6Rt9xrFCB/U=;
+        b=CBpD5qhZgS0KUNsqJrKZZdTWhJqPNGxJ0UzEQE/Wj57jKgBwejlFYdaWqSqy1jPYsZ
+         aPvJTx6VOdlyUZahkd3RKFTwB5SGbve1Nx/MGOf+VASvGh3C+YLk0O5NhL3l/08Ni1/X
+         VQEK7vQ3EEM1AjzGgH4e5U4yfFeXTQV0zO9incE2zxhIU+zK3n9IboPYkrR/ZKNMo5My
+         3E9Nbwd6ml6TI/I46sKUYtQ5eWGdq3rceQHjQqGTrJ5FjmXdzZnD+cuGsJJgcRgm2HA2
+         8IsOXgQA5u2tURtYHdulS2+Ke4eAseuiynV1ZRzl8osFcQhNDNYs9Q0oNbTEuuhzZ2PE
+         7mrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791783407; x=1792388207;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3YfFK5/qq9t394ytyKSs2GhlrPJ7z3Fz6Rt9xrFCB/U=;
+        b=1olRmHyxIYwP0KqSMGv+rO8Zy6McTOmku2WCkYo2aCAAQqxFtdwChaufaU8ypCJ9FE
+         RJWtI/tu07XKliJZ2JoZ9u2Ne8qtF6/OF9BU1ntFjFWy74cKk8sJ39i09yE2aRJ9Yook
+         6i43DQcBkaKAfDqTXybZA2wGXiwZW/aZyKVwmo08bUVsSQe+7VeOp6dj8g/NMtpqvPL6
+         aiXJsk0eaCYnbC5PcdtdRFKXy3UJTS+1tWrxkCMAjffb5KXOGEduz54X9YUghToPMq1g
+         svQLw+GQd6VQh3a3hTyF3rsVQJyoYpx/66nB7xgzfyaq2NoTgkqUj9Gs/mBtQpGYBhQq
+         2riw==
+X-Forwarded-Encrypted: i=1; AKwUvBzDFOTP3DedTNTedUgQ0b8GD5FCvNSoLKszTrlPtMaPYQlsTn8fj76TUngg977gfLdDykFsZUOr0Vnyrc4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIFjxrceYQtQ+vX1KfKeSEM8rzwaWTy1zlotkSeHQgW7ZdE1CVo
+	HD2IW40RS7By/cWmK5F0cE9vwiHqhzgMw/A3XMZSa9cAKpRZbiccxQHr
+X-Gm-Gg: AYBFou17UdaOpiT8dCShl0swVJpgaLkthWtnmf4egAgcEvbKPvGtxVHf+3d+udhZQs+
+	bwhSQPzcdZUBnVzP96Yl+Rjks+2inihVZA09+fKSTf1cBICaepPDwlI4DHWuaoxNVCzExmsXK+G
+	yHe+IDhcNrelk1lA5YXjeyuIDlfUARKWcw1BiiDmOKcynG/fFv7FvD66yCsUj5w2a5OJE1KUyv1
+	GeRwxFpSJV/5H6j9tsaPSDfbFLaj7eN7AgQarrdLYfr5GdRpBxQcaSuoKoaFRcs9FRhc65u1kCx
+	aaHQDusLVpi4HTuHyKmbK6IkWIKc92AMMtY8pLJ3ugaV1y78UkZMhbHLmpFSUfdZvWfVAP6a9Vm
+	FLe4Yf0W+tS/2EEPQHnmRxsxlizTybZ2Nac5Cdz0sxOFmzeqPQxd7pJBypSWDCAKkBw7z8kD8Xi
+	n7NsyvQOi5CL3ey9jA+E/K7/48xHJXSALoaIfa1YdcS1pyf5FIgX95/P1KWQgG+29OEfmJ6qxhn
+	GgOjSfo3gc78j1nEtCmIHFoa4Oov5mDTBy0MEQkAOpA7URuUH5vphQ=
+X-Received: by 2002:a05:6a20:c784:b0:3dd:a197:ede9 with SMTP id adf61e73a8af0-3e16bef6952mr6940746637.56.1791783406452;
+        Sun, 11 Oct 2026 22:36:46 -0700 (PDT)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e1ee81sm3738457a12.12.2026.10.11.22.36.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 11 Oct 2026 22:36:45 -0700 (PDT)
+Message-ID: <2e5f4ca4-ccb7-4328-9bcb-32a2c4f73694@gmail.com>
+Date: Mon, 12 Oct 2026 13:36:42 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] clk: nuvoton: ma35d1-divider: use direct formula
+ instead of divider table
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: sboyd@kernel.org, ychuang3@nuvoton.com, schung@nuvoton.com,
+ yclu4@nuvoton.com, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261008064307.2757324-1-a0987203069@gmail.com>
+ <20261008064307.2757324-2-a0987203069@gmail.com>
+ <179156372588.266328.3848259565001346041.b4-review@b4>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <179156372588.266328.3848259565001346041.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+On 10/10/2026 12:35 AM, Jerome Brunet wrote:
+>> The ADC clock divider register implements rate = parent_rate / (2 * (N + 1)),
+> Are you open-coding CLK_DIVIDER_EVEN_INTEGERS ?
+>
+>   * CLK_DIVIDER_EVEN_INTEGERS - clock divisor is 2, 4, 6, 8, 10, etc.
+>   *	Formula is 2 * (value read from hardware + 1)
+>
+> Am wondering if this driver is necessary at all ? Can you just use the
+> regular divider here ?
+>
+>> which was previously modeled by building a clk_div_table with one entry per
+>> possible divider value (up to 2^width entries) and feeding it through the
+>> generic divider_recalc_rate()/divider_determine_rate()/divider_get_val()
+>> helpers. That is unnecessary overhead (a large table allocation and a
+>> linear scan on every rate lookup) for a relationship with a simple
+>> closed-form expression, so compute the rate directly instead.
+>>
+>> Drop the mask_bit/mask mechanism as well. The previous code unconditionally
+>> OR'd an arbitrary bit into the divider register on every set_rate() call,
+>> and the one existing caller passed mask_bit as a bitmask value (0x1ffff)
+>> rather than a bit index, so BIT() shifted by an out-of-range amount, which
+>> is undefined behavior. The divider field write already clears and rewrites
+>> only its own bits, so no extra forced bit is needed.
+>>
+>> Select the divider with a single helper shared by determine_rate() and
+>> set_rate(), using closest rounding as before, so the rate promised by
+>> determine_rate() is the rate that set_rate() programs. The helper clamps
+>> the divider to the valid range and avoids overflowing 2 * rate for very
+>> large requested rates, which would otherwise lead to a division by zero.
+>> Reject a rate of 0 with -EINVAL.
+>>
+>> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
+>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+>>
+>> diff --git a/drivers/clk/nuvoton/clk-ma35d1-divider.c b/drivers/clk/nuvoton/clk-ma35d1-divider.c
+>> index e992e7c30341..12a946c989e9 100644
+>> --- a/drivers/clk/nuvoton/clk-ma35d1-divider.c
+>> +++ b/drivers/clk/nuvoton/clk-ma35d1-divider.c
+>> @@ -16,8 +16,6 @@ struct ma35d1_adc_clk_div {
+>>   	void __iomem *reg;
+>>   	u8 shift;
+>>   	u8 width;
+>> -	u32 mask;
+>> -	const struct clk_div_table *table;
+>>   	/* protects concurrent access to clock divider registers */
+>>   	spinlock_t *lock;
+>>   };
+>> @@ -29,44 +27,66 @@ static inline struct ma35d1_adc_clk_div *to_ma35d1_adc_clk_div(struct clk_hw *_h
+>>   
+>>   static unsigned long ma35d1_clkdiv_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
+>>   {
+>> -	unsigned int val;
+>>   	struct ma35d1_adc_clk_div *dclk = to_ma35d1_adc_clk_div(hw);
+>> +	unsigned int val;
+>>   
+>>   	val = readl_relaxed(dclk->reg) >> dclk->shift;
+>>   	val &= clk_div_mask(dclk->width);
+>> -	val += 1;
+>> -	return divider_recalc_rate(hw, parent_rate, val, dclk->table,
+>> -				   CLK_DIVIDER_ROUND_CLOSEST, dclk->width);
+>> +
+>> +	return DIV_ROUND_CLOSEST_ULL((u64)parent_rate, 2 * (val + 1));
+>> +}
+>> +
+>> +static unsigned int ma35d1_clkdiv_get_val(struct ma35d1_adc_clk_div *dclk,
+>> +					  unsigned long parent_rate,
+>> +					  unsigned long rate)
+>> +{
+>> +	unsigned long max = clk_div_mask(dclk->width) + 1;
+>> +	unsigned long val;
+>> +
+>> +	if (rate > parent_rate / 2)
+>> +		return 1;
+>> +
+>> +	val = DIV_ROUND_CLOSEST_ULL((u64)parent_rate, 2 * rate);
+>> +
+>> +	return clamp(val, 1UL, max);
+>>   }
+>>   
+>>   static int ma35d1_clkdiv_determine_rate(struct clk_hw *hw,
+>>   					struct clk_rate_request *req)
+>>   {
+>>   	struct ma35d1_adc_clk_div *dclk = to_ma35d1_adc_clk_div(hw);
+>> +	unsigned int val;
+>>   
+>> -	return divider_determine_rate(hw, req, dclk->table, dclk->width,
+>> -				      CLK_DIVIDER_ROUND_CLOSEST);
+>> +	if (!req->rate)
+>> +		return -EINVAL;
+>> +
+>> +	val = ma35d1_clkdiv_get_val(dclk, req->best_parent_rate, req->rate);
+>> +	req->rate = DIV_ROUND_CLOSEST_ULL((u64)req->best_parent_rate, 2 * val);
+> Rate propagation support is lost with this.
+Thanks for the review.
+On open-coding CLK_DIVIDER_EVEN_INTEGERS: you're right. The ADC divider 
+is exactly 2 * (val + 1), so the regular divider covers it. The 
+dedicated driver is not needed. You're also right that my 
+determine_rate() lost rate propagation, because it never forwarded the 
+request to the parent the way divider_determine_rate() does.
+I tested the regular divider on hardware. That showed a separate problem 
+in the existing clock tree. The mux parents are declared with .fw_name 
+only, but the controller node has no clock-names, so the lookup fails. 
+sysclk1_mux and everything below it (pclk0, adc_div, and so on) end up 
+as orphans at 0 Hz. As a result clk_set_rate() on the ADC clock returns 
+early without writing the divider register. That hid the real behaviour 
+of the divider.
+So I will drop this series and send a new series that:
+1. fixes the parent lookup in the clock tree, and
+2. switches the ADC divider to the regular divider and removes the 
+dedicated driver together with the unused mask_bit parameter.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The new check in tcp_set_rcvbuf() (net/ipv4/tcp.c:1864) uses
-  sk_state to decide whether the window clamp has been chosen yet.
-- [Medium] The connect error path in tcp_v4_connect() and
-  tcp_v6_connect() puts the socket back in TCP_CLOSE but does not clear…
-
---
-
-tcp: keep the route window metric when SO_RCVBUF is set before connect
-
-This patch makes tcp_set_rcvbuf() skip the window_clamp update for
-sockets in TCP_CLOSE and TCP_LISTEN. tcp_connect_init() and
-tcp_openreq_init_rwin() only read the route's RTAX_WINDOW metric when
-window_clamp is zero, so skipping the update keeps that metric in effect.
-
-> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-> index 87ef6d5cbfeba..9b6f2144119d1 100644
-> --- a/net/ipv4/tcp.c
-> +++ b/net/ipv4/tcp.c
-> @@ -1856,6 +1856,14 @@ int tcp_set_rcvlowat(struct sock *sk, int val)
->  
->  void tcp_set_rcvbuf(struct sock *sk, int val)
->  {
-> +	/* Without a connection there is no clamp to update: it is chosen
-> +	 * from the route's window metric and the buffer size when the
-> +	 * connection is set up, see tcp_connect_init() and
-> +	 * tcp_openreq_init_rwin().
-> +	 */
-> +	if ((1 << sk->sk_state) & (TCPF_CLOSE | TCPF_LISTEN))
-> +		return;
-
-[Severity: High]
-Is sk_state a reliable way to tell whether tcp_connect_init() has run
-yet? A socket can already be in TCP_SYN_SENT before the clamp is chosen.
-
-net/ipv4/tcp_ipv4.c:tcp_v4_connect() {
-    ...
-	tcp_set_state(sk, TCP_SYN_SENT);
-    ...
-	if (tcp_fastopen_defer_connect(sk, &err))
-		return err;
-    ...
-	err = tcp_connect(sk);
-    ...
-}
-
-tcp_v6_connect() follows the same order. If SO_RCVBUF is set in that
-window, tcp_set_rcvbuf() still writes a non-zero clamp. tcp_connect_init()
-then skips the metric:
-
-	if (!tp->window_clamp)
-		WRITE_ONCE(tp->window_clamp, dst_metric(dst, RTAX_WINDOW));
-
-There seem to be two ways to reach this.
-
-The first is deferred Fast Open. With TCP_FASTOPEN_CONNECT and a cached
-cookie, connect() returns to userspace with DEFER_CONNECT set and the
-socket in SYN_SENT. A setsockopt(SO_RCVBUF) at that point goes through
-sk_setsockopt()->__sock_set_rcvbuf()->tcp_set_rcvbuf() and sets the
-clamp. The first write() then runs
-tcp_sendmsg_fastopen()->tcp_connect()->tcp_connect_init(), and the
-metric is ignored.
-
-The second is BPF sockops. tcp_connect() runs the callback before
-tcp_connect_init():
-
-	tcp_call_bpf(sk, BPF_SOCK_OPS_TCP_CONNECT_CB, 0, NULL);
-	...
-	tcp_connect_init(sk);
-
-sol_socket_sockopt() in net/core/filter.c allows SO_RCVBUF. The in-tree
-samples samples/bpf/tcp_bufs_kern.c, tcp_clamp_kern.c and tcp_iw_kern.c
-all set SO_RCVBUF from BPF_SOCK_OPS_TCP_CONNECT_CB.
-
-Before b025461303d8 neither path wrote window_clamp, so the "ip route
-... window N" metric was honoured. With this patch both paths still
-lose it.
-
-Should SYN_SENT before tcp_connect_init() also be covered, so the code
-matches what the new comment describes?
-
-[Severity: Medium]
-Can the TCP_CLOSE early return keep a stale clamp left by a failed
-connect attempt?
-
-tcp_connect() calls tcp_connect_init(), which sets window_clamp. It can
-still fail after that:
-
-	tcp_connect_init(sk);
-	...
-	buff = tcp_stream_alloc_skb(sk, sk->sk_allocation, true);
-	if (unlikely(!buff))
-		return -ENOBUFS;
-
-The failure label in tcp_v4_connect() puts the socket back in TCP_CLOSE.
-So does late_failure in tcp_v6_connect(). Neither one resets
-tp->window_clamp.
-
-__inet_stream_connect() returns the error without calling ->disconnect,
-so the reset in tcp_disconnect() never runs. The socket stays
-SS_UNCONNECTED, and connect() can be called again.
-
-Suppose SO_RCVBUF is raised between the two attempts. The new check
-returns early and keeps the old, smaller clamp. Before this patch the
-clamp would have been replaced with tcp_win_from_space() of the new
-buffer size.
-
-On the retry, tcp_connect_init() keeps the stale value. Because it is
-non-zero, the metric is skipped. Because it is smaller than
-tcp_full_space(), the SOCK_RCVBUF_LOCK branch leaves it alone:
-
-	if (sk->sk_userlocks & SOCK_RCVBUF_LOCK &&
-	    (tp->window_clamp > tcp_full_space(sk) || tp->window_clamp == 0))
-		WRITE_ONCE(tp->window_clamp, tcp_full_space(sk));
-
-tcp_select_initial_window() then limits rcv_wnd and rcv_wscale by the
-old clamp. That limit stays for the whole connection.
-
-Triggering this requires the SYN skb allocation to fail, for example
-under memory pressure or with a restrictive sk_allocation, and then a
-retry on the same socket. The behaviour matches what existed before
-b025461303d8. Compared with the parent commit, though, this looks like
-a regression for the retry case.
-
->  	tcp_set_window_clamp(sk, tcp_win_from_space(sk, val));
->  }
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261011052006.60585-1-jain.sm%40gmail.com
+Best regards,
+Joey
