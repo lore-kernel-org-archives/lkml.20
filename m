@@ -1,26 +1,26 @@
 Received: from MA0PR01CU009.outbound.protection.outlook.com (mail-southindiaazon11020092.outbound.protection.outlook.com [52.101.227.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7CE7486E7E;
-	Mon, 12 Oct 2026 12:06:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19897481223;
+	Mon, 12 Oct 2026 12:06:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.227.92
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806767; cv=fail; b=rpX+nYZRDi81PjhOIfU9FtFULR7QIDsY+DB4SdWWJMrddGtBi9CbdHkMVlwKFY4ak1FZTqm57Jt+QiJMknom5arahjTA/KbF213B3G+DzIyTOK3/L94+3gmjBsW7Hiy0VJbLhl7zICM6GdLd/gjumOouj7A98BP2scH9NXc3qgM=
+	t=1791806765; cv=fail; b=CFlXOw2Z9QikFi9/a6gdiPIHxwYa+ZmEl6YHDQysGFUjIbIVKiVASs+5OzI4qOfs034aSdFLCd+0D/nv9JZ9SuHBDzPE15Uo37dsaRxxoQMvOsfVrdFMr9gF7QLNELNfPZgDfFql0Ebhs0sKJyCO/88SJZ7peqTPQSmrNKvo9M4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806767; c=relaxed/simple;
-	bh=YP6urko9OM0M67guE0P5qm5gU7Ofc9Ggr096FqnEvUw=;
+	s=arc-20240116; t=1791806765; c=relaxed/simple;
+	bh=cf0DI7gUyBk6qc0d6p+daMbEOWnCxkwduy4fhy7V7Zw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VsM50+J7nPpUjf+uoem2BkHU/NIJibx/TfewE1BeyUOw1TPyiOHLVNdf7be0e52Ix6mVJ9Az6t5mFSUG824vtK9pUlkoZat79B0FJtJ26oNEsbVJfD/IHhYLiGVTKYTfh5uGsQ2qOaNqNpSZ/DkPi4yqNftpuTjMzKIsMnAjPPA=
+	 Content-Type:MIME-Version; b=hpAf50mEFihwOG+HOnNocJUwygI3U2PnOfFm/YzF4kGEOsoRRPja8tABVqFljHyKiUEZdmReHw/g8IoBDX+qW/kGxK5wskkVXwUcAWSh+9MRt0+8Mn3ZkD2IbItgfsSrcWcKG+eoKaJERNHK0aJnQ92VUw4h2DlgDdpThYLRWG0=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.227.92
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uQECVY/VR1XeUa2LxMOtVEBpgg8ZfGrkZZwu7Eb6uAlhx+TZZt2z4qfjnmPMVCLW2CWWbsqzYtp/NP27fnl24av94mCWywogvV/2cQNiK/1hi5TSt/th3MFJiWNPl68qCY+XydpmfulQ8szA6AYR6H6f98M/ftrOAhzYbkUE7mZ3Ge3EmexyuaZm2RvQe/uGqFgF3pSfq5QcLLMOtTOBF3ASWwffzn3pF2pteMvZs4ERqvDhjpAKWFZIdNEXMuzienCe7KevVCQPuOInXd1OILqVci5HXb6B9i28lvwFOISjBqnJMgljQ8rFHTGPJnEkRwVByXllp1H1bsygwQWjqQ==
+ b=PU4piDERH/FVh3u+/soXw5z9XeftUxER+f3CGy55MaQ/bc073GF0RdEfi/3nsCBdHGzDTuSHBVk49qPhH34sAWWAPxVuDZHjoyKD5iq9+w/tWDeWxOWBfAQx9bEuTtdfLGWAVu+4QesyNmNlOWnRwOikMXE9lxRqQ43KE1V9rsoHAeyj/6L9xriCzg29Hg7jR6jfA0QEKESs2IhqNI0CaqfukSY+c0ZAqk7rxUar4YvHInnFpDAQ/UJzVuwhgdMpjMD/Jb3UqA1Yn4ouHTwcpFcbNyDN0yQfhRX+SPF2oV96NNZjs5XFo1R4pYowkB7nL63KWMtkoNCmAxTDXAKPsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x4GJbBCEfmXaCiEOxCF/3A3nvzFaU9cEREPVwIQyB80=;
- b=eKlhi9RLAw1C1Bu5GpEOI2s1F91RhMZpaIxtm5pouhyA2UUDPPgA/FcRtGdapvNfZhVLWYDOLuC6SK56rGch5i3God5eCPUbi/BdYMMW/cYvWYRxfwV04bqNlzhm3cZxgVX6CChGch8VdKhPJi7ZGCn/SWy6mAiJsUh1wdBo6OlAlfW4ZrCgjRqpWjmc4COtp+WWd8bDbNF0NcijiIGc9EnbroxtP2wPG8dc12Ov6qT6yGV2dJ5hWcjDnKaJv1Mv8psKljS23aMGBI1O69+0zSBnvTaAkVsY3MTrBUo6kfezYjvEla4n2FUtNkN+p84Jp8IbU5PahfvDzEHbBldjwA==
+ bh=m1t2PTWb3U3CXJbOXbvF6jjqZ6SbRe0+eM0wyxS3OJk=;
+ b=C2nF6DvUJxVE2p2QjcBLpcTVLuqxJiQdI6M3Y3O+wE2+oau3Yl0fs0MVkO3J4TgYnSlnI1VGes2D2+eMURmW0TRcFq1m5itkS4hY7QkWl/h7xkud/3ycMEMeyv4HcsRQuk+dSrNhDXT9HutJtOLQfrIJYVFHF6ESXThySa5sXuSau3VoiRAzBTUOiLfmjiQnD+TA+nHnK9Pg2Fa9nVKpSmeso1DciZ1lB0cTTXK5mST29DWTrraTCiASkDuEiqN7mDejXTbbMc5Sh/Sp9DZYDu0iLX5wAXAcHaFl36gNNQbGxGEB0x8k75w0IUUzg2xqh/NX0KmpCohZ3hcmphNnCQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
  header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
@@ -30,11 +30,11 @@ Received: from PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::104)
  by PN2P287MB1987.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1c2::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 12:05:56 +0000
+ 2026 12:05:55 +0000
 Received: from PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
  ([fe80::3a7f:fb1:6998:b89e]) by PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
  ([fe80::3a7f:fb1:6998:b89e%3]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
- 12:05:56 +0000
+ 12:05:54 +0000
 From: Hitesh Patel <hitesh@ebytelogic.com>
 To: linux-media@vger.kernel.org
 Cc: gjorgji.rosikopulos@oss.qualcomm.com,
@@ -50,9 +50,9 @@ Cc: gjorgji.rosikopulos@oss.qualcomm.com,
 	linux-kernel@vger.kernel.org,
 	ravi@ebytelogic.com,
 	Hitesh Patel <hitesh@ebytelogic.com>
-Subject: [PATCH v4 3/4] media: qcom: camss: Enable the streams API on SC7280
-Date: Mon, 12 Oct 2026 17:35:41 +0530
-Message-ID: <20261012120542.1140157-4-hitesh@ebytelogic.com>
+Subject: [PATCH v4 2/4] media: qcom: camss: Set the streams API flag per SoC
+Date: Mon, 12 Oct 2026 17:35:40 +0530
+Message-ID: <20261012120542.1140157-3-hitesh@ebytelogic.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261012120542.1140157-1-hitesh@ebytelogic.com>
 References: <20261012120542.1140157-1-hitesh@ebytelogic.com>
@@ -69,89 +69,340 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PN2PPF076CDA63A:EE_|PN2P287MB1987:EE_
-X-MS-Office365-Filtering-Correlation-Id: c60e65ad-6e45-4c1f-8601-08df28592bdb
+X-MS-Office365-Filtering-Correlation-Id: d8e8d30e-4796-4c5a-0cf8-08df28592aed
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|52116014|366016|23010399003|1800799024|10070799003|56012099006|18002099003|22082099003|261009223027099003|10067099003;
+	BCL:0;ARA:13230040|376014|7416014|52116014|366016|23010399003|1800799024|10070799003|5023799004|56012099006|18002099003|22082099003|261009223027099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	u39gM/G0K1wIm7wcTSZZK4yccPOApOgT5PHyrdwrEgsl0PkbefWb1Ic316tngLDiLlj1YQ20NX/VXQkxlCMQyF6DgGrDmSl/CGbQXhFCINNtv3Ck6iRMBm6B9YYS8pMUFn0rQfbM0ZxlVAT7Wp0yBqR2asmh8H5FD8kl6VL+mIokDvsxJrotb6Q+RiF2z1EnB/z7rLerBsG1IvlHju1+6b7oDvUsCUOoYDuA6HWBqElX3ob+m+aSGy1oEveSZjSt9+MMWGcr36SdT9dBRTdrJ0LYGXsFArDoG94AxJyL92HSY6selRmQ9k0kju3/1ZRxO38Dl7Hvk+P5Uz8qzLbvCo4iH/2N4sH0knG93D/dD6OC0d9kR5X2Zu4qmsXwCzxhNb6Qe7qd2NoK8kS+WlrHUhhzez97cRQkSd0j6VOuFZi088EmtetJejRGueBhEM1y9B2LsMw6G8+dMWXagdYjzpaiUbDfGg8hefDAOiv415DRC3q1YugMkGXmWp58dLVfVPH8zXQs8tm6Nsf7k6zBkOdhOfPYJlm11AIyBQEvtTnGkwvNb9GWABnZ0XjEfpc864v4NjsSd9sODAeiOmaJmGPM9U1yg9QgpPdIShf1JZHElV1FfEF2aI0ucVHzLH4dOREdajGsUwtFx2ZbuMcSZrXiwYbk7FXXcXJPN1oXhtA=
+	CxRM4u6fxkg94QG3J+DlINS1+CQ8Q0CVg2Hd6tjQaL3Q4P27tYJPl5RAJLlfPvxlpj66eL0mThvVbBJKu/aoNdasTY9D9npoCkLSzHuaIzzd7R5JelhqVcMakZ9pcxUSsNYCvI9Ashl95f6aUyqFjCRCRN+MZSjQLe03GjNrJy3wpYzy/Vhe6hshKKVEG/maR/D/19LYF+Cv/AJRUG3n/0UCi/YajL6aWNf2j0S6hcFMjq1e7IK+IuUIqxal/swBBAIOccQKOKQlqNNbP6LDKCImmSXDy7OBWB6WcL2lBNZueKUCKdVMU0jqNzrB2huv5vgvDORBfy35CeqGjhHAoqODjKwcS/YqKzAM0Tv7LzbYQecBdSs7yWgr5JZkNWmuslvAtTSpSScVsOA6OFtSeAgIGZRpoFjjVSuD5XiEMpetayjXrZ5KJxh4rbqMEm22R6yisNMIasjEvHqEigYpqm/mI6yVT9ihuwkt693sPwr0yhXD4/pFwBGJcM5ZtYS6CbI45tUT3FPsC2XU81EtQNjsAtWFZ1g+b9Rgxf7Q1Nyn4ithj0f3OND6HsW/1G0L2xuXxRcNfduVDKb2Zfca5ZX6TMS/VtnU9kZjTvXhn4aqAXYiUYBY1ZOpzi1W1I6fnO9SXVI+ArhMv4wevJJXlelvK9U5wCSERTecDwtlGDw=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(366016)(23010399003)(1800799024)(10070799003)(56012099006)(18002099003)(22082099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(366016)(23010399003)(1800799024)(10070799003)(5023799004)(56012099006)(18002099003)(22082099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?7Xhyzj21ToZT24RU8opzhDXZXKY0xZz0V5JjGAI8yUXr8CIqCqTJ8fxSX3r+?=
- =?us-ascii?Q?7rsf5zumQjEJqOWA9OXNLTkQsTrWEeSF7UQQOIHjQxAnBQ5zD74TFmQPJ133?=
- =?us-ascii?Q?MtG4NC8O13sFEFp+I1GXKPvT60vSxNXpYsUWEzcSFsF/T0qVyo3dY7LU+kJ3?=
- =?us-ascii?Q?mAyu6FD5Q+chDqscN117754hYH9dMWT/k13o3FacGfOcNS6wcL1V4HnitELO?=
- =?us-ascii?Q?RRROy2UPsClOoz6Vhj9FNZ7Eqj1xQNoSS8Q5sSNzgJElieJOIaPCxToQkExW?=
- =?us-ascii?Q?u0gf25+cLrxOdL8eNI0CeY4HNjnmtdoKRuHoLQhIXB9O8HJSKxuH6DXlKDBe?=
- =?us-ascii?Q?0ABg7IVj/bVNI2C9txhHU+Fki/UHjajxsCzM0jdKYlUQ79wnOrMW1DPi/VhE?=
- =?us-ascii?Q?UYx0TGuLw2tdKUU4nmAD1qOMMgwV2GaF+ZtyJvqONeawzRB/B7z8zX2kAWhK?=
- =?us-ascii?Q?QdML3/uPAkAYEL4Zu9EhK5pmNW8XF1e3W3yM9oy+GoCoOeHtO5dMeQm/xSwb?=
- =?us-ascii?Q?Lt5389iX2kG9MZSFhP7VRPqgtmVK1IBLWl0iNXcnQ2xFV61pLiZfQJTtV4Ak?=
- =?us-ascii?Q?IOA+o0v83ij4YLI1Q+FCMetzoEob3RynGpsftZURDWlMJCJMtFuDzYNnT0IV?=
- =?us-ascii?Q?4KlVp35OCqOiUWFheK3D6NmtbVT8iwAGTkz4AgxNjQBWTvbjmM6mZ76gBb/x?=
- =?us-ascii?Q?vESwlV6qnHoXfSgPxRotget/SPp2g6ZaiJhHvIRaCjWJqQEjFoINrQ1/FcrH?=
- =?us-ascii?Q?phjUA0H0/E9CNqrm/PBq8+vfwsQEzwyGuWaeSGAi0E+4DquiyPJt46as2A6i?=
- =?us-ascii?Q?iVo4A+YWaUM+zK2TywNA/CSpNhZjp+3L5GBMPXVAPiM0GSs4iyGJ7VGM4vS1?=
- =?us-ascii?Q?oxkFLbBYuZP8w6FgbCMTVUT3XWrG9rLc8ffHojymxB+iAgHIWKzSec9l4UFK?=
- =?us-ascii?Q?LGLL6I7Nt7D/nATyQj0McWhv7CpcCz2GSnIvSW6ZBFCwZc0qdbsxh2TK4pQ5?=
- =?us-ascii?Q?+PPGlPSOxtF24XDBRdVivxsv93OBeRVdeMjzwzHuc3lvWQD4Bmb4cEATDRU1?=
- =?us-ascii?Q?Msr3JMaP73v4n04JW4622b/q/CHplUA9AueJ52+floKs6ASTEug5zLp3MgoD?=
- =?us-ascii?Q?C5kISVbb7yaHDA0GcjiHGFwaC8oKKgnIgV59rL6MoEaprrEJL/wZeBFUlZM0?=
- =?us-ascii?Q?hw7jVMiung6kyBPdB9OIW5snD/2KtMeaJRHwo6JgQ4auv9o31UWDW8GeROeO?=
- =?us-ascii?Q?lEhhcshgxh0JUY2hIxd1oH8SEBomc7dX/0ccodIYWF1kwqkoRWg7bSJY9cQ+?=
- =?us-ascii?Q?XyvT/y/Zh/90liTL7oQk83dwbIdlKipUncQT1PVPfSKcUJm9q3TSnNU51/9O?=
- =?us-ascii?Q?vWoBg1VXJa8WF/P59vEKIGdo4dFA2uDvUFMnolP6jDnEvNAR5/YNdGkM+GAT?=
- =?us-ascii?Q?2uUIiTvAwyx8ghdc3v63B27bJSnFiAe/T559P43X8NX+D+TPFNKZo7hoBOTa?=
- =?us-ascii?Q?trM0R8e0pw7uZv9asjbB1X3hf7sWameEyroU/pHS0BJ7xHoZL6LpM2O7W/b7?=
- =?us-ascii?Q?khaN7HaxLY4YhwB1MntN99o++oRTsfbIAfJJMgUocgKP6+1VP7mdkri8WNHQ?=
- =?us-ascii?Q?P452+01g1s0Lu/pzIxQ1VLk5aooSBZERxCXYpKhZZHiY5xWDRdJ34iM6CTeU?=
- =?us-ascii?Q?JjsueFm/mfo03loKuGz/YVj9B+T6y8vMmT/J1IJrVCW+80OHaAIGFKw32Dpz?=
- =?us-ascii?Q?A8DJtFtUfMhYlQZxYMxu6CesfdRGr7cFPCa8LY1n9/ukIj8gQ/nQSD1c5VPS?=
-X-MS-Exchange-AntiSpam-MessageData-1: NeEQHFZ+lu5/sg==
+	=?us-ascii?Q?1W0NompUaFBS2mQINgmnk/JqyskMVhJvQSasMj62B+7ODVWTwB1HBG46PQwR?=
+ =?us-ascii?Q?2AK5cP6zBfg8IbgdNqeKdA2JzDqzBj3T2VpZhbdhVejxUcfoprefLUcLICN1?=
+ =?us-ascii?Q?VyTo99T96SDn3eugGn3gcL8jY51mzj15C6cwzhuwzCFa8oghSoZRIjUTyoiI?=
+ =?us-ascii?Q?Guynn0VNSF0K4YXnNZ5BMhQAcvY9nUcFrVSgmg6C5WUjrbG8QN2M0HjQbF0+?=
+ =?us-ascii?Q?vAvdtWQsfZq0n9ZHRgO1n4yZwz8eZyTTTFE3TEAVHVHf4x9GVDJb3Bm+qNXU?=
+ =?us-ascii?Q?uhj9MRqws/InsY7PgGX6nJxQU0g6Q7YYrdv5cXKh2q05wepD1uW+BVLMgX7P?=
+ =?us-ascii?Q?QvN0Vw1ZEZ5eWmyl0hB3oc8MrlDYi4Eu68K/a0KIrCTUJLZhsUrSTOFAHfys?=
+ =?us-ascii?Q?WloTHhKcoDIKXvjAgGokgXF5NcVY5zVbg0DKn7JUNXgi5GIHirWifq5X9or0?=
+ =?us-ascii?Q?PTwciusnTl/V50xoGTaTfPmrw5irksrrphe6cLgxMkumocLSbwH8WA9kezsq?=
+ =?us-ascii?Q?aCHiypXkiXHpG7C5zVsvEezR8XwR9Mn65Nw1jBNUXDy8TjWdgI/MS2THhqb1?=
+ =?us-ascii?Q?MQpB6OIdKDv0Q5wzHTEHScTgctgAs+YLRslUxgzjuGMM2ftJEf5bmT6PTdye?=
+ =?us-ascii?Q?WuUBerPuYJHDhBIFHPRuosDEHBc6dcwWr5SW4BXqjnkUNHtz1jc79AaVruff?=
+ =?us-ascii?Q?ZG7noBTHkMbxGIzEW0jE2BSd5f1CZBRYZU32N+6R59YDOhZ4+CTn8Gec7Ofg?=
+ =?us-ascii?Q?80itNwOThvk9/fGQgezYXXvMcrP77q1GT1EITEOI6vIvOgtqk9p9kwP7Wbd+?=
+ =?us-ascii?Q?1WdI9P5/T9vx5v1fKx02yhdXsjHx1dH5ZC9GDMUo1JDiKqlkjLC6dmDHQ2kR?=
+ =?us-ascii?Q?GtCspBmqn8FiXNKRHAkvih5T5viVF/CaPXLBOd4wByUDefF0DGDfANdVcz3G?=
+ =?us-ascii?Q?FkqOHSUPwyKDhGon03gPm2twVvZfzL68skYC12p5/lLcTzOJDRP4eddib+dE?=
+ =?us-ascii?Q?ePGD5Z0/Go0P4cnIimx1ilSlsxzfGtO9nKHdtYA4ITNt+Ihi5nMF+PIRV3Z7?=
+ =?us-ascii?Q?RmVpG0kU/BDku5XdgcPRbryKHF6RcnJBxYd9nEayWkKML80EHv2yENLwVtro?=
+ =?us-ascii?Q?U+91k7VVyeX/4CV/REKyPTgn5jGn1gudvgbhmQoqzw5wlXTNqDuQpGhPifCg?=
+ =?us-ascii?Q?Bc5D9mv0F8EzS/NRQ6K7v3+BnREZQAZEFroi5GPOChLVJ3JCwhuMseUdsY1R?=
+ =?us-ascii?Q?clbzYiSVC0ZZnh/Uj4zhZOqmgQilGEIHjfDpNeqJUs5fQa94zXyz+vGJwQsX?=
+ =?us-ascii?Q?nGvYAsz7nir2LR+oB9l7OEew4bW7LPMm8NKybDoPi/J+YK3hUyb4EEjq80fC?=
+ =?us-ascii?Q?wO7Mm8o8HbM7srj2FRLRpJ+CRlCULAgSkB+9G3VrR8HynREdJHBB6YymPr2z?=
+ =?us-ascii?Q?VSWQHO+ykzNxfbUGQHnh+0o2cVfarhSQb8GPuF5e+d99r4x9MSaTPt652nqB?=
+ =?us-ascii?Q?M4RKZPf9QyAgkBfT8V1qMLIXKt41WzjeQygIhiN0XE74NwLyvvMRy+yVcXi3?=
+ =?us-ascii?Q?CfRPHiGDhtnuc34g4oRxETkVn+JANsrdvmMc0r+rIFdm3aKIYCRHpN5vZI5X?=
+ =?us-ascii?Q?fZSNfR+z6BZJUti1GWW0c0SFCpJeRw65HgKy1qx8t8xiLjg2Zgr+KK/NppGF?=
+ =?us-ascii?Q?5IuzSn60WSRx+IR1vthbnsameiISmCkLH4bjQEH0EOvYRJGDQA3fyztPDwdy?=
+ =?us-ascii?Q?w9ITM6AgJ+docoEyqeIztdwevV4ebLP5ZaGQCQkd1QYQtBqAdwRC7iJKbgLF?=
+X-MS-Exchange-AntiSpam-MessageData-1: WRnso4gM1Qk8kA==
 X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c60e65ad-6e45-4c1f-8601-08df28592bdb
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8e8d30e-4796-4c5a-0cf8-08df28592aed
 X-MS-Exchange-CrossTenant-AuthSource: PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 12:05:56.4917
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 12:05:54.8531
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e7gPtZi11o+4+vYwm9y5HtbcYWy3YMdgovbC0J1JoWRjYHvLX96tkUcJ+AKT7sowYVW/tJoKZRZVlUa121P7dA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: SyNEc5kflMV8Q7GE5YbJUAPcXPL8Y8hw6JIt0R0nvnb0EaaKhc2+od5dlVK77soK+pPQb8dYbIUHuC0FMoxVjQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2P287MB1987
 
-Tested on RB3 Gen2 (QCS6490) with two GMSL cameras behind a MAX9296A
-deserializer, one camera per CSI-2 port, so two independent pipelines
-share the deserializer subdev: both cameras stream concurrently, and each
-can be started and stopped repeatedly while the other keeps streaming,
-without the WARN in call_s_stream() and without the second pipeline
-tearing the first one down that the legacy s_stream path produces. The
-CSID test pattern generator keeps working.
+streams_enable was repeated on every CSIPHY, CSID and VFE resource entry
+of a platform: fourteen assignments for SM8250, and fifteen more for each
+further platform enabled. The flag describes the driver's support for a
+SoC, not a property of an individual subdev, and nothing reads it before
+the camss resources are available.
 
-SC7280 has no camss child node named "phy", so camss_detect_legacy_phy()
-puts it in legacy PHY mode; the streams path dispatches the lane
-enable/disable accordingly.
+Declare it once on struct camss_resources alongside version, and have the
+three subdevs consult camss->res->streams_enable at registration. SM8250
+keeps the same behaviour with one assignment instead of fourteen.
 
+Suggested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
 ---
- drivers/media/platform/qcom/camss/camss.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/platform/qcom/camss/camss-csid.c   |  2 +-
+ drivers/media/platform/qcom/camss/camss-csid.h   |  1 -
+ drivers/media/platform/qcom/camss/camss-csiphy.c |  4 ++--
+ drivers/media/platform/qcom/camss/camss-csiphy.h |  1 -
+ drivers/media/platform/qcom/camss/camss-vfe.c    | 10 +++++-----
+ drivers/media/platform/qcom/camss/camss-vfe.h    |  1 -
+ drivers/media/platform/qcom/camss/camss.c        | 15 +--------------
+ drivers/media/platform/qcom/camss/camss.h        |  2 ++
+ 8 files changed, 11 insertions(+), 25 deletions(-)
 
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
+index 991275398..57c8f13f6 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.c
++++ b/drivers/media/platform/qcom/camss/camss-csid.c
+@@ -1828,7 +1828,7 @@ int msm_csid_register_entity(struct csid_device *csid,
+ 	struct v4l2_subdev *sd = &csid->subdev;
+ 	struct media_pad *pads = csid->pads;
+ 	struct device *dev = csid->camss->dev;
+-	bool streams_api = csid->res->streams_enable;
++	bool streams_api = csid->camss->res->streams_enable;
+ 	unsigned int num_pads = csid_is_lite(csid) ? MSM_CSID_PADS_NUM : MSM_CSID_PADS_NUM - 1;
+ 	int i;
+ 	int ret;
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
+index a312103cf..20ea67b96 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.h
++++ b/drivers/media/platform/qcom/camss/camss-csid.h
+@@ -184,7 +184,6 @@ struct csid_hw_ops {
+ 
+ struct csid_subdev_resources {
+ 	bool is_lite;
+-	bool streams_enable;
+ 	const struct csid_hw_ops *hw_ops;
+ 	const struct parent_dev_ops *parent_dev_ops;
+ 	const struct csid_formats *formats;
+diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
+index 81ca1b0a2..cece9bcb4 100644
+--- a/drivers/media/platform/qcom/camss/camss-csiphy.c
++++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
+@@ -1157,7 +1157,7 @@ int msm_csiphy_register_entity(struct csiphy_device *csiphy,
+ 	struct media_pad *pads = csiphy->pads;
+ 	struct camss *camss = csiphy->camss;
+ 	struct device *dev = camss->dev;
+-	bool streams_api = csiphy->res->streams_enable;
++	bool streams_api = csiphy->camss->res->streams_enable;
+ 	int ret;
+ 
+ 	if (streams_api)
+@@ -1238,7 +1238,7 @@ void msm_csiphy_unregister_entity(struct csiphy_device *csiphy)
+ 	if (!IS_ERR(csiphy->phy))
+ 		phy_exit(csiphy->phy);
+ 	v4l2_device_unregister_subdev(&csiphy->subdev);
+-	if (csiphy->res->streams_enable)
++	if (csiphy->camss->res->streams_enable)
+ 		v4l2_subdev_cleanup(&csiphy->subdev);
+ 	media_entity_cleanup(&csiphy->subdev.entity);
+ }
+diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.h b/drivers/media/platform/qcom/camss/camss-csiphy.h
+index f93971bb1..ca3160af7 100644
+--- a/drivers/media/platform/qcom/camss/camss-csiphy.h
++++ b/drivers/media/platform/qcom/camss/camss-csiphy.h
+@@ -86,7 +86,6 @@ struct csiphy_hw_ops {
+ 
+ struct csiphy_subdev_resources {
+ 	u8 id;
+-	bool streams_enable;
+ 	const struct csiphy_hw_ops *hw_ops;
+ 	const struct csiphy_formats *formats;
+ };
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 2cfca1b62..13cbce9f9 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -2168,7 +2168,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+ 		pads = vfe->line[i].pads;
+ 		video_out = &vfe->line[i].video_out;
+ 
+-		v4l2_subdev_init(sd, vfe->res->streams_enable ? &vfe_streams_v4l2_ops
++		v4l2_subdev_init(sd, vfe->camss->res->streams_enable ? &vfe_streams_v4l2_ops
+ 								   : &vfe_v4l2_ops);
+ 		sd->internal_ops = &vfe_v4l2_internal_ops;
+ 		sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+@@ -2199,7 +2199,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+ 			goto error_init;
+ 		}
+ 
+-		if (vfe->res->streams_enable) {
++		if (vfe->camss->res->streams_enable) {
+ 			ret = v4l2_subdev_init_finalize(sd);
+ 			if (ret) {
+ 				dev_err(dev, "Failed to finalize subdev: %d\n", ret);
+@@ -2255,7 +2255,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+ 	v4l2_device_unregister_subdev(sd);
+ 
+ error_subdev_cleanup:
+-	if (vfe->res->streams_enable)
++	if (vfe->camss->res->streams_enable)
+ 		v4l2_subdev_cleanup(sd);
+ 
+ error_reg_subdev:
+@@ -2268,7 +2268,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+ 
+ 		msm_video_unregister(video_out);
+ 		v4l2_device_unregister_subdev(sd);
+-		if (vfe->res->streams_enable)
++		if (vfe->camss->res->streams_enable)
+ 			v4l2_subdev_cleanup(sd);
+ 		media_entity_cleanup(&sd->entity);
+ 	}
+@@ -2293,7 +2293,7 @@ void msm_vfe_unregister_entities(struct vfe_device *vfe)
+ 
+ 		msm_video_unregister(video_out);
+ 		v4l2_device_unregister_subdev(sd);
+-		if (vfe->res->streams_enable)
++		if (vfe->camss->res->streams_enable)
+ 			v4l2_subdev_cleanup(sd);
+ 		media_entity_cleanup(&sd->entity);
+ 	}
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
+index d1c54a516..ae9dad353 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.h
++++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+@@ -138,7 +138,6 @@ struct vfe_subdev_resources {
+ 	char *pd_name;
+ 	bool has_vbif;
+ 	char *vbif_name;
+-	bool streams_enable;
+ 	const struct vfe_hw_ops *hw_ops;
+ 	const struct camss_formats *formats_rdi;
+ 	const struct camss_formats *formats_pix;
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 2c9c4ce50..a9bd79ca3 100644
+index 452afe16a..2c9c4ce50 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -5760,6 +5760,7 @@ static const struct camss_resources sc8280xp_resources = {
+@@ -1954,7 +1954,6 @@ static const struct camss_subdev_resources csiphy_res_8250[] = {
+ 		.interrupt = { "csiphy0" },
+ 		.csiphy = {
+ 			.id = 0,
+-			.streams_enable = true,
+ 			.hw_ops = &csiphy_ops_3ph_1_0,
+ 			.formats = &csiphy_formats_sdm845
+ 		}
+@@ -1972,7 +1971,6 @@ static const struct camss_subdev_resources csiphy_res_8250[] = {
+ 		.interrupt = { "csiphy1" },
+ 		.csiphy = {
+ 			.id = 1,
+-			.streams_enable = true,
+ 			.hw_ops = &csiphy_ops_3ph_1_0,
+ 			.formats = &csiphy_formats_sdm845
+ 		}
+@@ -1990,7 +1988,6 @@ static const struct camss_subdev_resources csiphy_res_8250[] = {
+ 		.interrupt = { "csiphy2" },
+ 		.csiphy = {
+ 			.id = 2,
+-			.streams_enable = true,
+ 			.hw_ops = &csiphy_ops_3ph_1_0,
+ 			.formats = &csiphy_formats_sdm845
+ 		}
+@@ -2008,7 +2005,6 @@ static const struct camss_subdev_resources csiphy_res_8250[] = {
+ 		.interrupt = { "csiphy3" },
+ 		.csiphy = {
+ 			.id = 3,
+-			.streams_enable = true,
+ 			.hw_ops = &csiphy_ops_3ph_1_0,
+ 			.formats = &csiphy_formats_sdm845
+ 		}
+@@ -2026,7 +2022,6 @@ static const struct camss_subdev_resources csiphy_res_8250[] = {
+ 		.interrupt = { "csiphy4" },
+ 		.csiphy = {
+ 			.id = 4,
+-			.streams_enable = true,
+ 			.hw_ops = &csiphy_ops_3ph_1_0,
+ 			.formats = &csiphy_formats_sdm845
+ 		}
+@@ -2044,7 +2039,6 @@ static const struct camss_subdev_resources csiphy_res_8250[] = {
+ 		.interrupt = { "csiphy5" },
+ 		.csiphy = {
+ 			.id = 5,
+-			.streams_enable = true,
+ 			.hw_ops = &csiphy_ops_3ph_1_0,
+ 			.formats = &csiphy_formats_sdm845
+ 		}
+@@ -2064,7 +2058,6 @@ static const struct camss_subdev_resources csid_res_8250[] = {
+ 		.reg = { "csid0" },
+ 		.interrupt = { "csid0" },
+ 		.csid = {
+-			.streams_enable = true,
+ 			.hw_ops = &csid_ops_gen2,
+ 			.parent_dev_ops = &vfe_parent_dev_ops,
+ 			.formats = &csid_formats_gen2
+@@ -2082,7 +2075,6 @@ static const struct camss_subdev_resources csid_res_8250[] = {
+ 		.reg = { "csid1" },
+ 		.interrupt = { "csid1" },
+ 		.csid = {
+-			.streams_enable = true,
+ 			.hw_ops = &csid_ops_gen2,
+ 			.parent_dev_ops = &vfe_parent_dev_ops,
+ 			.formats = &csid_formats_gen2
+@@ -2100,7 +2092,6 @@ static const struct camss_subdev_resources csid_res_8250[] = {
+ 		.interrupt = { "csid2" },
+ 		.csid = {
+ 			.is_lite = true,
+-			.streams_enable = true,
+ 			.hw_ops = &csid_ops_gen2,
+ 			.parent_dev_ops = &vfe_parent_dev_ops,
+ 			.formats = &csid_formats_gen2
+@@ -2118,7 +2109,6 @@ static const struct camss_subdev_resources csid_res_8250[] = {
+ 		.interrupt = { "csid3" },
+ 		.csid = {
+ 			.is_lite = true,
+-			.streams_enable = true,
+ 			.hw_ops = &csid_ops_gen2,
+ 			.parent_dev_ops = &vfe_parent_dev_ops,
+ 			.formats = &csid_formats_gen2
+@@ -2148,7 +2138,6 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 			.line_num = 3,
+ 			.has_pd = true,
+ 			.pd_name = "ife0",
+-			.streams_enable = true,
+ 			.hw_ops = &vfe_ops_480,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+@@ -2175,7 +2164,6 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 			.line_num = 3,
+ 			.has_pd = true,
+ 			.pd_name = "ife1",
+-			.streams_enable = true,
+ 			.hw_ops = &vfe_ops_480,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+@@ -2200,7 +2188,6 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 		.vfe = {
+ 			.is_lite = true,
+ 			.line_num = 4,
+-			.streams_enable = true,
+ 			.hw_ops = &vfe_ops_480,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+@@ -2225,7 +2212,6 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 		.vfe = {
+ 			.is_lite = true,
+ 			.line_num = 4,
+-			.streams_enable = true,
+ 			.hw_ops = &vfe_ops_480,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+@@ -5745,6 +5731,7 @@ static const struct camss_resources sm6350_resources = {
  
- static const struct camss_resources sc7280_resources = {
- 	.version = CAMSS_7280,
+ static const struct camss_resources sm8250_resources = {
+ 	.version = CAMSS_8250,
 +	.streams_enable = true,
  	.pd_name = "top",
- 	.csiphy_res = csiphy_res_7280,
- 	.csid_res = csid_res_7280,
+ 	.csiphy_res = csiphy_res_8250,
+ 	.csid_res = csid_res_8250,
+diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
+index dc07ed5d1..5cfae3f3d 100644
+--- a/drivers/media/platform/qcom/camss/camss.h
++++ b/drivers/media/platform/qcom/camss/camss.h
+@@ -106,6 +106,8 @@ enum icc_count {
+ 
+ struct camss_resources {
+ 	enum camss_version version;
++	/* Drive this platform through the V4L2 subdev streams API */
++	bool streams_enable;
+ 	const char *pd_name;
+ 	const char *pm_clks[CAMSS_RES_MAX];
+ 	const struct camss_subdev_resources *csiphy_res;
 -- 
 2.43.0
 
