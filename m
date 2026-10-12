@@ -1,83 +1,178 @@
-Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0C53B6360;
-	Mon, 12 Oct 2026 21:48:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC843B0AD6
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:48:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791841703; cv=none; b=Nb4UTKeViVxbZokcGa1V+Xsam4gHazo9NOhSHozDEXXL2d0CN5gy5QUTWCnlpEb1FxK0GqevKMcSPVfBIu2BudyOdNKXrbL0r7NNumbM1s8DMIIUTgsQ2iu22CVxgu205ahEyUbRlBjKSIPvj3ET2O0t6uzB7UDRrEzVVkd5TLM=
+	t=1791841717; cv=none; b=rpWIUSFnSquaATt4e4FXnYWCdlA7Pbz9ztJs6Otu4BQpZWvvL4UoWpr3IGaOxy0+4Jhz0NSp87Rg55zYxC/cFruNeM3rLeOdMZC1iIUWB2vBnZFtnBsMPkdr9+VuwI2Vj1hUfi23aDr4VqFP+dY/f//e6qC3z0IYdjUm0zF37Yw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791841703; c=relaxed/simple;
-	bh=1BzDB2BTSbbVodXad2q5RCO9lRhGA9lDhMl+T93wIcA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=aUXPhyb8FC/oZLvAn7otUHeQKBJ1a9RUk60CTHg0+zlOOF7npEUd4oBq1qvIyXKNv1fHNoTXGIM/maQNdKsfs9Bin19GlTFugjp1nmacj59FEp4/x29X5CBpOJKq5cLUqG7MNVchMKpikhWpWXwq1AEBW78hsevgqdEF7ElyFJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=he7gqmJQ; arc=none smtp.client-ip=192.134.164.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
+	s=arc-20240116; t=1791841717; c=relaxed/simple;
+	bh=aEfYHXPTmnEYYiYAPpFXHF3bUIqJKSeyUSykg9wsj4Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=prqqMFlwqJcvYaq1xOwvXxkMztVRlEvLcAIIInwkI96f/rEEku3s6uOdwYTuSuOeQEhL6BQhW/gtEdGvr/KuZbw6r7km4HMIABdSY/3pKy1WrYp4pLM11k3BR3M2tLF58aqgOc1HtH5YYokWOvdqvfLZV5yuukHxU2q0j0y0JZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=YdYew5F6; arc=none smtp.client-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="he7gqmJQ"
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="YdYew5F6"
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ac397836fbso181516a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:48:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791841714; x=1792446514;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=EPhs/xN5AxpRlyQU1w9jzIS5vduQg7Q2ac9dkdsHI94=;
+        b=TyEhjDzLSKhuslJBmxrmZLycbjMlJEYlfav6/g3rgMOJXpS9IKtDhmPifSjpiqC/br
+         bVlsLa1dQ1Mv1nx+wvjDL4bTKQ1bTFSLOGtWqsQ4+ujxyyvaY/QqxzNclBoyvcGvPwGt
+         scV4V5DOKUuR7SIHffMJYwOsl71TXx8hqpB3QSv1YVsIa+CqcZZQJUCi9Bg4CCQdj0PM
+         QdsyNcLSx4jNGGHbQWK/jytGgPyNCnQme7K8V0J9Nz7cyDm351OZ+sTu15ngOgNROlG4
+         T0NuByBCaR186ZCWAScY/M1VPOqPPaf0YkafSfjAezKUfThYPMnazl08URpJCwpPDD/a
+         oPoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBymg47ulBgrpwsoN9F2oZT6+NO9ZIYyGC096wdEiEvwScBXYggf6Tqbk9VOtkh6U1zqnhgB0tnSJahmRTs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKyCAnGIBwFDkpgPlfOqOCFOAZRZwckXfQKut5zya76XbCcteq3
+	9FugkOCEYf5v+4u+BBkiEAA2nxiC/xR1puqH271bvm2GJ64l/aGZqaleqtZA/lQJ9rzDNIbI7mS
+	MTLUoz+BAcWfalD/coNwJTKuWu9T8L/zD8pt9r+uXm3ZUybauwrtNPd/w6TRZKKJfp2ZCASMhd3
+	uBAxQu4RjoVXQOI+8tdptUxOQhKrRvV2kBO6sSZUBz6ZyX7fq4q0tav97A/btTVKGYg4ZNlFjxg
+	pQQPIiBb1bP0IY86fWVf9w8
+X-Gm-Gg: AYBFou2oh+imlcVkFPCDLqh/5P686HygB19s9E6lMqK/iEMEPbtzxhtTY+KBW2BAnsg
+	jD73YCnsWns2/SmZPX9KRUuyrMOO3egA+frB34woVgffl8ttKk5eC7CB09bq69OEfUrnHtSnF5W
+	3cclgd8vRwDbxuRTHFCYvB089fbQZf1peaMc3fY3xhbkex3TxrwojwGgVfHhRNoK27o5lABltY2
+	SDAUWicNniyXtDnc425qFbQXc6+I/RpDeFUNJsuID7xZyR8ZYh+JwHJWU0ahN1TFPqDBmI3+Wf7
+	T1Kz6SnFQRxxmVl+xtfQlBX+LNa2sBkkP63tSMaWJbcb4JWH8Sw8Nzp5tyPZNKcmxKxrht16k3m
+	w1G+ejMloLrtXLdVWBCCNMJ66ra0z+gOwO+azToIQ1y+DU+h2bEhfuopTcwTIFPRCl95aq2ug+g
+	MzJh9qVtWPpvAP9c7HmiQOA9Ogr/M2cUXtCRddwdWTdKE=
+X-Received: by 2002:a17:90b:1e49:b0:3ab:e588:c29a with SMTP id 98e67ed59e1d1-3abe588faf0mr3448610a91.6.1791841713952;
+        Mon, 12 Oct 2026 14:48:33 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-100.dlp.protect.broadcom.com. [144.49.247.100])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ab33f84d3csm2072410a91.1.2026.10.12.14.48.33
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 12 Oct 2026 14:48:33 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3580c07911eso6125361eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:48:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=GnlUzR+Z74pHpjx6iyzt6t0OY2yTax8lLgnC5uVbk90=;
-  b=he7gqmJQO32zM0F4dQtta0c77QPgzoikcAKmlwc+KkYvJQJMxKsLepU8
-   2lWWAwFFDuN50pgIPZ6/N0uu7UYKeCC/pKgiz7a6nRtN5tN8PxqIZCUv4
-   qISb0ZfvNUfrmNuThjLur1qfLsm/q+0wwew0vTjl/LC3g70dBOtEm2KGy
-   o=;
-X-CSE-ConnectionGUID: dTTSVntFS3OS6RxhQOSatA==
-X-CSE-MsgGUID: 8hJTNnKETceAo+HaZe9S3w==
-Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="6.27,154,1787004000"; 
-   d="scan'208";a="299829059"
-Received: from unknown (HELO hadrien) ([12.202.65.58])
-  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 23:48:14 +0200
-Date: Mon, 12 Oct 2026 17:48:11 -0400 (EDT)
-From: Julia Lawall <julia.lawall@inria.fr>
-To: Jeremy Clifton <deaner92@yahoo.com>
-cc: Marc Dietrich <marvin24@gmx.de>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, ac100@lists.launchpad.net, 
-    linux-tegra@vger.kernel.org, linux-staging@lists.linux.dev, 
-    linux-kernel@vger.kernel.org, outreachy@lists.linux.dev
-Subject: Re: [PATCH] staging: nvec: use guard(mutex) in nvec_write_sync()
-In-Reply-To: <492e9a13-b50b-48cb-bd41-3114573c7950@yahoo.com>
-Message-ID: <525671bb-35b-32fc-94a6-e4e066fc1966@inria.fr>
-References: <20261012171312.5998-1-deaner92.ref@yahoo.com> <20261012171312.5998-1-deaner92@yahoo.com> <b51c3755-a967-3de3-5f8c-3e4984d6e93c@inria.fr> <492e9a13-b50b-48cb-bd41-3114573c7950@yahoo.com>
+        d=broadcom.com; s=google; t=1791841712; x=1792446512; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EPhs/xN5AxpRlyQU1w9jzIS5vduQg7Q2ac9dkdsHI94=;
+        b=YdYew5F6XrNwPv8zVMB8gttcUaCgW0hzs2uCAqsSsrV1vy1D72QxbRlOxqvUnIPr3R
+         hGTIATlgMNwy8wSToyK4InKm5V0p6IufZB67bBXqvVFF/pua0T+KYJMue8irf7zwmRWC
+         RfryBC7fqLdPUIqPmAiaA9veecp+/v521QIvc=
+X-Forwarded-Encrypted: i=1; AKwUvBwq7Qt6xSAiXi+5MEmt9b9Srax3Smvap36GOR+NCfLI9TFv3WxWumKfvOyYIZdXq42+pyCFCk9jQXuI6HE=@vger.kernel.org
+X-Received: by 2002:a05:7301:77cc:b0:357:e9:dcea with SMTP id 5a478bee46e88-35700e9df2fmr12154018eec.15.1791841711967;
+        Mon, 12 Oct 2026 14:48:31 -0700 (PDT)
+X-Received: by 2002:a05:7301:77cc:b0:357:e9:dcea with SMTP id 5a478bee46e88-35700e9df2fmr12153315eec.15.1791841696960;
+        Mon, 12 Oct 2026 14:48:16 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b53dsm34266609eec.6.2026.10.12.14.48.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 14:48:16 -0700 (PDT)
+Message-ID: <93ce0204-419b-460a-a0dc-b7f124bf32be@broadcom.com>
+Date: Mon, 12 Oct 2026 14:48:14 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v4 6/8] net: bcmgenet: pad transmit frames out of
+ the packet ready window
+To: Nicolai Buchwitz <nb@tipi-net.de>, Doug Berger <opendmb@gmail.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Justin Chen <justin.chen@broadcom.com>,
+ Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>,
+ Florian Fainelli <f.fainelli@gmail.com>
+References: <20261012-nb-genet-mtu-nn-v2-v4-0-2e2e3bfaf8cc@tipi-net.de>
+ <20261012-nb-genet-mtu-nn-v2-v4-6-2e2e3bfaf8cc@tipi-net.de>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20261012-nb-genet-mtu-nn-v2-v4-6-2e2e3bfaf8cc@tipi-net.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
+On 10/12/26 02:00, Nicolai Buchwitz wrote:
+> A frame that ends a few bytes past the transmit packet ready threshold
+> stops the transmitter as soon as a shorter frame follows. Tx DMA then
+> refuses to halt, so every later bcmgenet_init_dma() fails and the interface
+> cannot be opened again. IP fragmentation generates that pattern on every
+> datagram, full frames and a short tail.
+> 
+> The window starts one byte past the threshold and widens with it. On a v5
+> it ends 28, 32 and 46 bytes past thresholds of 2560, 3584 and 3840. Link
+> speed makes no difference. Pad frames landing in it to 64 bytes past the
+> threshold, rounded up from the widest window seen. The threshold goes by
+> skb->len, it does not count the 64 byte status block the driver prepends
+> later, measured at 0x80 and 0xf0.
+> 
+> Padding must not push a frame past what the peer accepts. Linux does not
+> bound how many VLAN tags a frame carries, so measure against the longest
+> frame the MAC has to accept rather than a tag count. For the MTUs where
+> such a frame would land in the window, lower the threshold instead. All
+> other MTUs keep the register maximum, and at or below ETH_DATA_LEN the
+> reset value stays, so an unchanged MTU keeps the threshold it always had.
+> Nothing reaches either path until a later patch raises dev->max_mtu.
+> 
+> The MAC inserts a checksum only into a frame it holds in full. A frame
+> longer than the threshold gets its checksum computed in software.
+> ether_setup() leaves IFF_TX_SKB_SHARING set, so unshare before either path
+> writes to the frame.
+> 
+> The padding is appended to the frame, so a protocol that locates data from
+> the end of it, such as a DSA tail tag or a PRP trailer, sees the zeros
+> instead. Nothing below an MTU of 3809 is affected, since no frame reaches
+> the window there. Above it the alternatives are dropping the frame or
+> leaving the transmitter stalled.
+> 
+> Tested-by: Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>
+> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 
-
-On Mon, 12 Oct 2026, Jeremy Clifton wrote:
-
-> Thank you so much for your guidance and feedback.
->
-> It is the result that the patch will produce. All the unlock calls will
-> be deleted and the out of memory path will have no braces, as per
-> the style guidelines.
->
-> The motivation behind the patch is to defer usage of manual locks
-> for new and improved guards, disallowing lock leaks.
->
-> This way, there can be no error producing path by not calling unlock.
->
-> Shall I send a v2 with motivation included?
-
-Please adjust the second sentence to be clear that it is referring to the
-result, not the initial state.  If you would like to add something about
-the motivation, that would probably be good too.
-
-thanks,
-julia
-
->
-> On 10/12/26 2:45 PM, Julia Lawall wrote:
-> > Is this the motivation for
-> > doing the patch or the result of the patch.
->
->
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
