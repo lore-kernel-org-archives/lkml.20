@@ -1,108 +1,112 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E38E492E34
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:49:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816582; cv=none; b=sZvwScN06IBwc56Z0QX3K0OtJmnLTUncb4KV1vo/FDdQokau2RL5qut9X+Di0bVgE7b7m84JYlTTW2VLxHrik5kinZ7x0tn7tCraZdm6VgQv1YSN9thD5Kh21n4vTlZe/rc95XCcJON9cTfPkMMnIgL8qE+ikbxanni1qFVyi3k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816582; c=relaxed/simple;
-	bh=oPkeZaNBkdRECuCTRYVoSMnv9mvchctzGqmg2kEJu8U=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LPXcfAF/zhDveQuZY18S7HRPnfQlp1erdfq0Q7ltwwY066/Lm3ByeWa5imkFdAwLc1LlxtGR8kXrndulG/Av+UrOrmUlwDfYFjTirnfKaJZPkygVsFXm6TJZWIhRwggl6NgzBsePkHtANCKrTp4XDyn1nEAi6JiNHWfYh3kiMVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k+n7mo+u; arc=none smtp.client-ip=74.125.82.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33B3249B458
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:49:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791816586; cv=pass; b=ibmEQgHypLKYUgfOauKl6gT2WtaixCquXqnKNXj1+02hRhax/tJF/TDuoFLltxzpaXlsp3rrpgztWKkFb6hK5aVd4ZdQRe41MpXgz1m8FhSn0+xrf74/3s4WvKFdx6Gif8+iKDZq1WpV/b5G/0qrhNE9ptNSuiYOt/zzNGR05QM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791816586; c=relaxed/simple;
+	bh=n0Xb7x+5EOLF5WqM4LToZmyqgsrYoh+WYeTYPUQjIWU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=mmbTFQKyk8GjC9emMtGRRuRvwTJZTZqx4z5rvnrWdaYfMLhoEaPif+KoFrLfQNbJROsvB7Lk/bk+OmiwkXc2P+qVcUolWxF8qk4DZUdynh2mNk++ht/7MMbiWaUdoBb0q0HkfSwCLsSZvTEqL5/MIvpN777/r9aclVdQgABzv8s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=enpiB3wR; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k+n7mo+u"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35a31bb9fb6so3110122eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:49:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791816581; x=1792421381; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qe8p8UxXn7BQaCP9o12LF3+dtE+HBHraOrQKjsuul2k=;
-        b=k+n7mo+uNRh3FuXhOf4vDpem4wH+S9xgYaH72j3dqtr/lJptAhgz/6u1JBO3tbrs69
-         Y/YU/J7wrE2Psknq2WRs+4hVprbE2Z9vX9NPWjiu80fpI1qn0EhHE6k/HyG3JuZzeXEo
-         nKCHTrSCJc008qF/DzzI2x8UrXpBy7XEM+YzdNOBWNEi90cVhQySXl/kL+96D1SqjzRG
-         da9AtSq2c9dDQ5gnt8tW7shSDGZNTMWFuH/AQ1aVYTY+CkEThQbTi7/iO+orFZGUy9eN
-         lRfez/74vCMgIZcZO9n2E/uC1mrXwT+haRzc0EOK7pmjnpkWELG8fimzexdpl7YTu033
-         AU0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791816581; x=1792421381;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Qe8p8UxXn7BQaCP9o12LF3+dtE+HBHraOrQKjsuul2k=;
-        b=kHKdzCyqfHmF9ugYKwn7QUi+kKAbsOKV8pCBYmvOhhMrLHun/hda4YtD6Xl6QGZdNc
-         bAKW+HMhG78dzRFekYSMJ40qUSIl4P9Dcx1+qCJuHUmhKfa9uirxXVMyxzAhIBZlHR+w
-         bTpFqMlfwTLAdiKCSnyy1Uo/kvwopXGdLfvcl9AhZk1od30He3DJQ3wgmhC1LZ1bAfIe
-         hKc3y+y05BE5hpaq2dJzkpp/PLuGvsxHxR3CD/3x5UBw0x8DVe6tI+l3NvlvWqWgtIks
-         id96QxNKr1XYL+/rHgh+PukyJA0c8vIDyMLJAZmSQvNO90RgxSGFcRp6xfL0C6dFVNL1
-         CPNw==
-X-Gm-Message-State: AFq9FYLErP5M7yixrC2BC4HxAIjWS7sgBO/lfQGGRRYWmBt1+RZWnfXb
-	Es+sPe2asgv+tBiBekBLdZxNjjOE9izoD8bjGrwBE7GGdkSS4Uxis3aGM3aZRg==
-X-Gm-Gg: AYBFou07Je+6HtQTnMjr64IzVSsbzChQSM0Cb0PxBX27Xb+p+gEFKrMKeuFMOZQEpyr
-	XNMY52eqdnDSa2rSRt156nBZpUuuhPdBhoIJi4+Oft8MjDveghVAzygvYotSuWF1ugdVQrGAAWk
-	sKzrF1nkt9ydA9OHTddm98D/6ZBvKNDG5mVWnyIHOtgbRPkhFVTMHw+nJhJ6Zz+Tbo04SK9wC56
-	nRjZdZ+JA74bQsyL/nkL/M5Zcx3c220BdqguwdJ0OgMHz0qDHbgKU3vadGlhU6BNfoHbCzBHaKY
-	Ria5roFU760McPIYqQOKX7694+raE8ogiZKDpSJ0wcFDxMnCtOHiLkN157JKkBKsCOnaql+P9pD
-	RZXnhdsQctGR3pB6GJG3IZ7+7PwpdXUhGgkdpVv/BWOuJXe4U6A0iNkIj4Y21PZNyrN6Mfmrod7
-	Ux1UbJTq5DPx/bLg5PYMWQ1Q3NpDAJgVO+B7TtumglAgEkl7HpEzWJb4vVcEOyX/6mTGQpiS8K9
-	GyhJvz5ybm8f6nR9kF0oZqlKj043VombzRYPHNWOZkzwq1Go742ThwA4VM97X0Ns8SKeAF7W/w=
-X-Received: by 2002:a05:7300:8806:b0:34e:9147:b862 with SMTP id 5a478bee46e88-3537e073ab1mr17729284eec.34.1791816579688;
-        Mon, 12 Oct 2026 07:49:39 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (162.10.253.157.netskope-rdns.com. [162.10.253.157])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca6d202sm33239386eec.13.2026.10.12.07.49.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 07:49:38 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Date: Mon, 12 Oct 2026 11:49:30 -0300
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH RFC 3/3] iio: core: use kstrtodec64() to parse
- fixed-point values
-Message-ID: <s2h7eparj3igtairdv24jxxfqrrcntwsgq63de5zssvylxcj7q@lgr45mi3ebt2>
-References: <20261001-e-notation-v1-0-75187bf06c10@analog.com>
- <20261001-e-notation-v1-3-75187bf06c10@analog.com>
- <ar9kuHwnTM8jdkqR@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="enpiB3wR"
+ARC-Seal: i=1; a=rsa-sha256; t=1791816560; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=HrvjCOEC621Lj66IBQr8AvZvmZB7FZThnZvOpVGlzDyQvsGkmI5Sv4Z6okenYLbWErys+OmyeUjkh1ijvB1eHzKyYWtwLj4dwTz/ydsZ9fqpeP90nJ7NaSqaPf7IObt/CJCRihLnG6qHzIzN1hN1bZT91sWwurYAMNM5iVkQtx8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791816560; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=n7LLmX7fwJoNAhkMWdIEr6M9fWaQ3kE6c5cMXkSE36Y=; 
+	b=EL2mL4unNDfgP9Vtt0mVlYiG4bqpI7kvwWmgiIu2Tr+Gbgtc4Nhl7Ag+yXciJsRdi0ZpPKNC8TdtcrQS6mhgcwXhx1Ke15ABP77PRK6o3mLS/jMVa0EXfg7GIzg/1yhJ0XpLCoHi7QR6mJJqM+dI0nhqdA/NGfNdx5+e6J5Jmx0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791816560;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=n7LLmX7fwJoNAhkMWdIEr6M9fWaQ3kE6c5cMXkSE36Y=;
+	b=enpiB3wR3HOHBRtJlba62Ko+EKXJiifTikn9xBZRk9tFd9koaUX0En1+Bk6lwLZ5
+	Z7DVXpsMjD/ZVzaUqIeNlA8+5+WlZObTO2u0k13PTJW2oeT1r1crpBN/9M9snT3iyBm
+	C7jDf9HU6q3hILsM53sEcKGI2LaVUr7BmaztZKA8=
+Received: by smtp.zohomail.com with SMTPS id 1791816558150144.61417515044297;
+	Mon, 12 Oct 2026 07:49:18 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Date: Mon, 12 Oct 2026 15:48:05 +0100
+Subject: [PATCH v15 13/15] drm/panfrost: Avoid cache flush after perfcnt
+ sample in fully coherent systems
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ar9kuHwnTM8jdkqR@ashevche-desk.local>
+Message-Id: <20261012-claude-fixes-v15-13-bc0a6c498553@collabora.com>
+References: <20261012-claude-fixes-v15-0-bc0a6c498553@collabora.com>
+In-Reply-To: <20261012-claude-fixes-v15-0-bc0a6c498553@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1138;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=n0Xb7x+5EOLF5WqM4LToZmyqgsrYoh+WYeTYPUQjIWU=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqzPMbHK5uwkP8qvP30ESa14sXjz3IZCm5Ftq+H
+ K7oIL+O1hmJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaszzGwAKCRAOJn5M7lND
+ PQH3C/46ju6dkcHR11d7k0pMwAf9quw7b20MDioBRT6bEF1nlvdqfJdq402cjcmDXAiUuUT3v08
+ 5ul+r16lzgdJx3ncARtUzvjk3osf4nJCnPmIBZgbg7hDHY4OlAMSu8vc05ihz6ZJUEJdyjx9I6Y
+ Esm3VpVLD5KkvWPRl6cBM4BI3UHFhWEaPq7EsV6jbkVvyZZhT0Di1HfsUV3eKtdgqexBH3EpvaO
+ j1GORPK6Ch3bG5yO8FSuZ/uI+FlEFt7Ov0mUa6IykXI27dB165+HFBarn/e6gBQAyduU7XRL1q/
+ 7N5VUfCsBZ+qNvKkjX4QyiKdQ9NPl7PsmKh8jj6x7f1fpopD+3kr0TB+WR1OU6J3ofAp/vCp4AE
+ UBIMb0LuZ0c+Uq0p8EXXSaDeFtu2yVcx8tI+sfGHh+0tj6WqBRma38h4h8XjdqfyAS1Y7ryasFU
+ y1aHQiCh9oe1PonOStjW7ORmp7o3ZIWDV2EUZj3lGmawPFuoSRZ+IHnvRzxKsJvCiDu6I=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-On 02/10/26 11:00, Andy Shevchenko wrote:
-> On Thu, Oct 01, 2026 at 12:34:58PM -0300, Rodrigo Alencar via B4 Relay wrote:
-> 
-> ...
-> 
-> > +	/* fract_mult = 10^n, so ffs(10^n) = ffs(2^n * 5^n) = n + 1 */
-> > +	unsigned int scale = ffs(fract_mult);
-> 
-> Hmm... It's not obvious. Maybe you want to use int_log() instead?
+If the GPU and CPU are fully coherent, then there's no need to flush the
+GPU caches after a perfcnt sample is made available.
 
-hence the comment. intlog10() from int_log.h returns log10(x) * 2^24.
-It could be used with a correction:
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Steven Price <steven.price@arm.com>
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-	DIV_ROUND_CLOSEST(intlog10(x), 1 << 24)
-
-because the header warns the result "might be not exactly n·2²⁴".
-Assuming that the fract_mult is a power of 10, ffs is the most straight
-forward way of doing this.
+diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+index ffc77121070e..b3f71d7fd82a 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
++++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+@@ -52,7 +52,10 @@ void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
+ 
+ void panfrost_perfcnt_sample_done(struct panfrost_device *pfdev)
+ {
+-	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
++	if (pfdev->features.selected_coherency != COHERENCY_ACE)
++		gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
++	else
++		complete(&pfdev->perfcnt->dump_comp);
+ }
+ 
+ static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
 
 -- 
-Kind regards,
+2.55.0
 
-Rodrigo Alencar
