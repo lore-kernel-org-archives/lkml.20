@@ -1,112 +1,173 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2EAC497B95
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:08:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63010495501;
+	Mon, 12 Oct 2026 15:08:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791817688; cv=none; b=OqHrLOMAGjEjPkdbbHK0Qtajy0pl9PEoif3OzkDK+wF7GoYF3uCpNVJyLJP8egjI8/I3wm/YD11pjbpXFsPqEcRQRQzeFcgLoP8OC9AvNInK8ROC0q+QqLhTQxQANkpNY4xB6mVJN3dTpwnu7w6L7n5Eg/yAqiOlJKsLh6giez4=
+	t=1791817709; cv=none; b=HJZjgC8bee4WYMn87pUfP0Dw4O8ki5+n2IaFdwnvyvXn3G1KF8orkLn95xTTjQNiJbfoLRHF+P/vCYnQVC4HLjq8A01iyeSH4feD3AHxbf5vuYg3I+Co0aiPQbU+aggpcIXIKi6Y3VPnGyIkzoMpkcFkDZHCelSoTvUTmevgveg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791817688; c=relaxed/simple;
-	bh=OsG9QFWVI7GlIGSTCxFfoFpAyRAObqzzGqmR5pOuPKA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O//Ox2PHOP2VC+jdERGgN9H4sga9UAWFdbuycxec641HaGaZ0MLcDjvKSy1vQeiNTFbjiIUb6x2vsPfQD+DvnXAyYbsjYKM09snmbMtmtOPMHh5yBJ1UzDPhSBTp21allP2TaUT8VsWri1oODVE0z1J4R58zzRKAiweFp+ih/Eg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=anZN/cUr; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791817709; c=relaxed/simple;
+	bh=p2D3HnK1s0gKxBecFYzH84ct9HurTg3iJInrc7BAHM0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=H+siPmP2dnbN89ltdjhj/V076W7/z3Zs4GkglFrk1IUf29gNwvvWsbtF66z5oXJfki4pQT3SJt8K/Xp4jWouVrzoYidzBTYvB4nBRxQDzwqgXqgcTy86qZoKDh/3tv6wgsEr6h8Yuq4A8U1Hct8aYlIETrcQiB9808P45DznYKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=lhRJIWv5; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="anZN/cUr"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so15749235e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:08:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791817685; x=1792422485; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AWiLDXPot0/+PbKR6u2nu/eRULx+LiAnb5d3+K32M2g=;
-        b=anZN/cUr65LkXxTiqGKr0m2qcOVQReSICYH3a1YFonZ6RuwtdfQd4DeqeIGvJNU8lk
-         arw9EI0zpIsMZBxy2GFjspH5c9J4PwWKwIZEbSkn+pluDxI4f7V2Lpqfibqnap+55asF
-         AY8o3BhHY1iTXhViXwyBN3MlwoNJu6iGo0bMICZjeJghEBBWBn4KXpVnO6vx1YK9pXn9
-         EwVaW7sSUx1JgJa4N6Z5N/9O5bP3zwaq/huBiT8AOEnHoH3IXWJET9BIaHInsa4NmqyR
-         NeJBCeGHqi0j89Q8d49IoxMfL7CxBEggEqs2OL0Kwux7FH32/c0kzgXXrFyQmoHQICoR
-         GnAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791817685; x=1792422485;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AWiLDXPot0/+PbKR6u2nu/eRULx+LiAnb5d3+K32M2g=;
-        b=HVRHiIeZZwVzOSi0YomrakJfhHm1ShvqfMxDgdIs+lyUEW+3wb3rKzA4PJ/vL9yPZ7
-         2zFgCcuOE7D6FCo/7n77jvW94tYrvlMDn9rnObeEForkGVlsvVqk6qlDrAGb13pmy0/z
-         zX3s3jUQulbGnKEfkrN6VrPCesmfkAICp2E1MNNOrfLG3Nt3QiMjtFBxbOF33xSXkOX0
-         CDZKenzcAx+24UlhsdA6Ut7PijeXNakoCaPucJmnz0iZk747sVMiLoDEvdf3iBr8Wkaf
-         ptuvNnSCIuXp9ZUJxKIful7JCCBU/90HgFR+zCaE1ZtRFWhV0cPTPqpfmbN0+rmz6vWv
-         /mpw==
-X-Forwarded-Encrypted: i=1; AKwUvBwCmFxftrw1S2Ua5Vjwll+DZy+vlgnSD5tISr8vg+xsyHHmn5bSvm+NQ9aN+SHJOg3ftUZ8hAeWbAJjky0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJGMX3t0RhNT24lMYR2VSrZWaC4eMEwCNHkyx+QIKHLLx3Pw0Wd
-	zVV2p2vXBJo0zbOd0S2EBfZJXP8mYLI0LR8xMqGD9jJ8wp9PWLE/wwdD
-X-Gm-Gg: AYBFou3Pbs4OxgbrBMJ1FU3vc4ocpd7dxa0WbDagMTGw/zLDrctSaKT8DOWlJYxIWfs
-	tGPC9kh5B3O9a8LiOe/16RN4xgwmWr6IDTi2XuTYu23nC7BSw+a/4Yn/gPtwiLO2nNNyk7We/QW
-	bNGiCVKC6gbPRpNVNIdxbf4QDrUeskgS9LHmHtHdR1wU/kMvGgZWwj3qA4ZvProdrz96gY17kAY
-	qk375gnI/QM8J4+m6LfLCskn+NvWs/EO6FcDZZLXUbk9x5TDcIgf2skuR8O/HQPNBFrxJ++jvns
-	mu0oCJwzbEmdrfJXvGwv7b/oALK770J0kibsK3qpDQ9HlXnbPQf/0dCVa1XMqdxwQX1HxY0gCoh
-	xm+Jco1CgMY22fwBxG8wyoe5I5ygl1Ow2aVrNEYki/RG4NAWEMsFnN87uKLHx/txDnaOVUfl/xF
-	FIhhHuMcrr3tSWVhqiGgbj1VdO8JxA6pZkKaKPI7iFQTSpp1O5h2xFQ9IsN2lBQ/5gonBnXr6+2
-	hIdX7SukY6voDbjuDJEPCREMR3q9KwubJ9wjI0bKVAl
-X-Received: by 2002:a05:600c:8b70:b0:4a0:108:3b48 with SMTP id 5b1f17b1804b1-4a18e4a174amr181863895e9.7.1791817685033;
-        Mon, 12 Oct 2026 08:08:05 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([151.76.59.204])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0967affsm9916f8f.1.2026.10.12.08.08.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 08:08:04 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>,
-	Miroslav Benes <mbenes@suse.cz>,
-	Petr Mladek <pmladek@suse.com>,
-	Joe Lawrence <joe.lawrence@redhat.com>,
-	Song Liu <song@kernel.org>,
-	live-patching@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] livepatch: Fix races between stack check and module load/unload
-Date: Mon, 12 Oct 2026 17:07:25 +0200
-Message-ID: <20261012150758.207983-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261012144933.GW2009045@noisy.programming.kicks-ass.net>
-References: <20261012140546.154730-1-parri.andrea@gmail.com> <20261012144933.GW2009045@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="lhRJIWv5"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCEEQD3209693;
+	Mon, 12 Oct 2026 15:08:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=n7h9gq
+	XjPAW2nh6+wJU87ZzPbzenXgxvmTv6TZoTegI=; b=lhRJIWv5ZG+epZlgAT6Czd
+	3KoQpMhdzxJwdzwxaASdPUZHxo3/4gup5G5igTUMtO0ue7V8CIc1ZbFIdU9arqEY
+	01M3d7CYsKUmpEC+o/jX+msgdQri79Xi4JaTL3cbUUtfOC7lcZkwwBR/3xU3078q
+	g+8HX7sRKIWYx4kemCxS+EX2LAg/ZK/ciX5Qeb75lgtcior6AwPKL6lVtl64dvwB
+	72M45G48X1lfFQhLOwIvtk8eTOORK0+74NA0DNQQG4SlAq1Sj6+0GNrAm6wgu6OY
+	CSXRx6+YLSxMgOllAeL4Px6jl4FwbR7yPUdPCG6dg6LkB9EZG94PXYO0hD/DnQBQ
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv097dq-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 15:08:26 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC4uew013441;
+	Mon, 12 Oct 2026 15:08:26 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h81wfwhd7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 15:08:26 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CF8MFd46530904
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 15:08:22 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8E5152004B;
+	Mon, 12 Oct 2026 15:08:22 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CBB8720049;
+	Mon, 12 Oct 2026 15:08:21 +0000 (GMT)
+Received: from [0.0.0.0] (unknown [9.87.157.242])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 15:08:21 +0000 (GMT)
+Message-ID: <b42dadbd-bac5-40ca-ba69-be7582792474@linux.ibm.com>
+Date: Mon, 12 Oct 2026 17:08:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/32] s390/dis: Improve show_code() output
+To: Heiko Carstens <hca@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Niklas Schnelle <schnelle@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Vineeth Vijayan <vneethv@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Harald Freudenberger <freude@linux.ibm.com>,
+        Holger Dengler <dengler@linux.ibm.com>,
+        Stefan Haberland
+ <sth@linux.ibm.com>,
+        Jan Hoeppner <hoeppner@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+References: <20261001103247.1989111-1-hca@linux.ibm.com>
+ <20261001103247.1989111-9-hca@linux.ibm.com>
+Content-Language: en-US
+From: Ilya Leoshkevich <iii@linux.ibm.com>
+In-Reply-To: <20261001103247.1989111-9-hca@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1OCBTYWx0ZWRfX3K91gCbdt98s
+ CLv8V1iGVyKXh5t3tQBcPS+1LvOJ26t+mzMkxwo7vVUHpTsLIFOk6QaFfitAp7v11kG7Gr0L+Cm
+ YfgSzJSCssp0khfuWm56WFLpL/CN5lhnYlbBzOhJrH1hdl199MSt0p+pDNIIWvCLTvDsfSoBFEJ
+ v1f83XKrn+/0k/Orskpq0R7S6X+6PqPw7VaMs/Xiw2ARncIUa4mQUvwcpslfhm5vIIj6Lugeitd
+ giTAPQWPawIOoEWuS1934gHOMZyiWDymFd1MAH2HiVgt4UK8R+E9TYT/ctTaBfojW1z/xoqev21
+ T/Fw7z9mbXs/rPso7Qu92b34aV+iAqkXC3PIqvYWVLFpw2ET+vcwZbXJzM+Kv6gpjKWfpZOdTYQ
+ np/f16HvmAeFA5M68Ov/L4Vil75fdKSWqPZGkBn6s221RrwhlKCYd0klDeAKCM6DF2vb2CIad0Q
+ ZLUbYigfdLkopXg0bAw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1OCBTYWx0ZWRfX8IxfMg/HPGaY
+ OeuWp1mi9H1w3m78MM2cunhv6X2qt2g2kGHqOiofmA0GKunMHO9+4GfyE36cVaMM/kQAKuDG3UK
+ 1Ax1/3Ovse7jQRjPlHyFQXg/FHLsngI=
+X-Proofpoint-ORIG-GUID: cdkNYWO4HPuYB8hpMlNxZ556uGGtctDR
+X-Authority-Analysis: v=2.4 cv=a6KlZkSF c=1 sm=1 tr=0 ts=6accf7eb cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=-4z61IKqeMHWxoAB5l8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: cdkNYWO4HPuYB8hpMlNxZ556uGGtctDR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
+ phishscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120058
 
-On Mon, Oct 12, 2026 at 04:49:33PM +0200, Peter Zijlstra wrote:
-> On Mon, Oct 12, 2026 at 04:05:45PM +0200, Andrea Parri wrote:
-> > @@ -201,12 +202,16 @@ void klp_update_patch_state(struct task_struct *task)
-> >  /*
-> >   * Determine whether the given stack trace includes any references to a
-> >   * to-be-patched or to-be-unpatched function.
-> > + *
-> > + * Must be called under rcu_read_lock(), see klp_check_stack().
-> >   */
-> >  static int klp_check_stack_func(struct klp_func *func, unsigned long *entries,
-> >  				unsigned int nr_entries)
->
-> As per always, I much prefer things like lockdep_assert_held() and
-> __must_hold() over comments.
 
-Makes sense.  For v2 I'll annotate klp_check_stack_func() with
-__must_hold_shared(RCU) and add lockdep_assert_in_rcu_read_lock() there,
-dropping the comment.  For klp_find_ops() the requirement is "klp_mutex
-or RCU", which list_for_each_entry_rcu()'s lockdep condition already
-checks under PROVE_RCU_LIST, so I'll just drop the comment there.
 
-I'll wait a bit for comments from the livepatch folks before sending v2.
+On 10/1/26 12:32, Heiko Carstens wrote:
+> Replace the '>' and '*' instruction markers with explicit 'PSW >' and
+> 'PGM >' markers which identify both the PSW address and the faulting
+> instruction.
+> 
+> Previously, '>' marked the PSW address, while '*' marked the preceding
+> instruction as a guess for the faulting instruction for suppressing
+> exceptions:
+> 
+>   Krnl Code:
+>              000003ff8dc7bff8: e310f0080004 lg      %r1,8(%r15)
+>             *000003ff8dc7bffe: e3a0e0000004 lg      %r10,0(%r14)
+>             >000003ff8dc7c004: a7280000     lhi     %r2,0
+>              000003ff8dc7c008: eb9ff0900024 stmg    %r9,%r15,144(%r15)
+> 
+> Now 'PGM >' explicitly marks the faulting instruction without guessing
+> and 'PSW >' marks the PSW address:
+> 
+>   Krnl Code:
+>              000003ff8dc7bff8: e310f0080004 lg      %r1,8(%r15)
+>         PGM >000003ff8dc7bffe: e3a0e0000004 lg      %r10,0(%r14)
+>         PSW >000003ff8dc7c004: a7280000     lhi     %r2,0
+>              000003ff8dc7c008: eb9ff0900024 stmg    %r9,%r15,144(%r15)
+> 
+> For nullifying exceptions where both addresses are the same,
+> 'PGM+PSW >' is printed instead:
+> 
+>   Krnl Code:
+>              000003ff8dc7bff8: e310f0080004 lg      %r1,8(%r15)
+>     PGM+PSW >000003ff8dc7bffe: e3a0e0000004 lg      %r10,0(%r14)
+>              000003ff8dc7c004: a7280000     lhi     %r2,0
+>              000003ff8dc7c008: eb9ff0900024 stmg    %r9,%r15,144(%r15)
+> 
+> show_code() may also be called in other contexts where pt_regs does not
+> originate from a program check (e.g. system calls). Introduce and set
+> PIF_PGM_CHECK to indicate when in program check context, and print the
+> PGM marker only in such a context.
+> 
+> Note that corner cases are not taken into account. Like before kprobes is
+> not considered, which means that the disassembly may contain unexpected
+> instructions, or that disassembly and/or instruction length count as well
+> as interruption do not match.
+> 
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> ---
+>   arch/s390/include/asm/ptrace.h |  4 ++++
+>   arch/s390/kernel/dis.c         | 16 +++++++++++-----
+>   arch/s390/kernel/early.c       |  1 +
+>   arch/s390/kernel/traps.c       |  4 +++-
+>   4 files changed, 19 insertions(+), 6 deletions(-)
 
-Thanks,
-  Andrea
+Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
+
