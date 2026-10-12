@@ -1,109 +1,137 @@
-Received: from mta0.migadu.com (out-222.mta0.migadu.com [91.218.175.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95BE84192EF
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:31:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B42D421EFB
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:33:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791804721; cv=none; b=bJXB8IzAn5qo7a3gYudxtt7BjFm+TRM2Dz345M7EEUcqDCTACnmQwnywEvF/sWr2+qbho5j6gRU9eaGqKsO/R3k2bVpYgmi+ui8IqY3BxnzVN9CP0rYe9yH5VCp3VrUtmaDBlZsakhBjMtaKvI4WVrtiKMELLJkb81uzsWsmBDk=
+	t=1791804834; cv=none; b=p4gh1O106WRbxWwNPiCarw7phQMxO4VEpdRrh2q5E210OWgbomv/37+1FdUdDJl5lAeeQYezJmtirN9S1q9qaNBTxLYoMLk5pILyI/2QNf1UdB3a2MR7uwiMKf+TBgxFOwMs3UzQj+Xs1JRIXUWm+6Qpvcu4QfIPAFLC0F+GBGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791804721; c=relaxed/simple;
-	bh=cIPz+FcRLCJYG26UTeh56lynHdfsK0gkKwxriM3p/Wo=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=USdravQ0QW7S9436QI4TtBEVCrn1oZTX1xsaG4wKgnzgnGhh7FbUlXnQI2jGaRkdLBw9RhQRW+svHuIT+zIpGUVkInwimD5tbWAfYtBnYRObW0lJgMwuHaXEMF0SeGZ50fHUvFxcteKWpowQXxXr3zN1eSS2e/OaoqBP2U1XvW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qeuEclMT; arc=none smtp.client-ip=91.218.175.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791804834; c=relaxed/simple;
+	bh=m46YEtcQ2Gvub5QoH7BEbtypvD4dKmdxLdho3XwBhyc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IGkRiaePQ2ehoq5re84ZKLC0IfYiBlcph3kzLHYfna8XmBULnwpmK+VlvkVuRSyASVzlYkUJEx1dCSHre2SUBhVLuXotK/E8keyX6mi5nAMJHVXmqMdyxFRqCy5wpkZH812iGeZk7j4yGv5qADCbQQ1dBduhRvtx3bvG97sU5Hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=SFHsRl42; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qeuEclMT"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cIPz+FcRLCJYG26UTeh56lynHdfsK0gkKwxriM3p/Wo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791804717; v=1; x=1792409517;
- b=qeuEclMT7bMZtt9C+j04hFRJzwUzEg47SxGw/3QVYtGKI9EwE7077y4T1XK5u6RDGAgt9rdI
- V2PE5KYKstswpkhFA+Q9Qb4wUaPCx7rTRv2+5UPgS6Rpk8J9uJj6LbQqZb0yOdjtZjgdKACD+vN
- eCwd4xfHT+594djSkmbQz08U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0f2951c553dc3202;
-	Mon, 12 Oct 2026 11:31:57 +0000
-X-Mizu-Trace-ID: 0f2951c553dc3202
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="SFHsRl42"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=h/y/vCoFSRfl1eERAKmvnno8/YrXAB41SiJlcY04cUg=; b=SFHsRl42e8syiyEtO7QLAslrWZ
+	VzBcepG1E929fJwtNvqJmB0KAM093/D1GDBKm333NbIfP4xJ64QKi7P5UxHsTzN7z2ezp+N9yaKQm
+	ylS+9z4z3TWWe/BMPwaLQ4XSCuz86tkAJD77v+9hou7UvWbG0nDm0u+z23VWqLiZiuKzdfBm88IPD
+	DstrIEioUuc1wRBBJ16i37vLkM35IJVAGguOB+5bxYboERLvuibgcCnGrFz9ZFjhLscZ+o/cmRok5
+	JMT8oUg/CTFil3vaIFvHlTktaG1qunY6QYxSXWsFM3IJg9bXp6ykkWEwFM42OpTB5IqNkn3v46S1p
+	BXPMbIxg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xGEHl-00000004bvX-2nEi;
+	Mon, 12 Oct 2026 11:33:42 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id C97EE30063F; Mon, 12 Oct 2026 13:33:40 +0200 (CEST)
+Date: Mon, 12 Oct 2026 13:33:40 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	Madadi Vineeth Reddy <vineethr@linux.ibm.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	"Christoph Lameter (Ampere)" <cl@gentwo.org>,
+	Shubhang Kaushik <shubhang@os.amperecomputing.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5] sched/fair: Preserve wake-affine CPU for non-SMT
+ reciprocal sync wakeups
+Message-ID: <20261012113340.GS4121339@noisy.programming.kicks-ass.net>
+References: <20261008-b4-sched-sync-wakeup-v5-1-1af9fab48965@gentwo.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 12 Oct 2026 11:31:57 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <4464409846710dfa13134265f0f99523714cfa92@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH rtw-next v8 5/7] wifi: rtw88: 8723b: add the RTL8723B
- chip driver
-To: "Greg KH" <gregkh@linuxfoundation.org>
-Cc: "Ping-Ke Shih" <pkshih@realtek.com>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Michael Straube"
- <straube.linux@gmail.com>, "Peter Robinson" <pbrobinson@gmail.com>,
- "Bitterblue Smith" <rtl8821cerfe2@gmail.com>
-In-Reply-To: <2026101046-transport-unnerving-96de@gregkh>
-References: <20261006130701.120460-1-luka.gejak@linux.dev>
- <20261006130701.120460-6-luka.gejak@linux.dev>
- <3db085e6c3c14545ac9fd4221e0715ed@realtek.com>
- <df4a73de51784e35c15a39e85e4dae9629ba1132@linux.dev>
- <e983dedfeb9341ad9d8cf159656395c6@realtek.com>
- <df8313a72bdef1dc8859a4ac018370b24b606766@linux.dev>
- <d403e88ca53841fba87190764e2a45cc@realtek.com>
- <2026100746-delicate-carless-a04c@gregkh>
- <3028b229a6fbe02d2bcfa30c497b6a768ba8c928@linux.dev>
- <2026101046-transport-unnerving-96de@gregkh>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008-b4-sched-sync-wakeup-v5-1-1af9fab48965@gentwo.org>
 
-October 10, 2026 at 12:18 PM, "Greg KH" <gregkh@linuxfoundation.org> wrot=
-e:
+On Thu, Oct 08, 2026 at 03:22:37PM -0700, Shubhang Kaushik (Ampere) wrote:
 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 57360f5cdde4fa66f4cba2cbb53d4e322134504e..ce624fdc1f4480bc6e7ae710950fcaa93ab32a3e 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -9167,6 +9167,26 @@ static inline bool asym_fits_cpu(unsigned long util,
+>  	return true;
+>  }
+>  
+> +/*
+> + * For reciprocal WF_SYNC handoffs, prefer the waker CPU when it has no
+> + * other runnable task.
+> + */
+> +static bool prefer_sync_pair_cpu(struct task_struct *p, int cpu)
+> +{
+> +	struct rq *rq = cpu_rq(cpu);
+> +
+> +	if ((rq->nr_running - cfs_h_nr_delayed(rq)) != 1)
+> +		return false;
+> +
+> +	if (sched_asym_cpucap_active()) {
+> +		sync_entity_load_avg(&p->se);
+> +		if (!task_fits_cpu(p, cpu))
+> +			return false;
+> +	}
+> +
+> +	return true;
+> +}
+> +
+>  /*
+>   * Try and locate an idle core/thread in the LLC cache domain.
+>   */
+> @@ -9955,6 +9975,12 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+>  			if (cpu != prev_cpu)
+>  				new_cpu = wake_affine(tmp, p, cpu, prev_cpu, sync);
+>  
+> +			if (sync && !sched_smt_active() &&
+> +			    new_cpu == cpu &&
+> +			    p->last_wakee == current &&
+> +			    prefer_sync_pair_cpu(p, cpu))
+> +				return cpu;
+> +
+>  			sd = NULL; /* Prefer wake_affine over balance flags */
+>  			break;
+>  		}
 
->=20
->=20On Wed, Oct 07, 2026 at 10:35:25AM +0000, Luka Gejak wrote:
->=20
->=20>=20
-[...]
->=20>=20=20
->=20>  Hi Greg,
-> >=20=20
->=20>  I have sent the patch, and I think you are going to like this
-> >  number: 66186 deletions
-> >=20
->=20Very happy :)
->=20
->=20>=20
->=20> Not sure what people are going to use to learn though. It seems to
-> >  me everyone is repeating the same patches.
-> >=20
->=20Yeah, we need to dig up some more out-of-tree kernel code to add it f=
-or
-> them to churn on. But really, this is a good thing, it's nice to see
-> real support for this hardware finally.
+Hurmph.. just looking at this patch makes me go WTF. I've not read this
+lengthy Changelog you put on top, because none of that survives unless
+one goes trawl through git.
 
-Hi Greg,
+So this code is confusing as heck. Nor is is evident why it wants to be
+!SMT.
 
-As both of you and I know there are not many young people in the
-kernel community and the steep learning curve is a big reason for that.
-I was not sure whether you were joking or not about the comment
-above so I decided to find that appropriate replacement for staging
-rtl8723bs. After searching I found this interesting xradio driver,
-which is a mac80211 based driver for some orange pies and other devices.
-It is around 18,000 lines of code and upon check it out I fixed bunch
-of security issues per se and lockups that caused kernel to hang and it
-is decently stable. I'm not gonna claim some extreme stability but it
-is at least usable and it has many coding standard issues. It is a good
-candidate because newcomers would be learning the modern architecture
-and on top of it there is a lot of janitor work so people can learn
-the workflow and etc. Link is [1] so you can see for yourself and tell
-me what you think about it.
+The way I read this:
 
-Best regards,
-Luka Gejak
+ if the new_cpu is the current cpu (default case) AND
+    p was last woken by us AND
+    random
+      stay here.
 
-[1]: https://github.com/MocLG/xradio
+The function babbles something about a sync-pair, but then doesn't
+actually do anything with a pair, or ensures there is a pair.
+
+I'm supposing what you're getting at is the earlier:
+
+ 'p->last_wakee == current' combined with the fact that current is now
+ waking p
+
+But then I have to note that last_wakee isn't all that nice, since
+record_wakee() isn't guarded by in_task() -- it really should be.
+
+Try and convince me with readable code?
