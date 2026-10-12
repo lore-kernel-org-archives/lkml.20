@@ -1,298 +1,199 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78720391E64
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:59:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DE13C3437;
+	Mon, 12 Oct 2026 18:59:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791831581; cv=none; b=QenHaJK1wEBXgrp11NNJ4YYgq6Gatu+wt9T5j9tLAMP5dvFZnkgp51bZiDO9+n8uGqjFxuK8Lrhmt8x73ncJ1goUu2Qnyk5VPY7fSYKySMkyBo1HXFSNO+qV5SsZKbsDoGheyn8h4yYpLw+CJRvityDZ3e0dDHypneYxvjurmvc=
+	t=1791831596; cv=none; b=D8wPLizQXQnxgDCIk6oZlibTgvdqnQqJu5Oi7vrMfWvq07O+d2Bmmx5frvoEuBpwebIKC7g5MKMkWj+o+iHuCZ3kIJd33jt+Pm8UZvfjWr8l7wLQx1aWZbsyWoYdo7ITUvBKb+1nmOQMGMMiea6pnxCDlOfvEi3melXWjDeWU80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791831581; c=relaxed/simple;
-	bh=6DqW02/vrz8bXpSLRnxcsXZWEoAOlr9DZIU8XTfUZjE=;
+	s=arc-20240116; t=1791831596; c=relaxed/simple;
+	bh=N0AzcY+h16VvQpwwOgEORC3Dp+bRJ7rP2iWE9TsLdhM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aopjDzPkIKbJdpZfDDEHCKzMawSGtEBATukiUc9zwdh+V7DPqP33whMzEPDaKu4gkC9HvRaKeHxzHTh5G1KwCqZuSTiGkOYA9BNaZncAzLgYucWlmqyxtt5fo42GhcG3PC/JW0YaFqE5ZvEAimA5Dm/2sWDPx4lo+Af6/s8uD0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tKMRA9KV; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=AjmLlQgPfJCQbUj6YdM4EhcZlR8EgaJQtW6S3ppCdrv8HF/8kXHo/slSJ9Vqfh+avOu4oJImgtQRq0QGZgsUQNGo7kkvalUlZSYxaRZfdmyTHTrw9JAByMzpkrWu8rzD6Mj5Q5kxC7Dot9y3umtVj65aGPTTw/VPib71ADZH2bY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e8o6+aWk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tKMRA9KV"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48b0946c2c2so1296508f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:59:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791831577; x=1792436377; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YHE/SGYcUV1OUJwt26eXa2xg6GrIMfRUdwuOqUARZ48=;
-        b=tKMRA9KVzRCfYNOibrHGh0+62a7kiumAJSR9nEkip9vs4xBojbGRqOqGwQBCzE/Hw+
-         VwmhKWf7Z6do0Eq04RkfCAG+F3iXyDVxsVGeBnX/M4F/ghs7sKTEDXpMFv4Cjet69V8H
-         QV+FhLekqX571S+3Pf3K86/QulCQGm6FhzTQGisqRvoB4RXvE3qvUc/I9osPhCzrMBPk
-         k6jg83Z7yQcV52gpzDO5D/cL4F88ex8jtvtSZSt7oxt9esv87BGKIoCIwYQdAhu91SzJ
-         SMVkhusU7Ce1kUcSOUAOE5QEqN4lBQdjXv+Gjnd7i3wHbRve/q60eoHBZxdQAanaMvkf
-         bm4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791831577; x=1792436377;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YHE/SGYcUV1OUJwt26eXa2xg6GrIMfRUdwuOqUARZ48=;
-        b=x+Eb0Xyabfk5y+uQ0jsSm7V7LeQ5fjCMPRX/qlYQcKFYN+4/6osHW+3LsWNnWGspPE
-         N446igJY9I812/8Jxr1jHYzcsgQ0eKuvrL7Oi1HdCKqJhWziOTDfd1Uy+zi+jmdSVFHT
-         UJuRLLn7ZPXGOWCqb/NiTzghsglhB29K6X9Q2iQwPgWrz6zE8z+GlGPx6+XtqIzZ+aLf
-         CdaVikyXes8bmJXpfwBpDlZTRUHX5RcWw+LPVshMefktoS+sXQ4wvM8LzYi4LJ9xwL3n
-         vyEtNOlG7EaJC9BorA7wdu5qfwaPlM62nWP4DLC7Hp5lga8ugEM+tyojp6W5n+R7Fn/Q
-         XYuw==
-X-Forwarded-Encrypted: i=1; AKwUvBxvoHP+qutpzbR8OOtEeb78byvseXYpsaoLDQGpmh7v6ZHpDHFj4BmZw1r5DZXlRq7E0MTvSjQV9cIV7Xg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJs2N9ZV+dUMkkGcBTDV9ORczARCT8vWfryk9rCSS3nseMFdOzz
-	IpqJqrq8gPAwQizJlUxM7xR7iFeq6b2Qkq6hao9zFEJX0qpMr2tVHHXW
-X-Gm-Gg: AYBFou1aH8WFA6XxyR8z6bbyRzpOpUX4lUMqwTWWaHu0OX+vlYKViEtLiSQ/CVnfZ7N
-	ruzBcs6E30QBoDljusPkjstWwNP+b9rdj0dZUzYZlzH6WK5/3soRgdUB6sTTB3j47Wh2y65VmvJ
-	7HR1WNmPNCNWCEPVB/0UA7YJzN7S70km/e4jIi3qFt9XJNzjs+4JyVIiYitq/bII9Wm6KKINplR
-	Hc8eWkqACPqAhwQ3iKjPD7kcMN8EjKYADj8gXsGmNbs584xybRFOFyAMEILpd5VCNjhvxM1KuXF
-	jF4HWdWMgzPvQpE5S3osCcNYn2z11d0P9wTleViMYPn7xbN1o7D9a/4md7S0vXjoqHHSJUkEvMD
-	VANK32PpWSlBX8W+L1EFbfT/zzQK0BuWUw7y5wHRsuMRjjTEx5myljCrNNhfe9L/7tj56REk59i
-	RhQN2XBU+CJmyMMollw+CMg4wKF4wYoe/XG6ACmOZsGAH7SAs1NRaKtqoMqegqDpvzVXpOUMAW4
-	bT2oJU3TVC5oKUHM30MUFQfJ/MtrCf4Y8cug7JehSKitbLfebDGyPuDUrz/PInsrg==
-X-Received: by 2002:a05:6000:4818:b0:48a:ffcc:5b50 with SMTP id ffacd0b85a97d-48dbace8c04mr18035952f8f.40.1791831576447;
-        Mon, 12 Oct 2026 11:59:36 -0700 (PDT)
-Received: from home-desktop (dynamic-002-214-019-128.2.214.pool.telefonica.de. [2.214.19.128])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab5262sm871105f8f.22.2026.10.12.11.59.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 11:59:36 -0700 (PDT)
-Date: Mon, 12 Oct 2026 20:59:33 +0200
-From: Abhin Parekadan Jose <abhinjoses@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	Shuai Xue <xueshuai@linux.alibaba.com>, Kees Cook <kees@kernel.org>,
-	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	Oliver O'Halloran <oohall@gmail.com>, linux-pci@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC v4 0/5] PCI: pciehp: Report surprise removal during
- safe removal
-Message-ID: <as0uFfzw83f9aPpn@home-desktop>
-References: <20260927182017.938565-1-abhinjoses@gmail.com>
- <asxylqif72Lcldx1@home-desktop>
- <20261012022556-mutt-send-email-mst@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e8o6+aWk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 697261F008A1;
+	Mon, 12 Oct 2026 18:59:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791831594;
+	bh=q5fULpa7daB6TmBmnSA1BqoQzUcnMbd3JSJ/cqN+aA8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e8o6+aWkatNqHNXP1/EJ6Yd9RNAGqB1H+CnNLdrSJqIeGHrxVy6VuvzdnusvZpIod
+	 E8GhmTVcfFiGFzFXqeBfLXNeUd/vYZChykFSKJo+n7XxdLxYQhntpWpUxyQ2Im/Sfg
+	 dsJnEtINWyl4rHKGBBYKoY53WRtj4iToMDZlcO+eP0OFdTAibxsZBGzrdDAfagftFZ
+	 durKsuti0zzc6H1A+n++qPMJTcIFKkucSdXV5x9ShxqfNS75SYTBLleMMJts+33YpJ
+	 UrxXJwPh7IjBymoqlYDS/7f45adah2biSrEDL9oITpapVgh0cIivTsVkWCW9e5zlkL
+	 PKXAlvcy4fLEA==
+Date: Mon, 12 Oct 2026 19:59:48 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Radu Sabau <radu.sabau@analog.com>,
+	Janani Sunil <janani.sunil@analog.com>,
+	Salih Erim <salih.erim@amd.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Jakub Szczudlo <jakubszczudlo40@gmail.com>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH 2/4] dt-bindings: iio: adc: adi,ade9000: add adi,ade9039
+ compatible
+Message-ID: <20261012-thinly-debrief-615f863ffa77@spud>
+References: <20261012111342.48040-1-antoniu.miclaus@analog.com>
+ <20261012111342.48040-3-antoniu.miclaus@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5zlPZex+sMIpH8TI"
 Content-Disposition: inline
-In-Reply-To: <20261012022556-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20261012111342.48040-3-antoniu.miclaus@analog.com>
 
-On Mon, Oct 12, 2026 at 02:32:02AM -0400, Michael S. Tsirkin wrote:
-> On Mon, Oct 12, 2026 at 07:39:34AM +0200, Abhin Parekadan Jose wrote:
-> > Gentle ping on this RFC.
-> >
-> > Lukas, Bjorn, could you let me know whether the general direction is
-> > acceptable before I work on a non-RFC version? Any comments on the
-> > approach would help.
-> >
-> > Thanks,
-> > Abhin
->
-> I'd say, complete the picture. acpi,shpc,polling...
+--5zlPZex+sMIpH8TI
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Ok.
+On Mon, Oct 12, 2026 at 02:13:38PM +0300, Antoniu Miclaus wrote:
+> The ADE9039 is a polyphase energy metering device from the same family as
+> the ADE9000. It is register compatible with the ADE9000 for everything the
+> driver uses, provides the same on-chip dip/swell detection, and shares the
+> full-scale codes of the ADE9078.
+>=20
+> It computes only fundamental reactive power and has no total reactive pow=
+er
+> register, which is noted in the description. Like the ADE9078 it supports=
+ a
 
->
-> Maybe think about how this interacts with pci_ignore_hotplug
-> (seems to weirdly check presence then ignore)?
+AFAICT, this first sentence here is what prevents using a fallback,
+could you be more clear about that please?
+Otherwise,
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Yeah, the order is wrong in v4. The presence read should come after
-the `ignore_hotplug` check. Will fix.
-(Need to still find out why this was introduced. Looks like only the GPU drivers
-use it.)
+Thanks,
+Conor.
 
->
-> And test with virtio not with edu.
+> maximum serial clock frequency of 10 MHz rather than 20 MHz, so extend the
+> existing spi-max-frequency constraint to cover it.
+>=20
+> Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
+> ---
+>  .../bindings/iio/adc/adi,ade9000.yaml         | 29 +++++++++++--------
+>  1 file changed, 17 insertions(+), 12 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ade9000.yaml b=
+/Documentation/devicetree/bindings/iio/adc/adi,ade9000.yaml
+> index bcc166aad713..70106dd052ce 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/adi,ade9000.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ade9000.yaml
+> @@ -5,26 +5,28 @@
+>  $id: http://devicetree.org/schemas/iio/adc/adi,ade9000.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> =20
+> -title: Analog Devices ADE9000/ADE9078/ADE9430 High Performance, Polyphas=
+e Energy Metering
+> +title: Analog Devices ADE9000/ADE9078/ADE9430/ADE9039 High Performance, =
+Polyphase Energy Metering
+> =20
+>  maintainers:
+>    - Antoniu Miclaus <antoniu.miclaus@analog.com>
+> =20
+>  description: |
+> -  The ADE9000, ADE9078 and ADE9430 are highly accurate, fully integrated,
+> -  multiphase energy and power quality monitoring devices. Superior analog
+> -  performance and a digital signal processing (DSP) core enable accurate=
+ energy
+> -  monitoring over a wide dynamic range. An integrated high end reference=
+ ensures
+> -  low drift over temperature with a combined drift of less than =B125 pp=
+m/=B0C
+> -  maximum for the entire channel including a programmable gain amplifier=
+ (PGA)
+> -  and an analog-to-digital converter (ADC). The ADE9078 and ADE9430 do n=
+ot
+> -  provide the on-chip dip/swell detection available on the ADE9000, and =
+the
+> -  ADE9430 has no on-chip digital integrator (it uses an external analog
+> -  integrator for Rogowski coils).
+> +  The ADE9000, ADE9078, ADE9430 and ADE9039 are highly accurate, fully
+> +  integrated, multiphase energy and power quality monitoring devices. Su=
+perior
+> +  analog performance and a digital signal processing (DSP) core enable a=
+ccurate
+> +  energy monitoring over a wide dynamic range. An integrated high end re=
+ference
+> +  ensures low drift over temperature with a combined drift of less than
+> +  =B125 ppm/=B0C maximum for the entire channel including a programmable=
+ gain
+> +  amplifier (PGA) and an analog-to-digital converter (ADC). The ADE9078 =
+and
+> +  ADE9430 do not provide the on-chip dip/swell detection available on the
+> +  ADE9000 and the ADE9039, and the ADE9430 has no on-chip digital integr=
+ator
+> +  (it uses an external analog integrator for Rogowski coils). The ADE903=
+9 only
+> +  computes fundamental reactive power and has no total reactive power re=
+gister.
+> =20
+>    https://www.analog.com/media/en/technical-documentation/data-sheets/AD=
+E9000.pdf
+>    https://www.analog.com/media/en/technical-documentation/data-sheets/AD=
+E9078.pdf
+>    https://www.analog.com/media/en/technical-documentation/data-sheets/AD=
+E9430.pdf
+> +  https://www.analog.com/media/en/technical-documentation/data-sheets/AD=
+E9039.pdf
+> =20
+>  $ref: /schemas/spi/spi-peripheral-props.yaml#
+> =20
+> @@ -32,6 +34,7 @@ properties:
+>    compatible:
+>      enum:
+>        - adi,ade9000
+> +      - adi,ade9039
+>        - adi,ade9078
+>        - adi,ade9430
+> =20
+> @@ -79,7 +82,9 @@ allOf:
+>        properties:
+>          compatible:
+>            contains:
+> -            const: adi,ade9078
+> +            enum:
+> +              - adi,ade9039
+> +              - adi,ade9078
+>      then:
+>        properties:
+>          spi-max-frequency:
+> --=20
+> 2.43.0
+>=20
 
-Bjorn had asked me to keep this puerly PCI[1], So I had decoupled it from the
-virtio changes. I could post another series with those changes with a dependecy
-to this series.
+--5zlPZex+sMIpH8TI
+Content-Type: application/pgp-signature; name=signature.asc
 
-[1] https://lore.kernel.org/all/20260826194815.GA1552818@bhelgaas/
+-----BEGIN PGP SIGNATURE-----
 
->
-> > On Sun, Sep 27, 2026 at 06:20:11PM +0000, Abhin Parekadan Jose wrote:
-> > > If a safe removal is already in progress when the device is surprise
-> > > removed, pciehp cannot report the disconnect [1]. The removal blocks
-> > > waiting on a device interrupt or status read, and pciehp's IRQ thread is
-> > > single-threaded and is itself executing that removal, so it never runs
-> > > again to report the device gone. The removal hangs indefinitely.
-> > >
-> > > pciehp_isr() does run while the IRQ thread is blocked, but pciehp_ist()
-> > > must ignore link and presence changes caused by Secondary Bus Reset or
-> > > DPC, and telling those apart takes seconds which cannot be spent in
-> > > hardirq.
-> > >
-> > > Patch 4 does not do that work in hardirq. pciehp_isr() only checks
-> > > whether the card is present or the link is active, and defers the rest
-> > > to a work item in process context. The work item does not need to know
-> > > why the link changed, only whether the card is gone: it waits for DPC
-> > > recovery or a Secondary Bus Reset in progress to complete, then checks
-> > > again under reset_lock, and if the card is absent and the link is down
-> > > marks the devices below disconnected, which schedules the driver's
-> > > disconnect work from patch 1. pciehp_ist() is unchanged and
-> > > remains the only consumer of the one-shot flags PCI_DPC_RECOVERED and
-> > > PCI_LINK_CHANGED, which tell it whether a link change can be ignored.
-> > >
-> > > Patches:
-> > >
-> > >   1/5 Michael's "PCI: Report surprise removal event" from his RFC v5,
-> > >       which adds disconnect_work_enable and pdev->disconnect_work.
-> > >       Changed to serialize disconnect_work_enable with a per-device
-> > >       spinlock.
-> > >
-> > >   2/5 Add pci_hp_wait_link_change(), which awaits a Secondary Bus Reset
-> > >       in progress without consuming PCI_LINK_CHANGED.
-> > >
-> > >   3/5 Add pci_dpc_wait_recovery(), which awaits DPC recovery without
-> > >       consuming PCI_DPC_RECOVERED.
-> > >
-> > >   4/5 The pciehp change. Adds disconnect_work to struct controller,
-> > >       scheduled from pciehp_isr() on PDC or DLLSC when neither Presence
-> > >       Detect State nor Data Link Layer Link Active indicates a card.
->
->
-> how about including the virtio patch? seems more relevant than
-> fooling around with edu.
->
-> > >   5/5 A POC driver for the QEMU edu device that blocks in remove()
-> > >       waiting for an interrupt, standing in for del_gendisk() stuck in
-> > >       blk_mq_freeze_queue_wait(). Not for merge -- included so the
-> > >       hang can be reproduced.
-> > >
-> > > Changes since RFC v3 [5]:
-> > >
-> > >   - 5/5: Reinitialize the completion in remove() before requesting the
-> > >     delayed interrupt, so that an earlier completion cannot let remove()
-> > >     return while the interrupt is still pending. (Sashiko)
-> > >   - 1/5 to 4/5: No changes.
-> > >
-> > > Changes since RFC v2 [4]:
-> > >
-> > >   - 1/5: Protect disconnect_work_enable with a per-device spinlock, held
-> > >     while testing it and scheduling the work, instead of lockless
-> > >     accesses and barriers.  pci_dev_set_disconnected() could otherwise
-> > >     test the flag, get preempted, and queue the work while a newly bound
-> > >     driver re-initializes it.  With the lock, cancel_work_sync() is
-> > >     sufficient again, so go back to it from disable_work_sync().
-> > >     (Sashiko)
-> > >   - 2/5: Test PCI_LINK_CHANGING with test_bit_acquire(), so that the
-> > >     caller's subsequent accesses are ordered after the end of the code
-> > >     section even if wait_event() returns without sleeping. (Sashiko)
-> > >   - 3/5, 4/5, 5/5: No changes.
-> > >
-> > > Changes since RFC v1 [2]:
-> > >
-> > >   - 1/5: Use disable_work_sync() instead of cancel_work_sync() in
-> > >     pci_clear_disconnect_work(), so that a racing schedule_work() cannot
-> > >     queue the work after remove() has returned. (Sashiko)
-> > >   - 2/5, 3/5: New.
-> > >   - 4/5: Drop schedule_notification_work(); pci_dev_set_disconnected()
-> > >     schedules the driver's disconnect work for all callers again.
-> > >     (Michael)
-> > >   - 4/5: Don't consume PCI_DPC_RECOVERED and PCI_LINK_CHANGED in the
-> > >     work item.  In v1 it ran the same spurious link change test as
-> > >     pciehp_ist(), and whichever ran first took the flags, so pciehp_ist()
-> > >     could tear down a device that was only reset. (Sashiko)
-> > >   - 4/5: Check presence with pciehp_card_present_or_link_active() in
-> > >     both pciehp_isr() and the work item, as pciehp_ist() does, so that a
-> > >     port with Presence Detect State hardwired to zero is not mistaken
-> > >     for an empty slot.
-> > >   - 4/5: Return early from the work item if pciehp_ist() has already
-> > >     taken the pending events, and treat a read error of the presence
-> > >     check as "not present". (Sashiko)
-> > >   - 4/5: In pciehp_isr(), check presence before dropping the runtime PM
-> > >     reference on the port's parent.  In the work item, take a runtime PM
-> > >     reference and check presence under reset_lock, since a slot reset
-> > >     may make Presence Detect State and Link Active flap.
-> > >   - 5/5: Build only with CONFIG_EDU_SRPOC, which depends on PCI; don't
-> > >     claim the interrupt when the device reads all ones; clear bus
-> > >     mastering on teardown. (Sashiko)
-> > >
-> > > Testing
-> > >
-> > > Reproducing this needs QEMU changes, since neither device_del nor the
-> > > attention button produces a true surprise removal.  A branch with both
-> > > is here [3]:
-> > >
-> > >   - a delayed-IRQ register on the edu device (BAR0 0x30, write N ms)
-> > >   - a pcie_surprise_del monitor command that drops the device and
-> > >     generates PDC=1, DLLSC=1, PDS=0
-> > >
-> > > Both tests use:
-> > >
-> > >   ./qemu-system-aarch64 -machine virt,gic-version=3 -cpu cortex-a57 \
-> > >     -m 512 -smp 2 -kernel Image -initrd initramfs.cpio.gz \
-> > >     -device pcie-root-port,id=rp1,chassis=1,slot=1 \
-> > >     -device edu,bus=rp1,id=edu0 -append "console=ttyAMA0 rdinit=/init" \
-> > >     -nographic -monitor unix:/tmp/qemu-mon.sock,server,nowait
-> > >
-> > >   and need a guest kernel with CONFIG_EDU_SRPOC=y.
-> > >
-> > > Test 1 (Hang in remove() on a user thread, then surprise removal):
-> > >
-> > >   guest# echo 1 > /sys/bus/pci/devices/0000:01:00.0/remove &
-> > >   host$  echo "pcie_surprise_del edu0" | socat - unix-connect:/tmp/qemu-mon.sock
-> > >
-> > >   This is the case patch 1 solves on its own: pciehp's IRQ thread is
-> > >   free and handles the removal.
-> > >
-> > > Test 2 (Hang in remove() on pciehp's IRQ thread, then surprise removal):
-> > >
-> > >   guest# echo 0 > /sys/bus/pci/slots/1/power &
-> > >   host$  echo "pcie_surprise_del edu0" | socat - unix-connect:/tmp/qemu-mon.sock
-> > >
-> > >   Without patch 4 the safe removal does not return until the delayed
-> > >   interrupt fires 600 s later.  With it,
-> > >   pciehp_isr() schedules ctrl->disconnect_work, which marks the device
-> > >   disconnected; the POC driver's disconnect work completes the wait and
-> > >   remove() proceeds.
-> > >
-> > > Open questions
-> > >
-> > >   - Is this a viable approach?
-> > >
-> > > [1] https://lore.kernel.org/all/aHlZE18kPuHuDtTT@wunner.de/
-> > > [2] https://lore.kernel.org/all/20260905183905.997833-1-abhinjoses@gmail.com/
-> > > [3] https://gitlab.com/abhinkop/qemu/-/commits/suprise-removal
-> > > [4] https://lore.kernel.org/all/20260927165459.829900-1-abhinjoses@gmail.com/
-> > > [5] https://lore.kernel.org/all/20260927175203.928270-1-abhinjoses@gmail.com/
-> > >
-> > > Assisted-by: LLM
-> > >
-> > > Abhin Parekadan Jose (4):
-> > >   PCI: pciehp: Add pci_hp_wait_link_change()
-> > >   PCI/DPC: Add pci_dpc_wait_recovery()
-> > >   PCI: pciehp: Report surprise removal from pciehp_isr()
-> > >   misc: Add edu_srpoc surprise removal POC driver
-> > >
-> > > Michael S. Tsirkin (1):
-> > >   PCI: Report surprise removal event
-> > >
-> > >  drivers/misc/Kconfig                   |  11 ++
-> > >  drivers/misc/Makefile                  |   1 +
-> > >  drivers/misc/edu_srpoc.c               | 172 +++++++++++++++++++++++++
-> > >  drivers/pci/hotplug/pci_hotplug_core.c |  21 ++-
-> > >  drivers/pci/hotplug/pciehp.h           |   1 +
-> > >  drivers/pci/hotplug/pciehp_hpc.c       |  67 ++++++++++
-> > >  drivers/pci/pci.h                      |  10 ++
-> > >  drivers/pci/pcie/dpc.c                 |  54 ++++++--
-> > >  drivers/pci/probe.c                    |   1 +
-> > >  include/linux/pci.h                    |  57 ++++++++
-> > >  10 files changed, 381 insertions(+), 14 deletions(-)
-> > >  create mode 100644 drivers/misc/edu_srpoc.c
-> > >
-> > >
-> > > base-commit: fd179f8a05be3ccae366b9b96e176b51fbe54aab
-> > > --
-> > > 2.51.1
-> > >
->
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas0uJAAKCRB4tDGHoIJi
+0ix1AQCLvE7M8UkUH+NIXzYoXwsPJ+9FaDwV/TxNECsv/eJlZgD/c4Xf1FJ3SdTl
+XQZ9e7c7XXRKMEajWTu67xiP0iA/HAo=
+=waQP
+-----END PGP SIGNATURE-----
+
+--5zlPZex+sMIpH8TI--
