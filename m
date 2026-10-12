@@ -1,77 +1,82 @@
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E09282F0E
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:54:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1284C30ACF1
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:57:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791780872; cv=none; b=riWXKVgrKbHhi73EFTm8XAkvB5E0gSD0gb9cKrWAkrorP5YPNavCgBTAp/vs5fyYpyH9Tqsfkqz7jLmqScth3hXayyNfFhVMI/FodHA2JdGnbcFrUO7O+dGdykLR0WqSsg50be7b9MV090QEIjuW6TpfnNB/t1aCn+0GrxSqdNA=
+	t=1791781081; cv=none; b=eIXVgDZtATYWOLMgbo/g19tmGDD3N7mAmEcI3//NVr7b6wM4K9LQt6M3XQZUWlkHNf6pg6d5klLgDmiQSkcDYAunXBN6z9oZmtHXNdh61TGpp5xfTkliJLnDBSOJaFAhvIRbEGjGZnU5RV6p/dyyEJwHjN9L4pQUDZ5ktqk0pbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791780872; c=relaxed/simple;
-	bh=+nF2Flw5JkUxcncitmamYA0eDBgoA3lGYri8sEbd1Bs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nb4/VYS0GtlSat2cSu/V2qHucGf5rfTKAOvyx3ae/65PG6rWmXiQ1AYitOz26WVXzxfqQJW+3Xn7qe+rFRJQVqWWEBF6N4A2Ia7YnxO9IGCoDMlvDiYXdk50qjjSskLkPLn1Ogfy9ElOoMhIek9uL/QZNentdDobuxcw5rLA6xE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QElL+MH4; arc=none smtp.client-ip=209.85.219.43
+	s=arc-20240116; t=1791781081; c=relaxed/simple;
+	bh=VHRDacBvIcvaD3EeGZjqUhghQgLI0/sOWRk6kjCWSHY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X+iY4hO7VLOBvfW9IKiPs6eKyuJXqYKJskpPvsiWd0k1kiHpe3Fv0C7UGRRmc1dyEQipJg0yQOhrE/kbPEueOYs6UHxG/5VaJspxAMxIIx2h/624FZVfLdxabPCY7zGQy16YvmNzWr1hWvyOSsIFvOyTYNkABaUhxG0dKXh7b4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ddcD+7oR; arc=none smtp.client-ip=74.125.82.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QElL+MH4"
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-917997ab0d9so21613856d6.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:54:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ddcD+7oR"
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-154e9d2d979so975485c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:57:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791780870; x=1792385670; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PuHBSXV7yW2x9o5OulJKxyEwHsRVBDck1C3zxeqGePA=;
-        b=QElL+MH4HN7OxMYWzK6rXvxNfM7NbEFBg2pigKGyc6USIRdQ1w3iO/ePxd4m01zz+B
-         RBuK2zQIiHNZjSxvS21f4CBPUOH3tVwIC1zh+A8sp/9Bt4Rjg+MqDrMw70q/PhjCtAfD
-         J9thZGJyjIeQGYBGV8sSls/iSvJKcrRUbgCKuHC7C7x5ru7wxub25QaZq9WhF8rzUlEW
-         A7O7Me2XdPstx7+CMac+LR82jfO8daFXVd04Z/qhZcyLwVeyyyySpFaTN33XRPPHM5X9
-         BdQ9WxM4pr6lD0yIVfNqtxhO8qxeAanGQmFrduDI0YVhjlhBtJPmpBEJNqBDmMj8564F
-         2nTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791780870; x=1792385670;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791781079; x=1792385879; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PuHBSXV7yW2x9o5OulJKxyEwHsRVBDck1C3zxeqGePA=;
-        b=EsgvFzyHMiTCgkXS2Q7TALtVdXh2h5CsrBc7kptW2C2ucigrXveHnvrUt619V+CuZ/
-         HZpSsbvj/C5uGJOofSoPvauzOF1NCK1riQh0KHt46lIQ8WQ4l8oDUvQupe/hxicXg14m
-         6ntbZCVuNp40+2fESyOaNHpJuZa1jk+OMj1O5MyT6cQbeWN08S6rg1i967Gs9Wc6MYBc
-         v0M4E1gTTASeR1yNszI2RaRK6CH/i7lwtS8sqXXVLJI/rjcgP/Myu6kvwrLV0DvcipHC
-         JI6UJojXpY0JF6LoQ3CmwLY6PCYTe47q49/KRZ6FMIFFIEWSFjXJwtkIDm3dJlPbZMYn
-         8fAg==
-X-Forwarded-Encrypted: i=1; AKwUvBwmGCZx2E0/b3DluNU0n661EQsHSMu3XXuFSqKBhPReJq+muVyYZnKvZzE6Rw1MxrpOR8ZqdEMeoyqlmW0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLrxV2zdP3SAtwXdAjywrNfn2hPyQnUUL+F+TEZq285wbOtbHQR
-	Q0nzGrcYK2POTNSbkVnUJVudBb/9DI68s/yLXKeY1apwdjPw+UHdnAE=
-X-Gm-Gg: AYBFou3GF8fk5t5CQODcQ5DmTuTOZt1LgiayEcInWOzgwL1bVqefRGjcYPx401jWu+A
-	p96NCd1TGM52u8VXK3I1l/T5uXTGeNoABesWjup6tWMtwTt55H5ozowVoGhtCbl+gqnADxQ+g7y
-	M/sfAJAGvUYRv/qskpM9v/kY8eDZsCS6C2zEe9koKE8Fa+ErWX6GZdfXSoerKyV6FhTIEtU+Xwt
-	G3G5wLMMGQTbjc4heON+Xpho/Y4OBlXwlWcJZxWuJrVQyAnro8sKr6nhtxs9rUOId0poA8K84o+
-	gE/Mb2Hnd7fpU/aJrlRApmVpBB1YbtszUZx9KqksUvLpxn1c9uN5J9fPDVV2Meuw8kt8doOPO+8
-	dK1lH+66uTfrXHAMvpI9DRp+YRZQ9nXMpresyt87yOV2nkSs3GyH5hmfIBL3n6Dikq7eHSEIf0i
-	jaeDX5oCUM3+CYWZ7P2iLhkR68sTgJJR8my/WpcYBFwd+NppJ6NWj6Ge8zzwlW3+gipnDCgPLNM
-	bUzge/ZQYEsIa1oQibzDsPYcMluxhhH2S3YHkLy4f2r8baGcmU6o7cbDFI5urg8/32yqrTomn+K
-	OHJhtXDUi3xPNJp/lQVBHxQ+3JT2
-X-Received: by 2002:a05:620a:2993:b0:93e:5870:12c5 with SMTP id af79cd13be357-93ebd1ddbc6mr1383552585a.16.1791780870545;
-        Sun, 11 Oct 2026 21:54:30 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb98c6b4bsm768589785a.34.2026.10.11.21.54.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 21:54:29 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Paul Kocialkowski <paulk@sys-base.io>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] drm/logicvc: keep the IRQ within the display resource lifetime
-Date: Mon, 12 Oct 2026 00:54:23 -0400
-Message-ID: <20261012045423.166389-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        bh=4r2duJGpWXQRzkludK1kNjL6OFMP61EO9Bgn2dWvRnU=;
+        b=ddcD+7oRxaxZGswhIygytO2hY0JtyP8knSGJ0w5COI9w2IPK1FcZE6b6BZ8jRFu/c/
+         wBmcrIGMD/exIKKOF4OmakYsLLAINMeixgkQNB0TbYq1PN2wHa473Fx+f8pbIoGKbakR
+         umItDo88LtXnuJgRTGrxQxwao3slT/ZpF2Q6thOFHTmKbk4rOryYTpu+Mk5+/LoLuznQ
+         E6Im5AJjGr6erQjBMRMcfKdFAnc3jh3MNMoaIONcQzVHIr60EEdSlG4PoYzAozzCblhF
+         K1GewhlnQGUA0mw1MFfjbpFuV+755RYVWXWLlTmPGZ5qnx87swlIv+yK49fhtT4wc3Rc
+         Ahuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791781079; x=1792385879;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4r2duJGpWXQRzkludK1kNjL6OFMP61EO9Bgn2dWvRnU=;
+        b=zFdj6zYbRiQCMfluW/0JXI/F8f32qkVCUyB9PbISttHLAvFJqfpGwTQalaQ4fSqMfE
+         x7CxW82HAty2julFfOzPBTNJk82ck2ZGNoK96NRYTmMeV5kyEhY3Qhst8xHj4sSs+2Cu
+         0kxv+Qwknchn+3g5oZEU76GWM+z6Tdborjs8zrfTAN0acU599LaUTpMWy0T8Cq2g5cFR
+         lkOR0DA+ahJwAUJqLLc+PKJ2afClImCMSo36ZTjQpqpXIP/ipVJM/VqcIs5l5yedsNJL
+         61ZBfqc/kGvaErks1eYTw2AorSyECnWEWAViTGlCBJwxG1AFkY/e2JgAjTPScjZrp2mM
+         PERA==
+X-Forwarded-Encrypted: i=1; AKwUvBwO/IvTAkvffXv7ls100N39gy5W23ZoAGpUKSkAH4zziAhtx62rA2OBZ6tr9SsbjzKa6R5aLtw7bmkG5q4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQUVNtlHlAFmGOI2BLVdZW9rl+iaEu3SXjLKWS2SpuRKmIxVBl
+	9cNA5SAbeVNdHlLl1H/D57Ki2A/k7NDVCdca8PUd8juiqJm52bpOlZZM
+X-Gm-Gg: AYBFou0sjYIciCJEz2OE0j/hDYkFgUttRxjOqIvLqrXjj4M6DJEHhByN8TgnPAQZh7Y
+	fE3OI5POIyeTNWI+n6SJAjacWiwaCibCStUbflOzd3keC8dL3Vct7MtlJfI71XQS66Wit/c+7CI
+	eiGKlGnR2OtswY+SLEThYUXmU4poSidul6TbNyBrU/A8iuhxVgUsrNVCVhqlOCGgYJTTqhILF2T
+	jbHheVvxUYgyUNQhRSgVVYwsYRAmMWtYB/iaRtkKYqtPgXeL0lmdkxnBra55F1kJveT89TMn++I
+	VTFiO5h6546pOXEENxqoKKVymy2vJXJqwxPAhEmPmINkpx+pT1Dozqn2EQRUG44PQyzW+GtPJsx
+	KxezotPJk1xJfstleBfjHHMX2XlNHYUe3ZNYn7UV0bUbC5EBchetI5A4c6Hff7Kp+G/mZCpd1A0
+	NkVnVZCHMNUBPHdCKYYIDFKtdJY5i/hEd4GlBH+HaIaolzWZP/Je6whDYqmy/MlH/uvch+GtwCy
+	iLXBo21z2sQAEySuKazaJEQ4gVqk1rBzdPwBYj9p7HRWZqdt3xV4RwdBI0R3oKfZ/DwxgBKf8xu
+	22hrnECBez4cvnTvJKrozp75CjUijUe64joWgnsx29xiv5mlnyDmpq7EsYXcehxgBV3VsOebDeo
+	JNoUUihoJtJ7aw5B/zRqvfc1d64TIg4bY9EUvrpr22PSs9RUoJI0NXc8=
+X-Received: by 2002:a05:7023:889:b0:155:4a09:a228 with SMTP id a92af1059eb24-16a5afe5e1dmr11902752c88.8.1791781078853;
+        Sun, 11 Oct 2026 21:57:58 -0700 (PDT)
+Received: from FT6N242TWK ([223.181.119.248])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1699718c547sm25367340c88.3.2026.10.11.21.57.55
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 11 Oct 2026 21:57:58 -0700 (PDT)
+From: Shashank Mohan Jain <jain.sm@gmail.com>
+To: Eric Dumazet <edumazet@kernel.org>,
+	Neal Cardwell <ncardwell@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: Kuniyuki Iwashima <kuniyu@google.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 0/2] tcp: keep the route window on the SYN when SO_RCVBUF is set before connect
+Date: Mon, 12 Oct 2026 10:27:51 +0530
+Message-ID: <20261012045751.47179-1-jain.sm@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <179171754826.2527009.561712354727529429@kernel.org>
+References: <179171754826.2527009.561712354727529429@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,101 +85,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The managed IRQ is requested before the managed CRTC allocation. Probe
-unwind can therefore free the CRTC while the handler remains installed.
-Probe errors and remove also disable clocks before devres frees the IRQ.
+On Sun, Oct 11, 2026, netdev-bot+sinfo@kernel.org wrote:
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>  - How the issue was discovered ...
 
-Request the IRQ after display and vblank initialization. Release it on
-registration failure and removal before disabling the clocks. Keep it
-installed through atomic shutdown so pending commits can still receive
-vblank completion.
+Found by manual code inspection assisted by an LLM (Claude Code, Claude
+Opus) while reviewing the networking changes that set window_clamp on
+unconnected sockets, then confirmed before posting with the packetdrill
+test included as patch 2/2 and a veth/netns reproducer. The patches
+carry an "Assisted-by: LLM" tag for that reason.
 
-This issue was found by static analysis.
-
-Fixes: efeeaefe9be5 ("drm: Add support for the LogiCVC display controller")
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Compile-tested with Clang, W=1 (x86_64): logicvc_drm.o and
-logicvc_crtc.o. No runtime or hardware testing.
-
- drivers/gpu/drm/logicvc/logicvc_drm.c | 21 +++++++++++++--------
- drivers/gpu/drm/logicvc/logicvc_drm.h |  1 +
- 2 files changed, 14 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/logicvc/logicvc_drm.c b/drivers/gpu/drm/logicvc/logicvc_drm.c
-index bbebf4fc7f51..cf60bbb9800c 100644
---- a/drivers/gpu/drm/logicvc/logicvc_drm.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_drm.c
-@@ -366,6 +366,7 @@ static int logicvc_drm_probe(struct platform_device *pdev)
- 	drm_dev = &logicvc->drm_dev;
- 
- 	logicvc->regmap = regmap;
-+	logicvc->irq = irq;
- 	INIT_LIST_HEAD(&logicvc->layers_list);
- 
- 	caps = logicvc_drm_caps_match(logicvc);
-@@ -385,13 +386,6 @@ static int logicvc_drm_probe(struct platform_device *pdev)
- 		goto error_reserved_mem;
- 	}
- 
--	ret = devm_request_irq(dev, irq, logicvc_drm_irq_handler, 0,
--			       dev_name(dev), logicvc);
--	if (ret) {
--		drm_err(drm_dev, "Failed to request IRQ\n");
--		goto error_clocks;
--	}
--
- 	ret = logicvc_drm_config_parse(logicvc);
- 	if (ret && ret != -ENODEV) {
- 		drm_err(drm_dev, "Failed to parse config\n");
-@@ -434,16 +428,26 @@ static int logicvc_drm_probe(struct platform_device *pdev)
- 		goto error_clocks;
- 	}
- 
-+	ret = devm_request_irq(dev, irq, logicvc_drm_irq_handler, 0,
-+			       dev_name(dev), logicvc);
-+	if (ret) {
-+		drm_err(drm_dev, "Failed to request IRQ\n");
-+		goto error_mode;
-+	}
-+
- 	ret = drm_dev_register(drm_dev, 0);
- 	if (ret) {
- 		drm_err(drm_dev, "Failed to register DRM device\n");
--		goto error_mode;
-+		goto error_irq;
- 	}
- 
- 	drm_client_setup(drm_dev, NULL);
- 
- 	return 0;
- 
-+error_irq:
-+	devm_free_irq(dev, irq, logicvc);
-+
- error_mode:
- 	logicvc_mode_fini(logicvc);
- 
-@@ -466,6 +470,7 @@ static void logicvc_drm_remove(struct platform_device *pdev)
- 	drm_dev_unregister(drm_dev);
- 	drm_atomic_helper_shutdown(drm_dev);
- 
-+	devm_free_irq(dev, logicvc->irq, logicvc);
- 	logicvc_mode_fini(logicvc);
- 
- 	logicvc_clocks_unprepare(logicvc);
-diff --git a/drivers/gpu/drm/logicvc/logicvc_drm.h b/drivers/gpu/drm/logicvc/logicvc_drm.h
-index e0f4787c69f9..f69538e6c0e9 100644
---- a/drivers/gpu/drm/logicvc/logicvc_drm.h
-+++ b/drivers/gpu/drm/logicvc/logicvc_drm.h
-@@ -53,6 +53,7 @@ struct logicvc_drm {
- 	struct drm_device drm_dev;
- 	phys_addr_t reserved_mem_base;
- 	struct regmap *regmap;
-+	int irq;
- 
- 	struct clk *vclk;
- 	struct clk *vclk2;
+Thanks,
+Shashank
