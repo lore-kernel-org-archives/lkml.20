@@ -1,65 +1,65 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CAA93EB0E7
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:55:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6782747A873
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:55:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791798917; cv=none; b=nCOWeCT93TK4Bh1f20lVdXtNtt2VOZQZgGjB5GaTIoloYiOOknlAtH7d82MyzgwX88rcr+mV0DsjuzQnsAgwp7VFhgKqmSdqu1yyqMzKZ7g/DyTs+Ol+SdDxQ4Qj1NKCdSopkyqNOCPQekKP+ivzKMHOy98/75ciD8lHQKTO0Do=
+	t=1791798921; cv=none; b=YKNmzRQ1R9VeNM7RK4BTn9o9LUV93zDQfmg+/hMSeI2ZZGokRXkhXFu6i1zLmbrCl2kPHTRLgd3VUJQ7n1z//iZ0VayS/hDPEYcIQf0noO2Xu62YclmB4PM4RxksRH38ZlQs0V5kvYvBxD12yFmjAZxoyf90V/yYhAifxfU+GBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791798917; c=relaxed/simple;
-	bh=4YHiet3WJomPE2v26NzpBGjI/jedOlYKrNCQC8kfQY8=;
+	s=arc-20240116; t=1791798921; c=relaxed/simple;
+	bh=ARn259GPopKaQ1nz80eSAsTTBgPnnvNnnQsFuBBTrVU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ugg1lUMtdL5CK5G7fo8RFCpfyWgVMD37UxLEF4UujZ4mwmwaWw+RHaSmRkw/2xCpN+w+hG/KdbK/26+QJaozhILWtFg7GV8GbFOxjUNE0qZGh31wv2LBBhFY8WMKI4yRCPIghVFVGC+JB7u2oPYMz9aw9ckwk8a3b0MZ9GzVX2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=U3jg9ID8; arc=none smtp.client-ip=209.85.221.43
+	 MIME-Version:Content-Type; b=X0ZVECGUcpjuMeXqBWfx//DPrrUtzAQdxOOWMGyLwh61bL8QmsnuWAcGx5Jz4B5D7Ui/ymjQezeJk3jXjzsDjkngbW6N2SPYRdlvmcn07R/UfXdudMDYgNKCCYP+FmHFTFhNeIQyDP/SUIonfTINuAOAWEL0YSNMzDEfU5JfSOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=N5p/Z+jn; arc=none smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="U3jg9ID8"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso1617048f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:55:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="N5p/Z+jn"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48c4be28b82so1617008f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:55:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791798910; x=1792403710; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1791798912; x=1792403712; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=wvY8pxckv87pPYHiPwsm0hl8WKWmZCkoV9NdQknppn8=;
-        b=U3jg9ID8yPFqEhcnXfUQpOfjfKF+QPO3ce35bQgRWDMJsAqB4Tj04Jni+s7rzj1IZe
-         jcweuNi5QL0CB99c1+pBSa9Th/JUl3+Ti89eskfS/HbFVVS98RhKTS4c6vTEjc73fHa5
-         xO6ctjgqGb7Sw/ls0NNR91p5HI9QML8nGIJr/x4BpGZWf9QvTLPbVMXHorNep1MyMQRh
-         54HMJ7YJBgHr6bY3WDKUyYJBdDkXCpbxgEIigaXxbvqITTDqoCI08mKnI6RS0xjmgM+r
-         uStEafhl44ZF8OY1GW1maLIdtGyWnWQKZ8yMev5Kt1gt3pU70xoxWciwBOFJt0tabNZS
-         lpTQ==
+        bh=0CM5VfsqOao7iGtSvqmBNpy0L/RVrXCLn8weNJqgTC4=;
+        b=N5p/Z+jn7o58pAAUKfKnEQgrV6Af09QVVRF1tv9/R0n0N+P9ywatrp8jSY8UqdnRV6
+         CjCXD8ZnWiyK+3LcuyMb2OGn3fCMuCjijeWojZK7wgbt9n7cGEHszkcoSfhMQO9iNChu
+         9/ejjevxQ739ofrj+v0S5JfndTavuoWD2g3RPiCAipt7m21DAOBZZcfVEli0/53kb8mt
+         OFe2DKAEYBEqSp268EReC/DzFLnQV7ZKwUqHMdAI8xFeC2BHU5F2SAonTAfmfZ8xp158
+         owZZ8k/rqBbStYzx/CDVTD7jpB4LqivZA2T3bSOG0n67+vLNZaJsmWLoa09x4rzaoSvW
+         kmbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791798910; x=1792403710;
+        d=1e100.net; s=20260707; t=1791798912; x=1792403712;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wvY8pxckv87pPYHiPwsm0hl8WKWmZCkoV9NdQknppn8=;
-        b=0sKhLEe4O576D8680Z01kDjb9VeM3MinRAPjGg01REq8ZCwjZTFAc+djBaPCHwxcJ/
-         eDiIG3ggKrd4XMQaXK2K+dn/pBFaFvBRLwOH8CtrUkGA2q58c4JR9AfpVVHg21fN8544
-         ldERj5eJfeHK+G/kYD14WSsNCZvhHyYm2tJcSA5yB8bp4sePWeDi3jnOgNjLTcP875bY
-         eYNEqDi08WoWa05Wqku6lZNmkmxuSHrP5tNqVPwxBeBeFN2+x3W5He5txBnGCpXTwhfg
-         3zqSDJOcr03q5m88PftngOMuxHudtKV+snj37ES4fYxEsFq3eynsIp8H8M3Vtbtv+KIM
-         F5xQ==
-X-Gm-Message-State: AFq9FYKKVYfjJub1OTvPVt6bCFEruzHoV12V1vlvNdIM4IORrvREK61c
-	r9jEb6O+465G1K+FyjBX3/FMqaFhy/RV3MKUSNuBwaPCoshQ2TonD8BT9z9d0BnpZMcitP+qvV6
-	1xTUmtTU=
-X-Gm-Gg: AYBFou0O/i/SPyg7tuEM3qEVlEOuXf4H8nDuZE3G0zcGc0zwKoyQgmC6JEUX1Hs9quK
-	xFpNoqYWXvLVCFBRAyQ4ld46KoXNEmZtJJVdpU9DIDF6dKTBNbYc1tQ0X2DrqB3YvnN1j82bhjj
-	ARc830i+RlMQxPQnNvaEoofJ9RNHkQisgmJJocPV3nOBx45Ng7tHJKkrBtLYk3Auprb0HpsSWFo
-	L/JrOZYkQDH4Zut6L0L8L2sFNt2Hhh2V2aDtKvOkPPEgPBHQRHy+OsxC/c0OI4KDN5D7U/3+sF0
-	9o/CsSdIqL9R2xNHzBh+q8MgFQ8sjvAuhpv/OM7tr1cqt4H7J+QGRGoTT5Vphu6zk8bpcXa9hq0
-	Osh0m4byLb94v6FnM364vc4J81WT0YSteL+XVrIDM5KGiukIhl5yL1JT59BI9gxwqufop9/bx7i
-	S/69pgyoPJKPYl+Rb3Ymb2YJEABHfpatd1ghpkAVrYL8IRqcVQ24AOg4dqQspWnc8upgie/FU3b
-	ta+TEIoCdjsnhBzXsQPsw==
-X-Received: by 2002:a05:6000:4550:b0:48c:4d74:d7d2 with SMTP id ffacd0b85a97d-48dba9db092mr10670448f8f.12.1791798909689;
-        Mon, 12 Oct 2026 02:55:09 -0700 (PDT)
+        bh=0CM5VfsqOao7iGtSvqmBNpy0L/RVrXCLn8weNJqgTC4=;
+        b=l1aJXxMRU9aNOd3YKnynEKGgkS5LcsLJCAit+9kvmTdG/3FglC30Blo/QctjI5UhCl
+         OHYu+F+eJFy2q/tuqNfJEPi8lWsdWZakHaL1KjRkit2O3DY8SjebDOro+8/AB6sKSq6w
+         VxtEUHelqjDiC92PHq3e3C+5Gmlc2N1J4WtLlcSpBzOggDOtLNXIKwV9dquBb+Bbas0G
+         E1LZOpvEP5ShkmrkiMWgWGCHeWb7b2I6XZAbn0Exw47u+Zy7fTpQkc1TWEz+goZ0F8t6
+         SemK9fquLwZcK64N9KvmF7MLDuYsJSmWb1520IWutdxQ/egZnaJHT6Rk5OkdF4uX90kg
+         K/hw==
+X-Gm-Message-State: AFq9FYKw4bVYH0orC/ApWpWgvmpiA9xs9ANuzTlzWw9qoQaC5RhgF0Xp
+	j0TQ31AiYLSwdzeqIQ75gdEwfRCdFAIY90XtYnqP+5MOEf0c/tIh1iW0nkhwGiG4Gvajc0VW2F6
+	Ge2m9oHI=
+X-Gm-Gg: AYBFou3dcL43bT9TrqFUq4ctZUHmUP7gILLsF7xG3iMf9HUhNrTArQRG3VG1Co6HLDi
+	W1W3OpPPZBzyyqF0rcxtmDeAegfHgPMSMdCzNUMa4TWmWqGvZmKJVz4a/lWAjv6KMOZRlizcuJ2
+	n+7N1gJhWm4v82uBSX+vci5Xz78cR56oj1vEQQ/hzxsOuPuxtaLu7ArPNysJ13fIVxeW7rTU3o+
+	jLRIhg9ybAZBZ3UFvL7h++v1xnT+UXCMT9cI/F3q4S1jaf0Wl0jQHFYShxitupAxUxZkPqS8DFP
+	B0bacWE+2jmkvS3aN9oW6dioY4OxIk1FnEjGvwwMtPfqKUJpumndiNkdxhrGra78oGuQf1t4Mzs
+	ETqXUel8k2bJPXHqJUQfO7iO8cyG+wy/Z/FXpIc0OICgSglunM0fv8bGfUdV+uLKXBjFsEmC8v+
+	EtTfVH38Afii+KAosKn3Ss7NfWb9j0bZ4UhcVgKjTkUrtfPwopmeJH8g3GTlzqQhbjc+IaNiHKW
+	Y7NdDygV9qmUknZd25s6vMDFckhxsNHFQ==
+X-Received: by 2002:a05:6000:24c8:b0:48d:bb54:779d with SMTP id ffacd0b85a97d-48dbb547a7amr16282034f8f.9.1791798911237;
+        Mon, 12 Oct 2026 02:55:11 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db98c2800sm18539103f8f.26.2026.10.12.02.55.07
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db98c2800sm18539103f8f.26.2026.10.12.02.55.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 02:55:08 -0700 (PDT)
+        Mon, 12 Oct 2026 02:55:10 -0700 (PDT)
 From: Marco Crivellari <marco.crivellari@suse.com>
 To: linux-kernel@vger.kernel.org,
 	netdev@vger.kernel.org
@@ -74,11 +74,11 @@ Cc: Tejun Heo <tj@kernel.org>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	MD Danish Anwar <danishanwar@ti.com>,
-	Roger Quadros <rogerq@kernel.org>
-Subject: [PATCH net-next v4 3/6] net: ti: icssg-prueth: Move long delayed work on system_dfl_long_wq
-Date: Mon, 12 Oct 2026 11:54:42 +0200
-Message-ID: <20261012095452.135828-4-marco.crivellari@suse.com>
+	Mika Westerberg <westeri@kernel.org>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>
+Subject: [PATCH net-next v4 4/6] net: thunderbolt: Move long delayed work on system_dfl_long_wq
+Date: Mon, 12 Oct 2026 11:54:43 +0200
+Message-ID: <20261012095452.135828-5-marco.crivellari@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261012095452.135828-1-marco.crivellari@suse.com>
 References: <20261012095452.135828-1-marco.crivellari@suse.com>
@@ -112,26 +112,46 @@ obvious reason that justify the use of a per-cpu workqueue. So change
 system_long_wq with system_dfl_long_wq so that the work may benefit from
 scheduler task placement.
 
-Cc: MD Danish Anwar <danishanwar@ti.com>
-Cc: Roger Quadros <rogerq@kernel.org>
+Cc: Mika Westerberg <westeri@kernel.org>
+Cc: Yehezkel Bernat <YehezkelShB@gmail.com>
 Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+Acked-by: Mika Westerberg <westeri@kernel.org>
 ---
- drivers/net/ethernet/ti/icssg/icssg_prueth.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/thunderbolt/main.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/ethernet/ti/icssg/icssg_prueth.c b/drivers/net/ethernet/ti/icssg/icssg_prueth.c
-index 591be5c8056b..0fba22c1046e 100644
---- a/drivers/net/ethernet/ti/icssg/icssg_prueth.c
-+++ b/drivers/net/ethernet/ti/icssg/icssg_prueth.c
-@@ -1100,7 +1100,7 @@ static int emac_ndo_open(struct net_device *ndev)
+diff --git a/drivers/net/thunderbolt/main.c b/drivers/net/thunderbolt/main.c
+index d9fb587a62c5..59a4dcf719b8 100644
+--- a/drivers/net/thunderbolt/main.c
++++ b/drivers/net/thunderbolt/main.c
+@@ -316,7 +316,7 @@ static void start_login(struct tbnet *net)
+ 	net->login_received = false;
+ 	mutex_unlock(&net->connection_lock);
  
- 	prueth->emacs_initialized++;
+-	queue_delayed_work(system_long_wq, &net->login_work,
++	queue_delayed_work(system_dfl_long_wq, &net->login_work,
+ 			   msecs_to_jiffies(1000));
+ }
  
--	queue_work(system_long_wq, &emac->stats_work.work);
-+	queue_work(system_dfl_long_wq, &emac->stats_work.work);
- 
- 	return 0;
- 
+@@ -470,7 +470,7 @@ static int tbnet_handle_packet(const void *buf, size_t size, void *data)
+ 			if (net->login_retries >= TBNET_LOGIN_RETRIES ||
+ 			    !net->login_sent) {
+ 				net->login_retries = 0;
+-				queue_delayed_work(system_long_wq,
++				queue_delayed_work(system_dfl_long_wq,
+ 						   &net->login_work, 0);
+ 			}
+ 			mutex_unlock(&net->connection_lock);
+@@ -722,7 +722,8 @@ static void tbnet_login_work(struct work_struct *work)
+ 		netdev_dbg(net->dev, "sending login request failed, ret=%d\n",
+ 			   ret);
+ 		if (net->login_retries++ < TBNET_LOGIN_RETRIES) {
+-			queue_delayed_work(system_long_wq, &net->login_work,
++			queue_delayed_work(system_dfl_long_wq,
++					   &net->login_work,
+ 					   delay);
+ 		} else {
+ 			netdev_info(net->dev, "ThunderboltIP login timed out\n");
 -- 
 2.55.0
 
