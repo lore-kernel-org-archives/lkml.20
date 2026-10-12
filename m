@@ -1,125 +1,135 @@
-Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A5D497B96
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:49:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.8
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816572; cv=none; b=esRBKHqf7gj7vLqtKZfF1KZD+UuzgHRbzuEMAzasLr8ui6zMOxYuTlIJWXc6Fn1l4dM1WZaz/A1GCz3awgM+wHzZvKc/m3UA9xX5dU0qy5zAcx7gZkiRQ06O0rD/DEntv8H+WzomM5nWqOyCtbFNaZVaMiVcpKGI3t1+yR1dF6A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816572; c=relaxed/simple;
-	bh=c16ZXWH+GRMU9Gv5D5TMERR/RKlvixHWFMYKRCEvbV8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MmQuVSbAti40dDNGQxnOrLK37bzu63sSVN+noy2Q6vwbaof1o+SjmASSazJkGavh/DddbnuA/dTamJ2htuZ0OfyBpXw+GivLfH9GRzb1gb1QMtRbwPRHiG9P3UgAA/adq0kQTspo6I7u3gDa6QehAKUWohBAocGQQhqHI4TG06k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FjUNRMFE; arc=none smtp.client-ip=74.125.229.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED2E497B95
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:49:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791816575; cv=pass; b=GQkiVvdCwQFpZ6FK9NgmB3jP0e/Ds4BXaT8TjaIZVt6FcwOCTdi6y0NGvtq04lZ+oeevwKP3EWxfCbemZpeW7VcvK3wZMIcjBNTfH+ZZVaB0cCQfRB+tlvtTFDUCtuZclhIIaAiN51guSUAk5zOyJfpQ58G10ONlpsfUKgHFUL4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791816575; c=relaxed/simple;
+	bh=lE+jYQMxilQCo6fuxYUEC5h25G7S4Oeg/1Oo4gXCRP4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HNlvN02KhegnHNzoGNKF4m8ES13n0jNiZ+Vcayxn04G589JqfE/OJtgsJbJshl4/gLCRBs9M07fGr/ZNLEJ3CuZlwRmWL/fmAE5ZU0cuSoMYvKcq61lf/aALsayhMsXu9QhUGWFxTfUzYaDcQaRLvUj+H0vqvNvxkIf1pHKnkGw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=kKswHAzq; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FjUNRMFE"
-Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-3538045633fso1678435eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:49:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791816570; x=1792421370; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SNefojtvKaPsWksx1KlDETs9fKwCel6Xh/eUYbsILEo=;
-        b=FjUNRMFEC+pDGGGu8b63dqh18hWiqu5fMctk3Z2IyZ2Nr6Ao42/QBQh0xUvFzV5Msm
-         FAMZKkpD5pzEYT6ogVyvGuejLAGGRmirA0pCff0245ea1fwpAE+IzX0fnskhqqqwJEHq
-         HuIOb2QdL9auLOjXYfT/Guhy63chO03CcQ2mdOZTCNHNEUr2NGwQJi4QmJCJIzZEsS0v
-         5eFqEeOpkoPfdUABtGvHvRtqOTU4MKL/H8Q23mUL7ukiZgBJWGdDNsXAZHvzDI0ILMNU
-         i394zR2QxRvmAqFkj4nWLafHfJ96uuKLAcMh0Ct18V977s+dTl/VdKjIdGeCjazkCRwN
-         f+aA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791816570; x=1792421370;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SNefojtvKaPsWksx1KlDETs9fKwCel6Xh/eUYbsILEo=;
-        b=m41gkmnqTt3cgq3KLCBz/BHErGvpP6WAwxb/svVRYLWUO45bImXCbwmUR6gAas4oiZ
-         bX3UAJMVnt74ItHMwMRngZIea5t33gL3NxMTp+xy2637I9qzNz5UxLqCcefq07sgGTNZ
-         GqoMAftKqIlBIOemsaXViGtnceHbO4Pz7S0ApLwOoYnqoIh88e+egnzVeWdeYWgcZMBG
-         DkygdHGkCwspd7xrvbfvikZtBiDuZC5iZes7D42CvgRBq4ON/6E9mvX2ZsxE+iaUN95q
-         jdnj+Qi4emXF7FvdFJL3j4rZjHOYh7fFHga68JpZ1k5FPAiM5Yr8Z7ExJKbR+QsvmkC1
-         7CLA==
-X-Gm-Message-State: AFq9FYLENvgqpAnUY6xxfZBJqVLcIapeX0uwHxIEj/atXUghegPrJ2vg
-	JDC5vy4hd/rSJ8nKs9MPAIZEbP7GKpAGLeT00lnLQMcWNC1jnNiGH0SCuCd1JSzFsnLLX86b
-X-Gm-Gg: AYBFou2MehpYCmBHx3/Pa/SziRrbNYAAJxg87df8XlSELb2LB33+WpgYHblFwWR/+mp
-	0ckJXGdPMar+t66ZmysBFConGoxWOIndRNIV0GXyBfdaD7Wt7h+aTtmhC9Z6Ufog9RVrYOYQllN
-	2garK8EWA73AzqvRAEPYFUBAOC5qSv4pBVyDYlrEDG/EJr2IJt1PwPzGZBs0ulu1guA4DKJ1byD
-	lnD4Rlw00X/SnysN2MZ+ir3pxq9enLQCHPtsM1VZbMZlfhFQN+dAJxB46sjfx0Og8996gUwznVt
-	8xCU/YhWkEkkuXROS6bTZcEA1eDfGfmmJONUga/vQJ4QCs6OaY62AGDnDFUS9TgFUmVc1ioHla9
-	Tv9ySi9dapmrhA/I0+jzh8t/k8OHVJi95QbS4BVwNWjVuL4Eiq9FhK0ukvio6QBYqoPO+Qb3sEO
-	gv7UJXFP0tkq5FpKvpkDvhXdDujehjBkF9X5nC4Sq/gf38ctF1UPkcQtU74t/cPzKfoOXS5h9M4
-	pnJkgkM8mftvxJfQlokiv+2NhLr8hRUvnsMxg0k1YwEznMzjfxaFve4WUKUON8LZF9LOQ==
-X-Received: by 2002:a05:7300:a50a:b0:33b:f5b7:f494 with SMTP id 5a478bee46e88-3537df8cf05mr20301538eec.13.1791816569788;
-        Mon, 12 Oct 2026 07:49:29 -0700 (PDT)
-Received: from localhost (ec2-18-143-158-86.ap-southeast-1.compute.amazonaws.com. [18.143.158.86])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35b29c2f861sm11272773eec.11.2026.10.12.07.49.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 07:49:29 -0700 (PDT)
-From: jianyungao89@gmail.com
-To: linux-kernel@vger.kernel.org
-Cc: Jianyun Gao <jianyungao89@gmail.com>,
-	stable@vger.kernel.org,
-	Jan Kara <jack@suse.cz>,
-	Dan Williams <djbw@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Brian Foster <bfoster@redhat.com>,
-	linux-fsdevel@vger.kernel.org (open list:FILESYSTEM DIRECT ACCESS (DAX)),
-	nvdimm@lists.linux.dev (open list:FILESYSTEM DIRECT ACCESS (DAX))
-Subject: [PATCH v2] dax: fix wrong error code returned from dax_dedupe_file_range_compare()
-Date: Mon, 12 Oct 2026 22:49:24 +0800
-Message-Id: <20261012144925.6728-1-jianyungao89@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="kKswHAzq"
+ARC-Seal: i=1; a=rsa-sha256; t=1791816548; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=UkywSF31lkOPT1Mu0Xw15D0HxRC7ZdhLdpfRrf/fPA8LalIFbbD5Pni18oo/FdJJPNchXvomTHGHoNhgIcPOoLg+euqiN4QxXXpHOBL16iEU7VVtCQq+p9ukSTQNqP7ve02hbvYdQZTLyLczgDTUj1+4EbYNFPM57MvIuTPhXpI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791816548; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=pMwck01gWCGwTLmYzhbCAC9v9p9fKOU6QiNin4sTYE8=; 
+	b=kveh9W+xOaIQE4BizARtjFcOUu9UDj9iRh4+n576z7DRVzak43WZhfJO7WXILEDWxB3HRgWzft3/JQPb3iPjJZ834R9YRWxLLp/ubzLPg5oo7YEqImCQueMAZfnI/3bwhENVZz7MEAJbY76glJiZH4hNfb1UwOUAfYCZ0/3A/c4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791816548;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=pMwck01gWCGwTLmYzhbCAC9v9p9fKOU6QiNin4sTYE8=;
+	b=kKswHAzqq5zBRaRmsyOy+jC9lM4JTCtzflPg7bgtnQNRZGhRYeYo+bl1UbeGb4yl
+	VIxihyAkX06lBwvkDPjLFaSft3cF911Idvi7boxOv0PoAV1TuS5DHC+48vpboy/tCc2
+	BlqMe0/vhA7zEcuS8mTcB7FcGrZOrgtlYHvhs4KY=
+Received: by smtp.zohomail.com with SMTPS id 1791816547287995.1377816619771;
+	Mon, 12 Oct 2026 07:49:07 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Date: Mon, 12 Oct 2026 15:48:04 +0100
+Subject: [PATCH v15 12/15] drm/panfrost: Skip cache flush/invalidate when
+ enabling perfcnt
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261012-claude-fixes-v15-12-bc0a6c498553@collabora.com>
+References: <20261012-claude-fixes-v15-0-bc0a6c498553@collabora.com>
+In-Reply-To: <20261012-claude-fixes-v15-0-bc0a6c498553@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2257;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=lE+jYQMxilQCo6fuxYUEC5h25G7S4Oeg/1Oo4gXCRP4=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqzPMbzijBA2xp06SRN8jbecPSRjSdDJITTPop2
+ G4MvFL4iNSJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaszzGwAKCRAOJn5M7lND
+ PcWdC/0b6BiwMzbi7xIuMZOEP2bF5d81W8vLAaYkiycGBtYwhyDG9QMd5QHp+2k/7sQ16ZXPhYq
+ kj/+8Set8KzjwczQHVSB+zM7fJLa5E2/i+y6W3bTg77VL61hP3ssyiDcVhxTRTgSievUz3FjTJ/
+ bXFqEADaHagxQDAfhzGUzUpINQSxmkzPcWGZ1og2HhXmk0po5zDhfV9QzOkpaZ2p4Fd19jRs9vH
+ PKZxLyKG+X6wUh3NbKMu0AnIi1hyZx1OH/tDD1pPjQnmFLfWIyjkAaK85KKBPE9nu7PdA1zPaxB
+ +3JyJLIOKtvRy/2szByp83ujMcELiPB0RqnMCnAeR2J6es1oOGDGT6CexRBFZB4egXr+F0lrgtg
+ H9ucHp34NtzHDwQHMICbhhCUrPSGW3I+WWENjM3MKUijWPrCuAfcUz0DpeOWFc7gzmCORns3Vld
+ tMxK+pPFE7ga4wh9TmlKe0yIuwSSfPaTgBH0C6M2QSHWAFMtrsB+4lfHpEVj/H36DP2xg=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-From: Jianyun Gao <jianyungao89@gmail.com>
+The GPU cache flush/invalidate operation is unnecessary. In the usual case,
+before a perfcnt dump is requested, there will be no stale lines in GPU
+caches for the sample BO's physmem pages, since their memory had not
+recently been addressed by the GPU.
 
-When dax_range_compare_iter() returns a negative error code (e.g. -EIO),
-dax_dedupe_file_range_compare() incorrectly returns 'ret' which holds the
-positive return value from iomap_iter() indicating more iterations remain.
-This positive value leaks to the caller, where vfs_dedupe_file_range()
-interprets it as success (bytes_deduped = len), causing userspace to
-incorrectly believe deduplication completed.
+However, in the off-chance that the sample BO reuses memory that the GPU
+had recently addressed and for which it contains stale lines in its caches,
+there already was a FLUSH_PT command being issued as part of the buffer GPU
+mapping procedure, so by the time panfrost_gem_open() comes back at perfcnt
+session enable, stale GPU cache lines should've already been evicted.
 
-Return 'status' instead to propagate the actual error code.
+In either case, forcing a GPU cache clean when enabling a new session makes
+no difference, and removing it simplifies handling of the error path.
 
-Fixes: 39eb05112987 ("dax: advance the iomap_iter on dedupe range")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Steven Price <steven.price@arm.com>
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 ++-------------
+ 1 file changed, 2 insertions(+), 13 deletions(-)
 
-Changes in v2:
-- Add Fixes tag and Cc stable
-- Add Reviewed-by tag from Jan Kara
+diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+index f71534e741b6..ffc77121070e 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
++++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+@@ -124,21 +124,10 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
+ 	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
+ 
+ 	/*
+-	 * Invalidate the cache and clear the counters to start from a fresh
+-	 * state.
++	 * Clear the counters to start from a fresh state.
+ 	 */
+-	reinit_completion(&pfdev->perfcnt->dump_comp);
+-	gpu_write(pfdev, GPU_INT_CLEAR,
+-		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
+-		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
++	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+ 	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
+-	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
+-	ret = wait_for_completion_timeout(&pfdev->perfcnt->dump_comp,
+-					  msecs_to_jiffies(1000));
+-	if (!ret) {
+-		ret = -ETIMEDOUT;
+-		goto err_vunmap;
+-	}
+ 
+ 	ret = panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
+ 	if (ret < 0)
 
-v1: Link: https://lore.kernel.org/lkml/20261010021010.19575-1-jianyungao89@gmail.com/
-
- fs/dax.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/dax.c b/fs/dax.c
-index 6ba50142eeb2..1f6a4fbb97bd 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -2261,7 +2261,7 @@ int dax_dedupe_file_range_compare(struct inode *src, loff_t srcoff,
- 		status = dax_range_compare_iter(&src_iter, &dst_iter,
- 				min(src_iter.len, dst_iter.len), same);
- 		if (status < 0)
--			return ret;
-+			return status;
- 		src_iter.status = dst_iter.status = status;
- 	}
- 	return ret;
 -- 
-2.34.1
+2.55.0
 
