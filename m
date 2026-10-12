@@ -1,125 +1,72 @@
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6EB4AB1B2
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:04:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 400AA4A387F;
+	Mon, 12 Oct 2026 16:05:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791821085; cv=none; b=idPAfuitF7alqaf2FxAg0K60Djt2JK7OzyoFIYW4WqGnO4c45FuCOMCiWUN7/aCJJnkz2JeJ8X/pS32knqyh4CmBK9PVSQ893rCR6pXtUQUbi8xxpqu6SHHISYPQBtuHQNBqDkomvQYpvxdCrcz9nZRjGPDoQS57vyAVOfOpU5U=
+	t=1791821102; cv=none; b=mHSXQQQISdPp6UcP42AsEq8b+QeJ/9FkSTL6Nf338W1QTFgcjgfa7bzGwAUKjcZbKZs+C5E14+/95Zy1R/YqDmTUPMThpf74yI6LLOkqlPFZJefHTGXYFJtlue6+ZQuXzaai6a6BSkPvxnYFP1o8xL/nyoJf12DPRaagZkRwmjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791821085; c=relaxed/simple;
-	bh=CjNPhM0F82Wbn9n1JTCsaGj/k6ngpDFON2KbxOAWJKY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BsTh7rmkRW+X5AQJq6J2DX1KSlJWdHxW84DeKILzHVaLDmjTgmAwgBoX82qi6ttMvDAeiOANo50aHqIwusWexIVpcDH//Iaj2g9xPthIOMIoDkpSUPWwmqmgZ4X1x2UtV8Ijs1nPpsEjMEx4HJJs4QPDFf0pRg4adMvk2Q3zcO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=E+hLkr+v; arc=none smtp.client-ip=209.85.222.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1791821102; c=relaxed/simple;
+	bh=U5FqGRPagJeMRptaLpwRa12ZSQDYQHsRHrHj+VKJUsA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jf8nXVYGwmIO76x0Xqi0hSAr5/Q8VptuXn5JXgo38LvJI2S9yKtoy0QESjH9JVDbRGHI7d8/IfplXWjyMZIIWMPMXFx2DmxL/p8MiuVjfm2B/a92cAjZnVYuSxzbD/O3dYPFJwSA/mrW9p+PegrAmN5eWUYgpiPiyQt4owJ69m0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nmLe7OIv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="E+hLkr+v"
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93e51d8d400so143312285a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:04:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791821082; x=1792425882; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2P5NI99EVME0P3LVAaEWnF0MPg3G/2buC7fzHXtZUQ4=;
-        b=E+hLkr+vbnHqrCmBY6XEISAAWMuWV7E//Z13k0cv/4i5hCb/Y4LCuyoEuj6nwqhyHB
-         J9ULxntwDLdRJpTYgXpBRDH1k+eeEAl/yNg0ATRtior+9bpgmqpeVSUFaAvDlcbdszE9
-         crvYWVYTDZhTj0DwqblpoqoXeN8aSxAZrcp5Wgk9XLx1qr9BatjgeHaJTqbkSVlz5w7V
-         1O4eRLFIiGcwy/0IkiPK5eR6fcfev9CtGMRzjGLn5j/J5wQDoem0JJ23WJMNpS//jEKR
-         k4AS/GnI1idznuC6VSHYBEn4CQt+fNFACCbbLo92ix86XJ389v8bRpX9fYuBI4Z5cPFN
-         +/RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791821082; x=1792425882;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2P5NI99EVME0P3LVAaEWnF0MPg3G/2buC7fzHXtZUQ4=;
-        b=Clo9SAJlf7aTManemrZTeE/Bc3xZlcJfPTDth1zO3gr5R/udbmICpd3UxNa6KcV4m4
-         Qey5THfgLLqxeYj2mcWkR0Lv/CsJJ6YJkoq21fSwStX40V1nUOxRUYdTqwLlwwzf6PX3
-         qb78FBhvz08lGsQKDuWesnchgSD0NwPPOxygw9IniAY3GJBiP3dtK/Z5r0iMDBxZjPwu
-         t4gD3p4s/YExXZfMCFxJYzIlvnJCe3LfKuBGweu4nald3xhhklbP9rP8bVcfHXR4ONpA
-         SlRqoOQq7C5QLQCmz7BrZIDX/JplrheYVG1jAIt4L3tH9p5GxX+CMQs3OPvf9E+CvQWC
-         7lEg==
-X-Forwarded-Encrypted: i=1; AKwUvBxfexZrJULeWp4rF/tYJ6UdWle02zEUzrqL7u1k7UKZGEXYYMsxpK97kn+D2OwAP7ayIhPTRr0GUKOPPYA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9yuXCbG6byCUprzTHZTXkD3cU/ik3CE60wJpfrdlcVJKAKiqU
-	BxMZi4Dv6jQBbgo7P4Ip3I8Fr6AqihSb3jaRUQcykyRia7KhyHfH1IBdnwUn2PeP0so=
-X-Gm-Gg: AYBFou0FMkollEZgjVFWb+5ZdL6lqv4WF40xlaHrHxCgTwal0k/oqiqUJEhttBFLlaR
-	gk9T8mEH5ATOvqm28DZwoefL0qSQ94Eu7/PvA6OdyyEnZ1OGXijsdYxiKGgLT/jzpKYfq9MMPAR
-	O611gWQ6dCdzcJq7ZVXf6zutUng6QwbwvuljBGjD03xczonwCi656en3gaZzXnvQjW2wabJGKMR
-	+Dy15FUwBu7SEBjZjmX9nE5YeK63/HRxwD67a6rVjnieQBBKXsKjQ4jlIrKVw7Zict2MRjnhYmZ
-	kYvln37X6IaDVwGuxh5SkjvzTPlu6n7aB2W8vjUgQ6Btf8vkUp1UUqUbjytTrqUw3GdjlkHB2Xs
-	Hp1yNzqZrC6L7BwOaiM8uVsNP0iQFE3hlvxDm8hDNSZRjOq6bNkzeeV+Zd/AElMPgzJYPZvCVZP
-	P8QWJJqhlhP66YW7kCkWIn+eQvBPeH0T7Kxfnhu9kDxh8lzEWxHesE+tzlRsiQfNstkdb4Qlk=
-X-Received: by 2002:a05:620a:3720:b0:93e:5dcb:eb9b with SMTP id af79cd13be357-93ebd24ecabmr1816777885a.42.1791821082270;
-        Mon, 12 Oct 2026 09:04:42 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef4d31b91sm22701385a.0.2026.10.12.09.04.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 09:04:41 -0700 (PDT)
-Message-ID: <ddd1a236-c2fa-4b97-834b-d4c511e153db@riscstar.com>
-Date: Mon, 12 Oct 2026 11:04:39 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nmLe7OIv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 496271F0089B;
+	Mon, 12 Oct 2026 16:04:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791821100;
+	bh=eldCxvoo+3xT1QHt7oQPOhAPJhe6yOVGMkPFOshsdCc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nmLe7OIv+/OeWH/yLrSmuNvcPg0FTZCvwfp/+frflRvbuGrNNX/ErJ0pgZsiWL9Im
+	 GoM+tQleb9A/WwGg7AuZUfA38z1M1bC1eFjlxXsQ31vLW56fzgPSrAkMFM50LyRK7t
+	 caY6W1kyTyD09Z/pzglEV8lMXIo8Bimt9zmtvXvxFq66Xefgs/dQ+BDFMmJJAxjLWS
+	 TUq7t8gN4hfPGhndf26DgnvFU9ASOKIYgPvx01UaX5i/eZx+SkTeB7rqTLGvUi1w85
+	 3O/wBWrzKzmmeqXMtkYscImJPPGUNLfcWL5nBOyjlzx5qjcjXvdqoVozNpX6Z4z7w0
+	 iM6lal9TXN26A==
+Date: Mon, 12 Oct 2026 21:34:52 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: alcooperx@gmail.com, bcm-kernel-feedback-list@broadcom.com, 
+	justin.chen@broadcom.com, kishon@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-phy@lists.infradead.org, neil.armstrong@linaro.org, vkoul@kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] phy: usb: Fix USB 3.0 clock reference leak in
+ brcm_usb_phy_dvr_init()
+Message-ID: <as0FEDefpSlqtipP@debian>
+References: <20260917133651.2153617-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: define a fixed 25 MHz clock
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, sboyd@kernel.org,
- bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
- konradybcio@kernel.org
-Cc: abelvesa@kernel.org, kees@kernel.org, gustavoars@kernel.org,
- mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
- danielt@kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Thompson <daniel@riscstar.com>
-References: <20261012152408.3729237-1-elder@riscstar.com>
- <20261012152408.3729237-4-elder@riscstar.com>
- <51552a90-60bd-4b87-8bc6-080d49e030d6@oss.qualcomm.com>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <51552a90-60bd-4b87-8bc6-080d49e030d6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260917133651.2153617-1-vulab@iscas.ac.cn>
 
-On 10/12/26 11:02 AM, Konrad Dybcio wrote:
-> On 10/12/26 5:24 PM, Alex Elder wrote:
->> The TC9564 SoC has a single 25 MHz fixed-rate input clock.  Add it
->> to the definition associated with the chip.
->>
->> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
->> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
->> Signed-off-by: Alex Elder <elder@riscstar.com>
->> ---
->> v3: - New patch in this version of the series
->>
->>   arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 6 ++++++
->>   1 file changed, 6 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
->> index 0e3bbdaf4661f..b8d290eed2f38 100644
->> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
->> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
->> @@ -891,6 +891,12 @@ pcie@0,0 {
->>   		pinctrl-0 = <&tc9563_resx_n>;
->>   		pinctrl-names = "default";
->>   
->> +		clock-25000000 {
->> +			compatible = "fixed-clock";
->> +			#clock-cells = <0>;
->> +			clock-frequency = <25000000>;
->> +		};
+On Thu, Sep 17, 2026 at 01:36:51PM +0000, Wentao Liang wrote:
+> brcm_usb_phy_dvr_init() obtains usb_30_clk with of_clk_get_by_name(),
+> which takes a reference on the clock, but returns without calling
+> clk_put() when clk_prepare_enable() fails, when the suspend clock
+> request is deferred, or when devm_request_irq() fails.  The clock is
+> only handed to the driver on the success path, so nothing releases the
+> reference on these paths.
 > 
-> This and patch 4 should be squashed
-
-OK, will do.  Thanks for the review.	-Alex
-
+> Drop it from the err_put_clks label, and clear usb_30_clk on the
+> -EPROBE_DEFER path where it holds an error pointer rather than a
+> reference.
 > 
-> Konrad
+> Fixes: 49859e55e364 ("phy: usb: phy-brcm-usb: Add Broadcom STB USB phy driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
+Same comment as previous patch. Handle all leaks in one patch.
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
