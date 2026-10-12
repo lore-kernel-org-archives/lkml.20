@@ -1,127 +1,135 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB762AD03;
-	Mon, 12 Oct 2026 09:25:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170CD47127D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:25:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791797115; cv=none; b=O4xerkMkTefocydu+k/aZ6w43v5DTlI00DPRq+4HQ8RW3zBuS8dNiXKcqbqSrU/eYoWphccim1Dl3kbm4A+YnNRqRWDXQH2PMdiSgcKzR/7cEV6vMY87K9tOFLqF+qhY/3BAHclE51j0OJdgLO0/vO4m6TsNnZBPXbIKi0oYo24=
+	t=1791797146; cv=none; b=rT0XyBJ+VJ1uM5PbKAuKBagB41PHcIklYIEj5CflStN/S8j0PWBFv4KLNr+2p90HfIp1nARNMReN7lVcyZcyxiZnxqOXYo2p/HzDMtrS+5zXpQJbtei5IBke8mAjXrOXAGRgKEUABjgNzYMELJszPE8yeu6kOZrFZzGMHKI3zUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791797115; c=relaxed/simple;
-	bh=IQpHB5+tqQEypajGabUCg71V1OUvDtXBIEiXuV4XzJA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ONhf7cw4M5Z61Ml7KYIBYy2oKuec92FKeu382w5Tn6oGH53rY1AqxZjajEZ5/6vJVBhAIyYuv1Fv/uMJ225r1iL5zdMhbC5mx94L/NdKK46U+M0FEnGlefobGhNN+eQ8iasCEXZ1IYubXQQo6EJbgY0Zbf46Kq/zBIycioeLv8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=iXX7VGaz; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1791797146; c=relaxed/simple;
+	bh=8X3SScqloDoU9doUNCMRe6VMSKwlpIOqyN97cEzWq3A=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=hrwOV8kLIKum8ynvpNRfIcavdK1LWQZQobXf4sJQJuGKgdjCbQForvaKCJIEhHQash4bbNffQ/oFwyKdJKAF1+Gl2Ml6dlgWpb1mKcLMBENR0MaISpoyca0mqvaG8N/cSA6/M62Z6lK6WpGxvWVIyuyn6hfdNGYWboHS6JkUz0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=yubNWoOo; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="iXX7VGaz"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69C9OTTo83670355, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791797069; bh=IQpHB5+tqQEypajGabUCg71V1OUvDtXBIEiXuV4XzJA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=iXX7VGazYiCKqO0o0Ouv8JPZS1PMpJRk3OHCb2mfphoUm97t2RaLO4QYCVqepiYBi
-	 xdCmc0Vh/hD4vaN+adZpSroNWFBNfmwLTBcPPwtw4+n8X/cEQmknNPYtrYGbOF2slb
-	 DboRv7hf9slP3pmmmX8RFe4nBqBGGpFgfVNvFSkJpH8wSo7r2M/bocwDyvbUqx8z7K
-	 dEna/H9qp4XuJnF9sZS/lSNpFymaefOAYG5di+HnJup66YlL5M/SKR8Qn3Kfzwqqnv
-	 f6Mn/k5xTXuxIQ2ctgX1kuhgp3rKC0IEyccWD644TCFSs85bdkoezpePDeQJfg3KWM
-	 YmZPjfndx6ZBw==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69C9OTTo83670355
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 12 Oct 2026 17:24:29 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 17:24:36 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Mon, 12 Oct 2026 17:24:36 +0800
-From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
-To: Birger Koblitz <mail@birger-koblitz.de>, "davem@davemloft.net"
-	<davem@davemloft.net>, "kuba@kernel.org" <kuba@kernel.org>
-CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, nic_swsd
-	<nic_swsd@realtek.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-usb@vger.kernel.org"
-	<linux-usb@vger.kernel.org>, "edumazet@google.com" <edumazet@google.com>,
-	"bjorn@mork.no" <bjorn@mork.no>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>
-Subject: RE: [PATCH net-next v6 01/10] r8152: split r8156_init per chip and
- factor out wait_autoload_done
-Thread-Topic: [PATCH net-next v6 01/10] r8152: split r8156_init per chip and
- factor out wait_autoload_done
-Thread-Index: AQHdVv1AdBx9zD4lckuTWpQnvZF0MLbzCemAgAadrcA=
-Date: Mon, 12 Oct 2026 09:24:36 +0000
-Message-ID: <816bbc26531f411283f43e24c6156b5c@realtek.com>
-References: <20261008081556.47901-1-nic_swsd@realtek.com>
- <20261008081556.47901-2-nic_swsd@realtek.com>
- <633a0f2b-67b3-4896-8464-6a4d0c05498f@birger-koblitz.de>
-In-Reply-To: <633a0f2b-67b3-4896-8464-6a4d0c05498f@birger-koblitz.de>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="yubNWoOo"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so13500315e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:25:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791797141; x=1792401941; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lk5ih1jl7s/qnH8PsiY7GfNUNgydrjBFZI1dErLjrRU=;
+        b=yubNWoOo8Eh/x4T8H06CR/F+rD1eweFIIJQLahDIcgG27OqAh9EOmOg6rcyWwBT9H7
+         iMqaBBNxNPozFfAWOKoPoIidldzkB5Y190nm8bmJoKaiS/eGNOGDWvJcHvaq2oVcyndc
+         ewBLpGOW/y8vx28KC2FReYPRW9qrFPeUp1OB1czSm4R6ce/vFt+ZtMSX95Y2wfUfweeY
+         GyPqtMpO2WGLZC1vsSRbynKu4XJrZoXVHSzIIKKgKuJqUI0XgIX1ZTeGQCgQdXROXqfz
+         Y7ea9bYxTTYDrr4C9rgsctL4pmu8CUTOboVtKbyxvPCzA2BY2kTWZ5bcuyt8A0rS1Wzh
+         vNMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791797141; x=1792401941;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lk5ih1jl7s/qnH8PsiY7GfNUNgydrjBFZI1dErLjrRU=;
+        b=jPIBjsMlJaeMT3JvynI+sN6v0oFoRfu1RvZvyuE27I/+1V12jF6C3Qk9SrIo0icIo5
+         f/lbujER9s0/0Tlk2ic1amAoxnNWKwakS2BNpvBoqPCBcZ5upTmRYSjnvGop6ltIuDcV
+         NnAY9HIIULTeb4j2NldNaggyLa+ZTi6zvY0CELSgrYQ4qrpwYMqnezsMqtuU/DiyYLLF
+         KX8g6OoAbDXRrB6XlXApPWFRVl38j0FqYW9RDdsYb7L+nTHNMYNkJc97RVmlqgaYQ3sN
+         IaZ+Ya932yncp4r07mmFQS+R2Ue1NjRJN87XtsyINOmZ9p8y4tFIsK8WSAIYRhRkpap4
+         OzeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwfRAUODwjhV3dRJuf2KlpQoyCGLr6n4M0vJqN6imKDOmRlih60HQB8BXc2KojN7VWClXhAIX7Euq4ytkA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJfoFtBMWr5GQBGv//hVlQbCDP6CqAK71KqQ7Rt643K50gZyePg
+	SUS3poJ6M00HZqc2Ke7npS/CA8WoxsOJF7edYr+DklpD0QP9CLqBnE5aus7+xI3ESgY=
+X-Gm-Gg: AYBFou2X+UovpELISs/WGtPkGr6bMqvDMZmzmQCWjs3HHFtpzTnScjL13QpVmvmSxnn
+	qnCqZuxahXW/ux5y9i3qXkq3BFnDWPVg+sxf16x7bDSZ6Ul7L6tVXgKjOZnc+ui/TbEbmlbPH/R
+	1PU1QMVbuI3Nwi+U/EV9It/686jRFClOlrUOhC6RYc1cfItan/MFtutDEv/yrCd3lSDNlULBbSq
+	LIMHjW4pAS3vhmo9J6DRVM+3OSuNt6mxaa89Ueu4FhkvJxh9l00VWU2WWsduCoxBolat8y8eC6H
+	EBHF6VLotAnsK1qb9NJrALjdG7x4/PPA04uQ5oIePN/u8QtvY9NyZ0no9SWcsSSGLqRg0zX8WCK
+	/u0eG4QA+R16zCrF/fMvjQ8OgrIBgbLX+F/rOkRDHsWoaOh4a0C5zV+AfZYw0zpQ8JHGinK4iWv
+	VXUAyj+6SXWa6giutQ483ZGMVt8/a9ABZVaAUsHpOQETPqQisW10YGEXLp36OOpp9/G4fauh07Y
+	fKgxQG4OH/JRjd9Mvp1pegJyahLlyCr2J9wz+Qgq5ZCUw5AIOs=
+X-Received: by 2002:a05:600c:674a:b0:49f:f0bd:1e40 with SMTP id 5b1f17b1804b1-4a18e4afe9cmr153244585e9.23.1791797140983;
+        Mon, 12 Oct 2026 02:25:40 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:417e:f4c4:5b8:8c48? ([2a01:e0a:106d:1080:417e:f4c4:5b8:8c48])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be8c5e7sm345518685e9.4.2026.10.12.02.25.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 02:25:40 -0700 (PDT)
+Message-ID: <255fe08c-8d58-441d-988c-9145f0995c6f@linaro.org>
+Date: Mon, 12 Oct 2026 11:25:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 1/2] arm64: dts: meson-gxbb-odroidc2: read the Ethernet
+ MAC address from eFuse
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ filipp.dunsky@gmail.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261011-odroidc2-dts-v2-0-a3a4a752f2ab@gmail.com>
+ <20261011-odroidc2-dts-v2-1-a3a4a752f2ab@gmail.com>
+ <CAFBinCAOsJG=ROP43+pj9dqYc4yWXs4RQisRZghqzbtspp=e7A@mail.gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <CAFBinCAOsJG=ROP43+pj9dqYc4yWXs4RQisRZghqzbtspp=e7A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-SGkgQmlyZ2VyLA0KSSdtIHNvcnJ5IGZvciBtYWtpbmcgdGhlIHByZXZpb3VzIHJlcGx5IGhhcmQg
-dG8gcmVhZCwgc28gSSByZXNlbnQgdGhpcy4NCg0KT24gVGh1cnNkYXksIE9jdG9iZXIgOCwgMjAy
-NiwgODoxOCBQTSwgQmlyZ2VyIHdyb3RlOg0KPiBIaSBDaGloIEthaSwNCj4gDQo+IE9uIDA4LzEw
-LzIwMjYgMTA6MTUgYW0sIENoaWggS2FpIEhzdSB3cm90ZToNCj4gPiBSVEw4MTU2LCBSVEw4MTU2
-QiwgUlRMODE1NyBhbmQgUlRMODE1OSBzaGFyZWQgYSBzaW5nbGUgcjgxNTZfaW5pdCgpLA0KPiA+
-IGdhdGVkIGJ5IGEgZGVuc2Ugc2V0IG9mIHRwLT52ZXJzaW9uIHJhbmdlIGNoZWNrcy4gVGhhdCBt
-YWRlIHRoZSBpbml0DQo+ID4gc2VxdWVuY2UgaGFyZCB0byBmb2xsb3cuDQo+ID4NCj4gPiBTcGxp
-dCByODE1Nl9pbml0KCkgaW50byBvbmUgZnVuY3Rpb24gcGVyIGNoaXAgZmFtaWx5Og0KPiA+IC0g
-cjgxNTZfaW5pdCAgKFZFUl8xMC8xMSkNCj4gPiAtIHI4MTU2Yl9pbml0IChWRVJfMTIvMTMvMTUp
-DQo+ID4gLSByODE1N19pbml0ICAoVkVSXzE2KQ0KPiA+IC0gcjgxNTlfaW5pdCAgKFZFUl8xNykN
-Cj4gSSBoYXZlIGEgaGFyZCB0aW1lIHRvIHVuZGVyc3RhbmQgd2h5IHlvdSB3YW50IHRvIHNlcGFy
-YXRlIG91dCBvbmUgaW5pdA0KPiBmdW5jdGlvbiBpbnRvIDQgZGlmZmVyZW50IG9uZXMsIGZvciBl
-YWNoIGNoaXAgb25lLiBFc3BlY2lhbGx5LCBpZiwgYXMgeW91IHNheSBubw0KPiBmdW5jdGlvbmFs
-IGNoYW5nZXMgYXJlIGludGVuZGVkLCB3aGljaCBtaWdodCBqdXN0aWZ5IHRoZSByZS1mYWN0b3Jp
-bmcgaW4gdGhpcw0KPiBtYW5uZXIuIEJ5IG11bHRpcGx5aW5nIHRoZSBmdW5jdGlvbnMsIGl0IHdp
-bGwgYmVjb21lIG1vcmUgZGlmZmljdWx0IHRvIG1haW50YWluDQo+IHRoZSBjb2RlOiBpZiBhbiBp
-c3N1ZSBpcyBmb3VuZCBpbiB0aGUgaW5pdC1zZXF1ZW5jZSwgaXQgbWF5IG5vdyBiZSBuZWNlc3Nh
-cnkgdG8NCj4gZml4IGl0IDQtdGltZXMgYW5kIGZ1dHVyZSBkZXZlbG9wbWVudHMgdG91Y2hpbmcg
-dGhlIGluaXQtc2VxdWVuY2Ugd2lsbCBhbHNvDQo+IG5lZWQgdG8gYmUgcmVwbGljYXRlZCBtdWx0
-aXBsZSB0aW1lcy4gSW4gdG90YWwsIHRoZXJlIHdvdWxkIGFmdGVyd2FyZHMgYmUgOCghKQ0KPiBk
-aWZmZXJlbnQgaW5pdCBzZXF1ZW5jZXMgaW5jbHVkaW5nIHRoZSBvdGhlciBvbmVzIGZvciB0aGUg
-UlRMODE1MiBhbmQgZGlmZmVyZW50DQo+IHZlcnNpb25zIG9mIHRoZSBSVEw4MTUzLiBUaGUgc2Ft
-ZSBwYXR0ZXJuIHJlcGVhdHMgd2l0aCBfdXAoKSwgX2Rvd24oKSBhbmQNCj4gb3RoZXIgY29uZmln
-dXJhdGlvbiBmdW5jdGlvbnMuDQoNClRoZSBzcGxpdCBpcyBtZWFudCB0byBtYWtlIGVhY2ggZnVu
-Y3Rpb24gcmVhZGFibGUgb24gaXRzIG93bi4gSW4gYSBzaW5nbGUgc2hhcmVkDQpmdW5jdGlvbiwg
-ZXZlcnkgY2hpcCBkaWZmZXJlbmNlIGlzIGEgdHAtPnZlcnNpb24gcmFuZ2UgY2hlY2ssIGFuZCB0
-aGUgZnVuY3Rpb24gaXMNCmhhcmQgdG8gZm9sbG93LiBZb3VyIGNvbmNlcm4gaXMgdmFsaWQ6IGlm
-IGEgZml4IG5lZWRzIHRvIGJlIGFwcGxpZWQgdG8gdGhlIGZvdXIgY2hpcHMsDQppdCB3aWxsIG5l
-ZWQgdG8gYmUgYXBwbGllZCBmb3VyIHRpbWVzLiBCdXQgaWYgYSBjaGlwIGdldHMgY2hpcC1zcGVj
-aWZpYyBmaXhlcywgdGhlIGluaXQgDQpvciBvdGhlciBmdW5jdGlvbnMgd2lsbCBiZSBtb3JlIGNv
-bXBsZXggd2l0aCBzZXZlcmFsIHRwLT52ZXJzaW9uIGNoZWNrcy4NCg0KT24gdGhlIG90aGVyIGhh
-bmQsIHVzaW5nIGEgc2luZ2xlIHNoYXJlZCBmdW5jdGlvbiB3aWxsIG1ha2UgdGhlIGZ1bmN0aW9u
-IHZlcnkgDQpjb21wbGV4IHdoZW4gbmV3IElDcyBhcmUgYWRkZWQuDQoNCj4gDQo+IFdvdWxkIGl0
-IG5vdCBtYWtlIG1vcmUgc2Vuc2UgdG8gdHJ5IHRvIGZ1cnRoZXIgY29tYmluZSB0aGUgaW5pdCBz
-ZXF1ZW5jZXMgb3INCj4gdHJ5IHRvIGRpc2VudGFuZ2xlIHRoZSBjb2RlIGJ5IGVzdGFibGlzaGlu
-ZyBjb21tb24gbGlicmFyeSByb3V0aW5lcyBwdXQgaW50byBhDQo+IF9saWIuYyBmaWxlIGFuZCBw
-b3NzaWJseSBkaWZmZXJlbnQgLmMgZmlsZXMgZm9yIHRoZSBkaWZmZXJlbnQgZ2VuZXJhdGlvbnMg
-b2YgdGhlIGNoaXBzPw0KPiBGb3IgZXhhbXBsZSwgaXQgYXBwZWFycyB0aGF0IHRoZQ0KPiBydGw4
-MTU3LzkgYmVsb25nIHRvIG9uZSBnZW5lcmF0aW9uIG9mIGNoaXBzLCBiYXNlZCBvbiB0aGUgcnRs
-ODE1NiBkZXNpZ24uIE9uDQo+IHRoZSBvdGhlciBoYW5kLCBydGw4MTUyLzMgYXBwZWFyIHRvIGJl
-IGEgZGlmZmVyZW50IGdlbmVyYXRpb24gd2l0aCB2YXJpb3VzDQo+IGZhbWlseSBtZW1iZXJzLiBU
-aGF0IHdvdWxkIGFsbG93IHRvIGJ1aWxkIGEgYmFzaXMgZm9yIGZ1dHVyZSBkZXZlbG9wbWVudCBs
-aWtlDQo+IHRvIHJlbHkgb24gdXNpbmcgcGh5bGluayB0byBoYW5kbGUgdGhlIFBIWXMgaW50ZWdy
-YXRlZCBpbiB0aGUgY2hpcHMsIHdoaWNoIGFsbA0KPiBhcHBlYXIgdG8gYmUgYWxyZWFkeSBzdXBw
-b3J0ZWQgYnkgdGhlIFJlYWx0ZWstUEhZIGRyaXZlci4NCg0KSSBhZ3JlZSB0aGF0IGNoaXBzIHdp
-dGggdGhlIHNhbWUgZ2VuZXJhdGlvbiBvciB2ZXJ5IHNpbWlsYXIgc2VxdWVuY2VzIHNob3VsZCBi
-ZSBjb21iaW5lZC4NCg0KSSBwcmVmZXIgdG8gY29tYmluZSB0aGUgY2FsbGJhY2tzLCBpbmNsdWRp
-bmcgaW5pdCwgdXAsIGRvd24sIGFuZCBlbmFibGUuIA0KLSBGb3IgaW5pdCwgSSBjYW4gbWVyZ2Ug
-cjgxNTZiX2luaXQgaW50byByODE1Nl9pbml0IGFuZCByODE1OV9pbml0IGludG8gcjgxNTdfaW5p
-dC4gDQotIEZvciB1cC9kb3duLCBJIGNhbiBtb3ZlIHRoZSBzZXF1ZW5jZSBzaGFyZWQgYnkgcnRs
-ODE1Nl91cC9ydGw4MTU3X3VwIGFuZCBieSB0aGUgZG93biANCiBmdW5jdGlvbnMgaW50byBjb21t
-b24gaGVscGVycywgYXMgcnRsODE1MmIvMyBkbyB3aXRoIGV4aXRfb29iL2VudGVyX29vYi4gDQot
-IEZvciBlbmFibGUsIEkgY2FuIGNvbWJpbmUgcnRsODE1Nl9lbmFibGUgYW5kIHJ0bDgxNTZiX2Vu
-YWJsZS4NCg0KPiANCj4gWy4uLl0NCj4gPg0KPiA+IE5vIGZ1bmN0aW9uYWwgY2hhbmdlIGludGVu
-ZGVkLg0KPiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogQ2hpaCBLYWkgSHN1IDxoc3UuY2hpaC5rYWlA
-cmVhbHRlay5jb20+DQo+IEJlc3QsDQo+ICAgIEJpcmdlcg0KDQpCZXN0LA0KQ2hpaC1LYWkNCg==
+On 10/11/26 22:49, Martin Blumenstingl wrote:
+> Thank you for your patch!
+> 
+> On Sun, Oct 11, 2026 at 8:31 PM Fil Dunsky via B4 Relay
+> <devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
+> [...]
+>> +&eth_mac {
+>> +       reg = <0x34 0x6>;
+>> +};
+> Question to Neil: should the eth_mac node be moved from meson-gx.dtsi
+> to meson-gxbb-odroidc2.dts?
+> Odroid-C2 would be the only board using it and u-boot seems to derive
+> MAC from SoC chip ID/serial number instead of reading it from eFuse
+> (so I'm not sure about the status of MAC address in eFuse on most
+> boards).
+
+Odroid C2 has a custom efuse mapping so it can't be used on other boards.
+
+Neil
