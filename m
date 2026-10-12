@@ -1,301 +1,139 @@
-Received: from mta0.migadu.com (out-134.mta0.migadu.com [91.218.175.134])
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35EEB386C36
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.134
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791768920; cv=none; b=FV9TqHbBiZKZ6JaMieVBfmmeEl9eJ9atsBDhi8i+aqGcbVh+EAXDdFWVn5F04OuSwGCuBGb/m/g1NrIpMdM2dVbUezAlLvZMD/XYd4P3slCMjHvLnQ0d8f9+GHYDBBBPlI0MDYl0ECZFLSsgWMyAhBwEXhBeJv8V5sZJOlAci7M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791768920; c=relaxed/simple;
-	bh=eQHPrEnDL1xhxQp+o/8piBcp2L8OUcBBuyYsUoVONDk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YHGF1wsHmELGpuBY3sHHAnFt7RQSJG/wMsYhkIP8XhQf6j3R0gcuSEN6rrl5GSGssGm3uDWKhz3oLsQEoUwNIQS3PnQdYiU6oAZarc0DhC9kMsKfFNQ2ZDAmgIQxF6wtTpZsUEVgCgpz3vsK3VI8t6lRyL8XSJoInp4+b26xVDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eDvQZAmw; arc=none smtp.client-ip=91.218.175.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAC9386C36
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791768935; cv=pass; b=Wk5bKrJE+HwFYewNfNF8iu2+4OjW8XKbTsJNgSS1+0chqAFULjjdFyGB2sXl2VCyN8N64vTNnwkMYenFYxDWc6WvAvdrTMHOdvQC+7sIv9jQAaac+Anx7t1Ah1x1D+IGz91R5IwJ+I8ZQUZsV+a+iLAKKtiqsHmef+PgVQUhz5c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791768935; c=relaxed/simple;
+	bh=MWjvWkkPwyfWYHHELX/PMM9+30Kt6P7OKSDvO5cu+9Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Dhp471Xf2fIafRv4Yb50ZMX710IINqusbIYxRRmUdZQezmEHmTm0Au4jQiZLe434DX6wvPecOJUhOTq1P0EDil6im9XRWwaCYIMgLDSXVsbz0sqw6T4J+y9GP1z+mLYOfWz8sKCQ1F2XtV4GNKpFCeiV4bz9hnWhmTZtdJOUuIA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jHusvovj; arc=pass smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eDvQZAmw"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=eQHPrEnDL1xhxQp+o/8piBcp2L8OUcBBuyYsUoVONDk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791768914; v=1; x=1792373714;
- b=eDvQZAmwlTQlus/bnCIdjPUrKhofYb+97HpoCguQe897IL/P7QV5Ei+tnrAN92NnRhzO1T65
- GdHB4i8G2Z+WsUK6O5WO6BIU2FVEelKkBho4fNfB/CGx7A84J9RARMKNsYsMUZRakkj8bDL53rG
- LNtIluh0Hix8pdONvnB8vSAA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1d193c05b31374f3;
-	Mon, 12 Oct 2026 01:35:12 +0000
-X-Mizu-Trace-ID: 1d193c05b31374f3
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <47f5db16-b1ca-44a0-8714-38b0cf4db9e8@linux.dev>
-Date: Mon, 12 Oct 2026 09:35:09 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jHusvovj"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6ab006eb282so1726228a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:35:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791768932; cv=none;
+        d=google.com; s=arc-20260327;
+        b=T5f65GD4kMqVwWZio39QFucrouEiXCL72+j2BR3L4gI6l4sCV3XuXh+ob4W8fN8Lry
+         ciI8E0wpLpho09243wBTJQ8Gu8+VeTfWskvwgRtTKbkwJTLF+YNsff8cKReJ7gcU9xKp
+         HV86kCTJV7W8RTq1oeTEnlX+VEvfWRelNYBaEUqxAPPRaqVZ4a9Mk+mmwbJuQZFxhhyh
+         aGtQPrLyDuG58m1inO1mgi6EZsIoGpQbK/afDMQ0s35iEsKnFC+lbDxl4kMe+kKxoJwh
+         n+kIvqi9L93nxRB4w6LvkF6uT53VLhs3GIileY8a+eLH51V4I6eTb9RJxOmhM0b1tr4b
+         VepA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yoR9NEoIErL+2TbnevvINQDuo7n5mgemEQNQFCIh1Ks=;
+        fh=6neHV8l+9OO0qvlm1Khxhg9H2sIjEzbGr2oX9gCv9xk=;
+        b=g6p+EZ7pMkyimPn7C23ZzbSpWcYoi8Bx3O3X2nYDeWN5ppXz6svH4XxWbmCn1hlQXN
+         Tv6GviOi9i9oHJPVRHzK5dUrgA21N4L6yWcJZ+a4ixMcUKm7RZPu5BsOWrVTxAagYKVG
+         boWyqyC/2fcrCqZFleiQMf9MTRncX0wYKs3N6KW3y+pbrpicuuLoyeZ78OkA8lbovntA
+         mN8a9Lsguzn9k44y09LBNQpmE3dDfv4Pnb1LrXmX5hrWqHZvA9XKoVqoqeH2z5kVtIVu
+         IyR5farfm272ELmbccdGzYi40v79650m8JbpdCcRI1kE6sz+Q3j3yeGH9YIj/YhAzV87
+         rzyw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791768932; x=1792373732; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yoR9NEoIErL+2TbnevvINQDuo7n5mgemEQNQFCIh1Ks=;
+        b=jHusvovjX4HaG4nJ5fy8Ph7aZhy1chd3UV+GpLg/A9oSuFGu6/j+tZ+wsmV76kK65C
+         +cWLrYXkkgKiYFYlPIH60r9V6hXvWQrGXQX5wyvn7nQUEzAXAPYv+vQzXJbJHTjN+z0X
+         UJIJ1ad0jMfY2XUUdtr0LKlwPW2Ed51soNm+52AAjP0erwPWR8lqBxCPJgBfYFjApQ9G
+         4VWBrPax4oSCaMFEGCQGDVWBjjdwWm3SrSVSKKRdtUXjxIXZaU0GtLRCtD0/lI2SwxXv
+         MHoDFankfVDyPuEgChg+T3cZHRhqijRQ3EgpfxC4QxXj85scxau//aSJkFwQsiUoA4vG
+         QJMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791768932; x=1792373732;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yoR9NEoIErL+2TbnevvINQDuo7n5mgemEQNQFCIh1Ks=;
+        b=bSq37qvIJTKj+oIpY6Su/xO+5bYUhFQLN51BxsOSQMXh5VpIadmHq610kfCMRN5k82
+         LP1uN69cPdWBKxUZnixS2iKUnlokkbEv8JKdiJ5VC+nJFbBLiH8gXOw421bhqpGVnif0
+         MAD2ViVYkIqM68UgCADqhJ2MfqaZfiOsvzhVs4hY29l5qXTtlZJZEqqDRrXoWMmv8UQ0
+         61MJkH7Sz9qTyXYVdwhYiSgATswMdTpLjQDrpIwNfi6bWgAIQ6WkakAVsZ4OnLDn/q7Q
+         xfhNuWXLxwt4xNm1C28v+wI9mOeyS0Ns4duXi8MN1LqRoS4oX+B6qgmHIwzO9sJo0/fX
+         FeyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz13vkriZQyUrygoBzwgHKXjH+OTGQOXImV9dLndz/oAbYJqcmp+uZc3HF1zH3+8iTADDtT7kayFMKp5Wo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqP5omaT+c3Z3W9IhsjvNterjVreQJ+u/a6OonUkwgwkKZ5wCQ
+	/PXvmNlded/ygJFfjBAjts4M0ejnT7BFfohLPEySgQ9klkjUhb36kMI2cAZHOg8/t2tqtAyyGKl
+	vf4gJDOQPc9HLFUHpR56UIG1fVQCIsDI=
+X-Gm-Gg: AYBFou2ylwEIyYLgeNVsHvDql15Hp3b68Ho7bKYVyO8NLCqMJkhkQuo47ZTrURg+E+J
+	XDbIWZ/Yb7bKDFn8/KzkAKlBK7UUC9nDh1DMZbNBylFixua6P7qUaGc5XB47BAUAdnrITI2OS7m
+	ehmkQBJGu42ZEl7l66FkHx8C6BGCwCcw0tFkP4YPpUGhgcK0yMdMm6dgLdOTVXfBZYtMSjVQwjg
+	uoraVQFdZFT0Q15qycVS9SAjhEKR3jYXVmbHxGyvtEeZ4mVvTuOgE8IhYvELi7bDZIP0qTCg/fM
+	Piz1LfnAnKPG68TptSTLHV3lG98dHhZAZTqkBm2PI3NRt36k5bUPUjA=
+X-Received: by 2002:a05:6402:2b95:b0:6b1:d313:d56e with SMTP id
+ 4fb4d7f45d1cf-6b1d313db6bmr88532a12.20.1791768932313; Sun, 11 Oct 2026
+ 18:35:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] cgroup/cpuset: Invalidate remote partition on
- housekeeping conflict
-To: Guopeng Zhang <guopeng.zhang@linux.dev>, Waiman Long
- <longman@redhat.com>, Tejun Heo <tj@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20260929023805.31648-1-guopeng.zhang@linux.dev>
- <585bc1e0-f538-444e-b8b4-28185ee6b19c@linux.dev>
- <cf408084-9b6a-436d-a63a-8a247a49006f@linux.dev>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <cf408084-9b6a-436d-a63a-8a247a49006f@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260904061939.4039320-1-runyu.xiao@seu.edu.cn>
+In-Reply-To: <20260904061939.4039320-1-runyu.xiao@seu.edu.cn>
+From: Jassi Brar <jassisinghbrar@gmail.com>
+Date: Sun, 11 Oct 2026 20:35:18 -0500
+X-Gm-Features: AclHuK-WVZj6lLru9SXw9PdtwdjgOvOcHc_I6ucLMItGFN5juVc-ly692F7grV8
+Message-ID: <CABb+yY3pLJ5nYnbFkZc0Dum7sQ+dztUKBc8UgDaEtnq07syHbA@mail.gmail.com>
+Subject: Re: [PATCH] mailbox: altera: shut down RX polling timer on channel teardown
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Tien Sung Ang <tiensung.ang@altera.com>, Ley Foon Tan <lftan@altera.com>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Sep 4, 2026 at 1:19=E2=80=AFAM Runyu Xiao <runyu.xiao@seu.edu.cn> w=
+rote:
+>
+> The RX polling callback unconditionally rearms the timer after it
+> processes mailbox data.  altera_mbox_shutdown() uses
+> timer_delete_sync(), which waits for a running callback but does not
+> prevent that callback from rearming the timer after the deletion.
+>
+> Use timer_shutdown_sync() for the final polling teardown so the timer
+> cannot be queued again while the mailbox channel is being released.
+> The timer is reinitialized with timer_setup() on a later channel startup,
+> so polling mode remains reusable.
+>
+> Fixes: f62092f6d77d ("mailbox: Add Altera mailbox driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:GPT-5
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+>
+> diff --git a/drivers/mailbox/mailbox-altera.c b/drivers/mailbox/mailbox-a=
+ltera.c
+> index 17278c257..7cb91413e 100644
+> --- a/drivers/mailbox/mailbox-altera.c
+> +++ b/drivers/mailbox/mailbox-altera.c
+> @@ -270,7 +270,7 @@ static void altera_mbox_shutdown(struct mbox_chan *ch=
+an)
+>                 writel_relaxed(~0, mbox->mbox_base + MAILBOX_INTMASK_REG)=
+;
+>                 free_irq(mbox->irq, chan);
+>         } else if (!mbox->is_sender) {
+> -               timer_delete_sync(&mbox->rxpoll_timer);
+> +               timer_shutdown_sync(&mbox->rxpoll_timer);
+>         }
+>  }
+>
+> --
+> 2.34.1
+>
+Applied to mailbox/for-next
 
-
-On 10/11/2026 7:23 PM, Guopeng Zhang wrote:
-> 
-> Hi Ridong,
-> 在 2026/10/11 09:42, Ridong Chen 写道:
->>
->>
->> On 9/29/2026 10:38 AM, Guopeng Zhang wrote:
->>> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>>
->>> Widening an ancestor's exclusive CPU mask can add a boot-isolated CPU
->>> to a valid remote partition root without touching the partition's own
->>> control files. The partition then load balances that CPU, silently
->>> defeating isolcpus=domain for it.
->>>
->>> This can be reproduced on a 32-CPU system booted with
->>> isolcpus=domain,4:
->>>
->>>       cd /sys/fs/cgroup
->>>       echo +cpuset > cgroup.subtree_control
->>>       mkdir -p A/B
->>>       echo +cpuset > A/cgroup.subtree_control
->>>       echo 2-4 > A/cpuset.cpus
->>>       echo 2-3 > A/cpuset.cpus.exclusive
->>>       echo 2-4 > A/B/cpuset.cpus
->>>       echo 2-4 > A/B/cpuset.cpus.exclusive
->>>       echo root > A/B/cpuset.cpus.partition
->>>       cat A/B/cpuset.cpus.effective               # 2-3
->>>       echo 2-4 > A/cpuset.cpus.exclusive
->>>       cat A/B/cpuset.cpus.partition               # root
->>>       cat A/B/cpuset.cpus.effective               # 2-4
->>>
->>> The last write returns 0 and leaves the hierarchy in this state:
->>>
->>>       root (cpuset.cpus.effective=0-1,5-31)
->>>       |
->>>       \-- A (member):           cpuset.cpus=2-4
->>>           |                     cpuset.cpus.exclusive=2-4
->>>           \-- B (root, remote): cpuset.cpus=2-4
->>>                                 cpuset.cpus.effective=2-4
->>>
->>> B is a remote partition: it takes its CPUs directly from the root
->>> cpuset, and A only passes its exclusive list down. Before the last
->>> write, that list is 2-3, so B holds 2-3 and CPU 4 stays in the
->>> root cpuset as a boot-isolated CPU. The write widens A's exclusive
->>> list to 2-4, which additionally grants CPU 4 to B. Nothing rejects
->>> the grant: B remains a valid root partition, and CPU 4 is still
->>> listed in cpuset.cpus.isolated while sitting in a load-balanced
->>> partition.
->>>
->>> remote_partition_enable() already rejects such grants through
->>> prstate_housekeeping_conflict(). remote_cpus_update(), which applies
->>> ancestor changes to a remote partition, does not.
->>>
->>> Both paths also open-code remote partition validation. Move those
->>> checks into validate_remote_partition(), and check the resulting
->>> effective exclusive CPU mask for a housekeeping conflict there. The
->>> existing prs_err path then invalidates the remote partition instead of
->>> assigning it a boot-isolated CPU.
->>>
->>> Fixes: f62a5d39368e ("cgroup/cpuset: Remove remote_partition_check() & make update_cpumasks_hier() handle remote partition")
->>> Suggested-by: Ridong Chen <ridong.chen@linux.dev>
->>> Suggested-by: Tejun Heo <tj@kernel.org>
->>> Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
->>> Reviewed-by: Waiman Long <longman@redhat.com>
->>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>> ---
->>>
->>> Changes since v2:
->>> - Pass the enable/update mode explicitly to validate_remote_partition()
->>>     instead of deriving it from cs->remote_partition, which can remain set
->>>     after a failed partition state transition, as suggested by Tejun.
->>>
->>> Changes since v1:
->>> - Consolidate remote partition validation in a common helper, as
->>>     suggested by Ridong.
->>> - Check housekeeping conflicts against the resulting effective exclusive
->>>     CPU mask.
->>> - Rebase onto cgroup/for-7.3-fixes.
->>>
->>>    kernel/cgroup/cpuset.c | 69 ++++++++++++++++++++++++++++--------------
->>>    1 file changed, 47 insertions(+), 22 deletions(-)
->>>
->>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->>> index 1fcec89a28b9..d0a45241c070 100644
->>> --- a/kernel/cgroup/cpuset.c
->>> +++ b/kernel/cgroup/cpuset.c
->>> @@ -1561,6 +1561,43 @@ static inline bool is_local_partition(struct cpuset *cs)
->>>        return is_partition_valid(cs) && !is_remote_partition(cs);
->>>    }
->>>    +/**
->>> + * validate_remote_partition - Validate a remote partition CPU change
->>> + * @prs: partition root state to validate
->>> + * @updating: true for an update, false for an enable
->>> + * @excpus: resulting effective exclusive CPU mask
->>> + * @addcpus: exclusive CPUs to be added
->>> + * @delcpus: exclusive CPUs to be deleted, can be NULL
->>> + *
->>> + * Return: PERR_NONE if valid, otherwise an appropriate error code
->>> + */
->>> +static enum prs_errcode
->>> +validate_remote_partition(int prs, bool updating,
->>> +              struct cpumask *excpus,
->>> +              struct cpumask *addcpus,
->>> +              struct cpumask *delcpus)
->>> +{
->>> +    if (!capable(CAP_SYS_ADMIN))
->>> +        return PERR_ACCESS;
->>> +
->>> +    if (!updating &&
->>> +        (!cpumask_intersects(excpus, cpu_active_mask) ||
->>> +         cpumask_subset(top_cpuset.effective_cpus, addcpus)))
->>> +        return PERR_INVCPUS;
->>> +
->>
->> Do we really need the updating flag? I mean, whether or not it's an updating partition, it should still be an invalid remote partition, right? So why do we have to distinguish between updating and not updating?
->>
-> 
-> Both paths do invalidate the remote partition when validation fails, but
-> the flag was added when factoring out this helper to preserve the
-> different semantics of the two paths.
-> 
-> For example, suppose the top cpuset has only CPU 4 left:
-> 
->      top_cpuset.effective_cpus = 4
-> 
-> When enabling a new remote partition:
-> 
->      addcpus = 4
-> 
-> cpumask_subset(top_cpuset.effective_cpus, addcpus) is true, and the
-> existing enable path returns PERR_INVCPUS.
-> 
-> Now suppose an existing remote partition owns CPUs 2-3 and is updated
-> to add CPU 4:
-> 
->      old excpus = 2-3
->      addcpus    = 4
->      new excpus = 2-4
-> 
-> The same cpumask_subset() condition is true, but the existing update
-> path returns PERR_NOCPUS. The active CPU check also differs: the enable
-> path requires the resulting mask to contain at least one active CPU,
-> while the update path only checks whether the resulting mask is empty.
-> 
-
-What we want to do is to unify the remote partition check. I think enabling and 
-updating should return the same error when the same condition check fails.
-
-So I think we may change it 'a little' if it is reasonable. In my opinion, 
-returning PERR_NOCPUS when the top_cpuset.effective_cpus becomes empty is 
-reasonable. And I do not want to see some special case, which makes the code 
-complicated.
-
-I would like to see what Longman's opinion is.
-
-> If we want to remove the flag, I think the cleaner approach is to keep
-> the checks specific to each path in their respective callers and leave
-> only the shared checks in validate_remote_partition().
-> 
-> Thanks,
-> Guopeng
-> 
->>> +    if (cpumask_intersects(addcpus, subpartitions_cpus) ||
->>> +        (updating &&
->>> +         cpumask_subset(top_cpuset.effective_cpus, addcpus)))
->>> +        return PERR_NOCPUS;
->>> +
->>> +    if ((prs == PRS_ISOLATED &&
->>> +         !isolated_cpus_can_update(addcpus, delcpus)) ||
->>> +        prstate_housekeeping_conflict(prs, excpus))
->>> +        return PERR_HKEEPING;
->>> +
->>> +    return PERR_NONE;
->>> +}
->>> +
->>>    /*
->>>     * remote_partition_enable - Enable current cpuset as a remote partition root
->>>     * @cs: the cpuset to update
->>> @@ -1574,11 +1611,7 @@ static inline bool is_local_partition(struct cpuset *cs)
->>>    static int remote_partition_enable(struct cpuset *cs, int new_prs,
->>>                       struct tmpmasks *tmp)
->>>    {
->>> -    /*
->>> -     * The user must have sysadmin privilege.
->>> -     */
->>> -    if (!capable(CAP_SYS_ADMIN))
->>> -        return PERR_ACCESS;
->>> +    enum prs_errcode err;
->>>          /*
->>>         * The requested exclusive_cpus must not be allocated to other
->>> @@ -1591,15 +1624,10 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
->>>         * above it or remote partition root underneath it is not allowed.
->>>         */
->>>        compute_excpus(cs, tmp->new_cpus);
->>> -    if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
->>> -        cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
->>> -        return PERR_INVCPUS;
->>> -    if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
->>> -        return PERR_NOCPUS;
->>> -    if (((new_prs == PRS_ISOLATED) &&
->>> -         !isolated_cpus_can_update(tmp->new_cpus, NULL)) ||
->>> -        prstate_housekeeping_conflict(new_prs, tmp->new_cpus))
->>> -        return PERR_HKEEPING;
->>> +    err = validate_remote_partition(new_prs, false, tmp->new_cpus,
->>> +                    tmp->new_cpus, NULL);
->>> +    if (err)
->>> +        return err;
->>>          spin_lock_irq(&callback_lock);
->>>        partition_xcpus_add(new_prs, NULL, tmp->new_cpus);
->>> @@ -1672,6 +1700,7 @@ static void remote_partition_disable(struct cpuset *cs, struct tmpmasks *tmp)
->>>    static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
->>>                       struct cpumask *excpus, struct tmpmasks *tmp)
->>>    {
->>> +    enum prs_errcode err;
->>>        bool adding, deleting;
->>>        int prs = cs->partition_root_state;
->>>    @@ -1695,14 +1724,10 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
->>>         */
->>>        if (adding) {
->>>            WARN_ON_ONCE(cpumask_intersects(tmp->addmask, subpartitions_cpus));
->>> -        if (!capable(CAP_SYS_ADMIN))
->>> -            WRITE_ONCE(cs->prs_err, PERR_ACCESS);
->>> -        else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
->>> -             cpumask_subset(top_cpuset.effective_cpus, tmp->addmask))
->>> -            WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
->>> -        else if ((prs == PRS_ISOLATED) &&
->>> -             !isolated_cpus_can_update(tmp->addmask, tmp->delmask))
->>> -            WRITE_ONCE(cs->prs_err, PERR_HKEEPING);
->>> +        err = validate_remote_partition(prs, true, excpus, tmp->addmask,
->>> +                        tmp->delmask);
->>> +        if (err)
->>> +            WRITE_ONCE(cs->prs_err, err);
->>>            if (cs->prs_err)
->>>                goto invalidate;
->>>        }
->>>
->>> base-commit: 31c88350b7dd1522792f726f79607f31bb55c50f
->>
-> 
-
--- 
-Best regards
-Ridong
-
+Thanks
+Jassi
