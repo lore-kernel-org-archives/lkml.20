@@ -1,153 +1,86 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D35549B1F4
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:14:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D143358D32
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:15:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818053; cv=none; b=t4rfn4Sku47CNiKXSOp22zxllfFzL8E/rYH8Sp8KGqeGSJVJy1GblURmWKfjZBtrF9MpbgxS0bzltmJ9IYzn6okttlU/c4ZeRWEVhbBhbGO/J6rOvvrPQoXrGZszivf+S349aVAB1zgtIlmf26ov702vyNsMjzlhEdTyGmHg7Gk=
+	t=1791818152; cv=none; b=tZRHGlW3/MJdqj98q67zyq2tbRtL5Pm7brrjiGguRgQbNHOQLdtArq0SII1aAgeMD1YEsonRWQ2VX85+Jhh9/murG1b7AKPp/IB88EkMxhJh1JehSIC2Sn5DC5Ogb6tyTEaTZJcowzJLGCblHesyM8ozsmu2V43L/vvOTHpwKik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818053; c=relaxed/simple;
-	bh=t6pIrTDi+3aN9kktXkuBxtkAiL1D8YwIdd2Y5FmQL9M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gDl3TuIAkhM2pHyRRym5r5lsSesOvMZxlA4+HH6nMHQsmAX/u/j2pefWzH4U0WzbuYou/BvWv2XjulvmRddoOU1GBMZjlBr85mpP5XctLzROOTDaKnevLGdn4AZUk87hzVB9cn7BqiZaDwY6nS35BkGrLlohnfc/EUfmC0m3sFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=FTebznXr; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1791818152; c=relaxed/simple;
+	bh=AEH2va6iOCXqTJFNoLtai9BPvzPtP2b0LlMRaAMRVlM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aZt5Ts1Ha0EsL5cZS09jxDZxHplVnqnoiOqlB2y/VcbKsh24gsuR/6YFGRcUEP+eqt6Ia7ZZbdZavWO9wUnruz8sMYQQS/TDMCJ9AD5RCMsnFNXy5KJhyCy886TKyZlJ/6SaelMLFMM2WHl7iFkEE4wmpTvLht/1SXorG9FolEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NuEEtcHh; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="FTebznXr"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48b001cd92bso1143744f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:14:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791818049; x=1792422849; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O90jitIO3s38c8EG4VvKygaj1zarOwk0tQIHj8nVOYg=;
-        b=FTebznXrxNApop7fMm72qb7SMn+3bspirjwaJUwU/Z57Y6dFMJ5e9zfz8DKwTAwNPQ
-         dwsXD5tLXosljeDdsn1Fl7mUSCF1vdMYGE8Zn3SpefqyEssdD9T2a099qIVboz1VSVyR
-         z4zN3XD3tQRDXwOf+FstNfMXPvvBYUwqyQFlJh3wU78X84CpnMiM5sa0qlCDHbIIV5K8
-         L2mXK5CRKbh5EZrovBidzMI22mr11kVuqPVb+Wasj7ausAMa3yBrTN4MRugcj7+cqZ5w
-         K8cZHC0cUKIuWsmOXN6lJ7zriR+6DdcoW31P+lB3AeFbzxJyJv/opm11NidVnrRIMgvL
-         /25g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791818049; x=1792422849;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O90jitIO3s38c8EG4VvKygaj1zarOwk0tQIHj8nVOYg=;
-        b=U7Z1lSohc3XO6WcXq29limMBHsbDM96r2D2E5kEp13XLitouxtLZH0DxdxtXfIabEu
-         J98l1FFBIBPD0OzCNSwnQ/5ZkGHwwE8n+MmgfMB2EJ6A9Ln9h8ECtlepm6bVuuEs3XPJ
-         VM2wJZuaa0v7qYiptvZcTQg9AtwQDFvktjigMwWB1n74RMslySMF4wLZ2MkPC8+7W9MJ
-         jFZAby/okYQ3TK428C4q9dG3HdWwnkZ+VfMZulWnKR+/JqyujY+a+yTdduPF6rbEMWlZ
-         dlYfGh/tNgZ52rAh3iBGJF06G7vjRFaROrqeTbqENP2SL3drjXFhLZ+9LerTq6OpnlSv
-         pNvA==
-X-Forwarded-Encrypted: i=1; AKwUvBycO/sSZHERtcU3xEf15XOjqOJSVBfIdRwR919r7n9VtfQT7sMfbX1X+3cIt++ndUSOZyUL5OCkhM+YJHs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKd1Rc231t0vHB8MMTsHJ2nkXLUgOCF6CDRSqykeF28c/xsEltB
-	M3X3rwF+rnhresJq6OB8NyqojSInKC/OGxCr47bjADXt9vJoOam0QOl4EX1HTPcug7c=
-X-Gm-Gg: AYBFou2GJ00kWixlwMExy+l56UYJV1ehO95FCv1We0QJSFF+fgyhINWxFV8Js+3ZBci
-	baMzpUbzkzI9TFcAeOyJYzFfYZzodED9FB2ONbSWLW9dZa2giRMB+Vt/TX4pAzGPHDSCDIKakon
-	b4BopWTQYAH67lX7znB9KqlDrZLnnjZPpo3wSn9Nd+fjo6G32H7hBvR77OmxLGZbiwTuv1v32uX
-	ySuj1J5a3i2Q7uwQYttPj2TRLX34FOoVGpu1RIravRhNLFR0qcOH5qQP278n1kpSh0+mxdjHrDF
-	fRTCt24DpOO9o+DryWXnAMgQM7S0XmXbo/wZyQw2WBSvG7z+47sdp91gDT6eiYIBHKjnLRz27RH
-	0R7SS54+eRwUvMmnY6Onlekr+iVQtR5YZGk2ANNhrcS+3jJB6SEuW5VPxhFqabi18NPdpdZL9OU
-	/8OqRJihDZ5IeLRGQgrCYAU+sTcs338YwrJ52MlelIE0zKndAFoeYwLdNBV892jO65HbeV3Se4/
-	Q==
-X-Received: by 2002:a5d:6f17:0:b0:485:a394:58ef with SMTP id ffacd0b85a97d-48dbaaed22bmr16768322f8f.30.1791818048717;
-        Mon, 12 Oct 2026 08:14:08 -0700 (PDT)
-Received: from [192.168.3.100] ([37.103.126.255])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaabc3sm3653f8f.16.2026.10.12.08.14.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 08:14:08 -0700 (PDT)
-Message-ID: <d90324be-c43d-4d28-9f1a-e28e437031e8@baylibre.com>
-Date: Mon, 12 Oct 2026 17:14:07 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NuEEtcHh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791818150;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AEH2va6iOCXqTJFNoLtai9BPvzPtP2b0LlMRaAMRVlM=;
+	b=NuEEtcHhrR781xG0quwwlGnmphWUMu3fvUeSROLcN4u1YC8SO1pR9Z240fZ0zRPjOgCag6
+	20RD07wojy1pnCHwykv4v2TBNC0UwOWqM10U5+L0lFHH5aKqMRkJaQDFCcmyEH2UjbbBDA
+	ehEvPLF9KEClIzUaz+ikKidyan93Z64=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-673-_9OIp1axOH-kjk9ybcme6g-1; Mon,
+ 12 Oct 2026 15:15:45 +0000
+X-MC-Unique: _9OIp1axOH-kjk9ybcme6g-1
+X-Mimecast-MFC-AGG-ID: _9OIp1axOH-kjk9ybcme6g_1791818144
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 689C3195FCEA;
+	Mon, 12 Oct 2026 15:15:43 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 34D5E1956040;
+	Mon, 12 Oct 2026 15:15:40 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Mon, 12 Oct 2026 17:15:43 +0200 (CEST)
+Date: Mon, 12 Oct 2026 17:15:39 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Jeff Layton <jlayton@kernel.org>
+Cc: w15303746062@163.com, David Laight <david.laight.linux@gmail.com>,
+	chuck.lever@oracle.com, viro@zeniv.linux.org.uk, brauner@kernel.org,
+	alex.aring@gmail.com, jack@suse.cz, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Subject: Re: [PATCH v2] fs/fcntl: fix SOFTIRQ-unsafe lock order in fasync
+ signaling
+Message-ID: <asz5m2nR1PfOqTUN@redhat.com>
+References: <d15a25fe784b5d4449c7ce4e56f1428d7ff28885.camel@kernel.org>
+ <20260523135210.590928-1-w15303746062@163.com>
+ <asI5Fn87_SoEd4G5@redhat.com>
+ <asuxzwl4iWjjEjRD@redhat.com>
+ <73b5a5174d98a3ae1dada32684e453debb8dfcd3.camel@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/7] ASoC: meson: aiu-encoder-i2s: ensure clk divider
- gets disabled in hw_free
-Content-Language: en-US
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261001-audin-v4-0-2476646118b5@baylibre.com>
- <20261001-audin-v4-3-2476646118b5@baylibre.com>
- <1j5wzdzyqm.fsf@starbuckisacylon.baylibre.com>
-From: Valerio Setti <vsetti@baylibre.com>
-In-Reply-To: <1j5wzdzyqm.fsf@starbuckisacylon.baylibre.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <73b5a5174d98a3ae1dada32684e453debb8dfcd3.camel@kernel.org>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Hi, thanks for the feedback and sorry for the late reply.
+On 10/12, Jeff Layton wrote:
+>
+> We probably should
+> revert this patch for now, until the problem and potential solution are
+> more clear.
 
->> diff --git a/sound/soc/meson/aiu-encoder-i2s.c b/sound/soc/meson/aiu-encoder-i2s.c
->> index 58dce9f08c9d..70ea39c77b32 100644
->> --- a/sound/soc/meson/aiu-encoder-i2s.c
->> +++ b/sound/soc/meson/aiu-encoder-i2s.c
->> @@ -219,16 +219,14 @@ static int aiu_encoder_i2s_hw_free(struct snd_pcm_substream *substream,
->>   				   struct snd_soc_dai *dai)
->>   {
->>   	struct gx_stream *ts = snd_soc_dai_get_dma_data(dai, substream);
->> +	struct gx_stream *other = snd_soc_dai_dma_data_get(dai, !substream->stream);
-> 
-> Not sure about peeking on the other path like this :/
+Agreed... I'll send the revert for now.
 
-Yeah, I know this is perhaps not the nicest approach, but it's the same 
-one I used for the bs-quirk handling (see the "startup()" and 
-"hw_params()" callbacks). Since there can only be the playback and the 
-capture stream, checking the other stream's "clk_enabled" is equivalent 
-to a user counter in "gx_iface", without adding a second piece of state 
-that has to be kept in sync with it.
-Is that acceptable to you?
+Hmm. The "if (type <= PIDTYPE_TGID)" case in send_sigio/send_sigurg looks
+wrong too. send_sigio_to_task() -> ... -> lock_task_sighand() can fail if
+we race with de_thread().
 
->>   	struct snd_soc_component *component = dai->component;
->>   
->> -	/*
->> -	 * If this is the last substream being closed then disable the i2s
->> -	 * clock divider.
->> -	 */
->> -	if (snd_soc_dai_active(dai) <= 1)
->> -		aiu_encoder_i2s_divider_enable(component, 0);
->> -
->>   	if (ts->clk_enabled) {
->> +		/* Disable the clk divider only if also the other stream is not using it */
->> +		if (!other || !other->clk_enabled)
->> +			aiu_encoder_i2s_divider_enable(component, false);
->> +
-> 
-> Looks like a race condition is possible here if one stream closes while
-> the other one starts.
-> 
-> I think you need a common structure between the 2 paths (with a counter
-> possibly) and it needs to be protected by a lock.
-> 
-
-I might be wrong, but I'm not sure a race condition can happen while 
-managing these 2 clocks. Here's what I found:
-- "iface->mclk" and "i2s_divider" are enabled/disabled on 
-"prepare()"/"hw_free()" respectively.
-- when "prepare()"/"hw_free()" are called the framework holds the 
-"card->pcm_mutex".
-
-So when one stream performs one operation, either "prepare()" or 
-"hw_free()", it can read and modify (if needed) "ts->clk_enabled" both 
-for itself and for the other stream safely.
-
-Am I missing something?
-
--- 
-Valerio
+Oleg.
 
