@@ -1,86 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F5F3BE64B;
-	Mon, 12 Oct 2026 08:08:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC6D431A56;
+	Mon, 12 Oct 2026 08:10:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791792512; cv=none; b=M0NjcUftNMn+hwvD5C3bm64vSdoNm8PBRPrPq1vVsGt89CTKNpZ1IdUzq27moX3bLpf3INGrgJl9V3apZv3UwIRVj3AvgSlyXkmVMg8c9YugmYKggMk4uUNWRSCSvvVEAY+J4Fx2p+NXJGDs33ql6dTC2yL1noRpfc2jHiMVaaI=
+	t=1791792625; cv=none; b=eW+4ngdsKqvkTcYp3Ur9adJg7oLq/XasquH+o5zjQjD5eueEB/Yey/uHGME3JyJ/qAB150JF3tnM/RB94xvJjo3Jdd7wdMm7J2u7D7bJg6Mtx15DtGKXMu8gsowtl2WMzdvBjD5t0I8CYzkMiy1h1+laQbuxvsH26AEGBsFA27A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791792512; c=relaxed/simple;
-	bh=fUijr6glsKt344ZeX0t8NLHts2AIyJb84PRQM+5wZUg=;
+	s=arc-20240116; t=1791792625; c=relaxed/simple;
+	bh=+VVo/JGBJ90aJN5ZdrAr9+J3UW3a8r4MnFeZa9+hYts=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EvIoZF8l1QRg5h8OFSggs8JeZ/ovy8cjIBTP6eJWaLu5iPjYjZSW2R+MVn1UwUObxD05B48yinP+hbKi1hAyics17K6P6qC0IAol8y4X30A0luQHMStSwZ+JSoZ/Ag5RXWVJuIn8Lt2qEWcE0IHPnCr2hYDfpg5fcYv9wmxv9Qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OGFk++kX; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=BJzUltFAUCfuaJTLsvcDys9tZwke/qdRnNWIExLWt5IpdIkBatcJbmGmwv53xBUyJgvDjUsn3vxRm+pEYdzb4OdJjXhVNBc+C0P2KEAzNTU6KOPgUIFVuOWWbAb5rfu6unRqXxncgce36j7cRxE7VjtCMfsbAP/AYUts3/gRIRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dh36JnY3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OGFk++kX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D9511F0089B;
-	Mon, 12 Oct 2026 08:08:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dh36JnY3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16ADF1F0089B;
+	Mon, 12 Oct 2026 08:10:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791792511;
-	bh=/OOFRPtAFbJXcIK6VVyzE8pqPO2I1iDm9oy3p173wXE=;
+	s=k20260515; t=1791792624;
+	bh=QevQ6Tupp6Y5Q71lWFERf3zC8gS1eFojsFS0KOuxiFs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OGFk++kXIhxBrfTe2V9f3UvsG2tBK64VmQUTgBOjaCfCExzgcEp77/JdDoe+AkGcj
-	 u0QHm+gdBoIRUkB1e8Vcr3CCHggl13NF4Qg4S6qwLkiWuoQLY246XKjGGhFV4gwidt
-	 zTKZ+c1QJblStzll5vmQKh+Vua2yrfdT4rpzoiesnHUrHHcsUBk1LnxphAlL+E+Fu8
-	 BCcKsXNkb10GfdA27ni21tsHHy0QVRo56NnRsD4tW/J31sV4pCG1LihqYgO74DQWBX
-	 7QJqbEkJnoxgJdM1MZ+LJEqcR8WR/MAPYsZPB6EJ+Pq0o7R7xMZxEUSfEHauweNkzd
-	 JqZLwnhsl/5Mg==
-Date: Mon, 12 Oct 2026 11:08:26 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Serhat Kumral <serhatkumral1@gmail.com>, haris.iqbal@ionos.com,
-	jinpu.wang@ionos.com
-Cc: jgg@ziepe.ca, danil.kipnis@cloud.ionos.com, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] RDMA/rtrs: Use strscpy() to cache the HCA name
-Message-ID: <20261012080826.GB219304@unreal>
-References: <20261009131715.39217-1-serhatkumral1@gmail.com>
+	b=dh36JnY3MrEljugYPHQ4jd4BIPja9n9k7ZVGK3AWn07KWrVB8fQM8wuvZWx32u3wE
+	 +8goqAUnr/WuEsLk03lJ/U+/ip7dx2lKlGAMGapQ6c6wvIFu8/Kgg9dBqE3Q1JWujE
+	 ZhSRokkDQ88G2LYd9tynhE8kPeexazdpEdpaxq+6Kci36AIOHLhwlDLLBz3qONQg7s
+	 Gtyzct177n25BDDyCKYWsRR1hfW8bfZHTMHQ/vjFFr7c/u0UeiFCTVIx0bYMDrjhAZ
+	 YjYKiaNqECpTwJR8Pgy3X/J5Xh5JvNqYyZX/+56C6Qmj1erbDlZuQQ9UPacl//Bnfr
+	 Yfnyq0TB+Tzyw==
+Date: Mon, 12 Oct 2026 13:40:13 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Christian Marangi <ansuelsmth@gmail.com>, Andy Gross <agross@codeaurora.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH 05/10] phy: qcom-ipq806x-usb: fix the SS PHY
+ TEST_POWERDOWN bit
+Message-ID: <asyVtSA2MRJkwxXC@debian>
+References: <20260810-msm8974-usb3-v1-0-1a47e1185524@oss.qualcomm.com>
+ <20260810-msm8974-usb3-v1-5-1a47e1185524@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261009131715.39217-1-serhatkumral1@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260810-msm8974-usb3-v1-5-1a47e1185524@oss.qualcomm.com>
 
-On Fri, Oct 09, 2026 at 04:17:15PM +0300, Serhat Kumral wrote:
-> As the comment states, the HCA name is cached for sysfs. Use
-> strscpy() to copy it directly without unnecessary formatting and
-> avoid interpreting format specifiers in the name.
+On Mon, Aug 10, 2026 at 02:42:35PM +0300, Dmitry Baryshkov wrote:
+> The SS PHY exit sequence tries to put the PHY into retention via the
+> TEST_POWERDOWN bit of SS_PHY_CTRL, but defines that bit as BIT(27). In
+> the DWC3 QSCRATCH SS_PHY_CTRL register TEST_POWERDOWN is bit 26 (see
+> the downstream phy-msm-ssusb driver for the same IP generation), so the
+> sequence pokes an unrelated bit and the PHY is never powered down.
 > 
-> Fixes: 6a98d71daea1 ("RDMA/rtrs: client: main functionality")
-> Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
-> ---
-> found by smatch:
-> - drivers/infiniband/ulp/rtrs/rtrs-clt.c:1906 rtrs_rdma_conn_established() warn: call of 'scnprintf' with non-constant format argument
-> 
->  drivers/infiniband/ulp/rtrs/rtrs-clt.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/infiniband/ulp/rtrs/rtrs-clt.c b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-> index 927e3f30483c..c85e22f670ba 100644
-> --- a/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-> +++ b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-> @@ -1918,8 +1918,8 @@ static int rtrs_rdma_conn_established(struct rtrs_clt_con *con,
->  		 * Cache the hca_port and hca_name for sysfs
->  		 */
->  		clt_path->hca_port = con->c.cm_id->port_num;
-> -		scnprintf(clt_path->hca_name, sizeof(clt_path->hca_name),
-> -			  clt_path->s.dev->ib_dev->name);
-> +		strscpy(clt_path->hca_name, clt_path->s.dev->ib_dev->name,
-> +			sizeof(clt_path->hca_name));
+> Fixes: ef19b117b834 ("phy: qualcomm: add qcom ipq806x dwc usb phy driver")
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Haris, Jinpu
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-These names shouldn't be cached.
+- Mani
 
-Thanks
-
->  		clt_path->s.src_addr = con->c.cm_id->route.addr.src_addr;
->  		/* set for_new_clt, to allow future reconnect on any path */
->  		clt_path->for_new_clt = 1;
-> -- 
-> 2.53.0
-> 
+-- 
+மணிவண்ணன் சதாசிவம்
