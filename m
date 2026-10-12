@@ -1,859 +1,252 @@
-Received: from sg-3-27.ptr.tlmpb.com (sg-3-27.ptr.tlmpb.com [101.45.255.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013007.outbound.protection.outlook.com [40.107.159.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18219488212
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:44:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.27
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805503; cv=none; b=j4kSeOvRRkw3goWramMwONKgXf7IL8cIyKDBzbbrRC8e1v5nteFy6Hzz/Ey82lPfsoQnoT/noOj8gdE9wlWR6CUfoO9IbnbdU4yFPK1eEXoZI+HkPyTZom7dg+AQTv4j03Xn0C+VleLMQHmoCFudZcf3XyTRlbh8CAJ7Fgo/iFI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805503; c=relaxed/simple;
-	bh=nx/zCSRxC9ESJbgQszgWLrWnwRlpE11yf63CfHVomOE=;
-	h=References:Subject:Date:Message-Id:In-Reply-To:Content-Type:To:Cc:
-	 From:Mime-Version; b=SArIgPm3LVDKd76M4+U0WxkYSUxrX4kXnji2jPv0PfPmi/xe5TscXDo/5OZid2/XtigeEbyPom75B9CoRVSQx8w01nqYrrku4LK7s8goio7wKMGQRLgTqS7arB/0wmWju3AXVuPmGu2JKMhtiqvS0KCShc+lGC2a370IKX0Njig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yunsilicon.com; spf=pass smtp.mailfrom=yunsilicon.com; dkim=pass (2048-bit key) header.d=yunsilicon.com header.i=@yunsilicon.com header.b=ZylPcIEB; arc=none smtp.client-ip=101.45.255.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yunsilicon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yunsilicon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69529489FBB;
+	Mon, 12 Oct 2026 11:45:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791805513; cv=fail; b=ejqYmQXkKtJ2BRUCwRr+djPGf01RHR2juNlsK9s53TIye8kda3Ozc4TlZtVC7fdYbUBU1mx1ME3u3YmnU6xttVrpoXdG/vIMvFGBZUlvIRprCIhaMS6BUyZp6qtXaTnrb1Q3/GDDBDyqntDC9mY1FJLTlnyQoisoeuGyPNOVCfk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791805513; c=relaxed/simple;
+	bh=IvIuVBPDa7hbS7c2cjg/waJgMV2Y8XB1L7iYkjZWtvI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=pxvoN8M/rfhnps03PG1cyQ+h/pMBVQfFwqI8dL3AhpDeEyeUvemob74Y68L1xC8HQDi9RwGMdcESDHNml9TYx5CNt4WUpXOoXUo/ADbo2wkTIESzTTNojls8snPI8X1oi/CxCVdDFieuLM2mDGNB8iSiQ3kTM5Q9iB40H3ap+jQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech; spf=pass smtp.mailfrom=est.tech; dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b=h0/Pbqj9; arc=fail smtp.client-ip=40.107.159.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=est.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yunsilicon.com header.i=@yunsilicon.com header.b="ZylPcIEB"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2403070942; d=yunsilicon.com; t=1791805446; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=T8jLREutVaVGOpgKayrNYJrM7pCAQPZH/YlGOfSUC3g=;
- b=ZylPcIEB0U6FFJdM6sWnMTzXtGxd7cIqO6fpEEe2PEW14E0cDFvBZFcm8UmN2K0WQGPVCE
- AGTau6PZmDGfzIjNqXur6k1nRdt40qk12395AHJ36jRUykVIxREag6L8rzRxwd18dX8TOU
- G5K0AgcYb7F0kldHJD/X+L/Zf5MT/x+nlPHp8861RphL3M7TFidUHdc7BzgLKdi/Eykd7J
- vTBvUMJ1vWQmt3o92KtEfL4Xz+K4qmYFCFyrEYTR1HxvZmPZjqHU30C5CsyGKUTxi5FXe5
- oGIFy9T8KtrnJ/mSN9BQipjEULtFrssPMS5gKTJVoupQqEgmtp+xii6s1en+vQ==
-Received: from sw-dev-sha252.yunsilicon.com ([180.152.18.210]) by smtp.feishu.cn with ESMTPS; Mon, 12 Oct 2026 19:44:03 +0800
-References: <20261012114352.2471317-1-tianx@yunsilicon.com>
-X-Mailer: git-send-email 2.25.1
-Subject: [PATCH 05/15] yunsilicon: add the CQ and QP resource pools
-Date: Mon, 12 Oct 2026 19:44:03 +0800
-Message-Id: <20261012114402.2471317-6-tianx@yunsilicon.com>
-In-Reply-To: <20261012114352.2471317-1-tianx@yunsilicon.com>
-X-Original-From: Xin Tian <tianx@yunsilicon.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-To: "Andrew Lunn" <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, 
-	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
-	"Paolo Abeni" <pabeni@redhat.com>, "Jason Gunthorpe" <jgg@ziepe.ca>, 
-	"Leon Romanovsky" <leon@kernel.org>
-Cc: <weihg@yunsilicon.com>, <linux-kernel@vger.kernel.org>, 
-	<netdev@vger.kernel.org>, <linux-rdma@vger.kernel.org>
-From: "Xin Tian" <tianx@yunsilicon.com>
+	dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b="h0/Pbqj9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YFLSfj6L5UxpSuGDSQEQYvSOzVMeMkWvHMDeMJwqI7SZUvIvYpU8Z+J5PpVarIbu4RXM0+UoqrYFOH/oFKvuecYzL7TuHPHAuGgQiKlzCTxrBGY7vuCqbmGDz+0Hrx8ZXpR1ePvdbO4/3gtL8oW6K7BBAAeBBYDqET73LSqUXWt5ILXvq9OcadUk8HYkdSk2g9k9DON1DaweJNNvSwoU7KipIjUIsRhVJOgYNIBToeRVBsN8SW6R3BZv/25XPrpP3ilemQYIH5/Zug6ohQIKa7/fvOQeY+ljzHxjFXUMvba6xpV4WsdQe6BZEvIKr1IcDOCxdjOVEEOUAJNHbcm10w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IvIuVBPDa7hbS7c2cjg/waJgMV2Y8XB1L7iYkjZWtvI=;
+ b=lA9CqfrQxidWUGSL5dzkiwSZALfRiMSnIHTqZWpEQDkPsp19ojiCbLQ9V1qUoAnwnl5frDdoiBZyBKADpILoSU9ZPpTVaBOeexZB4p4cbNaR6DHagRNF5siknbXYyJq2Ps11Q0TK7NU+mi9l7e0+hu41lbkL0orx1EGlQWOf7Fp9/5q8Ypp5mUYk2ZrXz7b6UfECd5NXEYMbdjnoJvqY668SJNQPTETNNsfL3kWdgk5Qvo8N3RDoXFtQJCHuZ6QDkGsu9Lz7kPVJ7o7GpiWNDCDLJSuhr7vo5JnN4/RcItuWPMbDmPURrge9qc4wMkBYX23M902FtaTupVytb9QCdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=est.tech; dmarc=pass action=none header.from=est.tech;
+ dkim=pass header.d=est.tech; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=est.tech; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IvIuVBPDa7hbS7c2cjg/waJgMV2Y8XB1L7iYkjZWtvI=;
+ b=h0/Pbqj9d5Xr6E4ZovfRKZRk+wIX6EQF5CNvj6fGC1Ir7e/wZ8xQDroyNm2ybubZwsLV6hy/6fikoXDLElUjz5SXZknJLfMrTR9lzWlSigyyr0KMkv3ABOt/M07KXvnBRvymqKKsArku7K254YQm5wYHpz79N/L7KXWXAVbfUZ5i4acKjnn6pqhJqi/KyPDt/yxN5gpkysqKgM8XkCmbcg6vs1KlWJL6Hab5r4rhlv7IlttvHidKdWLlEYl00MYOmac0pn+ezO2TFTmxpn5nMCRD3ujWwW2Ben0I99pDOe/+jbP5vg9yuaFeQcZxbOWiq69UVqXeF2l8fB1dfLwJ9g==
+Received: from AM7P189MB1137.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:17e::23)
+ by PA1P189MB2694.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:44b::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
+ 2026 11:45:05 +0000
+Received: from AM7P189MB1137.EURP189.PROD.OUTLOOK.COM
+ ([fe80::86f0:8ce1:a437:b2d5]) by AM7P189MB1137.EURP189.PROD.OUTLOOK.COM
+ ([fe80::86f0:8ce1:a437:b2d5%4]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 11:45:05 +0000
+From: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>,
+	"bsdhenrymartin@gmail.com" <bsdhenrymartin@gmail.com>
+CC: "jmaloy@redhat.com" <jmaloy@redhat.com>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@kernel.org" <edumazet@kernel.org>,
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"horms@kernel.org" <horms@kernel.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "tipc-discussion@lists.sourceforge.net"
+	<tipc-discussion@lists.sourceforge.net>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH] tipc: fix broadcast sender hang and leak on last acker
+ departure
+Thread-Topic: [PATCH] tipc: fix broadcast sender hang and leak on last acker
+ departure
+Thread-Index: AQHdV7LnyvLqFmFvuESBCwWJ3/dhE7b2SZgAgAOD0pA=
+Date: Mon, 12 Oct 2026 11:45:05 +0000
+Message-ID:
+ <AM7P189MB113731FB3655F88C6079EF1CC69F2@AM7P189MB1137.EURP189.PROD.OUTLOOK.COM>
+References: <20261009055601.2304158-1-bsdhenrymartin@gmail.com>
+ <179161196277.434549.7319105806730748323@kernel.org>
+In-Reply-To: <179161196277.434549.7319105806730748323@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=est.tech;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM7P189MB1137:EE_|PA1P189MB2694:EE_
+x-ms-office365-filtering-correlation-id: df4cd1e3-71ac-4647-05ec-08df28564224
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|7416014|366016|376014|23010399003|38070700021|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ g9/bofCVGlGUJSRR7cstB+Wc6WZkqr9ZLgJAuRGUF8lFrmBY8WWmCk1/LYGUop4Tyn/BlLAkol3S85WCZVyOmP7Nqay7g+22/5UB4W+gtYFqj+z97Jb7HFa2hRRC8H9nwiJBZ5UmuxbQeoDbezSoGTPQ3qQ0lWXnSV1dnEN0ztGQjr5X96Dg6ZP10nhla06KAfmuSQixm78Fz3AuyoYviLNHdfYfOW7xgp7IB/8awhOp6E7/68gVM4jbkfgPMO4nwaOaotiMKEGdNAVg97R/nYiLXecZbFwMel4UXEFUbT58mb+Bob2JtbEKqYUr8wrq+CFhZYJLz88Do8yJqtkzLNJQI8VmcB8kjUXELS3vTXZlBq3nQfmb1rX/R+CPSy/BsXXFP5qDiEEs7yt97GvoE94tChPC4zaGwUU+uqmmFh7+nHd8Q84LNvxW4D0S6Pk9n5Fb42P+BuAJ8snKgD5rjER88KfA0CQRHq1k6eGfVPXbW4WCpcV/PFUr3r3G6a0t5gAbMHt/CWHlSRvyxvE7VCAloF1jr3yhSP8cJKGAW6mYFTuEnO6x6l1XSZvX9aq/XliWz9yHioWIaoM2fdnermSbb4jr2fMALmqtVVt8hUoSivXAEt9HHYqjzP4XZl6xQ6gHEFEuw/00+XKFmLHUYvWepr893P0FiYVzKpfvOHBOT8nx7mAuUv6SpwB6Itjn8XgYpfLboJco5xNrCS9Vuu2FRAtCsCpGiUpOn1pB28c=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7P189MB1137.EURP189.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(376014)(23010399003)(38070700021)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?L0pnRnJDbm55SU9OMlh4SGZVeVQ3dy9rWm9XakJ3aGl4b2lmck4xMGFxaUpX?=
+ =?utf-8?B?MThXeDRQNVpPWlFNcFIwSjFtbFRTMUtWVjI1UmxWQW9HWk5CR1BGWm5TT0Vj?=
+ =?utf-8?B?TTJ0Ly9RcWNFOE9SZjQrSC9LdjZmS2F3eFhrWHdkTGJNdmlSQXpUNkN6M1li?=
+ =?utf-8?B?UFFkR2NYR2VxTEdZOUljT2k3Z2JELzNxdUdvbytwZmM1UEx0UlphQUptY3pl?=
+ =?utf-8?B?YlJhL0gxa3NnYWVtZlJ3OVp0WFZtbks1Q1pNOWVzTHloMUlKdlFXSU9sWVZB?=
+ =?utf-8?B?NjcrTjUzMW1CQTd5ekY2Y0NGVW13YW1FNlVOZDdoYkZUSzBCc1FaSTNhTGx1?=
+ =?utf-8?B?TURYaG0wQmUvL1VjR0RTRHE4M3kwbGM5R0VtNzkxTDF1Y3J6RWJZaDNGYUJZ?=
+ =?utf-8?B?RVV6eEpvR20wc0F6MGdIcCtXcHJycGE1dnNidnFQbmlpc1FDS053cVRnY2FB?=
+ =?utf-8?B?UFR1VmdxcDVPY1ZPVllkaTBvWExPYkVPbWIzMlVtT1pIOWw3L25aSlU2M2xr?=
+ =?utf-8?B?OGFkWmhOMkdSVGw0VDVWUis0Wk9kTk5aNWRJaFFva1Q3bkxPOUFSL0g3L1ht?=
+ =?utf-8?B?RC9pVXFhWHBQTnRieDBFU1VuQ2YxUjg4eC9GWkE5ZG05ZklHSkxvS2xwQmRq?=
+ =?utf-8?B?Wmt0ZWRpV2JNbzNHRmI0dTJSdE8wdnBJdG1aU083bEhOZUNHZFJpQ0E3Y1F3?=
+ =?utf-8?B?dEhwQnlkM2F6ZGN0L2h6S21VQ1NrSVE2L1RTcGdDNDdSZUI4VytTT0l1TUYr?=
+ =?utf-8?B?UHoyR3hhWUdyKzRxT3ByQ2FHQktNS3grNGNjc1gzbHZpblBhbHZTb1pXdDRm?=
+ =?utf-8?B?YVZlY1pDMEI5Q2pxdUcxcDV3Z0ZOTk1EL0NxdGlESUUwa1ZFL1ptUHpCaFhn?=
+ =?utf-8?B?UEJMTlZlZWlOd044RGFwNWZBZjh6ME1JL3F4RllwQmczVXkrZ1gxbWEyaC9P?=
+ =?utf-8?B?SHkvTm9iMWpwUm1lbStYVGhxY1p3eVhybXBhS2ZSOHo4MnN0anlVQVU1d1pN?=
+ =?utf-8?B?ZVE2TVlJVVVkS0JPT3FGdExBNnVpVHRJQm1lVDloQ3FpZkNVY0lPazhMaFVq?=
+ =?utf-8?B?R2tOVGZOUkdnbnN6amlia05PZGxwam93SUpab0UreU5jRFdkVGdMSzBCc0FD?=
+ =?utf-8?B?UWdseHF3QVdWQUhQeXA1dSszUnhrRDVPQWpESHZSUlhaNjJiOVVZZVhveEtC?=
+ =?utf-8?B?V2ljQWkxVGZGZTBOUFNJNC9XYTJEZi8vLzNSR1FibW9VMFZuMkxIKzloSUVt?=
+ =?utf-8?B?Y09WY1QxRERwcW9iWjBLVWZVaWpMV3JuN201YmpHWjhBU2c5WmduT0tkbDJv?=
+ =?utf-8?B?VzM3TzZmTEwzUmlNRzJWb2loOUhoMElPRldiK3dmclVBMmNYTVEzODF3Z3Bq?=
+ =?utf-8?B?eEZkSnFsUDk0SFl1cVlldFoyNmhXdm5xZWhxUVBnRmRFaTd5ZjZsQVVDRHFD?=
+ =?utf-8?B?d2RreWwvZ3JzWWFFU08rRHg4cDdYQUFkWWxZYkFmdlVnalBucHFwVEllbU9z?=
+ =?utf-8?B?dFNkWWgrNnpQUkROVlkxU2NYcjc1NmN3bnY0cmppa0ovK0JaZjNYcDF3eFpE?=
+ =?utf-8?B?RVRlOXBsQUt4cVlCQ1l2eTdYeGgxS05JSnhVeHBFdnB3cU5RWk9aeG9rWFZt?=
+ =?utf-8?B?OC9CNFVoY2lCUjc5SXRsRExib1I0OEFpNDJURkhPT3lZTmFKMVBFZVBNVUEr?=
+ =?utf-8?B?UklrVzVXT3NtRzNkNDUwOHJqaVFSZklTNlVzYTl4QmNwRXEwVG45d2hRMndM?=
+ =?utf-8?B?YU5iaGxpbW9lRGY5eFBxTlhrMGdPcTFBSXJYSlVMOGV6MlZQb09keHVjbkJu?=
+ =?utf-8?B?L3VtT25TdlhudGwrNWNxTTVjM1hvL2p5TzlmeGRiNWR3RmFGTk9ESlRhOFZI?=
+ =?utf-8?B?UTlybU9nVWFsTjhpdVpwdU9yUXRjQ1lhWUthYjRlZUdNTnhzcjZnZkVZUXVn?=
+ =?utf-8?B?ZEJ5dytmdkNvanpwNk1nZFNYN1lrQWZmRE5LSGNyT2JwK2tYNnB2Z0pEMWpK?=
+ =?utf-8?B?Ny80cTkvS0l5dUNyRlE5eHdvZW5ONkNQeFFEWGcwcHNjQlloaUJ6d0VtSWsz?=
+ =?utf-8?B?Y2QvdVpVSE9vNXdmcThDR2tRUVhRVGwyTUpjZk5lWVY3WGdIVDJrNU1OWFFq?=
+ =?utf-8?B?bW5ubzNnTG9uVnlSVnMxRkpxVFlhR0FKYS9EQ1VSTDNEM2RicnIzL2FDdWhr?=
+ =?utf-8?B?T1ZWMU1xQlhFMG9PTTV4eXpYdmYzS1o0OFFFWDZmOUVyWVk2SENMZzdOcFpz?=
+ =?utf-8?B?SjRaNXl4dUFFRzFETlM4eGxVWEVKMTZ0eTVDdER6cEpTY055WHhPcThOQmEr?=
+ =?utf-8?B?NlRwODNPamJGRGtCZlVCNFNBQ0R3dDhZT2krczBwZFZhbFNnRHdrZz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26accc804+47a17e+vger.kernel.org+tianx@yunsilicon.com>
+MIME-Version: 1.0
+X-OriginatorOrg: est.tech
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM7P189MB1137.EURP189.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: df4cd1e3-71ac-4647-05ec-08df28564224
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2026 11:45:05.1253
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d2585e63-66b9-44b6-a76e-4f4b217d97fd
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: llWlO07LWZiI0RqvTyAGWPo7UrNK3aezcz1wjEDbKLoqvRQLiOcWcuMOXE9uAAEpqB77v6VeSD9VdGyCPcy8WqqFJGcnKiN/rWPGBLgZ8G0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1P189MB2694
 
-Add the core-side completion queue and queue pair pools: the CQ/QP
-table management, the create/destroy/drain helpers and the EQ dispatch
-of CQ completion, CQ error and QP events.
-
-The pools are shared by the ethernet and RDMA functions, which create
-their queues on top of them.
-
-Signed-off-by: Xin Tian <tianx@yunsilicon.com>
----
- .../net/ethernet/yunsilicon/xsc/pci/Makefile  |   2 +-
- drivers/net/ethernet/yunsilicon/xsc/pci/cq.c  | 316 ++++++++++++++++
- drivers/net/ethernet/yunsilicon/xsc/pci/eq.c  |  53 ++-
- .../net/ethernet/yunsilicon/xsc/pci/main.c    |   2 +
- drivers/net/ethernet/yunsilicon/xsc/pci/qp.c  | 356 ++++++++++++++++++
- 5 files changed, 727 insertions(+), 2 deletions(-)
- create mode 100644 drivers/net/ethernet/yunsilicon/xsc/pci/cq.c
- create mode 100644 drivers/net/ethernet/yunsilicon/xsc/pci/qp.c
-
-diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile b/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile
-index e264990f9..5c947da2a 100644
---- a/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile
-+++ b/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile
-@@ -6,4 +6,4 @@ ccflags-y += -I$(srctree)/drivers/net/ethernet/yunsilicon/xsc
- 
- obj-$(CONFIG_YUNSILICON_XSC_PCI) += xsc_pci.o
- 
--xsc_pci-y := main.o cmdq.o hw.o alloc.o eq.o pci_irq.o adev.o hal/andes_impl.o
-+xsc_pci-y := main.o cmdq.o hw.o qp.o cq.o alloc.o eq.o pci_irq.o adev.o hal/andes_impl.o
-diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/cq.c b/drivers/net/ethernet/yunsilicon/xsc/pci/cq.c
-new file mode 100644
-index 000000000..39715682f
---- /dev/null
-+++ b/drivers/net/ethernet/yunsilicon/xsc/pci/cq.c
-@@ -0,0 +1,316 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (C) 2021-2026, Shanghai Yunsilicon Technology Co., Ltd.
-+ * All rights reserved.
-+ */
-+
-+#include "common/xsc_core.h"
-+#include "common/xsc_cmd_api.h"
-+#include "cq.h"
-+
-+void xsc_init_cq_table(struct xsc_core_device *xdev)
-+{
-+	struct xsc_cq_table *table = &xdev->dev_res->cq_table;
-+
-+	spin_lock_init(&table->lock);
-+	INIT_RADIX_TREE(&table->tree, GFP_ATOMIC);
-+}
-+
-+static int xsc_create_cq(struct xsc_core_device *xdev, u32 *p_cqn,
-+			 struct xsc_create_cq_mbox_in *in, int insize)
-+{
-+	struct xsc_create_cq_mbox_out out;
-+	int ret;
-+
-+	memset(&out, 0, sizeof(out));
-+	in->hdr.opcode = cpu_to_be16(XSC_CMD_OP_CREATE_CQ);
-+	ret = xsc_cmd_exec(xdev, in, insize, &out, sizeof(out));
-+	if (ret) {
-+		pci_err(xdev->pdev, "failed to create cq, err=%d out.status=%u\n",
-+			ret, out.hdr.status);
-+		return ret;
-+	}
-+
-+	*p_cqn = be32_to_cpu(out.cqn) & 0xffffff;
-+	return 0;
-+}
-+
-+static int xsc_destroy_cq(struct xsc_core_device *xdev, u32 cqn)
-+{
-+	struct xsc_destroy_cq_mbox_out out;
-+	struct xsc_destroy_cq_mbox_in in;
-+
-+	memset(&in, 0, sizeof(in));
-+	memset(&out, 0, sizeof(out));
-+	in.hdr.opcode = cpu_to_be16(XSC_CMD_OP_DESTROY_CQ);
-+	in.cqn = cpu_to_be32(cqn);
-+
-+	return xsc_cmd_exec(xdev, &in, sizeof(in), &out, sizeof(out));
-+}
-+
-+int xsc_core_eth_create_cq(struct xsc_core_device *xdev,
-+			   struct xsc_core_cq *xcq,
-+			   struct xsc_create_cq_mbox_in *in,
-+			   int insize)
-+{
-+	struct xsc_cq_table *table = &xdev->dev_res->cq_table;
-+	u32 cqn;
-+	int ret;
-+	int err;
-+
-+	ret = xsc_create_cq(xdev, &cqn, in, insize);
-+	if (ret) {
-+		pci_err(xdev->pdev, "xsc_create_cq failed\n");
-+		return -ENOEXEC;
-+	}
-+	xcq->cqn = cqn;
-+	xcq->cons_index = 0;
-+	xcq->arm_sn = 0;
-+	atomic_set(&xcq->refcount, 1);
-+	init_completion(&xcq->free);
-+
-+	spin_lock_irq(&table->lock);
-+	ret = radix_tree_insert(&table->tree, xcq->cqn, xcq);
-+	spin_unlock_irq(&table->lock);
-+	if (ret)
-+		goto err_insert_cq;
-+	return 0;
-+err_insert_cq:
-+	err = xsc_destroy_cq(xdev, cqn);
-+	if (err)
-+		pci_err(xdev->pdev, "failed to destroy cqn=%d, err=%d\n",
-+			xcq->cqn, err);
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(xsc_core_eth_create_cq);
-+
-+int xsc_core_eth_destroy_cq(struct xsc_core_device *xdev,
-+			    struct xsc_core_cq *xcq)
-+{
-+	struct xsc_cq_table *table = &xdev->dev_res->cq_table;
-+	struct xsc_core_cq *tmp;
-+	int err;
-+
-+	spin_lock_irq(&table->lock);
-+	tmp = radix_tree_delete(&table->tree, xcq->cqn);
-+	spin_unlock_irq(&table->lock);
-+	if (!tmp) {
-+		err = -ENOENT;
-+		goto err_delete_cq;
-+	}
-+
-+	if (tmp != xcq) {
-+		err = -EINVAL;
-+		goto err_delete_cq;
-+	}
-+
-+	err = xsc_destroy_cq(xdev, xcq->cqn);
-+	if (err)
-+		goto err_destroy_cq;
-+
-+	if (atomic_dec_and_test(&xcq->refcount))
-+		complete(&xcq->free);
-+	wait_for_completion(&xcq->free);
-+	return 0;
-+
-+err_destroy_cq:
-+	pci_err(xdev->pdev, "failed to destroy cqn=%d, err=%d\n",
-+		xcq->cqn, err);
-+	return err;
-+err_delete_cq:
-+	pci_err(xdev->pdev, "cqn=%d not found in tree, err=%d\n",
-+		xcq->cqn, err);
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(xsc_core_eth_destroy_cq);
-+
-+static int xsc_set_cq_context(struct xsc_core_device *xdev,
-+			      struct xsc_cq_context_ex *ctx_ex,
-+			      u32 *pa_list_base, u32 *cqn)
-+{
-+	struct xsc_set_cq_context_mbox_in in;
-+	struct xsc_set_cq_context_mbox_out out;
-+	int err;
-+
-+	memset(&in, 0, sizeof(in));
-+	memcpy(&in.ctx_ex, ctx_ex, sizeof(*ctx_ex));
-+	in.hdr.opcode = cpu_to_be16(XSC_CMD_OP_SET_CQ_CONTEXT);
-+	in.hdr.ver = cpu_to_be16(CMD_SET_CQ_CONTEXT_V1);
-+
-+	memset(&out, 0, sizeof(out));
-+	err = xsc_cmd_exec(xdev, &in, sizeof(in), &out, sizeof(out));
-+	if (err || out.hdr.status) {
-+		pci_err(xdev->pdev, "failed to set cq context\n");
-+		return -EIO;
-+	}
-+
-+	*pa_list_base = be32_to_cpu(out.cq_pa_list_base);
-+	*cqn = be32_to_cpu(out.cqn);
-+	return 0;
-+}
-+
-+static int xsc_set_cq_buf_pa(struct xsc_core_device *xdev,
-+			     struct xsc_create_cq_ex_mbox_in *req,
-+			     u32 pa_list_base, u32 cqn)
-+{
-+	struct xsc_set_cq_buf_pa_mbox_in *in;
-+	struct xsc_set_cq_buf_pa_mbox_out out;
-+	u32 pa_num_total = be32_to_cpu(req->ctx_ex.pa_num_ex);
-+	u32 pa_num_max = (xdev->caps.max_cmd_in_len - sizeof(*in)) / sizeof(__be64);
-+	u32 pa_num_left = pa_num_total;
-+	u32 pa_num, copy_len;
-+	int in_len, err;
-+
-+	while (pa_num_left) {
-+		pa_num = min(pa_num_max, pa_num_left);
-+		copy_len = pa_num * sizeof(__be64);
-+		in_len = sizeof(*in) + copy_len;
-+
-+		in = kvzalloc(in_len, GFP_KERNEL);
-+		if (!in)
-+			return -ENOMEM;
-+
-+		in->hdr.opcode = cpu_to_be16(XSC_CMD_OP_SET_CQ_BUF_PA);
-+		in->pa_list_start = cpu_to_be32(pa_list_base);
-+		in->pa_num = cpu_to_be32(pa_num);
-+		memcpy(in->pas, &req->pas[pa_num_total - pa_num_left], copy_len);
-+		pa_num_left -= pa_num;
-+		pa_list_base += pa_num;
-+		memset(&out, 0, sizeof(out));
-+
-+		err = xsc_cmd_exec(xdev, in, in_len, &out, sizeof(out));
-+		kvfree(in);
-+
-+		if (err || out.hdr.status) {
-+			pci_err(xdev->pdev, "failed to set cq buf pa, cqn=%d\n", cqn);
-+			return -EINVAL;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int xsc_create_cq_compat(struct xsc_core_device *xdev,
-+				struct xsc_create_cq_ex_mbox_in *in,
-+				struct xsc_create_cq_mbox_out *out)
-+{
-+	struct xsc_create_cq_mbox_in *_in;
-+	int _inlen = sizeof(*_in) +
-+		be16_to_cpu(in->ctx_ex.ctx.pa_num) * sizeof(__be64);
-+	int err;
-+
-+	_in = kvzalloc(_inlen, GFP_KERNEL);
-+	if (!_in)
-+		return -ENOMEM;
-+
-+	_in->hdr.opcode = cpu_to_be16(XSC_CMD_OP_CREATE_CQ);
-+	memcpy(&_in->ctx, &in->ctx_ex.ctx, sizeof(_in->ctx));
-+	memcpy(&_in->pas, &in->pas, _inlen - sizeof(*_in));
-+	memset(out, 0, sizeof(*out));
-+
-+	err = xsc_cmd_exec(xdev, _in, _inlen, out, sizeof(*out));
-+	kvfree(_in);
-+
-+	if (err)
-+		return err;
-+	if (out->hdr.status)
-+		return xsc_cmd_status_to_err(&out->hdr);
-+
-+	return 0;
-+}
-+
-+int xsc_core_create_cq(struct xsc_core_device *xdev, struct xsc_core_cq *cq,
-+		       struct xsc_create_cq_ex_mbox_in *in, int inlen)
-+{
-+	struct xsc_cq_table *table = &xdev->dev_res->cq_table;
-+	struct xsc_create_cq_mbox_out out;
-+	u32 pa_list_base = 0;
-+	u32 cqn = 0;
-+	int err;
-+
-+	if (inlen < xdev->caps.max_cmd_in_len) {
-+		in->hdr.opcode = cpu_to_be16(XSC_CMD_OP_CREATE_CQ_EX);
-+		memset(&out, 0, sizeof(out));
-+		err = xsc_cmd_exec(xdev, in, inlen, &out, sizeof(out));
-+		if (err)
-+			return err;
-+
-+		if (out.hdr.status && out.hdr.status != XSC_CMD_STATUS_NOT_SUPPORTED)
-+			return xsc_cmd_status_to_err(&out.hdr);
-+
-+		if (out.hdr.status == XSC_CMD_STATUS_NOT_SUPPORTED) {
-+			err = xsc_create_cq_compat(xdev, in, &out);
-+			if (err)
-+				return err;
-+		}
-+
-+		cqn = be32_to_cpu(out.cqn);
-+	} else {
-+		err = xsc_set_cq_context(xdev, &in->ctx_ex, &pa_list_base, &cqn);
-+		if (err)
-+			return err;
-+
-+		err = xsc_set_cq_buf_pa(xdev, in, pa_list_base, cqn);
-+		if (err)
-+			goto err_cmd;
-+	}
-+
-+	cq->cqn = cqn;
-+	cq->cons_index = 0;
-+	cq->arm_sn = 0;
-+	cq->xdev = xdev;
-+	cq->dev = xdev;
-+	atomic_set(&cq->refcount, 1);
-+	init_completion(&cq->free);
-+
-+	xsc_arm_cq(xdev, cq->cqn, 0, 0);
-+
-+	spin_lock_irq(&table->lock);
-+	err = radix_tree_insert(&table->tree, cq->cqn, cq);
-+	spin_unlock_irq(&table->lock);
-+	if (err)
-+		goto err_cmd;
-+
-+	cq->pid = current->pid;
-+	return 0;
-+
-+err_cmd:
-+	xsc_destroy_cq(xdev, cqn);
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(xsc_core_create_cq);
-+
-+int xsc_core_destroy_cq(struct xsc_core_device *xdev, struct xsc_core_cq *cq)
-+{
-+	struct xsc_cq_table *table = &xdev->dev_res->cq_table;
-+	struct xsc_destroy_cq_mbox_in in;
-+	struct xsc_destroy_cq_mbox_out out;
-+	struct xsc_core_cq *tmp;
-+	int err;
-+
-+	spin_lock_irq(&table->lock);
-+	tmp = radix_tree_delete(&table->tree, cq->cqn);
-+	spin_unlock_irq(&table->lock);
-+	if (!tmp || tmp != cq) {
-+		pci_warn(xdev->pdev, "cq 0x%x not found in tree\n", cq->cqn);
-+		return -EINVAL;
-+	}
-+
-+	memset(&in, 0, sizeof(in));
-+	memset(&out, 0, sizeof(out));
-+	in.hdr.opcode = cpu_to_be16(XSC_CMD_OP_DESTROY_CQ);
-+	in.cqn = cpu_to_be32(cq->cqn);
-+
-+	err = xsc_cmd_exec(xdev, &in, sizeof(in), &out, sizeof(out));
-+	if (err)
-+		return err;
-+
-+	if (out.hdr.status)
-+		return xsc_cmd_status_to_err(&out.hdr);
-+
-+	if (atomic_dec_and_test(&cq->refcount))
-+		complete(&cq->free);
-+	wait_for_completion(&cq->free);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(xsc_core_destroy_cq);
-diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/eq.c b/drivers/net/ethernet/yunsilicon/xsc/pci/eq.c
-index d273a42d6..ff4bcb42b 100644
---- a/drivers/net/ethernet/yunsilicon/xsc/pci/eq.c
-+++ b/drivers/net/ethernet/yunsilicon/xsc/pci/eq.c
-@@ -53,16 +53,59 @@ static void eq_update_ci(struct xsc_eq *eq, int arm)
- 
- static void xsc_cq_completion(struct xsc_core_device *xdev, u32 cqn)
- {
-+	struct xsc_cq_table *table = &xdev->dev_res->cq_table;
-+	struct xsc_core_cq *cq;
-+
-+	rcu_read_lock();
-+	cq = radix_tree_lookup(&table->tree, cqn);
-+	if (likely(cq))
-+		atomic_inc(&cq->refcount);
-+	rcu_read_unlock();
-+
-+	if (!cq) {
-+		pci_err(xdev->pdev, "Completion event for bogus CQ, cqn=%d\n",
-+			cqn);
-+		return;
-+	}
-+
-+	++cq->arm_sn;
-+
-+	if (!cq->comp)
-+		pci_err(xdev->pdev, "cq->comp is NULL\n");
-+	else
-+		cq->comp(cq);
-+
-+	if (atomic_dec_and_test(&cq->refcount))
-+		complete(&cq->free);
- }
- 
- static void xsc_eq_cq_event(struct xsc_core_device *xdev,
- 			    u32 cqn, int event_type)
- {
-+	struct xsc_cq_table *table = &xdev->dev_res->cq_table;
-+	struct xsc_core_cq *cq;
-+
-+	spin_lock(&table->lock);
-+	cq = radix_tree_lookup(&table->tree, cqn);
-+	if (likely(cq))
-+		atomic_inc(&cq->refcount);
-+	spin_unlock(&table->lock);
-+
-+	if (unlikely(!cq)) {
-+		pci_err(xdev->pdev, "Async event for bogus CQ, cqn=%d\n",
-+			cqn);
-+		return;
-+	}
-+
-+	cq->event(cq, event_type);
-+
-+	if (atomic_dec_and_test(&cq->refcount))
-+		complete(&cq->free);
- }
- 
- static int xsc_eq_int(struct xsc_core_device *xdev, struct xsc_eq *eq)
- {
--	u32 cqn, queue_id;
-+	u32 cqn, qpn, queue_id;
- 	struct xsc_eqe *eqe;
- 	int eqes_found = 0;
- 	int set_ci = 0;
-@@ -88,6 +131,14 @@ static int xsc_eq_int(struct xsc_core_device *xdev, struct xsc_eq *eq)
- 			cqn = queue_id;
- 			xsc_eq_cq_event(xdev, cqn, eqe->type);
- 			break;
-+		case XSC_EVENT_TYPE_WQ_CATAS_ERROR:
-+		case XSC_EVENT_TYPE_WQ_INVAL_REQ_ERROR:
-+		case XSC_EVENT_TYPE_WQ_ACCESS_ERROR:
-+			queue_id = FIELD_GET(XSC_EQE_QUEUE_ID_MASK,
-+					     le16_to_cpu(eqe->queue_id_data));
-+			qpn = queue_id;
-+			xsc_qp_event(xdev, qpn, eqe->type);
-+			break;
- 		default:
- 			break;
- 		}
-diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/main.c b/drivers/net/ethernet/yunsilicon/xsc/pci/main.c
-index e1f7f178f..c4416a78b 100644
---- a/drivers/net/ethernet/yunsilicon/xsc/pci/main.c
-+++ b/drivers/net/ethernet/yunsilicon/xsc/pci/main.c
-@@ -195,6 +195,8 @@ static int xsc_hw_setup(struct xsc_core_device *xdev)
- 		goto err_cmd_cleanup;
- 	}
- 
-+	xsc_init_cq_table(xdev);
-+	xsc_init_qp_table(xdev);
- 	xsc_eq_init(xdev);
- 
- 	return 0;
-diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/qp.c b/drivers/net/ethernet/yunsilicon/xsc/pci/qp.c
-new file mode 100644
-index 000000000..8ea57a09f
---- /dev/null
-+++ b/drivers/net/ethernet/yunsilicon/xsc/pci/qp.c
-@@ -0,0 +1,356 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (C) 2021-2026, Shanghai Yunsilicon Technology Co., Ltd.
-+ * All rights reserved.
-+ */
-+
-+#include <linux/gfp.h>
-+#include <linux/time.h>
-+#include <linux/export.h>
-+#include <linux/kthread.h>
-+
-+#include "common/xsc_core.h"
-+#include "common/xsc_cmd_api.h"
-+#include "qp.h"
-+
-+int xsc_core_create_resource_common(struct xsc_core_device *xdev,
-+				    struct xsc_core_qp *qp)
-+{
-+	struct xsc_qp_table *table = &xdev->dev_res->qp_table;
-+	int err;
-+
-+	spin_lock_irq(&table->lock);
-+	err = radix_tree_insert(&table->tree, qp->qpn, qp);
-+	spin_unlock_irq(&table->lock);
-+	if (err)
-+		return err;
-+
-+	atomic_set(&qp->refcount, 1);
-+	init_completion(&qp->free);
-+	qp->pid = current->pid;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(xsc_core_create_resource_common);
-+
-+void xsc_core_destroy_resource_common(struct xsc_core_device *xdev,
-+				      struct xsc_core_qp *qp)
-+{
-+	struct xsc_qp_table *table = &xdev->dev_res->qp_table;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&table->lock, flags);
-+	radix_tree_delete(&table->tree, qp->qpn);
-+	spin_unlock_irqrestore(&table->lock, flags);
-+
-+	if (atomic_dec_and_test(&qp->refcount))
-+		complete(&qp->free);
-+	wait_for_completion(&qp->free);
-+}
-+EXPORT_SYMBOL_GPL(xsc_core_destroy_resource_common);
-+
-+void xsc_qp_event(struct xsc_core_device *xdev, u32 qpn, int event_type)
-+{
-+	struct xsc_qp_table *table = &xdev->dev_res->qp_table;
-+	struct xsc_core_qp *qp;
-+
-+	spin_lock(&table->lock);
-+
-+	qp = radix_tree_lookup(&table->tree, qpn);
-+	if (qp)
-+		atomic_inc(&qp->refcount);
-+
-+	spin_unlock(&table->lock);
-+
-+	if (!qp) {
-+		pci_err(xdev->pdev, "Async event for bogus QP 0x%x\n", qpn);
-+		return;
-+	}
-+
-+	qp->event(qp, event_type);
-+
-+	if (atomic_dec_and_test(&qp->refcount))
-+		complete(&qp->free);
-+}
-+
-+void xsc_init_qp_table(struct xsc_core_device *xdev)
-+{
-+	struct xsc_qp_table *table = &xdev->dev_res->qp_table;
-+
-+	spin_lock_init(&table->lock);
-+	INIT_RADIX_TREE(&table->tree, GFP_ATOMIC);
-+}
-+
-+int xsc_core_eth_create_qp(struct xsc_core_device *xdev,
-+			   struct xsc_create_qp_mbox_in *in,
-+			   int insize, u32 *p_qpn)
-+{
-+	struct xsc_create_qp_mbox_out out;
-+	int ret;
-+
-+	in->hdr.opcode = cpu_to_be16(XSC_CMD_OP_CREATE_QP);
-+	ret = xsc_cmd_exec(xdev, in, insize, &out, sizeof(out));
-+	if (ret) {
-+		pci_err(xdev->pdev, "failed to create sq, err=%d out.status=%u\n",
-+			ret, out.hdr.status);
-+		return ret;
-+	}
-+
-+	*p_qpn = be32_to_cpu(out.qpn) & 0xffffff;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(xsc_core_eth_create_qp);
-+
-+int xsc_core_eth_modify_qp_status(struct xsc_core_device *xdev,
-+				  u32 qpn, u16 status)
-+{
-+	struct xsc_modify_qp_mbox_out out;
-+	struct xsc_modify_qp_mbox_in in = {};
-+	int ret = 0;
-+
-+	in.hdr.opcode = cpu_to_be16(status);
-+	in.qpn = cpu_to_be32(qpn);
-+	in.no_need_wait = 1;
-+
-+	ret = xsc_cmd_exec(xdev, &in, sizeof(in), &out, sizeof(out));
-+	if (ret) {
-+		pci_err(xdev->pdev, "failed to modify qp %u status=%u, err=%d out.status %u\n",
-+			qpn, status, ret, out.hdr.status);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(xsc_core_eth_modify_qp_status);
-+
-+int xsc_core_eth_destroy_qp(struct xsc_core_device *xdev, u32 qpn)
-+{
-+	struct xsc_destroy_qp_mbox_out out;
-+	struct xsc_destroy_qp_mbox_in in;
-+	int err;
-+
-+	err = xsc_core_eth_modify_qp_status(xdev, qpn, XSC_CMD_OP_2RST_QP);
-+	if (err) {
-+		pci_err(xdev->pdev, "failed to set sq%d status=rst, err=%d\n",
-+			qpn, err);
-+		return err;
-+	}
-+
-+	memset(&in, 0, sizeof(in));
-+	memset(&out, 0, sizeof(out));
-+	in.hdr.opcode = cpu_to_be16(XSC_CMD_OP_DESTROY_QP);
-+	in.qpn = cpu_to_be32(qpn);
-+	err = xsc_cmd_exec(xdev, &in, sizeof(in), &out, sizeof(out));
-+	if (err) {
-+		pci_err(xdev->pdev, "failed to destroy sq%d, err=%d out.status=%u\n",
-+			qpn, err, out.hdr.status);
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(xsc_core_eth_destroy_qp);
-+
-+int xsc_core_eth_modify_raw_qp(struct xsc_core_device *xdev,
-+			       struct xsc_modify_raw_qp_mbox_in *in)
-+{
-+	struct xsc_modify_raw_qp_mbox_out out;
-+	int err;
-+
-+	in->hdr.opcode = cpu_to_be16(XSC_CMD_OP_MODIFY_RAW_QP);
-+
-+	err = xsc_cmd_exec(xdev, in, sizeof(struct xsc_modify_raw_qp_mbox_in),
-+			   &out, sizeof(struct xsc_modify_raw_qp_mbox_out));
-+	if (err) {
-+		pci_err(xdev->pdev, "failed to modify sq, err=%d out.status=%u\n",
-+			err, out.hdr.status);
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(xsc_core_eth_modify_raw_qp);
-+
-+int xsc_core_eth_create_rss_qp_rqs(struct xsc_core_device *xdev,
-+				   struct xsc_create_multiqp_mbox_in *in,
-+				   int insize,
-+				   u32 *p_qpn_base)
-+{
-+	struct xsc_create_multiqp_mbox_out out;
-+	int err;
-+
-+	in->hdr.opcode = cpu_to_be16(XSC_CMD_OP_CREATE_MULTI_QP);
-+	err = xsc_cmd_exec(xdev, in, insize, &out, sizeof(out));
-+	if (err) {
-+		pci_err(xdev->pdev,
-+			"failed to create rss rq, qp_num=%d, type=%d, err=%d out.status=%u\n",
-+			in->qp_num, in->qp_type, err, out.hdr.status);
-+		return err;
-+	}
-+
-+	*p_qpn_base = be32_to_cpu(out.qpn_base) & 0xffffff;
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(xsc_core_eth_create_rss_qp_rqs);
-+
-+int xsc_core_create_qp(struct xsc_core_device *xdev,
-+		       struct xsc_core_qp *qp,
-+		       struct xsc_create_qp_mbox_in *in,
-+		       int inlen)
-+{
-+	struct xsc_create_qp_mbox_out out;
-+	struct xsc_destroy_qp_mbox_in din;
-+	struct xsc_destroy_qp_mbox_out dout;
-+	int err;
-+
-+	memset(&out, 0, sizeof(out));
-+	in->hdr.opcode = cpu_to_be16(XSC_CMD_OP_CREATE_QP);
-+
-+	err = xsc_cmd_exec(xdev, in, inlen, &out, sizeof(out));
-+	if (err)
-+		return err;
-+
-+	if (out.hdr.status)
-+		return xsc_cmd_status_to_err(&out.hdr);
-+
-+	qp->qpn = be32_to_cpu(out.qpn) & 0xffffff;
-+
-+	err = xsc_core_create_resource_common(xdev, qp);
-+	if (err)
-+		goto err_cmd;
-+
-+	atomic_inc(&xdev->num_qps);
-+	return 0;
-+
-+err_cmd:
-+	memset(&din, 0, sizeof(din));
-+	memset(&dout, 0, sizeof(dout));
-+	din.hdr.opcode = cpu_to_be16(XSC_CMD_OP_DESTROY_QP);
-+	din.qpn = cpu_to_be32(qp->qpn);
-+	xsc_cmd_exec(xdev, &din, sizeof(din), &dout, sizeof(dout));
-+
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(xsc_core_create_qp);
-+
-+int xsc_core_destroy_qp(struct xsc_core_device *xdev,
-+			struct xsc_core_qp *qp)
-+{
-+	struct xsc_destroy_qp_mbox_in in;
-+	struct xsc_destroy_qp_mbox_out out;
-+	int err;
-+
-+	xsc_core_destroy_resource_common(xdev, qp);
-+
-+	memset(&in, 0, sizeof(in));
-+	memset(&out, 0, sizeof(out));
-+	in.hdr.opcode = cpu_to_be16(XSC_CMD_OP_DESTROY_QP);
-+	in.qpn = cpu_to_be32(qp->qpn);
-+
-+	err = xsc_cmd_exec(xdev, &in, sizeof(in), &out, sizeof(out));
-+	if (err)
-+		return err;
-+
-+	if (out.hdr.status)
-+		return xsc_cmd_status_to_err(&out.hdr);
-+
-+	atomic_dec(&xdev->num_qps);
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(xsc_core_destroy_qp);
-+
-+int xsc_core_qp_modify(struct xsc_core_device *xdev, enum xsc_qp_state cur_state,
-+		       enum xsc_qp_state new_state,
-+		       struct xsc_modify_qp_mbox_in *in, int sqd_event,
-+		       struct xsc_core_qp *qp)
-+{
-+	static const u16 optab[XSC_QP_NUM_STATE][XSC_QP_NUM_STATE] = {
-+		[XSC_QP_STATE_RST] = {
-+			[XSC_QP_STATE_RST]	= XSC_CMD_OP_2RST_QP,
-+			[XSC_QP_STATE_ERR]	= XSC_CMD_OP_2ERR_QP,
-+			[XSC_QP_STATE_INIT]	= XSC_CMD_OP_RST2INIT_QP,
-+		},
-+		[XSC_QP_STATE_INIT] = {
-+			[XSC_QP_STATE_RST]	= XSC_CMD_OP_2RST_QP,
-+			[XSC_QP_STATE_ERR]	= XSC_CMD_OP_2ERR_QP,
-+			[XSC_QP_STATE_INIT]	= XSC_CMD_OP_INIT2INIT_QP,
-+			[XSC_QP_STATE_RTR]	= XSC_CMD_OP_INIT2RTR_QP,
-+		},
-+		[XSC_QP_STATE_RTR] = {
-+			[XSC_QP_STATE_RST]	= XSC_CMD_OP_2RST_QP,
-+			[XSC_QP_STATE_ERR]	= XSC_CMD_OP_2ERR_QP,
-+			[XSC_QP_STATE_RTS]	= XSC_CMD_OP_RTR2RTS_QP,
-+		},
-+		[XSC_QP_STATE_RTS] = {
-+			[XSC_QP_STATE_RST]	= XSC_CMD_OP_2RST_QP,
-+			[XSC_QP_STATE_ERR]	= XSC_CMD_OP_2ERR_QP,
-+			[XSC_QP_STATE_RTS]	= XSC_CMD_OP_RTS2RTS_QP,
-+			[XSC_QP_STATE_SQD]	= XSC_CMD_OP_RTS2SQD_QP,
-+		},
-+		[XSC_QP_STATE_SQD] = {
-+			[XSC_QP_STATE_RST]	= XSC_CMD_OP_2RST_QP,
-+			[XSC_QP_STATE_ERR]	= XSC_CMD_OP_2ERR_QP,
-+			[XSC_QP_STATE_RTS]	= XSC_CMD_OP_SQD2RTS_QP,
-+			[XSC_QP_STATE_SQD]	= XSC_CMD_OP_SQD2SQD_QP,
-+		},
-+		[XSC_QP_STATE_SQER] = {
-+			[XSC_QP_STATE_RST]	= XSC_CMD_OP_2RST_QP,
-+			[XSC_QP_STATE_ERR]	= XSC_CMD_OP_2ERR_QP,
-+			[XSC_QP_STATE_RTS]	= XSC_CMD_OP_SQERR2RTS_QP,
-+		},
-+		[XSC_QP_STATE_ERR] = {
-+			[XSC_QP_STATE_RST]	= XSC_CMD_OP_2RST_QP,
-+			[XSC_QP_STATE_ERR]	= XSC_CMD_OP_2ERR_QP,
-+		}
-+	};
-+
-+	struct xsc_modify_qp_mbox_out out;
-+	u16 op;
-+
-+	if (cur_state >= XSC_QP_NUM_STATE || new_state >= XSC_QP_NUM_STATE ||
-+	    !optab[cur_state][new_state])
-+		return -EINVAL;
-+
-+	memset(&out, 0, sizeof(out));
-+	op = optab[cur_state][new_state];
-+
-+	if (new_state == XSC_QP_STATE_RTR) {
-+		in->ctx.pcie_no = xdev->pcie_no;
-+		in->ctx.func_id = cpu_to_be16(xdev->glb_func_id);
-+	}
-+
-+	in->hdr.opcode = cpu_to_be16(op);
-+	in->qpn = cpu_to_be32(qp->qpn);
-+	in->no_need_wait = 1;
-+
-+	if (xsc_cmd_exec(xdev, in, sizeof(*in), &out, sizeof(out)))
-+		return -ENOEXEC;
-+
-+	if (out.hdr.status)
-+		return xsc_cmd_status_to_err(&out.hdr);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(xsc_core_qp_modify);
-+
-+int xsc_core_qp_query(struct xsc_core_device *xdev, struct xsc_core_qp *qp,
-+		      struct xsc_query_qp_mbox_out *out, int outlen)
-+{
-+	struct xsc_query_qp_mbox_in in;
-+	int err;
-+
-+	memset(&in, 0, sizeof(in));
-+	memset(out, 0, outlen);
-+	in.hdr.opcode = cpu_to_be16(XSC_CMD_OP_QUERY_QP);
-+	in.qpn = cpu_to_be32(qp->qpn);
-+
-+	err = xsc_cmd_exec(xdev, &in, sizeof(in), out, outlen);
-+	if (err)
-+		return err;
-+
-+	if (out->hdr.status)
-+		return xsc_cmd_status_to_err(&out->hdr);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(xsc_core_qp_query);
+PlN1YmplY3Q6IFJlOiBbUEFUQ0hdIHRpcGM6IGZpeCBicm9hZGNhc3Qgc2VuZGVyIGhhbmcgYW5k
+IGxlYWsgb24gbGFzdCBhY2tlcg0KPmRlcGFydHVyZQ0KPg0KPlRoYW5rIHlvdSBmb3IgeW91ciBj
+b250cmlidXRpb24hIFNhc2hpa28gQUkgcmV2aWV3IGZvdW5kIDIgcG90ZW50aWFsDQo+aXNzdWUo
+cykgdG8gY29uc2lkZXIuDQo+DQo+Q3JpdGljYWw6IDAgwrcgSGlnaDogMCDCtyBNZWRpdW06IDEg
+KDEpIMK3IExvdzogMSAoMSkNCj4NCj5JZiB5b3UgYmVsaWV2ZSBub25lIG9mIHRoZSBpc3N1ZXMg
+YXJlIGxlZ2l0aW1hdGUsIHBsZWFzZSByZXBseSB0byBlYWNoIGlzc3VlIG9mDQo+TWVkaXVtIHNl
+dmVyaXR5IG9yIGhpZ2hlciBhbmQgZXhwbGFpbiB3aHkgdGhlIEFJIGlzIHdyb25nLg0KPklmIGFu
+eSBvZiB0aGVtIGFyZSBsZWdpdGltYXRlIGFuZCB5b3UgcGxhbiB0byByZXNwaW4sIHBsZWFzZSBs
+ZXQgcGF0Y2h3b3JrDQo+a25vdyBieSBpbmNsdWRpbmcgInB3LWJvdDogY3IiIGFzIGEgc2VwYXJh
+dGUgbGluZSBhdCB0aGUgZW5kIG9mIHlvdXIgcmVwbHkgKG9uZQ0KPnN1Y2ggcmVwbHkgcGVyIHNl
+cmllcyBpcyBlbm91Z2gpLg0KPg0KPi0gW01lZGl1bV0gVGhlIG5ldyBvcGVuLXJlc3RvcmUgaW4g
+dGlwY19ncm91cF9kZWxldGVfbWVtYmVyKCkNCj4gIChuZXQvdGlwYy9ncm91cC5jOjM0Ni0zNDgp
+IGRlcGVuZHMgb24gbGVzcyhtLT5iY19hY2tlZCzigKYNCj4tIFtMb3ddIFRoZSBjb21taXQgbWVz
+c2FnZSBkb2VzIG5vdCBtYXRjaCB0aGUgcGF0Y2guDQo+DQo+UHJlLWV4aXN0aW5nIGlzc3VlczoN
+Cj4tIFtNZWRpdW1dIFRoaXMgcHJvYmxlbSB3YXNuJ3QgaW50cm9kdWNlZCBieSB0aGlzIHBhdGNo
+LCBidXQgYSBub2RlLWRvd24NCj4gIHdpdGhkcmF3YWwgZXZlbnQgY2FuIGdldCBzdHVjayBiZWhp
+bmQgYSBkZWZlcnJlZCB1bmljYXN0LCBzbyB0aGXigKYNCj4tIFtMb3ddIFRoaXMgcHJvYmxlbSB3
+YXNuJ3QgaW50cm9kdWNlZCBieSB0aGlzIHBhdGNoLCBidXQNCj4gIHRzay0+Z3JvdXBfaXNfb3Bl
+biAoYWxpYXNlZCBhcyAqZ3JwLT5vcGVuKSBpcyB3cml0dGVuIHdpdGggcGxhaW7igKYNCj4NCj4t
+LQ0KPg0KPnRpcGM6IGZpeCBicm9hZGNhc3Qgc2VuZGVyIGhhbmcgYW5kIGxlYWsgb24gbGFzdCBh
+Y2tlciBkZXBhcnR1cmUNCj4NCj5UaGlzIHBhdGNoIG1ha2VzIHRpcGNfZ3JvdXBfZGVsZXRlX21l
+bWJlcigpIHJlc3RvcmUgKmdycC0+b3BlbiB3aGVuDQo+Z3JwLT5iY19hY2tlcnMgZHJvcHMgZnJv
+bSAxIHRvIDAuIEl0IGFsc28gbWFrZXMgdGlwY19za19maWx0ZXJfcmN2KCkNCj5ncnAtPmNhbGwN
+Cj5zay0+c2tfd3JpdGVfc3BhY2UoKSB3aGVuIHRpcGNfZ3JvdXBfZmlsdGVyX21zZygpIHN3aXRj
+aGVzIHRoZSBncm91cA0KPnNrLT5mcm9tDQo+Y2xvc2VkIHRvIG9wZW4uIFRoZSBhaW0gaXMgdG8g
+dW5ibG9jayBncm91cCBicm9hZGNhc3Qgc2VuZGVycyB3aGVuIHRoZSBsYXN0DQo+b3V0c3RhbmRp
+bmcgYWNrZXIgbGVhdmVzLg0KPg0KPj4gdGlwYzogZml4IGJyb2FkY2FzdCBzZW5kZXIgaGFuZyBh
+bmQgbGVhayBvbiBsYXN0IGFja2VyIGRlcGFydHVyZQ0KPg0KPltTZXZlcml0eTogTG93XQ0KPldo
+aWNoIGxlYWsgZG9lcyB0aGlzIHBhdGNoIGZpeD8gVGhlIGRpZmYgb25seSBhZGRzIHRoZSByZW9w
+ZW4gYW5kIHRoZSB3YWtldXAuDQo+VGhlIGtmcmVlKG0pIGFuZCB0aGUgYmNfYWNrZXJzIGRlY3Jl
+bWVudCBpbg0KPnRpcGNfZ3JvdXBfZGVsZXRlX21lbWJlcigpIHdlcmUgYWxyZWFkeSB0aGVyZS4N
+Cj4NCj5UaGlzIHBhdGNoIGNhcnJpZXMgQ2M6IHN0YWJsZSBhbmQgYSBGaXhlczogdGFnLiBDb3Vs
+ZCAibGVhayIgYmUgZHJvcHBlZCBmcm9tIHRoZQ0KPnN1YmplY3Qgc28gaXQgZG9lc24ndCBtaXNs
+ZWFkIGJhY2twb3J0ZXJzPw0KPg0KDQpBZ3JlZS4gUGxlYXNlIHJld3JpdGUgdGhlIGNoYW5nZWxv
+Zy4NCg0KPj4gYmxvY2tlZCBzZW5kZXJzOyB3cml0ZSgpIHRoZW4gc2xlZXBzIHVudGlsIHRoZSBz
+ZW5kIHRpbWVvdXQgYW5kDQo+PiBwb2xsKCkgaXMgbmV2ZXIgd29rZW4gYXQgYWxsLg0KPg0KPklz
+IHRoZSB3cml0ZSgpIHBhcnQgYWNjdXJhdGU/IHRpcGNfd2FpdF9mb3JfY29uZCgpIHNsZWVwcyBp
+biB3YWl0X3dva2VuKCkgd2l0aA0KPndva2VuX3dha2VfZnVuY3Rpb24oKSwgYW5kIHRoYXQgZnVu
+Y3Rpb24gZG9lc24ndCBmaWx0ZXIgb24gdGhlIHBvbGwNCj5rZXk6DQo+DQo+bmV0L3RpcGMvc29j
+a2V0LmM6dGlwY193YWl0X2Zvcl9jb25kKCkgew0KPiAgICAuLi4NCj4JYWRkX3dhaXRfcXVldWUo
+c2tfc2xlZXAoc2tfKSwgJndhaXRfKTsNCj4JcmVsZWFzZV9zb2NrKHNrXyk7DQo+CSoodGltZW9f
+KSA9IHdhaXRfd29rZW4oJndhaXRfLCBUQVNLX0lOVEVSUlVQVElCTEUsICoodGltZW9fKSk7DQo+
+ICAgIC4uLg0KPn0NCj4NCj5TbyBhbnkgdGlwY19kYXRhX3JlYWR5KCkgb24gdGhlIHNvY2tldCB3
+YWtlcyB0aGUgd3JpdGVyIGFuZCByZS1ydW5zDQo+dGlwY19ncm91cF9iY19jb25nKCkuIE9uZSBl
+eGFtcGxlIGlzIGRlbGl2ZXJ5IG9mIHRoZSBUSVBDX1dJVEhEUkFXTg0KPm1lbWJlciBldmVudCB3
+aGVuIFRJUENfR1JPVVBfTUVNQkVSX0VWVFMgaXMgc2V0Lg0KPg0KPklmIG5vIHN1Y2ggd2FrZXVw
+IGNvbWVzLCB0aGUgZGVmYXVsdCBibG9ja2luZyBza19zbmR0aW1lbyBpcw0KPk1BWF9TQ0hFRFVM
+RV9USU1FT1VULCBzbyB0aGVyZSBpcyBubyBib3VuZGVkIHNlbmQgdGltZW91dCBlaXRoZXIuDQo+
+DQo+VGhlIHBvbGwoKSBwYXJ0IGxvb2tzIGNvcnJlY3QsIHNpbmNlIHRpcGNfcG9sbCgpIHJlcG9y
+dHMgRVBPTExPVVQgb25seSB3aGVuIHRzay0NCj4+Z3JvdXBfaXNfb3BlbiBpcyBzZXQuDQoNCkFn
+cmVlLiBQbGVhc2UgcmV3cml0ZSB0aGUgY2hhbmdlbG9nLg0KDQo+DQo+PiBkaWZmIC0tZ2l0IGEv
+bmV0L3RpcGMvZ3JvdXAuYyBiL25ldC90aXBjL2dyb3VwLmMgaW5kZXgNCj4+IDc0ZjZkM2RhYzA3
+ODQuLmUyMGViNjEyZjgyY2UgMTAwNjQ0DQo+PiAtLS0gYS9uZXQvdGlwYy9ncm91cC5jDQo+PiAr
+KysgYi9uZXQvdGlwYy9ncm91cC5jDQo+PiBAQCAtMzQwLDkgKzM0MCwxMiBAQCBzdGF0aWMgdm9p
+ZCB0aXBjX2dyb3VwX2RlbGV0ZV9tZW1iZXIoc3RydWN0DQo+dGlwY19ncm91cCAqZ3JwLA0KPj4g
+IAlyYl9lcmFzZSgmbS0+dHJlZV9ub2RlLCAmZ3JwLT5tZW1iZXJzKTsNCj4+ICAJZ3JwLT5tZW1i
+ZXJfY250LS07DQo+Pg0KPj4gLQkvKiBDaGVjayBpZiB3ZSB3ZXJlIHdhaXRpbmcgZm9yIHJlcGxp
+Y2FzdCBhY2sgZnJvbSB0aGlzIG1lbWJlciAqLw0KPj4gLQlpZiAoZ3JwLT5iY19hY2tlcnMgJiYg
+bGVzcyhtLT5iY19hY2tlZCwgZ3JwLT5iY19zbmRfbnh0IC0gMSkpDQo+PiAtCQlncnAtPmJjX2Fj
+a2Vycy0tOw0KPj4gKwkvKiBJZiB0aGlzIG1lbWJlciBoZWxkIHRoZSBsYXN0IG91dHN0YW5kaW5n
+IHJlcGxpY2FzdCBhY2ssDQo+PiArCSAqIHJlc3RvcmUgdGhlIG9wZW4gc3RhdGUgc28gYmxvY2tl
+ZCBicm9hZGNhc3Qgc2VuZGVycyBjYW4gcHJvY2VlZC4NCj4+ICsJICovDQo+PiArCWlmIChncnAt
+PmJjX2Fja2VycyAmJiBsZXNzKG0tPmJjX2Fja2VkLCBncnAtPmJjX3NuZF9ueHQgLSAxKSAmJg0K
+Pj4gKwkgICAgIS0tZ3JwLT5iY19hY2tlcnMpDQo+PiArCQkqZ3JwLT5vcGVuID0gdHJ1ZTsNCj4N
+Cj5bU2V2ZXJpdHk6IE1lZGl1bV0NCj5DYW4gdGhpcyByZW9wZW4gdGhlIGdyb3VwIHdoaWxlIGEg
+Y291bnRlZCBhY2tlciBpcyBzdGlsbCBvdXRzdGFuZGluZz8NCj4NCj5UaGUgbGVzcyhtLT5iY19h
+Y2tlZCwgZ3JwLT5iY19zbmRfbnh0IC0gMSkgY2hlY2sgYWxzbyBtYXRjaGVzIG1lbWJlcnMgdGhh
+dA0KPndlcmUgbmV2ZXIgY291bnRlZCBpbiBiY19hY2tlcnMuIHRpcGNfZ3JvdXBfdXBkYXRlX2Jj
+X21lbWJlcnMoKSBvbmx5DQo+Y291bnRzIGEgbWVtYmVyLCBhbmQgcmVmcmVzaGVzIGl0cyBiY19h
+Y2tlZCwgd2hlbiB0aXBjX2dyb3VwX2lzX3JlY2VpdmVyKCkgaXMNCj50cnVlOg0KPg0KPm5ldC90
+aXBjL2dyb3VwLmM6dGlwY19ncm91cF91cGRhdGVfYmNfbWVtYmVycygpIHsNCj4gICAgLi4uDQo+
+CQlpZiAodGlwY19ncm91cF9pc19yZWNlaXZlcihtKSkgew0KPgkJCXRpcGNfZ3JvdXBfdXBkYXRl
+X21lbWJlcihtLCBsZW4pOw0KPgkJCW0tPmJjX2Fja2VkID0gcHJldjsNCj4JCQlhY2tlcnMrKzsN
+Cj4JCX0NCj4gICAgLi4uDQo+fQ0KPg0KPnRpcGNfZ3JvdXBfaXNfcmVjZWl2ZXIoKSBleGNsdWRl
+cyBNQlJfSk9JTklORyBhbmQgTUJSX0xFQVZJTkcuIEENCj5tZW1iZXIgaW4gZWl0aGVyIHN0YXRl
+IGtlZXBzIGEgc3RhbGUgYmNfYWNrZWQuDQo+DQo+Rm9yIGV4YW1wbGUsIHNheSBtZW1iZXJzIFgg
+YW5kIFkgYXJlIGJvdGggSk9JTkVEOg0KPg0KPiAgLSBBIG5vbi1hY2sgYnJvYWRjYXN0IGF0IHNl
+cW5vIDEwIHNldHMgWC5iY19hY2tlZCA9IFkuYmNfYWNrZWQgPSA5IGFuZA0KPiAgICBiY19zbmRf
+bnh0ID0gMTEuDQo+ICAtIFggYmVjb21lcyBNQlJfTEVBVklORy4gVGhpcyBjYW4gaGFwcGVuIHdo
+ZW4gVElQQ19XSVRIRFJBV04NCj5hcnJpdmVzDQo+ICAgIHdpdGggdGhlIG5vZGUgc3RpbGwgdXAg
+YW5kIGJlZm9yZSBHUlBfTEVBVkVfTVNHLCBvciB3aGVuIHRoZSBsZWF2ZQ0KPiAgICBldmVudCBp
+cyBzdGlsbCB3YWl0aW5nIGluIG0tPmRlZmVycmVkcS4NCj4gIC0gVGhlIGxvY2FsIHNvY2tldCBz
+ZW5kcyBhIHVuaWNhc3QuIHRpcGNfc2VuZF9ncm91cF9hbnljYXN0KCkvdW5pY2FzdA0KPiAgICB0
+aGVuIHNldHMgbWV0aG9kLT5yY2FzdCBhbmQgbWV0aG9kLT5tYW5kYXRvcnksIHNvIHRoZSBuZXh0
+IGJyb2FkY2FzdA0KPiAgICBnb2VzIG91dCBhcyBhbiBhY2stcmVxdWVzdGluZyByZXBsaWNhc3Qg
+YXQgc2Vxbm8gMTEuIE9ubHkgWSBpcw0KPiAgICBjb3VudGVkOiBiY19hY2tlcnMgPSAxLCBZLmJj
+X2Fja2VkID0gMTAsIGJjX3NuZF9ueHQgPSAxMi4NCj4gIC0gWCdzIGxlYXZlIGV2ZW50IGlzIGRl
+bGl2ZXJlZCwgYW5kIHRpcGNfZ3JvdXBfZmlsdGVyX21zZygpIGNhbGxzDQo+ICAgIHRpcGNfZ3Jv
+dXBfZGVsZXRlX21lbWJlcihYKS4NCj4NCj5BdCB0aGF0IHBvaW50IGxlc3MoOSwgMTEpIGlzIHRy
+dWUuIFNvIC0tYmNfYWNrZXJzIHJlYWNoZXMgMCBhbmQgKmdycC0+b3BlbiBpcyBzZXQNCj50byB0
+cnVlLCBldmVuIHRob3VnaCBZIGhhc24ndCBhY2tlZCB5ZXQuDQo+DQo+VGhlIG5ldyBjaGVjayBp
+biB0aXBjX3NrX2ZpbHRlcl9yY3YoKSB0aGVuIHNlZXMgdGhpczoNCj4NCj4JaWYgKCF3YXNfb3Bl
+biAmJiB0c2stPmdyb3VwX2lzX29wZW4pDQo+CQlzay0+c2tfd3JpdGVfc3BhY2Uoc2spOw0KPg0K
+PlRoZSB3cml0ZXIgYmxvY2tlZCBpbiB0aXBjX3NlbmRfZ3JvdXBfYmNhc3QoKSB3YWtlcyB1cCBh
+bmQNCj50aXBjX2dyb3VwX2JjX2NvbmcoKSByZXR1cm5zIGZhbHNlLiBUaGUgbmV4dCBicm9hZGNh
+c3QgY2FuIHRoZW4gZ28gb3V0LA0KPnBvc3NpYmx5IG92ZXIgdGhlIGJyb2FkY2FzdCBsaW5rLCBi
+ZWZvcmUgWSBoYXMgYWNrZWQgdGhlIHJlcGxpY2FzdC4NCj4NCj5Eb2Vzbid0IHRoYXQgYnJlYWsg
+dGhlIHVuaWNhc3QvYnJvYWRjYXN0IG9yZGVyaW5nIHRoYXQgY29tbWl0IDJmNDg3NzEyYjg5Mw0K
+PmFkZGVkIHRoZSBiY19hY2tlcnMgZ2F0ZSBmb3I/IFkncyBsYXRlciBHUlBfQUNLX01TRyBpcyBh
+bHNvIGRyb3BwZWQgYnkgdGhlDQo+IWdycC0+YmNfYWNrZXJzIGNoZWNrIGluIHRpcGNfZ3JvdXBf
+cHJvdG9fcmN2KCkuDQo+DQo+VGhlIG1pc2NvdW50IGl0c2VsZiBwcmVkYXRlcyB0aGlzIHBhdGNo
+LiBCZWZvcmUgaXQsIGEgZmFsc2UgemVybyBvbmx5IHRvb2sgZWZmZWN0DQo+b24gdGhlIG5leHQg
+c2VuZCBvciB0aGUgbmV4dCB1bnJlbGF0ZWQgd2FrZXVwLiBXaXRoIHRoaXMgcGF0Y2ggaXQgY2F1
+c2VzIGFuDQo+aW1tZWRpYXRlIHdha2V1cCBhbmQgRVBPTExPVVQuIFRoZSBuZXcgY29tbWVudCAo
+IklmIHRoaXMgbWVtYmVyIGhlbGQNCj50aGUgbGFzdCBvdXRzdGFuZGluZyByZXBsaWNhc3QgYWNr
+IikgYWxzbyBkb2Vzbid0IGhvbGQgaW4gdGhpcyBjYXNlLg0KPg0KPldvdWxkIGl0IGJlIGJldHRl
+ciB0byByZWNvcmQgd2hldGhlciB0aGUgbWVtYmVyIHdhcyBjb3VudGVkIHdoZW4gdGhlDQo+cmVw
+bGljYXN0IHdhcyBzZW50LCBmb3IgZXhhbXBsZSB3aXRoIGEgcGVyLW1lbWJlciBwZW5kaW5nLWFj
+ayBmbGFnLCBpbnN0ZWFkIG9mDQo+Y29tcGFyaW5nIGEgcG9zc2libHkgc3RhbGUgYmNfYWNrZWQ/
+DQo+DQoNCkFncmVlLiBQbGVhc2UgYWRkcmVzcyB0aGUgaW5jb21wbGV0ZSBjaGVjay4NCg0KLS0N
+CnB3LWJvdDogY3INCg==
