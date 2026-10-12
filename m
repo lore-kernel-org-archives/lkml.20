@@ -1,149 +1,181 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CC749B5B5
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:23:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE2C49B21E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:24:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818625; cv=none; b=U1U4gD830kNWza6v+jWaAKSMVnjwagR8mLsYb9ifCEMkUHGRauEHRG0bW9Fh2BH6XMFdP7dz+9PzecLJb9KvDa8bg8shgLLwJFdfkDUJL/xhNKyIQ8IsqQl12GFPg+dYFdNSN/9T6fk5IMY1rTVybIpCr4/J/V/Npoq94nRoDOI=
+	t=1791818655; cv=none; b=lPEuQCaPQwnwZaoCi8KsPPpbhp9Ww9jSFh4MJJ89usGECGdDpNc968nI65Jd63LV9Bwd7GFuXpBBVGo2rinQr/PT3+jKrXHq9Ug7KT3LoP6UmaHD7pAwJeMvI1PI2TKHZf/EwkOFEmCTV2gyMr0Ng2+U85WHLXf4CV87pmXw7o8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818625; c=relaxed/simple;
-	bh=wFGnrgMxwXXzDsy//oXKrAKdhwnr6sL+OU/iMZYbOXQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dhObkssMkAzFavYQ9e3qB8WLodCeDv9ROaH54gaGd/BH5wFvas6HeCBt3Nn7mT4bAiKPtfTlj9t15JD3bCFOwL0vleT6PgXsP///EB7grfvtQKXMqF7Ap/dLYD2BaIKeNG1aO5mPk3JQaSYhcQHFusWy+bqpF11PQghnoYIqFrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DZ+ApL/p; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J3J9mdgk; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791818655; c=relaxed/simple;
+	bh=BPhVdVn3lLt61EeSVOe16izIdtSs7qr03SzF+WwtHCw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RRluVA0z/GtcxzKyrg6OpSwnQBw8qu0E4I/IAWSPxAISNfEtviA0+TJL4LJC7z1gIHJpm21FKJSy+dTTdt/uMBHTSbSQx+ZVsWGbxH3BmAxvJtNLmKN2mLnYGMGl0t6i8sNmFpTgZuDMHqgdm0QMIu1dJ5qFP9XhmiYqv6tj0qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=F+SzHLge; arc=none smtp.client-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DZ+ApL/p";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J3J9mdgk"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC0Is51236667
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:23:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8w2ECDVEZY7dWIZB+t4QsN90MTNAeJUXrKgTeEQYkeM=; b=DZ+ApL/p4rBoUsIL
-	uj6PyeeMAGaV38C/zlrSkMjRp9Bvi3dxaZpQy2dI+PwGfiikwNYQa0dacIlahiDb
-	Mn+GeIEdHejIJbyGUdb/8nR8QNP/1lPI973OpIS775k5c1UC3gLuD65AAbDBxZUm
-	bIBC4Prm7tUAW20LM6cMHZG3HopynMgJVJEuUF00ncZyh01dHMF/9HEmA+52yCvB
-	avS0ApT1fgFXGC8ltxeY8WhvGbpxpnsSpfVkdgKRiSNmR8G5K9L0c1yHWS3zBQC7
-	0xVg/M0gDNJTJGfnmKXYhc7cnqwEkWCGd5Ky/MFZ+2fty+UbHM9oDXSJMswfeYTR
-	94YdLw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8j6dkpbt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:23:42 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cb1091fffso13585785a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:23:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="F+SzHLge"
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91b54d1e9cdso21848776d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:24:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791818622; x=1792423422; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8w2ECDVEZY7dWIZB+t4QsN90MTNAeJUXrKgTeEQYkeM=;
-        b=J3J9mdgkqlRlnu664r9TCLXu7p1i4TrR00dVOwOVT1/Us3CTjxg0MJEmYxglUt9zHx
-         cbiKwC0yqV1zRp8SWeNFFF9gbfqZ5tPkmOPvGK0N38nOMbMOJxmBN4PpyZds/kr7Evr0
-         Znnpg0iylccaYzPdiZXoNxNERqgpTITNYb5aWtIhLfN0w4ctBXdXjIIniqaJ8I/tbS7T
-         4CAkQHzOfJykW2Fn9HRJX6wx7q0i/9Uma6Fhl1ii/G2PntP7tbl56CJwMw8BY298tWBw
-         F9bsm/M4tvw1EN/WC6VTqeiBvhAwE5kt50KW+iY2YrCPAK9+3dUtMlMD+OMnaBQyWPE3
-         0nYw==
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791818652; x=1792423452; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N6I52eyh3zXooRwST5ZWSSAFFlPV3h5qGgt5QWGPanM=;
+        b=F+SzHLgeYzLnrBR2QMqeSqprXiyECG8R7zUelPJqND5n2lORKaWtTLzU1hIQz9cYwz
+         Ekrx5p3BpfVa8ATm3kcElT+2iUTiC3xAliv4LLiBL05ZUG83Ps6hv72lm6hjjvaZI1Jq
+         HK1Kr/Rlew1qrQ6Fh2UB4/QYP8JhYdPonZeHAASYP744X5RFysQrVEgZ0jJchbqD4IL1
+         pHOQGhX1t924d2pSfOKuG4821OA6toV0moKmDJhYNPvEF2fuHEqR9I8uNHnJfR+5tLk1
+         hy7601/fZ7qnJKtNqG17D2Hkvcs11SquoeQaU0XkQnrEiFOIuR11dcDWayrap9i/4eMA
+         rE6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791818622; x=1792423422;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791818652; x=1792423452;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8w2ECDVEZY7dWIZB+t4QsN90MTNAeJUXrKgTeEQYkeM=;
-        b=eofeAIt7VW/5GwMWazWN2sLsZb+QLiDewaD37dYyD7sv5hF1kIhr3KAyw3Y0erNy7T
-         MN4BJpsb1xh6mZ3rl1OqGN5jHrKhjg+YH7Wp+YGOSBh+f7XrWRrlCIqRP/Fr2Rzd4Z5p
-         r7aM6xj07t8bcn4c8J3mctcRYaPKSGSNWhldswzW1CYvPbE72ZtWI19pcXWZeJ+xYDZW
-         b3BNCl5vPGG3M7G4LA7Hj9gMXvuBeJGguqZeTV+7U3YntVOhrFmO5XE38jP9ZnliOksX
-         fzuu9adHmsLqQEMfaTbggiklsHZ5VvKTqdq3igU99H565MHLFTmHWXrGzF0QxOY/cRaf
-         zKxA==
-X-Forwarded-Encrypted: i=1; AKwUvByjJNdj6vjaBo34lnrIv76SHuOu1jaMcI4UpZNYsZEJ92y5nQ1rHtEP+QMBkwY6+OGSwNP1Lcy9tUDUmsQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJB8A+GgkOoyTyWwVlL1U5J1JG0okwgWH9SMatKs52+f+EczdFW
-	SeQiySLzRYF/QUQf8UNVilnr63X5r9qxCCOJ6pphpqVwn/h1w1FNj2keboBoH7quzoq8V+JNwMm
-	ZwJVvlAjNrRKOQXJmXgqBdJdcMR8q3B/XFfchKh0z9DnJgW81xsfb/Q0zEd70NKtm8T8=
-X-Gm-Gg: AYBFou0BHngt0SkKTv5uVMJYFqR6UrDPEvF3un3Sy8sGm/pN8+BPvbQC8ht+K/Fj9s4
-	7gan2LNo770DmCdY1T4NcKHyCSs57atleqHEGA9kaAbzkftCdjl0z2Wp3mtAF3cUx5SciIQiSYY
-	bEswcXJaTHeEY4AuktzmyPKzyLtRtfs02TInE5z3GJLnQ3AEqCjz+JTwdJOM0FlXFCj5ZL8g9Rv
-	0bsPQEyrpAikf7SUUdiCCMVBY4UPQ64xlGON0sntZZ3aXzRsBeotzcNQo9hvLhfigFIAOYobjIf
-	NbZPZAhzzG+rEBcqJKe3wAC/DcCY4CUJFL8KtB/gfPuVDGr40A75226JT6bvF2S565z6ZkYtGfK
-	aN0VG4kH6V17cuV/HDmojtg==
-X-Received: by 2002:a05:620a:3725:b0:939:94c4:b799 with SMTP id af79cd13be357-93ebd25945cmr1886094485a.5.1791818622213;
-        Mon, 12 Oct 2026 08:23:42 -0700 (PDT)
-X-Received: by 2002:a05:620a:3725:b0:939:94c4:b799 with SMTP id af79cd13be357-93ebd25945cmr1886087385a.5.1791818621624;
-        Mon, 12 Oct 2026 08:23:41 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3527f0295asm115247166b.72.2026.10.12.08.23.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 08:23:40 -0700 (PDT)
-Message-ID: <08bb76dd-6516-41b7-be5e-a67513997ad1@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 17:23:38 +0200
+        bh=N6I52eyh3zXooRwST5ZWSSAFFlPV3h5qGgt5QWGPanM=;
+        b=SNaFxmqb0HNMN7SRNgNQ1rYhEF5+PZfRyfwe75KL+jP4ASXmJQnbd3egpM1UxG5np4
+         wSx7QSqQZESWg7aJ2IFueVQ2blyJKG47yNgJoCoF/+bhYlJ8cKumxcWR7Md7FOIrCGxT
+         +6tG9FnKJ6bHlBe4wkLN+ADFtnqEFf/5BmxyYBQ2I4YPzDTnq8NdTH4zTcRYypsoziT6
+         tsEP4qbDoiUuP90/+bpng9+LnUkxKX55sJXKLCQDZpiUU+6treOie+jOgyBa4n8A+iIt
+         8WpNJQd2sL3P27zYW6+zxApQpL8bcrwGVxBwuE/wJB1PLiSQoVXi7xw/yTSr16+KGPP9
+         DoYA==
+X-Forwarded-Encrypted: i=1; AKwUvBz/aSdCGm7bdWHhgza8/Yelq2tm+Z7ssBdhKA8cdXTBQbPefbnEDjRbCJ9chMvZ6GVrwvtwyMrEgftQO1U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKq4l69pExnUcYezW3SA2VOma4MZSjrRzZTr37JNSZDjNcjuyvI
+	aJcdMUkfInwinB7Bgz5tMlG6jQcudo2OKjxQ1smEwweXP8mAYJuiWExmFvQbfwES714=
+X-Gm-Gg: AYBFou0EJWisqncEgJtHx1C04vdV/mBhxIdm3quJBfIYLD4iIzm0d9GMYrzUvtCCNJM
+	lMQs3amIy4drbV5LqEZgWgppOHYvsuansw/0oqem3WhC/olEAYOwZGAOds8FCmyFor3zoe6W58i
+	J9fZS1zY5KdrqAj/JixCgtvdrdTe4p7aQEMaq96GdLXVVY2He6LkG7vHtA3klZrZgCXOWdydccg
+	7tJC7M4YUac643TMUvt1BNrDnv6YvJu/tLCIHRwxVqNcP0isBtyK7fuQtzBA/MOUGvUqATdYf4H
+	5lvtb4pAsb6O6ga053a2d1OfeV7CzqzOgXqynrkNU8VoJ7iYfL9ChcvuVq1RcCYiO2jY3EcfFxO
+	U91fyFd0Ks1jNsKIuHcKIgciChr8XgjvIdVM8/78zQSYnyzK0k2O+dNwxtnoMMoLs3LXFuSPLn8
+	8+AHT3fQJy3UsOQtkQcb3PgTBzjpHAuWUNhuUoBL2T9zdqai4tbeU8AgEZf3MfF8+XJchoD3LYA
+	/lr6aflO6g15A==
+X-Received: by 2002:a05:6214:2b8e:b0:91b:8d97:122 with SMTP id 6a1803df08f44-91b8d97039cmr23749566d6.51.1791818651854;
+        Mon, 12 Oct 2026 08:24:11 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97178de2sm659086d6.0.2026.10.12.08.24.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 08:24:11 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andersson@kernel.org,
+	konradybcio@kernel.org
+Cc: abelvesa@kernel.org,
+	kees@kernel.org,
+	gustavoars@kernel.org,
+	mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com,
+	danielt@kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/4] clk: introduce TC9564 clock support
+Date: Mon, 12 Oct 2026 10:24:03 -0500
+Message-ID: <20261012152408.3729237-1-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/38] arm: dts: qcom: apq8064: Add newline between
- subnodes
-To: Waqar Hameed <waqar.hameed@axis.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: kernel@axis.com, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <cover.1790892852.git.waqar.hameed@axis.com>
- <b86dabaeeea3672a790fb5e8378f829bd616de78.1790892852.git.waqar.hameed@axis.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <b86dabaeeea3672a790fb5e8378f829bd616de78.1790892852.git.waqar.hameed@axis.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2MSBTYWx0ZWRfX1jpN8OWGef0H
- Qz0LZdfvnd9YsDN6MWk8zYw/ujFaaDBu0OfdLM5N7yP2JFVHz19x1qsXk228CIepXESp/BTzpU8
- s4R3yQDgOkNGNhpioHx2rSQRxQIrA0K1GU+fa7jAoQkqCjZpr8veTBiBgqWqHjbG7PVMU7i6UaV
- ZoBBBi4Wox5T97JUm+rKQOPejRe2T06d2+WS0DUBsH4Zgxu8dVyAIuWMOZhLIITI07mRtJnSV2A
- iKX2EUKq0n4KSAOg3q9zWhvNnH9Yqrl+Ug9INQ0puMBsbUldVUhzlLBY/ip1g1iYBYQF4v9Duj5
- oG9ImLdEFtrET/Np0ccWzPruJY0pVHJz7C6LmJ7lUycWCMEVHEjyeQNgFeOqbCCbUWSKSAK6j8o
- +3xgbfxTNpfgkVTobs1zlenH5USpdWB41g6WPDjKEj+mMZfWA4irOJJ9vw9qOMD7t1HTv7eqPvN
- Sf+tpodYh2TrzKGx+3w==
-X-Authority-Analysis: v=2.4 cv=aK5lOr9m c=1 sm=1 tr=0 ts=6accfb7e cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=3-RhneuVAAAA:8 a=EUspDBNiAAAA:8 a=BSc1TauVmqxuE-eLDIIA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=VLVLkjT_5ZicWzSuYqSo:22
-X-Proofpoint-GUID: FQtxZCHd7y8INTAsJBWZ2oPn2N768ug1
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2MSBTYWx0ZWRfXzHLRUwxDkKvM
- 3DQ3Imy2qmr/f9tEYtzvGtHyT8jyUHeB9/NDwn70OUlq84hWq5+KuBJL0JryDLuxHBLBNaa29ti
- Le5CMcAGi8cz5mBasSeS5m+Iu80Kj38=
-X-Proofpoint-ORIG-GUID: FQtxZCHd7y8INTAsJBWZ2oPn2N768ug1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 bulkscore=0 impostorscore=0 spamscore=0
- suspectscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120061
+Content-Transfer-Encoding: 8bit
 
-On 10/2/26 12:36 AM, Waqar Hameed wrote:
-> There should be a newline (and only one) between subnodes. Found/fixed
-> with dtfmt (Devicetree Source formatter).
-> 
-> Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
-> ---
+This series adds support for the clock controller present within
+the Toshiba TC9564 SoC.
 
-There's some 'remove newlines' in there but the granularity on these
-patches is already more than enough, so I don't mind!
+This SoC attaches to a host system via PCIe.  It includes a PCIe
+switch with three downstream ports.  To one of these ports an
+embedded PCIe endpoint is attached, and it implements two PCI
+functions.  BAR 4 for both PCI functions provides access to the
+registers that enable or disable a set of clocks.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Both TC9564 PCI functions can provide PCI endpoint buses via
+devicetree.  Each PCI endpoint bus provides access to one of the
+function's BARs.  Subordinate devices (like the clock controller)
+can then be defined as nodes accessible on the endpoint bus.
 
-Konrad
+Only one of the two PCI functions is permitted to define the clock
+device node.
+
+					-Alex
+
+NOTE:
+    This series is built upon linux-next, with this patch applied:
+      https://lore.kernel.org/lkml/20261002181849.790275-1-elder@riscstar.com/
+    The series (with that patch) is available in this git branch:
+      https://github.com/alexelder/linux/tree/outgoing/clock-v3
+
+Between version 2 and version 3:
+- What was formerly described as a "clock" node is now "clock-controller"
+- The clock-controller DTS node, which dropped its reg property in v2, is
+  now a sub-device of the config syscon
+- The config syscon is now (also) compatible with "simple-mfd"
+- The clock-controller DTS node no longer defines a toshiba,config-syscon
+  property, and the config syscon no longer requires a label
+- The clock-controller now requires a (parent) clock property
+- The header file is no longer included in the binding example
+- The binding example now includes the definition of fixed 25 MHz clock
+
+- The clock driver now gets its regmap by calling syscon_node_to_regmap()
+  on its device parent's devicetree node
+- The clock driver now must its parent clock from devicetree
+- Added Brian's Reviewed-by tag to the second patch
+
+- A new 25 MHz fixed clock is defined in a new patch, and is later used
+  by the clock controller
+
+
+Version 2 is available here:
+  https://lore.kernel.org/lkml/20261005230927.2000398-1-elder@riscstar.com/
+
+Between version 1 and version 2:
+  - Previously, this driver also included reset functionality.  That
+    is now in a separate reset (only) driver, which will be sent for
+    review separately
+  - Dropped the "config syscon" devicetree binding
+  - Reworded the clock binding description to focus on hardware only
+  - Clock IDs are now consecutive (no more commented-out values)
+  - Get the definition of of_device_id from <linux/device_id/of.h>
+    rather than <linux/platform_device.h>
+  - Dropped a comma that followed a ternminating empty array entry
+  - Config option COMMON_CLK_TC9564 now selects MFD_SYSCON
+  - Clarified in config help text that the reset and stmmac drivers
+    are the "others" that use the config syscon
+  - Moved the clock devicetree node to be a peer (rather than a child) of
+    the syscon node.
+
+Version 1 is available here:
+  https://lore.kernel.org/lkml/20260918165234.687224-1-elder@riscstar.com/
+
+Alex Elder (4):
+  dt-bindings: clock: introduce toshiba,tc9564-clock.yaml
+  clk: toshiba: introduce a TC9564 SoC clock driver
+  arm64: dts: qcom: define a fixed 25 MHz clock
+  arm64: dts: qcom: qcs6490-rb3gen2: add the clock controller
+
+ .../bindings/clock/toshiba,tc9564-clock.yaml  |  65 +++++
+ MAINTAINERS                                   |   8 +
+ arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts  |  22 +-
+ drivers/clk/Kconfig                           |  12 +
+ drivers/clk/Makefile                          |   1 +
+ drivers/clk/clk-tc9564.c                      | 268 ++++++++++++++++++
+ include/dt-bindings/clock/toshiba,tc9564.h    |  34 +++
+ 7 files changed, 409 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+ create mode 100644 drivers/clk/clk-tc9564.c
+ create mode 100644 include/dt-bindings/clock/toshiba,tc9564.h
+
+
+base-commit: dc44eb73f8da11f478815bc29b6509a6a4c5c35f
+-- 
+2.53.0
+
