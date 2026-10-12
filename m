@@ -1,128 +1,142 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DD74E535B
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A228B3A1E81;
+	Mon, 12 Oct 2026 20:14:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791836036; cv=none; b=s7isONXddNTt8P1tc/sHexTN1YOoIXOfUITHbmoiNyUby9Ru1AdBH5woj1n2GRiG1opZqDbqW4CWOpsv9hQLXTSbXXqnypRVnHhFxa/hDE47NazpbF6hh/p1Q+eTQE2Z1zkLNTCrTjqOZPycI8/O+bx+CqyhYpPnCB0fsHduWKE=
+	t=1791836059; cv=none; b=TTpgSckUktBNkxt7xzRRSc9He877y2OwL+dISgJ5jzjhZtz3Gafg5FHQmlpi7yx8shzKQClm2BfM4hvKNtXNfhXmgG5DdCZUNvLAHPAMCiVGs37mksu2QlLuPspSeqVyXfnvuEG7UgGCrBTb+fcDybxNvzToand9CQsJNFcERAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791836036; c=relaxed/simple;
-	bh=nwJ9LwFn0jiy4+yPoQ8GTH6SBwik3tPHXEWfrGXfQos=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=hN/EQ5ftlCU8BracmJfBtTmPDshQpbn+QQ6pcTDsKPyX+HHKGrU+mfRsrmBNGl+0/UnH+Dh72NzJrw8WyebeWn7ToBaQaSotTRzsfChMmiBsA5f8vXXVUDD7iXMVxYNNJLygoQttXN3z4leC5iDVq4QZ1Jb5qRR6pH0IEEt/ieA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eeeeGFeG; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1791836059; c=relaxed/simple;
+	bh=0ubl3b4gyKHyyY0uxzU4GVbA/+mKwZXPGHZ9enbgJCw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hh871kDMxPdMsszGN1B7tVL2Axj5InQ+OyZ72yFqQH/ABApo6MxHRREq1Mb6Bt91N6JCccACcrlDVgMLGwlajXZgkmJozF7QaxpluAwfyt7ADV8uUnRtxNfdEdTA5k0rBZMEO8kWONCEj9afLbiPwTwYOQcl63UAON3/mv1di1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gWLvD38t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eeeeGFeG"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3a4a0017549so3516771a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:13:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791836033; x=1792440833; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=acp+U304GwmkdVMCYfD8nJLd7JDmrMBNmY+Nz8Wjd/8=;
-        b=eeeeGFeGt6vwQ5peZHJKnAHvX5Oc6wcCz4UIcFnEmxNmXYgELgivbin2/wH3YrHhUM
-         MaCXAvjxJg+Ph+Tcp9PSmyx2NH1ZmMG2tO7q6/la2+8E1V+/iZZz0UMKkbcP6Bl/W53W
-         mXJqgfxcUClcF7hdjqbmfIFXswdi/plD3bd73BDNah/9O2vtqwe8TSljkTl/JlrzcCWh
-         bRcYQ3ZBmu5IOWdeH1tGmfaRa681cnS9DPuAZFs9qq2JyAqQ4WZjjj5F9IXOccYim89r
-         cAeyILtpcNfBiR3Ba/JBtu8qlBrzBV6fYQWVAYzbUR4jk8NB8gC7sScNsb93JXLPsaMT
-         hCxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791836033; x=1792440833;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=acp+U304GwmkdVMCYfD8nJLd7JDmrMBNmY+Nz8Wjd/8=;
-        b=CfBxI9PGBGkPpSOY5uq+IjKLtxl7QnTZ3q0t35dwFjv0igzrmZ0TNVOmEGAIKKktFB
-         mtYvefK0/hy4l+k+uvsBOlhm5fz0XUFYkijC8u2OoHwmqpkydxh8vEDRUppGK2qoB+tc
-         fYKXvHnk8KwlpV9+cpBuwEFf42JUj0B3Di/mTUVN8vK6KATqppDqIgcyduLWg4Rk/o+r
-         TNq+ZaWIlqdbD8HMS4c8/p6GtpTTKuOauVsZyhppkqN4sFGjAtNabZ5kONK1h6YbedZs
-         ciZs2mKciEBGXE+7TetYRgWsppULY6+iwd57BEjan+bu/CzvmDAFyKZDlyKSadWXC3ZU
-         pXMw==
-X-Forwarded-Encrypted: i=1; AKwUvBzvkeIo0fpC13JXKItKZwKRWsufzP7CYbA/NsNnwbMilvhvbXGol+p6xd9yb7xiIsNAVpB/Plae+DblpXY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTg1XpO8r46fHiaexgoRrMBVpUktFHithGk9yl+EKLE94izBAA
-	zdV62FySzIuPIbE99mPDFe5JJYomoSdXFs/rILwv6gCmsTLPA8rDnQs9fLxr7aqsEClCFSoIi2J
-	eyE6BEQ==
-X-Received: from pgcgn2-n1.prod.google.com ([2002:a05:6a02:6a02:10b0:cc7:ad09:94b6])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3d91:b0:3ab:be66:ddbe
- with SMTP id 98e67ed59e1d1-3abbe66e006mr4271545a91.28.1791836032556; Mon, 12
- Oct 2026 13:13:52 -0700 (PDT)
-Date: Mon, 12 Oct 2026 13:13:51 -0700
-In-Reply-To: <CAEvNRgG3h5jgHOpHvJ_uuJv8o-mq0Jy9gXUhKcDZXfSGAfZBiA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gWLvD38t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC9391F0089B;
+	Mon, 12 Oct 2026 20:14:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791836057;
+	bh=eMitiKVqtOfJ40YRWpuaSF/A31VpOYBzdInjrnSO/6I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=gWLvD38tG9JYZ8GWLh27FQZFJ+hEvb9XOGEzu9zDZRNbftgS4rKHu9Cc9T63WzV5B
+	 R8fY5Q8hcckzOMnPL9JZEJ14P9DkQVbmYJzleSENznrE7uyRqPqzNs7mj98/rfw+sW
+	 UM3qQV6H+4HxTse0pupI6t+4+PwaqBcM/G2//t2WWl2JY2boK/Y+MHab3i5h0zmDy6
+	 O3GpAegcapK8McXdl5lXXMa4apilagfaZS8PA4jxHYIiJPBORP51O2E9MQD+Z/bjkT
+	 Y5LS4CiCuIce9DNApzxtFdFpcngdhPrnA6hWE8eb/fc0az4hvca6hQ4VL0fHWZkGgL
+	 4sHk7F1wZDgdA==
+Message-ID: <7d64e267-8ca6-4130-bd4a-d80fb4224f72@kernel.org>
+Date: Mon, 12 Oct 2026 15:14:14 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
- <20260722-tdx-selftests-v14-13-15ad654a50db@google.com> <f7b3a63c-7a1d-445f-b062-4cea5343d266@intel.com>
- <asz8GKNO9aQANr5E@google.com> <as0FedYcvJvdOaq2@google.com> <CAEvNRgG3h5jgHOpHvJ_uuJv8o-mq0Jy9gXUhKcDZXfSGAfZBiA@mail.gmail.com>
-Message-ID: <as0_f5dTbCWuODwQ@google.com>
-Subject: Re: [PATCH v14 13/22] KVM: selftests: Support guest_memfd in-place conversion
-From: Sean Christopherson <seanjc@google.com>
-To: Ackerley Tng <ackerleytng@google.com>
-Cc: Xiaoyao Li <xiaoyao.li@intel.com>, Lisa Wang <wyihan@google.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
-	Chenyi Qiang <chenyi.qiang@intel.com>, Erdem Aktas <erdemaktas@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Roger Wang <runanwang@google.com>, 
-	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Ashish Kalra <ashish.kalra@amd.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Michael Roth <michael.roth@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] usb: pci-quirks: always assert xHCI OS ownership
+Content-Language: en-US
+To: Rishabh Jain <rishabh.jain1198@gmail.com>,
+ Mathias Nyman <mathias.nyman@intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Michal Pecio <michal.pecio@gmail.com>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260902052631.75c6068b.michal.pecio@gmail.com>
+ <178832755831.50581.1058201741431375556@gmail.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <178832755831.50581.1058201741431375556@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026, Ackerley Tng wrote:
-> Sean Christopherson <seanjc@google.com> writes:
-> > The alternative would be to take sev_cmd_mutex around the kvm_gmem_populate() call
-> > in snp_launch_update(), but even if the CPP maintainers were willing to provide hooks
+On 9/2/26 00:39, Rishabh Jain wrote:
+> The xHCI ownership protocol requires the OS driver to assert the HC OS
+> Owned semaphore before using the host controller, then wait for HC BIOS
+> Owned to clear if firmware owns it.
 > 
-> I realized you meant CCP/PSP instead of CPP :)
+> quirk_usb_handoff_xhci() currently asserts OS Owned only when BIOS Owned
+> is already set. If firmware leaves BIOS Owned clear, Linux uses the xHC
+> while both ownership semaphores remain clear.
 > 
-> > to allow that, I'm not willing to take such a hack in KVM.
-> >
+> The timeout fallback also clears BIOS Owned using the original register
+> value, which can clear OS Owned at the same time.
 > 
-> Is this a hack because sev_cmd_mutex() would be held for a long time
-> while the populate loop executes?
+> On an AMD PROM21 xHCI controller (1022:43fc), this caused every S3
+> resume to terminate Controller Restore State with USBSTS 0x401. Linux
+> then reset the host controller, both root hubs and the USB Bluetooth
+> adapter.
+> 
+> The controller entered resume ready and halted with USBSTS 0x1.
+> Endpoint state, 100 ms save/restore delays, scratchpads, the DCBAA,
+> device contexts and command, event and transfer rings were verified not
+> to cause the restore error.
+> 
+> Across four S3 cycles, asserting only HC OS Owned changed USBLEGSUP from
+> 0x00000801 to 0x01000801 and eliminated the restore failure. Testing
+> included the unmodified 7.1.8-ogc1.1.fc44.x86_64 distribution kernel
+> using a test module that set the HC OS Owned semaphore. The same test
+> was repeated after review with the same result. Clearing USBLEGCTLSTS
+> was independently verified to be unnecessary.
+> 
+> Always assert OS Owned for controllers using the standard xHCI handoff,
+> and leave the existing TI/Renesas forced handoff unchanged. Keep OS
+> Owned asserted after the standard handoff, including when forcing BIOS
+> Owned clear after a timeout, to prevent firmware from reclaiming the
+> controller during subsequent suspends.
+> 
+> Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Rishabh Jain <rishabh.jain1198@gmail.com>
+> ---
 
-It would also bleed CCP internals into KVM, and in general doesn't pass a basic
-"is this the right thing to do" test. 
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 
-> > So, very sadly, I think in-place conversion is dead for 7.4, and will need to be
-> > revived on top of an overhaul of sev_cmd_mutex locking.
-> >
-> > Or I guess maybe a less painful temporary workaround would be to disable support
-> > for SNP if in-place conversion is enabled.  That would avoid extending the in-place
-> > conversion bottleneck for TDX, pKVM, and CCA, without having to take a gross hack
-> > to make SNP play nice.
-> >
-> > E.g. this as a workaround for 7.4 (not yet tested)
-> >
-> > diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-> > index fad72cab76cf..df885b8214d4 100644
-> > --- a/arch/x86/kvm/svm/sev.c
-> > +++ b/arch/x86/kvm/svm/sev.c
-> > @@ -3213,6 +3213,14 @@ void __init sev_hardware_setup(void)
-> >  	sev_snp_supported = sev_snp_enabled && cc_platform_has(CC_ATTR_HOST_SEV_SNP);
-> >
-> >  out:
-> > +	/*
-> > +	 * FIXME: Allow SNP with in-place guest_memfd conversion once the PSP
-> > +	 * driver no longer takes its global mutex outside of mmap_lock (which
-> > +	 * leads to deadlock with sev_gmem_post_populate()).
-> > +	 */
-> > +	if (gmem_in_place_conversion)
-> > +		sev_snp_supported = false;
-> > +
+> I kept val unchanged for the error log, restored the original handshake
+> formatting, and explicitly preserve OS Owned when forcing BIOS Owned
+> clear after a timeout. Documented timeout issue in commit message.
 > 
-> If we go with something like this, when SNP and gmem_in_place_conversion
-> starts to work together, would we need some kind of new CAP or other way
-> to advertise that guest_memfd and SNP are now friends?
+> I repeated the same S3 test on the unmodified
+> 7.1.8-ogc1.1.fc44.x86_64 distribution kernel using the test module, with
+> the same successful result.
+> 
+> Changes in v5:
+> - Preserve the original ownership value for error logging.
+> - Restore the original handshake formatting.
+> - Explicitly retain OS Owned in the timeout fallback.
+> 
+>   drivers/usb/host/pci-quirks.c | 13 ++++++++-----
+>   1 file changed, 8 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
+> index 0404489c2f6a..2b12a35e6f10 100644
+> --- a/drivers/usb/host/pci-quirks.c
+> +++ b/drivers/usb/host/pci-quirks.c
+> @@ -1193,10 +1193,11 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
+>   			 && pdev->device == 0x0014)) {
+>   		val = (val | XHCI_HC_OS_OWNED) & ~XHCI_HC_BIOS_OWNED;
+>   		writel(val, base + ext_cap_offset);
+> -	}
+> -
+> -	/* If the BIOS owns the HC, signal that the OS wants it, and wait */
+> -	if (val & XHCI_HC_BIOS_OWNED) {
+> +	} else {
+> +		/*
+> +		 * Perform the standard handoff and leave OS ownership set to
+> +		 * keep the BIOS at bay during subsequent suspends.
+> +		 */
+>   		writel(val | XHCI_HC_OS_OWNED, base + ext_cap_offset);
+>   
+>   		/* Wait for 1 second with 10 microsecond polling interval */
+> @@ -1208,7 +1209,9 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
+>   			dev_warn(&pdev->dev,
+>   				 "xHCI BIOS handoff failed (BIOS bug ?) %08x\n",
+>   				 val);
+> -			writel(val & ~XHCI_HC_BIOS_OWNED, base + ext_cap_offset);
+> +			writel((val | XHCI_HC_OS_OWNED) &
+> +			       ~XHCI_HC_BIOS_OWNED,
+> +			       base + ext_cap_offset);
+>   		}
+>   	}
+>   
 
-I don't think so?  KVM already enumerates support for SNP, so reverting the
-block should tell userspace everything it needs.  We'd need to document that
-enabling in-place conversion disables SNP support, but I think it's purely a
-documentation problem.
