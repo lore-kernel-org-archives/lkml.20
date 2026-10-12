@@ -1,74 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-82.mta1.migadu.com [95.215.58.82])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51CB37AA7A;
-	Mon, 12 Oct 2026 18:47:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EADB8376BF7
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:47:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.82
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791830857; cv=none; b=RqwXE3x8Ya7QZC/Cj1egLevcj02avL91jF9IBfNz7MtVqDi1hw+0LdLKaGriR9+O5x6BRdEnNJXaUPiG4slDWlf0/snYjtAjh9CLQSC9JiGHR1lRVny1LsI6Nn8pC63/B74gJV2Y0FSLV6zL6b/IpV+OHuauCvH8kCkGDgPfAb0=
+	t=1791830859; cv=none; b=LGMyafGtkg5eYR7fNkauUnJAibYYgPlDSkwNCKAS+7AdFyWv2eRpRXhxt8gbbTBqVGSXOYJpJpAL0c9Sefabzqn48KZN0EZPOv+inNWO2cjC6P0qKnKV1AgjZY7s8zGOXEJSlAIGFbJ6SF7+xSbFB05yiatgGvvt1gqLlzhCA5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791830857; c=relaxed/simple;
-	bh=oJxczYoIKvDBQ5zFxN1/gdqdvoFLrbV/jwU4zAmYTjg=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=jnxHhmMiDVjcUSXe/FQn5ojBz4dDj/y1ivT/UZMFIGcZabwA4qRqPy1KGhIUpqw5RQyuADG4IeLKsXS5RxvUAScmFl/r9PxZSM/6hbHPfYGjIBlXzuqxbMbdY+77edHVQ3BdmGgpAzNXN8xKaIuZ3pGyhXQ8453AMHkNCY4/HYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=C25FKYgR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791830859; c=relaxed/simple;
+	bh=ijNlhyv4xCTmTbbejLtSuQAfF6caH2RK4q9or0ieFkM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZBHfn6mi9VXUoGddQs7T9AOQjpAuxYQrKW0j9193dDAWsZlKamJY+Jqlv2YL8qvPIiRGTXzbMxtmpngu+hqHTP0xm8qPqRAJTUr6GbRHUYgaM5XLIcCoR8xSsp5PGDo/0cnp6oaoqtNxOUmNkzghrXIGxV/y2TDe5ixoXEgnzYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=ZhGqK3aC; arc=none smtp.client-ip=95.215.58.82
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="C25FKYgR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A02D1F0089B;
-	Mon, 12 Oct 2026 18:47:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791830856;
-	bh=bjyexX5Mdmd10d+g2Q4Z6F7Ba1wqFyJ6CsFIlEzvwno=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=C25FKYgRTd8HDTeUE4QATnKIH6BgI3kaEbOkok2oKfioYrLjlMDvWu/40jLTGAIhy
-	 +gMH7kAZGGc51e8eiJnCmpybltvMneWDrN62mIrWKh42QanHigxYq6RV82MxXV+Ppm
-	 CMZ+3LeDD7FRYWUZwVDHJWVBP8YX/lKsBfCAag7Q=
-Date: Mon, 12 Oct 2026 11:47:35 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>,
- Keith Busch <kbusch@kernel.org>, Hannes Reinecke <hare@kernel.org>,
- linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iov_iter: validate first nonempty segment for bvec
- alignment
-Message-Id: <20261012114735.896effbe08a5b8c03d1774fa@linux-foundation.org>
-In-Reply-To: <20261012065520.1089147-1-4ncienth@gmail.com>
-References: <20261012065520.1089147-1-4ncienth@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="ZhGqK3aC"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ijNlhyv4xCTmTbbejLtSuQAfF6caH2RK4q9or0ieFkM=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791830854; v=1; x=1792435654;
+ b=ZhGqK3aC1dEA6AFriFzlD2Uk6O50NhTH/2K58qAsaTd7mFMFOlu5POxCR+JigEyzvGCWQiDS
+ vk5o4HHjFh6qaPdGJL47AyXYO3LgvtuNa4GytcrJULEY/pSR3fMSfhv2og6HKefhVqemO9FJvPB
+ Vol8ZNoKL/vfXpXMn+34E/KmdzI4X+XcTh+vqMZyax0+RDMOB5GavCFS7kY4slu4IZ5wYH7LBBK
+ 6B2EHq0HW5u8aGqg/2o9clsVjr+iUc0kRf3W1547SmPnjYAY0OKplQZ1oqhg2aA92ezHr4bp27P
+ k1AOIMo9B1efaHZeVNX677Asu7Vitt1ClXYKYLRopboCw==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f67ebc8caef7985e;
+	Mon, 12 Oct 2026 18:47:34 +0000
+X-Mizu-Trace-ID: f67ebc8caef7985e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a3464be4-bd4d-4590-9804-147e16016a07@packett.cool>
+Date: Mon, 12 Oct 2026 15:47:24 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/4] nfc: st-nci: Fairphone 5 NFC bring-up (ST21NFCD)
+To: Kristian Brox <isyourbrainfoss@proton.me>,
+ David Heidelberg <david@ixit.cz>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Luca Weiss <luca.weiss@fairphone.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Tim auf der Landwehr <tadl-git@taufderl.de>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20261005-fp5-st21nfcd-v5-v5-0-7be15a86c61c@proton.me>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20261005-fp5-st21nfcd-v5-v5-0-7be15a86c61c@proton.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, 12 Oct 2026 15:55:20 +0900 Daehyeon Ko <4ncienth@gmail.com> wrote:
 
-> iov_iter_extract_bvecs() checks the current IOVEC or KVEC segment against
-> the block device's DMA alignment before extracting pages.  Empty segments
-> are valid, but the check uses iter_iov_addr() and iter_iov_len() directly
-> while first_iovec_segment(), used by the extraction path, skips them.
-> 
-> An aligned empty segment followed by a misaligned nonempty segment
-> therefore passes the check and produces misaligned bvecs.  An unprivileged
-> O_DIRECT preadv() reproduced this on a regular ext4 file above brd.  The
-> equivalent nonempty-leading vector returned -EINVAL, while the
-> empty-leading vector completed 4096 bytes.  This bypasses the validation
-> added for CVE-2026-89584.
-> 
-> When the current segment is empty but the iterator still contains data, use
-> first_iovec_segment() to select and validate the same segment that page
-> extraction will use.  Keep the existing constant-time fast path for the
-> normal nonempty case.
+On 10/5/26 5:51 PM, Kristian Brox wrote:
+> This adds NFC on the Fairphone 5 (qcm6490). The board uses an ST21NFCD
+> on I2C. That part speaks raw NCI; the current st-nci driver always
+> wraps NDLC, so using st,st21nfcb-i2c leaves the adapter unusable.
+>
+> The series adds a st,st21nfcd compatible for the raw-NCI path and the
+> Fairphone 5 DT node. Boards that already use st21nfcb / st21nfcc keep
+> the NDLC path.
+>
+> A later poll start that times out in "failed to set local general bytes"
+> is still unreproduced on this phone.
+>
+> Signed-off-by: Kristian Brox <isyourbrainfoss@proton.me>
+> ---
+> Link to v4:
+> https://lore.kernel.org/oe-linux-nfc/20260902-fp5-st21nfcd-v4-v4-0-ded2f1c501be@proton.me/
+>
+> Changes in v5:
+> - Map proprietary RF protocol 0x90 to MIFARE (Tim). On this phone a
+>    Classic 1K was accepted as 0x90 and was not dropped.
+> - Binding carries Reviewed-by from Krzysztof Kozlowski. DTS carries
+>    Reviewed-by from Konrad Dybcio and Abel Vesa. The patch bodies are
+>    the v4 patches. The raw-NCI driver change is unchanged.
+> - Tim's reference-clock restart and leading-0x7e check were tried on
+>    this phone and left out.
 
-Thanks.
+Hi, I've been trying to enable the st21nfcj on the Motorola Edge 30, 
+which uses the same protocol.
 
-Sashiko:
-	https://sashiko.dev/#/patchset/20261012065520.1089147-1-4ncienth@gmail.com
+These mentioned left-out patches seemed like they would help, but they 
+didn't really. The leading-0x7e check does skip over the "7e 60 00" but 
+is not enough to untangle the desynced mess that starts with "79 3e 59 c0"..
 
-It looks like that issue is pre-existing, but could also be addressed
-by altering your proposed change.
+sendQlen=1 unackQlen=0
+ndlc frame written:
+ndlc: 00000000: 20 00 01 01
+incoming frame:
+ndlc: 00000000: 7e 60 00
+incoming frame:
+ndlc: 00000000: 1f 01 01 20
+rcvQlen=1
+incoming frame:
+ndlc: 00000000: 02 1a 04 04 01 20 92
+rcvQlen=1
+incoming frame:
+ndlc: 00000000: 80 02 03 01 59 c0
+rcvQlen=1
+nci: nci_rx_work: unknown MT 0x4
+incoming frame:
+ndlc: 00000000: 79 3e 59 c0 47 75 00 00 00 01 00 00 61 66 02 7e
+ndlc: 00000010: 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 40
+ndlc: 00000020: 00 01 00 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e
+ndlc: 00000030: 60 00 1f 02 01 20 02 1a 04 04 01 20 92 80 02 03
+ndlc: 00000040: 01 59 c0 79 3e 59 c0 47 75 00 00 00 01 00 00 61
+ndlc: 00000050: 66 02 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e
+rcvQlen=1
+nci: nci_ntf_packet: unknown ntf opcode 0x93e
+nci: __nci_request: wait_for_completion_interruptible_timeout failed 0
+
+I've tried changing things like interrupt trigger (with rising edge 
+only 1f 01 01 20 arrives, with falling edge nothing) but nothing seems 
+to help. I wonder if anyone has any idea of what might be the actual 
+cause of those strange frames. It's interesting that these two 
+workaround patches were found necessary on one phone but not on another..
+
+Thanks,
+~val
 
