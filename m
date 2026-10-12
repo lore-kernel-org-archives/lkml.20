@@ -1,163 +1,209 @@
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC1F3D47C2
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:41:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791841304; cv=none; b=UytA0Qolpod5r2IiIWpuU+a0laiqXSIQ59dSKCxPFwkYyp7Z5IxPj5Y2bWmx2/6TZMRXYKV8VKAT1s1rwT6j+4Cb0EoYQoOW0UCyi8YoC4kQqY2G+JuST2pFx8WMzuVjHZT3l3jleuEEnofokFEakbIbzExOyuRqWrx5o4d/D7I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791841304; c=relaxed/simple;
-	bh=WoNz3WCxDdKybjSCg5gY111bGEDmUMC63EojmiMxyn0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NMsexeH5K8pRCcOKayd1zxfHPwLDEQjmju7pz8B/0UydDTJAl1bOLMfSnP8/rAe+Vyi80CI9XzZZBNvTG/P9X2PAkLx6Lm6Nhgaawa29UYX/3WOZa23N8sVny4NLlbkFSyyXWjFWxDDmPmZ4U8HIPIgfZTdiNigq8CUNnHRkFxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=QxeOyTzV; arc=none smtp.client-ip=209.85.216.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07C33B6360
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791841448; cv=pass; b=RYqsSWP2MtV8MJj0E6yYmNNlmiH9gYd0d+JRbx/vZkZRXxcG1FIg4p98Hy3ln6g9dhoko1vACt432L8pfFSia0NtUL19SO/eTHv6VvlMsi5t/hyWFfM9DdreQXY1sfo798h/3VQ4rdhhPUlWyGNa2ZkVZvuAEkRVtqqIaEH0LIM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791841448; c=relaxed/simple;
+	bh=4rQCMA0YD118aHw+hhFF9+PsdILXF6N9UmQsk1sUyMI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EqgaKh2WVIfHYWiZtJ0KT7Gz1o2rCmuA8RTtdoIHHhJ1We9R2YKVTUitx48D5oQewkxxReklCLII9f1RiFmCzLjkGCH3Zn8vGuUZNdNFKOVf4a/DjbonjZa5PqyTJIekO0jkhRxek5+zVgY59a6ec0oNY3K+CdVSlwYoLl+o364=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AVoETAZL; arc=pass smtp.client-ip=209.85.222.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="QxeOyTzV"
-Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so950819a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:41:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791841302; x=1792446102;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=7fRjyjPaygPyac6Q2934hJ/KUw5dbvEUBwLV/bpzblk=;
-        b=qT9gyaCPXavJeJn/0DvVWxth3nX899gxVAeQit7TJXXCZcm0pIJlvorExRa2fI0kNy
-         fz8ochJqasW25a8ZUX/jc/MQeoEf5dQ5nMW3NK5VyRkewvEWHja6vJgyPzkUtbZtFW1u
-         u1gwIOol68t5izc5Mwv9GqPMZz+tyyyrODTAh3t+xAs+nNXsYZ+z8DQutdcpsg+AYhgO
-         uo8zEdPMZtBno67Z3DhCeH0KgcMpmbS9TCZ649v5w8WtImAfXMGANbFMjtCO6mrPdmax
-         OjZpzKNDnrzg1xx7fdnk65Kfg9qQxvccFjPXovL+6XS5jkYDvx+lRSwWz/TuC4LLk3Fg
-         o5Zw==
-X-Forwarded-Encrypted: i=1; AKwUvBwfhp1eAS+vh951IqnmMgoql0tCHRBTWLvAY87BtfESFTupqtCr//hXPN3zYsFfgCgjt/bhmkG8g4N13yk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDoaVXkQhq+9mUCj1PInxe3//bLBchTr6BiioSa+stdBMqzs62
-	y0KSUJkEU5XAs9kJ1pvl+xiL9NFGTIOO3Op/e1h2cRJ2CEOr71ZDUpoLeXb9g8mxCtlstDute3j
-	103yPfY44TnPJzjP1iwxlLhBor8y+AU+elo8PwfnGO/uEf+AxHUZUmp9I4Z5d1x5hYRLecUMdK4
-	66GTAXRu0tgHDrPcleXBVRwHKRnBImSomc5gBkLsuEmnfhF5ZhaqeetCNhG9T/Bv8+LHH/falcT
-	0jqx/GenyRZlw86ybuQzFwA
-X-Gm-Gg: AYBFou0NrV/pJqSVrErI1GHt+yS6Qe4yh/mtulTPW/pEqU3luCzK3GIV2NVb2gfkl2L
-	1XUv/0oSQDQtpTVyoDSx/I1/umgtmPgGcnWBUg1cKO8Dktk7hOjx6UK1WVBppdlgB0djPvuyy6A
-	KrEZJS0Y+6mQ4uINhfuT3JQsjdichXoFbfQWyfoi+en09iIrWYjR6++fmx2d6ZiVhGoD+JAUBDc
-	Cg8k8gPNMhlpUbwXOuAvA2kUVUjw6mF/Fv2B7V//Uu2n0JL8KNyvWKXuULi0i3/RtoUi5m88Od3
-	5tNizEhz5cEGwy5LfoN/UE6cQWq/uDbIDT53nnPKxjl9UxE9YU4mWbad62nwTnouROl7LlGI3e5
-	JsDis6WxuTctGNyyUyKbWHy7L/YMs4z32BabGN/I62TwWcVdWO9N+yBbDInKwAsux/JF0TmYmTN
-	EpWYJSNjvN8rzZjqOIq/pBBCc6ZgC0UbNu3vnZ2nbHjoA=
-X-Received: by 2002:a17:90b:2885:b0:3a8:495b:d64b with SMTP id 98e67ed59e1d1-3ab3a32cbb8mr7918301a91.4.1791841302300;
-        Mon, 12 Oct 2026 14:41:42 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ab369147b5sm6007236a91.0.2026.10.12.14.41.41
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 12 Oct 2026 14:41:42 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3510d0baf63so6550139eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:41:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AVoETAZL"
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-98c78660542so1033525241.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:44:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791841446; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Tgo3pneRd/qjlPaQGee1CIbfaUFm3y9fhfEBGmy10wrRzxi0Xw3cjYGhqJ9EC4wmNa
+         XCaT4v6ci7nCx7ViHza6qnrHf99UoCk6i6Da1amNqls1GSZIONbsVe0GP4PJJZRkX/7i
+         OLottJ3d0qZARiVigdM3WGSFoynR+H42ors0bEREXgE+3p+k8sAdxqUZpKq4irshjV6d
+         qy9Y4muTDR+i4uPROb0U8F/fQFp1+LmZ9S4a7u/depp1luogDrYhG9qNgASwiD8QuVuo
+         tDYYIFXnydL7HOcESgSNIAnDAoF5xaIwjeCOkSc32ndYhpZ5QBQbugcuBJIj2MmG1+Cu
+         7QkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IgcW+mBezfmaVemco2WC7GasvmmjoylpddtvtSsj0OQ=;
+        fh=/6I/+NylvuB4WF6FHN0Kh9dF0Ff1EqMNOybBL7E/AWo=;
+        b=DWq5tLreREUic/DOQERiQ/URCWFxzBQ9oWFR50PiAZ4znHYJMYEd1Fgkx5kXHOarfL
+         OEhkUnrKJJWo5trA5SmAE6PNzZ3GOK7LgaSvBzK9pklVop/VxeVo17kxeNyRFof6GssR
+         Oh5bLSZF3zt/O+xyiqDmb3FvTs76uLLVqEMb6MEIAz8e7yxZ/Z0GSQkPrnTLdCdkQFur
+         E7JAc8mFg72p3VedaM60IMAp1WoDWL8zyPYe6A0X/qC0ZGOUq7qwA62676Fmk9SFjQwa
+         rXPD/PO2hxN7krbs8RyBdjJYLfCHSEnZBQ9qh0jdCBIx3ojKgOGgDhZdYhkKUbrIInwo
+         TJzQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1791841301; x=1792446101; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791841446; x=1792446246; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IgcW+mBezfmaVemco2WC7GasvmmjoylpddtvtSsj0OQ=;
+        b=AVoETAZL7gSCTxtLGecnwJyb3IdeC7SraxprdR3BUyxzyt9spcJBsDt5JLT0dHOkzW
+         DnFiaNpT4XSvB0YxXB0ScjDmdDXr23wwVNzSvLQwnD0nsxE+vVm1ZNln5Wggxn9I5QP3
+         U9IuWRMQuOZlLBcy8wNhPW2etLpkFm1mrAkivIqf07M0GYrVIKkcs5OwXDMfhbngeZ68
+         o8sqIYLMfA3ypYrM15eSRdGZQSFEcTZUp+6ud3JkDxjoDsS0yLi1bWjBqw30dnvvaMLf
+         nch/z5dalphBEsKHcs7E0G1RPX/pIyYwyy0EjFfOFyz5u1ROTfOrw9IzIS/RwkFVE0zo
+         qsHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791841446; x=1792446246;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7fRjyjPaygPyac6Q2934hJ/KUw5dbvEUBwLV/bpzblk=;
-        b=QxeOyTzVDZJ/1+vQKNsMOWgr3H/A2RrBunnSsoR4vdFbgG/F5b231KgB2bEfuSYmZ6
-         4CJ94CjB+R32Nl2qwZ0kGbj7YqxAvf2BBOz32ht3+PN2vlPkGJP7IEODpvDXCBMJdkLZ
-         6g8ScM47S4NZVRmh8VRWHlgvCHBJ1/ZGmnjsE=
-X-Forwarded-Encrypted: i=1; AKwUvBwQ0ahNVQEX5cL9fnFD3M0F0iTYUOmk0lLlmOB/u6/XuRMJ8ypa9YT9fZVJ8o1apoYpzK/xAjANXsPOa/s=@vger.kernel.org
-X-Received: by 2002:a05:7301:618f:10b0:359:8492:20ff with SMTP id 5a478bee46e88-35984922299mr8367833eec.12.1791841300618;
-        Mon, 12 Oct 2026 14:41:40 -0700 (PDT)
-X-Received: by 2002:a05:7301:618f:10b0:359:8492:20ff with SMTP id 5a478bee46e88-35984922299mr8367798eec.12.1791841300003;
-        Mon, 12 Oct 2026 14:41:40 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-353814b556esm41603546eec.18.2026.10.12.14.41.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 14:41:39 -0700 (PDT)
-Message-ID: <1e813008-1874-4164-a803-b1af26332d35@broadcom.com>
-Date: Mon, 12 Oct 2026 14:41:37 -0700
+        bh=IgcW+mBezfmaVemco2WC7GasvmmjoylpddtvtSsj0OQ=;
+        b=yz+Ucdffxf2Npewp9WzyUI8GXUA4cbww692mtqBrONhmjGXQGDkBj5LXg+ZWuJRsZH
+         gB2oIJKvnXCGUTk21XDxvYwZ3v2IRKxz3BHjslgBnOmHcXp/d1wNWiKNJEWgbv7tcdcq
+         Ju/kUebZLTFZTMQDnlLptcwBopLQJIgjmgNhAAHov3ycXHawtSmFFLmAFFm9hM5IQZF6
+         htp5GDLb0NdUDq/Pv+iggWNcjwhc+nMDqx/5ZobxyUyU1aAqQFpLqGKhlgcfDx60r9q0
+         WUjcq+V50bDyXRZxk6fUnTqtRP0FWKTeMxInho+57tX0SOpWNiYIQ07yrju6eBUmVR21
+         0qmw==
+X-Forwarded-Encrypted: i=1; AKwUvBwLW9pUPvcvt884QJ43O1CZjWBNsBDP5M4agaEM3jT1Ilhx1KUOCxVxw+lAJ/ElMT1yYSt7FXUQJeV8Ba4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKobNZluSLyU/cDacyj2KHUVf9/AhhNmmsBAvNZqXCJGbUu8R8V
+	EuX8Y3ACKmsrrzFB+xiiuuJX72n9KojHfjhVTKsAYiBT0KJfkQolXFVW0mTyhTV0e4Fea9A4zcw
+	uDblaTr9FjRoBkVj7n0m9MKvnxNSwlWYpi5mv
+X-Gm-Gg: AYBFou2P1vh20IbqGiNObdCK6AbdVioxOgpNeexnCQ3a5l0AHBdRV/squDyD0vKKtnq
+	y/AEaFgaQlHUcPvognpdK2DsEfKCxcqfrY01jMRr/vJ+eTTueTk3FseDOKcg3LWyPVvJJfuhL2r
+	Km9GZrrQ8/Xi6cp9r69dtndofr/gyAdYTi6/C80smJ6TNqCRLwELJra7Yeg1saR6vtnQeRimrco
+	VnC4PzhJgq+zvDLVeTqjQK/jRnQckeewL81ln5uAOBe8jeFScLlUhgcm1J5YPHLwoUisC+Z0m7j
+	E7Y7MbYg53yuhPohsUSHXj5c21/uBySEDAdQSgY0h8acbknABg/2hmizS4sdpncFSC2naNPJ0bF
+	QsWxtHYemxGP9Cepv4Y4FYq5iXFMrWlXTuS6AGRTUeuDNMhbR1U2uEMVsgDrmUvsCYt+F+Jf3sn
+	lFGpEdCSOe7bjMgbrifaswdWtJ2cbzIHSrYRMPEu1SXF8ntlxbixdV+R0=
+X-Received: by 2002:a05:6102:5814:b0:79e:2b00:b4da with SMTP id
+ ada2fe7eead31-7cb3a0059admr2967326137.6.1791841445569; Mon, 12 Oct 2026
+ 14:44:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PCI: Avoid D3 on PLX PEX 8532/8533/8548 downstream ports
-To: Bjorn Helgaas <helgaas@kernel.org>, Imre Kaloz <kaloz@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
- Andreas Larsson <andreas@gaisler.com>, sparclinux@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- Shivasharan S <shivasharan.srikanteshwara@broadcom.com>,
- Srinath Mannam <srinath.mannam@broadcom.com>,
- Michael Chan <michael.chan@broadcom.com>,
- Vikas Gupta <vikas.gupta@broadcom.com>
-References: <20261012213447.GA1392402@bhelgaas>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261012213447.GA1392402@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+References: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
+ <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-1-2fb084fe0751@gmail.com>
+ <8733ua23xs.fsf@bootlin.com> <CADvTj4pmtGZ4c04q+5AE3trrfshToD7BPtF-8kPxPRZ25hOTRw@mail.gmail.com>
+ <877bjmzqkr.fsf@bootlin.com> <CADvTj4ppQannShF+dkLreST94g_vSAg4QdMqxhNORzkvci3O1A@mail.gmail.com>
+ <87pkxey725.fsf@bootlin.com>
+In-Reply-To: <87pkxey725.fsf@bootlin.com>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Mon, 12 Oct 2026 15:43:54 -0600
+X-Gm-Features: AclHuK9S8X-EJbG6Jz0l1nDWbI3paRApUkydjtgW5vHKMROEOTWMTqhZBvuvO68
+Message-ID: <CADvTj4p-o=EQMq-6E1q2=NOmQbscAVGMUbwX+Wh4R0v5kbXe_w@mail.gmail.com>
+Subject: Re: [PATCH v6 01/18] mtd: rawnand: sunxi: drain interrupts before
+ reusing the completion
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Maxime Ripard <mripard@kernel.org>, Richard Genoud <richard.genoud@bootlin.com>, 
+	Masahiro Yamada <yamada.masahiro@socionext.com>, Boris Brezillon <bbrezillon@kernel.org>, 
+	Brian Norris <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/12/26 14:34, Bjorn Helgaas wrote:
-> [+cc several Broadcom folks, help with possible switch erratum]
-> 
-> On Sun, Sep 27, 2026 at 12:56:09PM +0200, Imre Kaloz wrote:
->> Runtime PM suspends an idle downstream port of a PLX/Broadcom PEX
->> 8532/8533/8548 switch to D3hot, but that takes the whole switch down
->> with it: any device behind another port of the same switch then
->> faults with a fatal bus error on its next access, e.g. mptsas probe
->> on a Sun Ultra 45.
->>
->> This surfaced on sparc64 once commit a5fb3ff63287 ("PCI: Allow PCI
->> bridges to go to D3Hot on all non-x86") let bridges enter D3hot. Keep
->> these downstream ports out of D3 by setting PCI_DEV_FLAGS_NO_D3.
-> 
-> I don't really have any objection to this, but I am concerned that
-> this quirk only applies to a few specific devices, but
-> https://admin.pci-ids.ucw.cz/read/PC/10b5 shows a TON of
-> similar-looking switches that I assume have the same behavior, so
-> this may be just the tip of the iceberg.
-> 
->> Fixes: a5fb3ff63287 ("PCI: Allow PCI bridges to go to D3Hot on all non-x86")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+On Mon, Oct 12, 2026 at 2:53=E2=80=AFPM Miquel Raynal <miquel.raynal@bootli=
+n.com> wrote:
+>
+>
+> >> >> commit log, I now disagree with the first part of:
+> >> >>
+> >> >> >The old handler can also complete the new wait or restore an obsol=
+ete interrupt mask.
+> >> >>
+> >> >> "complete the new wait"? I don't see how a stale handler completes =
+the
+> >> >> next wait given the handler is a hard IRQ and the interrupt enable
+> >> >> register is cleared on timeout.
+> >> >
+> >> > The case I had in mind is an already-running handler on another CPU:
+> >> >
+> >> > CPU 0: Read st and ien for operation A.
+> >> > CPU 1: Time out operation A, mask/acknowledge its interrupts,
+> >> >        then eventually reinitialize the completion for operation B.
+> >> > CPU 0: Call complete() based on the saved st and ien from operation =
+A.
+> >>
+> >> For this to fire, the hard IRQ handler on CPU0 would have to be stoppe=
+d
+> >> between reading st/ien and calling complete() long enough to span:
+> >> - A's timeout
+> >> - A's cleanup
+> >> - B's wait being rearmed
+> >> On this hardware, how is this reachable?
+> >
+> > CONFIG_PREEMPT_RT provides a concrete mechanism. The driver requests th=
+is
+> > IRQ with flags =3D 0, without IRQF_NO_THREAD, so the handler is
+> > forced-threaded. A higher-priority task can preempt that IRQ thread
+> > after it reads st/ien:
+>
+> That argument only appears in this reply. It is not in the commit log
+> nor in the diff, both of which reason about a hard IRQ, no? I'll happily
+> take the PREEMPT_RT case into account: in that configuration the case is
+> reachable, but it reads as a justification added after the fact.
 
-Our internal portal does not have any document for the 8532/8533/8548 so 
-unfortunately I cannot help here with identifying an errata document.
--- 
-Florian
+Yes, PREEMPT_RT was a later concrete explanation of how the race
+could occur. I should have made that distinction explicit.
+
+The original rationale for disable_irq() was to establish a clear
+boundary between the old handler and timeout cleanup.
+
+Simply masking the controller interrupts does not stop an already
+running handler. A partial-event handler can subsequently restore
+an obsolete remaining-event mask. A handler whose saved status
+satisfies the wait can instead signal the completion after the
+waiter has moved on.
+
+disable_irq() prevents further IRQ dispatch and waits for existing
+handling to finish. Cleanup can then mask and acknowledge the controller
+events without the old handler modifying that state afterwards. The
+register readback flushes those writes before re-enabling the IRQ.
+
+This also keeps the additional synchronization on the timeout path,
+without introducing a driver lock into every successful interrupt and
+wait setup. The checks at the time established that the caller could
+sleep, the handler did not require the NAND controller mutex held by
+the caller, and the IRQ was not registered as shared.
+
+Sashiko's report[0] was the starting point and mentioned both
+synchronize_irq() and disable_irq(). The ordering above was the
+reasoning for the implementation, rather than the suggestion alone.
+It was not based on an RT priority-inheritance analysis or a measured
+performance comparison with a spinlock.
+
+[0] https://lore.kernel.org/all/20260909085434.C8F201F00A3A@smtp.kernel.org=
+/
+
+> Then, I'm curious to know how the AI justifies the use of disable_irq()
+> as the RT-appropriate choice: doesn't it block without a timeout on the
+> very IRQ thread the scenario relies on being starved (and gives no
+> priority inheritance)?
+
+Yes, it waits without a timeout and does not provide priority
+inheritance. I would not present it as the better choice for bounded
+RT recovery latency.
+
+A spinlock_t-based implementation can provide priority inheritance on
+RT, provided the handler holds it from the status/enable reads through
+the register updates and complete(), with corresponding protection in
+the waiter. That improves recovery under priority inversion, but adds
+locking to normal interrupt handling and wait setup/cleanup.
+
+There is a real limitation: if the IRQ thread remains starved, recovery
+cannot finish, and other NAND operations can remain blocked behind the
+controller lock. So the operation timeout does not bound the entire
+cleanup. The argument for this implementation is the straightforward
+handler-lifetime boundary and absence of additional normal-path
+locking, not that error-path latency can never matter.
+
+>
+> Thanks,
+> Miqu=C3=A8l
