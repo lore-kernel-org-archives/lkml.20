@@ -1,36 +1,35 @@
 Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023075.outbound.protection.outlook.com [40.107.44.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20775486E7E;
-	Mon, 12 Oct 2026 12:17:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D19488D84;
+	Mon, 12 Oct 2026 12:17:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791807444; cv=fail; b=hJqmnnuzEJlhKOEsYLPDMeOjuZZgbW+HR3r8Ea2CkJVHIguevK/1pLiPKV6TE0LLJhTN/dUHBWmaSYLZQQtWhBiv7tGkpZBKO8EoHiQ8S8SENM4L0JUp87GA1s7kauwV1BbxMVUE/ViMbyLfPLjDAkx3ypGerXdZVk92lb9Mtpc=
+	t=1791807446; cv=fail; b=HWTNZP5m7kyqRnDM8/Y6s+6PYvjtFX4WZIZT+fXNhEESQO31lVXacDZR4DDabCTwPam1xAWG66IbE/3m64fDm5fPEYSRMKdQkoDuHifZKUxdXZVe8RzAVdxYstL/szsU6+xnwRy3rYVPWGriK79YC10QMrN8P35b2tYlTFmRNqQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791807444; c=relaxed/simple;
-	bh=u/Yy1grJkwoniN0tbbYHpV/YXktIFYlZ/ffj5s0MOw0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Q3/d6AH30FxwkprgQ7juYsr1CBw6cp62SRsEgg9gHbumCswA57gsE3AuTiZaJZmu8lSYCkXpOOVrhB503mD5A/bME0A3bZK3JiwN0Ucllcu6el6Bo2Lv50jIcmACiDtgL27vfTqdjKQBrQiNNij67BmI61bhdfudvDEZBXIgmTo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=crepuse.com; spf=pass smtp.mailfrom=crepuse.com; dkim=pass (2048-bit key) header.d=crepuse.com header.i=@crepuse.com header.b=A5ST9Xm1; arc=fail smtp.client-ip=40.107.44.75
+	s=arc-20240116; t=1791807446; c=relaxed/simple;
+	bh=CS9qBPbDtf5bora2TMnFjwkTXAIOfGrp10iqvjB6FU0=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=CjCRD0+5dnb8uJFaiOsgerQhIWWUW7/JHOg5UzzPQgQjMkOXfgXQQ6dP/YrXxlTda5afLmxD2mnKmgRebE0xVcSE7Qes1590EerLMFWBEa36oFpP9KTk71gU7xsh1VnawhzcdB7nmx8+s7cCPDgCuC9vh8s0/R91PTazJebseQs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=crepuse.com; spf=pass smtp.mailfrom=crepuse.com; dkim=pass (2048-bit key) header.d=crepuse.com header.i=@crepuse.com header.b=c2mKsvsf; arc=fail smtp.client-ip=40.107.44.75
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=crepuse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crepuse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crepuse.com header.i=@crepuse.com header.b="A5ST9Xm1"
+	dkim=pass (2048-bit key) header.d=crepuse.com header.i=@crepuse.com header.b="c2mKsvsf"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iZTq5csAcj7zgx+rR9DJZQFLxV8ZGF8O93HZdeUROKhRemD/5YE1PkiLjpIAV5UEcXwIm4WVJIzitHTb9ROGUyxmpvDCPp9p5qhKxLLEFgDzHrx3K1CTDuseKCeImAyiZrozmCyzVl75rexmrW26axuN8jTIq4LTv4tjyO7rXIzB8JcLHdvCgg832DTWZcbYAKAqS2+VFaHV2J3jL/6rjHVYlBlLf+19ruHm3BzY5r5k835YD2tkKqXRhmaCePfjpuqlATWGvVvBD6ZS4XKVw82exCD0Vtk2q87dOtSkt35vvFiyQpWX2/o1fdzcjfKzE19J9EE83e/Ap7p7XL2knw==
+ b=eM0KjCMuJnQGEczPSFoUVBY1T2p4pgUQIVSHC0HCebu7nxrhnVz0b3RUgNIDNTzbQwoqHC1nJ6kQFPSs5bDBBycNy1OMrl8If8noA4E50YLahNyejjGBNG73zZ1GqEHy4wA1y7xjmeVwi9Kd5vLx78JArtUk9vdd204nC09HF+G1wNE3qxPT/PVLttcZ8HAspgBickmi2aFU1l99SoRycVQhFGIEZ/ZgoyD2I0qRVIVaUxm6y1eiZ07RX//lL7hyPvBxnKQOEgMbGsCqTIRmIpkad5xVOWEI8SufVx40WC0qXfiCQJnQLRJFFeV2lwaJ0G05R1Mbs1vpZh4p78iipw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KwziCtOtDpG5V7yL9lb3yh71KiZHOCFA4OQFcl/b0Ws=;
- b=tW+rLPaBNt2EjW7nDcDukxE/xiI9ABAaImlh73qhFIgsFz44mqsSPu+cCzHoXj5Vje281Uyo/xKPSNboKmuGQEdt7L0ox31sOxdJi3l6k9evVqXRFqIJdNVi7++b3X5pQZAPeqb+Z475aT10IO/nerjAr/fEriqiEtPD/pjWS9JWpGcuIb/Q19rWY+9YPRjEUuttNkYDjR3mP1FQW2DDrHI71AqCEVNR0md7nsnQOJM2GiDLWQToIexWJ4sXeAym5xxuIZFSEziQbxJ8z8Crt+7A/twt8XDWaIcMpw5ONtIINse3V6aojcK/0byFwH4UCjTAzp1bRIgWFjYDCBslCA==
+ bh=dyxY7PZntcWg92US2ZzbzkyKn1KsPyOoQ1OBZrEzXGQ=;
+ b=bv78ZAenjYlieyq0jH6oCewSj+pxf7SwXzE59sFvBrd4972ZOtZK4pHw5s9m0Vtrj86YSwTmUTPD71eeMtKitIWmHczSNepKdgcZ2+wA7SbAfp/Wf6oM2lR7yECTEaqmwygwtIaIOFmDH8UKanvuGV96mqMdtsiz9o1lCH0PZKd8XayUlCZYaESNtQD84twdtNiviWhEDbU7Cc07LCRrCFYZAXHjawh2GQ3XyI/oC8QAZCJ5zoXtEkjHftyZETytrkjhz/6i7+57ceg+RkMK0yJbbmbaKFAa/D+2vSeJoWKSnFbBt+UrXNTXMXQv7c7Q4nycrunlgDY5gnc1zb5pVQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=crepuse.com; dmarc=pass action=none header.from=crepuse.com;
  dkim=pass header.d=crepuse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crepuse.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KwziCtOtDpG5V7yL9lb3yh71KiZHOCFA4OQFcl/b0Ws=;
- b=A5ST9Xm1ZHRcnwJw2LnBLasKjDw0yrQp6KdBQOG4NInPG3bRe4LUCzN7ZwhYqg8E+OZo34NOMViIhMsK7Bj56enAQQJ7vyj5TkVTWXsX6nYguRvq/QeaO/nd03dSkPo+T3MbE6jwnS7V0hZV+pqFWQpKuqlqumWxPjaKAmbJrCDUUNBtdLWE3XYKmR21NZLRgeP9TM2A0ytAq40oqpCMTdSWrqGnUkb6jQ/PGVCzKLa6f9hQu7TA4nEYS7QBlI16jM2pbxtoUZUXUiNbPeHjX/vn/5UvrxO8kur6rSp2yqOD1xS/oW+rmyTQEJ78kymwGJjAj/02GSzpJ0UiaVYGgQ==
+ bh=dyxY7PZntcWg92US2ZzbzkyKn1KsPyOoQ1OBZrEzXGQ=;
+ b=c2mKsvsfFABNA0j6N2RqiCVytbS/9cILz8F+kjsgfHK0jx+hTtkneLbydgCc2ew5kT+F5kR+cd1E7DtEOZ/3UF+JlyqB2cDQEUAt7sqRRqMqEOZ+gZI5q/Uzs1MA7r0/l7ne1yL78Y6PO96e6mvsl4jzYhnZEOqNgE0JBqWWrPfHBI38DeTONBfR4v15q678e7e2y7YDArwQlOGducT5J0Xg6yWjSEEMUIYwrksL2XT09swZnyYzU/7GDy4YS0Lzvb851H+BsIO1PUcN4aaR7R2p/GypPuQj1oVFCJ13h0rvmXCvNyUeXn0D/+qRd8oi/TCG1LEAZ8PcwjtPjLUoXA==
 Received: from KUYPR01MB8186.apcprd01.prod.exchangelabs.com
  (2603:1096:d10:8d::16) by SEZPR01MB5629.apcprd01.prod.exchangelabs.com
  (2603:1096:101:136::5) with Microsoft SMTP Server (version=TLS1_2,
@@ -56,15 +55,11 @@ CC: "airlied@gmail.com" <airlied@gmail.com>, "conor+dt@kernel.org"
 	<mripard@kernel.org>, "noralf@tronnes.org" <noralf@tronnes.org>,
 	"robh@kernel.org" <robh@kernel.org>, "simona@ffwll.ch" <simona@ffwll.ch>,
 	"tzimmermann@suse.de" <tzimmermann@suse.de>
-Subject: [PATCH v2 1/2] dt-bindings: display: panel-mipi-dbi-spi: Add UNIHIKER
- M10 display
-Thread-Topic: [PATCH v2 1/2] dt-bindings: display: panel-mipi-dbi-spi: Add
- UNIHIKER M10 display
-Thread-Index: AQHdWkOh808JDWsGukO/3LIhI3oAig==
-Date: Mon, 12 Oct 2026 12:17:20 +0000
-Message-ID: <20261012121718.53481-2-founder@crepuse.com>
-References: <20261012121718.53481-1-founder@crepuse.com>
-In-Reply-To: <20261012121718.53481-1-founder@crepuse.com>
+Subject: [PATCH v2 0/2] Add SPI display support for UNIHIKER M10 V1.2
+Thread-Topic: [PATCH v2 0/2] Add SPI display support for UNIHIKER M10 V1.2
+Thread-Index: AQHdWkOglTDdoP/ERkeT694Ie1kfpA==
+Date: Mon, 12 Oct 2026 12:17:19 +0000
+Message-ID: <20261012121718.53481-1-founder@crepuse.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -73,47 +68,47 @@ authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=crepuse.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: KUYPR01MB8186:EE_|SEZPR01MB5629:EE_
-x-ms-office365-filtering-correlation-id: c951f8f0-62c5-45d9-4e96-08df285ac3dc
+x-ms-office365-filtering-correlation-id: 176b3b55-6718-4d65-69a5-08df285ac369
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|38070700021|56012099006|261009223027099003|10067099003|22082099003|18002099003|6133799003;
+ BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|38070700021|56012099006|261009223027099003|10067099003|18002099003|6133799003;
 x-microsoft-antispam-message-info:
- J1tjRRZf64QJF7V/pdvT1RsSErQCdUb76/mssb2Z+Qvbt0AQkSBsDw8w6hG/EcrcU7pNa+196vDyNUibWsvKJ+woRWvDQ5cvkM7ybG7Kk2eQgvk4Zx+M9KVzpnbvC6lW/cfx7sZEi1o6xQ0/czZI/ArLSD+loFcR6aRg+HfaN7DliertQDbKPKldRKA1BanxDFqD/mBqjeVZuV9isPcQyeXHseqPiUf0FXFYKYeU9xXEgo0D43bqPKwC5cHuMNG1XzAeau1DpyTVzEPYCvrzOWj61I8F1RADorV62dvF5z/andASwhuAMAXlMZ5f5LR7csnozDmpIdfd4NuOn5/MyxrQ4ba2B/ozjoebfaRi454ZZDJWwAj4NjW2L0F1bBthLODjqYepK9JXlu2GB4qpLUTnHyz2zFLTFKvchIijJ/6M+w0dXmDmgm++qXSmrteYxhHJSIqfiXHbu+zQrGQy8M9UQZB0+mhbJRNu6kQKYwtA9CfjFjpXZDFsfqrc5zVWc1GsrddQu0Chtvaz8xU55DOmarKCCwTnz6//k4CzsxqgFNMNX3LNVuV3rnBwgTx0ZfyyU+qvKYTMJrXwG0mhIQ5mpOhwR4VY15Ms4RK+k+7WEJfTZFS7xE7Y57ICtjFbN5oPFAd3hzzKkS1L0qgVNC+DyYAsL7wBXyBm0JMrTo5kQtlPEy9M8XTPn/Gy/nrCsHNay2z/CvtYmZFrVF5dsFnt7WWLxzr+sHhqDJ0IPIE=
+ hJmJ1unZ2d3JwLFxj8H6FvM56JuTs68xoMbucz8weEsFldSUNTsDe6fuRZ/x0nJOBf+ijOAGx8a25OqgUwi15lSmKNffs6iMzhReKaG/s3aXwszKfBe6vwwMNAtYuLLIFtqpG0A7uKn6cMxieQywUWxAtfaNtL9zAGc62rO+YglzcVSAPF3rsNB+jv2dkR6qii2Vc9ID95eIhjgQiqJ6NEuPQk/lzHVx5/Ud0R9xkRs0d7+6AZlm3euYAGRd/UcLJ215YpzKcZIwt9HP0UkLJRByVDIG9ni++wneNENMoHtlSA6tQcaOy8pNxqcCcsqXxUJ8dw0FvN1LmLhJbJ7Eb8TiBi4aN8Hgyx3YVPY5rYD/youdPht7HKJcQmGmFQiiZX/mYEdlGXaqCgLHWkVVTlMK4fYXIAfkzLwF+5LtAAo8KpvV2Wv5Eqo1L5H/5LK2Rpy7I43MSb2qE+CDD/WbWQmLVSdu11brS+BAl0gYppEIlIYsKAsmrl62pPI8eCFZ9Of+Xf/I5shqsgmtDwD+y+R9J2FONcbJ2C4qF7B9oShhSFXQG/3Jb6+ZQCt2Fk2O/hpplks9ltQpJbV6fPh8TnzYvF5pJO845sb9OKIFz0Qoxm/v6X0vCSBAeolqm/keoAb/o54wjYOoDbPCk7ALkRnkfynjc4OaOqQERjqPs/nlk1i0ZKc+s6Ah/6owE4/sPg2StuFYgLUhEBik9ZdNRGz8v7douq/esy3mNpWrt0o=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KUYPR01MB8186.apcprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(38070700021)(56012099006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KUYPR01MB8186.apcprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(38070700021)(56012099006)(261009223027099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?rhItXXfBgM+muXCYaF+xBw5OxFyfaZj+01gJz9Wn2f/ua0rhSEugNM/Gns?=
- =?iso-8859-1?Q?9g3KvjqY/mO8miQRoI07PC3C/PHihWWWgwLZXHALxVOH8i+Nnbe/VrDjTO?=
- =?iso-8859-1?Q?zsg6Le58vUssjUmqQ26A2B1ze6kEHBALuassbp8+BQ9InXpmgSntyG+BKt?=
- =?iso-8859-1?Q?Z6ceI/FWcKI+U0DYEOLkXSNWxAVuVxIEcndDRvuW22OrbnBfKZ1VV4jPYF?=
- =?iso-8859-1?Q?S0i9aW9mxyvXzbmCaTn2JhH/fvAUAMAonere/B03wDibcZ65Pj2WgrWJa2?=
- =?iso-8859-1?Q?FTLcQNOd/MMK9glRyZEAzYmuB5ioond1zhpXArlIJIBpyqE5bEljRD98sf?=
- =?iso-8859-1?Q?ZwWag8lprAQwjU/aGOdXHLWYSCePtnjESCGfC6o/MhoFdwzkiD3uKqHZXY?=
- =?iso-8859-1?Q?vV3mMSQ1GqXruvIwvG8GXCeagbmH+6FFbMOZl2WVdJIDGmpDL/LSE0TIXg?=
- =?iso-8859-1?Q?/i6EZuebNJRx14vE+LCMmkZfCLq1JdOoA1N1XocAaWuVOT952+NcK3K/Eq?=
- =?iso-8859-1?Q?eHLN9zMDnr/tXu8odOGK0YzrYvNPpRJt+kjPEVV2ReOWhF9lFIpCm41fL3?=
- =?iso-8859-1?Q?saoQ3xS0bQ2bZYVvGZMoiac0gjdr8hh+jl0IIbZvLgStuH/qbDdjoJ9tkq?=
- =?iso-8859-1?Q?yGmv+fy6o+DeBX4+ihqBETP5Ir1SmCkBKO2HG1rMPHFfnsaOcivlNutXOA?=
- =?iso-8859-1?Q?ByeB7l2+RBUOq2n9tUuhNmcowaggX2t9dYpLCEQTwS/IdLNOt+TrfrQ90C?=
- =?iso-8859-1?Q?ouPNShZLxs/xlB4pjGciVru6jskNvpv7GVXfNXdOxKCNxiN+XOwut1wOJQ?=
- =?iso-8859-1?Q?QGKOYBYcGxllnS2gOOpWxIF96cYiGw0d7BYwANl6UFiwAh3E4V4R5ZuAxo?=
- =?iso-8859-1?Q?D462ldIQfayCN0L+C8KhVI1SHAV09b1vJyNg+AvV6/0nGxkrHBmJjR42+W?=
- =?iso-8859-1?Q?NTnAWSoUfzNYyiLZNoS4WvYX8k3+E71Tfi7pbccMsZhILYO/xtqQPHMKMN?=
- =?iso-8859-1?Q?qW/+H6oc9BXxMotFL5hdaCJHx2S61ML39+biIdHCms5uBKkOnf8MYWuJoJ?=
- =?iso-8859-1?Q?hCLf0BoFAs3zJ0fCokYoyWbH8SRGEiHxb0IiZ/tGMwETyEpKKlmS7NZg8h?=
- =?iso-8859-1?Q?E9Foh1kk3Jau9Nr0aBbOF5RE8W9mASd4zmVscs+q8H0GF+RMQOiVygKPkE?=
- =?iso-8859-1?Q?PfUEEPX7qJ5zpnIU5JcDEDmNynXFnizlmKn9mxytURJSoANV+9yrkpzKrH?=
- =?iso-8859-1?Q?l5emJ8w0Flm7d/3uVjWHdR4lG8rimHwteDdPx9JBP6wtksrNDyMQWn4gzM?=
- =?iso-8859-1?Q?Q/orBvJgfoaoamaB6q36jxscb7yvxDwB4qRdOJrsUBpBVPiCeJBSlFsQPh?=
- =?iso-8859-1?Q?PcvdF+kJrBeU53rKlJKL0Y0b4hHPNNTw3WbWupDr294gqoMKjJYyspyxcB?=
- =?iso-8859-1?Q?+9RVYMUy54L0EcBXZiHrMbXkQ/QSAE1OET7aFTzyQc2d+BlqvTOdyxpGpE?=
- =?iso-8859-1?Q?rpNuZyMyBZFfygV7yWglHvu/R+GWqeuj9i+t53HYJMPnrJH9L6+zNAgvN9?=
- =?iso-8859-1?Q?yRjn0FO9+h1SU9Zi9UWZj6IQ4lxzBIFU9pcq6fVcqtQd6Q49Xn6LMBuM84?=
- =?iso-8859-1?Q?XHOJ8YxtdZw9OM8RCMBKZTYx6yal1o1afNvTOlcfujojiFonUX1ggED2Br?=
- =?iso-8859-1?Q?sWyu2iBuyvA6PSrTzTS1f6Rp+MbOSTw9yEZBgUHKBGLCfT2FeDwhLlTa5I?=
- =?iso-8859-1?Q?xF3uUQOgBdcrHpSSUcQ+uO4VnGu802cGNCCPMdHByHiGSh?=
+ =?iso-8859-1?Q?mtq5EawgRXNQHcYjGedYVkjslP9W65ygfmuDRRXBsgQmcS0zJowQS/2DbX?=
+ =?iso-8859-1?Q?dg+8VMOLfUz7d5WyGTvmXT9EK6TYq9NtrF+y5PpDRcIi57l+T0y+Tkoi96?=
+ =?iso-8859-1?Q?Vsk1IncVLZXDx+YyZzw9sJCbE6kdCE9lGgW/g8tCcZgfngHTdsSc5wsPVN?=
+ =?iso-8859-1?Q?E78MSrggw4IrsC4/pig46sCNrKl1CmPDdZSF5kbptNSvRcp+9nvnU6hfLF?=
+ =?iso-8859-1?Q?/vaJmklluJKrpn9lDwj4hkwRSLoPIFibmdQcxbxyeT3HZBHQV5wnYp6szW?=
+ =?iso-8859-1?Q?461ge77JkWU9kT5nYVN5lSyj+gwX3QDTqN6hkddmxWpihJNjNr6KD2PJCU?=
+ =?iso-8859-1?Q?ujoTGovxR/9ZIJQLCNSfEPk/WdT05SkNvv0khyWVoA/OjUoc7PHyVJltUH?=
+ =?iso-8859-1?Q?30GhMggsc16ls/7G5Wq3GVKxT4/3OeZtibeOu82FASLgfibRC2ti7JAwtT?=
+ =?iso-8859-1?Q?Gvp6PFMpu2u0i97y9TgvXDiT0w5G2aZZvvdUO8fkwivmN2Jids3fwuHEj+?=
+ =?iso-8859-1?Q?y7eDVHYEiFWE3ykUXcm2DAI9nVRcGDZ7UF33mH1OxaKTjbGx2Ka6SmeOQo?=
+ =?iso-8859-1?Q?mdPfMl5zcHN4fantyjkKOoPK89OeMSd8SkokoB7Acx31SiVJXBR6l7DWjd?=
+ =?iso-8859-1?Q?rjCToK6Y1Ey5LTau3H8PgknuTCEl+H3pqxY0CLN7jHWvB2vN9Nezoczab7?=
+ =?iso-8859-1?Q?PWZKhGn5PvyO3NYJaElDmXF8fAhk3xGLOY/RYoTT19lyBbN2YWDOzHU/hA?=
+ =?iso-8859-1?Q?4ow+CDCIefO1SfjJ36xHxaipxK5T5GI+2U+Zan7GynzPcoHdb0Ine01cJu?=
+ =?iso-8859-1?Q?5IVQY/I+Wqdxk+v0yRtSr3n818C+Jvk809FlPspOAECSXKUyid4sCi4Sxn?=
+ =?iso-8859-1?Q?Mhs8KrIv0B+LVO00AieCB5WUernuPiNr+CNIIG8yFLYmTBlFu9P1dLtM2X?=
+ =?iso-8859-1?Q?wm6cM+Npdbncdab/0G1vp4ZPK62/bKgsz1qelbudDhLpeYL2HCTh9xtpIy?=
+ =?iso-8859-1?Q?NU7W75UoH/1+k1VuBnk4Dt8UjxEyrU2mgc5/oxi+s4mjbpQsq01e3uKZsX?=
+ =?iso-8859-1?Q?I+qbz3zvzpqcdBkVt7yWMfG1w1pJs4z1YtNygCTIVWd399AhEvMobKzbgU?=
+ =?iso-8859-1?Q?+AB1/jmXu+3eqX3Z8KeXtQBKvEn/RydeaMvUgvqEMhU0gTz5pTdRlOkOf5?=
+ =?iso-8859-1?Q?Ic6aGVqwFsUoxVQxWJYU6kMpR1+NRx4C7Itt/RfXwWNB+bE66/rYkhq+Iy?=
+ =?iso-8859-1?Q?LbJVfehhIuA1zCGkA5fh4Sn74IqE61os9jDGtSaq1jFt3a31LREFzd5gNp?=
+ =?iso-8859-1?Q?Fx/ZRNQvUySF4SVhbyxw1ITjckSGy5F2LwEVA9Ybq5avPFDhvde60iZES2?=
+ =?iso-8859-1?Q?Chxkzbm7r5pscSLcjN+fW1yVlfoxAwxVuZNxOiTuDxShsK/3VnV3yrk7m6?=
+ =?iso-8859-1?Q?/XaA8dMrVmCfbKxmQahi/juXdbyA+nN/aSnk329Hx9N9W5Vrulc6N7QhUx?=
+ =?iso-8859-1?Q?sde3ie2Nm+0pE4NAnL4OyjP162lyHK9PdzWc/mFIamENsKGyls42VR03Tt?=
+ =?iso-8859-1?Q?t6VMKq+1qN0njCGMom0nSfL3kUtIHd4/DJGKQfSigOi7u0crcMvgbbfkaU?=
+ =?iso-8859-1?Q?p3C7/BbQx25sumlvtwmGVkLTW5rzKsRr8342ZzWYM7XMtqlu1LRo7UVrAc?=
+ =?iso-8859-1?Q?PNMKjBnGOJt+kHkAwGglRZkBCunkSK6apcvE9yHLwBb5y6bzrxNTBcyCRY?=
+ =?iso-8859-1?Q?PwcLqu2SQ3eUqG+dLS1SgLqmKTMl3lmLX8KfQXutbr9Lxv?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -125,45 +120,45 @@ MIME-Version: 1.0
 X-OriginatorOrg: crepuse.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: KUYPR01MB8186.apcprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c951f8f0-62c5-45d9-4e96-08df285ac3dc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2026 12:17:20.7523
+X-MS-Exchange-CrossTenant-Network-Message-Id: 176b3b55-6718-4d65-69a5-08df285ac369
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2026 12:17:19.4117
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 9e189589-0b8b-4283-80ca-b0157c0a04fa
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rOojU9vb7kLsjGTb3uM3u2JIV4Fo64cLjZMLl3FL56I5cn8HoN7jb+XfxxEWlFVKFaAhgrGDTstdZpE8tM/aSQ==
+X-MS-Exchange-CrossTenant-userprincipalname: U7sdPe98Fj3lVtwoRGgj03h3NTq5d8U4ePkPa+fW1rRoIT2IOOnrAzoIyf5v39n6AaryQL3tFgDiJtDoixlLDA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR01MB5629
 
-From: Mizuno Miotsuki <founder@crepuse.com>=0A=
+Add the panel compatible and enable the SPI2 display using the existing=0A=
+panel-mipi-dbi driver. This series depends on the separate common I2C2=0A=
+board preparation patch in this review package, but not on NS2009.=0A=
 =0A=
-The DFRobot UNIHIKER M10 V1.2 has a 240x320 SPI display with an=0A=
-ILI9341-compatible command interface. Its initialization sequence can=0A=
-be supplied to the existing panel-mipi-dbi driver as firmware.=0A=
+The external initialization firmware is available at:=0A=
+https://github.com/mio-tsuki/panel-mipi-dbi-firmware/releases/tag/v1.0.0=0A=
+Required filename: dfrobot,unihiker-m10-display.bin=0A=
+SHA256: 50412ae6d29c5bbfb7fac585528a761fb249d7944011a1b19c5e0f80a0418e5f=0A=
 =0A=
-Add dfrobot,unihiker-m10-display as the panel-specific compatible,=0A=
-with panel-mipi-dbi-spi as the fallback.=0A=
+Changes since v1:=0A=
+- Normalize author/sender identity and preserve it in each patch body.=0A=
+- Check every patch in both ordinary and strict modes with the binding=0A=
+  present when checking the DTS compatible.=0A=
 =0A=
-Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>=0A=
----=0A=
- .../devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml    | 1 +=0A=
- 1 file changed, 1 insertion(+)=0A=
+The binding and DTS diffs are unchanged. Prior physical display tests=0A=
+passed RGB565 patterns, direction and partial/full updates. Register=0A=
+readback showed a 100 MHz input with BAUDR=3D2 for 50 MHz transfers; no=0A=
+oscilloscope measurement is claimed. Reset ACTIVE_HIGH was physically=0A=
+verified. The nominal active area is represented as 43 x 58 mm.=0A=
 =0A=
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi=
--spi.yaml b/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-=
-spi.yaml=0A=
-index 6f0290c4e291..adef35f91670 100644=0A=
---- a/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.ya=
-ml=0A=
-+++ b/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.ya=
-ml=0A=
-@@ -72,6 +72,7 @@ properties:=0A=
-   compatible:=0A=
-     items:=0A=
-       - enum:=0A=
-+          - dfrobot,unihiker-m10-display=0A=
-           - saef,sftc154b=0A=
-           - sainsmart18=0A=
-           - shineworld,lh133k=0A=
+Mizuno Miotsuki (2):=0A=
+  dt-bindings: display: panel-mipi-dbi-spi: Add UNIHIKER M10 display=0A=
+  arm64: dts: rockchip: Enable display on UNIHIKER M10 V1.2=0A=
+=0A=
+ .../display/panel/panel-mipi-dbi-spi.yaml     |  1 +=0A=
+ .../dts/rockchip/rk3308-unihiker-m10-v1.2.dts | 53 +++++++++++++++++++=0A=
+ 2 files changed, 54 insertions(+)=0A=
+=0A=
+=0A=
+base-commit: d6c0b613da7796745d9ae71d0d0b87cb48ca25c6=0A=
 -- =0A=
 2.56.0=0A=
 =0A=
