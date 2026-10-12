@@ -1,89 +1,88 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCE9486B82
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26D148A8C6
 	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791808421; cv=none; b=sE0sysiSEYa8Ud0/dqfoGWijFKlHlUA6/71Z/xX5//Izk0VFft8EPWuwYYc5+PI9umLEOHpjko9dEG2krUQ9i8QNElixTK9kduA9kgwqzgLjjrqxyJQChmYkrwsJTVWOx5Sl1cNdTZ5IgiJCFL/yWApWD1luIlcXUFbGQsw6LcI=
+	t=1791808421; cv=none; b=HrLsUTRhCnnLf9SqDOdPYa8BTd7zq4gDpWFPlMyBEvuSmksPf7j1otywdAsX+m5u1odinqquOB+z8lO+iK7qWyHEPMXpLqu0ghH8l/UuxFD91NFqBTBOSLh3T/YBQGlESw/5Nnnd58I+OPexTZ2AhveYTM0G9uDYck6CjURuEAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791808421; c=relaxed/simple;
-	bh=XihemXfcYZe5DT/XSjTaqS/KCGASOQQLYoMk/bpzjfs=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=CfQ5+krsMdxKwPMgbJMDmSMyAio33JAKraiFAROnWgGf9PxlHZPlhvDEgqWe5Pw5IeyGpY4t+OaFIy4PXSfuflcU8OyB4uyPOpER9og/o1KlugP7T16ApwZxCbT9j9VDVBe8eLVrwWKpl0QBTW5tyudjouudrGZD87WkL53SAco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+	bh=2VPiXw1q3kR54sFKHzIp1fFBiFplG0qbis1UdmRy8ow=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=IRYWMooJR9mmxC6SL8BMKYMhEl/Qew5TlfgkTJlsbcfK52roLaNgdO1KpyhQaRDePaD8u43S7n/malxV3PlQiZXhfX7xg4m9LxYv2Z/C/K5iRZXBLLu/UUhbYeADp4lx3j+CROaujSQOW1VdUP/i6ZxPx2H29Hg2Q/yxRNY1xfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cd3e90ff97so1457141b6e.2
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4cc89e86e9eso2742130b6e.3
         for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:33:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791808419; x=1792413219;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZH+gAu+BLHr4YrFurgl7HL56gbd1v3K9opgyg2ImIcc=;
-        b=qY5GRLo45MSFfsveqETqDB5v1WfgBJ8DPRZ7qK+u1bIeUF6zLMHGbbwfWWp+9DCtpA
-         4gF0jAHBpXURjn0NHWYiqJ7wkRfbpJsHzF+ri/mkz6W4FcmVq64TvsqS6GVmo39p7xUP
-         iBQwmHCDNQNkdlbKfNOVdsBYn6MNyAoa82Hy/0d2gpjW0+IAXvhAGmZo/c1qet702xr+
-         aXhr9AqYlYtxDJg4bortg+tTLbg4X6fxxwYtwxrY0lj7gymbOFbNwQN1glQYlMsF++GZ
-         A8JZoFSKrD9cCKs0tndkd3oAv4MIGcvy03QxFfo1NKs718Ca5rZlGoCdyitk/f6cOxSL
-         vcpA==
-X-Forwarded-Encrypted: i=1; AKwUvBzEB82ftAeXkreO/dQVOfl72P1pa4Bub4I5k8oMRR9d5VJei4NrPteQoGZXMumNKK6v69en7arwb2fXpbQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7PqxnusN0/0M9OLxOX3MTUEo+xF4dlE8+gyqXAW20So1oeuPY
-	C1umYnvbQPO2rcIkkEpUB9GkAMNqr9hdzMlHHAu4uP7IdK17R8/GjWeAfB+7Rz70cwWY9pilkWv
-	0q9kweeja5C933MfkatBrKbYZavY6Ohl6vY3H1k++om3HJQ0NyfBqOvg2A1k=
+        bh=ZkkVxmXihGSE9ad18xf43HJ5yD+WjmR37orxM5dMJfg=;
+        b=E9/s+mRcaAfhQcjewG8Gmf2Ey/7PtC8Gan+FXnjHp5vh4srH9fjTkYKiYDe7Ia454x
+         l+oKmYUCsXY9GD6Aq1RM8H+RWipcaExLEzdejc2Qb3EQh69U0qVGBPKfqbtJw/po6WVa
+         CDoryckxoZlIecX6NYaKgu/ry8LiQXRG981wEp4cVbh1WqgNqptQBl62BKCs1YvVfl2i
+         Ts3pYluJvkSJdWZocpxycjbU6qOs5GAPhfLujzKRKBa4767SyrrmgPpyP4t2UO0jOwY6
+         IfTrB02rRBA1KClOM1ICAPDUmhdJM2Hvy0VSJPj4J5WeM0NdgUzUCzLWIuSSM3ALBE+l
+         vhXA==
+X-Forwarded-Encrypted: i=1; AKwUvBz6/BuAP3r4S+vYx69IDcwZAzgufw95AHo1mbduAgvQ2PZofHqI84dXt8CA6deJYytTGeNbdfyVrk/fBKc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/ofqtgW5bp2HJrNLeYDRknAW5rn61MD26NXIMYtLGM1de7f5B
+	QalhWxAiKPZ8tT1b5FaX9rQL4zaKehtrJnD7vQZvIccQXFpTQrMrt3mkaKDJRfBMy8IisY2k+I6
+	/EMvvotvSlGbU5yudInmg0sAYEKAGgolsnQlOxbjT4OOzjsMn1mLHgC+jtkQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4fe0:b0:4e6:76eb:b997 with SMTP id
- 5614622812f47-50c59399cb4mr10097103b6e.62.1791808419060; Mon, 12 Oct 2026
- 05:33:39 -0700 (PDT)
-Date: Mon, 12 Oct 2026 05:33:39 -0700
+X-Received: by 2002:a05:6808:f8d:b0:4f4:f3c1:72c7 with SMTP id
+ 5614622812f47-50c58042ff6mr7524732b6e.61.1791808418853; Mon, 12 Oct 2026
+ 05:33:38 -0700 (PDT)
+Date: Mon, 12 Oct 2026 05:33:38 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6accd3a3.0e5b5d80.2c029c.0576.GAE@google.com>
-Subject: [syzbot] Monthly ocfs2 report (Oct 2026)
-From: syzbot <syzbot+liste7c729fb813252b362b8@syzkaller.appspotmail.com>
-To: jlbec@evilplan.org, joseph.qi@linux.alibaba.com, 
-	linux-kernel@vger.kernel.org, mark@fasheh.com, ocfs2-devel@lists.linux.dev, 
+Message-ID: <6accd3a2.0e5b5d80.2c029c.0575.GAE@google.com>
+Subject: [syzbot] Monthly fs report (Oct 2026)
+From: syzbot <syzbot+list927011c44246282e30bf@syzkaller.appspotmail.com>
+To: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hello ocfs2 maintainers/developers,
+Hello fs maintainers/developers,
 
-This is a 31-day syzbot report for the ocfs2 subsystem.
+This is a 31-day syzbot report for the fs subsystem.
 All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/ocfs2
+https://syzkaller.appspot.com/upstream/s/fs
 
-During the period, 1 new issues were detected and 0 were fixed.
-In total, 31 issues are still open and 58 have already been fixed.
-There are also 3 low-priority issues.
+During the period, 2 new issues were detected and 1 were fixed.
+In total, 46 issues are still open and 645 have already been fixed.
+There are also 31 low-priority issues.
 
 Some of the still happening issues:
 
 Ref  Crashes Repro Title
-<1>  433952  Yes   possible deadlock in ocfs2_try_remove_refcount_tree
-                   https://syzkaller.appspot.com/bug?extid=1fed2de07d8e11a3ec1b
-<2>  49909   Yes   possible deadlock in ocfs2_reserve_suballoc_bits
-                   https://syzkaller.appspot.com/bug?extid=5d516fba7bc3c966c9a9
-<3>  20068   Yes   possible deadlock in ocfs2_setattr
-                   https://syzkaller.appspot.com/bug?extid=d78497256d53041ee229
-<4>  9400    No    possible deadlock in ocfs2_xattr_set
-                   https://syzkaller.appspot.com/bug?extid=ba9a789bd1f4d21fcefe
-<5>  680     Yes   possible deadlock in _ocfs2_free_suballoc_bits
-                   https://syzkaller.appspot.com/bug?extid=73d1166b94ed9875af54
-<6>  587     Yes   kernel BUG in ocfs2_reserve_suballoc_bits
-                   https://syzkaller.appspot.com/bug?extid=fd05de09d1267725aa95
-<7>  463     Yes   kernel BUG in ocfs2_dio_wr_get_block
-                   https://syzkaller.appspot.com/bug?extid=f8b081be889b639423bb
-<8>  27243   Yes   possible deadlock in ocfs2_reserve_local_alloc_bits
-                   https://syzkaller.appspot.com/bug?extid=843fa26882088a9ee7e3
-<9>  2788    Yes   INFO: trying to register non-static key in ocfs2_dlm_shutdown
-                   https://syzkaller.appspot.com/bug?extid=d7935821694d430624ea
-<10> 2060    Yes   kernel BUG in ocfs2_iget
-                   https://syzkaller.appspot.com/bug?extid=5bdd4953bc58c8fbd6eb
+<1>  11432   Yes   KASAN: use-after-free Read in hpfs_get_ea
+                   https://syzkaller.appspot.com/bug?extid=fa88eb476e42878f2844
+<2>  8798    Yes   INFO: task hung in __iterate_supers
+                   https://syzkaller.appspot.com/bug?extid=b10aefdd9ef275e9368d
+<3>  2037    Yes   INFO: task hung in user_get_super (2)
+                   https://syzkaller.appspot.com/bug?extid=ba09f4a317431df6cddf
+<4>  2004    Yes   INFO: task hung in lookup_slow (3)
+                   https://syzkaller.appspot.com/bug?extid=7cfc6a4f6b025f710423
+<5>  79      Yes   UBSAN: shift-out-of-bounds in befs_check_sb
+                   https://syzkaller.appspot.com/bug?extid=fc26c366038b54261e53
+<6>  28      Yes   KASAN: slab-use-after-free Read in lockref_get (2)
+                   https://syzkaller.appspot.com/bug?extid=227dbc9afd022922d624
+<7>  24      Yes   INFO: task hung in writeback_iter (3)
+                   https://syzkaller.appspot.com/bug?extid=1e3ff4b07c16ca0f6fe2
+<8>  9       Yes   INFO: rcu detected stall in kswapd (4)
+                   https://syzkaller.appspot.com/bug?extid=f886305df0acc6fa097a
+<9>  5       No    possible deadlock in uvcg_format_bma_controls_store
+                   https://syzkaller.appspot.com/bug?extid=50560f9ba016e97e2023
+<10> 43      Yes   KASAN: slab-use-after-free Read in filp_flush
+                   https://syzkaller.appspot.com/bug?extid=df868600fe111c5ff79f
 
 ---
 This report is generated by a bot. It may contain errors.
