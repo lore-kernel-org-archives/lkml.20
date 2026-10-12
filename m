@@ -1,255 +1,162 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE333D8127
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:46:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791834390; cv=fail; b=WqQWR1XP/KDTPA1QVhIAllUaymQjPxAkIUtTZSf33EvtDl66X/eVEZjhJTFqybIi7trU4xvSZ1AHUwrbZrqe4PdE+QxeD+aM6aYScgVIE72iHTAkR1O+zIEJCLgQ5HK6bkO7NQ3xGd/saFOItXp+q6hg3ZHTo0SNYPweXNgyrq4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791834390; c=relaxed/simple;
-	bh=Bp1cjQI2G2zGM6kJl8qVPW15Ho+NAWgc/ZZWzK6JTLo=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Dr7My/+4UKf1SThnfUsa4v9tTLVmYF29US+AI/dCIlSJAeuA6rKf04kEjNPYZXTx7INXtefFaGxpbKj1UCcQaPY6ddhzlRzT3He+Z1A9AXFIEHhLYkuLF44kWP2aj+PbJuy72mK+PWCDSjSS21I6vV3hnll1Jl3x8PQf+wIdmpk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QSA9J+uO; arc=fail smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D421D4E06EC
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.17
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791834392; cv=none; b=eqhKMS8ZabmJbBwzEaJV0P3NBPHcy11EF3yeUNmmqJJV1S8nGqeD8NQv+kHNdxwortuDQMFaRBPgMxu08WO15zt339SmUW+/1DZIFpzmyjheKBSOk4otA/FqRPa3El26hgHN3v7/WaOhuOUPIBdb444Pr2mOVqfABYfZADNQ1ak=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791834392; c=relaxed/simple;
+	bh=SN53F77NdYCtAEJZRRSye0TNxqG5SZP+TUKigpp+ovg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QwLdFfCfB89aYOwT2+JzlwOIRYBnUoHzrd3KOoeP3qm2z1Zzy/CqFwv+udX8iAV99NNRYXc1nM6Ml63qHQKXGR7MypYsrmMROhcaNI1N7683DV2oOa1lsZ7aHUYhGKqTltS90X/CxpL2aV52tF4oSaFVWZtieuhJqDVvDWTvRRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=midirus.com; spf=pass smtp.mailfrom=midirus.com; dkim=pass (2048-bit key) header.d=midirus.com header.i=@midirus.com header.b=uZIdrEW9; arc=none smtp.client-ip=185.70.43.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=midirus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=midirus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QSA9J+uO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791834389; x=1823370389;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=Bp1cjQI2G2zGM6kJl8qVPW15Ho+NAWgc/ZZWzK6JTLo=;
-  b=QSA9J+uOnDkdTtp4xG6yKI8Voc5oJMw8AZN0ozB6FiWYFKBWpuNltioR
-   PN3SN/1joWvcw4B17gkUo3+HJHxq7o2uEXyTTzNDKQbdTotEsNWsFZ1v8
-   QCHBr1g45H2SEIeFqLUpUUGQCkH+7LiIXN3xMvMUx+VTRTqppzFVreZlX
-   dGDIhDjRywUoti1Sf6s7BLr1aAMnH+xt0Iv8CXYLL7aEC3QzFUPf3fVVA
-   aKVCFzD1ZFUajzEMox01b41+4N67oDPY7eQDOW+7ceszy6RVt6ObqgKy9
-   Mnl4gcoSYzqKeL9hR/XFkPGW4zQ4bzDd8wLbOa6Xg/NhIY99nSF5HRpok
-   w==;
-X-CSE-ConnectionGUID: n7MQafY1SceTUYwYxfKMdQ==
-X-CSE-MsgGUID: ozBb9jbrSyarKQbCMzpGGw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="435966"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="435966"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 12:46:28 -0700
-X-CSE-ConnectionGUID: eE49OXTQS5mhiVDV0Bl/dA==
-X-CSE-MsgGUID: tETE5sHSRAewJEIzE79MyQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="1091479"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 12:46:27 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 12:46:27 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Mon, 12 Oct 2026 12:46:27 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.7) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 12:46:26 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D1lIjbVPim3LNANl9m//AxZn1LUH6CcJcjGxs9qqe35UsreSRsaOlbjE4akPziEi8L9EH9ke1K3C4LGizFm5kDIcbg/KQuSWizMhWl+8yFL1MdpNNwU0uJD4Hyjt2LpFsYjWFkSlSMg/Hu4vsJwR1RYisMRwwdJ7Ct1Ka9mWcgi8c0zxkPh7pNEkujQtgMYNUK1cPtFTWzUP8cg8p0q20+2aIOKfo03V9xnNhvlRSS1aTMkWh851yejAck3ElTUzsRBgzxdx2h00CS6Yi9S9CQ0RuELonpCvvWfmyJsSt4+jXAb3hd0LETE77c/TJn32uCIj0C49JqOsuUW2LP3HAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xXFLtctUL3rmj6wngyHxrs84N4+LP0xyHP299DzUD5k=;
- b=D3bf/3WNE/Ehh7qnpTs+9opG6hsOqF4nZYVxq2Ijp8aPnZFVWbz3YImjNRBBk2VBz6jgHIHTaf+MMpdRlo4t1ydRVcV6ISJBmwa6RnfBSW8sCzLbea7Oqg3/t/tKCq0f5lzmSgKohBMOf5AbKrKXsR2bJEZHlyv3yWSR78QCXVq3BfddwYZo/XdlGRt/5K+v2X6eKzPKoZuDz1uNjMcZsQhLnpdwEeqjME/71PD2gwcMvbzshHqHRs4JTdsPuDCt6/Kg5gKzfRgAw38h71rKjZxs2BlVfG5owhIZMs5m/spcc1745Pc4HS4wWgFcEkrxoJX1zWz5FEUYqsBcH5ejhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CH3PR11MB7180.namprd11.prod.outlook.com (2603:10b6:610:148::5)
- by IA1PR11MB6324.namprd11.prod.outlook.com (2603:10b6:208:388::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
- 2026 19:46:25 +0000
-Received: from CH3PR11MB7180.namprd11.prod.outlook.com
- ([fe80::70dc:90b2:50b4:31a8]) by CH3PR11MB7180.namprd11.prod.outlook.com
- ([fe80::70dc:90b2:50b4:31a8%7]) with mapi id 15.21.0496.015; Mon, 12 Oct 2026
- 19:46:24 +0000
-Date: Mon, 12 Oct 2026 15:46:08 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Guillaume Tucker <gtucker@gtucker.io>
-CC: Matthew Brost <matthew.brost@intel.com>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Mallesh
- Koujalagi" <mallesh.koujalagi@intel.com>, Badal Nilawar
-	<badal.nilawar@intel.com>, Michal Wajdeczko <michal.wajdeczko@intel.com>,
-	Riana Tauro <riana.tauro@intel.com>, Stuart Summers
-	<stuart.summers@intel.com>, Jonathan Corbet <corbet@lwn.net>,
-	<intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/xe/log: fix documentation title levels
-Message-ID: <as05AF81CNjbCEas@intel.com>
-References: <2320050536ca29afe69ecd163eb974a40df571fc.1791740369.git.gtucker@gtucker.io>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <2320050536ca29afe69ecd163eb974a40df571fc.1791740369.git.gtucker@gtucker.io>
-X-ClientProxiedBy: SI1PR02CA0039.apcprd02.prod.outlook.com
- (2603:1096:4:1f6::9) To CH3PR11MB7180.namprd11.prod.outlook.com
- (2603:10b6:610:148::5)
+	dkim=pass (2048-bit key) header.d=midirus.com header.i=@midirus.com header.b="uZIdrEW9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=midirus.com;
+	s=protonmail; t=1791834377; x=1792093577;
+	bh=7eUeVZarUBPNmnvtSEi9wLI7Tja8/hA2NLZl7ky89hg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=uZIdrEW9/NrOscsimbd7pG+xUT2o7srorJk7pgFnRU86hHCZu/x02wMEPTT5Vr4KZ
+	 WmwE3JhfQctmCTaYcUBg0CgODbbGi4fPb/oC9qibI7e+9vrD7yaZHgdEhZswWsePzv
+	 dhgM/mrY2o27M+rpKVWZTFCMwGGf/Hf+giErG7kxHjUvzyAVH5asEBeKtulP4knObu
+	 ujEcxTjB8CnWTW1Dz+un1ECzhGh4Pfi093im+VeYl+FxlxpdWKY/VJ99esjbBILPr7
+	 +wdJEWTJ8YXcQSYrsXvvD9D1MD45lDGlQD8YKAfFDTrR7A9hDst0cN9asJ03mWd2bM
+	 mFsML3WdRRRlA==
+Date: Mon, 12 Oct 2026 19:46:11 +0000
+To: Takashi Iwai <tiwai@suse.de>
+From: Tristan de Cacqueray <tristan@midirus.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, linux-sound@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 0/3] rust: snd: Introduce experimental ALSA rawmidi abstractions
+Message-ID: <87ik36em81.fsf@midirus.com>
+In-Reply-To: <87ld83gl9g.wl-tiwai@suse.de>
+References: <20261011-rust-snd-v1-0-7974ecdcd345@midirus.com> <87ld83gl9g.wl-tiwai@suse.de>
+Feedback-ID: 135030709:user:proton
+X-Pm-Message-ID: 7553b34d4b22bd294f68b24f3dd9bb1a0aaae7e5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PR11MB7180:EE_|IA1PR11MB6324:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7b21ef9-ebcc-45b8-b7f9-08df28997f4c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|56012099006|5023799004|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: 5cWTBdK6aL0BnVje9ol5LI5Qpjt6qTH6K+lWH6BN/qROvIDBcOXUvMrkIjMBbXoIaT4V5T/hQ3hvUaGwbWZLUkY1MrucdhipvC9BA399BwsAZ16nso3iDjAbmN/PWj+7kPSkkkzLlRB/skvgWZnJf+IWncdzVAGXScsfTntUXsJOwla7dri2uL1x+MP6yQuTvcj45/Wfj1qRi3OP4rfFfmRVgK+F5UbEOKz9RAPA8eVKfQDKVfOKh3EY/PwTY3yeacu+xfoY8H9DMrquPShwjLu5ZYAYFMqBP38s5dbNC/aOYN348k+WC9j6NAvDIgVfr9hFGyt6jNnk0Sx/hxu/3i0KIl+zZVdqyMfaH1eZXlgWl3OtqJ3OQjImYPGU5OaQzkXf5xXMvZNqlJoi3KPcgm9ztb3Y31WGwQhqrB/+NCXZKu+/JHOTWe6nOFRjRRlLu604dYdlkYGqQ+pFp2uhkd7gn/+2rlgf2dFAQd/FUgm54EEXlY6G2YfbwzUC+5l/kkQpeQo9rlqbfushccFPtYzxTYQ1LyTuzdGWB66pvImjzGLnDnVPDLkOLm0EEVxQFuCDkYcngrqbobpwrTgLaNWmK6kUIGFkkzHtQqqyIzfmPued+AHqln9viv1blogPR7RdzRmUiOW6Qboh/hJEz+cxsmDwujHefIz4n/s+kCM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB7180.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(56012099006)(5023799004)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?u2zIwTQOFRm70UU2aR9J9mwIDa9ImYL02wr+cn57+QmC7ozcS0tUeiufAKi1?=
- =?us-ascii?Q?0hDSuoE6fylWLBtw7lpain7eETiTKz0tXWp3maIhGh25US4S1ZLUx85NxuVs?=
- =?us-ascii?Q?qEMdL75QyN5YtpiZTfIaFybq9I6qxRZhotv2yAyzZzgc5JapurV8Esk7Zb2/?=
- =?us-ascii?Q?/Lv+1VyerDEAghuD3gpcODI/YXhxEcbnWyvB4RPdb6wF0pMYtkoFrdl7JrHl?=
- =?us-ascii?Q?J70K3t1gcYOUikR+kt1NemOd2QxN8dbhoCzYGoSOtaEMObt9+7+jGXafEs+U?=
- =?us-ascii?Q?HDUxT1Ja70GMHEplKwNZYCdVxowxJ4BfqjrrYj4b6m7o/8oN9FeFSA4bwtbf?=
- =?us-ascii?Q?ZU5xogDxP78Jy/6mnAzq/2ST173rGU/lEtKhgsvyfpbZeku++rSWCurGQWUd?=
- =?us-ascii?Q?ZGq84cj6GdP2aJfZ46se0RDc+L9fKTJ2SxJWJtFtgbFXg4FjLqjmz6UEkklR?=
- =?us-ascii?Q?U0diEH7rMRjTCNlGAATuvSbtSI0bO1NYfslgLquoxrkWzE1An8RJhYhoKE0s?=
- =?us-ascii?Q?KPWTyIAvDGJdJL/oI+Si0xj3yYhIJFypN5nNlcMyBRUgDZQl9pFZS1htd+OA?=
- =?us-ascii?Q?aTHvPnuY9/A5pHQBicqLt7H7wsTVqbzXOM0kq2xFCpLqQJrc8ZcyJ+i9FyQk?=
- =?us-ascii?Q?IDDlfDb12sw9v7eUC0OKArqa1g9EFuUqD3kIyQiLbxhikfUO4+Yciyr2gb56?=
- =?us-ascii?Q?O9WNMfKIa0ILwRxDEM9xX4qrVUs66wAOfBIgTLPvTxjLw+riJ7cs6o2IKlge?=
- =?us-ascii?Q?FReFth1uTGrT9/1uNJz7UyVtXl1O56cEQRhiJxjEI6HOYVQNlMQEn9tCUkLJ?=
- =?us-ascii?Q?E8m0OIqLus77SdPvRfVjMhvrvGBT8OBL+ve1k0CTIIrrTLquYyjWQVrvJOKM?=
- =?us-ascii?Q?AG4rSK1wYhSkVu0xrleXPwKOwV0InRDZGkpPUsDZhkWnPyBYCoN5XPNnUlH7?=
- =?us-ascii?Q?ncmbUbHoEm6gjn2WNPJjJziA9Nt1oVzTuZYo77mNW6s9r+9AEvG4yBzoviNQ?=
- =?us-ascii?Q?W6wt3ozp6zWkZm8PHqyGkUVZ1xBkoga7NWtCl9Xrp//ywvH43WDnMbJFR3IV?=
- =?us-ascii?Q?XdJ6VK0evAAEQFOWixJ2s0ZMfjtP30yqs2fHnZAAg41uPWT8+wSEOX0m5Unk?=
- =?us-ascii?Q?+VYcsLRAcccmWm7PHUGABKDUOVhB/GXb9DXgHh+aKjd8kTgwuTNIb5OBfAks?=
- =?us-ascii?Q?7jwQXgwhzf11p5X/hOeE2FWljyColM2XWRXDXE5iiZyk2UKb+tjSrb/6TUPO?=
- =?us-ascii?Q?XMMq0I95nrXUMtiPUKnNpYcx2SjjTmIR8x6xflsKJUREiyd3ijwLk59XqFhf?=
- =?us-ascii?Q?YiBJ2U1Q1LqQB5eukLry58AA1IGRDCpD2qjRwFg/ls9T2PQR3we81CXlCXFT?=
- =?us-ascii?Q?BgKwVRdW9yBM5xP3jXySWqh3RKLZMpf4m9oCRRasvrbjeMc7FCvPYtjrb6De?=
- =?us-ascii?Q?MybOrSpe813voM40EmGLKxgZAGsUMvD1v6b5rncp613+LKMyEgnSPjLguKr3?=
- =?us-ascii?Q?T4CN8TKn+OYaHZSjrq4Znkp37cMLgd/rx6kWJugLVw2Erth94NwkLeHnIeLs?=
- =?us-ascii?Q?v/7XF4gnfUExdGvPH+XkoMwgHSZIm+9x34Fmfr7e9oA+fwd4RwxG9we9WxAs?=
- =?us-ascii?Q?G3ffJtbfwDUebd0I3Fuis5TIfPzXrS0q+Y3+8JOArEy2Hss71MQTtwILra7m?=
- =?us-ascii?Q?w+JWnNA44S/8+ffZjMhNWC2leDemoogMblE+AKe9zdO4WlxPASPT3T/BZzgj?=
- =?us-ascii?Q?lnyTypxW0w=3D=3D?=
-X-Exchange-RoutingPolicyChecked: GaCwEqM3sv6Pqo0lMmcUgftj6yYeAwWB5URDVAvFxj0L8CR6OidjISU8InWYj+GqAUsTElrhaaMhOryqI4+E0x0CX224lMt005dDUXK6AbKBy5CUPmtNM7dPXAkY1GjvHWMve0CBviUnrNlqVyN+0dSCxy0Hwq13XQsFx18nC/dICwIGqo4bzIvTiWZ5gc3SwXzpfvS8SzdnbkoK6Akp5s+y889fAiIZ7ZH7z9j23ZqvOBLn1fZaoXYte2e0Sdh0aN6wK8SUZnEE71y+TBez9DF7As9HkhxEQhdinKIszjempnQvtC5PykK9OKPKp4PG+aXO9gy2ZutQdFp93o2++w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7b21ef9-ebcc-45b8-b7f9-08df28997f4c
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB7180.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 19:46:24.6060
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9OM+RMslPe57VULYGZ6LInWuyT0O0MoxR/iJzFoew1omWxj2xKejGDdskIt9gJ17d+SFaNUacMPhKdBKzjwrVg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6324
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 11, 2026 at 07:46:53PM +0200, Guillaume Tucker wrote:
-> Fix an htmldocs build error in the gpu/xe section by moving all the
-> titles one level higher in the Xe SIGID page to keep a consistent
-> hierarchy.  This is the error message:
-> 
->     Documentation/gpu/xe/xe_sigid.rst:10: (SEVERE/4) Title level inconsistent:
-> 
-> All the other pages in the xe section use <h2> titles so follow the
-> same convention here as well.
 
-it looks like we have more stuff to fix in the xe_migrate.c still...
+On Mon, Oct 12, 2026 at 14:23 Takashi Iwai wrote:
+> On Sun, 11 Oct 2026 15:02:11 +0200,
+> Tristan de Cacqueray wrote:
+>>
+>> Hi Takashi and the Rust for Linux maintainers.
+>>
+>> I just noticed your mail about an early Rust prototype for the sound
+>> subsystem right before I was about to submit this RFC!
+>>   https://lore.kernel.org/alsa-devel/878q48579z.wl-tiwai@suse.de/
+>>
+>> Nevertheless, please allow me to share what I had in mind through this
+>> small proof of concept for the `rawmidi` API. I am looking for feedback =
+on
+>> the scope, coordination, and the ownership model rather than a detailed
+>> review for merging.
+>>
+>> My use case is a new hardware controller using a custom serial protocol.
+>> While developing its Rust driver, I needed an interface to ALSA rawmidi.
+>> I'm particularly interested in handling rawmidi substream safely to avoi=
+d
+>> issues like the one fixed by
+>>   221253723dc5 ("ALSA: bcd2000: Fix race between rawmidi and disconnect"=
+)
+>>
+>> So, I wrote some bindings to see how that would look like. This series a=
+dds
+>> experimental snd_card and snd_rawmidi wrappers, input/output callback
+>> traits, and a sample rawmidi faux device using delayed work to simulate
+>> incoming MIDI data.
+>>
+>> This is not merge-ready. In particular, the prototype does not yet enfor=
+ce
+>> the devres lifetime of the card or the lifetime of its rawmidi wrapper. =
+The
+>> substream helper also relies on the driver clearing it before close
+>> returns.
+>>
+>> Here are my questions:
+>>
+>>   1. Does this rawmidi experiment overlaps with your prototype?
+>>      If so, I would be happy to coordinate or adapt this experiment to i=
+t.
+>
+> No, my patchset doesn't contain rawmidi support yet.
+> The sound card abstraction would conflict quite, sure, but it wouldn't
+> be too hard to adapt, I guess.
+>
 
-thanks for this patch.
-pushed to drm-xe-next
+That's great, I can rebase my rawmidi abstraction onto your branch.
 
-> 
-> Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
-> ---
->  drivers/gpu/drm/xe/abi/xe_sigid_abi.h | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/abi/xe_sigid_abi.h b/drivers/gpu/drm/xe/abi/xe_sigid_abi.h
-> index 2f3440505f69..277b15fce9cc 100644
-> --- a/drivers/gpu/drm/xe/abi/xe_sigid_abi.h
-> +++ b/drivers/gpu/drm/xe/abi/xe_sigid_abi.h
-> @@ -10,14 +10,14 @@
->   * DOC: Xe Error Signatures (SIGID)
->   *
->   * What SIGID stands for
-> - * ---------------------
-> + * =====================
->   *
->   * SIGID is short for *Signature Identifier*. It is a small, stable integer
->   * that names one of the *recognised fault sites* -- nothing more. It is the
->   * primary handle used for triage and maps directly to a specific report site.
->   *
->   * Numbering
-> - * ---------
-> + * =========
->   *
->   * SIGIDs are a single flat list numbered sequentially within the assigned range,
->   * in the order the fault sites were introduced. Values are stable: once assigned
-> @@ -25,7 +25,7 @@
->   * SIGID value is deprecated in place, never re-purposed.
->   *
->   * Why this exists
-> - * ---------------
-> + * ===============
->   *
->   * Today the driver reports faults with ad-hoc ``xe_err()`` / ``xe_gt_err()``
->   * strings that have no stable shape. That is fine for a human reading dmesg,
-> @@ -37,7 +37,7 @@
->   * firmware versions, and (eventually) across other Intel devices in a node.
->   *
->   * What a SIGID is not
-> - * -------------------
-> + * ===================
->   *
->   * SIGID deliberately does not encode the detailed reason or the outcome. Those
->   * are carried alongside it::
-> @@ -51,7 +51,7 @@
->   * different severities depending on the instance and the recovery taken.
->   *
->   * When to use SIGID logging
-> - * -------------------------
-> + * =========================
->   *
->   * The xe_log_*() helpers are for these recognised fault sites only --
->   * important, operator-relevant faults and events. The driver's only job is to
-> @@ -63,7 +63,7 @@
->   * those that correspond to a published fault site.
->   *
->   * SIGID log output (dmesg vs. the machine record)
-> - * -----------------------------------------------
-> + * ===============================================
->   *
->   * The dmesg line stays close to a normal xe error message so it remains
->   * readable for admins; the only stable, machine-matchable token on it is
-> @@ -74,7 +74,7 @@
->   * carrying the same SIGID (generation is a planned follow-up).
->   *
->   * How to pick a SIGID (the uniqueness rule)
-> - * -----------------------------------------
-> + * =========================================
->   *
->   * Pick per *report site*, not per incident. Each site emits the single most
->   * specific recognised SIGID *for that site* -- so the question is never
-> @@ -95,7 +95,7 @@
->   * after making significant changes to the site that emits this SIGID.
->   *
->   * Scope: software vs hardware emitted signatures
-> - * ----------------------------------------------
-> + * ==============================================
->   *
->   * Some SIGID represents fault sites that the *driver itself* detects and
->   * reports from the software POV: probe abort, wedged, survivability, driver-
-> -- 
-> 2.47.3
-> 
+>>   2. Is rawmidi a useful initial target for ALSA Rust abstraction?
+>
+> Sure, why not, if it's actually needed? :)
+>
+
+I think Rust could help make midi_ops implementation safer. Would it make
+sense to port the virmidi driver as a demonstration, or would you
+recommend a different driver as a starting point?
+
+>>   3. Does your prototype mirror the C API 1:1, or for example, does it h=
+ide
+>>      the substream lifecycle? That's the design choice I'm least sure ab=
+out.
+>
+> It's mostly a straightforward wrapping of C API, but there are a few
+> twists to adapt Rust-way.  The card can be managed in RAII style, too,
+> for example.
+>
+> I haven't prepared for submission, but you can find the current
+> changes in test/sound-rust branch of sound git tree (either kernel.org
+> or github.com):
+>   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/log/?h=
+=3Dtest/sound-rust
+>   https://github.com/tiwai/sound/tree/test/sound-rust
+>
+> Those are over 50 commits on top of 7.3-rc5, and I'll likely rebase a
+> bit to rearrange before submission, so beware of changes in future.
+>
+> The commits begin with a few Rust kernel changes for fixing and
+> addition for the sound support, including the PM support from Beata
+> Michalska (just took what have been posted), followed by ALSA core
+> abstractions for the card, PCM and controls.
+>
+> Then it continues to the implementations of 3 actual sound drivers for
+> PCM/control: the dummy driver (with platform and hrtimer), and the
+> ens1370 and intel8x0 drivers for PCI devices to be run on VM.
+>
+> After that, the extension to USB abstraction follows, including the
+> isochronous support patches by Colin Braun, and then the USB-audio
+> driver implementation (that can run on an actual bare metal), as well
+> as the USB runtime PM support.
+>
+
+Thank you for sharing the branch. I'll take a look.
+
+>
+> BTW, until now, I haven't planned for any serious consideration to
+> merge Rust stuff yet.  Partly because the above was a pure experiment
+> for me, but another big obstacle is that the whole Rust C binding is
+> limited to built-in vmlinux.  With a distribution kernel maintainer
+> hat on, this is absolutely NO-GO -- we really want to avoid built-in.
+> (Graphics is a kind of exception nowadays because of boot support,
+> though.)  Can this be worked out soon...?
+>
+
+Wow, that sounds like a major limitation that I wasn't aware of. I'm not
+familiar with the status of this issue, but I'd be happy to help if
+there's something I can contribute.
+
+Thank you for the prompt reply Takashi. I really appreciate it!
+-Tristan
+
