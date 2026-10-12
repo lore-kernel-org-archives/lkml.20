@@ -1,93 +1,109 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from h3cspam01-ex.h3c.com (smtp.h3c.com [60.191.123.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806CA309EEB
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:49:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849C218DB1A
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:50:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.191.123.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791794983; cv=none; b=YTA5Ap/KBjI8yH8o4URodzuq7kDyaR11+/p49/LDkjLDkuZKVN7ZOb1IZq5sVT18wuuIfB/S9ombbKyBUgGTWQranvivw6TmY6lGndqWyH8sIweR6owY5YYQn7+xGs0YnMo4NwAsmoE85fE3SrYC0mZi5D8gmbRbRI+en3a71Dg=
+	t=1791795024; cv=none; b=tl/p3ysGp1zpDJmweKrXUg6uqfo8RKYp1H7Wpk0KeG6k/dOsyZEopdhFPBd0ZFkqLYDmMfcWq8aR47yPfYbNwKwZ/44H7vEPmywO8MGZsyqEWJZhNKXvwQq14Th+7qbsgveK36XoCd1+4teTk6ZHu5VoCAt8eUie5Evc3bMh1v4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791794983; c=relaxed/simple;
-	bh=NLZtWPO8QVlQcmrvlp9j/qdajGObJeVAWPQdkCJKNCw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hZxe1XUdo1E9LhXxt8TOz9v9fbKAKOVWdhZPb4AXbQSebbGN8ZGA5Ht7bvOqpXKZ7e2jz2WoHrPD7027Eyxe7uP3Od6/xMUfCo+k6jow5hPAHrjbm82heBCEV3ar2vrD80humGZ78ApQI3wPeOn4wsS9tnYWJ1Umf/6A2hZ8XkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nnWQFNVV; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nnWQFNVV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=a6I13J2yhpsuzdMcyX3L3pi1BmQ4RE8TiPWvoAncAQg=;
-	b=nnWQFNVVyOIanyNnLXvUQ6PBXcQN8Yq5oR2hRmlai0Eowi4vHmsO7R8UB7pBVm
-	XoHL+2a15PIZVKEahbc2OqUmQnOWU+04m/o+kiDaRuuguu8uYZ3hMwl6CuaO1x7E
-	iR1SK6NuRzsqcGBdIcy4fH1eV+QaR5s6Ep4LdhFKPAANo=
-Received: from [IPV6:2409:8900:1a87:d0a0:cf38:5aca:d24d:b7a4] (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wDnr2ISn8xq0I8XEQ--.1081S2;
-	Mon, 12 Oct 2026 16:49:23 +0800 (CST)
-Message-ID: <3e92aa95-c831-4449-b229-5a43d2ace3e3@163.com>
-Date: Mon, 12 Oct 2026 16:49:22 +0800
+	s=arc-20240116; t=1791795024; c=relaxed/simple;
+	bh=/KK/czsRL45mXBKZgTtPvGztDqX9i0JJRCslH/bDN/M=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NU5mATPOIHTXsHhhNp/W8h5jedDgDUVeA/Jm3Z7O2yyRKmN1uEvxw6+BQ2Lkj+Cu+VDiNpSVGDhpQnmEt7vOen39hjjoNExBFXM8LarUpNUQbDhj3R5R1CkExnidVzq2gNo66WRAsx1IYuwXOrkqeYX6Vi3ZvNtz3OxKWrzVrQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=h3c.com; spf=pass smtp.mailfrom=h3c.com; arc=none smtp.client-ip=60.191.123.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=h3c.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h3c.com
+Received: from h3cspam01-ex.h3c.com (localhost [127.0.0.2] (may be forged))
+	by h3cspam01-ex.h3c.com with ESMTP id 69C7wsJd036931
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:58:54 +0800 (+08)
+	(envelope-from lin.nan@h3c.com)
+Received: from mail.maildlp.com ([172.25.15.155])
+	by h3cspam01-ex.h3c.com with ESMTP id 69C7wBEf032117;
+	Mon, 12 Oct 2026 15:58:11 +0800 (+08)
+	(envelope-from lin.nan@h3c.com)
+Received: from DAG6EX09-BJD.srv.huawei-3com.com (unknown [10.153.34.11])
+	by mail.maildlp.com (Postfix) with ESMTP id 7098A2284EA2;
+	Mon, 12 Oct 2026 16:01:00 +0800 (CST)
+Received: from localhost.localdomain (10.142.164.48) by
+ DAG6EX09-BJD.srv.huawei-3com.com (10.153.34.11) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.1258.27; Mon, 12 Oct 2026 15:58:10 +0800
+From: Nan Lin <lin.nan@h3c.com>
+To: <richard@nod.at>, <chengzhihao1@huawei.com>
+CC: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+        <lin.nan@h3c.com>, <wangxiaoqing@h3c.com>, <zhou.kete@h3c.com>
+Subject: [PATCH] ubifs: fix host inode TNC offset when deleting an xattr
+Date: Mon, 12 Oct 2026 15:50:46 +0800
+Message-ID: <20261012075046.1268480-1-lin.nan@h3c.com>
+X-Mailer: git-send-email 2.33.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ntfs: reject direct I/O reads of encrypted files
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>,
- Namjae Jeon <linkinjeon@kernel.org>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev,
- linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>
-References: <20261012062040.3826828-1-zhanxusheng@xiaomi.com>
- <20261012062040.3826828-3-zhanxusheng@xiaomi.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20261012062040.3826828-3-zhanxusheng@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnr2ISn8xq0I8XEQ--.1081S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kw1DCrWfGF4kZrWfJFWrKrg_yoW8GF4kpF
-	ZIkFy5Ja18Jry7Ca9rKF4UZFyYqr4xGrWUurWDAw4xGF43Grn3KrW8tFnFqFs5tFyruw1U
-	Zr48tF15Jr4YqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UyVb9UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RO5hGrMnxPHFQAA3-
+Content-Type: text/plain
+X-ClientProxiedBy: BJSMTP02-EX.srv.huawei-3com.com (10.63.20.133) To
+ DAG6EX09-BJD.srv.huawei-3com.com (10.153.34.11)
+X-DNSRBL: 
+X-SPAM-SOURCE-CHECK: pass
+X-MAIL:h3cspam01-ex.h3c.com 69C7wsJd036931
 
+When ubifs_jnl_delete_xattr() deletes an extended attribute, it writes
+a group of three nodes to the base head: the xent node, the xattr
+inode node and the host inode node. The host inode node is actually
+packed at xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ, but the
+position registered into TNC is computed backwards as
+xent_offs + len - hlen. The two differ by the group tail padding,
+ALIGN(hlen, 8) - hlen.
 
+Whenever the host inode's data_len is not a multiple of 8, the offset
+registered in TNC points 1 to 7 bytes past the real node header. The
+wrong offset gets committed into the on-flash index, and on the next
+mount read_znode() fails the offs & 7 alignment check, returns -EINVAL
+and switches the filesystem to read-only mode, reporting
+"bad indexing node ... error 2".
 
-在 2026/10/12 14:20, Zhan Xusheng 写道:
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> 
-> ntfs_file_read_iter() refuses direct I/O for compressed and WOF
-> compressed attributes but lets encrypted ones reach iomap_dio_rw().
-> ntfs_read_iomap_begin_non_resident() has no NInoEncrypted() test, so it
-> reports IOMAP_MAPPED for the attribute's real clusters and the raw
-> on-disk ciphertext is copied to the caller.  Buffered reads are refused
-> by ntfs_read_folio(), but direct I/O never calls it.
-> 
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> Fixes: 9c87959601e8 ("ntfs: update file operations")
-> ---
->   fs/ntfs/file.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index 007d1614b9ac6..eb8ed1959cd4c 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -460,8 +460,8 @@ static ssize_t ntfs_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
->   	if (NVolShutdown(NTFS_SB(sb)))
->   		return -EIO;
->   
-> -	if ((NInoCompressed(NTFS_I(vi)) || NInoWofCompressed(NTFS_I(vi))) &&
-> -	    iocb->ki_flags & IOCB_DIRECT)
-> +	if ((NInoCompressed(NTFS_I(vi)) || NInoWofCompressed(NTFS_I(vi)) ||
-> +	     NInoEncrypted(NTFS_I(vi))) && iocb->ki_flags & IOCB_DIRECT)
->   		return -EOPNOTSUPP;
->   
->   	inode_lock_shared(vi);
+Which inodes are affected depends on data_len:
+ - block/character devices always carry data_len = 4 and are always
+   affected;
+ - symlinks carry data_len = strlen(target) and are affected unless
+   the target length happens to be a multiple of 8;
+ - regular files, FIFOs and sockets carry data_len = 0 and are
+   unaffected.
 
-Looks good to me.
+The bug reproduces by setting an xattr on a symlink with attr -Rs and
+removing it with attr -Rr: after unmount and remount, readlink()
+fails, the index node is rejected with error 2 (bad branch offset) and
+the filesystem turns read-only.
 
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+Fix the offset computation by accumulating the group layout forward
+instead of subtracting from the total length: register the host inode
+at xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ, which matches the
+packed position exactly. The host node length hlen is already correct
+and stays unchanged.
+
+Signed-off-by: Nan Lin <lin.nan@h3c.com>
+---
+ fs/ubifs/journal.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
+index 40a95a2fad50..1a32d641e658 100644
+--- a/fs/ubifs/journal.c
++++ b/fs/ubifs/journal.c
+@@ -1943,7 +1943,9 @@ int ubifs_jnl_delete_xattr(struct ubifs_info *c, const struct inode *host,
+ 
+ 	/* And update TNC with the new host inode position */
+ 	ino_key_init(c, &key1, host->i_ino);
+-	err = ubifs_tnc_add(c, &key1, lnum, xent_offs + len - hlen, hlen, hash);
++	err = ubifs_tnc_add(c, &key1, lnum,
++				xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ,
++				hlen, hash);
+ 	if (err)
+ 		goto out_ro;
+ 
+-- 
+2.33.0
 
