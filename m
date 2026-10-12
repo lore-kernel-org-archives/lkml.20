@@ -1,171 +1,265 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011041.outbound.protection.outlook.com [40.107.74.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E2163D6CC5;
-	Mon, 12 Oct 2026 23:52:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0494239768F
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:53:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.180
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791849172; cv=fail; b=iwhIp/RVtnQLhXhnMArBt3BV52hQKYUH3vEDF/DnByKI2mxXf1uR0v5/Pt5nvx+0UQCv/YL7pvM4R6AKr8U1YkmkxqlWbXAWAAGB8sCigPlQO9b32Vc0NOu0YGla/hvJFrXjFsEGK5/S/6kvEhmehjOfyTTEiyUGzgvsMNnB98U=
+	t=1791849185; cv=pass; b=R+L9bHlkP0I2z+nbWFIuMpYgXDaEqRP3STwzq788B0daql8bE6oYTN2Iy8QUDhj5eJsFyGLMNScWKJHJj0rB/Bb67BqhSszKr1uPgkkPVVLCedBc8Y3IoazwGdoon77etAVjpxaUiPyj2GLw3AB2sKxqcgtrkc64jI0B9P+Aci4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791849172; c=relaxed/simple;
-	bh=K41+GPuVBa0vBzD3kyelztu0tMj2NbaC+6T33EEs3SA=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=PCXQazLanm5KrKENnMnE81wPB28rtitOdNdyoGBJMEvnhaX10aOWvoO9urWSyEI4Ins0zQ1OflVyZdxm8N4ENFSJs50O3MNBXD6gxTrULJ/UjI7ivq3uc68Rjq7Xxwh8iIqhqccg23lZ+15L5f+qFKUXASARaNQmtlygg7Iuu8I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=YFO0nD36; arc=fail smtp.client-ip=40.107.74.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	s=arc-20240116; t=1791849185; c=relaxed/simple;
+	bh=luQOKTSz4OF/H0xSObc8tOzedkb1dvzfqEyO1NHqM6o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=J0ZWg+H972nXRfzpWgB4Xr9Gnoq3NKjUDZx7e2/6XgvUNa9PozkndKt52cA2wsfVwXRUYrxV/rSAW2vB5TDgo0HJ1llLvxdgEyKBVdfdWC2vpiy1oeaqkX3x3UbymgUJXpzkN3iZRGzxQeWFMPQLWpJf2LgJq/8NNg69jcFDXwk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuro.ai; spf=pass smtp.mailfrom=nuro.ai; dkim=pass (2048-bit key) header.d=nuro.ai header.i=@nuro.ai header.b=dgdiSD0g; arc=pass smtp.client-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuro.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuro.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="YFO0nD36"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hBlpih96cG0NjYT4a8XPSgLZVwLZ6vawyxjdx/8uIt6wM663hhmB49QhWzSSS32rEGX/XtMHCzBjLjwOikVhOBlCk6w0C1bBh4iApLZtAc7GUhga9/64HaM/g0QyZZSmezMBMxOzWqO2FOqMkKpJjEW11wR/yn1c+vxUDMvNYi1r1hrM3+fib5Qq46uQZNeAu+mx26MmiVJR++stCp8ru3ELmXc5asJd15xWpVm6HDLFDA+Ck/byPXNeVAh/QgVAzU/vs7wCxkgMkumh/5XLOTyMtGhleIY4ohB5hWdBvMap4J3jiEWFYHdUDFCjHLbWCZaK+At1L2NtqI0sstQV1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BgxEjSPVmxtdotsa137Gf2dfV61A6GHW26wpQajzL+A=;
- b=ltEl2jFzKzi4R/cNBGFXP9RkIZFbMizQp6wpnuBOl40Z4H7rfd6hH7cjr7l8+BZ5aNvYRYBDOYW+XcHVU1Ke+24OMOnaN/BdvtjwhyCn9DREgGdXSKQFgkbpiXwqPeef7goyk39hfUfjnV4eR7n5AwvdirknrZkMriMgtcDJtrPV2FkBkE1/n4wCzf/3OJY6Vq8+Fr0h1AHQlGiOrFLUAMZrLVUiy5DJZrXgHOV5E5dEIJ89U4pdYKC1xv8347UknpH8MP55Ew5eFnMoRVA/Faxb32Z0ArBvFLa+PAC8I519i+IrpuEM+/zlWoXXceunD9MhU2rWZDpLvtyTR7uVqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BgxEjSPVmxtdotsa137Gf2dfV61A6GHW26wpQajzL+A=;
- b=YFO0nD36PKCf6GTVgGnkwTvZCfRO1aTCvkV0Z3HfQeClyJUWf8UhbSTz7ANf1E0tKmwTYpTfjlViMOiNvZ0I7uOy2Hjj27Qljshk8yD00v5iJujaEV8b2jwZaGy39f6r/jVE8TE9D5NSBS+v5LqwrEtORfd8d7sOcIPJ7ZneIrM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS9PR01MB820914.jpnprd01.prod.outlook.com
- (2603:1096:604:50f::14) by TY4PR01MB12734.jpnprd01.prod.outlook.com
- (2603:1096:405:1e9::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
- 2026 23:52:46 +0000
-Received: from OS9PR01MB820914.jpnprd01.prod.outlook.com
- ([fe80::12e4:c507:3730:2294]) by OS9PR01MB820914.jpnprd01.prod.outlook.com
- ([fe80::12e4:c507:3730:2294%6]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
- 23:52:45 +0000
-Message-ID: <87pkxexyr6.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: broonie@kernel.org,
-	linux-sound@vger.kernel.org,
-	tiwai@suse.com,
-	perex@perex.cz,
-	amade@asmblr.net,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] ASoC: core: Create new components in sane state
-In-Reply-To: <20261007133353.455185-1-cezary.rojewski@intel.com>
-References: <20261007133353.455185-1-cezary.rojewski@intel.com>
-User-Agent: Wanderlust/2.15.9 Emacs/30.2 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Mon, 12 Oct 2026 23:52:45 +0000
-X-ClientProxiedBy: TYCP286CA0365.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:79::12) To OS9PR01MB820914.jpnprd01.prod.outlook.com
- (2603:1096:604:50f::14)
+	dkim=pass (2048-bit key) header.d=nuro.ai header.i=@nuro.ai header.b="dgdiSD0g"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3514e7cbbbaso6003191eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:53:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791849181; cv=none;
+        d=google.com; s=arc-20260327;
+        b=paRScVFhPYt/qPLkRA6RizKfCwanHePGituW+phfEUwkQcEBfksbRkp8ATB5IJVWAf
+         B8/8FWIUWHneLsvRsSIb22j6xJmIABxPfo0IURW+LZUsfGYzsSo/sjL77OW04pkTmkpc
+         DaT6UtlyiTV0g+E1L1NrnsbFU8VgJSpF2LjFDoxUZIuEumAtcW+yaPKmLfCz8LIeAGOT
+         Lc2s1XsRCujFtzoOu8LILygbQC0S0b9ptmy0wPm2bUDvefrV158u/E5uOZxSBsxl8MYa
+         3PVNw74WDuIdlczHgPtqXLfFOOwruZ7HBUGzEVevJj/lMzpmeyj8t2tpJtHFoFGfEcRK
+         RkXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ovZiNJC/Y+4dwZomOEpDxjKAXYGbJWrwmtb8TaD7amg=;
+        fh=GHIwi3Zrg4q/SH8CfYPYRWQ5MzNUagYwXlta9yZ24Wg=;
+        b=CGC032jUGyl16iKHFBC90tziMa2DO3DOZrkWWOXZd7EeFu85ED36onkVFtkOzNPUL2
+         LAcxeaEtU1UAq15RCCOh8BVCBJP3F7RpDfbixywbiHg1X9B/Wmt86YDzhUg1Trojc9nR
+         EYiRXdFNY8CHNH3JzaCR+6Sw7bvpYWOpIW6lVM6e59lOSmcqHwatoejBbtTv8a4iLHou
+         T0eu1q4Hg28aXf120mIwEa+ctoYSpXsqe5qNL2+VPAlKpJcRDZEKPB9C7A4F5wleVw4/
+         jXgLQnXoELOc1K4XdonDKN/6k+e+Np1NDJq3Gq943WHOd4AfjRmopgvypf/NMDyi7fxl
+         /UPw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nuro.ai; s=google; t=1791849181; x=1792453981; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ovZiNJC/Y+4dwZomOEpDxjKAXYGbJWrwmtb8TaD7amg=;
+        b=dgdiSD0gcwXB5ZiajRkA9dsGLzIi3gWEpDp4dEN6rOn1XwJSPSQIreo4iEBTr5mJEm
+         8xkmM/lcOwF1Z4Qn0XlisjONDaS+erHrUHM7EZzLsr+2PEp4v/j4sWRSwGpNsYVMlVsC
+         R1+JplA/s3WJFIyiSlhzGez5r6q1M+Lqx/dJbz1YNFtkfGlgWLAQL+lCEsUhyi2RXup/
+         WU2tko13UxkXPjC2cX9NWR1RjkQNl2HAjtthmqUoYdE1dGD/+QhMxYr/mO5ZUuF4xYL4
+         Ffv34c1/Oonqs0dad2+bH+bx/YZnNWohTlk0GaRe7kUiB+8xUozvNPvthVPmdwnIzBVP
+         tsvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791849181; x=1792453981;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ovZiNJC/Y+4dwZomOEpDxjKAXYGbJWrwmtb8TaD7amg=;
+        b=CURJQfDHDaXB7OOWnWFjkn5a5BEzty2NFd7OSHY3NzlzSPT8IKkyzdUJxRfA30fxrP
+         S/51j1FO+YZ7LwSd90VZi9h++SFUbjiOVTYZAStEKwoMvasNuffDm+IhzuLHues1TYNa
+         GfZHHnrhNOPVQP71QzRhOTaOZeYdsUQhjDwAf35XOXmoyc5U+9wqpHdDVcittJeLXyMV
+         2SFkVM6as7/zC/DVokk8QnV/Ggio0y/oBsp7KhA6vvPg2B5OVPXROshNoO45wUUdUXHE
+         nD2gobfOV/WppXR2ym1oEpM3xJMA+zZvv0Y8PbpuaF9iWY9RRhzJ7pMlrweOWRLx0xsZ
+         PYaw==
+X-Forwarded-Encrypted: i=1; AKwUvBxV8u3gUPAeBMhxpreVLLLaen6KYCFLISQGWXDqu8uSlvbFJqDfUuKgWQgmPNUChioi/eouieauv+8FQGQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0YH4iKdjnBpy2qNdO7umMwQgXifzgYJWdWEFqgM9QZrTO5H/e
+	+U/bJuR0QaZ849M31AMVYHADM1KK0M4I3JMRe/u9bv+89+o9UyOUUHwP3Ph+PBWNF7EckiiqJrR
+	poIhEglBEQAE4v7bLAXgYoKzY9skiF9eKIvYh5bbUWoNidv9CYGAeY1sayqyv
+X-Gm-Gg: AYBFou0S5A0zKBTZqnHE/wbL1x5qVMk7w1fjNfcYvWn/Wu2ThnEJD23krC3Z7030IAs
+	UAs2gMgtG8jobFZ1bGIejg2M3Xvd1yXqa30epy4nEYzp7b9y24D2DFDm4wVOrrlZbjo4ENCrAdv
+	p2na+ikeEgkiott2ODukGiwMRwApmCBT795nl0Ag2jmEMGoIlDZoYU4HabfWIQPkog1ZdJcDDwf
+	9bZqOCEQZsDKAf0nQh8I2p5INUB7UrCkfKm7O8yvk2YQOCpG7PsJgo62iyEwnwHNpC2D9DXZ1rS
+	uqP1oQwx2lMHjxYmr/ktZmLnZim21d4ODzQQ1kEKwt3lse6e/nGnRa4=
+X-Received: by 2002:a05:7300:2c01:b0:35c:1567:7966 with SMTP id
+ 5a478bee46e88-35c15677c5dmr1792809eec.27.1791849180900; Mon, 12 Oct 2026
+ 16:53:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS9PR01MB820914:EE_|TY4PR01MB12734:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2676e0db-5955-4df8-1bc8-08df28bbe9e3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|52116014|18002099003|22082099003|10067099003|261009223027099003|11063799006|56012099006|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	d5dfYYRf9z1PWyuRjc79WdlQynW9zy0on5qxjSsDav9ts7sqUpLknecsFtGx0b7I7I/9kqoyr37lPD6lpPXcv8iW7APd2mkIQZMmSJ/Fe/iNJgH04idkH3TsuG1Lpw8Wqn+nljs/wt8ncjOrtkxSfOuPnvO3Duph4Jb7TyQrJuydVKhQUWHLgzYMp2FavL5lD0LNcBYlDmSWZRpHi0a8RH1lntRdNOgsvsHxgvfTf53UV4G0169epIR3KFeuZB5DL7S61+e6d9P4UyMH+qZTZDRZI69V91XZsdZ6DACI9GPDEfqAQLZlHS1sv5FyNCcKu5ltS1Bj5q5e9jOFFLPOomKFZx8iaBAnd0suLr4+9yvAwuBqHCzh7Q0ZITbKloJ4RG1YxJdJ2yAKaKnPfsDSyndFO6gU8GuJyScTJ5lM8SyxZDes5h1HsrUjMW5ZmjXWY1LyIyJImQ+8NRimRCa6sEudwC4BGJQgs/8gXsA8o/LnEwUcjHuTVbRT3qNzC2sqQmqK8eqeTqOb3JWUHeuEnfagsRjKB2tuYpiE8dDGZtidWhYB5mh1yanqvECT5WKkeCAaEzh44+mdoZ2Bn4JbWVPHvuN6d14iZVTfiqSzQd0NnWQNUsfxxs92ncDiSdOv2K3tyTDwdWmj0sbThyTEIUPlddAwSViMKq/pU0Pe5n0z8rFKmMGk9q0MQlv32aq7M8Dvl2Mxl6pOgw7wFtmCsjpM0hqVDg0JdQXQE4aIwjI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9PR01MB820914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(52116014)(18002099003)(22082099003)(10067099003)(261009223027099003)(11063799006)(56012099006)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?9yplrUiOuT/J3xUwN10fdBrk4fCMuUOhgARSnX6EVlBb8bdvZ5St0n5pFW39?=
- =?us-ascii?Q?Azup9CXvthDijdVljxMZaJXwuF1kf2Q8Yxq9VwDMCmC3aIX5sVOOwhp+xXxm?=
- =?us-ascii?Q?2aKd933mvg4C4AcQAWA/VWO7CWwc7yaB0f+enWXL0mS1WerxIbH1CFOCK03i?=
- =?us-ascii?Q?OZXh/OBUqhRPymoEVtmrY2cyZLkzRFkIoHLORiCbPOHcALTg+HqbVzycyR5K?=
- =?us-ascii?Q?NNPMSdZvlRxKezYIQF8+k1nBxCXHozpdClRM/bncNoXXkSja1QZnQG4X7w/S?=
- =?us-ascii?Q?M9FlJWaDHEBMnZA6/iaszf3aIcBT7D9Sf2xWRE6VfThtwzopaAQ6adF3Ao9A?=
- =?us-ascii?Q?gmc3lHlfQMFmltXhETmDb8IdnjtJRqFiYOwTqVSYUKysArW9mjfjTyDXBu2f?=
- =?us-ascii?Q?pkUgJkxJxv4p3sQgIGqsr975xLpkDeuN1PgAcdgAe87ygZIOQ1XFzMYpRFTX?=
- =?us-ascii?Q?tgRFtWrZF+HX/Q20yFAoIGk5+FEEuiTiC08bJmcEuX5yAfzxYEw3ywuB6SSb?=
- =?us-ascii?Q?BCfSF2Aufs2ol3c+3jbJfN8FIEF/sPGhrbGZJS+oIu8drMniHZjcUyRyZJsf?=
- =?us-ascii?Q?A+tXhqGmp7ut1t5i4LugZn3OceCAvZ8y1zIDUUnbZSUYrGqLdOug2PRosBCB?=
- =?us-ascii?Q?wptHdE6l0VC/LabzEkYEu37p2kblQHMQPRIvpkoH0uGC0ZDjPW7e2k7C8WNP?=
- =?us-ascii?Q?75lTxF0oua2OUiZfJTGI1a1q06KCug5OkLPTQ+qAmOQ2dL2aZ75N17wA1+tg?=
- =?us-ascii?Q?ZJUxSdFbRhKZDHHh1CpqXLbaSlMW+4ncsc+sf5Ndybm8yBOJOZ+dY/JI6slg?=
- =?us-ascii?Q?o0EkvyQDdV756mcku6cE2SfpHSp8Pwe5iaVWABATYxu74CzeYOswcu+PlLXp?=
- =?us-ascii?Q?SoOipXClNNNnu+C3XBhN9t1KcYN3M1r+Cq2Fc25D7OKExLeQNuLQolHbux3J?=
- =?us-ascii?Q?7wMzRf1m3wSPHOLFRnyym9cf9m0xRHhhTX4VTS8pGp4E9dEjO+gzrtjmW7it?=
- =?us-ascii?Q?v+4fcRNHb5Dcjy2pMtKAiCyus/JnUIpRZOxyc6bt7Xina6/77RJDNatAwNAa?=
- =?us-ascii?Q?eeL6XuNaQg+T183TxHPPyzIR26Ys7ar5U/l6zGrLzTnbirfH0jqoDv3HMLws?=
- =?us-ascii?Q?u/n/RdrUCrc6RHs8HqOTH/5cQKnlALBUL3+nkpDCMJageEglyjP0r4MIcNDN?=
- =?us-ascii?Q?56BxciypWXi+BOrzywmxPyrzU71F7aH5b0cm9nqjeOusJb7zOQCZatF8Yp8I?=
- =?us-ascii?Q?NzsX+UI9GlSibDe5kdvBRJTHM5PWm08zfDk0qkJnzwb70fs7RS8EX5aHWfJa?=
- =?us-ascii?Q?303WiJn3G1q838YxM7RFO4g0f+moE5N5hIalXfe32q2DQIH27j88m1obpf7I?=
- =?us-ascii?Q?okSfhJDuHCVjqvE9LbwDcAeQwYLVJCaj9nLn7WSpjPyEgI07ZOSEIrmTLZYd?=
- =?us-ascii?Q?ZFSq1JFl97TANndmWlbaQDbvOvG6NOuxDIUTTMmrjlVhXl+NMh/PzhPvl+jq?=
- =?us-ascii?Q?FMyv6Hd5iwxvZt/n53n1P8529Brtg/xnZrwXJZi7NCVu7SI9BsaNZvAWJ1qG?=
- =?us-ascii?Q?Z5qAlXOkP5TMKes3aMP8DzznW0erthTam+EjCwepzzvG/5H9z8EF3O9mZ1TE?=
- =?us-ascii?Q?wibSl8ZECFsC8qeiZYfRvO5zoVZHLQmekab112i9I5dK40Kh/5xNo1RbZeDJ?=
- =?us-ascii?Q?sGL/L8C60x/0JrFawEE7hsvb8Ao+UZQS7FD0jNkvOzLyiPBtzl2gsP1LGf4B?=
- =?us-ascii?Q?6UsvppKFDhEo5aBJWdNMRbaR+5YnwkY=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2676e0db-5955-4df8-1bc8-08df28bbe9e3
-X-MS-Exchange-CrossTenant-AuthSource: OS9PR01MB820914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 23:52:45.9173
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U8gtjUe8Yvq+76niEtydcs2t2Km123XgKd9WT1yrnYMOQLSHLkeYpLNxmOs6Dyu4HHLE486mmQwH72kG3JgubpjTDVlPiblpQX1MMKu94dBhlicD1y0siZrcET+NKndD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB12734
+References: <20261008220256.1844072-1-jkain@nuro.ai> <179184768524.434549.10991307098335983416@kernel.org>
+In-Reply-To: <179184768524.434549.10991307098335983416@kernel.org>
+From: Joseph Kain <jkain@nuro.ai>
+Date: Mon, 12 Oct 2026 16:52:49 -0700
+X-Gm-Features: AclHuK8ZnjML-asNI4vPGyHzlcAfxhgMbd2pbBpBd-oWVB0gwQBPJx9by3vW56M
+Message-ID: <CA+Y90PjY2ysL5xGwn42pUszZ5Sbd37JmbeN7AREp-HwJ6p3BNg@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: do not let defer_count outlive an empty defer_list
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, edumazet@kernel.org, davem@davemloft.net, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, bigeasy@linutronix.de, 
+	clrkwllms@kernel.org, rostedt@goodmis.org, linux-rt-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Oct 12, 2026 at 4:28=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
+te:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0 (1)
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] The patch only partly fixes a stranded defer_count.
+>
+> Pre-existing issues:
+> - [Low] The skb_defer_max documentation and the sysctl range do not match
+>   how the counter works.
+>
+> --
+>
+> net: do not let defer_count outlive an empty defer_list
+>
+> This patch changes __skb_defer_free_flush() so that it drains the
+> defer_list before it clears defer_count. It also clears defer_count on th=
+e
+> empty-list path. The goal is to stop a stale counter from turning off
+> deferred skb freeing for a (cpu, node) pair until reboot.
+>
+> > diff --git a/net/core/dev.c b/net/core/dev.c
+> > index e76762e29360e..e847e243a692e 100644
+> > --- a/net/core/dev.c
+> > +++ b/net/core/dev.c
+> > @@ -6938,10 +6938,13 @@ static void __skb_defer_free_flush(struct skb_d=
+efer_node *sdn, int budget)
+> >       struct llist_node *free_list;
+> >       struct sk_buff *skb, *next;
+> >
+> > -     if (llist_empty(&sdn->defer_list))
+> > +     if (llist_empty(&sdn->defer_list)) {
+> > +             if (unlikely(atomic_long_read(&sdn->defer_count)))
+> > +                     atomic_long_set(&sdn->defer_count, 0);
+> >               return;
+>
+> [Severity: High]
+> Does this recovery path ever run on a CPU whose counter is stranded?
+>
+> The counter is only cleared when the owner CPU calls
+> __skb_defer_free_flush() itself. skb_defer_free_flush() only walks the
+> this_cpu_ptr() sdns. It is called from net_rx_action(),
+> napi_threaded_poll_loop() and busy-poll.
+>
+> The producer side in skb_attempt_defer_free() is unchanged:
+>
+> net/core/skbuff.c:skb_attempt_defer_free() {
+>     ...
+>         defer_count =3D atomic_long_inc_return(&sdn->defer_count);
+>
+>         if (defer_count >=3D defer_max)
+>                 goto nodefer;
+>     ...
+>         /* Send an IPI every time queue reaches half capacity. */
+>         kick =3D (defer_count - 1) =3D=3D (defer_max >> 1);
+>     ...
+>         if (unlikely(kick))
+>                 kick_defer_list_purge(cpu);
+> }
+>
+> The reject path keeps the increment and never reaches
+> kick_defer_list_purge(). Once the counter is at or above defer_max, no
+> producer schedules a flush on the owner CPU.
+>
+> Some CPUs only get NET_RX softirq through these kicks. One example is an
+> application CPU that sends TCP or UDP while NIC IRQs are pinned to
+> housekeeping CPUs and RPS/RFS is off. napi_consume_skb() frees its TX
+> skbs in a remote TX-completion NAPI. That path calls
+> skb_attempt_defer_free() because skb->alloc_cpu !=3D smp_processor_id().
+>
+> On such a CPU, wouldn't the reproducer from the commit message still
+> strand the counter with this patch applied?
+>
+>   sysctl -w net.core.skb_defer_max=3D1
+>   sysctl -w net.core.skb_defer_max=3D128
+>
+> The list is empty and the counter is large. Nothing calls
+> __skb_defer_free_flush() on that CPU, so the new clear never runs. When
+> the limit changes, proc_do_skb_defer_max() neither resets the counters
+> nor schedules a flush.
+>
+> The same applies if the limit is lowered below the current count before
+> the half-capacity kick fires, for example from 128 to 32 with the counter
+> at 40. The queued skbs would then stay on a kick-only CPU's list
+> indefinitely.
+>
+> The commit message says:
+>
+>   "Clear the counter on the empty-list path as well, so no count can
+>   outlive an empty list and an already-stranded counter recovers."
+>
+> Does that hold when the owner CPU never runs net_rx_action() on its own?
+> The cross-CPU TCP RX test would not show this case, because there the
+> alloc_cpu is the NAPI CPU.
+>
+> Could the producer side change as well? One option is not to leave the
+> increment in place on reject, either by undoing it or by checking before
+> incrementing. Another is to make sure the owner CPU gets one kick when
+> the limit is reached.
+>
+> > -     atomic_long_set(&sdn->defer_count, 0);
+> > +     }
+> >       free_list =3D llist_del_all(&sdn->defer_list);
+> > +     atomic_long_set(&sdn->defer_count, 0);
+>
+> [Severity: Low]
+> This is a pre-existing issue, but the skb_defer_max documentation and the
+> sysctl range don't match how the counter works.
+>
+> Documentation/admin-guide/sysctl/net.rst says:
+>
+>   Max size (in skbs) of the per-cpu list of skbs being freed
+>   by the cpu which allocated them.
+>
+> skb_attempt_defer_free() increments before it checks
+> defer_count >=3D defer_max, so at most defer_max - 1 skbs are queued. The
+> list is also per (cpu, node), not per cpu. The doc also doesn't say that =
+0
+> turns deferral off, which proc_do_skb_defer_max() handles through
+> skb_defer_disable_key.
+>
+> The ctl_table entry has .extra1 =3D SYSCTL_ZERO and no .extra2, so 1 and =
+2
+> are accepted. With those values, this half-capacity kick never fires:
+>
+>         kick =3D (defer_count - 1) =3D=3D (defer_max >> 1);
+>
+> With 1, nothing is queued and the counter keeps growing. With 2, one skb
+> is queued and waits until the owner CPU runs NET_RX on its own.
+>
+> One part of this is new with this patch. A producer that lands between
+> llist_del_all() and atomic_long_set() now leaves its skb queued but not
+> counted. The list can therefore briefly grow past defer_max - 1. The
+> commit message covers this ("bounded by the producers in flight").
+>
+> Could a short comment here say that this is intentional? The similar
+> qdisc path in __dev_xmit_skb() has one:
+>
+>         /* There is a small race because we clear defer_count not atomica=
+lly
+>          * with the prior llist_del_all(). This means defer_list could gr=
+ow
+>          * over qdisc_max_burst.
+>          */
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261008220256.1844072-1-jkain%40nuro.ai
 
-Hi Cezary
+Thank you, this is good feedback.  I will address this tomorrow in a v3 by
+undoing the increment on the reject path instead and removing the
+empty-list clear from v2 as it will become redundant.
 
-Thank you for the patch
-
-> There is a gap between snd_soc_component_alloc() and
-> snd_soc_register_component().  A driver that obtains a component object
-> through snd_soc_component_alloc() receives an object in uninitialized
-> state.  soc_component_initialize() is the function responsible for
-> bringing it into a sane one but it is not accessible by the framework
-> users.  Example of the uninitialized members are the lists e.g.:
-> comp->dai_list.
-> 
-> The framework shall prevent manipulation of uninitialized components.
-> Introduce snd_soc_component_new() which acts as a constructor: allocates
-> and initializes the component object before returning it to the caller.
-> 
-> Given the quite recent discussion related to all things
-> component-register [1], decided to stick to the "register" wording and
-> renamed soc_component_add() to snd_soc_component_register().  With that,
-> register/unregister pattern is kept.  At the same time, the update
-> brings a clear division between:
-> 
-> 	1) snd_soc_component_register(component..)
-> 	2) snd_soc_register_component(dev..)
-> 
-> A driver uses 1) when operating on pre-constructed component object
-> explicitly and 2) when they want the ASoC framework to do everything for
-> them.
-> 
-> Parameter "name" is added to the ctor parameter list as it is one of the
-> fields that is always initialized, see the 'if (!component->name)'
-> within soc_component_initialize().  Private data on the other hand is
-> not so opted out of including it.  And thus snd_soc_component_set_priv()
-> remains intact.
-
-I would like to review this patch, but unfortunately I'm busy this week.
-Actually, I'm now posting cleanup snd_soc_component_xxx(),
-which has many steps, and is now under progress.
-
-I will review your patch next week, but I guess some of them (= not all)
-are conflicts to mine...
-
-Thank you for your help !!
-
-Best regards
----
-Kuninori Morimoto
+--
+Joseph Kain
