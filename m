@@ -1,70 +1,49 @@
-Received: from mta0.migadu.com (out-212.mta0.migadu.com [91.218.175.212])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A57C4A9D50
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:45:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.212
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBB84A0135;
+	Mon, 12 Oct 2026 15:45:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819930; cv=none; b=D1tc2xtzeteH22Fd8lf4MMod3LVBoAvTSFjf9/AFQECUTvYcvzW1yNNEo9neYAdt2wGG96zyY8Oq6SkhKmUFUpFNGpSmTWFyBI0ua8c/78w55xQk8kSoCQZgnPhqz7KOszoIHl/MY2hO3ZJqdX0rlspxx6Q9IS5e7UbBVs+qurg=
+	t=1791819947; cv=none; b=PZPOPm7YkRYiFHrvS09Q4XBwT+hQ2pi9ESpi6Hz0szC3AZV6AvJIaXEm26Z92X/92OA12WZjzvaiAR2w/eBwuutbXD2B2siZP03pzCFjYQ6v+xz3K+3ME5uhKF4YShSuLdE/lEAToafXpuo7YJf/g4ON7dYc2I2YVZ8Fwtgw/kI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819930; c=relaxed/simple;
-	bh=ZNknDVT+PW4jJ1q4FIosutbkmH96w3Q1cdmfa9WAwTw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pdtev54o7cnWHN0xUnxpT+V1qeIL5lLWvkG0/LFdEA6i1kmsU2jJ9qSX0Ld1OwjBf4VbjqRR9+eG5R4wi4BsgW+RWI9wOGm1VybZhwpLr4vAtk6xjGX9+CCyXtKJ45RnqRvBG56yKTUc4L4frV7yFvlbxgFEOn7HvV6lAOPjvSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uoQVy3mT; arc=none smtp.client-ip=91.218.175.212
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791819947; c=relaxed/simple;
+	bh=tpQlsyFsOeN2lHB5j79EDvKgIaRb+vTg//jQK+WRxLI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=O6AuA8SaCxJOrH9eKeYStPEDpPx8/IsYNHBcoxe/9tlw5GRYXUuyeDDPaaGZac7/XYYtKiJngJsRQKoRgEeu9Y1KhNNtoTnYMtDPnFRw9I5nZMqczclo4eQi4ncJwGZMnpsoCTOL7cZ9qNf5WbtZYLLEMGJ8db7ezyqcBau4NV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=dWfeF0yX; arc=none smtp.client-ip=54.207.22.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uoQVy3mT"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZNknDVT+PW4jJ1q4FIosutbkmH96w3Q1cdmfa9WAwTw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791819927; v=1; x=1792424727;
- b=uoQVy3mT8BYKyffUHXU886ltymW0+4FPtDiJmLdAiC56PPVSfJBHdaYrdtTln2w9LOq1n0WE
- U+jmHO+eyOLUsrHq07s0NS1sDk/ZJ4i1vs4PLHNw5pO7Fjb7f+DUs1sRaLSMlVwDVGZ4h8C727K
- 6PVRwfUxywyFa4qWBDBnJ9pk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fcd304c2a6652fcb;
-	Mon, 12 Oct 2026 15:45:19 +0000
-X-Mizu-Trace-ID: fcd304c2a6652fcb
-X-Migadu-Flow: FLOW_OUT
-From: Leon Hwang <leon.hwang@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Quentin Monnet <qmo@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Leon Hwang <leon.hwang@linux.dev>,
-	Mykyta Yatsenko <yatsenko@meta.com>,
-	Avinash Duduskar <avinash.duduskar@gmail.com>,
-	Anton Protopopov <a.s.protopopov@gmail.com>,
-	Amery Hung <ameryhung@gmail.com>,
-	Jordan Rife <jordan@jrife.io>,
-	Rong Tao <rongtao@cestc.cn>,
-	Eyal Birger <eyal.birger@gmail.com>,
-	Pu Lehui <pulehui@huawei.com>,
-	Jingguo Tan <tanjingguo@huawei.com>,
-	Lin Ma <malin89@huawei.com>,
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="dWfeF0yX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1791819903;
+	bh=kxEqt5Gts0RU1kxbNAgsWZYVzdfaOgBqpNR+xKrLZOs=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=dWfeF0yXEjl6QV+v9eA8xQBLvRN9EOO4uBjx331gTKzFs0POpOoxeLF0ITVBLaVx/
+	 50QHkj8/jpMevsyhkH2ia6ZxaorEIgmlcmtSQg6BEGIysQs8Qio6eRr+bNpSMLjrzW
+	 PNSPKLsMfUnAUMm1OpzPNvZ98KdU8sALEq5oDFTs=
+X-QQ-mid: esmtpgz10t1791819885t841e054a
+X-QQ-Originating-IP: KTklhDEBMjLIpu+F3Eyp2w3hqZ+wDfAlmFzrd2+lQ+A=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 12 Oct 2026 23:44:43 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 18403176566585101560
+EX-QQ-RecipientCnt: 8
+From: Wentao Guan <guanwentao@uniontech.com>
+To: sashal@kernel.org,
+	kartikey406@gmail.com,
+	harshit.m.mogalapalli@oracle.com
+Cc: johannes@sipsolutions.net,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf-next v2 19/21] selftests/bpf: Add tracing_multi bpf prog link info test
-Date: Mon, 12 Oct 2026 23:40:21 +0800
-Message-ID: <20261012154024.29423-20-leon.hwang@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261012154024.29423-1-leon.hwang@linux.dev>
-References: <20261012154024.29423-1-leon.hwang@linux.dev>
+	stable@vger.kernel.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: [PATCH 5.10.y] wifi: cfg80211: release locks on error in cfg80211_wext_siwgenie()
+Date: Mon, 12 Oct 2026 23:44:41 +0800
+Message-Id: <20261012154441.1233984-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,287 +51,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: N15W4pXB+EjdiZPS1XfjbSr89RJfd2acIPbbbqfFgXd6cyKwRshM4Uc7
+	2rd4er0i8356ZTz++vrsZX1ObGC7ISTZ48o/hwIdOEPXA0FndpWZ6wQaQcsi0Dhu8tiusrh
+	cOe1sCX8C4IXhX+dUEmivXz8Jm6CeqNTuPtC3V68SUoX3smneFY7em2hsfG8WJTKdDEhy3y
+	fACOEVeVKWSEKNBcQI+6z8TjkrLt3IfziE9BmczEBEUxh8r6TPWm/lqxETH+ajFDCmPeUJo
+	sYmZWZpl2s2Rov8kPiGvAnwPTWnHIJAtaV5JaG3k1STFELQC/N+gqf1scGprO365nNxK4hz
+	YZJClwQO7HpGGQ10gb97Ox11VSesb1FzaqlmVanb26rHlalHuSe41znwvVo2HhU1mYtMv0J
+	+pAAL1V78sPlQfVjBqynPVz2nDaHjO6ZMaJOViani5cr86HG/NN3oepF8FcWKHCEssrcOJ/
+	Lnicka7mHOZe/dQKeY7/dtlsjKdp8AuH9JIz63kWXIZOg1Rs6QMoEsviiQpRl3FobzQAHQA
+	RSlSnCD1N9I9YzLLCLR7Ck2U9UwS1maN+HSXmjxVa7f4hHCJENKbvE9BjxVI4vONaGaEpCi
+	5/lLidCGR+v/5weTAoQYOP0AJZT/kdLl0A+JQ0QQiytrfyCVycJe4eT0ZT9yH6GyU3SG9e9
+	cumUdCY8stewprTsAnyZq84ebsNlMIETVicU0f//LagMZCHCoFRbE4CvJ0MaXKy3DDPJJrr
+	NHwXRjk//wshnbJIEBY9+db9dGJjVXcwZNInYSa44UsXsOrb7Unrqo91eTpM9WQLI/p5zw7
+	I1KO9uGS/Hti3G7kqxWOPr8LkeNnTWqeVesp4zyRsd4DuRka93Kh5/RPT4xbZmmIejW+W80
+	v4+dKMHVewPRvp3pMbYgHOsQuWGqKeaXPYhpT++IUAUTW9fXRKNfs+AiveZT3r+alBQOluh
+	lJws5bS7S+DMeSFvB4m+i1iigUpj6c5yJqoZk7M+wAsfXQhMp/LJS1gWdF0j2GVuylYUuc/
+	Y5sa6iOSwnc/F5daDAe79L11L2ZDTHGypMZyAs98lMwqGpfwD61pHtam/sVaDfgyOplIN9x
+	T8Mg+n7Kn5f2HQRXN4tW263WW3fZs2DalSccv3zEngUD+eP2ari+lBfgH+INdRvW4P4ZU/W
+	kSy+QCLVq45XboQkCwPnRabkGC8ajGKucAMUcv05NUBYyua9GqV0/LLtCA==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-Verify the link info works well for bpf prog targets of tracing_multi link.
+This error path returns while wdev_lock() is still held, so one
+malformed IE request can permanently block later operations on this
+wiphy. Route the error through out to release the lock.
 
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+Reported-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Closes: https://lore.kernel.org/all/93db0eae-f479-4343-a126-59987ae0dc22@oracle.com/
+Fixes: 269498ce6c1e ("wifi: cfg80211: validate IEs in cfg80211_wext_siwgenie()")
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- .../selftests/bpf/prog_tests/fill_link_info.c | 169 ++++++++++++++++--
- 1 file changed, 151 insertions(+), 18 deletions(-)
+ net/wireless/wext-sme.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/fill_link_info.c b/tools/testing/selftests/bpf/prog_tests/fill_link_info.c
-index 0918321c8e63..422e94f13409 100644
---- a/tools/testing/selftests/bpf/prog_tests/fill_link_info.c
-+++ b/tools/testing/selftests/bpf/prog_tests/fill_link_info.c
-@@ -3,11 +3,13 @@
+diff --git a/net/wireless/wext-sme.c b/net/wireless/wext-sme.c
+index d27ec0163b08b..943e94f4a2634 100644
+--- a/net/wireless/wext-sme.c
++++ b/net/wireless/wext-sme.c
+@@ -339,8 +339,10 @@ int cfg80211_wext_siwgenie(struct net_device *dev,
+ 			/* nothing */
+ 		}
  
- #include <string.h>
- #include <linux/bpf.h>
-+#include <linux/kallsyms.h>
- #include <linux/limits.h>
- #include <bpf/btf.h>
- #include <test_progs.h>
- #include "trace_helpers.h"
- #include "test_fill_link_info.skel.h"
-+#include "tracing_multi_bpf.skel.h"
- #include "bpf/libbpf_internal.h"
+-		if (!for_each_element_completed(elem, extra, ie_len))
+-			return -EINVAL;
++		if (!for_each_element_completed(elem, extra, ie_len)) {
++			err = -EINVAL;
++			goto out;
++		}
  
- #define TP_CAT "sched"
-@@ -39,8 +41,19 @@ struct tmulti_target {
- 	__u64 addr;
- 	__u64 cookie;
- 	__u32 id;
-+	__u32 func_btf_id;
- };
- 
-+static const char *tmulti_bpf_funcs[] = {
-+	"target_1",
-+	"target_2",
-+};
-+
-+static __u64 tmulti_bpf_fentry_cookies[] = { 0xfeed01, 0xfeed02 };
-+static __u64 tmulti_bpf_fexit_cookies[] = { 0xfeed11, 0xfeed12 };
-+static __u64 tmulti_bpf_fsession_cookies[] = { 0xfeed21, 0xfeed22 };
-+#define TRACING_MULTI_BPF_CNT ARRAY_SIZE(tmulti_bpf_funcs)
-+
- #define UPROBE_FILE "/proc/self/exe"
- static ssize_t uprobe_offset;
- /* uprobe attach point */
-@@ -421,14 +434,28 @@ static int tmulti_target_cmp(const void *a, const void *b)
- 	return (ta->id > tb->id) - (ta->id < tb->id);
- }
- 
-+static int setup_tmulti_btf_obj_id(const struct bpf_program *prog, __u32 *btf_obj_id)
-+{
-+	struct bpf_prog_info prog_info = {};
-+	__u32 len = sizeof(prog_info);
-+	int err;
-+
-+	err = bpf_prog_get_info_by_fd(bpf_program__fd(prog), &prog_info, &len);
-+	if (!ASSERT_OK(err, "bpf_prog_get_info_by_fd"))
-+		return -1;
-+	if (!ASSERT_GT(prog_info.attach_btf_obj_id, 0, "attach_btf_obj_id"))
-+		return -1;
-+
-+	*btf_obj_id = prog_info.attach_btf_obj_id;
-+	return 0;
-+}
-+
- static int setup_tmulti_targets(const struct bpf_program *prog,
- 				struct tmulti_target *targets,
- 				__u32 *btf_obj_id)
- {
--	struct bpf_prog_info prog_info;
--	__u32 len = sizeof(prog_info);
- 	struct btf *btf;
--	int err, i;
-+	int i;
- 	__s32 id;
- 
- 	btf = btf__load_vmlinux_btf();
-@@ -446,13 +473,8 @@ static int setup_tmulti_targets(const struct bpf_program *prog,
- 		targets[i].id = id;
- 	}
- 
--	memset(&prog_info, 0, len);
--	err = bpf_prog_get_info_by_fd(bpf_program__fd(prog), &prog_info, &len);
--	if (!ASSERT_OK(err, "bpf_prog_get_info_by_fd"))
--		goto error;
--	if (!ASSERT_GT(prog_info.attach_btf_obj_id, 0, "attach_btf_obj_id"))
-+	if (setup_tmulti_btf_obj_id(prog, btf_obj_id))
- 		goto error;
--	*btf_obj_id = prog_info.attach_btf_obj_id;
- 
- 	/*
- 	 * The kernel tracing multi attach sorts ids. We sort as well,
-@@ -467,13 +489,49 @@ static int setup_tmulti_targets(const struct bpf_program *prog,
- 	return -1;
- }
- 
-+static int setup_tmulti_bpf_prog_targets(const struct bpf_program *prog, int token_fd,
-+					 const __u64 *cookies,
-+					 const struct bpf_program * const *target_progs,
-+					 struct tmulti_target *targets,
-+					 __u32 *btf_obj_id)
-+{
-+	struct bpf_prog_info prog_info = {};
-+	__u32 len = sizeof(prog_info), func_btf_id;
-+	int err, i, prog_fd;
-+
-+	for (i = 0; i < TRACING_MULTI_BPF_CNT; i++) {
-+		memset(&prog_info, 0, sizeof(prog_info));
-+		len = sizeof(prog_info);
-+		prog_info.jited_ksyms = ptr_to_u64(&targets[i].addr);
-+		prog_info.nr_jited_ksyms = 1;
-+		prog_fd = bpf_program__fd(target_progs[i]);
-+		err = bpf_prog_get_info_by_fd(prog_fd, &prog_info, &len);
-+		if (!ASSERT_OK(err, "bpf_prog_get_info_by_fd"))
-+			return -1;
-+
-+		func_btf_id = libbpf_find_prog_btf_id(tmulti_bpf_funcs[i], prog_fd, token_fd);
-+		if (!ASSERT_GT(func_btf_id, 0, "libbpf_find_prog_btf_id"))
-+			return -1;
-+
-+		targets[i].cookie = cookies[i];
-+		targets[i].id = prog_info.id;
-+		targets[i].func_btf_id = func_btf_id;
-+	}
-+
-+	qsort(targets, TRACING_MULTI_BPF_CNT, sizeof(targets[0]), tmulti_target_cmp);
-+	return setup_tmulti_btf_obj_id(prog, btf_obj_id);
-+}
-+
- static int verify_tracing_multi_link_info(int fd, const struct bpf_program *prog,
- 					  const struct tmulti_target *targets,
--					  __u32 btf_obj_id, bool has_cookies)
-+					  __u32 btf_obj_id, __u32 count,
-+					  bool has_cookies, bool tgt_progs)
- {
-+#define TMULTI_CNT (TRACING_MULTI_CNT > TRACING_MULTI_BPF_CNT ? \
-+		    TRACING_MULTI_CNT : TRACING_MULTI_BPF_CNT)
- 	enum bpf_attach_type attach_type = bpf_program__expected_attach_type(prog);
--	__u64 addrs[TRACING_MULTI_CNT], cookies[TRACING_MULTI_CNT];
--	__u32 ids[TRACING_MULTI_CNT];
-+	__u64 addrs[TMULTI_CNT], cookies[TMULTI_CNT];
-+	__u32 ids[TMULTI_CNT], fids[TMULTI_CNT];
- 	struct bpf_link_info info;
- 	__u32 len = sizeof(info);
- 	int err, i;
-@@ -487,16 +545,21 @@ static int verify_tracing_multi_link_info(int fd, const struct bpf_program *prog
- 		return -1;
- 
- 	ASSERT_EQ(info.tracing_multi.attach_type, attach_type, "info.tracing_multi.attach_type");
--	ASSERT_EQ(info.tracing_multi.count, TRACING_MULTI_CNT, "info.tracing_multi.count");
-+	ASSERT_EQ(info.tracing_multi.count, count, "info.tracing_multi.count");
-+	if (tgt_progs)
-+		ASSERT_TRUE(info.tracing_multi.flags & BPF_F_TRACING_MULTI_TGT_PROGS,
-+			    "info.tracing_multi.flags");
- 
- 	memset(ids, 0, sizeof(ids));
-+	memset(fids, 0, sizeof(fids));
- 	memset(cookies, 0, sizeof(cookies));
- 	memset(addrs, 0, sizeof(addrs));
- 
- 	info.tracing_multi.ids = ptr_to_u64(ids);
- 	info.tracing_multi.addrs = ptr_to_u64(addrs);
- 	info.tracing_multi.cookies = has_cookies ? ptr_to_u64(cookies) : 0;
--	info.tracing_multi.count = TRACING_MULTI_CNT;
-+	info.tracing_multi.func_btf_ids = tgt_progs ? ptr_to_u64(fids) : 0;
-+	info.tracing_multi.count = count;
- 
- 	err = bpf_link_get_info_by_fd(fd, &info, &len);
- 	if (!ASSERT_OK(err, "bpf_link_get_info_by_fd"))
-@@ -506,14 +569,20 @@ static int verify_tracing_multi_link_info(int fd, const struct bpf_program *prog
- 		return -1;
- 
- 	ASSERT_EQ(info.tracing_multi.attach_type, attach_type, "info.tracing_multi.attach_type");
--	ASSERT_EQ(info.tracing_multi.count, TRACING_MULTI_CNT, "info.tracing_multi.count");
-+	ASSERT_EQ(info.tracing_multi.count, count, "info.tracing_multi.count");
- 	ASSERT_EQ(info.tracing_multi.btf_obj_id, btf_obj_id, "tracing_multi.btf_obj_id");
-+	if (tgt_progs)
-+		ASSERT_TRUE(info.tracing_multi.flags & BPF_F_TRACING_MULTI_TGT_PROGS,
-+			    "info.tracing_multi.flags");
- 
--	for (i = 0; i < TRACING_MULTI_CNT; i++) {
-+	for (i = 0; i < count; i++) {
- 		ASSERT_EQ(ids[i], targets[i].id, "tracing_multi.ids");
- 		ASSERT_EQ(cookies[i], has_cookies ? targets[i].cookie : 0, "tracing_multi.cookies");
- 
--		if (targets[i].addr) {
-+		if (tgt_progs) {
-+			ASSERT_EQ(addrs[i], targets[i].addr, "tracing_multi.addrs");
-+			ASSERT_EQ(fids[i], targets[i].func_btf_id, "tracing_multi.func_btf_ids");
-+		} else if (targets[i].addr) {
- 			struct ksym *ksym;
- 
- 			if (!ASSERT_NEQ(addrs[i], 0, "tracing_multi.addrs"))
-@@ -624,13 +693,73 @@ static void test_tracing_multi_fill_link_info(struct test_fill_link_info *skel,
- 		verify_tracing_multi_invalid_user_buffer(link_fd, targets);
- 	} else {
- 		err = verify_tracing_multi_link_info(link_fd, skel->progs.tmulti_run,
--						     targets, btf_obj_id, has_cookies);
-+						     targets, btf_obj_id, TRACING_MULTI_CNT,
-+						     has_cookies, false);
- 		ASSERT_OK(err, "verify_tracing_multi_link_info");
- 	}
- 
- 	bpf_link__destroy(link);
- }
- 
-+static void test_tracing_multi_bpf_fill_link_info_one(struct tracing_multi_bpf *skel,
-+						      struct bpf_program *prog,
-+						      __u64 *cookies,
-+						      bool has_cookies)
-+{
-+	LIBBPF_OPTS(bpf_tracing_multi_opts, opts);
-+	const struct bpf_program *target_progs[] = {
-+		skel->progs.target_1,
-+		skel->progs.target_2,
-+	};
-+	struct tmulti_target targets[TRACING_MULTI_BPF_CNT] = {};
-+	int fds[TRACING_MULTI_BPF_CNT], token_fd, err, i;
-+	struct bpf_link *link;
-+	__u32 btf_obj_id;
-+
-+	token_fd = bpf_object__token_fd(skel->obj);
-+	token_fd = token_fd < 0 ? 0 : token_fd;
-+
-+	if (setup_tmulti_bpf_prog_targets(prog, token_fd, cookies, target_progs, targets,
-+					  &btf_obj_id))
-+		return;
-+
-+	for (i = 0; i < TRACING_MULTI_BPF_CNT; i++)
-+		fds[i] = bpf_program__fd(target_progs[i]);
-+
-+	opts.fds = fds;
-+	opts.funcs = tmulti_bpf_funcs;
-+	opts.cnt = ARRAY_SIZE(fds);
-+	opts.cookies = has_cookies ? cookies : NULL;
-+
-+	link = bpf_program__attach_tracing_multi(prog, NULL, &opts);
-+	if (!ASSERT_OK_PTR(link, "bpf_program__attach_tracing_multi"))
-+		return;
-+
-+	err = verify_tracing_multi_link_info(bpf_link__fd(link), prog, targets, btf_obj_id,
-+					     TRACING_MULTI_BPF_CNT, has_cookies, true);
-+	ASSERT_OK(err, "verify_tracing_multi_link_info");
-+
-+	bpf_link__destroy(link);
-+}
-+
-+static void test_tracing_multi_bpf_fill_link_info(bool has_cookies)
-+{
-+	struct tracing_multi_bpf *skel;
-+
-+	skel = tracing_multi_bpf__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "tracing_multi_bpf__open_and_load"))
-+		return;
-+
-+	test_tracing_multi_bpf_fill_link_info_one(skel, skel->progs.test_fentry,
-+						  tmulti_bpf_fentry_cookies, has_cookies);
-+	test_tracing_multi_bpf_fill_link_info_one(skel, skel->progs.test_fexit,
-+						  tmulti_bpf_fexit_cookies, has_cookies);
-+	test_tracing_multi_bpf_fill_link_info_one(skel, skel->progs.test_fsession,
-+						  tmulti_bpf_fsession_cookies, has_cookies);
-+
-+	tracing_multi_bpf__destroy(skel);
-+}
-+
- #define SEC(name) __attribute__((section(name), used))
- 
- static short uprobe_link_info_sema_1 SEC(".probes");
-@@ -879,6 +1008,10 @@ void test_fill_link_info(void)
- 		test_tracing_multi_fill_link_info(skel, false, false);
- 		test_tracing_multi_fill_link_info(skel, true, false);
- 	}
-+	if (test__start_subtest("tracing_multi_bpf_link_info")) {
-+		test_tracing_multi_bpf_fill_link_info(false);
-+		test_tracing_multi_bpf_fill_link_info(true);
-+	}
- 	if (test__start_subtest("tracing_multi_invalid_ubuff"))
- 		test_tracing_multi_fill_link_info(skel, true, true);
- 
+ 		ie = kmemdup(extra, ie_len, GFP_KERNEL);
+ 		if (!ie) {
 -- 
-2.55.0
+2.39.5
 
