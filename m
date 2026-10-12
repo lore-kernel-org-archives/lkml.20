@@ -1,464 +1,117 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF74B37F75D
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:56:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6860F3ED12C;
+	Mon, 12 Oct 2026 23:57:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791849399; cv=none; b=GHoyq9v2WQKrPE41ay74iERGh2FB+qQEy027euIxVRE0mbKAua/SOcIczH/9zObDCDj6Bfq1/nHbRoHA1x9Zbf/66JXo8Lm8zIiCppWBbl7fN91jNP2T3z8BZrXOZyBI7IfT8m0oFOY+rlI0pMjx15BlGK9+e3Gbvxia2Q1N+0s=
+	t=1791849434; cv=none; b=cfiw1/vZ37tJRjJPdoCpdhZEdLutJxn1d/0/5t7hsXH9JY5U0Wea9n67C/Nxt1WKjQjvchaUVfYv0XSTMKbkAqePijpgWCbd4RZg2mby56RMVNRu/AogzomuFJ0wShXCWbTGTKJMd35IoWw/GmteAl3w+NfvHUs5xZ9HoqdCSBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791849399; c=relaxed/simple;
-	bh=lGsGKkyy9d4NARIdZRFLBjgm8D1dG3invfof4OQu4rs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AQxNQ4+ItFYFvpOFn6M0NgUQ3/065N3z8POfV0ofrp/X1oA87z0H6kdM4dWB0BLVTa7uneLSbkkqs9Wx7C96gAqS4nKUtZsOeVIzg4FQZNR2OKhyoyohA3mjRj+0U0pWZFrfGAo3av4H3diCvquPP2WivR6uTPYyWpx4w214sSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tk5CQmfA; arc=none smtp.client-ip=74.125.82.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791849434; c=relaxed/simple;
+	bh=m6EUhJBt6Aorqmdp15CSFGwH6955h1X3Y4u1DwvkJD0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VkKJVKO9tyo4UXNZdACjeK1rigzIDLtD5D8f0tcNHaU1Fk/9Q6B10bgX5B6Faw5PTJpsIWW9wgiPbtvB1FFy3IpNdPFmJ7HT3ase+RRfdYBeoqvwgQOP9YyyiJjDN9XzhWNWq3EBPvjVLbbEEMqLuiQqEeERAhUhPoMCfoiwNJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hPfp8Or2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tk5CQmfA"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3514e7cbbbaso6007223eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:56:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791849396; x=1792454196; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GIe3e2jypmCgxdV2fa+T8K7iVPWqEf6EkwCnIkIhFj0=;
-        b=Tk5CQmfAnGhKL02MeeCgzkkL9Bqe9DsjDORVnX+d+Nz7I7/J4rVPs45gJsIJj1Csf8
-         FcaByblUm/LWE/HJyN9Ipha4TkZpouSkZtRpyrdrLO9bk/APAYmM3wlAkTGSNwz+l+T/
-         36YvkqunAGh4VO+p6/6JHNmMt6XaRkxD/zp/KJHpYt4SsbWqAVWF1hDmfJi0znBgQh0Z
-         ib+9lgiqDRhkYZeQ7jnMFrxWsQOHF4IB16r3T7dXSht6yu6nF+gvKEcNyXhdOqXfvTa0
-         qd3KUSrURfT68yq95BElKJ/JSqMbVOeItTziCws59g20AZg5m54HWkOfb90FN+IaIVc+
-         XIKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791849396; x=1792454196;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GIe3e2jypmCgxdV2fa+T8K7iVPWqEf6EkwCnIkIhFj0=;
-        b=VE9JXZL9DbhU/xwXeMjhfIKc0Te9D5GfMLJA5Iw5u++CtCH7xpNSb008GtUgc3TGfp
-         nmIRH3Ow+8vY0l6dfRERDz95djNOCwOyGvLOe/JOIbUvnYoxnVTGD4lavf7DtilZfVLu
-         heNJMa2AuHZbmv0hIfp2WfWf5WM8eZoclm91YyhBsxXqVYeBfqXvJQ+IbYr9q5UnQcvM
-         Uxvtqe9cPjat+JAHe2aJawTrY18kHN9tH3mTqfpmOjqpIUxG2v1YNUHp98g9nSvXkxyo
-         yKtKaaIaIXzdgkpVnKixluhChnOK1Mdjo30b3EeMN9jHL7nlPfmI0xeZd7GKXozZsf1b
-         eXng==
-X-Forwarded-Encrypted: i=1; AKwUvBypzT7KlxDxrB4Vxkhs1vqq8B2yqFjF2NP2Al8F3ECMg9IZTvcTFfajo572E2E10qbTGQ6ISxZjldyd2oA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5jW/h7DXerYvAjuYBO8dDKyj7pi5VD7Fb3uaARuooLaBSepwv
-	5xQRsJoTRdJg0RSeW//2OcSyboSRWIYhDND5NGACbEzarj/M3vhfRyPQ
-X-Gm-Gg: AYBFou14jHUC6aWe/oAaxKOMWdOP6uDJbMU5fmXAVgSnQGbEOgHZADo8UR+xyUy+/6z
-	7oL6i0bXVVMbA+ERy3uQAzKDw++AVUumbbYQ69+A2LVP0fEy8OIprj+QOBI5s/OoneJ2LvUJ57O
-	a1CyVPgrHyezJ1xb9v6F3Ph/wzwuaPrCEr2ImhbymVGpJ0hs+xhqLi+LYjvKvW2ZaZWnjrW4dRj
-	GRfenaBqp42FBgeKAyB9MI81d2sIo+Q0qTDiqIEvHxEit0VUG/dXm1KjeB6immF6VGj/zCuqlkB
-	tTw0m5/Ax5bd8DVGnCf+38cv4yZycX31J/MtNT5aL01cVfPAT7GeP2X1Zwy4e0FIUEyGNA3dBiJ
-	Qu+3kDsc31dNzvxVGPKRetwJ1/xpK4BNUDs3YGijMsTOBvwtB8aiYz2PpzpTa0HirnbrkfSnBec
-	xpUuXgwHRxRNwReJ5XOWOM+vqxsyPyf5/JbqpwIy1Lzc9dQweqDnIw5R77W2hflrwPmQ0N8ITno
-	QzQZKCP0DTm5stl+nxV1661h5J/1Or/yV/sE/CundTf21qhahqCO6CJLPE8ZRPgtLX3OMRMTAAC
-	fSSceY4AdK3m53gQ/+Xf/Br7oEObmXqx3xeHZtqaCCKUwxqAXm8d0g==
-X-Received: by 2002:a05:693c:26c1:b0:351:7e5d:2de9 with SMTP id 5a478bee46e88-3537ddd6142mr13773283eec.1.1791849395693;
-        Mon, 12 Oct 2026 16:56:35 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35b690af3easm8686145eec.1.2026.10.12.16.56.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 16:56:35 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: Yixun Lan <dlan@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	E Shattow <e@freeshell.de>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
-Date: Tue, 13 Oct 2026 07:56:24 +0800
-Message-ID: <20261012235624.77993-3-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012235624.77993-1-alan.tseng.cs@gmail.com>
-References: <20261012235624.77993-1-alan.tseng.cs@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hPfp8Or2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E7601F0089B;
+	Mon, 12 Oct 2026 23:57:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791849430;
+	bh=c94c4wliHaWmcoOXtZ1pULeQxMhYJPO+hjijykxcXHM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hPfp8Or27RPDW2v2Mu3rSJE2D0ZCR7hw3hx2uQsfpoRtK3DH1xL2b6i2iduK7hQ+X
+	 EL4A5R+nQdcYHgI6MNZluAebevMvVDVlypapYKOVL7EMTacH1VW3YIWgVtoSpdsjHq
+	 EeJ2HbJKe2FlSrAN0hBGTB77EZkE1t5MGiErCS5bP97rDZa2o8DHPcWpFLoYKcgkYe
+	 W+0VFuNByGgbW4nHPHZNgbck9j37MVGSB37MbM+0/HZk1gY9fiLHkUs1MZFnZA6GtE
+	 B3Pf8/+BvDdF5/U7sE0ROfiyh39UnCSXeMramQl/FHviz8QgD1Rn7soZCETJK4tyL1
+	 HpE8B7gIl3PYQ==
+Message-ID: <fa4625a2-d6ea-4904-a381-82f7e0f6cdbb@kernel.org>
+Date: Tue, 13 Oct 2026 00:57:04 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/4] media: qcom: camss: Set the streams API flag per
+ SoC
+To: Hitesh Patel <hitesh@ebytelogic.com>, linux-media@vger.kernel.org
+Cc: gjorgji.rosikopulos@oss.qualcomm.com, bryan.odonoghue@linaro.org,
+ mchehab@kernel.org, vladimir.zapolskiy@linaro.org,
+ loic.poulain@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
+ atanas.filipov@oss.qualcomm.com, jigarkumar.zala@oss.qualcomm.com,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ravi@ebytelogic.com
+References: <20261012120542.1140157-1-hitesh@ebytelogic.com>
+ <dJh9MFGkVcRUJRGlgGGQ3ffpAvS2i7dAwvaxQeLGR8aE5QIDVHPibTk3DVe4cJHhPju3m3wgFnqlWKAinMRocQ==@protonmail.internalid>
+ <20261012120542.1140157-3-hitesh@ebytelogic.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261012120542.1140157-3-hitesh@ebytelogic.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On K1 boards an SPL reads the board EEPROM (0x50 on i2c2) to identify
-the board, and before DRAM training it programs the P1 PMIC (0x41 on
-i2c8) rails buck1, buck3 and aldo1. Boards that boot from SPI NOR also
-need the flash on QSPI.
+On 12/10/2026 13:05, Hitesh Patel wrote:
+> +	bool streams_api = csiphy->camss->res->streams_enable;
+>   	int ret;
 
-Mark these board peripherals, and the I2C buses they sit on,
-bootph-pre-ram on the boards that have them.
+> @@ -2168,7 +2168,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+>   		pads = vfe->line[i].pads;
+>   		video_out = &vfe->line[i].video_out;
+> 
+> -		v4l2_subdev_init(sd, vfe->res->streams_enable ? &vfe_streams_v4l2_ops
+> +		v4l2_subdev_init(sd, vfe->camss->res->streams_enable ? &vfe_streams_v4l2_ops
+>   								   : &vfe_v4l2_ops);
+>   		sd->internal_ops = &vfe_v4l2_internal_ops;
 
-Assisted-by: claude-opus-5-5 dtbs_check
-Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+This is a pretty inconsistent pattern.
+
+If you're booling in a variable, then Boole in a variable *
+
 ---
- arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi | 7 +++++++
- arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts   | 7 +++++++
- arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts | 8 ++++++++
- arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts    | 8 ++++++++
- arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts  | 5 +++++
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts  | 6 ++++++
- 6 files changed, 41 insertions(+)
-
-diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
-index 81c40df2a..6269d2ba7 100644
---- a/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
-@@ -64,6 +64,7 @@ &pdma {
- };
- 
- &i2c2 {
-+	bootph-pre-ram;
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c2_0_cfg>;
- 	status = "okay";
-@@ -71,6 +72,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c02";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		vcc-supply = <&buck3_1v8>;
- 		pagesize = <16>;
- 		read-only;
-@@ -93,6 +95,7 @@ serial-number {
- };
- 
- &i2c8 {
-+	bootph-pre-ram;
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c8_cfg>;
- 	status = "okay";
-@@ -100,6 +103,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&reg_vcc_4v>;
- 		vin2-supply = <&reg_vcc_4v>;
-@@ -113,6 +117,7 @@ pmic@41 {
- 
- 		regulators {
- 			buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -127,6 +132,7 @@ buck2 {
- 			};
- 
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -155,6 +161,7 @@ buck6 {
- 			};
- 
- 			aldo1: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-index 58035d886..e74505984 100644
---- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-@@ -187,6 +187,7 @@ &qspi {
- };
- 
- &i2c2 {
-+	bootph-pre-ram;
- 	pinctrl-0 = <&i2c2_0_cfg>;
- 	pinctrl-names = "default";
- 	status = "okay";
-@@ -194,6 +195,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c02";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		vcc-supply = <&buck3_1v8>; /* EEPROM_VCC1V8 */
- 		pagesize = <16>;
- 		read-only;
-@@ -216,6 +218,7 @@ serial-number {
- };
- 
- &i2c8 {
-+	bootph-pre-ram;
- 	pinctrl-0 = <&i2c8_cfg>;
- 	pinctrl-names = "default";
- 	status = "okay";
-@@ -223,6 +226,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&reg_vcc_4v>;
- 		vin2-supply = <&reg_vcc_4v>;
-@@ -236,6 +240,7 @@ pmic@41 {
- 
- 		regulators {
- 			buck1_0v9: buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -250,6 +255,7 @@ buck2 {
- 			};
- 
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -278,6 +284,7 @@ buck6 {
- 			};
- 
- 			aldo1: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-index 635e95aad..406b7ca16 100644
---- a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-@@ -201,6 +201,7 @@ &pdma {
- };
- 
- &i2c2 {
-+	bootph-pre-ram;
- 	pinctrl-0 = <&i2c2_0_cfg>;
- 	pinctrl-names = "default";
- 	status = "okay";
-@@ -208,6 +209,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c04";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		vcc-supply = <&buck3_1v8>; /* EEPROM_VCC18 */
- 		pagesize = <16>;
- 		read-only;
-@@ -223,6 +225,7 @@ product-name {
- };
- 
- &i2c8 {
-+	bootph-pre-ram;
- 	pinctrl-0 = <&i2c8_cfg>;
- 	pinctrl-names = "default";
- 	status = "okay";
-@@ -230,6 +233,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&reg_vcc_4v>;
- 		vin2-supply = <&reg_vcc_4v>;
-@@ -243,6 +247,7 @@ pmic@41 {
- 
- 		regulators {
- 			buck1_0v9: buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -257,6 +262,7 @@ buck2 {
- 			};
- 
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -285,6 +291,7 @@ buck6 {
- 			};
- 
- 			aldo1: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-@@ -386,6 +393,7 @@ &qspi {
- 	flash@0 {
- 		compatible = "jedec,spi-nor";
- 		reg = <0>;
-+		bootph-pre-ram;
- 		spi-max-frequency = <26500000>;
- 		spi-rx-bus-width = <4>;
- 		spi-tx-bus-width = <4>;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-index 246f8f2ab..0531bd003 100644
---- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-@@ -127,6 +127,7 @@ &pdma {
- };
- 
- &i2c2 {
-+	bootph-pre-ram;
- 	pinctrl-0 = <&i2c2_0_cfg>;
- 	pinctrl-names = "default";
- 	status = "okay";
-@@ -134,6 +135,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c02";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		vcc-supply = <&buck3_1v8>; /* EEPROM_VCC1V8 */
- 		pagesize = <8>;
- 		read-only;
-@@ -159,6 +161,7 @@ num-macs {
- };
- 
- &i2c8 {
-+	bootph-pre-ram;
- 	pinctrl-0 = <&i2c8_cfg>;
- 	pinctrl-names = "default";
- 	status = "okay";
-@@ -166,6 +169,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&reg_vcc_4v>;
- 		vin2-supply = <&reg_vcc_4v>;
-@@ -179,6 +183,7 @@ pmic@41 {
- 
- 		regulators {
- 			buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -193,6 +198,7 @@ buck2 {
- 			};
- 
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -221,6 +227,7 @@ buck6 {
- 			};
- 
- 			aldo1: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-@@ -320,6 +327,7 @@ &qspi {
- 	flash@0 {
- 		compatible = "jedec,spi-nor";
- 		reg = <0>;
-+		bootph-pre-ram;
- 		spi-max-frequency = <26500000>;
- 		spi-rx-bus-width = <4>;
- 		spi-tx-bus-width = <4>;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-index 2d1ba34cb..8e9bbbeb1 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-@@ -113,6 +113,7 @@ rgmii1: phy@1 {
- };
- 
- &i2c8 {
-+	bootph-pre-ram;
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c8_cfg>;
- 	status = "okay";
-@@ -120,6 +121,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&vcc4v0>;
- 		vin2-supply = <&vcc4v0>;
-@@ -133,6 +135,7 @@ pmic@41 {
- 
- 		regulators {
- 			buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -147,6 +150,7 @@ buck2 {
- 			};
- 
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -175,6 +179,7 @@ buck6 {
- 			};
- 
- 			aldo1_3v3: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-index b907a1396..857b4ebe3 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-@@ -143,6 +143,7 @@ &pdma {
- };
- 
- &i2c8 {
-+	bootph-pre-ram;
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c8_cfg>;
- 	status = "okay";
-@@ -150,6 +151,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&vcc4v0>;
- 		vin2-supply = <&vcc4v0>;
-@@ -163,6 +165,7 @@ pmic@41 {
- 
- 		regulators {
- 			buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -177,6 +180,7 @@ buck2 {
- 			};
- 
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -205,6 +209,7 @@ buck6 {
- 			};
- 
- 			aldo1: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-@@ -298,6 +303,7 @@ &qspi {
- 	flash@0 {
- 		compatible = "jedec,spi-nor";
- 		reg = <0>;
-+		bootph-pre-ram;
- 		spi-max-frequency = <26500000>;
- 		spi-rx-bus-width = <4>;
- 		spi-tx-bus-width = <4>;
--- 
-2.43.0
-
+bod
