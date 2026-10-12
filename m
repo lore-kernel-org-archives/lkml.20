@@ -1,119 +1,218 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6CB1309EFC;
-	Mon, 12 Oct 2026 11:53:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5952E7380
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:53:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806013; cv=none; b=fWzbwGDS/15kR2w9hxBavQpOanH3khLyTG/EvfEvvfAUEiKJ9Wc8yOYPufcgtaLaekSHgL09WTMumo7fc/im+qGEtF1bCinALqrCmJK9oTczXuWJGlNEjkPn4Y/kfkfWWx9EB9keeFJfIOIg+tGl6t5cHmT1PxvD4TZ4GyGp3X4=
+	t=1791806029; cv=none; b=nPzjFhWzXL5dJtbkawK+JM8leDMKRcA+h2LC7mk5DGnRS4qeMn4dBKxINliVsrI3/ktZNOCGgppTeiqGBBFnSG2yrRuET2yKOM39SAZsYBzUoyJiwzD37hFys2OxCpTClMr7M+imiLqQgXylUgxRKVF7edjfqKacJCy/c9F2NUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806013; c=relaxed/simple;
-	bh=Mlh0nExt41pjiqUsnhH74ZHL3kKo5jmHPPyIf1cPy6g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UGuP4wkZ3OZl0UWOV65GLiwSbNQmTYnXFTx3Ft7WFAElyq8LDVcpCUnaWc7EYa8kFD3WebbASY2Mp0t+HQKCQ/+2ViqCgi6MMNJHwWzK8MSQAQjXaINxFg4Itk8Id46mHiSkOj07f5gJ0ytjOyGfb1y3+MVPxlvlqbXehQ+lsac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fU9uNdBO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791806029; c=relaxed/simple;
+	bh=PROxAeNA0R+4J89U+DJA3SfuaEX+HBqaijRt1B3Ayag=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iRvVP9hXfUXiQajGnJP8wXGbtVWyZicLeRoNzs3L83Rrb5Ox5mzoGSmcMBJCuTF4gFPi8OCNx76eKDq4/8RH/c+kijq8e7QM1HMGt2fJzI9tsEsOB5hoFKvw+hqPSgkDuNp+4jBU+Gk6kEmnyJl2VJOy5Bx5X7jm2YnFnVsm8NY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=pgZamdgO; arc=none smtp.client-ip=109.224.244.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fU9uNdBO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABC6B1F0089B;
-	Mon, 12 Oct 2026 11:53:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791806012;
-	bh=wF5mKfBKPgFMslZvkvo8h8pjJ6s1wOGfzAfUrLXqVhM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fU9uNdBOhCDhi8QKrbRprm0eh7b3yCP9AAMgvZN0Rpi9eI2JAG292YLEVeAG/fqDX
-	 YHGYgVI1VcWBCsh/HBiFEPFeAeOtonfADTkx8Ic20SKCzHvOzhR6o8M0yRCYNTNN3z
-	 cVflhWUh+r5su104ZEgieQnSWHz94JYQ7ZjZwTDk4XOE7iuHOtyUjyMR1n7py3HZ13
-	 yLvGf6p/x3Fp5TSj4z7wxeScNz/ewCFvywLy9lizxxnBaccSdusHqNQHsItVxxvBqw
-	 7+cSv8ft6F6IbSYzWqOUqgEhisJn4IXmZGs/NAue2CuEk6wVxRFrAbouP4DROBRMjH
-	 K3PMHTELLTSjA==
-From: Sasha Levin <sashal@kernel.org>
-To: Shuah Khan <shuah@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Alexey Dobriyan <adobriyan@gmail.com>
-Cc: Sasha Levin <sashal@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH v2] selftests/proc: proc-pid-vm: fix unused variable warning on non-x86
-Date: Mon, 12 Oct 2026 07:53:29 -0400
-Message-ID: <20261012115330.3777115-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261011191746.52b84811a6385d4ee414408b@linux-foundation.org>
-References: <20261011191746.52b84811a6385d4ee414408b@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="pgZamdgO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791806025; x=1792065225;
+	bh=vTw89YlT0whyzA6zK9LMXUomrmb8QaDmVZwglxO7v+M=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=pgZamdgOgOhS4Y2AxHaDhGWM17cWSexS0d6c3ojU+DTDY3MUZVPySpPgZV9Cg2GoY
+	 Vd1Wq0H2AnMojUxLBMvHfl+2g8YkAKycBnLChb/VCNj+MYTdqnrMvJbaRI1MAUK005
+	 VVe7ZOMEegxeqvdzv1TRaw4EmKiZfO/1RXmeoZL5aclMCp3Cox0YP4Mry2/3wl1Z+z
+	 guQ3xHC1BH+jOKjooy9oSzThsYP04MG0DXNvmlP4K+Iiwch0E9rOb7pEgWegEHqXDx
+	 e4dixFfcWFAOkPp8t+a5hBRjVHmLYk1sfjqosNoCt3kEtbiRpZJcJ1ijJwX+hgjrZZ
+	 PfZCJRPjUxSPA==
+Date: Mon, 12 Oct 2026 11:53:40 +0000
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+From: Lorenzo Delgado <lnsdev@proton.me>
+Cc: Lorenzo Delgado <lnsdev@proton.me>, linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, Thorsten Blum <blum@kernel.org>, Francis Laniel <laniel_francis@npnm.eu>
+Subject: [PATCH 1/2] rust: non_empty: add NonEmpty
+Message-ID: <20261012-nonempty-slice-v1-1-37d1fecff82c@proton.me>
+In-Reply-To: <20261012-nonempty-slice-v1-0-37d1fecff82c@proton.me>
+References: <20261012-nonempty-slice-v1-0-37d1fecff82c@proton.me>
+Feedback-ID: 53083996:user:proton
+X-Pm-Message-ID: 8e84d9400358baa855969b8e75bf2f050f536dce
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-g_vsyscall is only used by the x86_64 test, so clang builds for other
-architectures get:
+Some functions reject an empty container up front and later rely on it
+having at least one element. The type system does not see that check,
+so the later access ends up as an `unwrap_unchecked()` with a SAFETY
+comment pointing back at it, or as an `unwrap()` or an error path that
+can never be taken. `strcpy_into_buf()` in uaccess is one such case.
 
-  proc-pid-vm.c:224:21: warning: unused variable 'g_vsyscall' [-Wunused-variable]
+Add `NonEmpty<C>`, a transparent wrapper that can only be created from
+a container its `IsEmpty` implementation reports as non-empty. It
+dereferences to the container, and a method whose `Option` only exists
+for the empty case can be shadowed by a version that returns the value
+directly.
 
-The vsyscall strings next to it had the same problem and were marked
-__maybe_unused for it. Move all of the vsyscall variables into the
-__x86_64__ block that uses them instead, and drop those annotations
-along with the local __maybe_unused fallback that was added for them.
+`DerefMut` is implemented per container, only where a mutable reference
+cannot change the length. For a growable container it would let
+`clear()` break the invariant.
 
-Fixes: 17415606f9d8b ("tools/testing/selftests/proc/proc-pid-vm.c: test with vsyscall in mind")
-Suggested-by: Andrew Morton <akpm@linux-foundation.org>
-Assisted-by: LLM
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+For now only slices are supported, with the one constructor and
+accessor that the uaccess conversion needs. Other containers and
+accessors can follow with their users.
+
+Suggested-by: Gary Guo <gary@garyguo.net>
+Link: https://lore.kernel.org/rust-for-linux/DM0D9TERQAM3.2Y3HV6P68E2N8@gar=
+yguo.net/
+Link: https://github.com/Rust-for-Linux/linux/issues/1262
+Signed-off-by: Lorenzo Delgado <lnsdev@proton.me>
 ---
-Changes in v2:
-- Move the vsyscall variables into the __x86_64__ block instead of marking
-  g_vsyscall __maybe_unused, and drop the existing annotations (Andrew Morton)
-- Link to v1: https://lore.kernel.org/r/20261011223358.2327625-11-sashal@kernel.org
+ rust/kernel/lib.rs       |   1 +
+ rust/kernel/non_empty.rs | 100 +++++++++++++++++++++++++++++++++++++++++++=
+++++
+ 2 files changed, 101 insertions(+)
 
- tools/testing/selftests/proc/proc-pid-vm.c | 14 ++++----------
- 1 file changed, 4 insertions(+), 10 deletions(-)
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index 7225abc64084..8e1928deac35 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -105,6 +105,7 @@
+ pub mod module_param;
+ #[cfg(CONFIG_NET)]
+ pub mod net;
++pub mod non_empty;
+ pub mod num;
+ pub mod of;
+ #[cfg(CONFIG_PM_OPP)]
+diff --git a/rust/kernel/non_empty.rs b/rust/kernel/non_empty.rs
+new file mode 100644
+index 000000000000..9617414f51f9
+--- /dev/null
++++ b/rust/kernel/non_empty.rs
+@@ -0,0 +1,100 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Containers that are known not to be empty.
++
++use core::ops::{
++    Deref,
++    DerefMut, //
++};
++
++/// A container that can report whether it holds any element.
++///
++/// The result must not change while the container is only reachable throu=
+gh a shared reference.
++///
++/// Unsafe code may only rely on the result for a container type whose imp=
+lementation it trusts,
++/// such as the ones in this module, since a safe implementation can retur=
+n anything.
++pub trait IsEmpty {
++    /// Returns `true` if the container holds no element.
++    fn is_empty(&self) -> bool;
++}
++
++impl<T> IsEmpty for [T] {
++    #[inline]
++    fn is_empty(&self) -> bool {
++        <[T]>::is_empty(self)
++    }
++}
++
++/// A container that holds at least one element.
++///
++/// [`NonEmpty`] dereferences to the container it wraps, so the container'=
+s API stays available.
++/// Methods whose result is only optional because the container could be e=
+mpty can be shadowed by
++/// versions that return the result directly. They are added as users need=
+ them. For now that is
++/// only [`NonEmpty::last_mut`] on a slice, which returns `&mut T` instead=
+ of `Option<&mut T>`.
++///
++/// # Invariants
++///
++/// The wrapped container is not empty. Unsafe code may rely on this only =
+for container types
++/// whose [`IsEmpty`] implementation is in this module.
++///
++/// # Examples
++///
++/// ```
++/// use kernel::non_empty::NonEmpty;
++///
++/// let mut buf =3D [1u8, 2, 3];
++/// let slice =3D NonEmpty::try_from_mut(&mut buf[..]).ok_or(EINVAL)?;
++/// *slice.last_mut() =3D 0;
++/// assert_eq!(slice.len(), 3);
++/// assert_eq!(buf, [1, 2, 0]);
++///
++/// let mut empty: [u8; 0] =3D [];
++/// assert!(NonEmpty::try_from_mut(&mut empty[..]).is_none());
++/// # Ok::<(), Error>(())
++/// ```
++#[repr(transparent)]
++#[derive(Debug)]
++pub struct NonEmpty<C: ?Sized>(C);
++
++impl<C: ?Sized + IsEmpty> NonEmpty<C> {
++    /// Creates a [`NonEmpty`] from a mutable reference to a container, or=
+ returns [`None`] if the
++    /// container is empty.
++    #[inline]
++    pub fn try_from_mut(container: &mut C) -> Option<&mut Self> {
++        if container.is_empty() {
++            return None;
++        }
++
++        // INVARIANT: `container` was checked to be non-empty above.
++        // SAFETY: `NonEmpty<C>` is transparent to `C`, so the cast keeps =
+both the layout and the
++        // pointer metadata, and the pointer comes from a valid `&mut C` w=
+ith the same lifetime.
++        Some(unsafe { &mut *(core::ptr::from_mut(container) as *mut Self) =
+})
++    }
++}
++
++impl<T> NonEmpty<[T]> {
++    /// Returns a mutable reference to the last element of the slice.
++    #[inline]
++    pub fn last_mut(&mut self) -> &mut T {
++        // SAFETY: By the type invariant, the slice is not empty, so it ha=
+s a last element.
++        unsafe { self.0.last_mut().unwrap_unchecked() }
++    }
++}
++
++impl<C: ?Sized> Deref for NonEmpty<C> {
++    type Target =3D C;
++
++    #[inline]
++    fn deref(&self) -> &C {
++        &self.0
++    }
++}
++
++// `DerefMut` is only sound for containers whose length cannot change thro=
+ugh a mutable
++// reference. For a growable container such as `KVec`, `clear()` would emp=
+ty it.
++impl<T> DerefMut for NonEmpty<[T]> {
++    #[inline]
++    fn deref_mut(&mut self) -> &mut [T] {
++        &mut self.0
++    }
++}
 
-diff --git a/tools/testing/selftests/proc/proc-pid-vm.c b/tools/testing/selftests/proc/proc-pid-vm.c
-index 4e6a3e53f9757..98e882e568154 100644
---- a/tools/testing/selftests/proc/proc-pid-vm.c
-+++ b/tools/testing/selftests/proc/proc-pid-vm.c
-@@ -47,10 +47,6 @@
- #include <sys/resource.h>
- #include <linux/fs.h>
- 
--#ifndef __maybe_unused
--#define __maybe_unused __attribute__((__unused__))
--#endif
--
- #include "kselftest.h"
- 
- static inline long sys_execveat(int dirfd, const char *pathname, char **argv, char **envp, int flags)
-@@ -214,7 +210,6 @@ static int make_exe(const uint8_t *payload, size_t len)
- 
- 	return fd1;
- }
--#endif
- 
- /*
-  * 0: vsyscall VMA doesn't exist	vsyscall=none
-@@ -222,15 +217,14 @@ static int make_exe(const uint8_t *payload, size_t len)
-  * 2: vsyscall VMA is r-xp		vsyscall=emulate
-  */
- static volatile int g_vsyscall;
--static const char *str_vsyscall __maybe_unused;
-+static const char *str_vsyscall;
- 
--static const char str_vsyscall_0[] __maybe_unused = "";
--static const char str_vsyscall_1[] __maybe_unused =
-+static const char str_vsyscall_0[] = "";
-+static const char str_vsyscall_1[] =
- "ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]\n";
--static const char str_vsyscall_2[] __maybe_unused =
-+static const char str_vsyscall_2[] =
- "ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]\n";
- 
--#ifdef __x86_64__
- static void sigaction_SIGSEGV(int _, siginfo_t *__, void *___)
- {
- 	_exit(g_vsyscall);
--- 
-2.53.0
+--=20
+2.55.0
+
 
