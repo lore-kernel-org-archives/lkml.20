@@ -1,103 +1,87 @@
-Received: from flow-b3-smtp.messagingengine.com (flow-b3-smtp.messagingengine.com [202.12.124.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB9D491598
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:01:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9BD3490BF2
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:01:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791817279; cv=none; b=ZSEQFw9BfclOQ5XWq0pLsN51OPWf2MOGlhN7XrGZjuu/5ZyAs2sC8IKfxHV9ctEpMkz2x7T6B/rKDFsOliZRXjobvIZWZer1E45rRUjBV4KOxJovMgX+xD70K1Aw1aTtE3b/L8hunPv01iyArOpoLZdloXcDc9jZbaaX9J4NH2k=
+	t=1791817287; cv=none; b=SDT4dJxg+q30O6yeUShnCyDt45zrxQBePEXmZI+2lEtnH7LakooawIzQ1T623RRG8QyuauOdrl5ObaW3ccOs4J07s+Gukkn0S2Il50fC0yXIYpvc/RLGjdwz9uLTJHH2qUtzRgnx0hR+eosMd0yVONCbm3R78n7y8NcmF5wm3XM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791817279; c=relaxed/simple;
-	bh=H9zvp0EZCSBXT12Fz3uC0fRgwE7OgP+2qL2EjG1W1Ug=;
+	s=arc-20240116; t=1791817287; c=relaxed/simple;
+	bh=ir4Q9FWS/mJN9eXdPFtp0s6ICVnD5h5m7emX1waNT+o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=arCkV4jqcpC3Atf4KEkvTPj+prkpLzE0ZwBxhyinFB7J+5PDczCZsOLPkC5IwycEZHUa2CmQn6LQAAYprWZvc5xLhMq24QyeRrUt/1rtsnOxZ+zaaJ7CgIPvnQFF6Mrqp7ivW2sqYR+n3OfXqPWaBNYC69B0NKs5v6kCEVbnW7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in; spf=pass smtp.mailfrom=s-joshi.in; dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b=n7jgmWrL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=yanhjcLN; arc=none smtp.client-ip=202.12.124.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=s-joshi.in
+	 MIME-Version; b=oxBzbWnV2GawU+0DFLKJ/QN8JKsna8/36Zk09eUIKD47ipyJfPwUJIRGjWsFzLTmpmkS1J/YBEbSOPrZ+Mn/zhhW/KuRHsgXrwy0972J/GBQnAmts0SHA21t3TzPJLULpIB01PQJ0E363cZ1OTMHqgRhY4wCLlebmZ7KgACIu4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b+rQNmfE; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b="n7jgmWrL";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="yanhjcLN"
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailflow.stl.internal (Postfix) with ESMTP id 419E81301223
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:01:17 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-10.internal (MEProxy); Mon, 12 Oct 2026 11:01:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=s-joshi.in; h=cc
-	:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1791817276; x=
-	1791820876; bh=PvxGr1CFINA18KAk9q5F7ACBwRMayJ+m/9TUWydj6Y0=; b=n
-	7jgmWrLc/K3sDfEtEQ/nK7i4LVonH8uz5RAbi3EaeTbeK5Nm5ljaehuKkMVaYpLV
-	Obm0VUOP6w3kZFo3EVkX7YpfYDnif6bCwfTXmrwesMxq0vr1wUiosZ+V3a9VNcAa
-	KXy21nqrMlUCAY4KhVc3CY8pG13wK4zEDDCf5R5uzrsiRc0Gl4pKmZhs6R6hB47r
-	pQSY/4jgTkvy61cNGf5oWusNkqNbDgNFGL/bcGEt2O3JWiSG+OVLGL60H6Snt0U0
-	8rXt5Hlq8iLQc6kI67qSFlR4mi9KzYVQSpjSheCIyYogxiGFSkNi+fu6qaRVcjhN
-	ua0qTiL1d8suTnOkCJE2g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1791817276; x=1791820876; bh=P
-	vxGr1CFINA18KAk9q5F7ACBwRMayJ+m/9TUWydj6Y0=; b=yanhjcLNwgFU0T6zS
-	pdjj0ezh0Srgo34dirvhxhCAhm47AtVs744YLKHb+9bH9RCtbNmsKnK/A6YlPpF9
-	9SsFAd/BhnLSqpkjR49iv0BnMuXDdjujNLQhllFcFa4KoXQ0HF+dF54EnzUc7ROu
-	RbQCtmEEELJcQUBulqfuHWA/NR5ALiOGjZAIxEu8G8awZGztEFVnT0IIzbCHC10/
-	uNFSYebaytRHBPjetbjMfAHREDPMm/Pg2mKEVNEC2XANvzskor2wKEeTxw+4Vuqa
-	60AGOmxCjT0KS06UCOTOXSm+J6muvaDNCG/5fyPsj/NKtGFQRPdStlJcf8WUvrtk
-	h44ig==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=s-joshi.in a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791817276; d=s-joshi.in;
-	mf=PHN1aGFhc0BzLWpvc2hpLmluPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:d8Vf955JWD1Mkx8YmqJFgokH+EZsumO9bTH+F528DFVJPCy
-	aogAFWjuHTXnYtOqGwFGn0Bw220a5hAS2GGilR6Ken4SDFLHydKXN6uREUpZtuNV
-	aRzbHiqyp2tJ+hY1pay/KoM2Ys1VC6sAf3f29XiX0uLo6Tokqy1bYPkkRk0Vj4V7
-	x7R8MLffuu5lTAWDWKU1tj4R7bvIEF00tfwKfcNP3RUaNA17cPHLuUBmuuHk0AqQ
-	sYC/CU1bef7WD3o9b6IsmW+KRnN7KnrLL/MGAVpOILjLpOBjQ2P/We9hp/kBu4mR
-	3+ARKmD+TNugxlD4WBCZTQCDySzUJNXZw23be1w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:yQ2vvnXpzJzAkbIEAInqbfoEDRWPIj/3jLWBI3sjHNE=:H9zvp0EZCSBXT12Fz3uC0fRgwE7OgP+2qL2EjG1W1Ug=;
-X-ME-Sender: <xms:PPbMalQ8qBdcjd2efg9vFXpG2-44XYzmV9Jd7MuiKkLsvuC6FSXDqQ>
-    <xme:PPbMaoGXMpL1xp7JWNdX2gULol8XLDJqw7Rpreb26jPY3AhgNO1hfev5rS7bEQcOs
-    ayi-5tYJwXV6K-zEcEkvgy-UFQCFWjFMSPtcrXvCc6CLgXyKP2gePdp>
-X-ME-Received: <xmr:PPbMaiE3CqP4AFhrvbNsIQP2R5wqP3Uv1f3HFi0wRYaI8SlQKEhJa_HbBQ>
-X-ME-Proxy-Cause: dmFkZTErDdaJDRXdtNCIjl4zaEaVlPSB06aAVyOQ6x1o5VxLbYfiAOQZRbFQpiPBT4JjpM
-    tDDI7yio8aZDSIOhcndLp0t0KWZA5KFWQuFr5wvn0bxS8NTlaio24CI42iTSPQ+jhdFgjF
-    9a89afYLD7UDgWgHlCtnjqs6Q9S41kdWMiMdVZpux+Rgb0n85xFK3b7eAp+V0pNy8RMJgK
-    CayOV2kkOCvfZdzAoAfDYmuTcDkowsDl+/OMHHO78fF3wVxHwXD6id87zrcCs/36ianAUH
-    cRx8fJJXQ5C3FdQl14ni8vbJerSrPEYHDsxpwjVRRLepXJM83WpLvXryW22obvm47sN8p4
-    sOgjlSG2B2Lnh6U1picS3Iijh6qWXyMuyuhCLCf848a9Kns56LgnSR+He6/g8EAiY+qixH
-    GqXHN3qNtOT9M8McX3XfbHYPhvzDg5T21NEhiof5HKWZ1oJ3gOkJP1MKzw2LLP+XCEXFDO
-    sjamdtMwlyY7dm38+eeoCTe84dDxlvPxlSTkq1em9KduNx8XtFgJm5VXicXD9GBnByF8zl
-    9S3nYZTgSk9sk4FfGCaIvpf+Ucg3IhAnZ2fd3jl9odbOQMeaHG0UqARkfRoKuNS9agSnM4
-    Xc5oGW0XFlXMdlz1j/HKIUBXqMdDEtKKAqrOAhvVfheHq/AP3GZrH0/PMRGw
-X-ME-Proxy: <xmx:PPbMauQ9fZgP1QLW3kNcmnnBfLwi1XsrM-jnP6FL2i9z4JcXawDq_A>
-    <xmx:PPbMarKoJkfOVB90zM9QzYTkYhROah9323lF3uv3-deVUWHYolDd3A>
-    <xmx:PPbMahbE6-WwE3--rhkjpsTLWLBda233T4ovmFw0cXzx_V0INI--RA>
-    <xmx:PPbMal8dGnvU1K1rcYIwf4Qjixf-sujhFAGClbUfftxpFGmyXGYgbg>
-    <xmx:PPbManqMNHDUg43k7YlVeIdKkJdH-sChtmTQedFaQmWYTpa2y_q4UjK->
-Feedback-ID: ia9504abf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 12 Oct 2026 11:01:14 -0400 (EDT)
-From: Suhaas Joshi <suhaas@s-joshi.in>
-To: sj@kernel.org,
-	akpm@linux-foundation.org
-Cc: damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/2] mm/damon/core: Use only installed probe in damon_merge_two_regions()
-Date: Mon, 12 Oct 2026 20:30:39 +0530
-Message-ID: <20261012150045.169377-1-suhaas@s-joshi.in>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261012145636.168436-1-suhaas@s-joshi.in>
-References: <20261012145636.168436-1-suhaas@s-joshi.in>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b+rQNmfE"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dc1508191so213260f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:01:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791817284; x=1792422084; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ir4Q9FWS/mJN9eXdPFtp0s6ICVnD5h5m7emX1waNT+o=;
+        b=b+rQNmfEbXtWyAAlW/7inK+L9kKU72m/JfOBrHTFyd8s3bEMMvOYkhf0LGfZajTnfj
+         aOAvkP3gzLeFfuW4ddhBqn+Yp8lyvVWQwQyQke8KaReijl/gGJxbgk+JaIU0W2nU6W9B
+         qb/9Kv1uxG8eO2RgoiHmjYj3ynl7xVpkv4nd2CTx1ia4FeJV/pbpAac77/5uCqCIkisy
+         bAi8FdK/HHMJCvyapNxO0SXzJS8sGxYCPdiOgjMMAfBa0LU5baM9J9XCquHciNnw8USU
+         7u3eQwUnkepcUQdRKmb81VUtHW/4FfTONvfBuUX72zaoR5H+is6KjSkkEx4VHuNmJoNo
+         1zQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791817284; x=1792422084;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ir4Q9FWS/mJN9eXdPFtp0s6ICVnD5h5m7emX1waNT+o=;
+        b=ftdNsAdLZJLxbYySK8wfZ549u1Y4XTh8BcLG3j7s5f6M17L21PBIKI04eHw3Hj8MOs
+         SbdHbRX2+dUFXPKI8x8QicPZi0FpfC+wghIPaR6PwOncISNBPWfO2qmng+fsAcywUY5A
+         7ToGI8hFgeaO2OI6RNp+F+BdbaEjdY477GjcGfY5ED7rzdG5yH3iomX0c9Ikf0Sk0uNN
+         MBmO86OivCIkMBrHWtoN4iqgGLqlcInBCc3wlm+g3tjIk9fgTzYWq/1eaoqZCWBi9L3o
+         D7xm3QXMUAop7+feyjsyzjFx/I1srqEPVIfIEACoa2F/8es1Z0w6ehSGnckbaJ2LLUEE
+         Cb1w==
+X-Forwarded-Encrypted: i=1; AKwUvBwFdamHBjIgWUqSbPC4bbQHkRgLSHUukx4DH63f4P3ibSqoJgEFiiReU8mbXea+TXaJ/AvAor/mbA41RXs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPZ3au7LvHQaUfLHxVDInZwucJWBBlS+OZkb7p8JIX636yow9h
+	OwpN5+7ZZaZviMdCl2iMI/WI4RZnxG68kRl60BGN5mCmVw3ZF+FLGD4y
+X-Gm-Gg: AYBFou013/vGBJX/gr1YhG087TzypmaL9D8AGUd85sKeQGPeyQjVt2FQ9ZTHW6dnLQZ
+	Ms8iSRCNukaSjPXx8feTNWQ8n9yKgMOMhJG9XatOE9FUe12MY6TTeICKDQ1oxZJT2MzBORQDjNY
+	l+PtigMjRCy9Cx95oGSXxYpaqTBA7wAj/yN9cGTuBIGAAUrY+ux1+C+B2U0ALgTbqQ3tHVSPy9E
+	5qO6ueUtCsEuKWGv/LikT+Qt0DCDyOK3hLapXlZ9F4H0qC8kTJouXqP+lac9djok4ZY8YnWnMfB
+	aRBTJbrHmxTLUgSEWsYxem33fM7oII9R/EQwwwv7YirwOooMg+faQ+YnSFH6xGOwsbMxzgMQjOW
+	8LbR9FPmyzJfGkeiE6W4fKcN7JI3SZvK+tg2vQWowfPSoJTjITgvuA//qvxQvhNwH8JajbOkXA3
+	u7u5Q03QNOEjqF+lNBTTeWa9ypzzqHvVoJKR2rhUfbmHszt5lrKW81RrQ7ebLFEd8oNAEaJsteH
+	9YS0BFfVaZ5EuZPcqPb
+X-Received: by 2002:a05:6000:41c7:b0:48c:7f15:9a82 with SMTP id ffacd0b85a97d-48dbad20349mr16648946f8f.4.1791817283892;
+        Mon, 12 Oct 2026 08:01:23 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9adf5e6sm19844696f8f.56.2026.10.12.08.01.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 08:01:23 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: vincent.guittot@linaro.org
+Cc: bsegall@google.com,
+	christian.loehle@arm.com,
+	dietmar.eggemann@arm.com,
+	elif.topuz@arm.com,
+	juri.lelli@redhat.com,
+	kayracizmeci@gmail.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@kernel.org,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	sh@gentwo.org,
+	vschneid@redhat.com
+Subject: Re: [PATCH] sched/eevdf: Fix vprot across reweighting
+Date: Mon, 12 Oct 2026 18:01:20 +0300
+Message-ID: <20261012150121.6516-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <CAKfTPtDDWo4n_AS6fSryz3NenDvKw04shmGM3wcv_MF-teDHGQ@mail.gmail.com>
+References: <CAKfTPtDDWo4n_AS6fSryz3NenDvKw04shmGM3wcv_MF-teDHGQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -106,112 +90,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-While merging 2 regions, we iterate over the entire probe_hits[] array,
-whose size is determined by the DAMON_MAX_PROBES macro. However, it is
-possible that we have fewer probes installed than DAMON_MAX_PROBES. In such
-cases, we end up making redundant iterations. Therefore, to remedy this,
-iterate over the list of installed probes instead of iterating over the
-entire array. For doing this, start accepting a struct damon_ctx in
-damon_merge_two_regions(), and update calling functions to pass this
-argument.
+I send one mail, one more to reply comes. Ah.. I love it tho :-)
 
-Update the damon_test_merge_two() test to use this new signature for
-damon_merge_two_regions() as well.
+> Before 819224e506bc ("sched/fair: Remove dead code on
+> enqueue_task_fair()"), the reweight_eevdf() was not called for curr so
+> the false was always true. If we can finally have enqueue curr then we
+> should skip this case
 
-Signed-off-by: Suhaas Joshi <suhaas@s-joshi.in>
----
- mm/damon/core.c             | 15 ++++++++++-----
- mm/damon/tests/core-kunit.h | 20 ++++++++++++++++++--
- 2 files changed, 28 insertions(+), 7 deletions(-)
+Yeah. The beast I created kills me. Pretty nice.
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index b63e60ef8990..bebd2889c2c8 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3524,20 +3524,25 @@ static void damon_verify_merge_two_regions(
- /*
-  * Merge two adjacent regions into one region
-  */
--static void damon_merge_two_regions(struct damon_target *t,
--		struct damon_region *l, struct damon_region *r)
-+static void damon_merge_two_regions(struct damon_ctx *ctx,
-+		struct damon_target *t, struct damon_region *l,
-+		struct damon_region *r)
- {
- 	unsigned long sz_l = damon_sz_region(l), sz_r = damon_sz_region(r);
- 	int i;
-+	struct damon_probe *p;
- 
- 	l->nr_accesses = (l->nr_accesses * sz_l + r->nr_accesses * sz_r) /
- 			(sz_l + sz_r);
- 	l->age = (l->age * sz_l + r->age * sz_r) / (sz_l + sz_r);
- 	l->ar.end = r->ar.end;
--	/* todo: do this for only installed probes */
--	for (i = 0; i < DAMON_MAX_PROBES; i++)
-+
-+	i = 0;
-+	damon_for_each_probe(p, ctx) {
- 		l->probe_hits[i] = (l->probe_hits[i] * sz_l + r->probe_hits[i]
- 				* sz_r) / (sz_l + sz_r);
-+		++i;
-+	}
- 	damon_verify_merge_two_regions(l, r);
- 	damon_destroy_region(r, t);
- }
-@@ -3590,7 +3595,7 @@ static void damon_merge_regions_of(struct damon_target *t, unsigned int thres,
- 			goto set_prev_continue;
- 		if (damon_sz_region(prev) + damon_sz_region(r) > sz_limit)
- 			goto set_prev_continue;
--		damon_merge_two_regions(t, prev, r);
-+		damon_merge_two_regions(ctx, t, prev, r);
- 		continue;
- set_prev_continue:
- 		prev = r;
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 3fbb4e4e36fa..385d32901650 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -182,6 +182,8 @@ static void damon_test_merge_two(struct kunit *test)
- {
- 	struct damon_target *t;
- 	struct damon_region *r, *r2, *r3;
-+	struct damon_probe *p;
-+	struct damon_ctx *ctx;
- 	int i;
- 
- 	t = damon_new_target();
-@@ -206,7 +208,21 @@ static void damon_test_merge_two(struct kunit *test)
- 	r2->age = 21;
- 	damon_add_region(r2, t);
- 
--	damon_merge_two_regions(t, r, r2);
-+	p = damon_new_probe();
-+	if (!p) {
-+		kunit_skip(test, "probe alloc fail");
-+		damon_free_target(t);
-+	}
-+	ctx = damon_new_ctx();
-+	if (!ctx) {
-+		damon_destroy_probe(p);
-+		damon_free_target(t);
-+		kunit_skip(test, "context alloc fail");
-+	}
-+	damon_add_probe(ctx, p);
-+	damon_add_target(ctx, t);
-+
-+	damon_merge_two_regions(ctx, t, r, r2);
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 0ul);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 300ul);
- 	KUNIT_EXPECT_EQ(test, r->nr_accesses, 16u);
-@@ -220,7 +236,7 @@ static void damon_test_merge_two(struct kunit *test)
- 	}
- 	KUNIT_EXPECT_EQ(test, i, 1);
- 
--	damon_free_target(t);
-+	damon_destroy_ctx(ctx);
- }
- 
- static struct damon_region *__nth_region_of(struct damon_target *t, int idx)
--- 
-2.55.0
+On sched_change_begin(), cfs_rq->curr is set to NULL. So while entering enqueue_task_fair(), curr is false.
+on_rq is false too. But the tasks weight is changed and vprot never gets touched so it got wrong. Then on set_next_task_fair(),
+the task is curr again.
 
