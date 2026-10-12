@@ -1,284 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B4D49AA54;
-	Mon, 12 Oct 2026 13:09:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA82C49BD8E;
+	Mon, 12 Oct 2026 13:09:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791810545; cv=none; b=jFm0AKyu5xcFkI8+7l0Pjh772JhIy5/eCzVQgbTwR1Miqc9ChiNEaJofooBWpumogyxkv6y3osXcnwzw0jBUhNXXBR6oVQFbNU4WQo5dC7AUE6oQ24g/0QAHKUdIPzv0yncPvtTxO6sgtI8X/MdPBgjWma+c8DSHqrUwwyvQCZY=
+	t=1791810547; cv=none; b=TkUQ+MRpy8J2kBQR1J7rNAAYOvtK/FsqmGVxH4y7XOO9VjS/VqGA+yMPF4xQIGnPYR5mSpxdesR3OwvcSbD0e+4eNPhNB4sRJxbow7X7vGuGx1MT8Rw+CdI7dhQouhH7o6ZROnQnwm5BUImRafdax1DGzKFhQuSge4ykmVd7yCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791810545; c=relaxed/simple;
-	bh=nodWnHGiIE9xoO76I7FXb5P0XxC3QcMAEc5wZrZkWEc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fpmuaAZMIgPqzA/t/V3mYV5svuyIM+AdzpzYoa5OhIQakGfCP6PPUOJ2+iu/M+CfR8hASXiPRF6ZI6LSYVOf1p/dk951lysf244t6vzg2LlyQnNc6MqrjpHHNVO3BOyhPmC1Qcohh+F0NAuZSm5XPt2cVQgF5061VLPeNxGLesU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=STkq1om1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791810547; c=relaxed/simple;
+	bh=VLRaozWfdTWxb8Rd4DWYV5ZEZQt8GH6bkhwa6wyOxnQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ucZt51AlrLG+1JvZun6xS1MSjAITCnuI47jBn6EAoM/LOq5WVNj9slyQnm+sYRz7tZdkTvgD6bx2ezKrxkH/zGw3lWQFTkZLsTA6na8BT6JhYZdLD6X2+H+LKw/g0BG5V+ZmgFhvtPIGhEdgMmm2LnLTLeOpyRbMktMSENpDYM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WHTYapgh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="STkq1om1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450FF1F0089B;
-	Mon, 12 Oct 2026 13:09:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WHTYapgh"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BF39A1F0089B;
+	Mon, 12 Oct 2026 13:09:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791810543;
-	bh=2Raoc57OuCZB6wD4NONsNhUGHNAyla0jjOf2noTn3lc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=STkq1om1IcHH7KXYr1cFAw24Tn7m50AFysTqaJIH6GjQsgESIanscHwJOoQvGyL3o
-	 tsWNIXS80gu9tz2wnHYAgB+7GwhLIQXY8TXU5T5o1BmhQotqr1uglvYVY9EfW/0PLN
-	 3WlxN2ks+zMtvkXyAhzfs3z7ZcJ2ccGLpgTJeECKwqFZ9HNj2v0hwoJSg1LkaIuLaV
-	 cPHpXG8edaA4ogpSkB9Eb2mc1EeivcSjRAaL35xSXdf/XRZu02kL6WgDTLHQyl6z8T
-	 qmZ8oYogl42LsHZe8koyhCXo7b47QaNIr/SYdnCIRxl4wY7NH9dWsbd79ri7siQ4RI
-	 4RtSIbYtaI4hg==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: [PATCH v10 14/18] PCI: Add KUnit coverage for ACS isolation checks
-Date: Mon, 12 Oct 2026 16:07:51 +0300
-Message-ID: <20261012-fix-p2p-acs-v4-0-v10-14-6ffe7b7a4517@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261012-fix-p2p-acs-v4-0-v10-0-6ffe7b7a4517@nvidia.com>
-References: <20261012-fix-p2p-acs-v4-0-v10-0-6ffe7b7a4517@nvidia.com>
+	s=k20260515; t=1791810546;
+	bh=htnToikM5oWNWLcWINlIXAhrpOBUmE0m+tQ2CYJoG5o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WHTYapghOmD5jhcHmMzmSJuuGExOpuexOOGu9ZgC4Xg6NQWW4THCb36O82ceG1Zli
+	 hvPJH6HS/qZZxLFCm1g3UdRirhE/pniMojfShSaizvji6VRiXSlqXHvhAXK0+cpZVm
+	 Fgp/tA0mEiDclikbpWC74CMUwaBh6j9yeReEvcmgKsZqDDhxTeanPpQQ2PtZ0r2238
+	 tiqrJNy1xi9y7mDQIGxybiTcRs3OZUdqrsIG4YHuqaeB3qEpRR/xTmF7n6K9SA/3GU
+	 Lia2xfPPrq0jntrdJnLOqYsUaFzeB5Q02Dwpwz67lTucvVPlrCiXjpHoSx361k8i5c
+	 0RAaz74mQ6wcw==
+Date: Mon, 12 Oct 2026 16:09:02 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: kernel-janitors@vger.kernel.org, linux-integrity@vger.kernel.org,
+	Dan Carpenter <error27@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Peter =?iso-8859-1?Q?H=FCwe?= <peterhuewe@gmx.de>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] tpm: clean up error checking in setup_ring()
+Message-ID: <aszb7oOYq-ZfeNDK@kernel.org>
+References: <ar_DUjuGv-9vPzga@stanley.mountain>
+ <74850205-dba2-4a97-951d-cda28be129c9@web.de>
+ <asvSXjQQ0vEvF7yL@kernel.org>
+ <0d6f94f0-208d-4cf8-a973-2afd37695690@web.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <0d6f94f0-208d-4cf8-a973-2afd37695690@web.de>
 
-From: Leon Romanovsky <leonro@nvidia.com>
+On Mon, Oct 12, 2026 at 10:03:09AM +0200, Markus Elfring wrote:
+> >>> The bind_evtchn_to_irqhandler() function can never return 0.
+> …
+> > I do agree that something in this patch does not appear right, or 
+> > at least not very well explained so it is a good catch anyhow.
+> > 
+> > My decision on this is that:
+> > 
+> > 1. I'll drop the current patch as it actually does not make a case
+> >    why zero could not possibly happen. I spent 45 minutes browsing
+> >    because commit message did not have any technical details.…
+> 
+> How does this response fit to your previous tag “Reviewed-by”?
+> 
+> Dan Carpenter provided also some hints.
 
-Direct Translated P2P does not weaken IOMMU isolation because a Translated
-Request carries an address supplied by the IOMMU. Config-space read
-failures, however, leave ACS state unknown and must not report isolation.
+There's no problem with this. I sanity checked the commit because I
+did not (and do not) understand what you wrote, and started to
+check up on things because of that email.
 
-Exercise both cases with fake config-space operations. Also cover missing
-and unrequested controls and a missing ACS capability.
+I came into conclusion that the commit message does not nail down
+its claim well enough so I did the only common sense action one
+can do in this situation.
 
-Tested-by: Tushar Dave <tdave@nvidia.com>
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- drivers/pci/pci.c          |   4 +-
- drivers/pci/pci.h          |   1 +
- drivers/pci/pci_acs_test.c | 138 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 142 insertions(+), 1 deletion(-)
+> 
+> Regards,
+> Markus
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index f7d94ecf9157..4a9ab3882aac 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -3578,7 +3578,8 @@ void pci_configure_ari(struct pci_dev *dev)
- 	}
- }
- 
--static bool pci_acs_flags_enabled(struct pci_dev *pdev, u16 acs_flags)
-+VISIBLE_IF_KUNIT
-+bool pci_acs_flags_enabled(struct pci_dev *pdev, u16 acs_flags)
- {
- 	int pos;
- 	u16 ctrl;
-@@ -3598,6 +3599,7 @@ static bool pci_acs_flags_enabled(struct pci_dev *pdev, u16 acs_flags)
- 		return false;
- 	return (ctrl & acs_flags) == acs_flags;
- }
-+EXPORT_SYMBOL_IF_KUNIT(pci_acs_flags_enabled);
- 
- /**
-  * pci_acs_enabled - test ACS against required flags for a given device
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index b9b983ad6c34..99852cf99732 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -1129,6 +1129,7 @@ enum pci_acs_p2pdma_state {
- };
- 
- #if IS_ENABLED(CONFIG_KUNIT)
-+bool pci_acs_flags_enabled(struct pci_dev *pdev, u16 acs_flags);
- enum pci_acs_p2pdma_state pci_acs_p2pdma_request(u16 ctrl,
- 						unsigned int tlp_flags);
- enum pci_acs_p2pdma_state pci_acs_p2pdma_completion(u16 ctrl,
-diff --git a/drivers/pci/pci_acs_test.c b/drivers/pci/pci_acs_test.c
-index 7f4f9cc04bfb..6a2cd38d968f 100644
---- a/drivers/pci/pci_acs_test.c
-+++ b/drivers/pci/pci_acs_test.c
-@@ -102,6 +102,140 @@ static void pci_acs_p2pdma_completion_test(struct kunit *test)
- 			c->expect);
- }
- 
-+/* Flags an IOMMU asks for; see REQ_ACS_FLAGS in drivers/iommu/iommu.c. */
-+#define ACS_REQ_FLAGS	(PCI_ACS_SV | PCI_ACS_RR | PCI_ACS_CR | PCI_ACS_UF)
-+#define ACS_ALL_CAPS	(PCI_ACS_SV | PCI_ACS_TB | PCI_ACS_RR | PCI_ACS_CR | \
-+			 PCI_ACS_UF | PCI_ACS_DT)
-+#define ACS_TEST_CAP	0x100
-+
-+struct acs_ctrl_cfg {
-+	unsigned int devfn;
-+	u16 cap;	/* Offset where the ACS capability responds */
-+	u16 ctrl;
-+	bool fail_read;
-+};
-+
-+static int acs_ctrl_read(struct pci_bus *bus, unsigned int devfn,
-+			 int where, int size, u32 *val)
-+{
-+	struct acs_ctrl_cfg *cfg = bus->sysdata;
-+
-+	*val = 0;
-+	if (cfg->fail_read)
-+		return PCIBIOS_DEVICE_NOT_FOUND;
-+
-+	if (devfn == cfg->devfn && size == 2 &&
-+	    where == cfg->cap + PCI_ACS_CTRL)
-+		*val = cfg->ctrl;
-+	return PCIBIOS_SUCCESSFUL;
-+}
-+
-+static int acs_ctrl_write(struct pci_bus *bus, unsigned int devfn,
-+			  int where, int size, u32 val)
-+{
-+	return PCIBIOS_SUCCESSFUL;
-+}
-+
-+static struct pci_ops acs_ctrl_ops = {
-+	.read	= acs_ctrl_read,
-+	.write	= acs_ctrl_write,
-+};
-+
-+struct acs_isolation_case {
-+	const char *desc;
-+	u16 ctrl;
-+	u16 req;
-+	bool expect;
-+};
-+
-+static const struct acs_isolation_case acs_isolation_cases[] = {
-+	{ "all_enabled", ACS_REQ_FLAGS, ACS_REQ_FLAGS, true },
-+	/* Translated Requests remain isolated by their IOMMU translation. */
-+	{ "dt", ACS_REQ_FLAGS | PCI_ACS_DT, ACS_REQ_FLAGS, true },
-+	{ "rr_not_enabled", PCI_ACS_SV | PCI_ACS_CR | PCI_ACS_UF,
-+	  ACS_REQ_FLAGS, false },
-+	{ "rr_not_required", PCI_ACS_SV | PCI_ACS_CR | PCI_ACS_UF,
-+	  PCI_ACS_SV | PCI_ACS_CR | PCI_ACS_UF, true },
-+};
-+
-+static void acs_isolation_desc(const struct acs_isolation_case *c, char *desc)
-+{
-+	strscpy(desc, c->desc, KUNIT_PARAM_DESC_SIZE);
-+}
-+
-+KUNIT_ARRAY_PARAM(acs_isolation, acs_isolation_cases, acs_isolation_desc);
-+
-+static void pci_acs_flags_enabled_test(struct kunit *test)
-+{
-+	const struct acs_isolation_case *c = test->param_value;
-+	struct acs_ctrl_cfg cfg = {
-+		.devfn = PCI_DEVFN(0, 0),
-+		.cap = ACS_TEST_CAP,
-+		.ctrl = c->ctrl,
-+	};
-+	struct pci_bus *bus = kunit_kzalloc(test, sizeof(*bus), GFP_KERNEL);
-+	struct pci_dev *pdev = kunit_kzalloc(test, sizeof(*pdev), GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_NULL(test, bus);
-+	KUNIT_ASSERT_NOT_NULL(test, pdev);
-+
-+	bus->ops = &acs_ctrl_ops;
-+	bus->sysdata = &cfg;
-+
-+	pdev->bus = bus;
-+	pdev->devfn = cfg.devfn;
-+	pdev->acs_cap = ACS_TEST_CAP;
-+	pdev->acs_capabilities = ACS_ALL_CAPS;
-+
-+	KUNIT_EXPECT_EQ(test, pci_acs_flags_enabled(pdev, c->req), c->expect);
-+}
-+
-+static bool acs_isolated(struct kunit *test, struct acs_ctrl_cfg *cfg,
-+			 u16 acs_cap, u16 acs_flags)
-+{
-+	struct pci_bus *bus = kunit_kzalloc(test, sizeof(*bus), GFP_KERNEL);
-+	struct pci_dev *pdev = kunit_kzalloc(test, sizeof(*pdev), GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_NULL(test, bus);
-+	KUNIT_ASSERT_NOT_NULL(test, pdev);
-+
-+	bus->ops = &acs_ctrl_ops;
-+	bus->sysdata = cfg;
-+
-+	pdev->bus = bus;
-+	pdev->devfn = cfg->devfn;
-+	pdev->acs_cap = acs_cap;
-+	pdev->acs_capabilities = ACS_ALL_CAPS;
-+
-+	return pci_acs_flags_enabled(pdev, acs_flags);
-+}
-+
-+static void pci_acs_flags_no_cap_test(struct kunit *test)
-+{
-+	struct acs_ctrl_cfg cfg = {
-+		.devfn = PCI_DEVFN(0, 0),
-+		.cap = 0,
-+		.ctrl = ACS_REQ_FLAGS,
-+	};
-+
-+	KUNIT_EXPECT_FALSE(test, acs_isolated(test, &cfg, 0, ACS_REQ_FLAGS));
-+}
-+
-+static void pci_acs_flags_read_fails_test(struct kunit *test)
-+{
-+	u16 no_rr = ACS_REQ_FLAGS & ~PCI_ACS_RR;
-+	struct acs_ctrl_cfg cfg = {
-+		.devfn = PCI_DEVFN(0, 0),
-+		.cap = ACS_TEST_CAP,
-+		.ctrl = ACS_REQ_FLAGS,
-+	};
-+
-+	KUNIT_EXPECT_TRUE(test, acs_isolated(test, &cfg, ACS_TEST_CAP, no_rr));
-+
-+	cfg.fail_read = true;
-+	KUNIT_EXPECT_FALSE(test, acs_isolated(test, &cfg, ACS_TEST_CAP, no_rr));
-+}
-+
- /*
-  * Drive calc_map_type_and_dist() over a fabricated PCIe fabric matching the
-  * canonical topology of two devices below one switch:
-@@ -569,6 +703,10 @@ static struct kunit_case pci_acs_test_cases[] = {
- 			 acs_request_gen_params),
- 	KUNIT_CASE_PARAM(pci_acs_p2pdma_completion_test,
- 			 acs_completion_gen_params),
-+	KUNIT_CASE_PARAM(pci_acs_flags_enabled_test,
-+			 acs_isolation_gen_params),
-+	KUNIT_CASE(pci_acs_flags_no_cap_test),
-+	KUNIT_CASE(pci_acs_flags_read_fails_test),
- 	KUNIT_CASE(acs_walk_bus_addr_test),
- 	KUNIT_CASE(acs_walk_request_redirect_test),
- 	KUNIT_CASE(acs_walk_completion_redirect_test),
-
--- 
-2.55.0
-
+Br, Jarkko
