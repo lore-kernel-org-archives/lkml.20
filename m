@@ -1,183 +1,158 @@
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022134.outbound.protection.outlook.com [52.101.101.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E3A456E03
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:41:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805285; cv=none; b=QP0FOmAuNVy7V2y7/jr3RGGHbeF+a2sO4RMwNR+hJ3WpMU7I8LFEvaeGgCmn6nGIEu4s/xEFtPgm+N7XWSIyoTfEe7fziC87+ntJXXaWaFcqaIuYrVD1F460An+kLp9bxD5XFkCLiG30IbTD4oUCK4/C6oUPHdA59GEtq3H74J0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805285; c=relaxed/simple;
-	bh=gRy0tVmY36RuFINYba/yIa9FoyM7l7UXacFnKeSKODQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tw8yol8EcspNHKs0VPJT3vBC0WZ6GfXtZupjR9+zK9uR0swlbVhsxrCfw+SqaXqLFol1OCSXM7AvU4E0p56SCWEfpGmMaT6qu/gtDMFAIv0QVE0P7v2Joq+bDIOJHUmf/7W664vUoHUk6foQz0KGA9eW+leQ9Xvlo1Md7q1gZYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=qNIFCLFe; arc=none smtp.client-ip=74.125.82.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18549423E92;
+	Mon, 12 Oct 2026 11:41:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.134
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791805286; cv=fail; b=cgVGUukOilLLIbfgcHdZnMJWDZjmn1fszGzIG1i18B7nnCa7sqTL/xxykrpHv0mq139Z6Del3+ZqIX08xXOIZgWNwpJBS9MndwlTDWD4e7+FvE71xgwGa+zC4Mnd85gPcsAt68oxPP7JKMjCRRZgZbW+54FVZw0qdx1kwH/KPA8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791805286; c=relaxed/simple;
+	bh=3KWKTtmyBPTCD+yvVEpH7qjpBdVnVz84ScIqGfm9S3w=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=Sp/qKeTP1AlUNKbJkKq/m/zMSIqqKrfDbHDQz9y7a7cDVBD/C1vLc6V/qjlaGdJMN5MgVDxma6T6yvcADHznM9yvKTEccN0Cljgqh8a12SqsqEaRhaFdkaeZ7R32VwlVH574g9ul0lDW7FNwIIXtxfFBZmPtrSpReuzfBKN8zKY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=ielDYp+F; arc=fail smtp.client-ip=52.101.101.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="qNIFCLFe"
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-141395927feso3016848c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:41:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791805283; x=1792410083; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EnNE/hWpk3lnvRShne5vDHHiWuXq0SGuBMsNI2/H+N0=;
-        b=qNIFCLFeTs3ibfztcz7qKVXeUc7kBuqgIjKlD70ukkY3FCM2zjtJpXoAdtgAjgYB0Z
-         6ioM2JuNBODEnewAix+tEK33T9iQh6o34BP1B0Iihc9i+80WJXr2omMlU2v+BiXMRVLL
-         nN+xTjeMga/bpDtduIm4FSpw+HnkQpWvjBJzsplH2LY27gMOk6KBdEy1iDFer8hVLamR
-         LVIVWiQ+vY5mmmVbbI8iyY2NyS8kFvZH1EgNXL/a3H/pXQmFBkAbwWepbPZn1Fu2bouZ
-         QK06uWGyeCOMqcttCeQ6X5Da5LJFZwZ2YATDeb1Qr0vfO2AkamA68Gqufiq14faGtKnU
-         TfJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791805283; x=1792410083;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EnNE/hWpk3lnvRShne5vDHHiWuXq0SGuBMsNI2/H+N0=;
-        b=RbBFKbwv8EKNGlhLRhrUUv6KrqvDtgTng1BLIiY3ImAMPMGz+3MgWOf2qOq857eXlf
-         9cX87vSHuLx5ppFrHZXSJfOS5V/WhFpSYZEXAPbj18nRszzxO033BEmMLteRHeaR1gCl
-         YIfwnEekNSz+8pMcgTOUpifCQ4xidLREahq60+QNXO0qa5MNuc75sJwR0PT1p5ae0Slo
-         9JTgWjwR7MGFZY9sU4IOiFgNleVfJMeYBXIJCxQOQaEqum8NXpdYemw/DWHq5om5Eimi
-         rDVNzq9r0qhawa+0x617s7zn58vO5kR1qjDwMr6HaTarreCxjIyBbgcnZnQwGHrR3kmL
-         USqw==
-X-Forwarded-Encrypted: i=1; AKwUvBwRNdIa4GqUbbgbPZi8Y53ane9SC2ceV54CogpKGsV0dQVPQaaRdUiB6q5VPVwdHwpA9Tp7xpLDWlnDM3w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZLIlzhP5O0yDhpkp1AxMaPSf4UtJ66gX7URX/smnGWzXTHOKb
-	TQ162D2zNTpBSQeG+SU3oesXqu0jlOm+mk/F0nVwyWkcDZGieqQKTz+obj5i3LxSy3A=
-X-Gm-Gg: AYBFou21nYvxP+eKZq1h2Hl3fF1JeOGve4apru9kno80X2YUaCQJIahw5JNg5tmAX/U
-	nFyO/T2o3nwRqpy9GWXABJPFjMdARmyP+wqZLcQ/s55jQd1YvXJbVtf/4UamoGS8a2kgRJL12cE
-	hbpdeeb1ukXVnccnLIBwJY+oAuPgRaNum27FpKCo0JwlPMgOkIQVwogwxHDM6r8n7ijxcr/xGrK
-	NkeP/yJOL+9DlhqVjYQMvz3767PJqOtlpgIu2+HN2RYDnArZ2vgdci9/OduX7MvbSfI1LC1ZPeY
-	7Z4WRfgFL1pKu/IGywtiTve59lyXwDL6e4ekBIn77whOwB4G4e91rE1MgIBgYxvVAIzoS+Xw909
-	869F4CwPe+jf+weR+YUXdtrE6xoVcdAVGdch/FdIgMvxle2+HNLzGljS5AbJuTv+F5cuLsoAI5a
-	i3Oqwol6ZDNkxm63SJfr5gPqECc/qqKmcB7uA83roCHPif972SHOlnC3O7D6Cdbo2zHdBlHHpPV
-	chIr/s1Dqwhu8FLpH5jD3M=
-X-Received: by 2002:a05:701b:205b:10b0:148:722b:7cbc with SMTP id a92af1059eb24-16a5dbfe430mr12897663c88.14.1791805282613;
-        Mon, 12 Oct 2026 04:41:22 -0700 (PDT)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:7bd2:1202:246d:44ce])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1746482c978sm8725533c88.13.2026.10.12.04.41.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 04:41:22 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: ching2048@areca.com.tw,
-	mkp@kernel.org,
-	James.Bottomley@HansenPartnership.com
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	thenzl@redhat.com,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: [PATCH v3 1/3] scsi: arcmsr: bound the firmware-supplied message length
-Date: Mon, 12 Oct 2026 20:41:01 +0900
-Message-ID: <adc1e1512a87ff16e99d066c2e96e18a1d28e610.1791803953.git.yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791803953.git.yhlee@isslab.korea.ac.kr>
-References: <cover.1791803953.git.yhlee@isslab.korea.ac.kr>
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="ielDYp+F"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HLMdWhEnJXiV72dyRICj4OicJ6mK/SmrfcCIv7lZ/1MV8bQ/icFUhStCt2umMzTzMKA2vLyrdT7B8aquA7WpZSKYRmKgrluFmRaDk8xr981NwlKz5tpy5NH6u1TSChHQ+azfeBEETkw4S01DraIrJtAReLqGwIPrIHUb9ALS7ERwarC/g9CM4a571SxccpKPteqee+J4OtP0kP/T+rW2HWH6jR2Sb+MmteKi37/QMD4eFWJik2Grdw8r53OR085o37EpZSwWj+nCc3jFsq6lt6l6nEw61huA5jygJLAHavOVakI+3eqN6WQJZEgvtVxmvAFpiNEHLicou/6TWCdOhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pErVPW5wQuayik5g+MdoAs6bi7Nni2XKCVXRtpoy/bI=;
+ b=Ru+Mmk/RD33e13GllirPVLZ40Gf/coz+0LXNSWV/+LdBv9E6/BIy+n7LdSO3J67IHJjL/FBAGwDUN4LTD4SXJcVbMWjyXov8QQKkafVdf3e8+DSyEYKXcoSgmWhXBrymPMjLttDIpnGfvNtoqTb8oYPDr58WW7b5YacqJMS+bJyxZsfHcuLAsEs13SvIVjlYm9GhEOExVwZk52YLUJ3YktKtIdrL1bYdBdGXwoOzqN7hMswBY5llmYN6qkBDPLTb8F9ByZQ88f4HLMXgTzJG8sKxyC8OzgRffQJa0j/c3g0eGxDDbRLEUSulBcDk9OXTnHAde8KPl116G0hj4oDm5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pErVPW5wQuayik5g+MdoAs6bi7Nni2XKCVXRtpoy/bI=;
+ b=ielDYp+FXmEsMLZTHhI3EHvkKp1c/AivEgNNO2ND3ybQiI+0g2jByt9b6Hao0nf81RQIEkJeACoSNTc0LH7h/0kX1gCbPwM2WZnX+cCyfylbgB8UuhekBpv1VP9RYeRzYmQZPlhkOl0h9SHuoCGp69SYIGQt3gAjHe7z8bqKWJM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b4::24)
+ by LODP265MB722271.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ed::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 11:41:21 +0000
+Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::c07d:488c:d4aa:2a4a]) by LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::c07d:488c:d4aa:2a4a%4]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 11:41:21 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 12 Oct 2026 12:41:21 +0100
+Message-Id: <DM2TYMHMO5NS.2MNVKOAU96MD1@garyguo.net>
+Cc: <lossin@kernel.org>, <lyude@redhat.com>, <ojeda@kernel.org>,
+ <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
+ <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
+ <dakr@kernel.org>, <peterz@infradead.org>, <mingo@redhat.com>,
+ <will@kernel.org>, <longman@redhat.com>, <felipe_life@live.com>,
+ <daniel@sedlak.dev>, <daniel.almeida@collabora.com>,
+ <thomas.hellstrom@linux.intel.com>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v12 1/6] rust: add C wrappers for ww_mutex inline
+ functions
+From: "Gary Guo" <gary@garyguo.net>
+To: =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ <rust-for-linux@vger.kernel.org>
+X-Mailer: aerc 0.22.0
+References: <cover.1791799751.git.work@onurozkan.dev>
+ <4942155a8873e7f4015c5eda57ffb974a2261705.1791799752.git.work@onurozkan.dev>
+In-Reply-To: <4942155a8873e7f4015c5eda57ffb974a2261705.1791799752.git.work@onurozkan.dev>
+X-ClientProxiedBy: LO3P265CA0014.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:bb::19) To LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4b4::24)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOZP265MB8551:EE_|LODP265MB722271:EE_
+X-MS-Office365-Filtering-Correlation-Id: 981a037c-2db8-4b5c-f725-08df2855bccc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|10070799003|376014|7416014|1800799024|366016|6133799003|10067099003|18002099003|22082099003|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	bgn3wGfXi6zXpboDJf+qslhiXyUKNlr+ZjhJFjRYT+vjwY9cG/jTL8mknuv4/AR6JVDx5MT1VJRj307s5GGE2rZktLs4ni4H9iTxvQ9pdcwVS5AoCQuQELRDeBrVq9Ui8l7SIMeVCK0j9YlNXlb6oG9yOY7OFvsRWa7UvsqGgW8kkdm9gLhf53a1SiDGYEz1oy9N9darNyqhrMY+cMVAuipBHocszPv5Qz6a3uYOXJ32DahqH3lW0kmPDU9gRGmMqnP/feXVVfyTPRY8mFWLBGfc/hrbrj9PP8YU3dLLSB8K3olDJAwCXwmTF07UPfXM7Ee1GuMHvk2Vr3RQ+g+gLRQzdgKMSmBNk8wBG8LJ+9JBFrl2JcrFulA3Yo14Z2CSZ0Sse1VbQ4O88t4YkRjpAR825+2lVqgHhzfnTp4rUcSvvTGAn94WONXPiU0J53BakAEjQPBdHOGpKIt8v9IzcIM7e5lJ4BU4G/Uti1XgjrMwsihMrxvK8jNpUeqkd2SfERl7dgi47NnzQ3MjQRNoORCkIaosBy+FSj91GzoGMWR8hQMDCVkFe/5xyk0mYxQGdIJaiC7KOJ7m82PkeRwFwm9XBiBGSqgpCNTiRD9q3piRHn16U3fqC+oapEejqpnjyi8SNP5FJAreJ0RkbSk3xpH70pE+XakyObZIPOkA4YU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(376014)(7416014)(1800799024)(366016)(6133799003)(10067099003)(18002099003)(22082099003)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cGNEWktJOSsxZ2gxcHRHS1BOMkZDS1V6SlFVNHZ5OXZnWGpCczZGcDFPYjc4?=
+ =?utf-8?B?dkV3c0JFTjJubUJRUEVQdTBSVjdxOEpFdkR2Y0JmMXd3cW9RNGJEQjZoRzJk?=
+ =?utf-8?B?cng0NGk4c3BUMjRJK0JhL1VjSHY3VDlZcGEyWVpkM0RZNWdhc3JZUUVSa0J1?=
+ =?utf-8?B?anFaRkRBN0hqUGlUOWV1aGQ3aWxOcVV6aEYxL0RzcFFpSTNUdGMyM3JOUVJ5?=
+ =?utf-8?B?enNVbHFJUEh3anBMSDZ3eUF0VTFvSHhuVkg1Vmd6WGU4aDJOS25RSUpiTjkz?=
+ =?utf-8?B?Ny9LU2U3QkV0MkpiTTRFUWVTd2lnTTRqNEtRRERxRmxCRmthb1B3MTk3RWRT?=
+ =?utf-8?B?cVhscVlpbHVZNmxzVURKeER4RUk2R09qWjBUS1ZzK0Vhek1JOENKNExLbXc5?=
+ =?utf-8?B?bUlBanBVM3FzYmZXOEhjUERLdE9DeGxlYUlSd1JyVmtmREI4ZHJPZ004aFFV?=
+ =?utf-8?B?S3B2TCtSbVZCWFhQWkpuVnUvUU02MEJFa01tYi9ZV3BjYk9HTHFFUkkzZENV?=
+ =?utf-8?B?cGZxcGRrc3lFUzJEOHFZOVJWOWcxZWRFd0E4dURxUkR6NHNsTitxQ0pzb3BN?=
+ =?utf-8?B?dWNBOGw2Z2hsc1BiNzdGWXRwQnB4UnU2MHRnaVF3MDhSU3Q0YzJCOWliTVpG?=
+ =?utf-8?B?YWpUUDZlRTdpbUxVSHhQU00reGF5Rjg2MjdNQW13TGEzQlhEQkxPOTNqUkky?=
+ =?utf-8?B?VXlvQVdPUERGNXZJcVQ2UnFqeGRxSXh2eGpKTFZ5UUpOQVFFWVFnbVJVUndn?=
+ =?utf-8?B?bERpdlBwUG42SnJWR1V4cmw2Z0V3YnY4NDZwUG1DWllKSTduRkl1V00rakhX?=
+ =?utf-8?B?ZHdTM09HUy9TODZvY0h3cE0vVlgybWhFUzNUZUlVQm40UjEzSWZYeFlIcUw1?=
+ =?utf-8?B?MTBsM1pUQytvZDgyeXNTZVF5MmY5WXMxUzZiSGV5ejVPVlUwU0tqalVnUld3?=
+ =?utf-8?B?UUU1c3dYSXo5cnhwTFpObXVXT2UyWjQ0SUppNisveUVrdC9IZmQ4QUNmL3V3?=
+ =?utf-8?B?Rk1aQXNYUTVILzR3TTBWSEFhRGkvSVBPWEc0bnJsTGc5VzFtMExLSnBQUXZ4?=
+ =?utf-8?B?NytKK2hzTUtGcGVaQjFtMFpYdVF2ZnBWSjVlaW5NZHpSNFZTdGJwV3d0Zmtn?=
+ =?utf-8?B?TDR3OE0vZjNuTkg1SHRpL25oVWhnQUJkdXZQeUw0Z3RUWURwdXVMeklFRW9Z?=
+ =?utf-8?B?NFpqOFVOenN5WmgyUDJJa0Y5OHg3UDRxVGhCMEFzOWcwM09IeXNlYnFhWHJn?=
+ =?utf-8?B?dUxHQ0wvUDU5QXBGT280NGx2RzdGNFZFMGFBWTErWmNFSUF3THJQanpEejBq?=
+ =?utf-8?B?ZzJCWjJVeEFFNE9VNGZCZStMREdKYTYxK2lMOGl0Y1Rvanc2V09MaUVrSG5j?=
+ =?utf-8?B?b3VNTXYwbDdKRSttYlpoZXBtMmg2RjczMkt5SkNTbXVsSjVKZE9RNXNOUW9E?=
+ =?utf-8?B?eVNpeVBtTHVGdWZaTGxqNDA2cFpUUmpQZVFNdmMwQ3prcUM5U0ZHQzVyV0dL?=
+ =?utf-8?B?Zkk5c29zaXRodkVMYVlUTHA4UjVpY1BuVDFIS2ZDUTNzWlZmdDIvNTN0ZGRx?=
+ =?utf-8?B?Tk0zUHZvWXFpVm9YSlFzVEkxck9WVGFGcVh6dStIaG5WZ2xQQzZZZnpKcG9I?=
+ =?utf-8?B?S3A5RjZPY3dNcXN5VzFKNzdGVnViQURxc1NSVHJMWDM4YmdLZXJUY2xETENT?=
+ =?utf-8?B?ZUFKeHdYU0JuVnJiN1YwdUVUejlHVkw2djJocTJkSG5SbUZGcVczSFlNSXhw?=
+ =?utf-8?B?WGV2czVaaGxwSzdDUlg2VGJEYitGOFY5dFVCSkRNdDZKM0krMnZkQmdjb08w?=
+ =?utf-8?B?YXFxMXhxVXgwYngyUmxwYWIxNXFOL1dpSkpNMzk1Zkpra05mRFprU3FFenRl?=
+ =?utf-8?B?UC9oTkpQQTZNa2JVblprRjl4M0c2VTFJVmplWjljT284cGpmb1JzUSsweU9C?=
+ =?utf-8?B?UkJUaUU2ckRmU2RxUGV0UmVHeEtYM0hjdjk5YjQ4aC9MSk12bmFjYnplb0lT?=
+ =?utf-8?B?amNoOTBkUUpqMEwwaDFxRGowZzlaR2NXUDc0ZWE1MHhMRHpVS2Y3ZHROYWQz?=
+ =?utf-8?B?WHhpcVlqVC9LaEloRHAvTENaclRaeWFwWHdya0FhUHRpamlpcEl4MEh4QVBr?=
+ =?utf-8?B?eXIyaHRZc2IycXNRQzlSOFJWOEI1cHVoZlY3QTZlL2FkMFRMTElVeDR3bmVU?=
+ =?utf-8?B?ekJZUkRWbkFFNTIxY0RaeXV5bTF1aGxzR3JBVjhXdGlWQ1czSFJwbmd4em12?=
+ =?utf-8?B?bUtXaGx1Vm9SWkVNb0hDRldZdHFHTk9zSWZTUEdCS0hUVU11dDN6dGNhWlNk?=
+ =?utf-8?B?S0hYeDl3N1IvdGIvQmdkeTZnMkxDL0F0T0pXM2NvSnVxTkNWL3dvZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 981a037c-2db8-4b5c-f725-08df2855bccc
+X-MS-Exchange-CrossTenant-AuthSource: LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 11:41:21.5677
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1vfp8pbixbOEcvrtcoOwY3XBrlkAVCR721KvHfuTfLxi/kJZpc0iEF+cYSq1yR3uPbBbc74JLCINQNdqn6PlMg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LODP265MB722271
 
-The adapter hands the driver an inbound message through a fixed
-128-byte window:
+On Mon Oct 12, 2026 at 11:26 AM BST, Onur =C3=96zkan wrote:
+> Some of the kernel's `ww_mutex` functions are implemented as
+> `static inline`, so they are inaccessible from Rust as bindgen
+> can't generate code on them. This patch provides C function wrappers
+> around these inline implementations, so bindgen can see them and
+> generate the corresponding Rust code.
+>=20
+> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> Reviewed-by: Lyude Paul <lyude@redhat.com>
+> Signed-off-by: Onur =C3=96zkan <work@onurozkan.dev>
 
-	struct QBUFFER {
-		uint32_t	data_len;
-		uint8_t		data[124];
-	};
+Reviewed-by: Gary Guo <gary@garyguo.net>
 
-arcmsr_Read_iop_rqbuffer_in_DWORD() takes data_len from that window and
-uses it as the copy length without comparing it against the window:
-
-	iop_len = readl(&prbuffer->data_len);
-	if (iop_len > 0) {
-		buf1 = kmalloc(128, GFP_ATOMIC);
-		...
-		data_len = iop_len;
-		while (data_len >= 4) {
-			*buf2++ = readl(iop_data);
-			iop_data++;
-			data_len -= 4;
-		}
-
-A data_len above 128 therefore walks the 128-byte allocation, writing
-firmware-supplied data past its end, and the loop that follows reads the
-same overrun back out of buf1.  arcmsr_Read_iop_rqbuffer_data() has the
-same unchecked loop for adapter types A and B; there the destination is
-wrapped to ARCMSR_MAX_QBUFFER so nothing is written out of bounds, but
-the loop still spins up to 2^32 times with rqbuffer_lock held.
-
-Two of the three callers place no bound on the value at all:
-arcmsr_iop_message_xfer() for ARCMSR_MESSAGE_READ_RQBUFFER and
-arcmsr_sysfs_iop_message_read() both call straight into the reader on
-ACB_F_IOPDATA_OVERFLOW.  The third, arcmsr_iop2drv_data_wrote_handle(),
-compares data_len against the free space in acb->rqbuffer, which is up
-to ARCMSR_MAX_QBUFFER - 1 and so still far larger than the 128-byte
-staging buffer; it also reads data_len separately from the reader, so
-the adapter can change it between the two reads.
-
-Clamp the length to the size of the window in both readers.  A
-conforming adapter never reports more than sizeof(prbuffer->data), so
-this does not drop any data it sends.
-
-With a KASAN build and a crafted window, data_len = 4096 produces 992
-out-of-bounds 4-byte writes (1024 dwords less the 32 that fit) in
-arcmsr_Read_iop_rqbuffer_in_DWORD():
-
-  BUG: KASAN: slab-out-of-bounds in arcmsr_Read_iop_rqbuffer_in_DWORD+0x240/0x2a0 [arcmsr]
-  Write of size 4 at addr ffff88800b5baf80 by task init/1
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x66/0xa0
-   print_report+0xd0/0x630
-   kasan_report+0xe4/0x120
-   arcmsr_Read_iop_rqbuffer_in_DWORD+0x240/0x2a0 [arcmsr]
-   </TASK>
-  Allocated by task 1:
-   __kasan_kmalloc+0x8f/0xa0
-   __kmalloc_cache_noprof+0x22c/0x570
-   arcmsr_Read_iop_rqbuffer_in_DWORD+0x7b/0x2a0 [arcmsr]
-  The buggy address belongs to the object at ffff88800b5baf00
-   which belongs to the cache kmalloc-128 of size 128
-  The buggy address is located 0 bytes to the right of
-
-The first value that overruns is data_len = 129; 128 and below are
-reported clean, and 124 (the window) and 120 copy byte-for-byte
-identically with and without the clamp.
-
-Fixes: bb263c4ecbb1 ("arcmsr: fix ioctl data read/write error for adapter type C")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/scsi/arcmsr/arcmsr_hba.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/scsi/arcmsr/arcmsr_hba.c b/drivers/scsi/arcmsr/arcmsr_hba.c
-index 8aa948f06cacf..255f1d898079f 100644
---- a/drivers/scsi/arcmsr/arcmsr_hba.c
-+++ b/drivers/scsi/arcmsr/arcmsr_hba.c
-@@ -2277,6 +2277,8 @@ arcmsr_Read_iop_rqbuffer_in_DWORD(struct AdapterControlBlock *acb,
- 
- 	iop_data = (uint32_t __iomem *)prbuffer->data;
- 	iop_len = readl(&prbuffer->data_len);
-+	if (iop_len > sizeof(prbuffer->data))
-+		iop_len = sizeof(prbuffer->data);
- 	if (iop_len > 0) {
- 		buf1 = kmalloc(128, GFP_ATOMIC);
- 		buf2 = (uint32_t *)buf1;
-@@ -2319,6 +2321,8 @@ arcmsr_Read_iop_rqbuffer_data(struct AdapterControlBlock *acb,
- 		return arcmsr_Read_iop_rqbuffer_in_DWORD(acb, prbuffer);
- 	iop_data = (uint8_t __iomem *)prbuffer->data;
- 	iop_len = readl(&prbuffer->data_len);
-+	if (iop_len > sizeof(prbuffer->data))
-+		iop_len = sizeof(prbuffer->data);
- 	while (iop_len > 0) {
- 		pQbuffer = &acb->rqbuffer[acb->rqbuf_putIndex];
- 		*pQbuffer = readb(iop_data);
--- 
-2.43.0
+> ---
+>  MAINTAINERS             |  1 +
+>  rust/helpers/helpers.c  |  1 +
+>  rust/helpers/ww_mutex.c | 33 +++++++++++++++++++++++++++++++++
+>  3 files changed, 35 insertions(+)
+>  create mode 100644 rust/helpers/ww_mutex.c
 
