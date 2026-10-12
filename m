@@ -1,241 +1,281 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010059.outbound.protection.outlook.com [52.101.46.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88B1451991;
-	Mon, 12 Oct 2026 13:50:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791813034; cv=none; b=S8wePFl2RvfWz1B5ZtgvJ8HgDYWcxq8lbvWTN6rDOviMJ0twv6PgzG+WhFo4YhL77J0uj7zewcq7cIrli7+xUXkGLyOKAgIkjr+hZacsj/Bxo1SF2wHZpYpUE506vVksInpfhCbhw1FNwsEh/kjz2DP4gI7Lvf8nEcXNKNpDe44=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791813034; c=relaxed/simple;
-	bh=saz7bni8UyZZ2wuWhgBhDzCLXiD9M7QD1xEEe3ZCbR0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jAI4dPRK9HmiiMbQFBBIRsOJJ5GBKn/NsN4XPpxirVpiKoozDdeGtJMCsSc2YxAyDHs1ND0I694a3eKUZJghXvQL5mMxdnOjYdqhoUq3Cq+KpVIfRwSgifcR0hRZKbM7yrWVSfv82+0bP8Z4tG9/TOKv3dEQgwmaaneq63BguVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=jMoCbSR/; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A07F47012B;
+	Mon, 12 Oct 2026 13:50:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791813035; cv=fail; b=OapsiJXd4RnYzZbZAFPKiIvDPisP00urE4jfU8WhZg/LwOv5b70cOkKNv6Ud417pq79s7o6iriqrVy5acov/JFd8kPR54Cx8yJJzEjuApDF9caoqDiXIUuObOopisNvrEfmh8L3a6JguNFSrjE0IEqKcyXCdCGnnrbJbualBTn8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791813035; c=relaxed/simple;
+	bh=Ra1q/7LhP4EjGNVfMkNykzLq7DCUueRtuMycT5ilQU4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=R9X0Je9mnUu+/WKYetUK7S3q/EhOvl1Ufm23VTHxPw7++7NbVMYfXUefyVHvrHCh7vpEavUPR0YagyvZS0uHzrWs23f6tABDclGvZb4CnvQtlYPLOBbmZKDaLmC2Smj3jxWHLpP7li8KGUB9cMr6it/ChsDCPH4UQWQHGGzBA9c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=CQx6Kp3U; arc=fail smtp.client-ip=52.101.46.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="jMoCbSR/"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCE8Z6316315;
-	Mon, 12 Oct 2026 13:50:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=m9XrfL
-	lFdOfMqg6YGcL8czVCbU54w9IACGSuHuF0dhQ=; b=jMoCbSR/8HZdhPfPr8fPAf
-	5pUpAWDSJifL2ek8USrhXy5Ew04zgQBcvmOeyIaRTCXIDoaKxwV1bCYuf2H5rcuL
-	fOoBtnwmj+ucbXkMl11rHxN2WfLsKQlhjvR2oBO0+jDiBoxfAUy+2LGH99xX880W
-	B4buULBXbAvqAtILimUp5A9TnLDmX8gUm2OxAgRecpmm5Auz7VewNzguDPQEWUp7
-	9UtP0u1aogizTcMEYTu5zogoyFiyU2QqWpvafq47Cs0tm/9vx/mn2Od4rBP5I8Ew
-	pOPln+X/a9o3fdQOWAcvpHgmRlwyJcQdaZbhbFxURvzzEzu0NXJT7D+VMMQ0nZug
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dug96rg-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 13:50:08 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC4xFm1287098;
-	Mon, 12 Oct 2026 13:50:07 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h816gwb9a-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 13:50:06 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CDo2mD42926560
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 13:50:02 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CC95A20043;
-	Mon, 12 Oct 2026 13:50:02 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1C24E20040;
-	Mon, 12 Oct 2026 13:49:58 +0000 (GMT)
-Received: from [9.124.214.197] (unknown [9.124.214.197])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 12 Oct 2026 13:49:57 +0000 (GMT)
-Message-ID: <58c8e6cd-3fbe-4975-a0f3-9a16d5b7c604@linux.ibm.com>
-Date: Mon, 12 Oct 2026 19:19:56 +0530
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="CQx6Kp3U"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H7FuvL5TFJnADFfw7gS2c9+8iFefSmLHGl6ZvNEID7S7iP911clZ1C5Jgxpt4UGGJk5Lpqa7OpkGS0ikUh3+EA2BE4TBdS10fQy88HCrzGkte56LDBzaAvn947ZQQitvMPkjqDjx01C4ZirZb0dMLT2NkMlbetDMapycVIHRuIDxtwFNZGEEvzh/8NUqGglM8iLenMln8vdoZC/OS0U4/fJIq2B2VKof7r7dlQ0EwWSLccTy5hKaoXZnFMX1xodgUYwLOu335katRGGQzpMoEmcmRjR6d0yS9GK0WRCLUgkV4M5rDCJjgkp3f4qryEzASGLXfMmkpHz9psLmP7fq8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F68M8LrU1q311qXeGc8ixHPI1kRxtYhRbDWHLanVff4=;
+ b=kiF/XFda73CGutuGHe/u2GnvfQGvvnbR+zhis+bOB63zpF5xSErR8DtLfaf+Hb+fLktR2+ElLXLeP+t8Ci/MJPb0y4+tHiD1N47Yp1af5Z1MZUmnsfU8nrIV9uOqToSvoYHKg1ZI4jkP5S2Fl9as94uwf3y4e7zDkdRTy8EWMs81ACn4Ue4FzbF5vvrb6Gtl/JHHMBB/TitmLUn1ezEmZhovm4VS9o2A7Y5IeMD9ocUBYLS7Y2rnlvtdaY3GvVuf6/n9/ej1PwYcjl2pS9qKw59GWsrYrEipadAKHrRoSdqfTHmwSqe0UzOW5/7yU9/VcTEBNfiVayGKosePOt6L2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=F68M8LrU1q311qXeGc8ixHPI1kRxtYhRbDWHLanVff4=;
+ b=CQx6Kp3U95o7vhIhTlKYUsT+vcjVvuoDC22DSV+50VVv1Gd6ydhHQZv7RyY440ZvDGBQGidGtBNLpwW5gNIS5SQ3aaXhg8PeN5XD6BjXHcAer+B2akyMdlBhPbOrZx7YjZ/zEV/gicsucuzih8P/43C2sFN8trTYler0bUnhO3DepDPMyqkD2EXy9caQAFTqqHAc+WOelWhRmO66FzakSegNcDy5q3paFHxG68FtsxKfqMs0c+2Mfmk2XDv6F3oz+HLqsFaOERGMErmInNBk7PU9evWkV1QA6fTXq+mcY2TtNiL8+cZt+6QPp+Tx8b2vh7kwSGLzocqDDD5a9cDq3A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19)
+ by CYXPR12MB9442.namprd12.prod.outlook.com (2603:10b6:930:e3::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Mon, 12 Oct
+ 2026 13:50:31 +0000
+Received: from PH7PR12MB5974.namprd12.prod.outlook.com
+ ([fe80::f5a5:bbc3:e9da:f8a0]) by PH7PR12MB5974.namprd12.prod.outlook.com
+ ([fe80::f5a5:bbc3:e9da:f8a0%3]) with mapi id 15.21.0496.010; Mon, 12 Oct 2026
+ 13:50:31 +0000
+From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kent Gibson <warthog618@gmail.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 3/6] gpiolib: cdev: do not free line IRQs again after the chip is removed
+Date: Mon, 12 Oct 2026 16:49:57 +0300
+Message-ID: <20261012-gpiolib-chip-removal-v1-3-aambrozewicz@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261012-gpiolib-chip-removal-v1-0-aambrozewicz@nvidia.com>
+References: <20261012-gpiolib-chip-removal-v1-0-aambrozewicz@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: FR4P281CA0275.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e6::17) To PH7PR12MB5974.namprd12.prod.outlook.com
+ (2603:10b6:510:1d9::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/2] sched: Introduce idle SMT priority for asymmetric
- capacity systems
-To: Mete Durlu <meted@linux.ibm.com>, Andrea Righi <arighi@nvidia.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-        Juri Lelli <juri.lelli@redhat.com>,
-        Vincent Guittot <vincent.guittot@linaro.org>,
-        Dietmar Eggemann <dietmar.eggemann@arm.com>,
-        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
-        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
-        K Prateek Nayak <kprateek.nayak@amd.com>,
-        Heiko Carstens
- <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Tim Chen <tim.c.chen@linux.intel.com>, Chen Yu <yu.c.chen@intel.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org
-References: <20261008-hiperdispatchfix-v1-0-73fe41081070@linux.ibm.com>
- <aseIPhrDGCYFtJNE@gpd4> <90454932-1d82-450a-ac4c-499acdedb9d7@linux.ibm.com>
- <ffbeae31-0e93-4386-8e0e-dba13960b283@linux.ibm.com>
- <cc926e51-7223-4d3b-9896-3ed8955b584f@linux.ibm.com> <askERc5Xa9NhAfk_@gpd4>
- <effe96a4-c995-4da4-aac6-bef195df36c2@linux.ibm.com>
- <6c4fcef6-6ff8-4733-a451-53744d2c821d@linux.ibm.com>
-Content-Language: en-US
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-In-Reply-To: <6c4fcef6-6ff8-4733-a451-53744d2c821d@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=Cr0q4X4D c=1 sm=1 tr=0 ts=6acce590 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=TxRU7OXsotaLDgitQIgA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: 6TL4JQImcHe9Bon6KYTJfWfszdZ7tWGt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NCBTYWx0ZWRfX6f7hc69ezFQZ
- b08qtdln7LJ7KW0F08ltZ3qTWYO0KN48SCeBs5AF8uIUFd39969BuurY/l9HVmHczVn6QdJ2g6t
- M9w+/S6Xqzq/E85UjnaEWA7TIeycDJhUa2Ztp+yGpu8OsHrr8TnC4y9YhSWPI+KOV1hsNV/Yrnk
- tNnkJ2rzLwQO8QAQBHNp1juQadVWuYDDZQmJe2e/vx5wY0GbQIdYk/iCAospJg2ns5hOD0AwiLZ
- 1Gx9DqJDjx0+MMWCa3qGOuLleVNQ1aW2QCgS0Len5PS7AxCQPdU3xd+q/bKUFxFevPIeCCokJRu
- RPYTBP38qXo1HT1mx4/LTzMsRx4Mxxd7pEW4I8yFclUg042kuYrHT1vrW8CMTWn+XC8fKxxGARj
- AtO6v/CaNi5k8cZNCkUU7FTnYA81vl3Mhtst7xy5sSN4sJAQW2t/jSnmFinUwtc11QA21KbQh5c
- hDi6cl7otIle06XbQhA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NCBTYWx0ZWRfXxWf70FXxiqDU
- 1FZvAq56sas8LzVj4Bw6b0Ap+c3yQ9CLGplm84LlrNxlR111AmefTp00UHMdtHq0SS891eK8QKe
- PknokOzcruXactiQtDEifDmBjvt8YEw=
-X-Proofpoint-ORIG-GUID: hNTLNnEFM3yjKDViKzPbX2siEb0OsnF8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
- malwarescore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120054
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5974:EE_|CYXPR12MB9442:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b41ba0c-6fe9-42e3-2e4d-08df2867c744
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|56012099006|11063799006|6133799003|10067099003|22082099003|18002099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	IeMGCfymsBStthDKx9z+EonHLVI5pQqMaGrOeXOzr1N1X61kgHo/hvwS82Ya4dklJl6FJ36+G6n/eTW34wel3uCVqRbZFqIpvDffYmGRlCcF4Ry54xfG/QfuB1MVtceyYBLaus5uzXD55RKjkQTHb3h9KkHcbcVXR/slveHPo+x5ucD7b/bN1rABbys50KavP1N0R1eyZwBnt81SmS8zYg7p8KHuWmAMJfG4eLfpFumDq8IZZYeMqactAuzjiyo4Bg26UbAEfbN3SPGAI2kN6SA2cwxVqbEQyRDEz3cwf1zHiewrcaKYCgTLgLOpzL0NN8D3qw/DHSQo7iM9XEOgV8NfNszsFaTZEe29vL26z2bzPzn560+bUaAYTrCLN6HA6aUsdAqaS3cq96AlTQU8vkL3b2T5vtgN1j95Q1x12jNygjU2s73YSRlOlwj1IJuddKFk9sNbUmAga9AZ6Aipzlcal2+iI4ZxEO7l6hGvlfqWpKyA9XGnx9eV8S1wl2mF0lWPvUIVCrrWKSvSHy4ze5FnwEpF+TWfWS+7MKvWRJ8yApWrKVFQz+9mO8mOspkpTFeZF1guUNMwnncFEik2CPZ8MY3LnT+Hlj/XBP+rkNNUc5Rk98PsGJZRG0HRATfNB1zCZEfSFjyYOQr38oLoiGEiRvl798u7T5vCxoEOFq8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5974.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(56012099006)(11063799006)(6133799003)(10067099003)(22082099003)(18002099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?44xHjWbJTP2tiv4FSy42FZmB0prYTXild8ip0MfoUCZklhxZT3u8LLtF5QW0?=
+ =?us-ascii?Q?QpcGBpVcDmalkfhrFtBgU/VK/vXCvAEd8I9piHF15x0+cegYSVoCcF+kZlsu?=
+ =?us-ascii?Q?oBQf6dIWJeOrcklhxvVwJGDt4v7f2ZjfVqviz9gS969+HzE7fG8TiGKFGlgt?=
+ =?us-ascii?Q?ifdte+6ts7ZP44caVIJQS8tu4jdiF676MyJf7IQ/mzYxS3xq7apX852aYS0j?=
+ =?us-ascii?Q?kQQ6ysAubwcNjBz1N1lv9baXEsYCqhVJwJuov+nz7T/zQgsbK2VZ624a1DZ4?=
+ =?us-ascii?Q?XGqogyEv1zpJFbJYg+fBrLhvoBoqh1tp6QB+F4FMrtl0NRXrLdhOC4A8BZp4?=
+ =?us-ascii?Q?7M3QMkMuYxtm0ONfRbuKxWY7rMWdd2gGn1TeN0WgzTWNDgD6oNV/TEaz4znO?=
+ =?us-ascii?Q?0gK9JrzITJQFUtSODgy0SIGZBy3Vn+M00eOzdwgpw8mWNLAD8JOWgGZ79pAp?=
+ =?us-ascii?Q?+YzZl5fyLXgqUMexJXdWhj0GXO/ik2gqXxuvCQHSih4IqG6G+d1wbkZ/4VrS?=
+ =?us-ascii?Q?SGOh9ha1N9gzk8boi/1d3tfWn0mxCYdJcJ1P6DMR8pB7M5+0udfRKxu9m5l+?=
+ =?us-ascii?Q?KzvdMLZN07LtqPJ0UI4Q+jYxu/Loa0qY7WMq7aZa1SCBveekS298BmZMWSm3?=
+ =?us-ascii?Q?+QWAyLWDeYO8q5+FNpXqDrT+SyymzIkoW7yeEIy6paxG9CVsaIyYeJvJlvkz?=
+ =?us-ascii?Q?xKjA3t3dhgoH6CZ4DdFdzT3Mf5PyfTkyiEtroJbu5Qdu2hOsq3kGUS0GTbME?=
+ =?us-ascii?Q?EYAchhvTLkyPIcRufnamaSEHig+BdV3sFgfEVDUmwkK7W8n+ocDg4qQt8Jcp?=
+ =?us-ascii?Q?FeJUoJ5p1mZS1v9sqNQ1z3P/Jgwj46DkRhk60aANK20fvNrpG4QRoih0EolS?=
+ =?us-ascii?Q?3M5qCfJp4m0uj3yxxF5jMbIbaBWKbK/fZK3Pi2Peu1XreaGmKhuW5zPy4VHr?=
+ =?us-ascii?Q?X0TCLT83Dv09e4TWaw2L8bZeSZ32DDBdkV9S2bZZZekVOFnXaX6pRIWuv25o?=
+ =?us-ascii?Q?orlsTcq2LJ9PiQcT9jBVUYG7ouy0jaaAo4njX06MR24hXmlAYQcUoETqL2Ni?=
+ =?us-ascii?Q?gpipJkSdPX+0of4zF8i31mhj1BObKoK8BiWPbpDBFq6/Sw7cuIWY6LhUoG2E?=
+ =?us-ascii?Q?GbLarIxW92z1jao7nP0cG4WsdhK+r5B6jAUcLcWu3qw2V0CkYwEpCBF02V7a?=
+ =?us-ascii?Q?gzMSlAuFV9EyxqCPr2Oqth2KiiV6pxUPvht7JuzOMLSjE6aBbZurWwIaPb1q?=
+ =?us-ascii?Q?JrsZ8lZgPtcCKgu0muaJs16jecawlXy79Ckm60UM7lUjein/8CmpvdZWNOVo?=
+ =?us-ascii?Q?v25Dn7H1w9gKuQwFauDFHDdTZtPfrOgTjOznCMx+m6PX0QsOJj2d51wWKIXr?=
+ =?us-ascii?Q?P04Tyu2h+hoAQ+xNYCydzqujgWKx3/hfGX8tcFSFHOFi5JPuEddI6X4PKcMV?=
+ =?us-ascii?Q?6DZx9dRQcSRGMqYTJSMi5DJvc9Ljs/3ryM2siCbiif20DsTkPXeY0wX/EFH+?=
+ =?us-ascii?Q?ilsWmGJWZ2o0ZhPb2xXHbKmq1i5zHv/bGDe0BUFwQR+gVrfRpxoGzj/zLuiZ?=
+ =?us-ascii?Q?Dwii7zDppNIiSw7iIFS+x5BMMBEbt/6dd7jbf+mzQi3/PA3M6EUzrCsgd7IB?=
+ =?us-ascii?Q?KOSpAwJ1z4qA8+Kj9DALaGZ4OoZhTfc+L8VuRkTHIe1/VzdyrKjqrmZ8MpE3?=
+ =?us-ascii?Q?LrAeqihSAQ6SMd/JT4pG/z2QXJ5PKmD9k8fGZBfhDFxgi/4hHyMfu43j3Zxu?=
+ =?us-ascii?Q?J8WB7H3Ajg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b41ba0c-6fe9-42e3-2e4d-08df2867c744
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5974.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 13:50:30.3642
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3KpSflwTopBEyxLu45BxF87ih9zpAlVCJltcT5YZvqLHRRDdxlFJOL0dayAsdjXkULGLnBcIU5raRmm9ZtEWXQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9442
 
-Hi Mete.
+Since commit ec8b6f55b981 ("gpio: free irqs that are still requested
+when the chip is being removed"), gpiochip_remove() calls free_irq() for
+every action still installed on the lines of the chip. The character
+device does not know about this: a line request or v1 line event that
+user space keeps open across the removal still holds the IRQ number and
+calls free_irq() on it again when it is released.
 
-On 10/12/26 6:02 PM, Mete Durlu wrote:
-> Hi,
-> sorry for the late reply, I have been sick since Friday.
-> I though about what has been written for a bit.
-> 
+What that second free_irq() does depends on what happened to the IRQ
+number in the meantime. If the chip disposed of its mapping, the
+descriptor is gone and the call returns early, or, when it races with
+the RCU-deferred free of the descriptor, it touches freed memory, as
+reported with virtio-gpio. If the number was handed out again, for
+instance because the same chip was set up again, the call finds a live
+descriptor without our action and warns:
 
-No issues. Take care.
+  Trying to free already-free IRQ 28
+  WARNING: kernel/irq/manage.c:1881 at free_irq+0x193/0x2d0, CPU#2: gpio-hold/111
+  Call Trace:
+   <TASK>
+   linereq_free+0xd2/0x120
+   linereq_release+0xd/0x20
+   __fput+0xed/0x2a0
+   __x64_sys_close+0x38/0x80
+   do_syscall_64+0x109/0x5d0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
 
->>>> Well, when we see steal time, it usually means there is high contention and
->>>> we are using more vCPUs at this moment than possible.
->>>> So we mark them as non-preferred. Note that they are idle cpus. But non-preferred.
->>>>
->>>> That means preferred CPUs may have more than 1 task. If we spill over if there
->>>> is idle non-preferred CPUs, we will be back to square one. No?
->>>
->>> I agree that CPUs excluded by the steal governor should remain avoided even when
->>> all preferred CPUs are busy.
->>>
->>> I'm wondering if we should have two levels: cpu_preferred_mask acting as a hard
->>> affinity constraint and an entitlement-based soft affinity within that mask? The
->>
->> That not what entitlement usually means. At least not PowerVM. when one creates VM,
->> they assign VP=Virtual Cores and EC=Entitled Cores. and Hypervisor ensure at least EC
->> worth of cores are always assigned to that VM. There is no need of priority within that
->> entitlement.
-> 
-> Wouldn't it make sense to first fully load entitled cores before
-> moving onto virtual cores on Power? On s390 we would definitely
-> benefit from it on some cases.
-> 
+Stop edge detection from the device notifier that gpiochip_remove()
+already calls into, rather than when the request is released, and only
+free the IRQ there if it still has an action: chips that never mark
+their lines as used for IRQs, which gpiochip_lock_as_irq() leaves to
+the driver, keep theirs past gpiod_free_irqs(). The release path then
+finds no IRQ left to free. The notifier takes the request's
+config_mutex, which is otherwise only taken by the ioctls, so that it
+does not race with a concurrent reconfiguration of the lines.
 
-Only when there is a high physical CPU contention.
+Reproduced with gpio-sim: request a line with edge detection, set the
+chip's configfs "live" attribute to 0 while the request is open, set it
+up again and request the same line, then close the first request. Each
+of 30 cycles warns as above, for v2 requests with and without software
+debouncing and for v1 line events; with this change, 100 cycles of each
+pass without a warning.
 
->>> soft affinity would prefer high-entitlement CPUs: first fully idle cores, then
->>> idle SMT siblings. Once those CPUs are busy, tasks could spill onto
->>
->> I think when one has high steal time and hence reduced preferred CPUs, there will
->> likely be no fully idle cores within preferred CPUs.
-> 
-> Shrikanth, wouldn't something like below still make sense?
-> 
->> Note that current logic takes out last set of CPUs and find_new_ilb iterates from
->> the beginning. So if there is idle core within the preferred CPUs, it will be chosen.
->>
->>> lower-entitlement CPUs still inside cpu_preferred_mask, again preferring fully
->>> idle cores over idle SMT siblings. If all CPUs inside cpu_preferred_mask are
->>> busy, tasks would queue there. The soft affinity would never override the
->>> governor's restriction by spilling onto CPUs it excluded due to contention.
->>>
->> As we were discussing, as long as threads don't end up on non-preferred CPUs,
->> we might be okay. With the above, find_new_ilb will becomes very complex IMHO
->> and I am not sure if it is worth it.
->>
->> likely what we need is,
->> - Fully idle preferred Core.
->> - idle preferred CPU.
->> - any idle CPU.
-> 
-> Andrea does this resemble what you were describing;
-> 
-> 1-) (steal time == 0)
-> ====================================================================
-> cpu_preffered_mask = active_cpus
-> cpu_soft_affinity = 0
-> 
-> All cpus are available for scheduler to pick and use.
-> Idle cores are preferred in case of asymmetric capacities.
-> 
-> 2-) (steal time > 0) && (steal time <= initial_threshold*)
-> ====================================================================
-> cpu_preffered_mask = active_cpus
-> cpu_soft_affinity = entitled cpus
-> 
-> In this case entitled cores get fully filled (SMT siblings first)
-> before spilling load onto the rest of the cpus on preferred mask.
-> *Initial threshold is a value I just devised. Ideally arch specific
-> and dynamically configurable, setting it to just 0 should also
-> be an option.
-> 
-> 3-) (steal time > initial_threshold)
-> ====================================================================
-> cpu_preffered_mask = entitled cpus + steal governor's modifications
-> cpu_soft_affinity = entitled cpus
-> 
-> Carrying the logic from case 2 but shrinking the preferred mask
-> according to the increased steal time value.
-> 
-> Shrikanth/Andrea,
-> does what I describe above make sense and would it make a reasonable
-> addition to the vCPU backoff mechanism?
-> 
+Fixes: ec8b6f55b981 ("gpio: free irqs that are still requested when the chip is being removed")
+Reported-by: Jia Jia <physicalmtea@gmail.com>
+Closes: https://lore.kernel.org/all/20260817070429.157993-1-physicalmtea@gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+---
+ drivers/gpio/gpiolib-cdev.c | 52 +++++++++++++++++++++++++++----------
+ 1 file changed, 39 insertions(+), 13 deletions(-)
 
-I am confused. Are you talking about
-1. picking CPU to run idle load balancing?
-Or
-2. actual task placement decisions?
-
-If it is 1, we should do only if there is any good improvement with real life workloads IMHO,
-as current find_new_ilb isn't aware of preferred CPUs. Even in that case just picking
-an idle preferred CPU over an idle non-preferred Core is better than above i think.
-
-If it is 2, I am not sure. getting soft affinity is kind of tricky with load balance.
-It puts maximum effort in spreading the tasks. Since you have steal time, there is already
-enough tasks to create physical CPU contention.
-
-PS: Steal governor provides a tunable named low_threshold, which means any steal value
-below is practically 0. So there is no soft affinity there.
-> *Considering guests with hardware based topology and underlying
-> hypervisor scheduling vCPUs per core;
-> I'd expect this approach to allow for guests having a smaller
-> footprint for longer and steal time to start appearing later than
-> usual as the entitled cores are fully utilized before touching other
-> cores.
-> 
-> *This is the case for s390 for example. I am not sure if it is the same
-> for Power or any other architecture.
+diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
+index 5d53bfcdf726..2c9ec524d38e 100644
+--- a/drivers/gpio/gpiolib-cdev.c
++++ b/drivers/gpio/gpiolib-cdev.c
+@@ -544,17 +544,6 @@ struct linereq {
+ 	 GPIO_V2_LINE_FLAG_EVENT_CLOCK_HTE | \
+ 	 GPIO_V2_LINE_EDGE_FLAGS)
+ 
+-static int linereq_unregistered_notify(struct notifier_block *nb,
+-				       unsigned long action, void *data)
+-{
+-	struct linereq *lr = container_of(nb, struct linereq,
+-					  device_unregistered_nb);
+-
+-	wake_up_poll(&lr->wait, EPOLLIN | EPOLLERR);
+-
+-	return NOTIFY_OK;
+-}
+-
+ static void linereq_put_event(struct linereq *lr,
+ 			      struct gpio_v2_line_event *le)
+ {
+@@ -609,6 +598,17 @@ static inline void free_irq_label(const char *label)
+ 	kfree(label);
+ }
+ 
++/*
++ * gpiochip_remove() frees the interrupts still requested on the lines of the
++ * chip being removed, so once the chip is going away the IRQ may no longer be
++ * ours to free.
++ */
++static void free_line_irq(unsigned int irq, void *dev_id)
++{
++	if (irq_has_action(irq))
++		free_irq_label(free_irq(irq, dev_id));
++}
++
+ #ifdef CONFIG_HTE
+ 
+ static enum hte_return process_hw_ts_thread(void *p)
+@@ -975,7 +975,7 @@ static u32 gpio_v2_line_config_debounce_period(struct gpio_v2_line_config *lc,
+ static void edge_detector_stop(struct line *line)
+ {
+ 	if (line->irq) {
+-		free_irq_label(free_irq(line->irq, line));
++		free_line_irq(line->irq, line);
+ 		line->irq = 0;
+ 	}
+ 
+@@ -992,6 +992,27 @@ static void edge_detector_stop(struct line *line)
+ 	/* do not change line->level - see comment in debounced_value() */
+ }
+ 
++static int linereq_unregistered_notify(struct notifier_block *nb,
++				       unsigned long action, void *data)
++{
++	struct linereq *lr = container_of(nb, struct linereq,
++					  device_unregistered_nb);
++	unsigned int i;
++
++	/*
++	 * Stop edge detection now rather than when the request is released:
++	 * by then the IRQ numbers of the removed chip may be in use again.
++	 */
++	scoped_guard(mutex, &lr->config_mutex) {
++		for (i = 0; i < lr->num_lines; i++)
++			edge_detector_stop(&lr->lines[i]);
++	}
++
++	wake_up_poll(&lr->wait, EPOLLIN | EPOLLERR);
++
++	return NOTIFY_OK;
++}
++
+ static int edge_detector_fifo_init(struct linereq *req)
+ {
+ 	if (kfifo_initialized(&req->events))
+@@ -1792,6 +1813,11 @@ static int lineevent_unregistered_notify(struct notifier_block *nb,
+ 	struct lineevent_state *le = container_of(nb, struct lineevent_state,
+ 						  device_unregistered_nb);
+ 
++	if (le->irq) {
++		free_line_irq(le->irq, le);
++		le->irq = 0;
++	}
++
+ 	wake_up_poll(&le->wait, EPOLLIN | EPOLLERR);
+ 
+ 	return NOTIFY_OK;
+@@ -1872,7 +1898,7 @@ static void lineevent_free(struct lineevent_state *le)
+ 		blocking_notifier_chain_unregister(&le->gdev->device_notifier,
+ 						   &le->device_unregistered_nb);
+ 	if (le->irq)
+-		free_irq_label(free_irq(le->irq, le));
++		free_line_irq(le->irq, le);
+ 	if (le->desc)
+ 		gpiod_free(le->desc);
+ 	kfree(le->label);
+-- 
+2.43.0
 
