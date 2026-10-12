@@ -1,132 +1,92 @@
-Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12043AD507;
-	Mon, 12 Oct 2026 05:43:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.54.11.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C9883537E8;
+	Mon, 12 Oct 2026 05:44:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791783840; cv=none; b=Z1hqjTeI9wT9pTpevbGlSZceI3/Qm+D318kl6tjzikqggo9ju8bCLYvb8ri50gqJajUuiOyX+r7Hl6I//HkjB7/MsB3SggKp40swL4kog6JXrU4SbHlAaRikPcnFGgbzmp5FHuBy30veLgLtILQuiwPuIIFDKNcdft1uB/dv5cM=
+	t=1791783865; cv=none; b=YbrQzO2ipvn0xyp8H5pL9NLMz1ZsSb82UhwrTCOl/2p/agQj1jpvealH7ht94/Rnno//khOvzRJHkDPvqDBwF+lj9s/yug+NrAymbdQs56kh605GNlylFVYmjnGvsfgKheJeX6pLgNvFrRa/Z40YuvdrchLoe4OVku4zoXqmKT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791783840; c=relaxed/simple;
-	bh=D8XF8NrMW2gK0eTke1CnLPaendq4DLcgKIBB+Jm/3ds=;
-	h=MIME-Version:Content-Type:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID; b=IMJydpl+d9JLB0oGGv17zsPYSRIO5xyN3KulJsAdv/A5q2rF+l3sZdXZzw3r/BXO+nVYX35LBiQ/YWO0vQVsGjYHvl6Dzmn17Epj9Nqglns8lc9N5YxjlW3iyri+sQ+M8Zb/5qKtJcjVscPKfpSJ/W6TZdjl1zazvV4/DGlgXtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br; spf=pass smtp.mailfrom=inf.ufrgs.br; dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b=kqCs2OjZ; arc=none smtp.client-ip=143.54.11.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
+	s=arc-20240116; t=1791783865; c=relaxed/simple;
+	bh=Cogu/pFMc9yuLZJiJzJBing2CsSEJdu2Yd8zlYYfu84=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=h0BdieiQkShwAL+/+7UGBL3lF92QN0L8XclkpJ6UOCC2aR9+ElPcKOAocB0PkXkCgCnTsynXsZC9b4w805n3beWO8RuuDmYJbAA73oc37e9XDmLN0Ozc2Kqx/IGsWNbphHbetnBnRyOv5Cp6+BhVSwUv8sTemPbA8rTbJey6TGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=RMJvgf3G; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="kqCs2OjZ"
-Received: from webmail.inf.ufrgs.br (webmail.inf.ufrgs.br [143.54.11.45])
-	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 8EE01121113;
-	Mon, 12 Oct 2026 02:43:46 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
-	s=dkim2026; t=1791783826;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Vg86jNz1esPLXPOWct4bvk16TgMkacXdiKmrusySEvk=;
-	b=kqCs2OjZ1OXJc7PzQCvTJl4JvFuZ3CQlLFqTkWZ0Ipk0UrKoeOElx5naeRwnA7f3PdCq6i
-	huZJo7moHId3qImeIf/Xtrc/OQVLlStoWDZdZHSk5LpqGJzKo2/amQ+ZOqhbTJZ3hgOs19
-	Esl60MEsI9FETka5FSud8ez29c0ZWdEuQPl3u4QUbahb40vLhfV/VOIKHFMzcjUm6WDTE0
-	vyTls5TdRxYLNhFrEALbRTkfLXLcEGZ33k07jRjru/NWIYtjcqeSTobGIU968d3WYIMfe3
-	jh8tpT/ih4s1uPOdK7SUttyDUw+pm+L8LnXSwGk0zxq/MMjM16scVgA6e3aBgg==
-Received: from bd06e904.virtua.com.br ([189.6.233.4])
- by webmail.inf.ufrgs.br
- with HTTP (HTTP/1.1 POST); Mon, 12 Oct 2026 02:43:46 -0300
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="RMJvgf3G"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69C5iCz653574260, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791783853; bh=Cogu/pFMc9yuLZJiJzJBing2CsSEJdu2Yd8zlYYfu84=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=RMJvgf3GcbuFY3d9kbzDsh0tEDrmaPoDjxE6pInJ2tgZ2PGkDntJKdX05DFaxpjyO
+	 0VHYqLFVhUw8HhMfNhgju5A/IOPgFScwqpXqkEv055OM5vsmCQCzYYGGDp6ur4Xy8q
+	 GMl5HYgScML0BA49TQqtJroY3fWx6QD99cBEahqlOEFnjClZrYm59afk0xcKJxQA89
+	 rseo0r1xp4gzIE3hpa+BTd39BBVUWrXvwMDsgXoMKSDhOq6X95tOoPZHEnfq19PPn/
+	 s1TeYVsICP08YjD8MtKeQpYCe9AaSG0tLgRfPWRzZpc3G2L432IF1X7rv9gUALLTsV
+	 TNBeBhy3PvMsw==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69C5iCz653574260
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 12 Oct 2026 13:44:13 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 13:44:19 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 13:44:19 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Mon, 12 Oct 2026 13:44:19 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: "5mghybrid@khu.ac.kr" <5mghybrid@khu.ac.kr>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
+CC: Jes Sorensen <Jes.Sorensen@gmail.com>, Kalle Valo <kvalo@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH rtw-next] wifi: rtl8xxxu: isolate the USB register buffer
+ from CPU state
+Thread-Topic: [PATCH rtw-next] wifi: rtl8xxxu: isolate the USB register buffer
+ from CPU state
+Thread-Index: AQHdWD8IbE0sWRKeB0i8lqEjk1P2g7b5aFkw
+Date: Mon, 12 Oct 2026 05:44:19 +0000
+Message-ID: <1fc8c339df1944afa6186197337edda3@realtek.com>
+References: <20261010-rtl8xxxu-usb-dma-v1-0-e670d9c08fdf@khu.ac.kr>
+ <20261010-rtl8xxxu-usb-dma-v1-1-e670d9c08fdf@khu.ac.kr>
+In-Reply-To: <20261010-rtl8xxxu-usb-dma-v1-1-e670d9c08fdf@khu.ac.kr>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Mon, 12 Oct 2026 02:43:46 -0300
-From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] fat: allocate multiple clusters in fallocate
-In-Reply-To: <874iesm5hu.fsf@mail.parknet.co.jp>
-References: <20261008020941.55784-1-matheus.aalmeida@inf.ufrgs.br>
- <874iesm5hu.fsf@mail.parknet.co.jp>
-Message-ID: <3b0bef1504539358bf049724329ced57@inf.ufrgs.br>
-X-Sender: matheus.aalmeida@inf.ufrgs.br
-User-Agent: Roundcube Webmail/0.9.5
 
-Em 2026-10-11 15:55, OGAWA Hirofumi escreveu:
-> Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
-> 
->> Hi,
-
->> This series adds support for allocating multiple clusters in a single
->> fat_add_clusters() call in fat_fallocate().
-
->> The multi-cluster TODO in inode.c is not implemented, as doing so would
->> require speculative preallocation or an iomap conversion.
-
-> Is this to improve the performance of fallocate? If so, what the number
-> by improved bench or such?
-
-Yes, it is. I ran a few benchmarks. Each run used a freshly formatted
-filesystem, with no userspace processes other than init (which is the
-benchmark program in this case).
-
-The numbers below are the arithmetic mean of the samples, with
-improvement calculated as before / after. The times are for the complete
-loop and not an individual fallocate() call.
-
-The benchmarks were run under QEMU/KVM with a virtio-blk device using
-cache=none.
-
-start = now_ns();
-for (unsigned int i = 0; i < count; i++)
-     fallocate(fds[i], FALLOC_FL_KEEP_SIZE, 0, bytes);
-elapsed = now_ns() - start;
-
-FAT32 with 512-byte clusters using count=16 files:
-length    mounted sync?    before    after    improvement    samples
-256MiB    no               2.328s    0.175s   13.2x          10
-16MiB     no               149.659ms 14.036ms 10.7x          10
-16MiB     yes              747.993s  3.445s   217.1x         3*
-1MiB      yes              46.63s    0.333s   140.1x         10
-
-FAT32 with 512-byte clusters using count=128 files:
-length    mounted sync?    before    after    improvement    samples
-1MiB      no               90.873ms  4.686ms  19.4x          10
-16KiB     no               1.287ms   0.241ms  5.3x           10
-128KiB    yes              47.284s   0.350s   135x           10
-4KiB      yes              1.98s     0.144s   13.7x          10
-
-FAT32 with 4096-byte clusters using count=16 files:
-length    mounted sync?    before    after    improvement    samples
-256MiB    no               295.392ms 24.733ms 11.9x          10
-16MiB     no               20.509ms  1.404ms  14.6x          10
-16MiB     yes              92.489s   0.348s   265.4x         10
-1MiB      yes              5.837s    0.048s   121.3x         10
-
-* it would take a lot of time to take 10 samples like the others,
-   so I only took 3 here.
-
-The improvement is large because the old fallocate path allocates one
-cluster at a time, while the new path can allocate an entire chain in
-one call. This is especially visible on synchronous mounts, where the
-new code can batch FAT updates instead of synchronously handling each
-cluster allocation separately.
-
-Thanks,
-Matheus
-
->> Matheus Alves de Almeida (4):
->>  fat: remove cluster allocation size limit
->>  fat: return only first cluster when allocating
->>  fat: support adding multiple clusters
->>  fat: allocate multiple clusters in fallocate
->> 
->> fs/fat/dir.c    | 20 +++++++++++++++-
->> fs/fat/fat.h    |  4 ++--
->> fs/fat/fatent.c | 61 ++++++++++++++++++++++++++++++++-----------------
->> fs/fat/file.c   | 10 ++++----
->> fs/fat/inode.c  |  8 +++----
->> 5 files changed, 69 insertions(+), 34 deletions(-)
+S2ltIFdvb3Nlb2sgdmlhIEI0IFJlbGF5IDxkZXZudWxsKzVtZ2h5YnJpZC5raHUuYWMua3JAa2Vy
+bmVsLm9yZz4gd3JvdGU6DQo+IEZyb206IEtpbSBXb29zZW9rIDw1bWdoeWJyaWRAa2h1LmFjLmty
+Pg0KPiANCj4gQW4gUlRMODE5MkVVIGZhaWxlZCB0byByZWNvbm5lY3Qgb24gYSBSYXNwYmVycnkg
+UGkgYWZ0ZXIgYW4gQVAgcG93ZXINCj4gY3ljbGUuIFJGX01PREUgY29udGFpbmVkIGEgY29ycnVw
+dGVkIHZhbHVlLCBhbmQgcmVzdG9yaW5nIGl0cyBpbml0aWFsaXplZA0KPiB2YWx1ZSByZXN0b3Jl
+ZCByZWNlcHRpb24uDQo+IA0KPiBUaGUgcmVnaXN0ZXIgYWNjZXNzIGhlbHBlcnMgcGFzcyB1c2Jf
+YnVmIGRpcmVjdGx5IHRvIHVzYl9jb250cm9sX21zZygpLA0KPiBidXQgdGhlIGJ1ZmZlciBpcyBl
+bWJlZGRlZCBuZXh0IHRvIHVzYl9idWZfbXV0ZXguIE9uIHRoZSBhZmZlY3RlZCBQaSwNCj4gaXQg
+c2hhcmVzIGEgY2FjaGUgbGluZSB3aXRoIHRoZSBtdXRleCdzIHdhaXRlciBzdGF0ZS4gQSBjb250
+ZW5kaW5nIHRhc2sNCj4gdXBkYXRlcyB0aGF0IHN0YXRlIHdoaWxlIHRoZSBVU0IgdHJhbnNmZXIg
+dXNlcyB0aGUgYnVmZmVyLiBUaGlzIHZpb2xhdGVzDQo+IHRoZSBjYWNoZS1saW5lIGlzb2xhdGlv
+biByZXF1aXJlZCBmb3Igbm9uLWNvaGVyZW50IERNQS4NCg0KQ29vbC4gSG93IGRpZCB5b3UgZGln
+IHRoYXQ/DQoNCj4gDQo+IEFsbG9jYXRlIHRoZSBidWZmZXIgb25jZSBpbiBwcm9iZSBhbmQgcmV1
+c2UgaXQsIGF2b2lkaW5nIGFuIGFsbG9jYXRpb24NCj4gZm9yIGV2ZXJ5IHJlZ2lzdGVyIGFjY2Vz
+cy4gS2VlcCB0aGUgZXhpc3RpbmcgcmVnaXN0ZXIgYWNjZXNzIGhlbHBlcnMgYW5kDQo+IG11dGV4
+IHByb3RlY3Rpb24uIEZyZWUgdGhlIGJ1ZmZlciBvbiBwcm9iZSBmYWlsdXJlIGFuZCBhZnRlciBw
+b3dlcl9vZmYoKQ0KPiBpbiBkaXNjb25uZWN0LCBzaW5jZSBzaHV0ZG93biBzdGlsbCB1c2VzIHRo
+ZSByZWdpc3RlciBhY2Nlc3MgaGVscGVycy4NCj4gDQo+IEZpeGVzOiAyNmYxZmFkMjlhZDkgKCJO
+ZXcgZHJpdmVyOiBydGw4eHh4dSAobWFjODAyMTEpIikNCj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5l
+bC5vcmcNCj4gU2lnbmVkLW9mZi1ieTogS2ltIFdvb3Nlb2sgPDVtZ2h5YnJpZEBraHUuYWMua3I+
+DQoNCkFja2VkLWJ5OiBQaW5nLUtlIFNoaWggPHBrc2hpaEByZWFsdGVrLmNvbT4NCg0KDQo=
