@@ -1,123 +1,289 @@
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7C63CAA55
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:49:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791841782; cv=pass; b=SsJTnepkC+E0R9IX6Q8gP2agBw5m0cmqQyrySzeG5W1dVA3t4IWcDq8Yk3uQNK/xxruqgnh7MidoPqwH94BOWp/FAG89LV07AqYs0ESQxu/Eapt9+rB6t/ptgNEUsIL0HgnuV5jV7YkmBfQPQzkWkWIP5Gaqtsk24wrHTkhQqGg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791841782; c=relaxed/simple;
-	bh=F7Bf62sHsaul0v1F9+XvEQQt1rpIakpJfffk6zIiLPY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BRcTBhwOMLNzSx1oVtXpg8dKH+fOlquHxsS0wd8xqNUT/4nSsWHxqmpksRyMUB15fE2n/nDELLrJl5E5aezpFkSvx730k9IN8zFhgfU573r6ktYwOPjVOGgWwnxlq+FOrrek3nG/Ni2wHuOLV9L5EPD0Mcz/n/6qjXY9eQQvOwg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lrDXj1ck; arc=pass smtp.client-ip=74.125.224.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E336B446052;
+	Mon, 12 Oct 2026 21:49:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.178.249
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791841791; cv=none; b=GSyM8GPzRGrwa3AwpVjwjkaphc863X09RGEw6Usi0++pwYT1nZ0dPRgQNYUFF6a1zQVX/Rj9YjHTb5JDZG1IImZgNAiZ5JoOCKlQVCHogVfdkWE7L4cacmKVd2En9BzbTk5BF7caso9VYNWqoOTE33hucbwQSB3CR3oa2oa0Wvk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791841791; c=relaxed/simple;
+	bh=hnVhe38CDSCQMuLaq+rOuhHGr1S9wuqf0QoqPhGkhaY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L9JPuwtOqAM5KCj+m9NeWJFXBoSLOXf3L15V4hK8cUnyTlnz66ftUGegjNf8PduoaEgfPqHOeUWVc5ZZJKnbDzTNWtfP12NMVnb9y2kSN95ygd+E0XqIy8J8RimIY78xK+ACHW4E6AR+PNKeWpU88RomttNCbhHJ1MplBdO9sYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=anZ0d/wb; arc=none smtp.client-ip=217.70.178.249
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lrDXj1ck"
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-6790844c9b0so1616220d50.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:49:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791841780; cv=none;
-        d=google.com; s=arc-20260327;
-        b=efkq8qjNaseORzkRiJfvpX6/xBvuUAlINYiAYV1MZxk49EluQ5zHU+MSNQUyU625AO
-         wK+PP02apyt95l7Tt13RE1mqMA9AcCLZbu92y+CBlyy0Ea/MUGYFjFHyy9FjOKqnrrfM
-         P+D1q47v2GtknPzaVSbRXorefe4xdk5RjHin+tuemNGtaHSiK696veKZ2dA5TmkBJFX8
-         N5bmVZjuDllzp+0z81VIuRjTl6jIpn8H88G231PqI4TwAOjlUejyoTV5XyH+93F1h9ZI
-         UP0esqF8LrYwiNV9MdHzh/WsnLeRROR8cdtalPU61Mi0mn+XjrNAehukCSVy+bXOkrUo
-         O8yA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=F7Bf62sHsaul0v1F9+XvEQQt1rpIakpJfffk6zIiLPY=;
-        fh=u1KgfbmFJuj5TTW4EdszapfG5WzYTsef8LQI1/VG26w=;
-        b=I6UFdDPjrsnUFcxejlc13ovpJMc/LhRELbPfLzmUDquUKNlGc72c+d1ibeX4Dgj+xy
-         Xd/kmlfHZktxQTXnPf1C9B0bjBfGrUWR0FJZifpvH6FDUwE8+U6zjV705QwcwDZG+gcm
-         1E54aWKo97/h8a/+Zbb24ACXljvOG9t3ZC26Yc7whjXH68/OZYu+jBSdlZnrU967usLR
-         EbEDLNYlybJijOB27OePqpRl6b2s/T6FqQeRQYO5LlzNeSeLft+3DfykvoUF56mFSIun
-         RbTdqvF+AcpCa0vI/odh3N18OaBbfeTv8t6Fo1rMZGvUk9mcm+A9sd7SD6/syGOw9kGc
-         HcKw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791841780; x=1792446580; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F7Bf62sHsaul0v1F9+XvEQQt1rpIakpJfffk6zIiLPY=;
-        b=lrDXj1ckKQN9sdh5pNMzq0VynDjPentnknB0wENtX5XMQaiATTvRCKJMKr4nEmRLpv
-         60YWwNqUMu6rPnmsa8lVRmC7/HycnRz3uHDX5BofrLcYa7PwziTco0QQyQUUg8FoSK3J
-         f/zy4v93CIF8cktHaWBZt4c/g79/4rTUrUVCGqo0hwwJJTINCS/TlZC0Drz/bzjBUvx+
-         R9jqU/ygUGWDTo3d14O430owyCtsgTtKMbyy1mgywHdK+K5zIpTRRpPF5cuB9HZgOHzg
-         DKPLJJvOiQ+vaaYQkhZZxH8T8HVQTRcHFJdap8aG3v28/4E8JCLbdFowVDCyulEyWnNc
-         ydww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791841780; x=1792446580;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=F7Bf62sHsaul0v1F9+XvEQQt1rpIakpJfffk6zIiLPY=;
-        b=Hlg62QrqmB0lpeKgppsWYYKBJ83Yh3F4qC6eKkaISWkJI3+s32OG0E4sRJikFQSQ+T
-         ETqwX3L/RTlQgJH0fCpxbnZ+0YZIBcQmWGlbgdNCArJrp4u2xNR4Qvci1dxTwD/dvTkQ
-         e1jIMq+xdmjgzb0/fSQGoQbMqdkgWKeT6rIN5jihV78rLFpeGpZWi6CCZ3RR3De443Gg
-         DrFkvjL5BT7PIVopMH5eWGIX13FJfYDEoOAyoEfOmpzY8EFnKwPy2ug0pBPiudouEsej
-         zy4dDK445/Rr4GxnsURwqUuUrhMv0lxxjVMzkK50IE4qDxaoQc6YPk6VoY7blIT7wK7D
-         oj1A==
-X-Forwarded-Encrypted: i=1; AKwUvBxI5B959f4bVAVH3R4r2nHEWiOnf7oDRvjvJZmsHlyMftUS+vWLVYktACEyYGRvw+3vvILAnZKLvb4ycU0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBAdC6kB/TJlyOenFsbaU0TupbGLg8HDQ4pDC+b2AuQ4QVy8r4
-	AUE3j64KovWvHzrR0lhbyp8XdpdVJUbY+Sf8R1OxGoCem6kDI1z9hjAevvPiDKhReoLLBY5LCLu
-	vGTVakJN8RP8HPBuI9GLz5PrSVmhMr1oqPA9lGc4m
-X-Gm-Gg: AYBFou0HJh0RFaAXG4yIenf5mRDhvqd681grZZbkES0v2yYxi49l1gKLZPq+yzrUKRj
-	EivBKfsyIycDsCcrKHwEWQrkWgfcDFGPc8rB8LpHaZtSO0s/j2sNyaOL6kyA7RXlfTZZIjbWUgf
-	adT9a81HoeLuwaBMMwNrdO2tcpovLQ+pIa3VuPbnVS+e2GBrqpU58kf63+L5BtpX8v0diHWa7z5
-	V2tBNxfOrMIE1g5CxjeOL4vKQ6sNHznQrgghQThaRnKRCjndckLzNROFAz2M63wfv81UOCy1c2+
-	AqTtzDDRjt3hIg2atgQaMg9OaoIqoHmc2vSBvKV/4S4kqAn+SJESHU6lI0Ppn8IkXwP0BQYIEuh
-	dtbcwKewtQg==
-X-Received: by 2002:a05:690e:4186:b0:679:2a5f:52e0 with SMTP id
- 956f58d0204a3-67936ad3896mr3031391d50.94.1791841779960; Mon, 12 Oct 2026
- 14:49:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="anZ0d/wb"
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net [217.70.183.201])
+	by mslow3.mail.gandi.net (Postfix) with ESMTP id F00FE5801DC;
+	Mon, 12 Oct 2026 21:31:31 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id A14183F64A;
+	Mon, 12 Oct 2026 21:31:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
+	t=1791840684;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vkr5kUgTqT/tfVa4kWKs3sHgq0KJ6SU6vOlkZ6GvZK8=;
+	b=anZ0d/wbm9+uU4SLYlG5Bd0WuY5gTZ4kUNpRefQDCmdQiO/1R5tVwBqmxkiLIPeKqXJZAu
+	aa0mCIb6X1RSZpz0RuVom+Flfm/GuIjeN48tCBAtvsdlSnbaltLWJ1VG2EAtX6ea8TAXk7
+	ija9XYiDeYKzu7nSt+CPU4kaf4owGbDf4MBeq9vl5WbGcXe0Q4evji66I8y04YM4SZDgDD
+	/X7Ijb6+aBdRDFjRV4fTNbxYQBE8xXv5aZg9fT7hJCYNHFFNCktVjB35DcxkNm9idwSjRA
+	TnoWH6uprRL3PXsliNy7E9FmCR+VtC/Nc89PojV7rscA0aJESzw+tjcqxBeKKA==
+Message-ID: <d8a73b5f-ef08-479e-8c72-d8d81e680280@gtucker.io>
+Date: Mon, 12 Oct 2026 23:31:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921230603.2518652-1-samagazaryan@google.com>
- <20260921230603.2518652-4-samagazaryan@google.com> <araSUuwTSx0aIuDp@lizhi-Precision-Tower-5810>
- <22623823-a2c7-4627-b123-12d1baed0e93@intel.com>
-In-Reply-To: <22623823-a2c7-4627-b123-12d1baed0e93@intel.com>
-From: Sam Agazaryan <samagazaryan@google.com>
-Date: Mon, 12 Oct 2026 14:49:29 -0700
-X-Gm-Features: AclHuK-u983zXDJaYfr4f2s0wFVToPP9tOVKNN3Vc-Sa_lJ8nkqL5rmnPK1aDb4
-Message-ID: <CAHreonGHGeg-SqA-OwyLKUy_Do-x16H4_ce6J8ndYkuyE2Dotw@mail.gmail.com>
-Subject: Re: [PATCH v5 3/5] i3c: use actual_len for read transfers
-To: Adrian Hunter <adrian.hunter@intel.com>
-Cc: Frank Li <Frank.li@oss.nxp.com>, linux-i3c@lists.infradead.org, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Meagan Lloyd <meaganlloyd@linux.microsoft.com>, Vitor Soares <vitor.soares@toradex.com>, 
-	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>, 
-	Boris Brezillon <boris.brezillon@collabora.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] scripts: add --registry option to container tool
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Miguel Ojeda <ojeda@kernel.org>
+Cc: =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ linux-doc@vger.kernel.org, workflows@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <06ee7c694c3e9716bff5c9b1b8e9dc95cc0b38d3.1791751900.git.gtucker@gtucker.io>
+Content-Language: en-US
+From: Guillaume Tucker <gtucker@gtucker.io>
+In-Reply-To: <06ee7c694c3e9716bff5c9b1b8e9dc95cc0b38d3.1791751900.git.gtucker@gtucker.io>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-GND-Sasl: gtucker@gtucker.io
+X-GND-Cause: dmFkZTEA8c7a6DjZY0mdwmyP2U31U8frA5C/TIDWZQpU0KpeyJhfOzVkLxYqVMbpwxICWmu7nXQGo+SrchSNcDhE58NYohNN59SwuFF+b6U8NrMFDsP+ZmogYWaQHvZneJcTqy24ci7oHn2S5a9/rBcmamWWpExu0hAH+KpMAiH7bFJx+XjLiMglKJ7YDeq/HQRnIEOQ6y4eDMrdrw+eNEtOX7lEHHlNxeWBF998aummeg0PG0TlqMcOJjbC21KFgbnyYFipKM4ur/xOpg3folcOnGNDl/y3U5ZiVx7599EGLHlxno/1UczTWbtyzqiSJTX8y0IATeqBdgQy3JkbS4ewf0VLIPRfrAaBQxnskyzd+/wSxSF4DXHfXPu8JnMQSf06L28DV8K0L7PnkFY6v2MmzQw27AfyE+F6OcQwMHo4cciDo/yXOnvwri6QIGXTC6/BlwsrtpfrKiphzqJ10UUukk5sw8TJjeb38gDziffgUkchs4ioObpK94LXXxqk32YoM65xRoGxDksZRMEaDenc+0L+5JPHStI+Geg6hcRai2M34zGuiwHm5f9WdkRwdZJIrPxj5LuQ6RvSVd3+a2HNPndIsz3mPVNikv0bttNg4ffdH+E28DVg0HJnejmRDewW3/wVUmVXLfau+qgPm3ddgMxbJ98HAZdYj/3q/94bshEnMw
+X-GND-State: clean
+X-GND-Score: -100
 
-> Also i3c_dev_do_xfers_locked() should probably clamp actual_len to len.
+On 11/10/2026 10:54 pm, Guillaume Tucker wrote:
+> Add a --registry / -R command line argument to the container tool to
+> specify an altnerative image registry and support it in the TOML
+> configuration file accordingly.
+> 
+> This uses a mechanism based on regular expressions to parse the
+> container registry and image names and construct the final one based
+> on a set of priority rules.  A registry can be included directly in an
+> image name; an empty string means a local image.  It can then be
+> overridden by explicitly specifying a registry name via the CLI option
+> or the TOML file, with the CLI option taking precedence as always.
+> 
+> Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
+> ---
+>   scripts/container | 126 ++++++++++++++++++++++++++++++++++++++++++----
+>   1 file changed, 117 insertions(+), 9 deletions(-)
+> 
+> diff --git a/scripts/container b/scripts/container
+> index a3a55180d6ed..de72725656a8 100755
+> --- a/scripts/container
+> +++ b/scripts/container
+> @@ -10,6 +10,7 @@ import dataclasses
+>   import logging
+>   import os
+>   import pathlib
+> +import re
+>   import shutil
+>   import subprocess
+>   import sys
+> @@ -17,6 +18,89 @@ import tomllib
+>   import uuid
+>   
+>   
+> +def _init_registry_regex():
+> +    domain = r'[{anum}][{anum}-]*\.[{anum}\.-]*[{anum}]'.format(anum=r'a-z0-9')
 
-Done - fixed the missing rx_bytes line and clamped
-actual_len to len in i3c_dev_do_xfers_locked() in v6.
+Sashiko wrote:
 
->> There are not dependence, suppose mctp-i3c.c change go through other tree
->> It'd better use sperate patch to fix it.
->>
->> Need fix tag.
->
-> Isn't mctp-i3c.c dependent on the len -> actual_len change in
-> any of the master drivers?
+ > Does this hardcoded requirement for a literal dot in the domain
+ > regex prevent the use of single-component hosts like localhost?
 
-Yeah that was my reasoning for adding it here since we're converting
-all drivers to stop overwriting xfer.len.
+That's fair enough, a plain host can be used as long as a port number
+is also provided.  So localhost/image wouldn't work as it would be
+considered part of the image path, but localhost:5000/image is valid.
+I'll fix this in a v2.
 
-Also, will add a Fixes tag for v6.
+> +    ipv6 = r'\[[a-fA-F0-9\:]+\]'
+> +    port = r'[\d]{1,5}'
+> +    return rf'((?P<domain>{domain})|(?P<ipv6>{ipv6}))(\:(?P<port>{port}))?'
+> +
+> +
+> +def _init_image_regex():
+> +    step = r'([{anum}]|[{anum}][a-z0-9_\.\-]*[{anum}])'.format(anum=r'a-z0-9')
+> +    tag = r'[a-zA-Z0-9_][a-zA-Z0-9_\.\-\/]{0,127}'
+> +    return rf'(?P<path>{step}(\/{step})*)(\:(?P<tag>{tag}))?'
+> +
+> +
+> +REGISTRY_REGEX = _init_registry_regex()
+> +IMAGE_REGEX = _init_image_regex()
+> +
+> +
+> +class ImageParserMixin:
+> +    """Helper mixin to parse container image names"""
+> +
+> +    @classmethod
+> +    def from_fields(cls, fields):
+> +        """Get an object using a valid subset of fields or None"""
+> +        kwargs = {}
+> +        for field in dataclasses.fields(cls):
+> +            if value := fields.get(field.name):
+> +                kwargs[field.name] = value
+> +        return cls(**kwargs) if kwargs else None
+> +
+> +    @classmethod
+> +    def from_name(cls, name):
+> +        """Get an object using fields in the name matching ._regex or None"""
+> +        re_match = cls._regex.match(name)
+> +        return cls.from_fields(re_match.groupdict()) if re_match else None
+> +
+> +
+> +@dataclasses.dataclass
+> +class RegistryName(ImageParserMixin):
+> +    """Parsed container registry name with no image"""
+> +    registry: str = None
+> +    domain: str = None
+> +    ipv6: str = None
+> +    port: str = None
+> +    _regex = re.compile(rf'^(?P<registry>{REGISTRY_REGEX})$')
+> +
+> +
+> +@dataclasses.dataclass
+> +class ImageName(ImageParserMixin):
+> +    """Parsed container image name with no registry"""
+> +    image: str = None
+> +    path: str = None
+> +    tag: str = None
+> +    _regex = re.compile(rf'^(?P<image>{IMAGE_REGEX})$')
+> +
+> +
+> +@dataclasses.dataclass
+> +class FullImageName(ImageParserMixin):
+> +    """Parsed image name including an optional registry"""
+> +    image: ImageName
+> +    registry: RegistryName = None
+> +    _regex = re.compile(
+> +        rf'^((?P<registry>{REGISTRY_REGEX})\/)?(?P<image>{IMAGE_REGEX})?$'
+> +    )
+> +
+> +    @property
+> +    def name(self):
+> +        """Full name in registry/image:tag format with optional registry"""
+> +        return (
+> +            '/'.join((self.registry.registry, self.image.image))
+> +            if self.registry else self.image.image
+> +        )
 
-Thanks,
-Sam
+Sashiko wrote:
+
+ > Could this result in an AttributeError if self.image is None when
+ > accessing self.image.image?
+
+In theory that's true, but the whole point is to initialise the class
+using the regex parsing mechanism and when doing this, the field
+would never be None.  If it failed to parse the FullImageName object
+wouldn't be constructed at all when using .from_name().  So an
+exception if .image was None would seem justified - or even an
+assert.
+
+> +    @classmethod
+> +    def from_name(cls, name):
+> +        if re_match := cls._regex.match(name):
+> +            fields = re_match.groupdict()
+> +            return FullImageName(
+> +                registry=RegistryName.from_fields(fields),
+> +                image=ImageName.from_fields(fields),
+> +            )
+> +        return None
+Sashiko wrote:
+
+ > If the user provides an image name with a trailing slash like
+ > registry.com/, does the optional image capture group match nothing?
+
+Ah yes, but that's a small bug in the regex due to the trailing '?'
+which makes the image optional when it shouldn't.  I'll fix this in a
+v2 - and I guess it might explain the previous comment as if the
+image part is not optional then .image should never be None.
+
+> +
+>   class ContainerRuntime(abc.ABC):
+>       """Base class for a container runtime implementation"""
+>   
+> @@ -145,6 +229,7 @@ class Config:
+>       """Container configuration"""
+>       image: str = None
+>       runtime: str = None
+> +    registry: str = None
+>       env_file: str = None
+>       uid: int = None
+>       gid: int = None
+> @@ -188,23 +273,40 @@ def _get_logger(verbose):
+>       return logger
+>   
+>   
+> +def _get_image(args, config):
+> +    image_name = args.image or config.image
+> +    if not image_name:
+> +        raise ValueError("no image specified")
+> +    image = FullImageName.from_name(image_name)
+> +    if image is None:
+> +        raise ValueError(f"invalid image name: {image_name}")
+> +    if args.registry == '':
+> +        image.registry = None
+> +    elif args.registry is not None:
+> +        image.registry = RegistryName.from_name(args.registry)
+> +        if image.registry is None:
+> +            raise ValueError(f"invalid registry name: {args.registry}")
+> +    elif config.registry is not None and image.registry is None:
+> +        image.registry = RegistryName.from_name(config.registry)
+> +        if image.registry is None:
+> +            raise ValueError(f"invalid registry name: {config.registry}")
+> +    return image
+> +
+> +
+>   def main(args):
+>       """Main entry point for the container tool"""
+>       logger = _get_logger(args.verbose)
+>       try:
+>           config = Config.from_toml(args.config_file, args.config_profile)
+> -        runtime = args.runtime or config.runtime
+> -        cls = Runtimes.get(runtime) if runtime else Runtimes.find()
+> +        runtime_name = args.runtime or config.runtime
+> +        cls = Runtimes.get(runtime_name) if runtime_name else Runtimes.find()
+> +        logger.debug("runtime: %s", cls.name)
+> +        image = _get_image(args, config)
+> +        logger.debug("image: %s", image.name)
+>       except ValueError as ex:
+>           logger.error(ex)
+>           return 1
+> -    logger.debug("runtime: %s", cls.name)
+> -    image = args.image or config.image
+> -    if not image:
+> -        logger.error("no image specified")
+> -        return 1
+> -    logger.debug("image: %s", image)
+> -    return cls(args, config, logger).run(image, args.cmd)
+> +    return cls(args, config, logger).run(image.name, args.cmd)
+>   
+>   
+>   if __name__ == '__main__':
+> @@ -235,6 +337,12 @@ if __name__ == '__main__':
+>           help="Profile section to use in the config file.  This will override "
+>           "any values defined in the DEFAULT section."
+>       )
+> +    parser.add_argument(
+> +        '-R', '--registry', nargs='?', const='',
+> +        help="Container registry name.  Any registry already included in the "
+> +        "image name will be replaced or removed when using this option with "
+> +        "no value."
+> +    )
+>       parser.add_argument(
+>           '-r', '--runtime', choices=Runtimes.get_names(),
+>           help="Container runtime name.  If not specified, the first one found "
+
+The rest of this patch appears to be Shashiko-friendly, at least in
+this iteration.  I'm updating the unit tests accordingly and will
+send them in an RFC alongside the v2.
+
+Guillaume
