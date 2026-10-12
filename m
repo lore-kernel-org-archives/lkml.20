@@ -1,146 +1,145 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE5F37F320
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:57:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791842247; cv=pass; b=tZCWsXgvvuZzyJM+PUR9PkN1r3XlWUEoghZ4XnkZE4bxNnojLwiLrB9VtmSwA+ByhirhEpffgj/APOOv9oqZcyt8Vi/HHStYYKN+70I7MwMZJBdU2bCYBphjHv83CM5D/fEe0hyqBxpivcKhzekgni87HsbPSw2aTz5oLtq4o/Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791842247; c=relaxed/simple;
-	bh=77D6s9s+jsNDn7chkK8TqOJckNVj5ac1PYAeMd2MXCY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oHc0Ao04EXWBJaQA6AC5p7fB/b3P5JIk6XDy7w1ar4wkiPNTILqGg8lga04yiRbzndBa+TxkIY22b1CwQy+MRc6EviyiV6ZsEWEYdjk6bWvZKGbBUo0zzfU5NDag+u0trepG+s+gs78bHNGK6Ah/M9TcU/5u2d83GOyqtm5LavQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tXnK6SWc; arc=pass smtp.client-ip=209.85.160.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4CD37FF66
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 22:02:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.69
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791842552; cv=none; b=DCeBU/Tuj+qZxGuXjp//lZb3ZffeZMG8MoqOS1LAhzcnDJ7pKWe0lYoGXAhqFgK39KWas9/Ch94X1/MtoAuMwZ590V12fr1IP/OcnO9btrKll4ZwM7oWCUwOz2vi8byQdLLewWPRZmOJPujD6GVKla0sIKkXH/WPuOieg7nc9JM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791842552; c=relaxed/simple;
+	bh=u+4RBqQ3qnd5BN/OvTzrflVmINUVUgX0ASpwstZ3+8U=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=W052oHIe+nZnHutHaeH6H0aX5B8vNOH16pnBz/FPdXvNIAJqEk2CfmY7edEGontkitiSssgVRLVNI6Nt2o/urxnipIAcVKWrj264UeTUQmNjz02H7naLc8OwsSTLEYDY+Jyeo2DW7Ip34MwZ/ce1/v0m4rQJ5gt/l0iNEpmKOFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jiangzp.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YEqY+DQY; arc=none smtp.client-ip=74.125.82.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jiangzp.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tXnK6SWc"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-5337c7b9937so544451cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:57:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791842242; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HhBGllvn1NaHIyLTZdW7gHZAVdLJltTgf2L9ahZ1g7uwqA7NenIQaUbvZ1Zp+tcFRc
-         K0vaBNWlExMj5lUPF9/O+vyo5A4XOSlKOCcKBqwnXAUHjH3am8mYfSL4/2tp6ffAvWLB
-         xcFMck8Wr2npdgRkNlPeHcqzJlqhSf7x4+lwchKS0BHKoaJhS9AB3z3OUz+gaNnq8ba2
-         ogbQhx0b8pFOX2++6Xvk0qkBEbDHfGdemLcNBfAJBZEbQb+/RGz9+WINOiqYHAewqJSG
-         uOM4gCW2lkDM/sMNOSKyI+Iso03hPAVm3vUWE9+JN0kSRBFVlR48b0mDqOP+seyDh4tu
-         v2pQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ehQxFvZATNgrzjzCw6uWnISjlL6Y3isyt66JatobNHM=;
-        fh=PHGruySD5/1+y31tntwHIXWb0mO23mMvum8zash9/Hs=;
-        b=cobqoGIj7kV74SGlbXZkdT0HCzOg1Q58NgHdUo4ZQgLPDyRbw2Ts3WXfpCkFk+ebRa
-         SY0bacMYIrlrtdYbmEuXJ+Y7DgcOrXeGfqkMXAdhzhETX67eTHU8WsTOv0Yb5naNWW+0
-         Vsdi9HfxpGIWeF3WC13i1y4gaWRfxZIeGCZssWoyuOxyWBbEjWSgbPpvhtkGkSNZv5+i
-         RhPSOFkPBdQxr/J50myYxenson/BmcvMrsUEKlciyX+Ki4465yHXSSJan1yeZxddnTYF
-         RqD2otbl8jp30vvxMWDjCNZ/rN9cV0zYOLZv5VaS5748q6mBKJ0yfMc+EbNBFS/jqeKU
-         Cfrw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YEqY+DQY"
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-147be78cd56so9403084c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:02:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791842242; x=1792447042; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ehQxFvZATNgrzjzCw6uWnISjlL6Y3isyt66JatobNHM=;
-        b=tXnK6SWcXvRfX2cH3vug89ONbtcVDpeVLnWfBKw4OP+Jmzj3R+rZjc64Lir00bCEg/
-         m85jLsVxAPOcO5HVHrfyUrgJ+ORDnGng2/AMcgUZ6/vDwsvWwXJnh5o3s+HZhtWhGsiQ
-         C9lRFUvPBNxGqlnEZ4wCAqnYJ2dSEyPFzJHTnw8wNoPKqRWV/G3ACQLnw6I+9CNJQeiv
-         2Xm2CFqDENP/YysNlo9Ma1elzujnEOARQyIogOpztv0vzkzMa976gVTs8er1m+wQVWlB
-         8pKEc8WSo5s5APmRLpJxOZ20G2cRzFPXlXqbGc1+yml0oMgwtcOTtzmJm1bsO9eRYlDM
-         ZVyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791842242; x=1792447042;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1791842549; x=1792447349; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ehQxFvZATNgrzjzCw6uWnISjlL6Y3isyt66JatobNHM=;
-        b=Oj4En+gw2iwSnN0XLjle40O3mLNLZ7LHDQ4vxerRb9f4M7Q31177dXUd3ar6JD0Bho
-         Py3Isw2Kls34BYPCtl1CRl2hH7eXDsR1BfFZrdVMFiGExOeeKAC9GvqEZ6lKsQe57KuD
-         uQ/rciziyiPeLcjqCNXyoIfjl8YDbUCZZo/BDB22pcSH+KXUyKNPNE+rpIt22WHH/FJw
-         p+eODj54N3DqLAGop0grLr/pq489FeEyhrMjRaRrr0CKjhahcT6TySqVNDjGFTxlBysf
-         4ktJS2w01TMOvHZjzHuztOPUdbhl83bPoNA6LJMHJi9ELv+rkXBs2izw29TgLB5jauN4
-         9WjA==
-X-Forwarded-Encrypted: i=1; AKwUvBxwkCASK1y+zd1Pzin0rf65sS6slijI0fE2uRsYoJyYN8nJ98F63B+De2PjblIkVEHzNCmjPk29uMfvtr0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKwbgpePLapgwbwOw1qbIZYl9EmFXSbkxMp/NjcW8IyY6FJHLDI
-	k18NsNNwnc8iUMymmhpeU9RaPxlJLcKYUV0gxnY/PRuqtu7BRVYp8o1ica/qQYj7Z/7Qv61VM7J
-	eOKSWceE+J0wSY+6NoUbqqhRa0D6NPuPEHJaABFK3fZ0CTHVcTuzcIgXy
-X-Gm-Gg: AYBFou0wr1mNn1nR0fudTr6amAZKWwoIA35jybSvzR+AJwC97hzTSe1cc9x+/KsPGpk
-	IhCGbdlFHVcSRyseyrIyiLlowsyB3yu/ft3hc8pqaQLYYlw3RB7qFz6P6BKSWFhaXp1y+ozxlj2
-	mwv8YSf+NepCF7KD7aWJW176cRIwCbi2jlqc9vIXFGfWYw2YKbHyIDoZ/th6vaUCn/k5H1n0gSz
-	i3vYRWgC6qEfji61vVdUwnErU9SRGyx0AtVIPN5Ssy+6dJxxkBajftNARBIdD0C6fNrNbOq9Ww6
-	52l8Ae3e11ip32ymZSckcwoLVEwryVX2SqinxFjmFv68ViySMwhb3hFBVDhz0dhDqURSYJDM7nu
-	Hmz+WaszxSQ==
-X-Received: by 2002:a05:622a:1ba0:b0:534:313:9b4e with SMTP id
- d75a77b69052e-535b321298dmr37938601cf.5.1791842241862; Mon, 12 Oct 2026
- 14:57:21 -0700 (PDT)
+        bh=dK37uDggPehTbaqCSmGG9mh9y9+JNNVrtr91iIxz57Y=;
+        b=YEqY+DQYeVP4wkW5rFBceLSWyi4V/Mf41YAwvdhPO1sB/thzdvyM9UieXQCSZpeFh+
+         cZv9tmtg5kajtXlUyLZV8sWsD4UhQxYxLqYawMgRx/BbWB2X+AeH4C/ofE39vVhSJpT3
+         v++VUfOn26hrPXrerJcWUL8t6UoJHgVu2E+IWJR94xgOrRAgQix7KEE0Z/G0SFRsfXW8
+         FL0VbU2xCedbgKJqgnndXpQEyjVQjNyRRLPz12tBhBmGpYxao27KjUPEbmrauUsyT5Nq
+         +ee+1siAxvbK0jfeVwB4xFoj1RTZ2zzK+o/jZRpj1aCUA8ohocnTVrvIs4KI1IEKy+oN
+         4/Rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791842549; x=1792447349;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dK37uDggPehTbaqCSmGG9mh9y9+JNNVrtr91iIxz57Y=;
+        b=2qE/QeOek2PK1azYF0OQj7WiRHEKgviMZ8EQfMc/TYGozGhurV8JLCwirfd8nF+uaW
+         ozGr02Kz8YEXUJbTTVfwV3UUSbZtWlgo8lSAhanfunp3IZ+fZxrU/GAwpexi2Sr5Fy9J
+         7m69cau9keMuWkfQQbZMnkBvgMNET8qjNY28yzW0PNetvRapAAhyun03j15lm2maJjEy
+         X6btiiItURBBhkY0Lximb4XLAzm66jThfwJxaCQOaiGI0I5OHAeMGGuIgZPVd4ySFYkq
+         sRxQKcmxgLiHXtSdduHE22lzP0qBqIJLIIhx76FvtQmkURQ+plSG7yrBG5pajRtgzlbW
+         S97w==
+X-Forwarded-Encrypted: i=1; AKwUvBwSiMjrG2rVI3jFAI5Ju7Zxkl6agWwVHUTK4D8AM71Deab2GZtycEESVrcPsFgn2usTHqcedqE8/+nSxxM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJr9GnZNtFGAnA/3yQ8v8B/rxSgENJzSAYpoV5ak0RkzKvztyB2
+	AotEUPwOLOWR4g3scGhVp+iHWQY2zBBA3UXUh0VVq9KfN6At+elWzb2Da+Tml2WwRwvWfkdamFJ
+	xuuSczXg06A==
+X-Received: from dycpg4.prod.google.com ([2002:a05:7300:dd04:b0:352:3ca9:9a5b])
+ (user=jiangzp job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:2411:b0:165:aced:1fde
+ with SMTP id a92af1059eb24-16a4f2527efmr15339880c88.0.1791842548405; Mon, 12
+ Oct 2026 15:02:28 -0700 (PDT)
+Date: Mon, 12 Oct 2026 22:02:25 +0000
+In-Reply-To: <20261012212902.3491839-1-jiangzp@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260929011837.4157334-1-irogers@google.com> <20260929025345.88829-1-irogers@google.com>
- <asQoWrGYmM-lGx5G@google.com>
-In-Reply-To: <asQoWrGYmM-lGx5G@google.com>
-From: Ian Rogers <irogers@google.com>
-Date: Mon, 12 Oct 2026 14:57:09 -0700
-X-Gm-Features: AclHuK_ybq9gU44rwx4KLDqmYiNpgPWTmX98N4vk2I0ttWfcqLOVXmnn0LnyrzY
-Message-ID: <CAP-5=fXsJG1AvkcvKg5abGFD5sEh2hs_KAfDnTohZV5-33TV+w@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] perf test: Add per-test timeout support
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: acme@kernel.org, 9erthalion6@gmail.com, adrian.hunter@intel.com, 
-	james.clark@linaro.org, jolsa@kernel.org, leo.yan@arm.com, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	mingo@redhat.com, peterz@infradead.org
+Mime-Version: 1.0
+References: <20261012212902.3491839-1-jiangzp@google.com>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261012220225.3594376-1-jiangzp@google.com>
+Subject: [PATCH v2] HID: vivaldi: avoid redundant feature report reads per usage
+From: Zhengping Jiang <jiangzp@google.com>
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Stephen Boyd <swboyd@chromium.org>, 
+	Archie Pusaka <apusaka@google.com>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Zhengping Jiang <jiangzp@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 5, 2026 at 3:44=E2=80=AFPM Namhyung Kim <namhyung@kernel.org> w=
-rote:
->
-> On Mon, Sep 28, 2026 at 07:53:44PM -0700, Ian Rogers wrote:
-> > When a test hangs in 'perf test', the entire test run hangs and makes i=
-t
-> > difficult to inspect output from other tests.
-> >
-> > Add a new TEST_TIMEOUT result category and a per-test timeout (default
-> > 60 seconds, configurable via '-t'/'--timeout', with 0 to disable). When
-> > '-F' ('--dont-fork') is specified, timeouts are disabled.
-> >
-> > To enforce the timeout:
-> > - Place each forked test child into its own process group via
-> >   setpgid(0, 0) in the child and setpgid(pid, pid) in the parent so any
-> >   subprocesses spawned by shell or workload tests can be terminated
-> >   together.
-> > - Arm an ITIMER_REAL periodic timer with a SIGALRM handler (using
-> >   SA_RESTART so /proc status reads in check_if_command_finished() are
-> >   not interrupted by EINTR while poll()/usleep() waits still wake up).
->
-> Do we really need this timer?  I think poll() already has a timeout so
-> it'll wake up on every 100 msec anyway?
+vivaldi_feature_mapping() is invoked by hidinput_configure_usages() in
+ascending usage_index order for each usage in the top-row physical keymap
+field. Because fetching the feature report at usage_index == 0 already
+reads the entire report from hardware and populates field->value[] for all
+usages in the field, calling hid_hw_raw_request() again for subsequent
+usages redundantly reads the same report N times (e.g., 12 sequential BLE
+GATT reads taking ~2s on Vivaldi BLE keyboards).
 
-Agreed and that avoids async/signal issues. I will fix this in v4.
+Fetch the feature report from hardware once per HID_USAGE_FN_ROW_PHYSMAP
+field at usage_index == 0 before validating individual usage entries, and
+reuse field->value[usage->usage_index] for subsequent usages in the field.
 
-Thanks,
-Ian
+Fixes: 33bbe04a15f2 ("HID: google: extract Vivaldi hid feature mapping for use in hid-hammer")
+Signed-off-by: Zhengping Jiang <jiangzp@google.com>
+---
+Changes in v2:
+- Move per-usage validation (HID_UP_ORDINAL and fn_key bounds) after the
+  usage_index == 0 hardware read so the report is still fetched even if
+  usage[0] is non-ordinal or out of bounds.
 
-> Thanks,
-> Namhyung
->
->
-> > - Check elapsed child runtimes against test_timeout in finish_test() an=
-d
-> >   finish_tests_parallel(), sending SIGTERM first and escalating to
-> >   SIGKILL after 1 second if the child process group has not exited.
-> > - Report timed out tests in red ('TIMEOUT!'), track and display them in
-> >   the test summary, and emit '<error message=3D"TIMEOUT" type=3D"timeou=
-t">'
-> >   counted under the 'errors' attribute in JUnit XML output.
-> > - Document '-t'/'--timeout' and '-F'/'--dont-fork' in perf-test.txt.
-> >
-> > Assisted-by: Antigravity:gemini-3.1-pro
-> > Signed-off-by: Ian Rogers <irogers@google.com>
+ drivers/hid/hid-vivaldi-common.c | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/hid/hid-vivaldi-common.c b/drivers/hid/hid-vivaldi-common.c
+index c3c9fe9e697b..94caaf254f69 100644
+--- a/drivers/hid/hid-vivaldi-common.c
++++ b/drivers/hid/hid-vivaldi-common.c
+@@ -33,21 +33,16 @@ void vivaldi_feature_mapping(struct hid_device *hdev,
+ {
+ 	struct vivaldi_data *data = hid_get_drvdata(hdev);
+ 	struct hid_report *report = field->report;
+-	u8 *report_data, *buf;
++	u8 *report_data, *buf = NULL;
+ 	u32 report_len;
+ 	unsigned int fn_key;
+ 	int ret;
+ 
+-	if (field->logical != HID_USAGE_FN_ROW_PHYSMAP ||
+-	    (usage->hid & HID_USAGE_PAGE) != HID_UP_ORDINAL)
++	if (field->logical != HID_USAGE_FN_ROW_PHYSMAP)
+ 		return;
+ 
+-	fn_key = usage->hid & HID_USAGE;
+-	if (fn_key < MIN_FN_ROW_KEY || fn_key > MAX_FN_ROW_KEY)
+-		return;
+-
+-	if (fn_key > data->num_function_row_keys)
+-		data->num_function_row_keys = fn_key;
++	if (usage->usage_index)
++		goto parse_usage;
+ 
+ 	report_data = buf = hid_alloc_report_buf(report, GFP_KERNEL);
+ 	if (!report_data)
+@@ -92,6 +87,17 @@ void vivaldi_feature_mapping(struct hid_device *hdev,
+ 		goto out;
+ 	}
+ 
++parse_usage:
++	if ((usage->hid & HID_USAGE_PAGE) != HID_UP_ORDINAL)
++		goto out;
++
++	fn_key = usage->hid & HID_USAGE;
++	if (fn_key < MIN_FN_ROW_KEY || fn_key > MAX_FN_ROW_KEY)
++		goto out;
++
++	if (fn_key > data->num_function_row_keys)
++		data->num_function_row_keys = fn_key;
++
+ 	data->function_row_physmap[fn_key - MIN_FN_ROW_KEY] =
+ 		field->value[usage->usage_index];
+ 
+-- 
+2.56.0.385.gd3acb90ef8-goog
+
