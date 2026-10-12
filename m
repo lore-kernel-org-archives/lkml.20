@@ -1,162 +1,156 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C530B49CF54
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06B4469821
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:24:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791825868; cv=none; b=H2zvPTo9/8FeND+9Frh3x0hxgJzsg3A7XmguY4H5k2B/0v/kn8tje/XwDciDlRHR4dneV8xUmKeR18DMzLd1MpADUZlo2sMelmyMnOHAHwchZI1XB7VjFpW7tWZQmi2TKfAgXPfwwCqZ09Asy0KyvGQhiYv3e1lM+Ky72Y1X3Sc=
+	t=1791825871; cv=none; b=NZikFNR7ICzYNB/gZ8zrDzT1LrbiiCznWs8c4W5jthV+xN7HqwOwQZr/VjEWgUKu1HRMV+7jMMh6PtL9Bgo48+HbVEOjvezbk6+DWXudUIlyICzGnfOZtMR753PHyNflp9sp5RatXTm65bI+ZlwarOmjzUbZUb9LPLUulL5t0TI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791825868; c=relaxed/simple;
-	bh=vdBkv0Ar/k2H9o3Cj5VAA2YQ4375ejbf9nUI5vsOQQg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JIZ80OIx3vLYSKh8uY7gL89IR4an7YxdxGXXU43q5XcddtjLOCULByjtpv2Xx+0orz/NGmXYvQmfU8ErVpoEwoZo0/5Z+dZtfCBC6LupUJ0S3DKHJ+unsx68XI3uD4gGmUIFsTVjad60Ia1Wf45iA+Q19hw/laip94XXKymbw0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Hm745Xui; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=c1c+Q6EG; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791825871; c=relaxed/simple;
+	bh=6uUyarvi1KS2+TjGc2Yz34oQ3d1m/I4L3PLmnADsSeM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HjKp385OuSb9CsxRPahFx8aKU+ynGFykyRhA3NDol3q21OLpQwYbeBdVaivDwvPM3Be/tk8ZiQQeJg+Nw0o/q/oyA6CnhZS8qOHLiwlj3Y+/X6pCoIhMU/Er2RH09Mavft49NUYi01KYOeTcNmczZCp9SBFETGDCDhrQqurNGFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UmsdSCFJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Hm745Xui";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="c1c+Q6EG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791825865;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=5MCinI97TwRTst5/YFDaMtBPJlTzpwg3rQxyfSvYCas=;
-	b=Hm745XuiWiKYNsRdY+iFfvwvAsOj+FDv2M84TIjdGXaiqmRA7PTS/4ZYjSzPMWVc1mvQ6b
-	Ria76eRmGRFknBEPxaMmvQsICGz25gwHD8lQVwzqnVLnglnBvcBEzaNp0CyG6HAl7vesgj
-	v5ZptSNop0M5VAkXrkVIb/g0AP+IFgg=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-588-MNNibF4TPSK6kB7w8HlFrg-1; Mon, 12 Oct 2026 17:24:23 +0000
-X-MC-Unique: MNNibF4TPSK6kB7w8HlFrg-1
-X-Mimecast-MFC-AGG-ID: MNNibF4TPSK6kB7w8HlFrg_1791825862
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a0761224e1so19737415e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:24:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791825862; x=1792430662; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5MCinI97TwRTst5/YFDaMtBPJlTzpwg3rQxyfSvYCas=;
-        b=c1c+Q6EG27M2iQ9ZUic2TskOh0kl0393uo3KJCHMU7xNi3yS+q9jTrdFYk1gmmgeBq
-         nImlDIAzyfYnMCu56bnU1df3BjPZMlQgDeHStOLznra99D4y7LrbVDhrlc3I9pSgtcOx
-         rYRgj9OP/KlR8Jhhy04Ic3QgccSJju07bxlWka3c1XF0dP9borQIRhnGGPehIATgHym1
-         8jIIOAXbG8NvVxTAj5Xs+nPGK+IbqtI9YvaJbbDRQtYGBqkXeX3M+rkUmAZO2hobVb+/
-         xWHxsVfLXB098kna4FPjgWVZKCrd8LbSuuCFC5L0NJ4iOEIlY5hTHThaKPOhV5ynhpYc
-         kVBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791825862; x=1792430662;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5MCinI97TwRTst5/YFDaMtBPJlTzpwg3rQxyfSvYCas=;
-        b=ZWMK6JVDzCXlSEwcvCnvQ7n0gWFtClgGlll/n29fSLfhvEBAOBlbccSTWKjQwXC4pt
-         R8h+oN3+UJoIfKf1vfdVte1OMQlsf4IGXrFGmY8vYoUX0E4aPmJAQH7OUoMFKxVbApnv
-         bJu9SkEkP/BIF3bY2j1UJIBOhto0Jn1FSTvrhOuRCPnSRKZ4m8go7lz77YeXZxOMQHt8
-         vhPdZHVcfKcTt1jfbmPBQNKx9qMTq7sccSao5vLbnOPhGbinSfNgi60GNJlhwR6Y4/XA
-         ULFIpRv8ChSaL/7kyqmstvzMw530CPKxpKol6exUDwsAMex8VOq8bd9rr0hlGsScB5kq
-         p3qw==
-X-Gm-Message-State: AFq9FYI1ytVU8yr5f6cl8CPnlCdzXH94T5RADa3UqcAs6s2GV40GUFEn
-	FePsjcBYa6e9uZXtp3ToZt9aRAZ7RdqkSGBmPkXHXqMF6RXrpz57es75TF7uXfLn0FcgcOE4N+F
-	9p8vF8K2XgPzHDssO16zmZ0JyutNeA56AZcOk9BwqaaBJ3YAqpFJ/Tk1kwNZ5DV96vPhg3fxzsw
-	==
-X-Gm-Gg: AYBFou1kUduC3Cy+93glFwdu60nz+XixrmEsy5XV+DWRHBmBDViDpUKTTfbOQC3RBbS
-	4+0Ke8a/WUOj063GOvgbbkxVpe7mT7XcJXcSt/yuU/d00smsCnpf7F+JBJnUEmjjG0KQx6cphY8
-	QC+HaaJS/MasXe8GHgnW6UmDnO6sps8CFzVngXNPG08qpp31xANFuR1xcn2lxjZySzM0wXoTvai
-	3nfO0BlqDDcG6qK7uC4sayunk66kFmGxZIZowbHRIah+1phHBS0ALI65oSarweI0f0CSy1dS94d
-	B1ghcjo2BkpezI0AGBILuJ3TOiyPzuGUzyr4kZNmLgEl9/ztwxLvLUx2HzYHBkDF0xRZsuCB2GB
-	IZWoVtODXuGvlzu5nb0W3PyG3nNj/5nKpYYC5Ilsz48Bm6y3XknDlFg1Qr23hVeMG0qClWHHZfz
-	Ofm7QT
-X-Received: by 2002:a05:600c:3e07:b0:4a1:8627:aec7 with SMTP id 5b1f17b1804b1-4a18e4987abmr166291545e9.5.1791825862159;
-        Mon, 12 Oct 2026 10:24:22 -0700 (PDT)
-X-Received: by 2002:a05:600c:3e07:b0:4a1:8627:aec7 with SMTP id 5b1f17b1804b1-4a18e4987abmr166291025e9.5.1791825861524;
-        Mon, 12 Oct 2026 10:24:21 -0700 (PDT)
-Received: from [192.168.10.48] ([176.206.82.153])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be97d1esm480677705e9.8.2026.10.12.10.24.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 10:24:20 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Subject: [GIT PULL] KVM fixes for Linux 7.3-rc8 or final
-Date: Mon, 12 Oct 2026 19:24:19 +0200
-Message-ID: <20261012172419.138525-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UmsdSCFJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CCD71F0089E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:24:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791825870;
+	bh=Is5cPS2yKzxfEYfxVgeAAlgAXAXS0M93VqGi3blDDT0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UmsdSCFJQfZCi4BAYNMS9Qz3G2Z/X1czFvvnml1y44PE6Vl5RVannOR6XNhkz7ofK
+	 JozaOluDTy0fdG9tdbtUlGXLUH9hzTqGruryNZHusoBRXPpwIDp+of5J0k/Vz9nWef
+	 lhQURn+qdy6nJ83g/MheJzifMYYyBYHLXrf1IrDwep4emBlG9AO5gMlEK/x8JLbFEw
+	 s7hGq7cQg1g2PjvZo1rBXveFmE5QBH8sH0gTcTO6XG3OqqB1wKn+T0jDoOS69387B4
+	 +4vixheTjqVnbrDbItxrGbfN5MiwMZk0mAVKP1ptLrvrnMU8TG4EL7RCEAIbCI4tFp
+	 Hk0t7QaiztUgg==
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7c1916da745so3451249137.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:24:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwFdcuKthVg1zULcq9vRQK1QIvAgAC9+QjlLsNaSCkfGcKnY/3bUbIv+cz/BdgDpf24HhB/QJIMqjpJcgQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL6CsPvGIZuULl++yQd9+9wzqEEaOPIaRmJe/zewTmLqm75bY+1
+	QkQzCkdQO1q0BYZDCZQHkKU1b4I3O6iqx9QRQeMm6TGHrP6BjGvHSAUA4YM0F1hG52X+jfKH8sg
+	fL80CeUvjjdFjVrh8SC95PCCRsv6Qcas=
+X-Received: by 2002:a05:6102:61c1:b0:7c2:e5bb:d20c with SMTP id
+ ada2fe7eead31-7cb3a0bfa9emr1601031137.34.1791825869540; Mon, 12 Oct 2026
+ 10:24:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261011155815.1563812-1-hengyul@cs.unc.edu>
+In-Reply-To: <20261011155815.1563812-1-hengyul@cs.unc.edu>
+From: Filipe Manana <fdmanana@kernel.org>
+Date: Mon, 12 Oct 2026 18:23:52 +0100
+X-Gmail-Original-Message-ID: <CAL3q7H5UxcZpzBU0S0oyQZBV3pNO7joA7eqz35zHFV25xLHHyw@mail.gmail.com>
+X-Gm-Features: AclHuK_fpopgt0MdFZwKdSAYVCBO8z-d-IgdViLTsaNBsfdq5oCQdSJ1EtM9TbM
+Message-ID: <CAL3q7H5UxcZpzBU0S0oyQZBV3pNO7joA7eqz35zHFV25xLHHyw@mail.gmail.com>
+Subject: Re: [PATCH v2] btrfs: fix chattr failing on nodatasum files that have
+ the compress flag
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+	Filipe Manana <fdmanana@suse.com>, Qu Wenruo <wqu@suse.com>, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Linus,
+On Sun, Oct 11, 2026 at 4:58=E2=80=AFPM Hengyu Liang <hengyul@cs.unc.edu> w=
+rote:
+>
+> Commit cf1afec09e9f ("btrfs: validate properties before setting them")
+> made btrfs_set_prop() validate a property before setting it. For the
+> compression property, the validation fails with -EINVAL when the inode
+> has NODATASUM.
+>
+> However, chattr writes back all the flags it read from the file, and
+> btrfs_fileattr_set() sets the compression property whenever the new
+> flags include FS_COMPR_FL, even when the compression flags do not
+> change. A file created on a filesystem mounted with nodatasum has
+> NODATASUM and still inherits the compress flag from its directory. As
+> of now, chattr fails on such a file when it changes any other flag.
+>
+> The issue can be reproduced with:
+>
+>     mkfs.btrfs -f /dev/sdb
+>     mount -o nodatasum /dev/sdb /mnt
+>     mkdir /mnt/dir
+>     chattr +c /mnt/dir
+>     touch /mnt/dir/file
+>     chattr +A /mnt/dir/file
+>
+> Before commit cf1afec09e9f ("btrfs: validate properties before setting
+> them"), the last command succeeds.
+>
+> After that commit, it fails with EINVAL.
+>
+> This patch will make btrfs_fileattr_set() leave the compression flags
+> and the compression property alone when the call changes neither
+> FS_COMPR_FL nor FS_NOCOMP_FL.
+>
+> Fixes: cf1afec09e9f ("btrfs: validate properties before setting them")
+> Cc: stable@vger.kernel.org # 7.2+
+> Suggested-by: Qu Wenruo <wqu@suse.com>
+> Assisted-by: LLM
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 
-The following changes since commit a90ee4305c4a5df72c11b31dacfdc76e00fcf78a:
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
 
-  Linux 7.3-rc6 (2026-10-04 13:45:25 -0700)
+Pushed to the for-next github branch, thanks.
 
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/virt/kvm/kvm.git tags/for-linus
-
-for you to fetch changes up to e90ab3669181c6469e3647ef2b30ae408275f496:
-
-  KVM: x86/mmu: Cope with the SS bit being set in #NPF exit codes (2026-10-12 18:58:45 +0200)
-
-----------------------------------------------------------------
-More x86 fixes:
-
-- Fix a WARN if the SS bit is set in #NPF exit codes; the AMD manual
-  is unclear about whether it can be set when the guest uses CET but the
-  SupervisorShadowStackEn feature (which KVM does not use) is disabled.
-  However, Hyper-V has started using CET now that KVM supports GMET
-  (it wants the two feature in pairs), and that dissolves all the doubts:
-  the SS bit *is* reported and not clearing it causes a WARN and/or a
-  UBSAN splat.
-
-- If creating a vCPU ultimately fails, clear its entry in the AVIC Physical ID
-  table used by hardware to perform IPI Virtualization and delivered posted
-  IRQs.  I.e. plug the same use-after-free hole related to IPI virtualization
-  and posted IRQs that was fixed for APICv by commit b41f2ca6c0601 ("KVM: VMX:
-  Fix stale PID-pointer table entry left after vCPU free").
-
-- Use set_page_dirty_lock() instead of set_page_dirty() when marking a page
-  dirty after writing back SNP firmware's desired CPUID state to userspace.
-  Using set_page_dirty() is unsafe if the page/folio isn't locked (as pointed
-  out by its function comment's big DANGER warning, which no one reads given
-  the number of bugs of this exact nature).
-
-- When checking for an MMIO generation match, use the memslots for the current
-  vCPU context (non-SMM vs. SMM), as a misbehaving guest can coerce KVM into
-  incorrectly identifying a write as MMIO in order to bypass KVM's
-  write-tracking.
-
-----------------------------------------------------------------
-Jann Horn (1):
-      KVM: SEV: Fix page dirtying in sev_gmem_post_populate()
-
-Jinu Kim (1):
-      KVM: x86: Use active memslots for the per-vCPU MMIO cache
-
-Naveen N Rao (AMD) (1):
-      KVM: SVM: Clear AVIC Physical ID table entry if vCPU creation fails
-
-Paolo Bonzini (2):
-      Merge tag 'kvm-x86-fixes-7.3-rc6' of https://github.com/kvm-x86/linux into HEAD
-      KVM: x86/mmu: Cope with the SS bit being set in #NPF exit codes
-
-Sean Christopherson (2):
-      KVM: SVM: Add paranoid helper for checking if vCPU is AVIC-addressable
-      KVM: SVM: Use "is AVIC-addressable" helper to sanity check load()/put()
-
- arch/x86/kvm/mmu.h             | 16 ++++++++++++----
- arch/x86/kvm/mmu/paging_tmpl.h |  3 +--
- arch/x86/kvm/svm/avic.c        | 22 ++++++++++++++++------
- arch/x86/kvm/svm/sev.c         |  2 +-
- arch/x86/kvm/svm/svm.c         |  6 +++++-
- arch/x86/kvm/svm/svm.h         |  1 +
- arch/x86/kvm/x86.h             |  4 ++--
- 7 files changed, 38 insertions(+), 16 deletions(-)
-
+> ---
+> Changelog
+> v2:
+> - Do not test whether the inode can be compressed. Leave the compression
+>   flags and the property alone when the call does not change them, as
+>   suggested by Qu Wenruo. Setting the compress flag on a NODATASUM inode
+>   still fails with -EINVAL.
+>
+> - In the failing call FS_COMPR_FL is set, because chattr writes back the
+>   flags it read. A test for "neither FS_NOCOMP_FL nor FS_COMPR_FL is
+>   set" does not catch it and would stop chattr -c from removing the
+>   flag, so the check compares the old and the new flags.
+>
+> - Explain why the call fails.
+>
+> v1:
+> https://lore.kernel.org/linux-btrfs/20261010105425.165104-1-hengyul@cs.un=
+c.edu/
+>
+>  fs/btrfs/ioctl.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>
+> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+> index 52aab510aea0..43a945345cbe 100644
+> --- a/fs/btrfs/ioctl.c
+> +++ b/fs/btrfs/ioctl.c
+> @@ -375,6 +375,19 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+>                 }
+>         }
+>
+> +       /*
+> +        * Callers write back the whole flag set, so only touch the compr=
+ession
+> +        * flags and the compression property if FS_COMPR_FL or FS_NOCOMP=
+_FL
+> +        * changes.
+> +        */
+> +       if (!((fsflags ^ old_fsflags) & (FS_COMPR_FL | FS_NOCOMP_FL))) {
+> +               /* 1 item for the inode */
+> +               trans =3D btrfs_start_transaction(root, 1);
+> +               if (IS_ERR(trans))
+> +                       return PTR_ERR(trans);
+> +               goto update_flags;
+> +       }
+> +
+>         /*
+>          * The COMPRESS flag can only be changed by users, while the NOCO=
+MPRESS
+>          * flag may be changed automatically if compression code won't ma=
+ke
+> --
+> 2.53.0
+>
+>
