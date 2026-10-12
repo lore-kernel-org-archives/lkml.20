@@ -1,176 +1,210 @@
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832D01A681E
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:56:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791770182; cv=pass; b=HHvMP9ebFwLe0rq92+Pm+nKX84WfChPAb4hwcBnrdBEtb6p0YXMg98yJiwRBqnpwhqLAwc3yo4BgMJVCG+3mdt12xRlef/iwhffCSets28luDwxD7F3L6Ma/4XF8PAL2Za/svy/mukQQFh8Ht2Lh96JMVGdE9G85ohz5miMXFCs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791770182; c=relaxed/simple;
-	bh=ItBCubvI6RrUGFR+jychln1nrX1byTfSLBkItkPeKgc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jsBCyhQKtwlHNp/hTz9HeT3/8bgEWqbiLifBbn3zePOGThIa+tB/5ZaEerIjp1EC879FXIWZlCd44rXRjoCPu6dVc8CDR8KUNFx+GERi50OCwQTnn7kLIsDbvVioBSLr8mSI0AJPi0tqiSFmj9tBn+NGmwpPwAdfBjP8thheYTQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q+EJpkeh; arc=pass smtp.client-ip=209.85.167.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98591A681E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:57:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791770265; cv=none; b=RjTTho1IQGY+5aZvENh+/cn27eOgeDyGQ6yvEZJVUwHaPWaU4tawXBlwDbH/yKS/LD67RK56bMgqqeLmunWaED9fAEwB5rbOJOWJi60H4W3MlAzc/anynAGxA3jjtQUJnuwSrFxfTQGOxb+L2TAs+1YE0TV+OdtknwiZZAHHkEA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791770265; c=relaxed/simple;
+	bh=UHoRyMXiM7nTiqE229gHpN2uqBFHh+rkx5kDGLsqeb0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iWQmvu8P8xJq4GkefJwWDQwGndwz/Ypf+NIvY2T6/+8/RNk6XdjW9zVCYwNwD8Ch7wptg8/lMqyaSnFFINAOzf6yzvBslySD0Bp62HoeENgBhsY3UYL/qdTvOvlj8YGf0PW+hmRNEln0oDbKbhiLSSY3RGbgSATBsY2xS602e3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=MnOhXC/R; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PKxj8ABi; arc=none smtp.client-ip=103.168.172.157
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q+EJpkeh"
-Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-4b1fcd3b1a9so487741b6e.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:56:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791770179; cv=none;
-        d=google.com; s=arc-20260327;
-        b=e6fLfzWmpQ0lwJjNnX/v0WKOYzEAjggUTSSnrUDGhLEihd8vXmGbZ87ytX938X1NOS
-         L8SY8c25ys4yzSNIrTJFNi8CvmHSrZS8WdUXGBpctI2p2Fct5VOF4DE7zWKV/D5I6Y1Q
-         qbC2+/G41HDxGRyVL0BWlHQrvcJJitlcmHCx1EcM/vL5ULk3lPO81A2KOqY+nGrk8Jol
-         +69wJcmfSywYnI+mL+jvrJDkJKukoJNAdzPhlbOOs571Lc6Tg+PlmshseHH0wsRmP3yg
-         AyawGNdjvILc+sA/M5o4Y15UKsbVndTom2dtsqj/3gbEqUFUXfJ0uDQ3wo4RltzBM6qD
-         AWgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VVDLMccIAgoQGAe8a9PiHLfmc8KenWgKbO4m7BVbc5w=;
-        fh=oYHv8RlYV93CaXUSYVayhsA8pt67cZqRav9NcM6D8NI=;
-        b=X3PTaCbaROvLjYr0ytvrZDyN3ak5infWdSwhEH6LTMrmYMI5UZtSdvUbkL7SOKyVUK
-         lJI2MlUBy5b12Lc/TGf7Bpco99s9qpP0sFstbGsBqlrcl3C61/qvXNUXFnemlObndNLT
-         HyOF7FEHuyyLezerzgm0gxcz/6tw68xlhaOCJFVArHaaCNGRAmvtqu8xWJeRn57enAjF
-         s0RZuAvd1lEna7kEoj0pQ+QoYTz895PCiMhrzHkceW0g02DGQCE+h649Gpv3a+cZ5ILD
-         DDGZZZqFERNo1Mr7TTZBw8vVoIwtIDr0UfRTkQVwHsOU7UD+WHoxwTqGvSZAjuUy+o52
-         NuhA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791770179; x=1792374979; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VVDLMccIAgoQGAe8a9PiHLfmc8KenWgKbO4m7BVbc5w=;
-        b=Q+EJpkeh4PUr02R/B969/LmQEtKTNZggJUld4ol8shbzvOMiFOApEn9BsLNJ59JBsU
-         ZC3Z9k1+QLhTTwqMqry+eC+D+j4HiDviG7OC3b+M8flV+nMY3l4LDoFaCV8g+RL1P591
-         d3wIVClDgky8LlZoVmgSEKHVn/fjhZCqXJ3esijU8WUUlVyzz9yxhGRLceXExjSlJXtL
-         Is+Cvzuqr3vG6n+T5pYAR0zGALv+ruT4jVbDFetaQeFiOM0dT0gufD0uri3XuKdV+cDZ
-         3eV2qdBbe0PoSth0DKJ73NdkoZSgt7xSnzF/GCTNo0lEJIvrTvDRP/jiVB6Kin6GhfSc
-         tS+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791770179; x=1792374979;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VVDLMccIAgoQGAe8a9PiHLfmc8KenWgKbO4m7BVbc5w=;
-        b=DZxNpQ+uYaZqrd1r7TrLREPc19YBv5FG7YdwxwPXw1SDXggfuTqaLg3J1uDSikf0VY
-         y0VenXr6qqZtHoyHBdOC1/fZhBkb4B2dedCFG18nFK0GzHgFZ2biA0I+RULlkbPi/Fmg
-         7Xw+GRDbzvAxzqmlE+ENDzipBUEZXNw675QRecQ8aY/GGD2jadjcy2RMOTKiGHoZsUNu
-         aTpbtkQ5usIjAMNKauL8O0MajsoS7ujjV9eQ6FwG7j2w3nWa/IOCyf4E5DY7mtoaZpiY
-         kV6tOBJYgr662RbJVaBE2LZHRQx3BcZbANNnLhNu0pz65Plq62eAEbGAUE2kw/NBMff2
-         wyzg==
-X-Forwarded-Encrypted: i=1; AKwUvBzErLhKOD9VcWb+A21uf486aP/Y74L5cYY3f/dcy5KzjVgG26DRosHxAy/hjjb7PT4muxIUZjksy4SovaE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKlC2FyQ+7O025+sOJkznbLoHXQIbpvuBzIHlX/dcJvNmaoFQfL
-	GC1NvAEB3Rv8jVxA6YMWjzeUy60TzKlea+JeZLSmZ3iVgQLhwdxtirhv8L0k3kqSYAaeAJicuqA
-	lLixWxLeqUMU+mTQQgaioqxROAJ0sbD7SMfSWxaI=
-X-Gm-Gg: AYBFou1+QpvCjGmY2FEKwXV8ql9OOXEgI7ogmZfJSFRBQ/oblQUbMDvl+qQAVozF5q0
-	cmTWQfDNIGOts33VM1+ScgZgewwTTxbYdxxJb5Tj64JB0jzOLcQWUZlIdVK47HIV2Vt5lt+v46W
-	sqx9lBp2Yv7zCr1acDxXxB8MnEBz6KoKyazwdMRqcL6H14RoBwant64Zza7JHbHEpMPtPgypBW9
-	Upi2w8FJKG9wc2Jmp7XIWr2pK7IFtTMCfLu9vIwRtlYP2FC3wGzMNEsLfKqCE5I5oY97OhoXk6M
-	5tSX0ka3bJ7kNm1E2SS+rXX+YOYEnbbFVeFJRjjY3YGF9qsZiZ3kINf/IECA+UxhJxbTDxQChqN
-	zaQmzkzt8C5aM+iDGYmZH6eUrOXVtApn3NFL/b2m8r6g6aCVNu4IplCI=
-X-Received: by 2002:a05:6808:318f:b0:4d6:92b3:5c86 with SMTP id
- 5614622812f47-50c58710420mr6758060b6e.67.1791770179315; Sun, 11 Oct 2026
- 18:56:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="MnOhXC/R";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PKxj8ABi"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id C45B5140003D
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:57:42 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Sun, 11 Oct 2026 21:57:42 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1791770262; x=1791856662; bh=sFxJ/rI/2/
+	T9wBBz1I0/JGzfzTvtkuB0LIHBLyKbO3o=; b=MnOhXC/RcYHOi8Ed92j8cUY9K+
+	ZV4Q8FmmgY0cJ3XMLqjU2rrKjsBBx7msHROG2O4qMBfPzmInYMTB1X7oBuOXErfw
+	Lg7SSeOro0r9v2lAdVGzrGIOyWidRaPu+P9lS74HKTMcE55cAZ1dY5bFDt12L1pa
+	V5RxLLY/vDsEw9UN0aWdfVCFd9bXhgf6AsfSskmYFAKnVdvEnP0GqXTbxb12EOPL
+	TNM9bGCHDmwhaoTLk43dDScQmA+/7uySFak8xGgC3BfCcto1rjk57mFQvHHCjYJr
+	jx1C1q0bFqXK5cUQ+AOhCQdSuhS9bAQRAp5nh0geo4vNYJ+MK0w2PvLRdQIg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791770262; x=1791856662; bh=sFxJ/rI/2/T9wBBz1I0/JGzfzTvtkuB0LIH
+	BLyKbO3o=; b=PKxj8ABipQfmxb8yukKK6mxrtM1ZDVWxtPVtosHKsCtITNm81uV
+	Isa/G1XbPmlWUOCj0wdRJE6wReNpe33qegt05V5w0F6NunzLV5QaCYZOIJH9K/Yg
+	WgTFP+mAU8ZPEOwko9gYPiNMl50h/Em2DC6X/0htjDxCA5f8HZ+gT0yV3JfFGWNx
+	Y6Wa9RMydUF2GiL7PPgcSJhtHrloPAvEumP49N+jEZDwc2g1cbU+V8XpzD/KDmwb
+	p5UO3EmEocYT/jLh23Fgr5cWM+PcSDTL8Ucrk9yb8S0ujpotBLt56P5yjX3WKB3d
+	jwtkTsRqolXjUnTfBkXYPbUhIH4/awFgZ4A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=sakamocchi.jp a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791770262; d=sakamocchi.jp;
+	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:FqJCPAUS7vGZUcFVzPsNfLGvQqWEeANPCSd5la8f4JDr8bZ
+	sxu8rQEXCnUucuafEdM1wgtrR0eax2oYD3IOZs7bdTTtnaznX5krq6y2YOe9oWUY
+	cLIpe6zbv3P6zh9R7AxNkrD4PTWrWQvvpeWselJmN3MTMqnLk3D+s3+FWIvMVlDA
+	12750Orb93UgzrpmAO0YlQKXKVhUCzKe+j6AbNl5Z0vTbM+N35ci9gbTcP/YaFft
+	tE3E278SD8q/zwW15haguxWR/WywSH8SwyM5eVFtWywOvXk7f0ohLWPEjxJm7WGN
+	vyX45H1civ1mSFqsmRnOJeFauk9L7ZzTl3gZYiw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:q56znz8zB9pAEWLveGolFmCslNR5Rw7nq08PqfR9Av0=:UHoRyMXiM7nTiqE229gHpN2uqBFHh+rkx5kDGLsqeb0=;
+X-ME-Sender: <xms:lj7MakhXgcy4HW_VozPHwuFO57PO0SfzDij8gW_VVEZiJkmpoFqK1Q>
+    <xme:lj7Maq8it1X4g8jvl-iDwkFBj_0XP_jKJmZxtm9cf8k5CXw9xwRGhBV4ku_wKHLps
+    d2TK6O9t9DlmqalxLJxbQoOMlF4j6ObPvJHyl9NYGRCG_9XHdzYKJVF>
+X-ME-Received: <xmr:lj7Majp8Pa1fgJhxLpMHjNef22CNA1PS4lQL_RaAWZW26FT63Q0Bck2U6qiphNXTscRMpfMKnvycUo7g_yreTaeLrnQb9SG2po5B58r24Ixjhg>
+X-ME-Proxy-Cause: dmFkZTG1rA/YrMj+wa0lwk3Ix02dN29csAWTKATcSmdCJeMNxmmpB7tHhd8bbxa1JbJaWd
+    /El3fkY3TAYrGNpzTdFaKdc6MNQ12kEcRKfp+zLel2SWjZ610mef7HYF8cwjWYxAxxGot8
+    JeJDLSDZGInFwx4n09JGts2S65nfIChXa4775LbZ2SyMJlkL4aSLP0D5uhEIBWc7w25yKk
+    WfqDGkrZ9rz7l0gd0i1pRg9xxWkGmhu9tZzbVO7EfZmihveAU+gglTih8eo8waSuI2mtM1
+    t3RzR9FfryvnhRyMxbh4/AAroBQuj1b0BzTWE9C9IlSTZc3Ckixby8KRdAFDr1hXBSjdYz
+    w9AH/aRME76PN3Fr6pgQmOj2rKMwm9EPn28N4o2E15sc51h9NUpSCSe0gFTIzE7F/mC6Ts
+    /DsHcEBaFxZaPcaIheExaPLKRf+uGMEc9R7d8Nm5/EOMkIB4jXwSWZjeDq5MI2TXfU+Si7
+    BFJcRafWpCGVSFLaAOx0MSM75T8GqpBJhE+uAsy66o4WjyVlrrWkwlSg5BTFbhCUS9Yunl
+    zntX+X0UU6ChAvyh2il0eZM6r3fcaJqvG0yfHl4oU/45A1YvlRcki6HcxDUIbGWJcAkuyc
+    NQPQFS+b9MPp7wexu4vVOazynHFB3mwBGMOq3FEYgf/RfSETeE7exM7HJ3PA
+X-ME-Proxy: <xmx:lj7Mah_s2W9mqriqxsn7TAZM4t1QEgb74oOzOzISM1x9Y-he2Kvhuw>
+    <xmx:lj7MavUVFtS2iZuSGsFLbZCpkYo3R-O7nw_t8RqKWRwkvG3FTvSKkQ>
+    <xmx:lj7MavBuz4pKRk-ucYblwmqGfTUH9E3vSxQNslDF65JFegNhbsidAg>
+    <xmx:lj7MaozkuxE1b8KbHkgeU54oTw2YSOFgjnHZkjQQR6IizYRdEjOsog>
+    <xmx:lj7MaiUQkJt-_1KNpLdmx9vD159rpeZZ2zGHLQ3qAm280FjcqPiQGWn8>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 11 Oct 2026 21:57:41 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] firewire: core: use appropriate spinlock variants for transaction-related locks
+Date: Mon, 12 Oct 2026 10:57:39 +0900
+Message-ID: <20261012015739.530731-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012012905.267920-1-atomlin@atomlin.com>
-In-Reply-To: <20261012012905.267920-1-atomlin@atomlin.com>
-From: Ming Lei <tom.leiming@gmail.com>
-Date: Sun, 11 Oct 2026 20:56:07 -0500
-X-Gm-Features: AclHuK-0IDhvx-vXBL80m0PiQwaU3cgV-Y37jAMo4r-4F6vwZ3d7JdKF22seZMM
-Message-ID: <CACVXFVMTr8mORGSVM4JWHrLYgk+9O0J20bjaL_08uYmRCbzC3A@mail.gmail.com>
-Subject: Re: [PATCH] blk-mq: dispatch kworker to housekeeping CPU when hctx
- cpumask is empty
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: axboe@kernel.dk, hare@suse.de, sean@ashe.io, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 11, 2026 at 8:29=E2=80=AFPM Aaron Tomlin <atomlin@atomlin.com> =
-wrote:
->
-> Commit a46c27026da1 ("blk-mq: don't schedule block kworker on isolated
-> CPUs") excluded isolated CPUs from hctx->cpumask to prevent worker
-> threads from executing block work on isolated CPUs. When all CPUs mapped
-> to a hardware queue are isolated (i.e. blk_mq_hctx_empty_cpumask(hctx)
-> evaluates to true), blk_mq_hctx_next_cpu() returns WORK_CPU_UNBOUND with
-> the intention of offloading execution.
->
-> However, kblockd_workqueue is allocated as a per-CPU workqueue
-> (WQ_PERCPU). When WORK_CPU_UNBOUND is queued on a per-CPU workqueue, the
-> workqueue core resolves the target CPU via raw_smp_processor_id().
+The spinlocks in the fw_card structure protect transaction-related state
+from concurrent access. They are acquired mostly from process context.
+The exceptions are split_transaction_timeout_callback(), which runs in
+softirq context for the timer wheel, and __fw_send_request(), which may
+also be called from interrupt context.
 
-Then it looks like you need to fix WORK_CPU_UNBOUND, which has more wide us=
-es,
-if you think it is one problem.
+Use spin_lock() in split_transaction_timeout_callback() and
+spin_lock_irqsave() in the other functions. The latter preserves and
+restores the caller's interrupt state, as the callers are not guaranteed
+to have interrupts enabled.
 
-> Consequently, if a task executing on an isolated CPU submits I/O and
-> triggers an asynchronous queue dispatch with zero delay, &hctx->run_work
-> is queued directly onto the local isolated CPU's worker pool. This
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ drivers/firewire/core-transaction.c | 21 ++-------------------
+ 1 file changed, 2 insertions(+), 19 deletions(-)
 
-If your theory is correct, why do botter to change to
-housekeeping_any_cpu(HK_TYPE_TIMER)
-if the user is submitting IO from an isolated CPU?
+diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
+index dfa6c97f9dce..33c4ea48c6c9 100644
+--- a/drivers/firewire/core-transaction.c
++++ b/drivers/firewire/core-transaction.c
+@@ -78,8 +78,6 @@ __must_not_hold(&card->transactions.lock)
+ 
+ 	lockdep_assert_not_held(&card->transactions.lock);
+ 
+-	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-	// local destination never runs in any type of IRQ context.
+ 	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
+ 		list_for_each_entry_safe(t, tmp, &card->transactions.list, link) {
+ 			if (try_cancel_split_timeout(t))
+@@ -136,9 +134,6 @@ __must_not_hold(&card->transactions.lock)
+ 
+ 	// If the request packet has already been sent, we need to see if the transaction is still
+ 	// pending and remove it in that case (e.g. the split transaction).
+-	//
+-	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-	// local destination never runs in any type of IRQ context.
+ 	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
+ 		if (!find_and_pop_transaction_entry(card, iter == transaction))
+ 			return -ENOENT;
+@@ -180,7 +175,7 @@ static void split_transaction_timeout_callback(struct timer_list *timer)
+ 
+ 	lockdep_assert_not_held(&card->transactions.lock);
+ 
+-	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
++	scoped_guard(spinlock, &card->transactions.lock) {
+ 		if (list_empty(&t->link))
+ 			return;
+ 		remove_transaction_entry(card, t);
+@@ -223,14 +218,12 @@ __must_not_hold(&card->transactions.lock)
+ 	{
+ 		unsigned int delta;
+ 
+-		scoped_guard(spinlock, &card->split_timeout.lock) {
++		scoped_guard(spinlock_irqsave, &card->split_timeout.lock) {
+ 			t->split_timeout_cycle =
+ 				compute_split_timeout_timestamp(card, packet->timestamp) & 0xffff;
+ 			delta = card->split_timeout.jiffies;
+ 		}
+ 
+-		// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-		// local destination never runs in any type of IRQ context.
+ 		scoped_guard(spinlock_irqsave, &card->transactions.lock)
+ 			start_split_transaction_timeout(t, delta);
+ 		return;
+@@ -255,8 +248,6 @@ __must_not_hold(&card->transactions.lock)
+ 		break;
+ 	}
+ 
+-	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-	// local destination never runs in any type of IRQ context.
+ 	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
+ 		if (!find_and_pop_transaction_entry(card, iter == t))
+ 			return;
+@@ -427,8 +418,6 @@ __must_not_hold(&card->transactions.lock)
+ 	 * the list while holding the card spinlock.
+ 	 */
+ 
+-	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-	// local destination never runs in any type of IRQ context.
+ 	scoped_guard(spinlock_irqsave, &card->transactions.lock)
+ 		tlabel = allocate_tlabel(card);
+ 	if (tlabel < 0) {
+@@ -454,15 +443,11 @@ __must_not_hold(&card->transactions.lock)
+ 	// The node_id field of fw_card can be updated when handling SelfIDComplete.
+ 	int node_id;
+ 
+-	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-	// local destination never runs in any type of IRQ context.
+ 	scoped_guard(spinlock_irqsave, &card->lock)
+ 		node_id = card->node_id;
+ 	fw_fill_request(&t->packet, tcode, t->tlabel, destination_id, node_id, generation, speed,
+ 			offset, payload, length);
+ 
+-	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-	// local destination never runs in any type of IRQ context.
+ 	scoped_guard(spinlock_irqsave, &card->transactions.lock)
+ 		list_add_tail(&t->link, &card->transactions.list);
+ 
+@@ -1228,8 +1213,6 @@ __must_not_hold(&card->transactions.lock)
+ 		break;
+ 	}
+ 
+-	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
+-	// local destination never runs in any type of IRQ context.
+ 	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
+ 		t = find_and_pop_transaction_entry(card,
+ 				iter->node_id == source && iter->tlabel == tlabel);
 
-> causes the local per-CPU high-priority kworker
-> (e.g. "kworker/6:1H-kblockd") to be scheduled on the isolated CPU,
-> introducing unwanted latency jitter and execution delays, thereby
-> defeating the original objective of commit a46c27026da1.
->
-> Rectify this by selecting an online housekeeping CPU via
-> housekeeping_any_cpu(HK_TYPE_TIMER) when blk_mq_hctx_empty_cpumask(hctx)
-> is true. This ensures that:
->     1.  The delayed work is cleanly offloaded to a housekeeping CPU.
->
->     2.  The per-CPU high-priority kworker on the isolated CPU is not
->         scheduled.
->
->     3.  Hardware queues with valid mapped CPUs preserve their per-CPU
->         locality and batch round-robin behaviour.
->
-> Fixes: a46c27026da1 ("blk-mq: don't schedule block kworker on isolated CP=
-Us")
-> Cc: Ming Lei <ming.lei@redhat.com>
-> Cc: Jens Axboe <axboe@kernel.dk>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
-> ---
->  block/blk-mq.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/block/blk-mq.c b/block/blk-mq.c
-> index 025a799f35b9..9480c3aac898 100644
-> --- a/block/blk-mq.c
-> +++ b/block/blk-mq.c
-> @@ -2252,8 +2252,11 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_c=
-tx *hctx)
->         bool tried =3D false;
->         int next_cpu =3D hctx->next_cpu;
->
-> -       /* Switch to unbound if no allowable CPUs in this hctx */
-> -       if (hctx->queue->nr_hw_queues =3D=3D 1 || blk_mq_hctx_empty_cpuma=
-sk(hctx))
-> +       /* Switch to housekeeping CPU if no allowable CPUs in this hctx *=
-/
-> +       if (blk_mq_hctx_empty_cpumask(hctx))
-> +               return housekeeping_any_cpu(HK_TYPE_TIMER);
-> +
-> +       if (hctx->queue->nr_hw_queues =3D=3D 1)
->                 return WORK_CPU_UNBOUND;
+base-commit: c85f48c90bf3e62f50b78f7be7d628c06b97c335
+-- 
+2.53.0
 
-Why is SQ so special here to keep WORK_CPU_UNBOUND?
-
-
-Thanks,
-Ming Lei
