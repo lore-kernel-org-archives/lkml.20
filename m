@@ -1,173 +1,84 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4000738E129
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:52:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791841980; cv=pass; b=jH8ZZ0GAHXL4bizPk5NHgIqDfT6CKCAAg3UnTntW+CoSLJ1MYIhojFSw2ztco5CrN6ybO7GGVs1m/2Mxk/pG5yJnx7HI9tYzb/deSYR55V0b/pt3Mqwx4xYjfVaSFEubybvyv/Zw72cKdcRACyuoRxnVvNGuG2pSoGepLJwlZx4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791841980; c=relaxed/simple;
-	bh=+m4ZBdotMUSKmqKLmogc7IfuZS7nj6qS7eFUrB6XmnM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PKxJ80ImZnNUZbZpxERHcAY/QMAeTt1T6Bkcv3kFv1cntRzUf6WORxirgVdH5maD1SilhuMORvrV3Xu+c75G9FDVW7DXIKZnBc/aGKlltW5xZgyJjTkA5GB7i0hB+SO4J+9l6/If3XKecOKPzK0TVv01f8tW412tDCPmWgGB9iM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JblO7gB7; arc=pass smtp.client-ip=209.85.160.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3653BED55;
+	Mon, 12 Oct 2026 21:53:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791841997; cv=none; b=DwN+Zv+k5vIwmEWoHW1/jGOMjQpSj3lCHtZQ71vu5/gvGne1CoktTaG3Sw3wggwLIWHV3Yw4t8GuvlFed8Efi4c+pY/2CNBsZo5UPcLdjoN3fviUFeuJZbVBKq52LATPTEQ8wBmjKsLOHeyUK03Fsr9yA3nYGP96AX3hUPLd4hc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791841997; c=relaxed/simple;
+	bh=AxbTsTkAJ4WwtIxBa3Agdgh50AjbujTEIZU+4j74akM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=WU6qM8z3QPcOsCAZYuCE9iWREIaykgKsBTrRVT2y3SuAy00rOQSlFhnGNhbILgBiVz9EnpUM1f4lirBvkD9TxrnsjybWLOqD7J3+Gb9c5srHS9d8GkSfAz7WONE8PzIGCmopDd/t+z98CQPe0edijMCdyoINHREOjkaOWB6+q+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XJrFbUmE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JblO7gB7"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-533202fe429so544161cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:52:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791841978; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Rn/1IdWSguOYommT3/bJIWLmwMaL9zSXgAc8ouGQzAcLAY6QKGCHw8THlQpxw9rZnY
-         jynV4GQeKhXX4zDt+jDYDLgMwfC12GSQSe8iMWJphFzV3qNoITggR7hPVoxY0UOJjPcT
-         ZjTHKB0cDQGLUQPfdtlZNjmXiX1gNjlPtxX0ctJJrJ8K797b6mHD0C+IrrIlY0thtvns
-         g6q6QwQHo5eoL3vCTKdcxbb3ARSi9+2+QnLjCF8obIdhdn/hdMI1miCmQa3gHJJiOBqC
-         lFcX9J84PhQHb8TQ4tY2L7M4PUSuD8cMq2OW3HJTjfD4Z59VS855YxLtu4fQcaKkN2f4
-         qsbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=im/gThKmBHzXcSbSs0s0PybtI1TA+tD6SJs96QN0Goo=;
-        fh=cOIjoUoXi8bLIEDyNi1M2dliSaah6Bx6qjfSuTXXLxo=;
-        b=V1Miw1UCQEopm9ufLLE0DgJhW6DAPSNisSM/rSSUUOfDPTdvSutA/JIHXiWhv70yyM
-         Sz1b0+aGxS8dL9Kw6wMWSb3iBJk3crT9vxcBmyu+pNt1SW6GrDBkiumDHnafmJyglZaw
-         olqBnWRnzReZYcu0VetnIgAB9bt4O020+NxQ5PCpBXz+f/gE6OykxrWd0bccvQxJnt5E
-         ACEvNb6lim4n0u/Q3Rs+f+kDLOZ+Rhgz0w66mjKOnBFVcgdfeTrAkRfje4N/DVcvMU6h
-         jq42lkBGsg5j1vzzkjWEX5bCKo/2nxhEuL99ZsDb8mHw3DnB2uKwmrPpEhrXEJKoGkhK
-         hb4g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791841978; x=1792446778; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=im/gThKmBHzXcSbSs0s0PybtI1TA+tD6SJs96QN0Goo=;
-        b=JblO7gB7VN8zQztJPp5ER3V6gozhmXuDF33y8omJcsnlVSbJ3wESaOCOGz2sWXNCAk
-         51nvHBYNjNpcYUro2nNJbTrdUIGKknprCXd/LQ5/U6q9FW16Au/IvnUm0V8Z87hBzUpN
-         tW785xneJDlGNqglTfLePC51ocGYbvFMXsHNtdIDJuEmdCzEOnJGCNjjbCp2Hh8+UXZI
-         P/Jbxnssb1YCLI70WicWIfJEnzfXcdK45pMG4XSHKt4xaQw6vPkJSzJvwERys0KPCkSg
-         QWai4/rL6mEuL9cqH+F4lEgttxRJ6mccirkloSFHL8jm8n1dFBZW6v6vQRysgN9MmXDQ
-         Z1ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791841978; x=1792446778;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=im/gThKmBHzXcSbSs0s0PybtI1TA+tD6SJs96QN0Goo=;
-        b=z48Kvcx+Yi3XEVkgHcYZDJRUQFfbY7+bl9Wh4SElMMM/ZXi9PmBd88ClNxq8zbpO5a
-         LbYWUPXTNrMdI1gNiEqyz3pQcRNXxAWoWrRCITXPNkpRcKy8jHty8UoqqXuHhZKm7Mc8
-         AjtEqKdEJA724ddxf2jCG6uhqBFa0Gegv+TY0FxmhN0bBeCmEFCCTCOe3UMHl+sKL+XI
-         P64v8APRu9/2TTnre6UK45s6OPCDTL0GNwihDs7lrtLjrR2fqtb6/LQjLDjSV2RR2rjW
-         3geuH3Bxxf2MG/Ck/OV6oxkMWYgbNB245d9GRWiXuj0M45eQ0muITwqiKDLwA6Q90oxB
-         h3AA==
-X-Forwarded-Encrypted: i=1; AKwUvByEITJatltrxhHaGE+oK4gHmj4ztOpj0wWgdi/tIT1idPsbK/qsZzKsl3pq0/FxPfATzYo8Rbd7MGQRJV8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7gGBUnGMv1vcQ2g8coYqrc8jl4vu+sI5y/2ovv643Fd5LitgO
-	QM9NiSmikNoYAcwrnYvWUvZxpn6x2msuyf8NWXc1kScUjMusBb4l4L0ejbKwJntcbQsv0PVqBDQ
-	781TQphS8zw+tHmD5tfObe2+tTYCnKUwJogyrDrp3
-X-Gm-Gg: AYBFou1bjaXIThtMt5h1LAANlpYD+b9g8H9QWoaLdX8+wLpgfWT70zOCWfqyJrYQ1gQ
-	6b/wxnD2pODMkDsEIfVA4mfsK+OXlS2h4ewWG51ne7OVSsyLRqOblGAg40QXpNED+uFL6fXMEey
-	JWH+wDjTi/IVzfg/XO/DeIreFKVcT6XAOuqfHPMHxgUYRtqpXbraje0a8XnRqxCBzp8XKGcj7bM
-	Fc+G7UoVpjlyV7WS8Z3+sj1D5XeeCFF8kTEsLCSpmQIOZACe0oS0tyBUtAFJJ6+rUMxGj2JGTnp
-	gfI9SPQZmRWNRXICiIgH5+v7Zx73Et+0ZZk6KWvJJWTBVidDaOGSHB+qqlXG4HilGfttIYkVpk5
-	vfe4N4uyjeg==
-X-Received: by 2002:a05:622a:180d:b0:531:34b9:2532 with SMTP id
- d75a77b69052e-535b320372fmr38054141cf.4.1791841977467; Mon, 12 Oct 2026
- 14:52:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XJrFbUmE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 887E41F0089B;
+	Mon, 12 Oct 2026 21:53:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791841996;
+	bh=vTBls61qsig8dGlhb48vfY8DK7dKDeifEb4w5u2Xzek=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=XJrFbUmEzAPmHh8EMmblg0i4F2zRLYLLpIphHRD0+36uAfK6A5KcnN5RgP6135Cs1
+	 g/z2D5mdDlsZelTCFs8V3vZKvRyjLjv4KTUvwoH9mP9C9S78pXnwigxWeJa0aeAbsV
+	 5VfSgZ+ZBlIzV8rlSiX3cE2uLljGYAnZm5L7yWXgn9SAdSjONSngDhZvui/cI0xrQb
+	 uXucITTctaVGlPCyGl1WVWeIVk1yuhcrSaall9tuIwdWjY6atk9rUxcxgOaavFMink
+	 pH8uJjpN0vYjL3FXxRuwsNuY1op95TNnM0/f5QZFrnxmvm+OaWjUKpMbKhc6Kjv6i4
+	 TnK2kUbT/u0zQ==
+Message-ID: <5b7d5543-5608-40fa-be5d-92600c2c9e70@kernel.org>
+Date: Mon, 12 Oct 2026 16:53:14 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012053013.14378-1-namhyung@kernel.org>
-In-Reply-To: <20261012053013.14378-1-namhyung@kernel.org>
-From: Ian Rogers <irogers@google.com>
-Date: Mon, 12 Oct 2026 14:52:44 -0700
-X-Gm-Features: AclHuK9GIcDDu7m2aY1N0pJVCrUWg_SSeJzS9Uh8FwFp_eHcRQ5Z4QcHRhA07OM
-Message-ID: <CAP-5=fVztdzY2MVwM+9fAW0HoDBKA=KbAzN_fBBHi4M8i8eZMw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/4] perf symbol: Fix symbol loading from libbfd
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, James Clark <james.clark@linaro.org>, 
-	Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, linux-perf-users@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] clk: socfpga: agilex: register the SP timer clocks
+ early
+Content-Language: en-US
+To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1790935401.git.adrian.ho.yin.ng@altera.com>
+ <b0214433cf10ebc094c6685f60a12abe58860523.1790935401.git.adrian.ho.yin.ng@altera.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <b0214433cf10ebc094c6685f60a12abe58860523.1790935401.git.adrian.ho.yin.ng@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Oct 11, 2026 at 10:30=E2=80=AFPM Namhyung Kim <namhyung@kernel.org>=
- wrote:
->
-> The dso__load() should return a positive number (number of symbols
-> loaded) when it succeded to load symbols.  But dso__load_bfd_symbols()
-> only returns 0 and it's hard to check if it actually loaded symbols or
-> not.  Let's return the value of dso__has_symbol() and check it in
-> dso__load() so that it can return 1 for success.
->
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/r/sashiko-outbox-162540@kernel.org
-> Fixes: eac9a4342e5447cad ("perf symbols: Try reading the symbol table wit=
-h libbfd")
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
 
-Reviewed-by: Ian Rogers <irogers@google.com>
 
-Thanks,
-Ian
-
+On 10/2/26 05:22, Adrian Ng Ho Yin wrote:
+> The DW APB timers are probed through TIMER_OF_DECLARE() from time_init()
+> and cannot defer, but the clock manager is a platform driver registered
+> at core_initcall(). The timer's clk_get() therefore fails and the timer
+> is never brought up.
+> 
+> Register only l4_sp_clk and its parents (boot_clk, main_pll, periph_pll,
+> main_pll_c1, peri_pll_c1 and noc_free_clk) from of_clk_init() using
+> CLK_OF_DECLARE_DRIVER(), with every other clock left as -EPROBE_DEFER.
+> The remaining clocks are still registered when the platform driver
+> probes, which reuses the early provider.
+> 
+> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
 > ---
->  tools/perf/tests/pe-file-parsing.c | 2 +-
->  tools/perf/util/libbfd.c           | 2 +-
->  tools/perf/util/symbol.c           | 4 ++--
->  3 files changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/tools/perf/tests/pe-file-parsing.c b/tools/perf/tests/pe-fil=
-e-parsing.c
-> index 30c7da79e109b480..3979f38bf127c218 100644
-> --- a/tools/perf/tests/pe-file-parsing.c
-> +++ b/tools/perf/tests/pe-file-parsing.c
-> @@ -59,7 +59,7 @@ static int run_dir(const char *d)
->         TEST_ASSERT_VAL("Failed to get dso", dso);
->
->         ret =3D dso__load_bfd_symbols(dso, debugfile);
-> -       TEST_ASSERT_VAL("Failed to load symbols", ret =3D=3D 0);
-> +       TEST_ASSERT_VAL("Failed to load symbols", ret > 0);
->
->         dso__sort_by_name(dso);
->         sym =3D dso__find_symbol_by_name(dso, "main", &idx);
-> diff --git a/tools/perf/util/libbfd.c b/tools/perf/util/libbfd.c
-> index a907d7c1ac948808..a4dcb406c79e9cee 100644
-> --- a/tools/perf/util/libbfd.c
-> +++ b/tools/perf/util/libbfd.c
-> @@ -463,7 +463,7 @@ int dso__load_bfd_symbols(struct dso *dso, const char=
- *debugfile)
->         symbols__fixup_duplicate(dso__symbols(dso));
->         dso__set_adjust_symbols(dso, true);
->
-> -       err =3D 0;
-> +       err =3D dso__has_symbols(dso);
->  out_free:
->         free(symbols);
->  out_close:
-> diff --git a/tools/perf/util/symbol.c b/tools/perf/util/symbol.c
-> index 5d98888d068c741a..a394e742f9b18812 100644
-> --- a/tools/perf/util/symbol.c
-> +++ b/tools/perf/util/symbol.c
-> @@ -1930,8 +1930,8 @@ int dso__load(struct dso *dso, struct map *map)
->                 if (nsexit)
->                         nsinfo__mountns_enter(dso__nsinfo(dso), &nsc);
->
-> -               if (bfdrc =3D=3D 0) {
-> -                       ret =3D 0;
-> +               if (bfdrc > 0) {
-> +                       ret =3D 1;
->                         break;
->                 }
->
-> --
-> 2.55.0
->
+>   drivers/clk/socfpga/clk-agilex.c | 222 +++++++++++++++++++++++--------
+>   1 file changed, 169 insertions(+), 53 deletions(-)
+> 
+> diff --git a/drivers/clk/socfpga/clk-agilex.c b/drivers/clk/socfpga/clk-agilex.c
+> index 2bdea1997b5e..91a80b7b1886 100644
+> --- a/drivers/clk/socfpga/clk-agilex.c
+> +++ b/drivers/clk/socfpga/clk-agilex.c
+> @@ -4,7 +4,9 @@
+>    */
+>   #include <linux/slab.h>
+>   #include <linux/clk-provider.h>
+> +#include <linux/io.h>
+
+WHy do you need this include? Comment applies to all 3 patches.
+The rest looks good to me.
+
+Dinh
