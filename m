@@ -1,532 +1,252 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE5847729A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:09:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 845113D5640
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:10:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791799803; cv=none; b=fKIcCYaXlCc2tfnwhrfD5uMfQN76Gz+LN7fkc4wWQNqxY0gWVpNRym+uTE3IAAPIwyCDtNquTsXcSJiKv7kyKsNsOlEza46cjk7gcDN4yocCveNgShmuEklGTgyuD6wYLiwHT9KCEykRFKclGPp2L5gQJu1xwt07deuGSnxtIbc=
+	t=1791799874; cv=none; b=ruD656kOqgaQ0VuJWzNVEDCu9+d2/EK8c9FQrJfjaH7+vpRUx2jbFQ+A0svABBYXwEurLs9TejAAjzKctsUqzWinLjtqGkN5H9IfL1OZ4fZI/doxSHuVvbtzk4XSojMEmkN7eawDKA/ccG2ehhhmd4DfCLUfmlfhV7NlYOQ3K7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791799803; c=relaxed/simple;
-	bh=+KCwV0o5lNkzqEwrrDSMWVVyqagSWS+U7oeGm/DX+mY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qYVIYojeGmMQgfPPU9L97I3OLIKC/QXAcwchv0E39xXlXdnQ7phUDE3tdIwSrTmICYgvQbnheg6F+jskc5DCO2in4pmBf9+antbUt/efYnCe1w3vmuoQ3U8RoxJlWYuRNNxakwxQIF7YMrsQczovPrvw4/u/BJk8SJf3Cqd6vR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p1jrn4gl; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791799874; c=relaxed/simple;
+	bh=4s/xDJjI5Yi3Iie/JSApNyADbuBLred0RCuvDLjnYQ0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JhDgA8WUHvKT05j67m2VrTI7keQ0XMWmg4W90TQRx4PDR0/mKtpFprDFmIoyRPaAUD6/DoZv6jhjZ9YAd2NTzFV9zgYM5vBtOnLqMWPle5rhsAz+yoNMfnS+1WTI185LDub6NInRJ8qSVP2AXkVHRZl5ayM4+shTHPd0p+2rajY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DvXiZiA7; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p1jrn4gl"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48b042c0759so1225735f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:09:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791799787; x=1792404587; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SvxAI9ArFF8nFcCP24+p8MMt9b8rRfzDsupP1bqY8MQ=;
-        b=p1jrn4glbgk1+ZZcKpQRtNdCEpTIemH9bUw0+2wA9OlrEgx2UPxxXfW5PriyxASa4A
-         778BSiZaJmInOG/j/dXP1QwS1liSC33ESfmBgj86wqmp5tYJx1TYvLQXv4E4kWJrnaoO
-         V6GXKdz+KsaRjGFQriqU8f9Hmio5iRkatXJvyCzg5I/qVD7Ql6cC7OEzUG8SqFdRc2np
-         BJmNRQtuLv/lnFvssysd1QB4Iptd3H8+FSzWs7AqXJEICF8DiqBL9y+fo8PqsVmwwN9K
-         SbTclpR7qKVUx3HqDzEVMB8DQdqiJu4XzsXEE76gdKpHUIOscGe9JLSWiOvYGZ3eO2qw
-         H7xQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791799787; x=1792404587;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SvxAI9ArFF8nFcCP24+p8MMt9b8rRfzDsupP1bqY8MQ=;
-        b=JGouc+wmHJ64UFmi7ZotMnbSTldzgfJCWa5p7QIc8SPjEP6eFO4A6kN+sb+zTTg3Ru
-         Y4IPo8/dfiN+N7ud+PUV2B1zYmnXotUDg6RfdnlpMqDIKEPGgCHqAcYMOLDmBKKO4r79
-         u5kTlAQK5v+UpeGMv1PquAk/yNHuTkiufSSMGpdBj7hW2H368eT3f6Vs1wilwrmbw2za
-         hWSXmD7FXCVp/8/OuCeycJVRgqlzDNJPEmBCDeWG70fANIsd0lhPD2KnvJXqid2amKys
-         Dh1Rg09j8rwUtOy9Ix2QLW/tDu8kZ2Mo6C6YGK6JBkOkidh6xDRykhJBPwxT3rK2XggB
-         AviA==
-X-Forwarded-Encrypted: i=1; AKwUvBybROuD2TPuqilevMmKua9sHtKbVcW7wdF+zmYlSVjzo3i/XXkWtub0HmGQxHW6mt8nbnlE5RmUBpfPr2w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJcC8YVzj8jo1JsCN4fsf9yN/ek5ny7nfJ18YPPX8O6e5XrH3b
-	ZvR5f3NacISHKzf/4HbUbFMZDNEf9zYMyFpKpCH/iFDT5UGfdEK7dEdY
-X-Gm-Gg: AYBFou2/aBuNQm0xLsD4YVlDrXFK2m1fu3Xu7cVq1U/T90LxhlOIXB67gaOB3m6fxNf
-	VUYV0RUuw8Vb11sCgUJVC3JP0nI+loSEv0fnt0NOQqS1xK3nxjfde8OAzun7rFV0+TOsVfAhBDT
-	B9feTziI4n/hML6Gr/kzKIAg/huXtnvnjsagYyymKPFIKdIZOu3roMBrR+om6RvS6GmBrUG0Dfw
-	kP54oeuuYpyDneV5OlbvdzXbUyubp98FtxvP1tp2l2+T/I2eG+JR/oO+9lxyg145K/w4E3p0xdq
-	8VMNUu5SpJQJXIy/meKe7WRkf3QJis4nsBvizZDWWpLV84IthkoAxh7vXhb3xIGRiE5Jn7J8/7o
-	fcsfLSSLCMkL8faDD8rUREanavN65sh0ZuqVEj3GPkRNutoI6dbpdhgRHrEcLYKw4eN52+Y9ExL
-	ZJewqGdAHKLN4obatkzjJWU+PrxP/B2x86Lgo6embMXFpWvjGMicx7F7eiLb3Oo07KJOeXfn9yr
-	igzGHC9oM5Fzlg15s6WzwWswA5GW15f
-X-Received: by 2002:a05:600c:1909:b0:4a0:159b:d283 with SMTP id 5b1f17b1804b1-4a18e4d5412mr187666615e9.30.1791799787360;
-        Mon, 12 Oct 2026 03:09:47 -0700 (PDT)
-Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a192d3efb6sm166229885e9.1.2026.10.12.03.09.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 03:09:46 -0700 (PDT)
-From: Pablo Mazzini <pmazzini@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel@sholland.org>
-Cc: Pablo Mazzini <pmazzini@gmail.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev
-Subject: [PATCH v4 11/11] ARM: dts: allwinner: add B288 and the PocketBook Verse
-Date: Mon, 12 Oct 2026 11:08:16 +0100
-Message-ID: <20261012100816.331033-12-pmazzini@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261012100816.331033-1-pmazzini@gmail.com>
-References: <20261012100816.331033-1-pmazzini@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DvXiZiA7"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7BEAC1655;
+	Mon, 12 Oct 2026 03:10:53 -0700 (PDT)
+Received: from [10.164.19.62] (unknown [10.164.19.62])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 463C73F66F;
+	Mon, 12 Oct 2026 03:10:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791799856; bh=4s/xDJjI5Yi3Iie/JSApNyADbuBLred0RCuvDLjnYQ0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=DvXiZiA7IANGTjiIi3p929DkASucYMvkwq4IfgM2nN09ccEJXPslThneXVPDOLdo+
+	 Fvky6tsgCxSGCOyHjUj+OX8BvZsv7PcLNfYpogG+I1XrsoWl7HgnS18Vet/UhguEU/
+	 2AGsP8zLuClFigtTBv3WG4aRyLDjfzKeXUKaLwTw=
+Message-ID: <89700b93-e646-4263-bca3-a2df7636f6bc@arm.com>
+Date: Mon, 12 Oct 2026 15:40:49 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC NO CODE] [DISCUSSION] Anti-fragmenting ordered buddy
+ allocator
+To: Zi Yan <ziy@nvidia.com>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, ryan.roberts@arm.com, riel@surriel.com,
+ akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, kasong@tencent.com, qi.zheng@linux.dev,
+ shakeel.butt@linux.dev, hannes@cmpxchg.org, brendan.jackman@linux.dev
+References: <20261011215412.1181172-1-dev.jain@arm.com>
+ <DM2DV199T6N4.19MU82DJBDOF9@nvidia.com>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <DM2DV199T6N4.19MU82DJBDOF9@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add the B288 SoC .dtsi and the PocketBook Verse (PB629) board.
 
-Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
----
- arch/arm/boot/dts/allwinner/Makefile          |   1 +
- .../allwinner/sun8i-b288-pocketbook-verse.dts | 114 +++++++
- arch/arm/boot/dts/allwinner/sun8i-b288.dtsi   | 292 ++++++++++++++++++
- 3 files changed, 407 insertions(+)
- create mode 100644 arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
- create mode 100644 arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
 
-diff --git a/arch/arm/boot/dts/allwinner/Makefile b/arch/arm/boot/dts/allwinner/Makefile
-index 75b2b6a2f7a6..2dfdc01e4825 100644
---- a/arch/arm/boot/dts/allwinner/Makefile
-+++ b/arch/arm/boot/dts/allwinner/Makefile
-@@ -227,6 +227,7 @@ dtb-$(CONFIG_MACH_SUN8I) += \
- 	sun8i-a83t-bananapi-m3.dtb \
- 	sun8i-a83t-cubietruck-plus.dtb \
- 	sun8i-a83t-tbs-a711.dtb \
-+	sun8i-b288-pocketbook-verse.dtb \
- 	sun8i-h2-plus-bananapi-m2-zero.dtb \
- 	sun8i-h2-plus-libretech-all-h3-cc.dtb \
- 	sun8i-h2-plus-orangepi-r1.dtb \
-diff --git a/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts b/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
-new file mode 100644
-index 000000000000..a60cbb638019
---- /dev/null
-+++ b/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
-@@ -0,0 +1,114 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * PocketBook Verse (PB629), an Allwinner B288 based e-reader.
-+ */
-+
-+/dts-v1/;
-+#include "sun8i-b288.dtsi"
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+/ {
-+	model = "PocketBook Verse";
-+	compatible = "pocketbook,verse", "allwinner,sun8i-b288";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_pb_pins>;
-+	status = "okay";
-+};
-+
-+&mmc0 {
-+	vmmc-supply = <&reg_dldo2>;
-+	bus-width = <4>;
-+	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>;	/* PF6 */
-+	disable-wp;
-+	status = "okay";
-+};
-+
-+&mmc3 {
-+	vmmc-supply = <&reg_dcdc1>;
-+	vqmmc-supply = <&reg_dldo1>;
-+	bus-width = <8>;
-+	non-removable;
-+	cap-mmc-hw-reset;
-+	mmc-ddr-1_8v;
-+	mmc-hs200-1_8v;
-+	status = "okay";
-+};
-+
-+&pio {
-+	vcc-pc-supply = <&reg_dldo1>;
-+	vcc-pd-supply = <&reg_dldo1>;
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+
-+	axp22x: pmic@34 {
-+		/* labelled AXP227 */
-+		compatible = "x-powers,axp221";
-+		reg = <0x34>;
-+		interrupt-parent = <&nmi_intc>;
-+		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
-+	};
-+};
-+
-+#include "axp22x.dtsi"
-+
-+&reg_dcdc1 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <3000000>;
-+	regulator-max-microvolt = <3000000>;
-+	regulator-name = "vcc-io";
-+};
-+
-+&reg_dcdc2 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <1260000>;
-+	regulator-max-microvolt = <1260000>;
-+	regulator-name = "vdd-cpu";
-+};
-+
-+&reg_dcdc4 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <1100000>;
-+	regulator-max-microvolt = <1100000>;
-+	regulator-name = "vdd-sys";
-+};
-+
-+&reg_dcdc5 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <1350000>;
-+	regulator-max-microvolt = <1350000>;
-+	regulator-name = "vcc-dram";
-+};
-+
-+&reg_aldo3 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <3000000>;
-+	regulator-max-microvolt = <3000000>;
-+	regulator-name = "avcc";
-+};
-+
-+&reg_dldo1 {
-+	regulator-min-microvolt = <1800000>;
-+	regulator-max-microvolt = <1800000>;
-+	regulator-name = "vcc-pc";
-+};
-+
-+&reg_dldo2 {
-+	/* microSD slot */
-+	regulator-min-microvolt = <3300000>;
-+	regulator-max-microvolt = <3300000>;
-+	regulator-name = "vcc-sdcv";
-+};
-diff --git a/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi b/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
-new file mode 100644
-index 000000000000..53832ea9dc01
---- /dev/null
-+++ b/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
-@@ -0,0 +1,292 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Allwinner B288 (sun8iw10p1) SoC
-+ */
-+
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/clock/sun6i-rtc.h>
-+#include <dt-bindings/clock/sun8i-b288-ccu.h>
-+#include <dt-bindings/reset/sun8i-b288-ccu.h>
-+
-+/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+	interrupt-parent = <&gic>;
-+
-+	osc24M: osc24M-clk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <24000000>;
-+		clock-output-names = "osc24M";
-+	};
-+
-+	osc32k: osc32k-clk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <32768>;
-+		clock-output-names = "ext-osc32k";
-+	};
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu0: cpu@0 {
-+			compatible = "arm,cortex-a7";
-+			device_type = "cpu";
-+			reg = <0>;
-+			clocks = <&ccu CLK_CPUX>;
-+			clock-names = "cpu";
-+		};
-+
-+		cpu1: cpu@1 {
-+			compatible = "arm,cortex-a7";
-+			device_type = "cpu";
-+			reg = <1>;
-+			clocks = <&ccu CLK_CPUX>;
-+			clock-names = "cpu";
-+		};
-+	};
-+
-+	timer {
-+		compatible = "arm,armv7-timer";
-+		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
-+	};
-+
-+	soc {
-+		compatible = "simple-bus";
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		nmi_intc: interrupt-controller@1c000d0 {
-+			compatible = "allwinner,sun8i-b288-nmi",
-+				     "allwinner,sun9i-a80-nmi";
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+			reg = <0x01c000d0 0x0c>;
-+			interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+
-+		/*
-+		 * mmc0 is a v4p1x controller, so it runs in the old timing
-+		 * mode and needs the sample and output phase clocks.
-+		 */
-+		mmc0: mmc@1c0f000 {
-+			compatible = "allwinner,sun8i-b288-mmc",
-+				     "allwinner,sun7i-a20-mmc";
-+			reg = <0x01c0f000 0x1000>;
-+			clocks = <&ccu CLK_BUS_SDMMC0_BUS>,
-+				 <&ccu CLK_MMC0>,
-+				 <&ccu CLK_MMC0_OUTPUT>,
-+				 <&ccu CLK_MMC0_SAMPLE>;
-+			clock-names = "ahb", "mmc", "output", "sample";
-+			resets = <&ccu RST_BUS_MMC0>;
-+			reset-names = "ahb";
-+			interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&mmc0_pins>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		mmc3: mmc@1c12000 {
-+			compatible = "allwinner,sun8i-b288-emmc",
-+				     "allwinner,sun50i-a64-emmc";
-+			reg = <0x01c12000 0x1000>;
-+			clocks = <&ccu CLK_BUS_SDMMC3_BUS>, <&ccu CLK_MMC3>;
-+			clock-names = "ahb", "mmc";
-+			resets = <&ccu RST_BUS_MMC3>;
-+			reset-names = "ahb";
-+			interrupts = <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&mmc3_pins>;
-+			max-frequency = <150000000>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		/* mmc2 @0x01c11000 is an unsupported SDHCI-style controller. */
-+
-+		ccu: clock-controller@1c20000 {
-+			compatible = "allwinner,sun8i-b288-ccu";
-+			reg = <0x01c20000 0x400>;
-+			clocks = <&osc24M>, <&rtc CLK_OSC32K>;
-+			clock-names = "hosc", "losc";
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+		};
-+
-+		rtc: rtc@1c20400 {
-+			compatible = "allwinner,sun8i-b288-rtc";
-+			reg = <0x01c20400 0x400>;
-+			interrupts = <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>;
-+			clock-output-names = "osc32k", "osc32k-out";
-+			clocks = <&osc32k>;
-+			#clock-cells = <1>;
-+		};
-+
-+		pio: pinctrl@1c20800 {
-+			compatible = "allwinner,sun8i-b288-pinctrl";
-+			reg = <0x01c20800 0x400>;
-+			interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_PIO>, <&osc24M>, <&rtc CLK_OSC32K>;
-+			clock-names = "apb", "hosc", "losc";
-+			gpio-controller;
-+			#gpio-cells = <3>;
-+			interrupt-controller;
-+			#interrupt-cells = <3>;
-+
-+			mmc0_pins: mmc0-pins {
-+				pins = "PF0", "PF1", "PF2",
-+				       "PF3", "PF4", "PF5";
-+				function = "mmc0";
-+				allwinner,pinmux = <2>;
-+				drive-strength = <30>;
-+				bias-pull-up;
-+			};
-+
-+			i2c0_pins: i2c0-pins {
-+				pins = "PB6", "PB7";
-+				function = "i2c0";
-+				allwinner,pinmux = <2>;
-+			};
-+
-+			mmc3_pins: mmc3-pins {
-+				pins = "PC1", "PC4", "PC5", "PC6",
-+				       "PC7", "PC8", "PC9", "PC10",
-+				       "PC11", "PC12", "PC13", "PC14";
-+				function = "mmc3";
-+				allwinner,pinmux = <5>;
-+				drive-strength = <40>;
-+				bias-pull-up;
-+			};
-+
-+			uart0_pb_pins: uart0-pb-pins {
-+				pins = "PB4", "PB5";
-+				function = "uart0";
-+				allwinner,pinmux = <2>;
-+			};
-+		};
-+
-+		wdt: watchdog@1c20ca0 {
-+			compatible = "allwinner,sun8i-b288-wdt",
-+				     "allwinner,sun6i-a31-wdt";
-+			reg = <0x01c20ca0 0x20>;
-+			interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&osc24M>;
-+		};
-+
-+		uart0: serial@1c28000 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28000 0x400>;
-+			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART0>;
-+			resets = <&ccu RST_BUS_UART0>;
-+			status = "disabled";
-+		};
-+
-+		uart1: serial@1c28400 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28400 0x400>;
-+			interrupts = <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART1>;
-+			resets = <&ccu RST_BUS_UART1>;
-+			status = "disabled";
-+		};
-+
-+		uart2: serial@1c28800 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28800 0x400>;
-+			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART2>;
-+			resets = <&ccu RST_BUS_UART2>;
-+			status = "disabled";
-+		};
-+
-+		uart3: serial@1c28c00 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28c00 0x400>;
-+			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART3>;
-+			resets = <&ccu RST_BUS_UART3>;
-+			status = "disabled";
-+		};
-+
-+		uart4: serial@1c29000 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c29000 0x400>;
-+			interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART4>;
-+			resets = <&ccu RST_BUS_UART4>;
-+			status = "disabled";
-+		};
-+
-+		i2c0: i2c@1c2ac00 {
-+			compatible = "allwinner,sun8i-b288-i2c",
-+				     "allwinner,sun6i-a31-i2c";
-+			reg = <0x01c2ac00 0x400>;
-+			interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_TWI0>;
-+			resets = <&ccu RST_BUS_I2C0>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&i2c0_pins>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c1: i2c@1c2b000 {
-+			compatible = "allwinner,sun8i-b288-i2c",
-+				     "allwinner,sun6i-a31-i2c";
-+			reg = <0x01c2b000 0x400>;
-+			interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_TWI1>;
-+			resets = <&ccu RST_BUS_I2C1>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c2: i2c@1c2b400 {
-+			compatible = "allwinner,sun8i-b288-i2c",
-+				     "allwinner,sun6i-a31-i2c";
-+			reg = <0x01c2b400 0x400>;
-+			interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_TWI2>;
-+			resets = <&ccu RST_BUS_I2C2>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		gic: interrupt-controller@1c81000 {
-+			compatible = "arm,gic-400";
-+			reg = <0x01c81000 0x1000>,
-+			      <0x01c82000 0x2000>,
-+			      <0x01c84000 0x2000>,
-+			      <0x01c86000 0x2000>;
-+			interrupts = <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)>;
-+			interrupt-controller;
-+			#interrupt-cells = <3>;
-+		};
-+	};
-+};
--- 
-2.52.0
+On 12/10/26 4:34 am, Zi Yan wrote:
+> On Sun Oct 11, 2026 at 5:54 PM EDT, Dev Jain wrote:
+>> (I am not posting code yet since it is in experimental stage.)
+> 
+> Thank you for posting the idea.
+
+Thanks for replying Zi.
+
+
+>>
+>> TL;DR
+>> -------
+>>
+>> I am proposing "ordered/bucketed buddy allocator": we divide the buddy
+>> freelists into buckets, and prefer lower buckets for allocation.
+>> This reduces external fragmentation (and, further reduces it when we
+>> reverse the ordering for unmovable and reclaimable allocations) at the
+>> cost of regressing the alloc and free paths, which depends on how many
+>> buckets you partition into. I think we can partition into 4 buckets and
+>> do some tricks to remove any regression.
+>>
+>> Design 1 is the simplest and the most upstream-friendly method in terms of
+>> allocator speed. Design 2 tries to scale better with the number of buckets.
+>>
+>> INTRODUCTION
+>> -------------
+>>
+>> Apart from dividing the freelists between migratetypes, little attempt
+>> has been made to change the algorithm of the buddy itself to reduce
+>> external fragmentation proactively (termed as "anti-fragmentation" in
+>> academia). Linux has defragmentation (compaction). The analysis below
+> 
+> Like Rik suggested, it is better to focus on one thing at a time. I
+> think improving anti-fragmentation at pageblock level is high priority
+> at the moment.
+
+The premise I started with was to improve chance of mTHP allocations; I would
+like to point out the benefit of ordering.
+
+I was first looking at the problem from the perspective of finding already
+populated blocks to allocate, within the same migratetype (an implication
+of trying to do that was, reverse the order for non-movable, which is not
+the premise I started with).
+
+If we bias allocations towards the left, we give more chance for pages at
+the right to get freed and make contiguous free blocks. So maintaining an
+ordering is a good approximation for biasing w.r.t fragmentation score.
+This delays compaction triggers, and even if compaction is triggered it may
+exploit some sort of ordering - it knows that sparse blocks are to the right
+with good probability.
+
+Essentially we are trying to do a bucket-sort here.
+
+Think of the allocation stream as a *probability distribution* -
+I am trying to skew that to one direction.
+
+
+> 
+>> is *not* to claim that compaction does a bad job; I just took up the
+>> challenge of anti-fragmentation (because I like to torture myself) and
+>> kept digging the rabbit hole.
+>>
+>> There have been academic papers about replacing the buddy with bitmaps -
+>> I did not want a hard NAK from upstream at any attempt to do that, so
+>> I preserved the buddy freelists.
+>>
+>> IDEA
+>> ----
+>>
+>> There is a correlation between allocating from one side of memory, and
+>> reducing external fragmentation. Biasing on one side implies the
+>> probability we fragment already fragmented sections is high. This may also
+>> enable smarter compaction by directing the free-page scanner toward
+>> higher-address regions. This also circumvents the discussion around
+>> a "fragmentation score" which is dependent on the size of the
+>> block we are considering.
+>>
+>> The idea itself quite obviously improves clustering of allocations: I
+>> observe reductions in 'compact_stall' and 'anon_fault_fallback', and some
+>> large improvements when the number of buckets is high (like, compact_stall
+>> going down from 4000 to 5 with almost no hit in execution time for a kernel
+>> compilation). The obvious downside being slowing down the allocator (which
+>> needs to be tested more widely). The content below is mainly on how
+>> to minimize that.
+> 
+> I am not sure how your bucket idea is better than the existing pageblock
+> design, because the biggest issue in anti-fragmentation is unmovable
+> pages spreading across the entire physical memory space to prevent high
+> order page allocation and I do not see how your idea could contaminate
+> unmovable pages.
+
+To make it clearer, I have observed improvement even without clustering
+movable and non-movable to opposite ends, and simply clustering *all* allocations
+to the left.
+
+Note that all of the pageblock claim/steal algorithm of the buddy
+remains the same - an unmovable allocation will still try to take the
+largest order block free in movable buddy lists and try to claim it
+instead of stealing, so the existing algorithm works. So we first
+cluster by migratetype, then cluster by pfn bucket.
+
+
+
+
+> 
+> Unmovable pages can sometimes take majority of the memory of a system,
+> leaving the entire memory space fragmented, for example a burst of
+> dentry allocation. Roman wrote a small userspace app to do this [1], and
+> you can give it a try. Afterwards, some of these unmovable pages might
+> be freed after their use, but there is no guarantee that the freed
+> unmovable pages can create contiguous free pages. Unless we do unmovable
+> page lifetime prediction and group unmovable pages with similar lifetime
+> like Yu Zhao proposed[2].
+
+Thanks for mentioning [1] and [2].
+
+You are right regarding [2]: I had also concluded that the most correct
+way of looking at external fragmentation is lifetime prediction. I had
+written a reply to Johannes' PCPbuddy patchset (my intuition says it
+will also improve on fragmentation):
+
+So basically we need to give contiguous pages to an "allocator context". The
+allocator context examples are a file filling its pagecache, a slab filling
+slab pages, a VMA faulting in memory, etc.
+
+Currently a file does readahead to ask for contiguous memory which is good,
+but it would have been great if we could reserve a pageblock worth of memory
+and keep fragmenting it for the same file, tying allocations together.
+
+Perhaps we can think for the file case specifically since pagecache has
+been observed as a huge bottleneck for fragmentation: after reclaim,
+the pages freed are scattered. And, they may immediately be taken again
+by pagecache allocations.
+
+(One way is, at least for filesystems not supporting large folios, we
+can still do high-order (non-compound) allocations, the order
+dictated by the write()/read() syscall, or the readahead ra->order.)
+
+Then, the next programmatic approximation (losing accuracy) of
+the "allocator context" is a task_struct. A task_struct reserves
+a pageblock and allocates from it.
+
+If you think about it, there is a correlation between allocator-context
+and task_struct, since at a time the task is doing similar things in
+a time frame, be it userspace allocation or even kernel allocations
+triggered from userspace.
+
+Then the next and more natural approximation (losing more accuracy)
+is of a cpu. The cpu reserves a pageblock, and we hope that the
+cpu is continuously used by the same allocator context for enough
+time before migration.
+
+
+> 
+> IMHO, pageblock is already acting like bucket, limiting allocation
+> range. I see each pageblock a small bucket for allocations and it is
+> better than growing allocation from one end to the other end, because
+> the latter means unmovable allocation can keep pushing the boundary and
+> the boundary might be able to move back if there is a long live
+> unmovable page sitting at the boundary.
+
+I think what you are trying to say is that a long-term unmovable allocation
+at the boundary will pin the boundary. But that is fine. That boundary is
+not a hard limit (I am not claiming a bucket for a certain type of allocation),
+the point of bucketing is to skew the probability distribution
+(allocation distribution) to one side.
+
+Codewise, the loop looks like
+
+migratetype = gfp_migratetype(gfp);
+choose zone->free_area[migratetype]
+
+In that, choose the least bucket:
+zone->free_area[migratetype][bucket]
+
+Which has list_head[NR_PAGE_ORDERS].
+> 
+> At the moment, anti-fragmentation is only preventing mixing
+> movable and unmovable pages in a pageblock. Rik's series[3] is doing
+> additional work to keep unmovable page allocation within a unmovable
+> pageblock, further reducing fragmentation. That is probably what we want
+> to get in first.
+
+Indeed, agreed that the bigger problem is pageblock mixing.
+
+
+> 
+> Maybe you can compare your idea with Rik's series and tell us the pros
+> and cons of both. :)
+> 
+> 
+> [1] https://github.com/rgushchin/fragm
+> [2] https://lpc.events/event/18/contributions/1779/
+> [3] https://lore.kernel.org/all/20261007021250.1665929-1-riel@surriel.com/
+> 
+> 
 
