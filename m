@@ -1,85 +1,66 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454B73F20E3;
-	Mon, 12 Oct 2026 08:52:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236753932D9;
+	Mon, 12 Oct 2026 08:53:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791795176; cv=none; b=Jp+jqYC1qLnyp2y9s57HADwo7hrWX1xQjmY8xplXXdaiJi6F+XzNF3Y6JyQ2zeujyRWuu+Dp0cnDEzH6IAY+/fWZFh6i+jAIH2O1H40OozJEznCjXysTTr8cZwHWDWqZwqyR6dV3oyH44sx2NGH26zesxgU50oZyFvRW7hABeYc=
+	t=1791795185; cv=none; b=GHTqFKerGN4eHoAWKhCTb+ODA8ze21TGg5AU93B1p0r/ruMQQIVfyaqfb/6IemHaEJjpWLm1zioY1mNZ1pott4QXDN0gw916E7rWhUC4aNLdyu10NAa1Z8Y6hZqLK1oYD09SQosuWufHdHN8rHDjqaTDxHFowQzFCSOTpJUvPdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791795176; c=relaxed/simple;
-	bh=PAs3/unkQTsE/HzXG0F+sn9y5qgwzYP965UoMpTQomM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iy0nenNGqbe0BXA39JbcO5cegtnlXOTJdJGACDmrs32gB8w5NUVJ+NyaffMgmNB6QvU6ZWAekTRHYO2q0qYycWy2x6GuRoP5womp84ChXToMNnHiBl1NLCUBzekbAc7iO8q3aWI5oVdeeQDz5BMKvYVD0qAWI86E/n2REffHqLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=PHid+6UU; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791795185; c=relaxed/simple;
+	bh=v1m7DxeoCBUGurGnKzZxpUTAHzi2cPy4QD8HqIzD7VQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lFEfRVaWxmTMWJnrAIfOT6NE6xUQJNS/Nx5xevj8InECoSd9QLA0kc3xFNt8/leXAwVRDQLoW/39Ir/RxGRRtd7jMqwYGnzYDF6Y95NFzardRhjMxzYS12un2yK7oyHSn4kYb4sdVK54zG2guhsLl6badVKW3etAdapayOH0NWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kOTmSrlc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="PHid+6UU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=8v
-	EkFSLM9DHEiphTeciKiQiF8lgll8giuwOgersz8J4=; b=PHid+6UU9oBGiMV/2I
-	e215duKX2R+5q09+jxABo9z5rnS4tRYYO2DOEHCz0feoUZjxsuzK0hvAyaXkZWh0
-	c5UBjcVaiwibWp/caYSs6z8Lj4/iNV9bmRMcY3DvDycM5BZ9Mm25/MH3tw9YrpUW
-	AOLbi1IZRsiPNULNJeyHeTz1w=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgD3nzHan8xqbiYcDg--.59897S2;
-	Mon, 12 Oct 2026 16:52:42 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Oliver Hartkopp <socketcan@hartkopp.net>
-Cc: linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] selftests: can: add CAN XL raw socket tests
-Date: Mon, 12 Oct 2026 16:52:41 +0800
-Message-ID: <20261012085241.377683-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923034256.396514-1-quchaosheng000406@163.com>
-References: <20260923034256.396514-1-quchaosheng000406@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kOTmSrlc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5DCB1F0089B;
+	Mon, 12 Oct 2026 08:53:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791795183;
+	bh=45YrvmMDQ6QVG161kTArk+3NDJg159pe8dpu5wmApkc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kOTmSrlcBdrAmyMqCKn7Ia8fP1pHCxHhIqw6G3Zl7oI9By7NbC5DitpZbnNZotBb/
+	 tHsIUmZ5Y55XUdlAhy5OIBRMXUVeR0D7L0RaUqufrqAQph8fzJToht1vfjzx5BjQ9O
+	 4SuscqM1083vgDwu3nsbPyIL3Gq8HoCV1jxZPLc99IL1sTtSOPWV8lGOfoDMXLscjG
+	 PXEH3R8R2GF07CW4kzPCBkYcmTxIdj/JgNxSjW2o9pStiHYVAak0rtpJkyvmKyNCbJ
+	 lHA1g+r0gNzmkv06ngePIy1/EmTK+4omLetk24TQv9dac6Bt85wOQ1siq04QkKk/cf
+	 GJ+0dpfhBX8WQ==
+Date: Mon, 12 Oct 2026 14:22:56 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] phy: qcom: m31: propagate reset errors
+Message-ID: <asyfzmoj6xlLKUhD@debian>
+References: <20260830131442.3025-1-pengpeng@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgD3nzHan8xqbiYcDg--.59897S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uFWUJrWDZF13Ary3XrWfAFb_yoW8GrWUpF
-	WrGw1UKFWDG3W093s7Cr43Xayayr4ktF15try5tryUZ345WFnrtr4xGas09ay5Crs8Wa4F
-	vw4Y9FZ8G3WDJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziiiSJUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5BrrYWrMn9rPVQAA3N
+In-Reply-To: <20260830131442.3025-1-pengpeng@iscas.ac.cn>
 
-Hello Marc, Oliver,
+On Sun, Aug 30, 2026 at 09:14:42PM +0800, Pengpeng Hou wrote:
+> m31usb_phy_init() enables the regulator and clock, then performs an
+> unchecked
+> reset pulse before reporting that the PHY powered on.
+> 
+> Return reset-controller errors and release the clock and regulator that
+> were
+> enabled for the failed power-on attempt.
+> 
+> Fixes: 08e49af50701 ("phy: qcom: Introduce M31 USB PHY driver")
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-A ping on this one.  It has been three weeks without a reply, so here is
-the short version in case that is what has kept it from being looked at.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-tools/testing/selftests/net/can/ has one test, test_raw_filter, which
-exercises classic CAN filter matching.  CAN XL has been in the tree since
-CAN_MTU, CANFD_MTU and CANXL_MTU became distinct, and the raw socket CAN
-XL options (CAN_RAW_XL_FRAMES, CAN_RAW_XL_VCID_OPTS) have no test at all.
-This series adds eight cases to the existing test_raw_filter.
+- Mani
 
-What they cover: classic/FD/XL length separation, the mandatory CANXL_XLF
-flag, the declared length against the payload actually written, that
-enabling CAN XL also enables CAN FD and cannot be undone while XL stays
-on, and VCID handling including the RX filter.
-
-On vcan, no hardware needed:
-
-  # PASSED: 26 / 26 tests passed.
-  # Totals: pass:26 fail:0 xfail:0 xpass:0 skip:0 error:0
-
-On an interface forced down to a classic CAN MTU the same run gives
-pass:19 skip:7, so nothing fails on a host that cannot carry CAN XL.
-
-Nothing here depends on anything else in flight.  If the scope is the
-problem I am happy to drop the vcan plumbing and keep only the XL cases,
-or to move whichever subset you prefer to the next release window.  If
-the answer is that this does not belong in the directory at all, that is
-fine too and I will stop.
-
-Thanks,
-Chaosheng Qu
-
+-- 
+மணிவண்ணன் சதாசிவம்
