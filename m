@@ -1,77 +1,79 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893982F7EE4
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A18A48D873
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:45:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791809142; cv=none; b=CDpU6U14zNq2CewMv0xRym1zx0T7C4iVck/+h/GBDeWQwrZaQBgjen2DFvsDjCw4utsWJYUcag79uFBvWk0+vk1tdn0PQg+uVC2EWsJlKQqUwlDV8TiARqe9g3Ce5q7LVd+zxiIjZanBlhSI0pL6KeG5qUIp+ZbdWTNExEOTvJI=
+	t=1791809159; cv=none; b=TcQhkFFbWrdACtSVbdU42v7dVtAlteoqrpSOWoniyDOdIfo9bR0xb8CooQeuLLHYcJyRvo1VoNs8AfhFMdlwFUxsZiOwd64npjUi9ZmUwR+78cDPatfV4mzs2SF7O46+ixWGl+DlIB0lJZPjoajKk4S2rbjzZgkO56FCMmYKHaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791809142; c=relaxed/simple;
-	bh=Gz/v8fFmjlJ/nOXeGfucNPqVrqLu004q7AExsn89kQ8=;
+	s=arc-20240116; t=1791809159; c=relaxed/simple;
+	bh=NbJ9L28kJ9mjXoB/PIvLtPzBb8AeWfedbTzsf0nW3+g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fp8LffZxBuOdQzzqLMeojZjQexuTO/MBEnEhTfhlLCVK65aSLIJ0jTSOWeKM1rh87kLK2ZNhyYERHZaGtHWcNgiUNvKvQHakiq584pZrilfnKLwFTq31iuRyQEM626fAGeYcfQuD8p5NRvuXr+zun5R26DMvj/CAdtCF6UIh7Kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Dmur+PDC; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ibXq5KqyKIB/ReAqL65jEbpAwpk8Q2ILYhHO0Q83c3LPrlyEfIc3aJn20VHtAlRiIwutK5akho3bGgJ9vR9e+ddQSbdvRWxAy0YNvZ5pahsAkiNe9R3TrlyBRcRFmWmMXqAH+NrwjkxYkbzBC5SWTTEk6FUrYa/dqT+CRGuK4E4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=BAP1RS58; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Dmur+PDC"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b001cd92bso1045107f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:45:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="BAP1RS58"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so17302355e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:45:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791809138; x=1792413938; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1791809154; x=1792413954; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=an/ERodSzuEqefgQ6URo9mMgAyarZVhVNb5a4ABoOvI=;
-        b=Dmur+PDCAXMswbkxjMhtjFQm1aFi7pMxNACn3wDH2JT07Njj0pmsiLmnsuHYjF53UD
-         zgqtitUtJu2v1DFYoFXqrhllVTcuApWCfXiBvcP++gdEdkqtxlgM1ytfb3+VP+VmNUy1
-         afEd2XtqpXiKo1Q3Ak0E3n9uSi7qUYIsBkXH5TsGuHj/fL4zAzY801oicX1a370TOA11
-         AeHezpmb4D9+Pe3vSDHf+X411dEAXXsNjXQ1A/vMsottUxY8VpqF7OpTfZ4XdJa9bg+b
-         uM/vDsTe48k6inugRIaM3p6p1hNABm/TIjlsRyGCVWenVuLvgYCJuCHPaFf1L/d4bsiF
-         r9Lg==
+        bh=c+9ooOxds5wG2R5eVlPySU47R2RJzaza0U+MtqZs7Bk=;
+        b=BAP1RS58JAz3g4nCg+E4ivbqBpNNxfd8C1Z4kZ4pOnD08u7AuqUg0KaE7CQX3KPIBE
+         wbX8/PCuSU3B61G7Jvc+BdBbBicwuF5+VF/4VwikHjQBrIGyqEL/X+8gzAkzSDsfijTa
+         3VMA+xm37yzEY7rJ9gEgcRP544Y4Q8ddevW6r+jxvWel0em1knJ9z7M6PyKG7GJHey1A
+         KOpTbayf1Pi41gupaxZGzOLI0Vy7DF/eYDB3YgNEwhsFqZNb7EI0t3h46l7qQxebQdOl
+         N/XLAb6yEvwASe331Y0XbTVKReoIt4tRWKnmzDl8moB7p0FtC874Q487gEsEIkszAdvx
+         NNlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791809138; x=1792413938;
+        d=1e100.net; s=20260707; t=1791809155; x=1792413955;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=an/ERodSzuEqefgQ6URo9mMgAyarZVhVNb5a4ABoOvI=;
-        b=XKM9h0eR/CoYtGU5VkyaqaLA+AkKwH0qXhogLri+lHREbXq9RJg3VxrC8CyXaRpweX
-         RIPcJP6UyNrJj//fWVEj39a+13O0CW7MeK0pBts1/WZ5xA2qQ+LFYc3yc6NmJ2JxwEC2
-         7U96rM3D0GrfYe8FR7QibwhdST07Hqt7Q5spzjZvNU+6eQhDMom8cmRsw+A/m8JU/YiR
-         k6Jk6VR82I7DqgL5TrC5wDm9TNRTCY5RaM0CLPe9RGfFzjBo01Lfr4mRubAZ/Ngr3lEG
-         mrJYHTyG2ozg9e7lPLWDW48UV2D5h2Ve5YKPI9dHqdOm+Xg0t1oWuUtvG29V+kXodXrg
-         EgfA==
-X-Forwarded-Encrypted: i=1; AKwUvBx7b+8n48UgLEWJN7XH4DTDyZXY5cpSSZ9+P3Kro+f+dMKxI0ubDuyzy88zr8vdzgJ69PaFMeUjumCtthQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEhzCjNxjv9pdsJuSVWMsadR9zQw+o5JDoVGKXkazVo7HIGH6i
-	Hefbl2+og1h47ygj7nZUPC3/ogOucfvOUeR2aM6wVS7+roHehESKc/CjAMEvYklYnwk=
-X-Gm-Gg: AYBFou1hlgGaEGZWgXByPJ7NXsTRi+iYAc28fkMVViFbJh9ZR6PneGrFR2B7OdpGa6W
-	ZuL554N9AJCD0kLhm0EzZepy0gAKNEI4Ndk63MF33P6bzJebtjcMQl1PdE9df3cbwWCg/5eyWaN
-	pjoYsycaLH+H9gCQ5G+z2qMpnlO3Odn+dQTrP7/fR94hgN9kKFMYKAL50jBEhLS6sgNTtjuDSoX
-	70rXl+KmdrUfpXluIhblFa16Hr/FOJEfkhwBWLoJcfeiu3+/FiW6KUTLnQtpnQFqpMPNugy7r4L
-	EN/lerZYESEjqLkP0mh9nCzJM+8PyUFMKdhqkHAC3vQXJWllX3wvBx+qNiNU8duOeD9VMHrXPKH
-	jniG/22VDbvaA9eLPdYcg9BgDi649OjdjR2ZRAAN7G0SmIj2GNqIehKDARXH2RtfP9jVxjHJ++E
-	7HDr9iTa16MjjAUIRv1bXZHA3Q5/NqXbqVCn8MNeL6l+AJjII2D9IlwK/jd5jhupsEuhm2oDdR0
-	g==
-X-Received: by 2002:a05:6000:298d:20b0:48c:43a4:37f2 with SMTP id ffacd0b85a97d-48dbaadb3f7mr12969989f8f.17.1791809137549;
-        Mon, 12 Oct 2026 05:45:37 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9aadf9bsm18884941f8f.29.2026.10.12.05.45.36
+        bh=c+9ooOxds5wG2R5eVlPySU47R2RJzaza0U+MtqZs7Bk=;
+        b=HOHvGzTeuYCEhyZ50UKSj/c8ptmMoEYPvzLs0mJDPmwCgfrnP+0d93tWU0s5nfC7Ox
+         siuIaiUhyYz/orG42bpfhrzTJWKIfnK/hPCxW+EbbfXSgqABEMX/4U3984+zEflFO5z1
+         5U3VTdcGOIRCJQv6m7dtt3AFPK6YN9TehoUDN7I+N7ke3yv8XUt3dDSxc8HUhKfUglf7
+         na+A9psihprfeRxS4iYBV2W6mS5grX+XA2qHi6nWUL4m2fksKDADljmt7ZIhKXVIYiCX
+         2gY2y4VMc5ztw+VuIPPVDIaG43wxH3MDRrDA9tE/GLwuLiPghPjWzrEXCy9w2Nl6/SZ1
+         APKw==
+X-Forwarded-Encrypted: i=1; AKwUvBxhaUu6f+YqrckFYSaTGkPrGgskOPOWnYgNy4usrtc2dshpGMUTXF7uvONVu7zY0q5WJQSSfB71OtXNy1o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZSSf/uoBBQCgCIZSI/KeR7Gap903I+Q25Oi1ml2P1Xy2acDz1
+	ZYH+eS4yAuY/SXF1WZJAkXIHdwzXR2m/OU7TrFSuOInIWMjyX1760kOYZpbjAUxO6o8=
+X-Gm-Gg: AYBFou1X9YEPGRy6JVunjfrfzvp+HWdW2zG3jBBekfoE+fMx7zjpRdp+qoHz40+KgKs
+	jM+QH1vWovrvSl4DvBH/Ffs/9Yx9w6L9kmMyHq2Z9RAbTR0B/KC8nCVWSJINJFFe83/b6Rm5LI9
+	Eyak3FZJ/DtHWkGQHATJeOU+ho/dvz7gVjPKh6KDXXtx1h20kPpM2sGWgd9urnPcHG5xrmfNcGM
+	s5u8CoPYM3X7sOBdJ7g2hUOh7TWCYx9lgq4hQmA6cM0KbUqfHHD20nQ/FTGF1v7kAC7w5Vcjz5P
+	uceZGVJY96UTAq+ikICnDfQO9+VrXijRTTUkjtvUwCwB079rL9ZFo27HjePBAtz9uJrAkK/enEB
+	rfrMnzEuSWXJ+8EemmydOKnNqwHZs5KUdzeXDJRR0Wwa0Hf8A/VHG09E/vclJlCxeUeAS7q/KLb
+	EMIucJE3y2+GDtb3jky9gcfBSRDvywdrhtJFonpbD/L9HN8atmSxRX8j2BQhN0PH2v35KXDIye+
+	gwZyfFUqJ/P6kQ8
+X-Received: by 2002:a05:600c:4709:b0:4a1:7baa:7303 with SMTP id 5b1f17b1804b1-4a18e4a5237mr183884265e9.7.1791809154496;
+        Mon, 12 Oct 2026 05:45:54 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a18bf214a1sm328835625e9.7.2026.10.12.05.45.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 05:45:37 -0700 (PDT)
-Date: Mon, 12 Oct 2026 14:45:35 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "T.J. Mercier" <tjmercier@google.com>, 
-	Amir Goldstein <amir73il@gmail.com>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests: memcg: don't close an uninitialized fd
-Message-ID: <20261012-clumsily-chivalry-c652481fc90a@there>
-References: <20261011223358.2327625-9-sashal@kernel.org>
+        Mon, 12 Oct 2026 05:45:53 -0700 (PDT)
+Date: Mon, 12 Oct 2026 14:45:52 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: radu.sabau@analog.com
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Alexandru Ardelean <alexandru.ardelean@analog.com>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/6] iio: imu: Add driver for the ADI ADIS16607
+Message-ID: <aszWHiDLbNZIQz3J@monoceros>
+References: <20261008-adis16607-v2-0-7c94df80878a@analog.com>
+ <20261008-adis16607-v2-3-7c94df80878a@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,50 +81,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gylt5nk4uhld73ur"
+	protocol="application/pgp-signature"; boundary="g5xstlf4pzlgbinc"
 Content-Disposition: inline
-In-Reply-To: <20261011223358.2327625-9-sashal@kernel.org>
+In-Reply-To: <20261008-adis16607-v2-3-7c94df80878a@analog.com>
 
 
---gylt5nk4uhld73ur
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+--g5xstlf4pzlgbinc
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] selftests: memcg: don't close an uninitialized fd
+Subject: Re: [PATCH v2 3/6] iio: imu: Add driver for the ADI ADIS16607
 MIME-Version: 1.0
 
-On Sun, Oct 11, 2026 at 06:33:37PM -0400, Sasha Levin <sashal@kernel.org> w=
-rote:
-> test_memcg_inotify_delete_file() and test_memcg_inotify_delete_dir()
-> jump to cleanup before the inotify fd is created when cg_name() or
-> cg_create() fails, and cleanup then closes whatever fd holds:
->=20
->   test_memcontrol.c:1685:6: warning: variable 'fd' is used uninitialized =
-whenever 'if' condition is true [-Wsometimes-uninitialized]
->=20
-> Initialize fd to -1.
->=20
-> Fixes: 2de27980e1d46 ("selftests: memcg: Add tests for IN_DELETE_SELF and=
- IN_IGNORED")
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  tools/testing/selftests/cgroup/test_memcontrol.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+On Thu, Oct 08, 2026 at 11:31:55AM +0300, Radu Sabau via B4 Relay wrote:
+> +#include <linux/mod_devicetable.h>
 
-Thanks too,
-Acked-by: Michal Koutn=FD <mkoutny@suse.com>
+Please drop this header. <linux/spi/spi.h> already provides the needed
+*_device_id structs.
 
---gylt5nk4uhld73ur
+> +static const struct spi_device_id adis16607_id[] = {
+> +	{ "adis16607-2", (kernel_ulong_t)&adis16607_2_chip_info },
+> +	{ "adis16607-3", (kernel_ulong_t)&adis16607_3_chip_info },
+
+Please use named initializers here (i.e.
+
+	{ .name = "adis16607-2", .driver_data = (kernel_ulong_t)&adis16607_2_chip_info },
+	...
+
+)
+
+Best regards
+Uwe
+
+--g5xstlf4pzlgbinc
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaszWahsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AgD0wEAmh10oDQEWn7n0aEJYbBb
-uaxG6lg1fY/9sjcEXSxbRKgA/Rt/e9OL/XTpEvxAx8DVCCsJgZnLdHG4SM+IuwrA
-BLAB
-=3bZl
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrM1n0ACgkQj4D7WH0S
+/k6VnAf/VjtrhhmMZa7FGOkkKojdnt7WiU/lXeT67R5ejp3x3ljxO4gLmQKg0Jc9
+XhrzsbZyTmXQtkBRjxwJDBPkRV00PXyi6Ai2WsFyyrXDXEbN5sJC4ozWIPwM3+9C
+JUDQzm0qrRBHB2GWPHQpiWaU89Yr4jJImBZKJoABLmv/Pmhkh+P6Iti/kVgvZHsX
+v1PTfeFKB79TZT/v7HpvlVe3yHriA+B54heLguUgndQhbf/UQX+R2HXNTwCNYJ59
+px3h8SA3Jp2osMUAnbF5NDOZKhVpqV8GOJqeLS/iZyIk0vJiIf4JZxrx2yRcAxXs
+sUCtn80B28G93AfXZAOqCHwJxaPpiw==
+=HIoq
 -----END PGP SIGNATURE-----
 
---gylt5nk4uhld73ur--
+--g5xstlf4pzlgbinc--
