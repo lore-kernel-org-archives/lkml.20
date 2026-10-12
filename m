@@ -1,72 +1,34 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013057.outbound.protection.outlook.com [40.107.201.57])
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F3E4CA294
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:08:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791828507; cv=fail; b=ervieIE8HNZAnrDAMF4K7rbxwyNaRJbHIV5IJxj2/MrJmvEOpwp7sKIvEngDhPIcvZJD0qccSTEDIyBPgOTz5vCBOS3jpzK6Q0rzijDOh+d6dEAVy1ibHK4X9s7r/VgYzaDuLIlhhQOylehQezkw/asGVEynnUy5KCpdVGptIyE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791828507; c=relaxed/simple;
-	bh=tE1gvLmbnN4bm2eht084eeb9BIXKyzw9RZiqHjMeE1c=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EUD9OXaokJPK1ON5wfNbfHsiNxVnDDRwAsCrfbXpVJmo8tOhyd/KOH+Wa/JEoRMPv2WBSWZeG1V3qoAGYctQ9mEdfvEjt2/OQO6aJGtysyAEO8lfGeXPbjlR3NpKwq8x8iLjkHlpRQQt1fs+Zr8kgua5Rtm6Tpb2QbnczqVjNj0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=seEoc3TB; arc=fail smtp.client-ip=40.107.201.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="seEoc3TB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hEJO3Jq2cW/HDZWlmFkVJ0GlBnhVPGuuGus+2L9BtFoLwyk4XffDOIpDawugeOezGCxnm5DH4l6DnI6by60XDCOd2nv8fCjwT/CKLkvUXKkxbIlv1R9tXLHYAxRrDSefyCCQe+N3EYiGOs3vOOGUrKQ7W4UNHelQIEMaOObhsdFIUBep64C8d4MPcw6OK1V4wJVsE1aBj4q1glWMDtNpLl7HHM/kCXYoGzTVARQrJc4VtoDfGg39z+9sVAOOf7ScYXhrzzh3o5syRWGAspOZDVjco614na2kLnc7ejkSwdrZOovoSwgBMX8mIZJwNqthk5VrQSruhcnNlBFsg9FZ9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jDZPliZLu16Pr4nGdKyynvulGsy/2Iu+j/vvG+eqCDY=;
- b=TNflixKVLGIWqECdYC+QQ2mZyuVd3j5LHlic8zC9jchK8hUSZvOj6BoKI9Y4THcuUnOrIar31x2fQkJzXVb+Yd1EktrKNhgLa4jeQ2oBst6ST6SuBQLNmS8VUvlzefgvldVIG395HFgEjk1iiiqfIDZraDRulsA4Rkt/VHaPIpkJDJRRKnvYxkQ8R0xjb33W0gRx2wEsWcFPK9ZCl7feiYWcD1SbEiByjOegychYph16sn+p9FSHMi82Owwg823cuZtMiWFQCumwG55dhhW27R/2zEGdK1+uDMh6fwIbP5iSZEvZ7guYA0tE55SJ9R5aYDX+skq/g1OLuAtNaaybTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jDZPliZLu16Pr4nGdKyynvulGsy/2Iu+j/vvG+eqCDY=;
- b=seEoc3TBonZ+fcs5VMo4lpB5dLAfMVpsioakWPLuvOv0L6BESgsjMOz6wKNIo4QfeHRck5RfE5j0gLC5+RYFF7KvrxrjwkJb/8aGspyzG2jUoAR9UAj3N8vlGhHFeanFW6jn4GOG/Kil/sNHSWtEwrgEFF/fH+m4WwliB3BcGP4=
-Received: from BY3PR10CA0002.namprd10.prod.outlook.com (2603:10b6:a03:255::7)
- by CYXPR12MB9426.namprd12.prod.outlook.com (2603:10b6:930:e3::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
- 2026 18:08:18 +0000
-Received: from MW1PEPF00018894.namprd03.prod.outlook.com
- (2603:10b6:a03:255:cafe::24) by BY3PR10CA0002.outlook.office365.com
- (2603:10b6:a03:255::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 12
- Oct 2026 18:08:18 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MW1PEPF00018894.mail.protection.outlook.com (10.167.249.171) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 18:08:17 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 13:08:11 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 12 Oct 2026 13:08:11 -0500
-From: Max Zhen <max.zhen@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
-	<dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
-	<karol.wachowski@linux.intel.com>, <lizhi.hou@amd.com>
-CC: Max Zhen <max.zhen@amd.com>, <linux-kernel@vger.kernel.org>,
-	<sonal.santan@amd.com>
-Subject: [PATCH V1] accel/amdxdna: Expose NPU device busy time via DRM fdinfo
-Date: Mon, 12 Oct 2026 11:08:08 -0700
-Message-ID: <20261012180808.2548697-1-max.zhen@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DFE94C6522;
+	Mon, 12 Oct 2026 18:11:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791828670; cv=none; b=RqjpGZYE32rWe+JZL/nSbbpGgve7rrqQrF5XRkW8akthkx3uEr6CJ6w/1v0wY3CYJGM674GfhslwFQlNiuQFxOQ6f5sJfPMRgBXCTQ8QOyFMCDyumzcukFTUmOQzqYtNvm8eExStRgOzqMWdt/oXBsGDaEKh9PWsrNF7AsmwYxQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791828670; c=relaxed/simple;
+	bh=IeFJLlXEzC6juNE9dixS2BXO1UFI050EQMNWKMrBbrk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AemZJKBymh3QgbaLTo5hB1mmiMxJnacQnltoYZoJur8AQUzz/FjgQQfA6m+U0vXpGcIobcpMX+1kwgeFkJBwcui1XQmkKHZQpRI0zaVcXoGonTpbQRh5Dp6kYIRWfZipcnTY7aAtfc0YPyy/NfLBcr3ILUNOSDmdFP6toQIFunM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xGKUN-00FXn8-Ab;
+	Mon, 12 Oct 2026 14:11:07 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] xarray: initialise the offset of a new root node
+Date: Mon, 12 Oct 2026 14:11:07 -0400
+Message-ID: <20261012181107.772545-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,231 +36,173 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW1PEPF00018894:EE_|CYXPR12MB9426:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a952bce-36c0-4a9f-96cd-08df288bcab4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|6133799003|18002099003|10067099003|3023799007|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	E1GKTxy/MwTaLwAjctnW4RoShEmh9xqG9LmVucMFWT86egVGlvYXJFkdGSPK5rPzWy1iYBgkp5sIk7QtzS21Ai4popzQoGsxY68ZERZB55U64OEe0xVA9ygWsR2SV9BFzLOE6dqksaXJmQRGMQfoPHaAVGNXUK3SrjQ0oMJD0WC5iO59Ys+reexQRQ6qitzqTod7Ki6f2VD0oRVX3gRW0r0EAZLjLpcQDlYu/MxjWrG3rBW/BUTIcVyPt4Nxz6Daw7kUv8IFWcWvQFd7/ypjQGUgPPZsVGWToTrfA83iCc5WCYG4GjK+CTAFwU25sPMMJ6qfC35RuqEQN/GtH9gZKLkkGF7KBo3i8j5CgncBfRrUh24tPCMXLl2gHmDV6CQDUMe5/aDeMKv8YnvTjV2l5TzmeR88/i2lFD5qCO3N5ZiYByosInJZGZAUE/IJdwWzplBtcqh1FxbEKk6aNNPLwLk647fBGUDGNb/lp6K4P3aGSfQbTc8KnXeIqs8BTE0nfHzdrJDlC2ChWCugEewdiagp4OB4d34pqrUOao0kiBvkFZYzb6V2JGgcKNUzylmpo9UOIGbOsZ5tn18bHZJJ3wRKU8ANMB5k9oSbmP22qV2EMEwYOKCF5kkH2p/vWmb9eENxaHdF3ZF7wE9CNBIK9SAa5zB34ySg1XKkXdVej/9LIofVMwF2cC2kzGq4cO08rzDBaV8D06+5R+LxUKCNGA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(6133799003)(18002099003)(10067099003)(3023799007)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	NBqrioBAAhgfZr4+3wGlSlMhFFT4G4DxsMWl3YmVZcWPmSr16sFYz9/Vni0nY/ZQAz5eDsv2sHzTHupf2PAHktWO3LgRmpUMP+av+niLg0pja1/dwGQez0MgH/ze5E93hPSVx/2iZ1fYeAkRCyjTYi5Y7mRw9Ap2PDG24dzRbcdGPGwjwlVQWjr2I7E1mpuWDSyB9+YtZP5vNlBOdT7n0ST/ScYDAP0MvgGUgssT/yFlZKoPPO5NtP+0Q+NW7jmDeSmBKB/Z4yZx34NujO2eeypLmd1xaFsEUNjdCc3CUYzQjpwFezj07Aw3AHOt/5a+G7tjdfh8VBO/LPkQAxFdr8O9NZgJL8BV59h9cUMflEYUr/JQJFYYLGNcrOp6byrefg1fut+u2ARDY85oM7BQ9sbCp8jK2qQI9UTyjSwmaRB+anjUiVIzO8xp06Vzxk5x
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 18:08:17.5596
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a952bce-36c0-4a9f-96cd-08df288bcab4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MW1PEPF00018894.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9426
 
-Expose NPU device engine busy time through DRM fdinfo to enable
-standardized userspace monitoring and profiling.
+xas_alloc() sets node->offset only when the new node has a parent.  A
+root node, allocated by xas_create() for an empty array or by
+xas_expand() when the tree grows, keeps the offset its slab object had
+before: radix_tree_node_cachep has a constructor, so the slab does not
+clear the object, and radix_tree_node_rcu_free() only clears the slots
+and marks.  A node freed from slot N of its parent comes back as a root
+with offset N.
 
-Add support for reporting per-engine busy time in nanoseconds
-via fdinfo using the "drm-engine-<driver-name>" key. The value
-reflects the accumulated NPU device execution time for a given
-process, allowing userspace tools to observe NPU device
-utilization without driver-specific ioctls.
+xas_expand() stores 0 to the old root's offset just before publishing it
+as slot 0 of the new root, so the value is right once the expansion is
+visible, but an RCU walker can see the old value.  The iterators climb
+out of a node with
 
-Signed-off-by: Max Zhen <max.zhen@amd.com>
+	xas->xa_offset = xas->xa_node->offset + 1;
+	xas->xa_node = xa_parent(xas->xa, xas->xa_node);
+
+(xas_find(), xas_find_marked() and __xas_next(); __xas_prev() uses
+"- 1").  A walker under rcu_read_lock() that reaches the end of the root
+while another thread expands the tree can load the stale offset before
+xas_expand() clears it and the parent pointer after xas_expand() sets
+it.  No reordering is needed: the two loads only have to straddle the
+two stores.  The walker then continues in the new root at slot
+(stale offset + 1) while xa_index is the first index of slot 1.  If that
+slot is populated by then (for example by the store that caused the
+expansion), the walker returns its entry with the wrong index.  With a
+root covering 0-63 and a stale offset of 5, xa_for_each() that runs
+concurrently with xa_store(xa, 384, p) can report p at index 64, and
+then again at 384; xa_find() stores the wrong index in *indexp.  Any
+entries in slots 1..5 of the new root are skipped.
+
+The radix tree's radix_tree_node_alloc() always sets the offset, and
+radix_tree_extend() passes 0 for a new root.  xas_alloc() dropped this
+for root nodes when the XArray was introduced.
+
+Set the offset of a node allocated without a parent to 0.  A node's
+offset then never changes while readers can see it: a child's offset is
+set before the node is published, xas_expand()'s store to the old root
+writes the value it already has, and the root that xas_shrink() leaves
+behind was the child in slot 0.  A walker climbing out of a root
+continues at slot 1 whichever parent pointer it loads.
+
+The new test frees two nodes with non-zero offsets and checks that the
+roots created by xas_create() and xas_expand() have offset 0.  Its
+checks use a new XA_WARN_ON(), which warns and carries on, counted like
+XA_BUG_ON().  The test relies on the slab handing the freed nodes back;
+without this patch both checks fail in the userspace harness and in the
+self-test booted on x86_64 and riscv64 under QEMU.  The race itself has
+no deterministic test.
+
+Found while formally verifying the lockless XArray iterators against the
+kernel binary.
+
+Fixes: 58d6ea3085f2 ("xarray: Add XArray unconditional store operations")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
 ---
- Documentation/accel/amdxdna/amdnpu.rst  |  1 +
- drivers/accel/amdxdna/aie.c             | 39 +++++++++++++++++++++++++
- drivers/accel/amdxdna/aie.h             |  4 +++
- drivers/accel/amdxdna/aie2_ctx.c        |  6 ++++
- drivers/accel/amdxdna/amdxdna_pci_drv.c |  6 ++++
- drivers/accel/amdxdna/amdxdna_pci_drv.h |  9 ++++++
- 6 files changed, 65 insertions(+)
 
-diff --git a/Documentation/accel/amdxdna/amdnpu.rst b/Documentation/accel/amdxdna/amdnpu.rst
-index 064973bf4893..d72af1b51ccf 100644
---- a/Documentation/accel/amdxdna/amdnpu.rst
-+++ b/Documentation/accel/amdxdna/amdnpu.rst
-@@ -289,6 +289,7 @@ Example of the output showing the implemented key value pairs:
-         drm-driver:	amdxdna_accel_driver
-         drm-client-id:	3219
-         drm-pdev:	0000:c5:00.1
-+        drm-engine-npu: 14003870 ns
-         amdxdna_accel_driver-heap-alloc:	60 KiB
-         amdxdna_accel_driver-internal-alloc:	67588 KiB
-         amdxdna_accel_driver-external-alloc:	0
-diff --git a/drivers/accel/amdxdna/aie.c b/drivers/accel/amdxdna/aie.c
-index dd6f36f222c7..bf8eb66baab8 100644
---- a/drivers/accel/amdxdna/aie.c
-+++ b/drivers/accel/amdxdna/aie.c
-@@ -118,6 +118,45 @@ void amdxdna_vbnv_init(struct amdxdna_dev *xdna)
- 	amdxdna_update_vbnv(xdna, info->rev_vbnv_tbl, rev);
+Notes:
+    - The patch and its analysis were drafted with an LLM coding assistant
+      and then reviewed and tested as described here and in the commit
+      message.
+    
+    - Reproduction of the race (test build only, not part of this patch): in
+      tools/testing/radix-tree (XA_CHUNK_SHIFT 3), a hook between the two
+      loads of the climb in xas_find() runs the expanding store, i.e. the
+      writer runs after the walker loaded the root's offset and before it
+      loaded the parent.  The root was reallocated from a leaf freed at
+      offset 5.  Without this patch xa_for_each() prints "index 8 entry 48",
+      then "index 48 entry 48"; with it, only "index 48 entry 48".  Nothing
+      was reproduced without the injected hook: the window is two loads wide.
+    
+ lib/test_xarray.c | 50 +++++++++++++++++++++++++++++++++++++++++++++++
+ lib/xarray.c      |  2 ++
+ 2 files changed, 52 insertions(+)
+
+diff --git a/lib/test_xarray.c b/lib/test_xarray.c
+index 5ca0aefee9aa..27988441e71c 100644
+--- a/lib/test_xarray.c
++++ b/lib/test_xarray.c
+@@ -32,6 +32,22 @@ void xa_dump(const struct xarray *xa) { }
+ } while (0)
+ #endif
+ 
++/*
++ * Warn if @x holds and return whether it did, so that the caller can skip
++ * checks which would not terminate or would not mean anything on the
++ * broken state.  Counted with tests_run and tests_passed like the rest.
++ */
++#define XA_WARN_ON(xa, x) ({					\
++	bool __failed = WARN_ON(x);				\
++								\
++	tests_run++;						\
++	if (__failed)						\
++		xa_dump(xa);					\
++	else							\
++		tests_passed++;					\
++	__failed;						\
++})
++
+ static void *xa_mk_index(unsigned long index)
+ {
+ 	return xa_mk_value(index & LONG_MAX);
+@@ -370,6 +386,39 @@ static noinline void check_xa_shrink(struct xarray *xa)
+ 	}
  }
  
-+void amdxdna_io_stats_job_start(struct amdxdna_client *client)
++static noinline void check_xa_root_offset(struct xarray *xa)
 +{
-+	int depth;
++	DEFINE_XARRAY(tmp);
++	struct xa_node *node;
 +
-+	guard(spinlock)(&client->io_stats.lock);
++	/* Free two nodes with non-zero offsets so the slab can reuse them */
++	xa_store_index(&tmp, 0, GFP_KERNEL);
++	xa_store_index(&tmp, 5UL << XA_CHUNK_SHIFT, GFP_KERNEL);
++	xa_store_index(&tmp, 6UL << XA_CHUNK_SHIFT, GFP_KERNEL);
++	xa_store_index(&tmp, 7UL << XA_CHUNK_SHIFT, GFP_KERNEL);
++	xa_erase_index(&tmp, 5UL << XA_CHUNK_SHIFT);
++	xa_erase_index(&tmp, 6UL << XA_CHUNK_SHIFT);
++	rcu_barrier();
 +
-+	depth = client->io_stats.job_depth++;
-+	if (!depth)
-+		client->io_stats.start_time = ktime_get_ns();
++	/* A root created by xas_create() must have offset 0 */
++	XA_WARN_ON(xa, xa_store_index(xa, 0, GFP_KERNEL));
++	XA_WARN_ON(xa, xa_store_index(xa, 1, GFP_KERNEL));
++	rcu_read_lock();
++	node = xa_to_node(xa_head(xa));
++	XA_WARN_ON(xa, node->offset != 0);
++	rcu_read_unlock();
++
++	/* And so must a root created by xas_expand() */
++	XA_WARN_ON(xa, xa_store_index(xa, XA_CHUNK_SIZE, GFP_KERNEL));
++	rcu_read_lock();
++	node = xa_to_node(xa_head(xa));
++	XA_WARN_ON(xa, node->offset != 0);
++	rcu_read_unlock();
++
++	xa_destroy(xa);
++	xa_destroy(&tmp);
 +}
 +
-+void amdxdna_io_stats_job_done(struct amdxdna_client *client)
-+{
-+	u64 busy_ns;
-+	int depth;
-+
-+	guard(spinlock)(&client->io_stats.lock);
-+
-+	depth = --client->io_stats.job_depth;
-+	if (!depth) {
-+		busy_ns = ktime_get_ns() - client->io_stats.start_time;
-+		client->io_stats.start_time = 0;
-+		client->io_stats.busy_time += busy_ns;
-+	}
-+}
-+
-+u64 amdxdna_io_stats_busy_time_ns(struct amdxdna_client *client)
-+{
-+	u64 busy_ns;
-+
-+	guard(spinlock)(&client->io_stats.lock);
-+
-+	busy_ns = client->io_stats.busy_time;
-+	if (client->io_stats.job_depth)
-+		busy_ns += ktime_get_ns() - client->io_stats.start_time;
-+
-+	return busy_ns;
-+}
-+
- int amdxdna_get_metadata(struct aie_device *aie,
- 			 struct amdxdna_client *client,
- 			 struct amdxdna_drm_get_info *args)
-diff --git a/drivers/accel/amdxdna/aie.h b/drivers/accel/amdxdna/aie.h
-index 0483d582b7f8..1fc5ddfe696a 100644
---- a/drivers/accel/amdxdna/aie.h
-+++ b/drivers/accel/amdxdna/aie.h
-@@ -117,4 +117,8 @@ void aie_smu_fini(struct smu_device *smu);
- int aie_smu_set_clocks(struct smu_device *smu, u32 *npuclk, u32 *hclk);
- int aie_smu_set_dpm(struct smu_device *smu, u32 dpm_level);
- 
-+void amdxdna_io_stats_job_start(struct amdxdna_client *client);
-+void amdxdna_io_stats_job_done(struct amdxdna_client *client);
-+u64 amdxdna_io_stats_busy_time_ns(struct amdxdna_client *client);
-+
- #endif /* _AIE_H_ */
-diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-index d927c8c9d557..9c6b7353cbe9 100644
---- a/drivers/accel/amdxdna/aie2_ctx.c
-+++ b/drivers/accel/amdxdna/aie2_ctx.c
-@@ -290,6 +290,7 @@ aie2_sched_resp_handler(void *handle, void __iomem *data, size_t size)
- 	int ret = 0;
- 	u32 status;
- 
-+	amdxdna_io_stats_job_done(job->hwctx->client);
- 	cmd_abo = job->cmd_bo;
- 
- 	if (unlikely(job->job_timeout)) {
-@@ -322,6 +323,8 @@ aie2_sched_drvcmd_resp_handler(void *handle, void __iomem *data, size_t size)
- 	struct amdxdna_sched_job *job = handle;
- 	int ret = 0;
- 
-+	amdxdna_io_stats_job_done(job->hwctx->client);
-+
- 	if (unlikely(!data || size != sizeof(u32))) {
- 		job->drv_cmd->result = U32_MAX;
- 		ret = -EINVAL;
-@@ -344,6 +347,7 @@ aie2_sched_cmdlist_resp_handler(void *handle, void __iomem *data, size_t size)
- 	u32 cmd_status;
- 	int ret = 0;
- 
-+	amdxdna_io_stats_job_done(job->hwctx->client);
- 	cmd_abo = job->cmd_bo;
- 
- 	if (unlikely(job->job_timeout)) {
-@@ -405,6 +409,7 @@ aie2_sched_job_run(struct drm_sched_job *sched_job)
- 	kref_get(&job->refcnt);
- 	fence = dma_fence_get(job->fence);
- 
-+	amdxdna_io_stats_job_start(job->hwctx->client);
- 	if (job->drv_cmd) {
- 		switch (job->drv_cmd->opcode) {
- 		case SYNC_DEBUG_BO:
-@@ -432,6 +437,7 @@ aie2_sched_job_run(struct drm_sched_job *sched_job)
- 
- out:
- 	if (ret) {
-+		amdxdna_io_stats_job_done(job->hwctx->client);
- 		dma_fence_put(job->fence);
- 		aie2_job_put(job);
- 		mmput(job->mm);
-diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-index bb339e641416..67a02d6b7f97 100644
---- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-+++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-@@ -14,6 +14,7 @@
- #include <linux/iommu.h>
- #include <linux/pci.h>
- 
-+#include "aie.h"
- #include "amdxdna_cbuf.h"
- #include "amdxdna_ctx.h"
- #include "amdxdna_debugfs.h"
-@@ -151,6 +152,8 @@ static int amdxdna_drm_open(struct drm_device *ddev, struct drm_file *filp)
- 	filp->driver_priv = client;
- 	client->filp = filp;
- 
-+	spin_lock_init(&client->io_stats.lock);
-+
- 	XDNA_DBG(xdna, "pid %d opened", client->pid);
- 	return 0;
- 
-@@ -287,6 +290,9 @@ static void amdxdna_show_fdinfo(struct drm_printer *p, struct drm_file *filp)
- 	size_t heap_usage, external_usage, internal_usage;
- 	char *drv_name = filp->minor->dev->driver->name;
- 
-+	drm_printf(p, "drm-engine-npu:\t%llu ns\n",
-+		   amdxdna_io_stats_busy_time_ns(client));
-+
- 	mutex_lock(&client->mm_lock);
- 
- 	heap_usage = client->heap_usage;
-diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-index a997d27a504d..510356a31532 100644
---- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
-+++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-@@ -143,6 +143,13 @@ struct amdxdna_device_id {
- 	const struct amdxdna_dev_info *dev_info;
- };
- 
-+struct amdxdna_io_stats {
-+	spinlock_t			lock; /* protect io stats */
-+	int				job_depth;
-+	u64				start_time;
-+	u64				busy_time;
-+};
-+
- /*
-  * struct amdxdna_client - amdxdna client
-  * A per fd data structure for managing context and other user process stuffs.
-@@ -169,6 +176,8 @@ struct amdxdna_client {
- 	size_t				heap_usage;
- 	size_t				total_bo_usage;
- 	size_t				total_int_bo_usage;
-+
-+	struct amdxdna_io_stats		io_stats;
- };
- 
- #define amdxdna_for_each_hwctx(client, hwctx_id, entry)		\
+ static noinline void check_insert(struct xarray *xa)
+ {
+ 	unsigned long i;
+@@ -2235,6 +2284,7 @@ static int xarray_checks(void)
+ 	check_xa_load(&array);
+ 	check_xa_mark(&array);
+ 	check_xa_shrink(&array);
++	check_xa_root_offset(&array);
+ 	check_xas_erase(&array);
+ 	check_insert(&array);
+ 	check_cmpxchg(&array);
+diff --git a/lib/xarray.c b/lib/xarray.c
+index bfe7bef80f34..720d46e8b14a 100644
+--- a/lib/xarray.c
++++ b/lib/xarray.c
+@@ -387,6 +387,8 @@ static void *xas_alloc(struct xa_state *xas, unsigned int shift)
+ 		parent->count++;
+ 		XA_NODE_BUG_ON(node, parent->count > XA_CHUNK_SIZE);
+ 		xas_update(xas, parent);
++	} else {
++		node->offset = 0;
+ 	}
+ 	XA_NODE_BUG_ON(node, shift > BITS_PER_LONG);
+ 	XA_NODE_BUG_ON(node, !list_empty(&node->private_list));
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-2.34.1
+2.53.0
 
