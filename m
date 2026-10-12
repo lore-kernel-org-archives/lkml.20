@@ -1,231 +1,315 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E9948A8B9;
-	Mon, 12 Oct 2026 12:28:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6636D40F746;
+	Mon, 12 Oct 2026 12:29:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791808140; cv=none; b=ALaFD7RJ3uWrxKxuUf6pG3qbOcij3MR9zJmCUJJ4kmob2sd57SB7GNas55030SXQPtmICrDMckIEjiGlGeV9zJBCKLmmP0R+lu8ZZj/b0YptphHrYjP33gtz/PDvB3L/iRHqouc19eh2rNegCs6TyfPUkdMJAKqtUeyhHD2tx5w=
+	t=1791808151; cv=none; b=qE0SQC45W6yIjQfkYvoThvmfCPvznPSPU414rB6Kw6yJ2mlTCOl2VpMfi/btW5ynkxMYj06Z4Nljn/jxe3LxEQYgNXQSFpHS73WokepEe3+AcnFLsqhuWlV+0ebls5E/XdnJGpyjzdrtYWhOs1vikKsnzo8YqwEcKWRfVxDFQy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791808140; c=relaxed/simple;
-	bh=Q+7TsF7Wijks8NkLM21j/K/elxZO01XTzanwA0N3Z4k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eYm2e2tl4BtWPO1+RaJ/KZqHhwZ8MlVQUrARRYs74QrasCdjBEv3PpuMD2ACgfDQUDclumBn9jw6oJJtp9lOtYRxsSAMbLpkLTRwfLTZKCzMWUvIqw7Ea4ANI0APtTRztA6HRyiBDkqwLI4gFCIRN4eaF0hTYmRv0a0blebkjNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Cm8fNTSR; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=BwGglYyO; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Cm8fNTSR; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=BwGglYyO; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791808151; c=relaxed/simple;
+	bh=+iXmU1LV5NuE6HQVsPl7jR6YAfGMyb3yohqo9OIfv34=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=aBCOEUd3Tml7q7reIkSy8rE+PV/B6hQJuE5lsMoF5yAtnLXGcC5oWjYpBHQB64wcaTWAk5xSWxrIzg6rvT9wRAnKZ1kKNMYAxDRLH+2NcYYXID4IgdwgfEOPiv0//znP85q4JyH+Qn5kUYxhwBIBX1jGwG6Wx3LFTXXCU08U3OI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S0fq0mTH; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Cm8fNTSR";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BwGglYyO";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Cm8fNTSR";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BwGglYyO"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8C54621CA9;
-	Mon, 12 Oct 2026 12:28:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791808136; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=qPSTJSInM3BR7QF4CKfB9DI2NaR6P7/SkJ+8jjcYOu0=;
-	b=Cm8fNTSRNvXSymhWCOj8F0pt0CaTOmoHxuoSjtJrtyaEfpNPo33R4pQQyNTHatOARY6oiZ
-	Ofp4JABzMzMrOExCyRL6NR+fphet89PJ0ZlPNz+WiV8GalVNmlTcOSa9R6IftBsbAN/l7A
-	AHxlatRXUKS1r960SSATkfWO9nuBDgc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791808136;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=qPSTJSInM3BR7QF4CKfB9DI2NaR6P7/SkJ+8jjcYOu0=;
-	b=BwGglYyOnulx6pPI+lQevI0RV0QX3S9roQs1kunu4TPXfasylJjWmFEOTpRaKy4bBusiaj
-	mezvQ9YcbNLPx9Ag==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Cm8fNTSR;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=BwGglYyO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791808136; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=qPSTJSInM3BR7QF4CKfB9DI2NaR6P7/SkJ+8jjcYOu0=;
-	b=Cm8fNTSRNvXSymhWCOj8F0pt0CaTOmoHxuoSjtJrtyaEfpNPo33R4pQQyNTHatOARY6oiZ
-	Ofp4JABzMzMrOExCyRL6NR+fphet89PJ0ZlPNz+WiV8GalVNmlTcOSa9R6IftBsbAN/l7A
-	AHxlatRXUKS1r960SSATkfWO9nuBDgc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791808136;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=qPSTJSInM3BR7QF4CKfB9DI2NaR6P7/SkJ+8jjcYOu0=;
-	b=BwGglYyOnulx6pPI+lQevI0RV0QX3S9roQs1kunu4TPXfasylJjWmFEOTpRaKy4bBusiaj
-	mezvQ9YcbNLPx9Ag==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2A76A13314;
-	Mon, 12 Oct 2026 12:28:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id oTtIL4fSzGpPLwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Mon, 12 Oct 2026 12:28:55 +0000
-Message-ID: <1ad9f380-7efe-4323-acbc-a3cca3420184@suse.de>
-Date: Mon, 12 Oct 2026 14:28:55 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S0fq0mTH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791808150; x=1823344150;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=+iXmU1LV5NuE6HQVsPl7jR6YAfGMyb3yohqo9OIfv34=;
+  b=S0fq0mTHy7d7/UGy9t9hODQOFeUSVCZ8ps6JJL2qjJjonaPnocMG4nJO
+   cwlyP2qHRjp7kyTtmU0v7Jxd276cPHvnF+NwjuPr2IqR1A80zJ0e0VjPQ
+   eOMzdWA+zP0ZHBqLF/HX3Q8k3KgvGnJNDeKXSQRtD5CACJR0xPiluMjqz
+   7wFj8shFQBehKMQzxXelt4G2HeDbyIS2tSUbugPiPw+Pj7HueKn/ssjSm
+   MOc7vnBLDvdknWFwteZxl9SZIlCaXehNmVH+n4xcbRi/FU9uXo8CWC9dF
+   IKiT299oNguVyuRATPH0gDuCRPAJQjCiEnbodF8DESKZmyC+yAoFY4IFg
+   Q==;
+X-CSE-ConnectionGUID: piR9PDIoRImw1pSzl2E7Vw==
+X-CSE-MsgGUID: 5flw0XfgSZSHI3gwcCUU/A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="524234"
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="524234"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 05:29:09 -0700
+X-CSE-ConnectionGUID: Ar2fpzBVQG6oppyArIJOZg==
+X-CSE-MsgGUID: yFEreGruSbmMEkERdhVBTw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="1196198"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.202])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 05:29:06 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 12 Oct 2026 15:29:01 +0300 (EEST)
+To: Chris Taraszka <chris@miget.com>
+cc: TuteMthCD <matias.civadda2342001@gmail.com>, 
+    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, Armin Wolf <W_Armin@gmx.de>, 
+    Mingyou Chen <qby140326@gmail.com>
+Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: Add Xiaomi Book Pro 14
+ platform profile values
+In-Reply-To: <CAAcRvKNrRMb44p-v0-wiWQx8QiToYyKCoCzXvVku-o0RGTxEgQ@mail.gmail.com>
+Message-ID: <793647dd-8835-3bb2-88f4-ddc053580bd3@linux.intel.com>
+References: <20260928153902.139956-1-chris@miget.com> <5430348c-8ff3-c31a-927f-321b2cf94883@linux.intel.com> <CAAcRvKNrRMb44p-v0-wiWQx8QiToYyKCoCzXvVku-o0RGTxEgQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] vt: Use boolean as parameter to do_blank_screen() and
- do_unblank_screen()
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: jirislaby@kernel.org, deller@gmx.de,
- James.Bottomley@hansenpartnership.com, simona@ffwll.ch,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-parisc@vger.kernel.org,
- sashiko-reviews@lists.linux.dev
-References: <20261012094114.38549-1-tzimmermann@suse.de>
- <20261012094114.38549-2-tzimmermann@suse.de>
- <2026101228-unfreeze-drearily-670f@gregkh>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <2026101228-unfreeze-drearily-670f@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 8C54621CA9
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.50 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmx.de];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,gmx.de,hansenpartnership.com,ffwll.ch,vger.kernel.org,lists.linux.dev];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim]
-X-Spam-Flag: NO
-X-Spam-Score: -4.50
+Content-Type: multipart/mixed; boundary="8323328-172006283-1791808141=:1222"
 
-Hi
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Am 12.10.26 um 13:30 schrieb Greg KH:
-> On Mon, Oct 12, 2026 at 11:27:38AM +0200, Thomas Zimmermann wrote:
->> The parameters to do_blank_screen() and do_unblank_screen() signal
->> whether the call is part of a switch between text and graphics mode.
->> Convert to boolean. No functional changes.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->>   drivers/tty/vt/vt.c              | 20 ++++++++++----------
->>   drivers/tty/vt/vt_ioctl.c        | 12 ++++++------
->>   drivers/video/fbdev/core/fbcon.c |  4 ++--
->>   include/linux/vt_kern.h          |  5 +++--
->>   4 files changed, 21 insertions(+), 20 deletions(-)
->>
->> diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
->> index 57edf37495a8..9e7b4419b422 100644
->> --- a/drivers/tty/vt/vt.c
->> +++ b/drivers/tty/vt/vt.c
->> @@ -3374,7 +3374,7 @@ static void console_callback(struct work_struct *ignored)
->>   		scrollback_delta = 0;
->>   	}
->>   	if (blank_timer_expired) {
->> -		do_blank_screen(0);
->> +		do_blank_screen(false);
-> Same type of comment here, this bool doesn't really tell what is
-> happening at all (not your fault, 0/1 doesn't either.)
->
-> I'm all for this patch but shouldn't this be fixed up to be 2 different
-> named functions entirely?
+--8323328-172006283-1791808141=:1222
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Can you elaborate?  Do you mean there should be a separate helper and 
-callback for switching between KD_TEXT and KD_GRAPHICS?
+On Mon, 28 Sep 2026, Chris Taraszka wrote:
 
-Looking through the *_blank_screen() helpers and the console 
-implementations, I think we'd mostly duplicate code. Mode-switching and 
-blanking are tightly coupled.  Semantics get a bit cleaner with the 
-change you proposed to patch 1, I think.
+> Thanks, makes sense.
+>=20
+> Matias, one thing I ran into when trying your generic part on the
+> Xiaomi Book Pro 14: its values are sparse (0x02, 0x03, 0x04, 0x09,
+> 0x0a) and 0x02 and 0x0a both mean low-power. With a profile array
+> indexed by the firmware value, the unused slots read back as
+> PLATFORM_PROFILE_LOW_POWER (0), and the reverse lookup for low-power
+> finds index 0, which this firmware ignores.
+>=20
+> So I'd suggest {value, profile} pairs for the shared part. I have that
+> as a standalone patch on pdx86/for-next, with only the profile table
+> in the quirk struct, so your response layout and AC check handling
+> would go on top in your TM2107 patch. If that works for you I'll send
+> it as v2 together with the Xiaomi entry, and you can base your v3 on
+> it. If you'd rather own the generic patch, that's fine too, I'll
+> rebase the Xiaomi part on yours.
 
-Or, we'd have to untangle all of it. The result would likely look 
-something like this:
+Hi,
 
-vt_set_mode(kd_mode)
-{
-     if (kd_mode == GRAPHICS)
-         do_blank_screen() /* blank before going to graphics */
+I've not seen v2 so far, has there been some progress with this?
 
-     consw->con_setmode(kd_mode)
+(Not having the generalization seems a blocker adding many models.)
 
-     if (kd_mode != GRAPHICS)
-         do_unblank_screen() /* unblank after coming back from graphics */
-}
-
-Best regards
-Thomas
-
-
->
-> thanks,
->
-> greg k-h
-
--- 
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+ i.
 
+> On Mon, Sep 28, 2026 at 5:49=E2=80=AFPM Ilpo J=C3=A4rvinen
+> <ilpo.jarvinen@linux.intel.com> wrote:
+> >
+> > On Mon, 28 Sep 2026, Chris Taraszka wrote:
+> >
+> > > The Xiaomi Book Pro 14 firmware (BIOS XMAPT4B0P0909) implements
+> > > SystemPerMode with its own values. Its WMAA SET handler only acts on
+> > > 0x02-0x0a and silently ignores 0 and 1, and GET returns one of 0x02,
+> > > 0x03, 0x04, 0x09 or 0x0a. With the generic values:
+> > >
+> > >  - balanced (0) and balanced-performance (1) are no-ops,
+> > >  - performance (3) selects the firmware's balanced mode,
+> > >  - reading the profile fails with -EINVAL whenever the firmware is in
+> > >    0x04, 0x09 or 0x0a, which it often is after boot. The failed read =
+also
+> > >    makes bitland_mifs_wmi_suspend() abort system suspend.
+> > >
+> > > The values were identified from the WMAA method in the firmware's SSD=
+T
+> > > and by setting each one through WMAA on AC and reading the resulting
+> > > sustained package power limit from intel-rapl-mmio:
+> > >
+> > >   0x02  18 W  (quiet)
+> > >   0x03  37 W  (balanced)
+> > >   0x09  45 W
+> > >   0x04  58 W  (performance)
+> > >   0x0a  18 W
+> > >
+> > > Map low-power, balanced, balanced-performance and performance to 0x02=
+,
+> > > 0x03, 0x09 and 0x04 on this model. The driver never sets 0x0a, which =
+is
+> > > only reached through the firmware's own mode cycling, so report it as
+> > > low-power.
+> > >
+> > > Cc: Armin Wolf <W_Armin@gmx.de>
+> > > Cc: Mingyou Chen <qby140326@gmail.com>
+> > > Signed-off-by: Chris Taraszka <chris@miget.com>
+> > > ---
+> > >
+> > > Notes:
+> > >     Tested on the Xiaomi Book Pro 14 on AC with bitland-mifs-wmi from=
+ pdx86
+> > >     for-next plus this patch, loaded on v7.3-rc5: all four profiles a=
+pply
+> > >     through power-profiles-daemon and the firmware mode and PL1 follo=
+w
+> > >     (0x03/37 W, 0x02/25 W, 0x04/56 W). The same mapping on v7.3-rc4/r=
+c5
+> > >     without the for-next changes was also tested on battery and acros=
+s
+> > >     s2idle suspend/resume, with the profile restored on resume.
+> > >
+> > >     This explains the -EINVAL behind my earlier "platform/x86:
+> > >     bitland-mifs-wmi: Don't abort suspend when platform profile acces=
+s
+> > >     fails" (sent 2026-09-11): the profile read failed because of the =
+unknown
+> > >     mode values. That patch is still useful as a safety net.
+> > >
+> > >     Note that on for-next each profile change still reports -ENOMSG e=
+ven
+> > >     though the firmware applies it: this firmware's SET handlers leav=
+e the
+> > >     function id in the response at 0, which 23cc56f6dea6 ("platform/x=
+86:
+> > >     bitland-mifs-wmi: Detect failed function calls") rejects. I'll se=
+nd a
+> > >     separate fix for that.
+> > >
+> > >  drivers/platform/x86/bitland-mifs-wmi.c | 56 +++++++++++++++++++++++=
+--
+> > >  1 file changed, 52 insertions(+), 4 deletions(-)
+> > >
+> > > diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platfo=
+rm/x86/bitland-mifs-wmi.c
+> > > index dd1648b7de77..4a8e5b4e7853 100644
+> > > --- a/drivers/platform/x86/bitland-mifs-wmi.c
+> > > +++ b/drivers/platform/x86/bitland-mifs-wmi.c
+> > > @@ -14,6 +14,7 @@
+> > >  #include <linux/dev_printk.h>
+> > >  #include <linux/device.h>
+> > >  #include <linux/device/devres.h>
+> > > +#include <linux/dmi.h>
+> > >  #include <linux/err.h>
+> > >  #include <linux/hwmon.h>
+> > >  #include <linux/init.h>
+> > > @@ -79,6 +80,29 @@ enum bitland_mifs_power_profile {
+> > >       WMI_PP_FULL_SPEED       =3D 3,
+> > >  };
+> > >
+> > > +/*
+> > > + * The Xiaomi Book Pro 14 firmware uses its own SystemPerMode values=
+ and
+> > > + * ignores the ones above. Sustained package power limits (PL1) meas=
+ured
+> > > + * on AC are noted next to each mode.
+> > > + */
+> > > +enum bitland_mifs_xiaomi_power_profile {
+> > > +     WMI_PP_XIAOMI_QUIET             =3D 0x02, /* 18 W */
+> > > +     WMI_PP_XIAOMI_BALANCED          =3D 0x03, /* 37 W */
+> > > +     WMI_PP_XIAOMI_PERFORMANCE       =3D 0x04, /* 58 W */
+> > > +     WMI_PP_XIAOMI_SMART             =3D 0x09, /* 45 W */
+> > > +     WMI_PP_XIAOMI_QUIET_ALT         =3D 0x0a, /* 18 W */
+> > > +};
+> > > +
+> > > +static const struct dmi_system_id bitland_mifs_xiaomi_pp_dmi_table[]=
+ =3D {
+> > > +     {
+> > > +             .matches =3D {
+> > > +                     DMI_MATCH(DMI_SYS_VENDOR, "XIAOMI"),
+> > > +                     DMI_MATCH(DMI_PRODUCT_NAME, "Xiaomi Book Pro 14=
+"),
+> > > +             },
+> > > +     },
+> > > +     { }
+> > > +};
+> > > +
+> > >  enum bitland_mifs_event_id {
+> > >       WMI_EVENT_RESERVED_1            =3D 1,
+> > >       WMI_EVENT_RESERVED_2            =3D 2,
+> > > @@ -161,6 +185,7 @@ struct bitland_mifs_wmi_data {
+> > >       struct device *hwmon_dev;
+> > >       struct device *pp_dev;
+> > >       enum platform_profile_option saved_profile;
+> > > +     bool xiaomi_pp;
+> > >  };
+> > >
+> > >  static int bitland_mifs_wmi_call(struct bitland_mifs_wmi_data *data,
+> > > @@ -213,6 +238,27 @@ static int laptop_profile_get(struct device *dev=
+,
+> > >       if (ret)
+> > >               return ret;
+> > >
+> > > +     if (data->xiaomi_pp) {
+> > > +             switch (result.data[0]) {
+> > > +             case WMI_PP_XIAOMI_QUIET:
+> > > +             case WMI_PP_XIAOMI_QUIET_ALT:
+> > > +                     *profile =3D PLATFORM_PROFILE_LOW_POWER;
+> > > +                     break;
+> > > +             case WMI_PP_XIAOMI_BALANCED:
+> > > +                     *profile =3D PLATFORM_PROFILE_BALANCED;
+> > > +                     break;
+> > > +             case WMI_PP_XIAOMI_SMART:
+> > > +                     *profile =3D PLATFORM_PROFILE_BALANCED_PERFORMA=
+NCE;
+> > > +                     break;
+> > > +             case WMI_PP_XIAOMI_PERFORMANCE:
+> > > +                     *profile =3D PLATFORM_PROFILE_PERFORMANCE;
+> > > +                     break;
+> > > +             default:
+> > > +                     return -EINVAL;
+> > > +             }
+> > > +             return 0;
+> > > +     }
+> > > +
+> > >       switch (result.data[0]) {
+> > >       case WMI_PP_BALANCED:
+> > >               *profile =3D PLATFORM_PROFILE_BALANCED;
+> > > @@ -272,22 +318,22 @@ static int laptop_profile_set(struct device *de=
+v,
+> > >
+> > >       switch (profile) {
+> > >       case PLATFORM_PROFILE_LOW_POWER:
+> > > -             val =3D WMI_PP_QUIET;
+> > > +             val =3D data->xiaomi_pp ? WMI_PP_XIAOMI_QUIET : WMI_PP_=
+QUIET;
+> > >               break;
+> > >       case PLATFORM_PROFILE_BALANCED:
+> > > -             val =3D WMI_PP_BALANCED;
+> > > +             val =3D data->xiaomi_pp ? WMI_PP_XIAOMI_BALANCED : WMI_=
+PP_BALANCED;
+> > >               break;
+> > >       case PLATFORM_PROFILE_BALANCED_PERFORMANCE:
+> > >               ret =3D bitland_check_performance_capability(data);
+> > >               if (ret)
+> > >                       return ret;
+> > > -             val =3D WMI_PP_PERFORMANCE;
+> > > +             val =3D data->xiaomi_pp ? WMI_PP_XIAOMI_SMART : WMI_PP_=
+PERFORMANCE;
+> > >               break;
+> > >       case PLATFORM_PROFILE_PERFORMANCE:
+> > >               ret =3D bitland_check_performance_capability(data);
+> > >               if (ret)
+> > >                       return ret;
+> > > -             val =3D WMI_PP_FULL_SPEED;
+> > > +             val =3D data->xiaomi_pp ? WMI_PP_XIAOMI_PERFORMANCE : W=
+MI_PP_FULL_SPEED;
+> >
+> >
+> > Hi,
+> >
+> > Thanks for the patch but I won't accept device specific conditionals li=
+ke
+> > this done in the code. For a better approach, please see:
+> >
+> > bitland-mifs-wmi: Fix TM2107 profile handling
+> >
+> > You two could try to coordinate such that transition into the generic
+> > approach is not worked by both independently.
+> >
+> > It might be best to extract the generalization part to own patch and bo=
+th
+> > then base their respective device specific patches adding new things on
+> > top of that.
+> >
+> > --
+> >  i.
+> >
+>=20
 
+--=20
+ i.
+
+--8323328-172006283-1791808141=:1222--
