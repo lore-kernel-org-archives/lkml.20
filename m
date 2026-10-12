@@ -1,76 +1,95 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com [209.85.214.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5ECF316199
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:42:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05F43537E8
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791783749; cv=none; b=CU4NTbFY6VlBrkhVQ5kHURNFx+LW/uNeujXhJHClkswq3CGaph6wZAnCMRcC3USlRLWUXVQjX/JDJaJ//xTuHCioTwucjjahHLKRqzys1o2mEI6CsnPl3/AX9q6vpOzR86Qt/8TTvhDZxRUEyhQ8wCm1LtNDbEIwir0xieP1xes=
+	t=1791783818; cv=none; b=In9fl6yEjT3/NbgcgIo0h4fVfscvD4fNGZz4DL3XceNTFeWlBZbhDsqwyxxPBrXHSOIugyWeerAlWNKp+XS2tb63rfyQHiFN0J1ZEh0nmnWCsmaU8+lbF1vPtpXd7TKP7ePfWFJoFi9z+8Wgep8BNvepCx8EaNvyhsOeFmk1qvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791783749; c=relaxed/simple;
-	bh=p+9HQ/2qU6hqqbNv9Hj0rg3//zMxgJo30lA7NXPrBp0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Fa0Ea7HlNUP/qn01kcW9LTn+jklOpJzmixy17rdQNHhfp0rEBse0NfNC3Oel6S9RQQnYRVQufYBRndIJh5KfjOma+DDjiIDhHPUdAAaJydr1EmK+VKKpA4RHCTqJauyITGrE51PvyI5avmpD3ttj1+qehH8zsG8VKa3i0ESslig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nGRnOnwz; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791783818; c=relaxed/simple;
+	bh=Llr2ksnMb8axoaOAofkdX4V28G8NMHhtNXPZ59eRpIU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jS4iRz/8bRurTW+DYiC/4/YcsbuifQq6PML86FLgEtFzF9rO5dg33mQVurx4L73IiXImimqg+HCkigUfRggb7tVnmr7Rnp2HR/jQ5CXsUecFiJhYqbJv4FaVWLBQ8svxA4MYlnlIBK9OB5LqOW5CwLF1FSVJaMDfaDx0Qs3XsqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=QVTWjfbN; arc=none smtp.client-ip=209.85.214.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nGRnOnwz"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48af27fe287so1230857f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:42:27 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="QVTWjfbN"
+Received: by mail-pl1-f226.google.com with SMTP id d9443c01a7336-2e608cd460eso7413915ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:43:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791783817; x=1792388617;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DrTHSJoQR86XwCgavEnbXSD7VtbrpPm/c0zcBwcD0a4=;
+        b=dn5nOaA0xcDzUx/gwGZ6ziBRFrimfY9UUW3jw+a994AOsYKG+fYSWJLBkn6yr/ebEj
+         n7b/ShbwdwRgq5kS79VcBLVMSfkzIVMzqbXEKwnU+C2X8s3q4tA5IxN22yoP0EvS7Uae
+         Ft7/2DJCC2SELNT0oPwA6mRvHhrVCKZ+GmgcB9eOmFybF2rKTpFvJJss8TdBee/NA7Ps
+         kRgYtEYkxw7f9up7yLZYD4EDRcDBakagzZY6MMfhL9xY6FN7hkzQzTnpClpE23U1JHUQ
+         /5RE6cO7A+7gH615vMqqbb6AIV0PtCTkUcydE7oaAgFeWyftzWTs4/e4+8yHxgidVztk
+         A2ag==
+X-Forwarded-Encrypted: i=1; AKwUvBwNoSszB0YE4JtsMauRLC+CL2OHhEJmUAPFYf/kwiiKn2a20CsICtcdrri6oAgXKToyjdBziLK/9XtzQc4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ37DgPvICYyL6NGsA08/B2C85UD4CEVwqZtadZGlJ51wPFZP2a
+	zxeBLOFaFTwaYPL/725KHoVqak84GKHUz1x5Jtx7YI2LhCDahySNpFraPoD4Z2I6Lfcdpyvy01R
+	0mBOFM2xTkBoprW82TWH1q2puxJVka7qubl7l380VqV98IZfONcepMgxzNZrFCAYIErQYOB6s4L
+	NAkRC4dUEqTza1Li8C+noO98dtRqJg5eIV+YXb0WMd6AjJ7r3s4UKxs67a73ZiIxAQrWyWVNALm
+	IeZ216zpskgSUhAOg==
+X-Gm-Gg: AYBFou2NjGSG5W5o2/vhqz8uG/zQFNtnCcGzcN9KHgZ5HC5KZfblhYcw2Q58yopXGii
+	CaIelyZ6ftCkOodjpVFojsCMFf2BPTUKwis8uBx89fZeeh4BDRnP+LsGEP+aBFzAf/aX7jzvdYV
+	IvdPMQ9Bt04VpLJhE5C/K32jzDB+v2dMHm2ssUjDNlo4rj0MKtxbE2eVcho1TGcNw8AqIskEIOQ
+	Vv0ok/4Oweu0kjD9yBFJcVu6c/tmzCLXyXoxrxROt5jXmFEjAce4NDBhRRJozmVSRQYGL8yAAIb
+	vssEsN36JXeNi7g9NfjlK9HxwdKhorXSRJ+mqtOHQvWDyRk/XUYp2K/zuHP7sVji/0KHaSPi46l
+	d78YsBgWbR3WAZrhw54LSxy3njukxnyHTqExIgsR5rCtTNdsrX3n8yH/L7Jvb3H5hb2moLQP9IF
+	RS6k1CaUy9rKh7dPcO0+oCflW+yJ2M66KMdgX/
+X-Received: by 2002:a17:902:dacd:b0:2dd:ad73:5b6f with SMTP id d9443c01a7336-2e8429ade93mr68967035ad.31.1791783816894;
+        Sun, 11 Oct 2026 22:43:36 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
+        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2e84218f688sm3357005ad.37.2026.10.11.22.43.36
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 11 Oct 2026 22:43:36 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a8ae5154e7so1305922a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:43:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791783746; x=1792388546; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1791783815; x=1792388615; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Oj5XhgSe0FpI9L7joKTl2xjZXYCjBG3XVmlBR03TmF0=;
-        b=nGRnOnwz1VXC3wSgdHIAa4X7KSrT4RUbyNxx3OTmzOu7Td0FqvwmqHvVZhxO5ojUql
-         rRkGbTt+0iyoYns8AK6eb1Ts1VZ7eKQUV+MEkIWh9WO22RjzROLGmjHEgk8wCX2DIS7a
-         BOu6po5dG8iqS4XAg6CwU1I+ecNrBUutEuvwjAzLkUt/kzrpq6vEi04RVtImW9SBU7NM
-         +zJhsuOqOFdAgxLdlUziMm/Bdq//gTQ8RNBPoM64X+UHr190eRDqATDo9V5oka8uvHBh
-         b0lKSNfqYml8ItWXtktkin/Hy1mxhQvJZ3JLZDkjHubk9GpYf15trpRXHZSml3tL/cjU
-         fQlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791783746; x=1792388546;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Oj5XhgSe0FpI9L7joKTl2xjZXYCjBG3XVmlBR03TmF0=;
-        b=mRp2lf5i92EoGBeWAF1YHw5G4jhu5/kQSS7iEUCKTO75c+UEp/IFbbcej1hmkErdtZ
-         JGr4yOznVaXH7P5hzkRa1+vnm+nQs04tDRIEvKpbZ1x5BSyogZIVY7uqPk624w5EC1+e
-         8L8deqfh8BboxhLRtrfXI0hK/YC2TgUOi9ZVL68qrxWBv/BnJ7YjlS5y+pWvcFyq4wFu
-         TcolbVkWcIzhDa9IeRmkT2FeQ35bD6uZK7k1Y/iGAuCWahqGdJQEFO0acYQcIB6KZSc4
-         KxOVF3MIbws+pP+ylZNSDjUSgBDTUKarmQ+JM3VQfFroImK30CFGxzOiXrGZHM/EiHXh
-         DeLA==
-X-Forwarded-Encrypted: i=1; AKwUvBwvMyZRvfLrjqvgfb8xEGZtJO3iWSOXpO3dJcguk7YPC2lrirramOLEjW2TnSvBIR7kVTJBr2sh4oZlPw8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKyL1+zCdMAtJNsA1ASejzFP1njp/lwrtaErZ29EnZtwRfMLyZM
-	ljLX5ZARZZL6gY+HxcjlfjGKtfJcAaCa8hiJpWb2Zji6t+NePhWtxMm/
-X-Gm-Gg: AYBFou3puI+sYoGFwiYYOik02uEEQsc5AYfK6YMlXAOX5PJ6Lg9iIQggoXDZ+OpKuD1
-	6jkgCDtaFQHpcWTOyuMiI6QM27WsqZNIKLtevxG7zbZJSQ0YYxdJcHMfZBv81ZkMyeqJjSQUPua
-	pEqu1Hi/mhQ7kqij1GjRxtbu1GYLghgiaGXw+4w5T+tDiURkubMPZETh2ZqzUNH+Y36uMuEjzQ3
-	/cgYmJw5ukwBI5Y8+E2YvRtn+cjlfz30eX0hOZD4NqI9GeO52usUEsQhP1mzzxLZ2wxmS5fU+bn
-	l7UMazUDxxGcv1kwhzY+wGLZhFnc1F7+VNpmOCXLdzNbRdyGJFFBGsXHJJafz/b3hcaolxsulxA
-	2UFOLoTwx6siCuRkZpK5sQkIL+QwQ3EAe9qxTyNJrjRX/axT5/I7Y2jxmceW1+wXGPHzxQplgcc
-	PIGnj//RakijUBR9oS6tm7ezWSpVQgf/CnpOummgmZs2xUCmsLfXoWA0WSAoxE7LOd7kVqlcyFL
-	3LP2dWX490a6y96DAsyu1UmeL49Q+pj7qtbh17o+2EYPgV0p59RHBTttXGyRAPMdWLfQRGogF8s
-	l0IAQxDuvDAzOPJ8Zmp5m+YPlu8sp9+oDwwWKtlDP6wT5L/+Gcu4a4fHoPqEM0FrFU64gJUy66M
-	=
-X-Received: by 2002:a5d:6312:0:b0:48d:ba1b:e151 with SMTP id ffacd0b85a97d-48dbaaeb490mr11563603f8f.38.1791783745844;
-        Sun, 11 Oct 2026 22:42:25 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a8ab-0f01-016a-c770-797f-eaee.310.pool.telefonica.de. [2a02:3100:a8ab:f01:16a:c770:797f:eaee])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48ddbbd745dsm1013851f8f.15.2026.10.11.22.42.25
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 11 Oct 2026 22:42:25 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Li Zefan <lizefan@huawei.com>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] cgroup: Avoid warning when procfs is disabled
-Date: Mon, 12 Oct 2026 07:42:19 +0200
-Message-Id: <20261012054219.13365-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        bh=DrTHSJoQR86XwCgavEnbXSD7VtbrpPm/c0zcBwcD0a4=;
+        b=QVTWjfbN8zvnAUjtpIKB3A8lr5xYM0GwyoAIELekK1cRNtRNjCE2kdSY18kmeBmdWE
+         b+CqXWZi92JR2TUlVyPBmrLWWILUQ/sPkQqcTP99bXJqLJWBeOpw7Lane96ydh7rjNzo
+         eIE8eFr50fZ1PbbuqjBZ3IJ7BbjhockYC1r+o=
+X-Forwarded-Encrypted: i=1; AKwUvBzMe2qxuML8Fzj9PKqGWLIP6SqpukmagwI7yRJa68Eabdr6Mjet9lMFLr6S2Bd2Ll/GNeTSuLls0yE8D1Y=@vger.kernel.org
+X-Received: by 2002:a17:90b:1dc1:b0:3a0:eeda:39f3 with SMTP id 98e67ed59e1d1-3ab3aafac4fmr5914886a91.24.1791783815050;
+        Sun, 11 Oct 2026 22:43:35 -0700 (PDT)
+X-Received: by 2002:a17:90b:1dc1:b0:3a0:eeda:39f3 with SMTP id 98e67ed59e1d1-3ab3aafac4fmr5914869a91.24.1791783814589;
+        Sun, 11 Oct 2026 22:43:34 -0700 (PDT)
+Received: from H5S1 ([192.19.203.250])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36f8277bsm14615587a91.11.2026.10.11.22.43.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 22:43:34 -0700 (PDT)
+From: Vikas Gupta <vikas.gupta@broadcom.com>
+To: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	horms@kernel.org
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bhargava.marreddy@broadcom.com,
+	rahul-rg.gupta@broadcom.com,
+	vsrama-krishna.nemani@broadcom.com,
+	rajashekar.hudumula@broadcom.com,
+	dharmender.garg@broadcom.com,
+	ajit.khaparde@broadcom.com,
+	Vikas Gupta <vikas.gupta@broadcom.com>
+Subject: [PATCH net 0/2] bnge fixes
+Date: Mon, 12 Oct 2026 11:13:23 +0530
+Message-ID: <20261012054325.1782819-1-vikas.gupta@broadcom.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,34 +97,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-With CGROUPS=y and PROC_FS=n, proc_create_single() returns NULL and
-cgroup initialization warns during every boot.
+Hi,
 
-Only check creation of /proc/cgroups when procfs is enabled.
+This series fixes RSS indirection table and context sizing for large RX
+ring counts. Patch 1 caps the hardware RSS context count and RX rings
+to the RSS table size, preventing out-of-bounds writes and an oversized
+memset(). Patch 2 fixes the indirection table sizing so rings above
+the table size still receive default RSS traffic.
 
-Fixes: 035f4f510583 ("cgroup: replace error handling in cgroup_init() with WARN_ON()s")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- kernel/cgroup/cgroup.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Thanks,
+Vikas
 
-diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
-index 227d09704ca5..567afb75a4ec 100644
---- a/kernel/cgroup/cgroup.c
-+++ b/kernel/cgroup/cgroup.c
-@@ -6612,7 +6612,9 @@ int __init cgroup_init(void)
- 	WARN_ON(sysfs_create_mount_point(fs_kobj, "cgroup"));
- 	WARN_ON(register_filesystem(&cgroup_fs_type));
- 	WARN_ON(register_filesystem(&cgroup2_fs_type));
--	WARN_ON(!proc_create_single("cgroups", 0, NULL, proc_cgroupstats_show));
-+	if (IS_ENABLED(CONFIG_PROC_FS))
-+		WARN_ON(!proc_create_single("cgroups", 0, NULL,
-+					    proc_cgroupstats_show));
- #ifdef CONFIG_CPUSETS_V1
- 	WARN_ON(register_filesystem(&cpuset_fs_type));
- #endif
+Dharmender Garg (2):
+  bnge: fix RSS table sizing for large RX ring counts
+  bnge: cap RSS contexts and RX rings to the RSS table size
+
+ drivers/net/ethernet/broadcom/bnge/bnge_resc.c | 6 ++++--
+ drivers/net/ethernet/broadcom/bnge/bnge_resc.h | 9 +++------
+ 2 files changed, 7 insertions(+), 8 deletions(-)
+
 -- 
-2.53.0
+2.52.0
 
