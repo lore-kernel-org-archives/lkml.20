@@ -1,142 +1,169 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011026.outbound.protection.outlook.com [40.93.194.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9A84CC639
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:11:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791828678; cv=none; b=A9Vh5gK2gG1leClfD9iPxurZhHpI/RgY3/2gseTvv2hbZuY/MefoCn96g+1tioVQzyNjtI+z8jLccCRbNWT0bkQ8NWEcx6iNFBXrkCu3WGSZWjFhk0vGwh/Q7MmDyzMZIIjSVUVAltkvEGruaeIBSJmnNBkJAmv+UxWYzoE/JP0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791828678; c=relaxed/simple;
-	bh=ke74GPjOiVdcLhuz3rtphO6+a7fMHTX5+RkRMzBMbnQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JdBZb9J/n0RmZB7+SFN7go7BQ1gH25eYq277hl3wsfpwmQXmBNjeYhnSB+uDM332Ma085jo2QJgMZL0ckwl6AKqaB1qMXBTAg0OD1QktdWjuhGxYW+PU59BlfR4p0y4b+YPr7cm1015dqfKRgW4EQ1L9brM9DmTQnA2twTjyPKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=v9fHjtOC; arc=none smtp.client-ip=209.85.208.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5CC64CDDCD
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:11:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791828680; cv=fail; b=B30Li/HXLTcZqKZ/SAkqgZnC3Spzie81GQHAu+cXptChnlmJ8NI4tetp7Q0tIn84pFIANOJwu5OsJj67uvTgaJDuJX9RD3VI8R8Mf7WIS6WcxKcuv+Jb2W78L9OwXnndKTL4oD9miPRfyf2LBgaVtXOewTq9Q3cU62RkcRtu2aI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791828680; c=relaxed/simple;
+	bh=SPSKzsQSUJqdEjFAa0lySxmI5Nqu8yoxe4O+fTm/RIU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=j/LZCZgJvFwqhNacjaiRgECWsvHDGtc1vZ+kPkhI19I5zDf/vm+/WH5P6DwLguq1RbnldUgoku51UwASDQ1i4Kg+9Txc0A66GFUnr+4kOxXfOV+IxvkYBPuZewbHuhs4ENlP2bRaCqW4+IV5JUWQ85Rtid6LSn3wHsQYcc4Qm7E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=jDcR9HyZ; arc=fail smtp.client-ip=40.93.194.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="v9fHjtOC"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a0794669a6so3096154a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:11:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1791828674; x=1792433474; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H+lZKGmObmd47/Y9rOiwVSAJPnc99rNMg+8rnP10wQQ=;
-        b=v9fHjtOChy4q/9OnQ73899fI/4sfIG/BLv7pBMW/RI5vsbLtIqqPCq/T+lmdVlphrw
-         CGKKZYEycK/5zuZlbbTiOcqc+6xNwbLsp4VRxxNXpvSSJfS0akjLAHd6nV99mZN/v9O5
-         K/8qz3syslxy8Bm99kGmKmS3rHqbASCcAeKRhLYMrdqfsZgfmSziL0uiuevGbAcZb1c9
-         VNjqPvJFve0tq0w2v0Z9g7A9Sebna0BHeM7qcOe2zDDSLsNh3PPMyhRphrBvGkylWsrS
-         LYeKfWK55sfmgf06pSShB7lqhIvGxrsmYRBVGaZin1F3BGEriCgmomQSWelIsmrDFN8F
-         3DFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791828674; x=1792433474;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H+lZKGmObmd47/Y9rOiwVSAJPnc99rNMg+8rnP10wQQ=;
-        b=bbQxvuGQ8P3K6rF+M6FOEUa3dol220Fu6NMp5uUiy1SCR6kgQHqq2g6Zw6X7RQTvs0
-         OcuqJ6VQO6ZUKEL+NAcZtYNZ9YScr/Ij7VipsXw5nJVjM2PyLuvDVuSpZXnIZEaLh7Vd
-         wpbs2sPKnJSI8HBZED+MAutWtIq32QOYTcllVqNxQvnr2vCP8sdHhNLS1FQpjnGfWLPQ
-         PnID2qFekY31uQCmfvlDsxpaoK9KlkrE3/JdhtibVAfu+wrC8lD9TPirwByc7mTA61l/
-         370Ku60MCSXK5KAodYI/04SzMhkUdvVQeD7ZGIoc5VMwhF1vszUkOmTcs1/0SsORAd7U
-         kCKA==
-X-Forwarded-Encrypted: i=1; AKwUvByyLcSlygOY9ELPA50iZC5kqGEvUcdpfDm3L3/+Y/eAdFEYr8sYlEoQ2E/uT51UqEo6Xkzh7ezCgOmUGwk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbr+PoL+EBAkfBURdHlQNIfCs1fZyIfPBLAu3JElVitsX5PfZt
-	rIQOa9uUPvobwHIGoFAdutvxnf3fVY9W5oj0QlEuyELHmsNg70fjHDGrFM7gSv0fTQ0=
-X-Gm-Gg: AYBFou3rdSxL4Eqf1RzqQ5f3VfFUpiQuuN0KkmqH1YIEzCAwAXtID9Wm+T8Uir/gIGB
-	QlF4aBmLuHcZuSkOgioICSdeTvrKtofgw7Y/UwNF7vIgFrhspztN50HcD87kU3auwFo82PoegCu
-	+8jGABkA4b5ku8BN11hHgRP1PDd7sLRI/xMzPt2rSCDRDpU01+9oN3GuPWOrNR/IxVKLOgP9Aci
-	PscCFjaHpwK/nGnIybfSDpsr8DYBXGk+NySXlOz9erIhMtPKxnMARWMwAefXUztAsOw3KiewjVk
-	wSoDcxAff5sugAlRTZ170+V0GyYy2uUud9dQY8hPEpFYCITpkdFOoaQvzmNLC6/zrd3rbHIs+cE
-	0zsAwF6E1yALY0w6xPEIAaw8pVz7G2h8pUYk8qh1TowF9K4EJqZboPJU2AnRM4p/yLlg392cxhq
-	+Qg/nc2p/sTRD3ZYuAGd1r6pqMwMHVvZVPGB9PGcAOjWH7dbOZkmT51K0b2RnI21MSl72dhKhny
-	hGyL/6nCwT2YcNw2Ozgs5YE7cOLWEEjui+lOUNvvqNSHd1Bs5Jg5/6ND7Caxbc+FQ3wNv1H+1dK
-	bcxi3yx/sUrDvj8V8NQ=
-X-Received: by 2002:a17:907:9690:b0:c21:450d:cd88 with SMTP id a640c23a62f3a-c31a9a3361fmr925645566b.6.1791828674339;
-        Mon, 12 Oct 2026 11:11:14 -0700 (PDT)
-Received: from [192.168.101.179] (2001-1c04-0504-7401-4b2e-1820-6d24-b264.cable.dynamic.v6.ziggo.nl. [2001:1c04:504:7401:4b2e:1820:6d24:b264])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ac924dsm498415466b.70.2026.10.12.11.11.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 11:11:14 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="jDcR9HyZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CgOX6+DVAJMW3S0JBAVd9jcxIMRKC7GZnPZjTbVxzmh/ohknjmQiOF2BDDI5GRLHacFTx2O331aNWJ0ZmN/VTJAougCXldibTF0UQ6SmUitI/QIc7yhHE8HOWIMDWVIt8jSFmcgZrKMh04DAi7tShXoJB1MB63MquDivmSitEAY6m3+OttuROYDY/ez0wEM7jGxU8Abg0iUBTIOWIen6khzzfBbimNBEECp7156Rl5iZizPb6IWTdp0Ejo1RWe43qNOYWlTjstLTqLjpBA2kcq7jpDr79wg10uAmyLKA1OyFYRFADpH8LV2xSy29YFxZ/I4mBEmJn7zaf6NMjs6+hA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=g1kVCR7uF65Af5axbq4bMyFe4DmNgP0Z+zUvSe9tYYg=;
+ b=eqysSxZGAPR40L8QBJHBNAWy0zqBAPodlc7OnlRkkIztJliSdgO/JsmoB64954PhAUiXbMcf1r49PTq0NaY5lnCGgSl2+v61yq7XrMd2hmehvgsaXutLmsdJEwSthvUGPigxwge5nPQuOLT3UoxcyAJoU3Go68yuTg7TQn3tEBnl9S21dLZEgyVDp7ycrOpkHG9bDVKEl9VTB/RihuSgb713ewBY3xZ5zItR5dTLuZlhbBER0n6uR3WHsXqCmV4vp6nsH4D7aLSSljt+ZggjBbRdzUjK7QSwlHJHfHYssO+O3diF85BwoejXF0+1dshOveARmQt6LK/BesJ9OEquxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=g1kVCR7uF65Af5axbq4bMyFe4DmNgP0Z+zUvSe9tYYg=;
+ b=jDcR9HyZ9afa3N4KkGylnsoaOg8bpSAz93Ab9HaKJBYPBuGL1tXQBN8bMZOInM2KSxcbT1OvTqiiEF8sTlhj9gv0MG6Hh9Dj+TIUYdchVSfACK1SqQ1x5IImEwlKFtVeY5thQ0gV71tti59wIZSPwaodzpUbLi+kF8fo2OYmyDPceXm30l6hP+qLkxH4gB0unQ5DGErhLnxAjgUwoju3QoQdroXW1EBydRJvu392DSo/w5irU9ylcKBEf3P27jUTItjD+ng1J4G2mhunAZekPurLUsk6LDMKrWy/wYK7QRPcEHnDcjQ2HPdwCRCuIPoE8/SptGJnmFgsa3qraypmOA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by CY5PR12MB6599.namprd12.prod.outlook.com (2603:10b6:930:41::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Mon, 12 Oct
+ 2026 18:11:10 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
+ 18:11:08 +0000
 Date: Mon, 12 Oct 2026 20:11:04 +0200
-Subject: [PATCH 2/3] dt-bindings: arm: qcom: Add Samsung Galaxy Book2 Go
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: sched-ext@lists.linux.dev, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCHSET sched_ext/for-7.3-fixes] sched_ext: Fix bypass
+ propagation and the bypass dispatch claim for overlapping bypasses
+Message-ID: <as0iuDUeWBPiiDvJ@gpd4>
+References: <20261011214028.743546-1-tj@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011214028.743546-1-tj@kernel.org>
+X-ClientProxiedBy: MI1P293CA0017.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:3::13) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-book2go-v1-2-7188e7ea7a15@fairphone.com>
-References: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
-In-Reply-To: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
-To: Douglas Anderson <dianders@chromium.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, cros-qcom-dts-watchers@chromium.org
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- Luca Weiss <luca.weiss@fairphone.com>, Luca Weiss <luca@lucaweiss.eu>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791828669; l=1131;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=DuXzIQSun3W9jTWkn0omnZ8RlHXkIOkrEU0r1GCIViY=;
- b=oxiEWLGe3H8pzO7bcR/tz+NQOoZwruYk7HCL2vpDG8HwyoDuSCTZdpze9SQqgYW2Wkw1J2FDY
- U1pxGlyB9J1DKCDaaTZsaiNK+mo0vI89+6A63YfyKvYFP379CuXN+2U
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|CY5PR12MB6599:EE_
+X-MS-Office365-Filtering-Correlation-Id: c76b85a8-edbb-4d3e-3eed-08df288c3034
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|18002099003|22082099003|10067099003|3023799007|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	Ozq6l97BnRfXP3Ljh6LMgHDw/Awa6TTJnneJtD9SWza9o2xZ/oNsEgsAiSDsVB4Rf1bBQvwiVxPkuKQmb72aAMVprouncFuaZMmcWD9EDecWZ3EB9OHVbHGJmSHRahjtXj8R6t+w7zS5B1pG+JvxAUTrH9r7x1ZeBNG9vId05PkdA3umjVY5GH73LKu117O0UROGSnBRHsfKbvIun6mcSJIBm7iPkOFqtEMEpBpd2O4lh+hMPFm5DdgUj2rXK58cRwIYO+gMuHMYtzKWQILXFJYuYQ0CWGKLK/uA2pm8c3rG+I0+PNxsQVE5Jjdo/vwHWS+HQPfjmd2tS0x2gWZPSg7EIh58JTew1q2S6fVv+wvjPQh70Rho654y+S4kAteO7ZNF1lphnPRRKaJUuLPtbdVtboL6BvHjhG0Swy1vn9tP5uhilnvavSUmmG0T0AoVrFQpXeTGgabtbnABHBhyafSdSkz/FGYcxaGdg9YeR1DmYacU6DdK6daOX9HvHhoGH/THO3FQqOpBNJlgASTGRwYtOIyR+qj8kLZowMRIVgQZSciAM7UAXJAoMlZaBsaqb+tMgOGr+pT143kV4q0XQqmsDziI4dS2xQYLXvKkYeSFfIlgqaMLvu45mstZu7/x3ioU+uwIlQdzDFWVHKCI8yqhNECeziVXqFn9BFOi0oI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(18002099003)(22082099003)(10067099003)(3023799007)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?koCi8JTqv9NbbX8hG3maKn2AeS0qL8FPKSSNvujYK4Ev9Ha/Dp6pDbuUQ0uH?=
+ =?us-ascii?Q?jz5hHGHrqfTkQ9Zomwhid/2aw39nJWmHQ7MPuXSMTy+MLwHKHgpOUgns+JXV?=
+ =?us-ascii?Q?fX56CImGZgeN84QIYit4iXn7XoZThfQM0DusPa+6Jtg6uyX9qSaKRBqKp++j?=
+ =?us-ascii?Q?n1hy0iHjleatI450Xb7xXuXvpfDs9iHgh3D34j02W0dfMZEIpS5xjA5BKpfR?=
+ =?us-ascii?Q?HJ0wkG9tTALhyAmyVzbxiD8VZBLo+ftxhB0Em0abuT9/jKQRas5Pn/EvDNo3?=
+ =?us-ascii?Q?KqkbAq/6wTDLBCCaV1eFLF3yQqIBTvqh445t6T7yJigW70zPAgTv6c6o3TwJ?=
+ =?us-ascii?Q?iV8ytymEgZQPUoqTHGMX8Z5TQrQvasF73j4hArUQdPyZR27bzk1Ni4c0ce1V?=
+ =?us-ascii?Q?Uk6RilZrCknGskPAs90XtQAAp9FfYmBtQyUoOLFiOtPC4StmOhU/NHHDatPT?=
+ =?us-ascii?Q?mlOFyOfQ5a6qKoR2lI3qhA1wNJHqiqTaPjVpCmOjiFrjk4IpYed2zP7d3wlH?=
+ =?us-ascii?Q?Q3JML/NGI3fE/X4HODiIM3/H4pPaukCInSwQCpIR5bxKVAlfNtJjt47CgVBj?=
+ =?us-ascii?Q?IfMleAXKh0UgWI4P9BWjmRSthIXAf4QByMFEi93On1XvwDiJFhZYTLP+02NL?=
+ =?us-ascii?Q?UDMBOaV2vrJzZ2heOunZx39eefR2ks3S3wjM3K2obBwK8XEtyLqqe4w1cD3z?=
+ =?us-ascii?Q?l5Z64m6f5FuTQJzt5e4fk8Rj4EcVwlaM0nJkDTJgev9eKuqJyRhd35m96+CK?=
+ =?us-ascii?Q?/fBSRUmB+WYtlptSutWqMAGrV00PKXPTjHhJRdjIihdkNL8K8B7K5jyUO6fx?=
+ =?us-ascii?Q?l4dnlqgM0P8tWaP/WM3TaZNEU8OHmD/JYsYYUxB8lNuXb01dupCv3/LdfUbU?=
+ =?us-ascii?Q?VaHsHWOx5KuZOxggyX5v0GtN+VCv5WiI9/VEl3vlsm5XQwDvgSUzIJ36hY3L?=
+ =?us-ascii?Q?2l+EPOz8Utg479t4q0pryw71IeSVrdC4GNLPCPobYTgwYz0Kros/3qW2EvOn?=
+ =?us-ascii?Q?R6JS3P6BjEEqjxF2mPG5WQeXjLyYaoUBz91gCpUSy9vLucIYYk1Xv0QicPPz?=
+ =?us-ascii?Q?zrILPUnk6TRnYnxrF7lH9Kt/Ez96ibsbQKyctF1qys5I9+kHVBtJyPaL3VeP?=
+ =?us-ascii?Q?4VobnjGnAM9EL61szuVEFxGu+OEsHNCWXB3ka7azK7J5CNSU1zP9qlO68puI?=
+ =?us-ascii?Q?ehCneBxikEe4awBe0oplIPG4Rn0sj7+aHm6kaeD8PC/hQzH3ThFYI2MOGQbQ?=
+ =?us-ascii?Q?MJLxmOFCcM+g10EJGRTSw1pDtKCW5w+SRRtdPYIxCclh+AfPqyxjYB3VEnyp?=
+ =?us-ascii?Q?1LYGHO6jCVUzLh1u3Qyjy5kFmWg7KYzqHTGDwX1B9ifXDIo084Gi3QH+zFVO?=
+ =?us-ascii?Q?mjvEf7gOQ6bbVXnr/imvuSSymAtDI1G8LKIjCT2Il/zb2MgTw9v+MP+ZRpcm?=
+ =?us-ascii?Q?8ZPah8yGY95Qmrk4iFJPCCbZ/wz4/7wZZF8j8vopo/AUhuGhQcUDzE+IUz66?=
+ =?us-ascii?Q?hqDXFAxm6n314IEjKsOKgmeb0EguCm56wBsB0S1U0EnQ+eZNtfq8SuUbp7Su?=
+ =?us-ascii?Q?DKdL1F6LiVdCRmoYa0fT61WcdEM+zuu3DT3kLpyeBS3w0TWix66ifUfKsSkQ?=
+ =?us-ascii?Q?57s/emTZprRENkAjga9RzbFp6paiOroRL9g77lPp006EjYD+jiFMc18NwFWT?=
+ =?us-ascii?Q?0KKSg49WUG20wn+AeLrP/hvhJLvea4IjU8S9a2G/2XTCnhUc?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c76b85a8-edbb-4d3e-3eed-08df288c3034
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 18:11:08.1703
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jpSYpdoEQqY0S5BJAS5pGsrnXZ3WsRIEfXrjY5Uh0aAsRNj/Kd0R7KEsa16H7LEjdE/KFAz+TLoVj2zBVVa/7Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6599
 
-From: Luca Weiss <luca@lucaweiss.eu>
+On Sun, Oct 11, 2026 at 11:40:26AM -1000, Tejun Heo wrote:
+> Hello,
+> 
+> scx_bypass() propagates a bypass to the descendants, and claims bypass
+> dispatch on the host, only when the scheduler's own depth crosses zero. A
+> sub-scheduler's own bypass that overlaps an ancestor's then misses both: its
+> descendants drop out of bypass early, and its claim is leaked or never
+> taken. A PM suspend over a sub-scheduler's enable trips the WARN_ON_ONCE()
+> in enable_bypass_dsp() on the next bypass, and one over a disable leaves its
+> tasks on the parent's bypass DSQs with nobody consuming them.
+> 
+> Patch 1 propagates every depth change so that a descendant's depth is the
+> sum of its own and its ancestors' bypasses. Patch 2 claims and releases
+> bypass dispatch for the propagated descendants too.
+> 
+> Verified with a debug patch holding a sub-scheduler's enable bypass open
+> across PM suspend cycles: every suspend landed inside it, the unfixed kernel
+> trips the WARN on the following disable and the fixed one does not, with the
+> sub-scheduler's tasks running after each resume. The claim protocol across
+> the PM notifier, sub-scheduler enable and disable and root disable was
+> model-checked with TLC, including the sequences fixed here.
 
-The Samsung Galaxy Book2 Go is a laptop with a Snapdragon 7c+ Gen 3 SoC
-(SC7280).
+Looks good to me, for the entire patch series:
 
-It appears to exist in three variants:
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
 
-  NP340XNAA-EXP:
-    4GB RAM + 128GB UFS, WiFi-only (NP340XNA-KA1UK)
+Thanks,
+-Andrea
 
-  NP345XNAA-EXP:
-    4GB RAM + 128GB UFS, 5G (NP345XNA-KA1UK)
-    8GB RAM + 256GB UFS, 5G (NP345XNA-KA2UK)
-
-The internal code name is Hermes2-14.
-
-Signed-off-by: Luca Weiss <luca@lucaweiss.eu>
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
----
- Documentation/devicetree/bindings/arm/qcom.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index ff8a35df7862..5048e878b7ca 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -887,6 +887,11 @@ properties:
-           - const: google,zombie-sku514
-           - const: qcom,sc7280
- 
-+      - items:
-+          - enum:
-+              - samsung,galaxy-book2-go
-+          - const: qcom,sc7280
-+
-       - items:
-           - enum:
-               - lenovo,flex-5g
-
--- 
-2.56.0
-
+> 
+> Based on sched_ext/for-7.3-fixes (069403dff337).
+> 
+> This patchset contains the following 2 patches.
+> 
+>  0001 sched_ext: Propagate every bypass depth change to the descendants
+>  0002 sched_ext: Fix the bypass dispatch claim for schedulers bypassed by an ancestor
+> 
+> The patchset is also available in the following git branch:
+> 
+>  git://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git bypass-claim-fixes
+> 
+> diffstat follows. Thanks.
+> 
+>  kernel/sched/ext/ext.c | 54 ++++++++++++++++++++++++++++++--------------------
+>  1 file changed, 33 insertions(+), 21 deletions(-)
+> 
+> --
+> tejun
