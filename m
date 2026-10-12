@@ -1,120 +1,301 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F76F371D02
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791773786; cv=pass; b=OsoaaUyg74wlrYnQEkHDqSN7ZNdOpX9PyWt/zNO0ctKqgX9AsX/FymOuFyNPncUL2hWjZXbu2EWNJO5E2JT3+1vKKB/QhYO4ces1iwzrv3x0J304HVDvKhlfR6UvHgILcrevBYaCB4h94V3Qb3HiiuGAJNuRUPNuYRnBppHQRH4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791773786; c=relaxed/simple;
-	bh=bBf7rkKS0FdNhJYMpvvZuNwTaVC4mSM3v4npQa5GPIs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SIxT3o/4NKjkOOz1cZTAWbPCAQF8Rse7PBq/v9Up6yyifE3YEWC5Fa3S+PwoUErMdUz5+IVtc+OFp5nVhdlaSxHalEAVmCDo/9nW2eUAEl7xIZIon00IdY2KPLBVRA3cWa1j9ksedlB8Nzta50omHssM/z0WLq6Ojy+9ONufTac=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jyUQ4eWo; arc=pass smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA8C2FE042
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:57:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791773858; cv=none; b=uxvhWOf3GDvPskCKdqEdQwA9WkrOa5+l4fXPaGlH/Cd5aPfYKxLHNnO4Vv38/Z4L+3LazIVqa992Uyt+zze7sUVNg0uPaXzGCOKUkjy0vgpOJk3LAkbmQtyG+Be4QksVxIrZ5NWtiODENAL83uTEDd0WK/M7p22QGZf/kY9VUWk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791773858; c=relaxed/simple;
+	bh=xiKzgHF1uSn5c7XWzhanvLxymdkP8B3dBves5YNQ6bI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=Ll5HorZyIPM+9EGKDaCn2CB377P0vSCwR0ecwC5bFeiJhCBiUfQqcYjk+z3PaByhU4WxON1o0MUHoJ0o8x+5wXI1rxVGOzSiOGpg6rENbnKyl1eCYIqJofykAEuhkI2JVZ3Y7LRsbAeZisSa11LYDKFh2dwTM5kH+IfAJE5UimU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bbjWd1JX; arc=none smtp.client-ip=209.85.214.178
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jyUQ4eWo"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc4c7fab7b6so790398a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:56:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791773785; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jt/5etbx4T4ulsu16wEaEVVCC8p7uERlxVraZE1k3nBauUyZVbzUWMAaAB0I3qkxX0
-         pRIxZfp2JGXfhV97h/bELWX4pF6muXITiupy9vxg72qsNrWc2wDCVpGGqvNqOcwf/7X0
-         uPuae1r5Qo42KcGlK68zv9I4RtcVYO3u9wQAve0THg7dSIdCzpUxsivwNIE31RqgYoYe
-         mlSSvqjLNe5qWr0MuwVaN7Vgx4eSRwdKcA6akPJY32/lV0hP+vJ4erwz8frs7pouW2Af
-         j02PUBxjgtoJS2IoSB9W/V2jrmIF3vIsdjXtsj1a8ZD59axQoC8JW5poBm0bZSTqqvEQ
-         UlCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=bBf7rkKS0FdNhJYMpvvZuNwTaVC4mSM3v4npQa5GPIs=;
-        fh=Hu/i1S//Ejo2ZFgBGNuyjvGGgWsRLIN6HdRi+86N5l0=;
-        b=sfa8cuQHHz3VQvjGpkRQa9L94HfJ6R9BKNqn7Rq8uk+EyiU2du+EMYpdUX06LS4pUu
-         lx6vhcdVAYmWQhhrxd5ef0Y7+AMKUDZUEJGh/q/CPdnALonuHB1bs4xmERzVlQONZ41s
-         +JJ7Wc92Yicia6bPGSrfjBDy58vZU8PpmESHb1IitftuE+AmxTKpH41uX01OYw2Vkta8
-         TMGt1rnxZ74ootBsb1oFOeDj8/PwSymimTqULNyxnBYJoKb0vG8qoZmKT/Rctnu6ei14
-         RlT3xnKXqMUwrOFegGki3WgJvlepE3Y2yl7BAaVDRwhFWx2sR1fCCrfgYCc0k5OoTkvl
-         Ajxw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bbjWd1JX"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e7e742a2c7so8873405ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:57:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791773785; x=1792378585; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791773857; x=1792378657; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bBf7rkKS0FdNhJYMpvvZuNwTaVC4mSM3v4npQa5GPIs=;
-        b=jyUQ4eWoHRPK30DCGpJqnEeqZKHCOCxdmepZWIrD4Lmr5R9BrMq+J94YTXCQnIfBmJ
-         kLDYBoRqPTQq7LHvC+H5PfXLYOjZhiVgEzBgwMDyZFtB/zfiJD0pU/3LFRGaUyvYx/Rh
-         jfykSRLuEaRcXs/nSRAY5/LWRCh0ZMASmoLa4GqxZHOORy/brOplYHVCS4k1UmMJ7ws/
-         1yyC0BGrYvL28e6z2L+xnytX6NoMKFk5qgl+/h3xvdY2r5eEOs3bGo5FiO2EDBOxA2UN
-         RpIfum1TWO52//i4qlhiPhfvmfq0EdWf1sPFhD2qxFZCqgi8MIMkOdFN+fizMQ8OXkZ1
-         D6IQ==
+        bh=KcVwrlk/RusHSGFd4wfyV4XhJQdgwcVH2ElON8D9dbY=;
+        b=bbjWd1JXumncN//8ZSweQS9Cd4vs0Fw2lbBBaaoB2M5eEyOaAzC9u09tdkYWAmdUdk
+         SVQZldUX/3Xebh8WfELQJHSDz3XlS0Q2Ay/wLZQu0vUIsf8++MNFZzUEGdbOs9PBMCRJ
+         j9N878QodZHUBh30H18tqrJRI7gUsOPRbWqKJP8mF/D/01i3lxXwD+ZUHnGklZCqb1vQ
+         OWdbZCIJ53PXC2fP0AduHHtSHR4ebYyDLmrB91Oj/rwN9AQXMrcV6zkoQmu1Bg2PWJYO
+         7CBSloRjSDKLuLkTEhyqjOmHSNbT4qQB2Gm7hQYD8BMrfeYHoIWkFOdyPQCqzI1Q5Dv3
+         I7YQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791773785; x=1792378585;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bBf7rkKS0FdNhJYMpvvZuNwTaVC4mSM3v4npQa5GPIs=;
-        b=eHPihJQ3j6s0kBRC0E8XvG6dwz/GShph0yii64MRKGYnBZFl3sEQ2BOmLeQP2+mi33
-         99dIWHDZDJHVLJkb3gIQdAnaIlhlIjKftskrJiwrn44IKsiAnV0UjJI3vmVZKkrkVaD1
-         K7whBeGTzlNT2VIcXKajGLoXTe8ZFgr5l7uMjXYlv0GwPCm9BiuVKf2jh1yp++Ytcdw/
-         7QvF8rxHpwmo33zXWE4s3Jc3ybcLp6jyPwO/M4Znl7CFxkYzFQeI7xY1MbIR+nSzgqyy
-         DBdWEzjos4HqE0LYD+GS0ELoRdRLpNqhbQ8hvKZSBfLntWxFcC56FgSv+1PWawXiwac8
-         QNDA==
-X-Forwarded-Encrypted: i=1; AKwUvBziHtNMfl2G4PAKgfCQuiQFTKyQ792gFHzpMMwdNR+ouYwiG2VyNga4HdQ4iefWhsCNAF/JkkICNd9Amm8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLi9uV30zZWjYcJxE6cCPg0KxTKIp/p1sDX+aE+a3L0JkryVjSD
-	ggNE9+vpnGCDUEQvjwObOtS2ku04qUHrX5bzUcMgLpanD9qIc8xem6EOUevqbbwyDOjhi+guS77
-	s3kJXWS04nY4zoTv7RJ3S/PSRMtzYnic=
-X-Gm-Gg: AYBFou3kOCGZcP63LPGpaSaWf3DxZoUrGqsu68ucn/BW0zugsLNGTMpzB8TgEsdgmKh
-	c/lV1N/e6AOP+idg0+Ha8Dv0MjeU9WBlfO2k1YFZp3idImotlMwPcntFh5ErBvadeExpySWrQtd
-	8rsrGPwojUmhvHh403iGUJIu5PwL5cZ2NMFR+ZfSXqfpRG4p2qssbavuvMQn8lBusA3uHMIfvht
-	Bl3J7ZsZGsPxf19XuCOBbQvfOyXQ/n+Rc3y001ayIZVVQ219Exlk89+nT9X78eLRiW98+Q78YgQ
-	oErYfG9C+bjm+abItz6xUkgJPMWMv1420WYaYxTdsMmBwszuZi2Q8MOPCjMZ/fePYWanG0ew8Rg
-	ViEKpfJitkpzwJJqjxhrcj7fyaFwVuycqvXOXY+xgcf7yzoltFcSbGqh6lLukGbUQJP0=
-X-Received: by 2002:a05:6a21:6494:b0:3dd:85aa:452d with SMTP id
- adf61e73a8af0-3e16be318d5mr6655235637.31.1791773784673; Sun, 11 Oct 2026
- 19:56:24 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791773857; x=1792378657;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KcVwrlk/RusHSGFd4wfyV4XhJQdgwcVH2ElON8D9dbY=;
+        b=A/8V9Btot0v/tmC08jqgCelXrxgZGwY3i94Gnl1FYPXJxlXin/SZC4A3wqqdzUHxId
+         W0lRdGzDHTFhc9cjrchDn+2VBoYwnLGfja+O0ZDByEyVpQQp75TBcEO4unaLvb9VMr4u
+         +lkN/N15ipVgdDBOE3jFiaJ+AinK/b6+75SzS0g2VWSBB7Y+HRp0IgojOoqW8UZuEQTp
+         8RP+tmQFfZgR+8whVL08D5ErLW32IW3C8ZxPfzwBkomoJ1oxa2ZT99dndqo6YI0N9e8U
+         wiwuD/V1P9LfhQAhGX6vz+pqqtX4nBQlXfVBgztOgqjKV3By9NQRlkRdKkBqf21Gd57+
+         cMEg==
+X-Forwarded-Encrypted: i=1; AKwUvByqc6O0JdwUkSIgID7ihWE+NAn4DDEbRfd/4wq8mlLsOtF0FgISai+btaZc2Gm+GA2eUHxAn2AFf/0eK0s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWIL9YNLja/XgXG7ffLmJU3niAhoIoWjg8cVPZdTaUE+Qowvch
+	53ZpsmoF7B6g47+I7nV1wxLTRozfrTsqJEWSLRlUP9Z4BLiOeUJAVXho
+X-Gm-Gg: AYBFou0qK56KY37NGIty8jR/pdFKXeCJG22GzgiMXzZFLvyq3e6ojwV+Y0CujQ9KcZl
+	rk4kCyCpo09qfkNUlAADifPBAFdgM9lXtjl5yb9XAQOdRBf+c54REanwL8KOMvvTYLlc2QJODpB
+	sUvUL42vH6jeQNkGlTPK5sjP099ZRkmMGtZslAtdZesNv6AyvPUFLpOGdAlVfLzhqiAx4NkV0Co
+	VB4Dp2XRj4OIF6BFqg4CYzPpA84RqNQSqDMjo11fqrTvVVMnQkmuUrRbnfQi7fYLU3BwOzJhbll
+	30m/oex7U9HcsxLRy4env6eeoGCkrIA6++KvwAmElFAi4UcM/PY0Qu7UhmINEWaYiT+ZGjl11MD
+	KtNBgEV3OteQyncYODwL0T+Affdvyn3PP58TqrT0Wr2wf3HrCoO7Qe3JjRSJQ56pYOuIEMuB24G
+	LUb21FVyQrp/D7cH/69fla22fyhpc/ZvuRXPF8TwNQwWF5RczGWppOIHKLxiQPGfhhquk=
+X-Received: by 2002:a17:902:e790:b0:2df:8ad8:dc5d with SMTP id d9443c01a7336-2e842ac4a72mr54068285ad.12.1791773856625;
+        Sun, 11 Oct 2026 19:57:36 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e841a04b22sm37546305ad.8.2026.10.11.19.57.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 19:57:36 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	johan.hedberg@intel.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] Bluetooth: hci_core: Keep link keys alive during updates
+Date: Mon, 12 Oct 2026 10:57:29 +0800
+Message-Id: <pm-bluetooth-objects-candidate-0189-v6-def2692b4feebc514f3f@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011051924.60456-1-jain.sm@gmail.com> <20261011051924.60456-2-jain.sm@gmail.com>
-In-Reply-To: <20261011051924.60456-2-jain.sm@gmail.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Mon, 12 Oct 2026 09:56:13 +0700
-X-Gm-Features: AclHuK9HjP5BrunROTbTOyyi6-il-VsiuOisXbzNImZPrg21DQwgJ-cb2yVPcfM
-Message-ID: <CAABR9nHpreWy28kYXssUCtHr9w97fvK78sEEetriwVFBV6Kchg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] iio: magnetometer: mmc35240: leave cache-only mode
- before the cache sync
-To: Shashank Mohan Jain <jain.sm@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Shashank,
+Link keys must remain allocated until hci_add_link_key() finishes
+reading the old type and writing the new fields. hci_find_link_key()
+returns a borrowed pointer after dropping its RCU read lock, and a
+new key is linked before its fields are filled in.
 
-Thanks for the fix.
+When LE Secure Connections pairing derives a BR/EDR link key,
+smp_notify_keys() calls hci_add_link_key() without hdev->lock. The
+L2CAP connection and channel locks held on this path do not exclude
+the device lock taken by a concurrent MGMT Load Link Keys command.
+The following ordering is possible:
 
->
-> Fixes: afc8e3ee8307 ("regcache: Validate cache_only state in regcache_sync_region()")
-> Assisted-by: LLM
-> Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
-> ---
-> Prepared with Claude Code (Anthropic), model Claude Opus 5.5
-> (claude-opus-5-5).
->
+  SMP receive worker                 MGMT / RCU callback
+  ------------------                 -------------------
+  hci_add_link_key():
+    select or publish K
+                                     load_link_keys(): lock hdev
+                                     hci_link_keys_clear():
+                                       unlink K
+                                       queue kfree_rcu(K, rcu)
+                                     unlock hdev
+                                     grace period ends; free K
+    write fields in K
 
-Note that the wrong ordering in mmc35240_resume() predates afc8e3ee8307;
-the sync in cache-only mode just happened to work before,
-and afc8e3ee8307 only exposed it.
-So the Fixes tag might better point to the commit that introduced the
-resume handler:
+Removal and the grace period can complete after selection or
+publication but before the remaining stores. This writes to freed
+memory; KASAN reported a six-byte address-field write in
+hci_add_link_key().
 
-553a776b7908 ("iio: magnetometer: mmc35240: Add PM sleep support")
+Hold an outer RCU read-side section across lookup and the last helper
+access to the key. On a lookup miss, drop it for the sleeping
+allocation and reacquire it before publishing the private new key.
+Removal may still unlink the node, but its deferred free must wait
+until the helper has finished updating it. This preserves the existing
+allocation flags and avoids reversing the device-to-L2CAP lock order.
 
-Best regards,
-Phuc
+KASAN report as below:
+
+    BUG: KASAN: slab-use-after-free in hci_add_link_key+0x772/0x970
+    Write of size 6 at addr ffff8881074b8120 by task kworker/u17:1/502
+
+    Workqueue: hci0 hci_rx_work
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? hci_add_link_key+0x772/0x970
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20d/0x410
+     ? hci_add_link_key+0x772/0x970
+     kasan_report+0xe0/0x110
+     ? hci_add_link_key+0x772/0x970
+     kasan_check_range+0x105/0x1b0
+     __asan_memcpy+0x3c/0x60
+     hci_add_link_key+0x772/0x970
+     smp_distribute_keys+0xaf6/0x2800
+     ? __pfx_smp_distribute_keys+0x10/0x10
+     ? kasan_save_track+0x14/0x30
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __kasan_kmalloc+0xaa/0xb0
+     ? smp_recv_cb+0x4d32/0x8d80
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __kmalloc_cache_noprof+0x251/0x610
+     ? smp_recv_cb+0x4d32/0x8d80
+     ? smp_recv_cb+0x4e25/0x8d80
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     smp_recv_cb+0x4e25/0x8d80
+     ? __pfx_smp_recv_cb+0x10/0x10
+     ? __pfx___might_resched+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? stack_depot_save_flags+0x29/0x9a0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __mutex_lock+0x182c/0x2590
+     ? kasan_save_stack+0x42/0x60
+     ? l2cap_recv_frame+0x9ef/0x8830
+     ? __kasan_slab_free+0x5f/0x80
+     ? kmem_cache_free+0x242/0x580
+     ? kfree_skbmem+0x15e/0x1d0
+     ? sk_skb_reason_drop+0x12f/0x490
+     ? hci_event_packet+0x556/0xc70
+     ? hci_rx_work+0x367/0xf00
+     ? process_one_work+0x908/0x19c0
+     ? worker_thread+0x65c/0xe40
+     ? __pfx___mutex_lock+0x10/0x10
+     ? __lock_acquire+0x466/0x2260
+     ? __pfx_l2cap_chan_hold_unless_zero+0x10/0x10
+     ? l2cap_recv_frame+0x13cc/0x8830
+     ? __pfx_smp_recv_cb+0x10/0x10
+     l2cap_recv_frame+0x13cc/0x8830
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __mutex_lock+0x182c/0x2590
+     ? __pfx_l2cap_recv_frame+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? find_held_lock+0x2b/0x80
+     ? l2cap_recv_acldata+0x1eb/0x10e0
+     ? __pfx___mutex_lock+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __mutex_unlock_slowpath+0x147/0x920
+     ? __pfx_l2cap_conn_hold_unless_zero+0x10/0x10
+     ? __pfx_hci_conn_enter_active_mode+0x10/0x10
+     ? l2cap_recv_acldata+0x13d/0x10e0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     l2cap_recv_acldata+0xe9f/0x10e0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     hci_rx_work+0x5a6/0xf00
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     process_one_work+0x908/0x19c0
+     ? __pfx_process_one_work+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x34f/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf80
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+
+    Allocated by task 502:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x251/0x610
+     hci_add_link_key+0x5b8/0x970
+     smp_distribute_keys+0xaf6/0x2800
+     smp_recv_cb+0x4e25/0x8d80
+     l2cap_recv_frame+0x13cc/0x8830
+     l2cap_recv_acldata+0xe9f/0x10e0
+     hci_rx_work+0x5a6/0xf00
+     process_one_work+0x908/0x19c0
+     worker_thread+0x65c/0xe40
+     kthread+0x34f/0x460
+     ret_from_fork+0x659/0x940
+     ret_from_fork_asm+0x1a/0x30
+
+    Freed by task 0:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     __rcu_free_sheaf_prepare+0x65/0x2a0
+     rcu_free_sheaf+0x1f/0xe0
+     rcu_core+0x661/0x1d10
+     handle_softirqs+0x201/0x930
+     __irq_exit_rcu+0x110/0x1e0
+     irq_exit_rcu+0xe/0x20
+     sysvec_apic_timer_interrupt+0x6c/0x80
+     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+
+    The buggy address belongs to the object at ffff8881074b8100
+                                                                which
+                                belongs to the cache kmalloc-64 of size 64
+    The buggy address is located 32 bytes inside of
+                                                                freed
+                                64-byte region [ffff8881074b8100,
+                                ffff8881074b8140)
+
+    The buggy address belongs to the physical page:
+        page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
+    pfn:0x1074b8
+    flags: 0x200000000000000(node=0|zone=2)
+    page_type: f5(slab)
+        raw: 0200000000000000 ffff8881000428c0 dead000000000100
+    dead000000000122
+        raw: 0000000000000000 0000000000200020 00000000f5000000
+    0000000000000000
+    page dumped because: kasan: bad access detected
+
+    Memory state around the buggy address:
+     ffff8881074b8000: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+     ffff8881074b8080: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+    >ffff8881074b8100: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+                                   ^
+     ffff8881074b8180: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+     ffff8881074b8200: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+    ==================================================================
+
+Fixes: 0378b5977013 ("Bluetooth: Convert link keys list to use RCU")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index 209244fd93918..272812ee3d5ae 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -1243,15 +1243,21 @@ struct link_key *hci_add_link_key(struct hci_dev *hdev, struct hci_conn *conn,
+ 	struct link_key *key, *old_key;
+ 	u8 old_key_type;
+ 
++	/* Keep the key alive until all field updates are complete. */
++	rcu_read_lock();
+ 	old_key = hci_find_link_key(hdev, bdaddr);
+ 	if (old_key) {
+ 		old_key_type = old_key->type;
+ 		key = old_key;
+ 	} else {
++		rcu_read_unlock();
++
+ 		old_key_type = conn ? conn->key_type : 0xff;
+ 		key = kzalloc_obj(*key);
+ 		if (!key)
+ 			return NULL;
++
++		rcu_read_lock();
+ 		list_add_rcu(&key->list, &hdev->link_keys);
+ 	}
+ 
+@@ -1280,6 +1286,8 @@ struct link_key *hci_add_link_key(struct hci_dev *hdev, struct hci_conn *conn,
+ 		*persistent = hci_persistent_key(hdev, conn, type,
+ 						 old_key_type);
+ 
++	rcu_read_unlock();
++
+ 	return key;
+ }
+ 
