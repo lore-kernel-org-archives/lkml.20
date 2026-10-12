@@ -1,34 +1,38 @@
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5142F31E848;
-	Mon, 12 Oct 2026 11:52:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C99361DC1;
+	Mon, 12 Oct 2026 11:53:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805973; cv=none; b=WMpY13cy0+l+4BjAVlgtA6/3OIyhLs0aF0qvNi/JdOTBLaZZqG64GfQGH+brfXxGPtOFKjOwwXKFGBsE6yeBHf7XMT+E+U3Pu7pkuLnHsPuqF4nFyf8e8dl+mIKp0trDXfCvCoEU8hLGvAs0/wkzFHZWy/L7gn9y7V06No67yr4=
+	t=1791805980; cv=none; b=HnSNEpVzw4xh/PK17ffUXm7uuiEo7mvYt67vinCxav8WmTi+g3zlUhFxvn2KZ77j636202j+9MM7UjmypAmZoismeGgnj+JmsMaZddfrKOT27Ym2rmElBvc+98+hWoROixrfqwTM7RjIDLjyWkZ1OiCly9+UjED7BoQqEx8m5K8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805973; c=relaxed/simple;
-	bh=VLk1/U1I6S+J0f6X56JezF03qidTH5joymikZZHiQRg=;
+	s=arc-20240116; t=1791805980; c=relaxed/simple;
+	bh=Gav7Tv6ZpreVfA0NgXWJDq/A0By79CI06H40V1WXkT0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Yql1QM5+ficTimqNHLGmr0bQHyPpeKykpkIBAvaKZlXthywPxKWKGLz5ZzfXvopj3XyvwX8Skcn/FqksaNwhNfEyG1gBgBjZe9t3/sUFISOuwMKhrFmN+iENYhdT7xPchBYjrWT5v64P77FYt35+aG42uT3cxIRJ2Y2JOTOM0HY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=MSTIBMPe; arc=none smtp.client-ip=195.39.247.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	 In-Reply-To:To:Cc; b=G6lhx8v8OPLEpW4Z5jvjPx5XulxDefaEobeBoJqv6JM5EDAMKpRC9WvN0WZfLwBt5KjbV5x6GsbuFELeR8lT/Qo3CpJsv//w3n106+wCEgaQmhgrOhO+MeVgT2j1PpsvcllxEtZmALIJH2hI8MYf+sSjBUNgPvAZMB2XbFgnX50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s2yzrk1c; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="MSTIBMPe"
-From: Yureka Lilian <yureka@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1791805963;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p/iR+Di9sdlHw9T+wwNeZom3Qnq9pNXhcbJmYGkQGC0=;
-	b=MSTIBMPeDFx88fvd6P+RjSgjjksq3xcdW/A3QKJHSAEYFPksMkPcg86W/O0QAieb6A3BMh
-	gdTP92ufaUYKemQF9Jek5/UJk3RSCFovla0FvQbxNZO2TkU37P12nJw13AjiSD5KZxwdLO
-	YrAquXk7wOF/2B/hpHeenNEVKDSJp0A=
-Date: Mon, 12 Oct 2026 13:52:35 +0200
-Subject: [PATCH 4/5] arm64: dts: apple: t8140: Add pinctrl nodes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s2yzrk1c"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 22260C2BCF4;
+	Mon, 12 Oct 2026 11:53:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791805980;
+	bh=Gav7Tv6ZpreVfA0NgXWJDq/A0By79CI06H40V1WXkT0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=s2yzrk1cXdf5xnE16JC+ccgZ9/z+tYqL18ISh/hxOrGU1UqiDUPr2tR9nuFZYUXdq
+	 CZJ6oe3blPJ3gZkzUXXXZtL1WYFCt5lJkiYGF8G9l1K4x8RIBal8bkwHwkgam+CPhy
+	 z6cIvP6Qr6NDgZSAsqx3Zx7Jqz2tNumdnqTJTDEp8AcpPe1dgHPVo6xQ88tx5zEIL9
+	 ZqijzrJ8QbBX2IrWk7th+ARTRAtPv6/RLCf7EyZXtikRwi+iXrzyhBCUTPs/tiXKWz
+	 kTx4sdIhyDIPGzDmhX4VYP4cZp8A/RdPJ83twuY1va73IN8iR2Vyc8qsU+kAFSKdIU
+	 im6XsJhSFojqQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EEFF7CA9EDE;
+	Mon, 12 Oct 2026 11:52:59 +0000 (UTC)
+From: Sarath Ganapathiraju via B4 Relay <devnull+sarath.ganapathiraju.oss.qualcomm.com@kernel.org>
+Date: Mon, 12 Oct 2026 17:22:58 +0530
+Subject: [PATCH v11 1/2] dt-bindings: clock: qcom: Add LPASS VA CSR
+ HeartBeat pulse clock
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,169 +41,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-apple-a18-pro-dt-pinctrl-i2c-v1-4-6c757966a99e@cyberchaos.dev>
-References: <20261012-apple-a18-pro-dt-pinctrl-i2c-v1-0-6c757966a99e@cyberchaos.dev>
-In-Reply-To: <20261012-apple-a18-pro-dt-pinctrl-i2c-v1-0-6c757966a99e@cyberchaos.dev>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+Message-Id: <20261012-master-v11-1-15009e3ecac3@oss.qualcomm.com>
+References: <20261012-master-v11-0-15009e3ecac3@oss.qualcomm.com>
+In-Reply-To: <20261012-master-v11-0-15009e3ecac3@oss.qualcomm.com>
+To: andersson@kernel.org, abelvesa@kernel.org, sboyd@kernel.org, 
+ bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, 
+ srinivas.kandagatla@oss.qualcomm.com, sarath.ganapathiraju@oss.qualcomm.com
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-i2c@vger.kernel.org, Yureka Lilian <yureka@cyberchaos.dev>
+ prasad.kumpatla@oss.qualcomm.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791805978; l=2721;
+ i=sarath.ganapathiraju@oss.qualcomm.com; s=default;
+ h=from:subject:message-id;
+ bh=DRay2zf2W+iUZ3uXswe/Ui/4wI7/rJwOyKRrUpLoIq0=;
+ b=iCGQ5ybZessTEU5uYESmojbTww7EzvEM8u/IbWKT5/hegVT0vFOxZY+9EK0jWzOqtqzBHpIZj
+ zE7gQxlc4nGAJFoterWLVFD2VJlU7d2ChBcQ1mouSNwkhhpRXMa7E/M
+X-Developer-Key: i=sarath.ganapathiraju@oss.qualcomm.com; a=ed25519;
+ pk=4p2FWGXM+F2sir13Lu5stw5aKX5trUymK/ttESvgxQg=
+X-Endpoint-Received: by B4 Relay for
+ sarath.ganapathiraju@oss.qualcomm.com/default with auth_id=870
+X-Original-From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+Reply-To: sarath.ganapathiraju@oss.qualcomm.com
 
-Add the pin controller nodes present on the Apple Silicon T8140 (A18
-Pro) SoC. The pinctrl controllers uses the new apple,t8140-pinctrl
-compatible to reflect the requirement for not reading or writing the
-registers related to the pins listed in gpio-reserved-ranges.
-The pinctrl_ap is a prerequisite for enabling the I2C and PCIe
-controllers.
+From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
 
-Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+Add a binding for the Qualcomm LPASS VA CSR rate generator node that
+exposes the lpass_heartbeat_pulse clock on Hawi.
+
+The HeartBeat Pulse, also known as RateGen Pulse, synchronizes the
+start of DMAs and Codec Interfaces for the audio usecase and can serve
+as a periodic wakeup source for the DSP.
+
+Require the LPASS LPR and audio vote clocks to access VA CSR register
+space safely.
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/apple/t8140.dtsi | 114 +++++++++++++++++++++++++++++++++++
- 1 file changed, 114 insertions(+)
+ .../bindings/clock/qcom,hawi-lpass-va-csr.yaml     | 62 ++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/apple/t8140.dtsi b/arch/arm64/boot/dts/apple/t8140.dtsi
-index 40559da62923..339a6b4f283d 100644
---- a/arch/arm64/boot/dts/apple/t8140.dtsi
-+++ b/arch/arm64/boot/dts/apple/t8140.dtsi
-@@ -7,6 +7,7 @@
- 
- #include <dt-bindings/interrupt-controller/apple-aic.h>
- #include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/pinctrl/apple.h>
- 
- / {
- 	compatible = "apple,t8140", "apple,arm-platform";
-@@ -168,6 +169,29 @@ aic: interrupt-controller@301000000 {
- 			power-domains = <&ps_aic>;
- 		};
- 
-+		pinctrl_nub: pinctrl@3081f0000 {
-+			compatible = "apple,t8140-pinctrl";
-+			reg = <0x3 0x081f0000 0x0 0x4000>;
-+			power-domains = <&ps_nub_gpio>;
+diff --git a/Documentation/devicetree/bindings/clock/qcom,hawi-lpass-va-csr.yaml b/Documentation/devicetree/bindings/clock/qcom,hawi-lpass-va-csr.yaml
+new file mode 100644
+index 000000000000..601da83add2b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/qcom,hawi-lpass-va-csr.yaml
+@@ -0,0 +1,62 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/qcom,hawi-lpass-va-csr.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+			gpio-ranges = <&pinctrl_nub 0 0 30>;
++title: Qualcomm LPASS VA CSR heartbeat pulse clock provider
 +
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 473 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 474 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 475 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 476 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 477 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 478 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 479 IRQ_TYPE_LEVEL_HIGH>;
++maintainers:
++  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
++  - Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
 +
-+			apple,npins = <30>;
-+		};
++description:
++  The Hawi LPASS (Low Power Audio Subsystem) VA CSR block contains a
++  rate generator that produces a periodic HeartBeat Pulse, also known
++  as the RateGen Pulse. This pulse synchronizes the start of DMAs and
++  Codec Interfaces for audio usecases and can serve as a periodic wakeup
++  source for the DSP.
 +
- 		pmgr_mini: power-management@308280000 {
- 			compatible = "apple,t8140-pmgr", "apple,t8103-pmgr",
- 			             "syscon", "simple-mfd";
-@@ -185,6 +209,96 @@ wdt: watchdog@3082b0000 {
- 			interrupts = <AIC_IRQ 507 IRQ_TYPE_LEVEL_HIGH>;
- 		};
- 
-+		pinctrl_smc: pinctrl@30c820000 {
-+			compatible = "apple,t8140-pinctrl";
-+			reg = <0x3 0x0c820000 0x0 0x4000>;
++properties:
++  compatible:
++    enum:
++      - qcom,hawi-lpass-va-csr
 +
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+			gpio-ranges = <&pinctrl_smc 0 0 6>;
++  reg:
++    maxItems: 1
++    description: Address and size of the VA CSR register block.
 +
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 572 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 573 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 574 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 575 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 576 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 577 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 578 IRQ_TYPE_LEVEL_HIGH>;
++  clocks:
++    items:
++      - description: LPASS LPR (Low Power Resource) voting clock
++      - description: LPASS Audio voting clock
 +
-+			apple,npins = <6>;
-+		};
++  clock-names:
++    items:
++      - const: lpr
++      - const: audio
 +
-+		pinctrl_aop: pinctrl@310824000 {
-+			compatible = "apple,t8140-pinctrl";
-+			reg = <0x3 0x10824000 0x0 0x4000>;
++  "#clock-cells":
++    const: 0
 +
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+			gpio-ranges = <&pinctrl_aop 0 0 57>;
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - "#clock-cells"
 +
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 380 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 381 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 382 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 383 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 384 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 385 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 386 IRQ_TYPE_LEVEL_HIGH>;
++additionalProperties: false
 +
-+			apple,npins = <57>;
-+		};
++examples:
++  - |
++    #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
 +
-+		pinctrl_mtp: pinctrl@314838000 {
-+			compatible = "apple,t8140-pinctrl";
-+			reg = <0x3 0x14838000 0x0 0x4000>;
-+
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+			gpio-ranges = <&pinctrl_mtp 0 0 10>;
-+
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 1128 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 1129 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 1130 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 1131 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 1132 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 1133 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 1134 IRQ_TYPE_LEVEL_HIGH>;
-+
-+			apple,npins = <10>;
-+		};
-+
-+		pinctrl_ap: pinctrl@31a000000 {
-+			compatible = "apple,t8140-pinctrl";
-+			reg = <0x3 0x1a000000 0x0 0x100000>;
-+			power-domains = <&ps_gpio>;
-+
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+			gpio-ranges = <&pinctrl_ap 0 0 216>;
-+			gpio-reserved-ranges = <134 1>;
-+
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 263 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 264 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 265 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 266 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 267 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 268 IRQ_TYPE_LEVEL_HIGH>,
-+			             <AIC_IRQ 269 IRQ_TYPE_LEVEL_HIGH>;
-+
-+			apple,npins = <216>;
-+		};
-+
- 		serial0: serial@385200000 {
- 			compatible = "apple,s5l-uart";
- 			reg = <0x3 0x85200000 0x0 0x1000>;
++    clock-controller@7ee0000 {
++      compatible = "qcom,hawi-lpass-va-csr";
++      reg = <0x07ee0000 0xe000>;
++      clocks = <&q6prmcc LPASS_HW_LPR_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
++               <&q6prmcc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
++      clock-names = "lpr", "audio";
++      #clock-cells = <0>;
++    };
 
 -- 
-2.55.0
+2.34.1
+
 
