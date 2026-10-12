@@ -1,155 +1,314 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7FDB48F009
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:15:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9326939B94A;
+	Mon, 12 Oct 2026 14:16:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814534; cv=none; b=TdkWDdeyqGCBOJWjrtOqOE/RnPzToZMCZTjU0E01SNgHGxGQnLXKtfTeSJK9+v2PxiGy6XgQjFcz1alVaDJ2NlQrQldHyDN3jyI3pZ/NAIYt7oHTjuBGqW6q0VZoO3hEGkstfBdYaKbcFl9sMmBSvj9NzM58A+zaza4AXwLlm2U=
+	t=1791814581; cv=none; b=doBnQ3GQy3aPMT4IMG/on0WOPKR63aTHjiN2l4VrEU45PBsUvpQvx4HLG9MINRG/WDc1qUb7QAJ4ASahWE82MYWq4Sw6dGDbTUgZwIgAeUvhuTuUkGCSFZ/epOoxxwxzT+c6J5QNDnuq6Lx/1wBVwF3aiwL6QXcnCDwxpBKCc84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814534; c=relaxed/simple;
-	bh=1kaXsKB1fh5+qDLa1LDlgXg2iHpGQnV77ZWJonixFSw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=VIPitpMRMkjrMjEZR1On2g1aVxpttQgZgeELYHFdQl+vrIhCAEmypPXkRDWrs6+7uqRIAn0LXU2aG2jnJZ2PyrqSMfhhqWr6DP1c1p72YD9VS43i2Gdp0i5LSyQq9GW6gyAZLbeDfdUgyNgWxBAeca9TYSjXba3rhmEhp3rO5iw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZDjckY2L; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=O4sNn2lS; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791814581; c=relaxed/simple;
+	bh=obtm2pJQXpPvJeHZ5dJoSxxASOKS7F3tPagSNJHyvoM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=OgdBJlYSQLhBfmFdoQ0NBKJdqbejVy1oMgswbWpsBLvDfc7YUfIDn82ZJXEFjQTnXYqNgR3fAEt4x7HFUQxCct9oEpGze93XBZKa/Q9+Va+Y/fLNITK+0bCPiy5OGMGwIGzD0G/M7kG2LCHVGWuq5nLWsSDxBBGGgZHAu5XO/bE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eigxJMr7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZDjckY2L";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="O4sNn2lS"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC0FKP1236269
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:15:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aFX29kFGAtu2xPnsttu6rTskuC0EwNUJ8aX+55jfLAA=; b=ZDjckY2L8vr+JJ35
-	7MvKR6g4V1kRet4H0ExeEU3lMbaADfgQkJn4efZjxU5P1d34Xf2f5HP966oBLJJq
-	TOnlRpDYB1xHSd3vYQ4XFQHQjQLqp3tlId/yt3fxc+fDEX0uekxnBwrJJ4HRmxIe
-	wnmlIuZjXjG9q/wLzrDlAbvDPzyvBEqRP+YjyoNx8RDvbLWyajPVZmIF6vTyhAXb
-	m+GNOtA/8BGzzsF58e2Nzd7XrV+YjApKVOaKNh/0oKzWdBub+5fEoXHk1IirNRQB
-	8YAo9eSceaofn3iuGUUgq0Dlb4XqghzFDsFaFn7n9tjO6Ndgwum4SyVdr+I6Va8C
-	7A7+qA==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8j6dkca1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:15:31 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30bcb065bfdso4059155eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:15:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791814531; x=1792419331; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aFX29kFGAtu2xPnsttu6rTskuC0EwNUJ8aX+55jfLAA=;
-        b=O4sNn2lSxUQBsX6St/4FsvjoZJxQmpluLCEab5FOARoxzWGeLjqgyxBo1shGwWYaa1
-         4Ow7zYvcxD9y2NU7CLVJiLOpmC+xZfu3AWz2FIVtjcI2zydF9NmhXKJkzlVbMAsC+A5M
-         /gbigNkOwFmVkhMauGcIwi/ottZyWIT+6IYcu9XVGhw3CQCxMyzzAm3Qd9OpabyihHhh
-         EJKqi73Id1RtrkOir/HvhYuzmvSaCQRKpsAYCUo2NE8IdlM4BNOywc0jT5Cuyr5cLTcv
-         MdrtEFS9Oi6f/ZbRwMH2HRIH0Dd+OLOxEIqDPuGkZ8sk5uUStvxq/NNgHBimHgRiu7G1
-         X1NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791814531; x=1792419331;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aFX29kFGAtu2xPnsttu6rTskuC0EwNUJ8aX+55jfLAA=;
-        b=PKhiEpkel5I2PFZLvRPF+7ueuCQlFSkE8c4XJ8G5GuD1m9MRr4yHV4WDYMQKMFvfwx
-         jvrZ9TNtjeWIv84tUdV6gMp/+UV2uvhi9s/WYrwNxcwKdubhnyF4OPaycDUfSn5PUyab
-         b5DEgHd51W6/q4MM7fVJ5obqKjyfWpPcyBvNl7ZixIpgciAublSb+hgP60uBxHvulaaU
-         Wb+ORh8UaTdRP0WxGPr0KONVK3BPxDa6G6CG47vp8eXaQUqQbe+Q1Y15745cvvsROhEc
-         iHzhmnqhs3G0jqePeXHiGTzlDC3i3KG5clv7SDrwoPGXy4I5zXKheXptTjww+kjNMAvp
-         2O7w==
-X-Forwarded-Encrypted: i=1; AKwUvBwga7RYS0N1/LZ257b17MPWucTeTzJc7PBU4FFXsgGh9Shv8s4QpaKfPjdiulVbMhl6wiIYcbptuo8EFr8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOrWD/wU9f3XUyc6u+a6IyHf4KSPHZSnHnWqYE5AeZ1qC/m8Zn
-	27ZGCgS04H/oe3UzNk9zsPj2N3w6/7CKC3SvH15Qa6lVWF1RgAfwzjCpKeS4V1XmFKCldRioC0b
-	L4rPLCewE6al/BxK9jI/9CeG1KX6eitYgfL89xmeiC8X6il6tKlg5sTvwnpTMcVeO9YE=
-X-Gm-Gg: AYBFou3MTg5VNP8zsE/wwjUq+xLSvBVhCURqbKa2cFetTpNX3nQTbBlkDM7rYBHtUk6
-	KdgdrEQLL3OdJRCG4H+LaXbiaJ5kOBbbKfSusDMqxnPiMxJVjym1dy2segNiIVg3QzkUDspL1du
-	on5F/QZOnr4mFlrNxPfwJQudK8rvaVu2C5Y+yWnd3DmCcAT9z9VFmnuuNlUBPT0HJ07w8Q12EBI
-	Fz+0xQD9kyG4QImoBK3rxrADMYEmvGWTmTWhHmFA0QcSNU2sqeiJz5kT44ZTTYSOYDKK8ySvwI5
-	bDLRGvD9FlLoH3QpeRP0TctdSkPi3j2wsopFD7+HKC9Vvf4WMqpVtQIckP//LW/gGgvo38Bkx6N
-	UyFSIV2rlpban88dJObHyCwtoez5w8o+0/tRFFruhreOYKCBs3daUl6aLms0Ae8nR
-X-Received: by 2002:a05:693c:4196:20b0:35b:af:a075 with SMTP id 5a478bee46e88-35b00afb749mr3312635eec.22.1791814530350;
-        Mon, 12 Oct 2026 07:15:30 -0700 (PDT)
-X-Received: by 2002:a05:693c:4196:20b0:35b:af:a075 with SMTP id 5a478bee46e88-35b00afb749mr3312594eec.22.1791814529564;
-        Mon, 12 Oct 2026 07:15:29 -0700 (PDT)
-Received: from hu-jjohnson-lv.qualcomm.com (las-colo1-bdr-fw-bdr.qualcomm.com. [129.46.96.4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-358de54fe47sm21302992eec.31.2026.10.12.07.15.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 07:15:29 -0700 (PDT)
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-To: Jeff Johnson <jjohnson@kernel.org>,
-        =?utf-8?q?Fran=C3=A7ois_Roux?= <franzelfranzel@gmail.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>,
-        Dale Whinham <daleyo@gmail.com>, ath12k@lists.infradead.org,
-        linux-wireless@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-In-Reply-To: <20261006062728.45007-1-franzelfranzel@gmail.com>
-References: <20261006062728.45007-1-franzelfranzel@gmail.com>
-Subject: Re: [PATCH v2] wifi: ath12k: skip hardware rfkill setup on
- Microsoft Surface devices
-Message-Id: <179181452875.1215069.2287645106143483581.b4-ty@b4>
-Date: Mon, 12 Oct 2026 07:15:28 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eigxJMr7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B88F1F0089B;
+	Mon, 12 Oct 2026 14:16:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791814580;
+	bh=wkfKRTjp6/s95orK5T+FwDlOCT9z7CXe0scB7cxcwpo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=eigxJMr7QbJhMg4Wylwlyh3XTs3rt3CeVegIl9N7mWd0t2NVjNqQMHXMNVr4M9dNo
+	 FYh/nL+lX9/Mu49s24BMu5NoXFAGjJn6hde6bqsqxm0J11fvhp2553Psy+/l/Bu6J0
+	 XM6HUM6tTJWKg+d9Xwu5oezB7FdJ4G1fSHuIvXHbweyICjOw5MUVZpIAPFK8ZaPM51
+	 5iJNEgoJ+Dgp+Ge3Ni0ajp640O4dHlCEb6pqj7F60g/RrlRUJvCa9V/s2eRm2Qumpn
+	 sWc1BBRtRArvs4ceqwiafnTb/jJSVrfnh94Bi1txF4zgV+ie0QJ5vPSt4vEnbtTK4Z
+	 DNYbSkyynM+/A==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
+ <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
+ kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
+ Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
+ Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
+ Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
+ Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
+ <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
+ <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
+ <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
+ "Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, Weiming Shi
+ <bestswngs@gmail.com>, Nikolay Aleksandrov <razor@blackwall.org>, David
+ Wei <dw@davidwei.uk>, Alexander Lobakin <aleksander.lobakin@intel.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Mina Almasry
+ <almasrymina@google.com>
+Subject: Re: [RFC net-next 13/15] eth: fbnic: Support AF_XDP zero-copy receive
+In-Reply-To: <asPhAnm830qFxGMv@devvm7509.cco0.facebook.com>
+References: <20261002190018.696925-1-bjorn@kernel.org>
+ <20261002190018.696925-14-bjorn@kernel.org>
+ <asPhAnm830qFxGMv@devvm7509.cco0.facebook.com>
+Date: Mon, 12 Oct 2026 16:16:17 +0200
+Message-ID: <87tsmratse.fsf@all.your.base.are.belong.to.us>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16.0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfXzWiy6aNL3XpK
- q+eVuuVujL3WwW6oM+2Gedg9Tq7tPE3iZmD/SKfqwxrinV9DJTOIIcmWTZnUjviGCYiO1sROCMu
- ktLhi6IVEZglT9MLvIczDIJECST6CEqQ9Vki0juBXTZR7cCXhV60a7H5SXyt0stV2aRtwzLhL47
- 4QYXMd2luQTXwGNxTf44Zr8pgkRFt2FnyFqn31gW7E1kfZSCgTSv4vtmgkLbf+FtxaYGvgBeqs7
- aV4/bFqarbPpKSIF7qoGJPBTwGg4VmLDOGDKwBYzBUU/PVWpg0Ux5TpdD+HuD5Sv091DgJKiq7S
- +obUnAH5SX364BmvEKWWZtX7ZFW++4ysPIy6/tVTGfizFdAQ4RNztdxjKRVpANW3pSqKMXU7bMF
- knzltEFH5YWUT/6RZk8t/QzyUdCvlhAKdqV1VbSDpibEJoi6cgb69/70xMr/07CxPctuvyzlDxr
- U2eVVlUCPDDvW/Tdyzw==
-X-Authority-Analysis: v=2.4 cv=aK5lOr9m c=1 sm=1 tr=0 ts=6acceb83 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=zwy/ZOtzXhWWzLhDjT6TXA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=5GOfUL4nasl92P49FscA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=ZXulRonScM0A:10 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-GUID: 5GvWEPc2nO68Uo7pEbujLCxkB_fNMHeO
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfXxzYC3C/kbIbd
- cgp+UbnZ6cdYpVsB7W7V9Jo+4sJaA3xjesz5McJAZzgHSb5+E/njH8JoSGXtEAVoK1iEv6C1A73
- TzuEYhvZlVAqjr6zLsUvL3yTkhldsEQ=
-X-Proofpoint-ORIG-GUID: 5GvWEPc2nO68Uo7pEbujLCxkB_fNMHeO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 bulkscore=0 impostorscore=0 spamscore=0
- suspectscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120056
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+Stanislav Fomichev <sdf.kernel@gmail.com> writes:
 
-On Tue, 06 Oct 2026 08:27:28 +0200, François Roux wrote:
-> On the Microsoft Surface Pro 11 and Surface Laptop 7 (X1E80100), the
-> WCN7850 hardware rfkill input reads as "radio off" and the OS has no
-> way to control it. ath12k enables hardware rfkill handling, so Wi-Fi
-> stays hard-blocked:
-> 
->   iwd: Error bringing interface 4 up: Operation not possible due to RF-kill
-> 
-> [...]
+> On 10/02, Bj=C3=B6rn T=C3=B6pel wrote:
+>> fbnic gets RX buffers from page_pool. Use the XSK buffer pool as the
+>> RX queue's page-pool memory provider, so allocation, DMA sync,
+>> recycling and refill stay in page_pool. Only aligned 4 KiB UMEM
+>> chunks are supported.
+>>=20
+>> Each UMEM frame on the header queue must hold one packet. Raise the
+>> header-split threshold to at least 3072 bytes, more than half of a
+>> 4 KiB page, so the device finishes the frame after one header. Cap
+>> it to the space left in the frame after the headroom. An MTU above
+>> the threshold needs a socket with XDP_USE_SG and an XDP program with
+>> frags support. With XDP_USE_SG, the payload queue also uses UMEM
+>> frames, and the device uses each frame for one descriptor only.
+>> Without it, the payload queue uses a normal page pool. If the device
+>> does not finish a provider frame after one descriptor, drop the
+>> packet.
+>>=20
+>> The BDQ refill loop now alternates header and payload buffers on all
+>> queues, so two rings that share one finite provider stay balanced.
+>> It keeps NAPI scheduled while the provider still has buffers.
+>>=20
+>> Provider frames are never split, so they get no fragment bias. A
+>> redirected frame can be recycled before its old BDQ slot is cleaned,
+>> and a stale bias would corrupt the new allocation.
+>>=20
+>> The headroom comes from the queue configuration. It must be at least
+>> XDP_PACKET_HEADROOM, a multiple of 128 bytes, and fit the hardware
+>> field; otherwise queue validation fails. MTU, ring parameter and XDP
+>> program changes that do not fit an active provider are rejected.
+>>=20
+>> fbnic did not support XDP_REDIRECT. Add it, with xdp_do_flush(), and
+>> advertise it. This also enables copy-mode AF_XDP and the other
+>> redirect targets on fbnic. Do not advertise AF_XDP zero copy until
+>> TX support is added.
+>>=20
+>> Signed-off-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
+>> ---
+>>  .../net/ethernet/meta/fbnic/fbnic_ethtool.c   |   5 +
+>>  .../net/ethernet/meta/fbnic/fbnic_netdev.c    | 140 ++++++-
+>>  .../net/ethernet/meta/fbnic/fbnic_netdev.h    |   4 +
+>>  drivers/net/ethernet/meta/fbnic/fbnic_txrx.c  | 350 +++++++++++++-----
+>>  drivers/net/ethernet/meta/fbnic/fbnic_txrx.h  |   6 +
+>>  5 files changed, 402 insertions(+), 103 deletions(-)
+>>=20
+>> diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c b/drivers/n=
+et/ethernet/meta/fbnic/fbnic_ethtool.c
+>> index e774740fcb5d..188abe0ead14 100644
+>> --- a/drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c
+>> +++ b/drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c
+>> @@ -385,6 +385,11 @@ fbnic_set_ringparam(struct net_device *netdev, stru=
+ct ethtool_ringparam *ring,
+>>  		return -EINVAL;
+>>  	}
+>>=20=20
+>> +	err =3D fbnic_xsk_validate(fbn, fbn->xdp_prog, netdev->mtu,
+>> +				 kernel_ring->hds_thresh, extack);
+>> +	if (err)
+>> +		return err;
+>> +
+>>  	if (!netif_running(netdev)) {
+>>  		fbnic_set_rings(fbn, ring, kernel_ring);
+>>  		return 0;
+>> diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_netdev.c b/drivers/ne=
+t/ethernet/meta/fbnic/fbnic_netdev.c
+>> index 8a6703afca38..038e91ef14e4 100644
+>> --- a/drivers/net/ethernet/meta/fbnic/fbnic_netdev.c
+>> +++ b/drivers/net/ethernet/meta/fbnic/fbnic_netdev.c
+>> @@ -5,6 +5,8 @@
+>>  #include <linux/ipv6.h>
+>>  #include <linux/types.h>
+>>  #include <net/netdev_queues.h>
+>> +#include <net/netdev_rx_queue.h>
+>> +#include <net/xdp_sock_drv.h>
+>>=20=20
+>>  #include "fbnic.h"
+>>  #include "fbnic_netdev.h"
+>> @@ -276,6 +278,8 @@ static int fbnic_set_mac(struct net_device *netdev, =
+void *p)
+>>  static int fbnic_change_mtu(struct net_device *dev, int new_mtu)
+>>  {
+>>  	struct fbnic_net *fbn =3D netdev_priv(dev);
+>> +	struct netlink_ext_ack extack =3D {};
+>> +	int err;
+>>=20=20
+>>  	if (fbnic_check_split_frames(fbn->xdp_prog, new_mtu, fbn->hds_thresh))=
+ {
+>>  		dev_err(&dev->dev,
+>> @@ -285,6 +289,15 @@ static int fbnic_change_mtu(struct net_device *dev,=
+ int new_mtu)
+>>  		return -EINVAL;
+>>  	}
+>>=20=20
+>> +	err =3D fbnic_xsk_validate(fbn, fbn->xdp_prog, new_mtu,
+>> +				 fbn->hds_thresh, &extack);
+>> +	if (err) {
+>> +		if (extack._msg)
+>> +			netdev_err(dev, "%s\n", extack._msg);
+>> +
+>> +		return err;
+>> +	}
+>> +
+>>  	WRITE_ONCE(dev->mtu, new_mtu);
+>>=20=20
+>>  	return 0;
+>> @@ -534,26 +547,123 @@ bool fbnic_check_split_frames(struct bpf_prog *pr=
+og, unsigned int mtu,
+>>  	return mtu + ETH_HLEN > hds_thresh;
+>>  }
+>>=20=20
+>> +u32 fbnic_xsk_hds_thresh(u32 headroom, u32 hds_thresh)
+>> +{
+>> +	u32 max_hds;
+>> +
+>> +	/* Reserve more than half a device page for each header so the device
+>> +	 * retires the provider frame after one descriptor.
+>> +	 */
+>> +	static_assert(2 * FBNIC_XSK_HDS_THRESH > FBNIC_BD_PAGE_SIZE);
+>> +
+>> +	max_hds =3D FBNIC_BD_PAGE_SIZE - headroom - FBNIC_RX_TROOM -
+>> +		  FBNIC_RX_PAD;
+>> +
+>> +	return min(max_t(u32, hds_thresh, FBNIC_XSK_HDS_THRESH), max_hds);
+>> +}
+>> +
+>> +static int fbnic_xsk_validate_frames(struct xsk_buff_pool *pool,
+>> +				     struct bpf_prog *prog,
+>> +				     unsigned int mtu, u32 hds_thresh,
+>> +				     struct netlink_ext_ack *extack)
+>> +{
+>> +	u32 xsk_hds_thresh;
+>> +
+>> +	xsk_hds_thresh =3D fbnic_xsk_hds_thresh(xsk_pool_get_headroom(pool),
+>> +					      hds_thresh);
+>> +
+>> +	if (mtu + ETH_HLEN <=3D xsk_hds_thresh)
+>> +		return 0;
+>> +
+>> +	if (!xsk_pool_uses_sg(pool)) {
+>> +		NL_SET_ERR_MSG_MOD(extack,
+>> +				   "AF_XDP zero-copy socket requires XDP_USE_SG");
+>> +		return -EOPNOTSUPP;
+>> +	}
+>> +
+>> +	if (fbnic_check_split_frames(prog, mtu, xsk_hds_thresh)) {
+>> +		NL_SET_ERR_MSG_MOD(extack,
+>> +				   "AF_XDP zero-copy socket requires XDP frags");
+>> +		return -EOPNOTSUPP;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +int fbnic_xsk_validate(struct fbnic_net *fbn, struct bpf_prog *prog,
+>> +		       unsigned int mtu, u32 hds_thresh,
+>> +		       struct netlink_ext_ack *extack)
+>> +{
+>> +	struct net_device *netdev =3D fbn->netdev;
+>> +	struct xsk_buff_pool *pool;
+>> +	unsigned int qid;
+>> +	int err;
+>> +
+>> +	for (qid =3D 0; qid < fbn->num_rx_queues; qid++) {
+>> +		pool =3D xsk_get_pool_from_rxq(netdev, qid);
+>> +		if (!pool)
+>> +			continue;
+>> +
+>> +		err =3D fbnic_xsk_validate_frames(pool, prog, mtu, hds_thresh,
+>> +						extack);
+>> +		if (err)
+>> +			return err;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int fbnic_xsk_setup_pool(struct net_device *netdev,
+>> +				struct xsk_buff_pool *pool, u16 queue_id,
+>> +				struct netlink_ext_ack *extack)
+>> +{
+>> +	struct fbnic_net *fbn =3D netdev_priv(netdev);
+>> +	int err;
+>> +
+>> +	if (queue_id >=3D fbn->num_rx_queues)
+>> +		return -EINVAL;
+>> +
+>> +	if (!pool)
+>> +		return xsk_pool_setup_page_pool(netdev, NULL, queue_id, extack);
+>> +
+>> +	err =3D fbnic_xsk_validate_frames(pool, fbn->xdp_prog, netdev->mtu,
+>> +					fbn->hds_thresh, extack);
+>> +	if (err)
+>> +		return err;
+>> +
+>> +	return xsk_pool_setup_page_pool(netdev, pool, queue_id, extack);
+>> +}
+>> +
+>>  static int fbnic_bpf(struct net_device *netdev, struct netdev_bpf *bpf)
+>>  {
+>>  	struct bpf_prog *prog =3D bpf->prog, *prev_prog;
+>>  	struct fbnic_net *fbn =3D netdev_priv(netdev);
+>> +	int err;
+>>=20=20
+>> -	if (bpf->command !=3D XDP_SETUP_PROG)
+>> +	switch (bpf->command) {
+>> +	case XDP_SETUP_PROG:
+>> +		if (fbnic_check_split_frames(prog, netdev->mtu,
+>> +					     fbn->hds_thresh)) {
+>> +			NL_SET_ERR_MSG_MOD(bpf->extack,
+>> +					   "MTU too high, or HDS threshold is too low for single buffer XD=
+P");
+>> +			return -EOPNOTSUPP;
+>> +		}
+>> +
+>> +		err =3D fbnic_xsk_validate(fbn, prog, netdev->mtu,
+>> +					 fbn->hds_thresh, bpf->extack);
+>> +		if (err)
+>> +			return err;
+>> +
+>> +		prev_prog =3D xchg(&fbn->xdp_prog, prog);
+>> +		if (prev_prog)
+>> +			bpf_prog_put(prev_prog);
+>> +		return 0;
+>
+> [..]
+>
+>> +	case XDP_SETUP_XSK_POOL:
+>> +		return fbnic_xsk_setup_pool(netdev, bpf->xsk.pool,
+>> +					    bpf->xsk.queue_id, bpf->extack);
+>
+> Is there a good reason to ask drivers to call us back with
+> xsk_pool_setup_page_pool? For the PP mode, maybe we should add new
+> XSK_VALIDATE_POOL or something? So most of that fbnic_xsk_setup_pool stays
+> in core?
 
-Applied, thanks!
+Makes sense. I'll try core-owned setup with driver opt-in and
+validation. Existing direct drivers can keep their setup.
 
-[1/1] wifi: ath12k: skip hardware rfkill setup on Microsoft Surface devices
-      commit: 5949d1910f13c20f6ebcd26eec9e0c02cb4951aa
+> I guess I'm mentally trying to have a clear separation between
+> pp vs non-pp modes. Even that whole xsk_buff_pool might be legacy non-pp
+> artifact? New drivers shouldn't bother with it? Or is it too much?
 
-Best regards,
--- 
-Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-
+Hmm. New RX code shouldn't need allocator internals, but rings, DMA and
+TX state are still shared. I need to noodle a bit on it...
