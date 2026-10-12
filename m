@@ -1,112 +1,192 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0C41EB5FD
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:17:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA5C2AD2E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:16:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791775023; cv=none; b=p/8CHPNJD20PTc6QOQZxz2+C6xV9GS1YfR2jL9Rz/PoTWVYjtDPhIL212zw8r4bXR38ftX/Rjbf4vpcqehsAF3QlCgW88nNhTNULs4dpoz43TL5UJUlyleX8iXbyhMX7tmffrVILjZ6E9PsykCDOpbrjFAURniEyts/5LObaMSE=
+	t=1791775023; cv=none; b=HgtJ52gb9yoGAkvXGBSKMfBebcjru/MEAh6BhZ+7sVDAvnogcbIPpVF+IXCMYABgEt+Pvm0a7IhozqJBFp4kbvGKOQow1DzEOsxv/Cb1IF9qNV16OUYHbp1UE5FcrjhAcwmY/hb9I0WXVymBABlyF9bSaQExIeXcRkzLDQ0WP9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791775023; c=relaxed/simple;
-	bh=BxvRC1XuAyT62AchRs1OxMKiXBLarPUmU3h20ePQ6QU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GaNH2MBxIilaW0E7FEFHz6U15UYLqaH0QMRQ937Ab8QSo/dv47OjMOr14AWiHjxUku85d5hZu0/RMFUzbt7XvbaEdIzMNPbmINFnKvv4yHAyeB5I4SEAs09ntNxRK+qjdRlwBNLUEaT0HJ/WnYd21T1NRlHw2Q/thG8NcjIwMIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dCOpoTSN; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=jpN4YTAT69y7FA6HNDg+5BHI8qVizKOZxVqn1a1yjhY=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=S4OdMZm9e5VCD0yh1P5nK0K8/wSgBpZkQwbfWI2g7cnymg8bxeoni/9uRPbctWVszxm+bSj3asq4uAD5vlISqzQPI9Pi46eNLGM2+ZiiYYfRb8IBLhHSnjq/U8JOMturCuJdYAK4f/ctsxhnDhPoFcZpmmTShkylpFYWAq/IS/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FxQnBIPe; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dCOpoTSN"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d01548ac96so681215ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:17:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791775022; x=1792379822; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KvT32PQO7yxL197/No+w7Ayr3zcIYifaH7M7l20t4kc=;
-        b=dCOpoTSNFY86+VZa/vL8cwLtIirD548usrJ23vTjETh6TbWOdcnyO7SGimL5ko3taW
-         52j7vcP+q7ADG4hcEDRNCAyppqPyvbsHeiMviIScw0FfAaQR1oXdGahGmpQ1dUSsiirO
-         yqTRBlPih5EQ+uMFyl073YIK0zhSG0giKZBqAnF6axk3KNujbwhpuA7wF9kWh/P18N3s
-         1gfkdKIhx7JXB7X4X2Y5Zea+hfdXrAzJfNRGsVvviqAJeeId4r84Hr5ETkKK9U2lWbdA
-         G42j2r1eTQ+CEtvzpjz8YGZCwnsDaAArsopRuchxLJ9Oy5qY6WobWfwsT5BQSKv2oys4
-         l9yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791775022; x=1792379822;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KvT32PQO7yxL197/No+w7Ayr3zcIYifaH7M7l20t4kc=;
-        b=PjT0UB+4Ut0MgqvYxIMOBoPDQj19kMYE9giTvaJLv72xROMO+WrdrAOBviUhrOokKF
-         B36b7QHxeLNzKheSdgbvJRcLFlTOjWJk9gmr6Jzr+X2BI/cfc9ZUSp0ETgvv8pFambka
-         lPIU3BZN5xgZ0blNdBownxif/bxV1pATkQqHs+jdth5IXMpFN8TJsa+fnmHl72O66veN
-         Ya+CeqdCmTANBq3n2Jwuxu0JXgDkGqDERY9xe/VsQ6PHH9Kid9U8S8xl4OsqRTOlZPM7
-         0qy3QZmIlFc3bmtpYteaEYxjFQH9fUeWLAnR00wBXIndY/AZ5NHCpdXlmUeS8FEkHhVx
-         zOhg==
-X-Forwarded-Encrypted: i=1; AKwUvBy3T5n44BLEeMWel5gmECLGeNLQr1jDSxMbCl/RQKt9YHYfXfpCiirNw1bfrFo3UbI3BXBP0XfBeNfWqOY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI6HkuQmp85ac7w1zIRzWWno7bIZtZFLfq5ORsVhBF8a6UE+w22
-	RuSY4b2aKDs/Jb00QWM/ztmYp6U80o0H1xm7nshoceciZAb7cuMYTsdZ
-X-Gm-Gg: AYBFou0E20gcKg9dCi0pHXf4ePbiWx+djus9NOp18jG0KJYhPBlYNik7gKQvSx0XsPL
-	YcUXshz9YezJRUN4A7q60nf1rPLhnOcQULjgMsia/5ZJ6FIKNEPuFQaKQo0OXKQTv3B/e4CH1SK
-	Eo35b818kuax/hxjFrAaWu+dK5TvF6cn6TXevaw5PWz4dTa5eaHrQr8tImJpYBQPG7uAWudoFHQ
-	kJuv8AXG+OvsYjdIWKVohDw24IGo/cScKAwcVvZkEy4PWda6osHlcnpojKYtSiE5Az28StPIndy
-	n6zbs31d9vR9UbsnRwBHVbyXl4a4LVYnT8bbd5Ec/aYxEgAcOM2k6An1JsQNM/hX0ZPMp4XjTvL
-	MdXcLH0h6Ofdq8PToa0nQsXK3PIFrZXB9dxyruxqb5wt5B86Zr9gn2GwrZPAMia4BwzNzI7qGE8
-	+8Z5914d8iHmXpORnGXp2sN9V24dmyU6RKAgHeQrYr9bejI4xtvN53YVA3lhLpl+fMLqZvUjWfq
-	A==
-X-Received: by 2002:a17:902:da4f:b0:2e5:da30:39c9 with SMTP id d9443c01a7336-2e84289f2c0mr106365545ad.2.1791775021791;
-        Sun, 11 Oct 2026 20:17:01 -0700 (PDT)
-Received: from ser8.. ([221.156.231.192])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421b160csm37798575ad.37.2026.10.11.20.16.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 20:17:01 -0700 (PDT)
-From: DaeMyung Kang <charsyam@gmail.com>
-To: linkinjeon@kernel.org
-Cc: hyc.lee@gmail.com,
-	ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	DaeMyung Kang <charsyam@gmail.com>
-Subject: [PATCH] ntfs: compare streams_interface with mounted volume on remount
-Date: Mon, 12 Oct 2026 12:16:56 +0900
-Message-ID: <20261012031656.3858771-1-charsyam@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FxQnBIPe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:From:To:
+	Content-Type; bh=God3LAcTozr7zofEaMlAIvx8YRFrYSSrO5t20olroZQ=;
+	b=FxQnBIPe+qZth+h8DZGC8z51bijn2oRQcml3/yNqIT7G/wHmcCfSWPHq1x/awP
+	jOzBHWAvJHydhi/Kz5QaCl2cOrVkyQMUnEz1zV000FwKvD6iMR4km94Z2YriVKa3
+	SwerEybxJjBT8RQQ1SRgvISNLZ3v3SjRpzxI3WtuYGc80=
+Received: from [IPV6:2409:8900:1a87:d0a0:cf38:5aca:d24d:b7a4] (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD33xYPUcxqS0HDDw--.27795S2;
+	Mon, 12 Oct 2026 11:16:33 +0800 (CST)
+Message-ID: <1385152d-9e3d-46da-9a3a-299ad60d521c@163.com>
+Date: Mon, 12 Oct 2026 11:16:30 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 00/10] ntfs: persist Linux file attributes in an EA
+From: liubaolin <liubaolin12138@163.com>
+To: linkinjeon@kernel.org, hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ chenxiaosong@chenxiaosong.com, Baolin Liu <liubaolin@kylinos.cn>
+References: <20260923060246.2499192-1-liubaolin12138@163.com>
+Content-Language: en-US
+In-Reply-To: <20260923060246.2499192-1-liubaolin12138@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD33xYPUcxqS0HDDw--.27795S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Gw4DWFyrAw1DKF13Zr1rCrg_yoWxKF1Dpa
+	93KrZ8K3ykJw17C392ya12vayF9Fs3JFWUWryDtryUuF1Y9a42qFWxta1jqa1xCrWfKw1U
+	Xayjq39xAr15AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U24iUUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwREm8GrMURGasAAA3K
 
-During reconfiguration, fc->s_fs_info points to a newly allocated
-ntfs_volume. It does not contain the mounted volume's stream setting.
-Consequently, a windows mount rejects a remount with the same
-streams_interface=windows setting, but accepts streams_interface=none
-without changing the active pathname interface. This also breaks an
-ordinary read-only remount when the existing windows setting is passed
-again, for example from fstab.
 
-Compare the requested setting with the mounted volume instead. Use its
-superblock when reporting an unsupported setting change.
 
-Fixes: 2de2cdd9cc08 ("ntfs: add pathname access for named streams")
-Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
----
- fs/ntfs/super.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+在 2026/9/23 14:02, Baolin Liu 写道:
+> From: Baolin Liu <liubaolin@kylinos.cn>
+> 
+> This series implements persistent immutable, append-only and nodump flags
+> using a private $LINUXFLAGS EA in the standard NTFS $EA/$EA_INFORMATION
+> attributes. No new NTFS attribute type or formatter changes are needed.
+> 
+> The value is a little-endian u32 with immutable, append-only and nodump
+> in bits 0, 1 and 2. Inode loading restores the flags. Unknown bits are
+> preserved, and the entry is removed only when its entire value is zero.
+> The setter protects system metadata and sys_immutable-derived immutable
+> state, rejects direct writes to $LINUXFLAGS, and updates in-memory flags
+> only after the EA update succeeds. Fileattr queries also report mount-wide
+> case folding. Nodump is reported through both fileattr and statx.
+> 
+> Changes since v3 (the standalone revision of patch 2):
+> - Rename the private EA from $LXFLAGS to $LINUXFLAGS, as agreed with
+>    Hyunchul, to avoid the WSL-owned $LX namespace. Rename the related
+>    internal fields, helpers and constants, and update the documentation.
+> - Include the v3 patch-2 changes: ntfs_listxattr() reuses full-chain
+>    validation, including size-only queries, and returns EUCLEAN for
+>    malformed EA structures while preserving lower-level read errors.
+> - Resend the complete ten-patch series with Hyunchul's Reviewed-by tag.
+> 
+> Changes since v2:
+> - The EA rename above and the listxattr validation requested during
+>    review. The on-disk bit assignments and update/rollback behavior
+>    remain unchanged.
+> 
+> Patch overview:
+> - Patch 1 fixes the cached EA presence flag after creating or replacing
+>    the only entry.
+> - Patch 2 validates EA chains and links zero-terminated tails before
+>    appending entries.
+> - Patch 3 preserves EA write errors and reports truncate failures.
+> - Patch 4 distinguishes missing attributes from lookup failures and
+>    rejects incomplete EA attribute pairs.
+> - Patch 5 distinguishes empty EA values from deletion and rejects
+>    removal or replacement of absent entries.
+> - Patch 6 prepares the new list before updating attributes, restores
+>    both old attributes on failure, and shuts down if restoration fails.
+> - Patch 7 adds fileattr queries for existing inode flags and mount-wide
+>    case folding.
+> - Patch 8 introduces the $LINUXFLAGS storage and inode-load paths, adds
+>    immutable persistence, and protects system-imposed immutable state.
+> - Patch 9 extends the persistent interface to append-only.
+> - Patch 10 adds persistent nodump and reports it through fileattr and
+>    statx.
+> 
+> Testing on this revision:
+> - QEMU tests covered flag and EA readback, inode cache reclaim,
+>    read-only/read-write remount, unmount/mount and fresh-kernel reload.
+>    Checked immutable write/unlink denial, append-only enforcement,
+>    normal I/O after clearing flags, and read-only SETFLAGS rejection.
+> - Verified EPERM when clearing $Bitmap protection, including without
+>    sys_immutable, and when clearing sys_immutable-derived protection.
+>    $MFT rejects SETFLAGS with ENOTTY through its empty operations.
+>    Checked casefold reporting and STATX_ATTR_NODUMP.
+> - Exercised first-EA creation/removal, XATTR_CREATE/REPLACE, zero-length
+>    values, zero-terminated tails, unrelated EA preservation, unknown-bit
+>    preservation, and direct LINUXFLAGS write/removal rejection.
+> - listxattr tests covered exact names and sizes, zero-terminated and
+>    empty lists, short buffers, and malformed offsets, name terminators,
+>    values and entry headers. Size-only, full-buffer and tiny-buffer
+>    requests returned EUCLEAN for malformed chains after a successful open.
+> - Malformed LINUXFLAGS length, chain offsets, name termination, value
+>    length and query length returned EUCLEAN. A corrupt tail following
+>    LINUXFLAGS prevented an update without changing the existing flags.
+>    An invalid resident EA_INFORMATION length rejected earlier by the
+>    underlying attribute parser retained that parser's EIO.
+> - Fault injection covered allocation failure, failures after each EA
+>    attribute update and rollback failure. Tested creation, replacement
+>    and removal with no other EAs, resident EAs and an 8 KiB non-resident
+>    EA; checked old values and protection after failure and remount, and
+>    shutdown when restoration failed.
+> - Additional injection checked ENOSPC write errors, short writes,
+>    truncate errors, ENOMEM/EIO lookup errors and missing EA attribute
+>    pairs, with old EA contents verified after remount.
+> - Formatted a SanDisk USB partition inside QEMU using the final kernel,
+>    and created combined and individual flag probes through SETFLAGS.
+>    A fresh QEMU boot with both disk and mount read-only confirmed flags
+>    0x70/0x10/0x20/0x40 and LINUXFLAGS values 7/1/2/4, directory nodump,
+>    absence of the cleared entry, unchanged canary EA and statx nodump.
+> 
+> The USB was freshly formatted with the label LINUXFLAGS_V4. The final
+> read-only check verified that $LINUXFLAGS is present with the expected
+> four-byte values and that the obsolete $LXFLAGS entry is absent.
+> 
+> Windows compatibility testing with the new $LINUXFLAGS name completed
+> on Windows build 26200.9457 (ver: 10.0.26200.9457), using the LINUXFLAGS_V4
+> USB volume (serial 3B3F-1D09). Windows mounted the volume and accessed
+> the existing probes with dir/type. After changing the current directory
+> to C:\, chkdsk G: /f completed all three stages and reported no filesystem
+> problems and no further action required.
+> 
+> After returning the USB to Linux, a fresh QEMU guest running the final
+> v4 kernel checked it with both the virtual disk and NTFS mount read-only.
+> GETFLAGS and EA reads confirmed combined flags 0x70 and individual flags
+> 0x10/0x20/0x40, with four-byte $LINUXFLAGS values 7/1/2/4 unchanged.
+> Directory nodump remained set, the cleared entry remained absent, the
+> unrelated canary EA was unchanged, and statx still reported nodump.
+> The obsolete $LXFLAGS entry was absent.
+> 
+> The tested Windows mount/access/CHKDSK sequence therefore preserved the
+> $LINUXFLAGS names, lengths and values on this Windows build.
+> 
+> Baolin Liu (10):
+>    ntfs: keep the EA presence flag after creating the first entry
+>    ntfs: validate EA chains and link zero-terminated tails
+>    ntfs: propagate EA write and truncate errors
+>    ntfs: preserve EA attribute lookup errors
+>    ntfs: distinguish empty EA values from removal
+>    ntfs: restore EA attributes when an update fails
+>    ntfs: add fileattr query support
+>    ntfs: persist immutable in the $LINUXFLAGS EA
+>    ntfs: persist append-only in the $LINUXFLAGS EA
+>    ntfs: persist nodump in the $LINUXFLAGS EA
+> 
+>   Documentation/filesystems/ntfs.rst |  24 ++
+>   fs/ntfs/ea.c                       | 483 +++++++++++++++--------------
+>   fs/ntfs/ea.h                       |   9 +
+>   fs/ntfs/file.c                     | 125 +++++++-
+>   fs/ntfs/inode.c                    |  12 +-
+>   fs/ntfs/inode.h                    |   2 +
+>   fs/ntfs/namei.c                    |   2 +
+>   fs/ntfs/ntfs.h                     |   4 +
+>   8 files changed, 423 insertions(+), 238 deletions(-)
+> 
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 242fb19ced2b..711e90be9382 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -275,8 +275,8 @@ static int ntfs_parse_param(struct fs_context *fc, struct fs_parameter *param)
- 			result.uint_32 == STREAMS_INTERFACE_WINDOWS;
- 
- 		if (fc->purpose == FS_CONTEXT_FOR_RECONFIGURE &&
--		    NVolStreamsWindows(vol) != streams_windows) {
--			ntfs_error(vol->sb,
-+		    NVolStreamsWindows(NTFS_SB(fc->root->d_sb)) != streams_windows) {
-+			ntfs_error(fc->root->d_sb,
- 				   "Cannot change streams_interface on remount.");
- 			return -EINVAL;
- 		}
--- 
-2.43.0
+Hi Namjae and Hyunchul,
+    Are there any remaining concerns or changes needed for this patch 
+series?
+    I'd be happy to address any feedback.
+
+Thanks,
+Baolin.
 
