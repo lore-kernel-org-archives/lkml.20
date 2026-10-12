@@ -1,267 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B322E717B;
-	Mon, 12 Oct 2026 21:22:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791840180; cv=none; b=TZNc7eDSTJ9x6YArCiFWJb/QqFuFkoONAqrfardwiCpPGHcsgLfsrTvnhMy2kHJW51YwgTU+Peii6do7kJsq5iTDK2WlhFTp10bX1DhpBvCODNzZo2yB4Ocz5NbrOyU+g2IeGBOUyuQTm8gj5TLQsexI4sHnNVTH/fqEnwT0Vhw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791840180; c=relaxed/simple;
-	bh=LruxmSQJUGFYTdivKkQuQz+FLzNvia4QT4NeFePgYTY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oKQS//Px+fZBwOlvXRdnnK+w/vlAjjReZotZNX+mHvhAp08VsLxTOroahrOzHiPvF9lrKOE/XMIPEkSzgolX/s8QdQR6XFNIKOPHd7n2Sckfb6TJwGboxCG1n/jmDqS3DyCOeOclx9orUNbMkYE+IdKOWoPXfUCgCtF2XHwj2Rc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PNGCNIWI; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E65F4A0EF6
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:23:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791840211; cv=pass; b=qyB3OwRN0kMudaQLG9iZDWVqUSg5Ms58VM1j4Sf4faSkVqyvFmZq+gjL904wFnda69zQuKQIQdZflKX0x1xNR9Rvyiua+LsTDJVm5n426+4A8TT0kmFVgZIqbq6hCEkoYjTNsmGfl091G8H6eP5g1DPBzj0vj5mfgroO4gC2sUQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791840211; c=relaxed/simple;
+	bh=M/ThXiHN1P68R+1YhMAmr597pKOSWjt23LCQQNjErlw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=V4CA/ZCZ41m+2pq22QF+hCECRMn23fy34Ajwb80yAnr7FVx2DgKDuqZPz3gMSSHvk0n/n+FOmOqNhdghhkY2zB2nW5TqE/blyg4P4hl461U06JV/ZmxXknGt6STLRvdAX+3HYghhkkxNVu4Yz4LFUcxcwJMgnk9H+V1ypff+BIY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YxyjDzyY; arc=pass smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PNGCNIWI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAC311F0089B;
-	Mon, 12 Oct 2026 21:22:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791840179;
-	bh=ShWHhliPjutXJgrYxpO8QRYrSkXotLzharw91oNUC/U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PNGCNIWIH6Y9jMC+ofSZmj5f8+8hcJlpbeeYe1zJ1vFnelYe5mBgdZkWDWVJVAFX3
-	 AhjnmJl/H0xG56wXLZWNIEYZ2NXJw1Zhc9GQmKHc6SMexG3IDiNbPh6wah9RQW5/CL
-	 OQ7gxI17Fn3wm0IGd6nZ/KPpBpDp+IGr8iFr+zSfQBgSHmNyQ5C7EiA2Yv3UqMC43f
-	 3JZllwlfakULHV70KDT3YOvYC2J2p3KB/Ipdu8MRBD+FPmaeUc6YHHs6D9gU9hoqSh
-	 HKmDRdIghUISQ7gsZPGVKKkXu240reONLk+QCgXIJZiVuHmwKxMellg6zlAdh+PdqJ
-	 Bv5jSP7zlfupw==
-Date: Mon, 12 Oct 2026 22:22:54 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Daniel Thompson <daniel@riscstar.com>
-Subject: Re: [PATCH 1/2] dt-bindings: reset: introduce
- toshiba,tc9564-reset.yaml
-Message-ID: <20261012-numerous-flatworm-9e4cfa659541@spud>
-References: <20261012164354.3872326-1-elder@riscstar.com>
- <20261012164354.3872326-2-elder@riscstar.com>
- <20261012-shale-rosy-805c49f6c404@spud>
- <492396bc-a0f4-4274-9a7c-21fd5fd886b5@riscstar.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YxyjDzyY"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6afac79b3a3so17623a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:23:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791840207; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UNgrjiNHAGVoxvy7L+k/8J8BqREhjQbo2/xn1llpna6BIM/vk3KGbdWfmU+LBLbn68
+         UsXUlK4cCKaMVh6tQuhz4J9Ak6CtCo54mVanwZxuTLKMALKplCGy6oWkfonlZhWTiIzA
+         N1LQrqd0e4IJkWXfFATeSSJhLDFii/alUxjS0K1Q0RY7DrbF1Gs0dIJZfb1C2S93nYBN
+         Ucf7xR4OMPc6G9RwiDW8H8ElZ9dXg9pW1I1reqnODB72Lj66Z9QUE1AP8mVZ26PQB3t7
+         BOG4YO5pn6rf1XO+C50jTenvj4LOoYkIAEUn7I1oJ2z7cC5DpljIC0oO0HU/0hHmJnBG
+         g5iQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Ee4DfkcYbf3IOngkIJrGviVyrMh0yvV16mhd+eYxirU=;
+        fh=X9luluxhUFrqd3w/xjGWPWR76djtk0bDBQOEBBJjwC8=;
+        b=KPBkcFMg77JY35FB3QLRanwsid9L/RX64d5jgFMtQM9b0hkXauBC/2eBpqmjWAECm7
+         5FlMf8qG9uqf88YF+nSPfdKzBPK8Xc5ibJdzVGASvuH/Ixcq/WUvsazKRGNZeVDpvdep
+         Awb0M7lp4J5vBw4GyiHz6JQqCc1iblxbV7E0t8jAKU+TXYwCr1CCsxXBnG9xNAbYD7yj
+         I+bZHTTfZf7nsXo4T/W5X+VrrmcpMXrH7TVpj+6Pl/GGHo6wwGdcqnIDAtnoSt0OcqOg
+         h/hRJqyHv6Zv6KIqZjbNbIcFnrhkYineycqPxDn9OtCYAjYrHUrKAiE74/2iOXucI6bO
+         RsVQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791840207; x=1792445007; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ee4DfkcYbf3IOngkIJrGviVyrMh0yvV16mhd+eYxirU=;
+        b=YxyjDzyYf6cnh0FGlyV4iPCczRMiNCHVZdq6ohQBqN6eDGCRuRPUDnWlsXdkEHzwt0
+         tS5s1EAYYZYZjZ8Zq8XnqwSc7MDU1+7WMrUR6eGLaR8fkT96LOrmcchgTDd4TDn90xc+
+         QXZH+ewhwhNumewH0GMLanH1ZmpBL95gIELragGoWu1RVWJm7py86QkQo6MLlT9qDz/u
+         VqmcK0H9c8KRoZJLR+8JzXoWVE1ET895yQ1dnQ5K+d1RRDNg1ReLwRdBNfXsV+8r1uAN
+         dF9XOSVVpwM5qBr/T110MiMC5saFB1LwOC4ls0+pHu4d1tXvxpMgjlnwoVLSwL5Ls5CI
+         5TXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791840207; x=1792445007;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ee4DfkcYbf3IOngkIJrGviVyrMh0yvV16mhd+eYxirU=;
+        b=1ymJutydv8bAsoFnYMjLnXF77bCp6bm3pLXqWjZiOM83D7D2KGyOWvxZefwfbJiJNw
+         grWk5WNtJh2U1B1xlddKOqJo187QD/tsZwcsh1FKAaKEkkoCtepYRYo+8bwmELPhoUxj
+         XGspgszdQnHTWG75pG3jjLvzLc+hFpvsInlpKmo3RYiSF0eHM5+AVjf5TlwF6XOJCH8Y
+         /vKOCDZH8vuyaCuWs/OnUCDOjkSY/hZARTaKyTtvQzVvGeS1ZQ6VZsHKBhUDEJjqS4it
+         FD1k/6oeNqNme9wTNOvi7grJfNxC6MoS4kVF82EM92IvN4vcEEkqPu8vfTUvyRglx4Ys
+         TftA==
+X-Forwarded-Encrypted: i=1; AKwUvBxE6nRVCWo2YRsHagCJAO09DrmfmHFryJgsLquYGUnvGFTWS3tPgyCM+0DG50fo8RPx2UbroRbEqZZrOd8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIO15ki9bHfK0wndkp3gegfLYAr73/d0wclEyJpZTOnT4WTFT79
+	tebRwNbl8weI4bsETzxJfFFxUbYY7Hu3/pMdP9Lh3eTiLulCkpXwwBcd4YavK37Voor3WzGkkpU
+	aB8k6uPtDIpXPqcLl3wSCO1oDKCO/ebRE3sJL5fey
+X-Gm-Gg: AYBFou2wkbN7tLAH4962r2kxvhF2ITWnGBqxEW25ZQJTLtY1pOvq13CZHf/VmaWmB0R
+	eWEAYQ++JyLk1cdiw1xsslB042kQ1xDKT7M1TK3zsvmg+cZ59ISemUogtgKsFd35PpGG0pAD6aY
+	xDd0j+J+YGSoKcyvZNnckIpuh/LyQDHPiInnLr6+plCeteOFQAFpTODL1BbrC5M4+coxnvD5UNn
+	TO+0xI8ySxp2YC3MFEv/hfzmxCwImrS1Gy+TkgZ1ik0UU4x/Dks4JzGTpIK08L/7Y2FVJXMALVS
+	IfE7rO33T/+2bu2BZ7Y9CbjVGxqF8pMGj4d/Hwbg2NIBtPLjSyqwOCA=
+X-Received: by 2002:a05:6402:a203:20b0:6a9:f353:ef65 with SMTP id
+ 4fb4d7f45d1cf-6b1988db8e0mr99917a12.5.1791840206242; Mon, 12 Oct 2026
+ 14:23:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="YzVxPACpizJDAvzU"
-Content-Disposition: inline
-In-Reply-To: <492396bc-a0f4-4274-9a7c-21fd5fd886b5@riscstar.com>
-
---YzVxPACpizJDAvzU
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261005192431.87317-1-hmushi@amazon.co.uk> <20261005192431.87317-4-hmushi@amazon.co.uk>
+In-Reply-To: <20261005192431.87317-4-hmushi@amazon.co.uk>
+From: Jim Mattson <jmattson@google.com>
+Date: Mon, 12 Oct 2026 14:23:12 -0700
+X-Gm-Features: AclHuK_0KBTsLrSFa-h9vss0cVbmlNZ4lJ9qkYRPDWcihjTkz5_I3EkMbPan9w4
+Message-ID: <CALMp9eQz2ouQvFhBYv_R33_sUQ+ehxv__-f5iZ=_3aA2Guwy5w@mail.gmail.com>
+Subject: Re: [PATCH 3/3] KVM: x86: hyper-v: Implement HvCallRestorePartitionTime
+To: Mushahid Hussain <hmushi@amazon.co.uk>
+Cc: kvm@vger.kernel.org, Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	"K . Y . Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, linux-hyperv@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, nh-open-source@amazon.com, mushi.shar@gmail.com, 
+	Todd Frederick <tfred@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 02:10:01PM -0500, Alex Elder wrote:
-> On 10/12/26 1:51 PM, Conor Dooley wrote:
-> > On Mon, Oct 12, 2026 at 11:43:52AM -0500, Alex Elder wrote:
-> > > Define the binding for the reset controller functionality present in
-> > > the Toshiba TC9564 SoC.
-> > >=20
-> > > Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> > > Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> > > Signed-off-by: Alex Elder <elder@riscstar.com>
-> > > ---
-> > >   .../bindings/reset/toshiba,tc9564-reset.yaml  | 56 ++++++++++++++++=
-+++
-> > >   MAINTAINERS                                   |  7 +++
-> > >   include/dt-bindings/reset/toshiba,tc9564.h    | 26 +++++++++
-> > >   3 files changed, 89 insertions(+)
-> > >   create mode 100644 Documentation/devicetree/bindings/reset/toshiba,=
-tc9564-reset.yaml
-> > >   create mode 100644 include/dt-bindings/reset/toshiba,tc9564.h
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/reset/toshiba,tc9564-r=
-eset.yaml b/Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.ya=
-ml
-> > > new file mode 100644
-> > > index 0000000000000..1908e9539abac
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.ya=
-ml
-> > > @@ -0,0 +1,56 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/reset/toshiba,tc9564-reset.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Toshiba TC9564 Reset Controller
-> > > +
-> > > +maintainers:
-> > > +  - Alex Elder <elder@riscstar.com>
-> > > +  - Daniel Thompson <daniel@riscstar.com>
-> > > +
-> > > +description:
-> > > +  The Toshiba TC9564 is an SoC accessed by a host system through the
-> > > +  upstream PCIe port on the PCIe switch it implements.  The switch
-> > > +  includes an embedded PCIe endpoint that provides access to various
-> > > +  SoC peripherals (including a reset controller) via its BARs.
-> > > +
-> > > +  A total of 13 resets are implemented, though two of these are not
-> > > +  controllable.  Access to the reset controller relies on PCIe being
-> > > +  functional, so the PCIe reset is assumed to be deasserted.  Simila=
-rly,
-> > > +  the PCIe controller relies on I2C, so the I2C reset is also assumed
-> > > +  to be deasserted.
-> > > +
-> > > +  Reset ids are defined in <dt-bindings/reset/toshiba,tc9564.h>.
-> > > +
-> > > +  The reset controller uses registers within the same page as a
-> > > +  clock controller, so both devices are defined as children of a
-> > > +  "config" syscon.
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    const: toshiba,tc9564-reset
-> >=20
-> > Why does this need to exist as a standalone device, rather than be
-> > rolled up into the parent syscon node? It doesn't have any resources, so
-> > it should be doable.
->=20
-> This is along the lines of what Krzysztof has mentioned, and it
-> seems clear I must be missing something.
->=20
-> > This kind of thing for a syscon is always difficult to review when only
-> > one element is present - where is the rest of the syscon's
-> > functionality?
->=20
-> The reason a syscon was used was simply for the benefit of
-> having a shared regmap that the reset, clock, and DWMAC drivers
-> can use.  All three of those drivers use registers that reside
-> within a single page of addressible MMIO space.
+On Mon, Oct 5, 2026 at 12:26=E2=80=AFPM Mushahid Hussain <hmushi@amazon.co.=
+uk> wrote:
+>
+> A nested Hyper-V that sees the frequency MSRs lets its parent own
+> the partition reference time. After a resume from hibernation it
+> issues HvCallRestorePartitionTime (0x103) with the TSC and the
+> reference counter it saved, and expects both clocks to continue
+> from there. KVM rejected the hypercall. The guest time base stayed
+> inconsistent and the root partition did not run.
+>
+> Restore both clocks in one pvclock update, so no vCPU runs with the
+> new TSC and the old reference time. Each vCPU computes and writes its
+> own TSC offset from the recorded step, so no other vCPU writes its
+> TSC state. kvm_synchronize_tsc() writes the offset of the calling
+> vCPU only. Mark the TSC page as changed by the guest, so it is
+> recomputed even when TSC emulation control is set.
+>
+> The TLFS marks the hypercall, its input and CPUID 0x40000004 EAX
+> bit 20 (RestoreTimeOnResume) as reserved. Microsoft's hvdef crate
+> defines them (hypercall::RestorePartitionTime), and Microsoft's
+> OHCL kernel carries the same C definitions in hvgdk_mini.h.
+>
+> Advertise bit 20 and gate the hypercall on it under
+> KVM_CAP_HYPERV_ENFORCE_CPUID. Hyper-V offers hibernation to its root
+> partition only when the parent sets this bit.
+>
+> Assisted-by: Claude:claude-fable-5.1
+> Signed-off-by: Mushahid Hussain <hmushi@amazon.co.uk>
+> ---
 
-What does the dwmac use the region for? I assume it's for some misc
-register and you don't mean that the dwmac lies within the region?
+Aside from what Sashiko and David have already said...
 
-There's nothing inherently wrong with the act of using of a syscon here,
-what I am actually complaining about is how you are using it.
-In cases where a syscon region contains clock and reset, the typical way
-we want people to do this is via something like
+> +static u64 kvm_hv_restore_partition_time(struct kvm_vcpu *vcpu,
+> +                                        struct kvm_hv_hcall *hc)
+> +{
+> +       struct kvm_hv *hv =3D to_kvm_hv(vcpu->kvm);
+> +       struct hv_input_restore_partition_time in;
+> +
+> +       BUILD_BUG_ON(sizeof(in) !=3D 32);
+> +
+> +       if (kvm_vcpu_read_guest(vcpu, hc->ingpa, &in, sizeof(in)))
+> +               return HV_STATUS_INVALID_HYPERCALL_INPUT;
 
-syscon@f00 {
-	compatible =3D "toshiba,tc9564-bla-syscon", "syscon", "simple-mfd";
-	reg =3D <0x0 0x2000>;
-	#reset-cells =3D <1>;
-	#clock-cells =3D <1>;
-};
+Nit: some validation checks are missing here. Per the TLFS, hypercall
+input parameters must be 8-byte aligned and must not cross a page
+boundary (cf. kvm_hvcall_signal_event()).
 
-because the child node exists for no other reason than to access linux
-driver probing in the most trivial way. If there's some features that
-actually need a child node, that's fine, but those will end up being
-things with significantly more properties or things with competing
-property use (e.g. if there were devices with buses that need
-address/size cells).
+> +       if (in.reserved)
+> +               return HV_STATUS_INVALID_HYPERCALL_INPUT;
+> +       if (in.partition_id !=3D HV_PARTITION_ID_SELF)
+> +               return HV_STATUS_INVALID_PARTITION_ID;
+> +
+> +       /* The guest asked for the step; recompute the TSC page as for it=
+s own write. */
+> +       mutex_lock(&hv->hv_lock);
+> +       if (hv->hv_tsc_page & HV_X64_MSR_TSC_REFERENCE_ENABLE)
+> +               hv->hv_tsc_page_status =3D HV_TSC_PAGE_GUEST_CHANGED;
+> +       mutex_unlock(&hv->hv_lock);
 
-> And I don't know that I can guarantee their probe order.
+I think there's a window here in which another vCPU can consume
+HV_TSC_PAGE_GUEST_CHANGED before kvm_set_clock_and_tsc() steps the
+clocks. If TSC emulation control is enabled,
+kvm_hv_request_tsc_page_update() won't invalidate the resulting stale
+TSC page.
 
-I am assuming this is moot, since I am not objecting to using a syscon?
+> +       kvm_set_clock_and_tsc(vcpu->kvm, in.reference_time_in_100ns * 100=
+, in.tsc);
 
-> There is otherwise no "system controller" that is treated as
-> a logical entity within the SoC.
->=20
-> What is the proper way for me to represent this?  It's fairly
-> simple; and I mainly want to ensure all three of those drivers
-> can safely access their addresses.
-
-What else does this region actually contain?
-
-Cheers,
-Conor.
-
-> > > +
-> > > +  "#reset-cells":
-> > > +    const: 1
-> > > +
-> > > +required:
-> > > +  - compatible
-> > > +  - "#reset-cells"
-> > > +
-> > > +unevaluatedProperties: false
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    #include <dt-bindings/reset/toshiba,tc9564.h>
-> > > +
-> > > +    syscon@0 {
-> > > +        compatible =3D "syscon", "simple-mfd";
-> > > +        reg =3D <0x0 0x2000>;
-> > > +
-> > > +        reset {
-> > > +            compatible =3D "toshiba,tc9564-reset";
-> > > +            #reset-cells =3D <1>;
-> > > +        };
-> > > +    };
-> > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > index 252b6d7ee1638..d0eb44079fe17 100644
-> > > --- a/MAINTAINERS
-> > > +++ b/MAINTAINERS
-> > > @@ -28180,6 +28180,13 @@ S:	Maintained
-> > >   F:	Documentation/devicetree/bindings/misc/pci1179,0220.yaml
-> > >   F:	drivers/misc/tc9564-pci.c
-> > > +TOSHIBA TC9564 RESET DRIVER
-> > > +M:	Alex Elder <elder@kernel.org>
-> > > +M:	Daniel Thompson <danielt@kernel.org>
-> > > +S:	Maintained
-> > > +F:	Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
-> > > +F:	include/dt-bindings/reset/toshiba,tc9564.h
-> > > +
-> > >   TOSHIBA WMI HOTKEYS DRIVER
-> > >   M:	Azael Avalos <coproscefalo@gmail.com>
-> > >   L:	platform-driver-x86@vger.kernel.org
-> > > diff --git a/include/dt-bindings/reset/toshiba,tc9564.h b/include/dt-=
-bindings/reset/toshiba,tc9564.h
-> > > new file mode 100644
-> > > index 0000000000000..5fcc9a06d4ff6
-> > > --- /dev/null
-> > > +++ b/include/dt-bindings/reset/toshiba,tc9564.h
-> > > @@ -0,0 +1,26 @@
-> > > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> > > +
-> > > +/*
-> > > + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights=
- reserved.
-> > > + */
-> > > +
-> > > +#ifndef __RESET_TOSHIBA_TC9564_H__
-> > > +#define __RESET_TOSHIBA_TC9564_H__
-> > > +
-> > > +/* Reset IDs */
-> > > +
-> > > +#define RESET_MCU		0
-> > > +#define RESET_MCU1		1
-> > > +#define RESET_MSIGEN		2
-> > > +#define RESET_INTC		3
-> > > +#define RESET_UART		4
-> > > +
-> > > +#define RESET_MAC0_MAC		5
-> > > +#define RESET_MAC0_PMA		6
-> > > +#define RESET_MAC0_XPCS		7
-> > > +
-> > > +#define RESET_MAC1_MAC		8
-> > > +#define RESET_MAC1_PMA		9
-> > > +#define RESET_MAC1_XPCS		10
-> > > +
-> > > +#endif /* __RESET_TOSHIBA_TC9564_H__*/
-> > > --=20
-> > > 2.53.0
-> > >=20
->=20
-
---YzVxPACpizJDAvzU
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas1PrgAKCRB4tDGHoIJi
-0nkmAP9v7bODUF8P29/idYnXULHr6aVTWyMvFD54nMkNK7JYIwEA5+CJlGeKRvUf
-gMRQzc2F+Ml8zzzEL60Hg+3+RslDVgo=
-=HQ4f
------END PGP SIGNATURE-----
-
---YzVxPACpizJDAvzU--
+When stepping the reference time forward, don't we have to recalculate
+the hrtimer deadlines associated with armed synthetic timers?
+Otherwise, those hrtimers will fire late.
