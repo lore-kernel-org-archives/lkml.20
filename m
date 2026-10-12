@@ -1,141 +1,331 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012046.outbound.protection.outlook.com [52.101.43.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A4C372EC1
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:21:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F55470438
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:22:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791796919; cv=pass; b=MUDBxzskzc04TZYyIrXjruGlF97lB16tIXQmdM6tL1GKyRKWwEnFz4nixyehSDdCXadIoVUlFC9nPYPaJgyF0HO7CUhBTt9GslxDrreDfukvTfwvibjb3mKlK7C4vCTcivEXGEguBMBsCzh+LyS1zneqowYrxgMyWQWkcHvvijg=
+	t=1791796923; cv=fail; b=R9caA10Qidy8K02YPefNAkrMufN0rC+yjqUlt+sd+4nmzgtrhmda3LJj0xiaOn8qqiHrpYxPFFaqqjVAsZ7cBvFBrkzeXeBoyqh8i4Le4Gw9mlVqCHMwNdrzR7W7hKDzLWozWeYJUOXUdaNPQaLbeFlkIbavaUshp1scrfCNZEA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791796919; c=relaxed/simple;
-	bh=HMgUswHA9/JW7E20urE69ecFRmmPCiIt6XwvKa2U4aU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Hbvb4t1QZc3KWQhWfz4eMo6t5guaKnXdzAXwExhAuJNHHri/BbdNsnn1P29+QsCVhy6BnFhB14liZZPyFBRQsjH0yrdeewVkqIH7h3qsKZkuUMNZ3zYu1LS9T5quukNHr6IFdyEp3h/L6Bk7THaap6OKdU8dgCbDXFOr4k4cx+Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n+pySmuR; arc=pass smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791796923; c=relaxed/simple;
+	bh=6ODOFTzMaG1Cxp739ZhYd8Mrb6oD6WzYvwDdIjSWPSk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ZCz6rkE1ut9M44Fxy9tzy9kVEdCpFDzJwPQWSEn4E3DQ3GhPh5GR9Zal2bPprgbJ/1aaSbL8f56TsBK5rbbKEPtSH+/M006fl/AW6T0Mzqw2qi7o3ArKagDjBmQQU+HbHam2WDp68Ic482TDRFDaPvoewDgCTKRcHjvZQaNfj6g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ukwzMgX1; arc=fail smtp.client-ip=52.101.43.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n+pySmuR"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2dc63f8d8aso273929866b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:21:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791796916; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cHf2zI3IGJ/63iLbCJLugy6v/otsPi5VXtqSlh/CpUZvznBF4ugUX0X3eVJ/PiI7k5
-         RMkL9yOV6doughvg9qt/aaq+4kYzLezZnM/KC1o+mzmfc0lrxa1dXmkrPrjx/EVWPKk/
-         JBC3m84kNTNQnQg6A7YhMTCoHX7ZjKNjA9m1FTknFXWYQX0LP+QWr1wkiLl4t5wh2z6i
-         Wb8vr2FydaPu7EX50Dl5DiMkgkxJ2ewiudrssZMWfnfMBpw3y6zagl1crftSIwg7tL7f
-         jsxon5xRVk5xfrg23oZL11Oip1azg2pKLS5GfU78D/3grTxEUIJod5m8Nf6qc1/DsTvL
-         fPuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=d00/PGVzqnOO3exQ/y/1tCNwmAX0u9uxnCPXmaeqvTE=;
-        fh=hqfPTqtBNw02kzMUmNgu6of6lGCY53p+GhvoWJheGfk=;
-        b=qCMLCbMJS/yxUFOZUzI1+TiCpuDJqFSiNAa9uaZYhL/L7YtQzc4T+l7Lwzz6Gd3wal
-         Wmyu3CZ0mjoDTx0aozcEJFLjGiCJwORMC/l5XbnxPDbxabSFRE87heXVGMY8nvOrX80c
-         7cdXWcrH0QOrli3s8M4tArLqB6WIlAGFPwSRNZ7aadGI8Oiaexc0cR1IJ26gefk0io+c
-         awp5W5uKh80fyZroLIq8jZC5waztT6iHWIBlgLmB6OYZTRUTGNk4KN0DoeDR1B85Gwtb
-         ZAC1oPBbUb33smZDbGDm9QFS+vBhYATnCx86kpp7pqiI8Xga4J6gLp8ZvD1ael4wPP0J
-         IR1Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791796916; x=1792401716; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d00/PGVzqnOO3exQ/y/1tCNwmAX0u9uxnCPXmaeqvTE=;
-        b=n+pySmuRoWj3EdZu8a0WLkYYnm/urNB1fQn2a2TEt8nurHb+HpyPyTkqZ1rK9E/f+O
-         AU6QLh6Esq/7qd2EjhfWnTmFcc5Ld8n/NFNfNgB/O2n5KEef6zzMK2aypxLoKT2CYejU
-         zMpuAYXaTtaPgfXmLmf+bNtF8VmDIfICQunqW05IVIp6pihM48cUF7+MVbk8QZzrC4wq
-         Ti4TPJF7np2OngOTcw9nz7vzj0jIdwfYBX2araz33JfG/gseAbu0BwUUTywxdpVRFydY
-         zudlLmD+kOkTaStP8kKclpZZAvmJrL0wiZHJTQIszrzKtObwybyDF5NpiaI/PqwjTTQh
-         H77g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791796916; x=1792401716;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d00/PGVzqnOO3exQ/y/1tCNwmAX0u9uxnCPXmaeqvTE=;
-        b=1CfW3GLxMc4xlQ/PeKlnOE2mXgsx+6THPsMLMvCQC0HyIkLyWIydOkPsTNh6jg51mr
-         8YzNB+rPyNRTi+V3u4cP0+e4A8/lmavAO5WrO8al3eZpXVJBJLADpir+qndCYhVeiKkI
-         puRSMDK6+zr9NJ1Q34pB4F4JwspICS7cmHOvCejK7Ta2kFvQ6RTwv+uHUmPHMvx3hQNz
-         2ttG+BqzAr/R1HWpOS5XqyAlwxukCxeiu/+HTlAWmPK29uUgy4Vm1qzy+jyz8hNvOQrg
-         +ReaPQnSbC5PsIWg3PotPeWd6uDvjYspGGD64nNVENDEjHJgUl2YMs8eIueb+EgUZnbf
-         IclQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzAOlYYljbuESI7wQu7KUQIlr0093MGe5Djd1PMAWjXLQtibX6MDT6MKyj481eUnfATUX7hmYQWlJkUal4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1KEYswHTjZEQQMP5gX+6lTrguWyyDQvi0Xcd4nFn8xRT9StYS
-	Pe21e9+zeNLTuJXgc4D4Sntl2AL64smSUDGYiRBahiGywtetZoihOA8gF5boSG58phzfi5pY7As
-	Jz3UrfRZxf/3pzmtjNB8kvZSweNrvj8M=
-X-Gm-Gg: AYBFou3zJdY4I1xBa/nkFKSANIK2Ec5CRLCAEHLn0CYpBH5tRvvY2b2S5qpCRsiXwGy
-	zzchHiNrxT8O+yzrHd7oSeKzGhaONxCn44DEOqjEhjI3/G3QFYqbY8JE0K0aS335DL7++rPyDUP
-	H9QMGW61IvNIpJwxR3/CkgBWV8m8u48H49TrSvrmShgrkg7tsqzitCVLekcfWzCXryOEN28xCtE
-	eEydlnVwUCKFW9tCm8FFBISpWnXJyytzEJ6Tno0riXdDx0i8svhfxdgnRkdLggwESm5KyfWPK4c
-	TPFq3RA6pk2JxeJ/7pWn3mC5+K4c2rLceAN6LFyeQr1eLARtGoKcygCGdNEt5bIc9ADImUhZF6H
-	MmfJhWe7f4U3RpfuEd09WV4jskPePZ/aEDy6dyGJ+CvHq+ZQuu44GA/RADe7T+/42qhsDOznJqL
-	/A8bfJ9zvxj5OIZ8wjUJqiwJ+RglrMJE0vjxd9T6FM
-X-Received: by 2002:a17:907:3d09:b0:c31:8cfe:9a25 with SMTP id
- a640c23a62f3a-c31a9fd33dcmr927229366b.9.1791796915831; Mon, 12 Oct 2026
- 02:21:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ukwzMgX1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Czo6N26knZaZVTfPIYf8+N5+rJ2V96hAd+qhPbZVE+l6y6XSplUNURhMa7RLi/tcPbZ+fcPuxyexIDTK1o/2ddpvTfUloxNBTTPzaJKjuRxVc6NOBMZfnsMasfyMESRCIgUQoYoAT30tORDoef3n0KlrsET9yBwe0FHaUm1/MM3426HnDC/huS8Rv8WAgQlNNzXI3DW6OMG8jdzHMmtXD7kfM38cpPEDdMn+JOcaK35OorxA6sT2xAuiBVHpQZ1yOCetw008DJqHf3syGBZBhb3oxuSltdRyLCypZsR7Zi3lqNAYQ2szvY/YxzjVcFpFrdJLLT7PpLRJb1+1T6wBxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Xhlf1JF4JB5qP8DSWZ1pMo8lfz3UEK71+yiVjnuc4s4=;
+ b=dWxoOqD5HzHCQh4uoj7I/C7xurk9dCkUZKb7LxK+fQeEAAxDMo3PaSyujGdJXOTUTjWlBnJv03YnqN6aKM9Oif7gW8UJZ/mTjO0EvAsIOzAju1rofkyAHlMWx2s69mYUTGd7XUUpKx07vMOaBWNarURDEzBsXHobejBsS1Q1TLhrqfYMvPLZCZsPikl/hVLPsBeKhiOacAAEZ/kHBhekwio2EqiR6CfrTCe+HjsOJyPrv7/HZRcMmY1h8R0MlfwD+5bsAyCD4g11ySbZ97FWNsuvSMvrKidPefYvMFsnCD98Hwr2w+e3WJPLePhvW6Kkkjxvv5vUYmc8/QfHOj37qQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=zohomail.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Xhlf1JF4JB5qP8DSWZ1pMo8lfz3UEK71+yiVjnuc4s4=;
+ b=ukwzMgX1MIwCV9M6cxiKmkeu9yKwsj6HVTEzepSRhlPKXfpkI8FofiIwWLFCs1I1RTFxFZysUMtRtFcd2gc37CPzwSpUaPOV69z9xvGCTRBJ89YLM1eRmJj1/Zc6NSfKpgIYg3I3wsFQKHlxfQ/irI4AYOJGKHZAUL1Ov/jgsEQ=
+Received: from BN9PR03CA0936.namprd03.prod.outlook.com (2603:10b6:408:108::11)
+ by LV9PR12MB9758.namprd12.prod.outlook.com (2603:10b6:408:2bd::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Mon, 12 Oct
+ 2026 09:21:57 +0000
+Received: from BN3PEPF00022BC2.namprd05.prod.outlook.com
+ (2603:10b6:408:108:cafe::45) by BN9PR03CA0936.outlook.office365.com
+ (2603:10b6:408:108::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 12
+ Oct 2026 09:21:57 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BC2.mail.protection.outlook.com (10.167.248.213) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 09:21:57 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
+ 2026 04:21:51 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
+ 2026 04:21:51 -0500
+Received: from [10.136.45.168] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Mon, 12 Oct 2026 04:21:47 -0500
+Message-ID: <adaa5bee-bfe9-4a03-acc7-0e41c5242e7d@amd.com>
+Date: Mon, 12 Oct 2026 14:51:41 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012044724.160902-1-mhun512@gmail.com>
-In-Reply-To: <20261012044724.160902-1-mhun512@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 12 Oct 2026 12:21:17 +0300
-X-Gm-Features: AclHuK8b6tUYO5p5GU84erIeD1vnrAS30oFKa_UyF3wbpOcD8fRDiFjk41OAN6Q
-Message-ID: <CAHp75VcEZ0RiCYKde7aiw7tK=J1LEfSeA=91GOHdPK6479V=mA@mail.gmail.com>
-Subject: Re: [PATCH] media: atomisp: drain assert recovery before tearing down resources
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, 
-	Ijae Kim <ae878000@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v3] sched/proxy: Defer donor commit until after proxy
+ resolution
+To: Xukai Wang <kingxukai@zohomail.com>, Ingo Molnar <mingo@redhat.com>, "John
+ Stultz" <jstultz@google.com>, Peter Zijlstra <peterz@infradead.org>, "Juri
+ Lelli" <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
+	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
+	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, Andrea Righi
+	<arighi@nvidia.com>
+CC: <linux-kernel@vger.kernel.org>
+References: <20260827-sched-proxy-v3-1-1af63ac5ae56@zohomail.com>
+ <0fe8a0fe-68f5-467b-be82-cf631e00fd87@zohomail.com>
+ <832e9395-49e9-40dd-a4db-1c1bf9753100@amd.com>
+ <d5cb66ce-9d96-45f7-a07d-5dc3ac70e8d2@zohomail.com>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <d5cb66ce-9d96-45f7-a07d-5dc3ac70e8d2@zohomail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC2:EE_|LV9PR12MB9758:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36fc6f55-802c-47ae-bd15-08df28424396
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|36860700016|82310400026|376014|7416014|10067099003|261009223027099003|921020|4143699003|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	mO5Q8VqmW7fxBMpq+eTkFG8F5Vo300VI1cZkXwXJE4rrx6jNLtDgjqCeI5YnnIoF/wNUk4cV/lGvj0koRbQC6Eyt9D3m3V5P/oxW4bmQM2sACmosRRBppJ0/Xx9Gq1MaQfpNDvBF9Pxx+oS6m82uL5XyU3oVcvV4J3201HFPPcHGIV4He6viqzPbpUE8ryKDzdMSA6HFDDL409WD2EfMC3voNE8tpfQ+gy48+rumTn6XCoobTXOK+UcxcOYzw/MeYOZ40yTxDWnpvZW29rE5mFlODvwPxj1fJ7BS97USqy61tZratrOqRaMJZvrAYMKQHDX4qcE0iewMWDubIfSEh8QDAcP3kQKd0Uln/b5stiJaWV5E+u4ylTh8JHhCwk9cJe/3iXxo72Y83fAcBRqrFtxU77rdZnzu8IixpLC7zdRLUJ47nc2HFcWt9mkV9X3tnAWTM8L6ecV1sPdsJYIV3rPiOPAOgcamRhn1S59F1Hb9rSlxRmHlPXI4Qnt6W3QnZeedx9wezJH0bgDjt/WionT0mchNg52lGOrHZpoYV7sWV/RfjURSaQnDp5EJmbXyFmF2LVwtH/2RE5GNzGatm49vSqumspMnPGd5eldNn9GLA3BUlLqiqd+JQQ431FImRw8u//CYItXLkRqsS3Uy31uBf7LG37+v6eOMWXtRrGXXmZcxRPsr49ikhl0IJCBDGEx7N8nhvVtVeQtukfl/2oB/07UUQyRHUCyMnsKVxm8XIy0f620dqf/8FZDazmy5
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(36860700016)(82310400026)(376014)(7416014)(10067099003)(261009223027099003)(921020)(4143699003)(11063799006)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	xsE52jnHzqKPOBxAY5MrhOzmjizLninaA307n3nad78YLo54K3YsnU32Wlq5iAJwHaBNcomUpjHzYwQJpTf1/zd93ORHowH8zIxMd5jLFEvxOfZWmxSOD7oHbwWKROVt+FRe6KmAAQYzUpx9yoe4ZVAucu7GeYTAvzGxXkzE6oJ1lW34MwwTBUUYFjhKa67ZNzlEztBFx8MK7dF1coWjfMjYfyOaKpXYCNueP+ao0ucq80ai4Z2vB0mgwbJpEZ4Fwj7dpcLQaUiUu/zI0cryVhVf48zjTZEoig0ck/2wsHXzLAX9BxqE/0ylZbNgsavhGyuyeXjwIe+QNtRc6yqnSlR1Fs0IlUHGpPcJkwGaXd0FOWyUul2gcUuGI7GknZo0cUZK61TW7HvLgl83opSolREWotaCtFYiwwwTTr0V07XV6BfZ54GcYiiLSJ/vPq4t
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 09:21:57.6374
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36fc6f55-802c-47ae-bd15-08df28424396
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BC2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9758
 
-On Mon, Oct 12, 2026 at 7:47=E2=80=AFAM Myeonghun Pak <mhun512@gmail.com> w=
-rote:
->
-> The threaded IRQ queues assert_recovery_work, which can stop, reset and
-> restart CSS. Removal currently tears down CSS and the CPU latency QoS
-> request while recovery can still be running.
->
-> Disable and drain recovery before atomisp_pm_uninit(), keeping the IRQ
-> available until recovery finishes. Then release the IRQ before CSS and
-> firmware teardown. Apply the same ordering on probe failure, and skip
-> the uninitialized recovery work in PM-only mode.
->
-> This issue was found by static analysis.
+Hello Xukai,
 
-Nice, have you read the code that you sent?
+On 10/12/2026 1:09 PM, Xukai Wang wrote:
+> 
+> On 2026/10/12 12:05, K Prateek Nayak wrote:
+>> On 8/27/2026 2:48 PM, Xukai Wang wrote:
+>>> @@ -7143,45 +7159,49 @@ static void __sched notrace __schedule(int sched_mode)
+>>>  
+>>>  pick_again:
+>>>  	assert_balance_callbacks_empty(rq);
+>>> -	next = pick_next_task(rq, &rf);
+>>> -	rq->next_class = next->sched_class;
+>>> +	donor = pick_next_task(rq, &rf);
+>>> +	rq->next_class = donor->sched_class;
+>>> +	next = donor;
+>>>  	if (sched_proxy_exec()) {
+>>> -		struct task_struct *prev_donor = rq->donor;
+>>> -
+>>> -		rq_set_donor(rq, next);
+>>> -		next->blocked_donor = NULL;
+>>> -		if (unlikely(next->is_blocked)) {
+>>> -			next = find_proxy_task(rq, next, &rf);
+>>> -			if (!next) {
+>>> -				zap_balance_callbacks(rq);
+>>> +		donor->blocked_donor = NULL;
+>>> +		if (unlikely(donor->is_blocked)) {
+>>> +			struct sched_dl_entity *donor_dl_server = rq->dl_server;
+>>> +
+>>> +			rq->dl_server = NULL;
+>> I'm not able to understand this special dl_server handling.
+>>
+>> In case of "pick_again", pick_next_task() will clear the rq->dl_server
+>> before the pick and for "keep_resched" with idle task, I don't think the
+>> dl_server from pick makes any difference since we'll come back into
+>> schedule right after the switch.
+>>
+>> For rest of find_proxy_task() we don't really care about dl_server afaict
+>> unless I'm missing something. did you trip something that required this
+>> change?
+>>
+>>> +
+>>> +			next = find_proxy_task(rq, donor, &rf);
+>>> +			if (!next)
+>>>  				goto pick_again;
+>>> -			}
+>>> -			if (next == rq->idle) {
+>>> -				zap_balance_callbacks(rq);
+>>> +			if (next == rq->idle)
+>>>  				goto keep_resched;
+>>> -			}
+>>> -		}
+>>> -		if (rq->donor == prev_donor && prev != next) {
+>>> -			struct task_struct *donor = rq->donor;
+>>> -			/*
+>>> -			 * When transitioning like:
+>>> -			 *
+>>> -			 *         prev         next
+>>> -			 * donor:    B            B
+>>> -			 * curr:     A          B or C
+>>> -			 *
+>>> -			 * then put_prev_set_next_task() will not have done
+>>> -			 * anything, since B == B. However, A might have
+>>> -			 * missed a RT/DL balance opportunity due to being
+>>> -			 * on_cpu.
+>>> -			 */
+>>> -			donor->sched_class->put_prev_task(rq, donor, donor);
+>>> -			donor->sched_class->set_next_task(rq, donor, true);
+>>> +
+>>> +			rq->dl_server = donor_dl_server;
+>>>  		}
+>>> -	} else {
+>>> -		rq_set_donor(rq, next);
+>>> +
+>>>  	}
+>>>  
+>>> +	put_prev_set_next_task(rq, rq->donor, donor);
+>>> +
+>>> +	if (sched_proxy_exec() &&
+>>> +	    donor == rq->donor && prev != next) {
+> 
+> Hi Prateek,
+> 
+> The case I had in mind is when pick_next_task() selects the candidate
+> through a DL server, and find_proxy_task() later goes through
+> proxy_resched_idle().
+> 
+> 1. Before this patch, the sequence is effectively:
+> 
+> |-> pick_next_task()
+> 
+> |---|-> rq->dl_server = server;
+> 
+> |---|-> put_prev_set_next_task(rq, rq->donor, donor);
+> 
+> |---|---|-> donor->dl_server = rq->dl_server;
+> 
+> |---|---|-> rq->dl_server = NULL;
+> 
+> |-> find_proxy_task(...)
+> 
+> |---|-> proxy_resched_idle(rq);
+> 
+> |---|---|->put_prev_set_next_task(rq, rq->donor, rq->idle);
+> 
+> |---|---|---|-> rq->idle->dl_server = rq->dl_server; /* NULL */
+> 
+> |---|---|---|-> rq->dl_server = NULL;
+> 
+> 
+> So find_proxy_task() is entered with rq->dl_server already consumed by
+> the donor commit, i.e. rq->dl_server == NULL.
+> 
+> 2. After deferring put_prev_set_next_task(), without the save/clear, the
+> sequence can instead become:
+> 
+> |-> pick_next_task()
+> 
+> |---|-> rq->dl_server = server;
+> 
+> |-> next = find_proxy_task(...)
+> 
+> |---|-> proxy_resched_idle(rq);
+> 
+> |---|---|->put_prev_set_next_task(rq, rq->donor, rq->idle);
+> 
+> |---|---|---|-> rq->idle->dl_server = rq->dl_server; /* server */
+> 
+> |---|---|---|-> rq->dl_server = NULL;
+> 
+> |->if (next == rq->idle) goto keep_resched;
+> 
+> ...
+> 
+> 
+> In that case the DL server selected for the uncommitted donor gets
+> attached to rq->idle.
 
-...
+I see. I guess, proxy_reshed_idle() would be a better spot to
+consolidate it rather than juggling it in __schedule().
 
->  error_unload_firmware:
-> +       disable_work_sync(&isp->assert_recovery_work);
->         atomisp_pm_uninit(isp);
-> +       devm_free_irq(&pdev->dev, pdev->irq, isp);
+> 
+> The next pick clearing rq->dl_server does not undo that assignment,
+> since the pointer has already moved to rq->idle->dl_server. It is only
+> cleared later when idle becomes the prev task of another
+> put_prev_set_next_task() transition.
 
-^^^
+Which should be the very next __schedule() since we retain NEED_RESCHED
+except if all the tasks migrate away and we genuinely select rq->idle,
+then the dl_server lingers around.
 
->         ia_css_unload_firmware();
-> +       goto error_unregister_entities;
->  error_free_irq:
-> +       disable_work_sync(&isp->assert_recovery_work);
->         devm_free_irq(&pdev->dev, pdev->irq, isp);
+> 
+> 3. That is what the save/clear/restore in v3 was intended to avoid:
+> 
+> pick_again:
+> 
+> |-> pick_next_task()
+> 
+> |---|-> rq->dl_server = server;
+> 
+> |->donor_dl_server = rq->dl_server;
+> 
+> |-> rq->dl_server = NULL;
+> 
+> |-> next = find_proxy_task(...)
+> 
+> |---|-> proxy_resched_idle(rq);
+> 
+> |---|---|->put_prev_set_next_task(rq, rq->donor, rq->idle);
+> 
+> |---|---|---|-> rq->idle->dl_server = rq->dl_server; /* NULL */
+> 
+> |---|---|---|-> rq->dl_server = NULL;
+> 
+> |-> if (!next) goto pick_again;
+> 
+> |-> if (next == rq->idle) goto keep_resched;
+> 
+> |-> rq->dl_server = donor_dl_server;
+> 
+> ...
+> 
+> |-> put_prev_set_next_task(rq, rq->donor, donor);
+> 
+> 
+> If proxy resolution returns NULL or idle, the saved value is not
+> restored into rq->dl_server for a donor commit that will not happen.
+> 
+> So the intent is to keep the DL-server selection made for the candidate
+> out of rq->dl_server while proxy resolution is in progress, and restore
+> it only if that donor is actually going to be committed, while keeping
+> the state seen by find_proxy_task() consistent with the pre-patch path.
+> 
+> Do you think rq->idle->dl_server being set in the second sequence above
+> is harmless, or is keeping the save/clear/restore the right way to avoid
+> that state?
 
-^^^
+I assume it may take the dl_defer_idle path but I'm not super sure. I
+personally prefer resetting state in proxy_resched_idle() since it is
+all in one place to refer at any point.
 
->  error_unregister_entities:
->         hmm_cleanup();
+> 
+> I’ll look at the sched-ext interaction and the __schedule() structure
+> separately while rebasing onto current tip.
 
---=20
-With Best Regards,
-Andy Shevchenko
+Thank you but I'd wait for Peter and John to chime in regarding the added
+code complexity given the visible benefits of this optimization isn't
+too much.
+
+-- 
+Thanks and Regards,
+Prateek
+
