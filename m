@@ -1,154 +1,145 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 523963876C3;
-	Mon, 12 Oct 2026 01:44:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB8A38B7D4;
+	Mon, 12 Oct 2026 01:46:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791769476; cv=none; b=d+Y3lpKvpSL3o1EKo07BQwzSmxxL+tDDoWnUZuUGWGMjB4e1LnCqMyLcmZZbPY2e7lS9/2p82gtC3QxywPvWMNhZuSnw9Jj0KBG5h71PbfGtmNw1DSjnloh4eiJVhNPczjAQThOlrKAtr+RTbatZLEcWHWewvhxxKPGjfPjQBE8=
+	t=1791769619; cv=none; b=apCfxpN/C/j+wVBrsJS7UHAPtNMr+aUAtiO/euS0S7KlK7wZCW+cZ5HsJfUI5910pg4dw8MfIZyBv4RrSAqLMRcJoITx0VpKh+6AKDaTcxASKDfiwWcU1NvQ0qsqLhiX3b8zQ117g0x1CMA0Q0Gfn1iXy2NYliZ6cYdso1aQEhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791769476; c=relaxed/simple;
-	bh=LJujeDhRMrUPcqlSxOoanuEO/CJqSUDmwzv+tUlACOQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tssE9ZQrHIhiBHqmUdTTCw0m8NYDEBdY0zz1JXAjceVyM1f5k/hsn8qK3vo/PtZxUg+YvmTkmULRvWRZzSXiHExOJdrlcX0csd4CUS1SmxLe+ricagxqrhDiqtZuyvtXNAj8jCGUsq0BrvrjVhO9bjtoO5DymrWQFFpEsBy9tW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=D0pd+Ci9; arc=none smtp.client-ip=220.197.31.3
+	s=arc-20240116; t=1791769619; c=relaxed/simple;
+	bh=HkWvjSBUmkpg1WnpgKmCYMiraDBRvp9vc4M6E4vr0rs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TwdfOC44f2b2ZgH/pH9o+qLoPkRGnmy1/NXjwQTJUpNo297i4kfDmeLMFIizSXvb/rPrLarFd1Z0ZP70gVU4HAeyTtkUak95xboeDxWsWTP5M0UVic7yhKNUg9L3/SQs6px6BjzBa8kCpe4eVsZYSJ0Xqj7meiwSHOxOacpakBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=kf3NW9+D; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=yXwCmq+W; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=zCwosnfl; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=9lykVzk7; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="D0pd+Ci9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cT
-	gdMR5xsl/GVsi/wQahkEXsQG9rBtA99KKcGm04LPA=; b=D0pd+Ci9x8Y3i4rx6o
-	HjAtJ8o5bggCq2yisOfb4nx2ebf3WTOzhkJMZ0bvdCZ27kiAj5L4XFYIfnnan2h+
-	PBD7CC17Irc6Wv5LjWu4ecZMupkO8Zyn7z+Em29A5ozcCCHO0CYO0fHs9pwiwgfN
-	9XBXNtJXdMMmvX0r9FofjYokg=
-Received: from ubuntu.. (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDXvytXO8xq_nZsDw--.19357S4;
-	Mon, 12 Oct 2026 09:43:59 +0800 (CST)
-From: Ma Ke <make_ruc2021@163.com>
-To: broonie@kernel.org,
-	sbinding@opensource.cirrus.com,
-	hansg@kernel.org
-Cc: linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	Ma Ke <make_ruc2021@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] spi: Fix controller reference leak in acpi_spi_device_alloc()
-Date: Mon, 12 Oct 2026 09:43:49 +0800
-Message-ID: <20261012014350.3600177-1-make_ruc2021@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kf3NW9+D";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yXwCmq+W";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="zCwosnfl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9lykVzk7"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BFDC521CA9;
+	Mon, 12 Oct 2026 01:46:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791769615; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kc9yCYeEKHP3L6f+TK7ubvJD270BUetSVj9NKQRjQeM=;
+	b=kf3NW9+DuPjZXb9OdkjYwqdT/LWXBjC7+Zq/R0vRj36tTkMehJQXoi0mOQ0/hpNo0GOm4y
+	vca8AffU0DPcOnfg9lkCziyyVgQfplZA9j1E0V7qqRA7IQIhQuyD2P2jExsQIilzGCBQNL
+	tnvjUGL9f+otfFVvs3vwyqonu+0Npl4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791769615;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kc9yCYeEKHP3L6f+TK7ubvJD270BUetSVj9NKQRjQeM=;
+	b=yXwCmq+WWZFAfBd/dtJAEkzCzDGGG+XjQIhrmJZcdBi9B9goLBYzLHhdP6el1VLWKoDbg7
+	JSDQprfeMN++KKBw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=zCwosnfl;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=9lykVzk7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791769614; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kc9yCYeEKHP3L6f+TK7ubvJD270BUetSVj9NKQRjQeM=;
+	b=zCwosnflmdGeyvupd4rUfSLo3IiOlezhHAmoldfhysiD6JloAat3lFXZ+gM/gKZH+5SoEk
+	+hKQST0tt32cWzFka3F6U5aryloFjrG9z2rYcNV/VMw3CXkn8hy5/0LTPSGj4a8tbAacdT
+	MuPyuIjmGBV71pY/EusXSJs3ReIPdoY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791769614;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kc9yCYeEKHP3L6f+TK7ubvJD270BUetSVj9NKQRjQeM=;
+	b=9lykVzk7GmY0h9XbFjV0lZkAcufmloycU565K01NrO8Sfg0rs5pZgNRwIFnB0MrLRBV8CI
+	QL7dW/4Ikoek89AQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9916C13314;
+	Mon, 12 Oct 2026 01:46:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ZHfuAgs8zGrdCAAAD6G6ig
+	(envelope-from <ddiss@suse.de>); Mon, 12 Oct 2026 01:46:51 +0000
+Date: Mon, 12 Oct 2026 12:46:26 +1100
+From: David Disseldorp <ddiss@suse.de>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, "Martin K .
+ Petersen" <mkp@kernel.org>, linux-crypto@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Lee Duncan <lduncan@suse.com>, Alexandru
+ Hossu <hossu.alexandru@gmail.com>
+Subject: Re: [PATCH] scsi: target: iscsi: Use crypto library API
+Message-ID: <20261012124626.6416100b.ddiss@suse.de>
+In-Reply-To: <20261011191235.GA22483@quark>
+References: <20261001044857.169487-1-ebiggers@kernel.org>
+	<20261011233600.5bb5d6c9.ddiss@suse.de>
+	<20261011191235.GA22483@quark>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXvytXO8xq_nZsDw--.19357S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCF1UurWDXF4rGFW3tF1fWFg_yoW5tr43pF
-	WftFW3JFyvgF4rG3WSqw45GFy3uF40vw43Gws3Jw43uw4S9348XFy3tr1Yqry5AFWktan8
-	ZFW2qF48Cas5Aw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_0PfDUUUUU=
-X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC9h+zvmrMO1+K2AAA30
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: BFDC521CA9
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,suse.com,gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	TAGGED_RCPT(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
+X-Spam-Flag: NO
+X-Spam-Score: -2.01
 
-When acpi_spi_device_alloc() is called with a NULL ctlr, it lets
-acpi_spi_add_resource() look the controller up with
-acpi_spi_find_controller_by_adev(). That one uses class_find_device(),
- so the controller comes back with a reference held and is stored in
- lookup.ctlr.
+On Sun, 11 Oct 2026 21:12:35 +0200, Eric Biggers wrote:
 
-None of the four return paths of acpi_spi_device_alloc() drops it. The
-three error paths return an ERR_PTR directly and the success path
-returns the spi_device.
+> On Sun, Oct 11, 2026 at 11:36:00PM +1100, David Disseldorp wrote:
+> > Could e.g. SHA1 also require fips filtering here in future?  
+> 
+> It might.
+> 
+> > If so, would it make sense to track the fips compat status (preferably
+> > at build time) in chap_digest_algs?  
+> 
+> Let's wait until there's actually more than one before generalizing it.
 
-spi_alloc_device() does not consume that reference either. It takes
-its own through spi_controller_get(), which spidev_release() puts back
-when the spi_device is freed. The reference obtained by the lookup
-therefore has no owner.
-
-The controller must not be put when it was supplied by the caller, so
-track whether the lookup was ours.
-
-acpi_spi_notify() in the same file shows both halves of this. It looks
-the controller up with the same helper and puts the reference itself
-after handing the controller to acpi_register_spi_device(), which
-calls acpi_spi_device_alloc() with that controller. The
-caller-supplied case, where the function must not put.
-
-This is reachable from serial_multi_instantiate_probe(), which calls
-acpi_spi_device_alloc() with ctlr == NULL once per resource in a loop.
-
-Found by code review.
-
-Fixes: 87e59b36e5e2 ("spi: Support selection of the index of the ACPI Spi Resource before alloc")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ma Ke <make_ruc2021@163.com>
----
- drivers/spi/spi.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-index 5b5b3bc5f0d8..4373afc1259c 100644
---- a/drivers/spi/spi.c
-+++ b/drivers/spi/spi.c
-@@ -3163,11 +3163,13 @@ struct spi_device *acpi_spi_device_alloc(struct spi_controller *ctlr,
- 	struct list_head resource_list;
- 	struct acpi_spi_lookup lookup = {};
- 	struct spi_device *spi;
-+	bool put_ctlr;
- 	int ret;
- 
- 	if (!ctlr && index == -1)
- 		return ERR_PTR(-EINVAL);
- 
-+	put_ctlr		= !ctlr;
- 	lookup.ctlr		= ctlr;
- 	lookup.irq		= -1;
- 	lookup.index		= index;
-@@ -3176,9 +3178,11 @@ struct spi_device *acpi_spi_device_alloc(struct spi_controller *ctlr,
- 	INIT_LIST_HEAD(&resource_list);
- 	ret = acpi_dev_get_resources(adev, &resource_list,
- 				     acpi_spi_add_resource, &lookup);
--	if (ret < 0)
-+	if (ret < 0) {
- 		/* Found SPI in _CRS but it points to another controller */
--		return ERR_PTR(ret);
-+		spi = ERR_PTR(ret);
-+		goto out_put_ctlr;
-+	}
- 
- 	acpi_dev_free_resource_list(&resource_list);
- 
-@@ -3189,14 +3193,17 @@ struct spi_device *acpi_spi_device_alloc(struct spi_controller *ctlr,
- 		acpi_spi_parse_apple_properties(adev, &lookup);
- 	}
- 
--	if (!lookup.max_speed_hz)
--		return ERR_PTR(-ENODEV);
-+	if (!lookup.max_speed_hz) {
-+		spi = ERR_PTR(-ENODEV);
-+		goto out_put_ctlr;
-+	}
- 
- 	spi = spi_alloc_device(lookup.ctlr);
- 	if (!spi) {
- 		dev_err(&lookup.ctlr->dev, "failed to allocate SPI device for %s\n",
- 			dev_name(&adev->dev));
--		return ERR_PTR(-ENOMEM);
-+		spi = ERR_PTR(-ENOMEM);
-+		goto out_put_ctlr;
- 	}
- 
- 	spi_set_chipselect(spi, 0, lookup.chip_select);
-@@ -3212,6 +3219,10 @@ struct spi_device *acpi_spi_device_alloc(struct spi_controller *ctlr,
- 	 */
- 	spi->cs_index_mask	= BIT(0);
- 
-+out_put_ctlr:
-+	if (put_ctlr && lookup.ctlr)
-+		put_device(&lookup.ctlr->dev);
-+
- 	return spi;
- }
- EXPORT_SYMBOL_GPL(acpi_spi_device_alloc);
--- 
-2.43.0
-
+Fair enough. If you're okay with having the extra caller to update /
+audit following any fips compliance changes then I think it makes sense
+to merge this as-is.
