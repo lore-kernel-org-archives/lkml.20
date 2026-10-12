@@ -1,271 +1,430 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A6D74FB9A7;
-	Mon, 12 Oct 2026 22:11:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E448341A92A
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 22:15:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791843078; cv=none; b=J0E2SOSFjDbAgZnLpbf5GPFIuPS83n23lvWMxJJqodXlnT0pp1gXf56IGzke/z3yBB/OM/CbYlbsyfiHBnL8yzZLgR/gNioZpj+FQKE/QXOugpq5p2io+KGh1JCDIHfpJbDwbh76/9WcP43YqfxKwMMSOZPi32eozViZghuIlpQ=
+	t=1791843323; cv=none; b=Oy3ZfiHhy29cNA18josQcpH7+v/b9f2hL7lXx2z/vqAudBmwN9lRp+454e9ZgEcEYNoAd5ChN19aK2wlwTdWK7keKWI/vacYWPr/++FFPf/uW+07g0qPu927ky8f0F6Bz8cOp+KDm8ngD/4zYQYmAYIt6e7qPqYSoYtbogd2sGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791843078; c=relaxed/simple;
-	bh=jxAcG16H7BPLXrjlLImhRydrV1xSJXJLDb0CyhAAXao=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eoBcV9dfWsQfUYM8s7XDUyebIpimvpso5iNi2+NHgOr3p8jnmPLZ7iYuPUH5V1p14l7hsscgn6vmVkUoEE2MTguVIV7wjUjkSaWyexnqQ7f3xqVMtI477XlDK2alJjCWV8CInBwMraBnO3KEy7516GrFkADZbNky2BuTKr0ZsqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d7aKEpBm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791843323; c=relaxed/simple;
+	bh=KLLHBkwffB4FH6eWApevsbF2omxVdj0foutoIwY7pjs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HK9BsecMNNMLv589ki9sPZiBNDpyUgy1fwnIK4wtDF4yQ0ymdByViNgJf+Qcg9ipuQ4VLz4is37uctbnU/rbBUb/1w/YDjjiXKUl+YdKJlbkA9vw/DHjLnH/uudTzTsl02ysnU8vfFfx/5xrEndwKGwWxKc8KiKw413a41iU98s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FwcOyC4r; arc=none smtp.client-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d7aKEpBm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C470C1F0089B;
-	Mon, 12 Oct 2026 22:11:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791843074;
-	bh=mmJCs8pUUEFyRvDi5ZQsIBbdA8anzKn0SyPw/hG1EjA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=d7aKEpBmi1lJe2Uk0lWiIEvMGbZTWkPmhTxxgs3h776/S9386KHh3f12wtdhAlaXi
-	 WEUy3G/zWIlIqxYkk1Z/pfE6JcTo0yAZ1MSepSmS/4v+yWs5O7a4k+knu3Z12jQcmn
-	 Q8jj7OWZ75eHePXMx7Kw91W2xGYGZWeKOpxd22HiU+0b3teu44nlFNzgDDZt9vTWW2
-	 iZeTgwK8Sg/3g4Jmm/eimwTPFXhHVX44bNloWT/nsycpbZliSlheV/akQtDQhd7GQp
-	 QeSaSAAn8XBsDLqZxRQZBWsqf96N+kaymXAUFge1sZZzWWbWsX8o3TNAqXCRXuVw6C
-	 5aWLvC/CtgAUA==
-From: Christian Brauner <brauner@kernel.org>
-Date: Tue, 13 Oct 2026 00:11:07 +0200
-Subject: [PATCH 2/2] fs: let idle threads share init_fs
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FwcOyC4r"
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15ea896ddc8so3300860c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:15:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791843321; x=1792448121; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TtcIhJO+YxSdNgQJHhkhykF/808DucRHJuxBcDn/sJE=;
+        b=FwcOyC4r2zM0nTFm3RZzLw6bN0drRBs5TEhVwL7KMI1JIgPctwRk6gVBsDtdy5ZsTb
+         pzoNvRrgfZjDG0f7/yfN9C6WUIEix+adUvOdSndCWeF7iHlu/cuDUPhPLRbu+ITQlu5+
+         O3jfDmg0wSWxH59br88U/3KBlOuDpVgEcZDxgsoHXVVRCRWuPXhACxnyE0OTiaiM1q+n
+         4bF0QJ+mju3f+N5rCJHol9osnXa88FL5TOFiNebtRE3de3DHKnuq4cm/fwPn9+BwkpCe
+         81FEanoKGfP5vMD9ua+fYJGzfojEeKtU5jDqeCN/uiYI7eFLXeTdv0Nz+G37bVHDwnbb
+         pLaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791843321; x=1792448121;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TtcIhJO+YxSdNgQJHhkhykF/808DucRHJuxBcDn/sJE=;
+        b=AnIiYJQERldK1oMiR5qN9uGoK06OPAdQfSv4s5+Jbhw5lRcRJQ3DxAnIiovBobEor7
+         6Ys6TbZcHjVwS9aCLel3UWregWMFukuobXyFWlC2cc0JOfWUSph0mKgk27TjjVYafThv
+         OkwoPP2z4UNGjCmeCK3iy+sqAxvaIFe0O/aCEJxuxmqoDlVszy6oI1dDC16RJ39Sr07s
+         /M72tq5e2eJt2l51jbNUHIhrXKBh24PX4LXJcTWF5YgyMxbr/8nLgIk4xWfvA7aQhaTH
+         N/DdIu4XbrnYk4vzluWMa7E/R/CMVhoSX/l30LlWRVZZQYp0x05YFhmBB3IJc1+S+1OO
+         tUSg==
+X-Forwarded-Encrypted: i=1; AKwUvByRaBtAvsCBMmcFUtu9xCWhIbv2poZ0qD1quGKt10NHBkRT3OYSqrLf2D7PC95uaKRPp1xZ5gaq3KwYZys=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlv4cK+RAXIKVrsMyWEAFbFLFGeEINFoIGcVxlMgVnlCwHbTkR
+	F1rUt2HMY3SeMefG4FX++cmvAA0sLw+oSmPfKEXtfqQrm5AME72eJNuh
+X-Gm-Gg: AYBFou3B7THNI3W54LQsGiIlFVOep/a78LxLncIZrUYEh6UrD1rc1+grkXzfrATLp1J
+	rgZ5bzBEj3QSzEbkc5PPzdd6HcK4iTnNPGvU90OuU/pjqTN+X8rwDKEgGvltnDN+LWxr0HhnCYV
+	33EqLJ8QmBTXr2vGA+bp8rdj3BB0Lkam9PYdpDyg1vTmlF4RJixj3iI9k6vBISRLEreNdzPVvvf
+	B8a1DG3ePb7/z7Qr/a1nAC8yuUyS8jtJiJ8GJW2Y5PEgvJfNGqL5RLVJnVDoq6BY917kCXtVlJ2
+	fh/8L2uX4ZugCLCxqdWE/zNWonxupBRpSx6BkLRDbNTnd+MmHFh4Amo+KmmlkZXN4SeTZ7TJf7s
+	pBIxUlHCOXG3Cs1pn+X4fUi/bXZZqqxwzTCbeZxjWKdEGaDT1XRbwS6XXg8nA7EVPmly6blgtcT
+	MpOYlLNjZz5qNg/ScZN8xmccUUuSjYYCL6DAX3oFcmQU0Ru0P2DGN7RafoI4NdZvIa/4EamCWbw
+	IniivTEyAs3wRbBJFk=
+X-Received: by 2002:a05:701b:21db:b0:166:29a2:f83f with SMTP id a92af1059eb24-16a56ab04e9mr15192436c88.5.1791843320773;
+        Mon, 12 Oct 2026 15:15:20 -0700 (PDT)
+Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:1::])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a4429603sm31302727c88.17.2026.10.12.15.15.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 15:15:19 -0700 (PDT)
+Date: Mon, 12 Oct 2026 15:15:15 -0700
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+To: Jia Jia <physicalmtea@gmail.com>
+Cc: stefanha@redhat.com, sgarzare@redhat.com, netdev@vger.kernel.org,
+	virtualization@lists.linux.dev, kvm@vger.kernel.org, mst@redhat.com,
+	jasowangio@gmail.com, eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH net-next v2 2/5] vsock/virtio: amortize RX socket locking
+ for stream packets
+Message-ID: <as1b8+vIy8K8J5cN@devvm29614.prn0.facebook.com>
+References: <20261010142247.99223-1-physicalmtea@gmail.com>
+ <20261010142247.99223-3-physicalmtea@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-work-fs-idle_fs-v1-2-2063d1bcb5aa@kernel.org>
-References: <20261013-work-fs-idle_fs-v1-0-2063d1bcb5aa@kernel.org>
-In-Reply-To: <20261013-work-fs-idle_fs-v1-0-2063d1bcb5aa@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Jan Kara <jack@suse.cz>, Al Viro <viro@zeniv.linux.org.uk>, 
- linux-kernel@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-X-Mailer: b4 0.17-dev-3d1b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7206; i=brauner@kernel.org;
- h=from:subject:message-id; bh=jxAcG16H7BPLXrjlLImhRydrV1xSJXJLDb0CyhAAXao=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSdjfpTUbF3G5/nxMhlB+3P35af5u+mcudkb/CuqaU9/
- X/aq6bt7ihlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZjIj2MM//MEzVzv2y8ozBFf
- 5fbEVaCmz05f0dB5CsfajxcfCLROz2D4w3H0WbJhTuZk5ronUcZ7XmsyuM3WXNxZ+thk8z9t7Z4
- MFgA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261010142247.99223-3-physicalmtea@gmail.com>
 
-With nullfs as the real rootfs userspace can pivot_root() away from the
-initramfs and unmount it:
+On Sat, Oct 10, 2026 at 10:22:44PM +0800, Jia Jia wrote:
+> The virtio-vsock RX worker currently acquires and releases the socket lock
+> for every received packet. Keep the lock held while processing a bounded
+> run of packets that belongs to the same socket.
+> 
+> Only ordinary RW packets for an established STREAM socket whose transport
+> and protocol remain unchanged are eligible. Control packets, SEQPACKET
+> traffic, state or transport changes, malformed packets, and sockets whose
+> protocol has been replaced end the active batch and retain their existing
+> handling.
+> 
+> Serialize the initial eligibility check with sk_callback_lock because
+> sockmap removal restores the protocol without taking the socket lock.
+> 
+> Limit each batch to 64 packets or 64KB of payload, bounding the work under
+> one socket lock. Keep the lookup reference until the batch finishes.
+> 
+> Keep a batch only while another skb metadata charge fits in the receive
+> buffer. Share this predicate with virtio_transport_inc_rx_pkt(). When an
+> enqueued skb consumes the final metadata slot, finish the batch and release
+> the socket lock before processing another packet, restoring the reader's
+> scheduling opportunity from the per-packet path.
+> 
+> The virtqueue callback remains a queue_work() callback. Batching runs only
+> in the process-context RX worker.
+> 
+> Introduce virtio_transport_rx_batch_finish() to tear down the batch and
+> release the socket lock and lookup reference.
+> 
+> Signed-off-by: Jia Jia <physicalmtea@gmail.com>
+> ---
+>  include/linux/virtio_vsock.h            |  11 ++
+>  net/vmw_vsock/virtio_transport.c        |  29 ++++-
+>  net/vmw_vsock/virtio_transport_common.c | 147 +++++++++++++++++++++++-
+>  3 files changed, 183 insertions(+), 4 deletions(-)
+> 
+> diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
+> index f91704731057..26dde6909c4e 100644
+> --- a/include/linux/virtio_vsock.h
+> +++ b/include/linux/virtio_vsock.h
+> @@ -282,6 +282,17 @@ void virtio_transport_destruct(struct vsock_sock *vsk);
+>  
+>  void virtio_transport_recv_pkt(struct virtio_transport *t,
+>  			       struct sk_buff *skb, struct net *net);
+> +
+> +struct virtio_transport_rx_batch {
+> +	struct sock *sk;
+> +	unsigned int pkts;
+> +	size_t bytes;
+> +};
+> +
+> +void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
+> +				     struct sk_buff *skb, struct net *net,
+> +				     struct virtio_transport_rx_batch *batch);
+> +void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch);
+>  void virtio_transport_inc_tx_pkt(struct virtio_vsock_sock *vvs, struct sk_buff *skb);
+>  u32 virtio_transport_get_credit(struct virtio_vsock_sock *vvs, u32 wanted);
+>  void virtio_transport_put_credit(struct virtio_vsock_sock *vvs, u32 credit);
+> diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+> index 4f9aa9c4c3aa..ef076732158d 100644
+> --- a/net/vmw_vsock/virtio_transport.c
+> +++ b/net/vmw_vsock/virtio_transport.c
+> @@ -629,8 +629,16 @@ virtio_transport_seqpacket_allow(struct vsock_sock *vsk, u32 remote_cid)
+>  	return seqpacket_allow;
+>  }
+>  
+> +/*
+> + * Keep a bounded run of packets for one socket under a single socket lock.
+> + * Limit packet count and payload size to bound the work done while locked.
+> + */
+> +#define VIRTIO_TRANSPORT_RX_BATCH_MAX_PKTS	64
+> +#define VIRTIO_TRANSPORT_RX_BATCH_MAX_BYTES	(64 * 1024)
 
-    chdir(rootfs);
-    pivot_root(".", ".");
-    umount2(".", MNT_DETACH);
+Why both? Seems like MAX_PKTS would sufficiently bound the lock hold
+time.
 
-That's what systemd does and the initramfs is supposed to go away at
-that point together with all the memory it uses. But on every machine
-with more than one possible cpu the initramfs superblock stays around
-forever (cf. [1]). With ramfs as rootfs the unpacked initramfs shows up
-as Unevictable in /proc/meminfo, with tmpfs as Shmem, and it is never
-freed. In the reports that's between 70MB and 150MB.
+> +
+>  static void virtio_transport_rx_work(struct work_struct *work)
+>  {
+> +	struct virtio_transport_rx_batch batch = {};
+>  	struct virtio_vsock *vsock =
+>  		container_of(work, struct virtio_vsock, rx_work);
+>  	struct virtqueue *vq;
+> @@ -666,6 +674,7 @@ static void virtio_transport_rx_work(struct work_struct *work)
+>  			/* Drop short/long packets */
+>  			if (unlikely(len < sizeof(*hdr) ||
+>  				     len > virtio_vsock_skb_len(skb))) {
+> +				virtio_transport_rx_batch_finish(&batch);
+>  				kfree_skb(skb);
+>  				continue;
+>  			}
+> @@ -673,6 +682,7 @@ static void virtio_transport_rx_work(struct work_struct *work)
+>  			hdr = virtio_vsock_hdr(skb);
+>  			payload_len = le32_to_cpu(hdr->len);
+>  			if (unlikely(payload_len > len - sizeof(*hdr))) {
+> +				virtio_transport_rx_batch_finish(&batch);
+>  				kfree_skb(skb);
+>  				continue;
+>  			}
+> @@ -680,16 +690,33 @@ static void virtio_transport_rx_work(struct work_struct *work)
+>  			if (payload_len)
+>  				virtio_vsock_skb_put(skb, payload_len);
+>  
+> +			if (batch.sk &&
+> +			    payload_len > VIRTIO_TRANSPORT_RX_BATCH_MAX_BYTES -
+> +					  batch.bytes) {
+> +				virtio_transport_rx_batch_finish(&batch);
+> +			}
+> +
+>  			virtio_transport_deliver_tap_pkt(skb);
+>  
+>  			/* Force virtio-transport into global mode since it
+>  			 * does not yet support local-mode namespacing.
+>  			 */
+> -			virtio_transport_recv_pkt(&virtio_transport, skb, NULL);
+> +			virtio_transport_recv_pkt_batch(&virtio_transport, skb, NULL,
+> +							&batch);
+> +
+> +			if (batch.sk) {
+> +				batch.pkts++;
+> +				batch.bytes += payload_len;
+> +				if (batch.pkts >= VIRTIO_TRANSPORT_RX_BATCH_MAX_PKTS ||
+> +				    batch.bytes >= VIRTIO_TRANSPORT_RX_BATCH_MAX_BYTES) {
+> +					virtio_transport_rx_batch_finish(&batch);
 
-The idle threads of the secondary cpus are created by fork_idle() from
-smp_init(). That runs in kernel_init(), i.e., in PID 1, after
-init_userspace_fs() moved PID 1 from nullfs into the initramfs.
-fork_idle() doesn't pass CLONE_FS so each idle thread gets a private
-copy of PID 1's fs_struct and with it a reference to the initramfs as
-root and as pwd.
+I'm not fundamentally opposed to the batch struct, but I wonder if its
+needed? If we can get rid of BATCH_MAX_BYTES, then we only need to do
+pkts++ in a local var, and can pass an &sk ptr-ptr to
+virtio_transport_recv_pkt_batch()?
 
-pivot_root() relies on chroot_fs_refs() to move everyone whose root or
-pwd is the old root over to the new root. Idle threads aren't on the
-task list though so chroot_fs_refs() never finds them. They never exit
-either. So they keep the initramfs mount and with it the superblock
-alive for good. I overlooked this when I added nullfs. Before that the
-rootfs could never be unmounted anyway so it didn't matter what pinned
-it.
+Best,
+Bobby
 
-Idle threads are kernel threads and init_task, the idle thread of the
-boot cpu, already uses init_fs. So let the idle threads of the other
-cpus share init_fs as well instead of copying PID 1's filesystem state.
-
-Note that kernels before 7.3 need a different backport. There PID 1
-still shares init_fs with all kthreads so passing CLONE_FS in
-fork_idle() is enough. They also have a second pin: devtmpfsd unshares
-a copy of the initial mount namespace, initramfs mount included. That
-was fixed in commit 66d2faeccbff ("devtmpfs: create private mount
-namespace").
-
-Reproducer, as /init in an initramfs together with a 128MB ballast
-file, booted with root=/dev/sda to get ramfs and with -smp 4:
-
-    // SPDX-License-Identifier: GPL-2.0
-    /* initramfs /init: switch root like systemd, check the old root */
-    #define _GNU_SOURCE
-    #include <fcntl.h>
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <string.h>
-    #include <sys/mount.h>
-    #include <sys/reboot.h>
-    #include <sys/sendfile.h>
-    #include <sys/stat.h>
-    #include <sys/syscall.h>
-    #include <sys/sysmacros.h>
-    #include <unistd.h>
-
-    static void meminfo(void)
-    {
-    	char line[256];
-    	FILE *f = fopen("/proc/meminfo", "re");
-
-    	while (f && fgets(line, sizeof(line), f))
-    		if (!strncmp(line, "Unevictable:", 12) ||
-    		    !strncmp(line, "Shmem:", 6))
-    			fputs(line, stdout);
-    	if (f)
-    		fclose(f);
-    }
-
-    int main(int argc, char *argv[])
-    {
-    	struct stat st;
-    	char dev[32], buf[32];
-    	unsigned int maj, min;
-    	int fd, in, out;
-    	long r;
-
-    	if (argc > 1) {
-    		sleep(2);
-    		meminfo();
-    		/* ustat() only finds live superblocks */
-    		r = syscall(SYS_ustat, (unsigned)atoi(argv[1]), buf);
-    		printf("initramfs superblock %s\n", r ? "freed" : "pinned");
-    		fflush(stdout);
-    		sleep(1);
-    		reboot(RB_POWER_OFF);
-    	}
-
-    	mount("proc", "/proc", "proc", 0, NULL);
-    	mount("devtmpfs", "/dev", "devtmpfs", 0, NULL);
-    	/* drop the fds console_on_rootfs() opened in the initramfs */
-    	fd = open("/dev/console", O_RDWR);
-    	dup2(fd, 0);
-    	dup2(fd, 1);
-    	dup2(fd, 2);
-    	close(fd);
-    	setvbuf(stdout, NULL, _IOLBF, 0);
-    	meminfo();
-
-    	stat("/", &st);
-    	maj = major(st.st_dev);
-    	min = minor(st.st_dev);
-    	/* new_encode_dev(), what ustat() expects */
-    	snprintf(dev, sizeof(dev), "%u",
-    		 (min & 0xff) | (maj << 8) | ((min & ~0xffu) << 12));
-
-    	mkdir("/sysroot", 0755);
-    	mount("tmpfs", "/sysroot", "tmpfs", 0, NULL);
-    	mkdir("/sysroot/proc", 0755);
-    	mkdir("/sysroot/dev", 0755);
-    	in = open("/init", O_RDONLY);
-    	out = open("/sysroot/init", O_WRONLY | O_CREAT, 0755);
-    	fstat(in, &st);
-    	sendfile(out, in, NULL, st.st_size);
-    	close(in);
-    	close(out);
-
-    	mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL);
-    	mount("/proc", "/sysroot/proc", NULL, MS_BIND | MS_REC, NULL);
-    	mount("/dev", "/sysroot/dev", NULL, MS_BIND | MS_REC, NULL);
-    	chdir("/sysroot");
-    	if (syscall(SYS_pivot_root, ".", ".") || umount2(".", MNT_DETACH))
-    		perror("pivot_root");
-    	execl("/init", "/init", dev, NULL);
-    	return 1;
-    }
-
-Before:
-
-    Unevictable:      131812 kB
-    Shmem:                 0 kB
-    Unevictable:      131812 kB
-    Shmem:               792 kB
-    initramfs superblock pinned
-
-After:
-
-    Unevictable:      131812 kB
-    Shmem:                 0 kB
-    Unevictable:           0 kB
-    Shmem:               792 kB
-    initramfs superblock freed
-
-With -smp 1 the superblock is freed without this patch as well.
-
-[1]: https://github.com/systemd/systemd/issues/43911
-
-Fixes: 576ee5dfd459 ("fs: add immutable rootfs")
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- kernel/fork.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 947136cdd115..33760ece3bb3 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -1621,6 +1621,7 @@ static int copy_exec_state(u64 clone_flags, struct task_struct *tsk)
- 
- enum copy_fs_flags_t {
- 	COPY_FS_UMH	= (1 << 0),
-+	COPY_FS_IDLE	= (1 << 1),
- };
- 
- static int copy_fs(u64 clone_flags, struct task_struct *tsk,
-@@ -1640,13 +1641,14 @@ static int copy_fs(u64 clone_flags, struct task_struct *tsk,
- 		if (current->nsproxy->mnt_ns != &init_mnt_ns)
- 			return -EINVAL;
- 		fs = userspace_init_fs;
-+	} else if (flags & COPY_FS_IDLE) {
-+		fs = &init_fs;
- 	} else {
- 		fs = current->fs;
- 		VFS_WARN_ON_ONCE(current->fs != current->real_fs);
- 	}
- 
- 	if (clone_flags & CLONE_FS) {
--		/* tsk->fs is already what we want */
- 		read_seqlock_excl(&fs->seq);
- 		/* "users" and "in_exec" locked for check_unsafe_exec() */
- 		if (fs->in_exec) {
-@@ -1655,6 +1657,7 @@ static int copy_fs(u64 clone_flags, struct task_struct *tsk,
- 		}
- 		fs->users++;
- 		read_sequnlock_excl(&fs->seq);
-+		tsk->real_fs = tsk->fs = fs;
- 		return 0;
- 	}
- 	tsk->real_fs = tsk->fs = copy_fs_struct(fs);
-@@ -2304,7 +2307,9 @@ __latent_entropy struct task_struct *copy_process(
- 	retval = copy_files(clone_flags, p, args->no_files);
- 	if (retval)
- 		goto bad_fork_cleanup_semundo;
--	retval = copy_fs(clone_flags, p, args->umh ? COPY_FS_UMH : 0);
-+	retval = copy_fs(clone_flags, p,
-+			 (args->umh ? COPY_FS_UMH : 0) |
-+			 (args->idle ? COPY_FS_IDLE : 0));
- 	if (retval)
- 		goto bad_fork_cleanup_files;
- 	retval = copy_sighand(clone_flags, p);
-@@ -2676,7 +2681,7 @@ struct task_struct * __init fork_idle(int cpu)
- {
- 	struct task_struct *task;
- 	struct kernel_clone_args args = {
--		.flags		= CLONE_VM,
-+		.flags		= CLONE_VM | CLONE_FS,
- 		.fn		= &idle_dummy,
- 		.fn_arg		= NULL,
- 		.kthread	= 1,
-
--- 
-2.53.0
-
+> +				}
+> +			}
+>  		}
+>  	} while (!virtqueue_enable_cb(vq));
+>  
+>  out:
+> +	virtio_transport_rx_batch_finish(&batch);
+>  	if (vsock->rx_buf_nr < vsock->rx_buf_max_nr / 2)
+>  		virtio_vsock_rx_fill(vsock);
+>  out_nofill:
+> diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
+> index e3e75e59896f..a73e37b3fa62 100644
+> --- a/net/vmw_vsock/virtio_transport_common.c
+> +++ b/net/vmw_vsock/virtio_transport_common.c
+> @@ -576,10 +576,16 @@ virtio_transport_collapse_rx_queue(struct virtio_vsock_sock *vvs,
+>  	skb_queue_splice(&new_queue, &vvs->rx_queue);
+>  }
+>  
+> +static bool
+> +virtio_transport_rx_skb_has_headroom(struct virtio_vsock_sock *vvs)
+> +{
+> +	return (u64)(skb_queue_len(&vvs->rx_queue) + 1) * SKB_TRUESIZE(0) <=
+> +		vvs->buf_alloc;
+> +}
+> +
+>  static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
+>  					u32 len)
+>  {
+> -	u64 skb_overhead = (skb_queue_len(&vvs->rx_queue) + 1) * SKB_TRUESIZE(0);
+>  
+>  	/* Allow at most buf_alloc * 2 total budget (payload + overhead),
+>  	 * similar to how SO_RCVBUF is doubled to reserve space for sk_buff
+> @@ -588,7 +594,7 @@ static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
+>  	 * queue growth.
+>  	 */
+>  	if ((u64)vvs->buf_used + len > vvs->buf_alloc ||
+> -	    skb_overhead > vvs->buf_alloc)
+> +	    !virtio_transport_rx_skb_has_headroom(vvs))
+>  		return false;
+>  
+>  	vvs->rx_bytes += len;
+> @@ -1834,10 +1840,28 @@ struct virtio_transport_rx_pkt_ctx {
+>  	struct net *net;
+>  	const struct sockaddr_vm *src;
+>  	const struct sockaddr_vm *dst;
+> +	bool *batchable;
+>  };
+>  
+> +static bool
+> +virtio_transport_recv_pkt_batchable(struct virtio_transport *t,
+> +				    struct sock *sk)
+> +{
+> +	struct vsock_sock *vsk = vsock_sk(sk);
+> +	struct virtio_vsock_sock *vvs = vsk->trans;
+> +
+> +	return sk->sk_state == TCP_ESTABLISHED &&
+> +	       sk->sk_type == SOCK_STREAM &&
+> +	       READ_ONCE(sk->sk_prot) == sk->sk_prot_creator &&
+> +	       !sock_flag(sk, SOCK_DONE) &&
+> +	       vsk->transport == &t->transport &&
+> +	       vvs && virtio_transport_rx_skb_has_headroom(vvs);
+> +}
+> +
+>  /*
+> - * The caller holds sk's socket lock and must free skb if this returns true.
+> + * The caller holds sk's socket lock.  Set @batchable if the socket can remain
+> + * locked for another ordinary STREAM/RW packet.  Return true if the caller
+> + * must free @skb.
+>   */
+>  static bool
+>  virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+> @@ -1850,6 +1874,9 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+>  	struct net *net = ctx->net;
+>  	bool space_available;
+>  
+> +	if (ctx->batchable)
+> +		*ctx->batchable = false;
+> +
+>  	/* Check after acquiring the socket lock. Listener sockets accept packets
+>  	 * from any source and are not assigned to a transport.
+>  	 */
+> @@ -1891,6 +1918,9 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+>  		break;
+>  	}
+>  
+> +	if (ctx->batchable)
+> +		*ctx->batchable = virtio_transport_recv_pkt_batchable(t, sk);
+> +
+>  	return false;
+>  }
+>  
+> @@ -1941,6 +1971,117 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
+>  }
+>  EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt);
+>  
+> +/*
+> + * Finish the RX batch.
+> + * For a non-empty batch, the caller must hold the socket lock acquired with
+> + * lock_sock(). This function releases the lock and the batch's lookup
+> + * reference.
+> + * An empty batch is a no-op.
+> + */
+> +void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch)
+> +{
+> +	struct sock *sk = batch->sk;
+> +
+> +	batch->sk = NULL;
+> +	batch->pkts = 0;
+> +	batch->bytes = 0;
+> +
+> +	if (!sk)
+> +		return;
+> +
+> +	release_sock(sk);
+> +	sock_put(sk);
+> +}
+> +EXPORT_SYMBOL_GPL(virtio_transport_rx_batch_finish);
+> +
+> +void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
+> +				     struct sk_buff *skb, struct net *net,
+> +				     struct virtio_transport_rx_batch *batch)
+> +{
+> +	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
+> +	struct virtio_transport_rx_pkt_ctx ctx;
+> +	struct sockaddr_vm src, dst;
+> +	bool batchable, start_batch;
+> +	struct sock *sk;
+> +	bool free_pkt;
+> +
+> +	/* Only STREAM/RW packets can share a socket lock. */
+> +	if (le16_to_cpu(hdr->type) != VIRTIO_VSOCK_TYPE_STREAM ||
+> +	    le16_to_cpu(hdr->op) != VIRTIO_VSOCK_OP_RW) {
+> +		virtio_transport_rx_batch_finish(batch);
+> +		virtio_transport_recv_pkt(t, skb, net);
+> +		return;
+> +	}
+> +
+> +	virtio_transport_recv_pkt_init_addrs(skb, &src, &dst);
+> +	virtio_transport_trace_recv_pkt(skb, &src, &dst);
+> +
+> +	sk = virtio_transport_recv_pkt_find_socket(skb, &src, &dst, net);
+> +	if (!sk) {
+> +		virtio_transport_rx_batch_finish(batch);
+> +		(void)virtio_transport_reset_no_sock(t, skb, net);
+> +		kfree_skb(skb);
+> +		return;
+> +	}
+> +
+> +	if (!skb_set_owner_sk_safe(skb, sk)) {
+> +		WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
+> +		virtio_transport_rx_batch_finish(batch);
+> +		kfree_skb(skb);
+> +		return;
+> +	}
+> +
+> +	if (batch->sk && batch->sk != sk) {
+> +		/* Never acquire a second socket lock. */
+> +		virtio_transport_rx_batch_finish(batch);
+> +	}
+> +
+> +	if (batch->sk == sk) {
+> +		/* Keep the batch reference; drop this packet's lookup reference. */
+> +		sock_put(sk);
+> +		ctx = (struct virtio_transport_rx_pkt_ctx) {
+> +			.net = net,
+> +			.src = &src,
+> +			.dst = &dst,
+> +			.batchable = &batchable,
+> +		};
+> +		free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, &ctx);
+> +		if (!batchable)
+> +			virtio_transport_rx_batch_finish(batch);
+> +		if (free_pkt)
+> +			kfree_skb(skb);
+> +		return;
+> +	}
+> +
+> +	lock_sock(sk);
+> +	/*
+> +	 * Sockmap removal restores the native protocol under sk_callback_lock.
+> +	 * Serialize this initial eligibility check with that update.
+> +	 */
+> +	read_lock_bh(&sk->sk_callback_lock);
+> +	start_batch = virtio_transport_recv_pkt_batchable(t, sk);
+> +	read_unlock_bh(&sk->sk_callback_lock);
+> +
+> +	ctx = (struct virtio_transport_rx_pkt_ctx) {
+> +		.net = net,
+> +		.src = &src,
+> +		.dst = &dst,
+> +		.batchable = start_batch ? &batchable : NULL,
+> +	};
+> +	free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, &ctx);
+> +	if (start_batch && batchable) {
+> +		/* Keep the lookup reference until the batch is released. */
+> +		batch->sk = sk;
+> +		return;
+> +	}
+> +
+> +	release_sock(sk);
+> +	sock_put(sk);
+> +	if (free_pkt)
+> +		kfree_skb(skb);
+> +}
+> +EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt_batch);
+> +
+>  /* Remove skbs found in a queue that have a vsk that matches.
+>   *
+>   * Each skb is freed.
+> -- 
+> 2.34.1
