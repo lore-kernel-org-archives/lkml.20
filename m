@@ -1,123 +1,111 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mta1.migadu.com (out-199.mta1.migadu.com [95.215.58.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE364C650F
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:36:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449734CC29C
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791830188; cv=none; b=kD1qTZE+HQbqet0io2rNg7WRvJsf5+4Bk1HTVHrAThcSbK2qLzMvmq736kht9VmmLwIayM3PorfvXOoreqHNFpsmfCNUTM4JPTv+ZOM82mK4J0yoV7vFIkaq79CuTSsUX9RCl+jVoYFUAEz/u3HoZHavY4PdRBEKpS+wx2dagcY=
+	t=1791830281; cv=none; b=klG99x11z3MUol4QPwjbxwtbMzsMUVGYyVNk+Ve7jv6hzhpgF6qHSNuvQiNrrTRZQijwj8XZ2pZgzOOcofZLLIAII12Qr+11HYD3U1c1325lV0orJJg1/mNybGWFDGG2y96UVXdkM7Lb/Ur/6GtEEKEvjRDJdpivnfwcVoIBls4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791830188; c=relaxed/simple;
-	bh=HRAEX0icmzNcSwNMcvS3r/mqfS55EjfSaWC9s89g4Aw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q0kncv+OocWeXv5e7MZkeiBKjIv/YXqIREDTPgyCJBPaLFWwqyBHSodnn6AsHSVI7qPFfi0RS9uxudp4rS5Q9khbsxMNgD/AoxsTjvlRAaXD7272gykcNupCaWGe2oswCHUvXa1mU8Mt7hbKtxN5Ds5a1LrxBVxtxPM6KhpkbjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=nlKv/x+C; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	s=arc-20240116; t=1791830281; c=relaxed/simple;
+	bh=PAJwNoyeV9qo8z7bFLcFxGpJsVQgzwLwwepP4CadQZ8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IC4RHlsZsE7jvgZIvIuBQYIaC6OPIiHHWoUKrdDSjuPQjnnCC8kbMR/OKmrD9eU2ShHns28rKQP7lr2KfB4Qnp+FAdWIHQAYb1TpvvIOg9RMEiXd7+dNa92oMjWc1v0wUQV770pMqOsTpM3pFo3cWigAt3DESUAyo/Ib9/qjY+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PlhnKckC; arc=none smtp.client-ip=95.215.58.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="nlKv/x+C"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d577so1696778a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:36:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1791830186; x=1792434986; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NNkP45hU717bcOi5CRDm9mafe1wW6i7kblo6Qb0SPug=;
-        b=nlKv/x+Cu5V+AuJ4npJrdNsyvCq7ENXW2keINz3KB8i6y7m0iGAgOKXEqQ8wPe6aFI
-         NsL2GtYsQvxyaXBbRxSiGmfgH/IPhWRLZestFZuFhKF1JXEmhy0A6Az+48tbb+OaoRRS
-         EB1KDVBYh1qLzyh9I1qHCOD+NmrsZCAF5BMak05z31GJFYXeDd07QP/UysYjvOK0dMMX
-         qcWdqJ+cQE1Br/KISdZ0dBwqVdG3nhUKh878RF7F2RA6t0KAUlaTiqQPU380KLyexYPP
-         8wxThHewelPeopQJmlqgEP80nykQcGDsAJLmu13WkCrYs7ZcHKQieIPYWbqiApLNIJGt
-         u/nA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791830186; x=1792434986;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NNkP45hU717bcOi5CRDm9mafe1wW6i7kblo6Qb0SPug=;
-        b=FwynBocy2elmOtz7BfeeRITJCfi/dTCq3REY4N36PhFsAGbLoJlWoOQdRMiKjZbQTT
-         gdeEskPqChKqeWB99deItelR2D6zbdtpWnhsj1TM06J6lk3n10iNNSQaYgljGfTcYvfp
-         RqG9dzwm6lO0Z/lBgKMuRHfLV0oq1jcGH2fOqSnjOLBNV8jhpAc4ajptZumqWvcBgqdO
-         MJZWr+SxdgYMzGGtQoGUFpLkyNkhJ6HKOAe8gYRKKwMqlvXxY3fjp/zFDglGjqiEyUaL
-         eV9etOkYXV1txafpv7OGLTZ7cXrkN4xjc+yyxVWNwN4Y6zv5sMnG1InCKGCNZVv/oc2y
-         cEMA==
-X-Forwarded-Encrypted: i=1; AKwUvBwQMQ3YGdYJfwBayDNzLYXpX3g1Oq/vn6pdz+zeEM6WfTxJCOxfjUwpu7pXybIJd2HklMCrhW518r9fzhk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKShmxPyXCGd4QTvCTkbkBOIbqD1T/bds5nJqJ7oIRHm4bhzsgG
-	dAo+fUStMFfY6+VmsiqzNXa3X1w48Ogm57z0gkpiMujCm5o6Hww6pi1EQCXmh1lNVwE=
-X-Gm-Gg: AYBFou3/C4qJWnawD3CPmSMfnX4+xdm+YBDPzfUthvwh61Fo8r/r1jErUiIyg7hNhKw
-	QDixKnFfbO87QP+8ddsvEpxF7Ybteup5PeHifZoo2lsT5ywaAitHx1kih+LmihBaUP4mISr5jAc
-	2XjjS0/XrOGEcsMYmPAI8NtAXHntbFmDp5MsQFA2Fw+z9IQery5GAynXjqyQFsBzptgHtoLltih
-	lz0GvrQl7Mb5JJbkd87LI194I7+d6mwCLU9QFi/PAyZiY1+skuGuys50TuKZ5DoYsGp/ObpDUP2
-	2m9zpRsobGWRvdX9SgixykNO7Jv1H++zV8C+8QZ3dscDr5Hbn6p89ezQT4ryDWEf72zAAQC50y6
-	x7xkOMpvEUUPqx+7EblyBZDsIAdapCof/Gk0O7fkVJilU100bHKwVfFq62azkrM8H2mrkKm/vvQ
-	cODiSC6pVYp4SK9AvlT3LjCpNStR4tOZfy70++i75a+SDLgjJFg3fplkFPZCMf/ZiQVID1JXYr4
-	JvR2siXM31S
-X-Received: by 2002:a17:90b:4b92:b0:3ab:36c4:b506 with SMTP id 98e67ed59e1d1-3ab3a3a1b41mr9754602a91.1.1791830186199;
-        Mon, 12 Oct 2026 11:36:26 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:44::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab396620e2sm10547325a91.3.2026.10.12.11.36.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 11:36:25 -0700 (PDT)
-Date: Mon, 12 Oct 2026 11:36:24 -0700
-From: Joe Damato <joe@dama.to>
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
-	Paolo Abeni <pabeni@redhat.com>,
-	Carolina Jubran <cjubran@nvidia.com>,
-	Cosmin Ratiu <cratiu@nvidia.com>, Gal Pressman <gal@nvidia.com>,
-	Jiri Pirko <jiri@resnulli.us>, Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org, open list <linux-kernel@vger.kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Simon Horman <horms@kernel.org>
-Subject: Re: [PATCH net] devlink: Fix accidental merge error in nested
- devlink docs
-Message-ID: <as0oqO44KD97Sa/I@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
-	Paolo Abeni <pabeni@redhat.com>,
-	Carolina Jubran <cjubran@nvidia.com>,
-	Cosmin Ratiu <cratiu@nvidia.com>, Gal Pressman <gal@nvidia.com>,
-	Jiri Pirko <jiri@resnulli.us>, Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org, open list <linux-kernel@vger.kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Simon Horman <horms@kernel.org>
-References: <20261011090739.746757-1-tariqt@nvidia.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PlhnKckC"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PAJwNoyeV9qo8z7bFLcFxGpJsVQgzwLwwepP4CadQZ8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791830277; v=1; x=1792435077;
+ b=PlhnKckC3xVjTIgA7jkgMz+6uNK++R8qduphQEm8UXYeMi4ik9yo1ND3wI8BnrHqEozKOJLf
+ 6GE73bBy+LDfY84oVf9Bg9tI/2AI5i8FNdSWKvf9k3i2GuHla8TpbsH6bd9BRcZ9yu+VoNTwVGw
+ ISwGGNwok5dqUXPrNAOVuAF8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 353fe57a3cd0ba8a;
+	Mon, 12 Oct 2026 18:37:56 +0000
+X-Mizu-Trace-ID: 353fe57a3cd0ba8a
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5ba429b64c5so10929e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:37:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwi72reXKK95gMV+ICIqa3ckBdRtdsIa+GfVhc9a39QePFsSCtrV2HqtIM+FIPQ1rMyDgJ3/t34IhJWHuM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKE0wddS5j2qVdanwzCIMtF6xI2ef3TyyzCGEO6m2AGYSDr7g/O
+	sqGSQNY+Jq5qFfwLWr5P58rxybfR7oWpW6TOBjwEx9OnYuiFTnZXKIXGDwzUH8d7oyYu0RzozYV
+	eEFotAZVES4B1SQvZGzrkK/cTmsoW2Y2EhhPe/l4x
+X-Received: by 2002:a05:6512:6204:b0:5bc:f1dd:f0ac with SMTP id
+ 2adb3069b0e04-5bcf1ddf0c7mr137133e87.1.1791830271913; Mon, 12 Oct 2026
+ 11:37:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011090739.746757-1-tariqt@nvidia.com>
+References: <20261012084743.2228612-1-fuad.tabba@linux.dev>
+ <8633ub2mlg.wl-maz@kernel.org> <CA+EHjTwyQPPVG4tGY0i0DRk=kwbdEmjca6+GNjLDXrGxkNbMOw@mail.gmail.com>
+ <86zewi23ga.wl-maz@kernel.org>
+In-Reply-To: <86zewi23ga.wl-maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Mon, 12 Oct 2026 19:37:15 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTy1zAoOH32hsf0cHZGP1C-=uVBSJS91QGZ3_-NkKJEKhw@mail.gmail.com>
+X-Gm-Features: AclHuK_918Jtmjw5j4JcpJhTo2ueYx7ntIhbD08RWsI09XibC9OrOgTwIR86Ta0
+Message-ID: <CA+EHjTy1zAoOH32hsf0cHZGP1C-=uVBSJS91QGZ3_-NkKJEKhw@mail.gmail.com>
+Subject: Re: [PATCH v1] KVM: arm64: vgic-v4: Don't forward an LPI with no
+ target vCPU
+To: Marc Zyngier <maz@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Oct 11, 2026 at 12:07:39PM +0300, Tariq Toukan wrote:
-> From: Cosmin Ratiu <cratiu@nvidia.com>
-> 
-> The referenced "Fixes" commit accidentally reverted a correction
-> introduced in commit [1].
-> Revert that mistake.
-> 
-> [1] commit e504cf18ef47 ("docs: net: fix minor issues with devlink
-> docs")
-> Fixes: 3bf4c5970ca8 ("devlink: Update nested instance locking comment")
-> Signed-off-by: Cosmin Ratiu <cratiu@nvidia.com>
-> Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
-> ---
->  Documentation/networking/devlink/index.rst | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+On Mon, 12 Oct 2026 at 19:12, Marc Zyngier <maz@kernel.org> wrote:
 >
+> On Mon, 12 Oct 2026 15:13:51 +0100,
+> Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> >
+> > Hi Marc,
+> >
+> > On Mon, 12 Oct 2026 12:18:51 +0100, Marc Zyngier <maz@kernel.org> wrote:
+> > [...]
+> > > Isn't the core problem that we don't correctly handle the UNPRED
+> > > double mapping of the same LPI? I'd rather we attack the issue at the
+> > > source instead of papering over the consequences.
+> > >
+> > > I hacked the following, which is obviously untested. Can you give it a
+> > > go?
+> >
+> > With your diff on rc3, the second MAPTI is dropped, and forwarding the
+> > vfio-pci MSI to its event leaves the host up.
+> >
+> > However, a vgic_irq outlives its ITE while the LPI is pending on a
+> > vCPU, so the check also drops a legitimate remap: a guest that
+> > DISCARDs a pending LPI and then maps it again loses the new mapping.
+>
+> But this is yet another bug: 5.3.4 is pretty clear that DISCARD should
+> get rid of everything (pending bit and mapping). I reckon this is yet
+> another case of the initial implementation being overly worried about
+> kicking vcpus out of the guest when destructive action is required.
+>
+> We should fix this.
 
-Reviewed-by: Joe Damato <joe@dama.to>
+I'll add a patch to v2 that makes DISCARD clear the pending state,
+kicking the vCPUs out of the guest first when the LPI is queued on
+one.
+
+Cheers,
+/fuad
+
+
+>
+> Thanks,
+>
+>         M.
+>
+> --
+> Without deviation from the norm, progress is not possible.
