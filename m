@@ -1,252 +1,601 @@
-Received: from outbound-ip173b.ess.barracuda.com (outbound-ip173b.ess.barracuda.com [209.222.82.107])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2054B66D3;
-	Mon, 12 Oct 2026 17:22:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=209.222.82.107
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791825776; cv=fail; b=sdAqCkUpd9UNJGM+vXlgy1aJIloc55SIXyRRIieir4m2f3MoKe0EZXAIj/l4Kz4KcQUbMmXMeCIBKbZHG5kpHgHBhI18kiAMsgvWYTgYLgNn5O/rV68nNbc7fTFdW6VWPh/KtDaZXmdWmUyTpk4/YqNnEB7gYHKvTNLDQqSccVI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791825776; c=relaxed/simple;
-	bh=ZA2oHCjYW8A5OUT6hnTePaDKzwafyLpXPbKzr/qCFak=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=F2u8mIeKf4hTIdcP6lytgn9jInAbciw6mSSEfmYSV+mrJm7/+jI6qwVoepW0xlaW4QEC+gOt8CDtpTw0Pb/gZILXZo10QKc+W8VkE+2j9CYiMHbNXjkLSTygRWEMG1GO6aZ9s7+BM9bxnRmRh1XigpPmdUnScFgWLGlt9qx1vHI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opengear.com; spf=pass smtp.mailfrom=digi.com; dkim=pass (2048-bit key) header.d=opengear.com header.i=@opengear.com header.b=Zv5lkPrQ; arc=fail smtp.client-ip=209.222.82.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opengear.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2BF848EBC5
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:23:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791825784; cv=none; b=isOaJQ423J8/7vJiprtvkAfWbvufmSer7LZFA6FBCMGniHRaAmly4m/KPQ8gWTlWdFrHoGuZH8+Ibn/+dz9CmOcwvczcbC9zDr0SOw8TkPdoudH0EGG5RRZLjpXH5pLRsmkpai2m9ZDcRN9rxTdGrcYOIGKr/44WE1Pk/UEcNtM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791825784; c=relaxed/simple;
+	bh=PDGs25Hsr6HCPivktzfFx0hAaABH+aw13xLQZPlzjSE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GPMK3soLMyWhuNI1hhiRbhVeZi5LV1sf6wVz0Mk/MucyBD07/bYxKM90U+nc0xOI6lYHHnAvApQGxXzUbL77QQvzckUvkiIj9qmxUMf+rmKw0HvfvPuHniMqyxVgikiWIzh7iRvypRyiHm8vWub05ZMpeVbFqcFQYXC2amFpDKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NrCSV9WO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=opengear.com header.i=@opengear.com header.b="Zv5lkPrQ"
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11021103.outbound.protection.outlook.com [52.101.52.103]) by mx-outbound43-229.us-east-2c.ess.aws.cudaops.com (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO); Mon, 12 Oct 2026 17:22:28 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VSRSPEO7aTzV1SDEKunon6xy6HhsBagN9Sg3mG+Hz1Gj5RG8zd7VNmWrQQ0DThIMurB6aR1be+IBdSmztFsC3A5Fbsk03S1af/SFEnfZPj/m54vaL0OKkhW9KefVQQC6Tn1rCEZDZlEn4GGYH0dCEiIR12eafcqFyDOtiIqLyJ3xxAxC4BPTPRZ1fPdbPhyy/FQsQwLSoX00axJsT3/IfSRwCQmlUN41mSBGk0VT/igFKYmavZkjmn6+AboJGrNJ0mVIPA/22lpyyaNPzcgaYxiOyPwT7eEwyvLFo4YHfWTfNu2dL0SQToPsLa3l4emocV6ZWYVHKrYSWa36yP/55Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rVdsIXROl0+mcizOQxhmtDK4sfWJW1u73xXveSoDzLI=;
- b=gPuIVlyqJKG6sk95FQqI8v0tuVNJCmuEDFEF4QB6XjXKX7EHbl8KpQyvQWEEcA/BocAjud64sVtXXaMIUJ1GRFhhY3uCIa0P5cQeCcAdFBS7I85ao+fAf9B/Aara24zRgWRnK329dbFpqW7mSFN51e0XZCFkDAbL6oMwF+w3Lf45t2AtK2WLKTctw3FplWsfw50q5PQKKkWNz2iiUDWR5gwWrTrOakCLzk7M9/czr1Wv6GOBhn3tZTW2iKahOcGKpWlAA5KXzctLnujLBgqni0Tmzy6lOuNaXBQXwl+4+KoZCPoLcH1m2D9VFENBvFItNvzWAhQgRX+daVAXXZx1dQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=digi.com; dmarc=pass action=none header.from=opengear.com;
- dkim=pass header.d=opengear.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opengear.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rVdsIXROl0+mcizOQxhmtDK4sfWJW1u73xXveSoDzLI=;
- b=Zv5lkPrQ4yqyB1aIcb/ON+hA/mMFY8SXM9+DyzucL9YJI3gs2WEua8wyDg+ljz4v7ehF9fSNMFWJ3SeZ28srgD24p2azgp0ZSMKazAZXyq7n5lg6YBidEBI0LBCaLZ148wAN4pcjkET433WUDTuJHfjHwciwHRBuqKBIZTG+632qB9CxD51M9cveImOkwVf6HmwkZ81FaRJP7PzN/Bpgrt3JPCflsfOuArw1DspzSYgDgyY2lAA8TzH5gXbQupH4HccAV99GkxkzWazrwcItFV9r4JCh2WLUulqKamJF+cBv1ymJNfi+gTkvG8mAiHucJ+DdEfRCMMhXAtKgR8u61g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=opengear.com;
-Received: from MWHPR1001MB2095.namprd10.prod.outlook.com
- (2603:10b6:301:32::34) by SJ0PR10MB5669.namprd10.prod.outlook.com
- (2603:10b6:a03:3ec::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.8; Mon, 12 Oct
- 2026 17:22:25 +0000
-Received: from MWHPR1001MB2095.namprd10.prod.outlook.com
- ([fe80::3933:62ac:2729:f017]) by MWHPR1001MB2095.namprd10.prod.outlook.com
- ([fe80::3933:62ac:2729:f017%7]) with mapi id 15.21.0522.006; Mon, 12 Oct 2026
- 17:22:24 +0000
-From: Peter Hunt <peter.hunt@opengear.com>
-To: loic.poulain@oss.qualcomm.com,
-	ryazanov.s.a@gmail.com
-Cc: Daniele Palmas <dnlplm@gmail.com>,
-	johannes@sipsolutions.net,
-	mani@kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Peter Hunt <peter.hunt@opengear.com>
-Subject: [PATCH net-next v9 0/2] net: wwan: support DTR/RTS on AT ports via MHI IP_CTRL
-Date: Mon, 12 Oct 2026 11:22:17 -0600
-Message-ID: <20261012172219.3668624-1-peter.hunt@opengear.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR13CA0180.namprd13.prod.outlook.com
- (2603:10b6:a03:2c7::35) To MWHPR1001MB2095.namprd10.prod.outlook.com
- (2603:10b6:301:32::34)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NrCSV9WO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A4B91F0089E
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:23:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791825782;
+	bh=PJ4CFOHkZbKA9IYDiDbBByEIZ0zY0DCaaC9XalGbQxo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NrCSV9WO4OgMQGGtyyQhNtOh7Rctz5eng8UjzW+GH9RrVJsAVqRXPPb4qGipg6WoS
+	 3njsyl6TRZBDS6XRHhB53bSbQ/P3KlwZUKa8CshXugr96LqHHLg+CSLg+T0z6fwxx3
+	 1jh/qK8zl/9fYgC1ZMUEEW3Jj4bh3tTlTQviOUjh6KpS6KuGpuAg0ZPs7mgVP0VIju
+	 bla2egwrdvaYO4ddyGuAp+Woe/IlaImPNjXyRaCgmkRPGbujHmEUUoDsLSwWcUUkUv
+	 mNcN0l6Ab3WDiXu0V2NR5AQeVw3taCOPYDAiONktLpCzlZBDE12olbRwGDTo1qhCOl
+	 zaqrnFpbs2b4A==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5ba3b1199f6so1732672e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:23:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwwdyM2i4kBRJwPfGhHv0mC4NniC4WbzpKJWZob5JgqHCprwuSlgYZy5866Z12h1f4orZslu8tvdvnH/d8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJet8f08sJzjx1EG2ROquY80E9rpKmy60wajJvVnXqn+6YIvxtb
+	+Ek3+CPevdcMvv2tvzk45yv66vvVjWfcsU755peVU926J2M8pRZPSBEE8fMqx5EDG2mJJkborKt
+	nPleASwAemtIO9AqJKW61iPNiSLJNeEE=
+X-Received: by 2002:a05:6512:3dab:b0:5bb:7aca:4cad with SMTP id
+ 2adb3069b0e04-5bcde357b84mr3896777e87.2.1791825780433; Mon, 12 Oct 2026
+ 10:23:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWHPR1001MB2095:EE_|SJ0PR10MB5669:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6dc36ca6-8f6a-40f2-113c-08df288561c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|1800799024|366016|376014|6133799003|10067099003|18002099003|3023799007|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	6fg7f6SPVz726MluAkc2yrsxyBHJqVK8WG84s0bq8AqixBBr9axmW2NXEo/QeoXr0bpH0n8FqhAjcA5xW+Br4Cbr3D+2wtwArGV/DRrbNahyVaquImCDW+sKDDgTFN7IkjgTbG1hcmpa62fgIiK/uu6qKeZjRkuMHKaQmULrZMNP5UzaIq6C5D8juFA3pOWWM9F75Hy8ov8OoZeYLxuXa5Eex5YhAK/5IES0ifsWDsj+Z0wC6NXbG2HG5RP+F/WGQorkdiKQiUrZ5JneNiuxCBBJpDASkxjWClgqSEQKH+N4aygtdSpN1o8wTTWxAJBjcxFPvtnB3Xy/UMtw3Nb3ppK6Kyev5Ylw+38JyIC3TKZ7EICOSWsoX/EfNycgWI5zm3/pI7X4dSvyY8Df69u3/EliHhpf2gIvQxw3GKA6bt68yZ2mEWeqi3+TXFKyET9jkdKjEqLJ+qLiuf0VGrdounl3rFvk00GTIieYoFjjDUNxFDSp03IFY7zWviOGg4YeIClwbsjW7aq6XwQK+k8vpI8HRRgY0MKkxw8gx2o7PWiVnz2qwFzjW2WwAzpTTDQqxAOzDar5ZZCYTY8Jr3w4fx1bM3cvB7SMMLLImGST8/lE7ApTP3yM3x38JD73JWgefuJAP5F05xlRnH6+kWys15QX2akqZZ+kOrPwP+qRd3U=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR1001MB2095.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(366016)(376014)(6133799003)(10067099003)(18002099003)(3023799007)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?6SteN13up2XYme29Ep9ye/ZSG/rBiD2ZLdr9A2EW3VieH7w211TTNyTRb7CE?=
- =?us-ascii?Q?iyIN1IMGToj6PEL0+MS7vrs5V0SEuk+Z53RoHzkr0snqNHg6+5VH5/rcqeXQ?=
- =?us-ascii?Q?Us5SKpKJyMoP85vFPz91KrEmuPJxBo63kfx3Ao5rh/ezE9yhfdf4Rl045Lsi?=
- =?us-ascii?Q?P76a+5clweNscUY2R3tFfNGIkPqavvL8c9ycnPwrrQqo5lc97AJVs6WeHP9h?=
- =?us-ascii?Q?RmpzGMq21Dn5Yiv5whTOsKRe8BDUNiRCgxOF6EdHD5v4+aPXUE5o3Sr4FF/E?=
- =?us-ascii?Q?LndeAzwR6v0qFQotnc2y+xVxlQ1T9hmq6VwQTfR3HOExkOdfwj6IgwLINBkZ?=
- =?us-ascii?Q?d+mE4DoJcDsnjrYT7jWBKoXLFyovTgfaKP/nXC+1/hAxQxxKWxgKOIj78VJe?=
- =?us-ascii?Q?WvsyLEmiAq9syRAB3WD0kdFuDfxm553OUGqg9jDuKP7TSCVc949Hk5nb7g43?=
- =?us-ascii?Q?px8VpcF05QR17qBiZEc3RwatwNadO9IkGY8od/LRYHkEzGMu5HSYiJ7hFV3l?=
- =?us-ascii?Q?Xj8zAbcA3dhGuZFSoJq6xkglAZvT4fosYpLuVp1xrZfKh0cavjhns3zMUC4r?=
- =?us-ascii?Q?uXPDtZ5Z4ZNaNNALJSUOGjL66HoYKcNn1THMCpQ4FwGzTzLoNxwPL8NYRgwZ?=
- =?us-ascii?Q?c3nG6QSNTpdc1Knd9Mg9jbOlaRIgh8x1eQ2QiSXvJ2uGMH/9f1Wqwwx459c+?=
- =?us-ascii?Q?4kpqbPDA9xfsRniMaqNIz3fCAk1+hMNPQFiOGXCXANQBXefYamncAhZ+z9U0?=
- =?us-ascii?Q?JbN8n8aVjC0BayLv3LjCS3BwVKOVk09HtSO8tfoKwn7WjRKUHoQspsimJFlK?=
- =?us-ascii?Q?Z+D6hnt8PbsaTou6bduXuzV4lh7nBf+vG8278au9fkCcn305WwRS7Z6RQF7m?=
- =?us-ascii?Q?tPsjNXXNbLVet8b8JbL+jWDCF1GU98s1Il6d21X5xtOhaI0h7yYJxTjwxEuP?=
- =?us-ascii?Q?UYkib2ekRjTMMZcUGw0EgjsMVATNDxi/7qOsOgQySuAS89cQ9ruxBvwvL2G7?=
- =?us-ascii?Q?nu3L9W9sfVL52KP0D8s7oOePD46Xjw1UF7rARGLtedkeZBxqjpdUx+XxIhAL?=
- =?us-ascii?Q?GeIZH6n0w7+Z9UlYK+ulM5vUMbuntJYgxdC3tKPQ+3QsvckWIhXH65BHTmSZ?=
- =?us-ascii?Q?ZHAdtgUBLnGS5z9eDaJvvx6Ew3CPsCs5zpl4gEPRkSZtl5C48mg7dskETOpn?=
- =?us-ascii?Q?Q9dv/I6m+M7WBAP7WiEZz/XbsYqqy/OCGOMU3Ojk+Ow+jbOx9+/7/SCpf1MS?=
- =?us-ascii?Q?t1rpKS7QIsE3tGTGoVece1tmf/PJKHOwd0JuG0YJCYkt9ZOg7KWn4v3/gzXz?=
- =?us-ascii?Q?fu8+UHwhATcviRK82LIDtkN+9G0B8dWq6N97Z+nt/agsmOuuP3lVLyn4hHzW?=
- =?us-ascii?Q?+dBKLtoJ4pyxevnCCbCyyk8SHw+KWuho+Im570u3kljpza7fZlAOlCVLHoJY?=
- =?us-ascii?Q?+UsGlBLgBUzhxPgqiqvJcMdPRNWPs7G9PkEpoDkN+LghNlDNmEbvSyNRm9C2?=
- =?us-ascii?Q?Yl1nBkGbwdS0dbdBdVUuRHX69FMVOqAJuF2uSd1/SIJR9YZH9MgP0rNPA6C5?=
- =?us-ascii?Q?BDjf5Jkl6vvUe1lD4Dm2FBFRfez5Mi+uiB8EWHPzPIQL5L7JsLpAYJIxUbws?=
- =?us-ascii?Q?KPsuWY6PxlvLYv54ycrue2Gw6o6B1mfcgU5fHOOxWYqI7xbjJ0UXViVV5dSU?=
- =?us-ascii?Q?pBO0EbwKWxpOAAV1L0FBsW6rIvph6LIZ15EfYFPH6rDAkRtJ?=
-X-Exchange-RoutingPolicyChecked:
-	Y/VSsyXmy1XRwNJxqn6LupY8xxnoAZySvMM7ymbwW5xQaV11FxcBvLa0NW1B46d2ysAQDSU2XJZ/zV7mknl0B7Qt8iEWJWKhWbCscCngK2Tdir9XHN3F5xRwmiyUwBmBzdVw2ZkKGoHHWniRuIT+sVCAEh0bLwsLf6/IvzSPbF2F7zuPcqnJa8u40xH4SsMJCvrrUISK5IeNgJ3pZHgKGKittbQmmOEyPjeh7HGnQi48JOdmeCf2BW5/1UZ76Csu1QuoL/VqkZx+dHydrYDhTLe9hSEedbsj+6B87Nk45vI21ufMMY4boIJ40njTFMI1gYWq0vItm+YXLcN5r6edhA==
-X-OriginatorOrg: opengear.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6dc36ca6-8f6a-40f2-113c-08df288561c6
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2095.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 17:22:24.7233
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: abb4cdb7-1b7e-483e-a143-7ebfd1184b9e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +/DljfPR5QYg389GGGrRn1vw7ZVNmkSZmeI+2uh20IdDl7Y0xcQoAZJBmy3Oz1xC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB5669
-X-BESS-ID: 1791825748-111237-9769-6683-1
-X-BESS-VER: 2019.1_20260924.1519
-X-BESS-Apparent-Source-IP: 52.101.52.103
-X-BESS-Parts: H4sIAAAAAAACA4uuVkqtKFGyUioBkjpK+cVKVqZmloZAVgZQ0MQkKcUwxTTRwt
-	DQ2DLRxMzCKM3E2CjN2Cw11cTMOMVCqTYWAN7h901BAAAA
-X-BESS-Outbound-Spam-Score: 0.40
-X-BESS-Outbound-Spam-Report: Code version 3.2, rules version 3.2.2.276792 [from 
-	cloudscan20-1.us-east-2b.ess.aws.cudaops.com]
-	Rule breakdown below
-	 pts rule name              description
-	---- ---------------------- --------------------------------
-	0.00 BSF_BESS_OUTBOUND      META: BESS Outbound 
-	0.40 BSF_SC0_SA085b         META: Custom Rule SA085b 
-X-BESS-Outbound-Spam-Status: SCORE=0.40 using account:ESS112744 scores of KILL_LEVEL=7.0 tests=BSF_BESS_OUTBOUND, BSF_SC0_SA085b
-X-BESS-BRTS-Status:1
+References: <20260930222650.1883805-1-jordan@brough.org> <20260930222650.1883805-3-jordan@brough.org>
+In-Reply-To: <20260930222650.1883805-3-jordan@brough.org>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 12 Oct 2026 19:20:56 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0i1o5OMkUahpN5Yf41LSvqA6o_g4FRk1USyPb++g6pCpw@mail.gmail.com>
+X-Gm-Features: AclHuK-V81zLdd0M7IniCEuYNe513tR8kDiRj5tnnAMHciZBx6t0kFpuiN5L_IY
+Message-ID: <CAJZ5v0i1o5OMkUahpN5Yf41LSvqA6o_g4FRk1USyPb++g6pCpw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/3] ACPI: battery: add unified battery hook mechanism
+ for ACPI and SBS batteries
+To: Jordan Brough <jordan@brough.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
+	linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Qualcomm/Sierra SDX55/SDX65 modems (e.g. EM9291) withhold unsolicited AT
-result codes until the host asserts DTR. The in-tree mhi_wwan_ctrl driver
-exposes AT ports but never signals DTR, so URCs never reach userspace.
+On Thu, Oct 1, 2026 at 12:27=E2=80=AFAM Jordan Brough <jordan@brough.org> w=
+rote:
+>
+> The battery hook API only works with ACPI Control Method batteries
+> (battery.c). Machines with a Smart Battery System battery (sbs.c) have no
+> equivalent, so drivers cannot attach extra power_supply properties to the=
+m.
+>
+> Move the hook list and registration code out of battery.c into a new
+> battery_hooks.c that both battery.c and sbs.c use, through
+> acpi_battery_add_hooks() and acpi_battery_remove_hooks(), which are
+> exported in the ACPI_BATTERY_HOOKS namespace. The exported hook functions
+> are unchanged.
+>
+> The new file is built only when ACPI_BATTERY or ACPI_SBS is, through a
+> hidden ACPI_BATTERY_HOOKS symbol that they select. Since the hook lists
+> now live there, registered hooks stay registered when battery.ko or
+> sbs.ko is reloaded, and battery_hook_exit() is no longer needed.
+>
+> Suggested-by: Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
+> Signed-off-by: Jordan Brough <jordan@brough.org>
 
-Patch 1 extends the wwan core with an optional ->dtr_rts(port, mdmbits)
-port op. The TIOCM bitmask state is tracked in the wwan core, which raises
-DTR/RTS on first open of an AT port whose driver implements ->dtr_rts,
-drops them on last close (if HUPCL is set, which is the default for AT
-ports) and on port removal, and passes the resolved bitmask to the
-driver on TIOCMSET/TIOCMBIC/TIOCMBIS.
+I can apply this along with the [1/3], but the last patch will need to
+go through the hwmon tree.  Also please note that Sashiko is
+complaining about that patch:
 
-Patch 2 adds a second mhi_driver to mhi_wwan_ctrl that binds the IP_CTRL
-channel and implements ->dtr_rts by sending the host serial state to the
-modem over that channel. The existing AT/QMI/MBIM data path is untouched.
+https://sashiko.dev/#/patchset/20260930222650.1883805-1-jordan%40brough.org
 
-This is a two-patch series. The pci_generic patch from v5 that
-enumerates the IP_CTRL channel for the Sierra EM919x/EM929x has been
-applied to mhi-next by Mani as commit 83c29a55b89e ("bus: mhi: host:
-pci_generic: Add IP_CTRL channel for Sierra EM919x/EM929x"). There is no
-build dependency between the two, without that commit the IP_CTRL driver
-simply never binds and ->dtr_rts is a no-op.
+My suggestion would be to let the first two patches in the series go
+into 7.4 and do the last one properly later.
 
-Note on the ->dtr_rts signature (Loic):
+Please let me know what you think.
 
-In v3 I replaced ->tiocmget/->tiocmset with ->dtr_rts(port, bool on)
-modelled on tty_port_operations, and moved the TIOCM handling into the
-wwan core, as you suggested on v2. Review of v3 and v4 then pointed out
-that a single bool cannot represent the two lines independently. With
-TIOCMBIC/TIOCMBIS on one line while the other is in the opposite state,
-the line state sent to the modem no longer matches what TIOCMGET reports
-(e.g. RTS re-asserted after TIOCMBIC(TIOCM_RTS)).
-
-Since v5 the op keeps the dtr_rts name and the core still owns all TIOCM
-handling, but it is passed the resolved TIOCM bitmask instead of a bool,
-so the driver can drive DTR and RTS independently. I kept the dtr_rts
-name deliberately, following your v2 preference over ->tiocmset, even
-though the signature now differs from tty_port_operations.dtr_rts. The
-open/close paths still behave as tty_port dtr_rts does. Is this
-acceptable to you, or would you prefer a different shape, for example a
-bool ->dtr_rts for open/close plus a separate op for the ioctl path?
-
-Changes in v9:
-- Patch 1: drop data_lock, so the termios/TIOCM state and ->dtr_rts
-  calls are all serialised by ops_lock, which the AT/QCDM ioctl handler
-  now takes interruptibly (Loic Poulain)
-- Patch 1: raise DTR/RTS inside the existing first-open branch of
-  wwan_port_op_start() (Loic Poulain)
-- Patch 1: mask TIOCMSET/TIOCMBIS/TIOCMBIC to the output bits, only call
-  ->dtr_rts when DTR or RTS changes, and commit TCSETS/TCSETS2 only on a
-  successful copy (Sashiko review of v7)
-- Patch 2: requeue the IP_CTRL DL sink buffer only from the refill work,
-  and disable it with disable_delayed_work_sync() before
-  mhi_unprepare_from_transfer() in remove() (Loic Poulain, Sashiko
-  review of v7 and v8)
-- Patch 2: leave unpreparing to mhi_probe() when probe fails, and name
-  the wwan core commit in the commit message (Sashiko review of v7)
-- DTR/RTS stays limited to AT ports, as agreed with Loic and Daniele,
-  and the ->dtr_rts kernel-doc now says why
-
-Changes in v8 (Loic Poulain's review of v7, no functional change):
-- Patch 1: add wwan_port_raise_dtr_rts() as the counterpart of
-  wwan_port_drop_dtr_rts() and move the open-path handling into it
-- Patch 1: do the AT port and ->dtr_rts checks inside both helpers
-- Patch 1: use scoped_guard() for data_lock in the helpers
-
-Changes in v7 (all from the Sashiko review of v6):
-- Patch 1: drop DTR/RTS on last close only if HUPCL is set, as a TTY
-  does, and default HUPCL on for AT ports so close behaviour is
-  unchanged unless userspace clears it with TCSETS
-- Patch 1: wwan_remove_port() passes the masked mdmbits rather than 0,
-  via a helper shared with the close path
-- Patch 2: retry a failed DL sink buffer requeue from a delayed work
-  item on -ENOMEM, and log other failures
-- Patch 2: note in the commit message that the IP_CTRL channel entry
-  for the EM919x/EM929x is 83c29a55b89e in the MHI tree
-
-Changes in v6:
-- Rebased onto net-next, dropped the pci_generic patch (now in mhi-next)
-- Patch 1: snapshot mdmbits under data_lock before calling ->dtr_rts from
-  the open/close paths
-- Patch 2: allocate the IP_CTRL DL sink buffer separately instead of
-  embedding it in struct mhi_wwan_dtr (DMA safety on non-coherent
-  platforms), and do not requeue it when the DL transfer completes with an
-  error such as -ENOTCONN during channel teardown
-
-v8: https://lore.kernel.org/netdev/20261007182238.1154851-1-peter.hunt@opengear.com/
-v7: https://lore.kernel.org/netdev/20261006040422.3208888-1-peter.hunt@opengear.com/
-v6: https://lore.kernel.org/netdev/20261001204614.3481089-1-peter.hunt@opengear.com/
-v5: https://lore.kernel.org/netdev/20260819224927.2274790-1-peter.hunt@opengear.com/
-v4: https://lore.kernel.org/netdev/20260816121705.858013-1-peter.hunt@opengear.com/
-v3: https://lore.kernel.org/netdev/20260807215042.2714442-1-peter.hunt@opengear.com/
-v2: https://lore.kernel.org/netdev/20260806155253.3378294-1-peter.hunt@opengear.com/
-v1: https://lore.kernel.org/netdev/20260804233411.1953445-1-peter.hunt@opengear.com/
-
-Peter Hunt (2):
-  net: wwan: core: propagate modem control signals to port drivers
-  net: wwan: mhi_wwan_ctrl: drive DTR/RTS via the IP_CTRL channel
-
- drivers/net/wwan/mhi_wwan_ctrl.c | 233 ++++++++++++++++++++++++++++++-
- drivers/net/wwan/wwan_core.c     |  96 ++++++++++---
- include/linux/wwan.h             |   8 ++
- 3 files changed, 319 insertions(+), 18 deletions(-)
-
--- 
-2.43.0
-
+> ---
+>  drivers/acpi/Kconfig         |   5 ++
+>  drivers/acpi/Makefile        |   1 +
+>  drivers/acpi/battery.c       | 166 +----------------------------------
+>  drivers/acpi/battery_hooks.c | 159 +++++++++++++++++++++++++++++++++
+>  drivers/acpi/sbs.c           |   8 +-
+>  include/acpi/battery.h       |   9 ++
+>  6 files changed, 185 insertions(+), 163 deletions(-)
+>  create mode 100644 drivers/acpi/battery_hooks.c
+>
+> diff --git a/drivers/acpi/Kconfig b/drivers/acpi/Kconfig
+> index f165d14cf61a..d0278f13e96f 100644
+> --- a/drivers/acpi/Kconfig
+> +++ b/drivers/acpi/Kconfig
+> @@ -171,8 +171,12 @@ config ACPI_AC
+>           To compile this driver as a module, choose M here:
+>           the module will be called ac.
+>
+> +config ACPI_BATTERY_HOOKS
+> +       tristate
+> +
+>  config ACPI_BATTERY
+>         tristate "Battery"
+> +       select ACPI_BATTERY_HOOKS
+>         select POWER_SUPPLY
+>         default y
+>         help
+> @@ -445,6 +449,7 @@ config ACPI_HOTPLUG_IOAPIC
+>  config ACPI_SBS
+>         tristate "Smart Battery System"
+>         depends on X86 && ACPI_EC
+> +       select ACPI_BATTERY_HOOKS
+>         select POWER_SUPPLY
+>         help
+>           This driver supports the Smart Battery System, another
+> diff --git a/drivers/acpi/Makefile b/drivers/acpi/Makefile
+> index d1b0affb844f..eb744dc81d3f 100644
+> --- a/drivers/acpi/Makefile
+> +++ b/drivers/acpi/Makefile
+> @@ -97,6 +97,7 @@ obj-$(CONFIG_ACPI_NHLT)               +=3D nhlt.o
+>  obj-$(CONFIG_ACPI_NUMA)                +=3D numa/
+>  obj-$(CONFIG_ACPI)             +=3D acpi_memhotplug.o
+>  obj-$(CONFIG_ACPI_HOTPLUG_IOAPIC) +=3D ioapic.o
+> +obj-$(CONFIG_ACPI_BATTERY_HOOKS)       +=3D battery_hooks.o
+>  obj-$(CONFIG_ACPI_BATTERY)     +=3D battery.o
+>  obj-$(CONFIG_ACPI_SBS)         +=3D sbshc.o
+>  obj-$(CONFIG_ACPI_SBS)         +=3D sbs.o
+> diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
+> index 306bb2088ca6..0d74f998eae6 100644
+> --- a/drivers/acpi/battery.c
+> +++ b/drivers/acpi/battery.c
+> @@ -54,6 +54,7 @@ MODULE_AUTHOR("Paul Diefenbaugh");
+>  MODULE_AUTHOR("Alexey Starikovskiy <astarikovskiy@suse.de>");
+>  MODULE_DESCRIPTION("ACPI Battery Driver");
+>  MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("ACPI_BATTERY_HOOKS");
+>
+>  static int battery_bix_broken_package;
+>  static int battery_notification_delay_ms;
+> @@ -105,7 +106,7 @@ struct acpi_battery {
+>         struct kfifo acpi_notif_fifo;
+>         struct delayed_work acpi_notif_dwork;
+>         struct notifier_block pm_nb;
+> -       struct list_head list;
+> +       struct acpi_battery_hooks_list_entry hooks_list_entry;
+>         unsigned long flags;
+>
+>         struct mutex property_lock; /* Protects properties below. */
+> @@ -808,164 +809,6 @@ static struct attribute *acpi_battery_attrs[] =3D {
+>  };
+>  ATTRIBUTE_GROUPS(acpi_battery);
+>
+> -/*
+> - * The Battery Hooking API
+> - *
+> - * This API is used inside other drivers that need to expose
+> - * platform-specific behaviour within the generic driver in a
+> - * generic way.
+> - *
+> - */
+> -
+> -static LIST_HEAD(acpi_battery_list);
+> -static LIST_HEAD(battery_hook_list);
+> -static DEFINE_MUTEX(hook_mutex);
+> -
+> -static void acpi_battery_hook_unregister_unlocked(struct acpi_battery_ho=
+ok *hook)
+> -{
+> -       struct acpi_battery *battery;
+> -
+> -       /*
+> -        * In order to remove a hook, we first need to
+> -        * de-register all the batteries that are registered.
+> -        */
+> -       list_for_each_entry(battery, &acpi_battery_list, list) {
+> -               if (!hook->remove_battery(battery->bat, hook))
+> -                       power_supply_changed(battery->bat);
+> -       }
+> -       list_del_init(&hook->list);
+> -
+> -       pr_info("hook unregistered: %s\n", hook->name);
+> -}
+> -
+> -void acpi_battery_hook_unregister(struct acpi_battery_hook *hook)
+> -{
+> -       mutex_lock(&hook_mutex);
+> -       /*
+> -        * Ignore already unregistered battery hooks. This might happen
+> -        * if a battery hook was previously unloaded due to an error when
+> -        * adding a new battery.
+> -        */
+> -       if (!list_empty(&hook->list))
+> -               acpi_battery_hook_unregister_unlocked(hook);
+> -
+> -       mutex_unlock(&hook_mutex);
+> -}
+> -EXPORT_SYMBOL_GPL(acpi_battery_hook_unregister);
+> -
+> -void acpi_battery_hook_register(struct acpi_battery_hook *hook)
+> -{
+> -       struct acpi_battery *battery;
+> -
+> -       mutex_lock(&hook_mutex);
+> -       list_add(&hook->list, &battery_hook_list);
+> -       /*
+> -        * Now that the driver is registered, we need
+> -        * to notify the hook that a battery is available
+> -        * for each battery, so that the driver may add
+> -        * its attributes.
+> -        */
+> -       list_for_each_entry(battery, &acpi_battery_list, list) {
+> -               if (hook->add_battery(battery->bat, hook)) {
+> -                       /*
+> -                        * If a add-battery returns non-zero,
+> -                        * the registration of the hook has failed,
+> -                        * and we will not add it to the list of loaded
+> -                        * hooks.
+> -                        */
+> -                       pr_err("hook failed to load: %s", hook->name);
+> -                       acpi_battery_hook_unregister_unlocked(hook);
+> -                       goto end;
+> -               }
+> -
+> -               power_supply_changed(battery->bat);
+> -       }
+> -       pr_info("new hook: %s\n", hook->name);
+> -end:
+> -       mutex_unlock(&hook_mutex);
+> -}
+> -EXPORT_SYMBOL_GPL(acpi_battery_hook_register);
+> -
+> -static void devm_acpi_battery_hook_unregister(void *data)
+> -{
+> -       struct acpi_battery_hook *hook =3D data;
+> -
+> -       acpi_battery_hook_unregister(hook);
+> -}
+> -
+> -int devm_acpi_battery_hook_register(struct device *dev, struct acpi_batt=
+ery_hook *hook)
+> -{
+> -       acpi_battery_hook_register(hook);
+> -
+> -       return devm_add_action_or_reset(dev, devm_acpi_battery_hook_unreg=
+ister, hook);
+> -}
+> -EXPORT_SYMBOL_GPL(devm_acpi_battery_hook_register);
+> -
+> -/*
+> - * This function gets called right after the battery sysfs
+> - * attributes have been added, so that the drivers that
+> - * define custom sysfs attributes can add their own.
+> - */
+> -static void battery_hook_add_battery(struct acpi_battery *battery)
+> -{
+> -       struct acpi_battery_hook *hook_node, *tmp;
+> -
+> -       mutex_lock(&hook_mutex);
+> -       INIT_LIST_HEAD(&battery->list);
+> -       list_add(&battery->list, &acpi_battery_list);
+> -       /*
+> -        * Since we added a new battery to the list, we need to
+> -        * iterate over the hooks and call add_battery for each
+> -        * hook that was registered. This usually happens
+> -        * when a battery gets hotplugged or initialized
+> -        * during the battery module initialization.
+> -        */
+> -       list_for_each_entry_safe(hook_node, tmp, &battery_hook_list, list=
+) {
+> -               if (hook_node->add_battery(battery->bat, hook_node)) {
+> -                       /*
+> -                        * The notification of the hook has failed, to
+> -                        * prevent further errors we will unload the hook=
+.
+> -                        */
+> -                       pr_err("error in hook, unloading: %s",
+> -                                       hook_node->name);
+> -                       acpi_battery_hook_unregister_unlocked(hook_node);
+> -               }
+> -       }
+> -       mutex_unlock(&hook_mutex);
+> -}
+> -
+> -static void battery_hook_remove_battery(struct acpi_battery *battery)
+> -{
+> -       struct acpi_battery_hook *hook;
+> -
+> -       mutex_lock(&hook_mutex);
+> -       /*
+> -        * Before removing the hook, we need to remove all
+> -        * custom attributes from the battery.
+> -        */
+> -       list_for_each_entry(hook, &battery_hook_list, list) {
+> -               hook->remove_battery(battery->bat, hook);
+> -       }
+> -       /* Then, just remove the battery from the list */
+> -       list_del(&battery->list);
+> -       mutex_unlock(&hook_mutex);
+> -}
+> -
+> -static void __exit battery_hook_exit(void)
+> -{
+> -       struct acpi_battery_hook *hook;
+> -       struct acpi_battery_hook *ptr;
+> -       /*
+> -        * At this point, the acpi_bus_unregister_driver()
+> -        * has called remove for all batteries. We just
+> -        * need to remove the hooks.
+> -        */
+> -       list_for_each_entry_safe(hook, ptr, &battery_hook_list, list) {
+> -               acpi_battery_hook_unregister(hook);
+> -       }
+> -       mutex_destroy(&hook_mutex);
+> -}
+> -
+>  static int sysfs_add_battery(struct acpi_battery *battery)
+>  {
+>         bool extended_info_available =3D test_bit(ACPI_BATTERY_XINFO_PRES=
+ENT, &battery->flags);
+> @@ -1052,7 +895,7 @@ static int sysfs_add_battery(struct acpi_battery *ba=
+ttery)
+>                 battery->bat =3D NULL;
+>                 return result;
+>         }
+> -       battery_hook_add_battery(battery);
+> +       acpi_battery_add_hooks(&battery->hooks_list_entry, battery->bat);
+>         return 0;
+>  }
+>
+> @@ -1061,7 +904,7 @@ static void sysfs_remove_battery(struct acpi_battery=
+ *battery)
+>         if (!battery->bat)
+>                 return;
+>
+> -       battery_hook_remove_battery(battery);
+> +       acpi_battery_remove_hooks(&battery->hooks_list_entry);
+>         power_supply_unregister(battery->bat);
+>         battery->bat =3D NULL;
+>  }
+> @@ -1571,7 +1414,6 @@ static int __init acpi_battery_init(void)
+>  static void __exit acpi_battery_exit(void)
+>  {
+>         platform_driver_unregister(&acpi_battery_driver);
+> -       battery_hook_exit();
+>  }
+>
+>  module_init(acpi_battery_init);
+> diff --git a/drivers/acpi/battery_hooks.c b/drivers/acpi/battery_hooks.c
+> new file mode 100644
+> index 000000000000..ca3f9876cb09
+> --- /dev/null
+> +++ b/drivers/acpi/battery_hooks.c
+> @@ -0,0 +1,159 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * ACPI Battery Hooks
+> + *
+> + * Provides helpers for registering and unregistering battery hooks for
+> + * drivers that use platform-specific extensions to ACPI-enumerated
+> + * batteries (both ACPI Control Method batteries and Smart Battery Syste=
+m
+> + * batteries).
+> + */
+> +
+> +#define pr_fmt(fmt) "ACPI: battery: " fmt
+> +
+> +#include <linux/cleanup.h>
+> +#include <linux/device.h>
+> +#include <linux/export.h>
+> +#include <linux/list.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/power_supply.h>
+> +#include <acpi/battery.h>
+> +
+> +static LIST_HEAD(acpi_battery_list);
+> +static LIST_HEAD(battery_hook_list);
+> +static DEFINE_MUTEX(hook_mutex);
+> +
+> +static void acpi_battery_hook_unregister_unlocked(struct acpi_battery_ho=
+ok *hook)
+> +{
+> +       struct acpi_battery_hooks_list_entry *entry;
+> +
+> +       /*
+> +        * In order to remove a hook, we first need to
+> +        * de-register all the batteries that are registered.
+> +        */
+> +       list_for_each_entry(entry, &acpi_battery_list, list_entry) {
+> +               if (!hook->remove_battery(entry->battery, hook))
+> +                       power_supply_changed(entry->battery);
+> +       }
+> +       list_del_init(&hook->list);
+> +
+> +       pr_info("hook unregistered: %s\n", hook->name);
+> +}
+> +
+> +void acpi_battery_hook_unregister(struct acpi_battery_hook *hook)
+> +{
+> +       guard(mutex)(&hook_mutex);
+> +
+> +       /*
+> +        * Ignore already unregistered battery hooks. This might happen
+> +        * if a battery hook was previously unloaded due to an error when
+> +        * adding a new battery.
+> +        */
+> +       if (!list_empty(&hook->list))
+> +               acpi_battery_hook_unregister_unlocked(hook);
+> +}
+> +EXPORT_SYMBOL_GPL(acpi_battery_hook_unregister);
+> +
+> +void acpi_battery_hook_register(struct acpi_battery_hook *hook)
+> +{
+> +       struct acpi_battery_hooks_list_entry *entry;
+> +
+> +       guard(mutex)(&hook_mutex);
+> +
+> +       list_add(&hook->list, &battery_hook_list);
+> +       /*
+> +        * Now that the driver is registered, we need
+> +        * to notify the hook that a battery is available
+> +        * for each battery, so that the driver may add
+> +        * its attributes.
+> +        */
+> +       list_for_each_entry(entry, &acpi_battery_list, list_entry) {
+> +               if (hook->add_battery(entry->battery, hook)) {
+> +                       /*
+> +                        * If a add-battery returns non-zero,
+> +                        * the registration of the hook has failed,
+> +                        * and we will not add it to the list of loaded
+> +                        * hooks.
+> +                        */
+> +                       pr_err("hook failed to load: %s\n", hook->name);
+> +                       acpi_battery_hook_unregister_unlocked(hook);
+> +                       return;
+> +               }
+> +
+> +               power_supply_changed(entry->battery);
+> +       }
+> +       pr_info("new hook: %s\n", hook->name);
+> +}
+> +EXPORT_SYMBOL_GPL(acpi_battery_hook_register);
+> +
+> +static void devm_acpi_battery_hook_unregister(void *data)
+> +{
+> +       struct acpi_battery_hook *hook =3D data;
+> +
+> +       acpi_battery_hook_unregister(hook);
+> +}
+> +
+> +int devm_acpi_battery_hook_register(struct device *dev,
+> +                                   struct acpi_battery_hook *hook)
+> +{
+> +       acpi_battery_hook_register(hook);
+> +
+> +       return devm_add_action_or_reset(dev, devm_acpi_battery_hook_unreg=
+ister, hook);
+> +}
+> +EXPORT_SYMBOL_GPL(devm_acpi_battery_hook_register);
+> +
+> +/*
+> + * This function gets called right after the battery sysfs
+> + * attributes have been added, so that the drivers that
+> + * define custom sysfs attributes can add their own.
+> + */
+> +void acpi_battery_add_hooks(struct acpi_battery_hooks_list_entry *entry,
+> +                           struct power_supply *battery)
+> +{
+> +       struct acpi_battery_hook *hook_node, *tmp;
+> +
+> +       entry->battery =3D battery;
+> +
+> +       guard(mutex)(&hook_mutex);
+> +
+> +       list_add(&entry->list_entry, &acpi_battery_list);
+> +       /*
+> +        * Since we added a new battery to the list, we need to
+> +        * iterate over the hooks and call add_battery for each
+> +        * hook that was registered. This usually happens
+> +        * when a battery gets hotplugged or initialized
+> +        * during the battery module initialization.
+> +        */
+> +       list_for_each_entry_safe(hook_node, tmp, &battery_hook_list, list=
+) {
+> +               if (hook_node->add_battery(entry->battery, hook_node)) {
+> +                       /*
+> +                        * The notification of the hook has failed, to
+> +                        * prevent further errors we will unload the hook=
+.
+> +                        */
+> +                       pr_err("error in hook, unloading: %s\n", hook_nod=
+e->name);
+> +                       acpi_battery_hook_unregister_unlocked(hook_node);
+> +               }
+> +       }
+> +}
+> +EXPORT_SYMBOL_NS_GPL(acpi_battery_add_hooks, "ACPI_BATTERY_HOOKS");
+> +
+> +void acpi_battery_remove_hooks(struct acpi_battery_hooks_list_entry *ent=
+ry)
+> +{
+> +       struct acpi_battery_hook *hook;
+> +
+> +       guard(mutex)(&hook_mutex);
+> +       /*
+> +        * Before removing the hook, we need to remove all
+> +        * custom attributes from the battery.
+> +        */
+> +       list_for_each_entry(hook, &battery_hook_list, list)
+> +               hook->remove_battery(entry->battery, hook);
+> +
+> +       /* Then, just remove the battery from the list */
+> +       list_del(&entry->list_entry);
+> +       entry->battery =3D NULL;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(acpi_battery_remove_hooks, "ACPI_BATTERY_HOOKS");
+> +
+> +MODULE_DESCRIPTION("ACPI battery hooks");
+> +MODULE_LICENSE("GPL");
+> diff --git a/drivers/acpi/sbs.c b/drivers/acpi/sbs.c
+> index f10bbf13c242..f80a6294953a 100644
+> --- a/drivers/acpi/sbs.c
+> +++ b/drivers/acpi/sbs.c
+> @@ -36,6 +36,7 @@
+>  MODULE_AUTHOR("Alexey Starikovskiy <astarikovskiy@suse.de>");
+>  MODULE_DESCRIPTION("Smart Battery System ACPI interface driver");
+>  MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("ACPI_BATTERY_HOOKS");
+>
+>  static unsigned int cache_time =3D 1000;
+>  module_param(cache_time, uint, 0644);
+> @@ -54,6 +55,7 @@ struct acpi_battery {
+>         struct power_supply *bat;
+>         struct power_supply_desc bat_desc;
+>         struct acpi_sbs *sbs;
+> +       struct acpi_battery_hooks_list_entry hooks_list_entry;
+>         unsigned long update_time;
+>         char name[8];
+>         char manufacturer_name[ACPI_SBS_BLOCK_MAX];
+> @@ -555,6 +557,8 @@ static int acpi_battery_add(struct acpi_sbs *sbs, int=
+ id)
+>                 goto end;
+>         }
+>
+> +       acpi_battery_add_hooks(&battery->hooks_list_entry, battery->bat);
+> +
+>        end:
+>         pr_info("%s [%s]: Battery Slot [%s] (battery %s)\n",
+>                ACPI_SBS_DEVICE_NAME, acpi_device_bid(sbs->device),
+> @@ -566,8 +570,10 @@ static void acpi_battery_remove(struct acpi_sbs *sbs=
+, int id)
+>  {
+>         struct acpi_battery *battery =3D &sbs->battery[id];
+>
+> -       if (battery->bat)
+> +       if (battery->bat) {
+> +               acpi_battery_remove_hooks(&battery->hooks_list_entry);
+>                 power_supply_unregister(battery->bat);
+> +       }
+>  }
+>
+>  static int acpi_charger_add(struct acpi_sbs *sbs)
+> diff --git a/include/acpi/battery.h b/include/acpi/battery.h
+> index 08c7e37996bf..6360f102a4e8 100644
+> --- a/include/acpi/battery.h
+> +++ b/include/acpi/battery.h
+> @@ -18,9 +18,18 @@ struct acpi_battery_hook {
+>         struct list_head list;
+>  };
+>
+> +struct acpi_battery_hooks_list_entry {
+> +       struct list_head list_entry;
+> +       struct power_supply *battery;
+> +};
+> +
+>  void acpi_battery_hook_register(struct acpi_battery_hook *hook);
+>  void acpi_battery_hook_unregister(struct acpi_battery_hook *hook);
+>  int devm_acpi_battery_hook_register(struct device *dev,
+>                                     struct acpi_battery_hook *hook);
+>
+> +void acpi_battery_add_hooks(struct acpi_battery_hooks_list_entry *entry,
+> +                           struct power_supply *battery);
+> +void acpi_battery_remove_hooks(struct acpi_battery_hooks_list_entry *ent=
+ry);
+> +
+>  #endif
+> --
+> 2.56.0
+>
