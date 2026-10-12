@@ -1,121 +1,117 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp2-g21.free.fr (smtp2-g21.free.fr [212.27.42.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEAE47143B
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814102; cv=pass; b=Kh0pQ/p/M7dUolJppaWD5JF30PX3QDbUF1aNQLn1cDBSkuX9b+Fu51LR6w3BWJOKRuLzh6S/w45UYk/ccaNH60dZ/MC+XSkB5kATG1g4mSpwtA8i+R9Hk9RMGXnbp21wB3xHgMKuWBluHXHNiqx35kjANMt8fEzKrXihz249lCM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814102; c=relaxed/simple;
-	bh=Ds1RsGrXdYNa+VIUsNtvM0HHuJhu03SNmjfL4ZgCOaA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZzBxKsmPri9lZhD6CW27HLWcW5hl2X/cIyjWZjvMGzNLYuWmKQ8HiIKevc38ySVKzluMAT8smQj7Ad+jZk5nf49S1aj4Beg1triYZtJucVwoukwpNh1TOf4tU2A1xTdWAQGC0GfAasJG6Zu+J3ePTGXTiE37u4lQPWSHwLMxkKU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tPVYZgPD; arc=pass smtp.client-ip=209.85.160.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9024718D7;
+	Mon, 12 Oct 2026 14:08:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.2
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791814140; cv=none; b=kCNE9Tqniubb6vTPxohzmzuKZ1jIuoc/fys5+dLW03JfpndP2YveYyqayXvjci3qJl8b+UNRNoxKTKft5vcT5Zj9iHtYaRsNa04pHHWcq461W7c7F0bhh+spvhxnAD4BGvohaUoxjoXFOl2DA9NteAcfwmmwgUsLx8o6kDMVe/U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791814140; c=relaxed/simple;
+	bh=5NqQN3twOjvV7VGfTkFD+oEXAYL6fnAiqaDrnzcTQ3k=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:Subject:MIME-Version:
+	 Content-Type; b=AmVgARNGrlmQDhrJj6oNqQcU+/3DPEen+sumVqnOsBKOFzdtOFGCRL+qGlVRGR0EHS3D3XF1+csornk8tzppaQImTkwQvPioCODZzRSTdf2V3nFjsHo9xlh1G8tsHWT15aq4yfVOyus31kp0APEc4nRcZEq1gU/JDmUfUtiQg2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=jWeXkbli; arc=none smtp.client-ip=212.27.42.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tPVYZgPD"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-53584e7c349so389751cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:08:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791814100; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oPNFqpp6b/F4qb/mJXh1UgrkyYQ16902mpxWBMftMwolpzC18rwgMg9oO9g/E7ghb6
-         E+xWcIhHDTxG/7UAURADVBLQTk+bxCgvxGCFX3ASriZbgPPl7rdQMXkxF7c9jy1QoXbN
-         eWWKOnqfkX1QNSmlh7pemztTv5ZiGi51ic20ZqClvc6dXqaNzRtceplZPwet+FFw2wTY
-         REz13KA+pxUg7lzHbyhRydAHWnmAspzwzAC37DnnV1yeT24iphxtkBx4ngTY3ahEvfLD
-         upzBwAFazU51tcZahb87ni63bSKf14T+ggkBiGCeSMkbJVRvj2gIPXVTQ5DyDakaJo8w
-         HQBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ds1RsGrXdYNa+VIUsNtvM0HHuJhu03SNmjfL4ZgCOaA=;
-        fh=LuDSq2OKisxZo+CWzBY6Q+JY79LBfZptv79btVOs+Ss=;
-        b=TmFzKRHm3r1lTCTIQLBwjzgfz1lcrWzYnXjwO94W/GEGEPAMCKwSkX+GWKh2icnAlZ
-         IOv11i3c5l2dLiUCgu0LeynG+7SaYLi0vJ+0kFXmALWBqT+7c03YNC+14f9EbOz4OoQh
-         eFluKzz7OzxoM2DP57CxyWwf1jHWsOVzZCVj63u2ezwzr4C9UIU32CoYd8vgYoKB6rnl
-         5W4psAbDgPblRsgdB5Du+LI/geuEh1sqpXklatSNK+eJzU6o3UobqtEyjsD1yXddVs7/
-         s3QQZl+KIluMV9xsOSU+L6p3DYVpmKhBiEfWmVNQLvbMlJOxMPLVqLg0OYLp4u5dvvSq
-         pNZQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791814100; x=1792418900; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ds1RsGrXdYNa+VIUsNtvM0HHuJhu03SNmjfL4ZgCOaA=;
-        b=tPVYZgPDO3maEImsDRyVJf6N7ezrlrEpzV7H0nUFUrvZON8vVPHJdA1N1E1oGHANxm
-         dddNPzPx43eeazjaw2SZ6prv+MubwLIIHDWp2wSHYizVcbGXiHuKG1+kBW1ZK5k9ie4r
-         bC2WpAi6EYr/8UHrUNI7X0Ll4kNi3IaKMFPopJDI1CPkUVEp9MJeYmlxPeDEpqv8SzMf
-         iyaS/7scXE/IkVm123dFxnuNYblmTWhltgFepuUyR9iIuDn77YfhJ7gIGyXgRjSyq3VR
-         y6kN44xQ5f6P0Y6AdWuXZ71lOp1lc0ymOTY3h11v8cUpT7nrkjezl7j8ONy4TohReAL5
-         8l5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791814100; x=1792418900;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ds1RsGrXdYNa+VIUsNtvM0HHuJhu03SNmjfL4ZgCOaA=;
-        b=yt0uuUgvjkDzcSM82NyJAQZajR6qRVZwR45kLVALV4GUOItlwkiJyxUY2F3PRHm46l
-         g4cjIxr6Suk3WZrq0JpXAUUURRugwvR8DHST4+FVsxXsacLe5MqmEOmf4oWzZrcpfIG6
-         qcouVq2jcuU/nwT6QfcQJh2NkcancF8mOeYzY7Yqa3P/c/n75/rtZnNZQFyNag4MYs7k
-         t573rDwPRXrMtNq3VpKlHbawf/lpVX8l8JcpOMQayBJ/r2pNwjFCzpd3ndwSq85elYVs
-         TCR1OBPKx9kP6kPWWYHHC3aAcIXmZjSVO1acWWe7C5rSIOkvZ/CA77FXkovbG/TCDVKV
-         yNjw==
-X-Forwarded-Encrypted: i=1; AKwUvBwpRUoaFVSJa+6rrjPhK6Fxj9esviGU3G5O6bTQNZbsWqQxsWBiiEtam6EKt88htdAAq5kkkvWU1hBcQ4Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILhsDhE6/OSoSAkmzVjvrHPXHVBf1GTG/FqbtqAT4sqVvrcmWw
-	ldF0rPnTQyxaBwxnSV/6zvUZqFVOnIhyfBn+OGKUpnPduQI7poOHVToglwPqtpXEkWa1O5fsWgK
-	MyebE5oWOP+H2Ls0ZhYL5VXW3lBfF2mwImN7XzcfN
-X-Gm-Gg: AYBFou12q4KgUSpA25u/hS8yZ8rkexGmBvA4cha1W3JZV8u3EAU3QmOsql7KQsV3NXS
-	abtPr3/ZAnEWKG54QloMulKuL/m+D/8QDks23xT4I8QS9Tg9rFf6B+e4IFK/2jv13VnaslBERah
-	UsgJYthKz2wMIityn+/HFZLOEdfAUGAYxYiUrjejEz8nrMekKKhbPmKKBQ+jeFkNwJ3GcIfOsbU
-	ZzlCiKNEml9J3A2Di2xEtiHfGdkrgQlMtNhWtftr3e12ZbD8xx6glphHirhw5IfXzJIIyuurPb2
-	iNTa6HDAl9vUl1rICENIb83+OLDBoCq0r0UG2oFqCzyC5rEVpyh0XkXZg+GHw6l82i64iyj7q4K
-	GgytgHafL1PU=
-X-Received: by 2002:a05:622a:413:b0:533:9746:9a86 with SMTP id
- d75a77b69052e-535b325f8d9mr32241681cf.5.1791814096393; Mon, 12 Oct 2026
- 07:08:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="jWeXkbli"
+Received: from zimbra65-e11.priv.proxad.net (unknown [172.20.243.215])
+	by smtp2-g21.free.fr (Postfix) with ESMTP id 6BB0D2003E8;
+	Mon, 12 Oct 2026 16:08:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1791814128;
+	bh=5NqQN3twOjvV7VGfTkFD+oEXAYL6fnAiqaDrnzcTQ3k=;
+	h=Date:From:To:Cc:In-Reply-To:Subject:From;
+	b=jWeXkbliblbXZEB+GRsipSUFyc4I9qXVJwVH8Je4mZ6zLpidSryzVt0b7ZP/FwQ4K
+	 N/KljX8Vzw8L4lPgv85RHqM20u99S2kGLqO2qHJU3O0h7BLL+J+JhOK745NxzYsS46
+	 FCGFa0QRGEZyqL/9LbjLvcPhqg3/mJdUdTXgmnIy7vKkcsJ1+mtjc2E1MaLmjzJ2QS
+	 9eYCHpcpGFGN7XG36502pp3LTwC2Ko1J3IQ0OAWOhedyTBC3uBvwgwym5WIF7IORTf
+	 t3+RCjHmKhAGD++8D+8fRylhLlzS1zHamquDJpi1LX7vvKi8x3u4LibdI3EJGq2xnq
+	 GS/jP0z9R/Cfg==
+Date: Mon, 12 Oct 2026 16:08:47 +0200 (CEST)
+From: =?utf-8?Q?St=C3=A9phane?= Grosjean <stephane.grosjean@free.fr>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: mailhol@kernel.org, Oliver Hartkopp <socketcan@hartkopp.net>, 
+	linux-kernel@vger.kernel.org, linux-can@vger.kernel.org
+Message-ID: <1228378911.1051074990.1791814127665.JavaMail.root@zimbra65-e11.priv.proxad.net>
+In-Reply-To: <20261012-rare-pigeon-of-elegance-6014fe-mkl@pengutronix.de>
+Subject: Re: [PATCH 4/5] can: peak_usb: validate channel numbers in PCAN-USB
+ FD
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011223358.2327625-10-sashal@kernel.org>
-In-Reply-To: <20261011223358.2327625-10-sashal@kernel.org>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Mon, 12 Oct 2026 07:08:02 -0700
-X-Gm-Features: AclHuK84WqMsyxy-I57pRe8rAHj6B83pUNBHs476hJrJgTGppN2WMc_WLWeA8KM
-Message-ID: <CABdmKX2D1obDASTm+exAtrZSfkLikUxmzKxjsj8avyfUbEcsFg@mail.gmail.com>
-Subject: Re: [PATCH] selftests/cgroup: free the paths returned by cg_control()
-To: Sasha Levin <sashal@kernel.org>
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <shuah@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Amir Goldstein <amir73il@gmail.com>, cgroups@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - GC154 (Linux)/7.2.0-GA2598)
+X-Authenticated-User: stephane.grosjean@free.fr
 
-On Sun, Oct 11, 2026 at 3:34=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
-te:
->
-> cg_control() returns a path allocated with malloc(). The two callers
-> that pass it straight to inotify_add_watch() never free it, and pass
-> NULL to it if the allocation fails.
->
-> Keep the path in a local variable, check it, and free it when done.
->
-> Fixes: 5313bfe425c8a ("kselftests: cgroup: add freezer controller self-te=
-sts")
-> Fixes: 2de27980e1d46 ("selftests: memcg: Add tests for IN_DELETE_SELF and=
- IN_IGNORED")
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+Thank you so much for your help, Marc. I really appreciate it.
 
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Best regards,
+
+-- St=C3=A9phane
+
+----- Mail original -----
+> On 12.10.2026 11:04:56, St=C3=A9phane Grosjean wrote:
+> > I need help (or training) to figure out how to deal with these AI
+> > bots:
+> >
+> > - How many of them are there before the changes are accepted? It
+> > seems
+> >   that even if a patch has passed the Sashiko filter, we should
+> >   still
+> >   expect feedback from other bots...
+>=20
+> There's https://sashiko.dev/ , which replies within minutes (as long
+> as
+> you don't include the netdev mailing list).
+>=20
+> And there's https://netdev-ai.bots.linux.dev/, which embargoes the
+> review for ~24h, but runs several LLMs with better models.
+>=20
+> > - The fact that there are multiple levels of bots isn=E2=80=99t a probl=
+em
+> > in
+> >   itself, and is understandable. That feedback arrives on v1 even
+> >   though
+> >   v2 has already been analysed is also something I=E2=80=99m just learn=
+ing:
+> >   so
+> >   when can we consider it safe to push a new version without fear
+> >   of
+> >   receiving comments on the previous one?
+>=20
+> Maybe you can mark the v1 as obsolete yourself with replying "pw-bot:
+> cr".
+> On a new line, without quotation marks, see:
+>=20
+> https://github.com/linux-netdev/nipa/blob/main/mailbot.rst
+> https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#updat=
+ing-patch-status
+> https://github.com/linux-netdev/nipa/blob/e03d912ce66fd5d427cb9cf900409e1=
+abc6eeba2/mailbot.py#L52-L81
+>=20
+> > - And finally, providing more explicit comments on our changes is
+> > also
+> >   a good thing. But when those comments themselves become a source
+> >   of
+> >   problems and rejections=E2=80=94due to an overly nitpicky interpretat=
+ion
+> >   by a
+> >   bot=E2=80=94it becomes far too time-consuming:
+>=20
+> yes known problem :/
+>=20
+> regards,
+> Marc
+>=20
+> --
+> Pengutronix e.K.                 | Marc Kleine-Budde          |
+> Embedded Linux                   | https://www.pengutronix.de |
+> Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+> Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+>=20
