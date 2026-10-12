@@ -1,148 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 982824BF949;
-	Mon, 12 Oct 2026 17:55:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791827731; cv=none; b=tXKXoBbWKHvVD/uA3yI5lieoEC8KFiMTEIG1Ur543buPqL+upIsK/5u6Yi/ejEcaKFtHRa+DxpBxsZsd2Y8J2Qpm7gVKWdHQcmpScU4npFR1ksSEad9zc1RVjcbyt61FL2iUXB0d+WZk/D3YKoZEGWZcGZx35jmt73NkFeUBHNs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791827731; c=relaxed/simple;
-	bh=iQCsw8uWpkZoYq4YSbm5YHjbLGN+kSPUtNUTOefnYNs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NR6NNcFusZDjQ+fiGxXZh4jNm0unfZZ1AkoFiTi9JaysXOyvNbS8aDqrKCtBZOi2+p/9OH34Xt+g4LMGmQ/tu5aCXsaY9kc54ohSIiUuSMJsJMDRpNXbDTOJyzUOI76wQVzmI3Rkkpjd4tPWc1HLiXU9Hj3m5k5h44QoTeGAKnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BVrURADp; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDAD4BF949
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:55:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791827740; cv=pass; b=naAYvc2nvNSV7nAmzQ7RSi6/tJ3q/khCtD9mOgR7VhQvu2oBUcLaAnqoH/7LR4G0IcWXpaPUbojEnqOEwGUpspoKi0oKhDTcNMG+T3snAbPj/LA0INyTXGosEcMkPUT2OmBjrpIsroTYL3HFBQau7BZ+YnfL30oW9pnq7zeeplo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791827740; c=relaxed/simple;
+	bh=kZdS4dF4wn+JWIPITemwpdYnrEbvaGpLaLJey0JUXyM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kDdCyRfP3ej19TvrXeJOfk4QiiMYhLuCLOuG63fK8DBF44K+P+jMDocGo4vVyOtbgY49TbV2qwfOncaspud5pq7yl6rp6tOjYrps9piQliqVVw5UUQLWA83CP0jeJ0bT7z6HRgag9n7KkFQYXxJeYYht9lZfUZ3VSpjrnJW1R5w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CS38XM3v; arc=pass smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BVrURADp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F0061F0089B;
-	Mon, 12 Oct 2026 17:55:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791827730;
-	bh=J6n50eQ6V6pm/yCK3IlU6OVvJN5nG9cOEO098JYwwjc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BVrURADp1C8qVzrqLzvEPNHgiBxziCjaeMHJ0+mFb6UlZRKScmQV7vpqt/3eMKKBf
-	 Kt1OVCcCSI5QxX27NGiDPfN6DnmsKHHBzNWExVlaijVqx98s6g+04t7Qha0RzzU+cm
-	 EU36JDQ9rY/7RdGGhcJgswDE11gV62/RoITeMTPtTSbRV/lJMsD0+T2+lw5+27XDeZ
-	 NSIEfvd8kHFDWoeeMCgo96BzPS31dyiC1FJkZLXFwNVhgWaJZ6epV8PYaBoAtbdnQW
-	 KLpAmZeDS4J92RhFNACKOzt/BNJ6RTT1HruDVrTS74WhOCBTEDymQI0hNNKqq/V7mL
-	 X5vM3rxGFOIrg==
-Message-ID: <38befa8c-3885-44eb-813c-0ee34cd55248@kernel.org>
-Date: Mon, 12 Oct 2026 19:55:25 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CS38XM3v"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c2e62319cfaso213375866b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:55:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791827737; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YskcE0Hyg202L+q05IrqhyDARPyrtQEY7YwyJhuawsM6IyVuHHgChiidSN+t5I4IAS
+         E+BeN/JYPd/e1xcV1n4Gi7aztnSoCoFUvd+JdlOYGUkGanShHKjrr1c+SVWXADVX/pdK
+         g110VdVqbLtVFQHHiDF4cQyEwjHO30L569HsITnr9XVRhnJ1Eg9+Y6ZYWOHAM4htK9lq
+         sZyzkCF3sEhnq+298w2b8izet4/rTKekPUdWDYmr5HLThrjbRf2K+UHsOME3DewjKhA5
+         5Xc/LDv/+RFMR4sLkHz0/FAMXfkKgAfFFkgLYVRtMax5TYawwelNt8SUAlGbzwWDHEBM
+         4pMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sxQuVKRIInAc/Z3AzZWZwMxHNHQeTzSvMjD6+JaMyKw=;
+        fh=jZurQdOav8r4I8kMgCwOsccSB+x5e07T6k15YT7VlAs=;
+        b=L7CcezjX/BQcAQ8BPTIR+z04BvTfk3NxY3CPlOiuIGUzV3wel3byUyMZQ2B870irqh
+         fvUA/o9cpqbYTzuSKfbak43sOxTrHGdZis0Yrx7TNAU7Ts9CguevF2iOdFcYls8E1IcF
+         Me7DFlrCCnRz2t5CChw3FWlwoETjjDxTyk6jv1OFo9XY3fsh9HD7Md5PCtr81WX9B8z9
+         NujJyedhUchMAArytxNsZdfdHbG992oBtVOek7RF64Kh66NLkRFCSUO/LjovknjsSuPv
+         aL4LBg3ZVEib+y4gZCaO2X/V5boq35+MBlPEWgibX/ucT6zNDYqNYNpDp53QSRFvTtv3
+         In1A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791827737; x=1792432537; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sxQuVKRIInAc/Z3AzZWZwMxHNHQeTzSvMjD6+JaMyKw=;
+        b=CS38XM3vh3vljlm8rLNG7/wvoBHKg8Ph75VOB5tc48ohOqPqyM/+RBRZymZvLuhl+g
+         jj0qCF9synkpB1x8iscbq5tNtlAep55nJgOUi46ZECRw4wJy9jENhLp8eXhnXf/NXUm6
+         pFILQA1sKX8uxmjuLqmsZ7VpIVid29nHNk+CPL23UTvaGekSxApIu8R9aYDaWUM+/CMO
+         5WLfglvDdIMS3YUS8GQy1UZ5bp/nHgphvvURYLj81L0lRB0Mf7uDBhyLhqQHkJveTg3N
+         BH4d7QnQzjbYJom7KPjNP+YVI2PfxOs35OcdKmIKcbv1Iq3+rYc6lepme6DcU8q36pwk
+         Ya4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791827737; x=1792432537;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sxQuVKRIInAc/Z3AzZWZwMxHNHQeTzSvMjD6+JaMyKw=;
+        b=mZI0NxDSb79sa/SujxKN5SAK+VIcuGIHzcSnb4tBJSbTNluRO90aG2m8r/Gwc0Sap3
+         lBb7P8TqLAEsw5NKsHWH2AjdEuoVcB6UdcxuPeS8eiwBolJqAYn5IfHZsBBAf9FU6PO2
+         uQJ6Kt4fZqWjTiNgzafiJL1lXqgPVcrByHX/3OlZQCo9U52w1wyYqVnkXw008mDVHGm3
+         KR/BmZ9yP/pwM58K6gp+hvr2IrUdajSmcV+9YCo1eK1Qj7g5QWAh8/HQTXs1yijI6ioM
+         NGbVN3q18t/7iJDxrdrV4ysojsZJouOr8EFkPFZSooqr/HeXvhj7GH+/x/0lEEtwntlw
+         EDrA==
+X-Forwarded-Encrypted: i=1; AKwUvBx6CON9RBeX6sFUNhvMhjLKd0sbtUio0ZnF23+83V/V8mHlCZ5xG4muqBiYwQdIRnhCJxBwZiH/w5U6TC4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfL8xastkOVQPFQOGh7lLqhME2fFFh44d4ttJ/V7TwOpwp9EIv
+	bSLmbL3Yno/N5lnO0Ao68uzyThxR5U9G5njjlxOeoet5tuZqDbweHMaIwCGQdiuyzzvs/z8E6zF
+	8c4bFNu+5Z/TfV8pwPTrZdHuPqwgYBcoUvRjncSXJQ9dg
+X-Gm-Gg: AYBFou092zRF9XpoXMMKfk71IsOtU/w3rKGDBlwjH5eSdnGtMW5rf/LFgR5cuCvTsgV
+	WiSNh294aROOVjT7HLecXlQIhUYtMHBLEjvILe2/xgNNK+RDqfVbx0EsHGGz0skII0B3yOONsGP
+	WHQ929A+Rfhhbxb86FEKIY5fkmkqKd2yBVZhz7QPs3+j8dulNz7CjfAuglDzWGnYB1grW3EfuTZ
+	j3OTie9h7PkYJAAB0ASwnlhZYO+PflCax7L3geSc4RUKb3gO++cmG0AdV9IQXuW+Ewmphmg2D2N
+	IGs3YBNaYPtPuOyeHei0tKz4tvQTZmuInkumB8TegZP2UiHgc+uYv7zlmvcDgjCHZkvxpGch3fk
+	Orw2djTfUXjmQsvqRiYdh+25LAuYfZWptrURhFZOJzI04bMdHMUFP29IA/5VOmn/mmLK7
+X-Received: by 2002:a17:907:c0d:b0:c2e:3ed7:7db4 with SMTP id
+ a640c23a62f3a-c31aa00dc1bmr971765166b.23.1791827736975; Mon, 12 Oct 2026
+ 10:55:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v6 2/8] ipc, msg: Account msg_msg allocations
- with GFP_KERNEL_ACCOUNT again
-Content-Language: en-US
-To: Kees Cook <kees@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- cgroups@vger.kernel.org, linux-mm@kvack.org, Pedro Falcato
- <pfalcato@suse.de>, Kuniyuki Iwashima <kuniyu@google.com>,
- linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261006092030.got.500-kees@kernel.org>
- <20261006092035.166776-2-kees@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261006092035.166776-2-kees@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261003223237.513456-1-voytikd@gmail.com> <aszHlWi_aLIh8r9F@thinkstation>
+In-Reply-To: <aszHlWi_aLIh8r9F@thinkstation>
+From: Dmitry Voytik <voytikd@gmail.com>
+Date: Mon, 12 Oct 2026 19:55:10 +0200
+X-Gm-Features: AclHuK8QxOWUKD8tjoKoD_vULn_acAenrN-17lB0n0Wf19SoI_dhhDRr9qFGuro
+Message-ID: <CAAX90H0PGW_PF53FpWYExaQPKmDdrAP+_b89gq5+a0wK=AicMg@mail.gmail.com>
+Subject: Re: [PATCH] coco/tdx-host: add Kconfig description
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Chao Gao <chao.gao@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	linux-coco@lists.linux.dev, x86@kernel.org, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/6/26 11:20, Kees Cook wrote:
-> Since commit 734bbc1c97ea7 ("ipc, msg: Use dedicated slab buckets for
-> alloc_msg()"), alloc_msg() allocates with GFP_KERNEL, and a msg_msg is
-> accounted only through SLAB_ACCOUNT on its bucket caches. With
-> CONFIG_SLAB_BUCKETS=n, kmem_buckets_create() creates no caches and
-> kmem_buckets_alloc() is a GFP_KERNEL kmalloc() from the general caches,
-> which do not account it; the same happens when kmem_buckets_create()
-> fails. Either way, the allocation is not charged to the sender's memory
-> cgroup.
-> 
-> Allocate with GFP_KERNEL_ACCOUNT again, as before that commit. Memcg
-> charges such an allocation in whichever cache serves it, so drop the
-> SLAB_ACCOUNT, which no longer adds anything.
-> 
-> Build tested ARCH=x86_64 defconfig with GCC 16.2.0, with
-> CONFIG_SLAB_BUCKETS as y and n.
-> 
-> Fixes: 734bbc1c97ea7 ("ipc, msg: Use dedicated slab buckets for alloc_msg()")
-> Assisted-by: LLM
-> Signed-off-by: Kees Cook <kees@kernel.org>
+Hi Kiryl,
 
-Could we, for the purposes of a backportable fix, just have both
-SLAB_ACCOUNT and GFP_KERNEL_ACCOUNT in place? That should do the right thing
-regardless of CONFIG_SLAB_BUCKETS state, no?
+Thanks for the review!
 
-> ---
->  ipc/msgutil.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/ipc/msgutil.c b/ipc/msgutil.c
-> index e28f0cecb2ec..1ba8e59cb255 100644
-> --- a/ipc/msgutil.c
-> +++ b/ipc/msgutil.c
-> @@ -43,7 +43,7 @@ static kmem_buckets *msg_buckets __ro_after_init;
->  
->  static int __init init_msg_buckets(void)
->  {
-> -	msg_buckets = kmem_buckets_create("msg_msg", SLAB_ACCOUNT,
-> +	msg_buckets = kmem_buckets_create("msg_msg", 0,
->  					  sizeof(struct msg_msg),
->  					  DATALEN_MSG, NULL);
->  
-> @@ -58,7 +58,8 @@ static struct msg_msg *alloc_msg(size_t len)
->  	size_t alen;
->  
->  	alen = min(len, DATALEN_MSG);
-> -	msg = kmem_buckets_alloc(msg_buckets, sizeof(*msg) + alen, GFP_KERNEL);
-> +	msg = kmem_buckets_alloc(msg_buckets, sizeof(*msg) + alen,
-> +				 GFP_KERNEL_ACCOUNT);
->  	if (msg == NULL)
->  		return NULL;
->  
+On Mon, Oct 12, 2026 at 1:42=E2=80=AFPM Kiryl Shutsemau <kas@kernel.org> wr=
+ote:
+>
+> On Sun, Oct 04, 2026 at 12:32:37AM +0200, Dmitry Voytik wrote:
+> > Fix the issue when the driver always gets compiled as a module.
+> > How to reproduce the issue:
+> >       make mrproper
+> >       make defconfig
+> >
+> >       ./scripts/config \
+> >         -e CMA \
+> >         -e ALLOC \
+> >         -e KVM \
+> >         -e KVM_INTEL \
+> >         -e KVM_INTEL_TDX \
+> >         -e INTEL_TDX_HOST \
+> >         -e TDX_HOST_SERVICES \
+> >         --refresh
+> >       make olddefconfig
+> >       make mod2yesconfig
+> >       grep '=3Dm$' .config
+> >
+> >       returns only this driver as module:
+> >         CONFIG_TDX_HOST_SERVICES=3Dm
+> >
+> > "make menuconfig" doesn't let switch from =3Dm to =3Dy either.
+> >
+> > Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
+> > ---
+> >  drivers/virt/coco/tdx-host/Kconfig | 6 +++++-
+> >  1 file changed, 5 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/virt/coco/tdx-host/Kconfig b/drivers/virt/coco/tdx=
+-host/Kconfig
+> > index 57d0c01a4357..5a13ec6f51e8 100644
+> > --- a/drivers/virt/coco/tdx-host/Kconfig
+> > +++ b/drivers/virt/coco/tdx-host/Kconfig
+> > @@ -1,6 +1,10 @@
+> >  config TDX_HOST_SERVICES
+> > -     tristate
+> > +     tristate "TDX host user interface driver"
+> >       depends on INTEL_TDX_HOST
+> >       select FW_LOADER
+> >       select FW_UPLOAD
+> >       default m
+> > +     help
+> > +       See INTEL_TDX_HOST for details.
+> > +
+> > +       If unsure, say N.
+>
+> I would rather keep it hidden and make it follow KVM_INTEL instead:
+>
+> config TDX_HOST_SERVICES
+>         tristate
+>         depends on INTEL_TDX_HOST
+>         select FW_LOADER
+>         select FW_UPLOAD
+>         default KVM_INTEL
+>
+> INTEL_TDX_HOST depends on KVM_INTEL, so this gives =3Dm with kvm-intel as=
+ a
+> module and =3Dy with it built in, which covers your mod2yesconfig case.
+>
+> Does it work for you?
 
+Sure, I've retested and sent a v2.
+
+I also rechecked that it still can be built as =3Dm:
+./scripts/config \
+ -e CMA \
+ -e ALLOC \
+ -e KVM \
+ -m KVM_INTEL \
+ -e KVM_INTEL_TDX \
+ -e INTEL_TDX_HOST \
+ -m TDX_HOST_SERVICES \
+ --refresh
+I did this because sashiko produced a false warning that it can't be
+built as =3Dm.
+
+Thanks!
+
+> --
+>   Kiryl Shutsemau / Kirill A. Shutemov
