@@ -1,218 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75426348C7C;
-	Mon, 12 Oct 2026 10:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791801621; cv=none; b=FhzSMHJUD8gvUyKhp3l2oJMSyl2EbWxiRpAYL9hlsCAlXaXOkSFxziobqaA5Z6e45uIz8nVvip0CZpZFm233uXooYWeqItKdjlwo1xu/Pf862eTe6dMTIYZuTx8ovbPuSRWCB0KU+TLXgyUqLJs4uzfJb5jsORTpW9yKyfoYRc4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791801621; c=relaxed/simple;
-	bh=ziE8lAg3olNuSPnNtCsX4WIsjvjUwg80ecfSocDyoD8=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=itRz1wMsGIkqPA6fv/UfOsi2kaC7ocYXEspqy57FcIjtJhR6If/wXds59bZjgbDKcxm5SDRHJdm//CbrIiz2q31JTRXEXdvVfZQaomJMNqEHg6BKFdwvP1xZ1CPMf9P+MbcV5mT/2831xoI6M8WBSabXol0F6aKW8W6lahNH14E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H/Nktul3; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092F8372EF0
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791801622; cv=pass; b=BGX09dhGBm95tD8GbrktUNn7xAd5f/HmcmkglMdTYHvQ7cwYKTdgrPRTjhsThK6A3gID4hZpSD9wJWlIz1SXGsopVG0JL+ZS+bOa84S14rfjP8CMu+HINJsJZ8tNQ0swGdqtfbehnxqmRilUeXlGXsu4+tJY0RPh1Vei3bDE2eg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791801622; c=relaxed/simple;
+	bh=92KIamnWD8cd5WYLKJyli8qdGUGMlFHe2PGqMoGdBQI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LGM6Xdjgba9s/PYzmdb/o3mPhMFRyQnjtcR9T2k5JwIU5KRT5BNNoT2rXM/FRxo5pX33+e2vaJpQHbCRbBwOooOocY6mscVK5Yj71McQeetJhWC4D4NFP0iZO7zWxhqnC9hOcUGP9EyXSwhg5xSxOvcGZCnjo3PVJifj2fBt2EA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oNH5l3zT; arc=pass smtp.client-ip=209.85.208.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H/Nktul3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC1801F0089D;
-	Mon, 12 Oct 2026 10:40:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791801620;
-	bh=DiBrVZcOQoLTxCiDd+wbtrX+JX6LPS58GRReWsBaeBQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=H/Nktul3XbOANsYijkOC5ePkVrHQOC0uRPlV60y7LN0u+Xh+3+eBecM+T7ooGJ1b6
-	 a8NhBRTlEUhmr3bk1SFhnmlK72FjGruPjpBdm3mSVRVapw9cPhyENRdU+2vBPKaB/m
-	 y8x/bImRbpfZXotM1UE+UKvNjfXsTvfelgfG+LR7FM2DE68un39OSqYZrRnNYs9M9u
-	 uB+JCdEq7svUO4LqtsZXumg5CX2fY+ov1zTG5Ic8num1yD5GxRVYdeAJM7W8K8z+0S
-	 VNdu+cFfFOlPTXtoYx6mIY2FflWS64tNiezBXrrmjtfctabCAtrT5Zhy5ORREc6Bkb
-	 PmyaUdwAzDQow==
-Subject:
- Re: [PATCH] udp: let rx-udp-gro-forwarding aggregate under encapsulation
-From: netdev-bot+sashiko@kernel.org
-To: eva.kurchatova@virtuozzo.com
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, willemb@google.com, alobakin@pm.me,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Date: Mon, 12 Oct 2026 10:40:19 +0000
-Message-ID: <179180161935.434549.5518274080541032248@kernel.org>
-In-Reply-To: <20261008163817.2983484-1-eva.kurchatova@virtuozzo.com>
-References: <20261008163817.2983484-1-eva.kurchatova@virtuozzo.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oNH5l3zT"
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a1eb6fa0f4so18808581fa.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:40:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791801619; cv=none;
+        d=google.com; s=arc-20260327;
+        b=b/JtARiDB45hpiU72x1JlGNWUWIZq9AurjeoW2Sr3DJDPtcOCDcdyfx9UcG/e7HpaG
+         tDuWPvrwGKcYkLdfEgCCPfcDpYu6x9i1MUZkMGww/NsMBse6CW4nZOGPF+s/H5HklV6l
+         eSwZ9r5+AONrjGJsZf0saDiUS+GsqSGR94u3Fdd1v61XMX/n9zktEW+9Sgt1vjbEoO0/
+         Av0eIp97WusEGHxjRWCSn6/l5lUS5bY9AIkrfGZ7wfFiLT8IieFK+Nvrl8N/nN/CGuS+
+         H5V2obAb+OvwjuP6xZEc0BofOdcedzyE1oOL8HK3nt611S4Gi2Y3oW+fDMiNFEDoPybA
+         LeLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qb9r1QTfT6Icnt2JRunI17mQhOI8vmMkb4F7tmAW4fo=;
+        fh=AzB7ZNwC8vs8/z4s2s2msFSfksuQtuwT83HQh3U/ZIw=;
+        b=Sr7v5dCv9DpWnL3DTCWuuj2DaqOHUaIV90oQZTRSSZ+CjaIutajCPXd8QUlWonxAmf
+         q2wSRoL38tizfLR+0O/wOogGgQrQXgEvsedcJxI19t5hLJ/ai1K2CJzAeZBZueQZZaqV
+         tfxrnqe/06J9iRx3QEzDusDD5WTsjO8QOGhg9UfXVYqn8Qz2TaVZ6QP3QlyZ5IIHrU5F
+         qKWJamZ5D/+9z1FLOkwI8eBYW6Pc48y6zyqL4H0y7+8gyCaL1RXciUMMp2faFOyjNOCN
+         RQBm9hXPATnJDHb2tMMz+k8T+lYAmg/7j77ohVGQ25wRsnKpeTVV4FQRUMLUIMBe+vqE
+         dmGw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791801619; x=1792406419; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qb9r1QTfT6Icnt2JRunI17mQhOI8vmMkb4F7tmAW4fo=;
+        b=oNH5l3zT/XPHOXZTbeRvG4Q4AU34Xsdlct4Y08OF/Hkh9kUjAIJwq2pkjguXnD7WxE
+         /qG5F/neSRsqxoorX/TGENQ98q4f8g7yIDNsh1uhN3rWQ3UkqbIAvcC/HH5W/NTDW4q5
+         +btJyoxWDRp69AyOc1kR+5FsIrOswNbukJ47rAkN+uXFpPz26MNEMjF6L76jkBbnkFgs
+         7fPb82nu6a1nsQm5dDdH1Gq9dCfDHiFg72GpxqAqggCbemNg5G5pmK/7f4NpgP7kRdQp
+         e4XYWb47XmaaGobn4EQl6bT4QkmX1o7KurYFrl3zbbMZRmER9LgGDKpp8RT0AQbQLx4g
+         PFHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791801619; x=1792406419;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qb9r1QTfT6Icnt2JRunI17mQhOI8vmMkb4F7tmAW4fo=;
+        b=WEFVbHBx2Y6ERc9yXiEkhuMcloo/Emjbfep9H6mMpaz7DBGH2kwrlgtwAyjKirWbn1
+         ttTO/ZUJBEXwj7KefszzJ8MjimcR3J8q4qR/R6l+7PvlMx+T2qBPoxMAh0yWT950wZUB
+         iIvIe/ELoT63g3GmeA914Rz3/d8IAgFxNyJ/KJp9KlZ6lDkQhKqMzBGuLNebyKOGh1Rm
+         mulTpvnEGg3kNp/eatvqMRMhpnFJZbAhijFqTQdNkft0q/m+TrcORJ9LfcGUL6vtL3Yp
+         pfRz0cUwu+FArNTvm1bG8Yl1VOapFNqO7T8/GGrpJeGn411FpE1Zx2qn6kitxGWQDe3H
+         JQwg==
+X-Forwarded-Encrypted: i=1; AKwUvBwEiZU996qEOLhx9QKTOo+ZAYoDoKHpIXMEDLn7R9JXsprP4uJkxJF/OCXaDLkp71w3YlZJEd5D6qIBym0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJvQwwiYsjR6UlI/RIHruz7kGmfqtmixThzLVikpCx2+oELoQ1J
+	ti6ZFU8P2WI6QUpOtlenT3FkUDgaZjZejS20finArBcETpdgiggIZ9VEXqt9ho31+HLIDIJVnyv
+	tg812GyrbIeON6uCmQsPz7U9jVh+G8YE=
+X-Gm-Gg: AYBFou2xkDv0GhWMzVk5kG0NBGanJceJCBWu8qb8ciG7O3ddQRDbcfs/9nHc3KVxAwM
+	mB+EZvcMHvnbkeTiUb7tTilg6GKKWO4r180rWXSATtF28qg+zkFPTEs5u/XEOIkpqvD5hU2sRlc
+	l8LnJB8NmvpfQNbGP1aM5MbwNQGTd2cV6iygL3FyFi9zMb3TUfQkgXWshAG2+oEILFduMyCTI8Q
+	IcX6Q05Rq3PwIu91WAIb4tTTUoKKOBVPXoDC24HF2e/n2c/01gLFZcrFogoEex4rNd+9A4eZik3
+	ChdHxfxcaeyhwbhrPlT3OyXIUBMSfBD2RvrjA5WqKGs6ua6vYNJqdK0U0DnHc9fiSfYmLFwwUo6
+	88oIU+2thtruQ5kKkqvEv94yJkrEkCpkedj4CepfSamC89NCLB9Giy81keISJDdWT5hqTS2gUR2
+	D+Ir1pCDTXtkf5PIwsKx3aTRgO10N2iHL3BITi+L5k
+X-Received: by 2002:a2e:bc18:0:b0:3a7:5ff2:576 with SMTP id
+ 38308e7fff4ca-3a9c4eb3dadmr26987981fa.1.1791801618912; Mon, 12 Oct 2026
+ 03:40:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com>
+ <20261011-gpio-mxc-cleanup-v6-8-cb47ce2ad758@nxp.com> <CAHp75VeonKZtX8moOdXrmTJbjH5Ew5iVdDDc3KfqQ9r_tvHg1g@mail.gmail.com>
+ <asyw9ns870F0g7UD@shlinux89>
+In-Reply-To: <asyw9ns870F0g7UD@shlinux89>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 12 Oct 2026 13:39:41 +0300
+X-Gm-Features: AclHuK8j5vu_bU9arYI-L7AJUk-wyVDtV4Vr4-xee8wNlRYyo0Qc1_7I9JALruk
+Message-ID: <CAHp75VcO8YEBbt--P8WO-_Vu1O0mR2nsdqeBSG=JgavCEoR3Dg@mail.gmail.com>
+Subject: Re: [PATCH v6 08/13] gpio: mxc: use local dev variable
+To: Peng Fan <peng.fan@oss.nxp.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Mon, Oct 12, 2026 at 1:01=E2=80=AFPM Peng Fan <peng.fan@oss.nxp.com> wro=
+te:
+> On Mon, Oct 12, 2026 at 12:30:07PM +0300, Andy Shevchenko wrote:
+> >On Sun, Oct 11, 2026 at 2:54=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp=
+.com> wrote:
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+...
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> >>         struct device_node *np =3D pdev->dev.of_node;
+> >
+> >Why not this one? Is it even used? Perhaps you want to have
+>
+> of_alias_get_id() is used, there is no counterpart in fwnode api for it.
+>
+> >  struct fwnode_handle *fwnode =3D dev_fwnode(dev);
+> >
+> >here?
 
-- [Medium] The commit message says "a tunnel socket keeps its own receive
-  path" and that the new behaviour is "what every host without a tunnel…
-- [Medium] The patch treats as a kernel regression a behaviour the in-
-  tree selftests already document and work around.
-- [Low] tools/testing/selftests/net/udpgro_fwd.sh still explains its DNAT
-  setup with the socket-lookup restriction this patch removes.
+What about using to_of_node() for that one and fwnode for IRQ APIs?
 
---
+> >> +       struct device *dev =3D &pdev->dev;
 
-udp: let rx-udp-gro-forwarding aggregate under encapsulation
+...
 
-This patch removes the !sk requirement from the NETIF_F_GRO_UDP_FWD check
-in udp_gro_receive(). With it, plain UDP L4 aggregation happens whenever
-the device has rx-udp-gro-forwarding enabled, even if the GRO lookup
-found a receiving socket. The motivation is a veth.sh kselftest that
-fails on hosts where udp_encap_needed_key is enabled.
+> >> -       dev_info(&pdev->dev, "%s failed with errno %d\n", __func__, er=
+r);
+> >> +       dev_info(dev, "%s failed with errno %d\n", __func__, err);
+> >
+> >This message simply needs to be killed, with initcall_debug in the
+> >kernel command line you will get something similar from driver core.
+>
+> ok. Let me fold the change in this patch, I would not introduce
+> another patch to just drop this line.
 
-> diff --git a/net/ipv4/udp_offload.c b/net/ipv4/udp_offload.c
-> index cf07c3c6611a2..d4e0e6bb9959f 100644
-> --- a/net/ipv4/udp_offload.c
-> +++ b/net/ipv4/udp_offload.c
-> @@ -804,7 +804,7 @@ struct sk_buff *udp_gro_receive(struct list_head *head, struct sk_buff *skb,
->  		if (skb->dev->features & NETIF_F_GRO_FRAGLIST)
->  			NAPI_GRO_CB(skb)->is_flist = sk ? !udp_test_bit(GRO_ENABLED, sk) : 1;
->  
-> -		if ((!sk && (skb->dev->features & NETIF_F_GRO_UDP_FWD)) ||
-> +		if ((skb->dev->features & NETIF_F_GRO_UDP_FWD) ||
->  		    (sk && udp_test_bit(GRO_ENABLED, sk)) || NAPI_GRO_CB(skb)->is_flist)
->  			return call_gro_receive(udp_gro_receive_segment, head, skb);
+Why not? This is a logically different change. Since the driver was
+not touched for a long time there is a technical debt, you can first
+send fixes separately, followed by a number of the drops like this one
+(remove a noisy line), followed by new features. Make it three patch
+series.
 
-[Severity: Medium]
-Is the commit message accurate for UDP tunnel sockets that set encap_rcv
-but not gro_receive? It says:
-
-  "That is what every host without a tunnel has done all along: a local
-  socket without UDP_GRO gets the packets resegmented on delivery, and a
-  tunnel socket keeps its own receive path."
-
-Wireguard, L2TP, GTP, AMT, bareudp, rxrpc, SCTP-over-UDP, TIPC, ovpn,
-pfcp, rxe, and ESP-in-UDP without UDP_GRO all go through
-setup_udp_tunnel_sock()->udp_tunnel_encap_enable(). That turns on
-udp_encap_needed_key. On any host with one of these sockets, the GRO
-lookup always runs and finds the socket.
-
-For such a socket, udp_gro_receive() takes the
-"!sk || !udp_sk(sk)->gro_receive" branch. Before this patch, the !sk term
-kept plain L4 aggregation away from the socket when GRO_ENABLED and
-fraglist were not set. After this patch, its traffic is aggregated as
-SKB_GSO_UDP_L4 whenever the ingress device has rx-udp-gro-forwarding on.
-
-These packets only get resegmented because of the last-resort check in
-udp_unexpected_gso(), which udp_queue_rcv_skb() calls:
-
-include/linux/udp.h:udp_unexpected_gso() {
-    ...
-	/* GSO packets lacking the SKB_GSO_UDP_TUNNEL/_CSUM bits might still
-	 * land in a tunnel as the socket check in udp_gro_receive cannot be
-	 * foolproof.
-	 */
-	if (udp_encap_needed() &&
-	    READ_ONCE(udp_sk(sk)->encap_rcv) &&
-	    !(skb_shinfo(skb)->gso_type &
-	      (SKB_GSO_UDP_TUNNEL | SKB_GSO_UDP_TUNNEL_CSUM)))
-    ...
-}
-
-This doesn't appear to cause corruption. However, every wireguard, L2TP,
-GTP, etc. packet that arrives on an rx-udp-gro-forwarding device is now
-aggregated and then resegmented. Hosts without a tunnel never did this,
-because these sockets are exactly what enable the key.
-
-The fraglist path already relied on udp_unexpected_gso() for found
-tunnel sockets. Plain L4 aggregation through the FWD feature is new here.
-
-The comment at the top of this block in udp_gro_receive() still says:
-
-	/* We can do L4 aggregation only if the packet can't land in a tunnel
-	 * otherwise we could corrupt the inner stream. Detecting such packets
-	 * cannot be foolproof and the aggregation might still happen in some
-	 * cases. Such packets should be caught in udp_unexpected_gso later.
-	 */
-
-The code now aggregates on purpose when the found socket is a tunnel
-socket. Should this comment and the commit message be updated to match?
-
-[Severity: Medium]
-Does this change the meaning of rx-udp-gro-forwarding? Commit 36707061d6ba
-allowed plain UDP GRO "if we are on forwarding path", and the !sk test was
-how that path was detected. The feature bit is still documented that way:
-
-include/linux/netdev_features.h:
-	NETIF_F_GRO_UDP_FWD_BIT,	/* Allow UDP GRO for forwarding */
-
-After this patch, the feature means "always aggregate plain UDP on this
-device". That includes traffic that ends at a local socket without
-UDP_GRO, which udp_queue_rcv_skb() then resegments.
-
-The skip that this patch removes was already known, and the tree works
-around it. tools/testing/selftests/net/udpgro_fwd.sh says:
-
-	# UDP GRO fwd skips aggregation when find an udp socket with the GRO option
-	# if there is an UDP tunnel in the running system, such lookup happen
-	# take place.
-	# use NAT to circumvent GRO FWD check
-
-The failing veth.sh check sends through chk_gro() to a local receiver
-that runs without -G:
-
-	ip netns exec $BASE$DST ./udpgso_bench_rx -C 1000 -R 10 &
-
-That is local delivery, not forwarding. Its result depends on whether
-udp_encap_needed_key happens to be set on the host.
-
-Would it be better to make veth.sh robust instead, for example with the
-DNAT approach udpgro_fwd.sh already uses? The Fixes: tag will carry this
-change in feature semantics into stable.
-
-If the kernel change is intended, could the commit message describe the
-semantic change, and could the feature bit comment be updated?
-
-The commit message also says:
-
-  "the receiving socket is looked up only once a tunnel socket exists"
-
-Isn't the trigger wider than that? udp_lib_setsockopt() also calls
-udp_tunnel_encap_enable() when UDP_GRO is set on any socket:
-
-net/ipv4/udp.c:udp_lib_setsockopt() {
-    ...
-	case UDP_GRO:
-		sockopt_lock_sock(sk);
-		/* when enabling GRO, accept the related GSO packet type */
-		if (valbool)
-			udp_tunnel_encap_enable(sk);
-    ...
-}
-
-[Severity: Low]
-The udpgro_fwd.sh comments quoted above explain the DNAT setup with the
-!sk restriction that this patch removes. The same explanation appears
-again before create_vxlan_pair:
-
-	# use NAT to circumvent GRO FWD check
-
-Should these comments be updated?
-
-The DNAT setup also forces sk == NULL during the GRO lookup. As a result,
-the "GRO fwd" and "GRO fwd over UDP tunnel" tests behave the same with
-and without this patch.
-
-Does any test reliably cover the changed path, where a socket is found
-while the encap key is enabled and rx-udp-gro-forwarding is on? veth.sh
-only reaches it when udp_encap_needed_key happens to be enabled on the
-host. Nothing seems to cover FWD aggregation followed by resegmentation
-for tunnel sockets that set only encap_rcv.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008163817.2983484-1-eva.kurchatova%40virtuozzo.com
+--=20
+With Best Regards,
+Andy Shevchenko
