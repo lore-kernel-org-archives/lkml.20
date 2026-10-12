@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D9E475339;
-	Mon, 12 Oct 2026 23:36:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4636F47D44B;
+	Mon, 12 Oct 2026 23:36:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791848218; cv=none; b=TaN1ZijPheJVXpoGWbjDUvDyx88mUMEVL0w1Uz7zvujXaN8zRjtYeFYbiCk+ZjxK8e3L2oiI/WC8X9RT+0PctI/URFiEI74l8PLCtNyC2i6Un2B621HMJRiUs9O56N35Cb8HOUYbSMac8j3yPj6qjzC5ZOPY35ZCgsSjW4FIybs=
+	t=1791848219; cv=none; b=LJhS5xvXuStFD96ZJ4sm9V89BLZ+/Q9hBEURHZuIQclM/348Xzpzf8x4+3a3bNjff2Fza5SiyD/iSaXB+CpAQdoH+I1kLFSnq88NYYubRVJdZCg1t3GjSr1g9Mvj/gv3/Oj+nduD1QVY+VTWbvAoK+lXyxfI2f/srv4IzVw4hqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791848218; c=relaxed/simple;
-	bh=+BZBWi0bGilG48kCMb3Md2gqlXaoKVyz5LZXXqPpZ9U=;
+	s=arc-20240116; t=1791848219; c=relaxed/simple;
+	bh=VlCUKtQrwilUiGVi4+KYqIBgEdcw5ADTn6ijtb9H9lI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bSCQM9MLsOCzRFtX7obylRUGNAcEgZ7axsY8KPCZbw4NqkAsgvWA9ZRKkSvutMzy/vyKre57h2bf/h8sK7D4LexlSBT/tWyJhMirBkNLfPyPNj7ALo54I0UQMP/qxl33KL35ujxy41ssHTNtA9wqr89iY/ZAmTKLuRA5S1hPeP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K4hIEwO1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=enlB2SoWCqlwingYybYSCuY7mk8jNN139WRx9PgEmCyDsUZzHB86dmsoDhWafFIyRRRqI0zzCaMbxxMAtas5slXzAOwoDz1NowaDbTC1ebyp97XjJKTBMvA0rgWYlO9nqMJ3kLBnUpoUh+La+lyoNkugogXctyAeCWZI2NbCDpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cdU9hPRi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K4hIEwO1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC7EC1F008A6;
-	Mon, 12 Oct 2026 23:36:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cdU9hPRi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD8571F008A3;
+	Mon, 12 Oct 2026 23:36:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791848217;
-	bh=tDscMvMzVWp6QEYHPMSOkqrskyUTXLHyvVZdckCYS3o=;
+	s=k20260515; t=1791848218;
+	bh=QWiUdzbUzhqde9+5a+CQl4bbW9lyaKXw2EHkNRQcgko=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K4hIEwO1/szpek971OjnG+boXBe8C7HnAAJwvkGVmcGqQtHA7WhgpQ2nxIrNRP7WT
-	 LnMJkk/6pwxFBBFo0TMOcYj/p/1dxAZ6jsdHP2Fm6nJrsgAPka45IPHadn2CeUWjCf
-	 QSt7bvb356a84Hn4mcDkaqtePDnS/UJ5E6MTT7AHBHn1C72DJPYdQKC993RK6Tvg8w
-	 WGfFTFjlGJ7Atn95BxqcNaELKGg/my4F0/EHB/7Hr+jHzaXn+wRuq5UT6ajjVHjpCs
-	 iHBgFVCFdHIE9Bzb/bEcpn9us4kLWC7jsKXvvKYS1kzea7lXMREbo3nuRpn1fd8yP7
-	 F+dTa1k4ff5hQ==
+	b=cdU9hPRikSx4GBf8cOIGkG37DIAcxoYF/LwQvBqPFthWSVR4fSi/DUdJp27llAN/J
+	 ijUXUBF3WV3ZBa7qCZ0Z9i9FSpdb3KNX9we+K0GXPcIItCbqiZ+Y5ac59gdo+z6zEP
+	 2s6oLVeacapHA+6lS5MyP740UIfr3j1sQDSZg4D9VSskSeAHD0NMAPiGOUvumStDH/
+	 HzTVdtdfI5cGqGRC9JMwymxVMijyUfv1ImO8sUhd64+la3oz/QsfqV4yekDZ2WeNLv
+	 wGHLW3AbbKnOUdMyNEWYWFk4CG8QTOYZkdPg5w8E6j+1Dm81Xghp1WJzB5VcxrayNL
+	 OYOolU8T0rqsg==
 From: Yosry Ahmed <yosry@kernel.org>
 To: Sean Christopherson <seanjc@google.com>
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
@@ -36,9 +36,9 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Yosry Ahmed <yosry@kernel.org>
-Subject: [PATCH v3 22/27] KVM: nSVM: Flush the TLB if L1 changes L2's ASID in vmcb12
-Date: Mon, 12 Oct 2026 23:36:33 +0000
-Message-ID: <20261012233638.2546339-23-yosry@kernel.org>
+Subject: [PATCH v3 24/27] KVM: nSVM: Flush L2's ASID when emulating INVLPGA
+Date: Mon, 12 Oct 2026 23:36:35 +0000
+Message-ID: <20261012233638.2546339-25-yosry@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 In-Reply-To: <20261012233638.2546339-1-yosry@kernel.org>
 References: <20261012233638.2546339-1-yosry@kernel.org>
@@ -50,137 +50,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-KVM uses a single ASID for L2 guests per-vCPU. Hence, when L1 changes
-L2's ASID in vmcb12 (e.g. due to switching to a different L2
-vCPU or simply to avoid flushing an existing ASID), KVM needs to flush
-the L2 ASID to correctly emulate different ASIDs as different TLB
-domains.
+KVM currently handles INVLPGA in the same way as INVLPG, flushing L1's
+own ASID. This is currently correct because L1 and L2 share an ASID, but
+it doesn't work once they have separate ASIDs.
 
-Additionally, the nested NPT needs to be resync'd, as the MMU context
-is not tagged by ASID, and KVM cannot reuse nested NPT entries across
-different L2 ASIDs.
+If L1 is flushing a different L2 ASID than the one KVM is tracking, do
+nothing, as KVM will flush L2's ASID in hardware (and sync the MMU if
+needed) when L1 switches to the target ASID.
 
-Essentially, L1 switching L2's ASID is treated exactly the same as L1
-flushing L2's ASID, which is consistent with the APM:
+If L1 is flushing the tracked L2 ASID, flush the L2 ASID in hardware
+using INVLPGA if running on the same CPU as L2. If not, fallback to a
+VMCB-based ASID flush. Note that if L2 then runs on a different CPU KVM
+will flush the ASID anyway.
 
-  Software may effectively flush the guest's TLB entries by allocating a
-  new ASID for the guest and not reusing the old ASID until the entire
-  TLB has been flushed at least once.
+If NPT is disabled, also free L2's roots, as they may have stale
+translations for the flushed address. Do not try to sync the mappings
+for the flushed address as it involves walking L2's shadow page tables
+with L1's MMU context. This is similar to INVVPID handling in with nVMX.
 
-This is similar to nVMX's handling of last_vpid, except that when L1
-changes VPID12, KVM does *not* need to resync the nested EPT, because
-VMX VPIDs, unlike SVM ASIDs, do not tag guest-physical translations
-(i.e. nGPA to GPA translations).
-
-Reset last_asid when nested VMRUN fails to force a flush and sync on the
-next nested VMRUN. The TLB flush request survives the failure, but the
-request to sync the nested NPT does not, as it ends up being serviced in
-L1's MMU context after the synthesized VM-Exit.
-
-Drop the commentary about vmcb12's ASID being copied around only for the
-consistency checks, as they no longer apply, and opportunistically fix
-whitespace alignment.
-
-This is currently functionally a noop, as a full flush and sync is
-triggered on every nested transition, but is a step toward eliminating
-that.
+Note: If L1 is flushing its own ASID, it remains handled the same way as
+INVLPG. Additionally, if INVLPGA is executed by L2 (and not intercepted
+by L1), also handle it like INVLPG. Technically, L2 could be flushing an
+untracked ASID, in which case KVM doesn't need to do anything. However,
+kvm_mmu_free_guest_mode_roots() does not handle being invoked in guest
+mode, so using kvm_mmu_invlpg() in guest mode side-steps this, and
+should not happen with a well-behaved L1 anyway.
 
 Signed-off-by: Yosry Ahmed <yosry@kernel.org>
 ---
- arch/x86/kvm/svm/nested.c | 29 +++++++++++++++++++++++------
- arch/x86/kvm/svm/svm.h    |  2 ++
- 2 files changed, 25 insertions(+), 6 deletions(-)
+ arch/x86/kvm/svm/svm.c | 48 ++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 46 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index e04cc4f7669ea..8e4686b0d603a 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -556,10 +556,8 @@ void __nested_copy_vmcb_control_to_cache(struct kvm_vcpu *vcpu,
- 	to->nested_cr3          = from->nested_cr3;
- 	to->pause_filter_count  = from->pause_filter_count;
- 	to->pause_filter_thresh = from->pause_filter_thresh;
--
--	/* Copy asid here because nested_vmcb_check_controls() will check it */
--	to->asid           = from->asid;
--	to->clean = from->clean;
-+	to->asid		= from->asid;
-+	to->clean		= from->clean;
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 8f2542357e78d..436d13f106369 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -2468,17 +2468,61 @@ static int clgi_interception(struct kvm_vcpu *vcpu)
  
- #ifdef CONFIG_KVM_HYPERV
- 	/* Hyper-V extensions (Enlightened VMCB) */
-@@ -691,23 +689,35 @@ static void nested_save_pending_event_to_vmcb12(struct vcpu_svm *svm,
- static void nested_svm_entry_tlb_flush(struct kvm_vcpu *vcpu)
+ static int invlpga_interception(struct kvm_vcpu *vcpu)
  {
- 	struct vcpu_svm *svm = to_svm(vcpu);
-+	bool new_asid = false;
++	struct vcpu_svm *svm = to_svm(vcpu);
+ 	/* FIXME: Handle an address size prefix. */
+ 	gva_t gva = kvm_rax_read(vcpu);
+ 	u32 asid = kvm_ecx_read(vcpu);
++	int cpu;
  
- 	/* Handle pending Hyper-V TLB flush requests */
- 	kvm_hv_nested_transtion_tlb_flush(vcpu, npt_enabled);
+ 	if (nested_svm_check_permissions(vcpu))
+ 		return 1;
  
-+	if (svm->nested.ctl.asid != svm->nested.last_asid) {
-+		svm->nested.last_asid = svm->nested.ctl.asid;
-+		new_asid = true;
+ 	trace_kvm_invlpga(to_svm(vcpu)->vmcb->save.rip, asid, gva);
+ 
+-	/* Let's treat INVLPGA the same as INVLPG (can be optimized!) */
+-	kvm_mmu_invlpg(vcpu, gva);
++	/*
++	 * INVLPG on a non-canonical address is a NOP according to the SDM,
++	 * assume the same behavior from INVLPGA since the APM doesn't specify.
++	 */
++	if (is_noncanonical_invlpg_address(gva, vcpu))
++		return kvm_skip_emulated_instruction(vcpu);
++
++	/*
++	 * If L1 is flushing its own ASID, handle it like INVLPG. Do the same if
++	 * this is an unintercepted INVLPGA from L2, as
++	 * kvm_mmu_free_guest_mode_roots() does not handle being in guest mode.
++	 */
++	if (!asid || is_guest_mode(vcpu)) {
++		kvm_mmu_invlpg(vcpu, gva);
++		return kvm_skip_emulated_instruction(vcpu);
 +	}
 +
- 	/*
- 	 * If L1 requested a TLB flush for L2, flush L2's TLB on nested entry
- 	 * and sync the nested NPT MMU, as TLB_CONTROL also flushes NPT
- 	 * guest-physical mappings. Sync all roots, since the TLB flush is not
- 	 * specific to the currently loaded nCR3.
- 	 *
-+	 * Handle L1 changing L2's ASID12 similarly, as KVM only uses one ASID
-+	 * for L2 in hardware (per vCPU), so it must start fresh when L1 changes
-+	 * ASID12 to emulate different ASIDs correctly.  Additionally, the MMU
-+	 * context is not tagged by the ASID, so the shadow NPTs cannot be
-+	 * reused across different L2 ASIDs.
-+	 *
- 	 * If L1 requested a full TLB flush for all ASIDs (including its own),
- 	 * L1's own ASID is also flushed on nested VM-Exit, before running L1.
- 	 *
- 	 * TLB_CONTROL_FLUSH_ASID and TLB_CONTROL_FLUSH_ASID_LOCAL are handled
- 	 * equally for simplicity.
- 	 */
--	if (svm->nested.ctl.tlb_ctl != TLB_CONTROL_DO_NOTHING) {
-+	if (new_asid || (svm->nested.ctl.tlb_ctl != TLB_CONTROL_DO_NOTHING)) {
- 		if (nested_npt_enabled(svm))
- 			kvm_make_request(KVM_REQ_MMU_SYNC_ALL_ROOTS, vcpu);
- 		kvm_make_request(KVM_REQ_TLB_FLUSH_GUEST, vcpu);
-@@ -1237,6 +1247,13 @@ int nested_svm_vmrun(struct kvm_vcpu *vcpu)
- 		svm->vmcb->control.exit_info_1  = 0;
- 		svm->vmcb->control.exit_info_2  = 0;
- 
-+		/*
-+		 * Force a flush+sync on the next nested VMRUN. Otherwise,
-+		 * pending MMU syncs due to a changed ASID are lost, as
-+		 * last_asid was already updated.
-+		 */
-+		svm->nested.last_asid = 0;
++	/*
++	 * Do nothing if L1 is flushing a different L2 ASID than the one KVM is
++	 * currently tracking.  KVM tracks a single L2 ASID, and performs a TLB
++	 * flush (and MMU resync if needed) when L1 switches ASIDs anyway.
++	 */
++	if (asid != svm->nested.last_asid)
++		return kvm_skip_emulated_instruction(vcpu);
 +
- 		nested_svm_vmexit(svm);
- 	}
++	/*
++	 * Use INVLPGA to flush L2's ASID in hardware if running on the same
++	 * CPU, otherwise fallback to a full ASID flush.
++	 */
++	cpu = get_cpu();
++	if (cpu == svm->nested.vmcb02.cpu)
++		invlpga(gva, svm->nested.asid02);
++	else
++		vmcb_set_flush_asid(svm->nested.vmcb02.ptr);
++	put_cpu();
++
++	/*
++	 * If NPT is disabled, free L2's shadow roots as they may have stale
++	 * translations for the flushed address. Do not sync the mappings for
++	 * the flushed address, as it involves walking L2 shadow page tables
++	 * with L1's MMU context.
++	 */
++	if (!npt_enabled)
++		kvm_mmu_free_guest_mode_roots(vcpu->kvm, &vcpu->arch.root_mmu);
  
-@@ -1899,7 +1916,7 @@ void nested_svm_update_tsc_ratio_msr(struct kvm_vcpu *vcpu)
- 	svm_write_tsc_multiplier(vcpu);
+ 	return kvm_skip_emulated_instruction(vcpu);
  }
- 
--/* Inverse operation of nested_copy_vmcb_control_to_cache(). asid is copied too. */
-+/* Inverse operation of nested_copy_vmcb_control_to_cache() */
- static void nested_copy_vmcb_cache_to_control(struct vmcb_control_area *dst,
- 					      struct vmcb_ctrl_area_cached *from)
- {
-diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-index ed67c18e2b900..15c4aa3b02c2d 100644
---- a/arch/x86/kvm/svm/svm.h
-+++ b/arch/x86/kvm/svm/svm.h
-@@ -244,6 +244,8 @@ struct svm_nested_state {
- 	 * on its side.
- 	 */
- 	bool force_msr_bitmap_recalc;
-+
-+	u32 last_asid;
- };
- 
- struct vcpu_sev_es_state {
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
