@@ -1,181 +1,198 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC90A321457
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:44:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BE831A807
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:49:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791783895; cv=none; b=VvLplT3gyt3u4O7a+GgAbjJSAZdWLk0z2cdRmgsaR8QJdKgUO5c/OyCPFn7Y9cc2nyPqZOVy0L/4eB3DEe8yyFA9KRGbX3MjsUwI6syzm/RnS1z3CHoAHRwQQ2ZtnWfiO1IlbxpRhl1d6LOVbk39PNWg8BBK/w5C2SKMHAe3oLI=
+	t=1791784198; cv=none; b=MfeJJ/lwsm+YWfy4jEQOKSQR+FmXQ/6HePfPTNOIHnsjwoUVWEIn7fkzHJ12XUMBAL318+IX3isLwsYPnLWyc4xHqFJwR6hhtlwjctJTbBknYIbE+twV6S9bKurf+cHt03+4pM2p2ZbVnR/UxmiLOTyiUJE6ZCDy0GwN1c9f4Vk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791783895; c=relaxed/simple;
-	bh=jOkeAbcKgUrvZorlr+tay1hGWHPBmlHApl1BltEE+iw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DVKBVXv2H+NAeka7ETNe+NGE+DdWoAwbJmwZLdiXy/ZiEh1AQqIz5YapywJv/HfhlB8QMV2pCEDC63dB6/jxnmhmcSHJGqt0umRzc/+RF2g/iSFZyLUa6qlumoH5RO8hS6xiC9YNIaO2JGqSKk3BIU4JaFPLI5acYkHibDEp38w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FnOl37E0; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791784198; c=relaxed/simple;
+	bh=cEejnuTxNoYUAGMwNf0H3DF/Refb8wM9pJqbSHSjCjM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=riXNaXE5rMv8WvLioK6wowrhJasbbigvuymqPVGGRBfrDSQLgovfAqyueB/EHzYXLtfrNV5R78EYO8I30xvD8u3IX1e/adNJXVHG/JiLwRykEHAbl8gbqdEF3GYxImnY6nfrtez87Ybboh/Ta0wT01adWvi8fJ4t+S7lRZ3bV5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KNwi3vaF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A7lnuLYn; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FnOl37E0"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a16bc2278aso9581295e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:44:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KNwi3vaF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A7lnuLYn"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C5604U4068832
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:49:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	1pPPLwjmVufFsK6SDXsEs5dgYISVMn+cFpVZ28+JrPU=; b=KNwi3vaFD3SQfj1a
+	o/nqZfjagrL2NX5VhMo6lbcNEGaP8yTkgyerpQb8sm9IehuBoL9qMJszqbmSLie4
+	WhsJezbS3i+1n6ZP0PZJ4JJ6PXwlfC3zlRI2R9xLxV5oyXWs+7+wsrgGpWsUXQzI
+	FIJxeI0pQFnYhJsOAyhiHcTDVTzrl6qjOsLVXAsOniQlmH0M1C7SbrBMOVxpPJR9
+	6phyiEj3tRjf0RBL1Y/ADtZGScd49q+j8PPGeLev6X8zDf6Jtor1nzD68fAgKpuw
+	PR5efBLge/4Tx+OUg8p9vclBerTopImzHXtkLLpbiuVpJfRHVJtYv0ZuEmfSmFCO
+	ZTWlJg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7ehjmtat-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:49:56 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfc52ddc55so16462285ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:49:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791783892; x=1792388692; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=btW4jQ1y+/SiqS0gs878Y5z0xH+cJraR47l5WrmrTe4=;
-        b=FnOl37E0NSF4IHC58l+hpwevQO6VycVvLpqzcW4jSmwdo6kSnP739harB/YJWWOTtM
-         hE0ymccm794uWlbHn7pl9hI6t7lbU6nbzN55ZivFzqLCPUGMdEKwXRgNjDioxNBNG0Ds
-         C/u+XbcXgYJMmxyKspCFzZgQerGAtf93xGahC7HOWjRc7LWxf4NzLWS9O39PKL90RRJs
-         ggfp5j1Kdbp+vcIIGH0a000mp0RONRW2hcCG9cW9hbetNWMbD3iMPv0FoPBYCjbmP9Ui
-         dJ0CflCs6D9+7PezGvfPaSBIgta29eJYdYZ4pxbBa6Vrzp403O0Bs6+yyO4jsJIdZVWS
-         x0/w==
+        d=oss.qualcomm.com; s=google; t=1791784196; x=1792388996; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1pPPLwjmVufFsK6SDXsEs5dgYISVMn+cFpVZ28+JrPU=;
+        b=A7lnuLYnzlm2vS2XKUT/7tZFEzSMfpN0TfEemGEfYrHR86ZtBGI5Mr+JjBjWEdJGrH
+         3qRBFEpn/hbwpmB+Yg8heIwYSwjJU/mthfQYdUuVaV5pPf+RFvU5jAQfwD28plFioEDa
+         MhqEjSIaSwc2cdq7Tz+u2WSHYMbUX/3yFxqsWpEmz2DUKZTGd92+ueIsiv74zB+xOGYz
+         UdvgATUNEMVtGLiDUX+J5iRtmzCbKiiSInr4WrvbZUAaLE+KoJc2GIEs5k0FTfj8OfxJ
+         gBJx9qr3WWWIjknX2YlQigFAxnlvDA42a5rZIvVDigx62lUHjAFloIhsyQC7TvubgJdg
+         2QxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791783892; x=1792388692;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=btW4jQ1y+/SiqS0gs878Y5z0xH+cJraR47l5WrmrTe4=;
-        b=RiLtIKpSfY+WSv06PudQ7LqvPGqL8C+ThWgrLwtX92KiLC8JsmnyqXAKEGKZNH1/YR
-         6mcBVmbLChlKUqUOyu/x+ChjHUNelzdzOiJC3pQLOC6a4riaQoBLqArpOzTb2pVwgLpH
-         6a044U8NFfbo9SVpngst47ND6e+87U5Y15aNam8xr2kfyW4R9L5qrPyPiq1HE/Je1fjT
-         t9Gk6OAzkzmti1E47w+7CHNymq2rBOEioJwpFtYGeMNZgUGK/HtslpbbkTdk5i5raO+v
-         yB/FRb/kclaTs6AoaKwvBcQo9LET6EDlxJ6oWyTU92j5qngvYZOEbzxwjJs5NA5RZC1R
-         n/SA==
-X-Forwarded-Encrypted: i=1; AKwUvBzeNHqFztAY3iUxxFopo+XaC3LT8SwyWfaAFOFL+d/eNA0sVui38oNFxLSe8uMuGwfx1k4qHRTGvlDpeWw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRSn+QNuKu7k/fxzN3gmmC/4ZndB0uYfCq8Q7dUdadVOceOhoR
-	OSglF9OyBiVq1Q37t8vl/Oh6jnTuSdGE6GJQrGJg5/cn2dRYUUNDwXH/
-X-Gm-Gg: AYBFou2gALtRUgu9PkqzGx+yskBNVYFk1lUHdfxF/DCyCIUr3SS2pFYdW1EuRLAha63
-	/9uUg7D5tYxnfQJVTwlFxvyqtKUm6LAxoUvgAjWnra3zFvCb6v6/edCTJww9KM0cLuqFznR4BEb
-	vGXqHrW0rlwRVe5XmPQ+/yV4bH8acm8t84Z6A3NP74Rng6FfWgrdJ9oeh0G9BSlIHhDek054w/p
-	ZfE+pwH941MkMrlyePj9EUq81S7CBOiRooYsKb0qjzZCQFZwIIlnjjJuVtsdE3Me1LI9n/zlJNr
-	uSDzDOK50nUzdK249xHKtNZfY+R0sxfCBkl06ILBGPwJWPl7ZvxXUFx0tVAMWEx6cDviFqOKSTC
-	Rf6NrfkNJorYdVOO43ks3jS/HFfCHOmDBIRJipJ+RCSIk8WR69ki73nNoXw10CTUr+rEZlvd1fS
-	EkSDgyUL2H6Jys5hXVJIES+wcb8GWm6qGbi3f7AZLUP2O583mkcbP2J/g1Uf8GgzJAHTAfmoKt3
-	r6eEgNqfVLRSsNIsAUxUI0HRTn0nXNYlXL48mxNzMGsTUayTWdDBw==
-X-Received: by 2002:a05:600c:6215:b0:4a0:eae0:b30e with SMTP id 5b1f17b1804b1-4a18e4ca157mr133079995e9.22.1791783891940;
-        Sun, 11 Oct 2026 22:44:51 -0700 (PDT)
-Received: from home-desktop (dynamic-002-214-019-128.2.214.pool.telefonica.de. [2.214.19.128])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf35930sm256330645e9.13.2026.10.11.22.44.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 22:44:51 -0700 (PDT)
-Date: Mon, 12 Oct 2026 07:44:49 +0200
-From: Abhin Parekadan Jose <abhinjoses@gmail.com>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	David Airlie <airlied@redhat.com>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	Dongwon Kim <dongwon.kim@intel.com>,
-	dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
-Subject: Re: [PATCH] drm/virtio: Destroy obj_restore_lock on the final
- drm_dev_put()
-Message-ID: <asxz0Xvv5jO9gAol@home-desktop>
-References: <20260929070714.169412-1-abhinjoses@gmail.com>
+        d=1e100.net; s=20260707; t=1791784196; x=1792388996;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1pPPLwjmVufFsK6SDXsEs5dgYISVMn+cFpVZ28+JrPU=;
+        b=Vlj2d6rb3JNX8GJXUVBcLPb/prIXChC9KgwoqEqi7cfl6oPXAS2uho33rfQ4BOA5yj
+         Pm32zlLhRccwFTjIn841zmqAwlo0ZJVUY8rwU1lLSopvvUbxKTcxIGztg4bIKJDm6Ch4
+         XHPK9sFtt4OS8VZ1NxFQ1Lqebg2rAe+uQ3hT4OigZAi+Kx0KgvclGExqMgOScNwmcvGn
+         zaM/rYfpa0XK5yhCQD+suDRDA+7k6kXYmfoJ4Je7+xAh3mdPG0TOJndvl4+xqZyq0MIf
+         cNmiFPg+C/rBdffTlw3WMFLvZwdW+7WLF+q+MViFejsUOmw81A54GOu55wjR+n8bas63
+         aX/A==
+X-Forwarded-Encrypted: i=1; AKwUvBxpxtWm8VMO3bYC4irHtU/5WM3rmwzuokGAnpoeezFz6YlvanKy6mTU61lD8nqk2ALLcMd3jj5zHpvXV18=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8DS1xoUQV91po1ujlOf4Fx4aKuVm4d4xmaiHX3TqMhLZFugjc
+	ZWsYjj6+4nKI7VDRGvjoCM48TnD90l89g/GZnrnszYEE66egXLT5JiYIIXo9t30tvItQYweI/DK
+	cuMhf4iSAtzZVj0vGN5DVRo+VlCr8ojfgScpKQ72ZISvEvVoCDWbLSiYedqQxhpRR0jg=
+X-Gm-Gg: AYBFou2WEhWftdQY8L3XutmdWlkTNJQCQKTU6q/pTL4RLpqZu/0w36bArXduhyK6f7H
+	vgc4WdfIVulzeQgXFrNpRYBepEA2n+ctMvxPIiSrxaENUw0CKOpulJkL8XMUV8HAhlef1hZ7+IR
+	eR0UQ8uVCmC0Y+W/crCyEhCedSTYFGOBCSsVHfJGZ1cdPS8lj17LpQtlnzObiUbZpKMU5E0RJfD
+	X0bz2F70F/rZ7B9aM/esnhphFdIOtOqHueed9J1AMFuqNNBsu4fSexFMWumAtO9C5JMdEA+pqVC
+	CTPzpxkb8r+1POAG5A6+FTBUqTpfEC4HwMr/mJ70QIstTxoFDbG8ByagWsdTbyqgU1gva07fj0P
+	Icdd78pC9giqQjW60ltUerqL7SxT9fTI=
+X-Received: by 2002:a17:903:244e:b0:2e5:d33a:88dc with SMTP id d9443c01a7336-2e842aadef1mr75953235ad.17.1791784195791;
+        Sun, 11 Oct 2026 22:49:55 -0700 (PDT)
+X-Received: by 2002:a17:903:244e:b0:2e5:d33a:88dc with SMTP id d9443c01a7336-2e842aadef1mr75953085ad.17.1791784195337;
+        Sun, 11 Oct 2026 22:49:55 -0700 (PDT)
+Received: from [10.231.194.200] ([114.94.8.21])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e4cf3sm37758925ad.72.2026.10.11.22.49.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 11 Oct 2026 22:49:54 -0700 (PDT)
+Message-ID: <8ec100c6-e8c9-45a1-9bc8-e4cef580af86@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 13:49:50 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929070714.169412-1-abhinjoses@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/5] wifi: ath12k: avoid IDR mutation during vif mgmt
+ TX cleanup
+To: Jiale Yao <yaojiale02@163.com>, Jeff Johnson <jjohnson@kernel.org>,
+        Vasanthakumar Thiagarajan <quic_vthiagar@quicinc.com>,
+        Balamurugan Selvarajan <quic_bselvara@quicinc.com>,
+        Sriram R <quic_srirrama@quicinc.com>,
+        Carl Huang <quic_cjhuang@quicinc.com>, linux-wireless@vger.kernel.org,
+        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261003092104.520135-1-yaojiale02@163.com>
+ <20261003092104.520135-6-yaojiale02@163.com>
+From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20261003092104.520135-6-yaojiale02@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAyMiBTYWx0ZWRfX1BNAPnoqFBXB
+ XW/Ao8tplB1HBtDqRmmERQd32IXg4L0YQJTM5TF3RioDwx5U4RYqffjxGnhtMMidYoycXGfjbYe
+ gkZmgh0DVghtZsSG2uF2srkAM4V7V1q+74mI+JesuxrjrIH3Gtz1Ak0dmPJ7hbezQzfbc/QH2Zg
+ muQm3ecz3SSk2I86fAaVgrCP4zKgCdrZOyI7LKZmcrR0e3zSQiM+1xC+vF0EPM6BuBmcgcy+8Sa
+ JGaIobm+aq2KJ0zgqSF1iBsebrbN7J5lghXLTOL7u2lqhrrPqjDCB0GWmiLg+3K+8nHiiR9ZqGG
+ SD6DL84QsbWAVMdDqLW8SZ3uk+EfzudgjFJrR9kiR/JGX1LB4Jz3a4K3PIpKv4TtHLwGD1lDb5J
+ LO6JdhgzQDcP29Pnkuz6iriHMjZcTp3RBGK6WNCddsqnl3Jlm6jddI+0IHewFVqwFLvq36nPLf6
+ gKXlvYwbaGZZOYS3SDg==
+X-Proofpoint-ORIG-GUID: F1bVRIlAMJ3Og-fQve6XVgEy8Hqd3bxW
+X-Authority-Analysis: v=2.4 cv=MpTHeGae c=1 sm=1 tr=0 ts=6acc7504 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=Byx-y9mGAAAA:8 a=YGf98eWBf9nrUm2w2I4A:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: F1bVRIlAMJ3Og-fQve6XVgEy8Hqd3bxW
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAyMiBTYWx0ZWRfX95OC5C+DiOJh
+ RkCgA4KGXJrmMjGgtP9pvCBeRoKkuTMpEZcRGbsQFsP8xqxkk6QydPQCJSheyWqzrBbvcztPhyB
+ m+ZBdbtNGWPtUk+eed+9J1Yqlq7TawI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 spamscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120022
 
-Gentle ping on this fix for the syzbot report.
 
-Dmitry, Gerd, do you have a preference between moving mutex_destroy()
-to virtio_gpu_release() (this patch) and using drmm_mutex_init()? I can
-send a v2 with the other option if you prefer it.
 
-Thanks,
-Abhin
-
-On Tue, Sep 29, 2026 at 07:07:14AM +0000, Abhin Parekadan Jose wrote:
-> virtio_gpu_deinit() calls mutex_destroy() on obj_restore_lock, but
-> deinit runs from virtio_gpu_remove() at unbind or PCI remove, and GEM
-> objects can outlive that. An open /dev/fb0 keeps the fbdev buffer
-> alive, and the fbdev DRM client holds a drm_device reference. When the
-> fd is finally closed, the buffer is freed and takes the destroyed lock:
+On 10/3/2026 5:21 PM, Jiale Yao wrote:
+> ath12k_mac_vdev_delete() walks txmgmt_idr with idr_for_each(), and its
+> callback removes each entry belonging to the interface. Removing the
+> current entry can invalidate the radix-tree iterator retained by
+> idr_for_each().
 > 
->   fb_release()
->     drm_fbdev_shmem_fb_destroy()
->       drm_client_buffer_delete()
->         virtio_gpu_free_object()
->           virtio_gpu_remove_from_restore_list()
->             mutex_lock(&vgdev->obj_restore_lock)
+> Move the walk into a helper that uses idr_for_each_entry(). It performs a
+> fresh lookup for every iteration, so each matching entry can be removed
+> through the locked removal helper without retaining iterator state across
+> the removal.
 > 
->   DEBUG_LOCKS_WARN_ON(lock->magic != lock)
->   WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0xf2c/0x12ec
-> 
-> virtio_gpu_deinit() should only do hardware teardown in this case
-> related virtio, its queues and others. Software state that GEM callbacks
-> still use belongs in virtio_gpu_release(), which runs on the final
-> drm_dev_put().
-> 
-> There are two equivalent ways to tie the mutex lifetime to the
-> drm_device:
-> 
->  1) Move mutex_destroy() from virtio_gpu_deinit() to the end of
->     virtio_gpu_release(). This is what this patch does. It is the
->     smallest change and keeps the teardown next to the rest of the
->     final-put software cleanup.
-> 
->  2) Initialise the lock with drmm_mutex_init() (checking its return
->     value) and drop mutex_destroy() from virtio_gpu_deinit(), so DRM's
->     managed release destroys it. This also covers the virtio_gpu_init()
->     error path, where release returns early because dev_private is
->     NULL. Skipping mutex_destroy() there is harmless, since it only
->     matters for mutex debugging.
-> 
-> Either fix removes the WARN. Option 1 is sent as the smaller change,
-> and option 2 can be done instead if preferred.
-> 
-> Reproduced on arm64 QEMU (-device virtio-gpu-pci) with DEBUG_MUTEXES
-> and PROVE_LOCKING: open /dev/fb0, write 1 to
-> /sys/bus/pci/devices/0000:00:01.0/remove, then close the fd. With this
-> patch the WARN is gone, and rebinding brings back /dev/fb0 and
-> /dev/dri/card0.
-> 
-> Fixes: 54a970048296 ("drm/virtio: Add support for saving and restoring virtio_gpu_objects")
-> Reported-by: syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3590d97d8a586fa955c2
-> Assisted-by: LLM
-> Signed-off-by: Abhin Parekadan Jose <abhinjoses@gmail.com>
+> Fixes: d889913205cf ("wifi: ath12k: driver for Qualcomm Wi-Fi 7 devices")
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
 > ---
->  drivers/gpu/drm/virtio/virtgpu_kms.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  drivers/net/wireless/ath/ath12k/mac.c | 21 +++++++++++----------
+>  1 file changed, 11 insertions(+), 10 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-> index 1d4d3bf46a20..0ec755c35050 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-> @@ -354,7 +354,6 @@ void virtio_gpu_deinit(struct drm_device *dev)
->  	virtio_reset_device(vgdev->vdev);
->  	virtio_gpu_reclaim_vbufs(vgdev);
->  	vgdev->vdev->config->del_vqs(vgdev->vdev);
-> -	mutex_destroy(&vgdev->obj_restore_lock);
+> diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
+> index c0acb92b7320..108ace48cc97 100644
+> --- a/drivers/net/wireless/ath/ath12k/mac.c
+> +++ b/drivers/net/wireless/ath/ath12k/mac.c
+> @@ -9196,16 +9196,18 @@ void ath12k_mac_tx_mgmt_pending_free(struct ath12k *ar)
+>  		ath12k_mac_tx_mgmt_free(ar, buf_id);
 >  }
 >  
->  void virtio_gpu_release(struct drm_device *dev)
-> @@ -370,6 +369,8 @@ void virtio_gpu_release(struct drm_device *dev)
+> -static int ath12k_mac_vif_txmgmt_idr_remove(int buf_id, void *skb, void *ctx)
+> +static void ath12k_mac_vif_txmgmt_cleanup(struct ath12k *ar,
+> +					  struct ieee80211_vif *vif)
+>  {
+> -	struct ieee80211_vif *vif = ctx;
+> -	struct ath12k_skb_cb *skb_cb = ATH12K_SKB_CB(skb);
+> -	struct ath12k *ar = skb_cb->ar;
+> -
+> -	if (skb_cb->vif == vif)
+> -		ath12k_mac_tx_mgmt_free(ar, buf_id);
+> +	struct ath12k_skb_cb *skb_cb;
+> +	struct sk_buff *skb;
+> +	int buf_id;
 >  
->  	if (vgdev->has_host_visible)
->  		drm_mm_takedown(&vgdev->host_visible_mm);
-> +
-> +	mutex_destroy(&vgdev->obj_restore_lock);
+> -	return 0;
+> +	idr_for_each_entry(&ar->txmgmt_idr, skb, buf_id) {
+> +		skb_cb = ATH12K_SKB_CB(skb);
+
+this has the same UAF risk as Ramesh pointed in ath11k patch (patch 3/5).
+
+> +		if (skb_cb->vif == vif)
+> +			ath12k_mac_tx_mgmt_free(ar, buf_id);
+> +	}
 >  }
 >  
->  int virtio_gpu_driver_open(struct drm_device *dev, struct drm_file *file)
-> 
-> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-> -- 
-> 2.51.1
-> 
+>  static int ath12k_mac_mgmt_tx_wmi(struct ath12k *ar, struct ath12k_link_vif *arvif,
+> @@ -10967,8 +10969,7 @@ static int ath12k_mac_vdev_delete(struct ath12k *ar, struct ath12k_link_vif *arv
+>  	ath12k_peer_cleanup(ar, arvif->vdev_id);
+>  	ath12k_ahvif_put_link_cache(ahvif, arvif->link_id);
+>  
+> -	idr_for_each(&ar->txmgmt_idr,
+> -		     ath12k_mac_vif_txmgmt_idr_remove, vif);
+> +	ath12k_mac_vif_txmgmt_cleanup(ar, vif);
+>  
+>  	ath12k_mac_vif_unref(ath12k_ab_to_dp(ab), vif);
+>  
+
