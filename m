@@ -1,124 +1,155 @@
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9DA93BCD2B
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791813562; cv=pass; b=D/cNCQBRZm9UolS72KwFbfW2O6uBZ3Yt377bfMk35OoodIbbt7SkalR+X2+CLi7GJ4JZr/8/S1DDUVxFHGdrCytGQBH96Sw8zk97q+xfDl+WxlP/y+fKxFpene7Hr8M7n6eECEvyUTcQUKYfE2jjcJxNrpYGwGacGR2IQ89H+GE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791813562; c=relaxed/simple;
-	bh=7+FqPZlbKzDBVAJi5KEqpaoN9YJA+O6TweFmTWZcY/g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RWUiFS/ElE11AVrjX0dQjwzo+v1epY2GkDXPz9BFSeaTsq3DJmdPxL7Y764HrE7FEEdXvaS91YjzpP9OyG+JfQ1aYP2ErS6R1kXIe4Mcjcda2wBsfrdTb/NlxJ5TKeOb7qStWh7Mql97Ushjq4e0OrMK5JPkDSwz5Y5MyYW5P5s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l59ictqP; arc=pass smtp.client-ip=74.125.224.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C873F5BEC
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:59:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791813566; cv=none; b=YE4sfHWk86wxO49DvU5Z6Em/Mm1b8+AD3WxMXEkc7mTEYSVCBcwmBq0QUUF0JGFgxOGxLVTXRsJbtmH9VgVIOs4zRuelq5sVhpLACdKkYXuT5V7BTehREAhfp9UUIJwp1SFTKh48cV/BX1/L9oXjHb5/qvm64PIePKNaK70gs7A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791813566; c=relaxed/simple;
+	bh=pWTSTX0GSPdxaZvzMxPH636vuYSYn1S37Hd7tEchJtI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=h4EqEpWiNc5/+cCSBRbevlcOlBu5qoxnnb7661NdKtl5Po5ylv+iN41yJqaBr92IKR0UDxjTkR5Y5tww1VnAQry2THDNxy5A4zbY1aD/BdMcZ/c4bmKE7bVI9RCdWHQxD4xNsyw2lCEDD+iEB3YR8GmFbb/CM31uj/AnHj5tEjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fsuKPWaM; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l59ictqP"
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-6756a01fa01so1660045d50.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:59:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791813560; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Bz8/nJHTlt4Pydqn6E/UuLSH6De1voIXw2GoGZPOp+WvxK2CTwVB+1MmXBJl4+AZQ6
-         s9dwXT9K1QStBvHDmFfDWVJMmj/f/wPyPxRKOlhpEIZdO65hhrwlh4L9cUu595zuGGFU
-         mRdTtl+1MfjmJO6OMROdkt/qGIUlH6mBcWEFj8CCpob4KJFYAr8MVHl4BOqLC27sfdOJ
-         OnXiAYbzictN0u6gOAXIhxLoK0VXdx3TueFRoMdr8Tqt4Qem3hkt5AYXgv8H8WivjoBF
-         p6c+V0XAYyj42OLmnvFPPlhMTwadIcofMT3SsQt0MB8AuvuJ9mvl0H+9nrNv2isbJKy6
-         zxGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7+FqPZlbKzDBVAJi5KEqpaoN9YJA+O6TweFmTWZcY/g=;
-        fh=hN/HoIWbgSJqqy2f8jeihBDRdY8C4MXPlUN+y3qrdQ0=;
-        b=i46m+4b6921gzyKOW4tXqBvihJ8Gxo6bS22Jl4l7vSQIhncdmi6sodzQiLS3xAJSrN
-         Ct7soI0EK4Su5K6ZiPG6n2eVQI/inca1j9g0LxPuK5A9zMcHNEyZWXwH6q4XrGms/zO4
-         liT3b+pssTG0wfKzjHQI2GzuRseqNrqRLfpaAxjFVEddAyyFOuRIwfMaZT1CXmaGadKe
-         +483w84btrTF7VD6ts6q274X94GptmdGK9PohDCF01KJKePXUTZJOdosGcr5WxzlMYF7
-         OefwRrnguYHlwi1VGcxmjkH8J/C6JYfNRim/gKpJ6b7yM/2UrH1mvR5ENlm/Yf1wEUeQ
-         sLGQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fsuKPWaM"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49d04e4a943so961195e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:59:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791813560; x=1792418360; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7+FqPZlbKzDBVAJi5KEqpaoN9YJA+O6TweFmTWZcY/g=;
-        b=l59ictqPvgtSdXxtxQityvioB3NKtTTy1otYtzB3WjkLh3dOWALB1x5GdqX4it6MNl
-         4+Oi9gs7LgfRIBPGHP1kg/D2HSW1OfPsQ5jR8arpqYn2rpTptOPR4UuHhYycFFF8ICTX
-         opUk0g0/pCRuHzS3atuvN8UWp5X9/7VD9OtSUc9VtqdBlujlncAaY2SHRMkH3Q5LXpkZ
-         dpGrKeABWrefOeZs7Z16WBcfapLnlh4LTGAcAICSOjsMENWO5a+uFhJfsKnUGAse20D1
-         RGOx5qHzOH+fDHDquWyESnHWVy9R7s4BUm9iFhh7Hkm1ep1Mo4tQVldW3IC9W1FI3J/4
-         I1Pw==
+        d=gmail.com; s=20251104; t=1791813563; x=1792418363; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cSXHZySapaE2VR/MDamnyHrHMc9ONj9QB+o5hS2C+wg=;
+        b=fsuKPWaMljMf98cbVyZfhbk7qxRCwe1wERFKUEOYmBXWUP4DmFpMuh9MtOA+y1S9LO
+         46iUPhtomAiTAmCgN2sqDA7K0s+z2lUZn5Pa55291OZdNcboCsAzgFKxNs6h7Xe7Ypat
+         Zyn1I+loDXiWeVMQkfcqPtdaQbbEbS2MOev+9jpNwnkRF0jzzeHhpdE5EF67DMwiyf3H
+         GBAr3wunnqfCCU/pGMbqMGlMVX8z4Lnlwf0AwCB0CezhuHeTfxosi06PJzJvOS+iiOR/
+         wvRWXHswDuJUlgSEjZGo9gcuYQCGjQCNOuBQKblL7QExUOS8LrtUB0Hxayiv84Ok19bR
+         Pkmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791813560; x=1792418360;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7+FqPZlbKzDBVAJi5KEqpaoN9YJA+O6TweFmTWZcY/g=;
-        b=d8i3VDYBUI8v+o9sJv8lrWqv2ucnmh8d+lrCYv99vMPZHA1sC2ijofyEh0d8KIrjV+
-         HBHU1mcQe0kcEFGNFjKA3WWzqFVn0gFw7ApBWmnM2wjj0g7ci6mqbcrfd8XuNEixazcx
-         tI2zUFbfQgI4+LwaEVLVD22gudcSgNzVyMVM6+WL099ypqqvdGjVOKspu7OHGVXeXMKO
-         a4UqjGyA7ejUHp0Ms6q/3C28kFNYWAd4QfhrThtiolMOuwHgAXn0ho/TpqPz452xD6Im
-         GjYo4KaRtk4J1yjyGAk+kidp9k/rI1Zrs9pkKF7MjLYBhzWSzztMH2ygtiiPMiJBUx0C
-         WaNA==
-X-Forwarded-Encrypted: i=1; AKwUvBztR7BATFcEjrmOfQeD9v+cuF8diapF10m1PpXhG6nQ7Yb0fEnzsOvT4cITONEBmraqKjiV8fLLxTbQqS8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhE/0wiFSdv1ky1CjGFUitJ/jsTXaRRVVV7o8oKyLiALS2sKke
-	a+j+2Uu+aGppa46dIYXy+E9EpUT68r+vMWVHdSVdaev/UBdrKifDfJc7xE8Q6iLcpm+vToEm3kw
-	bAZO4BfP4QFBxhRM4yoW/gtjeDPzJ2Nk=
-X-Gm-Gg: AYBFou1SkiE7lK5pMvGrhcEmHdFrp7Ns04LslRA92y5ZEuSsX4ZUJ2LylqdFRYYZ5Ua
-	fDF0aJRI5rDDbhpF9Pr725IyRZj0WmPQTz2CYhFpf3y3/5s5uqpLQXISk3E+LyB0l48KiS1mlY/
-	IBHTctP0a/o53vBFro8GgMRF+JOB/4d1iLk6DzsLMR+kF8o7BFmLCPV+hjgtRvzK4/5TRSsVzlT
-	DGOwQZZfMx5os83npMG2ttsITu4Taet5S/sJWLyZ4h4TtG5RZubIUyVhHynzlGW6b4O53xzk0Ro
-	wIgIbERIwbRe2dAy343BBI/Mux6XIOCmaXIdYpyvZkg8HwFEHrdIiiBL7w==
-X-Received: by 2002:a53:ac90:0:b0:675:3c10:28a7 with SMTP id
- 956f58d0204a3-67936acfd88mr2947207d50.94.1791813559834; Mon, 12 Oct 2026
- 06:59:19 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791813563; x=1792418363;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cSXHZySapaE2VR/MDamnyHrHMc9ONj9QB+o5hS2C+wg=;
+        b=b7TkHIqM22f49a584aHJfVfn2l/6IadXzN9FnwNxB53GmanxjhP9yeHt6ElNofHInc
+         Rzaf9lsRw7LVAGmIny92PJqj9NPA0N+DV9Q/q+aLVwMZxGUhKyca5oi3+oLS3STy6ljN
+         N307hCIf2Mc0U9Yc90jCjM0jZZF0iRU+juu/V//S5AAz85Yuv0T8meXuxI2aqKij0WWr
+         VtsasGW9qxaSgj8BtTK5OCy7HTBMaxJh68rM24SJJnWVTlA9bPCGwsCtkEIrRtzL5OQ7
+         PKTOqhSyWROlvJdYoAWiv9elWXTj5d2FfUfwBcZpDGSeUFB+7ol7BUNSTf29xZBUyH5S
+         xnSQ==
+X-Forwarded-Encrypted: i=1; AKwUvByt8ssia9s85xKlpKA6NQzGn7889gOLojG/VWLvFMoPeTCEFEwmauGuR1VRW6K5ppfgA7gGUO+8rYFdqqw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJsGVbyaD0iOG70E3aVLynYM8alkWyr44dQ//88IDaaqLhyKhlF
+	hkGZ6NVXdg6RvVxNVu18etqziXjsadOFRJq1lZ1xLg55pteMJaaRdnS4
+X-Gm-Gg: AYBFou13/03lUv+iFRMw80q8DZzDk+G9ROLpZfzufKPyhB20lXdOeCqHdATBS/qIa3C
+	+8Q+46DB31rzGJphMmWT22unmmQUIcE8cU7eB/dgywl8YhDoH43WdYb7JoFT9I8wvuWND9yPqFr
+	y7E/Ar15Pc4IDMvKnG9sFcC6uHjusCtsMHgc7aDAzumKlSFONl1L5sKv/+TO84qsPddYE4iBCi9
+	qKHdozcIYMHGPYr7xr42bLWlb4/S1ekipE0PlzP5eXn5x8TPgBdC+SldwpvPJ8qI7XfTzxbwAzJ
+	JOQr10g9/GHEX10kegAaRYi2pzN2bBzyGbtLcpYpKI7WeKwa7mzQNd6scD4leIrsqBsvR5r2WG9
+	Di29b6qZkwXXei4aO1L2Qg02Mwowa3bcUAIpFgdKDO66i5PZdwWBwREUssPOg0Hv/7RNjzAClx+
+	jbtfvMhVJCkdkuHfyQx11KJtxS3dU5ZpDw8XNodteW8Tx5+KhKR3bOuqVveN5A5iqd7rnwhZW1/
+	w1sLzx3dsBUhQYDrUwA
+X-Received: by 2002:a05:600c:4e45:b0:4a0:13d8:cd0c with SMTP id 5b1f17b1804b1-4a18e47e330mr171917755e9.2.1791813562803;
+        Mon, 12 Oct 2026 06:59:22 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c198134sm290621675e9.15.2026.10.12.06.59.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 06:59:22 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: vincent.guittot@linaro.org
+Cc: bsegall@google.com,
+	christian.loehle@arm.com,
+	dietmar.eggemann@arm.com,
+	elif.topuz@arm.com,
+	juri.lelli@redhat.com,
+	kayracizmeci@gmail.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@kernel.org,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	sh@gentwo.org,
+	vschneid@redhat.com
+Subject: Re: [PATCH] sched/eevdf: Fix vprot across reweighting
+Date: Mon, 12 Oct 2026 16:59:19 +0300
+Message-ID: <20261012135920.3247-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <CAKfTPtC_DjYGmnHuV8x9HEoea87pfrpfNWwHT=sGeSP8UOL2Og@mail.gmail.com>
+References: <CAKfTPtC_DjYGmnHuV8x9HEoea87pfrpfNWwHT=sGeSP8UOL2Og@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <pm-key-management-objects-candidate-0001-v6-9876bf3e2116d47c065e@gmail.com>
- <aszZ3KPvMMHLEJ0s@kernel.org> <aszalro6U6BFO_D3@kernel.org>
- <CAFRLqsUB0MQRoCHg8cXmyofWqbDGyvAr7vV07i0jUpMnSaksVQ@mail.gmail.com> <aszlg2R3E7zqR75r@kernel.org>
-In-Reply-To: <aszlg2R3E7zqR75r@kernel.org>
-From: Cen Zhang <zzzccc427@gmail.com>
-Date: Mon, 12 Oct 2026 21:59:09 +0800
-X-Gm-Features: AclHuK_Z8o-xqZg0jqZI76nVd64T9lr82nl3wJ3vcrRD5bolIQP_kt4ypa7iRSI
-Message-ID: <CAFRLqsW7HEn1=BjHsVNpvqT+Uf8hnxaY=ktsx+5S151KM7mKsw@mail.gmail.com>
-Subject: Re: [PATCH] KEYS: Protect user key quota access during instantiation
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org, 
-	serge@hallyn.com, akpm@osdl.org, keyrings@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	baijiaju1990@gmail.com, jjzuming@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Jarkko Sakkinen <jarkko@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8812=E6=
-=97=A5=E5=91=A8=E4=B8=80 21:49=E5=86=99=E9=81=93=EF=BC=9A
->
-> While AI assistance is allowed, if this happens as a pattern, it is
-> misuse and eager way to credit without due. I.e., you've done 50%
-> of the work but ignored the human part.
->
-> I.e., you also must understand without AI assistance what
-> the patch does. If you do, it should not a problem to write
-> a commit message tht simply describes what it does.
->
-> To summarize:
->
-> 1. Actual mistakes are fine and then patch just needs to be iterated.
-> 2. Skipping work is not mistake and it is not cool.
->
-> Hope this clears things up.
->
+> I don't get why you need to a se->rel_vprot and all these changes . If
+> we want to ensure that protection will not be re enabled because of
+> rescale, we just need the below
 
-Thanks for the guidance. I=E2=80=99ll keep it in mind.
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 5c98d8dfce5d..e83836fe44ef 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -4951,12 +4951,15 @@ static void reweight_eevdf(struct cfs_rq
+> *cfs_rq, struct sched_entity *se,
+>         update_load_set(&se->h_load, weight);
+> 
+>         if (on_rq) {
+> -               if (rel_vprot)
+> -                       se->vprot += avruntime;
+>                 se->deadline += avruntime;
+>                 se->rel_deadline = 0;
+>                 se->vruntime = avruntime - se->vlag;
+> 
+> +               if (rel_vprot)
+> +                       se->vprot += avruntime;
+> +               else if (curr)
+> +                       se->vprot = se->vruntime;
+> +
+>                 if (!curr)
+>                         __enqueue_entity(cfs_rq, se);
+>                 cfs_rq->h_nr_queued++;
 
-Best regards,
-Cen
+> or the below which is even simpler because vprot, vlag and deadline
+> are rescaled with the same ratio but it implies useless div64_long()
+> when the protection is already canceled
+
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 5c98d8dfce5d..5d1b16780b52 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -4936,7 +4936,7 @@ static void reweight_eevdf(struct cfs_rq
+> *cfs_rq, struct sched_entity *se,
+>                 se->vlag = entity_lag(cfs_rq, se, avruntime);
+>                 se->deadline -= avruntime;
+>                 se->rel_deadline = 1;
+> -               if (curr && protect_slice(se)) {
+> +               if (curr) {
+>                         se->vprot -= avruntime;
+>                         rel_vprot = true;
+>                 }
+
+Here:
+
+https://lore.kernel.org/all/20261001164609.244156-1-kayracizmeci@gmail.com/
+https://lore.kernel.org/all/e4700a93-ebd5-4c7e-88b5-d606437a13c0@arm.com/
+
+Because on_rq can get false. And alive protection complicates things.
+And this diff alone wouldn't work.
+
+IDK what else we could do to fix this both cases cleanly tbh.
+But there could be a cleaner way.
+
+Thanks,
+
+Kayra
+
+
