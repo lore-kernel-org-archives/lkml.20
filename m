@@ -1,127 +1,126 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9974B37B40E;
-	Mon, 12 Oct 2026 14:16:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8DCB3B19BC;
+	Mon, 12 Oct 2026 14:17:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814611; cv=none; b=QZ1WsnmlY12yMwN43me4zqU29uVHG9/9r5lySDznacOSouP1f2L5tbwW7QBpFT/eC5BtUS6m1r+ZTPhUFjVEZejwc39OHC2Fcs/2gnSudb1URtMT2JlR/lwh8W/o6ut2LjaTrH8kE9b3aB7O+pUyd9pkTihV4qwv8mTClMHF7Es=
+	t=1791814651; cv=none; b=esz7yj2A+CZ855LhvbRkrDXsHUxypzSRnS1uCRZzY8n88B8K2ygqYzJcXtVtIYkK2LF9XDQMVzbQS9SyBa88dNqg7hpRdomHpw/mNiy2TXhgCdKJI6DRkkNIA1HTohXM6QbTLQNESj/46HndE+nv86AELS3kNosJxIgx9GkuaRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814611; c=relaxed/simple;
-	bh=zUapPwQ2aKvZomxvp1cPcukKwSEq6FU5BGbY1W2S4VE=;
+	s=arc-20240116; t=1791814651; c=relaxed/simple;
+	bh=7m5n5S0R1yZ76Y6AazBL7Sa3dat7H1ozsiIUrKKWor8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XAHwq4ssLNhj5yZlSzRbmTMTrKWQUKQj7EWP6lnYBzjRRyw+xMin590uH/2pK4Bwh13PywjflgYfUXiiJTcRIyfDroLa/rh30a/aBd5zqhRifaaiKKMuGGmi3/6T+NA38FoiTBTl9tgieAJ4seuk6+1YqB+gKoJWWe/eTda0x24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=fYx5llzJ; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=SP3Rsb4j8ca7mErSe2glLd2mLYkdRbsGqxfNra4zMgjGzL7IYxnubl9yAB+5c7ar+XEVrHbFur5W9/EVelsmwERUPlMI+IcIYXfWbU6bV9um4Pln+sXBsFV28QNnl+FzgqadDJjHOEj1qe4/ISplmLYznThaqjfnon0XAzQqXX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtCgyRv7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="fYx5llzJ"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCE8Rq2640423;
-	Mon, 12 Oct 2026 14:16:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=fHxkFbND7s0PwNKQHtSlf9ChYeWos7
-	FxmdOLHyQZpbc=; b=fYx5llzJqTfzAzeOZXPcPAtaqIttivVn8cxMPNwFhNcb/b
-	fHXcNIzRjd2+io4HzWD9/JRWuhFJW/l1nR6BDTSDH0Wu4n/OgcuVQVngg6E4vbph
-	HGB5YrEnmAXqfJK2lk4jT0v8jJ2HwUXu3qARtnpsNG9XTJRDjtiVLAF1fr+zmNyB
-	CQQyWCD6xrumkjqEEDz/vWg8hVlz/bU/aWuMfl6DXX50dD2UY9lB9KnBBzmJKRda
-	KbvXPx7XClxqbQ8Le7qMXoiy60iaz3y242exTJa9GKigiBv0/ZCOjYlEW0Iphkw1
-	XJZAFZxhxEAQqFbxh4r5TfNCwCqk0fYRK6je3cew==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwh9a81-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 14:16:49 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC52et013510;
-	Mon, 12 Oct 2026 14:16:49 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h81wfwb2v-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 14:16:48 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CEGjbG43647352
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 14:16:45 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1132820040;
-	Mon, 12 Oct 2026 14:16:45 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BD6EF2005A;
-	Mon, 12 Oct 2026 14:16:44 +0000 (GMT)
-Received: from osiris (unknown [9.111.15.154])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Mon, 12 Oct 2026 14:16:44 +0000 (GMT)
-Date: Mon, 12 Oct 2026 16:16:43 +0200
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Ilya Leoshkevich <iii@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: Re: [PATCH 2/4] s390/percpu: Drop unused output register from
- arch_this_cpu_add()
-Message-ID: <20261012141643.19350G0b-hca@linux.ibm.com>
-References: <20261012114249.2898572-1-hca@linux.ibm.com>
- <20261012114249.2898572-3-hca@linux.ibm.com>
- <4907dbfd-3c5c-483b-be25-b0df83af2d20-agordeev@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtCgyRv7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96421F0089B;
+	Mon, 12 Oct 2026 14:17:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791814650;
+	bh=HAiZUBdrrUscwhb3gzthwXDybrlX1wtePnwMjEx7wY0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LtCgyRv7kNjP5BO129ZDG+yn8i4/73npyD6f62yM9EU5h3/NtEsaH65Fg/wB2R+Kg
+	 t/rPma6fgfaALnX07qm7+qDb34HBXLz+RmvK+saIvCw2ev2pBeDksKCEPCYyX5xuJK
+	 +LiByY/7hjALz8Z5wYXz4RlcVeOkXAKPFGjwPB+FxaruMHeVh1N9Ynx68O73mlFmoq
+	 zLp60kIsZTxXnt9Vvrcya+1tBL5q62mQ31BzfT5XCQ6J/k5fTn+Fp2E9ZDfYh4mEaD
+	 voVIEx/NrXsHxzGE/xIFG5NHK2zxgluENpNNktS3CtQa/SEwe2IMqoPx6LQHEtgHnV
+	 nWf2YNrfNtNUg==
+Date: Mon, 12 Oct 2026 17:17:25 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: David Hu <dhu@x6u.co>
+Cc: Tatyana Nikolova <tatyana.e.nikolova@intel.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org, jmoroni@google.com,
+	eagleshaw@google.com, David Hu <xuehaohu@google.com>
+Subject: Re: [PATCH rdma-next 4/5] RDMA/irdma: Support UMEM attribute for CQ
+ creation
+Message-ID: <20261012141725.GG219304@unreal>
+References: <20261011011022.1445352-1-dhu@x6u.co>
+ <20261011011022.1445352-5-dhu@x6u.co>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <4907dbfd-3c5c-483b-be25-b0df83af2d20-agordeev@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX3l647wqa2ejN
- 3StxpWiCKBaucG+BgR0XsGDdFy8MfzORXiPrv/5fLN9wIDp0fOsSm0HVwSBNGHvDcLNhVweZ/Eg
- hjL0UssjxD5Hna03v0ZSjqzZONxksX8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX62O8dxaLVue1
- 4/4UQ/YBfA+t+Q+iLErIRaMR4nTDpLEpAy2wVEztFZVrwjNbF0xaghW02YS8GfAZ3lbIYcVys91
- j3z77fJGWGxxyuwTwc97gTgIbDrtQcUyaMXcOn6nkVi1aJr4U6pltpLD48fBKJlGHfHFdQ1DmSR
- b0Lx52l6OdsbD56X6hetx7/sURqXik4ewNUA21e8Gsr3eNVO1zqbBs9O2/Nddm0AQY52Fn+Hq0U
- TIusMStQJggSXKorkhYUeHVXOtSlhFtToj3/w8wmxKIkAUccvxbWEs5PvayVmNFC6/Jll7iJJOc
- rsE+oRTwa60h4W+TA9T6mBuPJ7Ym1i0pNDqa42jbX/IC09bst895lh3WXAXpy3cHyk5ZvCbCgI2
- hP0DnX8qe6zUlrPguF+E6ocr6KiySM6bpr3TQ5cnuUV82oWxg+qlKBzkmMB6K+un0fUSZIQtrhX
- p67B7eK8Gn4/10TK7RQ==
-X-Proofpoint-GUID: PG5kwf3nh9OHtsl6I_W3Yr0--kh8mfM7
-X-Authority-Analysis: v=2.4 cv=RoFQvymK c=1 sm=1 tr=0 ts=6accebd1 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=8vtpdM4DfG_b6hf76xgA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: PG5kwf3nh9OHtsl6I_W3Yr0--kh8mfM7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 bulkscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120056
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261011011022.1445352-5-dhu@x6u.co>
 
-On Mon, Oct 12, 2026 at 03:24:20PM +0200, Alexander Gordeev wrote:
-> On Mon, Oct 12, 2026 at 01:42:47PM +0200, Heiko Carstens wrote:
-> > The laa/laag instructions return the old memory content, but
-> > arch_this_cpu_add() does not need it. Instead of allocating a dedicated
-> > output register old__ just to discard the returned value, change the
-> > val__ constraint from "d" to "+&d" so it is used as input/output
-> > register.
-> > 
-> > This reduces register pressure.
+On Sun, Oct 11, 2026 at 01:10:21AM +0000, David Hu wrote:
+> From: David Hu <xuehaohu@google.com>
 > 
-> Do you know whether the compiler is may be smart enough to select the
-> same register for old and val himself?
+> Support the standard 1-step queue buffer creation
+> model for CQ by `UVERBS_ATTR_CREATE_CQ_BUF_UMEM`,
+> `IRDMA_IB_ATTR_CREATE_CQ_SHADOW_BUF_UMEM` via
+> `ib_umem_get_attr()`.
+> 
+> Set up hardware pble directly from the pinned CQ and
+> shadow umems via `irdma_setup_q_pbl_from_umem()`.
+> 
+> Proper umem and pble cleanup are added into existing
+> `irdma_cq_free_rsrc()` upon CQ destruction.
+> 
+> We maintain backward compatibility for
+> legacy 2-step registration if UMEM attributes are
+> not provided.
+> 
+> Signed-off-by: David Hu <xuehaohu@google.com>
+> ---
+>  drivers/infiniband/hw/irdma/verbs.c | 110 +++++++++++++++++++++++-----
+>  1 file changed, 93 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/hw/irdma/verbs.c
+> index ab25445f3828..e4a02a6b2a11 100644
+> --- a/drivers/infiniband/hw/irdma/verbs.c
+> +++ b/drivers/infiniband/hw/irdma/verbs.c
+> @@ -2028,13 +2028,24 @@ static void irdma_cq_free_rsrc(struct irdma_pci_f *rf, struct irdma_cq *iwcq)
+>  		if (iwcq->iwpbl) {
+>  			iwmr = iwcq->iwpbl->iwmr;
+>  
+> -			refcount_dec(&iwmr->user_ring_refs);
+> +			if (iwmr && refcount_dec_and_test(&iwmr->user_ring_refs)) {
+> +				ib_umem_release(iwmr->region);
+> +				if (iwcq->iwpbl->pbl_allocated)
+> +					irdma_free_pble(rf->pble_rsrc, &iwcq->iwpbl->pble_alloc);
+> +				kfree(iwmr);
+> +			}
+>  		}
+>  
+>  		if (iwcq->iwpbl_shadow) {
+>  			iwmr = iwcq->iwpbl_shadow->iwmr;
+>  
+> -			refcount_dec(&iwmr->user_ring_refs);
+> +			if (iwmr && refcount_dec_and_test(&iwmr->user_ring_refs)) {
+> +				ib_umem_release(iwmr->region);
+> +				if (iwcq->iwpbl_shadow->pbl_allocated)
+> +					irdma_free_pble(rf->pble_rsrc,
+> +							&iwcq->iwpbl_shadow->pble_alloc);
+> +				kfree(iwmr);
+> +			}
+>  		}
+>  	}
+>  
+> @@ -2708,29 +2719,94 @@ static int irdma_create_cq(struct ib_cq *ibcq,
+>  		if (err_code)
+>  			goto cq_free_rsrc;
+>  
+> -		spin_lock_irqsave(&ucontext->cq_reg_mem_list_lock, flags);
+> -		iwcq->iwpbl = irdma_get_pbl((unsigned long)req.user_cq_buf,
+> -					    &ucontext->cq_reg_mem_list);
+> -		spin_unlock_irqrestore(&ucontext->cq_reg_mem_list_lock, flags);
+> -		if (!iwcq->iwpbl) {
+> -			err_code = -EPROTO;
+> -			goto cq_free_rsrc;
+> -		}
+> +		if (attrs && uverbs_attr_is_valid(attrs, UVERBS_ATTR_CREATE_CQ_BUF_UMEM)) {
 
-In theory, if the constraints would allow that, yes. But for the preemptible
-percpu inline asm all output operands need to be early clobbered. Therefore
-gcc is forced to not do that.
+While making this change, it’s a good opportunity to split
+irdma_create_cq() into kernel and user paths.
 
-> My concern is if we force the compiler to do so we might lose optimiztions
-> where the val could be reused after the op.
+Also, please keep commit-message lines around 75–80 characters. There’s no
+need to wrap them at 50 characters.
 
-The overall size change of the kernel image is six bytes :).
-I guess we shouldn't spend too much time with this.
+Thanks
