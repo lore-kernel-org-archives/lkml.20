@@ -1,178 +1,163 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045273C988E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC1F3D47C2
 	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:41:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791841304; cv=pass; b=SN6HwQqCYLhwdEyJX+LryVE5iDNRxkJ27RXM5sDppJ+wSwD5RKDSidWzv0nP7HFXo+5wmEdg0osTF0PpwlvbcMQ3zupGNtfheWwWVJwtMJgbVD7GyOtvpFMIjcSixoGftSv3Ri/co5Wd/EW05J7o7qJWKxi7wikQfn39WKdBbrQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.99
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791841304; cv=none; b=UytA0Qolpod5r2IiIWpuU+a0laiqXSIQ59dSKCxPFwkYyp7Z5IxPj5Y2bWmx2/6TZMRXYKV8VKAT1s1rwT6j+4Cb0EoYQoOW0UCyi8YoC4kQqY2G+JuST2pFx8WMzuVjHZT3l3jleuEEnofokFEakbIbzExOyuRqWrx5o4d/D7I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791841304; c=relaxed/simple;
-	bh=UjiMOoGqKl1AFGTKXUXfK6wWEi45TqjVJvcBDz0JCew=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mMFgGKegnQnGkeiwMyar6SytaX0Hil+9RDlm9gu8EqdKydstCRdu9DMzYLeo1jSnc4agkE9QilH0B23aow8+RaQ0vvVyxWzwCcs+xNE4IzwZxCGJ1/tGgz3nF+x0hE6pczpRPjXLtgqF+hTY00+6jTG/53fTaDxkIMu29OU0I5c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=n99QKw9v; arc=pass smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	bh=WoNz3WCxDdKybjSCg5gY111bGEDmUMC63EojmiMxyn0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NMsexeH5K8pRCcOKayd1zxfHPwLDEQjmju7pz8B/0UydDTJAl1bOLMfSnP8/rAe+Vyi80CI9XzZZBNvTG/P9X2PAkLx6Lm6Nhgaawa29UYX/3WOZa23N8sVny4NLlbkFSyyXWjFWxDDmPmZ4U8HIPIgfZTdiNigq8CUNnHRkFxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=QxeOyTzV; arc=none smtp.client-ip=209.85.216.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="n99QKw9v"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53584e7c349so559691cf.1
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="QxeOyTzV"
+Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so950819a91.2
         for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:41:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791841302; cv=none;
-        d=google.com; s=arc-20260327;
-        b=esU4RW+k/Je1EtzjsfRjoa63DyZ/VC7wpAoe8tOfdVfsLgpHcpcD3/UYv5UyEuf2R2
-         cYITA1KpdB0pzVRKNDbm19GBBuhVZDkTjwyRT3whXqCospXxbeDyDkZGuMj6XKnXBIs4
-         GOKqDrc8FtBrVHTjuv07Sy8LYKWFW1r91S2T5Dt359Op5LGBjn0QtLY1HkFkwTa93O5w
-         6JS+aGT2mkMYkowtISAQysRF9cz9CN9ey2yleQFevHMfpgNuQ7CA6xntFkXcl+Ja+LTQ
-         pJS2F+znu9F31OM6qvjk9JBvOKOzZEiIHFW3W9trmBwfe+0qD3ND5TrLUb1cMcfegLWu
-         OsJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ujfOyylHH0+Qcr6VmePM6uJ1Ba5lYDsIUszcZYvjorY=;
-        fh=I3RjVwz/Sjj8VIHGhTE/hE6747O+ARTnszdVzsMeeAQ=;
-        b=c/UwhPQO2wdqoMulQbmWk5eIJpaBWOtokBJcdIpJGBD5I0mELPt56nvvdy3rbTLme4
-         1yTtu+wC9LVHYQOkCChh/KIAAQWz+q+uCfAq/zv4vEGEy11EoZTU2Z7zErZleInmPYQl
-         PBqaF9pJ2UtNEWv2hUIkGPV3izaY+T0JXU848T6q/jvsjAlOuECCWC4QO4ooBcOzTMQp
-         Bg9dv5pAYOfzR+xzlL5DLvV+ANbdnmYqlZu2nNNH9uAeXdTFszJibpbNjBBZW2y9IoWx
-         RaE9jpd0NzL4FPzexa9zGQbKqf+YnP5RhMvJTiaiHwGRTQqso8FRVgeQmppD6ULbN9mc
-         LYHg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791841302; x=1792446102; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ujfOyylHH0+Qcr6VmePM6uJ1Ba5lYDsIUszcZYvjorY=;
-        b=n99QKw9vB4HKb7BaZf3M9oE8wWPVicgRur/NnWKO5TafVzMjscz7556pSCn9bd3rt1
-         NmfKX9R0w3CzUCh19iIjwucVg1K6qfuq6OMc9yl/MN7sGmmYEIdSfI3O8S+iAUDNdTwf
-         zS4iI0ZZ3VXt/73uFiZvjEAouPoiG39XRg6IrAhuZGu9GAyXN/ujSreRFKu4CAA6dhkb
-         vEk6hSCi+6mLOFc0idwpA5bZ880jF1T8HRRZmWEh87KlmYdyHbal+uwW9qbT0xSdHG4n
-         8AeNJ1acMQwKImscW2W0XDQvmUALDuxcr/mMDCwMio4XoB9u2jmatdgUZUi70Q5iKz8u
-         h5zQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791841302; x=1792446102;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=7fRjyjPaygPyac6Q2934hJ/KUw5dbvEUBwLV/bpzblk=;
+        b=qT9gyaCPXavJeJn/0DvVWxth3nX899gxVAeQit7TJXXCZcm0pIJlvorExRa2fI0kNy
+         fz8ochJqasW25a8ZUX/jc/MQeoEf5dQ5nMW3NK5VyRkewvEWHja6vJgyPzkUtbZtFW1u
+         u1gwIOol68t5izc5Mwv9GqPMZz+tyyyrODTAh3t+xAs+nNXsYZ+z8DQutdcpsg+AYhgO
+         uo8zEdPMZtBno67Z3DhCeH0KgcMpmbS9TCZ649v5w8WtImAfXMGANbFMjtCO6mrPdmax
+         OjZpzKNDnrzg1xx7fdnk65Kfg9qQxvccFjPXovL+6XS5jkYDvx+lRSwWz/TuC4LLk3Fg
+         o5Zw==
+X-Forwarded-Encrypted: i=1; AKwUvBwfhp1eAS+vh951IqnmMgoql0tCHRBTWLvAY87BtfESFTupqtCr//hXPN3zYsFfgCgjt/bhmkG8g4N13yk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKDoaVXkQhq+9mUCj1PInxe3//bLBchTr6BiioSa+stdBMqzs62
+	y0KSUJkEU5XAs9kJ1pvl+xiL9NFGTIOO3Op/e1h2cRJ2CEOr71ZDUpoLeXb9g8mxCtlstDute3j
+	103yPfY44TnPJzjP1iwxlLhBor8y+AU+elo8PwfnGO/uEf+AxHUZUmp9I4Z5d1x5hYRLecUMdK4
+	66GTAXRu0tgHDrPcleXBVRwHKRnBImSomc5gBkLsuEmnfhF5ZhaqeetCNhG9T/Bv8+LHH/falcT
+	0jqx/GenyRZlw86ybuQzFwA
+X-Gm-Gg: AYBFou0NrV/pJqSVrErI1GHt+yS6Qe4yh/mtulTPW/pEqU3luCzK3GIV2NVb2gfkl2L
+	1XUv/0oSQDQtpTVyoDSx/I1/umgtmPgGcnWBUg1cKO8Dktk7hOjx6UK1WVBppdlgB0djPvuyy6A
+	KrEZJS0Y+6mQ4uINhfuT3JQsjdichXoFbfQWyfoi+en09iIrWYjR6++fmx2d6ZiVhGoD+JAUBDc
+	Cg8k8gPNMhlpUbwXOuAvA2kUVUjw6mF/Fv2B7V//Uu2n0JL8KNyvWKXuULi0i3/RtoUi5m88Od3
+	5tNizEhz5cEGwy5LfoN/UE6cQWq/uDbIDT53nnPKxjl9UxE9YU4mWbad62nwTnouROl7LlGI3e5
+	JsDis6WxuTctGNyyUyKbWHy7L/YMs4z32BabGN/I62TwWcVdWO9N+yBbDInKwAsux/JF0TmYmTN
+	EpWYJSNjvN8rzZjqOIq/pBBCc6ZgC0UbNu3vnZ2nbHjoA=
+X-Received: by 2002:a17:90b:2885:b0:3a8:495b:d64b with SMTP id 98e67ed59e1d1-3ab3a32cbb8mr7918301a91.4.1791841302300;
+        Mon, 12 Oct 2026 14:41:42 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ab369147b5sm6007236a91.0.2026.10.12.14.41.41
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 12 Oct 2026 14:41:42 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3510d0baf63so6550139eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:41:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1791841301; x=1792446101; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ujfOyylHH0+Qcr6VmePM6uJ1Ba5lYDsIUszcZYvjorY=;
-        b=apm1DHwOZHn4ywvG1FflMM2GVcpCnH+HYI9FRtpvsJEI71I8zxNPgWe2+xhAX0nRAK
-         Pn1KfmF9Uis8Q+qRwjBZ1u71xzu9kdwDvO345Ra6x0CsTexTmA4bVNA0pmyVx05w0PGE
-         I8+N3EMmRQakQwePr2yA94jSMhG+ugCGgSiAqpPFQF8pgn7mtYQgcPeohsvWY2sVF3jz
-         KafviYkkJXFC9ZVx8RWwNutMTzjB5L69N0WRzKbBmBwnq/pRKOLv7pRDHsBMmsqFfSUE
-         O7GBB0QT2SYPaUp0YgBNv+euAEUHmfYaa64ohb3by9Nt6scrTAd5KwoTvqe83ewaYn39
-         c7bg==
-X-Forwarded-Encrypted: i=1; AKwUvBwJZdPLu5SPavOK9owDsI7OoJ605fUNBARLtWeywOfWYYqu6IVhQ+yLGo14DbYWEehHIulHcrT87pBAPy0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuYGu9zUptr1dkE4lWSKByPA1ys4M3BfB+vjoXqDavR3ptOT/c
-	Tf4pmPQ7mOa9KSBYQgl1iUJ/Wn3P/0xLBsx78Y6usUeonrp+5EocNBYSBKxV1l0c3sq1QttXV7l
-	x9jmtePB0yioTnkmv/Wzone++3x/n70ENxl0519Y1
-X-Gm-Gg: AYBFou2e1CpBikpemWzvieSA0HbxDV8ZegnQcvBbL98aY9m6MyUKwvhQ5sgjhCbBXE7
-	/9eUpXE6S4lrHC9Q1kYml3/S6BSiEDhJ1Z/d0pfT7OWNMrhY3SYa8EQXG1RHY2DzzHLoe2Fy9mC
-	SYc704HmJ0v1Tgk8Gbu0+nGTWLqZ29nmD+pfBV3SrB4eZwohIthofCmPddtGtDniiNL7Mk2myJE
-	Il5u3CHpH6nveAqAlfig2irMe5KQmAmgLL+eIQShIi+sj+2lCvwwJFR2wmmwVyJEkHC2ohsfFnB
-	4zUwrpnq11S06LSjGtRqd077a52J0OgoUn8MpKxVB0e/vemjdZe9aR8ynrT0s9SscHVwC8XlZko
-	kze7HTZxjXQ==
-X-Received: by 2002:a05:622a:2b05:b0:531:16a:5a3d with SMTP id
- d75a77b69052e-535b4f41d7amr34879941cf.12.1791841299643; Mon, 12 Oct 2026
- 14:41:39 -0700 (PDT)
+        bh=7fRjyjPaygPyac6Q2934hJ/KUw5dbvEUBwLV/bpzblk=;
+        b=QxeOyTzVDZJ/1+vQKNsMOWgr3H/A2RrBunnSsoR4vdFbgG/F5b231KgB2bEfuSYmZ6
+         4CJ94CjB+R32Nl2qwZ0kGbj7YqxAvf2BBOz32ht3+PN2vlPkGJP7IEODpvDXCBMJdkLZ
+         6g8ScM47S4NZVRmh8VRWHlgvCHBJ1/ZGmnjsE=
+X-Forwarded-Encrypted: i=1; AKwUvBwQ0ahNVQEX5cL9fnFD3M0F0iTYUOmk0lLlmOB/u6/XuRMJ8ypa9YT9fZVJ8o1apoYpzK/xAjANXsPOa/s=@vger.kernel.org
+X-Received: by 2002:a05:7301:618f:10b0:359:8492:20ff with SMTP id 5a478bee46e88-35984922299mr8367833eec.12.1791841300618;
+        Mon, 12 Oct 2026 14:41:40 -0700 (PDT)
+X-Received: by 2002:a05:7301:618f:10b0:359:8492:20ff with SMTP id 5a478bee46e88-35984922299mr8367798eec.12.1791841300003;
+        Mon, 12 Oct 2026 14:41:40 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-353814b556esm41603546eec.18.2026.10.12.14.41.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 14:41:39 -0700 (PDT)
+Message-ID: <1e813008-1874-4164-a803-b1af26332d35@broadcom.com>
+Date: Mon, 12 Oct 2026 14:41:37 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012052601.13920-1-namhyung@kernel.org>
-In-Reply-To: <20261012052601.13920-1-namhyung@kernel.org>
-From: Ian Rogers <irogers@google.com>
-Date: Mon, 12 Oct 2026 14:41:27 -0700
-X-Gm-Features: AclHuK_xa6jARGF19pV0rzh8vArCUJVzxFb883MZyiwMHhKkagyeLFaZzXoCBXs
-Message-ID: <CAP-5=fXg3LYS0ftt1WjDXgEh6DLjZcYQiVNv=ym7CAA9PyiQ1A@mail.gmail.com>
-Subject: Re: [PATCH v3 00/10] perf symbol: Properly set DSO binary/symtab types
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, James Clark <james.clark@linaro.org>, 
-	Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PCI: Avoid D3 on PLX PEX 8532/8533/8548 downstream ports
+To: Bjorn Helgaas <helgaas@kernel.org>, Imre Kaloz <kaloz@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+ Andreas Larsson <andreas@gaisler.com>, sparclinux@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,
+ Shivasharan S <shivasharan.srikanteshwara@broadcom.com>,
+ Srinath Mannam <srinath.mannam@broadcom.com>,
+ Michael Chan <michael.chan@broadcom.com>,
+ Vikas Gupta <vikas.gupta@broadcom.com>
+References: <20261012213447.GA1392402@bhelgaas>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20261012213447.GA1392402@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Sun, Oct 11, 2026 at 10:26=E2=80=AFPM Namhyung Kim <namhyung@kernel.org>=
- wrote:
->
-> Hello,
->
-> Currently we have 3 types for a DSO.
->
-> * binary type: determines where to read binary instruction or data of the
->   DSO.  Basically used by annotate.  Some (special) DSOs like kallsyms or
->   JIT may not have the data though.
->
-> * symtab type: determines where to read symbol tables.  Set when symbols
->   in the DSO are loaded.
->
-> * debug info type: determines where to read debug info.  Used by srcline,
->   DWARF unwinding, data type profiling and so on.  Often debug info is
->   saved in a separate file.
->
-> Some DSOs may have the same type for 3 and others can have all different.
-> Previously it generally assumed binary type would be same as symtab type
-> but now I think we should not and only set the binary type as it's used.
->
-> Also it should make sure that symtab type is set properly after loading
-> symbols in the DSO.
->
-> Probably this patchset won't make any practical difference in runtime
-> behaviors but I think it's good to track them accurately.
+On 10/12/26 14:34, Bjorn Helgaas wrote:
+> [+cc several Broadcom folks, help with possible switch erratum]
+> 
+> On Sun, Sep 27, 2026 at 12:56:09PM +0200, Imre Kaloz wrote:
+>> Runtime PM suspends an idle downstream port of a PLX/Broadcom PEX
+>> 8532/8533/8548 switch to D3hot, but that takes the whole switch down
+>> with it: any device behind another port of the same switch then
+>> faults with a fatal bus error on its next access, e.g. mptsas probe
+>> on a Sun Ultra 45.
+>>
+>> This surfaced on sparc64 once commit a5fb3ff63287 ("PCI: Allow PCI
+>> bridges to go to D3Hot on all non-x86") let bridges enter D3hot. Keep
+>> these downstream ports out of D3 by setting PCI_DEV_FLAGS_NO_D3.
+> 
+> I don't really have any objection to this, but I am concerned that
+> this quirk only applies to a few specific devices, but
+> https://admin.pci-ids.ucw.cz/read/PC/10b5 shows a TON of
+> similar-looking switches that I assume have the same behavior, so
+> this may be just the tip of the iceberg.
+> 
+>> Fixes: a5fb3ff63287 ("PCI: Allow PCI bridges to go to D3Hot on all non-x86")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 
-Except for nits and resolving the remaining Sashiko feedback on patch 6.
-
-Reviewed-by: Ian Rogers <irogers@google.com>
-
-Thanks!
-Ian
-
-> v3 changes)
->
->  * set KALLSYM type for split kallsyms DSOs
->  * take dso lock in dso__find_binary_type()
->  * handle EMFILE failures in dso__find_binary_type()
->  * drop the libbfd change as it need a separate patchset
->  * lookup binary type in dso__e_machine_endian()
->  * get rid of machine_or_dso_e_machine() due to a lock problem
->  * fixed a bug symbol__disassemble() for BPF and kcore
->
-> v2: https://lore.kernel.org/r/20261006234315.920817-1-namhyung@kernel.org
->
->  * add dso__find_binary_type() for checking ".text" section
->  * make perf annotate use the dso's binary type directly
->
-> v1: https://lore.kernel.org/r/20261005063411.114244-1-namhyung@kernel.org
->
-> Thanks,
-> Namhyung
->
->
-> Namhyung Kim (10):
->   perf tools: Remove redundant dso data init
->   perf tools: Try linked debug files for DSO debug info
->   perf symbol: Update symtab type of vmlinux from build-id cache
->   perf symbol: Set binary/symtab type for split kallsyms
->   perf symbol: Get rid of machine_or_dso_e_machine()
->   perf tools: Factor out dso__find_binary_type()
->   perf symbol: Set binary type for JIT map DSOs
->   perf symbol: Do not set binary type from symtab type
->   perf annotate: Simplify symbol__disassemble() with dso binary_type
->   perf test: Fix dso data tests
->
->  tools/perf/tests/dso-data.c |   7 ++
->  tools/perf/util/disasm.c    | 124 +++++++-------------------------
->  tools/perf/util/dso.c       | 138 ++++++++++++++++++++++++++++++++----
->  tools/perf/util/dso.h       |  13 ++++
->  tools/perf/util/symbol.c    |  50 ++++---------
->  5 files changed, 182 insertions(+), 150 deletions(-)
->
-> --
-> 2.55.0
->
+Our internal portal does not have any document for the 8532/8533/8548 so 
+unfortunately I cannot help here with identifying an errata document.
+-- 
+Florian
