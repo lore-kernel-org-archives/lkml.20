@@ -1,80 +1,69 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4183539CCFF
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:05:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80DF53A8723;
+	Mon, 12 Oct 2026 05:05:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791781533; cv=none; b=cgbSB0CbCXdk6c5IpHF3dKurvwXyYMJZwAAjw+rFqP0Uy9p9ESimRIewzSWYofVB1A/HmEuuFUkAeZTxporTYc/QCUXTg/SycekoffXOwTIxcwSwX18dQjRT+KkwCaf1/3n52mJbd+FNBYNBN8UPmG8psoZCD09tW4myXB2FTqs=
+	t=1791781544; cv=none; b=cAVva3POfm+6OxRUZnzY0yUHqG4MQOwBLon22ITqAxJbLm9T6GPtZgqXIceCrAf90/sczLNE691vsDHt5Fmi0miRg4/vJ79bG4ULU/X27ozYc4hxR+nSfijSuIcDOMP9Q38IPjpg/KNYrfG6C4WYgUnI9fxmY/ItKn9btNdhXA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791781533; c=relaxed/simple;
-	bh=yJqMVXMUOetINackjZo98OM/4dyZZUw95vG1H/z45N8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZRYQjj+R5P4wee5OAcC4cKCTDrvsL84YvLBQqDUwI6utcpr22bC6bybh/G26vpO00bgQ3wcYS0S1ArPhZET0sf2R7MWjQdkdkCYKCGhQ9FlwW76zs8LFbBF9ff/Nk+bStkXsyuPsnQOp6T5Go0LdumQ4sc1bpiwZ7he7w3PrNrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LzHOXiqK; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791781544; c=relaxed/simple;
+	bh=ZL68A5a0ZYLLG2qgZbrGxxIRSOb0AaRsek5W8BgJpOg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WEGs7rlf5UoDdBuTwNC5lXyO378P97N/PgyyMnKglVUK2PC405PJk07ssl088IbhAel/U23PfOxDPknVxwzlrHLLFiCEVJYWiIasjLLlSLUNO6sJl0+T+ODiez6ZufjFJqNId8hZSnM88nCwq+Xhl5HUl572eAMwkbe44/y4pRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=rF3RMKhv; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LzHOXiqK"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-878b44611ffso974884b3a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:05:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791781532; x=1792386332; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SchT4fFbVHXJLcmuds777iB8GRkCImTCzsdYd+pPxgk=;
-        b=LzHOXiqKzKDqW0fQ8nKbdtfaCAEJHvywJTZ/UQp7BTqjBGZAZYzi2QP/IPnucFVx7/
-         9sMG5Wj46h5IEUiu/yTgzvzzeoRoiJnnDka05NKuCvy156iRdTNWdZJOxBOg7VnFTyWo
-         5JmM+oMwa86I9TiAvnw5KYIxgPdFBJuCOsh3SVlFxTgRqpwo5MNS3tzTfAfWQGh9tzSO
-         mKJPuk2/B2x9Zer8BNrYjbLVuSkU0/x5494uyZF69dIYxFve3CWV8mCqexEsk4WNUaUQ
-         F7LxS0pazOAyKqewWzxwd/FxRcuGrTnfaEjcqnEeEpyLtW2BTy8uxN9o+L0uyFFP2gYk
-         PqTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791781532; x=1792386332;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SchT4fFbVHXJLcmuds777iB8GRkCImTCzsdYd+pPxgk=;
-        b=1n57GXmaVR60X3QYVxrhws2Ddm1QtCDYla8zPL6qxFzZTewzW4dh5H8aqUEfkXm8xd
-         w9z0ezXotFHChXkUSsyyTV9j7HXULUZ/tFKSHHk0DgPQNA9ZtZpG900CIuABtGD7DIYI
-         jEXDYzP3OcLOnArJ+ew1eueK+0R6QonDmZBrRiU6o2L67moGX7fiws8JeWgWkH1hm7VA
-         oyUNYUJPyvKv7c45heYMjJCyT9ZZFSh55C7VoIgfLnUaebxWrldKjdwCyQScTD1Blz+1
-         FAp2vQKCPGCu5WjWSRTUKsMiS2QgdbCAV2Iz+vy+TRTBfeyJAgJ+FydDfxP1Y2l6RSCK
-         y5Gw==
-X-Forwarded-Encrypted: i=1; AKwUvByH3ofxa8S4wkHOsTsjU+kMIjS/2gF2Ow3kU3WjNCBN/enHxubtAW+SxpzM+AGQ2i4KmI69a2BF0JiGTOw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0lqu+YP0f5JGbNhGjXzg1gRUe/1iVrFks5rDKlFJ7TRf+kgCb
-	vVOgIBRbR41qupkko7k2FSLZGdcW9+CzwCzIdBVDrjW3QIGbsPOs79dbSBQpaA==
-X-Gm-Gg: AYBFou2n5XLyeCV/WmIeJNOEoCJrM6mHVZM0/viMLCJBv/ckLST3oaigNxV+EydJHtM
-	F1+OcBnLaSMHUgVajJOv10bdCIfTl72dTdx8x0ImPJo2EwPIBd5qioEja/RSOWCrB3SIWKhWuTH
-	matucGZvC0ba+yBVLqKfUNABmCVGDl+0ieu+fTH8O2Bho2HcknudcJTFMpUF34Wenr7fLkeIq9l
-	tFSiwa7Gz5QHKc+FNxwRgxziFMRgY33iU1laSXdWFwH6BDhVj1Isv3SEKK6J2up6uC1/vL3J5+R
-	UPRQn2TYppW4a2KsFz1CWFaIwziwUzYfK3k9e8gz4kUOrmnFwmKMl3y7Jo1O0joMF55qXsbXAVX
-	BwtaYKwLZWBKXAiz+ynpCyRQD53XXdM0xQDtBVjIOUnTda1Cer375ndf/vuV8DZSdB6xbySS8SP
-	Bpc86fMljWx7BpCYMARUby4QvNrMsyk9Q163Kg+9zSfYTWNhL5FVkH8shX5E+m33ucafF8sZ4cg
-	bwuKres/Cw=
-X-Received: by 2002:a05:6a00:3d88:b0:898:22b4:c8b8 with SMTP id d2e1a72fcca58-89822b4d170mr5055420b3a.3.1791781531584;
-        Sun, 11 Oct 2026 22:05:31 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3106de6sm3593668b3a.14.2026.10.11.22.05.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 22:05:31 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-To: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	Benjamin Berg <benjamin.berg@intel.com>,
-	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Avraham Stern <avraham.stern@intel.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>
-Subject: [PATCH v3 2/2] wifi: iwlwifi: mld: Fix GP2 to nanoseconds overflow on 32-bit
-Date: Mon, 12 Oct 2026 13:05:16 +0800
-Message-ID: <20261012050516.3803074-3-zhanxusheng@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012050516.3803074-1-zhanxusheng@xiaomi.com>
-References: <20261012050516.3803074-1-zhanxusheng@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="rF3RMKhv"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C2F6ik3019270;
+	Mon, 12 Oct 2026 05:05:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=uexKTy0ooIKi8kGL1luf/iFi3APsAGvvJLrY6Fscp
+	jc=; b=rF3RMKhvix/0cSw2VOzzVtBm5OGE4sXoV932lv+6d3kmkdRPKanzlOerO
+	3cBQWp1SBZsry4SXi3l+VL95cNyD7P0Gtps6T0dQUh1T8q10Z0MnpZaIgTBg7vjQ
+	CswgEBTPrxFnoRFagDfQLJpiRCIuFamBZPvobqH81Q1uXdT/Bp6o4luOCAfJVF+y
+	SN8kd+Ql1c0nSBowszcTShWeWGIViB3cxvy/G11LG/FE7KdlA85YIYapn0HsTlxl
+	A4o+jb8Py0zkotBaiIRTuyxUE7t5ffWuecQztKZDjetuecu1Exv3AvQfTjf0+6oJ
+	X0LI9dOnjVTIP9p9iGHPDf9tYXafg==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv378hf-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 05:05:27 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69C251Vd563552;
+	Mon, 12 Oct 2026 05:05:26 GMT
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h802vkw80-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 05:05:26 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
+	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69C55O1818219662
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 05:05:24 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 62D8558121;
+	Mon, 12 Oct 2026 05:05:24 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 710C45811C;
+	Mon, 12 Oct 2026 05:05:21 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.67.163.79])
+	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 05:05:21 +0000 (GMT)
+From: Mingming Cao <mmc@linux.ibm.com>
+To: netdev@vger.kernel.org
+Cc: Mingming Cao <mmc@linux.ibm.com>, nnac123@linux.ibm.com,
+        maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
+        andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+        kuba@kernel.org, pabeni@redhat.com, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org, horms@kernel.org, davemarq@linux.ibm.com,
+        bjking1@linux.ibm.com
+Subject: [PATCH net-next v4 0/9] ibmveth: fix hangs, use-after-frees and netpoll races
+Date: Sun, 11 Oct 2026 22:05:09 -0700
+Message-Id: <20261012050518.88858-1-mmc@linux.ibm.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,74 +71,192 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: Ri8p-WSqpXVF45BnrkF2gzwdC8qn3YYL
+X-Proofpoint-ORIG-GUID: 0b5a3xLivmCC4A3A8M-l8lsAGGIeVcO8
+X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6acc6a97 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=4F74owUcrmslnq87WGwA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAxOCBTYWx0ZWRfX+orb5syerSXX
+ 3+MJganEjhhOShY773VKy0+IQ2iUfcB08ZNQTUxzqZ1CZHyILWTALpwvb15a5XgedFj3Qkm7V20
+ PaQ5fT0YnzuCv+0W7uiExPS4ikG9rRY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAxOCBTYWx0ZWRfX2eLm50bA5oUd
+ C8x2LO4V0gxRZjzlWWvmPZS9/N+wGOzx94fQlJFDJEjW2aJtxCLOyM/hfpoxol7Z9X5m75JiHMx
+ +JDDiWuj4c/a56M2BK07wRthc5Y2bPYM18ehOFnYkNJXTkpJoCOxbT/ItE1XE3yvBjx8sTrPb6a
+ UQ2IPvoR5E9kWbyLjWsP29AKY4f7oRqH5/UfIZquzpldVAHixGmcHPvAhT9ipH2tLbR1y4abDFB
+ nCEfiM/qYC3gJ2V8x33Qqe3SSqGTFC16ej7oCjaAgn9btShwiTGd85M/bR1ZDEO0zyOrRYQn0lT
+ 7ob8L71g8Rj/gS4UEtkOZbiib/4/fYr+DfGXjI9AbrdzyVgVzYxgIQ5toM9856gFYb+xbUTe0MM
+ Bzi4EBj8HK/8CARY4nvVNG7t4Wv2wmmifz4/tcSzEOcui9JfW44rzVZObLW0q28B4X/S3O1xj7o
+ 5RerMs5XGfcSzuIv9sA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120018
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Hi,
 
-Same problem as the mvm driver, in three places.  A GP2 timestamp is a
-u32 in microseconds and NSEC_PER_USEC is 1000L, so on 32-bit
+Nine fixes for serious bugs in the ibmveth driver: two hang the
+system, four are use-after-frees, one corrupts memory, one lets a
+frame from another partition stall or oops the receiver, and one makes
+ethtool -L report success when it failed.
 
-	u64 scale_time_gp2_ns = mld->ptp_data.scale_update_gp2 * NSEC_PER_USEC;
-	iwl_mld_ptp_get_adj_time(mld, gp2 * NSEC_PER_USEC);
-	iwl_mld_ptp_get_adj_time(mld, phy_data->gp2_on_air_rise * NSEC_PER_USEC);
+  1. Netpoll races with RX replenish (memory corruption, NULL
+     dereference): remove ndo_poll_controller, as was done for
+     ibmvnic, skip RX replenish in netpoll's budget-0 poll, and
+     enable NAPI only once the RX resources exist.
+     Fixes: 6b4223748895, bea3348eef27
 
-are evaluated in 32 bits and truncate for any GP2 value above 4.295 s.
+  2. Hang after a failed internal reopen: the next close() waits in
+     napi_disable() forever with RTNL held, and only a reboot
+     recovers. Skip close() when open() did not succeed.
+     Fixes: 860f242eb534
 
-The last one matters most.  iwl_mld_ptp_get_adj_time() passes its
-argument back to iwl_mld_ptp_update_new_read() in microseconds, which
-treats a backwards step of at least IWL_PTP_WRAP_THRESHOLD_USEC as a GP2
-wraparound and bumps wrap_counter.  A gp2 of 10 s truncates to a 32-bit
-product of 1410065408 ns, i.e. 1410065 us, an 8589935 us step back, so
-the 5000 us threshold is passed and a wraparound is recorded.  Each
-spurious wraparound adds IWL_PTP_GP2_WRAP microseconds, about 71.6
-minutes, to every later timestamp, and the error accumulates.
+  3. Use-after-free in remove(): a reset queued from NAPI could run
+     on the freed adapter. Disable the reset work first.
+     Fixes: 2c91e2319ed9
 
-iwl_mld_ptp_gettime() and iwl_mld_phc_get_crosstimestamp() in ptp.c
-already cast to u64 before multiplying.  Do the same in the three
-remaining places.
+  4. Hang or NULL dereference on a bad RX correlator from PHYP: poll
+     spun on that slot until RCU stalled, and a correlator naming an
+     inactive pool dereferenced NULL. A frame that does not fit its
+     buffer was copied past the end. Move past the bad slot and stay
+     in poll, and drop a frame that does not fit.
+     Fixes: 2c91e2319ed9, 860f242eb534
 
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Fixes: d1e879ec600f ("wifi: iwlwifi: add iwlmld sub-driver")
----
- drivers/net/wireless/intel/iwlwifi/mld/ptp.c | 5 +++--
- drivers/net/wireless/intel/iwlwifi/mld/rx.c  | 2 +-
- 2 files changed, 4 insertions(+), 3 deletions(-)
+  5. Use-after-free after a failed probe: the pool kobjects stay in
+     sysfs after the adapter is freed. Put them, as remove() does,
+     and give them a release() that probe and remove() wait for, so
+     CONFIG_DEBUG_KOBJECT_RELEASE cannot free them early either.
+     Fixes: 860f242eb534
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mld/ptp.c b/drivers/net/wireless/intel/iwlwifi/mld/ptp.c
-index 1ac85d6ce1d79..41ba49f525845 100644
---- a/drivers/net/wireless/intel/iwlwifi/mld/ptp.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mld/ptp.c
-@@ -59,7 +59,8 @@ static void iwl_mld_ptp_update_new_read(struct iwl_mld *mld, u32 gp2)
- u64 iwl_mld_ptp_get_adj_time(struct iwl_mld *mld, u64 base_time_ns)
- {
- 	struct ptp_data *data = &mld->ptp_data;
--	u64 scale_time_gp2_ns = mld->ptp_data.scale_update_gp2 * NSEC_PER_USEC;
-+	u64 scale_time_gp2_ns = (u64)mld->ptp_data.scale_update_gp2 *
-+				NSEC_PER_USEC;
- 	u64 res;
- 	u64 diff;
- 	s64 scaled_diff;
-@@ -159,7 +160,7 @@ static int iwl_mld_ptp_adjfine(struct ptp_clock_info *ptp, long scaled_ppm)
- 
- 	spin_lock_bh(&data->lock);
- 	data->scale_update_adj_time_ns =
--		iwl_mld_ptp_get_adj_time(mld, gp2 * NSEC_PER_USEC);
-+		iwl_mld_ptp_get_adj_time(mld, (u64)gp2 * NSEC_PER_USEC);
- 	data->scale_update_gp2 = gp2;
- 
- 	/* scale_update_adj_time_ns now relects the configured delta, the
-diff --git a/drivers/net/wireless/intel/iwlwifi/mld/rx.c b/drivers/net/wireless/intel/iwlwifi/mld/rx.c
-index 269439d789f46..33c8cfa95962e 100644
---- a/drivers/net/wireless/intel/iwlwifi/mld/rx.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mld/rx.c
-@@ -1526,7 +1526,7 @@ static void iwl_mld_rx_fill_status(struct iwl_mld *mld, int link_id,
- 		if (mld->monitor.ptp_time) {
- 			u64 adj_time =
- 				iwl_mld_ptp_get_adj_time(mld,
--							 phy_data->gp2_on_air_rise *
-+							 (u64)phy_data->gp2_on_air_rise *
- 							 NSEC_PER_USEC);
- 
- 			rx_status->mactime = div64_u64(adj_time, NSEC_PER_USEC);
+  6. ethtool -L returns 0 when it cannot allocate the new TX queues.
+     Return the allocation error.
+     Fixes: 10c2aba89cc0
+
+  7. Use-after-free of TX buffers: close() frees them without
+     waiting for a running transmit. It is called directly for MTU,
+     offload and buffer pool changes, and through dev_close(), which
+     does not wait either with a noqueue qdisc. Use
+     netif_tx_disable().
+     Fixes: d6832ca48d8a
+
+  8. Use-after-free of the RX queue: napi_disable() returns before
+     the poll has finished, and the rest of the poll re-enables the
+     interrupt and reads the RX queue that close() then frees. Wait
+     with synchronize_net().
+     Fixes: bea3348eef27
+
+  9. Stall or oops from a frame sent by another partition: the RX
+     checksum helper passes the IPv4 ihl to ip_fast_csum(), which on
+     ppc64 reads up to 16 GiB for ihl 0, and both RX offload helpers
+     trust the IP and TCP header lengths. Check the headers before
+     use, with KUnit cases.
+     Fixes: 9c7e8bc584f5, 7b5967389f5a, 66aa0678efc2
+
+Patches 1-8 were found by AI-assisted review of the ibmveth
+multi-queue RX series [1] (the patch 4 frame bound by the Sashiko
+review of v2), and patch 9 by the Sashiko review of v3 and the review
+that followed it. Landing them first also shrinks that
+series, which then only extends this handling per queue.
+
+Testing: the new and extended KUnit cases in patches 4 and 9 fail or
+oops on the unfixed driver and pass on qemu pseries (ppc64le). On a
+POWER10 LPAR: the v3 suite (netconsole under printk and ping floods,
+MTU and buffer pool changes under traffic, a forced open() failure
+followed by down and up, unbind/bind under traffic, a forced
+register_netdev() failure in probe, ethtool -L with a forced TX
+buffer allocation failure, and rapid link down/up and MTU cycles under
+a ping flood for patch 8) and, for v4, patch 9 large-send regression
+(iperf3 over IPv4 and IPv6 at MTU 1500 and 9000, threaded NAPI and
+busy polling; no new drops or InCsumErrors). The forced failures used
+test-only module parameters that are not part of this series.
+
+The triggers are rare and there are no field reports, so the series
+targets net-next. It is based on net-next d8674294aefe ("Merge
+git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net"), which
+includes the two open() error-path fixes (af0524bf4ce1,
+84bec0bf0352). Patch 2 explains how it relates to them. It also
+applies cleanly to net. All carry Fixes: tags; I am happy to
+repost against net, or add Cc: stable, if you prefer.
+
+Changes in v4:
+
+Patches 1-3 and 5-8 are unchanged.
+
+Patch 4: the poll tail queues the NAPI instead of polling again, so
+it cannot race a threaded NAPI under busy polling, and harvest uses
+the correlator poll already read (Sashiko review of v3). The message
+no longer claims the frame bound protects the offload helpers.
+
+New patch 9: the RX offload helpers' header checks that the review of
+v3 patch 4 asked for, as their own patch with their own Fixes: tags
+and KUnit cases.
+
+v3: https://lore.kernel.org/netdev/20261009183258.18624-1-mmc@linux.ibm.com/
+
+Changes in v3:
+
+From the Sashiko review of v2:
+- Patch 4: on a bad RX slot, stay in the poll loop and return
+  budget - 1 after napi_schedule() has queued the napi. Breaking
+  out was queuing it twice.
+- Patch 4: drop a frame that does not fit its buffer, instead of
+  copying past the end.
+- Patch 4: also drop a frame shorter than an Ethernet header, and
+  take the pool for the buffer bound from the correlator that was
+  validated, read once.
+- Patch 2: commit message: the two open() fixes are now in net-next.
+
+v2: https://lore.kernel.org/netdev/cover.1791178212.git.mmc@linux.ibm.com/
+
+Changes in v2:
+
+From the Sashiko review of v1:
+- Patch 5: give the pool kobjects a release() and wait for it before
+  free_netdev() in probe and remove(), which closes the
+  CONFIG_DEBUG_KOBJECT_RELEASE window.
+- New patch 8: wait for the poll to return before close() frees the
+  RX queue (raised on patch 1 as a pre-existing bug).
+
+Other small changes:
+- Patch 1: also skip RX replenish in netpoll's budget-0 poll.
+- Patch 4: count rx_dropped when recycling an invalid buffer fails.
+- Commit messages: say how each bug was found and tested, with small
+  clarifications in patches 2 and 7.
+
+Rebased on current net-next.
+
+v1: https://lore.kernel.org/netdev/cover.1790991039.git.mmc@linux.ibm.com/
+
+[1] https://lore.kernel.org/netdev/cover.1790319558.git.mmc@linux.ibm.com/
+
+Thanks,
+Mingming
+
+Mingming Cao (9):
+  ibmveth: fix netpoll races with RX replenish
+  ibmveth: do not close twice after a failed reopen
+  ibmveth: disable the reset work before unregister in remove
+  ibmveth: step past bad RX correlators instead of spinning or oopsing
+  ibmveth: release the pool kobjects when probe fails
+  ibmveth: return the error when set_channels cannot add TX queues
+  ibmveth: wait for in-flight transmits in ibmveth_close()
+  ibmveth: wait for the RX poll to return before freeing the RX queue
+  ibmveth: check headers in the RX large send and checksum helpers
+
+ drivers/net/ethernet/ibm/ibmveth.c | 647 +++++++++++++++++++++++++----
+ drivers/net/ethernet/ibm/ibmveth.h |   5 +
+ 2 files changed, 561 insertions(+), 91 deletions(-)
+
+
+base-commit: d8674294aefef02266c4d47ad10131f1bffbe534
 -- 
-2.43.0
+2.50.1 (Apple Git-155)
 
