@@ -1,174 +1,143 @@
-Received: from outbound-ip199b.ess.barracuda.com (outbound-ip199b.ess.barracuda.com [209.222.82.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9FA548EBC5;
-	Mon, 12 Oct 2026 17:20:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=209.222.82.137
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791825648; cv=fail; b=cxkREcEJ8UnkZVA6q1Daee2n3e/YgrmVd4pifbLTJkPXgKkHS1ksZM2YtUT4pDmYgBCImH1ZFIL9fecC8nKaZXJwGCVYeLGx4jBHnDkBJBAz0veQqetPva3+XJKSMGbrGu7SYLghkGTO4rib1tfe6M4jYpXbgU1uVEh05R5iVv0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791825648; c=relaxed/simple;
-	bh=lpnF55VLP3MlV34/2gv2UpAUryamyp6QIsDtVXe/eLk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IbQ4PSC7+jFKP0dObM0ZZm5E6nNV3n4cCB5supM7e3yls54w05qUvpwqRQDwaNPe2GsPm406gvdsorlI8iAc9zx2DgYlNQMZohKkPnbBiXL/QBmL7P6deKPSAKDJzcdeicU0KSrxSCGsfHuv4GBazbExj8bZKJ7VKicizu5LFMI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opengear.com; spf=pass smtp.mailfrom=digi.com; dkim=pass (2048-bit key) header.d=opengear.com header.i=@opengear.com header.b=KW/Wxwwd; arc=fail smtp.client-ip=209.222.82.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opengear.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCEAD4B66D3
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:21:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791825683; cv=none; b=iNG12y8l2wpTGDYHmrXxIkCax4TuaW62LKTaZzLBai2v5SHG9jtoVLNiAEqxoLcAesF9oirSGk6eab+ax5UXGBox4UwE4/cB2BJmjtzlcCZQtFQDp3DzIz71WFsoV0Bexj5r6YR9Xpm1AJmrhB7pIu6okfZxHyvc8RMbdLXciMs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791825683; c=relaxed/simple;
+	bh=iGIk0bg7YEavvAiz9L9Dgo+JZmGsNHsjcYqlYsCIoJY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y+0bhfR5NWGPu5vNkPuE+WNVEiFItxqocAUBIfpED0kCQyNWutgQLXgwvDrJjDjUrGGH2eb7a5Al2PheySHeVcCvBBMBNenLR4oqj5XM6HADTfHYUFRetHvarpcVjhB5HU5SX899mKrXDhIV691PaMMdzJ98i5ExsCHeNd/Wlgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RZX0QB/B; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=opengear.com header.i=@opengear.com header.b="KW/Wxwwd"
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11020088.outbound.protection.outlook.com [52.101.85.88]) by mx-outbound42-29.us-east-2c.ess.aws.cudaops.com (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO); Mon, 12 Oct 2026 17:20:18 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NeTTaq8UQEONbUieWl235BQeEOJl48veyP4w55KUwFDtxS6wH2RcF1/cURS3XO2u/y8FITGSsTmt8vrCdkdbARu6L3E08jN3HSi6wCOhAN3AQ8f4nAVKUumsulVvEcrw66pxBmJGIMQMspsqrNEBim1icrsXA6WAbqfkbhqPDVMNap45Va1iYWBMF1r3A0fEeVSpNt+HIuepnG8NaeqREu1SjGT9LHdbnQltdpPjNEKxjYyResqo3a/UU5YI1M2TG7XOn3nnjpKsSHaKDcjZovynyM4XT3yvNyQ2qnOi7q7Qas2TGy6+ISTl5wkSZkzBYF5/5duoZlgli1bEVBIq+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lpnF55VLP3MlV34/2gv2UpAUryamyp6QIsDtVXe/eLk=;
- b=S7U4QHzSSPrFAZSebQjMWYF7ka6DUO+X92vFATII9tMPl2MbyV85cvdk/4p54oY23dyXEwXZxSGz8+SsRasUwVty0TdiNTCjzZC2aiE4un5KhOheRB5dTbgl9wjDrWFmw2U9LDMs8NyHhMyn2sh9/JGgIAiJCaboVsTsftjwEDdrdMflobHyGU+Pg0VCK473wXKIAL5a6HEPFPa0R1SlawJILdETxMeW4v5Cnn0w07RmlV54ZOiY+/L/7X7dacput3A0XaMIH/g/kgIeLjoxIck/ksP7X6H0PLRO+FgsUfblyiNOlxdGvr6Sv7PRE9/z1SFAbZz1fTIYLCsrvJwesg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=digi.com; dmarc=pass action=none header.from=opengear.com;
- dkim=pass header.d=opengear.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opengear.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lpnF55VLP3MlV34/2gv2UpAUryamyp6QIsDtVXe/eLk=;
- b=KW/Wxwwd4wYiSMJihmkTGpfQVcq4BEewF4jyJx587G6dFmOJks1vyyM6o36WS6UoSg57tEQX5SNbw1ryzOAAXjizED5SoV40e1nYAINOm2OAKvdIkVmqlayrw5gQ+zfXLQ+ChCmyrDVYuY7yCFSDbeLVT93XBr8ZaBJqzJPQejZdbdeUPdPYGJXuijuqzFxdC1hvih/lUqiW7vNbhQXMvLf7Pk5kRbmIE64jZ3VgXtbf72lQJto0+7Zc0RPiuk3MBUgUUJ+996PZhrhnITebPU5XfDo+c8GgLrgkcZXQalKn/fYVqZiXh4keCpyWEKW18tkcJ5A2Tq5zAgXx3FGUwA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=opengear.com;
-Received: from MWHPR1001MB2095.namprd10.prod.outlook.com
- (2603:10b6:301:32::34) by IA0PR10MB7301.namprd10.prod.outlook.com
- (2603:10b6:208:404::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.8; Mon, 12 Oct
- 2026 17:20:13 +0000
-Received: from MWHPR1001MB2095.namprd10.prod.outlook.com
- ([fe80::3933:62ac:2729:f017]) by MWHPR1001MB2095.namprd10.prod.outlook.com
- ([fe80::3933:62ac:2729:f017%7]) with mapi id 15.21.0522.006; Mon, 12 Oct 2026
- 17:20:13 +0000
-From: Peter Hunt <peter.hunt@opengear.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: loic.poulain@oss.qualcomm.com,
-	ryazanov.s.a@gmail.com,
-	johannes@sipsolutions.net,
-	mani@kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v8 2/2] net: wwan: mhi_wwan_ctrl: drive DTR/RTS via the IP_CTRL channel
-Date: Mon, 12 Oct 2026 11:20:11 -0600
-Message-ID: <20261012172011.3668250-1-peter.hunt@opengear.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179174581889.434549.17109268914009115980@kernel.org>
-References: <20261007182238.1154851-3-peter.hunt@opengear.com> <179174581889.434549.17109268914009115980@kernel.org>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BY5PR04CA0019.namprd04.prod.outlook.com
- (2603:10b6:a03:1d0::29) To MWHPR1001MB2095.namprd10.prod.outlook.com
- (2603:10b6:301:32::34)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RZX0QB/B"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c45111bebso1211926f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:21:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791825680; x=1792430480; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XVOLHzyfqUmv7StJG1aPauWki6PAmKd3K90h79SeG0Q=;
+        b=RZX0QB/BV9cAkYFB47nUBwzId+E0a2hPsAXsVopoxLT+krWQOqjtIgAfUd7PptjJhh
+         NyReJINoYy1w6HEZyyb1xPyWrvWRBPCIAwGwHHpuapcWNSTMb5PhqU1Me/9lIpFRdiD7
+         7YqyrF7II4o0OJaII9beTSXX0YYPUxi2ebJQtLNx3fURuq5SeWEAb05x6zq3mFyuB+O4
+         w7/I4nWvbR7dsHLjDxzhgX+0MGBv44vVRpvpCLBb4LDC1VtUxpmqOTlLA5T69jTnt61+
+         8GzklcQH3Mu3t1/nCDnAF8IECOKuURGRkKP/dvVji2TJ5vcWqlRVw5mkO9K5mmhn3MS0
+         85Ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791825680; x=1792430480;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XVOLHzyfqUmv7StJG1aPauWki6PAmKd3K90h79SeG0Q=;
+        b=VBWuzYEbcf5z0RJQJl7Pramr6z+FWndizHLFOmNqpKpwYMAAVPMNvgEZ2bWA2cOvlZ
+         vjyDAg4ujr93Vn9CVNI6JXvLtBQLhMX8vDOjOgGurSj3rCHW+a+w0MEh934Z+ycB3512
+         swDgWg6j94zDhCrLkHli8Q4bZPVwZ7srYsFdSaZEHmim0zYnmL+9WiM3FzGRPC1chcgo
+         08rt1MEDZ4dLWqlA0BjUjyXDouWrU7L8c4fEdJ/78IKvBhhYTjz9+A2PYEJAm7VCOmZB
+         OiQekdkO6EZLeOBXDZ5u2RqS7sRaSmA0wE9WynWH0UkW2GTwpo+sOk5ggwjRqtGNVRSf
+         uwUg==
+X-Forwarded-Encrypted: i=1; AKwUvBzH75ElRlNh3x5PfgZ1Y/98eA3sODd1YszEbCtoEpr/lL228bT9+5Pvb2SIHkBk8epi54k2RNthaWgZm8o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKk0DRy5SlBtYRv/kqLy1RMnKxjJkIZBI7JA0DBH6ocgp4rlt84
+	BEMwxqI9aI7fLhZi+YjePXR2MOrQ3dJhqbN5b/1mAPT5988LuvdrucJh
+X-Gm-Gg: AYBFou3aoFaj0gv5cPXnpVyjFxLX1uiKjppoo1H/BJVTludi6R6OxRicsrZy/FfMpd4
+	9OmjrHf0BLkIDNtse4LZ9BNL4uhWpfSjMx+6vVfCjafi9qOxJ80Z4CHrh5HFcU6+TXaI8IVe+VO
+	sGfwBC9QB46WZKv0sR6zAtq3Yg9yaXDPSNDTWb9lBTa1mAsR/ttcFquWEk39F73mp/n/VzWPuFV
+	Nhm53QBcGe+st2W2VatNrOxkhNFQsdNJ8UFre6XdqwZmMRDuSHBC4gOFdD2TaQs9OkTXwC9gNi3
+	o8JUf0WEkZQZaYKP1GS12UfI4GP9UlB3IpFimcNJVTL8TpvAlVDvJ/BQUK1kn5UUyFcEanqXb0S
+	r02Nf2pRE6yzHQoCCitV6ypJF7C3RXv2LlwzdiBYSq01Ywv/lnT5tfodghrLg/roOrDz8Hq6T0u
+	EnxB0ULpACCG7KzqUBKn4PApHmnj1wUWCweZFYf28dK+Ohz2SueQGyj/gB9sQTNf+DZw==
+X-Received: by 2002:a05:6000:2990:10b0:48d:de7b:9caf with SMTP id ffacd0b85a97d-48dde7b9d70mr2473124f8f.8.1791825679711;
+        Mon, 12 Oct 2026 10:21:19 -0700 (PDT)
+Received: from [192.168.1.18] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaaa21sm583094f8f.9.2026.10.12.10.21.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 10:21:18 -0700 (PDT)
+Message-ID: <3ab63358-8bbe-4457-b21c-bb81bca804cc@gmail.com>
+Date: Mon, 12 Oct 2026 19:21:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWHPR1001MB2095:EE_|IA0PR10MB7301:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc26f2a7-2807-48bb-5705-08df288513a6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|261009223027099003|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ZfvpAzMwDNJdZfdZXbK7VrVgguC//WaT+EPwCFvN1ulm+MVHSQUvd6OLRvGd1Ps0054lB0knam3IsH4lhEtiQXjwGLhCM8s+GUxVqcqdTbAA7xE0tfjb+IXVoXgEl7GxhgN+kWuEL/XSezOEDhaG2ln9w0La8assDNl8vV6uEKjla1x5ltYDm9UBdgZZ+GJgXjJ3yux0ErwSsoKDqrxPvOlLaT2RFd81cFM+SUxTaAm7y3P0gxkB+uV5ndRM7IFKR/oUsVUTlQ3ak+aC04+aTX4t9e54vk48f4pV1SsQX45xLB19cGa1q3UVRnsxVUpzj6Y8BDBJsnA1gT5NLDzNrvRhM6SY6QTBZdXV6/PvXzYMIgb8srBU17UjGH2I/G6nlz7z8ho/vEdA0T1KTs/hBS25kDplykxdxxEKjNMMpo/nn3gRsn1KL8RmaauXrzNP4sM/Nj9NwO6RONz5m+4D6pHIQB9vOib7KobvcLIH7QdYvtZ2H3/q3yxihZXyVu8cNJoXM0GJY3v6Su+WLhuWKu81ZogVPmavW0DOTFMj+Y2+tTJ21H1aQzAryqZ65EzAyhNE9u5ym7cjBJNeoFwSYJZRpOf12bFPzivdm9U4baRaPqimgiRyUwwBuZXNuqEK/MvTE6hTW8TdIspk/wlFGeCnbHX5EmoZbWx9lIZRmhw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR1001MB2095.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(261009223027099003)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?6cv/mCRASef1m+CYkwSuyYun/6lWWukcFRoOWLfG/Y7irge3Iiws8wuLXSXo?=
- =?us-ascii?Q?6khQDttOWf++G3OgzJKzYZG91iONkxuEy2iuuM5p0rG6EQvG/VtcjsXTJ5ql?=
- =?us-ascii?Q?V3Z47AjrDY7DhLVJ7343v6wxk3Z+lJN1n/BM8FsNP0CyCpAxWgcUfWEF42t5?=
- =?us-ascii?Q?b3aHC9lG45dj/vLwdr2CnoQ4ayBklXDX0DDH0eRhfbZLtRTIlhMdPB6s5u50?=
- =?us-ascii?Q?aTIFq7n/EQziAVVEY7xYvVsuqXBVl574Q+Dzd+ogAB2Qh6ovk2lX8uMCYcB1?=
- =?us-ascii?Q?a39FVBo/imddsl/P/aBF7ZfTZn1GoS8PKUVcasAj2v/UmLsYW8hofgD4+WOU?=
- =?us-ascii?Q?Nok5jaP7R++s73gUn6GOXIK3KhF0uEafv1VHGuvHFXazrm4sExlxGzRFX1ea?=
- =?us-ascii?Q?14z0whgl/Hbqn9nPgXpRt0GsGBc5IyT52YeaIKv6ppD3oiimfAXALg2Mu6+a?=
- =?us-ascii?Q?0/gi9GgqCL5iFGVHhS45/BYpyCBxM+fufT6ExNM1aBuGkCAY1MYaOUP4bEW6?=
- =?us-ascii?Q?LwSK8jgVwdwAJbKsWBTakgRFga8INTrGiqNfeJZwQ3MaTc+4VYW0NfX8WXxi?=
- =?us-ascii?Q?pXSMN50HcDZTfbV1Jsct2xzc7CUUBnQS8MG9MhGvB615hc4EgFUWtO8M89Xk?=
- =?us-ascii?Q?DCp8CSWoTODwCVztbN07hgEqFlga54Uz0abmmLSqm+LAM2APYe2xua700TUN?=
- =?us-ascii?Q?S6en+vZjc6KvJfPy5TqnQHxMCTbWJEPybM9+AqKcHrdooamFbV/tmdWd21Qd?=
- =?us-ascii?Q?mgbSa8Agsnm4eOLKP9UnZDcX899PN6zafYkI6IzmOonO/AXpP7M7VbEbl3kc?=
- =?us-ascii?Q?apnr3rM2McLrzssd0oQ+wn8qJu+SQJWJGFt4FnF9EC77OP0QApxLZhOtQcwy?=
- =?us-ascii?Q?L/LV7WqUCIlVOjk5ET3miB9zMAiq1eGX8p3XsEQPJn+vJuYjIucFMmatj/JN?=
- =?us-ascii?Q?r8URq+Xjftz8lit2CqG1y1BJo3wF71L3vxyfwSddZQgOr1gfeOdAYusd1cJt?=
- =?us-ascii?Q?XhFUMeFWC2ZYmKvVUk9X/BuNPfdYEsAKrMXTEne+6n97wHP39afLxH81iwL6?=
- =?us-ascii?Q?mC5KGx4PDujxfW7Y94A6kapP6/IWHLar3np3dEQN1ZbziJd+AdxQ0dGaA5Gc?=
- =?us-ascii?Q?0J37V7uyAGqC9Gb01NaSLi1aRI59sO1VvYu8Ij/MHTwbua5jPm6KqLltVPeN?=
- =?us-ascii?Q?ZMTDa8jijFgomkpoSmZKUTk/dEm7+9GXbzfRt+mIAHtRNRKxY5RGq4FRwEzo?=
- =?us-ascii?Q?01DWRviiy40C7qrQfluxb8RydHo/Cj1AlsqydDOOeWWzyLPXCxfLFL2VpIJe?=
- =?us-ascii?Q?uO8pNN/M29SoTjCxNib8LsLC3MRSiWlTmmj4t/p8uI5GnT2Qy/qJB1mRENSU?=
- =?us-ascii?Q?99Dl+TeHB3ZU8Zky7+8Q6IoK6gHD2Agl391QEesojR+1BBmCx1GSSFrS1M8y?=
- =?us-ascii?Q?GtNMkUxASAqfyn6m6VPPRRy6DERQ6PbmPabKV7KcTfqK+ylw0bAR1iBXvjHh?=
- =?us-ascii?Q?1te6JhtWFEpdNeNsLPgEDrWsqnYMTVVRfbwI/SnHV2UAMHCHExWH0sgB9EdD?=
- =?us-ascii?Q?qiUvoG+FNeGcjeZIspVsHmqcdDVSJUwlPK6M9ivd9CY6C8ZhHbajyjw4XXA4?=
- =?us-ascii?Q?j1IuK09qfaq/Y6LkXlcd/2ioJArKwXkvLVm3DKPXZZgv5Em3O5c0hWT1xOCA?=
- =?us-ascii?Q?kRZn0bFagGP/kUiqTDL+GhE6svE/cvWJVg8zQSgi1N9hSC4z?=
-X-Exchange-RoutingPolicyChecked:
-	zc8WOGijn7OsH8kiPWlXBTHo9JziBSKg2NZNMoFq7j4zTVP8OYY1mXbInQdPZdl30V4hjebJgr4VPhyY+sGlJj0SLACvpEZdVO4ms+yvGTaJKc13ljnZ7OSFnqFGDmf2joDbmhXO7F8hlCzPrbnnCf0u/6Dvl98OA+wVc+gpAUaOqYG+ZZSH6SDH6yIO3kfMABdmMEcpszxiyp9WO0asz7OYERnqa5e/H2jPuUE+KUBokG9QPpG9wYUAlICtBcz5A1x0B5VGlKTS2wyyuSQaACB0jhcChbuFt/UKAnY0rE4KLyOz/iMfFHpFOxItymvSljGmUuPP9v6G4uuqWYp6wg==
-X-OriginatorOrg: opengear.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc26f2a7-2807-48bb-5705-08df288513a6
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2095.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 17:20:13.6239
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: abb4cdb7-1b7e-483e-a143-7ebfd1184b9e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UxMLMGdVGJWXtEJ+HzQoORcjbkcNM7s7jDq4w49ZkjUJVqp+d9tzPWNZD5JTo4N3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR10MB7301
-X-BESS-ID: 1791825617-110781-9469-1348-1
-X-BESS-VER: 2019.1_20260924.1519
-X-BESS-Apparent-Source-IP: 52.101.85.88
-X-BESS-Parts: H4sIAAAAAAACA4uuVkqtKFGyUioBkjpK+cVKVobGlkZAVgZQ0CTJItU0KcUg2c
-	DQMNki2SLR0tLA3MjIzNTUxNwYyFWqjQUALeFtXkEAAAA=
-X-BESS-Outbound-Spam-Score: 0.00
-X-BESS-Outbound-Spam-Report: Code version 3.2, rules version 3.2.2.276792 [from 
-	cloudscan21-208.us-east-2b.ess.aws.cudaops.com]
-	Rule breakdown below
-	 pts rule name              description
-	---- ---------------------- --------------------------------
-	0.00 BSF_BESS_OUTBOUND      META: BESS Outbound 
-X-BESS-Outbound-Spam-Status: SCORE=0.00 using account:ESS112744 scores of KILL_LEVEL=7.0 tests=BSF_BESS_OUTBOUND
-X-BESS-BRTS-Status:1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] mm: fix missing page-table destructor in
+ pagetable_free()
+To: Muchun Song <muchun.song@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
+ Dave Hansen <dave.hansen@intel.com>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@rivosinc.com>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Kevin Brodsky <kevin.brodsky@arm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org,
+ linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261010112457.49485-1-songmuchun@bytedance.com>
+ <20261010112457.49485-2-songmuchun@bytedance.com>
+ <asy-b7_C3SjnmSaS@gmail.com> <145CD5DC-6457-4E1E-8B9D-AE7D1EDB0AB8@linux.dev>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <145CD5DC-6457-4E1E-8B9D-AE7D1EDB0AB8@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thanks for the review.
+On 10/12/26 2:55 PM, Muchun Song wrote:
+> 
+> 
+>> On Oct 12, 2026, at 19:15, Jose A. Perez de Azpillaga <azpijr@gmail.com> wrote:
+>>
+>> On Sat, Oct 10, 2026 at 07:24:54PM +0800, Muchun Song wrote:
+>>> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
+>>> pte_alloc_one_kernel() runs the page-table constructor for kernel PTE
+>>> tables.
+>>>
+>>> HVO (HugeTLB Vmemmap Optimization) uses pte_alloc_one_kernel() when
+>>> splitting a PMD. Restoring the vmemmap backing pages does not collapse
+>>> the PTE table, so a later memory hot-remove eventually frees it through
+>>> pagetable_free() on x86-64. That releases the page without running the
+>>> matching destructor and leaves NR_PAGETABLE elevated.
+>>>
+>>> Make pagetable_free() detect constructor-backed pages and run the
+>>> destructor before releasing their memory to fix the problem.
+>>>
+>>> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
+>>> Cc: stable@vger.kernel.org
+>>
+>> is the x86 case covered for 6.16-6.18? as far as I can see, x86
+>> free_pagetable() only uses pagetable_free() since bf9e4e30f353
+>> ("x86/mm: use pagetable_free()") in v6.19, so the backport wouldn't
+>> change anything there. or am I missing something?
+> 
+> Yes, you are absolutely right — thanks for catching this.
+> 
+> I double-checked and indeed x86's free_pagetable() only starts using
+> pagetable_free() since bf9e4e30f353 ("x86/mm: use pagetable_free()"),
+> which landed in v6.19. So for 6.16-6.18 the prerequisite is not present
+> and the backport would be a no-op there.
+> 
+> The correct trailer is:
+> 
+> Cc: <stable@vger.kernel.org> # 6.16-6.18: bf9e4e30f353: x86/mm: use pagetable_free()
 
-[High] refill work racing mhi_unprepare_from_transfer() in remove():
-agreed, and Loic raised the same point. In v9 the DL sink buffer is
-only requeued from the refill work (the DL callback just schedules it),
-and remove() calls disable_delayed_work_sync() before
-mhi_unprepare_from_transfer(), the same order mhi_wwan_ctrl_stop()
-uses for the data ports.
+also, bf9e4e30f353 alone leaks PMD-sized vmemmap pages on those trees,
+it needs 39406c05f8f1 ("x86/mm: Fix freeing of PMD-sized vmemmap pages")
+as well :)
 
-[Medium] a DL callback still running after remove() frees dtr: v9's
-change stops a late callback from re-arming the work, but if a
-callback could still be running after mhi_unprepare_from_transfer()
-returns, it would also touch freed memory. That is the same guarantee
-the existing data-port code in this driver relies on, as
-mhi_wwan_ctrl_remove() frees mhiwwan after the channel is unprepared
-while mhi_dl_xfer_cb() dereferences it. So if the window you describe
-can happen, I think it belongs in the MHI core rather than in each
-client driver, and I've left this driver consistent with the rest.
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-[Medium] DTR/RTS updates that don't reach the modem are not retried
-or replayed: this is intended and described in the commit message.
-Each TIOCMSET/TIOCMBIS/TIOCMBIC resends the full state, open and close
-send it again, and cdc-acm treats a failed control request the same
-way. The replay case needs the IP_CTRL device to be unbound and rebound
-by hand while an AT port is open.
-
-v9 follows with these changes.
+-- 
+cheers,
+jose a. p-a
