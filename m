@@ -1,88 +1,178 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15EE04D37B9;
-	Mon, 12 Oct 2026 19:21:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC4E3DEFF1;
+	Mon, 12 Oct 2026 19:21:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791832903; cv=none; b=BueSe2gBvGoXoXw1fMWMSLDX5cF32HWD8oRTP8E9MDrcuoRrTuuJnyShsInqXYHlVkZtb5OW4D1taP51SFq3omU/QMMSgEzpIe3+drq1QXAwyujPP7+IYQXLXNxEltZps5AcKpyFFX2CQS+FOU5oRwJyBSMMdSBPs5vEjr5SPP0=
+	t=1791832910; cv=none; b=ZoAFv59M+Ic5gFEsKWtnRdXKUfbSUlJDvfNZSI+Hfzq5uu+HU1y//pKVT/nFRgkg16gkGwWKwx/NIV7bs3Im7XVox18PZItGtHwz5f4OTM+WHTMoYr8Bo0Yw9512aCnK7/9vP1Z5q34Ec0B53NcWu395FNVmUEH/qr54hjNTruw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791832903; c=relaxed/simple;
-	bh=WovZxVKaZ7McOM8h3AbkTrVG9gDYGH8gE547m+K2XLg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UyH5x2vJzX1cp9VJfzeM4PbsCjDMRcduXItrRCnoEjYeJor3nHh2XPb+CWeklqP7/bOPbn0WipFvPgPp+uAcHB2s+osr1qII05D5M1aAXzSU8m7R1ZsdG43Fy1WFq3m/vQftH5xXXfziMekr/rXDROcHSPeqDa3mrpnRUpH1UBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=n+lXEJ5W; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1791832910; c=relaxed/simple;
+	bh=6DwsFQ3xewZ6W6NJBGeZH/qAhtWLndOqe4ZccqIyQec=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ONua0Mo0gxWWh1azyiT4siO0pYW26vPOHym/ZQdxVC8odLILRp+/mgyh/uzMNpYe5lpsiNcsXEEy+xRjEljpYWqyfC9zO+G1SrteDjZKNCZiR+RIWP1YSZfg105cOXFUvhsC8JunQVVCX2/bMWNl/qJ70lgmGqetvX/Iw6c6ffA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hZzhxjo5; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="n+lXEJ5W"
-Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id A76321C4C80;
-	Mon, 12 Oct 2026 19:21:32 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 1DC8820032;
-	Mon, 12 Oct 2026 19:21:30 +0000 (UTC)
-Date: Mon, 12 Oct 2026 15:21:29 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Tobias Schaffner <tobias.schaffner@siemens.com>
-Cc: Gabriele Monaco <gmonaco@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- rpm@xenomai.org, jan.kiszka@siemens.com
-Subject: Re: [PATCH v2 0/3] rv: per-edge dwell-time statistics for per-cpu
- monitors
-Message-ID: <20261012152129.4c57786c@gandalf.local.home>
-In-Reply-To: <cfd7123a-e83d-490d-918b-154d45aad92d@siemens.com>
-References: <20260911123439.463052-1-tobias.schaffner@siemens.com>
-	<4759c9b0dacdf1f9c0cf47158895860dbd0ec401.camel@redhat.com>
-	<cfd7123a-e83d-490d-918b-154d45aad92d@siemens.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hZzhxjo5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791832909; x=1823368909;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6DwsFQ3xewZ6W6NJBGeZH/qAhtWLndOqe4ZccqIyQec=;
+  b=hZzhxjo5pI8VxkTUNUo/aozuJl2tZKeCEzP425g1uN+bjkA4Abg4FJhf
+   RQfq5vaYC6dQNtdk+a+1yXSVPfoBOvu0K4GAlHNBKMuw0EUnreMIAqyZi
+   5Q0BfPurBSbSoP8Gy+dAE0lEuL2Dp0r11hPNuMYSvWTfUzKPwTq7MMF25
+   6Yq0PYtGtOTFmHiq0GgMROpMbdcIR14nzgR3SawykDQvt/39F2FDs5pJ1
+   28aLItBSTkVN/mRYY878pkIectcOck+4LZfhVwUo85TOoaV6RxJTjoIBf
+   LDtICjq2g92sakQyjOlmloWoz8FGoOhp/iEPpJfCQrZN6srKUvcjipwoC
+   A==;
+X-CSE-ConnectionGUID: FH8sqrJ9SC+DX4hgckvnHw==
+X-CSE-MsgGUID: xCtYWKtXT06R5GzSphvQ3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="657297"
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="657297"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 12:21:48 -0700
+X-CSE-ConnectionGUID: txnXQ4HYSPyd0XLg+xqFJw==
+X-CSE-MsgGUID: ixB9ow7+TM+7U4MIpIbK2Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="889273"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 12:21:44 -0700
+Date: Mon, 12 Oct 2026 22:21:41 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Ankit Agrawal <ankita@nvidia.com>
+Cc: linux-cxl@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dave@stgolabs.net, jic23@kernel.org,
+	dave.jiang@intel.com, alison.schofield@intel.com,
+	vishal.l.verma@intel.com, jgg@nvidia.com, aneesh.kumar@kernel.org,
+	aik@amd.com, yilun.xu@linux.intel.com, iweiny@kernel.org,
+	ming.li@zohomail.com, icheng@nvidia.com, bhelgaas@google.com,
+	smadhavan@nvidia.com, ilpo.jarvinen@linux.intel.com,
+	Smita.KoralahalliChannabasappa@amd.com, linux-coco@lists.linux.dev
+Subject: Re: [RFC PATCH 3/4] PCI/TSM: Derive the coherent-range IPA from CXL
+Message-ID: <as0zRXh5f5kjULVI@ashevche-desk.local>
+References: <20261005070252.84810-1-ankita@nvidia.com>
+ <20261005070252.84810-4-ankita@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: 1DC8820032
-X-Stat-Signature: k5g8nf5cmracfxb8etejzcef68697w5o
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/LHhjODesxKHkmKZPZ24+4fULWt9TuWUU=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=WovZxVKaZ7McOM8h3AbkTrVG9gDYGH8gE547m+K2XLg=; b=n+lXEJ5W9jY2/VPYwkQThytHBgga786HfJgk9+q/jCuwoFP+adt7kPnxBM6Jrehh1nOTW3ns2ZrimC3xZSJGZqP7ov7vKQ6n5gCGn5nkxwaay5fnZzP7ZcouRr71XddiMt+PgZ8HZX3ERX8y/rUAH3nBLbcuhraT0F7+NJ03zwY=
-X-HE-Tag: 1791832890-873550
-X-HE-Meta: U2FsdGVkX18Z38EoVZaLVKv1KgFWq/X1ChjGpD7F5T90APg3DKeryhGdo0LRScODfPGISQvyyIPXdsqDBjJCiAPJ3ve5j8nuJ7KM6thgAve6wxtLqrOl+1Zanjrbo6NioP71udrYDj3fLw0qie5+DJbw7FI6vjAmRrjYUL8kRJ7Ey9UArO8EqDv44mXkbtqQE8Xg8VJFM+ENaXzJrvewAZM39FIF+E8o2RB/eTQuWT23MuIYO8YHN/v1j79u5xSPCslFTY1D1gsXxyPk/WuAXSzJFONg9+X/AjzwU4DRCR2Gzw5GG91ZqxebDQ1wX0+WLg+jZKCoyfLuinaDCwYjCsvzXRogrBwA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005070252.84810-4-ankita@nvidia.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, 12 Oct 2026 18:18:52 +0200
-Tobias Schaffner <tobias.schaffner@siemens.com> wrote:
+On Mon, Oct 05, 2026 at 09:02:51AM +0200, Ankit Agrawal wrote:
+> The DevIf report range with range ID 0xffff describes the device's
+> coherent (CXL) memory window and unlike every other reported range
+> carries no BAR number. Recognize
+> PCI_TSM_DEVIF_REPORT_MMIO_RANGE_ID_COHERENT and recover that window's
+> address from the CXL side of the device instead of treating it as a
+> BAR-relative offset.
+> 
+> pci_tsm_coherent_range() resolves the window from pdev->coh_resource[],
+> snapshotted once with the committed CXL HDM decoders range. The
+> range to IPA conversion is applied onto range_base/range_len using
+> pdev->coh_resource[]. The ascending BAR order checks stay on the BAR
+> path only. The coherent range is required to be the last report entry
+> and is not part of the BAR sequence.
+> 
+> An HDM decoded window lives in the CXL Fixed Memory Window and is not
+> part of a BAR. So by construction, no pci_dev resource contains it. So
+> the function pci_tsm_coh_resource_contains() validates the range against
+> pdev->coh_resource[] instead; the same known-good snapshot
+> pci_tsm_coherent_range() already trusts.
 
-> Regarding verification:
-> The path I verify is deliberately kept short and simple. RV fits well
-> because the probe is a plain function call and the state update is a
-> try_cmpxchg that cannot fail, so it adds very little. A BPF program
-> brings more machinery into the probe path doesn't it? I fear that adding
-> this would force me to verify that the new RV system does not change the
-> behavior of the system we are trying to verify, and I suspect that could
-> be harder than verifying the system itself.
+> Assisted-by: Claude:sonnet-5
 
-This brings back memories of conversations I had with Daniel. When asked
-about how this is being used in formal verification of safety critical
-systems, he told me that only the RV verifier itself needed to be verified
-and to show what it is verifying can be verified via it. For example,
-running Linux in autonomous vehicles handling critical systems the watchdog
-had to be verified that it could catch lockups. As the watchdog would
-trigger fail-safe mode if something went wrong. RV would be monitoring the
-watchdog and if RV detected something it would panic the machine, which
-would immediately force the vehicle into fail-safe mode (stop lots of
-features and only keep those that can stop the vehicle safely).
+Assisted-by: LLM
 
-Can using BPF as the RV verifier be formally verified? As verification for
-RV monitors did look at the binary. Is BPF optimized to machine language
-before it enters the kernel? If not, can we formally verify the BPF
-verifier created the correct binary? Maybe, I don't know.
+...
 
-Maybe the safety-critical project was canceled and this is no longer needed.
+> +static bool pci_tsm_coh_resource_contains(struct pci_dev *pdev,
+> +					  const struct resource *res)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < PCI_CXL_MAX_COHERENT_RANGES; i++) {
 
--- Steve
+	for (int i = 0...)
+
+> +		struct resource *coh_res = &pdev->coh_resource[i];
+
+		pci_resource_n()
+
+> +		if ((coh_res->flags & IORESOURCE_MEM) &&
+> +		    resource_contains(coh_res, res))
+> +			return true;
+> +	}
+> +
+> +	return false;
+> +}
+
+...
+
+> +			for (j = 0; j < PCI_NUM_RESOURCES; j++)
+> +				if (resource_contains(pci_resource_n(pdev, j), res))
+> +					break;
+
+pci_dev_for_each_resource()
+
+...
+
+> +static int pci_tsm_coherent_range(struct pci_dev *pdev, u64 *out_base,
+> +				  u64 *out_size)
+
+Instead of the last two you can use struct range.
+
+> +{
+> +	for (int i = 0; i < PCI_CXL_MAX_COHERENT_RANGES; i++) {
+> +		struct resource *res = &pdev->coh_resource[i];
+
+		pci_resource_n()
+
+> +		if (!(res->flags & IORESOURCE_MEM))
+> +			continue;
+
+		resource_type()
+
+> +		*out_base = res->start;
+> +		*out_size = resource_size(res);
+> +		return 0;
+> +	}
+> +
+> +	return -ENODEV;
+> +}
+
+...
+
+> +			if (pci_tsm_coherent_range(pdev, &range_base,
+> +						   &range_len)) {
+
+I would leave it on a single line.
+
+> +				pci_dbg(pdev, "No CXL region or committed HDM decoder for coherent reporting range\n");
+> +				return NULL;
+> +			}
+
+
+...
+
+> +		range_off = coherent ? tsm_offset :
+> +					tsm_offset - reporting_bar_base;
+
+Indentation is broken. I think it's better to read when it's a single line.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
