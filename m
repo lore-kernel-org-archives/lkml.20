@@ -1,131 +1,148 @@
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB254AA419;
-	Mon, 12 Oct 2026 15:48:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC80B4A5EA5
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:48:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791820116; cv=none; b=LEClA5R20UCr9348qyqaZORP8BPPFOWHO7L5SY8KtRFeMX/JqyxpUd/8EyJkmz/RS/VPAJ6J8xkqmuQlLkcYr3lTPxbwClAVgqf/+Q2Q3KkUDj7C0/tg4qFAiLNwZ8JCvEBQ9a1AbVw0NeTnxk7cwBGxHgpocnVkCvC9W75cbv8=
+	t=1791820136; cv=none; b=DPXipZEwp2mrysannjF8j9ffjZQDFswVJov7qotAdcmqb/Rwg/qeHFrs7NNCrwPXg9JdvMPGhsVPg2aweDcqju/tLdgPhf5kU8MODXfNqXuWb1ssxjUofuJJvlcY43Ss85yFWyGZ5A7Ln3JBnDtkfEtyXrpQWwa2wnywhsUdKkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791820116; c=relaxed/simple;
-	bh=cxVLDvQgMQwu4Os1vRGM44MZqtkcuWvleffo1cDkrE4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RdRKM0jbkbOCjKrQsbRyFp3GUTK3gEWCPyzwdWOT/P5nrnR6vKDacgeu6+11C06AMr8qMHow68EidX5xIQuQW99wGAy/3nA0wTJzfXpsrInE75tmDdIpdHZyDXQaqp7XFQ+9ssi4In3x93NkFv15AQcWA2b7tSi39IK5O7JBjxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=nso6GGq8; arc=none smtp.client-ip=37.230.196.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	s=arc-20240116; t=1791820136; c=relaxed/simple;
+	bh=IBQngc9E6IMptShoUCo5yKbFcmdbP8vVNx4ur1yYVnU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EwOuBDMR2TsSNxvy4xVJ/YXQXg+B2zKZEbhX6bUCW9WyuHxwKE3bcxoucVwkrzEM0DwK1iYb7XILfqjsbznZEBUxpM+pum/oOlG18adVZ2SjmZx0RIrRn/H3s5QRi55qjJe/VV0sC4PkG5ZJvI+NhLS7dHbNuI4TNTdqy5VF4D0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YTOZbUeL; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="nso6GGq8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1791820108;
-	bh=cxVLDvQgMQwu4Os1vRGM44MZqtkcuWvleffo1cDkrE4=;
-	h=From:To:Cc:Subject:Date:From;
-	b=nso6GGq87KeuU1FB+v4JNhRwRYkfboYwmvbLrpMM/+SeZK0Up3LxnLWIErOhqgAuW
-	 RsMRmwdY8vxWe04ttEc+gcSiJURhuqsWpsmvsVHeD+A4hEJEGQPRfSC6xu31v5ayKw
-	 3VOo5iJgCrBwb4JW5jUq30/TmCgcJY9jka7tWI3xtPzzyemoMA1zZvaOLoxql+hZ+y
-	 6kJ2FmC6PidBUYbbJcTqVxPyPAeF3yqBB93dXLfmcy4wUxxhPzaiNYIpGLSK8GgdH/
-	 gj5FiHxy5xwhMeHpJq4y+CVA+chakK5SbyTreztEOCieZCxvc8RAz9ngbENnccrRyu
-	 Yo+UDAsv6QBgA==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 37A5924BB4;
-	Mon, 12 Oct 2026 18:48:28 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Mon, 12 Oct 2026 18:48:27 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.48.43])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j3MLz0Zw6z20X4;
-	Mon, 12 Oct 2026 18:48:27 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Alexandru Hossu <hossu.alexandru@gmail.com>,
-	Luka Gejak <luka.gejak@linux.dev>,
-	Hans de Goede <hdegoede@redhat.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Fabio Aiuto <fabioaiuto83@gmail.com>,
-	Muhammad Bilal <meatuni001@gmail.com>,
-	linux-staging@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YTOZbUeL"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1682bff3cso9684715e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:48:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791820133; x=1792424933; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bz+XxQbQvV9Rkz3jiplflbfyEnwSo6hWkWyEVkUNcs8=;
+        b=YTOZbUeLKKbxksGFl3X9SRUSILmTkpQbdG3/S2suV36u4ulO3yQ/CwHt61806PNp5E
+         ow1LIvzCLHvBVYVWmAmeQ1RiutgtMpmbxUDWdEjr6PFBU1zADRngD4F+c+O7y6MZhm/3
+         OItOxC8zgX+czXK6nwSGzK6l1xcFKyZeSAWPwH8q57IlU999l80A21QlkgPoZSEjYEnn
+         NiKCYOISk2rKQl2PIGpBTQvP7cCSXCSckUsWWFfSd9auGOrmLG9yxlXBvUZyDmZcMNOU
+         VLDRbI6HZj7h66MzgD/3RF7W5NxrdXdj8IQCBfXNj9fscpFDo3QVJL+Bbcu8DwuKHmVw
+         CdeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791820133; x=1792424933;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bz+XxQbQvV9Rkz3jiplflbfyEnwSo6hWkWyEVkUNcs8=;
+        b=DmCEyPynVrNvyBZzLiaT8ExVyRtrh1pTtm20SmqvkQE6CvDpWZ2yGtI1vm4EAmtKb8
+         NWodBpAmoEFlIt2n/qRot75TsaxE/BV2PhHUCqZRXI223gjIA3PohpbNGC4e9/JKfIzJ
+         iPnBCfpyIIttHSOWsjkps/fHlDruI6jHVNM3VRZYFKcGV6My/dJdf/PenpNvJHokYp6n
+         dnGZjrmnDe0vzfTjDhZKHQrveCs6wB2k1J2X/jD8Ivb98fP1cEu6MecslmbkbOn2dGgb
+         q+p/75xXPkTJbkOPY0wPTX9IqF6GrEK0toXYy7ox2IrSHUbKDWLfvJeiGdvXrDjsULWB
+         1p9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ0o0w3HGcxIVdsFYJarKYkJ0nc5UkXU/ePcUth4EeW18yAajTvWR1FdQ5c5Rm3nb3cEOflSkgByFGYYI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDv+qV+a/IF6a/o1PkztupBhKsJEDNZc17dgCmSTK9nB/uuRPn
+	ZvQ61Dv1ApxTyM9P7QYFIPN2U1nCP0DpCW0Cx6Qx09cXRxdJ/BKqgsm7
+X-Gm-Gg: AYBFou0PmvIVLQk6fugwxwW8e9yYFXbbfc0Qnxm6VCCED2z24OX52v3Zb4G6KtSeXeE
+	qo4vMCPo2WR3q0VLCW1IVTA9EzqOno7hs4LbPQHpz3tjPZpHrxWO3czYauvftYLNZCBd/vaflcU
+	6yNW9GqZ5d8b4aDD2JCzgMo4hxWMj6qgVjQBZz+pvvRaUPc0IpqF2ZUZ+Uuv6ski5LaljVO0F20
+	4zTr8pJgJSTf76fQOMp3V7P+FbMXpcumcy19bpbQakxD3NoLlHB45SsBKOyCKT3OVSwmXw7SBfO
+	ZijPQV3TDtduuH1F0FbN9EFlDxLE+anjuMcOWF7LDksiyOyTO32netnVERZl9vndU0JR8rPk2bR
+	hFExJtjO4YYwkHz66Yhn9hDWl8KiI9ORA/8Wkmjr/wZZSyiTkci7cBMDv394UQh7gfFSCdtYJFW
+	0q6DCldGWeBD+me13OD6nOgMaqp9YjegtH+jBRInd5Ri2p18Q9+ee6jdOlz/v7KBilUdiPgv8eU
+	obVZSIOS9Tq5FFe8i2RgRHrskMvWRd+C+II3Q6ODcr6/F07M+IMs2x6ZLU0DNlYMRlBduJNi6/F
+	VptJbVSpF2WBWiLTPUuzJJjAY+0rNozlrts=
+X-Received: by 2002:a05:600c:699b:b0:4a0:4a8:d444 with SMTP id 5b1f17b1804b1-4a18e4af334mr195124235e9.33.1791820132890;
+        Mon, 12 Oct 2026 08:48:52 -0700 (PDT)
+Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com (54-240-197-234.amazon.com. [54.240.197.234])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a193f2c992sm210228205e9.5.2026.10.12.08.48.51
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 12 Oct 2026 08:48:52 -0700 (PDT)
+From: Fred Griffoul <griffoul@gmail.com>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <shuah@kernel.org>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Ackerley Tng <ackerleytng@google.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	stable <stable@kernel.org>
-Subject: [PATCH 5.10] staging: rtl8723bs: fix OOB write in HT_caps_handler()
-Date: Mon, 12 Oct 2026 18:47:10 +0300
-Message-ID: <20261012154712.338-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	iommu@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [RFC PATCH 0/9] mm: Memory providers for guest_memfd and iommufd
+Date: Mon, 12 Oct 2026 15:48:50 +0000
+Message-ID: <20261012154850.96716-1-griffoul@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <0ae3d92ef99c264cfd76d3c1ddef357e96c98d93.camel@infradead.org>
+References: <20260720111259.122911-1-dwmw2@infradead.org> <20261006183235.16576-1-griffoul@gmail.com> <yq5ald8680t2.fsf@kernel.org> <20261012095800.50250-1-griffoul@gmail.com> <CAEvNRgF1hMz+4ivH6WhsEOLTJGOegYO9AYK6OByYysPp_nVJ=g@mail.gmail.com> <20261012150715.25132-1-griffoul@gmail.com> <0ae3d92ef99c264cfd76d3c1ddef357e96c98d93.camel@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/12 15:14:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;new-mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1;patch.msgid.link:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206608 [Oct 12 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/12 14:59:00 #28677641
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/10/12 15:14:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
 
-From: Alexandru Hossu <hossu.alexandru@gmail.com>
+On Mon, 2026-10-12 at 16:13 +0100, David Woodhouse wrote:
+> On Mon, 2026-10-12 at 15:07 +0000, Fred Griffoul wrote:
+> >  Devices are different, because a device may not support
+> > faults. So the provider also revokes the range on the target once it
+> > owns the frames, and iommufd maps them right away. In other words, a
+> > revoke means that the frames behind a range changed, whether they went
+> > away or arrived.
+>
+> That would map to the IOMMUFD 'REPLACE' operation that hitlessly
+> replaces a PTE, but does anyone actually need that?
 
-commit f8001e1a516ba3b495728c65b61f799cbfad6bd0 upstream.
+No, not on the target. Before the move the child has nothing mapped
+in that range, so when the frames arrive iommufd just maps them. That
+is a plain map, not a REPLACE.
 
-HT_caps_handler() iterates pIE->length bytes and writes into
-HT_caps.u.HT_cap[], which is a fixed 26-byte array (sizeof struct
-HT_caps_element). Because pIE->length is a raw u8 from an over-the-air
-802.11 AssocResponse frame and is never validated, a malicious AP can
-set it up to 255, causing up to 229 bytes of out-of-bounds writes into
-adjacent fields of struct mlme_ext_info.
+> As I said, assume that the "crappy devices can't take faults and need a
+> scratch patch" issue is dealt with *elsewhere* and not relevant to the
+> guest_memfd/memprovider work. That's purely a quirk on a given IOAS
+> within iommufd.
 
-Truncate the iteration count to the size of HT_caps.u.HT_cap using
-umin() so that data from a longer-than-expected IE is silently ignored
-rather than written out of bounds, preserving interoperability with APs
-that pad the element. An early return on oversized IEs was considered
-but rejected: it would bypass the pmlmeinfo->HT_caps_enable = 1
-assignment that precedes the loop, silently disabling HT mode for APs
-that append extra bytes to the HT Capabilities IE.
+Agreed. The replace is only needed on the source, where the frames go
+away and a device that cannot fault must see the scratch page instead.
+With that quirk on the IOAS, iommufd does it, and the provider does not
+need to know about it.
 
-Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Alexandru Hossu <hossu.alexandru@gmail.com>
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-Link: https://patch.msgid.link/20260522004531.1038924-5-hossu.alexandru@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ mdmitrichenko: adapt to 5.10: struct ndis_80211_var_ie still has the
-  CamelCase Length field here, so use pIE->Length instead of pIE->length. ]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-64440
- drivers/staging/rtl8723bs/core/rtw_wlan_util.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
-index 4881adf930ab..62aafe7e885b 100644
---- a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
-@@ -1029,7 +1029,8 @@ void HT_caps_handler(struct adapter *padapter, struct ndis_80211_var_ie *pIE)
- 
- 	pmlmeinfo->HT_caps_enable = 1;
- 
--	for (i = 0; i < (pIE->Length); i++) {
-+	for (i = 0; i < umin(pIE->Length,
-+			     sizeof(pmlmeinfo->HT_caps.u.HT_cap)); i++) {
- 		if (i != 2) {
- 			/* 	Commented by Albert 2010/07/12 */
- 			/* 	Got the endian issue here. */
--- 
-2.43.0
-
+Thanks,
+Fred
