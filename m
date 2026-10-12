@@ -1,217 +1,131 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.162])
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854DE4A64CF;
-	Mon, 12 Oct 2026 15:48:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.162
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB254AA419;
+	Mon, 12 Oct 2026 15:48:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791820110; cv=none; b=aDbNFfTUeZ8B7mAjg57aqTgSbsu8j7dmMqo2dLw7inG30NGRHw58kH62vjfmhnmD0Ev0L23D1zoSND4BjkaB7UCzElutbU4swBOIKbSgD7CzcTZZ9TquiBBcjDsqc2VeWY9L8SxGucz19KW2dZtRF4HFrvhqYmAide9aJTOWUGU=
+	t=1791820116; cv=none; b=LEClA5R20UCr9348qyqaZORP8BPPFOWHO7L5SY8KtRFeMX/JqyxpUd/8EyJkmz/RS/VPAJ6J8xkqmuQlLkcYr3lTPxbwClAVgqf/+Q2Q3KkUDj7C0/tg4qFAiLNwZ8JCvEBQ9a1AbVw0NeTnxk7cwBGxHgpocnVkCvC9W75cbv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791820110; c=relaxed/simple;
-	bh=HtbVrjjLMejF1IvB3Efu9JWPiM87tU4Y34khsHLXIMs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YPuBkCbLxYkWczQIZRanFKZKunWnjekjFj78oLYxx6+UineyrAgItZd4EgNh2KlwpDsuyxmWSe6PZtXOYuuSjAN6VmagGwPbNZisQL0CHagQ+73eUdBMCx2TJ10UROPD3KNUm6LHrq8zJqFOZa4Hk8JKoBfFaT2xn0Azu0NjG4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=HtSkVJQB; arc=none smtp.client-ip=188.68.63.162
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1791820116; c=relaxed/simple;
+	bh=cxVLDvQgMQwu4Os1vRGM44MZqtkcuWvleffo1cDkrE4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RdRKM0jbkbOCjKrQsbRyFp3GUTK3gEWCPyzwdWOT/P5nrnR6vKDacgeu6+11C06AMr8qMHow68EidX5xIQuQW99wGAy/3nA0wTJzfXpsrInE75tmDdIpdHZyDXQaqp7XFQ+9ssi4In3x93NkFv15AQcWA2b7tSi39IK5O7JBjxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=nso6GGq8; arc=none smtp.client-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="HtSkVJQB"
-Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4j3MLx4R3Nz4LSk;
-	Mon, 12 Oct 2026 17:48:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1791820105;
-	bh=HtbVrjjLMejF1IvB3Efu9JWPiM87tU4Y34khsHLXIMs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=HtSkVJQB32a6jkG/B+AGdDte7SFLq9oXwEKHN8sWg0TyZTbTM+zp+64adkwkKGjIv
-	 15+E/1M7NY9EcW5hlwK1rtmlHvNABkPMB8Zds7C+19hfymWdDAeaRs7Qf73zYkc7ZZ
-	 L9zDffGu32x3NMpnVRLUZabDvrrTl3eIqIyJbsUe005lhY1Ve4x5PW91SDhSqZ8z0w
-	 Ojz6SCQQXrloUeSn4PM8Gfu2U+MjcHO74jDTKvMoVCa516nA8U+dGlzO8tykjkFgZN
-	 izkvxXRjlkNRzr+ZJAigQPy8waER1YEOLXYNReYoO+KuAV6gW7pECABLYDjM3XUuv9
-	 7TiCJjIq/cJDw==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4j3MLx3jzGz4LSV;
-	Mon, 12 Oct 2026 17:48:25 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="nso6GGq8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1791820108;
+	bh=cxVLDvQgMQwu4Os1vRGM44MZqtkcuWvleffo1cDkrE4=;
+	h=From:To:Cc:Subject:Date:From;
+	b=nso6GGq87KeuU1FB+v4JNhRwRYkfboYwmvbLrpMM/+SeZK0Up3LxnLWIErOhqgAuW
+	 RsMRmwdY8vxWe04ttEc+gcSiJURhuqsWpsmvsVHeD+A4hEJEGQPRfSC6xu31v5ayKw
+	 3VOo5iJgCrBwb4JW5jUq30/TmCgcJY9jka7tWI3xtPzzyemoMA1zZvaOLoxql+hZ+y
+	 6kJ2FmC6PidBUYbbJcTqVxPyPAeF3yqBB93dXLfmcy4wUxxhPzaiNYIpGLSK8GgdH/
+	 gj5FiHxy5xwhMeHpJq4y+CVA+chakK5SbyTreztEOCieZCxvc8RAz9ngbENnccrRyu
+	 Yo+UDAsv6QBgA==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 37A5924BB4;
+	Mon, 12 Oct 2026 18:48:28 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
 	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4j3MLw5F5pz8svT;
-	Mon, 12 Oct 2026 17:48:24 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id C1CFC5FA0A;
-	Mon, 12 Oct 2026 17:48:19 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <111e94e9-79c9-48f2-8976-70470e59b89d@leemhuis.info>
-Date: Mon, 12 Oct 2026 17:48:19 +0200
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Mon, 12 Oct 2026 18:48:27 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.48.43])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j3MLz0Zw6z20X4;
+	Mon, 12 Oct 2026 18:48:27 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Alexandru Hossu <hossu.alexandru@gmail.com>,
+	Luka Gejak <luka.gejak@linux.dev>,
+	Hans de Goede <hdegoede@redhat.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Fabio Aiuto <fabioaiuto83@gmail.com>,
+	Muhammad Bilal <meatuni001@gmail.com>,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	stable <stable@kernel.org>
+Subject: [PATCH 5.10] staging: rtl8723bs: fix OOB write in HT_caps_handler()
+Date: Mon, 12 Oct 2026 18:47:10 +0300
+Message-ID: <20261012154712.338-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] scsi: mpi3mr: use DevicePage0 link rate only for
- direct-attached targets
-To: Ilya Khomyakov <khomyakovilya@gmail.com>,
- "Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: Ranjan Kumar <ranjan.kumar@broadcom.com>,
- "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- Sathya Prakash Veerichetty <sathya.prakash@broadcom.com>,
- Kashyap Desai <kashyap.desai@broadcom.com>,
- Sumit Saxena <sumit.saxena@broadcom.com>,
- Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
- mpi3mr-linuxdrv.pdl@broadcom.com, regressions@lists.linux.dev,
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260804142800.4326-1-khomyakovilya@gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <20260804142800.4326-1-khomyakovilya@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <179182010029.914747.2425492917080082038@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: C1CFC5FA0A
-X-NC-CID: 0mnVUIfrul6zl9ZaOjksub9GAqSmtleBgE4Qx8o7TmpDi+DTQ4I=
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/12 15:14:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;new-mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1;patch.msgid.link:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 206608 [Oct 12 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/12 14:59:00 #28677641
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/10/12 15:14:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-On 8/4/26 16:28, Ilya Khomyakov wrote:
-> This patch fixes a regression in the Broadcom MPI3 Storage Controller
-> driver under drivers/scsi/mpi3mr/.
+From: Alexandru Hossu <hossu.alexandru@gmail.com>
 
-Ilya, what's the status of this regression fix? It looks like it fall
-through the cracks. Or was there some progress that I missed (which can
-easily happen!)
+commit f8001e1a516ba3b495728c65b61f799cbfad6bd0 upstream.
 
-Ciao, Thorsten
-> Commit c273c14b0294 ("scsi: mpi3mr: Use negotiated link rate from
-> DevicePage0") changed mpi3mr to prefer the cached DevicePage0 rate.
-> 
-> DevicePage0 stores negotiated_link_rate as one standalone MPI3 SAS
-> link-rate code, while SAS PHY Page 0 and SAS Expander Page 1 store logical
-> and physical rates as two nibbles of one packed byte.
-> 
-> mpi3mr_get_sas_negotiated_logical_linkrate() currently sends both formats
-> through the same high-nibble extraction at its common exit. A valid
-> DevicePage0 value of 0x0b or 0x0c is therefore converted to zero. The later
-> minimum-rate safeguard then publishes the value as 1.5 Gbit/s.
-> 
-> For example:
-> 
->   DevicePage0 value:            0x0b
->   packed-field extraction:      (0x0b & 0xf0) >> 4 = 0x00
->   minimum-rate substitution:    0x00 -> 0x08
->   Linux SAS transport result:   1.5 Gbit/s
-> 
-> There is also a topology distinction. The caller uses the returned value to
-> update the parent sas_phy. In an expander topology with the HBA-to-expander
-> link limited to 12 Gbit/s, DevicePage0 reported 0x0b for every tested
-> target, while Expander Page 1 reported 0xcc for several disk-facing PHYs
-> that were operating at 22.5 Gbit/s. The cached target value therefore
-> cannot unconditionally replace the local parent expander PHY value.
-> 
-> The original failure was reproduced on an eHBA 9600 controller with a
-> SAS4016 IOC and a 46-PHY Microchip expander. Before the fix, a target with
-> DevicePage0 negotiated_link_rate 0x0b could remain visible in sysfs as
-> 1.5 Gbit/s when a replayed topology event contained current=0x0b and
-> previous=0x0b and therefore skipped the Linux-side update.
-> 
-> Validate the standalone DevicePage0 code and use it directly only for a
-> directly attached target. For an expander-attached target, retain the
-> existing Expander Page 1 path because it describes the local parent
-> expander PHY being updated. Retain the SAS PHY Page 0 fallback when a
-> directly attached cached value is invalid.
-> 
-> The topology-aware variant was tested in an out-of-tree mpi3mr 8.17.1.0.
-> build. After boot, Linux reported:
-> 
->   PHY 18: 12.0 Gbit/s
->   PHY 19: 12.0 Gbit/s
->   PHY 24: 22.5 Gbit/s
->   PHY 25: 22.5 Gbit/s
->   PHY 26: 22.5 Gbit/s
->   PHY 27: 22.5 Gbit/s
->   PHY 28: 12.0 Gbit/s
->   PHY 30: 22.5 Gbit/s
-> 
-> No tested PHY was incorrectly reported as 1.5 Gbit/s, and the 22.5 Gbit/s
-> disk-facing rates were preserved even though DevicePage0 contained 0x0b.
-> 
-> Fixes: c273c14b0294 ("scsi: mpi3mr: Use negotiated link rate from DevicePage0")
-> Signed-off-by: Ilya Khomyakov <khomyakovilya@gmail.com>
-> 
-> ---
->  drivers/scsi/mpi3mr/mpi3mr_transport.c | 46 ++++++++++++++++++++++----
->  1 file changed, 39 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/scsi/mpi3mr/mpi3mr_transport.c b/drivers/scsi/mpi3mr/mpi3mr_transport.c
-> index 240f67a..740fccc 100644
-> --- a/drivers/scsi/mpi3mr/mpi3mr_transport.c
-> +++ b/drivers/scsi/mpi3mr/mpi3mr_transport.c
-> @@ -587,6 +587,30 @@ static enum sas_linkrate mpi3mr_convert_phy_link_rate(u8 link_rate)
->  	return rc;
->  }
->  
-> +/**
-> + * mpi3mr_sas_link_rate_valid - validate a standalone SAS link-rate code
-> + * @link_rate: MPI3 standalone SAS negotiated link-rate code
-> + *
-> + * DevicePage0 stores one plain negotiated link-rate code. Accept only
-> + * negotiated data rates supported by the SAS transport conversion code;
-> + * reserved or transitional values must use the existing PHY-page path.
-> + *
-> + * Return: true for a supported negotiated data rate, false otherwise.
-> + */
-> +static bool mpi3mr_sas_link_rate_valid(u8 link_rate)
-> +{
-> +	switch (link_rate) {
-> +	case MPI3_SAS_NEG_LINK_RATE_1_5:
-> +	case MPI3_SAS_NEG_LINK_RATE_3_0:
-> +	case MPI3_SAS_NEG_LINK_RATE_6_0:
-> +	case MPI3_SAS_NEG_LINK_RATE_12_0:
-> +	case MPI3_SAS_NEG_LINK_RATE_22_5:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
-> +
->  /**
->   * mpi3mr_delete_sas_phy - Remove a single phy from port
->   * @mrioc: Adapter instance reference
-> @@ -2292,18 +2316,26 @@ void mpi3mr_expander_remove(struct mpi3mr_ioc *mrioc, u64 sas_address,
->  static u8 mpi3mr_get_sas_negotiated_logical_linkrate(struct mpi3mr_ioc *mrioc,
->  	struct mpi3mr_tgt_dev *tgtdev)
->  {
-> -	u8 link_rate = MPI3_SAS_NEG_LINK_RATE_1_5, phy_number;
-> +	u8 cached_link_rate, link_rate = MPI3_SAS_NEG_LINK_RATE_1_5;
-> +	u8 phy_number;
->  	struct mpi3_sas_expander_page1 expander_pg1;
->  	struct mpi3_sas_phy_page0 phy_pg0;
->  	u32 phynum_handle;
->  	u16 ioc_status;
->  
-> -	/* First, try to use link rate from DevicePage0 (populated by firmware) */
-> -	if (tgtdev->dev_spec.sas_sata_inf.negotiated_link_rate >=
-> -	    MPI3_SAS_NEG_LINK_RATE_1_5) {
-> -		link_rate = tgtdev->dev_spec.sas_sata_inf.negotiated_link_rate;
-> -		goto out;
-> -	}
-> +	cached_link_rate =
-> +		tgtdev->dev_spec.sas_sata_inf.negotiated_link_rate;
-> +
-> +	/*
-> +	 * For a directly attached target, DevicePage0 and the parent host PHY
-> +	 * describe the same link, so the standalone cached code can be used
-> +	 * without packed-field decoding. For an expander-attached target, the
-> +	 * caller updates the parent expander PHY and DevicePage0 can differ from
-> +	 * that local segment; retain the Expander Page 1 read in that case.
-> +	 */
-> +	if ((tgtdev->devpg0_flag & MPI3_DEVICE0_FLAGS_ATT_METHOD_DIR_ATTACHED) &&
-> +	    mpi3mr_sas_link_rate_valid(cached_link_rate))
-> +		return cached_link_rate;
->  
->  	/* Fallback to reading from phy pages if DevicePage0 value not available */
->  	phy_number = tgtdev->dev_spec.sas_sata_inf.phy_id;
+HT_caps_handler() iterates pIE->length bytes and writes into
+HT_caps.u.HT_cap[], which is a fixed 26-byte array (sizeof struct
+HT_caps_element). Because pIE->length is a raw u8 from an over-the-air
+802.11 AssocResponse frame and is never validated, a malicious AP can
+set it up to 255, causing up to 229 bytes of out-of-bounds writes into
+adjacent fields of struct mlme_ext_info.
+
+Truncate the iteration count to the size of HT_caps.u.HT_cap using
+umin() so that data from a longer-than-expected IE is silently ignored
+rather than written out of bounds, preserving interoperability with APs
+that pad the element. An early return on oversized IEs was considered
+but rejected: it would bypass the pmlmeinfo->HT_caps_enable = 1
+assignment that precedes the loop, silently disabling HT mode for APs
+that append extra bytes to the HT Capabilities IE.
+
+Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Alexandru Hossu <hossu.alexandru@gmail.com>
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Link: https://patch.msgid.link/20260522004531.1038924-5-hossu.alexandru@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ mdmitrichenko: adapt to 5.10: struct ndis_80211_var_ie still has the
+  CamelCase Length field here, so use pIE->Length instead of pIE->length. ]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+Backport fix for CVE-2026-64440
+ drivers/staging/rtl8723bs/core/rtw_wlan_util.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
+index 4881adf930ab..62aafe7e885b 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
++++ b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
+@@ -1029,7 +1029,8 @@ void HT_caps_handler(struct adapter *padapter, struct ndis_80211_var_ie *pIE)
+ 
+ 	pmlmeinfo->HT_caps_enable = 1;
+ 
+-	for (i = 0; i < (pIE->Length); i++) {
++	for (i = 0; i < umin(pIE->Length,
++			     sizeof(pmlmeinfo->HT_caps.u.HT_cap)); i++) {
+ 		if (i != 2) {
+ 			/* 	Commented by Albert 2010/07/12 */
+ 			/* 	Got the endian issue here. */
+-- 
+2.43.0
 
