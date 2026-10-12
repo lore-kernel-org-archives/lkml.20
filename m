@@ -1,90 +1,125 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF61F3E765A;
-	Mon, 12 Oct 2026 21:23:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5024F4D06
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791840216; cv=none; b=UmdGBOyzGrHYhEeRwia25s41cQOHfqRzFm8ngeoenQFTRs0Sp4+MzAea8Nml+4S5Z6l96w30XhvIfZyaaAsz5fd0Zr5AFQGTa+2RL1QR+YuyWO2u79dTtCikX5mS2bK37MpO1UfZ2gsouVM2D0Uk+nkZbDPfccm9LxLdk6lqiMw=
+	t=1791840219; cv=none; b=WN71cK88VzfW9p68wUFmvu9OMQuJLtrushDWqKeS1q/e4XaXp/J/ydVvx8kL4wvX9e0ox9c0SupHhxfZ+Bq4len+OUKdU7hLpdvNolDNF3R5tZiYCry/D+poOuccWtfaI+RmaQwoIj0hfpkV6reoASdGGD0QUJgsvNANXoqxlaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791840216; c=relaxed/simple;
-	bh=KUczX4jpK558q6RHAa5mchMozzm+YhrdXtyOjC6D/NY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h/K04z7wZY0i/8ilnQuMfmVvEKMGJjXMsYp/j3NknMJIRAkW9wgtBjTg4zCMn8v+0kuIrrVoMbiJHB4b5YCZkipYtwIKb9jnROtcpcDpcw0kQoiYThHxVDcWCuRaeVq0iqvZ1k48+RmuUfJ2IuaOVsCs3dyFbqYdJN0sBx1MmK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VB2Mk1gh; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791840219; c=relaxed/simple;
+	bh=LsO1xfPThEa8wC7kBqFr31UhJSOzYIINCkUQJUsyjSw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=k99nPR4JDSjG6gAQdF+WO2L4KdHVx3mpTHoogGFdTBp3HWCJTvbrh/rJyKrORoY5P2rxN2IEMWD7gZOssIHrfx6EYP5Ulhqtfb10jhRE9h4/uGdKwQ7Fwdl3TVqpCd0QfEl5dpYbfDWAASfJw+GVRvSk0qAYsXV6Ox/5VKfi9ro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z/sL9mNX; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VB2Mk1gh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791840215; x=1823376215;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=KUczX4jpK558q6RHAa5mchMozzm+YhrdXtyOjC6D/NY=;
-  b=VB2Mk1ghodwari4COSMmf1IoWwFhKmquyh3HFpNwFbmTeiRwAiYi+Fga
-   jQxkETy9z3bOrjhN7WXLWspmj8SSkADuFMLiRvCSRu9R0MInFIl25nGat
-   pABoFueGXbd2zsQmpcVOUDB0fTZiDSX9Myjr7v0c/NlKC+vvOjlSVqqHK
-   5r/JgsONK9YjFH1Q3csW7bm0hmchtClHyAMN0zt4BBrV462xe/ALkkb5u
-   Y+kdwZT71fy8xWh+piC3eiBDMO9FROmfIJB4Qh1j4VlJIBZ4BjDgZQtUH
-   xLaO5+JH0zb2JWarZ9BaA3aPyz2R10m42eQSGSwqwl8p4ckBNJg+alMvr
-   A==;
-X-CSE-ConnectionGUID: K6aV3dj0QkGzKdfa+aUF3A==
-X-CSE-MsgGUID: taKGQrhiRPeMMH4E8+8Tfw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="552684"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="552684"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 14:23:34 -0700
-X-CSE-ConnectionGUID: cFDH0kpTT1u4IMi7il/Idg==
-X-CSE-MsgGUID: 387CSCXqRfCplcYH0JhEEw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="2749081"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 14:23:32 -0700
-Date: Tue, 13 Oct 2026 00:23:30 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: and.amer@gmail.com
-Cc: Peter Rosin <peda@lysator.liu.se>, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Liam Beguin <liambeguin@gmail.com>, linux-iio@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z/sL9mNX"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso29893965e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:23:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791840216; x=1792445016; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rN9kd0u0kwEKQcqtsQgX5NTYJE7KMXdgprM5d1jYEwU=;
+        b=Z/sL9mNXR3e/FMW6PzGARL1hquhNJWRvyliknPCnXAQophEheen0IDvNQfl3WBB0K1
+         0Kgx8fRh6SrrXmvUyZZ9JzPAngnSo/4sNqcIe5IGxwN91m0T3dc/vcFrfahvGlo8MEJe
+         7Trx+lZV0bHNvfoNotCJ8sPOc7/QbOOS08Bg9b4lTPM6LIeIJaHH0fPWMilF6nduKMh9
+         4SKtH00T8kz+RQurKhhNl7s8XWTwgVx8J1EQJ6IirjSS9P235Yjm1+dBqduVzFmAcRJ1
+         8owrkHtGLe1amcrSsrGIsKcKG9g+kIRGvqnKltv460SYeR68fnZWXbcSmBNun4AyXhZy
+         pZ+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791840216; x=1792445016;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rN9kd0u0kwEKQcqtsQgX5NTYJE7KMXdgprM5d1jYEwU=;
+        b=ZmF1nZgwiQfdcNokY+nT+PuWhWhjM4+iir2uMZwpZzR1sMgdAM+XTjhnABKDw0dFbA
+         qqFZ3Cem0i5yFJ6zQlKbXoiRW1IdetHdDpmJd4Tjk1KIQge0F1p2B5Lz1x3kg/cdSou/
+         gBe7C/6p1V9pA2dUAThFeZjoF5gE8Eq9QJyuFI8YOH/cxmMWGpGI1WV+wWJy9vAU0HGk
+         JZpEcbRVDpUR3AAdVd9q78WIX6bvcjg6L0PutPZxQFGc4hvHeLs7OGR/7mVoS4WBNUUm
+         KnpDA9ZOWB9QG9fwFOxaqyz5kXAjcbrYKqfAQxEZK5/VFcK6+Su5h/q1d6n4QYSXSbfI
+         faLA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9oKBlnqGY/2r84cuCTKKSJN/+8yKlYSYW4TvHUtOK0TdekZP/1qEAm0fRCPMOhJsRMTIZG/KC3QpnELI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJtTd55ISo6tUoItRmmeHJ5jv+qvYDFxWNv867ayf/bweUi5A20
+	SjOqyC/1SD3bmPQPA/UnyOTofBFGSNNrjjUETJo089jQgq53uOaWFRyy
+X-Gm-Gg: AYBFou3Rvd0t0+KFVcj75aC6HuxmkI6SMGwfgr9mseqZnFWC9orK49Kegpx1BFrn2F4
+	T/hpDvwlPBsN1hmvnW1zkJxnjdnP79GsZkL7YCs4a0fMYFkLOzO4jTyWfJw0NyObMYgckCH7XZM
+	Zz+I8RmWk3vp6wbNS6NnAJHWMUDt5bqLu5jbjv1oWhOYe0tLpl3mU62A1U/HO0SavZykNhapaic
+	liRhRYu82Q44v2gcc8GMsOKco9Nzv45p6ez5ploUr1mlvj6VK1ZUDy0DnjetJ+T+fjRLGXjUFMu
+	w11yoi2OzbuDiYMbBy+SeoAUvYB48wGaY6U6hzdSJBZNHcMyNu84RpDSWoD1F2PToEivqCFdlV6
+	EWRX5JOCdM+WjRPHWq6BJ/oBR2l9x+Ej3koJlMWXxlrWeONAIaHOVq7oHfXGLi1qIDfBoWFnc22
+	yt1DmIL3u83ETSzCse4HIbhgJOrXDdrOsAsd2QWUZS7xt6TXg9ydeZ1tPS4naFdVUFoAnrxds9u
+	BEXC8E=
+X-Received: by 2002:a05:600c:154e:b0:49f:ffa2:1c72 with SMTP id 5b1f17b1804b1-4a18e49ad83mr204341295e9.11.1791840216298;
+        Mon, 12 Oct 2026 14:23:36 -0700 (PDT)
+Received: from localhost ([5.83.201.161])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19ba624b3sm186925215e9.2.2026.10.12.14.23.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 14:23:35 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	bpf@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Cc: kernel-janitors@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: afe: rescale: always expose offset
-Message-ID: <as1P0ipISgbFztGo@ashevche-desk.local>
-References: <20261012-iio-rescale-offset-v1-1-14ed15979ff2@gmail.com>
+Subject: [PATCH] selftests/bpf: Fix spelling mistakes in descr literal strings
+Date: Mon, 12 Oct 2026 22:23:34 +0100
+Message-ID: <20261012212334.183116-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012-iio-rescale-offset-v1-1-14ed15979ff2@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 10:28:53AM +0200, Andrea Amer via B4 Relay wrote:
+There are spelling mistakes in the descr literal strings. Fix them.
 
-> A rescale channel advertises IIO_CHAN_INFO_OFFSET only when its own
-> offset is non-zero. A child rescale therefore hides a source offset,
-> and consumers apply raw * scale and drop it. rescale_read_raw() already
-> folds the source offset in, so expose the attribute in every case.
+Fixes: 095ddb501b39 ("selftests/bpf: Add sockopt case to verify prog_type")
 
-...
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ tools/testing/selftests/bpf/prog_tests/sockopt.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
->  	chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> -		BIT(IIO_CHAN_INFO_SCALE);
-> +		BIT(IIO_CHAN_INFO_SCALE) |
-> +		BIT(IIO_CHAN_INFO_OFFSET);
-
-Make it less churn by not changing line for _SCALE.
-
+diff --git a/tools/testing/selftests/bpf/prog_tests/sockopt.c b/tools/testing/selftests/bpf/prog_tests/sockopt.c
+index 6c96f2d9fccf..7dfdc4c12dec 100644
+--- a/tools/testing/selftests/bpf/prog_tests/sockopt.c
++++ b/tools/testing/selftests/bpf/prog_tests/sockopt.c
+@@ -955,7 +955,7 @@ static struct sockopt_test {
+ 	/* ==================== prog_type ====================  */
+ 
+ 	{
+-		.descr = "can attach only BPF_CGROUP_SETSOCKOP",
++		.descr = "can attach only BPF_CGROUP_SETSOCKOPT",
+ 		.insns = {
+ 			/* return 1 */
+ 			BPF_MOV64_IMM(BPF_REG_0, 1),
+@@ -969,7 +969,7 @@ static struct sockopt_test {
+ 	},
+ 
+ 	{
+-		.descr = "can attach only BPF_CGROUP_GETSOCKOP",
++		.descr = "can attach only BPF_CGROUP_GETSOCKOPT",
+ 		.insns = {
+ 			/* return 1 */
+ 			BPF_MOV64_IMM(BPF_REG_0, 1),
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.55.0
 
