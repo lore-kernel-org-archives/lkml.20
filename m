@@ -1,77 +1,230 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4098E4AA007;
-	Mon, 12 Oct 2026 16:03:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9A44A8FDC;
+	Mon, 12 Oct 2026 16:04:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791820988; cv=none; b=B4KNoVYQcpUZaix4neD6YBEaBKe8NOD9FZfr2LodT/r8+FMiy5IW6b0GEBTuFjzKaH1wML63kpMzbOvsb8Vo8N4U/EjqrWM6GcQS2f7lpybO8+zMAoFSvO0r1AiBjeqKcYN0/q4w82rGsajBFt0bnR8v1O7IflINkTAvItMFlik=
+	t=1791821049; cv=none; b=rNrpJ6NWOBk3ZFULlFpZMXYV4QsSe50uoXVxbUngOhYoUTx93cclOnnewKZ0fp5gAnT4+hRoJbtXzc/0EPrVNOKMtrwMSDarlm+CuCJdm8os8bDC8KC7ZlEx/rO/sJvUXgZ8b1zp49/RBd+mNA81eS2SqB7JKnO9zhYAJpSzXE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791820988; c=relaxed/simple;
-	bh=gbKXfQfbfJmGGBLIpglxM/eZXBaXAZSeNL1gQQ+vIMU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FtfUPwvSrE1XJ2VEGwjeHUyIBVR5Lwo6ocyt4zCMICs1umHO2xu6tlguVAS6k1RezwQyAEVKL0glKV7YClnUwep+OBjAUCtWFU8Uu09pSkhCMSddorADWZNu5HHX3dCwpYd65UUQ2k9In0k+s/8am/gxwaPk4+lmxuuYBOyA6Pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CvPL/Vjq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791821049; c=relaxed/simple;
+	bh=wTnbn5tvk/R2ZDZcRuMHuvFaZmxMiTHvE9Q7sFopZMs=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=K5Q7yyz3yG/1Xt9IR4kMLvV5AqWZDw2J43k2LijUDFZW4IGVTnt1zzgSkBUmBpMqD/yvpd9ieAxIQqsyO1505RWFZGa/VHDSqAddqhSmEiL5/EKPqgyiaARopF3cs1WC37iKw3VQYGXAxusH8aiFjfTnFRQmloGA5cPJVlCu/og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=tGArUO0M; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CvPL/Vjq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629CD1F0089C;
-	Mon, 12 Oct 2026 16:03:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791820987;
-	bh=HmTB8TMkREzovBL97ThcNv5qR/kUGxn6VCu8bZGRhe8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CvPL/VjqX1u95JcrKme/8j+/yWrPu8VV1CMOo2tVEu7XKPpfN5PbPJjcr3DuZojw+
-	 eEANxikdntlfTSuyeiWtt0IGr6crOGcxyAhP549dk/uqbcqdevtKrXK3DgOVLm8TwK
-	 RhKkR+x44yPxhSiw7N21PjxOTokWe+dYE8SRSjjPuCQGC8GG0pE/Ji5B6lpN4VxUfo
-	 A7+v0Uoauj8854yUfJZ4nrRYka86+V6N7xks/tKdxqf/7gXE3GvKFAzQKi0iDX91Vg
-	 eLmKKw01ASLoOWcoQjlgluohLW25/l6JjKG0KrwcaQmgXqGXer4W/o1+yQISVsnklB
-	 OWZi/CbLdMafw==
-Date: Mon, 12 Oct 2026 21:32:59 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: alcooperx@gmail.com, bcm-kernel-feedback-list@broadcom.com, 
-	justin.chen@broadcom.com, kishon@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-phy@lists.infradead.org, neil.armstrong@linaro.org, vkoul@kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] phy: usb: Fix USB 2.0 clock reference leak in
- brcm_usb_phy_dvr_init()
-Message-ID: <as0EawoNAbEarKAT@debian>
-References: <20260917133510.2153560-1-vulab@iscas.ac.cn>
- <as0DR2jcw2mqnxKA@debian>
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="tGArUO0M"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1791821044;
+	bh=mOTVvbMzguCr0itsLPJfPjM4slEMMfKEWtMDQZarop4=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=tGArUO0M+F9ccditeaf/9yzLO4TbPPnQuxNy2IaPxXImPRxBtkRXo15HwwD++1lW9
+	 FA8Q50lzIXUoB9SbUAaYJ/ckFtxD7/lXnKrI2orv2TFsBcepc7c7Qe9VnF73gPX91/
+	 N9g5mUejTU6u11+BgHImWdJFnGN7TkanYw/iSt6PcLyzjvb+5kOUt9KNO+PLCXDwAc
+	 x417Zdh+bf1wVXu/IHdebGgPMzg8asF/7jzvejEHCCMBHU9Zxt4bS+mjKOlYeN0g67
+	 8xGGH73cDLwMxCzFJxQFwxlcdOtI5RJJ9I2Jv6eAfxmdvn6eTg/aB1y6kL5V7iz4Dl
+	 T0hC+9by3qybg==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4j3Mhv4KfYz4w9g;
+	Tue, 13 Oct 2026 03:03:59 +1100 (AEDT)
+Message-ID: <e2171fff-62af-4185-a815-6293bea71220@ozlabs.org>
+Date: Mon, 12 Oct 2026 17:03:56 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: Annul dmabuf->file on file release
+Content-Language: en-GB
+From: Matt Evans <matt@ozlabs.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Zack Rusin <zack.rusin@broadcom.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>
+References: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
+ <CABQX2QOOaxkxzREaDHY3iXHs0106u+F9JvQSTXCnA7AEjPPxuQ@mail.gmail.com>
+ <fd564691-ca79-4fcb-80a7-8328c71ab322@ozlabs.org>
+In-Reply-To: <fd564691-ca79-4fcb-80a7-8328c71ab322@ozlabs.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <as0DR2jcw2mqnxKA@debian>
 
-On Mon, Oct 12, 2026 at 09:27:07PM +0530, Manivannan Sadhasivam wrote:
-> On Thu, Sep 17, 2026 at 01:35:10PM +0000, Wentao Liang wrote:
-> > brcm_usb_phy_dvr_init() obtains usb_20_clk with of_clk_get_by_name(),
-> > which takes a reference on the clock, but several later error returns
-> > -- a failed clk_prepare_enable(), a failed devm_phy_create(), the
-> > -EPROBE_DEFER paths of usb_30_clk and suspend_clk, and a failed
-> > devm_request_irq() -- return without calling clk_put().  No other code
-> > in the driver releases it either.
-> > 
-> > Add an err_put_clks label that drops the reference before returning.
-> > 
-> > Fixes: 49859e55e364 ("phy: usb: phy-brcm-usb: Add Broadcom STB USB phy driver")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Hi i915 folks,
+
+On 08/10/2026 14:41, Matt Evans wrote:
+> Hi Zack,
 > 
-> Duplicate of https://lore.kernel.org/linux-phy/20260913012956.16443-1-mhun512@gmail.com
+> On 07/10/2026 16:24, Zack Rusin wrote:
+>> On Tue, Oct 6, 2026 at 3:15 PM Matt Evans <matt@ozlabs.org> wrote:
+>>>
+>>> The dmabuf release path is split between file and dentry release:
+>>> dma_buf_file_release() is called shortly before the file is freed, and
+>>> dma_buf_release() calls an exporter's dmabuf->ops->release when the
+>>> dentry is freed.  However, the dentry can outlive the file (for
+>>> example, if opened with O_PATH), meaning .release might be called some
+>>> time after the file is freed.
+>>>
+>>> This presents a window, when closing a DMABUF file, in which
+>>> dmabuf->file points to freed memory yet .release op has not yet been
+>>> called.
+>>>
+>>> For VFIO, if a buffer's .release has not been called it's considered
+>>> still active and subject to move/cleanup.  If so, it attempts to
+>>> get_file_active() on dmabuf->file: a file close with dentry held open
+>>> will call this function with a stale pointer, a UAF.
+>>>
+>>> To make this pattern safe, set dmabuf->file to NULL in
+>>> dma_buf_file_release() to reflect that the associated file is now dead
+>>> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
+>>> sequence concurrent with a file close will only execute as one of:
+>>>
+>>>    - Gets the file before file_ref_put() (dmabuf->file valid)
+>>>    - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
+>>>    - Observes dmabuf->file = NULL (no file)
+>>>
+>>> Originally, drivers could assume dmabuf->file was valid until .release
+>>> was called from fops->release.  This assumption was no longer valid
+>>> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
+>>> dentry_ops"), which moved the callback to the dentry release (by which
+>>> point the file might have been freed).  With this commit, drivers must
+>>> still consider that dmabuf->file could be NULL before .release.
+>>>
+>>> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to 
+>>> dentry_ops")
+>>> Signed-off-by: Matt Evans <matt@ozlabs.org>
+>>> ---
+>>>
+>>> Hi,
+>>>
+>>> This issue was found (by Claude Opus 5.5) in the context of VFIO's
+>>> DMABUF export path.  VFIO iterates live DMABUFs with a
+>>> get_file_active()/fput() block, which now becomes safe if the file is
+>>> closed (and memory freed!) yet DMABUF .release hasn't yet occurred.
+>>>
+>>> However, there are a couple of other places that directly use
+>>> dmabuf->file and seem able to race a closing file (i.e. without holding
+>>> the file reference)?  If this is so, they'd be a UAF today; with this
+>>> patch that goes away, but instead of a stale pointer dmabuf->file could
+>>> be NULL:
+>>>
+>>> 1. drivers/gpu/drm/vmwgfx/ttm_object.c:get_dma_buf_unless_doomed()
+>>>
+>>>    file_ref_get(&dmabuf->file->f_ref); on a non-refcounted DMABUF
+>>
+>> Yes, that's a real UAF today. vmwgfx relied on the exporter's
+>> dma_buf_ops.release running inside __fput() before file_free(), which
+>> stopped being true with 4ab59c3c638c and we missed it.
+>>
+>> But this patch on its own makes vmwgfx worse. In the ordinary case,
+>> where closing the file drops the last dentry reference, a close racing
+>> PRIME_HANDLE_TO_FD is safe today: ttm_prime_dmabuf_release() runs from
+>> the same __fput() and blocks on prime->mutex, keeping the file
+>> allocated, so file_ref_get() just fails on the dead refcount. With
+>> this patch dmabuf->file is NULL in that window and we oops. So this
+>> shouldn't go to stable without a vmwgfx fix.
+>>
+>> For vmwgfx we'd probably need this one line change in
+>> drivers/gpu/drm/vmwgfx/ttm_object.c to accompany this patch:
+>> @@ -471,7 +475,7 @@ void ttm_object_device_release(struct
+>> ttm_object_device **p_tdev)
+>>    */
+>>   static bool __must_check get_dma_buf_unless_doomed(struct dma_buf 
+>> *dmabuf)
+>>   {
+>> -     return file_ref_get(&dmabuf->file->f_ref);
+>> +     return get_file_active(&dmabuf->file) != NULL;
+>>   }
+>>
+>> under prime->mutex, which keeps the struct dma_buf alive. It needs the
+>> NULL store from this patch to fix the existing UAF, since otherwise
+>> the recheck can accept a recycled file through the unchanged stale
+>> pointer.
+> 
+> Thanks for confirming!  Ah, so get_file_active() is good here, cheers. 
+> I'll repost as a 2-part series to first include this in vmwgfx and 
+> second add the anNULL.
+> 
+>>> The commit message of 90ee6ed776c0 ("fs: port files to file_ref") hints
+>>> this might be more subtle than replacing it with a get_file() variant
+>>> (so as to accept a NULL file *).
+>>>
+>>> 2. drivers/gpu/drm/i915/gvt/dmabuf.c:intel_vgpu_get_dmabuf()
+>>>
+>>>    gvt_dbg_dpy(... file_count(dmabuf->file) ...);
+> 
+> FWIW aside, I re-read this, and there does appear to be a ref held 
+> (dma_buf_export() has just happened, and dma_buf_fd() generated) so 
+> dmabuf->file is stable at that point.
+
+I think I was mistaken here:  the reference is moved to the file table 
+by dma_buf_fd(), and seems another thread could immediately close it.
+
+If so, there's an opportunity for userspace to (after this fix) cause a 
+NULL deref here.
+
+I'm about to repost the series but am happy to include a oneliner third 
+patch to mitigate this, if you feel appropriate.
+
+Is file_count() still interesting here, i.e. do you expect it to be >1 
+immediately after export?  If still required, reading 
+file_count(dmabuf->file) before the dma_buf_fd() would be safe (printing 
+it later at the existing place).
+
+
+Matt
+
+> 
+>>> Respective vmwgfx & i915 maintainers, what is your view?
+>>> Or, indeed, if anyone sees any other questionable uses of dmabuf->file.
+>>>
+>>> Thanks,
+>>>
+>>>
+>>> Matt
+>>>
+>>>
+>>>    drivers/dma-buf/dma-buf.c | 6 +++++-
+>>>    1 file changed, 5 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+>>> index 4c9add51f9ef..726639130477 100644
+>>> --- a/drivers/dma-buf/dma-buf.c
+>>> +++ b/drivers/dma-buf/dma-buf.c
+>>> @@ -193,11 +193,15 @@ static void dma_buf_release(struct dentry *dentry)
+>>>
+>>>    static int dma_buf_file_release(struct inode *inode, struct file 
+>>> *file)
+>>>    {
+>>> +       struct dma_buf *dmabuf = file->private_data;
+>>> +
+>>>          if (!is_dma_buf_file(file))
+>>>                  return -EINVAL;
+>>>
+>>> -       __dma_buf_list_del(file->private_data);
+>>> +       __dma_buf_list_del(dmabuf);
+>>>
+>>> +       /* Must be observed by __get_file_rcu() before file_free() */
+>>> +       smp_store_mb(dmabuf->file, NULL);
+>>
+>> I think Alex is right and dmabuf can be NULL here. An early if
+>> (!dmabuf) return 0" will fix that.
+> 
+> Yep, on it.
+> 
+> Many thanks,
+> 
+> 
+> Matt
 > 
 
-Sorry my bad. That patch was handling clk_prepare_enable() leak. But there is no
-point in different patches doing these things. Just handle all clk leaks in
-probe in a single patch.
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
