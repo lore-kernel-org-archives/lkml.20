@@ -1,68 +1,68 @@
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D540357D08
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:47:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF543EE1EA
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:47:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791848860; cv=none; b=QbjO/MHC+jwhnvcrf/75tHhdKSoKhRWlQh/TSZ+DOsRTzoXgdaRS3igXCtQcrwaF3eI91Z7ZYjBnnjvstboC+lfTL5eDQN213ZeE2KaWIdVnCmUYIXQQoNXWi+pM+J7oRUlnuPMkXoahxCpA43ibGRLZydIF8mvsXLUFYJClUm4=
+	t=1791848865; cv=none; b=poCOOrVJIV1xBkt4BqZlj/AoJjP0USMSnu5sqhkplTqQvcULvxogc39RhDB8ObekOr5fPceUPLEr7xWhqmDm5GCnmOBpFp+5MdrMpAjqccHg9Oz/pnsAri5p5I6ULkm5tbPm3ORica50j4xIoi19zMVtg3xsJbR9E0G1eiGwMvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791848860; c=relaxed/simple;
-	bh=BS+7adD6JaJlx+m/q9r6uvUaMPyQ0CEfgoa5rcMuGfY=;
+	s=arc-20240116; t=1791848865; c=relaxed/simple;
+	bh=QguaASFUO2aw1KOSSgWHH+HSVj3OseDyRM7YwYY3OFQ=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=K9yjN1K8DRpNI+1aecBC4Ue77FDlhjtU8o19AyB6tugllxQIpTFWj963BDZFDo/uBjY9b8tLFy4g0YvzHITloWHi7NWVqIAOp7/Qvpqo4stgnr+dFO9/o+WsMzLx2qAD0OWPmOdX8cwcCAjVZYg2o93jPYtZj9WqpurUc8HUMsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tJ07bbVb; arc=none smtp.client-ip=74.125.82.197
+	 To:Cc:Content-Type; b=HluHnIh60xY2Cd3SHeLki4CUdmc++Y1+LSB8oPKBW9mdZgPSgHtFYL84K5Ww3S7DxT7YYnqoKrN7qS/9T1YtC1e+SXZWUbYGoP1IUPk4lScN4gwRIbBht7OchzTKaxgVQBy9aSEfABApbEM9bH0F0c/fyEuOfJkVWJ8saXOne9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LEMHGY2S; arc=none smtp.client-ip=74.125.82.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tJ07bbVb"
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-341eff9e381so6806214eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:47:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LEMHGY2S"
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bcb065bfdso4836721eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:47:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791848856; x=1792453656; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791848863; x=1792453663; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZhoKAKgW2UnYHdcBLKjBFWI63vcozY1ag7JKlvjpeLU=;
-        b=tJ07bbVbHn9glEYr9/QEm2mdnTiBLNePknd3zhIevAQ3DNYu3xfW0tpVeNGlyjpf3u
-         hjv099B8xnjGhPvECEVPtYmLEoUpqibDvzxPQaQD2RyftXEkWjZIWp3hfrQ3NWeUr68U
-         MX+hwc1mVtD43D7ct77D+za0D/HP1uWb6CVSMqCJy+xPiN+Aa6pIuneSkG/DAiuCNlRf
-         NgFeBy9hpd+qPPuZGUzmcPSAoJsfs2zsZVVX94A2NW+u6wbR1HQW4lZ+qKUdeNq786c6
-         WpNawzFnDQCb3Bh1KwmZb2+QDiP4Ki2k1b4/ick3Y2EWAZilCwxF+FkjxsQNBbN8zV/3
-         cP9g==
+        bh=K8XQLOjyCIFsHIwQ+tJEqae2K2wv7Ao8AsE+mH76B20=;
+        b=LEMHGY2SZkk4/6xDrhp/Dwhnwly3Q2uSdH61jT7KXDaWshEPlRxcHKGCYLxR76W2k/
+         Coe/HtZMrhxm2MePY7bEeo4W/fyNk5UuGhsfUS6Uy7NXAgfLpSmMjEnRxrlAEKBgHPsf
+         j49LsH8LbivAcp1yl8bkp8n2aD4GFeOc6PgdqSDP+8FvcKWHStLYPfxO1JhkFlaq6wja
+         2DlQPrgoLwlR0MDgVEVfxSOOVaIxDgdq7ASRZQDSJ+UUyjW2IaCRtXcNDpAT4GNerGb5
+         LktqF1J26psY4NJo3IzhdfuBnuCYa5FRKLOlHBwW9CXOTHR2yEMaEAOiOCoC4Z6lC4u6
+         D2Ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791848856; x=1792453656;
+        d=1e100.net; s=20260707; t=1791848863; x=1792453663;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZhoKAKgW2UnYHdcBLKjBFWI63vcozY1ag7JKlvjpeLU=;
-        b=FU8beuPod8g8G7OvhJt3/u/jy6CJ6p3mz1uKVBV/CPfk1dQZ5iAVNYFX8EINhGcWHn
-         9dd3h7YrTXKVfkRiKdLr2TXaQCVqiX6iDMKoTleIZNfUn/tMq6PzKAuJlmx2XH+gx9iC
-         oOwlac8felFMHSCtp3HbA/86F+3KPvSksLwQmvFu6TF4JbYeAH33pruXz3OUQy31JF6i
-         Im5BtPZ3SG/8X7JoEPHYBYP9KzbMCSnrrv+I+nwnpQysrvAVNYBg2TFRIIyXWqIaDjxP
-         0t4EdYlLkGRtVjJQM9KWPZpXCqhLCim8mKb4ucybFEL63OSjII9xAyUF0u+5oAWuxcod
-         hi3g==
-X-Forwarded-Encrypted: i=1; AKwUvBw8uILGu2QkCSBtDvYN1TCgQyfiZ59xRPAzMH8Sjj9vI3GLPfqmheJHwuRNVQFTxdSP6hWFomgcA99Zgd4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYII4KuNNiEma5c+/2N14qXMmM1S02+Am/zVy9SpX0eHa6GC3Wj7
-	F4gf/IbLwsQijFZOsYOb6bPb7TkE+eZCCwjWNk/MA8RiiEhfG8t9ibRm0xwRHhsscbKFM4TKcD0
-	tgiVYZJ8ocQ==
-X-Received: from dyz18.prod.google.com ([2002:a05:693c:4092:b0:34d:46b2:7513])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:88c9:20b0:34c:79d4:ba0d
- with SMTP id 5a478bee46e88-3537dffd5b2mr17464604eec.14.1791848855765; Mon, 12
- Oct 2026 16:47:35 -0700 (PDT)
-Date: Mon, 12 Oct 2026 16:47:21 -0700
-In-Reply-To: <20260929025345.88829-1-irogers@google.com>
+        bh=K8XQLOjyCIFsHIwQ+tJEqae2K2wv7Ao8AsE+mH76B20=;
+        b=BWVSbYR+Rp6mlPHwdeKUoBC1ig1pmO0fFU4EwzbUFSJV7e3N4vkVTUtdVHWGZuxO9J
+         iqnLwqsCkcUJpWncElZf8h7s8OzEmR+UNmog0FxLFOA2+xUJ7+i95e7hFTi+CMuD+QbQ
+         ybJ5uNlH8gYKyjUsmrVdjN1v09yGauadaZJT8ypDu0PSLdu9bUrl6ZNUNpKGSgLqJkJG
+         /vGJtGZl7Yis/saxqYHVPHR/9JQbElvRnM0RF0FXFQrqCO0bALx0Rd9j6nBG8IBumjBx
+         zJ0afpEr0GoRbV2YG4Zl2nHjhwmc32xEs3sX3vRp3bklz1jOOOJCt8Skl5qbQNQXeWzE
+         4ygg==
+X-Forwarded-Encrypted: i=1; AKwUvBwdLDhYvPge2tUPp2GzCjdiGpG07BW50Yv1HNrFQ5Rs8N6FsMqzxMVtD7SaiM9ng1lAHxa98l0ppSEf7ko=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIn5XqK69/livHzlPg6KchZfeWsIPJ9fvXBWjjbfEqHniVxmwDe
+	I61bW+ax6/bAr7fLxxSdUdE/drWVc1Sbl27LxZg15rzbaK+lBCaAuEmVV2T9EVFEQOMRsjxyKys
+	Nc3SdSCjIuw==
+X-Received: from dycnm20.prod.google.com ([2002:a05:7300:d194:b0:358:2c8e:30e3])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:4196:20b0:35b:af:a075
+ with SMTP id 5a478bee46e88-35b00afb749mr5306042eec.22.1791848862496; Mon, 12
+ Oct 2026 16:47:42 -0700 (PDT)
+Date: Mon, 12 Oct 2026 16:47:24 -0700
+In-Reply-To: <20261012234724.721224-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260929025345.88829-1-irogers@google.com>
+References: <20260929025345.88829-1-irogers@google.com> <20261012234724.721224-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261012234724.721224-1-irogers@google.com>
-Subject: [PATCH v4 0/3] perf test: Per-test timeouts, JUnit XML compliance,
- and snippet improvements
+Message-ID: <20261012234724.721224-4-irogers@google.com>
+Subject: [PATCH v4 3/3] perf test: Avoid stack trace noise in verbose=1
+ failure snippets
 From: Ian Rogers <irogers@google.com>
 To: acme@kernel.org, namhyung@kernel.org
 Cc: irogers@google.com, 9erthalion6@gmail.com, adrian.hunter@intel.com, 
@@ -71,65 +71,173 @@ Cc: irogers@google.com, 9erthalion6@gmail.com, adrian.hunter@intel.com,
 	mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-This series adds per-test timeout support to 'perf test', improves JUnit
-XML output to validate against strict JUnit schemas, and refines the
-verbose=1 failure snippet output when tests fail with a signal or time
-out:
+When a test fails with a signal or times out, child_test_sig_handler()
+appends '---- unexpected signal (<sig>) ----' followed by a multi-line
+stack trace ('    #0 ...' through '_start').
 
-1. Add a per-test timeout (default 60s, configurable via '-t'/'--timeout',
-   0 to disable, disabled with '-F'/'--dont-fork'). Forked tests run in
-   their own process groups and the existing polling loops in
-   finish_test() and finish_tests_parallel() check elapsed runtimes,
-   sending SIGTERM on timeout and escalating to SIGKILL after 1 second.
-   Timed out tests are reported as 'TIMEOUT!', listed in the summary,
-   and recorded as '<error message="TIMEOUT" type="timeout">' in JUnit
-   XML output.
+In verbose=1 mode, print_test_failure_snippet() selects up to
+failure_snippet_lines (10) lines:
+- Pass 1 selects lines matching failure keywords plus their immediate
+  next line ('    #0 ... in child_test_sig_handler').
+- Pass 2 fills the remaining quota by scanning backwards from the end
+  of the output buffer, which consumes the remaining lines on outermost
+  stack frames ('handle_internal_command', 'run_argv', 'main',
+  '__libc_start_main', '_start') and hides the trailing test output
+  showing where the test had run to.
 
-2. Update 'perf test -j' output to validate cleanly against both the
-   Apache Ant/Windy Road JUnit schema (JUnit.xsd) and the Jenkins
-   xUnit/Maven Surefire schema (junit-10.xsd), including required
-   '<testsuite>' attributes, '<properties>' from uname, '<system-out/>'
-   and '<system-err/>', self-closing tags, apostrophe escaping, and
-   UTF-8/XML 1.0 codepoint validation.
+Improve print_test_failure_snippet() by:
+- Skipping blank lines and stack trace lines ('    #<digit>...') when
+  selecting context in Pass 1 and when scanning backwards from the end
+  in Pass 2, with a Pass 3 fallback from the top of the buffer if quota
+  still remains.
+- Prioritizing the non-blank line immediately preceding
+  '---- unexpected signal' so there is no '...' gap before the signal
+  message.
+- Only printing '...' between selected lines when at least one non-blank
+  line was omitted between them.
 
-3. Improve verbose=1 failure snippet selection in
-   print_test_failure_snippet() to skip blank and stack trace lines
-   when selecting context and scanning backwards from the end of the
-   log, and prioritize the test output line immediately preceding
-   '---- unexpected signal' so trailing test progress is shown instead
-   of outermost stack frames.
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/tests/builtin-test.c | 101 +++++++++++++++++++++++++-------
+ 1 file changed, 81 insertions(+), 20 deletions(-)
 
-v4:
- - Drop the ITIMER_REAL timer and SIGALRM handler in patch 1, relying on
-   the existing 10ms/100ms polling loops in finish_test() and
-   finish_tests_parallel() to detect timeouts.
- - Only fall back to kill(pid, sig) when kill(-pid, sig) fails, and
-   ignore SIGTERM/SIGINT while waiting for subprocesses in
-   run_test_child().
- - Add patch 3 to avoid stack trace noise in verbose=1 failure snippets.
-
-v3:
- - Block SIGINT/SIGTERM while a test process may be reaped and until its
-   pid is cleared, and skip already reaped tests in the signal path.
-
-v2:
- - Reset SIGALRM to SIG_DFL in the forked test child.
- - Replace the blocking waitpid(-1) loop with a bounded, non-blocking
-   wait that only runs when interrupted by SIGTERM/SIGINT.
- - Ensure the SIGKILL escalation reaches the whole process group before
-   the zombie is reaped.
- - Factor out timespec_diff_secs() and TEST_KILL_GRACE_SECS.
-
-Ian Rogers (3):
-  perf test: Add per-test timeout support
-  perf test: Improve JUnit XML schema compliance and completeness
-  perf test: Avoid stack trace noise in verbose=1 failure snippets
-
- tools/perf/Documentation/perf-test.txt |  12 +-
- tools/perf/tests/builtin-test.c        | 668 +++++++++++++++++++------
- tools/perf/tests/tests.h               |   7 +-
- 3 files changed, 543 insertions(+), 144 deletions(-)
-
+diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
+index d0c2783cb312..b95e9704b79f 100644
+--- a/tools/perf/tests/builtin-test.c
++++ b/tools/perf/tests/builtin-test.c
+@@ -774,6 +774,47 @@ static void print_line_highlighted(FILE *fp, const char *line, size_t len)
+ }
+ 
+ 
++static bool is_blank_line(const char *line, size_t len)
++{
++	for (size_t i = 0; i < len; i++) {
++		if (!isspace((unsigned char)line[i]))
++			return false;
++	}
++	return true;
++}
++
++static bool is_stack_line(const char *line, size_t len)
++{
++	size_t i = 0;
++
++	while (i < len && isspace((unsigned char)line[i]))
++		i++;
++	return i + 1 < len && line[i] == '#' && isdigit((unsigned char)line[i + 1]);
++}
++
++static bool is_ignorable_snippet_line(const char *line, size_t len)
++{
++	return is_blank_line(line, len) || is_stack_line(line, len);
++}
++
++static bool has_non_blank_between(const char **lines, const size_t *line_lens,
++				  size_t start, size_t end)
++{
++	for (size_t j = start + 1; j < end; j++) {
++		if (!is_blank_line(lines[j], line_lens[j]))
++			return true;
++	}
++	return false;
++}
++
++static void pick_snippet_line(bool *pick, size_t idx, unsigned int *picked_count)
++{
++	if (!pick[idx] && *picked_count < failure_snippet_lines) {
++		pick[idx] = true;
++		(*picked_count)++;
++	}
++}
++
+ static void print_test_failure_snippet(FILE *fp, const char *buf)
+ {
+ 	size_t num_lines = 0;
+@@ -844,43 +885,63 @@ static void print_test_failure_snippet(FILE *fp, const char *buf)
+ 	}
+ 
+ 	/* Pass 0: Always pick the very first line */
+-	if (num_lines > 0 && picked_count < failure_snippet_lines) {
+-		pick[0] = true;
+-		picked_count++;
+-	}
++	if (num_lines > 0)
++		pick_snippet_line(pick, 0, &picked_count);
+ 
+ 	/* Pass 1: Pick lines with failure keywords from start (Highest Priority) */
+ 	for (i = 0; i < num_lines && picked_count < failure_snippet_lines; i++) {
+ 		size_t dummy;
+ 
+-		if (find_next_keyword(lines[i], line_lens[i], &dummy)) {
+-			if (!pick[i]) {
+-				pick[i] = true;
+-				picked_count++;
+-			}
+-			/* Prioritize getting the immediate next line for context */
+-			if (i + 1 < num_lines && !pick[i + 1] &&
+-			    picked_count < failure_snippet_lines) {
+-				pick[i + 1] = true;
+-				picked_count++;
++		if (is_ignorable_snippet_line(lines[i], line_lens[i]))
++			continue;
++		if (!find_next_keyword(lines[i], line_lens[i], &dummy))
++			continue;
++
++		pick_snippet_line(pick, i, &picked_count);
++		/*
++		 * For unexpected signals, prioritize the preceding non-blank
++		 * line showing where the test had run to before the signal.
++		 */
++		if (!strncmp(lines[i], "---- unexpected signal", 22)) {
++			size_t j = i;
++
++			while (j > 0) {
++				j--;
++				if (!is_ignorable_snippet_line(lines[j], line_lens[j])) {
++					pick_snippet_line(pick, j, &picked_count);
++					break;
++				}
+ 			}
+ 		}
++		/* Prioritize getting the immediate next line for context */
++		if (i + 1 < num_lines &&
++		    !is_ignorable_snippet_line(lines[i + 1], line_lens[i + 1]))
++			pick_snippet_line(pick, i + 1, &picked_count);
+ 	}
+ 
+-	/* Pass 2: Fill remaining quota from the end backwards */
++	/*
++	 * Pass 2: Fill remaining quota from the end backwards, skipping blank
++	 * and stack trace lines so trailing test progress is shown instead of
++	 * outermost stack frames like main/_start.
++	 */
+ 	i = num_lines;
+ 	while (i > 0 && picked_count < failure_snippet_lines) {
+ 		i--;
+-		if (!pick[i]) {
+-			pick[i] = true;
+-			picked_count++;
+-		}
++		if (!is_ignorable_snippet_line(lines[i], line_lens[i]))
++			pick_snippet_line(pick, i, &picked_count);
++	}
++
++	/* Pass 3: Fallback to top stack frames if quota remains */
++	for (i = 0; i < num_lines && picked_count < failure_snippet_lines; i++) {
++		if (!is_blank_line(lines[i], line_lens[i]))
++			pick_snippet_line(pick, i, &picked_count);
+ 	}
+ 
+ 	for (i = 0; i < num_lines; i++) {
+ 		if (!pick[i])
+ 			continue;
+-		if (last_printed != -1 && (int)i > last_printed + 1) {
++		if (last_printed != -1 &&
++		    has_non_blank_between(lines, line_lens, last_printed, i)) {
+ 			if (perf_use_color_default)
+ 				fprintf(fp, "%s...%s\n", PERF_COLOR_BLUE, PERF_COLOR_RESET);
+ 			else
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
