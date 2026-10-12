@@ -1,94 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB35D39EB59;
-	Mon, 12 Oct 2026 16:02:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0323548F84B
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791820972; cv=none; b=puf9REF6bEuwoYTn52LzUTnQOdbzJ2f6DhecauRI4sMdDJdPZpfqE2Uov0eVlMc8nzeWPXtSmCNZbu0XPFvfcuoOZ53L4qK8OBmLpt5dQ7yqlX7hvR0WSiZwEpDC6b5SPT8J1qcwWs54lIxNZIICcpK7SrwQxURfbvaJaS0XjaE=
+	t=1791820986; cv=none; b=MDNp0cNNA0ujQuGgSa8XZgIXHJX3805fkGbe0FjBWrpmZpHynqoDMF0dyREw7JNgGDc/Z2xiYzO92HZojEENJEWGdESCURRa0ZibCkZQehq2DTogyit+J7m7+Pf/ym8TWyznuQq+ybdfH7G7Oc9adGcof8wswblOkbx4Nm5wQt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791820972; c=relaxed/simple;
-	bh=kMMV4dSgIuIINhs4G4bbHvnLS5XWVNYT7KOjXT95fwQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tf9kYMOR9OzggCM53jqn+bIGSytiJjivcy1HoMT/tLNa+eiP5JMDb3B/Vhqs9ajJFBeud86+3/sSiifXsPw8SOovinNc/VTiuFzwODHOa3G5K5TMJIAM/7xbMUydDBRs1pb9jNozoMSFONyVDN5cK1bWvA56FmmdEO1gpn2mxYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DrlQtDVp; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DrlQtDVp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F21151F0089B;
-	Mon, 12 Oct 2026 16:02:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791820971;
-	bh=kMMV4dSgIuIINhs4G4bbHvnLS5XWVNYT7KOjXT95fwQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DrlQtDVpAWdY2ZNst+h6PAcJZ7lrUA8jlexA1pf+PyEa9ACqlnywBdau677VwsPsn
-	 8w1KHcrgFLS7jRLrF6/dKPKUXFOjEFQYlYULJFcVYExdne0S4feSjlkOPhSZTNIkC4
-	 xpFCPbQZrbgj7YQyFSeQEWzFyLXpwpIFh4a9d+Y3KiEe9krOPNY5t3UuvdxKw8DXST
-	 qzl+rtRsoJdV1bnFbkztQO2tY3G++6qDtWrnOmbRkW9BMp+JbBh+xgpC6NUjPdVdfl
-	 5k7SEgWn/vg2x7/sb87EQYt7isjKoIWVMoqy12FT28KzoDh7FR/vVT2R44/gE+hr0I
-	 BPDum5lSqmrBQ==
-Date: Mon, 12 Oct 2026 17:02:47 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Ozgur <zgrieee@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	CIFS <linux-cifs@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the vfs-brauner tree
-Message-ID: <30b72db8-b92d-4e93-bab8-e82bac8a485f@sirena.org.uk>
-References: <aszji59b6B79a3Hi@sirena.org.uk>
- <CAOFRbGnVCnW4CEvhp_x6t58v0sB2to+6AP0hHYtci0EBnUWQzQ@mail.gmail.com>
+	s=arc-20240116; t=1791820986; c=relaxed/simple;
+	bh=me7EKvowE1uBRKQoFtAig8Xu4fYCeKhhLKqyLBAE6ks=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=OFAztPfPcRZxB880r4iSFft6PmdCOTMsDtC5ors8DC6NWhjxIIICHL3N9ce7fCbXHXL9E9/hWOYdc3XojpC+/3ePuEJkGZ0q3YKzl8IQwHMzWuImUJeXsMBhmK38YaCAMlCexGH1mWKPsrNXSGsJyqmQnpYfNVEUS1X/RkijdMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ab4f652f9bso1824249b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:03:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791820984; x=1792425784;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uphG7ivy/k/8shfp0sIjgeovEfZudLanralBluckbDY=;
+        b=yChxXL68xqK3HxsUoLvv266zIJPWNo2880KsrhL9Pxy1ksPqU7W4YLrbEp5H1/kBND
+         R7xJqHrGDDu1nQhIAWfpSjM9sqas0qVZKGzmdRUWOsvq5PhIhhCD/B2nveTMHoa3rB8B
+         QhTHkFY31NbOaiWNCLuLeg236oikC6yJuwhBkdn0o6Nl7zWo6avcFFh4JS+h8NvchC3u
+         yOxD62bg9gLWIgQrIOQNS3lOj+475/lhnIPi0MYkwM8Col94xBqrb1dHt56yxDbWHDlX
+         2Fp1EZAAo65BSIbijZstGwAajNxWjFTdpAynN1FUws+2t3zMwukvY5FcTZ3XQs/rqvFM
+         alIg==
+X-Gm-Message-State: AFq9FYIRm8sXVXcyQOHVnbCqZQtcvtQT6LrTlnjHhd2DIi9Ougk19q3J
+	lHbMCDpNe+wYCyv1B4PLKgDbJb5ptcuMwrHVhsWfkJcyOZtlP12+KY3Z85yLtmPah5KViZwJ1DJ
+	YJWB3dfn3n7YWrqfUwhCFjEqNayipiYwjUqpBr0O6CDRhjvYNA4DGn87Uu/s=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="NvMt478TcZTwFp0s"
-Content-Disposition: inline
-In-Reply-To: <CAOFRbGnVCnW4CEvhp_x6t58v0sB2to+6AP0hHYtci0EBnUWQzQ@mail.gmail.com>
-X-Cookie: Is this TERMINAL fun?
+X-Received: by 2002:a05:6808:4495:b0:4d6:9293:9bc3 with SMTP id
+ 5614622812f47-50c592a3a14mr7852186b6e.61.1791820983876; Mon, 12 Oct 2026
+ 09:03:03 -0700 (PDT)
+Date: Mon, 12 Oct 2026 09:03:03 -0700
+In-Reply-To: <CAEfrx+Aqwnw24za-2dro-3nUmbUsnsSkqA614NTPSqHVsm3gZA@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6acd04b7.8cdf6287.1eb53.012d.GAE@google.com>
+Subject: Re: [syzbot] KCSAN: data-race in __se_sys_inotify_add_watch / fsnotify_handle_inode_event
+From: syzbot <syzbot+181b8b439f5207144b16@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, spannme41@gmail.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot tried to test the proposed patch but the build/boot failed:
+
+init/main.c:14:2: error: ASDF
 
 
---NvMt478TcZTwFp0s
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Tested on:
 
-On Mon, Oct 12, 2026 at 05:30:28PM +0300, Ozgur wrote:
-> Mark Brown <broonie@kernel.org>, 12 Eki 2026 Pzt, 16:50 tarihinde =C5=9Fu=
-nu yazd=C4=B1:
-> >
-> > Hi all,
->=20
-> Hi Mark,
->=20
-> i noticed Namjae Jeon's commit (2de2cdd9cc08, ntfs: add pathname
-> access for named streams) is currently present in fs-next and your
-> reported build failure appears to result from this commit interacting
-> with VFS changes that make mnt_idmap const in the ->setattr() and
-> ->getattr() callbacks, and i think fs-next before changes are
-> integrated into linux-next
->=20
-> i compiled linux-next tree but couldnt reproduce the build failure.
+commit:         24a19b95 Linux 7.3-rc7
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ea1e6d8de13bab08
+dashboard link: https://syzkaller.appspot.com/bug?extid=181b8b439f5207144b16
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=15f6a9c9580000
 
-Today's -next hasn't been published...
-
---NvMt478TcZTwFp0s
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrNBKYACgkQJNaLcl1U
-h9DCvQf/cNP6xzycFuNGZgpc2WR17TOZjf8e5Qj4nc+rlzs8bSbiKjoKJh74CVAI
-Cd0a1N3g+WvYVtQRSvx1FMaTb1Sw6ODGZCSEpijNBgi0oY4bl7/tK/SIl5C9Vrek
-bwc11J1bkrGpgvAALpPttc381k37HW6PwDH0UszJ+YiwAGIMpM3BN4v82AGwPqS2
-eefqr14MhO4VNqnSFbQLyXruIabGFC7HX8vtGr0aNAYxY0H7xTlD76lI4sB7Z+3M
-cbMEYrchb9cQRaEInkwqXE1KS9ok5oN+XSVasRXxsksFS+UT71QAMT/2ZckEV05V
-HcsjN8rvIf/NzxwMqbCBSGpr+Cnqkg==
-=twEO
------END PGP SIGNATURE-----
-
---NvMt478TcZTwFp0s--
