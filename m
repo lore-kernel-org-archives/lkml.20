@@ -1,367 +1,284 @@
-Received: from sonic316-21.consmr.mail.ne1.yahoo.com (sonic316-21.consmr.mail.ne1.yahoo.com [66.163.187.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020142.outbound.protection.outlook.com [52.101.196.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDB413AF2
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:23:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.187.147
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791764595; cv=none; b=aMNSweOR/nBK2K9orgAd5LCoXjEUWV9hMcAjaft9yg6pZlLzPfBkX3yPayFstnEjLu2d9uMabzRZYCh8mNEdu3BEwAay6v7twTSHornsFfmdLcztINhlMblghK+vx6tZynD2BoSw9JH2k/np6QPYGNASc20mjGVbOvxZJG/wAUQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791764595; c=relaxed/simple;
-	bh=UlIZCjXa1zPszORJnRN0073HFnneuoH7s0qREYoDhdM=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=HSjVWCIXCd3mm4ldm8bJf4P57kcrzd7Hk8v6TSo41/5BaQiqhV+JBI0t2WCzkd5qFm9anb4kzi2O9Zj02LM/EVnGP7+E2Z7Qf2TOcuS1T+IDKPCfnVWG4hqxzxZ62sKzA/DCHnJmJ/4gFetON7/UBO79ncFLwotCld6TRdYfLjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=hgl71ZH+; arc=none smtp.client-ip=66.163.187.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="hgl71ZH+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791764586; bh=y7p0MJChqhSujHcvaD3szqnYZ4R9xeDjvtZZJRlFFFo=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=hgl71ZH+zRq8fuc9ajElTYdGugZLgdfVt9erE6b8NjGrznHbvo1Eh4zLBVSiOm/omq5p0cOQ3dzC+IFaVLOy0hR6t3V8lLK34XFN0sCcZxtfgUEE+L5t1H1hRXsxnXseV77rdr6zBpvJ7k9HdKm9TDEo9TLkOzRoGGXQybjEeRJMg1m6IihMPlE1v1OlicpGNZCFvq3prKXC5CRdpDrrTwvK7h3EJje2pIUHrzfOx0rP1dEjsMhSCSJuCHNuFDs6K0EAjBH4lqcjsS/Wnb4SrPCX6aupVdCJngidxAwmWt48aJwq6QnBIdf70aXiN7IdpwYPyLi+aHOuLDy8GiVMKA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791764586; bh=3nZrxdiqN1/hvE/Tf6ld4mX7FvBy8ek4c1BP8i6XEYY=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=ppIUHXepCGrvRgyeZ1QKRhUXQEASqPuY5gMNNsdHhKucvOT2nj5QRqbWQRzRvB2z5kCf8txUQ43Xyo9n2chzg86bYbq3FKVaiviv2wmIFRknWwqcy1DuDfrrqt4rOdptNoB7UkkgOhIsemMwDiv+E0vEyF7T1HuRYITM7wF1ZYzLyXcu8uqXFNd+hndpD21qqcJDPXLtzSzI4ONMLDuzRGjeU6NEw/oIedVJK7hbVXWAESddZZjlyHTmPAgW6NqUqmQF6dpuFHUDsGYHSwYXuGmB/ggDfbFXmOkoF1cWvgywPE19jXdEv8ovGmu+Lc9XETdcIvjj5O6dwSifhju8lQ==
-X-YMail-OSG: 9GIf3JMVM1lXqefgdd6Cv3CQYjS8iaZ_56rOilMFAKP_SeIlGk9D7fnBfIw.0GE
- j5J8n.3KJ59hn35zi4YGoQMguxxy4XiALKl4oONc3.ED2BDULF.PD8QcRlb5GGoh_bEaravwufNB
- d9tcDAVe4elAPoQqKGLDiPZtR9t3RAenQ6qziKC8XUcNjsb8yd6Qp3x6zxPPEToIZhOM1aW2ltI.
- N0YR6GW4kpQ1PBvZcaAYBYhhWccZNhkxrUSlUE0Eg.PAHDirRRTATMVLPruN8YoqtaXyHpiD6rLP
- z92ZhCsiBQdPma2d4_A6BAOCi6Tx50HFcCFRluzkFsf_zqqbCENazgnX5VPCw3uVWMEkZQiebFcQ
- fiFHT8_RRr8_jV_o9H_BM5TU9gysn4vEY5xL3TWA5njIH1IUFPzyd7DcnbNuW_Sh8w9OE_7R_KoE
- 19YGX6O6RKPsNci9Lu01Syuchc6R8xoLbEt4DoQvfYVZJ7LZwhRHv2Nt3jZBgl.sCIcJG8ehoPOD
- F_DXg_i3JabMgCCVHw87upbqJqvKki7OpY.PtY5H.FvzA63XYdRW98CJjnMwTESvzRamOqOfQj_A
- X5Wscurmwf0piQ_iPAd7LooygM2oMC9FxB.2Fq8hw4mxeGn4Bk17P0L9dDAV2G3kMmATXxbRcWkc
- SiQ0GbdLWbAzQ4l9KPLPoXiqc5O0U4nMe7SiM_J3fS29UAOGGb.VriMTXEYlimyCVInD1gdADjQC
- fpHznf4NdBDtl2qgQnYywr31y7zSkchBOT5qR2NsseQoxddaJ._VwceGfJEyKT6FSHGsDJ4WlnCp
- WdxEM_2AKCR3uVEKq_6dnS4045MgIE2O0c4YKIVCIdN1XRjG7xP_fTNY1BTbvPsfKhPUIMDBsfh.
- B14lH8ParcprKeEVcNVKInX9wxiquWyt4GFNlp_5.IjDCx6h0cuRHkdazKqQvLgYPc43XbyYHRHc
- z3Qow.80PGUpUHV7P2rtFzZYuuUhW0M.BRpDm9VJRdF_7w0QHiyApU5RT3abQgqdVJEJvVqZzbuj
- fcwC1IqCSTUPpvLU_OosVr2alaHyVisFD999IbVKDBP_u5j5st8SE5kKV8SOrylxVvE22r2vbIOv
- vUR0UZ4T9nrHEH162BC3UfhpR_sqTb11Kmso9ktyELDNzg5bW.b_e3FFd8gAzUlYMhPDg4F3_A9w
- goRgaJYT4uZI2oXhroDBFvciHc.ygqRcXXZNxVLeEW0drHIRAtRZz95v7kzU2gF9t4c6wu4HHe1A
- DFoYpBG6ro_a9u.YRbeWUpXZtIBluudaugwb9rT6aQKTX14IJctjShkuRha4oqiuqcHjMLckDBGj
- RJVImwlG6M8t3wr3YS6A7CpjCcBf1aI47KUwIV8DCiGlWFPJGiAhugmTJCygr.zx2leUFkU2Ucnr
- uYJj1XqwjgxmGjpKNdYPaO3rZXGx0FH1aEaaDMVrv6MiAzBxWqvwsKpUKjBCwPVBWa2obQvoYY.c
- LatFxCDo3yA7tnVx.2mAHkrbAIeWqCq1_lwBELxKPlNdJZW9zeNgKwfbhLFbjTjYvZMeLbYcWaSo
- c.wH6IT5.hDqW.gI3PAM3mXVy3FJZkB_PtgaDTInXuMIfWvt0EXghuxbfsI8iwjwKXdaDLVjYNjt
- _ZuYTW2wqG49miy99IZ_7PJnz6oo2y9KgAgsWsOqfDW5m8046LHxUF4nGUnQFDbASE1hrMHym99x
- AK4SJcy5sgHSY3S3ulWcvTFrXUAuJnWcMbMqE.C5PiTLPZ4fSzyr74oit2us6wj8pAFtTw3PAu2x
- UDOv.jJd8TUAAhqqyKCUq1yQnArsO.8ecNqdF2v9rr_Oiv.BpS4IvseGndBdtDM_cxjFYtAJIXeI
- adg_ODUDu7ZvEfP0g0XtFuev7o2gW3QoFrB.VA3GWtBKWls3Vl4eRLdBfOLkmQCspBRomKw40MhL
- unsaCPwf1JyzzfZhXYlgZf4h_OmfaLClP8UH4nKa0VxwvaAFzzpf4hcgdokX6taaz_wwmhqio02y
- KEFo65XX70QQcykjCY33wnQDOZCuVy93fWXKYKpRoSc_tVFgSuv8ByMtvQ.FbHNLcsggxKPKWt83
- gxZ7r.OIxSKhRAyci.CGh6VK1r4EqV6ONhB2nlhbXFo_PQpjmVzegObASQ4pDahhck3FnNLaPSgL
- 1CWv6nUeZzSWXqHrT7yjSOn0NyOH78o96hrrQG2flM4OnJWiFeUWkTuaGchq_9SHgp4kLvivudYu
- tj5PH9tuexI.zEVJnQgH7JkOKZCc_kCoz_dHkxep_dwKZ33Y3MmpaRFwyduJ6_xclbNvtQzoblFE
- r02zijDnW3BGtnikjD63772K5J1aASMzvOq03gsVE
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 6c84f174-961e-4f20-83f0-b87dd729703c
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic316.consmr.mail.ne1.yahoo.com with HTTP; Mon, 12 Oct 2026 00:23:06 +0000
-Received: by hermes--production-ir2-5dd9bf4598-bjqzr (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID e5995d33ca59d53ffeb9948ddedf5470;
-          Mon, 12 Oct 2026 00:12:48 +0000 (UTC)
-Message-ID: <41c9a735-0688-4932-b0b2-5c41ecbc6699@yahoo.com>
-Date: Mon, 12 Oct 2026 02:12:45 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D72E35950;
+	Mon, 12 Oct 2026 00:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.142
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791765026; cv=fail; b=Fh1mZchpi7AH/cEP2ePmhrSPtez7E45hfMWdoJxuLnVd0Fx3aWmUjpxESBAf1WVYW7aK7jlq6Uzgo1ByDXpF3jB0dh9nctg1LiOY9QA3742LmawgO1zgHwX1x/Xll7E9kc4RTAI6kfvRSpyhfb7SsdwuQt04tmNcqQdZ1Zp9qNA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791765026; c=relaxed/simple;
+	bh=jzr0aRklY7vbLl0Vlmyuk3WBJ0VEQ2XWHbF6JT5LHXk=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=H2bQ+Cp4zunCOBzL6xkV0qeotiUz8J/x9ujmuLVRLjGquD2su7n9nNrydJLCRpgsvO6wQxb9gYWwUrFekN6juHwbd/HJ3CB5WWcNQ9/A6ZQi5chRsIm7OfJyTa9i2XX1vL7FifzlbyI4UzjX10w3aM2Lmm3TW2+Zp2xwa4KoYvY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.196.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SbDrHlWv8SYEZJ9erxPKMwxGU3f6dBpeFoBwjlwnwht/GxN3RnbjalqP2Ulwb3fviOPlI/D09nWFiRIbqqi0qLkZA8mLYo9aKLM7WGWuZ34Ww35/TEqHVBDiRyLsAU4KgPTrQTrSGPDIt/Db92TQn/D1geXz1RKsphXWPxewwFCoNmQmdP792tPRyge4GT5ve49SFCC0afZrRymUr0bUsxukJak9sDCI6jC7vbzC2l8+EB7EYN6+YVZaRuWm8Uqu0nTltgmoAg6VK21oUbt9FSgbBggps+MF3f7BGlbm9vV41YLwrYgxnvN68dlM9ODjwAt1nf6bzSC0OLrgHEPY7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=usWmOtpGBv3RmfE2SGQ5VyEp8QhsOnQQsS0WRC/ZxxA=;
+ b=c2h38POdHHwi2MVmaR/yebe1NHf/3z9nRc7wa7UKqRkkpKUVVgHOruepBczb+cu/PG3XU+R0qBNbtECHPtIBCNRuuV4Oeudu0AlZRgGmaK2OY9lI7oiai8Gwq1moAL8ah/UCY4HaJ/+szHRQdyOpnk87QNd58Syq3TXWUdl+arhTHNvN6NsXqk1u5uL8HXMm9ZJaHut592uQmTYzLMEwO6+FYKmjcZy5PR963ND2EPsGuG2tC+VbYenkY9E9T7CXfBCZzqCvUJ74Ka76b6fUAq5tNcYRcJZze/FbBBshPRXOftrLUkbklRz+ackz7BV0PBEaQwz2dRCgSoK0Aou4AQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LOVP123MB8542.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:48a::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Mon, 12 Oct
+ 2026 00:30:21 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 00:30:20 +0000
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org
+Cc: mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	atomlin@atomlin.com,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH perf-tools-next v3 0/5] perf ftrace: Support inlined functions and display enhancements in function graph tracer
+Date: Sun, 11 Oct 2026 20:30:10 -0400
+Message-ID: <20261012003016.263063-1-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BN9PR03CA0352.namprd03.prod.outlook.com
+ (2603:10b6:408:f6::27) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v4 5/9] net: dsa: realtek: rtl8365mb: set and get
- vlan 4k for family D
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <38872e6f-1264-4a93-9f81-8212173e909d@yahoo.com>
-Content-Language: pl
-In-Reply-To: <38872e6f-1264-4a93-9f81-8212173e909d@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LOVP123MB8542:EE_
+X-MS-Office365-Filtering-Correlation-Id: d718b03f-4175-447c-a21b-08df27f7ff38
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|6133799003|10067099003|18002099003|3023799007|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	f3pAexWTI9xk7To9AfJoYJtLwm/wpf6IGW9LZd5PV4lFx+9ATYhwnn2WDa/nOGAfNf5HOXj5u4Z4fR+NyGCorGklhBBui2+KILSCwvnQyLSjGdbUffpTogeIpmDTGqtq9GIKaw3ii5VWKMQB3gZ6QG8kbfstzUA1VH/xY9U93RNiCADds2+/xECv1cdIbTolAQr1/l04RjY/Ecv0ixNQ/PU1Llg19iLlYdeNA5luT07/b46ZMH2BH8w6T7Bp7HKaXjEEDCC20DB45MlySRdMUBePGV6uwXF1fHWYzwozTIMBeHafF1M5r3cnoppe6D7GDpBpiyioFqPawF5VSH9oDdhq8geEHK3n2RfCBSWSVWtbOHk5UcmLBW28ifOJk7tIkKa58xLrIAGxICC24913epUzvcNxhHplWqHOtyqAJ+vg+1tX18Zt85JUXdafbW7kBHklS4FvEal7TvFVjSFKgV6jt1k1JnH1CcqyW5ih9SIwhL44mA7Vo/xvtGl5dIQOFvfsT0Ajh+d4CiEUjj8hJlksjiSiA5s/cXTVF7Ot/fWCedVEd+pN6Wwv2Rd/WsmSWT2rK0mlHAYl7iEK5L61F+zDQhvBfNl3r3wk+Bfym1+dz8cuQAZvfRrixcLYR1tFlunJwleJ3gONc7KQrc8B6su4rtOCKcew5odTIelBj5E=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(6133799003)(10067099003)(18002099003)(3023799007)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?DoERi86wVCMCUGF6uMN/XKQb9mpRhclY1TilB70A9mg8OeeVO3uJxtJnR0Fn?=
+ =?us-ascii?Q?9gfEqnBV6OSPneMsrz/iDz5eC2ILRmzWtDsIH1Fj4OP8dCG1zh3UnyLvWXtA?=
+ =?us-ascii?Q?VfJWecedjUqB5l5I0xgMsgYY/IfLjAWTwfNLNJ++nS3bzF3qas2e0DdWEpEm?=
+ =?us-ascii?Q?n0xw1o5tl9rvTdhgal/w26Njrabs/MDFaTpPdM/VS3YCHwuRl22OfSYCcs5T?=
+ =?us-ascii?Q?JGMbqT7Xce6P+R6oL4WRIHQ+S4ineemQ7COePqGU51aFGa2Xjo86Tf+IIXoQ?=
+ =?us-ascii?Q?P9D1MzW2P6xNbC1TwvCs0ul6YGyjTBisIrFNcxNX+c5umAQRUL2+kgfasIdq?=
+ =?us-ascii?Q?qC8FREbnWzM1dTZvhEGz8tL33ZLTx//eXzPzTFWIDyLZOt/LFpV15xAGHT/3?=
+ =?us-ascii?Q?BtlYbUmNk4gQn0atOt3v08tx0zNeI23CLpH6RqZvLtF1SoehC7BsVBqs2IlK?=
+ =?us-ascii?Q?jO01H2QQoivt1KJADYkB+kY8BJn7Xor+fciJiCsMy+I5ZGl8rWLkHrILsw87?=
+ =?us-ascii?Q?wHMjcWgktDHtOVxuyUnmtn21dsKPqvgLGRtecB/uDgSd2PWqAu5jtjCXgJAs?=
+ =?us-ascii?Q?eo0Z199MBxtaxgv1J2B+IZmYOrWV7glkflP2TBr7ye0EwKOTqeS06Fv3lEu3?=
+ =?us-ascii?Q?ywRpowkWF/RViJ147fa8oZAMb9NE9myJ4LzSKyoLSfcKHNXPfDJPRtCOHXDG?=
+ =?us-ascii?Q?lZ07YyEd/lVPrRVgzjSMc1YKCSZ8cPDHp7XJ+NrvxTex5kFekSGjRdJpVjqb?=
+ =?us-ascii?Q?Wl/4xZgWMFKChqAMN3hXpH5U3t6ZITcUGzSdKAs47lDD57CQLkhRNcMYMtTH?=
+ =?us-ascii?Q?4w00RfOBiysVCvDhsZQeb/E6nKBQFCgSY4YTGtw5qATosH8fjKJTy69DBWEs?=
+ =?us-ascii?Q?ATq3fHul5tc4gU0itA02VwOGNqLYJKvr6dXEfw88wJahXP73A1wak99QHatL?=
+ =?us-ascii?Q?fOXl68pw7H8oD9VKUNFqRzQ7zDWboPg0hGymdtOkVMW5meYQD+bUGXC6TIQk?=
+ =?us-ascii?Q?3pDpb2EaV/neuBHXY37NqdlY1N/ykCSWdBhMcUSAROadC7e+gv3b9eDEcR9g?=
+ =?us-ascii?Q?RP0b8lc5ZjTYP1FtHKGvReNwpM9AqU4QzXQIzjTqVxkMEkpjzdvI4hJnN3y6?=
+ =?us-ascii?Q?VqrBsqpTN2C8RGlFG5EsBXsz2MDD4SY7zksn0Xq20Blp7TpDcqSeEyUZnA1o?=
+ =?us-ascii?Q?/YGG+mLaYrYS0RTinsgrebQXrIDpdJaxJ0q9MqYg1izkjhrQtzbqAXtjDODx?=
+ =?us-ascii?Q?Mc8e1LAt1pMz8lW/+Ogtso0iCIyFzDyRq1j6JANRT0k75daKFSNLJ5I1GlXF?=
+ =?us-ascii?Q?gk+DZOtlx2ZTsZK7ifg8ikabbxyQjk02au7wrp7yL8jDYLz6GOgsw6CPxViw?=
+ =?us-ascii?Q?/MSq+0JzKDvoO6j056pl87FRrwA645qcZ4uqF9scUoaAO+ijGk5Cjd9qSB7Q?=
+ =?us-ascii?Q?ZfWcOMdQ2MTN+HD2dusc8yq99/LcFWpzy0IIml3/SN0+ijWxf/d+U4c7IXfd?=
+ =?us-ascii?Q?5eQVd7DVP5sOzYv2Bg7L78FOvjB9tzzua9SCBsoThES3Mi133lgw8yKLNJwy?=
+ =?us-ascii?Q?0LWsh/bPwc87BMNFQ/ZJg4Lgqg3xRa/XxMl2hgiq9sU/hl8kmDraaZuBMoQ6?=
+ =?us-ascii?Q?ckMWr78BVydSsIbn2RTeLP48odoOTKLm6ZfBVEyRIdcgUOh7KfDNx8zcZM7B?=
+ =?us-ascii?Q?+ASaLurD/iCYwSwTKZey4PN+Z+tz0yEZAnN0/nHSNp0W5a7eUMhFCu0wdhJG?=
+ =?us-ascii?Q?51fQjwsEGg=3D=3D?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d718b03f-4175-447c-a21b-08df27f7ff38
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 00:30:20.4033
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OjTaCUQPJGMo2vwU06F9PsG7emYDgZh3gKcWHMdN3p9cM/BgkGx50PU/orBy6KiVVBpf8MW7Jlz+r+Bzqxz30w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOVP123MB8542
 
-The hardware structure of 4K VLAN table entries has changed between
-silicon families. Family D's CVLAN entry is two 16-bit words rather
-than three: there is no third word extending member/untag past bit 7,
-and no priority/meter fields at all. The FID field is restricted to a
-narrower 2-bit width. The chip itself supports both IVL and SVL, but
-this driver always requests IVL for VLAN 4K entries
-(rtl8365mb_vlan_4k_port_set() sets ivl_en = true on both families), so
-both the IVL_EN (bit 3) and SVLAN_CHK_IVL_SVL (bit 2) controls are
-forced to 1 here, as in the vendor RTL8367D code. Setting
-SVLAN_CHK_IVL_SVL to 1 enforces strict lookup engine validation for
-the selected IVL mode, preventing potential MAC learning leaks across
-distinct VLAN boundaries during mixed frame processing. This matches
-existing driver behavior and is not a hardware limitation.
-vlan4k->ivl_en is still read back from IVL_EN.
+The Linux kernel's function graph tracer operates at the machine
+instruction level via compiler instrumentation
+(-fpatchable-function-entry), recording entry and return events for
+physical function calls. Consequently, functions inlined by the compiler
+are invisible in the resulting call-graph, as no discrete call or return
+instructions are emitted for them. While technically expected, this
+omission frequently obscures the logical execution flow when analysing
+kernel subsystems heavily reliant upon inlining (such as the scheduler,
+memory management, locking primitives, and RCU).
 
-Reusing the three-word family C layout unconditionally means the third
-word is read from and written back to the register that holds it on
-family C, but does not exist as a distinct table word on family D's
-die; whatever data happens to be there gets folded into member/untag
-bits [10:8] on read, and re-written on every read-modify-write cycle
-in rtl8365mb_vlan_4k_port_set(). Give family D its own two-word
-pack/unpack instead.
+When the kernel is configured with CONFIG_FUNCTION_GRAPH_RETADDR=y, the
+funcgraph-retaddr trace option records the caller's return address on each
+function entry, manifested in the trace stream as a comment
+(e.g. /* <-wake_up_new_task+0x1d1/0x3e0 */). By interrogating DWARF debug
+information from the kernel image (vmlinux) utilising libdw, perf ftrace
+resolves this return address to its inlined callchain and synthesises the
+intermediate inlined frames directly into the streamed call-graph.
 
-The two-word layout matches the vendor switch API for this chip
-family, which writes only 0x0510/0x0511 for a CVLAN entry.
+This patch series addresses these challenges through five focused commits:
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
----
- drivers/net/dsa/realtek/rtl8365mb_vlan.c | 173 ++++++++++++++++-------
- 1 file changed, 121 insertions(+), 52 deletions(-)
+    1.  Stack frame optimisation in __cmd_ftrace()
 
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.c b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-index 8d49ffa..206a001 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-@@ -33,7 +33,9 @@
-  * 1. VLAN4k entries can specify whether to use Independent or Shared VLAN
-  *    Learning (IVL or SVL respectively). VLAN membership config entries
-  *    cannot. This underscores the fact that VLAN membership configs are not
-- *    involved in the learning process of the ASIC.
-+ *    involved in the learning process of the ASIC. (The driver honors this
-+ *    selection on family C only; on family D it always forces IVL, see
-+ *    rtl8365mb_vlan_4k_write().)
-  *
-  * 2. VLAN membership config entries use an "enhanced VLAN ID" (efid), which has
-  *    a range 0~8191 compared with the standard 0~4095 range of the VLAN4k
-@@ -48,12 +50,16 @@
- 
- #include "rtl8365mb_vlan.h"
- #include "rtl8365mb_table.h"
-+#include "rtl8365mb.h"
- #include <linux/if_bridge.h>
- #include <linux/lockdep.h>
- #include <linux/regmap.h>
- 
--/* CVLAN (i.e. VLAN4k) table entry layout, u16[3] */
-+/* CVLAN (i.e. VLAN4k) table entry layout: u16[3] on family C, u16[2] on
-+ * family D
-+ */
- #define RTL8365MB_CVLAN_ENTRY_SIZE			3 /* 48-bits */
-+#define RTL8365MB_D_CVLAN_ENTRY_SIZE			2 /* 32-bits */
- #define RTL8365MB_CVLAN_ENTRY_D0_MBR_MASK		GENMASK(7, 0)
- #define   RTL8365MB_CVLAN_MBR_LO_MASK			GENMASK(7, 0)
- #define RTL8365MB_CVLAN_ENTRY_D0_UNTAG_MASK		GENMASK(15, 8)
-@@ -65,6 +71,11 @@
- #define RTL8365MB_CVLAN_ENTRY_D1_METERIDX_MASK		GENMASK(13, 9)
- #define   RTL8365MB_CVLAN_METERIDX_LO_MASK		GENMASK(4, 0)
- #define RTL8365MB_CVLAN_ENTRY_D1_IVL_SVL_MASK		GENMASK(14, 14)
-+/* Family D CVLAN entry, word 1 (family D has no word 2) */
-+#define RTL8365MB_D_CVLAN_ENTRY_D1_SVLAN_CHK_IVL_SVL_MASK \
-+							GENMASK(2, 2)
-+#define RTL8365MB_D_CVLAN_ENTRY_D1_IVL_EN_MASK		GENMASK(3, 3)
-+#define RTL8365MB_D_CVLAN_ENTRY_D1_FID_MASK		GENMASK(1, 0)
- /* extends RTL8365MB_CVLAN_ENTRY_D0_MBR_MASK */
- #define RTL8365MB_CVLAN_ENTRY_D2_MBR_EXT_MASK		GENMASK(2, 0)
- #define   RTL8365MB_CVLAN_MBR_HI_MASK			GENMASK(10, 8)
-@@ -132,7 +143,8 @@
-  * @priority: priority classification (unused)
-  * @priority_en: enable priority (unused)
-  * @policing_en: enable policing (unused)
-- * @ivl_en: enable IVL instead of default SVL
-+ * @ivl_en: enable IVL instead of default SVL (family D always forces IVL
-+ *          on write, see rtl8365mb_vlan_4k_write())
-  * @meteridx: metering index (unused)
-  *
-  * This structure is used to get/set entries in the VLAN4k table. The
-@@ -185,13 +197,16 @@ struct rtl8365mb_vlanmc {
- static int rtl8365mb_vlan_4k_read(struct realtek_priv *priv, u16 vid,
- 				  struct rtl8365mb_vlan4k *vlan4k)
- {
-+	bool is_d = rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D;
-+	size_t entry_size = is_d ? RTL8365MB_D_CVLAN_ENTRY_SIZE :
-+				   RTL8365MB_CVLAN_ENTRY_SIZE;
- 	u16 data[RTL8365MB_CVLAN_ENTRY_SIZE];
- 	int val;
- 	int ret;
- 
- 	ret = rtl8365mb_table_query(priv, RTL8365MB_TABLE_CVLAN,
- 				    RTL8365MB_TABLE_OP_READ, &vid, 0, 0,
--				    data, ARRAY_SIZE(data));
-+				    data, entry_size);
- 	if (ret)
- 		return ret;
- 
-@@ -199,33 +214,61 @@ static int rtl8365mb_vlan_4k_read(struct realtek_priv *priv, u16 vid,
- 	memset(vlan4k, 0, sizeof(*vlan4k));
- 	vlan4k->vid = vid;
- 
-+	/* member/untag: d0[7:0]/d0[15:8] on both families. Family C
-+	 * extends these into data[2] bits [2:0]/[5:3] for its 9th-11th
-+	 * ports; family D's die has only 8 ports and no third table
-+	 * word, so data[2] does not exist there and must not be read.
-+	 */
- 	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D0_MBR_MASK, data[0]);
- 	vlan4k->member = FIELD_PREP(RTL8365MB_CVLAN_MBR_LO_MASK, val);
--	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_MBR_EXT_MASK, data[2]);
--	vlan4k->member |= FIELD_PREP(RTL8365MB_CVLAN_MBR_HI_MASK, val);
-+	if (!is_d) {
-+		val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_MBR_EXT_MASK, data[2]);
-+		vlan4k->member |= FIELD_PREP(RTL8365MB_CVLAN_MBR_HI_MASK, val);
-+	}
- 
- 	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D0_UNTAG_MASK, data[0]);
- 	vlan4k->untag = FIELD_PREP(RTL8365MB_CVLAN_UNTAG_LO_MASK, val);
--	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_UNTAG_EXT_MASK, data[2]);
--	vlan4k->untag |= FIELD_PREP(RTL8365MB_CVLAN_UNTAG_HI_MASK, val);
--
--	vlan4k->fid = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_FID_MASK, data[1]);
--	vlan4k->priority_en =
--		FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_VBPEN_MASK, data[1]);
--	vlan4k->priority =
--		FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_VBPRI_MASK, data[1]);
--	vlan4k->policing_en =
--		FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_ENVLANPOL_MASK, data[1]);
--
--	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_METERIDX_MASK, data[1]);
--	val = FIELD_PREP(RTL8365MB_CVLAN_METERIDX_LO_MASK, val);
--	vlan4k->meteridx = val;
--	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_METERIDX_EXT_MASK, data[2]);
--	val = FIELD_PREP(RTL8365MB_CVLAN_METERIDX_HI_MASK, val);
--	vlan4k->meteridx |= val;
--
--	vlan4k->ivl_en =
--		FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_IVL_SVL_MASK, data[1]);
-+	if (!is_d) {
-+		val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_UNTAG_EXT_MASK,
-+				data[2]);
-+		vlan4k->untag |= FIELD_PREP(RTL8365MB_CVLAN_UNTAG_HI_MASK, val);
-+	}
-+
-+	if (is_d) {
-+		vlan4k->fid = FIELD_GET(RTL8365MB_D_CVLAN_ENTRY_D1_FID_MASK,
-+					data[1]);
-+		/* Family D has no priority/meter fields in this entry -
-+		 * left zeroed by the memset() above.
-+		 */
-+		vlan4k->ivl_en =
-+			FIELD_GET(RTL8365MB_D_CVLAN_ENTRY_D1_IVL_EN_MASK,
-+				  data[1]);
-+	} else {
-+		vlan4k->fid = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_FID_MASK,
-+					data[1]);
-+		vlan4k->priority_en =
-+			FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_VBPEN_MASK,
-+				  data[1]);
-+		vlan4k->priority =
-+			FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_VBPRI_MASK,
-+				  data[1]);
-+		vlan4k->policing_en =
-+			FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_ENVLANPOL_MASK,
-+				  data[1]);
-+
-+		val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_METERIDX_MASK,
-+				data[1]);
-+		val = FIELD_PREP(RTL8365MB_CVLAN_METERIDX_LO_MASK, val);
-+		vlan4k->meteridx = val;
-+		val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_METERIDX_EXT_MASK,
-+				data[2]);
-+		val = FIELD_PREP(RTL8365MB_CVLAN_METERIDX_HI_MASK, val);
-+		vlan4k->meteridx |= val;
-+
-+		vlan4k->ivl_en =
-+			FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_IVL_SVL_MASK,
-+				  data[1]);
-+	}
- 
- 	return 0;
- }
-@@ -233,6 +276,9 @@ static int rtl8365mb_vlan_4k_read(struct realtek_priv *priv, u16 vid,
- static int rtl8365mb_vlan_4k_write(struct realtek_priv *priv,
- 				   const struct rtl8365mb_vlan4k *vlan4k)
- {
-+	bool is_d = rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D;
-+	size_t entry_size = is_d ? RTL8365MB_D_CVLAN_ENTRY_SIZE :
-+				   RTL8365MB_CVLAN_ENTRY_SIZE;
- 	u16 data[RTL8365MB_CVLAN_ENTRY_SIZE] = { 0 };
- 	u16 vid;
- 	int val;
-@@ -244,36 +290,59 @@ static int rtl8365mb_vlan_4k_write(struct realtek_priv *priv,
- 	val = FIELD_GET(RTL8365MB_CVLAN_UNTAG_LO_MASK, vlan4k->untag);
- 	data[0] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D0_UNTAG_MASK, val);
- 
--	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_FID_MASK, vlan4k->fid);
--	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_VBPEN_MASK,
--			      vlan4k->priority_en);
--	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_VBPRI_MASK,
--			      vlan4k->priority);
--	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_ENVLANPOL_MASK,
--			      vlan4k->policing_en);
--
--	/* FIELD_* does not play nice with struct bitfield. */
--	val = vlan4k->meteridx;
--	val = FIELD_GET(RTL8365MB_CVLAN_METERIDX_LO_MASK, val);
--	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_METERIDX_MASK, val);
--
--	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_IVL_SVL_MASK,
--			      vlan4k->ivl_en);
--
--	val = FIELD_GET(RTL8365MB_CVLAN_MBR_HI_MASK, vlan4k->member);
--	data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_MBR_EXT_MASK, val);
--
--	val = FIELD_GET(RTL8365MB_CVLAN_UNTAG_HI_MASK, vlan4k->untag);
--	data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_UNTAG_EXT_MASK, val);
--
--	val = vlan4k->meteridx;
--	val = FIELD_GET(RTL8365MB_CVLAN_METERIDX_HI_MASK, val);
--	data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_METERIDX_EXT_MASK, val);
-+	if (is_d) {
-+		/* The chip supports both IVL and SVL, but the caller (see
-+		 * rtl8365mb_vlan_4k_port_set()) never requests SVL, so both
-+		 * IVL/SVL selector bits are forced here rather than threaded
-+		 * through from vlan4k->ivl_en, which family C does honor.
-+		 */
-+		data[1] |= FIELD_PREP(RTL8365MB_D_CVLAN_ENTRY_D1_IVL_EN_MASK,
-+				      1) |
-+			   FIELD_PREP(RTL8365MB_D_CVLAN_ENTRY_D1_SVLAN_CHK_IVL_SVL_MASK,
-+				      1);
-+		data[1] |= FIELD_PREP(RTL8365MB_D_CVLAN_ENTRY_D1_FID_MASK,
-+				      vlan4k->fid);
-+		/* No priority/meter/member-untag-extension fields exist in
-+		 * family D's 2-word entry - data[1] and data[0] above are
-+		 * the whole entry, and data[2] is not part of it at all.
-+		 */
-+	} else {
-+		val = vlan4k->fid;
-+		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_FID_MASK, val);
-+		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_VBPEN_MASK,
-+				      vlan4k->priority_en);
-+		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_VBPRI_MASK,
-+				      vlan4k->priority);
-+		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_ENVLANPOL_MASK,
-+				      vlan4k->policing_en);
-+
-+		/* FIELD_* does not play nice with struct bitfield. */
-+		val = vlan4k->meteridx;
-+		val = FIELD_GET(RTL8365MB_CVLAN_METERIDX_LO_MASK, val);
-+		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_METERIDX_MASK,
-+				      val);
-+
-+		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_IVL_SVL_MASK,
-+				      vlan4k->ivl_en);
-+
-+		val = FIELD_GET(RTL8365MB_CVLAN_MBR_HI_MASK, vlan4k->member);
-+		data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_MBR_EXT_MASK,
-+				      val);
-+
-+		val = FIELD_GET(RTL8365MB_CVLAN_UNTAG_HI_MASK, vlan4k->untag);
-+		data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_UNTAG_EXT_MASK,
-+				      val);
-+
-+		val = vlan4k->meteridx;
-+		val = FIELD_GET(RTL8365MB_CVLAN_METERIDX_HI_MASK, val);
-+		data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_METERIDX_EXT_MASK,
-+				      val);
-+	}
- 
- 	vid = vlan4k->vid;
- 	return rtl8365mb_table_query(priv, RTL8365MB_TABLE_CVLAN,
- 				     RTL8365MB_TABLE_OP_WRITE, &vid, 0, 0,
--				     data, ARRAY_SIZE(data));
-+				     data, entry_size);
- }
- 
- static int
+        Replaces the 4096-byte stack array in __cmd_ftrace() with dynamic
+        heap allocation alongside struct strbuf streaming, reducing the
+        stack frame footprint by over 96% (down to ~160 bytes) while
+        ensuring complete line-delimited records and robust EOF handling.
+
+    2.  Return address comment filtering
+
+        Introduces --filter-retaddr to strip trailing /* <-caller+offset */
+        comments in-place across diverse tracer formats (standard,
+        bracketed, and return values).
+
+    3.  Display of inlined functions in function graph tracer
+
+        Introduces the --inline option for function_graph tracing.
+        Leverages CONFIG_FUNCTION_GRAPH_RETADDR comments and DWARF debug
+        info from vmlinux (via libdw) to resolve callers to their inlined
+        callchains. Maintains a per-CPU tracking stack to reconstruct and
+        synthesise inlined scopes (/* (inline) */) with correct indentation
+        and bare closing brace matching.
+
+    4.  Execution duration suppression
+
+        Exposes the noduration sub-option under --graph-opts to omit the
+        duration column, enabling concise topological views
+
+    5.  Filter extraneous functions in function graph tracer
+
+        Enforces strict target callgraph boundaries in userspace.
+        Suppresses non-matching top-level entries, and dynamically
+        validates child entries against the target call stack using their
+        return addresses to eliminate detached tracer wakeup side effects.
+
+Synthesised inlined functions are rendered with an explicit /* (inline) */
+annotation at both entry and exit:
+
+    # tracer: function_graph
+    #
+    # CPU               FUNCTION CALLS
+    # |                 |   |   |   |
+     3) activate_task() {
+     3)   enqueue_task() {
+     3)     psi_enqueue() { /* (inline) */
+     3)       arch_static_branch_jump() { /* (inline) */
+     3)         enqueue_task_fair() {
+     3)           enqueue_hierarchy() { /* (inline) */
+     3)             update_curr();
+     3)             enqueue_entity() {
+     3)               account_entity_enqueue() { /* (inline) */
+     3)                 account_llc_enqueue();
+     3)               } /* account_entity_enqueue (inline) */
+     3)             }
+     3)           } /* enqueue_hierarchy (inline) */
+     3)           place_entity() {
+     3)             avg_vruntime();
+     3)           }
+     3)           __enqueue_entity();
+     3)           dl_server_start();
+     3)         }
+     3)       } /* arch_static_branch_jump (inline) */
+     3)     } /* psi_enqueue (inline) */
+     3)     sched_info_enqueue() { /* (inline) */
+     3)       psi_task_change() {
+     3)         psi_write_begin() { /* (inline) */
+     3)           psi_flags_change();
+     3)         } /* psi_write_begin (inline) */
+     3)         psi_group_change() {
+     3)           record_times();
+     3)         }
+     3)       }
+     3)     } /* sched_info_enqueue (inline) */
+     3)   }
+     3) }
+
+Changes since v2:
+
+ - Expanded the series from 4 to 5 patches by adding a dedicated commit
+   ("perf ftrace: Filter extraneous functions in function graph tracer") to
+   enforce strict target callgraph boundaries when -G or --graph-funcs is
+   specified
+  
+ - Suppressed unrelated top-level functions that leak through the transient
+   tracefs filter initialisation window before RCU synchronisation
+   completes
+  
+ - Filtered detached/orphan calls from appearing as nested children within
+   the target graph by validating caller return addresses against the
+   active target stack
+  
+ - Tracked nested orphan scope depth (cs->orphan_depth) to cleanly suppress
+   child calls and closing delimiters of detached subtrees without
+   desynchronising the target stack
+  
+ - Added automated unit test coverage in tools/perf/tests/ftrace.c
+   (test_graph_target_filter()) validating top-level suppression (both with
+   and without --inline) and detached orphan wakeup suppression
+
+ - Link to v2: https://lore.kernel.org/lkml/20261006232756.65620-1-atomlin@atomlin.com/
+
+Changes since v1:
+
+ - Modularised the implementation into a 4-patch bisectable series rather
+   than a monolithic commit
+
+ - Resolved potential infinite loop on poll() upon trace_pipe EOF
+
+ - Fixed stuck call stack frames when funcgraph-tail is disabled by
+   supporting bare closing delimiters matching LIFO stack frames
+
+ - Prevented unbounded indentation growth on deep call trees by clamping
+   inline expansion and synchronising cs->inlined_depth to frames
+   successfully pushed onto cs->stack
+
+ - Added dedicated unit tests covering bare closing braces and stack
+   saturation recovery
+
+ - Refined option documentation in perf-ftrace.txt
+
+ - Link to v1: https://lore.kernel.org/lkml/20261005211518.26786-1-atomlin@atomlin.com/
+
+Aaron Tomlin (5):
+  perf ftrace: Optimise __cmd_ftrace() stack frame with strbuf streaming
+  perf ftrace: Support filtering return address comments
+  perf ftrace: Support display of inlined functions in function graph
+    tracer
+  perf ftrace: Support omitting execution duration in function graph
+    tracer
+  perf ftrace: Filter extraneous functions in function graph tracer
+
+ tools/perf/Documentation/perf-ftrace.txt |  21 +-
+ tools/perf/builtin-ftrace.c              | 128 +++-
+ tools/perf/tests/Build                   |   1 +
+ tools/perf/tests/builtin-test.c          |   1 +
+ tools/perf/tests/ftrace.c                | 589 +++++++++++++++
+ tools/perf/tests/tests.h                 |   1 +
+ tools/perf/util/Build                    |   1 +
+ tools/perf/util/ftrace.c                 | 871 +++++++++++++++++++++++
+ tools/perf/util/ftrace.h                 |  17 +
+ 9 files changed, 1615 insertions(+), 15 deletions(-)
+ create mode 100644 tools/perf/tests/ftrace.c
+ create mode 100644 tools/perf/util/ftrace.c
+
 -- 
-2.53.0
+2.55.0
 
