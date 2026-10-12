@@ -1,476 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4B7361961
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:17:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791796676; cv=none; b=I7XiYr8inTwhXHJiD7xN5Agrw3kcFdSXSlhW+yM/0estvVUC6St//SF07k/E7A3CZRsu+MtEmtOODlTXoXbwC8qsdQl2P59Gl64IERBIaTjYbj4zN9hSfick2MWlJdbxgN93jD+CRn01Pb4pT9YbwjdWJvgibfylcKRkhAT7hDM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791796676; c=relaxed/simple;
-	bh=TetGDuwGWfXD0mWY+Sfb0/wS00TsPyql0WGYAen447o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fi0A0u9364hhw4zH75A2KMKQxvWMW2rRqXR9xLPnSEqOneqhXaHbTH+44hqDpzdgCRi4opZpXXKLwpbkfJEckw46obsf1A9H7PHCqsUM2m3/0d0UnDSTKB+k9tkEJOivw66YuvtGJNeBaSU35cWnOm4AegCQoRViLYIiGgWezrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hhhCQ2TP; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7C62BD09
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:17:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791796677; cv=pass; b=M4xZbx+Xjlem03EOkaLKULIMrmNCE/qKnHiMzE+hUH2j6WBT5mz3suCnDR4mhH9RVMdZ7ZLsd4rLRa86QdTNyrtmwgaPhFVl1gW59FjkdogWRpeuU0I9LRQk01gDvTgMTBEEhEDKUdBNkWe1GWPpvfYiOBzifhzfldJda6mmYes=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791796677; c=relaxed/simple;
+	bh=zE/xMc3+fkme8U686WImZo7kXykoV74MS3mBMZEs2EI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=b2pumt7e2/Sg+DmGvWUd0QXy4uNNQtWmldeeq+WNtv5Acql0XqkOc9t1BG7N5BfxAPfwNTzT5ty8AZHKOxfizMqfY/Ks2n8G7KsZEnzY0HiPpv/kpQaz7CX67lMXe98FFh+qOnFGj2yGGOZK27fWeWicgwcVIAzMPnu+eSZezXg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vPW450Z+; arc=pass smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hhhCQ2TP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 375981F0089B;
-	Mon, 12 Oct 2026 09:17:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791796674;
-	bh=gT3Ud09meFB3kUMvE/7JMtDXtX7QL+6/HzUw8GPVB4E=;
-	h=From:To:Cc:Subject:Date;
-	b=hhhCQ2TPs8MTRrcJ/1lYhMWmGe1uMXQXINoT40yqbjNjNP/U0WOYUXSaluI/+hhUs
-	 4e4HwhVmN2OssJnkJZ2B5nPJPn61k4O4r6ywS9i+Svcv/wKbbOoSeGp4IAfkC6A/2o
-	 SSGT/yzNzCYJGWP4Ond0rAzgoB06rXuTVs8gBPVfhGk2OdIOxmRexr5cRYP1peDd+F
-	 Qwgc1YaHyIPc/9gd0WNqr+UnDB/k7HgE1jsydUv2el6A3uOdpXEjObPmR05PskEhj5
-	 SYol90j3GSox1YuHOU25jUmlrNJ0MYtLdyd/bjmmwAEobuDWvVWP+8p4veNUB32D0F
-	 5IAtYa4LZGXUg==
-From: Chao Yu <chao@kernel.org>
-To: jaegeuk@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Chao Yu <chao@kernel.org>,
-	Daeho Jeong <daehojeong@google.com>,
-	Wenjie Qi <qiwenjie@xiaomi.com>
-Subject: [PATCH v3 3/5] f2fs: cache: wake up f2fs_writeback when exceeding threshold
-Date: Mon, 12 Oct 2026 09:17:37 +0000
-Message-ID: <20261012091737.308136-1-chao@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vPW450Z+"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2db33db4de9so47985ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:17:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791796675; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sWCe5A66MbAyS9NU5je/C1SGKg0KopHp21+CmBLtjDhQA9pHwKyWNyT0trntM1fxf7
+         aaMA9wpyghiOkleI9mkEWgze5Zh0aw49BE2ECFfxBBix8NgiD3YOxGH1u2gbXVrWBP2G
+         LQLGk8fP/rXKspzWdwaHfb/QaKJHMFZFkNA+fmBWDAV9GlHyLybDtjhxs1QKBHVWr1JY
+         YYvxXBxMVuhX762gJO0de1gsVkxIJjs74BcnxMXUSWquG/PdTTBGau5jENqL0O//Q+vQ
+         2iDLpWfZG3cuZ0CegMCEmHmLcEfhPhpTI/eQTbOymwoOoyeketrO7sSwLiSSWb1uhuap
+         6smg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bLXlg2Zl+SnMXYI2B0PTH2g6n6WahQOBn4X4k4dpYkc=;
+        fh=6TCjaPtFtKv9Jq8pXVG2r2qKyianmAtZBHKY3mkVLYQ=;
+        b=ETbQy74ad9PUdcSVo2MzIDV3YOeFqe2sR8Zse+LpXranXzcve33h7xhPPxoZQWvgpu
+         wxboxXGnvhQZdAy+qan+yhIr0kqqFLGvqYrUUM5mDE9FqXJ1KpxrH+0jYFJle2rfJPcF
+         29tD1DBwpYKZ+DpFFatuPAqa9tYrCsvxFd5sUXqaHplEQoV4roBD+ZevpBhrYLEx9o6z
+         AP+5tG2lipNjQpPFAnMMPO+3CKlIqjd7xsbU+Nj0uIN16x9p6AbWYac97PNcYBsGj4xo
+         w37hYyohVCMuSMZBAUf+fhy7dH4s/Z0JywBaS92viQG2wR7HFpqAwm6OcNBuwt4LxJ3/
+         zy+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791796675; x=1792401475; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bLXlg2Zl+SnMXYI2B0PTH2g6n6WahQOBn4X4k4dpYkc=;
+        b=vPW450Z+B9+CUnKihi+dAQJVTZ4Gu2pl1G0SHqsVLVKCWln8iNw1mnRTY4f8QS1Lti
+         50RR7wNTALtUf/UuP8O/pqpGsad4hajb36UpJgJLsNMiT9MYa1ipABiPtpx6iYq38rDH
+         C31I2MesMLr+ykMEDWlA5v3AQeSa8Kwl3NjoeOViFRSGTHCP4FVShbfIynTVr0wtMQh0
+         13eJHl/YeVDCOiv6ZH6aBaWzqwIdLKpcY0dEKyEl6iZj4TxGOfESBh5NX4v6vuax+vS7
+         v9BjviJ2SCfNxwGbzY3QV0jjK7iPG3tMYTNCLnbUNRgT+Xg4+mrfd9g/+STd+/7wKmnS
+         h5/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791796675; x=1792401475;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bLXlg2Zl+SnMXYI2B0PTH2g6n6WahQOBn4X4k4dpYkc=;
+        b=eFRPj31w1VxRzAxhXIQrp0eOW8GiQDHXWvEqDEQ/9unKMCFr0cXYW14IdkRqQWrerM
+         wkIjLCvfImrHogFqaCddbmhoSUoU/Nal5lKZv9P0HyvzAfqWvr4pXkO4zwsOfzzxWmRI
+         jiYTnolUVQeVsQWQN1EMrujeZ+K22WNTwBdCvz3wkpu+m016aMgFlGfqenbXR/skCnBC
+         ATYgfXmLrZf10mjVlQBMFocEIxDt/Hdq2jJsMTlG9p+ZO+OpSRD4ptRyFzXgg6gn8FPh
+         LvK2KuzUL+xIoLGYAPOId0XAbGSNH2Yfs0WKMIfkTq0CDbYyHKaLjO4tLg4uG+vB9knJ
+         Llcw==
+X-Forwarded-Encrypted: i=1; AKwUvBy9GKvlRirEfqcY8Y00E/iEB8NzmGB5afGbSAns9vU5v9S2xSKxWEevMt3OHUOM/zpQIg/X4BZjXxHFmf8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7Kcg7REtV2ZdaCFt5Ov+HvNuiu3dAfdXMXgyEPiFmPdtqnuU6
+	jKVw7VA13Y5PyEk5iMrF+cWT86b4tL5T2LOayAzJZ4dB18QVmDJ4bkxFNI4FnvdSzREJHcMsNb7
+	+T4prkzF2wFJTmWBEUxsFZP3zyLOZd/2ZQBnfnwCq
+X-Gm-Gg: AYBFou2LBjaw3taAeykc82Ku363NX4c56f5nZIqyUAkcRxlXrnfWgcT8iBcMc3aaAsj
+	CKnlPOlPBsoKuiinNg5Mrr3t7YzXqnVH14oQDX19zmxkt03B6fA2bP61FRAvXwzpNahu7AejTIe
+	F8yVhHCqodFij204bbSC+YXWrY4GnQi4/RlHINTgCaOgSxC+uJzx2RbTWr+0P8SblX0fVlDASeF
+	yKB/OMd217L6qTjM6Ds1CFEQFfoQ2OOdQ8IDgWgVBNTTv7AdWlrmaHQpDIeYHEciNU/DBDpEoKx
+	lZNFssPGkZyiGxQWZY41b3Nq2AYCZSyKkA7nGlUZPUTJ3RDzEe47u74j
+X-Received: by 2002:a17:902:cf0e:b0:2e6:f400:5655 with SMTP id
+ d9443c01a7336-2e87b9c037fmr5398945ad.3.1791796674314; Mon, 12 Oct 2026
+ 02:17:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261009050556.2817978-1-namjain@linux.microsoft.com>
+ <MN2PR02MB6863FBC36CE4F1D6419F0E8BD4922@MN2PR02MB6863.namprd02.prod.outlook.com>
+ <04d88297-1732-4761-ae82-d68c441a7156@linux.microsoft.com>
+ <3f4a11ea-bbc0-4dc5-9720-3447346739cf@linux.microsoft.com>
+ <CAMOZA0Ljw-DueDP3WvmtYe4x9Y_fNaptAo+3Hv8xzYHOZi9vbQ@mail.gmail.com>
+ <CAMOZA0KJoS4GFrKmaGa7+qMCNktTUg-YpkzX_EoA2KfAW3iN_g@mail.gmail.com> <53b199f9-56f6-4b44-93a5-be6437fd3fc4@linux.microsoft.com>
+In-Reply-To: <53b199f9-56f6-4b44-93a5-be6437fd3fc4@linux.microsoft.com>
+From: Luigi Rizzo <lrizzo@google.com>
+Date: Mon, 12 Oct 2026 11:17:16 +0200
+X-Gm-Features: AclHuK8b7Ekjps9gFjWxZLvZacLyDyhJhw6UHMDi-KXrVX-gzw676mEw94bJiKQ
+Message-ID: <CAMOZA0JrxakyxxYPu72hk-jWQpW33-0BGFkZX-n_3D+28eDuGA@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/3] nvme-pci: yield completions under scheduler pressure
+To: Naman Jain <namjain@linux.microsoft.com>
+Cc: Michael Kelley <mhklinux@outlook.com>, 
+	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>, Keith Busch <kbusch@kernel.org>, 
+	Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, changfengnan@bytedance.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Chao Yu <chao@kernel.org>
+On Mon, Oct 12, 2026 at 10:19=E2=80=AFAM Naman Jain <namjain@linux.microsof=
+t.com> wrote:
+>
+>
+>
+> On 10/9/2026 8:28 PM, Luigi Rizzo wrote:
+> > On Fri, Oct 9, 2026 at 1:27=E2=80=AFPM Luigi Rizzo <lrizzo@google.com> =
+wrote:
+> >>
+> >> On Fri, Oct 9, 2026 at 12:17=E2=80=AFPM Naman Jain <namjain@linux.micr=
+osoft.com> wrote:
+> >>>
+> >>>
+> >>>
+> >>> On 10/9/2026 12:21 PM, Naman Jain wrote:
+> >>>>
+> >>>>
+> >>>> On 10/9/2026 11:24 AM, Michael Kelley wrote:
+> >>>>> From: Naman Jain <namjain@linux.microsoft.com> Sent: Thursday, Octo=
+ber
+> >>>>> 8, 2026 10:06 PM
+> >>>>>>
+> >>>>>> On systems with several fast NVMe controllers, completion interrup=
+ts can
+> >>>>>> keep returning to the same CPUs faster than scheduled work can run=
+. Each
+> >>>>>> handler may drain only a small number of completions, but the comb=
+ined
+> >>>>>> interrupt stream can still prevent scheduler and watchdog progress=
+.
+> >>>>>
+> >>>>> See this recent proposal [1] that sounds like it is addressing the
+> >>>>> same or a
+> >>>>> similar issue. And there is this [2] more global approach. It's
+> >>>>> worthwhile to read
+> >>>>> through the discussion on both threads. I haven't done a detailed
+> >>>>> comparison
+> >>>>> of either vs. your proposal.
+> >>>>>
+> >>>>> Michael
+> >>>>>
+> >>>>> [1] https://lore.kernel.org/linux-nvme/20260818033846.53790-1-
+> >>>>> changfengnan@bytedance.com/
+> >>>>> [2] https://lore.kernel.org/lkml/20260819124341.4185621-1-
+> >>>>> lrizzo@google.com/
+> >>>>>
+> >>>>
+> >>>>
+> >>>> Thanks for sharing these Michael. I'll check more on these, and try =
+it out.
+> >>>>
+> >>>> Regards,
+> >>>> Naman
+> >>>
+> >>> ++ authors of these two series, for awareness and if there is some
+> >>> configuration in their patches I should be trying to fix these lockup
+> >>> issues.
+> >>
+>
+> Hi Luigi,
+> Thanks for looking into it.
+...
+> GSIM was creating gaps for individual sources, but the other NVMe
+> sources sharing that CPU were filling most of them.
+>
+> I traced irq_handler_entry/irq_handler_exit with trace-cmd for the four
+> NVMe queue vectors routed to CPU0. The test used GSIM fixed at 10 us
+> with all 56 data-NVMe I/O vectors opted in.
+>
+> Without timer push, I recorded 37,218 NVMe handler invocations in three
+> seconds. The median handler duration was about 2 us, but the median gap
+> between NVMe handlers was only 4 us. The p99 gap was 872 us.
 
-This patch introduces cache_wb_dirty_threshold and cache_wb_total_threshold
-sysfs nodes under /sys/fs/f2fs/<disk>/, and wakes up the f2fs_writeback
-kthread when dirty meta/node caches exceed cache_wb_dirty_threshold and
-total cached entries exceed cache_wb_total_threshold; a zero threshold
-disables the corresponding check. By default, cache_wb_dirty_threshold is
-8192 and cache_wb_total_threshold is 0.
+(medians are not a good metric in an environment where there might be
+a lot of idle runs because a previous, delayed run already consumed all CQs=
+.
+You may want to look at the full distribution, I expect to see a step at so=
+me
+point, the exact percentile depends on how many queues share the same CPU)
 
-If both thresholds are zero, f2fs_writeback only runs periodically, unless
-checkpoint is disabled, as nothing else will flush dirty caches then.
+Just a clarification, the pattern I expect on CPU0 is something like this
+NVME0 NVME1 NVME2 NVME3 TIMER_PUSH NVME0 ...
+what is "mediam gap between handlers", is it the time between NVME0 and
+the next NVME0, or between any two NVMEx and NVMEy ?
 
-f2fs_writeback won't be woken up unless there are enough dirty caches for
-f2fs_write_{meta,node}_caches() to gather. And if thresholds are exceeded
-but one round fails to write any caches, e.g. due to cp_error, freezing,
-frozen fs, or lock contention, threshold based wakeup is throttled until
-a later round makes progress, in order to avoid busy-looping. To detect
-progress, introduce a new parameter for f2fs_write_{meta,node}_caches()
-and f2fs_writeback_node_caches() to return the number of caches submitted
-for writeback.
+> With timer push enabled, the same three-second CPU0 trace contained only
+> 531 NVMe handler invocations, and the median gap increased from 4 us to
+> 517 us. This confirms your diagnosis, adding one delay per additional
+> source restores a real CPU-wide gap.
+>
+> The full QD256 workload then completed without a soft lockup or kernel
+> taint. There was a significant cost, though. The delayed completions
+> accumulated into much larger CQ batches:
+>
+>    - median NVMe handler duration increased from 2 us to 3.1 ms
+>    - p99 handler duration increased from 106 us to 7.1 ms
+>
+> For comparison on the same workload:
+>
+>    fixed 10-us GSIM + timer push: 1.906M IOPS
+>    adaptive GSIM + timer push:    1.712M IOPS
+>    threaded NVMe IRQs:            3.165M IOPS
+>    NVMe IRQ-poll fallback:        4.986M IOPS
+>
+> So the timer-push idea does prevent the lockup, and the trace confirms
+> the multi-source gap issue. On this NVMe topology, however, delaying all
+> sources creates very large completion batches, and the NVMe handler
+> still drains each batch without a bound in hardirq context. That causes
+> the large throughput and tail-latency cost above.
 
-Thanks Daeho and Wenjie for help and suggestion on this patch.
+Yes, without touching the nvme handler to limit the number
+of entries processed in each run, there is only so much
+a generic solution like GSIM can do.
+This definitely warrants some NVME-specific changes
+such as those proposed by Fengnan, and they are in line
+with what NAPI already does by using a bounded batch
+and rescheduling the handler.
 
-Suggested-by: Daeho Jeong <daehojeong@google.com>
-Suggested-by: Wenjie Qi <qiwenjie@xiaomi.com>
-Signed-off-by: Chao Yu <chao@kernel.org>
----
-v3:
-- fix to throttle cache writeback in f2fs_writeback
-- fix to handle chckpoint disable case correctly
- Documentation/ABI/testing/sysfs-fs-f2fs |  21 ++++
- fs/f2fs/cache.c                         | 124 ++++++++++++++++++++++--
- fs/f2fs/cache.h                         |   6 ++
- fs/f2fs/checkpoint.c                    |  10 +-
- fs/f2fs/f2fs.h                          |   7 +-
- fs/f2fs/node.c                          |  11 ++-
- fs/f2fs/sysfs.c                         |   8 +-
- 7 files changed, 171 insertions(+), 16 deletions(-)
+I am a bit surprised by your numbers regarding the differences with
+and without timer push, so I would like to understand
+the numbers better.
+(As an aside, 10us is really a bit too short for GSIM delay, because
+almost 50% of the time gets eaten by the context switching.
+At least for an initial assessment I would start testing with a fixed 30-50=
+us)
 
-diff --git a/Documentation/ABI/testing/sysfs-fs-f2fs b/Documentation/ABI/testing/sysfs-fs-f2fs
-index 5b196806b3bc..3d2e78a8bb7d 100644
---- a/Documentation/ABI/testing/sysfs-fs-f2fs
-+++ b/Documentation/ABI/testing/sysfs-fs-f2fs
-@@ -1027,3 +1027,24 @@ Contact:	"Chao Yu" <chao@kernel.org>
- Description:	This is a writable entry to control writeback interval of
- 		f2fs_writeback-x:y, the range is [100, 30000], by default the value
- 		is 5000, unit is ms.
-+
-+What:		/sys/fs/f2fs/<disk>/cache_wb_dirty_threshold
-+Date:		October 2026
-+Contact:	"Chao Yu" <chao@kernel.org>
-+Description:	This is a writable entry for metadata cache. f2fs_writeback-x:y
-+		will be woken up for writeback once the number of dirty meta and
-+		node caches reaches this value. 0 disables this check. By default
-+		the value is 8192, unit is cache entries.
-+
-+What:		/sys/fs/f2fs/<disk>/cache_wb_total_threshold
-+Date:		October 2026
-+Contact:	"Chao Yu" <chao@kernel.org>
-+Description:	This is a writable entry for metadata cache. f2fs_writeback-x:y
-+		will be woken up for writeback only if the total number of cached
-+		entries also reaches this value. 0 disables this check. By default
-+		the value is 0, unit is cache entries.
-+
-+		If both cache_wb_dirty_threshold and cache_wb_total_threshold are
-+		0, f2fs_writeback-x:y only runs every cache_wb_interval, unless
-+		checkpoint is disabled, in which case it will still be woken up
-+		once there are enough dirty caches to be gathered for writeback.
-diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
-index f385fe928b5b..c53dc4629ac2 100644
---- a/fs/f2fs/cache.c
-+++ b/fs/f2fs/cache.c
-@@ -81,6 +81,7 @@ bool f2fs_mark_cache_dirty(struct f2fs_cached_block *entry)
- 		f2fs_cache_update_tag(entry, F2FS_CACHE_TAG_NONE,
- 						F2FS_CACHE_TAG_DIRTY);
- 		inc_cache_count(cache->sbi, type);
-+		f2fs_wake_up_cache_wb(cache->sbi);
- 		return true;
- 	}
- 
-@@ -681,6 +682,74 @@ unsigned long f2fs_shrink_node_cache(struct f2fs_sb_info *sbi,
- 	return f2fs_do_shrink_cache(NODE_CACHE(sbi), nr_to_scan);
- }
- 
-+static inline unsigned long f2fs_total_cached_entries(struct f2fs_sb_info *sbi)
-+{
-+	unsigned long total = READ_ONCE(META_CACHE(sbi)->num_entries) +
-+			      READ_ONCE(NODE_CACHE(sbi)->num_entries);
-+#ifdef CONFIG_F2FS_FS_COMPRESSION
-+	if (test_opt(sbi, COMPRESS_CACHE))
-+		total += READ_ONCE(COMPRESS_CACHE(sbi)->num_entries);
-+#endif
-+	return total;
-+}
-+
-+static inline s64 f2fs_nr_dirty_caches(struct f2fs_sb_info *sbi)
-+{
-+	return get_nr_caches(sbi, F2FS_DIRTY_META) +
-+		get_nr_caches(sbi, F2FS_DIRTY_NODES);
-+}
-+
-+/*
-+ * f2fs_write_{meta,node}_caches() skip writeback until there are enough
-+ * dirty caches to gather, so don't wake up f2fs_writeback for nothing.
-+ */
-+static inline bool f2fs_cache_wb_collectable(struct f2fs_sb_info *sbi,
-+						s64 nr_dirty, int type)
-+{
-+	return nr_dirty && nr_dirty >= nr_caches_to_skip(sbi, type);
-+}
-+
-+static bool f2fs_cache_wb_exceeded(struct f2fs_sb_info *sbi)
-+{
-+	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
-+	unsigned int total_threshold, dirty_threshold;
-+	s64 nr_meta, nr_node;
-+
-+	total_threshold = READ_ONCE(cache_thread->cache_wb_total_threshold);
-+	dirty_threshold = READ_ONCE(cache_thread->cache_wb_dirty_threshold);
-+
-+	/*
-+	 * Both thresholds are disabled, rely on periodic writeback only,
-+	 * unless checkpoint is disabled, as nothing else will flush dirty
-+	 * caches then.
-+	 */
-+	if (!total_threshold && !dirty_threshold &&
-+	    !is_sbi_flag_set(sbi, SBI_CP_DISABLED))
-+		return false;
-+
-+	if (total_threshold &&
-+	    f2fs_total_cached_entries(sbi) < total_threshold)
-+		return false;
-+
-+	nr_meta = get_nr_caches(sbi, F2FS_DIRTY_META);
-+	nr_node = get_nr_caches(sbi, F2FS_DIRTY_NODES);
-+
-+	if (dirty_threshold && nr_meta + nr_node < dirty_threshold)
-+		return false;
-+
-+	return f2fs_cache_wb_collectable(sbi, nr_meta, META) ||
-+		f2fs_cache_wb_collectable(sbi, nr_node, NODE);
-+}
-+
-+static bool f2fs_should_wake_up_cache_wb(struct f2fs_sb_info *sbi)
-+{
-+	/* last round made no progress, wait for periodic writeback */
-+	if (READ_ONCE(sbi->cache_thread.cache_wb_throttled))
-+		return false;
-+
-+	return f2fs_cache_wb_exceeded(sbi);
-+}
-+
- static int f2fs_cache_writeback_kthread(void *data)
- {
- 	struct f2fs_sb_info *sbi = data;
-@@ -690,15 +759,27 @@ static int f2fs_cache_writeback_kthread(void *data)
- 	set_freezable();
- 
- 	while (!kthread_should_stop()) {
--		unsigned int interval = cache_thread->cache_wb_interval;
-+		unsigned int interval = READ_ONCE(cache_thread->cache_wb_interval);
-+		long nr_meta = 0, nr_node = 0;
-+		s64 nr_dirty;
- 
- 		wait_event_freezable_timeout(*wq,
--				kthread_should_stop(),
-+				kthread_should_stop() ||
-+				f2fs_should_wake_up_cache_wb(sbi),
- 				msecs_to_jiffies(interval));
- 
- 		if (kthread_should_stop())
- 			break;
- 
-+		/*
-+		 * If thresholds are exceeded, throttle threshold based wakeup
-+		 * until a round makes progress, otherwise we may busy-loop if
-+		 * this round can not write anything, e.g. on cp_error, freezing,
-+		 * frozen fs, or lock contention.
-+		 */
-+		WRITE_ONCE(cache_thread->cache_wb_throttled,
-+				f2fs_cache_wb_exceeded(sbi));
-+
- 		if (f2fs_readonly(sbi->sb))
- 			continue;
- 
-@@ -711,14 +792,41 @@ static int f2fs_cache_writeback_kthread(void *data)
- 		if (!sb_start_write_trylock(sbi->sb))
- 			continue;
- 
--		f2fs_write_meta_caches(sbi);
--		f2fs_write_node_caches(sbi);
-+		nr_dirty = f2fs_nr_dirty_caches(sbi);
-+
-+		f2fs_write_meta_caches(sbi, &nr_meta);
-+		f2fs_write_node_caches(sbi, &nr_node);
- 
- 		sb_end_write(sbi->sb);
-+
-+		/*
-+		 * Don't rely on the delta of dirty caches only, as caches may
-+		 * be dirtied concurrently; also count in caches cleaned by
-+		 * others, e.g. checkpoint triggered by f2fs_balance_fs_bg().
-+		 */
-+		if (nr_meta || nr_node || f2fs_nr_dirty_caches(sbi) < nr_dirty)
-+			WRITE_ONCE(cache_thread->cache_wb_throttled, false);
-+
-+		cond_resched();
- 	}
- 	return 0;
- }
- 
-+void f2fs_wake_up_cache_wb(struct f2fs_sb_info *sbi)
-+{
-+	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
-+
-+	/* pairs with smp_store_release() in f2fs_start_cache_wb_thread() */
-+	if (!smp_load_acquire(&cache_thread->cache_wb_task))
-+		return;
-+
-+	if (!f2fs_should_wake_up_cache_wb(sbi))
-+		return;
-+
-+	if (wq_has_sleeper(&cache_thread->cache_wb_wq))
-+		wake_up(&cache_thread->cache_wb_wq);
-+}
-+
- int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi)
- {
- 	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
-@@ -731,6 +839,9 @@ int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi)
- 
- 	init_waitqueue_head(&cache_thread->cache_wb_wq);
- 	cache_thread->cache_wb_interval = DEF_DIRTY_CACHE_TIMEOUT;
-+	cache_thread->cache_wb_dirty_threshold = DEF_CACHE_WB_DIRTY_THRESH;
-+	cache_thread->cache_wb_total_threshold = 0;
-+	cache_thread->cache_wb_throttled = false;
- 	snprintf(name, sizeof(name), "f2fs_writeback-%u:%u",
- 			MAJOR(dev), MINOR(dev));
- 
-@@ -738,7 +849,8 @@ int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi)
- 	if (IS_ERR(task))
- 		return PTR_ERR(task);
- 
--	cache_thread->cache_wb_task = task;
-+	/* pairs with smp_load_acquire() in f2fs_wake_up_cache_wb() */
-+	smp_store_release(&cache_thread->cache_wb_task, task);
- 	return 0;
- }
- 
-@@ -750,5 +862,5 @@ void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi)
- 		return;
- 
- 	kthread_stop(cache_thread->cache_wb_task);
--	cache_thread->cache_wb_task = NULL;
-+	WRITE_ONCE(cache_thread->cache_wb_task, NULL);
- }
-diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
-index 3df3a562c46f..5408727dd321 100644
---- a/fs/f2fs/cache.h
-+++ b/fs/f2fs/cache.h
-@@ -234,13 +234,19 @@ unsigned long f2fs_shrink_node_cache(struct f2fs_sb_info *sbi,
- #define MIN_DIRTY_CACHE_TIMEOUT 100
- #define MAX_DIRTY_CACHE_TIMEOUT 30000
- 
-+#define DEF_CACHE_WB_DIRTY_THRESH	(8192)
-+
- struct f2fs_cache_kthread {
- 	struct task_struct *cache_wb_task;
- 	wait_queue_head_t cache_wb_wq;
- 	unsigned int cache_wb_interval;
-+	unsigned int cache_wb_dirty_threshold;
-+	unsigned int cache_wb_total_threshold;
-+	bool cache_wb_throttled;	/* last round made no progress */
- };
- 
- int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi);
- void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi);
-+void f2fs_wake_up_cache_wb(struct f2fs_sb_info *sbi);
- 
- #endif /* _LINUX_F2FS_CACHE_H */
-diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-index 2e5e0ee5feb2..fd0a6c03987e 100644
---- a/fs/f2fs/checkpoint.c
-+++ b/fs/f2fs/checkpoint.c
-@@ -581,10 +581,11 @@ static bool __f2fs_write_meta_cache(struct f2fs_cached_block *entry,
- 	return false;
- }
- 
--void f2fs_write_meta_caches(struct f2fs_sb_info *sbi)
-+void f2fs_write_meta_caches(struct f2fs_sb_info *sbi, long *nr_written)
- {
- 	struct f2fs_lock_context lc;
- 	long nr_to_write = LONG_MAX;
-+	long nwritten;
- 
- 	if (unlikely(is_sbi_flag_set(sbi, SBI_POR_DOING)))
- 		return;
-@@ -599,8 +600,11 @@ void f2fs_write_meta_caches(struct f2fs_sb_info *sbi)
- 		return;
- 
- 	nr_to_write = adjust_flush_cache_number(sbi, META);
--	f2fs_sync_meta_caches(sbi, nr_to_write, false, FS_META_IO);
-+	nwritten = f2fs_sync_meta_caches(sbi, nr_to_write, false, FS_META_IO);
- 	f2fs_up_write_trace(&sbi->cp_global_sem, &lc);
-+
-+	if (nr_written)
-+		*nr_written = nwritten;
- }
- 
- long f2fs_sync_meta_caches(struct f2fs_sb_info *sbi, long nr_to_write,
-@@ -1553,7 +1557,7 @@ static int block_operations(struct f2fs_sb_info *sbi)
- 		f2fs_up_write(&sbi->node_write);
- 		atomic_inc(&sbi->wb_sync_req[NODE]);
- 		err = f2fs_writeback_node_caches(sbi, LONG_MAX,
--			true, false, FS_CP_NODE_IO);
-+			true, false, FS_CP_NODE_IO, NULL);
- 		atomic_dec(&sbi->wb_sync_req[NODE]);
- 		if (err) {
- 			f2fs_up_write(&sbi->node_change);
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 089a62c054ea..362f06cb398d 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -4132,7 +4132,7 @@ int f2fs_truncate_inode_blocks(struct inode *inode, pgoff_t from);
- int f2fs_truncate_xattr_node(struct inode *inode);
- int f2fs_wait_on_node_caches_writeback(struct f2fs_sb_info *sbi,
- 					unsigned int seq_id);
--int f2fs_write_node_caches(struct f2fs_sb_info *sbi);
-+int f2fs_write_node_caches(struct f2fs_sb_info *sbi, long *nr_written);
- int f2fs_remove_inode_cache(struct inode *inode);
- struct f2fs_cached_block *f2fs_new_inode_cache(struct inode *inode);
- struct f2fs_cached_block *f2fs_new_node_cache(struct dnode_of_data *dn, unsigned int ofs);
-@@ -4151,7 +4151,8 @@ void f2fs_flush_inline_data(struct f2fs_sb_info *sbi);
- int f2fs_fsync_node_caches(struct f2fs_sb_info *sbi, struct inode *inode,
- 					bool atomic, unsigned int *seq_id);
- int f2fs_writeback_node_caches(struct f2fs_sb_info *sbi, long nr_to_write,
--			bool sync, bool do_balance, enum iostat_type io_type);
-+			bool sync, bool do_balance, enum iostat_type io_type,
-+			long *nr_written);
- int f2fs_build_free_nids(struct f2fs_sb_info *sbi, bool sync, bool mount);
- bool f2fs_alloc_nid(struct f2fs_sb_info *sbi, nid_t *nid);
- void f2fs_alloc_nid_done(struct f2fs_sb_info *sbi, nid_t nid);
-@@ -4317,7 +4318,7 @@ int f2fs_ra_meta_caches(struct f2fs_sb_info *sbi, block_t start, int nrpages,
- 			int type, bool sync);
- void f2fs_ra_meta_caches_cond(struct f2fs_sb_info *sbi, pgoff_t index,
- 							unsigned int ra_blocks);
--void f2fs_write_meta_caches(struct f2fs_sb_info *sbi);
-+void f2fs_write_meta_caches(struct f2fs_sb_info *sbi, long *nr_written);
- long f2fs_sync_meta_caches(struct f2fs_sb_info *sbi, long nr_to_write,
- 				bool sync, enum iostat_type io_type);
- void f2fs_add_ino_entry(struct f2fs_sb_info *sbi, nid_t ino, int type);
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 7b2ff2c3dd03..1863e8f1c859 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -2111,7 +2111,8 @@ void f2fs_flush_inline_data(struct f2fs_sb_info *sbi)
- }
- 
- int f2fs_writeback_node_caches(struct f2fs_sb_info *sbi, long nr_to_write,
--			bool sync, bool do_balance, enum iostat_type io_type)
-+			bool sync, bool do_balance, enum iostat_type io_type,
-+			long *nr_written)
- {
- 	pgoff_t index;
- 	struct f2fs_cached_block *entries[F2FS_ONSTACK_CACHES];
-@@ -2231,6 +2232,9 @@ int f2fs_writeback_node_caches(struct f2fs_sb_info *sbi, long nr_to_write,
- 
- 	trace_f2fs_write_caches(sbi, nr_to_write, nwritten, NODE);
- 
-+	if (nr_written)
-+		*nr_written = nwritten;
-+
- 	if (unlikely(f2fs_cp_error(sbi)))
- 		return -EIO;
- 	return ret;
-@@ -2271,7 +2275,7 @@ int f2fs_wait_on_node_caches_writeback(struct f2fs_sb_info *sbi,
- 	return f2fs_cp_error(sbi) ? -EIO : 0;
- }
- 
--int f2fs_write_node_caches(struct f2fs_sb_info *sbi)
-+int f2fs_write_node_caches(struct f2fs_sb_info *sbi, long *nr_written)
- {
- 	struct blk_plug plug;
- 	long nr_to_write = LONG_MAX;
-@@ -2296,7 +2300,8 @@ int f2fs_write_node_caches(struct f2fs_sb_info *sbi)
- 
- 	nr_to_write = adjust_flush_cache_number(sbi, NODE);
- 	blk_start_plug(&plug);
--	f2fs_writeback_node_caches(sbi, nr_to_write, false, true, FS_NODE_IO);
-+	f2fs_writeback_node_caches(sbi, nr_to_write, false, true, FS_NODE_IO,
-+								nr_written);
- 	blk_finish_plug(&plug);
- 	return 0;
- }
-diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
-index afce74744d4d..95f8dc0c4218 100644
---- a/fs/f2fs/sysfs.c
-+++ b/fs/f2fs/sysfs.c
-@@ -1019,7 +1019,9 @@ static ssize_t f2fs_sbi_store(struct f2fs_attr *a,
- 					a->struct_type == GC_THREAD);
- 	bool thread_entry = !strcmp(a->attr.name, "ckpt_thread_ioprio") ||
- 			!strcmp(a->attr.name, "critical_task_priority") ||
--			!strcmp(a->attr.name, "cache_wb_interval");
-+			!strcmp(a->attr.name, "cache_wb_interval") ||
-+			!strcmp(a->attr.name, "cache_wb_dirty_threshold") ||
-+			!strcmp(a->attr.name, "cache_wb_total_threshold");
- 
- 	if (gc_entry || thread_entry) {
- 		if (!down_read_trylock(&sbi->sb->s_umount))
-@@ -1363,6 +1365,8 @@ ATGC_INFO_RW_ATTR(atgc_age_threshold, age_threshold);
- 
- /* WB_THREAD ATTR */
- WB_THREAD_RW_ATTR(cache_wb_interval, cache_wb_interval);
-+WB_THREAD_RW_ATTR(cache_wb_dirty_threshold, cache_wb_dirty_threshold);
-+WB_THREAD_RW_ATTR(cache_wb_total_threshold, cache_wb_total_threshold);
- 
- F2FS_GENERAL_RO_ATTR(dirty_segments);
- F2FS_GENERAL_RO_ATTR(free_segments);
-@@ -1552,6 +1556,8 @@ static struct attribute *f2fs_attrs[] = {
- 	ATTR_LIST(adjust_lock_priority),
- 	ATTR_LIST(critical_task_priority),
- 	ATTR_LIST(cache_wb_interval),
-+	ATTR_LIST(cache_wb_dirty_threshold),
-+	ATTR_LIST(cache_wb_total_threshold),
- 	NULL,
- };
- ATTRIBUTE_GROUPS(f2fs);
--- 
-2.49.0
+Can you clarify the following, specifically for the "full QD256 workload"
+- how many vectors are sharing one interrupt CPU (the previous test says 4)=
+,
+  and how many interrupt CPUs are used in total ?
+- From my experience (different environments), I have measured
+  < 1 queue - 1 interrupt CPU - 1 user thread > saturating at 400-600KIOPS
+  (I don't remember whether the bottleneck is the user or interrupt CPU).
+  At those rates, 256 outstanding entries may take some 500us to be process=
+ed.
+  so it seems strange that the median NVME handler (per queue?) takes 3ms.
+- these times will be scaled down if each drive uses many queues so the
+  average throughput per queue will be lower, and such to keep the total
+  rate for each interrupt CPU below its 400K cap.
 
+My expectations is something along these lines:
+- the outstanding CQ queue cannot exceed QD ie 256 in your test
+- worst case each handler should run at most some 500us
+- four queues will create a total QD=3D1024 so the interrupt CPU
+  will take at least 2ms to drain them
+
+cheers
+luigi
