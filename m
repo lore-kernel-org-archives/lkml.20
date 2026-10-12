@@ -1,51 +1,80 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F2B18490BF2
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:00:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B928E4908A1
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:59:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791810008; cv=none; b=Av5M5X8/SZOIfnJdfU6qBezsT4vseKDFKG1sNjIHw8jhjCDXdnLBgyCBOaFyH81qWOFI2ZHRggPjSqSFAbFlePFjV2HrEUV7oOY4ZYV2jYnkPBzNT09tW97Hf9leZXDOF5CoD2UAG5is/lgxE3i6xAm4Pog1GY+tyiXoSOgUds8=
+	t=1791810008; cv=none; b=mPPyyEFo1hKpf47+QewcS8U0uL5r6O9PLEw3zp7uZv1v05CCCSYsfmZuAu5ajVisL3EdkO/9ktswjfMNr1n4sLcYwxYvgZH4GROuSOu3/5b+aheXUPDA3O0mgvyvuV0PzbuejtM8GI64N9dRDTuU5FPspQHexNkDGkc83VChbQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791810008; c=relaxed/simple;
-	bh=yimH25iLNst4Fi/uX/3M4tf5Z+GNztpN1XC2n3ny2aQ=;
+	bh=oIcEZ1SkiebrhuuZOuIWrbMB/sI2KSX9RW0eEwofPzM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HXdgnGV7vv+Rx91ClpQWfacZZLk8LNNukhEpLwxWToUJULzBCNLAS+1RhdK7yT+CCPNwX21Zu+5djvI8f0yRUYENVRk94ZOViVfHABoLecSEVTX1JtspdB5DJRqZk00y5sjPHdq99/+rbcsa2c712LhPMUIiriELsCYqtOWKpDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=X3jUx0T1; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 MIME-Version; b=AGuQxKKPt3frcI2ppsZ1vwrTWpb/g5A0f3O9yOwgia+b06KL+4X4orBbGv7b9wEWAIfSOtH6rUM+hnPVs0VnnukILtknFQqp69pSmZDmM4RGNdjELiXq6PX8KTVgAfJTluH7QesHrW22FFCmcKEfgMTOfaZpm2qZOOFElWLCsq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=f/MNvuMa; arc=none smtp.client-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="X3jUx0T1"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C02521655;
-	Mon, 12 Oct 2026 05:59:59 -0700 (PDT)
-Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com [10.42.46.160])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A49533F66F;
-	Mon, 12 Oct 2026 06:00:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791810003; bh=yimH25iLNst4Fi/uX/3M4tf5Z+GNztpN1XC2n3ny2aQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=X3jUx0T1GsMVcrTqg0+uablArTnWc0p0wpaoAsPIBW2Rsg4m7eaWdXCtLMhRVUrFY
-	 Z6PNsyjmtszmtEnppHHh07nh3emrNoVR4Om0NPQI9xbFSzJkSCX1XvvtsuaMACDveK
-	 W19iKN9yfS6cnh5z9kUqfLogsMqtcyAgTey56Vh4=
-From: Ketil Johnsen <ketil.johnsen@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Alice Ryhl <aliceryhl@google.com>
-Cc: dri-devel@lists.freedesktop.org,
+	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="f/MNvuMa"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35b2c599f43so1307157eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 05:59:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=blockcast.net; s=google; t=1791809999; x=1792414799; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2EwgVNrzisfcCRTS0RsMD1mVu3fWoNM4dHps1dquGOY=;
+        b=f/MNvuMaehW0RFPjK669wmkwLal1cJeS+fY14pj3i751QG7ThH6dbqtF3VQ6DpPezt
+         +Ga8VkNzRRsUn7AfSvYvTu4bRwu49mFQQGyFTCY6gxUrs+TtdaJ1TzHSF6fSKVrhLZ75
+         x1JzoHZJoGW8KZ37h/1vr4rWUoUg7bnl7fgSL+2ouZwWwuDkYDnJhyuZtalylHzBDdva
+         /dVNKOWMOcKlV/tHbi00Ec8AT/O3pvqeTLDql0m9bzOxBjCvGMHb4xV+MR/PdHqoWFIH
+         2gwaRH+GENWAuljBw5oD0xXl981yA9V+3Qdvv1ZY7VTlT6AOFOQPdp4gwFxxNpOjBz89
+         rW9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791809999; x=1792414799;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2EwgVNrzisfcCRTS0RsMD1mVu3fWoNM4dHps1dquGOY=;
+        b=HddycXA0/JTDXN6/mliCtqdTJMz798+UFtUchoKUChP86O8NrxjKd/Q23Zoc7c0Bk0
+         TzfzfNCqShqbzOtRFpREY/zWB4VMYypQMPR9ZT8AlUwPC0T/EDEJ7mbHrNnB1tWChrnE
+         sq9f9L3ug2YrMtK0Yl9OF2f3Oddam5ZGqZod7Ar8fvMx/1OsjC7UHDJybIPHBhrYxPJq
+         fR4+7+6eeCNwSYEj9udui/WmM+3E700Ewr4uECO6KGT0+jV2xFaR6/DaT5gLbtGWPVWn
+         Sd1YvQE0i79EzdL52ddSoRXed5O8pyUzvK0pjtFtxYiNQDdmHJV/aC6mD/c35L+Lgz1s
+         EC8g==
+X-Forwarded-Encrypted: i=1; AKwUvByWuHYezyQiLUngnY8qRJSllwgtXaEulQbAEQQhOE6dSUNjn17FEuIzQDRKEgPfcxeO8vbpT71fyj0xAAY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5P7znupI4YgzcuB3uQxXPekUVEnNTKVM7JrehnfOlj+DrEQHp
+	wtVnZcixztxRnqSrBGzBE7aP+56tkuAmVC7pNttzQtCzQg8AU9rbvZSQjkzX2x8tR4E=
+X-Gm-Gg: AYBFou0GMA13uPW95pRigD5TIJ6GSSzwPVeyMG+/ogJeAeAvdNUDwxDkv6Vjdx22aOx
+	GiutqNR4ifBflZDK/YZ6GNWg0XdEGMxbtW5XyFzxW3/wdn/OgLvPhQ/XokAsXhyZQAMYU0nDF1f
+	Ls+5QAHlN7dRyFI7OqJ5HKDh5iGFsFn805moieX2OIWXpDDa+p0YYbo1x2GeKnHglwq4sWDIu0h
+	ccyStGtvVyT27xiOs8sVo3g+Zs/WHt9h7TK/hV0ZjUaIqhi+Y7ubb1MmUOCjR4LGlyGymbUbSfv
+	It+/Wepy3b56XKDZ6+kfR6d3y7dyLEfBfjCggEvHadKJVs0gJNeGSQjD/LrLlaLk7oMTPU6NtiB
+	n/17oKnqyz5Ib0ngTrdZ1gt5cHaLP6+K8TVwafxxnmMIxFO/0HQw8a8ILrQAhC9QCUfW8/Z39/8
+	RRnmAmIN8hvakGIN0kHcIM1suwZ5OQsyNQ43w2PMelalvgbkdZIyLrmFi5J4bPKpNzVyxTGZqVS
+	eVgtbB67R7auJzhT1W/FL3lVZsSz2pNAWQE1+PYaJLkmwcEfVeotJKm4lzt+wE=
+X-Received: by 2002:a05:7300:f405:b0:35b:954b:b9d6 with SMTP id 5a478bee46e88-35b954bbebfmr1137856eec.12.1791809998585;
+        Mon, 12 Oct 2026 05:59:58 -0700 (PDT)
+Received: from devbox.ts.blockcast.net ([69.25.95.32])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb61asm35348067eec.21.2026.10.12.05.59.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 05:59:57 -0700 (PDT)
+From: Omar Ramadan <omar@blockcast.net>
+To: Taehee Yoo <ap420073@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ketil Johnsen <ketil.johnsen@arm.com>
-Subject: [PATCH v4 03/12] drm/panthor: Pass drm_file instead of panthor_file
-Date: Mon, 12 Oct 2026 14:59:31 +0200
-Message-ID: <20261012125940.3291951-4-ketil.johnsen@arm.com>
+	Simon Horman <horms@kernel.org>
+Subject: [PATCH net v3 6/6] amt: do not create tunnel state for unauthenticated Requests
+Date: Mon, 12 Oct 2026 12:59:43 +0000
+Message-ID: <20261012125943.558629-7-omar@blockcast.net>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012125940.3291951-1-ketil.johnsen@arm.com>
-References: <20261012125940.3291951-1-ketil.johnsen@arm.com>
+In-Reply-To: <20261012125943.558629-1-omar@blockcast.net>
+References: <20261012125943.558629-1-omar@blockcast.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,431 +83,592 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Boris Brezillon <boris.brezillon@collabora.com>
+amt_request_handler() allocated a struct amt_tunnel_list for any incoming
+Relay Membership Request, keyed on the claimed source endpoint, before
+anything about that source had been verified. A Request is a bare UDP
+datagram with a trivially spoofable source address, so this gave a remote
+attacker two primitives:
 
-Some sched helpers need info that are part of drm_file, and we will
-soon need to call drm_gem_object_lookup() from panthor_group_create().
-Let's prepare for that by passing a drm_file instead of panthor_file to
-all current helpers taking a panthor_file, so we keep things consistent.
+ - Resource exhaustion. Each entry is held for amt_gmi() (260s with the
+   default qrv=2/qi=125/qri=10) and the table is bounded by
+   amt->max_tunnels (default AMT_MAX_TUNNELS, 128). Requests from 128
+   spoofed addresses fill the table, and re-sending once per interval
+   keeps it full, so real gateways are refused. Once full, every further
+   Request also emitted an ICMP_DEST_UNREACH to the spoofed source,
+   turning the relay into an ICMP reflector.
 
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-Co-developed-by: Ketil Johnsen <ketil.johnsen@arm.com>
-Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
+ - Session desynchronisation. The lookup hit at the top of the function
+   jumped to the send path, which took no lock and overwrote ->nonce and
+   ->mac of an already-established tunnel. One spoofed packet carrying a
+   known gateway's source endpoint invalidates that gateway's outstanding
+   (nonce, response_mac), so its next Membership Update is dropped as
+   "Invalid MAC". This costs one packet, consumes no table slot, and is
+   therefore unaffected by max_tunnels tuning.
 
+No state actually has to be created at Request time. Every input to the
+keyed MAC is carried in the packet or is device state, so the MAC can be
+generated on Request and recomputed on Update rather than stored:
+
+ - amt_request_handler() now allocates nothing. It computes the MAC and
+   replies, matching amt_send_advertisement(), which already answers
+   Discovery statelessly from the same context.
+ - amt_update_handler() recomputes the expected MAC from the packet's
+   source address, source port and nonce and drops the packet on
+   mismatch. Tunnel state is created only after that check passes, in
+   amt_tunnel_get_or_create(), so max_tunnels now bounds verified
+   gateways rather than unverified Requests.
+ - amt->key becomes a three-element array. amt_secret_work() rotates
+   every AMT_SECRET_TIMEOUT (60s) and an exchange may straddle a
+   rotation, so Update accepts the current or either of the two previous
+   secrets. Three generations keep a MAC valid for 120-180s, at least the
+   amt_gmi() the Query advertised; two generations (120s floor) could
+   expire a MAC before the interval it promised. A stateless recompute
+   cannot snapshot the key per tunnel the way the old code did.
+
+Fold in four further issues on the same path:
+
+ - Per-source exhaustion. With the table now bounded by verified
+   gateways, one verified source could still take every slot. The locked
+   re-check in amt_tunnel_get_or_create() counts the tunnels a source
+   already holds and refuses past a fixed internal cap
+   (AMT_MAX_TUNNELS_PER_SRC). This needs no UAPI, so it is a backportable
+   fix; a configurable per-source bound is left to net-next.
+ - Table-full killed rediscovery. A Request that arrives when the table
+   is full, from a source that holds no tunnel, is now refused with ICMP
+   and no Query, rather than answered with a Query whose later Update
+   cannot be admitted. Withholding the Query lets the gateway's req_cnt
+   climb and drive rediscovery. The ICMP is rate-limited and allocates
+   nothing, unlike the old reflector. A source that holds a tunnel is
+   still answered, as before: its periodic Request renews the response
+   MAC its Updates echo.
+ - Zero-key window at open. amt_dev_open() seeded amt->key only after
+   amt_socket_create() had already enabled the encap receive path, so a
+   Request arriving in that window was answered with a MAC keyed on the
+   all-zero (predictable) secret. Seed the keys under amt->lock before
+   the socket is created.
+ - The entry was published by list_add_tail_rcu() before ->nonce and
+   ->mac were assigned, leaving a window in which a concurrent Update
+   could match the zeroed fields of a kzalloc()'d entry; and the send
+   path read tunnel->key into an unused local before it was initialised.
+   Both go away now that nothing is published until it is fully built.
+
+The General Query is passed its destination by value rather than a tunnel
+pointer, because at Request time no tunnel exists to point at.
+
+Fixes: cbc21dc1cfe9 ("amt: add data plane of amt interface")
+Assisted-by: LLM
+Signed-off-by: Omar Ramadan <omar@blockcast.net>
 ---
+ drivers/net/amt.c | 310 ++++++++++++++++++++++++++++++++--------------
+ include/net/amt.h |  17 ++-
+ 2 files changed, 228 insertions(+), 99 deletions(-)
 
-v3:
-- Fixed incorrect parameter passed to panthor_gpu_show_fdinfo()
-
-v2:
-- First introduction of this patch in this patch set
----
- drivers/gpu/drm/panthor/panthor_drv.c   | 38 +++++++++++--------------
- drivers/gpu/drm/panthor/panthor_mmu.c   | 11 ++++---
- drivers/gpu/drm/panthor/panthor_mmu.h   |  6 ++--
- drivers/gpu/drm/panthor/panthor_sched.c | 37 ++++++++++++++----------
- drivers/gpu/drm/panthor/panthor_sched.h | 23 +++++++--------
- 5 files changed, 59 insertions(+), 56 deletions(-)
-
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index 1ca8aedd83f46..51a2e5358cd51 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -1110,7 +1110,6 @@ static int panthor_ioctl_bo_mmap_offset(struct drm_device *ddev, void *data,
- static int panthor_ioctl_group_submit(struct drm_device *ddev, void *data,
- 				      struct drm_file *file)
+diff --git a/drivers/net/amt.c b/drivers/net/amt.c
+index fec3265..2d9f2d9 100644
+--- a/drivers/net/amt.c
++++ b/drivers/net/amt.c
+@@ -784,11 +784,16 @@ out:
+ 
+ static bool amt_send_membership_query(struct amt_dev *amt,
+ 				      struct sk_buff *skb,
+-				      struct amt_tunnel_list *tunnel,
++				      __be32 daddr, __be16 dport,
++				      __be32 nonce, u64 mac,
+ 				      bool v6);
+ 
+-static void amt_send_igmp_gq(struct amt_dev *amt,
+-			     struct amt_tunnel_list *tunnel)
++/* The destination is passed by value rather than as a tunnel: the requesting
++ * source is not authenticated yet and no tunnel state exists for it - see
++ * amt_request_handler().
++ */
++static void amt_send_igmp_gq(struct amt_dev *amt, __be32 daddr, __be16 dport,
++			     __be32 nonce, u64 mac)
  {
--	struct panthor_file *pfile = file->driver_priv;
- 	struct drm_panthor_group_submit *args = data;
- 	struct drm_panthor_queue_submit *jobs_args;
- 	struct panthor_submit_ctx ctx;
-@@ -1135,8 +1134,7 @@ static int panthor_ioctl_group_submit(struct drm_device *ddev, void *data,
- 		const struct drm_panthor_queue_submit *qsubmit = &jobs_args[i];
- 		struct drm_sched_job *job;
+ 	struct sk_buff *skb;
  
--		job = panthor_job_create(pfile, args->group_handle, qsubmit,
--					 file->client_id);
-+		job = panthor_job_create(file, args->group_handle, qsubmit);
- 		if (IS_ERR(job)) {
- 			ret = PTR_ERR(job);
- 			goto out_cleanup_submit_ctx;
-@@ -1216,19 +1214,17 @@ static int panthor_ioctl_group_submit(struct drm_device *ddev, void *data,
- static int panthor_ioctl_group_destroy(struct drm_device *ddev, void *data,
- 				       struct drm_file *file)
- {
--	struct panthor_file *pfile = file->driver_priv;
- 	struct drm_panthor_group_destroy *args = data;
- 
- 	if (args->pad)
- 		return -EINVAL;
- 
--	return panthor_group_destroy(pfile, args->group_handle);
-+	return panthor_group_destroy(file, args->group_handle);
- }
- 
- static int panthor_ioctl_group_create(struct drm_device *ddev, void *data,
- 				      struct drm_file *file)
- {
--	struct panthor_file *pfile = file->driver_priv;
- 	struct drm_panthor_group_create *args = data;
- 	struct drm_panthor_queue_create *queue_args;
- 	int ret;
-@@ -1244,7 +1240,7 @@ static int panthor_ioctl_group_create(struct drm_device *ddev, void *data,
- 	if (ret)
- 		goto out;
- 
--	ret = panthor_group_create(pfile, args, queue_args, file->client_id);
-+	ret = panthor_group_create(file, args, queue_args);
- 	if (ret < 0)
- 		goto out;
- 	args->group_handle = ret;
-@@ -1258,10 +1254,9 @@ static int panthor_ioctl_group_create(struct drm_device *ddev, void *data,
- static int panthor_ioctl_group_get_state(struct drm_device *ddev, void *data,
- 					 struct drm_file *file)
- {
--	struct panthor_file *pfile = file->driver_priv;
- 	struct drm_panthor_group_get_state *args = data;
- 
--	return panthor_group_get_state(pfile, args);
-+	return panthor_group_get_state(file, args);
- }
- 
- static int panthor_ioctl_tiler_heap_create(struct drm_device *ddev, void *data,
-@@ -1604,6 +1599,7 @@ panthor_open(struct drm_device *ddev, struct drm_file *file)
- 	if (!pfile)
- 		return -ENOMEM;
- 
-+	file->driver_priv = pfile;
- 	pfile->ptdev = ptdev;
- 	pfile->user_mmio.offset = DRM_PANTHOR_USER_MMIO_OFFSET;
- 
-@@ -1618,19 +1614,18 @@ panthor_open(struct drm_device *ddev, struct drm_file *file)
- #endif
- 
- 
--	ret = panthor_vm_pool_create(pfile);
-+	ret = panthor_vm_pool_create(file);
- 	if (ret)
- 		goto err_free_file;
- 
--	ret = panthor_group_pool_create(pfile);
-+	ret = panthor_group_pool_create(file);
- 	if (ret)
- 		goto err_destroy_vm_pool;
- 
--	file->driver_priv = pfile;
- 	return 0;
- 
- err_destroy_vm_pool:
--	panthor_vm_pool_destroy(pfile);
-+	panthor_vm_pool_destroy(file);
- 
- err_free_file:
- 	kfree(pfile);
-@@ -1642,8 +1637,8 @@ panthor_postclose(struct drm_device *ddev, struct drm_file *file)
- {
- 	struct panthor_file *pfile = file->driver_priv;
- 
--	panthor_group_pool_destroy(pfile);
--	panthor_vm_pool_destroy(pfile);
-+	panthor_group_pool_destroy(file);
-+	panthor_vm_pool_destroy(file);
- 
- 	kfree(pfile);
- }
-@@ -1703,11 +1698,13 @@ static int panthor_mmap(struct file *filp, struct vm_area_struct *vma)
- }
- 
- static void panthor_gpu_show_fdinfo(struct panthor_device *ptdev,
--				    struct panthor_file *pfile,
-+				    struct drm_file *file,
- 				    struct drm_printer *p)
- {
-+	struct panthor_file *pfile = file->driver_priv;
-+
- 	if (ptdev->profile_mask & PANTHOR_DEVICE_PROFILING_ALL)
--		panthor_fdinfo_gather_group_samples(pfile);
-+		panthor_fdinfo_gather_group_samples(file);
- 
- 	if (ptdev->profile_mask & PANTHOR_DEVICE_PROFILING_TIMESTAMP) {
- #ifdef CONFIG_ARM_ARCH_TIMER
-@@ -1727,11 +1724,10 @@ static void panthor_gpu_show_fdinfo(struct panthor_device *ptdev,
- static void panthor_show_internal_memory_stats(struct drm_printer *p, struct drm_file *file)
- {
- 	char *drv_name = file->minor->dev->driver->name;
--	struct panthor_file *pfile = file->driver_priv;
- 	struct drm_memory_stats stats = {0};
- 
--	panthor_fdinfo_gather_group_mem_info(pfile, &stats);
--	panthor_vm_heaps_sizes(pfile, &stats);
-+	panthor_fdinfo_gather_group_mem_info(file, &stats);
-+	panthor_vm_heaps_sizes(file, &stats);
- 
- 	drm_fdinfo_print_size(p, drv_name, "resident", "memory", stats.resident);
- 	drm_fdinfo_print_size(p, drv_name, "active", "memory", stats.active);
-@@ -1742,7 +1738,7 @@ static void panthor_show_fdinfo(struct drm_printer *p, struct drm_file *file)
- 	struct drm_device *dev = file->minor->dev;
- 	struct panthor_device *ptdev = container_of(dev, struct panthor_device, base);
- 
--	panthor_gpu_show_fdinfo(ptdev, file->driver_priv, p);
-+	panthor_gpu_show_fdinfo(ptdev, file, p);
- 	panthor_show_internal_memory_stats(p, file);
- 
- 	drm_show_memory_stats(p, file);
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index d75d575473da4..3e5f20768d545 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -1692,8 +1692,9 @@ panthor_vm_pool_get_vm(struct panthor_vm_pool *pool, u32 handle)
-  * Note that VMs can outlive the pool they were created from if other
-  * objects hold a reference to there VMs.
-  */
--void panthor_vm_pool_destroy(struct panthor_file *pfile)
-+void panthor_vm_pool_destroy(struct drm_file *file)
- {
-+	struct panthor_file *pfile = file->driver_priv;
- 	struct panthor_vm *vm;
- 	unsigned long i;
- 
-@@ -1715,8 +1716,9 @@ void panthor_vm_pool_destroy(struct panthor_file *pfile)
-  *
-  * Return: 0 on success, a negative error code otherwise.
-  */
--int panthor_vm_pool_create(struct panthor_file *pfile)
-+int panthor_vm_pool_create(struct drm_file *file)
- {
-+	struct panthor_file *pfile = file->driver_priv;
- 	struct panthor_gem_object *dummy;
- 	int ret;
- 
-@@ -1737,7 +1739,7 @@ int panthor_vm_pool_create(struct panthor_file *pfile)
- 	return 0;
- 
- err_destroy_vm_pool:
--	panthor_vm_pool_destroy(pfile);
-+	panthor_vm_pool_destroy(file);
- 	return ret;
- }
- 
-@@ -2157,8 +2159,9 @@ struct panthor_heap_pool *panthor_vm_get_heap_pool(struct panthor_vm *vm, bool c
-  * Calculate all heap chunk sizes in all heap pools bound to a VM. If the VM
-  * is active, record the size as active as well.
-  */
--void panthor_vm_heaps_sizes(struct panthor_file *pfile, struct drm_memory_stats *stats)
-+void panthor_vm_heaps_sizes(struct drm_file *file, struct drm_memory_stats *stats)
- {
-+	struct panthor_file *pfile = file->driver_priv;
- 	struct panthor_vm *vm;
- 	unsigned long i;
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.h b/drivers/gpu/drm/panthor/panthor_mmu.h
-index abc36e7204be0..e262fe2303f6c 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.h
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.h
-@@ -38,7 +38,7 @@ int panthor_vm_as(struct panthor_vm *vm);
- struct panthor_heap_pool *
- panthor_vm_get_heap_pool(struct panthor_vm *vm, bool create);
- 
--void panthor_vm_heaps_sizes(struct panthor_file *pfile, struct drm_memory_stats *stats);
-+void panthor_vm_heaps_sizes(struct drm_file *file, struct drm_memory_stats *stats);
- 
- struct panthor_vm *panthor_vm_get(struct panthor_vm *vm);
- void panthor_vm_put(struct panthor_vm *vm);
-@@ -64,8 +64,8 @@ void panthor_vm_add_job_fence_to_bos_resvs(struct panthor_vm *vm,
- struct dma_resv *panthor_vm_resv(struct panthor_vm *vm);
- struct drm_gem_object *panthor_vm_root_gem(struct panthor_vm *vm);
- 
--void panthor_vm_pool_destroy(struct panthor_file *pfile);
--int panthor_vm_pool_create(struct panthor_file *pfile);
-+void panthor_vm_pool_destroy(struct drm_file *file);
-+int panthor_vm_pool_create(struct drm_file *file);
- int panthor_vm_pool_create_vm(struct panthor_device *ptdev,
- 			      struct panthor_vm_pool *pool,
- 			      struct drm_panthor_vm_create *args);
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 023abaf41890c..3bd6be9407097 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -3117,8 +3117,9 @@ void panthor_sched_post_reset(struct panthor_device *ptdev, bool reset_failed)
- 	}
- }
- 
--void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
-+void panthor_fdinfo_gather_group_samples(struct drm_file *file)
- {
-+	struct panthor_file *pfile = file->driver_priv;
- 	struct panthor_group_pool *gpool = pfile->groups;
- 	struct panthor_group *group;
- 	unsigned long i;
-@@ -3654,11 +3655,11 @@ static void add_group_kbo_sizes(struct panthor_device *ptdev,
- 
- #define MAX_GROUPS_PER_POOL		128
- 
--int panthor_group_create(struct panthor_file *pfile,
-+int panthor_group_create(struct drm_file *file,
- 			 const struct drm_panthor_group_create *group_args,
--			 const struct drm_panthor_queue_create *queue_args,
--			 u64 drm_client_id)
-+			 const struct drm_panthor_queue_create *queue_args)
- {
-+	struct panthor_file *pfile = file->driver_priv;
- 	struct panthor_device *ptdev = pfile->ptdev;
- 	struct panthor_group_pool *gpool = pfile->groups;
- 	struct panthor_scheduler *sched = ptdev->scheduler;
-@@ -3756,7 +3757,8 @@ int panthor_group_create(struct panthor_file *pfile,
- 		goto err_put_group;
- 
- 	for (i = 0; i < group_args->queues.count; i++) {
--		group->queues[i] = group_create_queue(group, &queue_args[i], drm_client_id, gid, i);
-+		group->queues[i] = group_create_queue(group, &queue_args[i],
-+						      file->client_id, gid, i);
- 		if (IS_ERR(group->queues[i])) {
- 			ret = PTR_ERR(group->queues[i]);
- 			group->queues[i] = NULL;
-@@ -3796,8 +3798,9 @@ int panthor_group_create(struct panthor_file *pfile,
- 	return ret;
- }
- 
--int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
-+int panthor_group_destroy(struct drm_file *file, u32 group_handle)
- {
-+	struct panthor_file *pfile = file->driver_priv;
- 	struct panthor_group_pool *gpool = pfile->groups;
- 	struct panthor_device *ptdev = pfile->ptdev;
- 	struct panthor_scheduler *sched = ptdev->scheduler;
-@@ -3848,9 +3851,10 @@ static struct panthor_group *group_from_handle(struct panthor_group_pool *pool,
- 	return group;
- }
- 
--int panthor_group_get_state(struct panthor_file *pfile,
-+int panthor_group_get_state(struct drm_file *file,
- 			    struct drm_panthor_group_get_state *get_state)
- {
-+	struct panthor_file *pfile = file->driver_priv;
- 	struct panthor_group_pool *gpool = pfile->groups;
- 	struct panthor_device *ptdev = pfile->ptdev;
- 	struct panthor_scheduler *sched = ptdev->scheduler;
-@@ -3881,8 +3885,9 @@ int panthor_group_get_state(struct panthor_file *pfile,
- 	return 0;
- }
- 
--int panthor_group_pool_create(struct panthor_file *pfile)
-+int panthor_group_pool_create(struct drm_file *file)
- {
-+	struct panthor_file *pfile = file->driver_priv;
- 	struct panthor_group_pool *gpool;
- 
- 	gpool = kzalloc_obj(*gpool);
-@@ -3894,8 +3899,9 @@ int panthor_group_pool_create(struct panthor_file *pfile)
- 	return 0;
- }
- 
--void panthor_group_pool_destroy(struct panthor_file *pfile)
-+void panthor_group_pool_destroy(struct drm_file *file)
- {
-+	struct panthor_file *pfile = file->driver_priv;
- 	struct panthor_group_pool *gpool = pfile->groups;
- 	struct panthor_group *group;
- 	unsigned long i;
-@@ -3904,7 +3910,7 @@ void panthor_group_pool_destroy(struct panthor_file *pfile)
+@@ -797,7 +802,8 @@ static void amt_send_igmp_gq(struct amt_dev *amt,
  		return;
  
- 	xa_for_each(&gpool->xa, i, group)
--		panthor_group_destroy(pfile, i);
-+		panthor_group_destroy(file, i);
- 
- 	xa_destroy(&gpool->xa);
- 	kfree(gpool);
-@@ -3919,9 +3925,10 @@ void panthor_group_pool_destroy(struct panthor_file *pfile)
-  *
-  */
- void
--panthor_fdinfo_gather_group_mem_info(struct panthor_file *pfile,
-+panthor_fdinfo_gather_group_mem_info(struct drm_file *file,
- 				     struct drm_memory_stats *stats)
- {
-+	struct panthor_file *pfile = file->driver_priv;
- 	struct panthor_group_pool *gpool = pfile->groups;
- 	struct panthor_group *group;
- 	unsigned long i;
-@@ -3984,11 +3991,11 @@ struct panthor_vm *panthor_job_vm(struct drm_sched_job *sched_job)
+ 	skb_pull(skb, sizeof(struct ethhdr));
+-	if (amt_send_membership_query(amt, skb, tunnel, false)) {
++	if (amt_send_membership_query(amt, skb, daddr, dport, nonce, mac,
++				      false)) {
+ 		amt->dev->stats.tx_dropped++;
+ 		kfree_skb(skb);
+ 	}
+@@ -876,7 +882,8 @@ static struct sk_buff *amt_build_mld_gq(struct amt_dev *amt)
+ 	return skb;
  }
  
- struct drm_sched_job *
--panthor_job_create(struct panthor_file *pfile,
-+panthor_job_create(struct drm_file *file,
- 		   u16 group_handle,
--		   const struct drm_panthor_queue_submit *qsubmit,
--		   u64 drm_client_id)
-+		   const struct drm_panthor_queue_submit *qsubmit)
+-static void amt_send_mld_gq(struct amt_dev *amt, struct amt_tunnel_list *tunnel)
++static void amt_send_mld_gq(struct amt_dev *amt, __be32 daddr, __be16 dport,
++			    __be32 nonce, u64 mac)
  {
-+	struct panthor_file *pfile = file->driver_priv;
- 	struct panthor_group_pool *gpool = pfile->groups;
- 	struct panthor_job *job;
- 	u32 credits;
-@@ -4059,7 +4066,7 @@ panthor_job_create(struct panthor_file *pfile,
+ 	struct sk_buff *skb;
  
- 	ret = drm_sched_job_init(&job->base,
- 				 &job->group->queues[job->queue_idx]->entity,
--				 credits, job->group, drm_client_id);
-+				 credits, job->group, file->client_id);
- 	if (ret)
- 		goto err_put_job;
+@@ -885,13 +892,15 @@ static void amt_send_mld_gq(struct amt_dev *amt, struct amt_tunnel_list *tunnel)
+ 		return;
  
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.h b/drivers/gpu/drm/panthor/panthor_sched.h
-index d87cbdba4d40b..c509fcb5a0c9c 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.h
-+++ b/drivers/gpu/drm/panthor/panthor_sched.h
-@@ -16,31 +16,28 @@ struct drm_panthor_queue_create;
- struct drm_panthor_group_get_state;
- struct drm_panthor_queue_submit;
- struct panthor_device;
--struct panthor_file;
- struct panthor_group_pool;
- struct panthor_job;
+ 	skb_pull(skb, sizeof(struct ethhdr));
+-	if (amt_send_membership_query(amt, skb, tunnel, true)) {
++	if (amt_send_membership_query(amt, skb, daddr, dport, nonce, mac,
++				      true)) {
+ 		amt->dev->stats.tx_dropped++;
+ 		kfree_skb(skb);
+ 	}
+ }
+ #else
+-static void amt_send_mld_gq(struct amt_dev *amt, struct amt_tunnel_list *tunnel)
++static void amt_send_mld_gq(struct amt_dev *amt, __be32 daddr, __be16 dport,
++			    __be32 nonce, u64 mac)
+ {
+ }
+ #endif
+@@ -925,7 +934,13 @@ static void amt_secret_work(struct work_struct *work)
+ 					   secret_wq);
  
--int panthor_group_create(struct panthor_file *pfile,
-+int panthor_group_create(struct drm_file *file,
- 			 const struct drm_panthor_group_create *group_args,
--			 const struct drm_panthor_queue_create *queue_args,
--			 u64 drm_client_id);
--int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle);
--int panthor_group_get_state(struct panthor_file *pfile,
-+			 const struct drm_panthor_queue_create *queue_args);
-+int panthor_group_destroy(struct drm_file *file, u32 group_handle);
-+int panthor_group_get_state(struct drm_file *file,
- 			    struct drm_panthor_group_get_state *get_state);
+ 	spin_lock_bh(&amt->lock);
+-	get_random_bytes(&amt->key, sizeof(siphash_key_t));
++	/* Rotate: keep the two previous generations so a MAC handed out just
++	 * before a rotation still verifies for up to three AMT_SECRET_TIMEOUT
++	 * windows (120-180s), covering the amt_gmi() the Query advertised.
++	 */
++	amt->key[2] = amt->key[1];
++	amt->key[1] = amt->key[0];
++	get_random_bytes(&amt->key[0], sizeof(siphash_key_t));
+ 	spin_unlock_bh(&amt->lock);
+ 	mod_delayed_work(amt_wq, &amt->secret_wq,
+ 			 msecs_to_jiffies(AMT_SECRET_TIMEOUT));
+@@ -1115,9 +1130,16 @@ static void amt_send_multicast_data(struct amt_dev *amt,
+ 			    0);
+ }
  
- struct drm_sched_job *
--panthor_job_create(struct panthor_file *pfile,
-+panthor_job_create(struct drm_file *file,
- 		   u16 group_handle,
--		   const struct drm_panthor_queue_submit *qsubmit,
--		   u64 drm_client_id);
-+		   const struct drm_panthor_queue_submit *qsubmit);
- struct drm_sched_job *panthor_job_get(struct drm_sched_job *job);
- struct panthor_vm *panthor_job_vm(struct drm_sched_job *sched_job);
- void panthor_job_put(struct drm_sched_job *job);
- void panthor_job_update_resvs(struct drm_exec *exec, struct drm_sched_job *job);
++/* Send a Membership Query to a source that has not been authenticated yet.
++ *
++ * No per-source state exists at this point and none is created: the nonce and
++ * the keyed MAC are carried in the Query and recomputed from the Membership
++ * Update when it comes back, so everything this needs is passed by value.
++ */
+ static bool amt_send_membership_query(struct amt_dev *amt,
+ 				      struct sk_buff *skb,
+-				      struct amt_tunnel_list *tunnel,
++				      __be32 daddr, __be16 dport,
++				      __be32 nonce, u64 mac,
+ 				      bool v6)
+ {
+ 	struct amt_header_membership_query *amtmq;
+@@ -1138,13 +1160,13 @@ static bool amt_send_membership_query(struct amt_dev *amt,
+ 	skb_reset_inner_headers(skb);
+ 	memset(&fl4, 0, sizeof(struct flowi4));
+ 	fl4.flowi4_oif         = amt->stream_dev->ifindex;
+-	fl4.daddr              = tunnel->ip4;
++	fl4.daddr              = daddr;
+ 	fl4.saddr              = amt->local_ip;
+ 	fl4.flowi4_dscp        = inet_dsfield_to_dscp(AMT_TOS);
+ 	fl4.flowi4_proto       = IPPROTO_UDP;
+ 	rt = ip_route_output_key(amt->net, &fl4);
+ 	if (IS_ERR(rt)) {
+-		netdev_dbg(amt->dev, "no route to %pI4\n", &tunnel->ip4);
++		netdev_dbg(amt->dev, "no route to %pI4\n", &daddr);
+ 		return true;
+ 	}
  
--int panthor_group_pool_create(struct panthor_file *pfile);
--void panthor_group_pool_destroy(struct panthor_file *pfile);
--void panthor_fdinfo_gather_group_mem_info(struct panthor_file *pfile,
-+int panthor_group_pool_create(struct drm_file *file);
-+void panthor_group_pool_destroy(struct drm_file *file);
-+void panthor_fdinfo_gather_group_mem_info(struct drm_file *pfile,
- 					  struct drm_memory_stats *stats);
+@@ -1154,8 +1176,8 @@ static bool amt_send_membership_query(struct amt_dev *amt,
+ 	amtmq->reserved = 0;
+ 	amtmq->l	= 0;
+ 	amtmq->g	= 0;
+-	amtmq->nonce	= tunnel->nonce;
+-	amtmq->response_mac = tunnel->mac;
++	amtmq->nonce	= nonce;
++	amtmq->response_mac = mac;
  
- int panthor_sched_init(struct panthor_device *ptdev);
-@@ -54,7 +51,7 @@ void panthor_sched_report_mmu_fault(struct panthor_device *ptdev);
- void panthor_sched_prepare_for_vm_destruction(struct panthor_device *ptdev);
- void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events);
+ 	if (!v6)
+ 		skb_set_inner_protocol(skb, htons(ETH_P_IP));
+@@ -1168,11 +1190,10 @@ static bool amt_send_membership_query(struct amt_dev *amt,
+ 			    ip4_dst_hoplimit(&rt->dst),
+ 			    0,
+ 			    amt->relay_port,
+-			    tunnel->source_port,
++			    dport,
+ 			    false,
+ 			    false,
+ 			    0);
+-	amt_update_relay_status(tunnel, AMT_STATUS_SENT_QUERY, true);
+ 	return false;
+ }
  
--void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile);
-+void panthor_fdinfo_gather_group_samples(struct drm_file *file);
+@@ -2490,14 +2511,99 @@ static bool amt_membership_query_handler(struct amt_dev *amt,
+ 	return false;
+ }
  
- #ifdef CONFIG_DEBUG_FS
- void panthor_sched_debugfs_init(struct drm_minor *minor);
++/* The tunnel of the gateway endpoint @saddr:@sport, or NULL. */
++static struct amt_tunnel_list *amt_tunnel_lookup(struct amt_dev *amt,
++						 __be32 saddr, __be16 sport)
++{
++	struct amt_tunnel_list *tunnel;
++
++	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list)
++		if (tunnel->ip4 == saddr && tunnel->source_port == sport)
++			return tunnel;
++	return NULL;
++}
++
++/* Look up the tunnel for a source whose Membership Update has already been
++ * authenticated, creating it on first contact.
++ *
++ * This is now the only place tunnel state is allocated, so amt->max_tunnels
++ * bounds the number of *verified* gateways rather than the number of
++ * unverified Requests anyone can send.  A fixed per-source cap additionally
++ * stops one verified endpoint from monopolising the table; a single gateway
++ * needs at most one tunnel per family (RFC 7450 s4.2.2).
++ */
++static struct amt_tunnel_list *amt_tunnel_get_or_create(struct amt_dev *amt,
++							__be32 saddr,
++							__be16 sport)
++{
++	struct amt_tunnel_list *tunnel;
++	int per_src = 0;
++	int i;
++
++	tunnel = amt_tunnel_lookup(amt, saddr, sport);
++	if (tunnel)
++		return tunnel;
++
++	spin_lock_bh(&amt->lock);
++
++	/* Re-check under the lock in case a concurrent Update won the race, and
++	 * count how many tunnels this source already holds on the same walk.
++	 */
++	list_for_each_entry(tunnel, &amt->tunnel_list, list) {
++		if (tunnel->ip4 != saddr)
++			continue;
++		if (tunnel->source_port == sport) {
++			spin_unlock_bh(&amt->lock);
++			return tunnel;
++		}
++		per_src++;
++	}
++
++	if (amt->nr_tunnels >= amt->max_tunnels ||
++	    per_src >= AMT_MAX_TUNNELS_PER_SRC) {
++		spin_unlock_bh(&amt->lock);
++		return NULL;
++	}
++
++	tunnel = kzalloc(sizeof(*tunnel) +
++			 (sizeof(struct hlist_head) * amt->hash_buckets),
++			 GFP_ATOMIC);
++	if (!tunnel) {
++		spin_unlock_bh(&amt->lock);
++		return NULL;
++	}
++
++	tunnel->source_port = sport;
++	tunnel->ip4 = saddr;
++	tunnel->amt = amt;
++	spin_lock_init(&tunnel->lock);
++	for (i = 0; i < amt->hash_buckets; i++)
++		INIT_HLIST_HEAD(&tunnel->groups[i]);
++
++	tunnel->last_seen = jiffies;
++	INIT_DELAYED_WORK(&tunnel->gc_wq, amt_tunnel_expire);
++	__amt_update_relay_status(tunnel, AMT_STATUS_RECEIVED_UPDATE, false);
++
++	/* Publish only once the entry is fully initialised. */
++	list_add_tail_rcu(&tunnel->list, &amt->tunnel_list);
++	amt->nr_tunnels++;
++	mod_delayed_work(amt_wq, &tunnel->gc_wq,
++			 msecs_to_jiffies(amt_gmi(amt)) * 3);
++	spin_unlock_bh(&amt->lock);
++
++	return tunnel;
++}
++
+ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
+ {
+ 	struct amt_header_membership_update *amtmu;
+ 	struct amt_tunnel_list *tunnel;
+ 	struct ethhdr *eth;
+ 	struct iphdr *iph;
+-	int len, hdr_size;
++	siphash_key_t key[3];
++	int len, hdr_size, i;
+ 	u64 response_mac;
++	bool verified = false;
+ 	__be32 saddr;
+ 	__be32 nonce;
+ 	__be16 sport;
+@@ -2517,33 +2623,57 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
+ 	/* Snapshot the tunnel endpoint port before the encap is stripped. */
+ 	sport = udp_hdr(skb)->source;
+ 
+-	if (iptunnel_pull_header(skb, hdr_size, skb->protocol, false))
+-		return true;
++	/* Recompute the MAC handed out in the Membership Query rather than
++	 * comparing against a stored copy.  All three live secrets are accepted
++	 * so an exchange straddling one or two rotations by amt_secret_work() is
++	 * not spuriously rejected (three generations cover 120-180s, at least
++	 * the amt_gmi() the Query advertised).  This runs before the packet is
++	 * decapsulated and before any tunnel state is looked up or created, so
++	 * an unverified source is rejected with no further work.
++	 */
++	spin_lock_bh(&amt->lock);
++	for (i = 0; i < ARRAY_SIZE(key); i++)
++		key[i] = amt->key[i];
++	spin_unlock_bh(&amt->lock);
+ 
+-	skb_reset_network_header(skb);
++	for (i = 0; i < ARRAY_SIZE(key); i++) {
++		u64 mac = siphash_3u32((__force u32)saddr,
++				       (__force u32)sport,
++				       (__force u32)nonce,
++				       &key[i]) >> 16;
+ 
+-	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list) {
+-		if (tunnel->ip4 == saddr &&
+-		    tunnel->source_port == sport) {
+-			if ((nonce == tunnel->nonce &&
+-			     response_mac == tunnel->mac)) {
+-				/* Refresh liveness only.  gc_wq is re-armed by
+-				 * amt_tunnel_expire() itself from last_seen, never
+-				 * from here, so this cannot re-queue the work of a
+-				 * tunnel that is being freed.
+-				 */
+-				WRITE_ONCE(tunnel->last_seen, jiffies);
+-				goto report;
+-			} else {
+-				netdev_dbg(amt->dev, "Invalid MAC\n");
+-				return true;
+-			}
++		if (response_mac == mac) {
++			verified = true;
++			break;
+ 		}
+ 	}
+ 
+-	return true;
++	if (!verified) {
++		netdev_dbg(amt->dev, "Invalid MAC\n");
++		return true;
++	}
++
++	tunnel = amt_tunnel_get_or_create(amt, saddr, sport);
++	if (!tunnel) {
++		/* Out of tunnel slots.  Unlike the Request path this reply only
++		 * ever goes to a source that proved it received our Query, so it
++		 * cannot be used to reflect at a spoofed third party.
++		 */
++		icmp_ndo_send(skb, ICMP_DEST_UNREACH, ICMP_HOST_UNREACH, 0);
++		return true;
++	}
++
++	/* Refresh liveness only.  gc_wq is re-armed by amt_tunnel_expire()
++	 * itself from last_seen, never from here, so this cannot re-queue the
++	 * work of a tunnel that is being freed.
++	 */
++	WRITE_ONCE(tunnel->last_seen, jiffies);
++
++	if (iptunnel_pull_header(skb, hdr_size, skb->protocol, false))
++		return true;
++
++	skb_reset_network_header(skb);
+ 
+-report:
+ 	if (!pskb_may_pull(skb, sizeof(*iph)))
+ 		return true;
+ 
+@@ -2720,15 +2850,27 @@ static bool amt_discovery_handler(struct amt_dev *amt, struct sk_buff *skb)
+ 	return false;
+ }
+ 
++/* Handle an AMT Relay Membership Request.
++ *
++ * The source of a Request is unauthenticated: it is a bare UDP datagram with a
++ * trivially spoofable source address.  Allocating tunnel state here let an
++ * attacker fill the table from spoofed addresses, and let one spoofed packet
++ * overwrite the nonce/MAC of an established tunnel and cut that gateway off.
++ *
++ * Nothing needs to be remembered at this point.  Every input to the keyed MAC
++ * is carried in the packet or is device state, so the MAC is generated here,
++ * echoed back by the gateway in its Membership Update, and recomputed and
++ * verified there - see amt_update_handler().  Tunnel state is created only once
++ * that verification succeeds.
++ */
+ static bool amt_request_handler(struct amt_dev *amt, struct sk_buff *skb)
+ {
+ 	struct amt_header_request *amtrh;
+-	struct amt_tunnel_list *tunnel;
+-	unsigned long long key;
+ 	struct udphdr *udph;
+ 	struct iphdr *iph;
++	siphash_key_t key;
++	bool full;
+ 	u64 mac;
+-	int i;
+ 
+ 	if (!pskb_may_pull(skb, sizeof(*udph) + sizeof(*amtrh)))
+ 		return true;
+@@ -2740,67 +2882,42 @@ static bool amt_request_handler(struct amt_dev *amt, struct sk_buff *skb)
+ 	if (amtrh->reserved1 || amtrh->reserved2 || amtrh->version)
+ 		return true;
+ 
+-	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list)
+-		if (tunnel->ip4 == iph->saddr &&
+-		    tunnel->source_port == udph->source)
+-			goto send;
+-
+-	spin_lock_bh(&amt->lock);
+-	if (amt->nr_tunnels >= amt->max_tunnels) {
+-		spin_unlock_bh(&amt->lock);
+-		icmp_ndo_send(skb, ICMP_DEST_UNREACH, ICMP_HOST_UNREACH, 0);
+-		return true;
+-	}
+-
+-	tunnel = kzalloc(sizeof(*tunnel) +
+-			 (sizeof(struct hlist_head) * amt->hash_buckets),
+-			 GFP_ATOMIC);
+-	if (!tunnel) {
+-		spin_unlock_bh(&amt->lock);
++	if (!netif_running(amt->dev) || !netif_running(amt->stream_dev))
+ 		return true;
+-	}
+ 
+-	tunnel->source_port = udph->source;
+-	tunnel->ip4 = iph->saddr;
+-
+-	memcpy(&key, &tunnel->key, sizeof(unsigned long long));
+-	tunnel->amt = amt;
+-	spin_lock_init(&tunnel->lock);
+-	for (i = 0; i < amt->hash_buckets; i++)
+-		INIT_HLIST_HEAD(&tunnel->groups[i]);
+-
+-	tunnel->last_seen = jiffies;
+-	INIT_DELAYED_WORK(&tunnel->gc_wq, amt_tunnel_expire);
+-
+-	list_add_tail_rcu(&tunnel->list, &amt->tunnel_list);
+-	tunnel->key = amt->key;
+-	__amt_update_relay_status(tunnel, AMT_STATUS_RECEIVED_REQUEST, true);
+-	amt->nr_tunnels++;
+-	mod_delayed_work(amt_wq, &tunnel->gc_wq,
+-			 msecs_to_jiffies(amt_gmi(amt)));
++	/* No state is created for a Request (see amt_update_handler()); read the
++	 * current secret and the table occupancy together under the lock.
++	 */
++	spin_lock_bh(&amt->lock);
++	key = amt->key[0];
++	full = amt->nr_tunnels >= amt->max_tunnels;
+ 	spin_unlock_bh(&amt->lock);
+ 
+-send:
+-	/* source_port is part of the tunnel's identity and is set once, in
+-	 * the allocation path above; the lookup only reaches here on an exact
+-	 * (address, port) match, so it already equals udph->source.  Do not
+-	 * "refresh" it here: doing so let a colliding Request from a new port
+-	 * steal an established tunnel outright.
++	/* When the table is full, refuse a source that holds no tunnel without
++	 * sending a Query.  A silent Query would keep the gateway believing the
++	 * exchange is progressing while its later, verified Update is refused;
++	 * withholding it lets the gateway's req_cnt climb and drive rediscovery
++	 * instead.  The ICMP is rate-limited and no state is allocated, so this
++	 * is not the reflector the pre-verification allocation path used to be.
++	 * A source that holds a tunnel is answered: its periodic Request is how
++	 * it renews the response MAC its Updates echo.
+ 	 */
+-	tunnel->nonce = amtrh->nonce;
+-	mac = siphash_3u32((__force u32)tunnel->ip4,
+-			   (__force u32)tunnel->source_port,
+-			   (__force u32)tunnel->nonce,
+-			   &tunnel->key);
+-	tunnel->mac = mac >> 16;
+-
+-	if (!netif_running(amt->dev) || !netif_running(amt->stream_dev))
++	if (full && !amt_tunnel_lookup(amt, iph->saddr, udph->source)) {
++		icmp_ndo_send(skb, ICMP_DEST_UNREACH, ICMP_HOST_UNREACH, 0);
+ 		return true;
++	}
++
++	mac = siphash_3u32((__force u32)iph->saddr,
++			   (__force u32)udph->source,
++			   (__force u32)amtrh->nonce,
++			   &key) >> 16;
+ 
+ 	if (!amtrh->p)
+-		amt_send_igmp_gq(amt, tunnel);
++		amt_send_igmp_gq(amt, iph->saddr, udph->source, amtrh->nonce,
++				 mac);
+ 	else
+-		amt_send_mld_gq(amt, tunnel);
++		amt_send_mld_gq(amt, iph->saddr, udph->source, amtrh->nonce,
++				mac);
+ 
+ 	return false;
+ }
+@@ -3068,6 +3185,14 @@ static int amt_dev_open(struct net_device *dev)
+ 	enable_delayed_work(&amt->discovery_wq);
+ 	enable_delayed_work(&amt->req_wq);
+ 
++	/* Seed the keys before amt_socket_create() enables the encap receive
++	 * path, so a Request or Update that arrives immediately is never
++	 * verified against an all-zero (predictable) secret.
++	 */
++	spin_lock_bh(&amt->lock);
++	get_random_bytes(&amt->key, sizeof(amt->key));
++	spin_unlock_bh(&amt->lock);
++
+ 	err = amt_socket_create(amt);
+ 	if (err) {
+ 		disable_delayed_work(&amt->req_wq);
+@@ -3078,7 +3203,6 @@ static int amt_dev_open(struct net_device *dev)
+ 	amt->req_cnt = 0;
+ 	WRITE_ONCE(amt->remote_ip, 0);
+ 	amt->nonce = 0;
+-	get_random_bytes(&amt->key, sizeof(siphash_key_t));
+ 
+ 	amt->status = AMT_STATUS_INIT;
+ 	if (amt->mode == AMT_MODE_GATEWAY) {
+diff --git a/include/net/amt.h b/include/net/amt.h
+index 0520121..1c7c144 100644
+--- a/include/net/amt.h
++++ b/include/net/amt.h
+@@ -253,10 +253,6 @@ struct amt_tunnel_list {
+ 	bool			dead;
+ 	__be16			source_port;
+ 	__be32			ip4;
+-	__be32			nonce;
+-	siphash_key_t		key;
+-	u64			mac:48,
+-				reserved:16;
+ 	struct rcu_head		rcu;
+ 	struct hlist_head	groups[];
+ };
+@@ -336,8 +332,11 @@ struct amt_dev {
+ 	struct work_struct	event_wq;
+ 	/* AMT status */
+ 	enum amt_status		status;
+-	/* Generated key */
+-	siphash_key_t		key;
++	/* Generated keys.  key[0] is current; key[1] and key[2] are the two
++	 * previous generations, kept so a Request/Update exchange straddling
++	 * one or two secret rotations still verifies (see amt_secret_work()).
++	 */
++	siphash_key_t		key[3];
+ 	struct sock	  __rcu *sk;
+ 	u32			max_groups;
+ 	u32			max_sources;
+@@ -394,6 +393,12 @@ struct amt_dev {
+ #define AMT_SECRET_TIMEOUT	60000
+ #define IANA_AMT_UDP_PORT	2268
+ #define AMT_MAX_TUNNELS         128
++/* Per-source tunnel cap.  A single gateway needs at most one tunnel per
++ * family; this stops one verified source endpoint from monopolising the
++ * AMT_MAX_TUNNELS-slot table.  Deployments that legitimately need more behind
++ * one address (e.g. CGNAT) use the configurable net-next per-source bound.
++ */
++#define AMT_MAX_TUNNELS_PER_SRC 16
+ #define AMT_MAX_REQS		128
+ #define AMT_GW_HLEN (sizeof(struct iphdr) + \
+ 		     sizeof(struct udphdr) + \
 -- 
 2.43.0
 
