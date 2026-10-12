@@ -1,138 +1,72 @@
-Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970CB393DE2;
-	Mon, 12 Oct 2026 09:12:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.178.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507EA33B970
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:13:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791796339; cv=none; b=iXShzCYAeZM0G+8F6H4rUmG5goe6ehIGtEf/4dXCpv5Aw/IS13NJlGy+qhM3WMc9y1CrmTvp2/KPK6dx7MOAILCHHC7kBm7q/cXVXytf7YmfB2pI3LIHR3NiGA5cy49L6WeG/WxMQIzzq/KxrWbL+XnYq2xB8wewIPF2F9fXb5k=
+	t=1791796390; cv=none; b=hpOOBIlFfSqz009MHCLJyllgAX1orCIya2RnpNTMGtz5vRMfiBKG3/6X8BPZLBrkCHxN+lLGsARmwtqjQGKDGyTTHKgzYX+niGysMkqwmg/hqg16NIyjorwJGffbMMEOiDDxbYvYL4XRx5/TmEMzYIqdOgUZEPXV1WwX4Mm5yhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791796339; c=relaxed/simple;
-	bh=JJbp9gY5o+Y9jQt84wdvC7PHP6OKYOMmG0y/d7r9l+k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nYK/TJr+lk2Lc1a0mAK44orTmWocpaVSxIywPeYy/Ea4zLvGzXhz7C2M1I7TKjNmrKz0V8opQItLwHJubJF3RMV9zKpaPhwNW23qCskz1/9IDQlt+EfAGjsY3BaWrcmr/zqE+o9obdrrpf5Fz6aLeCFe2uxDNZ6xvfcfZl6hjgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yoseli.org; spf=pass smtp.mailfrom=yoseli.org; dkim=pass (2048-bit key) header.d=yoseli.org header.i=@yoseli.org header.b=AAz8ZPAZ; arc=none smtp.client-ip=217.70.178.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yoseli.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yoseli.org
+	s=arc-20240116; t=1791796390; c=relaxed/simple;
+	bh=L3aXTBavjKQtrf3CZIcDYjNVkRf3Dt52Tb3sdl6y/IQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=WXj1lfz1hcqh546XZJ51EoMdw1ulWk6LFDE/rO275euKkDPnwKmxU3IJsGf476CjWy5LK5h+JJk36iVGCLa1JQS1oufPTPB2SGAu1iZWCHcCAJlUgqt3tLLW++e5q0b9SQhdovCjqdc9S8L1dYa4oT+iBrVnZu6EFso/B2SpiAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bc/SDemL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yoseli.org header.i=@yoseli.org header.b="AAz8ZPAZ"
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net [217.70.183.198])
-	by mslow3.mail.gandi.net (Postfix) with ESMTP id A475F580BAB;
-	Mon, 12 Oct 2026 08:46:29 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 957A53EB8E;
-	Mon, 12 Oct 2026 08:46:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yoseli.org; s=gm1;
-	t=1791794782;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=19boBTCsjzigUNehuNnbCAd0sjXKxyv/w6iDQ2Y4Fdc=;
-	b=AAz8ZPAZyEpuFA2hg1GD2suLLmvBqd0ODa7hc1UL+saONfjIxVSk6G/tnsQe2ISC1P0G4y
-	VfxTMHDMvQ0SZdF0yzIY/jsdYFHuCL2MQyvJFMaWhQm9liejE3gEDXTWRaJYvrtY6XxDTY
-	QeVKWrkiKVYFh8wizEQb7r8XBHtku4LDZ4ZwEiIndpKFQaTH7DIpd3jqTHzBuTH7olquCm
-	HUb/Zl1H7kEfZa5DEizrslSK8++usYILUQQIMp6BKUNSzVEKh+aFJ+ehl/oZFk6NR2R63V
-	nudiPNLAPLX9rUQkjM56gpuhxlvy2Vvo5vSA8vmwDlfzD9bBEl+/zdF274qzUQ==
-Message-ID: <ee54b08f-b3d8-4a62-bc43-0117a9b11102@yoseli.org>
-Date: Mon, 12 Oct 2026 10:46:16 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bc/SDemL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C4E61F0089C;
+	Mon, 12 Oct 2026 09:13:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791796389;
+	bh=QdB3tjONMFDW4vIktrBz/AIiwdMm9J8RM3lpk5Om1N4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Bc/SDemLkF4MXgDMHd192o7v5npiJtaMLMbjSNCaRBCOE+AwxjNl9ag0DyQGipLVP
+	 ve9XU6fpjQJxd+bG9aw0m+iwt9qCIqV0/WsKJXhDNCLUJEJlp1F3+8vODbiKnTYvC9
+	 GuAIHUKKPy7fQH8adlBiyw30GzYb77fNDthl5smnrZnV0UYOjdh24e/dL+hWOFfHgJ
+	 mPeXZWQoufc9En2V5ASLAUw8FneaxG4/zM9eAHHCr+CA8M+3+I1gLLqpVRVQTvMEZ+
+	 nJGIhRb7fiMAzsLwMq6gmyOlv2C+32Xn5+7uVtA5aCBoYqtjU+m8gyE4Uzxktd1HKt
+	 gb64bv+hvTQbA==
+From: Christian Brauner <brauner@kernel.org>
+To: Oleg Nesterov <oleg@redhat.com>, 
+ Babanpreet Singh <bbnpreetsingh@gmail.com>
+Cc: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org, 
+ syzbot+c382ee653fd70f5cf1bb@syzkaller.appspotmail.com
+In-Reply-To: <20261002012141.7-1-bbnpreetsingh@gmail.com>
+References: <20261002012141.7-1-bbnpreetsingh@gmail.com>
+Subject: Re: [PATCH] pid: use READ_ONCE() in pid_alive()
+Message-Id: <20261012-hochachtung-krokodil-musisch-9e2633da6b38@brauner>
+Date: Mon, 12 Oct 2026 11:13:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] m68k: coldfire: Add RNG support for MCF54418
-To: Greg Ungerer <gerg@linux-m68k.org>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
- Olivia Mackall <olivia@selenic.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, linux-m68k@lists.linux-m68k.org,
- linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- Frank Li <Frank.Li@nxp.com>, Herbert Xu <herbert@gondor.apana.org.au>
-References: <20251126-b4-m5441x-add-rng-support-v4-0-5309548c9555@yoseli.org>
- <20251126-b4-m5441x-add-rng-support-v4-2-5309548c9555@yoseli.org>
- <bd25e903-30fc-4905-986c-96d1b42e9f02@linux-m68k.org>
- <ddf0ab32-5b66-453e-b7aa-1722aeaf2aa0@yoseli.org>
- <9ba1ebd8-61cc-4e1a-b68d-906b20dd4999@polyxeno.com>
- <asn8e5puc3I01Lva@gondor.apana.org.au>
- <8be9c875-68a9-4bb5-b581-501a0a6819f4@linux-m68k.org>
-Content-Language: fr-FR, en-US, en-GB
-From: Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>
-In-Reply-To: <8be9c875-68a9-4bb5-b581-501a0a6819f4@linux-m68k.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-GND-Sasl: jeanmichel.hautbois@yoseli.org
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: dmFkZTEPWrJqe016L8I3chHHuK71fvLMlYu+6IrNfxrvD/MyQtgB2kOmSroRn5pztNxyoPXTsP3v9st2xoK0cTKVkCkEXnzk+tyydkEnZa3BeDOpN+lBo3VSfju+U2Tk5DFLr2QTf3rS7cF70bZN6RCshXOZ6HVSfbaHlah6rgF+S1ghDvtrdNc33ylG978pFkIVKZAjrHrrK4lzsId4ZikSGWG++dyZRIZYSLuxWGOy6uWwFvRqYp7eHk+F8lCkqQkRzDYLf/PNuPs9yHrHnCbSXcwXnUuKid+zR4eyu85684+A5SFc3yxeSVSajXUtZMboFqBEssGGUH2TBR8Yk1f07MSZJgLkJ/dO+CwPvwngLjI92MEv73dMHbbBqJibq0do1B0Lz0Zo4mzA4OezcBN5mVpeb0VThW9sEYznRUJeYGoRvkCbWRdrYkcknQFhqJwUI1dRKs9JjHOG0kHLDHZ8rpKjMT14YRCg/zYDN9c5wK/DOOHXEvlA1ipL+b+3rKxzP3fnDw63p4Y44/pyd0xok+TQxEAM35f5EE+5btGH4X2G7kPlNHHh5Ik+e2cJFW/1kSa3D12NjWBUnaHClNFyhqUsOcUOJZDYAZk3O5uHc2Xx45m7gaOtKGgKEbDe1QC01g3/kF2lnlW+BO6+ah4NHNgEER4kazqxwF5roUA2tzhB1w
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-3d1b8
 
-Hi Greg,
+On Fri, 02 Oct 2026 01:21:41 +0000, Babanpreet Singh wrote:
+> KCSAN reports pid_alive() reading task->thread_pid while it gets cleared
+> under tasklist_lock. The check only cares about NULL, so READ_ONCE() and
+> WRITE_ONCE() are enough.
 
-Le 11/10/2026 à 17:28, Greg Ungerer a écrit :
-> Hi JM,
-> 
-> On 10/10/26 18:51, Herbert Xu wrote:
->> On Wed, Aug 19, 2026 at 07:36:36AM +1000, Greg Ungerer wrote:
->>> Hi JM,
->>>
->>> On 19/8/26 01:09, Jean-Michel Hautbois wrote:
->>>> Hi Greg,
->>>>
->>>> Sorry for the very long silence on this one, it fell off my radar...
->>>>
->>>> Le 03/12/2025 à 13:15, Greg Ungerer a écrit :
->>>>> Hi Jean-Michel,
->>>>>
->>>>> On 26/11/25 17:08, Jean-Michel Hautbois via B4 Relay wrote:
->>>>>> From: Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>
->>>>>>
->>>>>> Add support for the hardware Random Number Generator (RNGB) found on
->>>>>> MCF54418 ColdFire processors with clock enabled at platform
->>>>>> initialization.
->>>>>>
->>>>>> The RNGB block is compatible with the imx-rngc driver.
->>>>>>
->>>>>> Reviewed-by: Frank Li <Frank.Li@nxp.com>
->>>>>> Signed-off-by: Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>
->>>>>> ---
->>>>>>    arch/m68k/coldfire/device.c       | 28 ++++++++++++++++++++++++++++
->>>>>>    arch/m68k/coldfire/m5441x.c       |  2 +-
->>>>>>    arch/m68k/include/asm/m5441xsim.h |  9 +++++++++
->>>>>>    drivers/char/hw_random/Kconfig    |  3 ++-
->>>>>>    drivers/char/hw_random/imx-rngc.c |  7 +++++++
->>>>>>    5 files changed, 47 insertions(+), 2 deletions(-)
->>>>>
->>>>> I am happy with the ColdFire arch parts, so from me:
->>>>>
->>>>>       Acked-by: Greg Ungerer <gerg@linux-m68k.org>
->>>>>
->>>>> I don't mind taking this commit via the m68knommu git tree if the hw_rng
->>>>> maintainers are ok with that. Otherwise if you break out the arch/m68k
->>>>> parts I can apply those on their own.
->>>>
->>>> I think Herbert acked ?
->>>> Do you need another ack ?
->>>
->>> I would like to see an acknowledgement that taking this patch via the
->>> m68knommu git tree (to Linus) is ok with the RNG maintainers.
->>
->> I have no objections to this.
-> 
-> Thanks Herbert.
-> 
-> JM: I have applied this to the for-next branch of the m68knommu git tree.
-> I didn't quite go on cleanly, so please double check it for me.
+Applied to the kernel-7.4.signal branch of the vfs/vfs.git tree.
+Patches in the kernel-7.4.signal branch should appear in linux-next soon.
 
-Thanks, I think you missed 1/2 ?
-Or did I miss something ?
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Thanks !
-JM
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-> 
-> Regards
-> Greg
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: kernel-7.4.signal
+
+[1/1] pid: use READ_ONCE() in pid_alive()
+      https://git.kernel.org/vfs/vfs/c/12e19bba68ba
 
