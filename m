@@ -1,328 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D84A3A2E28;
-	Mon, 12 Oct 2026 22:53:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DAB361960;
+	Mon, 12 Oct 2026 22:58:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791845600; cv=none; b=ECv8EJSGyYqg9UwlZk9wl3DyLXvLhzUH/oLZ7s0Tb3L2teZ84SmV2JPLXlKVvoAxR5KugZ6n5njmf/38e3fSP/Q915RKGJS6F8Tkjs3v9IGFNPs5GYVFfPD0E+5djnZouww7JXLzBhbOXdxsfjUXjrimMgBdWG28WA5z0Hl02j4=
+	t=1791845898; cv=none; b=SudSveo4+hLUByzvMNCV4QUp5M8dD3h6ljqJ6emrxoaU/SIU7iPG0LDGXHi926u4OJZkbUVZMV9DopJJxo83NB4y4Bk1NM+trNg+C2EGYJg2kkMq6oWHa34ZLFt13dkttx1s5nAAoWSogNV5erzpaBF4hy26Kdn341Uih9JcERk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791845600; c=relaxed/simple;
-	bh=QKLFS6h5vmh0bfFzlLeaMUIP0TIZeyxgb+FOI6Y66GU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=iTDr0WhrNayc/xZEc7IVYkHCWMB6+1fOSRSpzbCPsdVcwkBea9o0vyM0PXVXUsWPXt/w2K8mub6GRIMXHBJnp6SY4GCfRkxb85BJoee/McyY/aSptRtUiAB8PMUaYmj2CS+ECOD0caQQobMQuMyWXd9SBKBZcs5ZevXCuqKbTA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N6NremcM; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791845898; c=relaxed/simple;
+	bh=MkJxUZyxF6EQmqf6ecfPjJHGv2hu4k/RLi3x//zkisI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TlD4rL3u9+0oWBUta3xTxjgDVZzVeCIKmRGUaj9qOxjijrqnfs/NCstsaHEJF1W6p7YAp+zq9ItyfDOIXLluMV0BCT1H0jc6IEBASTmUcbZCsKk3zTVnVHmESgMGhZhOCXJ9bZPmrhYyIpV/vQbKF/JO/3cgtXmb7rBBto7NeDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/pWXHnt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N6NremcM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791845599; x=1823381599;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=QKLFS6h5vmh0bfFzlLeaMUIP0TIZeyxgb+FOI6Y66GU=;
-  b=N6NremcMS4DIdB6aMURUyXa2v7pgbj0cpAdBBsQNUPK6ty+KKYiUjc9R
-   g2BNwt25c2woAafUMQ6PPnGItzpJIxOmzja1r0zZMAoAZQcWIu6mconPw
-   nIQGHVnVLnSz0OOHDRyqZc1AJ2JFb0GdfImf51iZSl3jQcoLo8ACjjZdl
-   1B86mE+mgzFXwOmw61ONXs4DUIsH4fm4tAq/AodYzYI9k7d+vylksh9lb
-   Xb7bkzp1xRdOCjHWqq0C1Hy1Zk21vVoMdgeIzpmViYlt5xPP0jlVkBnJd
-   aQaJ5RXmemGm7f4dhUG9BsT6RAUgVTCMh728b+AHno7svuTAbgNB5N0n4
-   Q==;
-X-CSE-ConnectionGUID: a1XViGtlSP2rucTFwGqc6g==
-X-CSE-MsgGUID: Z6x9jzkOQka5zwuhgsIjhQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="448729"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="448729"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 15:53:18 -0700
-X-CSE-ConnectionGUID: C/DEypYpR3epeort+QbWig==
-X-CSE-MsgGUID: 21eJ7L1eRXipUJZhrHFH9A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="945329"
-Received: from vcostago-desk1.jf.intel.com (HELO vcostago-desk1) ([10.241.243.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 15:53:19 -0700
-From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
-To: Krystian Kaniewski <krystianmkaniewski@gmail.com>, Jamal Hadi Salim
- <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>, Vladimir Oltean
- <vladimir.oltean@nxp.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- syzbot+e044a9b6370ed8ca9737@syzkaller.appspotmail.com
-Subject: Re: [PATCH net v2 2/2] net/sched: taprio: do not replay missed
- entries in advance_sched()
-In-Reply-To: <20261009123309.284193-3-krystianmkaniewski@gmail.com>
-References: <20261009123309.284193-1-krystianmkaniewski@gmail.com>
- <20261009123309.284193-3-krystianmkaniewski@gmail.com>
-Date: Mon, 12 Oct 2026 15:53:18 -0700
-Message-ID: <87ik36lee9.fsf@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/pWXHnt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 895D01F0089B;
+	Mon, 12 Oct 2026 22:58:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791845896;
+	bh=/D8rX1p1MdB3oKoXSpIAX73524+wWgj9TVMkaY9+CHU=;
+	h=From:Date:Subject:To:Cc;
+	b=g/pWXHntkCo7g739lZGVR35dYg+wO53i+/uT2s76TIx4HHUJAjle14E9DSpUAYTGx
+	 CaYm+T+QUcYGb6Anooa1j9KVZWc6Hh3MLNkFmicGBp1kzO73Pz7SaRUnuWpndIQ1nR
+	 u/EaqSuymChA+fctrK8EjhTGBH0GI/Me2IzW7pu7AH244sFs1mTdZyhaYDtBeF/L9S
+	 EeHuqHDBSaq58h/N1g1wHBYZiyZMo/LenTi2W7swAovHfmUQ56nDBCpmyg2k/xyPIW
+	 fu/8fmmZveNgW3vqjiHZLm47Hj+qiVK5J0yzpU2asPo+/VBym8+1qB1l/0e0KcZVgc
+	 v7My5q1azDIgA==
+From: Mark <broonie@kernel.org>
+Date: Mon, 12 Oct 2026 23:55:53 +0100
+Subject: [PATCH] lib/tests: util_macros: Drop the '.' from the KUnit suite
+ name
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-kunit-util-macros-name-v1-1-810b401baeb0@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAHllzWoC/yXMQQrCMBBA0auUWTuQBFHqVcRFTGbsVJtKJhGh9
+ O6mdvkW/y+glIUULt0CmT6iMqcGe+ggDD49CCU2gzPuZI11+KxJCtYiL5x8yLNi8hPhmY+9iT0
+ b5ggtfmdi+f7H19turfeRQtlusK4/jhcrdHoAAAA=
+X-Change-ID: 20261012-kunit-util-macros-name-7f490d9f0ffd
+To: Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com
+Cc: linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1966; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=MkJxUZyxF6EQmqf6ecfPjJHGv2hu4k/RLi3x//zkisI=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLOprEWZhY9eC8cHXpJkunwx6jGZTf5/O7KzjW5UrLkh
+ X3ZplrrjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAExEOYORYeaWu1yb5v8VWyT/
+ a3P7Jtu01QFqma89hB0Pvzrb8ni95neG/0GHzzl328a9KljmL7Qn1FOneob1tZc5RWbT34gcUuj
+ 6xgwA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Krystian Kaniewski <krystianmkaniewski@gmail.com> writes:
+The util_macros KUnit suite is named "util_macros.h". KUnit test names
+are formed as "<suite>.<test>" and a '.' in the suite name makes them
+ambiguous, which breaks every consumer that splits on it:
 
-> advance_sched() advances the software schedule by one entry per hrtimer
-> expiry and rearms the timer at the nominal end of that entry, without
-> reading the clock. When that time has already passed, the hrtimer core
-> runs the callback again inside the same interrupt, once for every missed
-> entry.
->
-> syzbot hits this with a single 127 ns entry on a veth device.
-> fill_sched_entry() only rejects intervals below the transmission time of
-> a minimum sized frame, which is 48 ns at the 10 Gb/s reported by veth,
-> so 127 ns is accepted. One expiry takes longer than 127 ns, so the
-> backlog grows instead of shrinking, the CPU stays in the timer interrupt
-> and RCU reports a stall. Lateness from a forward step of CLOCK_REALTIME
-> or CLOCK_TAI, from resume with CLOCK_BOOTTIME, or from a long time with
-> interrupts disabled leads to the same replay with any interval.
->
-> Record when the schedule starts and the period after which it repeats,
-> which is the cycle time, or the sum of the intervals when the entries
-> end before the cycle does. Whenever the entry that advance_sched() is
-> about to start has already ended, find the entry in progress from these
-> two values and continue from there. This selects the entry and the end
-> time that the replay would have reached, so a schedule that keeps up
-> with its timer behaves as before. The same check covers the first entry
-> after taprio_change() resets the current entry of a running schedule,
-> and the first entry of an admin schedule that takes over late.
->
-> advance_sched() now evaluates should_change_schedules() once on the
-> caught up end time instead of once per missed entry. That is only
-> equivalent if the test is monotonic in the end time, so make the
-> cycle_time_extension sum in that helper saturate instead of wrap. The
-> extension comes from netlink as an unbounded signed value.
->
-> This bounds the work done per expiry. It does not limit how often the
-> timer fires. Unless the clock is stepped backward between the hrtimer
-> core reading it and the callback reading it, the timer is rearmed after
-> the current time and the CPU leaves the timer interrupt between
-> expiries. On the high-resolution hard interrupt path, a schedule whose
-> intervals are shorter than one expiry is then held back by the hang
-> detection in hrtimer_interrupt().
->
-> Fixes: 5a781ccbd19e ("tc: Add support for configuring the taprio scheduler")
-> Reported-by: syzbot+e044a9b6370ed8ca9737@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=e044a9b6370ed8ca9737
-> Assisted-by: Codex:gpt-6.1-sol
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-> ---
+ - kunit.filter_glob= splits on the first '.', so
+   kunit.filter_glob=util_macros.h is parsed as suite "util_macros" with
+   test glob "h" and matches nothing.
 
-This one I need more time to review, from a quick look it looks good.
-Just a few minor comments for now.
+ - kunit.py's --list_tests output parser only accepts "<suite>.<test>"
+   names with a single '.', so the suite's tests are dropped from the
+   list and the suite name line "util_macros.h" is mistaken for a test
+   called "h" in suite "util_macros".
 
->  struct taprio_sched {
-> @@ -902,8 +909,19 @@ static bool should_change_schedules(const struct sched_gate_list *admin,
->  	 * plus the amount that can be extended would fall after the
->  	 * next schedule base_time, we can extend the current schedule
->  	 * for that amount.
-> +	 *
-> +	 * cycle_time_extension is an unbounded signed value from netlink, so
-> +	 * clamp the sum instead of letting it wrap. A wrap would make this
-> +	 * test non-monotonic in end_time, and advance_sched() relies on it
-> +	 * being monotonic to check it once after catching up instead of once
-> +	 * per skipped entry.
->  	 */
-> -	extension_time = ktime_add_ns(end_time, oper->cycle_time_extension);
-> +	if (oper->cycle_time_extension > 0 &&
-> +	    end_time > KTIME_MAX - oper->cycle_time_extension)
-> +		extension_time = KTIME_MAX;
-> +	else
-> +		extension_time = ktime_add_ns(end_time,
-> +					      oper->cycle_time_extension);
->
+ - As a result kunit.py --run_isolated=suite boots a kernel with
+   kunit.filter_glob=util_macros, which runs nothing and reports an
+   error, while the suite's actual tests are never run.
 
-This one I could argue that it could be in a separate patch. As the
-wrapping could cause issues even before these changes, no?
+Rename the suite to "util_macros" to match the other lib/tests suites.
 
->  	/* FIXME: the IEEE 802.1Q-2018 Specification isn't clear about
->  	 * how precisely the extension should be made. So after
-> @@ -915,6 +933,51 @@ static bool should_change_schedules(const struct sched_gate_list *admin,
->  	return false;
->  }
->  
-> +/* Returns the entry of @sched which is in progress at @now, the one that
-> + * advance_sched() reaches by moving one entry per expiry from the start of
-> + * the schedule, and sets @start and @end to the times at which it started
-> + * and ends. Also sets the end of the cycle which contains it.
-> + */
-> +static struct sched_entry *taprio_entry_at(struct sched_gate_list *sched,
-> +					   ktime_t now, ktime_t *start,
-> +					   ktime_t *end)
-> +{
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+Cc: linux-kernel@vger.kernel.org
+To: Brendan Higgins <brendan.higgins@linux.dev>
+To: David Gow <david@davidgow.net>
+To: Rae Moar <raemoar63@gmail.com>
+To: linux-kselftest@vger.kernel.org
+To: kunit-dev@googlegroups.com
+---
+ lib/tests/util_macros_kunit.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I like the idea of having this primitive.
+diff --git a/lib/tests/util_macros_kunit.c b/lib/tests/util_macros_kunit.c
+index 94cc9f0de50a..73652a6872c3 100644
+--- a/lib/tests/util_macros_kunit.c
++++ b/lib/tests/util_macros_kunit.c
+@@ -229,7 +229,7 @@ static struct kunit_case __refdata util_macros_test_cases[] = {
+ };
+ 
+ static struct kunit_suite util_macros_test_suite = {
+-	.name = "util_macros.h",
++	.name = "util_macros",
+ 	.test_cases = util_macros_test_cases,
+ };
+ 
 
-> +	struct sched_entry *entry, *found = NULL;
-> +	ktime_t cycle_start = sched->start_time;
-> +	s64 offset, entry_end = 0, elapsed = 0;
-> +
-> +	if (ktime_after(now, cycle_start)) {
-> +		s64 periods = div64_s64(ktime_sub(now, cycle_start),
-> +					sched->period);
-> +
-> +		cycle_start = ktime_add_ns(cycle_start,
-> +					   periods * sched->period);
-> +	}
-> +	offset = ktime_sub(now, cycle_start);
-> +
-> +	/* The offset is less than one period, so an entry which ends after
-> +	 * @now is found at the latest at the entry which reaches the end of
-> +	 * the cycle, or at the last entry. A schedule has at least one entry,
-> +	 * so the loop always sets found.
-> +	 */
-> +	list_for_each_entry(entry, &sched->entries, list) {
-> +		entry_end = min_t(s64, elapsed + entry->interval,
-> +				  sched->cycle_time);
-> +		if (offset < entry_end ||
-> +		    list_is_last(&entry->list, &sched->entries)) {
-> +			found = entry;
-> +			break;
-> +		}
-> +		elapsed = entry_end;
-> +	}
-> +
-> +	*start = ktime_add_ns(cycle_start, elapsed);
-> +	*end = ktime_add_ns(cycle_start, entry_end);
-> +	sched->cycle_end_time = ktime_add_ns(cycle_start,
-> sched->cycle_time);
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+change-id: 20261012-kunit-util-macros-name-7f490d9f0ffd
 
-Having this side effect here was unexpected. I think this would make
-more sense outside this function.
+Best regards,
+--  
+Mark Brown <broonie@kernel.org>
 
-> +
-> +	return found;
-> +}
-> +
->  static enum hrtimer_restart advance_sched(struct hrtimer *timer)
->  {
->  	struct taprio_sched *q = container_of(timer, struct taprio_sched,
-> @@ -923,8 +986,8 @@ static enum hrtimer_restart advance_sched(struct hrtimer *timer)
->  	struct sched_gate_list *oper, *admin;
->  	int num_tc = netdev_get_num_tc(dev);
->  	struct sched_entry *entry, *next;
-> +	ktime_t end_time, start, now;
->  	struct Qdisc *sch = q->root;
-> -	ktime_t end_time;
->  	int tc;
->  
->  	spin_lock(&q->current_entry_lock);
-> @@ -938,6 +1001,15 @@ static enum hrtimer_restart advance_sched(struct hrtimer *timer)
->  	if (!oper)
->  		switch_schedules(q, &admin, &oper);
->  
-> +	/* The entry selected below can be over already, after a clock step,
-> +	 * a long time with interrupts disabled, or because the intervals are
-> +	 * shorter than one expiry takes. Moving on by one entry and arming the
-> +	 * timer in the past would run this function again for every missed
-> +	 * entry without leaving the timer interrupt. Take the entry which is in
-> +	 * progress now instead, so that the timer is always armed after now.
-> +	 */
-> +	now = taprio_get_time(q);
-> +
->  	/* This can happen in two cases: 1. this is the very first run
->  	 * of this function (i.e. we weren't running any schedule
->  	 * previously); 2. The previous schedule just ended. The first
-> @@ -948,27 +1020,26 @@ static enum hrtimer_restart advance_sched(struct hrtimer *timer)
->  		next = list_first_entry(&oper->entries, struct sched_entry,
->  					list);
->  		end_time = next->end_time;
-> -		goto first_run;
-> -	}
-> -
-> -	if (should_restart_cycle(oper, entry)) {
-> -		next = list_first_entry(&oper->entries, struct sched_entry,
-> -					list);
-> -		oper->cycle_end_time = ktime_add_ns(oper->cycle_end_time,
-> -						    oper->cycle_time);
-> +		if (likely(ktime_after(end_time, now)))
-> +			goto first_run;
-> +		/* Also after taprio_change() while the schedule runs */
-> +		next = taprio_entry_at(oper, now, &start, &end_time);
->  	} else {
-> -		next = list_next_entry(entry, list);
-> -	}
-> -
-> -	end_time = ktime_add_ns(entry->end_time, next->interval);
-> -	end_time = min_t(ktime_t, end_time, oper->cycle_end_time);
-> +		if (should_restart_cycle(oper, entry)) {
-> +			next = list_first_entry(&oper->entries,
-> +						struct sched_entry, list);
-> +			oper->cycle_end_time =
-> +				ktime_add_ns(oper->cycle_end_time,
-> +					     oper->cycle_time);
-> +		} else {
-> +			next = list_next_entry(entry, list);
-> +		}
->  
-> -	for (tc = 0; tc < num_tc; tc++) {
-> -		if (next->gate_duration[tc] == oper->cycle_time)
-> -			next->gate_close_time[tc] = KTIME_MAX;
-> -		else
-> -			next->gate_close_time[tc] = ktime_add_ns(entry->end_time,
-> -								 next->gate_duration[tc]);
-> +		start = entry->end_time;
-> +		end_time = ktime_add_ns(start, next->interval);
-> +		end_time = min_t(ktime_t, end_time, oper->cycle_end_time);
-> +		if (unlikely(!ktime_after(end_time, now)))
-> +			next = taprio_entry_at(oper, now, &start, &end_time);
->  	}
->  
->  	if (should_change_schedules(admin, oper, end_time)) {
-> @@ -978,8 +1049,20 @@ static enum hrtimer_restart advance_sched(struct hrtimer *timer)
->  		 */
->  		next = list_first_entry(&oper->entries, struct sched_entry, list);
->  		end_time = next->end_time;
-> +		if (likely(ktime_after(end_time, now)))
-> +			goto set_budgets;
-> +		next = taprio_entry_at(oper, now, &start, &end_time);
-> +	}
-> +
-> +	for (tc = 0; tc < num_tc; tc++) {
-> +		if (next->gate_duration[tc] == oper->cycle_time)
-> +			next->gate_close_time[tc] = KTIME_MAX;
-> +		else
-> +			next->gate_close_time[tc] =
-> +				ktime_add_ns(start, next->gate_duration[tc]);
->  	}
->  
-> +set_budgets:
->  	next->end_time = end_time;
->  	taprio_set_budgets(q, oper, next);
->  
-> @@ -1285,7 +1368,8 @@ static void setup_first_end_time(struct taprio_sched *q,
->  {
->  	struct net_device *dev = qdisc_dev(q->root);
->  	int num_tc = netdev_get_num_tc(dev);
-> -	struct sched_entry *first;
-> +	struct sched_entry *first, *entry;
-> +	s64 intervals = 0;
->  	ktime_t cycle;
->  	int tc;
->  
-> @@ -1297,6 +1381,11 @@ static void setup_first_end_time(struct taprio_sched *q,
->  	/* FIXME: find a better place to do this */
->  	sched->cycle_end_time = ktime_add_ns(base, cycle);
->  
-> +	list_for_each_entry(entry, &sched->entries, list)
-> +		intervals += entry->interval;
-> +	sched->start_time = base;
-> +	sched->period = min_t(s64, intervals, cycle);
-> +
->  	first->end_time = ktime_add_ns(base, first->interval);
->  	taprio_set_budgets(q, sched, first);
->  
-> -- 
-> 2.53.0
->
-
--- 
-Vinicius
