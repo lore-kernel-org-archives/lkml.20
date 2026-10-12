@@ -1,216 +1,179 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011032.outbound.protection.outlook.com [40.93.194.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C873496D51;
-	Mon, 12 Oct 2026 15:13:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818012; cv=fail; b=OmQdPxGVHi0NuRvcmBVe6Yv+TVzkQUgxMjEisPS10TnKHXRQMI6G25UCYDkzRkJB5taTUIAWhzMitHlGRvg7Nl5ndlZlppG/mDfqYd5kCCq0W0lp9gecjSV6muw2Drqla+681jMR6M8gjqdW8uCf8wYhhBkd437zTmWzPQJntQw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818012; c=relaxed/simple;
-	bh=cqdUSbUPi3lBzpnVAtKCol373UwCfjgwf5xtEgapVmk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=e9os5xQec82h5i2an+OUOq9yE8qoGX7AZRpJuFTQPdUCshrqJ2KW7VGGCaWErpUnUGFxgwuFhAlZFQ46NG3j5+tQerpWH6K+cXjMVUvi0zLHbnhqWUOkVFG9rWkSBxKJcULNdECuw+/z4LQVQqa4ilg7XSowe0Cu4Z5fZenh648=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=oqfhBRr+; arc=fail smtp.client-ip=40.93.194.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C5E496D3D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:13:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791818017; cv=none; b=WGrRPYcWJOzfLi5HmCDYlwuKz8iAalGcVvWnrDEwVByO4SO5kz5qjaU503dEd0BQApFwizA6lxIqKu/LtUu8fX8gYSxXOqzPLz+VhrpOKiKNS+tCMzLzzSRLUELUsgY06R2T0//GqRaxGVaQgBLWsm2uaAJaIpY6FIHBqkzeSmE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791818017; c=relaxed/simple;
+	bh=umGqnCHZ555YbWy+AD6Im0/YlCEfdWkGC5Y0UR1kwVc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nGQurIonuzQkfhByg5d1mOH9bv/BnWKGaZ951eN6ihfyFUl0IxAV1Mjq6bscnRtdSH1qCSqyew37m77eyBNPo2ByOZBnPFalqqoAOoFbOnTBPyIeFeCvELKris8zP2dyOHmfAOAVyTMZmQtU94kNen8xchYJpxQYiunCRoA/6qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=GiIsn1Lr; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="oqfhBRr+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iQyjx701n1fD/Ir90YZrdLcGuPej2RI/jCKglXh6lnfXNk2dVYXACcVwtXg5gnSYUNjqhXhBEw0AeC/sdDWCHAoY4FlIn4AJ1mGmrPUOq4qWwUXzyw+Hc5+DPKeeq3q95OCQRciHb05zvBLN3YdUfu1JcHAcA+rZBDWob9b7Wwpf7v+dK3HeWJCn277CP2Y8ywn5CHzNgLF+li8N4ZTmCxRo1gbA8uXFBNOoWuDvH7OeldE/9hz9+8aFW8BhYmLUNKB0eorjJVZuCMk1zU4owmM6Fc9jqWRTfbE39pJBBok4IeWsS63YBL/QTMpYKnLGWk/vko6qYa9xtPv2j5jQVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DmPtDOIytOJn+vwptqX8mWPghapg6EgNK6QP2wx7Yd0=;
- b=ub+k/g4f3uaJFCkm8OE/gAUShZRdRvj4Klzkx7zRnvFA3oKrgK635hSH8v4F1qHu/YHH37VZIbXQuOq6ID+BIP8RaaatuhRh661+iXNomTb5H1VngOXEnuLT9S1XGyFKfRi5qoY/xhKIz7zfDMUoE2TL0BDGHpRe765esfm6SH852kph4GpA7EhuQc/VBkMaMZdWqcPBLe9T2yt9rtQb6oknLNBH8OHrFOzJpRWCWHEgEUkiM5FpVZOqCL5RzOv/legNqUQFR+ik6PRcJ3vKUTm9roJ2oOow2gex+oKdhy+rUM6V5Qcn8kMDgUDD6w5XiteU1sbHB/FGwhNt0MRFzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DmPtDOIytOJn+vwptqX8mWPghapg6EgNK6QP2wx7Yd0=;
- b=oqfhBRr+MSEgrc2NKU04g5IsqJ48kxb0HCK/12xj2Rpy9gamOE/zb//GfTRICVJEzhP8ZRdHebCSCo9lkmDFftb2hJceTlCgz9C2YEK1Hj56wM3WNrS52GRxaYIGTPap1uTclSsq0/CzvdxlzxeE3BDJNwgJykNDSw7FIRH45q4AA+HDx+Ws6XgqMu/ZegjdajBEK7Smj6LGFidxEKmVPtVK2YxgUpBvnEtq89ceSVtVMCdPh48FKoQb2IbNhSvLeobJn/5YPkTCoUBHRq0ouMB9Ap6aWO5o85SF79ev8ExdnJY1HTCLmgzoFD+hFE0Q/oxiajYVKzDVS8M6oRN4Pg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by CY3PR12MB9578.namprd12.prod.outlook.com (2603:10b6:930:109::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 15:13:25 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0496.015; Mon, 12 Oct 2026
- 15:13:25 +0000
-Date: Mon, 12 Oct 2026 18:13:16 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: 4ncienth@gmail.com, dsahern@kernel.org, davem@davemloft.net,
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3 1/3] ipv6: serialize address publication with
- device teardown
-Message-ID: <20261012151316.GA798355@shredder>
-References: <20261009054042.272944-2-4ncienth@gmail.com>
- <179161099408.434549.14449036924552933828@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179161099408.434549.14449036924552933828@kernel.org>
-X-ClientProxiedBy: TL0P290CA0015.ISRP290.PROD.OUTLOOK.COM (2603:1096:950:5::7)
- To PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="GiIsn1Lr"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso1158038f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:13:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791818014; x=1792422814; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0r5ZIRxJicrpwO18Ig2AHoe77ANyyN2+mXpKTZzO6Rs=;
+        b=GiIsn1Lrp0cPDPfjeIYIyoWI8hYnEYJu1tkaNax7crpy4wRox2QAo3iM3f3odwD4lc
+         YgMIbZKozdQc4e+JLl72zk1oGcSMnOWYbhWf5tUbJQ3Xptic2M45LM/btRJIZFJQ5dDW
+         78sAcnsi3H4dLkY3nAHDOFfs6Yf/4AH3E0vyN/nwkG8FT//uA5j7HR7ErtnqYtWxk/KH
+         PrDvrak7mh7NUUy9RDuE+PK9YEJ7mVSWYWJv9HLyrYYQgSRNw5ycZJ1CjVUpisr+KlxR
+         pu7Van4C/MnW20ZDwBzYe/p7l1GU8dhLbOEG9HyeFd26AM/DCGCnwN/IukUbeVbEBQbr
+         98eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791818014; x=1792422814;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0r5ZIRxJicrpwO18Ig2AHoe77ANyyN2+mXpKTZzO6Rs=;
+        b=NgkKKDelONltZ4R+Ml+0KTZTm9lkLx40BX1jOiLdzGN6J54RE4f99g7AzWoliFCnLO
+         CWlCOXqfDjw9vF4hvd5goWOZAbJA+pFTgi81r1siicbpu6/cWgF1no/NgKhghUhAsMbd
+         HVSPKYeaP3dcrjHD1aA5niBrOBuUJBh3w8uIPAhEq4bY0HfO0PUKBMFATnazFRKz2Ub6
+         gKRtYUGCKnwaofSXUcXVwYC+VHUty1uQupOxwab+XEdHHrffTp34alE29AUcuWIQ6ToJ
+         WrnuoFA7wEJD1gVkduWlaR3SRlEcYEHEQcJRm63isZSYy5qlxE+FyuKFOj40NuMNUfxp
+         MXPQ==
+X-Forwarded-Encrypted: i=1; AKwUvByvbhmyhA1BQIvml0xrfeOcFjhuAjciYrqH5+oA3hEyYslEhw3B75XfOWdrVzyC17Uo5p8c7ag2EWJ2KxI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKIkGNDQbzNq4fZorAtX3KrbVaqiXWsGcfDSUXtD6pEMoxvMzbK
+	DoAmU3TsZHu/2v97bInvYWvROtIHUu2jTpI0A6h0F3V+xsxi6tIFwnLTvVtSXoDi1NM=
+X-Gm-Gg: AYBFou1SPzfUzZH07FCZH4di/q/R4umsXHJ09MW+pbqZVH6RDPA4DUYVkrm9zZLTaQK
+	8mW6xs7EAm59FUu4PAuE/Hq2hBYPkoypkec+15v2q2rhKdPqHiMQtBeFBcGCMC45uTxgvEXCIch
+	8MlAm7x/u3gD6BO6gFRbBdZL9bxMtEErHnMJSMntEkIOnOkht0rSSzQaZc4hTZGbC90fxGXiHBF
+	bPVp1BebfcDtnm9Uz6RinH8XXfZADVK9bJvkP1nkndxDigNK7nQyLKjP7LJ+GiHCEle7UAYFV3L
+	KKL/Y6kuWvcjkCZ8uAJIUfFYkMCC5UruuNwUDf0vKWBGiXhkTQfYICU1NXibCtJCpzCqBz5z483
+	5p8Z8nQqJpeLZVo+HjiRa3sy2Xl29fUxHD8rkl6SWJ+IORQgfo48k6n4Kvcr7br+DQ4cL1g8meL
+	4ap5H6c/JcGbyyCEzJ2L8AkG4SWONtY1BsAGrSVubFucrtaBViZwDvXCB7fO7LMFzX3Wiyc/tOa
+	Q==
+X-Received: by 2002:a05:600c:3d96:b0:4a1:746e:5898 with SMTP id 5b1f17b1804b1-4a18e4835e7mr165297275e9.13.1791818013897;
+        Mon, 12 Oct 2026 08:13:33 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19f318c31sm78961655e9.3.2026.10.12.08.13.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 08:13:31 -0700 (PDT)
+Date: Mon, 12 Oct 2026 17:13:29 +0200
+From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+To: Sebastian Chlad <sebastianchlad@gmail.com>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Shuah Khan <shuah@kernel.org>, Sebastian Chlad <sebastian.chlad@suse.com>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, cgroups@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] selftests: cgroup: Report failed checks in
+ test_memcontrol
+Message-ID: <20261012-blend-diner-c6361d00b9f1@there>
+References: <20260926055152.1684-1-sebastian.chlad@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|CY3PR12MB9578:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9367e165-fe55-4101-6529-08df28735cae
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|10067099003|261009223027099003|11063799006|4143699003|18002099003|56012099006|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	3mOpTrUGGAyLbLTzVy9duqrk155YTb44+ndmV9vg0OrmgJ/vaysHs3hNh1HQy4BJP+zm4sQSDZgOzWPlgLtjkpHQhNnCTl8JSsU2iNA8lEaXDf3G81Z6V2y49N1i02N/fkRJ8D/w3Vy90MsVpA/FCxPDP8NS9/xpQtuZ5aobVFI7MyVNRd8gFbgD6yD0tx6ueFLSf2tJ8wUg0UDtxfhe2hNIPCoQBmVU5gjqTmf14a5ah2b3xBd7lydTPVfPZgC0j6lON8IBAh2ogZxTLsmQdjmCJWLQSOTFCtYzd167z8fDl0v9XWUYAggAs3RlGAVV4uw5WzbJss3eG0jp4RvlKLxiPjNUZUO/dDcm1eJyMAS+R655+1kpsq4OZ1xysNN10aW1Ghet1e8UorACPCcYOLxLxieZEgKaBTfzTo/palAgu/fJyLBkih3utGX4sjbrwPYTtfXWqoR0+23xfour94wncKEblnHH2HzEd0tICE1ugr7cocNqObmwM1UfWMPKrVVvsgvqgBFJDG3xc6nG0n0a9SoXvwWxB+9pXJ2PjUDtTlXRQYb5ZiKx9eniiPg5Lv1y9NAsAUOpOik2nm0bshj5tabXg2RJrLPkcOb9yEsvDcT1XDYSJ0FhixZsZuBC/3D0GNx72x70Zgaj/6LBMupUGyt4kI2KslvSbCcLOPk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(10067099003)(261009223027099003)(11063799006)(4143699003)(18002099003)(56012099006)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?FE21y8zlKUiZ+5mADmV+TPwakaWrjL01c4cTLBhOhMVlSkc1iPxPOlEoUHm9?=
- =?us-ascii?Q?y4R62p+AIra8vOhfPJ+HxPf4nYgqcW+ZAgipe/oem/eUSuptCDOtGLmk03y8?=
- =?us-ascii?Q?q/Bzy3Nv6b9gWKO3YpgcG4j4LhmBouDrZULcFAM2/HEjgvDTHN05eT8ftDeG?=
- =?us-ascii?Q?qRrol6Zp6VwNadT49XMJmCk2mMWoL8fYts88+OJmczO83xm4fmBnezX5xpSy?=
- =?us-ascii?Q?T5YCHNze5u2jn585ifJPjg896VQBm5NJWBglRDKIcfHUDL3cCS5Lj7sXCgfn?=
- =?us-ascii?Q?kUEk1g76O9xCtw3DPO3cTJ0O4EldwG4LfjRnaT0j0GVYLLhJmbWzEKBdxvGj?=
- =?us-ascii?Q?feNunpoPYkZLkgiOgxAdnCxj+5kVo9ymmMbyjHOiXRPFaWvNpHS+PdBx8Ni8?=
- =?us-ascii?Q?3+wJm6A7HlE67mSOflulZZ17M+EXIBlRsmunIMOnoOILf+/neW/5tGVnPnHM?=
- =?us-ascii?Q?uURwQPp0rLcCnI4rsLLPGbzdxxgI4bGSkBHzthXaNINChFoPDX91Kd2c9IOr?=
- =?us-ascii?Q?A7Eyiku1+I/9Z2RByl9Vj0Suk7WxY5whq38te5FzXRgxsEC+WKzAZkLpzi/E?=
- =?us-ascii?Q?gzahTF0NChOzf/wdjuLhdn3teytVJZScl3jKgf76gV5NJYeV3aMcON9XZuzF?=
- =?us-ascii?Q?jchwQWSx4NU5bmC1pwF5dwPck4AkF8WjVxSjvAsQ/h+0pwsJUm3mQLE5cfD1?=
- =?us-ascii?Q?LuKKkb4CYSWdbt08LD+KndQCJla5PSWOZSGTNIf2jE4uVFFM3FK9RuMbOmAp?=
- =?us-ascii?Q?4RUDiUfd+LV1tOa5rsg6jmixHqVtbvZrTTWGqlgNJxaoJwE+UaOaFXAgq6R8?=
- =?us-ascii?Q?2Zvwu24OafykGSbbUHoE7YtpWgcNXmgl1PtxeSnQXKCccaNWBsi9lEhbxpha?=
- =?us-ascii?Q?KVQXpD5prpv86dwHiQf2O1fFeuZ5n0DoiKOOGJY83uBqmc8TSJp8ImQDOXRm?=
- =?us-ascii?Q?EeTzHgH92wQrItXd0QBhqE06C/xBJBqY0AT3FaKJ1burw43DeclkMaO0+rix?=
- =?us-ascii?Q?bEnUMnClr7CmTTrO5AHBRktNM5Ye+zgdY8RUTyb26JhQ9ANaOq/qNsM5aSdi?=
- =?us-ascii?Q?GG15YiqzWRJYrLIDdCsMBwo0o4X4RZPAsTmC4yKmYShRs6kqL94O9tC9QRtc?=
- =?us-ascii?Q?07kVuVtgNiElP35sPjRfx9sSrLA79VyLt1Q3VngieQVRwe5FPhMb3yRCDjtY?=
- =?us-ascii?Q?zkAm5WhR/O2beK0u0KIhnipqIzX+Tg0mxRQp6ew4rz54lfwznS5kHlDvchcY?=
- =?us-ascii?Q?3I8onQ1PyOkXL6p7FxIMFhKT5Ke8uqhE7ofhZV2N86hcwikp7TpYL7W3rno6?=
- =?us-ascii?Q?uaQrU6vUbhYt0UseorcC3tD+bvEymPtN0jGSahWGyUwAv2XULvZuoiw4zJ6t?=
- =?us-ascii?Q?LnV6DWEmpkuOUUb4oGJyBXjTxptbVbXcu+0wQDLcoSEIzGJi4zMutvsVXlbR?=
- =?us-ascii?Q?DqEt1pULAcSlhzUXMU81HOtXHzhjS6JtJhz53ixC4Tcm25XxMryiHuysHXB0?=
- =?us-ascii?Q?nNTZYtFB2ch/r1PKB3BJlytncj4MFVgjgKzcHyS7kxZnisuaUzuYqi/M1RWg?=
- =?us-ascii?Q?o5IXTXyo4uM0Httc3WzXErApUMW+yB+xtOvBksO+qma+UzO2ofVPW+lOecJ/?=
- =?us-ascii?Q?nJUNs/uLUp5BBFCLliMiBHYb7RLXpVzAB7ugihU6BILYZgTkXdp+QsUhG6YA?=
- =?us-ascii?Q?8rNzPtPM4Jtmi/WGW5vo6tSbMU4u/XxBQARRVH6fHKVurVAH?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9367e165-fe55-4101-6529-08df28735cae
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 15:13:25.3249
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5x90p/haR69vsd9YA0/O0x10wYE2lTJaTStJQtS99scs2AvFg7B14HotwpI89Kq3d0n+SXAiT1TBo4lYqL2eeg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9578
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="u5gbdmp2bzg3luyu"
+Content-Disposition: inline
+In-Reply-To: <20260926055152.1684-1-sebastian.chlad@suse.com>
 
-On Sat, Oct 10, 2026 at 05:43:14AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> [Severity: High]
-> This is a pre-existing issue and was not introduced by this patch. The
-> recheck above does not cover the window after ipv6_add_addr() returns to
-> addrconf_dad_failure().
-> 
-> addrconf_dad_failure() runs from ndisc_recv_ns()/ndisc_recv_na() in
-> softirq without RTNL. For IFA_F_STABLE_PRIVACY addresses it does:
-> 
-> net/ipv6/addrconf.c:addrconf_dad_failure() {
->     ...
-> 		ifp2 = ipv6_add_addr(idev, &cfg, false, NULL);
-> 		if (IS_ERR(ifp2))
-> 			goto lock_errdad;
-> 
-> 		spin_lock_bh(&ifp2->lock);
-> 		ifp2->stable_privacy_retry = retries;
-> 		ifp2->state = INET6_IFADDR_STATE_PREDAD;
-> 		spin_unlock_bh(&ifp2->lock);
-> 
-> 		addrconf_mod_dad_work(ifp2, net->ipv6.sysctl.idgen_delay);
->     ...
-> }
-> 
-> addrconf_ifdown() can run on another CPU because of NETDEV_DOWN,
-> disable_ipv6, or NETDEV_CHANGEMTU below IPV6_MIN_MTU. If it snapshots
-> addr_list after ifp2 is linked, it can tear ifp2 down completely before
-> the spin_lock_bh(&ifp2->lock) above:
-> 
-> CPU1 (addrconf_ifdown)
->     ifa->state = INET6_IFADDR_STATE_DEAD;
->     __ipv6_ifa_notify(RTM_DELADDR, ifa)
->         ip6_del_rt(net, ifp->rt, false);
->         ifp->rt = NULL;
->     list_del_rcu(&ifa->if_list);
->     in6_ifa_put(ifa);
-> 
-> CPU2 (addrconf_dad_failure)
->     ifp2->state = INET6_IFADDR_STATE_PREDAD;
->     addrconf_mod_dad_work(ifp2, ...);
-> 
-> Can CPU2 overwrite the DEAD state here and queue DAD work on an address
-> that has already been torn down?
-> 
-> Suppose IF_READY is still set and ifp2 has inherited IFA_F_OPTIMISTIC.
-> Then addrconf_dad_work()->addrconf_dad_begin() reaches:
-> 
-> 	if (ifp->flags & IFA_F_OPTIMISTIC) {
-> 		ip6_ins_rt(net, ifp->rt);
-> 
-> At this point ifp->rt is NULL, and __ip6_ins_rt() dereferences
-> rt->fib6_table. IF_READY stays set in two cases:
-> 
-> - the NETDEV_CHANGEMTU path calls addrconf_ifdown(dev, true) without a
->   prior NETDEV_DOWN
-> - the link comes back up within idgen_delay
-> 
-> Otherwise the address is left in state DAD or POSTDAD. On the final put,
-> inet6_ifa_finish_destroy() then hits:
-> 
-> 	if (ifp->state != INET6_IFADDR_STATE_DEAD) {
-> 		pr_warn("Freeing alive inet6 address %p\n", ifp);
-> 		return;
-> 	}
-> 
-> so the ifaddr is never freed.
-> 
-> addrconf_dad_start() avoids this by checking for DEAD first:
-> 
-> 	if (ifp->state != INET6_IFADDR_STATE_DEAD) {
-> 		ifp->state = INET6_IFADDR_STATE_PREDAD;
-> 		begin_dad = true;
-> 	}
-> 
-> Would a similar check under ifp2->lock in addrconf_dad_failure() work?
-> The PREDAD write itself looks redundant, because ipv6_add_addr() already
-> returns the object in state 0 (PREDAD). No later patch in this series
-> changes addrconf_dad_failure().
 
-Looks like a valid issue. Please fix in patch #4 in v4 with something
-like this:
+--u5gbdmp2bzg3luyu
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 0/2] selftests: cgroup: Report failed checks in
+ test_memcontrol
+MIME-Version: 1.0
 
-diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index 7bd0e8820abb..7cb156ddc191 100644
---- a/net/ipv6/addrconf.c
-+++ b/net/ipv6/addrconf.c
-@@ -2230,7 +2230,6 @@ void addrconf_dad_failure(struct sk_buff *skb, struct inet6_ifaddr *ifp)
- 
- 		spin_lock_bh(&ifp2->lock);
- 		ifp2->stable_privacy_retry = retries;
--		ifp2->state = INET6_IFADDR_STATE_PREDAD;
- 		spin_unlock_bh(&ifp2->lock);
- 
- 		addrconf_mod_dad_work(ifp2, net->ipv6.sysctl.idgen_delay);
+Hi Sebastian.
 
+On Sat, Sep 26, 2026 at 07:51:46AM +0200, Sebastian Chlad <sebastianchlad@g=
+mail.com> wrote:
+> test_memcontrol fails intermittently, but most of its checks fail
+> silently, so a "not ok" line gives no indication of how far off the
+> measured value was. This series makes those failures print the observed
+> and expected values. It does not change any threshold or pass/fail
+> behaviour.
+>=20
+> Patch 1 converts the terminal tolerance checks to values_close_report(),
+> as was done for test_cpu in commit 4cdde87d723a ("selftests: cgroup: Use
+> values_close_report in test_cpu"). values_close() is kept where it is a
+> loop or retry condition, where a mismatch is expected.
+>=20
+> Patch 2 reports the "memory.current < 50M" check in
+> alloc_pagecache_50M_check(). Because test_memcg_high() calls the same
+> helper expecting it to fail, it gets a quiet variant. An alternative
+> would be to pass the flag through the currently unused void *arg of
+> the cg_run() callback; I am happy to switch to that if preferred.
+>=20
+> With patch 1 applied, we observe at times failures like these:
+>=20
+>   not ok 3 test_memcg_min
+>   [FAIL] actual=3D18722816 expected=3D30408704 | diff=3D11685888 | limit=
+=3D7369725 | tolerance=3D15% | actual_error=3D23.78%
+>=20
+>   not ok 4 test_memcg_low
+>   [FAIL] actual=3D20852736 expected=3D30408704 | diff=3D9555968 | limit=
+=3D7689210 | tolerance=3D15% | actual_error=3D18.64%
+>=20
+>   not ok 4 test_memcg_low
+>   [FAIL] actual=3D14364672 expected=3D22020096 | diff=3D7655424 | limit=
+=3D7276940 | tolerance=3D20% | actual_error=3D21.04%
+>=20
+> These are the child memory.current checks in test_memcg_protection()
+> (expected ~29M and ~21M). Their tolerances were already raised in commit
+> d2def68ae06a ("selftests: memcg: increase error tolerance of child
+> memory.current check in test_memcg_protection()"), and the values above
+> still fall outside them. In the first case the child is about 38% below
+> the expected 29M. This series only makes such failures visible; whether
+> the expectations or the tolerances should change is left for a separate
+> discussion.
+>=20
+> Changes in v2:
+> - Patch 1: pass the measured value first in the alloc_anon_50M_check()
+>   values_close_report() call, so that a failure prints actual and
+>   expected the right way round (reported by Sashiko AI review).
+>=20
+> v1: https://lore.kernel.org/all/20260926034923.31718-1-sebastian.chlad@su=
+se.com/
+>=20
+> Sebastian Chlad (2):
+>   selftests: cgroup: Use values_close_report in test_memcontrol
+>   selftests: cgroup: Report memory.current shortfall in
+>     alloc_pagecache_50M_check
+>=20
+>  .../selftests/cgroup/test_memcontrol.c        | 50 +++++++++++++------
+>  1 file changed, 36 insertions(+), 14 deletions(-)
+
+AFAIU, the test is catching two types of errors:
+a) running under global pressure (preparations already fail),
+b) mismatches in expected values of protection tests (after
+   preparation).
+
+I like the reporting of the latter -- with (only) that all consequent
+silent failures would imply^H strongly hint the error of type a), no?
+:-)
+
+Thanks,
+Michal
+
+--u5gbdmp2bzg3luyu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCasz5FRsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AhGygEA+E0rmCsu6Ho27N1p5NB3
+Lk11r2ujJozxMdTi3dbS1r0BAK1DXnSYhASHxLY7xCWsydP9u68Z2lTjRkyysntj
+W8gI
+=dP/j
+-----END PGP SIGNATURE-----
+
+--u5gbdmp2bzg3luyu--
