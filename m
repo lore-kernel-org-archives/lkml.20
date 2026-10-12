@@ -1,313 +1,158 @@
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB7D37188A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:42:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ACA6220F49;
+	Mon, 12 Oct 2026 13:42:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791812529; cv=none; b=S/j5eEkN81aP1BGGHQUqter3nICPpLHhtjzjMX8MIvVZ8FB96QI29fK9CKBIu6dlh6NughBFEYQICjt/04Kr+Lq+q1wxZ65iVYEjaRc98uMaLzoW0v3ky5yI30PBzurWRjEIUWZ11/iefHzijkYLYDI8XIo9GPCyuSuOWp4g+Gk=
+	t=1791812550; cv=none; b=NVs4BixbNMiYMBUyGawolj3ulVQWLVYRRvCJfYl+xoFm6zRuvRAPpPBk4M4jzlTE6VmkpwvyXycOSQHvsSVEZqgc86ayum8NU8DcsbR0DZBZfIyEFbONFy6jYu7LtiwKL2t1HupNpXHMdMMTPevviiM2mvUXU/7qjRtQ0UVb8yw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791812529; c=relaxed/simple;
-	bh=Rg6cJAv6ZUUI6IKmwS6DVaUEOkrHublyHQ8IOYSpW4E=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=BK0gNRHIpsVC+FDjBlKyPNFPQnGM1VEFtM6lIXobc7BOr/sqmd0zecRGzko/+jaA9PWoD3t+aTdS/4/8DK3btZJqTRAJtwuLS/c18lQ0QkNijNyGpUEF8QOor3zN1YJ4q30CIxP2TCLksM2VFzdsFCSlAkku3jQDe+MqOB9F8hg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--elver.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oCsBICku; arc=none smtp.client-ip=209.85.221.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--elver.bounces.google.com
+	s=arc-20240116; t=1791812550; c=relaxed/simple;
+	bh=2DSQ1qXfWt14OcuqhQ/nk4z8Falr+oK1aZuv4qHvrY4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uebG15rFWYEmoaUy9eNtEaKC6IBms37Ajq++nrDXVyWIVBAubrjYT0wMJ7ZDfkzd9QWk0AHpvH1xphzhEtgyD/sExsi+5fuzrA5kWnwvrzH0hq4i7G6qYiiYrfbfMBBjQwhJHk7GjQfDPFa9BPuTTmsam48tWOkiqennwZByRt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=pQZGQ7fT; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oCsBICku"
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48c69bdeaacso1550833f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:42:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791812526; x=1792417326; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VXSOc9CMrvtsfjOt0Sddq/wNROQxYDyqZfPwUsE1PWU=;
-        b=oCsBICkuWl77QUtELk4WrEKBMqEtlVNqz6aktoWUshxqZB+fVVJnii8fDbHN+jPBge
-         jN3YyPGzKAvbA9qn6an/eDA/5H1ksSHygF9Z2WE5+g/cDcXvs7TzXAU3HgFtPmkbflHe
-         FfLG4zIhLVrHVAe+xXU/7c0Waz2JZpMMaLtbHH85oLoHZfMeIU+3aZ/SbD1HT2+xfiVf
-         7e2JkOPBaIYJ9BxOuHtcHQmRHfi3gqsQJyXvsXmyrmxZFiCBoT0j2P3O1eKhw/zD1dfV
-         xEEbiqqIoIFuLK0SMurepNYF2t6iq4aPII53g22ZPTQwv7xEzn93MxlvHIBJRIV/LhId
-         4mMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791812526; x=1792417326;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VXSOc9CMrvtsfjOt0Sddq/wNROQxYDyqZfPwUsE1PWU=;
-        b=0JDqGqQjd0aY0ApoJrXCidJh5vQsJP2gzSt6rkWhdeyuSVXFtZhV+CHH/d7PgqBmRr
-         Q+9VGsEAZVttB5msp+AaOtE2B9n+Nu7RbGreTvpLSCBqtc9qxkLjBLVfNhAKVdgNDf//
-         wcL9zr+e6wi7pKl7UdUs824D/BoTq04g+ulwp6hnw1b5+PgTPnfKGVuU61JjbMn0ewSd
-         xRPl7/hD0QXftsLRm/IVbVVKHbt+4DJjcEwRNNYORsgdGfFOyaNUd0KD8fEijr6+ba/E
-         ig//My+6ML/lVrjTq1y0u7RxSLwdyNxx3YzZRcHEI3GbBuDQObn/lJo4eFqZlxOhXlDE
-         jXOA==
-X-Forwarded-Encrypted: i=1; AKwUvBwA6zHt0e4gKkrybHMLumjxfmU0xbkqfHNtDlM7lFi5D0bfpkRDexDb00wAsASHErwpbFbGJA5TnrFbHec=@vger.kernel.org
-X-Gm-Message-State: AFq9FYITkJHWJF+9dDNRnxBcrbL8UgjY1FO1FwsxCRRo57CW0ptsXKmP
-	uu/Ry/YzyuLzpaKf5REChaxLsYejnzVgXzC5DW9M+HI5vHiWehp9YO+KCSheeW3aNc/8iITQY8n
-	+SQ==
-X-Received: from wrvb8.prod.google.com ([2002:a5d:5508:0:b0:48c:4566:c9eb])
- (user=elver job=prod-delivery.src-stubby-dispatcher) by 2002:a5d:5590:0:b0:48c:6cdd:ba89
- with SMTP id ffacd0b85a97d-48dbaaefa6emr12665508f8f.36.1791812525412; Mon, 12
- Oct 2026 06:42:05 -0700 (PDT)
-Date: Mon, 12 Oct 2026 13:39:15 +0000
-In-Reply-To: <20261012134159.912183-1-elver@google.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="pQZGQ7fT"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCEEuD3209697;
+	Mon, 12 Oct 2026 13:42:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=qk+y1ol5v87Bmy/esSnm/FFTSp9V94
+	NvFHNoHcN9UI8=; b=pQZGQ7fTwY5tlon23xA4rGOvlS4GrXGoDIbJ6SYOkco/1s
+	uQthaYUEWJFTl5fz9bILq1XrIpJSpHKxJ7GLne+hieYDGkwUNGq3760/6Sd/M+rA
+	KL2JnnkDhBdvadjH5rhtvmHCLdLJBzzf8wutMNXEMjVPxvJ412OfWszmO1qJFgVb
+	Z7MwjblqOGluu3dKRN/0YaakzVEwf8qO+R/YmGNi0PkIjkDXR4dRTERvgofE49cs
+	wbHTfl0sry9vHHUdSMa9OTk55C6u6tsikuY1iasg0Xcov/vAGfGdB6siJpTR5Zs1
+	cg7a/8JwmHOg4JmXXj3uaKDO1mqsk33N/wFbd76g==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv08ufg-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 13:42:27 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC51Ts1287108;
+	Mon, 12 Oct 2026 13:42:27 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h816gwanm-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 13:42:27 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CDgNdn53019128
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 13:42:23 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5AF0020043;
+	Mon, 12 Oct 2026 13:42:23 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B9BCA20040;
+	Mon, 12 Oct 2026 13:42:22 +0000 (GMT)
+Received: from osiris (unknown [9.111.15.154])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon, 12 Oct 2026 13:42:22 +0000 (GMT)
+Date: Mon, 12 Oct 2026 15:42:21 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Ilya Leoshkevich <iii@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Niklas Schnelle <schnelle@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Vineeth Vijayan <vneethv@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Harald Freudenberger <freude@linux.ibm.com>,
+        Holger Dengler <dengler@linux.ibm.com>,
+        Stefan Haberland <sth@linux.ibm.com>,
+        Jan Hoeppner <hoeppner@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH 07/32] s390/traps: Handle nullifying program checks in
+ get_trap_ip()
+Message-ID: <20261012134221.19350F50-hca@linux.ibm.com>
+References: <20261001103247.1989111-1-hca@linux.ibm.com>
+ <20261001103247.1989111-8-hca@linux.ibm.com>
+ <f7a81358-0ff9-404b-9b27-1ea11c095694@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261012134159.912183-1-elver@google.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261012134159.912183-2-elver@google.com>
-Subject: [PATCH 2/2] rust: kcsan: add KUnit test for data race detection
-From: Marco Elver <elver@google.com>
-To: elver@google.com, Boqun Feng <boqun.feng@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Gary Guo <gary@garyguo.net>
-Cc: Alexander Potapenko <glider@google.com>, kasan-dev@googlegroups.com, 
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Boqun Feng <boqun@kernel.org>, 
-	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, "=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Asahi Lina <lina+kernel@asahilina.net>, 
-	Yury Norov <ynorov@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
-	Joel Fernandes <joelagnelf@nvidia.com>, workflows@vger.kernel.org, 
-	linux-doc@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f7a81358-0ff9-404b-9b27-1ea11c095694@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1MiBTYWx0ZWRfX6c5REcaT9zMT
+ NDvNk4/cDCiJCdiR3oWvptJ6SFbRoACtOZIHcwOQUv67yR9j/KdCGVsYzQ5ETvk/2o6FyXYjtxP
+ RzCzVNR2Prk2yw61aAkvTfHz9ZWXvFCrh2/5+VGVl+8mHHBYvTPzBmeHrIJ/eQ0yIUemKieC2vy
+ rG2w2j2JOmEaWvB/dJgbAoE29LP/xrt0zTDWdrUYnExZ40/qd//IfIW0dZPetPA81sGM/k9MLBN
+ jnVyjQ7tRkvn060rJzWZxUuWKz/Fw+ZsDVJGi7Fv3kzGh0UKaITMz/8pGDLdvjWHFqcD61M1byp
+ bnRn5yNXGm5VsfOMGVtIVNXsyLxl7KASR7kdvhXH2BnF25vyhEvYfoXm3WgEKx4NPZOcl5n4LgD
+ o4vLyQFwCNYLwbyZh/ultYkxp99ewGNvThsak+OClSyFSVFTKo8jaU0s02ErI5OrdIpI3xr37uH
+ hE/kywbe0FQSpwW2rIA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1MiBTYWx0ZWRfXyvFLhY1arFfC
+ vMxcqZ/5xfMBs0elL/1xkd0luWIvR3UjbaIr+59ojIMGkCZ2o89Ug1TcLsafN4KoQ97zxf3+TOl
+ FRCnpAcQhHkX7z82vBC6p/QRfQqToGc=
+X-Proofpoint-ORIG-GUID: OEWAXhjvHj7akbntqQF5raeO50Z8jWbZ
+X-Authority-Analysis: v=2.4 cv=a6KlZkSF c=1 sm=1 tr=0 ts=6acce3c3 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=ssxVvcqxAlbxuuaQv-IA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: OEWAXhjvHj7akbntqQF5raeO50Z8jWbZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
+ phishscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120052
 
-Add a minimal KUnit test that checks that KCSAN detects data races in
-Rust code: two threads concurrently increment a shared counter without
-synchronization, and a probe on the console tracepoint waits for the
-KCSAN report (similar to kcsan_test.c):
+On Mon, Oct 12, 2026 at 03:01:56PM +0200, Ilya Leoshkevich wrote:
+> > @@ -41,15 +42,19 @@ struct pgm_stat {
+> >   static DEFINE_PER_CPU_SHARED_ALIGNED(struct pgm_stat, pgm_stat);
+> > -static inline void __user *get_trap_ip(struct pt_regs *regs)
+> > +static inline unsigned long get_trap_ip(struct pt_regs *regs)
+> >   {
+> > -	unsigned long address;
+> > +	static const unsigned long nullified[2] = { PGM_CHECKS_NULLIFIED };
+> 
+> Maybe just [], to deal with the possibility of expansion in the future?
 
-| BUG: KCSAN: data-race in _RNvNtNtCskctMpSfuwL9_6kernel10kcsan_test5tests8racy_inc / _RNvNtNtCskctMpSfuwL9_6kernel10kcsan_test5tests8racy_inc
-|
-| read-write to 0xffffffffb751ae28 of 8 bytes by task 116 on cpu 5:
-|  _RNvNtNtCskctMpSfuwL9_6kernel10kcsan_test5tests8racy_inc+0x1c/0x30
-|  _RNvNtNtCskctMpSfuwL9_6kernel10kcsan_test5tests28kunit_rust_wrapper_data_race+0x28c/0x850
-|  kunit_try_run_case+0xdf/0x2a0
-|  kunit_generic_run_threadfn_adapter+0x48/0x80
-|  kthread+0x234/0x280
-|  ret_from_fork+0xf8/0x280
-|  ret_from_fork_asm+0x1a/0x30
-|
-| read-write to 0xffffffffb751ae28 of 8 bytes by task 12 on cpu 3:
-|  _RNvNtNtCskctMpSfuwL9_6kernel10kcsan_test5tests8racy_inc+0x1c/0x30
-|  _RNvXsb_NtCskctMpSfuwL9_6kernel9workqueueINtNtCs1G77UTwpz6o_4core3pin3PinINtNtNtB7_5alloc4kbox3BoxINtB5_11ClosureWorkNCNvNtNtB7_10kcsan_test5tests9data_races_0ENtNtB1d_9allocator7KmallocEEINtB5_15WorkItemPointerKy0_E3runB7_+0x55/0x120
-|  process_scheduled_works+0x4cd/0x970
-|  worker_thread+0x4de/0x6e0
-|  kthread+0x234/0x280
-|  ret_from_fork+0xf8/0x280
-|  ret_from_fork_asm+0x1a/0x30
-|
-| value changed: 0x000000000000022b -> 0x00000000000005a2
-| [...]
+That is also intentional since there are quite a few hard assumptions
+in the kernel that only interruption codes in the range of 0x0..0x7f are
+supported. But I do agree that a hard-coded "2" doesn't look too nice.
 
-The test is intentionally kept minimal; comprehensive tests of KCSAN's
-runtime behaviour are in kernel/kcsan/kcsan_test.c.
+I guess a follow clean-up patch could address that.
 
-Assisted-by: Antigravity
-Signed-off-by: Marco Elver <elver@google.com>
----
- MAINTAINERS                     |   1 +
- rust/bindings/bindings_helper.h |   1 +
- rust/kernel/Kconfig.test        |  11 +++
- rust/kernel/kcsan_test.rs       | 120 ++++++++++++++++++++++++++++++++
- rust/kernel/lib.rs              |   2 +
- 5 files changed, 135 insertions(+)
- create mode 100644 rust/kernel/kcsan_test.rs
+It is similar to the hard coded 128 here:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cc3cae2e378b..3fbbfbb31f5d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14089,6 +14089,7 @@ F:	Documentation/dev-tools/kcsan.rst
- F:	include/linux/kcsan*.h
- F:	kernel/kcsan/
- F:	lib/Kconfig.kcsan
-+F:	rust/kernel/kcsan_test.rs
- F:	scripts/Makefile.kcsan
- 
- KDUMP
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 4b31aa7f432f..b06d5142d6e1 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -97,6 +97,7 @@
- #include <linux/xarray.h>
- #include <net/genetlink.h>
- #include <net/netlink.h>
-+#include <trace/events/printk.h>
- #include <trace/events/rust_sample.h>
- 
- /*
-diff --git a/rust/kernel/Kconfig.test b/rust/kernel/Kconfig.test
-index e6a5c7a795f0..caf98a23de76 100644
---- a/rust/kernel/Kconfig.test
-+++ b/rust/kernel/Kconfig.test
-@@ -83,4 +83,15 @@ config RUST_BITFIELD_KUNIT_TEST
- 
- 	  If unsure, say N.
- 
-+config RUST_KCSAN_KUNIT_TEST
-+	bool "KUnit test for KCSAN instrumentation of Rust code" if !KUNIT_ALL_TESTS
-+	depends on KCSAN && HAVE_KCSAN_RUSTC && TRACEPOINTS
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This option enables a KUnit test checking that KCSAN detects data
-+	  races in Rust code. The test needs at least 2 CPUs to reliably
-+	  observe a data race.
-+
-+	  If unsure, say N.
-+
- endif
-diff --git a/rust/kernel/kcsan_test.rs b/rust/kernel/kcsan_test.rs
-new file mode 100644
-index 000000000000..5ddc9090cd6e
---- /dev/null
-+++ b/rust/kernel/kcsan_test.rs
-@@ -0,0 +1,120 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! KUnit test checking that KCSAN detects data races in Rust code.
-+
-+#[macros::kunit_tests(rust_kcsan)]
-+mod tests {
-+    use crate::{
-+        bindings,
-+        error::to_result,
-+        ffi::{c_char, c_void},
-+        prelude::*,
-+        sync::{
-+            atomic::{Atomic, Relaxed},
-+            Arc, Completion,
-+        },
-+        time::{Delta, Instant, Monotonic},
-+        types::ScopeGuard,
-+        workqueue,
-+    };
-+    use core::{cell::UnsafeCell, ptr, slice};
-+
-+    struct Racy(UnsafeCell<u64>);
-+
-+    // SAFETY: Not actually safe: unsynchronized concurrent access is the point of this test.
-+    unsafe impl Sync for Racy {}
-+
-+    static RACY: Racy = Racy(UnsafeCell::new(0));
-+
-+    /// Set by [`probe_console`] once KCSAN reported a data race in [`racy_inc`].
-+    static OBSERVED: Atomic<bool> = Atomic::new(false);
-+
-+    #[inline(never)]
-+    fn racy_inc() {
-+        let p = RACY.0.get();
-+        // SAFETY: `p` is valid; the data race is intentional. `wrapping_add()` keeps the load and
-+        // store in one basic block, so that the access is instrumented as a compound access (plain
-+        // writes may be assumed atomic with `CONFIG_KCSAN_ASSUME_PLAIN_WRITES_ATOMIC=y`).
-+        unsafe { *p = (*p).wrapping_add(1); }
-+    }
-+
-+    fn contains(haystack: &[u8], needle: &[u8]) -> bool {
-+        haystack.windows(needle.len()).any(|w| w == needle)
-+    }
-+
-+    /// Probe for the `console` tracepoint.
-+    ///
-+    /// # Safety
-+    ///
-+    /// `buf` must be non-null and valid for reads of `len` bytes.
-+    unsafe extern "C" fn probe_console(_data: *mut c_void, buf: *const c_char, len: usize) {
-+        // SAFETY: By the safety requirements of this function.
-+        let line = unsafe { slice::from_raw_parts(buf.cast::<u8>(), len) };
-+
-+        if contains(line, b"BUG: KCSAN: data-race in ") && contains(line, b"racy_inc") {
-+            OBSERVED.store(true, Relaxed);
-+        }
-+    }
-+
-+    #[pin_data]
-+    struct Ctx {
-+        stop: Atomic<bool>,
-+        #[pin]
-+        done: Completion,
-+    }
-+
-+    #[test]
-+    fn data_race() -> Result {
-+        // Do not pass on a report from a previous run of this suite.
-+        OBSERVED.store(false, Relaxed);
-+
-+        let ctx = Arc::pin_init(
-+            pin_init!(Ctx {
-+                stop: Atomic::new(false),
-+                done <- Completion::new(),
-+            }),
-+            GFP_KERNEL,
-+        )?;
-+
-+        // SAFETY: `probe_console` has the signature expected by the `console` tracepoint. Being
-+        // part of the kernel image, it and `OBSERVED` outlive the registration, so there is no
-+        // need to synchronize with in-flight probes after unregistering.
-+        to_result(unsafe {
-+            bindings::tracepoint_probe_register(
-+                &raw mut bindings::__tracepoint_console,
-+                probe_console as *mut c_void,
-+                ptr::null_mut(),
-+            )
-+        })?;
-+        let _unregister = ScopeGuard::new(|| {
-+            // SAFETY: The probe was registered above.
-+            unsafe {
-+                bindings::tracepoint_probe_unregister(
-+                    &raw mut bindings::__tracepoint_console,
-+                    probe_console as *mut c_void,
-+                    ptr::null_mut(),
-+                );
-+            }
-+        });
-+
-+        let worker = ctx.clone();
-+        workqueue::system_unbound().try_spawn(GFP_KERNEL, move || {
-+            while !worker.stop.load(Relaxed) {
-+                racy_inc();
-+            }
-+            worker.done.complete_all();
-+        })?;
-+
-+        let start = Instant::<Monotonic>::now();
-+        while !OBSERVED.load(Relaxed) && start.elapsed() < Delta::from_secs(10) {
-+            racy_inc();
-+        }
-+
-+        ctx.stop.store(true, Relaxed);
-+        ctx.done.wait_for_completion();
-+        drop(_unregister);
-+
-+        assert!(OBSERVED.load(Relaxed));
-+        Ok(())
-+    }
-+}
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index 4d5c96ddc49c..009efda9e7a4 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -94,6 +94,8 @@
- pub mod iov;
- pub mod irq;
- pub mod jump_label;
-+#[cfg(CONFIG_RUST_KCSAN_KUNIT_TEST)]
-+mod kcsan_test;
- #[cfg(CONFIG_KUNIT)]
- pub mod kunit;
- pub mod list;
--- 
-2.56.0.385.gd3acb90ef8-goog
+static void (*pgm_check_table[128])(struct pt_regs *regs) = {
 
+in traps.c - which is also not nice.
+
+> > @@ -152,7 +157,7 @@ static void illegal_op(struct pt_regs *regs)
+> >   	int signal = 0;
+> >   	u16 opcode;
+> > -	location = get_trap_ip(regs);
+> > +	location = (void __user *)get_trap_ip(regs);
+> 
+> Should location be moved inside the "if"? Now it reads weirdly: we cast
+> the pointer to __user before checking for user mode.
+> 
+> >   	if (user_mode(regs)) {
+> >   		if (get_user(opcode, location))
+
+You are suggesting to move the assignment like this:
+
+	if (user_mode(regs)) {
+		location = (void __user *)get_trap_ip(regs);
+		if (get_user(opcode, location))
+
+? Or something else? Sure, why not. Just let me know what you prefer.
