@@ -1,221 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gentwo.org (gentwo.org [62.72.0.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 063D73B4EBC;
-	Mon, 12 Oct 2026 18:52:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132683B47C9
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:53:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791831166; cv=none; b=DV1o7GmvwoU809ABw2aiDfdlzuD8HhbGekCsg0el+ZeEK8/OIwMJI3O1mYzUL01+gquYpSUZ2a8MgXGN2ycMz0Ixk261j+ftZ9nez9Os8ZmwbrYRWTfFHLxbUgcn2j4nwlqB8wR25SSCczwuJ/N4D5wSBreYi6goRIPAnXYY0tw=
+	t=1791831236; cv=none; b=mF1QN8E0Vo6LRbvw2wH/PSfjn2M2SGQhJm8K3UPKexyNuhH7vTyRQisQx3pBv60wQZgTYdCECXP/w34OMq49vrnCskptI+4wEptD3cc/SUcPlfrLPdzKe84YC4STireh1w6ukmipsAvCTTSw5My1aSJ6nwYelDN4qa3BFsQ/dfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791831166; c=relaxed/simple;
-	bh=b4h3yvXXHOgNrBcgO3uqN0z/gdCLhzp+fQGx4Nj9+Rc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Scqy5c80mnOmJTewzAPjQvES7f+98ddLjwmpSX0khfGvasjhZf6x5/kQ2p0s0bGjjwMy84wbsXQau2WeZJDV1oqcfBD2a8Vtr0ML5slaI3F47BywTKMGTDNcjRQL+tlIWQkSVNjkgc7ShFGlDA6AU4Bji3WMIy3dEnyY+zxCObE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m0WRXH/l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791831236; c=relaxed/simple;
+	bh=H29dGlgnv0fmHWhXTMTbL9D1uRoXiHQqrNQF3Cjsylk=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Vw+71ISDMwmTLVrAXA/RXLiDrz3vo+IuToqxSmfrana0+c2iPKTYiMmE8p3Ta1jmDtSar8qqkT/ztYKxokwo7dm5wAjYRMbQk07jePAz92IUhKtycnbn8vf6PXq+nwH+C4JsMYuDUs4Uq3rufRsbgkRM3WNZTrtSmxlMoHrlFus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=q2wOUtOq; arc=none smtp.client-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m0WRXH/l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 741911F0089B;
-	Mon, 12 Oct 2026 18:52:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791831164;
-	bh=JS5rAlbNo22qwtsGvE+A/Ou5uLAn4LHEBxkEtLv9fm4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=m0WRXH/lGiOPjKVxGePwu9PM4DBxUfPf8mpW/r+t73nEB4ofC+jExqVxZuSSyCuxU
-	 PD3XbbzWWtvD7+lTvQ6xsNEcjU9fooei2o1PVRT0U5yaGF3LE4miOE2lcxGpGnS+f3
-	 dTiNe4ZHjWjMKBQ/83QDlAZaU1CiGGcPnwTZqi2Z1/GXnkE3taxcckXkF7h0u220Fr
-	 NScxBsv/ieFyXlvqOLGLpBLzqpR4+YkZ9hncI4napESKOdnb5dEDI4RfDa2EZt3h7I
-	 ySovDqvGx82lYI5mP1iagKu+WVxk0qJBOPBG7o0UK7QoI0vOVrh2fHUYlAdE7Ma9Kz
-	 TLgk090yWcxhA==
-Message-ID: <214514be-a935-485b-8925-07d84c1063f9@kernel.org>
-Date: Mon, 12 Oct 2026 20:52:07 +0200
+	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="q2wOUtOq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1791831227;
+	bh=H29dGlgnv0fmHWhXTMTbL9D1uRoXiHQqrNQF3Cjsylk=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=q2wOUtOqhkpZBGAJN+jbrQ7NnN5FjsjwPz23uDMog4JVwf5v2EyNzzyLTjijoEwVn
+	 NMLizURDOLsCh2ldmoXy1voT9CbthvSQNZ1WrMBwZMff4VXZWKViOu0wrdHYOQUz94
+	 +f4Va3AIOGT4gJvPjw/vZduU6mFumlY61G5w/2G8=
+Received: by gentwo.org (Postfix, from userid 1007)
+	id 7B3764029C; Mon, 12 Oct 2026 11:53:47 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTP id 78DF2401B0;
+	Mon, 12 Oct 2026 11:53:47 -0700 (PDT)
+Date: Mon, 12 Oct 2026 11:53:47 -0700 (PDT)
+From: Shubhang <sh@gentwo.org>
+To: Peter Zijlstra <peterz@infradead.org>
+cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
+    Vincent Guittot <vincent.guittot@linaro.org>, 
+    Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+    Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+    Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+    K Prateek Nayak <kprateek.nayak@amd.com>, 
+    Christian Loehle <christian.loehle@arm.com>, 
+    Madadi Vineeth Reddy <vineethr@linux.ibm.com>, 
+    Shrikanth Hegde <sshegde@linux.ibm.com>, 
+    "Christoph Lameter (Ampere)" <cl@gentwo.org>, 
+    Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5] sched/fair: Preserve wake-affine CPU for non-SMT
+ reciprocal sync wakeups
+In-Reply-To: <20261012113340.GS4121339@noisy.programming.kicks-ass.net>
+Message-ID: <6e29ac5e-cf6c-d299-d72c-eef828bcfbe7@gentwo.org>
+References: <20261008-b4-sched-sync-wakeup-v5-1-1af9fab48965@gentwo.org> <20261012113340.GS4121339@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 35/38] mm: avoid use of VMA_SPECIAL_FLAGS in
- migrate_vma_setup()
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- "David S. Miller" <davem@davemloft.net>,
- Andreas Larsson <andreas@gaisler.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, bpf@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>,
- Bert Karwatzki <spasswolf@web.de>
-References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
- <20261009-b4-mmap-prepare-vma-flag-sanify-v5-35-923b70125b1e@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-35-923b70125b1e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII; format=flowed
 
-On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
-> Now we have the expressive vma_is_mm_managed() and vma_is_fixed_mapping()
-> predicates, use them to determine whether to proceed with migration. This
-> drops the VMA_IO_BIT test, which is safe as mm-managed mappings may not set
-> it.
-> 
-> hugetlb mappings remain excluded, as they are fixed mappings.
-> 
-> No functional change intended.
-> 
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  mm/migrate_device.c | 12 +++++++-----
->  1 file changed, 7 insertions(+), 5 deletions(-)
-> 
-> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-> index b9c453c28795..289d7b08ace4 100644
-> --- a/mm/migrate_device.c
-> +++ b/mm/migrate_device.c
-> @@ -739,19 +739,21 @@ static void migrate_vma_unmap(struct migrate_vma *migrate)
->   */
->  int migrate_vma_setup(struct migrate_vma *args)
->  {
-> +	const struct vm_area_struct *vma = args->vma;
->  	long nr_pages = (args->end - args->start) >> PAGE_SHIFT;
->  
->  	args->start &= PAGE_MASK;
->  	args->end &= PAGE_MASK;
-> -	if (!args->vma || vma_test_any_mask(args->vma, VMA_SPECIAL_FLAGS) ||
-> -	    vma_is_dax(args->vma))
-> +	if (!vma)
-> +		return -EINVAL;
-> +	if (!vma_is_mm_managed(vma) || vma_is_fixed_mapping(vma) ||
-> +	    vma_is_dax(vma))
+Hi Peter,
 
-Same here, with the droppable thing changed this would be
+Thanks for the review.
 
-!vma_is_mm_backed() || vma_is_dax(vma)
+On Mon, 12 Oct 2026, Peter Zijlstra wrote:
 
-I guess.
+> On Thu, Oct 08, 2026 at 03:22:37PM -0700, Shubhang Kaushik (Ampere) wrote:
+>
+>> +static bool prefer_sync_pair_cpu(struct task_struct *p, int cpu)
+>> +{
+>> +	struct rq *rq = cpu_rq(cpu);
+>> +
+>> +	if ((rq->nr_running - cfs_h_nr_delayed(rq)) != 1)
+>> +		return false;
+>> +
+>> +	if (sched_asym_cpucap_active()) {
+>> +		sync_entity_load_avg(&p->se);
+>> +		if (!task_fits_cpu(p, cpu))
+>> +			return false;
+>> +	}
+>> +
+>> +	return true;
+>> +}
+>> +
+>>  /*
+>>   * Try and locate an idle core/thread in the LLC cache domain.
+>>   */
+>> @@ -9955,6 +9975,12 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+>>  			if (cpu != prev_cpu)
+>>  				new_cpu = wake_affine(tmp, p, cpu, prev_cpu, sync);
+>>
+>> +			if (sync && !sched_smt_active() &&
+>> +			    new_cpu == cpu &&
+>> +			    p->last_wakee == current &&
+>> +			    prefer_sync_pair_cpu(p, cpu))
+>> +				return cpu;
+>> +
+>>  			sd = NULL; /* Prefer wake_affine over balance flags */
+>>  			break;
+>>  		}
+>
+> Hurmph.. just looking at this patch makes me go WTF. I've not read this
+> lengthy Changelog you put on top, because none of that survives unless
+> one goes trawl through git.
+>
+> So this code is confusing as heck. Nor is is evident why it wants to be
+> !SMT.
+>
+> The way I read this:
+>
+> if the new_cpu is the current cpu (default case) AND
+>    p was last woken by us AND
+>    random
+>      stay here.
+>
+> The function babbles something about a sync-pair, but then doesn't
+> actually do anything with a pair, or ensures there is a pair.
+>
+> I'm supposing what you're getting at is the earlier:
+>
+> 'p->last_wakee == current' combined with the fact that current is now
+> waking p
+>
+> But then I have to note that last_wakee isn't all that nice, since
+> record_wakee() isn't guarded by in_task() -- it really should be.
+>
+> Try and convince me with readable code?
+>
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Yes, I see. It seems implicit that v5 relies on the earlier 
+record_wakee(p) update to establish current->last_wakee == p, while the 
+placement decision only shows p->last_wakee == current.
 
--- 
-Cheers,
+I will respin it so the reciprocal state is recorded as a local boolean
+immediately after record_wakee(p):
 
-David
+         reciprocal_wakeup = in_task() &&
+                 current->last_wakee == p &&
+                 p->last_wakee == current;
+
+The later placement decision will use that named state rather than a
+bare last_wakee comparison.
+
+Yes, I will add the in_task() guard to record_wakee() itself. Otherwise,
+an IRQ/softirq wakeup records the interrupted task as the waker and can
+create a false last_wakee relationship.
+
+Lastly, I will make the non-SMT restriction explicit at the decision
+point. On a non-SMT CPU, stacking the reciprocal WF_SYNC wakee behind
+the waker preserves the intended handoff when the waker is its only
+runnable task. On SMT, an idle sibling or idle core may run the wakee
+in parallel, so select_idle_sibling() remains responsible for that
+placement.
+
+So I'll send a v6 with these changes accordingly.
+
+Thanks,
+Shubhang Kaushik
