@@ -1,206 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6773ACA64;
-	Mon, 12 Oct 2026 11:18:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760C841D62D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:18:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791803903; cv=none; b=jDbpVjqHcSpOzXamOJuzI4JM0bh4FngLq2vDaPEoIQpBcqMSrG1KiFN+KFtUdIV/umLNfDpw6F5oK3fkRFqrlwh6Ujxkts5ulyv5+76seG3mi/SlE2E1Ivr9DC/KQfpv3Rk1SGZg2ETNBX01Hs74M/xjpwKVFr7BDjNAjgZ1a5A=
+	t=1791803907; cv=none; b=RZZnnRAVDrKsS8BfqmcOtP3a0EDiH2s9lQAef+CzoXF2ArV/s5bV2vyW2L+DDB+hEPou0eYVK81cIgDFzmPUTTQMqWcu+DlEo02WzP/7HGuCH7f4nip1fM+aVesL/pMBfUETpDIHpJ6EKQ3BSiHg1Pe3npU9Jvv5iojwKoI/nkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791803903; c=relaxed/simple;
-	bh=LQf0qk4sV6UDVR7RukePLilxROge+43Oc2FIzBgx+i0=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CH7YV7fpDmlJ4pGL5Z4flVOfVTcJ2OQEHqTkrXYmyNxP98E8pZ6xc+Wi7NA3S7z4BNVyfIF8mkz04lJriAXaBDp7XGvMUC4ErpQ6RIIUyLKvNyTQ4toOKvprvKAIXdKqDEIKwAO2J51rAZr1v/gHTI0LNoT4hLL24K3QTBpV6es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ErmAX66L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791803907; c=relaxed/simple;
+	bh=20jkYx8ujzIk6V8EjzGICADAn/dtFkP5yiHUM8K7JU8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MdcMXE/5JX+dVVH0ClMx7f4LQAaF/gmV24UugnQ8LDUdS5W0nYvBCG/mXaa+rCD4Ri70X4EbHUmRzRNlAaBvKyiPqTvYP53UfmqqQsVBl4w9eRgss6uMWhobqXzTkqZYM2wRddeD9nT1R0YnVuo+LXvWAFelVVXydovYnReE3rQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Bnf5mhq0; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ErmAX66L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 029491F0089B;
-	Mon, 12 Oct 2026 11:18:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791803901;
-	bh=qERazqb8eyeXYj8ho8FOKcuAMRROCm/gPcydjpaESMU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ErmAX66LB/nMEV8t/vdKHp/n3oavbzTQvU1QCCOrJ0AWPzl+v+JrphP1B9zfOJ8FZ
-	 YRRK2j7y63Q2GHrQkwW4ZVYxOi2P7jQEUURI6YkxmWglYJlKjscvdZM+7h4VfiZax1
-	 qaD/XsBK4qDWBbKbYsIA2S796yadcZa8WhieXWUYwcvPyZkPVyNI6/VLsgWHJlAOQI
-	 yCh45CoBQfLQxjzqzWbOyKwQ8JM05rDjz239qZDiUjNB2P9b7x/hsjyV6wD1EvJT4R
-	 7riWw/aKQkWohGUBudOYh7onFsZl5kN87PFdgAbtj5CGUQ4cCJ5O+VGBYz8pSVicDU
-	 XFyXjwj5yYsEA==
-Subject: Re: [PATCH net-next 1/2] tcp: don't set window_clamp from SO_RCVBUF
- before the socket is connected
-From: netdev-bot+sashiko@kernel.org
-To: jain.sm@gmail.com
-Cc: edumazet@kernel.org, ncardwell@google.com, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, kuniyu@google.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 12 Oct 2026 11:18:20 +0000
-Message-ID: <179180390054.434549.3187163637190599944@kernel.org>
-In-Reply-To: <20261011111606.14753-2-jain.sm@gmail.com>
-References: <20261011111606.14753-2-jain.sm@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Bnf5mhq0"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a061a13884so15163255e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:18:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791803905; x=1792408705; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ojX3hkGfX4or6LXO9A1AxAUN8SUQm9XePAgC0Ad/Cog=;
+        b=Bnf5mhq0tNnn4pixhxuNbrwY7dD+z5pbFI0pSD9ORZa0KAX56bMZTKzMLGJHKvAVSI
+         dCdegE1rufjmxQnHpLM+FNp6LD6lr5jvhWtGLruHI/U2ErYJgdEEkB0r3h/73OzkNU+o
+         8fT/iJKth2sda1UiO+aBJesZDMyYYKRLhfH9HdJuCXRQWG/EqrhbNsd+P/OwDhXDvpI6
+         uRDK58jaYmzbsdHKeJHxESER7hVFpuRHFhsRjBivv0dybDCumoAa8Q4xtMApg89+2BW8
+         8nHduOJYcqDPr+My4ipcatjhFBr8DJhRer5gXh8FnRfGDrwB73R2XnWfqjH+ClAROMaY
+         lmlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791803905; x=1792408705;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ojX3hkGfX4or6LXO9A1AxAUN8SUQm9XePAgC0Ad/Cog=;
+        b=F9H1TGHGmU9Ty0tOkitM8rYJ8zXQ1dbeAbSizQqQTv6iiK5xX8YBqXCvBJvVIB6axq
+         HlltKKxV3d5OESsNuYDfbKY4fc0iGQdzCh0DqQA60ZbFPdSZKNWlhXYzF3ggvi9DTVBt
+         8hXsaPp84+rjweROu/ISfqfKo2rz0xroupLGoZU2phcwXc3dVuNjXnYPrEfnF4A/9W2F
+         scypultPbYcxVsdZJQBZ5+9j/MmJ26bE961ja5wnHx3UZjcGwgoI+rhsG7xW41HfF4Rb
+         ZB18dVTdO3UVksFyTwDLT1tglnHrJ0PrOaq406q9nDVOdvEedHRInZeXYlSxSaY+MiYf
+         Mqew==
+X-Forwarded-Encrypted: i=1; AKwUvBzUMCL0ZxpiCyI15gs/K8EowtXPnCEkml30lK1wmCe/qRc1c+xfENR7FyWSBSMxNrzzJLO8Z+rqUS61+A4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhFPWKnSJjjpdpsBajDvP8jRRrTOiSJyUFvH+0MhGCIU42FI7c
+	v9e+5UklQAd9w+COgplJCkPyJKu8HERK91i9STdDvmy8K8SYRV6XQe+fYvOo2C2i40M=
+X-Gm-Gg: AYBFou28iUG7rEc0FEQjBnSXmff1UEFgVD5B59/8gW7M0jzAhVkRjRAEaS49VXXWra6
+	MH0PnjZeqW5kAezs23vnZ08+Y8xWF2ry9lyxsmBzlj/QbNM8Q5EuUrsPh7C/brrbAalMZdG2o7f
+	C4bMalke62yrTFJxfZ5IQDnM8BoqwxIWFV+jgxALumESxWybk+c3m0X5alsnQ3vw6gFTdxZv667
+	vDV058XPMkm/CrQyiZXF0hAMO3kZOCFVzXLFs1erf9k/24XDpoK9qDajpUX4ew47hc9wPJXNPgr
+	uMV8lGeesXOT4IqY1H3cUTRlVQZf0PT3ViL795RuY77g6WPfihLhelxGnUWBsnf2UR9RExttVdF
+	/HnFMNRzvD51dtqEa90RsWWVW3B+J5nBtZouf4tYg6Vg8jgIc0BSM0DFJaUmGkoXI7rgI6L+gvz
+	6BIeeUZ5WVcnDeqXjyalbIT0Ro2HJIseE9SIQzymCcM0supvgsAvRmBAjQsZRbdG54Mh/E5/1bW
+	FPoW53Kx6kCWfOY5po/rW/XDU+OwmHtmt1YvoE0Nlam5pUe46haQ8Vf+nb3gg==
+X-Received: by 2002:a05:600c:6384:b0:4a1:7741:ec43 with SMTP id 5b1f17b1804b1-4a18e4b8966mr159157835e9.26.1791803904585;
+        Mon, 12 Oct 2026 04:18:24 -0700 (PDT)
+Received: from localhost (p200300f65f19a904ade4f69ba751c34c.dip0.t-ipconnect.de. [2003:f6:5f19:a904:ade4:f69b:a751:c34c])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a18bb68abfsm311754435e9.0.2026.10.12.04.18.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 04:18:21 -0700 (PDT)
+Date: Mon, 12 Oct 2026 13:18:21 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Cc: Ying Liu <victor.liu@nxp.com>, Frank Li <frank.li@oss.nxp.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org, imx@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v10 5/9] drm/imx: Add support for i.MX94 DCIF
+Message-ID: <aszBIkBXoFIkkeiL@monoceros>
+References: <20261006-dcif-upstreaming-v10-0-bcfb28de0aae@oss.nxp.com>
+ <20261006-dcif-upstreaming-v10-5-bcfb28de0aae@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cdga4qrbhoxcfsbx"
+Content-Disposition: inline
+In-Reply-To: <20261006-dcif-upstreaming-v10-5-bcfb28de0aae@oss.nxp.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+--cdga4qrbhoxcfsbx
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v10 5/9] drm/imx: Add support for i.MX94 DCIF
+MIME-Version: 1.0
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On Tue, Oct 06, 2026 at 12:22:00PM +0000, Laurentiu Palcu wrote:
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/platform_device.h>
 
-- [High] The fix is incomplete.
-- [Medium] The commit message misstates and overstates the impact.
+Please rely on linux/platform_device.h to provide of_device_id and drop
+linux/mod_devicetable.h.
 
---
+> +static const struct of_device_id dcif_dt_ids[] = {
+> +	{ .compatible = "nxp,imx94-dcif", },
 
-tcp: don't set window_clamp from SO_RCVBUF before the socket is connected
+No , before } please.
 
-This patch makes tcp_set_rcvbuf() skip the window_clamp update while the
-socket is in TCP_CLOSE or TCP_LISTEN. The aim is to stop a clamp derived
-from SO_RCVBUF from overriding the RTAX_WINDOW route metric in
-tcp_connect_init() and tcp_openreq_init_rwin().
-
-> tcp_connect_init() and tcp_openreq_init_rwin() treat a non-zero
-> window_clamp as a user clamp and, in that case, skip the route window
-> metric (RTAX_WINDOW, "ip route ... window N"). A clamp left behind by an
-> SO_RCVBUF call made before connect(), or on a listener, therefore
-> changes the window and window scale advertised in the SYN and SYN-ACK:
-> the route metric is no longer applied, and even without a route metric
-> the advertised window and scale come from SO_RCVBUF instead of the
-> defaults. This affects any application that sets SO_RCVBUF before
-> connect() or listen(), which is more common than using the route metric.
-
-[Severity: Medium]
-Is the part about the case without a route metric accurate?
-
-__sock_set_rcvbuf() always sets SOCK_RCVBUF_LOCK and then calls
-tcp_set_rcvbuf(sk, sk->sk_rcvbuf). On the old kernel, the clamp left
-behind is therefore tcp_win_from_space(sk, sk_rcvbuf), which equals
-tcp_full_space(), or SOCK_MIN_RCVBUF / 2 if that is larger.
-scaling_ratio cannot change before connect.
-
-With no RTAX_WINDOW metric, the patched kernel sees window_clamp == 0 and
-reads a zero metric. Then this block runs:
-
-net/ipv4/tcp_output.c:tcp_connect_init() {
-    ...
-	if (sk->sk_userlocks & SOCK_RCVBUF_LOCK &&
-	    (tp->window_clamp > tcp_full_space(sk) || tp->window_clamp == 0))
-		WRITE_ONCE(tp->window_clamp, tcp_full_space(sk));
-    ...
-}
-
-The old kernel reaches the same tcp_full_space() value through the
-"window_clamp > tcp_full_space(sk)" branch. tcp_openreq_init_rwin() does
-the same for req->rsk_window_clamp.
-
-Wouldn't both kernels then pass the same window_clamp to
-tcp_select_initial_window(), and advertise the same window and wscale in
-the SYN and SYN-ACK?
-
-If so, the visible change is limited to two cases:
-
-- routes with an RTAX_WINDOW metric
-- TCP_WINDOW_CLAMP followed by SO_RCVBUF on an unconnected socket or
-  listener, where SO_RCVBUF no longer overwrites the clamp
-
-The message does not mention the second case. Neither case is "any
-application that sets SO_RCVBUF before connect() or listen()".
-
-The message also seems to contradict itself further down:
-
-> The "after" values match a kernel with b025461303d8 reverted; with no
-> route metric the SYN window and scale are the defaults in both cases.
-
-In both cases, wouldn't the values come from SO_RCVBUF via
-tcp_full_space() rather than from the defaults?
-
-> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-> index f4c9101e5996..e523cb71b905 100644
-> --- a/net/ipv4/tcp.c
-> +++ b/net/ipv4/tcp.c
-> @@ -1858,6 +1858,14 @@ int tcp_set_rcvlowat(struct sock *sk, int val)
->  
->  void tcp_set_rcvbuf(struct sock *sk, int val)
->  {
-> +	/* Without a connection there is no clamp to update: it is chosen
-> +	 * from the route's window metric and the buffer size when the
-> +	 * connection is set up, see tcp_connect_init() and
-> +	 * tcp_openreq_init_rwin().
-> +	 */
-> +	if ((1 << sk->sk_state) & (TCPF_CLOSE | TCPF_LISTEN))
-> +		return;
-
-[Severity: High]
-Does this check cover every case where SO_RCVBUF is applied before
-tcp_connect_init() runs?
-
-tcp_v4_connect() and tcp_v6_connect() switch the socket to TCP_SYN_SENT
-before tcp_connect()->tcp_connect_init(). A clamp written in that gap
-still passes this check, and there seem to be two ways to get there.
-
-The first is TCP_FASTOPEN_CONNECT with a cached cookie, where connect()
-returns early:
-
-net/ipv4/tcp_ipv4.c:tcp_v4_connect() {
-    ...
-	tcp_set_state(sk, TCP_SYN_SENT);
-    ...
-	if (tcp_fastopen_defer_connect(sk, &err))
-		return err;
-    ...
-}
-
-If the application calls setsockopt(SO_RCVBUF) before its first write(),
-tcp_set_rcvbuf() sees TCP_SYN_SENT and stores a non-zero window_clamp.
-tcp_sendmsg_fastopen() later calls tcp_connect()->tcp_connect_init().
-
-The second is a sock_ops BPF program. tcp_connect() runs the callback
-before tcp_connect_init():
-
-net/ipv4/tcp_output.c:tcp_connect() {
-    ...
-	tcp_call_bpf(sk, BPF_SOCK_OPS_TCP_CONNECT_CB, 0, NULL);
-    ...
-	tcp_connect_init(sk);
-    ...
-}
-
-sol_socket_sockopt() allows SO_RCVBUF for bpf_setsockopt(). That call
-reaches __sock_set_rcvbuf()->tcp_set_rcvbuf() while the socket is in
-TCP_SYN_SENT. samples/bpf/tcp_bufs_kern.c, tcp_clamp_kern.c and
-tcp_iw_kern.c all use this pattern.
-
-In both cases tcp_connect_init() then skips the route metric:
-
-	if (!tp->window_clamp)
-		WRITE_ONCE(tp->window_clamp, dst_metric(dst, RTAX_WINDOW));
-
-The SOCK_RCVBUF_LOCK block afterwards can only lower the clamp to
-tcp_full_space().
-
-Doesn't that leave the b025461303d8 regression in place on these paths,
-even though this patch carries the Fixes: tag for it? The selftest in this
-series only covers SO_RCVBUF set before connect().
-
-Would it work to base the check on whether tcp_connect_init() has run yet?
-Another option would be to let tcp_connect_init() and
-tcp_openreq_init_rwin() tell a TCP_WINDOW_CLAMP value apart from one
-derived from sk_rcvbuf.
-
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, dcif_dt_ids);
 > +
->  	tcp_set_window_clamp(sk, tcp_win_from_space(sk, val));
->  }
+> +static struct platform_driver dcif_platform_driver = {
+> +	.probe	= dcif_probe,
+> +	.remove	= dcif_remove,
+> +	.shutdown = dcif_shutdown,
+> +	.driver	= {
+> +		.name		= "imx-dcif-drm",
+> +		.of_match_table	= dcif_dt_ids,
+> +		.pm		= pm_ptr(&dcif_pm_ops),
+> +	},
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261011111606.14753-1-jain.sm%40gmail.com
+I generally don't like the effort to keep the = aligned in such
+structures and don't recommend to even try it. Still more if it's
+inconsitent from the start. Just use a single space before the =.
+
+Best regards
+Uwe
+
+--cdga4qrbhoxcfsbx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrMwfoACgkQj4D7WH0S
+/k616wgAm56cItlrtTGYJGQMifXXyKIZEbNaNh8obfuoDdC9KTfL6OrQDbETA8n/
+83AtYbd6RkC4JP7NX3SK5DlSDS/oLGmxynxAfceKMBWsUcqR4oEpGee8ZRkIFMYn
+BL355LaaGTv56+1iWN/tYDLNYYgKV+jwUYXmDJferAy0J0I1aTlYgEYMNoCJGGxb
+ciaSMXRD1FzuAb3vpJpUvWltH2+boMSdeaKoj6ZblcP2sHWtw4UWN3b1YEcrSVcl
+zMXusjBfMNf3S6BQ3GHOW5axtmRXjnPsqxXPCouSaEqqAahemWk+g7rA/4XF+Xax
+302ZWP3FujxCr3/FFyysMyUncNGZnw==
+=Kiiw
+-----END PGP SIGNATURE-----
+
+--cdga4qrbhoxcfsbx--
