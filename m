@@ -1,99 +1,173 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940AC2D8376
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:43:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B6D2D5923
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:43:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791780199; cv=none; b=jZ6FYVYdZ1Mz2qdKUGWf8eu8JuZdK0GNCpW6q4QXAtRFO3m+19YrumnsHE8vc87qGijSgrF+OGjLRjMNR+hbheFU+ba3ywk8xLEhvD+BBnINMORfKZJ2CC5J3jpA7dN5xo4RtsiSKqRH+cg3BlNEM4VJbiEIBHg4FDmpZPGYwXI=
+	t=1791780212; cv=none; b=mmgSRCCKdAYR0lVpqMJm+Ps4GByJTJ3lOiigWF4uYibGSWiv+PAP3VQkw3vTrVjT9rwCUBzi9KiuFaXY8NeusF3r5SXINJjSnc45CiZweCIOJiY2sdCBiU0iFf2q1VKgxr5mGFAU0ftldnENaPWOHBWHBET+albgu//eXDFxXNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791780199; c=relaxed/simple;
-	bh=0OpGGmyzR6hYInQ/o6poan46Ski4KQqLsvP8EMmDX+Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fb/p4yHMjmPPsqZnaWUYxjU1fO15tKIi082l5u8p4GUc/Nfpu/2iu88y3PVEK7pa93OZeZ0u7GMK2RWg5GNtgN2jp6isldaBtT40H/zLfeTnQkWj2D7dB8YRLbqyInyiEa2H2ARsA1KYXw131M//3QRmK0DXdBiUX/YTU1Jf3Vg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OfiTD/1g; arc=none smtp.client-ip=209.85.214.171
+	s=arc-20240116; t=1791780212; c=relaxed/simple;
+	bh=LKXcja2ET4DhIT4TQNzA+oCPrkfivus8jlcxBSiY9n8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZmWdUJofJ1vquN4zbDFdQr4KZWmL/N87XSrTMKLRoB/QN2qe2UXj4jJnuwAC6/ML/GTQgCaOUD4fJovMVPaWJXcVXczke3Qj4U8qYzwSv6tHDuIWhaFD+AmRbVpK5Mh7YEIWBWbH8SNz2vhQHlYszKnfNdrv2aCAmORN8jLJX7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m63CuqrA; arc=none smtp.client-ip=209.85.210.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OfiTD/1g"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e8ad5b31c7so5974135ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:43:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m63CuqrA"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso368606b3a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:43:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791780198; x=1792384998; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zF0v8+RQpnbFgXQuQsdyCo7Vj/kY7YNKYw3p2wRBVZw=;
-        b=OfiTD/1gpmhutmYYUCDiCNKF2rOy0QbT9f/tQ2HU7BR9UYQBAZEO9IaY6kSNHOn5oV
-         uBueovMU1o/POzTFTi7455kg3Wm8Bz3a+phYjA/Z5/mVRHh+hRSPQCxHh3Fq4FZ1d16X
-         /hIvce74J4xDU9Zv3gtSN50WXqgxY9zIw3hxh8c44bnrX6KKmpvsyzuyoCVx2CdHaEHs
-         y21maHBAwoAGsz4IVVfYMyY25qGqsp5U63HTxc1Hh3d91vW8KagJ3xrZ7fKLnok4awag
-         Ge677+am2KfVPfsMCN7dI8E91J3EyicUcdt2sSJLLTKCNWGk3/tSIO2y/jXw0tm1NNTI
-         f74w==
+        d=gmail.com; s=20251104; t=1791780210; x=1792385010; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=812oZShsKglP17d2qpRNJ3RXJ3mN2CCzFxSPZnEDsD8=;
+        b=m63CuqrAlMKF1Opna25vSx83gmA6AG+gNN6Y8m0VhCXYR4uAdq/VMbNHAhVdfkOyzR
+         1atE6qnvenTcvcdmHotP3AjdZTQzkaFtSKSVRiPo2Uv7w3rD4NrMTsCFa8X63DQD49xV
+         tzQSGkGkK0PU28RVeDlno6O0FDaVxQcJOLX1wsQn9zREkuNoroiIHezs/8lwnKi40e5Q
+         k9u7UgkBe8871tYvRWfFEJ1/nkEUZxO1Ak4EfnCnEdEAn1VVgdkR3DOpnk4fLj6xOtf5
+         FI6udHumdkyp+lmE0imw41E/64T8MUvXhzp1odsLGWkzKXLtuf6nMAR8ldrl0fb1Mm/D
+         QTzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791780198; x=1792384998;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zF0v8+RQpnbFgXQuQsdyCo7Vj/kY7YNKYw3p2wRBVZw=;
-        b=y5DxkluLRj3aVsstOGh8mnNjt7eGim33WTeFnvNtr5sw+8cqHh55SasVa2WVSopYbm
-         ePz1BJPGDfS7eSpAU4Yr4vVf+cknr/ZZfpnDG3z2zPds+v3eLk/6iuRzaaTabyd2aSJm
-         VMI013il3WVG0JzA4++gVNBZfjwi695zlA3OG9smBKVQr2xfUaYPddRKXysDUgPitGil
-         tGzvtJlbq9lY+/bYm9lvWncQe1oEjJrBDok8cwyiGkayaqjswoGVZoFe4Uh/ptmzZsw3
-         UyAZ8bKOVg2b17S45r1LKLHA9o9N1wRxK0QU5l56sgIm8DDyOhVKVUgLXQADZpNFpTWn
-         nTkw==
-X-Forwarded-Encrypted: i=1; AKwUvBz9Mq92LC3qh5K//+olkXkjyz/wk3XxDwmx/tI6gscvK72SnD3P2COSyQqhnmGQ7c2Q+nTb/1i6AEbrVZo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBAzaJgqJQRUiXu0RXnyYoz3iE71zX0hyk0s5SZagkjLkho0+j
-	bWf5Dmgp6a7OFMazsf1H/y1ZTomELSnpuHO3327UagMfkyQV5faxEUFf
-X-Gm-Gg: AYBFou2aPssNBglVQNCdGKnVLyBZ4AmJDjmkzQSMWpEiLRmPhPlJA1KssqgoTMwzUiy
-	Sb7BK5QPXdHXMJjXC86n6QRo2XbWjewphExwGmyV/5499MnjRIxUN3GZ686KCV8Ixo1wFr26KkX
-	tUhZxKs9ZgrZ9u/fqsBZuOyeB7vN4CoR4ll7e0BkJ3ZsmHegPYI20sb4WXdV0aeUjtegI0PtgyT
-	x6KazdRwUi417mFC3f3VOseD2E653gUSheYBRRIznRHCLrOS7lqnZro0gJlyvluIgAU9QpnoDI/
-	MGm9eGIdbFjvWalaMNPM7con02qJm/iGrgDzWDi7WJz40qXqkCa8CLEacNgYdsZBGarPERZ316P
-	CIi9+Q4W1OInTbpviedTu0OFsB51DBGmvB/fxM3PuqCPS2QpiAqpMphaIkp391+NBkAtHXJR+tK
-	VGWgYM1xhM1/kP7Pu82WmgeqoVzAj7WnINXtJ/Ica8xJIrYofpzLJ5IyYOH6/m
-X-Received: by 2002:a17:902:e884:b0:2dd:ad74:6d19 with SMTP id d9443c01a7336-2e842aba7a7mr73619335ad.31.1791780197695;
-        Sun, 11 Oct 2026 21:43:17 -0700 (PDT)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e525sm38919835ad.16.2026.10.11.21.43.13
+        d=1e100.net; s=20260707; t=1791780210; x=1792385010;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=812oZShsKglP17d2qpRNJ3RXJ3mN2CCzFxSPZnEDsD8=;
+        b=lIbZE6Rs07A5vQIuhEsX5VNx8wYYQunNycgocCZdtFNOBMtYF4Bq4UDwao1r84lx3/
+         S/czpY9hl/afJOuOw1h8tI2Rj4WLD0dGBGGYo2egt/nTNDqwAtpyaPjxYhlxHEVYvsCU
+         vL1Tw6f1frB/azrI4epXkyf4DMdcpx5ej5pVIc6Mdu2QWqAQIZKu39sHkclm7ZmOI7Iz
+         5U4Jje6uZXbjxbEpd/1gwe9P8kGyxBZ/hyWGFmGBN9l+Q4lN3t7xkdIPM9pDXAmfN4Qh
+         Lig2+eaqkK+l/TKtfchuq/iKgcTrkx/D6MUrUtQBWMAJ+CbjmNj7ZM5YB+eELrtO/Brp
+         3mBw==
+X-Forwarded-Encrypted: i=1; AKwUvByqxNM2wgVt8zsloVu06qtcT0xfKfj57ev5ivauI7POZiuokYvMycaoZ7o9xj89YzxDO9+yWAS+lnOTJkA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLq0UHMQwjmkqzAtlZd2E4hEylLAhl8mUkooh4HKAdoQK0+krbl
+	vpciqXT92MhA7fH/BEDHsFXmQE3QRpOd0Dagdncc4E/jO7LAe7kKfhpe
+X-Gm-Gg: AYBFou2rh6ua4bblxLU5l7ggbJJeXEH4AFWLpCEED4bLe7gt9XoYCrOzYZueZMVKSla
+	pItGrn+nxxRGUUnEYG++WVf8lKb4QFFGyyKFF5VLhLIQVU4Ll2KWkMt/3wqb5lfsfH0ZCSfGsuL
+	ZYLa9Zqbp5mw5t8vTY6b1yveDA5CVmw9gKFmkHOh9LXL9zwVLON3FYaijdpitKsp+yi3ypOum2w
+	Tna1pXXmTkFOebnWk/GGstOqzyTUHV5M1cwbWzSyRqQFUDVJqjQ4fY49ZOqDsq1slni2BaGxCea
+	3w+maX2VNebm9yCANP2UB+buIGjEv42KAhEomBT4qpqqlhkwO99LJ3sZ0bjqLBDv1YbIN1nJEh2
+	hvlzz0F/A6ElfVi/PEp0uNp+XgDLkgwT8yPFAeHW6nLvsIGiktYsGMyWM5qZZxeMpqyMJnKfI24
+	xxgUzhOuaCiDXRaJYLHwnHcHNMBZ9pxcJFB6DlPXo8E5rU5WC/nMKS4r8kRoEerTRr9Nw=
+X-Received: by 2002:a05:6a00:348f:b0:880:a842:baff with SMTP id d2e1a72fcca58-897c79d2d5amr7100175b3a.43.1791780210286;
+        Sun, 11 Oct 2026 21:43:30 -0700 (PDT)
+Received: from dungbv.. ([116.98.134.138])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3107373sm3326143b3a.9.2026.10.11.21.43.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 21:43:15 -0700 (PDT)
-Date: Mon, 12 Oct 2026 13:43:11 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: liubaolin <liubaolin12138@163.com>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org, chenxiaosong@chenxiaosong.com,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: Re: [PATCH v4 00/10] ntfs: persist Linux file attributes in an EA
-Message-ID: <asxlX7ysgW7--bE5@hyunchul-PC02>
-References: <20260923060246.2499192-1-liubaolin12138@163.com>
- <1385152d-9e3d-46da-9a3a-299ad60d521c@163.com>
+        Sun, 11 Oct 2026 21:43:28 -0700 (PDT)
+From: Bui Viet Dung <dungvn2345@gmail.com>
+To: Stephen Hemminger <stephen@networkplumber.org>
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Hagen Paul Pfeifer <hagen@jauu.net>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bui Viet Dung <dungvn2345@gmail.com>
+Subject: [PATCH net v2] net/sched: sch_netem: prevent packet length underflow with negative overhead
+Date: Mon, 12 Oct 2026 11:43:22 +0700
+Message-ID: <20261012044322.503949-1-dungvn2345@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <1385152d-9e3d-46da-9a3a-299ad60d521c@163.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Baolin,
+packet_time_ns() calculates transmission time for netem rate shaping.
+It adds q->packet_overhead (signed 32-bit integer) to len (unsigned
+64-bit integer).
 
-> 
-> Hi Namjae and Hyunchul,
->     Are there any remaining concerns or changes needed for this patch 
-> series?
->     I'd be happy to address any feedback.
+When userspace configures a negative packet overhead (via
+TCA_NETEM_RATE packet_overhead attribute) and an enqueued packet's
+length is smaller than the absolute overhead, (s64)len +
+q->packet_overhead is non-positive. Because len is u64, the addition
+wraps into an astronomical value (~2^64 - 1). When multiplied by
+NSEC_PER_SEC and divided by q->rate, the calculated delay spans days,
+causing enqueued packets to be frozen in the qdisc indefinitely and
+stalling transmission.
 
-No, I think he maybe have missed these series.
+A similar underflow can occur in cell length calculation when
+(q->cell_size + q->cell_overhead) is non-positive.
 
-> 
-> Thanks,
-> Baolin.
-> 
+Furthermore, computing cell_len in s64 prevents sign corruption if
+cell_size >= 0x80000000 or if cell_size + cell_overhead exceeds INT_MAX.
+Computing the final transmission time with mul_u64_u64_div_u64() and
+clamping to S64_MAX avoids 64-bit multiplication overflow and prevents
+the resulting delay from turning negative in s64 delay arithmetic.
 
+Return 0 delay if effective packet length or cell length is non-positive
+so that non-positive effective packet lengths experience no rate
+throttling rather than freezing transmission.
+
+The issue was discovered via manual code audit of sch_netem.c and
+verified on a test VM using 'tc qdisc add dev lo root netem rate 100Mbit
+overhead -100', which caused immediate backlog stalls on small packets.
+
+Fixes: 7bc0f28c7a0c ("netem: rate extension")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
+---
+Link to v1: https://lore.kernel.org/netdev/20261008035656.330667-1-dungvn2345@gmail.com/
+
+v1 -> v2:
+- Calculate cell_len as s64 to avoid sign corruption when cell_size >= 0x80000000 or upon s32 overflow (Sashiko AI review).
+- Use mul_u64_u64_div_u64() to prevent u64 multiplication overflow with large cell configurations, and clamp result to S64_MAX to prevent negative s64 delays (Sashiko AI review).
+- Reword commit message: remove inaccurate comparisons to sch_cake and sch_tbf; clarify the clamping policy for non-positive effective length (Sashiko AI review).
+- Include <linux/math64.h>.
+
+ net/sched/sch_netem.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/net/sched/sch_netem.c b/net/sched/sch_netem.c
+index 8a1b89a289d8..3eccdc93c0b6 100644
+--- a/net/sched/sch_netem.c
++++ b/net/sched/sch_netem.c
+@@ -21,6 +21,7 @@
+ #include <linux/rtnetlink.h>
+ #include <linux/reciprocal_div.h>
+ #include <linux/rbtree.h>
++#include <linux/math64.h>
+ 
+ #include <net/gso.h>
+ #include <net/netlink.h>
+@@ -366,17 +367,26 @@ static s64 tabledist(s64 mu, s32 sigma,
+ 
+ static u64 packet_time_ns(u64 len, const struct netem_sched_data *q)
+ {
++	u64 d;
++
++	if ((s64)len + q->packet_overhead <= 0)
++		return 0;
++
+ 	len += q->packet_overhead;
+ 
+ 	if (q->cell_size) {
+ 		u32 cells = reciprocal_divide(len, q->cell_size_reciprocal);
++		s64 cell_len = (s64)q->cell_size + q->cell_overhead;
+ 
+ 		if (len > cells * q->cell_size)	/* extra cell needed for remainder */
+ 			cells++;
+-		len = cells * (q->cell_size + q->cell_overhead);
++		if (cell_len <= 0)
++			return 0;
++		len = (u64)cells * cell_len;
+ 	}
+ 
+-	return div64_u64(len * NSEC_PER_SEC, q->rate);
++	d = mul_u64_u64_div_u64(len, NSEC_PER_SEC, q->rate);
++	return min_t(u64, d, S64_MAX);
+ }
+ 
+ static void tfifo_reset(struct Qdisc *sch)
 -- 
-Thanks,
-Hyunchul
+2.43.0
+
