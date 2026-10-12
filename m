@@ -1,174 +1,155 @@
-Received: from sonic311-25.consmr.mail.ne1.yahoo.com (sonic311-25.consmr.mail.ne1.yahoo.com [66.163.188.206])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253152BD09
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:16:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.188.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9FB184A
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 00:17:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791764170; cv=none; b=sxBOGNChNhEK6PKNigtRG4x63Eei755uNmTzeRkrhzulLSxI37tDCeusIuvUQPfi3NW8k4naooMhQcT7FZAXdTFECS2tWNnFYJbBneCRYgIjsYW+FhCFDmDkJG3XAnc2su02V96cdDCpDK/BGBS/kUKAxnHv7q8yKD0pXsAFyss=
+	t=1791764230; cv=none; b=HHnzsBn6sVbUK6sQQEAwLCa89Ra47s4XTk1a3uMFWKTUxBEA5ImgM4ovjv8C6pPrw7Ftjj0rd+IsyeHIue21r68aEVQw9jU2ec+A5CkSukYHTX7Ak7p4jd4pRILuxAZmbG5P94a2sbOOgeXvz89t/78Bo9P/oVLjms75yPdot/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791764170; c=relaxed/simple;
-	bh=PftRRC/I+2OATJ9SSXi+m0AkjJZaN1dGrwPODdJ9Zc0=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=UDrdB8vE1p1OeVu7gXHeHeewc625fxnvEFM3J1CICNoVISAZdDrn95yt5zXDpsTnoGvtsN4Tnq3hjULBPg+aK1PagVNp/INGKirBTnhZFAnVEaZ+wHrh0InqpMVQTV0owpORaZk6aTg88f2yU4bXIFdFigk7vR5ZfVdD3llSObA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=bnJD2oyT; arc=none smtp.client-ip=66.163.188.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791764230; c=relaxed/simple;
+	bh=WR9ZRx0OG8WB8FU8j6N84odGtF7ArWFkBQwxc0m1e9U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Oubg3hovIgoIxYKx7TGZHmGRFZjY4V72SP7GomnlLU4r0w7uaUXlQZjX4/9e9l/q5Vk47kcRYgEWNp2c/SeCUpUdXI21mxiJQ0PUhbpdJZISqDDxBR6l3iIKaHBgWfhB2IhOlEXL7ov3eUeHzZBFUUeRI7TDktvka+kwUA4mSOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=YolhH/3e; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="bnJD2oyT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791764168; bh=6r47wd2OKY/SVkkbt0WI7B6uSrlczdjq6ZPCP0i1DlU=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=bnJD2oyT/wgeScCx3ZE+X4Vp+7fLtgrIBwOcuTOtPUvI2yf3oH/VMS922SWxRLX/oVg4tyLN/u8WS2w9nCe1XiUahQnTs2zAfqBzQyHPKtzghNlz6PZLyLcvB4sOVLJdpDe+yOwb+Mda+3KbzrkmdBpKGt6JTGGdtOISKdgYhb7NYdt79VnROro4PPlLp6a1C+8vFNZa7Eezh0PJGYwhxqE2xjZiRNs18lgg5//RWnOH9GU4qX8qsMlkUfuHqIWnjEQgYeuKf89KAJxNTxyJT4JDMQdTjfzCQtKsFnlbzN2sNwhMb354cLAQvtYlkGTo75gsI/OahMWjWYj1T8jgYA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791764168; bh=Cz5Mz/euLvD63b93SkrBNuw5SThrLUwaT9t24OyPpd7=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=bNanDIYqp/RlSe8Zw5V3jCkvPmxNJ+FezJlWjsu/ScJEsI/p5oJPFPRy5DWwQlvXwou1UrZRdCuChVNCbJqeox+ljaXbzG2t/Ff5bsCLDtSFHLvAh2C29Hm0IUd1LpBfiZ+nSB/fDKxP0W1X+V0AUD0oZ4tx7LVSj7qJ33CGhKV4jBI5M49+PtQcw0VSeoVEi1d2vesFs+90yZo+ut8uy03jr8KV3r+dwK9Qa3b/HG23UAuks20/AFxqVrrv1PhhZXoyXjYWlOPtetDEI2KLYaQhu96904w3brKwpW8NODcR8X7x+fIzBxb+Co3+Ua6dnWdgO9KyFhW/qXxQ71W2EA==
-X-YMail-OSG: .Tb8YqIVM1nnn9_1iFG6wBg8PZRbmG8aYmwxhvUyLjsFddwkoGFPO_wDqaxopK5
- 0eVhgw04mWtxh7JUvKFW2pukICWRpcWzwHm4ueYYGYm5srOz5f9r5_g2hjQKpKg2B4aupLVEV3NF
- y5ZcBH7do2zB7vVh_t56psztx0Gb9GQWDUoo9jmFPXqnwud8xbY7tc1LZCSmGhcxgG2TvqY_mqNP
- utMf8Gvpny9J44gr2qI2l4VrGoFvif7VQB.0l1SOqVbWip6iEYFYmxw7lCfO8mAGOxb8N1BPYpKq
- ur39hW1dRP4M8xuGunPnc6W6PqWRZcQeunOJBXXXNACvjhLVBkrtCDTZeL89bUCRINR3V0QXJ.Lo
- j3seqocGBCGtYvANuUKnWuHx3o3E20nz8MZldwET0tlC7261N55pTpksv1gBwD4NCoaM_C0Nl10u
- ZrS6d.EsSvV3ieMQf_Yt.zaPf1.aWuPVH7it.ht.hIcd0Ucybm4Agt8F9Opjh0nkOZ0HTjDYNg3u
- .bvvP1u9mtox78ZkLTLaGP178CWoQHQ8iQfw6UHSZfDeXlfy.DAgEMkU6bULxu0DgNK436__F9AF
- _kWwpy5fadrOmOQQZ9C1J0o80Dk80.XnAI6qWm2p7pYT.eeK.OehVYZy.u_vU2HXpLQTkAJqHUpa
- dqVz.G_2NVwWRQ3MdAXbLnldE755VXAtjYpAvEE.rKXNMJdEiLei8obUD2OpNErrFFyObqTHsvLg
- .W8DKVqOMjrOAvVulX7kbATya0cREf11u7S_RVdYrptLVsLsMC3dj3Rzrh85Y_oUk7aHZxYhRYpn
- gjpBL_AO8_.Lu3uX4Bh5F78EBuF_2xZ7sMF.5dsjqkwmgBIqdWUxqjM0KXfXCfvtjBO1JP6_y6xe
- ydm9QAyEHzFjVvtyRkA4cuYVogie1nb1U7kuSTJBIPS5jRc6.Pc_cZzt3sWs1.bhmFA4g7EXoWmf
- QW7GPM3jy_i6i9qmWX8nHdnpMQlvSuwjkxj0YSP4Vmni_2WhGNWEiokOgG5rG55.EylTH7jRYFmQ
- 8HpALsCBGcIUHMStcoE.x8bgc.qEi1rK92g1ORdmT_v9td0ona2meg8XB.K2BsA3Zwg03HSS55rD
- vDSJsCWYbGiPDczChMP928gE.Z7fQdiR_6l8V42UAWHF.kFGJ8HzGeDqineL3i6z20Q3Ek2S0nnJ
- ZY6Sj9C6_nmllXG1JXMpQQTDeB.NO3VtvEXpBpsLAmoBhkVcy1XDcCqF46qUTx4l4b6DLCHciQpY
- 24tjzPE88wnAlGfZpy.FDpogWi95TbP6.fA10ANeaXAof2E6gN_7iwjCY04O0TZyH85h8PMMZey5
- ZjImwzhiqqXJk46EC1CiFWVcUIJHG6Cl.6a5b4N.30lTg1gMD0Z6CDga_80l9gQVIYVvWs7fxpHn
- r2rRHdnohQlloZMqHnSiiNwO6mI8ik3AvtKljrbqdBK_t.LGfKa1rGHFABjAg_2RPktQ7cWAIpK0
- 4daIr3MKf_PfpU5fY0pt_17hC5XutxNTv0pUmF8vbHxiEKGv9e3zOFFmCKRYMsYlFNAmBQ2GKp_E
- dCNTJ3h1KOQjab1rcu6koZDsNn2xa3EB3c5B7K9N5_l2tPp1WKo3kz4g7lHzI8YRgUD.gQP4GFxE
- 6H7niBCxKPAd4lgApBPfhm_.t3INWlMX2LpfiRIT6ZHWypVHBDQK520Mh8D2O7siGv9DHpUqouLt
- 1JQ7rSBeIkPSb9Rmvqoxs6Tx6mLljEp3iIJs4VMFTfm0ve37AmSiH_1keHM7mfxU5vNYslUxJ1X8
- 2LJrZwZS7IokDk2z062neZaranloGVDZdCIkxw6U34PLo2CQfHvIsGR3W3EKcLp2CQ1p3z88Jf6z
- QJi8J7ZAtfcDxch8BWuyDB9uhIcPzmVbI3ogJpvqb3Hwuo.VTfwI0SVFWEn3Hu_.dVSnye5l03mq
- TX07Aa7VlB7MLme2DbvfTHJmJzitmrzRZivLFUQ1CTpn.wXeMypdL26HcVUs0IBEgi5JoXLZrJId
- YImIl17a0KpdRIQgYiB30oYVjIaB0u8TCC.ETpOxh2b_YuO8qjE3jVzQGWD0Qh_mOn3PbGWgr6XV
- RTcz7Azl9Emqeo_yVTJ8iuPZqkJhlZM1_Wls96OHO2eVda1LiMCySAK50xO.CSpFJperoGFiyZVo
- qiXTJ6B2ZorevCQsn7IzlAVH52l.h9qxiuZTUDwv5BlrrSyxRO34yzBTrkU_6AEbfD7j_2c8qTO9
- Dun0O998nViBcgx.O9AJn9k12Z4nDTVL81qKKhdlsA.4lRfqdN.k3sPw8OCmy60t0UargiYMvIcV
- _qUzNj3.2FoCflw2rzUtfcDOg.NDVKAuNQ5b5PiEFFYhvcG._mg--
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: c102245a-b758-4265-89ff-dcc479c199a2
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic311.consmr.mail.ne1.yahoo.com with HTTP; Mon, 12 Oct 2026 00:16:08 +0000
-Received: by hermes--production-ir2-5dd9bf4598-bbdwl (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID c40a054550bb126f9e2b8b3d89399e25;
-          Mon, 12 Oct 2026 00:16:06 +0000 (UTC)
-Message-ID: <ccaab57b-1bab-440d-a4ac-d3e467240695@yahoo.com>
-Date: Mon, 12 Oct 2026 02:16:04 +0200
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="YolhH/3e"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-88c72646f03so569661b3a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:17:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791764226; x=1792369026; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FPB775D8RC545nicueL5zti4cavLO/8DRXwfdsdk1Fk=;
+        b=YolhH/3e9/G07Qni4iWC3PYrb4S416WW7z2+GSCpnMvx7USgO+w4qE3Zuh/vSV9SCk
+         u5GiX9r97I83jntxX3r5EMDhI/uRpmYv+pCsOe53gznqaRQrw4ogprycbLt9s8O/3NqE
+         u5TRXEvC3TWGHjX8DQilYDqWPuIhmnbicEaLUEaAHLH6F1il736YUs5hclRm2mPOEZd0
+         5d5h40Jm4VCr9LiMFBp4j8sVtxr7boXlEGUxCXqMo8YOqHL1BABa/607tnKy1fwkmhTp
+         A/YxR2iBWKkb9c0ywn/mY5JT/OooE5UyBY9YLZxdQEvJCIZ2THudQ1PgrcIEHjUIcWra
+         QUww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791764226; x=1792369026;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FPB775D8RC545nicueL5zti4cavLO/8DRXwfdsdk1Fk=;
+        b=D1p6Fu/n+8xoDDdGntGVUoOFvxtDHMC6BgS1z3Sb5qKjvH3NUmFdxHekx4B5BFSG8O
+         zt8vFYWT/q3YFRl7hYSkNgw5zL+RKVefIG1eaofkeqlQJ0dlWm45HU9OBqM/VY3+hGna
+         vZXp90Gyrzp+1Dae6q+CEaQ/pFDwRUL9kbGDUBIqNnu/X3vpkgY9riVQHLXviBXsQYrh
+         xs07dYWs6T6MlZNEN9rEPMlLAQgbyHJ8GLOTvMsWEEjH/wbpUe9IeiHZNzvnsI6/1KI8
+         SfoD4IKrfcHKTCHexuIYd9QBtjR7J7u0keM8XvzzbZQVlHwlgzowRaue6CwVw+xUbTTf
+         NSEg==
+X-Forwarded-Encrypted: i=1; AKwUvBw8yRmr6Jxgfi3V08dWL69zWhqyxt1+/WS3qAr+XmuDhz9r2ldtcSx3a29Sy5J1NrEaXypjHR8z0QB7p4c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKpYEfpJbvyRp+yUZymyxo4cMA2WpMZ+fZprtl+tMU1KTK21j0U
+	UWJNK+Yzu74OHOR+0q476ixZeCYbWBejS4a3de9DVd3B8FQTswVy/Ut0MpBkQHzp+j8=
+X-Gm-Gg: AYBFou27Z/AgcSRK47u89nAKRGTkFoXl6KC2exVkEiBlrMmTJ0BagrGuYh0lqh/Qud7
+	GP9s8uosUAQ+yA3Gh7rvtZPA0tXMvjdS2Y9PeHlPwpV4/FPoV8mmLYcgG6ctEgsT/C5Ybyl1CuL
+	CxpJxg0yRAlQ7lBy+r0pZYNFnHuTJzJLYQwHSFbOCRwMd6VIz/CEf0FEaJPzl1L0bmugrLTXw6+
+	tA+u/qCkDCZ/kaosZXRmWlgVUuN59SXpgF2CFp0EC5Lk37cVw/Rz8jgA4V70Uc7BJNq85LTAQmc
+	lTQRu/PqbDTyPm3+e3lbvoSMFK0idTDZtD6upXsgcTjQQNvXpcPX2A+uSSVZFFqlrZ57DdgWnPn
+	mLGK9/CWaKt/61tpDJ6GakoNDmkSV/PKHxIIG+99ehRcPWZUKzWOV+Z4MXOIvhZrkcWYVBB5PkX
+	Kr0/UlxNOEYNWpCJEndVAcbCz/7bAzTVeQcL9R8wb38OqZxjJ0DmD1gyNua1pmtKCjgDnOyrZvp
+	odhJA==
+X-Received: by 2002:a05:6a00:178f:b0:886:18b2:361c with SMTP id d2e1a72fcca58-897c3ef946cmr6502691b3a.7.1791764226441;
+        Sun, 11 Oct 2026 17:17:06 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c49901fesm3378268b3a.57.2026.10.11.17.17.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 17:17:05 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: mkp@kernel.org,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org
+Cc: michael.christie@oracle.com,
+	Roland Dreier <roland@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: target: iscsi: reinstate sessions only after authentication
+Date: Mon, 12 Oct 2026 09:16:49 +0900
+Message-ID: <20261012001649.2135743-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v4 9/9] net: dsa: realtek: rtl8365mb: add support for
- RTL8367S-VB
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <38872e6f-1264-4a93-9f81-8212173e909d@yahoo.com>
-Content-Language: pl
-In-Reply-To: <38872e6f-1264-4a93-9f81-8212173e909d@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
 
-Add the RTL8367S-VB (chip ID 0x6642, version 0x0010) to the chip table.
-It is the first chip of family D, whose handling was added in the
-preceding patches, so this is the patch that makes it reachable.
+When an initiator starts login directly in the operational stage
+(CSG=1), iscsi_target_handle_csg_one() calls
+iscsi_target_check_for_existing_instances(), which performs session and
+connection reinstatement, before the iscsi_conn_authenticated() gate
+that follows it in the same function. The reinstatement matches purely
+on values taken from the login PDU: a zero-TSIH login closes the
+matching session with iscsit_stop_session(), and a non-zero-TSIH login
+reinstates the named connection.
 
-The SGMII/HSGMII SerDes of this chip sits on external interface 0
-(port 6), and the MII/TMII/RMII/RGMII interface on external interface 1
-(port 7), the other way round than on family C chips. The chip reuses the
-existing initialization jam table.
+So on a target that enforces authentication, a party able to present a
+target initiator's InitiatorName and ISID, both of which travel in clear
+in the login PDU, can force that initiator's existing session down
+without passing authentication: the teardown has already happened by the
+time the gate rejects the login. The impact is on availability; the
+failed login gains no access.
 
-The chip has 8 ports, not 11. Cap priv->num_ports at
-RTL8365MB_D_MAX_NUM_PORTS for family D. This is a functional change: it
-sets ds->num_ports, the IRQ domain size and the bound of every loop over
-priv->num_ports.
+The CSG=0 path does not have this ordering. It reaches the same
+reinstatement only from the authret == 1 case of
+iscsi_target_do_authentication(), that is, after CHAP has succeeded, and
+the source states that intent. __iscsi_target_login_thread() notes
+before iscsi_login_zero_tsih_s1() that it waits "until after
+authentication to check for session reinstatement", and before
+iscsi_login_non_zero_tsih_s1() that it waits "until after authentication
+to check for connection reinstatement"; the helper called from the
+CSG=0 path is named iscsi_login_post_auth_non_zero_tsih().
 
-The L2 learning limit is the same as on family C (2112 entries), as
-given by the Realtek rtl8367 common API (rtl8367_common V1.4.2), so
-RTL8365MB_LEARN_LIMIT_MAX needs no per-family handling; only its
-comment is updated.
+Move the reinstatement check after the iscsi_conn_authenticated() gate
+so CSG=1 follows the same order as CSG=0. Where authentication is not
+required the gate is transparent and behaviour is unchanged, and
+login->checked_for_existing keeps the relocated call from repeating work
+already done on the CSG=0 path.
 
-Tested on a TP-Link Archer AX55 v1 (RTL8367S-VB, CPU port over HSGMII
-to an IPQ5018) with bridge VLAN filtering and per-port PVIDs. RGMII and
-SGMII modes have not yet been tested.
+This was confirmed at runtime: on an affected kernel, an unauthenticated
+login that selects CSG=1 and carries another initiator's InitiatorName
+and ISID tears down that initiator's authenticated session; with this
+change the login is rejected and the existing session is left intact.
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Fixes: e48354ce078c ("iscsi-target: Add iSCSI fabric support for target v4.1")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/net/dsa/realtek/rtl8365mb_main.c | 31 +++++++++++++++++++++---
- 1 file changed, 27 insertions(+), 4 deletions(-)
+ drivers/target/iscsi/iscsi_target_nego.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index bef95f9..72f308d 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -89,6 +89,12 @@
-  * things will work out-of-the-box for other chips, and a careful review of the
-  * vendor driver may be needed to expand support. The RTL8365MB-VC seems to be
-  * one of the simpler chips.
-+ *
-+ * The RTL8367S-VB (chip ID 0x6642) is not part of the family listed above. It
-+ * belongs to a newer generation, which this driver calls family D. Its
-+ * registers differ in the VLAN table, the external interface speed and RGMII
-+ * configuration and the SerDes, so the code paths specific to it are selected
-+ * with rtl8365mb_get_family().
-  */
+diff --git a/drivers/target/iscsi/iscsi_target_nego.c b/drivers/target/iscsi/iscsi_target_nego.c
+index b03ed154ca34e..bddbe29da807d 100644
+--- a/drivers/target/iscsi/iscsi_target_nego.c
++++ b/drivers/target/iscsi/iscsi_target_nego.c
+@@ -982,9 +982,6 @@ static int iscsi_target_handle_csg_one(struct iscsit_conn *conn, struct iscsi_lo
+ 		if (iscsi_target_check_first_request(conn, login) < 0)
+ 			return -1;
  
- #include <linux/bitfield.h>
-@@ -118,9 +124,10 @@
- #define RTL8365MB_NUM_PHYREGS		32
- #define RTL8365MB_PHYREGMAX		(RTL8365MB_NUM_PHYREGS - 1)
- #define RTL8365MB_MAX_NUM_PORTS		11
--/* Valid for the whole family except RTL8370B, which has 4160 entries.
-- * RTL8370B is mentioned in vendor code but it might not even belong
-- * to the same RTL8367C family.
-+#define RTL8365MB_D_MAX_NUM_PORTS	8
-+/* Valid for the whole RTL8367C family (and for family D, RTL8367S-VB)
-+ * except RTL8370B, which has 4160 entries. RTL8370B is mentioned in
-+ * vendor code but it might not even belong to the same RTL8367C family.
-  */
- #define RTL8365MB_LEARN_LIMIT_MAX	2112
- #define RTL8365MB_MAX_NUM_EXTINTS	3
-@@ -884,6 +891,19 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
- 		.jam_table = rtl8365mb_init_jam_8365mb_vc,
- 		.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
- 	},
-+	{
-+		.name = "RTL8367S-VB",
-+		.chip_id = 0x6642,
-+		.chip_ver = 0x0010,
-+		.family = RTL8365MB_FAMILY_D,
-+		.extints = {
-+			{ 6, 0, PHY_INTF(SGMII) | PHY_INTF(HSGMII) },
-+			{ 7, 1, PHY_INTF(MII) | PHY_INTF(TMII) |
-+				PHY_INTF(RMII) | PHY_INTF(RGMII) },
-+		},
-+		.jam_table = rtl8365mb_init_jam_8365mb_vc,
-+		.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
-+	},
- };
+-	if (iscsi_target_check_for_existing_instances(conn, login) < 0)
+-		return -1;
+-
+ 	ret = iscsi_encode_text_output(
+ 			PHASE_OPERATIONAL|PHASE_DECLARATIVE,
+ 			SENDER_TARGET,
+@@ -1008,6 +1005,13 @@ static int iscsi_target_handle_csg_one(struct iscsit_conn *conn, struct iscsi_lo
+ 		return -1;
+ 	}
  
- enum rtl8365mb_stp_state {
-@@ -3850,7 +3870,10 @@ static int rtl8365mb_detect(struct realtek_priv *priv)
- 
- 	dev_info(priv->dev, "found an %s switch\n", mb->chip_info->name);
- 
--	priv->num_ports = RTL8365MB_MAX_NUM_PORTS;
-+	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D)
-+		priv->num_ports = RTL8365MB_D_MAX_NUM_PORTS;
-+	else
-+		priv->num_ports = RTL8365MB_MAX_NUM_PORTS;
- 
- 	ret = devm_mutex_init(priv->dev, &mb->sds_lock);
- 	if (ret)
++	/*
++	 * Reinstatement tears down a previous login, so run it only after
++	 * authentication, as the CSG=0 path does.
++	 */
++	if (iscsi_target_check_for_existing_instances(conn, login) < 0)
++		return -1;
++
+ 	if (!iscsi_check_negotiated_keys(conn->param_list))
+ 		if ((login_req->flags & ISCSI_FLAG_LOGIN_NEXT_STAGE3) &&
+ 		    (login_req->flags & ISCSI_FLAG_LOGIN_TRANSIT))
 -- 
-2.53.0
+2.43.0
 
