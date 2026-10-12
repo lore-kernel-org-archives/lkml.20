@@ -1,192 +1,126 @@
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D129F436BEA
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:42:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805362; cv=pass; b=dnn3Fjn7iDB65BCplsU4W/QqPZk/KPz9kJwouuMDAM3bKtnP0HtbsD6JW9OmasdvGHjcPwuDGJIS6D1EZutwspzEtWqtd54ZUhIi6XwcG/0U+xyxtpb8NkGjsUYpoyQo+0VV1Zr/4IRYY4Jetlkqs1/Sozc0xwPOkr08MlTrkHs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805362; c=relaxed/simple;
-	bh=MUnFX2Kd1u1rl9k97vXohjbbROAqvzbf7iGpscvJBSA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NzpvljiCl7ugvrEQkpmDuxqoH/MkfkWw9FtfMo639EkmCXjvBvu83ME769WMs8FIfUn67+Vsr0XnuEK0GrCeP9/pYSkSg0bWyMJDrAyPn0DkUFRNfl7bqXsAt934MLRf2GSMJoRyA5vp4z6PPDfFUjkBk9EVFHto32Uww9uweQw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X5QJJULr; arc=pass smtp.client-ip=209.85.128.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 722A041A921;
+	Mon, 12 Oct 2026 11:42:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791805376; cv=none; b=Pi0rVHiV/m/9oeOL3o6orj4JPjXpXGBlESI38Ro8QeZ/7TArhnw7wSR0ql5Azqu40HwLzjww8dqQiHNff4fEq79+4eJ8fD5AA8Li2RTyGJcgqQq9IGlg2F6RoJxK4WYRTx/2lx0Q7So1bQ7apETRwKCsvh64blp9c8yWa7aaB9I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791805376; c=relaxed/simple;
+	bh=sD5VdwfYi8Q3kVYYQA0FqeOiq2wi4sEl8dJPpMdI//s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QeCo8pfhKbXgR5BD4dmKKrL1k6Z3caXaBc7GHjmAc99HgFHpMy+HoNjiZNsR+udNa472MhwvlUAGPHx1pENRCqvjhslQTMB0x80lRXSWVq2LehdylNfGIebaVuCuWL+sQUNj6OPOp4eo+phkeix6u06SOd5QEXLpW++QejmaZ4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qHFn6L5i; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X5QJJULr"
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8aea7b7ca0cso10155167b3.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:42:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791805359; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JyXv5ed5NZTgXnuLZMqhvpTkJh95UdocrCFbYCIBqtIID+wYsw2FT/jM0Gas1Ml3ZO
-         ZxNqg7gHVUsHuhfpsCrKSA1kl86U+1MM0izN35aDP6TcNBeU0j7S70nQrAc91dNPjs/u
-         miQ+9R1WW8gtJz7chFUh7EHGnIR+hgReoh4hjv649C2YdSG+qGbu1mKreEqetPMacyo7
-         zGTQDSfv3OEYVUsy5ktTwrLwUMfhIxSr4G5ZDHL4kylkxIun55Cv8wa1ryUnr0HGD6+5
-         2YHKjDCpx+gLJLnCnh2c7t7bM2HxVUyMNRYLO2ZmIEIXz+jseqShtquKtNc5Ezkt5FrA
-         tLkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8d+kg9RkP1lylbAE//urm5mkbXdgQbKNqjBZri2pwEM=;
-        fh=qjmRrnEnYcpHdufdKtAtpztGd9U/K2wJibJNCk8i+Ss=;
-        b=jXXJ5S+Kl7wimNlNxiSXDTrI0r4h+yEb+EHxv4wxtTDs+qIgdSRQ3fCk4JwhZRIKY5
-         nrQp595yFKwTcX5OaIRTqMTnb4/FbuAAuBJFYej67nudh6JIm+JM/h7HWo6ipcHVBLND
-         xHuBY5Si2Ia792VQfas1IaEl6RsD2czdqhAEh4OnIwoumh7lNGdYYXjsraBfWZs8qwmN
-         3g6dzN0lOGFDBMonYwStQcQHg/sGWkGhUzowTXPt+PSwciaFEbt3FI1JW9saa6w6vrgp
-         iYfYd2s6j9gFnLOUm0wwbc3aCrCjsGTGAm+bC2kVrhZRZGaHpUUGvLmQS9gQK/jrzXy5
-         VHTQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791805359; x=1792410159; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8d+kg9RkP1lylbAE//urm5mkbXdgQbKNqjBZri2pwEM=;
-        b=X5QJJULrjazAsdMtm7cJzxxp8E6B+WP7WulwX1InHnxqZQyY/tYjOrrHMiHw6dxkqC
-         rAiL8pKCHaUJJE+9E9QRHFGMhC2ya0EMLV/ZoC8StPTW6W/rlq/4dV+lq1catT6ihhxG
-         UhaRIAH0KeGlsINu209bsPYdaBjp4yOMK0Ov3AZ5E5P2yotl3t1nGtmjlIrAL3fn2Qb5
-         c9+vKgoVDCLDiPU4tz8GWR2Qh/vRmMphLkyKhHDnRE8vIFgsOvV+gOivqfHoX710K/dy
-         5VeidBwuugVR+8oi6BLDQaq+664Grqntei13z4UWTC0P4Sa45nuB/a0uMeKfKK93gozS
-         1r9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791805359; x=1792410159;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8d+kg9RkP1lylbAE//urm5mkbXdgQbKNqjBZri2pwEM=;
-        b=e8mfIoBTbexk52u5LvgDBYbLGszgUnQnPOlcIxYT4qqutIMPbBwKI9+o7y5IVj+iKm
-         KaX17y3iGvCwX37TMn4+vqk/GCtuoTFOLXYAg0qdxpdattOkaveQUxCMedBY2dHJZFTg
-         DHBghTB81Ne+nBK/JOVWjlB9ALZlqR8xzLnXngtz8XtS9YwFozZtJnrKluN75uHNrPYZ
-         zEely+POQ54/i75gPS8u+wTaczsAXKUQOzEJM50DTzXamIhW1jUGZ5cSPN5TTMdYVPAO
-         lXm6cK/bLlWF2Ff0dthLQNsJBkN8og65uijW0gpque+NUxZSal6szOguHbCEAW4lNXRN
-         x0Qw==
-X-Forwarded-Encrypted: i=1; AKwUvByYIRx2Mtn9CudDPALI01W99Ejq4lF5I7h6u+88LEZggATu2upMN1j11EJP8tU7vqtUOMfZa/8fat4IZ/g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIm2jSka2bZbx5dgj3ImuMyxEWUV4qx7WUnhmkNJCFfBIlPhxUZ
-	Z2bXhv9N4d6dyv74YlqIjeadAiObQIWx8vASHHM+ZjH1HmnHuh1gf6INxQmHR/r2MMzHXWPvhL9
-	T7fXo5bk35xNoFQdO/Vg5ehwe0okkDng=
-X-Gm-Gg: AYBFou1MAxtpYs1OxlXT5E2Llhh8RcOWTy9ti0MS7fSW6p3AHtVuLdFtbpTL2k3TOM3
-	G0905hNDXTBnQOHaMjXm3ZgW5GN5FOrUwkYNyy44hjQV/DV9J+YAUQXohVQRJUrk1/khS7clb0+
-	0SrGwgM10nvEofDQbrNRhNVDjgB/27eBe8GVpSVKCJ4+ZmatY3jP4jQUalJFjoSt6qBdxUvOHS/
-	3ec6sen3yA2RuYTBXMV5G7e4A6S0nnD8CsAWPD2EcLT7sHxR0jB1lLay2XPI1Tu/oC8W9ZG3Geq
-	4SxkyX+kInX1UQ9Fi3wTekawznNKP2dXlt0VG+iZfAMZ7JbGnSpgtyv3eTDWB50EQMhL1XqnIrb
-	+Pgf3FWvJtVfaU1UsY8xp
-X-Received: by 2002:a05:690c:1d:b0:8b0:8a9c:fac1 with SMTP id
- 00721157ae682-8b08a9d034bmr20413527b3.21.1791805358689; Mon, 12 Oct 2026
- 04:42:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qHFn6L5i"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8iBaF3917824;
+	Mon, 12 Oct 2026 11:42:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=H14XrNQYhraumPKASnb2EySEg4wuPbu2ThzAY5slQ
+	HM=; b=qHFn6L5ijR4QJLI7gQvJSzxvLMfyMqx/U/H98oNzoT8hCm5ufUL+C1P1n
+	pfJ3g709f12lfdz+elW0Jg84gNJ7SyC+2wFm3iYTJOsp4kaD4LEexUBGzPVvUAmQ
+	o0I49PtM9xjYX5CDqXASsun/jPk85OSIgb9Warg5GypfnZk0LoW7duj+73E+lDC6
+	p9dqynDFsy8soxQAwYV09sTjg/9IscxBTuZUuoG4Mgb56k8grGwwbndt5HMggXl1
+	BmNWVRSpbxXQAPUP0bkvelNk7Idsh72mIu3H2ODV2R7yzjXkFqLpq95UbjyKQrye
+	wnSSAkRQtEXG6QCeXrPtNTOL5AE2Q==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv38ncc-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 11:42:54 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8YrgK978596;
+	Mon, 12 Oct 2026 11:42:53 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h802vn37a-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 11:42:53 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CBgn3g44368248
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 11:42:49 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9768820040;
+	Mon, 12 Oct 2026 11:42:49 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 71AE720049;
+	Mon, 12 Oct 2026 11:42:49 +0000 (GMT)
+Received: from tuxmaker.lnxne.boe (unknown [9.87.85.9])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 11:42:49 +0000 (GMT)
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: [PATCH 0/4] s390/percpu: More small improvements
+Date: Mon, 12 Oct 2026 13:42:45 +0200
+Message-ID: <20261012114249.2898572-1-hca@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261010180711.1548333-1-ju.orth@gmail.com> <20261010180711.1548333-3-ju.orth@gmail.com>
- <f70c39c0-3754-4a18-8ad9-eaaf8a307b8f@amd.com>
-In-Reply-To: <f70c39c0-3754-4a18-8ad9-eaaf8a307b8f@amd.com>
-From: Julian Orth <ju.orth@gmail.com>
-Date: Mon, 12 Oct 2026 13:42:27 +0200
-X-Gm-Features: AclHuK9UY_9BF00vKMnCcUp0DHYkFhZbh5NYROup1fNDrn0hsAfYgZ-u9GoRjDM
-Message-ID: <CAHijbEV=510kPTYit=EbXtsYosQ+WOJ58Ey1AqK1Ca7Wb77bCA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/syncobj: flatten chains when importing sync_file
- into timeline point
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
-	Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linaro-mm-sig@lists.linaro.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: Mcbsn4EGKR3N32XuAuflvVJE9UpZKVEg
+X-Proofpoint-ORIG-GUID: Mcbsn4EGKR3N32XuAuflvVJE9UpZKVEg
+X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6accc7be cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=qphoL8xRS1Q0P0MBtcAA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0NCBTYWx0ZWRfXz2hFGfyQRZNr
+ 5J7wysiXv6+jNyrKN+4oasLmhsuTk4u0x8GDbip6mxzF8tN6uimCejYGK3eWUlvJe48DrpJ77/8
+ ilJhmy2fuXmiaqz6+o01zUNoOf5zIvE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0NCBTYWx0ZWRfX2HSN9mNqAPFK
+ u6LgJknar0u9HLYNqsz2lBMYC0zkkCO95Ut1K3IcoJwFRjhaVE9ikcu2jnylmY5B/CLfz2SAjOO
+ GupGj3Nv5WOPt520r0imp8vewaHRcNux5QgeTiTaCW5iwd7KQ7QWVJOBrT707trQpBAoKFThzxf
+ 8DfpDsMiCu00h3GXMUQz1dPfe8FxSmypBrVwlhnJOj2Xd9uJkURg0D+BECwzSXCHMI49y/TGScd
+ TVsPKa+Pymt5mrZZ163oQtKqPy/eVY4rFK/DVv9NZS61fXmOb5OaRFKwYaqwYHUSD+EMfQ4TGv+
+ D3Cgx109SfVk8jTOkaDrilUDvAJtRDbLtc153EDTTAQ9Gib68MbV2FKVxA6Ixt1Yq7wV+fuYQA0
+ gKaIzWvO2VBzSRf/G9HrfZsLrYadTpGzphABiaYHLlmceHuO1AtV74QAD7FBMOwNvrOadiafCmD
+ SKwTNd6Ly0VU2uYhGCw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120044
 
-On Mon, Oct 12, 2026 at 9:51=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 10/10/26 20:07, Julian Orth wrote:
-> > A sync_file exported from a timeline point can contain a dma_fence_chai=
-n.
->
-> No it can't, IIRC sync files are only supposed to contain raw fences or d=
-ma_fence_array containers.
->
-> I think we never documented that and that's why this issue here leaked in=
-.
+Some more improvements for the preemptible percpu code. The missing
+asm_inline conversion addressed with the first patch is the most
+important one. While I first thought that it is a compiler glitch that
+some simple this_cpu operations are not inlined anymore it was a simple
+asm_inline vs asm in front of percpu inline assemblies which caused this.
+With this addressed inlining works again like expected.
 
-When I reviewed this patch before sending it in, I asked the AI if it
-would not be better to do the merging at export time. It was adamant
-that it had to be at import time because of commit 519f490d by
-yourself:
+Two more patches reduce register pressure for inline assemblies. The last
+patch implements this_cpu_try_cmpxchg() for s390 so the compiler can
+generate slightly better code similar to try_cmpxchg().
 
-    dma-buf/sync-file: fix warning about fence containers
+Series applies on top of linux-next 20261008.
 
-    The dma_fence_chain containers can show up in sync_files as well
+Thanks,
+Heiko
 
->
-> I'm not sure if that doesn't break anywhere else as well, so I think we s=
-hould fix the exporting side instead.
->
-> Alternatively we need to audit everywhere where fences from syncfiles can=
- be imported somewhere else.
->
-> Regards,
-> Christian.
->
-> > Importing such a sync_file into a timeline point with
-> > DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_IMPORT_SYNC_FILE |
-> > DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_TIMELINE passes the chain directly to
-> > dma_fence_chain_init() and triggers
-> >
-> >   WARNING: drivers/dma-buf/dma-fence-chain.c:286 at dma_fence_chain_ini=
-t
-> >
-> > because chain fences must not be wrapped in other chain fences.
-> >
-> > Flatten the fence with dma_fence_unwrap_merge() before adding it to the
-> > timeline, as drm_syncobj_transfer_to_timeline() already does.
-> >
-> > Reproducer:
-> >
-> > 1. Export a sync_file from a point > 0 of a timeline syncobj with
-> >    DRM_IOCTL_SYNCOBJ_HANDLE_TO_FD.
-> > 2. Import it into a point > 0 of another timeline syncobj with
-> >    DRM_IOCTL_SYNCOBJ_FD_TO_HANDLE.
-> >
-> > Fixes: c2d3a7300695 ("drm/syncobj: Extend EXPORT_SYNC_FILE for timeline=
- syncobjs")
-> > Assisted-by: Claude:claude-opus-5-5
-> > Signed-off-by: Julian Orth <ju.orth@gmail.com>
-> > ---
-> >  drivers/gpu/drm/drm_syncobj.c | 12 +++++++++++-
-> >  1 file changed, 11 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncob=
-j.c
-> > index 5ca5163d0..c545af77e 100644
-> > --- a/drivers/gpu/drm/drm_syncobj.c
-> > +++ b/drivers/gpu/drm/drm_syncobj.c
-> > @@ -742,8 +742,18 @@ static int drm_syncobj_import_sync_file_fence(stru=
-ct drm_file *file_private,
-> >       }
-> >
-> >       if (point) {
-> > -             struct dma_fence_chain *chain =3D dma_fence_chain_alloc()=
-;
-> > +             struct dma_fence_chain *chain;
-> > +             struct dma_fence *tmp;
-> > +
-> > +             tmp =3D dma_fence_unwrap_merge(fence);
-> > +             dma_fence_put(fence);
-> > +             fence =3D tmp;
-> > +             if (!fence) {
-> > +                     drm_syncobj_put(syncobj);
-> > +                     return -ENOMEM;
-> > +             }
-> >
-> > +             chain =3D dma_fence_chain_alloc();
-> >               if (!chain) {
-> >                       ret =3D -ENOMEM;
-> >                       goto out;
->
+Heiko Carstens (4):
+  s390/percpu: Use asm_inline for arch_this_cpu_add()
+  s390/percpu: Drop unused output register from arch_this_cpu_add()
+  s390/percpu: Drop unused output register from arch_this_cpu_to_op()
+  s390/percpu: Implement this_cpu_try_cmpxchg()
+
+ arch/s390/include/asm/percpu.h | 59 ++++++++++++++++++++++++++++------
+ 1 file changed, 49 insertions(+), 10 deletions(-)
+
+base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
+-- 
+2.53.0
+
