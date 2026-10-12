@@ -1,135 +1,95 @@
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDAA371D02
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:51:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E1738655A
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:52:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791773494; cv=none; b=NbTtCNArcK3bI1/1UNqTq4B9vEMSxRdxd1/U+hGmbQSvRWky6eUcTtPu1X5eJepAu4vvFMDtEygIzz7SAr4htuuKNCzZddBBCEQSRkMKPJG4pXxh9Ab0+fzk0aCb9wFX1gVjsnjU5dz1re59l3lairyeH+RYUIGbDEmWm474J/M=
+	t=1791773529; cv=none; b=oks4Kyld1yqUW46GmDy+0FePPW9cUGpEny1nFDsB2Gny6MMJ2kDCFOYE9TtKbPoqJzLx8JmRSfMpoFAPXQ0Ln5hGdytsTFR549JkpHJV+o2m+OFgGRHWQoJo7L1C7c8p8IxuDTptaqXZzBwOTxWUGqadbBy3AYwmBZk/HXBdRCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791773494; c=relaxed/simple;
-	bh=Sww+UUx5AYubitoQIeYufXbeUtumr3OSOSv9MKMXWOY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J9DTMrdJiGXfy6PFs2UTqL5gvQxNFC0PFOkYMj17s6AXSbr0P9iI+6nUolZCUvc3trlF9WuXvAf2u2cQ+TJmhWNCED4/ZfJhpYMM1b9rpExPn3HeyqCP5ZpI857efYfE8mIB1+wn8hYagYfqXDpBOj2b5cl+Nr8/CmXhC8GvagU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AwCYtSxe; arc=none smtp.client-ip=209.85.210.46
+	s=arc-20240116; t=1791773529; c=relaxed/simple;
+	bh=+RnKcGIJ6G/VhbRqdt/Bc2gRi+Za13jvUFodR/Krc4I=;
+	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
+	 Content-Type:References; b=VJ7L/AygeHQWWhaFMDLy467+44L1zk+WaTXtXkIDf2/ttf+pKfACwggDlHSI+njOCptdckf8wd+aCfwz3g5wg35k4XiNrt5qLNZsv1GO1ST3ROzEn5qqRTx4eO6pxTKjU6oQRNfAvpECJbfCl687QsGlLyzM0WydwNQLL3D1zLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=s5sw5q3O; arc=none smtp.client-ip=203.254.224.25
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AwCYtSxe"
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-824e6e6ed71so1255791a34.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:51:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791773492; x=1792378292; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hDR1U1wZKI643QEmYiqX+7ava8dEd6FhSZ+FNDoTc9o=;
-        b=AwCYtSxeZEfR3S8BjBjSaqNqHJz0bpVqLe9oL5X7VXDrYTpF2GDp0p+ZxbfEZGSEXc
-         rWB0xlELxXn1TNUnytBZrKDwqVw17hbYlUwL2KFEWpcLk6rApgWl4+yFAQVRPKdAO8wB
-         qxEUGaWvqvP0uHIWdt1LOHCS1v0canGlx4ijT28HSkYzpNXaXWMD/fRPYHQ+lQw91Ee6
-         RMZTwhRvC9KBp+YycehRQESwEmiADt8qCdT97j8Hb/j6LtI5G/nL0K/4QHWcleOv/ban
-         olrerEHDLhHFxhX8fnNgWXLELlu5zPKLaUJYY7NZctlCyBYZEQITr0Y4c2/QbgGsaTnc
-         v92Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791773492; x=1792378292;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=hDR1U1wZKI643QEmYiqX+7ava8dEd6FhSZ+FNDoTc9o=;
-        b=ak3fcX7EriEoV7hOF9kOR1sUH7cv3C3FFhuiEV364kEtig+b/NeOlNA1iXei6TSkBN
-         NIjZ7OrcGR0kP+GpVlq2+V266lvFvCc5kjj1wC0Z/B+cQ0PNIpa5SOtpD4c8trMJqvM0
-         ggDcYP6qbFn1A7uvHmmgN9mnSANKZRzfQ76jKNXxmTcFh285SKn5Hu0SlJAP0OpWHDtc
-         Yx0Hx+XQRgoKSjUiy1cx3ICFNrtRwWeUiefWD10fI7xZxadEny7dHpFuYLh3FNlBv5AW
-         VDJMM7YNd6FHgT+d3x6hlkVs4DUbwEyY+TsfdjwBn48NoYnhgAO+odnP8gqZPTuOW6WQ
-         zEuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzRRkQW+BOjnAWtrdeQA1efL4UER05sZYrgt0fSNq+dNM/6uc/xKzee2sJ4l3h18PL8RYF7GtDOnf8lUX4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIz64cYD87ccYTmHsc4zZEBw7j68vfQB87eJZF6Q4EajSclq6aU
-	VKJTRKCCOSpAXsgikCWQtElsZ1Fs0VtwxNsMkiItrwHqzqyO1g6IpS/L
-X-Gm-Gg: AYBFou0DGcSPHW52buZxvI3MaheQyt/Fqm5yp1oZMHaEk15XZngzxR65dau34//IxkF
-	QtnEW1XGHJBoyjGe/vM5bl0xScHHtWPWLWNF+Lfl+GkVFPbkP+SOgmK76+g5LtuWFNbh/HzOL/S
-	WTJIEAcUzTjMEyw26q6guX7rUEAMOsL/RiasHmvkTE3ilHy3FajVBQ8Oo49ADM0P5DufRmC/Z+2
-	uJzi2mVAnRQZAdNbDS/wP+GxRnoYauyWxNt/oOM3Z7LyWSHaQ01WjVx8Lhx2WC07pO4y2Dyru3d
-	zAVnz6yfCLVKUEbsgP4FPAnEFf021WLeBdn/IZBy6X3sF5Msx7Hg5N7ugAakf5LjajykzFqVLga
-	0VdQWDjGCmRWcqdmctlirnGIGvlZWwqgORGAe/eGkISCjy8djczwuWbZ0BzDz7tIgmn4gR1l9VG
-	qMG0qIvUFTu7tKJqf4gi4VsJnYiKyZXk22F0h3vFHz8cMS51oRYtw1zwbtgessBQsyzygPM1b6/
-	BJzUWetFY3ftVfgFsHia5r7Cu3o0osYaH8ay+FTJykUPzbR5toDhspZOzUoxp9JVxZ7XyfzMrco
-	r3z+RTiI/1ocXQ==
-X-Received: by 2002:a05:6830:673b:b0:7fa:ac4f:79c with SMTP id 46e09a7af769-830977800c6mr8028072a34.24.1791773491871;
-        Sun, 11 Oct 2026 19:51:31 -0700 (PDT)
-Received: from fedora-laptop ([172.245.82.59])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039a3e016sm8539170a34.17.2026.10.11.19.51.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 19:51:31 -0700 (PDT)
-Date: Sun, 11 Oct 2026 21:51:25 -0500
-From: Ming Lei <tom.leiming@gmail.com>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: axboe@kernel.dk, hare@suse.de, sean@ashe.io,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] blk-mq: dispatch kworker to housekeeping CPU when hctx
- cpumask is empty
-Message-ID: <asxLLWOQQzolER0a@fedora-laptop>
-References: <20261012012905.267920-1-atomlin@atomlin.com>
- <CACVXFVMTr8mORGSVM4JWHrLYgk+9O0J20bjaL_08uYmRCbzC3A@mail.gmail.com>
- <o2hxbjxbkg3wv25lyj3nluwv4e6cb6q5qaukrhjzwg2hodwk5c@wgpc25peito7>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="s5sw5q3O"
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261012025206epoutp02a903bf170efd63dae249e312824ff776~dqIeKyqMp2877628776epoutp02L
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:52:06 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261012025206epoutp02a903bf170efd63dae249e312824ff776~dqIeKyqMp2877628776epoutp02L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791773526;
+	bh=+RnKcGIJ6G/VhbRqdt/Bc2gRi+Za13jvUFodR/Krc4I=;
+	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+	b=s5sw5q3Osg3mDz9lFSGn+NPOyx2lWPhSmhKes4yADIBg9gE+Sn8YD5B5MupfD5e6j
+	 YUEhI/udWZeN2yH7b8eMlF+w+xoI7XmTEpLmGX4E7E3CR/YgK7kjZ8cMlmiyxDU59+
+	 +4tdVyb2Y1ITrl7qig1/AKq9cjgCst/ccCP94yS0=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261012025206epcas2p102b727ce702f793063d25dd96cf972cd~dqIdzYhFL0573505735epcas2p1P;
+	Mon, 12 Oct 2026 02:52:06 +0000 (GMT)
+Received: from epcas2p3.samsung.com (unknown [182.195.38.204]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4j327B0zy4z6B9mD; Mon, 12 Oct
+	2026 02:52:06 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <o2hxbjxbkg3wv25lyj3nluwv4e6cb6q5qaukrhjzwg2hodwk5c@wgpc25peito7>
+Mime-Version: 1.0
+Subject: RE:(2) (2) [PATCH] nfsd: do not return overlapping extents in a
+ block layout
+Reply-To: daejun7.park@samsung.com
+Sender: Daejun Park <daejun7.park@samsung.com>
+From: Daejun Park <daejun7.park@samsung.com>
+To: Chuck Lever <cel@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>
+CC: Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Olga
+	Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey
+	<tom@talpey.com>, Christoph Hellwig <hch@lst.de>, Sergey Bashirov
+	<sergeybashirov@gmail.com>, Carlos Maiolino <cem@kernel.org>, Amir Goldstein
+	<amir73il@gmail.com>, "linux-nfs@vger.kernel.org"
+	<linux-nfs@vger.kernel.org>, "linux-xfs@vger.kernel.org"
+	<linux-xfs@vger.kernel.org>, "linux-fsdevel@vger.kernel.org"
+	<linux-fsdevel@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <e80265ff-322b-4a52-ba51-393e3e4f503e@app.fastmail.com>
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261012025205epcms2p7f506779d61fc0b40561296ef119be2e0@epcms2p7>
+Date: Mon, 12 Oct 2026 11:52:05 +0900
+X-CMS-MailID: 20261012025205epcms2p7f506779d61fc0b40561296ef119be2e0
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261007165105epcas2p264fc1fd07bab1fb877a6695062f48322
+References: <e80265ff-322b-4a52-ba51-393e3e4f503e@app.fastmail.com>
+	<20261007165101.GD2705364@frogsfrogsfrogs>
+	<20261007-nfsd-block-trim-v1-1-53370f97047a@samsung.com>
+	<20261008014706epcms2p7f60dc9a1db6ca16a6fff03de67688c2e@epcms2p7>
+	<CGME20261007165105epcas2p264fc1fd07bab1fb877a6695062f48322@epcms2p7>
 
-On Sun, Oct 11, 2026 at 10:21:01PM -0400, Aaron Tomlin wrote:
-> On Sun, Oct 11, 2026 at 08:56:07PM -0500, Ming Lei wrote:
-> > On Sun, Oct 11, 2026 at 8:29 PM Aaron Tomlin <atomlin@atomlin.com> wrote:
-> > >
-> > > Commit a46c27026da1 ("blk-mq: don't schedule block kworker on isolated
-> > > CPUs") excluded isolated CPUs from hctx->cpumask to prevent worker
-> > > threads from executing block work on isolated CPUs. When all CPUs mapped
-> > > to a hardware queue are isolated (i.e. blk_mq_hctx_empty_cpumask(hctx)
-> > > evaluates to true), blk_mq_hctx_next_cpu() returns WORK_CPU_UNBOUND with
-> > > the intention of offloading execution.
-> > >
-> > > However, kblockd_workqueue is allocated as a per-CPU workqueue
-> > > (WQ_PERCPU). When WORK_CPU_UNBOUND is queued on a per-CPU workqueue, the
-> > > workqueue core resolves the target CPU via raw_smp_processor_id().
-> > 
-> > Then it looks like you need to fix WORK_CPU_UNBOUND, which has more wide uses,
-> > if you think it is one problem.
-> 
-> Hi Ming,
-> 
-> Since kblockd_workqueue is WQ_PERCPU, the responsibility rests with blk-mq
-> to provide a non-isolated CPU when dispatching &hctx->run_work, no?
+On Thu, Oct 8, 2026 at 10:14 AM, Chuck Lever wrote:
+> I don't quite understand the logistics / ordering, as it appears to
+> invite a conflict depending on which tree the ->map_blocks series
+> goes through.
 
-Does every WORK_CPU_UNBOUND user have to handle it?
+The comment as you updated it in nfsd-testing (now 170b788af22d) is
+fine, nothing more is needed there.
 
-> 
-> > > Consequently, if a task executing on an isolated CPU submits I/O and
-> > > triggers an asynchronous queue dispatch with zero delay, &hctx->run_work
-> > > is queued directly onto the local isolated CPU's worker pool. This
-> > 
-> > If your theory is correct, why do botter to change to
-> > housekeeping_any_cpu(HK_TYPE_TIMER)
-> > if the user is submitting IO from an isolated CPU?
-> 
-> I suspect, steering the asynchronous dispatch to a housekeeping CPU is both
-> architecturally necessary and fully aligned with the rest of the kernel,
-> no? When a queue is plugged, throttled, or returns BLK_STS_RESOURCE, blk-mq
-> defers execution to a background workqueue. That work runs asynchronously
-> at some indeterminate time in the future, long after the thread has
-> returned to its time-critical user loop. Having a kworker suddenly preempt
-> the thread later is likely not desired.
-
-We are talking about `if a task executing on an isolated CPU submits I/O `.
-
-If the task has been submitting IO on isolated CPU, why can't we keep
-scheduling WQ on isolated CPU for running blk-mq queue? I am not sure your change
-makes any difference from user viewpoint.
-
-
-Thanks,
-Ming
+The ->map_blocks series will not go in on top of the current trees.
+Patch 1 is in xfs for-next (e3c682dd1130) and patch 8 builds on
+170b788af22d, so I will post patches 4 to 8 again after the merge
+window, rebased on -rc1, when both are in mainline. The series then
+applies to mainline alone and does not depend on nfsd-testing or xfs
+for-next. Details are in my reply to patch 8.
