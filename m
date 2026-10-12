@@ -1,157 +1,150 @@
-Received: from smtp.uniroma2.it (smtp-2015.uniroma2.it [160.80.4.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 522573451A7;
-	Mon, 12 Oct 2026 00:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.37
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F6023C51D
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:03:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791766781; cv=none; b=cttGzCxGa4VxjIRHw0VHol6nkHWjui6tH9IHV1FYFEMXa49FUB28l+kmOiHzZ5tyfXScfh0jhdckYnkAEGAaYaKNN/zB3T/LF8sWh+mK9/h/DhEfZCh02JfX8N0G83vmUjNJYxrSHTqilwMizriyIb6+ig3XUV+X7UwJ/6xWYMA=
+	t=1791767013; cv=none; b=A5FdKWD6Q/RVT3b496egq+lnJOezgfyQXG9otKF9QnzfTolOqseZn16bacGWAlsAAOzs1LTvur1OwVyB+fitsdOUqpC/C/4hm2hOlgypdLNrCjtg/h3w/SJx9gAiQ+xSe56cqXSXKGsSya1oH253dwgNmVNUmCMFakZzq0SWEnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791766781; c=relaxed/simple;
-	bh=YSyZHAB6Vtxc17lVBX2ybA+plNkuA8JrLtQTp8bDBgE=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=se+6sIvOBNuYX0OLm1QbOVQURdicIw0J1mYRpDaLU/aslI+bHMNV3lPRdgk+0PkJfSxM+wp8IOmxVjR/bPvZZ3BqB2n3PrZUfxxKZp5tSgjwIlhzG4FACCbFxKUTBbPdBhN1OH/8i35xt7LSFeOA6qm8oZfA9caDLHxXx2kz7n0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=XBUq+SEh; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=c6KDWHV+; arc=none smtp.client-ip=160.80.4.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+	s=arc-20240116; t=1791767013; c=relaxed/simple;
+	bh=SL3C8VNZUCu/3dO8gqZPDMB1iiNPhzqbYyxt/EzaBo8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uDK+nGCKd068GaWS49W8DISipQ04pXaVzu+fBvrMRZ0G4On+Seoz9d8L4/t5Xnym4z77nFFjwo1XIXztMXOQcNWhy0LJnLgovPUgbdJCaINlDToPIask8UxQpglw9TEmb/IdtRGU2D2K0QsZeN51BdZb8+b8SROXq2c9qrESsYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=OJ+fKBYr; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=CR1FRWbt; arc=none smtp.client-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="XBUq+SEh";
-	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="c6KDWHV+"
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth-2019-1.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 69C0x4p6020545;
-	Mon, 12 Oct 2026 02:59:09 +0200
-Received: from lubuntu-18.04 (host-79-32-222-240.retail.telecomitalia.it [79.32.222.240])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 16DEB12289F;
-	Mon, 12 Oct 2026 02:59:01 +0200 (CEST)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1791766741; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HhHmgfXv1JVxKVN/OgXAPIowjeub0F9/DIzebdwQqM0=;
-	b=XBUq+SEhqYcghbD7qdyo0maRVL7BbGREUMT/gdyTYMHv4U7TV4yTc03NrQMEfChU5g2oUh
-	a6aeON6CkqLEhQDw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1791766741; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HhHmgfXv1JVxKVN/OgXAPIowjeub0F9/DIzebdwQqM0=;
-	b=c6KDWHV+exO5JQp+6M+3mEhExto4Uv2V9y5cMK1u8p9WkcUwf8J5PdEREJqMxKhwnHxFQU
-	Wg553JMvACVFkDzwlXj8TvW5NDmdWWDlIt6UFfzxPl0QbZc8HAux9ZVKAY7x77GZQuZe7E
-	1lP0bwfXXiNINAyD0tlPBkWyDOyJ1BuWk2KY+3PaU3OTRbc66CY4IxEJCeQ7erPE7lHUWd
-	68/HfDJbAFUZqK/aA361YgJjLSsXJaaPKNG2p2hPcWNJPpKW7UkLOFbKQcYDNOPqDv1BFd
-	3RugaG6ENhsHWWGMj8VFdE1+dP8wNToBg+vEHpDPWVRbF4+cUeKp8tZPlBLfrg==
-Date: Mon, 12 Oct 2026 02:59:00 +0200
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski
- <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>,
-        Shuah Khan <shuah@kernel.org>, Eric Dumazet
- <edumazet@kernel.org>,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-kselftest@vger.kernel.org, Hangbin Liu
- <liuhangbin@kylinos.cn>,
-        stefano.salsano@uniroma2.it, Andrea Mayer
- <andrea.mayer@uniroma2.it>,
-        andrea@common-net.org
-Subject: Re: [PATCH net-next v2 2/5] seg6: add RFC8986 flavor support for
- End.X
-Message-Id: <20261012025900.c2321bfa92c5863d21efdba3@uniroma2.it>
-In-Reply-To: <20261009-srv6_flavors_endx-v2-2-56ac7f838f41@kylinos.cn>
-References: <20261009-srv6_flavors_endx-v2-0-56ac7f838f41@kylinos.cn>
-	<20261009-srv6_flavors_endx-v2-2-56ac7f838f41@kylinos.cn>
-X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="OJ+fKBYr";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="CR1FRWbt"
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id CFC5B1400087
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:03:29 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-12.internal (MEProxy); Sun, 11 Oct 2026 21:03:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1791767009; x=
+	1791853409; bh=UTO9iNgAsf+LULaXQEGfYed03Ub1HTRDjxqHtr3u/Zc=; b=O
+	J+fKBYroD1NFWrozMD2sqmabnLL4DMRhS6lVzPow2bpT4laXdJddvxpvIl32/iAk
+	cYSBmIFEsyydq9PE25VUjNQv8mJ+8bYVB1Zn29FJCy9Yi9q7KMxUHiarNo5CwGbr
+	Qytf73lJ0s7+4TwKbrTxeSCgoNrSPof5zcIw9DZdT1i1J6SvtlckUhjvIjC4sMsP
+	qUQaqUTOUB3Ac0Lnx751gi8ksCeYl9d62poEg2IYS67Y+4e3ZVeWxGnNUagVEB74
+	dvpdZALH2QXWsAMKXhP88F9gMNAVQkwfLxel1tPKw6Y2t4Edk1c0MlLLUAsc5UjH
+	YBzJok1OJ1UkIfHGLGBGw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791767009; x=1791853409; bh=UTO9iNgAsf+LULaXQEGfYed03Ub1HTRDjxq
+	Htr3u/Zc=; b=CR1FRWbtSnAgpZO0r0kOAVZHxGyP/zBr+R5RVMQ5BOcOY5719Sf
+	dDrfQDkgAws96sY55gSX2i5hhC5Evomn5pnSN01XPo/Ik6Sge33VOzX5EYiqVg7V
+	9CW4a6EOOP5voXwVPiXGqCEaSdKC+8wI9s+Gz/n7kjhitL9K+jy3X/A3ksZbZljc
+	uYBcNOy8Rf57ciK0zruOEKNpZYjOxLKbvdeDnBiSRrJp2K/X37Z+LXEXGyVMZohf
+	PT8Kb7Nw1qQbjRuG0vJ8K7nJT7wWhdU3kry3uatUNUyfqCQmLk2vyGpi30qAJX2v
+	v4rf+US+KWd0MTsumrkkxtObsNACA95wQCw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=sakamocchi.jp a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791767009; d=sakamocchi.jp;
+	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:ies0eJY6FGG4LKk0xqXoM598f4n/BD0h+dBruaI3qMashn9
+	1P5BxgjYDHTQyoJfxxDnM5OoqCh6c11wNjU86ukiHexyWpy61MAumY13h1nrbHtb
+	gYicA7oWQWvSQ2PzsjlwrMp2DZADIzvL4BuN/3nJw22YxXt81iBTQvyeFr5nYERj
+	Je7or5G/0eFM34EGGqL1H81SNrqHJl2fqnDX/qhqvtKXTQmaAXFfG1r0JPNwd82a
+	GvLmMvY3MYO3OuECI21vXSMdLDOUuYm3siOfkPu4I/vKoHfLk/xjiaxW/U/G/DlA
+	Rj2u4+sTERd2SQl2N0x4Q0mHZZMOYZx8VFq6X0w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,mail-followup-to,message-id,mime-version,references,
+	subject,to;
+Message-Instance: m=1; h=sha256:NBs3CHI86JaCEOAnwkGqdJMJNm2IYZQAEpZdG6FxnFU=:SL3C8VNZUCu/3dO8gqZPDMB1iiNPhzqbYyxt/EzaBo8=;
+X-ME-Sender: <xms:4THMaqUmNwTmSOkLKl2OGgnQQ3T2FnQSJm26rtpggE6mvMDt8Eweug>
+    <xme:4THMakj7KTafE6U7yi8iSrb4kTquWLdriwH68HRaoj-jgtFU4wpIShNKc9UyIJE6S
+    Lw4zdtLrvLKiAVNg9ZbvLMwsx61OeGU3DOOLMpSiJKDMjozLmJezqF1>
+X-ME-Received: <xmr:4THMal8rycdD9DDvngoagsmlG16sxXgxIyTdj3la3QGAIO2Yz7507y03poQbxB6UMmN4bzvAmGPDL2hIA4Sc8uXTQbM7sw>
+X-ME-Proxy-Cause: dmFkZTEMdJzwH5zBH5KRwGiDuvBtoHvefKFJ4slBS81DwqHWTA8PwErc5VEs2huY17W8Jb
+    /hoGExBg6aevrqvj+KVH3UNa2Xjgf08wIJMN3/Y1/yxAgCAegcpr7VyrGlAqHOJhg9rFlp
+    ecgoXMiNZh4g+FX52rKJZOiOHMxhnwL7tjpC7ua/zWzSJJPcznQjWJO7G8LHZXVUriZYFK
+    Z5JShMnXJQdEV03JiasH+0Mqb6JRNIa/4ZhQ5B4cUj/3iylaZCQJ1Tm8mged93DX+jGL49
+    vLLTSOPW6q6P4H5TZ6wfxMQJbLJG8diasNaz7Fhqn70NjtJZRK6/F9lHqW/5xth0/IaPe8
+    3FUVAElhrfhoQTt3gxJnFFNlw51FJBWYIBh/+WtdxyDAJDvZ23bz9pXQ42pSXbUpjiVauM
+    4TrM+imGVpvNKzN05qgZoRX0V/Da/uHfqPtf5BF6q+0TLLKMHVzcC7XkftyYisi8a6wF1K
+    SiT9ysaPg81qBi3nA6QYi5Y1Ec/i/s0QUp/VPeF54Ev/LbuAPgxAs6IQm3RaV3Ih+5SVq3
+    /gUCvSZ0x8TVU8D2s2oIrrC3kJKRE/JPZMCBBk6mrEAvwLMm4+rDoiiuPmVdnQhP4fSBZz
+    8BR9cNeHIv4qed9MqaYAenn+ryxPaVmla8Y1jm5prWns15Zi7Yk8i7Xpzjlg
+X-ME-Proxy: <xmx:4THMauC8ysjSb3Asp_0Zcs02zWLGPHmy-VNdZkeXHA9TMxidWbBKlA>
+    <xmx:4THMaiJeGN4L0yT8gPRnRDzeH7V2Bxh5HXUyjlU0UOamUPurybCj8Q>
+    <xmx:4THMahmYHGpFCrDaCzkvYWNDK8wLdQV4agn3n0j4ObWYqAVud9g_hw>
+    <xmx:4THMagFBXfibH9nvAnorbWPaO65jJ5U24acW42_Q5uXPYCm7lddhWA>
+    <xmx:4THMairatzPRWqlh46Stbajqp7EHFAC_bEIN6JtWFjveVlYJLJwyuLOy>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 11 Oct 2026 21:03:28 -0400 (EDT)
+Date: Mon, 12 Oct 2026 10:03:26 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/6] firewire: core: make execution context
+ assumptions explicit for transaction layer
+Message-ID: <20261012010326.GA518749@sakamocchi.jp>
+Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org
+References: <20261011063146.497455-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011063146.497455-1-o-takashi@sakamocchi.jp>
 
-On Fri, 09 Oct 2026 17:58:38 +0800
-Hangbin Liu <hangbin.liu@linux.dev> wrote:
-
-> From: Hangbin Liu <liuhangbin@kylinos.cn>
+On Sun, Oct 11, 2026 at 03:31:40PM +0900, Takashi Sakamoto wrote:
+> Hi,
 > 
-> Previously End.X only supported NEXT-C-SID, with a plain fallback to
-> input_action_end_x_core(). Add PSP End.X processing by reusing
-> end_flv8986_core().
+> This series is take 3 of the previous series[1].
 > 
-> Add SEG6_LOCAL_FLV8986_SUPP_OPS to SEG6_LOCAL_END_X_FLV_SUPP_OPS so
-> End.X advertises PSP flavor support.
+> Recent code changes have guaranteed the execution contexts of several
+> functions in the transaction layer. Based on this, this series adds
+> might_sleep() calls where appropriate. It also adds context analysis
+> annotations and lockdep checks for several locks to document the expected
+> locking context and help detect incorrect locking behavior.
 > 
-> Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
-> ---
+> Chanes from v2:
+> * Switch from sparse to Compiler-based context analysis assisted by Thread
+>   Safety Analysis in LLVM/Clang v23 or later.
 > 
-> For Sashiko:
+> [1][PATCH v2 0/5] firewire: core: make execution context assumptions explicit
+> https://lore.kernel.org/lkml/20261009121048.282982-1-o-takashi@sakamocchi.jp/
 > 
-> With the SEG6_LOCAL_END_X_FLV_SUPP_OPS mask widened, parse_nla_flavors()
-> now accept the combination next-csid plus psp for an End.X instance. And
-> the current code is unable to handle this combination. The End instance
-> also has this issue. Andrea is preparing a fix for this bug.
+> 
+> Takashi Sakamoto (6):
+>   firewire: core: add might_sleep() checks to transaction layer
+>   firewire: core: enable context analysis for transaction layer
+>   firewire: core: use context analysis annotations and lockdep checks
+>     for transactions lock
+>   firewire: core: use context analysis annotations and lockdep checks
+>     for split timeout lock
+>   firewire: core: use context analysis annotations and lockdep checks
+>     for topology map lock
+>   firewire: core: narrow the card lock scope when accessing node_id
+> 
+>  drivers/firewire/Makefile           |  2 +
+>  drivers/firewire/core-topology.c    |  3 +
+>  drivers/firewire/core-transaction.c | 97 +++++++++++++++++++++++------
+>  include/linux/firewire.h            | 16 ++---
+>  4 files changed, 91 insertions(+), 27 deletions(-)
 
-Hi Hangbin,
+Applied to for-next branch.
 
-thanks for v2, and for your work.
 
-The End fix is now posted, to net-next and not to net as I wrote on
-v1, since the issues it fixes have been there since PSP was added:
+Regards
 
-  https://lore.kernel.org/netdev/20261011192310.55-1-andrea.mayer@uniroma2.it/
-
-> ---
->  net/ipv6/seg6_local.c | 15 ++++++++++++---
->  1 file changed, 12 insertions(+), 3 deletions(-)
->
-> diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-> index 4fcfcd48cfae..521a9b0c0929 100644
-> --- a/net/ipv6/seg6_local.c
-> +++ b/net/ipv6/seg6_local.c
-> @@ -121,7 +121,8 @@ struct bpf_lwt_prog {
->  
->  #define SEG6_LOCAL_END_FLV_SUPP_OPS	(SEG6_F_LOCAL_FLV_NEXT_CSID | \
->  					 SEG6_LOCAL_FLV8986_SUPP_OPS)
-> -#define SEG6_LOCAL_END_X_FLV_SUPP_OPS	SEG6_F_LOCAL_FLV_NEXT_CSID
-> +#define SEG6_LOCAL_END_X_FLV_SUPP_OPS	(SEG6_F_LOCAL_FLV_NEXT_CSID | \
-> +					 SEG6_LOCAL_FLV8986_SUPP_OPS)
->  
->  struct seg6_flavors_info {
->  	/* Flavor operations */
-> [snip]
-> @@ -923,12 +924,20 @@ static int input_action_end_x(struct sk_buff *skb, struct seg6_local_lwt *slwt)
->  {
->  	const struct seg6_flavors_info *finfo = &slwt->flv_info;
->  	__u32 fops = finfo->flv_ops;
-> +	int ret;
-> +
-> +	if (!fops)
-> +		return input_action_end_x_core(skb, slwt);
->  
->  	/* check for the presence of NEXT-C-SID since it applies first */
->  	if (seg6_next_csid_enabled(fops))
->  		return end_x_next_csid_core(skb, slwt);
-
-Here End.X could do what End does in the fix: call
-seg6_use_next_csid() instead of seg6_next_csid_enabled(), so that a
-packet with a zero Argument is processed as End.X with PSP.
-
-Does it work for you to rebase this series on top of the End fix,
-once it is merged, and make that change in this patch? Then End.X
-handles the combination from the beginning.
-
-The selftests of the two series conflict in srv6_end_flavors_test.sh,
-and they set up the test environment differently. If you want a hand
-with that part, I am glad to help.
-
-Side note: I received only part of this series. Could you please also
-Cc andrea@common-net.org, in this thread and on the next versions?
-
-Ciao,
-Andrea
+Takashi Sakamoto
