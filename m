@@ -1,168 +1,98 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+Received: from sonic310-14.consmr.mail.bf2.yahoo.com (sonic310-14.consmr.mail.bf2.yahoo.com [74.6.135.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66E12D5C7A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:52:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791841927; cv=pass; b=LdSS1DRsdI2tadWAWj0+4hq7xlW7+7nHbjMr2ketqGrlMs4HkjlXnMkbjQaruMnGeuUYqwrlEBPPx8M63bPqWtJ60+fNQi0kzC8IxrbK+cuELDCAvmBKiK8yOl4y2pcB167qPTsJdPn+2ldNClAFiKPtfmdUh3YweD615D4JG+4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791841927; c=relaxed/simple;
-	bh=DIL5UuZhGTA2pRNXRbjhs4HWRHo7MrRLOSBM7IepAYU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W09eLhUzFnzKCqFY7ltxKCSRA79FnUIZhZOM5cj5lINc6GRQnbW82u2f6tKVPgExm5KiPZKbcoPMQMYqwXb1BqOouoxit5Y2sjvzkoXc0Uv5AaaFwDqMP5kPQZRDHCV+rIIbkr+LdaOfYPGmwqu63qYrG/Q/XB4xW1voD4f0tuY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Vaiuofci; arc=pass smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B7E2BD09
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:52:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.135.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791841938; cv=none; b=r4nmD38vpGH8LK0SomSjY9AzrPIjDKckYzk5u3rPmPEMS2GezjXJExkfS9Ze/UelV1IHY4s5yzD/4YOUmxaWft/L91mGGVO6ydBbQGTmmlp80DfpezIrMaRtzXki2+WoVHCNz+I914xlqMTYWSIaedODjXRpcRczSsyVvGjd/38=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791841938; c=relaxed/simple;
+	bh=Bfln3E3WROihP7r58BRQzIRCXczrGTPeR1n8WumWjdY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JCHS92UeqqyY2ARwSy2VVU0JJvAKWKwoKu+vhceNcujd28oPKHEP5FY7Flo61SuiicIlUl1JiCEBK/6EALs4pAHukImtP7WpWDYIZHg9CLJOacxzN4u35PmhrqrAnTcwdIXE4RuUS/zXMWWV1jkNs5jb6dJXekMEuuf1sxe8dC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=X71WhXv+; arc=none smtp.client-ip=74.6.135.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Vaiuofci"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-533202fe429so543881cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:52:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791841925; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TdckJ4sOqPuyoPbPY+TDlUF4i2tZYOfMSNSJ1/Ns9zP5gnhQTv9s1Okx8ZGz8LNj7h
-         G2tW06CZCbcBIr8De/r5iui8rwxTAkCOTTsZ2NTqPxBm9QDtqkjSI1G/7DfdbEi28JgO
-         MiOC0BnW6YxQSGEbT4EmzYfWBhU8ImF4vDS+vbAIGPQfXHItasBs2KhyRHDsORCr5vv4
-         NSlE9e9ZxTdmBzYzJtzEmESgf3yMKO9QxYPbmQT0rqVXuTKxoCBAo6y7uSLIOJj5nzAF
-         6NNljWCwl6SdYBHZiC6ss2aGk8LckNRyVriVk8lVi3etuuKTLyRvwFz4P9zX6LUJJ9Pw
-         vTXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YLoAoEeE0ibBzPThB0BLma4hgq+eUQQ3jaPTysHvBC0=;
-        fh=NRmfV4K1KRQmKPhoP6f4bWxjGMxfqa0xbOh8WUPp040=;
-        b=heIlfDZhoWgaWo9n9jlhWb2uoq8FSDR54mKRHMLidjXxxZnR4PIDmB+vsGMFarHUap
-         jKoyVRm9DbjXt4/zRCZg5CGPw7FyQ49M+3FVVf/5pVsayn3C3+kxq3jQ5p/KTcUUpaGs
-         QaPhILICfWXLbvR+PbSdYq37jTcHciYDMR31trHAqMM9bwUOfAqEmjzDKeo4XYTah6+O
-         sGeu3Bd6KrxjFHGG81Uud0j5hcDREQg7pNF8o6EGskxKuwzCwzWuoH5TwjsFp5rWyLcC
-         IVVpN05mBa35Co1e7092670VFLm66zUqqu0ZttVLmV2D+OytPzsy06d7vQS5EJ6uizG9
-         Zycw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791841925; x=1792446725; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YLoAoEeE0ibBzPThB0BLma4hgq+eUQQ3jaPTysHvBC0=;
-        b=VaiuofciM1NPp/ND4T0HN6N92O1EY4zQZrZ5VmQbuV7GqZMSiKFsj0LVq8tWIyhdUH
-         IepGmxX75BmT5g1TkHEI7AQj4ZIddR0m8++ndvpbaeyZ10mR7hW58Jko4q6ga3+OpBvX
-         T4HyEIu2fscD5r51TgUVZ3bZQM9wmoLNlE5Xj8bcztg16g+BdYH4j4T7+20vE34GR4Nr
-         b23bYajCDA5skuwvcyWVBJ2zGGcaQGp7F736F4SOty/tKGm303/izuwwLZrgB/Z0ouO4
-         UX6HGYSfSQKeJC65z8JXDdENqlro6e/zUvjtweyoKNvRVNX4Ipg7wx9KSZ3RE4EMywZt
-         i6IA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791841925; x=1792446725;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YLoAoEeE0ibBzPThB0BLma4hgq+eUQQ3jaPTysHvBC0=;
-        b=lkt1gsldqbk1SI1A6MaBgVU7aGEEWgXda8NnT87lRzK5ZesMYp2nhNwllvyLSzo0LD
-         hTzYbR3RSYazHKfYGS4eN3E1m+qOtH12PSvENv241GE18STU6d9E9TwNgF+VTbLl+wMt
-         ZpCpOw9F8NyX+DSbkecfR+miBQQ3OrzTL1spD/s2U0KpZlFIJzqtQVkLhnxro8xihEzT
-         4lOX/Bx8OE/kSOasM7Ws3SoiI22SDPFtjC/4YO3CAw0i+UNHzTB5aySD/o8i4QEuoYUs
-         hc6REJNRtY7yiHmdBqCeRMQKXooM1xe1LoVU17K+DxXRwX57g1Z/mVZZFT14dhjfYh5g
-         x8zw==
-X-Forwarded-Encrypted: i=1; AKwUvBz9+q4rtCgMZ9geTpsNM46dFWPu7nhEEX6Uhcnns/WNaow6rduyzpvaQFinaUfUF8ZhQ5VmVn37NN2hKhM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK7Wrd0bllLzqZXPw+UnXsCU34dDxNPQzUoEBjNQrle2jn768TP
-	xjx2BQHDBJ62JwVkg7mSRdyMi+lW0HWe9gk6Hld3FiW3Oq86Rp5R8Mux3WHc2zUJuIZQ9AmPSo4
-	lAsU8B0KXIe7FmM0dWOA+P1FX0L0VTNeBVzQy/iwc
-X-Gm-Gg: AYBFou1I6Foo8gjeQw6J/CmIPMN88rC0B7EFT2eBaitkYPxZai7VUdOZUJJHrB6VSxG
-	RonJsDpCFTNv/jGfDE2c35mqzixR70BGpC/nH7hEMmkBQ2ahviJ4Ho6O/z4lWdWpDcB5MYv2n/x
-	Lcsx7e/H+eJ10ZZvaJSlaPTf+3ezr5pDBQ2aeYrxWBVQBaNw3FvrSHBYpT8x3FzQkuwy5RqjRiQ
-	uvd/CR0demmV2cjY3TLZglsS556sX5O8D1ULVCbkIphwLheAU1l2Sxwz+Af8tNFDgdP71M1n/5J
-	+lhYOgwmx2z8xC8BM90e3a56/wigAtIZq3/skMeDv4O0fB0K4MxI16ge+5kvi9Ixh+pjAuu30XK
-	zimCkhywZiA==
-X-Received: by 2002:a05:622a:345:b0:532:eff8:3491 with SMTP id
- d75a77b69052e-535b4f9b8d1mr34243711cf.14.1791841923948; Mon, 12 Oct 2026
- 14:52:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="X71WhXv+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791841930; bh=Bfln3E3WROihP7r58BRQzIRCXczrGTPeR1n8WumWjdY=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=X71WhXv+ldzd2Z+b2YjellXPRYBooB6GoNAIyN5ULzfJkt2q4pp5c5JmqmA+9nmDFDmjxqpTLPTI8cUmmrzaySaWB1LFxkwx2p6O9s8MflKpTBcExn/CZlMJJDagvgc3+xS0jtZvQAMnNTLVxklIS3MP1QdeFynXWkHVgwS9/HTHdkO6FIet4tGp9nCEpit6cWsgwEQM3DbALOgBzfpSC+RfHL7IdkznkRXNbvUHmlQYI8X596dLNpjwZv0LN3Y/ZvX1aBCZ/S7dgUXZpWX0lPS/hU8qpO5zFzpsqAiJ+AooGsVtOPFpFUyKN8pLdASLgZNXp8ffNVy0b8Q7aNuZvg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791841930; bh=PZ+LmHDYbIXTjE9py0AbIqoeLhAcELpjXd4y4Bq0gDd=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=jnA8w9XtgfseKZ2gwdz9I/dE05CU8DMLSYa+RbQXuOCsXoRAHRftDId5KuXb9Od+rFTDXjSaAKBcl107OxKb9kxEm/N0CZTYb7alU1d8CLSmbr2nPGpETv2FzaCTvXWKAanntgNrIz5hXZSxd2WxA/GZM7xVR/PC+zC9azKnQX7xCr11C+3mycRC0HncaJTSHiNsYXO/galXedQ7HMbi8n2rOnAJ6zLZZZ4GaYbp9ZWtU/54G24WVjz47q17YxuQbU29LyOdgNfiJvfhweZiUiVrTfENGbQwTken3jjsCJbRjPrtkTYfW80cxt5nrsCh05NbfnnbYjhjU043HcW9MQ==
+X-YMail-OSG: J_.CW5cVM1nZO9Ebp848tqdrDIukrK8HD0BPKXckYEnJXD4jRMevb3A2QR.Xt_6
+ ncOXIUptIztSIr94MhDkZLexfAbsXYpGSzP1AcYAOdnz0ddJVxovqq_soC3nQ6_uRARdxDodTuLq
+ GE.rbLxzQ0tr7kmqm8bM2UW81q17Qx88_Zx4p14i5tppgCR1zyaNXCNOnjulD_BajviSnr.C_Ulw
+ trYd_x.zTfXbVn9VaP9oj4A2XJwwidDLoVAeCpfF4dVOrO8qSqN94rXZX9HinkBpM8maiDVGxZq2
+ EQyEDttmqnZ8kwQmXZCRgwy5c4AlA35fvuIGG4WRn8cwgn1MqrKkumgpEK8GQamaFwlQqmhIjO50
+ eIkK8ePty4vQiWYo4w7tNbxVb8dyzeKt9FTl_fsJC20tP3hYFVlWQtQO8t.GV5lVfcGjkFzXSe26
+ KHNfOTqviYQTyKteDP_14g62aSEJUcRPOvEwgDR3h8EAfbEvT43sjLoUCYAsiKP6Qd1kdBfifprB
+ kVxLyeDP3NRr6beX_B6IrqoqfKF1zvLduWh6K6lWsvqirU4gavMwSniFEoMFZm5GSZ7tuG3fdjHI
+ DO8KygXWC_ESPqUdN_DlZhnwBAycotPsS9obi7GEvPofjom4cw7.rwHy6m2CaQIRaPD_6QuJSmsa
+ OAjmFMxEG37r8URWg7Z2TUwIf8NBNjRdH_kA1DP9.Eac7lDIZT1eAOjBt3oou8sNfn7csTlXUpRe
+ 5lSB8kF65nACU8G7pSDM6zPbyIdz4qUcTTLYUrJlL8uxpE9uiGWgvFySpcKGHI49cox7BOA5aFzy
+ s_ltEP9tacsCwQ_xFpLjWnFlqstESQsn.1ticxRS5pT2to8dgCJjPVU.09exN8ncIDN1WWhpBRGb
+ qOv84lVjXNOsHSwNL.KIjR5izFMvATeAmVtTzPu2ummSNFuXjuMgRhBSiYrInChXV0JHAecUP9mt
+ ue9Iv71sJBYHes_Lsy4otaDZunsJaBJU6awAwOVPy2C1LtY1i9DcCmtPl4a2XrZqElYB_ffTrko7
+ NG61BLFkZBIKyH50Q9P9dO1V_RXuYSYsWLiaW9mUPz.fbQ9N1cH7QT3ZtyRCh5JSliY8Bzte5PwK
+ 1vPtBH4w3ihT8Bo6GHgJIiMAMFE2MYSgbs3HGae5r_hQehCl0cCpi9sAlrpsVv_WucBFRJTGPImd
+ bMo8CTZ9UQjG5ljjlSoV0.BMAGxOkwfhyi4fjdwMp32M.HcMPwiPX8kHETeQrNndJJ63vLQgs6hT
+ J5xHHNg.Xi6sH3N0KiRWGdscpaG0R4LpjRWFWvWLx8Yeu..XklSxY9Lni.1dybQFqZ.9aDMDGA_f
+ L5csdZqPXaZ.BJrXByAB1ipaoaBL.r9MSp2NIsP84q.Fpxn7u6_v7.8XFV89JoVJZj_wKEflgzlX
+ QqKzrAT4Jd6rQOqkfx9reLwgoBANCZTYx..Xf7_ck1ncgjs.I1tuA.N1ANYr740meAenijk86ybo
+ tT6DipE2sVYnA8qvdDjTIC.t8F798QvoBcLteECMTaHTVKcr6PMr.IrrxEk1dUhtFv76E62qZ4YL
+ VkjvBD4r9tN9IdtutU5muXfFKO.unCSf3OI62gOOs4fy1FgFVYf761F2De5WmQ819404Lkno1oMs
+ lsqOrXrCq5wO4X_FSPmK67CM.qKOWX6pW10ybu2TBA9y9S2yRq4lYnVHf8M7Nu323Ecq2zL4NkwT
+ 9wdgQVJ2xSXc4GR3lPRdpmsXHChxTnjXt1GTjj5i5kgzOVCd2tUY58S7sxESqsUCorHnPanZ8.Ul
+ 84tAofgol1gYmBpXt8Xp3UqdVyCwQ4EOP9zAYqItz_61lqjNn5LKi72uUkZgt9iiDrbTV3r28s.J
+ jHF_Eg1vKQOf9wr0TWDDqJqm5WTeo0uhLR8e64G3YEE0e579yvL4Y0I5aVMhxR2zQiQxYBnVHdp6
+ YoUXrDdqmxHRP816YIiZ8OdDMn6eVDqv2oxmQxFsm7bXzZcSMrpdAWFPVz2haAY.FtbR_NIaI6qY
+ MvDbpMXZfIrzXcTRspkjQcwBklI42S85M6XHtzGO8NuHHSnplmp40S.RYjp2Uc7R.cFbbt7KrIYn
+ 29zV5wUPhMgBAlGlq5IBRtNFAmzpFCQR83owiKhs3PItjeYA9W8uGpDBWP5KgzAUIcPIE.vpxM_P
+ pRpI8zNyVrtIqPWW4BM5AIwaX_XbwvATdzqCgjp4cKn4QyV39VoHBR4MS84rR1YegCd__GxkBZVd
+ BanA1SsBp4XMxyA912K4hI_Lag1DUGroJ2vIW5gI-
+X-Sonic-MF: <deaner92@yahoo.com>
+X-Sonic-ID: d9583b0c-73c4-40eb-ab77-ec90b061af37
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic310.consmr.mail.bf2.yahoo.com with HTTP; Mon, 12 Oct 2026 21:52:10 +0000
+Received: by hermes--production-bf1-6d6877594b-gmmk7 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID cf7b4a086180cb5d241fb3428fb36baf;
+          Mon, 12 Oct 2026 21:41:53 +0000 (UTC)
+Message-ID: <492e9a13-b50b-48cb-bd41-3114573c7950@yahoo.com>
+Date: Mon, 12 Oct 2026 15:41:48 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012053013.14378-1-namhyung@kernel.org> <20261012053013.14378-4-namhyung@kernel.org>
-In-Reply-To: <20261012053013.14378-4-namhyung@kernel.org>
-From: Ian Rogers <irogers@google.com>
-Date: Mon, 12 Oct 2026 14:51:52 -0700
-X-Gm-Features: AclHuK8fSmSW9prYIWpNexYiVkZwA9i8SN5Rf1NNY9lV-sUOfaw0J3zWzFUeo0c
-Message-ID: <CAP-5=fW1SSoyGKjaujZewF=b3rJ-0vp4kJ-friWNzOQWk+ki5A@mail.gmail.com>
-Subject: Re: [PATCH v2 4/4] perf test: Update PE file test for other locations
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, James Clark <james.clark@linaro.org>, 
-	Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] staging: nvec: use guard(mutex) in nvec_write_sync()
+To: Julia Lawall <julia.lawall@inria.fr>
+Cc: Marc Dietrich <marvin24@gmx.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, ac100@lists.launchpad.net,
+ linux-tegra@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, outreachy@lists.linux.dev
+References: <20261012171312.5998-1-deaner92.ref@yahoo.com>
+ <20261012171312.5998-1-deaner92@yahoo.com>
+ <b51c3755-a967-3de3-5f8c-3e4984d6e93c@inria.fr>
+Content-Language: en-US
+From: Jeremy Clifton <deaner92@yahoo.com>
+In-Reply-To: <b51c3755-a967-3de3-5f8c-3e4984d6e93c@inria.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-On Sun, Oct 11, 2026 at 10:30=E2=80=AFPM Namhyung Kim <namhyung@kernel.org>=
- wrote:
->
-> The test__pe_file_parsing() expects the test is in the tools/perf
-> directory, but it could be root or a separate build directory.  Let's
-> update the logic to try other paths like in the shell_tests__dir_fd().
->
-> Also add some debug messages to inform users why it's skipped.
->
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-> ---
->  tools/perf/tests/pe-file-parsing.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
->
-> diff --git a/tools/perf/tests/pe-file-parsing.c b/tools/perf/tests/pe-fil=
-e-parsing.c
-> index 3979f38bf127c218..78dae7e43603b9f8 100644
-> --- a/tools/perf/tests/pe-file-parsing.c
-> +++ b/tools/perf/tests/pe-file-parsing.c
-> @@ -74,10 +74,17 @@ static int test__pe_file_parsing(struct test_suite *t=
-est __maybe_unused,
->  {
->         struct stat st;
->         char path_dir[PATH_MAX];
-> +       static const char * const tests_dirs[] =3D {
-> +               "./tools/perf/tests",
-> +               "./tests",
-> +               "./source/tests"
+Thank you so much for your guidance and feedback.
 
-I'm not sure where "source/tests" comes from?
-nit: could we add the exec_path case to the list?
+It is the result that the patch will produce. All the unlock calls will
+be deleted and the out of memory path will have no braces, as per
+the style guidelines.
 
-Thanks,
-Ian
+The motivation behind the patch is to defer usage of manual locks
+for new and improved guards, disallowing lock leaks.
 
-> +       };
->
->         /* First try development tree tests. */
-> -       if (!lstat("./tests", &st))
-> -               return run_dir("./tests");
-> +       for (size_t i =3D 0; i < ARRAY_SIZE(tests_dirs); ++i) {
-> +               if (!lstat(tests_dirs[i], &st))
-> +                       return run_dir(tests_dirs[i]);
-> +       }
->
->         /* Then installed path. */
->         snprintf(path_dir, PATH_MAX, "%s/tests", get_argv_exec_path());
-> @@ -85,6 +92,7 @@ static int test__pe_file_parsing(struct test_suite *tes=
-t __maybe_unused,
->         if (!lstat(path_dir, &st))
->                 return run_dir(path_dir);
->
-> +       pr_debug("cannot find the tests directory\n");
->         return TEST_SKIP;
->  }
->
-> @@ -93,6 +101,7 @@ static int test__pe_file_parsing(struct test_suite *te=
-st __maybe_unused,
->  static int test__pe_file_parsing(struct test_suite *test __maybe_unused,
->                           int subtest __maybe_unused)
->  {
-> +       pr_debug("libbfd is not available\n");
->         return TEST_SKIP;
->  }
->
-> --
-> 2.55.0
->
+This way, there can be no error producing path by not calling unlock.
+
+Shall I send a v2 with motivation included?
+
+On 10/12/26 2:45 PM, Julia Lawall wrote:
+> Is this the motivation for
+> doing the patch or the result of the patch.
+
