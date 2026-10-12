@@ -1,34 +1,36 @@
 Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE48832B9B5;
-	Mon, 12 Oct 2026 09:00:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548F1473C8D;
+	Mon, 12 Oct 2026 09:01:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791795660; cv=none; b=lwqHVkdGe4E3EfFQjpSFGoyu8kvCxSLdICg3pAGtqo4iSw18XmTu+TzKOQJcEh3gQpfG2fYwcIId8Iagi+8FZpgqMC2vi7U+NRXNiACSTwvAi0oROPdvdRvKoK3Oe5OB+a3jQmH7VVKSbw8PnjUgmX0/WKhO9RXjjbit3//PVZY=
+	t=1791795663; cv=none; b=OwUmKeuygkL6wA82ZSTQOkt1WTGa7foO/bGiCkRqlQQlqA/RnJcvlKNXtUpQY1P7Ap4+roZ35iX8YOa1Tvfq7IXIMFuV1W3id8yuFrl3xGlLOUlw1B5QtA7uEYzcEtpMCgWJzfZbJiDnjCW221OoBJOMuVb6X3nuQG1xK4f2DlQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791795660; c=relaxed/simple;
-	bh=KwApZnptsQ3SXL8oofq9r5DsuWIJ6Ywj4PYB6mA9RMY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=b0EJ0L+8qcwniYePtLD1c7MndQoLOJJYRRGSg6Q55bruqsYMq+DYA1bRVa/J/VQY6pkP8r9mLVOaJXDx2HEOJu2ahGt6cDFEQ3ymm40RfnHsV+sTo3hlVNen2NH5bVzxzVrKxBlsAbvFeOVyGopAOAPj7s4GBybsZDXXvXbzEcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=mePL8F1C; arc=none smtp.client-ip=194.13.80.246
+	s=arc-20240116; t=1791795663; c=relaxed/simple;
+	bh=3UGiT8vfID69aSPRnpGzaBu4Fe1jVfUdgliOlbi+G1w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Lv5cSXQLWqt0GmWEwc0bX8zjTbLAmWYWnmoVfjtfaPEeyU9dYtdBTCjru/qJWoUYN7d+w+ioHvF4ItrvFtIHpE6qTd9t3YaOyQCsP6hWa+1TX334aZp8oM6U5YBd7BesLoC1qEbJOxSEaQ8EEfOAqV4XJAP24MF0hKRE9HceS9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=frJblxUF; arc=none smtp.client-ip=194.13.80.246
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="mePL8F1C"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 456F8A0E33;
-	Mon, 12 Oct 2026 11:00:46 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="frJblxUF"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0333CA1587;
+	Mon, 12 Oct 2026 11:00:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791795651; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=gfXxUCrcFGKlWkjsjE/A84ByGDsS1C5NauM3gkTg+7c=;
-	b=mePL8F1CMltRrHFcTI0R7uugohgKukbPnxqNqKG1iSAMLi4L5gDfjpgUO5eM4F9tXN8VTZ
-	RJACB+7ijoJSsH7zw0kho1Y8wtWFAQLuy8Xv4w3L5SLstybasTlCPFKoiNI80CAzSse+p1
-	DmgdSX78SRpk9UkUtTzhcf1i0yOOmk5FP62BmGr5J/bBRaqWHNkEpaiBbB7cgI2VCTE4EM
-	4FFNGBcVu6Q9AX4IWZ2HZUDgtKsi1MPV74o5BMyOMMTByH9BzHJZO/9votK2vveiNHmPKJ
-	0AQedZbdyBjWvhiLyJkvpPXPTvMdLdF5GL9tu4rlaXEozaiJ/tvPLI4Toys82g==
+	t=1791795656; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=BlTzfrrjU3+JZ6dj/4XJf/Amt/9d56b47b3asdMR3e4=;
+	b=frJblxUFMiq+G/NGiODmJfUgv3Fu38k5q6YrNJ056dU9GdDmlBXt62CogWamjO10ijPvj1
+	PUmKvYZov4IQJVbO4cqn5pmGk0ZRLTixLwqVnsEi3VmhkbCWSLBb6QuAMQZmwK1XRNBhyM
+	wrUzIya93alxRbNIAFPgDX3DbnvnaEtHw/usNLVGJOlhi9i2yV/GIPcOOLie8W14UN75a+
+	A9/qDIMrHVW/2FVac8TLEnVf9IkD2DsUJOZ1YBH1dbNva3jMopmzUvYTaRqVAzDGv4ox29
+	NGOF1KSL35TrfxSz6b8G0wyhwGU4AlOkjpr6PzM8tr8SXHdKyXHf1m3uCjhBZQ==
 From: Nicolai Buchwitz <nb@tipi-net.de>
-Subject: [PATCH net-next v4 0/8] net: bcmgenet: support larger MTUs
-Date: Mon, 12 Oct 2026 11:00:36 +0200
-Message-Id: <20261012-nb-genet-mtu-nn-v2-v4-0-2e2e3bfaf8cc@tipi-net.de>
+Date: Mon, 12 Oct 2026 11:00:42 +0200
+Subject: [PATCH net-next v4 6/8] net: bcmgenet: pad transmit frames out of
+ the packet ready window
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,11 +39,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33OwQ6CMAwG4FchO1uzlTEyT76H8cBGgR0cBOaCI
- by7kxNR4vHP337twiYaHU3ski1spOgm1/sU5Cljtqt8S+DqlBlyVIJzBG+gJU8BHuEJ3kNEkBx
- NQarJuWpYWhxGaty8oTf2GfU0B3ZPTeem0I+v7VoUW/8PjgI4aFVbVRfSGqJrcINLXDjXtIER9
- 4g6RDAhVhpCIQqhBf4i+R4pD5E8IaWsSq0sF9p+fbKu6xtc/GoySgEAAA==
-X-Change-ID: 20261002-nb-genet-mtu-nn-v2-402b5e6f306f
+Message-Id: <20261012-nb-genet-mtu-nn-v2-v4-6-2e2e3bfaf8cc@tipi-net.de>
+References: <20261012-nb-genet-mtu-nn-v2-v4-0-2e2e3bfaf8cc@tipi-net.de>
+In-Reply-To: <20261012-nb-genet-mtu-nn-v2-v4-0-2e2e3bfaf8cc@tipi-net.de>
 To: Doug Berger <opendmb@gmail.com>, 
  Florian Fainelli <florian.fainelli@broadcom.com>, 
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
@@ -56,92 +56,165 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-Larger MTU aka. jumbo frames are requested often by Raspberry Pi users, but
-the hardware has its quirks with larger frames, so it never got done. Dave
-Stevenson's PoC [1] had the receive side working and Justin checked the RTL
-what the hardware does with long frames, which got me past the rest.
+A frame that ends a few bytes past the transmit packet ready threshold
+stops the transmitter as soon as a shorter frame follows. Tx DMA then
+refuses to halt, so every later bcmgenet_init_dma() fails and the interface
+cannot be opened again. IP fragmentation generates that pattern on every
+datagram, full frames and a short tail.
 
-GENET never sets dev->max_mtu, and the packet ready thresholds cut frames
-off at their 2048 byte reset default. With this the receive dropped them as
-fragmented and transmit never sent them out. See commit messages of the
-patches for more details.
+The window starts one byte past the threshold and widens with it. On a v5
+it ends 28, 32 and 46 bytes past thresholds of 2560, 3584 and 3840. Link
+speed makes no difference. Pad frames landing in it to 64 bytes past the
+threshold, rounded up from the widest window seen. The threshold goes by
+skb->len, it does not count the 64 byte status block the driver prepends
+later, measured at 0x80 and 0xf0.
 
-Patch 1 fixes a transmit error exit that left queued frames unpublished,
-the padding in patch 6 adds three more of them. Patches 2 to 5 and 7
-implement the MTU as far as one descriptor reaches (3564 bytes with 4K
-pages). Patch 6 pads around a transmit quirk where a frame ending just past
-the threshold stops the transmitter [3]. Patch 8 reassembles the fragments
-the hardware produces above it, which gets the ceiling to 16347 [2].
+Padding must not push a frame past what the peer accepts. Linux does not
+bound how many VLAN tags a frame carries, so measure against the longest
+frame the MAC has to accept rather than a tag count. For the MTUs where
+such a frame would land in the window, lower the threshold instead. All
+other MTUs keep the register maximum, and at or below ETH_DATA_LEN the
+reset value stays, so an unchanged MTU keeps the threshold it always had.
+Nothing reaches either path until a later patch raises dev->max_mtu.
 
-Tested on a CM4 (GENET v5). MTU 1500 is unchanged, MTU 9000 reaches 991/987
-Mbit/s. Pierre-Marin Leclercq tested on a Pi 4 (also GENET v5) with various
-MTU sizes.
+The MAC inserts a checksum only into a frame it holds in full. A frame
+longer than the threshold gets its checksum computed in software.
+ether_setup() leaves IFF_TX_SKB_SHARING set, so unshare before either path
+writes to the frame.
 
-[1] https://github.com/raspberrypi/linux/pull/7614
-[2] https://github.com/raspberrypi/linux/pull/7617#issuecomment-5669564355
-[3] https://github.com/raspberrypi/linux/pull/7617#issuecomment-5735557324
+The padding is appended to the frame, so a protocol that locates data from
+the end of it, such as a DSA tail tag or a PRP trailer, sees the zeros
+instead. Nothing below an MTU of 3809 is affected, since no frame reaches
+the window there. Above it the alternatives are dropping the frame or
+leaving the transmitter stalled.
 
+Tested-by: Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>
 Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
-Changes in v4:
-- patch 5:
-  - floor UMAC_MAX_FRAME_LEN and the flow period at ETH_DATA_LEN, a lower
-    MTU narrowed what the MAC accepts (clashiko)
-  - move the TBUF threshold write to patch 6, where the padding needs it
-- patch 6:
-  - keep the transmit threshold at its reset value up to ETH_DATA_LEN, v3
-    raised it on every system at the default MTU
-  - unshare the skb before padding or checksumming, ether_setup() leaves
-    IFF_TX_SKB_SHARING set
-  - note the threshold goes by skb->len and the window is reachable only
-    later in the series (clashiko)
-- patch 7:
-  - skip the restart when both MTUs derive the same values
-  - clear datapath_up on the suspend teardown (clashiko)
-  - unwind only the Rx NAPI instances a failed ring init added, the retry
-    would otherwise re-add a listed NAPI (sashiko)
-  - note the one descriptor limit is lifted later in the series (clashiko)
-- patch 8:
-  - count a reassembled frame once for DIM, not per descriptor
-  - require a continuation descriptor to carry payload
-  - give the measured TX descriptor length
-  - note the checksum fallback is on transmit
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c | 66 ++++++++++++++++++++++++++
+ drivers/net/ethernet/broadcom/genet/bcmgenet.h |  1 +
+ 2 files changed, 67 insertions(+)
 
-To: Doug Berger <opendmb@gmail.com>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: Florian Fainelli <f.fainelli@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-v3: https://patch.msgid.link/20261007-nb-genet-mtu-nn-v2-v3-0-74a796c019ce@tipi-net.de
-v2: https://patch.msgid.link/20261006-nb-genet-mtu-nn-v2-v2-0-c4be21151912@tipi-net.de
-v1: https://patch.msgid.link/20261002-nb-genet-mtu-nn-v2-v1-0-96dc6d54cbee@tipi-net.de
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+index 9b9ce33f081a..e00661b2414b 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -59,6 +59,11 @@
+ #define ENET_THLD_DEFAULT	0x80
+ #define ENET_THLD_MAX		0xf0
+ 
++/* A frame ending just past the transmit threshold stops the transmitter once
++ * a shorter frame follows, so pad frames that land there this far past it.
++ */
++#define ENET_TX_SAFE_MARGIN	64
++
+ /* Page pool RX buffer layout:
+  * RSB(64) + pad(2) | frame data | skb_shared_info
+  * The HW writes the 64B RSB before every descriptor of a frame. Only the
+@@ -2176,6 +2181,42 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		goto out;
+ 	}
+ 
++	/* Both paths below write to the frame, which ether_setup() lets the
++	 * stack share. Match their conditions so nothing else is copied.
++	 */
++	if (unlikely(skb->len > priv->tx_thld_len &&
++		     (skb->ip_summed == CHECKSUM_PARTIAL ||
++		      skb->len < priv->tx_thld_len + ENET_TX_SAFE_MARGIN))) {
++		skb = skb_share_check(skb, GFP_ATOMIC);
++		if (!skb) {
++			BCMGENET_STATS64_INC((&ring->stats64), dropped);
++			goto drop;
++		}
++	}
++
++	/* The MAC only inserts a checksum into a frame it holds in full, and
++	 * silently drops a longer one, so fall back to software.
++	 */
++	if (unlikely(skb->len > priv->tx_thld_len) &&
++	    skb->ip_summed == CHECKSUM_PARTIAL) {
++		if (skb_checksum_help(skb)) {
++			BCMGENET_STATS64_INC((&ring->stats64), dropped);
++			dev_kfree_skb_any(skb);
++			goto drop;
++		}
++	}
++
++	/* Keep the frame out of the window just past the threshold */
++	if (unlikely(skb->len > priv->tx_thld_len &&
++		     skb->len < priv->tx_thld_len + ENET_TX_SAFE_MARGIN)) {
++		if (skb_put_padto(skb, priv->tx_thld_len + ENET_TX_SAFE_MARGIN)) {
++			BCMGENET_STATS64_INC((&ring->stats64), dropped);
++			goto drop;
++		}
++	}
++
++	nr_frags = skb_shinfo(skb)->nr_frags;
++
+ 	/* Retain how many bytes will be sent on the wire, without TSB inserted
+ 	 * by transmit checksum offload
+ 	 */
+@@ -2662,6 +2703,27 @@ static unsigned int bcmgenet_pkt_rdy_thld(unsigned int mtu)
+ 		       ENET_THLD_MAX_LEN / ENET_THLD_UNIT);
+ }
+ 
++/* Transmit threshold in register units. Frames landing in the window just
++ * past it are padded clear of it, so pick a threshold that leaves room for
++ * that padding inside the frame the MTU allows. Size the window against the
++ * longest frame the MAC has to accept, since the tag count is not bounded.
++ */
++static unsigned int bcmgenet_tx_pkt_rdy_thld(unsigned int mtu)
++{
++	unsigned int thld = ENET_THLD_MAX;
++
++	/* Keep the reset value while the MTU has no use for more */
++	if (mtu <= ETH_DATA_LEN)
++		return ENET_THLD_DEFAULT;
++
++	while (thld > ENET_THLD_DEFAULT &&
++	       ENET_MAX_FRAME_LEN(mtu) - ETH_FCS_LEN > thld * ENET_THLD_UNIT &&
++	       thld * ENET_THLD_UNIT + ENET_TX_SAFE_MARGIN > mtu + ETH_HLEN)
++		thld -= ENET_THLD_BURST / ENET_THLD_UNIT;
++
++	return thld;
++}
++
+ /* A buffer has to hold everything the threshold lets the hardware deliver */
+ static unsigned int bcmgenet_rx_buf_len(unsigned int mtu)
+ {
+@@ -2672,8 +2734,10 @@ static unsigned int bcmgenet_rx_buf_len(unsigned int mtu)
+ /* Program the MTU dependent registers. Call with the MAC disabled. */
+ static void bcmgenet_set_mtu_regs(struct bcmgenet_priv *priv, unsigned int mtu)
+ {
++	u32 tx_thld = bcmgenet_tx_pkt_rdy_thld(mtu);
+ 	u32 thld = bcmgenet_pkt_rdy_thld(mtu);
+ 
++	priv->tx_thld_len = tx_thld * ENET_THLD_UNIT;
+ 	bcmgenet_umac_writel(priv, ENET_MAC_FRAME_LEN(mtu), UMAC_MAX_FRAME_LEN);
+ 
+ 	/* GENET v1 maps other registers at these offsets */
+@@ -2681,6 +2745,8 @@ static void bcmgenet_set_mtu_regs(struct bcmgenet_priv *priv, unsigned int mtu)
+ 		return;
+ 
+ 	bcmgenet_rbuf_writel(priv, thld, RBUF_PKT_RDY_THLD);
++	bcmgenet_writel(tx_thld, priv->base + priv->hw_params->tbuf_offset +
++			TBUF_PKT_RDY_THLD);
+ }
+ 
+ static void init_umac(struct bcmgenet_priv *priv)
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.h b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
+index 28395cb72fb6..7703e1fb73b6 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.h
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
+@@ -624,6 +624,7 @@ struct bcmgenet_priv {
+ 	struct enet_cb *rx_cbs;
+ 	unsigned int num_rx_bds;
+ 	unsigned int rx_buf_len;
++	unsigned int tx_thld_len;
+ 	struct bcmgenet_rxnfc_rule rxnfc_rules[MAX_NUM_OF_FS_RULES];
+ 	struct list_head rxnfc_list;
+ 
 
----
-Nicolai Buchwitz (8):
-      net: bcmgenet: ring the doorbell when the last frame of a batch is dropped
-      net: bcmgenet: let the caller decide whether to start the PHY
-      net: bcmgenet: allow a continuation descriptor without the alignment pad
-      net: bcmgenet: rename ENET_MAX_MTU_SIZE to ENET_MAX_FRAME_LEN
-      net: bcmgenet: derive the receive buffer length from the MTU
-      net: bcmgenet: pad transmit frames out of the packet ready window
-      net: bcmgenet: allow the MTU to be changed
-      net: bcmgenet: reassemble jumbo frames from status block fragments
-
- drivers/net/ethernet/broadcom/genet/bcmgenet.c | 405 ++++++++++++++++++++++---
- drivers/net/ethernet/broadcom/genet/bcmgenet.h |  25 +-
- 2 files changed, 381 insertions(+), 49 deletions(-)
----
-base-commit: d8674294aefef02266c4d47ad10131f1bffbe534
-change-id: 20261002-nb-genet-mtu-nn-v2-402b5e6f306f
-
-Best regards,
---  
-Nicolai Buchwitz <nb@tipi-net.de>
+-- 
+2.53.0
 
