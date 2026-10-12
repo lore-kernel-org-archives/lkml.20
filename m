@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D2024F4CF1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECF74F55DC;
 	Mon, 12 Oct 2026 21:14:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791839642; cv=none; b=g8jdYSMZUySWCXqv0EzswFcwFztmRQanZlxU6ftdX7+heibtb1I3VXkAVDUybaHCnjMih6ULsp6F9WTl0eUDlIIvEkvc1ILm++YUDv2M600c922s8WHo4sxDISf3YPpb6GoK0QCpYNVcmy+fdddjBgFAqAiOpRcZoyNYVup6W+k=
+	t=1791839642; cv=none; b=mbbZGKqu9KNzjSfUP+qz5tw+86kY6/BMemLBoQvVMyHWr/LbQAR2tATLraKwFpSR5BPqifO63PBdjj1AffrT6secXOfKpzJ3DZjLIy5tXvzB15lZyV7JHiYi26RHudu3ei65+VW+xpLV2IMHvPamD0qV1bKGVoEPrUPoCC+oeoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791839642; c=relaxed/simple;
-	bh=xAzwVzdc4KnvZRxCnjhyxMSDZBwDG94A+qCSYjsplZA=;
+	bh=oVC2OPbMytrGyqGp16WNvLqN40yybG3A50A+2gdxLrg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Ohnmg/16aYoCtws8DW9qHfBFIhQlafV0KGSvXrtWCueWGrYhjgRtdAbTB7UaGxc4eanyEgw/TcgKdHucKJ/t+Eqn/pc7BRwI6OBumWSY+n1TWctjesa2Z0IQCXFt8mvI93Y77j/xfUgBD3ciXmBIPQHsY7tIC98EfaMA1lymmA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lDx3uRoB; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=tshx0XGT5zT6GghmjCbyPs0lXVCmD383o0eKEcolZGicv3St+D49P9mPVceNh9UQnyxyUC1nsgkcbZgEyOoZl/+/8S12IH9YCkJURlK/g1DUNeBuo1fCPVWdy7xNPLuNeP5iqvWCiNsucIwpRVHvI92awfk17gFonMLtnBAn7Dw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DP1lniAy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lDx3uRoB"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 47097C2BCFD;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DP1lniAy"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 74ABAC4AF0B;
 	Mon, 12 Oct 2026 21:14:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791839642;
-	bh=xAzwVzdc4KnvZRxCnjhyxMSDZBwDG94A+qCSYjsplZA=;
+	bh=oVC2OPbMytrGyqGp16WNvLqN40yybG3A50A+2gdxLrg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=lDx3uRoBX1MAqQ+0oPVHgMW3dQkn8L60NHcYrKpDL1kr1FmvoulrrU0dcwsHHLoIU
-	 hOisasG2hO7c5mxvj7GKuToSHQpmKWqHRKofHcMHBaCh8eEOxZjNpctGdiybCvIeYL
-	 wfD/Zi1aqH6NOyXBRie4RVV7u+bIjZCLxJy8b2VShKMEbkzpXU5WY05w28nZ2FeYDV
-	 hQsNY0QcBr5LUl5NQIqC0TLPMO1TmWQ8K2mtLfHSSxofJHy1xDaXxADI8XapiqJF1X
-	 1dMaBYbKHKwo2hS0aXGOVLBp5YM1Qxb7UkkDFXGqh9dzBkPNIvM/fF4dCUtNGFV+Mq
-	 CztqqcMgig7mQ==
+	b=DP1lniAy7U71A3z/j93CLuU8QiNcdAH2R8WXu+PXZTEFGI/8othrFxpaEcDnfDNNT
+	 zaSWY5pqQef7mqVsRD4cHlzdKLLibafWKE6lsHxdY2OCqEPNeT/lqA2toLWMwJXDRS
+	 kPqiZX+zyXxLUEz9deQiWnW3enA0vaiEWZ2xNWAXSRdSTDIp983Ou4Gf/gz6cTrkMv
+	 IIoWOhLaQTl0scLS7WSqbeLw+2odaypF/1yBvPEq3Uy7vLq4rWlXZUYTcEBXyZXqdR
+	 3YwdLDlIKexV9gLCk4K61BPqXF0TsG957hJW5S6PF+gW8/bgOAoEReT7GVzO9JwCta
+	 LXXiz/ZVj4ZYA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 284E0CA9EDC;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E1E2CC6B04;
 	Mon, 12 Oct 2026 21:14:02 +0000 (UTC)
 From: Bishwa Bhusan Saha via B4 Relay <devnull+contact.bishwasaha.com@kernel.org>
-Date: Tue, 13 Oct 2026 02:43:57 +0530
-Subject: [PATCH v2 2/5] HID: UNCTRL: add basic battery reporting for UNCTRL
- RAGE Mouse
+Date: Tue, 13 Oct 2026 02:43:59 +0530
+Subject: [PATCH v2 4/5] HID: UNCTRL: keep a single battery when a mouse has
+ multiple connections
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,18 +41,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-unctrl-m1-battery-v2-2-bd6752021753@bishwasaha.com>
+Message-Id: <20261013-b4-unctrl-m1-battery-v2-4-bd6752021753@bishwasaha.com>
 References: <20261013-b4-unctrl-m1-battery-v2-0-bd6752021753@bishwasaha.com>
 In-Reply-To: <20261013-b4-unctrl-m1-battery-v2-0-bd6752021753@bishwasaha.com>
 To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
 Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Bishwa Bhusan Saha <contact@bishwasaha.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791839640; l=10470;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791839640; l=8007;
  i=contact@bishwasaha.com; s=20261012; h=from:subject:message-id;
- bh=6WFDned5g7IJ7+3lRHK01++6Bz/2ZbZQUirxQ9OwhPM=;
- b=DGQc4zezS4Zj9qgY5vUoZdovj2RNl6u545xuYMqJtxB2fBLBOkTl6fgq9NqsYo0RtYCMKNaod
- Bo8UOCWT9kTD/FinIyNBMrwNx+IE8aNP0Y2j/6qpvFpyYcYkI9QkBYv
+ bh=sf4y8UVAPeG+2MHoOcvUfajg4bV670QJoKozbmcylj4=;
+ b=reuhmoSq4NUVA8JR6fRpeyOhnfxIiSIgcGAz+3BM3BIDgXqvHD79U0arBF+gXmNf1cFEQsWq0
+ Q28gFLh5wKVB+p3+u3CH+jWhgkwaXMnp6SLboVmB9JIjmRhr9zDR/et
 X-Developer-Key: i=contact@bishwasaha.com; a=ed25519;
  pk=bW8B6BzX1VU4IIcYagrb5nNRxBho+rTXaQZ8fLx8CoU=
 X-Endpoint-Received: by B4 Relay for contact@bishwasaha.com/20261012 with
@@ -62,374 +62,264 @@ Reply-To: contact@bishwasaha.com
 
 From: Bishwa Bhusan Saha <contact@bishwasaha.com>
 
-This initial patch will probe the battery only once. A later patch
-will add periodic checking.
+The UNCTRL RAGE mouse can be connected over its 2.4 GHz dongle and
+its wired connection at the same time. Both are visible as separate
+devices on lsusb. Without this patch two separate batteries would be
+detected in case of a single mouse connected over 2 interfaces. This
+patch solves it by registering the power supply only on the connection
+that can answer queries and taking it away when that connection goes
+away.
 
 Signed-off-by: Bishwa Bhusan Saha <contact@bishwasaha.com>
 Assisted-by: GLM:glm-5.3
 ---
- drivers/hid/Kconfig         |   8 ++
- drivers/hid/Makefile        |   1 +
- drivers/hid/hid-unctrl-m1.c | 320 ++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 329 insertions(+)
+ drivers/hid/hid-unctrl-m1.c | 139 +++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 111 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-index 0e3a0ccd6..f3730c94f 100644
---- a/drivers/hid/Kconfig
-+++ b/drivers/hid/Kconfig
-@@ -1362,6 +1362,14 @@ config HID_PULSAR
- 
- 	  Additional supported devices: Kysona M600, ATK VXE R1 SE+
- 
-+config HID_UNCTRL_M1
-+	tristate "UNCTRL RAGE Wireless Mouse battery support"
-+	depends on USB_HID
-+	select POWER_SUPPLY
-+	help
-+	  Report the battery status of the UNCTRL RAGE Wireless Mouse
-+	  over its 2.4 GHz receiver and while wired.
-+
- config HID_WACOM
- 	tristate "Wacom Intuos/Graphire tablet support (USB)"
- 	depends on USB_HID
-diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
-index 79384d905..8a9d00a98 100644
---- a/drivers/hid/Makefile
-+++ b/drivers/hid/Makefile
-@@ -150,6 +150,7 @@ hid-uclogic-objs		:= hid-uclogic-core.o \
- 				   hid-uclogic-params.o
- obj-$(CONFIG_HID_UCLOGIC)	+= hid-uclogic.o
- obj-$(CONFIG_HID_UDRAW_PS3)	+= hid-udraw-ps3.o
-+obj-$(CONFIG_HID_UNCTRL_M1)	+= hid-unctrl-m1.o
- obj-$(CONFIG_HID_UNIVERSAL_PIDFF)	+= hid-universal-pidff.o
- obj-$(CONFIG_HID_LED)		+= hid-led.o
- obj-$(CONFIG_HID_XIAOMI)	+= hid-xiaomi.o
 diff --git a/drivers/hid/hid-unctrl-m1.c b/drivers/hid/hid-unctrl-m1.c
-new file mode 100644
-index 000000000..3896468ad
---- /dev/null
+index d7e2f207e..624ac1365 100644
+--- a/drivers/hid/hid-unctrl-m1.c
 +++ b/drivers/hid/hid-unctrl-m1.c
-@@ -0,0 +1,320 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * HID battery driver for the UNCTRL RAGE Wireless Mouse (model MSPTM101,
-+ * known as "UNCTRL M1" over Bluetooth. Mad Catz, receiver 0xA0AF,
-+ * wired 0xA09F). The mouse also connects over Bluetooth, on which no
-+ * battery queries are made.
-+ *
-+ * The same mouse appears as two USB devices at once when it is both
-+ * docked on the cable and linked to the receiver. Without care that would
-+ * expose two batteries for one mouse, and only the cable connection
-+ * actually reaches it, so the driver keeps a single power supply and
-+ * hands it to whichever connection can answer queries.
-+ *
-+ * The device echoes every query before answering. The mode byte in the
-+ * reply tells the answer from the echoes. The wired connection only
-+ * answers over the interrupt out endpoint, where the queries go.
-+ */
+@@ -16,9 +16,12 @@
+  * answers over the interrupt out endpoint, where the queries go.
+  */
+ 
++#include <linux/cleanup.h>
+ #include <linux/device.h>
+ #include <linux/hid.h>
++#include <linux/list.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/power_supply.h>
+ #include <linux/slab.h>
+ #include <linux/usb.h>
+@@ -45,19 +48,27 @@ static const u8 unctrl_battery_query[33] = {
+ };
+ 
+ struct unctrl_dev {
++	struct list_head list;
+ 	struct hid_device *hdev;
+ 
+ 	struct power_supply_desc battery_desc;
+ 	struct power_supply *battery;
+ 
++	/* raw_event runs in the completion path, so this is a spinlock. */
++	spinlock_t lock;
 +
-+#include <linux/device.h>
-+#include <linux/hid.h>
-+#include <linux/module.h>
-+#include <linux/power_supply.h>
-+#include <linux/slab.h>
-+#include <linux/usb.h>
+ 	struct delayed_work battery_work;
+ 
+ 	u8 battery_capacity;
+ 	u8 mode;
+ 	bool online;
+ 	bool wired;
++	bool vendor;
+ };
+ 
++static LIST_HEAD(unctrl_connections);
++static DEFINE_MUTEX(unctrl_lock);
 +
-+#include "hid-ids.h"
-+
-+#define UNCTRL_VENDOR_IFNUM 2
-+
-+#define UNCTRL_MODE_RECEIVER 0x01
-+#define UNCTRL_MODE_WIRED 0x44
-+
-+/* the battery query: report number, 4-byte header, padding, terminator */
-+static const u8 unctrl_battery_query[33] = {
-+	0x00,
-+	0x0A, 0xAA, 0xFF, 0xDD,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00,
-+	0x6F,
-+};
-+
-+struct unctrl_dev {
-+	struct hid_device *hdev;
-+
-+	struct power_supply_desc battery_desc;
-+	struct power_supply *battery;
-+
-+	u8 battery_capacity;
-+	u8 mode;
-+	bool online;
-+	bool wired;
-+};
-+
-+static enum power_supply_property unctrl_battery_props[] = {
-+	POWER_SUPPLY_PROP_STATUS,     POWER_SUPPLY_PROP_PRESENT,
-+	POWER_SUPPLY_PROP_CAPACITY,   POWER_SUPPLY_PROP_SCOPE,
-+	POWER_SUPPLY_PROP_MODEL_NAME, POWER_SUPPLY_PROP_SERIAL_NUMBER,
-+	POWER_SUPPLY_PROP_ONLINE,
-+};
-+
-+static int unctrl_battery_get_property(struct power_supply *psy,
-+				       enum power_supply_property psp,
-+				       union power_supply_propval *val)
-+{
-+	struct unctrl_dev *dev = power_supply_get_drvdata(psy);
-+	int ret = 0;
-+	u8 capacity, mode;
-+	bool online;
-+
-+	capacity = dev->battery_capacity;
-+	mode = dev->mode;
-+	online = dev->online;
-+
-+	switch (psp) {
-+	case POWER_SUPPLY_PROP_PRESENT:
-+		val->intval = 1;
-+		break;
-+	case POWER_SUPPLY_PROP_ONLINE:
-+		val->intval = online;
-+		break;
-+	case POWER_SUPPLY_PROP_STATUS:
-+		if (!online)
-+			val->intval = POWER_SUPPLY_STATUS_UNKNOWN;
-+		else if (mode == UNCTRL_MODE_WIRED && capacity < 100)
-+			val->intval = POWER_SUPPLY_STATUS_CHARGING;
-+		else if (capacity >= 100)
-+			val->intval = POWER_SUPPLY_STATUS_FULL;
-+		else
-+			val->intval = POWER_SUPPLY_STATUS_DISCHARGING;
-+		break;
-+	case POWER_SUPPLY_PROP_SCOPE:
-+		val->intval = POWER_SUPPLY_SCOPE_DEVICE;
-+		break;
-+	case POWER_SUPPLY_PROP_CAPACITY:
-+		val->intval = capacity;
-+		break;
-+	case POWER_SUPPLY_PROP_MODEL_NAME:
-+		val->strval = dev->hdev->name;
-+		break;
-+	case POWER_SUPPLY_PROP_SERIAL_NUMBER:
-+		val->strval = "unctrl-m1";
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
+ static enum power_supply_property unctrl_battery_props[] = {
+ 	POWER_SUPPLY_PROP_STATUS,     POWER_SUPPLY_PROP_PRESENT,
+ 	POWER_SUPPLY_PROP_CAPACITY,   POWER_SUPPLY_PROP_SCOPE,
+@@ -74,9 +85,11 @@ static int unctrl_battery_get_property(struct power_supply *psy,
+ 	u8 capacity, mode;
+ 	bool online;
+ 
+-	capacity = dev->battery_capacity;
+-	mode = dev->mode;
+-	online = dev->online;
++	scoped_guard(spinlock_irqsave, &dev->lock) {
++		capacity = dev->battery_capacity;
++		mode = dev->mode;
++		online = dev->online;
 +	}
-+
-+	return ret;
-+}
-+
-+static void unctrl_fetch_battery(struct hid_device *hdev)
-+{
-+	u8 *write_buf;
-+	int ret;
-+
-+	/* buf[0] is the report number, and hid_hw_output_report() sends the
-+	 * buffer verbatim.
-+	 */
-+	write_buf = kmemdup(unctrl_battery_query, sizeof(unctrl_battery_query),
-+			    GFP_KERNEL);
-+	if (!write_buf)
-+		return;
-+
-+	ret = hid_hw_output_report(hdev, write_buf,
-+				   sizeof(unctrl_battery_query));
-+	if (ret < 0)
-+		hid_dbg(hdev, "%s:battery query failed with error %d\n",
-+			__func__, ret);
-+
-+	kfree(write_buf);
-+}
-+
-+/* Register the power supply of this connection and start reporting. */
-+static int unctrl_battery_register(struct unctrl_dev *dev)
-+{
-+	struct power_supply_config config = { .drv_data = dev };
-+	struct power_supply *battery;
-+	int ret;
-+
-+	battery = power_supply_register(&dev->hdev->dev, &dev->battery_desc,
-+					&config);
-+	if (IS_ERR(battery)) {
-+		ret = PTR_ERR(battery);
-+		hid_err(dev->hdev,
-+			"%s:power_supply_register failed with error %d\n",
-+			__func__, ret);
-+		return ret;
-+	}
-+
-+	power_supply_powers(battery, &dev->hdev->dev);
-+	dev->battery = battery;
-+	hid_info(dev->hdev, "%s:battery registered as %s\n", __func__,
-+		 dev->battery_desc.name);
-+
-+	unctrl_fetch_battery(dev->hdev);
-+
-+	return 0;
-+}
-+
-+static int unctrl_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 
+ 	switch (psp) {
+ 	case POWER_SUPPLY_PROP_PRESENT:
+@@ -148,13 +161,34 @@ static void unctrl_battery_timer_tick(struct work_struct *work)
+ 			      msecs_to_jiffies(UNCTRL_BATTERY_TIMEOUT_MS));
+ }
+ 
+-/* Register the power supply of this connection and start reporting. */
++static struct unctrl_dev *unctrl_battery_owner(void)
 +{
 +	struct unctrl_dev *dev;
-+	struct usb_interface *usbif;
-+	unsigned int connect_mask;
-+	bool vendor;
-+	int ret;
 +
-+	if (!hid_is_usb(hdev))
-+		return -EINVAL;
-+
-+	usbif = to_usb_interface(hdev->dev.parent);
-+	vendor = usbif->cur_altsetting->desc.bInterfaceNumber ==
-+		 UNCTRL_VENDOR_IFNUM;
-+
-+	/* the pointer, buttons and hidraw have to keep working */
-+	connect_mask = vendor ? HID_CONNECT_HIDRAW : HID_CONNECT_DEFAULT;
-+
-+	ret = hid_parse(hdev);
-+	if (ret) {
-+		hid_err(hdev, "%s:parse failed with error %d\n", __func__, ret);
-+		return ret;
++	list_for_each_entry(dev, &unctrl_connections, list) {
++		if (dev->battery)
++			return dev;
 +	}
 +
-+	ret = hid_hw_start(hdev, connect_mask);
-+	if (ret) {
-+		hid_err(hdev, "%s:hw start failed with error %d\n", __func__,
-+			ret);
-+		return ret;
-+	}
++	return NULL;
++}
 +
-+	if (!vendor)
++/*
++ * Register the power supply on the connection the mouse talks over,
++ * a wired connection takes it away from a receiver. Called with
++ * unctrl_lock held.
++ */
+ static int unctrl_battery_register(struct unctrl_dev *dev)
+ {
+ 	struct power_supply_config config = { .drv_data = dev };
++	struct unctrl_dev *owner;
+ 	struct power_supply *battery;
+ 	int ret;
+ 
++	owner = unctrl_battery_owner();
++	if (owner == dev || (owner && (!dev->wired || owner->wired)))
 +		return 0;
 +
-+	dev = kzalloc_obj(*dev);
-+	if (!dev) {
-+		hid_hw_stop(hdev);
-+		return -ENOMEM;
+ 	battery = power_supply_register(&dev->hdev->dev, &dev->battery_desc,
+ 					&config);
+ 	if (IS_ERR(battery)) {
+@@ -166,10 +200,24 @@ static int unctrl_battery_register(struct unctrl_dev *dev)
+ 	}
+ 
+ 	power_supply_powers(battery, &dev->hdev->dev);
+-	dev->battery = battery;
++	scoped_guard(spinlock_irqsave, &dev->lock)
++		dev->battery = battery;
+ 	hid_info(dev->hdev, "%s:battery registered as %s\n", __func__,
+ 		 dev->battery_desc.name);
+ 
++	/* the takeover cannot fail now, our supply already exists */
++	if (owner) {
++		struct power_supply *owner_battery;
++
++		cancel_delayed_work_sync(&owner->battery_work);
++		/* so a raw_event cannot touch the supply being unregistered */
++		scoped_guard(spinlock_irqsave, &owner->lock) {
++			owner_battery = owner->battery;
++			owner->battery = NULL;
++		}
++		power_supply_unregister(owner_battery);
 +	}
 +
-+	dev->hdev = hdev;
-+	dev->battery_capacity = 100;
-+	dev->mode = UNCTRL_MODE_RECEIVER;
-+	dev->wired = hdev->product == USB_DEVICE_ID_UNCTRL_M1_WIRED;
-+
-+	dev->battery_desc.name = devm_kasprintf(&hdev->dev, GFP_KERNEL,
-+						"unctrl-m1-%04x-battery",
-+						hdev->product);
-+	if (!dev->battery_desc.name) {
-+		hid_hw_stop(hdev);
-+		kfree(dev);
-+		return -ENOMEM;
-+	}
-+	dev->battery_desc.type = POWER_SUPPLY_TYPE_BATTERY;
-+	dev->battery_desc.properties = unctrl_battery_props;
-+	dev->battery_desc.num_properties = ARRAY_SIZE(unctrl_battery_props);
-+	dev->battery_desc.get_property = unctrl_battery_get_property;
-+	dev->battery_desc.use_for_apm = 0;
-+
-+	/* usbhid polls the interrupt in endpoint only while it is open */
-+	ret = hid_hw_open(hdev);
-+	if (ret) {
-+		hid_err(hdev, "%s:open failed with error %d\n", __func__, ret);
-+		hid_hw_stop(hdev);
-+		kfree(dev);
-+		return ret;
-+	}
-+
-+	/* the reply to the probe-time query may arrive before probe
-+	 * returns, when the core still gates the input path
+ 	unctrl_fetch_battery(dev->hdev);
+ 	queue_delayed_work(system_freezable_wq, &dev->battery_work,
+ 			      msecs_to_jiffies(UNCTRL_BATTERY_TIMEOUT_MS));
+@@ -223,6 +271,8 @@ static int unctrl_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	dev->battery_capacity = 100;
+ 	dev->mode = UNCTRL_MODE_RECEIVER;
+ 	dev->wired = hdev->product == USB_DEVICE_ID_UNCTRL_M1_WIRED;
++	dev->vendor = vendor;
++	spin_lock_init(&dev->lock);
+ 
+ 	dev->battery_desc.name = devm_kasprintf(&hdev->dev, GFP_KERNEL,
+ 						"unctrl-m1-%04x-battery",
+@@ -254,19 +304,26 @@ static int unctrl_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 
+ 	hid_set_drvdata(hdev, dev);
+ 
++	/* the list membership, the registration and any failure cleanup are
++	 * one step under unctrl_lock, so a concurrent handover cannot hand
++	 * this probe a battery while it is failing out
 +	 */
-+	hid_device_io_start(hdev);
-+
-+	hid_set_drvdata(hdev, dev);
-+
-+	ret = unctrl_battery_register(dev);
-+	if (ret)
-+		goto err_del;
-+
++	mutex_lock(&unctrl_lock);
++	list_add_tail(&dev->list, &unctrl_connections);
+ 	ret = unctrl_battery_register(dev);
+ 	if (ret)
+-		goto err_del;
++		list_del(&dev->list);
++	mutex_unlock(&unctrl_lock);
+ 
+-	return 0;
++	if (ret) {
++		hid_hw_close(hdev);
++		hid_hw_stop(hdev);
++		hid_set_drvdata(hdev, NULL);
++		kfree(dev);
++		return ret;
++	}
+ 
+-err_del:
+-	hid_device_io_stop(hdev);
+-	hid_hw_close(hdev);
+-	hid_hw_stop(hdev);
+-	hid_set_drvdata(hdev, NULL);
+-	kfree(dev);
+-	return ret;
 +	return 0;
+ }
+ 
+ static int unctrl_raw_event(struct hid_device *hdev, struct hid_report *report,
+@@ -286,15 +343,20 @@ static int unctrl_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 	if (data[5] != UNCTRL_MODE_RECEIVER && data[5] != UNCTRL_MODE_WIRED)
+ 		return 0;
+ 
+-	/* the receiver reports 0% while the mouse is switched off */
+-	dev->battery_capacity = min_t(u8, data[4], 100);
+-	dev->mode = data[5];
+-	dev->online = dev->battery_capacity != 0;
+-	battery = dev->battery;
+-
+-	/* only schedules a work, so this is safe from the completion path */
+-	if (battery)
+-		power_supply_changed(battery);
++	scoped_guard(spinlock_irqsave, &dev->lock) {
++		/* the receiver reports 0% while the mouse is switched off */
++		dev->battery_capacity = min_t(u8, data[4], 100);
++		dev->mode = data[5];
++		dev->online = dev->battery_capacity != 0;
++		battery = dev->battery;
++		/*
++		 * Only schedules a work, so safe from the completion path that
++		 * raw_event runs in. Under the lock so that the unregistering side
++		 * is either done or still blocked when we touch the pointer.
++		 */
++		if (battery)
++			power_supply_changed(battery);
++	}
+ 
+ 	return 0;
+ }
+@@ -302,20 +364,41 @@ static int unctrl_raw_event(struct hid_device *hdev, struct hid_report *report,
+ static void unctrl_remove(struct hid_device *hdev)
+ {
+ 	struct unctrl_dev *dev = hid_get_drvdata(hdev);
++	struct unctrl_dev *other;
+ 
+ 	/* Stop polling before the transport goes down. */
+-	if (dev) {
+-		cancel_delayed_work_sync(&dev->battery_work);
++	if (dev)
+ 		hid_hw_close(hdev);
+-	}
+ 
+ 	hid_hw_stop(hdev);
+ 
+ 	if (!dev)
+ 		return;
+ 
+-	if (dev->battery)
+-		power_supply_unregister(dev->battery);
++	/*
++	 * Pass the battery to a capable connection without one, so that it
++	 * keeps being reported when the owner disappears.
++	 */
++	mutex_lock(&unctrl_lock);
++	list_del(&dev->list);
++	/* out of the list, nothing can reach this device anymore */
++	cancel_delayed_work_sync(&dev->battery_work);
++	if (dev->battery) {
++		struct power_supply *battery;
 +
-+err_del:
-+	hid_device_io_stop(hdev);
-+	hid_hw_close(hdev);
-+	hid_hw_stop(hdev);
-+	hid_set_drvdata(hdev, NULL);
-+	kfree(dev);
-+	return ret;
-+}
-+
-+static int unctrl_raw_event(struct hid_device *hdev, struct hid_report *report,
-+			    u8 *data, int size)
-+{
-+	struct unctrl_dev *dev = hid_get_drvdata(hdev);
-+	struct power_supply *battery = NULL;
-+
-+	if (!dev || size < 8)
-+		return 0;
-+
-+	if (data[0] != 0x0A || data[1] != 0xAA || data[2] != 0xFF ||
-+	    data[3] != 0xDD)
-+		return 0;
-+
-+	/* real answers carry the mode here, echoes of the query do not */
-+	if (data[5] != UNCTRL_MODE_RECEIVER && data[5] != UNCTRL_MODE_WIRED)
-+		return 0;
-+
-+	/* the receiver reports 0% while the mouse is switched off */
-+	dev->battery_capacity = min_t(u8, data[4], 100);
-+	dev->mode = data[5];
-+	dev->online = dev->battery_capacity != 0;
-+	battery = dev->battery;
-+
-+	/* only schedules a work, so this is safe from the completion path */
-+	if (battery)
-+		power_supply_changed(battery);
-+
-+	return 0;
-+}
-+
-+static void unctrl_remove(struct hid_device *hdev)
-+{
-+	struct unctrl_dev *dev = hid_get_drvdata(hdev);
-+
-+	hid_hw_close(hdev);
-+
-+	hid_hw_stop(hdev);
-+
-+	if (!dev)
-+		return;
-+
-+	if (dev->battery)
-+		power_supply_unregister(dev->battery);
-+
-+	hid_set_drvdata(hdev, NULL);
-+	kfree(dev);
-+}
-+
-+static const struct hid_device_id unctrl_devices[] = {
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_MADCATZ,
-+			 USB_DEVICE_ID_UNCTRL_M1_DONGLE) },
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_MADCATZ,
-+			 USB_DEVICE_ID_UNCTRL_M1_WIRED) },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(hid, unctrl_devices);
-+
-+static struct hid_driver unctrl_driver = {
-+	.name = "unctrl-m1",
-+	.id_table = unctrl_devices,
-+	.probe = unctrl_probe,
-+	.raw_event = unctrl_raw_event,
-+	.remove = unctrl_remove,
-+};
-+module_hid_driver(unctrl_driver);
-+
-+MODULE_AUTHOR("Bishwa Bhusan Saha <contact@bishwasaha.com>");
-+MODULE_DESCRIPTION("HID battery driver for the UNCTRL M1 Mouse");
-+MODULE_LICENSE("GPL");
++		scoped_guard(spinlock_irqsave, &dev->lock) {
++			battery = dev->battery;
++			dev->battery = NULL;
++		}
++		power_supply_unregister(battery);
++		list_for_each_entry(other, &unctrl_connections, list) {
++			if (!other->vendor || other->battery)
++				continue;
++			unctrl_battery_register(other);
++			break;
++		}
++	}
++	mutex_unlock(&unctrl_lock);
+ 
+ 	hid_set_drvdata(hdev, NULL);
+ 	kfree(dev);
 
 -- 
 2.56.0
