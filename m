@@ -1,100 +1,193 @@
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012056.outbound.protection.outlook.com [40.93.195.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF4E48F835;
-	Mon, 12 Oct 2026 15:34:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819294; cv=none; b=NH1ccI/dyo/N1vUGofJureBUq6KR6WeZlNVyvT5nAGbHlsTHIkqfDG6tyKvc/FZcyTnSCrDi/BPBKO7DGwnbOMkbtVuuIp834/G/7IVA2uxvo30zrGuOZgcNuh+HxwgZmaawllHcCw8niZ4V2XKIsxoeIWEC/8gjyhK2l+NqR40=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819294; c=relaxed/simple;
-	bh=/CvxO7x3U+n36HzgwXBUyyjfzFi/SWi9ii/2G/6rHPM=;
-	h=From:In-Reply-To:Content-Type:References:Date:Cc:To:MIME-Version:
-	 Message-ID:Subject; b=L6sBq4DHXP5Uw//ypIMI72I24QKKlbLA0b2iPq69TAyJZtaDjCXyKB0bxffh2yoOilGoPMLm4jFKWFUr923alw1T51u4yJCf7DkVAmUvoi7U56V5G6D5ejvV2mSXooy0XUR2qZnd1tBVfej0NUUlDuzH3PCrI0KAPmXSwE6swr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=rsSNXd4z; arc=none smtp.client-ip=37.230.196.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F27A49CF59;
+	Mon, 12 Oct 2026 15:34:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791819299; cv=fail; b=R2tnKsNitPLNdJkhpi35LRJS0OnkLpVlwL+hq5gcap1z2fBFBx57lqgxsA54tN+PCnKUar0U4SlgxahgbXAOg6MUDjOoteNQbAQ3h2lU9ru0v78hO4YTeFVElaUiCOkIzSFHNPb7c2qhb9c+81humJyGwzSbJYGpxcGTvceg+Qg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791819299; c=relaxed/simple;
+	bh=mynVtnn4/9yu5bGItBuRbmg1Q3Q3AhK1ywq6+RPDK/Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=lKNeTVNtS8B6x2oP7wmYUW9pFoKvKhyas0a26oiNhkd89RFeer4wjvXvuVkIID1KGXQJuq04MvveC4AWq2Mw//7wFXptvuN1dQsq8xxgrnmbaQDw9LtmGFNWw2mASkdbc8fGut7MobwyTm/P/iKJhYPWxxdxlKXEpKuaQj6i6PM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ihoLRzDt; arc=fail smtp.client-ip=40.93.195.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="rsSNXd4z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1791819284;
-	bh=/CvxO7x3U+n36HzgwXBUyyjfzFi/SWi9ii/2G/6rHPM=;
-	h=From:In-Reply-To:References:Date:Cc:To:Subject:From;
-	b=rsSNXd4zZoBKrpTCan16D67KPc+cdqAtbmFr6X5FoPq3NQOuvQUdyxtnk7jR/Xq7W
-	 P6eg08X8FiAbE3DpT32Pgz5kIMKKQurQLGjArZyataB+0WK7PUyWy2vTWXwhkM2xRl
-	 OfVtdf7LfXhj71AjGTjqy5GXveRJQxhpi4V4b9ID2i688EGh7doWxd8eNW7GPxpspZ
-	 b+4M+YcxulPaxH9IqJtYVDFmsxb1tN2ltfF/l1UOUVpzFxolIpLbz2mBpofLzNRcHO
-	 d9hmfAYoAEVlmNCDJ0Gm7TJCyFU+rn1y0D4IEeulbOGQRVRCRMrgYDuS3yPVw1r+bw
-	 9NmcJOyYlJmYg==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id C55EF2743B;
-	Mon, 12 Oct 2026 18:34:44 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Mon, 12 Oct 2026 18:34:44 +0300 (MSK)
-Received: from localhost (localhost [127.0.0.1])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j3M1Z3jKVz3rm;
-	Mon, 12 Oct 2026 18:33:22 +0300 (MSK)
-From: =?utf-8?q?=D0=9C=D0=B8=D1=85=D0=B0=D0=B8=D0=BB_=D0=94=D0=BC=D0=B8=D1=82=D1=80=D0=B8=D1=87=D0=B5=D0=BD=D0=BA=D0=BE?= <mdmitrichenko@astralinux.ru>
-In-Reply-To: <7e9af4f7528da1307cf62e53cf6b00fa9c4f674f@linux.dev>
-Content-Type: text/plain; charset="utf-8"
-X-Forward: 10.198.48.43
-References: <20261012140642.1076-1-mdmitrichenko@astralinux.ru> <7e9af4f7528da1307cf62e53cf6b00fa9c4f674f@linux.dev>
-Date: Mon, 12 Oct 2026 18:33:22 +0300
-Cc: stable@vger.kernel.org, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Sasha Levin" <sashal@kernel.org>, "Fabio Aiuto" <fabioaiuto83@gmail.com>, "Alexandru Hossu" <hossu.alexandru@gmail.com>, "Hans de Goede" <hdegoede@redhat.com>, "Navaneeth K" <knavaneeth786@gmail.com>, "Michael Straube" <straube.linux@gmail.com>, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, "Dan Carpenter" <error27@gmail.com>, "Andrei Khomenkov" <khomenkov@mailbox.org>, "Dalvin-Ehinoma Noah Aiguobas" <fliegbert2@gmail.com>, "Michael Huang" <tehsiu.huang@gmail.com>, "Jinke Wu" <coolbeaner@126.com>, "Nikolay Kulikov" <nikolayof23@gmail.com>, "William Hansen-Baird" <william.hansen.baird@gmail.com>, "Serhat Kumral" <serhatkumral1@gmail.com>, "Nazar Kletskii" <nazar.kletskii@gmail.com>, "Jennifer Guo" <guojy.bj@gmail.com>, "Hans de Goede" <hansg@kernel.org>, lvc-project@linuxtesting.org, "stable" <stable@kernel.org>
-To: "Luka Gejak" <luka.gejak@linux.dev>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ihoLRzDt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yFFIer9rur146Xq3wmhQ5E+vQ5OVzGB/F49GaP8gYIwe3174TcQt2k77ogUKgtMv24/VFf8ydwpw6Ev784GSmORU/rlaVSLaWbRHAImQ2LwHDI5ODpL8yWv+7SfHO8w5HWzNIouUFkMICZYDzCTNo9tcT49fRuE9JVWFDzW06c2jwx/bjzcpxMx0TbX4tYwVABd3hvoGJ7QR7Ykvy+ug87AiVwjVP9teS+tH1gvgo1Jlo8lP+65BMxikSqMTFD5pKbYtR1a1bbrnTyrwxt/rh2LbKW/jX7Zy3Gl9R6ULyVDY+urWHWcYRy2XZLoCGi3gBZp46LA19/mRe3lub7me9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uocpTPN4dBh/T6qWMcfXOD8Gt/9OPAr+Sfip+ANP/0w=;
+ b=GheFtnpNbliRMh54M0oggHF47MrPlHlS7hX1085d28lORvaVA8ktZMOubB3KQHhYLof5MkBTlsyzLV7hfYg53Ophf5APerBb4MUd2efl7AXnkimnFS4QaHnJND9APBKJq477novbeMGUn9cU6EaVST0zjJaUjwG2jZccgakrS43YkvXBBa5IF5+YxkPTL56HQcABllz1VywaTGsvZaipwWGZHB0fDO32nByGXE5hpz5a84aloJiYuzUMWjB5KCVtAnjwq7bls8eXzQiyTzvHTpcsnvMEHYzLTBGJSJ1WzrEoIopEOOYImjVuzn0NCasxVjgEPyQEXcxVcX+st8xsZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uocpTPN4dBh/T6qWMcfXOD8Gt/9OPAr+Sfip+ANP/0w=;
+ b=ihoLRzDt7koWvzEg04zKHiPrNVYH8doL80zvcI68Ar1Ft9ie8GkoXxqit4x1hAysXbPoGntHnHJHUsTXtWqLSBvPR/IU52rmWwUHmIePewAAXvgAVqZu9ZgtTNq1o/+y3CWBiWK7BwT5Fm7e5XCgLPw7yHy61DQBgojjN5X8pWXfxhWWcv7PVrRLvKhUwSPHNsSfnkGFmKOX1g9/3Sziz25nsOb9dL1FiGZLNrrgY7zqbo0+tODOEn/0pQ2PRVNFkWr3qyj4K4TCoXhmJulY0pdHJmR8zBNDdrg1UzJr9HOIWnoMmykZlxzSu1LMAJYjP6ujwIfXSlKgX4iCDjFMIw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by BL1PR12MB5921.namprd12.prod.outlook.com (2603:10b6:208:398::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
+ 2026 15:34:52 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0496.015; Mon, 12 Oct 2026
+ 15:34:51 +0000
+Date: Mon, 12 Oct 2026 11:34:50 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Andreas Hindborg <a.hindborg@kernel.org>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Burak Emir <burak.emir@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Uladzislau Rezki <urezki@gmail.com>, linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] rust: add a wrapper for the `num_possible_cpus` C
+ function
+Message-ID: <asz-GkGHJYHdhDLr@yury>
+References: <20260929-cpu-helpers-v3-1-e968ce5ee613@kernel.org>
+ <CANiq72k-_LX5GVSKWQQ5EJV25GDfXOhOebv3TLqdA63tQHNd-Q@mail.gmail.com>
+ <87cxtvb2qm.fsf@t14s.mail-host-address-is-not-set>
+ <CANiq72kZh4a39hcy0g9sqEmzx3m+dcPRW=omOB2r5DhpRq3BXw@mail.gmail.com>
+ <87a4ozas7q.fsf@t14s.mail-host-address-is-not-set>
+ <CANiq72ki4Pc6y8og2ROLRSeRTZBbnpY41v5EC+qJaTiZWVhwAw@mail.gmail.com>
+ <TlsfpzyqG6QHcTMb-dOQPUP6uXU2G9urfH8AK0nzNO3j5rY0QWjn2ni9zhJ41CpVeppXhpH2E_yJ3LgUTibqbA==@protonmail.internalid>
+ <CANiq72nXsGHbSQ1LfbG1zYaMaZv3X=u0+XzT6vHh=9vxLE8QTg@mail.gmail.com>
+ <87qzi8a4ds.fsf@t14s.mail-host-address-is-not-set>
+ <CANiq72=j1nD6Qy9qKwNKjBw1gc8RPr8CmXKXSSNBp7mARv48VQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANiq72=j1nD6Qy9qKwNKjBw1gc8RPr8CmXKXSSNBp7mARv48VQ@mail.gmail.com>
+X-ClientProxiedBy: BN9PR03CA0922.namprd03.prod.outlook.com
+ (2603:10b6:408:107::27) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <fa2a1e43-8b9f-2c0c-609c-ca17bd20b7c0@astralinux.ru>
-Subject: =?utf-8?q?Re=3A?= [PATCH =?utf-8?q?5=2E10]?==?utf-8?q?_staging=3A?=
- =?utf-8?q?_rtl8723bs=3A?= fix OOB read in OnAssocRsp() IE loop
-User-Agent: SOGoMail 5.12.9-rp6
-Content-Transfer-Encoding: quoted-printable
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {diag_burst_silent}, {Tracking_from_domain_doesnt_match_to}, {Tracking_Sogomail}, astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206608 [Oct 12 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/12 14:59:00 #28677641
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|BL1PR12MB5921:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8e53e804-95ca-4993-158d-08df28765b6a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|10070799003|1800799024|23010399003|366016|22082099003|18002099003|10067099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	cyU4k0X9ztvtNLTwyY9CDgxITjoOmt6/45fuSoo+NvwRmA0CPEvUv7dmhGNWbzJFKxp1oIwiEySVFACYE+gpdcPOF+uWkLtqE2gX3gY5nLgXfhHl6yKNJ8t9SZ1PDztJpax6b6AoIjhsz0iJKjcm0gHkCcDgCW/ck45COL++FTKo1b7xioEz+0BEcVuW8VlFB0RefRrpoAxQgynLqY0dGXsqTzOdsUYim1p1Mj317GNMeeBHDbQDvI9XLDngj7lSSONFSFKyq2oE1UE2miL9rmMCEmqwiglayRkHkjD5GBEkbFDL6r72y3Zf1ZmjL7/5SGhMpMF2W9t8BZuhLQvOPLCHn70Wddz9TzakS3Fw8v6ixzzWqwYqW2JMZY6BxzXKhmW8eg0lH/PSgaVYQMGLIcraDkW4g3hoEH2T91spaX+ri83WOB4sFUUH3/3g7+JfJyayiuU1jJ7GjUOoXXuL2cEUnAcCXyullBl4uBql9L251TkCaGJNSm4zyK8xbP555DrGFZoRdfcZrsrzBkVy1/m6+Lx8vBRj/x7ztXr7kI4YQkwKVldXDdYDH9BbyeZJ8eBrvgWDei9E8viwt7bS2XTTJgaT3prBzr1LfsAqNVJeT551wEyUmuNvS1KX6Nv12lB1cAWiIKXrD41eNxL6gcdwXBXQ1AIn/7UapYpX9b0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(10070799003)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(10067099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Z2xPdkE2NDl3UUFvTC96cmZxTW9EYjQwSjRYOWxBUTJnclZxQnRFTVJlWDhF?=
+ =?utf-8?B?RFFhazZST0JNd3czRXA4bmFVRXg5RDNxUFNoQUVzZmpzQTlVdFp2MUQzSHh3?=
+ =?utf-8?B?L3ZWeFEzeit3SlU1bS9hMnE3RXlSUUloSXBaTGlWbVcvUndua1FiOFNVa2xo?=
+ =?utf-8?B?aGJPVTBhSCtONklKcmhMZVRXbnpzSUVLbCtXUEhhUmFUSStRMTZacjl2T2RH?=
+ =?utf-8?B?NTF4OVk1ZmhUOEU3djZUUithK2o2Y1Z4d0NtaGlBanVZbCttbnRWVmowRkpy?=
+ =?utf-8?B?WTlibHZPMng2cGlVcVBacG50aEFxejhqVjBVQUJjNmMyTHNaemRZRTZYdk1W?=
+ =?utf-8?B?bUxMc1JpVk9pVkFLK1BjS1NQSmVZM09xV1ZyNGxMelYrQUVmbzFJWjB1RE9v?=
+ =?utf-8?B?bDBmcldZandSNHJEMytXSXFXVlp3V25Cdk1ITWZaK0I0VUx0b1N4SUVLbit1?=
+ =?utf-8?B?QWcrWjNMVk1UTE5RaHp1NG4wUEFXQU4vcWxhTmNiTkRBUFQzeFBNOG0zR28x?=
+ =?utf-8?B?b1BzaWtMem42KzdvOVVmM0xVek9TYnpaT1lMdm1QMEt3NER6S1hoNTVwaEFR?=
+ =?utf-8?B?Sk5ZNXRsckRjc3djTlpqbUhJcCsyZ1hwWEtyUXdRUnNYc1h4cEhwdG94NEdW?=
+ =?utf-8?B?T3JCU2d0NTBlRlZBY3U3S01UaXhzbnZTR2lDNHV5N0pFWVpLMWF1SG9iZ2p6?=
+ =?utf-8?B?OU9La0tsMkJXSDJ6K1c3OWsxMnFPd3hGcHBtVkpoV3AyalFPMUF0eFNVeG1M?=
+ =?utf-8?B?bnp3Qm1FOGFmTTM0TUlsOVJGdE94cGNiT1JEZVRBWm5FQ1ZjbHhSUEJOWXRz?=
+ =?utf-8?B?YW5ReEdqZnlvc1VQalRJcnlnQWppL0NEMXI4WElidDYwTW84dDN4dC9Zd2Jj?=
+ =?utf-8?B?aitITXRscC9JaTlGd203ZzcraE1yVUIrT2o4bktlWXIyT0NwYTJxRmZDWVdS?=
+ =?utf-8?B?ZVJ0QlB3a00xWUIwYTBkL0lRV1k5Ym1UVThVL3F5Z3RkVExCK1BBWWZmSm5r?=
+ =?utf-8?B?UkhIYittSGh6MklFbURxQnVPY0RhU1RBN1MxWE9rQVBFQWd1N0l2amVPWDNw?=
+ =?utf-8?B?T0NFYlo0K3JRaFVzYTNhdG5KNkpVaGVuRStqQzlHREEyNXdVd0o2anUzbDBZ?=
+ =?utf-8?B?cVhVWTN1Rm5aVWFVS1ZRbEQvM1AwcWdxUm4wdVZ6M0RVRW1pZmd0cjFYRkRR?=
+ =?utf-8?B?cTRqR0laNGRvbUZUcTZKbUpFN2JsY2s5dnRkQWIzenltTWQ2bktibm9wMjBV?=
+ =?utf-8?B?VTVDYmZVeUdyWndMSG0rRU14OXNueVd3SGtCdEJzYlArek9tVCtNUzF4VG9D?=
+ =?utf-8?B?OElxbjVyOEoySjFNb1RReENOaEtWdWQwVENOSlRTUzRkc0tYRXJBSUo4NWEx?=
+ =?utf-8?B?RVNZeDQyQ0EvM09ORGZtRU5FWmNRYWJwbVBsRnJIRkNJMFVDS1VDYy9qc0Fh?=
+ =?utf-8?B?L21xWE4zYmVDeGdYMXpFeENxbUUvOG9DdmpVMmlvSk9HVFJva1ZYWkZQN2pw?=
+ =?utf-8?B?c3lsYXh6RC9lb0VpKzhjTFFFMmJncjNDdHV5VkcxNEQyQ0RScDc2dTlaZE4y?=
+ =?utf-8?B?MW85aGhHeFRSM0tyWm8yTXVtdlc5WWp1K25nalVMN1prVDdDV21mRkozTlFX?=
+ =?utf-8?B?eXpTU0lTZGFIRHRKYzREajdrdHNPYmxUZ0NCRDdEQmJIOStiUFVYcDBsWE1N?=
+ =?utf-8?B?Z2JnQzduWktuU0xqdGIzSmpCTTR2Z1ZNeSs4b3ZJbXJoMjFWZVc5b2pacXZW?=
+ =?utf-8?B?Y09aazZNcDNrY1FrY1NTVk5tZDVpbEJoYkltYjJCQUpVd3JDL292ZytjMUNT?=
+ =?utf-8?B?Tm9NaStNMVI1NjNLRWlVMjlza2tYL3RMWE9RaWlxTnVXMUZzMGpOc3U4MjlK?=
+ =?utf-8?B?NldCT1N6cFRsS2NMd3lyWVhwZnNJZjFDREFMTXpUUkxTN3RjOVRDcnZGc3Fo?=
+ =?utf-8?B?RHUyOTRXT2NqbUx4cUxBNHBLUGxvMGNFeXBDSk10RWRENEZuR0lVM1l2NWlq?=
+ =?utf-8?B?TUhvMGhwOWR2SS90eUpYTkpTcU40NTZhNG9jZmY1Y0VCTnpZN3FQUzBsdG16?=
+ =?utf-8?B?VWtMNWxXOXFXOHFTTVQ1aG1MQ3Y2eVIvWWR1M21JZmFOWWR5ZWtZWlFUN1R2?=
+ =?utf-8?B?WDA2b0QyU2wzL0dPdmRQUkNZeWtxRER4b1dXWC9KL0pLellsSVBoc3NjbGFk?=
+ =?utf-8?B?MlE0dFMxZ1FVMzhST0JTQWg5SVliQnc4RFhWL1JXRmR1Z2gwbU5kUWl3aFpn?=
+ =?utf-8?B?d0FCd0QxbWRmbnpsazcyQUFmUGdLODUxYWpiemprQ20wTnNmV0NocFJ0SWQw?=
+ =?utf-8?B?S0RyOGkyOU1lYjlzaUlKYlFVWEhVOUlEcVpIUW9XaUpxTFB5VmpMcjREaGxL?=
+ =?utf-8?Q?uPO8dGrYwy0ASycwTls3FiotzDDrNNsDB0qYy?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e53e804-95ca-4993-158d-08df28765b6a
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 15:34:51.7314
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JLB7CmaheNLXODRTS1lYTiTLn39daM30Zu2g3HJGQYe8aqg1IWbtkAAK4K51kMR7GABlnn1Vq7sij+APZPyzTQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5921
 
-On Mon, 12 Oct 2026 at 17:19 MSK, Luka Gejak <luka.gejak@linux.dev> wro=
-te:
-> It seems to me that this was sent by accident by running git format-p=
-atch -1
->
-> You probably forgot to commit so git made last commit into a patch fi=
-le.
->
-> Either way staging rtl8723bs is getting removed in linux 7.4 so any
-> further commits for rtl8723bs are discouraged.
+On Fri, Oct 02, 2026 at 11:07:00AM +0200, Miguel Ojeda wrote:
+> On Fri, Oct 2, 2026 at 10:33 AM Andreas Hindborg <a.hindborg@kernel.org> wrote:
+> >
+> > I don't think we need to split the helper C files by the headers they
+> > are defined in. We can include multiple headers in a C file that
+> > logically lumps things together. If you are worried about finding things
+> > becoming difficult because they are not in the file one expect, I do not
+> > share the concern. I usually just grep in the directory through my
+> > editor.
+> 
+> Of course, it doesn't need to be a strict split. But, where possible,
+> I think it is better to match the C side for the helpers, because they
+> are thin wrappers that need to be updated and maintained at the same
+> time as the C side.
 
-Hi Luka,
+Yes, that's correct. This should mirror the kernel file structure
+unless there's a strong reason to change that.
 
-Thanks for taking a look. This was intentional: it is a backport of
-your reviewed fix f9654207e922 for the 5.10.y stable tree (hence the
-[PATCH 5.10] prefix). The upstream commit is tagged Cc: stable and is
-already in 5.15.y and newer, but 5.10.y is still missing it
-(CVE-2026-64444).=20
+Andreas, can you put this into rust/helpers/cpumask.c, and please have
+the __rust helper thing on a separate line for better greppability.
 
-As far as I understand, the removal in 7.4 affects mainline only; the
-driver is still part of 5.10.y, so the fix is still relevant there.
-
-Best regards,
-Mikhail
-
+This patch creates a new file without a maintenance entry, which is a
+no-go anyways, so we need v4.
+ 
+> In any case, I mentioned it especially because `cpumask.h` already
+> exists and because it avoids an extra `#include` as I mentioned.
+> 
+> > I don't think we need that kind of granularity at the moment. If things
+> > become messy, we can just refactor.
+> 
+> Just in case: `cpumask.rs` already exists, i.e. we are not adding new
+> granularity (or what do you mean by "at the moment" otherwise?)
+> 
+> Cheers,
+> Miguel
