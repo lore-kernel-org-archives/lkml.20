@@ -1,233 +1,354 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16043BB68F;
-	Mon, 12 Oct 2026 09:38:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E424C442FCD
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:38:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791797910; cv=none; b=lIYyS/dPx/NUyfdYrrTkm5lLrmEH7277deaF/cpIduAgG2blx/zcRax4PvR3iKHnAKGkXpDkND7oFWL9unJ+73PON8DtfcpU0BKvM6U0w/s6m7K1MGubX+d/h2HdTu5EiAppq89ET9FpAUEM8LLiFgBvHFR9KrLuFkwRPEEZgvI=
+	t=1791797924; cv=none; b=LtCU28chJU4oTAPHavF1tNpOaPMRgiwq4WnjVwdm7jmflh4KL7RXKRqcdzhqtnO48holLe55ZJEHDpuc4dVBLGHT8Zv+89L15y17XZkvQrUoxs2H4N9KbxNQqw/PX/SxXlTEDNnz9W5WPaYio9WabCqapiveSmi5iJMB3tK7Ado=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791797910; c=relaxed/simple;
-	bh=tfbFnAU+bkfMyVOGrALjDaWvKjqRTuArOAIj34eUUO4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZPN39D4Fd494Kd5eyZgWI7Fj9c8Ke6zUTLg+n1AhSUN6yxVsjozw6gmDCqazegXE5Z9fQUE5or0oW89bYwu5Hch7o0OJjo2TxwhwULD4sezMR0sVm+01NA6GkIhXgTQMCNG0VAdQvvnRJRjXT8X7Te859gFl0H4JXkBRS6nFXrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=YoJuOtRL; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=qc3PUMzI; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=jBvpIfag; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=RzBeEw0C; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1791797924; c=relaxed/simple;
+	bh=aob59RsURu+FUrDkWWq58XPi1H9rODiQexwwefJyNFI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XMaaPrm8aQZOIHntFA9tGtRb3qqMlu4NSSLlUCwsHeyq/oraY6cjUSzca8mXO21I4wT8W3V1doCQpAaT9s1rTX/ZKGD8sbenlor4s+aaZY23alxRY2ycClE81uHZLfwN6gGHF526s/Yz/5oMzsLBVXRJjd2e247g2/kk/eEWOnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h8z7xHjA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=N30zaQql; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="YoJuOtRL";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="qc3PUMzI";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="jBvpIfag";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="RzBeEw0C"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 9C4B021DFB;
-	Mon, 12 Oct 2026 09:38:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791797906; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kg1XO9faP6m/0SQ0V7ZFc78dVzs5U9T2ADjMTseWY8Q=;
-	b=YoJuOtRLPgh7f9CbXokLXvzdhWKhzjqBlnoKGbBdQ2JFfo5v6bHzZqfF3ssrwLSFxpmeMf
-	S4DW2FMmIXpecJOfF0nR97pcWGAd6H16WoccOxqdLe8VAPvA2lKlgndgjVwufvrceMYQNh
-	mTA6YGXv/eYFMMMGiZjIGJxfP15l6wY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791797906;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kg1XO9faP6m/0SQ0V7ZFc78dVzs5U9T2ADjMTseWY8Q=;
-	b=qc3PUMzIZdRUvmkFX5yMIvkOt1BCm4OSqtnP7bOa5Nr0IXlAsxHow1k47xh8ElUhwuTbTt
-	Xscz2vfer4lh8iBg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=jBvpIfag;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=RzBeEw0C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791797904; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kg1XO9faP6m/0SQ0V7ZFc78dVzs5U9T2ADjMTseWY8Q=;
-	b=jBvpIfagC8+JRjzlAttwUE8YIgln3zHFXhf9IsjhBcll+k3u9GNlXPolhkO4u1PP85Z5hY
-	TUl/8mBKyLyqYYV0FRrNb3cTukjTSpV1VR26p5pas6xj4mMfAWVjODWkQze95jrCxNsmIJ
-	zdIUBH79iDepCo6E/PKuyMnXDZ++Ed4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791797904;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kg1XO9faP6m/0SQ0V7ZFc78dVzs5U9T2ADjMTseWY8Q=;
-	b=RzBeEw0C8Lhoivs5CAGhjdOHh77P0kP84OlOsbNGbTTmYBf7bIgGzxSqDGms1qUgRsSFov
-	rUsfpc/ZMyD+pqCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 73A5313314;
-	Mon, 12 Oct 2026 09:38:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id GTppFJCqzGqZcwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 12 Oct 2026 09:38:24 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 05E1EA1403; Mon, 12 Oct 2026 11:38:20 +0200 (CEST)
-Date: Mon, 12 Oct 2026 11:38:19 +0200
-From: Jan Kara <jack@suse.cz>
-To: Nikolaos Karaolidis <nick@karaolidis.com>
-Cc: Christian Brauner <brauner@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Zhihao Cheng <chengzhihao1@huawei.com>, 
-	Mateusz Guzik <mjguzik@gmail.com>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] fs: don't lose inodes that another LRU walker is
- isolating
-Message-ID: <zec4khbtx7uap5swffdwxfesiz7as3ey5ulzyruwbztqfpymzs@n5t4xbsoz6c6>
-References: <20261009142431.713875-1-nick@karaolidis.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h8z7xHjA";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="N30zaQql"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8KlsB1439173
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:38:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	pitDrUWGMmOcfY8ECPjobsbRe6e431atrR7IeBEqY+Q=; b=h8z7xHjAPN5cFzBB
+	4XNeAgc1lIToNWRrQOLGn0crzDvty7dptRljOkuQUcDp4PrU5bLgLCZcLqWHh0ZU
+	W2oRc7LGV06Gp3LXQlzbcoubX7I8cwF6c7Ku0r5ZXkG5D9bYPVNTG5hv5H0Pgxd8
+	PvUAEdHKERkmHcaU4Z4v1MJfWJZhxnfLKezw5BiRcoHLwTKfgQ35quTHpoDe8/32
+	oa6JY0w9lr4g0ZVoK9QH8Kms+W+uoenAhn2jYLMuFVt+GrZMC6eh7K9vJC9BnugX
+	9K2LnnQzboaWow5OdirYa9NkvmI8/5y+nk1cChWSmq/pV9S8vuowfRJZwWWrtEbq
+	/IvBjw==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8qtkhc3w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:38:40 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e832c03576so31722705ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:38:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791797920; x=1792402720; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :from:content-language:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pitDrUWGMmOcfY8ECPjobsbRe6e431atrR7IeBEqY+Q=;
+        b=N30zaQqltwp9CcdV8M5KWysFaYc3AgVZlkpZoUU2lPGqHLetgTTCuH2J0FRnQfhpdT
+         dBSGRINRngCnvFdbEtJPT0VkYnoG0w8nG22pc4XuFMAvVThU3ikIn6fuJoek8BfkhD8K
+         raWdxdKgR3fEYUURZfP3zHP+fNw1oYzkJ7VOuhqWQgCGqR7BbR2SIMMWo/9yR7jfbFcE
+         LwocOfAGJjMSYEP4nHKHKqhinWaE05fgvee8vO056nB+zcTF0b7FgdyH1nc3EJRB8kxb
+         pvw5W4oouGM17X7SOs1Neo03bZgFisLqR6g2n+Y3QzwprGg1K3e5yjhfpja7hW2eRxT0
+         OYHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791797920; x=1792402720;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :from:content-language:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pitDrUWGMmOcfY8ECPjobsbRe6e431atrR7IeBEqY+Q=;
+        b=jl9w+OwArbU6UENRDAo3sqkJA4dZKpSfkVVC6oAlKr07jC3OK9uAfDNL+i6fnhIwfY
+         3g/5cP5ey7knNCcqSQkh1MUd1c9mWB6tA6NeWCa//CXGdIKGzvBx8NlU2ACxZ60B+VIN
+         aEH6yHLwIxk5PjiVP9c8dWQ/XJa9JGkBj63Lc3OK9OjdCB0HKhgyrtE2x/KM0FOluzRO
+         OlxyC4HHpCT/l+utVd7QgSTA+ytw47VcGe9TsJJ6i6cly4vOhs+uOKLmVdcwrwOAkPTy
+         lBic0gL8YOn2ugUkBxuprDn0SslJijD/1d2GbU2lc44cW0k+ABDLjk+eSApSwoo40Vvd
+         v7PQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx0+QJlU/tHoKCy0qKBUa9MhZEgvMPJnds4DoqPr0yaE19GYLru74toKImW4LnIWfL7EgR7DRw3NAMtN1w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKt79lk+ekS+X0yx8GRYdz0E7+pFefQxFhyGIwvZ6mMJUKE5ejr
+	PmKI4zh1sV9TpdydgkweRG5zB6ckkuEiTiXb6Ef5hof2zuiktzy4CwrCTmyeOGWutAQmDzZLe8p
+	gm/AwQOf9Vi6GqW8PE4Jn8r2L4dl1Up+r+LQaPe/GRS9p+Xn/mLJdsoUS+XgQAO3EL98=
+X-Gm-Gg: AYBFou3l4L6aYQaETmiVn/UNVkOod16BWfQrkDAZ0KdYebWZzyH5MNsuPPYzIyus0YH
+	8+gD4PiRW8VESI67ZTpYtNEUvwnT6S3/tZzgqKeDoCx+qETsALwar9HTK847qJGaDqU8VMpwV9V
+	qot4M2jtUOO78dmOOGxpljiMm53IsK5Vb3HSrbssN1dQ0bC/kKixmkuppUwrxllDGg6k4mCBGHT
+	woBgbsITlv+jOkIk61edjS0ZdA+wNmQdlPPmHQ5D2iTfL9sXOHxf5vW6OTzzW3Z+YAxrpRrJN8E
+	xX6ZJ3+RLvQcLV5Q+xJIM06iUw+rr66JjUGn0P5D7yb0xWyjyQXrsivWmK8CP0ODkiN2rA63Mir
+	5HK758BZacHH/6wr5wDQQ09nqdyRasA==
+X-Received: by 2002:a17:902:f789:b0:2e8:3534:eeab with SMTP id d9443c01a7336-2e842aa60c0mr76887925ad.14.1791797919641;
+        Mon, 12 Oct 2026 02:38:39 -0700 (PDT)
+X-Received: by 2002:a17:902:f789:b0:2e8:3534:eeab with SMTP id d9443c01a7336-2e842aa60c0mr76887735ad.14.1791797919091;
+        Mon, 12 Oct 2026 02:38:39 -0700 (PDT)
+Received: from [192.168.29.10] ([49.37.155.134])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e841a0124csm41234105ad.5.2026.10.12.02.38.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 02:38:38 -0700 (PDT)
+Message-ID: <f7530ce2-ed7c-422e-9b15-cfdbc265c77b@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 15:08:31 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009142431.713875-1-nick@karaolidis.com>
-X-Rspamd-Action: no action
-X-Spam-Score: -4.01
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	URIBL_BLOCKED(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,karaolidis.com:email,suse.cz:email,suse.cz:dkim];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,zeniv.linux.org.uk,suse.cz,huawei.com,gmail.com,vger.kernel.org,kvack.org];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,suse.cz:dkim,karaolidis.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 9C4B021DFB
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/7] tee: qcomtee: Allow object invokes from kernel
+ clients
+To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
+        Jens Wiklander <jens.wiklander@oss.qualcomm.com>,
+        Sumit Garg <sumit.garg@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Basant Kumar <basantk@qti.qualcomm.com>,
+        Apurupa Pattapu <apurupa@qti.qualcomm.com>,
+        Arun Kumar Neelakantam <aneelaka@qti.qualcomm.com>,
+        op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        Sumit Garg <sumit.garg@oss.qualcomm.com>
+References: <20261006-qcom_uefisecapp_migrate_qcomtee-v4-0-bf1c8e2a64ab@oss.qualcomm.com>
+ <20261006-qcom_uefisecapp_migrate_qcomtee-v4-3-bf1c8e2a64ab@oss.qualcomm.com>
+ <daa0983a-5fc2-462c-92f0-6ad87dfd71de@oss.qualcomm.com>
+Content-Language: en-US
+From: Harshal Dev <harshal.dev@oss.qualcomm.com>
+Organization: Qualcomm
+In-Reply-To: <daa0983a-5fc2-462c-92f0-6ad87dfd71de@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzOCBTYWx0ZWRfXx3VX5tnmB7iQ
+ CVsdM79l2RM6uxslK74gw+DU4ETxavGyo6fCpLnsbhgQVhu+KlzVldl59+dmeP1d6ObveZ2Oau5
+ PVqhtfKKkDwcyl8ijZgvziSuOYjfZ8W2lDkMoASQqLDl2NALxsW47sTpwVAe3ZLMVxOwKV29Qx5
+ tQZDe0HEkpenMcHou4VMk3IAhPGxFoHvkygD+42oYpPnAoAb63AjRsU8L4GVNj6q/trl9uMUDgo
+ h3+7BNuLYySA9m3wGuIwErVLrNQPhYD1M2+1orW89FyfJsgu7XfwkwBttPg6cH263AraeqVU85T
+ wPeaq1ngGfa/iFefewXCCPd/jgy8BWGoy3QEdlBKgyHS8MewPQUm0JNSnsKdIik40iuSt4sHVmw
+ wB/76FYVmAr3ctnC5EhVOhBSD+RE0xOWmNjRFgEaYEa5HN8kbAopye1szAZ0qdl9fMETW0xKAsc
+ 93kXXqQXpDRspzkVpzA==
+X-Authority-Analysis: v=2.4 cv=c8U+0h9l c=1 sm=1 tr=0 ts=6accaaa0 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=ivpbP8R7Mhpy7qfOLL/Q+g==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=3dGLg5FSYMxJAeFSFNkA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzOCBTYWx0ZWRfX634+Vxxa0H6b
+ t61MllxcJR2NUi9zM9P8V9xx7vMEnKVcfvh6JCl9bMyJkwITXJePbpr0bOEtb6qiKcj1zZdkjHt
+ ZvINcBN7dHWIJ8R5WCt9kMpt2JIGiPA=
+X-Proofpoint-ORIG-GUID: r8Aq70evm7jmLkebgnDbHBVR_0nF2vQb
+X-Proofpoint-GUID: r8Aq70evm7jmLkebgnDbHBVR_0nF2vQb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120038
 
-On Fri 09-10-26 14:24:31, Nikolaos Karaolidis wrote:
-> When inode_lru_isolate() finds an unused inode that still has page
-> cache, it sets I_LRU_ISOLATING, drops i_lock and the list_lru lock,
-> invalidates the page cache, clears the flag again and returns
-> LRU_RETRY so that the restarted walk can free the inode.
-> 
-> Another walker of the same list can reach the inode in that window.
-> It sees a non-zero i_state and takes the inode off the LRU, as it
-> would an inode that is in use. Page cache deletion requeues the inode
-> once the mapping is shrinkable, so this is harmless if it happens
-> before the last deletion. If it happens after, nothing puts the inode
-> back: it stays in memory, unused, clean and without page cache, out
-> of reach of the shrinker and of drop_caches, until it is looked up
-> again or the filesystem is unmounted.
-> 
-> Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode
-> lru traversing context") the pin was an i_count reference, and the
-> final iput() put the inode back on the LRU.
-> 
-> Skip inodes that are being isolated and leave them to the walker that
-> pinned them, which restarts its walk once it has unpinned them.
-> 
-> The window is reached by any unused inode with page cache on
-> CONFIG_HIGHMEM kernels, and otherwise by inodes whose page cache is a
-> single shadow entry at index 0. On an i386 HIGHMEM guest, eight
-> concurrent "echo 2 > /proc/sys/vm/drop_caches" over 2000 freshly read
-> one-page ext4 files leave roughly 400 of the inodes off the LRU per
-> round; on x86_64, with the files' pages first evicted through
-> memory.reclaim, 3 to 4 per round. With this patch, none in either case.
-> 
-> Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
+Hi Amir,
 
-Looks good. Feel free to add:
+On 09-10-2026 06:49 am, Amirreza Zarrabi wrote:
+> 
+> 
+> On 10/6/2026 10:33 PM, Harshal Dev wrote:
+>> From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+>>
+>> QCOMTEE currently treats UBUF parameters as userspace addresses and
+>> applies userspace restrictions when invoking the root object. This is
+>> not suitable for object invocation requests issued by kernel clients.
+>>
+>> Use the kernel_ctx flag to distinguish kernel client requests from
+>> userspace requests. For kernel contexts, do not mark UBUF parameters as
+>> user addresses, and allow permitted root-object operations to proceed
+>> without applying the userspace-only checks.
+>>
+>> This allows in-kernel users of tee_client_object_invoke_func() to issue
+>> object invocation requests through the qcomtee backend.
+>>
+>> Co-developed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
+>> Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
+>> Acked-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+>> Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+>> ---
+>>  drivers/tee/qcomtee/call.c           | 38 ++++++++++++++++++++++++------------
+>>  drivers/tee/qcomtee/qcomtee_object.h |  5 +++--
+>>  include/linux/tee_drv.h              |  5 ++++-
+>>  3 files changed, 32 insertions(+), 16 deletions(-)
+>>
+>> diff --git a/drivers/tee/qcomtee/call.c b/drivers/tee/qcomtee/call.c
+>> index 3de54af45719..c97afaa1b4aa 100644
+>> --- a/drivers/tee/qcomtee/call.c
+>> +++ b/drivers/tee/qcomtee/call.c
+>> @@ -193,7 +193,7 @@ int qcomtee_objref_from_arg(struct tee_param *param, struct qcomtee_arg *arg,
+>>   * @u: QTEE arguments.
+>>   * @params: TEE parameters.
+>>   * @num_params: number of elements in the parameter array.
+>> - * @ctx: context in which the conversion should happen.
+>> + * @oic: context to use for the current invocation.
+>>   *
+>>   * It assumes @u has at least @num_params + 1 entries and has been initialized
+>>   * with %QCOMTEE_ARG_TYPE_INV as &struct qcomtee_arg.type.
+>> @@ -202,7 +202,7 @@ int qcomtee_objref_from_arg(struct tee_param *param, struct qcomtee_arg *arg,
+>>   */
+>>  static int qcomtee_params_to_args(struct qcomtee_arg *u,
+>>  				  struct tee_param *params, int num_params,
+>> -				  struct tee_context *ctx)
+>> +				  struct qcomtee_object_invoke_ctx *oic)
+>>  {
+>>  	int i;
+>>  
+>> @@ -210,8 +210,14 @@ static int qcomtee_params_to_args(struct qcomtee_arg *u,
+>>  		switch (params[i].attr) {
+>>  		case TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_INPUT:
+>>  		case TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_OUTPUT:
+>> -			u[i].flags = QCOMTEE_ARG_FLAGS_UADDR;
+>> -			u[i].b.uaddr = params[i].u.ubuf.uaddr;
+>> +			if (oic->kernel_ctx) {
+>> +				u[i].flags = 0;
+>> +				u[i].b.addr = params[i].u.ubuf.addr;
+>> +			} else {
+>> +				u[i].flags = QCOMTEE_ARG_FLAGS_UADDR;
+>> +				u[i].b.uaddr = params[i].u.ubuf.uaddr;
+>> +			}
+>> +
+>>  			u[i].b.size = params[i].u.ubuf.size;
+>>  
+>>  			if (params[i].attr ==
+>> @@ -223,7 +229,7 @@ static int qcomtee_params_to_args(struct qcomtee_arg *u,
+>>  			break;
+>>  		case TEE_IOCTL_PARAM_ATTR_TYPE_OBJREF_INPUT:
+>>  			u[i].type = QCOMTEE_ARG_TYPE_IO;
+>> -			if (qcomtee_objref_to_arg(&u[i], &params[i], ctx))
+>> +			if (qcomtee_objref_to_arg(&u[i], &params[i], oic->ctx))
+>>  				goto out_failed;
+>>  
+>>  			break;
+>> @@ -260,7 +266,7 @@ static int qcomtee_params_to_args(struct qcomtee_arg *u,
+>>   * @params: TEE parameters.
+>>   * @u: QTEE arguments.
+>>   * @num_params: number of elements in the parameter array.
+>> - * @ctx: context in which the conversion should happen.
+>> + * @oic: context to use for the current invocation.
+>>   *
+>>   * @u should have already been initialized by qcomtee_params_to_args().
+>>   * This also represents the end of a QTEE invocation that started with
+>> @@ -270,7 +276,7 @@ static int qcomtee_params_to_args(struct qcomtee_arg *u,
+>>   */
+>>  static int qcomtee_params_from_args(struct tee_param *params,
+>>  				    struct qcomtee_arg *u, int num_params,
+>> -				    struct tee_context *ctx)
+>> +				    struct qcomtee_object_invoke_ctx *oic)
+>>  {
+>>  	int i, np;
+>>  
+>> @@ -288,7 +294,8 @@ static int qcomtee_params_from_args(struct tee_param *params,
+>>  			break;
+>>  		case QCOMTEE_ARG_TYPE_OO:
+>>  			/* TEE_IOCTL_PARAM_ATTR_TYPE_OBJREF_OUTPUT */
+>> -			if (qcomtee_objref_from_arg(&params[np], &u[np], ctx))
+>> +			if (qcomtee_objref_from_arg(&params[np], &u[np],
+>> +						    oic->ctx))
+>>  				goto out_failed;
+>>  
+>>  			break;
+>> @@ -304,7 +311,7 @@ static int qcomtee_params_from_args(struct tee_param *params,
+>>  	/* Undo qcomtee_objref_from_arg(). */
+>>  	for (i = 0; i < np; i++) {
+>>  		if (params[i].attr == TEE_IOCTL_PARAM_ATTR_TYPE_OBJREF_OUTPUT)
+>> -			qcomtee_context_del_qtee_object(&params[i], ctx);
+>> +			qcomtee_context_del_qtee_object(&params[i], oic->ctx);
+>>  	}
+>>  
+>>  	/* Release any IO and OO objects not processed. */
+>> @@ -357,7 +364,8 @@ static int qcomtee_params_check(struct tee_param *params, int num_params)
+>>  }
+>>  
+>>  /* Check if an operation on ROOT_QCOMTEE_OBJECT from userspace is permitted. */
+>> -static int qcomtee_root_object_check(u32 op, struct tee_param *params,
+>> +static int qcomtee_root_object_check(struct qcomtee_object_invoke_ctx *oic,
+>> +				     u32 op, struct tee_param *params,
+>>  				     int num_params)
+>>  {
+>>  	/* Some privileged operations recognized by QTEE. */
+>> @@ -366,6 +374,9 @@ static int qcomtee_root_object_check(u32 op, struct tee_param *params,
+>>  	    op == QCOMTEE_ROOT_OP_ADCI_SHUTDOWN)
+>>  		return -EINVAL;
+>>  
+>> +	if (oic->kernel_ctx)
+>> +		return 0;
+>> +
+>>  	/*
+>>  	 * QCOMTEE_ROOT_OP_REG_WITH_CREDENTIALS is to register with QTEE
+>>  	 * by passing a credential object as input OBJREF. TEE_OBJREF_NULL as a
+>> @@ -430,7 +441,8 @@ static int qcomtee_object_invoke(struct tee_context *ctx,
+>>  	/* Get an object to invoke. */
+>>  	if (arg->id == TEE_OBJREF_NULL) {
+>>  		/* Use ROOT if TEE_OBJREF_NULL is invoked. */
+>> -		if (qcomtee_root_object_check(arg->op, params, arg->num_params))
+>> +		if (qcomtee_root_object_check(oic, arg->op, params,
+>> +					      arg->num_params))
+>>  			return -EINVAL;
+>>  
+>>  		object = ROOT_QCOMTEE_OBJECT;
+>> @@ -438,7 +450,7 @@ static int qcomtee_object_invoke(struct tee_context *ctx,
+>>  		return -EINVAL;
+>>  	}
+>>  
+>> -	ret = qcomtee_params_to_args(u, params, arg->num_params, ctx);
+>> +	ret = qcomtee_params_to_args(u, params, arg->num_params, oic);
+>>  	if (ret)
+>>  		goto out;
+>>  
+>> @@ -456,7 +468,7 @@ static int qcomtee_object_invoke(struct tee_context *ctx,
+>>  
+>>  	if (!result) {
+>>  		/* Assume service is UNAVAIL if unable to process the result. */
+>> -		if (qcomtee_params_from_args(params, u, arg->num_params, ctx))
+>> +		if (qcomtee_params_from_args(params, u, arg->num_params, oic))
+>>  			result = QCOMTEE_MSG_ERROR_UNAVAIL;
+>>  	} else {
+>>  		/*
+>> diff --git a/drivers/tee/qcomtee/qcomtee_object.h b/drivers/tee/qcomtee/qcomtee_object.h
+>> index 5f40617361fc..d3740099fae0 100644
+>> --- a/drivers/tee/qcomtee/qcomtee_object.h
+>> +++ b/drivers/tee/qcomtee/qcomtee_object.h
+>> @@ -113,8 +113,9 @@ struct qcomtee_buffer {
+>>   * @b: address and size if the type of argument is a buffer.
+>>   * @o: object instance if the type of argument is an object.
+>>   *
+>> - * &qcomtee_arg.flags only accepts %QCOMTEE_ARG_FLAGS_UADDR for now, which
+>> - * states that &qcomtee_arg.b contains a userspace address in uaddr.
+>> ++ * If %QCOMTEE_ARG_FLAGS_UADDR is set in &qcomtee_arg.flags then it implies
+>> ++ * that &qcomtee_arg.b contains a userspace address in uaddr.
+>> ++ * Otherwise, &qcomtee_arg.b contains a kernel address in addr.
+> 
+> Fix the doc, remove extra `+`, then
+>
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Ack, many thanks for your careful review.
 
-								Honza
+Regards,
+Harshal 
+> Reviewed-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+> 
+> - Amir
+> 
+>>   */
+>>  struct qcomtee_arg {
+>>  	enum qcomtee_arg_type type;
+>> diff --git a/include/linux/tee_drv.h b/include/linux/tee_drv.h
+>> index 369c87ad0205..367208210a32 100644
+>> --- a/include/linux/tee_drv.h
+>> +++ b/include/linux/tee_drv.h
+>> @@ -83,7 +83,10 @@ struct tee_param_memref {
+>>  };
+>>  
+>>  struct tee_param_ubuf {
+>> -	void __user *uaddr;
+>> +	union {
+>> +		void *addr;
+>> +		void __user *uaddr;
+>> +	};
+>>  	size_t size;
+>>  };
+>>  
+>>
+> 
 
-> ---
-> 
-> Found while working on reclaim of inodes pinned by page cache in
-> ZONE_MOVABLE.
-> 
-> Tested on master af32da41b032 (v7.3-rc6-232) in QEMU/KVM with a small
-> stress program: mount an ext4 image, read 2000 one-page files, run 8
-> concurrent "echo 2 > /proc/sys/vm/drop_caches", drop caches again
-> single-threaded (2, then 1, then 2), and count the filesystem's inodes
-> still in memory via how many the umount frees:
-> 
->   i386 HIGHMEM:      ~390 of 2000 lost per round without the patch
->                      (3 runs x 20 rounds), 0 with it
->   x86_64, pages evicted through memory.reclaim first (single shadow
->   entry left):       ~4 per round without, 0 with
->   x86_64 with KASAN, PROVE_LOCKING, DEBUG_VM, DEBUG_LIST:
->                      6109 lost in 50 rounds without, 0 with, no splats
-> 
-> The reproducer is a single C file run as init; I can post it if useful.
-> 
-> I went with skipping the inode rather than requeueing it on unpin
-> (which would be closer to what the final iput() did before
-> 2a0629834cd8) because it avoids the remove/re-add and leaves the inode
-> where the pinning walker finds it again. Happy to switch if preferred.
-> 
-> Jan, this applies cleanly before or after "fs: Basic infrastructure for
-> offloading inode reclaim" (v2 3/5); happy to rebase onto that series if
-> you'd rather take it there.
-> 
-> For stable: 6.18 and older need inode->i_state instead of
-> inode_state_read(). I have only tested master.
-> 
-> An LLM was used to check the analysis against the code, write the
-> reproducer and draft the changelog; I have reviewed all of it.
-> 
->  fs/inode.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/fs/inode.c b/fs/inode.c
-> index a9d37be390a1..74dfc379b377 100644
-> --- a/fs/inode.c
-> +++ b/fs/inode.c
-> @@ -942,6 +942,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
->  	if (!spin_trylock(&inode->i_lock))
->  		return LRU_SKIP;
-> 
-> +	/* Another walker is dropping its page cache, leave it to that one */
-> +	if (inode_state_read(inode) & I_LRU_ISOLATING) {
-> +		spin_unlock(&inode->i_lock);
-> +		return LRU_SKIP;
-> +	}
-> +
->  	/*
->  	 * Inodes can get referenced, redirtied, or repopulated while
->  	 * they're already on the LRU, and this can make them
-> 
-> base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
-> --
-> 2.55.0
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
