@@ -1,168 +1,123 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6932BD033
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:58:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73624772B1
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:58:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791799086; cv=none; b=R+cYwNyV+98s4JmtlyckcuqlN2TdDxgG4eLQg0Ewgza5bXh50/iiUu9y8JKY5AQLuuzFgbXI4OGHI7MR1+BXk4ysvIfx8ch6qoRj1FHX0cpRhWQYtBKF9XtIHbHen73z8rNmLIh3woJK0yEnsTG6dVav/JvqE1d2u2UKTEESoMc=
+	t=1791799098; cv=none; b=dNdawfkdkehiRLK/eFxrveKbozCC0RrEcdJrdyBw1v3Ca8Sr6gSfAsnN7VSRX9+YEPcnfGZLzWYVSJNjQ4Fx6dURbT3w4VfSiS4rnYupdKYK+7lwYgvUq3Cc220pCRUpUt5u7lJa7kDWdyprXj2X6+2oY3/o/HNtJZCy+TSM+cM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791799086; c=relaxed/simple;
-	bh=8okIb6HYVMsdy6+U5xUzJ+gBO/rOBVZ3zjrTun8vSUo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Qh4CE7hfQInZkHSdkg55PPQGMEmt6JwMpHlXxPI9R8XzyojV1RLyGB22E7P+r69xcBa5Cy4tEwXl/Q8Mz6p8wEPxdJXA5MQmlxcDVLCwVlk50HMxAVIF3U726eL22PbN7xaMNLGjoXOWeYvW65YlOTbOYcRW7Nioa6ncBrAlrcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YV15JsIm; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791799098; c=relaxed/simple;
+	bh=+qz45bEvak7AqqpbMhPBAE0YTCALmE3F+7faJ+adWQU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K9zvuKRJ63Exrj3UHN+rB1C+APFywOtmj1hL3UeZNnxityK1R53kjU5PZ7dVamAXspL7EZbUIFt5WTpn352ESSKQDbubaYjZLnS7Em9/QfEpB27tf6NPQwHP4XQcj19Tz/qZaxMDOAInYGsCMNzfxrjFtx221i+ulSRCY0EMukk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=bY7iVa+W; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YV15JsIm"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b1aa27963eso1076314a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:58:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="bY7iVa+W"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49e73611928so23117705e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 02:58:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791799082; x=1792403882; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8okIb6HYVMsdy6+U5xUzJ+gBO/rOBVZ3zjrTun8vSUo=;
-        b=YV15JsImJ8S/3j9tPRykcGUsV1pFU1z//AAPJ8W8DZds3oRedH/iGnEoetHiMKpd11
-         257epQYEHNK0kwBj1UczJc0fBrrHJXxHo7/0i5U2eoaqcrAFqsAHFOYVtiqyOtmWa+BP
-         us0HV1Af/KdOTZNiRRYrqMEI1lFkEmPfww4Coo+bsSG60FcVfWewAPVJecI2fsNFR6Fk
-         bCRTGxjBPLF7NLZDzy+oD/04k2imQBlNRReXmZk4hvaB833rx3Mm/CArip1mWOXFrY0Z
-         GwhKuYbiIo1uSY9HsDk3e0zTAy7S+GmzdLVTkkeeTljnArjYiD2tvIH24hXWlzV/bltM
-         bNFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791799082; x=1792403882;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=suse.com; s=google; t=1791799095; x=1792403895; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8okIb6HYVMsdy6+U5xUzJ+gBO/rOBVZ3zjrTun8vSUo=;
-        b=e3/az22qq4OPACDmF3DiBmDtljiENxiVMwDSQw62r5Txia9ic4OWTPEQj0hRddBnxo
-         xxEqWfueCZIttxTqvKiireyQMql86k3zuo/840aHooF10NHdAEILt1yCs1kl2nS7jBEc
-         kdhbtYrePdvMvdda+1agwvUfmpDb9qlGyktdIpjhAZIlqWIJ6apykMMwdIK+yMi1eIGp
-         l4QmlglxCH1Vi4XX1bea8+8Faqbt9WX0uqD+bwxoqxGBUN2yHrPdsPnjpE4cWmmzQPVz
-         trxNpUbfBq9zkb4bUTvO7QO/GiVmgeBmjlPnmwyQliDRZ5gZPSGi3HRRMZ0yQ7F+V3b4
-         yTRQ==
-X-Forwarded-Encrypted: i=1; AKwUvByej5j5ybqNhxGc6YnAQMPLemrpgajDUGJ2h4KN/YswFVuTazNogsrdQKY0qMBC7iwV7EMKm2qNNXGim34=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJs1JLqKEiH2dNEkiNv6QJcmHLfHa7u0tcBGmhLnoesjiuB+2rY
-	nVDaqjMhU7IfItdbHxF4j3j7yXC1IO6f77xMXVKdKf+v7yfvbcrbalcB
-X-Gm-Gg: AYBFou24NVXCm+zoWdTJUgwzNC7ouc4hCeXGeK27J6tkmn8bQejfg4b/QZeaxKJFMPV
-	a0UWHMHvj9OHztYqzLPcQrHOtfGZF3SPecpYP5TeOvriM9kCis78DI01+sJjz1TgUVfGh3YXzzv
-	0NBFA9OTPrXGqyYtUVmTovd4HBP7wNv4MfjgYmxgpywREz8DtAfzw5yvTv5XCelz+GYIPL+IQfA
-	GPPksYcyhFZMMVb5bAMjOuZQVnyQnctDmgvPBtAWwKq+abEou9lrSNWZopqmT91L3tm19+D2h05
-	5Kv2/puYBlHa/iQCa7NuCYg/bFHdiO/MLxrabQQAs4YMjftgZQNDaMKFdvQbiOMbZgVBXHPtoip
-	lqAxlC3RzqEur2knaY+YzoZijrUwSXrXSvQQXKE/Yr6D4vIxeT4qBJjZRqETl2QiL3CvfhrGNfY
-	SEdDuRAGBmSsFSehve9GbyS7UOL8SPfov1EP2hGVUAPHoZqKESvceM0JDvIE+FQr+Awybo2aJfH
-	Roog6+ej/ZSPrQPJQqHiKM6D0nyVqJ0Tij+e4CrYLdH6Zd1D0WHVZiGSZVaHrDh45TtQuTMxFtS
-	T+xvDIFFpuQSpLUn3wCoMmaNNCn3GxLKENUl9q/Tf7RHQQ==
-X-Received: by 2002:a17:906:f59d:b0:c2a:b008:8cc0 with SMTP id a640c23a62f3a-c31a70e5566mr981263366b.28.1791799082342;
-        Mon, 12 Oct 2026 02:58:02 -0700 (PDT)
-Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com (54-240-197-234.amazon.com. [54.240.197.234])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b178d1605fsm4928885a12.2.2026.10.12.02.58.00
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 12 Oct 2026 02:58:01 -0700 (PDT)
-From: Fred Griffoul <griffoul@gmail.com>
-To: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <shuah@kernel.org>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: David Woodhouse <dwmw2@infradead.org>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	iommu@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [RFC PATCH 0/9] mm: Memory providers for guest_memfd and iommufd
-Date: Mon, 12 Oct 2026 09:58:00 +0000
-Message-ID: <20261012095800.50250-1-griffoul@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <yq5ald8680t2.fsf@kernel.org>
-References: <20260720111259.122911-1-dwmw2@infradead.org> <20261006183235.16576-1-griffoul@gmail.com> <yq5ald8680t2.fsf@kernel.org>
+        bh=EYE0bMxPHnmShz4Xu8tYgt5YI11ArchW9zzLXSmu928=;
+        b=bY7iVa+WiFosuQG98MKUDtMAeOywHWQXnc01wZjc1OyXiZc/TUgE9jIyUsViRDF/nX
+         r9VsAV16kjF3yxq+KbXRyityCOIxSjJf0JwS/U8AHCK4NO475CD4dbYkQ3QiNYK6AXwM
+         wNP9lQZc4R5YfCxbQmLH5btvzMm2lqVQ8fZDszqsGay61UGRMSzpnZ7CpicTQOJnPnPf
+         tHIPIMvD8AeyxiEF3aV2CGGHVpkb4W+pGUcIlvbwK2zByVTPRYfNoQK0McXdGaCKuvIb
+         4/v5fRnchh/WyvHlXjObKnks4tB3wCIckFayM8pNdeCUl3jW2/Ub4ZOt+C7WNqvtZCQP
+         wneA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791799095; x=1792403895;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EYE0bMxPHnmShz4Xu8tYgt5YI11ArchW9zzLXSmu928=;
+        b=E9lyb7z9NAg4V5U9U5H++vVqFb4ipwRGl7v6qL2QEcgu9I0X81S4nh4sV69+brLm1k
+         smzkwqbjTyEbDUx/R7SSXSQeXeTsnz8qPj523ckH5dRWGt9Yy9CmjpZk/6K/GwUrRU6k
+         9YaiEPfBPEpG/b3333Bxu5yTw0JTULYNCg/hZPiHorJ/SrGcBWxRis5kGbIEJgCpKvHs
+         K/2EFqZ+opJRzLxP7ULBUVPoGpGb3Z3RdCBJkXFnBTNONx9jk/aegInuu+GYjGc3HoWs
+         UriZZrv5D834QAVIfC0q0raQUZXfvXy2PNKKEywcWzYCUFDrrUFqdLOXRjn2S+7UUxv6
+         PoCg==
+X-Forwarded-Encrypted: i=1; AKwUvBxMYWfznVTjDRqZe6gRDWEkFKHUSS4qw8sfWE9tG9YW5neM5FQku+U3STgI/ysg9kod7cym458EgAsBXtA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKRv4e4wrkiRgVMGaEGW+v4CHVxLS8mIZzv6wLb93Knx1p2A9cY
+	4a7nEVrWpbzxO+w3vbSpCnwsn6wZ7BSYd4xAaqSo48jX4WSp8cwgaQIhPRbXgINSFUpI2yB9Ey9
+	+6C3b
+X-Gm-Gg: AYBFou3ysSJWcl5YI8cg69jMAeiq9nr4pdKzTw9gJMhwdaMC/nVP4W66/Jd88u8/oAx
+	Oiw8k//PQWaiL2GikPYILd+5FZt8NxvYJYcxjeZWvuAHXw8E7qPGC15xAAGmXvshjxyAcRBJChL
+	D69AXaVHWJx7meXny8gnhrxx8n2yf3/vEB46OryLanXGp4ff9ApjOzr/v+Nw90SnT+Jg8sN4nzg
+	5+TtgsSIgKgYjdUBo1mB0TViQYiaoq/5nPoUQIMg5oS+xiyC5EGlOm9hLfrZIqfbj1NxvnEMwtC
+	gW0zrIDhdgUGkgNRi0Jhx9E4oq8HGlxlBVVrhNTtixzBZbye0qkpEKZsEMoDE3pmfQytwYzWCgV
+	TVEu6sZs4GXo2RHQol4/8G1v5XxAFDQDoRXZZ/f5YftIUCLcff7Xpy/zTC/h6abl+29SI81Oquj
+	Wxbm2EwC/5Fs/4Pso5789UVEjQdJKWMIj9+dK9SwuWLhAjN8JYIqycJEbzLP2pbCS1rrektzI1Z
+	/jcC9ZJwFuYhgmD5FmZlBVRZha0As5YUuSudbWEouiHckTI8JU=
+X-Received: by 2002:a05:600c:5254:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4a18e4aa11dmr175213145e9.16.1791799094816;
+        Mon, 12 Oct 2026 02:58:14 -0700 (PDT)
+Received: from ?IPV6:2001:a61:13ea:2801:a5e0:1486:6c57:8b2c? ([2001:a61:13ea:2801:a5e0:1486:6c57:8b2c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c1e33d2sm380625085e9.0.2026.10.12.02.58.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 02:58:14 -0700 (PDT)
+Message-ID: <3cdb8068-7af2-4754-96f9-5177a09cc3bf@suse.com>
+Date: Mon, 12 Oct 2026 11:58:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] uas: JMS578 returns reproducibly incorrect data after host
+ reboot
+To: djraszit <djraszit@gmail.com>, Michal Pecio <michal.pecio@gmail.com>
+Cc: Oliver Neukum <oneukum@suse.com>, Alan Stern <stern@rowland.harvard.edu>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <CAFKhL9eUM91rtywaz_7Mz+4mJH2b2csmOmc3+86ii3a0Ka3Q6g@mail.gmail.com>
+ <c335085d-a824-4632-ad3a-c06715258c81@suse.com>
+ <CAFKhL9f6aLZgerw_7bohbQWvzMxSfd-m-LFcuNP1_p1vWkN4=Q@mail.gmail.com>
+ <1320caa3-85b5-47dc-aa2d-56d3b003c6ef@neukum.org>
+ <CAFKhL9eTD7DxtxMSMuUVP9cDG7Nq4jvrkTCjYfwr9puZfuC4Gg@mail.gmail.com>
+ <20260915233818.5881ad97.michal.pecio@gmail.com>
+ <CAFKhL9fL++S1xh+aUCuYbk6EkLQnfUn95y7TBoWaGnPAVP1gYA@mail.gmail.com>
+ <20260916204713.22c4f575.michal.pecio@gmail.com>
+ <6041fdad-78b9-4310-a86b-f9931563de19@suse.com>
+ <CAFKhL9dmR1KDaBQGta=X5xDCGirzJ8t7u0rH4HUgBoFqN152DA@mail.gmail.com>
+ <20260917185650.7fdea3cb.michal.pecio@gmail.com>
+ <CAFKhL9dYWLYhkj_687Out_hS3fxORgpCpggag2NwoVYbapyvYg@mail.gmail.com>
+Content-Language: en-US
+From: Oliver Neukum <oneukum@suse.com>
+In-Reply-To: <CAFKhL9dYWLYhkj_687Out_hS3fxORgpCpggag2NwoVYbapyvYg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 10, 2026, Aneesh Kumar K.V wrote:
-> I have been working on something similar for confidential computing use
-> cases. There is likely some overlap between this series and what I posted
-> at [1].
->
-> I have not reviewed this series in detail yet, but I will compare the two
-> approaches and identify what can be shared between the use cases. Please
-> let me know how you would like to proceed.
->
-> [1] https://lore.kernel.org/all/20261010072504.536230-1-aneesh.kumar@kernel.org/
+On 17.09.26 19:20, djraszit wrote:
 
-Thanks for the pointer. I read your series, and Ackerley's resource fd
-RFC that it builds on. The use cases differ, but the interfaces overlap,
-and it would be good to agree on the common parts.
+> So the current comparison is:
+> 
+> USB_MSD_PWR_OFF_TIME=1000, bus-powered Genesys:
+> -> BAD-data after reboot
+> -> invalid alternate GPT
+> -> BAD direct-read hash
+> 
+> USB_MSD_PWR_OFF_TIME=1000, externally powered Genesys:
+> -> 5 consecutive reboots GOOD
+> 
+> USB_MSD_PWR_OFF_TIME=0, VBUS supplied by the Pi:
+> -> previously reproducible "Cannot enable" after consecutive reboots
+> 
+> USB_MSD_PWR_OFF_TIME=0, externally powered Genesys:
+> -> several consecutive reboots GOOD
 
-All three series add a flag and an fd to KVM_CREATE_GUEST_MEMFD. I
-think one resource_fd is enough, with guest_memfd picking the backend
-from the kind of file it gets. I am happy to drop provider_fd for
-Ackerley's flag and field. We also find the provider from the file in
-three different ways; I would like us to pick one, preferably without
-a registry.
+Hi,
 
-The main constraint on our side is that the provider stays the authority
-on which frame backs which page: it moves pages between VMs and has to
-survive a live update. What would not work for us is guest_memfd
-becoming the primary manager of PFN memory, as Ackerley suggests. Your
-get_pfn() leaves VFIO as the authority for the BAR, so I think we agree
-there.
+if we come back to this , is there anything the kernel can do,
+even conceptually speaking?
 
-You refuse dma-buf exports while guest_memfd is attached. That is
-roughly what the memory provider interface is for: one owner, several
-users, and one revoke that reaches all of them. A BAR exposed as a
-provider file could be mapped by both guest_memfd and iommufd.
+	Regards
+		Oliver
 
-I plan to change the revoke anyway, because iommufd must not leave the
-device with a hole: it should replace mappings in place instead of
-unmapping and remapping. Would that fit your case? I suspect it depends
-on locking, for example whether you have to revoke while holding
-memory_lock.
-
-Shared/private state and the conversion hooks would stay in
-guest_memfd and the arch code, as in your series.
-
-Does that sound reasonable? Ackerley, David, any thoughts?
-
-Thanks,
-Fred
