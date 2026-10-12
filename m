@@ -1,174 +1,123 @@
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com [203.205.221.240])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DF742FCD8
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:38:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815899; cv=pass; b=kn2LAAztRe7Z57abW71w1Z9XbXCw5pryH5KczPWOBtB+jvDpZsgcSqAhmBf/h3KM25DuTE7edhvw40RxHEnxTh2l9SPo2gSBRNrs6/MURgDgibWKYill3fSgrGk5E6YRJ7ogNeOTpj+g+T88a42DueVfXo8v721yf6mH0O0DnHs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815899; c=relaxed/simple;
-	bh=Jxmt9KjzM1tHZnS+/rDQVag7Gv7qwGz5Mz0R33A9/8E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nbSgnLVevOpIyV00qUYGXA7SYHZhBmCa2KZbcBvsD7iv3W2stZx0MeoLKPhC5q/tYeKJ/9+mL7QPY1AZI6G7wdiy0ap4JER6EqQQzqGyGdbQCnj3hxbcT3Dy3i1i1EN8mZJCwNRhBfZodbuoOcc2PMBAmFfaDUsVVIZEjypKFag=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Kxrpma0y; arc=pass smtp.client-ip=74.125.224.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75D534B1AD;
+	Mon, 12 Oct 2026 14:38:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.240
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791815914; cv=none; b=ljxzC5nH8U9z+BflMBFOCipCPmPce1I9+jCxJu+AXJ1z9fhWBOxre5ucxmy3Ed9pYVuS+9wGy/rLhU9hXsxY93frfVj+m9JlZAunnomuPExWXBAFfHctbkJMlHy+RNGUNQQ5rdBOwGIHQUgz7dM7472fXF5hXrSXKZ2dB3zh4G8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791815914; c=relaxed/simple;
+	bh=fJT2LAsI+66sPFPMBf1dktBnPkHklTuThSGYqJPWSjE=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=sM+BkrmCdOWULKSA3m5kfiRNpvBtK4QCjFpOZLz9JX4J9fb9QRgEXL92R0obFo76NclQSXD/n5xFe+Q1/QpUznPl6iYTB6m28QCg7UJ5o4w0e+e6CursR5GunB6GF/cMBQCbXlklZKrbrQOPUw2I2aGNEDuyb8YdtmisoiYKFTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=AlYcDTV/; arc=none smtp.client-ip=203.205.221.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Kxrpma0y"
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-677d35fd168so1513627d50.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:38:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791815897; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NoUl14f1VlqP1ZfQTLHA9f5+rv62WCgFUE/TtTE5M4lBoHCsi3vNdhml0QIN/RcQ9t
-         e65FZtYU9ZWGac/ZcxI16gDWGlzSOtBtW4RnlIg5ROTAE64yNlQoriVCHoheNVZt8+IU
-         LcAlHISMm+XIDh83D0+6ezjQFrfXq6ege5cKxwceXJIOARo7P3P6xGrC+a5vGRfn5VRD
-         ucAKAlVczFcj+CFWIj0u+JkAFduhCg18gORmOSA/3Wd4ObnxxFj+9Kdyrvog6srHuYoz
-         jbgfQoy6/dYbpnIp7vkKfeT0aLW8D856aq37RXnTrj08qEiWn3+lD6tLT3O7Dea3Ldxq
-         qwVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cVL8xl8gBi6bftcNOZS9JlnRpMYOODIaKFnti92zlBA=;
-        fh=/EUaSDQUAFfsh3EFZJFlEHdObJlQ4Yo7iG7fGvIbXo8=;
-        b=aNgIfT4mszTuFChVKt+Ufi2AW+w/5O5oEzUlhxUUf0l8OllWY+4Ox4KhZBdv351qdz
-         n5xVhO+bZNzBmlvu/c7m7cCln//Q0wEezdwyc3eQg8kEKN40pLgJ7v+pURpzr8fmcQ+b
-         2E81ReNn3GLJzoPGgEnMrN0U0l/+kHPu3B+hmvqHeErxMvNVVuo+fIkbPSeGS6mLxph4
-         9oa/4bO5sfaCTySTSxmUhRQLi3jQKdAa2ro9QpwFNoVNcYfzp8NESmsabxrbQmyOEPTE
-         MzNYNnMNRZSr2+MNktcDiBysq+RfVdIgb1P8/O9mTe66gTwnhPQiyxVCBN+J3tD1x+V3
-         XKCQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791815897; x=1792420697; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cVL8xl8gBi6bftcNOZS9JlnRpMYOODIaKFnti92zlBA=;
-        b=Kxrpma0ytHecy0j5OkVrxYU5EsioaK09WTFxrdXEB8XsG0QPh+WCko42bmjYIOAXY4
-         E1ftWSpb/s9R3nYuo+xGXQ4juk2uUzhUp+XSIpVyzH6vRZ0ZJAbrSVtUxpPT3FF8ZRHv
-         stbcOZ2BhbahADsQN4w0uqUkBStfhtKAfYNVA9L+4KB2+0SRNdVvsdB5rIB+ahRp+RX1
-         jeH+ssxIWCVyIaAbfBq4fCY3AdvqYktfc//n5i4Zidpe6IDyI1qmqdkYDodVONalrkAh
-         qeFlhbXX3y6VO34YHcKFh+5RpZZ8VbKsjA93SafOQnfnC9/QaTdGv6QMbtCqqgBa8ExL
-         YHEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791815897; x=1792420697;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cVL8xl8gBi6bftcNOZS9JlnRpMYOODIaKFnti92zlBA=;
-        b=WFmqPf3ph0Rug3owtpkHi6kWTBMXMiRliyCzQRNRTpu68P+w9G/VyC59LbzX7IWCWX
-         vm1DmSsLW9RO46zO3MEpYkb5heAMkL32OoN2zYkIK3yfyEvEwK0MglxBvLHtPLFfAyA2
-         iRodLrJnt5Y9lixGSQkSMaOlJRgSCVTZRvaPOOJMXiSqbJthwREoClByWsvlKp12tuTC
-         E698jxyOMOuxbzwHOqt+d4LJbKxzkvYeoZlwMOdQyfUVqBXZJ14YNze7jX4vdr2PRYl4
-         J0OQQccoz7Qz5C9w2NSDWRI0fUzYpRB34uxu3sUDI538/S1BOtTOrmnlahZZGc4rO0Ui
-         rheQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwvw9lA5waXlkIVONVOhBR6lKwusfg+BxmzSLPiuXKkwzwjdKzXXUvzYuACG2dow3nsn3F1v3/5kpGtPiI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1Hy+4+CWhcA1I+s5s6JHnR6o+kMxLiA0N3TVhHTAvI9ktDNsT
-	dBW6Axyhe2/ACaoLjAbllFp74zz8Uno8biFF1RSsUnK3M7pVuJmAhywiX4Kir2P8U9zwk75+3A6
-	RiZPRD7RgvpY+V3vKK/Fo8SoI4siuNcMeZyUtOTwU
-X-Gm-Gg: AYBFou2xem04grpCQVy4PWh+R4YkMoSj2IV0mND0sX/wY4wPb5rRL//kYcXaueo9ZKq
-	E9ft/ZupyR28gzmHE7CX4FC3tPbUSc0uJAmV8KmCFgnXjC/8o92hhT3ZftT5jF6DE1RPCZyv42a
-	2a5TfbS4jJlMP0G5ThjWGMuOuoeJGJwwWO9qk6rNgSFaW3nyRVYi105HvApg2lnXZiNwXZFcUc6
-	5lnb29iv614VSzSUJxekm4wV6M0LOdIN3jwEqAxFD1KGe+aQ2yrI0mRXTwXkHz2nhSGRP75ZZHa
-	altvilVZpciYv43sTM6m6vyZPCWsHQ6ZFLwj/7C9EMXv7QU2nLWiaVyTTq04rRCWsLhI+3a6RKl
-	yh54rHP9+gg==
-X-Received: by 2002:a05:690e:4852:20b0:677:ae5f:927f with SMTP id
- 956f58d0204a3-6793630f86cmr2427106d50.106.1791815896536; Mon, 12 Oct 2026
- 07:38:16 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="AlYcDTV/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1791815907; bh=LNKxzpmjCEP+a7Nq3MoOesUompTT9/8E11oGyH877mw=;
+	h=From:To:Cc:Subject:Date;
+	b=AlYcDTV/ZJGc7tH9shlyHISH2a2ej7jSMRs4n0K7oDzrA1FoykBJv7TAkKdA6uHel
+	 hsfiW0bAwX1kNzihTAuhUTKwZ0r2Byk4qd4UsvQp63kMPiparYH29nIkcVsiEvFtpK
+	 JnpdfSF+iM7JFERnsvleMXHyF2iqHT4xADctI4S0=
+Received: from [172.18.4.77] ([61.136.26.103])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id 998A66E1; Mon, 12 Oct 2026 22:38:24 +0800
+X-QQ-mid: xmsmtpt1791815906tn2pvg8za
+Message-ID: <tencent_96F9E846FDA4A67FF38C7C393D985A44690A@qq.com>
+X-QQ-XMAILINFO: MqswyhUqVe0CMd58NaO3KRHK5Me+Ff/PQx2OUdIRQGbYr0iTDfhHMoVzJesUVW
+	 YJDax+US8HQK/uWcO2/knzxf0Ueudc9AnOmYNmjrKq7JEPV7ixSNhulbssAhFG7ov2ibB3KGk8S4
+	 BnSkXmKmxWEawPDaZICN4wTqjMZz1HRHpn04btjfWverex5r1DBmfja7yy9tHH9VGoJjO8QHxIY1
+	 2jH5I1BNtfj+EGoVYAWNCdpyWpfnkaiIOFh5HX0wcWhA/f+wEfk+Pmj03ByQEyl2biBxeaNQA5Uu
+	 XeG11SSsBv7yEGFD28746ZNpTRn3IgwE/g9OU02N6fFl4bNtDRbyKGTpyLOR+Hx/9IvxuSe7KsBN
+	 JHIX9WpyI7VSNJqNOlce+vVf16rlkZVd+K+2fPxHeOUFTjwFzYwKIW0SzNeZ8MmPrYXHN7gyE6ka
+	 bXjHMrQImGHGgZKGggly0gCXrdjcNtxogIrZoBWwX9YdxpibYuyf6MaQ7N40C3cUWTKRIupHHvOQ
+	 F0UvgrCdPeAaRVg5ChUHoGCjFFdqMok0z6BzGyqavKywYYLHutTDItzDN40+pxcAZdK69ZIoWsXi
+	 biKTi1xfRNZ5kX6FJpL8/QO2rf6ZEkiVSrx7yO5ygOTqLI2ys/ZtlsgxiL2uf7AckY864TQdYIA2
+	 9Yt3v8D/+C0D5pUY17EUZLOE4DdGkCE9bdKxMurkyLRz0YEnFHDlETYQpmJ385GKGx+kxvpupFhD
+	 CTAuyXMektDavDUCOy8eroqMM/va+qOf4pVfyMayxCsn9r3MUNGzfyREfIgkXDFQhQYERBnLI3s2
+	 UX64Hgq9SS5E2dOnsUXLt4sqWxbBshUQJS8wdIunrOEHAYuA49Te5uCiP4yYWyt6+VqsgpuBKnyw
+	 IqaYXbIfdSFWkm5l92uwpwKqo8NwB9k5Hie8yIhzLnZwXv0rV0y8rQV4J/N2pNajqfUQxRkU2q/X
+	 jZVnrWQ7TUV6/PBnnwLi3mRByNSv83b0ZJBXL3d0L9Ig35vYRzhk5wk/QPz9RZcWeLc87t/I3Seo
+	 YlDdAx3im3j+cqe68peBzOCm3VOVdvoXo5K7wbaPTO09Qn1f/A
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: 1sh1ro <yangguikun19@qq.com>
+To: Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>
+Cc: Ondrej Mosnacek <omosnacek@gmail.com>, selinux@vger.kernel.org, linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [BUG REPORT] selinux: general protection fault in avtab_search_node() during an AVC lookup
+Date: Mon, 12 Oct 2026 22:38:24 +0800
+X-OQ-MSGID: <20261012223824.41804-2-selinux-avtab@yangguikun19.qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012134159.912183-1-elver@google.com> <CANiq72nsJw25w6sFbLKKSaWog5_2cpmBmJMat-zQW1rcveJA_A@mail.gmail.com>
-In-Reply-To: <CANiq72nsJw25w6sFbLKKSaWog5_2cpmBmJMat-zQW1rcveJA_A@mail.gmail.com>
-From: Marco Elver <elver@google.com>
-Date: Mon, 12 Oct 2026 16:37:39 +0200
-X-Gm-Features: AclHuK92MyXxJeDrxPQQFA26o80Qq00iYKL0aWA4ivRbmQNLUfwOPJLz7iq1CKA
-Message-ID: <CANpmjNPRtT6PLf6qAiuEaX4hG1GBYD-=w1A4y_-i8vSv0e7Q-Q@mail.gmail.com>
-Subject: Re: [PATCH 1/2] kbuild: rust: enable KCSAN support
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Boqun Feng <boqun.feng@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Alexander Potapenko <glider@google.com>, kasan-dev@googlegroups.com, 
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Boqun Feng <boqun@kernel.org>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Asahi Lina <lina+kernel@asahilina.net>, 
-	Yury Norov <ynorov@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
-	Joel Fernandes <joelagnelf@nvidia.com>, workflows@vger.kernel.org, 
-	linux-doc@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, 12 Oct 2026 at 16:18, Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
->
-> On Mon, Oct 12, 2026 at 3:42=E2=80=AFPM Marco Elver <elver@google.com> wr=
-ote:
-> >
-> > +Rust code is instrumented as well on architectures whose Rust target s=
-upports
-> > +it (currently only x86_64; see ``CONFIG_HAVE_KCSAN_RUSTC``).
->
-> Maybe we can omit the x86_64 bit, to avoid maintaining the list in two
-> places, although it is convenient to know in the docs (but risks
-> getting out of date, of course).
+Hi Paul, Stephen,
 
-I think any future patch that enables more architectures, can also
-update the docs. We have historically maintained the set of supported
-compilers + architectures (if that set was still small) in the
-sanitizer docs. Once that set grows large enough, we can omit.
+fuzzing with syzkaller on a 7.3.0-rc5 KASAN kernel (SELinux enabled,
+permissive) produced a general protection fault in avtab_search_node() from
+the AVC lookup path.  The policy's avtab appears to contain garbage: the
+first fault reads a non-canonical address, and it is followed by thousands
+of further Oopses (8850 in this run) as later lookups keep hitting the
+broken structure.
 
-> > +  Note that ``rustc`` rejects linking crates built with and without KC=
-SAN
-> > +  instrumentation, so ``KCSAN_SANITIZE`` and ``KCSAN_SANITIZE_<target>=
-.o``
-> > +  cannot currently be used for Rust code.
->
-> Would `-Cunsafe-allow-abi-mismatch=3Dsanitizer` work? Not a blocker for
-> the patch (and in fact I don't know if we would like to actually
-> support it even if it works), but perhaps in the future we can relax
-> it using that.
+The crash
+---------
 
-If rustc's sanitizer instrumentation is similar to clang's, and rustc
-doesn't introduce other ABI divergence due to sanitizers, then it
-should work. Same with KASAN + Rust, so this would need to be a
-general Rust + sanitizers decision.
+Oops: general protection fault, probably for non-canonical address 0xe06f3dc280000000: 0000 [#1] SMP KASAN NOPTI
+KASAN: maybe wild-memory-access in range [0x037a0e1400000000-0x037a0e1400000007]
+CPU: 1 UID: 0 PID: 14271 Comm: systemd-udevd Not tainted 7.3.0-rc5 #2 PREEMPT(lazy)
+Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:avtab_search_node+0x24d/0x4d0
+Call Trace:
+ <TASK>
+ cond_compute_av+0x59/0x340
+ context_struct_compute_av+0x7f2/0x11f0
+ security_compute_av+0x558/0xd60
+ avc_compute_av+0x86/0x820
+ avc_perm_nonode+0x9b/0x170
+ avc_has_perm+0x27b/0x2f0
+ selinux_inode_follow_link+0x226/0x380
+ security_inode_follow_link+0x96/0xe0
+ pick_link+0x447/0x1570
+ step_into_slowpath+0x928/0xdd0
+ link_path_walk+0xdae/0x1b20
+ path_lookupat+0x70/0xb80
+ filename_lookup+0x213/0x5e0
+ filename_setxattr+0x89/0x1b0
+ path_setxattrat+0x1cc/0x2a0
+ __x64_sys_setxattr+0xc6/0x140
+ do_syscall_64+0xec/0x4e0
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+ </TASK>
 
-The only exception is KMSAN (which I think is not yet enabled for
-Rust), which does affect ABI.
+Context
+-------
 
-> (If it doesn't work for some reason, and we want it, then we can ask
-> upstream for an "escape hatch" as we usually do, since things like
-> this should normally have one...)
->
-> > +# The minimum supported rustc's LLVM supports all of these options.
->
-> Just to double-check: does this refer to the LLVM version of the
-> upstream `rustc` binary (LLVM 19.1.7) or the actual minimum they
-> support in that minimum `rustc` version (LLVM 18 major)?
->
-> I think all the options exist for a long time, so it doesn't matter,
-> but just to confirm...
+- The task is systemd-udevd (uid 0) in setxattr() (ORIG_RAX 0xbc), which
+  follows a symlink while walking the path; the first AVC decision for the
+  symlink hits the corrupt avtab.
+- The same crash appeared on three runs of this fuzzing instance:
+  2026-10-08 23:39 UTC, 2026-10-12 04:50 UTC and 2026-10-12 10:48 UTC.
+- The kernel log of the crashing run shows only avc denials
+  (permissive=1) and no policy (re)load, so the avtab was already corrupt
+  when this lookup happened.  From this run alone I cannot tell whether the
+  corruption originates in SELinux or comes from an unrelated memory
+  corruption bug in the same fuzzing session (that instance also produced
+  unrelated memory-safety crashes around the same time).
+- No reproducer: the instance ran with syzkaller's reproduce disabled.  I
+  can rerun it with reproduce enabled if you would like one.
 
-Whichever minimum we could ever see the kernel compiled with, which
-looks like LLVM 18 in some custom setups? But yeah, all we need is at
-least LLVM 12...
+7.3-rc5 already contains the recent policy-load validation fixes (class and
+permission counts, level category sets, boolean values), so this looks like
+a separate instance of the avtab-corruption family rather than one of those.
 
-> In any case, this sounds all reasonable:
->
-> Acked-by: Miguel Ojeda <ojeda@kernel.org>
+Thanks,
+1sh1ro
 
-Thanks!
