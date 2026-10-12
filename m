@@ -1,180 +1,129 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B70F630D404;
-	Mon, 12 Oct 2026 20:25:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3923F3283
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:26:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791836754; cv=none; b=OV9MK8wDb9oQSTzwgwxN1ozCAGDH7Ib2+TkNXP5Wv2Dfu63/vBp/tX3D0thv+R6B27/Gtpr6lz8XlGB3cafNY4I3Yy810ybsBaQ0bCuoVmpuj/CUoKlQPAAJAD286M9lvTsgVUTFs7iRF1Mgbkb3h5cEMWTvgKTa0GZf6iwEqqE=
+	t=1791836795; cv=none; b=k9MHjx4c5msm0ErY+KH3Ru62Y5/Si6rS/af7pLuND2FcQ5qJxDjCJIvCcS+78vDThejlhlT2MXQ3t/pzJtIX3a6TyfyFOOmwEl6QgoDeqDTCETNUWEclvdMxx5520FzVIP12bWVdDc/dqoIJl60rK9wTGjZG2hPdVeRj9sTXQNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791836754; c=relaxed/simple;
-	bh=K/Zl5Qj1myG82TOYaKXai3M6PLPZKJnBje1SWWfefUY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ho5Zi/kXWal+V7UkmUpFC2jlXDC71CDs3losyntiAk/8UdErFOOej5HyEbPj3GTAg5NWbRyP97UrE0+0nSb47NkFr/LrxzEmAKfiaOUZ2HL0uvWY2rS8K7NkFr3iTj/ASlg2WV5n7K+zoyHx1G/gGn1ryXD0hDN9dPn3CK0lCmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xGMaj-00Fxjz-RA;
-	Mon, 12 Oct 2026 16:25:49 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] xarray: clear the new head's parent before freeing the old head
-Date: Mon, 12 Oct 2026 16:25:49 -0400
-Message-ID: <20261012202549.772887-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1791836795; c=relaxed/simple;
+	bh=TmbCJD6b1HS0t5QfHnVQZEbNYoXTp7LevXITI0I7LAU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G5RAJPlxzbKpuKEIwCXYooLhzOJLrz42jaqum+gwY9+qsiJbQiAszMNzzK+VySnAczEsDJFKx00OkZvKevaEJwfwwcbm8CEoLQlIu3O8x62ud3Dr0C1+HxBNPmW8S8MWy1hvCsj1mH7eTpzS5nKFqff8LOJsIjocjnnlmc7V+SU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=oao5b89w; arc=none smtp.client-ip=209.85.219.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="oao5b89w"
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91b64fb6010so31298126d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 13:26:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1791836793; x=1792441593; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wNQIu44JCi003fPRYl0iEpsbAlOqdcmn83C76AdGLFg=;
+        b=oao5b89w2RCEsW6LCXIRoF5jEv7/FZ6Gj9tO4Wnib/shZ52Z27HcUDvMo34tuan8m/
+         50rJX79HMvVWjepZqPMMkMJPj8HhmGsg/BQuzK1N2unKLDb5CLFU8yoKl9Pe9eyWvqbN
+         GCnjjZbApjtvOwLuk0rx6mRmL+KPSGGzqxZsrfanDCM6TemxC5dU4uIjo4UVHibBSHqt
+         v9VaFSzK+sz8L6baH5sPVA5/P1C0EeYL41AeanYJb+bOZIHmampn6BQEhbwwpci8+qcl
+         L3hp8Wj1FZ6XVaTiVpBwr46MA7//FisNxPcSU3fj/ceJfnDAvQNVXCDkWLwRX+ADL0O4
+         usNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791836793; x=1792441593;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wNQIu44JCi003fPRYl0iEpsbAlOqdcmn83C76AdGLFg=;
+        b=poYtvspTnFyfp/vZSXfpXvxM5CUZW8GuBxyckuXNcOvclPkDEdswGdEOsZ0PqXXDoq
+         Rqi/JBNHO3C75RrbMvzugyRHY/NykZIyGuRhnwX6DinB/eRXzV3hQkk536IQyFbrnqWD
+         sBl1lKItiz3ClLxGsm5Km8NPoc88pG54ZsImUmx5g2YonW6F83GBW1HV3cWwLZ2c3JLG
+         tw68b72D4hsNFZltxWVzOZZNpw/IhLC3FLVRp/Ix3cVMMYkMDDdaY5wEwKLQfTzuieAs
+         T+c/lxSWGMaaUuHBq5CcZnA6aJZsuuObvoOiU2wl708ZeCmZbuMTkO4KMoqAxh5M0PCH
+         OLOg==
+X-Forwarded-Encrypted: i=1; AKwUvBwdyiXR5NeMjOdxbObqFfhU4HFDly+s1n2AKBgvajtuLtGfm8ewZyODU/fFdjZICfLSMw+UyJu3dvgMPrI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkQ5/+pzuofsi2MRz0wXki3wJdTeBbTTc+c1yhzN9V3KcHNwnd
+	h4pJBaq1sly3TfB/Nntm2LxUi1adbhx3NgUAQXTu8BGRmNi1TtVLMdS7cxMVD/RGWA==
+X-Gm-Gg: AYBFou0PTVeA+A6aCZfPHi6/mLt7H/U/dXhfd1/qLeCxPNJLV6b926LfJGisF1NY+QF
+	Vl8tE+IeiJWitX/smw5llbzmihLj7o+7MtHjrAw8EI4zalobWpTtu/3lJPUCccb4xR4PxyB/yz5
+	3kAeGM9WlY8B4zMdfI5dO680nZ6cQF3H0h+7A5GM9xdbrtbbV77m7zRveT6U1H4sNUhmPpaSm9z
+	G9C2TVPow/lXY5tyz2XniBcQwvH2GcqHMOF3iYKewrSHtCn6QJKrnEjJAAYSr3WswW92s7G+RO4
+	4cF3oNSEgOrBdeTZlte00TRYC1KOl2JOydFCCL1yZocU2fJ8e4zUQvlkZLsUW2pdaESEDfQqCQq
+	UPZAXeQTcwDGCE8+IOyChAW+QpvfCp6cdoZYjmh/gncJSVvDQwPwxsVPSw45eZM0s09jm+0ou4l
+	L/05mfpgWHLhUALG9SrrVpepOEqWkjtaQ8c+F8XUwPrdHDundpCK+i2CC4PxnLkDkRXsda36I8E
+	bXGyYub6A==
+X-Received: by 2002:a05:622a:148c:b0:535:8d35:6355 with SMTP id d75a77b69052e-535a6073d08mr165366511cf.5.1791836792690;
+        Mon, 12 Oct 2026 13:26:32 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::4791])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b76b030sm87256001cf.17.2026.10.12.13.26.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 13:26:31 -0700 (PDT)
+Date: Mon, 12 Oct 2026 16:26:28 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	=?iso-8859-1?Q?=D6mer?= Mete Kaya <omermetekaya0@gmail.com>,
+	oneukum@suse.com, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	david.laight.linux@gmail.com,
+	syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
+Subject: Re: [PATCH net v6] usbnet: fix smp_processor_id() use in preemptible
+ context
+Message-ID: <8545800a-a37f-482a-9b06-cbdd70312b7a@rowland.harvard.edu>
+References: <20261004215937.302247-1-omermetekaya0@gmail.com>
+ <20261007200049.079aeb75@kernel.org>
+ <7c4a2f1c-f16d-479b-a11f-cef962d5e2c7@rowland.harvard.edu>
+ <20261008094338.301a75fa@kernel.org>
+ <06a81ea1-b17d-40bd-82d9-922de946b86f@rowland.harvard.edu>
+ <2026100910-petition-embattled-94cb@gregkh>
+ <20261012194902.aEq58Q6b@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012194902.aEq58Q6b@linutronix.de>
 
-When xas_shrink() replaces the head node of an array with the node in its
-slot 0, it stores the child in xa_head, passes the old head to
-xa_node_free(), which queues it with call_rcu(), and only then clears the
-child's ->parent pointer.  In between, a lockless walker can still reach
-the old head, not from xa_head but upwards from the new head:
-xas_find(), xas_find_marked(), xas_next() and xas_prev() climb through
-xa_parent() when they step past the end of a node.  RCU does not protect
-a walker that gets there: call_rcu() waits only for the read-side
-critical sections that were running when the callback's grace period
-started, and that grace period can start before the parent pointer is
-cleared.
+On Mon, Oct 12, 2026 at 09:49:02PM +0200, Sebastian Andrzej Siewior wrote:
+> On 2026-10-09 13:31:17 [+0200], Greg Kroah-Hartman wrote:
+> > > As far as I am aware, there aren't really any guarantees on the 
+> > > context of a USB URB-completion callback.  The kerneldoc for struct urb 
+> > > in include/linux/usb.h says "The completion callback is made 
+> > > in_interrupt()", but that is most definitely out of date.
+> > 
+> > I don't think so, I think some platforms still have those callbacks in
+> > irq context, unless we changed to threaded irq handlers everywhere?  I
+> > could have missed that, but we should still write the callbacks to
+> > assume that and then we should be fine even if we aren't in irq context,
+> > right?
+> 
+> The HCD invokes the completion callback usually in IRQ context. I think
+> the VHCI is an exception here.
+> For the forced-threaded mode we disable BH before the IRQ handler is
+> invoked. I think even dummy_hcd invokes them from the timer if my memory
+> is right.
+> 
+> > > Drivers shouldn't rely on any particular context guarantees.  Not even 
+> > > whether local irqs are enabled/disabled.
+> > 
+> > Agreed.
+> 
+> I would suggest to make VHCI invoke the completion callback with BH
+> disabled. usbnet's tx_complete() does also defer_bh() which schedules a
+> BH worker via queue_work(). While this works without disabling BH it
+> leads to waking ksoftirqd and an additional context switch which we
+> could avoid by dealing with it directly.
 
-  CPU 0: xa_erase(), xa_lock held   CPU 1: RCU walker, e.g. xa_find()
+Today you fix VHCI, tomorrow some other virtual HCD will cause problems.
 
-  xas_shrink()
-    xa->xa_head = child
-    xa_node_free(old head)
-      call_rcu()
-                    <grace period starts>
-                                     passes a quiescent state
-                                     rcu_read_lock()
-                                     xas_find(): loads xa_head (child),
-                                     steps past its last slot,
-                                     child->parent is still old head
-    child->parent = NULL
-  xa_unlock()
-  quiescent state
-                    <grace period ends>
-  radix_tree_node_rcu_free(old head)
-                                     reads old head's slots[], shift,
-                                     offset and parent
+Should we document any requirements that all HCDs will have to follow 
+and that all completion handlers can rely on?
 
-The grace period does not wait for CPU 1, which reported its quiescent
-state before its critical section began; holding xa_lock delays the end
-of the grace period, not its start.  The start can fall inside the
-window when an interrupt arrives in it (interrupts are enabled under
-xa_lock(), and RCU core processing may run on interrupt exit), when
-callbacks are offloaded (rcu_nocbs=) and the rcuog kthread on another CPU
-handles the callback, when many callbacks are queued, or while the
-writer is preempted under PREEMPT_RT.  Interrupts, and in a guest a
-preempted vCPU, also stretch the window.
-
-After the climb, xas_find(), xas_find_marked() and xas_next() resume in
-the old head at the slot after the child and read its slots[] and shift
-(xas_find_marked() also its mark bitmaps); xas_prev(), for which the
-child is the first slot, steps past the old head at once and reads its
-offset and parent, as the others do when they reach its end.  Nothing in
-the walk notices that the node is gone.  The climb takes ->parent as it
-is, no lockless path looks at node->array (XA_RCU_FREE), and
-xas_shrink() stores XA_RETRY_ENTRY in slot 0 of the old head only when
-the head shrinks to a single entry, not to a node; the walker does not
-look at slot 0 anyway.  radix_tree_node_cachep is not
-SLAB_TYPESAFE_BY_RCU, so the walker reads freed memory.  Once the object
-is reused for a node of another array, the walker returns that array's
-entries or descends and climbs into its nodes.
-
-The order dates from the introduction of xas_shrink() in the commit
-below, which reimplemented radix_tree_shrink().  radix_tree_shrink()
-clears the child's parent pointer before it replaces the head and frees
-the old node, and still does in lib/radix-tree.c.  The commit gives no
-reason for the different order and nothing depends on it: xas_update()
-and xa_node_free() only touch the old head.
-
-Clear the child's parent pointer before freeing the old head, as
-radix_tree_shrink() does.  The stores are the same, the tree and the
-xa_state the caller sees are the same, and a walker that starts after
-the callback's grace period has begun sees the cleared pointer, like
-every store before call_rcu(), and ends its walk at the new head, which
-covers every index that the old head had an entry for.
-
-A check in the radix-tree test harness that no node passed to
-xa_node_free() is still the parent of a node reachable from xa_head
-fails in xas_shrink() 4731 times in the XArray tests without this patch
-and never with it.  No test is added: the race is not deterministic and
-the check needs a hook on xa_node_free().  A harness race test (readers
-walking the whole array with the four climbing walkers while a writer
-stores and erases an entry that adds three levels above the leaf) did
-not hit the window in 20 runs of 200000 erases; with a 1 ms sleep
-injected after xa_node_free() in xas_shrink(), every one of 20 runs
-reported a heap-use-after-free in __xas_next() or __xas_prev() under
-AddressSanitizer, and none did with this patch and the same sleep.  On a
-kernel (x86_64 defconfig + KASAN, QEMU), with a 100 ms delay injected at
-the same place, a walk that starts on another CPU 20 ms into the window
-climbs to the old head in each of 20 rounds, and KASAN reports a
-slab-use-after-free of the radix_tree_node freed from rcu_core() when
-the walk takes its next step; with this patch, the walk ends at the new
-head.  The XArray and IDA self-tests pass on x86_64 and riscv64.
-
-Found while formally verifying xas_store() against the kernel binary.
-
-Fixes: 58d6ea3085f2 ("xarray: Add XArray unconditional store operations")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
-
-Notes:
-    Reproduction details: the ordering check wraps each xa_node_free(node)
-    call in a copy of lib/xarray.c with a function that walks the tree from
-    xa_head and reports the node if it is still reachable or still the
-    ->parent of a reachable node.  The harness race test links a copy of
-    lib/xarray.c with a hook right after the xa_node_free() in xas_shrink()
-    that sleeps 1 ms in the writer; 32 threads, liburcu-registered readers.
-    Without that sleep, this patch alone still showed a use-after-free in 3
-    of 20 runs; those come from the xas_delete_node() bug (the race test
-    also erases nodes), and with both patches 20 of 20 runs were clean.
-    With only the xas_delete_node() fix, the sleep still gives 20 of 20
-    failures.  The kernel demonstration is a test build with mdelay(100)
-    after xa_node_free() in xas_shrink() for one test array, a writer
-    kthread on CPU 0 doing xa_store()/xa_erase() and a reader kthread on
-    CPU 1 doing xas_load()/xas_next() under rcu_read_lock().  The window
-    has not been hit on an unmodified kernel.  I can send any of these if
-    useful.
-
- lib/xarray.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/lib/xarray.c b/lib/xarray.c
-index bfe7bef80f34..ae9d7fc68861 100644
---- a/lib/xarray.c
-+++ b/lib/xarray.c
-@@ -471,11 +471,12 @@ static void xas_shrink(struct xa_state *xas)
- 		if (!xa_is_node(entry))
- 			RCU_INIT_POINTER(node->slots[0], XA_RETRY_ENTRY);
- 		xas_update(xas, node);
-+		if (xa_is_node(entry))
-+			xa_to_node(entry)->parent = NULL;
- 		xa_node_free(node);
- 		if (!xa_is_node(entry))
- 			break;
- 		node = xa_to_node(entry);
--		node->parent = NULL;
- 	}
- }
- 
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
--- 
-2.53.0
-
+Alan Stern
