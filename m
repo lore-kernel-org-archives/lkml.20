@@ -1,159 +1,154 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91D73C13E5;
-	Mon, 12 Oct 2026 19:02:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFBF420472;
+	Mon, 12 Oct 2026 19:02:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791831747; cv=none; b=sJMOlo3j96kzWvsvjl/tRyuNTy++BcestbNV6Ax/pjMxp+nPZxmJ41iPWOm249+rVpBr3veLMwvi55TOCF9NYS5kuPZ79AFInBR+n+lmta1IT5Ydiw1IMDAaAQLcUGYdtsjWXvBBO5dADYHqVZb6XTeHzHphY3HwX6vFvwAbHrA=
+	t=1791831747; cv=none; b=Iq1/jDi5A8oXus7bBchLGixcuZdnfm5PszwLrd0seL99HsHyTYy0Vy2DPBNDEHdixMYQ+SLBogmtY2T9jLMo9mEERjWnMdZdLFooPhoBggiKrmaGmqycrCxLPtWbdDZl9ET1zQOyezK07mtmb/JjYWyoTWur/BoOUqN6mMB1hmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791831747; c=relaxed/simple;
-	bh=//LpavBVXT8FVZoq1jGsPqVkYZpAs3i7a9LwVv33in4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tDbD91YYLsKeNkI44TASA1YynWhK+Dk8PoXeN73/YNxvTLF86tb9/AANQbuJ7Doa/SXYNde4AWEN0pgDbaRJscvQstqzy4kNAUGwZlfSGiQ6336g8rw3nFTCKqz9lItfS6EAvQ+OYexEia5U364IKM5rDsto1Pmbs9Atu28CE+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=masbJiR7; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Kr04+8By; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=masbJiR7; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Kr04+8By; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	bh=O20IeZuQ0t4WiEr9b4+pYGIZLXgdXfHpYPHyFrlntGk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eV7yVm7oStSkUndhXp0lj8V73Yr+iBT2E+3BzR4P1ISUstFO5GdgguTh+gK1STdMis84sDuJ+qTNBmXhz1FdPMF3qp86tGeiD9tNc6jvy1W6u4oJHPV8z69T8RToRpzutc8Y00AebJvhl+gvH+MChTmSEq2Fb2L1LMkLXYnBBfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=X3rIjyNk; arc=none smtp.client-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="masbJiR7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Kr04+8By";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="masbJiR7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Kr04+8By"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 424B721E04;
-	Mon, 12 Oct 2026 19:02:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791831743; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o1MJcydieOLnLddhhlzv+LN7MrTTO0vD0Im1KjvgXII=;
-	b=masbJiR7ZhTvYFKhFm1zl/0w/7elJwX8WwH6QoAFruwV6fHt5Qk5dx2YoaqGtAZXioJ1R4
-	wM8arvdPToaDjIuNloFEXafoBOy38SePsA9GTSxUUTaL9crmqzBCCtsFLKN/h5YOuvM/UX
-	q+L5sHnezzYhyz1SnzwWjUFHDS4HUeQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791831743;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o1MJcydieOLnLddhhlzv+LN7MrTTO0vD0Im1KjvgXII=;
-	b=Kr04+8ByiiE+Fka9M1EB4QURJv8iqJbcAuTn+0uiCL0tfYsKOfeSCRN9UqSOCshqpi9gDG
-	cBrflbtMpfkhpyCw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=masbJiR7;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Kr04+8By
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791831743; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o1MJcydieOLnLddhhlzv+LN7MrTTO0vD0Im1KjvgXII=;
-	b=masbJiR7ZhTvYFKhFm1zl/0w/7elJwX8WwH6QoAFruwV6fHt5Qk5dx2YoaqGtAZXioJ1R4
-	wM8arvdPToaDjIuNloFEXafoBOy38SePsA9GTSxUUTaL9crmqzBCCtsFLKN/h5YOuvM/UX
-	q+L5sHnezzYhyz1SnzwWjUFHDS4HUeQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791831743;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o1MJcydieOLnLddhhlzv+LN7MrTTO0vD0Im1KjvgXII=;
-	b=Kr04+8ByiiE+Fka9M1EB4QURJv8iqJbcAuTn+0uiCL0tfYsKOfeSCRN9UqSOCshqpi9gDG
-	cBrflbtMpfkhpyCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5D07A13314;
-	Mon, 12 Oct 2026 19:02:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id m+QbCr4uzWq2XQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 12 Oct 2026 19:02:22 +0000
-Date: Mon, 12 Oct 2026 20:02:20 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, jannh@google.com, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/madvise: keep the hardware dirty bit in MADV_COLD's
- THP path
-Message-ID: <as0uqGJ6zuCc--qL@pedro-suse.lan>
-References: <20261011132227.413217-1-samarth.colleges@gmail.com>
- <42087cd7-473e-40a7-ae63-3c841c615c8f@kernel.org>
- <asyy7Nwik5yMTNbo@gremlin>
- <asy4c7zkkmSRln1H@gremlin>
- <D964ECBC-59B6-4A4B-83D5-935EA2D06D30@nvidia.com>
- <asz7YUXhdmlenXvh@gremlin>
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="X3rIjyNk"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=Content-Type:MIME-Version:Message-Id:Date:Subject
+	:From; bh=TXj8/VoAkqWg7zJ5Ke96bOOeVqkiYrZSnKzKjHh+uRg=; b=X3rIjyNkyQloVWqZtBL
+	HSVhEcHZiptUCbCiJRyxJK7qZFiCQh6CcZ1DrRp6broaOL03YiuFMNkAuXpEOMhLRxiz7OKoLB2Rk
+	nlSSk1fxDi8bO234lZUd0M3qx1lFixoHP9MfMCSE21tQ7N8yXxkkH+FWe0EzEikh/MCU1/a6Oz6Qa
+	Ii+ymUYtmZ8V8xz+2udrKEu9blr4/OLVaik/U/OfTMbm5NnoaS6FPe6PEYDnAXM4xuvT2u2QDXIEc
+	4p0vK5ODGcjWF/E60ZrdJblrH6tzyW+163DK5ghPHfS5sbG6xdQeotBilzwuUTkhdIUr04VZTnFa7
+	DLn/yPAoBpTc1Sg==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <khorenko@virtuozzo.com>)
+	id 1xGLEY-007syj-0z;
+	Mon, 12 Oct 2026 21:02:11 +0200
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Subject: [PATCH 0/2] mm/shrinker: make per-memcg shrinker units cheaper
+Date: Mon, 12 Oct 2026 21:02:12 +0200
+Message-Id: <20261012-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v1-0-5a7608393b7a@virtuozzo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <asz7YUXhdmlenXvh@gremlin>
-X-Rspamd-Action: no action
-X-Spam-Score: -4.51
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 424B721E04
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALQuzWoC/yXOQQ6CQAyF4auYrm3CwIjRqxhDADtSTaakHcBIu
+ LujLr/N+98KRspkcN6toDSzscQMt99BP7TxTsi3bCiLsnaFc9h5HJVGnC2JovP+6A5o/Ca0QTk
+ +SRuOQZopcsIk2OIoCylKwLQInkJJha9cXbUBciRvBX79Dlyuf9vUPahP3yps2wddmykCogAAA
+ A==
+X-Change-ID: 20261011-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-9f2e043163af
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Muchun Song <muchun.song@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ cgroups@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3896;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=O20IeZuQ0t4WiEr9b4+pYGIZLXgdXfHpYPHyFrlntGk=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBqzS66Mbuywrlv6b2Dga7MuM9youcxt8Vx1wIJ5
+ lq/7ffk9FuJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCas0uugAKCRBRlgpH+WFc
+ KpE4EACo74AgOEnkO3qJHOGQLzIj17YnQoqIWXyrYHfISup6c56/SLLlgvPatitCEByRJY8O5Sq
+ YmKB0NDngFCa55W1vs6Yo1QVq2B1aPs6opekbQGZ+5xLcuQoakSxGlyWRdbCXpswOgwwYkooYlT
+ r8Yk1q+VjAR5QfTZkijBBP97z0RKJb/tW9gsizCCo2O0c+gvz+/8d7efzv+DSZ2gdmj2y6pxCKk
+ t4+8IaiaLfgtX61MCl0ZQukDI+rFR4fgjPTTeOYj05BZ8vNHyxKqdUPBchEMO6SGc+iOuyhxcfr
+ Fh8K94NHgLw62HR3m/7HWK/ljn4D7sde6poa5Z0S7JNpBCNDjAA0TBxAQXrgqd+ieyarEJZvsQC
+ auQjYgcnRRYB3ys2fPCAxrnStWoFAkth+A5oclP1Dp7FE07WNqia3S0TG2kV+FmPwT0w1wUVKKH
+ K3fyaoK2czaRZnL5KjCBFTE64L4+g0s20EK+8NsnUEjAoEpCfPCPj7/TAbmtHghnNX97Z8E0JZd
+ goSjgLIOnSbo1H9oP0nplE5KGYpxk+6/5hILoZ6Ijla52W20o2Iu9MTGyJJhKakegG2boo8kmcn
+ RY4iLgvXky2STntOuf6JA2mYYVDiFGExuTmEM3OT1DYhFVAGbw1gHblwX30iJN1aroXyFTkXz+r
+ ZKrDXHy2P6cnkMw==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 
-On Mon, Oct 12, 2026 at 04:26:31PM +0100, Lorenzo Stoakes (ARM) wrote:
-> +cc Pedro
-> 
-> On Mon, Oct 12, 2026 at 11:17:57AM -0400, Zi Yan wrote:
-> > On 12 Oct 2026, at 6:38, Lorenzo Stoakes (ARM) wrote:
-> 
-> > > [0]: https://lore.kernel.org/linux-mm/20261009-lazyfree-stable-fix-v1-1-70997958ef8d@nvidia.com
-> >
-> > No. Without lazyfree PMD level THP discard, the affect PMD will be split
-> > into PTEs without dirty bit and the dirty folio is still discarded.
-> 
-> OK thanks for clarifying!
-> 
-> >
-> > We will need Samarth’s fix for backport, then we can think carefully
-> > about David’s per-arch solution for mainline.
-> 
-> It's AI slop, and we don't accept that in mm (also -cc slopper).
-> 
-> Somebody from the core team will take of this fix separately.
-> 
-> Pedro - you mentioned you were interested in this, will you send a patch?
+Every memory cgroup allocates, per NUMA node, one shrinker_info_unit
+per 64 memcg-aware shrinker ids up to shrinker_nr_max, whether or not it
+ever charges an object to those shrinkers. Every superblock registers
+such a shrinker, so the cost is
 
-I'll send something, tomorrow :)
+  memory cgroups x NUMA nodes x shrinker_nr_max / 64 x 1 KiB
 
--- 
-Pedro
+because the unit is 520 bytes and comes from kmalloc-1k.
+
+Page cache reclaim does not make this go away:
+
+- Live cgroups keep their units until they are removed.
+- The units are not charged to any memcg, so memory.max does not see
+  them and a delegated subtree creates cgroups at the host's expense.
+- A dying cgroup keeps its units until the last reference to it is
+  dropped, for instance by cgroup writeback, a swap entry or a socket.
+  Nothing reclaims it for the sake of the units, and MemAvailable
+  counts them as unreclaimable.
+- shrinker_nr_max never comes down: after a burst of mounts every new
+  cgroup pays for the peak until reboot.
+- Both factors grow with the number of workloads on the host.
+
+Patch 1 lets a unit cover BITS_PER_LONG - 1 ids so it fills a 512-byte
+slot exactly: half the memory, nothing else changes.
+
+Patch 2 allocates a unit only when the cgroup gets a list on that
+shrinker's list_lru, which is where map bits are set: a cgroup pays for
+the shrinkers it holds objects of, not for every superblock on the host.
+The units stay uncharged, but how many a cgroup makes the host allocate
+is now bounded by the shrinkers it uses. The unit pointer array in
+shrinker_info still grows with shrinker_nr_max, at 8 bytes per 63 ids
+per node. Patch 2 relies on commit fafaeceb89a5 ("mm: switch deferred
+split shrinker to list_lru") and is not meant for stable.
+
+On a host running a few hundred containers (45000 memory cgroups, most
+of them dying, shrinker_nr_max 52480, 4 nodes) the units took 145 GB of
+377 GB.
+
+Reproducer without containers: 48 CPUs, 4 nodes, v7.3-rc6, fresh boot
+per kernel. 8000 tmpfs mounts raise shrinker_nr_max to 8064, then 2000
+empty memory cgroups are created. Active objects added to the 512-byte
+and 1-KiB kmalloc caches, and slab per cgroup:
+
+                  objects added       slab per cgroup
+  base            1011518 x 1024 B    548 KB
+  + patch 1       1023787 x  512 B    289 KB
+  + patches 1-2       136 x  512 B     42 KB
+
+The 42 KB left is the same on all three: the memcg's own structures and
+8 KB of shrinker_info pointer arrays at this shrinker_nr_max. A cgroup
+that looks up names on two filesystems gets 8 units (4 KB) with both
+patches, and so does each ancestor that had none. Writing a page of a
+file in each cgroup and removing the cgroups keeps the same amounts
+pinned by the 2000 dying cgroups until the cache is dropped.
+
+Tested with selftests/cgroup test_kmem and test_memcontrol, a check that
+memory.reclaim reaches 140 ext4 superblocks with consecutive shrinker
+ids, and unit installs from 64 cgroups racing with 3000 mounts that keep
+growing shrinker_nr_max. On a kernel with lockdep, KASAN and DEBUG_VM the
+same runs leave nothing in dmesg. test_memcg_sock fails there now and
+then, with and without the series: memory.stat's sock counter is not
+flushed yet when the test compares it with memory.current.
+
+---
+Konstantin Khorenko (2):
+      mm/shrinker: size shrinker_info_unit to a power of two
+      mm/shrinker: allocate the per-memcg shrinker units on demand
+
+ include/linux/memcontrol.h |   2 +
+ include/linux/shrinker.h   |   9 ++-
+ mm/list_lru.c              |   6 ++
+ mm/shrinker.c              | 161 ++++++++++++++++++++++++++++++++++++---------
+ 4 files changed, 147 insertions(+), 31 deletions(-)
+---
+base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
+change-id: 20261011-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-9f2e043163af
+
+Best regards,
+--  
+Konstantin Khorenko <khorenko@virtuozzo.com>
+
