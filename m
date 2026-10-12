@@ -1,313 +1,120 @@
-Received: from smtpfb1-g21.free.fr (smtpfb1-g21.free.fr [212.27.42.9])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A60AE46D0B0;
-	Mon, 12 Oct 2026 09:05:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.9
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43FE372EC1
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:05:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791795918; cv=none; b=WCjIa1DMjbX20ubI+VLypojqZ6Q4CIhFNBoWZa9nIdKOUiiGWOg3Pikg2n1qKJ+BvDyqM1ocPQO7hzZhXwFdbIu4acs8JLM6IOggT4RPLitNBZ/KDnywHkMNkt9Y7p5mmPphjmHxTn4G3lsHqOt1DezXWIU0Yd7u3j1D5Fr2QkI=
+	t=1791795925; cv=none; b=RFwkJU91HQsKAEH+RQxx0HSra76U9ivC+cyAtTv9z8vg0szAbkjERn60PeZ+ael5lipt5Fa/8RUdmkjCi+2jKbgpDH69RRON5uYI7mn3ru7bSqK/Gcew3+rBwfs4Zyxi0coVo+9gjp+sLHy8e+ncskHmPlCTB/mWWn/LWnCrSaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791795918; c=relaxed/simple;
-	bh=6nB5tsWF7Z5RNvLjIg0Icc00GP8xYNd4cXSXM7tiv3s=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:Subject:MIME-Version:
-	 Content-Type; b=TJALshQKjv2no+L9Xbc6Wka+VNDXS6ng8ReVAs9b/+8tMu/k7lFU9Rk712ybsC4fceTplIKThk3TGkqtc7MkHmI8oRCnsXUnPEHWZylteRMwRMAKScXVqc+OGjahTOt6fUIxSEE6PHi7riT8NddwIEXvUmeR09aMr5VN71EBsh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=F5Fu3Ym2; arc=none smtp.client-ip=212.27.42.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	s=arc-20240116; t=1791795925; c=relaxed/simple;
+	bh=j4Mm2XVUJhnDcK0+qLRxkVnUgQbyujJy6ilV2GG7+as=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SRCi4Qkz2XX8jUuqAVw0I4lXdwwDd14plqjENciEPddwxL95hQt4+66ywVwtqXlycH7SNmWGJbZNhptexTazWHFryoW2qCfi+S+QB1uTm5U+oXPkIyV5mc7LbwMWgJokbIOLMZ5V2lOk8WCbp7KJJCyrOQ9FmCBpNSrYf0I22Bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ex3TwE2t; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="F5Fu3Ym2"
-Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
-	by smtpfb1-g21.free.fr (Postfix) with ESMTP id ED79FDF88BA;
-	Mon, 12 Oct 2026 11:05:03 +0200 (CEST)
-Received: from zimbra65-e11.priv.proxad.net (unknown [172.20.243.215])
-	by smtp4-g21.free.fr (Postfix) with ESMTP id 8CC9C19F5AF;
-	Mon, 12 Oct 2026 11:04:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1791795896;
-	bh=6nB5tsWF7Z5RNvLjIg0Icc00GP8xYNd4cXSXM7tiv3s=;
-	h=Date:From:To:Cc:In-Reply-To:Subject:From;
-	b=F5Fu3Ym2jo9wXFjRkXjt/8qjzX28wvuMihiyQ/Kc/OCuI0iH/zhoiRcQjTJQHKzPB
-	 89uwiSasBaBVvZ7TrBrPI2A/7VYe1VUGFlbevxGfeV0DP38yJtk0TqDX2fdpAJM9K3
-	 HuHlbk6BmyTWE2kfC9hYi4izp5rkgekzQ5tV76I0gIsRQnbcj3dxCNUNQFPudVZ18O
-	 sqACmLdWiM78x6Zf0XxOqVHwvjyTpvz8JFQTQXJXrn8eIXKBmd2Y/0YJzDPTy1amGf
-	 vEv2rasJxN6GF7jCMH6WIsYQEDZpqgkisQNnnQEPCuMBMRGoKsUGpZSWpj76LmTGWL
-	 n8LxFglSRuaKg==
-Date: Mon, 12 Oct 2026 11:04:56 +0200 (CEST)
-From: =?utf-8?Q?St=C3=A9phane?= Grosjean <stephane.grosjean@free.fr>
-To: mkl@pengutronix.de, mailhol@kernel.org, 
-	Oliver Hartkopp <socketcan@hartkopp.net>
-Cc: linux-kernel@vger.kernel.org, linux-can@vger.kernel.org
-Message-ID: <1269621857.1047936901.1791795896395.JavaMail.root@zimbra65-e11.priv.proxad.net>
-In-Reply-To: <179161489475.1406898.15730503460636169751@kernel.org>
-Subject: Fwd: [PATCH 4/5] can: peak_usb: validate channel numbers in
- PCAN-USB FD
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ex3TwE2t"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8iIuA3968332;
+	Mon, 12 Oct 2026 09:05:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=CqlPhJ
+	z1sX/bStLCD096eMu+evQZLyASjyEBTk8Gsys=; b=ex3TwE2tsOY5/vfKBfv2iK
+	v1N0XWlYjRG5pTLperKmQp1CMMeTlhU3fkQwWQlm9Nf38p2YvlEM3B9ErceZVZUw
+	zNVBaDwuA/Z3YGX1+iKUGk49eGoFVR8gWkWcNRwXIWYY+OA6wZVpVdwJV8kl8CR5
+	i9YFWO4T9Kr8/OI3G+GT5RVsfEFZ7BAqNdA868RwP44v4XnJYFPIXi8EZ3Q6VZQJ
+	/4X4nmWNVxhb8tcqDjuUeBQrdEmFkyf1qZmsMLY5LTEpIbhD/JVuWPeF2g78SajY
+	rHEv3a/Jz2jUlsfYH4hA/Zoicg1OmSY5yfSj4mlyennBCVDMFc2IaOB6/DkjpXQw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1vyqnj-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 09:05:11 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8YvCQ978624;
+	Mon, 12 Oct 2026 09:05:11 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h802vmjus-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 09:05:10 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69C956tX47120740
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 09:05:07 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DA9122004E;
+	Mon, 12 Oct 2026 09:05:06 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DBDEE2004B;
+	Mon, 12 Oct 2026 09:05:04 +0000 (GMT)
+Received: from [9.124.215.77] (unknown [9.124.215.77])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 09:05:04 +0000 (GMT)
+Message-ID: <35446573-c8ba-414a-8a0d-d682a84d589e@linux.ibm.com>
+Date: Mon, 12 Oct 2026 14:35:03 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - GC154 (Linux)/7.2.0-GA2598)
-X-Authenticated-User: stephane.grosjean@free.fr
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] powerpc/configs: Add debug configs for debugging
+To: Gautam Menghani <gautam@linux.ibm.com>, maddy@linux.ibm.com,
+        mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org,
+        ritesh.list@gmail.com
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+References: <20260827121309.94434-1-gautam@linux.ibm.com>
+ <asyep4EEG-lNR72Z@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
+Content-Language: en-US
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+In-Reply-To: <asyep4EEG-lNR72Z@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzNCBTYWx0ZWRfX4XxDACEFGuRc
+ F0GbsSD+QHI989Q7HMT8RB9P3U+q+W8Uz+U3h+Xjw4snAYzq9eeFUkJK1NdKVOmeG5/cwQkIevl
+ OKt2AOQZDVV81+PyMhDuLQphKPIfcWk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzNCBTYWx0ZWRfXyO/tDWO8vaDT
+ ufHC1t7HnC9VVLmN81AuzwuQ86Grxo2TXW60BYkjwtgV/TPcnaJukbIJaAU5MpAz0LU6k7cIBWt
+ cOEEOaVRSABC3gyUfalFNyJg50RMoL8XWDR9+JGczHXJqhbaMvucBPUupJqvWunk+DWl3fcC1Eb
+ fwJFcJiRIYbetSeUXytNAEzpzmzUBTHNwThjOO3VCbXAJqNKCYxjBp55YiRgNVPnCrkUrKZ3088
+ FcAGMoIJsCzWoQDTut1vFwgXsjG/HwYySBX4fFSs/6rTKsyMfd4Qb6WLbxzsMT/QMOzjc/LcS3H
+ c5+ePdgqwNtMXKpvGKmK43r3AQSAmfo3kU2AApSYN3QJiCzi6ihPFPdjWfsnCBMp9Ljd2eujLbW
+ YiYpZUP6o9slWSfvW/H96NhQnQcPefB+1g1g7qyjQV1TKR19jb+9QtNdIUOofSa5trcEH5V25pG
+ T3usmJneJ2Wuu7Bq5CA==
+X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6acca2c7 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=CyTxvfVHbQM6u8GbU7kA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: BpnJB0wFhT3PBczyPt27ATm7HAjAc2ks
+X-Proofpoint-GUID: PKemi8W4puwuOrKSOOftae7E9U3yQVtV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
+ spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120034
 
-Hello Marc, Vincent and Oliver,
+Hi Gautam.
 
-I need help (or training) to figure out how to deal with these AI bots:
+On 10/12/26 2:20 PM, Gautam Menghani wrote:
+> Hi,
+> 
+> Can this patch be pulled in? Or is something else needed here?
+> 
+> Thanks,
+> Gautam
 
-- How many of them are there before the changes are accepted? It seems that=
- even if a patch has passed the Sashiko filter, we should still expect feed=
-back from other bots...
+Why it can't be part of existing debug.config? Why add component specific
+config and merge into def config?
 
-- The fact that there are multiple levels of bots isn=E2=80=99t a problem i=
-n itself, and is understandable. That feedback arrives on v1 even though v2=
- has already been analysed is also something I=E2=80=99m just learning: so =
-when can we consider it safe to push a new version without fear of receivin=
-g comments on the previous one?
-
-- And finally, providing more explicit comments on our changes is also a go=
-od thing. But when those comments themselves become a source of problems an=
-d rejections=E2=80=94due to an overly nitpicky interpretation by a bot=E2=
-=80=94it becomes far too time-consuming:
-
-> The "entire message buffer is discarded" wording also reads as if
-> this
-> patch adds that behaviour. The goto fail path in
-> pcan_usb_fd_decode_buf()
-> is unchanged. Records decoded before the bad one have already been
-> passed
-> up via netif_rx(), and only the bad record and the ones after it are
-> dropped.
-
-Best regards,
-
--- St=C3=A9phane
-
-
------ Mail transf=C3=A9r=C3=A9 -----
-> De: netdev-bot+sashiko@kernel.org
-> =C3=80: "stephane grosjean" <stephane.grosjean@free.fr>
-> Cc: mkl@pengutronix.de, mailhol@kernel.org, error27@gmail.com, wg@grandeg=
-ger.com, linux-can@vger.kernel.org,
-> linux-kernel@vger.kernel.org, "s grosjean" <s.grosjean@peak-system.fr>, k=
-uba@kernel.org
-> Envoy=C3=A9: Samedi 10 Octobre 2026 08:48:14
-> Objet: Re: [PATCH 4/5] can: peak_usb: validate channel numbers in PCAN-US=
-B FD
->=20
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->=20
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 1
->=20
-> If you believe none of the issues are legitimate, please reply to
-> each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let
-> patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your
-> reply
-> (one such reply per series is enough).
->=20
-> - [High] The new check `channel >=3D usb_if->adapter->ctrl_count` only
->   keeps the index inside dev[].
-> - [Low] The commit message for "can: peak_usb: validate channel
-> numbers
->   in PCAN-USB FD" says the patch "prevents potential out-of-bounds=E2=80=
-=A6
->=20
-> --
->=20
-> can: peak_usb: validate channel numbers in PCAN-USB FD
->=20
-> This patch changes the channel number check in the four PCAN-USB FD
-> decoders. The old bound was ARRAY_SIZE(usb_if->dev). The new bound is
-> the
-> adapter's ctrl_count, read through an adapter pointer that is now
-> stored in
-> struct pcan_usb_fd_if. Invalid channels now return -EINVAL instead of
-> -ENOMEM.
->=20
-> > Validate the channel number against the number of CAN controllers
-> > supported by the adapter before performing the lookup. Any message
-> > containing an invalid channel number is treated as malformed and
-> > the
-> > entire message buffer is discarded, as the device is considered to
-> > be
-> > providing untrusted data.
->=20
-> [ ... ]
->=20
-> > This prevents potential out-of-bounds accesses when handling
-> > unexpected or corrupted messages received from PCAN-USB FD family
-> > devices.
->=20
-> [Severity: Low]
-> Is "out-of-bounds" the right description here? This was the old
-> check:
->=20
-> =09if (pucan_msg_get_channel(rm) >=3D ARRAY_SIZE(usb_if->dev))
->=20
-> dev[] has PCAN_USB_MAX_CHANNEL (2) entries. No index outside
-> dev[0..1]
-> could get past that check before this patch.
->=20
-> What this patch seems to fix is a NULL pointer dereference on the
-> single-channel adapters, PCAN-USB FD and PCAN-Chip USB. Both use
-> .ctrl_count =3D PCAN_USBFD_CHANNEL_COUNT (1). pcan_usb_fd_init() only
-> fills
-> usb_if->dev[dev->ctrl_idx], and usb_if comes from kzalloc. On those
-> adapters dev[1] therefore stays NULL.
->=20
-> Before this patch, a device record with channel 1 passed the "< 2"
-> check.
-> Then, in URB completion context:
->=20
->   pcan_usb_fd_decode_canmsg(), _decode_status() and _decode_overrun()
->       read dev->netdev
->   pcan_usb_fd_decode_error()
->       wrote pdev->bec through container_of(NULL)
->=20
-> Could the commit message name this device-triggered NULL dereference
-> and
-> the affected adapters? There is no Cc: stable tag, so this matters
-> for
-> backport decisions.
->=20
-> The "entire message buffer is discarded" wording also reads as if
-> this
-> patch adds that behaviour. The goto fail path in
-> pcan_usb_fd_decode_buf()
-> is unchanged. Records decoded before the bad one have already been
-> passed
-> up via netif_rx(), and only the bad record and the ones after it are
-> dropped.
->=20
-> On the -EINVAL change: pcan_usb_fd_decode_error() and
-> pcan_usb_fd_decode_overrun() already returned -EINVAL before this
-> patch.
-> peak_usb_read_bulk_callback() also ignores the returned error code.
->=20
-> > diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-> > b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-> > index 82502594a4092..ddbb2be1de0dd 100644
-> > --- a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-> > +++ b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
->=20
-> [ ... ]
->=20
-> > @@ -536,8 +537,12 @@ static int pcan_usb_fd_decode_canmsg(struct
-> > pcan_usb_fd_if *usb_if,
-> >  =09struct sk_buff *skb;
-> >  =09const u16 rx_msg_flags =3D le16_to_cpu(rm->flags);
-> > =20
-> > -=09if (pucan_msg_get_channel(rm) >=3D ARRAY_SIZE(usb_if->dev))
-> > -=09=09return -ENOMEM;
-> > +=09/* Reject invalid channel numbers reported by the firmware.
-> > +=09 * Any channel below ctrl_count is guaranteed to have a valid
-> > +=09 * entry in usb_if->dev[].
-> > +=09 */
-> > +=09if (pucan_msg_get_channel(rm) >=3D usb_if->adapter->ctrl_count)
-> > +=09=09return -EINVAL;
-> > =20
-> >  =09dev =3D usb_if->dev[pucan_msg_get_channel(rm)];
-> >  =09netdev =3D dev->netdev;
->=20
-> [Severity: High]
-> Does this guarantee hold? The ctrl_count check keeps the index inside
-> dev[], but nothing makes sure usb_if->dev[channel] points to a live
-> device.
->=20
-> On the 2-channel adapters (PCAN-USB Pro FD and PCAN-USB X6,
-> ctrl_count =3D
-> PCAN_USBPROFD_CHANNEL_COUNT =3D 2), the new check is the same as the
-> old
-> ARRAY_SIZE() check.
->=20
-> pcan_usb_fd_decode_status(), pcan_usb_fd_decode_error() and
-> pcan_usb_fd_decode_overrun() repeat the same comment and check.
->=20
-> The first case is a NULL entry during probe. peak_usb_probe() creates
-> channels one at a time, and peak_usb_create_dev() registers the
-> netdev
-> before it calls dev_init():
->=20
-> peak_usb_create_dev()
->     register_candev(netdev);
->     ...
->     dev->adapter->dev_init(dev);
->         pcan_usb_fd_init()
->             pdev->usb_if->dev[dev->ctrl_idx] =3D dev;
->=20
-> Once channel 0 is registered and initialised, can0 can be brought up
-> while
-> dev[1] is still NULL. The window covers channel 0's dev_set_bus() and
-> dev_get_can_channel_id() bulk commands, which the device can stall
-> for up
-> to 1000 ms each. It also covers register_candev() for can1.
->=20
-> Opening can0 submits RX URBs on the bulk-IN endpoint that both
-> channels
-> share. pcan_usb_fd_decode_buf() routes each record by its own channel
-> field.
->=20
-> Could a channel-1 record then pass the "1 >=3D 2" test and dereference
-> NULL
-> through dev->netdev here? The same would apply to dev->can.state in
-> pcan_usb_fd_decode_status() and to the write to pdev->bec in
-> pcan_usb_fd_decode_error().
->=20
-> The second case is a dangling entry when probe fails. If channel 1's
-> dev_set_bus() fails after dev_init(), peak_usb_create_dev() takes
-> this
-> path:
->=20
-> adap_dev_free:
-> =09if (dev->adapter->dev_free)
-> =09=09dev->adapter->dev_free(dev);
->=20
-> lbl_unregister_candev:
-> =09unregister_candev(netdev);
->=20
-> pcan_usb_fd_free() does nothing for a device that has prev_siblings
-> set,
-> and it never clears usb_if->dev[1]:
->=20
-> static void pcan_usb_fd_free(struct peak_usb_device *dev)
-> {
-> =09/* last device: can free shared objects now */
-> =09if (!dev->prev_siblings && !dev->next_siblings) {
->=20
-> dev1 is then freed. peak_usb_probe() calls peak_usb_disconnect()
-> directly,
-> without usb_disable_interface(), so can0's RX URBs are still live.
->=20
-> Can a channel-1 record arriving in that window reach freed memory?
-> That
-> includes the write in pcan_usb_fd_decode_error().
->=20
-> Disconnects started by the USB core (unplug, sysfs unbind, rmmod) do
-> not
-> seem to be affected. peak_usb_driver does not set soft_unbind, so
-> usb_unbind_interface() kills the URBs before ->disconnect().
->=20
-> The follow-up commit "can: peak_usb: harden PCAN-USB message
-> validation"
-> only touches pcan_usb.c and does not cover this.
->=20
-> Would it be more complete to treat a NULL usb_if->dev[ch] as a
-> malformed
-> message in each FD decoder? That would also cover the single-channel
-> case
-> this patch targets.
->=20
-> Clearing the entry on per-channel teardown or failure would handle
-> the
-> dangling case. The comment would also need to be corrected.
->=20
-> [ ... ]
->=20
-> --
-> Sashiko AI review =C2=B7
-> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008-canfd_check_=
-channel_idx-v1-0-0a3bb82f4e09%40peak-system.fr
->=20
+Wouldn't that cause more confusion? If not, could you please add detail in
+changelog on how one can make use of these?
