@@ -1,109 +1,111 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1D4434E56
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:57:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F14437107;
+	Mon, 12 Oct 2026 06:58:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791788268; cv=none; b=F8RQRcf03JcVrfp/4YMvboGeCthvjh1dQqW9CEWmZpEwEINtLxxPuajkoo1Mro7pZWyjGmiYBtQsNrF8x75att+d7UiGSo2smuyq52cxWWUUeW2OtBBVlOLGh5A3zaesjirrvRWtL7p2ttddxmcYEfSWPm/HNvnL0YLps0xSIsE=
+	t=1791788313; cv=none; b=lEq66GopgidJU9eo2Dlro9QEwTz9Pis6bmbAGv4xCLysTzwaKjc35XoQ4GZi3bjxHZ6ZZYx9wui1ydxvWeOSx25boL3+fUZf4qdVxdjtWQdg4ldSggWp8z4LyvaiC9rhsurmlvsGZ9rXz4xBTDtgIEmx1ACTAeQcO78UX5u9sCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791788268; c=relaxed/simple;
-	bh=P6spEShhJuUJwspagHXdV60BnHh9HGtQLAR7l/RQSpU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mR1OwlIevQJ4wAIzIYMc1Q87dGsgJziETZ3GzZ1kSSoy/Rm/Xf1s00E4DzW2qvD0Jhl29+w7kGtQzJfW6R+hLQbaaCWiD1AEbBbsFfB/NYVSWxT6rsqSY1qB3yKuyvjok2s58LH7GAcOijdyp3FvKhN1s6oR6hs6YnVPgAt1hq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W3RDrDtA; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791788313; c=relaxed/simple;
+	bh=kbzWEJG3RS0uRhAVKboubU+SQaTYUAE0pi1FzWvqMkI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=MsbshxUHdko1E9YSo+1AxRzhri/SYKv1PE3qIxKEt+pm/7evrmSQJkqibDhoJAfkHuSlGpcCsPfotIOIwraesNNDB7UtwZkyxWlL8fPXEvOIsglsRlyleHnhQLV61C5vsHeFOoyYEK50W2G7BQ1S3O+MdX7OtwLMh5/WLCvznmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BorEUdRz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W3RDrDtA"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so15809805e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:57:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791788266; x=1792393066; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pb/kn1bilH8QkmWf3l7OGZJ5xTA+QDSeNfAS3mOibcg=;
-        b=W3RDrDtAIOYkUhFlQ5UGdWxsBhOi0ff0QXxOaoHXVd+9QOoIropo7mQ+/EMKyExkIu
-         uCfQ3DjcD2LItXYzZrXeZn3CiPwvxpGwEY0FytBQXhqNTCTaLl8hjcYFg+4WsZuOM9A2
-         9fZ6oJBpKhs3AXRWhs1cH8Rj3TXuj8HOZuxOJjv4yoyrxYtezT5ZIuIrVAxBM6abFycC
-         1onZKZs7POJfMn1UDaw+gjz4WDPR4x82mlmBe3bB1/KZ3jaxrKZxxeNancAov25pN78/
-         DlydDTTjo/9r/zGZ9qxKn1TDRr4Wga61gDIyyXuODxC/leXGOnt5hIFbOheY2PSl/ALV
-         uZug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791788266; x=1792393066;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pb/kn1bilH8QkmWf3l7OGZJ5xTA+QDSeNfAS3mOibcg=;
-        b=yEtW3RdnRnkDMpjUq3lDKmLYCekLCXp12ZNCENuC9yNoldSiAv4tgawiyLxGoHhO9D
-         6rAbhVHI1vMj59lJd/ZO+bD3eU3P/n70N5zPGRDWpkdaCoslmhvKkcEMDlBhXQDLQY3b
-         c4ZCaCjRlDeRBU4eh1MR6uxYoIhb/0RZepi0h1SecHcvJ7FRVz52ia5qdHAXyJang6gq
-         ymwXMx5a2nPo9s+8Xg45inrgzFl/COLuHT0DtuVhKg7rGsrpuzWe3GmVMvCJ1PX710lw
-         FqVJCtt2A7dIrYSOx3KN4OGgaie+u4akBHyUb+s+s9qOu8pb1C/4VY1wCkDB89oQ+xM2
-         Qw+A==
-X-Forwarded-Encrypted: i=1; AKwUvBzky1UHnwbqn0Vd1EsEHF0KBnUX1rYz4WyayidOfrE35oUh6hcDG2RV5aR2qtQhpmq30KCxRj13lMqiGms=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3DxxvOeLxP0g+hac9rHtOArAt27y03WQMQ77ElFg58JYwXtcd
-	HpUEjZy/YvxlsF86A/J5VXOIrk0oDyFwY7aexdhKEYFA8fKiVswjwEXS
-X-Gm-Gg: AYBFou2CMxSRdZumEkfstM53uDXKIgS1UF1PN7RIjKKujGMuYs6/NSc9hA7HuXPHWBF
-	bZ9A73OlXLTwin9/j9su0fuonVU+hWNSyySe1UmD+T+wpW7Ord3+PsS7K0SpJnuOUc10GxoGWzA
-	jcQps5VU1+zRNArGK9186vfAu0c/+hLVZUBJ7l/6coDyJzLhe9eqr0q3Kojc0khLlkpwBwlhTbb
-	mzU2cO3tMfjXzVb6qF6oSAT5555QbgbJ2j5BxPw//5lNxmjCgQUgPLEOnqE2jV/6MHvpwLQw4xa
-	4edwbGdZUyfdUWxZto236hs7RL1Z69jUQ9w+IRk1RYuUnbZc+vYZMp2t38M6DFwnjKBePAf3THx
-	CeZmzok2kAtWvdPSOXkKFdwfchcyHokseCqnGsZeW06tHDmmQrOyhgDsMWjhbxHPYClvWrdvhhS
-	iLNs+LrD1ZC4zyy1mdUGFTGD+eQZdUE2GoJEauGKLkH/+n779fCk2JLkxS5AfWOGbEbUuZo2+OU
-	vq2qA==
-X-Received: by 2002:a05:600c:190a:b0:4a1:746e:589a with SMTP id 5b1f17b1804b1-4a18e4aea54mr176998935e9.18.1791788265546;
-        Sun, 11 Oct 2026 23:57:45 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c85009csm208854355e9.2.2026.10.11.23.57.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 23:57:44 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>
-Subject: Re: [PATCH rtw-next v5 3/3] wifi: rtw88: support channel switch in AP mode
-Date: Mon, 12 Oct 2026 08:57:43 +0200
-Message-ID: <20261012065743.17665-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <04b18579ec644839af3d5baa1790618f@realtek.com>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BorEUdRz"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 23D6AC2BCFF;
+	Mon, 12 Oct 2026 06:58:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791788313;
+	bh=kbzWEJG3RS0uRhAVKboubU+SQaTYUAE0pi1FzWvqMkI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=BorEUdRzsAfpipQCGj0yE1tRyA3OjoVf4cirn/OQGZK7CfeceCcFGHFv6Jz2oMjic
+	 owstXvxO/dNTGKoliCUFjAe19XL0+gyYVw+klxLW99U4AiPUPWAEx+7nBPT0oozhaV
+	 /gF69n/sCUEvXI+hc9Gmj4Na1V+0eXJsYVDD4jEXpEuJdj/4W/2KX3A6cO4JUDbIXp
+	 3fis4R9KGH2hZh9r0nfbuCI2g6wfVRZD9lCpRgl3r6ygX2jRhrsXnZa0jeyXNoj7z+
+	 clxRRav8Xqg7I7MKUTtFTHlD+yn5mFGmVYhx1b2whMIYE9fLXDfxgwJJwE8wVTfE7f
+	 tY53ek+9hVlPw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 09AF0CA9ED5;
+	Mon, 12 Oct 2026 06:58:33 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Date: Mon, 12 Oct 2026 09:58:33 +0300
+Subject: [PATCH RFC v3 03/10] dt-bindings: arm: cpus: Add Cortina Systems
+ CS7542 enable method
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-b4-cs75xx-v3-3-0e0d17a098cf@gmail.com>
+References: <20261012-b4-cs75xx-v3-0-0e0d17a098cf@gmail.com>
+In-Reply-To: <20261012-b4-cs75xx-v3-0-0e0d17a098cf@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Drew Fustini <fustini@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ Jason Li <jason.li@cortina-access.com>, 
+ Fil Dunsky <filipp.dunsky@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791788310; l=1280;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=zDmn+esXces7eieK+stPpF5FV5ebbgc0xe7in2CfHQ8=;
+ b=KfHI9qnCfq7zCeyCyYma2HPx6TBdenZzEYtmFjFtsX6QRdEuh6M1ULY/y62HA2/+fQAPMi5oE
+ c/LD7aeSVe5CL1W3GR+m09He6ZuyjgZQNHDoP2L8JEAPzUzlhOjajnU
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
 
-Hi Ping-Ke,
+From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-On 2026-10-12 Ping-Ke Shih wrote:
-> > -       if (!test_bit(RTW_FLAG_RUNNING, rtwdev->flags))
-> > +       if (!test_bit(RTW_FLAG_RUNNING, rtwdev->flags) ||
-> > +           rtw_fw_csa_active(rtwdev))
->
-> As my comment in patch 2/3, I think we should cancel the work at core_stop.
+On the CS7542 the bootloader parks the secondary Cortex-A9 core in a loop
+that waits for an event and then jumps to the address found in a global
+software register. Add the "cortina,cs7542-smp" enable method for it and,
+as with the other release-address based methods, require cpu-release-addr
+to point at that register.
 
-Yes. In v6 rtw_core_stop() cancels csa_beacon_work next to
-update_beacon_work and clears csa_vif, which also covers the firmware
-recovery, so the wiphy_lock() in rtw_fw_recovery_work() goes away.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/cpus.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> > +               if (conf->csa_active)
-> > +                       rtw_fw_csa_start(rtwdev, vif);
->
-> Is this a necessary case? Can't rtw_ops_channel_switch_beacon() handle it?
+diff --git a/Documentation/devicetree/bindings/arm/cpus.yaml b/Documentation/devicetree/bindings/arm/cpus.yaml
+index 96136b70d..7a394c500 100644
+--- a/Documentation/devicetree/bindings/arm/cpus.yaml
++++ b/Documentation/devicetree/bindings/arm/cpus.yaml
+@@ -269,6 +269,7 @@ properties:
+           - brcm,bcm63138
+           - brcm,bcm-nsp-smp
+           - brcm,brahma-b15
++          - cortina,cs7542-smp
+           - marvell,armada-375-smp
+           - marvell,armada-380-smp
+           - marvell,armada-390-smp
+@@ -484,6 +485,7 @@ allOf:
+         enable-method:
+           enum:
+             - spin-table
++            - cortina,cs7542-smp
+             - renesas,r9a06g032-smp
+       required:
+         - enable-method
 
-It is the restart case. After ieee80211_restart_hw(),
-ieee80211_reconfig() replays BSS_CHANGED_BEACON with csa_active still
-set, and drv_channel_switch_beacon() is only called from
-__ieee80211_channel_switch(), so without this the countdown would not
-resume after a firmware recovery. v6 says so in a comment, and the
-same path stops the countdown when the beacon comes back without
-csa_active, which is how mac80211 ends a switch.
+-- 
+2.53.0
 
-Mehmet
+
