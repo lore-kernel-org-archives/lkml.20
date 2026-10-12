@@ -1,173 +1,153 @@
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020088.outbound.protection.outlook.com [52.101.196.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075F22BF3F3;
-	Mon, 12 Oct 2026 01:29:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A6362E7384
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 01:29:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791768555; cv=fail; b=pZ+ijJ5Gr0YRxaSLHeoZQtLEahJlbsdMc9aN5nr8C7uLflTgrXf999H4tqUVTLjVqFUVnbCXJrEDvuzJrdvsRmBG7MGcSp/2onwANXZbiksMiv5EjtNsaj6hKzMLHjGTvVaXH9hbfZEr7Rn6O6a+F9mtUs2RAWxuPjDnLyprsFk=
+	t=1791768600; cv=pass; b=V1yn0zJUMFazhjWLAe2xpDykGLdcxbn8pmvVvclB0j9NdGfQCVComzUQjVFVRx4GPb9fdTxVeewMvBqsFQTurBy3LfbchJHESEaznLKicj6gth0t8SzZ5bEHM1jMibQSo3y1CN3yWUBevd4PoNdb7eYTMUjuRst2pB3Rj1wGhKQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791768555; c=relaxed/simple;
-	bh=taW9B5hy6hpwTZ05nVw9IMW1U0q6lSexJKJ1GwnopYI=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=uzS/kqzHaC12JqN8Vn2AQITcxxggkxUyfv7UlBdfexwYQD2A3n/InOoBgz6fq7rOh+DvlKkS1zo58By4lh1XV2kY+5H9OaWjXad5VmWvgUzagC+V5rg42BE8VCNHvBR0c4M5UxNCMIiyYrPrR5V3DgUVrild+doCvgstIb62jTc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.196.88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VxzB6WtqSsU1K3ob+p3pYuT9iDKMaeWRwQwjfhQpReBauoAXs/SHVcSITC0+3HXKxtJtexGS81zGAGRfRJpM5C6f+N0zYurm8IofK2Iy5cCQXigGFCb+YD5C83RkM0AQG9vZKSWP7bWrt+geKf9k0bjpVD0M7b/PV3QQd81OtoDXcus1NyRyDNYLYbNNedmyPPER62xhwvW61AB8kdvYH5EW55uwlyeWv9bjkjnSz8c4gI2RPGpyFujWz9ZrKu0S1CosNjm0hm6yD0cvkKRWl8Dev984M5uFZyOyebmYR84VyIiQGjUwyRDPVwBkw2ky5hQW520TnwYpqxp4fC08iw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=hi20PcVx5j/rEk/BQ+7VtpcAYS5mlc7WpcFes2HKqmg=;
- b=M7sITXh+5kMZGu3eySPXtG4JUEK2Zbx3SGOjES6Ps1DHDSv6g1AtDWGT48BMsl+kZrdBU+2PN70hbB6I9nblo25tt2k2fHH4WnUN5CHx/tLMZKPy0+3GV42DA8yv0mrcE+XZatcuAE5q4BELxcrPXTOe1HpDh75j+Kj/fVFAtHJlrYQkNg0n1z0tMggJz+Dl4JDA8bmObIkErOntpIzjjfwig20OamwoRFiN6Lvun9drbVgN6Rrxkfxq6PJujuaZFPnGV+PToOc984jCuXkyCuNHtSdIiICJ/PTChZz4vyZB4KHeXHeRIM/xqs2UJTKv8kgtQjX6NwLgToJrkiYNKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by CWLP123MB7027.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:1f3::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 01:29:09 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 01:29:09 +0000
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: axboe@kernel.dk
-Cc: tom.leiming@gmail.com,
-	hare@suse.de,
-	atomlin@atomlin.com,
-	sean@ashe.io,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] blk-mq: dispatch kworker to housekeeping CPU when hctx cpumask is empty
-Date: Sun, 11 Oct 2026 21:29:05 -0400
-Message-ID: <20261012012905.267920-1-atomlin@atomlin.com>
-X-Mailer: git-send-email 2.55.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BN9PR03CA0952.namprd03.prod.outlook.com
- (2603:10b6:408:108::27) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	s=arc-20240116; t=1791768600; c=relaxed/simple;
+	bh=2mWlT12ok9+wAfwHwPbwd2teXfdSfdOZv+hot1KNv2o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZXhRV3URP5zL1dqa5Pl3XkXlcC54SW3cqlMPIqZs148oITHUtV00w+JrNCLzWsumdTIM0FVeff9MyzfV8Q79TIRoXixGof+f2sYSCFCjA2aIyvZqikCatD1Es3l7gMrWA6p3sOKJlkPFysOJ3p+Ok54xvlESFC1MkCnXuBCfrR8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n6AgjTeB; arc=pass smtp.client-ip=209.85.160.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n6AgjTeB"
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-48e9476e26aso270759fac.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:29:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791768598; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rbVwUooK9VjSdYi5v69s+CQLNmKU7acUV/mfXF6siZpwoFG0xWlXD18BOPTye+MtfI
+         HyDKXyOg4UxECqnQmHxwSZEg6r89gvDgPrXkBPoTBKqLcJIVLKQz5CWTsHtpEGpgPybo
+         lfYlzhkVDCejUgJ+k58pMVMLqLHgjieX9U2/aOXjwveXIt0+2Ow4kZzpnmjwvOl8JV11
+         CgSTdKU/4PX+Rosa4x5JD2e+vq/F2uag184yxwPxkLEUpn5I0aQ42wDz8zSfczvKcG45
+         TCCNl5gowYUHIGgTSDSmMuIkkz3WlWxNlHPjB4P8nm+dzWMxdD3ZFPM9txT7SsDyphrl
+         I8PQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Kw6qrZh0BRJNUFEBhohBLxpf0Jd2f9++I/pRK2fslF8=;
+        fh=YJQGjoIFz7vRuJncuxWnHFz+pfytez2AU8KnsFgfZ2c=;
+        b=En/2ct/NL+EbvTHv9YGLN4hsxtfiSHWOjOkzYMz3f81CJahUnRMSOYakj5geC6EzQq
+         5vnxrQi8B9hB1dm9gBwGvl+aWacB2+3Omac7u3yDknPEiCXT8CO64F+sopMLoJ4S5qYF
+         83+ebIN6WkN+1RWrKC6p3nMJBxqcPOl0qfOMtA7GOs9F3wh7MCLj8RXTZudcfsJ54G5L
+         OmLQ76yNCrJWiIMwVqub2jBSH+RMjZ9Gm7nUudY5u1GxBqEPq4MLZOKGCFFyzoXifSgY
+         HSUk3nQP+9NHNZz4vnwIpTf7OmW4tzxWIWNGUdy4kC3z8VFpoKKTeDSXH5Ra/oCuA5JY
+         XccA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791768598; x=1792373398; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Kw6qrZh0BRJNUFEBhohBLxpf0Jd2f9++I/pRK2fslF8=;
+        b=n6AgjTeBueWCNPHkhsQxJ7EgZiKZym27w3hIAhU+t9kZpCZcFYZz8fdjLmBHfj1zov
+         YtlaRX94hepxu0DznLwbB5/QNYOB54xYY9oBAatrSgmMw5jiHd0gPZj+eRFBvU3MczWv
+         8HY2cHUctM84Bnacc2Om6rsbbw7/Ggb9kSqhwbr2cEunLiyZ+w3Gb/zr+bSBoAonzecb
+         sB3EhzTt/i3hwCd+CxJ1fxkieFfsfu39nkHiHieY39l+XPTyZ/7cjEP8EyKkaQujy3uW
+         f+KLBVXk5QouBUxakx3bRXbCW+XW/wf9WBuXHQ/Rsv8y+TkRsRbQmHpZCmuiXvC9csMS
+         K7AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791768598; x=1792373398;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Kw6qrZh0BRJNUFEBhohBLxpf0Jd2f9++I/pRK2fslF8=;
+        b=uZWCqWn3ugm5CsBhHav28wmNwOLaS8oesXhNLS4/jLjC9Kx7QydOCd4N5g7gL4JtPg
+         oeIjmMWqPx54L6wQjOjOuTS+51xuUa4xVG5HMhyH4hcrwVruS8L38uNhif3Kot1z3OB8
+         BKIsxMskXymKa/kjJgP65N4uVbGs5x7g9AAYVVvbJAtlAePJCt1UAEXMNwTmeAQMPjaq
+         CIHC8DiJa0o6sMCrRgOvKmoyXoMCZ7KAJO3tGsyGS7urYLH8dJTXRsLQPo+SURA2l7vt
+         3/EGY1GN94H3amrOJukTX0vQqIUyOZTxz84of607MHRkIT2A2StUNrr8VGgzlmjN81Zh
+         zwFw==
+X-Forwarded-Encrypted: i=1; AKwUvBwmiof+9fyAA8XpUJPOrbMOVsU4PylL6nI3am2Pz/ezXcdP/5NaPTPthNtoSnZPa4pqJn4ImRYChFRraUg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuwXohXerMmmqaMUqQMEVSW/LicvDD3BCYzd7srcSz4eoGXdth
+	fxXSc4ne54HaqcqYT9gg4bz0JxJOj/ULSxy0N3ocR8GORxtRXtmALr4Xh+A6V9j+zmbjc9yKKdS
+	IiV9s4+BZUVJKZC680/Sx65vL08fKNI8=
+X-Gm-Gg: AYBFou1+flVA+FrtPSsZ9vWdRwZxFZgojeJCGrc/7bBh+aYS3LJm0m6SaVM4g4pXYMO
+	mpBsdI2G7Rvq53AVH37mto56MWFKWg16yqJuwCsXyqQS/r2WsH61EGFWtId6dI7SFsyfEt7PBuy
+	yaCbOuh5Gnwvkxhlw4GaCrsdtBkyMblkFan5nzr+YmhQaph+Wy9ejAPE9g27tguhXQohDoh+pnw
+	nSrALWbrZCDFMNEbqlBVcXle4k3ET7QaxZlnUYKTlL1y7RsxBl17yO55Qy7adQRadt5gW9r3AeY
+	EJiF01mYSsT2yNfqiu+PVQ4D8vdZLPPmaH4S4vCwi90FB7Fo9dnp/cM=
+X-Received: by 2002:a05:6871:e0f5:b0:493:186e:c57 with SMTP id
+ 586e51a60fabf-4a2a850b384mr6586764fac.2.1791768598035; Sun, 11 Oct 2026
+ 18:29:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CWLP123MB7027:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7359ab9-8210-4b41-889d-08df280036a5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|56012099006|18002099003|6133799003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	HnpAb7CuceWRbdlZD6TqRJ8UPHrst+3ZEx7zQENGbGdqA/32fFJrsCJD0dblOk4+YV636k4yHFmVyav67A+XnJmoxdAmuYrl0COeE4pmJh9xiFSRY2oJY+NJxiQzcl8J1MKwMfVNayCgkZu4SChrRDJ2AhDFUZPu1LPK4mSK3q+IFWFFbU9AoTEg1W4qhfCXzDn9pHYjc8n4rT6FJ477zexAfw+xpD2vqQ0AQcaH/LdURYWiiAR/e7FTvKKjmjSmjnjjbdtdpMqzCbv695c52s1D+XE6LG3zqqKYuZVhRWGae9SzXgM8JI3+QcUbIQRJNq7irYvmQHzwhyPWfm6klYPqwPg45mPxIwxJKqCVN++3Jo0RQ5RXrfyIs29cdF7dOC92e6rseBQsDWozCZlLoyjek8tcBaaVOou1bQSM0RjY/Q3mjiMvdOHjIdur+UgRBzvj2mz4a+7t5Do/jn84u+hIPbZgmZYolrD9tPpnOO5FIADw5KA6732OmAtq1/0sztMoaXpG3DuJR7blZNb0DUT+MWTDsmsWXyv2CRGa9fMem4Y34cYx6MzC2dizyKCTYjE3XFbBl8H2lzDlIUhXshn5i4UlwOR+nGXOD+kBGpa4gOQ5pn9zuWM5EtvDsdDFodpx7R9eafLLpLDKiZclNbYrwfi4+fA7H01rBXLmHAk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(18002099003)(6133799003)(261009223027099003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?QD7PAQk0cyqiRAmrJYozwY0Nx8rt4CA38ndDoqgMOCISUqrHmC++hie+QH4Q?=
- =?us-ascii?Q?CNOpdz06SVy5FKL2Q51OwQj8DN9TpuF9tgGyvh22lc+Osz0aLMu/u1KqjFbj?=
- =?us-ascii?Q?L5brKDASmmHt/frZGtAJqXLtzQZ3H4xD7WPsF77J5DgrmyvK2h7GJ2E6acx2?=
- =?us-ascii?Q?gLxmk9k6I/ILvze0PkL+5o7dYG11AKK9nl5c7FgWlqh4pWh/fN3MtZN7Bt0e?=
- =?us-ascii?Q?ghrpk2Rwj5qlMdSsnV7BpB2urYJvUI926Nfjd8R7mjaPmsxOamtQUkurXa1U?=
- =?us-ascii?Q?W0XAyQgq9UtONP9/HhNs6P4mIBJ0bA9RDuL8V7U7OFphGkJkLk20U+qKkDU2?=
- =?us-ascii?Q?G0hH1xQU1h1Ipon/R4/4bQmyjsqMwFMSNBS7oUgJquDhM5FYDKOg1gr56Rrt?=
- =?us-ascii?Q?aOjHMOmWFwmqRKThy4E+n6VIeRKBkHr2DfXwSpPFXFLRnlpaNHB+LO3766D9?=
- =?us-ascii?Q?Fm7H7NbuQwm7YTFx8m9k+fquHPpfzIcoP8GzLRc9eVmmXYksw70ETUOw0Wqe?=
- =?us-ascii?Q?/GPL17Vo9zdol0SSgF8HawUYXEo7m/oPC8gLUstqpCcir9vM7Q+j/ydYHfae?=
- =?us-ascii?Q?urc8VDrLKJDs1hLqvHH4x752M1W8nc/G8v5KlNJld+Bd1vA+XBjwYtdl0IBQ?=
- =?us-ascii?Q?DB9AIBOwGmCy391Q3MHq/1zvtIxMv+ilGzGbEw8z0cZlPPC3yiBsgB7XnARH?=
- =?us-ascii?Q?Z/ZNhwA+sJsPtoeftJFwc60V7blpki3FhPhVXtdK3jtWa+yZyeAjYiNTGYyd?=
- =?us-ascii?Q?n1BNYMfRV2kfn3IR0vAqQHIDjyIZYfYYzcnm3gMyuy4gQLy6IN4woUS/8HLZ?=
- =?us-ascii?Q?Bas5eq+P1RmByoOkNaL5/8wf8JFp6tNrAqmf0pGylXtqPSozFCJkvmOf30uT?=
- =?us-ascii?Q?cNIpFF7R5qtTcIA86aqj9S3Mc/WLYpIjB4nOVWHu5kLxOA/f9z6zaxbKGLGK?=
- =?us-ascii?Q?Ch9qTvdtNzlP98MGJi5Q7BkyibiifNluQaTMnYJ9QWnTeY9EmlY9c4s2MSCE?=
- =?us-ascii?Q?wifL8fEu4/iMWSOvKC7F8Z2BOK5IasUNjbedoe6EO5P8ttmRRFlEvRtZBcQg?=
- =?us-ascii?Q?acc5T5FHs8VlMI8jnnMzP/mrK+Lm5nocl7PCvMmjbFAZnoIaj5LXUsEB+J/I?=
- =?us-ascii?Q?biesZ+TxgtL74CojjMoIbXEUctX7tCoPjKE3AKPBSsABHsPzb0Qge1yGYk4M?=
- =?us-ascii?Q?WEcj6qa8HvBh+n4UibxflZbmVLXZYvvCR22KqJK4w5Bdbb59XSexPv5rYNoI?=
- =?us-ascii?Q?7jMu2JHFSlerwXLHnNM2zIXSQVuqJjp2hjG3ED6PThkfQIMsZAA7T6iEE0f9?=
- =?us-ascii?Q?SDcHbwLZ+Lbml4VvRUvyu0nKuu+MtXR4jo7HJdFgIGiOp+jFZymbfRccMWwJ?=
- =?us-ascii?Q?fpXYKaBWJ6Gh5VXl7RPE7Fmb5oFtnN8QnA3/sDBsngRePvoYBh55KHQ87PVU?=
- =?us-ascii?Q?GZBChakkR9NmLkFFufs3YH9Vma45L3DC9XvMv7O+eZ/rID8CEJu9rgpAUw02?=
- =?us-ascii?Q?xAnk1ObV8hIOW0kRhOF5cb7JnGZ3MT18u9P3QtLmlABt1qhukjCaPXElJu4b?=
- =?us-ascii?Q?egE3s4DSZsi9/BK4LqensuHyW2gJkkVxNNsStFjZv1n3lePOo4qQjnmRUExd?=
- =?us-ascii?Q?kbGmUrQWv7iCvAN88S4//KE3q434LEX4O9t4jtXqa9pLpbHbH57IBMJ9v9gu?=
- =?us-ascii?Q?M/RGWfq6zFQjX5tpyZejnJIO3Z4xRnVSn0Hq+bv9rAHPr0p4vAi6Z5nx1OJd?=
- =?us-ascii?Q?mvnDxkN55A=3D=3D?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7359ab9-8210-4b41-889d-08df280036a5
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 01:29:09.3722
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MW+uXnMa0SkOip7cq6F5hfOlH2CL14rtN51JunLt/Ey6v3vW8agsGt3fJqYXr60jYy7H5R40tBH/atfqspOX5w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP123MB7027
+References: <20260903-axiado-mailbox-fixes-v1-v1-0-f44cba251254@axiado.com>
+In-Reply-To: <20260903-axiado-mailbox-fixes-v1-v1-0-f44cba251254@axiado.com>
+From: Jassi Brar <jassisinghbrar@gmail.com>
+Date: Sun, 11 Oct 2026 20:29:45 -0500
+X-Gm-Features: AclHuK_lsvSSZO0Bi2pRxQKVVy1uDraC5Xay_eyyK_NjHGjAgdxwlmWlZz1xVDU
+Message-ID: <CABb+yY3RMpzBjuwKR3GKyw3h7M9aZkoYTRf5ZH44ewtTWVHo-w@mail.gmail.com>
+Subject: Re: [PATCH 0/2] mailbox: axiado: fix RX handling and debugfs name
+ truncation warning
+To: Swark Yang <syang@axiado.com>
+Cc: Krishnakumar Kesavan <kkesavan@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>, 
+	Tzu-Hao Wei <twei@axiado.com>, Karthikeyan Mitran <kmitran@axiado.com>, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org, 
+	kernel test robot <lkp@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Commit a46c27026da1 ("blk-mq: don't schedule block kworker on isolated
-CPUs") excluded isolated CPUs from hctx->cpumask to prevent worker
-threads from executing block work on isolated CPUs. When all CPUs mapped
-to a hardware queue are isolated (i.e. blk_mq_hctx_empty_cpumask(hctx)
-evaluates to true), blk_mq_hctx_next_cpu() returns WORK_CPU_UNBOUND with
-the intention of offloading execution.
+On Thu, Sep 3, 2026 at 2:17=E2=80=AFAM Swark Yang <syang@axiado.com> wrote:
+>
+> This series fixes two independent issues in the Axiado AX3005 mailbox
+> driver introduced by commit 14af7a96afa3 ("mailbox: add Axiado AX3005
+> mailbox driver"):
+>
+> Patch 1 fixes two RX-path correctness issues found during bring-up.
+> The threaded IRQ handler previously consumed only one frame per
+> invocation even when additional frames were already queued, and the
+> RX polling logic could mistake a FIFO error for completion of an
+> incomplete frame. It also corrects IRQ handled accounting and uses a
+> stream accessor for the RX FIFO payload.
+>
+> Patch 2 fixes a -Wformat-truncation warning reported by the kernel
+> test robot for the debugfs entry-name buffer.
+>
+> The two patches are independent and can be applied/reviewed
+> separately.
+>
+> Testing:
+>
+> Both patches build cleanly with the aarch64 cross-compiler and pass
+> checkpatch.pl. The originally reported -Wformat-truncation warning is
+> no longer present.
+>
+> As a runtime regression check, Patch 2 was also verified on AX3005
+> hardware, where the debugfs directory correctly exposes chan0-errors
+> through chan15-errors.
+>
+> Patch 1 was regression-tested with live mailbox traffic on AX3005
+> using a development kernel carrying the platform devicetree support.
+>
+> Signed-off-by: Swark Yang <syang@axiado.com>
+> ---
+> Swark Yang (2):
+>       mailbox: axiado: fix RX frame draining and error handling
+>       mailbox: axiado: fix debugfs name truncation warning
+>
+>  drivers/mailbox/axiado-mailbox.c | 116 ++++++++++++++++++++++++++++++---=
+------
+>  1 file changed, 90 insertions(+), 26 deletions(-)
+> ---
+> base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
+> change-id: 20260830-axiado-mailbox-fixes-v1-42b9f4ef43b5
+>
+> Best regards,
+> --
+> Swark Yang <syang@axiado.com>
+>
+Applied to mailbox/for-next
 
-However, kblockd_workqueue is allocated as a per-CPU workqueue
-(WQ_PERCPU). When WORK_CPU_UNBOUND is queued on a per-CPU workqueue, the
-workqueue core resolves the target CPU via raw_smp_processor_id().
-Consequently, if a task executing on an isolated CPU submits I/O and
-triggers an asynchronous queue dispatch with zero delay, &hctx->run_work
-is queued directly onto the local isolated CPU's worker pool. This
-causes the local per-CPU high-priority kworker
-(e.g. "kworker/6:1H-kblockd") to be scheduled on the isolated CPU,
-introducing unwanted latency jitter and execution delays, thereby
-defeating the original objective of commit a46c27026da1.
-
-Rectify this by selecting an online housekeeping CPU via
-housekeeping_any_cpu(HK_TYPE_TIMER) when blk_mq_hctx_empty_cpumask(hctx)
-is true. This ensures that:
-    1.  The delayed work is cleanly offloaded to a housekeeping CPU.
-
-    2.  The per-CPU high-priority kworker on the isolated CPU is not
-        scheduled.
-
-    3.  Hardware queues with valid mapped CPUs preserve their per-CPU
-        locality and batch round-robin behaviour.
-
-Fixes: a46c27026da1 ("blk-mq: don't schedule block kworker on isolated CPUs")
-Cc: Ming Lei <ming.lei@redhat.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: stable@vger.kernel.org
-Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
----
- block/blk-mq.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index 025a799f35b9..9480c3aac898 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -2252,8 +2252,11 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
- 	bool tried = false;
- 	int next_cpu = hctx->next_cpu;
- 
--	/* Switch to unbound if no allowable CPUs in this hctx */
--	if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
-+	/* Switch to housekeeping CPU if no allowable CPUs in this hctx */
-+	if (blk_mq_hctx_empty_cpumask(hctx))
-+		return housekeeping_any_cpu(HK_TYPE_TIMER);
-+
-+	if (hctx->queue->nr_hw_queues == 1)
- 		return WORK_CPU_UNBOUND;
- 
- 	if (--hctx->next_cpu_batch <= 0) {
--- 
-2.55.0
-
+Thanks
+Jassi
