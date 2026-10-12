@@ -1,165 +1,160 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FE82F7F19
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:28:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10E42BD033;
+	Mon, 12 Oct 2026 04:30:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791779343; cv=none; b=Td8hvk2PULX3Yr4Gy7GWzJNoyyoo4OPkMRncgkEqsqBw4yVvZQ9VHqVSbkdudrtLQa2blls4NSf9rhS/jHcP/veE566s2jDklEAe4COLjk3O0wF6t1xJmB/Rk1SKKzlTGeIrftxDe8ELhBGS+mpQdlyVs6rs5KzR3MP14fTkGhg=
+	t=1791779433; cv=none; b=FBR9GR0PN2x21bqRg6HTmdLxzahaEL7bJGHSTJUfgHz7zMSiGurvn2K8l4y2Cp1iNlQK/60fThjP+YLATwd/QOn97dpJf/w/kaoy6RRJlgw4btiaM/oqybiR01sJQiWcU+cq3vY8MeA22WOEHQGUwGQ7EqYSGhQwiGOI3tD5WOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791779343; c=relaxed/simple;
-	bh=pRlzebhzfMcwBYlKAjXu+UMHQRlq2AZuMEqk4W6Kg7c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iUyHgAXTvTyTCxBK9B3oettBNwt7faEXZiTQj2kR/jkOcnzTWDi5no1SWlUNt0CQ1Vf0+q6lIaeMsQzleFQarMtRMrSa3c/kAt+bWvbzHYyqvDISzF1eJ/cWAoIGN4JzhaykZDMozwEq1Yms8URvABnpKf2jt+OdtbCHLpC7bzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mng3E7jx; arc=none smtp.client-ip=209.85.219.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791779433; c=relaxed/simple;
+	bh=9jY69FiLw6WSt8t0W8Yy55L0q0eRB4ZdxPkG7etOsrY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=uafmnLycmqdBEOcoxv+WVKgRVoIobEZ+I6Z392E7ey4qD8j5N+i1nk3e7ZnIYFlShosYbq5WaPRK4CilACBAgg+giHu9Ydcn1KeVSgdNW5HlWOPcDzb/sz22Bemw7SJhd8TZUK7YMU2WvW/Tng096W8PD+8xY2asODiAuvHesNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C5nto+yM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mng3E7jx"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91b8306b9f8so6120776d6.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:28:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791779336; x=1792384136; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u/GOj9Vb9MItUiIqU9aNuHv58kWFfc6mqjL05EnCs3k=;
-        b=mng3E7jx3pG2gAebQ5UtLuJ/HDKL3yr4zxU8xVE+O3vjJ/XLsiIQ2UHtirqdewgYmH
-         yMm1pewQMbUCxQpyMQ2yWgTJj7ZQ4QjLVhX4z50qzg2wD2Tw0A8QpmcXfdcgQod2imNp
-         VmkYf1Cobshbet9LKCj1jSDN58pYnerYjgXNWVLVVuQPegX9L/yRrrxKsL7hHwf7IKpc
-         2+9Ywk6Nwr5ajZJNNECYD6x71WVMiwL1O8n/EYHeSBv+CLGlIC4Ndi9arGEvruX/VLEv
-         4jaDiA8g8+6XWzcU8UpJ69D+jratftcZyu522SSj+wcLf5xrOuJLFb7R3D1GhvJR2Fug
-         bdhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791779336; x=1792384136;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u/GOj9Vb9MItUiIqU9aNuHv58kWFfc6mqjL05EnCs3k=;
-        b=HEKmPoU+MAsDTZZdnaPI7y71gxKVY3Sh/be3wqENXSII+2jJd5/NSCJckwKigCeAl/
-         LIKIwv66MhTQkf3Bww0sxtfQiAnbrGJHF45t1hPRK9ZxioWebvcR79k6nDMoRV+4+wOz
-         KYU8IDiUZlhv6l8L8AU6+kMGfBj7FnCqC0lGlvjMG4O74r7uWXbc5q4sQ8rC0CTYae6K
-         lCExRmG0lLt7mP+H26n+QfeO8OVVP+wzhCVA952ycjU/afPx4EJ0BA7VeD2xdd1dmcWV
-         OY8jZW7BR4/xllzYvrT/Lflb1RHzWbJNYpqfCxPZ4Tm8bPlhfG9m4qDGjDOqV4/Dne6L
-         UX5g==
-X-Forwarded-Encrypted: i=1; AKwUvBwoxHVtaxtvPgMrGcOPDhQl76LeDeUEDrJK+b3VethgXxuNARXd3/LE0grkm8/lajRiVwO+Yv+LmlW/XpY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTyJ9konAI+OqPRMaTcXYIoQmYdWU3Mq1VKaKVYJLaC2KQMNfu
-	7ZSTFMMQ6oik23eiYWMwpBLbqbXF9TnkgbV6i311peZ0sdFCQW4Jy2LR
-X-Gm-Gg: AYBFou3MIy4lE2fiLSdikunzDqEvKwTEdLoNoV1+W42TtHzSFopAG43RdFynSddNMp3
-	yswV9/U03Vc5Tudz26zLF5qee6YQh7jvyYpgWVVZZiyWZDpAuh3QPXEBMIQ1Oz6ew+zy/SmKUXL
-	22LzpIGeyftzkAaeo5kkkOEJmEiTceXAp/595LHEzOra8EKLUYzfgdZGKZdhGZKA3pSHPWr3hew
-	crkUAyTVHsR6JeusbHZ5/fkuuSVakHkZLRDQ6gLPPXpqXBu1Pz8VC0wICW1m9/VLuyfSr6L/QFo
-	KtfcKzzlwKg4/RVLkvi17zW5Q6JImSy24ZYM4eqnZpY8gG6Qt5W+Aw/RGgmKKCTBgJBUsypqEQm
-	qx4zNzTr3b/Z231LvCv2QaY8DFCNXk0a/SDyMvKJqivGqmq2WjGH59iEIQ6LHz42+6Ox9sxgXaB
-	Xxv1v/fveuf4y8vQc5gUdN4U9kG3KmFHJeSfUEXyfg8aDX8AxQVqVs0bb2aP9JRtcl1UOdMQqqo
-	2KYtX+A7UO7s4s6BlnDKhUNB/RtyNje
-X-Received: by 2002:a05:6214:4c8f:b0:91b:5d39:e142 with SMTP id 6a1803df08f44-91b5d39e995mr132501616d6.55.1791779335903;
-        Sun, 11 Oct 2026 21:28:55 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550e6609sm85433906d6.43.2026.10.11.21.28.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 21:28:55 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: "K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>
-Cc: Jinank Jain <jinankjain@linux.microsoft.com>,
-	Nuno Das Neves <nunodasneves@linux.microsoft.com>,
-	Easwar Hariharan <easwar.hariharan@linux.microsoft.com>,
-	Praveen K Paladugu <prapal@linux.microsoft.com>,
-	Tianyu Lan <tiala@microsoft.com>,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH v1] mshv: Don't free overlay pages after a failed unmap
-Date: Mon, 12 Oct 2026 00:28:35 -0400
-Message-ID: <20261012042851.389128-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C5nto+yM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 990131F0089B;
+	Mon, 12 Oct 2026 04:30:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791779429;
+	bh=LmxiW8ecbgTyq0XIhapOQCCxxMkdGoDLUc516Nsm02M=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=C5nto+yMoAyhCwKUjoMBZoQCrTiJKbs7f3q8Unhlryl2rZfBdsFRQS2i50Y4YtQiA
+	 hDg2rYfglnSu1WVGVyetbMNYLP+KsSgEBaMVilNqli4YUVsPz2ivvtvicGvOF0V/Ky
+	 RrbxQScvT9epn5hXe1eneKENaQRH+miF3IaNeUrs28/7JcFzG2PJaetzX9aDb9srJl
+	 qMc9HnMi34xLUCZjqa63/EvIpt1X2YzATqU4KsC1GkZp849UGn2KkPUu2k+2aZiJ1K
+	 ua6URIEwm1cYuz/QLpAWsuEogTSih50xV1ndwdIaEw1cRi2rnaJRTDcWgJqGb00OTF
+	 VAdmdriFWEZZA==
+Subject: Re: [PATCH net v2] net: usb: cdc_ncm: reject short GET_NTB_PARAMETERS
+ responses
+From: netdev-bot+sashiko@kernel.org
+To: xinsheng.zhu.ny@gmail.com
+Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, oliver@neukum.org,
+ giuseppe@southpole.se
+Date: Mon, 12 Oct 2026 04:30:28 +0000
+Message-ID: <179177942813.434549.3756195226539512858@kernel.org>
+In-Reply-To: <20261011035150.53315-1-xinsheng.zhu.ny@gmail.com>
+References: <20261011035150.53315-1-xinsheng.zhu.ny@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On L1VH partitions where the VMM can provide overlay GPFNs, the kernel
-allocates the VP state and stats pages and supplies them to the
-hypervisor as overlay locations through hv_map_vp_state_page() and
-hv_map_stats_page(). The hypervisor may write intercept messages,
-register state, and statistics to these pages. Only a successful
-HVCALL_UNMAP_VP_STATE_PAGE or HVCALL_UNMAP_STATS_PAGE confirms that the
-corresponding overlay has been revoked.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-hv_unmap_vp_state_page() and hv_unmap_stats_page() free the overlay
-page regardless of the hypercall result. If the unmap fails, revocation
-is unconfirmed, but dropping the driver's page reference may still
-allow the page to be returned to the allocator and reused. A subsequent
-hypervisor write through a retained overlay could then corrupt an
-unrelated kernel or user allocation.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Free an overlay page only after the unmap hypercall succeeds. On failure,
-leak the page rather than return memory that the hypervisor may still be
-able to access. This matches how the rest of drivers/hv handles pages
-whose state is unknown after a failed hypervisor operation; for example,
-hv_free_page() leaks a page that could not be re-encrypted. Log a failed
-VP state page unmap here because its teardown callers discard the return
-value.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: 19c515c27cee ("mshv: Allocate vp state page for HVCALL_MAP_VP_STATE_PAGE on L1VH")
-Fixes: d62313bdf596 ("mshv: Introduce new hypercall to map stats page for L1VH partitions")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-Compile-tested with x86_64 defconfig, CONFIG_HYPERV=y,
-CONFIG_HYPERV_VMBUS=m, CONFIG_MSHV_ROOT=m, and W=1.
+- [Medium] The patch makes binding stricter for every CDC NCM, MBIM and
+  Huawei NCM device, but the commit message does not say so.
 
-Not tested on an L1VH system. No fault-injection reproducer was run for
-the failed-unmap paths.
+--
 
- drivers/hv/mshv_root_hv_call.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+net: usb: cdc_ncm: reject short GET_NTB_PARAMETERS responses
 
-diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
-index cb55d4d4be2e5..9614cee4dad39 100644
---- a/drivers/hv/mshv_root_hv_call.c
-+++ b/drivers/hv/mshv_root_hv_call.c
-@@ -651,8 +651,18 @@ int hv_unmap_vp_state_page(u64 partition_id, u32 vp_index, u32 type,
- {
- 	int ret = hv_call_unmap_vp_state_page(partition_id, vp_index, type, input_vtl);
- 
--	if (mshv_use_overlay_gpfn() && state_page)
--		__free_page(state_page);
-+	if (mshv_use_overlay_gpfn() && state_page) {
-+		/*
-+		 * If the unmap failed, the hypervisor may still be using the
-+		 * page as an overlay. Leak it rather than handing it back to
-+		 * the page allocator.
-+		 */
-+		if (ret)
-+			pr_err("%s: failed to unmap partition %llu vp %u state page type %u, leaking page: %d\n",
-+			       __func__, partition_id, vp_index, type, ret);
-+		else
-+			__free_page(state_page);
-+	}
- 
- 	return ret;
- }
-@@ -1003,7 +1013,12 @@ int hv_unmap_stats_page(enum hv_stats_object_type type,
- 
- 	ret = hv_call_unmap_stats_page(type, identity);
- 
--	if (mshv_use_overlay_gpfn() && page_addr)
-+	/*
-+	 * If the unmap failed, the hypervisor may still be updating the
-+	 * overlay page. Leak it rather than handing it back to the page
-+	 * allocator.
-+	 */
-+	if (mshv_use_overlay_gpfn() && page_addr && !ret)
- 		__free_page(virt_to_page(page_addr));
- 
- 	return ret;
+This patch changes cdc_ncm_init() so that GET_NTB_PARAMETERS must return
+the full 28-byte NTB parameter structure. Before, only negative errors from
+usbnet_read_cmd() were rejected. Short and zero-length responses now fail
+with -EIO, and negative errors are passed through unchanged.
+
+> diff --git a/drivers/net/usb/cdc_ncm.c b/drivers/net/usb/cdc_ncm.c
+> index 35db38cb3e4a2..79893d2342ca1 100644
+> --- a/drivers/net/usb/cdc_ncm.c
+> +++ b/drivers/net/usb/cdc_ncm.c
+> @@ -524,9 +524,9 @@ static int cdc_ncm_init(struct usbnet *dev)
+>  			      |USB_RECIP_INTERFACE,
+>  			      0, iface_no, &ctx->ncm_parm,
+>  			      sizeof(ctx->ncm_parm));
+> -	if (err < 0) {
+> +	if (err != sizeof(ctx->ncm_parm)) {
+>  		dev_err(&dev->intf->dev, "failed GET_NTB_PARAMETERS\n");
+> -		return err; /* GET_NTB_PARAMETERS is required */
+> +		return err < 0 ? err : -EIO; /* GET_NTB_PARAMETERS is required */
+>  	}
+
+[Severity: Medium]
+Can this turn a short GET_NTB_PARAMETERS reply, which used to be tolerated,
+into a bind failure for devices that currently work?
+
+ctx->ncm_parm sits in the ctx that cdc_ncm_bind_common() allocates zeroed.
+__usbnet_read_cmd() copies only the bytes the device actually returns, so
+any fields that are missing read as zero.
+
+The driver already replaces a zero value in each of these fields:
+
+  cdc_ncm_check_rx_max() raises a too-small dwNtbInMaxSize to
+  USB_CDC_NCM_NTB_MIN_IN_SIZE.
+
+  cdc_ncm_check_tx_max():
+	if (le32_to_cpu(ctx->ncm_parm.dwNtbOutMaxSize) == 0)
+		max = CDC_NCM_NTB_MAX_SIZE_TX; /* dwNtbOutMaxSize not set */
+
+  cdc_ncm_fix_modulus() resets tx_ndp_modulus, tx_modulus and tx_remainder
+  to defaults.
+
+  cdc_ncm_init() itself:
+	/* devices prior to NCM Errata shall set this field to zero */
+	ctx->tx_max_datagrams = le16_to_cpu(ctx->ncm_parm.wNtbOutMaxDatagrams);
+	[ ... ]
+	if ((ctx->tx_max_datagrams == 0) ||
+			(ctx->tx_max_datagrams > CDC_NCM_DPT_DATAGRAMS_MAX))
+		ctx->tx_max_datagrams = CDC_NCM_DPT_DATAGRAMS_MAX;
+
+  If bmNtbFormatsSupported is 0, the driver simply keeps the mandatory
+  NTB16 format.
+
+With this change, any reply of 0 to 27 bytes makes cdc_ncm_init() return
+-EIO, and cdc_ncm_bind_common() then takes the error path:
+
+	if (cdc_ncm_init(dev))
+		goto error2;
+
+cdc_ncm_bind(), cdc_mbim_bind() and huawei_cdc_ncm_bind() all call
+cdc_ncm_bind_common(). Would any NCM, MBIM or Huawei NCM device whose
+firmware sends a short reply now lose its network interface?
+
+For example, a pre-errata device that leaves out only the trailing
+wNtbOutMaxDatagrams field would have worked before this patch. Would it
+work to require only the bytes up to and including dwNtbOutMaxSize (or
+wNdpOutAlignment)? Another option is to log a warning and continue.
+
+The commit message says:
+
+  "A short response therefore leaves the missing bytes zero-filled, and
+   initialization continues with parameters that were not supplied by
+   the device."
+
+It does not say that those zero values are already replaced with
+defaults, or that a tolerated firmware quirk now becomes a probe failure.
+Could the commit message describe this trade-off?
+
+About the tag:
+
+  "Fixes: 36c35416a94f ("cdc_ncm: fix endianness problem.")"
+
+Before 36c35416a94f, this code went through cdc_ncm_do_request() with
+actlen == NULL. That returned 0 for any non-negative usb_control_msg()
+result, so the reply length was not checked there either.
+
+Is 36c35416a94f the right commit for the Fixes tag? Because the tag points
+at a 2011 commit, this behaviour change is likely to be backported to
+stable kernels.
+
+[ ... ]
+
 -- 
-2.43.0
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261011035150.53315-1-xinsheng.zhu.ny%40gmail.com
