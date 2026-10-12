@@ -1,86 +1,124 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D143358D32
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:15:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818152; cv=none; b=tZRHGlW3/MJdqj98q67zyq2tbRtL5Pm7brrjiGguRgQbNHOQLdtArq0SII1aAgeMD1YEsonRWQ2VX85+Jhh9/murG1b7AKPp/IB88EkMxhJh1JehSIC2Sn5DC5Ogb6tyTEaTZJcowzJLGCblHesyM8ozsmu2V43L/vvOTHpwKik=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818152; c=relaxed/simple;
-	bh=AEH2va6iOCXqTJFNoLtai9BPvzPtP2b0LlMRaAMRVlM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aZt5Ts1Ha0EsL5cZS09jxDZxHplVnqnoiOqlB2y/VcbKsh24gsuR/6YFGRcUEP+eqt6Ia7ZZbdZavWO9wUnruz8sMYQQS/TDMCJ9AD5RCMsnFNXy5KJhyCy886TKyZlJ/6SaelMLFMM2WHl7iFkEE4wmpTvLht/1SXorG9FolEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NuEEtcHh; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FFB49AA30
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791818166; cv=pass; b=GwtVgmZT9LS1GRFevFa1c7ogw9WZ8P+3tbOKMNvLN51eelCRRr9ivrIDhBc2C6IJjLYhQ0EM0/yGQhm8zq2PIp8/f2C3xl9FhEP3K8pH3UNmxMxJB8adnJ9qtrpwx2+h6jvY9JNnoagouTKsw1xh6/Xkmr3Xxfhi11udJyoPMUk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791818166; c=relaxed/simple;
+	bh=Qh8/jPpdQb1uoYLtiV+P2F0fMSrInIfSg+J+6byfOcI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VtRrmp0eHWMlVavxrdDJQHo7LAulLLhXF8ioIc6dGaETyNllSzG9WLjJX2lMRI8Mt13FKvoXc+JQ4s0AFRKvDb6RbXEEPR9Dg0hzTXy6RDYXDjFI6t7eKMhPqpt751L1mdcUponVi+D2jxU/ITZPSdfmBJwK/lxcGkp3UV/90pI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=H0BgTGEn; arc=pass smtp.client-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NuEEtcHh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791818150;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AEH2va6iOCXqTJFNoLtai9BPvzPtP2b0LlMRaAMRVlM=;
-	b=NuEEtcHhrR781xG0quwwlGnmphWUMu3fvUeSROLcN4u1YC8SO1pR9Z240fZ0zRPjOgCag6
-	20RD07wojy1pnCHwykv4v2TBNC0UwOWqM10U5+L0lFHH5aKqMRkJaQDFCcmyEH2UjbbBDA
-	ehEvPLF9KEClIzUaz+ikKidyan93Z64=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-673-_9OIp1axOH-kjk9ybcme6g-1; Mon,
- 12 Oct 2026 15:15:45 +0000
-X-MC-Unique: _9OIp1axOH-kjk9ybcme6g-1
-X-Mimecast-MFC-AGG-ID: _9OIp1axOH-kjk9ybcme6g_1791818144
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 689C3195FCEA;
-	Mon, 12 Oct 2026 15:15:43 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 34D5E1956040;
-	Mon, 12 Oct 2026 15:15:40 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Mon, 12 Oct 2026 17:15:43 +0200 (CEST)
-Date: Mon, 12 Oct 2026 17:15:39 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Jeff Layton <jlayton@kernel.org>
-Cc: w15303746062@163.com, David Laight <david.laight.linux@gmail.com>,
-	chuck.lever@oracle.com, viro@zeniv.linux.org.uk, brauner@kernel.org,
-	alex.aring@gmail.com, jack@suse.cz, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Subject: Re: [PATCH v2] fs/fcntl: fix SOFTIRQ-unsafe lock order in fasync
- signaling
-Message-ID: <asz5m2nR1PfOqTUN@redhat.com>
-References: <d15a25fe784b5d4449c7ce4e56f1428d7ff28885.camel@kernel.org>
- <20260523135210.590928-1-w15303746062@163.com>
- <asI5Fn87_SoEd4G5@redhat.com>
- <asuxzwl4iWjjEjRD@redhat.com>
- <73b5a5174d98a3ae1dada32684e453debb8dfcd3.camel@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="H0BgTGEn"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8ab432273c5so14971297b3.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:16:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791818164; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QPCXN6Am17RiNAl/866VHz9xKqegn9Elg6K7TIHqdXR6r2LXRvK97qniH3ij9QdT82
+         +BAbI8ui0+woNwE9haGz+6Kq8Ct9qs7BUVS07glUQTpLaTNL/gM2kW9KYMsHlSqYDcCe
+         7SideluU+YVije79+iOT+69b8aMz2ucBIaCz7fPc2OKHJLitwHlCHWh2LoBDwiFrdJZo
+         Auy15n1x5+k+ZADG3cYjleZXyYjxRps6Febp17xb3lxpsDTsULrCbsNl9yM/ogiCo8Lm
+         6DTrhLk/lpJfBRW7O1g1iUc0P5qsoNGLAeeH/tS91WOLCrnnxsEpjnrfy7ygNkpZtz+J
+         coiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=cioAlEV1QQbacYFfypcvEatBdbBuNNB06BtQiQCYi0c=;
+        fh=Qb13M21D0B5HSru5gQUmuivpXQ9sDBPBZwiRhbr+u68=;
+        b=XV5agWUO7e4W7jtsAE0jI/6hF+htquzJQiqSaVohfZjBYa3cyVGpF7PY0Sd88oQ/rh
+         kz8QV6CBZWkVFfCuFhqQtSnJ+H4jrocsQuOB7wfafjsR23guRo0wBsvo0ElDPAkCcwDx
+         +6R3cQkAHKeJT9BAI2rjMFMw0vPx0HwOUvKCUKdPamcdC89mCWZmeMbgsOsVEQkI3MSN
+         OyDn1aNomVnMDdzjqlT32g2nE4Vz3JVDPo0kPfctyhRXc9lxbXKECuJJYZpxY64rnrRO
+         Rxex07bM3HKCWze1cxiYb35QmnQGU7orS+7JprPMjYWhRcJ7EFTXa0Ko8tpqveSycF+w
+         RfsQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791818164; x=1792422964; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cioAlEV1QQbacYFfypcvEatBdbBuNNB06BtQiQCYi0c=;
+        b=H0BgTGEnjHPsOpry8zM372M3cPbee1W5JIY+k1KGqv8WNzGyYlMWruUcNGXNpqKqHv
+         qAht/Fg1XEZo8JjFRoEHFhUiRD8Q5cYqy8MKiZYc5LQtEbtjmhvyhG/D2J4elSaSnKUV
+         ZM8MXqxhRXUvbFnlIr9rEEaR8zAMYY5wS09xL9mUt1dlIaceViENwfpBgQUtW3eVOGlU
+         pDKwvkrYloE/6nhq3HRdIEjN85hfMhGmgpxKiemxr8Ipgmoo4uHaSrLyQls+oGGVrOtN
+         wPBentZQM0axYBEPhSU6pemvJTTbrMwGD/WXXj/XHgW/LcIPOfUMxG79B8fdKd97k9XK
+         U3Nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791818164; x=1792422964;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cioAlEV1QQbacYFfypcvEatBdbBuNNB06BtQiQCYi0c=;
+        b=owm6Q+NTLJ9rHLTAvOc40GUi4CZWAIHp5hdcUmia1CqUxp9qjZ+vG33KmCNw5wR9mZ
+         3KcOXHL9RIWZ9KTnn7jlhaAxKkbHAqY0lTpyb33msN1iTagkM7sOW2gFkYOCol76sykj
+         +roDt6ghAdRrsVnw2VdjJbiOqayGUCY6tqFlCtg3ZycNtQ+0uw00miSNkZvRzqqQbK/D
+         IGQ2AYp+HG+JaGQsXjU2kAZYsfvVSyvsFLSC6OBXVjyzvvebY3fAayDEAFiK7YRJfL5l
+         L4RYiJtjPcSlDadBF/lHHdzli19QDmbEFzIHQJluzUu/cJweSR9vi+MZaCQulmvFR44t
+         4/iA==
+X-Forwarded-Encrypted: i=1; AKwUvBzxIWK1x9G9JsMWrNDgHOmimx5DhHraQATkqAamaJQTi83mxyAQqMxsYEDkAuEs1EtWCNmAtSh614MoMcM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKuV6SIs/MHAWnKoZalciq40qPvwhVPL2CbiGu5vNOmQ2PTON0I
+	5d+E3V0i4p7mvo5hKs0pXYDBT/SRlz8o4d742JKRiNRjv5UTFutpdiSQVqV9iKqNnFtcDCpEqD3
+	RLw2WanEFfPEXQpBdDC5Q8YF3kOQCYBokU4jo3B10
+X-Gm-Gg: AYBFou2VVeP/iUo4m5voRfbSgwp+UMpnjJc0uTcFyyZ4iROUrHHJHz9iWNY2z0NVkQi
+	lpp4jMYHC8ygtJv/85OGA5BhKE2K6hSCUUIJd3Z5dmvpEM/KjbEV3j52eYSLc6q/jbs2ZzOGraH
+	CxXluT5qO9IEDU1XP8XzevsuuRvQKAbqJdr45g6FSgoxp0dckf44ipcLj9u66qVut1nIYDpmQ29
+	tk3dO3B5UUgnmyu7Gayi353ob91iPfICpL7AA88C35nKQ6r+7m84uZHjlrzg4gaK9DGwU2OtrAg
+	tjO2r9/IXLj1Us7yLU1LknOPMd9CNa8o5EOymDfviqy0s1oPYTz6sASsvRGvIbCu17roi/tH3x8
+	8kIiGGjEhMNmWpny6958l
+X-Received: by 2002:a05:690c:f04:b0:8ae:b617:713d with SMTP id
+ 00721157ae682-8b07edfaf6amr35969547b3.19.1791818163556; Mon, 12 Oct 2026
+ 08:16:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <73b5a5174d98a3ae1dada32684e453debb8dfcd3.camel@kernel.org>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+References: <20261012134159.912183-1-elver@google.com> <20261012134159.912183-2-elver@google.com>
+ <CAG_fn=Umb8c1yjp-wEPPFSNXfNdr5UHb5BBd4tV=iwNSehCxxQ@mail.gmail.com>
+In-Reply-To: <CAG_fn=Umb8c1yjp-wEPPFSNXfNdr5UHb5BBd4tV=iwNSehCxxQ@mail.gmail.com>
+From: Marco Elver <elver@google.com>
+Date: Mon, 12 Oct 2026 17:15:25 +0200
+X-Gm-Features: AclHuK-ngdayfpaG9DdBIWGDrVoRKwhiuwWtMtaRRkzMdsYW60BnSKb-GUjELAE
+Message-ID: <CANpmjNPBoS7SUTMVboZPGdgXbhY_sz2LhzZqEU=EPojVWkqWHA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] rust: kcsan: add KUnit test for data race detection
+To: Alexander Potapenko <glider@google.com>
+Cc: Boqun Feng <boqun.feng@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Asahi Lina <lina+kernel@asahilina.net>, 
+	Yury Norov <ynorov@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
+	Joel Fernandes <joelagnelf@nvidia.com>, workflows@vger.kernel.org, 
+	linux-doc@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/12, Jeff Layton wrote:
+On Mon, 12 Oct 2026 at 17:04, Alexander Potapenko <glider@google.com> wrote:
 >
-> We probably should
-> revert this patch for now, until the problem and potential solution are
-> more clear.
+> >  rust/bindings/bindings_helper.h |   1 +
+> >  rust/kernel/Kconfig.test        |  11 +++
+> >  rust/kernel/kcsan_test.rs       | 120 ++++++++++++++++++++++++++++++++
+> >  rust/kernel/lib.rs              |   2 +
+> >  5 files changed, 135 insertions(+)
+> >  create mode 100644 rust/kernel/kcsan_test.rs
+>
+> FWIW `make rustfmtcheck` fails for me on kcsan_test.rs
 
-Agreed... I'll send the revert for now.
-
-Hmm. The "if (type <= PIDTYPE_TGID)" case in send_sigio/send_sigurg looks
-wrong too. send_sigio_to_task() -> ... -> lock_task_sighand() can fail if
-we race with de_thread().
-
-Oleg.
-
+Oops. I guess we'll make a v2.
