@@ -1,171 +1,159 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303C3355F42
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:36:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E59E33A70A;
+	Mon, 12 Oct 2026 10:36:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791801399; cv=none; b=HOEi26mBMZJFWi0l+EZBgumvz/Vu662EZ5WcVgvVvsuzp6ImM7kXroIGQNIMR9t5qxhD0HEiJvIOVbyxi72nCSIWysTph16TCJqmeD2zxq3boMQc0Y3l6E+mIOCzcF8GkMZVjgh0PUrR3/16FYP/oavswc/oZLnrmqyHgGz53P0=
+	t=1791801400; cv=none; b=LnhknALpSRkV+YEvxRKW9IZ0mjmcPRjj35UTundDwg5sQA04xXrfCZyU3t3jmQeriKhYxwVVw4ouffE0wRFZ1ymEctJhs+5hS72YuXanCFkRhfPl3xLNnuLMDCxKjyhia3S8i5/m6DiL6ERQjauQa7jCgwt6DP2Y7HCYE7OMPgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791801399; c=relaxed/simple;
-	bh=vo0Hl07Qqko7mQZRjYiWFQP4SZWCCuH0QSkXVILJeyg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=trw7LyYUKgKBrzlkN1O8j8H6BJQDMXgcHwZfU/OkASgdydIu34K9mHi7F4MCptNrcSP3Aiwc50I7zBJPfQtK6I3WJ87UQl9I3GWGoGYzrtd0BuKw9kqR6XgEsC7R5KPxIu2arIG8lyrP2mnYSa8flnqx1hyE10ywuB3+8Q+FcDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MqipxnQy; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791801400; c=relaxed/simple;
+	bh=CshdtUReocBu3d8xSBl4wYMU2IFjDNEUiLwOHv4hnKw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aUZZsfZnteRigHiylAWB1TIA0nK9NQU+zvdK/UcilcT7UGcoiAuodq/v2t504/WLhvb7vjQJHTWsmHdqxGJb733geEjwoLOmwhPwhamtlpLScq4npsax0ekfTdyNZlFRPx1IlnQT6ryQLjV7FbRWqaDUi6bU9IdCVowEBjohYEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nBgMd6hF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MqipxnQy"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8917c712f32so706942b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:36:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791801396; x=1792406196; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TYAbLfcSF4SvwtGMEqZtL/vm+XSKpgh03MXVN46JE/A=;
-        b=MqipxnQy1+m2axV8MIzADNTBxfHw4UnA2F+roj3C6z2QBLM+RixPvxGHPGBDkik+dA
-         vJm9whXqRJTfcFEPXwOTEpFEv9lqOtqpZ0WAL0IOeiJ8SeLLI6ScLyl8HTbnVHJKZL1c
-         xnjLhIsrO6yiOcmBSKw9mNC3uiZG049TOIRBazEYnmK2JQh0SZjceHAweFYOVN3Rlf8j
-         oTPjkJIR6+A+19JSas7XvLBpGKwXpZ1JQsj5bh08LYRMvqGLRkVvVunSkcFQ+7xaU7S5
-         xFBmW80NL5XBCHAPowhl/u0w9mfhBL2qJd2ivospesr3kZADilAch6nfNdCtFfI5uxuE
-         8PFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791801396; x=1792406196;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TYAbLfcSF4SvwtGMEqZtL/vm+XSKpgh03MXVN46JE/A=;
-        b=nY5MhZBp6gCCbe3hxWqpLUB20iyXxt2K8PUqBC7LIZurb0mEqDEKGBBJwlID273pps
-         qxIb0QMHynuJ/kE7g+F3BMGEqDhh8mf30pLlVMKIDd21WPY6kRRvFP3A73+XSiqamUgv
-         HTC+9A7FWgFi6S0XxiGSvQLaXqufBf9qamTi7gdNCJ5XSpkAJFJwuN2Dq8DMLZArypL2
-         KpeqVwDHn8kQAnfp4/7Y1gBmyHi480ttrgXvoOV9eW/IlgedxG/n+2zM+tG8jOUpJrXz
-         aAPxqq90mWmHWez4bG93ngMvUBp8AIBLauhVLoAP9GPxvriGU78n6vCzx34QpqldcoXC
-         psEg==
-X-Forwarded-Encrypted: i=1; AKwUvBwLEwNNr/JmRFDBoxstdJuNBV2n+d5y9v+x9hSKa0IlfgciCHqg2lYRP5+oBZ8AIIuLlKF0Pu2/W08Ia2o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJb+josJS4TkgBYBW4HWAryMScDqolqzUC9nxHVVRFqLSV9WUqu
-	Ywz6JrklAVw24anTpsZquwdhn3rp6KfmmAlggmAvsDiFG8KhR9y6eWMP
-X-Gm-Gg: AYBFou2LuUlUPhbHZ0109f37aO35y/rqjiIBtOJ7ImWPlEFla6yBuDYtv85q2vSj5n5
-	rQ6kWy854zPlPfWjBQzy/vIouaWAV48tPoYWxQvfQqpSN8i5PLc85yIYnmzuciWTlJv4duYas+H
-	XWaIacmrIeWkaT1XKjBzrDClhlHJj17p84li6vLjCWjvVnjNozCDvJBmAZ1ujAEFbuAO/7f3q/F
-	srg2T8UDLnriN3sYP2S+TRoGSK9VeEFgZ5gmNPf7TIYON0xU2A64rPnJYaHm/NaIi68wqF9U5+O
-	/XYpbQrryyJRkW9VsaOZ3Z2c9SItYR953Wx6oITkvcqlpSoicDrRJ/OvIukPgA0AvI0hfmMQQfm
-	0SOkqZ/ZU1n6U76wlLp5BaTfhHdi3B+ghXKS3JIFeNN69HqLa0SRA9Co3eb6JStEvMOEZwkAfAs
-	cz8GfbQPQnCrOKzQ+yj8Qyu3QGGzmAgJiJNExp/iU1Usp/cli9XKd0A91S+wLt1BhQh8GOiOR8Z
-	Pc5KQngakGeVVXdq77Xeq097z0EA8/f+/c=
-X-Received: by 2002:a05:6a00:856:b0:886:b762:8bfd with SMTP id d2e1a72fcca58-897c7cd10efmr7613646b3a.51.1791801396300;
-        Mon, 12 Oct 2026 03:36:36 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c4996be6sm4019639b3a.58.2026.10.12.03.36.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 03:36:35 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
-To: Chao Yu <chao@kernel.org>
-Cc: Jaegeuk Kim <jaegeuk@kernel.org>,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	qiwenjie@xiaomi.com,
-	qwjhust@gmail.com
-Subject: [PATCH] f2fs: wake up foreground GC waiters when the GC thread skips a round
-Date: Mon, 12 Oct 2026 18:36:29 +0800
-Message-ID: <20261012103629.1763003-1-qiwenjie@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nBgMd6hF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1BD1F0089B;
+	Mon, 12 Oct 2026 10:36:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791801399;
+	bh=d0Ru+UULBjDJTakg+6YSc+KSC2SkZhPc3GekW03A8bg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nBgMd6hFMwuCIMEM9dpBw5Ng/bXWnZQf8qC5gP/NgD3E+kjXB414nVqvhz58wZRxn
+	 /XRcRinw9FqmQV2kYqX0W/Ac/4AuGlZbLpQvpWRPn0Jx85m8QyrziqQULFEGRSB7DD
+	 oPteniB8ChUBmZFVRijAy4y9UMXV/UPnsW2GUn4o9K5uNuyg/sz6PohKdZzjTv3PJg
+	 qQKZyBbuDuQNdkRUnsc6hrQ3glx9ALYzYMj+pM7p4A/aAGIPo2pqjXAxEE+j9+XUgw
+	 e2lk3wGbqFGapkvO4e/efpchStfSbSxvWWApO6ut/64OwO/Wb/DSSUWTwIlYhfWQow
+	 Din+DVEpP32BA==
+Message-ID: <40fc5d04-2a20-42c4-9557-7277bc981172@kernel.org>
+Date: Mon, 12 Oct 2026 12:36:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/1] mm: page_frag: account page_frag pages in vmstat
+ and meminfo
+To: Yifan Li <liyifan21@xiaomi.com>, akpm@linux-foundation.org
+Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Matthew Wilcox <willy@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Pedro Falcato <pfalcato@suse.de>
+References: <20261010025941.1253-1-liyifan21@xiaomi.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20261010025941.1253-1-liyifan21@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-With GC_MERGE, f2fs_balance_fs() queues a foreground caller on fggc_wq,
-wakes the GC thread, and sleeps without a timeout or condition recheck.
+On 10/10/26 04:59, Yifan Li wrote:
+> This is an RFC.
+> 
+> Pages held by the page_frag cache are not accounted by any memory
+> statistics counter, so on systems that derive "LostRAM" as MemTotal
+> minus the sum of accounted memory they inflate LostRAM and lead to
 
-The root cause is that a foreground writer, the GC thread, and fsfreeze
-can race as follows:
+Sorry, what exactly is subtracted from MemTotal?
 
-foreground writer                  GC thread                  fsfreeze
-- f2fs_create
- - f2fs_balance_fs
-  - prepare_to_wait(&fggc_wq)
-  - wake_up(&gc_wait_queue_head)
-  - io_schedule()
-    waits on fggc_wq                                    - freeze_super()
-                                                         - frozen =
-                                                           SB_FREEZE_WRITE
-                                                         - sb_wait_write()
-                                                           waits for writer
-                                  - gc_thread_func()
-                                   - waitqueue_active(fggc_wq)
-                                     returns true
-                                   - foreground = true
-                                   - frozen >= SB_FREEZE_WRITE
-                                   - continue
-                                     no wake_up_all(&fggc_wq)
+How would any other kernel allocations be treated?
 
-The writer keeps its superblock write reference while sleeping. fsfreeze
-waits for that writer, while the GC thread loops because the queued waiter
-keeps waitqueue_active(fggc_wq) true.
+> misleading "leak" conclusions, even though the memory is legitimately
+> used by the network path.
 
-Wake foreground waiters on each early skip. A skipped foreground-GC round
-must not leave its caller blocked.
+Assuming "leak" in such scenarios is questionable, sorry.
 
-Fixes: 5911d2d1d1a3 ("f2fs: introduce gc_merge mount option")
-Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
----
-Reproduced on a 512 MiB F2FS image mounted with gc_merge, filled and
-fragmented under concurrent inode creation. The kernel reported:
+Aren't most page_frag allocations short-lived? Or is this more about the
+page_frag cache?
 
-  INFO: task sh:1381 blocked in I/O wait for more than 20 seconds
-  Call Trace:
-    io_schedule
-    f2fs_balance_fs
-    f2fs_create
+> 
+> The page_frag allocator (page_frag_alloc / napi_alloc_frag /
+> netdev_alloc_frag) backs sk_buff->head and the frags portion of
+> skb_shared_info.  Unlike slab (NR_SLAB_*) or page_pool, page_frag
+> pages have no counter.  A preliminary measurement on a 4K-page
+> arm64 Android device shows 14432 kB (3608 pages) of page_frag
+> pages already in use at boot, and the memory footprint grows
+> larger under heavy load (e.g. sustained traffic through the
+> virtio_net / tun receive paths).
+> 
+> Patch 1/1 adds an NR_PAGE_FRAG node counter and exposes it as
+> nr_page_frag in /proc/vmstat and PageFrag in /proc/meminfo.  Pages
+> enter the cache through a single entry point
+> __page_frag_cache_refill(), so the increment side is complete; the
+> decrements sit on the paths that free the cache page.
+> 
+> The remaining gap is on the release side, which is open: a cache page
+> handed to an skb frags array (skb_add_rx_frag() /
+> skb_fill_page_desc(), without an extra get_page) is freed via
+> put_page() (kfree_skb -> __skb_frag_unref -> put_netmem -> put_page),
+> bypassing page_frag_free(), so the counter can over-count under
+> network load.
+> 
+> Closing that needs the page to carry a marker checked at the common
+> free path, e.g. either
+> 
+>   1. a page flag: PAGEFLAG(PageFrag, page_frag, PF_HEAD), accounted
+>      and cleared in __free_pages_prepare(); or
+> 
+>   2. a page type: PGTY_page_frag reusing _mapcount, accounted in
+>      free_frozen_pages() (requires that page_frag pages are never
+>      mapped into userspace; true for the current RX paths).
+> 
 
-The SysRq task dump showed fsfreeze in freeze_super.part.0. An NMI
-backtrace reported:
+Certainly no page flag.
 
-  CPU: 2 PID: 229 Comm: f2fs_gc-254:0
-  Call Trace:
-    gc_thread_func
+A page type might be the right choice. I don't think Willy planned for that [1],
+IIUC, the bump allocator was something different, but another page type
+shouldn't hurt at this point.
 
-The f2fs_gc kthread also consumed 301 ticks in three seconds at
-USER_HZ=100.
----
- fs/f2fs/gc.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+[1] https://kernelnewbies.org/MatthewWilcox/Memdescs
 
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 926e6976bc2..086670f9df2 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -66,6 +66,8 @@ static int gc_thread_func(void *data)
- 
- 		if (f2fs_readonly(sbi->sb)) {
- 			stat_other_skip_bggc_count(sbi);
-+			if (foreground)
-+				wake_up_all(&gc_th->fggc_wq);
- 			continue;
- 		}
- 		if (kthread_should_stop())
-@@ -74,6 +76,8 @@ static int gc_thread_func(void *data)
- 		if (sbi->sb->s_writers.frozen >= SB_FREEZE_WRITE) {
- 			increase_sleep_time(gc_th, &wait_ms);
- 			stat_other_skip_bggc_count(sbi);
-+			if (foreground)
-+				wake_up_all(&gc_th->fggc_wq);
- 			continue;
- 		}
- 
-@@ -83,6 +87,8 @@ static int gc_thread_func(void *data)
- 
- 		if (!sb_start_write_trylock(sbi->sb)) {
- 			stat_other_skip_bggc_count(sbi);
-+			if (foreground)
-+				wake_up_all(&gc_th->fggc_wq);
- 			continue;
- 		}
- 
 -- 
-2.43.0
+Cheers,
 
+David
