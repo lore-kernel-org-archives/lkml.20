@@ -1,46 +1,65 @@
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128F83FD12A
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:21:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB9B41A921
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:21:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791800518; cv=none; b=nBdcOSthNCwESmGLbr5Sk2/TP2fdThnOAhbtv8R/gYCC/tqu8jVHwvYckPQU1QCDPO18yBIsoGvrG2DIL8eUc5Dc7xn/puSOrig3z5JXAX6Cc7Q8lSka38zAFgI+q95B+Vr9lTmb0B1JJ1xCgzO/dg2utD+uS4ZMWVIJEn7swNE=
+	t=1791800528; cv=none; b=Di1IcKVQly5DVRCvTrksHOuI3OJAZvdDE+I9I22axjqPJdvBDtvqgXHFroW+x/9t2/gfXT8qI/LquF6I5qCFcSaLxzNRM6Ddgz04m+2XOOa4/I8dZs9/8CzB82yXrLISf8K5rPkLtNs/zH39AC7Fwqd3pi0agu6O62FZYOZjUe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791800518; c=relaxed/simple;
-	bh=RvP9rQmILYbKW47h+QtqbiAmardQ1fP9X3hWH1C5iq8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=Y85MHs13XqHf3/tvDLVLLfNm+L0LZne1hJIIJX5fRF+V0OrqGtv5GGW15kMhL5JM4nbPHAf5jTdW9b+VBNSHue4dQc/ebuEdTRxNvQnraJ3CWgp9zIx4suhLeGOZuJn0DOZeI/Wdot6ObwFNzA1Z7j4gzOqWs5zGsmNqB2FCpfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=UmStFf1F; arc=none smtp.client-ip=185.132.180.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	s=arc-20240116; t=1791800528; c=relaxed/simple;
+	bh=nbmzk645K2Au1Vo+vbmjqut/AfbSCiLc8qQw/5saqHM=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=WJwjpkBWYjbJTgXWElHq7SfjFI+edXWdORHv99jKwuujZB7LKHSgfdA+t6dzeBkrpCv/8MMkHae+/AKbgjYXfqdtfjoc0TyW73eFQzmExKPJeAivLnhSSHa0zWhn1UEcSVhjJyqSr5HQwff4P82X4nv4FyI2YR3X6obYa8N8E7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=BW57GVym; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="UmStFf1F"
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8Ls8M280072;
-	Mon, 12 Oct 2026 11:21:11 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=A
-	r0NHjmqKiBhqbwfrITPB25FaCgkY3bUnQHQ4BRoyGk=; b=UmStFf1FrQyoG66dF
-	F714XW+kwGdImqN4BfC2z31wJFguIa2JjGBDFUpiMof1Wndz87AL86EkdfYRIXLU
-	FOM5VS2tGfxFFsPTvGCvPcdGc9hsZ2vumK9CbZvqBKeT1gcPbZ8+eqqE+Fm8Er1m
-	eh83JUysr5TiuVx0yM8jAJTq14xU2Czh9bhdGolXJdT5XrcCHOWd1vmsLtH78/WA
-	dKkqFlu5ugelhKVgToTI7VHU6EatcKY60b9QyRn4XkY9y6iJ/UG9PaIH3Y7f5q1i
-	j85Apf/0CFSpORkfQqXZqF1zn7J78iaRuHNso5VpZ0wqMI1LL+ZfSGKvWP/hjYGn
-	n1FgQ==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4h7det1kef-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 11:21:11 +0100 (BST)
-Received: from [127.0.1.1] (172.25.10.25) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 12 Oct
- 2026 11:21:09 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Mon, 12 Oct 2026 13:20:57 +0300
-Subject: [PATCH v2 1/2] drm/imagination: Switch to kernel-style MMU defines
- and access
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="BW57GVym"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a161d9b8c7so11205085e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 03:21:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791800513; x=1792405313; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=J/fGl7AngFu8xJcaPBlF37wwBTAGepjU2CFhZRheH0Y=;
+        b=BW57GVymKoBnEW3gNW1YAHOtJQxHCekiXGEUcaP9CRFTfw35EDNiyk8Xw6JAIctSVz
+         2OffkoTf+io5p6ghVOEDNHSceyjOS6otJEqNXlaCrZadBEu7qTsWeWtgh2QniTOC2DRp
+         aJbOJJRi7imLWqx6AtRkfxcbTURXp0Ph3SB1trP24VE+lrv4CrSiZU9k7QQd+6h+7wvl
+         Mf6K6m9rumCJ1Ru4SWqyocBls03Oifd9ugAd7bsVWx931lb48xsvGiVr/Mhbz+ojccHS
+         z4NhDGS/BA3De3skIIQdNIZ5i8gdjwmd5vjB8O86um+QGi1vwnTn3l0D+DWtkTjTMKTj
+         h6wQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791800513; x=1792405313;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J/fGl7AngFu8xJcaPBlF37wwBTAGepjU2CFhZRheH0Y=;
+        b=lCncz3hL+y4Y7KivJ/y4UZVPGpN4s0nFqmF4/Vse9rVfcuI91ovjf8nkkH5G9kjpGg
+         qVUOsnS1DqVW3y+Zir6kRN9P3cPcFCz/ZKvlHixuP/Y/8tnyD+4bOzUVqGpdb744XiTN
+         WwwCpVAMnvRhXEzR2QM4XS14uvxOnXDefa9YvMXBFF4+GbG52fAVDP2PtaPjYTpY8QL5
+         bWx97mR5s7t0mfoFt2LVPhLKa9cixJ8jvUpdOowM4aDXqylogpVFvSq5JNocgixZ0x8e
+         E4XM77KcXpJ7izZzATHHaTnx31/6ZRvrisipse1ew7HR6A5bTEbiKQTArv+J9AgVcL1B
+         A+yw==
+X-Forwarded-Encrypted: i=1; AKwUvBz08E7/4pTbxB+TPddYp0PfvPygXnuAVfdX+nw0Nenj4n7BcvwFAkpTs2jatQFAgBAyuvSxEcZsFYfeZwU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIb3DVOSkMqEHsY+Y/QDlJSYxihBgxACB+oCJ3g7EAP5JnxF1NY
+	umcgTil3/yz5PHHsFtcr8e1zkpzP+O46euMPbB7RNRZx7pPl/hcu494jlO4AlanMlVs=
+X-Gm-Gg: AYBFou1RQuXcQbPsJrztb+kt42wwiradbTHQTh1EfnflRw+f6W3MGDUfSnEnxoWV2qU
+	Gbbr3or9R+ptxtvWtJLhv4L1oMGazRY0kegWY5bkzTsnx8kZmFfb18ZUEWxz6APtcAU6x+QFkrR
+	4KxzNMHF7QzQWwD6fyjwxjX26S5Bi4+TK0gesPUK9mWv3215jDZ3+1IypurmGodJg0KOwafFSqS
+	7cdmOj202UFrcmaKldd3Eeb4ZT1/w1PRxvGy8L6kKXINSo0zb+WfXPNE8TcXTWT4CR8mLYZrb/7
+	IdeIt0b4FXZXFf59Wt4Ll8n+7rNWQ0KgcRu62AxpVQ9yoOiT7yotNRjg/IlHa6dXvb+xtaYqBrZ
+	aRI5ss2nXrcg89TNSBLd2NKoaRy/BIX3Xiy6FaLAy71KKudlSa/ULXfYv2wnflyuJuyXuy3TVxu
+	ddsUaFgN5z48NO822bqZxjGnSLxf9RLsBJ0HqVREx1+aO6wXQyh30MVlded0NFa7AKPWZSbD/GS
+	g1ZAmNgPKg0GP8fXw==
+X-Received: by 2002:a05:600c:3b08:b0:4a0:da23:e06d with SMTP id 5b1f17b1804b1-4a18e4a380bmr173177745e9.10.1791800512977;
+        Mon, 12 Oct 2026 03:21:52 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18dd15659sm184807835e9.4.2026.10.12.03.21.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 03:21:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,538 +68,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261012-b4-include-mmu-defines-only-in-mmu-code-v2-1-8aec58777ab6@imgtec.com>
-References: <20261012-b4-include-mmu-defines-only-in-mmu-code-v2-0-8aec58777ab6@imgtec.com>
-In-Reply-To: <20261012-b4-include-mmu-defines-only-in-mmu-code-v2-0-8aec58777ab6@imgtec.com>
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>,
-        Alexandru Dadu <alexandru.dadu@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791800468; l=21566;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=lYKvaj+ivO6wsIh+QlL2Hty/w+X0MwhIvPII7UNsmPU=;
- b=HZKf5RHQOfMmDeUwG6KllWtq48tjZb+nWFk8BIKrdUgwSXh18uSEIStNf83hnzZsAArtEEjLn
- dPac6GTzMviAq+ApBnMprVAutBlHeRpm1SInhpIigVELNQLUcSu+Utg
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-ORIG-GUID: N-zVLjd5o_8diDDkH2UYTZ8K1QqR3dK5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0MSBTYWx0ZWRfXzRd1bztSUBMd
- 434FwqBv2DF2ydw1SZeZASX/XwdGnAy018SewX5NFan4V0lRjEOo75ktdOEJju+9Qy8X8fccKdl
- eEt2/mxLFlZWUDfIrSnfIvH2RgLdja3foSZRHX1wjuajDdyeW/r+EM1y0EDkYWl2d7NwE0bIuad
- k5N0sPCd8xU0UWdm8P2bsdbXPNBrvcKjmKXTamCKmK1qDpvmqOOLt9FlKSpimvUcDSwivBH40Fw
- /t8TjPsG0jphc3ukoIXSWiXBCglF6Y/jExZTjahrWW5J9OoFzwi8HHpCmrJQOPHwFzCFJKnGniv
- VjNaLR8i9Z4ee4jCwzcU4PAJFLrfnHKwQCjU2nCgqD8sRR2/zw7mevC0ow6RTDNm92eE9LKbYru
- OeRKlqeDw5+BmjKA6hmCmvQZggZjAjoyOrUUuSwIcSdFtmp0OELXZhi9CTMjHTKMalCYKVa9lQz
- cn6QuDW3gphGnHjISDQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0MSBTYWx0ZWRfX7eRw6PiQhOOT
- Vro+LCApt0iiXB94L1CV0aSDhCS9dKd4mU+UVutQunI+mhQwmSjObrCH+Vr412opoD1x79qizvZ
- ukARdsTrfx1c+MT4ESnVz1bsGvhMmsA=
-X-Authority-Analysis: v=2.4 cv=OO6yTiaB c=1 sm=1 tr=0 ts=6accb497 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=1spURiKJc90A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=fp_m6kvEt62eiHk2oYEA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: N-zVLjd5o_8diDDkH2UYTZ8K1QqR3dK5
+Subject: Re: [PATCH v6 00/15] Add basic clocks and resets for JHB100 SoC
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Brian Masney <bmasney@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Emil Renner Berthing <kernel@esmil.dk>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ Hal Feng <hal.feng@starfivetech.com>
+In-Reply-To: <20261008123338.11081-1-changhuang.liang@starfivetech.com>
+References: <20261008123338.11081-1-changhuang.liang@starfivetech.com>
+Date: Mon, 12 Oct 2026 12:21:47 +0200
+Message-Id: <179180050741.66744.3459927533880490879.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=725; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=nbmzk645K2Au1Vo+vbmjqut/AfbSCiLc8qQw/5saqHM=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlntuwvSIosDtrlc1xK6mV2g+n6gmepGRNYf61rumds7
+ tB3utKuo5SFQYyLQVZMkaWGu1r8naTWl1nTdW7DzGFlAhnCwMUpABPRymH4Z/RhEnNj7FvtSQbP
+ mZs2dG3k5Q4K5X7qHdzINI+9vMr1LCPDW97JkxguTwtoivefJlDweaXjmrAbkR7PGc2V/qdefHC
+ GAwA=
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-From: Alessio Belle <alessio.belle@imgtec.com>
+> The JHB100 SoC includes CRG (Clock and Reset Generator) for multiple
+> subsystems:
 
-- Regenerate MMU defines to use GENMASK and BIT
-- Use FIELD_PREP/GET to access page table entries and split virtual
-  addresses in their components
-- Remove macros which can be reimplemented by FIELD_PREP/GET
-- Remove other unnecessary macros
+Nothing really forces you to send them all together.
 
-This should make the code a bit easier to maintain.
+In the future, could you try to send one CRG driver at a time ?
 
-Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
- drivers/gpu/drm/imagination/pvr_mmu.c            |  91 ++++-----
- drivers/gpu/drm/imagination/pvr_rogue_mmu_defs.h | 239 +++++++++++------------
- 2 files changed, 151 insertions(+), 179 deletions(-)
+It is fine to send big RFC to give context but after that, if you
+can make you series smaller, it is generally a good idea to do so.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_mmu.c b/drivers/gpu/drm/imagination/pvr_mmu.c
-index 3cac482e1034..86b22628cfb0 100644
---- a/drivers/gpu/drm/imagination/pvr_mmu.c
-+++ b/drivers/gpu/drm/imagination/pvr_mmu.c
-@@ -13,16 +13,15 @@
- 
- #include <drm/drm_drv.h>
- #include <linux/atomic.h>
-+#include <linux/bitfield.h>
- #include <linux/bitops.h>
-+#include <linux/bits.h>
- #include <linux/dma-mapping.h>
- #include <linux/kmemleak.h>
- #include <linux/minmax.h>
- #include <linux/property.h>
- #include <linux/sizes.h>
- 
--#define PVR_SHIFT_FROM_SIZE(size_) (__builtin_ctzll(size_))
--#define PVR_MASK_FROM_SIZE(size_) (~((size_) - U64_C(1)))
--
- /*
-  * The value of the device page size (%PVR_DEVICE_PAGE_SIZE) is currently
-  * pegged to the host page size (%PAGE_SIZE). This chunk of macro goodness both
-@@ -31,35 +30,31 @@
-  */
- #if (PVR_DEVICE_PAGE_SIZE == SZ_4K)
- # define ROGUE_MMUCTRL_PAGE_SIZE_X ROGUE_MMUCTRL_PAGE_SIZE_4KB
--# define ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT ROGUE_MMUCTRL_PAGE_4KB_RANGE_SHIFT
--# define ROGUE_MMUCTRL_PAGE_X_RANGE_CLRMSK ROGUE_MMUCTRL_PAGE_4KB_RANGE_CLRMSK
-+# define ROGUE_MMUCTRL_PAGE_X_RANGE_MASK ROGUE_MMUCTRL_PAGE_4KB_RANGE_MASK
- #elif (PVR_DEVICE_PAGE_SIZE == SZ_16K)
- # define ROGUE_MMUCTRL_PAGE_SIZE_X ROGUE_MMUCTRL_PAGE_SIZE_16KB
--# define ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT ROGUE_MMUCTRL_PAGE_16KB_RANGE_SHIFT
--# define ROGUE_MMUCTRL_PAGE_X_RANGE_CLRMSK ROGUE_MMUCTRL_PAGE_16KB_RANGE_CLRMSK
-+# define ROGUE_MMUCTRL_PAGE_X_RANGE_MASK ROGUE_MMUCTRL_PAGE_16KB_RANGE_MASK
- #elif (PVR_DEVICE_PAGE_SIZE == SZ_64K)
- # define ROGUE_MMUCTRL_PAGE_SIZE_X ROGUE_MMUCTRL_PAGE_SIZE_64KB
--# define ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT ROGUE_MMUCTRL_PAGE_64KB_RANGE_SHIFT
--# define ROGUE_MMUCTRL_PAGE_X_RANGE_CLRMSK ROGUE_MMUCTRL_PAGE_64KB_RANGE_CLRMSK
-+# define ROGUE_MMUCTRL_PAGE_X_RANGE_MASK ROGUE_MMUCTRL_PAGE_64KB_RANGE_MASK
- #elif (PVR_DEVICE_PAGE_SIZE == SZ_256K)
- # define ROGUE_MMUCTRL_PAGE_SIZE_X ROGUE_MMUCTRL_PAGE_SIZE_256KB
--# define ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT ROGUE_MMUCTRL_PAGE_256KB_RANGE_SHIFT
--# define ROGUE_MMUCTRL_PAGE_X_RANGE_CLRMSK ROGUE_MMUCTRL_PAGE_256KB_RANGE_CLRMSK
-+# define ROGUE_MMUCTRL_PAGE_X_RANGE_MASK ROGUE_MMUCTRL_PAGE_256KB_RANGE_MASK
- #elif (PVR_DEVICE_PAGE_SIZE == SZ_1M)
- # define ROGUE_MMUCTRL_PAGE_SIZE_X ROGUE_MMUCTRL_PAGE_SIZE_1MB
--# define ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT ROGUE_MMUCTRL_PAGE_1MB_RANGE_SHIFT
--# define ROGUE_MMUCTRL_PAGE_X_RANGE_CLRMSK ROGUE_MMUCTRL_PAGE_1MB_RANGE_CLRMSK
-+# define ROGUE_MMUCTRL_PAGE_X_RANGE_MASK ROGUE_MMUCTRL_PAGE_1MB_RANGE_MASK
- #elif (PVR_DEVICE_PAGE_SIZE == SZ_2M)
- # define ROGUE_MMUCTRL_PAGE_SIZE_X ROGUE_MMUCTRL_PAGE_SIZE_2MB
--# define ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT ROGUE_MMUCTRL_PAGE_2MB_RANGE_SHIFT
--# define ROGUE_MMUCTRL_PAGE_X_RANGE_CLRMSK ROGUE_MMUCTRL_PAGE_2MB_RANGE_CLRMSK
-+# define ROGUE_MMUCTRL_PAGE_X_RANGE_MASK ROGUE_MMUCTRL_PAGE_2MB_RANGE_MASK
- #else
- # error Unsupported device page size PVR_DEVICE_PAGE_SIZE
- #endif
- 
-+#define ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT __bf_shf(ROGUE_MMUCTRL_PAGE_X_RANGE_MASK)
-+
- #define ROGUE_MMUCTRL_ENTRIES_PT_VALUE_X   \
- 	(ROGUE_MMUCTRL_ENTRIES_PT_VALUE >> \
--	 (PVR_DEVICE_PAGE_SHIFT - PVR_SHIFT_FROM_SIZE(SZ_4K)))
-+	 (PVR_DEVICE_PAGE_SHIFT - __builtin_ctzll(SZ_4K)))
- 
- enum pvr_mmu_sync_level {
- 	PVR_MMU_SYNC_LEVEL_NONE = -1,
-@@ -378,19 +373,6 @@ pvr_mmu_backing_page_sync(struct pvr_mmu_backing_page *page, u32 flags)
-  * DOC: Raw page tables
-  */
- 
--#define PVR_PAGE_TABLE_TYPEOF_ENTRY(level_) \
--	typeof_member(struct pvr_page_table_l##level_##_entry_raw, val)
--
--#define PVR_PAGE_TABLE_FIELD_GET(level_, name_, field_, entry_)           \
--	(((entry_).val &                                           \
--	  ~ROGUE_MMUCTRL_##name_##_DATA_##field_##_CLRMSK) >> \
--	 ROGUE_MMUCTRL_##name_##_DATA_##field_##_SHIFT)
--
--#define PVR_PAGE_TABLE_FIELD_PREP(level_, name_, field_, val_)            \
--	((((PVR_PAGE_TABLE_TYPEOF_ENTRY(level_))(val_))            \
--	  << ROGUE_MMUCTRL_##name_##_DATA_##field_##_SHIFT) & \
--	 ~ROGUE_MMUCTRL_##name_##_DATA_##field_##_CLRMSK)
--
- /**
-  * struct pvr_page_table_l2_entry_raw - A single entry in a level 2 page table.
-  * @val: The raw value of this entry.
-@@ -431,7 +413,7 @@ static_assert(sizeof(struct pvr_page_table_l2_entry_raw) * 8 ==
- static bool
- pvr_page_table_l2_entry_raw_is_valid(struct pvr_page_table_l2_entry_raw entry)
- {
--	return PVR_PAGE_TABLE_FIELD_GET(2, PC, VALID, entry);
-+	return FIELD_GET(ROGUE_MMUCTRL_PC_DATA_VALID, entry.val);
- }
- 
- /**
-@@ -442,18 +424,18 @@ pvr_page_table_l2_entry_raw_is_valid(struct pvr_page_table_l2_entry_raw entry)
-  *                        associated with @entry.
-  *
-  * When calling this function, @child_table_dma_addr must be a valid DMA
-- * address and a multiple of %ROGUE_MMUCTRL_PC_DATA_PD_BASE_ALIGNSIZE.
-+ * address and a multiple of 1 << %ROGUE_MMUCTRL_PC_DATA_PD_BASE_ALIGN (4 KiB).
-  */
- static void
- pvr_page_table_l2_entry_raw_set(struct pvr_page_table_l2_entry_raw *entry,
- 				dma_addr_t child_table_dma_addr)
- {
--	child_table_dma_addr >>= ROGUE_MMUCTRL_PC_DATA_PD_BASE_ALIGNSHIFT;
-+	child_table_dma_addr >>= ROGUE_MMUCTRL_PC_DATA_PD_BASE_ALIGN;
- 
- 	WRITE_ONCE(entry->val,
--		   PVR_PAGE_TABLE_FIELD_PREP(2, PC, VALID, true) |
--		   PVR_PAGE_TABLE_FIELD_PREP(2, PC, ENTRY_PENDING, false) |
--		   PVR_PAGE_TABLE_FIELD_PREP(2, PC, PD_BASE, child_table_dma_addr));
-+		   FIELD_PREP(ROGUE_MMUCTRL_PC_DATA_VALID, true) |
-+		   FIELD_PREP(ROGUE_MMUCTRL_PC_DATA_ENTRY_PENDING, false) |
-+		   FIELD_PREP(ROGUE_MMUCTRL_PC_DATA_PD_BASE_MASK, child_table_dma_addr));
- }
- 
- static void
-@@ -554,7 +536,7 @@ static_assert(sizeof(struct pvr_page_table_l1_entry_raw) * 8 ==
- static bool
- pvr_page_table_l1_entry_raw_is_valid(struct pvr_page_table_l1_entry_raw entry)
- {
--	return PVR_PAGE_TABLE_FIELD_GET(1, PD, VALID, entry);
-+	return FIELD_GET(ROGUE_MMUCTRL_PD_DATA_VALID, entry.val);
- }
- 
- /**
-@@ -572,9 +554,9 @@ pvr_page_table_l1_entry_raw_set(struct pvr_page_table_l1_entry_raw *entry,
- 				dma_addr_t child_table_dma_addr)
- {
- 	WRITE_ONCE(entry->val,
--		   PVR_PAGE_TABLE_FIELD_PREP(1, PD, VALID, true) |
--		   PVR_PAGE_TABLE_FIELD_PREP(1, PD, ENTRY_PENDING, false) |
--		   PVR_PAGE_TABLE_FIELD_PREP(1, PD, PAGE_SIZE, ROGUE_MMUCTRL_PAGE_SIZE_X) |
-+		   FIELD_PREP(ROGUE_MMUCTRL_PD_DATA_VALID, true) |
-+		   FIELD_PREP(ROGUE_MMUCTRL_PD_DATA_ENTRY_PENDING, false) |
-+		   FIELD_PREP(ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_MASK, ROGUE_MMUCTRL_PAGE_SIZE_X) |
- 		   /*
- 		    * The use of a 4K-specific macro here is correct. It is
- 		    * a future optimization to allocate sub-host-page-sized
-@@ -582,7 +564,7 @@ pvr_page_table_l1_entry_raw_set(struct pvr_page_table_l1_entry_raw *entry,
- 		    * page table address is aligned to the size of the
- 		    * largest (a 4KB) table currently holds.
- 		    */
--		   (child_table_dma_addr & ~ROGUE_MMUCTRL_PT_BASE_4KB_RANGE_CLRMSK));
-+		   (child_table_dma_addr & ROGUE_MMUCTRL_PT_BASE_4KB_RANGE_MASK));
- }
- 
- static void
-@@ -714,7 +696,7 @@ static_assert(sizeof(struct pvr_page_flags_raw) ==
- static bool
- pvr_page_table_l0_entry_raw_is_valid(struct pvr_page_table_l0_entry_raw entry)
- {
--	return PVR_PAGE_TABLE_FIELD_GET(0, PT, VALID, entry);
-+	return FIELD_GET(ROGUE_MMUCTRL_PT_DATA_VALID, entry.val);
- }
- 
- /**
-@@ -736,10 +718,11 @@ pvr_page_table_l0_entry_raw_set(struct pvr_page_table_l0_entry_raw *entry,
- 				dma_addr_t dma_addr,
- 				struct pvr_page_flags_raw flags)
- {
--	WRITE_ONCE(entry->val, PVR_PAGE_TABLE_FIELD_PREP(0, PT, VALID, true) |
--			       PVR_PAGE_TABLE_FIELD_PREP(0, PT, ENTRY_PENDING, false) |
--			       (dma_addr & ~ROGUE_MMUCTRL_PAGE_X_RANGE_CLRMSK) |
--			       flags.val.val);
-+	WRITE_ONCE(entry->val,
-+		   FIELD_PREP(ROGUE_MMUCTRL_PT_DATA_VALID, true) |
-+		   FIELD_PREP(ROGUE_MMUCTRL_PT_DATA_ENTRY_PENDING, false) |
-+		   (dma_addr & ROGUE_MMUCTRL_PAGE_X_RANGE_MASK) |
-+		   flags.val.val);
- }
- 
- static void
-@@ -772,10 +755,10 @@ pvr_page_flags_raw_create(bool read_only, bool cache_coherent, bool slc_bypass,
- 	struct pvr_page_flags_raw flags;
- 
- 	flags.val.val =
--		PVR_PAGE_TABLE_FIELD_PREP(0, PT, READ_ONLY, read_only) |
--		PVR_PAGE_TABLE_FIELD_PREP(0, PT, CC, cache_coherent) |
--		PVR_PAGE_TABLE_FIELD_PREP(0, PT, SLC_BYPASS_CTRL, slc_bypass) |
--		PVR_PAGE_TABLE_FIELD_PREP(0, PT, PM_META_PROTECT, pm_fw_protect);
-+		FIELD_PREP(ROGUE_MMUCTRL_PT_DATA_READ_ONLY, read_only) |
-+		FIELD_PREP(ROGUE_MMUCTRL_PT_DATA_CC, cache_coherent) |
-+		FIELD_PREP(ROGUE_MMUCTRL_PT_DATA_SLC_BYPASS_CTRL, slc_bypass) |
-+		FIELD_PREP(ROGUE_MMUCTRL_PT_DATA_PM_META_PROTECT, pm_fw_protect);
- 
- 	return flags;
- }
-@@ -1671,8 +1654,7 @@ pvr_page_table_l0_remove(struct pvr_mmu_op_context *op_ctx)
- static u16
- pvr_page_table_l2_idx(u64 device_addr)
- {
--	return (device_addr & ~ROGUE_MMUCTRL_VADDR_PC_INDEX_CLRMSK) >>
--	       ROGUE_MMUCTRL_VADDR_PC_INDEX_SHIFT;
-+	return FIELD_GET(ROGUE_MMUCTRL_VADDR_PC_INDEX_MASK, device_addr);
- }
- 
- /**
-@@ -1690,8 +1672,7 @@ pvr_page_table_l2_idx(u64 device_addr)
- static u16
- pvr_page_table_l1_idx(u64 device_addr)
- {
--	return (device_addr & ~ROGUE_MMUCTRL_VADDR_PD_INDEX_CLRMSK) >>
--	       ROGUE_MMUCTRL_VADDR_PD_INDEX_SHIFT;
-+	return FIELD_GET(ROGUE_MMUCTRL_VADDR_PD_INDEX_MASK, device_addr);
- }
- 
- /**
-@@ -1709,8 +1690,8 @@ pvr_page_table_l1_idx(u64 device_addr)
- static u16
- pvr_page_table_l0_idx(u64 device_addr)
- {
--	return (device_addr & ~ROGUE_MMUCTRL_VADDR_PT_INDEX_CLRMSK) >>
--	       ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT;
-+	return (device_addr & ROGUE_MMUCTRL_VADDR_PT_INDEX_MASK)
-+		>> ROGUE_MMUCTRL_PAGE_X_RANGE_SHIFT;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_rogue_mmu_defs.h b/drivers/gpu/drm/imagination/pvr_rogue_mmu_defs.h
-index f361ccdd5405..93c61e5bffac 100644
---- a/drivers/gpu/drm/imagination/pvr_rogue_mmu_defs.h
-+++ b/drivers/gpu/drm/imagination/pvr_rogue_mmu_defs.h
-@@ -8,129 +8,120 @@
- 
- #define ROGUE_MMU_DEFS_REVISION 0
- 
--#define ROGUE_BIF_DM_ENCODING_VERTEX (0x00000000U)
--#define ROGUE_BIF_DM_ENCODING_PIXEL (0x00000001U)
--#define ROGUE_BIF_DM_ENCODING_COMPUTE (0x00000002U)
--#define ROGUE_BIF_DM_ENCODING_TLA (0x00000003U)
--#define ROGUE_BIF_DM_ENCODING_PB_VCE (0x00000004U)
--#define ROGUE_BIF_DM_ENCODING_PB_TE (0x00000005U)
--#define ROGUE_BIF_DM_ENCODING_META (0x00000007U)
--#define ROGUE_BIF_DM_ENCODING_HOST (0x00000008U)
--#define ROGUE_BIF_DM_ENCODING_PM_ALIST (0x00000009U)
--
--#define ROGUE_MMUCTRL_VADDR_PC_INDEX_SHIFT (30U)
--#define ROGUE_MMUCTRL_VADDR_PC_INDEX_CLRMSK (0xFFFFFF003FFFFFFFULL)
--#define ROGUE_MMUCTRL_VADDR_PD_INDEX_SHIFT (21U)
--#define ROGUE_MMUCTRL_VADDR_PD_INDEX_CLRMSK (0xFFFFFFFFC01FFFFFULL)
--#define ROGUE_MMUCTRL_VADDR_PT_INDEX_SHIFT (12U)
--#define ROGUE_MMUCTRL_VADDR_PT_INDEX_CLRMSK (0xFFFFFFFFFFE00FFFULL)
--
--#define ROGUE_MMUCTRL_ENTRIES_PC_VALUE (0x00000400U)
--#define ROGUE_MMUCTRL_ENTRIES_PD_VALUE (0x00000200U)
--#define ROGUE_MMUCTRL_ENTRIES_PT_VALUE (0x00000200U)
--
--#define ROGUE_MMUCTRL_ENTRY_SIZE_PC_VALUE (0x00000020U)
--#define ROGUE_MMUCTRL_ENTRY_SIZE_PD_VALUE (0x00000040U)
--#define ROGUE_MMUCTRL_ENTRY_SIZE_PT_VALUE (0x00000040U)
--
--#define ROGUE_MMUCTRL_PAGE_SIZE_MASK (0x00000007U)
--#define ROGUE_MMUCTRL_PAGE_SIZE_4KB (0x00000000U)
--#define ROGUE_MMUCTRL_PAGE_SIZE_16KB (0x00000001U)
--#define ROGUE_MMUCTRL_PAGE_SIZE_64KB (0x00000002U)
--#define ROGUE_MMUCTRL_PAGE_SIZE_256KB (0x00000003U)
--#define ROGUE_MMUCTRL_PAGE_SIZE_1MB (0x00000004U)
--#define ROGUE_MMUCTRL_PAGE_SIZE_2MB (0x00000005U)
--
--#define ROGUE_MMUCTRL_PAGE_4KB_RANGE_SHIFT (12U)
--#define ROGUE_MMUCTRL_PAGE_4KB_RANGE_CLRMSK (0xFFFFFF0000000FFFULL)
--
--#define ROGUE_MMUCTRL_PAGE_16KB_RANGE_SHIFT (14U)
--#define ROGUE_MMUCTRL_PAGE_16KB_RANGE_CLRMSK (0xFFFFFF0000003FFFULL)
--
--#define ROGUE_MMUCTRL_PAGE_64KB_RANGE_SHIFT (16U)
--#define ROGUE_MMUCTRL_PAGE_64KB_RANGE_CLRMSK (0xFFFFFF000000FFFFULL)
--
--#define ROGUE_MMUCTRL_PAGE_256KB_RANGE_SHIFT (18U)
--#define ROGUE_MMUCTRL_PAGE_256KB_RANGE_CLRMSK (0xFFFFFF000003FFFFULL)
--
--#define ROGUE_MMUCTRL_PAGE_1MB_RANGE_SHIFT (20U)
--#define ROGUE_MMUCTRL_PAGE_1MB_RANGE_CLRMSK (0xFFFFFF00000FFFFFULL)
--
--#define ROGUE_MMUCTRL_PAGE_2MB_RANGE_SHIFT (21U)
--#define ROGUE_MMUCTRL_PAGE_2MB_RANGE_CLRMSK (0xFFFFFF00001FFFFFULL)
--
--#define ROGUE_MMUCTRL_PT_BASE_4KB_RANGE_SHIFT (12U)
--#define ROGUE_MMUCTRL_PT_BASE_4KB_RANGE_CLRMSK (0xFFFFFF0000000FFFULL)
--
--#define ROGUE_MMUCTRL_PT_BASE_16KB_RANGE_SHIFT (10U)
--#define ROGUE_MMUCTRL_PT_BASE_16KB_RANGE_CLRMSK (0xFFFFFF00000003FFULL)
--
--#define ROGUE_MMUCTRL_PT_BASE_64KB_RANGE_SHIFT (8U)
--#define ROGUE_MMUCTRL_PT_BASE_64KB_RANGE_CLRMSK (0xFFFFFF00000000FFULL)
--
--#define ROGUE_MMUCTRL_PT_BASE_256KB_RANGE_SHIFT (6U)
--#define ROGUE_MMUCTRL_PT_BASE_256KB_RANGE_CLRMSK (0xFFFFFF000000003FULL)
--
--#define ROGUE_MMUCTRL_PT_BASE_1MB_RANGE_SHIFT (5U)
--#define ROGUE_MMUCTRL_PT_BASE_1MB_RANGE_CLRMSK (0xFFFFFF000000001FULL)
--
--#define ROGUE_MMUCTRL_PT_BASE_2MB_RANGE_SHIFT (5U)
--#define ROGUE_MMUCTRL_PT_BASE_2MB_RANGE_CLRMSK (0xFFFFFF000000001FULL)
--
--#define ROGUE_MMUCTRL_PT_DATA_PM_META_PROTECT_SHIFT (62U)
--#define ROGUE_MMUCTRL_PT_DATA_PM_META_PROTECT_CLRMSK (0xBFFFFFFFFFFFFFFFULL)
--#define ROGUE_MMUCTRL_PT_DATA_PM_META_PROTECT_EN (0x4000000000000000ULL)
--#define ROGUE_MMUCTRL_PT_DATA_VP_PAGE_HI_SHIFT (40U)
--#define ROGUE_MMUCTRL_PT_DATA_VP_PAGE_HI_CLRMSK (0xC00000FFFFFFFFFFULL)
--#define ROGUE_MMUCTRL_PT_DATA_PAGE_SHIFT (12U)
--#define ROGUE_MMUCTRL_PT_DATA_PAGE_CLRMSK (0xFFFFFF0000000FFFULL)
--#define ROGUE_MMUCTRL_PT_DATA_VP_PAGE_LO_SHIFT (6U)
--#define ROGUE_MMUCTRL_PT_DATA_VP_PAGE_LO_CLRMSK (0xFFFFFFFFFFFFF03FULL)
--#define ROGUE_MMUCTRL_PT_DATA_ENTRY_PENDING_SHIFT (5U)
--#define ROGUE_MMUCTRL_PT_DATA_ENTRY_PENDING_CLRMSK (0xFFFFFFFFFFFFFFDFULL)
--#define ROGUE_MMUCTRL_PT_DATA_ENTRY_PENDING_EN (0x0000000000000020ULL)
--#define ROGUE_MMUCTRL_PT_DATA_PM_SRC_SHIFT (4U)
--#define ROGUE_MMUCTRL_PT_DATA_PM_SRC_CLRMSK (0xFFFFFFFFFFFFFFEFULL)
--#define ROGUE_MMUCTRL_PT_DATA_PM_SRC_EN (0x0000000000000010ULL)
--#define ROGUE_MMUCTRL_PT_DATA_SLC_BYPASS_CTRL_SHIFT (3U)
--#define ROGUE_MMUCTRL_PT_DATA_SLC_BYPASS_CTRL_CLRMSK (0xFFFFFFFFFFFFFFF7ULL)
--#define ROGUE_MMUCTRL_PT_DATA_SLC_BYPASS_CTRL_EN (0x0000000000000008ULL)
--#define ROGUE_MMUCTRL_PT_DATA_CC_SHIFT (2U)
--#define ROGUE_MMUCTRL_PT_DATA_CC_CLRMSK (0xFFFFFFFFFFFFFFFBULL)
--#define ROGUE_MMUCTRL_PT_DATA_CC_EN (0x0000000000000004ULL)
--#define ROGUE_MMUCTRL_PT_DATA_READ_ONLY_SHIFT (1U)
--#define ROGUE_MMUCTRL_PT_DATA_READ_ONLY_CLRMSK (0xFFFFFFFFFFFFFFFDULL)
--#define ROGUE_MMUCTRL_PT_DATA_READ_ONLY_EN (0x0000000000000002ULL)
--#define ROGUE_MMUCTRL_PT_DATA_VALID_SHIFT (0U)
--#define ROGUE_MMUCTRL_PT_DATA_VALID_CLRMSK (0xFFFFFFFFFFFFFFFEULL)
--#define ROGUE_MMUCTRL_PT_DATA_VALID_EN (0x0000000000000001ULL)
--
--#define ROGUE_MMUCTRL_PD_DATA_ENTRY_PENDING_SHIFT (40U)
--#define ROGUE_MMUCTRL_PD_DATA_ENTRY_PENDING_CLRMSK (0xFFFFFEFFFFFFFFFFULL)
--#define ROGUE_MMUCTRL_PD_DATA_ENTRY_PENDING_EN (0x0000010000000000ULL)
--#define ROGUE_MMUCTRL_PD_DATA_PT_BASE_SHIFT (5U)
--#define ROGUE_MMUCTRL_PD_DATA_PT_BASE_CLRMSK (0xFFFFFF000000001FULL)
--#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_SHIFT (1U)
--#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_CLRMSK (0xFFFFFFFFFFFFFFF1ULL)
--#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_4KB (0x0000000000000000ULL)
--#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_16KB (0x0000000000000002ULL)
--#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_64KB (0x0000000000000004ULL)
--#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_256KB (0x0000000000000006ULL)
--#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_1MB (0x0000000000000008ULL)
--#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_2MB (0x000000000000000aULL)
--#define ROGUE_MMUCTRL_PD_DATA_VALID_SHIFT (0U)
--#define ROGUE_MMUCTRL_PD_DATA_VALID_CLRMSK (0xFFFFFFFFFFFFFFFEULL)
--#define ROGUE_MMUCTRL_PD_DATA_VALID_EN (0x0000000000000001ULL)
--
--#define ROGUE_MMUCTRL_PC_DATA_PD_BASE_SHIFT (4U)
--#define ROGUE_MMUCTRL_PC_DATA_PD_BASE_CLRMSK (0x0000000FU)
--#define ROGUE_MMUCTRL_PC_DATA_PD_BASE_ALIGNSHIFT (12U)
--#define ROGUE_MMUCTRL_PC_DATA_PD_BASE_ALIGNSIZE (4096U)
--#define ROGUE_MMUCTRL_PC_DATA_ENTRY_PENDING_SHIFT (1U)
--#define ROGUE_MMUCTRL_PC_DATA_ENTRY_PENDING_CLRMSK (0xFFFFFFFDU)
--#define ROGUE_MMUCTRL_PC_DATA_ENTRY_PENDING_EN (0x00000002U)
--#define ROGUE_MMUCTRL_PC_DATA_VALID_SHIFT (0U)
--#define ROGUE_MMUCTRL_PC_DATA_VALID_CLRMSK (0xFFFFFFFEU)
--#define ROGUE_MMUCTRL_PC_DATA_VALID_EN (0x00000001U)
-+#include <linux/bits.h>
-+
-+/*
-+ * ROGUE_MMUCTRL - Rogue MMU Data Format
-+ */
-+
-+/* Labelling of fields within virtual address */
-+#define ROGUE_MMUCTRL_VADDR_PC_INDEX_MASK GENMASK_U64(39, 30)
-+#define ROGUE_MMUCTRL_VADDR_PD_INDEX_MASK GENMASK_U64(29, 21)
-+#define ROGUE_MMUCTRL_VADDR_PT_INDEX_MASK GENMASK_U64(20, 12)
-+
-+/* Number of entries in a PC */
-+#define ROGUE_MMUCTRL_ENTRIES_PC_VALUE 1024
-+
-+/* Number of entries in a PD */
-+#define ROGUE_MMUCTRL_ENTRIES_PD_VALUE 512
-+
-+/* Number of entries in a PT */
-+#define ROGUE_MMUCTRL_ENTRIES_PT_VALUE 512
-+
-+/* Size in bits of the PC entries in memory */
-+#define ROGUE_MMUCTRL_ENTRY_SIZE_PC_VALUE 32
-+
-+/* Size in bits of the PD entries in memory */
-+#define ROGUE_MMUCTRL_ENTRY_SIZE_PD_VALUE 64
-+
-+/* Size in bits of the PT entries in memory */
-+#define ROGUE_MMUCTRL_ENTRY_SIZE_PT_VALUE 64
-+
-+/* Encoding of page size field */
-+enum ROGUE_MMUCTRL_PAGE_SIZE {
-+	ROGUE_MMUCTRL_PAGE_SIZE_4KB = 0x0,
-+	ROGUE_MMUCTRL_PAGE_SIZE_16KB = 0x1,
-+	ROGUE_MMUCTRL_PAGE_SIZE_64KB = 0x2,
-+	ROGUE_MMUCTRL_PAGE_SIZE_256KB = 0x3,
-+	ROGUE_MMUCTRL_PAGE_SIZE_1MB = 0x4,
-+	ROGUE_MMUCTRL_PAGE_SIZE_2MB = 0x5,
-+};
-+
-+/* Range of bits used for 4KB Physical Page */
-+#define ROGUE_MMUCTRL_PAGE_4KB_RANGE_MASK GENMASK_U64(39, 12)
-+
-+/* Range of bits used for 16KB Physical Page */
-+#define ROGUE_MMUCTRL_PAGE_16KB_RANGE_MASK GENMASK_U64(39, 14)
-+
-+/* Range of bits used for 64KB Physical Page */
-+#define ROGUE_MMUCTRL_PAGE_64KB_RANGE_MASK GENMASK_U64(39, 16)
-+
-+/* Range of bits used for 256KB Physical Page */
-+#define ROGUE_MMUCTRL_PAGE_256KB_RANGE_MASK GENMASK_U64(39, 18)
-+
-+/* Range of bits used for 1MB Physical Page */
-+#define ROGUE_MMUCTRL_PAGE_1MB_RANGE_MASK GENMASK_U64(39, 20)
-+
-+/* Range of bits used for 2MB Physical Page */
-+#define ROGUE_MMUCTRL_PAGE_2MB_RANGE_MASK GENMASK_U64(39, 21)
-+
-+/* Range of bits used for PT Base Address for 4KB Physical Page */
-+#define ROGUE_MMUCTRL_PT_BASE_4KB_RANGE_MASK GENMASK_U64(39, 12)
-+
-+/* Range of bits used for PT Base Address for 16KB Physical Page */
-+#define ROGUE_MMUCTRL_PT_BASE_16KB_RANGE_MASK GENMASK_U64(39, 10)
-+
-+/* Range of bits used for PT Base Address for 64KB Physical Page */
-+#define ROGUE_MMUCTRL_PT_BASE_64KB_RANGE_MASK GENMASK_U64(39, 8)
-+
-+/* Range of bits used for PT Base Address for 256KB Physical Page */
-+#define ROGUE_MMUCTRL_PT_BASE_256KB_RANGE_MASK GENMASK_U64(39, 6)
-+
-+/* Range of bits used for PT Base Address for 1MB Physical Page */
-+#define ROGUE_MMUCTRL_PT_BASE_1MB_RANGE_MASK GENMASK_U64(39, 5)
-+
-+/* Range of bits used for PT Base Address for 2MB Physical Page */
-+#define ROGUE_MMUCTRL_PT_BASE_2MB_RANGE_MASK GENMASK_U64(39, 5)
-+
-+/* Format of Page Table data */
-+#define ROGUE_MMUCTRL_PT_DATA_PM_META_PROTECT BIT_U64(62)
-+#define ROGUE_MMUCTRL_PT_DATA_VP_PAGE_HI_MASK GENMASK_U64(61, 40)
-+#define ROGUE_MMUCTRL_PT_DATA_PAGE_MASK GENMASK_U64(39, 12)
-+#define ROGUE_MMUCTRL_PT_DATA_VP_PAGE_LO_MASK GENMASK_U64(11, 6)
-+#define ROGUE_MMUCTRL_PT_DATA_ENTRY_PENDING BIT_U64(5)
-+#define ROGUE_MMUCTRL_PT_DATA_PM_SRC BIT_U64(4)
-+#define ROGUE_MMUCTRL_PT_DATA_SLC_BYPASS_CTRL BIT_U64(3)
-+#define ROGUE_MMUCTRL_PT_DATA_CC BIT_U64(2)
-+#define ROGUE_MMUCTRL_PT_DATA_READ_ONLY BIT_U64(1)
-+#define ROGUE_MMUCTRL_PT_DATA_VALID BIT_U64(0)
-+
-+/* Format of Page Directory data */
-+#define ROGUE_MMUCTRL_PD_DATA_ENTRY_PENDING BIT_U64(40)
-+#define ROGUE_MMUCTRL_PD_DATA_PT_BASE_MASK GENMASK_U64(39, 5)
-+#define ROGUE_MMUCTRL_PD_DATA_PAGE_SIZE_MASK GENMASK_U64(3, 1)
-+#define ROGUE_MMUCTRL_PD_DATA_VALID BIT_U64(0)
-+
-+/* Format of Page Catalogue data */
-+#define ROGUE_MMUCTRL_PC_DATA_PD_BASE_MASK GENMASK_U32(31, 4)
-+#define ROGUE_MMUCTRL_PC_DATA_PD_BASE_ALIGN 12
-+#define ROGUE_MMUCTRL_PC_DATA_ENTRY_PENDING BIT_U32(1)
-+#define ROGUE_MMUCTRL_PC_DATA_VALID BIT_U32(0)
-+
-+/*
-+ * ROGUE_BIF_DM - Rogue BIF Datamaster Encoding
-+ */
-+
-+/* Encoding of DM (note value 0x6 not used) */
-+enum ROGUE_BIF_DM_ENCODING {
-+	ROGUE_BIF_DM_ENCODING_VERTEX = 0x0,
-+	ROGUE_BIF_DM_ENCODING_PIXEL = 0x1,
-+	ROGUE_BIF_DM_ENCODING_COMPUTE = 0x2,
-+	ROGUE_BIF_DM_ENCODING_TLA = 0x3,
-+	ROGUE_BIF_DM_ENCODING_PB_VCE = 0x4,
-+	ROGUE_BIF_DM_ENCODING_PB_TE = 0x5,
-+	ROGUE_BIF_DM_ENCODING_META = 0x7,
-+	ROGUE_BIF_DM_ENCODING_HOST = 0x8,
-+	ROGUE_BIF_DM_ENCODING_PM_ALIST = 0x9,
-+};
- 
- #endif /* PVR_ROGUE_MMU_DEFS_H */
+This helps us iterate on the series faster and then you can fold our
+feedback in following series (instead of repeating the same comments
+on multiple instances of the same thing) Thanks.
+
+Also your series does not apply on clk-next or -rc1 and no pre-requisite
+are mentioned in this cover letter. Consider using b4 to point out
+your pre-requisite if any
 
 -- 
-2.43.0
+Jerome
 
