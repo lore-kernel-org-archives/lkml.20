@@ -1,196 +1,241 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010016.outbound.protection.outlook.com [52.101.193.16])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E7F411A16;
-	Mon, 12 Oct 2026 13:50:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791813031; cv=fail; b=UzkuIGS6RLW67c7JqU9rO7vmhqh6U+pp7M++Sxb4Hqs/eobfAKc+0QFmEVldYvgeY4Pv9E1zsLXhSlXZnLHu8Lq4cNHGFNpXRZ3XaTunRvakRYVCFf4E4TtmoeSOIlRz0n/ul930mlWPwprS7EvMKWd1QrG+fonZ12aQo+gAhAo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791813031; c=relaxed/simple;
-	bh=oOF/PJuaJyHssX/I76mioU3sYrmFnu/ZFL0liPDmbo4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lBksIdafUNcZnfRIRW/KpHtBmIlH2/wpPc8G0fKC6sMqEnEhyPPFdCin/kCSKFFV5nOEuUR22XEg1gFM6O9wNWGsks0aAZLSTXTGg+1xNFVL9yiy85xFiGOvs5qCMvD1QZ3iP9FzXhv/f4UKTMhBGmrY4t4n6kQfzgnNPUYISeY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=NU2Ghzit; arc=fail smtp.client-ip=52.101.193.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88B1451991;
+	Mon, 12 Oct 2026 13:50:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791813034; cv=none; b=S8wePFl2RvfWz1B5ZtgvJ8HgDYWcxq8lbvWTN6rDOviMJ0twv6PgzG+WhFo4YhL77J0uj7zewcq7cIrli7+xUXkGLyOKAgIkjr+hZacsj/Bxo1SF2wHZpYpUE506vVksInpfhCbhw1FNwsEh/kjz2DP4gI7Lvf8nEcXNKNpDe44=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791813034; c=relaxed/simple;
+	bh=saz7bni8UyZZ2wuWhgBhDzCLXiD9M7QD1xEEe3ZCbR0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jAI4dPRK9HmiiMbQFBBIRsOJJ5GBKn/NsN4XPpxirVpiKoozDdeGtJMCsSc2YxAyDHs1ND0I694a3eKUZJghXvQL5mMxdnOjYdqhoUq3Cq+KpVIfRwSgifcR0hRZKbM7yrWVSfv82+0bP8Z4tG9/TOKv3dEQgwmaaneq63BguVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=jMoCbSR/; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="NU2Ghzit"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UI5tc8AJQD88TGrC9k2dmO7FcdRUZ5LYQZke8N5SkaoLNenOtfiK0nmol5vMsnj9BCkL3rcGHxrf2TpR/x+T7gaB0+HBLlW0Hd2KRLrVx72uVr7GF8rzCBA6JR2fuN84XBmvQY/dkpquWkWh8mo83oOC/epBLwXBpX4oXqpihOFOujmtQYfN3Bb+f5wHDZZNkNKmWW73Ra4zL5NR0NLGxzOh8XgU3+ZPOhDiZ85gs+WjNinzuIx71Eg8/r60QsQW7WkKbyGZSrJvvj64Eqqw6wLBh/FNsZJJGin7gJrQfRtawEa6dQ6pxavITGWiExmwQeVnNQ543PVZc/h/Jc5yDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fagoEWxohml5QAZl6gGN9XAJWl4d3N7YSHFn/Y0Sex8=;
- b=YHlwkgwlA4Pl/3mOk9+8oYZ6hYadeJYbkNUfT6H1uEwrA6kYusR9Wc3qLwKILAbHpQzqYRvClfTh0PHZRGatzeqy5VJIFawTtV86rLTYXfh9bQ247AQcUnUxo9EBGH7wI4EJ+AyPEHpCk5Y8npPdJqsHsolqTSdLNtH+cwoR8RIHXW/ZsBRiUqmYT4A0olJBZmDFsk5/mzuvmX1kH+n0CH7GlsZKF935H9PXz7uPhMNlliY+43zXfmYpHKmsMhi4iOwPysVch7ZOW09D4PKB/lBZRMY/VqrlQ+/xHgv0S1rJCZ+86eveMMEUoFvf+AbXxLkBNcQvEHLPYGBz3M+Vag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fagoEWxohml5QAZl6gGN9XAJWl4d3N7YSHFn/Y0Sex8=;
- b=NU2GhzitRJHwfBHYgzdWdGjsFDolPnuXA+fB7VTcNvBIRiO0PMwustSKbN8OqZz+mmWE2j7JEkz9E2pLihR/fcu6iIFLR0S2RpLwEW9QvwcNho5kWb50M8w+SfI2e47iGyg8OdJMekOLyLk/I8qDHWBJU/MVOCWEaXp0Sa1z4LjInSJGxnr+H8hxrPMlCrJ2nG7Pfx/o//FwzN8NVKczsk6VOXz955Gqq7qqt0G6ityb7AhqRZw2zHiTEEWGaBWEAsFyPlDnUJcCyEyjoHHrWGJWSsAFIJkhwzDXflTv7yh9IdGyxpJr6kWht9MFFOr35gbd13/ZRfLnCWMINhec3w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19)
- by CH3PR12MB9027.namprd12.prod.outlook.com (2603:10b6:610:120::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Mon, 12 Oct
- 2026 13:50:25 +0000
-Received: from PH7PR12MB5974.namprd12.prod.outlook.com
- ([fe80::f5a5:bbc3:e9da:f8a0]) by PH7PR12MB5974.namprd12.prod.outlook.com
- ([fe80::f5a5:bbc3:e9da:f8a0%3]) with mapi id 15.21.0496.010; Mon, 12 Oct 2026
- 13:50:25 +0000
-From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Kent Gibson <warthog618@gmail.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Jia Jia <physicalmtea@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 2/6] gpiolib: free the label of lines released after their chip was removed
-Date: Mon, 12 Oct 2026 16:49:56 +0300
-Message-ID: <20261012-gpiolib-chip-removal-v1-2-aambrozewicz@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012-gpiolib-chip-removal-v1-0-aambrozewicz@nvidia.com>
-References: <20261012-gpiolib-chip-removal-v1-0-aambrozewicz@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: FR2P281CA0090.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::8) To PH7PR12MB5974.namprd12.prod.outlook.com
- (2603:10b6:510:1d9::19)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="jMoCbSR/"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCE8Z6316315;
+	Mon, 12 Oct 2026 13:50:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=m9XrfL
+	lFdOfMqg6YGcL8czVCbU54w9IACGSuHuF0dhQ=; b=jMoCbSR/8HZdhPfPr8fPAf
+	5pUpAWDSJifL2ek8USrhXy5Ew04zgQBcvmOeyIaRTCXIDoaKxwV1bCYuf2H5rcuL
+	fOoBtnwmj+ucbXkMl11rHxN2WfLsKQlhjvR2oBO0+jDiBoxfAUy+2LGH99xX880W
+	B4buULBXbAvqAtILimUp5A9TnLDmX8gUm2OxAgRecpmm5Auz7VewNzguDPQEWUp7
+	9UtP0u1aogizTcMEYTu5zogoyFiyU2QqWpvafq47Cs0tm/9vx/mn2Od4rBP5I8Ew
+	pOPln+X/a9o3fdQOWAcvpHgmRlwyJcQdaZbhbFxURvzzEzu0NXJT7D+VMMQ0nZug
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dug96rg-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 13:50:08 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC4xFm1287098;
+	Mon, 12 Oct 2026 13:50:07 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h816gwb9a-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 13:50:06 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CDo2mD42926560
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 13:50:02 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CC95A20043;
+	Mon, 12 Oct 2026 13:50:02 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1C24E20040;
+	Mon, 12 Oct 2026 13:49:58 +0000 (GMT)
+Received: from [9.124.214.197] (unknown [9.124.214.197])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 13:49:57 +0000 (GMT)
+Message-ID: <58c8e6cd-3fbe-4975-a0f3-9a16d5b7c604@linux.ibm.com>
+Date: Mon, 12 Oct 2026 19:19:56 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5974:EE_|CH3PR12MB9027:EE_
-X-MS-Office365-Filtering-Correlation-Id: 704098a8-d786-4900-dc99-08df2867c430
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|6133799003|18002099003|22082099003|11063799006|10067099003|260925021311599003|260925022911599003|260925021911599003|56012099006|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	51P+Ah9+8pyFpBICalKnw7Q26RcY6MZ4P0snLCfaU+m/L/PhMgp8i9hAASTiRZLh9Mh2/QfIJvO81p8oNKII+fwWJB4YqmyC1Su4mFOy0jtjrxd+twcHbpF+Pg7yfgc4zhNCNQQwzWhg1IQMVmVsXtqJ50LST9AgTVYrJc/2DSaA485x4Vm8Kx+Cq1ufQizGIMEcR2snJ+ceGdxohD2qeOUre5tjn4/uqLSLx+XEVks5ZPUVq1+GHVJxY3UjqDMJ9L8mjDRoD3Xfmm8mroHXqYFZqB2Yd97mbMBTbtfVtXEIodqvTEILmxseuzUs/oDO6/LyUZRM0tLiHDae1smiNxyqziicDwAr3Dt+uj9EOD5sLcbTNdSl/wbLYncMLzqt//71v1/qx8Gs7McnjzUJHUCY81U+g2fSBkANYmL3gUnSWRBUlbhNtl9zRCWPFjiG/7bZFaIXAzyXVpytpKnELXDfFpaBXc3vdEJTG1g9wzsZo09qnN/h4U9dqQm4xsWmJ6FLZgBxlJC5a4LEA76I13TZkHx8iOmJmMuJY34IUUplWji4xA8UybZmJ92ZyrXm7sxZxIxh1eJuc+FjFThS5OY5XAI16jWf1FWshP5lldZqG/tFebZujcQ4tyf1ujdJFiYVweXk5PVQ0qJBiKVXSW1gjaJOJeYkRsRwKiUEQso=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5974.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(6133799003)(18002099003)(22082099003)(11063799006)(10067099003)(260925021311599003)(260925022911599003)(260925021911599003)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3dLnHXBlLcvNdWnh+icUoLjTzp9DINheQVhB9AHU6pUefiSbC50jajr9Jpxd?=
- =?us-ascii?Q?Vj+5dkkL10BTxKdE6pavOuflN5qHPST+lAvPSu1hiBuf4EGFqjbEW/uVhRvq?=
- =?us-ascii?Q?ScpoOgygAe5cpT2CoKwHF/8huriaBsdQFbMNfl+9/16WtKJztwR7LGxWUUdZ?=
- =?us-ascii?Q?zaSAXZOPcinm9UTppMhobzw6H7Um3bjuSGoUPbB2UJHBPXsXdS2ZGlGC50CK?=
- =?us-ascii?Q?gu0wTl+DR4nCopzIQUlQf0EJxuS9/N+xTmjpztCt+tcMKIQiPy5mX22fXxb6?=
- =?us-ascii?Q?429+UPyVa24uMjtPEK3YFsT6bFcKjTTCnz3mBWXEg6330A37B0m6gHV17gLj?=
- =?us-ascii?Q?+NCUiVqNOLq+gsmLF50UZM8MHEKLCOv2VpXa364T9G98hgqi/JF3k4MQnKTx?=
- =?us-ascii?Q?Fn9lPJZGGN6xJ1tXfrPwTMNAi3sdJ5kwXPzTxdkakSu0oSgx2di0uXZxGKDB?=
- =?us-ascii?Q?ymH4QJvKD8MXqmQLnk2EdWnYPEfAkZtwU/T8sz1MDNYQvyV+9D6xQdOOJaaA?=
- =?us-ascii?Q?Lzv0Yy2iwu8aIdOYko62q8H1SphvAtL2a/o3Xkk1M//hZnTS41FJMawEiVAZ?=
- =?us-ascii?Q?WQ7yf/cZY/SEPfKuksEFNEcBJHUM1k7MdPnOtIfXCT2CVJOTGPEF1NedfGqh?=
- =?us-ascii?Q?esoA5ge6f32V+fFkZbxns6Y/Z0GQLrjUY1Fwhw2O8o84EpSeVkRiCImDQeKt?=
- =?us-ascii?Q?QUNNwWC7JW8lBovhHrWFSh2j82J3jE1AN40l9jc5UajPICzN41D0HqzhytSV?=
- =?us-ascii?Q?FqebUP91idsEHPJr+3qUWQmYGNCFJ05HhGQsZWpsJkY5KuS/JlRY+QQd2Es4?=
- =?us-ascii?Q?B0QhvJoO4bpbF0Og+BnjctBG7bQ8lvsZkqR8Zz8sMttd4yFxKLOLSWm9DENQ?=
- =?us-ascii?Q?C7WePxJ9FN8z36WTF5/ZiqM7khQ6wgCK5YHHbbUVixt9FN8R9ArgyQv8nGrN?=
- =?us-ascii?Q?F7gQkJHQZW3pdXb6wSHZgunsS9FCTVTx5xr+drqzkQokmQ9GDRfbWZgx7B9K?=
- =?us-ascii?Q?/gYyuMMuDUvOCTNCa+CUMsyMuL5+L3sdszWAXI+lzMmNwG8cthjQtnE/rU+3?=
- =?us-ascii?Q?3aXB72HyGlKW9A15o1hNxX0eSj2oN0y2z5m8h+s1PfiwEZzADnocyMyGqGdW?=
- =?us-ascii?Q?oO+ITwl5luWoBrmot8/ZHtjMm41mTYCYsTmH0cWtNDoFthMQeXmRQqyAruzK?=
- =?us-ascii?Q?5rg99AI5hK0S5bLS7tSvBWJbBJgG8wahcXDiGPezn0TDgElxGi/kQAGg1yMz?=
- =?us-ascii?Q?ZMytrjTVsfn9dJGyUB0xrpRimrGqFF7X1WluOzMwHizXDZ84Q+l9xRrrtSD5?=
- =?us-ascii?Q?OdYSK461hD4TI+r2WK/FJa0/iVKeEfcSlx3jikKLo8hHxMmu+asQjgX+o7pU?=
- =?us-ascii?Q?piWCpCOzMSx4MruMi4DeLC6Py09qKa6caGS9w36BOf+ZRla986SiYPWpcvcg?=
- =?us-ascii?Q?gOQndfNUkevblhF0kKGDBcxTR3GfJiIQVMVujhA18Zyax8dPseWebn40h0BG?=
- =?us-ascii?Q?a8TNrPGS9sF+jU/gVWpGnG7k8tmMRhceEykjIU5aSsXmlz6Z+YApSu8+BB09?=
- =?us-ascii?Q?bK13OvIUYgXNM/pOUMPHMthpCFE51AV+jad3bhXYX53pJJrpA04L7JpAv9BK?=
- =?us-ascii?Q?ZAYEu9YNFOkAIE5HuxAVQ0iGUq7LpGQ48PDKmDN0S04Cm7cV29jl3RJJieNS?=
- =?us-ascii?Q?xdkDsJBnigaVdfnp4IasdQKB/E+VmH1LP0d5sSuca5GMbDWw0oaacguf54BP?=
- =?us-ascii?Q?F0JGROsL0w=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 704098a8-d786-4900-dc99-08df2867c430
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5974.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 13:50:25.0282
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BUOmnHF1Kz2+Iap3foim9PbWxFFF02w1GRREFHU+idVs8y/6Jv1Q7wkWB7RulK7mnMno8InlEndUB2d/2EiS1Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9027
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/2] sched: Introduce idle SMT priority for asymmetric
+ capacity systems
+To: Mete Durlu <meted@linux.ibm.com>, Andrea Righi <arighi@nvidia.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+        Juri Lelli <juri.lelli@redhat.com>,
+        Vincent Guittot <vincent.guittot@linaro.org>,
+        Dietmar Eggemann <dietmar.eggemann@arm.com>,
+        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+        K Prateek Nayak <kprateek.nayak@amd.com>,
+        Heiko Carstens
+ <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Tim Chen <tim.c.chen@linux.intel.com>, Chen Yu <yu.c.chen@intel.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org
+References: <20261008-hiperdispatchfix-v1-0-73fe41081070@linux.ibm.com>
+ <aseIPhrDGCYFtJNE@gpd4> <90454932-1d82-450a-ac4c-499acdedb9d7@linux.ibm.com>
+ <ffbeae31-0e93-4386-8e0e-dba13960b283@linux.ibm.com>
+ <cc926e51-7223-4d3b-9896-3ed8955b584f@linux.ibm.com> <askERc5Xa9NhAfk_@gpd4>
+ <effe96a4-c995-4da4-aac6-bef195df36c2@linux.ibm.com>
+ <6c4fcef6-6ff8-4733-a451-53744d2c821d@linux.ibm.com>
+Content-Language: en-US
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+In-Reply-To: <6c4fcef6-6ff8-4733-a451-53744d2c821d@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=Cr0q4X4D c=1 sm=1 tr=0 ts=6acce590 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=TxRU7OXsotaLDgitQIgA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 6TL4JQImcHe9Bon6KYTJfWfszdZ7tWGt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NCBTYWx0ZWRfX6f7hc69ezFQZ
+ b08qtdln7LJ7KW0F08ltZ3qTWYO0KN48SCeBs5AF8uIUFd39969BuurY/l9HVmHczVn6QdJ2g6t
+ M9w+/S6Xqzq/E85UjnaEWA7TIeycDJhUa2Ztp+yGpu8OsHrr8TnC4y9YhSWPI+KOV1hsNV/Yrnk
+ tNnkJ2rzLwQO8QAQBHNp1juQadVWuYDDZQmJe2e/vx5wY0GbQIdYk/iCAospJg2ns5hOD0AwiLZ
+ 1Gx9DqJDjx0+MMWCa3qGOuLleVNQ1aW2QCgS0Len5PS7AxCQPdU3xd+q/bKUFxFevPIeCCokJRu
+ RPYTBP38qXo1HT1mx4/LTzMsRx4Mxxd7pEW4I8yFclUg042kuYrHT1vrW8CMTWn+XC8fKxxGARj
+ AtO6v/CaNi5k8cZNCkUU7FTnYA81vl3Mhtst7xy5sSN4sJAQW2t/jSnmFinUwtc11QA21KbQh5c
+ hDi6cl7otIle06XbQhA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NCBTYWx0ZWRfXxWf70FXxiqDU
+ 1FZvAq56sas8LzVj4Bw6b0Ap+c3yQ9CLGplm84LlrNxlR111AmefTp00UHMdtHq0SS891eK8QKe
+ PknokOzcruXactiQtDEifDmBjvt8YEw=
+X-Proofpoint-ORIG-GUID: hNTLNnEFM3yjKDViKzPbX2siEb0OsnF8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120054
 
-gpiod_free_commit() only drops the consumer label while the chip is
-still there:
+Hi Mete.
 
-	if (guard.gc && test_bit(GPIOD_FLAG_REQUESTED, &flags)) {
-		...
-		desc_set_label(desc, NULL);
+On 10/12/26 6:02 PM, Mete Durlu wrote:
+> Hi,
+> sorry for the late reply, I have been sick since Friday.
+> I though about what has been written for a bit.
+> 
 
-A line that is still requested when gpiochip_remove() runs, for instance
-by a character device line request that user space keeps open, is
-released only afterwards, when gdev->chip is already NULL. Its label is
-then never freed, as gpiodev_release() frees the descriptor array but
-not the labels, and kmemleak reports one object per such line:
+No issues. Take care.
 
-  unreferenced object 0xff110000057b63c0 (size 32):
-    comm "gpio-hold", pid 111, jiffies 4294696675
-    hex dump (first 32 bytes):
-      00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-      3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ?...............
-    backtrace (crc 7ff222d9):
-      __kmalloc_noprof+0x4ee/0x670
-      desc_set_label+0x32/0x110
-      gpiod_request_commit+0x1dd/0x320
-      gpiod_request+0x28/0x100
-      linereq_create+0x61a/0xce0
-      gpio_ioctl+0x49c/0xc80
-      __x64_sys_ioctl+0x134/0x1c0
-      do_syscall_64+0x109/0x5d0
-      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>>>> Well, when we see steal time, it usually means there is high contention and
+>>>> we are using more vCPUs at this moment than possible.
+>>>> So we mark them as non-preferred. Note that they are idle cpus. But non-preferred.
+>>>>
+>>>> That means preferred CPUs may have more than 1 task. If we spill over if there
+>>>> is idle non-preferred CPUs, we will be back to square one. No?
+>>>
+>>> I agree that CPUs excluded by the steal governor should remain avoided even when
+>>> all preferred CPUs are busy.
+>>>
+>>> I'm wondering if we should have two levels: cpu_preferred_mask acting as a hard
+>>> affinity constraint and an entitlement-based soft affinity within that mask? The
+>>
+>> That not what entitlement usually means. At least not PowerVM. when one creates VM,
+>> they assign VP=Virtual Cores and EC=Entitled Cores. and Hypervisor ensure at least EC
+>> worth of cores are always assigned to that VM. There is no need of priority within that
+>> entitlement.
+> 
+> Wouldn't it make sense to first fully load entitled cores before
+> moving onto virtual cores on Power? On s390 we would definitely
+> benefit from it on some cases.
+> 
 
-Commit 1f2bcb8c8ccd ("gpio: protect the descriptor label with SRCU")
-cleared the label unconditionally; it moved under the chip check with
-the removal of gpio_lock. Clear it when the chip is gone as well. The
-->free() callback and the line state notification still need the chip
-and stay where they are.
+Only when there is a high physical CPU contention.
 
-The label is now often freed just before the last reference to the GPIO
-device goes away, which depends on gpiodev_release() waiting for pending
-label frees (previous patch).
+>>> soft affinity would prefer high-entitlement CPUs: first fully idle cores, then
+>>> idle SMT siblings. Once those CPUs are busy, tasks could spill onto
+>>
+>> I think when one has high steal time and hence reduced preferred CPUs, there will
+>> likely be no fully idle cores within preferred CPUs.
+> 
+> Shrikanth, wouldn't something like below still make sense?
+> 
+>> Note that current logic takes out last set of CPUs and find_new_ilb iterates from
+>> the beginning. So if there is idle core within the preferred CPUs, it will be chosen.
+>>
+>>> lower-entitlement CPUs still inside cpu_preferred_mask, again preferring fully
+>>> idle cores over idle SMT siblings. If all CPUs inside cpu_preferred_mask are
+>>> busy, tasks would queue there. The soft affinity would never override the
+>>> governor's restriction by spilling onto CPUs it excluded due to contention.
+>>>
+>> As we were discussing, as long as threads don't end up on non-preferred CPUs,
+>> we might be okay. With the above, find_new_ilb will becomes very complex IMHO
+>> and I am not sure if it is worth it.
+>>
+>> likely what we need is,
+>> - Fully idle preferred Core.
+>> - idle preferred CPU.
+>> - any idle CPU.
+> 
+> Andrea does this resemble what you were describing;
+> 
+> 1-) (steal time == 0)
+> ====================================================================
+> cpu_preffered_mask = active_cpus
+> cpu_soft_affinity = 0
+> 
+> All cpus are available for scheduler to pick and use.
+> Idle cores are preferred in case of asymmetric capacities.
+> 
+> 2-) (steal time > 0) && (steal time <= initial_threshold*)
+> ====================================================================
+> cpu_preffered_mask = active_cpus
+> cpu_soft_affinity = entitled cpus
+> 
+> In this case entitled cores get fully filled (SMT siblings first)
+> before spilling load onto the rest of the cpus on preferred mask.
+> *Initial threshold is a value I just devised. Ideally arch specific
+> and dynamically configurable, setting it to just 0 should also
+> be an option.
+> 
+> 3-) (steal time > initial_threshold)
+> ====================================================================
+> cpu_preffered_mask = entitled cpus + steal governor's modifications
+> cpu_soft_affinity = entitled cpus
+> 
+> Carrying the logic from case 2 but shrinking the preferred mask
+> according to the increased steal time value.
+> 
+> Shrikanth/Andrea,
+> does what I describe above make sense and would it make a reasonable
+> addition to the vCPU backoff mechanism?
+> 
 
-Reproduced with gpio-sim: request a line through the character device,
-set the chip's configfs "live" attribute to 0 while the request is open,
-then close it. Without this change kmemleak reports between 15 and 30
-such objects after 30 cycles; with it, none after 100.
+I am confused. Are you talking about
+1. picking CPU to run idle load balancing?
+Or
+2. actual task placement decisions?
 
-Fixes: 35b545332b80 ("gpio: remove gpio_lock")
-Cc: stable@vger.kernel.org
-Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
----
- drivers/gpio/gpiolib.c | 3 +++
- 1 file changed, 3 insertions(+)
+If it is 1, we should do only if there is any good improvement with real life workloads IMHO,
+as current find_new_ilb isn't aware of preferred CPUs. Even in that case just picking
+an idle preferred CPU over an idle non-preferred Core is better than above i think.
 
-diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
-index 1984f3416437..750378f3907a 100644
---- a/drivers/gpio/gpiolib.c
-+++ b/drivers/gpio/gpiolib.c
-@@ -2689,6 +2689,9 @@ void gpiod_free_commit(struct gpio_desc *desc)
- 		WRITE_ONCE(desc->debounce_period_us, 0);
- #endif
- 		gpiod_line_state_notify(desc, GPIO_V2_LINE_CHANGED_RELEASED);
-+	} else if (!guard.gc) {
-+		/* The chip is gone but the consumer label is still ours. */
-+		desc_set_label(desc, NULL);
- 	}
- }
- 
--- 
-2.43.0
+If it is 2, I am not sure. getting soft affinity is kind of tricky with load balance.
+It puts maximum effort in spreading the tasks. Since you have steal time, there is already
+enough tasks to create physical CPU contention.
+
+PS: Steal governor provides a tunable named low_threshold, which means any steal value
+below is practically 0. So there is no soft affinity there.
+> *Considering guests with hardware based topology and underlying
+> hypervisor scheduling vCPUs per core;
+> I'd expect this approach to allow for guests having a smaller
+> footprint for longer and steal time to start appearing later than
+> usual as the entitled cores are fully utilized before touching other
+> cores.
+> 
+> *This is the case for s390 for example. I am not sure if it is the same
+> for Power or any other architecture.
 
