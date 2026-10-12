@@ -1,84 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B96B2236EB;
-	Mon, 12 Oct 2026 13:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94DC02BCF4C;
+	Mon, 12 Oct 2026 13:31:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791811874; cv=none; b=i0aAzidVxxECfwdYL1XPejreux73ZdSP9NqaYH6SbFc3gMYSWQFgwk5MTIzuXR+laqspI2M263lmaE81/lktkZCRJ3n3b+lAG0N3aI7PvxJpr4EXfmhlu6GjNJ2sEO+/eIN4A3/4olewIfcX15q9F9dBOpbWehUE4NWfUBE2TMc=
+	t=1791811906; cv=none; b=k+ZqDgeRyOzMgs908pzrfrAs9btILxg9N8+sDFkDCzwkaw1TKLPaloS/cGSBP4xd2Aq3RuPXPCShrJWigZYQgcJNcYpI/DW6wPyrzSVYdaJS22gYQjPgn8VasgK/clvOqNZpeNo/uqNVNdMrFC5CQYg19iz/r0Haeu+vtqkCbcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791811874; c=relaxed/simple;
-	bh=L2uLxyB3nbNDBuHEA/c3SqoL0AMTNNZp2OfW4DIyBTQ=;
+	s=arc-20240116; t=1791811906; c=relaxed/simple;
+	bh=4QdYo964dCeKwsklKxBBMW3Lqm5MpmUfYpsjPbAPMAs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DrF2Xywnn+f6rS0th0RRmkXF4cAFh/v7j21jWr+Tyxhz4+7vosSODiKBwWi7+cAA6mLJklCdWYnTuCyAePcl1i4UBQvb6ImJfNellYIHV1GRTnK+ZbmtK3mzqKYjW6T1ZjFPxYrVi8OHYRlXbGpH0hp44Edn5JQ74Yr1/XFioJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jfLaY0a7; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=C1+jmM1R+u9uAcEG4SFsdReP6C9YDCpTIbNCnZ1FgLGnP63Js+XlAvhEpmsi5bP1nqcR1XUquZ39OMY+NLrkY551HQZonavbdo04w3vmth4if2hMld7Gxy9KVmG+G+NvQYeMA/EWtMH7tnjYiIT9gPkDjSHv1cwCGsgELNcRZB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IsqBesq0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jfLaY0a7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D22C1F0089C;
-	Mon, 12 Oct 2026 13:31:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IsqBesq0"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B78021F0089B;
+	Mon, 12 Oct 2026 13:31:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791811873;
-	bh=OEzznKh6oLdoefji5VBpYZZ7u0kzvlI25oWj2c5cmaM=;
+	s=k20260515; t=1791811905;
+	bh=gigJzefooR7VsWcPCKIZEa7NsLeADq5ShSpsInfLSPU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jfLaY0a715YYyBz4Y8FEUdgaEJIlN0Carx6fiA/1cAfkcN1PomZuh8+OIxQlyjkl4
-	 FBb0wE8uX0zmWGx1/ZUt3GVJgTDjhk2h4OrU1gAYeU2rLDE20YmzOGhvi2ds1wT4Er
-	 p28i4cqyKZwF+35+Syn+6NYZ8BjndTFMLAirDda9IHdiKoL0S3bP3iXqbmE0eTsTqU
-	 LQqyn1wEZmvvMBkCqvF0PYHG0CxVERr1XWyPz7l5fNZ/KjqtuMvA9+L5AlnFgx2Egc
-	 BhD3m+ZZ+ZzcfBC07l47VBz+pfN4DOfIRgyhTUQUv6t3ZHf58AehjcQuz/Gi8VbSB9
-	 +fQ5QC35qMxDQ==
-Date: Mon, 12 Oct 2026 19:01:03 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v7 0/5] Modify interrupt handling for eUSB2 Phy targets
-Message-ID: <aszg7Us_ACMMiM9N@debian>
-References: <20260905-eusb2-interrupt-v7-v7-0-820cf5377a70@oss.qualcomm.com>
+	b=IsqBesq07pdKuJFpdnZiecToY8Ojzbc5pFwGTi/PHcj4Nl92rLOWVXSkUNRW5bx2c
+	 1hH7EUwGnuIKaM5Oyc7jy3ZW+4+98GRIHaVWxMu+7b65t/DiVFQPCNC1nSeBq500ks
+	 KhdDOZcg5OagIPP96buasNs4xjVN3Gea09ibRpzvZeJ6pHJLsRB5mcB9j1OC8z4k8C
+	 +jVDCBq7V1YLZ8pNq446vueqIH/xjgpOVcs3nwE8BUD64bg1YbPvsyBiiOazkkBS4G
+	 a2ng+5aq7Xv0qmFc8X8ufGXlITabL23fThb++x3+7OgfCuk7OmFqg9i17H9G0Dyazt
+	 IxZPELlS+52Pw==
+Date: Mon, 12 Oct 2026 16:31:41 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: linux-integrity@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Stuart Yoder <stuart.yoder@arm.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Chu Guangqing <chuguangqing@inspur.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] tpm_crb: Remove dead code from crb_map_res()
+Message-ID: <aszhPcubTH8HKxh2@kernel.org>
+References: <20261010235500.2915629-1-jarkko@kernel.org>
+ <asy0K_6VkuAn9rTB@sgarzare-redhat>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260905-eusb2-interrupt-v7-v7-0-820cf5377a70@oss.qualcomm.com>
+In-Reply-To: <asy0K_6VkuAn9rTB@sgarzare-redhat>
 
-On Sat, Sep 05, 2026 at 08:59:04PM +0530, Krishna Kurapati wrote:
-> eUSB2 targets handle wakeup interrupts differently depending on device
-> speed when operating in host mode.
+On Mon, Oct 12, 2026 at 12:23:05PM +0200, Stefano Garzarella wrote:
+> On Sun, Oct 11, 2026 at 02:54:57AM +0300, Jarkko Sakkinen wrote:
+> > In all the pre-existing call sites both @iomem and @iobase_ptr are either
 > 
-> According to the eUSB2 specification, remote wakeup signaling in host
-> mode is detected via different data-line assertions based on the
-> connected device speed.
+> Do you mean @iores ?
 > 
-> When a low-speed device is connected, the host repeater drives eD+ to
-> logic '1' upon detecting a K-state on the USB lines during remote wakeup
-> (eUSB2 specification, Section 5.5.14).
+> > both NULL or have a valid address.
+> > 
+> > Add an invariant for the expeced conditions and remove a dead basic block.
+> > The second block is dead given that if @iomem turns out not to be NULL,
+> > neither can't be @iobase_ptr.
+> > 
+> > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+> > ---
+> > v2:
+> > - Updated the commit message in order to clarify things better.
+> > - Updated the invariant in order to address checkpatch.pl --strict
+> >   errors.
+> >  drivers/char/tpm/tpm_crb.c | 9 +++------
+> >  1 file changed, 3 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
+> > index ceb4100ba400..833226966fa2 100644
+> > --- a/drivers/char/tpm/tpm_crb.c
+> > +++ b/drivers/char/tpm/tpm_crb.c
+> > @@ -570,15 +570,12 @@ static void __iomem *crb_map_res(struct device *dev, struct resource *iores,
+> >  	if (start != new_res.start)
+> >  		return IOMEM_ERR_PTR(-EINVAL);
+> > 
+> > +	if (!iores != !iobase_ptr)
+> > +		return IOMEM_ERR_PTR(-EINVAL);
+> > +
+> >  	if (!iores)
+> >  		return devm_ioremap_resource(dev, &new_res);
+> > 
+> > -	if (!*iobase_ptr) {
 > 
-> When a full-speed or high-speed device is connected, the host repeater
-> drives eD- to logic '1' upon detecting a K-state on the USB line during
-> remote wakeup (eUSB2 specification, Sections 5.5.15 and 5.5.18).
+> Sorry to insist, but in the commit description we talk about @iobase_ptr 
+> can't be null, and I agree, but here we were checking the value of the 
+> pointer, so IMO this code was not dead.
 > 
-> Since the eUSB2 PHY's "DP" and "DM" interrupt lines monitor the eD+ and
-> eD- line states, configure the wakeup interrupts accordingly
+> But again, I know nothing on this code. So, if you think it's correct go 
+> head, I'm surely missing something.
+
+Ugh, you're actually right, and this is not, and should not have sent
+this. And it is for lazy init. 
+
+I need to sanity check my test environment because I thought I was
+testing this with swtpm emulated tpm_crb but tests passed, and this
+should not work.
+
+Sorry and thanks :-)
+
+Just wanted to make it explicit that I was making somehting extremely
+stupid.
+
 > 
-> Add support for a new phy "type" attribute to be set by eusb2 phy drivers
-> and be read by consumers (in this case usb controller) and act accordingly
+> Thanks,
+> Stefano
 > 
-> Changes pushed on top of usb-testing branch. And v7 is only compile tested.
+> > -		*iobase_ptr = devm_ioremap_resource(dev, iores);
+> > -		if (IS_ERR(*iobase_ptr))
+> > -			return *iobase_ptr;
+> > -	}
+> > -
+> >  	return *iobase_ptr + (new_res.start - iores->start);
+> >  }
+> > 
+> > --
+> > 2.47.3
+> > 
 > 
 
-I believe the merge strategy is to merge all the patches through PHY tree. If
-anyone feel otherwise, please yell at me.
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+Br, Jarkko
