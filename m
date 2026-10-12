@@ -1,71 +1,70 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mta0.migadu.com (out-41.mta0.migadu.com [91.218.175.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1511B4A4850
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:42:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC5E4A8424
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:42:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819768; cv=none; b=XKO9ie95hw8O7hDMCNvelAb3lozw1Tx9iyuUNROV0T6v7WrfHzLZaRBqsFrwFLC1GgYdM6fbfbhlZJ9y5w081nHbk1oQdIb4/SP8+qROT2u0AyXiMZW4LTeQBvatFoHVuuJn1tTlEE5SLwuUXZWbUYkSFh33YGfjhhu+2CSYkwM=
+	t=1791819769; cv=none; b=sDHDaruSjYiPooW0+cbh3lyTEfhZI/fsTQcSGj83oDhIswqwgPZtEb+krbUDgNtzvyboqm6iOooDxkLpkjkLSxjymr6FrkkqGhZDTxD+z3pSRWxB9qii2s6Z1/XX2/EOS16JR77ph+BMzk9JmFzd6vBb2GgJXhPGw8jRVGjqmB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819768; c=relaxed/simple;
-	bh=M9dpQi4tgba0alF8ToireGxXNWyOZbiXHyjQLcZzwDE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JptmkiPsLNUsPs9X/sgSuqA3d4PiZR6uQO37YbO+IZXZxxKorMIoGNpTb2aLzLbzcpsFFKbTOOb4tLxGlSaEgt6qET3SEU7wtTjqhbAM0iFU4UspzRz0RJi/MJFUuIfc6Ar1DeWbdVmfDYB1ZeEN/6lDSogh1lJSELr37kNAPqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UVpcPjgW; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791819769; c=relaxed/simple;
+	bh=TBFr013muSrjqmBXfU5VS9nJWYXKQcqCrP4RWXqPIVA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Rve0aJ4bgmU43F9vsPkOFT8jOQMNr0GA4eadyFPpCM/q5I7QvQY8yTFw0yyBHp54WN+nQYaO2tcGIYXx5veTrnV5gjL9946yg4QDUJAtjAeyjRDadn1N45X8nllvJyQZpoYuKze1TxVVJow9WUQBmrnp+HAFtnJY6fk2WyfJw8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=P7v/SAbm; arc=none smtp.client-ip=91.218.175.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UVpcPjgW"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3a7fecf8440so965804a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 08:42:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791819766; x=1792424566; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u/2jqcJ/ml0TlpXSlqx8y6UB+yt84Zsc+jol0ebsN+s=;
-        b=UVpcPjgWho+0O5cr65op1QK+LT8ao/hnHs6SUxzeXYUO+Y+46PC6HV1DoNNCoUA2DQ
-         TCg/Iax8cdkgF9fTYMsNzZNWrseGHuNSTZ3REAaEKS+KBhcTNA5iX5ga2sX62foVzUUV
-         Wwv7HcWUHT7JHEf0/aIppOz1wrVCui/MtWvWh9C94INhnnk3Y5XYFMqhHQ3ucWEKVUiq
-         GX5/nz1LG9vVbv0sOFATzYLufQQhdF1Jt8y1ThmDgomlSGJ88HMVXV3qAyeQt8g5ZcX2
-         F4PkjLPj3/ArWxXp19euDw0eX58pZ11tGczyd4HjH5V+PlBQMxAZLTFiMao7mhMzCTQw
-         /7uQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791819766; x=1792424566;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u/2jqcJ/ml0TlpXSlqx8y6UB+yt84Zsc+jol0ebsN+s=;
-        b=2DdkztCPa4dfGyQYTHdma/Bo8fYeYXTlHQk4jgmRkB8vKWI7u6/1ulZTC9xpwPXA1T
-         6tk3UhGGcdebaI7RD3sbVrhUj/GeWvCHz5UMHdDY4LhYsaVkCbfdQROPFMjswUwqZw3v
-         0fSbWVgLJoKN79LNpFKEleEsghDSWDUKg8jOUcaIKXNQ1pXCqDh5BLZm0goROEj1PmZg
-         8Ue8WBw4A1EhNx80DTg0gi9alAJgxlNDKTzYFNRlN1VTs3J+QsdIDCwlxCixipwb8XH8
-         RDYezgmqjb23BqTRf3kwmVFaBmgwmUTys343VbRewbmKsnDgampNU+VogOf+aKMej0QO
-         TsXg==
-X-Forwarded-Encrypted: i=1; AKwUvBz1/osG+Q0WC347NS/eWWc8wKphK+lOJ5HjNWsc9+mAOhntVAUWasaxitb6v035KKdaIBl82m8bGIDW9DY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuLRPw2PjBWZzZGb3glovd6TkXd6YAB8VrSQXGqH/yoiOJ7cK4
-	CitCF9qWs2+Xg58PzAhKMEUOxOSfztSOqkP6zpBgk5mC5IZkffes5OPz
-X-Gm-Gg: AYBFou2pQK4/naDixiJjij22ee5sf8M09OIj7AG1uVkGC9O3DrCPK4hWORgw9RUyIxp
-	QN/uU2/rGCeKQ3TnJWz05GElQoZhccXkSgLPXHyyT0L/02sFHGskJlePlqnnCpwN7h+KVMQ2WjY
-	O/lDRQFmuKNiv1tFCBYPzw6/FnA0rPlje9XaFuBnIk1ZdTDrzBKkLCBsTs9WuuO9CVViYq4baAo
-	YXb2GvHtg01GdVUZ9Yv1aMkybKzZ9Pw0k0EniPVnEKhdRitP3BsMrKCjgdcA7nCt0lu+BbhUhYz
-	hUffA1m8/v0AURnI2+4E0x8HEG1ULnScK0x1MsVaFqVP9kXNt6d/d4ZdL2iNCFV7aS/vI1Aiiwu
-	JnbOXLVUjHg8deM2nsz1CfGS92xR7vi6hg0HEXpeX224RGn6Id+RNQWTfcA+6ttzoeAsSaYR7sm
-	+yP2gjhVnt73cJQeVsFOmRKSszbXK41uww9KazHcv2oOgEuuQflkeUHsUtEaU8WIZCwQ2NvrOZ+
-	78E111CKdNOmqwk
-X-Received: by 2002:a17:90b:1d03:b0:3a5:de8:2c4f with SMTP id 98e67ed59e1d1-3ab3b04c2d0mr6638993a91.65.1791819766331;
-        Mon, 12 Oct 2026 08:42:46 -0700 (PDT)
-Received: from ROGZephyrusG16Air ([240e:b8f:977f:f400:ec2a:b15e:fef8:70a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36f46dfesm17098384a91.8.2026.10.12.08.42.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 08:42:45 -0700 (PDT)
-From: Liang Haowen <nbg2974@gmail.com>
-To: linux-input@vger.kernel.org
-Cc: jikos@kernel.org,
-	bentiss@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] HID: add ALWAYS_POLL quirk for YJX-CHIP EWEADN wireless receivers
-Date: Mon, 12 Oct 2026 23:42:40 +0800
-Message-ID: <20261012154240.33221-1-nbg2974@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="P7v/SAbm"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=TBFr013muSrjqmBXfU5VS9nJWYXKQcqCrP4RWXqPIVA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791819765; v=1; x=1792424565;
+ b=P7v/SAbmi55gY7Odc6FAfweFYRmsjYVBB4aDYvVXh9/idvunfyHxfWrEFuPYK2OcCDneR3Ph
+ A78kvwNeNwjnyFEClAxQWsdMzqH+5tB3/xDLFoVunz11tM6wQDKvX+pCRXbhywjQB6EPPEZ91Dt
+ 7O0SF8QzindCurB2Fzs96iEM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6ac1c4d5fb4ef64e;
+	Mon, 12 Oct 2026 15:42:45 +0000
+X-Mizu-Trace-ID: 6ac1c4d5fb4ef64e
+X-Migadu-Flow: FLOW_OUT
+From: Leon Hwang <leon.hwang@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Quentin Monnet <qmo@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Leon Hwang <leon.hwang@linux.dev>,
+	Mykyta Yatsenko <yatsenko@meta.com>,
+	Avinash Duduskar <avinash.duduskar@gmail.com>,
+	Anton Protopopov <a.s.protopopov@gmail.com>,
+	Amery Hung <ameryhung@gmail.com>,
+	Jordan Rife <jordan@jrife.io>,
+	Rong Tao <rongtao@cestc.cn>,
+	Eyal Birger <eyal.birger@gmail.com>,
+	Pu Lehui <pulehui@huawei.com>,
+	Jingguo Tan <tanjingguo@huawei.com>,
+	Lin Ma <malin89@huawei.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf-next v2 06/21] bpf: Add bpf_text_poke_batch() helper in trampoline
+Date: Mon, 12 Oct 2026 23:40:08 +0800
+Message-ID: <20261012154024.29423-7-leon.hwang@linux.dev>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261012154024.29423-1-leon.hwang@linux.dev>
+References: <20261012154024.29423-1-leon.hwang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,54 +73,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The 2.4 GHz receiver in EWEADN G5 wireless mice (YJX-CHIP A8A5:2255)
-presents its mouse data on a standard interrupt IN endpoint. usbhid
-only submits read URBs for an input device while a userspace consumer
-holds it open, so on boot or replug the mouse pointer stays dead until
-something opens the node.
+Before calling bpf_arch_text_poke_batch(), check the duplicated target
+pokes by sorting the pokes.
 
-The same receiver ships with a number of other EWEADN models (A6, A7,
-E7, E9, E11, G2SE A, GS02 Pro, S7, S9SE, X23), so the quirk covers
-the whole family.
+Sorting pokes is needed for smp_text_poke_batch_add() on x86_64 for better
+performance, see arch/x86/kernel/alternative.c::smp_text_poke_batch_add().
 
-Cc: Jiri Kosina <jikos@kernel.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+If the arch does not implement bpf_arch_text_poke_batch(), fallback to
+text-poke each target via bpf_arch_text_poke().
 
-Signed-off-by: Liang Haowen <nbg2974@gmail.com>
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
 ---
- drivers/hid/hid-ids.h    | 3 +++
- drivers/hid/hid-quirks.c | 2 ++
- 2 files changed, 5 insertions(+)
+ kernel/bpf/trampoline.c | 51 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 51 insertions(+)
 
-diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
-index cb7f16d..1ccdfa5 100644
---- a/drivers/hid/hid-ids.h
-+++ b/drivers/hid/hid-ids.h
-@@ -1633,6 +1633,9 @@
- #define USB_VENDOR_ID_YEALINK		0x6993
- #define USB_DEVICE_ID_YEALINK_P1K_P4K_B2K	0xb001
+diff --git a/kernel/bpf/trampoline.c b/kernel/bpf/trampoline.c
+index 21d460866dfe..a2fd0bd8c685 100644
+--- a/kernel/bpf/trampoline.c
++++ b/kernel/bpf/trampoline.c
+@@ -13,6 +13,7 @@
+ #include <linux/bpf_verifier.h>
+ #include <linux/bpf_lsm.h>
+ #include <linux/delay.h>
++#include <linux/sort.h>
  
-+#define USB_VENDOR_ID_YJXCHIP		0xa8a5
-+#define USB_DEVICE_ID_YJXCHIP_MOUSE	0x2255
+ /* dummy _ops. The verifier will operate on target program's ops. */
+ const struct bpf_verifier_ops bpf_extension_verifier_ops = {
+@@ -1863,6 +1864,56 @@ void bpf_trampoline_multi_detach(struct bpf_prog *prog,
+ 	  CONFIG_HAVE_SINGLE_FTRACE_DIRECT_OPS &&
+ 	  CONFIG_BPF_SYSCALL */
+ 
++static int bpf_text_poke_cmp(const void *a, const void *b)
++{
++	const struct bpf_text_poke *pa = *(struct bpf_text_poke * const *)a;
++	const struct bpf_text_poke *pb = *(struct bpf_text_poke * const *)b;
++	unsigned long ipa = (unsigned long) pa->ip;
++	unsigned long ipb = (unsigned long) pb->ip;
 +
- #define USB_VENDOR_ID_ZEROPLUS		0x0c12
- 
- #define USB_VENDOR_ID_ZYDACRON	0x13EC
-diff --git a/drivers/hid/hid-quirks.c b/drivers/hid/hid-quirks.c
-index 96a36c5..92bd84e 100644
---- a/drivers/hid/hid-quirks.c
-+++ b/drivers/hid/hid-quirks.c
-@@ -222,6 +222,8 @@ static const struct hid_device_id hid_quirks[] = {
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_WISEGROUP_LTD2, USB_DEVICE_ID_SMARTJOY_DUAL_PLUS), HID_QUIRK_NOGET | HID_QUIRK_MULTI_INPUT },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_WISEGROUP, USB_DEVICE_ID_QUAD_USB_JOYPAD), HID_QUIRK_NOGET | HID_QUIRK_MULTI_INPUT },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_XIN_MO, USB_DEVICE_ID_XIN_MO_DUAL_ARCADE), HID_QUIRK_MULTI_INPUT },
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_YJXCHIP, USB_DEVICE_ID_YJXCHIP_MOUSE),
-+		HID_QUIRK_ALWAYS_POLL },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_LOGITECH, USB_DEVICE_ID_LOGITECH_GROUP_AUDIO), HID_QUIRK_NOGET },
- 
- 	{ 0 }
++	return (ipa > ipb) - (ipa < ipb);
++}
++
++static int bpf_text_poke_batch(struct bpf_text_poke **pokes, u32 cnt)
++{
++	int i, err;
++
++	/*
++	 * Sort pokes for two purposes:
++	 * 1. Check duplicated poke target IPs.
++	 * 2. Sorted poke target IPs would be friendly for poking them on x86,
++	 *    see arch/x86/kernel/alternative.c::smp_text_poke_batch_add().
++	 */
++	sort_nonatomic(pokes, cnt, sizeof(*pokes), bpf_text_poke_cmp, NULL);
++
++	for (i = 1; i < cnt; i++)
++		if (pokes[i - 1]->ip == pokes[i]->ip)
++			return -EINVAL;
++
++	err = bpf_arch_text_poke_batch(pokes, cnt);
++	if (err != -EOPNOTSUPP)
++		return err;
++
++	for (i = 0; i < cnt; i++) {
++		struct bpf_text_poke *p = pokes[i];
++
++		err = bpf_arch_text_poke(p->ip, p->old_t, p->new_t, p->old_addr, p->new_addr);
++		if (err)
++			goto rollback;
++	}
++
++	return 0;
++
++rollback:
++	for (i--; i >= 0; i--) {
++		struct bpf_text_poke *p = pokes[i];
++
++		WARN_ON_ONCE(bpf_arch_text_poke(p->ip, p->new_t, p->old_t, p->new_addr,
++						p->old_addr));
++	}
++	return err;
++}
++
+ static int __init init_trampolines(void)
+ {
+ 	int i;
 -- 
 2.55.0
 
