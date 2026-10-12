@@ -1,185 +1,431 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011039.outbound.protection.outlook.com [52.101.65.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D95B27E1DC;
-	Mon, 12 Oct 2026 10:01:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791799278; cv=fail; b=PyqW93vjeMK5mwXjqD3NBWnsK/q+qJcX4X62wv443HtHdcejexqxYkEixZU71OkPmEwgj0gqDAZkItUnzsm/N14U6UK+B0a3NhPGC9lMSq23GiAqmI6JTN6g/H7ugqrZsOAioh5/y/76HYxZ6/dNDQ20Uuye1pqw7/MRNjeBLzY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791799278; c=relaxed/simple;
-	bh=J91YzoQAgkue4VMKmMypBl32PKeUg1Xh3QbbWhkFI0s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=XSfNO2nnB3G0uYufLiZwlR2MHuUAGUj7zRfGmma/+23ZcsGTLMQGyshlO2pdU1OeJLsM5v1o7Q1jB7krf/RL8uW1S1L/6W7L4SOFjeBYQ55Q96POutLmHqP9r4fBy0QD6OMdYkY8mpj/sNsQDgH3WF9HKi475C3Ok6CLBTydseg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=pwZ4y3HI; arc=fail smtp.client-ip=52.101.65.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 120823C9ED9;
+	Mon, 12 Oct 2026 10:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791799289; cv=none; b=GPg0hpQ8JkUe0+xbA9aMxGHN+ZL4/2RYOVLA5JHz/ULcNhXGGLE4jdm5PZ6Ze2s5iZ8vENpr2Zu4kFy5F+DTIgIV0TA7O38rCWAe+n1x+WIm/0vxNX6izhrp6O4yxqgYbKlSjewbr3sNNYzio6Cd0gNxoP68Ph+DApdrdYVRPuA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791799289; c=relaxed/simple;
+	bh=jd5pnku9yDH/YK06IyQ/CleBojoWcN05kOK1/TudR2w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NPBOSKQpDO8/tYD/FtBd803twhx08Ww3xSQjBIHdNkMrlzG0gvIfNqEGZ+o8XKp6X7TlqmSzJPHfQXR2/pKwLZwX1PHNXJQzPjRar9qEyovFxQ/wVNbg3mj2M1INiMCsOlEHiW6+vbEsorTF48yqIurdpz25pswKG0YjTS0sdJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=S5/RrCP6; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="pwZ4y3HI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=guUeRQUBeqnACYgerC1LGYX+St/nnqy4WB7gXoZqPLMFHJW7vL09AgFGIratOyzPIDXbObX1h04OKcZja9cCYoUl92Q/u2+03EevDkisO6v3tGTTdq6fnr/rhLoOPFR4Cw4aINPRBehlmNvd6EkG/X3c99WC4OhUQ9JQeRO3FKCW6IvikbZIJmN3PtqwiZMlxYI1OeBOw1K+mEZKMqO3ZGFtjkRJ/BOxte9LZkjroM7UO1D5duFo5iDbfmoL9REU3SLX2RPuGqBkkI79pmk6cenQoD2tPjm7zObJG8E+rUkXbuhMTdZ/xW+4Vm4YuHHIIoHvEyeBquwWFpOErOR+AA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ikvxHn/fTkWESG74dczexCtmJNKpKWD4PefB/5syyLQ=;
- b=WddL2nQNVB8VYofxUhOga76HjPz+1iC1/SVXT3WZmVmc5V4tUDOfVzalz35On2ptzqQheDzZSXnGTCe6AI40DckGE/svRixm5KiFUdo2Hv1Vk6G6ugS1I2Dmu8HEwiZMr4dOqyjbur21hd6fPzMDXYY/LG3a5T2Oeob/t1Ies01RmHeisMCji7WgBV78ybKcQYIP7jbjtl1VxrYhNzeoIjr17kG1dnI9TBR9oBZRQSbeM7zvgcHiRnAOclRd5zFqRBvy9q+TmCxPeYYow6SodO0H+5Y8LblUQe+NycZg7kRhabCqDtiLKz+x7LKIjDCOcu4BPHFeuMIJbAAFHGsqIA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ikvxHn/fTkWESG74dczexCtmJNKpKWD4PefB/5syyLQ=;
- b=pwZ4y3HIdZw42cSFCD9sODwlocUl50KP5bU0b1DKH1vg4yCMImK2yW3UG4OtmBp+gUCKdN4dfu10y8OLehoC1IgiWDtxqmRduRz8iRiMCOZ/qIa2N5Rq1v9dmlHzPPG0cDP92ItU/2xyg0XgoYvwRkA6U8bAs0yugxwM4psu549AppBIc8jeGexoWAqf/T/MsqlxPXc7HEymBGqMKNELIcCIArhqa/25iScZA1ggA/+UPcDIL61J0Dj+bzSugowgL9G/woC9aZjpjPFgqbfXst3mcjBZYDREQqG/0J29+61nAippu3okKlOupCWLgXzW8qWvAHsdFaR+ceEOfByY9Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by DU2PR04MB9115.eurprd04.prod.outlook.com (2603:10a6:10:2f6::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 10:01:09 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 10:01:07 +0000
-Date: Mon, 12 Oct 2026 18:05:42 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v6 08/13] gpio: mxc: use local dev variable
-Message-ID: <asyw9ns870F0g7UD@shlinux89>
-References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com>
- <20261011-gpio-mxc-cleanup-v6-8-cb47ce2ad758@nxp.com>
- <CAHp75VeonKZtX8moOdXrmTJbjH5Ew5iVdDDc3KfqQ9r_tvHg1g@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHp75VeonKZtX8moOdXrmTJbjH5Ew5iVdDDc3KfqQ9r_tvHg1g@mail.gmail.com>
-X-ClientProxiedBy: MA5PR01CA0010.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:174::12) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="S5/RrCP6"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DA6371A00;
+	Mon, 12 Oct 2026 03:01:16 -0700 (PDT)
+Received: from [10.0.128.106] (e127648.arm.com [10.0.128.106])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5BF863F882;
+	Mon, 12 Oct 2026 03:01:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791799280; bh=jd5pnku9yDH/YK06IyQ/CleBojoWcN05kOK1/TudR2w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=S5/RrCP6fspXMYBhLr9DNtPrP/uThdwf6HDc6QcyFRCVLSh5KOLY7jLrlNdoMbcgh
+	 GBzk6LM2JaxHTb8FfEzlMW798Jn1wO/zgYR9QxV4DTeNMj4RpsstUAzSHJmqcfywO3
+	 OFM0HIez4XEpokHIhePLi3xwA2Afzbht5VmCiHeg=
+Message-ID: <6e4eaf61-0d1a-4b13-89a5-f9d88103c694@arm.com>
+Date: Mon, 12 Oct 2026 11:01:14 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DU2PR04MB9115:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff83bd29-ec00-493d-c5f5-08df2847bc33
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|7416014|1800799024|366016|376014|10067099003|22082099003|18002099003|11063799006|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	9j0gKW7L3gqbmQ/8ec/77En7N3qUuMzR3a/ZSRzVdbLjsD5MjHWRfRpmX+zNgPp5zNs+LVOOEC3eagcoPzvJOG8ep1ykTL4Qo6euE3d/QDct/8Fc+/ykZK7St7+c0Vuo2raJgaIEaiQamLAQagtzkpMMUqq1TqPSEmRCRHV1Qzt3WuVzyoO7qAcTnp1Il/OTZSwhbt+EG+uj7bw6LOyIy32HWK5iWu6xMPn7/0qrbODF0DR6xX1kdzzqY9IY0MSplU6iBmNLtBqEY/cm4f+Sb/A9Mg6De8SI3OMwl04cEUmFrowkKSfBGwiVDRiVjW3Ds251IEpyAQvliMlfPVRkoXBiNjFNbTQuRJIUZHteorbaiwiwREHZ+r7LV7oxgXkwprLwPeMq7DUXBpyfqJW+ugf1AYRI6zwOSz0qZelKuseBwvUKh8c9/AMRrcO7udLfYMdfGHgory0woudeVwwk963ZsiNEA/q5bWf08tFxPq9nTzB948LFF0caQiuu6U0dDsmFQxElJX550kcSQBdhMN3ZUThnQqDgju/tbBjmcz+Cd8P+G4Rmet9H9R0KZYv0LPRMbtOzZnl/cgxzZpCEBYCuZL4+9199P5EX8+EvfhQR/ztqW7efeCmcngsQ0/NcjHX8BYtzyvIu8Kr+ZtVthA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(7416014)(1800799024)(366016)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MXk4QWpIS3QwRjdHVWZqTVFzVlN0RERmQ0xnMkNTNWFoYm9oYnBqMjRXWXo5?=
- =?utf-8?B?TUpTU205b0t6cVZsNnNiMExNWHZmTnF6aWV5V2syU3pZK3BUNXNld2daaFRO?=
- =?utf-8?B?bGVCdkRpT0tXWkRsbGZBQ3k0bzhZc3YvTitSRXdhNjdhZzRrOXZkbnpHOW1l?=
- =?utf-8?B?R2o5cUtCNHVSS096QnVwbkZHYXo2MXhGZHhqSGtxeVdQYVFrdTNSdlc1YXgw?=
- =?utf-8?B?eW5CSHJtc0cxTFRKcUVoTXEvaExTdFo2YndBSFUrNStjb3FIV3QzL2toaHhj?=
- =?utf-8?B?MWFtdFA0Y0VhWGRReWNidzRsRkVJaUhGQ2dNbW1UOEY3SEVkbGlDbFh3Q252?=
- =?utf-8?B?Z0dkRmZ5eUNaUFZMeDdoMFN2bmVZS2V1cUE3SHA4bC9vYlZnN0FMMDl4dWx6?=
- =?utf-8?B?OXNMZnBtOUphMWRXdVZsazlkM1hmeTNSU0hQQ3h5ejdZZ2E2R2xrWHAxMnJm?=
- =?utf-8?B?UHA3aFVFaHFKRkY1eTJ5dEJLMlV0OVNGVjlCbjBISngvcno1TmtYZEF3MllU?=
- =?utf-8?B?T08vNFptVzd1N0VWbW9uTUg3Vll3ZlIwYTJocVhqam96akRXejhUaVE3MzN0?=
- =?utf-8?B?dEl6b0p1TGNiQXlzbytZcS8waTZ3TnV4bVJwaGd1aFo5QnBUQUZqU0lSeWFT?=
- =?utf-8?B?elhuLzZmMC93RUlVV0pwZEdsbEsyajk3NklnZHFpUTFOcGtVMU54UUlhZjRM?=
- =?utf-8?B?dVJKMCtjTXQzd0hhSXNoY1c4QVYwYjlSd2dSTUgzSjJVcVFoWENhUm1XNnAw?=
- =?utf-8?B?VzZnUUd3SjVTck50L2NtNG1FcHdWV2R4Y3oyQ25YUWpuOHFyc3VqeHp4TVgr?=
- =?utf-8?B?ZlNHL29mT2lXT0NzRHA1U1EzdUpiVVAvRWFIVjdZTkY1V1NPUmdqR3AxOTBQ?=
- =?utf-8?B?bmZqQWNOM1RkVnhveTd4NU9ERDB5eUg2S2NCc3ltU29mMnRjY3hNemVhV1lI?=
- =?utf-8?B?Q1d2THh4TmFlbkJLMi8vMzZzUlZvYVpONXk2NE85VU8yVHA0dS85eGJrNlY5?=
- =?utf-8?B?ZkJTdURLYXo1ZHVhTkhDRmpjK096VzdHQ2VvQm8zVElDeGh6Y2RHWHNKTjFR?=
- =?utf-8?B?YWxKWlFYNWxONkZiSFRSTnJwYUlwSFp4ZEVhMmZYek5jR0o1a1FOSUZKSVhk?=
- =?utf-8?B?ejNvVXFXa3Y5UngrbGh0a09UK0hiTk10UTh0bWlOTmdFa05HYVRDem4xVno2?=
- =?utf-8?B?TGVUelBEanlvTWhFRDBiMyt5Tk5iazNNYTVxZ0JXMlhEK0NIek8wWFVOa1V0?=
- =?utf-8?B?YkNxT1JLa2Uva1p0bG9RSVl1Ri9Lc3J4UHczb0RTQ21HK2JSSnhUWEgvYWJW?=
- =?utf-8?B?dXAzMm92aGlxM0Z1b2VGTkdGTEt4V3I2ak1yVm5PVlRqZGlDdUxzK0xZU2tY?=
- =?utf-8?B?YXJPMENreVM3M0I1ckV1YlI0ai9nQmJWZTZmL25seEhHSDNRV0VPS3NMMGVy?=
- =?utf-8?B?bUZnYWpyMVRQUVBLSlg3Zzl1dEVuVFZQU1hpTjhvdy9Zcm1lcHAvSE9XbGpS?=
- =?utf-8?B?TWgyTkhmVmR4WkFqSXRpbzhBTU51M3Q1YnV1TmVod2tJUWo5K0dYOEpUc094?=
- =?utf-8?B?bWxqWnMvWHcwK1lnUjM4eU1maW9RRFNlRHlxdEQ2MmpIZ0YrSlhHR3RvZGkw?=
- =?utf-8?B?SHE4T0srYVlnR1hSWjNmWjU2Z3dIeWp6a3VzQkM0czJ6QTEyN2JWTjdkektW?=
- =?utf-8?B?aGlYVDdZZkpVMFdEODhKaWRQbzE0VWw0VnhrSE1YWDVYQW05aVl2b0lJeis3?=
- =?utf-8?B?bldUNThoUTQxVUozci9udjNmKzk4Tk0zajRLcHB0ZFpVcG5CUVR6N3dIWEho?=
- =?utf-8?B?YnFwZ2ZmRzdHWG0zOTNrdlpSRHViYVNVYUljd0FNWEFvSHdJQ016aEk5V1Mr?=
- =?utf-8?B?MEp4THlZRFhXZkNGUmFZOGVCMTJIelNsUUJMZDJHKzUvUFJmbVJiRUh2QVhI?=
- =?utf-8?B?VlpxTlN4Qm82Z1Nyc2c3WnZNTW5IWUp5SENGWTNySllCM3dpVzhpYmNKMit1?=
- =?utf-8?B?SkIrdFpzSGlEbjRBUXJsYzFvaWhoZnJ5MHVyMGRIYi8wQnFjL1dBNjduZHJt?=
- =?utf-8?B?U2VrTW4rb2RXWERKYS9EK3NNVEtRbUtDUk9iZ1VzVDI4WVZXZVU1eEc5ejVL?=
- =?utf-8?B?UXhzd1Jjb1huQ1E0RDdpaVYxY2k4czVIL0V5K3lHVW5nL3Y2a3BMVHlQT01R?=
- =?utf-8?B?blhJNlRpaElzcUtidVMxZUZuR3hWeEJGbXREd0ZLUzVxb1BjaWFPc1cvWHB5?=
- =?utf-8?B?VytVckM0U2JNb3B1Q2F6dkpWVVR0bXlYbGxqb3gvbWJTd3dzMFdJdks3dFc1?=
- =?utf-8?B?cVZtZFE3VGVsWnhlTncreC8wRm0yVFJMS3pjd2ZyWGo1K3ZBMDdHSmQ2M2dO?=
- =?utf-8?Q?XzcyjnCjfTfIQNAK3T6n0URfSmHZyvCARoIsO?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff83bd29-ec00-493d-c5f5-08df2847bc33
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 10:01:07.8666
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2j2P1Pd/SmUXASaXY/GfACRoO8ikGdLyagxgmgHjqto6X7vP92JfISsN/v4tHukp2GQPdnUOCyAILAJCRdJ+arAckPtrOyANAuDG9sdBUrzyF9EkO7lYgY+XmFwKmVEs
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9115
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] PM: QoS: Add a sysfs CPU latency request with a
+ boot-time value
+To: Roman Kagan <rkagan@amazon.de>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Len Brown <lenb@kernel.org>,
+ Pavel Machek <pavel@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>,
+ kexec@lists.infradead.org, nh-open-source@amazon.com
+References: <20261010-b4-cpuidle-shallow-v2-1-adede7dd9077@amazon.de>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20261010-b4-cpuidle-shallow-v2-1-adede7dd9077@amazon.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026 at 12:30:07PM +0300, Andy Shevchenko wrote:
->On Sun, Oct 11, 2026 at 2:54 PM Peng Fan (OSS) <peng.fan@oss.nxp.com> wrote:
->>
->> Introduce a local 'struct device *dev' variable to replace repeated
->> '&pdev->dev' dereferences throughout mxc_gpio_probe(), improving
->> readability.
->
->...
->
->>  {
->>         struct gpio_generic_chip_config config = { };
->>         struct device_node *np = pdev->dev.of_node;
->
->Why not this one? Is it even used? Perhaps you want to have
+On 10/10/26 14:29, Roman Kagan wrote:
+> The idle states offered by a platform trade wakeup latency for energy
+> savings, and there are situations where the trade is not worth making:
+> while a latency-sensitive workload is running, or during a live update
+> via kexec, where everything from the outgoing kernel stopping the
+> workload to the incoming kernel resuming it is downtime, and deep idle
+> states may lengthen it.
 
-of_alias_get_id() is used, there is no counterpart in fwnode api for it.
+So yes, I'm buying this use-case FWIW.
 
->
->  struct fwnode_handle *fwnode = dev_fwnode(dev);
->
->here?
->
->> +       struct device *dev = &pdev->dev;
->>         struct mxc_gpio_port *port;
->>         int irq_count;
->>         int irq_base;
->>         int err;
->
->...
->
->> -       dev_info(&pdev->dev, "%s failed with errno %d\n", __func__, err);
->> +       dev_info(dev, "%s failed with errno %d\n", __func__, err);
->
->This message simply needs to be killed, with initcall_debug in the
->kernel command line you will get something similar from driver core.
+> 
+> The CPU latency PM QoS limit is meant for that, but user space can only
+> take part in it through /dev/cpu_dma_latency, with a request that lives
+> only as long as the file stays open.  It cannot be in effect while the
+> incoming kernel boots, and on the outgoing side the process holding the
+> file normally goes away with the rest of user space before the kexec.
+> The per-CPU pm_qos_resume_latency_us and per-state "disable" attributes
+> in sysfs are not tied to an open file, but they cannot be set before
+> user space is up either.  The existing command line options restricting
+> idle states either cannot be undone (cpuidle.off=1, idle=poll,
+> idle=halt, processor.max_cstate= and intel_idle.max_cstate=) or are
+> specific to one driver (intel_idle.states_off=).
+> 
 
-ok. Let me fold the change in this patch, I would not introduce
-another patch to just drop this line.
+The only thing that currently can't be done is having these restrictions
+be imposed at boot...
 
-Thanks
-Peng
+> Add a CPU latency request shared by the entire user space, like the
+> resume latency request of each CPU, and expose it as
+> /sys/devices/system/cpu/pm_qos_cpu_latency_us with the same format as
+> the per-CPU attributes: "0" means no constraint and "n/a" means that no
+> latency is acceptable.  Its initial value can be set with the
+> pm_qos_cpu_latency_us= command line parameter, and the request is added
+> before any cpuidle driver registers, much like the boot-time request
+> intel_idle holds until device_initcall_sync.  For a live update, the
+> outgoing kernel can be given a limit through sysfs before the kexec, the
+> incoming kernel can be booted with the same limit, and user space can
+> write 0 to lift it once the workload is running again.  As the limit is
+> the minimum over all requests, this one can only make it stricter.
+> 
 
->
->-- 
->With Best Regards,
->Andy Shevchenko
->
+... which is why I don't into introducing another PM qos request exposed
+to userspace.
+
+> PM QoS is used rather than the per-state "disable" flags, e.g. through
+> a command line option disabling the states above a given exit latency,
+> because the genpd governor applies the CPU latency limit to the idle
+> states of CPU PM domains too, while the flags only apply to the states
+> of individual CPUs, and because lifting the limit takes one write rather
+> than one per CPU and state.  A boot-time value for the per-CPU resume
+> latency requests would take one write per CPU to lift and would depend
+> on CONFIG_PM.
+
+I don't really buy the "saved writers" argument here. Why is it that
+important?
+I think the analogous approach to intel_idle.states_off= is better, which
+can AFAICS only be done generically through exit_latency because of asymmetric
+systems.
+
+Regarding the genpd concern I don't see how this is an issue? Both PSCI and
+SBI only call into genpd on the deepest state. I guess this could be
+more strictly documented, but having that state disabled means genpd
+states cannot be entered either.
+
+
+> 
+> Assisted-by: LLM
+> Signed-off-by: Roman Kagan <rkagan@amazon.de>
+> ---
+> Changes in v2:
+> - Drop the shallow governors (Christian Loehle)
+> - Add a CPU latency PM QoS request settable from the kernel command line
+>   and through sysfs instead; the commit message explains why PM QoS
+>   rather than the per-state "disable" flags
+> - Link to v1: https://patch.msgid.link/20261008-b4-cpuidle-shallow-v1-1-c19e71127b14@amazon.de
+> ---
+>  Documentation/admin-guide/kernel-parameters.txt    |  11 ++
+>  kernel/power/qos.c                                 | 111 +++++++++++++++++++++
+>  Documentation/ABI/testing/sysfs-devices-system-cpu |  27 +++++
+>  Documentation/admin-guide/pm/cpuidle.rst           |  32 ++++--
+>  Documentation/power/pm_qos_interface.rst           |  17 +++-
+>  5 files changed, 188 insertions(+), 10 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index e75344f4e0cd..a01c8f9cb00f 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -5389,6 +5389,17 @@ Kernel parameters
+>  			Format: <bool>
+>  			Default value is set by CONFIG_DPM_WATCHDOG_ENABLED.
+>  
+> +	pm_qos_cpu_latency_us=
+> +			[CPU_IDLE] Initial value of the CPU latency limit
+> +			requested through
+> +			/sys/devices/system/cpu/pm_qos_cpu_latency_us, in
+> +			microseconds.  It stays in effect until user space
+> +			writes a different value to that attribute.
+> +			Format: <integer> | n/a
+> +			"0" means no constraint (the default) and "n/a" means
+> +			that no latency is acceptable.  Other values, from 1
+> +			to 1999999999, are limits in microseconds.
+> +
+>  	pnp.debug=1	[PNP]
+>  			Enable PNP debug messages (depends on the
+>  			CONFIG_PNP_DEBUG_MESSAGES option).  Change at run-time
+> diff --git a/kernel/power/qos.c b/kernel/power/qos.c
+> index 1944dbeb0d4c..f38136193907 100644
+> --- a/kernel/power/qos.c
+> +++ b/kernel/power/qos.c
+> @@ -21,6 +21,7 @@
+>  /*#define DEBUG*/
+>  
+>  #include <linux/pm_qos.h>
+> +#include <linux/cpu.h>
+>  #include <linux/sched.h>
+>  #include <linux/spinlock.h>
+>  #include <linux/slab.h>
+> @@ -335,6 +336,116 @@ void cpu_latency_qos_remove_request(struct pm_qos_request *req)
+>  }
+>  EXPORT_SYMBOL_GPL(cpu_latency_qos_remove_request);
+>  
+> +/* User space interface to the CPU latency QoS via sysfs. */
+> +
+> +/*
+> + * Unlike the requests made through the misc device, this one is shared by the
+> + * entire user space and is not tied to an open file, like the resume latency
+> + * request of each CPU.  Its initial value can be set in the kernel command
+> + * line.
+> + */
+> +static struct pm_qos_request cpu_latency_qos_sysfs_req;
+> +static s32 cpu_latency_qos_boot_value __initdata = PM_QOS_DEFAULT_VALUE;
+> +
+> +/*
+> + * Use the format of the power/pm_qos_resume_latency_us attribute of CPUs: "0"
+> + * means no constraint and "n/a" means that no latency is acceptable.
+> + */
+> +static int cpu_latency_qos_parse(const char *buf, s32 *value)
+> +{
+> +	s32 val;
+> +
+> +	if (!kstrtos32(buf, 0, &val)) {
+> +		/*
+> +		 * Prevent users from writing negative or "no constraint" values
+> +		 * directly.
+> +		 */
+> +		if (val < 0 || val >= PM_QOS_CPU_LATENCY_DEFAULT_VALUE)
+> +			return -EINVAL;
+> +
+> +		*value = val ? val : PM_QOS_DEFAULT_VALUE;
+> +	} else if (sysfs_streq(buf, "n/a")) {
+> +		*value = 0;
+> +	} else {
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int __init cpu_latency_qos_setup(char *str)
+> +{
+> +	if (cpu_latency_qos_parse(str, &cpu_latency_qos_boot_value))
+> +		pr_warn("Invalid pm_qos_cpu_latency_us= value: %s\n", str);
+> +
+> +	return 1;
+> +}
+> +__setup("pm_qos_cpu_latency_us=", cpu_latency_qos_setup);
+> +
+> +static ssize_t pm_qos_cpu_latency_us_show(struct device *dev,
+> +					  struct device_attribute *attr,
+> +					  char *buf)
+> +{
+> +	s32 value = READ_ONCE(cpu_latency_qos_sysfs_req.node.prio);
+> +
+> +	if (value == 0)
+> +		return sysfs_emit(buf, "n/a\n");
+> +	if (value == PM_QOS_CPU_LATENCY_DEFAULT_VALUE)
+> +		value = 0;
+> +
+> +	return sysfs_emit(buf, "%d\n", value);
+> +}
+> +
+> +static ssize_t pm_qos_cpu_latency_us_store(struct device *dev,
+> +					   struct device_attribute *attr,
+> +					   const char *buf, size_t n)
+> +{
+> +	s32 value;
+> +	int ret;
+> +
+> +	ret = cpu_latency_qos_parse(buf, &value);
+> +	if (ret)
+> +		return ret;
+> +
+> +	cpu_latency_qos_update_request(&cpu_latency_qos_sysfs_req, value);
+> +
+> +	return n;
+> +}
+> +
+> +static DEVICE_ATTR_RW(pm_qos_cpu_latency_us);
+> +
+> +/*
+> + * The cpu subsystem root device is registered before any initcalls run, so
+> + * both the request and its attribute can be set up before any cpuidle driver
+> + * registers.
+> + */
+> +static int __init cpu_latency_qos_sysfs_init(void)
+> +{
+> +	struct device *dev_root;
+> +	int ret = -ENODEV;
+> +
+> +	cpu_latency_qos_add_request(&cpu_latency_qos_sysfs_req,
+> +				    cpu_latency_qos_boot_value);
+> +
+> +	dev_root = bus_get_dev_root(&cpu_subsys);
+> +	if (dev_root) {
+> +		ret = device_create_file(dev_root,
+> +					 &dev_attr_pm_qos_cpu_latency_us);
+> +		put_device(dev_root);
+> +	}
+> +
+> +	if (ret) {
+> +		pr_err("%s: %s setup failed\n", __func__,
+> +		       dev_attr_pm_qos_cpu_latency_us.attr.name);
+> +		/* Do not leave a limit in place that cannot be lifted. */
+> +		cpu_latency_qos_update_request(&cpu_latency_qos_sysfs_req,
+> +					       PM_QOS_DEFAULT_VALUE);
+> +	}
+> +
+> +	return ret;
+> +}
+> +core_initcall(cpu_latency_qos_sysfs_init);
+> +
+>  /* User space interface to the CPU latency QoS via misc device. */
+>  
+>  static int cpu_latency_qos_open(struct inode *inode, struct file *filp)
+> diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documentation/ABI/testing/sysfs-devices-system-cpu
+> index 82d10d556cc8..08ffb3c47b32 100644
+> --- a/Documentation/ABI/testing/sysfs-devices-system-cpu
+> +++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
+> @@ -141,6 +141,33 @@ Description:	Discover cpuidle policy and mechanism
+>  		Documentation/driver-api/pm/cpuidle.rst for more information.
+>  
+>  
+> +What:		/sys/devices/system/cpu/pm_qos_cpu_latency_us
+> +Date:		October 2026
+> +Contact:	Linux power management list <linux-pm@vger.kernel.org>
+> +Description:
+> +		(RW) The CPU latency limit requested by user space for all
+> +		CPUs, in microseconds.  It is a single PM QoS request shared by
+> +		the entire user space, which stays in effect until it is
+> +		updated.  The global CPU latency limit is the minimum of this
+> +		request and of the other ones, made by kernel code and through
+> +		/dev/cpu_dma_latency, so it may be lower than this value.
+> +		Reading the file returns the value of this request, not the
+> +		global limit.
+> +
+> +		As for the power/pm_qos_resume_latency_us attributes of CPUs,
+> +		"0" means no constraint and "n/a" means that no latency is
+> +		acceptable.  Other values, from 1 to 1999999999, are limits in
+> +		microseconds.  Writing anything else fails with -EINVAL.
+> +
+> +		The initial value can be set with the pm_qos_cpu_latency_us=
+> +		kernel command line parameter.
+> +
+> +		Present if CONFIG_CPU_IDLE is set.
+> +
+> +		See Documentation/admin-guide/pm/cpuidle.rst for more
+> +		information.
+> +
+> +
+>  What:		/sys/devices/system/cpu/cpuX/cpuidle/state<N>/name
+>  		/sys/devices/system/cpu/cpuX/cpuidle/stateN/latency
+>  		/sys/devices/system/cpu/cpuX/cpuidle/stateN/power
+> diff --git a/Documentation/admin-guide/pm/cpuidle.rst b/Documentation/admin-guide/pm/cpuidle.rst
+> index be4c1120e3f0..ea3bc4e4f29e 100644
+> --- a/Documentation/admin-guide/pm/cpuidle.rst
+> +++ b/Documentation/admin-guide/pm/cpuidle.rst
+> @@ -520,13 +520,16 @@ individual CPUs.  Kernel code (e.g. device drivers) can set both of them with
+>  the help of special internal interfaces provided by the PM QoS framework.  User
+>  space can modify the former by opening the :file:`cpu_dma_latency` special
+>  device file under :file:`/dev/` and writing a binary value (interpreted as a
+> -signed 32-bit integer) to it.  In turn, the resume latency constraint for a CPU
+> -can be modified from user space by writing a string (representing a signed
+> -32-bit integer) to the :file:`power/pm_qos_resume_latency_us` file under
+> +signed 32-bit integer) to it, or by writing a string to the
+> +:file:`pm_qos_cpu_latency_us` file under :file:`/sys/devices/system/cpu/` in
+> +``sysfs``.  In turn, the resume latency constraint for a CPU can be modified
+> +from user space by writing a string (representing a signed 32-bit integer) to
+> +the :file:`power/pm_qos_resume_latency_us` file under
+>  :file:`/sys/devices/system/cpu/cpu<N>/` in ``sysfs``, where the CPU number
+> -``<N>`` is allocated at the system initialization time.  Negative values
+> -will be rejected in both cases and, also in both cases, the written integer
+> -number will be interpreted as a requested PM QoS constraint in microseconds.
+> +``<N>`` is allocated at the system initialization time.  Negative values will
+> +be rejected in all of these cases and the written integer number will be
+> +interpreted as a requested PM QoS constraint in microseconds, except that ``0``
+> +written to the ``sysfs`` files means no constraint (see below).
+>  
+>  The requested value is not automatically applied as a new constraint, however,
+>  as it may be less restrictive (greater in this particular case) than another
+> @@ -574,6 +577,16 @@ determine the effective value to be set as the resume latency constraint for the
+>  CPU in question every time the list of requests is updated this way or another
+>  (there may be other requests coming from kernel code in that list).
+>  
+> +Similarly, there is one global CPU latency limit request associated with the
+> +:file:`pm_qos_cpu_latency_us` file under :file:`/sys/devices/system/cpu/` in
+> +``sysfs``.  It is shared by the entire user space and is not tied to any file
+> +descriptor, so it stays in effect until it is updated.  Its initial value can be
+> +set with the ``pm_qos_cpu_latency_us=`` kernel command line parameter, which
+> +puts the limit in place before any ``CPUIdle`` driver is registered, and user
+> +space can lift it later.  As for the :file:`power/pm_qos_resume_latency_us`
+> +files of CPUs, ``0`` means no constraint and ``n/a`` means that no latency is
+> +acceptable.  Other values, from 1 to 1999999999, are limits in microseconds.
+> +
+>  CPU idle time governors are expected to regard the minimum of the global
+>  (effective) CPU latency limit and the effective resume latency constraint for
+>  the given CPU as the upper limit for the exit latency of the idle states that
+> @@ -615,6 +628,13 @@ governor will be used instead of the default one.  It is possible to force
+>  the ``menu`` governor to be used on the systems that use the ``ladder`` governor
+>  by default this way, for example.
+>  
+> +The ``pm_qos_cpu_latency_us=`` kernel command line parameter sets the initial
+> +value of the global CPU latency limit request associated with the
+> +:file:`pm_qos_cpu_latency_us` file in ``sysfs`` (see `above <cpu-pm-qos_>`_), so
+> +it can be used to keep idle states with exit latency beyond the given value from
+> +being selected from the start, and the limit can be lifted at run time by
+> +writing to that file.
+> +
+>  The other kernel command line parameters controlling CPU idle time management
+>  described below are only relevant for the *x86* architecture and references
+>  to ``intel_idle`` affect Intel processors only.
+> diff --git a/Documentation/power/pm_qos_interface.rst b/Documentation/power/pm_qos_interface.rst
+> index 4c008e2202f0..f5d53f01652f 100644
+> --- a/Documentation/power/pm_qos_interface.rst
+> +++ b/Documentation/power/pm_qos_interface.rst
+> @@ -57,11 +57,12 @@ From user space:
+>  
+>  The infrastructure exposes two separate device nodes, /dev/cpu_dma_latency for
+>  the CPU latency QoS and /dev/cpu_wakeup_latency for the CPU system wakeup
+> -latency QoS.
+> +latency QoS, and a sysfs file, /sys/devices/system/cpu/pm_qos_cpu_latency_us,
+> +for the CPU latency QoS.
+>  
+> -Only processes can register a PM QoS request.  To provide for automatic
+> -cleanup of a process, the interface requires the process to register its
+> -parameter requests as follows.
+> +Requests made through the device nodes belong to the processes making them.
+> +To provide for automatic cleanup of a process, the interface requires the
+> +process to register its parameter requests as follows.
+>  
+>  To register the default PM QoS target for the CPU latency QoS, the process must
+>  open /dev/cpu_dma_latency.  To register a CPU system wakeup QoS limit, the
+> @@ -77,6 +78,14 @@ using the 10 char long format e.g. "0x12345678".
+>  To remove the user mode request for a target value simply close the device
+>  node.
+>  
+> +The sysfs file is associated with a single CPU latency QoS request that is not
+> +tied to any process and is shared by the entire user space.  Writing to the
+> +file updates that request, which stays in effect until the next update.  The
+> +value is a number of microseconds from 1 to 1999999999, with the same special
+> +cases as for the per-CPU resume latency: "0" means no constraint and "n/a"
+> +means that no latency is acceptable.  The initial value of that request can be
+> +set with the pm_qos_cpu_latency_us= kernel command line parameter.
+> +
+>  
+>  2. PM QoS per-device latency and flags framework
+>  ================================================
+> 
+> ---
+> base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+> change-id: 20261007-b4-cpuidle-shallow-a4d6190bc8b1
+> 
+> Best regards,
+> --  
+> Roman Kagan <rkagan@amazon.de>
+> 
+
