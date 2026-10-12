@@ -1,186 +1,137 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD9B4CCDE3
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:13:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84A924ABBC4
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:14:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791828803; cv=none; b=CpIQ1ZWNOGvsFkF3ZIK2RQ1T+QUJfD0mCJXbe/GBTwN/HPhdcr1IXD97YxrW8k9HRDxoTWmdR4p/MksSJT12WCYX52LaqUMFEwruXUT2Q/6QqBrjKmSyFTRZ8w4Yw3TTyFGSCN8XU7RJYj+gjdES2DYc3unlfa7Zj6ej2yON8os=
+	t=1791828897; cv=none; b=M4DH8b4S4pkpe3FvnpMLjQXggVRg451g9/AAHq+6VOmHgHuKh8QwVCuxp2I0oofuP09M1eHB1QwnkgbbsRniBpjRsCjr5zmsXIMsROYjkrNUP4gpr1VjSEI6eAbjcCe6zkliDwDSQHrxBf1iZdzvYKxCMER+b+jHJixiZF7gZYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791828803; c=relaxed/simple;
-	bh=cvutCsJ7P1pO0gUDzHxGIOHKI414VIJ9bd4O2RctmVo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HVeGH9QTdn667NufKTluzJYtlj/xezu7B5q/kHvXjgwg/8vV829NuEslP4wPXTXBGm+pufVny5F5qBCnP8jTO1Ke4SM/QH13ccxGMGa/Mjy24THg093C35zogtWN+SiX0SCuvaXrrRAOxiW2D2celaej/UupHsi9tW6GMNhA2eQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HoUKmF5T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XS8fgdaw; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791828897; c=relaxed/simple;
+	bh=QmmaBmlJVo5FdvqhyuBn14AUH7EEO+X0T1K+iasYDNY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pMAqIjLpc+4nWN2ZrtiRnUce48kbgpFpsEb1+cGE+k2Jc8zeCKL0LxcVXfAT6qs5biIvHUhli+YUPaMQprU8KD3lEHrH8wUaKTnIMyUHXrSYPyKqw3grg4kpcSMaCtNxpdoLsomG8stT7P8yzAb9AnwZ0cg0sT2KitRFFO6CUFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com; spf=pass smtp.mailfrom=amutable.com; dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b=CuM3h/+9; arc=none smtp.client-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HoUKmF5T";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XS8fgdaw"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CHv2mj4151981
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:13:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1u7vtvJ1VscGBojbDlDxNg96L1K6AUN+XvvnqPqIY6Q=; b=HoUKmF5TNsCizT74
-	MN6lBM/b1ykF01Z9zn/fMWiulyFoFLAi4UmrpjsNVa8Fb4FlsNT1Vcm2yRWsjJlZ
-	eukT/RXErwjzbSVX9wh9ODVz9PKuT/NzEBxywGZn55tNeQY4Y6qIJu4BXm3dOhh4
-	BbeS2RPiWS6+hjfdYmZ3Nvy2T7Wu+SciOqjBiARd07hf26cDd/bTgAYDwX8YoDEI
-	BLZWE2vE5uFYX4Zkfmf9/DG2SItCk+OebZIv0Mf5tWQqbBn/HrZ89IzJx9l9WNHu
-	7V3CxDMrIRvHh0495j1T3leSQFYKc2RmgaI8HyI+eTJdJCatC4nt29lAGht6GG60
-	gIk5qg==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8wdra5u7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:13:21 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3515266f6eeso4064588eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:13:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b="CuM3h/+9"
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-677ad9083feso1480608d50.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:14:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791828801; x=1792433601; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1u7vtvJ1VscGBojbDlDxNg96L1K6AUN+XvvnqPqIY6Q=;
-        b=XS8fgdawmHdqCBmU9XUC2sTIo8YBM9RnFGVjcjoKQOeYWKmY9Tb9Dd5+oaZOh6J9Jo
-         BBkwSwZuvr/TOEU/EdszUNun6xl4SY4FBunCmq1PfJ7HdUPxOU6TZg4FaXQQmb1XFYmy
-         qrwAunwX64H7wGaxZyKg8DLGf4Tkikbcm0BJY2fpSks/DnJhI4BcvJP52nrdcnG9vMv8
-         P6wIy3URsED4A+Mmksno9UsfJh6P0oGwXaIwWLz/uAxwfeTiK6LsFLvwslksM9d3fy2I
-         U/cAcZuXtsF46e6IT/HUe7EJbTpEAlIr5SnGts8X22feL+6WSQmr+BC6wt+Y5gh6WZjs
-         ncbg==
+        d=amutable-com.20251104.gappssmtp.com; s=20251104; t=1791828895; x=1792433695; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jiSdjWiO6CP6czxAtbTP6DSzhB/PYb1mZmzJGcgFfYI=;
+        b=CuM3h/+9LU7XaeR+xoTNf+sgxUzQrQSWBaIA/BFftBOeOr40m9H0beCVLbJrp7F60j
+         0DBRgWAh/PMbQPFUNtukqB7S9hcZpuadWv+1kdLOTL+rWaRXQilsfo2mX+KKVOLKChi6
+         HgHnLLD7X0d53N52RW/+B/l5mVZ+2iKb/jXez0auS5+iBf/04mczW44jsZerMcIv670T
+         rqOpWEVYb0px5zi/+uZW9ysnc93BsbWKChqvvYAcafl+e/gEqUMpBfaI0kKg1tMvK7C3
+         MSrFo3cNfmWMmVSrrIbgvJBiCsauAsI01bTSQclALrQR0gzQ9fnTm5lvUcND6EgkultL
+         xVRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791828801; x=1792433601;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1u7vtvJ1VscGBojbDlDxNg96L1K6AUN+XvvnqPqIY6Q=;
-        b=cRFlLubUukUL8g9iFZcEHefPvm3R+6w+2q0B8A6P/wu7veQt5NtFGvxhhhyFB+zVbP
-         KeKfl3ziqWJ4AUd9iY9BnmNW6AAGVwpv4iSBdhTv+L0RRY5ZDkXqr47ZmqjwKruszj7+
-         8O+glPqsWqGPAQO+oinBuTVEaH4ek81KvnWcr7dJi6yLrYS0cDlb4xW7cf6f3ZaGsWBz
-         6LD7ttXDyrIvS/wUWyr7/mFP+AaEJJtIf6LuH34Xf0hZft9MfAmoclrhPROEdwwGqOFd
-         SicEwRJjMUnd2TDuA0usErzjGJ/FcjABQ5KtvnAaRALcYjfg4RUQ5blRH2qCT8zBEgP/
-         ZVmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwzEUy3sSfmO3RP1XQ4vNTHCGYmD1i7Ewj+HriyRpmMxBC0QzvXuB7Iejz851zcIQ+iIyWK6EjAWNtncIc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL36dEvWoIXmt+hjZzXHoPDHM7gKJBp1gtOjWTA2iO1U+Ilopl+
-	f2nqoXPLNpY+q7t4xgAgveg57wb5bb2I0SJvDvnN4rNBUrAaE/O7fwbB+ni73V70kuHT9VKmjcy
-	TyEkJvLonG+9TniaZVTNo2ULzdSVrd9d1UF6I+9oJljE3wVzYjqn0yz64nnM+HSifKcc=
-X-Gm-Gg: AYBFou38ZvmEo4Onvm6vKbA4Mo7qRVAESxid42MAKa+EWfUs7wguMQWCGLwFf3K9GRK
-	VlJnV9LQx8CBpxCKknEaasOJBYrExLD3SpZvgd/LBHoSu8/JVm9Pa74q7QX0ye+dUqBE5sfzBg2
-	wCmpCYuLWlgk52OtiMmRAKwGNLc9IPtp5Ne9MhzE9g0wcGaxSwy8OwdepXf+wF8aTLAycfBokHo
-	YYib2Pn7FslX1C2NB5IDpgtmnMxsvwq/giDTg+ai9dzyiOrkeoDAz8UbGCOY6QElbWRBaG2rm8e
-	Qg3HP2yTS7R4BsXwqig72QAHZWxNjmgLvYdU6vKMilk2OSYi8lw3NH7lHBNFxV1Ff1eSVMfRT3C
-	p5Opx1E1vC+Qv983H+/LPGJpjinEHZtg=
-X-Received: by 2002:a05:701b:2509:b0:16e:7155:98cb with SMTP id a92af1059eb24-16e71559b6fmr10328721c88.15.1791828800796;
-        Mon, 12 Oct 2026 11:13:20 -0700 (PDT)
-X-Received: by 2002:a05:701b:2509:b0:16e:7155:98cb with SMTP id a92af1059eb24-16e71559b6fmr10328643c88.15.1791828799374;
-        Mon, 12 Oct 2026 11:13:19 -0700 (PDT)
-Received: from [192.168.29.225] ([49.37.144.177])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a42407e7sm32160285c88.15.2026.10.12.11.13.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 11:13:18 -0700 (PDT)
-Message-ID: <b876df89-6be1-4b06-bc62-df9b7153e77a@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 23:43:12 +0530
+        d=1e100.net; s=20260707; t=1791828895; x=1792433695;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jiSdjWiO6CP6czxAtbTP6DSzhB/PYb1mZmzJGcgFfYI=;
+        b=WY6p0HS/8jmEtIfJBFofyMS5iwTcpCF7S/sj82JlVNLdUD3NR44yXub7PT2ysbfl6a
+         ctxFeUZD8yL1ZuixW71vs5ulC4hnPvBhvFFV/t+sITG2U/UcqCU4x7uAYkecqoeMYnf6
+         lZY3tS7jXNs9Xb3EPbuMWVPBoXFXn9SNxAB33hbxBVxFR10PwmtJBKHin3fDzupXJrVw
+         rCmfDZxacpzWIFOyuEedWnFwmi3gytSMWKXKBks4NIj8mjAkwJ33hxxNiPZRpzGVBWBj
+         nLqVS3f9/JK2zpAnBLaOpshhoqDtHX7xPJBRYiFz09W0IloJRiVqgo+gFGTHew2Tbhl9
+         kjKg==
+X-Forwarded-Encrypted: i=1; AKwUvBzLwxdLWYfp+F6ADxx3VfZ2NMntySCftbhENuIpqv/nW3XrmlWboGopvdfnqpg3I88tNL2K5PNvtcfWSLo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKoPrsDn3VXHuZWBL8rBVrYbcbLrpvXIHZTN4qrjItpeRdBvsdv
+	UKc6ym5MT1sZhKqCU9YJoh/izaBTtu6FBpnQzrSBb+xNzJNHEn6hObglEYkpZsQ4eCzq
+X-Gm-Gg: AYBFou085JvCx7R76hFE68RZZ1gX3iEifb8vhoZxjrJsRfUYKNxXYkM9JDGWiUIDDlD
+	AX4vVWe00+7ft9vcONGifxbVuCauvMz6++8fckKrJiZSA3hiKNQSdNLjKf1RO3pc3cB+EvqZzeO
+	hzhk3r5VeYDDPzmPz0H9ERUhQ9KLCmtFsLDJFAv9V+hVfFSA7vBi9JdK6nkkUQIRPr+paygFL45
+	VMNKane+IEN2l3psNDCpCHHhNyXQkwrIT6az2pNYw2hLDXZUtcsx7tuwcsAL/nKTMvok9l/LxBg
+	2N+t48u4BpE+FMv6x2IJP+8uz1L18sgCunR7xa9QwGeZ2stcPk9xr5MnMQRLnCrpj9vT0i2OKwr
+	6bvsejskl0jZNC9RfP7ZmwBuibJRYdYIlAfqBkXvy+dxAbiUjFfwApDD7+nAxaJWE5JsoZzPwnI
+	5QvUcjcO1T5YGsNeDPh2k5GA8Rh2HM4t9tNfmBPQKyAnxdq7lYASRZkvuHJQaL0994tMNMz1Udy
+	VLHoFsWS9drcQ/W719GzgpBhQINxfLfe8mWIBnhN+Q=
+X-Received: by 2002:a05:690e:4084:b0:677:cb43:4b30 with SMTP id 956f58d0204a3-67936adfb2dmr3395147d50.97.1791828895170;
+        Mon, 12 Oct 2026 11:14:55 -0700 (PDT)
+Received: from toolbx (104-53-165-62.lightspeed.stlsmo.sbcglobal.net. [104.53.165.62])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679356ef60fsm3859048d50.21.2026.10.12.11.14.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 11:14:54 -0700 (PDT)
+Date: Mon, 12 Oct 2026 13:14:52 -0500
+From: Andrew Halaney <andrew@amutable.com>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Oleg Nesterov <oleg@redhat.com>, 
+	"David S. Miller" <davem@davemloft.net>, Simon Horman <horms@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	Alexander Mikhalitsyn <alexander@mihalicyn.com>, "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+	Eric Dumazet <edumazet@kernel.org>
+Subject: Re: [PATCH v4 00/10] net: support thread-specific pidfds for send
+ and connect
+Message-ID: <as0i2WdL_T6L6_fD@toolbx>
+References: <20261005-work-unix-passpidfd-v4-0-350183b6e02a@amutable.com>
+ <1ab71b00-fbe1-42a0-a99e-27d5cd5e5a6e@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/6] drm/msm/dpu: do not assume a merged datapath when
- validating mode clock
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Xilin Wu <sophon@radxa.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org
-References: <20261008-lm_fixes_final-v4-0-fa986071c3c1@oss.qualcomm.com>
- <20261008-lm_fixes_final-v4-2-fa986071c3c1@oss.qualcomm.com>
- <iqkzz4wnfeeul4nkkemhcvjluucot5ia7pfin5ghu3tkwkjfso@raqzz43t7lxz>
-Content-Language: en-US
-From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-In-Reply-To: <iqkzz4wnfeeul4nkkemhcvjluucot5ia7pfin5ghu3tkwkjfso@raqzz43t7lxz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA3MiBTYWx0ZWRfX7hDSiNWDYBLL
- 205kGwc3EidhV8ntz+SfiI64MbWA+LPfeWkyjC7Rc4t+avd3jnCKthrdfneH1nKiOq1VJJd8GoZ
- c+eRKAcD50sm5REwfmlwTbAzpI40aYrrH4CB7TLSSHVFfskdKF5qE6A7Hfj+x6evvCOgXKX48vP
- rMXJrXWvVZlgtlzQjxtVwMtZ5Qhhgf2TyRLxR66Se9RMkrpvApmdeE1HP007jZcsVsUXbl/BJSC
- z1C9ypxDTEYsggqjjHDPAFIqFczv/qCqyfN2xJspHlUegWfKIF2188K/UnOVWTQFIGR+YlPEO/Z
- IWmI6ej9E6W0FKIOd/AIYn3OfrtmJXL2g4MvnDnzZB4VHIaDEicOFSE8Kjx1zKf0p3mU78KqU7k
- TJlRVa9dM1X5pNOB6xEBvS1xekpLHe8mz2+EcD/aCBt9+Z4u1odosxbm88MrA5LJCh4S0uDXTbq
- AXBV9zeSib/ZNtv5JRw==
-X-Authority-Analysis: v=2.4 cv=SvAFe/O0 c=1 sm=1 tr=0 ts=6acd2341 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=20alU+YIu2uqf8Hyrg49Cw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=mpA_8Fus6RAmO9hGp9MA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA3MiBTYWx0ZWRfX90Eo+gtOce2W
- 51T2/tCYL84Fi88/7mcTXRXh7fWAo4fk56wVGFducZ51F1TO8apxJxhr51LoFf30gpvAjsoLLRF
- wU8EiAqOPZ+HMlVi/G39DWDNL0eJvlM=
-X-Proofpoint-ORIG-GUID: cLBV9hRMwCH8_AOgo3s6DiAzBJkOATTY
-X-Proofpoint-GUID: cLBV9hRMwCH8_AOgo3s6DiAzBJkOATTY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_05,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 clxscore=1015 phishscore=0 bulkscore=0
- priorityscore=1501 adultscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120072
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1ab71b00-fbe1-42a0-a99e-27d5cd5e5a6e@redhat.com>
 
+On Mon, Oct 12, 2026 at 05:59:17PM +0200, Paolo Abeni wrote:
+> On 10/5/26 17:09, Andrew Halaney wrote:
+> > SO_PASSPIDFD/SCM_PIDFD and SO_PEERPIDFD allow to retrieve a pidfd for
+> > the thread-group leader. The coredump server using the coredump socket
+> > cannot get a handle on the task that took the signal and is writing the
+> > coredump easily. Workloads interested in per-thread authentification
+> > have similar problems.
+> > 
+> > Add SO_PASSPIDFD_THREAD/SCM_PIDFD_THREAD and SO_PEERPIDFD_THREAD. We
+> > record the sending and the connecting thread in addition to the
+> > thread-group leader.
+> > 
+> > SO_PASSPIDFD_THREAD functions like SO_PASSPIDFD but instead of an
+> > SCM_PIDFD message for the thread-group leader, SCM_PIDFD_THREAD sends a
+> > pidfd for the specific thread. SO_PASSPIDFD / SO_PASSPIDFD_THREAD are
+> > independent, allowing callers to get both styles of pidfd back in their
+> > cmsg.
+> > 
+> > SO_PEERPIDFD_THREAD allows to retrieve a pidfd for the specific thread
+> > that called connect(), listen(), or socketpair().
+> > 
+> > pidfs_coredump() now also stamps the dumping thread's struct pid so a
+> > pidfd for that thread reports the coredump like the pidfd of the
+> > thread-group leader does.
+> > 
+> > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> > Signed-off-by: Andrew Halaney <andrew@amutable.com>
+> > 
+> > ---
+> > Changes in v4:
+> > - Moved get_pid() out of scm_set_cred() into scm_send() (Kuniyuki)
+> > - Dropped unnecessary helps (Kuniyuki)
+> > - Rebased on v7.3-r6
+> > - Collected Kuniyuki's RB tags
+> > - Link to v3: https://lore.kernel.org/r/20260928-work-unix-passpidfd-v3-0-532018a91b21@amutable.com
+> Out of sheer ignorance, I don't see the shared, stable tree where we
+> can pull from, can you please point that out?
 
-On 10/12/2026 5:39 PM, Dmitry Baryshkov wrote:
-> On Thu, Oct 08, 2026 at 10:53:48PM +0530, Mahadevan P wrote:
->> dpu_crtc_mode_valid() halves the adjusted mode clock whenever the
->> hardware has a 3d_mux block, assuming the mode will be driven by two
->> layer mixers. Modes no wider than MAX_HDISPLAY_SPLIT are driven by a
->> single mixer, so for those the check permits twice the pixel rate the
->> datapath can sustain.
->>
->> Divide by the mixer count the mode will really be driven by, as reported
->> by dpu_crtc_num_lm_for_mode(). Split modes still get the halved rate,
->> single mixer modes are held to what one mixer sustains, and parts
->> without a 3d_mux divide by one.
->>
->> Assisted-by: LLM
->> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 3 +--
->>   1 file changed, 1 insertion(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> index 0b51a4c5db57..209b25dbeb6c 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> @@ -1631,8 +1631,7 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
->>   	adjusted_mode_clk = dpu_core_perf_adjusted_mode_clk(mode->clock,
->>   							    dpu_kms->perf.perf_cfg);
->>   
->> -	if (dpu_kms->catalog->caps->has_3d_merge)
->> -		adjusted_mode_clk /= 2;
->> +	adjusted_mode_clk /= dpu_crtc_num_lm_for_mode(dpu_kms, mode);
-> With the 64-bit division fixed, LGTM. When submitting patches to these
-> drivers please make sure to build for armhf as well as for the arm64.
-Thanks for reviewing. I’ll replace the division with div_u64() and 
-build-test both armhf and arm64 before sending the next revision.
+Here ya go!
+
+https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git/log/?h=vfs-7.4.shared.net-next.pidfd
+
+> 
+> I think that this late in the cycle, the series could go via Christian's
+> tree only and we could get it back after the merge window. WDYT?
+
+This works for me at least, for what its worth.
 
 Thanks,
-Mahadevan
->
->>   
->>   	/*
->>   	 * The given mode, adjusted for the perf clock factor, should not exceed
->>
->> -- 
->> 2.34.1
->>
+Andrew
