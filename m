@@ -1,168 +1,73 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3A7477295;
-	Mon, 12 Oct 2026 09:50:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0D9477985
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 09:50:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791798657; cv=none; b=iADKsF54UPSKR8StQvSAGjHT4szRFkooAnI/r5q0l21d8DaIt3x2vpukGqujro6uBiLbT2raMHc4xlCL6QVkl8/jZJWINyRZlpA2sTAtCmnwqAlQ8BFaorOERuaFf8fxn85iJ1L219n2SLLgRvobUIi2YPB0/qXKZoyfoZ9WRFI=
+	t=1791798661; cv=none; b=RdrFnbEY41k9wcgY4DJN8mlP2nSLfs4CU3DgkqtApp/L04rFl47adz4yO37W72gO4OU08fTsvhM8/tO4g1KTEZ2S9Ox73j1nNpPrSuNGI7P4t8nFbx9Ll3J3XDjNCpV4gkvCEZlheLJ35Qq9dmZz299jJDq21gfavisZLg0CCNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791798657; c=relaxed/simple;
-	bh=L7tHJ7hn2a+bN+huwEfN62g5/SuPpSTWwPPa5vtfwKE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UXy46r0GH1DcAup1xvDUTWGm589GcHGP34T/SbSYQwcM5YCFopdwmOxX5frFYXXHY+cbJglmvRVzxkln1YHkWgKKxxy6m6VjX9rR8/ujYkN3OEl2KnnN5NGsEq/ZnSrjy0Xw1iGd/FbGJAttGGduAbTdGeatpEolLQF2fk6U418=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NURPs/1p; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791798661; c=relaxed/simple;
+	bh=71qqR+pCMiukbKnB4A4qdR4muOlXqPo3oA15wKmYqAc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nCrwWIkXsTQsho4plAoA128DGoIM8/gxVJcepyLjX8Y9eOQraFZgD3p1iYSPZHLQCMvZrcQD3N7tYIMtKN1JbilQWHFKqTLixiXiIEFDce5rJys88CUO4ML/upALyB+sgfOJaWJa15A9M2DrYAsBnxAtmqb4tPGA7rEhuS0KKis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zaw652Vo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NURPs/1p"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791798648; x=1823334648;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=L7tHJ7hn2a+bN+huwEfN62g5/SuPpSTWwPPa5vtfwKE=;
-  b=NURPs/1pwxBxMtZp6T6mEDkAF2E57+JPWxEW7ddccjKXQrhhiZcIKrf4
-   e4n8O2fQ1ds744Bppbyqtr2ZoOvUj/UqeOsM9g61oGPHCHeH1wXiRmNCB
-   u6qnLurCuLJx+vFVPPtS7kpnMa/8BGYt+u05gvTrDHV1ty7jteUvm0l5X
-   aYx3sv+AE9MjDzcYDJY1zeUMpvUGYrynJ9+lUP5FCCzuMAwTEHKZBZIS4
-   c70Em87qR8wwIuMBdAj8+OSN2YOxuuqS4HbGTNphvXUAHzKyeIbyhGe3j
-   ZB4PeGIvNwtKlxOXvhxMqpzhMREA8pCkLnSjQK5Fl5qHVwjUUPh+jvGYm
-   g==;
-X-CSE-ConnectionGUID: hukVi0GQQ0G8GAk5PJqvGw==
-X-CSE-MsgGUID: /kvnHjQaQP+020hSyYzayw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="388053"
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="388053"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 02:50:25 -0700
-X-CSE-ConnectionGUID: F/0qQuVtSlSK2nmD6a9KHw==
-X-CSE-MsgGUID: i5et/n88QbmoF6Z6p9yftg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="776873"
-Received: from 984fee019967.jf.intel.com ([10.23.153.244])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 02:50:26 -0700
-From: Chao Gao <chao.gao@intel.com>
-To: linux-kernel@vger.kernel.org,
-	linux-coco@lists.linux.dev,
-	kvm@vger.kernel.org
-Cc: yilun.xu@linux.intel.com,
-	chao.gao@intel.com,
-	binbin.wu@linux.intel.com,
-	tony.lindgren@linux.intel.com,
-	rick.p.edgecombe@intel.com,
-	nik.borisov@suse.com,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Kiryl Shutsemau <kas@kernel.org>
-Subject: [PATCH v4 09/10] x86/virt/tdx: Use early returns in get_tdx_sys_info()
-Date: Mon, 12 Oct 2026 02:47:36 -0700
-Message-ID: <20261012094754.27702-10-chao.gao@intel.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20261012094754.27702-1-chao.gao@intel.com>
-References: <20261012094754.27702-1-chao.gao@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zaw652Vo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEBB61F0089B;
+	Mon, 12 Oct 2026 09:50:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791798656;
+	bh=mtp1EGHAfNWkCgpoDgidzM3ipP/8kfdDhQyh7QgIsls=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Zaw652VoTUaN6K8mZnOCwQawPhCNG2cDBRhGMKbL/O569B3e5eJ3dIRUTXSWJljk7
+	 6+1imYqawsGZlQWRlTdVD/xuhevFiUh/bkCqEYmNfsw05LmL7VASJaokxAQrwgk6bl
+	 vEThj8V9xfLQ/FDIntbdgciITt+VUYhMZiJYJCosmWgwG6dxCE+7+NNrRE7m74+DhD
+	 VeMxhz7lnn+dxktFsmTVMMeyaw+zza12nj2fmYNuXNuJh3jIrMjTmP6Ubcp2N95o6e
+	 i1W00VV9MA9huCtZTqrpfEGD1TEGwmJ3uNnDdfvGTen/sx7Yku2kfPeEFyW0j8NS5D
+	 GNAxFq/BXnYmA==
+Message-ID: <3408fb1a-b957-4591-bf75-1eb44af73584@kernel.org>
+Date: Mon, 12 Oct 2026 11:50:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] soc: fsl: cpm1: tsa: fix wrong clocks released on cleanup
+To: Haotian Zhang <vulab@iscas.ac.cn>, Herve Codina
+ <herve.codina@bootlin.com>, Qiang Zhao <qiang.zhao@nxp.com>,
+ Li Yang <leoyang.li@nxp.com>, Mark Brown <broonie@kernel.org>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261009053720.3146117-1-vulab@iscas.ac.cn>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20261009053720.3146117-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-get_tdx_sys_info() was generated by a script. It chains its metadata reads
-with:
 
-      ret = ret ?: get_tdx_sys_info_foo(...);
 
-The function is maintained by hand now. Use conventional early returns
-instead.
+Le 09/10/2026 à 07:37, Haotian Zhang a écrit :
+> tsa_of_parse_tdms() gets and enables tdm->l1tsync_clk and
+> tdm->l1tclk_clk in addition to l1rsync_clk and l1rclk_clk, but the
+> error cleanup path releases l1rsync_clk/l1rclk_clk again in the
+> l1tsync_clk/l1tclk_clk branches. The tsync/tclk clocks are leaked --
+> never disabled nor clk_put() -- while rsync/rclk are clk_put() twice,
+> underflowing their reference counts. tsa_remove() has the same
+> copy-paste bug.
+> 
+> Release the clock actually held in each cleanup branch.
+> 
+> Fixes: 1d4ba0b81c1c ("soc: fsl: cpm1: Add support for TSA")
+> Assisted-by: DeepSeek-V4.1-Flash
+> Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 
-Print the module version only after its metadata has been read
-successfully. The "ret ?:" chain has no early exit, so the pr_info() after
-the version read prints a partially read or all-zero version when that read
-fails. That is harmless, but once every other read returns on error, a
-print after a failed read would look like a bug.
 
-AI was used under supervision to review code and workshop logs.
+A similar patch is already in linux-next, discarding this one.
 
-Signed-off-by: Chao Gao <chao.gao@intel.com>
-Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
----
-v4:
- - Collect tags [Rick]
- - Reword the justification for printing the version only after a
-   successful read [Rick]
-
-v3:
- - Print the module version only after reading its metadata succeeds [Rick]
----
- arch/x86/virt/vmx/tdx/tdx.c | 32 ++++++++++++++++++++++++--------
- 1 file changed, 24 insertions(+), 8 deletions(-)
-
-diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
-index d9f2ace9993a..1700577ad5ad 100644
---- a/arch/x86/virt/vmx/tdx/tdx.c
-+++ b/arch/x86/virt/vmx/tdx/tdx.c
-@@ -529,19 +529,32 @@ static __init int get_tdx_sys_info_td_conf(struct tdx_sys_info_td_conf *td_conf)
- 
- static __init int get_tdx_sys_info(struct tdx_sys_info *sysinfo)
- {
--	int ret = 0;
-+	int ret;
- 
--	ret = ret ?: read_sys_metadata_table(version_mappings, &sysinfo->version);
-+	ret = read_sys_metadata_table(version_mappings, &sysinfo->version);
-+	if (ret)
-+		return ret;
- 
- 	pr_info("Module version: " TDX_VERSION_FMT "\n",
- 		sysinfo->version.major_version,
- 		sysinfo->version.minor_version,
- 		sysinfo->version.update_version);
- 
--	ret = ret ?: read_sys_metadata_table(features_mappings, &sysinfo->features);
--	ret = ret ?: read_sys_metadata_table(tdmr_mappings, &sysinfo->tdmr);
--	ret = ret ?: read_sys_metadata_table(td_ctrl_mappings, &sysinfo->td_ctrl);
--	ret = ret ?: get_tdx_sys_info_td_conf(&sysinfo->td_conf);
-+	ret = read_sys_metadata_table(features_mappings, &sysinfo->features);
-+	if (ret)
-+		return ret;
-+
-+	ret = read_sys_metadata_table(tdmr_mappings, &sysinfo->tdmr);
-+	if (ret)
-+		return ret;
-+
-+	ret = read_sys_metadata_table(td_ctrl_mappings, &sysinfo->td_ctrl);
-+	if (ret)
-+		return ret;
-+
-+	ret = get_tdx_sys_info_td_conf(&sysinfo->td_conf);
-+	if (ret)
-+		return ret;
- 
- 	/*
- 	 * The kernel supports using TDX without DPAMT, so
-@@ -549,10 +562,13 @@ static __init int get_tdx_sys_info(struct tdx_sys_info *sysinfo)
- 	 * try to support buggy TDX modules that advertise
- 	 * DPAMT but don't expose the metadata.
- 	 */
--	if (!ret && tdx_supports_dynamic_pamt(sysinfo))
-+	if (tdx_supports_dynamic_pamt(sysinfo)) {
- 		ret = read_sys_metadata_table(dpamt_mappings, &sysinfo->tdmr);
-+		if (ret)
-+			return ret;
-+	}
- 
--	return ret;
-+	return 0;
- }
- 
- static __init int check_features(struct tdx_sys_info *sysinfo)
--- 
-2.52.0
+See 
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/soc/fsl?id=46201d760c48e771fa2febfcb0787f22c3b71387
 
