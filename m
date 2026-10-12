@@ -1,77 +1,48 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F86346EF6B
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:33:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 418573B8BB9;
+	Mon, 12 Oct 2026 19:35:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791833608; cv=none; b=mOMU+GNrcQvCmWWlByc/sotLtWnCDQQUQ8E2wFZptTxkw8fBiknxNB1GYOqH4tL0I7UraMbj/XTc4cgce28MgjOZrGxe3SerzE5O2sDvCu6OiJOQ5k9UMj/xryepDYV/AawvDEz4rXw5HglBCkXMDWdn0gfp1CFKXCaqPGgX8IQ=
+	t=1791833716; cv=none; b=hZXzsejW3/bGgOyimZvxCYEicRvpSAr1xFKbZbmBePpCvX72rJPk99pVdJO/m4FITFqUeFZlpJFb2EnJogpY+cg++LMRNGcR2+ce8aRtCO9e/QDeFzhG6nyscLWa3rVJCxbUeaQjVP05eTBjE3mYxp964+f5MOjErM/agGPzKTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791833608; c=relaxed/simple;
-	bh=K3vL916hwAzIEhpMQoKwDIcw4kalgkk+rOVRXH/u/q4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uViQ3braQnjlpUBcYtyfAWCFT7eFqb9CESxufAY+3rQseI0ZTR4b9nA+ByniS47in7ygbnUyphfpjQvluIOm9V5o8U94tFH9Ce40FaLihZpbJNfh6P6sb4qjaxb6VH83WsZUYB7WBh4M76BC6SJhGjrdNFbdeDBo0sRSOw301LE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=adrianschlegel.com; spf=none smtp.mailfrom=adrianschlegel.com; dkim=pass (2048-bit key) header.d=adrianschlegel-com.20251104.gappssmtp.com header.i=@adrianschlegel-com.20251104.gappssmtp.com header.b=XXIf3e5w; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=adrianschlegel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=adrianschlegel.com
+	s=arc-20240116; t=1791833716; c=relaxed/simple;
+	bh=89/NnPsfwuCkv8ZB6AdQ4JRQdoqo21JdqqusKN4QNPo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iqLEo3Ec/Jx2RSOtQl2sTNCfj4z0G2JIIwKE/8uzqxaPEmJ2sMaiWa0zTW5qBCKkOEmKcu0QPeWZL/GXNYZQ2z1RuemMIOXWqMlEf+esyk6zIbJ2VXVqnnqqmzWyWRgvSv1DwvtxTOC8euQI8Q6YVUSQElG2ej9OF7yJGnQZ5Cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=cY6jEMhN; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=adrianschlegel-com.20251104.gappssmtp.com header.i=@adrianschlegel-com.20251104.gappssmtp.com header.b="XXIf3e5w"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so27171515e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 12:33:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=adrianschlegel-com.20251104.gappssmtp.com; s=20251104; t=1791833605; x=1792438405; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lXnE2SxGJ5rLYuIMSksp63RAMKlg3urlDD6GhDVjHOI=;
-        b=XXIf3e5wTRXopiqCvr0hU83zZWWxYWOmRKZhvkYQKVDNr0nNJcEH8uTstzBgbbiVsN
-         sp2b07jf37g9yvJBy92qyZ37F1F2J/br2819a4sCtGmgKIk0QafmL3sFHgNF1iK/Rucn
-         sXoOygaXICDozzEASbX2Vo2ACc+jBIuBPZeqQTrwhazo89cirKQfmx5F5ZJ5VRpoLxNA
-         HrEFvXBdZakOyJt0SSPEyPQgTx6kNfJVvYI27Y8DATWwJyLvkRqTuDfIacs6YmG5O53Q
-         L9a5q1Zo0wCilzrtn7Co2/iO19lOXcUuY8USI+0uIJC7hK+f6081AZDCNKKxbk/kyEB9
-         hLaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791833605; x=1792438405;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lXnE2SxGJ5rLYuIMSksp63RAMKlg3urlDD6GhDVjHOI=;
-        b=b7157x4tRfH983wlMepxeN99x4LRxUjdXUPrybg+CgJLBZuDEjIhIIYgqWmyy2SFMp
-         CXEdMSIKqgdzWYPRt4rhLyz9bvQ7YBxfGIPFh5vAftPRfxiSxXiqDJ1FZuyZgMts8grI
-         fhK9ELLjMNjX+WUaF8TfFm/1+Kul9iMuxCQebhR8KENh8LKW0Li9gbOdFCNANXi4S993
-         MXrsN54TYezzzgemK8l6hojII6gVG0oJ5URowzUPf4TsDjEKD9PafT58sdaaziGQmHX/
-         QQ4fLqS7yflfaks/BOMfTBn42k3LJHTRW7snu1XOGVfKe8d1SX5iFY71yj1Au2h/v6C8
-         1Vcg==
-X-Forwarded-Encrypted: i=1; AKwUvBxwnghZyKuN4Qi0fzYUwxWYi46wKhbfbg7VpVYLbc9JO9H4dCyJ8Y1lWR/MeFFtuZiHPDZsj3UOSS/dZxo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTFbVusTSlRzFQBfTV2L41m8mYfVWuf7wGcQsdigycEsgidNBC
-	EplgAQubx+UYkGg5f9T2beMPuYXqeDehNLAcOVi3PswGYwpkhuQzTs9PQkdN0dH9mw==
-X-Gm-Gg: AYBFou2hrZufSRXyfg4r1xKXvgADyH+PzP254QEoTlkT/qdVQLWfebcsMJ1S7vtVKzI
-	JkSuCl1DDfOf3JrpSWiJgEMDmr1G0YDpJ8z9oo5SkqyXQD/nUNdwrz2WIy4maoB/zJ4SbV1heLT
-	2q8lWLJpdvOef6nJdOISRRHkwjOAKJuzm1kZ4bArKB7svpup68o+CJKyaB2GLXMZ1zkIxJ83j4y
-	depqB1AYtxbsNhUAZf++c92WkIbE9xpK4cqmoyvHeAMeSItKo7illxcblxg7WBtshYk4Y/yywFF
-	nzF0Ie8IgvdMERRT80HbfFDeoQy+PS7S143+cppQ4T8NYSPK1GuMecOMFvu4GBZO+NakAFw3/HB
-	7AxBpGkkiUTJxssphdFW2DcSCin6w6ozOKjUoTpv/HhzIydGDu3di8dYbXyCAOJxYKzzMxQtTb/
-	Vy1JCYqZAKn7GvaQVevnwUIeP+BDMxmGSLt2hqqNP04Wz+ZAN00wkIuUQNHaburgj/NLRks2xYz
-	GdB8KaHc/91imPkoZmKOAwLHwHMiOlusjmbua3vYw==
-X-Received: by 2002:a05:600c:5489:b0:4a0:1c94:7042 with SMTP id 5b1f17b1804b1-4a18e4a5244mr199061695e9.8.1791833604640;
-        Mon, 12 Oct 2026 12:33:24 -0700 (PDT)
-Received: from Adrian-Arch.home ([2a02:1210:1c09:3100:bf3b:aefa:a3ba:26f8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2343asm570950955e9.9.2026.10.12.12.33.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 12:33:24 -0700 (PDT)
-From: Adrian Schlegel <me@adrianschlegel.com>
-To: tony.luck@intel.com,
-	bp@alien8.de
-Cc: x86@kernel.org,
-	linux-edac@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="cY6jEMhN"
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+	id 4334B20B7166; Mon, 12 Oct 2026 12:35:12 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4334B20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791833712;
+	bh=tJkueSXegGJXKDCj/TsWJrVg8sccm8K33NEo8WI4FeY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=cY6jEMhNTknS+40Ilj4ehtKrii/6wZISBW8JvpoDin5txzeG/0I1etLEmxalUEs5M
+	 NvNVAFUnFtLqYsFnpxlS/2QaPi+DCnEV7YBpjgmA7tMctbqkMYRjFdwq84V6/gVvxy
+	 RF3uonJ8OTELKxiCw4DbH1kwD4dP/gWhCrmFoV7E=
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: netdev@vger.kernel.org
+Cc: Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+	Aditya Garg <gargaditya@linux.microsoft.com>,
+	linux-hyperv@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Adrian Schlegel <me@adrianschlegel.com>
-Subject: [PATCH v3] x86/mce: Do not treat cache hierarchy errors as memory errors
-Date: Mon, 12 Oct 2026 21:33:05 +0200
-Message-ID: <20261012193305.38931-1-me@adrianschlegel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261003222012.19685-1-me@adrianschlegel.com>
-References: <20261003222012.19685-1-me@adrianschlegel.com>
+	Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+Subject: [PATCH net-next v2] net: mana: add BQL support
+Date: Mon, 12 Oct 2026 15:33:25 -0400
+Message-ID: <20261012193325.4071665-1-hamzamahfooz@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,67 +51,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Intel and Zhaoxin, mce_is_memory_error() also returns true for cache
-hierarchy errors. All callers expect it to report memory errors only.
+MANA doesn't support byte queue limits, so each TX queue can hold 256
+WQEs by default, and up to 16384, of up to 64 KB TSO packets, before the
+qdisc layer sees any backpressure. This adds latency to all the flows
+sharing a queue, and defeats AQM qdiscs such as fq_codel, which rely on
+BQL to keep the driver queues short.
 
-The CEC uses it to count corrected DRAM errors. A corrected cache error
-only names the cache line that was affected, not a faulty DRAM page.
-With a faulty CPU core, the CEC therefore soft-offlines healthy pages.
-On an i9-9900K this caused about 500 soft-offline attempts per hour.
+Report the bytes queued and completed to BQL. XDP_TX and XDP_REDIRECT
+packets go through the same SQs, so they are accounted too. BQL doesn't
+drop or delay them, since the XDP paths send even when the queue is
+stopped, it only holds back the stack's packets. For the packets sent on
+a stopped queue, only count the bytes: stopping the queue again would
+refresh its trans_start, so XDP traffic would keep the TX watchdog from
+firing.
 
-Report only memory controller errors on Intel and Zhaoxin, as is
-already done for AMD.
+Reset the BQL state when destroying the queues, once their NAPI is
+disabled, since the SKBs still pending after a drain timeout are freed
+without being completed.
 
-Fixes: fa92c5869426 ("x86, mce: Support memory error recovery for both UCNA and Deferred error in machine_check_poll")
-Signed-off-by: Adrian Schlegel <me@adrianschlegel.com>
+Lost TX completions can now stop a queue sooner: it also stops when the
+bytes in flight exceed the BQL limit, not only when the SQ is full, and
+the limit may never grow enough to cover the lost bytes. The TX watchdog
+covers the queues stopped by BQL, and its handler resets the queues
+along with their BQL state.
+
+Tested on two Standard_D16ds_v6 Azure VMs in a proximity placement
+group, where the throughput is capped at 10.6 Gbps, with the DUT
+alternately booting net-next (c1c1f0a31712) with and without this patch
+applied.
+
+The throughput stays at the cap with 1, 8 and 64 TCP flows, and the idle
+TCP_RR latency doesn't change (p50 of 47 us with vs. without the patch).
+With 16 senders of 64-byte UDP packets, the DUT sends 3.7 to 4.0 Mpps
+without the patch and 3.7 to 4.1 Mpps with it. With bulk TCP flows
+sharing the queues, the netperf TCP_RR latency drops (medians of 6
+runs):
+
+  16 queues, 64 flows: p50 4649 -> 2182 us, p99 5621 -> 2677 us
+  1 queue, 8 flows:    p50 2554 ->  418 us, p99 2723 ->  624 us
+
+The standing queue moves from the SQs to fq_codel, which now drops
+packets: about 2500 qdisc drops and 88K TCP retransmissions per 48 s run
+with 64 flows, against at most 29 retransmissions before. The
+retransmissions are about 0.2% of the segments sent. The TCP_RR flows
+lose no packets, and the packets of the bulk flows are dropped before
+they reach the wire, so the goodput changes by less than 0.01%.
+
+Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
 ---
-v3:
-- Shorten and wrap commit message (Boris, Tony)
-- Refer to the SDM section by name instead of number (Tony)
+v2: Only count the bytes of the packets sent on a stopped queue, so that
+    XDP traffic doesn't keep the TX watchdog from firing on a queue
+    stopped by BQL. (Sashiko)
+---
+ drivers/net/ethernet/microsoft/mana/mana_en.c | 21 ++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-v2:
-- Fix mce_is_memory_error() itself instead of adding a CEC-local helper (Tony)
-- v1: https://lore.kernel.org/r/20260927151904.30524-1-me@adrianschlegel.com
-
-Tested with mce-inject (sw) in a VM with an Intel CPU model. A corrected
-cache error (status 0xcc5ffc0000100179) is no longer counted and its
-page stays online. A corrected memory controller error (status
-0x8c0000000000009f) is still counted and its page soft-offlined.
-
- arch/x86/kernel/cpu/mce/core.c | 18 +++++-------------
- 1 file changed, 5 insertions(+), 13 deletions(-)
-
-diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
-index ab469605f..54ed053fa 100644
---- a/arch/x86/kernel/cpu/mce/core.c
-+++ b/arch/x86/kernel/cpu/mce/core.c
-@@ -540,21 +540,13 @@ bool mce_is_memory_error(struct mce *m)
- 	case X86_VENDOR_INTEL:
- 	case X86_VENDOR_ZHAOXIN:
- 		/*
--		 * Intel SDM Volume 3B - 15.9.2 Compound Error Codes
-+		 * Intel SDM Volume 3B "Compound Error Codes".
- 		 *
--		 * Bit 7 of the MCACOD field of IA32_MCi_STATUS is used for
--		 * indicating a memory error. Bit 8 is used for indicating a
--		 * cache hierarchy error. The combination of bit 2 and bit 3
--		 * is used for indicating a `generic' cache hierarchy error
--		 * But we can't just blindly check the above bits, because if
--		 * bit 11 is set, then it is a bus/interconnect error - and
--		 * either way the above bits just gives more detail on what
--		 * bus/interconnect error happened. Note that bit 12 can be
--		 * ignored, as it's the "filter" bit.
-+		 * Memory controller errors have an MCACOD of 000F 0000 1MMM CCCC:
-+		 * bit 7 set, bits 8-11 and 13-15 clear. Bit 12 is the "filter"
-+		 * bit and is ignored.
- 		 */
--		return (m->status & 0xef80) == BIT(7) ||
--		       (m->status & 0xef00) == BIT(8) ||
--		       (m->status & 0xeffc) == 0xc;
-+		return (m->status & 0xef80) == BIT(7);
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 489558176a5d..7f081c2d16d0 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -543,6 +543,16 @@ netdev_tx_t mana_start_xmit(struct sk_buff *skb, struct net_device *ndev)
+ 	err = NETDEV_TX_OK;
+ 	atomic_inc(&txq->pending_sends);
  
- 	default:
- 		return false;
++	/* Account the skb in BQL before the doorbell lets the hardware
++	 * complete it. The XDP paths send even when the queue is stopped,
++	 * only count the bytes then, since stopping the queue again would
++	 * refresh its trans_start and keep the TX watchdog from firing.
++	 */
++	if (netif_xmit_stopped(net_txq))
++		__netdev_tx_sent_queue(net_txq, len, true);
++	else
++		netdev_tx_sent_queue(net_txq, len);
++
+ 	mana_gd_wq_ring_doorbell(gd->gdma_context, gdma_sq);
+ 
+ 	/* skb may be freed after mana_gd_post_work_request. Do not use it. */
+@@ -2038,10 +2048,12 @@ static void mana_poll_tx_cq(struct mana_cq *cq)
+ 	gdma_wq = txq->gdma_sq;
+ 	avail_space = mana_gd_wq_avail_space(gdma_wq);
+ 
++	net_txq = txq->net_txq;
++	netdev_tx_completed_queue(net_txq, pkt_transmitted, tx_bytes);
++
+ 	/* Ensure tail updated before checking q stop */
+ 	smp_mb();
+ 
+-	net_txq = txq->net_txq;
+ 	txq_stopped = netif_tx_queue_stopped(net_txq);
+ 
+ 	/* Ensure checking txq_stopped before apc->port_is_up. */
+@@ -2694,6 +2706,13 @@ static void mana_destroy_txq(struct mana_port_context *apc)
+ 			apc->tx_qp[i]->txq.napi_initialized = false;
+ 		}
+ 
++		/* Forget the SKBs freed without being completed after a drain
++		 * timeout, now that NAPI can't complete any. Doing it here also
++		 * covers the queues that a lower channel count won't recreate,
++		 * which could otherwise stay stopped.
++		 */
++		netdev_tx_reset_queue(apc->tx_qp[i]->txq.net_txq);
++
+ 		if (apc->tx_qp[i]->tx_object != INVALID_MANA_HANDLE)
+ 			mana_destroy_wq_obj(apc, GDMA_SQ, apc->tx_qp[i]->tx_object);
+ 
 -- 
-2.55.0
+2.56.0
 
