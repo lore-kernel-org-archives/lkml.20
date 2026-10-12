@@ -1,83 +1,86 @@
-Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com [115.124.28.196])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD9EE370AC1;
-	Mon, 12 Oct 2026 06:14:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621EE3644A3
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 06:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791785656; cv=none; b=u0UwVLDt1uBlAdG5Ir+uDwPvaqrD5OtjoFVC8cksJPw0M/lktdQW3bHnTFZr6U0HdUxWSsFib1Ip8YnVolEOyNte4LlzL7y0vTo7fpmcYorRwKs0gyyfI1vajel6dNToBqVvr1AKp87nFBMWVGy0IJ8801lHJhOqE8gMdn8Nlaw=
+	t=1791785694; cv=none; b=W8WpXsk2pq9LQSLMugumIbtnnLZTEDOsaXiZRVgThDZ0oJx8kmv/F7JqD3Zdw32wZ6yjm1bMH9HIjH98twyxVAyPW4sn/5TBpDFxtFRIwjhNAOY7ZKlsvh93MH9fY0jlWdEtgK/PpwG2yudl0NNKCtvhqorB9fWrnAJkUTtN1dY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791785656; c=relaxed/simple;
-	bh=G3zia0fAD1Xjp5IB9tmukHlhULFPWd/UwqU36D5fWWM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AMqohwpus97rLRR30K2a7VufBiyzCdDPZxkLFIncCmkPk4657PifZ8ZKGFM5VwKhYAogID9qksEqfZNlOSkm4pF0R++OTGTpHo8AGNGuYfBzGQawCThVNaO2WROIuEtFg+kWhPXmNu+NwOHFdouUJ53/IcIrLwaOx0+LiZ/J3A4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=P6yzpfXJ; arc=none smtp.client-ip=115.124.28.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1791785694; c=relaxed/simple;
+	bh=G22C94oTbSJwGYSY+VHiYfvEgAPdAmWxwlXJwiG4YNA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tk+cVL0cIog2YBaOJx4T4NBhHVLYz7ZDrh1JFmTo4rUu7aZq3hdbkVzOdrr7WoFQ64wtTgb2+EmgPhUbTuawcQ6sSpjJmgGAx6ns8xKq875XtPx8oK+/+SogBomEWtosaMHdk2fjieGai5oK7WD5EZE9zF5d0MCBkNnoty4HgWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TzStd9kx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="P6yzpfXJ"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1791785646; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=kjnA+HKIDKMdO4iTV9A0Np7u/MqM+l7JBDNldFYKQJM=;
-	b=P6yzpfXJ6R/qdJw3MnEiS7weJUtqt6u9pfHIeNWf11poHeZKAvc9c2sNYcWEnDWuE5s/5gTpJheghkHqlfpW620mAIaQWeiVob0SmochpAJxIj+OKbsmUB2o0G8/Hcmn9GGzeFrZf8oTXSBU4RWtS2GmwksJE1ZE16myQU+xwNw=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07654795|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0209884-0.000911751-0.9781;FP=9707083562314532082|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037032089;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jZhXNTs_1791785324;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jZhXNTs_1791785324 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 12 Oct 2026 14:08:46 +0800
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-To: Theodore Ts'o <tytso@mit.edu>
-Cc: Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	guozh23@xiaopeng.com
-Subject: [PATCH] ext4: check CAP_SYS_ADMIN in ext4_ioctl_get_tune_sb()
-Date: Mon, 12 Oct 2026 14:08:44 +0800
-Message-ID: <20261012060844.836001-1-zhugl3@xiaopeng.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TzStd9kx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85F5D1F0089B;
+	Mon, 12 Oct 2026 06:14:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791785693;
+	bh=uzpLCjeSvq3Sz+diFEUtjnzN+l2ZSZZQ86fGDFdee6M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TzStd9kx8dVJRsNAE3Iu/jxwPyUT19wBTfNP2acRe6FOMq1gxvwOJsQwiIpx2E7eM
+	 Qz2Avpcbs/fT9ANWoTnkUDVYZh5SI2Ddui/KS0ySyUPaK+Gg9iyihUivWVlF2uFlk1
+	 7ELlYu+ma9n4E+Z8bYHUiJdpyUb5S6tp6igDanMg=
+Date: Mon, 12 Oct 2026 08:14:50 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
+	Todd Kjos <tkjos@android.com>,
+	Christian Brauner <christian@brauner.io>,
+	Carlos Llamas <cmllamas@google.com>,
+	Alice Ryhl <aliceryhl@google.com>, linux-kernel@vger.kernel.org,
+	stable <stable@kernel.org>
+Subject: Re: [PATCH 7.2.y] rust_binder: reschedule node refcount update on
+ thread exit
+Message-ID: <2026101240-waffle-outboard-97db@gregkh>
+References: <20261011163608.48622-1-ojeda@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011163608.48622-1-ojeda@kernel.org>
 
-ext4_ioctl_set_tune_sb() requires CAP_SYS_ADMIN before changing the
-superblock tunables, but the GET side has no permission check.  Any
-user who can open a file on the filesystem read-only can read the
-whole tune struct, including the 64-byte mount_opts string that
-mount(2) stored in the superblock.
+On Sun, Oct 11, 2026 at 06:36:08PM +0200, Miguel Ojeda wrote:
+> From: Alice Ryhl <aliceryhl@google.com>
+> 
+> commit 2a74ccd1bcc170e66525f34e9de8652b57e2cf3d upstream.
+> 
+> When a thread exits via BINDER_THREAD_EXIT, its pending work items are
+> cancelled. If a thread exits while holding a pending node refcount
+> increment (e.g. pushed as deferred work to that thread), the refcount
+> increment was previously dropped because Node::cancel() and
+> NodeWrapper::cancel() were no-ops.
+> 
+> Dropping the refcount update leaves the node's delivery state and count
+> state desynchronized, and userspace will not receive the notification,
+> which can cause the node to never be freed from the process's nodes tree
+> when all external references are dropped.
+> 
+> Fix this by implementing DeliverToRead::cancel() for Node and NodeWrapper
+> to move the pending refcount update to the process's work queue on thread
+> exit so another thread can deliver it to userspace.
+> 
+> Cc: stable <stable@kernel.org>
+> Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+> Link: https://patch.msgid.link/20260903-binder-thread-exit-node-v1-1-be09ff14f6a4@google.com
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> [ Dropped first argument in calls to `push_work()` to adjust to the
+>   existing form without mainline commit dbb17c9ea756 ("rust_binder: move
+>   (e)poll wait queue to Process"). - Miguel ]
+> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+> ---
+>  drivers/android/binder/node.rs         | 20 ++++++++++++---
+>  drivers/android/binder/node/wrapper.rs | 34 +++++++++++++++++++++++++-
+>  2 files changed, 50 insertions(+), 4 deletions(-)
+> 
 
-Require CAP_SYS_ADMIN on the GET side as well.
+Both now queued up, thanks.
 
-Fixes: 04a91570ac67 ("ext4: implemet new ioctls to set and get superblock parameters")
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
----
-Verified in a QEMU guest with the ext4 image on a virtio disk: a
-process demoted to uid 65534 reads the tune struct of a read-only
-opened file unpatched, and gets -EPERM with this patch while root
-is unaffected.
-
- fs/ext4/ioctl.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
-index c8387e6a2..d7125a8be 100644
---- a/fs/ext4/ioctl.c
-+++ b/fs/ext4/ioctl.c
-@@ -1284,6 +1284,9 @@ static int ext4_ioctl_get_tune_sb(struct ext4_sb_info *sbi,
- 	struct ext4_tune_sb_params ret;
- 	struct ext4_super_block *es = sbi->s_es;
- 
-+	if (!capable(CAP_SYS_ADMIN))
-+		return -EPERM;
-+
- 	memset(&ret, 0, sizeof(ret));
- 	ret.set_flags = TUNE_OPS_SUPPORTED;
- 	ret.errors_behavior = le16_to_cpu(es->s_errors);
--- 
-2.43.0
-
+greg k-h
