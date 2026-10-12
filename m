@@ -1,274 +1,985 @@
-Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com [148.163.139.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-3-29.ptr.tlmpb.com (sg-3-29.ptr.tlmpb.com [101.45.255.29])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB797475345;
-	Mon, 12 Oct 2026 11:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.139.77
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805515; cv=fail; b=C4h7FFsLJETF2NqXx873MehLkFPqc/CWugbMmG8SGZ1DXkORgM6jquMBNCvkw9jwlFbjeo0+FBFboYBPt7RjusOit+wZghP7h2oFTMzOI0X9mnsCvnyJeix2jakoFQDZnLXsOabqjUpDmFt0acDZdk7X3LkCacO5s7CWY7Kxg8I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAF44734FC
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:45:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.29
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791805515; cv=none; b=fVF5YHnDSmvKwQRDG5AqPrURasDv1SmejwarfhwGokcDax66eJoQibQEZRm6eP3J6DGNycC/ZsqZsAtHONd+vmlXQzTVEeLsIp8pMpcCKBqE30zC2ZSD0MuctXluYz6TjHXLSeNSbaBCDKOvuU1HcPtIfS/5cXnbtCU/AKAmONA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791805515; c=relaxed/simple;
-	bh=aTN49fx43kwOCXNMzaU5JQp7VwhJs85mYMJqme6qPqI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=db5oE6aZeizSRx05yLfBihPnbH6ffsZrhi6Bziamq3R79JuN9d4x/wf1SSijMZXQ4vlCB+hlYJxiCI3d+TMf59GEfBzM0iZALCRO1wl61TOHyBTWIodEoztR6qtJ0now7p4o0OhlkCCxrg/oHr/h/vEjdo9BCQxRL7nmt1y2n1U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b=GM8fB8sk; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=ymDwwKf6; arc=fail smtp.client-ip=148.163.139.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	bh=CnIBufBobG/OI9zroTarJpBhdVUl+LAMXM8IIPOGztQ=;
+	h=In-Reply-To:To:From:References:Mime-Version:Subject:Date:
+	 Message-Id:Cc:Content-Type; b=NjpSilk+t9x41qbxN+fuBTzIF5qoY6HRFn2JV8Y6qbHWSwpJYOLd9fHQYIe2twbAMOJpQU7z0mErZNKSteKD/p2+kV9iRafVGDRxp8prlqQShkGVNW9kvKWpjawxij5gnD+I5pRVLzEruCFNdksTYPn3E8EjG3N72alaZaPlqvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yunsilicon.com; spf=pass smtp.mailfrom=yunsilicon.com; dkim=pass (2048-bit key) header.d=yunsilicon.com header.i=@yunsilicon.com header.b=JwfP7I0w; arc=none smtp.client-ip=101.45.255.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yunsilicon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yunsilicon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b="GM8fB8sk";
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="ymDwwKf6"
-Received: from pps.filterd (m0516786.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8Lk1A2042051;
-	Mon, 12 Oct 2026 07:44:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=n/NRpD49/hVkdzYNrCGOMpcVkRA+r0v0z7uL2mF8Ms8=; b=GM8fB8s
-	kjDMHPGHDvf6Xka6eeSbgGiVr5+OQ7oV9mnRSJ5UvlG65ilwm10NgwIhzw+XKUgC
-	Y/DO4KC3/vs/RfD21LQ2zPtSVxyuThSz6PSPQh1OF7aqGb6lhPNp8dkdgoIoY5XI
-	HDg8EwZGELfTbSHQUGiHSxlMWGe1SL9JoApsiG2IT9OMvQfi0ZfqNiAEtgTkitKX
-	NdzbwAeP9NE1C0M/QDBeUn80+yO+3GvqJt2KxJ7NfXwlVfjKLPQzJnYFMB+b4550
-	98cpjLE1wkPuDyd0/n8AnVjRq7z99HerNr5HYDqJ27WZv9LQokXtSAsfOdqs+v/x
-	23MrcNforIDsO9w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=n/NRp
-	D49/hVkdzYNrCGOMpcVkRA+r0v0z7uL2mF8Ms8=; b=ymDwwKf6+ncIRofUfsmWb
-	LMB14oiaC/gKPthIbAOxur0Yb2biCwKPf3fJTrC99xB645vjmJbunpaE5UvN7fSY
-	hhl5Z8nj8DCQjXZtny/vAhgOUdCjgRCX+FvyBWwrlDqa1cxSykPrlnZSdoNXFRYT
-	zCrgrWPReDcgamGbhaDu0yqg7+bA5oot+sGWxHO2CrzEElJF7KLHnmRP4V5rQSya
-	ZzPyWaCagBj/E6lgZKttg5jchybHYDKVtZzKZSbt2T47hqQpL3hLx//QldUTDOyJ
-	UrVRe4zikdU55UWuP8g3M9dOhjcOizC/wgeHxh3oJqzg7kuncvfNMeyFyDD762L6
-	A==
-Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010020.outbound.protection.outlook.com [52.101.46.20])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4h85yhds5s-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 07:44:54 -0400 (EDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mF3m0KU7eoWsdUOtyt5qhR4SV6w5R450T4uvZnaXe1O5cjTUrKQRq2wejQsIEM+sQlU20JnNgiuBn7eoaptNvn9iEfyBnHQ4GSk7Z6qVPw6AhoujHbj/4TNw8ViU6M8s+kXU4TZjHXVjTI/NLG9OLwR5K16rHeYjq+IwYm3OdQT5w1qmNGmd/m5WGOSngVPowKwclCqq4R4t8c8J1bExQkHo432HUncWHLY/uU2a5NXymySrj8yQEX/3WNWBKOJngJQZ8Idlpmq1PG1ZH7GfH5Zu6GJeBgdQNnu5xuJWUXob5x4fN8g3X+el8aNu6SEAiu5IDl3bfxeYuzRWANrB4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n/NRpD49/hVkdzYNrCGOMpcVkRA+r0v0z7uL2mF8Ms8=;
- b=BODzKvojw1GmvuyyHNJCriz+zvIm9yfJwQBWrCZ25rYDJMcHerSwx+g8JxgTvupIS2t3udQRZ/VKNm+0dkfLuIUf7BIOdSW6F7gPJJK0GNP/uPk+B7gfGci9YMlOnj5pVJcMAOgEOaEdFltt1Ui8Iux185GBHCetbi5bRLBCpFA8c+vvDClesrwJq0huBz2S219H/meW4v6aVq04G7K1bsSDLPNUXTLs8R2+EnEC3BzJacWGb7AvVwxFtY5arFFeSwq0k7d0ZxdbcweKj6Vekwnv5jU3kEhbVzui51HwgDNyDsEH4L9EkPaQU7Z/FWw2uXVGZhK4rxi5rp1sqQPrBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=analog.com;
-Received: from DM4PR03MB5981.namprd03.prod.outlook.com (2603:10b6:5:388::24)
- by SA1PR03MB6562.namprd03.prod.outlook.com (2603:10b6:806:1c9::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 11:44:50 +0000
-Received: from DM4PR03MB5981.namprd03.prod.outlook.com
- ([fe80::7af0:3071:4d42:63ed]) by DM4PR03MB5981.namprd03.prod.outlook.com
- ([fe80::7af0:3071:4d42:63ed%5]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 11:44:50 +0000
-Date: Mon, 12 Oct 2026 13:44:46 +0200
-From: Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Cc: shengjiu.wang@oss.nxp.com, lgirdwood@gmail.com, broonie@kernel.org,
-        perex@perex.cz, tiwai@suse.com, p.zabel@pengutronix.de,
-        kuninori.morimoto.gx@renesas.com, linux-sound@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: ak4458: Check reset status after deassert
-Message-ID: <aszDZlJ0KahNwgZO@analog.com>
-References: <20261010084058.2365291-1-shengjiu.wang@oss.nxp.com>
- <asqIvOi1iQrIkB3w@analog.com>
- <CAA+D8APebaDpME+025EUnyAtLrAC=h9WSMwpWtFX-TdooLTdiw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAA+D8APebaDpME+025EUnyAtLrAC=h9WSMwpWtFX-TdooLTdiw@mail.gmail.com>
-X-ClientProxiedBy: MM0P280CA0102.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:190:9::23) To DM4PR03MB5981.namprd03.prod.outlook.com
- (2603:10b6:5:388::24)
+	dkim=pass (2048-bit key) header.d=yunsilicon.com header.i=@yunsilicon.com header.b="JwfP7I0w"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2403070942; d=yunsilicon.com; t=1791805459; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=cJTvycKNTroDl2XGVvh9ZeNwNnQmemr4v7Pw9cNJqh8=;
+ b=JwfP7I0wwEqSDAq4mU5gTtybPPb0B8eamYyvG0Q2CBftNqXQt5ehnI++tQhedZbGottoN0
+ g4LosOyVZIsxufDoL8/tKkyrVd0pA3eIurR6dGKjzaXYLeGecbbKBUc31DWtD+395cG1yt
+ +sVW7+glhWDnMZQohB4W9RK6CntyOUYy5aE7b7eOf3RtfapP79UqEeshFuK07+1msNXi72
+ BG9zbQYJEzhspet855e3VVS1BnCEFupQ029m2+bn+TtNZ6VcOLQDtykP8I6zODgEG2kR0I
+ TrZpW7V8Fp57Tk9utugLfASPyv6u3dZPEWDV0bgmgtr01b5CmDGfjfkDn3me7w==
+In-Reply-To: <20261012114352.2471317-1-tianx@yunsilicon.com>
+X-Original-From: Xin Tian <tianx@yunsilicon.com>
+To: "Andrew Lunn" <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, 
+	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
+	"Paolo Abeni" <pabeni@redhat.com>, "Jason Gunthorpe" <jgg@ziepe.ca>, 
+	"Leon Romanovsky" <leon@kernel.org>
+From: "Xin Tian" <tianx@yunsilicon.com>
+References: <20261012114352.2471317-1-tianx@yunsilicon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR03MB5981:EE_|SA1PR03MB6562:EE_
-X-MS-Office365-Filtering-Correlation-Id: f0231073-fb9c-4ba2-841b-08df285638ac
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|4143699003|11063799006|56012099006|18002099003|22082099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	f1548Osgab1ER0mVKo8t+1O1Hm0JUHzQQgediKj9yfHwkQXWaEct0O3rDgu+KV7NgLzgFlIwSzw/xbAgKcntQSTJCGDOvriqbDD0qRY4QJ8cAPFIB6qlrxlVneLsfNCudx3mR1zgnKJp8lu2kY36d/c/rqtKjCCAiu/4QTPPyLqSKgApYDFLDvyp+16NjCffQ4krMl3AJtrwVU2Q2ZYVcaL70PBgUQ47n4Ri7HYrXzIDFe0oAzgbAetzSCnK+gkXYEDwywX2jkPtZ6i69oD5TtoReelM5tYQssI2wfb3oAE3uIj26Gb9UTPKK3ucswfWb4ZLaaxtGyWeD1UDK/HhK7Xmz+mfcAt1xeRqoWKIFyFNWcP4hKbbCCP1YLHolgMQJ+IQIpFttmZ68PD3o9l/JaGSgDVVc0lR1PzB6GVZf5s0FctGP39uOwikwM/iUdC+IOsc76oysfgpoEK2UNpT+ZIjwbs1RcDXnbFRyIfihjdMt4USz/oqMOX8yvudLZw/WaGaRg/BwznraFzhBUi+7dmHYr942MZFIOzFDrj9NY9INb/vwxouVRqgs/UiOWxtl9uirbCTdHkvkrw16ZxYQWNqAbb3MtuyeVXUrRCC76cIcYeU+t0MqG3clZMqzO6nW+/g3HK5ASnx31sPiOnMfGPUdUyW4qSMM691diXMIL0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB5981.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N3JPb0FKUWM4V2x5d1pFS1pwQzBtdUtxZjkwR3ZGcUhTZXIxcHhhbUw5RXl0?=
- =?utf-8?B?ZTNQMzZxY0Zwd1gvWkZjT21qbklQRkRmMUxFaTkrRURrcmVRYVVqVFNhRXRi?=
- =?utf-8?B?ZHhHc0FkSHRVSjVRTTlXS0F0Rkl3SlppaEJDQUtoSTZRTzVEUmdlUzNGeHV5?=
- =?utf-8?B?THB0MFB0QmFlUWhQZFc4ejNJMm9qZUxnMXBxdmtuK1RRblF5NUc2ZmFvZ1pp?=
- =?utf-8?B?dkJtdTk3TFNlci9UUGVZYmpTVlFDUlNHSjJlcmlsc0NuQXVKcS9JZkdCKzc3?=
- =?utf-8?B?U1JOTDIrWTdtVlVOQzc3RElYYWNaT20rWlpwQllGbng5bDJLSC9HRE5OZmc1?=
- =?utf-8?B?S0ZHRGFlT1owbUZMeno4ZWNBWEVZNy9WVTVsN0hjcXJoYiszVVZlc2J3bElk?=
- =?utf-8?B?VFd0YWo4bE9wTXVhamwyZi92elh6UTRPMkZPMUJkNVoxaG9qRkYzaFVEak9s?=
- =?utf-8?B?aXVqSFhsMFgwK25kVnNvK0ZveVR2VDYzaGpWYlJRemN1bmttUU9aK0x6NnV5?=
- =?utf-8?B?UHJUQjc5UEhKUVNsS292TElOVUhzWnpGdEpsNmxLY3h6SlJNWi84VDE0bUZy?=
- =?utf-8?B?QzZTTTZPOFZVUVhocm1HOGtxNWxqTVNoL1RIUnBIdU9uMkczYndnSE9rMzU0?=
- =?utf-8?B?WTEzUWVwM3NGcW9wQkRDTGllVEFiZEJkV2kxVXZpZ25DYlBpckFkUWhveHBL?=
- =?utf-8?B?Tkdyd3pCSVV5M1BoMDVVS0F4YlErNXhzbk1Sd0wyN0xYbEhFYnZFMEEvbkpy?=
- =?utf-8?B?NzZMRGZVczliRVNwaTRBVzBnRGFnbFNxdTBIVXMwVmZJK29VMEZ3YWhDSmdm?=
- =?utf-8?B?RzB5N2VuRGQ2WnVFcEVoekNCZVNIK0V4YjUxb1ZrSndPOTdaZU9SSllBdEU2?=
- =?utf-8?B?dWhyRUpqZmxPZVY5RzUra3BsenpSNEpXQ05VWXk2ekoyWkdwS1dSam10V2ww?=
- =?utf-8?B?dkdTOEY3RWtoN3N0TFp6VllLRXgzZ0hIci9oMlVJNTExaW5uZERXY0Jtekkx?=
- =?utf-8?B?TzA5WHVLNlh6MEczRjBObDMzYjZaZHNrU1lmbUZ4VzlRMDNtSFhrakduVXZa?=
- =?utf-8?B?Q0RtemRZOVNvWjhXZlgwdjlFRVlQOHhWQ3dMUWtXZUw3a011bWt5czhvNVFV?=
- =?utf-8?B?U1F5WHJaSi90bC9IaUc1NFEwYVJ5ZDZ2bzBMVjh4OUxFVVZJMmN6WXhINUVL?=
- =?utf-8?B?cmxUdlVBTGM1REhDd0lzOXlUKzFvNGVqMERaT3JBTi9CbEhDVEt5REJUTzhK?=
- =?utf-8?B?NU56VEpFcnczM0MrVVFlWGhPYXBJNCtabkRoZFhlVnN0bmpiT2VPL1hOd3Vq?=
- =?utf-8?B?b2hmaEJMMGphakgyVEQzNm5jeGdHSFZiRXVaQjRZUW9maWNiZ0lWYy9CYzM1?=
- =?utf-8?B?eSszTnBwT2FucFBkNy9meW84dC94RC9EOVBXRVhHekErd2pqTm5Va05KYUJH?=
- =?utf-8?B?UklidkhVSm5iV2kxTFZ4bzFFVXRiUmRYWjcxSUJ5UGNQUTZxSUxXR25KZkxt?=
- =?utf-8?B?UFJRd01ybEd3bXNabGRqWmFQa1N5Yi9aMDVkMnFYeG95Tmh6TkMyWFhCeGRC?=
- =?utf-8?B?Q3dQa05wNGNiVDNFMXdWamZPMlpROEJjOHFHWDJHRlNlVlkzY1JZWE9LbUtX?=
- =?utf-8?B?cC9mcjVxYWZCek9KdnRZYXRWbkVSdWtkbS9YQ1o4VjRSaktoalF0WHc1VmE4?=
- =?utf-8?B?ZW1uVFEySjBndnRrcGlhc3J2M1d1U0czb3ZaUThEeFdYaGtCUk83STk1Z1ov?=
- =?utf-8?B?Qlpibzc1bVFodTA4L2ZNQUZPWGtmRktkNE9PZmlKRlY3Vm5GTzFaSnJ3NnpW?=
- =?utf-8?B?NEJnYWZYcm5hWHo0M1BmOUU3TC9yUDk3VFZGbyt1OG5hNWR1YVZNQXFRR2x4?=
- =?utf-8?B?NkJjdmxGUmtuZnY4L2hkaWJobHBGYTdXQ1VTQUFlYW1na1NEeERKdFFKSWZ1?=
- =?utf-8?B?cGFmekhSVHpNNWxrdHJvUnQ0UVN4RE5TZzEwU1ZjL2t0RlZpaVowckZoRVpW?=
- =?utf-8?B?aFpOUFoyaHBoTFIrSE5MUUVQSTFXeHZLNFN0eHphOWNNZjZFZ0Y2NXFzeTBx?=
- =?utf-8?B?NVBUd3dWZCtLTWhwM1RXRXd4RUpjcnIyTjNYVG9JTDJyYy82dlJmME55ZDRP?=
- =?utf-8?B?a0Nsc1YzSTZ0akZIcHdXQzJRd3V5blFvdzBaVzcwbEptRC9tdituUUhWRnFv?=
- =?utf-8?B?N2pPYU9TSzFRSDgxQkYwWEZOMDdnKzR1MlNWMHl5NnM3MGxiZXpwYmdVdGtS?=
- =?utf-8?B?ZzdYSlpSekJZWjNwSk01bFBjcGpwWjk1eVdqWk9ZbmpFYmxHU3BQdFdBZWVW?=
- =?utf-8?B?WkZTNnBaWkNEQ3Q5QnMvTkp3TTNWeUc2Tm1FWElyRlVBQldCTllvQT09?=
-X-Exchange-RoutingPolicyChecked:
-	S0vRkOsFpgTO6m27hoaz+5JU/V/WUH/QMAWriB5lpu/s/35PFrDQk9pRxC21OHHGIEblhxRa6g87NYqj469DxtB8WSbiO2mMHv+k5ae5MknOLvNEaC9rgZqZCre0xh7WgeCDYKdb7iFFLQjZVfiu8Hfb6lrGuMGduVpzkrwam4YrfVzfa7+N3oIBsyXBUIxV4iRirgohl/1NczXTmP0FAIz935UfbksOsN6CIEvh9qciyAFHRQTOpF5iMMjkXbdHKN5BMRjOybvs3P7RQzlBoah2sh9RWPItPzy9M+1dggy54itrHJ9irls+FmfYjFj9ejjrwuxZqxjwBviYtn1wAg==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0231073-fb9c-4ba2-841b-08df285638ac
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB5981.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 11:44:50.2886
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yz+ISzNvmvuJcoTtssved77QhADqECHQ3mCV8/N55brGrviojWp1HhCmnkufjUksNZkx07MWpmrLJYPojCsbaKANNcUNjXNjI5i44w7UrwY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB6562
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0NiBTYWx0ZWRfX1uKlZAyWus1t
- Iauzd6B7NPtsxH6kobHex0POXjAUUlwZBASIqoec6189TS6ScmcK0VtQMseknbGtemA61juB4Bz
- 2EU3u27HWCoLwebNBJ/P504z02y2kiqScYQ0y9zzOhOOztwsgXEsdvBK6qgFI85ggWvla/VEF8T
- N6wYH8WPBClwLYZyAkE/aUtMl4U+ARMW8z7pBuOHPtxbvGqTuL1YQysuk5HkcQL99VJFQjf4nZU
- 5XCWNUkQWZcwcV1krkWKM3FWuLP2D/9CbgOmV+uJUpVDOJQcLIcKEIkKSHwk+YptI5ogMbbf0FL
- fCaEGfwdspykIkPn7JnF+O9tY/o4RJglJ1V7d1dWkTLMCQMmVHTdU/abaOB0oeE/wQD+UjJtY+3
- EIqHCN2b4sTZssFvtUvsfoIldngc0QO8RcP/p9Gtg3WYtE4f7xt1znezfHNapCoRvOqrJCpXbIf
- /TuTQ7i0B/8OJ1vzFmA==
-X-Authority-Analysis: v=2.4 cv=cp0OAF4i c=1 sm=1 tr=0 ts=6accc836 cx=c_pps
- a=VvAZzv+PhNtEUaR8E1V7rA==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=ZQxX5BWu6Z8IJBb2zLX7:22
- a=gAnH3GRIAAAA:8 a=8AirrxEcAAAA:8 a=ABnnHevGHhzjX6CumKcA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=ST-jHhOKWsTCqRlWije3:22
-X-Proofpoint-GUID: 8I71ir0HHdUBOJJxvexxTfk4QMHzbVf4
-X-Proofpoint-ORIG-GUID: 8I71ir0HHdUBOJJxvexxTfk4QMHzbVf4
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0NiBTYWx0ZWRfX2kmQF0rjLL3Z
- OuzZV5Zq7DeQiy1/wY3/5wl13vCAQEpFunN8kUvy6mAUvpPjhCq2JHcvfnaP7EKhvqmFLch2q8P
- XaFRvktwSBbq2DjV64NnYHReVaHfhkxVid0McoPXWsXYvLcmJ5PB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 adultscore=0 clxscore=1015 suspectscore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120046
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26accc811+a7f01f+vger.kernel.org+tianx@yunsilicon.com>
+Content-Transfer-Encoding: 7bit
+Received: from sw-dev-sha252.yunsilicon.com ([180.152.18.210]) by smtp.feishu.cn with ESMTPS; Mon, 12 Oct 2026 19:44:17 +0800
+X-Mailer: git-send-email 2.25.1
+Subject: [PATCH 10/15] yunsilicon: add RDMA PD/MR
+Date: Mon, 12 Oct 2026 19:44:17 +0800
+Message-Id: <20261012114415.2471317-11-tianx@yunsilicon.com>
+Cc: <weihg@yunsilicon.com>, <linux-kernel@vger.kernel.org>, 
+	<netdev@vger.kernel.org>, <linux-rdma@vger.kernel.org>
+Content-Type: text/plain; charset=UTF-8
 
-Hi Shengjiu,
+Add protection domains and memory regions: the PD allocation verbs, the
+kernel and user MR registration paths (including dmabuf), and the DMA
+address translation helpers they build on.
 
-On Mon, Oct 12, 2026 at 02:49:03PM +0800, Shengjiu Wang wrote:
-> Hi Alvin, Philipp Zabel
-> 
-> On Sun, Oct 11, 2026 at 3:05 AM Alvin Šipraga <alvin.sipraga@analog.com> wrote:
-> >
-> > On Sat, Oct 10, 2026 at 04:40:58PM +0800, shengjiu.wang@oss.nxp.com wrote:
-> > > From: Shengjiu Wang <shengjiu.wang@nxp.com>
-> > >
-> > > The reset line of the ak4458 can be shared, for example when two ak4458
-> > > devices use the same reset GPIO. In that case the two codecs may call
-> > > reset_control_deassert() concurrently from their runtime resume paths.
-> > >
-> > > Only the first caller performs the actual hardware deassert, which may
-> > > sleep (for example a GPIO-expander based reset controller). A second
-> > > caller merely increments the shared deassert count and returns
-> > > immediately, so it can continue while the first caller's .deassert() has
-> > > not finished releasing the line yet, leaving the device still in reset.
-> >
-> > This seems like something that should be fixed in the reset controller
-> > framework. In fact the issue you describe seems to contradict the
-> > documentation of reset_control_deassert():
-> >
-> > /**
-> >  * reset_control_deassert - deasserts the reset line
-> >  * @rstc: reset controller
-> >  *
-> >  * After calling this function, the reset is guaranteed to be deasserted.
-> >
-> > ^ (1) seems not to be the case as you have found
-> 
-> Agreed. Looking at the documentation again, the guarantee
-> 
-> * After calling this function, the reset is guaranteed to be deasserted.
-> 
-> does not hold for a shared reset control today, so the issue is really in
-> the reset core. For a shared reset only the first caller runs the
-> hardware operation; later callers just bump the refcount and return
-> immediately, e.g. in reset_control_deassert():
-> 
-> if (atomic_inc_return(&rstc->deassert_count) != 1)
-> return 0;
-> 
-> So when two consumers of the same shared reset (here two ak4458 sharing
-> one reset GPIO) call concurrently, the second caller can return before
-> the first caller's .deassert() - which may sleep, e.g. a GPIO-expander
-> based controller - has actually released the line. assert() and reset()
-> have the same pattern.
-> 
-> Rather than work around it in the codec, I'd like to propose a reset-core
-> fix for your review. The idea is to take the existing per-control
-> rstc->lock across the shared refcount update and the hardware
-> .assert()/.deassert()/.reset(), so a second concurrent caller waits for
-> the first caller's hardware operation to complete. The lock is taken
-> before the SRCU section, matching reset_control_acquire(), and these
-> paths do not take rcdev->lock, so no new lock ordering is introduced:
-> 
-> if (reset_control_is_array(rstc))
-> return reset_control_array_deassert(rstc_to_array(rstc));
-> 
-> guard(mutex)(&rstc->lock);
-> guard(srcu)(&rstc->srcu);
-> ...
-> 
-> Does this approach look reasonable to you? If so I will send it as a
-> proper patch and drop the ASoC: ak4458 change.
+Signed-off-by: Xin Tian <tianx@yunsilicon.com>
+---
+ drivers/infiniband/hw/xsc/Makefile            |   2 +-
+ drivers/infiniband/hw/xsc/main.c              |  44 +++
+ drivers/infiniband/hw/xsc/mem.c               | 161 +++++++++
+ drivers/infiniband/hw/xsc/mr.c                | 313 ++++++++++++++++++
+ .../net/ethernet/yunsilicon/xsc/pci/Makefile  |   2 +-
+ drivers/net/ethernet/yunsilicon/xsc/pci/mr.c  | 212 ++++++++++++
+ drivers/net/ethernet/yunsilicon/xsc/pci/mr.h  |  18 +
+ drivers/net/ethernet/yunsilicon/xsc/pci/pd.c  |  55 +++
+ drivers/net/ethernet/yunsilicon/xsc/pci/pd.h  |  14 +
+ 9 files changed, 819 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/infiniband/hw/xsc/mem.c
+ create mode 100644 drivers/infiniband/hw/xsc/mr.c
+ create mode 100644 drivers/net/ethernet/yunsilicon/xsc/pci/mr.c
+ create mode 100644 drivers/net/ethernet/yunsilicon/xsc/pci/mr.h
+ create mode 100644 drivers/net/ethernet/yunsilicon/xsc/pci/pd.c
+ create mode 100644 drivers/net/ethernet/yunsilicon/xsc/pci/pd.h
 
-Yeah, I think that is the correct fix!
-
-> 
-> >
-> >  * Consumers must not use reset_control_reset on shared reset lines when
-> >  * reset_control_(de)assert has been used.
-> >
-> > ^ (2) isn't this rule also being broken in the suspend/resume path of
-> >       this driver?
-> 
-> I don't think so: the ak4458 suspend/resume path only uses
-> reset_control_assert()/reset_control_deassert(); it never calls
-> reset_control_reset(), so this rule isn't violated here. Please let me
-> know if you had a different concern in mind.
-
-Ahh, sorry! I conflated reset_control_reset() with
-reset_control_deassert()... Please ignore this part :-)
-
-Kind regards,
-Alvin
+diff --git a/drivers/infiniband/hw/xsc/Makefile b/drivers/infiniband/hw/xsc/Makefile
+index 6c4ec1ca0..b535a6653 100644
+--- a/drivers/infiniband/hw/xsc/Makefile
++++ b/drivers/infiniband/hw/xsc/Makefile
+@@ -6,4 +6,4 @@ ccflags-y := -I$(srctree)/drivers/net/ethernet/yunsilicon/xsc
+ 
+ obj-$(CONFIG_INFINIBAND_XSC) += xsc_ib.o
+ 
+-xsc_ib-y := main.o
++xsc_ib-y := main.o mem.o mr.o
+diff --git a/drivers/infiniband/hw/xsc/main.c b/drivers/infiniband/hw/xsc/main.c
+index 9d53a89be..bd2c23b51 100644
+--- a/drivers/infiniband/hw/xsc/main.c
++++ b/drivers/infiniband/hw/xsc/main.c
+@@ -382,6 +382,42 @@ static int xsc_ib_mmap(struct ib_ucontext *ibcontext, struct vm_area_struct *vma
+ 			       reg_size, vma->vm_page_prot);
+ }
+ 
++int xsc_ib_alloc_pd(struct ib_pd *ibpd, struct ib_udata *udata)
++{
++	struct ib_device *ibdev = ibpd->device;
++	struct xsc_ib_alloc_pd_resp resp;
++	struct xsc_ib_pd *pd;
++	int err;
++
++	pd = to_xpd(ibpd);
++
++	err = xsc_core_alloc_pd(to_xdev(ibdev)->xdev, &pd->pdn);
++	if (err)
++		return err;
++
++	if (udata) {
++		resp.pdn = pd->pdn;
++		if (ib_copy_to_udata(udata, &resp, sizeof(resp))) {
++			xsc_core_dealloc_pd(to_xdev(ibdev)->xdev, pd->pdn);
++			return -EFAULT;
++		}
++	} else {
++		pd->pa_lkey = 0;
++	}
++
++	return 0;
++}
++
++int xsc_ib_dealloc_pd(struct ib_pd *pd, struct ib_udata *udata)
++{
++	struct xsc_ib_dev *dev = to_xdev(pd->device);
++	struct xsc_ib_pd *xpd = to_xpd(pd);
++
++	xsc_core_dealloc_pd(dev->xdev, xpd->pdn);
++
++	return 0;
++}
++
+ static int xsc_port_immutable(struct ib_device *ibdev, u32 port_num,
+ 			      struct ib_port_immutable *immutable)
+ {
+@@ -525,16 +561,23 @@ static void xsc_ib_dev_setting(struct xsc_ib_dev *dev)
+ 	dev->ib_dev.ops.dealloc_ucontext = xsc_ib_dealloc_ucontext;
+ 	dev->ib_dev.ops.mmap		= xsc_ib_mmap;
+ 
++	dev->ib_dev.ops.alloc_pd		= xsc_ib_alloc_pd;
++	dev->ib_dev.ops.dealloc_pd		= xsc_ib_dealloc_pd;
+ 
+ 	dev->ib_dev.ops.get_link_layer	= xsc_ib_port_link_layer;
+ 	dev->ib_dev.ops.get_netdev		= xsc_get_netdev;
+ 
++	dev->ib_dev.ops.get_dma_mr		= xsc_ib_get_dma_mr;
++	dev->ib_dev.ops.reg_user_mr		= xsc_ib_reg_user_mr; /* optional */
++	dev->ib_dev.ops.reg_user_mr_dmabuf	= xsc_ib_reg_user_mr_dmabuf;
++	dev->ib_dev.ops.dereg_mr		= xsc_ib_dereg_mr;
+ 
+ 	dev->ib_dev.ops.get_port_immutable		= xsc_port_immutable;
+ 
+ 	dev->ib_dev.ops.get_dev_fw_str	= xsc_ib_get_dev_fw_str;
+ 
+ 	dev->ib_dev.ops INIT_RDMA_OBJ_SIZE(ib_ucontext, xsc_ib_ucontext, ibucontext);
++	dev->ib_dev.ops INIT_RDMA_OBJ_SIZE(ib_pd, xsc_ib_pd, ibpd);
+ }
+ 
+ static void xsc_get_port_state(struct net_device *ndev, enum xsc_dev_event *ev)
+@@ -647,6 +690,7 @@ static int init_one(struct xsc_core_device *xdev,
+ 
+ 
+ 
++	xsc_reg_local_dma_mr(xdev);
+ 
+ 	err = ib_register_device(&dev->ib_dev, dev->ib_dev.name,
+ 				 dev->xdev->device);
+diff --git a/drivers/infiniband/hw/xsc/mem.c b/drivers/infiniband/hw/xsc/mem.c
+new file mode 100644
+index 000000000..2fbce9943
+--- /dev/null
++++ b/drivers/infiniband/hw/xsc/mem.c
+@@ -0,0 +1,161 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2021 - 2026, Shanghai Yunsilicon Technology Co., Ltd.
++ * All rights reserved.
++ */
++
++#include <linux/module.h>
++#include <rdma/ib_umem.h>
++#include "xsc_ib.h"
++
++/**
++ * __xsc_ib_cont_pages - scan a umem for compound pages
++ * @umem: umem object to scan
++ * @addr: ib virtual address requested by the user
++ * @max_page_shift: upper limit for the detected page shift, 0 for none
++ * @count: number of PAGE_SIZE pages covered by umem
++ * @shift: page shift for the compound pages found in the region
++ * @ncont: number of compound pages
++ */
++static void __xsc_ib_cont_pages(struct ib_umem *umem, u64 addr,
++				unsigned long max_page_shift,
++				int *count, int *shift, int *ncont)
++{
++	unsigned long tmp;
++	unsigned long m;
++	u64 base = ~0, p = 0;
++	u64 len, pfn;
++	int i = 0;
++	struct scatterlist *sg;
++	int entry;
++	/* TODO: need peer mem support */
++	unsigned long page_shift = PAGE_SHIFT;
++
++	addr = addr >> page_shift;
++	tmp = (unsigned long)addr;
++	m = find_first_bit(&tmp, BITS_PER_LONG);
++	if (max_page_shift)
++		m = min_t(unsigned long, max_page_shift - page_shift, m);
++	for_each_sgtable_dma_sg(&umem->sgt_append.sgt, sg, entry) {
++		len = sg_dma_len(sg) >> page_shift;
++		pfn = sg_dma_address(sg) >> page_shift;
++		if (base + p != pfn) {
++			/* If either the offset or the new
++			 * base are unaligned update m
++			 */
++			tmp = (unsigned long)(pfn | p);
++			if (!IS_ALIGNED(tmp, 1 << m))
++				m = find_first_bit(&tmp, BITS_PER_LONG);
++
++			base = pfn;
++			p = 0;
++		}
++
++		p += len;
++		i += len;
++	}
++
++	if (i) {
++		m = min_t(unsigned long, ilog2(roundup_pow_of_two(i)), m);
++		*ncont = DIV_ROUND_UP(i, (1 << m));
++	} else {
++		m = 0;
++		*ncont = 0;
++	}
++	*shift = page_shift + m;
++	*count = i;
++}
++
++void xsc_ib_cont_pages(struct ib_umem *umem, u64 addr,
++		       int *count, int *shift, int *ncont)
++{
++	/* no limit for page_shift */
++	__xsc_ib_cont_pages(umem, addr, 0, count, shift, ncont);
++}
++
++static void __xsc_ib_populate_pas(struct xsc_ib_dev *dev, struct ib_umem *umem,
++				  int page_shift, size_t offset, size_t num_pages,
++				  __be64 *pas, int access_flags, bool need_to_devide)
++{
++	unsigned long umem_page_shift = PAGE_SHIFT;
++	int shift = page_shift - umem_page_shift;
++	int mask = (1 << shift) - 1;
++	int i = 0;
++	int k, idx;
++	u64 cur = 0;
++	u64 base;
++	int len;
++	struct scatterlist *sg;
++	int entry;
++
++	for_each_sgtable_dma_sg(&umem->sgt_append.sgt, sg, entry) {
++		len = sg_dma_len(sg) >> umem_page_shift;
++		if (need_to_devide)
++			len = sg_dma_len(sg) >> PAGE_SHIFT_4K;
++		else
++			len = sg_dma_len(sg) >> umem_page_shift;
++		base = sg_dma_address(sg);
++
++		/* Skip elements below offset */
++		if (i + len < offset << shift) {
++			i += len;
++			continue;
++		}
++
++		/* Skip pages below offset */
++		if (i < offset << shift) {
++			k = (offset << shift) - i;
++			i = offset << shift;
++		} else {
++			k = 0;
++		}
++
++		for (; k < len; k++) {
++			if (!(i & mask)) {
++				if (need_to_devide)
++					cur = base + (k << PAGE_SHIFT_4K);
++				else
++					cur = base + (k << umem_page_shift);
++				cur |= access_flags;
++				idx = (i >> shift) - offset;
++
++				pas[idx] = cpu_to_be64(cur);
++				ibdev_dbg(&dev->ib_dev, "pas[%d] 0x%llx\n",
++					  i >> shift, be64_to_cpu(pas[idx]));
++			}
++			i++;
++
++			/* Stop after num_pages reached */
++			if (i >> shift >= offset + num_pages)
++				return;
++		}
++	}
++}
++
++void xsc_ib_populate_pas(struct xsc_ib_dev *dev, struct ib_umem *umem,
++			 int page_shift, __be64 *pas, int npages, bool need_to_devide)
++{
++	return __xsc_ib_populate_pas(dev, umem, page_shift, 0,
++				     npages, pas, 0, need_to_devide);
++}
++
++int xsc_ib_get_buf_offset(u64 addr, int page_shift, u32 *offset)
++{
++	u64 page_size;
++	u64 page_mask;
++	u64 off_size;
++	u64 off_mask;
++	u64 buf_off;
++
++	page_size = 1 << page_shift;
++	page_mask = page_size - 1;
++	buf_off = addr & page_mask;
++	off_size = page_size >> 6;
++	off_mask = off_size - 1;
++
++	if (buf_off & off_mask)
++		return -EINVAL;
++
++	*offset = buf_off >> ilog2(off_size);
++	return 0;
++}
+diff --git a/drivers/infiniband/hw/xsc/mr.c b/drivers/infiniband/hw/xsc/mr.c
+new file mode 100644
+index 000000000..efd685e57
+--- /dev/null
++++ b/drivers/infiniband/hw/xsc/mr.c
+@@ -0,0 +1,313 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2021 - 2026, Shanghai Yunsilicon Technology Co., Ltd.
++ * All rights reserved.
++ */
++
++#include <linux/kref.h>
++#include <linux/random.h>
++#include <linux/debugfs.h>
++#include <linux/export.h>
++#include <linux/dma-buf.h>
++#include <linux/dma-resv.h>
++#include <rdma/ib_umem.h>
++#include <rdma/iter.h>
++#include "common/xsc_cmd.h"
++#include <linux/dma-direct.h>
++#include "xsc_ib.h"
++
++enum {
++	DEF_CACHE_SIZE	= 10,
++};
++
++struct ib_mr *xsc_ib_get_dma_mr(struct ib_pd *pd, int acc)
++{
++	struct xsc_ib_dev *dev = to_xdev(pd->device);
++	struct xsc_core_device *xdev = dev->xdev;
++	struct xsc_register_mr_mbox_in *in;
++	struct xsc_register_mr_request *req;
++	struct xsc_ib_mr *mr;
++	int err;
++
++	mr = kzalloc_obj(*mr, GFP_KERNEL);
++	if (!mr)
++		return ERR_PTR(-ENOMEM);
++
++	in = kzalloc_obj(*in, GFP_KERNEL);
++	if (!in) {
++		err = -ENOMEM;
++		goto err_free;
++	}
++
++	req = &in->req;
++	req->acc = convert_access(acc);
++	req->va_base = 0;
++	req->map_en = !(XSC_MPT_MAP_EN);
++
++	err = xsc_core_create_mkey(xdev, &mr->xmr);
++	if (err)
++		goto err_in;
++	req->mkey = cpu_to_be32(mr->xmr.key);
++	err = xsc_core_register_mr(xdev, &mr->xmr, in, sizeof(*in));
++	if (err)
++		goto err_reg_mr;
++	kfree(in);
++	mr->ibmr.lkey = mr->xmr.key;
++	mr->ibmr.rkey = mr->xmr.key;
++	mr->umem = NULL;
++
++	return &mr->ibmr;
++err_reg_mr:
++	xsc_core_destroy_mkey(xdev, &mr->xmr);
++err_in:
++	kfree(in);
++
++err_free:
++	kfree(mr);
++
++	return ERR_PTR(err);
++}
++
++static struct xsc_ib_mr *reg_create(struct ib_pd *pd, u64 virt_addr,
++				    u64 length, struct ib_umem *umem,
++				    int npages, int page_shift,
++				    int access_flags)
++{
++	struct xsc_ib_dev *dev = to_xdev(pd->device);
++	struct xsc_register_mr_mbox_in *in;
++	struct xsc_ib_mr *mr;
++	struct ib_block_iter biter;
++	__be64 *pas;
++	int inlen;
++	int err;
++
++	mr = kzalloc_obj(*mr, GFP_KERNEL);
++	if (!mr) {
++		err = -ENOMEM;
++		goto err_0;
++	}
++
++	inlen = sizeof(*in) + sizeof(*in->req.pas) * npages;
++	in = xsc_vzalloc(inlen);
++	if (!in) {
++		err = -ENOMEM;
++		goto err_1;
++	}
++	err = xsc_core_create_mkey(dev->xdev, &mr->xmr);
++	if (err) {
++		ibdev_warn(&dev->ib_dev, "create mkey failed\n");
++		goto err_2;
++	}
++
++	pas = in->req.pas;
++	rdma_umem_for_each_dma_block(umem, &biter, 1UL << page_shift) {
++		*pas = cpu_to_be64(rdma_block_iter_dma_address(&biter));
++		pas++;
++	}
++
++	in->req.acc = convert_access(access_flags);
++	in->req.pa_num = cpu_to_be32(npages);
++	in->req.pdn = cpu_to_be32(to_xpd(pd)->pdn);
++	in->req.va_base = cpu_to_be64(virt_addr);
++	in->req.map_en = XSC_MPT_MAP_EN;
++	in->req.len = cpu_to_be64(length);
++	in->req.page_mode = xsc_get_mr_page_mode(dev->xdev, page_shift);
++	ibdev_dbg(&dev->ib_dev, "read_flush hwconfig %s\n",
++		  dev->xdev->read_flush ? "enable" : "disable");
++	in->req.is_gpu = 0;
++	in->req.mkey = cpu_to_be32(mr->xmr.key);
++	err = xsc_core_register_mr(dev->xdev, &mr->xmr, in, inlen);
++	if (err) {
++		ibdev_warn(&dev->ib_dev, "register mr failed, err = %d\n", err);
++		goto err_reg_mr;
++	}
++	mr->umem = umem;
++	xsc_vfree(in);
++
++	ibdev_dbg(&dev->ib_dev, "mkey = 0x%x\n", mr->xmr.key);
++
++	return mr;
++err_reg_mr:
++	xsc_core_destroy_mkey(dev->xdev, &mr->xmr);
++err_2:
++	xsc_vfree(in);
++err_1:
++	kfree(mr);
++err_0:
++	return ERR_PTR(err);
++}
++
++struct ib_mr *xsc_ib_reg_user_mr(struct ib_pd *pd, u64 start, u64 length,
++				 u64 virt_addr, int access_flags,
++				 struct ib_dmah *dmah,
++				 struct ib_udata *udata)
++{
++	struct xsc_ib_dev *dev = to_xdev(pd->device);
++	struct xsc_ib_mr *mr = NULL;
++	struct ib_umem *umem;
++	unsigned long pgsz;
++	int page_shift;
++	int npages;
++	int err;
++
++	if (dmah)
++		return ERR_PTR(-EOPNOTSUPP);
++
++	if (length > dev->xdev->caps.max_mr_size) {
++		ibdev_err(&dev->ib_dev, "reg user mr length(%llu) exceeded.\n", length);
++		return ERR_PTR(-EINVAL);
++	}
++
++	ibdev_dbg(&dev->ib_dev, "start 0x%llx, virt_addr 0x%llx, length 0x%llx\n",
++		  start, virt_addr, length);
++
++	umem = ib_umem_get_va(&dev->ib_dev, start, length, access_flags);
++	if (IS_ERR(umem)) {
++		ibdev_dbg(&dev->ib_dev, "umem get failed\n");
++		return (void *)umem;
++	}
++
++	pgsz = ib_umem_find_best_pgsz(umem, XSC_MR_PAGE_CAP_MASK, virt_addr);
++	if (!pgsz) {
++		ibdev_warn(&dev->ib_dev, "find best page size failed\n");
++		err = -EINVAL;
++		goto error;
++	}
++
++	page_shift = order_base_2(pgsz);
++	npages = ib_umem_num_dma_blocks(umem, pgsz);
++
++	ibdev_dbg(&dev->ib_dev, "npages %d, page_shift %d\n", npages, page_shift);
++
++	mr = reg_create(pd, virt_addr, length, umem, npages, page_shift,
++			access_flags);
++	if (IS_ERR(mr)) {
++		err = PTR_ERR(mr);
++		goto error;
++	}
++
++	ibdev_dbg(&dev->ib_dev, "mkey 0x%x\n", mr->xmr.key);
++
++	mr->umem = umem;
++	mr->npages = npages;
++	mr->ibmr.lkey = mr->xmr.key;
++	mr->ibmr.rkey = mr->xmr.key;
++	mr->ibmr.length = length;
++	return &mr->ibmr;
++
++error:
++	ib_umem_release(umem);
++	return ERR_PTR(err);
++}
++
++struct ib_mr *xsc_ib_reg_user_mr_dmabuf(struct ib_pd *pd, u64 offset,
++					u64 length, u64 virt_addr,
++					int fd, int access_flags,
++					struct ib_dmah *dmah,
++					struct uverbs_attr_bundle *attrs)
++{
++	struct xsc_ib_dev *dev = to_xdev(pd->device);
++	struct ib_umem_dmabuf *umem_dmabuf;
++	struct ib_umem *umem;
++	struct xsc_ib_mr *mr;
++	unsigned long pgsz;
++	int page_shift;
++	int npages;
++	int err;
++
++	if (!IS_ENABLED(CONFIG_INFINIBAND_USER_MEM))
++		return ERR_PTR(-EOPNOTSUPP);
++
++	if (dmah)
++		return ERR_PTR(-EOPNOTSUPP);
++
++	umem_dmabuf = ib_umem_dmabuf_get_pinned(&dev->ib_dev,
++						offset, length,
++						fd, access_flags);
++	if (IS_ERR(umem_dmabuf)) {
++		ibdev_dbg(&dev->ib_dev, "umem_dmabuf get failed (%ld)\n",
++			  PTR_ERR(umem_dmabuf));
++		return ERR_CAST(umem_dmabuf);
++	}
++	umem = &umem_dmabuf->umem;
++
++	pgsz = ib_umem_find_best_pgsz(umem, XSC_MR_PAGE_CAP_MASK, virt_addr);
++	if (!pgsz) {
++		ibdev_warn(&dev->ib_dev, "find best page size failed\n");
++		err = -EINVAL;
++		goto err_release;
++	}
++
++	page_shift = order_base_2(pgsz);
++	npages = ib_umem_num_dma_blocks(umem, pgsz);
++
++	mr = reg_create(pd, virt_addr, length, umem, npages, page_shift,
++			access_flags);
++	if (IS_ERR(mr)) {
++		err = PTR_ERR(mr);
++		goto err_release;
++	}
++
++	mr->umem = umem;
++	mr->npages = npages;
++	mr->ibmr.lkey = mr->xmr.key;
++	mr->ibmr.rkey = mr->xmr.key;
++	mr->ibmr.length = length;
++
++	return &mr->ibmr;
++err_release:
++	ib_umem_release(umem);
++	return ERR_PTR(err);
++}
++
++int xsc_ib_dereg_mr(struct ib_mr *ibmr, struct ib_udata *udata)
++{
++	struct xsc_ib_dev *dev = to_xdev(ibmr->device);
++	struct xsc_ib_mr *mr = to_xmr(ibmr);
++	struct ib_umem *umem = mr->umem;
++	int err;
++
++	ibdev_dbg(&dev->ib_dev, "dereg mkey = 0x%x\n", mr->xmr.key);
++
++	if (mr->npages) {
++		err = xsc_core_dereg_mr(dev->xdev, &mr->xmr);
++		if (err) {
++			ibdev_warn(&dev->ib_dev, "failed to dereg mr 0x%x (%d)\n",
++				   mr->xmr.key, err);
++			return err;
++		}
++	}
++	err = xsc_core_destroy_mkey(dev->xdev, &mr->xmr);
++	if (err) {
++		ibdev_warn(&dev->ib_dev, "failed to destroy mkey 0x%x (%d)\n",
++			   mr->xmr.key, err);
++		return err;
++	}
++
++	if (umem)
++		ib_umem_release(umem);
++
++	kfree(mr);
++
++	return 0;
++}
++
++void xsc_reg_local_dma_mr(struct xsc_core_device *dev)
++{
++	struct xsc_register_mr_mbox_in in;
++	int err = 0;
++
++	in.req.pdn = 0;
++	in.req.pa_num = 0;
++	in.req.len = 0;
++	in.req.mkey = cpu_to_be32(0xFF);
++	in.req.acc = XSC_PERM_LOCAL_WRITE | XSC_PERM_LOCAL_READ;
++	in.req.page_mode = xsc_get_mr_page_mode(dev, PAGE_SHIFT_4K);
++	in.req.is_gpu = 0;
++	in.req.map_en = !(XSC_MPT_MAP_EN);
++	in.req.va_base = 0;
++
++	err = xsc_core_register_mr(dev, NULL, &in, sizeof(in));
++	if (err)
++		dev_err(&dev->pdev->dev, "\n");
++}
+diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile b/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile
+index 87481db3f..065d52ebf 100644
+--- a/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile
++++ b/drivers/net/ethernet/yunsilicon/xsc/pci/Makefile
+@@ -6,4 +6,4 @@ ccflags-y += -I$(srctree)/drivers/net/ethernet/yunsilicon/xsc
+ 
+ obj-$(CONFIG_YUNSILICON_XSC_PCI) += xsc_pci.o
+ 
+-xsc_pci-y := main.o cmdq.o hw.o qp.o cq.o link.o alloc.o eq.o pci_irq.o adev.o vport.o hal/andes_impl.o
++xsc_pci-y := main.o cmdq.o hw.o qp.o cq.o pd.o mr.o link.o alloc.o eq.o pci_irq.o adev.o vport.o hal/andes_impl.o
+diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/mr.c b/drivers/net/ethernet/yunsilicon/xsc/pci/mr.c
+new file mode 100644
+index 000000000..5c68f0fd8
+--- /dev/null
++++ b/drivers/net/ethernet/yunsilicon/xsc/pci/mr.c
+@@ -0,0 +1,212 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2021-2026, Shanghai Yunsilicon Technology Co., Ltd.
++ * All rights reserved.
++ */
++
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/slab.h>
++
++#include "common/xsc_core.h"
++#include "common/xsc_cmd_api.h"
++#include "hal/xsc_hal.h"
++#include "mr.h"
++
++int xsc_core_create_mkey(struct xsc_core_device *xdev, struct xsc_core_mr *mr)
++{
++	struct xsc_create_mkey_mbox_in in;
++	struct xsc_create_mkey_mbox_out out;
++	u8 key;
++	int err;
++
++	memset(&in, 0, sizeof(in));
++	memset(&out, 0, sizeof(out));
++
++	spin_lock(&xdev->dev_res->mkey_lock);
++	key = 0x80 + xdev->dev_res->mkey_key++;
++	spin_unlock(&xdev->dev_res->mkey_lock);
++
++	in.hdr.opcode = cpu_to_be16(XSC_CMD_OP_CREATE_MKEY);
++	err = xsc_cmd_exec(xdev, &in, sizeof(in), &out, sizeof(out));
++	if (err) {
++		pci_err(xdev->pdev, "failed to create mkey, err = %d\n", err);
++		return err;
++	}
++
++	if (out.hdr.status) {
++		pci_err(xdev->pdev, "failed to create mkey, status = %d\n", out.hdr.status);
++		return xsc_cmd_status_to_err(&out.hdr);
++	}
++
++	mr->key = xsc_idx_to_mkey(xdev, be32_to_cpu(out.mkey) & 0xffffff) | key;
++	pci_dbg(xdev->pdev, "out 0x%x, key 0x%x, mkey 0x%x\n",
++		be32_to_cpu(out.mkey), key, mr->key);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(xsc_core_create_mkey);
++
++int xsc_core_destroy_mkey(struct xsc_core_device *xdev, struct xsc_core_mr *mr)
++{
++	struct xsc_destroy_mkey_mbox_in in;
++	struct xsc_destroy_mkey_mbox_out out;
++	int err;
++
++	memset(&in, 0, sizeof(in));
++	memset(&out, 0, sizeof(out));
++
++	in.hdr.opcode = cpu_to_be16(XSC_CMD_OP_DESTROY_MKEY);
++	in.mkey = cpu_to_be32(mr->key);
++
++	err = xsc_cmd_exec(xdev, &in, sizeof(in), &out, sizeof(out));
++	if (err)
++		return err;
++
++	if (out.hdr.status)
++		return xsc_cmd_status_to_err(&out.hdr);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(xsc_core_destroy_mkey);
++
++static int xsc_set_mpt_via_cmdq(struct xsc_core_device *xdev,
++				struct xsc_register_mr_mbox_in *in_cmd,
++				u32 *mtt_base)
++{
++	struct xsc_register_mr_request *req = &in_cmd->req;
++	struct xsc_set_mpt_mbox_in *in;
++	struct xsc_set_mpt_mbox_out out;
++	u64 mem_size;
++	int err;
++
++	in = kzalloc_obj(*in, GFP_KERNEL);
++	if (!in)
++		return -ENOMEM;
++
++	mem_size = be64_to_cpu(req->len);
++	in->mpt_item.pdn = req->pdn;
++	in->mpt_item.pa_num = req->pa_num;
++	in->mpt_item.len = cpu_to_be32((u32)mem_size);
++	in->mpt_item.len_h = cpu_to_be32((u32)(mem_size >> 32));
++	in->mpt_item.mkey = req->mkey;
++	in->mpt_item.is_gpu = req->is_gpu;
++	in->mpt_item.acc = req->acc;
++	in->mpt_item.page_mode = req->page_mode;
++	in->mpt_item.map_en = req->map_en;
++	in->mpt_item.va_base = req->va_base;
++	in->hdr.opcode = cpu_to_be16(XSC_CMD_OP_SET_MPT);
++
++	memset(&out, 0, sizeof(out));
++	err = xsc_cmd_exec(xdev, in, sizeof(*in), &out, sizeof(out));
++	kfree(in);
++	if (err || out.hdr.status) {
++		pci_err(xdev->pdev, "failed to set mpt, err = %d, status = %d\n",
++			err, out.hdr.status);
++		return -EINVAL;
++	}
++
++	*mtt_base = be32_to_cpu(out.mtt_base);
++	return 0;
++}
++
++#define PA_NUM_PER_CMD 1024
++
++static int xsc_set_mtt_via_cmdq(struct xsc_core_device *xdev,
++				struct xsc_register_mr_mbox_in *in_cmd,
++				u32 mtt_base)
++{
++	struct xsc_register_mr_request *req = &in_cmd->req;
++	struct xsc_set_mtt_mbox_in *seg_in;
++	struct xsc_set_mtt_mbox_out seg_out;
++	int tot_pg_num = be32_to_cpu(req->pa_num);
++	int tot_seg_num, seg_pa_num, seg_idx;
++	int pa_idx_base = 0;
++	int in_len, err, i;
++
++	tot_seg_num = (tot_pg_num & (PA_NUM_PER_CMD - 1)) ?
++		      ((tot_pg_num >> 10) + 1) : (tot_pg_num >> 10);
++
++	for (seg_idx = 0; seg_idx < tot_seg_num; seg_idx++) {
++		seg_pa_num = (seg_idx != tot_seg_num - 1) ? PA_NUM_PER_CMD :
++			     (tot_pg_num - ((tot_seg_num - 1) << 10));
++		in_len = (seg_pa_num << 3) + sizeof(*seg_in);
++		seg_in = kzalloc(in_len, GFP_KERNEL);
++		if (!seg_in)
++			return -ENOMEM;
++
++		seg_in->mtt_setting.mtt_base = cpu_to_be32(mtt_base);
++		seg_in->mtt_setting.pa_num = cpu_to_be32(seg_pa_num);
++		for (i = 0; i < seg_pa_num; i++)
++			seg_in->mtt_setting.pas[i] = req->pas[pa_idx_base + i];
++		seg_in->hdr.opcode = cpu_to_be16(XSC_CMD_OP_SET_MTT);
++
++		memset(&seg_out, 0, sizeof(seg_out));
++		pci_dbg(xdev->pdev,
++			"set mtt seg %d, pa_num %d, pa_idx_base %d, tot_seg %d\n",
++			seg_idx, seg_pa_num, pa_idx_base, tot_seg_num);
++		err = xsc_cmd_exec(xdev, seg_in, in_len, &seg_out, sizeof(seg_out));
++		kfree(seg_in);
++		if (err || seg_out.hdr.status) {
++			pci_err(xdev->pdev, "failed to set mtt seg %d, err = %d, status = %d\n",
++				seg_idx, err, seg_out.hdr.status);
++			return -EINVAL;
++		}
++
++		pa_idx_base += seg_pa_num;
++		mtt_base += seg_pa_num;
++	}
++
++	return 0;
++}
++
++static int xsc_dereg_mr_via_cmdq(struct xsc_core_device *xdev, u32 mkey)
++{
++	struct xsc_unregister_mr_mbox_in in;
++	struct xsc_unregister_mr_mbox_out out;
++	int err;
++
++	memset(&in, 0, sizeof(in));
++	memset(&out, 0, sizeof(out));
++	in.hdr.opcode = cpu_to_be16(XSC_CMD_OP_DEREG_MR);
++	in.mkey = cpu_to_be32(xsc_mkey_to_idx(xdev, mkey));
++
++	err = xsc_cmd_exec(xdev, &in, sizeof(in), &out, sizeof(out));
++	if (err || out.hdr.status) {
++		pci_err(xdev->pdev, "failed to dereg mr, err = %d, status = %d\n",
++			err, out.hdr.status);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++int xsc_core_register_mr(struct xsc_core_device *xdev, struct xsc_core_mr *mr,
++			 struct xsc_register_mr_mbox_in *in, int inlen)
++{
++	u32 mtt_base;
++	int err;
++
++	in->hdr.opcode = cpu_to_be16(XSC_CMD_OP_REG_MR);
++
++	err = xsc_set_mpt_via_cmdq(xdev, in, &mtt_base);
++	if (err) {
++		pci_err(xdev->pdev, "failed to set mpt via cmdq\n");
++		return err;
++	}
++
++	err = xsc_set_mtt_via_cmdq(xdev, in, mtt_base);
++	if (err) {
++		pci_err(xdev->pdev, "failed to set mtt via cmdq\n");
++		xsc_dereg_mr_via_cmdq(xdev, be32_to_cpu(in->req.mkey));
++		return err;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(xsc_core_register_mr);
++
++int xsc_core_dereg_mr(struct xsc_core_device *xdev, struct xsc_core_mr *mr)
++{
++	return xsc_dereg_mr_via_cmdq(xdev, mr->key);
++}
++EXPORT_SYMBOL_GPL(xsc_core_dereg_mr);
+diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/mr.h b/drivers/net/ethernet/yunsilicon/xsc/pci/mr.h
+new file mode 100644
+index 000000000..edafecda6
+--- /dev/null
++++ b/drivers/net/ethernet/yunsilicon/xsc/pci/mr.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Copyright (C) 2021-2026, Shanghai Yunsilicon Technology Co., Ltd.
++ * All rights reserved.
++ */
++
++#ifndef __XSC_MR_H
++#define __XSC_MR_H
++
++#include "common/xsc_core.h"
++#include "common/xsc_cmd.h"
++
++int xsc_core_create_mkey(struct xsc_core_device *xdev, struct xsc_core_mr *mr);
++int xsc_core_destroy_mkey(struct xsc_core_device *xdev, struct xsc_core_mr *mr);
++int xsc_core_register_mr(struct xsc_core_device *xdev, struct xsc_core_mr *mr,
++			 struct xsc_register_mr_mbox_in *in, int inlen);
++int xsc_core_dereg_mr(struct xsc_core_device *xdev, struct xsc_core_mr *mr);
++
++#endif /* __XSC_MR_H */
+diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/pd.c b/drivers/net/ethernet/yunsilicon/xsc/pci/pd.c
+new file mode 100644
+index 000000000..7969dfefc
+--- /dev/null
++++ b/drivers/net/ethernet/yunsilicon/xsc/pci/pd.c
+@@ -0,0 +1,55 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2021-2026, Shanghai Yunsilicon Technology Co., Ltd.
++ * All rights reserved.
++ */
++
++#include <linux/kernel.h>
++#include <linux/module.h>
++
++#include "common/xsc_core.h"
++#include "common/xsc_cmd_api.h"
++#include "pd.h"
++
++int xsc_core_alloc_pd(struct xsc_core_device *xdev, u32 *pdn)
++{
++	struct xsc_alloc_pd_mbox_in in;
++	struct xsc_alloc_pd_mbox_out out;
++	int err;
++
++	memset(&in, 0, sizeof(in));
++	memset(&out, 0, sizeof(out));
++	in.hdr.opcode = cpu_to_be16(XSC_CMD_OP_ALLOC_PD);
++
++	err = xsc_cmd_exec(xdev, &in, sizeof(in), &out, sizeof(out));
++	if (err)
++		return err;
++
++	if (out.hdr.status)
++		return xsc_cmd_status_to_err(&out.hdr);
++
++	*pdn = be32_to_cpu(out.pdn) & 0xffffff;
++	return 0;
++}
++EXPORT_SYMBOL_GPL(xsc_core_alloc_pd);
++
++int xsc_core_dealloc_pd(struct xsc_core_device *xdev, u32 pdn)
++{
++	struct xsc_dealloc_pd_mbox_in in;
++	struct xsc_dealloc_pd_mbox_out out;
++	int err;
++
++	memset(&in, 0, sizeof(in));
++	memset(&out, 0, sizeof(out));
++	in.hdr.opcode = cpu_to_be16(XSC_CMD_OP_DEALLOC_PD);
++	in.pdn = cpu_to_be32(pdn);
++
++	err = xsc_cmd_exec(xdev, &in, sizeof(in), &out, sizeof(out));
++	if (err)
++		return err;
++
++	if (out.hdr.status)
++		return xsc_cmd_status_to_err(&out.hdr);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(xsc_core_dealloc_pd);
+diff --git a/drivers/net/ethernet/yunsilicon/xsc/pci/pd.h b/drivers/net/ethernet/yunsilicon/xsc/pci/pd.h
+new file mode 100644
+index 000000000..d9a99baea
+--- /dev/null
++++ b/drivers/net/ethernet/yunsilicon/xsc/pci/pd.h
+@@ -0,0 +1,14 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Copyright (C) 2021-2026, Shanghai Yunsilicon Technology Co., Ltd.
++ * All rights reserved.
++ */
++
++#ifndef __XSC_PD_H
++#define __XSC_PD_H
++
++#include "common/xsc_core.h"
++
++int xsc_core_alloc_pd(struct xsc_core_device *xdev, u32 *pdn);
++int xsc_core_dealloc_pd(struct xsc_core_device *xdev, u32 pdn);
++
++#endif /* __XSC_PD_H */
