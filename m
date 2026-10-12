@@ -1,180 +1,132 @@
-Received: from smtpout8.mo537.mail-out.ovh.net (smtpout8.mo537.mail-out.ovh.net [51.210.91.27])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A286748EC95
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 15:28:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.210.91.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70427497B8F;
+	Mon, 12 Oct 2026 15:29:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818940; cv=none; b=N51PeyApflVDMQMX/Y6iAG/YSURyMCacGJF6ixUHOHILF39h0rSn7tm7YxkyRMFwUq3htTc8+l5vfLbBPMb+RZ2rt/22rmAhntOpoI3bvH51bbqQv60y77KoxJwICYjz3hRgNypGi4vmc555KI0DeJDhxLT3Kz1+80G7OxYobfA=
+	t=1791818961; cv=none; b=Ma/UASv2Dj0n6zQtmdb65Utrajbh2SCb1BbmLYiV54WTWi6pdzexc8kj1cr1E1A7MQIt74ER/fC0ll67T8yeY70Yx5Y5ORUVc+Ev+Tb0sgX5pbyX/qMrJY7iNa+MBjUpXMMJvCDVZO+tl4m924X+w17Wg/1/HuczbL6twzD5rCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818940; c=relaxed/simple;
-	bh=CPlAnu68KgJG1/Q2pJmORv/Jmj62gE29CTA1Bt1CF5A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bFgbU7m3XS9Wab+8TqWpJ5++6qFlPTvqVxW2tbW/ZYbQ7ja/BEXKNS3SE3+uLhpfm1XpmD+d2TShvDQeDP1o72oeXgBk9jNY49UZmOeRLSRSuXt0akn67zkiU7LXUACkJXLKRcRsSfT2MeeEnnjh5bKQ+zGnYiEhWyLl4mp4Gyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=npnm.eu; spf=pass smtp.mailfrom=npnm.eu; dkim=pass (2048-bit key) header.d=npnm.eu header.i=@npnm.eu header.b=TWi9J4DX; arc=none smtp.client-ip=51.210.91.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=npnm.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=npnm.eu
+	s=arc-20240116; t=1791818961; c=relaxed/simple;
+	bh=QAOmRhoZomfYsLuluMtKsXytIUCvyzBeKw6xQHDltoA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZgJ7voCw48fN3qbbPK2fKs7XsN06KHNHiFPLH6OtKEYaMFfaQBTPW1qAP8LkGVy2Nx2FC0N4CedSPjfJhltzaGLgh92RNyqGuWzmr3DIuwdtDeo1jCG+fmcR5DV4gbAbcDvqBNRQ1wA80cN42PcNV1gRAWd0P+Ca+ql3YyKkLLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=XyCMeT0J; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=npnm.eu header.i=@npnm.eu header.b="TWi9J4DX"
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net [79.137.60.225])
-	by mo537.mail-out.ovh.net (Postfix) with ESMTPS id 4j3LXG1kPzz49M4;
-	Mon, 12 Oct 2026 15:11:26 +0000 (UTC)
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net. [127.0.0.1])
-        by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <lina+kernel@asahilina.net>; Mon, 12 Oct 2026 15:11:26 +0000 (UTC)
-Received: from mta3.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.0.128])
-	by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4j3LXG12Dkz6MbC;
-	Mon, 12 Oct 2026 15:11:26 +0000 (UTC)
-Received: from npnm.eu (unknown [10.1.6.8])
-	(Authenticated sender: laniel_francis@npnm.eu)
-	by mta3.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id BC8B4941F72;
-	Mon, 12 Oct 2026 15:11:22 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-108S002f470ca45-326a-4bf6-824e-d9953fc7b011,
-                    49321548602EDEEB7E8F78B99E4F89B1D2AE6B16) smtp.auth=laniel_francis@npnm.eu
-X-OVh-ClientIp:149.102.245.162
-From: Francis Laniel <laniel_francis@npnm.eu>
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Onur =?UTF-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
- Asahi Lina <lina+kernel@asahilina.net>,
- Joel Fernandes <joelagnelf@nvidia.com>, Alvin Sun <alvin.sun@linux.dev>,
- Thorsten Blum <blum@kernel.org>, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org
-Subject: Re: [RFC PATCH v1 1/2] rust: add NonEmptySlice
-Date: Mon, 12 Oct 2026 18:11:21 +0300
-Message-ID: <5110602.GXAFRqVoOG@pmachine>
-In-Reply-To: <DM2XOVH1P1FU.2FHNOM9U66YPS@nvidia.com>
-References:
- <20261011191540.56199-1-laniel_francis@npnm.eu>
- <20261011191540.56199-2-laniel_francis@npnm.eu>
- <DM2XOVH1P1FU.2FHNOM9U66YPS@nvidia.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="XyCMeT0J"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCEcqq182992;
+	Mon, 12 Oct 2026 15:29:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=vaENsX/Xovj3/Z2BUashPqqcOp8TEY
+	AjAOWXTkt5n+Y=; b=XyCMeT0JbJ4zfSa4++xp9SqYs2nPegUZ/1bJrV8DseMQaH
+	u7SpMpi7AHpqa8/oDkfqxA8xr9cF2/ixLdGM6ky3vQ86pI3GpYhjCwHLPRdGGfVU
+	X/r89TrhLCnOpPB/AvijktIkZOBIG+A2eYxIJt4V+5hDf8KqtmTF7S/qsp4+Xk+H
+	DEKWsNTiYEoWr0SREO4JMRMCLhyBNAMFUA5uiCEhxhDQQRu455aNJ2Bqn14Drzbv
+	3ElVMFIfLNPFN7KGfWJekmveMMqAovKYWMjBG0rlF/s3nznVr9NDxI+7WCIo1AgF
+	dWmdZf5UHI75gAqzmGMqtbVVH+FsIqLh/WFmBZEg==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv39m23-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 15:29:19 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC56fX1238622;
+	Mon, 12 Oct 2026 15:29:18 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h7yppnx8v-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 15:29:18 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CFTELx48038244
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 15:29:15 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D9F9F20049;
+	Mon, 12 Oct 2026 15:29:14 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4535420040;
+	Mon, 12 Oct 2026 15:29:14 +0000 (GMT)
+Received: from osiris (unknown [9.111.15.154])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon, 12 Oct 2026 15:29:14 +0000 (GMT)
+Date: Mon, 12 Oct 2026 17:29:12 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Ilya Leoshkevich <iii@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Niklas Schnelle <schnelle@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Vineeth Vijayan <vneethv@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Harald Freudenberger <freude@linux.ibm.com>,
+        Holger Dengler <dengler@linux.ibm.com>,
+        Stefan Haberland <sth@linux.ibm.com>,
+        Jan Hoeppner <hoeppner@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH 04/32] s390/bug: Indicate modified PSW in disassembly
+Message-ID: <20261012152912.19350H7e-hca@linux.ibm.com>
+References: <20261001103247.1989111-1-hca@linux.ibm.com>
+ <20261001103247.1989111-5-hca@linux.ibm.com>
+ <b85d6175-5587-4bca-9851-30241bc96158@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-x-ovh-tracer-id: 17914756370403829206
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTF9kbe/x9crAR3MRR44rUkHfU3Bx+kvnEMzS9rjmZeKPQB8xgg7VpgcNb+ANv9U3cKTiPEVovxH+4ne/Ui2OEGGC3+qls/Pe8//+u40UvbQiOI/hqgwfxDyZ5fHlTbi1m5iqBdy5UzlxS+th7hx8gGqO4w0KcrQod8hXG3ZALy8TMazUUUV8Wx/CKgSGh4m6y+kIhvYpb+0eFfZ/zrbiGM7L/zYuOxwyyaiHcI2lFG3TzL6iVYrgdNhjMzvx5nOXGPOGy651DvLcNh34v2lRS88nEvpHPaPbdQcu++2tKf6qXOjX8BIl6ZT8Rne/ztlSJS3HIRrJ7JNZll9zk3W1vKbOX5P5ItmUuX9E4eEmXFhC5XVIvQbdtnOym+4XJohsmleH0mrWgZqBx/SPLRdmBase/1+xjmWSal0B3+PJvMP9C3okWDxAdKe0boCr5j3ln5WPXyeXz3D0I2ZmzbPLVIyMBvLeFl3iYup7BYKPZC+7owisl0vZWvN4ha8trOqlhhZyBDmgn6mPu3cQrvHjq5ACQjrVz5hq2hFg0qRH3RaHgsGm3PBXsUXgpOyaAyA5veAZhAjTMfqJI+nXK6YVKbFU3/4t3uNhWhZDpGoKp+fRprFyzqwXjkXlxqrQw82u7gYZhHwOdhFMxu1JFvwAQPZ/u36Rfoz2/hR+PPixhqhhA
-DKIM-Signature: a=rsa-sha256; bh=h55Ndr1nS/cHrREZaSiFP4v+8EE4HBb66jFaa8FVUSc=;
- c=relaxed/relaxed; d=npnm.eu; h=From; s=ovhmo-selector-1; t=1791817886;
- v=1;
- b=TWi9J4DXlYm2xRXAn1P5wj2pLPpScmAaPGIYUqtTboLEEoVnpB9MRVX8pTftUtBXUN5IKzMc
- BG1bqSPteh+ui+EQuDFo0OspTG8JIVAv+sYoKxKvmUj2B1X+WYCIf202fXO76R8kuPH739khQ7g
- dntnLVjqWwxuBp57hNTSYn7xrpZd0yHtU0uoVbNppm1Cmn+6IZouIEAx4iHDujCYqLVFSNduDVE
- qoXYtsmj1+Hzqx9CGqtFqqc5HozmzMUF/viU2HfxAqmEBFTA8BQXUQlL3Hs8BzkVR0JTkP9a9D4
- STLU0x+pmuj7avym5T3DZSLl97Ky3+TM/0wCY+c/LsSKQ==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b85d6175-5587-4bca-9851-30241bc96158@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: _S8CsJkbkM866M-fADW-oKrOwYetP4uB
+X-Proofpoint-ORIG-GUID: _S8CsJkbkM866M-fADW-oKrOwYetP4uB
+X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6accfccf cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=nY3sA7zkoDGtY1Vn0XoA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2MCBTYWx0ZWRfX2U/Xmrg3KPrh
+ bTMpwaycf3KUVU6B+7IWoWbljOntYayzBCBDh2yfUKlUfLCSUXcBPCvarX8aFnT82owexbr2dc9
+ PzKahnnOmLcUTjnPMn8JjugsKAyvaZE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2MCBTYWx0ZWRfXy/wjkpJyWjUR
+ UR951S6fyLZWZTQrPM9w/CfZZvCCzeMBV3bZo6oqcotPRAi2BHDxvW2nv4rsxm/7xC9D7Qjo9wy
+ qNpExxvwPkbjdeGNJoCh4vx3s6tDJZvcSH+7UOGwHsRui0jSWZ1HLkaPVT5NXua/cSryXKCXJrv
+ Kty+vVIfdwXBYJPrGZD8SE/Viyh3bvB56yBHxh+ez36bnx1NwYiQPoy3FiMXxcJD4UsdzAGBFxr
+ oJglAKEg+EjmC2ZyeedXDkzrkJQlyLimYQxp0i3ahUFlkfBf8jDfMGwXN2Rsk/2mGTIq0BFvObx
+ POGiRM1mY9AIdJtIKwJWUHp2LpXArpBkt0OwM0jATDjstIt0yjctDvhlBTF/coWn5+p/MzxKvj+
+ NFZSbDvqxJdp3/IWGcuCdX8XYGKN4X1Pl14TCcW8rFiP+mLhmTIzmI6Lt7adteQTpjsXy5ayIij
+ mbA425aoMu6gnVSwW0A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120060
 
-Hi,
+On Mon, Oct 12, 2026 at 05:07:52PM +0200, Ilya Leoshkevich wrote:
+> > -		pr_cont("%s", buffer);
+> > -		ptr = buffer;
+> > -		ptr += sprintf(ptr, "\n          ");
+> > +		pr_cont("%s\n", buffer);
+> 
+> Should this really be pr_cont() and not printk()?
+> The KERN_CONT doc says:
+> 
+>     only done after a line that had no enclosing \n
+> 
+> and the new code prints everything line-by-line.
 
-Le lundi 12 octobre 2026, 17:36:41 heure d=E2=80=99=C3=A9t=C3=A9 d=E2=80=99=
-Europe de l=E2=80=99Est Alexandre Courbot a =C3=A9crit :
-> Looks like we are converging towards the series sent by Lorenzo, but
-> wanted to share a couple a quick comments nonetheless:
-
-Thanks for the feedback!
-
-> On Mon Oct 12, 2026 at 4:15 AM JST, Francis Laniel wrote:
-> > Add NonEmptySlice<T>, a [T] wrapper that is guaranteed to contain at
-> > least one element.
-> > This lets methods such as last_mut() return a plain reference instead
-> > of an Option, so callers that have already checked for emptiness no
-> > longer need unwrap() or unwrap_unchecked().
-> >
-> > Suggested-by: Gary Guo <gary@garyguo.net>
-> > Signed-off-by: Francis Laniel <laniel_francis@npnm.eu>
-> > ---
-> >  rust/kernel/lib.rs   |  1 +
-> >  rust/kernel/slice.rs | 76 ++++++++++++++++++++++++++++++++++++++++++++
-> >  2 files changed, 77 insertions(+)
-> >  create mode 100644 rust/kernel/slice.rs
-> >
-> > diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-> > index 7225abc64084..8cc01aceb3b2 100644
-> > --- a/rust/kernel/lib.rs
-> > +++ b/rust/kernel/lib.rs
-> > @@ -130,6 +130,7 @@
-> >  #[cfg(CONFIG_RUST_SERIAL_DEV_BUS_ABSTRACTIONS)]
-> >  pub mod serdev;
-> >  pub mod sizes;
-> > +pub mod slice;
-> >  #[cfg(CONFIG_SOC_BUS)]
-> >  pub mod soc;
-> >  #[doc(hidden)]
-> > diff --git a/rust/kernel/slice.rs b/rust/kernel/slice.rs
-> > new file mode 100644
-> > index 000000000000..7e467cb952c3
-> > --- /dev/null
-> > +++ b/rust/kernel/slice.rs
-> > @@ -0,0 +1,76 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +
-> > +//! Slice abstractions to ease development.
-> > +
-> > +use core::ops::{Deref, DerefMut};
-> > +
-> > +/// A slice that is guaranteed to contain at least one element.
-> > +///
-> > +/// # Invariants
-> > +///
-> > +/// `self.0` is not empty.
-> > +#[repr(transparent)]
-> > +pub struct NonEmptySlice<T>([T]);
-> > +
-> > +impl<T> NonEmptySlice<T> {
-> > +    /// Returns `None` if `s` is empty.
->=20
-> This is not a standard doccomment. Doccomments first start by stating
-> what the function does before explaining the return value.
->=20
-> > +    pub fn new(s: &mut [T]) -> Option<&Self> {
->=20
-> It looks strange to take a `&mut` and return a `&Self`. There should be
-> no reason to take a mutable reference here, and you can use
-> `ptr::from_ref` to create the reference.
-
-Indeed, this sounds weird! I will keep it consistant for future contributio=
-ns.
-
-> > +        if s.is_empty() {
-> > +            return None;
-> > +        }
-> > +        // SAFETY: `Self` is `repr(transparent)` over `[T]`, so the ca=
-st keeps the slice length.
-> > +        // INVARIANT: `s` is not empty, checked above.
-> > +        Some(unsafe { &*(core::ptr::from_mut(s) as *const Self) })
-> > +    }
-> > +
-> > +    /// Returns `None` if `s` is empty.
-> > +    pub fn new_mut(s: &mut [T]) -> Option<&mut Self> {
-> > +        if s.is_empty() {
-> > +            return None;
-> > +        }
-> > +        // SAFETY: `Self` is `repr(transparent)` over `[T]`, so the ca=
-st keeps the slice length.
-> > +        // INVARIANT: `s` is not empty, checked above.
-> > +        Some(unsafe { &mut *(core::ptr::from_mut(s) as *mut Self) })
-> > +    }
-> > +
-> > +    /// Returns a reference to the first element.
-> > +    pub fn first(&mut self) -> &T {
->=20
-> Same here, `first` and `last` should take a non-mutable reference as
-> their standard library counterparts do. They do not allow to mutate the
-> slice.
->=20
-
-Best regards,
-
-
+I guess it doesn't matter too much. The old code worked around that (by
+accident, not intentionally) by printing the new line the beginning.
+Which is most likely also not correct.
+So yes, I can change it to printk().
