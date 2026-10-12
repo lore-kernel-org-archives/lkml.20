@@ -1,145 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A22355F42;
-	Mon, 12 Oct 2026 11:26:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5594439349;
+	Mon, 12 Oct 2026 11:26:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791804389; cv=none; b=c6stFY+jRaKyQvTCno5cjlLx3ihdgC+Vs5Cbz9ztqggJqqsVHQF3DOp/++gbA9JOxPLE+lKBou53APyQzfv9mN1JkZGjDaKfmkJ0jgRNf72O9laddOfw1JVaAc6QCeAuXSeCAyWWB8Wbz4xxmkd6gUKZ2ddsfr3/mM71JLPuspo=
+	t=1791804392; cv=none; b=I/BQ2/BlIoEiYTg8fvoaGE5Nbmnw+vXjrXTObA82Av6nd/4KSlDQ7A2eRZ/ryYTN5rL//UW9qows3rpWKqi1/PBVVqwmh7QYoz403EesrI5p8jixFSw0VNkmG1vaVQTQI/dyKntC9gH8MaSirrUi7AmKeI77apgZO0c4Pgret0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791804389; c=relaxed/simple;
-	bh=RaPMbH9HBGK8Gvdpc2qB78HHMcmqWSXamHE+N116ywU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WrdH5eiNVA1a+QmPCy98P2OIj6eys+IY6osk4Hp9GBqYC3mrgivt+Rlx6mmDk3BGz69dDFPguv6ahU6REH0nWrKXeLjRnrP221cGZsORtNrkD+CPZnrnmvy0mVAUEXkYlleP+ZbeFBYo4qgXpV6wnMacpEUfkWZU6HAbDXF5nso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ye9TSphQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791804392; c=relaxed/simple;
+	bh=+hcz+S4nRA6vr7TWGm7qwqTpEnRBgOztQWqhh7P/4UM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LrzRnAzrQhD31VZp9OARiO4UoMH4EFmJSGbMn5hgJoN1N6FuxNKipWG+HbeBGVD1u/AsQhz3wNL1tEYiJUDBSVe244bEdTK2BKCOkCyni+k7dbhCfw5bKflP1bkF0CF56uc7XbDSyARrelGHONoyycSLuuNbUHx28RNOc3yklxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QpaWT5oA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ye9TSphQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90FDE1F0089B;
-	Mon, 12 Oct 2026 11:26:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QpaWT5oA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B722E1F0089C;
+	Mon, 12 Oct 2026 11:26:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791804388;
-	bh=1oHJQSoxYyxiwgFYTb/YJ3RLFHms1wutckFxzTUtbI4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Ye9TSphQp8z6zYA2f1LHn8vYECX3nHgd51QCLZl+oGMyMWD/cquUreM41X7nUMlNz
-	 1czVfMlC8vCQSTLXyJYRtJ2NQJZBteOucQZmqwHXCvm+9CGjjH6dXgFa663cD2QXmh
-	 1eNCgwfJ64Vz5MdIXPtLJwWWx5aCg5Jly0nDspCr1rwzVLarL4eYm4VJZ/N3prjX0Y
-	 /01hxkRI1iXA/qdEhkuEetQ6tt5Yq3cYvyw3wS5Yl9EkMYVB+R/M+mW+UtJeUU9M8X
-	 tbmTtebcLtr9HeRHktovUm1skJYdG7LJWiBT2KlmSJY4O3JGVbT2ub7Ud1ssSUL8Tk
-	 1paBxLxJKkq2Q==
-Date: Mon, 12 Oct 2026 12:26:03 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Anisa Su <anisa.su887@gmail.com>
-Cc: Richard Cheng <icheng@nvidia.com>, linux-cxl@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-kernel@vger.kernel.org, Dan Williams
- <djbw@kernel.org>, Dave Jiang <dave.jiang@intel.com>, Alison Schofield
- <alison.schofield@intel.com>, Davidlohr Bueso <dave@stgolabs.net>, Ira
- Weiny <iweiny@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>, Fan Ni
- <nifan.cxl@gmail.com>, Li Ming <ming.li@zohomail.com>, Benjamin Cheatham
- <benjamin.cheatham@amd.com>, Gregory Price <gourry@gourry.net>
-Subject: Re: [PATCH v15 2/8] cxl/mem: Read dynamic capacity configuration
- from the device
-Message-ID: <20261012122603.06c71c62@jic23-hlaptop>
-In-Reply-To: <asrBsS556W6ijUMH@cxlqual>
-References: <20261007201828.952-1-anisa.su@samsung.com>
-	<20261007201828.952-3-anisa.su@samsung.com>
-	<asdRsFS-Amd6IDws@MWDK4CY14F>
-	<asrBsS556W6ijUMH@cxlqual>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1791804391;
+	bh=1lItnyH4SK8Ddn7aEUJiWjepalXE/ok80qO0IvTSv1Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QpaWT5oAwrDaiAVTZ8oZiPE3d+WsE/OkZBoIKNdr9UGhHI7kod1PCwx9FkqG71M5x
+	 vZgkbNH3cVImexEHXIhezwRl8Kdv1/6e3OIB91HWYnav0QzmUScE2TG9q0WMywMjyi
+	 JPeTIc/DN61qt9vDcMRPj/lT4fYP1PA0XchAG95Gng3b4ANZF+/UwE3JIxmnBHGQEX
+	 Kh7NFP7fjfxiKkrHZLefSA0e8Mh5FG0iLpi2ayXqk7jOMo0cdGHJii2tdXOyiwrXpM
+	 bl8V2US0bQ5bFTVh3R6+igeT9kJRn4S9QRfv42RMwQQR8ZvhqRAZGWIUe7tANoon99
+	 XMFZU1udjb3+A==
+Message-ID: <9fa51ba2-5707-4d39-9038-c0983d138893@kernel.org>
+Date: Mon, 12 Oct 2026 13:26:25 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: talos: Add EL2 overlay for
+ talos-lyra-evk
+To: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com>
+ <20261012-talos-lyra-evk-v2-v2-4-dcc9316ebb59@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261012-talos-lyra-evk-v2-v2-4-dcc9316ebb59@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+On 12/10/2026 08:16, Ruchira Revdekar wrote:
+> Add support for building an EL2 combined DTB for the talos-lyra-evk
+> in the Qualcomm DTS Makefile.
+> 
+> The new talos-lyra-evk-el2.dtb is generated by combining the base
+> talos-lyra-evk.dtb with the talos-el2.dtbo overlay, enabling EL2-specific
+> configurations required by the platform.
+> 
+> Signed-off-by: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/Makefile | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+> index 2f25575e6efe..4f8ca3112fed 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -458,6 +458,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= talos-lyra-evk.dtb
+>  
+> +talos-lyra-evk-el2-dtbs	:= talos-lyra-evk.dtb talos-el2.dtbo
+> +
+> +dtb-$(CONFIG_ARCH_QCOM)	+= talos-lyra-evk-el2.dtb
+> +
+>  talos-evk-el2-dtbs	:= talos-evk.dtb talos-el2.dtbo
+>  
 
-Please remember to crop down to only the context you need!
-(grumpy as on a train and the pagedown key on my laptop requires pressing far too
-many things at once!)
+Makefile changes belong to the pathc introducing the DTS, so squash this
+and previous.
 
-> > > diff --git a/drivers/cxl/core/memdev.c b/drivers/cxl/core/memdev.c
-> > > index b3419df586b9..def26c490dfe 100644
-> > > --- a/drivers/cxl/core/memdev.c
-> > > +++ b/drivers/cxl/core/memdev.c
-> > > @@ -643,6 +643,53 @@ int cxl_mem_dpa_fetch(struct cxl_memdev_state *mds, struct cxl_dpa_info *info)
-> > >  }
-> > >  EXPORT_SYMBOL_NS_GPL(cxl_mem_dpa_fetch, "CXL");
-> > >  
-> > > +int cxl_configure_dcd(struct cxl_memdev_state *mds, struct cxl_dpa_info *info)
-> > > +{
-> > > +	struct cxl_dc_partition_info dc_info = { };
-> > > +	struct device *dev = mds->cxlds.dev;
-> > > +	u64 total;
-> > > +	int rc;
-> > > +
-> > > +	if (!mds->cxlds.media_ready)
-> > > +		return 0;
-> > > +
-> > > +	rc = cxl_dev_dc_identify(&mds->cxlds.cxl_mbox, &dc_info);
-> > > +	if (rc) {
-> > > +		dev_warn(dev,
-> > > +			 "Failed to read Dynamic Capacity config: %d\n", rc);
-> > > +		return rc;
-> > > +	}
-> > > +
-> > > +	if (dc_info.start < info->size) {
-> > > +		dev_err(dev,
-> > > +			"DC partition 0 base %#llx overlaps static capacity ending at %#llx\n",
-> > > +			dc_info.start, info->size);
-> > > +		return -EINVAL;
-> > > +	}
-> > > +
-> > > +	/* A gap between static capacity and the DC partition is not supported */
-> > > +	if (dc_info.start > info->size) {
-> > > +		dev_warn(dev,
-> > > +			 "DC partition 0 base %#llx leaves a gap from static capacity ending at %#llx\n",
-> > > +			 dc_info.start, info->size);
-> > > +		return -EOPNOTSUPP;
-> > > +	}
-> > > +
-> > > +	if (check_add_overflow(info->size, dc_info.size, &total)) {
-> > > +		dev_err(dev,
-> > > +			"DC partition 0 size %#llx overflows DPA space ending at %#llx\n",
-> > > +			dc_info.size, info->size);
-> > > +		return -EINVAL;
-> > > +	}
-> > > +
-> > > +	info->size = total;
-> > > +	dev_dbg(dev, "Adding dynamic ram partition; %#llx size %#llx\n",
-> > > +		dc_info.start, dc_info.size);
-> > > +	add_part(info, dc_info.start, dc_info.size, CXL_PARTMODE_DYNAMIC_RAM);
-> > > +
-> > > +	return 0;
-> > > +}
-> > > +EXPORT_SYMBOL_NS_GPL(cxl_configure_dcd, "CXL");
-> > >   
-> > 
-> > Hi Anisa,
-> > 
-> > This function uses info->size, which is Total Capacity, as the end of static
-> > capacity, but now we require DC partition to start at the end of the last
-> > static partition, which is RAM + PMEM. CXL r4.0 8.2.10.9.1.1 "Identify Memory
-> > Device" only requires Total Capacity to be >= the sum of RAM + PMEM.
-> > If they differ and device place DCD region base at Total, we can pass the check
-> > here but cxl_dpa_setup() fails probe with -EINVAL, so a DCD config
-> > quirk costs the whole memdev instead of just DCD.
-> > 
-> > Think of an example, Total capacity 12G, RAM has 8G, PMEM has 2G, now if
-> > DC starts at 12G, this function check will be passed, but cxl_dpa_setup()
-> > will see PMEM end at 10G, DC start at 12G, think of it as a hole.
-> > If the DC start at 10G, we can pass cxl_dpa_setup(), but the test here will see
-> > 10G < 12 G and think DC region start inside the device memory and print
-> > "overlaps"
-> > 
-> > Maybe derive the static end from info->part[nr_partitions - 1] and size
-> > info->size from DC partition end ?
-> >   
-> Oh you're right.... fixed.
-
-For this sort of thing where you are fully agreeing. 
-Just fix it and acknowledge in change log!  That way there is no email
-for others to get grumpy scrolling through :)
-
-Jonathan
+Best regards,
+Krzysztof
