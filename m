@@ -1,122 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D8F2BFC7B;
-	Mon, 12 Oct 2026 23:20:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791847220; cv=none; b=UNkVuPuKBLjbVA6nEDs8gtUJt2WiQN33t/YJuXF/MGa2vOnhMdDdaaLETx0800iYneXF18h35/Yl6I6rQpGDNf5mLT8PD8G4eIXo63Bi2HzeeyUF60uFUlp3/V5TPup17tl+t0VPWTfCfOA0mqrjpPbhETkcwzzXvww4nj0ZQuc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791847220; c=relaxed/simple;
-	bh=WdyZQ+u/1nVShA20+JGSbrpv+kYiOhfDzau+w6JgPFA=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=H6ib0GExo3iZ82VJgw2iLGsLJJ18Facw96F6zhywHK9UTLdLyCYScy9XX2UJ7/qe2atlF6/3Q9/VPl3E1kX8lcWoVm+SMTj19RkDDqcitvlZFxykcigusX3tiCc0zZ7fPJptBNok0duGErCzdlpdTv7P1bm3ESx7z1B9h7COaF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WbW6Vh0k; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8CA3B4E88;
+	Mon, 12 Oct 2026 23:21:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791847316; cv=fail; b=BPAODDbFDt2+TzHQOKWqlFk7mmyJ13Oi3pim69Fue/Eu9oFTadQBxP8wTBYKcwr8bqB0G+9UpiSrfz5hcAChQj2lCnzJTgYmLlVj5c327s7o2sUMXd4/VjacmA4aFGV3IiQQQhXtpduq8OEpxZosrPiKu0YFnh7aELrp0frCBTs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791847316; c=relaxed/simple;
+	bh=jpI3wMKJpUhvDY4D4yaIOfRUMQ355bnzMjbwT/IVpbk=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=VQdkSaaFZSBInQiniIwxUI6eeddwUrXDxf6rGaEK3yEvZg1mufWESnOXrvc/7jiohQfX+66CMTQ0Lm7LwwPvz7FM4qxZPdOfi00MAGfsky7ziwKKL8VNnyM7Szkm898hb1VDc39IaqIcjXw0IUvhpKYRcgo01MBYLNLZ80hE23I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Qf63zsOR; arc=fail smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WbW6Vh0k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 434F51F0089B;
-	Mon, 12 Oct 2026 23:20:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791847219;
-	bh=o4oN5lKH9EEBCH19PG70lJLrhKcKXfLPurXqtoeLfGM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=WbW6Vh0k6NHKZMsuSbhZYg0xatoAJneorZ8ZD3SAVs9g6WfhJTykvaxi/wRaemfFk
-	 B/vmazhK6TpAwW63I5vSK8O2IialYqb/ed69cci48HKDqWQ5U+Yc9xckul6Qr5Zi+x
-	 cmfsMW/1xDTBcFPsgui5okGK0hlefKKnxKiIBSixShD4D98uN2AEkDBaFkaJZwhbEL
-	 Lf/S/yhPMQVCbs1FCBi1cMwdGmvAR2BqmILho6fgKYMPhJwyXWZm89Hsbmj/cCnzYu
-	 +sLNchhQQ6fIVUoDNYko+PRiFgyhQDoFp1RIAY3RgnQpGivd6NQE1YjVmetKa1JxTm
-	 Px0bM1XoCtVOA==
-Date: Mon, 12 Oct 2026 18:20:18 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Lukas Wunner <lukas@wunner.de>,
-	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	Oliver O'Halloran <oohall@gmail.com>, Len Brown <lenb@kernel.org>,
-	linux-pci@vger.kernel.org, linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] PCI/DPC: Decide DPC ownership with
- host_bridge->native_dpc
-Message-ID: <20261012232018.GA1428722@bhelgaas>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Qf63zsOR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791847313; x=1823383313;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=jpI3wMKJpUhvDY4D4yaIOfRUMQ355bnzMjbwT/IVpbk=;
+  b=Qf63zsORZCx4Uy4509akcWJsKOLOztp6b8hsBjrZ4x/TDpwvsPK7lx1w
+   F44+8JWkwHy0EZZS5dhnttzQToWQW9agsqeVB1td0+Zr/O8HdqX5BxE9e
+   NZbQRNVmru7yij/Mu3DEGuo+1kViVtnpaVBxXVQTncVtxduVM8rTaQg3m
+   3ntSd10wY2Vhcc3gJYZWhY0Y11ZryXZsAms3QzWJ7ZooNYtf8hN5XExr/
+   uWoiPhRr95FwBTubzXUKPVMGewA92bbkcmbFoM3T4LgRkFB+U6nDHoL7g
+   1sYyNdJ2c+jITo/j4PHlVSLcDBMLfs1ihYK9nurM33xuUHJ7TmBCjOH5U
+   w==;
+X-CSE-ConnectionGUID: IY5qWwP7SD+H4PEDwpTVIQ==
+X-CSE-MsgGUID: xCX8tyX9QyKb+GASxEgueA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="468815"
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="468815"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 16:21:53 -0700
+X-CSE-ConnectionGUID: yF3uc81gTfSBz2u/2np/jg==
+X-CSE-MsgGUID: /ifafl9YQ1m9QlYmIZ4GLA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="913889"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 16:21:53 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 16:21:52 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Mon, 12 Oct 2026 16:21:52 -0700
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.22) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 16:21:51 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aUtS/iJntPbOO+8NJW/3WzE012DnMKUYa3qNDOlYbUC9OjsnyUbE8nktEbT2tZ18mMDJlyx4rTtR/TNFIBi75VIGarcq6xGwlXTefeXVhdYDakMTK3utsm+WVDsMxO6jl6k8iVx+pPkEXVg78MhXzJlBAGkBaqinKN1vK22UGYakjTQZR1DeEpUawRR8nMZyNQG8pRQ/JZUGJ7S0BD03UZ90RR4G2iSEfqsh2UJzcJsm8K/SIVZCYnW0fV5BiuVXjTbMNpXyJZxUUNGC3Z1pBx2ZAkokz/vCMma8VblhJUjax2hfm+mtqovByksS0x9bI99GMK4eYLzJH1djx2ZAzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F2ZYwyzP4aTuCNofEhfshnJdMGJQki1wgz3zu1bOvf8=;
+ b=juUCEHiCqWTxhQup/KeBPcuDXb28yiClsSTbx4Vr30QQ8pQTYwCog+CLvtvxQ6r4VoU2HCCB0CLd2FJldlxgBUKMDQdC/j+2GFEbo7GJTGohewTe1iqdpXOPezAFb1AxwBcpaQFfSKREZZbHrUnJDiY8lr59xxlqWzi2oOx0RdlX3lS7swaDteFkca81QZaKEeHtt9zGXjUmLaKPTmpjXAPcPiQDtKcES0YQnrAZzs5jNieFxMTbOaWwTgFa7i4TYzZdK1lcwjCjE/cVxAsspwEzON8IBewm+KY9zb4wZRoPptPZ+b+il1blnfVcjCWz6xCpNp13C6qkkzrw39rt6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
+ by PH8PR11MB7117.namprd11.prod.outlook.com (2603:10b6:510:217::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 23:21:49 +0000
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
+ 23:21:49 +0000
+Date: Mon, 12 Oct 2026 16:21:45 -0700
+From: Alison Schofield <alison.schofield@intel.com>
+To: <jianyungao89@gmail.com>
+CC: <linux-kernel@vger.kernel.org>, Dan Williams <djbw@kernel.org>, "Vishal
+ Verma" <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>, "open
+ list:DEVICE DIRECT ACCESS (DAX)" <nvdimm@lists.linux.dev>, "open list:DEVICE
+ DIRECT ACCESS (DAX)" <linux-cxl@vger.kernel.org>
+Subject: Re: [PATCH] dax: fix mapping_store() returning 0 instead of error
+ code
+Message-ID: <as1riZMcDaX5niW9@aschofie-mobl2.lan>
+References: <20261011131857.30481-1-jianyungao89@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261011131857.30481-1-jianyungao89@gmail.com>
+X-ClientProxiedBy: SJ0PR03CA0287.namprd03.prod.outlook.com
+ (2603:10b6:a03:39e::22) To DS4PPF0BAC23327.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007165840.1604136-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|PH8PR11MB7117:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb5f0880-72ee-46e5-4757-08df28b7971c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|11063799006|56012099006|22082099003|18002099003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info: JMt0qvyecfE1fCGt51B86peW8NvpxcoslUfTKM3Da7PD4OFlY1of/fgToZSUs1XjRXEPuCbYEOp/gJasfxtC1EPeLaW1OmOh3QMX/QF4QL1XPBvev+dRo+XPbnkkBZWlZBfx5GKeWuI+K2hXv381A0nMNvYgVItIliu0VCOyFGr+qtZh6ds6sKLL2GQLaKq6ABP+Bvp4pe17JbuMRStfrH79n0b+lB8qfGjSt7wMm++tWBF7+64IWIgalgPzIdZAiInJD/iVhC0x46K4DqOCyfzDK0XJqhjc+HLqNziIoqAGAQprdDt3dAsmptYpXirWyeWgdLuG1M8uyAoLSHSktJwAleuphsxoyLI3rvvF2g5GSD7BFkXUSXndm2Fd57Zc4LdEm9YPpPonJNKRk/jxfB9W5ItQIQeBmLG7n/AzblW9c+NeAAOGlG8rRi/oB1NuMzd0aDeuMDcvhGMjfPS2mMbBgN1HzBQKYiPpasy6UqRbv+nYpUE4YYTVasTXyLyw4dkLKnyVsuF1UwMGAo8H3eTMa3OSNxRUU0MteJaruc6O0yImobej/1w7Gv4tiVaN6Hhg8paMOy83YnnomdfAbv4kbOGpdUDDkf015eruFr77bbBOPnMZdrVQtijf4nS7zkFNGFDUxyDiJtoCY+UUb92iK0EWs/ipVFbpdM2TXYM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(11063799006)(56012099006)(22082099003)(18002099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ABpEiWvCjJ8UQUqTLku0dEImqTa7mhY2nQuk5d/CR/uUUhuC/SczYbBsZLoI?=
+ =?us-ascii?Q?tt4n194B4HnrORU4WLh0Inp1L/GaH1MLfsdLIUU+jIWigpRV2EoKdHguSJbX?=
+ =?us-ascii?Q?kcrhnPbHFXj8jjOZlxPMnmbvmhPHcofCsLIKNV3OOWcq5M8IGdydr0MT1pWd?=
+ =?us-ascii?Q?nBgV2Ah+BthE1CF1zQbs53bil9nhimUUWsKZQ8HTyCWlm1HRYPvZZDC6kDaJ?=
+ =?us-ascii?Q?SByVB7NPtN/QJ22TyAaeSyUscT0Y4FIrEoQ4Fe5b7X8NfUQid+wLody5VCVd?=
+ =?us-ascii?Q?eaVuw8NNwm6777BkiOk9rrwCn93LPS0osHLo4tE6VkSk6U6mOJGXiBiut5sw?=
+ =?us-ascii?Q?Wuax6qP+7kv5rAxUmP/2fRGw46fPHacf/OdW0GjzEpBgHCReZBcaYzI6QKx4?=
+ =?us-ascii?Q?Tz+ZYf0fBC4LiuIRUcprUUAAX0c/FJyPtITaumlrS/h84tYlfXpU0g0fHgK+?=
+ =?us-ascii?Q?GN4V/rA0j4XNr2bzFdn1d1nssMyztFIFP//tZighzFkKSsHkUAtf9O6K55dv?=
+ =?us-ascii?Q?4/tPjTHCEUgGMBMpW9um+IoKvZd/Flv3N/dUM3+n6wcYkMyNBzK0WQ9Vrwih?=
+ =?us-ascii?Q?x9oJ33bUla48qp8VZDPCjJEVlgcXAlkPK+y6XLqXov56Ew6elVyiwnjRkd/s?=
+ =?us-ascii?Q?oB6eArVOQCbJaZNvgo9llFbcf4LT56aajRKpCIh9KI3iHLJUij8XgeklXbUo?=
+ =?us-ascii?Q?zY3J/1RVALmLIcmVx7/nAQQkeeiIrPJ8kWEyH3RZFwmM/PLFS1CFQit3NP+r?=
+ =?us-ascii?Q?qCHD/+7mRuaIfcZlmjtPSbosqBNR4Rf2Q4OBPga0nriT+FH/6P6caVduy+Fc?=
+ =?us-ascii?Q?EdEmLVmuDtfb3kvlA3gxSElTvmHV39BmBujA1RA8OiVdSRFPueItra8H6QsP?=
+ =?us-ascii?Q?J67eKP62qQF9L+JlXkDMjLdDM9Os0NmxPwmQ8LyR7u/0RbcFcUdRMaelQVWR?=
+ =?us-ascii?Q?TvmJY7vK94p58EdAwCwMoRFCymvgwthw4sodeyOOiPSrsfAgZGqF7XD7RWj5?=
+ =?us-ascii?Q?bCNLIyDdZXUfyFyBzR2L5orolkyMbnrb1HKaHiXh1y6qUsMlAzq9Zc4fWhKI?=
+ =?us-ascii?Q?6BeVQcZ6RRPpxhxajYqxJVu4sXI2pNbVoDqUyIZGoHQSB1VgvSXvRU8JQm/Y?=
+ =?us-ascii?Q?GDzeR+AHfPLuB3wZ8LwhtdTzFxS+xTqTyFaBy9cifgF4ejHDGrLVwQ49obWk?=
+ =?us-ascii?Q?HseYg9xl+UpOyORtIe7kfDCTIAdI26gXN7a5THSkaMImauHjf18mWU9BcukG?=
+ =?us-ascii?Q?/xI3xc1hJuvJ2xVfdpSnnuxdFCuW53Y/yYQUK/A6bvJ+U4SNTRBQugD1nXmC?=
+ =?us-ascii?Q?+gTEPueKZ2xdDH/V7ZQe+rmYFRrMc0gNt2X5QTGiJieMG9iZPs3tYVkEO/FL?=
+ =?us-ascii?Q?gC0hKeRelQqEZHxaUPAwrtIv2NdefFfjywmmoYV97J2ZRLctJIx9dsOWbbh/?=
+ =?us-ascii?Q?IQOpRMqch2v2MGicWt7niRxGs6zwGcw/AMPJLk/ow23kfuP5UujQwnt+QSWT?=
+ =?us-ascii?Q?Miji41U2exElNsfC6hY5JhfTc9F8qOz/yi86Iwl6pDLNb5JnAXrZRMV3Sxg1?=
+ =?us-ascii?Q?1waushzohwR9PDFGqgGcV9SbPrtR/9BG2QZUJAeLlSEXfMUZjV88CDZoYVlK?=
+ =?us-ascii?Q?KJThjD1w/SD2KUkb1fMKXMJjd8Bz3S6iaAwosIoFuftvxJ1afkPNL7w/7lwo?=
+ =?us-ascii?Q?EDUDaKwmJwNZ5JzBvX8WxCiJ0EhtrezcDy5X4tA00nqdKMrpzSgk0maSdGVT?=
+ =?us-ascii?Q?KgJwzaegNoDNgAUrQeF6ZjXM/2/lF0s=3D?=
+X-Exchange-RoutingPolicyChecked: iVocGvILH9UHPGrR8S90TYnBuuwOfBJwQsemOlYIcKoG+oa0DyPCTTZJWEaBIirqIW01mxgNfwcpx3JCQNjvBFZbw07Tj3lXmezqBEi9b7ioVp/A0bmppHxdaom+iG+b+hp2TWBwyEQWpOX1914kAGyVf59K1l/TnkJGyhVp8TDpgLkThzwlOJawPQ9BYVBzKlKnmYo4Vm/jsQxiZWgLr5UnkT7a2BlKBjdBqQnp5hOJ5WWS/64hujCHUoXnD1ysHOCiD8bhmPGSrWfPQuanbJuOb7KAK9E/sknyrU/aVfWWydQ+00UX7LbQ8wYj5pqkLyFSt5liQ+g3acXudWkEVw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb5f0880-72ee-46e5-4757-08df28b7971c
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 23:21:49.1900
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KP5aRJRHCJd9JBRrtYDgwXs2pxuUAcgC3sP3q4QV6qtaIozsRFyRt6AS9VFlXJHGGBR3pMyo6CCAICCuQ54Mn0BtYHFQAJmrkuDO1pscSsA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB7117
+X-OriginatorOrg: intel.com
 
-On Wed, Oct 07, 2026 at 09:58:36AM -0700, Kuppuswamy Sathyanarayanan wrote:
-> This series makes host_bridge->native_dpc the single decider for whether
-> Linux uses DPC, as Bjorn asked during the review of "Simplify PCIe native
-> ownership".
+On Sun, Oct 11, 2026 at 09:18:57PM +0800, jianyungao89@gmail.com wrote:
+> From: Jianyun Gao <jianyungao89@gmail.com>
 > 
->   https://lore.kernel.org/r/20261001221408.GA2731929@bhelgaas
-> 
-> Today the DPC service binds on host_bridge->native_aer, AER availability
-> and "pcie_ports=dpc-native".  host_bridge->native_dpc is only consulted
-> by pci_dpc_recovered().  After this series, native_dpc is the end result
-> of everything that decides DPC ownership, and portdrv binds the DPC
-> service on it.
-> 
-> The series applies on top of two others:
-> 
->   - pci/portdrv, which has patches 1-3 of v15 of "Simplify PCIe native
->     ownership".  They fold "pcie_ports=native" and "pcie_ports=dpc-native"
->     into the _OSC control mask, so native_dpc already reflects the
->     command line.
-> 
->     https://lore.kernel.org/r/20261002211828.1293177-1-sathyanarayanan.kuppuswamy@linux.intel.com
-> 
->   - Lukas's "Error reporting for AER-incapable devices".  It removes the
->     AER Capability requirement from the DPC driver.
-> 
->     https://lore.kernel.org/r/cover.1790531238.git.lukas@wunner.de
+> When the region driver is not loaded, mapping_store() returns rc
+> which is 0 at that point, instead of an error code. Set it to
+> -ENXIO to match the equivalent check in size_store().
 
-My impression was that Lukas planned to tweak a couple things in that
-series, e.g., https://lore.kernel.org/all/arltOHrdHdokyfC9@wunner.de
 
-Does this actually depend on Lukas' series?  If so, can we include the
-relevant patch here?
+Hi Jianyun,
 
-> Patch 1 removes CONFIG_PCIE_EDR, which was another knob in deciding
-> whether to request DPC control in _OSC.
+The change looks correct, but there is another path in mapping_store() with
+the same problem. When alloc_is_aligned() fails, rc is still zero, so the
+sysfs write reports success without allocating the requested range.
+
+Muchun Song already posted a patch addressing both cases.
+https://lore.kernel.org/nvdimm/20260924025035.1265035-1-songmuchun@bytedance.com/
+
+Please take a look and add your reviewed-by tag to Muchun's patchset
+or comment if it doesn't meet your needs.
+
+-- Alison
+
 > 
-> Patch 2 stops requiring pci_aer_available() to bind the DPC service,
-> since the DPC driver does not depend on MSI or on the AER driver.
+> Fixes: 9567da0b408a ("device-dax: Introduce bus + driver model")
+> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+> ---
+>  drivers/dax/bus.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Patch 3 requests DPC control only together with AER control, as PCI
-> Firmware r3.3, sec 4.5.2.4, requires.
-> 
-> Patch 4 binds the DPC service on host_bridge->native_dpc and logs a
-> message when the OS assumes DPC control that _OSC did not grant.
-> 
-> Kuppuswamy Sathyanarayanan (4):
->   PCI/EDR: Remove CONFIG_PCIE_EDR
->   PCI/portdrv: Don't require AER to bind DPC service
->   PCI/ACPI: Request DPC control only together with AER control
->   PCI/portdrv: Bind DPC service based on host_bridge->native_dpc
-> 
->  drivers/acpi/pci_root.c    | 26 +++++++++++++++++++++++---
->  drivers/pci/pcie/Kconfig   |  9 ---------
->  drivers/pci/pcie/Makefile  |  5 ++++-
->  drivers/pci/pcie/dpc.c     |  5 +++--
->  drivers/pci/pcie/portdrv.c |  7 +------
->  include/linux/pci-acpi.h   |  4 ++--
->  6 files changed, 33 insertions(+), 23 deletions(-)
-> 
-> 
-> base-commit: 4fe37866b0d92cdc45b62954a76489a9d9f8bd73
-> prerequisite-patch-id: e0eafcb39f15c38f3acfa601dfce07a6f0832ce1
-> prerequisite-patch-id: 83e8185612e785fad80790d4a0c20fa68ab12ce7
-> prerequisite-patch-id: 8e9e2b06f55249ff57c7d7f43918ee82f79d1450
-> prerequisite-patch-id: 78ad13a1c423c3ee50122237c4bd0fdedf2d1e00
-> prerequisite-patch-id: 0c4b9d46eea86635c431382aef2bf576a3bb5691
-> prerequisite-patch-id: 2d1a35309e750427352c6fe0d9bb62c4453c6252
-> prerequisite-patch-id: c1ed9c8ac6123e0a65ae0d7ba3183dd46477edf7
+> diff --git a/drivers/dax/bus.c b/drivers/dax/bus.c
+> index b809e1a264af..262f97b5e7aa 100644
+> --- a/drivers/dax/bus.c
+> +++ b/drivers/dax/bus.c
+> @@ -1192,7 +1192,7 @@ static ssize_t mapping_store(struct device *dev, struct device_attribute *attr,
+>  		return rc;
+>  	if (!dax_region->dev->driver) {
+>  		up_write(&dax_region_rwsem);
+> -		return rc;
+> +		return -ENXIO;
+>  	}
+>  	rc = down_write_killable(&dax_dev_rwsem);
+>  	if (rc) {
 > -- 
-> 2.43.0
+> 2.34.1
 > 
