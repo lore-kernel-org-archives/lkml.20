@@ -1,33 +1,49 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EBE6043BDCD;
-	Mon, 12 Oct 2026 07:57:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6474477F6
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:59:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791791879; cv=none; b=rD6vx+LKBhJMf9nepjfiyxk4Z2BP1udWohcIcNmS8Is0lPJJ5uVS755Kobz7VTrTqaxMfEaBct1lqj4Tvqdu2tXFX1DN42HMqxTU+3BB/gVf6lHU7sE0IAUramWv3DOPL+4NYSrsmyIP+SBBVPWc8DLbev1QYsaN2cOP+X34500=
+	t=1791791963; cv=none; b=J/pMHT2T4F8Ri7KNtx97S8L5kHM664YcPuH6qMTIEfdaEZ+ihI5Z1Y1GLqSY/nmmhXAoqKV4vRQiOClwKTuGuR9/obz2Bp8wIFvzCdITu79Ml+DtfDIJwNMM+V2OPTHpAEHfiUTm2jLjk1vBXxfqh/8Km+TGNFw88xlCHZdziZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791791879; c=relaxed/simple;
-	bh=7JqLAOa1EyGe4HapsMeO5QWw/F4ZSfyXto1wc+DnCZg=;
+	s=arc-20240116; t=1791791963; c=relaxed/simple;
+	bh=VuKQATNNb00pBd3oa3jDiiDozIDu5Uj4xu0uZs2agts=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AB57urhgHGV26pgyse1J2iRT49ywn/7QFojunaV73z9RUWf5ffoArC3xw+omw+laNYcyDZ6x0ydNu8m93+I7V+eCThZ1up2+e31ROSnYcnBGZn/T5vnES7ctiQJbu6tvZtr9cwKu4bFbaDLS0vp9ldjSn+vm+JpJWk4umgK5zsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=a5WY6OZL; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=ERCL2cAooK6bLeHZtTpYGLq62PcNAY3oGvJAEklxBJVd1ad2KlaV3qTU0R0m5+tlh9P9wsDfuxW2Y4gMtLZR7K+rf0n2Kine/i0PtizV6oUrjhDGdg6PFG++zlsEGsehzJUGU/dzBNMigoP+JEAhL+RFjSmnXU7mTKdbLnQcDqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=a7mTFX8H; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="a5WY6OZL"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E25951650;
-	Mon, 12 Oct 2026 00:57:53 -0700 (PDT)
-Received: from [10.57.12.163] (unknown [10.57.12.163])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1F8023F882;
-	Mon, 12 Oct 2026 00:57:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791791877; bh=7JqLAOa1EyGe4HapsMeO5QWw/F4ZSfyXto1wc+DnCZg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=a5WY6OZL8ew1myYgDvp9xZewbEw+qBNvGPS9d4rrDOIgWKOQb168Ovj/Dba9lI22k
-	 kZSTKA7wyaLV1aacZEl7e0Oahxf80O2iIxS7INjaTDQfmqUeUXNTOnI8fPPP4plO+d
-	 uszowVYnU8Ye7EWwRDZEj5LWP44Jmjzaa//AikDY=
-Message-ID: <117bc415-6bbb-4739-81b9-d2bf718056ba@arm.com>
-Date: Mon, 12 Oct 2026 08:58:21 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="a7mTFX8H"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791791958;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P7hLxKxMSyjuSYhbWKOFrrXPm1Js4YCY+YTSmqlFxD8=;
+	b=a7mTFX8HzlGs6P5v9jMxrBooHZ7TZ5JDPc+OpR7M6pNLxL9DufVUq1GGnMklu3f0xNCQ5x
+	rHoDzkw/IqlOUpGGDqw6siy7MRrBvZiseZNvTOc2VahE1+QVjPZElkT9gDOZdD84DOqzXn
+	6CRCNpS+WQljWCtzwEi9qHNgAywFcio=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-113-XhKpsvMrM5-1YsFJltON3Q-1; Mon,
+ 12 Oct 2026 07:59:14 +0000
+X-MC-Unique: XhKpsvMrM5-1YsFJltON3Q-1
+X-Mimecast-MFC-AGG-ID: XhKpsvMrM5-1YsFJltON3Q_1791791953
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id ABBAE1955DC2;
+	Mon, 12 Oct 2026 07:59:12 +0000 (UTC)
+Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B506F418;
+	Mon, 12 Oct 2026 07:59:09 +0000 (UTC)
+Message-ID: <efb108c8-dc9e-4c14-a834-2cd6af6c44f6@redhat.com>
+Date: Mon, 12 Oct 2026 09:59:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,66 +51,153 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PM: EM: allocate the cpumask for every perf domain
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Changwoo Min <changwoo@igalia.com>, "Rafael J . Wysocki"
- <rafael@kernel.org>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260910205234.5392-1-kmehltretter@gmail.com>
+Subject: Re: [PATCH net v5 5/5] dpll: zl3073x: notify sibling pin when shared
+ output config changes
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, poros@redhat.com, min.li@microchip.com,
+ vadim.fedorenko@linux.dev, arkadiusz.kubalewski@intel.com, jiri@resnulli.us,
+ kuba@kernel.org, Prathosh.Satish@microchip.com, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+References: <20261011061211.448373-6-ivecera@redhat.com>
+ <179178562457.434549.16379323333856475098@kernel.org>
 Content-Language: en-US
-From: Lukasz Luba <lukasz.luba@arm.com>
-In-Reply-To: <20260910205234.5392-1-kmehltretter@gmail.com>
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <179178562457.434549.16379323333856475098@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Hi Karl,
+On 10/12/26 08:13, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in case
+> you want to address the nit picks below when you respin.
+> 
+> Low priority / nit picks for your consideration:
+> 
+> - [Low] The patch passes pins that may not be registered to
+>    __dpll_pin_change_ntf(), whose kernel-doc requires a "registered pin…
+> 
+> --
+> 
+> dpll: zl3073x: notify sibling pin when shared output config changes
+> 
+> This commit adds zl3073x_dpll_output_pin_sibling_get(). The output
+> frequency, esync and phase adjust set callbacks now use it to send a
+> change notification for the other pin of the P/N pair. So that the
+> sibling can always be found, pins are added to zldpll->pins before
+> dpll_pin_register() and removed only after dpll_pin_unregister().
+> 
+>> diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
+>> index 6d9a6d21d30b7..1cdadb8e46fb2 100644
+>> --- a/drivers/dpll/zl3073x/dpll.c
+>> +++ b/drivers/dpll/zl3073x/dpll.c
+> 
+> [ ... ]
+> 
+>> @@ -132,11 +134,42 @@ zl3073x_dpll_pin_get_by_ref(struct zl3073x_dpll *zldpll, u8 ref_id)
+>>   	return NULL;
+>>   }
+>>   
+>> +/**
+>> + * zl3073x_dpll_output_pin_sibling_get - get the other pin of an output pair
+>> + * @pin: output pin whose sibling is sought
+>> + *
+>> + * Output pin ids are allocated in P/N pairs (P even, N odd) that share a
+>> + * single HW output. Looks up the other pin of the pair in the pin list
+>> + * of this DPLL. A pin is on the list from just before its registration
+>> + * until just after its unregistration, so a registered sibling is always
+>> + * found, but the returned pin may also be one that is not (yet or any
+>> + * longer) registered.
+> 
+> [ ... ]
+> 
+>> @@ -937,9 +974,24 @@ zl3073x_dpll_output_pin_esync_set(const struct dpll_pin *dpll_pin,
+>>   
+>>   	/* Enable 1PPS eSync for this pin frequency */
+>>   	zl3073x_out_esync_enable(&out, synth_freq / out.div);
+>> -
+>> +commit:
+>>   	/* Commit output configuration */
+>> -	return zl3073x_out_state_set(zldev, out_id, &out);
+>> +	rc = zl3073x_out_state_set(zldev, out_id, &out);
+>> +	if (rc)
+>> +		goto unlock;
+>> +
+>> +	/* The clock type, esync period and esync width are all shared by
+>> +	 * both pins of the output pair, so the sibling pin's esync
+>> +	 * configuration changes too and userspace has to be notified.
+>> +	 */
+>> +	sibling = zl3073x_dpll_output_pin_sibling_get(pin);
+>> +unlock:
+>> +	mutex_unlock(&zldpll->lock);
+>> +
+>> +	if (!rc && sibling)
+>> +		__dpll_pin_change_ntf(sibling->dpll_pin);
+> 
+> [Severity: Low]
+> Is it ok to pass a sibling that may not be registered to
+> __dpll_pin_change_ntf()? The kernel-doc for that function asks for a
+> registered pin:
+> 
+> drivers/dpll/dpll_netlink.c:
+> /**
+>   * __dpll_pin_change_ntf - notify that the pin has been changed
+>   * @pin: registered pin pointer
+>   ...
+> int __dpll_pin_change_ntf(struct dpll_pin *pin)
+> {
+> 	lockdep_assert_held(&dpll_lock);
+> 	dpll_pin_notify(pin, pin->clock_id, DPLL_PIN_CHANGED);
+> 	return dpll_pin_event_send(DPLL_CMD_PIN_CHANGE_NTF, pin);
+> }
+> 
+> dpll_pin_event_send() checks dpll_pin_available(), so no netlink message
+> is sent. But dpll_pin_notify() runs before that check, so the in-kernel
+> notifier chain still gets DPLL_PIN_CHANGED for the unregistered pin.
+> 
+> This window looks reachable during probe. zl3073x_dpll_register()
+> registers the dpll device before its pins, and pins are registered in
+> index order. That means P is already registered when N is list_add()ed
+> in zl3073x_dpll_pin_register():
+> 
+>      mutex_lock(&zldpll->lock);
+>      list_add(&pin->list, &zldpll->pins);
+>      mutex_unlock(&zldpll->lock);
+> 
+>      /* Register the pin */
+>      rc = dpll_pin_register(zldpll->dpll_dev, pin->dpll_pin, ops, pin);
+> 
+> Suppose a DPLL_CMD_PIN_SET on P holds dpll_lock from dpll_pin_pre_doit().
+> N's dpll_pin_register() then waits on dpll_lock. Meanwhile P's callback
+> finds N on the list and sends DPLL_PIN_CHANGED for N before N's
+> DPLL_PIN_CREATED.
+> 
+> Teardown is the mirror case. list_add() inserts at the head, so N is
+> unregistered before P. N also stays on the list until after
+> dpll_pin_unregister() returns in zl3073x_dpll_pin_unregister(). A
+> PIN_SET on P during that window would send CHANGED for N after its
+> DPLL_PIN_DELETED.
+> 
+> zl3073x_dpll_output_pin_frequency_set() and
+> zl3073x_dpll_output_pin_phase_adjust_set() have the same issue.
+> 
+> zl3073x_dpll_nco_pin_register() now also adds the NCO pin to the list
+> before dpll_pin_register(). Because of that, the existing callers that
+> notify the result of zl3073x_dpll_nco_pin_get() (the input pin
+> state_on_dpll_set and mode_set paths) hit the same window.
+> 
+> As the commit message notes, nothing breaks in-tree today, because
+> ice_dpll_pin_notify() ignores every action except DPLL_PIN_CREATED and
+> DPLL_PIN_DELETED.
+> 
+> Would it be better to skip the notification when the sibling is not
+> registered? Alternatively, the __dpll_pin_change_ntf() kernel-doc and
+> dpll_pin_notify() could be updated to accept unregistered pins
+> explicitly.
+Such a pin gets no netlink notification and the only in-tree notifier
+ignores DPLL_PIN_CHANGED, so I would rather not add a registration
+check in a net fix.
 
-On 9/10/26 21:52, Karl Mehltretter wrote:
-> em_create_pd() allocates space for the trailing cpus[] flexible array
-> only for CPU devices.  A performance domain registered for another
-> device therefore has no storage for its cpumask.
-> 
-> All performance domains are added to em_pd_list.  The netlink interface
-> does not distinguish CPU and non-CPU domains when it calls
-> cpumask_weight() or iterates over pd->cpus.  A request for a non-CPU
-> domain reads cpumask_size() bytes beyond the allocation and can report
-> bits from the following memory as CPU attributes.
-> 
-> KASAN reports slab-out-of-bounds reads for both dump and by-ID requests
-> against a synthetic non-CPU performance domain.
-> 
-> GET_PERF_DOMAINS does not require GENL_ADMIN_PERM, so an unprivileged
-> request can reach this path when a GPU or another devfreq device has
-> registered an energy model.
-> 
-> Allocate the cpumask for non-CPU domains too.  The zeroed mask remains
-> empty, as required for the documented unused field.
-> 
-> Fixes: d8eef0453132 ("PM: EM: Implement em_nl_get_pds_doit()")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->   kernel/power/energy_model.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/power/energy_model.c b/kernel/power/energy_model.c
-> index e610cf8e9a06..fd07c564c201 100644
-> --- a/kernel/power/energy_model.c
-> +++ b/kernel/power/energy_model.c
-> @@ -439,7 +439,9 @@ static int em_create_pd(struct device *dev, int nr_states,
->   
->   		cpumask_copy(em_span_cpus(pd), cpus);
->   	} else {
-> -		pd = kzalloc_obj(*pd);
-> +		/* Readers expect pd->cpus to exist and remain empty. */
-> +		pd = kzalloc_flex(*pd, cpus,
-> +				  BITS_TO_LONGS(large_cpumask_bits));
->   		if (!pd)
->   			return -ENOMEM;
->   	}
+Thanks,
+Ivan
 
-my apologies for the delay.
-The patch looks good, thanks for catching this!
-
-Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
