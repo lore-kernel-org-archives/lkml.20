@@ -1,208 +1,152 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010061.outbound.protection.outlook.com [52.101.85.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9556219E7F7
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:24:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791822299; cv=none; b=q5aGa87QKURp3/uRmepOWjcRb0NB/FQRd8RNDpamvQDVrhLIn/hzNK+5R9SGpTjM3GrCpQQnC5cOULjgvhvnVuDW/0Oubd2TrUeIxRS5o7cQJ/NnA7b2CVJxpt1zQxqhysFFfb7BQYY8Q4LT64bJD0bu2HoaEN3dY0ekZvAOpJ0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791822299; c=relaxed/simple;
-	bh=hza5XxPJ98qufWEqHPknPSz39nXV8UYj++KJEJKTnns=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CmIGTZchAV7z90NAv/KdGieXdvZD80foj7FbZ7RV49wfuCV8dME5dySel5X49oZHJ5Lc2UXG5z3nQ8DD4dT1vvl8xVimRjo9shWXLdMqLSa9hkC6kybytxi3FDz/OuzVwe8Z9TzSHGwjFPJisdKH5vbZaUaMmrEO/SuJLoh1FRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=QJ4RfaWF; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=pgnCnEIV; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=l+WQ+Eks; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=lgbjzvSb; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEF52F3C18
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 16:25:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791822326; cv=fail; b=S3rajZTtzYdZi8rvwbTBi6xB6S3SXAQlQzNEqe973xA4oG7oVW+8jswUeO6g5vQpYLaGUmTU2u7Z0I3h6hGWXacQ4y36ZzEWwWox64tT9bdvFlid9bcblzRX/fHKT/7OZwKHeyyldJBopBdQYUcAPjyiFEL7xo64IPwcXqIGpKs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791822326; c=relaxed/simple;
+	bh=YUIwtmEwVQHO5IfG1Z1w2SkUeIAJT7PirW6c/CXAPUE=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
+	 In-Reply-To:Content-Type; b=HQUl7lkbhW2rjQ4d6wWNsQ6tOsXWWdJWeDfNZpY7Y8OSjwVUPMOG+dJ6MEUWu/Kq5LlFCtyVn05QSPLraZEbsMxMH236+WcZ9zzNu99GKPwn7+TKEemw4gO2zyIBTvBPhQbQjX4o3LkGWwS8KcwXZ4G51SNpUGw8hk7yGcu0ojc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=OVuBIHxf; arc=fail smtp.client-ip=52.101.85.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="QJ4RfaWF";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="pgnCnEIV";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="l+WQ+Eks";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="lgbjzvSb"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 994ED1F391;
-	Mon, 12 Oct 2026 16:24:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791822287; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Pcc0K1tU8VYaYGCB04LjAl4+hE6yspZu5PMHTGHHbVA=;
-	b=QJ4RfaWFbTqSr18K2OQ4jQfAV5YHEJQyOQavvQJqWF8xTF9Iuv5UIjUUvRcXM/ZF8et/+q
-	JZGRRBwUqS/9elC1XFKQ1zUCcTZnyy5YdHCQVNqpqHz0f/MTxmubKHJ3urpOYY40MQkeKG
-	f8Zi5GqB+/7FIgNrlGefXA/o+vriefY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791822287;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Pcc0K1tU8VYaYGCB04LjAl4+hE6yspZu5PMHTGHHbVA=;
-	b=pgnCnEIVoIrGIyZEWolk7/SSq4ugBo1wuT53iEY96I5vlnn0hHDEVeNLa8CELElQw54hHu
-	BxO6cjmoxvn0HlCw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791822286; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Pcc0K1tU8VYaYGCB04LjAl4+hE6yspZu5PMHTGHHbVA=;
-	b=l+WQ+EksmllPpEJlz3vP+B7DDfM98YIBgILa/yhS6DwJjhQhzwbGE6YZS/5NJC+JKBj3aJ
-	uMoU7mMksZuYcUrAYiyyUB8JxqsTtJo6R4XFlVn1AP9qajRNYHdSYPqaQQ+5tbdHQsngxw
-	L0VQYi6+ORuERDJB/EpYfxtobPYFU+c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791822286;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Pcc0K1tU8VYaYGCB04LjAl4+hE6yspZu5PMHTGHHbVA=;
-	b=lgbjzvSbuT2abpAcooVITaYyY4upHIm4g2YMifYz64YXqKhwu7S42phkFxS3UZWqlKuZ5V
-	k8rXKzdHjCuzjJDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6FA2F13314;
-	Mon, 12 Oct 2026 16:24:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id gSNCE84JzWrJOAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 12 Oct 2026 16:24:46 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id F0405A1405; Mon, 12 Oct 2026 18:24:45 +0200 (CEST)
-Date: Mon, 12 Oct 2026 18:24:45 +0200
-From: Jan Kara <jack@suse.cz>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
-	Jens Axboe <axboe@kernel.dk>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+e0624b5bf72b99131402@syzkaller.appspotmail.com
-Subject: Re: [PATCH v3] mm/filemap: annotate lockless reads of
- mapping->nrpages
-Message-ID: <lp3734pwy5uxmjyblon4m4fij2pngztite3plyc5urhfje6t7v@pju2csdvtjmy>
-References: <20261012143921.283806-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="OVuBIHxf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Z7yYQesY9IWHxRkVWc80EO6kb2rbrAMdZC3OXxW4m6S5dsbrZ/AnjnURlZP2uO8B3ZWC5RJG74D/2jflnWnvfd750wnq27QOUsqE4/6PMqRvCtNI6u14f8xKQrGKPhBqVsDnp0aOsQ80SPy3yLP2MiwoXQpD2/V8iFY0CHuBi3HWwtzjYew8MEQZV/ccxm7OTTKv2XNxU9VMcyzEBE0/1xAkx+P+pGIr3Ird/qROTpaIQrWpfilCBGzNEpyYz9ryrgtla7RRA2REbDWnQViipl8QW93KNnIJF+2MKduATEdDWo5uUWIBfrB4mXhoM2ktxTbfG2oFNoleOzGsgM2UoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DRxgvTOkuzHXkrYfn7D7qRYxKyUiREZs/GaHzhetmSU=;
+ b=QLWhrYHGlREAkJiLE9MtT8rNHENXFt+I0WJSxTOg+/1jQGJdTmFaeyIiVN6j+Fw5UmRqcujC7AzBX0kLYN/Wq4qS+FC4NwNGFbZjK1shCafHRdLw7rXEPnXOapDRD6TkJKaw/g0JI/5mRqtB1NXJynVOibUixsdNBDh48ENSNEmFanlF7i2k9mpVydKDNa/mKhEuL8wODqKjZlq09IZ5ek8I33+1YXZFja0TxktLtwJGnyiWGhu0KMkuPGo+kRSOlGh8pnB5Zqk5aAERsSywl0BSWjFoN85jJvUnHNEqxXbIB4YzYgoFaJGLfDy95yZMmYmsqR2wBMxPH1KQ71jUEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DRxgvTOkuzHXkrYfn7D7qRYxKyUiREZs/GaHzhetmSU=;
+ b=OVuBIHxfld9JJvqDvfofXFveCts2DflNthKk3BAoZGRlhTLCVfypqPSPYN2Gccw3Qx7Ie+xhl6nQHnj3+vt519wkugFq8Jgd7gfRQAy43CY8qHs59tghFyQqBriezyJuMpThUFgMc16OOCt/DTb1D6grR1mC9Gd5yeyxBosKPsw=
+Received: from BN9PR03CA0808.namprd03.prod.outlook.com (2603:10b6:408:13f::33)
+ by SAWPR12MB999268.namprd12.prod.outlook.com (2603:10b6:806:55d::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 16:25:20 +0000
+Received: from BN1PEPF00018070.namprd04.prod.outlook.com
+ (2603:10b6:408:13f:cafe::56) by BN9PR03CA0808.outlook.office365.com
+ (2603:10b6:408:13f::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon,
+ 12 Oct 2026 16:25:20 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN1PEPF00018070.mail.protection.outlook.com (10.167.245.198) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 16:25:20 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
+ 2026 11:25:14 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
+ 2026 11:25:14 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Mon, 12 Oct 2026 11:25:13 -0500
+Message-ID: <3c6a2804-b4e8-98fa-c21c-5bf9064c9da0@amd.com>
+Date: Mon, 12 Oct 2026 09:25:18 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012143921.283806-1-ngocthang2710.1999@gmail.com>
-X-Spam-Flag: NO
-X-Spam-Score: -2.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[e0624b5bf72b99131402];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[syzkaller.appspot.com:url,suse.cz:email,suse.com:email,imap1.dmz-prg2.suse.org:helo,appspotmail.com:email]
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] accel/amdxdna: Fix Kconfig invalid configuration
+Content-Language: en-US
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: "Liam R. Howlett" <liam@infradead.org>, Mario Limonciello
+	<superm1@kernel.org>
+CC: Min Ma <mamin506@gmail.com>, Oded Gabbay <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20261009011010.3521631-1-liam@infradead.org>
+ <694d6976-4b2b-650b-ffe1-77f5f3cdd65d@amd.com>
+In-Reply-To: <694d6976-4b2b-650b-ffe1-77f5f3cdd65d@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018070:EE_|SAWPR12MB999268:EE_
+X-MS-Office365-Filtering-Correlation-Id: 839c134b-3c65-455e-a0b1-08df287d68a6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|23010399003|376014|82310400026|10067099003|261009223027099003|11063799006|4143699003|6133799003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	h3oETF1HS5W5TNCmxZDbdxBOB8lVxxv5JW2DuFdZQt6dFBNJ/ACjiDeVyBzCZ7yTraAvlmJqiKDr7xC0FrAP7ZZRW14Za9FJJR7wOjWv9MMee3+wnx8cZ/iAeufm6Yn1SU4pvANnwHltQ1h46eOfTtAXaqMHETHI7/klTewH38BYVeGQBXy5g+kDV4vUlDXXJBSXjcHnXNyze6+K3emEbR8KgcGc8qNU+ldF2IkZfmcI028Cnr9BT1rRNXhsHmsw5qrkXQXcj/721fRhKPdFz1a7IILKDn3GslitiryTAm8T/q8DUIEBPS80IXYQ8Q3HP80L67fin37Vm3Ko2Oa1KuGxTu1eTnBEIT3UNuUiJCJlXbGh2KeXLm0o9GhaGaVF4/98zuxc5owjXkP9xyQ80vEol2uY1AWdMg8fVXPwosFY0yAsM9JDUL0sKB9M4f9REsQ1vU3L2rg8eV1mKgTAigXCiVxEtszedK2vNEROUcQ93KSh2ADq6/2q8BdTZ66oPG+zzOWtvvJdP6dzEUr/TXpxqhhVe5dpxHbEAgHAKgOZnFIbxHaGzHU4mylyIkjlL20sBrxqam23kYM1Lu4v53S1oQ4kvHO3amin1C9WEPwnTvfrItX4/wl9Fyreocxne01kazYGDYlbON6Tz12mNNL74ZqD9qQuZswlxWAgiKqAD54A2b6Aeloc/4mKANBg3T9KdxjhV86us3zf7eRebA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(23010399003)(376014)(82310400026)(10067099003)(261009223027099003)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	f7bsgq37+T5jRMusd3/acKKZpyBORQK5NXENtUvcktX5RW3+o7sf4O0fAplhzpSXZAtizSZo5G8IrvlaetjHLNj0FVCCnmbIvj6jj2IUANy1etYbCSuo17Tp/W0jLEiNJ3CDaR3BuFskdtJApifN9KslaPdfMAVZfc4idROVNLG9jt1P6zLa9OVHIIMY1/iTOr1z162arHKnSPOg9WQa2l0NnVACsulSCbYuoK2okIDa/gOqanpEHXlMLTCUVV/g5L2csPsY1ZuAWcSbodeGtszySnK7FwzU8s8YpkaTgyzog8Cs61SzIpDCBL8yLdIfx33UV9aS5tW6sZMYRrnQ23eM7JaMBds5qGaL1j/2i6suoGS5JJ1Yxzd5XO+9hmQT7hJho2Z4U14OP+6xqBRztIwf0y4H6osl0opK6ynrvQHMmLkDBK3hQi/jIjskcDBw
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 16:25:20.1191
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 839c134b-3c65-455e-a0b1-08df287d68a6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00018070.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999268
 
-On Mon 12-10-26 21:39:21, Nguyen Ngoc Thang wrote:
-> mapping->nrpages is updated under the i_pages lock but is read locklessly
-> as a cheap "anything cached?" hint, e.g. in invalidate_bdev() and
-> filemap_write_and_wait_range(). KCSAN reports the race:
-> 
->   BUG: KCSAN: data-race in __filemap_add_folio / invalidate_bdev
-> 
->   read-write to 0xffff8881004c4178 of 8 bytes by task 3600 on cpu 0:
->    __filemap_add_folio+0x6b7/0x910 mm/filemap.c:919
->    filemap_add_folio+0x1cd/0x380
->    page_cache_ra_unbounded+0x1a4/0x3a0
->    ...
->    blkdev_read_iter+0x21e/0x2d0
->   read to 0xffff8881004c4178 of 8 bytes by task 3601 on cpu 1:
->    invalidate_bdev+0x25/0x70 block/bdev.c:98
->    ext4_fill_super+0x2ccb/0x37b0
-> 
-> The same counter also races with filemap_write_and_wait_range() through
-> mapping_needs_writeback().
-> 
-> The race is benign: a stale value only makes the caller do or skip a
-> harmless invalidate/flush pass. Mark the lockless reads with data_race()
-> in invalidate_bdev() and in the two callers of mapping_needs_writeback(),
-> rather than inside the helper, so a future user needing a reliable answer
-> is not silently covered.
-> 
-> Reported-by: syzbot+e0624b5bf72b99131402@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=e0624b5bf72b99131402
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Applied to drm-misc-fixes.
 
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
-> v3: move data_race() from mapping_needs_writeback() to its two callers (Jan)
-> v2: use data_race() on the readers instead of READ_ONCE()/WRITE_ONCE() (Jan)
-> 
->  block/bdev.c | 3 ++-
->  mm/filemap.c | 6 ++++--
->  2 files changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/block/bdev.c b/block/bdev.c
-> index cd8323083740..233750f87e6d 100644
-> --- a/block/bdev.c
-> +++ b/block/bdev.c
-> @@ -95,7 +95,8 @@ void invalidate_bdev(struct block_device *bdev)
->  {
->  	struct address_space *mapping = bdev->bd_mapping;
->  
-> -	if (mapping->nrpages) {
-> +	/* Lockless hint; a stale value only costs or skips a harmless pass */
-> +	if (data_race(mapping->nrpages)) {
->  		invalidate_bh_lrus();
->  		lru_add_drain_all();	/* make sure all lru add caches are flushed */
->  		invalidate_mapping_pages(mapping, 0, -1);
-> diff --git a/mm/filemap.c b/mm/filemap.c
-> index 00fd89cf6f55..ff10ac8f56b3 100644
-> --- a/mm/filemap.c
-> +++ b/mm/filemap.c
-> @@ -680,7 +680,8 @@ int filemap_write_and_wait_range(struct address_space *mapping,
->  	if (lend < lstart)
->  		return 0;
->  
-> -	if (mapping_needs_writeback(mapping)) {
-> +	/* Lockless hint; a stale value is harmless */
-> +	if (data_race(mapping_needs_writeback(mapping))) {
->  		err = filemap_fdatawrite_range(mapping, lstart, lend);
->  		/*
->  		 * Even if the above returned error, the pages may be
-> @@ -782,7 +783,8 @@ int file_write_and_wait_range(struct file *file, loff_t lstart, loff_t lend)
->  	if (lend < lstart)
->  		return 0;
->  
-> -	if (mapping_needs_writeback(mapping)) {
-> +	/* Lockless hint; a stale value is harmless */
-> +	if (data_race(mapping_needs_writeback(mapping))) {
->  		err = filemap_fdatawrite_range(mapping, lstart, lend);
->  		/* See comment of filemap_write_and_wait() */
->  		if (err != -EIO)
-> -- 
-> 2.43.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+On 10/9/26 08:59, Lizhi Hou wrote:
+>
+> On 10/8/26 18:10, Liam R. Howlett wrote:
+>> The amdxdna has a soft dependency on the amd_pmf module.  It will use an
+>> exported function if it is available and fall back to another function
+>> if it is not enabled.
+>>
+>> amdxdna and amd_pmf are tridstate modules supporting both built [y] and
+>> modularized [m] in the .config file.  Since the amdxdna decides to use
+>> the amd_pmf if it is either a module or built in (see
+>> drivers/accel/amdxdna/aie2_pci.h), then there is an issue if they are
+>> not compiled either both as modules or both as built-in.
+>>
+>> Adding the optional dependency to Kconfig does not allow the
+>> configuration from being selected.
+>>
+>> Fixes: f66d6cc6891e4 ("accel/amdxdna: Support sensors for column 
+>> utilization")
+>> Signed-off-by: Liam R. Howlett <liam@infradead.org>
+>> ---
+>>   drivers/accel/amdxdna/Kconfig | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/accel/amdxdna/Kconfig 
+>> b/drivers/accel/amdxdna/Kconfig
+>> index f39d7a87296cd..eddff490b4f75 100644
+>> --- a/drivers/accel/amdxdna/Kconfig
+>> +++ b/drivers/accel/amdxdna/Kconfig
+>> @@ -6,6 +6,7 @@ config DRM_ACCEL_AMDXDNA
+>>       depends on DRM_ACCEL
+>>       depends on PCI && HAS_IOMEM
+>>       depends on X86_64
+>> +    depends on AMD_PMF || !AMD_PMF
+> Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>>       select DRM_SCHED
+>>       select DRM_GEM_SHMEM_HELPER
+>>       select FW_LOADER
