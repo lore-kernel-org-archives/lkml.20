@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3F24DD3D5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE744DAF91
 	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 22:38:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791844711; cv=none; b=LvT23WCGVSA4pZDJUwqhJv4M5es8R4P9xhA/i2NO0ckEu05+OBslIjoJ/f3ZUUTR+FfW1XWV/qAsMsEYw3rPwPF/7WGxqkwNrGTVrOSE8neNERgUO9HDwgGff9OQNAQkA0aE5nhQ7AWyUF9RebdHXiLkMiEOf0v0bsl5tTrLHso=
+	t=1791844711; cv=none; b=RiRVweN7Evq9Pm5K34hc2XI4BjD/K7tg1qNgGvtHWLORP8P68k9NrSljWyWptzX2LytRKdpy825xXDqGr3OlBfgZWYfstZyejFLJL8CvZlUp17Ql16SYf6zkKZnA1tDx00BRIC85ikshXQtbxb+8TOnkjfT7DsL5jAJy6I7xKLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791844711; c=relaxed/simple;
-	bh=LAIR5aBqKu1Zb2wOdOKDE+JwgF+ffZH9cyeFXr6LID8=;
+	bh=sbt8gOjjhrpDkX8nU1/Fn/bANM8+l3gxA8pi1MUZ7Hc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cYz3Nx98xpoXkYDNMO+34ORADDrdxs6flGelKkBaSqwLSRy1U1M6HVkHOOm61kCCxVeEKCYZR+ONI3+lkfHm5l7ZkwzZoWInni5TaIJXEzk1dqfAUoukcivsJwvnLnr3JPBubCGTNMsLk5h8M06J46Y0TWh6c9RoDtBaHmY8uO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=fLOsIsds; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=XMeEqGyVX8U/1+aHqhOPC5on0tnpGpGpH6byDVy6ZJvJaDzbY56KdpC83irT61Icz1iVyuTxC7ZpOxC3wmP07hyItq9gi5pDgpfukXQAs6e2RrkbY1sx+FXCh/dPFONmiUXXNPmuvZFOtUf7AqsyeEmu/4BqfQgXOd+9aFBmzao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=pRKZfj9g; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="fLOsIsds"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="pRKZfj9g"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791844704;
-	bh=LAIR5aBqKu1Zb2wOdOKDE+JwgF+ffZH9cyeFXr6LID8=;
+	s=mail; t=1791844703;
+	bh=sbt8gOjjhrpDkX8nU1/Fn/bANM8+l3gxA8pi1MUZ7Hc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=fLOsIsdsBC8d/av+U4z3gw1jtMG/Ul9s7Y9+hCVPNYVN55YYfuuuhyST0NOAZOiYl
-	 TSZDwFubX/wapGHW5fRma7kogvGPWyig38BkmdIztNOfel5rYwqityY7dW/pG06xnB
-	 PDNvuXQN/KiHUj/m67ooxZX4drAwGpbNAHSc8E9bL0UxG8fNRMla2S34jf1QxvQwma
-	 DusV6UE0ySg26phPksVJbArRm4sxngpzmsbkaiZ8UiQJ3OzpipB0BQIGn+PhpKLjcn
-	 sNi1xPWqOBF6LsKgbuEqAejx43cZyw5lG+S2sZ648NHvDoFQYg033uNc2H53gH9DUX
-	 D8jP8NRJq70yw==
+	b=pRKZfj9giiDFFuTvHlMBt2/c5/QZZycS+zoR4Y+slImUJFm8TvnF8wqwXudJjr05F
+	 CTQnnLZhAB4t6F2ARrhhjw36eakApsdmQu5MAaA2+fWXKGHGoHAIc0HCcnSopovmPD
+	 lzuaw0K5ZoTELU2dIlNywiiHb+UPhiYsbyqX/V9ZlXAQXnCuN8/eSoabN+w9Yb16NM
+	 Ueu3j+4GPltBSwgXrmXn4DQ7O2zWoTDNUedI+pwymOaPahs96VMgqU6zDUzFRMnSr6
+	 aWwHXJVykX1x1AngOS2lvtvV279J1oYGQOTu/BQl1FKfGmM3jW9D8txyWsQXJcQRm0
+	 zY3Z9f6nH9pkw==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8B09317E0D7E;
-	Tue, 13 Oct 2026 00:38:24 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 10D9517E0A33;
+	Tue, 13 Oct 2026 00:38:23 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 13 Oct 2026 01:37:48 +0300
-Subject: [PATCH v2 8/8] drm/vc4: hdmi: Defer pixel clock validation to HDMI
- helpers
+Date: Tue, 13 Oct 2026 01:37:46 +0300
+Subject: [PATCH v2 6/8] drm/vc4: hdmi: Convert to
+ drmm_connector_hdmi_init()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-vc4-common-scramb-v2-8-a41d15e131ad@collabora.com>
+Message-Id: <20261013-vc4-common-scramb-v2-6-a41d15e131ad@collabora.com>
 References: <20261013-vc4-common-scramb-v2-0-a41d15e131ad@collabora.com>
 In-Reply-To: <20261013-vc4-common-scramb-v2-0-a41d15e131ad@collabora.com>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -59,94 +59,222 @@ Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-drmm_connector_hdmi_init() now derives the maximum TMDS character rate
-from the supported HDMI version, and
-drm_atomic_helper_connector_hdmi_check() rejects modes exceeding it
-before invoking the driver's .tmds_char_rate_valid() hook.
+Switch driver over to the new drmm_connector_hdmi_init() signature. The
+vendor, product, supported_formats and max_bpc values previously passed
+as arguments are now provided through struct drm_connector_hdmi_funcs,
+together with the new supported_hdmi_ver field.
 
-Since each of the chip variants reports a supported HDMI version
-matching its hardware limit, the max_pixel_clock check in
-vc4_hdmi_connector_clock_valid() is redundant.  Drop it together with
-the max_pixel_clock field of struct vc4_hdmi_variant.
+VC4 needs three distinct capability sets, based on the maximum TMDS
+character rate and color depth supported by each controller variant:
+
+  RPi 0-3:              165 MHz (HDMI 1.2),  8-bit
+  RPi 4 (HDMI1):        340 MHz (HDMI 1.4), 12-bit
+  RPi 4 (HDMI0), RPi 5: 600 MHz (HDMI 2.0), 12-bit
+
+Introduce three drm_connector_hdmi_funcs instances for these tiers and
+assign them to the corresponding vc4_hdmi_variant entries. Additionally,
+drop the now redundant .supports_hdr field of struct vc4_hdmi_variant.
+
+As the callback members are identical across all three, factor the
+shared initializers into a VC4_HDMI_CONNECTOR_FUNCS_COMMON macro to
+avoid duplication, with each variant adding only its distinguishing
+max_bpc/supported_hdmi_ver fields.
+
+Note that HDMI 2.0 cannot be advertised at this point, since it requires
+converting the driver to common scrambling infrastructure. This will be
+handled separately, hence temporarily use HDMI_VERSION_UNKNOWN for the
+related hdmi_funcs instance to skip generic scrambler and TMDS rate
+validation, and continue to rely on current driver-local implementation.
+
+No functional change intended.
 
 Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 9 ---------
- drivers/gpu/drm/vc4/vc4_hdmi.h | 3 ---
- 2 files changed, 12 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 93 ++++++++++++++++++++++++------------------
+ drivers/gpu/drm/vc4/vc4_hdmi.h |  6 +--
+ 2 files changed, 56 insertions(+), 43 deletions(-)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 11414025fe7b..ca8712b49ffb 100644
+index 59af0d068457..d40517b1b3e5 100644
 --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
 +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -1529,12 +1529,8 @@ vc4_hdmi_connector_clock_valid(const struct drm_connector *connector,
- 			       const struct drm_display_mode *mode,
- 			       unsigned long long clock)
+@@ -510,7 +510,6 @@ static const struct drm_connector_helper_funcs vc4_hdmi_connector_helper_funcs =
+ 	.mode_valid = drm_hdmi_connector_mode_valid,
+ };
+ 
+-static const struct drm_connector_hdmi_funcs vc4_hdmi_hdmi_connector_funcs;
+ static const struct drm_connector_hdmi_audio_funcs vc4_hdmi_audio_funcs;
+ 
+ static int vc4_hdmi_connector_init(struct drm_device *dev,
+@@ -518,22 +517,13 @@ static int vc4_hdmi_connector_init(struct drm_device *dev,
  {
--	const struct vc4_hdmi *vc4_hdmi = connector_to_vc4_hdmi(connector);
- 	struct vc4_dev *vc4 = to_vc4_dev(connector->dev);
+ 	struct drm_connector *connector = &vc4_hdmi->connector;
+ 	struct drm_encoder *encoder = &vc4_hdmi->encoder.base;
+-	unsigned int max_bpc = 8;
+ 	int ret;
  
--	if (clock > vc4_hdmi->variant->max_pixel_clock)
--		return MODE_CLOCK_HIGH;
+-	if (vc4_hdmi->variant->supports_hdr)
+-		max_bpc = 12;
 -
- 	if (!vc4->hvs->vc5_hdmi_enable_hdmi_20 && clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
- 		return MODE_CLOCK_HIGH;
+-	ret = drmm_connector_hdmi_ini2(dev, connector,
+-				       "Broadcom", "Videocore",
++	ret = drmm_connector_hdmi_init(dev, connector,
+ 				       &vc4_hdmi_connector_funcs,
+-				       &vc4_hdmi_hdmi_connector_funcs,
++				       vc4_hdmi->variant->hdmi_funcs,
+ 				       DRM_MODE_CONNECTOR_HDMIA,
+-				       vc4_hdmi->ddc,
+-				       BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
+-				       BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
+-				       BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444),
+-				       max_bpc);
++				       vc4_hdmi->ddc);
+ 	if (ret)
+ 		return ret;
  
-@@ -3185,7 +3181,6 @@ static const struct vc4_hdmi_variant bcm2835_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
- 	.debugfs_name		= "hdmi_regs",
- 	.card_name		= "vc4-hdmi",
--	.max_pixel_clock	= HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ,
- 	.registers		= vc4_hdmi_fields,
- 	.num_registers		= ARRAY_SIZE(vc4_hdmi_fields),
+@@ -1722,28 +1712,51 @@ vc4_hdmi_connector_clock_valid(const struct drm_connector *connector,
+ 	return MODE_OK;
+ }
  
-@@ -3205,7 +3200,6 @@ static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
- 	.debugfs_name		= "hdmi0_regs",
- 	.card_name		= "vc4-hdmi-0",
--	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
- 	.registers		= vc5_hdmi_hdmi0_fields,
- 	.num_registers		= ARRAY_SIZE(vc5_hdmi_hdmi0_fields),
- 	.phy_lane_mapping	= {
-@@ -3234,7 +3228,6 @@ static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI1,
- 	.debugfs_name		= "hdmi1_regs",
- 	.card_name		= "vc4-hdmi-1",
--	.max_pixel_clock	= HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ,
- 	.registers		= vc5_hdmi_hdmi1_fields,
- 	.num_registers		= ARRAY_SIZE(vc5_hdmi_hdmi1_fields),
- 	.phy_lane_mapping	= {
-@@ -3263,7 +3256,6 @@ static const struct vc4_hdmi_variant bcm2712_hdmi0_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
- 	.debugfs_name		= "hdmi0_regs",
- 	.card_name		= "vc4-hdmi-0",
--	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
- 	.registers		= vc6_hdmi_hdmi0_fields,
- 	.num_registers		= ARRAY_SIZE(vc6_hdmi_hdmi0_fields),
- 	.phy_lane_mapping	= {
-@@ -3290,7 +3282,6 @@ static const struct vc4_hdmi_variant bcm2712_hdmi1_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI1,
- 	.debugfs_name		= "hdmi1_regs",
- 	.card_name		= "vc4-hdmi-1",
--	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
- 	.registers		= vc6_hdmi_hdmi1_fields,
- 	.num_registers		= ARRAY_SIZE(vc6_hdmi_hdmi1_fields),
- 	.phy_lane_mapping	= {
+-static const struct drm_connector_hdmi_funcs vc4_hdmi_hdmi_connector_funcs = {
+-	.tmds_char_rate_valid	= vc4_hdmi_connector_clock_valid,
+-	.avi = {
+-		.clear_infoframe = vc4_hdmi_clear_avi_infoframe,
+-		.write_infoframe = vc4_hdmi_write_avi_infoframe,
+-	},
+-	.hdmi = {
+-		.clear_infoframe = vc4_hdmi_clear_hdmi_infoframe,
+-		.write_infoframe = vc4_hdmi_write_hdmi_infoframe,
+-	},
+-	.audio = {
+-		.clear_infoframe = vc4_hdmi_clear_audio_infoframe,
+-		.write_infoframe = vc4_hdmi_write_audio_infoframe,
+-	},
+-	.hdr_drm = {
+-		.clear_infoframe = vc4_hdmi_clear_hdr_drm_infoframe,
+-		.write_infoframe = vc4_hdmi_write_hdr_drm_infoframe,
+-	},
+-	.spd = {
+-		.clear_infoframe = vc4_hdmi_clear_spd_infoframe,
+-		.write_infoframe = vc4_hdmi_write_spd_infoframe,
+-	},
++#define VC4_HDMI_CONNECTOR_FUNCS_COMMON						\
++	.vendor			 = "Broadcom",					\
++	.product		 = "Videocore",					\
++	.supported_formats	 = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |	\
++				   BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |	\
++				   BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444),	\
++	.tmds_char_rate_valid	 = vc4_hdmi_connector_clock_valid,		\
++	.avi = {								\
++		.clear_infoframe = vc4_hdmi_clear_avi_infoframe,		\
++		.write_infoframe = vc4_hdmi_write_avi_infoframe,		\
++	},									\
++	.hdmi = {								\
++		.clear_infoframe = vc4_hdmi_clear_hdmi_infoframe,		\
++		.write_infoframe = vc4_hdmi_write_hdmi_infoframe,		\
++	},									\
++	.audio = {								\
++		.clear_infoframe = vc4_hdmi_clear_audio_infoframe,		\
++		.write_infoframe = vc4_hdmi_write_audio_infoframe,		\
++	},									\
++	.hdr_drm = {								\
++		.clear_infoframe = vc4_hdmi_clear_hdr_drm_infoframe,		\
++		.write_infoframe = vc4_hdmi_write_hdr_drm_infoframe,		\
++	},									\
++	.spd = {								\
++		.clear_infoframe = vc4_hdmi_clear_spd_infoframe,		\
++		.write_infoframe = vc4_hdmi_write_spd_infoframe,		\
++	}
++
++static const struct drm_connector_hdmi_funcs vc4_hdmi_connector_funcs_hdmi12 = {
++	VC4_HDMI_CONNECTOR_FUNCS_COMMON,
++	.max_bpc		= 8,
++	.supported_hdmi_ver	= HDMI_VERSION_1_2,
++};
++
++static const struct drm_connector_hdmi_funcs vc4_hdmi_connector_funcs_hdmi14 = {
++	VC4_HDMI_CONNECTOR_FUNCS_COMMON,
++	.max_bpc		= 12,
++	.supported_hdmi_ver	= HDMI_VERSION_1_4,
++};
++
++static const struct drm_connector_hdmi_funcs vc4_hdmi_connector_funcs_hdmi20 = {
++	VC4_HDMI_CONNECTOR_FUNCS_COMMON,
++	.max_bpc		= 12,
++	/* TODO: set HDMI_VERSION_2_0 and convert to common scrambler infra */
++	.supported_hdmi_ver	= HDMI_VERSION_UNKNOWN,
+ };
+ 
+ #define WIFI_2_4GHz_CH1_MIN_FREQ	2400000000ULL
+@@ -3359,7 +3372,7 @@ static const struct vc4_hdmi_variant bcm2835_variant = {
+ 	.phy_rng_enable		= vc4_hdmi_phy_rng_enable,
+ 	.phy_rng_disable	= vc4_hdmi_phy_rng_disable,
+ 	.channel_map		= vc4_hdmi_channel_map,
+-	.supports_hdr		= false,
++	.hdmi_funcs		= &vc4_hdmi_connector_funcs_hdmi12,
+ };
+ 
+ static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
+@@ -3387,8 +3400,8 @@ static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
+ 	.phy_rng_enable		= vc5_hdmi_phy_rng_enable,
+ 	.phy_rng_disable	= vc5_hdmi_phy_rng_disable,
+ 	.channel_map		= vc5_hdmi_channel_map,
+-	.supports_hdr		= true,
+ 	.hp_detect		= vc5_hdmi_hp_detect,
++	.hdmi_funcs		= &vc4_hdmi_connector_funcs_hdmi20,
+ };
+ 
+ static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
+@@ -3416,8 +3429,8 @@ static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
+ 	.phy_rng_enable		= vc5_hdmi_phy_rng_enable,
+ 	.phy_rng_disable	= vc5_hdmi_phy_rng_disable,
+ 	.channel_map		= vc5_hdmi_channel_map,
+-	.supports_hdr		= true,
+ 	.hp_detect		= vc5_hdmi_hp_detect,
++	.hdmi_funcs		= &vc4_hdmi_connector_funcs_hdmi14,
+ };
+ 
+ static const struct vc4_hdmi_variant bcm2712_hdmi0_variant = {
+@@ -3443,8 +3456,8 @@ static const struct vc4_hdmi_variant bcm2712_hdmi0_variant = {
+ 	.phy_init		= vc6_hdmi_phy_init,
+ 	.phy_disable		= vc6_hdmi_phy_disable,
+ 	.channel_map		= vc5_hdmi_channel_map,
+-	.supports_hdr		= true,
+ 	.hp_detect		= vc5_hdmi_hp_detect,
++	.hdmi_funcs		= &vc4_hdmi_connector_funcs_hdmi20,
+ };
+ 
+ static const struct vc4_hdmi_variant bcm2712_hdmi1_variant = {
+@@ -3470,8 +3483,8 @@ static const struct vc4_hdmi_variant bcm2712_hdmi1_variant = {
+ 	.phy_init		= vc6_hdmi_phy_init,
+ 	.phy_disable		= vc6_hdmi_phy_disable,
+ 	.channel_map		= vc5_hdmi_channel_map,
+-	.supports_hdr		= true,
+ 	.hp_detect		= vc5_hdmi_hp_detect,
++	.hdmi_funcs		= &vc4_hdmi_connector_funcs_hdmi20,
+ };
+ 
+ static const struct of_device_id vc4_hdmi_dt_match[] = {
 diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.h b/drivers/gpu/drm/vc4/vc4_hdmi.h
-index f6159c9e6144..61486e7b4ba2 100644
+index 29d461d4ee49..d5ffcc17de32 100644
 --- a/drivers/gpu/drm/vc4/vc4_hdmi.h
 +++ b/drivers/gpu/drm/vc4/vc4_hdmi.h
-@@ -29,9 +29,6 @@ struct vc4_hdmi_variant {
- 	/* Filename to expose the registers in debugfs */
- 	const char *debugfs_name;
+@@ -90,11 +90,11 @@ struct vc4_hdmi_variant {
+ 	/* Callback to get channel map */
+ 	u32 (*channel_map)(struct vc4_hdmi *vc4_hdmi, u32 channel_mask);
  
--	/* Maximum pixel clock supported by the controller (in Hz) */
--	unsigned long long max_pixel_clock;
+-	/* Enables HDR metadata */
+-	bool supports_hdr;
 -
- 	/* List of the registers available on that variant */
- 	const struct vc4_hdmi_register *registers;
+ 	/* Callback for hardware specific hotplug detect */
+ 	bool (*hp_detect)(struct vc4_hdmi *vc4_hdmi);
++
++	/* HDMI-related connector callbacks and controller capabilities */
++	const struct drm_connector_hdmi_funcs *hdmi_funcs;
+ };
  
+ /* HDMI audio information */
 
 -- 
 2.55.0
