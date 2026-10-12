@@ -1,69 +1,119 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4AC48A8BE
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 11:53:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6CB1309EFC;
+	Mon, 12 Oct 2026 11:53:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805984; cv=none; b=CBwUa8P2M58jO4CBFyqE9y7uPOnCohOMZlLbVlEN8Q+EET/bNtSG7b//1hdx82jSp3jbBmYoyD3x+Y2A3PtMEWojDWnvGYGCBecVCGM0tGibRzQaipJhFGK0maTzCKWLfaroUziZhFPsrPLpcoSbMZTn6Ez5o9hepx2igvFibjo=
+	t=1791806013; cv=none; b=fWzbwGDS/15kR2w9hxBavQpOanH3khLyTG/EvfEvvfAUEiKJ9Wc8yOYPufcgtaLaekSHgL09WTMumo7fc/im+qGEtF1bCinALqrCmJK9oTczXuWJGlNEjkPn4Y/kfkfWWx9EB9keeFJfIOIg+tGl6t5cHmT1PxvD4TZ4GyGp3X4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805984; c=relaxed/simple;
-	bh=+SHWipGd4H47MSaik4gAQP7Y+avfWozi7ztwAe40We0=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=pfzZeOHRL2bnjcNHB8LNPcmrzIVaDIOuWGy2uxdHy+xeqaaWgD50T9oGT7Ty70RTBphqnh+LTbrHTbXYB346unQBAqp86BaDrymxP3cHcwVRdtzQ8E9Hyld1qWz6W+ZxeIIcXr8M+Zhi1swhxHIRslNsO6zFWveGW4tYiHPmNn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4fb73e868aaso2758645b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 04:53:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791805982; x=1792410782;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2mgAaehDukFfQNPxMZYRR8tyHju6aJWjsthN7d/mKa4=;
-        b=pJDAZ/ojboiLoKn80tS+PGTiN6eq5hYDqbwUj7BWafF7bDmJ1Q0NLHZHMbW0OMsXmQ
-         CQFW5PYpBSsdCBTyn4lKUUmvsOzWPpmKX9Vk8y9g5F81ZdlphjUm+0TRLPiTlwg1RiMZ
-         Nr/Mbov165ZFRl7OwJYI+5hT1SUD5AKplXkczB9LL1jKuB697yO6wIQIn70Ir475d1PH
-         Q4sAAEVlWTDrkxACS/9zIWmJ61EAfiJumwMcI/DPepvv4iv3YVIZwiWVgpgvB+ovrmw/
-         G2ilH9iDGRNhzNaqBV/2DdZVe4AgaWLwi2aJ4ME98bE8oP25LyvsrpuRLrNKkXzL9xCb
-         pIXw==
-X-Gm-Message-State: AFq9FYK61OwVCog6hLEY7y3oLYIkRBgP8/oO7Ki2LCk5hkxp6gXussRq
-	PxZgdftwv80+XD83L2HyEZ6iNhfLnomo6w6vseV72PlmrbcMKIyo+XT0lSPYLAX1izLwc7iCWxP
-	fndUhvHAVAyjpnmxmOC/wWE2CwiuE8GLzX0IjLnfkhg8h1nS3XcixQhU5jUY=
+	s=arc-20240116; t=1791806013; c=relaxed/simple;
+	bh=Mlh0nExt41pjiqUsnhH74ZHL3kKo5jmHPPyIf1cPy6g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UGuP4wkZ3OZl0UWOV65GLiwSbNQmTYnXFTx3Ft7WFAElyq8LDVcpCUnaWc7EYa8kFD3WebbASY2Mp0t+HQKCQ/+2ViqCgi6MMNJHwWzK8MSQAQjXaINxFg4Itk8Id46mHiSkOj07f5gJ0ytjOyGfb1y3+MVPxlvlqbXehQ+lsac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fU9uNdBO; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fU9uNdBO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABC6B1F0089B;
+	Mon, 12 Oct 2026 11:53:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791806012;
+	bh=wF5mKfBKPgFMslZvkvo8h8pjJ6s1wOGfzAfUrLXqVhM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fU9uNdBOhCDhi8QKrbRprm0eh7b3yCP9AAMgvZN0Rpi9eI2JAG292YLEVeAG/fqDX
+	 YHGYgVI1VcWBCsh/HBiFEPFeAeOtonfADTkx8Ic20SKCzHvOzhR6o8M0yRCYNTNN3z
+	 cVflhWUh+r5su104ZEgieQnSWHz94JYQ7ZjZwTDk4XOE7iuHOtyUjyMR1n7py3HZ13
+	 yLvGf6p/x3Fp5TSj4z7wxeScNz/ewCFvywLy9lizxxnBaccSdusHqNQHsItVxxvBqw
+	 7+cSv8ft6F6IbSYzWqOUqgEhisJn4IXmZGs/NAue2CuEk6wVxRFrAbouP4DROBRMjH
+	 K3PMHTELLTSjA==
+From: Sasha Levin <sashal@kernel.org>
+To: Shuah Khan <shuah@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Alexey Dobriyan <adobriyan@gmail.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH v2] selftests/proc: proc-pid-vm: fix unused variable warning on non-x86
+Date: Mon, 12 Oct 2026 07:53:29 -0400
+Message-ID: <20261012115330.3777115-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261011191746.52b84811a6385d4ee414408b@linux-foundation.org>
+References: <20261011191746.52b84811a6385d4ee414408b@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:bc4:b0:4fa:8d48:3a7c with SMTP id
- 5614622812f47-50c5b46a0famr9001143b6e.56.1791805982553; Mon, 12 Oct 2026
- 04:53:02 -0700 (PDT)
-Date: Mon, 12 Oct 2026 04:53:02 -0700
-In-Reply-To: <CAEfrx+Cb1ACQgH0ONDtLhuBk8wL+70G3Q2-ZWw4DAAj09+dnDg@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6accca1e.0e5b5d80.2c029c.0572.GAE@google.com>
-Subject: Re: [syzbot] [wireless?] INFO: rcu detected stall in rfkill_fop_release
-From: syzbot <syzbot+baad8fdbfa4129f93db6@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, spannme41@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+g_vsyscall is only used by the x86_64 test, so clang builds for other
+architectures get:
 
-syzbot tried to test the proposed patch but the build/boot failed:
+  proc-pid-vm.c:224:21: warning: unused variable 'g_vsyscall' [-Wunused-variable]
 
-init/main.c:14:2: error: ASDF
+The vsyscall strings next to it had the same problem and were marked
+__maybe_unused for it. Move all of the vsyscall variables into the
+__x86_64__ block that uses them instead, and drop those annotations
+along with the local __maybe_unused fallback that was added for them.
 
+Fixes: 17415606f9d8b ("tools/testing/selftests/proc/proc-pid-vm.c: test with vsyscall in mind")
+Suggested-by: Andrew Morton <akpm@linux-foundation.org>
+Assisted-by: LLM
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+Changes in v2:
+- Move the vsyscall variables into the __x86_64__ block instead of marking
+  g_vsyscall __maybe_unused, and drop the existing annotations (Andrew Morton)
+- Link to v1: https://lore.kernel.org/r/20261011223358.2327625-11-sashal@kernel.org
 
-Tested on:
+ tools/testing/selftests/proc/proc-pid-vm.c | 14 ++++----------
+ 1 file changed, 4 insertions(+), 10 deletions(-)
 
-commit:         24a19b95 Linux 7.3-rc7
-git tree:       upstream
-kernel config:  https://syzkaller.appspot.com/x/.config?x=859f36d9ccbeaa3e
-dashboard link: https://syzkaller.appspot.com/bug?extid=baad8fdbfa4129f93db6
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=13b350a5580000
+diff --git a/tools/testing/selftests/proc/proc-pid-vm.c b/tools/testing/selftests/proc/proc-pid-vm.c
+index 4e6a3e53f9757..98e882e568154 100644
+--- a/tools/testing/selftests/proc/proc-pid-vm.c
++++ b/tools/testing/selftests/proc/proc-pid-vm.c
+@@ -47,10 +47,6 @@
+ #include <sys/resource.h>
+ #include <linux/fs.h>
+ 
+-#ifndef __maybe_unused
+-#define __maybe_unused __attribute__((__unused__))
+-#endif
+-
+ #include "kselftest.h"
+ 
+ static inline long sys_execveat(int dirfd, const char *pathname, char **argv, char **envp, int flags)
+@@ -214,7 +210,6 @@ static int make_exe(const uint8_t *payload, size_t len)
+ 
+ 	return fd1;
+ }
+-#endif
+ 
+ /*
+  * 0: vsyscall VMA doesn't exist	vsyscall=none
+@@ -222,15 +217,14 @@ static int make_exe(const uint8_t *payload, size_t len)
+  * 2: vsyscall VMA is r-xp		vsyscall=emulate
+  */
+ static volatile int g_vsyscall;
+-static const char *str_vsyscall __maybe_unused;
++static const char *str_vsyscall;
+ 
+-static const char str_vsyscall_0[] __maybe_unused = "";
+-static const char str_vsyscall_1[] __maybe_unused =
++static const char str_vsyscall_0[] = "";
++static const char str_vsyscall_1[] =
+ "ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]\n";
+-static const char str_vsyscall_2[] __maybe_unused =
++static const char str_vsyscall_2[] =
+ "ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]\n";
+ 
+-#ifdef __x86_64__
+ static void sigaction_SIGSEGV(int _, siginfo_t *__, void *___)
+ {
+ 	_exit(g_vsyscall);
+-- 
+2.53.0
 
