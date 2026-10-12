@@ -1,162 +1,132 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F1DB49B5C2;
-	Mon, 12 Oct 2026 15:33:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5EA3F326A;
+	Mon, 12 Oct 2026 15:34:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819198; cv=none; b=ZJf/r6xvgOPMEORGh4+iSk7eoWvu9f+3DkJCd0G+OGs6UzL85JCh2GucMpDsAs/vBvpu+BreL65S4R0TkrUxhkSQLlR3xl9liEVabXt6qna0SjJ3DAAZmgGSk6HqtR1a22MOKEDAg6WMR3oGq1bdOf4QtRdpQ2Aj7mKG1cllz9s=
+	t=1791819242; cv=none; b=QjcrsUG8nvpljNXjwvmBalKKJUUMovt1dtZnnuTpiY23tF7U55aoJRA/toBQlR0lo++z2VeQ9BsK1uHzhISn9j9zaDxrKggbD+nW4LBUDgZB4quyvs3pog9Jmbe9W+w9Qy6RnERAqWBHN4E8W+lMVBG1C6L5EXdqT2gNRu43VGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819198; c=relaxed/simple;
-	bh=yhaeo+33KBHB7DYaUg4O1iCLOqNoMeoMDzsEspE1J9U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=syOBlhuQynyqmqFnKRhJAvqIYNdGsVgcP4yc5tSt9/yv2dh5SWyPA6aVtPBCViEWKmw+Os7YZ7u5gqKStf2G3fGvZMwsEj6yZyq/tU9S24HKQpUYYOQmLmyqDB4D6F6zRZt07L8UrvTsEAUGrEbO0Ii+Lj0Y8XxmcleGYiZ3vFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=zpCHq9DK; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=/ndpQ3ZX; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=IhRen+sC; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=NqiNwOI+; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1791819242; c=relaxed/simple;
+	bh=NHXW19TfCNREfIZ4st116iB1wZ6dKSxU0juhsOvXjxo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=swENs86m/JyNLEa749JaF12cgPNXPBkp+03UlLurCMJzURp8wDRdXfLLK8qw7jlK8yRyofu9mxzYOTuNrLDTMTzCkKHqr3UyPoGUKxt7/W602dK7BL5kggQsrSv3ktI1R2WoVi9Mo3cnWQZdIEQD4tj4EhFehJ8vBAlhBnNMu+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=H4K4En8e; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="zpCHq9DK";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="/ndpQ3ZX";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="IhRen+sC";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="NqiNwOI+"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C61691F391;
-	Mon, 12 Oct 2026 15:33:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791819195; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cg/3QY4N7vANLO6tsQkD5rCgqieZ7atYzmFbPHoaUwg=;
-	b=zpCHq9DKxCUT3HgwjYz+fJsehZ8ay6kGu7+WiJIiIsyd8GYcP6oiPQUPzbtggdR672gVnV
-	MF6cvyEdXqn3Zr1HyUCdAyhWLCWFwvkGTEFI9aUSjtTs7/1zQtVVPLR8Lh9BUTjhUN0z0c
-	y9GLq6cnhU70CFjiuZBCKidztd5M0E0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791819195;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cg/3QY4N7vANLO6tsQkD5rCgqieZ7atYzmFbPHoaUwg=;
-	b=/ndpQ3ZXDKi+oM3zNMStYYBa9R57mAk98Np6T6YHGnpNLDrUwnE2T3BCHFrTYi76Ouuzx/
-	LfTzokVPso6v5hCQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791819193; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cg/3QY4N7vANLO6tsQkD5rCgqieZ7atYzmFbPHoaUwg=;
-	b=IhRen+sCiyQ/Gnk+s9q+M6mgphMTrXhPrFs0IZ0ejVI773EubDTWdtr3NzpFSquS4aklpQ
-	1V07NqCtwTcdlC1rj6Nho361E6/pdwgaGN42ycjOvganDvWNz92aY4r0mJTRa/dbDk/era
-	zcxCtUlu9bsgiIv9Gc0Hmp58OJdZfZE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791819193;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cg/3QY4N7vANLO6tsQkD5rCgqieZ7atYzmFbPHoaUwg=;
-	b=NqiNwOI+PudWCFQwq4QeWaEPOwQYANYTymluO6Q9PE1pd50iWdP05/Rt+hKEa9eXtDp6eT
-	NHH+zI0DOiIs40AA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9EE6F13408;
-	Mon, 12 Oct 2026 15:33:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id B358Hrn9zGoaeAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 12 Oct 2026 15:33:13 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 2D812A1407; Mon, 12 Oct 2026 17:33:13 +0200 (CEST)
-Date: Mon, 12 Oct 2026 17:33:13 +0200
-From: Jan Kara <jack@suse.cz>
-To: guolingxing <guolingxing@tju.edu.cn>
-Cc: Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.com>, 
-	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 3/3] jbd2: check return value of blkdev_issue_flush() for
- async commits
-Message-ID: <72fp6unfdifte47ppqjclkblcikfiaffudlwmsjp6vtkjg4nkg@ndabhrgz7yjp>
-References: <20261012114713.4049391-1-guolingxing@tju.edu.cn>
- <20261012114713.4049391-3-guolingxing@tju.edu.cn>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="H4K4En8e"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCEIfs231290;
+	Mon, 12 Oct 2026 15:34:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=Ll4bhSX7ftAssgkAyHLTRohfguoFqydvc4xSKpMeu
+	fA=; b=H4K4En8ek1c1rEQqj8tGjtngOFvEdUHaf9s8jICWwuELlzwPbZl5bybM9
+	K8Dzl/mYXyerzulSqbDA1Ha1y2zsPAjsGBjT0jSmlV6iRiRMEnVtvO59HDWKkUFT
+	0TXH6juINKsV/mo7VjRnqqyqIARe/sAWjSibojLOhvu+nqzqMtPIIdaCPqVnl2bU
+	uY+Gtj8rgy2OIGp1oUwkNcsBbJolA7ZbeZtAmBl57sHhmmGTTqoXiOdQKyC3XT6J
+	7xRdSDv37j4YPkoOWla+wm0zXx6sZ8AWRlRabyzuoTkVPF/sD2x9yd3i34O27VAP
+	+xQVeWUUb0XfPbxrlUQP0UW/H6F/w==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1w19wh-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 15:34:00 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC57B41287213;
+	Mon, 12 Oct 2026 15:33:59 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h816gwqrr-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 15:33:59 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69CFXtxg48431610
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 15:33:55 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A2B552004B;
+	Mon, 12 Oct 2026 15:33:55 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 77B6D20043;
+	Mon, 12 Oct 2026 15:33:55 +0000 (GMT)
+Received: from tuxmaker.lnxne.boe (unknown [9.87.85.9])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 15:33:55 +0000 (GMT)
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: [PATCH] s390/signal: Fix incorrect return address in signal frame
+Date: Mon, 12 Oct 2026 17:33:55 +0200
+Message-ID: <20261012153355.1529314-1-hca@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012114713.4049391-3-guolingxing@tju.edu.cn>
-X-Spam-Flag: NO
-X-Spam-Score: -3.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,tju.edu.cn:email,imap1.dmz-prg2.suse.org:helo]
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2MCBTYWx0ZWRfX2cL4/oUxmE6W
+ oQPJe42xGkni2WMe21lAq8o5F8xjh8yipvsMsp68xo5OVCjnabLnDRj0LfAw3nAUZ7MVuEAVZvL
+ /YVF59iicmfBpqfZ52deS+81dihI24U=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2MCBTYWx0ZWRfX9Kds54ShZXOF
+ FBl30ky8QPQGVU3zRS1Gnj5TI1/FXd4oRH4EmCcz5Oy8L3ifQ20gLcm9CaMRYG0c7ZEqCHE8StF
+ r0cl/NS5o0f52N+24tTJPIq4JsMNKx789KI/N8aAz+Dcb1k7+NSbitEAMJQ1UVXFmYoQKCVkljT
+ DCskzmH1nJYuXIOKnVk1dqdU64noxjkqlAi7otI9VQOEyCj7brnbC5aON9eyucbmA2CupJuLyjK
+ rPT0c+hUTwcGXGF3lHj36of9PzzfUIMUJ2v3BYkxTOGGxOeLpmCfmFPOJzAbRlxGuJ0W6m3QJiR
+ Eg03gYTMjnOzbes+rrznxJZNafp6WkbzwXrST7EhWkaZtb35Q7l836pcQwSpJeJ5DPIEXl7VcnC
+ NG6yfTmtglyToUD9Hd8GL5veqM+JXB0c6qid83LPcma0Ot2CHWM+gFq3OrHPI6mTq37VtVgiaw7
+ HApKHKmJZ8D560ZN/6A==
+X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6accfde8 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=s2RLOPMWBR7UFyH-IBIA:9
+X-Proofpoint-ORIG-GUID: HnFL9lQSMsZDMg4yY3WXh_MdK2tJ-qO_
+X-Proofpoint-GUID: HnFL9lQSMsZDMg4yY3WXh_MdK2tJ-qO_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
+ spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120060
 
-On Mon 12-10-26 11:47:13, guolingxing wrote:
-> When asynchronous commits are enabled, jbd2_commit_transaction()
-> calls blkdev_issue_flush() on the journal device to make the commit
-> record permanent.  However the return value is ignored so if the
-> flush fails, the transaction is considered committed although the
-> commit record may have never reached the disk.  Abort the journal
-> when the flush fails, as we already do when waiting for the commit
-> record fails.
-> 
-> Fixes: f73bee49855f ("jbd2: Modify ASYNC_COMMIT code to not rely on queue draining on barrier")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
-...
-> diff --git a/fs/jbd2/commit.c b/fs/jbd2/commit.c
-> index 99477e9c78c7..32ca502603be 100644
-> --- a/fs/jbd2/commit.c
-> +++ b/fs/jbd2/commit.c
-> @@ -912,7 +912,10 @@ void jbd2_journal_commit_transaction(journal_t *journal)
->  	stats.run.rs_blocks_logged++;
->  	if (jbd2_has_feature_async_commit(journal) &&
->  	    journal->j_flags & JBD2_BARRIER) {
-> -		blkdev_issue_flush(journal->j_dev);
-> +		int err = blkdev_issue_flush(journal->j_dev);
+exit_to_user_mode_loop() can call arch_do_signal_or_restart() multiple
+times when signals are pending.
 
-Again this shadows existing local variable, which is a bad practice. Just
-call this flush_err or something.
+If the first call set up a vDSO system call restart by saving the real
+user return address and adjusting psw.addr so it points to the vDSO stub,
+a second call builds the signal frame with the wrong return address.
 
-> +
-> +		if (err)
-> +			jbd2_journal_abort(journal, err);
+Restore psw.addr from arch_data before building the signal frame.
 
-And here we can do instead:
-		if (!err)
-			err = flush_err;
-since below we take care of aborting the journal if err is set.
+Fixes: df29a7440c4b ("s390/signal: switch to using vdso for sigreturn and syscall restart")
+Cc: stable@vger.kernel.org
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+---
+ arch/s390/kernel/signal.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-								Honza
-
->  	}
->  
->  	if (err)
-> -- 
-> 2.34.1
-> 
+diff --git a/arch/s390/kernel/signal.c b/arch/s390/kernel/signal.c
+index 4874de5edea0..25781d4a0ad0 100644
+--- a/arch/s390/kernel/signal.c
++++ b/arch/s390/kernel/signal.c
+@@ -475,7 +475,10 @@ void arch_do_signal_or_restart(struct pt_regs *regs)
+ 		}
+ 		/* No longer in a system call */
+ 		clear_pt_regs_flag(regs, PIF_SYSCALL);
+-
++		if (!(current->restart_block.arch_data & 1)) {
++			regs->psw.addr = current->restart_block.arch_data;
++			current->restart_block.arch_data = 1;
++		}
+ 		rseq_signal_deliver(&ksig, regs);
+ 		handle_signal(&ksig, oldset, regs);
+ 		return;
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.53.0
+
