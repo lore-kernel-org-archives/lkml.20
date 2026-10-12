@@ -1,109 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from flow-b3-smtp.messagingengine.com (flow-b3-smtp.messagingengine.com [202.12.124.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6082E4908D0
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:56:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D0C8345EBE
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:57:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816992; cv=none; b=dMnxzEzrDebt5FLYO3vl9W8TrFZYnFNvx5r1D9Rwo1cXhIaZFKkBWkdUJJXXEdNFuGABKLv9EB1W6BMYotwqkgvSXArwFYV6CrGKrnyjy+Y7urtH3FGgkKLO7posv9V2NHDUTW4KXwl9YBBtlSRDOPYmumZlNwKGnoSZT+a0iyA=
+	t=1791817047; cv=none; b=tY7nozK+pcpHn9aPkLEnbyH1oh/vvGTj+Qbu7gjRMzQSv+W+UMWU788XFol85iyIisFf6RFt+ADHobqNGHJP3zPsohLG277zshLqkPjV7jSgpSZYITUpZL46USLjBrJ0wvzLgPgpEuqrlGZm76yBFWlrD+HQesvHekum7UPPoMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816992; c=relaxed/simple;
-	bh=zzV1H8VuC6aKyIL6Nu1e4YLM0TUxzj/r7iNtBdypT/Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Xs0/cVEitBfO6Ptr5c88Z2QgZrkxdFFT1qsA4E8RBbUHrsFpPXFtkC+aqPPmpgB0x1XFn3BaERdVhgJQLI0P9aVBfDtcuMhdYtaGbZuUCP6t7GI2pbte1Ow5SkMAZNS/MUGDqE2h15sdc8xj/nJcCg4hYxiVIcAmIUnrzp6Lf9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YEyrT119; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791817047; c=relaxed/simple;
+	bh=7C4dEkQnMLz9TMFBil12z3bVuTnUQHMzsSjRJ0bhEdU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bcRp5C0ByCbtGkaHfdCkOZl2DUzZeRtThN4Oqhi9gQcseiAQJQh35YjSouQe1yfqMZqTg48YmgTe9GGnO7iIbq+q9V65uNvprDQea0vsuSoFXK8FIzjJ1XkglbTVEiM41LgBuTJD0S4ukZDxCMVdheHpAivqCZXKF+Z54H40CgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in; spf=pass smtp.mailfrom=s-joshi.in; dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b=fWCjle4+; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WuLhkgrY; arc=none smtp.client-ip=202.12.124.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=s-joshi.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YEyrT119"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE7C71F0089C
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 14:56:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791816991;
-	bh=zzV1H8VuC6aKyIL6Nu1e4YLM0TUxzj/r7iNtBdypT/Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YEyrT119wH78rbXg8r9XKN58cwZQSmO2C3utNzdkqvlSzzwWhdBzLdv6w4y/qS+gU
-	 fR1+uiWgJNUZEdKwKG/7TiRTpodHqZlQvT8/bzBH5hUVmiW14731eHJuncEk+Vmd3E
-	 LZlKJsogxJjCfoJcIjCvhIOjpqafPFuuSCijt5uPMNFmHVyOn4lw8uIK/KQaz3TsWV
-	 kUeEGfpnX6S2YrV/ONtgrgk30ZE6d4i7oJdqcpsR7yGLbrS/HEMK4OuHyNUFsVjsB7
-	 8EbiS3fag2pgn1M9HrKa0CoUFlXwbXdHQZRJuf4Yerhgk+5jzKKQCzL4fXNtBen3fV
-	 h8CuGI9brsQtA==
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93ead211f14so203309785a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 07:56:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzHfQ8OOtglIu7mlu1MIOYLYZrIA55n566TRN+DdNDVE5z2b7FUvMVimZ0kLI9bHNi/fIXI/WkNQA8GQmA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIf3gVlXPpKDFUbKgkSRStPQ0WdPhRLIq+ikj9Qdt0+/F+81+H0
-	Lq+ywlMHLrdzGsE06Ol+BevMcSJXRObW+qONPXpxizDGDQwQPfkYEEaXXzLPdTeZ68Bv0WWBB6W
-	uMnK9AcXflPS+nWQsP1WObTeBP+nQWDE=
-X-Received: by 2002:a05:620a:408d:b0:93e:5508:24f8 with SMTP id
- af79cd13be357-93eb9677234mr1673656885a.32.1791816990380; Mon, 12 Oct 2026
- 07:56:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b="fWCjle4+";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WuLhkgrY"
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailflow.stl.internal (Postfix) with ESMTP id B482A130123C
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 10:57:24 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-11.internal (MEProxy); Mon, 12 Oct 2026 10:57:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=s-joshi.in; h=cc
+	:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm1; t=1791817043; x=1791820643; bh=Pu13YpKtGky8tPdtL89/Z
+	JE76RVpEXfu65dztzSTlxg=; b=fWCjle4+kDvG3CJenoGoGVOHvD28bHOluWkMM
+	FXka3vmIvW3hp0I0q3moDDsyFY2DXZd7b5/udaUasfDZECbaPbe68RrmskqTaW6y
+	+5DSOOcrb1uYRgLt5Kl5mlI6N7/NMMFbOqyebPe1CfpPsnZVhIVVDEf14Iu9Ftly
+	eUjztaI/4m0kKbEOR52DNOiIv1js7M6XHdxpuz0A3bR3p6PJpy7P8wWAU+dXSKJC
+	SsvZd3BwSVLTAT0HIIiTK8t1L+18MCXwykj2CwckleyMjTm1wwgK1mAOl9lR5Jae
+	BToFurkXHhc7Ew73ilTJ4oNBJrS0uPVj4T3fcN/pRKdycOGPQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791817043; x=1791820643; bh=Pu13YpKtGky8tPdtL89/ZJE76RVpEXfu65d
+	ztzSTlxg=; b=WuLhkgrY+Xo+knPrPI/Ng08TLcByZnJlTaVAaUxGnV6K1FdcIu0
+	clsAyHx0Xm7S3yDPZ0i2vKskN5PfqFr1YclTVMkxakt1kdSS+uIlqR0JLO2ZuHsx
+	szH6gRMVh8uO3d7z2Jo6fN0yM9auRIYOuOIYy2wxfKe9s+GtJYFlW3KUdFLpq542
+	AQJKKzyM5dcGeUvcT7btE7voW7tZ1uzBHDPVr1DZa/f7XbZcv37dNXwFITtvK2+p
+	u6CFgLtLAsLOmAyvCAjOhkRTB/Yq5e1ph5cuZ+bhd5+1Gv9V8qdUruOgwKl5XGTu
+	kAaCwpsqWm4DTbFiFqB7rC4TXg7Ux53xYLQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=s-joshi.in a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791817043; d=s-joshi.in;
+	mf=PHN1aGFhc0BzLWpvc2hpLmluPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:VljObzB+sqq8V4ffAqTPkCOIUHRjiE8b7M2D+tLIufqem4Z
+	yyzIP8wLgO/ODZaGU90qZ59Gm8skkmpD5VQtXECBcBjFTPgyO/Lc5aTLYdnnts8I
+	OpROAB6SUSYkMWwS5aKtSQPiSXVCPS04FBfdszVWedQRX2GEF847RvOqt5CvtQEq
+	gvFcqypkm2Cq2ugUxN9MN8nkMcFdYtIonBIiLjYTdLlOb8CweCgn+aQILM7pjGtQ
+	YLPLCynBYgQ3ypDLdGmM219uld0WqdzQAFSX2vS4lmQZmbTqaIBZGFxYXwjwC5aY
+	6FVZHLzRqYZEv1He8EXlZ+1ov6dfcsh0KmsEckA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:K3S4ELdJFLAySkcvaXr590/l3Nv+7PaJDetms1kIPHc=:7C4dEkQnMLz9TMFBil12z3bVuTnUQHMzsSjRJ0bhEdU=;
+X-ME-Sender: <xms:U_XMasNye88xTrm3IfSKiHn3trpJTmqDo1bXMW_YU0xisNKvV8kgEw>
+    <xme:U_XMasR-XAolPmOUrQOVr8E_Bvq-svdNnJIuhIfInl8XC0Z6PSiNtrnMWcM6Z1bo0
+    ROylIF9QMoMEUnO508y9hKJTFqZrQ2C-bNJh6tOWtHJ4Qw0rS4fuXk2>
+X-ME-Received: <xmr:U_XMaqjga76Uujkb2w00aH6Kbk1ZTWQkBVuq_3nm6we5V8vAtytmgaVACw>
+X-ME-Proxy-Cause: dmFkZTEXjfH5TD6BbZhKBuZ2eKA3t7u3UNXaaE6kXK+qJSJ1FQBQL/xgKeqXzvuID6nIDq
+    v1B5cfciV+B4y8D5FB3SF0E6nNt8FEUQFycJoyso8ID7CWldSXl2TsWi0XR5RtPocR2J8/
+    kZ2oJ6acL5tqX+7QKX5XsayWqQ6YLVOeX4Q4t8OhqTF92tW/AJkvJkGhYW0TJWf7rb+8pi
+    KhAfjtk3qCBeo+oc69WFKMjaMKWTzuCzhqD+j/hj0C5sONKbHoh9qoHG+WMr6mr7xdQhSH
+    6Q7sK5b2XPTuXCQtPUBM3SUgv8KMiu2hBMn8l96di7vN85UxslUIWrFNVZ4RRCk4DH14Di
+    n0zy2NRuNo77QRtfWcaqrG9+whFGuRGRpa6L1qdrULefD113KKZ2DSdZp8io4AS8J/fR4U
+    RIhbv4UGU7eueeQAyenc60wk9N8qKa1XQ3jBv3bFBb5Nvak7UpkAhbSvk9jbpKE1D7fNZu
+    WePNqbw/ceFBkUEZ6rReu0gfT6McDY87a7wqTTi311mOZoIgex205pLcyhl7HoK5g4ov7q
+    8KhuoGsBN6wUskXp/Bd4sd4U1CKR3oBgntemSZ3FgrQ4lW66Oqcrj6qeIwwCOearLcfoer
+    fRpSNRulvJ2FHd9YDXca0Ndg4KJTTJCO+4gNu6gaXN8NY9JNmVzmfLL8DapQ
+X-ME-Proxy: <xmx:U_XMal-21VmYH1B1uGIREc4gA-BNlaLFGaz6C7YwQNNVGdEI_DKMtg>
+    <xmx:U_XMahF3dNEUrpsrNIlJ0BnKjSG0fJQHMO04-FfRPHxgo7mn9LS1Fw>
+    <xmx:U_XMaon8CVIbeVSdW_WLBiHsmf8O6Uyib8zA_VK8p0XqFO3b3Zvq0A>
+    <xmx:U_XMalZ4s27t9ZjURvY1Y9xyqTld3AdQHB6VcuwPvJJNhpCmhe6PAQ>
+    <xmx:U_XMav3C44gIYdD1255VPF6u631jorDfhrT5N3MEr6kn-dEjLlkNCCyd>
+Feedback-ID: ia9504abf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 12 Oct 2026 10:57:21 -0400 (EDT)
+From: Suhaas Joshi <suhaas@s-joshi.in>
+To: sj@kernel.org,
+	akpm@linux-foundation.org
+Cc: damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] mm/damon/core: Iterate over installed probes instead of DAMON_MAX_PROBES
+Date: Mon, 12 Oct 2026 20:26:18 +0530
+Message-ID: <20261012145636.168436-1-suhaas@s-joshi.in>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007153915.53429-1-alex@ghiti.fr> <CAGsJ_4xyzgUH4uhKqpD7PTVuOzdsAkYgowsyn5iT1LHWiaYqqw@mail.gmail.com>
- <CAEmasaWQm6DPqAhmW_z=kuR+3LDWJ=h+yM0hAs+ryNoFQd6qmg@mail.gmail.com>
- <CAEmasaXa2pB_Jm_VgBZAWQwu1p75yUSY2=dr0Opt5okLgWk-YQ@mail.gmail.com>
- <CAGsJ_4xw+CLzrazOFxnvJCbvG0qoauEuFGR6OdtT3x78ef95pA@mail.gmail.com> <CAKEwX=NrMD1jpU=Kfh367mGArw_ju_8ku=Rh_v8TiLumx3+S3g@mail.gmail.com>
-In-Reply-To: <CAKEwX=NrMD1jpU=Kfh367mGArw_ju_8ku=Rh_v8TiLumx3+S3g@mail.gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Mon, 12 Oct 2026 22:56:08 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wck1jiahYPHRT+n4YsjK+MH79Fwcq9NeJQB__AnUESiQ@mail.gmail.com>
-X-Gm-Features: AclHuK9l5YlJmbsyV-N-AoDzMMoah_wy-giXfPgwPy_mojUYu5-uhB03Mnu4R_Y
-Message-ID: <CAGsJ_4wck1jiahYPHRT+n4YsjK+MH79Fwcq9NeJQB__AnUESiQ@mail.gmail.com>
-Subject: Re: [PATCH v3] mm: bypass swap readahead for zswap
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Alexandre Ghiti <alexghiti@meta.com>, Alexandre Ghiti <alex@ghiti.fr>, akpm@linux-foundation.org, 
-	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com, 
-	baoquan.he@linux.dev, youngjun.park@lge.com, chengming.zhou@linux.dev, 
-	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, kasong@tencent.com, 
-	ryncsn@gmail.com, chrisl@kernel.org, usama.arif@linux.dev, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 10:21=E2=80=AFPM Nhat Pham <nphamcs@gmail.com> wrot=
-e:
->
-> On Mon, Oct 12, 2026 at 1:01=E2=80=AFAM Barry Song <baohua@kernel.org> wr=
-ote:
-> >
-> >
-> > Thanks! This seems to be a strong indication that setting
-> > `page-cluster =3D 0` can also resolve your problem, even without your
-> > patch. :-)
->
-> If every tenants use zswap, yes. But we have tenants with different
-> kinds of swap backend in the same host (some using compressed
-> synchronous swap backend, some async IO swap backend).
->
-> >
-> > But I'm still glad to see your auto-tuning patch!
->
-> I think we need some smarter readahead work, for sure. I'm just not
-> quite sure what it'd look like in the end, though.
->
-> Doing synchronous readahead work in page fault feels wrong. I chatted
-> very briefly with Kairui about this. Kairui is trying to come up with
-> smarter readahead heuristics, but I don't know - even if it's 100%
-> hitrate, we're concentrating work of multiple pagefaults into a single
-> pagefault. That sounds off to me?
->
-> Crazy idea time - what if instead of skipping readahead for
-> zswap/zram, we offload it to asynchronous worker (only synchronously
-> loading the target page)? That'll cancel out the latency issue at
-> least...?
+Hello,
 
-I am quite sure I tried this 3 or 4 months ago, and the
-performance was very poor. The problem is that async wake-up
-latency is highly unpredictable. For example, do_swap_page()
-can complete all the mapping and decompression work in less
-than 10 us. However, if we queue the work to an async thread,
-its wake-up latency alone could be much longer than 10 us.
+This is v3 of a series I sent earlier. Please find changelog below.
 
-Based on my results, async zram readahead only works if we have
-hardware queues rather than relying on async threads.
+There were two "todo: " items of the same nature in mm/damon/core.c. Both
+of these suggested that we should iterate over only installed probes while
+updating (last_)probe_hits[] during merging/splitting regions, instead of
+iterating over the entire array, which may have empty/unused indices.
 
-Best Regards
-Barry
+So this patch series does exactly that. It replaces the for-loop over
+[0, DAMON_MAX_PROBES) with a damon_for_each_probe() over the probe list of
+the context.
+
+These patches are based off mm-new. They pass all KUnit tests related to
+damon. I have boot tested (but nothing beyond) on qemu-x86_64. Please do
+let me know if I should do any specific tests and link the logs here.
+
+Changes v2 -> v3:
+1. In test functions, new probe and context allocations happen after target,
+   region etc have been allocated. Further, target is added to the context.
+   These 2 changes help in reducing allocation code and improving simplicity
+   and readability of the patches. This change is true for both patches.
+   (on SJ suggestion)
+2. Earlier, if a function's argument list required multiple lines, I was aligning
+   these lines to the opening paranthesis of the function. In v3, these begin
+   after 2 tab spaces. (On SJ suggestion)
+3. damon_test_last_region_quota_reset() uses the older version of damos_skip_charged_region().
+   Make it use the new version.
+Link to v2: https://lore.kernel.org/damon/20261008151944.113714-1-suhaas@s-joshi.in/
+
+Changes v1 -> v2:
+1. simplified commit message of patch 1 (on Liew's suggestion)
+2. wrapped all lines at 80 characters (on SJ's suggestion)
+3. added comments for new argument in function (on SJ's suggestion)
+4. added damon_ctx_destroy() in r2 failure case in damon_test_merge_two()
+   (on SJ/Sashiko/Liew suggestion)
+Link to v1: https://lore.kernel.org/damon/20261007154851.45368-1-suhaas@s-joshi.in/
+
+Suhaas Joshi (2):
+  mm/damon/core: Use only installed probe in damon_merge_two_regions()
+  mm/damon/core: Copy only installed probe in damon_split_region_at()
+
+ mm/damon/core.c             | 57 ++++++++++++++++-----------
+ mm/damon/tests/core-kunit.h | 78 +++++++++++++++++++++++++++++++------
+ 2 files changed, 100 insertions(+), 35 deletions(-)
+
+
+base-commit: 8b38ed9ab5b09c8ba168cbcc49524e9b380ee5c4
+-- 
+2.55.0
+
