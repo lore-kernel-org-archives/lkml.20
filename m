@@ -1,114 +1,159 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-214.mta1.migadu.com [95.215.58.214])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3393D283FDC
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:50:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD52C3E3DAB
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:51:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.214
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791874253; cv=none; b=IJfDLAM6n9/ZFSa8S2Q3FD3q7fgmGeOzd6mTksnC3u4ZwE0Bh1eqWohv+/1+5Bfzr+LBmMxe1eYs2fg2shN9JrNEIxStivBY7T8PswCeA4AXOKT/wwYTq5RTIarI7pORsn7B4do63kc4hVOAGDAdGbs5u/zwidRqPxcHknX5f88=
+	t=1791874280; cv=none; b=cJvBjjiD64dodkF5ppxGpMsnLyhPj7SlUDNAlzsmkiBC4JP54wCiJRJqWGiTQGUWBAKLsO49ah53i+0j6g+KasL10z/iya7aOMXMO/3gmCB5es7ryk1bo+eC77PDkaswEFM7MpIpvRddhR/3MEQwUQWi8C3W4SqOLGkIkhsQM44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791874253; c=relaxed/simple;
-	bh=VgEfqg5hvHX0CcKzKwlhvK+zNr9FM2P8Sp3M8ToIVDM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EyW+iGtdpbehNgGeC7alCH8KfqjZEfaWZEaGFr24X4Mes7ZBI+DParfYlE55YoNJezvwjs9xMvnY00E29mfYqh2tezdQ09XJGOAgEtfzObEBdC7rpWX27NML1QIgxIL4gmUa5nPLOAX4/5IuZI4EdKtZqLhfowX+mAACKyT0ZOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ogpbmfmd; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791874280; c=relaxed/simple;
+	bh=PpqVuzPzg8SDxXOWgKNV7iFrqgNDiAsyJhClQMf5ARw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=Bow8jSki8fej9SIGv8wNdSNgJDnOAM9v0sWzcoHlbcxUpos/e8GLdez8KPxe2u0rUR74DsTk/TqnfQBA8Zd3u7ZHpy3GTd0vli/7sJG1VfrGb7OXjZOI2gZa3QqcVt5NVr5lKELPdAEXX1IDrGSTEld/auqZa5AisPCa0ORxDV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AaRGqzYV; arc=none smtp.client-ip=95.215.58.214
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ogpbmfmd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791874251; x=1823410251;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=VgEfqg5hvHX0CcKzKwlhvK+zNr9FM2P8Sp3M8ToIVDM=;
-  b=Ogpbmfmd8sytJ/M8twlbO6nrFR1JM61yANj1hix9foecAo5P0LjUL7pF
-   Duencvd9Rw3EmZ850BsXNu+2rZqc5Gm552mQxatN561OoWf35rpDK1E4q
-   sQkPzwchmA3iyQZ2jboYpPWGjicHdMJ2Alwt8EzEyLsnJU2j/9fK91tYR
-   XdlD7KQc/mKXAztyvHs+Mx9CI0DftaUtGJMRNi+MsvKUkP+2L3baH3+B0
-   Q2ihB1qpRCBRDXdb9NKiR9sVqS5cpB9V6CLLPRVOPhWKk8ZfaxcjmAX+s
-   DM1qJC2IEhmcP4nxVwGBxHM1IWTI72gN3BgDWNP8bQCx6IJVizIZ6aoxY
-   g==;
-X-CSE-ConnectionGUID: ehaJSkAxQaqiJN5dVi0QWA==
-X-CSE-MsgGUID: gkorXQ2KTZui+jIgu2mglg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="476536"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="476536"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 23:50:50 -0700
-X-CSE-ConnectionGUID: zSBlbNU4R5i4mf13FA9i3g==
-X-CSE-MsgGUID: NxOJWSQIQXSLMZN4Cj66FQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="2861658"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 23:50:48 -0700
-Date: Tue, 13 Oct 2026 09:50:45 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Petr Mladek <pmladek@suse.com>
-Cc: helpdesk@kernel.org, Steven Rostedt <rostedt@goodmis.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	David Laight <david.laight.linux@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: Create printk@lists.linux.dev
-Message-ID: <as3UxRboBZYY3oCH@ashevche-desk.local>
-References: <asjrq9g8EoUGepcH@pathway.suse.cz>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AaRGqzYV"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PpqVuzPzg8SDxXOWgKNV7iFrqgNDiAsyJhClQMf5ARw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791874275; v=1; x=1792479075;
+ b=AaRGqzYVlXLHPQYTXkYBSS/51UXdcBuPUD1Ki4RsyVWgbIvTtKFR69jDWgPrd5XxQAdpdqEH
+ GSfWMZ1yvbgJd3MC8j+CJB3d7boudu9CpzMcg3FJk1HR5Y5aYXn5Jbg0+wJq6FZoz/y3MlPcTn6
+ 3KSoSbKkyGiRHIoAh+I9HK7Q=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 726380c402274b50;
+	Tue, 13 Oct 2026 06:51:15 +0000
+X-Mizu-Trace-ID: 726380c402274b50
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asjrq9g8EoUGepcH@pathway.suse.cz>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 13 Oct 2026 06:51:14 +0000
+Message-Id: <DM3IF1RE7901.FAXJ1LU10C96@linux.dev>
+To: "Alastair D'Silva" <alastair@d-silva.org>,
+ <linux-wireless@vger.kernel.org>, "Ping-Ke Shih" <pkshih@realtek.com>,
+ "Kalle Valo" <kvalo@kernel.org>
+Cc: "Luka Gejak" <luka.gejak@linux.dev>, "Martin Blumenstingl"
+ <martin.blumenstingl@googlemail.com>, "Jernej Skrabec"
+ <jernej.skrabec@gmail.com>, "Ulf Hansson" <ulfh@kernel.org>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH rtw-next v5 3/4] wifi: rtw88: sdio: Fix unhandled RX
+ request interrupt storm
+From: "Luka Gejak" <luka.gejak@linux.dev>
+X-Mailer: aerc 0.22.0
+References: <20261011220755.1673367-1-alastair@d-silva.org>
+ <20261011220755.1673367-4-alastair@d-silva.org>
+In-Reply-To: <20261011220755.1673367-4-alastair@d-silva.org>
 
-On Fri, Oct 09, 2026 at 03:27:07PM +0200, Petr Mladek wrote:
-> Address    : printk@lists.linux.dev
-> Description: Linux printk and kernel string formatting development
-> Owners     : pmladek@suse.com, john.ogness@linutronix.de, andriy.shevchenko@linux.intel.com, rostedt@goodmis.org
-> Allow HTML : N
-> Archives   : Y
-> 
-> Reasons for the list and additional info:
-> 
-> Honestly, the main motivation is to allow sending Sashiko review
-> for changes in PRINTK and VSPRINTF subsystems as a reply to
-> the mailing list.
-> 
-> I have discussed this with John at Plumbers conference. We both
-> agree that Sashiko review is useful and often has to be addressed.
-> It is much easier to reply a mail than searching for the review
-> via the WebUI, copy/paste it to a mail, and comment on it.
-> 
-> In addition, there are several people interested into printk and
-> string formatting code. The mailing list would make it easier to get
-> all interested people notified about new patches and problems
-> in this area.
-> 
-> That said, printk and string formatting are related only to some
-> degree. The printk() code is more about tricks how to store
-> the messages and show them in various context. While the string
-> formatting is about tricky buffer manipulation and helpers for
-> generating a human readable output of various data structures.
-> 
-> There is only partial overlap of people interested into these
-> two areas. Each group might deserve its own mailing list. But
-> I would start simple with a common mailing list. We could always
-> add another one when needed.
+Hi Alastair,
 
-Fine by me. Should I do anything, or will I be subscribed automatically
-(as an owner)?
+On Sun Oct 11, 2026 at 10:07 PM UTC, Alastair D'Silva wrote:
+> On 3081-based SDIO chips (e.g. RTL8821CS), hardware does not automaticall=
+y
+> clear REG_SDIO_HISR_RX_REQUEST when the RX buffer is empty. Masking this
+> bit out before writing back to HISR prevents it from being acknowledged,
+> causing an infinite interrupt storm loop that locks up the system.
+>
+> 8051-based chips instead rely on hardware to clear this bit automatically
+> once the buffer is empty, and software must not clear it.
+>
+> Split rtw_sdio_handle_interrupt() into separate 8051 and 3081 handlers.
+> For 3081, disable interrupts via HIMR, acknowledge pending status bits
+> via W1C writeback, service pending events, and re-enable interrupts under
+> irq_lock if still running. For 8051 chips, preserve the existing behavior=
+.
+>
+> Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO =
+based chipsets")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+> ---
+>  drivers/net/wireless/realtek/rtw88/sdio.c | 62 +++++++++++++++++------
+>  1 file changed, 46 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wire=
+less/realtek/rtw88/sdio.c
+> index 7d4f17e96648..9fbd7654ada4 100644
+> --- a/drivers/net/wireless/realtek/rtw88/sdio.c
+> +++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+[...]
+> +     rtw_sdio_disable_interrupt(rtwdev);
+> +     rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
+> +
+> +     if (hisr & REG_SDIO_HISR_TXERR)
+> +             rtw_sdio_tx_err_isr(rtwdev);
+> +     if (hisr & REG_SDIO_HISR_RX_REQUEST)
+> +             rtw_sdio_rx_isr(rtwdev);
+> +
+> +     /* Unmasking HIMR re-asserts the IRQ line if new packets arrived */
+> +     scoped_guard(mutex, &rtwsdio->irq_lock) {
+> +             if (rtwsdio->running)
+> +                     rtw_sdio_enable_interrupt(rtwdev);
+> +     }
 
--- 
-With Best Regards,
-Andy Shevchenko
+The ack goes out before the drain, so RX_REQUEST is cleared on the card
+before rtw_sdio_rx_isr() has read anything. That is fine while the drain en=
+ds
+with RX0_REQ_LEN reading zero. It does not end that way in two cases, when
+total_rx_bytes reaches SZ_64K and when rtw_sdio_rxfifo_recv() returns an
+error from 1/4. There the data is left in the FIFO with the bit already
+cleared, and the interface depends on the card setting RX_REQUEST again for
+data that is already sitting in the buffer. The comment only claims that fo=
+r
+newly arrived packets.
 
+Your RX test probably covers this, 65 MB in 15 s would have hit the 64K
+budget many times, and a stalled interface would have shown up. I would sti=
+ll
+want either the datasheet sentence that the bit is set while the RX buffer =
+is
+not empty, or a second look after the unmask:
 
+        if (rtw_read32(rtwdev, REG_SDIO_HISR) & REG_SDIO_HISR_RX_REQUEST)
+                rtw_sdio_rx_isr(rtwdev);
+
+> +     rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
+
+Here the whole snapshot goes back. On 8051 the write back is masked to
+RTW_SDIO_HISR_CLEAR_MASK, because undefined bits written back raise the
+interrupt again after resume, and that mask leaves out RX_REQUEST and also
+AVAL, bits 8 to 15, BCNERLY_INT, ATIMEND, ATIMEND_E and CTWEND. RX_REQUEST =
+is
+the only bit that has to go on 3081, so would
+
+        rtw_write32(rtwdev, REG_SDIO_HISR,
+                          hisr & (RTW_SDIO_HISR_CLEAR_MASK |
+                                REG_SDIO_HISR_RX_REQUEST));
+
+be enough? If the full write back is deliberate, I would say why.
+
+>       hisr =3D rtw_read32(rtwdev, REG_SDIO_HISR);
+> +     if (!hisr)
+> +             goto out;
+
+include/linux/cleanup.h:148 asks that goto and the cleanup helpers are not
+mixed in one function, and this function now has both. Wrapping the two
+handler calls in if (hisr) { ... } would remove the label.
+
+Two questions on the cover. The storm is described for 8821CS and 8822CS
+while the validation lists RTL8821CS only. Was 8822CS observed, or is it
+inferred from the same 3081 behaviour? And the board tested is sunxi-mmc,
+which runs the handler from ksdioirqd. sdhci, dw_mmc, meson-gx-mmc, mtk-sd
+and mmci set MMC_CAP2_SDIO_IRQ_NOTHREAD, so there the handler runs from
+sdio_irq_work and the host has its own way of rearming the card IRQ. A line
+in the cover saying which of the two the mask and unmask timing was tested =
+on
+would help.
+
+Best regards,
+Luka Gejak
