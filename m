@@ -1,149 +1,149 @@
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4792153977A;
-	Tue, 13 Oct 2026 18:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1892539785
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:56:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791917782; cv=none; b=aNhjjDNtyJa5bMqI46Ok5VDSu2C0+a6B909WX/AX1XUNiSvJJudKTwDgS+1oOX/V8FdjaQjv3ZxdWPirPj2588KiYVQ4RvKyTeQpM2DWodlig84CBC/WqtlmFeomGW9DqyDlhda8KMtmkx304WG9t4C30RKZrMdXHxC7xcOzqLk=
+	t=1791917785; cv=none; b=LBWt7bEtd6CX2SJc6xzuRmiYz/s39WNS13ZwnyOHZd5nGtlZF7GdXpdeoQpFxHfQ9xb/+qpSQB6BQPKbuxwpQjfpRADmRhAzTrxXE/ge2j9LxwZ0pJAbVh4rUdks9qDlpF6RbPP0MVKDvjKmHII82a/LSRX6EL0/yqcClZ2J3t8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791917782; c=relaxed/simple;
-	bh=Zr6u91rhqkBjnyQNOXrI3qSFg8iNZIlmX7O9cZBaIvg=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=h4JCWQZj9iTKJ4UDrPDXD3Gk+G11JyB6PbqkDvwgupCWkamvHbAfmuJI0094UcMNtXPrBYD02Zjgz78Az+HSNaay0IFdR4n0KZiOkq0mnGYTIQbzpn0GBy/wNZhxveX4YUlQ6H9nTLDHxZm3lErLOssJIZfQI4/n/rajidX6JY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=d5fjw0C9; arc=none smtp.client-ip=52.34.181.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1791917785; c=relaxed/simple;
+	bh=+/rOEJj81OEoAsYzQmF4HZC9WBJAzqVNU2+FK5VdYas=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HejaVtkFV1UYdeMqbimAd1wo97nMeU53R5iq+AYsM5Ef1DQczOIvh8vZ/UuSbOBpKA9pCanYFZWv1b7NBWZUwsTWszdJeU0dLTvWlLeqqNO2cdFvsjlq9QnFMdigBkkHzkQte13BzrYs5V1tllRHe5nHBxQdyyhPOdkVvgHAtYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LyfNmFNM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AGqIf1PR; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="d5fjw0C9"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LyfNmFNM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AGqIf1PR"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DE3qVQ1999237
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:56:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	dVW2EdRxla6E0QM69Q3E/be+4rJf2zGLJLbIi+wd6SA=; b=LyfNmFNMtY8X499b
+	2LyB1tCvlZ8nclC5N7sgYScrqzUIsLNu3+SFUC3pZsurc51YQrZiSVpHkxj5EYFN
+	qkuIxvjobU9LZtXEkmWEGvI1mlaDFL1L4iXudWdwHiwSj36z3EVTGzE0wrRxtEam
+	fa8mdjUavJv/yl7SUgduojWx8kWcWVPMkQRjJVhLmKY5H3MEnZzWVTD9OXWY6TLu
+	bcCA+9WieeZwOIeZtStqWQPK4EO2cIiDjOBlb+03D7M2zb51JEHEv1t146UDRf9y
+	gw95ob1mJyLZdufBgK/hHD0LivQu0YJ71JovqpY9U2cY0uWjBIvkka87OFaGJG55
+	Fuw8fA==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9f62bc01-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:56:22 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-16bc6f3fdb1so2890980c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:56:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1791917781; x=1823453781;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=ExDc15Ef98vtkv2halza2GLOY92o7Aeod/xe2/R8Z/4=;
-  b=d5fjw0C9ZSilqFFY0fvicinohk2ZWZQ15uoKc+VsPEX9jRQQjdayBCjo
-   B1t5anymse+PA7CrPmohFbI2mJnj3dJM9et4zwXWd9TiZODQ+oPSRCBaO
-   bjj6HPO8O64iRKaYtot5Qf88IOMCI68cTxD8YBfe9XexMi6wW6xLvdM61
-   Nlr3Iriguq3AtAPYg6ueWdNgr8nHozgA+oDqkf5X4Xq/rRhIrOYzAw3lX
-   BiQCpw89R/8SupVfQDltUK8hco3w2e4VjcLcrSy5KZhclvwUXxnyaxOa2
-   58d7dTHP9zlaYH/O6GiW91aHVnXcCZDecXhV5ZiGWr5JwfkvCefHWxSIc
-   A==;
-X-CSE-ConnectionGUID: oWznY2ffSqarfFIC8BEq2w==
-X-CSE-MsgGUID: VXbXS8RXQHO3aQJZ0MCX2A==
-X-IronPort-AV: E=Sophos;i="6.27,156,1787011200"; 
-   d="scan'208";a="31152671"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 18:56:20 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:8919]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.32.175:2525] with esmtp (Farcaster)
- id f1b4118a-6202-4225-89df-e251ce4331da; Tue, 13 Oct 2026 18:56:20 +0000 (UTC)
-X-Farcaster-Flow-ID: f1b4118a-6202-4225-89df-e251ce4331da
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 13 Oct 2026 18:56:20 +0000
-Received: from u34cccd802f2d52.amazon.com (10.187.170.30) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53;
- Tue, 13 Oct 2026 18:56:19 +0000
-From: Haris Okanovic <harisokn@amazon.com>
-To: Robin Murphy <robin.murphy@arm.com>, Will Deacon <will@kernel.org>, "Mark
- Rutland" <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>, "Ingo
- Molnar" <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-CC: Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa
-	<jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
-	<adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-perf-users@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <harisokn@amazon.com>
-Subject: [PATCH 0/4] perf: Manage single-CPU PMU affinity in perf core
-Date: Tue, 13 Oct 2026 13:55:59 -0500
-Message-ID: <20261013185603.1347265-1-harisokn@amazon.com>
-X-Mailer: git-send-email 2.34.1
+        d=oss.qualcomm.com; s=google; t=1791917782; x=1792522582; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dVW2EdRxla6E0QM69Q3E/be+4rJf2zGLJLbIi+wd6SA=;
+        b=AGqIf1PR8+quNF5JfEdAW5j78/1U6xaNRn14d7acjsfvfx6KpThgJkGIkfxYArNyzH
+         V3mcHl0AxADfmouS9S4kgcbTriVhA2MO7FPMKXrgskZviD+jwB8EiNGgNA3c4x0xBDU6
+         P+DsMGRpX6HO2wBVP9yc2/NLhusIk+Lh5QgMES3r/pyOZQEgHl2XKnxgPGXJpUhhsxKk
+         /w/aQmKGCo5qNsGQcQbJkE2SIZFh2nX2wBJw3+NLWHQCi3Hj6MP6hPlFlg6CNj+md/xt
+         BekWi/LSAxhIecimMTnGgCduFg3/c5dgxWu5m/uWnmvRqBIElr/daKDHodMMC5g9r+JQ
+         Cv+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791917782; x=1792522582;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dVW2EdRxla6E0QM69Q3E/be+4rJf2zGLJLbIi+wd6SA=;
+        b=fD9yIiv96Qfb/lsjeVw/uPehLE2l4a67DJmsK9TNgUy2frMfs/LA8XE3QPcMcVpnIi
+         eGY0H7t8u5twfHCPGE1E61523xfEqbmsCtlsFZdx70m0ZfbxLT04Fy1S1KICph8r7ls9
+         uJoa9Xiz848PU1OsrD1A3qSnGVITmjRnI4H5w5LL99lrFwocrn8xeWV0nJedlxTNP5/u
+         udy8QtCwT6ETRDQaMQMMG+xhmtU5fYsNVQ7smxqcgu/hu06AyPUr5cKiCqV1JIR+bGY+
+         F3iVdScjH0SrxrJql2A+EOUu32BFjjSzwNCQPANiIaaU0WwmA/0/OpNUwiYsLtib4zbA
+         0h/A==
+X-Forwarded-Encrypted: i=1; AKwUvBxHENLyH/VhLH9moTENuJ0Acwux+XvGR5kffHzbqWkq4IhudeM1+k1cGb0xC1e4+/C9BcN9rJXSsUsNgz4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuDg8+u6ABpzeS2vuKBVl5E1+RFzwXPkdsHUlrxfE2Gw4dwiSr
+	8WUIGN5eWOxW56ABSxmnuOcQGGwpZAuu8RVvts+AvGhSSLXJorPEaW8lsoTDWXPXjWGQgnkF8XQ
+	c3ltBkfQKet5W6aA8wwKlOK0DXFJXGktZNFzN9LJO5eVQYVlLd0lNC9VZMRq7u88BEGQ=
+X-Gm-Gg: AYBFou3VHhsBBGZmEmERzxKbIOpVkzRUl9iqlQQBl+ZeKKFTShCMEycxpOg/ob5Gzeh
+	JzmWzmHwcwh4QEBTOmWHam2ND7nu7mmqTBdw8HQIaY5GdebEGIGGnZzlgMgGudonaC+35Py417f
+	GrIOE4dGBvs9VzLXzEShCqbhMZ3krlALcYMgTmxAosBSfgiKPb0qAgJt+ZAxDQ7scFQ1kL442qD
+	/V2aTiLFe9Yj5+gX1AWcOLva0wafubSVwCN230PkJ5T4AO0IIcRFBaVPIWuhR3z6IO8DhIOTSIS
+	ONQQSYXUTYd1Qqwtg6AJWRoAy2ZQ1beiHyGqO/wHIn+5uVuqRO2JmgdTQNkxd0jUoKfJHARtAXx
+	fOWLDHeFIJJyKkgv0KNDhO/LD2jAw05idCltd9p5I9FYc/LO7XA==
+X-Received: by 2002:a05:7022:5f18:b0:143:298f:33b6 with SMTP id a92af1059eb24-16a6203ab5emr17121154c88.46.1791917781371;
+        Tue, 13 Oct 2026 11:56:21 -0700 (PDT)
+X-Received: by 2002:a05:7022:5f18:b0:143:298f:33b6 with SMTP id a92af1059eb24-16a6203ab5emr17121056c88.46.1791917779716;
+        Tue, 13 Oct 2026 11:56:19 -0700 (PDT)
+Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1698de65af7sm43594045c88.0.2026.10.13.11.56.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 11:56:19 -0700 (PDT)
+Message-ID: <e6a86bf0-86bd-4010-9d95-5b87bb2a3009@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 12:56:14 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA003.ant.amazon.com (10.13.139.47) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] accel/qaic: Protect perf stats BO state with bo->lock
+To: Shuvam Pandey <shuvampandey1@gmail.com>,
+        Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+        Oded Gabbay <ogabbay@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org
+References: <6a115824.a0bed9bd.3c0137.9edf@mx.google.com>
+Content-Language: en-US
+From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+In-Reply-To: <6a115824.a0bed9bd.3c0137.9edf@mx.google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=FOKOVOos c=1 sm=1 tr=0 ts=6ace7ed6 cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=MIdiunF4UWRBeV6dtGUA:9 a=QEXdDO2ut3YA:10
+ a=zgiPjhLxNE0A:10 a=Fk4IpSoW4aLDllm1B1p-:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA3NSBTYWx0ZWRfX1fzbbb615b2w
+ 9BvZ95sxejB8HAA+E6oS45MzWVEpWuab20PIHpqilnopQ8dCg9FGLzhQsSUQmdNn1d8TRTYCIbu
+ qI47nWwzkhA54wVgqlWK4HC4riTlIlY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA3NSBTYWx0ZWRfX+znX6Yh7scfD
+ iv3dciymrXIvn77EHJp3d6ekT0v+hXqc0stph6KZxz84RCpKKgibzy4+FTKKmvXPEba5PV1g1gZ
+ e3NCl3OWJjjVfsGcqIiODG2kSFmBLvgLs7Vsm+8YwR9A9K6bnomBKX3uhqSJTsRpZ+5P04stlGW
+ AQ+Lubf7blqmmIBT6IOwGLVmePXSIZQsYO5IHq78k7LiJ+yjK8WAzi++Yuectk+ofVsaIie9jab
+ S69TG4Xpyub9j//1PREaXA/R0C5KqhTXQmExiUJaihPvdaNirCft7Zx/hG0WEXnKlt/ZDcZYlN7
+ vdDSTTt+NxCLYwyW/bjG+h/1IhUi0mv37HNL8FIpR7Gs4MRXQcvN+aW7i29kD9FsvbHAYNlObdz
+ EQ1vyAiNgo8HdKLVJh0GlXQdFV5FZeQ2qYo0V1mqoCVFGpYjgj582dPYD7OPqUW8Bjp5foXC2dn
+ YMBhD2Kyx1LL5jDtCxQ==
+X-Proofpoint-GUID: PeKy8UaWiqqMgEHIv1gkB103HyloMGYy
+X-Proofpoint-ORIG-GUID: PeKy8UaWiqqMgEHIv1gkB103HyloMGYy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0
+ spamscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130075
 
-About 25 PMU drivers, nearly all under drivers/perf, drive their PMU from
-a single CPU, and each implements the same logic independently: pick a CPU
-at probe with cpumask_local_spread(), cpumask_any(), cpumask_any_and() or
-similar, register a CPUHP state to handle hotplug migration, bind every
-event to that CPU in event_init(), and publish it via a 'cpumask'
-attribute.
+On 5/23/2026 1:32 AM, Shuvam Pandey wrote:
+> qaic_perf_stats_bo_ioctl() validates each BO by checking bo->sliced and
+> bo->dbc before returning its perf stats. These fields are changed by the
+> detach paths while holding bo->lock, but the perf stats ioctl reads them
+> without that lock.
+> 
+> A concurrent detach can clear bo->dbc and mark the BO unsliced while the
+> perf stats ioctl is validating the BO. Take bo->lock while checking the
+> BO state and copying the per-BO stats into the temporary result buffer.
+> 
+> Fixes: 4ddf4ddfceb4 ("accel/qaic: Ensure entry belongs to DBC in qaic_perf_stats_bo_ioctl()")
+> Signed-off-by: Shuvam Pandey <shuvampandey1@gmail.com>
 
-Besides the duplicated code, that has two costs. On systems with many
-PMUs, the arbitrary choice tends to land all of them on the same CPU,
-concentrating overhead there. The chosen CPU also cannot be changed
-afterwards, except via hotplug, which is awkward on systems that confine
-background kernel work to housekeeping CPUs or otherwise isolate PMUs
-from latency sensitive work.
+Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
 
-These patches move the choice into perf core as a new "device" pmu::scope.
-A driver describes which CPUs are eligible with an optional
-filter_allowed_cpus() callback; core intersects that with the online CPUs,
-picks one with cpumask_any_distribute() so instances spread out, migrates
-events on hotplug, and reports the result through an optional migrate_cpu()
-so the driver can follow with interrupt affinity.
+Pushed to drm-misc-next.
 
-'cpumask' is made writable for device scope, so users can also choose the
-owning CPU deliberately, e.g. to move a PMU onto a housekeeping CPU. The
-attribute is read-only or absent in other scopes. Reusing it was the
-minimal change, and I'm happy to add a separate attribute instead if you
-would rather 'cpumask' stayed read-only everywhere.
-
-Only arm-cmn is converted in this series, as an example and because it is
-what I can test today. I have prototype conversions for the other 24
-drivers locally and will post them if the core approach looks right, but I
-have no access to most of that hardware and will need help testing.
-
-The series also carries two synchronization changes for events left behind
-by migration: the __perf_pmu_remove() fix in patch 1 and the sequence
-counter mechanism in patch 2. Neither problem is new. Under hotplug,
-leftover events are torn down with the dying CPU, which limits the damage.
-Migrating between two online CPUs leaves nothing to clean them up, so they
-matter more once users can request migration. I'm open to suggestions on
-different or better ways to close these races.
-
-Tested arm-cmn on two platforms with CONFIG_PROVE_LOCKING=y:
-
-  AWS m9g.metal-48xl CMN S3,  one mesh,   192 CPUs
-  AWS m8g.metal-48xl CMN-700, two meshes, 192 CPUs
-
-  - Events multiplex on the configured CPU, and the two meshes are placed
-    on distinct CPUs at registration.
-  - Offlining the owning CPU migrates every open event and updates the
-    attribute; nothing is left behind on the dying CPU.
-  - Writing 'cpumask' migrates open events, and offlining the vacated CPU
-    afterwards strands nothing. Bad input is rejected with EINVAL, ERANGE
-    or ENODEV without moving the PMU.
-  - Hammering perf_event_open() from 64 threads while flipping 'cpumask'
-    between two CPUs does not strand events.
-  - No lockdep reports on either platform.
-
-This supersedes the arm-cmn-only approach, following Robin Murphy's
-suggestion that CPU affinity be generalized into perf core:
-
-  https://lore.kernel.org/linux-arm-kernel/2d70be7b-12c0-46e0-b308-744a3159388a@arm.com/
-
-Haris Okanovic (4):
-  perf/core: Fix perf_pmu_migrate_context() leaving events behind
-  perf/core: Add PERF_PMU_SCOPE_DEVICE
-  perf/core: Allow userspace to select a device PMU's CPU
-  perf/arm-cmn: Convert to PERF_PMU_SCOPE_DEVICE
-
- drivers/perf/arm-cmn.c     | 104 ++++------------
- include/linux/perf_event.h |  26 ++++
- kernel/events/core.c       | 247 +++++++++++++++++++++++++++++++++----
- 3 files changed, 274 insertions(+), 103 deletions(-)
-
--- 
-Haris Okanovic
-AWS Graviton
-
+-Jeff
