@@ -1,85 +1,138 @@
-Received: from sonic311-23.consmr.mail.ne1.yahoo.com (sonic311-23.consmr.mail.ne1.yahoo.com [66.163.188.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA03381AF9
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:49:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.188.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A4037A83D
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:50:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791881372; cv=none; b=Ntb1YRbQbALLaeHHOeuCpZOVolz+LoYJSV6l6kVuzIKButpGnllyztNWy8mV2n+/Jr3MtvLtl0LmmURYRzMmcB4ZuApjaUeLxWeBXQWM31BBw8NFjzoXWsuyjaU0CYrMsfCkP6PquJ3MG37oI0/BUnTK3NeAVQb3uJz2/kh8KcQ=
+	t=1791881430; cv=none; b=TRjOBAjW/3+YesqiVOSJBHYx+H0qBvr0TCbAS5OzXsdmQ8S8ruSek6tBBhxWoF58OrdHbX2SftbJaqGcBXiLqfTQ2x3SuBw9h2Z1XUSSxEbYXEHFQmjCXv1cIQCaKnrdeFC9Nm731f5KchA/0JbWx5CTyjKMn39rzprPheAw7wA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791881372; c=relaxed/simple;
-	bh=ttX9DS0o/jptwxFFB08394K95L92lWMiyk44MlYsF6E=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=r6g5aSANm5pHH3XUjdogedQ03Jm9avNPGjEcjctAROSW7CbV1Jf4LKU+b/UxfSFeoJOl1XMjeBuyyzzWtJUo3AdYnHN45qgIGIU5lx+o7y4b8iEwpeE6A5zZvZ9saMgvPYb3B11SEDfz58OTvGpmzdqKGPnCmpm8P5ANkrJ2rdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=uIOmbO4D; arc=none smtp.client-ip=66.163.188.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791881430; c=relaxed/simple;
+	bh=h9VXSC4zzOW3510ehA0JgXObMeFL3zQS/qUS5NFCb/4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SSHIZ9P+f8u/PpPH1OK83kWBC2Jr+kUWZjJ9Xg9SkyO/FfDCMA0hDz835j6kgcafhrKMNIMzH2xggfufc6bYem5NwZZydse9MbPsszuHYI3l1yPuelATYb/1iQAJB8DqW8wOUuXmXEhm53iOac0+vzCzdV7kbnY77L5xtdsAMpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Ki8LYVqc; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="uIOmbO4D"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791881370; bh=ttX9DS0o/jptwxFFB08394K95L92lWMiyk44MlYsF6E=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=uIOmbO4D7cUsGEzEvMy8Nc5zXqrY/Oju1wzempclZITdRkkkLL7OxrhLEZdAtXdgOBF3GzcWSzW4kcuhAGvzPkTUChr01tIUTwP8GZns50BKKyzzkvFqEDtSs2/WwKePHZwt/2EcHDF8oxFGeyf+DmkGOgfFR+D09TNX2xOL7GmTqPwNIwqriidWFBzkZWdm8DYGoUlNFLG1+Z9Kj0QjGT19af55WifCAlHw9dQ+J6eazzKIUfFogRLhkEMc4m/lW30RR/cK0upILmqWFH+Q3PHpb+7D2srqd/8uPoTTUTW9kM7GYOwibkEuhHjLjpp2YMTtizOIJx3Azc6qNYXZmw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791881370; bh=6g1k4ETJ5vri/+Lif7Yt1B8KEY65GhNLoCAa9UUVTB9=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=kGHbvekm/luW8VsjUfswKms0itrftEvg/G9BhLaKJ6hetNzpfvStyXPzBQaWXOxvwY4UPHgWNxZ1xpLMd/60Yhp1AA27D7UgTw/loV60pkiJEjfNtWwyW7rtjdjeZpyzmlXPu7HilmoTtZIX4sumWFzByLKp6gMIFs+5cW1CtiogIXifw3mrrmHKUrxpbnKm2cr7nyt4xt9ysomwXrjpk/Yb+KJexfRhhg9OPjQTLRFORqBosBPUQqKYlRBlg21GPNasDrvQWSJ6sLaeh3YgiIFK9CGSPSA6kB+jKUvN7WJ3dEgRm7JJRW2l+6k+Q73ePhF/wfcRCpyVu0eIlPRPhw==
-X-YMail-OSG: oOz7hH8VM1lu_vVjCnGU8IKzsehVMTiU17RqKC2.gXAIFDaWC4.yX1mF.fNU19b
- 8kHq8LX6hjBKyAKYZ9dZYNhUC9DtJLnz9YoZI4U0mhBfeXRHta6Wc6GzG_dDDEOlUP1JF.9vzzCQ
- vRnbBLStGLjtCn73RrqC2o8d..goOad1ytP5kkMOyjwQ_mWH1_DgyRXXYMGOwgFv8ugrs4fldEVD
- 2uCwVH0NgZnE6jUHdYwj0JwkAZDFZ7b3Db9OUzji.N5_SsI66AQMlqbJoCbKIzN3ifNMABtPWg5V
- BxM1mhYfNW1TYbGTEDp4tQB3ckBMSnLcIxGs6XxbjO8Tpdr1yqRM1PFZ9D9maAfz5oHZvapCMc0b
- eGF5c0HvGLSsobJHZXCGPgXqAtYU1Y3NNr642bxRp6pLKRcaf2iJX1Uj6LOFw2kfTh2WizDMBkEq
- inktjEr7hi2qyNIHf_Sp.TmL9TyUdzPHvJP3CNWAV.q9Q2KjVwMpi3yvMyPB0XubGmf51hVkwAIr
- Ii2h6Ln56U6Txu3ipmnhszpGP8TE_6hnc33RZtTMxmZuoXKBxCsbRwK4SBcU4p6qlNTTctrD6yaE
- t84YoVWwLPcrKqh6Rhp0zgXaPXHOWLIWzPPfrZQe8pvxudmTOsp4IE8Rr9xz87.1BkenZScwbT8S
- 5iBa1T_dFfz7PNLKgRWoZAV_j4WAhagCaMM6XyP3IBh3KHQuQVOHNOoXGjztSFDGAS15cR021rfD
- mDhUXJpm.WRkxdjaLCwqfnmYMEK7eJNtlMWaiijY0QysHSH4BWrNYRgJ_n5w9x8Ju4YAAwWFmO_Y
- S0aE_iixz.3xw5o4ottD_Xj7KW.9Y_tpiZm7Llq0WlvK_8uh_cSZbdpJniIb81XN3E2Pro7ZmAPj
- b.psMVnxEqUbkfXdrNSsFJoWdBP9sSoJ8IRuq8o5hVQ1ILbfzRHvzOa5mbiQcyR3NHnH63d7fsYY
- ybTnDv6etU1OiojPBiGOEbuK0euyLbbsI5ZHci_I_ER68_f5gU9JExkhCzSxlGuymwVyAeCjRWhG
- UQlbISscIe61M9CgY.9DnjaheOlVTnyGjbke_i1aKjvrJaT3cWsFX3bI_hJzLI5qyOY8MEPJXaxj
- nOokN2_UomFSvnMWCX1roEvserUeVk9dun1uB3TB0yN1VCutRBOWj1EoBxK4aHFgwJs7VDKrre7a
- 3158piux_jzbm8brq0pNDRjwOW56vY6tcUc1WzIO9CMiKR9X7rB20SpTktV3gXfy7ECpzUWWdRoJ
- qM685RK698dliRrycdMdaB6svmZKYC4YsKVcsF6M.gD760vrqwHBL68lXxnQdylOXmmIxzjUwaNM
- 1TvgHNfU1jYHMg4aU7UzY3PkGaVqnpmwYMW962P3hpVGYipLxiKWZn_p.lO5jDSM4VzIZISMZerE
- knpZzDYSWKdxhivXydHA0f_9_31c81JlZG.G0hZvyTLpZdxWJ9bsqgeoSaRVLIX_uK1.HgVt8L3T
- qG7C1YXuMUAlPtbnXmjbC1UjSPJnmj.OA6G11ucKeyCQMmzo1fTtlKfOmT5aPRN8xBlNKHMZDZMK
- tssUwPPhm5atfZPMQo5oYM2eNQhlUZH2DUhZGkldsNuWt.JgArR6JAwOzT5VcQapqGioVKImuQaf
- gWOQidFZ_nKQtOc3iDozyimRmcctiMKwWx2XeYRnAR7xHiEMH_YFPr8Gzi1VurHgdudOknOwYpy4
- 8HCBu3uW2dQotvhExUKL1H50v3ADLd3k.106VP0kVKwEgLTxFt0DMs1JmX508DEVa0ikaw3lybrf
- CXX.zUIQoyLW0VffDYBHFqXG52RFXdsQxP0TZJI75ea2LFwjQPVlh9pihZUn2nZ1CdHkTdIOJeWs
- 5Xp1oP1ayEZ_rHdQg0IoCZ0l_yAKPB7iusodCoHUnQWrJ1NEqzGZYCXfYQImt0DQwPBjY2Puo0F4
- foWKcS_6SCh33Jul0t0zchduJZmbYwyaojyrbyC.x93qw437pkvjzEv2NARgtueYqyXil1c9jgGo
- mQLCLafnM98O2QtHxOgpLc9CCwnGlTvgXfFxsFCwkoKjWW8ADJ9zP6pDCDQgNrVyORzAra2GOktN
- 3XSOd8kuHBzn5c9S5d01NxEVi3NglhxjNCpsKWh98ImaCRqz7xlXUsXI6gou3T2aB3k37tI2of0S
- vm9BzPj7OXOBfQoeUyjpSboRPHzDPTCCAM.TVvOWxyjnGVA6XpN_5v29x8sNbJQE80LP0lFjacfy
- GmSpxsick9vV.tLoC57RV3WtS4B0xU6I7zi0wAvS3aHmftuF0DNhS08GwljCikEic0CkUr7NPUcr
- bwjoUm3RE6y28ZihKDg--
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: f144e665-9088-4e28-8cbf-9fbc81ea68a7
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic311.consmr.mail.ne1.yahoo.com with HTTP; Tue, 13 Oct 2026 08:49:30 +0000
-Received: by hermes--production-ir2-5dd9bf4598-bbdwl (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 0b4a801a06fba763608d461897b6b15f;
-          Tue, 13 Oct 2026 08:49:27 +0000 (UTC)
-Message-ID: <b496a3f3-0da4-4fe2-b8e6-8fdb49e82c45@yahoo.com>
-Date: Tue, 13 Oct 2026 10:49:26 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Ki8LYVqc"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2F0F21932812;
+	Tue, 13 Oct 2026 08:50:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=Y4bC1nAfXQsN1acXQKe2zW/PfqXFLLP4t/bqSP+w+
+	Z8=; b=Ki8LYVqcfanWnGwU/wGc6GzhYhDSgXxWtrg6Dn4k1PdTuMyxemfrzluFg
+	9HVmdCDpgaZbi+EHp4vnks4cgWRwjfLgKf8sa/ztlwFz2A0Q7EWoUyPGKbnxW6zs
+	5++Yz0g3ReHiqRGwn/NkLbYyqqi0ERimsgmNJAk+ZQjVgBhnFXMGxv01LTj4Dm+Y
+	PlhO1kHrUTgg22/JtYDi1aLkFVhDIY0maUW6LVZqf+EhalwDcnUTdzbJH5BBB5w3
+	N31vUcWEw/AZKhMCuHWjymonPXMpp+9ey71sTO3UuYX6tpeIXmJ2bzfWRLCfQdVw
+	NYj7Ouxmnpn0j9YEBzpoh9FvkD6Ig==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1w4krc-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 08:50:25 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8ToVs2643669;
+	Tue, 13 Oct 2026 08:50:25 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h80pjrxdb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 08:50:25 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69D8oLma47776080
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 13 Oct 2026 08:50:21 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 50DCE2004D;
+	Tue, 13 Oct 2026 08:50:21 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 28C0A20043;
+	Tue, 13 Oct 2026 08:50:21 +0000 (GMT)
+Received: from tuxmaker.lnxne.boe (unknown [9.87.85.9])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 13 Oct 2026 08:50:21 +0000 (GMT)
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: linux-kernel@vger.kernel.org
+Cc: Andreas Grapentin <gra@linux.ibm.com>, Marc Zyngier <maz@kernel.org>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        Steffen Eiden <seiden@linux.ibm.com>
+Subject: [PATCH] MAINTAINERS: Add entry for ARM on s390 KVM
+Date: Tue, 13 Oct 2026 10:49:52 +0200
+Message-ID: <20261013084952.2797958-1-seiden@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v4 9/9] net: dsa: realtek: rtl8365mb: add support
- for RTL8367S-VB
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev-bot+sashiko@kernel.org
-References: <38872e6f-1264-4a93-9f81-8212173e909d@yahoo.com>
- <ccaab57b-1bab-440d-a4ac-d3e467240695@yahoo.com>
-Content-Language: pl
-In-Reply-To: <ccaab57b-1bab-440d-a4ac-d3e467240695@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfX5Jk85gF+Zoo4
+ mbpRy88Gp8Q6gxFIS+y9anic+EtFBBCVFK4B3C2Y6PnuPQ4gPwXjPCfFdOe6CcF+Lmi1GEXT8fG
+ N3WG6BFCDsgIt/754HL+HrC/3i5kRsg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfX7b4SxNg52mCT
+ U5TGfNc4TTDr/ZSUUHgn2XTzMVKZMnE0lcaD/Vgp6uqMmV943/07x71n2aLlPoHLINLBxhBTTOY
+ 9T3y83HG0DotPjEj1fMcoLP8FgPguy8HEt9us+pGzTX+KNu2InYjwF3DBx5U8NXeZBF9GyMvIeS
+ 2SeK6oKILq+rjwpqSj5wXHgSwOMzbgymDkWnLNkbFvuiZhSlJKj2wIdVzbBqdoRuyGQbiCuvM/X
+ N3V1xXsE3DAS2Cuu5x6TJKusnkhiKGIv4/rEoinT8wizGsI9qcY7q3cYlL8mY6StqCHfeTbKSqb
+ 2Td8Gr68uWSQNHkTJp+iGlcmtX6o4js6BgZwslv111dHOQRkrAa8fdKoWeammK3Jt1ZksiJxtPR
+ ftv86JA3F1+Iygq2/3bqfLtU9rOU5kYRR6FZnxOeS2cQb6sjXaSF8v7iUfcPyBcjyVdJVkdgx2U
+ YnJdDw8lFcxah5gbfaw==
+X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6acdf0d1 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=VwQbUJbxAAAA:8 a=1XWaLZrsAAAA:8
+ a=20KFwNOVAAAA:8 a=VGXdVZ4ymc50sJVynzgA:9
+X-Proofpoint-ORIG-GUID: -aS-xvt69THAN4Q7p3qOG0SulIHxbipA
+X-Proofpoint-GUID: -aS-xvt69THAN4Q7p3qOG0SulIHxbipA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
+ spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130034
 
-Thanks for the review. The issues are valid; I will respin as v5.
+Add a dedicated MAINTAINERS section for KVM ARM64 virtualisation support
+on s390. Adding only reviewers. arm-on-s390 is primarily maintained by
+the KVM/s390 maintainers through inheritance.
 
-pw-bot: cr
+Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+---
+ MAINTAINERS | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1d45ccf863c1..d9d212d06ef2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -14385,6 +14385,22 @@ F:	tools/testing/selftests/drivers/s390x/uvdevice/
+ F:	tools/testing/selftests/kvm/*/s390/
+ F:	tools/testing/selftests/kvm/s390/
+ 
++KERNEL VIRTUAL MACHINE for arm-on-s390 (KVM/s390)
++R:	Steffen Eiden <seiden@linux.ibm.com>
++R:	Andreas Grapentin <gra@linux.ibm.com>
++R:	Marc Zyngier <maz@kernel.org>
++L:	kvm@vger.kernel.org
++L:	linux-s390@vger.kernel.org
++S:	Supported
++T:	git git://git.kernel.org/pub/scm/linux/kernel/git/kvms390/linux.git
++F:	arch/s390/include/arm64/
++F:	arch/s390/include/asm/aef.h
++F:	arch/s390/include/asm/kvm_host_arm64*
++F:	arch/s390/include/asm/sae*
++F:	arch/s390/kernel/aef.c
++F:	arch/s390/kvm/arm64/
++F:	arch/s390/tools/*arm64*
++
+ KERNEL VIRTUAL MACHINE FOR X86 (KVM/x86)
+ M:	Sean Christopherson <seanjc@google.com>
+ M:	Paolo Bonzini <pbonzini@redhat.com>
+-- 
+2.53.0
+
