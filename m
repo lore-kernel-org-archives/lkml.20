@@ -1,388 +1,161 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012010.outbound.protection.outlook.com [40.93.195.10])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13AAC4A64F4
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:38:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791916717; cv=fail; b=PBDSH+JoH+LaKr7iNCLpBgvhGsDCR5ethk4pL1noP9J8I6cdk5jYU1XSoCzr24lfB3ttl0K4YLXNs0GZyqgIw/fV3Ic+8mOtz2A+OvUaPGEBuGBZKcr3QH4I51pBSGh6QaPtiQ+1LJxIpTJMTwDOOypqdwzLiG4SILLbl3QwN/Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791916717; c=relaxed/simple;
-	bh=VkNnz+tsrHpwnES5AjMam49uNhfDV4q8dWw0WMYe6sk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=mWSlTMz3eH2/580FfvxniYZxfijhh0eJKDOi0G2h9bgO4wqhH6bgDLju2aP+wtxpQTXIkemScYfP9sc3IrIDvVuHcwwJ4D+qUAmAD1Pa0mdkQXjtpwZA9HjOckRzbtOFq+PbBd0W0hGf34cB69WE72/UrlWSM1I3UjeDQ2uNHYk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=xlM42toO; arc=fail smtp.client-ip=40.93.195.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D784D4A8A33
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:41:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791916885; cv=none; b=OQrJcYXbIYICmi311brHgz605706KZ/6PhLmEuanbOawx3JYWypAfqKjRYGkwaWJlHF++ndL5tMC3MCjMASeBupZnlZhNfhY+wskKvzq0qBaMmK6x6ilzPlHomRYl3VdqTnor7Zz3ldLGGFwoSRsN5hjBNua9L7/x7/JNaZSiyA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791916885; c=relaxed/simple;
+	bh=yARy+Nf0dbu9XT9d1ERfBCwuVuYyeCm3xP8uoZbF/fQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HSdPfWZzxxXbwp/5BXGeyyeMKFYZ/+QwnmRVI+Lkci4bKPj0xbZHlttl4TX7LEstz0PJpB2PEXs9P6k9Aw9dgUrBzZt7PNyITd27Qy8R2EODIYkPoqD5IROQyN2ZmwPM9IVIiJJnziXsDOBHel50Ns0MojnAnIbbFo0qyLjWDAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gAL0CW2i; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Adn4zYSW; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="xlM42toO"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h9ELwDa4Gv8PFMJXscUVs6PU0l2PjEDEYKCyD/xQJccBtWR11Tc41k4K1UWFvGoQg0tr29Q1481AIw3VIjJDbXLkgW67Grr5u8rj8ymzqAs+OgQWNoiXrM4tmUmahKrJhOyu/7dSZD5jLDUYiuWa0liIxGOc7tdFsSwX4xjH/9b0GuGdWxydNR2g+wCV+CuvdruLKcWMT2j3+PCpYVyMEYpyjxK/X/XtK5bp6s+E0RjX3zX24cYDZ0efY6sjjaS9EjGBL6OO6PwR2nw7f9y2+UuGudHbBaecCC65qnRP+sWyiJs7adzqFMAriqG0sALXdPfoW79n25mlLk1fzm8u/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BgSRZQW/MqySc2W3fW2AMc+pmW6DtLwijVZjx2RigMQ=;
- b=hB7KCjs9D2RTq865sulXFuZgAmEjnF9chYyFmMW2eKaYako/UdvjjCb1U4kCXqpZCQS8YCe7OHGMtAxU2FMLsjfXJJ8JBg8ulbOgYB1oMux8ebB0NJCqxkOStnR5MmL1R+883TWKaRzJV7rTcwHAJRm5KZD33mFQlQE+yvljKcG2+qM5ull7pf3BvHdGCXw31TU0j02gwEqmGRhSi27A/LsJaz+k24ewdfNnaxDZ776v4rdQxX2yEj09v/ZaLF5F6hzFSxL107uuULlH0CKbFPVjCbL0hUC532cG917g04K+KWePdSGUDojlg9Zo8hPCVFNasPALirvSGv9p+tChgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BgSRZQW/MqySc2W3fW2AMc+pmW6DtLwijVZjx2RigMQ=;
- b=xlM42toOBtNI2N723fk8xr0KmaDdQCYuboGEZ5u1DG9i5BN/g3eD5kNj7qlk9wGKMCBIrsifuhYHFl2DSQGUtdztLSxNtXtiJXNaadPQxmOZY0N2eA0wcdOIVsF0i0aY2seHV/zSD3ZLo74Y3Er/ZDp3oIy47cxnSrRNYvkfRD0=
-Received: from BL1PR13CA0246.namprd13.prod.outlook.com (2603:10b6:208:2ba::11)
- by SA1PR12MB6994.namprd12.prod.outlook.com (2603:10b6:806:24d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Tue, 13 Oct
- 2026 18:38:30 +0000
-Received: from BN3PEPF0000B36E.namprd21.prod.outlook.com
- (2603:10b6:208:2ba:cafe::1a) by BL1PR13CA0246.outlook.office365.com
- (2603:10b6:208:2ba::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Tue, 13
- Oct 2026 18:38:30 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF0000B36E.mail.protection.outlook.com (10.167.243.165) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.0 via Frontend Transport; Tue, 13 Oct 2026 18:38:29 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 13:38:24 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 13:38:23 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 13 Oct 2026 13:38:23 -0500
-Message-ID: <380059c1-de81-5b0d-7a63-1ce455edc956@amd.com>
-Date: Tue, 13 Oct 2026 11:38:23 -0700
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gAL0CW2i";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Adn4zYSW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791916882;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+79dBe7BXsqjXhOxqgwaqCIaKDkT92Pn+PV93QPrx1M=;
+	b=gAL0CW2igTOoUOOqplJNlsL1iQ/7oeZ2MgD7ZshhI0D2h5HhdqiW97+QB4QVmhSlkM8Vjd
+	99W7wMIZQKyLXMC8+8cd5MClO/vN3AH7wXVvGfEDH/QFth8aWA2jItTha9MgHALEbygstl
+	soVVrMy34GW23lQTDOkC6PaFqXrcYug=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-193-v8qC_SfkOICkY66_2xzH1w-1; Tue, 13 Oct 2026 18:41:21 +0000
+X-MC-Unique: v8qC_SfkOICkY66_2xzH1w-1
+X-Mimecast-MFC-AGG-ID: v8qC_SfkOICkY66_2xzH1w_1791916880
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-486f9d150c3so1967046f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:41:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791916880; x=1792521680; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+79dBe7BXsqjXhOxqgwaqCIaKDkT92Pn+PV93QPrx1M=;
+        b=Adn4zYSWCBa3xaTK1x9LiwJ7Z9IC+GPqGXG43Zemxw8GcALLxpG7TpQnmaqXZxaYJL
+         mZ77526aqSyMpGcYZ6va2s8635mBM4Mzp7W5uSkkWdp7Gi6s371bxHI2zLpycOUpy36D
+         tP9XVhhWADEiLo5vCZfzhDi/dF5uSmiw0JTfG5fapB+lpMomfPbAx4BwphHg2IWdHTZj
+         zFsylVp5q28cYiCwOEacxk8VS18sNEEFC3KPKigqDddeUbQy0d2ac7EbWNqAVyAkuITA
+         w35hI8Rw0/2HDKlAgjqRtKd3h9YDT2VaTrurC18X3jqP+U/uc721+YW2Mk2/ejsHNtYP
+         OVUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791916880; x=1792521680;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+79dBe7BXsqjXhOxqgwaqCIaKDkT92Pn+PV93QPrx1M=;
+        b=kXc3xektxoKS9tOL01psvxdu/R8mIVmTCslm/2EByFk3yPyB2flt6MMvqkHOXI9ni9
+         T72gfruuTKnx8cyqqZt6wf1OKpM5MINW/jcAvMFpkoV40++N8ruz7QamyCivbJuRuJgg
+         EqdKWeru5Dd9cDIu/chzG/k+bd5egw/WN4WcdxlvttfW39c3pL/rkAi0W5FeqmVihzAa
+         E3mzz93Vg60t2HRDRmKbUtPFm6nc/f5g8E7sD6eUP/0F5cQaXrsbHp2HVG54i8YE8r7g
+         6YAchhZ56SBMPSSe9RO2PaCXp7yCl9c1LLRU0W6YGEYygxxhwMwUu9DiVcAFyVwqFXLL
+         jaLg==
+X-Gm-Message-State: AFq9FYJiiT3Z38A7GWnD0IYsxgzVz6iHNEHsBUoCgN6RlNRixoHVsD+p
+	G/z4iOwQHnSjkV8pH5VURFWCJfAVz9zg6LpRV3o2g68VRtb1SUugQe+7PC0yY8f/Eb+pdkQtPW1
+	PPNWvrz/WZGwlGT61o8KTdTas+k7ElzSt8XTDFiZZp4YnJGgmt+pyCL4SYvIEW3XQyw==
+X-Gm-Gg: AYBFou2QXoaJTlUCSJFYEGb5hKBeEnycVSSZ2qiFF0P2wUTa2COlTyLZdbN/lKPLxNt
+	Tb5A3q3QpYIXnbqb9kyMbXK/iloOfrJbowyDAOw/RNq6PjCqc0hAwAfvzS6eYkB06QU7urVQPTB
+	4XJE5e8QbI00Y/DQ6y+r3vzTPiVzORJEhWcUj/HKHA3siOT1WU6a9lMdXVDqKZJ1/51G4PM1i6F
+	bzFpfzwemWvM3hUWAiLmkRVQN3gIlaaIOdEtNBAgdGwy2RLLSOcAWl3JITeyJ3Zh007yqGdeA4n
+	s6cbeC806L6fGijuqIdz5NF8BcWWv0vahQUe99yPL2R/b8yin8bEjnjOviEPVKEfRxZz2A==
+X-Received: by 2002:a05:6000:490a:b0:48c:490a:336b with SMTP id ffacd0b85a97d-48dba7bea0bmr24731937f8f.5.1791916880173;
+        Tue, 13 Oct 2026 11:41:20 -0700 (PDT)
+X-Received: by 2002:a05:6000:490a:b0:48c:490a:336b with SMTP id ffacd0b85a97d-48dba7bea0bmr24731878f8f.5.1791916879648;
+        Tue, 13 Oct 2026 11:41:19 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc506asm7057620f8f.47.2026.10.13.11.41.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 11:41:18 -0700 (PDT)
+Date: Tue, 13 Oct 2026 14:41:15 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Paulos Yibelo <habte.yibelo@gmail.com>,
+	Chris Arges <carges@cloudflare.com>
+Subject: Re: [PATCH net-next 0/4] more virtio-net csum hardening
+Message-ID: <20261013143716-mutt-send-email-mst@kernel.org>
+References: <cover.1791887415.git.mst@redhat.com>
+ <CAF=yD-JhTbmYmHUkkruPcyvSWv0QhVeGWC=K=ZvvpMdkzA-jig@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V4 11/19] accel/amdxdna: Decouple AIE4 doorbell and MSI-X
- notify transport hooks
-Content-Language: en-US
-To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
-	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>, Wendy Liang
-	<wendy.liang@amd.com>
-References: <yidong.zhang@amd.com>
- <20261009225343.3079074-1-yidong.zhang@amd.com>
- <20261009225343.3079074-12-yidong.zhang@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261009225343.3079074-12-yidong.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36E:EE_|SA1PR12MB6994:EE_
-X-MS-Office365-Filtering-Correlation-Id: b9fddbdb-202a-4b88-2a17-08df29592d61
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|36860700016|376014|6133799003|10067099003|18002099003|22082099003|261009223027099003|4143699003|11063799006|56012099006|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	xaJrGIEle9zj0GydulekyoKZlqKx42IgpetfhjdYV5aMS2+JxzihbnGaKVMsX2pJ6SMwhovPvSGPZG3ayE9vbpmjrk/SkYbI8Ugfk9K1W8JjfRqTNmuJbubr0Yky7Xb6JF3izysaKqm8HpzzoW3V2+woLW/J8tBy+tW+M2ehLjRPYnaG7tbyAL6TcyO9XPa57/Lmtbz1qrMjDwajAL3FWsvrP+IsK/9Mu3zTo6AymZ1a2r4VIxEU7qEt224+lNaRTJKME42UTiu3OQtA3/wJA51jCqTJBcnTcLbSVM439obaNYsVRoikcBrBFslOzfHbvuVaTNEIDrm8FbWkPwXrrnY7ijsvYuyYwCrC/xo2yBsBYQWskjDzrTI6IasEYiNVUk6kkv1DhFFvxY8PnPO58ianhtWU9AADXBLNZqSn55/2Xh+QeYObNLhgNKq4flLovBXqxZyCPq8GJHqk5m6qFTpFZquIKIkwfLBYdawYV0x9VtkrdKMA6MM8g6QJGvymhIxdqx06+VQi4/XP7KRmUXboB3l86vBjms4zSYZRMIYKAO03od0LGiSuaEZt+h+bKxZc7hmH1Z8gCDF50jbzQ8orKT67ch1Z02rCxCZUlGVJaXyxd7Vnr30+EQteS44A7fnxGVqj/vbW1CjbfEmItQjt+aQ+/ab5MnUPDOfiC2Pk3w/E7H/6jGvEtytGu5VMSearE4ClCvSgdUTZmMZc3w==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(376014)(6133799003)(10067099003)(18002099003)(22082099003)(261009223027099003)(4143699003)(11063799006)(56012099006)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	HXt3hzwJCulcJGz0GbXbsba96lt6L+B8Sr6AumyD0ipO5iCBlRcEn1svx52O8RNN1fFXFwKquQZ/F+ikZoXMtYRXlJUj8ab3rm0ateACcC+OJqfoxxVymRf99spRiUmPm9nfqAteL1bmdHhLjW7bNzdqGHMJFtCXdavRnEjLvA7emmuKgxG4BU9KN7SB8+TcT3vp8M9wmeNhVW/P4gtm6cUBbhx/42yA+tA9XgVON25/qVByFRI5hZeJWa3jDQVO8kQYdKDYF76u6WvZEqP299q4h6dOFmNUsKAozj7kWi59Ol29HRoQSIbqQwvBo1jJOWLfCJwrNbrxMxeaCJEMGaHtTEBPBPQ9VqboFvarWiLJZllWxu3+AlwhyB9fkHN+7rDlMx/aq4RYHIAWbGRYpnqhXe8KLhoxHcQuU25kprW2xCxJzRgHxJMwpDRas09/
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 18:38:29.9638
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9fddbdb-202a-4b88-2a17-08df29592d61
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B36E.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6994
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAF=yD-JhTbmYmHUkkruPcyvSWv0QhVeGWC=K=ZvvpMdkzA-jig@mail.gmail.com>
+
+On Tue, Oct 13, 2026 at 08:41:19AM -0600, Willem de Bruijn wrote:
+> On Tue, Oct 13, 2026 at 4:58 AM Michael S. Tsirkin <mst@redhat.com> wrote:
+> >
+> > Allowing untrusted hardware to specify csum start/offset for
+> > CHECKSUM_PARTIAL was not a good idea, because, if it edits the packet
+> > outside the actual checksum, and depending on the setup, the networking
+> > stack could be looking at the packet both before and after the edit, and
+> > seeing different results.
+> >
+> > Previously, commit 6785011f8b16 ("ipv4: validate checksum_start before
+> > completing checksum") validated all known instances where this
+> > causes the most grief, but the real fix is to make sure
+> > that either only actual checksum fields are ever edited,
+> > or the checksum is completed before the net stack looks at it,
+> > so it is always consistent.
+> 
+> +1 on the general approach of performing the checksum offload at
+> input, unless the input can easily be validated to be one of a few
+> common protocols. That greatly reduces the risk vs my previous attempt
+> at trying to drop.
+> 
+> Since we do not know the full extent of grief, I think this too should
+> go to net and stable.
+
+I think it needs a bit more testing to be frank, I do not see it
+wait months out of the tree. So if this lands in next before the
+merge window, we are good I think. If we miss that I will target net.
 
 
-On 10/9/26 15:53, David Zhang wrote:
-> Separate PCI-specific doorbell and interrupt notification handling from
-> the transport-neutral context code.
->
-> The new transport functions are wired in later patches in this series.
-> Doorbell ringing is not invoked until full context setup and BAR
-> validation are done, so no NULL dereference or BAR boundary bypass can
-> occur.
->
-> Co-developed-by: Wendy Liang <wendy.liang@amd.com>
-> Signed-off-by: Wendy Liang <wendy.liang@amd.com>
-> Signed-off-by: David Zhang <yidong.zhang@amd.com>
-> ---
->   drivers/accel/amdxdna/aie4_ctx.c    | 38 ++++++-----------
->   drivers/accel/amdxdna/aie4_pci.c    | 66 +++++++++++++++++++++++++++++
->   drivers/accel/amdxdna/aie4_pci.h    | 14 ++++++
->   drivers/accel/amdxdna/amdxdna_ctx.h |  2 +
->   4 files changed, 96 insertions(+), 24 deletions(-)
->
-> diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie4_ctx.c
-> index 5eb918e1d58c..20b725de6ab7 100644
-> --- a/drivers/accel/amdxdna/aie4_ctx.c
-> +++ b/drivers/accel/amdxdna/aie4_ctx.c
-> @@ -22,63 +22,52 @@
->   #include "amdxdna_mailbox_helper.h"
->   #include "amdxdna_pci_drv.h"
->   
-> -static irqreturn_t cert_comp_isr(int irq, void *p)
-> -{
-> -	struct cert_comp *cert_comp = p;
-> -
-> -	wake_up_all(&cert_comp->waitq);
-> -	return IRQ_HANDLED;
-> -}
-> -
->   static struct cert_comp *aie4_lookup_cert_comp(struct amdxdna_dev_hdl *ndev, u32 msix_idx)
->   {
->   	struct amdxdna_dev *xdna = ndev->aie.xdna;
-> -	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
->   	struct cert_comp *cert_comp;
->   	int ret;
->   
-> -	guard(mutex)(&ndev->cert_comp_lock);
-> -
-> +	mutex_lock(&ndev->cert_comp_lock);
->   	cert_comp = xa_load(&ndev->cert_comp_xa, msix_idx);
->   	if (cert_comp) {
->   		kref_get(&cert_comp->kref);
-> +		mutex_unlock(&ndev->cert_comp_lock);
->   		return cert_comp;
->   	}
->   
->   	cert_comp = kzalloc_obj(*cert_comp);
->   	if (!cert_comp)
-> -		return NULL;
-> +		goto unlock;
->   
->   	cert_comp->ndev = ndev;
->   	cert_comp->msix_idx = msix_idx;
-> +	cert_comp->irq = -ENOENT;
->   	init_waitqueue_head(&cert_comp->waitq);
->   	kref_init(&cert_comp->kref);
->   
-> -	ret = pci_irq_vector(pdev, cert_comp->msix_idx);
-> -	if (ret < 0) {
-> -		XDNA_ERR(xdna, "MSI-X idx %u is invalid, ret:%d", msix_idx, ret);
-> -		goto free_cert_comp;
-> -	}
-> -	cert_comp->irq = ret;
-> -
-> -	ret = request_irq(cert_comp->irq, cert_comp_isr, 0, "xdna_hsa", cert_comp);
-> +	/* Transport-specific: PCI wires an MSI-X irq, platform an IPI callback. */
-> +	ret = aie4_request_notification(cert_comp);
->   	if (ret) {
-> -		XDNA_ERR(xdna, "request irq %d failed %d", cert_comp->irq, ret);
-> +		XDNA_ERR(xdna, "request notification for msix idx %u failed %d", msix_idx, ret);
->   		goto free_cert_comp;
->   	}
->   
->   	ret = xa_err(xa_store(&ndev->cert_comp_xa, msix_idx, cert_comp, GFP_KERNEL));
->   	if (ret) {
-> -		XDNA_ERR(xdna, "store cert_comp for msix idx %d failed %d", msix_idx, ret);
-> +		XDNA_ERR(xdna, "store cert_comp for msix idx %u failed %d", msix_idx, ret);
->   		goto free_irq;
->   	}
-> +	mutex_unlock(&ndev->cert_comp_lock);
->   
->   	return cert_comp;
->   
->   free_irq:
-> -	free_irq(cert_comp->irq, cert_comp);
-> +	aie4_free_notification(cert_comp);
->   free_cert_comp:
->   	kfree(cert_comp);
-> +unlock:
-> +	mutex_unlock(&ndev->cert_comp_lock);
->   	return NULL;
->   }
->   
-> @@ -90,7 +79,7 @@ static void cert_comp_release(struct kref *kref)
->   	drm_WARN_ON(&ndev->aie.xdna->ddev, !mutex_is_locked(&ndev->cert_comp_lock));
->   
->   	xa_erase(&ndev->cert_comp_xa, cert_comp->msix_idx);
-> -	free_irq(cert_comp->irq, cert_comp);
-> +	aie4_free_notification(cert_comp);
->   	kfree(cert_comp);
->   }
->   
-> @@ -100,6 +89,7 @@ static void aie4_put_cert_comp(struct cert_comp *cert_comp)
->   
->   	ndev = cert_comp->ndev;
->   	guard(mutex)(&ndev->cert_comp_lock);
-> +
->   	kref_put(&cert_comp->kref, cert_comp_release);
->   }
->   
-> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-> index ffe78c0c4e8b..93594211c169 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.c
-> +++ b/drivers/accel/amdxdna/aie4_pci.c
-> @@ -14,6 +14,7 @@
->   
->   #include "aie.h"
->   #include "aie4_msg_priv.h"
-> +#include "amdxdna_ctx.h"
+> That would mean initially a single patch that
+> touches as few files as possible. The helper function in
+> include/linux/ip.h and conversion of existing open coded parsers to
+> use that can follow up later in net-next.
 
-Dictionary order please.
+I don't see the value to be frank.
+What moving code between files accomplishes, I donnu.
+Squashing things surely makes review harder?
+Does your backporting system really struggle with trivial
+dependencies like this?
 
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+I can drop patch 2 and will if I am targeting net.
 
->   #include "aie4_pci.h"
->   #include "amdxdna_error.h"
->   #include "amdxdna_mailbox.h"
-> @@ -112,6 +113,69 @@ static void aie4_mailbox_fini(struct amdxdna_dev_hdl *ndev)
->   	ndev->mbox = NULL;
->   }
->   
-> +static irqreturn_t cert_comp_isr(int irq, void *p)
-> +{
-> +	struct cert_comp *cert_comp = p;
-> +
-> +	wake_up_all(&cert_comp->waitq);
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +/* Wire per-cert completion notification interrupt. */
-> +int aie4_request_notification(struct cert_comp *comp)
-> +{
-> +	struct pci_dev *pdev = to_pci_dev(comp->ndev->aie.xdna->ddev.dev);
-> +	int ret;
-> +
-> +	ret = pci_irq_vector(pdev, comp->msix_idx);
-> +	if (ret < 0)
-> +		return ret;
-> +	comp->irq = ret;
-> +
-> +	ret = request_irq(comp->irq, cert_comp_isr, 0, "xdna_hsa", comp);
-> +	if (ret) {
-> +		comp->irq = -ENOENT;
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +/* Tear down per-cert completion notification interrupt. */
-> +void aie4_free_notification(struct cert_comp *comp)
-> +{
-> +	if (comp->irq >= 0)
-> +		free_irq(comp->irq, comp);
-> +}
-> +
-> +/* Validate and configure hardware context doorbell target. */
-> +int aie4_doorbell_setup(struct amdxdna_hwctx *hwctx,
-> +			const struct aie4_msg_create_hw_context_resp *resp)
-> +{
-> +	struct amdxdna_dev *xdna = hwctx->client->xdna;
-> +	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
-> +	struct amdxdna_hwctx_priv *priv = hwctx->priv;
-> +	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
-> +	u64 db_off = (u64)ndev->priv->doorbell_off + resp->doorbell_offset;
-> +
-> +	/* Validate doorbell offset against mapped BAR bounds. */
-> +	if (db_off + sizeof(u32) >
-> +	    pci_resource_len(pdev, xdna->dev_info->doorbell_bar)) {
-> +		XDNA_ERR(xdna, "doorbell offset 0x%llx out of BAR", db_off);
-> +		return -EINVAL;
-> +	}
-> +
-> +	priv->doorbell_addr = ndev->doorbell_base + ndev->priv->doorbell_off +
-> +			      resp->doorbell_offset;
-> +	return 0;
-> +}
-> +
-> +/* Ring context doorbell to notify CERT. */
-> +void aie4_doorbell_ring(struct amdxdna_hwctx *hwctx)
-> +{
-> +	writel(0, hwctx->priv->doorbell_addr);
-> +}
-> +
->   static int aie4_irq_init(struct amdxdna_dev *xdna)
->   {
->   	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
-> @@ -630,6 +694,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
->   		set_bit(SMU_REG_BAR(ndev, i), &bars);
->   	set_bit(xdna->dev_info->mbox_bar, &bars);
->   	set_bit(xdna->dev_info->sram_bar, &bars);
-> +	set_bit(xdna->dev_info->doorbell_bar, &bars);
->   
->   	for (i = 0; i < PCI_NUM_RESOURCES; i++) {
->   		if (!test_bit(i, &bars))
-> @@ -643,6 +708,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
->   
->   	ndev->mbox_base = tbl[xdna->dev_info->mbox_bar];
->   	ndev->rbuf_base = tbl[xdna->dev_info->sram_bar];
-> +	ndev->doorbell_base = tbl[xdna->dev_info->doorbell_bar];
->   
->   	pci_set_master(pdev);
->   
-> diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-> index 959ef3695813..9fcdfcc5a15f 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.h
-> +++ b/drivers/accel/amdxdna/aie4_pci.h
-> @@ -32,6 +32,8 @@ struct amdxdna_hwctx_priv {
->   
->   	struct cert_comp                *cert_comp;
->   	u32                             hw_ctx_id;
-> +
-> +	void                    __iomem *doorbell_addr;
->   };
->   
->   struct amdxdna_dev_priv {
-> @@ -54,6 +56,7 @@ struct amdxdna_dev_hdl {
->   	const struct amdxdna_dev_priv	*priv;
->   	void			__iomem *mbox_base;
->   	void			__iomem *rbuf_base;
-> +	void			__iomem *doorbell_base;
->   
->   	struct mailbox			*mbox;
->   	u32				partition_id;
-> @@ -111,6 +114,17 @@ int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
->   /* aie4_pci.c */
->   int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev);
->   
-> +/*
-> + * Transport hooks implemented by PCI backend. Doorbell hooks are wired during
-> + * kernel queue creation and command submission in later patches in the series.
-> + */
-> +struct aie4_msg_create_hw_context_resp;
-> +int aie4_doorbell_setup(struct amdxdna_hwctx *hwctx,
-> +			const struct aie4_msg_create_hw_context_resp *resp);
-> +void aie4_doorbell_ring(struct amdxdna_hwctx *hwctx);
-> +int aie4_request_notification(struct cert_comp *comp);
-> +void aie4_free_notification(struct cert_comp *comp);
-> +
->   /* aie4_sriov.c */
->   #if IS_ENABLED(CONFIG_PCI_IOV)
->   int aie4_sriov_configure(struct amdxdna_dev *xdna, int num_vfs);
-> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
-> index 6e78bab8a02c..9bbc3db4ebde 100644
-> --- a/drivers/accel/amdxdna/amdxdna_ctx.h
-> +++ b/drivers/accel/amdxdna/amdxdna_ctx.h
-> @@ -6,6 +6,8 @@
->   #ifndef _AMDXDNA_CTX_H_
->   #define _AMDXDNA_CTX_H_
->   
-> +#include <drm/amdxdna_accel.h>
-> +#include <drm/gpu_scheduler.h>
->   #include <linux/bitfield.h>
->   
->   #include "amdxdna_gem.h"
+> 
+> > This basically does this: checksum at ingress, except in a narrow list
+> > of specified known good cases.
+> >
+> > Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
+> >
+> > Michael S. Tsirkin (4):
+> >   net: add ip4_parse()
+> >   net: use ip4_parse() in receive validation
+> >   net: resolve uncommon partial checksums at ingress
+> >   net: account for ingress-resolved virtio net hdr state
+
