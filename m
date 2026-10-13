@@ -1,207 +1,144 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-145.mta0.migadu.com [91.218.175.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7959C503BE0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D07503BEF
 	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:12:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897138; cv=none; b=ud6Nu5FIsf66r/YKply96UxkkFYZBYH4TtMY7n39BOYcpZKEpN29S4chhnfBh2qQuXFXohNHbxgmsY9HrqZI6t48nbRWlczgcijlOFyHj+/FNLay83IaWebi4KXYLNTLg+zt940At07N2DJzxi4ICGDtqSg1aqmHBNzDhNLO7kM=
+	t=1791897139; cv=none; b=T02bKv/ComWZu18Gh9eKTQurW1337CV2E6vPIQ+rjPwj1fksqN7/TIiu1e/96c7kByc89Ho2+kgFNeV/5S3p1/Tf7As6efBvv1BorKjzHN1D/KOs6ynGyeLgGSWIbV/KRphfm7NwoxfesOeIBWqXEIGfGAap09JxSHM0+B0Hy4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897138; c=relaxed/simple;
-	bh=5x14rDZiKAxjzKsnDDPAXPPhr/ToYYua7H1ItZnDQdE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aHprF1cTlml5rgbeJkj+0SKlM8zHIjhmAvlJ2Q/lUoHaN/fhpK1DqOZzqUAp8LEcI/L8O8PMO4RWW2CKg2cd0ASUAbHCvO+ULm9itEKkX+I69t+ELnsaT+jhcLykoUw5yQoAQtiYeI0sBqQTlJHkWGhTuON/JBmmhUTMLobVrR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HC30TMnU; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791897139; c=relaxed/simple;
+	bh=GxGoMm4vBKXboCWqEywkB1ImT232d0kryycTPDywOvA=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=ngsGkpI2I5vAjgBlUOsn20M063afPN2JSaCNuV5fo/vInYFBm1uPHUV2DUPzOQKbIn6wZutDj20aHA16iOT2JUfR3McFyxzTfmbC1MHEahmgnbFvYrLFzTMnux93rxtvRqdm8Tqbq4Wv7kSeruy0DApHhYiS141py5PgS+2yCfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kzZB8/lw; arc=none smtp.client-ip=91.218.175.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HC30TMnU"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 0D3241A1215;
-	Tue, 13 Oct 2026 13:12:15 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CF61860362;
-	Tue, 13 Oct 2026 13:12:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8E02011D7138D;
-	Tue, 13 Oct 2026 15:12:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791897129; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=qQ91gEJAKSZYwEa3WTTUDzr/HJEI2FokHI516fr32vo=;
-	b=HC30TMnU0DancdWQvEJ1VqQLhqNyyKCzj+VKgguiYJY9fjOg859GGUkjjuBpLFLPnknVoa
-	4pQolO3mY4Dr17coa1GoKtAwAdBx7CAi2myopcncbjxIfx35MJGsGkcdGlmgvD0tpRegsW
-	jz3LUDOeqxWVVSEMsw//gxlesrXQnHpNLZduFjvSSQiAlPQf+n30b9QA7sPtU/FtVgf9ig
-	SvRfrHOWAS9QYjSsP4ZQRUeGzHFkA29X5c3yTJYSY9Ut0NW89OiO09X0I5WOEyyEWQ0fPl
-	5LVtLcdrlXmESpbBh82gOyg4Iou+upOZ8r5V+WGU/+0Z1Wqnx85j+0watL6+hA==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Tue, 13 Oct 2026 15:11:28 +0200
-Subject: [PATCH v8 02/20] crypto: talitos - Move driver into dedicated
- directory
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kzZB8/lw"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=GxGoMm4vBKXboCWqEywkB1ImT232d0kryycTPDywOvA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791897134; v=1; x=1792501934;
+ b=kzZB8/lwMeNbLUdjZV8TbLFvLtF/o6EeW3PgDCK1gNj1AtCu4JTADoRJAj7+NAEiWAI1SD+I
+ ZB98d8xRPaNVKGRWOmr/TuRrhhwIgwtPKyDbYQJCvk5cmojxhNPFHD1mKBrWB1SORqZKqVI9Xnz
+ ZT353KTwb/kXSmHdCxkGwcxk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 66a73f73837eb63b;
+	Tue, 13 Oct 2026 13:12:14 +0000
+X-Mizu-Trace-ID: 66a73f73837eb63b
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 13 Oct 2026 16:12:04 +0300
+From: Denis Benato <denis.benato@linux.dev>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: Ahmed Yaseen <yaseen@ghoul.dev>, Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Antheas Kapenekakis <lkml@antheas.dev>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Kerim Kabirov <the.privat33r+linux@pm.me>,
+	GameBurrow <gameburrow@pm.me>, regressions@lists.linux.dev,
+	linux-usb@vger.kernel.org, linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Message-ID: <2f85200c-ecc3-4318-9156-16ace09cac7f@linux.dev>
+In-Reply-To: <fe51a4ac-540f-4d14-ba76-b69b0eb17164@leemhuis.info>
+References: <20260828104159.62399-1-yaseen@ghoul.dev> <20260828104159.62399-2-yaseen@ghoul.dev> <fe51a4ac-540f-4d14-ba76-b69b0eb17164@leemhuis.info>
+Subject: Re: [PATCH v2] HID: usbhid: skip interrupt IN polling for devices
+ with no input reports
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-7-3-rc2_talitos_cleanup-v8-2-ca02be17696b@bootlin.com>
-References: <20261013-7-3-rc2_talitos_cleanup-v8-0-ca02be17696b@bootlin.com>
-In-Reply-To: <20261013-7-3-rc2_talitos_cleanup-v8-0-ca02be17696b@bootlin.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>
-Cc: Paul Louvel <paul.louvel@bootlin.com>, linux-crypto@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Christophe Leroy <chleroy@kernel.org>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791897108; l=4919;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=5x14rDZiKAxjzKsnDDPAXPPhr/ToYYua7H1ItZnDQdE=;
- b=ze3ebSspSEKEOyOj0bWqirxzTKnGI/TZYORsFerkBxkwEGeOnHvk2GoxwXUVlYiAt66bhUkS9
- o+4WFbER4foBzTEZVksKHteDWOLrvEyFzMErpSTMAa8hLsjhS5GjfzG
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Correlation-ID: <2f85200c-ecc3-4318-9156-16ace09cac7f@linux.dev>
 
-Move the talitos driver files from drivers/crypto/ into
-drivers/crypto/talitos/ to accommodate upcoming code
-reorganization.
+13 ott 2026 15:55:33 Thorsten Leemhuis <regressions@leemhuis.info>:
 
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
----
- drivers/crypto/Kconfig                             | 38 +---------------------
- drivers/crypto/Makefile                            |  2 +-
- drivers/crypto/talitos/Kconfig                     | 36 ++++++++++++++++++++
- drivers/crypto/talitos/Makefile                    |  3 ++
- .../crypto/{talitos.c => talitos/talitos-core.c}   |  0
- drivers/crypto/{ => talitos}/talitos.h             |  0
- 6 files changed, 41 insertions(+), 38 deletions(-)
+> On 8/28/26 12:42, Ahmed Yaseen wrote:
+>> usbhid starts polling a device's interrupt IN endpoint on open
+>> (usbhid_open() -> hid_start_in()). If the report descriptor declares no
+>> input reports there is nothing to read there, so the poll is useless,
+>> and on some composite devices it is also harmful.
+>>
+>> The ASUS ROG N-Key keyboards expose a second, input-less interface used
+>> only for RGB control via feature reports. Opening its hidraw node (any
+>> hidraw reader does, including SDL/Steam Input or a plain cat) starts the
+>> pointless IN poll and keypress reports on the keyboard interface get
+>> dropped for as long as the node stays open: a lost key-down drops a
+>> letter, a lost key-up leaves the key stuck. usbmon shows the dropped
+>> reports never reach the URB layer.
+>>
+>> The useless poll itself is long-standing; commit 4ac74ea68f64 ("HID:
+>> asus: early return for ROG devices") is what exposes it on these
+>> devices by keeping the input-less interface alive instead of ejecting
+>> it, so its hidraw node can be opened and the poll started.
+>
+> Hmmm, what's the status here? Ahmed, is this still needed, or was this
+> fixed in some other way? From the the outside it looks a lot like this
+> regression fix feel through the cracks, but would be good to get into
+> 7.4-rc1 to finally fix the dropped keypress reports.
+>
 
-diff --git a/drivers/crypto/Kconfig b/drivers/crypto/Kconfig
-index 0189dfdcbbe1..13f09805851c 100644
---- a/drivers/crypto/Kconfig
-+++ b/drivers/crypto/Kconfig
-@@ -253,43 +253,7 @@ config CRYPTO_DEV_HIFN_795X_RNG
- 	  on the HIFN 795x crypto adapters.
- 
- source "drivers/crypto/caam/Kconfig"
--
--config CRYPTO_DEV_TALITOS
--	tristate "Talitos Freescale Security Engine (SEC)"
--	select CRYPTO_AEAD
--	select CRYPTO_AUTHENC
--	select CRYPTO_SKCIPHER
--	select CRYPTO_HASH
--	select CRYPTO_LIB_DES
--	select HW_RANDOM
--	depends on FSL_SOC
--	help
--	  Say 'Y' here to use the Freescale Security Engine (SEC)
--	  to offload cryptographic algorithm computation.
--
--	  The Freescale SEC is present on PowerQUICC 'E' processors, such
--	  as the MPC8349E and MPC8548E.
--
--	  To compile this driver as a module, choose M here: the module
--	  will be called talitos.
--
--config CRYPTO_DEV_TALITOS1
--	bool "SEC1 (SEC 1.0 and SEC Lite 1.2)"
--	depends on CRYPTO_DEV_TALITOS
--	depends on PPC_8xx || PPC_82xx
--	default y
--	help
--	  Say 'Y' here to use the Freescale Security Engine (SEC) version 1.0
--	  found on MPC82xx or the Freescale Security Engine (SEC Lite)
--	  version 1.2 found on MPC8xx
--
--config CRYPTO_DEV_TALITOS2
--	bool "SEC2+ (SEC version 2.0 or upper)"
--	depends on CRYPTO_DEV_TALITOS
--	default y if !PPC_8xx
--	help
--	  Say 'Y' here to use the Freescale Security Engine (SEC)
--	  version 2 and following as found on MPC83xx, MPC85xx, etc ...
-+source "drivers/crypto/talitos/Kconfig"
- 
- config CRYPTO_DEV_PPC4XX
- 	tristate "Driver AMCC PPC4xx crypto accelerator"
-diff --git a/drivers/crypto/Makefile b/drivers/crypto/Makefile
-index 2c33b83f3cfa..e9522e94c20d 100644
---- a/drivers/crypto/Makefile
-+++ b/drivers/crypto/Makefile
-@@ -33,7 +33,7 @@ obj-$(CONFIG_CRYPTO_DEV_SA2UL) += sa2ul.o
- obj-$(CONFIG_CRYPTO_DEV_SAHARA) += sahara.o
- obj-$(CONFIG_CRYPTO_DEV_SL3516) += gemini/
- obj-y += stm32/
--obj-$(CONFIG_CRYPTO_DEV_TALITOS) += talitos.o
-+obj-$(CONFIG_CRYPTO_DEV_TALITOS) += talitos/
- obj-$(CONFIG_CRYPTO_DEV_TEGRA) += tegra/
- obj-$(CONFIG_CRYPTO_DEV_VIRTIO) += virtio/
- obj-$(CONFIG_CRYPTO_DEV_BCM_SPU) += bcm/
-diff --git a/drivers/crypto/talitos/Kconfig b/drivers/crypto/talitos/Kconfig
-new file mode 100644
-index 000000000000..c3470553a966
---- /dev/null
-+++ b/drivers/crypto/talitos/Kconfig
-@@ -0,0 +1,36 @@
-+config CRYPTO_DEV_TALITOS
-+	tristate "Talitos Freescale Security Engine (SEC)"
-+	select CRYPTO_AEAD
-+	select CRYPTO_AUTHENC
-+	select CRYPTO_SKCIPHER
-+	select CRYPTO_HASH
-+	select CRYPTO_LIB_DES
-+	select HW_RANDOM
-+	depends on FSL_SOC
-+	help
-+	  Say 'Y' here to use the Freescale Security Engine (SEC)
-+	  to offload cryptographic algorithm computation.
-+
-+	  The Freescale SEC is present on PowerQUICC 'E' processors, such
-+	  as the MPC8349E and MPC8548E.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called talitos.
-+
-+config CRYPTO_DEV_TALITOS1
-+	bool "SEC1 (SEC 1.0 and SEC Lite 1.2)"
-+	depends on CRYPTO_DEV_TALITOS
-+	depends on PPC_8xx || PPC_82xx
-+	default y
-+	help
-+	  Say 'Y' here to use the Freescale Security Engine (SEC) version 1.0
-+	  found on MPC82xx or the Freescale Security Engine (SEC Lite)
-+	  version 1.2 found on MPC8xx
-+
-+config CRYPTO_DEV_TALITOS2
-+	bool "SEC2+ (SEC version 2.0 or upper)"
-+	depends on CRYPTO_DEV_TALITOS
-+	default y if !PPC_8xx
-+	help
-+	  Say 'Y' here to use the Freescale Security Engine (SEC)
-+	  version 2 and following as found on MPC83xx, MPC85xx, etc ...
-diff --git a/drivers/crypto/talitos/Makefile b/drivers/crypto/talitos/Makefile
-new file mode 100644
-index 000000000000..98456167fe73
---- /dev/null
-+++ b/drivers/crypto/talitos/Makefile
-@@ -0,0 +1,3 @@
-+obj-$(CONFIG_CRYPTO_DEV_TALITOS) += talitos.o
-+
-+talitos-y += talitos-core.o
-diff --git a/drivers/crypto/talitos.c b/drivers/crypto/talitos/talitos-core.c
-similarity index 100%
-rename from drivers/crypto/talitos.c
-rename to drivers/crypto/talitos/talitos-core.c
-diff --git a/drivers/crypto/talitos.h b/drivers/crypto/talitos/talitos.h
-similarity index 100%
-rename from drivers/crypto/talitos.h
-rename to drivers/crypto/talitos/talitos.h
+Hi Thorsten,
 
--- 
-2.56.0
+This is very much needed and we had to include it in OGC kernel to avoid hi=
+d devices resetting constantly.
+
+It is a very important fix and we are waiting for inclusion upstream becaus=
+e games becomes flat out unplayable with certain combination of tools.
+
+Best regards,
+Denis Benato
+
+> Ciao, Thorsten
+>> Skip the poll in usbhid_open() when the device has no input reports.
+>> Feature reports and hidraw output keep working over the control and OUT
+>> endpoints, so the interface is otherwise unaffected.
+>>
+>> Fixes: 4ac74ea68f64 ("HID: asus: early return for ROG devices")
+>> Link: https://discuss.cachyos.org/t/keyboard-input-issues-on-asus-rog-st=
+rix-16-2025-with-cachyos-during-gaming/30823
+>> Link: https://github.com/ublue-os/bazzite/issues/4590
+>> Cc: stable@vger.kernel.org
+>> Tested-by: Kerim Kabirov <the.privat33r+linux@pm.me>
+>> Tested-by: GameBurrow <gameburrow@pm.me>
+>> Signed-off-by: Ahmed Yaseen <yaseen@ghoul.dev>
+>> Reviewed-by: Denis Benato <denis.benato@linux.dev>
+>> ---
+>> drivers/hid/usbhid/hid-core.c | 9 ++++++++-
+>> 1 file changed, 8 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/hid/usbhid/hid-core.c b/drivers/hid/usbhid/hid-core=
+.c
+>> index 96b0181cf819..d7cf2b56e117 100644
+>> --- a/drivers/hid/usbhid/hid-core.c
+>> +++ b/drivers/hid/usbhid/hid-core.c
+>> @@ -688,7 +688,14 @@ static int usbhid_open(struct hid_device *hid)
+>>
+>> =C2=A0=C2=A0=C2=A0 set_bit(HID_OPENED, &usbhid->iofl);
+>>
+>> -=C2=A0=C2=A0 if (hid->quirks & HID_QUIRK_ALWAYS_POLL) {
+>> +=C2=A0=C2=A0 /*
+>> +=C2=A0=C2=A0=C2=A0 * ALWAYS_POLL devices are already polled from usbhid=
+_start(), and a
+>> +=C2=A0=C2=A0=C2=A0 * device with no input reports has nothing to send o=
+n the interrupt
+>> +=C2=A0=C2=A0=C2=A0 * IN endpoint. In some cases polling is harmful: on =
+the ASUS ROG
+>> +=C2=A0=C2=A0=C2=A0 * N-Key keyboards it makes the sibling interface dro=
+p keypresses.
+>> +=C2=A0=C2=A0=C2=A0 */
+>> +=C2=A0=C2=A0 if ((hid->quirks & HID_QUIRK_ALWAYS_POLL) ||
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 list_empty(&hid->report_enum[HID_I=
+NPUT_REPORT].report_list)) {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 res =3D 0;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto Done;
+>> =C2=A0=C2=A0=C2=A0 }
+>>
+>> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
 
