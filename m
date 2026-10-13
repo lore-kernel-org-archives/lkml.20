@@ -1,84 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7941A34041B;
-	Tue, 13 Oct 2026 13:39:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 929D44FC8F7;
+	Tue, 13 Oct 2026 13:39:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898769; cv=none; b=Vwsmt7cTgpN6R/UD608a8br3UTppQIXo+Sx2prcSzU7bWGGijaVWANVfG0U/nxy5h4FoIxwwDwl75P8/eBVDVldlwab17BhxYLAgdsoRNozph8qrJLkIGQUp9ivt3fJI/uHQLNzGMbQMzHDhVsEhlG/I7D4Alus5sS4RKiDG1V8=
+	t=1791898777; cv=none; b=ipWm/+a8pawC62gcMXUGKr4UijTws/5qKqRPkxMFEw++gozsVqkOQR1mMvghoLg9T811xnexrRtt9iVFnA0rAJ+w84ZZq2ZE/RacABt709iX1Ne+X0UkAdC4b12GbBvWN0LWZ2sOv8mUc25OIUXiqCU7pfGjXCXBxfwqEzqi8Ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898769; c=relaxed/simple;
-	bh=9tnJK+2NFm1yv3PI7xsxRgp6js0QhgsLFeVB9gRharc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T44c7QXLPKwgZC83PdDrM2lo3CCAKt3cIo8m/lMv5Mg4q0sSlvGpzY+WuclC1s48fOBHmCSVybA9Y9lLpjr64GmWeh14V06kunjNOdx+tKWnc4X5oIdWveMEJE2Mqd/EENzJlVB3/9G5dvXi5FrC5te2lwHufpMpu6Qyvjbu6dA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oLYydJqR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791898777; c=relaxed/simple;
+	bh=2WZGIqEbldNKhXLHKAuCMhGNUX/RELV4QSiH5d6ZLE8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=B43oMzDB86cgGB+RyHxPb7ob80yFpgYJJ3eW04hdQ7yWc9O+ieOtL9fWh3fejfkj87A48oR96kEJ1HC7m7qZ12j/ftntQSXuMA8CtduOZnc2vBWU3jAzjbmxTbXY/4VpsEjB4VYcetvZH3ks2j4vux4o5v0nQTJb6zysOd9eDJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dg01ATRD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oLYydJqR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 743DF1F000FF;
-	Tue, 13 Oct 2026 13:39:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791898768;
-	bh=P59KkAzU1D8sfVvMRGRgZVlKjGsZSJgyZFlyymM0Qiw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oLYydJqRSwapEIsZTJ2NQfs32OXtnK/Xd2R/7VtWu9jmJqRxB4RfUMy9cWwQq1YrK
-	 dVt5Pa/Fks7DYA/Dkr9ePeZwa9daE6xFumNVYkENRtvNwdVReW5LWsoGapa4d4hzaa
-	 sUNsPib1qd64URLlSlX3+A2gwqv3y0LUwyakwp4A=
-Date: Tue, 13 Oct 2026 15:39:33 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Tymofiy Zakharchuk <timofey.zakharchuk.research@gmail.com>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Ahmet Sezgin Duran <ahmet@sezginduran.net>
-Subject: Re: [PATCH v2] staging: sm750fb: fix resource leaks on probe error
-Message-ID: <2026101326-pectin-decent-7407@gregkh>
-References: <20261003175055.1511-1-timofey.zakharchuk.research@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dg01ATRD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78FEF1F000FF;
+	Tue, 13 Oct 2026 13:39:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791898776;
+	bh=uwDMgIaomJD8m439CAgoY3FZDR+usALINXr9CkGDmlA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=dg01ATRD9kqp3Q8jqcc7Thw9V0pItC95JSWKB9Uk2fSEnSn4Z6GOG9MYscI4pbxy/
+	 fhqnL198U3Rm5prcjKSxXbs19N0LE4RJjcH+3SSXUeb2ogfmgtwK2qjYNxV/AA7tSX
+	 3oU/86v7Rues+MpQwsAKEO0HRKRFpXLh9u6S+ea6zXdRCo+JNaBbIeLVDpUEnAqjqW
+	 nbaf5PjgGwSLz+5YELt2Ic74Oh97b88dV96rye5k5pkvXvGhH+ZFeX2Td1XHGaSUOX
+	 Vk6PPyz6tfZGzSHkpXS6Wf7PvD0dh5+CBL3KmlyTeyEt+lMlQHIKdTO1FYE2VOZH8v
+	 YpSCXX12WyGIw==
+Date: Tue, 13 Oct 2026 15:38:33 +0200 (CEST)
+From: Imre Kaloz <kaloz@kernel.org>
+To: Damien Le Moal <dlemoal@kernel.org>
+cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+    linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    Lee Jones <lee@kernel.org>, Niklas Cassel <cassel@kernel.org>, 
+    linux-ide@vger.kernel.org
+Subject: Re: [PATCH v2 47/53] MAINTAINERS: add an entry for the SGI IOC4 ATA
+ driver
+In-Reply-To: <abe9654f-c81d-427a-97ec-a9c4d4e18f74@kernel.org>
+Message-ID: <70b2e9c4-0b8a-1b73-1690-e9c31fbe080d@kernel.org>
+References: <cover.1791890466.git.kaloz@kernel.org> <7e185e14e16f071b0850087e30f6cac4af85b1f1.1791890466.git.kaloz@kernel.org> <abe9654f-c81d-427a-97ec-a9c4d4e18f74@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261003175055.1511-1-timofey.zakharchuk.research@gmail.com>
+Content-Type: multipart/mixed; boundary="8323329-44373446-1791898716=:27186"
 
-On Sat, Oct 03, 2026 at 08:50:55PM +0300, Tymofiy Zakharchuk wrote:
-> If sm750fb_framebuffer_alloc() fails during lynxfb_pci_probe(), only
-> the framebuffer structures are released. The write-combining MTRR,
-> the MMIO and VRAM mappings, and PCI region 1 remain allocated.
-> 
-> Call arch_phys_wc_del(), iounmap(), and pci_release_region() on the
-> release_fb error exit path to prevent leaking resources.
-> 
-> Signed-off-by: Tymofiy Zakharchuk <timofey.zakharchuk.research@gmail.com>
-> ---
-> v2:
->  - Fix From and Signed-off-by email mismatch.
-> 
->  drivers/staging/sm750fb/sm750.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-> index 8b93bfeb2..456b3da86 100644
-> --- a/drivers/staging/sm750fb/sm750.c
-> +++ b/drivers/staging/sm750fb/sm750.c
-> @@ -1023,6 +1023,10 @@ static int lynxfb_pci_probe(struct pci_dev *pdev,
->  
->  release_fb:
->  	sm750fb_framebuffer_release(sm750_dev);
-> +	arch_phys_wc_del(sm750_dev->mtrr.vram);
-> +	iounmap(sm750_dev->vmem);
-> +	iounmap(sm750_dev->mmio);
-> +	pci_release_region(pdev, 1);
->  	return err;
->  }
->  
-> -- 
-> 2.53.0.windows.1
-> 
-> 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-How was this found and tested?
+--8323329-44373446-1791898716=:27186
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8BIT
 
-thanks,
+Hi Damien,
 
-greg k-h
+On Tue, 13 Oct 2026, Damien Le Moal wrote:
+
+> On 2026/10/13 15:17, Imre Kaloz wrote:
+>> Add an entry for drivers/ata/pata_sgiioc4.c, the libata driver for the
+>> IOC4 ATA/ATAPI controller.
+>>
+>> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+>> ---
+>>  MAINTAINERS | 6 ++++++
+>>  1 file changed, 6 insertions(+)
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index a30c09a55c72..826f0ffb71fd 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -24925,6 +24925,12 @@ F:	include/linux/phylink.h
+>>  F:	include/linux/sfp.h
+>>  K:	phylink\.h|struct\s+phylink|\.phylink|>phylink_|phylink_(autoneg|clear|connect|create|destroy|disconnect|ethtool|helper|mac|mii|of|set|start|stop|test|validate)
+>>
+>> +SGI IOC4 ATA DRIVER
+>> +M:	Imre Kaloz <kaloz@kernel.org>
+>> +L:	linux-ide@vger.kernel.org
+>> +S:	Maintained
+>> +F:	drivers/ata/pata_sgiioc4.c
+>> +
+>>  SHARED MEMORY COMMUNICATIONS (SMC) SOCKETS
+>>  M:	D. Wythe <alibuda@linux.alibaba.com>
+>>  M:	Dust Li <dust.li@linux.alibaba.com>
+>
+> Please squash this into patch 45.
+>
+> Also, the cover letter mentions that patch 45-47 are for libata but I did not
+> receive patch 46. I only received the cover letter, and patches 45 and 47.
+>
+> Are you planning to get all of this merged through the mips tree?
+
+Will squash 47 into 45 in v3.
+
+Sorry about 46: it only touches drivers/mfd/ioc3.c and 
+arch/mips/include/asm/sn/ioc4.h, so get_maintainer left linux-ide off it. 
+It adds the IOC4 ATA/ATAPI MFD cell that pata_sgiioc4 binds to:
+https://lore.kernel.org/all/754bae380c938b63eeaa87e3dccf9755314675ed.1791890466.git.kaloz@kernel.org/
+v3 will copy you and linux-ide on it.
+
+As for merging: pata_sgiioc4 depends on the IOC4 support added earlier in 
+the series (asm/sn/ioc4.h and the MFD cell), so I’d like it to go through 
+the MIPS tree with your ack, if that works for you.
+
+
+Best,
+Imre
+--8323329-44373446-1791898716=:27186--
