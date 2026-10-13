@@ -1,146 +1,196 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF1A05013A9;
-	Tue, 13 Oct 2026 12:02:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8975013B0
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:02:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892946; cv=none; b=TQKXCCJyMKRTjciqLQDaQ+3ynYuhdVE1wD9kb3IMRfwKknsZjptM+LRjH2S8Gn7pU6px0hbbrA5gXH2h9+Kkk3MqkJG+zLfOGDZDtdZRwim+4t1YfDenG0WBcDmin7IcN00iuM5igZ2Yo4Em5FzAVpnirpt41TCfomVFXRXc4oo=
+	t=1791892946; cv=none; b=Frx97DEr+U1ACAm0gbIR9/DXwmeBVcV0dvzW9r9MZTMygJOuDzvlvWIH/nJ+aNftlOJvO+jyuYYcU68H19yRxqbZ86kiACtsaqC8qI3+kR6BRNqo9ZpbXYRHt70u3P/+cdyibB8MP/COJMAk53Ka1+RwyoLGoiDR5zMBtWkGYIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791892946; c=relaxed/simple;
-	bh=QdGkPhAC1/6m5HyQ1tu625R5X6M3d1tzcI9w9kA8Cbw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PSFAp/R5yqm2Qdodzy0gRg02FIBGKa8U28wrVcnJyE4XfhHUwmCaEc3G7ynjCiQn2L0zCRk56jlW0atLiGN/EX7TyRU6H7mJp074UEibIxhNk3UTX82MLztlEV/DJkqXpxwWzSqbvGGmt5O6YBAmleNPTDUMZdrWBHZeT4R9LOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=yK29tfkY; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	bh=0R5ddN7n89dg+x7544FOxMDxwDP8wBf6/r5AsNc+Bh4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qGKeWRYvArgyEK68VlZSRXa8LHEBQzFd5iuQ2Hs7NYOcwu3oULsnTDtQual7nk+Y3QPs2PMXwC+Q+agUO3YQxCAUrpZD9yTIUVEeAXPRxk9NAUylsKyydNG4VVkyMdfYILCx/LmrlIl8W4fgf1Os+NFdPpHWtL3OFAgb2SYoojI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org; spf=fail smtp.mailfrom=beagleboard.org; dkim=pass (2048-bit key) header.d=beagleboard.org header.i=@beagleboard.org header.b=cfiEFcf6; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=beagleboard.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="yK29tfkY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1791892941;
-	bh=sMgJshZ5hw4sD5fYhOQLtNjG0zanLqPAEfZRG+FnFYQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=yK29tfkYLyEgf2odEJ7NSdt+DlcEF5Xs9eE9cjumvfGRHKDxeEqROVEPPVHPx1760
-	 dJTusL+jCcsdrEkdnXhNOVFjKhjJKl7n/V/OY4m9DBB+PYAJFbvNCl7RWgpjZqdptA
-	 PVB2EtvM066L9Mt1MnkKsd96tbd6zs6rAwcTSb9/h0ObrY30Ha5eo60M0qTPQHz4DZ
-	 fB+5SaORffiW0yOgYJVL48f3p58dmJopGEwfCxoOu6dcN29CJ3FNtrJdZNc6m6UV1W
-	 TM1dIoW8yrEcGzWreyk9y7V+WxZileGuRA5CsAiH8vA8jN2wGvReAL4h9DDUfCQpMI
-	 /irvJi/br4tNA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4j3tHZ5Tzwz4xgV;
-	Tue, 13 Oct 2026 23:02:18 +1100 (AEDT)
-From: Matt Evans <matt@ozlabs.org>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Zack Rusin <zack.rusin@broadcom.com>,
-	Zhenyu Wang <zhenyuw.linux@gmail.com>,
-	Zhi Wang <zhi.wang.linux@gmail.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: intel-gfx@lists.freedesktop.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org,
-	Alex Mastro <amastro@fb.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>
-Subject: [PATCH v3 0/3] dma-buf: dmabuf->file release-time cleanup
-Date: Tue, 13 Oct 2026 13:02:03 +0100
-Message-ID: <20261013120211.135807-1-matt@ozlabs.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=beagleboard.org header.i=@beagleboard.org header.b="cfiEFcf6"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ab3260b2cdso1177239a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:02:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=beagleboard.org; s=google; t=1791892944; x=1792497744; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=55nPjM0xedSIf0as5eFt+yzcpnY6wzuMrDbZRxbRXZE=;
+        b=cfiEFcf6pWwBcVbKPSiACsvoD1k8PX+9f3mPcaGkGi2dsWz+OPbbhmU2Qds9P0r43F
+         ACAv5Fio9KHSq14F7H4PSRSzmQ1MZT14dSrcVzPu3QuFFtQwfa8NGHfNJ90BBiAkoqiJ
+         wOe7KshMsUkOeg384H5Ujtf4QmvZ9If9EO4dVFxMqdeE8Jfof3j8c87qtL+hM6w1Uib/
+         KrV63aNrOIaZr/tsZQ7ukulXOwQpWTZ846O0FTYAb5tuAGdXr2RjF5K3ujzKy0GpQg9h
+         mO2K/sFekAkaK43VRQkBcwpOxrXEcrpvkXZyOVoxoCAzPGekFucLbpQs54pri+cD+gG6
+         fWIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791892944; x=1792497744;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=55nPjM0xedSIf0as5eFt+yzcpnY6wzuMrDbZRxbRXZE=;
+        b=Yr3l9X/VlLXSLP3o2ByuiYAphtWyJG5aOBAw/9cqij6CGPTlyZucFVN4PhiM0r27SW
+         EQ36qBRfy8WBCcK84cKHIFE5r32rx5wD8TYU//n7ggbvMcnix0vboPOFAJQL8B+6Xw5e
+         fZ0ELMNeUp8qaiaNXa7+Gl8jfwa32bmfk7CFMrE4Sz48f+RojtXYQQOsCskheJSMozyV
+         ZkZHCnoa4d/6shTGK8eS5GBIYRYlaacyjFgcoOYnBNWOOiiCZYC7Gefql40pdsTs6RBt
+         N4psgPQEw+0/KuLol+SXV22GcowVWAh9BoHfiuFB7zVYLRjjA6W8tqRTBFG+C0sMstRY
+         iqXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxK+OB7AP60GYDpVWzxxfCdHQmKpzJiPXGT6nHvtFXRitUB2p1GdGa7bbqkOj80lpleXojZMPoVzGKXyxA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJs1FXZIxuNI5M0Quhs9m+SB7rl3W6ei43ijHBmeaPppT1ziJv
+	J7oJivLlPhGk+6p9X1Q6Ey0Np9SXK4pUFiICrwJOkzI0L/GkdswWwASA7FTWQLKD4g==
+X-Gm-Gg: AYBFou2Z2FoQciwPhm14QEU0G1KZ/2EGLNhF8WJNByRgdRz+YmKtTYgljHLcjl5KC0w
+	7ladS7a3C3dA3/hWVR5Gwv52yPxToJqPYZHQKoJmJtzeKaUp8G6C45UPqneALo8JYCNyXgDOQVA
+	aM2rv1n8m1DJqNUItHCMZHtPHh8ssksZ1akCbFr4GJpavWfWFdDnhZcMCNXnAetlkEK2gBnaqXb
+	TexJiO4NC5lgMAinAScxF6Zh+haZcTrZAnn07gjSGUH3qfn/bB8rY+kvr6WDfxJSTNaoYnH+Z8A
+	VORlPcuV8nRcJEx4n9DAbvM3+sr+OHhPJi2ZCFXGpG8KbcKJMunv8Z5w0OCpr1bxvzN5Qmaw4SQ
+	E9zMqGOWM4V6KH7CrNl3xMZQw1QUWvGsyyKtOu6AJb0pEHXYC2KbmNcYTt6RBJ/z0A9qvRenN/Q
+	BO5z3PSr7OzZi+akX6lEAObQFA1ZaA2bItIwyqHBFpfocmDcHOWcydrydwGPuOrggEygRMpuCGk
+	Atjs+Zglg==
+X-Received: by 2002:a17:90b:2886:b0:3a6:fec5:c186 with SMTP id 98e67ed59e1d1-3ab3acf7535mr9662465a91.46.1791892943778;
+        Tue, 13 Oct 2026 05:02:23 -0700 (PDT)
+Received: from [192.168.29.54] ([2405:201:4019:32fc:3c55:6b24:5147:322b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab8a393666sm16566838a91.15.2026.10.13.05.02.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 05:02:23 -0700 (PDT)
+From: Ayush Singh <ayush@beagleboard.org>
+Date: Tue, 13 Oct 2026 17:30:44 +0530
+Subject: [PATCH v3 6/7] dt-bindings: beagle: Add BeagleConnect Freedom
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-gb-uart-transport-v3-6-81d0a8a1acf7@beagleboard.org>
+References: <20261013-gb-uart-transport-v3-0-81d0a8a1acf7@beagleboard.org>
+In-Reply-To: <20261013-gb-uart-transport-v3-0-81d0a8a1acf7@beagleboard.org>
+To: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com, 
+ Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Eric Biggers <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, 
+ Ayush Singh <ayush@beagleboard.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, 
+ Markus Probst <markus.probst@posteo.de>
+Cc: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-crypto@vger.kernel.org, 
+ devicetree@vger.kernel.org, Ayush Singh <ayush@beagleboard.org>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2354; i=ayush@beagleboard.org;
+ h=from:subject:message-id; bh=0R5ddN7n89dg+x7544FOxMDxwDP8wBf6/r5AsNc+Bh4=;
+ b=owEBbQKS/ZANAwAKAQXO9ceJ5Vp0AcsmYgBqzh2Dk6xAgtSxbJpDjv3D0q/CQXD5o1Esk05eh
+ BVo16HhniKJAjMEAAEKAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCas4dgwAKCRAFzvXHieVa
+ dLoMD/90n0CCg1jZqkxrjllITaAZOI7rNrqMcz2qCqadXECPD9zTnlRM48F1lrJvy4dX5olnRwo
+ oSoyFUi58/hRdg7rLCpvsuoJqo0xGznr57AKQYPzmDK8vlqhF6cKoucsP7Z4BWe/PGLDlWniJPr
+ bkRuLCyhbtSXXtPcDToQUmqkcTD+KGbqs8s16UH8iSXm13FKwZxUADePTTcgqvL6aOtUUPw84Yb
+ GdLsrlbPNX5UcU/+n4KtMfobvfUhRkY1lTn4U6BYQhqqaesrUlTrshukQO4CEh+WPgLoq+Qg+ep
+ 9JDekS4GPeNFygOyQG7VewZtl2PxYaH3WfSrv0ZtupuvVzPYxV93CtiTFMAGihRSKNmCl2JlgNM
+ yH/RUPM8jM9StKC+CllRfVbA5LwQaIZ+ctRRq5sfuzQ9KKrwTML0vkiVQAUeXLKENliGNfXE+78
+ VtCkyGdS2HGoJPQavRS0qLYv2LkcexIO7vKwqyj/An7UZuWgGrFXRgO1G7C2fXXZj5PV8haFfua
+ qpL2t1tCQPsShHl1+5jXlmGoGlYmiMUx8PqJ0ernna4Zd9mTnYJxx2CtJ57G4OfMJU5JMkCd/DZ
+ bNkIokG88JRrDD5l09JElJvlUVpbFciYTNk8yggpIspanh2OEfx79yAaVRVdL3Cctw+YVaSzmHH
+ qAT6t/pZUOE+BRg==
+X-Developer-Key: i=ayush@beagleboard.org; a=openpgp;
+ fpr=DFCC131EF24F2D656FA504D605CEF5C789E55A74
 
-Hi all,
+Add devicetree bindings for the BeagleBoard.org BeagleConnect Freedom,
+a wireless-enabled board based on the TI CC1352P7. The board exposes an
+MCU that can be attached to a host over USB, UART, SPI or I2C, and is
+described as a child node of the corresponding bus.
 
-A fix for DMABUF's file-release path, to set dmabuf->file = NULL when
-the struct file itself is being freed and avoid a stale pointer
-lingering.  Previously it could be assumed that dmabuf->file was
-always valid until .release was called, but commit 4ab59c3c638c6
-("dma-buf: Move dma_buf_release() from fops to dentry_ops") separated
-dentry release (calls .release) from file release (can happen before
-.release).  Setting the pointer to NULL clearly delimits the period in
-which it points to a valid struct file.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Ayush Singh <ayush@beagleboard.org>
+---
+ .../beagle/beagle,beagleconnect-freedom.yaml       | 39 ++++++++++++++++++++++
+ MAINTAINERS                                        |  6 ++++
+ 2 files changed, 45 insertions(+)
 
-Raw dmabuf->file access is bad news unless the file is known to have a
-reference held (for example, during export).  A single-threaded
-problem scenario is a dentry held open (e.g. using O_PATH) but the
-file closed; .release is not called, so the exporter was unaware that
-dmabuf->file became stale.  Exporter activities using dmabuf->file
-then led to a UAF.  Or, threads racing concurrent access with a file
-closing.
-
-VFIO uses get_file_active(&dmabuf->file), which is a UAF when the
-pointer goes stale.  Alex Mastro has created a VFIO-centric reproducer
-[1], which shows up with KASAN.
-
-To fix, dmabuf->file is either valid or NULL.  get_file_active() is
-then safe and a recommended way to access dmabuf->file without an
-existing reference.  The only possible outcomes are for it to get a
-reference to the file, to observe a valid pointer but the file in the
-DEAD state (being closed, fail), or NULL (fail).
-
-Patch [3/3] sets the pointer NULL when the file closes, which
-get_file_active() handles correctly.
-
-vmwgfx was identified as doing a problematic dmabuf->file dereference.
-Although already a UAF, making dmabuf->file = NULL turns it into an
-oops.  So, patch [1/3] correspondingly converts vmwgfx to use
-get_file_active() too.
-
-i915 GVT unsafely dereferences dmabuf->file for a trivial debug
-printout after the file reference moves to the dmabuf's fd, so patch
-[2/3] dereferences in the safe window.
-
-Added comments to highlight that dmabuf->file could go away before
-.release, and to use get_file_active() if a reference isn't otherwise
-already held.
-
-
-Thanks,
-
-Matt
-
-[1]: https://github.com/opsound/vfio-dmabuf-lab/blob/main/tests/vfio_dmabuf_opath_uaf_test.c
-
-Changes:
-
-v3:
- - Better comment for struct dma_buf's file (refer to synchronisation
-   against ->release).
- - Added trivial i915 patch to remove unsafe debug dmabuf->file accesss.
-
-v2: https://lore.kernel.org/all/20261009123601.94079-1-matt@ozlabs.org/
-
-"v1" was the single "dma-buf: Annul dmabuf->file on file release"
-patch:
-
- https://lore.kernel.org/all/f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org/
-
-Matt Evans (3):
-  drm/vmwgfx: Use get_file_active() for dmabuf->file
-  drm/i915/gvt: Read dmabuf->file only while valid
-  dma-buf: Annul dmabuf->file on file release
-
- drivers/dma-buf/dma-buf.c           | 21 ++++++++++++++++++---
- drivers/gpu/drm/i915/gvt/dmabuf.c   |  5 +++--
- drivers/gpu/drm/vmwgfx/ttm_object.c |  2 +-
- include/linux/dma-buf.h             |  5 ++++-
- 4 files changed, 26 insertions(+), 7 deletions(-)
+diff --git a/Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml b/Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml
+new file mode 100644
+index 000000000000..be051a39acdc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml
+@@ -0,0 +1,39 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/beagle/beagle,beagleconnect-freedom.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: BeagleBoard.org BeagleConnect Freedom
++
++description:
++  The BeagleBoard.org BeagleConnect Freedom board connected over USB, UART, SPI or I2C.
++
++maintainers:
++  - Ayush Singh <ayush@beagleboard.org>
++
++properties:
++  compatible:
++    const: beagle,beagleconnect-freedom
++
++  reg:
++    maxItems: 1
++
++  vbat-supply: true
++
++required:
++  - compatible
++
++allOf:
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    serial {
++      mcu {
++        compatible = "beagle,beagleconnect-freedom";
++        vbat-supply = <&vbat>;
++      };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c9126dc205db..521bc6c67979 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -11522,6 +11522,12 @@ L:	greybus-dev@lists.linaro.org (moderated for non-subscribers)
+ S:	Maintained
+ F:	drivers/greybus/gb_softsvc.rs
+ 
++GREYBUS UART NODE DRIVERS
++M:	Ayush Singh <ayush@beagleboard.org>
++L:	greybus-dev@lists.linaro.org (moderated for non-subscribers)
++S:	Maintained
++F:	Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml
++
+ GREYBUS SUBSYSTEM
+ M:	Johan Hovold <johan@kernel.org>
+ M:	Alex Elder <elder@kernel.org>
 
 -- 
-2.47.3
+2.56.0
 
