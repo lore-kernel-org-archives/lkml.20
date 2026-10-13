@@ -1,136 +1,189 @@
-Received: from mx.sorah.jp (aapne1a.mx.sorah.jp [3.112.186.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011012.outbound.protection.outlook.com [40.93.194.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60793472F7D;
-	Tue, 13 Oct 2026 10:32:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=3.112.186.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887563; cv=none; b=BZuadjLCqE+ETAuaI+aNXho0MAQyw+NVVuMMiulHpsixcaQJ77w1j/0eeyr8lQukKv+lQZQizMDEvnhaoCka12sBhL+no8/yweXlVdPfvyRZxLsJSSexGKs2Ym8PpT5tJdehnZdosen4fA0tDaP4Vfu7r+cTg3AKpANNnv7UMIs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887563; c=relaxed/simple;
-	bh=N7JPdNdqfZFEyw+Thoc3clrRYjinca0sWkeQwt5Q7MM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mBqvu/UH368rFi6tSsOpXsbitvoo8aK5doXqWJrUraUin0zgztNyqVkSsa49W+UIhPnsFppPNoLk2RbBXNiB5xxDSCDn5egDttZQSZ+vo3H083kZ3tVq3XUeTkja6iqmHqHwBLddkgQPs4YNSiFBAY5krIoB8kf/9nZAYJti/zM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sorah.jp; spf=pass smtp.mailfrom=sorah.jp; dkim=pass (2048-bit key) header.d=sorah.jp header.i=@sorah.jp header.b=mZ9twbV2; arc=none smtp.client-ip=3.112.186.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sorah.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sorah.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2781D4B0C9E;
+	Tue, 13 Oct 2026 10:32:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791887573; cv=fail; b=hvOfOfhtemlCwVEnR+5JPRccBVVqMxi88/Xw6TuVBrZej19Y3YvHEAE+SkEgACqCfRDTtQWwel4ZHVjLXXYgo4S94lGsepiv+xYWYeltXf/AEdiL6TBChSqASCpol74m5TYX73kd1oGB8zXI4zaeHmjhG1yP6efzxvmEHKnIgV4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791887573; c=relaxed/simple;
+	bh=qRMk9IeFCsOL5AOecD0ZD9eE41EBpJ2ikUrs5OE8cqg=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=dUL6De79pPhOjxWuSG+VLAVGOVfUopbiYQ2X8TkebHlHOkh4L4+atNb6T4RKVxSHuNMXIdnc9n3HMVk2Mknbkc+XDXGMzeh05lBzaE0krx3M+lymHX+VWEjI21JHkQe7APMUxjfd+1bqKk00kAhr7T4l5tK7A+3PSfLTVF6MPas=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=zWIpKHk7; arc=fail smtp.client-ip=40.93.194.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sorah.jp header.i=@sorah.jp header.b="mZ9twbV2"
-Received: from mafuyu (home.igw.nkmiusercontent.com [192.50.220.178])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx.sorah.jp (Postfix) with ESMTPSA id 1A89660547;
-	Tue, 13 Oct 2026 10:25:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=sorah.jp;
-	s=nkmi1707srhjp; t=1791887105;
-	bh=N7JPdNdqfZFEyw+Thoc3clrRYjinca0sWkeQwt5Q7MM=;
-	h=From:To:Cc:Subject:Date;
-	b=mZ9twbV2jPffNq5AwkjXvRaNrB5zij/M4wKSCbO9qVYCqmOuG3QXPeZW3FhW8QJhI
-	 rsEH4U933s28U6ON6+Wnh/twJ5JIVlLceGlKsKVzndy7tGiLEMpOmqJQTqPyDJRzeH
-	 omb+MKITXKsZsex08cgKyXdSxX7kakgbXpTYUEfNd63uAxwN+4TQUXcKc5zWqdiHVq
-	 LkDFMl3/8k7iRGxnag9Bt17m94ArtM4wgZWjg/K56YiVTOuTqK2cvHlok3O/RUtlYn
-	 Un7UZLqRHLDF/rAubuVGmrWDVa6UsxJhZKApBO2qFaC6/or1ASGI7Chiop+6Re8g4D
-	 fKeSPtKVxenjQ==
-From: Sorah Fukumori <her@sorah.jp>
-To: netdev@vger.kernel.org,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	willemb@google.com,
-	lixiaoyan@google.com,
-	linux-kernel@vger.kernel.org,
-	Sorah Fukumori <her@sorah.jp>
-Subject: [PATCH] net: gro: don't chain linear parts larger than gso_size into frag_list
-Date: Tue, 13 Oct 2026 19:24:45 +0900
-Message-ID: <20261013102453.3272620-1-her@sorah.jp>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="zWIpKHk7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RhjUkNiEGRE+7sfg3egFvxztWyPCHst5jf6StTbY2EIsOl8A3QHh9cK2H8GU1SMSwNmdNV8/brh/aE7IaBgOkeOnHi6vI/wx+lVHv8dJK1HF22BW135pGVKYMfi1K/TpEGFa877elpqDR56UHHSerKmp/y9FkuRlCeon8hQtDdEY5+UECZd4mAxkAhr2FxHSsv2weyzXULTJyLLnc2WueaHJcVqSgnC4AxIqq247vQBpAYro7jZqgWgtax9z/ifjAD9y3e0Weh8YUI5Csrt2ukVBxQtxtyoHtk2Gcs0sLVPOJoIR5N8o0cpDwx07ULEaOuQdYkYEtKFW1SuSxKsYsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QADdGo93H30LhnDUtLuiGSRfN59vq/jLMxnf8LbGG6I=;
+ b=RHFie8BTjJcauEWiiA5tlaRaGHaChlVJwOpLsUqbpSHUU+WIAL8xgy2g7xpVLiPUe2s7sDUJWzR9MPQF1p+GWwKAfp7XXNCJBoJirnO81iRu+Ax43qcyoGjjrz/EjZRjIWSyQKY3+V5Xwvr9KrutLWEbGHEBt/iGCKMLlSWMAetNwAcxfxrp3p2LDkN6hlCKJvoiZygmKAQK6NacEWO/K8WMT9zA6HTsCH4rBycP/MbmonQUWKuBPrPMJkPiP4PUJb7w0bYb5K+YoXhQaNHi+aBGDecZ+Z6bg0taban7XaRg8CdIt0HrO+K3QjWkZMtZ+sUZnHF558rL2BlBRrIj3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QADdGo93H30LhnDUtLuiGSRfN59vq/jLMxnf8LbGG6I=;
+ b=zWIpKHk7m6vaMVpLqUnh/2m+tMiuw0WZmWTejT3Q9zduuIYcTAv4arq3ZYnT5Mnm24SZXiLxjaRYCuPii2KnsM7VETyNzuMqIqO3xUtkml77gf59EXhDr2T36p1XzNsJAzVGzBRn8MeZ1zQqaalrOaO27+YIrufj8lbZAGjMfDg=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN5PR12MB9511.namprd12.prod.outlook.com (2603:10b6:408:2a9::14)
+ by IA0PR12MB7604.namprd12.prod.outlook.com (2603:10b6:208:438::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Tue, 13 Oct
+ 2026 10:32:46 +0000
+Received: from BN5PR12MB9511.namprd12.prod.outlook.com
+ ([fe80::4d8d:5f91:6c3c:dc8c]) by BN5PR12MB9511.namprd12.prod.outlook.com
+ ([fe80::4d8d:5f91:6c3c:dc8c%5]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 10:32:46 +0000
+Message-ID: <25da2a40-e197-4415-bcde-48f71d0e1f84@amd.com>
+Date: Tue, 13 Oct 2026 16:02:31 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] iommu/amd: Program device table when kdump reuse
+ fails
+To: Matt Fleming <matt@readmodwrite.com>, Joerg Roedel <joro@8bytes.org>
+Cc: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Ashish Kalra <ashish.kalra@amd.com>, Sairaj Kodilkar <sarunkod@amd.com>,
+ Baoquan He <bhe@redhat.com>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ kernel-team@cloudflare.com, Matt Fleming <mfleming@cloudflare.com>
+References: <20261002133143.3628181-1-matt@readmodwrite.com>
+ <20261002133143.3628181-2-matt@readmodwrite.com>
+Content-Language: en-US
+From: Vasant Hegde <vasant.hegde@amd.com>
+In-Reply-To: <20261002133143.3628181-2-matt@readmodwrite.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0162.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1ba::17) To BL4PR12MB9505.namprd12.prod.outlook.com
+ (2603:10b6:208:591::16)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN5PR12MB9511:EE_|IA0PR12MB7604:EE_
+X-MS-Office365-Filtering-Correlation-Id: d6013837-f212-440c-e0cd-08df2915527f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003|6133799003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	e/uAE8sAaor28KPJyGuk3QJXJeXjfxpUqMZG4YoJiI7Gv6vIrHElyySxyoCuySoDtM/orfkGZLMacyNADoNgRyn/IbJu3VStZgbjyD257JorsT9A+crulT/YImD0OR4xb+qULQj6KhxCYkM0vR4GKMzYZF4bn06vEdw3sN+ZCY1cYkKg0vq1HkEbcjOQ7XkkjrDPDlHcA5FZmxVLsqgGtL4cTfncalKpvtl3Iguki04k/Xqx2JlB7oSk+J8xOBhGnR3ynfXuYuDJHGULFngi8/pGPWQkwHMBrbN2DwiXfvMy6Jqgpbc7gbQBlSzbfT7xz08Tfu3o/DttkRL9yIYma4ojbjCchSO9tIHN4FH1Z2pN3780emgFAkEwEBH4jzJ/WrKQxBqyBQSd3ME+Ihc1rJOIVLNy0JDs7EgmGrCKiSm44ckCxZ7lGGuEzPDF8EqKRr1f44exMaVtsY7E7ISiz9S4ExcO2Awjtd8wZfqE9905LcuXqU34zJSXDZvsGfYPSKxLq06jajVKRPsT64WstDhRRbN4bqDcfzsDjEvD7l30VW98/IyMpYMBoAooKT6MyHFMalgU3SBPZIPtJJG+jOeDMZCRg6JApE8tN6hqERrlzDxupONYPqvg5czbyrMnFfUuBdeio+PQrp+/CF9+cxTmHIGgbfWzOO00FtvOIIw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN5PR12MB9511.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZEJNc1BrZzRkWXdoSlJzNnNDc1hoY1VUTkMrT2xLU0plRWJGbTAyaDZNaERz?=
+ =?utf-8?B?VC92K1l6L0F0WFpwY3FJRW55Qkd3bWZCMDdWb2VOdmJmUEFoQ0VBRjI3WTRI?=
+ =?utf-8?B?b3B2UUV3VlhvZ01YMmVBRGFPZ3hoenNhQkVtdkZ3bFhKcXBmc2VaeEg4ZHRC?=
+ =?utf-8?B?LzM0K2YyNXNXcFRNUTQrcWNaOGZrMXFZNk40b0FrcFQvb3VlUzdOOXIwNXNn?=
+ =?utf-8?B?bE53emZXSkVOWWlxR0phZ0JIb0pMYWdQaldoSyt6UnhPQ3JBU29XSW95RHpq?=
+ =?utf-8?B?SHArOXcwNmdWL2VWcUwxRXBzUGRKYTZYTjZETHRkMFBoeGRKYUNCMWNqNzJn?=
+ =?utf-8?B?b09oSFk4WHRNcVdoY0I2T3lNREpLZTB3dXBTbnpVUFFISEdiblMvTVAyeFAy?=
+ =?utf-8?B?OEQ2cnNFMWdoQzZra0t4dnIwamd4c2duUmxNZGNrZ3JuWkFkSTJLMHIydTJs?=
+ =?utf-8?B?SlJjWmZqUFdyQlNjL1lSVnpVOVFrU1ZzM21iN0p4bWFjUHF3ZmNIOWxCNVRI?=
+ =?utf-8?B?M3Zxb3JqS2hoSzhpTlRkbk8zbW4zSjkwR2UxTVFiQ0lZSzdxN0pxc2I4dVhm?=
+ =?utf-8?B?UFFSakRKVkRnaVZrRkFaeEthL3pOREJlRGUwVnFVVktBVFFRQ2U5aDU2VlEz?=
+ =?utf-8?B?TUJ3T0ZFK2dzSEMyYVFkTngxcS9HY0dLb292cmdyZVhodWxTMzdFN0JDOGRB?=
+ =?utf-8?B?QlU0bjdSbG1MVTFLOFFUU1lhWm9DMk9EcVRZVjVtZEdoUllrcE9MUWZDQ0ZW?=
+ =?utf-8?B?eFdJb0pSdVl2U1M4QzVvSVRMMDQ2c1BIWGtxZ1l5Q0JPQi9tOGxhL3MxRlZB?=
+ =?utf-8?B?Vml5TmlIOVVZaXpLbTJEeEF2SDlKdzZsUjZXbE1Cd3BqaWRnZlpHSHZocVpp?=
+ =?utf-8?B?RlpOQjhHelZjUGNaRFVnWTljUjJtVk4wYXNWeXBTenp6OWR5cGt3aVJSU2Nt?=
+ =?utf-8?B?R1NvaTR0ZHE5SDhvSFVpTGNxL0V2UlZrZDRpU3dERzVZVEptSFhxS1FERjNO?=
+ =?utf-8?B?a3ZlUlA3V21KS3dGY3FGNkpNa1lCdFN2RFRvNXJzekZrS3YrbEdFendKT1hL?=
+ =?utf-8?B?RHlrSUttSC9hbnMwakdqWmJJM1FnU2VheHEycW52bG12MUxDUXZNZzJGODV0?=
+ =?utf-8?B?bjczeUxEMWJmeDR2alpHSWRJMThVVS9PbFAwVEZwc2dHRlZaMXk3QzV4dVdk?=
+ =?utf-8?B?eFRuOHRvSGV2cjhsR0t3djBlQ2FmWjNuRnY3MXlzcVFjYmpWY0RJenFzdU03?=
+ =?utf-8?B?L0p5a1dXclgvT1BSb0cvWnAxc1BPNnBqU0JsM0ZtQld3VXUyZTBtOGxLaGJ6?=
+ =?utf-8?B?RUJIZitTMnF5aWpTc3R1MUZkMlZGVW5XZmZzaGNBZVl6aVN3MXYwNzJHZDF2?=
+ =?utf-8?B?U0QyRmNWQ3dJemt3Z2VWM05qSitKOG9zbklRNGhhT3pWWmZwZ2E2TkVQV1Ax?=
+ =?utf-8?B?REpKNzRJNVdmbFgwY01sMm01bW1BdUZBVnpkSUZrU1RXcThYclRZdWVFOXpL?=
+ =?utf-8?B?VDVHd2RHek40TmpscllISFZRTksrMG16WkJDVGJyQk5TTFJLTXB1UmJtRS9E?=
+ =?utf-8?B?TjNJRmtzend6WWdsOTMrK0d1VFQyN1RwdFdlNEV2blRKVWgya1NOMTRZUHZT?=
+ =?utf-8?B?R2k4Rm1hWFo1L0N2emdqM3AyV2lNNHNGY2FHVnRSSDVWWGF3bXczOVQva2Zu?=
+ =?utf-8?B?cTd0NTVlNCtuM09lT3pSTWZwclpkdnd2RWJ0UVVQNHFHSW9FaStTdFlCRS9W?=
+ =?utf-8?B?Nmk3d1BMSFlubG9qRlBuMUk0WnhFUkJTdWJSaDFMbWlnaThsWkU2ZzN5VVZt?=
+ =?utf-8?B?UmQ1eDVqRTZIMVRYbHZZN3IySFJoQnBKZGVwVHFaOFJ1bkdSaXRudDExNUlO?=
+ =?utf-8?B?bTl1SmdoUWJlbXRlaHA0NFpxR3JreTcxTWVqbUtSa2h3Yys3NWtqNEJMWS9T?=
+ =?utf-8?B?cm5OVjBUVXZiRTFxWkYzUy9yaWxxT21yYTRjVHhqSGtHRzJRL0JkSEtuaXVX?=
+ =?utf-8?B?aE9xMm5kai9QQmQwUDNhNXpONlJ6ZTQvQnYwRk5jMkp1WjdBQVp4aEZZTjda?=
+ =?utf-8?B?QjdDMCtEdWlXTHlRSFV6T0ExSUR6cCtsKzF6Q3R1MHVLNnFUaUZnQjNxa0ph?=
+ =?utf-8?B?RVZiOHVaMEtMOE5MY1N5ekFGMjMwVk9qODdUYmVQbXVYQ3hYSk9RcUcvTXNO?=
+ =?utf-8?B?RXBQbWpGeno4NFJGWXdoUEExT0JDZU5YMEI3L0pOdFVLQUVyc0VZVEJ3NXMw?=
+ =?utf-8?B?d0FQVTdRdWI0L0pWVFZqSDMwb1BPRVhZRC9wY3lORXc2VlNoQnBiL01rYmcr?=
+ =?utf-8?B?S1NwQU9aRDlqQ2FIR2gvZ1hvM2FqYWUwZzVlejBEdEo3OFFvMnVlZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6013837-f212-440c-e0cd-08df2915527f
+X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 10:32:46.7207
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jdXHc9yfKpaM8PDm6AAgr6FxWsqe5Rcj9ibjOJ3Dwgw3krGkCXmmzAodCyuv4spnrubrPLDPlPmHu4fj++mq1g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7604
 
-skb_gro_receive() chains an skb into the frag_list of the held packet
-when its payload cannot be attached as page frags, i.e. when its head
-is not a page fragment and still holds payload. Since commit
-5eddb24901ee ("gro: add support of (hw)gro packets to gro stack"), that
-skb may itself be a GSO packet whose linear part holds several
-gso_size segments. skb_segment() cannot split the linear part of a
-frag_list member across segments, so segmenting the aggregate in
-software, e.g. when forwarding it to a device without NETIF_F_FRAGLIST,
-hits
 
-  BUG_ON(skb_headlen(list_skb) > len);
 
-Fully linear GSO packets come from generic XDP. When the program does
-not support frags, netif_skb_check_for_xdp() linearizes any nonlinear
-skb with pskb_expand_head() and skb_linearize() and keeps its GSO
-metadata. GRO on the device runs before generic XDP, so each aggregate
-passed by the program carries all of its payload in a kmalloc'ed head.
-A tunnel that decapsulates these packets and runs GRO again through
-gro_cells then builds the bad frag_list. This was first seen on a
-router that forwards TCP received over VXLAN, with a non-frags XDP
-program attached in SKB mode to the underlying bond because one slave
-lacks native XDP:
+On 10/2/2026 7:01 PM, Matt Fleming wrote:
+> From: Matt Fleming <mfleming@cloudflare.com>
+> 
+> Commit 38e5f33ee359 ("iommu/amd: Reuse device table for kdump") made
+> iommu_set_device_table() return early in every kdump kernel. That is
+> needed when the previous kernel's device table is reused: the base
+> register already points at it, and on SNP-enabled systems the register
+> is locked.
+> 
+> But if reuse isn't possible, early_enable_iommus() falls back to the
+> freshly allocated table and calls early_enable_iommu(). Because of the
+> early return, that table is never written to the base register. The
+> IOMMU keeps using whatever table the register pointed at before, while
+> the driver writes entries into the new one.
+> 
+> Only skip the write when the previous kernel's table was reused.
+> 
+> Fixes: 38e5f33ee359 ("iommu/amd: Reuse device table for kdump")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
+> ---
+>  drivers/iommu/amd/init.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
+> index c07c3a01b978..0572e1a674f0 100644
+> --- a/drivers/iommu/amd/init.c
+> +++ b/drivers/iommu/amd/init.c
+> @@ -409,7 +409,13 @@ static void iommu_set_device_table(struct amd_iommu *iommu)
+> 
+>         BUG_ON(iommu->mmio_base == NULL);
+> 
+> -       if (is_kdump_kernel())
+> +       /*
+> +        * A kdump kernel that reuses the previous kernel's device table must
+> +        * leave the base register alone. It already points at that table, and
+> +        * with SNP enabled the register is locked. If reuse failed, program
+> +        * the freshly allocated table like a normal boot.
+> +        */
+> +       if (iommu->pci_seg->old_dev_tbl_cpy)
 
-  kernel BUG at net/core/skbuff.c:4917!
-  RIP: 0010:skb_segment+0xbb6/0xf40
-  Call Trace:
-   tcp_gso_segment
-   ipv6_gso_segment
-   skb_mac_gso_segment
-   __skb_gso_segment
-   validate_xmit_skb
-   __dev_queue_xmit
-   ip6_output
-   ip6_sublist_rcv_finish
-   ipv6_list_rcv
-   netif_receive_skb_list_internal
-   gro_complete
-   dev_gro_receive
-   gro_receive_skb
-   gro_cell_poll
-   __napi_poll
-   net_rx_action
+Yes. It fixes the regression and I am OK to pick this patch.
 
-It reproduces with three network namespaces: TCP sent over VXLAN on an
-IPv6 veth link to a router namespace that has an XDP_PASS program
-without frags support attached to the underlay veth in generic mode
-and GRO enabled on its VXLAN device, and forwards to a veth with
-tx-scatter-gather-fraglist disabled.
+Ideally these low level functions shouldn't be called if we are reusing existing
+device table. With so many combinations (like normal, kdump, snp, etc) its
+becoming very hard. I had done prototype to get these init path somewhat clean
+with ops structure. I will try to rework and post that series soon. With that
 
-Refuse the merge when the linear part to be chained exceeds the held
-packet's gso_size. tcp_gro_receive() then flushes the held packet and
-the skb starts a new GRO packet as its head, whose linear length
-skb_segment() handles.
+Reviewed-by: Vasant Hegde <vasant.hegde@amd.com>
 
-Fixes: 5eddb24901ee ("gro: add support of (hw)gro packets to gro stack")
-Cc: stable@vger.kernel.org
-Assisted-by: claude-opus-5-5
-Signed-off-by: Sorah Fukumori <her@sorah.jp>
----
- net/core/gro.c | 4 ++++
- 1 file changed, 4 insertions(+)
 
-diff --git a/net/core/gro.c b/net/core/gro.c
-index 29b4d02bf519..ff828a3dce3c 100644
---- a/net/core/gro.c
-+++ b/net/core/gro.c
-@@ -187,6 +187,10 @@ int skb_gro_receive(struct sk_buff *p, struct sk_buff *skb)
- 	}
- 
- merge:
-+	/* skb_segment() cannot split the linear part of a frag_list member. */
-+	if (unlikely(headlen > offset + skb_shinfo(p)->gso_size))
-+		return -E2BIG;
-+
- 	/* sk ownership - if any - completely transferred to the aggregated packet */
- 	skb->destructor = NULL;
- 	skb->sk = NULL;
--- 
-2.55.0
+-Vasant
 
