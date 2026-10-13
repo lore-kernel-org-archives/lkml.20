@@ -1,204 +1,629 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013022.outbound.protection.outlook.com [40.107.162.22])
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C76E51E433;
-	Tue, 13 Oct 2026 16:56:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910582; cv=fail; b=bt1q9R3mmmxZj6L+ClN4/f/iGjoIC1E/YMXWqCgttAU7W+/hTxa/CoNd5E96Mp2GvnsWCPDh2xiHVXUfgUvTJxG51Eo0DRV6n/2SSmCk6DCiGFNvvMV6/BS51oG5ORE/MAlmt7Xw3Meh7WyOoMHj9PT/YA109/bBeYYydCdXPKA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910582; c=relaxed/simple;
-	bh=7xXy9d/jp1vuYmK62lLOU8j3htHcoSBuiJHjTEgoZRE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=QRU2eam0cK0otCNltWYZC7CFQVJNjxrkVmwvl/xqoYqHeVUX8lHeqEFjpzIljW1lx8H6HYpK2GlUilYgfCY+yro9RFbKOvMdit2eXinmmEGqyGWUQFNUqEvi6K/9cpRdhyNZ2wAmcuJUd94IbXqfy89fXsasS8dd5u/K6FHoLvk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=euzf4JKg; arc=fail smtp.client-ip=40.107.162.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 694765012B7
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:56:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791910614; cv=none; b=HZShBxAiC47ggStt3f+0qym2E2ISxv97Ubqy17wPA9ek5CZVhWR8zEtkt6dXq0OFOucCVEBnbTrwwmHRE/SJAWI4jtKFIaTOhu75mqy4uT1UpzKPQDhLsQ73Xo1+RkolPNIHA6pi2tzrHkjtc3lCgPMSHYCqDcU5ktwzw+QmzQw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791910614; c=relaxed/simple;
+	bh=mJHqwcgSVpk5DTKtY14oLAv+WKBo5mqYQNIS5dMW+c4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=F/IC7WKNOfefbvM74JSIrMW4xCBPUTrVSg45mP2L+36p9qANv/VvE7CMnYTkNKFFMaPd36WV2R/hkA7jaM84dedMXW841eGXMNrqpdJzsND5Z/5QiwUXD0axSdEzVGSfqRX7aSNzMYPjASuR/GniTXrVxpcTTYhr8/SP7LmdFfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=kY42KNp5; arc=none smtp.client-ip=185.67.36.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="euzf4JKg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wDJnYUbgvvcWQdtPzKH29jW8KT+un8pneoZSQLlwweDmcZ1DZLjftHuuEAFMcNPUzmtfd2i5dNc+KKI42ds2KeltpH6V96PQFhf8tIDu7WfOuXdLn1F9W8SblXtsCZ5JgZEnluCN8c8pHhynGkY+QWZOFUMsODsuauRdXZX4lpcZmeJproq5j6Yj7CCbD4iJXQJFEb3Ee0wISPCJ4/x+rqS9EVxVD6K9E4mx1mhD4s2N6le9n/LOaBmnhVxvMHQ2NqXOURqiD+6Q0Iq7yjoGUHMx7edvUo0QmBHXiUJMVNYlYIR5fm9hcIYQsHurUGsjzUPF5eUeoWe8dFgQdxFXaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=deytnPeMS9XslEsk8gRjf2fZTVRnfzWjtJAefeskPdM=;
- b=NnYQD2rj115Rv/UndE1lGGim+LeQVQFMuggduUQZbbbUmdHucUfCiKcUh+HpH0UDKn8tWf5GympqJfzZKHNLDHt4QRB2KTaDv2Cb28SG41jZsFWuh2J3H89T6KZco2vDgUJziIE8/XLQbTdfedSnxANhi0aIm0TVIDp3zTj+kLsq4mip/DUyupdnl1NZkKwf6Nof6Tzcq6x77UZGjBQkJ1mtgiwsSEDFlAI70NP5fd1w+5SAhHnbYrrQuFbAbkhTanM+2A3Ru3nec+NYYsBImGXaJe/t87xkTRdzf6DP3r+lUyh2aikkrsdApR0y0xnHDnivisPJjzfjPTTTh56Ymw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=deytnPeMS9XslEsk8gRjf2fZTVRnfzWjtJAefeskPdM=;
- b=euzf4JKg53a8QL7xQTYHORhiYae0hEnpzGFDfflI8Vg8NG7e9SeuYwmtAcjSo45amT+rQ5o/KYJwjvD/5et9OovOnVX7sMyCnnYoU7l1XN0ZI4has9t1Xmfnm6M3iV1pFCkINYpTCwTZwzLVI3ev5PYXpYBex+IqMK3jHLUz2+M+JbGLEpJwJ1uSDl6bp+fy7FNZANvfLD3KEcOAQKGch9Ff9h0e8Q/rcJ2quPeZPIEvUwFwDB04fw5wb25PsykIDtUZcE5y8aE8SB8QdENquY1VTX/nwI3Sf5+SI73U9TVGc7HUWwUBAd/pBwrkZqPLX6G7OP0c1w7H59CxfPTWDg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by MI9PR04MB787466.eurprd04.prod.outlook.com (2603:10a6:290:86::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 16:56:16 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
- 16:56:16 +0000
-Date: Tue, 13 Oct 2026 11:56:01 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, ntb@lists.linux.dev,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] PCI: endpoint: pci-epf-vntb: Track link state from
- both sides
-Message-ID: <as5ioWuOWCqu7Us0@SMW015318>
-References: <20260904162049.3432464-1-den@valinux.co.jp>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904162049.3432464-1-den@valinux.co.jp>
-X-ClientProxiedBy: PH8P221CA0023.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:2d8::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="kY42KNp5"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout01.posteo.de (Postfix) with ESMTPS id 70E17240027
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:56:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1791910609;
+	bh=84UAUybAcmHwu6PdtmUeT5FxMfPcwDy64JHXJjt4vm4=;
+	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP:From;
+	b=kY42KNp56C5Nva02G8fDyJ/kF7y+j5oHcxnKd9pvILxEDJ43YiOUVBOVZVqJLNH5g
+	 6rdDYejx6JPOkbinOPnen+DImuW9HXvL16Mh8eLHV2Kzkw8JNIvu6cw6tnWZxgM6Ix
+	 kCd6EzayfUzGpxTK0VLGCkIweqlyu0rWmkFJ7bHc+uEJUdlfqA4T3rGKP2uS5VVoeH
+	 lCQlbftUlOhCd3lO8veYi/P/2IVqettlor7rHVcOKOZOGa0iVLedEuOS0UeUS5Al2P
+	 6RoxwUS2rlK3Gp2dBC9qFjDl22oePPEs4dPWFXPGnO67nIpgcw61Rg9GGTC49mG6/d
+	 NUrYMiV+AzfZA==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4j40qK2nhHz6ty0;
+	Tue, 13 Oct 2026 18:56:45 +0200 (CEST)
+Message-ID: <7c5619f34cdf696a8be2215ee8a4120e3f0ff1a9.camel@posteo.de>
+Subject: Re: [PATCH v3 7/7] greybus: Add Rust UART node driver
+From: Markus Probst <markus.probst@posteo.de>
+To: Ayush Singh <ayush@beagleboard.org>
+Cc: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com, Johan
+ Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, Greg
+ Kroah-Hartman	 <gregkh@linuxfoundation.org>, Miguel Ojeda
+ <ojeda@kernel.org>, Boqun Feng	 <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
+ <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
+ =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Eric Biggers	
+ <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, Ayush Singh	
+ <ayush@beagleboard.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lorenzo Stoakes	
+ <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett"	
+ <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, 
+	greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, linux-crypto@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Date: Tue, 13 Oct 2026 16:56:47 +0000
+In-Reply-To: <87y0c14l8b.fsf@beagleboard.org>
+References: <20261013-gb-uart-transport-v3-0-81d0a8a1acf7@beagleboard.org>
+		<20261013-gb-uart-transport-v3-7-81d0a8a1acf7@beagleboard.org>
+		<037d7460eae92dd00f9283dd5595a3257212f0b9.camel@posteo.de>
+	 <87y0c14l8b.fsf@beagleboard.org>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=mQINBGiDvXgBEADAXUceKafpl46S35UmDh2wRvvx+UfZbcTjeQOlSwKP7YVJ4JOZrVs93
+ qReNLkOWguIqPBxR9blQ4nyYrqSCV+MMw/3ifyXIm6Pw2YRUDg+WTEOjTixRCoWDgUj1nOsvJ9tVA
+ m76Ww+/pAnepVRafMID0rqEfD9oGv1YrfpeFJhyE2zUw3SyyNLIKWD6QeLRhKQRbSnsXhGLFBXCqt
+ 9k5JARhgQof9zvztcCVlT5KVvuyfC4H+HzeGmu9201BVyihJwKdcKPq+n/aY5FUVxNTgtI9f8wIbm
+ fAjaoT1pjXSp+dszakA98fhONM98pOq723o/1ZGMZukyXFfsDGtA3BB79HoopHKujLGWAGskzClwT
+ jRQxBqxh/U/lL1pc+0xPWikTNCmtziCOvv0KA0arDOMQlyFvImzX6oGVgE4ksKQYbMZ3Ikw6L1Rv1
+ J+FvN0aNwOKgL2ztBRYscUGcQvA0Zo1fGCAn/BLEJvQYShWKeKqjyncVGoXFsz2AcuFKe1pwETSsN
+ 6OZncjy32e4ktgs07cWBfx0v62b8md36jau+B6RVnnodaA8++oXl3FRwiEW8XfXWIjy4umIv93tb8
+ 8ekYsfOfWkTSewZYXGoqe4RtK80ulMHb/dh2FZQIFyRdN4HOmB4FYO5sEYFr9YjHLmDkrUgNodJCX
+ CeMe4BO4iaxUQARAQABtCdNYXJrdXMgUHJvYnN0IDxtYXJrdXMucHJvYnN0QHBvc3Rlby5kZT6JAl
+ QEEwEIAD4CGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQSCdBjE9KxY53IwxHM0dh/4561
+ D0gUCaIZ9HQIZAQAKCRA0dh/4561D0pKmD/92zsCfbD+SrvBpNWtbit7J9wFBNr9qSFFm2n/65qen
+ NNWKDrCzDsjRbALMHSO8nigMWzjofbVjj8Nf7SDcdapRjrMCnidS0DuW3pZBo6W0sZqV/fLx+AzgQ
+ 7PAr6jtBbUoKW/GCGHLLtb6Hv+zjL17KGVO0DdQeoHEXMa48mJh8rS7VlUzVtpbxsWbb1wRZJTD88
+ ALDOLTWGqMbCTFDKFfGcqBLdUT13vx706Q29wrDiogmQhLGYKc6fQzpHhCLNhHTl8ZVLuKVY3wTT+
+ f9TzW1BDzFTAe3ZXsKhrzF+ud7vr6ff9p1Zl+Nujz94EDYHi/5Yrtp//+N/ZjDGDmqZOEA86/Gybu
+ 6XE/v4S85ls0cAe37WTqsMCJjVRMP52r7Y1AuOONJDe3sIsDge++XFhwfGPbZwBnwd4gEVcdrKhnO
+ ntuP9TvBMFWeTvtLqlWJUt7n8f/ELCcGoO5acai1iZ59GC81GLl2izObOLNjyv3G6hia/w50Mw9MU
+ dAdZQ2MxM6k+x4L5XeysdcR/2AydVLtu2LGFOrKyEe0M9XmlE6OvziWXvVVwomvTN3LaNUmaINhr7
+ pHTFwDiZCSWKnwnvD2+jA1trKq1xKUQY1uGW9XgSj98pKyixHWoeEpydr+alSTB43c3m0351/9rYT
+ TTi4KSk73wtapPKtaoIR3rOFHLQXbWFya3VzLnByb2JzdEBwb3N0ZW8uZGWJAlEEEwEIADsWIQSCd
+ BjE9KxY53IwxHM0dh/4561D0gUCaIO9eAIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCR
+ A0dh/4561D0oHZEACEmk5Ng9+OXoVxJJ+c9slBI2lYxyBO84qkWjoJ/0GpwoHk1IpyL+i+kF1Bb7y
+ Hx9Tiz8ENYX7xIPTZzS8hXs1ksuo76FQUyD6onA/69xZIrYZ0NSA5HUo62qzzMSZL7od5e12R6OPR
+ lR0PIuc4ecOGCEq3BLRPfZSYrL54tiase8HubXsvb6EBQ8jPI8ZUlr96ZqFEwrQZF/3ihyV6LILLk
+ geExgwlTzo5Wv3piOXPTITBuzuFhBJqEnT25q2j8OumGQ+ri8oVeAzx24g1kc11pwpR0sowfa5MvZ
+ WrrBcaIL7uJfR/ig7FyGnTQ1nS3btf3p0v8A3fc4eUu/K2No3l2huJp3+LHhCmpmeykOhSB63Mj3s
+ 3Q87LD0HE0HBkTEMwp+sD97ZRpO67H5shzJRanUaDTb/mREfzpJmRT1uuec0X2zItL7a6itgMJvYI
+ KG29aJLX3fTzzVzFGPgzVZYEdhu4y53p0qEGrrC1JtKR6DRPE1hb/OdWOkjmJ75+PPLD9U5IuRd6y
+ sHJWsEBR1F0wkMPkEofWsvMYJzWXx/rvTWO8N4D6HigTgBXAXNgbc3IHpHlkvKoBJptv6DRVRtIrz
+ 0G0cfBY0Sm7he4N2IYDWWdGnPBZ3rlLSdj5EiBU2YWgIgtLrb8ZNJ3ZlhYluGnBJDGRqy2jC9s1jY
+ 66sLA9rQZMHhJTzMyIDwweGlvMzJAcG9zdGVvLmV1PokCbQQTAQgAVxYhBIJ0GMT0rFjncjDEczR2
+ H/jnrUPSBQJpa71VGxSAAAAAAAQADm1hbnUyLDIuNSsxLjExLDIsMgIbAwULCQgHAgIiAgYVCgkIC
+ wIEFgIDAQIeBwIXgAAKCRA0dh/4561D0gKJD/9uOQKYlsDoQX65Gd0LiMT0C+5vXgr3VI0PHDOwcv
+ 51fJ3A1vNyPZRFPGrz8+mDEXUQOF/INfnz5Tu1QHwf+iYcWcTGAN/FHgVR6ET6VBNU2hJaKhu+Ggo
+ kjYyJTOvyX+3yNRUfSny0GjTjIPuPTErjqmHF+BtjXslpgwqnNMznf3lRIuUjRORupos6p3k1DndE
+ 5vzUTmXSvMyXyOD2KhBl/kL76k0bHYyAQytZPag12pltrtFbA/r2phDGN2si8PooDT99bSTJjaM45
+ MTAAHbHKJfvgfK41bNFD5mMtpWpL195XRtS0Nrxdg3PaYBxN5gtTG0RyZfpYRlkdEhm+jj/8RxuSG
+ i/qdhRdbiI7K2IELWeQVHSNDi9JabR/UzlR4NSnhfAjRIVlRM+eFbUl8XwxwVrAkojF5IraH2qRvg
+ VCmuFsHUW07FUlrDrzpjXsD73cKppoFGDCdDR0BHJepXbFLS9+AqkT+guRJlnCTg2p+TQtnbwPgKp
+ Vj98JixovCl99zRYTsL2bRNU5+q8iET65VMJ1ydyNanvLd5vI/NqDkXhlXLsGmdaDTtu4R21PkToX
+ dQNGrZ91M9nlIBKw8Y7c7xZ4098qX2b8JX/CxD+gC1r4C8vuA3GkhFLx+KlkON7LyiJPkrePp6Qky
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-UqXBVxT8d+O+osTm5faS"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI9PR04MB787466:EE_
-X-MS-Office365-Filtering-Correlation-Id: f74ac722-a0dc-495c-fff3-08df294ae547
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|1800799024|366016|18002099003|10067099003|6133799003|3023799007|22082099003|5023799004|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	ibUcgCR2l6c7LZBvWoq8dSvzvr/P6MJ6yeosppKmUCspLGQo5E6Bf6vuWxRRXKls8ZFWqylX0fiOiV5e2ueVOFr9OXLThRg/6MvAcZYAGtmx0m790kxxoJ2GXHZ83edo8k6EbGdUMYi17xVFDI1vhice4RnOI+bXpj4ScKTPzpdqtsRYhoeb5WMlmzEZomTk6Q6modJCCFQCHrsY6p8uwc2e+BXcED+pyxkgdlb6zcuMmEakjlnYAlRC8sFWTBJPJdOHpNB3jXieRq8HKhiR6jzlLnDaiBnebbjG4X2yoVtgv4onpJsYBMiJ03gDztJ4OeMhLyvledBCTddvsxwYpynUP9D2SvVc1+I1KoxPerTeBop+ZnD7pwKkXLsCSKhpTHhG1bof/uO4wMWX2XwuGu2SliRvIqNdi85Q46MXR6MT0Ec3rBRMTWmwkLfroTWvfyP9clM+aU85mT4b0ox5+xO8SbIhzvwMapNlqcFuR1uQoscgpurgwv/UpDrgWUsDrwgU/ml05uxZ6wxLg2vFWIGHPQk1ZDmUwEX7CmeMYTB03lOILbT9xZKk2xgbUJgcGA4Pbub4VpgKHXObmYPNmcQF/UOJpU6IRbap/LS4j9YU7ONhj66nXsUr7SaQcWW2ruptJil/7pnFn+1jgBUVfYwQqu+2wMy7jYg5mMMKZYQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(10067099003)(6133799003)(3023799007)(22082099003)(5023799004)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?5YRF3rKTN23gVPY7AmwAhwAEE30YrigyKsVRmdfp2pDusbjbR3D0aBLdBf5j?=
- =?us-ascii?Q?mAPjp8Ofi9R47lQuGmvD6lTA9oyFOKB3vnSYeMN2KIyVpRGV9fhKRnLzquCa?=
- =?us-ascii?Q?S0vyAIQv7ovkKAZ5BrUHp1mk3bHUPerQ2LYNU6F2s/JhhglbKp4rM52hOHHi?=
- =?us-ascii?Q?sZrIsoqOpLkgJCBb0tU+TVZJ3GBd5nIBLMIyTS99oqvt9k6vy2CqLvuTOOuJ?=
- =?us-ascii?Q?rbGKSVbGt5stK9gLcVh4tmKFiuDebh8D9OeKiMAPfV2u8RfxrK5X/4udpGUk?=
- =?us-ascii?Q?BqUGSn9ue3lGHfTyNhy8ShmUawt72L+Xc60n7AVA7PYUoDosRhv8mjFIiBFL?=
- =?us-ascii?Q?iXi1XyDUkY9JQrDjfV7xDl0OPa7G+ecd2rSNbjb9Hu49zRPhWyBWnH6wljB7?=
- =?us-ascii?Q?I21yYmpPVd6G6+FcEzR9qaAYz+2R1VxeCWpViINNTNYeUO5jDXmB5FC3UauM?=
- =?us-ascii?Q?ts0qUzNLALOu9Gj32lVVMG5tyD/oHbkn5P0fr9Dy1Rx/bBirx+Zq6RGWMYc4?=
- =?us-ascii?Q?b0VJGdlfb//hIiB8XPbb+xNFoNPjXCcf7B/9fNoNnJiiOPFvVGWC8cohmCd7?=
- =?us-ascii?Q?i8Wm+5pEjLsEmOPKjesCQWkvD4Aq7K4hVnzP1jPkiohoFOoJQzS4Rn1wbpIT?=
- =?us-ascii?Q?eFmCEk8oeeoCMbyzyJaHpH2hxGDUDWhhYWsowku2DjCl4bzuNVJIanrmiE56?=
- =?us-ascii?Q?hZccZLFozW6JVfWQ8U/s77L1r+f2TzxNJrq3MpPnxajypNOIcGnfWLkboO6r?=
- =?us-ascii?Q?NroopvCukOPv0LKSRW40yxCh8aO1mSaD/VO1KH79l+3Ux/cNg4DtbLP21iU+?=
- =?us-ascii?Q?sqY1BGfM2UlIfqFUbVS8ePaxzS4lqANdJJ8hndeUw4BtCj93lrGVuGnqU+L8?=
- =?us-ascii?Q?AeToYtzJZfGY1SZn7lmfBK5CY6PtVipFo6XpH5duSGNVORnQ9J3I2LGWKG17?=
- =?us-ascii?Q?58mfkPgF4dVBoEnto2XGv3m0bWt25KJqyVEmRcODiKS8Gft3sUQieq2nquxL?=
- =?us-ascii?Q?aS/H02qtSugSksa5OXd5KZSr62rjnX6ocm/8kfWkHnm2yYrbgJBcDD3F3Dsq?=
- =?us-ascii?Q?1Pm89ORm4VjQNNT5UCJ87vtZHHD398Xvh0rpfyYjlRJu8jFdfjAZSG6Se66F?=
- =?us-ascii?Q?MLMuFsgt7e4868HiZFfvSGKh4GF6OkVfSuwivBhzjFZWmxlSss/vULBxnuz/?=
- =?us-ascii?Q?K7bl7dNRWn4+9HVI3GaAnhWPXGCYSVpkRjQvpJVWSfkdMjMh48SOYE8H+T/n?=
- =?us-ascii?Q?HRbNaWjaVgj5OTTQeRC2+SeNU6znyad5SYvEUiHLayeIO8WPdLtNRQgtgXsG?=
- =?us-ascii?Q?dK4c+uPwsiPCqS68X5kmOq/siBXmeCnpdlKCYLxtcagaSFOCet3cIZrD3r2R?=
- =?us-ascii?Q?vmrBuQSFYyX/8qWoQlKs0onpwJhUrGLO1ooMtvY0gsO2ILfveGkJEUucipQQ?=
- =?us-ascii?Q?EyQNSyv55sgZ+fs3ntwoRrgDzJXMu5uBpkzhcrVhkHj7u+yZV0peICEuEU8p?=
- =?us-ascii?Q?oU77E+gF9YhNvV4Sne8ZCGkYoEx3bJSNN+CeahaCi7KDbUAEQgTGMNWBM0ga?=
- =?us-ascii?Q?VX+21ufWTRlUTPKctMdhJRsgCY6Kr64EmcE7p6q8GL12sFJZo9ZongWOzGHy?=
- =?us-ascii?Q?RxDjrBxwkQU9CQSFdjXwmodGV6Oy1wMw9wd3M1nLXoJlj1R+umkGuttP2RTg?=
- =?us-ascii?Q?y+XE4j8p8gc7ZHntogV9cAhJi6IQ3fN1k2zwSvBqaDrLZ3dzW6FS+c509MFK?=
- =?us-ascii?Q?KxGrnS+4pO5RMdnVRCpHoLe3VTvfOO3QyjRd1w5ksqIq3Q6Z0pjM?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f74ac722-a0dc-495c-fff3-08df294ae547
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 16:56:16.3739
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RCAnJUtNpsePZngPEcVJp3ud87t/NEJ2X3HN1yuwWP7cRb2bd1Gv/kYKoBquPK9Asdm0+4KF26XTRPP3IFTr+t0lX+a9X25m5w92g+EeyCtGgfBXRihDOAAdmamnshBm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB787466
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-On Sat, Sep 05, 2026 at 01:20:49AM +0900, Koichiro Den wrote:
-> The control-region link status is currently updated only by
-> COMMAND_LINK_UP and COMMAND_LINK_DOWN from the HOST. The virtual
-> NTB link callbacks are empty. Consequently, the HOST can see the link as
-> up before the VHOST has enabled it, and ntb_link_disable() on the VHOST
-> leaves LINK_STATUS_UP set without notifying either NTB client.
->
-> ntb_netdev can hide this device-level state bug because ntb_transport uses
-> a separate per-QP LINK_DOWN_FLAG message. Use ntb_tool to observe the
-> device link state directly:
->
-> After bringing both sides up, start one waiter on each side:
->
->   HOST# echo N > /sys/kernel/debug/ntb_tool/<H-device>/peer0/link_event
->   VHOST# echo N > /sys/kernel/debug/ntb_tool/<V-device>/peer0/link_event
->
-> While both waiters are blocked, disable the link on the VHOST:
->
->   VHOST# echo N > /sys/kernel/debug/ntb_tool/<V-device>/link
->
-> Without this patch, the link-disable command succeeds, but peer0/link
-> remains Y on both sides and neither waiter returns.
->
-> Track HOST and VHOST enablement separately and report the effective link
-> as up only when both sides have enabled it, as pci-epf-ntb does for its
-> two physical hosts. Both NTB clients observe this effective state, so
-> notify both sides only when it changes, including the side whose request
-> completes the transition. Serialize the two paths because HOST commands
-> run from delayed work while the VHOST callbacks may run concurrently.
->
-> Order a link-status change caused by a HOST command before publishing
-> command completion.
->
-> With this patch, peer0/link changes to N on both sides and both waiters
-> return.
->
-> Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
-> Changes in v2:
->   - Notify both NTB clients when the effective link state changes. (Sashiko)
->   - Use devm_mutex_init(). (Frank)
->   - Update the commit message + reproducer accordingly.
->
-...
->  /**
-> - * epf_ntb_link_up() - Raise link_up interrupt to Virtual Host (VHOST)
-> + * epf_ntb_link_up() - Update the HOST link state
->   * @ntb: NTB device that facilitates communication between HOST and VHOST
-> - * @link_up: true or false indicating Link is UP or Down
-> - *
-> - * Once NTB function in HOST invoke ntb_link_enable(),
-> - * this NTB function driver will trigger a link event to VHOST.
-> + * @link_up: true when the HOST has enabled the link
->   *
->   * Returns: Zero for success, or an error code in case of failure
->   */
->  static int epf_ntb_link_up(struct epf_ntb *ntb, bool link_up)
->  {
-> -	if (link_up)
-> -		ntb->reg->link_status |= LINK_STATUS_UP;
-> -	else
-> -		ntb->reg->link_status &= ~LINK_STATUS_UP;
-> +	bool notify;
-> +
-> +	scoped_guard(mutex, &ntb->link_lock) {
-> +		notify = ntb->host_linkup != link_up && ntb->vhost_linkup;
-> +		ntb->host_linkup = link_up;
-> +		epf_ntb_update_link(ntb);
-> +	}
-> +
-> +	if (notify) {
-> +		/* Publish link status before completing the HOST command. */
-> +		dma_wmb();
 
-why need dma_wmb() here?  suppose there are writel() at
-pci_epc_raise_irq(), or barrier should be inside pci_epc_raise_irq().
+--=-UqXBVxT8d+O+osTm5faS
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Frank
+On Tue, 2026-10-13 at 21:59 +0530, Ayush Singh wrote:
+> Markus Probst <markus.probst@posteo.de> writes:
+>=20
+> > On Tue, 2026-10-13 at 17:30 +0530, Ayush Singh wrote:
+> > > Add a driver for Greybus nodes attached over a plain serial port. The
+> > > node is registered with the software SVC (gb-softsvc), which handles =
+the
+> > > SVC protocol on behalf of the AP, so no dedicated coprocessor running
+> > > SVC firmware is needed.
+> > >=20
+> > > Greybus messages are carried over HDLC framing on the wire. Each fram=
+e
+> > > carries a one-byte address (0x01 for Greybus) and control byte, follo=
+wed
+> > > by the 16-bit CPort ID and the Greybus message itself.
+> > >=20
+> > > Port parameters are taken from the firmware node: "baudrate" if
+> > > present, otherwise 115200, with flow control and parity disabled.
+> > >=20
+> > > Since gb-uart-node imports types from gb-softsvc, Rust to Rust callin=
+g
+> > > setup from nova-core [0] is being used.
+> > >=20
+> > > [0]: https://lore.kernel.org/all/20260622-nova-exports-v5-0-6191773fc=
+977@nvidia.com/
+> > >=20
+> > > Signed-off-by: Ayush Singh <ayush@beagleboard.org>
+> > > ---
+> > >  MAINTAINERS                     |   1 +
+> > >  drivers/greybus/.gitignore      |   1 +
+> > >  drivers/greybus/Kconfig         |  15 +++
+> > >  drivers/greybus/Makefile        |  48 ++++++++
+> > >  drivers/greybus/gb_uart_node.rs | 253 ++++++++++++++++++++++++++++++=
+++++++++++
+> > >  5 files changed, 318 insertions(+)
+> > >=20
+> > > diff --git a/MAINTAINERS b/MAINTAINERS
+> > > index 521bc6c67979..5bdd500ef63e 100644
+> > > --- a/MAINTAINERS
+> > > +++ b/MAINTAINERS
+> > > @@ -11527,6 +11527,7 @@ M:	Ayush Singh <ayush@beagleboard.org>
+> > >  L:	greybus-dev@lists.linaro.org (moderated for non-subscribers)
+> > >  S:	Maintained
+> > >  F:	Documentation/devicetree/bindings/beagle/beagle,beagleconnect-fre=
+edom.yaml
+> > > +F:	drivers/greybus/gb_uart_node.rs
+> > > =20
+> > >  GREYBUS SUBSYSTEM
+> > >  M:	Johan Hovold <johan@kernel.org>
+> > > diff --git a/drivers/greybus/.gitignore b/drivers/greybus/.gitignore
+> > > new file mode 100644
+> > > index 000000000000..ff9c4a3539b4
+> > > --- /dev/null
+> > > +++ b/drivers/greybus/.gitignore
+> > > @@ -0,0 +1 @@
+> > > +exports_gb_softsvc_generated.h
+> > > diff --git a/drivers/greybus/Kconfig b/drivers/greybus/Kconfig
+> > > index 709563f8c0ad..ce2030161f30 100644
+> > > --- a/drivers/greybus/Kconfig
+> > > +++ b/drivers/greybus/Kconfig
+> > > @@ -61,5 +61,20 @@ config GREYBUS_SOFTSVC
+> > >  	  To compile this code as a module, choose M here: the module
+> > >  	  will be called gb-softsvc.ko
+> > > =20
+> > > +config GREYBUS_UART_NODE
+> > > +	tristate "Greybus UART node transport"
+> > > +	depends on GREYBUS_SOFTSVC
+> > > +	depends on RUST_SERIAL_DEV_BUS_ABSTRACTIONS
+> > > +	depends on RUST_GREYBUS_ABSTRACTIONS
+> > > +	select RUST_CRC_CCITT_ABSTRACTIONS
+> > > +	help
+> > > +	  Select this option if you have a Greybus node connected over a
+> > > +	  serial port. The node is registered with the software SVC, which
+> > > +	  handles the SVC protocol on behalf of the AP, so no dedicated
+> > > +	  coprocessor running SVC firmware is required.
+> > > +
+> > > +	  To compile this code as a module, choose M here: the module
+> > > +	  will be called gb-uart-node.ko
+> > > +
+> > >  endif	# GREYBUS
+> > > =20
+> > > diff --git a/drivers/greybus/Makefile b/drivers/greybus/Makefile
+> > > index e6f594128802..bf4d08f728fe 100644
+> > > --- a/drivers/greybus/Makefile
+> > > +++ b/drivers/greybus/Makefile
+> > > @@ -28,3 +28,51 @@ obj-$(CONFIG_GREYBUS_ES2)	+=3D gb-es2.o
+> > >  obj-$(CONFIG_GREYBUS_SOFTSVC)	+=3D gb-softsvc.o
+> > >  gb-softsvc-y			+=3D gb_softsvc.o gb_softsvc_exports.o
+> > > =20
+> > > +obj-$(CONFIG_GREYBUS_UART_NODE)	+=3D gb-uart-node.o
+> > > +gb-uart-node-y			+=3D gb_uart_node.o
+> > > +
+> > > +# Export Rust symbols from gb-softsvc only if gb-uart-node actually =
+references them.
+> > > +gb-softsvc-export-deps :=3D $(if $(CONFIG_GREYBUS_UART_NODE),$(obj)/=
+gb_uart_node.o)
+> > > +
+> > > +rust_needed_exports =3D \
+> > > +	{ $(if $(strip $(2)),$(NM) -u $(2);,) echo "__DEFINED_RUST_SYMBOLS_=
+_"; \
+> > > +	  $(NM) -p --defined-only $(1); } | \
+> > > +	awk -v fmt=3D'$(3)' ' \
+> > > +		/^__DEFINED_RUST_SYMBOLS__$$/ { defs =3D 1; next } \
+> > > +		!defs { if ($$NF ~ /^_R/) needed[$$NF] =3D 1; next } \
+> > > +		defs && $$2 ~ /(T|R|D|B)/ && $$3 ~ /^_R/ && \
+> > > +			$$3 !~ /_(init|cleanup)_module$$/ && \
+> > > +			$$3 !~ /__(pfx|cfi|odr_asan)/ && \
+> > > +			$$3 in needed { printf fmt, $$3 } \
+> > > +	'
+> > > +
+> > > +quiet_cmd_exports =3D EXPORTS $@
+> > > +      cmd_exports =3D \
+> > > +	$(call rust_needed_exports,$<,$(gb-softsvc-export-deps),EXPORT_SYMB=
+OL_RUST_GPL(%s);\n) > $@
+> > > +
+> > > +$(obj)/exports_gb_softsvc_generated.h: $(obj)/gb_softsvc.o $(gb-soft=
+svc-export-deps) FORCE
+> > > +	$(call if_changed,exports)
+> > > +
+> > > +targets +=3D exports_gb_softsvc_generated.h
+> > > +
+> > > +$(obj)/gb_softsvc_exports.o: $(obj)/exports_gb_softsvc_generated.h
+> > > +CFLAGS_gb_softsvc_exports.o :=3D -I $(objtree)/$(obj)
+> > > +
+> > > +ifdef CONFIG_MODVERSIONS
+> > > +# The C export shim declares Rust symbols as `extern int`, so reuse =
+its export
+> > > +# list but generate symbol CRCs from the Rust object instead of the =
+shim's DWARF.
+> > > +$(obj)/gb_softsvc_exports.o: private cmd_gensymtypes_c =3D \
+> > > +	$(call getexportsymbols,\1) | \
+> > > +	$(objtree)/scripts/gendwarfksyms/gendwarfksyms \
+> > > +		$(if $(KBUILD_GENDWARFKSYMS_STABLE), --stable) \
+> > > +		$(if $(KBUILD_SYMTYPES), --symtypes $(@:.o=3D.symtypes),) \
+> > > +		$(obj)/gb_softsvc.o
+> > > +endif
+> > > +
+> > > +# Output gb_softsvc's crate metadata for use by gb_uart_node at comp=
+ile time.
+> > > +RUSTFLAGS_gb_softsvc.o +=3D \
+> > > +	--emit=3Dmetadata=3D$(objtree)/$(obj)/libgb_softsvc.rmeta
+> > > +
+> > > +# Allow nova-drm to import nova-core's types.
+> > > +$(obj)/gb_uart_node.o: $(obj)/gb_softsvc.o
+> > > +RUSTFLAGS_gb_uart_node.o :=3D -L $(objtree)/$(obj) --extern gb_softs=
+vc
+> > > diff --git a/drivers/greybus/gb_uart_node.rs b/drivers/greybus/gb_uar=
+t_node.rs
+> > > new file mode 100644
+> > > index 000000000000..f719ee35e8f3
+> > > --- /dev/null
+> > > +++ b/drivers/greybus/gb_uart_node.rs
+> > > @@ -0,0 +1,253 @@
+> > > +// SPDX-License-Identifier: GPL-2.0
+> > > +
+> > > +//! Greybus UART Node driver
+> > > +
+> > > +use kernel::{
+> > > +    alloc::Flags,
+> > > +    crc_ccitt::crc_ccitt,
+> > > +    device::{
+> > > +        AsBusDevice,
+> > > +        Bound,
+> > > +        Core, //
+> > > +    },
+> > > +    error::code,
+> > > +    new_spinlock,
+> > > +    of, //
+> > > +    prelude::*,
+> > > +    serdev,
+> > > +    sync::{
+> > > +        aref::ARef,
+> > > +        Arc,
+> > > +        SpinLock, //
+> > > +    },
+> > > +};
+> > > +
+> > > +use zerocopy::little_endian;
+> > > +use zerocopy_derive::{FromBytes, Immutable, KnownLayout};
+> > > +
+> > > +const HDLC_MAX_FRAME_LEN: usize =3D 256;
+> > > +
+> > > +const HDLC_FRAME: u8 =3D 0x7E;
+> > > +const HDLC_ESC: u8 =3D 0x7D;
+> > > +const HDLC_XOR: u8 =3D 0x20;
+> > > +const HDLC_EXPECTED_CRC: u16 =3D 0xf0b8;
+> > > +
+> > > +const ADDRESS_GREYBUS: u8 =3D 0x01;
+> > > +
+> > > +#[repr(C, packed)]
+> > > +#[derive(FromBytes, Immutable, KnownLayout)]
+> > > +struct GreybusFrame {
+> > > +    cport: little_endian::U16,
+> > > +    msg: [u8],
+> > > +}
+> > > +
+> > > +struct HdlcRx {
+> > > +    rx_buf: KVec<u8>,
+> > > +    rx_in_esc: bool,
+> > > +    rx_overflow: bool,
+> > > +    sdev: ARef<serdev::Device>,
+> > > +    node: gb_softsvc::Module,
+> > > +}
+> > > +
+> > > +impl HdlcRx {
+> > > +    fn new(sdev: ARef<serdev::Device>, node: gb_softsvc::Module) -> =
+Result<Self> {
+> > > +        Ok(Self {
+> > > +            node,
+> > > +            sdev,
+> > > +            rx_buf: KVec::with_capacity(HDLC_MAX_FRAME_LEN, GFP_KERN=
+EL)?,
+> > > +            rx_in_esc: false,
+> > > +            rx_overflow: false,
+> > > +        })
+> > > +    }
+> > > +
+> > > +    fn frame_finish(&self) -> Result<()> {
+> > > +        if self.rx_buf.len() < 4 {
+> > > +            return Err(code::EFAULT);
+> > > +        }
+> > > +
+> > > +        let crc =3D crc_ccitt(0xffff, &self.rx_buf);
+> > > +        if crc !=3D HDLC_EXPECTED_CRC {
+> > > +            dev_warn!(self.sdev.as_ref(), "CRC failed {}", crc);
+> > > +            return Ok(());
+> > > +        }
+> > > +
+> > > +        let addr =3D self.rx_buf[0];
+> > > +        let _ctrl =3D self.rx_buf[1];
+> > > +        let payload =3D &self.rx_buf[2..self.rx_buf.len() - size_of:=
+:<u16>()];
+> > > +
+> > > +        match addr {
+> > > +            ADDRESS_GREYBUS =3D> {
+> > > +                let frame =3D GreybusFrame::ref_from_bytes(payload).=
+map_err(|_| code::EINVAL)?;
+> > > +                self.node.submit_message(0, frame.cport.into(), &fra=
+me.msg)
+> > > +            }
+> > > +            _ =3D> Err(code::EINVAL),
+> > > +        }
+> > > +    }
+> > > +
+> > > +    fn rx(&mut self, data: &[u8]) -> usize {
+> > > +        for i in data.iter() {
+> > > +            match *i {
+> > > +                HDLC_FRAME =3D> {
+> > > +                    if !self.rx_buf.is_empty() {
+> > > +                        if let Err(e) =3D self.frame_finish() {
+> > > +                            dev_warn!(self.sdev.as_ref(), "bad frame=
+: {e:?}\n");
+> > > +                        }
+> > > +                    }
+> > > +
+> > > +                    self.rx_buf.clear();
+> > > +                    self.rx_in_esc =3D false;
+> > > +                    self.rx_overflow =3D false;
+> > > +                }
+> > > +                HDLC_ESC =3D> self.rx_in_esc =3D true,
+> > > +                // Skip data if buffer has overflown.
+> > > +                _ if self.rx_overflow =3D> {}
+> > > +                _ =3D> {
+> > > +                    let c =3D if self.rx_in_esc { *i ^ HDLC_XOR } el=
+se { *i };
+> > > +                    self.rx_in_esc =3D false;
+> > > +
+> > > +                    if self.rx_buf.push_within_capacity(c).is_err() =
+{
+> > > +                        dev_warn!(self.sdev.as_ref(), "buffer overfl=
+ow. Dropping frame");
+> > > +
+> > > +                        self.rx_overflow =3D true;
+> > > +                        self.rx_buf.clear();
+> > > +                    }
+> > > +                }
+> > > +            }
+> > > +        }
+> > > +
+> > > +        data.len()
+> > > +    }
+> > > +}
+> > > +
+> > > +struct GbNode {
+> > > +    sdev: ARef<serdev::Device>,
+> > > +}
+> > > +
+> > > +impl GbNode {
+> > > +    const fn new(sdev: ARef<serdev::Device>) -> Self {
+> > > +        Self { sdev }
+> > > +    }
+> > > +
+> > > +    fn fill_buf(mut crc: u16, data: &[u8], buf: &mut KVec<u8>) -> Re=
+sult<u16> {
+> > > +        for i in data {
+> > > +            crc =3D crc_ccitt(crc, &[*i]);
+> > > +            if *i =3D=3D HDLC_ESC || *i =3D=3D HDLC_FRAME {
+> > > +                buf.push_within_capacity(HDLC_ESC)?;
+> > > +                buf.push_within_capacity(i ^ HDLC_XOR)?;
+> > > +            } else {
+> > > +                buf.push_within_capacity(*i)?;
+> > > +            }
+> > > +        }
+> > > +
+> > > +        Ok(crc)
+> > > +    }
+> > > +}
+> > > +
+> > > +impl gb_softsvc::InterfaceOps for GbNode {
+> > > +    fn write(&self, data: &[u8], cport: u16, gfp_mask: Flags) -> Res=
+ult<()> {
+> > > +        // SAFETY: `GbNode` only exists while its serdev driver is b=
+ound, so the device is in the
+> > > +        // `Bound` state for the duration of this call.
+> > > +        let bound: &serdev::Device<Bound> =3D
+> > > +            unsafe { serdev::Device::from_device(self.sdev.as_ref().=
+as_bound()) };
+> > > +
+> > > +        let mut buf =3D KVec::with_capacity(HDLC_MAX_FRAME_LEN, gfp_=
+mask)?;
+> > > +
+> > > +        let mut crc =3D 0xffff;
+> > > +
+> > > +        buf.push_within_capacity(HDLC_FRAME)?;
+> > > +
+> > > +        crc =3D Self::fill_buf(crc, &[ADDRESS_GREYBUS, 0x03], &mut b=
+uf)?;
+> > > +        crc =3D Self::fill_buf(crc, &cport.to_le_bytes(), &mut buf)?=
+;
+> > > +        crc =3D Self::fill_buf(crc, data, &mut buf)?;
+> > > +
+> > > +        crc ^=3D 0xffff;
+> > > +        Self::fill_buf(crc, &crc.to_le_bytes(), &mut buf)?;
+> > > +
+> > > +        buf.push_within_capacity(HDLC_FRAME)?;
+> > > +
+> > > +        bound.write_all(&buf, 0)?;
+> > > +
+> > > +        Ok(())
+> > > +    }
+> > > +}
+> > > +
+> > > +#[pin_data]
+> > > +struct GbUartNode {
+> > > +    #[pin]
+> > > +    rx: SpinLock<Option<HdlcRx>>,
+> > > +}
+> > > +
+> > > +impl GbUartNode {
+> > > +    fn init(sdev: &serdev::Device<Core<'_>>) -> Result<HdlcRx> {
+> > > +        if sdev
+> > > +            .set_baudrate(
+> > > +                sdev.as_ref()
+> > > +                    .fwnode()
+> > > +                    .and_then(|fwnode| fwnode.property_read(c"baudra=
+te").optional())
+> > > +                    .unwrap_or(115200),
+> > > +            )
+> > > +            .is_err()
+> > > +        {
+> > > +            return Err(EINVAL);
+> > > +        }
+> > > +        sdev.set_flow_control(false);
+> > > +        sdev.set_parity(serdev::Parity::None)?;
+> > > +
+> > > +        let node =3D gb_softsvc::Module::new(&[Arc::new(GbNode::new(=
+sdev.into()), GFP_KERNEL)?])?;
+> > > +
+> > > +        HdlcRx::new(sdev.into(), node)
+> > > +    }
+> > > +}
+> > > +
+> > > +kernel::of_device_table!(
+> > > +    OF_TABLE,
+> > > +    <GbUartNode as serdev::Driver>::IdInfo,
+> > > +    [(of::DeviceId::new(c"beagle,beagleconnect-freedom"), ())]
+> > > +);
+> > > +
+> > > +#[vtable]
+> > > +impl serdev::Driver for GbUartNode {
+> > > +    type IdInfo =3D ();
+> > > +    type Data<'bound> =3D Self;
+> > > +    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> =3D Some(&O=
+F_TABLE);
+> > > +
+> > > +    fn probe<'bound>(
+> > > +        sdev: &'bound serdev::Device<Core<'_>>,
+> > > +        _info: Option<&'bound Self::IdInfo>,
+> > > +    ) -> impl PinInit<Self, Error> + 'bound {
+> > > +        dev_dbg!(sdev.as_ref(), "Probe gb_uart_node.\n");
+> > > +
+> > > +        try_pin_init!(Self {
+> > > +            rx <- new_spinlock!(Some(Self::init(sdev)?), "gb_uart_no=
+de::rx"),
+> > > +        }? Error)
+> > > +    }
+> > > +
+> > > +    fn receive<'bound>(
+> > > +        _sdev: &'bound serdev::Device<Bound>,
+> > > +        this: Pin<&Self>,
+> > > +        data: &[u8],
+> > > +    ) -> usize {
+> > > +        if let Some(mut guard) =3D this.rx.try_lock() {
+> > > +            if let Some(ref mut hdlc_rx) =3D *guard {
+> > > +                return hdlc_rx.rx(data);
+> > > +            }
+> > > +        }
+> > > +
+> > > +        0
+> > > +    }
+> > > +
+> > > +    fn unbind<'bound>(_: &'bound serdev::Device<Core<'_>>, this: Pin=
+<&Self::Data<'bound>>) {
+> > > +        // Getting a bound device is not possible after this point. =
+So drop HdlcRx.
+> > > +        // This also drops HdlcRx::node, which should ensure that Gb=
+Node::write will not be called
+> > > +        // after this point.
+> > > +        let _ =3D this.rx.lock().take();
+> > Not exactly.
+> >=20
+> > e.g.
+> > ```
+> > struct SerdevDriver<'bound> {
+> >   dev: &'bound serdev::Device<Bound>,
+> > }
+> >=20
+> > impl<'bound> Drop for SerdevDriver<'bound> {
+> >=20
+> >   fn drop(&mut self) {
+> >     // Access to a bound device should still be possible here.
+> >   }
+> >=20
+> > }
+> > ```
+> >=20
+> > So afaik there should be no advantage of manually dropping it here.
+> > Drop of `GbUartNode` should automatically drop the spinlock and the
+> > data contained. The bound serial device is still valid at this point.
+> >=20
+> > This would likely make the usage of Option<> obsolete too.
+> >=20
+> > Thanks
+> > - Markus Probst
+>=20
+> My understanding was that the state of serdev device is unknown between
+> unbind and Drop calls. That would make the unsafe Bound device conversion
+> in GbNode::write unsound.
+>=20
+> If I don't need to do the early drop, yes, that would remove the Option
+> which would be great.
+
+.write is still valid inside Drop.
+
+Currently there is a small difference between unbind and Drop though
+(that shouldn't matter here):
+
+while unbind, data can still be received.
+while Drop, data can only be sent. No data will be received (Drop and
+receive never runs concurrently).
+
+Thanks
+- Markus Probst
+
+
+>=20
+> >=20
+> > > +    }
+> > > +}
+> > > +
+> > > +kernel::module_serdev_device_driver! {
+> > > +    type: GbUartNode,
+> > > +    name: "gb_uart_node",
+> > > +    authors: ["Ayush Singh <ayush@beagleboard.org>"],
+> > > +    description: "Greybus node connected over UART",
+> > > +    license: "GPL v2",
+> > > +}
+> >=20
+>=20
+>=20
+> Best Regards,
+> Ayush Singh
+
+--=-UqXBVxT8d+O+osTm5faS
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmrOYr0bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSI+cP/RuVl+xdxJtdCnt/p3NA
+DLBfxnTSo79NYIOowgE/fES/7vwnt3sWWJ5csSUGuPuIdu6eOvl8+WIOiEDHruJM
+UpV1hoBlBgqHAVwYs+aMJRmJ1ZIYTVskWEyqG5EW2/PjrqQ1DAO7z3950LUNEnQd
+x2yFKskDvvfeU4Jfrtcqv8nYD48APJtvaSK0Q0nuFl8c/4zMJpUXpvSoeRSqxFO9
+27ZP2UzgJPbRAvvgF3mcmhYJs7TJO29PXJDQIZdO2dRR+qkJ9T/afA0cBEMbnYQo
+B+Vw9I8JKD75CICJeK5h5Y4akCauBFPjKZDPJIhwOo+7jZy9qqT4FuUnTZBxaXGn
+ijZo4nP1EmQ623cygDqXZubtjsm5P1prBFqF7pz0oW4iTit/wPJO9CNvPO1Uw54o
+GepcRaTdIaK9yTTei3yH5GAoGFOqQ/GPoanfN78itXMalAv4n3+cKb+u6NgY4RDE
+N7oo6dpeDm5lOsO/33nvoVOF856cZeP+bvE/C7H2T05M5unPNaDzX2KOvd5lS9nu
+UnO+RihOqLI9B3GoQ4p7FqnAyytsz3vqWGtlpnq7uSBS2hXJA8b+yF1E/I9oM19S
+wSeVv/FTX1dWs4E91h7m/idZG/DAjb/G4mHC88XQSBmnjGqFA2gdmz8gZZzai+6S
+WSMuFxoSHmTdBoes/NeojKFp
+=N4cC
+-----END PGP SIGNATURE-----
+
+--=-UqXBVxT8d+O+osTm5faS--
