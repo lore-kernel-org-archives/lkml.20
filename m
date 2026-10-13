@@ -1,164 +1,252 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B591DF980
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:40:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ACD332B133;
+	Tue, 13 Oct 2026 12:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791895225; cv=none; b=Kk9MBa+7kpCV83MPoq26PMq0A+o+wvLjgulJntFMm2nLrExQQTNPJjr6G/60NkjiWuxmtGg3DY3MBbzxFJqGluYlU3AIcvNgylsHa5O7g7rvgB4Ccf93En06ZxuGY9H+ZUwgGKdT0uvBSmIYcsmOXeojHpSVenxf7ySmcki0YWI=
+	t=1791895242; cv=none; b=VPRfHJq8I+vkqNElKnszch+55YNHYfo4Fm5XHca41HFAZZPU8X8rXwxQHDfayJ5O8kPnMJqPWRN99kCu/9i5NEdHYewTCYu7jqdj2Qh098ynkc2NNOAe6PlY03JJuqP/Invj0Ygb9UykgMfU9/tbZtih76U8mEvKAF+0GB18IM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791895225; c=relaxed/simple;
-	bh=m57KIRJgsGLVC+8qu0NB/QkOahZKDItsSgJ6WcQKKO4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rgF47m4mCNK7eddZeQV8K4C9nr+YYPOG3ptlYwpwxxAPEGbw/nqTV+IQYfDL4oF8AYrmuIVG+MjwaBh0OpmI1X2BDhkDpxERpgUWxH6dozHRre5MIy384v/GGe0Hyi8Rn5MBy2l5SzcUjty4MY73PwFE1yPtoipDK1foAws+npM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=SD1Ydzzw; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1791895242; c=relaxed/simple;
+	bh=LKF3bKi91hcMSa0BeF4MKgWTsprydREmjX3Ak18qwlg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u3RRfCn9oibNyWurnmriFreZc224JzIUod8iE9qvYT2QQAkkCbR9HjMihRZc4QOJhWTtcgj4JuYAOi2VJPyS31UoqQFqk1jS4u25HqvQild0h5KMLLR2i9CKOlOz3Pahm567vZfhT+xunlrjwM95dNGAbg8hgip5jOc+ryQSoRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=SQuBWpLb; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="SD1Ydzzw"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e608cd460eso14842555ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:40:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791895224; x=1792500024; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ltMnIOP2nOYvYd7LoZiQDXdhGDBwlJ2oi6mkT/rek5g=;
-        b=SD1YdzzwDAZOamiig7kjq5wXuiHl9cbsxLdLfdOxIE9w1zBe/OX9GUKMRnmQQ5K+Ef
-         QlfI6bBCaSKb0WaJ3PADS0moXvVdV0BzW0xKGdzUik+7DKvzfMWdpNktodRrphjtv31p
-         exDOZO8jMuVTGBjrSOArVLdIV55PHOcwraZfs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791895224; x=1792500024;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ltMnIOP2nOYvYd7LoZiQDXdhGDBwlJ2oi6mkT/rek5g=;
-        b=WgIgjQnX+HF95JgsXkU3haK4ah5USU9tr5X+S4oTAiVj+oUWLu7f17HCOVKlXwy4fU
-         D4Zi3f6IfPR+dRdsLxYWUg/KyRBUThWFX7aFIuqmCwfQZXli3EcIwQhnxqJfidXRLvyM
-         KqkCmn5KCuAWPjLbWB+pfa5hUCOX/xRxTX2WyTRwjtIy+8pQFI5d21yoPOXtAa2spfEx
-         zYn9aTypfB4JJ0nsny/MKkdMSmlTm6z7D9nUgCZXzanAk58ym3Ihm0X3Hv/Ou4/sJeE8
-         3X8FSN+dsgnNW+HdmA7dBRH3kt9opw+oDjmAENWZhz/6x/t7KwCK5B7QB5bxbglHNyAk
-         x3Fg==
-X-Forwarded-Encrypted: i=1; AKwUvBx2U3dZIGHeKQUTFxXZhutHCFlGgRMMf5kDBqjQEP0VlFdbqVUMawZ0nukW4KOMh0CrHJ64KpPIItjCFoc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLeIA8GSZthxzpVr/x8dfmtL1rORdf30OdJbYoZE66GbR3QqFdh
-	tmKaF0aYbruEYHZLTYREugC5fL0Ba/0RPKCy+aU8KJvYM6TXH+86ot5DA9R1jZtJdpkZqynSt5N
-	4vClZoQ==
-X-Gm-Gg: AYBFou0xZqWuyU7ZaMP4qk38wTj2c2VsW5onqfJaBhpnov86zkOkRiA4QROW43HMKLn
-	Am+XbiKS39Ly42ceQ1ZoADTpbsVfWfZa63GptsRM0kFYOBgSmMfqBPBRIw+AFJ2mBbCFGhSYCOk
-	9awHnP4yh5+HzAZR9Q8OOPWk6Eb+CpgyV3Z9kUzuy8DRTufceJAV1/szo5FH6ozc0cNPFkmbq52
-	UiWtMqFwrmKrcvRoBrmjJq7OKHTWaXIyJBiuPXHaETykMvN0p9tNaZ8nCqTS8nCEhxRPcDBY8c9
-	wT6A1kOtfE1FDdZkVBLm2Pwgvpk6GhzfqAvoBWDRJCjIlL438RX7XkQk72A+aeYRNG8wn5TaMnF
-	OqFWdn/WV3a/PE3cCBqbWslawqHGRoLSN5fDKCREr/IIcuPkR66cvlkMJiEI4kKkMeMEPax/Kp0
-	RDJWEFyImoTMXyNSl9JvCtfHfspX4E7T/u7KhxZAx/dJhfpNPhyVMKNQL/LQZXUemaBGM5feiNg
-	rxYpOrfXMRtV+pPmTxWrKk2FCPdn13vxn8=
-X-Received: by 2002:a17:903:228c:b0:2e5:e73c:871b with SMTP id d9443c01a7336-2e842bd4e89mr112533555ad.63.1791895223810;
-        Tue, 13 Oct 2026 05:40:23 -0700 (PDT)
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com. [74.125.82.48])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e74asm55217645ad.29.2026.10.13.05.40.23
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 05:40:23 -0700 (PDT)
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15dd124bbe7so5541865c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:40:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz4OR7mLEW/MDMgSIknEZZ7EOnECJ4kehyzr4hALD+5DGs4og4bHo6+9vVi9WGwkbAFjv9nOgusWm1zups=@vger.kernel.org
-X-Received: by 2002:a05:701b:2605:b0:153:21e5:4328 with SMTP id
- a92af1059eb24-16a5d6403e9mr18801883c88.17.1791895221502; Tue, 13 Oct 2026
- 05:40:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="SQuBWpLb"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2EGp41891030;
+	Tue, 13 Oct 2026 12:40:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=pkVL53
+	WN/4s0X8Z/MUMa0CqQex9K+rz4ihQCEZhkaXY=; b=SQuBWpLbrJCepLWhqQfHkU
+	RdrGaebwXgxnnlDuB/ceVcFKLS3Ks43NSrstCZUs97pUYtjbcZ/zR+WKCmFmP74Q
+	wVTuR9vOJBgXjo0AJIcsQZwyyWaFEHoJGNpsHWQLI4OgyW/Bh+gt1NWbjCTmjIhY
+	+EZxy7PD+Kyv91GtDmhPL8YqjjOF3RxGl3UaFb52sPfsqwI2kgbIsU/zZBwNnM71
+	J2ZFV3De/F/p5zmXJc90qcYgghEhJCsVM4DDPlnV2sjPE8qTS8BheFyI9wVlqZW5
+	V//PNle7nyvzE30d51gzVxYLfQXP7KH/i1JCNkjI+c5xBxrDO0pAqH+2jwVKb2Iw
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv3e0d4-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 12:40:19 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69DCQVg82713069;
+	Tue, 13 Oct 2026 12:40:18 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h82cyhhhh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 12:40:18 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69DCeDFm31392242
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 13 Oct 2026 12:40:13 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C3E3E2005A;
+	Tue, 13 Oct 2026 12:40:10 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E12C320043;
+	Tue, 13 Oct 2026 12:40:09 +0000 (GMT)
+Received: from [9.87.128.189] (unknown [9.87.128.189])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 13 Oct 2026 12:40:09 +0000 (GMT)
+Message-ID: <c702be6a-dd7e-421c-9d58-69c5a47bee06@linux.ibm.com>
+Date: Tue, 13 Oct 2026 14:40:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013103041.145445-1-clinckx.louis@gmail.com>
-In-Reply-To: <20261013103041.145445-1-clinckx.louis@gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Tue, 13 Oct 2026 20:40:07 +0800
-X-Gmail-Original-Message-ID: <CANiDSCsT546cV8F4XiriArF9n-ESC0nFFQu7dzcjqO7iJfQj+w@mail.gmail.com>
-X-Gm-Features: AclHuK8mIYN_KuyoSL5jnzS_fT52N05tBS78HT8rCrgqoFCz8zUH21MlXCbAwC0
-Message-ID: <CANiDSCsT546cV8F4XiriArF9n-ESC0nFFQu7dzcjqO7iJfQj+w@mail.gmail.com>
-Subject: Re: [PATCH v2] media: uvcvideo: reject bulk output payloads too small
- for the header
-To: Louis Clinckx <clinckx.louis@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/2] sched: Introduce idle SMT priority for asymmetric
+ capacity systems
+To: Shrikanth Hegde <sshegde@linux.ibm.com>,
+        Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Andrea Righi <arighi@nvidia.com>, Ingo Molnar <mingo@redhat.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Juri Lelli <juri.lelli@redhat.com>,
+        Dietmar Eggemann <dietmar.eggemann@arm.com>,
+        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+        K Prateek Nayak <kprateek.nayak@amd.com>,
+        Heiko Carstens
+ <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Tim Chen <tim.c.chen@linux.intel.com>, Chen Yu <yu.c.chen@intel.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org
+References: <20261008-hiperdispatchfix-v1-0-73fe41081070@linux.ibm.com>
+ <aseIPhrDGCYFtJNE@gpd4> <90454932-1d82-450a-ac4c-499acdedb9d7@linux.ibm.com>
+ <ffbeae31-0e93-4386-8e0e-dba13960b283@linux.ibm.com>
+ <CAKfTPtCianGNWSu0s2J_B_aO_rtKWO17k9guYmwgXXLUHQE+SA@mail.gmail.com>
+ <d412d939-4704-4246-a9bd-b49b457099b8@linux.ibm.com>
+ <CAKfTPtAGiesy0FZQ3aOny_1QkqaX0P2MCOdkE42ERdihRJL99g@mail.gmail.com>
+ <ce85388c-3ea0-4363-8c89-fe2bf71b284a@linux.ibm.com>
+ <1ca4fe52-29df-444f-beab-3b141ca89129@linux.ibm.com>
+Content-Language: en-US
+From: Mete Durlu <meted@linux.ibm.com>
+In-Reply-To: <1ca4fe52-29df-444f-beab-3b141ca89129@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: r3dcj8Sq0AndnOUH8v0c3wotG_06EK0z
+X-Proofpoint-ORIG-GUID: AK_owYCSd2kPxsRRKRS7gssNeazH8--D
+X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6ace26b3 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=bdwL7orZE-3m0DtujhgA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0OCBTYWx0ZWRfXzXTAiBY/Lcv6
+ zEObkpVpAzTxLeC+iyxk5Gswv74SUU8G+AxpY/997BOUwgxAt3sd1wwnESHAtOgp3PjeqF4hmzE
+ Hz2NlxOWKl88iQAPMHppyHUL/r9VGEI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0OCBTYWx0ZWRfXz0DSk9/niQDJ
+ T4g+DoEpNYsrN2Dx2DKWy8WVSFRRL/aQBR0H0vI2L80bzulOxY/8KSYGsYdN4NxG/cIv6pSpFhZ
+ UfZAHhIsm9fjm/aRR83u6ARXpP8x8LZFxXmqWIfeRiYj5OX8272p/mAGWqDAjOPMarUmOvRtR3V
+ YYw6ff0ZIuo51uGQqR/q7n/Sw1t7Rzj5XyXoZRlZ6kSsDOzqH27vyXDiD6CytMbRYU+cDIYrZkw
+ mFFgXct89R68au9FBsUOc6muFDSJKN3/cSURCAEGAp6KGM3VJYTnKljCpGDypv1jK0ZQEmhUrp4
+ yI497UEpxtSyNlVvyyvSuM4Oab7rxI21aozHjl+iD8xrUYTrqAqDDcNBgzqy1eNn3/RbVPdWh8Z
+ EWUIR9wukKh0YYFJbENDz+751rnrYCUZ81z2mwKqa/OIbh0qAXeEx6FWdr1cDTYcZNWwe3z/+aB
+ gMbNKUE1apXLvPEOFrg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130048
 
-HI Louis
+[..snip..]
 
-On Tue, 13 Oct 2026 at 19:53, Louis Clinckx <clinckx.louis@gmail.com> wrote:
->
-> A bulk video output stream prefixes each payload with a fixed 2-byte
-> header written by uvc_video_encode_header(). The per-URB length counter
-> in uvc_video_encode_bulk() is a signed int initialised to the URB size:
->
->         int len = stream->urb_size;
->         ...
->         len -= uvc_video_encode_header(...);    /* returns 2 */
->
-> An output device can describe a bulk endpoint with wMaxPacketSize 1 and
-> negotiate dwMaxPayloadTransferSize 1, leaving stream->urb_size == 1. len
-> then becomes -1, and uvc_video_encode_data() casts it to unsigned
-> (nbytes = min((unsigned int)len, ...)), so (unsigned)-1 defeats the
-> clamp and the following memcpy() copies the whole frame past the
-> one-byte URB buffer.
->
-> Rather than guard the encode path, reject the invalid configuration when
-> the stream is started: the negotiated maximum payload transfer size must
-> be able to hold the 2-byte payload header. Requiring size >= 2 also
-> guarantees urb_size = psize * npackets >= 2, so the encode path can no
-> longer underflow.
->
-> Signed-off-by: Louis Clinckx <clinckx.louis@gmail.com>
-> ---
-> v1 -> v2: per review (Ricardo Ribalda, Laurent Pinchart), reject the bad
->           configuration at stream start in uvc_init_video_bulk() instead
->           of adding a guard to the encode path. Can move the check to
->           probe/commit (uvc_fixup_video_ctrl) if preferred.
->
->  drivers/media/usb/uvc/uvc_video.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> --- a/drivers/media/usb/uvc/uvc_video.c
-> +++ b/drivers/media/usb/uvc/uvc_video.c
-> @@ -1942,6 +1942,16 @@ static int uvc_init_video_bulk(struct uvc_streaming *stream,
->         size = stream->ctrl.dwMaxPayloadTransferSize;
->         stream->bulk.max_payload_size = size;
->
-> +       /*
-> +        * Output payloads start with a 2-byte header (see
-> +        * uvc_video_encode_header()), so a device negotiating a maximum
-> +        * payload transfer size smaller than that would make the encode
-> +        * path underflow its signed length counter. Reject it here.
-> +        */
-> +       if (stream->type == V4L2_BUF_TYPE_VIDEO_OUTPUT &&
-> +           stream->bulk.max_payload_size < 2)
-> +               return -EINVAL;
+>>> What you describe really fit into the prefered core that Shrikanth
+>>> Hegde has developped
+>>
+>> I agree, but Shrikanth's solution can not bring some of the
+>> behavior changes required. cpu_preferred_mask can help
+>> direct task placement away from low capacity cores but idle
+>> core first approach still places tasks to fully idle low
+>> capacity cores. This patches proposal tries to move tasks
+>> first to the idle SMT siblings.
+>>
+>> Consider the following;
+>> On a system with 2 high capacity and 4 low capacity cpus.
+>> steal governor of vCPU backoff mechanism calculates 2 low capacity
+>> cpus should be taken off from the cpu_preferred_mask to decrease
+>> experienced steal time. cpu_preferred_mask has 2 high capacity
+>> and 2 low capacity cpus.
+> 
+> 
+> In this scenario, do you still have reasonable steal time or no?
 
-nit: I'd replace the 2 with a #define and use it also in
-uvc_video_encode_header() for the return
+steal time should be sitting between low and high steal time
+threshold values of the steal governor. (no adjustments)
 
+>>
+>> Current behavior tires to place tasks to fully idle cores first
+>> even if they are low capacity cores.
+>>
+>>        c0(high) c1(high)  c2(low)  c3(low)  ...
+>> -------------------------------------------
+>> SMT 0 task     task      task     task
+>> SMT 1
+>>
+>>
+>> With the proposal, the fully idle core preference is circumvented
+>> and the most fitting SMT thread is selected.
+>>
+>>        c0(high) c1(high)  c2(low)  c3(low)  ...
+>> -------------------------------------------
+>> SMT 0 task     task
+>> SMT 1 task     task
+>>
+>> This is beneficial because at the time of contention(system pressure)
+>> low capacity cores could perform worse than SMT siblings of busy
+>> high capacity cores, even if there is not enough steal time for
+>> steal governor of Shrikanth's vCPU backoff to mark said low
+>> capacity cores as non-preferred.
+>>
+> 
+> I read this as tunable problem of low,high thresholds to adjust
+> preferred_mask same as high capacity cores. No?
 
+No, because cpu_preferred_mask would contain some low capacity
+cpus as the experienced steal time is not high enough to exclude
+all low capacity cpus from the mask.
 
-And I know that Laurent said otherwise, but probably due to my rust
-intoxication, I still recommend applying the check that I recommended
-in the previous version. It is pretty cheap. Otherwise If the size is
-not important, why do we pass it to uvc_video_encode_header()?
+And any new task could be placed on them like below as they should
+not cause an increase in steal time. See below (for 6 tasks);
+(non preferred cpus marked with X)
 
-In fact I think that if usb_endpoint_maxp()==1 and
-stream->bulk.max_payload_size==2 with memory pressure your code could
-fails
+        c0(high) c1(high)  c2(low)  c3(low)  c4(low)  c5(low)
+------------------------------------------------------------
+SMT 0 task     task       task     task          X        X
+SMT 1 task     task                              X        X
 
-> +
->         npackets = uvc_alloc_urb_buffers(stream, size, psize, gfp_flags);
->         if (npackets == 0)
->                 return -ENOMEM;
->
+The soft affinity should come in as full utilization of high capacity
+cores(and their SMT siblings) before placing tasks to low capacity
+cores (for 4 tasks);
 
-ps: Sorry to repeat myself; this isn't related to accepting or not the
-patch... Do you have a usb bulk output "camera" . I want one for my
-collection :)
--- 
-Ricardo Ribalda
+        c0(high) c1(high)  c2(low)  c3(low)  c4(low)  c5(low)
+------------------------------------------------------------
+SMT 0 task     task                              X        X
+SMT 1 task     task                              X        X
+
+>> Andrea came up with an idea to extend Shrikanth's mechanism further
+>> by adding a soft affinity to a selected set of CPUs. Task placement
+>> would first fully load these CPUs before spilling load onto rest
+>> of the CPUs on cpu_preferred_mask. That would help achieve the
+>> behavior I describe above if the soft affinity covers high
+>> capacity CPUs.
+>>
+>> The discussion is still on going though. If Shrikanth thinks this is
+>> a worthwhile concept then I'd be glad to work on the implementation
+>> and provide the patches.
+> 
+> What i don't understand is.
+> - if there is no system pressure to use those low capacity cores, why
+>    not use them if the task util fits its capacity. If the task utilization
+>    doesn't, it won't land on them anyways today right?
+
+Current task placement looks like this (5 tasks);
+
+        c0(high) c1(high)  c2(low)  c3(low)  c4(low)  c5(low)
+------------------------------------------------------------
+SMT 0  task     task      task     task*         X        X
+SMT 1  task     (**)                             X        X
+
+Even with lowered capacities task don't migrate away from
+fully idle cores, cpu selection prioritizes fully idle
+cores before everything else if i am not mistaken.
+
+The proposal with this patch series tries to circumvent exactly that
+idle core prioritization and uses SMT threads first, like below;
+
+        c0(high) c1(high)  c2(low)  c3(low)  c4(low)  c5(low)
+------------------------------------------------------------
+SMT 0  task     task      task     (**)          X        X
+SMT 1  task     task*                            X        X
+
+*the task that got placed to SMT1 of core1 instead of fully idle
+  core3
+**where the next task would likely land.
+
+After high capacity CPUs are fully saturated, remaining low capacity
+CPUs in cpu_preferred_mask can be utilized with idle core priority
+once again as there are no distinction between them.
+Utilizing high capacity cores(or entitled cores...) should lower
+the footprint of the guest and allow less noise from guests.
+Steal time(or contention) is expected first on low capacity cores
+anyway.
+
+Does this make sense?
+
+Thank you!
+-Mete
