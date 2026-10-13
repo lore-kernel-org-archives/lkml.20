@@ -1,159 +1,149 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579BC492199
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A696493D36;
+	Tue, 13 Oct 2026 06:07:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871596; cv=none; b=B5Kc7rhgfHrIVT8w4kPwkoPdpDL72MEtQxVdbGL0Ow8qSIHc6X5kSvtgcqs1H90H4615+xoD4OwWyPmll0+KccsHpNaE2E0WzAnsbTHaa2TwbhF5+WhwdyrHkpAH02Lpj3kjA9c/xj6W2ziGmiZGBOksRfZSpX9GU/oE4DaVxWU=
+	t=1791871633; cv=none; b=PgIuJATyfVpfPxd+mQKCujXz4+XtT0I4CVAKmbTxs0C7HqNKDKR9BA/m5qunfWbiMMzOVkJvi3C2K7c1eWxFkt89wNUhkUToR2uyLNkDk6eMVy/O75qgbTTpfumbpHP2uTmze+u7QMXAqvfuQi8XGMKo4UKKg8erFTex5fYWHYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791871596; c=relaxed/simple;
-	bh=jKBCUCn+td6u/3sbwm42C8Jz26hnQBdGnVitYLh9jlI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MvcprQRnD++9sMF3csdG8oNs7uwYJMK5/RN7bjY37bXUyUgMTyopNyP6MZaxwSUHHVT1uctDII97hkjeekchxV7V6goX7SZD6CAuUri++hC6jC34+RniXd+lYjytrqGk/lISb5roOJh5PQbYWX5o1P+sA8vWS1tRunBdH20uoOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Xp6MWfu0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Oa1WjjRS; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791871633; c=relaxed/simple;
+	bh=Zzzint5ECeIvn557DthDmutEppVqwPr3W2qzFUq9hXQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=F0xGmDX9thtdM8QErSzsY+BhXzenkjAJR0C8ev2/Fdw75j9nCktzvP5TvYLlK7l4SY0QbW2aqPJHP36cOy9P6prUL6IhjA3OGqYuorBIDZFl4ayxfrJnkKevZOt0WIreH0JjMRLdPVd3hgc9Zm8UUYm+cp/wMJoe+HvaSpdtWYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDabJj95; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Xp6MWfu0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Oa1WjjRS"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D21JFP989880
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:06:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lBpEuv0VacJ7/LOvL3HaJpLo8m8Hmqbr7rbjKNUqTB4=; b=Xp6MWfu03rxCXJ4X
-	9WoxFhM/UBuwwDdjrTmhhS4hQxjt7O7WKG7MLK2BMtKMMjRpkJWC3or5TmXXgOKa
-	lGX19fmYFMpkryFjBG0drysSKqO8kbtOdQX8gD9f6WpUjRsUMbay4u+cV1xbDgJF
-	Ycs1r24wen8yZwCplQ17VSBqYJxFb614Szrg/ynnYXVp52aOr0utTttf0NaE3HiF
-	Xwu/UXpjh86KjAi1hpmtU+RYGMLA5fpc+NHcZZJEJVCQCe1M3+MJYbU5S3VTX40N
-	pkPEvWJldnVl9Kbz70Y2tc+9fgnrFnqV9CtJTL9IQ4+SyeqzZ6vv+1VPYFTdThs+
-	nmuvGA==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98hc9c09-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:06:33 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35a4d2e39acso6743815eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:06:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791871593; x=1792476393; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lBpEuv0VacJ7/LOvL3HaJpLo8m8Hmqbr7rbjKNUqTB4=;
-        b=Oa1WjjRSY5OzHOtJ1Gf23VzPi13ovkWhurUo9ZqEooZrVdWnAgHIfSWeag3xF8dfwx
-         cRLeWjzcFKowB7fpmPlRfOjLfH7mxIM13qyPXoR5O9AITaGBIsgWe7Jn9XCBdIiQgJRh
-         WrI1bP1zI+0eK27fv97cSY/xivxLnAJJHuKtFDgn4uK8/Tn6n+959IqKFNccR+Kt5o+l
-         T/k5cAxMz1KWiit//ETHpqku92jUiJ1BzRAWVTSK7iaydeCP7F4z5RP965mk9MI3yWFx
-         IEM7bsSjc09DwK5NoKStyA36vc+6d+ypt7ryMIy1ecWmAxuQORV4Ei5xX9fk1UOni4lj
-         tUpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791871593; x=1792476393;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lBpEuv0VacJ7/LOvL3HaJpLo8m8Hmqbr7rbjKNUqTB4=;
-        b=bTnjPMSFGEJmUo0w0qbvsp4RNyrHSQxQ66VIMvnV/YZdasB8UchJkWzzbJgJb1CC8o
-         hVaGRhr02R7tqk+PFesH0bb1e4kkNt8Xfqdh8u32LsJuvW8oJN+fW/Mis6h43N7duhBw
-         UlJ6YuO2fRS7yNwWCoOdhWkUvJTmwnWQmg2XlDk85q1WfgXSFcEUNsb0M8WE+OVDfWix
-         gEAfMAfyMDbvJLLGv9L0pbQFZVund/rBfFH4IKxUm2elMfSO563wGKAZM6EsoekzpZ5a
-         hsISYgw1dJXy6ouTp+7rwoL+toL4j6K9b50rx2QW0GTazmeLaCrF9T5a1ZltDNQQy18X
-         6yeg==
-X-Forwarded-Encrypted: i=1; AKwUvBwOcEQjpoq0cHJlgilVxLpIyxieAAJ5cxs9qBbpO3ze0Sgji4ATMmUy3KpfjVR5OAcTNIpiwIDNuv9RxaI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUG7Gg0SeXIRLAU6rz2FIV7HPb8OzX5k0phvDTFgmdb8u6mAul
-	TW05HL97LLTf/xCFYKFW+WZ9Yn/RFN/BAk2RlVY7GzyL5i5oFllxpm7qbyebsizgVbV6tUlsom0
-	Tk+P4a4lXmjckmcBQ/F8VotPYP/luxgFCf6gzDGG2nYKRsDPH0IwoDGKvnaX8aZHKbxw=
-X-Gm-Gg: AYBFou2R4RV+F0/7FSlGLQVBQ2lIGC5Y8hip6LQ9llo3HfFuz3rM4zbbmzRtNION4J2
-	VQAU3AQQwagtiWOhALkJ7CBCUBVYmC/GKqq5+TqN9SGJ6w+UCM1snnZHsbWoGkqKqdXFPvp+TUo
-	OUHDzXu5uuOHB3FZpnaayd5SNOrpvLWheFObcYd1ocOHAorqJ4zzVMoSdMrrx+FJQvP7+u4AHYj
-	50o5YRVpJTlpQ7SiENI8nXj6psyVyJ9+y5SRcLEGGHgcMI08abDdk5I38UMfV6Pgc2SvDXViyCJ
-	rSJch0OHk4cHtG9Wr72OnMLZzzcXeUT/fmOCsJWqlrpEfeBY2eiJPeD0rqKVBbGXCH82xKtMRfU
-	D7TP2+wWMNSIFdCmMhEN/3brICGqC1ubqKQ==
-X-Received: by 2002:a05:693c:240c:b0:35c:dd03:55d2 with SMTP id 5a478bee46e88-35cdd035d62mr237988eec.26.1791871592565;
-        Mon, 12 Oct 2026 23:06:32 -0700 (PDT)
-X-Received: by 2002:a05:693c:240c:b0:35c:dd03:55d2 with SMTP id 5a478bee46e88-35cdd035d62mr237937eec.26.1791871591944;
-        Mon, 12 Oct 2026 23:06:31 -0700 (PDT)
-Received: from [192.168.0.172] ([183.83.141.157])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b53dsm37232595eec.6.2026.10.12.23.06.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 23:06:31 -0700 (PDT)
-Message-ID: <43f487cc-c8e3-4993-bf1e-41e3a9aaa7e3@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 11:36:23 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDabJj95"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 96627C2BCFC;
+	Tue, 13 Oct 2026 06:07:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791871632;
+	bh=Zzzint5ECeIvn557DthDmutEppVqwPr3W2qzFUq9hXQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=BDabJj95IuB3mLaJUjXR94r+wWVF/AX0lysQN4ZdvnbrR3dcsZaN94cRO7YzngoG6
+	 0hFKBsNC7tW7hwmBMqdP37YeWQhB8awQL/cY3wz3JIfP6QfYGXTxVin7jlRRsTgkFe
+	 Ew4lZq7dhmdw9bM0sypmbS6prNTM26kuoJG5dFeMcqCZZb26NzC00KPMl+srnsqKl2
+	 rZtkt+yTf3Yy9sl1kVoO8tR0pTg85gS7E02XAgdyw8ddnpLv2olOzxy0I8Ybv7ALfE
+	 Af/GdmaR8Lx0kTyB8+dMUhNYhj4Agxl7RX7aHe0j3LCSazlutKCxcIyfM6wr4BgRMo
+	 vh1l8WyMQz/pQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 82480CC6B03;
+	Tue, 13 Oct 2026 06:07:12 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Date: Tue, 13 Oct 2026 09:07:11 +0300
+Subject: [PATCH v3 01/11] dt-bindings: interrupt-controller: Add Cortina
+ Systems CS7542 peripheral interrupt controller
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/2] media: qcom: Add support for the iris codec on
- shikra
-To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab
- <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20261001-shikra_vpu-v6-0-37143dc1bb9d@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20261001-shikra_vpu-v6-0-37143dc1bb9d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAyNCBTYWx0ZWRfX6XQFVCQjpwG9
- 7ewbeUsTMLneF1nuspxXaB16HF1fDIfuxgAVbXcrMISm9Uk0m08CA0mK5DIZLR1GVQy4QDDF1Lo
- tbXsym4TNM1JZ1QPVW7Dxr0tTJtLN+1D92CBi8x8kE8U95Z8VTnG/8QbRsRVhksQRwzPt1rDWNi
- 6eP50Y6cwQ+IUB7jcAmNvYl3PUTFB0F35CMbIg6zKJEpaOE0D7RlxLdz4r+O49NrjBYMtD/+NgU
- NiCYCqY3Jk7Ou5MZSX+nutwvgvmwwt27J/o7aiFZow8wcPDgGV4a3ag3z6NW4vQ4kusD5xNGW+w
- jd1Rl4QXoV21jgPrsICGldHf3efFlCY++eSTwiAqWNv5EaQe/vl/yT4NXpVXc14fGQbOGPfERTR
- pLGNq0/SYqkE+HGUC+CQ4SIJU0XAb76NzL8dTzTbxRFdS/ZWEbS+oaanm+WFCsXbg3Ek2B5yT/z
- Z+LH0YhroZqKkKEubIQ==
-X-Authority-Analysis: v=2.4 cv=VPVIDNPX c=1 sm=1 tr=0 ts=6acdca69 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=bQUMaMctTmycBtt4xuJn5A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=Q6wxVgh2rZIxxIaB2AUA:9 a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-ORIG-GUID: N8W6rq4bmSqSYia7vwYi5dGPB_una41U
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAyNCBTYWx0ZWRfXxwf+ePSJPU2K
- dzr8uA5bpJTX0PKUNcnBUzhrt+qtsThM7S1EH20tHrQt/EU3vLbaPko3V+HE+byJJ9a0u+PjtnE
- tDYsKIO4FKOIfxKC+/w/O6FBFFFJi/E=
-X-Proofpoint-GUID: N8W6rq4bmSqSYia7vwYi5dGPB_una41U
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 spamscore=0
- suspectscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130024
+Message-Id: <20261013-b4-cs75xx-s2-v3-1-181bb0d23f4c@gmail.com>
+References: <20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com>
+In-Reply-To: <20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com>
+To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Russell King <linux@armlinux.org.uk>, 
+ Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org, 
+ Fil Dunsky <filipp.dunsky@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791871630; l=2339;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=A+5dV3NaQB/TuZqJfC9IFKI7zbkGEtJkk6VbEFbSsyk=;
+ b=CBRbOlCi5m0QTRcyWOFGQnEKmf+3eiUaNk4OXM4BdQ0BXv+WbEY6zV5K/yoQsNFtF5qAd+BzK
+ xMkC7gmepSrDYGPutKYr7tm17p2cvT+KagNIbev0bxx0Ga5PkEoT2Lj
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
 
-Hello Bjorn,
+From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-On 10/1/2026 7:11 PM, Vikash Garodia wrote:
-> Vikash Garodia (2):
->        arm64: dts: qcom: shikra: Add Iris video codec node
->        arm64: dts: qcom: shikra-evk: Enable Iris core
-> 
->   arch/arm64/boot/dts/qcom/shikra-evk.dtsi |  6 ++++
->   arch/arm64/boot/dts/qcom/shikra.dtsi     | 61 ++++++++++++++++++++++++++++++++
->   2 files changed, 67 insertions(+)
+The low speed peripherals of the Cortina Systems CS75xx SoCs share one
+GIC interrupt. A small controller in the peripheral register block
+reports which of its 15 sources are asserted and allows masking them.
 
-Do you plan to apply the DT patches to get them in 7.4 ?
+Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+---
+ .../interrupt-controller/cortina,cs7542-intc.yaml  | 57 ++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
 
-Regards,
-Vikash
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/cortina,cs7542-intc.yaml b/Documentation/devicetree/bindings/interrupt-controller/cortina,cs7542-intc.yaml
+new file mode 100644
+index 000000000..2963acaf7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/interrupt-controller/cortina,cs7542-intc.yaml
+@@ -0,0 +1,57 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/interrupt-controller/cortina,cs7542-intc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Cortina Systems CS7542 peripheral interrupt controller
++
++maintainers:
++  - Fil Dunsky <filipp.dunsky@gmail.com>
++
++description:
++  The low speed peripherals of the Cortina Systems CS75xx (Goldengate G2)
++  SoCs (two software interrupts, two timers, the AXI bridge, SPI, the five
++  GPIO banks, I2C, MDIO, SSP and the random number generator) share one GIC
++  interrupt. This controller has a status register showing the level of the
++  15 sources and an enable register to mask them. The sources are cleared in
++  the peripherals themselves.
++
++properties:
++  compatible:
++    const: cortina,cs7542-intc
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-controller: true
++
++  "#interrupt-cells":
++    const: 1
++    description:
++      The number of the source, 0 to 14. All sources are active high level
++      interrupts.
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - interrupt-controller
++  - "#interrupt-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    interrupt-controller@f0070004 {
++        compatible = "cortina,cs7542-intc";
++        reg = <0xf0070004 0x8>;
++        interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-controller;
++        #interrupt-cells = <1>;
++    };
+
+-- 
+2.53.0
+
+
