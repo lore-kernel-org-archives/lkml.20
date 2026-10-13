@@ -1,454 +1,365 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5883F1050;
-	Tue, 13 Oct 2026 09:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884369; cv=none; b=tMiCRNp+qB352H5pUcHxtqpis2vPjAStn7ZQo53Cw776DouyEtUNri1QuXalQ+AdsBW/spK/iY/TJvAVitdu6YANh6vGTyy2S8XOBHYZGPJRvGByziKOOvi9vvwxunZEOrNogp70QCo3ffUbNVAL0KD89iLy0iLVVTimerGYIi4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884369; c=relaxed/simple;
-	bh=8xVaTUXObt9q96gtO7TXoFtuMCOACrAAr4MnZf4AL5w=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hWYGXI88a8oLh2p0yNejIShmpihLtz7GcJFpLSiMu2spRpnM1buPhBNUAn7uxlb0bp+zWiM1zbkR5J1QTY0PUmfnzw3vgRir7b0BPpUQyKY7wAs2bVR6drQubV7HgR5alIQ5yl6TwPep8XwSCBAKSlkGsc17cQegtZejVrpBahk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ANupI4b9; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B008456DE9;
+	Tue, 13 Oct 2026 09:39:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.165.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791884375; cv=fail; b=TFzAbPjv9jKFkEGnLMHoidOWpikrneQ/ehpgN7hJZ9nG3RBTV64v08WuWtY5FwSQvlp/5cC7f4h4WLfleHNrH6PRIEzR+WYkebpfHb5+FqPehNksxBBiPHCO2BqAD6n782GTVgEOGRlp8O8alG1NRrYa5rWBOSR1WnkUhFK/yo0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791884375; c=relaxed/simple;
+	bh=neV5s8/EEE57Zfh0A9h+HcClqKGAaL2RN8QL5HjC3Y0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=UV3ZUHQ6hGFMNl3SUw7RuI1lKdHD7sma7lKWJVspSE/MPum0v7dMsLoOVq+9tv+xc+f6vkQhp3Lv/NwPNAHGdMy9FLUAhlOXXzGoMOMYv1LdoyYDMT/GnGniPKA45nRH9X1EQS2NIGmK5xZjojtBfs48VWKQwqi4MWT7v1Qw3lw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=Ty2Q/QuR; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=B1MOpxMd; arc=fail smtp.client-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ANupI4b9"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8xvxT790856;
-	Tue, 13 Oct 2026 09:39:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=XB+HZ0Rx2qI7Pb6sbMcpey
-	qK5Y1Cj4dj7EHG1/lFQVE=; b=ANupI4b9NVbALc4KdMoeraeaSEb2sa6L14JcXJ
-	VLmtiaV8Ri7gtO1tw8dP7095VEI89vdxx77ZaeCejWQkwgHun4TeXgwqVq2ySHJD
-	+9jokn6+piQj1I05yuFwomcfSI0yK799fEFmceQHZIg4RsZ3xmd6uNFFfPbbbzBu
-	RigpXLGdc2wVvFFz5JMGfFssiWVDASzLLj3uMD1caKjwyfaECyINzRdfcrPKNaGa
-	a01IYMYiBEgp0tqV4GZ451sxi20CLKel8/A76E38VqF65yTiwrJZykKHAehuYKxY
-	hdOMmWYuBq/GAnHW2jU6R51NjonLCV2XMxiw37VvzMTsnUKg==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9hmjr579-63
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 09:39:13 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69D5plZv651493;
-	Tue, 13 Oct 2026 05:51:47 GMT
-Received: from hu-hgautam-hyd.qualcomm.com (hu-hgautam-hyd.qualcomm.com [10.147.247.91])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 69D5plAQ651483;
-	Tue, 13 Oct 2026 05:51:47 +0000 (GMT)
-From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Subject: [PATCH v9 00/10] ASoC: qcom: Add QAIF driver for Shikra audio
- platform
-Date: Tue, 13 Oct 2026 11:21:23 +0530
-Message-Id: <20261013-b4-qaif-shikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="Ty2Q/QuR";
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="B1MOpxMd"
+Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2FX3J3439852;
+	Tue, 13 Oct 2026 09:39:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=5k2K9VS7zuQ/UTlCAJld5uxak5XJgLgnhv4R/bikwio=; b=
+	Ty2Q/QuRwLLxqPXpl36HijUxRcng8WhUw8uPFtb4SAYslDCSBfy6J4ox+VfNXX2/
+	fVTT927q5HuT9e/Ly2716c97AbbwD0H68+NfnxD9N4j5o5uUM6w3EeaOuBaHF0o5
+	UTAj2RJfp3rWKL92uJNlnNhRWg3YG/nypvPK38ZElbDXg4zCKd7i481Dp/1J4CFe
+	roN8v+07sTcfhNIHufYsUPdLKK7td9UBnY/XLp9Iq0kQ1SGDwHUg3hl5G9D92W9f
+	TQu84gknRwHuJsUhBSn67E0szGpI4JKwIlNOHplH8PenPzbdiXmcjkBkTg0v0tj4
+	I1gwsSTKvomf6o5AADCdmQ==
+Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4h7de1kp4v-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 13 Oct 2026 09:39:29 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 69D9aiir018196;
+	Tue, 13 Oct 2026 09:39:28 GMT
+Received: from ph7pr06cu001.outbound.protection.outlook.com (mail-westus3azon11010059.outbound.protection.outlook.com [52.101.201.59])
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4h7btp9u60-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 13 Oct 2026 09:39:27 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QceVUoXDB0QkRpdUKdGmYVWAm50mKnU3pJp0uYlikrmcdlQGu2wVHgYDLps9gmdLdewBrXCZLU2oFm0YlVisSB/vGypH6ak+oUU2jcQmui++7nQjEik53JhpZZphis5ZCb4+D0zHK2Ee2U3+j7D1O8rUQmgQdYOFgNM0REA48TavhY+CII/eWnT+tYxRlhv0BiT6NSDzFga3ablpknCmzoDkOlHUxUXVkxCa7SQ4ZTql4lK/U71hyGuo1EqLDrp0hEcHa8baO2a2nmjTZy3mBt9SepPn1DAF2Ka4EhDSVYDktyRuEGQFpxHa4vXQfhdm5yCg1KZakwyk6XkN+pVowg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5k2K9VS7zuQ/UTlCAJld5uxak5XJgLgnhv4R/bikwio=;
+ b=pIdW/Xzzc6Xp20514+DbgRQV/ZOLduZOZHHQkCfTlZG8+dif6bG7fjDz/bBRjolXzXL56Jj0Y62n18c7eAAoNc8c+ie54s0ySeE/6mvnUHq334scRpenwrVmvf+sl8HWon0UlsGSdfh+tIJp3/r6hBxnCRIchIa6eeK0+XWlDm7/thl9qNlJXihZShY+P+P9daQHFxpjCQVcJjYQQx56dO/myTqikj4EnKd9PMB1MDvweqQfDDXwJ79YC431KtWTzvdTjcfeV2igR0tXW1hgCvpprJ+b8kHIo32hBIMO203YUeqA2mEbhpA7GGugNeCedTww3l5Km8xnTgVTSDOQKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5k2K9VS7zuQ/UTlCAJld5uxak5XJgLgnhv4R/bikwio=;
+ b=B1MOpxMdYH2NX9ONGz7eUHWFR3iZTQVk/2GPuJkFLvhs42h7s2sOWchPjEMVqdibugC1hkzd99Pco7NsVPontfiPqV7VrvnnhciKtzmuRDugGt2g8A9BZfXp3qHkDaI7yjzY3vmkMMrz7yB3qGA9TVCAIbhgVNMhG366AR1vCOM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oracle.com;
+Received: from DM4PR10MB7505.namprd10.prod.outlook.com (2603:10b6:8:18a::7) by
+ PH7PR10MB7802.namprd10.prod.outlook.com (2603:10b6:510:30c::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.12; Tue, 13 Oct 2026 09:39:23 +0000
+Received: from DM4PR10MB7505.namprd10.prod.outlook.com
+ ([fe80::f14:5389:d117:967c]) by DM4PR10MB7505.namprd10.prod.outlook.com
+ ([fe80::f14:5389:d117:967c%4]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
+ 09:39:22 +0000
+From: Siddh Raman Pant <siddh.raman.pant@oracle.com>
+To: "Darrick J . Wong" <djwong@kernel.org>, linux-xfs@vger.kernel.org,
+        stable@vger.kernel.org
+Cc: Dave Chinner <dchinner@redhat.com>, linux-kernel@vger.kernel.org,
+        Sasha Levin <sashal@kernel.org>,
+        Mark Tinguely <mark.tinguely@oracle.com>
+Subject: [PATCH RESEND 5.15 v2 4/9] xfs: buffer pins need to hold a buffer reference
+Date: Tue, 13 Oct 2026 15:08:55 +0530
+Message-ID: <85a02418204d3bf4c5f3ed5c96abc8eda1f69d77.1791883296.git.siddh.raman.pant@oracle.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1791883295.git.siddh.raman.pant@oracle.com>
+References: <cover.1791883295.git.siddh.raman.pant@oracle.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI1PR02CA0060.apcprd02.prod.outlook.com
+ (2603:1096:4:1f5::17) To DM4PR10MB7505.namprd10.prod.outlook.com
+ (2603:10b6:8:18a::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANvGzWoC/3XNTQ7CIBAF4KsY1mIQ5aeuvIfpgtLBjtpioW00p
- ncX1J26meQlb773IBECQiS7xYMEmDCi71IolgtiG9MdgWKdMuGMS1YwRast7Q06Ghs8B0PNWKO
- niheMKQvOKU7S6zWAw9uLPZTvHMfqBHbIVm40GAcf7q/dSefeZ4Jvfk9MijJai0o6JqSQGvY+x
- lU/mov1bbtKJ7MfQ/8xdDKMlWvNhHKgxbdRzvP8BIgvX3IVAQAA
-X-Change-ID: 20260907-b4-qaif-shikra-audio-729007ceff72
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzOCBTYWx0ZWRfXwpK1qloCmO0P
- Vnus0Q9uCIyGZyxUHdEPKOijcZkjpbCUJy6wpuwkSdXhbXCL3QAn5blSyIVvbC62fWmqsCX6MZC
- MLTD1M+WQcub8Gw7Fo5Y6zM3egGtq8s=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzOCBTYWx0ZWRfX9WeFMHzLL1dX
- VGDUDJsEDhXs6zC89S8TW+gVhlMOZy56xH9HgccY7xcu0E7lNPDSK6quyEvc/CLOcBHbGUQpvTl
- vlmTj2bqoWYzyMqXZ3PQXfdOIogci6N67qxGie6XZYr/AHC/wRimLMq5sVK3h29xbaF9QlJcUKh
- VtpagO7IvqcjhP676zCis3ZHk26CBq4SafZOY6XdjQd+nAQl+Ac25wUevJ5G8ajeaRYSYrY8FqC
- RHmzE1SyqdULdFPV9S4qQS8kVXpWmPZgJdzQ0cc1/Qy4J5PXnoivprrSBVXr++G8rtjNkrjyBIE
- nc/RmWffiTCCu9uQfM9mAN792fARbRcLw+2Uk7zqUPBYmOmTzzDodwXOKlqufWaafv3h+XxNRKs
- U9NU3z4OWdYAaYbdlOYJVETzeygeMtPYvxxMQj+vS40jm2MWH+CSVpvJoerOXh1VRjVrwBg3hhM
- J3bGf8AWsPtvBzBeitw==
-X-Proofpoint-ORIG-GUID: QfyK875z1olu-3prEdSFFxBX4fLPYDGR
-X-Authority-Analysis: v=2.4 cv=O5+sLx9W c=1 sm=1 tr=0 ts=6acdfc41 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=iox4zFpeAAAA:8 a=yC-0_ovQAAAA:8
- a=rlvisQmlaGv160EuS1oA:9 a=mFSEB_uO1hu0ftEa:21 a=QEXdDO2ut3YA:10
- a=WzC6qhA0u3u7Ye7llzcV:22
-X-Proofpoint-GUID: QfyK875z1olu-3prEdSFFxBX4fLPYDGR
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR10MB7505:EE_|PH7PR10MB7802:EE_
+X-MS-Office365-Filtering-Correlation-Id: a33d1765-e13d-4312-101e-08df290ddc8e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|10070799003|23010399003|6133799003|10067099003|18002099003|22082099003|261009223027099003|5023799004|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	quyqZ1G7Cy1trlR+zPMmFuucfyLuINirSRnn50n/uI1m52ajyN/zr/l4yzgjHLeOCXWgqwfu43HWE1eq0jVDfItBRTHrGepKT94ZgOs7penqGdhG7bRkY0voFz9qq2lKR7v1cW4Fp8GHflR1DnBTB2Wsz0jza59wJRAgjnrHVJ44IsryX5BYqL1ixNItEsAzrnlEeGgHK5xxrmD6FXel4GrD2ynCUF1ONw6dkOdBrATYJyK0DWduE/WPL3Jvnu8UI6PuTqd+ca4o9HMkU8kGbc85muq3PvvimfXwej+fqSefpRYU15n6GTpaREe17DbuvOhUFRFMaKbH6q86ku3OD1AXipgic8d3R3IzpZtsGWGbmK9d2zgE88WGDODl+krxYSEfypOl+mGpGElToghu8ZGu2OLpcFvoU3X3w0SSRlVEFuq3EhwyG2Adp1rfzIjFusn0uMwbZeIjtiF9qCIZTBH37/euBVvCbP0r4bfAQe/N0M3gBQYh1+s8ijjFDiRkSMjH0eMvNJZoeCO9r8el49MaaVl1ihfQCNNx8DgEhE7axE3fANcZ5GHrQTeCfKKwY3e1dWiafDBDjzVsnPb8lEY4vpvneKkeCGEJMCIki9Nb/nWroJTzLh6cn0a7ubSyC4TGHIf1DwLaxh5i3m7Gjutf/+groOZW0cJMr2b426M=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB7505.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(10070799003)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(261009223027099003)(5023799004)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?6nUukkt11pdwnlbzPBbniEQSUhuxIGiksTLcQOIGr68TVstqy0rIydIQIdMq?=
+ =?us-ascii?Q?Wqnd7xtlYoDWcZRYlmTmecb/Y+lRa95p9ppFUt6KKXUq1F0sazLBXhjgUsn2?=
+ =?us-ascii?Q?DvhP8jRHNk/i1gAOWADghwj5cPrAz4qEXWEsPFHLZ4/iC/IL22R2h0u7Q7Sj?=
+ =?us-ascii?Q?DmxRjb5MwrNgFkvoR5HA0oiG7+7sFRdJlIPjaF3RFjBqnsTyrxUCSmfCBtKO?=
+ =?us-ascii?Q?ZMQS6/dkt77hYiy3puX4LyiqibOyOdEhrWMFj7u8AqMXzrZSElV6gVv6pFIF?=
+ =?us-ascii?Q?BfWRWevVoROBJJh7NWHzvQ2EQjmLQFOjK1jZshM/XuzlkbUwvrQmo40QcpmE?=
+ =?us-ascii?Q?lKrnPR+ddBGps9zvoL7NHjcGejeiH268YppYsVF9M2f47TGsSm7YnCex62t2?=
+ =?us-ascii?Q?fXkm4JqUVcXxFtRPVW1QYD2Sv9JrRTTqxNJsIceaz4WM1MiNa3wNssZMlRdI?=
+ =?us-ascii?Q?JwWI6xuiwuP+Mb1HeGtY1+Xfd+RDO6AoovUgQlaFqcw04bAQEpW0+5OmZS6f?=
+ =?us-ascii?Q?rWKcAkWccRFyfoY0x8KnQLj0xJznLvomuFQBbO2g9ExFAc62LfHLQ0KYNa+P?=
+ =?us-ascii?Q?fWgIEp1HbZPaPe+quLTbvfU6k2m40bjrrp1t31sXl76rvQzrqmcjuakzWpll?=
+ =?us-ascii?Q?ZctqGMCe1aPgzMarlFUN5v/5RdkUHuYdpvfoZr5740SkSw45OtH+WMva4rAm?=
+ =?us-ascii?Q?tjnI6Zpvik6JmZQCU0FMGX6yhybuyTPYENt4H/zkWcm1pNy4w9uVkVvZhJMV?=
+ =?us-ascii?Q?tBQqHw2F15Pc+v8ZGmLO++Eoovk9imZk+2I2cikvnJSjGNJfDD0/gRn11TYk?=
+ =?us-ascii?Q?991kI4hijO4yyeqQIuJj76tvbZkey5dHnIrDllCM2Glv4l46uyqanTPjsqh9?=
+ =?us-ascii?Q?UltpBUpDvw+sz2nxtatjl2DRkHV2/2jtD0vtBFtigKqGXxwXu2huNeJfbUkL?=
+ =?us-ascii?Q?qfbjATyXQqEKi8MXQuYMKULHtaP/3El4UpAqu1FJ+SeUPUjMLZ1oXTRcU6E1?=
+ =?us-ascii?Q?44eOUbn2q/cedirIJtCeo0/+27CibFYqEuz0WYDsWVD6O1XY9AM9UrPo/F5Y?=
+ =?us-ascii?Q?sSbMWNjQ+iMNW3G8o3ib4MZYU0Jxh1SGncbx3UgoQ9S98IPnkC1fctJNI1ci?=
+ =?us-ascii?Q?bFowe7NU2hjMYod8VwGGt/uaE/6qF6+g6B2egNamHp/TZE/xFkZAvJtRFoRV?=
+ =?us-ascii?Q?wupyKp3Z3oLRWmxaK+S55+BVwke/42Ds9Rf7hjw7BdCVEFyZcNruI+Bncx26?=
+ =?us-ascii?Q?XfAbyacJGrWtrQkgvgFdoLR6EAXpDV/X3GLvJbxTFmDlpd6DLdXcQD4ApR00?=
+ =?us-ascii?Q?SZBtoIKUJDbR6M6XMNtbQUmH/d0oLErgF5Jq9+4OCYHiX+5yXuHgD/Y8LYtp?=
+ =?us-ascii?Q?BrR/n+4IwC1KvCKsUR7g+Kh5EJdMk6cWliCZDgCPOaLJo4P42uorcRFpo0V+?=
+ =?us-ascii?Q?9ltz7OoY3BaqKkEne/AZD+niNm/Ru3IreDSeOptHlXxjfrHTUSJcLRNByKYi?=
+ =?us-ascii?Q?7AdhYhoCLZ8ubL2N/690wqZX2pAZlQcFgcgvQ7goLk123OcjBCFkf/PgqdHv?=
+ =?us-ascii?Q?B937G8gc5bHZIUR/n56mtSrOT7Lx96EXaqiCjHLHQVdFC+NLBLDmlm4lrRT7?=
+ =?us-ascii?Q?wyswOREHkAtqSBS+LqW9jKGjK2zY2UXlcP/gSm+qeynJGKemafyIidv+PQQi?=
+ =?us-ascii?Q?qJrhsN5KEAg5B7r9lPwuHug/DbQiqhXq9mHO1WDPXOVpDXFinByGOLo+NCP2?=
+ =?us-ascii?Q?4Hg0Z2fxnTE/VHCWAhuV4YXwzwJ2m5JQxmKIFPjLHGJ5HdBp22vVh/UlWdW6?=
+X-MS-Exchange-AntiSpam-MessageData-1: b1FGwJagROJHaWQbIR9gXa1D1BTeiU7ldYk=
+X-Exchange-RoutingPolicyChecked:
+	hNAS2BVLLW5uXMvRkiDDVKpViY0QQrP/iliiQsO7uvuj6WtjUeVW71QLKVmlEkGliX6ykA5OE+GmhVuFPrTN62VGS5vxHEsxDiGMDHdEDbfQKD8sZSlMitnQgcbZr0HFXValzpECLJ3qRvjvrbX+ps9DgazqRlwj0mreaGZs4diMjploiDvkd/4KmdJpH2xDeuy+TQtCPlTU8H9MnwUbeaLQ1zV/JlgsDRXAsdISkSSKEOFq1jdnUEqPgAFai3HqcT1GYfsNGkucTV+/6G+JvoW4kknDvMY3oaHrI8aTNx4jHxASyFGFNz1n6nJW9CZAbkFSZMOr6JoBMf5XVUrDUQ==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	oyE09LCs8RPeWBgqH/BqsoReW/ffUxQMH03jQEQBwTU4jeJxfIhZksLTL2dE3lZkTsLIi/TtRncgDbFopLQvmWP9n4USbvXAXTvM8yXftGinirLIMIJt1wKeZ95d9BxXMJUsczyk9AsN5ib9vhVlG+/e4v3E6OIOrAhHG2igJOI/p9vr2UYAMdhjmExrEpAumF4coKkmR/SWzrchEvLd05/TO28z3UUQfmqls9Ujj9Z9KfODp8HnaBfzON6ba07hlW9oBvaKkVLcO0xnc4AwCd54Pc1UevaOfz+R8uXVcCb0wsxXdXtEsNgLfqDnaucBl2fe09AYcC4iS8cPDN2v7FFETaldmBGZ8GPXyWFV/ydlMdr4WFzI1iuxyZGCtt9GMFkviXvesZfvyatWAO5ht8M6dhh+iD203X0yyGH/jMbe+vRRRb3ZAuDubAIfT3Qm8sb8CU4TkfvPUVmSz3UoDS+vOgsxocBSQj1sl+QMEWpxE7Pa9TSQZpgXBl6HeN/7LD+0AO159RDDcwBeRb5AWIic/7mUJYN1B3Ccq+Ink5jI4ZF4jI4L+5KFfacvA7P/vI5ynb430QA1iZPDoAkSNfblm+FF4DMHrL4eM6TaoM8=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a33d1765-e13d-4312-101e-08df290ddc8e
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB7505.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 09:39:22.4316
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KngLU002M/ZVfuketdbSh8XMoehbo4uzAGtgBa3sidYjXJ3GSFxrEIlZsgupRUVNON5LIFENjSoMbU9a/32XvHsIcps0LkWhFqSAdimhdVk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB7802
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 adultscore=0 spamscore=0 priorityscore=1501
- bulkscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130038
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ spamscore=0 adultscore=0 bulkscore=0 malwarescore=0 mlxscore=0
+ lowpriorityscore=0 suspectscore=0 mlxlogscore=999 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2610020000 definitions=main-2610130038
+X-Authority-Analysis: v=2.4 cv=O9SsLx9W c=1 sm=1 tr=0 ts=6acdfc51 b=1 cx=c_pps
+ a=zPCbziy225d3KhSqZt3L1A==:117 a=zPCbziy225d3KhSqZt3L1A==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
+ a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
+ a=EIcjfB9IiI4px24ztqRk:22 a=20KFwNOVAAAA:8 a=i0EeH86SAAAA:8 a=VwQbUJbxAAAA:8
+ a=7-415B0cAAAA:8 a=pGLkceISAAAA:8 a=ag1SF4gXAAAA:8 a=yPCof4ZbAAAA:8
+ a=t0Y7tUnTQisWX057riYA:9 a=biEYGPWJfzWAr4FL6Ov7:22 a=Yupwre4RP9_Eg_Bd0iYG:22
+ a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:12107
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzOCBTYWx0ZWRfXyv9EPeWEMThs
+ oEG8jRxwcwAMTymG1A8SpgamtmGMaNF96Vm5g+f35ETkiUSAQb2YNQyvntAyZp18FO408Cl2T7u
+ N5kErXy3CJfSTlTMwPvHz/40Ja8hxcNLyJtW9JmDlRevIHiqXjlf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzOCBTYWx0ZWRfX5YokovZihij0
+ /5AEtnGWWIMbMbD4bJBR8ojnAI8xJTePH/adHwEq+8uvBC0sGrqmgTLP8qO/GebNW8JZbfz3RRq
+ 3sn3HKefZjofV0yf7HD//M33KE1A3ZZOkzEuLqzD3EmdgKLC/592dp3I93oamCMfvgeYf7jM8ur
+ lEoB8RzpMS4nmosqblIksitgNG1opJ3KlFQXPL8R2GGymmU/5PduQEwLBUEXCXqu/Wk+5EL8gVr
+ p3yx1i85C5qsPHl4uZjtuI9ZtHzEOGlSOGxORC3vhXdrBMxigOo/+Lrj/E7YC66KuZLAkfGkj+f
+ 9zxqwEeJpksgono1h5uokaUour3gDe/dwGO4k+cAHrhu+MxlXipsWEi+mCwa8pC18Fm4LwTVCwa
+ 1DwA63IG1hQ2Gr/RaJ/CEXlidDPXRPwF49rDmI3j5KbCS77WyO3izzb4RV6ssPfWA/Jl4cbpHgV
+ nJemYizul0wKB3kV2UJ2Sh7PNijsL/oNtHTiqago=
+X-Proofpoint-GUID: hsa_zQQbszZ29Mfl4ktgT9NupGnrZwCo
+X-Proofpoint-ORIG-GUID: hsa_zQQbszZ29Mfl4ktgT9NupGnrZwCo
 
-This series introduces the Qualcomm Audio Interface (QAIF) driver for
-the Shikra audio platform.
+From: Dave Chinner <dchinner@redhat.com>
 
-Hardware IP Overview
-====================
-QAIF (Qualcomm Audio Interface) is a fully configurable DMA-based audio
-subsystem used to transmit and receive audio data over serial audio
-interfaces (PCM, TDM, MI2S) and to provide a DMA interface for internal
-codec connections. It manages two independent data paths:
+[ Upstream commit 89a4bf0dc3857569a77061d3d5ea2ac85f7e13c6 ]
 
-  AIF (Audio Interface): multiple multi-lane Unified Audio Interfaces,
-  each supporting up to 8 independent data lanes. Each lane is individually
-  configurable as TX (output/speaker) or RX (input/mic). All lanes of an
-  interface share a single bit clock and frame sync. Supported modes are
-  PCM (short/long sync), TDM, and MI2S (stereo/mono). Per-interface
-  configuration includes sync source (master/slave), sync mode, sync delay,
-  sync inversion, slot width (8/16/24/32-bit), sample width, active slot
-  masks (up to 32 slots), bits-per-lane frame size, lane enable/direction
-  masks, loopback, output-enable control, and full-cycle path support for
-  long chip-to-chip connections.
+When a buffer is unpinned by xfs_buf_item_unpin(), we need to access
+the buffer after we've dropped the buffer log item reference count.
+This opens a window where we can have two racing unpins for the
+buffer item (e.g. shutdown checkpoint context callback processing
+racing with journal IO iclog completion processing) and both attempt
+to access the buffer after dropping the BLI reference count.  If we
+are unlucky, the "BLI freed" context wins the race and frees the
+buffer before the "BLI still active" case checks the buffer pin
+count.
 
-  CIF (Codec Interface): multiple RDDMA (playback) and WRDMA (capture)
-  channels connecting to an internal codec over a parallel bus. Each channel
-  supports active-channel enable mask (up to 16 channels), frame-sync
-  selection, frame-sync delay, frame-sync output gating, dynamic clock
-  gating, and 16-bit packing/unpacking.
+This results in a use after free that can only be triggered
+in active filesystem shutdown situations.
 
-  Note on RX/TX naming convention: in QAIF, TX refers to the output
-  (speaker/playback) direction and RX refers to the input (mic/capture)
-  direction. This applies to both AIF lane directions and CIF slot/mask
-  properties.
+To fix this, we need to ensure that buffer existence extends beyond
+the BLI reference count checks and until the unpin processing is
+complete. This implies that a buffer pin operation must also take a
+buffer reference to ensure that the buffer cannot be freed until the
+buffer unpin processing is complete.
 
-  DMA Engine: RDDMA fetches audio from DDR/TCM/LPM into a shared SRAM
-  latency buffer (SHRAM) and drains it to the interface. WRDMA collects
-  data from the interface into SHRAM and writes it to memory. Each DMA
-  owns a private SHRAM region defined by start address and length registers.
-  Burst sizes of 1/2/4/8/16 beats (64-bit) are supported with up to 4
-  outstanding transactions per DMA. Two QSB master ports (QXM0 for TCM,
-  QXM1 for DDR/LPM) provide the memory interface.
-
-  Execution Environments (EE): Resources (DMAs, audio interfaces,
-  interface groups) are partitioned among up to 5 EEs via map registers.
-  Each EE owns a set of DMAs, audio interfaces, and interface groups, and
-  receives its own independent interrupt output. The interrupt hierarchy
-  has a two-level structure: a summary register identifies the event class
-  (DMA period, underflow/overflow, error response, audio interface
-  underflow/overflow, group done, rate detector, VFR), and per-resource
-  status registers identify the specific channel.
-
-  Interface Grouping (Bonding): Multiple AIF and CIF interfaces can be
-  bonded into a group to start synchronously and align their DMA period
-  interrupts within half a frame duration using the RDDMA padding feature.
-  Up to 6 groups are supported.
-
-  Rate Detector: Two rate detector blocks measure the frequency of
-  incoming frame sync or word select signals and generate interrupts on
-  rate change, undetected rate, or sync timeout.
-
-Block Diagram
-=============
-
-  System Memory (DDR / LPM / TCM)
-  +---------------------------------+
-  |  Circular Buffers (ping-pong)   |
-  +----------+----------+-----------+
-             |          ^
-       64-bit AXI  64-bit AXI
-             |          |
-  +----------v----------+-----------+
-  |        QSB Master Ports         |
-  |  +----------+  +----------+     |
-  |  |   QXM0   |  |   QXM1   |     |
-  |  +----+-----+  +-----+----+     |
-  +-------|--------------|----------+
-          |              |
-  +-------v--------------v----------+
-  |         Shared RAM (SHRAM)       |
-  |  +------------+  +------------+ |
-  |  | QXM0 Read  |  | QXM0 Write | |
-  |  | SHRAM      |  | SHRAM      | |
-  |  +------------+  +------------+ |
-  |  +------------+  +------------+ |
-  |  | QXM1 Read  |  | QXM1 Write | |
-  |  | SHRAM      |  | SHRAM      | |
-  |  +------------+  +------------+ |
-  +---+--------+--------+-------+---+
-      |        |        |       |
-  +---v--+  +--v---+ +--v---+ +-v----+
-  |RDDMA |  |RDDMA | |WRDMA | |WRDMA |
-  | AIF  |  | CIF  | | AIF  | | CIF  |
-  |[0..n]|  |[0..n]| |[0..n]| |[0..n]|
-  +--+---+  +--+---+ +--+---+ +-+----+
-     |         |       ^          ^
-     | TX      | TX    | RX       | RX
-     v         v       |          |
-  +--+--------------------+  +----+----------+
-  |  Unified Audio Intf   |  | Codec DMA     |
-  |  (AIF 0..12)          |  | Interface     |
-  |                       |  | (CIF)         |
-  |  AUD_INTFa block:     |  |               |
-  |  - Serializer (TX)    |  | RDDMA: DDR -> |
-  |  - De-serializer (RX) |  |   internal    |
-  |  - Sync gen/detect    |  |   codec       |
-  |  - Up to 8 data lanes |  | WRDMA: codec  |
-  |  - PCM / TDM / MI2S   |  |   -> DDR      |
-  |  - Near Pad Logic     |  | Up to 16 ch   |
-  +--+--------------------+  +----+----------+
-     |  Lane 0..7 (TX/RX)       |  Parallel bus
-     |  Bit clk + Frame sync    |  + Frame sync
-     v                          v
-  +--+--------+          +------+------+
-  | External  |          | Internal    |
-  | Serial    |          | Digital     |
-  | Peripherals|         | Codec       |
-  | (PCM/TDM/ |          | (Bolero/    |
-  |  MI2S)    |          |  WCD)       |
-  +-----------+          +-------------+
-
-Software Design
-===============
-The driver follows the standard ALSA SoC split:
-
-  qaif-cpu.c: CPU DAI component. Manages clocks, implements DAI ops
-  (startup/shutdown/hw_params/trigger) for both AIF and CIF
-  paths using direct regmap_update_bits() calls with address macros from
-  qaif-reg.h, registers an of_xlate_dai_name callback so that sound-dai
-  references using non-sequential DAI IDs resolve correctly, parses
-  per-interface AIF configuration from DT child nodes, and provides
-  runtime PM suspend/resume via pm_runtime_force_suspend/resume for
-  power collapse. AIF child nodes use standard properties (dai-format,
-  dai-tdm-slot-*, qcom,qaif-aif-lane-map) without a compatible string;
-  the protocol is identified by dai-format and set_fmt() is called by
-  the machine driver.
-
-  qaif-platform.c: PCM platform component. Handles DMA buffer allocation
-  (dma_alloc_pages()), PCM ops (open/close/hw_params/hw_free/prepare/trigger/
-  pointer/mmap/copy), and table-driven two-level IRQ dispatch with
-  period-elapsed notification.
-
-  qaif-shikra.c: Shikra SoC-specific variant descriptor. Provides
-  register base addresses, DMA channel counts, SHRAM geometry, clock
-  names and the DAI driver array. This abstraction keeps the core driver
-  portable across future QAIF integrations.
-
-  qaif.h / qaif-reg.h: Shared data structures, constants and the complete
-  MMIO register address map consumed by both the CPU and platform drivers.
-
-  soc-core.c: This series adds snd_soc_of_xlate_dai_name() as a generic
-  ASoC helper that resolves a sound-dai phandle argument to a DAI name by
-  searching the component DAI list by ID. Both lpass-cpu.c and qaif-cpu.c
-  assign it directly as .of_xlate_dai_name, removing their private
-  implementations.
-
-The series is split by functionality to aid review -- register map and
-data structures first, then CPU DAI ops with regmap and DT parsing, the
-of_xlate helper, PCM ops, IRQ handling and finally the Shikra variant
-glue.
-
-Link to v8:
-  https://lore.kernel.org/all/20260928-b4-qaif-shikra-audio-v8-0-ac618057fe85@oss.qualcomm.com/
-Link to v7:
-  https://lore.kernel.org/all/20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com/
-Link to v6:
-  https://lore.kernel.org/lkml/20260911-b4-qaif-shikra-audio-v6-0-e9addb358201@oss.qualcomm.com/
-Link to v5:
-  https://lore.kernel.org/lkml/20260907-b4-qaif-shikra-audio-v5-0-6d8ad9ba5c9f@oss.qualcomm.com/
-Link to v4:
-  https://lore.kernel.org/lkml/20260903072902.3870009-1-harendra.gautam@oss.qualcomm.com/
-Link to v3:
-  https://lore.kernel.org/lkml/20260824063627.3595610-1-harendra.gautam@oss.qualcomm.com/
-Link to v2:
-  https://lore.kernel.org/lkml/20260701105757.2779738-1-harendra.gautam@oss.qualcomm.com/
-Link to v1:
-  https://lore.kernel.org/lkml/20260605103739.3557573-1-harendra.gautam@oss.qualcomm.com/
-
-Changes in v9:
-  - qaif-platform.c: trigger(STOP) best-effort teardown; preserve first error
-  - qaif-platform.c: poll DMA SHUTDOWN_STATUS in sync_stop() before clearing IRQs
-  - qaif-reg.h: add qaif_dma_shutdown_stat_reg() helper
-  - binding: drop reg and iommus descriptions; trim interrupts description
-  - binding: reference /schemas/sound/tdm-slot.yaml# for the common
-    dai-tdm-slot-* properties instead of redefining their types
-
-Changes in v8:
-  - qaif.h: drop unused rd_len/wr_len from struct qaif_variant
-  - qaif-cpu.c: set_fmt() sets invert_sync=true for I2S; INV_MASK switch
-    limited to DSP_A/DSP_B
-  - qaif-cpu.c: reword shared-register comment (both directions program
-    identical values from aif_intf_cfg[]; concurrent hw_params idempotent)
-  - qaif-platform.c: use snd_pcm_set_fixed_buffer_all() in .pcm_new instead
-    of manual dma_alloc_coherent(); drop qaif_dma_mem_info and heap arrays
-  - qaif-platform.c: drop redundant copy() (buffer is coherent/mmap-able)
-  - qaif-shikra.c: drop unused .rd_len/.wr_len initialisers
-  - Rafi prerequisite series now merged; no external dependency
-
-Changes in v7:
-  - binding + shared data: drop AIF DAI ID additions; now provided by
-    prerequisite series (Mohammad Rafi Shaik)
-  - soc-core.c: use snd_soc_dai_name() instead of snd_soc_dai_name_get();
-    the latter was removed when the function was renamed and moved to
-    soc-dai.c (Kuninori Morimoto)
-
-Changes in v6:
-  - binding: make all per-AIF bit clocks required (Krzysztof Kozlowski)
-  - qaif-cpu.c: skip duplicate devm_clk_get() for shared DMA index
-  - qaif-platform.c: clear dma_buffer pointers in close() after free
-  - qaif-platform.c: use of_parse_phandle_with_args() for iommus
-  - cover letter: fix Software Design description (Mark Brown)
-
-Changes in v5:
-  - All patches: remove leading blank line from commit body
-    (Krzysztof Kozlowski)
-  - qaif-platform.c: fix error path in open() -- goto err_free_dma
-    instead of err_free_mem_info after alloc_stream_dma_idx failure,
-    to correctly free the DMA allocation before the struct
-
-Changes in v4:
-  - binding: rename to qcom,shikra-qaif-cpu (Krzysztof Kozlowski)
-  - qcom,q6dsp-lpass-ports.h: add AIF DAI IDs (153-204) after
-    LPI_MI2S_TX_6 with RX/TX split per port; CIF DAIs reuse existing
-    RX_CODEC_DMA_RX_* and VA_CODEC_DMA_TX_* IDs (Srinivas Kandagatla)
-  - qcom,qaif.h: removed; DAI IDs now in qcom,q6dsp-lpass-ports.h
-  - common.h: update LPASS_MAX_PORT to AIF_TDM_TX_12 + 1
-  - qaif.h: rename helpers to qaif_is_aif_mi2s_port(),
-    qaif_is_aif_tdm_port(), qaif_is_cif_port(); use unsigned int
-  - qaif-cpu.c: remove qaif_cif_intf_reg(); use substream direction to
-    select RDDMA/WRDMA register; move .of_xlate_dai_name to patch 6
-  - qaif-shikra.c: split AIF DAI entries into separate RX/TX per port;
-    use DAI-local stream_name values; merge cif_rx/va_dma_dai_map;
-    update get_dma_idx() and alloc_stream_dma_idx() (Srinivas Kandagatla)
-  - soc-core.c / lpass-cpu.c: split into two patches for easier
-    backporting (Kuninori Morimoto)
-  - qaif-platform.c: unlock stream_lock before stream_dma_idx check,
-    eliminating goto err_unlock; move variant callback validation to
-    platform_register(); remove free_stream_dma_idx null checks
-  - All patches: fix missing blank line between Cc headers and commit
-    body (caused commit message to appear missing on lore)
-
-Changes in v3:
-  - series restructured: replace regmap_field abstraction with direct
-    regmap_update_bits(); merge CIF/AIF DAI ops and regmap/DT/init into
-    single CPU DAI patch; move of_xlate_dai_name to soc-core.c (was
-    qcom/common.c); split Shikra variant into qaif-shikra.c; add
-    Kconfig/Makefile and MAINTAINERS entries
-  - binding: rename aif-interface@N to aif@N; remove compatible from
-    child nodes; replace custom qcom,qaif-aif-sync-*/qcom,qaif-aif-lane-*
-    properties with standard dai-format and dai-tdm-slot-*; fix example
-    to aif@d7/reg=<215>; allow hex unit addresses; fix CIF channel count
-    to 10; clarify QAIF_CDC_DMA_* IDs are sound-dai references only
-  - qcom,qaif.h: replace QAIF_MI2S_TDM_AIF0..12 with separate
-    QAIF_MI2S_AIF* (200-212) and QAIF_TDM_AIF* (213-225); renumber CIF
-    IDs to RX (226-235), TX (236-245), VA_TX (246-255)
-  - qaif.h: add qaif_ prefix to is_cif_dma_port() and new is_mi2s_port(),
-    is_tdm_port(), is_aif_port() helpers; add QAIF_MI2S_SLOTS; add
-    comments on smmu_csid_bits and ee fields
-  - qaif-reg.h: rename CODEC_ prefix to CDC_; rename UF/OF IRQ macros;
-    add _REG suffix to CDC debug/status macros
-  - qaif-cpu.c: fix MI2S sync config per HPG; replace custom sync/lane
-    DT properties with set_fmt()/set_tdm_slot() DAI ops; replace
-    clk_prepare/clk_enable pairs with clk_prepare_enable; remove codec
-    DAI set_tdm_slot/set_sysclk from hw_params(); use devm unwind
-  - qaif-shikra.c: new file; separate MI2S and TDM DMA maps; restrict
-    MI2S formats to S16|S32; widen TDM AIF constraints; rename VA DAI
-    names to "CDC DMA VA_TX*"
-  - soc-core.c: move of_xlate_dai_name helper from qcom/common.c to
-    soc-core.c as snd_soc_of_xlate_dai_name() generic ASoC helper
-  - lpass-cpu.c: remove local xlate wrapper; use snd_soc_of_xlate_dai_name()
-  - qaif-platform.c: move dma_set_mask_and_coherent() to probe; fix IRQ
-    dispatch READ_ONCE() race; add synchronize_irq() via .sync_stop;
-    always proceed to IRQ_DISABLE in trigger(STOP) if dynclk fails
-
-Changes in v2:
-  - Rename YAML file to qcom,qaif-cpu.yaml, add qcom,qaif-cpu compatible
-  - Merge DAI ID header into binding patch, drop _clk suffix from
-    clock-names, add enum constraints, remove status: true (Krzysztof)
-  - Fix dt_binding_check failure in binding example (Rob)
-  - Fix IRQ storm: client status register bitmask missing BIT(16)
-  - Fix race: use test_and_set_bit for DMA bitmap allocation
-  - Fix regmap_config: use non-const with dynamic max_register
-  - Use dev_err_probe() in probe path, sizeof(*var) in kzalloc (Krzysztof)
-  - Add kerneldoc for all EXPORT_SYMBOL_GPL functions (Krzysztof)
-  - Use goto-based error cleanup in pcmops_open()
-  - Move MAINTAINERS entry to last patch (Krzysztof)
-  - Add shared asoc_qcom_of_xlate_dai_name() helper used by lpass-cpu
-    and qaif-cpu
-  - Fix checkpatch --strict warnings and alignment issues
-
+Reported-by: yangerkun <yangerkun@huawei.com>
+Signed-off-by: Dave Chinner <dchinner@redhat.com>
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Dave Chinner <david@fromorbit.com>
+Signed-off-by: Leah Rumancik <leah.rumancik@gmail.com>
+Acked-by: Chandan Babu R <chandanbabu@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry picked from commit 81274891036602355e72eabbb5184490f354b506)
+Stable-dep-of: 816c330b605c ("xfs: factor out stale buffer item completion")
+Signed-off-by: Siddh Raman Pant <siddh.raman.pant@oracle.com>
 ---
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: linux-sound@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
-Cc: Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>
-Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+ fs/xfs/xfs_buf_item.c | 88 ++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 65 insertions(+), 23 deletions(-)
 
----
-Harendra Gautam (10):
-      ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add binding
-      ASoC: qcom: Add QAIF shared data structures and variant interface
-      ASoC: qcom: Add QAIF hardware register map
-      ASoC: qcom: Add QAIF CPU DAI ops, regmap, DT parsing and platform init
-      ASoC: soc-core: Add snd_soc_of_xlate_dai_name() generic helper
-      ASoC: qcom: Switch lpass-cpu and qaif-cpu to snd_soc_of_xlate_dai_name()
-      ASoC: qcom: Add QAIF PCM operations
-      ASoC: qcom: Add QAIF IRQ handling and platform register
-      ASoC: qcom: Add Shikra QAIF support
-      MAINTAINERS: Add Qualcomm QAIF driver entry
-
- .../bindings/sound/qcom,shikra-qaif-cpu.yaml       | 290 +++++++
- MAINTAINERS                                        |   9 +
- include/sound/soc.h                                |   3 +
- sound/soc/qcom/Kconfig                             |  10 +
- sound/soc/qcom/Makefile                            |   3 +
- sound/soc/qcom/lpass-cpu.c                         |  23 +-
- sound/soc/qcom/qaif-cpu.c                          | 887 +++++++++++++++++++++
- sound/soc/qcom/qaif-platform.c                     | 885 ++++++++++++++++++++
- sound/soc/qcom/qaif-reg.h                          | 470 +++++++++++
- sound/soc/qcom/qaif-shikra.c                       | 445 +++++++++++
- sound/soc/qcom/qaif.h                              | 292 +++++++
- sound/soc/soc-core.c                               |  33 +
- 12 files changed, 3328 insertions(+), 22 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,shikra-qaif-cpu.yaml
- create mode 100644 sound/soc/qcom/qaif-cpu.c
- create mode 100644 sound/soc/qcom/qaif-platform.c
- create mode 100644 sound/soc/qcom/qaif-reg.h
- create mode 100644 sound/soc/qcom/qaif-shikra.c
- create mode 100644 sound/soc/qcom/qaif.h
----
-base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
-change-id: 20260907-b4-qaif-shikra-audio-729007ceff72
-
-Best regards,
---  
-Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+diff --git a/fs/xfs/xfs_buf_item.c b/fs/xfs/xfs_buf_item.c
+index 065bbf03c7b0..e0c75aa3cca8 100644
+--- a/fs/xfs/xfs_buf_item.c
++++ b/fs/xfs/xfs_buf_item.c
+@@ -452,10 +452,18 @@ xfs_buf_item_format(
+  * This is called to pin the buffer associated with the buf log item in memory
+  * so it cannot be written out.
+  *
+- * We also always take a reference to the buffer log item here so that the bli
+- * is held while the item is pinned in memory. This means that we can
+- * unconditionally drop the reference count a transaction holds when the
+- * transaction is completed.
++ * We take a reference to the buffer log item here so that the BLI life cycle
++ * extends at least until the buffer is unpinned via xfs_buf_item_unpin() and
++ * inserted into the AIL.
++ *
++ * We also need to take a reference to the buffer itself as the BLI unpin
++ * processing requires accessing the buffer after the BLI has dropped the final
++ * BLI reference. See xfs_buf_item_unpin() for an explanation.
++ * If unpins race to drop the final BLI reference and only the
++ * BLI owns a reference to the buffer, then the loser of the race can have the
++ * buffer fgreed from under it (e.g. on shutdown). Taking a buffer reference per
++ * pin count ensures the life cycle of the buffer extends for as
++ * long as we hold the buffer pin reference in xfs_buf_item_unpin().
+  */
+ STATIC void
+ xfs_buf_item_pin(
+@@ -470,13 +478,30 @@ xfs_buf_item_pin(
+ 
+ 	trace_xfs_buf_item_pin(bip);
+ 
++	xfs_buf_hold(bip->bli_buf);
+ 	atomic_inc(&bip->bli_refcount);
+ 	atomic_inc(&bip->bli_buf->b_pin_count);
+ }
+ 
+ /*
+- * This is called to unpin the buffer associated with the buf log item which
+- * was previously pinned with a call to xfs_buf_item_pin().
++ * This is called to unpin the buffer associated with the buf log item which was
++ * previously pinned with a call to xfs_buf_item_pin().  We enter this function
++ * with a buffer pin count, a buffer reference and a BLI reference.
++ *
++ * We must drop the BLI reference before we unpin the buffer because the AIL
++ * doesn't acquire a BLI reference whenever it accesses it. Therefore if the
++ * refcount drops to zero, the bli could still be AIL resident and the buffer
++ * submitted for I/O at any point before we return. This can result in IO
++ * completion freeing the buffer while we are still trying to access it here.
++ * This race condition can also occur in shutdown situations where we abort and
++ * unpin buffers from contexts other that journal IO completion.
++ *
++ * Hence we have to hold a buffer reference per pin count to ensure that the
++ * buffer cannot be freed until we have finished processing the unpin operation.
++ * The reference is taken in xfs_buf_item_pin(), and we must hold it until we
++ * are done processing the buffer state. In the case of an abort (remove =
++ * true) then we re-use the current pin reference as the IO reference we hand
++ * off to IO failure handling.
+  */
+ STATIC void
+ xfs_buf_item_unpin(
+@@ -493,24 +518,18 @@ xfs_buf_item_unpin(
+ 
+ 	trace_xfs_buf_item_unpin(bip);
+ 
+-	/*
+-	 * Drop the bli ref associated with the pin and grab the hold required
+-	 * for the I/O simulation failure in the abort case. We have to do this
+-	 * before the pin count drops because the AIL doesn't acquire a bli
+-	 * reference. Therefore if the refcount drops to zero, the bli could
+-	 * still be AIL resident and the buffer submitted for I/O (and freed on
+-	 * completion) at any point before we return. This can be removed once
+-	 * the AIL properly holds a reference on the bli.
+-	 */
+ 	freed = atomic_dec_and_test(&bip->bli_refcount);
+-	if (freed && !stale && remove)
+-		xfs_buf_hold(bp);
+ 	if (atomic_dec_and_test(&bp->b_pin_count))
+ 		wake_up_all(&bp->b_waiters);
+ 
+-	 /* nothing to do but drop the pin count if the bli is active */
+-	if (!freed)
++	/*
++	 * Nothing to do but drop the buffer pin reference if the BLI is
++	 * still active.
++	 */
++	if (!freed) {
++		xfs_buf_rele(bp);
+ 		return;
++	}
+ 
+ 	if (stale) {
+ 		ASSERT(bip->bli_flags & XFS_BLI_STALE);
+@@ -522,6 +541,15 @@ xfs_buf_item_unpin(
+ 
+ 		trace_xfs_buf_item_unpin_stale(bip);
+ 
++		/*
++		 * The buffer has been locked and referenced since it was marked
++		 * stale so we own both lock and reference exclusively here. We
++		 * do not need the pin reference any more, so drop it now so
++		 * that we only have one reference to drop once item completion
++		 * processing is complete.
++		 */
++		xfs_buf_rele(bp);
++
+ 		/*
+ 		 * If we get called here because of an IO error, we may or may
+ 		 * not have the item on the AIL. xfs_trans_ail_delete() will
+@@ -538,16 +566,30 @@ xfs_buf_item_unpin(
+ 			ASSERT(bp->b_log_item == NULL);
+ 		}
+ 		xfs_buf_relse(bp);
+-	} else if (remove) {
++		return;
++	}
++
++	if (remove) {
+ 		/*
+-		 * The buffer must be locked and held by the caller to simulate
+-		 * an async I/O failure. We acquired the hold for this case
+-		 * before the buffer was unpinned.
++		 * We need to simulate an async IO failures here to ensure that
++		 * the correct error completion is run on this buffer. This
++		 * requires a reference to the buffer and for the buffer to be
++		 * locked. We can safely pass ownership of the pin reference to
++		 * the IO to ensure that nothing can free the buffer while we
++		 * wait for the lock and then run the IO failure completion.
+ 		 */
+ 		xfs_buf_lock(bp);
+ 		bp->b_flags |= XBF_ASYNC;
+ 		xfs_buf_ioend_fail(bp);
++		return;
+ 	}
++
++	/*
++	 * BLI has no more active references - it will be moved to the AIL to
++	 * manage the remaining BLI/buffer life cycle. There is nothing left for
++	 * us to do here so drop the pin reference to the buffer.
++	 */
++	xfs_buf_rele(bp);
+ }
+ 
+ STATIC uint
+-- 
+2.53.0
 
