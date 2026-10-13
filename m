@@ -1,88 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5752C3B7B72
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:40:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3553B95E0;
+	Tue, 13 Oct 2026 08:40:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791880803; cv=none; b=OUhOPDqqD57ZkkTIuGoM07ItvF1t3cLRBRUZwzCfUxFZAdnuWdzIC4LesPRvLjkDFrMrT5LMOLUDti2jC4xUNVRR47dF2P5ReRSXSeW1D5oNA/U93KcKmu4f4IH5zpBgroIFNBxuyocg4z7XFIssIHGSYMT9UmOItjedo1ytFlw=
+	t=1791880806; cv=none; b=dLYQNs8t+uxkQA8IIcV7vzxM+Luwo3lztGoV/VxZapuaAAiRa5Je1BPbGxch5zbZLmf5yop5Xjpo0QWoRwDLoc2oK/r0iZYtdKaEF+NVW7q2cw6FtGzjC5YyrRTMd44bs1MTYx08LvNMqich5ym1LRSheW/OaTjuZXWRqMUO5ss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791880803; c=relaxed/simple;
-	bh=zYodpRJl2sTx4KeDMYM4tddxsAs05qKU0E+V6KZSlRU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=B9W6+Onkt6OSrgvdaRgt7aRjJ6AjuXDsl+b7L1kvIpWpWr4Qfy/hHOYpGKB2iUCbtR8nSAfeP+jw9r3mQQ19wlHAqbAIujpNTTKUmzwkzVFAjbfYKO1pdtfgq8wd0/YLPQMUPi15RG2ttsV1SujTYMjv1x+NUCkmM5oLsDliVWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BdZedCPe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791880806; c=relaxed/simple;
+	bh=RzZqVUxCbVCqm7pH/0m+68eaLgZ2H5Ff29183hKc2PU=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=cl4UHKA2VtE684pvUOwaEUeEkRVU3NZ2RmdKd92uweYYrPsyCozOckBEsBdAnZ5/iuVjGEZ6vs6ODh83PdG4q2s3Itm+nN3zypsgjnD3FEzBrilCmLGF4DlDvOJ8q7IjI4SEkByChak61R7jftKGFruVD0gW82ghrdTWe7bJaKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iOz1fxKc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BdZedCPe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B8DF1F008A1
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:40:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iOz1fxKc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F9911F008A4;
+	Tue, 13 Oct 2026 08:40:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791880802;
-	bh=zYodpRJl2sTx4KeDMYM4tddxsAs05qKU0E+V6KZSlRU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BdZedCPeO9CwxRpDFBDz0VYWDfdqBszx8mATvuUddMSxUC8P5SrgsNWNfs/NL/Q/O
-	 4IdihQ+BPI1U9ApanBGuC58E8E0GpuWfGTlRXVhINRKt3vam9f9hf1JGy1sdRCYwtU
-	 3uu3d0w0vLAk46rlX9NjZJNgsSWhzinzit3+wi0Fzud2N7iwCTeur3ew6NZ4uqoepZ
-	 WxfSiqvYkPWfBmoBzyxfnM11tf931JjZzrN0nlRO6XP81RubAIujY+MVgWU80bLpE5
-	 Lmm3yKl+feMBzVeBScHr+bKjF2fPWYZuft1o4z5ErZ/xvpWNYXl1RHD5OMwcyNKDDs
-	 Zck+arstH/VHA==
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so4024303a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:40:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByXRQoJh/OBbREuvxt+5kk+DkREHsGrEp3asqSHiVHk6/VUGaytvz3uYfG+FFcvWwC/7FTF+YKcxAqD4Iw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOODvhQdglolBoojYB2Y6C1ir15QZUTUp2cGytPRbUUlllNHzP
-	ATQuji/brEUlg+0957fsIFB+GhrGOoTMJ2KueHT4ung57yxuU42lkXthJhfDp7+JZXib0gok5mb
-	eucnCRDzczio47tHeisnf0rC30JlDtgo=
-X-Received: by 2002:a05:6402:21cb:b0:6b1:c355:c7b3 with SMTP id
- 4fb4d7f45d1cf-6b1c355cdf1mr3702607a12.25.1791880800689; Tue, 13 Oct 2026
- 01:40:00 -0700 (PDT)
+	s=k20260515; t=1791880805;
+	bh=vTscstDQ6HSiS85iFYZJWm3WRbqXbZ9zuUl2BPS9Bbg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=iOz1fxKciD89U5WL1htpUebUC+y8Q7JNhFE7EkwzhMpmghVgfI08VS2+sJmgpyuKD
+	 F6XjBP19rkwvsEMOoGeD+IfH28GV48WM7kq6fFDtLwbREofOmYUJ6tFFlszWChUGz5
+	 oPfKRgMuk38e75mcG56hnbvIEeq0lpItTAaZYmANOO7SVdTfq3fUY9lCSzJOt+9zuY
+	 4CYLm2eCHeWDUKveyVcXm1/8A5RddDTUlLPsUdIJ/BeRqNNWy4eMfCrGEjkporxps0
+	 LJ6AVIrb+nig4DEIkd0iD2JnRpSGqTRIklvJFzvLUFnyJP/QEvrnIWQ8NsdBq/Gbek
+	 C0kQBnvF+axiw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 77577392639F;
+	Tue, 13 Oct 2026 08:40:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922121058.972734-2-maobibo@loongson.cn> <10bd45f8-2d37-42f0-b7d2-a4a84933c9b3@loongson.cn>
- <CAAhV-H40TW01vpaNSDgm86DVM4Mwf0sUvnAt2KEwUB=pPFhhqw@mail.gmail.com> <CAJZ5v0gpFDaS8sLdDBbS4tU-F7fKPKOkXtb7nqjfNhagEB_Cgw@mail.gmail.com>
-In-Reply-To: <CAJZ5v0gpFDaS8sLdDBbS4tU-F7fKPKOkXtb7nqjfNhagEB_Cgw@mail.gmail.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Tue, 13 Oct 2026 16:39:49 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4hdq_2rGAw9LtCcxLUnQuKBgYTJeMXkAfjCuM+yck9HQ@mail.gmail.com>
-X-Gm-Features: AclHuK9oQiH82PB9ry9ALpvacw_4qobdW-etWeXxZBWjotSguWim_HyWbwXpPU8
-Message-ID: <CAAhV-H4hdq_2rGAw9LtCcxLUnQuKBgYTJeMXkAfjCuM+yck9HQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/4] ACPICA: actbl2.h: Add bit constants of the Flags
- field in the IOVT IOMMU structure
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Bibo Mao <maobibo@loongson.cn>, linux-acpi@vger.kernel.org, 
-	acpica-devel@lists.linux.dev, lenb@kernel.org, linux-kernel@vger.kernel.org, 
-	lixianglai@loongson.cn, loongarch@lists.linux.dev, 
-	maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] sctp: revalidate output stream after association
+ connect wait
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179188080428.136048.15899244050224483580.git-patchwork-notify@kernel.org>
+Date: Tue, 13 Oct 2026 08:40:04 +0000
+References: <20261007035739.3472432-1-4ncienth@gmail.com>
+In-Reply-To: <20261007035739.3472432-1-4ncienth@gmail.com>
+To: Daehyeon Ko <4ncienth@gmail.com>
+Cc: marcelo.leitner@gmail.com, lucien.xin@gmail.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-On Mon, Oct 12, 2026 at 10:49=E2=80=AFPM Rafael J. Wysocki (Intel)
-<rafael@kernel.org> wrote:
->
-> On Mon, Oct 12, 2026 at 9:21=E2=80=AFAM Huacai Chen <chenhuacai@kernel.or=
-g> wrote:
-> >
-> > On Mon, Oct 12, 2026 at 3:16=E2=80=AFPM Bibo Mao <maobibo@loongson.cn> =
-wrote:
-> > >
-> > > This change is already merged in acpica tree.
-> > >
-> > > slightly ping.
-> > I will merge the last three patches once the acpica changes are synced
-> > to git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git.
->
-> I've applied the $subject patch as 7.4 material.
->
-> When it propagates to linux-next, I can expose it on an immutable
-> branch if that helps, in which case please let me know.
-If that commit is contained by the tag such as 'acpi-7.4-rc1', then it
-is enough for me. The loongarch pull request is usually after the acpi
-pull request.
+Hello:
 
-Huacai
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
->
-> Thanks!
+On Wed,  7 Oct 2026 12:57:39 +0900 you wrote:
+> When message interleaving is enabled, the first send waits for association
+> establishment before building its data chunks.  The wait drops the socket
+> lock, and handshake processing can reduce the output stream count to the
+> peer-advertised inbound stream count.  sctp_stream_init() then frees the
+> extension of every removed stream.
+> 
+> The sender resumes with the stream that it checked before the wait.  If the
+> peer removed that stream, sctp_outq_tail() later dereferences its NULL
+> extension.  Fatal-oops policies then panic the host.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,v2] sctp: revalidate output stream after association connect wait
+    https://git.kernel.org/netdev/net/c/b7ad72414c67
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
