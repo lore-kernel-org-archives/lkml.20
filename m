@@ -1,56 +1,56 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5854851CF49
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:25:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B565E51CF64
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:25:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908749; cv=none; b=AOM2RhSFXfuHD61NFxA+E8J27PZSoRpTK0jFTFOoyCfPo2LS6mDD5DBIcNt1rm67iaiCTVPlB5/3EyPKipqMlXYKxmMp9cWeMrpfQfFp/rQtN1OiUUAFCBlOStUs8HA5aWJwmhD5VJdULV1OQLXuEbfKuQTOs4MbwPqrJvg/18Y=
+	t=1791908748; cv=none; b=lsivjy8LZsUN/4fPEAZ74PgQFa1veHLXauFWlY43m3hHG1BI/HXnmWSok91qpMvBOVrOkxMbEEK1opV1H94LeL9x0bqHGJFE0Yn5ztIZYROEd1VW3wZ3wU7WXALRy7kg/+5FM6Gy6iwdJx1ikTlS6OyOsBIKhcdCllG1Uk0nLP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908749; c=relaxed/simple;
-	bh=fjrli6J7bOWUBOw6ZP3y1Rvst2l975QDQFuVck/ru70=;
+	s=arc-20240116; t=1791908748; c=relaxed/simple;
+	bh=EYNoxDNI2IhfV1XmzRdMC/YkWnCvI+VhetJNhuyjpvg=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=rFbjHWvo79iLtErqNLRzsvpfgk/D3l7/TSrenHi7f0s+1RgeQsxeTAl1esTVlgzwe7be9G0F3+D1pjEkHYeZyGkl0cSZqqpIWhqRYae1JJ6fK08Pc1OYTYgONxkFjaIf0mE+TAld1XcGlurMvzNjDiwOOsOU8vN3ObNvG65FR8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vdk9X/74; arc=none smtp.client-ip=209.85.214.197
+	 To:Cc:Content-Type; b=uwanmXFw4NbMRHOJmip0Lp0DyJEu7aQjmYeVeBMnNeUkHdnj6fOZXRpXZSk+rFiyVNeOmtVG26QcsJHhb54z9Zq+q352hRxvwQvaN59G/SX6U4Zkl2EBVtOU7T9BWmnn6GobHi15IzQa06sIF48S3gJeaS32m1qRa6xH301CMbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TCADHDic; arc=none smtp.client-ip=209.85.214.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vdk9X/74"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e80ef3e0a3so46466615ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:25:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TCADHDic"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e8ad8c5f80so35953575ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:25:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791908745; x=1792513545; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791908743; x=1792513543; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dIhOQAQQ+VMM6lVadofyWK2MAH+kCcuj1vkGtb5EfAU=;
-        b=vdk9X/74e00LNRMSNImuLYxnRWpH/+t9FFiwgCssdApOaWkKVFm7g7dFbt5i8s0jye
-         jUHWaNUKS85XsMK7Rl8d7WSusW/eqgGy+O0sWu7ULJlZPjQPJ8B/1EIteOFPVdQlzyVm
-         jEt5fd7PbVjPB5AOJmoplQcvbG4isfs4DwMqcMLSV+XYNqzLDyr/7oTz56gofY1b9Oii
-         KQI03llHcIQJGTYBrUVfm5sPV39jXvPfTHaaWoU10fxfkINfjXrjdix1z4UMiDqGMYrV
-         PtgZEH3i8TAF6emSM/SJr0z2+/okyRhkFGa+US5eDc47ZSQ4B+KGMCbmq6S2/igc4+YE
-         8xWw==
+        bh=gB4Ik4s4vBOpi0f9NA5ZP8iCM3imb0TW7qQ72X4ybKY=;
+        b=TCADHDic5WXEl0AhsmcXACpNxUscwdjQ6kWIASC4sGdR4ZT6P3w1Ds121YKZlNcZxv
+         7ABy0bXwpwITCptFWhLGUFeSH3C0StuEctqckkmmIVeBNFjgipJMmWF8+N4YJi9STcoN
+         RF5Zr85BHPRrr3ko82hhStGYhwMRq930YNTO2H9/kPvKjOttRzS9wYRRf8jDxGnIW5Kh
+         jLZXLgk/79gsndevmDJmb8QFqBYGCnUTSNeeTpMC5+XMVQDWUpqEY6FYmCXjTmSAHArH
+         ZFCWPzWO3n+p4tuO7WYtNjmnXsfjjXgBHEvf3x50iqpQWhW5fbCwkZsqMq5kDz9qvD5a
+         AjPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791908745; x=1792513545;
+        d=1e100.net; s=20260707; t=1791908743; x=1792513543;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dIhOQAQQ+VMM6lVadofyWK2MAH+kCcuj1vkGtb5EfAU=;
-        b=GHKoh9iDlcLmuUt5qtjtEF4bOm76jUf46JopnwUOu9L4oVPcePTe848Wuj1VADU3yx
-         IvBszlonovx79YMFBEzs5y1QB0JPw0tGrjloSReUSYqSk2fMvty+XPp1MSVI3JGr7RiF
-         JTkuRUY+fErbdZb5ssdm/UmkoKONfESeT0+VU9Q/R3ULgSc64GMWgIEER8T4r8HO2+nO
-         w8vWUXbCS24/73O4SJ9U61i0D+PorYGbomKMEETMNZVeO7KILzuHBNgTzv03sr+2UMJl
-         hD2U67HZXz4JD88X/Jc6ymxd+v9eYL+ItbZBEvoNe8gVW6x/Ubcz0iBRht0NCZQYFP9Q
-         fHIA==
-X-Forwarded-Encrypted: i=1; AKwUvBwbImE/lRmsTtz+TJ9iRFeJXQV253eIMGWS9DrGy+EnvY2fPpyQnGaT3E2kxsg5bf34HKNoHmj0aH8e0c0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIc2gBhuP/nHQniaM7jOidKSymKDwpCgbFAxXu6trsTmaRakOat
-	QUQY8hEOHRm4wzhF9WQ/O+ogaQ2O3djVs/w7DOQbIntMdVAXpdgGZskqrCe7bPpqq/atnCpJeHz
-	30tfxdhpMJ5z6Dg==
-X-Received: from plin4.prod.google.com ([2002:a17:903:3884:b0:2e2:c744:19ed])
+        bh=gB4Ik4s4vBOpi0f9NA5ZP8iCM3imb0TW7qQ72X4ybKY=;
+        b=oENDxyYFEx5DtcCHMVk/gBBh9bEDXpuRZOKRUiylMl7HS0SEJo7/HNuJ8FYzGDi8kD
+         +72TY0/ShyHxmaquiVtJf2Aaf6W/+OCI3FtuYTB/6NJRHIhN+P5e2R8aLgWEDXLadkVN
+         OD56Yyiba01VP5avHrQBtF66asakvJBkbc0bHFPb0lbmfqDtIE7ozHiQm7ZQopTjzQUt
+         WZxm4N+hTPrqf+JpmS0LBS3Kl2DUPfF85VKNfDaPHQ/dqSSGAtBu1kWELg74Uip3Go0C
+         q82ZnZLAvOp5qfUlLZOw5QnvhVXfBUm8zIG3ygWLAmLBFK0KeS04iCBNf/yZJIgdlaVe
+         ZM6w==
+X-Forwarded-Encrypted: i=1; AKwUvByAIrqjYe+dxYeUpiG4q/hXCw86YCQLvTGMOTbRUn/YKCzAckJGBxFEpKEomoXQ+c1kq/fu3hadgvbjJQQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEFINiEbLYNn2Z6QuWI/PnEGg7ywf0FVdwPng5Dkg7Bqb1l/HS
+	nlSXR5WfU3s2pKPaub8+Fp6qm2LB8T8DmS2La1MW5gYLhSUEfCP+6xk7spQ5+kHGb1rgK1Fmk+D
+	Q1++ZfpA48lXrNQ==
+X-Received: from plbx1.prod.google.com ([2002:a17:902:ea81:b0:2e5:d262:2f9a])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:fc8d:b0:2e3:598:75b8 with SMTP id d9443c01a7336-2e842ab03ddmr108269245ad.27.1791908744336;
- Tue, 13 Oct 2026 09:25:44 -0700 (PDT)
-Date: Tue, 13 Oct 2026 16:25:24 +0000
+ 2002:a17:903:2987:b0:2e4:b37a:d583 with SMTP id d9443c01a7336-2e842cf5aadmr102428285ad.61.1791908741304;
+ Tue, 13 Oct 2026 09:25:41 -0700 (PDT)
+Date: Tue, 13 Oct 2026 16:25:22 +0000
 In-Reply-To: <20261013162529.1928093-1-dmatlack@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261013162529.1928093-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013162529.1928093-9-dmatlack@google.com>
-Subject: [PATCH v10 08/13] PCI: Save and restore the ACS Control register and
- Egress Control Vector
+Message-ID: <20261013162529.1928093-7-dmatlack@google.com>
+Subject: [PATCH v10 06/13] PCI: liveupdate: Preserve bus numbers during Live Update
 From: David Matlack <dmatlack@google.com>
 To: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pci@vger.kernel.org
@@ -79,277 +78,334 @@ Cc: Adithya Jayachandran <ajayachandra@nvidia.com>, Alexander Graf <graf@amazon.
 	William Tu <witu@nvidia.com>, Yi Liu <yi.l.liu@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Save the ACS Control register and the ACS Egress Control Vector in
-pci_save_state() and write them back in pci_restore_state(), instead of
-recomputing the ACS controls from scratch with pci_enable_acs().
+Keep the secondary and subordinate bus numbers that the previous kernel
+programmed into bridges, rather than assigning new ones, if the previous
+kernel preserved any device across a Live Update. Do this even on
+architectures that would otherwise always assign bus numbers themselves,
+e.g. when pci=assign-busses is passed.
 
-This makes ACS symmetric with the rest of a device's saved state. Today
-pci_save_state() ignores ACS entirely and pci_restore_state() re-enables
-the ACS controls from the kernel's current ACS policy. As a result, a
-device can come out of a reset with different ACS controls than it went
-in with, e.g. any controls programmed outside of pci_enable_acs() are
-silently dropped.
+Preserved devices must be allowed to continue performing memory
+transactions across a Live Update, so the kernel cannot change the
+fabric topology. Changing the bus numbers of a bridge changes the
+RequesterIDs of the devices below it, which would require disabling and
+flushing any in-flight memory transactions first.
 
-Notably, this prepares the kernel to be able to adopt the ACS controls
-established by a previous kernel across a Live Update rather than
-assigning new ones through pci_enable_acs().
+Apply the policy globally rather than only to the paths that contain
+preserved devices. Bus numbers have to be preserved above a preserved
+device anyway, since an upstream bridge cannot expand its window. A
+global policy matches the scope of pcibios_assign_all_busses(), and
+gives an answer that cannot change part way through the two passes of a
+bridge scan.
 
-Save and restore the Egress Control Vector as well to keep it in sync
-with the now-properly-restored Egress Control Enable bit in the ACS
-control register. The kernel never enables Egress Controls or programs
-the vector, but the firmware could have and they need to be kept in sync
-to avoid changing how P2P traffic is routed.
+Bridges that do not have bus numbers are still assigned new ones, so
+hot-adding a bridge keeps working, both during and after a Live Update.
+The two-pass bridge scan guarantees such bridges are only assigned bus
+numbers above those already claimed by preserved bridges.
 
-The Egress Control Vector Size is a HwInit field of the ACS Capability
-register, so read it directly from the device to size the save buffer
-in pci_allocate_cap_save_buffers(), similar to how the VC capability
-relies on its HwInit fields.
+The exception is a bridge that was preserved but comes up without a
+valid bus number configuration, e.g. because it was reset during kexec.
+Refuse to assign it new bus numbers, since that would silently change
+the BDF of every preserved device in its hierarchy. Also refuse to
+assign bus numbers to the other bridges on the same bus, since the bus
+numbers of the failed bridge can no longer be read from hardware and
+handing them out would let an unrelated device inherit the BDF of a
+preserved device.
 
-pci_enable_acs() runs when a driver binds to a device
-(pci_dma_configure()), i.e. after pci_bus_add_device() has already saved
-the device's state. Refresh the saved ACS state there as well, otherwise
-a subsequent reset would revert ACS back to the configuration left
-behind by firmware.
+Require that CONFIG_CARDBUS is not enabled to enable
+CONFIG_PCI_LIVEUPDATE since preserving bus numbers on PCI-to-CardBus
+bridges requires additional work but is not a priority at the moment.
 
-Devices that rely on device-specific quirks to enable an ACS equivalent
-keep that configuration outside of the ACS Control register, so keep
-configuring ACS from scratch for them. Do the same for devices that have
-no saved ACS state at all.
-
-Assisted-by: LLM
 Signed-off-by: David Matlack <dmatlack@google.com>
 ---
- drivers/pci/pci.c    | 146 ++++++++++++++++++++++++++++++++++++++++++-
- drivers/pci/pci.h    |   5 ++
- drivers/pci/quirks.c |   7 +++
- 3 files changed, 157 insertions(+), 1 deletion(-)
+ .../admin-guide/kernel-parameters.txt         |   7 +-
+ drivers/pci/Kconfig                           |   2 +-
+ drivers/pci/liveupdate.c                      | 114 ++++++++++++++++++
+ drivers/pci/liveupdate.h                      |  13 ++
+ drivers/pci/probe.c                           |  11 +-
+ include/linux/pci_liveupdate.h                |   5 +
+ 6 files changed, 146 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index b2879a6be5f8..944590fdef48 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -1021,6 +1021,139 @@ static void pci_std_enable_acs(struct pci_dev *dev, struct pci_acs *caps)
- 		caps->ctrl |= (dev->acs_capabilities & PCI_ACS_TB);
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 68647ff4bdd2..7eabf6320abf 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -5170,7 +5170,12 @@ Kernel parameters
+ 				explicitly which ones they are.
+ 		assign-busses	[X86] Always assign all PCI bus
+ 				numbers ourselves, overriding
+-				whatever the firmware may have done.
++				whatever the firmware may have done. Ignored
++				if any device was preserved across a Live
++				Update, where the kernel must preserve the
++				PCI topology (including bus numbers) to
++				avoid interrupting ongoing memory transactions
++				of preserved devices.
+ 		usepirqmask	[X86] Honor the possible IRQ mask stored
+ 				in the BIOS $PIR table. This is needed on
+ 				some systems with broken BIOSes, notably
+diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
+index 8af20f558086..16fbd4212e0f 100644
+--- a/drivers/pci/Kconfig
++++ b/drivers/pci/Kconfig
+@@ -273,7 +273,7 @@ config VGA_ARB_MAX_GPUS
+ 
+ config PCI_LIVEUPDATE
+ 	bool "PCI Live Update Support"
+-	depends on PCI && LIVEUPDATE && 64BIT
++	depends on PCI && LIVEUPDATE && 64BIT && !CARDBUS
+ 	help
+ 	  Enable PCI core support for preserving PCI devices across Live
+ 	  Update. This, in combination with support in a device's driver,
+diff --git a/drivers/pci/liveupdate.c b/drivers/pci/liveupdate.c
+index bffb3e1d8b2d..8d5ad26e948c 100644
+--- a/drivers/pci/liveupdate.c
++++ b/drivers/pci/liveupdate.c
+@@ -148,6 +148,32 @@
+  * This enables the PCI core and any drivers bound to the bridge to participate
+  * in the Live Update so that preserved endpoints can continue issuing memory
+  * transactions during the Live Update.
++ *
++ * BDF Stability
++ * =============
++ *
++ * The PCI core guarantees that preserved devices can be identified by the same
++ * bus, device, and function numbers for as long as they are preserved
++ * (including across kexec). To accomplish this, the PCI core keeps the
++ * secondary and subordinate bus numbers that the previous kernel programmed
++ * into bridges, if the previous kernel preserved any device. This is true even
++ * on architectures that always assign new bus numbers during scanning. The
++ * kernel assumes the previous kernel established a sane bus topology across
++ * kexec.
++ *
++ * Bridges that do not have bus numbers are assigned new ones as usual, so
++ * hot-adding a bridge keeps working, both during and after a Live Update. The
++ * two-pass bridge scan ensures such bridges are only assigned bus numbers above
++ * those already claimed by preserved bridges.
++ *
++ * If a preserved bridge comes up without a valid bus number configuration, e.g.
++ * because it was reset during kexec, the PCI core refuses to assign it new bus
++ * numbers and does not enumerate anything below it. Assigning new bus numbers
++ * would silently change the BDF of every preserved device in its hierarchy. The
++ * PCI core also stops assigning bus numbers to the other bridges on the same
++ * bus, since the bus numbers of the failed bridge can no longer be read from
++ * hardware and handing them to another bridge would let an unrelated device
++ * inherit the BDF of a preserved device.
+  */
+ 
+ #define pr_fmt(fmt) "PCI: liveupdate: " fmt
+@@ -168,9 +194,13 @@
+  * struct pci_liveupdate_global - Global state for PCI Live Update support
+  * @rwsem: Reader/writer semaphore used to protect the incoming and outgoing
+  *         FLBs, and the references to them in struct pci_dev.
++ * @had_incoming: True if the previous kernel preserved at least one PCI device.
++ *                Set when the incoming FLB is retrieved and never cleared, so
++ *                it stays true after Live Update finishes.
+  */
+ struct pci_liveupdate_global {
+ 	struct rw_semaphore rwsem;
++	bool had_incoming;
+ };
+ 
+ static struct pci_liveupdate_global pci_liveupdate = {
+@@ -316,6 +346,14 @@ static int pci_flb_retrieve(struct liveupdate_flb_op_args *args)
+ 			      ret);
+ 	}
+ 
++	/*
++	 * Remember that the previous kernel preserved devices for the lifetime
++	 * of this kernel, even after Live Update finishes and the incoming FLB
++	 * is freed. See pci_liveupdate_preserve_bus_numbers().
++	 */
++	if (!xa_empty(&incoming->xa))
++		pci_liveupdate.had_incoming = true;
++
+ 	args->obj = incoming;
+ 	return 0;
+ }
+@@ -624,6 +662,80 @@ static void pci_liveupdate_flb_put_incoming(void)
+ 	liveupdate_flb_put_incoming(&pci_liveupdate_flb);
  }
  
-+/*
-+ * Layout of the ACS save buffer. @ecv holds the ACS Egress Control Vector, if
-+ * implemented, and is sized by pci_allocate_acs_save_buffer().
-+ */
-+struct pci_acs_saved_state {
-+	u16 ctrl;
-+	u32 ecv[];
-+};
-+
-+/*
-+ * Return the number of DWORDs in the ACS Egress Control Vector, or 0 if the
-+ * device does not implement P2P Egress Control. The Egress Control Vector
-+ * Size is HwInit, so it is read directly from the ACS Capability register.
-+ */
-+static unsigned int pci_acs_ecv_dwords(struct pci_dev *dev, int pos)
-+{
-+	unsigned int bits;
-+	u16 cap;
-+	u8 size;
-+
-+	pci_read_config_word(dev, pos + PCI_ACS_CAP, &cap);
-+	if (!(cap & PCI_ACS_EC))
-+		return 0;
-+
-+	/* An Egress Control Vector Size of 0 means 256 bits */
-+	pci_read_config_byte(dev, pos + PCI_ACS_EGRESS_BITS, &size);
-+	bits = size ?: 256;
-+
-+	return DIV_ROUND_UP(bits, 32);
-+}
-+
-+/*
-+ * Return the number of Egress Control Vector DWORDs held in @save_state, as
-+ * sized by pci_allocate_acs_save_buffer().
-+ */
-+static unsigned int
-+pci_acs_saved_ecv_dwords(struct pci_cap_saved_state *save_state)
-+{
-+	return (save_state->cap.size -
-+		offsetof(struct pci_acs_saved_state, ecv)) / sizeof(u32);
-+}
-+
-+static void pci_allocate_acs_save_buffer(struct pci_dev *dev)
-+{
-+	size_t size;
-+	int pos;
-+
-+	/* dev->acs_cap is not set yet, pci_acs_init() runs later */
-+	pos = pci_find_ext_capability(dev, PCI_EXT_CAP_ID_ACS);
-+	if (!pos)
-+		return;
-+
-+	size = struct_size_t(struct pci_acs_saved_state, ecv,
-+			     pci_acs_ecv_dwords(dev, pos));
-+	if (pci_add_ext_cap_save_buffer(dev, PCI_EXT_CAP_ID_ACS, size))
-+		pci_err(dev, "unable to allocate suspend buffer for ACS\n");
-+}
-+
 +/**
-+ * pci_save_acs_state - save the ACS Control register and Egress Control Vector
-+ * @dev: the PCI device
++ * pci_liveupdate_preserve_bus_numbers() - Determine if the PCI core should
++ *                                         preserve bus numbers when scanning
++ *                                         bridges.
 + *
-+ * Record the ACS configuration currently programmed in hardware so that
-+ * pci_restore_acs_state() can reapply it after a reset.
++ * This function is called by the PCI core when it is scanning a bridge. It
++ * determines whether the PCI core should preserve the secondary and subordinate
++ * bus numbers that the previous kernel programmed into that bridge, rather than
++ * assigning new ones. This is necessary to keep RequesterIDs constant for
++ * preserved devices issuing memory transactions.
++ *
++ * Bus numbers are preserved everywhere, and for the lifetime of the kernel, if
++ * the previous kernel preserved any device. Bus numbers have to be preserved
++ * above a preserved device anyway, since an upstream bridge cannot expand its
++ * window. Applying the same policy everywhere matches the scope of
++ * pcibios_assign_all_busses(), and gives an answer that cannot change part way
++ * through the two passes of a bridge scan.
++ *
++ * The incoming FLB is retrieved while setting up the first device, which always
++ * happens before any bridge is scanned, so this returns the same answer for the
++ * entire enumeration.
++ *
++ * Note that this does not prevent the PCI core from assigning bus numbers to
++ * bridges that do not have any, e.g. bridges that are hot-added after the
++ * Live Update. See pci_liveupdate_refuse_bus_numbers() for the one case where
++ * the PCI core must refuse to do so.
++ *
++ * Return: True if bus numbers should be preserved, false otherwise.
 + */
-+static void pci_save_acs_state(struct pci_dev *dev)
++bool pci_liveupdate_preserve_bus_numbers(void)
 +{
-+	struct pci_cap_saved_state *save_state;
-+	struct pci_acs_saved_state *acs;
-+	unsigned int i, dwords;
-+	int ecv_pos;
-+
-+	if (!dev->acs_cap)
-+		return;
-+
-+	save_state = pci_find_saved_ext_cap(dev, PCI_EXT_CAP_ID_ACS);
-+	if (!save_state)
-+		return;
-+
-+	acs = (struct pci_acs_saved_state *)save_state->cap.data;
-+
-+	pci_read_config_word(dev, dev->acs_cap + PCI_ACS_CTRL, &acs->ctrl);
-+
-+	ecv_pos = dev->acs_cap + PCI_ACS_EGRESS_CTL_V;
-+	dwords = pci_acs_saved_ecv_dwords(save_state);
-+	for (i = 0; i < dwords; i++)
-+		pci_read_config_dword(dev, ecv_pos + i * sizeof(u32),
-+				      &acs->ecv[i]);
++	return pci_liveupdate.had_incoming;
 +}
 +
 +/**
-+ * pci_restore_acs_state - restore the ACS Control register and Egress Control
-+ *			   Vector
-+ * @dev: the PCI device
++ * pci_liveupdate_refuse_bus_numbers() - Determine if the PCI core must refuse
++ *                                       to assign bus numbers to the provided
++ *                                       bridge.
++ * @bus: The PCI bus the bus numbers would be assigned from.
++ * @dev: The PCI bridge device the bus numbers would be assigned to.
++ *
++ * This function is called by the PCI core before it assigns bus numbers to a
++ * bridge that does not have any.
++ *
++ * A bridge that was preserved by the previous kernel but came up without a
++ * valid bus number configuration, e.g. because it was reset during kexec, is
++ * left alone by the PCI core and therefore has no child bus once the first pass
++ * of the bridge scan is done.
++ *
++ * The PCI core must not assign bus numbers from @bus while such a bridge is on
++ * it, including to the failed bridge itself. Assigning new bus numbers to the
++ * failed bridge would silently change the BDF of every preserved device in its
++ * hierarchy. Its bus numbers cannot be read from hardware anymore either, so
++ * they cannot be excluded from assignment, and handing them to another bridge
++ * would let an unrelated device inherit the BDF of a preserved device.
++ *
++ * Return: True if @dev must not be assigned bus numbers, false otherwise.
 + */
-+static void pci_restore_acs_state(struct pci_dev *dev)
++bool pci_liveupdate_refuse_bus_numbers(struct pci_bus *bus, struct pci_dev *dev)
 +{
-+	struct pci_cap_saved_state *save_state = NULL;
-+	struct pci_acs_saved_state *acs;
-+	unsigned int i, dwords;
-+	int ecv_pos;
++	struct pci_dev *bridge;
 +
-+	if (dev->acs_cap && !pci_need_dev_specific_enable_acs(dev))
-+		save_state = pci_find_saved_ext_cap(dev, PCI_EXT_CAP_ID_ACS);
++	for_each_pci_bridge(bridge, bus) {
++		if (!bridge->liveupdate.was_incoming || bridge->subordinate)
++			continue;
 +
-+	/*
-+	 * Devices that rely on device-specific quirks to enable an ACS
-+	 * equivalent keep that configuration outside of the ACS Control
-+	 * register, so there is nothing useful to restore for them. Configure
-+	 * ACS from scratch instead, which also covers devices that have no
-+	 * saved ACS state at all.
-+	 */
-+	if (!save_state) {
-+		pci_enable_acs(dev);
-+		return;
++		pci_err(dev, "Not assigning bus numbers, preserved bridge %s lost its bus number configuration\n",
++			pci_name(bridge));
++		return true;
 +	}
 +
-+	acs = (struct pci_acs_saved_state *)save_state->cap.data;
-+
-+	/*
-+	 * Restore the Egress Control Vector before the ACS Control register.
-+	 * The vector resets to zero, so enabling P2P Egress Control first
-+	 * would briefly apply the reset vector instead of the saved one.
-+	 */
-+	ecv_pos = dev->acs_cap + PCI_ACS_EGRESS_CTL_V;
-+	dwords = pci_acs_saved_ecv_dwords(save_state);
-+	for (i = 0; i < dwords; i++)
-+		pci_write_config_dword(dev, ecv_pos + i * sizeof(u32),
-+				       acs->ecv[i]);
-+
-+	pci_write_config_word(dev, dev->acs_cap + PCI_ACS_CTRL, acs->ctrl);
++	return false;
 +}
 +
- /**
-  * pci_enable_acs - enable ACS if hardware support it
-  * @dev: the PCI device
-@@ -1057,6 +1190,15 @@ void pci_enable_acs(struct pci_dev *dev)
- 	__pci_config_acs(dev, &caps, config_acs_param, 0, 0);
- 
- 	pci_write_config_word(dev, pos + PCI_ACS_CTRL, caps.ctrl);
-+
-+	/*
-+	 * pci_enable_acs() runs when a driver binds to the device, i.e. after
-+	 * pci_bus_add_device() has already saved the device's state. Refresh
-+	 * the saved ACS state so that a subsequent reset restores the
-+	 * configuration programmed here rather than the one left behind by
-+	 * firmware.
-+	 */
-+	pci_save_acs_state(dev);
- }
- 
- /**
-@@ -1800,6 +1942,7 @@ int pci_save_state(struct pci_dev *dev)
- 	pci_save_aer_state(dev);
- 	pci_save_ptm_state(dev);
- 	pci_save_tph_state(dev);
-+	pci_save_acs_state(dev);
- 	return pci_save_vc_state(dev);
- }
- EXPORT_SYMBOL(pci_save_state);
-@@ -1877,7 +2020,7 @@ void pci_restore_state(struct pci_dev *dev)
- 	pci_restore_msi_state(dev);
- 
- 	/* Restore ACS and IOV configuration state */
--	pci_enable_acs(dev);
-+	pci_restore_acs_state(dev);
- 	pci_restore_iov_state(dev);
- 
- 	dev->state_saved = false;
-@@ -3532,6 +3675,7 @@ void pci_allocate_cap_save_buffers(struct pci_dev *dev)
- 	if (error)
- 		pci_err(dev, "unable to allocate suspend buffer for LTR\n");
- 
-+	pci_allocate_acs_save_buffer(dev);
- 	pci_allocate_vc_save_buffers(dev);
- }
- 
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index ba3c3fddddc2..037c1674f164 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -1095,6 +1095,7 @@ void pci_acs_init(struct pci_dev *dev);
- void pci_enable_acs(struct pci_dev *dev);
- #ifdef CONFIG_PCI_QUIRKS
- int pci_dev_specific_acs_enabled(struct pci_dev *dev, u16 acs_flags);
-+bool pci_need_dev_specific_enable_acs(struct pci_dev *dev);
- int pci_dev_specific_enable_acs(struct pci_dev *dev);
- int pci_dev_specific_disable_acs_redir(struct pci_dev *dev);
- void pci_disable_broken_acs_cap(struct pci_dev *pdev);
-@@ -1105,6 +1106,10 @@ static inline int pci_dev_specific_acs_enabled(struct pci_dev *dev,
+ void pci_liveupdate_setup_device(struct pci_dev *dev)
  {
- 	return -ENOTTY;
+ 	struct pci_flb_incoming *incoming;
+@@ -652,6 +764,8 @@ void pci_liveupdate_setup_device(struct pci_dev *dev)
+ 
+ 	pci_info(dev, "Device was preserved by previous kernel across Live Update\n");
+ 	dev->liveupdate.incoming = dev_ser;
++	dev->liveupdate.was_incoming = true;
++
+ 	pci_liveupdate_flb_put_incoming();
  }
-+static inline bool pci_need_dev_specific_enable_acs(struct pci_dev *dev)
+ 
+diff --git a/drivers/pci/liveupdate.h b/drivers/pci/liveupdate.h
+index eaaa3559fd77..e5d2a19d2ca2 100644
+--- a/drivers/pci/liveupdate.h
++++ b/drivers/pci/liveupdate.h
+@@ -13,6 +13,8 @@
+ #ifdef CONFIG_PCI_LIVEUPDATE
+ void pci_liveupdate_setup_device(struct pci_dev *dev);
+ void pci_liveupdate_cleanup_device(struct pci_dev *dev);
++bool pci_liveupdate_preserve_bus_numbers(void);
++bool pci_liveupdate_refuse_bus_numbers(struct pci_bus *bus, struct pci_dev *dev);
+ #else
+ static inline void pci_liveupdate_setup_device(struct pci_dev *dev)
+ {
+@@ -21,6 +23,17 @@ static inline void pci_liveupdate_setup_device(struct pci_dev *dev)
+ static inline void pci_liveupdate_cleanup_device(struct pci_dev *dev)
+ {
+ }
++
++static inline bool pci_liveupdate_preserve_bus_numbers(void)
 +{
 +	return false;
 +}
- static inline int pci_dev_specific_enable_acs(struct pci_dev *dev)
- {
- 	return -ENOTTY;
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index 7aee30734303..e500c202d2ec 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -5476,6 +5476,13 @@ static const struct pci_dev_acs_ops *pci_dev_acs_ops_get(struct pci_dev *dev)
- 	return NULL;
- }
- 
-+bool pci_need_dev_specific_enable_acs(struct pci_dev *dev)
++
++static inline bool pci_liveupdate_refuse_bus_numbers(struct pci_bus *bus,
++						     struct pci_dev *dev)
 +{
-+	const struct pci_dev_acs_ops *p = pci_dev_acs_ops_get(dev);
-+
-+	return p && p->enable_acs;
++	return false;
 +}
-+
- int pci_dev_specific_enable_acs(struct pci_dev *dev)
+ #endif
+ 
+ #endif /* DRIVERS_PCI_LIVEUPDATE_H */
+diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+index ad7fdf0d56b6..debe0ad1ef68 100644
+--- a/drivers/pci/probe.c
++++ b/drivers/pci/probe.c
+@@ -1397,6 +1397,8 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+ 				  int max, unsigned int available_buses,
+ 				  int pass)
  {
- 	const struct pci_dev_acs_ops *p = pci_dev_acs_ops_get(dev);
++	bool preserve_bus_numbers = !pcibios_assign_all_busses() ||
++				    pci_liveupdate_preserve_bus_numbers();
+ 	struct pci_bus *child;
+ 	u32 buses;
+ 	u16 bctl;
+@@ -1449,8 +1451,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+ 		goto out;
+ 	}
+ 
+-	if ((secondary || subordinate) &&
+-	    !pcibios_assign_all_busses() && !broken) {
++	if ((secondary || subordinate) && preserve_bus_numbers && !broken) {
+ 		unsigned int cmax, buses;
+ 
+ 		/*
+@@ -1492,8 +1493,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+ 		 * do in the second pass.
+ 		 */
+ 		if (!pass) {
+-			if (pcibios_assign_all_busses() || broken)
+-
++			if (!preserve_bus_numbers || broken)
+ 				/*
+ 				 * Temporarily disable forwarding of the
+ 				 * configuration cycles on all bridges in
+@@ -1507,6 +1507,9 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+ 			goto out;
+ 		}
+ 
++		if (pci_liveupdate_refuse_bus_numbers(bus, dev))
++			goto out;
++
+ 		/* Clear errors */
+ 		pci_write_config_word(dev, PCI_STATUS, 0xffff);
+ 
+diff --git a/include/linux/pci_liveupdate.h b/include/linux/pci_liveupdate.h
+index 710026ada2d5..d45a5b524909 100644
+--- a/include/linux/pci_liveupdate.h
++++ b/include/linux/pci_liveupdate.h
+@@ -17,10 +17,15 @@
+  * struct pci_liveupdate - PCI Live Update state for a struct pci_dev
+  * @outgoing: State preserved for the next kernel.
+  * @incoming: State preserved by the previous kernel.
++ * @was_incoming: True if this struct pci_dev was incoming-preserved when it was
++ *                set up, i.e. it was matched to state preserved by the previous
++ *                kernel. Unlike @incoming, this is never cleared, so it stays
++ *                true after the device finishes participating in Live Update.
+  */
+ struct pci_liveupdate {
+ 	struct pci_dev_ser *outgoing;
+ 	struct pci_dev_ser *incoming;
++	bool was_incoming;
+ };
+ 
+ struct pci_dev;
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
