@@ -1,93 +1,86 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FD739FCC8;
-	Tue, 13 Oct 2026 09:20:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207FA3E1D1A;
+	Tue, 13 Oct 2026 09:21:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791883247; cv=none; b=lnE4ygk+QKAgkvfsFgxypdfn3WGrOR5TPfL2N4InKFx8jIbmQ7Dqam0xaA3+Up0ey73v/wpxcugb9jg9e5ornkQymaJ6irWN5roqsb4bF6cjpwu3yy1gTYyj8u0QJYJakKoeYQ0Z0R/OmEOD5QpPfsCqnM2NrkYOtWHnctJ+1tw=
+	t=1791883269; cv=none; b=n23QzzhZ3HOqYoSi8VcR3pRp1LszX8aBT4hfN3JgbNnJNaXoVXdzHPH/NM1FUKOybsAPtyWsave77lKRrw6VhN8tuzv7Hn7faDw7R+by8JaRQSXSP7TT1tmL/Q59OnLE1um2tTn1UemAYN4RXk4RyxUh42+RZrKEpxanM9t6Rqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791883247; c=relaxed/simple;
-	bh=vIA/3RR0vIKG8eq+CjJ3MePklgD7LDevQ7H0MXSg4Ow=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B0nTs6iW1GOLHGMLK9iFlvJuhRWnMHk1sEq4diqdelNo8C5goW8fKfv9lOdZabwr9Cq0IdDXs2U1ropTEv8TzeU7txydpqoPH6yuPFyBGT9eDlln7Q/LIsdo+mWb/rlo5VIhOfEC39L4D7YPwDyl8QJ66g4dh4Q0lPT4K8y6uoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=AerwlHK4; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=nr+gS7PN; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1791883269; c=relaxed/simple;
+	bh=AqyTz9Cb3qNFJA6+xOzFS3cqwS1jejuS3ABsLWcvmSg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=vABLEjac7Q/ePIHZGM8sOtyEmlmtHkzPmaPxU8/GPSJNbBe0xx7jD3xQY2rrTQtfKrjbonc3HZtObpcmoN8uL+2Smi69TEDYqYdiwSgaNjVXJIuFigh6T1IsW2Nbkohx/EFZkPiNodp13lfPgzz+RTrUUwocw5asVrq52Ly/Z1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BkDnKlW1; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="AerwlHK4";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="nr+gS7PN"
-Date: Tue, 13 Oct 2026 11:20:42 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1791883243;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+z6FY1icZ3uxfpHeqlpgjn58h/Q4e8qj86vKcI+UHaQ=;
-	b=AerwlHK4D5jmmDUizPaSj2aKqCv3RC1ffu+IBrRB/sWlOY+VNP/A9KKSn+hHrtEV1tSU0k
-	DC24keC5I6rXyTa0ZrQJqYrgWtr/9k4Q35eqOsgMmWMnh23CvGlFxVpu2qPkcXLhsxIQgK
-	MGTC04oqziF5rmqLNYxk3m6Zt0DLheHSbz4xksvnVCF0tM+R4+DB9CCs5a2rxEHsWMr2b/
-	bMgIxqiHGWfhTawVnA0ryCHXGb3KBCskRlMpDLaPWOAnAguYJsdn+obsRyad5yMqnu3eWR
-	qHbYQsQ9I0wGZ0x3Cj/Os57MUYLAh+an4Vw31Cl6cg4xlQacknaYUXOQseqHQQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1791883243;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+z6FY1icZ3uxfpHeqlpgjn58h/Q4e8qj86vKcI+UHaQ=;
-	b=nr+gS7PNFCHvZIllXiG1Z2VEF3XKJLcZdYJ1Zrlz/hxNfEL/t7f1ebHIK9gecTJ7p20xAA
-	rrocqjQInFBIyHCQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Oliver Neukum <oneukum@suse.com>
-Cc: Alan Stern <stern@rowland.harvard.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	=?utf-8?B?w5ZtZXI=?= Mete Kaya <omermetekaya0@gmail.com>,
-	netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, pabeni@redhat.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, david.laight.linux@gmail.com,
-	syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
-Subject: Re: [PATCH net v6] usbnet: fix smp_processor_id() use in preemptible
- context
-Message-ID: <20261013092042.drwtxbGU@linutronix.de>
-References: <20261004215937.302247-1-omermetekaya0@gmail.com>
- <20261007200049.079aeb75@kernel.org>
- <7c4a2f1c-f16d-479b-a11f-cef962d5e2c7@rowland.harvard.edu>
- <20261008094338.301a75fa@kernel.org>
- <06a81ea1-b17d-40bd-82d9-922de946b86f@rowland.harvard.edu>
- <2026100910-petition-embattled-94cb@gregkh>
- <20261012194902.aEq58Q6b@linutronix.de>
- <8545800a-a37f-482a-9b06-cbdd70312b7a@rowland.harvard.edu>
- <4d3a6c5c-7516-4bab-ac0a-3cf4d7a034a2@suse.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BkDnKlW1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791883268; x=1823419268;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=AqyTz9Cb3qNFJA6+xOzFS3cqwS1jejuS3ABsLWcvmSg=;
+  b=BkDnKlW115djtGyXtpVtGK4rG887Hz8oXCcQ0ZgJtHgJ4nkEkLJHVmI0
+   ENjekXDopMcNBpoSTvS1FLKKGD1K3zbVdbUY80sXYbhhG2bCF0ggsaeaT
+   89PKXRvjVDJkYpQP4ViQpDBId5Ovo/4NCqDjl+hxn4SCAM2MKO8T+q44e
+   OhZMMuKtXmd5GqPxvp4Ui2XTP6uykSGi5IxiDjvDJukhPIeJblWiplMEz
+   uhSvMXEdiXXdbgRPoqUupsINXceH2nM64NeZcHhwY2zy+h9T82ZxddVJD
+   wQDHKFssjEdUxzVwa9aCpP1svbtdBduuYGk/O4L5wwuwAba+sQ90Vg4yd
+   w==;
+X-CSE-ConnectionGUID: l8lbYo5SRZW6R9YE0dnJnQ==
+X-CSE-MsgGUID: 2z7C/k+gRtSY5OLcOssXew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="500133"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="500133"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:21:08 -0700
+X-CSE-ConnectionGUID: 4Sa7HtG6T62mLO6pUvkSaw==
+X-CSE-MsgGUID: mjDXqcSXSlm5R5ysTzrgqQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1092542"
+Received: from unknown (HELO [10.238.2.98]) ([10.238.2.98])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:21:04 -0700
+Message-ID: <6348b9e7-d435-44a4-8df5-240465d6d988@linux.intel.com>
+Date: Tue, 13 Oct 2026 17:21:02 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <4d3a6c5c-7516-4bab-ac0a-3cf4d7a034a2@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 06/10] x86/virt/tdx: Convert the handoff metadata
+ reader
+To: Chao Gao <chao.gao@intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+ kvm@vger.kernel.org, yilun.xu@linux.intel.com,
+ tony.lindgren@linux.intel.com, rick.p.edgecombe@intel.com,
+ nik.borisov@suse.com, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>
+References: <20261012094754.27702-1-chao.gao@intel.com>
+ <20261012094754.27702-7-chao.gao@intel.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <20261012094754.27702-7-chao.gao@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026-10-13 10:54:09 [+0200], Oliver Neukum wrote:
-> On 12.10.26 22:26, Alan Stern wrote:
-> > Today you fix VHCI, tomorrow some other virtual HCD will cause problems.
-> > 
-> > Should we document any requirements that all HCDs will have to follow
-> > and that all completion handlers can rely on?
+On 10/12/2026 5:47 PM, Chao Gao wrote:
+> Continue converting the metadata readers to the table-driven helper.
 > 
-> Numerous corner cases. For example I strongly suspect that unloading
-> the driver for the HC will always complete URBs synchronously.
-> Please do not do this.
+> Add a table that pairs each field ID with the 'struct
+> tdx_sys_info_handoff' member that holds its value, and read all fields by
+> walking that table.
+> 
+> AI was used under supervision to review code and workshop logs
+> 
+> Signed-off-by: Chao Gao <chao.gao@intel.com>
+> Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
 
-Sorry, I have hard time to parse this. The expectation of the USB driver
-(was) that the completion handler is invoked in interrupt context.
-Therefore BH is disabled one way or another.
-Are you saying we should not have this behaviour documented/ expected
-and assume preemptible context because "rmmod hcd" will complete all
-enqueued URBs in the rmmod context?
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
 
-> 	Regards
-> 		Oliver
-
-Sebastian
