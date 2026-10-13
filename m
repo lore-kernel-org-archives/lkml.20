@@ -1,70 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3323D3EC2E3;
-	Tue, 13 Oct 2026 14:07:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3F6501F45;
+	Tue, 13 Oct 2026 14:07:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900457; cv=none; b=rs17jp+SNgftGGuB1GBXsxz4YYey/twWeayHbtEAKFKy7BM00Z2fGa1gSwKILfQlPOstSVAIVoj0BVMqVuXEXSW0N81dNIXlcYMtf9+rjLma+L+T4tk3kCipFyKmaNIxDeMtMC9pY06irTHq1jc+ogoMxhEkxVpjJ1Q+KLdS8aU=
+	t=1791900459; cv=none; b=I7NsYF8rS6/haL75Bot/8QEuYeokNqVpy4cekGfjPxpW00WSD4ThUD7Gfh4s150lMXYOXu7mk3xDZAygVHNM/qi0J4+GO+SlJOnC4ypSQmj04TOosH9rDY+YnSeCsEhKUSWGS5KgPddCIouzkIINRX/ff70Smyi1FFTy17uziac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900457; c=relaxed/simple;
-	bh=TFjST6qOQp71YbhkVt/zU2XIY0PuiwgTGy9fYd8o6UE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=en8Y9rUpmJOSOCibGE0YMvs2wjgVvLCW4Z3vwOjvbOvPcz82u8FsEQ8dK48cnZ4f2Km49bcJRLwXfPIb8+mfvHxcVte73h+Mj30nFNZfUcJLzDC7UdzULGk0W+Mr4EDjA4iLRujSSoavi7/A35arirQnvE8L4Hfc98VS+j5d400=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JydkQP68; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791900459; c=relaxed/simple;
+	bh=W88mS6YBE8sTQ1nme8JepyXgE86BvQHetXAgV3IwrYI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=knCV3TpkbuibH4a3v5z+DnQubNFqRm8SOCfeioEKsyXG59v0Mvl+4GZOTqbYhiXnsJasfiAKF/kRry9jMtFwZoyqgOCx9ZHcJM9SdQ48D9gTg+y7cnV73v0KtdaHRlQcEtPaygpwysxYxXMjwEyVn1hkM24KHiG4C0gnTRGl7Kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g2ogaP+E; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JydkQP68"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B32A1F000FF;
-	Tue, 13 Oct 2026 14:07:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791900455;
-	bh=1mmQxqe2eOiDfxMlH7DwP9Y+43S/EZrHqcAdhn++fUQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=JydkQP68j++uBfAoGwcB3Ba8Qy/WqLIdKslceKRqp+Y79zTsfL5tJ+asxsG6nfQ2b
-	 YUgBzEMAJLxRyXPyACx609e2Bu7ECI65qpfSVrEsUFh2AEx17EEnUcGdbMn8tgPA7E
-	 HxyVaNlZPVHrdCJYhzSF/mIo/XQ92PUyigR+bcpN1eCsWvT7pKDwavzTi6VfYOgiHx
-	 ZsbKnMZHdZl5K8oyUtfiV3aSj+QAhI7KQRPMDYikbW/f7QxWvpCTOw1UFkPwbAHUuL
-	 /28dVi6A0/aKGi/RBlBfQAFdrFx9bGtqmu9+S4jLLZbelt46p+7U9bLnjBFRkCvJ5u
-	 rh9UMw+noquDg==
-From: Lee Jones <lee@kernel.org>
-To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Renner Berthing <kernel@esmil.dk>, 
- "Rob Herring (Arm)" <robh@kernel.org>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260921232639.3132083-1-robh@kernel.org>
-References: <20260921232639.3132083-1-robh@kernel.org>
-Subject: Re: (subset) [PATCH] dt-bindings: mfd: ti,tps65086: Make
- regulators optional
-Message-Id: <179190045401.3946554.16358556662900390646.b4-ty@b4>
-Date: Tue, 13 Oct 2026 15:07:34 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g2ogaP+E"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791900458; x=1823436458;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=W88mS6YBE8sTQ1nme8JepyXgE86BvQHetXAgV3IwrYI=;
+  b=g2ogaP+ExlWuLvDFDfk1Xq4RifkML1d7HkG+F+txTLDwp/O1K2KCWoZO
+   CU5jrNQVV0iXGjCBtCc9fc9zZoDZ6403XXf+SGBO2gxeZoQIBMJiQGptW
+   m+gaIiHB1A/31kEbr8hefw7l8VFYnSFBU/b7d17ltpIV95YSInqn8iW81
+   BWxxKo0/1cCvdlytTlIdta3ealAwW9ShGxzvbnRV6yWVrvX3gzHngOVQ8
+   dubioI6AhkpfFPCGlv7J0q1l36dsoiHdRoj+WyVM2MkiD9gSVn+vbwW9M
+   ej0Dvf3osbh7P8A0afozo7rO8a3z5vlYQtKsLvbc5vS0FunNoxwG9SXjj
+   A==;
+X-CSE-ConnectionGUID: X4VICJTTSx2F0pOrKnvOUA==
+X-CSE-MsgGUID: MSan89ZXS7eyZmCJ9W1pYg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="642338"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="642338"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 07:07:33 -0700
+X-CSE-ConnectionGUID: 6cANfGRZTGmuiPQL/vdfhw==
+X-CSE-MsgGUID: XIeAE0B5R32LAOgDkfUP3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1509260"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 07:07:30 -0700
+Date: Tue, 13 Oct 2026 17:07:28 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: "David Lechner (TI)" <dlechner@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
+	Kurt Borja <kuurtb@gmail.com>
+Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads112c14: add gpio support
+Message-ID: <as47IMM9rtBCAH0-@ashevche-desk.local>
+References: <20261009-iio-adc-ti-ads112c14-gpio-v2-0-3231a795fa63@baylibre.com>
+ <20261009-iio-adc-ti-ads112c14-gpio-v2-2-3231a795fa63@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-iio-adc-ti-ads112c14-gpio-v2-2-3231a795fa63@baylibre.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, 21 Sep 2026 18:26:38 -0500, Rob Herring (Arm) wrote:
-> The TPS65086 MFD driver adds the regulator child device
-> unconditionally, and the regulator driver registers the regulators
-> from the parent node even when there is no regulators child node
-> containing init data.
+On Fri, Oct 09, 2026 at 06:25:52PM -0500, David Lechner (TI) wrote:
+> Add support for using the AIN4/GPIO0 to AIN7/GPIO3 pins as GPIOs when
+> the gpio-controller property is present.
 > 
-> Do not require the regulators container in the binding. Existing
-> ZynqMP boards that only describe the PMIC core and GPIO function are
-> valid without regulator init data.
-> 
-> [...]
+> Pins that are already used for something else according to the
+> devicetree are excluded from the valid GPIO mask. This includes analog
+> inputs and excitation current outputs used by channels, REFP/REFN when
+> an external reference is used, the /FAULT and /DRDY interrupts and the
+> external clock input.
 
-Applied, thanks!
+...
 
-[1/1] dt-bindings: mfd: ti,tps65086: Make regulators optional
-      commit: b783c46fb685a38d1f5cde57f59e5ed520846ed7
+> +	for (unsigned int i = 0; i < ADS112C14_NUM_GPIO; i++) {
+> +		data->gpio_names[i] = devm_kasprintf(dev, GFP_KERNEL, "%s:GPIO%u",
+> +						     dev_name(&indio_dev->dev), i);
+> +		if (!data->gpio_names[i])
+> +			return -ENOMEM;
+> +	}
 
---
-Lee Jones [李琼斯]
+I am sorry, I still didn't get what's wrong with the dash (technically
+speaking)? So, this may use devm_kasprintf_strarray().
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
