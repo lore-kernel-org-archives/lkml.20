@@ -1,86 +1,47 @@
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-2.mail.aliyun.com (out28-2.mail.aliyun.com [115.124.28.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97737472094
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:58:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C7A4718D3
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791860286; cv=none; b=qlJDluaryEy/bAJvjUbER8J5/x9FCNdbqfBHQTVkXCWu3218/EqtuduwW8AxxXRRdKGlQQ2eL17HJFDqTcO2cqRdMqiChEXzsndsCM1UTvJT5XhiJu4Jsnda8CNY3MIF2ETHSHhkveYKAyQBkl3SRpQfIbixdsoRAm9AxKnlBhU=
+	t=1791860510; cv=none; b=a+HYcInBk3fu9Y5dykTjPl12vBBrqqXBRWZRy1sdlOKKJpwqbg4H/XxV6mLSiPro5i8LgV79OSD5gWD+jfGa6f8PjcXwThk3hP1YSGtSqGE//3CnhsncW/6WBsm5BtPjdnHok0sIy8dO84R2NCXoj9+GM6iBBJfAQ7nvmiwIVBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791860286; c=relaxed/simple;
-	bh=Hmp6kD33CCTxbaHRrfzwTFQCBpL1CL9ksWeMOwmFTb4=;
+	s=arc-20240116; t=1791860510; c=relaxed/simple;
+	bh=SkndvVcClBLGG6kNriPFNu+EsYdwFbaRIq6vpvFgXdo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JDQBmyHbXMAPzOWXuZHpZTZwDVeD2dsAFf93zu84niwK7U8SZ3S93TrH8OHmvt5S2DNzIs94D7Qbq3b6lVmTgllx/Yz9TdaRLnKreknRFQwJfkAR528VFtwz60j7apWYoQds0nB+elrtimY7pDgGevSRM60lNwrESePWERhQtbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=octane.security; spf=pass smtp.mailfrom=octane.security; dkim=pass (2048-bit key) header.d=octane.security header.i=@octane.security header.b=E0/PbZOE; arc=none smtp.client-ip=74.125.82.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=octane.security
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=octane.security
+	 MIME-Version; b=Oed0AfwjMIeFfuIqWqakxclMhZVTpZL//6m7DcUq7fBOXeGagcgDeae4RGZsBP7zE/4Wf1VbE3gIRKl1Z5uLSMsw0N0orzt6o7vjOFfdzx5YSZtJfPb5D42JGwu4gTDucyU1HcOCutLqXT+zIRNeB7Tug7JftctkBDhtx9Bk+0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=iqAbRxkn; arc=none smtp.client-ip=115.124.28.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=octane.security header.i=@octane.security header.b="E0/PbZOE"
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-15943c9c005so3147717c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:58:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=octane.security; s=google; t=1791860284; x=1792465084; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qQbi0ubk7/MCTKPm4mHPKxuy2uo+88OVn5fQMncOhr8=;
-        b=E0/PbZOEehz0Fqarhk6KzqtqljcWh0aUv6TgyzNNUReFY9DlwojpPkAq+9YiAvHWtv
-         PdZT6qiT+b9+PYM692FRL4YIfDwhs+l0TnsLtyzpxSgD2BexcQLH4hQIVUV64oXQ3RiF
-         NluIShE0zcN6PICkb9Qh2M4+g69Dim3X0CqoJLFyD9L/OoBVmLzhUYfi4Xw3cCuZurhK
-         WseC/D4vNoh8QhlrIZle3tyWiBpYNsvvyL0Uji6mr95AoyINLRNFAzDRyWhtN1jxMGKA
-         jDPmbFWLEz6xs9rvy+XsIyaEmDRlHm+f3hrTzncngc6kIZvPXJKHZY2M4iWR+ntm5xOE
-         HFnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791860284; x=1792465084;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qQbi0ubk7/MCTKPm4mHPKxuy2uo+88OVn5fQMncOhr8=;
-        b=DPAH5+1d9FZAQqmh8/rD7HFe9L4prLAkn4BIwElWBEzTL9kZS77GeIhqoPYO8Fjics
-         uCtJRE7vFSCUkEGVyvAECvngfyMKs4/CrcQI4elDQJLTGYD9tCskIpgdrYext6+8XjaS
-         f2A4G0hM3cjkbzisA5vr2dH317T2LUxFrJ5kM9MM7lOX/IoIesc43AJe52I75IGkwwH8
-         GK8tYvYJNTQi+vwd4+PcDtoAg6LnccK6eM6jgyhGDp0Vor1/alqhvEsuf/DojsICw63s
-         iZZYFbkTbs1/WSGBsDNGgitMUbiTZqXDvTQBpccOsFBSy2vXbzS1Y6rODKCzx+kDm+o6
-         PwSw==
-X-Forwarded-Encrypted: i=1; AKwUvBzYGgJP+PizfnF5mlNNXnjVE24OdiRhL0bcQzXaR4brIN/UZzo0GtaZE79XmsKiftwoRx/MsDSJCIfxn7c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYINO2+SjbUjFIrPyssD4JPwN0on0u/RNy+t9m4hSRLU8XUH37te
-	ImoOve3//GP2QUayT+DIW6J6bG8KqTwnYchiRTztavx3O02hbFEEpIlvEyqir1le2Qc=
-X-Gm-Gg: AYBFou3PPRsKLPrK+YHxRwvYUUF30gjQj4lztZTFsRHaOGYMPYvpjhLuhFFyD38gSPc
-	CYaiIYx2QJ2ZPqui08Uy/flz1fzeS/fUpinIeX8DWjTBsGiScU0qsVkYHp6GgC9phyV5LH1k89J
-	l5JiQgW+jqTKOjeveHl9XhsPl2wE21CUuwdRGQgRvIcRVOHOlLolRXaeM5zcSWv7i+7DHvF6MnQ
-	d9aAeI9WcqfkW5EaIPfmxpy+xgTL7/Xft9V3t7jINM8o/4dFQRRzxh2HlQ5yCgdvhpernm59hrn
-	aTLetB6P5YiHgWDC3F2F0qKlCYrQ3oa8kF5zY5tQSzlWgUIHaQ29S698YXuIc2EL3HjPTdDIxrx
-	QU3dLrHBWyg0zV4eC6rseFpkBBIDo5Mt8SS0dogfAzK6vxQNhnFgAFK0dBfwm/0FyLqI+Nyt4LF
-	GGZLo+6ZStRh4qc1SfKrvvnhqK6od1l2rSdNyuTwXTEt12n9ifEou6s4wnA2q2pwRUfywk6AOkJ
-	xI+FlCnDEbbj0I0sz2QwjszS6H3OgnJq/sELrpoDiT0Fri7ZFn66InrxkLLI2x3t9Gq4YrsvYMY
-	jWq7gFH0/88IBA==
-X-Received: by 2002:a05:701b:2910:b0:143:6080:668f with SMTP id a92af1059eb24-16a61789c7cmr15341521c88.7.1791860283446;
-        Mon, 12 Oct 2026 19:58:03 -0700 (PDT)
-Received: from localhost.localdomain ([103.207.175.177])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becefdsm34223721c88.7.2026.10.12.19.57.58
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 12 Oct 2026 19:58:02 -0700 (PDT)
-From: Shubham Antil <shubham@octane.security>
-To: netdev@vger.kernel.org
-Cc: david@ixit.cz,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	cuissard@marvell.com,
-	sameo@linux.intel.com,
-	oe-linux-nfc@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	gio@octane.security,
-	Shubham Antil <shubham@octane.security>,
-	stable@vger.kernel.org
-Subject: [PATCH net v5 2/2] nfc: nci: uart: quiesce write_work during teardown
-Date: Tue, 13 Oct 2026 08:27:46 +0530
-Message-ID: <20261013025746.41292-3-shubham@octane.security>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261013025746.41292-1-shubham@octane.security>
-References: <20261013025746.41292-1-shubham@octane.security>
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="iqAbRxkn"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1791860505; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=v4/APHhHCJN6Oe2GAIYuPhZh2zCS6zZBYZwHGHGmZZs=;
+	b=iqAbRxkny9WkCB0d0+2SKyH/QXsQ2FvpZQCqw+aJx5dl7w5j5D6DWwXDP9pMOVxFnkgv64ifjqRbaoh/SmfMfotlW/VMA3kXMTBHh7FyrNHgKvQiFIw9uoXDzKIBYlEHZZPI681shnhG8s96ryxQzANh8N6C6yb7aFFg/nS3EoI=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0758048|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.15641-0.00146527-0.842125;FP=12607255534717618390|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033022149254;MF=wangqk1@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jawVVu6_1791860504;
+Received: from DESKTOP-EL1SUEF.xiaopeng.local(mailfrom:wangqk1@xiaopeng.com fp:SMTPD_---.jawVVu6_1791860504 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 13 Oct 2026 11:01:44 +0800
+From: wangqk1 <wangqk1@xiaopeng.com>
+To: linux-kernel@vger.kernel.org
+Cc: xiedl3@xiaopeng.com,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	rostedt@goodmis.org,
+	linux-rt-devel@lists.linux.dev
+Subject: [RFC 1/1] sched/rt: Avoid RTO push to stopped CPUs during shutdown
+Date: Tue, 13 Oct 2026 11:01:40 +0800
+Message-ID: <20261013030140.682182-2-wangqk1@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261013030140.682182-1-wangqk1@xiaopeng.com>
+References: <20261013030140.682182-1-wangqk1@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,307 +50,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nci_uart_tty_close() releases the active transmit state before ensuring
-write_work has stopped.  A TTY write-wakeup can queue or run that worker
-immediately before close, leaving the worker active while teardown
-proceeds.
+During system poweroff, machine_power_off() invokes smp_send_stop(). A
+CPU receiving IPI_CPU_STOP parks without running the CPU hotplug teardown.
+Its RT overload state can therefore retain a stale rto_mask bit.
 
-Serialize work scheduling and the worker's final state handoff with a
-transmit lock.  Once closing starts, block new scheduling and synchronously
-cancel the worker before freeing its skbs and queue.  Test and clear the
-wakeup bit under the producers' lock.  This prevents a lost wakeup between
-the worker's final test and clearing the sending bit.
+A CPU still executing the RTO irq_work iterator can select that stale bit
+and queue work to the stopped CPU.
 
-Keep the transport close callback before the generic stop barrier because
-NCI unregister may transmit a CORE_RESET command.  Require the transport to
-quiesce UART callbacks before releasing its private state; the Marvell UART
-transport does so after NCI unregister and before freeing that state.  Also
-hold the transport module while its open callback runs and apply the same
-worker barrier to the open-error path.
+Observed call trace:
+  irq_work_queue_on()
+  rto_push_irq_work_func()
+  irq_work_single()
+  __flush_smp_call_function_queue()
+  generic_smp_call_function_single_interrupt()
+  ipi_handler()
 
-The teardown ordering issue was found during an LLM-assisted source audit
-and reproduced using a pty-backed NCI UART under KASAN.
+Stop RTO forwarding after terminal system states begin and skip rto_mask
+candidates that are already offline.
 
-Fixes: 9961127d4bce ("NFC: nci: add generic uart support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM (OpenAI Codex, gpt-5.6-sol)
-Signed-off-by: Shubham Antil <shubham@octane.security>
+This is a workaround, not a complete synchronization protocol. The
+cpu_online() test is not atomic with irq_work_queue_on(), and panic or
+crash-kexec paths do not set a terminal system_state before stopping CPUs.
+
+Signed-off-by: wangqk1 <wangqk1@xiaopeng.com>
 ---
- drivers/nfc/nfcmrvl/main.c    |  7 +++
- drivers/nfc/nfcmrvl/nfcmrvl.h |  1 +
- drivers/nfc/nfcmrvl/uart.c    |  8 ++++
- include/net/nfc/nci_core.h    |  3 ++
- net/nfc/nci/uart.c            | 90 ++++++++++++++++++++++++++++-------
- 5 files changed, 91 insertions(+), 18 deletions(-)
+ kernel/sched/rt.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nfc/nfcmrvl/main.c b/drivers/nfc/nfcmrvl/main.c
-index 3d26a54ef51b..45c7d3546b0e 100644
---- a/drivers/nfc/nfcmrvl/main.c
-+++ b/drivers/nfc/nfcmrvl/main.c
-@@ -170,6 +170,8 @@ struct nfcmrvl_private *nfcmrvl_nci_register_dev(enum nfcmrvl_phy phy,
- 	return priv;
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index 85303add726d..716ac30c5afb 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -2084,6 +2084,14 @@ static void push_rt_tasks(struct rq *rq)
  
- error_fw_dnld_deinit:
-+	if (priv->if_ops->nci_quiesce)
-+		priv->if_ops->nci_quiesce(priv);
- 	nfcmrvl_fw_dnld_deinit(priv);
- 	if (priv->if_ops->nci_unready)
- 		priv->if_ops->nci_unready(priv);
-@@ -186,10 +188,15 @@ void nfcmrvl_nci_unregister_dev(struct nfcmrvl_private *priv)
- 	struct nci_dev *ndev = priv->ndev;
+ #ifdef HAVE_RT_PUSH_IPI
  
- 	nci_unregister_device(ndev);
-+	if (priv->if_ops->nci_quiesce)
-+		priv->if_ops->nci_quiesce(priv);
-+
- 	if (priv->ndev->nfc_dev->fw_download_in_progress)
- 		nfcmrvl_fw_dnld_abort(priv);
- 
- 	nfcmrvl_fw_dnld_deinit(priv);
-+	if (priv->if_ops->nci_unready)
-+		priv->if_ops->nci_unready(priv);
- 
- 	nci_free_device(ndev);
- 	kfree(priv);
-diff --git a/drivers/nfc/nfcmrvl/nfcmrvl.h b/drivers/nfc/nfcmrvl/nfcmrvl.h
-index 66f8cc06e2d5..3b7483e5aff9 100644
---- a/drivers/nfc/nfcmrvl/nfcmrvl.h
-+++ b/drivers/nfc/nfcmrvl/nfcmrvl.h
-@@ -114,6 +114,7 @@ struct nfcmrvl_if_ops {
- 	int (*nci_send) (struct nfcmrvl_private *priv, struct sk_buff *skb);
- 	void (*nci_ready)(struct nfcmrvl_private *priv);
- 	void (*nci_unready)(struct nfcmrvl_private *priv);
-+	void (*nci_quiesce)(struct nfcmrvl_private *priv);
- 	void (*nci_update_config)(struct nfcmrvl_private *priv,
- 				  const void *param);
- };
-diff --git a/drivers/nfc/nfcmrvl/uart.c b/drivers/nfc/nfcmrvl/uart.c
-index d688071f4b26..164896070dfc 100644
---- a/drivers/nfc/nfcmrvl/uart.c
-+++ b/drivers/nfc/nfcmrvl/uart.c
-@@ -61,6 +61,13 @@ static void nfcmrvl_uart_nci_unready(struct nfcmrvl_private *priv)
- 	nu->ndev = NULL;
- }
- 
-+static void nfcmrvl_uart_nci_quiesce(struct nfcmrvl_private *priv)
++static inline bool rto_push_allowed(void)
 +{
-+	struct nci_uart *nu = priv->drv_data;
++	enum system_states state = READ_ONCE(system_state);
 +
-+	nci_uart_tx_stop(nu);
++	return state != SYSTEM_HALT && state != SYSTEM_POWER_OFF &&
++	       state != SYSTEM_RESTART;
 +}
 +
- static void nfcmrvl_uart_nci_update_config(struct nfcmrvl_private *priv,
- 					   const void *param)
- {
-@@ -77,6 +84,7 @@ static const struct nfcmrvl_if_ops uart_ops = {
- 	.nci_send = nfcmrvl_uart_nci_send,
- 	.nci_ready = nfcmrvl_uart_nci_ready,
- 	.nci_unready = nfcmrvl_uart_nci_unready,
-+	.nci_quiesce = nfcmrvl_uart_nci_quiesce,
- 	.nci_update_config = nfcmrvl_uart_nci_update_config
- };
+ /*
+  * When a high priority task schedules out from a CPU and a lower priority
+  * task is scheduled in, a check is made to see if there's any RT tasks
+@@ -2131,6 +2139,11 @@ static int rto_next_cpu(struct root_domain *rd)
+ 	int next;
+ 	int cpu;
  
-diff --git a/include/net/nfc/nci_core.h b/include/net/nfc/nci_core.h
-index 664d5058e66e..ce0ffe56593a 100644
---- a/include/net/nfc/nci_core.h
-+++ b/include/net/nfc/nci_core.h
-@@ -436,6 +436,7 @@ struct nci_uart;
- 
- struct nci_uart_ops {
- 	int (*open)(struct nci_uart *nci_uart);
-+	/* Quiesce callbacks before releasing transport-private state. */
- 	void (*close)(struct nci_uart *nci_uart);
- 	int (*recv)(struct nci_uart *nci_uart, struct sk_buff *skb);
- 	int (*send)(struct nci_uart *nci_uart, struct sk_buff *skb);
-@@ -452,6 +453,7 @@ struct nci_uart {
- 	/* Dynamic data */
- 	struct nci_dev		*ndev;
- 	spinlock_t		rx_lock;
-+	spinlock_t		tx_lock; /* protects tx_state */
- 	struct work_struct	write_work;
- 	struct tty_struct	*tty;
- 	unsigned long		tx_state;
-@@ -465,5 +467,6 @@ struct nci_uart {
- int nci_uart_register(struct nci_uart *nu);
- void nci_uart_unregister(struct nci_uart *nu);
- void nci_uart_set_config(struct nci_uart *nu, int baudrate, int flow_ctrl);
-+void nci_uart_tx_stop(struct nci_uart *nu);
- 
- #endif /* __NCI_CORE_H */
-diff --git a/net/nfc/nci/uart.c b/net/nfc/nci/uart.c
-index aa20e8603f32..8e54eb1c8712 100644
---- a/net/nfc/nci/uart.c
-+++ b/net/nfc/nci/uart.c
-@@ -33,6 +33,7 @@
- /* TX states  */
- #define NCI_UART_SENDING	1
- #define NCI_UART_TX_WAKEUP	2
-+#define NCI_UART_CLOSING	3
- 
- static struct nci_uart *nci_uart_drivers[NCI_UART_DRIVER_MAX];
- 
-@@ -58,24 +59,59 @@ static inline int nci_uart_queue_empty(struct nci_uart *nu)
- 
- static int nci_uart_tx_wakeup(struct nci_uart *nu)
- {
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&nu->tx_lock, flags);
-+	if (test_bit(NCI_UART_CLOSING, &nu->tx_state))
-+		goto unlock;
-+
- 	if (test_and_set_bit(NCI_UART_SENDING, &nu->tx_state)) {
- 		set_bit(NCI_UART_TX_WAKEUP, &nu->tx_state);
--		return 0;
-+		goto unlock;
- 	}
- 
- 	schedule_work(&nu->write_work);
- 
-+unlock:
-+	spin_unlock_irqrestore(&nu->tx_lock, flags);
-+
- 	return 0;
- }
- 
-+void nci_uart_tx_stop(struct nci_uart *nu)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&nu->tx_lock, flags);
-+	set_bit(NCI_UART_CLOSING, &nu->tx_state);
-+	spin_unlock_irqrestore(&nu->tx_lock, flags);
-+
-+	cancel_work_sync(&nu->write_work);
-+
-+	spin_lock_irqsave(&nu->tx_lock, flags);
-+	clear_bit(NCI_UART_SENDING, &nu->tx_state);
-+	clear_bit(NCI_UART_TX_WAKEUP, &nu->tx_state);
-+	spin_unlock_irqrestore(&nu->tx_lock, flags);
-+}
-+EXPORT_SYMBOL_GPL(nci_uart_tx_stop);
-+
- static void nci_uart_write_work(struct work_struct *work)
- {
- 	struct nci_uart *nu = container_of(work, struct nci_uart, write_work);
- 	struct tty_struct *tty = nu->tty;
- 	struct sk_buff *skb;
-+	unsigned long flags;
- 
- restart:
-+	spin_lock_irqsave(&nu->tx_lock, flags);
-+	if (test_bit(NCI_UART_CLOSING, &nu->tx_state)) {
-+		clear_bit(NCI_UART_SENDING, &nu->tx_state);
-+		clear_bit(NCI_UART_TX_WAKEUP, &nu->tx_state);
-+		spin_unlock_irqrestore(&nu->tx_lock, flags);
-+		return;
++	if (unlikely(!rto_push_allowed())) {
++		rd->rto_cpu = -1;
++		return -1;
 +	}
- 	clear_bit(NCI_UART_TX_WAKEUP, &nu->tx_state);
-+	spin_unlock_irqrestore(&nu->tx_lock, flags);
- 
- 	if (nu->ops.tx_start)
- 		nu->ops.tx_start(nu);
-@@ -93,48 +129,65 @@ static void nci_uart_write_work(struct work_struct *work)
- 		kfree_skb(skb);
- 	}
- 
--	if (test_bit(NCI_UART_TX_WAKEUP, &nu->tx_state))
--		goto restart;
--
- 	if (nu->ops.tx_done && nci_uart_queue_empty(nu))
- 		nu->ops.tx_done(nu);
- 
-+	spin_lock_irqsave(&nu->tx_lock, flags);
-+	if (!test_bit(NCI_UART_CLOSING, &nu->tx_state) &&
-+	    test_and_clear_bit(NCI_UART_TX_WAKEUP, &nu->tx_state)) {
-+		spin_unlock_irqrestore(&nu->tx_lock, flags);
-+		goto restart;
-+	}
- 	clear_bit(NCI_UART_SENDING, &nu->tx_state);
-+	clear_bit(NCI_UART_TX_WAKEUP, &nu->tx_state);
-+	spin_unlock_irqrestore(&nu->tx_lock, flags);
- }
- 
- static int nci_uart_set_driver(struct tty_struct *tty, unsigned int driver)
- {
-+	struct nci_uart *template;
- 	struct nci_uart *nu = NULL;
- 	int ret;
- 
- 	if (driver >= NCI_UART_DRIVER_MAX)
- 		return -EINVAL;
- 
--	if (!nci_uart_drivers[driver])
-+	template = nci_uart_drivers[driver];
-+	if (!template)
-+		return -ENOENT;
 +
-+	if (!try_module_get(template->owner))
- 		return -ENOENT;
+ 	/*
+ 	 * When starting the IPI RT pushing, the rto_cpu is set to -1,
+ 	 * rt_next_cpu() will simply return the first CPU found in
+@@ -2155,8 +2168,13 @@ static int rto_next_cpu(struct root_domain *rd)
+ 		if (cpu == this_cpu)
+ 			continue;
  
- 	nu = kzalloc_obj(*nu);
--	if (!nu)
-+	if (!nu) {
-+		module_put(template->owner);
- 		return -ENOMEM;
-+	}
- 
--	memcpy(nu, nci_uart_drivers[driver], sizeof(struct nci_uart));
-+	memcpy(nu, template, sizeof(struct nci_uart));
- 	nu->tty = tty;
- 	skb_queue_head_init(&nu->tx_q);
- 	INIT_WORK(&nu->write_work, nci_uart_write_work);
-+	spin_lock_init(&nu->tx_lock);
- 	spin_lock_init(&nu->rx_lock);
- 
- 	ret = nu->ops.open(nu);
--	if (ret) {
--		kfree(nu);
--		return ret;
--	} else if (!try_module_get(nu->owner)) {
--		nu->ops.close(nu);
--		kfree(nu);
--		return -ENOENT;
--	}
-+	if (ret)
-+		goto err_stop;
+-		if (cpu < nr_cpu_ids)
++		if (cpu < nr_cpu_ids) {
++			/* smp_send_stop() does not clear stale rto_mask bits. */
++			if (!cpu_online(cpu))
++				continue;
 +
- 	tty->disc_data = nu;
+ 			return cpu;
++		}
  
- 	return 0;
-+
-+err_stop:
-+	nci_uart_tx_stop(nu);
-+	kfree_skb(nu->tx_skb);
-+	kfree_skb(nu->rx_skb);
-+	skb_queue_purge(&nu->tx_q);
-+	module_put(nu->owner);
-+	kfree(nu);
-+	return ret;
- }
- 
- /* ------ LDISC part ------ */
-@@ -180,17 +233,18 @@ static void nci_uart_tty_close(struct tty_struct *tty)
- 	if (!nu)
- 		return;
- 
-+	/* The transport quiesces callbacks before releasing private state. */
-+	nu->ops.close(nu);
-+	nci_uart_tx_stop(nu);
-+
- 	kfree_skb(nu->tx_skb);
- 	kfree_skb(nu->rx_skb);
- 
- 	skb_queue_purge(&nu->tx_q);
- 
--	nu->ops.close(nu);
- 	nu->tty = NULL;
- 	module_put(nu->owner);
- 
--	cancel_work_sync(&nu->write_work);
--
- 	kfree(nu);
- }
+ 		rd->rto_cpu = -1;
  
 -- 
 2.43.0
+
