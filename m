@@ -1,86 +1,85 @@
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA18A4F68CB
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:57:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE42D4F68B6
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:57:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892630; cv=none; b=QSrze8bQoRAoblcqml/kr7CJ7TZXS/+pTVKUWHPLumWihgHpjw6MxcYfQObIAnQg7zCEUwy85hhpqU/I5B4sDG1Lyk/2yJ5A3gpfRN86p/PXRvQuxV8Z+0MlVBN7UE4XvPwj3Q1jRi2WlikkzcgwUw21Znx0TlQ4RPTrXtKbymU=
+	t=1791892632; cv=none; b=QU/5F+Jaa8BRXdPblWFb/mkpYfjL4rKvwRnzqhz5YObz0OUrXdYglYMIzDZVbThAn732u0p+zAxtQuEsCBjKtERg890EzdxSOFg/Pr3WTE1LxEgvfuOAaWLOJ7MawQ/Q7R034YMtes5xIK9ApwBPcmKeyyfaJ4kzWcNsrJPZxCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892630; c=relaxed/simple;
-	bh=smCHbqcPE8RRAViUyyEXcET2C3Wibr5ngykpjoIcoCc=;
+	s=arc-20240116; t=1791892632; c=relaxed/simple;
+	bh=riNgx44VH33hXNlVUJ1N3GXvboQZ1U1iSjTWyfqF09I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NoFA5WRnFo9LikL6gUWwDyEsqe1X/JT+zMTw7bYnf4eUg2eipWp8MAOwBoQS04Zi+EekH3jq1sBmt4Bleqs851j/BTQtoGdYLgzUVAIWei0X31X1hy6OmCjeXYj90hcMO5PN7tG0u1FHjGXHDPEaHURUthNkMhx6KJhseknz+xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=olgNb+po; arc=none smtp.client-ip=74.125.227.132
+	 MIME-Version; b=SysSNy3prEKW+cVnczPm9FnO+FGvTd5fysZHGqosxjWQYTHvv87MjqNltnpmOH1WCKZGLiVfRtrzz4KFYxxdSWVksXZKVOliybNk9NQFlReOhW79Cs2/f4tpwoxQqhcKEIFuOFSNwjcxcXcohl+v9jl4877R3nOs7ww/QRc3xMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G0tKsLMj; arc=none smtp.client-ip=74.125.82.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="olgNb+po"
-Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3a84a12aa97so684051a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:57:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G0tKsLMj"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35b2c599f43so1992507eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:57:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791892628; x=1792497428; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791892629; x=1792497429; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=G8GZTN6OzJEU0CV9Qcex4KLuipXxqv2mdjpVbUHXdHA=;
-        b=olgNb+po9adOaB6PJdGVf7YPQoKj30SR3qjlgKSZN+TqZJxQwj0u8zjMaewt6B85bM
-         K3kw9hY3oMj3YI+Jk7r8URPG78aVhZlmoBf290vegLb2XL/e3Zs15IFerBMAM6OCClc/
-         c939MD0BDAmewSeFPkxWjrd2SL1AUq9QK6SUpHVbxyps5aoRyM3NQ4XvlBQsAwa8yhPv
-         Aa3GQQ3GWMAgsH1a7cGou9NexT1L35X046EyjVgt41x1LYpnqejDOAfdpuWYZE2oUfkA
-         cMcQHuHiYj3xFNBeLD46GYj6TWQ67L/4bChOOaROxnP+EmrlWhvj6MOhJ/H9SZo8e/ja
-         mXNw==
+        bh=lOANsQbLLTH+UDYeNMR3MHw8Jy3A04SNwjfmJXYMeH8=;
+        b=G0tKsLMjwD5g7NA182rQFX3+FoWeZPmMJJB0RrRtUjM+9/THcZkan9kbhhA40jneH5
+         5MM0hnanYfz278l9pA7Ittjqmd47aILWB//Odt3xRxwtpU1XoSYn+Lem2ivT86ksHMe8
+         8Y5YsJ+G+98lRkXl+pD682SeeiTTBi/kRToV5YUvOZLHyXPlmLaO74lxl3UqElsgFbB/
+         rfUbPN+v+OmyR1TuWvFmdYa9wi6w0gTNUB7mJWFerLNm06hvhH3LUw/XR3gqLf0t1AFZ
+         UZqQw02RzsnjrKm3Qa9i5cYcAF0bFAR2SDV8+Ix8F19AoYKatE1CmpMh5y61UHnT4iIX
+         8aBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791892628; x=1792497428;
+        d=1e100.net; s=20260707; t=1791892629; x=1792497429;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G8GZTN6OzJEU0CV9Qcex4KLuipXxqv2mdjpVbUHXdHA=;
-        b=sCbdJMryzsooGSMi1rXLu6rr+XJ44aZNWJlr4Glze8C2HEf7MS2C6seGVbw0hYtLfh
-         z1I8AsFsjeb+jSj/dpQGpSyVzEP34ROdzOLTnFebkaemH6RslqB7c8dagZgoPsb3X4y3
-         aIL/A/4fBwz8M0GnhUsfe4oUsU4yXWgDjp83WdqKWSOeZ2CrVHPKjo/0hR0fu0wg0LbO
-         J3kYr9iics/nyMhcFGP/17GKl1wmvXFlI78UoPdyRzvcwldKFA+hWIpXGKvL755Ra0F2
-         IXHDlHeWUMZjXuIMlA4StZ1HKySY//Hyx2ch1SIoIl5eFTlTmaoAC3HvyNqPb/aa0UN3
-         16PA==
-X-Forwarded-Encrypted: i=1; AKwUvBwbLm7P3HOxjzzKc/DZd2MLEAmDNSULXV6Z33IjGCcNWCh4rRxhrNtz/O3jfC1KKh3Nc91oeQiFGGNUaeE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8KeukhRuJJvMrdFGUWZKffCV7YQVyCQHPbNoD6E5z9p7ZrN/h
-	DSPL72QrhyKedTY29oYHxVe8SwkLhYaXY7xJ5/d6FSY5JTvQ3ojGAY0O
-X-Gm-Gg: AYBFou1r+XEL8JVzSzAqTQ8GEXZ5dk95TmIisDkbsRfUwQS1JNptawzalebBUjUq8rs
-	nFNvu7UNJGgirn+WywWo7WacMBN8W5b7vmgvYGfzCAABp3XyGUZIk8JCVu19goNEeISVywsllaC
-	DGM6jSrRT5zddEDQVHpQJhS6UTcok2VuVwXAj2PhtEXB4TD79awUh/BuxD5/iefYaD4IPrW1SfF
-	r0dN2q5K/VyoBpNdVBGZTPByNoCddSus5MgHmO+49ZVVC3kKCCuy/vcpOCdyjsOttnH8oAaHrQP
-	eoLGA2ubsws6YtUDtlopX3RLLYvPB64X4wLFjpsL6YyxxNOsn1Knl8/nktGwCJwxLZTaln558KS
-	sIeGfZanlQUY9q86P4RmPlaevK2YeQjB7DQkYbecbD5kiF0SDdjHWKaJpMlvB4L8K3c66CpjF3m
-	bUAUcG1jVgmuHo84vbN0fnFqjPl+cJs4h7ySnBwWxLvwlA1Is/rl+0vW/AG88QUVhgedNW9SwSi
-	UFv/3SMN470Fkc7RxpWz7fUcibJgIQAQAkk
-X-Received: by 2002:a17:90b:1e4a:b0:3aa:9a32:5051 with SMTP id 98e67ed59e1d1-3ab3ab329bcmr10574577a91.45.1791892627740;
-        Tue, 13 Oct 2026 04:57:07 -0700 (PDT)
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab37139b59sm21248516a91.13.2026.10.13.04.57.03
+        bh=lOANsQbLLTH+UDYeNMR3MHw8Jy3A04SNwjfmJXYMeH8=;
+        b=2M/dlyQYDzB0h9BgI5gOv24c5nimbm6XcyWXog4+tyzzrasXwBX8bljG5AIP+bhwOC
+         kl6HzxsCK1flLGnqoHbZUY5JfZtRnocPlOkLfZZJDcW9tVs4Lj7U8j0WDPHpLe5BH0PM
+         jcXEYGK11DPK2eba57CAu/EnBEJWg/WL6XFVI5TfJXkJ8fqSHYc/GGCPh4NN888sdyKR
+         hb4jJChOBB9ygwwSbJGzN/Otq+P2oX6BQxXvIACMZMWL19VBhmBo04dfqTkhhb698oeP
+         w/gZCMZUyNY2Apebm0ZHNDK2FMsZilhDYmua2VEHyaT4h+HHYcBgLzLtQfioNGkJfDPD
+         bMzA==
+X-Forwarded-Encrypted: i=1; AKwUvBw0EqeUVr+KwQtbPB+Dg86kTh+x51EjDZcRPQvuWE973zpBorO02TDwScNArU6yL4bEzha8cjc8GI9V4CU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnuKYPS5r+KRH4a5o8CbinsIRMbQuvxq6XZ//6BF0tx0TqKNYk
+	Ot5VlvQLPzRW7rlsC8VBrTQE9LmvRRk8HKymIW3yl6dh7bE8FolR1WKz
+X-Gm-Gg: AYBFou10Bwv+rG5JsAcMRxW4ppYjXKsSO9hj/gHhOlRGmpQxFmKOlJpfTbo0OaYx3VU
+	xypaTVCrSAUOoHFikHD/7Ga2zg6CWc8EjiT+DulVyp26ewAPVmNblR3jw0aJdsXNGUyNyNL4PNh
+	Njtpx3bT4o0Ekfl2WIWRkPswM0whtfFZjuCYoSVX6piNgTRLxW4uN7c/ftjYRGkMk3vDWTWCB2p
+	KAtJlNYQZB5QavRXTiDTOGjq9R/xqtj+9mj3uKPRow2HN427f6BNNFfVZAGOtwD4X6mIIQGBvzW
+	ab33s80XeTFkrf8JS7eVdptDjter0MMmGGll6jaPm5O7jfLHjjqexCP+e/Syk3gn0nzReDhhMWe
+	Ib7Vp1XxPHeruilxY1t2/5Adj537tAfakPdRweO8KCafx5TUbmaDgFspgFeoWUKpKQ968H1stya
+	7oe9DtYDP6R4BNosRK9ep1r7Fms5sg+hH8OAr/pz5DydldGWBSLDjCAPnEJgveVwtGDPz/uV7vG
+	5RXmDymzNQ=
+X-Received: by 2002:a05:7300:fa15:b0:35b:9851:a896 with SMTP id 5a478bee46e88-35b9851ab64mr5051567eec.10.1791892628695;
+        Tue, 13 Oct 2026 04:57:08 -0700 (PDT)
+Received: from localhost ([104.156.230.40])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b556sm57827725eec.9.2026.10.13.04.57.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 04:57:07 -0700 (PDT)
-From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-To: linux-f2fs-devel@lists.sourceforge.net,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Barry Song <baohua@kernel.org>,
-	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
-	Juan Yescas <jyescas@google.com>,
-	Daeho Jeong <daehojeong@google.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	linux-kernel@vger.kernel.org,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Nanzhe Zhao <nzzhao@126.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: [PATCH v4 08/18] f2fs: account large folio dirty data at block granularity
-Date: Tue, 13 Oct 2026 19:56:11 +0800
-Message-ID: <20261013115621.968742-9-nzzhao.sigma@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
-References: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
+        Tue, 13 Oct 2026 04:57:08 -0700 (PDT)
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Chang Yu <marcus.yu.56@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 2/2] iio: light: add AS7343 multi-spectral sensor driver
+Date: Tue, 13 Oct 2026 19:56:39 +0800
+Message-ID: <20261013115639.167433-3-marcus.yu.56@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013115639.167433-1-marcus.yu.56@gmail.com>
+References: <20261013115639.167433-1-marcus.yu.56@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,378 +88,578 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Add a driver for the AMS AS7343 14-channel multi-spectral sensor.
 
-Originally inode->dirty_pages was accounted once per folio, but f2fs
-needs the counter to be accounted in blocks.
+The AS7343 is a 14-channel spectral sensor featuring 11 visible
+channels, 1 near-infrared channel, 1 clear channel (VIS), and 1
+flicker detection channel.
 
-This introduces batch dirty page add/sub accounting; for a large folio
-the changed dirty page count is computed from the dirty bitmap bit
-changes.
+The driver exposes 12 spectral channels (11 visible light and 1
+near-infrared) via sysfs. Runtime PM is implemented to stop
+measurements when the device is suspended or torn down. Power is
+never cut (PON=1 always) to preserve register values.
 
-Found by f2fs/006 (lfs + checkpoint=disable) and generic/363.
+Future patches will add configurable gain and integration time,
+interrupt support, buffered reads, VIS channel, and flicker
+detection.
 
-Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
 ---
- fs/f2fs/checkpoint.c | 38 ++++++++++++++++++++++----
- fs/f2fs/compress.c   |  4 +--
- fs/f2fs/data.c       | 37 +++++++++++++++++++------
- fs/f2fs/dir.c        |  2 +-
- fs/f2fs/f2fs.h       | 65 ++++++++++++++++++++++++++++++++++----------
- fs/f2fs/gc.c         |  2 +-
- fs/f2fs/inline.c     |  2 +-
- fs/f2fs/node.c       |  2 +-
- 8 files changed, 117 insertions(+), 35 deletions(-)
+Changes in v6:
+ - Convert ASTEP and ATIME range checks to runtime checks.
+ - Move adding suspend action to before setting autosuspend delay.
 
-diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-index 81c1c2de9..27ea41d7f 100644
---- a/fs/f2fs/checkpoint.c
-+++ b/fs/f2fs/checkpoint.c
-@@ -1316,20 +1316,46 @@ static void __remove_dirty_inode(struct inode *inode, enum inode_type type)
- 	stat_dec_dirty_inode(F2FS_I_SB(inode), type);
- }
+Changes in v5:
+ - Add autosuspend support.
+ - Start measurements before configuring runtime PM.
+ - Add functions for computing ASTEP and ATIME.
+ - Sort registers by addresses.
+
+Changes in v4:
+ - Use REGCACHE_MAPLE and add volatile register table.
+ - Use PM_RUNTIME_ACQUIRE* when resuming.
+ - Use a static array for labels.
+ - Various code style fixes.
+
+Changes in v3:
+ - Hold a mutex before reading measurements.
+ - Add pm_runtime_resume_and_get before reading measurements.
+ - Only start measurements after suspend action has been successfully
+   registered
+ - Check the return value of regmap_read when verifying device ID.
+
+Changes in v2:
+ - Adjust the default gain to x256 and integration time to 50.1ms as
+ recommended by the datasheet.
+ - Use read_label instead of .extend
+ - Remove all unused scan_index related constants.
+ - Add missing calls to pm_runtime_* methods in probe.
+ - Fix various code style issues
+
+ MAINTAINERS                |   1 +
+ drivers/iio/light/Kconfig  |  11 +
+ drivers/iio/light/Makefile |   1 +
+ drivers/iio/light/as7343.c | 464 +++++++++++++++++++++++++++++++++++++
+ 4 files changed, 477 insertions(+)
+ create mode 100644 drivers/iio/light/as7343.c
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8cf4e1635053..236102b3c28e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1435,6 +1435,7 @@ M:	Chang Yu <marcus.yu.56@gmail.com>
+ L:	linux-iio@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
++F:	drivers/iio/light/as7343.c
  
--void f2fs_update_dirty_folio(struct inode *inode, struct folio *folio)
+ AMT (Automatic Multicast Tunneling)
+ M:	Taehee Yoo <ap420073@gmail.com>
+diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
+index ef36824f312f..edbeeba9d873 100644
+--- a/drivers/iio/light/Kconfig
++++ b/drivers/iio/light/Kconfig
+@@ -149,6 +149,17 @@ config AS73211
+ 	 This driver can also be built as a module.  If so, the module
+ 	 will be called as73211.
+ 
++config AS7343
++	tristate "AMS AS7343 14-Channel Multi-Spectral Sensor"
++	depends on I2C
++	select REGMAP_I2C
++	help
++	 Say Y here to build support for the AMS AS7343 14-channel
++	 multi-spectral sensor.
++
++	 To compile this driver as a module, choose M here: the module will
++	 be called as7343.
++
+ config BH1745
+ 	tristate "ROHM BH1745 colour sensor"
+ 	depends on I2C
+diff --git a/drivers/iio/light/Makefile b/drivers/iio/light/Makefile
+index 64e354c49ed8..5d0d33802519 100644
+--- a/drivers/iio/light/Makefile
++++ b/drivers/iio/light/Makefile
+@@ -16,6 +16,7 @@ obj-$(CONFIG_APDS9306)		+= apds9306.o
+ obj-$(CONFIG_APDS9960)		+= apds9960.o
+ obj-$(CONFIG_APDS9999)		+= apds9999.o
+ obj-$(CONFIG_AS73211)		+= as73211.o
++obj-$(CONFIG_AS7343)		+= as7343.o
+ obj-$(CONFIG_BH1745)		+= bh1745.o
+ obj-$(CONFIG_BH1750)		+= bh1750.o
+ obj-$(CONFIG_BH1780)		+= bh1780.o
+diff --git a/drivers/iio/light/as7343.c b/drivers/iio/light/as7343.c
+new file mode 100644
+index 000000000000..52e46797ffcb
+--- /dev/null
++++ b/drivers/iio/light/as7343.c
+@@ -0,0 +1,464 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * Account @nr dirty pages (negative when dirtiness is cleared) for @inode.
++ * Support for AMS AS7343 14-channel multi-spectral sensor.
++ * (7-bit I2C slave address 0x39)
++ *
++ * Based on the work of:
++ *   Christian Eggers <ceggers@arri.de> (AS73211 driver)
++ *
++ * Copyright (c) 2026 Chang Yu <marcus.yu.56@gmail.com>
++ *
++ * Datasheet:
++ *   https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
++ *
++ * TODO:
++ *   - Support for configurable gain and integration time
++ *   - Interrupt support
++ *   - Add support for reading the VIS channel
++ *   - Flicker detection
 + */
-+void f2fs_account_dirty_blocks(struct inode *inode, int nr)
- {
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
- 	enum inode_type type = S_ISDIR(inode->i_mode) ? DIR_INODE : FILE_INODE;
- 
--	if (!S_ISDIR(inode->i_mode) && !S_ISREG(inode->i_mode) &&
--			!S_ISLNK(inode->i_mode))
-+	if (!nr)
- 		return;
- 
- 	spin_lock(&sbi->inode_lock[type]);
--	if (type != FILE_INODE || test_opt(sbi, DATA_FLUSH))
--		__add_dirty_inode(inode, type);
--	inode_inc_dirty_pages(inode);
-+	if (nr > 0) {
-+		if (type != FILE_INODE || test_opt(sbi, DATA_FLUSH))
-+			__add_dirty_inode(inode, type);
-+		inode_add_dirty_blocks(inode, nr);
-+	} else {
-+		inode_sub_dirty_blocks(inode, -nr);
-+		__remove_dirty_inode(inode, type);
++
++#include <linux/array_size.h>
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/cleanup.h>
++#include <linux/delay.h>
++#include <linux/dev_printk.h>
++#include <linux/err.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/pm_runtime.h>
++#include <linux/regmap.h>
++#include <linux/regulator/consumer.h>
++#include <linux/sysfs.h>
++#include <linux/types.h>
++
++#include <asm/byteorder.h>
++
++#include <linux/iio/iio.h>
++
++#define AS7343_ID_REG				0x5a
++
++#define AS7343_ENABLE_REG			0x80
++#define AS7343_ENABLE_PON			BIT(0)
++#define AS7343_ENABLE_SP_EN			BIT(1)
++
++#define AS7343_ATIME_REG			0x81
++#define AS7343_STATUS2_REG			0x90
++#define AS7343_STATUS3_REG			0x91
++#define AS7343_STATUS_REG			0x93
++#define AS7343_ASTATUS_REG			0x94
++
++#define AS7343_DATA_FZ_REG			0x95
++#define AS7343_DATA_FY_REG			0x97
++#define AS7343_DATA_FXL_REG			0x99
++#define AS7343_DATA_NIR_REG			0x9b
++#define AS7343_DATA_F2_REG			0xa1
++#define AS7343_DATA_F3_REG			0xa3
++#define AS7343_DATA_F4_REG			0xa5
++#define AS7343_DATA_F6_REG			0xa7
++#define AS7343_DATA_F1_REG			0xad
++#define AS7343_DATA_F7_REG			0xaf
++#define AS7343_DATA_F8_REG			0xb1
++#define AS7343_DATA_F5_REG			0xb3
++#define AS7343_DATA_FD_L_REG			0xb7
++#define AS7343_DATA_FD_H_REG			0xb8
++
++#define AS7343_STATUS5_REG			0xbb
++#define AS7343_STATUS4_REG			0xbc
++
++#define AS7343_CFG0_REG				0xbf
++#define AS7343_CFG0_REG_BANK			BIT(4)
++
++#define AS7343_CFG1_REG				0xc6
++#define AS7343_CFG1_AGAIN			GENMASK(4, 0)
++#define AS7343_CFG1_AGAIN_X0_5			0
++#define AS7343_CFG1_AGAIN_X1			1
++#define AS7343_CFG1_AGAIN_X2			2
++#define AS7343_CFG1_AGAIN_X4			3
++#define AS7343_CFG1_AGAIN_X8			4
++#define AS7343_CFG1_AGAIN_X16			5
++#define AS7343_CFG1_AGAIN_X32			6
++#define AS7343_CFG1_AGAIN_X64			7
++#define AS7343_CFG1_AGAIN_X128			8
++#define AS7343_CFG1_AGAIN_X256			9
++#define AS7343_CFG1_AGAIN_X512			10
++#define AS7343_CFG1_AGAIN_X1024			11
++#define AS7343_CFG1_AGAIN_X2048			12
++
++#define AS7343_ASTEP_REG			0xd4
++
++#define AS7343_CFG20_REG			0xd6
++#define AS7343_CFG20_AUTO_SMUX			GENMASK(6, 5)
++#define AS7343_CFG20_AUTO_SMUX_READOUT_ALL	3 /* all-channel readout */
++
++#define AS7343_FD_STATUS_REG			0xe3
++#define AS7343_CONTROL_REG			0xfa
++#define AS7343_FIFO_LVL_REG			0xfd
++#define AS7343_FDATA_L_REG			0xfe
++#define AS7343_FDATA_H_REG			0xff
++
++/* AS7343 channel indices. MUST match data register order above. */
++#define AS7343_CHAN_IDX_FZ	0
++#define AS7343_CHAN_IDX_FY	1
++#define AS7343_CHAN_IDX_FXL	2
++#define AS7343_CHAN_IDX_NIR	3
++#define AS7343_CHAN_IDX_F2	4
++#define AS7343_CHAN_IDX_F3	5
++#define AS7343_CHAN_IDX_F4	6
++#define AS7343_CHAN_IDX_F6	7
++#define AS7343_CHAN_IDX_F1	8
++#define AS7343_CHAN_IDX_F7	9
++#define AS7343_CHAN_IDX_F8	10
++#define AS7343_CHAN_IDX_F5	11
++
++#define AS7343_CHAN(_chan)					\
++	{							\
++		.type = IIO_INTENSITY,				\
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),	\
++		.address = AS7343_DATA_##_chan##_REG,		\
++		.indexed = 1,					\
++		.channel = AS7343_CHAN_IDX_##_chan,		\
 +	}
- 	spin_unlock(&sbi->inode_lock[type]);
++
++static const struct iio_chan_spec as7343_channels[] = {
++	AS7343_CHAN(FZ), AS7343_CHAN(FY), AS7343_CHAN(FXL), AS7343_CHAN(NIR),
++	AS7343_CHAN(F2), AS7343_CHAN(F3), AS7343_CHAN(F4),  AS7343_CHAN(F6),
++	AS7343_CHAN(F1), AS7343_CHAN(F7), AS7343_CHAN(F8),  AS7343_CHAN(F5),
++};
++
++/*
++ * Integration time is calculated as (ATIME + 1) * ((ASTEP + 1) * 2.78us).
++ * ATIME must be between 0 and 255, inclusive
++ * ASTEP must be between 0 and 65534, inclusive
++ */
++static inline int as7343_atime_steps(unsigned int step, u8 *atime)
++{
++	if (step < 1 || step > 256)
++		return -EINVAL;
++
++	*atime = step - 1;
++	return 0;
 +}
 +
-+void f2fs_update_dirty_folio(struct inode *inode, struct folio *folio)
++static inline int as7343_astep_x2780ns(unsigned int n, __le16 *astep)
 +{
-+	if (!S_ISDIR(inode->i_mode) && !S_ISREG(inode->i_mode) &&
-+			!S_ISLNK(inode->i_mode))
-+		return;
++	u16 val;
++
++	if (n < 1 || n > 65535)
++		return -EINVAL;
++
++	val = n - 1;
++	*astep = cpu_to_le16(val);
++	return 0;
++}
++
++struct as7343_data {
++	struct regmap *regmap;
++	/* Ensures reads don't stomp on each other */
++	struct mutex mutex;
++};
++
++static int as7343_read_raw(struct iio_dev *indio_dev,
++			   struct iio_chan_spec const *chan,
++			   int *val, int *val2, long mask)
++{
++	struct as7343_data *data = iio_priv(indio_dev);
++	struct regmap *map = data->regmap;
++	struct device *dev = regmap_get_device(map);
++	unsigned int unused;
++	__le16 result;
++	int ret;
++
++	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return ret;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW: {
++		/* Wait until integration time passes for all 3 cycles. */
++		msleep(160);
++
++		/*
++		 * Reading ASTATUS latches all data registers to this read.
++		 * We don't care about the returned saturation/gain status for
++		 * now.
++		 */
++		guard(mutex)(&data->mutex);
++
++		ret = regmap_read(map, AS7343_ASTATUS_REG, &unused);
++		if (ret)
++			return ret;
++
++		ret = regmap_bulk_read(map, chan->address,
++				       &result, sizeof(result));
++		if (ret)
++			return ret;
++
++		*val = le16_to_cpu(result);
++		return IIO_VAL_INT;
++	}
++
++	default:
++		return -EINVAL;
++	}
++}
++
++/*
++ * Channel names and wavelength ranges as defined in the datasheet
++ * (Figure 7, "AS7343 Optical Channel Summary"). Values are the
++ * minimum and maximum peak wavelength in nanometers.
++ *
++ * F1:  395-415 nm
++ * F2:  415-435 nm
++ * FZ:  440-460 nm
++ * F3:  465-485 nm
++ * F4:  505-525 nm
++ * FY:  545-565 nm
++ * F5:  540-560 nm
++ * FXL: 590-610 nm
++ * F6:  630-650 nm
++ * F7:  680-700 nm
++ * F8:  735-755 nm
++ * NIR: 845-865 nm
++ */
++static const char * const as7343_channel_labels[] = {
++	[AS7343_CHAN_IDX_F1] = "F1: 395-415 nm",
++	[AS7343_CHAN_IDX_F2] = "F2: 415-435 nm",
++	[AS7343_CHAN_IDX_FZ] = "FZ: 440-460 nm",
++	[AS7343_CHAN_IDX_F3] = "F3: 465-485 nm",
++	[AS7343_CHAN_IDX_F4] = "F4: 505-525 nm",
++	[AS7343_CHAN_IDX_FY] = "FY: 545-565 nm",
++	[AS7343_CHAN_IDX_F5] = "F5: 540-560 nm",
++	[AS7343_CHAN_IDX_FXL] = "FXL: 590-610 nm",
++	[AS7343_CHAN_IDX_F6] = "F6: 630-650 nm",
++	[AS7343_CHAN_IDX_F7] = "F7: 680-700 nm",
++	[AS7343_CHAN_IDX_F8] = "F8: 735-755 nm",
++	[AS7343_CHAN_IDX_NIR] = "NIR: 845-865 nm",
++};
++
++static int as7343_read_label(struct iio_dev *indio_dev,
++			     struct iio_chan_spec const *chan, char *label)
++{
++	int channel;
++
++	channel = chan->channel;
++	if (channel < 0 || channel >= ARRAY_SIZE(as7343_channel_labels))
++		return -EINVAL;
++
++	return sysfs_emit(label, "%s\n", as7343_channel_labels[channel]);
++}
++
++static const struct iio_info as7343_info = {
++	.read_raw = as7343_read_raw,
++	.read_label = as7343_read_label,
++};
++
++static const struct regmap_range as7343_volatile_ranges[] = {
++	regmap_reg_range(AS7343_ENABLE_REG, AS7343_ENABLE_REG),
++	regmap_reg_range(AS7343_STATUS2_REG, AS7343_DATA_FD_H_REG),
++	regmap_reg_range(AS7343_STATUS5_REG, AS7343_STATUS4_REG),
++	regmap_reg_range(AS7343_FD_STATUS_REG, AS7343_FD_STATUS_REG),
++	regmap_reg_range(AS7343_CONTROL_REG, AS7343_CONTROL_REG),
++	regmap_reg_range(AS7343_FIFO_LVL_REG, AS7343_FDATA_H_REG),
++};
++
++static const struct regmap_access_table as7343_volatile_table = {
++	.yes_ranges = as7343_volatile_ranges,
++	.n_yes_ranges = ARRAY_SIZE(as7343_volatile_ranges),
++};
++
++static const struct regmap_config as7343_regmap_config = {
++	.name = "as7343",
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = AS7343_FDATA_H_REG,
++	.reg_format_endian = REGMAP_ENDIAN_LITTLE,
++	.val_format_endian = REGMAP_ENDIAN_LITTLE,
++	.cache_type = REGCACHE_MAPLE,
++	.volatile_table = &as7343_volatile_table,
++};
++
++static int as7343_setup_device(struct device *dev, struct as7343_data *data)
++{
++	struct regmap *map = data->regmap;
++	unsigned int val;
++	__le16 astep;
++	u8 atime;
++	int ret;
++
++	/* Need to set REG_BANK to 0 before we can set PON */
++	ret = regmap_update_bits(map, AS7343_CFG0_REG, AS7343_CFG0_REG_BANK,
++				 FIELD_PREP(AS7343_CFG0_REG_BANK, 0));
++	if (ret)
++		return ret;
++
++	/* Set PON and enter IDLE state */
++	ret = regmap_set_bits(map, AS7343_ENABLE_REG, AS7343_ENABLE_PON);
++	if (ret)
++		return ret;
++
++	/* Need to set REG_BANK to 1 before we can access ID */
++	ret = regmap_update_bits(map, AS7343_CFG0_REG, AS7343_CFG0_REG_BANK,
++				 FIELD_PREP(AS7343_CFG0_REG_BANK, 1));
++	if (ret)
++		return ret;
++
++	ret = regmap_read(map, AS7343_ID_REG, &val);
++	if (ret)
++		return ret;
++
++	if (val != 0x81)
++		dev_info(dev, "Unknown device ID: %x\n", val);
++
++	ret = regmap_update_bits(map, AS7343_CFG0_REG, AS7343_CFG0_REG_BANK,
++				 FIELD_PREP(AS7343_CFG0_REG_BANK, 0));
++	if (ret)
++		return ret;
++
++	/* Configure the SMUX to readout all channels */
++	ret = regmap_update_bits(map, AS7343_CFG20_REG, AS7343_CFG20_AUTO_SMUX,
++				 FIELD_PREP(AS7343_CFG20_AUTO_SMUX,
++					    AS7343_CFG20_AUTO_SMUX_READOUT_ALL));
++	if (ret)
++		return ret;
 +
 +	/*
-+	 * Large folios have a subpage dirty bitmap, so defer their dirty accounting
-+	 * to the f2fs_ffs_*subrange_dirty*() helpers.  This avoids nesting
-+	 * ffs->state_lock with the inode dirty list lock.
++	 * Setting a 600 * 2.78us * 30 = 50ms integration time as the default
++	 * for now.
 +	 */
-+	if (f2fs_folio_has_ffs(folio)) {
-+		folio_set_f2fs_reference(folio);
-+		return;
-+	}
++	ret = as7343_astep_x2780ns(600, &astep);
++	if (ret)
++		return ret;
 +
-+	f2fs_account_dirty_blocks(inode, 1);
- 
- 	folio_set_f2fs_reference(folio);
- }
-diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
-index 0719a0e1e..3d26bdd4d 100644
---- a/fs/f2fs/compress.c
-+++ b/fs/f2fs/compress.c
-@@ -1067,7 +1067,7 @@ static void cancel_cluster_writeback(struct compress_ctx *cc,
- 		struct folio *folio = page_folio(cc->rpages[i]);
- 
- 		if (i < submitted) {
--			inode_inc_dirty_pages(cc->inode);
-+			inode_inc_dirty_block(cc->inode);
- 			folio_lock(folio);
- 		}
- 		folio_clear_f2fs_gcing(folio);
-@@ -1415,7 +1415,7 @@ static int f2fs_write_compressed_pages(struct compress_ctx *cc,
- 		}
- 		(*submitted)++;
- unlock_continue:
--		inode_dec_dirty_pages(cc->inode);
-+		inode_dec_dirty_block(cc->inode);
- 		folio_unlock(fio.folio);
- 	}
- 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index be182b9e8..f994a31f8 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2897,10 +2897,18 @@ static unsigned int __ffs_mark_subrange_dirty(struct folio *folio,
- 	return bitmap_weight(ffs->state, 2 * nr_subpages) - before;
- }
- 
-+/*
-+ * Mark the given range dirty for writeback.
-+ *
-+ * Callers must guarantee that the corresponding subpages are already
-+ * uptodate: a dirty subpage always holds the latest data, whose
-+ * on-disk copy may be stale.
-+ */
- void f2fs_ffs_mark_subrange_dirty(struct folio *folio,
- 				    size_t offset, size_t len)
- {
- 	struct f2fs_folio_state *ffs;
-+	unsigned int set;
- 	unsigned long flags;
- 
- 	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
-@@ -2911,21 +2919,27 @@ void f2fs_ffs_mark_subrange_dirty(struct folio *folio,
- 	ffs = (struct f2fs_folio_state *)folio->private;
- 
- 	spin_lock_irqsave(&ffs->state_lock, flags);
--	__ffs_mark_subrange_dirty(folio, ffs, offset, len);
-+	set = __ffs_mark_subrange_dirty(folio, ffs, offset, len);
- 	spin_unlock_irqrestore(&ffs->state_lock, flags);
++	ret = regmap_bulk_write(map, AS7343_ASTEP_REG, &astep, sizeof(astep));
++	if (ret)
++		return ret;
 +
-+	if (set)
-+		f2fs_account_dirty_blocks(folio->mapping->host, set);
- }
- 
- static bool __ffs_clear_subrange_dirty(struct folio *folio,
--			struct f2fs_folio_state *ffs, size_t offset, size_t len)
-+			struct f2fs_folio_state *ffs, size_t offset, size_t len,
-+			unsigned int *cleared)
- {
- 	unsigned int nr_subpages = folio_nr_pages(folio);
--	unsigned int start, end;
-+	unsigned int start, end, before;
- 
- 	start = offset >> PAGE_SHIFT;
- 	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
- 	end = min(end, nr_subpages);
- 
-+	before = bitmap_weight(ffs->state, 2 * nr_subpages);
- 	bitmap_clear(ffs->state, nr_subpages + start, end - start);
-+	*cleared = before - bitmap_weight(ffs->state, 2 * nr_subpages);
- 	return find_next_bit(ffs->state, 2 * nr_subpages, nr_subpages) <
- 			2 * nr_subpages;
- }
-@@ -2937,13 +2951,15 @@ static bool __ffs_clear_subrange_dirty(struct folio *folio,
-  * @len: byte length of the subrange
-  *
-  * Clear the dirty bits of the 4K subpages covered by [offset, offset + len),
-- * and return whether the folio still has any dirty subpage left.
-+ * account the cleared subpages against the inode dirty counters, and return
-+ * whether the folio still has any dirty subpage left.
-  */
- bool f2fs_ffs_clear_subrange_dirty_and_test(struct folio *folio, size_t offset,
- 					    size_t len)
- {
- 	struct f2fs_folio_state *ffs;
- 	unsigned long flags;
-+	unsigned int cleared = 0;
- 	bool dirty;
- 
- 	if (!f2fs_folio_has_ffs(folio))
-@@ -2951,9 +2967,12 @@ bool f2fs_ffs_clear_subrange_dirty_and_test(struct folio *folio, size_t offset,
- 
- 	ffs = (struct f2fs_folio_state *)folio->private;
- 	spin_lock_irqsave(&ffs->state_lock, flags);
--	dirty = __ffs_clear_subrange_dirty(folio, ffs, offset, len);
-+	dirty = __ffs_clear_subrange_dirty(folio, ffs, offset, len, &cleared);
- 	spin_unlock_irqrestore(&ffs->state_lock, flags);
- 
-+	if (cleared)
-+		f2fs_account_dirty_blocks(folio->mapping->host, -cleared);
++	ret = as7343_atime_steps(30, &atime);
++	if (ret)
++		return ret;
 +
- 	return dirty;
- }
- 
-@@ -3854,7 +3873,7 @@ int f2fs_write_single_data_page(struct folio *folio, int *submitted,
- 		goto redirty_out;
- 
- out:
--	inode_dec_dirty_pages(inode);
-+	inode_dec_dirty_block(inode);
- 	if (err) {
- 		folio_clear_uptodate(folio);
- 		folio_clear_f2fs_gcing(folio);
-@@ -4330,8 +4349,8 @@ static int f2fs_write_cache_folios(struct address_space *mapping,
- 		if (f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
- 					(err ? pos : end_pos) - folio_pos(folio)))
- 			folio_redirty_for_writepage(wbc, folio);
--		else
--			inode_dec_dirty_pages(inode);
-+		else if (!f2fs_folio_has_ffs(folio))
-+			inode_dec_dirty_block(inode);
- 
- 		/*
- 		 * Release the bias taken above and we end writeback here if
-@@ -5160,7 +5179,7 @@ void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length)
- 		return;
- 
- 	if (folio_test_dirty(folio)) {
--		inode_dec_dirty_pages(inode);
-+		inode_dec_dirty_block(inode);
- 		f2fs_remove_dirty_inode(inode);
- 	}
- 
-diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
-index 97f7fef6b..70847313c 100644
---- a/fs/f2fs/dir.c
-+++ b/fs/f2fs/dir.c
-@@ -937,7 +937,7 @@ void f2fs_delete_entry(struct f2fs_dir_entry *dentry, void *dentry_block,
- 		folio_clear_uptodate(folio);
- 		folio_detach_private(folio);
- 
--		inode_dec_dirty_pages(dir);
-+		inode_dec_dirty_block(dir);
- 		f2fs_remove_dirty_inode(dir);
- 	}
- 	f2fs_folio_put(folio, true);
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index f1a37e4fd..e5c1d6a65 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -2895,9 +2895,10 @@ static inline void dec_valid_block_count(struct f2fs_sb_info *sbi,
- 	f2fs_i_blocks_write(inode, count, false, true);
- }
- 
--static inline void inc_cache_count(struct f2fs_sb_info *sbi, int count_type)
-+static inline void add_cache_counts(struct f2fs_sb_info *sbi,
-+					int count_type, int nr)
- {
--	atomic_inc(&sbi->nr_caches[count_type]);
-+	atomic_add(nr, &sbi->nr_caches[count_type]);
- 
- 	if (count_type == F2FS_DIRTY_DENTS ||
- 			count_type == F2FS_DIRTY_NODES ||
-@@ -2907,31 +2908,66 @@ static inline void inc_cache_count(struct f2fs_sb_info *sbi, int count_type)
- 		set_sbi_flag(sbi, SBI_IS_DIRTY);
- }
- 
--static inline void inode_inc_dirty_pages(struct inode *inode)
-+static inline void sub_cache_counts(struct f2fs_sb_info *sbi,
-+					int count_type, int nr)
- {
--	atomic_inc(&F2FS_I(inode)->dirty_pages);
--	inc_cache_count(F2FS_I_SB(inode), S_ISDIR(inode->i_mode) ?
--				F2FS_DIRTY_DENTS : F2FS_DIRTY_DATA);
--	if (IS_NOQUOTA(inode))
--		inc_cache_count(F2FS_I_SB(inode), F2FS_DIRTY_QDATA);
-+	atomic_sub(nr, &sbi->nr_caches[count_type]);
++	ret = regmap_write(map, AS7343_ATIME_REG, atime);
++	if (ret)
++		return ret;
++
++	return regmap_update_bits(map, AS7343_CFG1_REG, AS7343_CFG1_AGAIN,
++				  FIELD_PREP(AS7343_CFG1_AGAIN,
++					     AS7343_CFG1_AGAIN_X256));
 +}
 +
-+static inline void inc_cache_count(struct f2fs_sb_info *sbi, int count_type)
++static int as7343_suspend(struct device *dev)
 +{
-+	add_cache_counts(sbi, count_type, 1);
- }
- 
- static inline void dec_cache_count(struct f2fs_sb_info *sbi, int count_type)
- {
--	atomic_dec(&sbi->nr_caches[count_type]);
-+	sub_cache_counts(sbi, count_type, 1);
++	struct iio_dev *indio_dev = dev_get_drvdata(dev);
++	struct as7343_data *data = iio_priv(indio_dev);
++	struct regmap *map = data->regmap;
++
++	return regmap_clear_bits(map, AS7343_ENABLE_REG, AS7343_ENABLE_SP_EN);
 +}
 +
-+/*
-+ * Account @nr dirty pages for @inode; one page is
-+ * (PAGE_SIZE >> log_blocksize) filesystem blocks.
-+ */
-+static inline void inode_add_dirty_blocks(struct inode *inode, int nr)
++static int as7343_resume(struct device *dev)
 +{
-+	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
-+	int blocks = nr * (PAGE_SIZE >> sbi->log_blocksize);
++	struct iio_dev *indio_dev = dev_get_drvdata(dev);
++	struct as7343_data *data = iio_priv(indio_dev);
++	struct regmap *map = data->regmap;
 +
-+	atomic_add(blocks, &F2FS_I(inode)->dirty_pages);
-+	if (S_ISDIR(inode->i_mode))
-+		add_cache_counts(sbi, F2FS_DIRTY_DENTS, blocks);
-+	else
-+		add_cache_counts(sbi, F2FS_DIRTY_DATA, blocks);
-+	if (IS_NOQUOTA(inode))
-+		add_cache_counts(sbi, F2FS_DIRTY_QDATA, blocks);
- }
- 
--static inline void inode_dec_dirty_pages(struct inode *inode)
-+static inline void inode_sub_dirty_blocks(struct inode *inode, int nr)
- {
-+	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
-+	int blocks = nr * (PAGE_SIZE >> sbi->log_blocksize);
-+
- 	if (!S_ISDIR(inode->i_mode) && !S_ISREG(inode->i_mode) &&
- 			!S_ISLNK(inode->i_mode))
- 		return;
- 
--	atomic_dec(&F2FS_I(inode)->dirty_pages);
--	dec_cache_count(F2FS_I_SB(inode), S_ISDIR(inode->i_mode) ?
--				F2FS_DIRTY_DENTS : F2FS_DIRTY_DATA);
-+	atomic_sub(blocks, &F2FS_I(inode)->dirty_pages);
-+	if (S_ISDIR(inode->i_mode))
-+		sub_cache_counts(sbi, F2FS_DIRTY_DENTS, blocks);
-+	else
-+		sub_cache_counts(sbi, F2FS_DIRTY_DATA, blocks);
- 	if (IS_NOQUOTA(inode))
--		dec_cache_count(F2FS_I_SB(inode), F2FS_DIRTY_QDATA);
-+		sub_cache_counts(sbi, F2FS_DIRTY_QDATA, blocks);
++	return regmap_set_bits(map, AS7343_ENABLE_REG, AS7343_ENABLE_SP_EN);
 +}
 +
-+static inline void inode_inc_dirty_block(struct inode *inode)
++static void as7343_suspend_action(void *dev)
 +{
-+	inode_add_dirty_blocks(inode, 1);
++	as7343_suspend(dev);
 +}
 +
-+static inline void inode_dec_dirty_block(struct inode *inode)
++static int as7343_probe(struct i2c_client *client)
 +{
-+	inode_sub_dirty_blocks(inode, 1);
- }
- 
- static inline void inc_atomic_write_cnt(struct inode *inode)
-@@ -4359,6 +4395,7 @@ void f2fs_remove_orphan_inode(struct f2fs_sb_info *sbi, nid_t ino);
- int f2fs_recover_orphan_inodes(struct f2fs_sb_info *sbi);
- int f2fs_get_valid_checkpoint(struct f2fs_sb_info *sbi);
- void f2fs_update_dirty_folio(struct inode *inode, struct folio *folio);
-+void f2fs_account_dirty_blocks(struct inode *inode, int nr);
- void f2fs_remove_dirty_inode(struct inode *inode);
- int f2fs_sync_dirty_inodes(struct f2fs_sb_info *sbi, enum inode_type type,
- 								bool from_cp);
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 89e50f871..d7fae1890 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -1555,7 +1555,7 @@ static int move_data_page(struct inode *inode, block_t bidx, int gc_type,
- 
- 		folio_mark_dirty(folio);
- 		if (folio_clear_dirty_for_io(folio)) {
--			inode_dec_dirty_pages(inode);
-+			inode_dec_dirty_block(inode);
- 			f2fs_remove_dirty_inode(inode);
- 		}
- 
-diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
-index ab7537ff7..49905aa08 100644
---- a/fs/f2fs/inline.c
-+++ b/fs/f2fs/inline.c
-@@ -199,7 +199,7 @@ int f2fs_convert_inline_folio(struct dnode_of_data *dn, struct folio *folio)
- 	f2fs_outplace_write_data(dn, &fio);
- 	f2fs_folio_wait_writeback(folio, true, true);
- 	if (dirty) {
--		inode_dec_dirty_pages(dn->inode);
-+		inode_dec_dirty_block(dn->inode);
- 		f2fs_remove_dirty_inode(dn->inode);
- 	}
- 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index be14dfa31..277c12922 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -1677,7 +1677,7 @@ static void flush_inline_data(struct f2fs_sb_info *sbi, nid_t ino)
- 		goto folio_out;
- 
- 	ret = f2fs_write_inline_data(inode, folio);
--	inode_dec_dirty_pages(inode);
-+	inode_dec_dirty_block(inode);
- 	f2fs_remove_dirty_inode(inode);
- 	if (ret)
- 		folio_mark_dirty(folio);
++	struct device *dev = &client->dev;
++	struct iio_dev *indio_dev;
++	struct as7343_data *data;
++	struct regmap *regmap;
++	int ret;
++
++	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
++	if (!indio_dev)
++		return -ENOMEM;
++
++	i2c_set_clientdata(client, indio_dev);
++
++	regmap = devm_regmap_init_i2c(client, &as7343_regmap_config);
++	if (IS_ERR(regmap))
++		return PTR_ERR(regmap);
++
++	data = iio_priv(indio_dev);
++	data->regmap = regmap;
++
++	ret = devm_mutex_init(dev, &data->mutex);
++	if (ret)
++		return ret;
++
++	indio_dev->name = "as7343";
++	indio_dev->info = &as7343_info;
++	indio_dev->channels = as7343_channels;
++	indio_dev->num_channels = ARRAY_SIZE(as7343_channels);
++	indio_dev->modes = INDIO_DIRECT_MODE;
++
++	ret = devm_regulator_get_enable(dev, "vdd");
++	if (ret)
++		return ret;
++
++	ret = as7343_setup_device(dev, data);
++	if (ret)
++		return ret;
++
++	/* Enter ACTIVE statet and start measurements */
++	ret = regmap_set_bits(regmap, AS7343_ENABLE_REG, AS7343_ENABLE_SP_EN);
++	if (ret)
++		return ret;
++
++	ret = devm_add_action_or_reset(dev, as7343_suspend_action, dev);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "Failed to add suspend action\n");
++
++	pm_runtime_set_autosuspend_delay(dev, 3000);
++	pm_runtime_use_autosuspend(dev);
++
++	ret = devm_pm_runtime_set_active_enabled(dev);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "Failed to activate PM runtime\n");
++
++	return devm_iio_device_register(dev, indio_dev);
++}
++
++static DEFINE_RUNTIME_DEV_PM_OPS(as7343_pm_ops,
++				 as7343_suspend, as7343_resume, NULL);
++
++static const struct of_device_id as7343_of_match[] = {
++	{ .compatible = "ams,as7343" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, as7343_of_match);
++
++static const struct i2c_device_id as7343_id[] = {
++	{ .name = "as7343" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, as7343_id);
++
++static struct i2c_driver as7343_driver = {
++	.driver = {
++		.name = "as7343",
++		.of_match_table = as7343_of_match,
++		.pm = pm_ptr(&as7343_pm_ops),
++	},
++	.probe = as7343_probe,
++	.id_table = as7343_id,
++};
++module_i2c_driver(as7343_driver);
++
++MODULE_AUTHOR("Chang Yu <marcus.yu.56@gmail.com>");
++MODULE_DESCRIPTION("AS7343 14 Channel Multi-Spectral Sensor driver");
++MODULE_LICENSE("GPL");
 -- 
-2.43.0
+2.56.0
 
