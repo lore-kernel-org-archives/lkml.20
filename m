@@ -1,144 +1,87 @@
-Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB2E4156DA
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:35:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.156
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8AB84414430;
+	Tue, 13 Oct 2026 01:36:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791855354; cv=none; b=KnurRKzzxC6vZel3SubuPvwIqcyay/eIzce5Z5sjh7tgDw0hzBjXydEvyDoiCYen9FGm7S1lgHMXM7ncouUE8eAu7wlXKdTQ8jP5j5PTKGmUT/WgdY29irtTnfxboTnJVT+14Gb3wUJlCM/o2ktSwQxpVFe0DiTav9fRWazHXQk=
+	t=1791855406; cv=none; b=b7dGs9cCWLgdUIkpQl2rJ57IXy5qrxyDqnkGNBunF32JduqTALbPDADZTahNHbra62sY55s736LQQIKnw2hzKEYLYkzWnMirNXU8QwasNo6cesK/qGm0WxKY4DbmWUcLlUM1UHNip3173cjNZDhy1MmMBs7prN/h0Bs1IYsR5vA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791855354; c=relaxed/simple;
-	bh=sFJ72AgPE1Tu7+0QasszMAieCLJI86cGxQyysbzgmZo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Aln+g0eniYsi9fbbCit8YErGDx1BEp0Uuiz9LrUYpEh0b5v38RLRLtIg5DYudHCvkMTcAS6x1Zk4u9y2mIWoypMaMzPHZUqtq6SwmtOP70FT5QFB+d0WHnNulApyiUNF6K8wpbQf7OWvI+IEfv6vjpytNgEP9gvITRKZJ/oYFs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=timdoug.com; spf=pass smtp.mailfrom=timdoug.com; dkim=pass (2048-bit key) header.d=timdoug.com header.i=@timdoug.com header.b=QRx/vrQj; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=kswQaqdR; arc=none smtp.client-ip=103.168.172.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=timdoug.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=timdoug.com
+	s=arc-20240116; t=1791855406; c=relaxed/simple;
+	bh=matAveinNTUlcxKBuMzQT+D9b5MqR2bcdVuqw/hHpTU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ATwkgarXNPM/uMTQZisLQ9QbI1+ZA9dvK0SEW8PZxbZW51br6guYtBs6ae6RpGRT78sOdR5px9SYMwlJ9ou1drwUEAKPCMsjATy3Th3O7mbbFot5L4p29GvFVvSTR2xLuG1vj7CpjKIqW3auhiV7NSE02HuBYrLw6tjBwcRO2mo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=DXCEsHxa reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=timdoug.com header.i=@timdoug.com header.b="QRx/vrQj";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="kswQaqdR"
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 3F79F140012F
-	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:35:52 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-09.internal (MEProxy); Mon, 12 Oct 2026 21:35:52 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=timdoug.com; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1791855352; x=
-	1791941752; bh=T9DPR+2n3dWm0xXe4jJx+wMjBkoYkR/+x3n7hyULjmY=; b=Q
-	Rx/vrQjGS4aIvL+6atXZ/EJgExF6J+Cpo76zfb03yrOM+60+6v7uArudhJ+H1QeJ
-	xTZtgktnMh6WvThrLqhTXso1BF7bQHcoqmFpIwfeA2EYsEuL7UeNQG8VSuHLDkFj
-	Vz13RXcyWWMIDw5qeqNVObJAl6bntLhuCADRyqXfBVKOPGF/8qa8W0lvAQ0LRAy3
-	KHVhtmpcf56SgpG/0kUQAgp0iSpM3e6gKBNpnUdNEQATnr4+MMqqTPc5yGcT00IT
-	ZXVlFVTe4vs255+MyjvnURFRbE/cIe8Yy5oxnLaROPr5Qu8WiZhI2hvEKzWHeXf5
-	ibBIaLPHlUaY4YEZms93g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1791855352; x=1791941752; bh=T
-	9DPR+2n3dWm0xXe4jJx+wMjBkoYkR/+x3n7hyULjmY=; b=kswQaqdR1CqvQNd/j
-	DH3k9yIBZLtSSbmKqpxBQHajK++XFzKM/ugzlbHMR/rA31MdaSryaFu1GiuY42TQ
-	aLBGFBMPEj+J/oFMadW+rwjaopWKzSHEAUVYcEN9kKgF6tds+hA3ze5y4sPCbb7H
-	ZQMycuW3IBD85U7Ry5D7T3qDquIhOS7MMCjngongwHztRjjvvu4vpCgOGScgUajG
-	VnZ9iATREWoQAri6WJrrsZ0PDIh2IK4ceVi9onA8KzGm1seB1UkNbRuHX5tFXxmB
-	wognCfNqhPxY4KR5klcgGYtdNEcY4Wswk3ntTpP/dLmsugCNhHeQrQ+92CeiQSpg
-	y3yrA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=timdoug.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791855352; d=timdoug.com;
-	mf=PG1lQHRpbWRvdWcuY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:dSd3wQmjusIAQ9QIil5AAmEbt+6RBH78zH1OCR3Dgs9hKEm
-	RS8NfSDPPTL8h4LCBTQEd/Sxih5SdNgWoNVnZ5zCMUo0Myck1tDBCX1F+gyaPz+n
-	OReoI8hN4TmV9BdAV45IgYfeq+tH1GfUsyNc0DlnyzXdklPmC1mLmMf0wx2C9lZI
-	WGqAQeSMvUxJd/reZCME04H+MSFOvMLClSiSUHveVh5mRCAgZWsGeBNbBM92sT0p
-	XXS4aFMqdopi2QO8xcQfJs6sMBC9BmeKwEvBW3zLN50j68spqgATFzq7ng5iqaGO
-	KSiyzg8VN5Z3ac7jSAEVOrl9oTuTX7Gl7/IISmw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:PrJ717gr86u/8jEwEDf0Kba/XI0ZzKRLKWY3qUAP+p4=:sFJ72AgPE1Tu7+0QasszMAieCLJI86cGxQyysbzgmZo=;
-X-ME-Sender: <xms:94rNauaQUoD4JYgxey6jAGfgXwXq7ZwhbOJ7SD71hJhzS9MwxQr0Tg>
-    <xme:94rNavrb1jt46q3lHthhH0uc8hRbTYWNliNU0GYLm4Z3Y4NwVBkcG5FPBxCw0S3n6
-    ERSkWNzuV0fbDUE9wCCDS3f-6rqTKguZmjyMu2zS2p8zW9Jv34ksRY>
-X-ME-Received: <xmr:94rNaiSJ5BEQlHH_nOhrcLzEtCQn_-o1x45EfkBPZNP6iXl6cJ8_gpplsQwy>
-X-ME-Proxy-Cause: dmFkZTGNbHk6fXAkhTsvEfU2amaovOmEajQYoQOBQ1jMMVTp78asCsTJKEOp2KUEoCfFhn
-    jYQALR5baaW2Zmb2DSGiJU/TnUm2SfI3WostCaGFlcqIuQLSHsZ9RdgXfBjYku/rYSwytg
-    gG+1Aavqm07SB9Nn6UC7/pwAlSnVJ/PwqLx0Zmi8Ps17l4MBClYGyctPQiDIoTu2tkkI4I
-    +6r+oLdSUUBoLun+FPRvQnzwVjLQxo28j78W4Y4bg5ruy1wHbYTNmkWF91Y2zTMHrsLkbj
-    qi0arGzxtkYavMM9fPhINZUuIXe1wxSlfZK0MTfoZfYvKJ5SD5BpIp5OQ6fEuy6blOsuKw
-    nW3eLSjF2BND2Vjd97g59nD2DKqYZQu+JlfKwLQE9lwE88zee9wSf4CNj8n9SzXihMKcpZ
-    Zs4p6+rzdHsFXI7syolFYyNB5I91mkE9iGE9b2x16B2MmkCHxTb8By+z7HsxsTcQ9rW4x+
-    416IK9L8AYd4buUMJu6+7LDzkBydq0YrPQCwv2Vdj6Cv6beKVo5eL5egddT1MitD2oxa6L
-    6US4AknzJ8UIp+SokIdMhItMdbeJRTd9GzV0GWOvk15FOcu61RhAyrpm4kcpP48hL4X5Oo
-    FflG0RpWyZK/HpbuK0AJwUxFkUlqg5WuyC8qypY8zrSBHuFCOWKh43VBacmg
-X-ME-Proxy: <xmx:94rNajqPmY2ZSWPPxJfXqCyJ4D_fTjfL20eEeGabkwpZxUCeAInFiQ>
-    <xmx:94rNas0yU2ZDS9Gfi176s1AAZ8sPdDTqo2UdfoTW6shA7C3aRNV-jg>
-    <xmx:94rNai46Pqk-WOfb_rXbsFNnQs5-L-hxY3Lk0NqXWjSVg1pYHXFkzg>
-    <xmx:94rNagRTfUbBCTDIEh2OT5ePTQzYybdIDgD3ySg7vRHrQWaLcdjjzg>
-    <xmx:-IrNahQ6Ea3zrp06XyzDGRg_fYH7RaJg4fHN_GzfuQ9EmBgTChCaQ2yH>
-Feedback-ID: i12bc4175:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 12 Oct 2026 21:35:50 -0400 (EDT)
-From: Tim Douglas <me@timdoug.com>
-To: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org
-Cc: linux-serial@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	Tim Douglas <me@timdoug.com>
-Subject: [PATCH 2/2] serial: pmac_zilog: report received breaks
-Date: Mon, 12 Oct 2026 21:35:41 -0400
-Message-ID: <20261013013541.4535-3-me@timdoug.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261013013541.4535-1-me@timdoug.com>
-References: <20261013013541.4535-1-me@timdoug.com>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="DXCEsHxa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
+	MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=matAveinN
+	TUlcxKBuMzQT+D9b5MqR2bcdVuqw/hHpTU=; b=DXCEsHxajkGEiWJ6fQV5OvrsM
+	QsKowj9vehBsA3R6H66Oos5LVQ1OZy7Bx5cIveImgJOQ7AmRuMwzridp2T8uD3K/
+	lKA2HJ9IAcO2aogwuoKGGs5PHC4AYtq8kAKbetfhTQmX7ZBQOOzyBliQuTJrxmpj
+	peeco+iTdBiiK6JjiE=
+Received: from [10.101.142.107] (unknown [218.19.14.194])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPSA id BrQMCkDW_wUci81qVxKKAA--.31905S3;
+	Tue, 13 Oct 2026 09:36:30 +0800 (CST)
+Message-ID: <94ee706b-f7b7-4d7c-b094-a6fc9b9174b4@stu.xidian.edu.cn>
+Date: Tue, 13 Oct 2026 09:36:28 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] fs/fcntl: fix SOFTIRQ-unsafe lock order in fasync
+ signaling
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: w15303746062@163.com, David Laight <david.laight.linux@gmail.com>,
+ jlayton@kernel.org, chuck.lever@oracle.com, viro@zeniv.linux.org.uk,
+ brauner@kernel.org, alex.aring@gmail.com, jack@suse.cz,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <d15a25fe784b5d4449c7ce4e56f1428d7ff28885.camel@kernel.org>
+ <20260523135210.590928-1-w15303746062@163.com> <asI5Fn87_SoEd4G5@redhat.com>
+ <asuxzwl4iWjjEjRD@redhat.com>
+ <437297ff-1bb4-49a7-a979-abccdd1814f8@stu.xidian.edu.cn>
+ <asz_NnX9_KaJdaf_@redhat.com>
+ <dbf95fb6-1685-463c-a533-79024d7a0a18@stu.xidian.edu.cn>
+ <as0K5CT8IIaCWsfR@redhat.com> <as0Z302oRQpI7rgX@redhat.com>
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+In-Reply-To: <as0Z302oRQpI7rgX@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:BrQMCkDW_wUci81qVxKKAA--.31905S3
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYE7k0a2IF6F4UM7kC6x804xWl14x267AK
+	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
+	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1I
+	6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Gr
+	0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r4UJwAac4AC62xK8xCEY4vEwIxC4wAS
+	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+	IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+	Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkIecxEwVAFwVWkMxAIw28IcxkI7V
+	AKI48JMxAqzxv26xkF7I0En4kS14v26r1q6r43MxC20s026xCaFVCjc4AY6r1j6r4UMI8I
+	3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxV
+	WUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8I
+	cVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aV
+	AFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZE
+	Xa7IU1_HUDUUUUU==
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUFEWrM+jxatQABsd
 
-pmz_status_handle() sets PMACZILOG_FLAG_BREAK from RR0, and
-pmz_receive_chars() clears it on the null character that ends the
-break without marking that character, then tests BRK_ABRT in RR1,
-where the SCC does not set it in asynchronous mode. Breaks therefore
-arrive as plain NULs: brk is never counted and BRKINT, PARMRK and SysRq
-never see them.
+Hi Oleg,
 
-Set BRK_ABRT in r1 for that character, as sunzilog does.
+In the scenario you described, the tasklist_lock reader holding
+dev->event_lock is in process context. That explains why the
+interrupt-reader handling does not rule out the possible deadlock.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Assisted-by: LLM
-Signed-off-by: Tim Douglas <me@timdoug.com>
----
- drivers/tty/serial/pmac_zilog.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/tty/serial/pmac_zilog.c b/drivers/tty/serial/pmac_zilog.c
-index f49d605..a612f1d 100644
---- a/drivers/tty/serial/pmac_zilog.c
-+++ b/drivers/tty/serial/pmac_zilog.c
-@@ -233,6 +233,7 @@ static bool pmz_receive_chars(struct uart_pmac_port *uap)
- 		ch &= uap->parity_mask;
- 		if (ch == 0 && uap->flags & PMACZILOG_FLAG_BREAK) {
- 			uap->flags &= ~PMACZILOG_FLAG_BREAK;
-+			r1 |= BRK_ABRT;
- 		}
- 
- #if defined(CONFIG_MAGIC_SYSRQ) && defined(CONFIG_SERIAL_CORE_CONSOLE)
--- 
-2.54.0 (Apple Git-157)
+> perhaps it is time to add pid->tasks_lock or abuse pid->lock we already
+> have (we would need to make it irq-safe) but this doesn't look nice...
+
+A fix also needs to preserve the synchronization required for process
+group traversal.
+
+Mingyu
 
