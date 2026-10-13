@@ -1,174 +1,174 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0609A3A6B66
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:56:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0CA47142E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:57:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791860170; cv=none; b=ov143oqoI9gqWUz5Sg0COeJtJDwckaRNvOdSXfDO3O3SbOJH5kC/kO6XEZ8AIG08aFZ/JHR58/SG7GftkfW9f97VLMSEl8tniLexA2jZyYjXI/ghqjXBDF6bvHt9h/ac7hV2u9WIt5Z9z7LNsY5chL+cG4xMKfCGb9S+CySBpsw=
+	t=1791860260; cv=none; b=FHPgAMlQ3QC/oIaKMgAb1YX6Gc/lVTehd2uQCKQfaa2FF19mDeGM1oSULA910QJf79D09imZwnk66oeNlHkR5n1kK9U6Pyfrdr5GGiTaMTen5SeqJUjOFwbvykDQFjJcJASaHGGnOEo42TUrQI+BHRhPqL3T4A1dtjILTpZ/pcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791860170; c=relaxed/simple;
-	bh=CJIEnX0P5e5vEIvo4jO29/P3pon7RQPwtjkdjcPRZxE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YBOZjDWOb997iJmydpEfZzTFSrpuOu1ZFWCpfKg8qhbfxeOdYh32C0LgKKD03xIEDGpQ/NeX8BuYl4U9ip1RUH5PA4yaREsWZ2zkbgOMH3obZfWsaSNcwhSnA0xA2OMOX4GUi0BwD6rR+PMaHfVzXSHmIWGlScCdoHf1SRa9RJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qnOvKf5E; arc=none smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791860260; c=relaxed/simple;
+	bh=rU6/NcSV6wlLvUaIiIjQl2cds/mD4DK5bYnjCOtOQ+8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JgnPbd2mb/+f6nyB7MpIGiL2LZ+PC1ZBkBXd+Bmtl+oLJ1trQy53CvCHFAajGVK9s/JO8C+AIb06GdZf9nnd4t4REGeODS+S4+l0gk3yJpxwdijohjyJHTVHdqRqlQu0x3JwkLKYL73CFpUu4RgfRUXY0TMpbz4a9uA+UUHf7Rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=octane.security; spf=pass smtp.mailfrom=octane.security; dkim=pass (2048-bit key) header.d=octane.security header.i=@octane.security header.b=luB6FJbd; arc=none smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=octane.security
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=octane.security
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qnOvKf5E"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35b647aac23so865143eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:56:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=octane.security header.i=@octane.security header.b="luB6FJbd"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3282db206d3so4685788eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:57:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791860168; x=1792464968; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hIfDhWm6ixjJFnpSOj18AG3Xc7oniyYktxCnB0/d6hI=;
-        b=qnOvKf5ELq94ypZS2VjJ8PEaInQHRwYWgWhyIQAs5Q3NxgGlGr5imEc23RLGU9SRM6
-         3ns7iOBLUkLzBusN7/lFnsD1UO6c+J+M2yo7TkxfXs+vD4gClTaIq8Ivvjzp8tGUjexa
-         UeQmY3C4X/kCEuo7O4ehgKAPKclFPXyyGXhUy0QAJNo3ms3CCCMRK9iym5SQKht5C3/2
-         CuX+zBXjHrMGc4ahXzZ92JTRk5FW36k31Bc4W/C0/dPDthOJFRwYEdLzPcjlFenmTAuy
-         u3XroaTcEND8U6oTrOV+qEYNN//QLnopjUNsTA3hnHNaKI1TOXLbW2PcXUfBfg7ozPo+
-         4S7A==
+        d=octane.security; s=google; t=1791860257; x=1792465057; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/RJ4GyWHSPpIYsWpDseMdmR+JugHfXlVBzuKwLssRqI=;
+        b=luB6FJbdZbr0o8Ab9fQY8Y4FpIEsDSMMzELrrJHKPDaZliUIg82gKyWEIIFVb2R8PK
+         BhpTDsBywetxDI4QmijSV6xBB36JHbJXhhRc8LnnmtAsq4wwD6VX+cdPooxgIVe2XJR2
+         Llg06DD8cYUN+o1zH0TsQA9hf/oaGQwAM+nnBM/L9PIWOzALSDnkEB6mjkDzMXeU00Qf
+         op3BjGkfsfqxkGfnzXxUf28Bjf2kckOPBFzJFG7Qae7Um0N0VN7NpDxVVZTNoKeNtBfg
+         OlIlYBR8OcuecgVfeuxMetz08CUIvUVZsWnFkrMEzgxFXXlVQiqwEgtA8KvWJpmt1O+t
+         rX7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791860168; x=1792464968;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hIfDhWm6ixjJFnpSOj18AG3Xc7oniyYktxCnB0/d6hI=;
-        b=Ej8qFJLO/5qlxb/OFRSDzhMzPJIOgDfGx16dSp/ExBI/YL3jJWBykDZkw02fxVql+V
-         U67oFZ7ZSz7QGixPkoHGRr1gH/TeeRVpD7OfceKLaV0n0V8/0UUULYOV7xWwY1HpL+0I
-         zF4W+Qi209WDesTCQqUpDolTq622G6wfvem5toMvRPM1Db3XuOhXhDq8ythH+ByaIRrf
-         aYD5HajtUaSzT0/BtPGhaggkhLFKnPvzrKjllqKzeej929VbB9XxrLMYSPaesKx/rYTS
-         KiuEoVXFxng3CC93y664z6mALnZJ3ma/tA8K8PwT45BEp4XjefgWEbiXp3DY1rhyKMHK
-         1leg==
-X-Forwarded-Encrypted: i=1; AKwUvByPoVsyrwbUK2SHNT0V9noqsM7PjJLtnRlRD47I6dPplmlDY+2hzXVf/VhoL66ZIWaruwVRkTlHw/83UU8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLGbHXcNWDiy+A7SGDhFS4Sz3MY2bgbwJMxqMHsX64SGRuBlSL5
-	KQjONz+kLc18a5QwbC+1Z93qNCEAVn45Lv2k7wKenx1YvrSn4Aeusedd
-X-Gm-Gg: AYBFou2HGqF0XYrVyp+93xHGPVJdKTsN+f6pM36BrSQCDVPgcajb60d8qpYwO71P+uo
-	Ywzn6saRogeQgWD5PVvddg3R0z14u685ZRHWsHa75DXU2P4r9KRISXLTkVrYeEMAyRXWT0DX+eU
-	5pB6UniEox7V7PFk7TPqwX5xK+pEiXda7d/v2fE+qjOH7WVtDtuPOYQbqYGMtJgtQKw+qa2awSP
-	6MOTIqPpqyI0yZIpkcIYS+phoeE0V6Og2S50uQFyZgGsWnTqg5fKHpWBPwuH3Q8iOGhccj1xHor
-	y7yUC2MChPXn3bkIcMKy4KC4142q6PoqgZRBZcPutaeyJ7YdWG4kbk34tFTmiGFZCoKiYzlN9J7
-	83DXSfiV3BTDQmI/yKP+7xJ5OqzCSVYLpzkzp2sKwwV0InyjJOuILG71UcYVKbz4o86UVeYSxoD
-	6A5DCWtad8gKRqCbwF2zHezAbP5pUrhA6WfOIwvXI4p31PfAdBf7x/ipknAKndDbEFZdAzerBHX
-	Q==
-X-Received: by 2002:a05:7301:4694:b0:351:694d:9ca1 with SMTP id 5a478bee46e88-3537b3c7ed1mr16260351eec.27.1791860167835;
-        Mon, 12 Oct 2026 19:56:07 -0700 (PDT)
-Received: from [127.0.1.1] ([2404:f801:8028:3:8056:897e:dae3:8e2e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b556sm50889219eec.9.2026.10.12.19.56.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 19:56:06 -0700 (PDT)
-From: Subasri S <subasris1210@gmail.com>
-Date: Tue, 13 Oct 2026 08:25:39 +0530
-Subject: [PATCH RESEND v2 3/3] usb: typec: Use %pe to print error pointers
+        d=1e100.net; s=20260707; t=1791860257; x=1792465057;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/RJ4GyWHSPpIYsWpDseMdmR+JugHfXlVBzuKwLssRqI=;
+        b=EjahBe7DP823sjCFfuLdEr5J+EPR2M4dyjdC4+g4iAmz4EX8HNE69f97KPbWmuMlbf
+         BNqav3TArhzfMczoLNlm9W8BMkaTFyidG7tT+znRpmrfxeywoIJsDEd7HPjkiu/9ZezU
+         IHl17nwDWRzWgbF0UcckVwNFC4yO2DB2DMyyoQ5seyGJzpJozCeC2UyCxJZs6YnMxOSD
+         DVUkoQX/NRwyO75mOXfk4aykTmnh5Xf02c0Ot2fvHxzgcNu/2C/XGEPVNv15atDLzclv
+         Z3EBwzOodzS/jIHNKoZ3cQn6RdiYPafg/VgXj14mT/YKbWmWcPENv2b7Cdw86auy5QKz
+         oXwA==
+X-Forwarded-Encrypted: i=1; AKwUvBxVDoKzTbSNcwPGaHTZBZoBh4X3AXH1c/JZ1j55wkWuolq/udL3rMIO+nrndgXj+NBa1fggKtBKuhfOKxU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLC9gJciQbaRruWZOlW0RFK0k6XfYjVUAStr9x+RSlHYxytjVZL
+	kKTJPsasJuoFcg4ygvunGhzTrxCxPzIp/Ih1R3II0e4//q1UEhHhsxbTTF5v6mRGrfY=
+X-Gm-Gg: AYBFou1Nl1umJDpEcO9qF+zJ+tqBedPKWPgas9sHAnwG1ghoQ7/ssLZXoELozdk5ZAc
+	2h2xFtwCmtmR1StZr7WLp/mcjZMiPd0Bd6ktJczT8f4c06ju/rCd/hikbMtMvP4FjqIFErjoU3u
+	4Yxj0nF2spS4VgL232ud3WRwRUgCAZpLEgBJN3KvwvFXlNkD7uETtZi1sy2jSYbXfCzFpKoMS8v
+	T3KYEMz9AllZ1lx98LhRlVoBQ4xUHCNxlr7MtDkOt/6sKt5F4MofpJhfHoSQg2twSoVYiKJhTtq
+	ebdYdWhVmSi8N0P97VPnKiirzd7iYUmvfI1uHuGvlNlPKVjAHORK+jMQ/WL1AvxSIXPRgULmIPf
+	/JzkH/k3xg0Yh6X/kz45vjbRYYivRjCYT1yhyp11WyaVT6FpX/Bc6207CDLxbBjYouajoj5FzJm
+	LIkqebT23ozPLIOC9KMODA4fO+szoym8Da2KVgy0M8vWKEgvE97zXl783u/d7tYvZ9ZUzSKgt+E
+	xKZVKvBpc1RmQjOzWp7yeCSCsmdmW9dbTAHzKcr5FqZeT/IpK4MV/LvQhpojDXYjBbWw6n3Fq/j
+	WxpUcm8okDE/9A==
+X-Received: by 2002:a05:701b:240d:b0:144:eb46:c3f with SMTP id a92af1059eb24-16a572659bamr17782878c88.2.1791860257094;
+        Mon, 12 Oct 2026 19:57:37 -0700 (PDT)
+Received: from localhost.localdomain ([103.207.175.177])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a6021e49sm34465316c88.20.2026.10.12.19.57.31
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 12 Oct 2026 19:57:36 -0700 (PDT)
+From: Shubham Antil <shubham@octane.security>
+To: netdev@vger.kernel.org
+Cc: achender@kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	andy.grover@oracle.com,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
+	linux-kernel@vger.kernel.org,
+	gio@octane.security,
+	Shubham Antil <shubham@octane.security>,
+	sungbyeongchan <tjdqudcks0424@naver.com>,
+	Robert van Eijk <robert@octane.security>,
+	Paolo Gentry <paolo@octane.security>,
+	stable@vger.kernel.org
+Subject: [PATCH net v4] RDS/IB: validate receive fragment completions
+Date: Tue, 13 Oct 2026 08:27:29 +0530
+Message-ID: <20261013025729.40815-1-shubham@octane.security>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-usb-ptr_err_patchset-v2-3-f83351b3fc3d@gmail.com>
-References: <20261013-usb-ptr_err_patchset-v2-0-f83351b3fc3d@gmail.com>
-In-Reply-To: <20261013-usb-ptr_err_patchset-v2-0-f83351b3fc3d@gmail.com>
-To: Peter Chen <peter.chen@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Duncan Sands <duncan.sands@free.fr>, 
- Chas Williams <3chas3@gmail.com>, Minas Harutyunyan <hminas@synopsys.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Badhri Jagan Sridharan <badhri@google.com>
-Cc: linux-usb@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, netdev@vger.kernel.org, 
- Subasri S <subasris1210@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791860140; l=2977;
- i=subasris1210@gmail.com; s=20260709; h=from:subject:message-id;
- bh=CJIEnX0P5e5vEIvo4jO29/P3pon7RQPwtjkdjcPRZxE=;
- b=CqTrpBWOFP7IoNCOlvIrFBD5UbdJH+gppg/u95/nDgGJAjX+b/exGfLDCfXtlh5uuq2LH1vXW
- RiZAV3SFerPA8GsjssqIRbmCZ+Q0/MSnQEOT7IZw/FpnBBlI0t3pHAb
-X-Developer-Key: i=subasris1210@gmail.com; a=ed25519;
- pk=6C4wavGFy/OsR8yQQKNWuDXoYPHp2L3sfgNfyzTruTk=
+Content-Transfer-Encoding: 8bit
 
-Use the %pe format specifier instead of %ld with PTR_ERR() for printing
-error pointers in various typec drivers. This prints symbolic
-error names (e.g.-ENOMEM) instead of errno numbers (e.g. -12),
-making error logs more readable.
+rds_ib_process_recv() accounts every receive fragment as contributing
+min(i_recv_data_rem, RDS_FRAG_SIZE) bytes, regardless of the completion
+length. When a completion is shorter than the header-declared amount,
+receive accounting can advance beyond the payload supplied by the
+completion.
 
-Fix coccinelle reported warning:
-WARNING: Consider using %pe to print PTR_ERR()
+Only an IB_WC_RECV completion has the buffer layout expected by this
+receive path. Other successful completion opcodes must not be interpreted
+as ordinary receive completions.
 
-Compile tested only.
+Reject successful completions with any other opcode before processing
+their length. For ordinary receive completions, require enough payload
+to cover the amount accounted to the fragment before linking its page
+into the incoming message.
 
-Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Subasri S <subasris1210@gmail.com>
+This is compatible with the current transmit paths. MSG_ZEROCOPY is
+restricted to RDS/TCP, while RDS/IB copied and page-vector messages use
+full-sized non-final scatterlist entries.
+
+Found during an LLM-assisted source audit and validated under KMSAN with
+a malformed short receive completion.
+
+Reported-by: sungbyeongchan <tjdqudcks0424@naver.com>
+Closes: https://lore.kernel.org/netdev/20261006205204.1322102-1-tjdqudcks0424@naver.com/
+Reported-by: Giovanni Vignone <gio@octane.security>
+Link: https://lore.kernel.org/netdev/8a6ee1d5336ae65b8ffdc8c40a1135657207e204.camel@kernel.org/
+Reported-by: Robert van Eijk <robert@octane.security>
+Link: https://lore.kernel.org/netdev/8a6ee1d5336ae65b8ffdc8c40a1135657207e204.camel@kernel.org/
+Reported-by: Paolo Gentry <paolo@octane.security>
+Link: https://lore.kernel.org/netdev/8a6ee1d5336ae65b8ffdc8c40a1135657207e204.camel@kernel.org/
+Fixes: 1e23b3ee0e94 ("RDS/IB: Receive datagrams via IB")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM (OpenAI Codex, gpt-5.6-sol)
+Signed-off-by: Shubham Antil <shubham@octane.security>
 ---
- drivers/usb/typec/mux/pi3usb30532.c | 6 ++----
- drivers/usb/typec/tcpm/tcpm.c       | 2 +-
- drivers/usb/typec/wusb3801.c        | 4 ++--
- 3 files changed, 5 insertions(+), 7 deletions(-)
+Changes in v4:
+- Reject malformed short fragments instead of normalizing their length.
+- Reject successful non-IB_WC_RECV completions before trusting byte_len.
+- Explain why MSG_ZEROCOPY cannot reach the RDS/IB transmit path.
+- Add the source-audit and KMSAN discovery details.
+- Remove the author's self-Reported-by while retaining linked reporters.
+- Leave maximum h_len validation to a separate investigation.
 
-diff --git a/drivers/usb/typec/mux/pi3usb30532.c b/drivers/usb/typec/mux/pi3usb30532.c
-index 985683fe49e9..b32f4c433de9 100644
---- a/drivers/usb/typec/mux/pi3usb30532.c
-+++ b/drivers/usb/typec/mux/pi3usb30532.c
-@@ -139,8 +139,7 @@ static int pi3usb30532_probe(struct i2c_client *client)
- 
- 	pi->sw = typec_switch_register(dev, &sw_desc);
- 	if (IS_ERR(pi->sw)) {
--		dev_err(dev, "Error registering typec switch: %ld\n",
--			PTR_ERR(pi->sw));
-+		dev_err(dev, "Error registering typec switch: %pe\n", pi->sw);
- 		return PTR_ERR(pi->sw);
+v3: https://lore.kernel.org/netdev/20261008124940.13371-1-shubham@octane.security/
+v2: https://lore.kernel.org/netdev/20261007062135.49946-1-shubham@octane.security/
+
+ net/rds/ib_recv.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/net/rds/ib_recv.c b/net/rds/ib_recv.c
+index bd6cb3ffaa..aa50b85b0f 100644
+--- a/net/rds/ib_recv.c
++++ b/net/rds/ib_recv.c
+@@ -949,6 +949,12 @@ static void rds_ib_process_recv(struct rds_connection *conn,
+ 		}
  	}
  
-@@ -151,8 +150,7 @@ static int pi3usb30532_probe(struct i2c_client *client)
- 	pi->mux = typec_mux_register(dev, &mux_desc);
- 	if (IS_ERR(pi->mux)) {
- 		typec_switch_unregister(pi->sw);
--		dev_err(dev, "Error registering typec mux: %ld\n",
--			PTR_ERR(pi->mux));
-+		dev_err(dev, "Error registering typec mux: %pe\n", pi->mux);
- 		return PTR_ERR(pi->mux);
- 	}
++	if (data_len < min_t(u32, ic->i_recv_data_rem, RDS_FRAG_SIZE)) {
++		rds_ib_conn_error(conn,
++				  "fragment shorter than header-declared length; forcing reconnect\n");
++		goto done;
++	}
++
+ 	list_add_tail(&recv->r_frag->f_item, &ibinc->ii_frags);
+ 	recv->r_frag = NULL;
  
-diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-index 89eec20a2064..ad10470ea73b 100644
---- a/drivers/usb/typec/tcpm/tcpm.c
-+++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -4796,7 +4796,7 @@ static void tcpm_typec_connect(struct tcpm_port *port)
- 			port->partner_desc.accessory = TYPEC_ACCESSORY_NONE;
- 		partner = typec_register_partner(port->typec_port, &port->partner_desc);
- 		if (IS_ERR(partner)) {
--			dev_err(port->dev, "Failed to register partner (%ld)\n", PTR_ERR(partner));
-+			dev_err(port->dev, "Failed to register partner (%pe)\n", partner);
- 			return;
- 		}
- 
-diff --git a/drivers/usb/typec/wusb3801.c b/drivers/usb/typec/wusb3801.c
-index 6062875fb04a..86d13ab41670 100644
---- a/drivers/usb/typec/wusb3801.c
-+++ b/drivers/usb/typec/wusb3801.c
-@@ -277,8 +277,8 @@ static void wusb3801_hw_update(struct wusb3801 *wusb3801)
- 		if (partner_type != WUSB3801_STAT_PARTNER_STANDBY) {
- 			wusb3801->partner = typec_register_partner(port, &desc);
- 			if (IS_ERR(wusb3801->partner))
--				dev_err(dev, "Failed to register partner: %ld\n",
--					PTR_ERR(wusb3801->partner));
-+				dev_err(dev, "Failed to register partner: %pe\n",
-+					wusb3801->partner);
- 		}
- 
- 		data_role = pwr_role == TYPEC_SOURCE ? TYPEC_HOST : TYPEC_DEVICE;
+@@ -1004,7 +1010,12 @@ void rds_ib_recv_cqe_handler(struct rds_ib_connection *ic,
+ 	 * event is processed.
+ 	 */
+ 	if (wc->status == IB_WC_SUCCESS) {
+-		rds_ib_process_recv(conn, recv, wc->byte_len, state);
++		if (wc->opcode != IB_WC_RECV)
++			rds_ib_conn_error(conn,
++					  "recv completion had unexpected opcode %u, disconnecting and reconnecting\n",
++					  wc->opcode);
++		else
++			rds_ib_process_recv(conn, recv, wc->byte_len, state);
+ 	} else {
+ 		/* We expect errors as the qp is drained during shutdown */
+ 		if (rds_conn_up(conn) || rds_conn_connecting(conn))
 
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 -- 
 2.43.0
-
