@@ -1,182 +1,234 @@
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D6437E5EC;
-	Tue, 13 Oct 2026 07:40:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791877207; cv=pass; b=ObJvVLgxbQV+1bD/VOOEFRQpoWl+StK38T63+ULV71IJC8bMiz6Jy4Rdl8SKzb8FnkOyoaeNtIsTpOZencehLOmvMrS8uxJlse7yldGpuOQYxLv5/KopJdM2WMyi7fYRibCKLCxrTl+KOS1s0YLJfoPo9vYknFPFr6doYqbIX7M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791877207; c=relaxed/simple;
-	bh=C6R0FvNs4Muz/Fs6mv8BRsYn2ZxwygYF0MoghLOvXhs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EkFX7txhd6VtFrjJEmZ7Rk86FqIzgsydJ8ZsKc96F6uQkhyFp1pLTMPHFhNQ5R4Wfq1EF0cA3W+ZBHYCxxo9SfaBpJu2z5ML/3DjsYB1kAjvsgOAd6F0jzu9+kHdUd9mttOe84Mz9LAFVSzOdTS1v1/ElDY0wk2vcEMUkRnk03g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yiyuzhou.io; spf=pass smtp.mailfrom=yiyuzhou.io; dkim=fail (0-bit key) header.d=yiyuzhou.io header.i=yiyu@yiyuzhou.io header.b=EEO4xu1q reason="key not found in DNS"; arc=pass smtp.client-ip=165.173.182.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yiyuzhou.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yiyuzhou.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA068395AE4
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791877244; cv=none; b=amutbxRDuVOp18wBHOCdXWd5CAzvh+bc7KwFbTNq1PcYyz+tcZ2ztLjVd1qpbjfxIhD0JJ36n8dDEslVdzFB2QRwOyxPCQ5rMrEbqVY+tYe5lx+Z1uvVYUgIsPJYOuYsuZQRk5Y8cL6WesJsDJNv2wpAt4vjA6SmBiPUZAnNX54=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791877244; c=relaxed/simple;
+	bh=BFe/yh5JnfR0DvilafSKJHlexjYInUwEeegNj8QpwgU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cGTA/w59xN8vFdg/O8w5q1n4VR5cqDe7TepjmmKFnLJXnwgEobdAulPbwPPLpswbM4ZjrxZBMfE2XpvqFUb5db1Qr1C8FH1T9tJTWQH5S+7yiT8N6dhN3TW/tBrMtcTspPR3945fHqQBUcEgGAEptQFYYvY2+f2tbBdAqCHk3tU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PB9r1oE0; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=yiyuzhou.io header.i=yiyu@yiyuzhou.io header.b="EEO4xu1q"
-ARC-Seal: i=1; a=rsa-sha256; t=1791877199; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=IN03++97+RtZtwvkC2okb+lbFSJRimeuS7oCaHjY0FV+KjJOIJBmZA8jtWS1ti//iSEzYD7i5uqyRDpVUWO50RiX+GqxrjHZGstGUOwv/zF8EYJV7qfnvcp6AZyXb6vGXgFQa5ghOw4snR4ROQK1DlbozxqUmiEES/CmHkRCCk8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791877199; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=eD+Ic6phz2VneKc4C7qCkhJM3MyJ0aIM1SgY1cELvgo=; 
-	b=V2ODtHolP1OpNU82o1BnLewzeN5GPM4gu3Ve7+RaBlyghWp9LQwGwSv6jz98rQejrTZZjFDcMKBrnnpyx5AB/d37+3k/6h7poYffSQ7e5srjMrIO5VORKecMFvyWx5Y7XS4q9N0PH7/hZnSM6D/cYF/fdL+BqLWGNz2bX749H1E=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=yiyuzhou.io;
-	spf=pass  smtp.mailfrom=yiyu@yiyuzhou.io;
-	dmarc=pass header.from=<yiyu@yiyuzhou.io>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791877199;
-	s=zmail; d=yiyuzhou.io; i=yiyu@yiyuzhou.io;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=eD+Ic6phz2VneKc4C7qCkhJM3MyJ0aIM1SgY1cELvgo=;
-	b=EEO4xu1qCk9FIv7eddWemamTUd8uQyEa7gPNhzCdwJItKhGbIIZdMDoGJit21FHG
-	QQsmENRNuADO358XUTKhF0HSqFabCmZ6xwqnLYz13/AoC3zTxTUPp9gSNWYQL1UHRtk
-	cn5WpuXi8ZyUQvQLH5d2XJu8JWYSqmyERuK9OWDc=
-Received: by smtp.zohomail.com with SMTPS id 1791877198479839.7013236005746;
-	Tue, 13 Oct 2026 00:39:58 -0700 (PDT)
-From: Yiyu Zhou <yiyu@yiyuzhou.io>
-To: mathias.nyman@intel.com,
-	gregkh@linuxfoundation.org
-Cc: Yiyu Zhou <yiyu@yiyuzhou.io>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	michal.pecio@gmail.com,
-	regressions@lists.linux.dev
-Subject: [PATCH v2] xhci: give back all TDs when skipping endpoint reset after disconnect
-Date: Tue, 13 Oct 2026 00:37:11 -0700
-Message-ID: <20261013073825.17962-1-yiyu@yiyuzhou.io>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <330c34fd-1d1c-44e8-b949-ad2f5fb51f00@linux.intel.com>
-References: <330c34fd-1d1c-44e8-b949-ad2f5fb51f00@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PB9r1oE0"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e86dce4510so12324705ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:40:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791877242; x=1792482042; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sAnTgd/l711nspTx4PUavL/NLYQovTcbYgAtSFrcnZ8=;
+        b=PB9r1oE0F+uyaEdAjxwxbX4pziiS8Q9gfPg+pocqeAfmAB1gGfFwAIfrWc8eBOw8/f
+         MjTSi/9RaPwGbrM+s9pazj+eFgu1BxkFSwFuyjR8NF2dbm1GmoJsesAWdfwGuoIJwDrb
+         axjJUb8UaQUIuO3gnbHWVRGP4sTTPWlv/6NKAatL4HvgWHRmcmbXEyIxf88lE7IpzllX
+         v8zF/PfowqyugfnJqvz4isB44IAup8h/oro2fcW0ClcFK4Pmg2ONpTKdz6kZoB3v7r53
+         vKA2DFm1qJzNiSOqhNWSZ415R7sIifQWCh0H0yS+0RKnAzLYLMveoZnE1WQOH87r2ktV
+         JkXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791877242; x=1792482042;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sAnTgd/l711nspTx4PUavL/NLYQovTcbYgAtSFrcnZ8=;
+        b=HKwMFfX3peGNFedD8dleBrtRwlbI9RX4menu4ayaAU4p4/NzvG5GFq30I+oS/Ju7A5
+         vsCwWxsxk59SKBSsvQ3FrwbGNVAVO52E8zOpUncN4AaEQ9A+KmRPghd7dLYQAUl9B0gg
+         km7SR9kYx7OnywTDY5E5Akr7xvmS9ukIdGHfo6H9tytD5LlzjzzPwP8sYYDIrVZw+cCW
+         mCNXIZ4B96+JjRjcQ3Ec9o5Js0JKyIqnMme49JIOoi+TrR1+4OcvoN/29NbVaLGBj4t6
+         9KR1HsYlaJASxG9iNSECyw6t0HrpKXcoyDSohDUgj4QJW+Brn3ajDHXZZnKmluQG9yin
+         BgEw==
+X-Forwarded-Encrypted: i=1; AKwUvBw3KFC7M4QJP5ZT1lxMzF3OZM6EusDUBoeslWfBQW5Kfkf8OLYOKjE9k+XARyePT30RqD8DBUqky5m25+M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZDpR4GSVhpn9qKk/lC49GPDFW8RL6sLLOsdsSKOgpo/T6aKx1
+	+KkmW3QCUAKC3p/lN7b5EZb/V7KzYWQ7IuiHrlAbaZQXTtsWvkgUDQVr
+X-Gm-Gg: AYBFou0WhIquUZq50mypr+9OqsVcviREbqpmIzmjBZaMc0H05NucRjZAOg0bi7rcA14
+	iTy0D+L4qWvfDJCV2ZPwoRuoWgloOawsrq5DAg0lvIrpGEmOxvhwfKOkevdRiU8L3/mTGHfjaLa
+	KiGQSkNjrY0l2QveCoNwv/R2weYn/mEfN4yQDz6D48OaMuEFBkMlA3nNdReJiEEyrQq0BzKxmv3
+	vg4bGtmqvwyouYE/C9sRvv9ALeHwue25o3sXBzZL93JDUDbE6N8y5+Ahxxjq4G3uRpVXOaKzhzl
+	heZLlgD8b2eHoysnk5Cu8I7K0jlrlkhiuqi0jUudViFmqgBQ6np8498YVpCvEIN0WRwQFDgwl1o
+	l2zqRtPRM3IgKhnufn4Jh3nwNyP/VOJq64OajVo/5y9Gmv07Ckv083xlsiAw4DPVo5T6sbWrMyQ
+	w8r3aZbORWXvFn6wyaHOHno6YpeCNRtOcggg/OTtji9TEmbwmaqFpf/YQQuimqUxtkK6U/pc99o
+	EpsZKkTR1JEMKzr957LECr6BtBVzA==
+X-Received: by 2002:a17:902:f64f:b0:2dd:ad73:c984 with SMTP id d9443c01a7336-2e842bc5ae0mr95318795ad.28.1791877242048;
+        Tue, 13 Oct 2026 00:40:42 -0700 (PDT)
+Received: from localhost ([47.254.74.32])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e841432a03sm51700235ad.0.2026.10.13.00.40.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 00:40:41 -0700 (PDT)
+Date: Tue, 13 Oct 2026 15:40:36 +0800
+From: Lai Jiangshan <jiangshanlai@gmail.com>
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: paulmck@kernel.org, corbet@lwn.net, mingo@redhat.com, 
+	frederic@kernel.org, neeraj.upadhyay@kernel.org, josh@joshtriplett.org, 
+	urezki@gmail.com, dave@stgolabs.net, lianux.mm@gmail.com, 
+	stern@rowland.harvard.edu, parri.andrea@gmail.com, will@kernel.org, peterz@infradead.org, 
+	boqun@kernel.org, npiggin@gmail.com, dhowells@redhat.com, j.alglave@ucl.ac.uk, 
+	luc.maranget@inria.fr, akiyks@gmail.com, dlustig@nvidia.com, joelagnelf@nvidia.com, 
+	skhan@linuxfoundation.org, rdunlap@infradead.org, longman@redhat.com, rostedt@goodmis.org, 
+	mathieu.desnoyers@efficios.com, qiang.zhang@linux.dev, brads@mainlining.org, 
+	linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org, lkmm@lists.linux.dev, 
+	linux-doc@vger.kernel.org, rcu@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH RFC v3 08/15] locking/lockdep: use hazptr to wait for
+ dynamic key lookups
+Message-ID: <as3aMmPdCHCXW6Ci@U-YXDQC754-96.local>
+References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+ <20261005171529.1378809-9-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005171529.1378809-9-kunwu.chan@gmail.com>
 
-Commit 042aad8d0db6 ("xhci: prevent endpoint recovery after roothub
-disconnect") makes xhci_handle_halted_endpoint() return early when the
-root port is disconnected, and commit 7e0ef4332ed9 ("xhci: avoid xHC
-endpoint changes after disconnect or link error.") also sets
-EP_DROP_PENDING there, which keeps the doorbell from being rung until
-the device is reset.
+On Tue, Oct 06, 2026 at 01:15:22AM +0800, Kunwu Chan wrote:
+> lockdep_unregister_key() waits for is_dynamic_key() callers with
+> synchronize_rcu_expedited(), which requires system-wide coordination.
+> Make is_dynamic_key() protect the hash bucket with a hazard pointer
+> and use hazptr_synchronize() to wait for traversals of that bucket.
+> 
+> The hash bucket returned by keyhashentry() has a stable address, so
+> it can be used as the hazptr synchronization target.  Keep the key
+> hashlist lifetime RCU-based with hlist_del_rcu() and call_rcu().
+> 
+> Protect the traversal with the hazptr scoped_guard() added earlier
+> in this series.
+> 
+> This adapts the lockdep use case from Boqun Feng's shazptr series
+> to the current hazptr API.
+> 
+> Link: https://lore.kernel.org/lkml/20250625031101.12555-1-boqun.feng@gmail.com/
 
-The callers rely on xhci_handle_halted_endpoint() to take over the
-halted TD.  For example, finish_td() returns right after calling it,
-expecting the TD to be given back once the Reset Endpoint command
-completes.  With the early return, nobody gives the TD back.  Its URB
-stays pending until the submitter times out and unlinks it.  URBs
-queued behind it are stuck the same way, and every URB queued on the
-endpoint afterwards never starts, because the doorbell is blocked, and
-also has to time out.
+Hello,
 
-Devices that disconnect and reconnect themselves during enumeration hit
-this.  A PFU HHKB Professional HYBRID Type-S keyboard (04fe:0021) drops
-off the bus about 300 ms after its first enumeration, while usbhid is
-still probing its third interface.  The probe runs in hub_wq, so the
-disconnect is not handled until the probe returns.  On a root port the
-HID descriptor request and its four retries in hid_get_class_descriptor()
-each wait for the full 5 second USB_CTRL_GET_TIMEOUT:
+I think this is a misuse of hazard pointers.
 
-  [57685.006036] usb 3-2: new full-speed USB device number 24 using xhci_hcd
-  ...
-  [57685.291304] hid-generic 0003:04FE:0021.0017: input,hidraw1: USB HID v1.11 Keyboard [PFU Limited HHKB-Hybrid] on usb-0000:00:14.0-2/input1
-  [57711.221083] usbhid 3-2:1.2: can't add hid device: -110
-  [57711.221613] usbhid 3-2:1.2: probe with driver usbhid failed with error -110
-  [57711.221842] usb 3-2: USB disconnect, device number 24
+The bucket has a permanent, static address; its lifetime does not
+need hazard-pointer protection. Instead, this patch combines a
+hazard pointer with that address to construct a read-side/synchronize
+mechanism in the same category as RCU. However, this construction
+lacks the generation distinction needed to separate pre-existing
+readers from subsequent readers.
 
-The re-enumeration that follows can stall the same way, leaving the
-keyboard dead until reboot.  Behind an external hub, where the root
-port stays connected, the same keyboard recovers in about 300 ms, as it
-did on the root port before these commits.
+The object being removed is the key, but the synchronization target
+is the bucket. Unlinking the key does not prevent new lookups from
+acquiring the same bucket address, including lookups for unrelated
+keys that hash to that bucket.
 
-Keep skipping Reset Endpoint on a disconnected or inactive port, but
-give back the halted TD right away, with -EPROTO if no error status was
-set yet, and all other TDs on the endpoint with -ESHUTDOWN.  The
-endpoint is not restarted until the device is reset or dropped, so the
-ring dequeue pointer can stay where it is, as
-xhci_invalidate_cancelled_tds() already assumes for cancelled TDs on
-such endpoints.  Also refuse new URBs on an endpoint with
-EP_DROP_PENDING set, like xhci_urb_enqueue() already does for an
-inactive link, so they fail right away instead of timing out.
+This breaks the forward-progress argument used by the underlying
+hazptr implementation: after removing an object from publication,
+there should not be a continuing stream of new readers acquiring
+that same object. Here, the bucket is never unpublished.
 
-Fixes: 042aad8d0db6 ("xhci: prevent endpoint recovery after roothub disconnect")
-Fixes: 7e0ef4332ed9 ("xhci: avoid xHC endpoint changes after disconnect or link error.")
-Closes: https://lore.kernel.org/all/20261010071811.20483-1-yiyu@yiyuzhou.io/
-Assisted-by: LLM
-Signed-off-by: Yiyu Zhou <yiyu@yiyuzhou.io>
----
-v2:
-- Give back all TDs on the halted endpoint, not just the halted one
-  (Mathias)
-- Open code the helper, and log when the endpoint is flagged instead of
-  on every rejected URB (Michal)
-- Add a Closes: tag for regzbot
+For example, let B be the bucket containing key K:
 
-v1: https://lore.kernel.org/linux-usb/20261010064407.11030-1-yiyu@yiyuzhou.io/
+  Updater                    Reader                 Scan kthread
+  -------                    ------                 ------------
+  Unlink K from B
+  hazptr_synchronize(B)
+                             Acquire B
+                                                    Observe B;
+                                                    retain waiter
+                             Release B
+                             Acquire B again
+                                                    Observe B;
+                                                    retain waiter
+                             Release B
+                             ...                    ...
 
-Tested on v7.3-rc6 on a System76 Galago Pro (Intel 8086:51ed xHCI).  The
-keyboard was plugged directly into two root ports three times, each time
-right after resume from suspend.  Each time it dropped off during probe
-and was re-enumerated with all three interfaces bound about 0.3 s later,
-with no timeouts.  Unplugging a dock with six devices behind one root
-port also went through this path on 12 halted endpoints with no errors.
+Every reader critical section can finish, and the scan kthread
+can keep running, while the updater waits indefinitely. Readers
+that could have observed K may already have completed; later
+lookups alone can keep the waiter pending.
 
- drivers/usb/host/xhci-ring.c | 10 +++++++++-
- drivers/usb/host/xhci.c      |  4 ++++
- 2 files changed, 13 insertions(+), 1 deletion(-)
+RCU does not need the reader population to become empty. Its
+generation (grace-period) machinery allows pre-existing readers to
+drain without letting a continuous stream of subsequent readers
+indefinitely extend that wait. This address-based construction has
+no equivalent distinction.
 
-diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index ec278a9f9540..2463d57ff705 100644
---- a/drivers/usb/host/xhci-ring.c
-+++ b/drivers/usb/host/xhci-ring.c
-@@ -65,6 +65,7 @@
- static int queue_command(struct xhci_hcd *xhci, struct xhci_command *cmd,
- 			 u32 field1, u32 field2,
- 			 u32 field3, u32 field4, bool command_must_succeed);
-+static void xhci_kill_endpoint_urbs(struct xhci_hcd *xhci, int slot_id, int ep_index);
- 
- /*
-  * Returns zero if the TRB isn't in this segment, otherwise it returns the DMA
-@@ -991,10 +992,17 @@ static int xhci_handle_halted_endpoint(struct xhci_hcd *xhci,
- 	/*
- 	 * Avoid resetting endpoint if link is inactive or device disonnected.
- 	 * Can cause host hang.
--	 * Device will be reset to recover an inactive link, so don't do anything
-+	 * The endpoint won't restart before the device is reset or the endpoint
-+	 * dropped, so give back all its TDs now instead of letting them time out.
- 	 */
- 	if (rhub_port->link_inactive || !rhub_port->connected) {
-+		xhci_dbg(xhci, "Not resetting ep %u slot %u after disconnect or link error\n",
-+			 ep->ep_index, slot_id);
- 		ep->ep_state |= EP_DROP_PENDING;
-+		if (td)
-+			xhci_td_cleanup(xhci, td, xhci_urb_to_transfer_ring(xhci, td->urb),
-+					td->status ?: -EPROTO);
-+		xhci_kill_endpoint_urbs(xhci, slot_id, ep->ep_index);
- 		return -ENODEV;
- 	}
- 
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index a9e47e178c28..41ff45f5f909 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -1691,6 +1691,10 @@ static int xhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 		ret = -EINVAL;
- 		goto free_priv;
- 	}
-+	if (*ep_state & EP_DROP_PENDING) {
-+		ret = -ENODEV;
-+		goto free_priv;
-+	}
- 
- 	switch (usb_endpoint_type(&urb->ep->desc)) {
- 
--- 
-2.55.0
+So this is not merely protecting a different object with hazptr:
+it is using hazptr as a different synchronization primitive without
+providing the corresponding progress guarantee.
 
+I think we should retain the RCU wait here. If the intention is to
+implement bucket-scoped read-side synchronization, that needs an
+explicit protocol to distinguish the readers being drained from
+new arrivals; a permanent bucket address is not sufficient.
+
+Sorry for the lengthy reply, which was written with the help of an AI
+agent. I noticed this issue when this use case was first proposed, but
+I struggled to articulate my concerns clearly back then. Well, now we
+have AI. :)
+
+Thanks
+Lai
+
+> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> ---
+>  kernel/locking/lockdep.c | 25 +++++++++++++++----------
+>  1 file changed, 15 insertions(+), 10 deletions(-)
+> 
+> diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
+> index c56a7f91d72e..d1ce5ace7fbf 100644
+> --- a/kernel/locking/lockdep.c
+> +++ b/kernel/locking/lockdep.c
+> @@ -58,6 +58,7 @@
+>  #include <linux/context_tracking.h>
+>  #include <linux/console.h>
+>  #include <linux/kasan.h>
+> +#include <linux/hazptr.h>
+>  
+>  #include <asm/sections.h>
+>  
+> @@ -1280,14 +1281,19 @@ static bool is_dynamic_key(const struct lock_class_key *key)
+>  
+>  	hash_head = keyhashentry(key);
+>  
+> -	rcu_read_lock();
+> -	hlist_for_each_entry_rcu(k, hash_head, hash_entry) {
+> -		if (k == key) {
+> -			found = true;
+> -			break;
+> +	{
+> +		struct hazptr_ctx ctx;
+> +		void *bucket = hash_head;
+> +
+> +		scoped_guard(hazptr, &ctx, &bucket) {
+> +			hlist_for_each_entry_rcu(k, hash_head, hash_entry, 1) {
+> +				if (k == key) {
+> +					found = true;
+> +					break;
+> +				}
+> +			}
+>  		}
+>  	}
+> -	rcu_read_unlock();
+>  
+>  	return found;
+>  }
+> @@ -6683,11 +6689,10 @@ void lockdep_unregister_key(struct lock_class_key *key)
+>  	 *
+>  	 * Some operations like __qdisc_destroy() will call this in a debug
+>  	 * kernel, and the network traffic is disabled while waiting, hence
+> -	 * the delay of the wait matters in debugging cases. Currently use a
+> -	 * synchronize_rcu_expedited() to speed up the wait at the cost of
+> -	 * system IPIs. TODO: Replace RCU with hazptr for this.
+> +	 * the delay of the wait matters in debugging cases. Replace the
+> +	 * expedited RCU wait with hazptr_synchronize().
+>  	 */
+> -	synchronize_rcu_expedited();
+> +	hazptr_synchronize(keyhashentry(key));
+>  }
+>  EXPORT_SYMBOL_GPL(lockdep_unregister_key);
+>  
+> -- 
+> 2.43.0
+> 
