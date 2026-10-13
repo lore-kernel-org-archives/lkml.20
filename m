@@ -1,241 +1,134 @@
-Received: from mail-m1973198.qiye.163.com (mail-m1973198.qiye.163.com [220.197.31.98])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5DF013D53C;
-	Tue, 13 Oct 2026 12:57:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4614F30CB
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:57:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896246; cv=none; b=HCVcBussIkwz+T7P3gu7SrXHjKkcJ1DTZR4KjrvlllnEozgi+fb2bj4SX+SRqVY5WA4+VEPmqBYoT5Z6qNvrkDdtBJATb6k52jeArI9FiIl4aibulEVDKoxl0twPWcgztFUJW/iSmPdDSk8ipRHoSF9L2yA2H7Iv4Jl8U0Y9FQo=
+	t=1791896250; cv=none; b=ZrIpY6cXmW9Co4cdVVltdVEJ6RDDupvHN5gVd4yGrFunaL2dYK5P+grw3bN97Q0ztFzQyVBdhx2px7v9h7oZonQ9ntImg2QJbziYO8MOgZNdlLTZyk0lwlA/DZsR3w6v0IRrQ4+mXUGqBwddwrC7IcjmD7f12spfJ23GVypuDOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896246; c=relaxed/simple;
-	bh=mCsPqGiqz9PyjMkewqXOYz3BEsU6ovphopKLLemF7Gw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=usw4tkVF03O74JkU/lKL38zZUrQE44OneE1IiTeONsuP1DWD/wmMGH08/ASuM2pZ2gfKae/ySFN7ChYkZ4NRrZzEdgZSwO05MYLhx1XGppQm1GV/XI4gYprh+pZO9xqsnu0qHYMiXCiM9/x33caOlUQJO3KReVkLv59s7uFQTjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=220.197.31.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
-Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 200407eea;
-	Tue, 13 Oct 2026 20:21:43 +0800 (GMT+08:00)
-From: Zhen Ni <zhen.ni@easystack.cn>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	shuah@kernel.org
-Cc: bpf@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH v2 1/6] mm/page_owner: extract page_owner_next_eligible() from read loop
-Date: Tue, 13 Oct 2026 20:21:20 +0800
-Message-Id: <20261013122125.843451-2-zhen.ni@easystack.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20261013122125.843451-1-zhen.ni@easystack.cn>
-References: <20261013122125.843451-1-zhen.ni@easystack.cn>
+	s=arc-20240116; t=1791896250; c=relaxed/simple;
+	bh=EMvZFec+aEZgob/bO36XSk9Xavr5m3zM18K2N4GEyaI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c0M8prIH+k3KkrAZSJ5PHY+90SCJ/SZdhFk5nC27CEhNo47ZsGujUzUrNKaFb5Gq8VvE0CRSTqLsQ4lm/KfRfCCTZ/W7gG9Uf0eHIbxqKPxi4HIh3FIl4rMRcz/AKZnrF6zf+aelBg57nZR08mvXIJxHWD9K9hbYQsszy6rkDRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XkezcZFO; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XkezcZFO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B431F00893;
+	Tue, 13 Oct 2026 12:57:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791896247;
+	bh=X9BFwpcjmKrDdzhZwTDHl5KDt9LrzcnjBY0dqWfL9Uo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XkezcZFOnBges/No52JV7lJNChBh2uB/GmGh3tX/uB94BDHnIf+kSMHqz0Vs5wEM2
+	 U+eP0xko4YeYYnKDCOCOyXyrxGwNLfEhR3p1Lnkv9eoef7oLmBNoZMZgjvJBKgisqr
+	 fX3GPojftjXN8slL6pIFo+UY+/OiqBGSJ4GCYNdCtV9/o9d4041q8eV7EU5s63CCqC
+	 tYeDXHaD8ItI5Q172odKRM7uPdhkQLYKqZUOZ776OhtXwJxVuB/cb4b2tZH6NRnuVR
+	 rAKBkQh5k60awOuaonXW0fkUiRnZDkBHh2aG/rVUvjZ6M+JFW1mdkG1ryWakILxnV6
+	 QTeixMb1Zgpcw==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id B609F198003A;
+	Tue, 13 Oct 2026 08:57:22 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Tue, 13 Oct 2026 08:57:25 -0400
+X-ME-Sender: <xms:sirOaj7t20PPBmC0VgF_kX-BH_szYJkQ1lz5y8Ujzn6YONWN3iITRw>
+    <xme:sirOalU4gdiujkt2P6LsVs_jbh5nWBI8zXgOpKSF_RPczri9K0FzdUDoz1dwCjYRJ
+    vK6XnP2jojY0Tjhg_kQ3F6X_RGlAEMhwuWmWVpwnICQIvQ0_usyvsWJ>
+X-ME-Received: <xmr:sirOahul2_b8Rh5BgbU47dVYAXwNtIUY0HIB8RfgeWHEA0qicCsOa_LHdAY>
+X-ME-Proxy-Cause: dmFkZTEetqmizud+clew86He+iiifUKs94ePsfMAGNNPMmxgxaJcQtNwftmQ4FOsIRMZFd
+    p1MeZZgEA67dwqEqwnkr9c8OjvKQsDfeAsifflVQReL3Pft+JJQzZK/OJoNXOjH6QFKY1a
+    532uP9WhuX8Gl/oakRel8YxZcScQ182XP8mCDVloKrpc1ubB/YrgUwTFFzCtyoDK8vabJ4
+    KmBMY3r/03LHp3KTiVQvPSpcMw8RIXIkBRo7d2UWWyg5HdQDMUQ5SJD4LgUB2hnRqejjuE
+    E1ZFIiECiniGuVUPUMgC7vY+pflwKfQx2mdVyPbFen760/u7kdhq25cN79pi87MrgbR2HB
+    i9QhoZxOz7VJYTBjfS2SH6+BIM6AqXvlQY7HkAxNrn/CUD3hBligPhZqBs1MWtMk1rjQrR
+    CdLfeZu3RDnu2z2nrTqzR3NwlFsfj3utQppyMi+BQeDGbR2iO2rxS/p49qPmDzD6HmCLG+
+    Dx8/Gem37n8bZyTqaMbP7yuyN4BXCyyTLaJCOhtODibFchmq18+3ExOlh0DHAaJmILTeYz
+    NHZyQ9ZtbVyS+Qat+s5v5hPzl/+hCEfxyaOVr70AjmzlWwcuyHHjrvN4xJWidHZfUMsVLj
+    qhKdlGgOAZX5kE2Jmf5p+9IAEihQKqaiu7KnsGEes40g2HF423c3tJ48JKyw
+X-ME-Proxy: <xmx:sirOaqqqFM4nvubugARgJOFlU8NG2zgnWtQ1wJg84r-NRAMqsopH3g>
+    <xmx:sirOanbLvGRBuLjeMPAKNFk2MMGzUwpGA7huIAcIBmf-Xy8vPEnIsQ>
+    <xmx:sirOajycdr5YvGZP8lhrx023NDnRgbjQybVtD2iDv9z_H26Fx0wjDg>
+    <xmx:sirOal9iEI2KeJoJunp9ApN6o8vMcOa5Okfy0tlrdFxwzWnVS8-HcA>
+    <xmx:sirOahW_uXsL7xG2EIb5ixBaQ85q3xBwRNBArPSHh6vnFgNYgSzpac1p>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 13 Oct 2026 08:57:21 -0400 (EDT)
+Date: Tue, 13 Oct 2026 13:57:20 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Ying Huang <huang.ying.caritas@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Barry Song <baohua@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>, 
+	Chuanhua Han <hanchuanhua@oppo.com>, Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
+Message-ID: <as4qKLx_XwQ6qY3p@thinkstation>
+References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1353625140229kunm0bc94a6a524c
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHRhMVklNTUtNSx0YSh9DGFYVFA
-	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
 
-Move the page scanning logic out of read_page_owner() into a dedicated
-helper, in preparation for using it in the page_owner bpf_iter target.
+On Tue, Oct 13, 2026 at 02:30:37PM +0200, David Hildenbrand (Arm) wrote:
+> numa_rebuild_large_mapping() and do_swap_page() can be tricked into
+> generating an address wraparound, crashing the kernel. All that's required
+> is to map a tail page of a large folio close enough to the start/end of
+> the address space to e.g., make
+> 
+> 	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+> 
+> to wrap around.
+> 
+> Let's fix it by providing a better helper, folio_pte_scan_range(), that
+> takes care of staying within VMA and page table boundaries while
+> handling possible wraparounds.
+> 
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
+> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  mm/memory.c | 43 +++++++++++++++++++++++++++++--------------
+>  1 file changed, 29 insertions(+), 14 deletions(-)
+> 
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 1f5d5f7d39cd2..a3823010aa981 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -4933,6 +4933,27 @@ static void check_swap_exclusive(struct folio *folio, swp_entry_t entry,
+>  	} while (--nr_pages);
+>  }
+>  
+> +/*
+> + * Get the address range in which a folio might be mapped, assuming its pages
+> + * are mapped consecutively and the folio page at the given idx is mapped at
+> + * the given address.
+> + */
+> +static void folio_pte_scan_range(const struct folio *folio,
+> +		const struct vm_area_struct *vma, unsigned long addr,
+> +		unsigned long idx, unsigned long *start, unsigned long *end)
+> +{
+> +	/* Stay within the page table and VMA boundaries. */
+> +	const unsigned long pmd_start = addr & PMD_MASK;
+> +	const unsigned long pmd_end = pmd_start + PMD_SIZE;
+> +	const unsigned long lower = max(pmd_start, vma->vm_start);
+> +	const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
 
-The helper advances a struct page_owner_scan cursor to the next page
-eligible for page_owner output and returns true on a hit. On a hit it
-takes a snapshot of the page_owner record inside the page_ext RCU
-window.
+These -1/+1 gave me a pause. I guess it is for pmd_end wrapping to 0 in
+the top PMD? A comment would be nice.
 
-No change to the output is intended. handle is read from the snapshot,
-taken before the non-zero check, so the validated and reported handle
-are the same value.
+Otherwise:
 
-Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
----
-Changes in v2:
-- Route the zero-handle case through ext_put_continue.
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-v1: https://lore.kernel.org/linux-mm/20261009112308.240769-2-zhen.ni@easystack.cn/
----
- mm/page_owner.c | 103 ++++++++++++++++++++++++++++++------------------
- 1 file changed, 65 insertions(+), 38 deletions(-)
-
-diff --git a/mm/page_owner.c b/mm/page_owner.c
-index fbbda7ba914b..56c75a669a6b 100644
---- a/mm/page_owner.c
-+++ b/mm/page_owner.c
-@@ -36,6 +36,16 @@ struct page_owner {
- 	pid_t free_tgid;
- };
- 
-+/*
-+ * Cursor and per-page result of page_owner_next_eligible().
-+ */
-+struct page_owner_scan {
-+	/* resume point */
-+	unsigned long pfn;
-+	struct page *page;
-+	struct page_owner po_snap;
-+};
-+
- struct stack {
- 	struct stack_record *stack_record;
- 	struct stack *next;
-@@ -725,37 +735,24 @@ void __dump_page_owner(const struct page *page)
- 	page_ext_put(page_ext);
- }
- 
--static ssize_t
--read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
-+/*
-+ * Advance @scan to the next page eligible for page_owner output.
-+ * On a hit, fill scan->pfn/page/po_snap and return true; the caller
-+ * must advance scan->pfn past the hit before calling again to resume
-+ * the scan.
-+ */
-+static bool page_owner_next_eligible(struct page_owner_scan *scan)
- {
--	unsigned long pfn;
--	struct page *page;
--	struct page_ext *page_ext;
--	struct page_owner *page_owner;
--	depot_stack_handle_t handle;
--	struct page_owner_filter_state *state = file->private_data;
-+	unsigned long pfn = scan->pfn;
- 
--	if (!static_branch_unlikely(&page_owner_inited))
--		return -EINVAL;
--
--	page = NULL;
--	if (*ppos == 0)
--		pfn = min_low_pfn;
--	else
--		pfn = *ppos;
- 	/* Find a valid PFN or the start of a MAX_ORDER_NR_PAGES area */
- 	while (!pfn_valid(pfn) && (pfn & (MAX_ORDER_NR_PAGES - 1)) != 0)
- 		pfn++;
- 
--	/* Find an allocated page */
- 	for (; pfn < max_pfn; pfn++) {
--		/*
--		 * This temporary page_owner is required so
--		 * that we can avoid the context switches while holding
--		 * the rcu lock and copying the page owner information to
--		 * user through copy_to_user() or GFP_KERNEL allocations.
--		 */
--		struct page_owner page_owner_tmp;
-+		struct page_owner *page_owner;
-+		struct page_ext *page_ext;
-+		struct page *page;
- 
- 		/*
- 		 * If the new page is in a new MAX_ORDER_NR_PAGES area,
-@@ -798,37 +795,67 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 			goto ext_put_continue;
- 
- 		/*
--		 * Access to page_ext->handle isn't synchronous so we should
--		 * be careful to access it.
-+		 * Take a snapshot of the page_owner record inside the RCU
-+		 * window, then validate it, so that print_page_owner()
-+		 * reads the checked handle from the same snapshot.
- 		 */
--		handle = READ_ONCE(page_owner->handle);
--		if (!handle)
-+		scan->pfn = pfn;
-+		scan->page = page;
-+		scan->po_snap = *page_owner;
-+
-+		if (!scan->po_snap.handle)
- 			goto ext_put_continue;
- 
-+		page_ext_put(page_ext);
-+		return true;
-+
-+ext_put_continue:
-+		page_ext_put(page_ext);
-+		cond_resched();
-+	}
-+
-+	return false;
-+}
-+
-+static ssize_t
-+read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
-+{
-+	struct page_owner_scan scan;
-+	struct page_owner_filter_state *state = file->private_data;
-+
-+	if (!static_branch_unlikely(&page_owner_inited))
-+		return -EINVAL;
-+
-+	if (*ppos == 0)
-+		scan.pfn = min_low_pfn;
-+	else
-+		scan.pfn = *ppos;
-+
-+	/* Find an allocated page */
-+	while (page_owner_next_eligible(&scan)) {
- 		if (state->nid_filter_enabled) {
- 			int nid;
--			memdesc_flags_t page_flags = READ_ONCE(page->flags);
-+			memdesc_flags_t page_flags =
-+				READ_ONCE(scan.page->flags);
- 
- 			/*
- 			 * Bypass PF_POISONED_CHECK() in page_to_nid() to avoid
- 			 * VM_BUG_ON when accessing poisoned pages.
- 			 */
- 			if (page_flags.f == PAGE_POISON_PATTERN)
--				goto ext_put_continue;
-+				goto skip_continue;
- 			nid = memdesc_nid(&page_flags);
- 			if (!node_isset(nid, state->nid_filter))
--				goto ext_put_continue;
-+				goto skip_continue;
- 		}
- 
- 		/* Record the next PFN to read in the file offset */
--		*ppos = pfn + 1;
-+		*ppos = scan.pfn + 1;
- 
--		page_owner_tmp = *page_owner;
--		page_ext_put(page_ext);
--		return print_page_owner(buf, count, pfn, page,
--				&page_owner_tmp, handle, state);
--ext_put_continue:
--		page_ext_put(page_ext);
-+		return print_page_owner(buf, count, scan.pfn, scan.page,
-+				&scan.po_snap, scan.po_snap.handle, state);
-+skip_continue:
-+		scan.pfn++;
- 		cond_resched();
- 	}
- 
 -- 
-2.20.1
-
+  Kiryl Shutsemau / Kirill A. Shutemov
