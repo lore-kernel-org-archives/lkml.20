@@ -1,94 +1,163 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176AE32C8B;
-	Tue, 13 Oct 2026 18:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C370052ED2D
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:25:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791915904; cv=none; b=ZlQabeHTFAD1gYSkJ2Or32VKiguYJAp6EHyAVh9sXy8ciAzT/rh0VmbmNdene9RCVE+clfs82UNDcaomYP5QOBW5D6M8MVYBSR1JenuC0Tu8xd/CqyLFkTkZd/SJW3a0JJllqxq01mEFNBdapcuOHz5k4siypqnexCgmhZOyc9Q=
+	t=1791915937; cv=none; b=K3D4qR8CfdhUUfz/WNgW/N0KJjIAO2qpeEityn0KuM2Ga/dpCEoArK7T/Z3VGpiWpO9xpuHH03IlBd466JNjbuCIaOJTTF49NoWs17uJMKj8lMNDD13Yxj6ZDJWuIdedkou5vscSLGBJK/+MRjHuBGZz+rHaL7ILY6UyaJsE+xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791915904; c=relaxed/simple;
-	bh=qGUhheLXJZ0bEsHWIiwj3QV75i/5ETHIBHc7I/BUuxQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bSYJTfsocj8vy7mP2cF4fZIN+YApvN2/VBXM2WS8LHC4iKkvDLmCZJ8gDHVloo+HzaNEBGN/OyZ/3yBSW++ZmYd248ZEcqyasrdS6NozR5e6T2vPapy4L2QPIdh5RDskoeeOQREQzeBbde67eeprHp+1mzlhxFCoqjs/ZmXxcC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Tb94lAdb; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791915937; c=relaxed/simple;
+	bh=AlG/JZ6VJ7vRBe6rEuyNKsPV58OQf13xQXX8THhv3as=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=IHbkM6SHa6VBm7IR1k1PBDiPjcMGJeq6xL9blxzEWn6FvB300xmZSxiPxboJRhh+eYdAcYC/gUR5IsKGw2JSb6aPY3p1WThJiREj3wfhWMXxPf27khCyuzftooeiISYNp+3eWtKpgY1FSO4alwiikj8MdixfOuZ9v5UHEDk0j30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=XfKxXSOV; arc=none smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Tb94lAdb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791915903; x=1823451903;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qGUhheLXJZ0bEsHWIiwj3QV75i/5ETHIBHc7I/BUuxQ=;
-  b=Tb94lAdb++ILtlPS6r3DnVUa6f7iJ/PJFeAXrfj+Q0IR1kWgReBwdUdn
-   wZr4fYwmR7IDTOwQbpD7ypZ+RpLTtNmpj86LYN74piEQj+ZK/yej7avD9
-   MmRQDrU9SLnF4G51BHGJafMxDG8EtYJyzUaS5zjxdC+oW8Z5EtrHWO0bP
-   VV/tEWbEnzhCifnsMz3t4YaBmvCwmGQoJli1WMeGAsRsPrRoSP7iw4Ts9
-   ojs+z95rTZyxVJQBRvlJWYHHGNjMlnj1fGkzNNhbA/uSwn7WF9FCPrrUU
-   KN5cSZ6Mst/prLKn7+jVODZpLyxABt3tDifaFs4iqqYT2Uu/ozq0+wrUG
-   g==;
-X-CSE-ConnectionGUID: Iz4EnrhsSNiy535f4fn97g==
-X-CSE-MsgGUID: e+q1fzXBT5uxIj2Dj0GsTw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="656424"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="656424"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 11:25:03 -0700
-X-CSE-ConnectionGUID: w4eVYpi7Rci/G6KcePLQYg==
-X-CSE-MsgGUID: IB0P+yIATOSOjImv33rUig==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1150388"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 11:25:00 -0700
-Date: Tue, 13 Oct 2026 21:24:58 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jan Remes <ciakval@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Joe Sandom <joe.g.sandom@gmail.com>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Jan Remes <jan.remes@mycroftmind.com>
-Subject: Re: [PATCH 2/4] iio: light: tsl2591: add I2C device ID table
-Message-ID: <as53evozT-V7RBoX@ashevche-desk.local>
-References: <20261013143943.436816-1-ciakval@gmail.com>
- <20261013143943.436816-3-ciakval@gmail.com>
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="XfKxXSOV"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-53505bc6524so2331411cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:25:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1791915933; x=1792520733; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=KFCW1M7qXicNkXoNFz0UEyrqo2R7uteq2KxnBN5zNno=;
+        b=XfKxXSOVc7prQSLwXIwVuBllKsr2o2KQVK+/5VGkjEGQUESSOJm7ulPM0O1qUImVtg
+         pBDtueQJqRTmJaCCmF/k/7j99w8fqNMWKvB1wY2WjCRX/bgD1kEADEc8sPQ83szyru7v
+         6bleLCzgm70RqzOKVRy3L3ROa9YALXiVr/O+/g/gmK1UgAue2d3rjnVcmVwg3ry5m4L9
+         AsLHg/uELfVFqYNORwI4LY3Ri0q/+lEAmxARzKhjpeXLQjdA0L4+87ZCbh5xvLUgpcN5
+         xrigD953YYYvAP4jx0ylU1Hc6vhuoJmcqnAA2MnLx1qLldw6l/aA2LjDJPhq1n0l/TQq
+         qpfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791915933; x=1792520733;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=KFCW1M7qXicNkXoNFz0UEyrqo2R7uteq2KxnBN5zNno=;
+        b=cyi5UU3thi9EqVm4Kn0EcwbTNrrG+6niDEwe1C0IV0XBeUzo9mfiUHxzYPlDPb3yfR
+         O9cYR48j6OlahuGccgI4iWJTpZvfsOlOeGKmqq4iRIZNWryNKitmpxDxoXksKfUDLYM/
+         HZyk6Eb/fXR8/1KyVwj2xN4qKW2mhG8YjEFEh+Q9d9Hf9xWKB2/x4sEUiGLu9kSD5mSd
+         vpxIz5q3poJBRA44j4MPK7eP0hKqnP1eBbnF3ElvrRkCOMO2cD+0G/Ux4LNIHYyRx6Qb
+         zFxRFYcvC4AF1zDoqVSmJd5XUQDdO0jPdtU6pOSrkOSThQIw62fZnZ37QH17Peb7hyYi
+         vnSg==
+X-Forwarded-Encrypted: i=1; AKwUvBzvFM0Ss2Y9cv/apJPYM8xOC3hRmSD9dGazk/ghaVZvbqZcJmRcdigHc9711LpfPPtNFfyczhMNNXqAo64=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJaOCAg9nfjOe5sesLMTW0hl5LBgbmXtCmN4yFfyW03ZZnzbGmT
+	rs1m0g0RLupqVdA0kucC3oojWCyNPhE5CpeIH1TU3Z4zinHE/YD8QhP0HlWjVXzYRQEdZsUl11B
+	f6nLU
+X-Gm-Gg: AYBFou3g89CzMJ3UWiwFkR7NgK1EzsLcjiyD0pp/u3TD7U9nu+X4yx8G8WvAvLcxb16
+	SP33kGVUD9pQex1Rv5ri1Mt+BglVP0SjIpDHvMm1SZy79QQFpmDTuOGirAQre9sGBcHIgQoZ/4b
+	kKQIomzcHCUWsh9J6Py/cPjBF8l9B2KyTaVU+jY1vI6oMatgbitnUGSa2OInc5LsnKeOWADmdma
+	gSJ7HetJKqgXGzxpwPxCEb5/LdQwToTw+PKQmBd51t0JwzEQcO8VHSEi5yJjvHgu7B4Sh+XSJrE
+	ZhTYeYmk0QS++fz+HWkC/RSY0XaGxtJtDKs/tYrBBL7Zfg+vly7FgIo44h89Erk378JlN4DsZj+
+	KLsbLMy/z0Jb4/hf0WLOVDrv1oW5Qx+vCM7suznROPt533IX7GBaeArQwNdQx/Oo2JlxslKNepo
+	QWfMWDIQ6qwZ2DudbdvN3A6UtTYHpjK1gnKjl9f+feZu1rzBjz3EzJ38d2FM3YHjVuhRTErD1Ng
+	Y/pnft71DZJ294=
+X-Received: by 2002:a05:622a:4e04:b0:535:a5f7:d59b with SMTP id d75a77b69052e-535a5f7de55mr186236721cf.42.1791915932663;
+        Tue, 13 Oct 2026 11:25:32 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.251])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b76eea2sm107276361cf.18.2026.10.13.11.25.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 11:25:32 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 13 Oct 2026 18:25:06 +0000
+Subject: [PATCH net] net: axienet: don't advance the TX ring head before
+ the descriptor is ready
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013143943.436816-3-ciakval@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-b4-axienet-dmaengine-ring-head-v1-1-7add24e74477@toxicpanda.com>
+X-B4-Tracking: v=1; b=H4sIAIF3zmoC/32NSw7CMAxEr1J5jdUvH3EVxMJOTGsEpkoKqlT17
+ iRlz3KeZuYtECWoRDgXCwT5aNSXpVDvCnADWS+oPmVoquZQV3WL3CHNKiYT+ieJ9WqCQa3HQci
+ jc55P0pLj4x7SyRjkpvMmuEAawfUH45vv4qZ8nWtMUZADmRsyeowld+UG/8hgXb//dwa/wAAAA
+ A==
+X-Change-ID: 20261013-b4-axienet-dmaengine-ring-head-ccdb8e3acb75
+To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Michal Simek <michal.simek@amd.com>
+Cc: netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1791915929; l=2932;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=AlG/JZ6VJ7vRBe6rEuyNKsPV58OQf13xQXX8THhv3as=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QBomUl/RFNb7o7hd3lkq0GvyegzlXY0C4reO22XN+8hGLGwHC9ittbqyynjfwdMXd/zfN9u1sJL
+ GMd7gDVRTMgE=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On Tue, Oct 13, 2026 at 04:39:41PM +0200, Jan Remes wrote:
+axienet_start_xmit_dmaengine() bumps lp->tx_ring_head before
+skb_to_sgvec(), dma_map_sg() and device_prep_slave_sg(), and none of
+their error paths undo it.  The skb is freed and nothing is submitted,
+but the slot stays claimed.  axienet_dma_tx_cb() walks tx_ring_tail
+once per completion, so the next completion lands on the abandoned slot
+and dereferences whatever skb pointer is left there: NULL if the slot
+was never used or was already completed, or a stale skb that gets
+consumed a second time.  Every completion after that is accounted
+against the wrong slot.
 
-> The TSL2591 has only the device-tree matching table, so it cannot be
-> probed on a kernel with CONFIG_OF disabled.
-> 
-> Add I2C device ID table so that the sensor can be probed.
+dma_map_sg() and device_prep_slave_sg() can fail at runtime, and so can
+skb_to_sgvec() on a malformed skb.  Only advance tx_ring_head once
+those have succeeded.  The completion callback can't run before
+dmaengine_submit(), so claiming the slot just before that is fine.
 
-...
+dmaengine_submit() itself can also fail on xilinx_dma after a channel
+error, and its return isn't checked either.  That's a separate problem
+and isn't changed here.
 
-> +static const struct i2c_device_id tsl2591_id[] = {
-> +	{ "tsl2591" },
+This was found by the Sashiko AI review of the skbuff BUG_ON() series.
 
-Use C99 initialisers.
+Fixes: 6a91b846af85 ("net: axienet: Introduce dmaengine support")
+Link: https://lore.kernel.org/all/20261007-b4-skbuff-bug-on-v2-0-b9a5f732895b@toxicpanda.com/
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+Compile-tested only, I don't have the hardware.  The bug is in the error
+paths, which are easy to see from the diff: every goto after the old
+increment returns without submitting anything.
 
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, tsl2591_id);
+Thanks,
+Josef
+---
+ drivers/net/ethernet/xilinx/xilinx_axienet_main.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+index 09443623a3e2..a5800409e45a 100644
+--- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
++++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+@@ -929,7 +929,6 @@ axienet_start_xmit_dmaengine(struct sk_buff *skb, struct net_device *ndev)
+ 	if (!skbuf_dma)
+ 		goto xmit_error_drop_skb;
+ 
+-	lp->tx_ring_head++;
+ 	sg_init_table(skbuf_dma->sgl, sg_len);
+ 	ret = skb_to_sgvec(skb, skbuf_dma->sgl, 0, skb->len);
+ 	if (ret < 0)
+@@ -965,6 +964,10 @@ axienet_start_xmit_dmaengine(struct sk_buff *skb, struct net_device *ndev)
+ 	skbuf_dma->sg_len = sg_len;
+ 	dma_tx_desc->callback_param = lp;
+ 	dma_tx_desc->callback_result = axienet_dma_tx_cb;
++	/* Claim the ring slot only after the steps above that can fail.  The
++	 * completion callback can't run before dmaengine_submit().
++	 */
++	lp->tx_ring_head++;
+ 	txq = skb_get_tx_queue(lp->ndev, skb);
+ 	netdev_tx_sent_queue(txq, skb->len);
+ 	netif_txq_maybe_stop(txq, CIRC_SPACE(lp->tx_ring_head, lp->tx_ring_tail, TX_BD_NUM_MAX),
 
--- 
-With Best Regards,
-Andy Shevchenko
-
+---
+base-commit: 8bf659bd54e1f00e34cf5244b1d289c506fa47c0
+change-id: 20261013-b4-axienet-dmaengine-ring-head-ccdb8e3acb75
 
