@@ -1,83 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA896542EE9
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:06:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DE252E046;
+	Tue, 13 Oct 2026 23:07:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791932770; cv=none; b=q4310Nur5ReIWGk0v62rcuzMifjdX95X26bSTbJ/4e8nKi2C0pw5/svzdDi3iN/d3Av3kNSAtACd3zTAOJx5jFoNIUcBFvueYI08RxnuBKi07SWcm2bvSdPZ9pATR7FN6bAGVhZqaP2NnY2OGtg3zfC4yosZzCbtePMma8UKsVs=
+	t=1791932850; cv=none; b=R57IuXy41HpY7HTsYqM3dAb6GH1vrNH3obVpjiux2VccJDxAWpejjHh0WUURT+A4fU0kZ4hajm2iL80sw1kGfUleWf7GuZpsmC215ttP1hn6nSI+iF4PXWcXHe97TG8okPpSGaDEiGMpVlXcAeWvNyf4xEmbAutFXotFFj2JnqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791932770; c=relaxed/simple;
-	bh=P0iTojnRLPumAawJoInXYGshTudeegPaLeQs4sXNs0A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ps4fYm+fbsJI4ImCBD4xP8HqHaRgQDc+f+8Son0f+rNI1ofNT9jVO2pNfMU0Sl7WlYssv/xZEPQhxHiAjIfBLWWshuntlXUZmUCQ7zBD8v1sTW7HHKMvVXsWb6DCPseRtPPSf/Pzzr3Z9tK97RSeC0Tb2SbF8vFQ+EL2fbIus8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DpfF/OW4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791932850; c=relaxed/simple;
+	bh=3y7Xw7YkNHnuviBgkfoYmKWc1LtddiF+VIJ9Q5vJFCI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AGGGf1V/ukRxL4i2/NMVdReXpCDL4H9zxYf0TRZiqyQFezI6aIAWmeeIGwS90lgdd/rkPGsENwHq7iebT5UUTdJt/v1NBgB/iz5LB3IcG2X2EJcmSF+3A55AYZGVIpxlsk/56YxLgDWOtFuJltEQOgKGyWsmD2663SIV6Tjz0gY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=TzF5CbIh; arc=none smtp.client-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DpfF/OW4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7635F1F00899
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:06:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791932769;
-	bh=P0iTojnRLPumAawJoInXYGshTudeegPaLeQs4sXNs0A=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DpfF/OW4mKOx30gioxVGakYZvb1rnYKq60hNsIPEL0ThNR5o/pSMaAb3DYO4yBRIO
-	 VkBYYa+Evu8HW/Ox2K+VQUlNzuBo0yV0j8g8eTFmG79PZxQEORjR3iyB+AEvJfGYWd
-	 6Irow+pk8Hum50eltvGcVVOJLi/YiiKtD4Sg1GaVAfL72WC0ryOo6bALfeGbe7vfQA
-	 c+Flt5sMqhiBooh2FiuHP6wa+qm9X6WFpZGjIZn6uBdaXCHeyGlUXqOWJ5t4p9XGkt
-	 RBCcUmg/XNQIRHl+iA1pOs6DaZNSrlt4/075APcVz/R261IPRrKuYzCgm90+8L1ivN
-	 grzoFspvolw1A==
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3a9c92ae2baso28950951fa.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:06:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBym05MvCu+4vrU+9FD6Tl9jrjioQTM4IoCST4TMixFxEQRGK2gW5rl4zqZFcyRdzTr1t7UdK17YEhGVnlg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKM0NKGVRvEbi/o2SDqa/3rqVvVj8bdzsy03vVBKf+fEydUHyIT
-	x/PUeX75AEGR7ng8wHxmAX6fGgMxbu54UhVm4DFxupEj75OrJSxn/UlgMfi70GnVXIDmdrQXndH
-	jpSVzdjXYz/uoYU41ZAhUshxKiUPr0L0=
-X-Received: by 2002:a05:651c:b27:b0:3a9:9b67:25f7 with SMTP id
- 38308e7fff4ca-3a9c53b0b19mr34618061fa.4.1791932768205; Tue, 13 Oct 2026
- 16:06:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="TzF5CbIh"
+Received: from [IPV6:2601:646:8003:f231:356f:4b4f:2ec9:d15a] ([IPv6:2601:646:8003:f231:356f:4b4f:2ec9:d15a])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 69DN6o573850101
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Tue, 13 Oct 2026 16:06:50 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 69DN6o573850101
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026092801; t=1791932812;
+	bh=JJmD+/QY5os8wQkB/X/NCAurpKkUQhavruhI2yQUGvA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=TzF5CbIhbMJrANvDVDlsjrXZffPmaHwe6HTcaeZpFw0yw+73stVWu3k82+jxkOrGy
+	 YTHVCg8DGFcK4PL35piseSZW4rYX7/REXaxlyZrGZwh2IFfJDOGqZxPiYQhgmf47al
+	 Z3aYh4AzgBYpGLKe2kB0uHjvc4J9MAi+cTmneTGlJUqrdwSnbsgzItKQUW3TpC5Zow
+	 0Nt2KoYcLIBxM2hWp14omb6TjNa4mTI/5rmopZSRZ+dR688jlyFw2WqGHi2JppdGr5
+	 gJonWVvvwT68a1D7RXLYudQyZlKZKkVRRb16zSlevHkkkrfSt0aPp+rKE8WF0jcwTT
+	 X5j/GO9BCA8Wg==
+Message-ID: <59691ed7-1da5-44b4-8b6b-c7eae92b6161@zytor.com>
+Date: Tue, 13 Oct 2026 16:06:44 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261010175721.76213-1-adilov@disroot.org> <CAD++jLnTOc+n2PGpK1NDnNJXwgzTQ8shO_6NqNuADzxY8SyYsA@mail.gmail.com>
- <03f84f8678f0a6a09e10e57c77ce82f9@disroot.org>
-In-Reply-To: <03f84f8678f0a6a09e10e57c77ce82f9@disroot.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 14 Oct 2026 01:05:55 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmGBFJBACn5NuzjbDpNVySjjxVDbP76mHKjKetSnouESQ@mail.gmail.com>
-X-Gm-Features: AclHuK-kqMedjz2wi0_AS5MYo3t5JfIsaXDJBJEGuyzQd9O3yegy0ZIw5takxV0
-Message-ID: <CAD++jLmGBFJBACn5NuzjbDpNVySjjxVDbP76mHKjKetSnouESQ@mail.gmail.com>
-Subject: Re: [PATCH v2] pinctrl: single: add big endian support
-To: Rustam Adilov <adilov@disroot.org>
-Cc: Tony Lindgren <tony@atomide.com>, Haojian Zhuang <haojian.zhuang@linaro.org>, 
-	linux-arm-kernel@lists.infradead.org, linux-omap@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] selftests/x86: Add a test for LASS enforcement
+To: Sohil Mehta <sohil.mehta@intel.com>, x86@kernel.org,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+        Shuah Khan <shuah@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        "Chang S . Bae" <chang.seok.bae@intel.com>,
+        Kishen Maloor <kishen.maloor@intel.com>,
+        Sean Christopherson <seanjc@google.com>,
+        Paolo Bonzini
+ <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20261009020025.4175228-1-sohil.mehta@intel.com>
+ <b6cee0b8-c5cf-4136-928f-96cb0a58eaa3@zytor.com>
+ <c5c1fec0-8cd7-47dc-9a22-d90c80b2429a@intel.com>
+Content-Language: en-US, sv-SE
+From: "H. Peter Anvin" <hpa@zytor.com>
+In-Reply-To: <c5c1fec0-8cd7-47dc-9a22-d90c80b2429a@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026 at 4:21=E2=80=AFPM Rustam Adilov <adilov@disroot.org> =
-wrote:
+On 2026-10-13 12:51, Sohil Mehta wrote:
+> 
+> I had it in v1 of this patch. It seemed excessive to do specifically for
+> LASS:
+> https://lore.kernel.org/lkml/20260806011536.4172258-8-sohil.mehta@intel.com/
+> 
 
-> >> This is needed on big endian MIPS platforms like RTL930X, RTL931X
-> >> and RTL9607C who use pinctrl-single, because when SWAP_IO_SPACE is
-> >> enabled, the mmio accessors in pinctrl-single perform a byte swap.
-(...)
-> > So I'd like to hear some of the reasoning about why you want to
-> > do this thing, we have other drivers doing this but without using
-> > pinctrl-single.
->
-> Um, what? I don't understand how that is related to anything with my
-> commit message.
+"Specificially for LASS" is the problem here.
 
-I understood is as the usage on RTL9[3|6]* SoCs was something
-new and this patch was needed for this new thing to work.
+This goes under the "do it generally, do it right, do it once." Librarize it.
 
-I see pinctrl-single is already in their device trees...
+> I agree, adding them as generic selftest helpers may be useful. But,
+> /proc/cpuinfo has been unreliable in general. It is currently buggy for
+> some features with Kconfig options. See:
+> 
+> https://lore.kernel.org/lkml/f6f113b46199d996c4f81fc89858c2f484256418.1774623092.git.m.wieczorretman@pm.me/
 
-If I can get an ACK from the maintainers we can just apply
-this, the cleanup I'd like can be made at a different time.
+> Also, (I think) we have been generally discouraging folks to add more
+> bits there. So, I don't know if creating these library routines is
+> useful right now. IIUC, Boris said that the CPUID rework would make some
+> of cpuinfo stuff moot.
+> 
+> https://lore.kernel.org/lkml/20260331140216.GDacvT6IPW1gf003z-@fat_crate.local/
 
-Yours,
-Linus Walleij
+> Thoughts?
+
+This is a great example of why these interfaces *are* useful and why they
+*should* be fixed.
+
+	-hpa
+
