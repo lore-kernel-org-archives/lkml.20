@@ -1,35 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C4152941E;
-	Tue, 13 Oct 2026 13:20:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6B852BE31;
+	Tue, 13 Oct 2026 13:20:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897608; cv=none; b=P83006AOWen2N59jchrEQ5pzp400UW2Xg2S7PJY1Ny+P2Hj+RQYMk9wUWxbhiQwfvitHDrqhkQGBvlhsq+Hvop7x5g+1KISTCPVmfVujlWrt+4hFjRXp+00MibgvsTpB9GtoJ3cVH1RqIzDZPp2KENZyFa8kudGtxC8TvLkoH1w=
+	t=1791897608; cv=none; b=pHAXxoedwaoMK43jkMFfBLzGkcBUxV3fmDF3959zKJ6CQzWny/OvMuknIBHwNgfdtjd4GuimDEi8i6/ntP/+GkEyghzXIne0sPshHyyJqgefml++tLLJY1HUE5mIZCiDt7d6KXzMROgSJw67THPcYhfWhlOTxMAbzrL8Ra9GwjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791897608; c=relaxed/simple;
-	bh=oP72pkNcenblHYZhQP0W2BNmcgZDTYYIoH0Q/VDHW/4=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=O8/vv/SNp3SYOdGr29IOcuwKxucNas8gyQ0zjBka0RA9ub8z44dIbie0SY6219kCR40RCsbrprBRYVZUDWE0SJWvNYV4N4L+FQpnNcwCvPbJwKVWFiKwBDrdfzcx4h1X74KJgKkC4I0FOW+P0GharT7299s5Up2p9jQXo9n0Ho4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P0aPJZhc; arc=none smtp.client-ip=100.103.45.18
+	bh=a2w0pxd7qkkN9gG85gc3cuvyVXHYjkOjPA17mVGPhMM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Sg/+ChtOzk8avAf6mjMQpwxD2cHrV2xsQqsJX2rWvePO3c8OsqPxRwm3NMG1AHM+FJAVjAsVPaKW3uCz8XIH9qHC0wlsCXmA+HA0rLbk7LB/Lu/OqYHU2Sh7EvuLgIgAW5kjb3LxsKyM1hr/vrMCWC3SjkqXZtcVzbYNM3ND81k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lY3BtV7m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P0aPJZhc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C02A61F00898;
-	Tue, 13 Oct 2026 13:20:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lY3BtV7m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 087AD1F00893;
+	Tue, 13 Oct 2026 13:20:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791897606;
-	bh=ajIPuC++/ABt+Z/kwxEadY4ibt019HfiO4SW7/tQ+UM=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=P0aPJZhcsMY9LzvNBIMWP3vM4BUUcqNB3bK5Obk5RkYcnuotJGDHNKejOiwUMvT/f
-	 a0x8JV1rcUlJtozW+aZWTKNetGfxmRChqcLs1wt0HzP386792mlE8abDdRS8noo17Q
-	 Auhl4Auh7whmJgG2C8JTEYU12RKAwc+IyNIzdV08QSRZY5HvaCBFiaWjFquqEl19vV
-	 HHfnGa7Sxmg7KFIQrvi+uIsrsfLcyr6fI3PJTBDJNQiHic6luZPUVoQ1NPTPtf31pv
-	 pkbjE6GOY2QlkJQh8Zsz/hrpZ4faFZZ7ZhZ1q0z9L0wPu49P4ne/DoZ7F3pHod6YKx
-	 FGNUM+44oev+A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B46103927077;
-	Tue, 13 Oct 2026 13:20:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1791897607;
+	bh=cuYWs1nQ+WZdkccxXDyRboJzFrnZwgbW7zMkiE2i1O4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lY3BtV7m0Oox5pJixXm3yIq74EPRtw1o+ENN8Wf4P4GJAy8IryMulziYaqq5hkmL/
+	 0wGUUZljyuPCNQVww5PeTSm+QvRYa049Xltowhc3vPLdtSpnE2V6gv4PMddwXhSj2Q
+	 6RDco83l0i2Bl/Vhar6pt/asvTPNG9JHLFraQMua/Ogu+rAzFZIcAUxUiWAZeS9Oh/
+	 FFLE10Tj7G0rB59lstlWr7eRIhP9eAbX546XYqtGoFyBzoFPZfHpmNjFz3+Qkkl/lm
+	 j5qkoJ5JjphcmqiKYtiO8eTQwI59gX27O+YysUBQjQvjbP8u942TVNDjZHYPIi19d8
+	 ZoOmJDCDPzsmg==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lee Jones <lee@kernel.org>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	linux-ide@vger.kernel.org
+Subject: [PATCH v2 47/53] MAINTAINERS: add an entry for the SGI IOC4 ATA driver
+Date: Tue, 13 Oct 2026 15:17:07 +0200
+Message-ID: <7e185e14e16f071b0850087e30f6cac4af85b1f1.1791890466.git.kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1791890466.git.kaloz@kernel.org>
+References: <cover.1791890466.git.kaloz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,46 +47,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v3 0/3] tcp: fix a few divide-by-zero in
- congestion
- control modules
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179189760552.298737.6237021795108605987.git-patchwork-notify@kernel.org>
-Date: Tue, 13 Oct 2026 13:20:05 +0000
-References: <20261008092641.140777-1-jiayuan.chen@linux.dev>
-In-Reply-To: <20261008092641.140777-1-jiayuan.chen@linux.dev>
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: netdev@vger.kernel.org, edumazet@google.com, ncardwell@google.com,
- kuniyu@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, stephen@networkplumber.org, linux-kernel@vger.kernel.org
 
-Hello:
+Add an entry for drivers/ata/pata_sgiioc4.c, the libata driver for the
+IOC4 ATA/ATAPI controller.
 
-This series was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+---
+ MAINTAINERS | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-On Thu,  8 Oct 2026 17:26:33 +0800 you wrote:
-> Patch 1 and 2 were reported by VEGA <vega@nebusec.ai>.
-> 
-> Patch 3 was found while reviewing the other TCP congestion control
-> modules for the same kind of divide-by-zero on module parameters.
-> 
-> Target net-next since it is not a big problem.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net-next,v3,1/3] tcp_bic: fix divide by zero on max_increment == 0
-    https://git.kernel.org/netdev/net-next/c/8edbf6c23363
-  - [net-next,v3,2/3] tcp_hybla: fix divide by zero on rtt0 == 0
-    https://git.kernel.org/netdev/net-next/c/f09eb97322b1
-  - [net-next,v3,3/3] tcp_cubic: fix divide by zero and endless loop on bad module params
-    https://git.kernel.org/netdev/net-next/c/7d52b5d16afc
-
-You are awesome, thank you!
+diff --git a/MAINTAINERS b/MAINTAINERS
+index a30c09a55c72..826f0ffb71fd 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24925,6 +24925,12 @@ F:	include/linux/phylink.h
+ F:	include/linux/sfp.h
+ K:	phylink\.h|struct\s+phylink|\.phylink|>phylink_|phylink_(autoneg|clear|connect|create|destroy|disconnect|ethtool|helper|mac|mii|of|set|start|stop|test|validate)
+ 
++SGI IOC4 ATA DRIVER
++M:	Imre Kaloz <kaloz@kernel.org>
++L:	linux-ide@vger.kernel.org
++S:	Maintained
++F:	drivers/ata/pata_sgiioc4.c
++
+ SHARED MEMORY COMMUNICATIONS (SMC) SOCKETS
+ M:	D. Wythe <alibuda@linux.alibaba.com>
+ M:	Dust Li <dust.li@linux.alibaba.com>
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.47.3
 
