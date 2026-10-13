@@ -1,114 +1,92 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 915F23955FE;
-	Tue, 13 Oct 2026 07:01:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453463DB620;
+	Tue, 13 Oct 2026 07:01:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791874864; cv=none; b=ChUvHX1p1k853fZtsuhUG6CgaNK/ZE8GIP7QyDJ5N3P4+pwwLXSAH5bE01TEFUu7TmwPFk/xCP6lkq6dJ+XLdoW9AsKth697m08fsTeVQZ5ykdCxfYqSJaEn0dAi16tHsvsHUDRGC2ltzUDBBt5MNqQZ0NORI/3ZJ+4l2ljC94Y=
+	t=1791874876; cv=none; b=JkN53Kb19BvqEVC1uHyHuZf31HzTgSFUrBrqoRwznWhJeG0UhrTfnEN1HzqhIrYtLKP4zpPcdCsLNPBmvuz5xyFYxaQU59UvgUHzZxUlPa3IzvIoIxCd4FTa7DLT5Rt1fsD8MRzQCcp/aOvIVJhzv1rbV2MJsx4RBxAO/J/tnps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791874864; c=relaxed/simple;
-	bh=nHwSERJsT6WQQkrnp27DBccwlr2EGr/h0ZD74kUAGC8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=c1YmJ2GUz28bVjsEMC5E7kkKPUjfgX/MpgR2nQzmZ5dHHXFu/5mEQ9m5Y/ibbuq1z0XKQI0QFeMcr+FimbeBAyFJwv9r6hgFV692vRhjP7M52FgrR+yc5Wx5MPH5IJooTEKZy+K4l1GESd8G92ufC22SVBhBn32PLLnWBnDOOHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I7siIriO; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791874876; c=relaxed/simple;
+	bh=dg9qupcEHrhYb1J+oPV/YrQmEv6l8/l0Q0LndazHQ1w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bkYzqc+Xm1ez79EkTHIcTyMGlgakeoiZDa/16TB0U//qBmTNXCX11SU5iKNGwaSUSID+vXCJ1H0wUExjQZVUI3zR3X17rw4znDvHPvyTNVE5WdLpcmfC9BADb6y+kuQ0R576FocnrEbQr6XV734sLh0YVc+6mCDGBDFkCWSI8HM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I19Y/ZD6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I7siIriO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791874863; x=1823410863;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=nHwSERJsT6WQQkrnp27DBccwlr2EGr/h0ZD74kUAGC8=;
-  b=I7siIriOMgygrG+J3SR9ESPU8SpFEzXQLIhFib31+gXalvPjRCGtTcHt
-   Bc3vgDbxuputZH6H+oNAx4UcdfjCPUDRLu7+0V70+LWfeGIvf4c1F6SIh
-   84vTmwuxfrXXefa8hhYoBKfdgmHWsQjwBQyWNFCaUewVxf7p7Y+UamjwD
-   LJmmnwp4oaSlgoslhEREorsiZ23IYEyXV5sEdpbeySFLzsC+waeuz9Qp9
-   KtbGrQiyIiVHetSKbnS7PRIWNyKGeA9eJNsmC+zBiKZXgHbt3idcCaeIX
-   zr1eu1QaeOs5qQTdvMguh9NItxQDRn1Dv+AQTDs0I3U5M/gpXnsXSSMtz
-   w==;
-X-CSE-ConnectionGUID: P7VIrN3AS+GqAXoXKxe7hQ==
-X-CSE-MsgGUID: rXQWoMW3TdiGThOo3z2XsA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="485839"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="485839"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:01:02 -0700
-X-CSE-ConnectionGUID: 6KC7tvomQmKzCZESbFkwbw==
-X-CSE-MsgGUID: 1bYSzrRgSU24r03BSXEcSQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="989803"
-Received: from unknown (HELO [10.238.2.98]) ([10.238.2.98])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:00:58 -0700
-Message-ID: <a34b1dba-a2fc-4152-b766-adb1558e5490@linux.intel.com>
-Date: Tue, 13 Oct 2026 15:00:56 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I19Y/ZD6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36CF81F000FF;
+	Tue, 13 Oct 2026 07:01:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791874875;
+	bh=LM9iJk4mh3/UxpN7ZEsQZ+FE3MHzMPp3PV2jueTNYck=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I19Y/ZD6BA36W8BpvA0CW/zPEgxggpYEPttXAeZTFdsoZ3cERAjcSfXQ0QJaUzsu2
+	 ppGejED5fCcY1Unch7HN5bagvna+UcTGfhCB5qC3EW4uOvJbPjLljt/yFeEwIcykX6
+	 ArQFMZycYQbSxue0OqbslDPRVZb1gniKJXWf3S9f4PhE3D29mQWhRxB5GU1qEk5xhO
+	 KC11WhETcSDs9NCbsDau2y/Qvg763zMZ7fMhWue+UPSfVfLYXtcohXagwrb5kvkNYk
+	 scWsSKeD67TKkar4Am0qvELEoE2PlOLOL2bEvX87mCmPpI69LChhZVqylqCabcYUOk
+	 S2rUQEIHDTyNQ==
+Date: Tue, 13 Oct 2026 09:01:11 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
+	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Srinivas Kandagatla <srini@kernel.org>, Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 1/7] ASoC: dt-bindings: ti,pcm1681: Document the
+ optional SCK clock
+Message-ID: <20261013-supportive-imported-spider-c6e28d@quoll>
+References: <20261009-nord-asoc-driver-support-v3-v3-0-0c1897f21ccf@oss.qualcomm.com>
+ <20261009-nord-asoc-driver-support-v3-v3-1-0c1897f21ccf@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/10] x86/virt/tdx: Add a helper to read a table of
- metadata fields
-To: Chao Gao <chao.gao@intel.com>
-Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
- kvm@vger.kernel.org, yilun.xu@linux.intel.com,
- tony.lindgren@linux.intel.com, rick.p.edgecombe@intel.com,
- nik.borisov@suse.com, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>
-References: <20261012094754.27702-1-chao.gao@intel.com>
- <20261012094754.27702-2-chao.gao@intel.com>
-Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <20261012094754.27702-2-chao.gao@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261009-nord-asoc-driver-support-v3-v3-1-0c1897f21ccf@oss.qualcomm.com>
 
-On 10/12/2026 5:47 PM, Chao Gao wrote:
-> The metadata field readers get_tdx_sys_info_<class>() in
-> tdx_global_metadata.c were generated by an out-of-tree script. That has
-> not worked out: the JSON file they were generated from is neither stable
-> nor authoritative enough [1].  The goal now is to maintain the readers by
-> hand and to establish one standard way of adding a metadata field.
+On Fri, Oct 09, 2026 at 06:42:47PM +0530, Mohammad Rafi Shaik wrote:
+> The PCM1681 can use an external system clock supplied on the SCK input
+> pin. Platforms that provide this clock need a way to describe the clock
+> connection in Device Tree.
 > 
-> Take get_tdx_sys_info_version() as an example:
+> Document the optional 'clocks' and 'clock-names' properties and define
+> the clock name as "sck" to represent the external system clock source.
 > 
->       if (!ret && !(ret = read_sys_metadata_field(0x0800000100000003, &val)))
->               sysinfo_version->minor_version = val;
->       if (!ret && !(ret = read_sys_metadata_field(0x0800000100000004, &val)))
->               sysinfo_version->major_version = val;
->       if (!ret && !(ret = read_sys_metadata_field(0x0800000100000005, &val)))
->               sysinfo_version->update_version = val;
+> This allows boards using an externally supplied SCK clock to accurately
+> describe the hardware configuration.
 > 
-> Two patterns stand out: the read-check-store sequence repeats once per
-> field, and the error of each read is chained into the reads that follow.
-> Neither is common in hand-written code.
+> Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/sound/ti,pcm1681.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
 > 
-> Prepare to eliminate both with a loop that reads each field, stores the
-> value into its structure member, and returns on the first error.
-> 
-> Add 'struct field_mapping' to describe one field as its ID plus the offset
-> and size of the member that receives its value. Add FIELD_MAP() to
-> build such an entry from a field ID, a structure type and a member name.
-> Add __read_sys_metadata_table() helper to read every field in a table.
-> Annotate that helper __maybe_unused as there is no caller right now.
-> 
-> Following changes will convert the existing readers to use the new helper.
-> 
-> AI was used under supervision to review code and workshop logs. It
-> suggested adding read_sys_metadata_table() macro, which avoids repeating
-> the table name when passing both the table and its size.
-> 
-> Signed-off-by: Chao Gao <chao.gao@intel.com>
-> Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
-> Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-> Link: https://lore.kernel.org/kvm/1e7bcbad-eb26-44b7-97ca-88ab53467212@intel.com/ # [1]
+> diff --git a/Documentation/devicetree/bindings/sound/ti,pcm1681.yaml b/Documentation/devicetree/bindings/sound/ti,pcm1681.yaml
+> index 1f0e6787a..1b3803518 100644
+> --- a/Documentation/devicetree/bindings/sound/ti,pcm1681.yaml
+> +++ b/Documentation/devicetree/bindings/sound/ti,pcm1681.yaml
+> @@ -21,6 +21,13 @@ properties:
+>    reg:
+>      maxItems: 1
+>  
+> +  clocks:
+> +    maxItems: 1
+> +    description: System clock (SCK)
+> +
+> +  clock-names:
+> +    const: sck
 
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Drop the names. If they are needed for any reason, then use the same
+name other device uses already, so scki.
+
+Best regards,
+Krzysztof
 
