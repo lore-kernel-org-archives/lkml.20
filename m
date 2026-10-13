@@ -1,195 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m127162.xmail.ntesmail.com (mail-m127162.xmail.ntesmail.com [115.236.127.162])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3B43C4563;
-	Tue, 13 Oct 2026 13:25:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C41511195;
+	Tue, 13 Oct 2026 13:25:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897914; cv=none; b=NAC6B7kUXK9N47GFAGmfk9+Kruui0zefktu3vM92hXFry+QhW7lQAri14k2j+kMHm+se8RzahvX/ZGOQ21G8ZB+aUQBMZJ1C39vqOPSgi/UIbwDORHhwle35nP9zwNaXebYysjY7p0Mllq11XOmRYIOfYss+rbsIQOjv50ONKtA=
+	t=1791897932; cv=none; b=FVtn5YbOk6J8vIZeCWpu0AMtsPL64oE1sKjTUx4OhorBXOrS4aXup0lKtzu3ALB4Zu5NmiTDBUkjCxQlQF6d3ohZPnVSum4VPGDuDOzRhT5ZWzFyy7r3ZJdxy/o8qfzPc5QYWSTFnae+tT+rO2wxiEwG2+A3+KhoxQwCnRSJYaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897914; c=relaxed/simple;
-	bh=D/NigCEw73Ni9kY2I+Qw1DkW9l2u6Bdzz8oTYVY7XnE=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aj2t8NVVnx9u1hik9PENG6sLV3Hk1Jw43VhGRj9VxueozP/F+xBo+4o1vgo4BN2RJmMuEg5Wg9xmqTEtBhFB11FgxFaGzZQzikobiXZVKCiSYOK6jWk9OqhhqBY8VfPRBxzUabHAXui/W4JW/xtjg+UwWweW1iJHmTpk5CdQHuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dSbKGPNR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791897932; c=relaxed/simple;
+	bh=4ch8ahei3k5lb4/eZ5zIUgTfXT2yRdkOfVKWJRqpHBM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QUA25Z2/biE6wEmXrYRqFSi4sV5esglT0FsS7q8jBFZQLh2LEgeka6+d5xsxtSPOjFLwWjdjZFw7kwdj/yezxBw63ZcSA5s/LJrSeOYpPdHXiSgdNOe2rpMlXa41c7g6Ly82o76CotoHymc1tbFz9ZJrJJNDnMhsmecI5pTZ18o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Z5bIQIAv; arc=none smtp.client-ip=115.236.127.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dSbKGPNR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2E0E1F00893;
-	Tue, 13 Oct 2026 13:25:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791897912;
-	bh=PwLxNOFwoQXW7+W+m9Z6B9NLRJR3CBuEEpDCbi6SBic=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=dSbKGPNRxJPPOMFpbge1zMm1SfL13jy9ENTnh7KtZIMFidWfOFhgk2FptTGUif2ao
-	 LRJ5aaaSGLKTbZQ0bLZYyjELXZ4VsJBGm1labQHWOdZdWyWX7TjqKPRaLV5WuF/yU7
-	 MiUQ5TWevmPBZZWkn0bzqsPjo1k+WxmRk/HajK6Uh6skEuC+nTMa01/d7SO7yL1jM8
-	 IMpBXQxLRSR188YW8t7tjCaLzCeQ4mf1cQuj2S3aICIaRmFJoHbnScEz3oPqG8ZyJK
-	 jsKTHbTy7C/wtsHDTkd1fKGX025mpXe571dZF7vMESZLpr8TNdTOhZXMmQQz0U0TvW
-	 yDf01FORPI5eg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xGcVC-00000002NMW-1eHk;
-	Tue, 13 Oct 2026 13:25:10 +0000
-Date: Tue, 13 Oct 2026 14:25:09 +0100
-Message-ID: <86tsmp20ne.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Z5bIQIAv"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 50e2b9409;
+	Tue, 13 Oct 2026 20:49:52 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Sandy Huang <hjc@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dave Jones <s.dave.jones@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] KVM: arm64: vgic-its: Fix LPI double mapping and DISCARD
-In-Reply-To: <CA+EHjTyZA6VL6EjhkB2bf9fDk4fUWpc=iXsu+sR1B+_YbR-nOQ@mail.gmail.com>
-References: <20261013081646.933312-1-fuad.tabba@linux.dev>
-	<as3_NKT20MNdqaJR@kernel.org>
-	<86wlrl2a2f.wl-maz@kernel.org>
-	<CA+EHjTztZpFrmuz9pK+01BsDxHnzpEwUMt6E3nUrgk4NNTsKYQ@mail.gmail.com>
-	<86v77526me.wl-maz@kernel.org>
-	<CA+EHjTyZA6VL6EjhkB2bf9fDk4fUWpc=iXsu+sR1B+_YbR-nOQ@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v1 0/6] Add eDP support for RK3568
+Date: Tue, 13 Oct 2026 20:49:40 +0800
+Message-Id: <20261013124946.1807886-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, andre.przywara@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1354febbb03a8kunm2e7c128b3001
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSRoYVktJGR8eHhgfGR5OTlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=Z5bIQIAvlHI95Bg0MV8RLH59wzyVXSY9zR3sHlD4R7SKAAI5DFyYYyxcZgwLbzW5DvKdT/YPvYzBZ2EgJOL3ps9az40v8TtyH2tCvldwSgFNWHBArBL1eA8hIGIZeYNaiG5ekfTAwE4/3gZn1nUtHttW6l5UolPMYOpQ3E51qMI=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=qsgnaJ8HgUwsD9AqhRnuRILZRtDgVlSZGoEjMwRkn1s=;
+	h=date:mime-version:subject:message-id:from;
 
-On Tue, 13 Oct 2026 13:59:22 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
-> 
-> Hi Marc,
-> 
-> On Tue, 13 Oct 2026 12:16:09 +0100, Marc Zyngier <maz@kernel.org> wrote:
-> [...]
-> > > A vCPU on its way into the guest does the same: it loads its LRs in
-> > > kvm_vgic_flush_hwstate() while it's still OUTSIDE_GUEST_MODE, so
-> > > kvm_arm_halt_guest() doesn't wait for it. With the delay after the
-> > > flush instead, on v2 plus your 1/7 and 2/7 [2] and both changes from
-> > > your reply to 1/7 [3], the guest takes it in 9 of 20 runs.
-> >
-> > Does this mean we still need OUTSIDE_GUEST_MODE to be a store-release
-> > past the point where we resync the state?
-> 
-> Not for the 9 of 20: that run already had the release. The halt reads
-> the OUTSIDE_GUEST_MODE the vCPU published at its previous exit, so it
-> doesn't wait for the early exit that folds the LPI back.
-> 
-> We do still need it for the window after the exit: with the delay
-> there and the same patches applied, the guest takes it in none of 20
-> runs, against 13 of 20 on v2.
+Rebased after:
+https://lore.kernel.org/all/20260928081418.3605775-1-damon.ding@rock-chips.com/
 
-I don't understand what these probabilities represent. Either it works
-or it doesn't. And given that I have no idea what you are testing
-with, I can't really make head or tail of the above.
+PATCH 1 is to document the "rockchip,rk3568-edp" compatible in the
+        Rockchip Analogix DP binding.
+PATCH 2 is to add the binding for the RK3568 eDP PHY with NaNeng IP block.
+PATCH 3 is to add the RK3568 support for the Analogix DP bridge driver.
+PATCH 4 is to add the driver for the Rockchip eDP Transmitter PHY with
+        NaNeng IP block.
+PATCH 5 is to add the RK3568 support for the Rockchip Analogix DP driver.
+PATCH 6 is to add the eDP controller and eDP PHY nodes for the RK3568
+        SoCs.
 
-> 
-> > > Once DISCARD waits for irq->on_lr to clear before clearing
-> > > pending_latch, the guest takes it in none of 20 runs in either case.
-> > > I'll add that to v3, unless the single-vcpu stunning already waits for
-> > > it.
-> >
-> > Polling for on_lr feels very dodgy, and I'd like to avoid this. If the
-> > OUTSIDE_GUEST release addresses it, I'd rather do that.
-> 
-> I'd rather avoid the polling too, but the release alone doesn't close
-> this one. The vCPU would also need to store IN_GUEST_MODE and check
-> its requests before kvm_vgic_flush_hwstate(), so that it never loads
-> its LRs while it's OUTSIDE_GUEST_MODE. The existing check after the
-> flush would still be needed, for the KVM_REQ_GUEST_HYP_IRQ_PENDING
-> request kvm_vgic_flush_hwstate() makes in a nested state. With that
-> and the release, the guest takes it in none of 20 runs with the delay
-> after the flush, and herd7 finds no LKMM execution that leaves it
-> pending.
+Tested on RK3568 EVB1 baord with LG eDP panel LP079QX1-SP0V.
 
-If you have a herd litmus test, how about posting it? It would really
-avoid a lot of that back and forth where the S/N ratio is pretty poor.
+&edp {
+  avdd-0v9-supply = <&vdda0v9_image>;
+  avdd-1v8-supply = <&vcca1v8_image>;
+  force-hpd;
+  status = "okay";
 
-> The IN_GUEST_MODE change would also cover vgic_mmio_change_active(),
-> which depends on the same halt (the comment above
-> vgic_access_active_prepare()). Would you be OK folding it into your
-> series, on top of your OUTSIDE_GUEST_MODE changes? Patch 2 then
-> wouldn't need the on_lr wait.
+  aux-bus {
+    panel {
+      compatible = "edp-panel";
+      backlight = <&backlight>;
+      power-supply = <&vcc3v3_lcd0_n>;
+      no-hpd;
 
-Is the hack below what you are asking for? I can't tell. If it isn't,
-please post your own version.
+      port {
+        panel_in_edp: endpoint {
+          remote-endpoint = <&edp_out_panel>;
+        };
+      };
+    };
+  };
+};
 
-Thanks,
+&edp_in {
+  edp_in_vp0: endpoint {
+    remote-endpoint = <&vp0_out_edp>;
+  };
+};
 
-	M.
+&edp_out {
+  edp_out_panel: endpoint {
+    remote-endpoint = <&panel_in_edp>;
+  };
+};
 
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 0576c2022ef57..f1449b08531eb 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -1321,10 +1321,6 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 
- 		local_irq_disable();
- 
--		kvm_vgic_flush_hwstate(vcpu);
--
--		kvm_pmu_update_vcpu_events(vcpu);
--
- 		/*
- 		 * Ensure we set mode to IN_GUEST_MODE after we disable
- 		 * interrupts and before the final VCPU requests check.
-@@ -1333,14 +1329,18 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 		 */
- 		smp_store_mb(vcpu->mode, IN_GUEST_MODE);
- 
-+		kvm_vgic_flush_hwstate(vcpu);
-+
-+		kvm_pmu_update_vcpu_events(vcpu);
-+
- 		if (ret <= 0 || kvm_vcpu_exit_request(vcpu, &ret)) {
--			vcpu->mode = OUTSIDE_GUEST_MODE;
- 			isb(); /* Ensure work in x_flush_hwstate is committed */
- 			if (kvm_vcpu_has_pmu(vcpu))
- 				kvm_pmu_sync_hwstate(vcpu);
- 			if (unlikely(!irqchip_in_kernel(vcpu->kvm)))
- 				kvm_timer_sync_user(vcpu);
- 			kvm_vgic_sync_hwstate(vcpu);
-+			smp_store_release(&vcpu->mode, OUTSIDE_GUEST_MODE);
- 			local_irq_enable();
- 			preempt_enable();
- 			continue;
-@@ -1356,7 +1356,6 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 
- 		ret = kvm_arm_vcpu_enter_exit(vcpu);
- 
--		vcpu->mode = OUTSIDE_GUEST_MODE;
- 		vcpu->stat.exits++;
- 		/*
- 		 * Back from guest
-@@ -1390,6 +1389,12 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 
- 		kvm_arch_vcpu_ctxsync_fp(vcpu);
- 
-+		/*
-+		 * All the state has been synchronised, let advertise
-+		 * we're outside of the guest.
-+		 */
-+		smp_store_release(&vcpu->mode, OUTSIDE_GUEST_MODE);
-+
- 		/*
- 		 * We must ensure that any pending interrupts are taken before
- 		 * we exit guest timing so that timer ticks are accounted as
+&edp_phy {
+  status = "okay";
+};
+
+&vp0 {
+  vp0_out_edp: endpoint@ROCKCHIP_VOP2_EP_EDP0 {
+    reg = <ROCKCHIP_VOP2_EP_EDP0>;
+    remote-endpoint = <&edp_in_vp0>;
+  };
+};
+
+Damon Ding (6):
+  dt-bindings: display: rockchip: analogix-dp: Add support for RK3568
+  dt-bindings: phy: Add rockchip,rk3568-edp-phy
+  drm/bridge: analogix_dp: Add support for RK3568
+  phy: rockchip: Add support for Naneng eDP phy
+  drm/rockchip: analogix_dp: Add support for RK3568
+  arm64: dts: rockchip: rk356x: Add eDP controller and phy nodes
+
+ .../rockchip/rockchip,analogix-dp.yaml        |  25 +-
+ .../bindings/phy/rockchip,rk3568-edp-phy.yaml |  59 +++
+ .../devicetree/bindings/soc/rockchip/grf.yaml |  15 +
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi |  41 ++
+ .../drm/bridge/analogix/analogix_dp_core.c    |   1 +
+ .../gpu/drm/rockchip/analogix_dp-rockchip.c   |  20 +-
+ drivers/phy/rockchip/Kconfig                  |  10 +
+ drivers/phy/rockchip/Makefile                 |   1 +
+ .../phy/rockchip/phy-rockchip-naneng-edp.c    | 435 ++++++++++++++++++
+ include/drm/bridge/analogix_dp.h              |   2 +
+ 10 files changed, 607 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+ create mode 100644 drivers/phy/rockchip/phy-rockchip-naneng-edp.c
 
 -- 
-Without deviation from the norm, progress is not possible.
+2.34.1
