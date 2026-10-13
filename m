@@ -1,180 +1,199 @@
-Received: from mail-m81199.xmail.ntesmail.com (mail-m81199.xmail.ntesmail.com [156.224.81.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5904EF154;
-	Tue, 13 Oct 2026 12:21:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.224.81.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B4594EBAD7;
+	Tue, 13 Oct 2026 12:22:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791894122; cv=none; b=Rch0I5bb83YiZbBL/rhrLpng+X78aWGZsSvGa8XNPhlwLIih8+qbKAgRcvH07ErkCx7jDkUIjj6wjicEVayATfOnMg1aUEkJR3CzXpIZ9zUROrpQQsYh2ZrCk1Mem01uL1Kc1c1hOuZN/06f8Psa41uF9PONWqpUNJbdj7s9h/k=
+	t=1791894140; cv=none; b=eJJaI+zCtzV6qVyKTMdSb1pWu+CMtnJIhqqRuGuoMV9uV7793jE0omAcoBZ2xFfRQ8/4gvKtJVtv1VXw2l+nsngijwnmpzH5uuOmuO55EJ8bsIYfRWG3DAsQPkrlFxcXziAP93wUcrLH6o5udroBrHQX516OsuboTVgXvbLWDSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791894122; c=relaxed/simple;
-	bh=Okpfzb3H0hUVmZcJAh+cXteE+qEoSMsq818Q6gYbKzY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=B1D6yl7O+FTl3Xb1pHWSNLUa9hYocxNEFceya0gOpkt6dmyxQJ7sZHWG37cVTFbsg50WWAdT6WpST3vbQHf6lXsWwz34QBtx5hz4T1xRy2yfmP0qWhkNzXhl+QtKXU3dXmuXkZtTLutfBQuc12hsAFdoJl6M3GLHS+WAQlUkz5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=156.224.81.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
-Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 200407ef0;
-	Tue, 13 Oct 2026 20:21:47 +0800 (GMT+08:00)
-From: Zhen Ni <zhen.ni@easystack.cn>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	shuah@kernel.org
-Cc: bpf@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH v2 4/6] mm/page_owner: record the NUMA node in the scan cursor
-Date: Tue, 13 Oct 2026 20:21:23 +0800
-Message-Id: <20261013122125.843451-5-zhen.ni@easystack.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20261013122125.843451-1-zhen.ni@easystack.cn>
-References: <20261013122125.843451-1-zhen.ni@easystack.cn>
+	s=arc-20240116; t=1791894140; c=relaxed/simple;
+	bh=ywiK+gX4Ip4X5HnD6TkPjtQdir8vLr/kQpjH/ztlvWU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kGfRzYF+GvDqwTpfD6zQUil2yJpzidheqdstV7zftG1sGRxzqnBZzZZjmo8BJqoWLBzpWUPMrhMDOfXtqaixgxdsbwE82U62IDOpe+COe1SWiIajngV+Okra9TIwPSpTogF1HBOdES1Tv1h5+YPWtKADmjCz66xZ2x0zP3KSPvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=smWi1ihr; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=R/MV1V77; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=TsWWu4sq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=HUwylZ2E; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="smWi1ihr";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="R/MV1V77";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="TsWWu4sq";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="HUwylZ2E"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id DF94A21C31;
+	Tue, 13 Oct 2026 12:22:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791894137;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IGCmAGsfmmXxLdQJhGZGWtXqoVqw59mTSVOU4W5s73c=;
+	b=smWi1ihr3Wn5DwWOO1A/HEA/fFdDBhYQ8U3qst/njHUlnlS3rQv8Jmz4GDmlZO0g3VJ+k3
+	Em2irRAKZ5wmB6c7evXyBjjDrPzf/M04+o1Ik7arUJvliSD04Yyl7IjMf2mTJ69l1o1CnA
+	B+NOGSQAgn1pjoP8n1TytiWdtQipDV8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791894137;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IGCmAGsfmmXxLdQJhGZGWtXqoVqw59mTSVOU4W5s73c=;
+	b=R/MV1V77GKww1wb/2MUCXM0RDXLxGlch2S45diOH/tVTZ+lRAx+cO8zAZx/5xnc6PzqnUx
+	DzqBCrjRN3kS6jBg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791894135;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IGCmAGsfmmXxLdQJhGZGWtXqoVqw59mTSVOU4W5s73c=;
+	b=TsWWu4sqKithahyKDI8QBWU6SbzOuIxn4ELfReGkSZt9uUppY8QcXfT8wJWn37AnbFWOrV
+	NClVXwSfVJ1alPC60sBz4xuUm+AZ63G4XpKy2J6dMJpodW2I6iM23o4/wBjfwrBS4gpa7c
+	wBs4MgKvvt1EtLkUgMog1GXayXiFr1U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791894135;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IGCmAGsfmmXxLdQJhGZGWtXqoVqw59mTSVOU4W5s73c=;
+	b=HUwylZ2EsPrgfhRXxbs/QdO2kmR8gscRbK4mmKCI5rYyID6UcLG085iYssqJXOlLY1b4F1
+	78dMxoklf3sSSECg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A533213341;
+	Tue, 13 Oct 2026 12:22:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 8ln0H3cizmovKQAAD6G6ig
+	(envelope-from <dsterba@suse.cz>); Tue, 13 Oct 2026 12:22:15 +0000
+Date: Tue, 13 Oct 2026 14:22:14 +0200
+From: David Sterba <dsterba@suse.cz>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
+	Qu Wenruo <wqu@suse.com>, linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 00/18] btrfs: remove the v1 space cache
+Message-ID: <20261013122214.GA1310987@suse.cz>
+Reply-To: dsterba@suse.cz
+References: <20261012-btrfs-remove-v1-space-cache-v4-0-f125bd8c07f9@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1353636830229kunm0bc94a6a525d
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGhhPVkgZGUweGhgfTBhOHVYVFA
-	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-btrfs-remove-v1-space-cache-v4-0-f125bd8c07f9@columbia.edu>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HAS_REPLYTO(0.30)[dsterba@suse.cz];
+	NEURAL_HAM_SHORT(-0.20)[-0.996];
+	MIME_GOOD(-0.10)[text/plain];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[msgid.link:url,imap1.dmz-prg2.suse.org:helo,suse.cz:replyto];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6]
 
-Compute the page's NUMA node in page_owner_next_eligible() while the
-page is still valid, and store it in scan->nid.
+On Mon, Oct 12, 2026 at 12:28:12PM -0400, Tal Zussman wrote:
+> Since commit 545e560a5b0f ("btrfs: disable v1 space cache") the mount
+> options can't select the v1 space cache anymore, but the code is all
+> still there, and a filesystem with an old cache and no free space tree
+> still enabled it from the superblock. Qu suggested removing it rather
+> than converting its page handling to folios [1].
+> 
+> Patch 1 fixes a pre-existing leak in the cleanup path, where a crash
+> before the delayed iput evicts a cache inode left it unreachable with
+> its link count still set.
+> 
+> Patch 2 stops enabling the cache from the on-disk state, so an existing
+> cache is cleaned up on the next read-write mount, as -o nospace_cache
+> already did. This is the one user-visible change: the cleanup is now
+> unconditional, and a read-write mount fails if it fails. There are two
+> ways to fix this failure:
+> 
+> 1. Convert to the free space tree during mount (the recommended
+>    conversion), but this could fail for the same reason.
+> 
+> 2. Run 'btrfs rescue clear-space-cache v1' on an unmounted filesystem.
+> 
+> Patches 3-7 remove the write path, 8 and 9 the load path and
+> disk_cache_state, and 10 and 11 the SPACE_CACHE flag and the unused
+> half of the cleanup helper. Patches 12-17 remove the trimming ranges
+> and the free space inode special cases in the write path, which only
+> the v1 writer used. Patch 18 removes TRANS_JOIN_NOLOCK, which the space
+> cache was the only user of.
+> 
+> What's left is what's needed to find and delete the cache inodes of an
+> existing filesystem:
+> 
+> 1. lookup_free_space_inode(), btrfs_remove_free_space_inode(), and
+>    btrfs_cleanup_free_space_cache_v1(), which runs on the first
+>    read-write mount and zeroes cache_generation in the super block.
+> 
+> 2. btrfs_truncate_free_space_cache() and delete_v1_space_cache(), which
+>    relocation uses to get a cache inode's extents out of a block group.
+> 
+> 3. btrfs_is_free_space_inode(), for the evict and inode update paths.
+> 
+> 4. The on-disk definitions: cache_generation in the super block,
+>    BTRFS_FREE_SPACE_OBJECTID, and the free space header and entry
+>    items.
+> 
+> space_cache and space_cache=v1 still fall back to nospace_cache with a
+> warning.
+> 
+> This also removes the page-based I/O in the free space code.
+> btrfs_io_ctl used a struct page array and was one of the last users
+> of clear_page_dirty_for_io().
+> 
+> Tested with fstests (btrfs and generic quick groups), with and without
+> the free space tree, with no regressions against the base kernel.
+> Upgrading from a filesystem with an existing v1 cache written by a 6.8
+> kernel was also tested. The cache is removed on the first read-write
+> mount and on remount from read-only, and the resulting filesystem is
+> clean under btrfs check and still mountable by the old kernel.
+> 
+> Based on the misc-next commit in btrfs for-next (a5c77fde6730).
+> 
+> [1] https://lore.kernel.org/linux-btrfs/e1dd5a75-9a67-4bc6-b8d8-bfff79b5b907@suse.com/
+> 
+> ---
+> Changes in v4:
+> - Patch 1 (new): Write the zero link count when removing a free space
+>   inode, so an interrupted cleanup can't leak it.
+> - Patch 2: Clear FREE_SPACE_TREE in btrfs_reconfigure() whenever the
+>   free space tree is not on disk, so a remount that only warns about
+>   the free space tree no longer leaves the option set, per Sashiko.
+> - Patch 2: Dropped review tag.
+> - Patch 16: Also drop the tree root check from the delalloc metadata
+>   release.
+> - Patch 18: Redo against the TRANS_* flag cleanups in for-next.
+> - Link to v3: https://patch.msgid.link/20260916-btrfs-remove-v1-space-cache-v3-0-10ebde03b96f@columbia.edu
 
-The debugfs nid filter reads scan->nid instead of recomputing it, and a
-BPF program iterating the cursor reads the node straight from scan->nid.
-
-Resolve nid at scan time to avoid dereferencing a possibly-unmapped page.
-Keep it in the transient scan cursor rather than struct page_owner, so
-nid does not add per-page memory overhead.
-
-Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
----
-Changes in v2:
-- Removes the v1 get_nid() kfunc. The node is now stored in scan->nid.
-
-v1: https://lore.kernel.org/linux-mm/20261009112308.240769-5-zhen.ni@easystack.cn/
----
- mm/page_owner.c      | 28 ++++++++++++++++------------
- mm/page_owner.h      |  1 +
- mm/page_owner_iter.c |  5 ++++-
- 3 files changed, 21 insertions(+), 13 deletions(-)
-
-diff --git a/mm/page_owner.c b/mm/page_owner.c
-index 617346a4ab22..113e4e7e0b3a 100644
---- a/mm/page_owner.c
-+++ b/mm/page_owner.c
-@@ -711,6 +711,19 @@ void __dump_page_owner(const struct page *page)
- 	page_ext_put(page_ext);
- }
- 
-+/*
-+ * NUMA node of @page, bypassing PF_POISONED_CHECK() in page_to_nid() to
-+ * avoid VM_BUG_ON on poisoned pages; -1 for poisoned pages.
-+ */
-+static int page_owner_get_nid(struct page *page)
-+{
-+	memdesc_flags_t page_flags = READ_ONCE(page->flags);
-+
-+	if (page_flags.f == PAGE_POISON_PATTERN)
-+		return -1;
-+	return memdesc_nid(&page_flags);
-+}
-+
- /*
-  * Advance @scan to the next page eligible for page_owner output.
-  * On a hit, fill scan->pfn/page/po_snap and return true; the caller
-@@ -782,6 +795,7 @@ bool page_owner_next_eligible(struct page_owner_scan *scan)
- 		if (!scan->po_snap.handle)
- 			goto ext_put_continue;
- 
-+		scan->nid = page_owner_get_nid(page);
- 		page_ext_put(page_ext);
- 		return true;
- 
-@@ -810,18 +824,8 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 	/* Find an allocated page */
- 	while (page_owner_next_eligible(&scan)) {
- 		if (state->nid_filter_enabled) {
--			int nid;
--			memdesc_flags_t page_flags =
--				READ_ONCE(scan.page->flags);
--
--			/*
--			 * Bypass PF_POISONED_CHECK() in page_to_nid() to avoid
--			 * VM_BUG_ON when accessing poisoned pages.
--			 */
--			if (page_flags.f == PAGE_POISON_PATTERN)
--				goto skip_continue;
--			nid = memdesc_nid(&page_flags);
--			if (!node_isset(nid, state->nid_filter))
-+			if (scan.nid < 0 ||
-+			    !node_isset(scan.nid, state->nid_filter))
- 				goto skip_continue;
- 		}
- 
-diff --git a/mm/page_owner.h b/mm/page_owner.h
-index fda83be69275..e8e52d22abed 100644
---- a/mm/page_owner.h
-+++ b/mm/page_owner.h
-@@ -36,6 +36,7 @@ struct page_owner_scan {
- 	unsigned long pfn;
- 	struct page *page;
- 	struct page_owner po_snap;
-+	int nid;
- };
- 
- bool page_owner_next_eligible(struct page_owner_scan *scan);
-diff --git a/mm/page_owner_iter.c b/mm/page_owner_iter.c
-index ac7e69ba0cef..a2b90c874852 100644
---- a/mm/page_owner_iter.c
-+++ b/mm/page_owner_iter.c
-@@ -13,10 +13,12 @@ struct bpf_iter__page_owner {
- 	__bpf_md_ptr(struct page *, page);
- 	__bpf_md_ptr(struct page_owner *, po);
- 	u64 pfn;
-+	int nid;
- };
- 
- DEFINE_BPF_ITER_FUNC(page_owner, struct bpf_iter_meta *meta,
--		     struct page *page, struct page_owner *po, u64 pfn)
-+		     struct page *page, struct page_owner *po, u64 pfn,
-+		     int nid)
- 
- static void *page_owner_seq_start(struct seq_file *seq, loff_t *posp)
- {
-@@ -54,6 +56,7 @@ static int page_owner_prog_seq_show(struct bpf_prog *prog,
- 		/* @po: hit-time snapshot, no RCU window needed. */
- 		ctx.po = &scan->po_snap;
- 		ctx.pfn = scan->pfn;
-+		ctx.nid = scan->nid;
- 	}
- 
- 	return bpf_iter_run_prog(prog, &ctx);
--- 
-2.20.1
-
+Thanks, unfortunatelly this did not make it into the 7.4 pull as the
+freeze was yesterday and I was not able to process the v3 last week.
+The v4 still has some issues reported by sashiko. It could be still
+possible to send that separately as 2nd pull to 7.4 because the code has
+been in linux-next, small fixups would be possible, and it's code
+removal.
