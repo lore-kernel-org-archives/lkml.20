@@ -1,42 +1,41 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE0B563FAA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF5F563FAB;
 	Tue, 13 Oct 2026 22:52:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791931936; cv=none; b=UeiFKTdZ7CSQV+KFyd+Ccy3RLbeVQqHc5Jj3f46tDYf3kZlXh3Ff7OsYADrpzP2a9Qzqa1TL89HkuYAcmsIhKbmxlyCRx12SfrCvh52YpXr/eePZ5bVI+iawjZC7pluIMRGg8DeAFv7ncr2rWMI6DCD7RCCumLOvB0WW3x6c9vM=
+	t=1791931938; cv=none; b=LGxauu11QL1Ox4419hdc94cPiVHEKC9rSOOzpLX0jon/W9HFsooYWtlyOwBPvdhMzclpKckCrdJv3ypeWxk9KxFaUcoJzbRXLRjfdaZ/2yiySpiTZS4EKJlibCi/VSstVT7nhCcwxBEvvwjAb17DHJf/DEGAmyQgBy9EPx9ix+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791931936; c=relaxed/simple;
-	bh=dbYuYcmwWQ0Rwvy6m5XUxd+zzK5ANGcRgXEHBixh4O0=;
+	s=arc-20240116; t=1791931938; c=relaxed/simple;
+	bh=KiRqqrlaf8HazlzQcUHaYydMUHKelMqz701+av4CyKA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NAZjh1pNVB9JUxJiK0N2GuFECkK3fZxPTpDW1nB0MU8JuO4uvB1qkQApPg3DZfP83W7Uo+pxx+ZpzQ5J7jcjKsdSoEGxl8n3Soyd2DJP1u4PgTT821mtpL1l9EmwmrfKEfXvD7MGN1kg2ukwP+uFd3PdLhsYZWCVEzPrIAnnj54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=WYY2kXW7; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=uR7N5EZlTIvmp/lDjrexfz7msx/FnhlZHLGLLl69tqk58bhuoDOu76qWtROBu25Zg6P4Z+FFBxAmXBoLp1YSY0HS044QfMFUi/eUZj+Deui33Z8vzK+3DEBSVeWnLg1DP7+mvEa4wTABhjZek+4NoTmhhrkGegGXEN/gk9hWUkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=fMZN61Cs; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="WYY2kXW7"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="fMZN61Cs"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791931918;
-	bh=dbYuYcmwWQ0Rwvy6m5XUxd+zzK5ANGcRgXEHBixh4O0=;
+	s=mail; t=1791931917;
+	bh=KiRqqrlaf8HazlzQcUHaYydMUHKelMqz701+av4CyKA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=WYY2kXW7I/2TbIG3X6zK7WLe7rJ3GlD+ZbNj9xcEDCg9s4qyB+g0eY7KcjyzZpzro
-	 uiMFXEDCjSXPhf0uO1td8t/sjWDYnZ+akEduPmWie8EgoDFLzGkcdA6784nt77dGbS
-	 NZmiTNnt+6r/D1BcQhotpw4lYE0M25l1X0Ru8rN/FCWlA/5YIUxGB3zDddSwYb6WVk
-	 uLK+P+gAAjmh1uspennkyGKXxBVf7JAcEf+tIuFkJEwGC8/SZ/o15VBBgUUgFEKmg0
-	 erUuDjHLVPKWdybKrKJUIsXrxLJzcjr0Qnw7AVXDJW+oVfdM7Qa6z5JZpxmpaGXF29
-	 bdFsblqkVrJoQ==
+	b=fMZN61CsPtxfilKjKFZHI1ApDChIuDnDGWKYRnFxrf/2r/O4toGECNBnKzAMoNJt0
+	 S/4nxzwjhldCg6CyED18/0YZRIY1h7XqZThvzGrPSNNrM6Iwf9l4AxVT4uQ+9gHUoU
+	 ergJqUBoNf7VdtaCp8mm0bG/yE+RdyI5LvNbW5EbCX54uSXJvQLrUDrNyn8tb0nIbe
+	 FQZIILAqdaHVnoigxm4qweXdNQYKyPziZOZDrDId2yg1EgprIMyQxoVluWUgE05W0G
+	 xwZGIUvJ2ATI+Abrf2Ak/PjA0JXFIKLG8H8kRLiP63WFHVXRzuPljBZQ9wZew0AvDY
+	 gtnszGRmGyEIQ==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 605D217E14EF;
-	Wed, 14 Oct 2026 00:51:58 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A999F17E12B9;
+	Wed, 14 Oct 2026 00:51:57 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 14 Oct 2026 01:51:28 +0300
-Subject: [PATCH v5 11/15] drm/bridge: dw-hdmi-qp: Log resolution and
- refresh rate in atomic_enable()
+Date: Wed, 14 Oct 2026 01:51:27 +0300
+Subject: [PATCH v5 10/15] drm/rockchip: vop2: Switch to enum vop_csc_format
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +44,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-dw-hdmi-qp-yuv-v5-11-6fab0fe43a9b@collabora.com>
+Message-Id: <20261014-dw-hdmi-qp-yuv-v5-10-6fab0fe43a9b@collabora.com>
 References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
 In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -71,60 +70,52 @@ Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
  linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 
-The debug entry in the HDMI branch of dw_hdmi_qp_bridge_atomic_enable()
-previously printed the literal string 'HDMI' as the mode field, giving
-no information about the actual display timing being configured.
+Improve code readability in vop2_setup_csc_mode() by using enum
+vop_csc_format for the csc_mode variable, as well as for the return type
+of the vop2_convert_csc_mode() helper, which already returns CSC_*
+enumerators.
 
-Extend it to include the active resolution and refresh rate by
-retrieving the CRTC mode from the incoming atomic state:
-
-  dw_hdmi_qp_bridge_atomic_enable mode=HDMI:1920x1080@50Hz fmt=RGB rate=185625000 bpc=10
-
-This makes the log line self-contained and directly useful when
-debugging mode-setting issues, format negotiation, or TMDS rate
-mismatches without having to cross-reference a separate mode dump.
+While at it, replace the nonsensical 'csc_mode = false' assignment in
+the no-conversion branch with the equivalent CSC_BT601L, which carries
+the same value (0) but is type-correct.
 
 Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index b268c9376087..c6551f4cbf93 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -539,6 +539,8 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index 45f3acbfa634..1b0f72958763 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -648,7 +648,7 @@ static void vop2_setup_scale(struct vop2 *vop2, const struct vop2_win *win,
+ 	}
+ }
+ 
+-static int vop2_convert_csc_mode(int csc_mode)
++static enum vop_csc_format vop2_convert_csc_mode(int csc_mode)
  {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 	struct drm_connector_state *conn_state;
-+	const struct drm_display_mode *mode;
-+	struct drm_crtc_state *crtc_state;
- 	struct drm_connector *connector;
- 	unsigned int op_mode;
- 	int ret;
-@@ -552,6 +554,9 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		return;
+ 	switch (csc_mode) {
+ 	case V4L2_COLORSPACE_SMPTE170M:
+@@ -711,7 +711,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
+ 	int input_csc = V4L2_COLORSPACE_DEFAULT;
+ 	int output_csc = vcstate->color_space;
+ 	bool r2y_en, y2r_en;
+-	int csc_mode;
++	enum vop_csc_format csc_mode;
  
- 	if (connector->display_info.is_hdmi) {
-+		crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-+		mode = &crtc_state->mode;
-+
- 		op_mode = 0;
- 		hdmi->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
+ 	if (is_input_yuv && !is_output_yuv) {
+ 		y2r_en = true;
+@@ -724,7 +724,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
+ 	} else {
+ 		y2r_en = false;
+ 		r2y_en = false;
+-		csc_mode = false;
++		csc_mode = CSC_BT601L;
+ 	}
  
-@@ -559,7 +564,10 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		if (ret)
- 			dev_warn(hdmi->dev, "Failed to enable scrambling: %d\n", ret);
- 
--		dev_dbg(hdmi->dev, "%s mode=HDMI %s rate=%llu bpc=%u scramb=%d\n", __func__,
-+		dev_dbg(hdmi->dev,
-+			"%s mode=HDMI:%ux%u@%uHz fmt=%s rate=%llu bpc=%u scramb=%d\n",
-+			__func__, mode->hdisplay, mode->vdisplay,
-+			drm_mode_vrefresh(mode),
- 			drm_hdmi_connector_get_output_format_name(conn_state->hdmi.output_format),
- 			conn_state->hdmi.tmds_char_rate, conn_state->hdmi.output_bpc,
- 			connector->hdmi.scrambler_enabled);
+ 	vop2_win_write(win, VOP2_WIN_Y2R_EN, y2r_en);
 
 -- 
 2.55.0
