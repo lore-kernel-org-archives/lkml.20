@@ -1,125 +1,80 @@
-Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4504FDA47
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:00:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CE95013A1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896435; cv=none; b=I954W5YJAyih0SNM58OWARRfva+326VEtUo6dMa17VvYSLPETL6MQ0CIr/1PLceyQqeVNs+aEtxjGxbn58yGSDCZDskJYcItcYbHeAjeY6Lx8BJFF5rkjLDucN++zG88393YF8aAbn0KXhBhc7sDQahWRBNjOhqWBAon9s54XVs=
+	t=1791896440; cv=none; b=F40zq4h/tLk+S8J3QgQSzRqm3xYu7gRcTz1AZXJyvWvFCMe7l0N/cqtoqiPTQ8dtgT39wT+BHBspf+bW9q6I/8Kvjv2kyoioS1U/8J9VSAwlaNzFEtIQxRzn5Cbg0IKVSPlobXDI5KwvTlrjYlnvJmh9+74X5ixk2QDlalxLxw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896435; c=relaxed/simple;
-	bh=7im7GL/ZuwtN87J645EONyNtIwr363HuDNTFxRo4AJc=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=UO9wnrevp0VjPRwAUT+6Fbs7OLZCIxrIaR5t9p4DrXbxu7BKHlTPQwsvtGH7QOXbiMBNKPfREaRmoxlvXfqyB4pMtt9KnKXg/d6ityI0ro59uVpyoPlQ0uOPmi9puyO7ilUcbXtRyhOi/9w1P+WbwQg/0ZJoEPRorqI6bpZpwaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sorah.jp; spf=pass smtp.mailfrom=sorah.jp; dkim=pass (2048-bit key) header.d=sorah.jp header.i=@sorah.jp header.b=YikTtiTO; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ir0qH2Z5; arc=none smtp.client-ip=103.168.172.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sorah.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sorah.jp
+	s=arc-20240116; t=1791896440; c=relaxed/simple;
+	bh=CDEZnZFYpuffzPq3yVbIulrNbfblS4pwlFeEeefac3s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=t+SFYXDh/CyArMtUGf1po7vfKNvGlah7pCJvJfyOlOoDWA2b64LZQ727ey6uxdchIXuCruO0a4BeJg6ZZRGKEbyVJMo4Fixsf3pZWcs9MZB9p2HGYZg2PPE0b1vwsH211L/UH9zmVDrWfatIsrpulWJ9NsKloqmaIUd0cHT2f1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=FrnXINfp; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sorah.jp header.i=@sorah.jp header.b="YikTtiTO";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ir0qH2Z5"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id 8D403EC0528
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:00:33 -0400 (EDT)
-Received: from phl-imap-06 ([10.202.2.83])
-  by phl-compute-03.internal (MEProxy); Tue, 13 Oct 2026 09:00:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sorah.jp; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1791896433;
-	 x=1791982833; bh=7im7GL/ZuwtN87J645EONyNtIwr363HuDNTFxRo4AJc=; b=
-	YikTtiTOlomhwPlifj+n7hB+iPybhdqYGV4LXi7wOnnNE/7zTuQ00/ZysHlQX1jV
-	IGmriYqmKCY/XCUZJC+/EUdOEJVB9bC6AphUGmZ4JyqrgtswLQ8hjHy3x04skZoj
-	jdhDicurMouZ5QuFz+VnGUjgu1HSMSQa7e7yRtnqeC3GfcbrFQTIfiwwBq2veu42
-	OpS9PPd0rmiXAPQ6hwFWOumMZz7PXEgn1qJuIk0uuCKOvJ2XAdrFQ9AbE7EWHl97
-	Zqc31Fm1A9fwgIsp2nJeanvs/JkR2ZYIYlR9O7SzekfZiJtjSt8UqCT99gzdV/Xu
-	Hqe4edgBtwNbS6RUKWz/gg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791896433; x=
-	1791982833; bh=7im7GL/ZuwtN87J645EONyNtIwr363HuDNTFxRo4AJc=; b=I
-	r0qH2Z5ezbbIDDbIU1axYfsaJc6eIDcL+ySSfyTypWKWMGxRJ3q5nDOoT9kqKTHO
-	AATVBTu6btx0F8jvwXWo06AP/wqm0mC7vVZnJQ58RgLq9+Du0+xkiNuk+yPMUnjo
-	S8rWD4/uPy3+IYjyuuPWOKzB+acrhWUy1er1bW/fpgxxC/rQKNtnCNjaPgSsXvlv
-	7vqfzBQCneQUB2sJUxtPUixQwg3CYavkP8N19XsOUy48xqz4VBXFny+Qjyf4Ztpv
-	qZkW6WJZli5Yn19eJhIEOv0T4y1ENVcGRjGBu2AVI8bbmz2n7P+DNJ6JJ7aEL1b5
-	H3ujtaXKDS9nrSi7BKsiw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=sorah.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791896433; d=sorah.jp;
-	mf=PGhlckBzb3JhaC5qcD4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:Tva6SOdDx+LTVO9VctPPz31UMiKeoGAb0f+9fNSwtZYP2SS
-	CSbyKB3IssNrdrqdg3VbEzS/9go55uQW4GAOk75avhBj1vmzCxFuuRlaf1LQKfG8
-	RAVwC9nmYuGHC/NSksOp79wMdXtjYwgZX3E4UnD5CKju/TCrBM+O4Rl4j+dNv7Fq
-	3xMYDZ74TNjEMza2kN8iovMCgICkmN1+SykO5vWBgZVhilJgn/361TEqPgwL4Lf3
-	V/DgcTNxpTAszK8t20FbcgonNnI6wRxgbKlBR7j8YcG8XcTTHTw6Ls1rhB6M8kc3
-	bPI0uOxS003lISwCp0mlqeR88ffbp8XIo1G1NYQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:LdqfKRARqjrBC/drbbphWpVwD4eI14jOal3Emb3AOHY=:7im7GL/ZuwtN87J645EONyNtIwr363HuDNTFxRo4AJc=;
-X-ME-Sender: <xms:cSvOapay0GSvqIL8FQqkytNCi__41XQLStcQd6fVsaHHhnoGno22fQ>
-    <xme:cSvOarOhJf-kEIA9Lrx03Uwgsfuk4kN-VLFlkBY-jv7RD56aheK27R842YSgLBJd1
-    axTqm3dkQEnmUCdIkR1RrJSFcPkEMpzH1ZuGufb-TEu4468f1mDkUuT>
-X-ME-Proxy-Cause: dmFkZTGSCXnbkU/HlcSBjM1SuyLFeN+/tBDJ1iapM8v6UdkCCaXm15kd62CM8Mv59B6wXZ
-    7PxwBMqQKZ7Srme/q3YRzlx1hpBxJuOUV89JNyG+u2Gvz5yprMQR4B5bowBC+hg6qTuBfi
-    cyga2MWJxmfLOEk5V0KBCFCMxoRySmqzC0/mY8G4rDUJxTnIXdMIn3b+JtuEafIsPIfWhf
-    lsAl/k/6CaF0fqgY62gbVuyTh5DUi7xTIBHH26+nOt38LxEq4EDeZlJIiIifXuYmSiONsJ
-    EzPlQSO/YvIKMmqLUtzIYB0sQIg09nh3FcjdcJ6yCwpxXEMDWg3OBTRPYA4kznWRzpP8dP
-    iexvKDWWgC1YjgYfk5ruXkg6hjmua6FRrW+i+g/y+Tqdz/AXyUf9PD1fGjLB8sul7cuhqY
-    J3+RSRYBlL8RZnqY7cLGSnyDVzd+maxtTV35U8oZ0Xk/xZz8oXdILdY3gG7bU9Ft267Khd
-    VoLfP3B9KLC3VAV2cWQt02WSEYUD9ufsDAg8DCbv1rZwsT9fhwl0P5lXpsf7yGLI8/aqLq
-    kg0lR6lQKYtV3lff7hLhK2LqIFRq0aMG2d6dtthNbhuhP1Rmup7e+J02jWfEq7VsIZdU6w
-    r0RhIt13fLzPwt6XZIcR1IadPgADAjm/+n6LHV1koD4fEkMlHa1A9dt4ZlXw
-X-ME-Proxy: <xmx:cSvOai8yVLyT6O4_LPZLNeKxpsUotgVaceCgqPk9eXf0LemZfIjCGA>
-    <xmx:cSvOaulqKNFfZrjv7hnGTUrY8MhfKJcm53QRrAVrCOhdtYTq3fs3OQ>
-    <xmx:cSvOalD22cplVjEy99e7UhMc5HAtjf8gTT8P1bZo1JRbAMmrRGkpbg>
-    <xmx:cSvOavUqC2EA1wpIN3G1p1MrVVXzZI37g1A5jQ4dRGz8tLp5TY6bvA>
-    <xmx:cSvOahPAuMKsPkzSjw9Fujs9TIMhpmv02I-Uny-3intVikE5xhJqUiIx>
-Feedback-ID: i0449494e:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id EB861240009B; Tue, 13 Oct 2026 09:00:32 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="FrnXINfp"
+Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261013130034epoutp04bc149a2793268cf8c477ae5a09272f39~eGFBHGqVC1899018990epoutp04V
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:00:34 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261013130034epoutp04bc149a2793268cf8c477ae5a09272f39~eGFBHGqVC1899018990epoutp04V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791896434;
+	bh=CDEZnZFYpuffzPq3yVbIulrNbfblS4pwlFeEeefac3s=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=FrnXINfpsmzFR60SEEZ+Ifmg51zWVer0rh+6K11bq9DZ89iJWBt1p+jVQ+Wivj/iK
+	 hWNftO2X9lrBfGeDB1mXucnzR5DQiaAMmiRczjJWr33juaHgjoGcT3Hxukme03jeDc
+	 9DfGapZIT1y6d0dMEnAgDCQIxfBrBZNCNk5JFYVg=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261013130034epcas5p21afebfcd95e6f4718230475486d5b6e3~eGFApo0__1130811308epcas5p2X;
+	Tue, 13 Oct 2026 13:00:34 +0000 (GMT)
+Received: from epcas5p1.samsung.com (unknown [182.195.38.94]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4j3vZn2G3sz6B9m9; Tue, 13 Oct
+	2026 13:00:33 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261013130032epcas5p4f27978a49d4f5f169affa17d28ce8049~eGE-W2lUN0272202722epcas5p4K;
+	Tue, 13 Oct 2026 13:00:32 +0000 (GMT)
+Received: from [107.122.11.51] (unknown [107.122.11.51]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261013130031epsmtip13f0de6001ef3f2850768a03770582e27~eGE96Cykg1973519735epsmtip18;
+	Tue, 13 Oct 2026 13:00:31 +0000 (GMT)
+Message-ID: <8102549a-d440-4d37-8b0f-531a001e230e@samsung.com>
+Date: Tue, 13 Oct 2026 18:30:30 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AoXn1KR5sOKB
-Date: Tue, 13 Oct 2026 22:00:12 +0900
-From: "Sorah Fukumori" <her@sorah.jp>
-To: "Eric Dumazet" <edumazet@kernel.org>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, willemb@google.com,
- lixiaoyan@google.com, linux-kernel@vger.kernel.org
-Message-Id: <20f75d91-97fd-479d-b3f1-66eaaf493261@app.fastmail.com>
-In-Reply-To: 
- <CAL4WiirpDVzho606z1gt5=1=MFykgTC2CbqdAkxnngSvBYq_Qg@mail.gmail.com>
-References: <20261013102453.3272620-1-her@sorah.jp>
- <CAL4WiirpDVzho606z1gt5=1=MFykgTC2CbqdAkxnngSvBYq_Qg@mail.gmail.com>
-Subject: Re: [PATCH] net: gro: don't chain linear parts larger than gso_size into
- frag_list
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] nvme: bound FDP config log reads to the received
+ buffer
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>, Keith Busch
+	<kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig
+	<hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
+Cc: Nitesh Shetty <nj.shetty@samsung.com>, Hannes Reinecke <hare@suse.de>,
+	gliuxen@gmail.com, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Language: en-US
+From: Kanchan Joshi <joshi.k@samsung.com>
+In-Reply-To: <20261013102812.3020500-1-yhlee@isslab.korea.ac.kr>
 Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261013130032epcas5p4f27978a49d4f5f169affa17d28ce8049
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261013102825epcas5p38d2293e8e6c86a9142f6d24ba9fd371e
+References: <CGME20261013102825epcas5p38d2293e8e6c86a9142f6d24ba9fd371e@epcas5p3.samsung.com>
+	<20261013102812.3020500-1-yhlee@isslab.korea.ac.kr>
 
-Hi,
+On 10/13/2026 3:58 PM, Yehyeong Lee wrote:
+> A malicious or buggy controller triggers this during namespace scan with a
+> short FDP Configurations log:
 
-On Tue, 13 Oct 2026, at 8:03 PM, Eric Dumazet wrote:
-> It seems an XDP program with frags support in generic mode could
-> get there: skb_pp_cow_data() builds a head_frag skb with up to
-> about one page of linear data, the rest in page frags, and
-> skb_copy_header() keeps the GSO metadata. Two such 64KB packets
-> can not share a single frags[] array.
->
-> Have you tried this variant with your reproducer ?
-
-Thanks, I haven't. I tried to reproduce that variant under various gro_max_size/RPS configuration, but I couldn't repro on my qemu+veth based script.
-
-Will send out v2 with updated commit message soon, and sorry about missing `net` prefix in the subject, it will be included in v2.
+Reviewed-by: Kanchan Joshi <joshi.k@samsung.com>
