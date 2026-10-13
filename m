@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48CE566C40
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:30:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE49566C58
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:30:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791930642; cv=none; b=Uufwa1SlRScGni0emv4kc/uoyJfA1ltCFOdln1M77glc/3YODun+nDWFm/Y74zpV6jbllPyWMWKKMbMACYrdXbanyB+VBHoSwwz2L1GL6TInYhX+xfeMaNY51bAsXNN6D1d6ftQ3kn1gLF8izzPfLaI8HmIYn4I46UQjqfHYLUs=
+	t=1791930645; cv=none; b=QAM8bgdRNxOpJxFCy1oqxVCe9oYKMqLFhFLhhnr4OY02hR6fIhBeG/COXpGJF0ZUIZhrtpcWmK4XJ3sXKtB6ZT0N7a3PuALOwcYVn7p+6/qIzr0izu6djrMvURXsLuwvRwlQYik+I4ZZa6SIU6OUxhPKVb6z7/HnDBMzCWfj3QU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791930642; c=relaxed/simple;
-	bh=wDp1JNP8ADAdhsF6p7n3+olM6bZ7UvasoEXrJqv0OF4=;
+	s=arc-20240116; t=1791930645; c=relaxed/simple;
+	bh=OLznSpKYYKtq+uswuS8EmPmzPfhpJDcG2SC63HLhgyI=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=mzB6qWXYCCWl2zhlXPzd11PHN5EQ5AcYUb8ilvhoWNo8rFnW9DDFJ414vQkCVi1+dxjfADu2BuPMOGqz1NOWhNqI66rM+Ad5gm/lyr1Iu11gzpOF+7sDUErZA9shC6mGeIG8n29UGTU/7Jb+U1pRKhfJf+QHLxnHnA0hroxiH+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dyPmGJvk; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=JB5cMV+dS84qURJ4t3spNxHk8RMFajpMSCj7TEjlBgWBv9Cvb9CzK3CFZm2V+dicy1DRAghHVxFWwbbxTRkfuiWrNdPLuhOqqsMHcEVUviZLKURwQ+9zmsgYCJn7coRxn7KMf5F9UPMu/g9cT+fQ6f5Ntc15CTXTjLd8SoYYe2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EtY6kmjF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dyPmGJvk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 051B31F00893;
-	Tue, 13 Oct 2026 22:30:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EtY6kmjF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 084701F00898;
+	Tue, 13 Oct 2026 22:30:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791930638;
-	bh=uvj3O9c6RosAT0UyjB/2k5GJbzbN2n4aQ6TJnnls2VE=;
+	s=k20260515; t=1791930641;
+	bh=f1czPV9+k4BQL3W+Fs+3/RCZKEfLsAG7rN8tKFHt6wI=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=dyPmGJvkm70vJ23ZkLEA1xpCjBq7aSkis9VL7DV8yX4RyhZXQ5j9xmaCag9TMVzy2
-	 CkS8VMwWNKtl1UTwEpqU6L15z20S/VK5gsXe5ZW+06on1Ukmk54KSapKUSzC/jXjlC
-	 Vnmrl79cf45pUEe8ab4aoQz5DcNMa+bCHNzwG92AiAU3pKDSRvu35iPjKmeqCRLnq2
-	 h5WLDxqjY54W6pIn9dJdsIgNY2j5gJlZcoHsX8uoZ3lJhQE1tEpwf0o52L3Yuo484b
-	 0ud0Goh+nk56gbucxrRIPQuHrRrD/dmhR+4w0pldPpGN2pDkZC/VatFGDEJUIQnT8s
-	 A1bMcad7c9+vg==
+	b=EtY6kmjFl4N/vls9nr1d/gfmeNHK45rfyWH18WTIXQ+uzLlgJt03J47QWqz9Kcug4
+	 GsTEzh8sQP3zMvPhkpi6xldzj4i2pvIXP/WLdjCyyMxbLaHPnT1NRmtT1NTGSL6ecP
+	 vVVbqfSJsEW/EXtBR/80+7xrpAxu4iPmPwbjA+t/6ByqF+0lCRqVYMLLlEnYYFOCvF
+	 Zv/KI6fs7qt4NG+4MfM4GFlQvhIAI5II+sTBRxWYOAS+f1TZdlZqwFJzhM1iYMr1C8
+	 oRiq2yNK8KsSy5CcclSt4SDv9EaA+EDRZQkiokzXrRM9xw5HJsh7J+ptZmpnmydhLR
+	 H4F83aLaDrJNw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F151439E4DBA;
-	Tue, 13 Oct 2026 22:30:37 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F141139E4DBA;
+	Tue, 13 Oct 2026 22:30:40 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,16 +37,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH] f2fs: check every cur_*_segno[] entry on
- readonly images
+Subject: Re: [f2fs-dev] [PATCH] f2fs: fix to set sbi->log_blocksize in advance
 From: patchwork-bot+f2fs@kernel.org
 Message-Id: 
- <179193063651.1493834.5827058831537711621.git-patchwork-notify@kernel.org>
-Date: Tue, 13 Oct 2026 22:30:36 +0000
-References: <20260918165507.1267942-1-kaixuanli0131@gmail.com>
-In-Reply-To: <20260918165507.1267942-1-kaixuanli0131@gmail.com>
-To: Kaixuan Li <kaixuanli0131@gmail.com>
-Cc: jaegeuk@kernel.org, chao@kernel.org, linux-kernel@vger.kernel.org,
+ <179193063951.1493834.17396004482002929582.git-patchwork-notify@kernel.org>
+Date: Tue, 13 Oct 2026 22:30:39 +0000
+References: <20261001000450.3822520-1-chao@kernel.org>
+In-Reply-To: <20261001000450.3822520-1-chao@kernel.org>
+To: Chao Yu <chao@kernel.org>
+Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+dfcbc1741488709db4b2@syzkaller.appspotmail.com,
  linux-f2fs-devel@lists.sourceforge.net
 
 Hello:
@@ -54,22 +54,31 @@ Hello:
 This patch was applied to jaegeuk/f2fs.git (dev)
 by Jaegeuk Kim <jaegeuk@kernel.org>:
 
-On Sat, 19 Sep 2026 00:55:07 +0800 you wrote:
-> sanity_check_ckpt() bounds-checks cur_node_segno[] and cur_data_segno[]
-> against main_segs, but on an image with the RO feature the goto that skips
-> the duplicate-segno cross-checks also leaves the enclosing loop, so only
-> index 0 of each array is ever checked.
+On Thu,  1 Oct 2026 00:04:50 +0000 you wrote:
+> From: Chao Yu <chao@kernel.org>
 > 
-> An unchecked index reaches __set_sit_entry_type() through build_curseg() ->
-> reset_curseg(), which writes se->type through &sit_i->sentries[segno]. With
-> segment_count_main 120 and cur_data_segno[1] set to 200, KASAN reports
-> three out-of-bounds writes during mount and the mount then succeeds.
+> syzbot reported a shift-out-of-bounds in __f2fs_commit_super():
+> 
+> UBSAN: shift-out-of-bounds in fs/f2fs/super.c:3950:27
+> shift exponent 4294967287 is too large for 64-bit type 'sector_t'
+> (aka 'unsigned long long')
+> CPU: 1 UID: 0 PID: 5622 Comm: syz-executor329 Not tainted
+> Call Trace:
+>  <TASK>
+>  dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+>  ubsan_epilogue+0xa/0x30 lib/ubsan.c:233
+>  __ubsan_handle_shift_out_of_bounds+0x36d/0x400 lib/ubsan.c:494
+>  __f2fs_commit_super+0x43e/0x4d0 fs/f2fs/super.c:3950
+>  sanity_check_area_boundary+0x7c5/0xe20 fs/f2fs/super.c:4040
+>  sanity_check_raw_super fs/f2fs/super.c:4215 [inline]
+>  read_raw_super_block fs/f2fs/super.c:4625 [inline]
+>  f2fs_fill_super+0x1920/0x7fa0 fs/f2fs/super.c:5160
 > 
 > [...]
 
 Here is the summary with links:
-  - [f2fs-dev] f2fs: check every cur_*_segno[] entry on readonly images
-    https://git.kernel.org/jaegeuk/f2fs/c/9c4ee79190c8
+  - [f2fs-dev] f2fs: fix to set sbi->log_blocksize in advance
+    https://git.kernel.org/jaegeuk/f2fs/c/63bb030f36b8
 
 You are awesome, thank you!
 -- 
