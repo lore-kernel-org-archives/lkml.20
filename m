@@ -1,159 +1,228 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013040.outbound.protection.outlook.com [52.101.72.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C3A4E36F8
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:34:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902064; cv=none; b=iKyWU4iICIPPo8zzYWXCHah05f5x5EPlPlaK1uQ3dvv98OiTtI/lMUloT+KEr9s8pAfmZMnld4BM6+h/e7/LfdTKHznpmDHcgxoCoD0fyHbgebNs2AUOMtpgUxD5ou/QaFELAbALRdQORcqjhat4DKla2TntWP4QjXZ5h86BrUg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902064; c=relaxed/simple;
-	bh=epQdanmIbBSQQyUyr4wJmA1U07a04RykgIxTcxuNy0o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DPy1grOIVg+B2xux4p6DjyV6tQyf9JZd/wg14hdfYfphuUA7oK9HYpGXP4whct3qcD1eHwhpzirEV6OSirhEbA/JvNTCuJoWMGPfhbBiqf3PpDkXErgf/LM5w/3ayvjfgPAWWik2bZ0EFVpO3M1kuXcTb9aT0JbQ1UjWHChybA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=E0qAuIqp; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D5D5187F8;
+	Tue, 13 Oct 2026 14:34:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791902065; cv=fail; b=ChhgPfdu/nylDVbXkI4w5fgkLw05jA02ZZ0yovoornxPkQJiEKWfcURzDxquLAvQH2JSmlYczTXCt3lkMlRZ59ZAkREoOFQaLsWfoZvEdMJxJYmAETXGPLv/RgOe3VECYWiOAzdhDGsa1iVZ+zU1+2qCjCzWtlP7iIIW/EDx+NI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791902065; c=relaxed/simple;
+	bh=0WBMtUnOoD6gW0h6mokJUx+7CpXa+Cn65KX8FKMAb+w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=eLO0XO/hbqGi7JePcbRPRD83xsL2mLDuDQjx48aAXl7mBeHujiZat1I/NrQ/WVExpY6YemAsWkoFoF/VbLpdoSHNyyRHqxii12OsPEbBXx+uTNePD4D62VzCnCStDMNduMz1wiumE4EKhoGL0zeKnfONRbpexUt+XPPEPYj9W54=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=IL2OKT7z reason="signature verification failed"; arc=fail smtp.client-ip=52.101.72.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="E0qAuIqp"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso28388645e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:34:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791902061; x=1792506861; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wXreF/I8cRdQC4jDdNM5mdo3jIec5dd48MtOjybNLvg=;
-        b=E0qAuIqpuBd4k4pqxOz/MPUVsQV8p8WQS48ABHctnpWQL7iMXWOM80LwfLj2cm20Se
-         eJ9/eJqy4FTAqXL++y7sKhvoFDBALNk10JmI2kXr40pAvXYWQxLe0ZzaVmwaAi5Jo4xD
-         y3avJ731pdqtZoB3ufZHoc1zOHiYtYsxDspFtcig9LKgbgUPc4UyzxM4zgAjKt8Ph02s
-         CcBBOMl/1AyyX+Pow8wJO8K8ORQ85aCvQhsGOaMitLPy3naWklXgq22TzDv6XE7XWTvk
-         Q5NNbEecr6rm7rYt0HQJq/hCb9oEJpJJvK15Cyii8MneYcKqp4lOPGwhsOAO0YWFVKE8
-         Ok8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791902061; x=1792506861;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wXreF/I8cRdQC4jDdNM5mdo3jIec5dd48MtOjybNLvg=;
-        b=k+uvL032bt2kGbokp9fqVcKw4wJDfr0aqghyv32UkXCCDSUERaqFbti7LQ8Gf7hewQ
-         jLMzcUt9rsirDV/JVwBxHfchC8Dtahv2/iE1P0sDT8lxMuCGE3N4vC+pZN15IUhqUnv3
-         jNgkXpmXB3tJa1zFa9+fyr88yw+p6BKyxxEXz8oqzcpUTkxO+OU2zEMj0jZlmTj0svUK
-         n8gQAX0XPRepQgarcE3V/ma6vR7SaE3aWR7tnyPDRBtPDwLsD7JyDT24kqvSt7ElOLgP
-         CX5dw+WjqUujdWwI47tb1mVqpWqtL9eAONFdm5RosKoKIHqSZ3nWl7sM/jqzUJ9nWzNQ
-         OfJA==
-X-Forwarded-Encrypted: i=1; AKwUvBy+u66cNHZuSp93h5JTXO2Mz+r/Sap+qQwRZm52i9UUFZbQHqc+5hHtMDGoIAmUtLg/MZf5Ww9diwzqIS0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5K1fvEL6tqC+omuFnm4bLF6pm8jUM4ZhQueqwqDy5lnjidOT+
-	3rY2ZetwUJlzQYdP/KQrw8OWbHVF1Is/OWOxrZLH/83LojmGSkSgYWRdIFSr4YjAOS8=
-X-Gm-Gg: AYBFou2qNPEBDY+jZnSiEsCFemszfnKKWfseRaUqSMm/eG/HLC7FRRZ5bHMEiRqcxIk
-	5SU/4pNJL8BqngLyTztrcAnWOR+JDzKqtXK87wZumOdnhMQ4UIY7Jzz4y76mLrx0r5RIto9qZlT
-	zB5U6LnQF++ebrTokv1DWTl3EC9Wj46oSXP807wihTuJDFYxs9KrTXuC8xEbC6M0X7w7jHj64ry
-	wTwmuRwaqu7juPwCECFGwFshaa7xuY8fqk4vetAdItuwiMEuAeJNpXSukrFBVdEWj0Y06HqSIm+
-	Ltv7/AVq84trjCK+flSjDOpxh0VUCEB4uJJMUQosXjWVjZoSVjETmfC7GOaEd3KgM0UVr7Q0Q5J
-	rYcltDsvJkEX2UP/ro4oeio/CpiSmOvodO6Fpn13Zeac5473helPFKfpHH7zlPT0hgUcT2L7zA2
-	w8DjxTDro/+WvRMSr24vX+B15c7mSmmm/FRBr0RH50ryOjku8188CNzRCd8Sl7nCJDnCvAG6Nsi
-	T+FpytcVtZgkZGwyfLG+Ulx
-X-Received: by 2002:a05:600c:870e:b0:4a1:6dca:51e3 with SMTP id 5b1f17b1804b1-4a18e4487ccmr250131675e9.3.1791902061229;
-        Tue, 13 Oct 2026 07:34:21 -0700 (PDT)
-Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c1e33d2sm519463945e9.0.2026.10.13.07.34.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 07:34:19 -0700 (PDT)
-Message-ID: <54846068-d545-4591-b850-2980ce57f40e@suse.com>
-Date: Tue, 13 Oct 2026 17:34:16 +0300
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="IL2OKT7z"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R0m9CnA2/GkSnUdvsYFm3L0YSdBNuLv+Ln0sjm71XFMu4S5iVp5tz3t3wvITtnIGdzcBBgELpDHa5fzepWbIr4bKJ7D7ia6aJoFNEUP0jO5VtGHsJhvJ7IXaZA4X/szLArpkvHXAsbzUcGfuG1WrwcX1y8tbiJcDzHiUKKYsebWLv9a0a35ttWjakbNg1v7yGbiiOS/Z68WOVtPmyB93uPFRV1+henC4nT7vTNHDT1aTzLnPR+4ANwtcejnunB5tRzzcoP8Ts0Bx/n46iSqj6PworEfLBrPiRmJvOyEOz6JiGzZUEwNynJkm5PSKfA3gcoRtSRXMA0Onz74HkptwPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Zv/6YMR3V87TlB+IHfICERyLlEUcLohIbEarFOwu/KY=;
+ b=fZ4N1xEiNhqEHJpxixn2DuArhW083vwNHs9WDWkINs7mwJoGVS+w1FRqNuT1IyL78rZswmwSelDalM5As4zav89oFcHhrU4Ra9BcZKnJI3hIh0WJbmqyTa1vaIPxVrbE50Otcx9Qe6/jH0prkqHXLaU/+lZES31CFnP4r4icVGjwsNrZi0fPSkgOErRnWq5W14KUaDkW3ROVI56rcmP3kbjsn4RuU3446tnPciI8t8BCnZfC0uWJMTRYZN41M0ujkTOraW1PkTsBmYvcwVEKJtU8HX3aSbhVZ4eJuQSvPV7Pe3A3EQ/W/XzhW6tsIwKtWnShQAvpdkStrJ1ZNiVgVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Zv/6YMR3V87TlB+IHfICERyLlEUcLohIbEarFOwu/KY=;
+ b=IL2OKT7zBJvLCKhIjVP5EXarX2FGuhVyaR682FPkC+kHl407lWEYjw+ef2trcdYSmxmp486MRN4+/btM0XAnyjO+LllxuQgfkr+tzqqJdKG6EL7IX3wvlSIb7h2NAV4mXxjohyC652e7eU0kALjy0OILYI2NJXKpv7VFSbYD0M1u5waC4k7KYveTO6cv5Nyw4l4DerLTFWY5dxMJcvVikkRkPihhY5IHtLG8M1avHo9zrU+C4/JrujF46RqCvUSiDiLsx7vvXowqi6vRL2iz3ppR5klC8Ff/funYiCNEKlZfAJWZCZXnEyZ7HMXud7nHgA0mb73JOPCEDWO03bOpug==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM8PR04MB7444.eurprd04.prod.outlook.com (2603:10a6:20b:1de::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
+ 2026 14:34:20 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
+ 14:34:20 +0000
+Date: Tue, 13 Oct 2026 09:34:09 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	=?iso-8859-1?Q?S=F8ren?= Andersen <san@skov.dk>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v11 0/4] arm64: dts: imx8mp-skov: add new 7" variant
+Message-ID: <as5BYS-xnFY7WuCH@SMW015318>
+References: <20261013-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v11-0-b97ad841598b@pengutronix.de>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261013-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v11-0-b97ad841598b@pengutronix.de>
+X-ClientProxiedBy: PH7P220CA0155.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:33b::8) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 02/15] x86/tdx: Add TDCM hypercall wrapper for TDX
- Connect
-To: Zhenzhong Duan <zhenzhong.duan@intel.com>, x86@kernel.org,
- linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
-Cc: dave.hansen@linux.intel.com, tglx@kernel.org, mingo@redhat.com,
- bp@alien8.de, hpa@zytor.com, dave.hansen@intel.com, kas@kernel.org,
- rick.p.edgecombe@intel.com, jgg@nvidia.com, nicolinc@nvidia.com,
- aik@amd.com, aneesh.kumar@kernel.org, seanjc@google.com,
- pbonzini@redhat.com, yilun.xu@linux.intel.com, chao.gao@intel.com,
- vishal.l.verma@intel.com, xiaoyao.li@intel.com, kevin.tian@intel.com,
- chao.p.peng@intel.com
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-3-zhenzhong.duan@intel.com>
-From: Nikolay Borisov <nik.borisov@suse.com>
-Content-Language: en-US
-Autocrypt: addr=nik.borisov@suse.com; keydata=
- xsFNBGcrpvIBEAD5cAR5+qu30GnmPrK9veWX5RVzzbgtkk9C/EESHy9Yz0+HWgCVRoNyRQsZ
- 7DW7vE1KhioDLXjDmeu8/0A8u5nFMqv6d1Gt1lb7XzSAYw7uSWXLPEjFBtz9+fBJJLgbYU7G
- OpTKy6gRr6GaItZze+r04PGWjeyVUuHZuncTO7B2huxcwIk9tFtRX21gVSOOC96HcxSVVA7X
- N/LLM2EOL7kg4/yDWEhAdLQDChswhmdpHkp5g6ytj9TM8bNlq9I41hl/3cBEeAkxtb/eS5YR
- 88LBb/2FkcGnhxkGJPNB+4Siku7K8Mk2Y6elnkOctJcDvk29DajYbQnnW4nhfelZuLNupb1O
- M0912EvzOVI0dIVgR+xtosp66bYTOpX4Xb0fylED9kYGiuEAeoQZaDQ2eICDcHPiaLzh+6cc
- pkVTB0sXkWHUsPamtPum6/PgWLE9vGI5s+FaqBaqBYDKyvtJfLK4BdZng0Uc3ijycPs3bpbQ
- bOnK9LD8TYmYaeTenoNILQ7Ut54CCEXkP446skUMKrEo/HabvkykyWqWiIE/UlAYAx9+Ckho
- TT1d2QsmsAiYYWwjU8igXBecIbC0uRtF/cTfelNGrQwbICUT6kJjcOTpQDaVyIgRSlUMrlNZ
- XPVEQ6Zq3/aENA8ObhFxE5PLJPizJH6SC89BMKF3zg6SKx0qzQARAQABzSZOaWtvbGF5IEJv
- cmlzb3YgPG5pay5ib3Jpc292QHN1c2UuY29tPsLBkQQTAQoAOxYhBDuWB8EJLBUZCPjT3SRn
- XZEnyhfsBQJnK6byAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheAAAoJECRnXZEnyhfs
- XbIQAJxuUnelGdXbSbtovBNm+HF3LtT0XnZ0+DoR0DemUGuA1bZAlaOXGr5mvVbTgaoGUQIJ
- 3Ejx3UBEG7ZSJcfJobB34w1qHEDO0pN9orGIFT9Bic3lqhawD2r85QMcWwjsZH5FhyRx7P2o
- DTuUClLMO95GuHYQngBF2rHHl8QMJPVKsR18w4IWAhALpEApxa3luyV7pAAqKllfCNt7tmed
- uKmclf/Sz6qoP75CvEtRbfAOqYgG1Uk9A62C51iAPe35neMre3WGLsdgyMj4/15jPYi+tOUX
- Tc7AAWgc95LXyPJo8069MOU73htZmgH4OYy+S7f+ArXD7h8lTLT1niff2bCPi6eiAQq6b5CJ
- Ka4/27IiZo8tm1XjLYmoBmaCovqx5y5Xt2koibIWG3ZGD2I+qRwZ0UohKRH6kKVHGcrmCv0J
- YO8yIprxgoYmA7gq21BpTqw3D4+8xujn/6LgndLKmGESM1FuY3ymXgj5983eqaxicKpT9iq8
- /a1j31tms4azR7+6Dt8H4SagfN6VbJ0luPzobrrNFxUgpjR4ZyQQ++G7oSRdwjfIh1wuCF6/
- mDUNcb6/kA0JS9otiC3omfht47yQnvod+MxFk1lTNUu3hePJUwg1vT1te3vO5oln8lkUo9BU
- knlYpQ7QA2rDEKs+YWqUstr4pDtHzwQ6mo0rqP+zzsFNBGcrpvIBEADGYTFkNVttZkt6e7yA
- LNkv3Q39zQCt8qe7qkPdlj3CqygVXfw+h7GlcT9fuc4kd7YxFys4/Wd9icj9ZatGMwffONmi
- LnUotIq2N7+xvc4Xu76wv+QJpiuGEfCDB+VdZOmOzUPlmMkcJc/EDSH4qGogIYRu72uweKEq
- VfBI43PZIGpGJ7TjS3THX5WVI2YNSmuwqxnQF/iVqDtD2N72ObkBwIf9GnrOgxEyJ/SQq2R0
- g7hd6IYk7SOKt1a8ZGCN6hXXKzmM6gHRC8fyWeTqJcK4BKSdX8PzEuYmAJjSfx4w6DoxdK5/
- 9sVrNzaVgDHS0ThH/5kNkZ65KNR7K2nk45LT5Crjbg7w5/kKDY6/XiXDx7v/BOR/a+Ryo+lM
- MffN3XSnAex8cmIhNINl5Z8CAvDLUtItLcbDOv7hdXt6DSyb65CdyY8JwOt6CWno1tdjyDEG
- 5ANwVPYY878IFkOJLRTJuUd5ltybaSWjKIwjYJfIXuoyzE7OL63856MC/Os8PcLfY7vYY2LB
- cvKH1qOcs+an86DWX17+dkcKD/YLrpzwvRMur5+kTgVfXcC0TAl39N4YtaCKM/3ugAaVS1Mw
- MrbyGnGqVMqlCpjnpYREzapSk8XxbO2kYRsZQd8J9ei98OSqgPf8xM7NCULd/xaZLJUydql1
- JdSREId2C15jut21aQARAQABwsF2BBgBCgAgFiEEO5YHwQksFRkI+NPdJGddkSfKF+wFAmcr
- pvICGwwACgkQJGddkSfKF+xuuxAA4F9iQc61wvAOAidktv4Rztn4QKy8TAyGN3M8zYf/A5Zx
- VcGgX4J4MhRUoPQNrzmVlrrtE2KILHxQZx5eQyPgixPXri42oG5ePEXZoLU5GFRYSPjjTYmP
- ypyTPN7uoWLfw4TxJqWCGRLsjnkwvyN3R4161Dty4Uhzqp1IkNhl3ifTDYEvbnmHaNvlvvna
- 7+9jjEBDEFYDMuO/CA8UtoVQXjy5gtOhZZkEsptfwQYc+E9U99yxGofDul7xH41VdXGpIhUj
- 4wjd3IbgaCiHxxj/M9eM99ybu5asvHyMo3EFPkyWxZsBlUN/riFXGspG4sT0cwOUhG2ZnExv
- XXhOGKs/y3VGhjZeCDWZ+0ZQHPCL3HUebLxW49wwLxvXU6sLNfYnTJxdqn58Aq4sBXW5Un0Q
- vfbd9VFV/bKFfvUscYk2UKPi9vgn1hY38IfmsnoS8b0uwDq75IBvup9pYFyNyPf5SutxhFfP
- JDjakbdjBoYDWVoaPbp5KAQ2VQRiR54lir/inyqGX+dwzPX/F4OHfB5RTiAFLJliCxniKFsM
- d8eHe88jWjm6/ilx4IlLl9/MdVUGjLpBi18X7ejLz3U2quYD8DBAGzCjy49wJ4Di4qQjblb2
- pTXoEyM2L6E604NbDu0VDvHg7EXh1WwmijEu28c/hEB6DwtzslLpBSsJV0s1/jE=
-In-Reply-To: <20260924041032.1096569-3-zhenzhong.duan@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM8PR04MB7444:EE_
+X-MS-Office365-Filtering-Correlation-Id: 760215ae-601a-4c26-33f3-08df29371187
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|19092799006|366016|7416014|376014|23010399003|22082099003|18002099003|10067099003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	CZEGaX3ie36z+wBxTQyEXsQ1v0t3r5vz/GkXzkLwH2YOFXJjA8v5wWN6+Hviwlb16EzC7X2iX/a4ZfZnrypOxTRLIVeUyVhiUtkD6VPEC8uPyzAwCmO0EdWGfdgUgutkl6ptwFF80pN10SEVIcJHYNXwlFNq5PvWPcTsJNEN7P723HPLxqaSHopdT1RsLDoCJ//x2qwX6K5pJzVnwsqLNNhHBWdJA6GHRC3NnQ9NGmmvWUCDWELsEqvr5SWNe14XXYGaGeM9mjaHMLCFUniK3S6U7nogv7/uLCsX6seMM+JnoxT8tUmV3fW6h64nGoFU+ame+XCtq5O/ZStfSpErlvlT0nBLqOZyDryoghwZ7hbF3K08eEFyC9bL2mc7URZXrQuJuujnpZzMCEU409OtqYm0UlMhz0ojZI4wMaGEBYmbTzETh7/4L3gFDPeL93805OC0uHBm02m+IOSzZuGGPcb8cyoQLjeR7vdOymBWeo/zfqam6TmeJ7amxlTf7DlFgsgopbDJ3Q7R3x5Vmp9xYetK+SLJtAP5efmGFxl4Se6dGqA4OBJoIqvpnDitwoCDjpcDaOeDdo2s3DzTIb1qWF49YQC2R+32neMtQX55mPcwDq+sUEDM4GGaTQSberKz
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(7416014)(376014)(23010399003)(22082099003)(18002099003)(10067099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?bqs/kiOG4LmRSzphnSfDZb7Q2U2H9bsxm7Do3pBvC47cLYzl+6hY8rlsp8?=
+ =?iso-8859-1?Q?doFcieUwli3x/V2JMgXe/Dityg/OdfhAlloukDOOuMt/ZLyjYeNJXoIZRG?=
+ =?iso-8859-1?Q?9mRKNClKcDklvD9yrlBdGC7R6Ema8L2YxMkDQoBn9Zbqq1jfY7Iel51P1C?=
+ =?iso-8859-1?Q?Sm4CFUeejbN2mtsw0gtTQP9BdOKe5ifcFQyHeGxEiVnqICVVi/4OUOedSJ?=
+ =?iso-8859-1?Q?2D3yUjuMCGpLgYn1eOAWsgR3ZxogDPnDd6Py4yyB+zYVteCnHIJFqhH2e0?=
+ =?iso-8859-1?Q?9VYdumcseR8/7IreFCxohvQS6HRJwXXawynHk2aB9jBtoY9sna9p3/7ESL?=
+ =?iso-8859-1?Q?viZv+qzIIHlyZ8IdEbLrW3ueXPUw/fR9N9yyxsrDemrxRgXjXsovhS3sF7?=
+ =?iso-8859-1?Q?W27GZqP3FBtmHoyJFGlOFytRWuG8traRtLWWOH91uRLWFmRShKIyKwVaCz?=
+ =?iso-8859-1?Q?1ZLvw/tRMBhDLztCgS/pYwczQw2Nvbs7Urdo3Xo/YKe4jABPcF4s3FzUEw?=
+ =?iso-8859-1?Q?M9J2ffGAjtF2Z0xmTdOFKsAWdoL1z6chKGzEEQsKaComhpUzPce6/5wQ1L?=
+ =?iso-8859-1?Q?ktIzST4frsPChVLI5IGwiQj4WEGn22U1IKMrDxf5FNCaH9qmBS6zspgeiW?=
+ =?iso-8859-1?Q?AbVU7WCaHFv3J2wHE34iSgDQWlIXZy7m6WvBpP+pCFh2A/QFi3/Tzuwb81?=
+ =?iso-8859-1?Q?g7wthqcwVis5Fd7TggyHxeOBX0K50e29bOH2YxJULmHciVeVKL6XHpzDem?=
+ =?iso-8859-1?Q?e1IHl5k/5v7/YdHb5s4ayzG3RCg4O9hLspJViZix75arXbKVBtk1116Dx7?=
+ =?iso-8859-1?Q?94rgb6a91dys9xzI09TAJ+P6KOen8RKWbQX8zAFQ9ir/y6dG1IBnfGTMyx?=
+ =?iso-8859-1?Q?R5+UXNys3Ba9fRpzwmbrmIHp2PkYidec1JbJx+VEVa7zwD3dCtZxfHImuA?=
+ =?iso-8859-1?Q?b5TOyydSfn1ceN2jddhqWae0PifUBr+4da7STXKkuDu3xogdsov1yJ/4LW?=
+ =?iso-8859-1?Q?oe1OoBw6bkHK4AD9hNVja0+PY0QUa/mIxS65Vf1KDA+jj3xRR+epmnHqFs?=
+ =?iso-8859-1?Q?r6VOdpqlg5Gdy5gI9hy6e2m3H8u3GHtxLhwZCWOSaS9geWXgqZbek/vzhr?=
+ =?iso-8859-1?Q?kb8JdkGqnG89vvd1ZxL2LnFVod3Yx/qbr/JX6o53/VKaNQ7eOrHL8pnZSA?=
+ =?iso-8859-1?Q?QnQM1Mk7ZNdMskblhrhuBPVA6S2K69MCj85ZnIxJTV6zQFW03wBw9l9dsH?=
+ =?iso-8859-1?Q?0ED1O8D89DKRDYxPc4D9RcpAdnAEsyAdXV52oStrrOlTlGnisV1BvdtSR2?=
+ =?iso-8859-1?Q?J+zlYQ9N7Bn/XXhuhd+oDdBmKcpYZoZVzQ6Hja4EuYg14jldNJ0Nf0w0uK?=
+ =?iso-8859-1?Q?MaqG+q8ovSewfcoP3o/oDZJV7I5Xd2zGUHCjdeGNCHTLfnDfenwUGxlFsQ?=
+ =?iso-8859-1?Q?JM+jne4+wvBHOT/ueUeLKy5jKtGzM8ixQASC+m3hAxpMMefeDpI6ozu6nw?=
+ =?iso-8859-1?Q?TLNrznMU0voi2vfDNziSchaPGrm3n2uIzALU1jJQEm6TZVSYngtKtGlZB7?=
+ =?iso-8859-1?Q?PC+PSPNRHngdcIlPkn5V0jfN6LhTB76bLfSEkRuH9HWe+KFRo5uQUQ+f32?=
+ =?iso-8859-1?Q?q38U3oJdre9gwX5ia4MJIjDFlHrHQ17pos/BFFqfJAXxQRys3hb+5uBvFT?=
+ =?iso-8859-1?Q?HjxEn5zKs/tx/guKr0+j8q9MUC6YhsE6q3v6vkrq0KzQeHT52xGQp+bamH?=
+ =?iso-8859-1?Q?qZmjxL1KrlJko+BlT9A8fPFwzhnuC2OSzj9Wv/LD3nFhkImnlqto9r91wz?=
+ =?iso-8859-1?Q?ETEefaFHjvc5wD5gOoS+IgSDQ9aMZSBOCwLpCQhnYnsBLebLflpF?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 760215ae-601a-4c26-33f3-08df29371187
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 14:34:20.7251
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: r/N6PrJvKG743qiAwzKmPFCwPpvKUk1Jw8yDW8H4qi/yYsGA2AhE+wlDS1p10FivTc9f/PGUAQoHERbBidnJTABwPAjwWPmnputQdRtmcUioJKbUIu26Z8jhJQLwU/wV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7444
 
+On Tue, Oct 13, 2026 at 08:21:07AM +0200, Steffen Trumtrar wrote:
+> Add a new board variant for the Skov i.MX8MP based family of boards.
+>
+> This variant uses a different 7" panel than the existing ones.
+> As the already upstream boards and this new one are almost identical,
+> convert the other device trees to a base devicetree and apply the touch
+> controllers and panels via overlays.
+>
+> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> ---
+> Changes in v11:
 
+Please slow down. and reply krzy's feedback at v10.
 
-On 24.09.26 г. 7:10 ч., Zhenzhong Duan wrote:
-> TDX Connect is a TDX feature that enables secure device assignment,
-> allowing a TDX guest to directly interact with TEE-IO capable devices.
-> 
-> The TEE-IO Device Control and Management (TDCM) hypercall
-> (TDG.VP.VMCALL<TDCM>, defined in TDX GHCI v2.0 specification) is the
-> primary interface through which a TDX guest issues device management
-> commands to the host. The host processes these commands and returns
-> responses via a shared memory buffer.
+Frank
 
-This patch contradicts what's going in patch 5. Because you make it 
-sound as if TDCM is yet another leaf of VP.VMCALL, but then in patch 5 
-you introduce the polling code to read the result. And there is not 
-enough information in the changelogs to understand why this added 
-complexity is needed. Isn't TDCM handled synchronously by the VMM as the 
-rest of the tdcalls, is it perhaps handled by TDX NRX module?
-
-> 
-> Abstract the underlying leaf call and pass the shared buffer physical
-> address as a decrypted mapping. Add a runtime page alignment check
-> for the buffer to enforce correct usage.
-
-<snip>
+> - remove code-style fix from overlay-conversion patch
+> - change patch subject
+> - Link to v10: https://patch.msgid.link/20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-0-0906e57486a3@pengutronix.de
+>
+> Changes in v10:
+> - rebase onto imx-dt64-7.4
+> - rearrange binding and code patches
+> - Link to v9: https://patch.msgid.link/20261008-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v9-0-11fa90f531fc@pengutronix.de
+>
+> Changes in v9:
+> - fix dtbscheck error
+> - squash new compatible into 7" devicetree patch
+> - Link to v8: https://patch.msgid.link/20260831-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v8-0-e2e635452ba9@pengutronix.de
+>
+> Changes in v8:
+> - add #address-cells and #size-cells to i2c2
+> - fix touchscreen resolution
+> - add missing binding includes
+> - Link to v7: https://patch.msgid.link/20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v7-0-ca8a0446166a@pengutronix.de
+>
+> Changes in v7:
+> - address more of sashikos rightful feedback
+> - Link to v6: https://patch.msgid.link/20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v6-0-fa8f71dfc56f@pengutronix.de
+>
+> Changes in v6:
+> - address sashikos rightful feedback
+> - Link to v5: https://patch.msgid.link/20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v5-0-67faa5ee0bf6@pengutronix.de
+>
+> Changes in v5:
+> - convert to overlays
+> - Link to v4: https://patch.msgid.link/20260706-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v4-0-dfc0c8827c02@pengutronix.de
+>
+> Changes in v4:
+> - fix Makefile sort order
+> - add touchscreen fallback compatible
+> - fix lvds_bridge comment
+> - Link to v3: https://patch.msgid.link/20260701-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v3-0-d74f7e3f8293@pengutronix.de
+>
+> Changes in v3:
+> - rebase to v7.2-rc1
+> - Link to v2: https://patch.msgid.link/20260427-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v2-0-e2b79fc24391@pengutronix.de
+>
+> Changes in v2:
+> - rebase to v7.1-rc1
+> - Link to v1: https://patch.msgid.link/20260325-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v1-0-10255d236439@pengutronix.de
+>
+> To: Rob Herring <robh@kernel.org>
+> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> To: Conor Dooley <conor+dt@kernel.org>
+> To: Frank Li <Frank.Li@nxp.com>
+> To: Sascha Hauer <s.hauer@pengutronix.de>
+> To: Pengutronix Kernel Team <kernel@pengutronix.de>
+> To: Fabio Estevam <festevam@gmail.com>
+> To: Shawn Guo <shawnguo@kernel.org>
+> Cc: S�ren Andersen <san@skov.dk>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: imx@lists.linux.dev
+> Cc: linux-arm-kernel@lists.infradead.org
+>
+> ---
+> Steffen Trumtrar (4):
+>       arm64: dts: freescale: imx8mp: skov: fix sort order
+>       dt-bindings: arm: fsl: add compatibles for Skov i.MX8MP boards
+>       arm64: dts: imx8mp-skov-revc: convert jutouch and tian to overlays
+>       arm64: dts: imx8mp-skov: support new 7inch panel board
+>
+>  Documentation/devicetree/bindings/arm/fsl.yaml     |  2 +
+>  arch/arm64/boot/dts/freescale/Makefile             | 10 ++-
+>  .../imx8mp-skov-revc-jutouch-jt070tm041.dtso       | 38 ++++++++++
+>  .../imx8mp-skov-revc-jutouch-jt101tm023.dtso       | 38 ++++++++++
+>  .../dts/freescale/imx8mp-skov-revc-tian-g07017.dts | 81 ----------------------
+>  .../freescale/imx8mp-skov-revc-tian-g07017.dtso    | 40 +++++++++++
+>  ...h-jt101tm023.dts => imx8mp-skov-revc-touch.dts} | 24 ++-----
+>  7 files changed, 134 insertions(+), 99 deletions(-)
+> ---
+> base-commit: 7f47e8eafbf55a2ad0697e5d28f5e6cff2fa42f9
+> change-id: 20260325-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-3dbcb450a39c
+>
+> Best regards,
+> --
+> Steffen Trumtrar <s.trumtrar@pengutronix.de>
+>
+>
