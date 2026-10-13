@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D83D566C44
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:30:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98B1566C64;
+	Tue, 13 Oct 2026 22:30:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791930646; cv=none; b=F8Q/7rgT+cG9ZhFuLAtYIxDaqn7PbKTO2xUFRQX3Rhq0Q8L3kiolWSkmFYHnC0232xBZvFgIN6oMru784X5AKiirutRHEb6mWOIzpXl0/tQtmCO0duzmWcuCWBEN+fLwTZwixbG505/MpQNSW1xCICghYn1rW6+DQlUtL69GLZg=
+	t=1791930650; cv=none; b=q8T26kqu6FczLQ/MDuDc+D/tNzpJZKYwCRLzk/VOqiYjcPeRsnjM3AQI+KwrD9/m6qAMAcmqqfX7u3vbj3Io7ivAt4xbdLOJe7WjekmN5AA+Qsl9EPvvxjKSLSXNsCG80GqamIQ2XBwj1lW6NMbSH0rgtfgjqNIFMZKFDapJA5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791930646; c=relaxed/simple;
-	bh=3sXgJyemUwym7Asx5Sn6zTFCSjIW+IqEMZV/JNRG3rU=;
+	s=arc-20240116; t=1791930650; c=relaxed/simple;
+	bh=MC3x2DbFp75QbpUukqMti/4XxFrD2F9LOtVc9bMnXds=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=mIY53fqEWSlirnpUgS5zCKPc8W4c8bXGJctfN1oopo0Gh02wLFxK8jxRBl7sAU84AdHv3ZOGGERbbkbvwGEAO5wsFGao2gjOsOcmQvVlbiMXzf3cM+StFagAxct17j5qwnMx9+uiWQ2R/oDFaeepGqQgwc/fLkfxjA1XDS4Pt+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KYHqO+/d; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=bMw4ZzQKUR+Mp8FGQLmOT3xRNNeF82lrlkDz8yKHgsx30CxFveTFK2aUHBmJfDBFCeX8icYzj/5YBz/2211JaPvs9rJ4a6pL7PvXSDIz3HfWW+IpOlxxOXPUIG3t/SrWgePszduhWiblflo0haSfBx1q/ItmXBO4T7yVKEeb/BU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F0x98hh7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KYHqO+/d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 818751F0089C;
-	Tue, 13 Oct 2026 22:30:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F0x98hh7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81D7C1F00893;
+	Tue, 13 Oct 2026 22:30:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791930639;
-	bh=gK5BiDEntrKD0+Dzj/T26h4UrOX6cmNMvMNJ/Y4XJ/U=;
+	s=k20260515; t=1791930642;
+	bh=Np9xnuu6XiKVbwBFAPp4t+RIdjq2sSckN1p0VTuLUy4=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=KYHqO+/dLQiNrBW0pAQsNxN2fCoI/LLOrf+wGTzkk6b0kDzNVaAwGvJOCaoGLTRXM
-	 VCfhYnIE6mUE4BeLIffje9RTnf3CYdJclPJfbfOX06Hgxh/h4NSKMbh8ieeJjrtaMc
-	 KjxEvopPb/bYA5sTH3ZcnD1YUxp3sDyldEUr3qSXuxiJXkxsFy0QdPjzkNA9SgJAp+
-	 W+isKQrFIWVH2Gc2VybDBqD8GnD/DBCb6hUQvpkFYMk0aqka9QLmY12euzg57NFdVf
-	 yP6YnSeOMtL9RHoOlyM2AWrKHsgwdo4fND/eVjNT2CU2VixPIajx7ymn20iHFx5rVM
-	 x1M7b92rAp7sQ==
+	b=F0x98hh7uT1ubqr+v607DM8Rr1PmR7VGfeYXqxvRC7tV9dIbNtW2y1s6DQ1v4Op6J
+	 2p28tYI8elZQsW2Ljm+Phd49zJujU+tbOo1ESV4T+bb9z9FXfRqUET09v9yFFy0Le/
+	 CJ5dBVK/mqbZRXqcnqHtVCQjrk2VEPxnh6fLzDlJI0P9fYMuQiGoHHTrNUBkAXiw0d
+	 HdGe8PQ0E7SshVeBxC8piArbmjJH/bxZtxnI9torn8jt+IQmo5ZdHi5V33KTxVLbGI
+	 FXRMI/3XAtm7mwtvsl1fKvxFs7owhgyNhTpVJ/dwxu5N4M20APnAr3knRiET6CuAPu
+	 /qjU9/Vdvelgw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7732739E4DBA;
-	Tue, 13 Oct 2026 22:30:39 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773B639E4DBA;
+	Tue, 13 Oct 2026 22:30:42 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,39 +37,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH v3 3/5] f2fs: cache: wake up f2fs_writeback
- when
- exceeding threshold
+Subject: Re: [f2fs-dev] [PATCH] f2fs: zone: fix to avoid bio split on
+ sequential
+ zone
 From: patchwork-bot+f2fs@kernel.org
 Message-Id: 
- <179193063801.1493834.11114382446696553394.git-patchwork-notify@kernel.org>
-Date: Tue, 13 Oct 2026 22:30:38 +0000
-References: <20261012091737.308136-1-chao@kernel.org>
-In-Reply-To: <20261012091737.308136-1-chao@kernel.org>
+ <179193064101.1493834.14246878856998575721.git-patchwork-notify@kernel.org>
+Date: Tue, 13 Oct 2026 22:30:41 +0000
+References: <20261007101812.2348510-1-chao@kernel.org>
+In-Reply-To: <20261007101812.2348510-1-chao@kernel.org>
 To: Chao Yu <chao@kernel.org>
-Cc: jaegeuk@kernel.org, daehojeong@google.com, linux-kernel@vger.kernel.org,
- qiwenjie@xiaomi.com, linux-f2fs-devel@lists.sourceforge.net
+Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net
 
 Hello:
 
 This patch was applied to jaegeuk/f2fs.git (dev)
 by Jaegeuk Kim <jaegeuk@kernel.org>:
 
-On Mon, 12 Oct 2026 09:17:37 +0000 you wrote:
+On Wed,  7 Oct 2026 10:18:12 +0000 you wrote:
 > From: Chao Yu <chao@kernel.org>
 > 
-> This patch introduces cache_wb_dirty_threshold and cache_wb_total_threshold
-> sysfs nodes under /sys/fs/f2fs/<disk>/, and wakes up the f2fs_writeback
-> kthread when dirty meta/node caches exceed cache_wb_dirty_threshold and
-> total cached entries exceed cache_wb_total_threshold; a zero threshold
-> disables the corresponding check. By default, cache_wb_dirty_threshold is
-> 8192 and cache_wb_total_threshold is 0.
+> In the block layer, bio_split_to_limits() splits a bio if it exceeds
+> any underlying queue limits:
+> 1. queue_max_sectors: Splits bios larger than the transfer limit. This
+>    limit is set by the device driver/DMA controller (max_hw_sectors) and
+>    device-mapper targets. When flushing dirty pages (governed by VFS
+>    writeback_chunk_size() and f2fs nr_pages_to_skip()), f2fs merges
+>    contiguous pages into bios up to 512KB (1024 sectors) or more without
+>    checking queue_max_sectors, which will be split if the device or DM
+>    target enforces a smaller limit.
+> 2. queue_max_segments: Splits bios exceeding scatter-gather segment
+>    limits. f2fs allocates bios with up to 256 pages, exceeding the
+>    128-segment limit of DM targets (dm-default-key/dm-crypt) if pages
+>    are discontiguous.
+> 3. chunk_sectors: Splits bios crossing chunk/zone boundaries. In f2fs,
+>    section_size strictly matches zone_size, and block allocation never
+>    spans across section boundaries, so bios never cross chunk_sectors.
 > 
 > [...]
 
 Here is the summary with links:
-  - [f2fs-dev,v3,3/5] f2fs: cache: wake up f2fs_writeback when exceeding threshold
-    https://git.kernel.org/jaegeuk/f2fs/c/eeadc4807c95
+  - [f2fs-dev] f2fs: zone: fix to avoid bio split on sequential zone
+    https://git.kernel.org/jaegeuk/f2fs/c/b9b036bd1e2c
 
 You are awesome, thank you!
 -- 
