@@ -1,193 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797403164D6;
-	Tue, 13 Oct 2026 07:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A0B3164D6;
+	Tue, 13 Oct 2026 07:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791876009; cv=none; b=D0rjm0QoqwPA0I7kql/rYbqzWrYlao+xbumPUFjJjzv/1ul6ulRrTSF0UyxETwWEuBWRHyrc46z9r1HP2uS0EGC9sdKf3YsyOP6BeqVdlcAhEH6lXFCZs1AMBaFqT4T8TeaTv/W91//pEJw3rDzyFDqqxWiNNSTzgt4Rqmep2Zo=
+	t=1791876019; cv=none; b=U9BuQy8mmG39cUuuYBjA1pswBcI7Ao4XpSPOklsYuSZTQHsuc9SP5OXagqq5zmWShcfO4JaVx2WncI5sSdEzBIGu1mSeI928cO3hoieo6WJyhLtyyh7GG67S/+DEiRthsa3fNQRXxiDr1uwb7x4zeys42FAPIdXLe1zJR8GO6AM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791876009; c=relaxed/simple;
-	bh=3EIMklRsm+lKbHY3s2vmOySVyFXwXiQ9bpxf5C526jk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CHs7GH6Cynsa94IseCqEcRrAa036+bMIMiPUkUWa2GWVcrE8cQ4oEwkl/hfPUksEaxGArcjb170DwuqY0lVMsF8vJfXqLY4QbOcgBD1auQjPSfvJxxH2EjyrprjwJCv2sKPuOOUfsKYp5J2+6BOz+0MRc7M4rrHjPnyw/qtocyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCwszX6V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791876019; c=relaxed/simple;
+	bh=vHq6pigAqBAOMK8BlCssoXauhb6htINPCS9bc9+IkdY=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mOGGTdQbTxCsKcc/Un0OGz9vMy4ZctZoozARQEeyo4JHTJhcPplZ1jVe0Lq3VFPfgW0DoVFVzckB65ZVbdc3TmZ+SjACF3hrOjqGlM0mKVo3EgI+D2NCTkGuKhU27zUxsVwke7znxzW9l82C/G963dkg7fv2PP4JKg29lBGD7fk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=wbCLknAX; arc=none smtp.client-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCwszX6V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8937A1F000FF;
-	Tue, 13 Oct 2026 07:20:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791876008;
-	bh=8pf0Ph7c3/u3audy18tF0yiCmBWPU7a6hHO+L6l5Qus=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lCwszX6VZ+gYWYSA27kg9BmzRmjTXOSnvK5PEI5ipX+Eytj5EPZIkxfmSTXV6qlUr
-	 dPTrUYAUtHUaXTPBNgjqsZ3X/Qvxc3jUGRhPOBg+T6KB5FiTrkeSc4V9VaOxVXsPm9
-	 iebqrjsY+PPlLmTj5HEVN2vYqPT/htJf95jkSIWBR+SAnntAXTLACFWh9go5Hm7JrW
-	 vQ/Rza5zfv1TNo0ty1zSMFfhZTLyuQp3OCzAZHhsZ7OZYCushwXLoyhKxDASZu4hfd
-	 /+pResJ4PAFnJqv65XTgpPWciVmM34AO8svzEDEMheFmXNC2MZ9qPFQq/rjYzj9OtD
-	 0suqQJ8lcrLJQ==
-Date: Tue, 13 Oct 2026 09:20:04 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-Cc: Thinh.Nguyen@synopsys.com, gregkh@linuxfoundation.org, 
-	mathias.nyman@intel.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	p.zabel@pengutronix.de, wesley.cheng@oss.qualcomm.com, sriram.dash@oss.qualcomm.com, 
-	jack.pham@oss.qualcomm.com, krishna.kurapati@oss.qualcomm.com, 
-	shazad.hussain@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/7] dt-bindings: usb: Add qcom,sa8255p-dwc3 for
- firmware-managed resources
-Message-ID: <20261013-light-significant-markhor-c30eea@quoll>
-References: <20261010053246.2991984-1-faisal.hassan@oss.qualcomm.com>
- <20261010053246.2991984-4-faisal.hassan@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="wbCLknAX"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=WnX6NNL1P9i4EDTKZXyqBYS7whmUcGN3kZ4xLf1zOlw=;
+	b=wbCLknAXLXEXc5Hc3GDGzK451YQDCrT+CLurgxaaXy1WY6EoNa9O9tVSWr1M+fxF4SPMWADuY
+	OuTXCA9Qx0p/3tlH5WTeiAU91VworzWWaf+vleURwC2DUi9kUxO2RN4LTMa4aB90LwqZlZg5V1j
+	uGlyh5XHLJPlIJk5rXI8Rww=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4j3llx4dBtzmV8H;
+	Tue, 13 Oct 2026 15:07:57 +0800 (CST)
+Received: from whupemk100014.china.huawei.com (unknown [7.152.184.20])
+	by mail.maildlp.com (Postfix) with ESMTPS id 824774056A;
+	Tue, 13 Oct 2026 15:20:14 +0800 (CST)
+Received: from huawei.com (10.50.163.32) by whupemk100014.china.huawei.com
+ (7.152.184.20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 13 Oct
+ 2026 15:20:13 +0800
+From: Longfang Liu <liulongfang@huawei.com>
+To: <alex.williamson@redhat.com>, <jgg@nvidia.com>
+CC: <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<liulongfang@huawei.com>
+Subject: [PATCH v6 1/2] hisi_acc_vfio_pci: fix NULL dereference in reset_prepare on PF passthrough
+Date: Tue, 13 Oct 2026 15:19:28 +0800
+Message-ID: <20261013071929.3988687-2-liulongfang@huawei.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261013071929.3988687-1-liulongfang@huawei.com>
+References: <20261013071929.3988687-1-liulongfang@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261010053246.2991984-4-faisal.hassan@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ whupemk100014.china.huawei.com (7.152.184.20)
 
-On Sat, Oct 10, 2026 at 11:02:42AM +0530, Faisal Hassan wrote:
-> On Qualcomm automotive SoC sa8255p, platform resources like clocks,
-> interconnects, resets, regulators and GDSC are abstracted and managed
-> collectively by firmware.
-> 
-> Add a new binding file for firmware-managed USB controllers where
-> access to these resources is exposed as two power domains:
-> - Power domain: Controls power supply (GDSC) to the USB controller
-> - Bus domain: Controls clocks and interconnects for data transfer
-> 
-> The binding makes power-domains and power-domain-names properties mandatory
-> for firmware-managed platforms, while excluding the clocks property since
-> clocks are managed through the power domains.
-> 
-> Co-developed-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
-> Signed-off-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
-> Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-> ---
->  .../bindings/usb/qcom,sa8255p-dwc3.yaml       | 119 ++++++++++++++++++
->  1 file changed, 119 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/qcom,sa8255p-dwc3.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/usb/qcom,sa8255p-dwc3.yaml b/Documentation/devicetree/bindings/usb/qcom,sa8255p-dwc3.yaml
-> new file mode 100644
-> index 000000000000..87f426fdbd70
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/qcom,sa8255p-dwc3.yaml
-> @@ -0,0 +1,119 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/usb/qcom,sa8255p-dwc3.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm SA8255P USB3 Controller with Firmware-Managed Resources
-> +
-> +maintainers:
-> +  - Wesley Cheng <wesley.cheng@oss.qualcomm.com>
-> +  - Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-> +
-> +description:
-> +  USB controller on Qualcomm SA8255P automotive SoC where platform resources
-> +  such as clocks, interconnects, resets, regulators and the GDSC are
-> +  abstracted and managed collectively by firmware through SCMI (System
-> +  Control and Management Interface).
-> +
-> +  Access to these firmware-managed resources is exposed as two power
-> +  domains, one gating the power supply (GDSC) to the controller, and one
-> +  gating the clocks and interconnects used for data transfer.
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,sa8255p-dwc3
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    minItems: 5
-> +    maxItems: 6
-> +
-> +  interrupt-names:
-> +    minItems: 5
-> +    items:
-> +      - const: dwc_usb3
-> +      - const: pwr_event
-> +      - const: hs_phy_irq
-> +      - const: dp_hs_phy_irq
-> +      - const: dm_hs_phy_irq
-> +      - const: ss_phy_irq
+When a PF is bound to the driver via driver_override and passed
+through to a VM, its pf_qm stays NULL. The PCI error handler
+reset_prepare() runs during open_device through
+pci_try_reset_function(), before the mig_ops gate, and dereferences
+the NULL pf_qm for the timeout log, crashing the kernel.
 
-That's still unexpectedly flexible.
+Move the mig_ops check to the entry of reset_prepare() and
+aer_reset_done() so non-migration devices skip the QM_RESETTING
+coordination. The dev local resolved &qm->pdev->dev before the
+gate, so open code it at the dev_err() call where qm is known
+valid. Also clear set_reset_flag together with QM_RESETTING in
+aer_reset_done(); the flag was never cleared before, so a later
+timed-out reset could release a foreign lock.
 
-> +
-> +  power-domains:
-> +    minItems: 2
+Fixes: b0eed085903e ("hisi_acc_vfio_pci: Add support for VFIO live migration")
+Fixes: a22099ed7936f ("hisi_acc_vfio_pci: fix VF reset timeout issue")
+Signed-off-by: Longfang Liu <liulongfang@huawei.com>
+---
+ drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-Drop
-
-> +    maxItems: 2
-> +
-> +  power-domain-names:
-> +    items:
-> +      - const: power
-> +      - const: bus
-
-I don't see how did this improve. I asked to use existing bindings as
-reference, so why aren't these power and perf? You wrote that bus
-controls clocks and interconnect, so is this something different than
-perf domain is doing for sa8255?
-
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  iommus:
-> +    maxItems: 1
-> +
-> +  phys:
-> +    minItems: 1
-> +    maxItems: 2
-
-phys should be afixed, constrained.
-
-> +
-> +  phy-names:
-> +    minItems: 1
-> +    maxItems: 2
-
-This as well.
-
-> +
-> +  dma-coherent: true
-> +
-> +  # Firmware-managed platforms do not use direct clock/interconnect control
-> +  clocks: false
-> +  clock-names: false
-> +  interconnects: false
-> +  interconnect-names: false
-
-Drop all four above. Not sure why do you need them.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - interrupt-names
-> +  - power-domains
-> +  - power-domain-names
-> +  - resets
-
-I guess phys and phy-names as well.
-
-> +
-> +allOf:
-> +  - $ref: snps,dwc3-common.yaml#
-
-Best regards,
-Krzysztof
+diff --git a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+index 86362ec424a5..e6fdf4d2e581 100644
+--- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
++++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+@@ -1154,14 +1154,16 @@ static void hisi_acc_vf_pci_reset_prepare(struct pci_dev *pdev)
+ {
+ 	struct hisi_acc_vf_core_device *hisi_acc_vdev = hisi_acc_drvdata(pdev);
+ 	struct hisi_qm *qm = hisi_acc_vdev->pf_qm;
+-	struct device *dev = &qm->pdev->dev;
+ 	u32 delay = 0;
+ 
++	if (!hisi_acc_vdev->core_device.vdev.mig_ops)
++		return;
++
+ 	/* All reset requests need to be queued for processing */
+ 	while (test_and_set_bit(QM_RESETTING, &qm->misc_ctl)) {
+ 		msleep(1);
+ 		if (++delay > QM_RESET_WAIT_TIMEOUT) {
+-			dev_err(dev, "reset prepare failed\n");
++			dev_err(&qm->pdev->dev, "reset prepare failed\n");
+ 			return;
+ 		}
+ 	}
+@@ -1174,12 +1176,14 @@ static void hisi_acc_vf_pci_aer_reset_done(struct pci_dev *pdev)
+ 	struct hisi_acc_vf_core_device *hisi_acc_vdev = hisi_acc_drvdata(pdev);
+ 	struct hisi_qm *qm = hisi_acc_vdev->pf_qm;
+ 
+-	if (hisi_acc_vdev->set_reset_flag)
+-		clear_bit(QM_RESETTING, &qm->misc_ctl);
+-
+ 	if (!hisi_acc_vdev->core_device.vdev.mig_ops)
+ 		return;
+ 
++	if (hisi_acc_vdev->set_reset_flag) {
++		clear_bit(QM_RESETTING, &qm->misc_ctl);
++		hisi_acc_vdev->set_reset_flag = false;
++	}
++
+ 	mutex_lock(&hisi_acc_vdev->state_mutex);
+ 	hisi_acc_vf_reset(hisi_acc_vdev);
+ 	mutex_unlock(&hisi_acc_vdev->state_mutex);
+-- 
+2.43.0
 
