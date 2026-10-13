@@ -1,140 +1,109 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96549511E6B
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:04:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FE2503BD4;
+	Tue, 13 Oct 2026 15:04:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791903888; cv=none; b=PsYinrwOH1eNbGT3OINIM3w/mlaPGCbpyuMpRFHS7c/qa1dNUldp7BlXl0eVBym/pc/ldhiM+gmWhnAD/NSkCSOuUNWNwUpseRmUMoUkULdVycKs9J2tGK55O2LxZiVx6F16PMOhBmVo3Jj89sKMP/LOWpxD1en/PiD/xv9UgB4=
+	t=1791903893; cv=none; b=mGX0Jvg8/xpjXFxBnJaSC1M5d0s5F7JonD6Ov9i4kTecnvo6t0Mk+geO5dcvujVm5cjZUZ5hog4daMTQIy1pftZJzfwxeJz24hkHEh/QQJT4ObJHRuuN+6B4OpUyIr3NUuyeaLGj/UrySxGWLGW9uph9S8t3qaY6L6uSphyDMgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791903888; c=relaxed/simple;
-	bh=bi8oRlfrRBEJaVuletyP366v4gz/FKhCZMXrwV4xcfQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q1nMjBrnnYVZo5SQTPASwyJvRi/R5PtlaQqs/EB3zuoYXnzZ+Mo3xjpf/2eVeJ+1n0zyMVB+jCpZBYMs738XyXHB11ZilxaRDfYYR5FWEKGg8F1zy9rPlwRK6zK6q5CKDO0HIkRQyHeQWiUkURvnsJbGT7JCxWGSnZRXfNuQjRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=rbuo6Zff; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791903893; c=relaxed/simple;
+	bh=iGK+XDeF5LRCgZT6TVHdzPc2Nv4eswmoGZ7cthlsXwc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ciZAeuWmDFWW++6Kf0yM9CHthjOsL41ysjOgHN1ci5DlbY+a7QLPIKMjGEREGwvhqqrjCFtNFd1wopTwKHM4pe5bCUniftmabpVWvCRd8nOlw8lppAAMWZcWE6pWzcOmLHgkqdVyf702tD8BlJMVwT9+O0RZdtsks6QO6q0y494=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HzkVXpIK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="rbuo6Zff"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e623eda81cso18725615ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:04:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791903885; x=1792508685; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1t4kFfs6QniDgJn2gFawB3EB0+cBfYe4gG9Y5fNmRL4=;
-        b=rbuo6ZffI5hm9aeWJO1aldLH5YyotCW+z+ePKyL6YBUsPKB4eSZ0bl0LbhdI4TDdRX
-         TBKFi716wvdQydQ4Ep372RJ8y3j2XmWpJTbkVnicGMvneA8ZR8HEJT6NFJqFEceMGkEs
-         qZvBRVFaweIA5lsrlSW2oZ3h35qxn0MZjuubdLQ+vASV5ctkqVFCBSBzFL0OimurbQ0n
-         pKBHlcjQoWTr6cS6yFIrhuLmuymuZGmvo+GC34FfjvYq5Ie1kpk8uWYn0EHZU48ibZF7
-         5Hr0v/kWeLj3su0ALINzITYo+ldDNB2qTFRE+Ini5mbMIc7CHjfrfIaafsUX/kKXpx7I
-         LNOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791903885; x=1792508685;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1t4kFfs6QniDgJn2gFawB3EB0+cBfYe4gG9Y5fNmRL4=;
-        b=TeWAoo8uGNd3sM28kUj6roercu9y3v1Vy19Vc6EqHX/5PZ5SePk1UnozDBttJWSb/Q
-         NyJCzjjdW7pPx4jjzvOSs7NdlnSflnQ3csTH375zqJ4PRsHKyfued1N5yATpHnskN1xs
-         5V/McoqCQKEyq4tlksSijlLqlsfSYRMH3itfhymWT4ezF4AnaSr7GUHWynAVU+4pBMVJ
-         SaxsrXzJekKkjImkXEdTZ/BGrKWPeJQjoJblbrzYGPf8JwqWtd4++qXqPQ0NfgsJos39
-         VDMfD/WsIfUA9PoWHmsZGdFQQCUOBdOOS5oQ7etiZmbF7IdSU+6r0DkcnzzHaqj1LcEt
-         xbHw==
-X-Forwarded-Encrypted: i=1; AKwUvBxG6wbjeLWd+UIxIxYX+CtTJ8/bGb8PT15mqIc+w6r1/k4da63GQPFgXRjBYthKdxqlI03pRYPzvqtzzTE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL86zsHOvRJqDJG4/K0gOaPQKK1971RlZSw/njYj53nekiMd1Gk
-	3zfXl7GLB0Av1YXQuNhsd3wyCfa44HW1xBRGzrSJ+Y0SH41G4bwLuOAhhoNFqeABAvo=
-X-Gm-Gg: AYBFou2ZNjFQTP7rzK7asghHjGzLgf6O8sty+5R2pPLw11b+QTiUOQSCijD8fRsO6LM
-	bVrHzSj/oQbXAFixhBWJ6NFTFuqmZwOPSnCzOOlQ5v8S0VWmHHf5MrLAI2k2/wroDrVzGID/IYv
-	I/nF9q88Yqtro+iRLCrP3LR+j5a4g9g3t7pCYDYZEcDyORzOcpJYcqaeLPDUjwXyG2roAjYoqQd
-	HqbcU6GCo4Cpd8a0OYNMGbLtfBiXsuiV9wWNafFf3+CnmqcHVVkqJrceCn420omDD35+X4IVLkP
-	/drrRA3+N3AkyhAkhNcwUNbCMGbhhwsK5PA23QRWIgtXBanFIDvQM6BQGEoaqz69hbMcSbUSG6t
-	Y51wDfBpT3Kl7v0vuxKmHjVpCDxOzSZLWoZiIooiE70Sz1LBvasTrEWRhLGiJjfnKUYSC4X4Vot
-	1/XOR38UfHYklGTfn7eQaykol/qoQhyAK5/fMUb0S2ydLBBDWj+1+5YNh2V2IYHfrZND3/jfsqY
-	r6SrZgJEkvKLvzRC7+8
-X-Received: by 2002:a17:903:19cf:b0:2e2:d834:a40f with SMTP id d9443c01a7336-2e842837a49mr114138425ad.9.1791903884642;
-        Tue, 13 Oct 2026 08:04:44 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:c51c:be8a:c517:276])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8c57sm60302265ad.53.2026.10.13.08.04.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 08:04:43 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Adaptec OEM Raid Solutions <aacraid@microsemi.com>
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v2] scsi: aacraid: bound the SRB sense data copy to the source buffer
-Date: Wed, 14 Oct 2026 00:04:20 +0900
-Message-ID: <20261013150420.3168223-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HzkVXpIK"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5D827C2BCF4;
+	Tue, 13 Oct 2026 15:04:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791903893;
+	bh=iGK+XDeF5LRCgZT6TVHdzPc2Nv4eswmoGZ7cthlsXwc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=HzkVXpIKn7vH5c5cLxcFc8GvfZWYQjMAjRyKWp0LKIxLjELYN5tgXXMOVe7khRAkJ
+	 JMm1mJ9JfRTvOiOCTipjarSVCnAdhnedS3let2X2S0fOImU1fxBDXy8AhVAfI/V+Um
+	 o52NSxQfbgqCmMGzuhI/efZGnagXOJG0B9X4+wsAmKXqkci4aPysT+6RvX70tfH+1c
+	 7zzMyq6Jnafh/F+1h4dcOGtal9urFaEmRuEID+6O1q4whq++zZeEeRoF2+olAwxdkz
+	 rgSxEW9Gr80G6zLi+uDxqAdI4OYK8FCT6wf5uGEgQ4EG0GmqhT4UWDd8KXakgqc5Cg
+	 FjxRcHWTpa8rQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A308CC6B0E;
+	Tue, 13 Oct 2026 15:04:53 +0000 (UTC)
+From: Mizuno Miotsuki via B4 Relay <devnull+founder.crepuse.com@kernel.org>
+Date: Tue, 13 Oct 2026 23:04:52 +0800
+Subject: [PATCH v3] arm64: dts: rockchip: add UNIHIKER M10 V1.2 touchscreen
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-review-self-touchscreen-v3-20261013-v3-1-beec2a35cdb8@crepuse.com>
+References: <20261013-review-self-touchscreen-v3-20261013-v3-0-beec2a35cdb8@crepuse.com>
+In-Reply-To: <20261013-review-self-touchscreen-v3-20261013-v3-0-beec2a35cdb8@crepuse.com>
+To: heiko@sntech.de
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, conor+dt@kernel.org, krzk+dt@kernel.org, 
+ robh@kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1528;
+ i=founder@crepuse.com; s=20261012; h=from:subject:message-id;
+ bh=niQemHq0zIYyejRqSf64CgT+VZtMHF21KC+IBXETBh4=;
+ b=kA0DAAoWFtY8A0Xkb6QByyZiAGrOSJOg3Uk1iEB/UQW6AHIMhLgXnDiU/com3J6bMPYkquRg5
+ 4iRBAAWCgA5FiEEmxUHd8KDqNadkII+FtY8A0Xkb6QFAmrOSJMbFIAAAAAABAAObWFudTIsMi41
+ KzEuMTIsMCwzAAoJEBbWPANF5G+k60YBAJhYsdJkB1AQZ/lpiN34RkGKJ+49aU5kZqH53WFi8OO
+ HAQCi6cmGzLlP1oQ4AldK1QEhNyzjsfgcY19W2UmQtAzOBg==
+X-Developer-Key: i=founder@crepuse.com; a=openpgp;
+ fpr=9B150777C283A8D69D90823E16D63C0345E46FA4
+X-Endpoint-Received: by B4 Relay for founder@crepuse.com/20261012 with
+ auth_id=1166
+X-Original-From: Mizuno Miotsuki <founder@crepuse.com>
+Reply-To: founder@crepuse.com
 
-aac_srb_callback() copies the sense data from an adapter SRB reply into
-the command's sense buffer, using a length that is only capped at
-SCSI_SENSE_BUFFERSIZE (96 bytes).  The source, srbreply->sense_data, is
-AAC_SENSE_BUFFERSIZE (30 bytes), so an adapter that reports a larger
-sense_data_size makes the copy read up to 66 bytes past the sense array.
+From: Mizuno Miotsuki <founder@crepuse.com>
 
-The reply is placed in the FIB data area that the outgoing SRB request
-was built in, and that area is not cleared between uses, so the bytes
-past the sense array are the previous request's scatter-gather list --
-DMA addresses and lengths -- which are then handed to user space in the
-sense buffer of a pass-through command.
+Enable the NS2009 on I2C2 with the validated raw Z1 contact threshold and
+Y-axis inversion. Connect its VDD to the existing always-on vcc_io supply.
 
-Cap the copy at the size of the source array, matching the container
-sense paths in this driver.
+The NS2009 VDD is connected to the board's common 3.3 V rail, represented
+by vcc_io. This connection was verified by continuity measurements
+against the exposed 3.3 V header. Additional measurements around the
+SD/MMC interface and SoC decoupling capacitors are consistent with the
+existing vcc_io supply topology.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Reuse the existing supply without adding an enable GPIO or changing its
+shared supply constraints. The 10-pin NS2009 has no separate VREF pin.
+PENIRQ routing has not been established; retain polling without declaring
+an interrupt or claiming that the pin is disconnected.
+
+Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>
 ---
-v2:
-- Drop the second patch from v1 (the HBA sense-response copy).  As the
-  review pointed out, struct aac_native_hba backs that response with a
-  512-byte union, so the copy was already within bounds and capping it to
-  the 32-byte sense_response_buf would have truncated valid sense data;
-  only this SRB bound remains.
-- The review also flagged that aac_srb_callback() overwrites, in the
-  srb_status switch that follows, the DID_ERROR it sets on a FIB-level
-  failure.  That is pre-existing and independent of this length change,
-  so it is left untouched here.
-v1: https://lore.kernel.org/linux-scsi/20261013140214.3156938-1-yhlee@isslab.korea.ac.kr/
+ arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
- drivers/scsi/aacraid/aachba.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/scsi/aacraid/aachba.c b/drivers/scsi/aacraid/aachba.c
-index df9492247631f..89d8e33517584 100644
---- a/drivers/scsi/aacraid/aachba.c
-+++ b/drivers/scsi/aacraid/aachba.c
-@@ -3418,7 +3418,7 @@ static void aac_srb_callback(void *context, struct fib * fibptr)
- 		pr_warn("aac_srb_callback: srb failed, status = %d\n",
- 				le32_to_cpu(srbreply->status));
- 		len = min_t(u32, le32_to_cpu(srbreply->sense_data_size),
--			    SCSI_SENSE_BUFFERSIZE);
-+			    sizeof(srbreply->sense_data));
- 		scsicmd->result = DID_ERROR << 16 | SAM_STAT_CHECK_CONDITION;
- 		memcpy(scsicmd->sense_buffer,
- 				srbreply->sense_data, len);
-@@ -3544,7 +3544,7 @@ static void aac_srb_callback(void *context, struct fib * fibptr)
+diff --git a/arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts b/arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts
+index 0c03f118378a..933d3a139ace 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts
+@@ -134,6 +134,14 @@ &emmc {
+ &i2c2 {
+ 	clock-frequency = <400000>;
+ 	status = "okay";
++
++	touchscreen@48 {
++		compatible = "nsiway,ns2009";
++		reg = <0x48>;
++		vdd-supply = <&vcc_io>;
++		touchscreen-min-pressure = <150>;
++		touchscreen-inverted-y;
++	};
+ };
  
- 		scsicmd->result |= SAM_STAT_CHECK_CONDITION;
- 		len = min_t(u32, le32_to_cpu(srbreply->sense_data_size),
--			    SCSI_SENSE_BUFFERSIZE);
-+			    sizeof(srbreply->sense_data));
- #ifdef AAC_DETAILED_STATUS_INFO
- 		pr_warn("aac_srb_callback: check condition, status = %d len=%d\n",
- 					le32_to_cpu(srbreply->status), len);
+ &io_domains {
 
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-2.43.0
+2.56.0
+
 
