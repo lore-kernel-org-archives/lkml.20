@@ -1,201 +1,92 @@
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E3B433049
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:46:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F714B95C0;
+	Tue, 13 Oct 2026 09:46:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884786; cv=none; b=nqDYoQeSOo0OeEihYnEP3A5uuOj8OruXpNrIuVQ2fypIKxHa8RpvLo2HJoSs2/YTObV7C/P3pSN550KGuOaeH114Gc1CyabFm9pkO7MRmsRdsutdrf3PV56se13+TNY9OeLxBqhMcWILwHl8K6VcpSrekuRaGBh3cAZDO33bZb8=
+	t=1791884789; cv=none; b=Be/+cQAAP/UY17Gf3/OQEivJjWTPZg6VxoyhxPpWVJI9bVrn/SXMO9vjkoRkJArCbwIsJw2ZBusP6syPY4/URPjP6pp9UG+c4h21oV4wgmsr/xzznUq6mwqhBQ7VXH7gzrscQImYMsNSkzlNJ4S3pWO3wP/fqFBWNDHtLlurUTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884786; c=relaxed/simple;
-	bh=lrQxtCL4bB6hq1YttWIYK9/1MVcUraxTJTUjoNNbQM0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=TyNxkM0ArFwqzrHwzzmL/gQU3tfngYIN5vx5ssJMpYrOxogDUOpLpZhRuW56wzIMIrANznB1vRAdgE++sHJB2n4WvpdnhwZZ4rQHPyF/pi5iZ2EdkjjOm21XAQ1jffRTTtU0MNEf0gRhVvLK7wByLzttR4lx0KhwHaMPz6ZQiNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=nUcb/E00; arc=none smtp.client-ip=203.254.224.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791884789; c=relaxed/simple;
+	bh=dsQ3c3r30MByiQl80F9uySddLkO/UAS3WgjYmjdt+fs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=meOysWyzREQ35qCXeOs4pzgT4KFHch//RdL1QZUOXe6lQSmb+oLGMCzhYc0nDVAzzf8y0ag9YensTgqIbcY/nGEbt/3KFl68IstxRynRaA51xCWJCiSg7JerFucIvlwa8CCRjuz+IC2n7SpjR1Zqwxh+GkdzZ9/ZTeuIrQFA954=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J8F5AjUs; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="nUcb/E00"
-Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261013094618epoutp031ff9fbd2b696db29f828b7f94e87d1fa~eDbZY3Kth0686206862epoutp03S
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:46:18 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261013094618epoutp031ff9fbd2b696db29f828b7f94e87d1fa~eDbZY3Kth0686206862epoutp03S
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791884778;
-	bh=zcR3PlylQnyqBRxWX+O7qoT4qEtgWVHKV1DgLyS+mFs=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=nUcb/E00r5cb2ogVnTS543Eg8m+GIn0dOZJlh68XOJP5lfzMtbKYsM7kA+pL+K1a+
-	 pIe52jtjzQeQ7GuR9BDbUOnJFufIgwY92tjrA4/4mCoolI9orxJs/XwJnO8LEAqYd5
-	 rXBsM0xUzul7t3XQ32FGV/iK4FNYMPsgWaWdAgnQ=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
-	20261013094617epcas5p313e0734d2c7db7bbe03c473bb234212e~eDbYth67v3006230062epcas5p3d;
-	Tue, 13 Oct 2026 09:46:17 +0000 (GMT)
-Received: from epcas5p4.samsung.com (unknown [182.195.38.91]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4j3qGc5Wd0z3hhTB; Tue, 13 Oct
-	2026 09:46:16 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261013094616epcas5p28bf84b929cf60a77eb94cdb96dda7589~eDbXPcQd12244922449epcas5p2E;
-	Tue, 13 Oct 2026 09:46:16 +0000 (GMT)
-Received: from [107.122.11.51] (unknown [107.122.11.51]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261013094614epsmtip224a207ec66e03df7efa597a945cf76c7~eDbVilTUS2166721667epsmtip2i;
-	Tue, 13 Oct 2026 09:46:14 +0000 (GMT)
-Message-ID: <66bf5def-eabb-4c9f-bcd5-0143655ffd1f@samsung.com>
-Date: Tue, 13 Oct 2026 15:16:13 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J8F5AjUs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791884787; x=1823420787;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=dsQ3c3r30MByiQl80F9uySddLkO/UAS3WgjYmjdt+fs=;
+  b=J8F5AjUseXBAZY/iEPMxONLDQOgT8Ln4zjDklWKSn7eyNzRufP3ptSiN
+   eemGACbL+ezF4Xy1/Hz3jWUz654rAGtiLOhJKC+M7VGcgM/xoMUYSaSRY
+   R/4F1EfvUGZSkzTRQPUdeRJyWQPSyyapAJJxLdWdPNLi4XbvLj3VEldbV
+   OZnTpsnLUPp0ZZosH5H4enZtGFGsmcTnJye4JR7cuomNTXxw0Fu8N6h74
+   uyg/wKfR010ALPXuNxPeDNtZFfMhsVQ3QqoU/lQhHGdD4UDfY8vQ4rOp6
+   DpoM24zsF1LtApDUerWdEK+0sfTIOhIR4NhDBy6jx47R+q25Sss2lqQkc
+   w==;
+X-CSE-ConnectionGUID: a9koeaZnRXyKlN+QBWmI/Q==
+X-CSE-MsgGUID: KD67smqoQFeuOdSWBeUn7A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="504747"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="504747"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:46:27 -0700
+X-CSE-ConnectionGUID: jFIpIThAT2iEEf0urpX9OQ==
+X-CSE-MsgGUID: smM8Y3woQKiB7j0xfwBQXA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1091222"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:46:23 -0700
+Date: Tue, 13 Oct 2026 12:46:21 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: zl020895 <zl020895@163.com>
+Cc: longzhao@ambarella.com, Bartosz Golaszewski <brgl@kernel.org>,
+	linux-gpio@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
+	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: Re: [PATCH 7/7] gpio: pl061: add Ambarella register-layout
+ variant
+Message-ID: <as397YYv1k_IfIJC@ashevche-desk.local>
+References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
+ <20261009-cv75-gpio-v1-7-5836bd438423@ambarella.com>
+ <as3a7UTe9YEyBAY3@ashevche-desk.local>
+ <179f2223.7d43.1a1347ce995.Coremail.zl020895@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] nvme: bound FDP config log reads to the received
- buffer
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>, Keith Busch
-	<kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig
-	<hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
-Cc: Nitesh Shetty <nj.shetty@samsung.com>, Hannes Reinecke <hare@suse.de>,
-	gliuxen@gmail.com, linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Language: en-US
-From: Kanchan Joshi <joshi.k@samsung.com>
-In-Reply-To: <20261008182453.1262733-1-yhlee@isslab.korea.ac.kr>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261013094616epcas5p28bf84b929cf60a77eb94cdb96dda7589
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261008182524epcas5p358972aeaced27431d3c1412e88a1fae5
-References: <CGME20261008182524epcas5p358972aeaced27431d3c1412e88a1fae5@epcas5p3.samsung.com>
-	<20261008182453.1262733-1-yhlee@isslab.korea.ac.kr>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179f2223.7d43.1a1347ce995.Coremail.zl020895@163.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 10/8/2026 11:54 PM, Yehyeong Lee wrote:
-> v3: read the descriptor fields with get_unaligned_le*() since a device-supplied
-> dsze can leave subsequent descriptors unaligned, which could fault on
-> architectures without efficient unaligned access.
+On Tue, Oct 13, 2026 at 04:59:23PM +0800, zl020895 wrote:
 
-Were you able to test this part.
+> You did give Reviewed-by earlier. After that
+> tag the commit gained the DAT cache, so I dropped the tag because the
+> code changed. If you are still fine with that version, I will restore
+> it.
 
-> v2: allocate the log buffer with kvzalloc() so that if the controller completes
-> the Get Log Page with a short transfer, the uninitialized tail reads as zero
-> and is rejected by the existing dsze check instead of being parsed (hardening).
-> v1:https://lore.kernel.org/linux-nvme/20261008132604.1168105-1- 
-> yhlee@isslab.korea.ac.kr/
-> 
->   drivers/nvme/host/core.c | 24 ++++++++++++++++++++----
->   1 file changed, 20 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-> index 9bcab3dc4c118..094df0e6ed326 100644
-> --- a/drivers/nvme/host/core.c
-> +++ b/drivers/nvme/host/core.c
-> @@ -2272,13 +2272,17 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
->   	}
->   
->   	size = le32_to_cpu(hdr.sze);
-> +	if (size < sizeof(*h)) {
+Yes, I'm fine, please keep it, it was not that change that requires
+reconsideration, but thanks for explaining the reason why.
 
-header plus at least one descriptor is expected. So this can changed to:
+> >Ick?! I thought I gave a tag for this. What's going on?
 
-if (size < sizeof(hdr) + sizeof(*desc)) {
+-- 
+With Best Regards,
+Andy Shevchenko
 
-  > +		dev_warn(ctrl->device, "FDP config log too small\n");
-> +		return 0;
-> +	}
->   	if (size > PAGE_SIZE * MAX_ORDER_NR_PAGES) {
->   		dev_warn(ctrl->device, "FDP config size too large:%zu\n",
->   			 size);
->   		return 0;
->   	}
->   
-> -	h = kvmalloc(size, GFP_KERNEL);
-> +	h = kvzalloc(size, GFP_KERNEL);
->   	if (!h)
->   		return -ENOMEM;
->   
-> @@ -2304,8 +2308,12 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
->   	desc = log;
->   	end = log + size - sizeof(*h);
->   	for (i = 0; i < fdp_idx; i++) {
-> -		u16 dsze = le16_to_cpu(desc->dsze);
-> +		u16 dsze;
->   
-> +		if ((u8 *)desc + sizeof(*desc) > (u8 *)h + size)
-> +			goto short_desc;
-
-This and other short_desc check can be covered by extending the existing 
-check below
-
-> +
-> +		dsze = get_unaligned_le16(&desc->dsze);
->   		if (!dsze || log + dsze > end) {
-
-here, by checking that next descriptor fits completely.
-Also !dsze does not cover other invalid values from 1 to 63.
-
-Overall, something like this:
-
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 7eb0f9fe6b18..9991cff5c332 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -2273,13 +2273,19 @@ static int nvme_query_fdp_granularity(struct 
-nvme_ctrl *ctrl,
-         }
-
-         size = le32_to_cpu(hdr.sze);
-+       if (size < sizeof(hdr) + sizeof(*desc)) {
-+               dev_warn(ctrl->device, "FDP config size too small:%zu\n",
-+                               size);
-+               return 0;
-+       }
-+
-         if (size > PAGE_SIZE * MAX_ORDER_NR_PAGES) {
-                 dev_warn(ctrl->device, "FDP config size too large:%zu\n",
-                          size);
-                 return 0;
-         }
-
--       h = kvmalloc(size, GFP_KERNEL);
-+       h = kvzalloc(size, GFP_KERNEL);
-         if (!h)
-                 return -ENOMEM;
-
-@@ -2305,9 +2311,10 @@ static int nvme_query_fdp_granularity(struct 
-nvme_ctrl *ctrl,
-         desc = log;
-         end = log + size - sizeof(*h);
-         for (i = 0; i < fdp_idx; i++) {
--               u16 dsze = le16_to_cpu(desc->dsze);
-+               u16 dsze = get_unaligned_le16(&desc->dsze);
-
--               if (!dsze || log + dsze > end) {
-+               /* next descriptor must fit within the log */
-+               if (dsze < sizeof(*desc) || log + dsze + sizeof(*desc) > 
-end) {
-                         dev_warn(ctrl->device,
-                                  "FDP invalid config descriptor at 
-index %d\n", i);
-                         ret = 0;
-@@ -2317,13 +2324,13 @@ static int nvme_query_fdp_granularity(struct 
-nvme_ctrl *ctrl,
-                 desc = log;
-         }
-
--       if (le32_to_cpu(desc->nrg) > 1) {
-+       if (get_unaligned_le32(&desc->nrg) > 1) {
-                 dev_warn(ctrl->device, "FDP NRG > 1 not supported\n");
-                 ret = 0;
-                 goto out;
-         }
-
--       info->runs = le64_to_cpu(desc->runs);
-+       info->runs = get_unaligned_le64(&desc->runs);
-  out:
-         kvfree(h);
-         return ret;
 
