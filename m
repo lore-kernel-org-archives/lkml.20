@@ -1,41 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF5F563FAB;
-	Tue, 13 Oct 2026 22:52:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86668566C75;
+	Tue, 13 Oct 2026 22:52:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791931938; cv=none; b=LGxauu11QL1Ox4419hdc94cPiVHEKC9rSOOzpLX0jon/W9HFsooYWtlyOwBPvdhMzclpKckCrdJv3ypeWxk9KxFaUcoJzbRXLRjfdaZ/2yiySpiTZS4EKJlibCi/VSstVT7nhCcwxBEvvwjAb17DHJf/DEGAmyQgBy9EPx9ix+g=
+	t=1791931939; cv=none; b=k3PT1eMwTsr/sHZGa/PewROrVKfJIfE8lPq2v0hV2uhd+fS37aA7QZszCoMptryBt7Irh0kFz6Qysb1eBSfsl7+v76pTrjnXhjUFpgveHAvQwR885lG69nqeWFxSMarW5a+2RnBUooaFxsKl/JEYA3Hi0KT99sOYo4Cmsl4QhLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791931938; c=relaxed/simple;
-	bh=KiRqqrlaf8HazlzQcUHaYydMUHKelMqz701+av4CyKA=;
+	s=arc-20240116; t=1791931939; c=relaxed/simple;
+	bh=eFcaLJbV3onLWXX76Dq0oKLZVVUoH0YvgLpoIYptoKU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uR7N5EZlTIvmp/lDjrexfz7msx/FnhlZHLGLLl69tqk58bhuoDOu76qWtROBu25Zg6P4Z+FFBxAmXBoLp1YSY0HS044QfMFUi/eUZj+Deui33Z8vzK+3DEBSVeWnLg1DP7+mvEa4wTABhjZek+4NoTmhhrkGegGXEN/gk9hWUkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=fMZN61Cs; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=N3vHsY+BqLAXWFat1tUoMOXl78rxF/WhZcmMT2j00jbjUFzCMJVNbALQpQ65WoUnSYYPtiNiUcaEvhgFJZk/9ey0PD5wCiS8U2cnrD1hXkf790LvsTitQN0yaEKavz+ElV7LiR+xfS+Le5uUJI5nzG/Om5OmfkCSjzDseluvfPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=QDqPLdLp; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="fMZN61Cs"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="QDqPLdLp"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791931917;
-	bh=KiRqqrlaf8HazlzQcUHaYydMUHKelMqz701+av4CyKA=;
+	s=mail; t=1791931915;
+	bh=eFcaLJbV3onLWXX76Dq0oKLZVVUoH0YvgLpoIYptoKU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=fMZN61CsPtxfilKjKFZHI1ApDChIuDnDGWKYRnFxrf/2r/O4toGECNBnKzAMoNJt0
-	 S/4nxzwjhldCg6CyED18/0YZRIY1h7XqZThvzGrPSNNrM6Iwf9l4AxVT4uQ+9gHUoU
-	 ergJqUBoNf7VdtaCp8mm0bG/yE+RdyI5LvNbW5EbCX54uSXJvQLrUDrNyn8tb0nIbe
-	 FQZIILAqdaHVnoigxm4qweXdNQYKyPziZOZDrDId2yg1EgprIMyQxoVluWUgE05W0G
-	 xwZGIUvJ2ATI+Abrf2Ak/PjA0JXFIKLG8H8kRLiP63WFHVXRzuPljBZQ9wZew0AvDY
-	 gtnszGRmGyEIQ==
+	b=QDqPLdLpUwLITLJWpDFYHjaxRbGYhpkddjc6fE7EgQIZOI+2y4475KzCprSb7hzeN
+	 1eRAoKJAQArBEQmq4DdJAW0lG5YZmUB3zUfTtl02CifcOqnyPCcH0swmkNHUJE8NRu
+	 f1+f/xMxp+gkPXpztJBRLy3ED+09FnB/cXhheH6eUwpUmwxCoxSCjSKQYDbTn9jhgL
+	 dzIprO8YmTf4+lOsgsppCnGNKOGNfkAm+CPM/20k8jAhck3PJH+yTid/FW+T9mAOg2
+	 On29pSLk4yT9wNd3OqyvKO9wukXpDFyK9AOkz/UXgFJJkHRanrFcQnmsmHbd9pZ7oQ
+	 xcAw/2COfQitQ==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A999F17E12B9;
-	Wed, 14 Oct 2026 00:51:57 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E106C17E0EB0;
+	Wed, 14 Oct 2026 00:51:54 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 14 Oct 2026 01:51:27 +0300
-Subject: [PATCH v5 10/15] drm/rockchip: vop2: Switch to enum vop_csc_format
+Date: Wed, 14 Oct 2026 01:51:23 +0300
+Subject: [PATCH v5 06/15] drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE
+ overflow on 32-bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-dw-hdmi-qp-yuv-v5-10-6fab0fe43a9b@collabora.com>
+Message-Id: <20261014-dw-hdmi-qp-yuv-v5-6-6fab0fe43a9b@collabora.com>
 References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
 In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -67,55 +68,54 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
  dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
+ Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 
-Improve code readability in vop2_setup_csc_mode() by using enum
-vop_csc_format for the csc_mode variable, as well as for the return type
-of the vop2_convert_csc_mode() helper, which already returns CSC_*
-enumerators.
+VOP2_MAX_DCLK_RATE is defined as an unsigned long and is used scaled by
+the color-depth ratio when computing the maximum DCLK the HDMI PHY PLL
+can source.
 
-While at it, replace the nonsensical 'csc_mode = false' assignment in
-the no-conversion branch with the equivalent CSC_BT601L, which carries
-the same value (0) but is type-correct.
+On architectures where unsigned long is 32-bit, VOP2_MAX_DCLK_RATE * 8
+is evaluated in 32-bit arithmetic and overflows: 4800000000 wraps to
+505032704 before it is promoted to the 64-bit argument of
+DIV_ROUND_CLOSEST_ULL().  At 8 bpc this collapses max_dclk from the
+intended 600 MHz down to roughly 63 MHz.
 
+As a result, low-resolution modes (e.g. 640x480 or 720x480, whose pixel
+clocks are well under 30 MHz) still pass the clock <= max_dclk check and
+are reparented to the HDMI PHY PLL as expected, but higher-resolution
+modes such as 1280x720 (~74 MHz), 1920x1080 (~148 MHz) and above are
+wrongly rejected and fall back to the system CRU as the DCLK source.
+
+Define the constant as unsigned long long so that every expression using
+it is evaluated in 64-bit arithmetic, independent of the width of
+unsigned long.  This future-proofs any additional users of the macro as
+well.
+
+Fixes: b0362c45c401 ("drm/rockchip: vop2: Check bpc before switching DCLK source")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.org/
+Link: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.org/
 Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 45f3acbfa634..1b0f72958763 100644
+index 5a870a843dae..14c073f61c64 100644
 --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
 +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -648,7 +648,7 @@ static void vop2_setup_scale(struct vop2 *vop2, const struct vop2_win *win,
- 	}
- }
+@@ -102,7 +102,7 @@ enum vop2_afbc_format {
+ 	VOP2_AFBC_FMT_INVALID = -1,
+ };
  
--static int vop2_convert_csc_mode(int csc_mode)
-+static enum vop_csc_format vop2_convert_csc_mode(int csc_mode)
- {
- 	switch (csc_mode) {
- 	case V4L2_COLORSPACE_SMPTE170M:
-@@ -711,7 +711,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
- 	int input_csc = V4L2_COLORSPACE_DEFAULT;
- 	int output_csc = vcstate->color_space;
- 	bool r2y_en, y2r_en;
--	int csc_mode;
-+	enum vop_csc_format csc_mode;
+-#define VOP2_MAX_DCLK_RATE		600000000UL
++#define VOP2_MAX_DCLK_RATE		600000000ULL
  
- 	if (is_input_yuv && !is_output_yuv) {
- 		y2r_en = true;
-@@ -724,7 +724,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
- 	} else {
- 		y2r_en = false;
- 		r2y_en = false;
--		csc_mode = false;
-+		csc_mode = CSC_BT601L;
- 	}
- 
- 	vop2_win_write(win, VOP2_WIN_Y2R_EN, y2r_en);
+ /*
+  * bus-format types.
 
 -- 
 2.55.0
