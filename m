@@ -1,180 +1,110 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67BF94F30D5
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:55:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D704FD268;
+	Tue, 13 Oct 2026 14:55:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791903331; cv=none; b=D76369+Ho1XJdDqrhvMjhL8/oiXzb1999xFgE5P5wijOXNxiLB4C6MBwmaGrArtWE3W268etNPwNEFqvFxl6ALW3dTOyBehI1MKwgOtiHbvZYfJ3la3pXnlJcLvGD8nmeiYLCaDMd2TrVI5kKnb1yn/GZbu0KTRh4zmdOMhV0ag=
+	t=1791903333; cv=none; b=dNL0XUzQ6rA8lWeN0OjfRJx3s78S2NhCJe6h2E62O//hhGUKJ5bJfPvI+vf/fRC6DKx/tQfG/eeBB1T2RGEHWrv8k6hnl5w8aBg4YDxkDYEYz3P7xE7TFzvCITFAz3rDZzPPWbtKDhoNNaWri5rwoMW1csHWRciZfFix6XiKJPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791903331; c=relaxed/simple;
-	bh=iUcWbF6VqinwqarzVq3Arlchef8+Y24uEq8bk16kOrg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mLQyVs8X0IL1W7Xcw5YjhaRNPXy4ToyXEUvQSXJgbxS9U9e6CeyDdNIMn13ZGCAbk+VeK4oHYtgSXjYJk9ojRgjkJ73QNKcdAordMKK3Mr5C8+v2XnjB+P8JacpF+qP/BnAdHCrhDgzxEgkAkDj1TuA+J/KIO6Fui+BD9lRTF0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MHJP9Wbp; arc=none smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791903333; c=relaxed/simple;
+	bh=Xo0m7VVIUaPwtcfmUqqVROtWZL9F448ygMk93cgJv9A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CTtIP+hI3DRsjLRb+QZ5N9P//92lkSedL3kRReVJ/1iXt2NzRPp0b4Ee4tYLG86iNwRZOm8vWIz3GtddI74oLs7OQr2L7TlPmKJpK9kEeao07z5MuDXoaSRxfg704TtSFALOLwWMSisqCPsE1wFdfresjsVqj/9gPMgDAg+n3X0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fX+oCmtl; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MHJP9Wbp"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6afbc363efeso3679734a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:55:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791903329; x=1792508129; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n5kbj9NCQZ2sDr390DiL8elbJ9zikv1LhsX0xMjIXaM=;
-        b=MHJP9Wbp+hPIzM6zJrmtEFXWV0COA49P4nKiGwJlRcLfdAaMNX0f0CwpfmXgqQv7Ef
-         U3vGFHQpNSwWCCz8MbORM/uhzU/bCqT3jFJ9p0/3uWQvg3ZS+/F14R5+cVeEY2fHX43K
-         gUTnnTBvpDL1CjGzOWGlypSYCQpGgWnseksIU3vQwvW0dhtvQIAgpjbnAL8N8kQemINU
-         pIQNGz7KsLKeb+meqqrBYhsIZ0nynRTsaBIEFi47ELXYOfLEjXBcywMoVNj5FRYC0lpx
-         Bei/hG6C8WYETEW2shQ8hfbK9M4ONMJaXZ4VxZYItkWY2RCHNxlJGRxwGVOUNYf574O6
-         7Tgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791903329; x=1792508129;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n5kbj9NCQZ2sDr390DiL8elbJ9zikv1LhsX0xMjIXaM=;
-        b=cIgC3R/kBoElNFfWXtH2fbbqFFC00bX9RdxUnWU0yAG/gU5RyPhGSEZJQoY94GKsDs
-         GDLH+1D3J/UnKRY3NldVj25wWdZu6L5abw9+SwBd9Lstg8H9fEJZN8OO+wN9hYq8E8Bg
-         jNObEWB94j7AIBSsTFeaNUbYaOO64ehDPG23PQpats99RCYCM95x2x8qoURnlKe2uGNj
-         7lHI4rgmOxJV7dx1PJ5Lj08qKnWNL0bCLwjIjeBsaEiZYAZi1zn7y9/J6bEPWjeLdVnf
-         BNH6C92zSZ5N5MPRtYfQ1QW9AOcb7l1ubNd5M9Pqd0JVJE0WZc3gVAzMBNaOi3bsPI6r
-         xIyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzAXcg4M52QT3Rgar0aD0QLsNs2OSQLhKtcD6QpV+Djw3OmUoZxDs/6YOA+/joTz0OaRVAGjM5XVJ6SYY4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXw7GbKbDnEylZyXoezY6bW4frpRIIiYlM2w2Fzr7XAAqv+0Gz
-	c2bS4InpiH/ZptCgf0kg4HkqkTBwOFDKljTNFDDicWIpCkJrk4PV1VX/nI0oQDiq
-X-Gm-Gg: AYBFou3yp44drkNK/CN5Wnlxxw6NKoPleXQjKkyExrA+qNK7RDtTtJ8qoC+uTQwh0P2
-	Ef3O/TIydGG8EXLt0Fe1Vikt0CCZLdN0RNLiXbCjGOOpWOxwn+5Sd0/5p50Z9JvEC8EUKDd8qJS
-	X6S8vzL4/Lhym+JQjahRm9wx/iO6wWOaOrrLr/d4HJKY8Uh6g287W3Jd9VLzCVWosH93wY9jMLz
-	V42tZSpeR0ijC5qjjMOtQTtN/+N36BEfwUZDKUEIbuXrYjNAWGMy0I1QiypgKztOhsSWxOEYjVr
-	PHvy3i9JHJGU/5dV1WNAerVer8Yx3fek/WgpjVwxI89o/mclSmUbh4Epdy7pfk9AFW1laX7zued
-	36N2wtrDNcavjpYillplxT7RBSpegVm0fOi/OE2ZiJvDHU6iFp9YqaP8MetYv57tnV/T5+WlHd1
-	rQYl9Fdl94o0RUsrPSzx68aVS+5PqirQNCSqui+xu3lsRclN7tbfeaLcLsGFXDaWnG/Ek+cCfu8
-	2stJD3IZjeWQSRVzJy75c73/qy/iWb45kixsDNbDw+VdfE=
-X-Received: by 2002:a05:6402:3553:b0:6b1:cea1:a011 with SMTP id 4fb4d7f45d1cf-6b1cea1a32amr3900125a12.0.1791903328563;
-        Tue, 13 Oct 2026 07:55:28 -0700 (PDT)
-Received: from localhost.localdomain (87-205-122-125.dynamic.inetia.pl. [87.205.122.125])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179e03428sm6169161a12.37.2026.10.13.07.55.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 07:55:28 -0700 (PDT)
-From: Kyrylo Biryuk <illofspeed@gmail.com>
-To: dm-devel@lists.linux.dev
-Cc: mpatocka@redhat.com,
-	snitzer@kernel.org,
-	agk@redhat.com,
-	bmarzins@redhat.com,
-	dlemoal@kernel.org,
-	hare@suse.de,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 4/4] dm zoned: do not busy-loop idle reclaim when no zone needs reclaim
-Date: Tue, 13 Oct 2026 16:55:22 +0200
-Message-ID: <20261013145522.17499-5-illofspeed@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013145522.17499-1-illofspeed@gmail.com>
-References: <20261013145522.17499-1-illofspeed@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fX+oCmtl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791903333; x=1823439333;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Xo0m7VVIUaPwtcfmUqqVROtWZL9F448ygMk93cgJv9A=;
+  b=fX+oCmtlpKND+O8a/5/L9lmU1PEnKq8zLGssQzszrjpDqIqGQjmsnfD3
+   IkDqKf2crtO3XJdN6JdGKTEOP4pqT4EUIyXi6ZXkiB0RBopX5SZTZz+/K
+   QSMFclx1kE/kpO210l/1mcjjszLdZtwUrKnb49Zm+Y+xkCg7IrpCgyaxo
+   mVLjcDqh65w7hDkqf2WXviyA1p+YYwlCq1QTH2IOeo38bZDzbPxS1hn51
+   t5u+qoKimaly9CgQWvW5kyFUNO64aIFqZVsluj8kCA6kAENBHYVyD3E44
+   l6crsgmhFfac4WCq8KpJ+TpU4WdP59khls2Z3iFYa0pAiALPR1q1szh54
+   A==;
+X-CSE-ConnectionGUID: xGjomppiQKKVXKu/gW8lzA==
+X-CSE-MsgGUID: xjkl5iNfQrikAA54z2t+DA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="532643"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="532643"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 07:55:32 -0700
+X-CSE-ConnectionGUID: 53eLxZZ8TTWVFx0/oZLHtg==
+X-CSE-MsgGUID: Fed9jcBtSe2kApKT/xbO3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1125043"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 07:55:27 -0700
+Date: Tue, 13 Oct 2026 17:55:24 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v2 2/8] iio: adc: rzt2h: Wait for the analog part to stop
+ after a forced stop
+Message-ID: <as5GXPcMKe-CBLXK@ashevche-desk.local>
+References: <20261009184122.1378797-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261009184122.1378797-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009184122.1378797-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-An idle target whose random (and cache) zones are all unmapped keeps its
-reclaim work running without pause:
+On Fri, Oct 09, 2026 at 07:41:16PM +0100, Prabhakar wrote:
 
-  - since commit 90a9b8693f1b ("dm zoned: reclaim random zones when
-    idle"), dmz_should_reclaim() returns true when the target is idle and
-    the total number of random (and cache) zones is non-zero, whether or
-    not any of them holds data;
-  - dmz_do_reclaim() then finds no candidate and returns -EBUSY;
-  - dmz_reclaim_work() runs dmz_check_dev(), which checks every device
-    for media events (a TEST UNIT READY on SCSI disks), and
-    dmz_schedule_reclaim() requeues the work with no delay because
-    dmz_should_reclaim() is still true.
+> When ADCSR.ADST is cleared to forcibly stop a conversion, the analog part
+> of the A/D converter can take up to 2 ADCLK cycles to stop operating.
+> 
+> Wait for the write to ADCSR to complete and allow the analog part to stop
+> before reconfiguring or restarting the converter.
 
-Without the previous patch, a pass ending while the target is busy and
-has enough free zones can leave reclaim unqueued, which ends the loop;
-keeping the idle poll armed makes it recur whenever the target becomes
-idle. On three 27 TB host-managed drives used
-without cache devices (all random zones free) it kept about three CPUs
-busy and sent about 155,000 TEST UNIT READY commands per second to each
-drive while the target was idle.
+...
 
-Only reclaim on idle when a random or cache zone actually holds data (the
-intent of the "p_unmap < 100" test that commit replaced), and
-handle -EBUSY like -ENOSPC: nothing can progress and no I/O failed, so
-poll again after the idle period instead of rescheduling at once, and
-skip the device check. Use queue_delayed_work() for that poll so work an
-allocation has already queued is not postponed.
+> +	/*
+> +	 * When a conversion is forcibly stopped, the analog part of the A/D
+> +	 * converter takes up to 2 ADCLK cycles to stop operating. Read back
+> +	 * ADCSR to make sure the write has reached the hardware before
+> +	 * starting the delay.
+> +	 */
+> +	readw(adc->base + RZT2H_ADCSR_REG);
+> +	ndelay(DIV_ROUND_UP(RZT2H_ADC_STOP_CYCLES * NSEC_PER_SEC,
+> +			    adc->adclk_rate));
 
-Fixes: 90a9b8693f1b ("dm zoned: reclaim random zones when idle")
-Assisted-by: LLM
-Signed-off-by: Kyrylo Biryuk <illofspeed@gmail.com>
----
- drivers/md/dm-zoned-reclaim.c | 26 +++++++++++++++-----------
- 1 file changed, 15 insertions(+), 11 deletions(-)
+A single line (84 characters) is okay in this case.
 
-diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
-index f1f9adf6039..0d62ade1466 100644
---- a/drivers/md/dm-zoned-reclaim.c
-+++ b/drivers/md/dm-zoned-reclaim.c
-@@ -470,9 +470,10 @@ static unsigned int dmz_reclaim_percentage(struct dmz_reclaim *zrc)
-  */
- static bool dmz_should_reclaim(struct dmz_reclaim *zrc, unsigned int p_unmap)
- {
--	unsigned int nr_reclaim;
-+	unsigned int nr_reclaim, nr_unmap;
- 
- 	nr_reclaim = dmz_nr_rnd_zones(zrc->metadata, zrc->dev_idx);
-+	nr_unmap = dmz_nr_unmap_rnd_zones(zrc->metadata, zrc->dev_idx);
- 
- 	if (dmz_nr_cache_zones(zrc->metadata)) {
- 		/*
-@@ -483,10 +484,11 @@ static bool dmz_should_reclaim(struct dmz_reclaim *zrc, unsigned int p_unmap)
- 		if (zrc->dev_idx == 0)
- 			return false;
- 		nr_reclaim += dmz_nr_cache_zones(zrc->metadata);
-+		nr_unmap += dmz_nr_unmap_cache_zones(zrc->metadata);
- 	}
- 
--	/* Reclaim when idle */
--	if (dmz_target_idle(zrc) && nr_reclaim)
-+	/* Reclaim when idle, but only if a random or cache zone holds data */
-+	if (dmz_target_idle(zrc) && nr_reclaim > nr_unmap)
- 		return true;
- 
- 	/* If there are still plenty of cache zones, do not reclaim */
-@@ -543,17 +545,19 @@ static void dmz_reclaim_work(struct work_struct *work)
- 		dmz_nr_rnd_zones(zmd, zrc->dev_idx));
- 
- 	ret = dmz_do_reclaim(zrc);
-+	if (ret == -ENOSPC || ret == -EBUSY) {
-+		/*
-+		 * No zone to copy into (-ENOSPC) or no zone to reclaim
-+		 * (-EBUSY): nothing can progress now and no I/O failed.
-+		 * Rescheduling immediately would spin; poll instead, without
-+		 * postponing work that an allocation has already queued.
-+		 */
-+		queue_delayed_work(zrc->wq, &zrc->work, DMZ_IDLE_PERIOD);
-+		return;
-+	}
- 	if (ret && ret != -EINTR) {
- 		if (!dmz_check_dev(zmd))
- 			return;
--		if (ret == -ENOSPC) {
--			/*
--			 * No zone to copy into: nothing can progress now.
--			 * Rescheduling immediately would spin; poll instead.
--			 */
--			mod_delayed_work(zrc->wq, &zrc->work, DMZ_IDLE_PERIOD);
--			return;
--		}
- 	}
- 
- 	dmz_schedule_reclaim(zrc);
+	ndelay(DIV_ROUND_UP(RZT2H_ADC_STOP_CYCLES * NSEC_PER_SEC, adc->adclk_rate));
+
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
