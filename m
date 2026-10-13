@@ -1,68 +1,69 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C651651C349
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:15:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1AA5218AA
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:15:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904547; cv=none; b=eImEZzXD3mg+cE9imZHmPgjl+FLPxH9WCc5Dtvy5pWN79BkxPvxErDEB+N1UoyJSmYY7B90KvZEBZshQaSUWR2X9q9h4aNyDkAoOMEeGC1Cqf3W/BVap3aFn7HMLH9Kmq4oUFFGjV2EvvV5F7BHdCVcAMx0gLOnpLBhfDTCXgXM=
+	t=1791904551; cv=none; b=W/igtFuitNersZFoTKz37t1vs4PZMIhl4ZRv+Ya65msoYQfbKt5ao6LIdtVL2ewHepepLBcGbAsbn7558UCpOjN1bv0+sc2HYyQeKCeMOwAyLB1ZunqgFJrakTa6UycpzYvjD2f+vSwatibQmYP6DhsEm7R4IEBYVefYYxemxHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904547; c=relaxed/simple;
-	bh=4oUcfn/aG/2LlccdeXopD+FbwSKNU7W6lskF/8Ob8uY=;
+	s=arc-20240116; t=1791904551; c=relaxed/simple;
+	bh=HmGWDDaqG9wgYzaaOhCtIlUpwfVuv7eZAzQKZvw2NO0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Suur5JCvLU3InOCEfrGwyQvVSgeswbuaQUZ7bnLYi4COb4DDYIcXV6kbmvXQNYOt3aFDSgKGzOzP8dEwnSJOow8F3wUd+N9c/VNICAu8zp4LioemjFq7ifkfFeYEtVk0dZxgBapSG0XRFmSPQUnehvSGHW946anzWnJWF+8wa5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=Gi193gQM; arc=none smtp.client-ip=74.125.82.170
+	 In-Reply-To:To:Cc; b=LnDhfN/O4n4sh4j2UbOM/4Cz0sFR+kWcZnqp27LEoXxQ+Xavm5NqEjB/tKgcyJRWfrlJ7GzzAxp8+wo6Z+g0detqN4fAeUbF7gL33vYXbdUdDtXlXY9gVVKZi6QNrPvBR6u/x0xM0GlwOuWltfBWLHOFjNwKDFkwipMNHtBMDWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=JWEgw3uW; arc=none smtp.client-ip=74.125.82.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="Gi193gQM"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-33c2520ad38so7093401eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:15:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="JWEgw3uW"
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-17bc533fda3so569401c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:15:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1791904545; x=1792509345; darn=vger.kernel.org;
+        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1791904550; x=1792509350; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YzTa31p3mVN/sH8ialORwNcbJ7+oKPie6pSClyvLsIA=;
-        b=Gi193gQMliDZwYnnckZGPQepqq/6mTtLmHehvxcuqmUwtbZncJAx00gZIHuEL/q/8+
-         MDkvwmdMAyMmMvh/KFI4GJzN9iSyOOXOsJYj0fYbsfaDBN73jIXNqz2U2N+/hW32Zf58
-         hYKVoogrEyB/t1KdjLJ06e83kRGaoHwy2C4rLyG0ndgHfU9FNtSGShOI+/GTufyMDI1A
-         RH4R9sdwhbUlaibW7jdKFwWjzqRImhtY9ZWCzGh3sHa+fT+T1bu0/aBHCxRU3NN1Fv7+
-         C8jzLl46o65mhKdXC+VwT09TvPhL0cmKyzZ4gU/dB301hebxSFOiFdMy1GzKCTtFbyc5
-         En1g==
+        bh=v/4xf9ixNsPOw+XXMk3VwH3ZhfDNhWjYPrvc7VQp0Lc=;
+        b=JWEgw3uWTlFOyFtqcJnFR6u07H31+PLkPy6cU/CGAtJbU5mZcWG/erQaX0OraCo+I8
+         KgyLtUlXY4e935EWhB6I7wHslhhod5vCwWbjheTL9EsdCfyMIZjPgvVAZ71j+vaCjuUX
+         uM/abnVDe7ILe8q4wk/gtBbGDZNZewVXPDnCwMQc/QV7oR1DmqnzqgflL5LjZ02RvQRk
+         VUFApJEVwW+2ZCQPAVFuwJFW38PK/ZLGlVoxoca3LXliMdK+iM89WrZF6B96c4I7W0em
+         RwUzM+qrrHGnUDSoBqXIgYQ/HqOEyo1Db9t6bMHXKXLDpmGFz/Ns43u7iAWlvu4f6vEs
+         HzYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791904545; x=1792509345;
+        d=1e100.net; s=20260707; t=1791904550; x=1792509350;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YzTa31p3mVN/sH8ialORwNcbJ7+oKPie6pSClyvLsIA=;
-        b=R3J8/VOuhqVuGOiM+p3NnkFXQ6gaGvXsU4pCmmpgiz3ZoksF/eP7NJkmJrCJbuyrH1
-         Se16uUs/0Ny41wiy9exEcwFSOBNCEmvf8HS1rQ1R5f1QyoI+lsAQA2E1NYHnb7pJivab
-         Z9p9Jq/cwBbq8P5DZN4mH8UeBMD7lUcrzT8e1Se+lsWtx5+3MMROrhjmxhgsRKKjUjmk
-         aQyUocokqfL0/wZZKHEQo55apJCL+uzqtHRw9EIEq/PF+up4fe8H1/owAhFThSHPvSTa
-         ph4vM9w5a3dkE/5xaB4N1aiWUcHf49hCpbT/pJmTOH9bHmVWLjSXm2PJ17mY+Ld9Lhqo
-         oRpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw8PqwFXrQtkCCRYYxGQXbmjYcFw+toCC/BTydQmph3ML/xyk5fj2CWBcrsbcz7fOmFFzhlrAQMtyiehQY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuTXVwWNbrJnmuQomN2VbJEE+qvkxoI1uLgEcipB9436JZIg3L
-	FTQVELOIQ+k6gYG4hXfm1KRIz9r6W7MiQh3LnKLQHELqTHjGrhapnz6mNiloI1aHqmk=
-X-Gm-Gg: AYBFou3uw+xV6kTg+jHOLpEBv43wv/gMO2PG2FEd+2hddNk1Ze2hVRhe86TR8tmmQfy
-	ZWha7dTJrVGUxhbz0dBNCBAt62Qm+hafHi8277QPLjvV+Tlga8jZKMJ2NiPq95uadc3ndYx2GdW
-	gvWfobMIoqoQW4PDOMOAP3G42LGS1Odr7Rf0jmkD2FSP0Z3sBcngptjRxjtEEfJW/uCYg17Zsh0
-	X20SLJm9Ms5JTo0BYZLEh3Sa5T+kTmZuNtJO+9F7jE99u+7aUJeYMzACHPV0R8xCUERvbuyumey
-	knMQ820xrurkJa5+rAqrUZtT/kB0hEhZyvmrTwiqgyndmD3qAZHb94SEBZX0Z5MDAz28hOat4OP
-	ZQiqGhIo02YiYjkvVYTv/w9bl47Wm1oI5V7KPB299SfmoOEpa2RG4rvgaMTNaD9u9l4DE8LPkcq
-	9s8yJIhMa5D+vmzEtRIKNgd9i+rp35g0vPfM2PyA5f6Oi7XLyLYdqVL0si7jZJXpIczX9mRdDM4
-	MDYV/DRJaLLQPk=
-X-Received: by 2002:a05:693c:895a:10b0:351:1e72:7470 with SMTP id 5a478bee46e88-3537e04414emr18187121eec.13.1791904544676;
-        Tue, 13 Oct 2026 08:15:44 -0700 (PDT)
+        bh=v/4xf9ixNsPOw+XXMk3VwH3ZhfDNhWjYPrvc7VQp0Lc=;
+        b=nz3KOP5fdE0MIzIS++1CTwyZ82B4DD6Kr2XyCVKxX4d+Ln9hy/a6IX8Hm1uPgni9Dl
+         0Y95IISe8fU9RTUvOPSzPc5NKs3YzDrKALADOnXyrd/Mx4SFdhjNUZCNINev4T6NQ5OV
+         X7uUcA7xyc5j2UV+35oa4WfLjAlgt/NqGdoYmoq3WtP+tZXZGIKmIBFa+mKGTQ/q2ywr
+         Q/KEattKQI1jqN6uASSZqkpkaQwdwCi3dqyjwmMQAZb7oE6VkAQ2wqdHeWG2rhvkg177
+         eKEfiTxTKMd/iyB6wpMWvoR4TueHW5iakQN/YeqH8fug3zbmFRvk74i2cie1e8nGPG8W
+         zIDg==
+X-Forwarded-Encrypted: i=1; AKwUvBwUNvAmHD4aBES4bSthrIIzs9IKSQyOdpwnOsNoCjDEqk8sGXgr4pgRTk3N8gLv3AGfkzFGRtfxag7ZJQU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJf5G5xXPbLRlKTytD0XGRBUo4q0r1HBS2aCXP6D3xSGK/5rEQj
+	xxHGRJMfewP8xWLC7vhfWYPqcSrVh2U6XdOv0mzHxiuXxfyPzkDryrsF9harRkbGgqo=
+X-Gm-Gg: AYBFou0hwHES/uwJZjCco2HloGU24vYb/QIpG2fPW9wVlxztiSKA7WnyzHGcC3DWfzj
+	2Pn692x+Q73eYmEBRfnuF6xDWYQGDCaWcvyDLA2jBUX/uwg64pvQG8gfr3JAdfONrn5y393KAo9
+	OMM9KeHqaiUEH61GEzTfzfp/ivgusc4243GZpgrzsfIeRm/7OqKkykKilh/3/uZYgepCmg6URS0
+	m5lDRjcy14e6DJZa7JxLBS0ldkdeGABWG5IXbphKxRE3GwZSBuWy9xVFCwewS/BRNkamy893q0L
+	p9vn5VwZtgKmgr0J/bYpdyKyvoa1MovfU+5MqxwyjAu6BbfTS9wvDaLGb+Z/hQUazRXHrky/uDU
+	avrRo49FYP3zm4rY3wu0rjJuHgDtJ3OjBI3KL9IkQ2eXfRGQE1vvM9R//bZkDbfzFu+Kxw5uOow
+	AtBTrukF7Fk76LTHSwr/Akoj6MP7Qu8CLMQPKGSgeWF2Bdm1sGkljRFtJAp+2pUBhij0hLh5ZH6
+	BedQ6dDcxZJnz8=
+X-Received: by 2002:a05:7022:927:b0:150:c9c5:1ce4 with SMTP id a92af1059eb24-16a56ab133dmr22268863c88.6.1791904549516;
+        Tue, 13 Oct 2026 08:15:49 -0700 (PDT)
 Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:49b8:4c98:b3d1:72aa])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-358de54fe47sm30691751eec.31.2026.10.13.08.15.41
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-358de54fe47sm30691751eec.31.2026.10.13.08.15.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 08:15:43 -0700 (PDT)
+        Tue, 13 Oct 2026 08:15:47 -0700 (PDT)
 From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Date: Tue, 13 Oct 2026 16:15:23 +0100
-Subject: [PATCH 2/4] Input: misc: use named initializers for acpi_device_id
+Date: Tue, 13 Oct 2026 16:15:24 +0100
+Subject: [PATCH 3/4] Input: mouse: cyapa: use named initializers for
+ acpi_device_id
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-acpi-input-v1-2-53ad09ba82b7@thegoodpenguin.co.uk>
+Message-Id: <20261013-acpi-input-v1-3-53ad09ba82b7@thegoodpenguin.co.uk>
 References: <20261013-acpi-input-v1-0-53ad09ba82b7@thegoodpenguin.co.uk>
 In-Reply-To: <20261013-acpi-input-v1-0-53ad09ba82b7@thegoodpenguin.co.uk>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
@@ -81,11 +82,11 @@ Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
  chrome-platform@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
  Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791904532; l=2702;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791904532; l=1214;
  i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
- bh=4oUcfn/aG/2LlccdeXopD+FbwSKNU7W6lskF/8Ob8uY=;
- b=Os3WfFvBA/IGfHGvBo8P3yLDwk4fQu1+7P1UF52NZo5URi93Zzs6fHaSN1TE3h7WSbX2hxsK7
- h4dIysiLhVCBQYdMK4hWkNpieqUR9Lrjflv8qN83NRWPV99bwlmvJcC
+ bh=HmGWDDaqG9wgYzaaOhCtIlUpwfVuv7eZAzQKZvw2NO0=;
+ b=orrWjgwEEFh1FiTF7HQVb9je4Hn8Voxwhgi2CmEj3dj5klRtM2XsKllESdRoEFsFHxl0ERJPf
+ mOt99NSkjYeCeABG03IuTSlUlXMnG+AUxvH3Q05qFKuzUV3PACcnUjJ
 X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
  pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
 
@@ -94,69 +95,28 @@ code more readable and consistent with how lists are initialized in the
 rest of the kernel code base. Also drop explicitly setting fields to 0
 where it is redundant.
 
-Unify the list terminator to have a single space between the brackets and
-no trailing comma.
-
 Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 ---
- drivers/input/misc/atlas_btns.c       |  4 ++--
- drivers/input/misc/drv260x.c          |  2 +-
- drivers/input/misc/soc_button_array.c | 12 ++++++------
- 3 files changed, 9 insertions(+), 9 deletions(-)
+ drivers/input/mouse/cyapa.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/input/misc/atlas_btns.c b/drivers/input/misc/atlas_btns.c
-index 5805a1a3bb05..e77e53ee9d41 100644
---- a/drivers/input/misc/atlas_btns.c
-+++ b/drivers/input/misc/atlas_btns.c
-@@ -128,8 +128,8 @@ static void atlas_acpi_button_remove(struct platform_device *pdev)
- }
- 
- static const struct acpi_device_id atlas_device_ids[] = {
--	{ "ASIM0000" },
--	{ "" }
-+	{ .id = "ASIM0000" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, atlas_device_ids);
- 
-diff --git a/drivers/input/misc/drv260x.c b/drivers/input/misc/drv260x.c
-index 6c5c4c53753b..8a3d74d65d63 100644
---- a/drivers/input/misc/drv260x.c
-+++ b/drivers/input/misc/drv260x.c
-@@ -640,7 +640,7 @@ MODULE_DEVICE_TABLE(i2c, drv260x_id);
+diff --git a/drivers/input/mouse/cyapa.c b/drivers/input/mouse/cyapa.c
+index 47000c30e4d8..8a4c78261aeb 100644
+--- a/drivers/input/mouse/cyapa.c
++++ b/drivers/input/mouse/cyapa.c
+@@ -1463,9 +1463,9 @@ MODULE_DEVICE_TABLE(i2c, cyapa_id_table);
  
  #ifdef CONFIG_ACPI
- static const struct acpi_device_id drv260x_acpi_match[] = {
--	{ "DRV2604" },
-+	{ .id = "DRV2604" },
+ static const struct acpi_device_id cyapa_acpi_id[] = {
+-	{ "CYAP0000", 0 },  /* Gen3 trackpad with 0x67 I2C address. */
+-	{ "CYAP0001", 0 },  /* Gen5 trackpad with 0x24 I2C address. */
+-	{ "CYAP0002", 0 },  /* Gen6 trackpad with 0x24 I2C address. */
++	{ .id = "CYAP0000" },  /* Gen3 trackpad with 0x67 I2C address. */
++	{ .id = "CYAP0001" },  /* Gen5 trackpad with 0x24 I2C address. */
++	{ .id = "CYAP0002" },  /* Gen6 trackpad with 0x24 I2C address. */
  	{ }
  };
- MODULE_DEVICE_TABLE(acpi, drv260x_acpi_match);
-diff --git a/drivers/input/misc/soc_button_array.c b/drivers/input/misc/soc_button_array.c
-index 064243677fcf..dbf86ea778e6 100644
---- a/drivers/input/misc/soc_button_array.c
-+++ b/drivers/input/misc/soc_button_array.c
-@@ -603,14 +603,14 @@ static const struct soc_device_data soc_device_MSHW0040 = {
- };
- 
- static const struct acpi_device_id soc_button_acpi_match[] = {
--	{ "PNP0C40", (unsigned long)&soc_device_PNP0C40 },
--	{ "INT33D3", (unsigned long)&soc_device_INT33D3 },
--	{ "ID9001", (unsigned long)&soc_device_INT33D3 },
--	{ "ACPI0011", 0 },
-+	{ .id = "PNP0C40", .driver_data = (unsigned long)&soc_device_PNP0C40 },
-+	{ .id = "INT33D3", .driver_data = (unsigned long)&soc_device_INT33D3 },
-+	{ .id = "ID9001", .driver_data = (unsigned long)&soc_device_INT33D3 },
-+	{ .id = "ACPI0011" },
- 
- 	/* Microsoft Surface Devices (3th, 5th and 6th generation) */
--	{ "MSHW0028", (unsigned long)&soc_device_MSHW0028 },
--	{ "MSHW0040", (unsigned long)&soc_device_MSHW0040 },
-+	{ .id = "MSHW0028", .driver_data = (unsigned long)&soc_device_MSHW0028 },
-+	{ .id = "MSHW0040", .driver_data = (unsigned long)&soc_device_MSHW0040 },
- 
- 	{ }
- };
+ MODULE_DEVICE_TABLE(acpi, cyapa_acpi_id);
 
 -- 
 2.53.0
