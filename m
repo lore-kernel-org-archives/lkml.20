@@ -1,165 +1,113 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A5751DAE9;
-	Tue, 13 Oct 2026 16:44:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791909897; cv=none; b=KzEDL6qiUXvyYF5Ow0PqA4sNk+t5ybYR7l4J17Djxni3TRbwwnWor1ZYc4Sg7Eix2DrgQhmCyf5kELQIOW1CgBqOj8fflfF+wFkH9odgbnpc2qoixQa7ZwVtOtlipxwzYE9GpNha5/SBJbJch8gGbJBnwbBEfIHmVpI2dyI2gso=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791909897; c=relaxed/simple;
-	bh=pjiXZcfH0vX2UrE5Egz1b3TahHzVYJoDOAAYUpAEQhM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=m7slDo4o9u6IQcGdJoBXVohZROD7wU/cIHzE/qJgRKQiv9SBXCJCu1uRzp+ztzKwk6wXV7H5PpC1FencL0DLdipHtbfgM0h3Z5lfA6C5k0sQOr6WAYme9my5imujxqtZ4IdWPBuHRRn0UczVE1f6o8n7u3sxDzXJwPLPNsnyc/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=2U/syucD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=V93Tm5pO; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=2U/syucD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=V93Tm5pO; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F3751D539
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:45:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791909909; cv=pass; b=Z4Fg48xPjy0Hdgagi2biC6xW7238t738nQfru+uVyoRxODjThoCryV3zbsUiUcGIwH0Tp5WfL/YUMUckk8Tgaj08/j3WffoujhwA9XF4FN6nguSJ69/xh6a0JI5UqUfrWR4BW4j0cagYHzCt35aEBspOSdAYjF0vyQG+ih290k4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791909909; c=relaxed/simple;
+	bh=T0J5BYuAnT3Xdi9Jj3WCm+YKqnN6H2/WrFA4Kd+XVcw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iMZgp24F8EtOCdTaFnNcGp+EVZK0aSvgxobTsJg6WTrMBq2orM1FpKudKGgtQe9uAdSaDAtS9+V78hS1kx+K7Jz1h8e1vS3uFiDlmURvMiO0nNRM1eU0OhgaC6QSaUzoS/F8fKCs8PLVamD0FxM+0+vGI2E3ry0MQ9LCQ+o45zs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bu6oCxjW; arc=pass smtp.client-ip=209.85.167.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="2U/syucD";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="V93Tm5pO";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="2U/syucD";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="V93Tm5pO"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 1CDB521E2E;
-	Tue, 13 Oct 2026 16:44:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791909894; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IonQPWehnZPl6amED8BDj3j1/dcAJzFM3LAToUW8U5Q=;
-	b=2U/syucDoac15k/7lF939cUycZlwA9ZmOLT3/5bRN+r+etkz8Q4YGVGHuHwEvT7hw7OGb0
-	VPY3nmImP5CNImvBJoEUEu8CZi9+wlQYLqef1rC6xu0kheHfyCEc5ctiJcG0wl1MubJCy0
-	BbLh3cwZx9y/qOmXAfp2ZFLnSAcQx5M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791909894;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IonQPWehnZPl6amED8BDj3j1/dcAJzFM3LAToUW8U5Q=;
-	b=V93Tm5pOFSFzSqUCTkwRsjrzeoHUGwWFfmoSBux9ZQOoiMWoFiq1vFBFtQJqdq9QkWT4bf
-	cmVbgQP67CF1s/BA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="2U/syucD";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=V93Tm5pO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791909894; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IonQPWehnZPl6amED8BDj3j1/dcAJzFM3LAToUW8U5Q=;
-	b=2U/syucDoac15k/7lF939cUycZlwA9ZmOLT3/5bRN+r+etkz8Q4YGVGHuHwEvT7hw7OGb0
-	VPY3nmImP5CNImvBJoEUEu8CZi9+wlQYLqef1rC6xu0kheHfyCEc5ctiJcG0wl1MubJCy0
-	BbLh3cwZx9y/qOmXAfp2ZFLnSAcQx5M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791909894;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IonQPWehnZPl6amED8BDj3j1/dcAJzFM3LAToUW8U5Q=;
-	b=V93Tm5pOFSFzSqUCTkwRsjrzeoHUGwWFfmoSBux9ZQOoiMWoFiq1vFBFtQJqdq9QkWT4bf
-	cmVbgQP67CF1s/BA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BD78F134B8;
-	Tue, 13 Oct 2026 16:44:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id HDMuIgVgzmpXVAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 13 Oct 2026 16:44:53 +0000
-Date: Tue, 13 Oct 2026 18:44:53 +0200
-Message-ID: <87pkxdft2y.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] ALSA: hda/intel: Power down GPU at error on azx_probe_continue()
-In-Reply-To: <20261013133153.78225-1-tiwai@suse.de>
-References: <20261013133153.78225-1-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bu6oCxjW"
+Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-4af81963f35so1913633b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:45:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791909907; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Cggv5R5VGotjeGjLuBvAZHod5bCdkjOHP5D00ToqyNwEqM4QekBD2llFGSOTEkcOr3
+         4eLClHkXICr+2gb03KQZV82B8IL5zkBi8aPROL+OehR8kroQ7RYuaiTakSun3a9KbgY3
+         5cg/x7w6Est7/fvpxSv0EjiC4QsdAcKLu01dK+o+IfDB7j+4aVzJ0DyKeApqd0IWl8Vl
+         +belIgwkr+LLyUpd4TlWCKnG7su2RgVRt1EtVI3Kgz7cvH6edRmvQoRUPZgpUOEpdUxa
+         u80xR/8QZCFQTasCCwHitne8Cb9JUJHXDadDREuJznnzwGoRIETyDc7HkXwTPt7/4srF
+         BDtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=T0J5BYuAnT3Xdi9Jj3WCm+YKqnN6H2/WrFA4Kd+XVcw=;
+        fh=HC8d9gkefoAXbP54Zs8qJ2nbgTboNul/HB97TBhIiVI=;
+        b=FtK8KtM5mwSrcxbRdq+dF/XuSpNTCqnyJQAr9d8MIgFD0mQSawQQUnXiB9xrkNDeap
+         bCDtV0Ei7dNF3+UcCq9L7FZfN9Q3jUlQ3ueJz/OS0H3rOLvmFkKlCVQk9AXK6gsh5djB
+         2OWS18k2oTpiWDqsUH/XxWF8VT/jKqYMP2jlkhZzHkySWYnms7uR0QN28h5AM7+2938v
+         YVzqgULjhr1RBWr8NVTbiQZeUYIaLC42VUHSxzOZfAwHwmUHuZVzIZxQTsjC02L/4MrV
+         eRYoY5GEHDqplw1rlesbog7gJ5lVxC9ZVjQzF5H7HmWQSr+DMvGE6hElDiktXt1G75tz
+         l9KQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791909907; x=1792514707; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T0J5BYuAnT3Xdi9Jj3WCm+YKqnN6H2/WrFA4Kd+XVcw=;
+        b=bu6oCxjWhaGntr+VM13rF2COOHxrghPdcW2BylwKxNYEXaQVVYbn9FBBxGhgVsmsgj
+         XUfheH0UTD/OFTx+hzPK0grZDg/AosqB0748Za5Z6c7DXdJxE3nQN58/6evJYbzqyfmv
+         kYXvOGuQOv0FIKaD6kixsYMQElxwiXdnoqRuIGMdpk/7Z5GH0UXvvO5UvTpfV2f8ZXMy
+         y0IvfAfRvef28HHOyN4J3mb1jNRqfPfyXdxb020z4w/2gF3mYgLpN3UAJV5v3m0VatLG
+         4hH6hyCVGRhBd+Byflx7lmp6pInZAKAJari5nQ6rdauiBVmxVXNaQQeNoXXwQ0EPKNZj
+         ueHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791909907; x=1792514707;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=T0J5BYuAnT3Xdi9Jj3WCm+YKqnN6H2/WrFA4Kd+XVcw=;
+        b=xbvg58ZBK3QyuDdk0PkxJjXOWA+r5wOjtrnYItc1XF2wfQXNpfn/I3zdfuP9UneH6G
+         NiS2JpwTV5d1mtaHR66MM67yo3REvndHO5HrpoGw/IRMQm0A51VdJTGsg0/sltYUwDKh
+         FWreI6aeImi+3UvkjhbTUBTPKtulqR9d2ptCVxHlrMR1WT2LQVWJ3RAAGZZilcA4Okp1
+         8qf3K8nKDb84erHW7UCiDbJD/UeTTdIG7Gto5VWekSRSvfSXA31xwQGo9jphV3MgDps5
+         Qfq12PSxPObAh6MP3wP6GIdlpyVGwbeTHJZ05dyBL4BKsXM0NpaIucWjsmfqLB30kJT/
+         WIKA==
+X-Forwarded-Encrypted: i=1; AKwUvByKEGMJnFN65fi18yvfpHpGKRXeUMRX2pcNuOXIBpJj9c/lurGxa76Przpy/NE6HFsv4QobIbm4lypTC6I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKbycCJcoVQl52qgeks4jPj+4c3K0hUUv2zeVa7mNX+p8/CTbtT
+	L4+NVfqkQ9tdvjJ2jqBAjFsfR0QUzDy7tETZSWM9WAomrPb7RnvI2mgrVKZhvm9kgBp/DVt9XMN
+	SRnaDoK48eikfR7W+GccKInK4pX87YwY=
+X-Gm-Gg: AYBFou0gru6oZeKRiEVDSMyCmTk2fd3GRyF6Z1LfI7wH4+FaVx+X01hCS0GJWLq02JG
+	5XhobQNU83znBrW1UZfz5QfrkhlG48nswHRXzlouRE+Mwj2YkKW/Cn05j/pAIL2vnjvspwTfOfd
+	8PS9E/uC4AS70mClC3ke1UN4eDy5hpu4nfvG5ZtZiZdMr3uHyQCWI0jrviEbvY5rjgc1a8XnZqY
+	TMzLzovkJg6UWuaOwUniTW1p7Um0mVE+DXgoiSdTB9PoPEUAedFieQ+um/8Y4YOh64AT0RH2qnr
+	bH2NsZ5z176N/kadhokQaI7evvxyfl00J7y3b/ISUKdVJ8f1V58TYm0HXLLIzJY9gPdPAUfEzNu
+	UvCmVBFArbdquZaEhHXUbQE3MdRMGUUSLY8B7QJsOGof+IA==
+X-Received: by 2002:a05:6808:182a:b0:4cb:f21c:a79f with SMTP id
+ 5614622812f47-50c516defcbmr14456725b6e.39.1791909907159; Tue, 13 Oct 2026
+ 09:45:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 1CDB521E2E
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_TWO(0.00)[2];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -3.51
+MIME-Version: 1.0
+References: <20260928142450.103799-1-vidhu.linux@gmail.com>
+ <CAHp75VcW3ADQdf68Whmo7yhqu9rdi54YVYgyh5PRLPccH6aUBg@mail.gmail.com>
+ <CAFqz8LL0bgOu3TKfxz0Ri=qw09wVHC68CbVS2yZZjv7oKTGwVw@mail.gmail.com> <arrgEPs779q9ck8q@ashevche-desk.local>
+In-Reply-To: <arrgEPs779q9ck8q@ashevche-desk.local>
+From: Vidhu Sarwal <vidhu.linux@gmail.com>
+Date: Tue, 13 Oct 2026 22:14:56 +0530
+X-Gm-Features: AclHuK_TBpGn7NoEBdw6LC_e_JC6BfcP9OOGjC18pYWAlajojr0JNuJQwN-0-7M
+Message-ID: <CAFqz8LJbyheyXmf9i6v2cqMgVti_jii5OVe0WSkLvi4sSJXmVQ@mail.gmail.com>
+Subject: Re: [PATCH] iio: humidity: am2315: fix negative temperature decoding
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Matti Vaittinen <mazziesaccount@gmail.com>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	Siratul Islam <email@sirat.me>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	skhan@linuxfoundation.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 13 Oct 2026 15:31:50 +0200,
-Takashi Iwai wrote:
-> 
-> Since the recent fix commit fbaccb1b19c7 ("ALSA: hda: intel: Don't
-> free card in the probe work"), we don't release the card but just
-> toggles the init_failed flag to stop the operation in the case of
-> error at probing in azx_probe_continue().  This leaves, however,
-> display_power() true, which may block powering down the GPU.
-> 
-> Put display_power(false) at the error path for avoiding the potential
-> blockage.
-> 
-> Fixes: fbaccb1b19c7 ("ALSA: hda: intel: Don't free card in the probe work")
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> ---
->  sound/hda/controllers/intel.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
-> index 6b80b59b8743..b67d569fc859 100644
-> --- a/sound/hda/controllers/intel.c
-> +++ b/sound/hda/controllers/intel.c
-> @@ -2453,6 +2453,7 @@ static int azx_probe_continue(struct azx *chip, bool free_on_error)
->  	if (err < 0) {
->  		if (hda->vga_switcheroo_registered)
->  			dev_warn(&pci->dev, "GPU sound probed, but not operational: please add a quirk to driver_denylist\n");
-> +		display_power(chip, false);
->  		if (free_on_error) {
->  			pci_set_drvdata(pci, NULL);
->  			snd_card_free(chip->card);
+On Mon, Sep 28, 2026, Vidhu Sarwal wrote:
+> Decode the sign bit before storing the temperature value. Positive
+> readings are unaffected.
 
-On the second thought, turning off the display power here alone would
-be problematic; the rest hardware cleanup procedure will run anyway in
-azx_free() and with the display_power() off, it may lead to something
-unexpected.
+Hey,
 
-We can power up again temporarily in azx_free(), too.  But I'm not
-sure whether it's a good idea.  Going back to calling azx_free() can
-still work, but then we'll hit the old issue again about the already
-bound codecs (that aren't detached by azx_free() itself).
+A gentle ping on this patch. Please let me know if any further changes
+are needed.
 
-Hmm.  Maybe better to leave in the current state for now until someone
-sees a real problem on an actual hardware.
-
-
-Takashi
+Thanks,
+Vidhu
