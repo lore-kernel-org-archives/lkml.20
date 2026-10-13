@@ -1,214 +1,237 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8445515970;
-	Tue, 13 Oct 2026 16:24:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8176C51B16A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:25:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908661; cv=none; b=UAMyniA/uWiZrKGIRuTIVdsu6o69O0ceXIW4qDTu2tnBG0Oz2N+OnmbflvKHyPa4fqMQXyf772dT33VOgT843mHfCF8bqL2Ho1HadCNQ5pOppXD4Cuh6swA4lHwgO1TkYIZTrb8j0fF0m6oKGA4c51wpC2PvKn5yx0UdyCTquz0=
+	t=1791908737; cv=none; b=QTLWf9BRI8Qyco3xKyM8oxpIeJhMBv0yiJa1yT2yF0entc74PiZChf/TiRdh+N7gSS0dZlQ46+NsPqY4Io7g2gPV7IZE9E/+RoW+iTYc6oxQg0fQfUV3xQpGR/QKRCBVkgqpQOWerJzl91XNwEkDpKAOSSIP7MHwHcdnbw1kjTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908661; c=relaxed/simple;
-	bh=/mEx8vdFcfI3hLMAtaYNjZl+5y7yaZRJJk6u/Lg1E6A=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BeCm0caVRXfNY2AXCDOO4pYJEWBkI3xLGf8ENIM2FIp/aEGQaPTKMAk7npLHwmoIyx33NfqDTgDcGA+i1v/Nnjm24eQfqwngniyqGjJao/p3puUpYj9cudGjrja2CFEeDtJq2/CnofNEN1ZYe/49sSKeIRjrncDpiGzI5DCMjj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jtZ4ut8F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791908737; c=relaxed/simple;
+	bh=0xNJOb/H9UtwUf5zYgBgR5vpK0hLcAELc8eV5cybtEk=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Lrk6avOLt3Cho1psxO1hxPB5qesvLH3cdD8usaKf2HSNMURH1mqJ1HNhWy5b2vatrQBam+lw4h0b8e/jMT3ypR9PyLR+sVbeiPlM0JEUdW3lRy6I8WdEUWJ0CiGpAFo6pUAA4DWhkq+rwa/yPgv+u7B4qflIozylzAf3FUH9WRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ebVyHi2q; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jtZ4ut8F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9CFC1F000FF;
-	Tue, 13 Oct 2026 16:24:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791908660;
-	bh=awofmRGa51mWfxvkSwx2u56skeAV3P8MmfNnS2lWxu0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jtZ4ut8FeIVqhdA0zFO0OZB2I/jyr+koVsoBc+speykIcENvqEJXENgarRat7TpZt
-	 U53jry6971Ptn4euEfIGMOhVnpMt2O7TD3p04w4qeKGHwbOteugDTG2PR3k7iDXVUx
-	 STeWzjjGNk2v/V6PVKM/7VHzuQlvZcw5EqGvEuKb2ugqRsoNTgrLZqQwMj2m5IpRLK
-	 nosztYQQrB4SDltmGmCMYGtn+VEeQkfHFXWCwTiYBBM8mu1aAAV58fjEeW1zqsHZ6C
-	 xoXztTAfmC4kbXg3UaEW2OFqO9ioaaX82/XIXJ0EN+wE7y4fjPO9dJGiYT/+EVpW0J
-	 TIJn286JGWDJA==
-Subject:
- Re: [PATCH net v2] tipc: fix broadcast sender hang on last acker departure
-From: netdev-bot+sashiko@kernel.org
-To: bsdhenrymartin@gmail.com
-Cc: tung.quang.nguyen@est.tech, jmaloy@redhat.com, davem@davemloft.net,
- kuba@kernel.org, edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org,
- ying.xue@windriver.com, netdev@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Tue, 13 Oct 2026 16:24:19 +0000
-Message-ID: <179190865919.434549.2450236888091417368@kernel.org>
-In-Reply-To: <20261012153357.1863316-1-bsdhenrymartin@gmail.com>
-References: <20261012153357.1863316-1-bsdhenrymartin@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ebVyHi2q"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3aaf955db5fso4441476a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:25:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791908735; x=1792513535; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jeAXIyFq6wDt1DrhCTJh2CZ3Qk782HPpYdtAi65KBOg=;
+        b=ebVyHi2qO1fTjV+ChvhTcruJufu4aFJjN+GMJ2vUbEMmBk74lrNd33hUWy1tnxYFog
+         aNFj+fYpL1Exc0K2rCJVP3NDv1XSvjWncGYDFKQfijKmCfFcX7Zyx5JEd9vsmlh7CFJS
+         G7q7VBNUDBVJwQzsrYJu2lCkM3sTLWmharBnECiaqaRNLFRRoyIR3E2Nk5MBc2QPxY6k
+         MnUi/WcxUNdB0klVwyeNaj528b0F3op9JroPpimsuWlMbLY6EA2g04hIzkMYe5NWABP1
+         11veryQKTxDiAY+JM+vh4eHXh4n5BvyoVEFnwOsZUA/lqRtrP+U4N0ylElEmboGYUG/R
+         y2bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791908735; x=1792513535;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jeAXIyFq6wDt1DrhCTJh2CZ3Qk782HPpYdtAi65KBOg=;
+        b=xcalAf6TtHSOYBdmNPwsBg5W7/gg4QanuHdVBwfVn10SObQM2IZLEGZWhyeFXud8K3
+         ocZ/ckPAbkP2e2t5PFrUuX3ERQy4OUvgnaaT2yRSTpyv5YN2WrlnQzeoffzPjNcPC4iZ
+         KwZHPPGRGQevP8UJJ2APOdOqAMptwwPbLs2pTNhBKdsi7lK4ds8LS/IuH9lTd/pjLm7f
+         8fx6S30iLP3v3kM9neufF52L7+KjaUnka9xEeYAhF5wQqntGuAySAyLjDMHodjCazhL1
+         RTz1yoEtTJI7l+dbcsWx0HuDkA/DzY+0J03W7bKO2jHSMGsqwZkGj/wc09A/8GMTpil/
+         0Acg==
+X-Forwarded-Encrypted: i=1; AKwUvBzsRqw1b0D4JUwq0B478TQRar99qEx9DdAqWmr4xHP6+YSc9sFVGSR/RVvi4697yU2LrK/O05cLLmoYJe4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZ3DYG0/XUIx+X2S7DemanlBi+2VbES/HHM9f4rjiKQApiquLh
+	8ZxDfMBVIXt9Y5nGdX84QxdXAK48Jcn+7qa+GdMLZEhMbrGHS4Ouu/hov4Zvl8/jekz5X1AQlcq
+	dYNf/hlZ3l/cGUA==
+X-Received: from pgbe27.prod.google.com ([2002:a63:501b:0:b0:cc7:dec6:f87d])
+ (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:1f91:b0:3ac:53e0:4ed5 with SMTP id 98e67ed59e1d1-3ac53e0532fmr683953a91.39.1791908734381;
+ Tue, 13 Oct 2026 09:25:34 -0700 (PDT)
+Date: Tue, 13 Oct 2026 16:25:16 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261013162529.1928093-1-dmatlack@google.com>
+Subject: [PATCH v10 00/13] PCI: liveupdate: PCI core support for Live Update
+From: David Matlack <dmatlack@google.com>
+To: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pci@vger.kernel.org
+Cc: Adithya Jayachandran <ajayachandra@nvidia.com>, Alexander Graf <graf@amazon.com>, 
+	Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>, 
+	David Matlack <dmatlack@google.com>, David Rientjes <rientjes@google.com>, 
+	Jacob Pan <jacob.pan@linux.microsoft.com>, Jason Gunthorpe <jgg@nvidia.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Josh Hilke <jrhilke@google.com>, Leon Romanovsky <leonro@nvidia.com>, 
+	Lukas Wunner <lukas@wunner.de>, Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pranjal Shrivastava <praan@google.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Saeed Mahameed <saeedm@nvidia.com>, Samiullah Khawaja <skhawaja@google.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Vipin Sharma <vipinsh@google.com>, 
+	William Tu <witu@nvidia.com>, Yi Liu <yi.l.liu@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+This series can be found on GitHub:
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+  https://github.com/dmatlack/linux/tree/liveupdate/pci/base/v10
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+This series introduces support in the PCI core for Live Update, enabling
+drivers to preserve PCI devices across a kexec-based kernel update
+without interrupting the device. This functionality is critical for
+minimizing downtime in environments where PCI devices (e.g., those
+assigned to VMs via VFIO) must continue operating or maintain state
+across a host kernel upgrade.
 
-- [Medium] The patch adds m->bc_pending so that only members counted for
-  the current replicast can reduce grp->bc_ackers, but it checks the…
-- [Low] The commit message gives the wrong reason why blocked writers
-  stay asleep, and it overstates when the blocking sendmsg() hang…
+Specifically, this series allows preserved PCI devices to perform
+uninterrupted memory transactions (DMA) targeting system memory
+(specifically, preserved memfds) across a Live Update. These devices can
+be behind a bridge but must not be VFs. Support for P2P and VF
+preservation will be addressed in future series.
 
---
+Series Overview
+---------------
 
-tipc: fix broadcast sender hang on last acker departure
+This series implements the following to support PCI device preservation
+across Live Update:
 
-This patch restores *grp->open when the last member that owes a replicast
-ack is deleted. It also calls sk->sk_write_space() from tipc_sk_filter_rcv()
-when the group becomes writable again. A new per-member bc_pending flag
-limits the bc_ackers decrement in the delete path to members that were
-counted for the current replicast.
+  1. Set up a File-Lifecycle-Bound (FLB) handler to track and preserve
+     PCI-specific state (struct pci_ser) across Live Update using Kexec
+     Handover (KHO).
 
-> TIPC group broadcast senders are blocked while a replicast still has
-> outstanding member acks: poll(EPOLLOUT) only fires when
-> tsk->group_is_open, and writers keep re-sleeping on every unrelated
-> data-ready wakeup because tipc_group_bc_cong() keeps seeing
-> *grp->open == false (the default sk_sndtimeo is MAX_SCHEDULE_TIMEOUT,
-> so there is no bounded send timeout either).
+  2. Add APIs for drivers to register devices for preservation
+     (outgoing) and for the PCI core to identify preserved devices
+     during enumeration (incoming)
 
-[Severity: Low]
-Is this description of the mechanism accurate? tipc_group_bc_cong() only
-writes *grp->open and never reads it:
+  3. Automatically preserve all upstream bridges for any preserved
+     endpoint. Use reference counting to ensure bridges remain preserved
+     as long as any downstream device is preserved.
 
-net/tipc/group.c:tipc_group_bc_cong() {
-	if (grp->bc_ackers) {
-		*grp->open = false;
-		return true;
-	}
-	if (list_empty(&grp->small_win))
-		return false;
-	...
-}
+  4. Guarantee that preserved devices retain the same RequesterID (bus,
+     device, function) for the duration of their preservation by
+     inheriting secondary bus numbers, subordinate bus numbers, and ARI
+     Forwarding Enable on preserved bridges.
 
-Its return value depends only on grp->bc_ackers and the head of
-grp->small_win.
+  5. Guarantee that memory transactions to/from preserved devices are
+     routed consistently by inheriting Access Control Services (ACS)
+     flags across a Live Update, from the endpoint up to the root port.
 
-> When the last outstanding acker departs before acking,
-> tipc_group_delete_member() decrements grp->bc_ackers but never
-> restores *grp->open, and the blocked senders are never woken.
+  6. Modify the PCI shutdown path to avoid disabling bus mastering on
+     preserved devices, thereby allowing preserved devices to perform
+     uninterrupted during kexec for Live Update.
 
-The old delete path already brought bc_ackers to 0 when the last owing
-member left. That member has bc_acked == S-1 and bc_snd_nxt == S+1, so the
-less() test matches.
+  7. Provide comprehensive documentation for the FLB API, device
+     tracking mechanisms, and the division of responsibilities between
+     the PCI core, drivers, and userspace.
 
-tipc_wait_for_cond() waits with woken_wake_function, which ignores the poll
-key, and tipc_data_ready() wakes every sleeper on sk_wq.
+Merge Plan
+----------
 
-So with group member events enabled, the sk_data_ready() after the leave
-event is delivered already woke the writer in tipc_send_group_bcast().
-tipc_group_bc_cong() then returned false and sendmsg() went on, returning
-EHOSTUNREACH if the group was now empty.
+This series will be merged through liveupdate.git, matching the
+agreed-upon tree in the MAINTAINERS entry for PCI LIVE UPDATE.
 
-The poll(EPOLLOUT) hang does look real in every case, because tipc_poll()
-only sets EPOLLOUT when tsk->group_is_open is true.
+Testing
+-------
 
-The blocking sendmsg() hang seems to happen only when nothing wakes the
-writer after the deletion. One example is group member events being
-disabled. In that case TIPC_GRP_MEMBER_EVT is freed with deliver = false
-and sk_data_ready() is never called.
+This series was tested in conjunction with v5 of the VFIO PCI driver
+series:
 
-The code change itself looks correct. Since this is tagged for stable,
-could the changelog describe the actual wakeup path and say when the
-sendmsg() hang occurs?
+  https://lore.kernel.org/kvm/20260714151505.3466855-1-vipinsh@google.com/
 
-> diff --git a/net/tipc/group.c b/net/tipc/group.c
-> index 74f6d3dac0784..e9c77f12c9819 100644
-> --- a/net/tipc/group.c
-> +++ b/net/tipc/group.c
+The full set of patches used for testing can be found on GitHub.
 
-[ ... ]
+  https://github.com/dmatlack/linux/tree/liveupdate/pci/base/v10-with-vfio
 
-> @@ -340,9 +341,12 @@ static void tipc_group_delete_member(struct tipc_group *grp,
->  	rb_erase(&m->tree_node, &grp->members);
->  	grp->member_cnt--;
->  
-> -	/* Check if we were waiting for replicast ack from this member */
-> -	if (grp->bc_ackers && less(m->bc_acked, grp->bc_snd_nxt - 1))
-> -		grp->bc_ackers--;
-> +	/* If this member owed an ack for the current replicast and it
-> +	 * was the last one, restore the open state so blocked broadcast
-> +	 * senders can proceed.
-> +	 */
-> +	if (grp->bc_ackers && m->bc_pending && !--grp->bc_ackers)
-> +		*grp->open = true;
->  
->  	list_del_init(&m->list);
->  	list_del_init(&m->small_win);
-> @@ -406,6 +410,8 @@ void tipc_group_update_bc_members(struct tipc_group *grp, int len, bool ack)
->  			m->bc_acked = prev;
->  			ackers++;
->  		}
-> +		if (ack)
-> +			m->bc_pending = tipc_group_is_receiver(m);
->  	}
->  
->  	/* Mark number of acknowledges to expect, if any */
-> @@ -803,6 +809,7 @@ void tipc_group_proto_rcv(struct tipc_group *grp, bool *usr_wakeup,
->  		if (acked != grp->bc_snd_nxt || m->bc_acked == acked)
->  			return;
->  		m->bc_acked = acked;
-> +		m->bc_pending = false;
->  		if (--grp->bc_ackers)
->  			return;
->  		list_del_init(&m->small_win);
+Testing was performed using the new VFIO selftests:
 
-[Severity: Medium]
-Should the GRP_ACK_MSG handler also check m->bc_pending before it
-decrements grp->bc_ackers?
+  - vfio_pci_liveupdate_uapi_test
+  - vfio_pci_liveupdate_kexec_test
 
-The new test in tipc_group_delete_member() assumes bc_ackers equals the
-number of members with bc_pending set.
+Both tests were run in a QEMU-based VM environment (using a single
+virtio-net PCIe device connected to a root port to exercise bridge
+support) and on bare metal using an Intel EMR server with 8x Intel DSA
+PCIe devices and 1x NVMe device.
 
-This handler still decrements bc_ackers for any member that passes the
-acked == grp->bc_snd_nxt and m->bc_acked != acked checks.
+Future Work
+-----------
 
-Two kinds of member can pass those checks without having been counted:
+Please see the PCI core Live Update Roadmap:
 
-- Members that were MBR_JOINING or MBR_LEAVING when
-  tipc_group_update_bc_members() ran keep a stale bc_acked and get
-  bc_pending = false.
-- Members created after the replicast have bc_pending = false and
-  bc_acked = bc_snd_nxt - 1 from tipc_group_create_member().
+  https://lore.kernel.org/linux-pci/20261001232133.560284-1-dmatlack@google.com/
 
-For both, a GRP_ACK_MSG carrying acked == bc_snd_nxt passes every check
-here.
+Changelog
+---------
 
-For example, with bc_ackers == 2 for counted members A and B:
+v10:
+ - Save and restore the ACS Egress Control Vector along with the ACS
+   Control register, sizing the save buffer from the HwInit Egress
+   Control Vector Size field (Alex) and drop Bjorn's R-b tag
+ - Make CONFIG_PCI_LIVEUPDATE depend on 64BIT from the first patch
+   rather than adding the dependency later in the series (Pratyush,
+   Mike)
+ - Reword kernel-doc comments to read better in the HTML docs and
+   spell out "reference count" (Mike)
+ - Replace the version number at the start of struct pci_ser with
+   required_flags and optional_flags, and record the size of struct
+   pci_dev_ser, so that the PCI FLB ABI can be extended (LPC BoF)
 
-  ack from uncounted member X     bc_ackers 2 -> 1
-  B acks, or B is deleted         bc_ackers 1 -> 0, *grp->open = true
+v9: https://lore.kernel.org/linux-pci/20260918200640.887030-1-dmatlack@google.com/
+v8: https://lore.kernel.org/linux-pci/20260728221007.2098560-1-dmatlack@google.com/
+v7: https://lore.kernel.org/linux-pci/20260710212616.1351130-1-dmatlack@google.com/
+v6: https://lore.kernel.org/linux-pci/20260522202410.3104264-1-dmatlack@google.com/
+v5: https://lore.kernel.org/linux-pci/20260512184846.119396-1-dmatlack@google.com/
+v4: https://lore.kernel.org/linux-pci/20260423212316.3431746-1-dmatlack@google.com/
+v3: https://lore.kernel.org/kvm/20260323235817.1960573-1-dmatlack@google.com/
+v2: https://lore.kernel.org/kvm/20260129212510.967611-1-dmatlack@google.com/
+v1: https://lore.kernel.org/kvm/20251126193608.2678510-1-dmatlack@google.com/
+rfc: https://lore.kernel.org/kvm/20251018000713.677779-1-vipinsh@google.com/
 
-A still has bc_pending == true and has never acked.
 
-Isn't this the case the commit message gives as the reason for adding
-bc_pending, where a non-counted member "could silently void a
-still-outstanding ack from a real acker"?
+David Matlack (13):
+  PCI: liveupdate: Set up FLB handler for the PCI core
+  PCI: liveupdate: Track outgoing preserved PCI devices
+  PCI: liveupdate: Track incoming preserved PCI devices
+  PCI: liveupdate: Document driver binding responsibilities
+  PCI: liveupdate: Auto-preserve upstream bridges across Live Update
+  PCI: liveupdate: Preserve bus numbers during Live Update
+  PCI: Refactor matching logic for pci_dev_acs_ops
+  PCI: Save and restore the ACS Control register and Egress Control
+    Vector
+  PCI: liveupdate: Adopt ACS controls in incoming preserved devices
+  PCI: liveupdate: Adopt ARI Forwarding Enable on preserved bridges
+  PCI: liveupdate: Freeze preservation status during shutdown
+  PCI: liveupdate: Do not disable bus mastering on preserved devices
+    during kexec
+  Documentation: PCI: Add documentation for Live Update
 
-A cluster peer can trigger this. It sends GRP_JOIN_MSG, which makes
-tipc_group_proto_rcv() create an MBR_JOINING member for any port. It then
-sends GRP_ACK_MSG with acked == bc_snd_nxt. I could not find a benign
-protocol sequence that ends up here.
+ Documentation/PCI/index.rst                   |    1 +
+ Documentation/PCI/liveupdate.rst              |   35 +
+ .../admin-guide/kernel-parameters.txt         |    7 +-
+ Documentation/core-api/liveupdate.rst         |    5 +
+ MAINTAINERS                                   |   15 +
+ drivers/pci/Kconfig                           |   15 +
+ drivers/pci/Makefile                          |    1 +
+ drivers/pci/liveupdate.c                      | 1038 +++++++++++++++++
+ drivers/pci/liveupdate.h                      |   62 +
+ drivers/pci/pci-driver.c                      |    9 +-
+ drivers/pci/pci.c                             |  159 ++-
+ drivers/pci/pci.h                             |    5 +
+ drivers/pci/probe.c                           |   16 +-
+ drivers/pci/quirks.c                          |   58 +-
+ include/linux/kho/abi/pci.h                   |   96 ++
+ include/linux/pci.h                           |    7 +
+ include/linux/pci_liveupdate.h                |   72 ++
+ 17 files changed, 1562 insertions(+), 39 deletions(-)
+ create mode 100644 Documentation/PCI/liveupdate.rst
+ create mode 100644 drivers/pci/liveupdate.c
+ create mode 100644 drivers/pci/liveupdate.h
+ create mode 100644 include/linux/kho/abi/pci.h
+ create mode 100644 include/linux/pci_liveupdate.h
 
-Would something like this close the gap?
 
-	if (acked != grp->bc_snd_nxt || !m->bc_pending)
-		return;
-
+base-commit: 945d61765894dda2f0344de50cb1ade2e51b66fd
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012153357.1863316-1-bsdhenrymartin%40gmail.com
+2.56.0.385.gd3acb90ef8-goog
+
