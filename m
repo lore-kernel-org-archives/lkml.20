@@ -1,236 +1,134 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5594E5323
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:23:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791890610; cv=pass; b=oLkuT1UROKy37jP3+WEBnnlqPjf1+RI32/ZEEgPukxMscyJ3eo/+wfk3uiwSMz3rvf9xR6CoaJNKyjaMMPkyqyxOlbyOKYnfPNvnK1jI1rWJTpyxBmED2QaM+T5GHnG3kLf3AHHIiQdZi7oy1kRikXYbLPvhhWiBwqKWltF5Zc0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791890610; c=relaxed/simple;
-	bh=pNPj+pbrYUH0BBxlyCpjDN0gyqeh85+ZyJRf29I/KCI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DYA/VP/oxMHrzionwl5+s0WhGIv9yskX9+Bl/mtWr11ankf6AMlviJ0sAz94w0j9I8T9n8NtjQxBLt+pa0/nM+tIjvN4l/4I6RlPcsDB1VMbVDYd9QBzd5BCWmMi1EunTGiQW1BS5ygj+e6r0ZhRMxIBRoKy6L1yWilpj0nNfL4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=iFJ0ZKV9; arc=pass smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A882BFC85
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:23:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791890625; cv=none; b=rfEoXMlUuPfUmvtZeJcR/n89mA2STlbPrwa8wrk8YhQOTvYivNSJTX83PH9bS12dZXVCsjQFTHpO17jZ4xR94AvbCPDFyUp4kyLhTO1XqmJphHgqHCwa5u+e2Crik/iEWM/S6HPR5oKH+e730kmlA1ZAJELl59cOPhaU/bt4th8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791890625; c=relaxed/simple;
+	bh=OAiwtZU5lLsZFm4lU/ObgFuPYWMbbn0X6/o2OFhuq3w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=C5YthYazlKfkTuTzHLAdY/RDW653ZlFw7ToR5NSpmdnWMz/ol2mUBf2m0ghISDwiPr/lxJrp+5xnF408cIV1tCOf7x6SArGkDWMmtDq4kYKfTnsLbOmfbGeB3ER+zRnFqb4BfBm5XWy6XAtnvZLjtIzbSnxpcRTAM3vWdBMIqkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bwNmBlFb; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=QR2ORACv; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="iFJ0ZKV9"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-535f598d126so87301cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:23:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791890607; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qssEvMcD+8ehbu5UfDDuIZ163fHlpsJIq5aB3ytZhhJgE0YxFAXRmLU0jEP3m3kphd
-         H7Sf5JfG1U0C65HIT/2uz8qWLrqM7FI35+hHvnY+TROHhetg+am6tpwHFvX9G2KzVbPZ
-         19AIL3k+IH/9vrR5eIIBb3StJFufZ/1a0M8eNLv9P6nv7btureuvWDFkXvv2sRf6IqKb
-         /gCr2umejRVWvXjc+x/la8RrodAnJerJWjo3GptoEO3QOp2sQrAqLHhPeT9OT+c8myEy
-         8jH7H+tlaCL1J24eWZZ3TN/L9GUeW9sNBevOlx5vlWJ6vxsTYfs8udUEumwCmkrngqGO
-         p0OA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lglLC9+yE+tZ+AHV0VONJs0/vCldZdYwmVgqh0e7e90=;
-        fh=yMoHaapBKqhlt3vqrDULL6UsbgShsvOQLk6s5COAXc8=;
-        b=AzXMg9nuPokt14WWs8Jc9GatIRVaahdwhnFRQ9/NehhFsUa2BU66B7K5Emgkg7qk2W
-         AUyPLC9V3mIdL2iJZerDN3T9JlUkRb2nJrUQVK2fwnPtj1rHixAw+txivEoApbTd60Ij
-         i+mMRBkKf+fqbEJsLJzTUchvajVcl1j2EnFyN8GG7B9/G92MpHvwviMj4jEuB2NnO2CC
-         Gf0ynvoWpVOde+Idw9WKEsUWZO4blCemBVODZpCGM0aVxslA4KOx2MOx4pPjpSg8VzZk
-         eDbPKbyH+JMtbkbVKUGa1nijPzqkxRKoASQHDwnEWlyG/MKJYJmq+ws0q1NrvIMJHXeF
-         mgcA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bwNmBlFb";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="QR2ORACv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791890622;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=726Kbi3ZQ5SGlJ93iqUEhDyhLP3woij09STW5L6+pXY=;
+	b=bwNmBlFbm4jzsaIl6XB+Jelh9hEEWzaxo8eeN2chtEjDrBe8iGXua0brVrYM3gUZODPXPA
+	l3o3QR+wP3aVQLOStHULQ9s9Br4fu12TDW650bp0bxX6tBMlMJbnqwNjwnpfafZddgnPdz
+	hJbxHfv/kevG2/7F0zMHvx2QCBy2lk8=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-424-hwGhESQfOmu3-_woZat9Ow-1; Tue, 13 Oct 2026 11:23:40 +0000
+X-MC-Unique: hwGhESQfOmu3-_woZat9Ow-1
+X-Mimecast-MFC-AGG-ID: hwGhESQfOmu3-_woZat9Ow_1791890620
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48b02e93a1eso2202211f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:23:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791890607; x=1792495407; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lglLC9+yE+tZ+AHV0VONJs0/vCldZdYwmVgqh0e7e90=;
-        b=iFJ0ZKV9xOZUFxDXyb3Cqj5i6E8Swhd83W19vqo8qEXQGQoy+hFfZMwWioJ7Pnzp6l
-         FIy4PbGifGNG3SlVxHPxz1jgZPvX6jos624SPk1b2YLWzyRnSiW2pIG1Ts4n9F6iCvr4
-         1I7U+b5MO1QkGBErnpXVxRjnV5iMsxZ2xxlx47yQW9saaXesEitF4wnGG/xAnjYrJMRC
-         fX2plalUFqsOim8w6L6AmLo/XbBmhxHkhUMimcBIFdTdOHdPy74L+y8T/f8RsD8bqEOf
-         2yK2lokidmfp2qd/5Vp2veL495v2xhesKWJM8Xfg4Chq11B+aZ6DA/7JhCHP/mGolFl8
-         +Aaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791890607; x=1792495407;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1791890619; x=1792495419; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lglLC9+yE+tZ+AHV0VONJs0/vCldZdYwmVgqh0e7e90=;
-        b=T2mdO1yUgbhZEqpCvxYZj95sJ38eUYx0ZNt562YqqEL/4qk0725UwPx+/PxL7AqJYD
-         MyTsJe7Drtf2VJUeimtU+Qj9cGPJ9o+9dvaNplZbDRnNvFydzv0PWKnIfh5yslc9e5Z1
-         62Wti5N/xloDdUQ3B+vDAM9m6m6txxj9S+K0oqOvmSDEIW+Ny4/C376uORLqWBxfxeGo
-         F1gj7pIk5YYz/yuL3PZ7axkGlx/5vkRfaS1eD1l4qYjQrrWtE1bTrCKWAClDBrPan2tO
-         /nMaYV+HwJ0nQ8CzstGuh1Asi4w3FlUYPIF1HQoyfMrU1ToR+9rNUswkQu8twWlwqrN0
-         Lsbw==
-X-Forwarded-Encrypted: i=1; AKwUvBzOUxWrd8YW61RoLNx32hWDEfkmGvaU06KdlflXz7XZwWW8iG8VYXKZ+NNG98q1d9J+BBlSMdLflnBxvPc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJDYEiKICTXRkBxXAMaeADE/3pqI4jlHAqsSn8j8gYPnf+PdxfA
-	psr/ga1eAjkV/X//ljt8k/sTWPOxB3JDTu8Aab5Mu0eCoBF/7dCotevWJLrmeoL7yth9jpgR2oo
-	dYs6mhL42zWMrtJJZWzxHny+Iyp8DKhmkalJg2R8F
-X-Gm-Gg: AYBFou1aq3e5Jdh3nzYltdqJwLXdhn4wNnteRk0bw787T3Def9nhoe3WTQYXpnEPA1C
-	j0qmvlp1EaXEp2KQFwPYFPFh65Y+YWL7emm8v5kLZa61tHeLowZ1UJvSQVqQOumujmObPx4ySOv
-	yV5meudDOdKIsUBHJ738wC/MEkjVcglqRBw30ZFrJ/92M2ZIzRAAG52EqIRWKw+408kIpHqoVOy
-	ldO7mkFFKy6p2OwaqiyvTd6aXCHKYircKwqMGReNgG0na0nU84CPdBPbzJByTYLpmb5cSlOku+l
-	az3VEKp2wrbrYUDby5scKNyz8LnNhGv6Cus+5/7kGCbcOs2cUQ8Kpti4
-X-Received: by 2002:a05:622a:180d:b0:531:34b9:2532 with SMTP id
- d75a77b69052e-535b320372fmr48865141cf.4.1791890605760; Tue, 13 Oct 2026
- 04:23:25 -0700 (PDT)
+        bh=726Kbi3ZQ5SGlJ93iqUEhDyhLP3woij09STW5L6+pXY=;
+        b=QR2ORACvR9y+CIO5JNS2+beERm9m8FGeT4srckIz60mYcffvL3yGUJYu5EfI46PafP
+         IiWhiV2I8GXhY54esUTRhTAOGabzj+GJ/h7V2SiE6fWslWPpQFJe0D8nWvpNz3Wwq51J
+         jJZt3uCUD3wpxZk5Lhyewgf4nriCMJivx4EQ1wRh5fcYtOMqHYCwRqt9tVwcUx5Sz6lA
+         56pWFv+fMaTp7cJ6viBR0yXdqULVP7njnGsrlNvHa3sgHBYYCgFyxMh5ezluA00DeacT
+         cxSLY61CN6PguHGr8LiB2UmG/ZcdfJkLi86XWWESEC++UOSoBkJhHd9x72DM4gVtserY
+         qHag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791890619; x=1792495419;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=726Kbi3ZQ5SGlJ93iqUEhDyhLP3woij09STW5L6+pXY=;
+        b=KJSqJlXXeND2W4Bs/oTd/gMB/dQDz3k86OsT1f5fKcxgAwX/dh3YxpsOQY2yNUhycB
+         nHfzPTneN19uXTxoig+sJzXq+e7SLvbP23RCxWb2+dLlEtFwf/LahYCwLVchjOLmXBEJ
+         iBYr5f7T1J07a6yOPgANZ9SdoZ2XtdbmYqwKxfRQllezFVuWZcmzurOO7VqLN8xUIYjE
+         pWLveRyXKMVUvT5rGq+63AXD9IYX/B2T1D23Kte36xsa+q0+bnDGU/sBjuMIw7givvaP
+         DnQgiw/JKjtNFYQY8Xw1UNgHS0/4rtv3IiYZHsPdM6KfUflmMOIW68Df54xlSTKsFyhb
+         hyBA==
+X-Forwarded-Encrypted: i=1; AKwUvBztCpb7KLRJlzhV1GvFboewyMtzF8o1Za1SzTmQMI1xuTKQalgqxrP7OnCFReThVqhX/6d+ObyYPIyGoNs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKpjd2zNpoJs3h3nEDd8UnZ1ldD6QYJC3HseABHZJCosChdcwM
+	8FbmFAxnZdHCQ0EvlJkhq8bTMQA6JhA/3jQJqERcK3hw3tFdwmpenpQzJfEavyOYpuOFtUZs4Ay
+	efkejFdZKfdgEl1K4ekrJM+UluovvkZVHpo86vaZ5aPrqWTv3SoCECqj+x8FZeZckyw==
+X-Gm-Gg: AYBFou1eegtpXnQbSXTfzSz6+sIvqGW/94KpYQhY+PoriM9x46be9GNTwLW5dvwtpEA
+	2CkhjY1Uh/DkSAVgWGG09UvkEii12TQ++AcQ1Te6twsXDr2dxle2podd37C8wteVVN3vOtxXX/i
+	zI4TaebTP7+4sVmKi5THtjsG7r9w8P87BymgiZuMF0vn+yFcO9Ktw1A9M50aQpqUnaIy1gg9un1
+	c2hrhBmbNnkduVqhXoP/eSzoo0p6SCM0JckyJ+IMuZd/zH0cEiTlRkwTbzrV/jlMgtW44Th94aB
+	favOQ8YTfdoIuKfxCiZGqIOllbJ7SyYu+I3g1ppM7C2F7iwfBTuVtHeFk8BJgHpiuHxfxoipEcA
+	jNVtvOR8OghFqXO6lRvsJKZB/L1d1tp+7YMCNCJx++f5fNuNi3kgIt1A8tObszxey5vz7oXK/ig
+	==
+X-Received: by 2002:a5d:5f87:0:b0:487:aff:9952 with SMTP id ffacd0b85a97d-48dbaadd0b4mr23455632f8f.16.1791890619488;
+        Tue, 13 Oct 2026 04:23:39 -0700 (PDT)
+X-Received: by 2002:a5d:5f87:0:b0:487:aff:9952 with SMTP id ffacd0b85a97d-48dbaadd0b4mr23455576f8f.16.1791890618944;
+        Tue, 13 Oct 2026 04:23:38 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc6b82sm4628216f8f.51.2026.10.13.04.23.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 04:23:38 -0700 (PDT)
+Message-ID: <6bd52b02-e701-4589-824b-87c1475bc4cf@redhat.com>
+Date: Tue, 13 Oct 2026 13:23:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009063619.112313-1-hao.ge@linux.dev> <20261009063619.112313-3-hao.ge@linux.dev>
-In-Reply-To: <20261009063619.112313-3-hao.ge@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Tue, 13 Oct 2026 15:23:14 +0400
-X-Gm-Features: AclHuK-YS0X8RHvN1DiVTwo6aWWizXGsTLGePiTKV5Kwl9ajh5-w8CnH9PG_B2Y
-Message-ID: <CAJuCfpE9VfgTw2ZNMJTEVh41H_R+1RY_MtzeMuZNCD3BFm-Piw@mail.gmail.com>
-Subject: Re: [RFC PATCH 2/4] mm/vmalloc: undo partial mappings inside the
- mapping functions
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-	Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
-	Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Christoph Lameter <cl@gentwo.org>, Uladzislau Rezki <urezki@gmail.com>, linuxppc-dev@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
-	Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net/mlx5: Attach late uplink netdev to loaded
+ representors
+To: Tariq Toukan <tariqt@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org
+Cc: Cosmin Ratiu <cratiu@nvidia.com>, Dragos Tatulea <dtatulea@nvidia.com>,
+ Gal Pressman <gal@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jianbo Liu <jianbol@nvidia.com>, Jiri Pirko <jiri@resnulli.us>,
+ Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, Shay Drori <shayd@nvidia.com>
+References: <20261006110219.257714-1-tariqt@nvidia.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261006110219.257714-1-tariqt@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 9, 2026 at 10:36=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
->
-> __vmap_pages_range_noflush() and friends can install some PTEs before
-> failing and leave them mapped, and the kernel callers do not agree on
-> who cleans them up. pcpu_map_pages() and kmsan_ioremap_page_range()
-> roll back what they mapped before the failure, while
-> vm_module_tags_populate() and the __GFP_NOFAIL retry loop in
-> __vmalloc_area_node() rely on the mapping functions cleaning up and
-> do not call anything like vunmap_range() themselves. When the same
-> range is mapped again, the attempt hits the leftovers and fails, with
-> a BUG() in vmap_pte_range() for huge mappings and a warning on the
-> small-page path.
->
-> After discussing with Suren and Ulad, we decided to put the rollback
-> into the entry points of the vmap API rather than into every low-level
-> helper. __vmap_pages_range_noflush() undoes the whole range it was
-> asked to map when it fails, and vmap_page_range() undoes its range
-> for the ioremap-style mappings.
->
-> The rollback is __vunmap_range_noflush(), it only clears the PTEs,
-> no TLB flush, nothing has touched these mappings.
-> vmap_pages_range_noflush() drops the KMSAN metadata when the data
-> mapping fails, and an empty range bails out with -EINVAL now, which
-> used to BUG_ON() on the small-page path and map nothing at all on
-> the huge-page one.
->
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Suggested-by: Uladyslau Rezki <urezki@gmail.com>
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> ---
->  mm/vmalloc.c | 44 ++++++++++++++++++++++++++++++++------------
->  1 file changed, 32 insertions(+), 12 deletions(-)
->
-> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> index db669103dc66..e1b376f57dd2 100644
-> --- a/mm/vmalloc.c
-> +++ b/mm/vmalloc.c
-> @@ -363,6 +363,9 @@ int vmap_page_range(unsigned long addr, unsigned long=
- end,
->         if (!err)
->                 err =3D kmsan_ioremap_page_range(addr, end, phys_addr, pr=
-ot,
->                                                ioremap_max_page_shift);
-> +       if (err)
-> +               __vunmap_range_noflush(addr, end);
-> +
->         return err;
->  }
->
-> @@ -683,27 +686,35 @@ int __vmap_pages_range_noflush(unsigned long addr, =
-unsigned long end,
->                 pgprot_t prot, struct page **pages, unsigned int page_shi=
-ft)
->  {
->         unsigned int i, nr =3D (end - addr) >> PAGE_SHIFT;
-> +       unsigned long start =3D addr;
-> +       int err =3D 0;
-> +
-> +       if (WARN_ON_ONCE(addr >=3D end))
-> +               return -EINVAL;
->
->         if (WARN_ON_ONCE(page_shift < PAGE_SHIFT))
->                 return -EINVAL;
->
->         if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
-> -                       page_shift =3D=3D PAGE_SHIFT)
-> -               return vmap_small_pages_range_noflush(addr, end, prot, pa=
-ges);
-> -
-> -       for (i =3D 0; i < nr; i +=3D 1U << (page_shift - PAGE_SHIFT)) {
-> -               int err;
-> -
-> -               err =3D vmap_range_noflush(addr, addr + (1UL << page_shif=
-t),
-> +                       page_shift =3D=3D PAGE_SHIFT) {
-> +               err =3D vmap_small_pages_range_noflush(addr, end, prot, p=
-ages);
-> +       } else {
-> +               for (i =3D 0; i < nr; i +=3D 1U << (page_shift - PAGE_SHI=
-FT)) {
-> +                       err =3D vmap_range_noflush(addr, addr + (1UL << p=
-age_shift),
->                                         page_to_phys(pages[i]), prot,
->                                         page_shift);
-> -               if (err)
-> -                       return err;
-> +                       if (err)
-> +                               break;
->
-> -               addr +=3D 1UL << page_shift;
-> +                       addr +=3D 1UL << page_shift;
-> +               }
->         }
->
-> -       return 0;
-> +       /* Undo the PTEs installed before the failure. */
-> +       if (err)
-> +               __vunmap_range_noflush(start, end);
+On 10/6/26 13:02, Tariq Toukan wrote:
+> From: Jianbo Liu <jianbol@nvidia.com>
+> 
+> mlx5e_vport_uplink_rep_load() returns success when the uplink netdev is
+> missing, so the ETH rep is marked loaded with a NULL netdev, the IB rep
+> copies that NULL association, and nothing repairs it later. Unbind
+> mlx5_core.eth.<N> in legacy mode, enter switchdev, bind it again, and
+> rdma link show still reports no netdev on the uplink port. The netdev
+> also keeps the NIC profile instead of the uplink rep profile.
+> 
+> Add an attach_uplink_netdev rep op, run from the existing reload-reps
+> work once mlx5_core_uplink_netdev_set() reports a netdev. ETH re-runs
+> the uplink load, switching profile and setting rpriv->netdev; IB redoes
+> ib_device_set_netdev(). Deferring to the work keeps the devlink lock
+> out of probe context.
+> 
+> Fixes: 6b4be64fd9fe ("net/mlx5e: Harden uplink netdev access against device unbind")
+> Signed-off-by: Jianbo Liu <jianbol@nvidia.com>
+> Reviewed-by: Shay Drori <shayd@nvidia.com>
+> Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+The AI feedback looks relevant, also this looks quite too big/dangerous
+for net at this point of the cycle.
 
-Would it be too complicated to track how much was actually mapped and
-unmap only that portion?
+/P
 
-
-> +
-> +       return err;
->  }
->
->  int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
-> @@ -715,7 +726,16 @@ int vmap_pages_range_noflush(unsigned long addr, uns=
-igned long end,
->
->         if (ret)
->                 return ret;
-> -       return __vmap_pages_range_noflush(addr, end, prot, pages, page_sh=
-ift);
-> +
-> +       ret =3D __vmap_pages_range_noflush(addr, end, prot, pages, page_s=
-hift);
-> +       /*
-> +        * The page tables undo themselves on failure. Tear down the
-> +        * metadata that was fully set up before the mapping failed.
-> +        */
-> +       if (ret)
-> +               kmsan_vunmap_range_noflush(addr, end);
-> +
-> +       return ret;
->  }
->
->  static int __vmap_pages_range(unsigned long addr, unsigned long end,
-> --
-> 2.25.1
->
