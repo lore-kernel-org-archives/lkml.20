@@ -1,48 +1,50 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C575747D95E;
-	Tue, 13 Oct 2026 11:58:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73994F68B1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:58:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892708; cv=none; b=sIyG09DMYtgi4Y/OHOOAjTg2XL1z6RHHokhfm9/jXb6Ve144cxfHAhUw/GbOY89t/ilcUcAk5QuBcQCEISO4PDWPvxnoswHamgY5VdxHdtdT6ZHwQViRDWotIt2fSR8M2vQVylnzBcBAkQF7Dp/chc/s25HIt7xR73/2/ft98Bk=
+	t=1791892715; cv=none; b=dyDJ/z3ME5ZqZhm+1OvS8I9aIPhupaLGW4sjlWWqCcm6NF1+JA+EvQtz+mCEJ1KsSMo9cwFW5vQb9vIEzwLdHlEKjYbrPB5YD0yQWl+/sLU4gw3GGs8XF6n2F0Cts8OhnbfDww5FZoXEFnZS5HQIbhIZmzyLRHKC0dXyojSMRz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892708; c=relaxed/simple;
-	bh=5SUGE6t/EDybasNFbzsdtYZPHMEn4batY8borPqdOsA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tetEHiZ3Ksrh0YX1UQvUD7RPXO1BKnt6Pj1V2g22lDJhII6c+6OT20BzguQG16HYbRPMf5TNHDVX87UKtk1KamyXHl2gyKCl3DhcYllj/kq9A+2UpXlm/lbfr5Mm6ObwOVS9TdDTk7wyp8ynajvebubtjYgMVDv5p8m+euqObS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=coIeN+ZV; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1791892715; c=relaxed/simple;
+	bh=KadtR+IjPDiRiEbF2EBs12dIf2bKI52h5Y02NAopm+g=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JugMJfhKwUTfT0+JA6Kx9nze5kiJoZ3WcQZE2e+NYcI7G4cCHIwN7vb4NZpOikceskCq2zun+bGECM00k053z9WtGphgKcwzbviST10uWDIaTXMgiIEJR0xKRcDkR6x9fkATBefQddhCElD9icPUnPyoIlPrqU3zo2pGKoc1Vio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Xr99FGny; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="coIeN+ZV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=RXZipy+fUyJE4tmfdVmFNE5i0PV1F24TRbxaj2s7BWs=; b=coIeN+ZVk9rzeh4fwrzxdIUGxg
-	NsXihkcvVcMD90BovGsabSbtQ6Zx79cu+qsGLfFDGHQZl5g9O5/ElmF45eSBRLjJizpP/refSAJea
-	lB1UdHq9PSwif4+moDtCLzO8Yna8fiOGxAg/ENjFir7l6C9IZYd1Kqn4rI5sJPZqdMkYqwwWd7ikq
-	QttHtScVhiw6qO2v6qLtCXrW5DboVG12t0ECHezfeSBtSIgX18B8oXPduTjEOYSpUv/23VszGaT72
-	Z2Tv9KavsAhmY6LWPGN+GHJJ0qNRJKeszbn1CjJB5ivaOTVtJ6LAMx4jB7PVGop0o220+wUpeyHUt
-	DWTbACxA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Igor Paunovic <royalnet026@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Sidong Yang <sidong.yang@furiosa.ai>,
-	Jiaxing Hu <gahing@gahingwoo.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] accel/rocket: search every core slot when looking up a scheduler
-Date: Tue, 13 Oct 2026 13:58:09 +0200
-Message-ID: <179189268364.3989522.6809230134424233060.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260905150432.7477-1-royalnet026@gmail.com>
-References: <20260905150432.7477-1-royalnet026@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Xr99FGny"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791892713;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=MPpjIx1DbmEHmQq5k6Krx5L9kivtWysksQG1537BfZQ=;
+	b=Xr99FGnylNInCimFT3pM4I+gDGqh4pIGWwGlUI71OOsMHElP6uUiS3zLwSkVDZKx20ZYE2
+	I02CZ1nnfA/c2BlpI5lU24QOXM/Dm+M/M1yzOCPF1oKsrbnEA8a4J3ee9pZusfyUC1NLdP
+	/C0ZTqS+zrqaNkmiyyxyWmyaGmkQv18=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-503-yUs2w1RBOeWm-GPMwS9EaQ-1; Tue,
+ 13 Oct 2026 11:58:27 +0000
+X-MC-Unique: yUs2w1RBOeWm-GPMwS9EaQ-1
+X-Mimecast-MFC-AGG-ID: yUs2w1RBOeWm-GPMwS9EaQ_1791892705
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4FD00195FDE7;
+	Tue, 13 Oct 2026 11:58:24 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 250401956086;
+	Tue, 13 Oct 2026 11:58:19 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH v2 0/3] drm/amd/display: use kunit/visibility.h for test
+ helpers
+Date: Tue, 13 Oct 2026 13:58:12 +0200
+Message-Id: <20261013-visibility-unification-v2-0-3ce8d458bddf@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,26 +52,159 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNTQ6CMBCFr0Jm7ZhSKD+uvIdhUcogkyglbSUS0
+ rtbuIDL7+V97+3gyTF5uGU7OFrZs50TyEsGZtLzk5CHxCCFrEQrajwqPb84bPiZeWSjQ1JwHAr
+ VGNWIsqwhyYujkb/n8KNLPLEP1m3nz5of6d/JNUeBlW4rSaovCpXfHQ2TDldj39DFGH9Ryq8ov
+ QAAAA==
+X-Change-ID: 20260907-visibility-unification-fd358c580447
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Maxime Ripard <mripard@kernel.org>, Albert Esteve <aesteve@redhat.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791892699; l=6834;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=KadtR+IjPDiRiEbF2EBs12dIf2bKI52h5Y02NAopm+g=;
+ b=11R7lXGyjwY/Tc5fVZJ32GUGJlLz47Yieq50OwSZJPVhKdRJ/LQSc30TQYh62AwXIkpYyX/f/
+ V0o0DN2VSGqBA0CrXjezUBJsqMkocXh7bVCIDFY2klfQotNo8GD19f2
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
+amdgpu_dm grew its own STATIC_IFN_KUNIT / EXPORT_IF_KUNIT /
+INLINE_IFN_KUNIT macros instead of using kunit/visibility.h. This
+series switches the KUnit helpers over to the common API.
 
-On Sat, 05 Sep 2026 17:04:32 +0200, Igor Paunovic wrote:
-> sched_to_core() walks rdev->cores[] up to rdev->num_cores, and
-> rocket_remove() decrements num_cores for every core it removes. Unbind a
-> core that is not the last one and the cores behind it fall outside the
-> search, so sched_to_core() returns NULL for a core that is still bound and
-> still running jobs. Neither caller checks the result:
-> 
->   rocket_job_run():      rocket_fence_create(core), core->dev
->   rocket_job_timedout(): dev_err(core->dev, "NPU job timed out")
-> 
-> [...]
+VISIBLE_IF_KUNIT is gated on CONFIG_KUNIT rather than
+CONFIG_DRM_AMD_DC_KUNIT_TEST, so the helpers are non-static whenever
+KUnit is enabled. EXPORT_SYMBOL_IF_KUNIT places the symbols in the
+EXPORTED_FOR_KUNIT_TESTING namespace; the AMD DC test files import
+that namespace with MODULE_IMPORT_NS().
 
-Applied, thanks!
+INLINE_IFN_KUNIT is dropped rather than generalized. It was only used
+on amdgpu_dm_fixpt_from_s3132(), inverted the original static inline,
+and is unnecessary for tests in another translation unit.
 
-[1/1] accel/rocket: search every core slot when looking up a scheduler
-      commit: 89c2c777df17eb0201c8e22afabbf3691f2a28fe
+Previous version failed with specific configuration combination
+(KUNIT=y, DRM_AMD_DC_KUNIT_TEST=n). Fixed by changing header
+declaration guards from CONFIG_DRM_AMD_DC_KUNIT_TEST to
+CONFIG_KUNIT to match VISIBLE_IF_KUNIT.
+
+Tested with:
+    # Full test run (KUNIT=y, DRM_AMD_DC_KUNIT_TEST=y):
+    ./tools/testing/kunit/kunit.py run --arch=x86_64 \
+      --kunitconfig=drivers/gpu/drm/amd/display/amdgpu_dm/tests \
+      --kconfig_add CONFIG_GCOV=n
+
+    # Build-only, tests disabled (KUNIT=y, DRM_AMD_DC_KUNIT_TEST=n):
+    ./tools/testing/kunit/kunit.py build --arch=x86_64 \
+      --kconfig_add CONFIG_KUNIT=y \
+      --kconfig_add CONFIG_PCI=y \
+      --kconfig_add CONFIG_DRM=y \
+      --kconfig_add CONFIG_DRM_AMDGPU=y \
+      --kconfig_add CONFIG_DRM_AMD_DC=y \
+      --kconfig_add CONFIG_WERROR=y
+
+(CONFIG_GCOV omitted; it is not available on x86_64.)
+
+Suggested-by: Maxime Ripard <mripard@kernel.org>
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
+---
+Changes in v2:
+- Fix build when CONFIG_KUNIT=y and CONFIG_DRM_AMD_DC_KUNIT_TEST=n
+- Fix two missed EXPORT_IF_KUNIT in amdgpu_dm_irq.c
+- Rebased to v7.3-rc7
+- Link to v1: https://lore.kernel.org/r/20260907-visibility-unification-v1-0-6a962e5b3351@redhat.com
+
+---
+Albert Esteve (3):
+      drm/amd/display: replace STATIC_IFN_KUNIT with VISIBLE_IF_KUNIT
+      drm/amd/display: replace EXPORT_IF_KUNIT with EXPORT_SYMBOL_IF_KUNIT
+      drm/amd/display: drop INLINE_IFN_KUNIT
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  79 ++++-----
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c    |  26 +--
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h    |   2 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  74 ++++----
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |   2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    | 133 +++++++--------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.h    |   2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |  12 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h  |   2 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 190 ++++++++++-----------
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.h    |   2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c  |  38 ++---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h  |   2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  52 +++---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h |   2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c   |  10 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.h   |   4 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |  30 ++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.h |   2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c |  10 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 105 ++++++------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h |   2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 140 +++++++--------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.h  |   4 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  | 150 ++++++++--------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h  |   2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c  |  40 ++---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h  |   2 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  60 +++----
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.h    |   2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 104 +++++------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h    |   2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c   | 116 ++++++-------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.h   |   2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  22 +--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h  |   2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c   |   4 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |   9 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_services.c |  10 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  18 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.h   |   2 +-
+ .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_color_test.c |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c       |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_cursor_test.c        |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c  |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c      |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c  |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_ism_test.c   |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c      |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c        |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_quirks_test.c        |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_services_test.c      |   1 +
+ .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   1 +
+ drivers/gpu/drm/amd/display/dc/core/dc_sink.c      |   6 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c    |   2 +-
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h        |  13 +-
+ tools/lib/python/kdoc/xforms_lists.py              |   3 +-
+ 70 files changed, 771 insertions(+), 751 deletions(-)
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20260907-visibility-unification-fd358c580447
 
 Best regards,
 -- 
-Heiko Stuebner <heiko@sntech.de>
+Albert Esteve <aesteve@redhat.com>
+
