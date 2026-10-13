@@ -1,203 +1,160 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2184ED1A2
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:20:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BFAD4F68DF;
+	Tue, 13 Oct 2026 13:21:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897645; cv=none; b=pxbvrexLhXBcPTLI5BE+9PinZDwrp1l5nSty2Qbdae8l3XxpEMhcN3sW9H3++QiGoACedWcj8PFxVrRN2kPRf5glmgE1FKCNAsBHp8zxTcvrDUpTNJ9qzfJqKxbdK3OJHSNjsfIceNJ03j40Y43nDVCFDR1hBQNNts9bHC1MoNM=
+	t=1791897707; cv=none; b=JBFSA27yf6ER9qSU2xkZtR21KjdAbx8BkYmTd6csE0jydeaBjw99h/g1SiutxCbaQ/zTtDKYcoNIPggcvYQNcIfj9XjHm9RkGRgqIs+riRwzEQRR5EtOYgCpFRP82ipqpb6JIBihdCAyql7D7wjHfOAoOkWWbiFuJ6xHf1sWzFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897645; c=relaxed/simple;
-	bh=1b7RjkHu1NHryYwqfJSYjFf+f+PvPogAP5ONubhaPv8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sD3Me+ubPBkzbaGIQ3qbeAZpRAJ67sv1tRT+P5pbmi2+agy+dvCR04jhEEjG2SCnw00eAK87QJgdaAb/IdXMSM9DG5/NCtzkoKniJmFV2oj4K7H+NEdXKJds2GtqOITxyg55S17tqHuujuQuy3wCgRsbZCVWxiRhgeHhkSXdrfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dK3JLAhe; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791897707; c=relaxed/simple;
+	bh=phRW5ewg23xc34NdzY7oGXso7g+/z4XfVbWkRQUireU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tb8NOls8sgNQ4pmHeZcdT90G8jB3Lmp6dGDefCdTV+yLnUVEzC2jy5BWQPD9UVLbDtJQ04hfq2Xk0OKkyS8bkGIeEfH5FJK/Wq7YL8uVm3I8U8tck2rm7MfjDHEb9fHTyovO12IzA8B7Oh9okUWtXP0S5Sn8V3er9JPL7JZOUA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TfK6ZSCY; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dK3JLAhe"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-85377c8bc96so1162432b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:20:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791897644; x=1792502444; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oucrOI+RjDzXO+WWFDlUFwxllDCPTfTMpJAlcrSAe9s=;
-        b=dK3JLAhe3FbYnUYWkcAYJfGuA8qqXpZnayFFL1ZwCK3vdjbr85qXQv8s/CkuC9Qc+h
-         fI2VxjLfyannDI0NJ4IFB7WcZwdD8iBFAnZsszju8E1ZMvwZOpIJQ2oDyWUV3R9X/zSK
-         E5lHu1Eo6rC37v9p6CfQFqPjJYtjztKA06zakg9J3r29f6KGSo73V5x0ijhaHRZtqcsr
-         E1Gvr477N7P+JxBEWpD99VnrkJvejHmRZu6/4Fy3U9w+uGAgKUYzgMjXED0aIjookZS5
-         OWRcaakCJF08NXnj1+HSH1YWEswnvqhfVwFfNncOgc4yBgzl6um+PKLYwiRItYnYIgm2
-         BUxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791897644; x=1792502444;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oucrOI+RjDzXO+WWFDlUFwxllDCPTfTMpJAlcrSAe9s=;
-        b=vQkxbaVNxAdfmFVKKAY24NCY1/DO+GknDVbOf07DgDiACTpeCwIEfxO/7qtvqknPaO
-         gtMl6v9yi7tb9cnfcC6w9aL5QnqC+2OpmlhibjmMAlS74IdgdrOOJwctIT36dj2Ye85u
-         RsLpGUw/YxRQhyGaaPNGQ8LKfdE0gDClaikHBUV9CGpiz+AAzh45AFrfLJ07fMU1xD6J
-         qbFtRoM3Erl6KfbKmYxh1r0iy76M2ycnCPDQxWqaYehh+ju8FTbvdaDOvS0JmRcqS5TF
-         zmng4c3pThzPU47cZddZZe2ztqx3rlPKLo128Y3ppQDu/swSqapZPMtcdsuTjqNVpXGw
-         7jKg==
-X-Forwarded-Encrypted: i=1; AKwUvByAwKdTrOlhAJNuqi0OvV8STodzXlaQGLNfAuomqAOPIg57JHOEKL8bwq1BhKuiqoqhkm8mDGIo1CdnWrQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL74yakbeQrRuXbvQ8yo51J/+tuT1mBcg5wYOD/fspjxTk4h8rv
-	if+zNmvCN2Dd3YOYM3OxZaiOWzXw3wrVfX82/t4445FV3igbFL+Qs3gX
-X-Gm-Gg: AYBFou2hmmdvt9zrMoVjkD/SifXHql/Geg+cCKQQ/3/p5V2nu3eErpFlplpf96gLfWT
-	123HXARXnI8/YyBwb1lDBGJoUgkt5hn+oDFQSZSH+d6DBeIhNa656sV8IXbTriewT0kBg80/OW+
-	/oEYGoAb8zYaaMGj/40498qTA62FvNY0bPeZPloqHmZT45j6Vs2OKLvNqfUpuR23Uj0p0nZXOZ7
-	p0IXJeV0AsdEkcZ1EpgD19DkilAZsyN5TGlwy91JVhGKbI9rKvyweFadULyEnFa8nxfE1u5PBw1
-	B78ktdUSdLF1VCCnhG/7pIuQrbUwRCnSKbF0SDp8ITkWPQXZhCT+E6CaXZoVTfnrGl7hnDQwyGu
-	NEIxSKjsh0wXlzFPndgw2syM0B6y6S9PFb/SKlYIdUOE8IwYFnUic+Fs4sRmygEumlvjjJQXlT4
-	WbX6mEz5zSjhv89/YkGBCaTFk87E8xEHoYftEJochfX52PxXdqyPRMQm1AuB4RPUm5Nk0l9ydU/
-	KJ+Y4d8sAQb4gipIzK39u0BTBcubZA=
-X-Received: by 2002:a05:6a21:a02:b0:3e0:eae8:7525 with SMTP id adf61e73a8af0-3e16bf147bfmr10340143637.64.1791897643702;
-        Tue, 13 Oct 2026 06:20:43 -0700 (PDT)
-Received: from LAPTOP-GHDOQM75.localdomain ([112.151.126.126])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3cca5a6sm4938316b3a.31.2026.10.13.06.20.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 06:20:43 -0700 (PDT)
-From: Lee Yongjun <jun85566@gmail.com>
-To: stern@rowland.harvard.edu,
-	gregkh@linuxfoundation.org
-Cc: digidietze@draisberghof.de,
-	xiehongyu1@kylinos.cn,
-	linux-usb@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net,
-	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	syzbot+7317196294d50d6e55c3@syzkaller.appspotmail.com,
-	Lee Yongjun <jun85566@gmail.com>
-Subject: [PATCH] usb-storage: option_ms: bound probe-time bulk transfers
-Date: Tue, 13 Oct 2026 22:20:33 +0900
-Message-ID: <20261013132033.4352-1-jun85566@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TfK6ZSCY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791897707; x=1823433707;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=phRW5ewg23xc34NdzY7oGXso7g+/z4XfVbWkRQUireU=;
+  b=TfK6ZSCYWNnu8pF/RP4SjmzG9/mFmE9BsR64Je4SCFn738Y1uyteZIx6
+   nshhKpGUiXkPwPMs6bIg8gw8TDt1PRvd+iyEVRBcnBE0DcR0GySjf5Eep
+   nTg5FmHYi0cjTrBheb/QvOIbBDlVIY9gO2+s9IlVSN1qSLueCuJ6nrVyE
+   i3R5v9UhIechcetDoSv36luiiePEF/S0N1uELIBOC6xgX3inl8fVBWFN7
+   +0/aHosiI5U6khIvsJ6DQSiQAi+meTLZUbsxtxpPQEaSD2fsORVdBXaxZ
+   Wktm5ceJ7XqF63K/C+5L5pV5s6tQHwCE9gW/LSfxvYiTzZHwxzkYfHAN7
+   g==;
+X-CSE-ConnectionGUID: aRA31wk5QyS9kZr6FKuvCg==
+X-CSE-MsgGUID: ToG7hwrcRs6hIIERJtlpEw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="615651"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="615651"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 06:21:46 -0700
+X-CSE-ConnectionGUID: PEMlfMdWQJ2+PwqCvYuhlA==
+X-CSE-MsgGUID: 1Mt+akoCQkmW95aZdby4nA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1249797"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 06:21:43 -0700
+Date: Tue, 13 Oct 2026 16:21:41 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Eduardo Ruiz Duarte <toorandom@gmail.com>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: sakari.ailus@linux.intel.com, bingbu.cao@intel.com, djrscally@gmail.com,
+	heikki.krogerus@linux.intel.com, tian.shu.qiu@intel.com,
+	lixu.zhang@intel.com, linux-media@vger.kernel.org,
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: ipu-bridge: hold a reference on the IVSC software
+ node
+Message-ID: <as4wZeHPziPV3nKU@ashevche-desk.local>
+References: <20261011131518.48838-1-toorandom@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011131518.48838-1-toorandom@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The Option device initialization path issues bulk transfers
-without a timeout. If a device does not complete a transfer,
-the USB hub worker can remain blocked while holding the device
-mutex, causing usb_device_read() to hang.
++Cc: Bart for the double check of the approach. This sounds like it might need
+to be fixed in driver core (software node implementation).
 
-Use the timeout-aware bulk transfer helper for the transfers
-in option_inquiry() and option_rezero(). This bounds the wait
-for each probe-time transfer to 30 seconds.
+On Sun, Oct 11, 2026 at 03:15:18PM +0200, Eduardo Ruiz Duarte wrote:
+> ipu_bridge_instantiate_ivsc() attaches the IVSC software node to the mei-csi
+> device with set_secondary_fwnode(), but never takes a reference on it, while
+> the driver core unconditionally drops one when that device goes away.
+> 
+> device_add() calls software_node_notify(), which does a kobject_get() on the
+> swnode behind dev_fwnode(dev). device_del() calls
+> software_node_notify_remove(), which does the matching kobject_put() -- and
+> that put sits *outside* the "if (swnode->managed)" block, so it runs for every
+> device whose fwnode is a software node, managed or not:
+> 
+> 	sysfs_remove_link(&swnode->kobj, dev_name(dev));
+> 	sysfs_remove_link(&dev->kobj, "software_node");
+> 	kobject_put(&swnode->kobj);
+> 
+> 	if (swnode->managed) {
+> 		set_secondary_fwnode(dev, NULL);
+> 		kobject_put(&swnode->kobj);
+> 	}
+> 
+> csi_dev is the mei-csi device, which the MEI client bus has already added by
+> the time ipu_bridge_instantiate_ivsc() runs. The add-side get therefore never
+> happens for this node, but the del-side put always does.
+> 
+> On hardware where the MEI bus resets -- which it does on every s2idle and S4
+> resume on a Dell XPS 13 9340 -- mei-csi is destroyed and recreated each cycle,
+> so the node loses one reference per resume. INTC10CF-N starts at 3: one for its
+> own registration plus one for each of its two port children, since
+> kobject_add() of a child takes a reference on the parent. The third resume
+> therefore frees it, software_node_find_by_name() starts returning NULL, and
+> isys walks the fwnode graph into freed memory:
+> 
+>   refcount_t: addition on 0; use-after-free
+>   WARNING: lib/refcount.c:25 at refcount_warn_saturate+0x7e/0xb0
+>    kobject_get+0x94/0xb0
+>    software_node_graph_get_port_parent+0x89/0xd0
+>    fwnode_graph_get_port_parent+0x70/0xd0
+>    fwnode_graph_get_endpoint_by_id+0x93/0x280
+>    isys_notifier_init+0x92/0x180 [intel_ipu6_isys]
+>    isys_register_devices+0x3c9/0x4e0 [intel_ipu6_isys]
+>    isys_probe+0x3df/0x500 [intel_ipu6_isys]
+>    auxiliary_bus_probe+0x4c/0x70
+>    ...
+>    deferred_probe_work_func+0xa5/0x110
+> 
+> followed by an underflow and a saturate on the same kobject, and the camera
+> never comes back.
+> 
+> Take a reference so the attachment owns one, balancing the put the core will do
+> when csi_dev is destroyed. Where csi_dev is never destroyed this leaks a single
+> kobject reference, which is what the lifetime of the node already assumes.
+> 
+> Found while making the camera survive hibernation on a Dell XPS 13 9340
+> (ov02c10 behind an INTC10CF IVSC); with suspend-then-hibernate the first cycle
+> burns two resumes, so the failure consistently showed up on the second
+> hibernation. Tested on 7.0.0-1015-oem: two consecutive hibernations with the
+> node alive throughout and no refcount warnings, where before the second one
+> hung the machine.
+> 
+> Signed-off-by: Eduardo Ruiz Duarte <toorandom@gmail.com>
+> ---
+>  drivers/media/pci/intel/ipu-bridge.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> --- a/drivers/media/pci/intel/ipu-bridge.c
+> +++ b/drivers/media/pci/intel/ipu-bridge.c
+> @@ -765,6 +765,15 @@
+>  	if (!fwnode)
+>  		return -ENODEV;
+>  
+> +	/*
+> +	 * Balance the kobject_put() that software_node_notify_remove() will do
+> +	 * on this node when csi_dev is destroyed. That put is unconditional,
+> +	 * while the matching get in software_node_notify() only happens at
+> +	 * device_add() time -- and csi_dev was added before we got here, so it
+> +	 * never ran for this node.
+> +	 */
+> +	fwnode_handle_get(fwnode);
+> +
+>  	set_secondary_fwnode(sensor->csi_dev, fwnode);
+>  
+>  	return 0;
 
-Tested with the syzbot C reproducer under QEMU/KVM. The
-patched kernel repeatedly completed USB device initialization
-attempts after approximately 30 seconds without triggering
-the previously observed hung-task warning.
-
-This patch depends on Hongyu Xie's pending v3 series:
-https://lore.kernel.org/r/20261001123135.38831-1-xy521521@gmail.com/
-
-Fixes: 32ebbe7b6ad4 ("USB: usb-storage: add filter to "option_ms" to leave unrecognized devices alone")
-Reported-by: syzbot+7317196294d50d6e55c3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=7317196294d50d6e55c3
-Assisted-by: LLM
-
-Signed-off-by: Lee Yongjun <jun85566@gmail.com>
----
- drivers/usb/storage/option_ms.c | 38 +++++++++++++++++----------------
- 1 file changed, 20 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/usb/storage/option_ms.c b/drivers/usb/storage/option_ms.c
-index 7c0b05a36554..1f3d984d6932 100644
---- a/drivers/usb/storage/option_ms.c
-+++ b/drivers/usb/storage/option_ms.c
-@@ -10,6 +10,7 @@
- #include <linux/usb.h>
- #include <linux/slab.h>
- #include <linux/module.h>
-+#include <linux/jiffies.h>
- 
- #include "usb.h"
- #include "transport.h"
-@@ -18,6 +19,7 @@
- 
- #define ZCD_FORCE_MODEM			0x01
- #define ZCD_ALLOW_MS 			0x02
-+#define OPTION_MS_PROBE_TIMEOUT		(30 * HZ)
- 
- static unsigned int option_zero_cd = ZCD_FORCE_MODEM;
- module_param(option_zero_cd, uint, S_IRUGO | S_IWUSR);
-@@ -44,9 +46,9 @@ static int option_rezero(struct us_data *us)
- 		return USB_STOR_TRANSPORT_ERROR;
- 
- 	memcpy(buffer, rezero_msg, sizeof(rezero_msg));
--	result = usb_stor_bulk_transfer_buf(us,
--			us->send_bulk_pipe,
--			buffer, sizeof(rezero_msg), NULL);
-+	result = usb_stor_bulk_transfer_buf_timeout(us, us->send_bulk_pipe,
-+						    buffer, sizeof(rezero_msg), NULL,
-+						    OPTION_MS_PROBE_TIMEOUT);
- 	if (result != USB_STOR_XFER_GOOD) {
- 		result = USB_STOR_XFER_ERROR;
- 		goto out;
-@@ -56,14 +58,14 @@ static int option_rezero(struct us_data *us)
- 	 * Some of the devices need to be asked for a response, but we don't
- 	 * care what that response is.
- 	 */
--	usb_stor_bulk_transfer_buf(us,
--			us->recv_bulk_pipe,
--			buffer, RESPONSE_LEN, NULL);
-+	usb_stor_bulk_transfer_buf_timeout(us, us->recv_bulk_pipe,
-+					   buffer, RESPONSE_LEN, NULL,
-+					   OPTION_MS_PROBE_TIMEOUT);
- 
- 	/* Read the CSW */
--	usb_stor_bulk_transfer_buf(us,
--			us->recv_bulk_pipe,
--			buffer, 13, NULL);
-+	usb_stor_bulk_transfer_buf_timeout(us, us->recv_bulk_pipe,
-+					   buffer, 13, NULL,
-+					   OPTION_MS_PROBE_TIMEOUT);
- 
- 	result = USB_STOR_XFER_GOOD;
- 
-@@ -90,17 +92,17 @@ static int option_inquiry(struct us_data *us)
- 		return USB_STOR_TRANSPORT_ERROR;
- 
- 	memcpy(buffer, inquiry_msg, sizeof(inquiry_msg));
--	result = usb_stor_bulk_transfer_buf(us,
--			us->send_bulk_pipe,
--			buffer, sizeof(inquiry_msg), NULL);
-+	result = usb_stor_bulk_transfer_buf_timeout(us, us->send_bulk_pipe,
-+						    buffer, sizeof(inquiry_msg), NULL,
-+						    OPTION_MS_PROBE_TIMEOUT);
- 	if (result != USB_STOR_XFER_GOOD) {
- 		result = USB_STOR_XFER_ERROR;
- 		goto out;
- 	}
- 
--	result = usb_stor_bulk_transfer_buf(us,
--			us->recv_bulk_pipe,
--			buffer, 0x24, NULL);
-+	result = usb_stor_bulk_transfer_buf_timeout(us, us->recv_bulk_pipe,
-+						    buffer, 0x24, NULL,
-+						    OPTION_MS_PROBE_TIMEOUT);
- 	if (result != USB_STOR_XFER_GOOD) {
- 		result = USB_STOR_XFER_ERROR;
- 		goto out;
-@@ -112,9 +114,9 @@ static int option_inquiry(struct us_data *us)
- 		result = memcmp(buffer+8, "ZCOPTION", 8);
- 
- 	/* Read the CSW */
--	usb_stor_bulk_transfer_buf(us,
--			us->recv_bulk_pipe,
--			buffer, 13, NULL);
-+	usb_stor_bulk_transfer_buf_timeout(us, us->recv_bulk_pipe,
-+					   buffer, 13, NULL,
-+					   OPTION_MS_PROBE_TIMEOUT);
- 
- out:
- 	kfree(buffer);
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
