@@ -1,176 +1,132 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C6C4DDB22
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:30:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E2E4E01E5
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887446; cv=none; b=q5J+TDLKmLnGupojVd0lbbti+d1B7kCAs57v23LKCum8R9lyieq7FCWc1ft6MAqZGqwYW3KYoskfYz1RJqZZ6drB3jnX+gbz69mQFvN1ZO9V4eLDHcbx5YYcl+Iz5HvkgaK1RL0sBP9enh5we81Ae2qprzY6+fVmMug89r/hAcA=
+	t=1791887452; cv=none; b=ARSC0wlu3pXZ5xhTXFEektbspaEIhEIgwAjfkkVXe4U8i2gdh69HtYhSN0GA89kB/YN2x5m8YjNqcrKAC+rWFJuoU6ahKdam92RJPU4/mZTyJxMuCOZ7zC5s/qGHXfiu2hgKgUoyS7SmUnX6Ph0/qKNY+hCVz4oLKpkJc5bChvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887446; c=relaxed/simple;
-	bh=s6lFgUCKWchq2Tr5iOLVIfwuMKBpkSgnVZN0RmocfQM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qOcTVEFN/TAoNro79pSZFVl0TAy9oqpapvarJzaLHi3DPqILRXYa5o5fz91AblpUgLCmwF0+l3xOsQrMfocJAR4cS2Pngtq5r06WR4gG/26saYqoFr8qT/hFpnFlfwto5j7M1WbHb53rJODYPVQnweC5RyJtedavcC2l23rXvsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EHjbjc67; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Jp+746cH; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791887452; c=relaxed/simple;
+	bh=OFgV7Q+Q9m5bPZHtkc0vgB4UyPytyI7XAZBQBoWSxfU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=tabTqE2mPDRxT60OwkwfSg+8WlEYudblMjbFduHvrrVqWlDXWjzL3/dto+goLbTyCaTGf7LIDGIHjfZ4pBFuqge1CLGXwkyNdZtWr8uoymtuAPvM9ox9DYC3yymgUj3YxNHWFjwLB0Rz02RHZybDdrX2tQYzZN8oVVlA9p1RyKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hudshSSb; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EHjbjc67";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Jp+746cH"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D7OWYD015212
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:30:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HgwlI9xizsLKQYfDyomPoKaDb7JMV/G/kjGnCEp0kJ0=; b=EHjbjc67pHrSpEze
-	NjVuBjs7uhpk8Y+M8YKX7K6sFfeF9iMdab+h1oHODkxD6wl6SygnauoZKPV19WGg
-	9NwA1BO3N5cZPOk3Qcn1QIt11Am+iyQF7Got/DKVglgxuh/PzAEWOlMtgEUex57M
-	HO5W8AbqKrDMJeN3co0woqsGZ5gWHAcfS+fbpV/116DXkNnxsHxAnrTuaMUrFii3
-	/W9a1GcOjQMXVSwJVqkknO6K2LTalB0rzR4BBUHXyyJgefBpZOS5ZezwAWnnjwxy
-	yv4inm6WJtuut+UIHzGZ2TSZHDCufuzKUythwV0if6J4GwSc/VNm1P3PVgC/OOHy
-	sfMJ+g==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9g7ugs7r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:30:44 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e661ce1dcso32210585a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:30:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hudshSSb"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso25518405e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:30:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791887444; x=1792492244; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HgwlI9xizsLKQYfDyomPoKaDb7JMV/G/kjGnCEp0kJ0=;
-        b=Jp+746cHEus5vhkr2QYXqV3IuOv0RVTiYwmt5lx380vEqk9x+Msew6XX5t8540rdfo
-         zVQdY9Uj47ZpT/zkgo8dJxJBgEqYQmVhXbpSM0KhLfOXk0/Aiffls/f237o3YnB38UEY
-         +k27PdTflMWY5blyK0IwkVEz7L6Kgij++lQKaR61qnax6Y7nUGM4s/4/ee5qLcQ+S5c7
-         n+BM6u1uDUpFxiC4vuxyOIQzsmEDgMYSCbNKBJvjTBUKHgvuiiDM6A0AVC6Qx7Oylexi
-         Fj1pK0iA4RRdj/RTDUGhhjCXmBfheY9wArOPyL0UPjiTPARZt9zab8Q/Cecif8ZGI/0b
-         Qsuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791887444; x=1792492244;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791887448; x=1792492248; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HgwlI9xizsLKQYfDyomPoKaDb7JMV/G/kjGnCEp0kJ0=;
-        b=Pw6BL3wzF7XoKIQGTGYmrbRtzWET3UN6aVanz++3rKIKJ5oOyHcM1WGG5co+pBzyd3
-         E3FfYPbKD+o2c/7qTaG50xbT9J6PDNC7S/+y+F94BhIcfwJvfrZqAA9KKy089seKtfQj
-         piJbhoqcIueYRUty9BVnP84+Q2567dDsD+xI7lObTq5Lq+/WpQBK5Cm8OZwTwLrBwk19
-         CCjY34Yx8rpuFrJKyLpnwSOs6W0r4295LRUlER2vPHH83FcFb+hyZI/KkVsRfsy7V2hJ
-         ndcOI4MqpthbNXELKsUqRWPXkewQk7HhWFZec0sFDsH5p9Ah6bREaIpQGzDGHaJm2Tjn
-         gyEA==
-X-Forwarded-Encrypted: i=1; AKwUvBylYtkLFNMOM9HDmVGDDaxH9vOX8nSyrvQZThHhHs9+nvihAXaLR04X8+ExXNVAhfAvwORlOgCcgt2frHs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIslidn0S20Wv+KWn1jFFEU5EEW86qzmkCIKf80Z05sVcEm0oGf
-	+EnLjLhcwg6CEsZSoN0QuPefMlZNcJnWIcYG89ahghwhvjklvadTONarkrs6iVdn6YYaWVZjQ27
-	GCDndEZgumfD0aHQcbsn9YNx1Vi2VW92vmxXFgNEWEWRXweDIhej8H42i6fY77h3UbPI=
-X-Gm-Gg: AYBFou1/F1E8MdHUrQw9/dnvUOtEerBjNp2C7NUnubvdGWjZJcxOpmQSBZq382SduKG
-	n4F5Bd+CzsJekjdoljNg4Yt9mjD1ZO+NZMfVE6qQv3kgjVV6+OH4m1F6A+cG8VsHuQ8MzY8heXe
-	V002J4/w2CwpvA8t+NgqWgHphDdiMaBIPdWkzLI2yVmR8W1BRNnTVQVYI+bOL6y3C7IZFflUDze
-	ZYnxYd8cx772jifl3opBgN+f6r251DJm5KMKFRcct59BasyDxi2ks22WOFTyYiFRrKRLZYOLmgC
-	PakEo+0LrDqARX91oKfMK2T9u5AHXFwvptQHqvd7IBNF3cL7ld9I2vVvd9RYVvfhaaC0c69mkxN
-	4Mjmj1ZRG4PadtZlOZtFHzw==
-X-Received: by 2002:a05:620a:27d6:b0:92e:6485:f640 with SMTP id af79cd13be357-93ebd224118mr2251363885a.4.1791887443565;
-        Tue, 13 Oct 2026 03:30:43 -0700 (PDT)
-X-Received: by 2002:a05:620a:27d6:b0:92e:6485:f640 with SMTP id af79cd13be357-93ebd224118mr2251358785a.4.1791887443027;
-        Tue, 13 Oct 2026 03:30:43 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a38050sm571524366b.24.2026.10.13.03.30.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 03:30:42 -0700 (PDT)
-Message-ID: <762978b8-72ce-4836-85f4-2cd3ee4dc5cf@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 12:30:38 +0200
+        bh=N6TD2JBSDx2Af9KVVYuH1Qa1LkplFUH+G2vte2t2dJ0=;
+        b=hudshSSbzyeMT04LStOk1D1MuK1AwmJV2UzjkLCFZ6cIPzWbGkLhppaQZQmraS2hkd
+         JamDSC6l4lDyEx10CvG2t7pH8wg4bm2aj39cxYg8fbRN3K4VOdvilUCJPnE133J25Y2T
+         S8+L/+XlxukfdHB4MhQ/tciygNI/SYxuUVfCDMJZV56/q9kuAksUkMEN66e3+FXfiLgy
+         evMibTL9HF4DhJOYxRtho9KP2kXmusZlxFPNdAtookxQKrXxxJPdHngJHLh++Qei5T5/
+         gCW8h2FPElZ+Ozy+24kJU5Uq6MHQIRsHXW26CjxpEb+T6njPDGYLm0GIsu4ZNov1/AAx
+         Bi1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791887448; x=1792492248;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N6TD2JBSDx2Af9KVVYuH1Qa1LkplFUH+G2vte2t2dJ0=;
+        b=peyUu2f4DY7DGRtLzQOwwYjhOcVCZBRxyVTrhTHpRiqTTwanY4/HK69I/qMo8ITck9
+         6+C8TBmAnDmRK7rv2yWoZUMM3DBBm90ShcZ1qPmQDctN940a0pqay5DS4wyaaJJV6UEb
+         cPf99u7WodFZ+g2V8515Y9rbgvcG0pzDr62tktbHLNDYovPqNAHT4sKNtq+KSQos1JMi
+         012G5SchCLUPddmI+5sGYYxKLdO8JHMMaanD75R654SAD0IQ3+f5fkau3Mnc0kovoH6o
+         ukdWM8iV9gbezbD4h3F2sU8CpPBI0WOu6NR1uNDl0hjOL4D9hKAizWaTw+62RmaMVJyu
+         xIhA==
+X-Gm-Message-State: AFq9FYJw6HN6hnWf924XoV17pUzhzntLSxV8Z7DyTPzLNDapSR0K2aX6
+	ajtJSQ9U5RExUoVVUkOUu6uYAHq1+OYuP/BQtKhvI6wGMbNM3XD8qdk0
+X-Gm-Gg: AYBFou18Kpqitz2UC+OniyJCCGa4yxjawMjDnxv5gd/CBfBB8nSzd6ENg3GilmBBH02
+	lNXtPeSjwGrxCiwa3XOB1DZQdRtfH8DADbeF9FqtEGWQck5SukEiL/zpTm8/x+FQubrK7P2QE0G
+	APSBUjqY/MhEKD2qoD0Ev7SIXYpRkbJmcOobCKFD8OPysb+oKdRjo1co4fgQEIOGbIoqSp+pA6F
+	5EiKUOc6LdeHI1chWsieKphfp8/T3p+ttCO93MBySUdShfa64e29y0ZkjWHC/OjD9ignwZxJ3G2
+	jZCt0zwC4600OnQWiuiKZCObz1NnjIaUi2GwEe2dIrBAxHzAeg+ZQqqV/2avK2C7iBUW7Qhkocp
+	H1EX+Wg3ep1qZ8iSsdr2t11QdPI3XLBnS/vAQrvX5zXyFLhmRpn+VXBzNv9IpMSInbkw9nCV5Cm
+	QmneX7tnudyrPGgf+WUppkkjJl6CAsY1XEwTOZBxjOZ/ULt6rD7iXRmNV6uLrmFdRwcg9cD3Ptd
+	NgorMY+hPL5KWEnxtKAIur9nMs05DrpcjgZA0sBtiANU30Z33cxF7frGXj+KbUw6m+LwR4x5OD4
+	zVVV4iywA0KajDFzdxeWi6yzeIsmJ56eiOHfysh8
+X-Received: by 2002:a05:600c:348f:b0:49c:fc6e:8caf with SMTP id 5b1f17b1804b1-4a18e4c05e5mr243082755e9.19.1791887448077;
+        Tue, 13 Oct 2026 03:30:48 -0700 (PDT)
+Received: from my-vps.. (ip212-227-39-93.pbiaas.com. [212.227.39.93])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ae0c9fadsm49810175e9.4.2026.10.13.03.30.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 03:30:47 -0700 (PDT)
+From: Louis Clinckx <clinckx.louis@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Louis Clinckx <clinckx.louis@gmail.com>
+Subject: [PATCH v2] media: uvcvideo: reject bulk output payloads too small for the header
+Date: Tue, 13 Oct 2026 10:30:41 +0000
+Message-Id: <20261013103041.145445-1-clinckx.louis@gmail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <LE-MESSAGE-ID-REEL-DE-TON-v1>
+References: <LE-MESSAGE-ID-REEL-DE-TON-v1>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] arm64: dts: qcom: Add Microsoft Surface Laptop 8th
- Edition
-To: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Maximilian Luz
- <luzmaximilian@gmail.com>,
-        Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Douglas Anderson <dianders@chromium.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-        dri-devel@lists.freedesktop.org
-References: <20261006-mahua-surface-laptop-v1-0-406fc042162a@oss.qualcomm.com>
- <20261006-mahua-surface-laptop-v1-5-406fc042162a@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261006-mahua-surface-laptop-v1-5-406fc042162a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0MSBTYWx0ZWRfX1QP++hXcOwn1
- G952dOc4j+rEawxLnv4XBH/iYp0EO1+zhki7jDzPfFIxOnP4L9VrhGpBtbNDQgjK1lsJC6mkGxX
- TfgN8mqvcjyQC87P+x6I9yXckGVO2mYILIsNmXEEC+j6wKT+LsaLQkIFY+LgVgbamprddYiJYrm
- H94s5RrSeebTcxnl6KAa5RvGMxtOJ5ZOlwm+jGTEUNeDA0l9251IgBRnf7DBJizzQo2gyDj09/c
- U+x71QZ+bP/LfcpflHogOQ7ArvXFS+HaUnvuuUJb1XR13By2VNIcl1E99a3NUT+0RbR2gguRvha
- m4X8Zn6SFXBb/h0IK/7xkD167iDy+GliMdTugWQR8K4kE5HfydxHWiXk7iGJnulZZ+iM2dbJkfd
- d/k0e2e2BTv2m0/tv+yCq1EEF6dcoh+n1jibycGKuVTCgEYN2ap64oSVdvBP/jk3HfEEOK6UVwi
- RrMBAFcGn7HeUiGINZQ==
-X-Authority-Analysis: v=2.4 cv=Z495j3RA c=1 sm=1 tr=0 ts=6ace0854 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=1YZvB5OX3fR3yb4sgf8A:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: Oo1OdAJCx0t6GHUiC72WUNAZIQfrb88t
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0MSBTYWx0ZWRfX+54zttN93NKq
- Po7jxIMR4LZIkLkyYJow4wNRCuRGgPCIqTz/gLXYy6vsooOs4YAyNhpRewnpqeS9WrQLqb9gYtv
- Qno6gMa3/FcukuO7S+ypgGwc9cXwnwY=
-X-Proofpoint-GUID: Oo1OdAJCx0t6GHUiC72WUNAZIQfrb88t
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
- malwarescore=0 priorityscore=1501 phishscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130041
+Content-Transfer-Encoding: 8bit
 
-On 10/6/26 11:50 AM, Gopikrishna Garmidi wrote:
-> Add support for the Microsoft Surface Laptop 13.8" 8th Edition, which is
-> built on the Mahua SoC. Most of the board follows the Qualcomm reference
-> design. The keyboard, fan and platform profile sit behind the Surface
-> Aggregator Module on uart22, same as on the Surface Laptop 7.
+A bulk video output stream prefixes each payload with a fixed 2-byte
+header written by uvc_video_encode_header(). The per-URB length counter
+in uvc_video_encode_bulk() is a signed int initialised to the URB size:
 
-[...]
+	int len = stream->urb_size;
+	...
+	len -= uvc_video_encode_header(...);	/* returns 2 */
 
-> +&mdss_dp3_out {
-> +	data-lanes = <0 1 2 3>;
-> +	/* HBR2 channel equalization fails, limit the link to HBR */
-> +	link-frequencies = /bits/ 64 <1620000000 2700000000>;
+An output device can describe a bulk endpoint with wMaxPacketSize 1 and
+negotiate dwMaxPayloadTransferSize 1, leaving stream->urb_size == 1. len
+then becomes -1, and uvc_video_encode_data() casts it to unsigned
+(nbytes = min((unsigned int)len, ...)), so (unsigned)-1 defeats the
+clamp and the following memcpy() copies the whole frame past the
+one-byte URB buffer.
 
-Oops, that's no good - is there a chance this helps?
+Rather than guard the encode path, reject the invalid configuration when
+the stream is started: the negotiated maximum payload transfer size must
+be able to hold the 2-byte payload header. Requiring size >= 2 also
+guarantees urb_size = psize * npackets >= 2, so the encode path can no
+longer underflow.
 
-https://lore.kernel.org/linux-arm-msm/20260622-glymur-edp-phy-v1-2-814b45089ac9@oss.qualcomm.com/
+Signed-off-by: Louis Clinckx <clinckx.louis@gmail.com>
+---
+v1 -> v2: per review (Ricardo Ribalda, Laurent Pinchart), reject the bad
+          configuration at stream start in uvc_init_video_bulk() instead
+          of adding a guard to the encode path. Can move the check to
+          probe/commit (uvc_fixup_video_ctrl) if preferred.
 
-[...]
+ drivers/media/usb/uvc/uvc_video.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-> +&usb_0 {
-> +	dr_mode = "host";
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -1942,6 +1942,16 @@ static int uvc_init_video_bulk(struct uvc_streaming *stream,
+ 	size = stream->ctrl.dwMaxPayloadTransferSize;
+ 	stream->bulk.max_payload_size = size;
 
-OTG should work just fine on both ports
-
-Konrad
++	/*
++	 * Output payloads start with a 2-byte header (see
++	 * uvc_video_encode_header()), so a device negotiating a maximum
++	 * payload transfer size smaller than that would make the encode
++	 * path underflow its signed length counter. Reject it here.
++	 */
++	if (stream->type == V4L2_BUF_TYPE_VIDEO_OUTPUT &&
++	    stream->bulk.max_payload_size < 2)
++		return -EINVAL;
++
+ 	npackets = uvc_alloc_urb_buffers(stream, size, psize, gfp_flags);
+ 	if (npackets == 0)
+ 		return -ENOMEM;
