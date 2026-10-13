@@ -1,160 +1,318 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7700951C33E
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:15:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32B34FB9B5;
+	Tue, 13 Oct 2026 15:15:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904503; cv=none; b=Y9ypMGGguj7mnb7nPqWnKECEMtBatvcgdhuIk0Nqvy4yfZqt8tncMdSWemRrt9DXcWFp4JdMyS4QDZLT8Yk8xgil9Omu9XYlcA/T65V9yBtuzYmNLqKkSn8x5vp82XubqbkTRvQHcx6EBuOzWfJMX62DNdBwcgZrerY79LwzBVE=
+	t=1791904504; cv=none; b=IZyKOEyia9Q4Ex5cC9WCgPu5TiwDgODFZkLg9KnVtJSi//wSF6rbRGqklrCz/Nj2JMQcz5fHkX0bvjAJSrPANONJ0zw9e5dpkU8P9y9p7/muE4Ci3sJVn/JBfwQDTi+NBYisioLhKqH90Hdf34KPtuNdKFLfVkLrJVHdZaZOhn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904503; c=relaxed/simple;
-	bh=VgO+C+8KDYSTE6ugGfRNQKKkE0G27if6p6FDk0jABBo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NJ6PPbRxIzli/sn9AHP3137sVI3AgFdmSJ+gs+kYvAdGO7VW3spPJ0DMcazQPPpsYNBN6f2bujbMZDbYZU32jKJNNmxfhujPlpAU3kC0OCj46CVr+R38QT7fdOYpB7AFc1lm1zzQo2oPjfZ8chp7cvl+9vhTqjbBJXVg8PBTBUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=YRTKFJt0; arc=none smtp.client-ip=209.85.160.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1791904504; c=relaxed/simple;
+	bh=dXM3F0LVCDO3gk2G109Oq5R7FFl/u4sVnffApMdLzBc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=L2br9GONUqktYkcbzXAO7YcmekVTjZOwpmYQII6GLbxthvywI0nyZgCgDDXlH/0G9am3LJlUWW5uDJwVmh6NeepgLrh2WawrH4W8p1ycW6y6S01kzmvV+YsLGqvLKk37e2PHfON3z26a7W10BXb/UGgkP7cqNRzmY5RvXLj3lKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bvoldU8Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="YRTKFJt0"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-53397554beaso33825571cf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:15:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1791904500; x=1792509300; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5Kz+IQfSF4Bo0R4irbQAkdmm6GDBbYpLf1oqZAlKJ38=;
-        b=YRTKFJt01RD230amJaOYkN52vCXt60RXmGoZrKOjOx6vScS6bXuUyf2t+o1eDTHcDX
-         w5V5tTYzIZBGfhDV50IQdaZCnspQbLrwLbnQ5Hda/HNBSaasqbPt+GMHX94zVaoC9cFd
-         lYa7qncMAXPgOh+p+I6MdY6oYnXgE6ldMbge5HwROl+xOkrpRupSP5BIp1Dws/Qkk/Uz
-         zf+VhYIuiPgeVhj8B0p/xDK8VgCIXSbJj7vDY/l5W8JhZqkQeweEMrhL4LcCDEc5HlC8
-         i4hbq0D+vXzTm6ORuzZ1lxl/CGEobze37hLA3dv97zRbPujjJJTojeJVRS06F3yUoby0
-         eMVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791904500; x=1792509300;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5Kz+IQfSF4Bo0R4irbQAkdmm6GDBbYpLf1oqZAlKJ38=;
-        b=WQgj9PndDyFl1jWXFl3VniYYCe1Iyg3dIvC9AuWp05B45fkQMG81z9IPvOWrZKqckD
-         1tJrzkc2xSTGU/wrIH672yDm3VyaQgdD4RAWHJU0krpGE1WYi9GdbCY6GTKCt0GCRLWL
-         FMc2ielrxZc04ggbEsEN07iHcirwXR515SsCWORYZaKPvLUf+k4fJ9c8BQPnEi5D4Y7t
-         c7qU2Y/UIjxMsYD5E+rZJcFGhtVcAbxbp0NMjn9uRSrfU02+rqbgCLG9Dph6oXJU1U5t
-         CBOKW51kp1/C1Lt7pzf0r59X51wiwKOoOHP6FSYzXIthZpPu7mM9qtoW4cuRmQW4hDtP
-         FkkA==
-X-Forwarded-Encrypted: i=1; AKwUvBzzMuLauejBXGUnAtjeZf2eGWJYgR78hS994pYz8mVaj1I312SPzoHTN4Al9cvCBGS4ZOfN0ywcl9FaH7s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLLVICfqXYZkdhMBjETmZLsOxKW7pWzyxaHi/vMRcb1dz12MOYx
-	VlDeJg8/PzcnvDH7HDyUXaMqIiuUrBYUzKtwLiuZ/jmhG8GBMKuLrZe5Y4h1cDoR9l8BLqQCOrg
-	FbJ3O
-X-Gm-Gg: AYBFou00nU4gvJ/1kZCo6xTBdjMY0aWD3/nBQAHeQW0tV28P1csBtVvDbPbT26d+8wI
-	r9AFXzPfObmpoiAjzHjETCRo6xa5aQSfTOwiRDpvHYE3JaHSi9awbZKRvJfWP/2KBIoYLzx7WZs
-	z/vqtnU41wWgYmTPPUc8Ats7SuXTm1bgThn2C7vv8B3yJBPI+XGhnfVTRbfcolPNDl26vmo7q9k
-	Jl7BB1mtn11RAbbqWdfaQIjggQmCCRpcEjMRz7dvfN4i1gPdC8GKxB6xG9TjePjPHErrnY2AJKV
-	eEP6dsQtInlmrwPOwG5XGWMaVta+bJdHOWFBGWrNIOI6L7Ieuj7aUao1m9aTy4hiTKZi7ZFppvf
-	DIYn9sYE9O0FzyEjNNd/ddtLNu4AIWBrrjj5eEBuJZpA6gabG22TWuTcw7hetgJMcKXLLSrNCMQ
-	6yjWyQbjjDvZXmopFb+a1B0JgbmmJfF4Xj3/7HPSm0+k4AQ60C09jr9hAX4L90c1vH7qvpDvutR
-	Uq/uplNWpROv8L4r8hoM8r8k5qjVRkLwb2oDSv0cyupGyEX7G5LyGDg+ZiDJOlTb2Q=
-X-Received: by 2002:a05:622a:e4d5:20b0:535:a5f9:752c with SMTP id d75a77b69052e-535a5f97acemr137130051cf.75.1791904499634;
-        Tue, 13 Oct 2026 08:14:59 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b7e32cesm100542321cf.28.2026.10.13.08.14.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 08:14:58 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xGeDS-00000009ss0-0PwU;
-	Tue, 13 Oct 2026 12:14:58 -0300
-Date: Tue, 13 Oct 2026 12:14:58 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Robin Murphy <robin.murphy@arm.com>, Nicolin Chen <nicolinc@nvidia.com>,
-	Will Deacon <will@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Krishna Reddy <vdumpa@nvidia.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH RFC v6 5/5] iommu/arm-smmu-v3: Wire up shared-SID STE
- ordering and feature gating
-Message-ID: <20261013151458.GL14213@ziepe.ca>
-References: <20261011-smmu-shared-sid-v6-0-cb76b89dc612@nxp.com>
- <20261011-smmu-shared-sid-v6-5-cb76b89dc612@nxp.com>
- <aszfVNP6DGzWYdK0@shlinux89>
- <as1zR1wc7ERxvR1F@nvidia.com>
- <e8c22eb2-ed1f-47c7-b2ac-c56ead1cba8b@arm.com>
- <20261013124400.GI14213@ziepe.ca>
- <as5ERENDfgC6FB0b@shlinux89>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bvoldU8Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806871F00893;
+	Tue, 13 Oct 2026 15:14:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791904502;
+	bh=D64A0FyPbpB3tjb5UBGU9hKY5JLuh1oCwyYrtY/p4P4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=bvoldU8QpJo3JQxVK4J2tjQ1CB5qxRjNJojatUoKUKSimKeRUZ21DFIkxNXHWag0F
+	 WYEsWGQT3Zk1tYNBmKwrdf19JHYSmjOvpxDzdUVmWTp+SBROvYaFS7eCDz1G/oNkOr
+	 /XIBf4DTxzP6Upe4D4NtJ7vCow6X+nFdXwdGhfxIPELv9bXSydERUr0PzrcoZr6VRR
+	 PDLyXvuQm5rMEiRem/EcBBiDb6/MCP4ve0UV+goQj3EYY7qdZlJ1lUb/W2eFM7aE89
+	 yavwMKs4NICKcEc5ZKJ41gOo+PEh6CY/gf3RIY3AhySm0g6DIR/7WJH3UUhODYbfEy
+	 ZTE3m0fGS6V7A==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 13 Oct 2026 16:04:57 +0100
+Subject: [PATCH v6 17/39] mm/vma: add and use vma_[flags]_is_fixed_mapping
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as5ERENDfgC6FB0b@shlinux89>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-17-1aa3c9b139f9@kernel.org>
+References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6660; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=dXM3F0LVCDO3gk2G109Oq5R7FFl/u4sVnffApMdLzBc=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZw0WLT2vsW6382XLk08tzdngmbyisdsLXsv7Fz25
+ p9gvPvbhx2lLAxiXAyyYoosz7+I7w8SCZvXecHfDWYOKxPIEAYuTgGYyLdUhj+c05qbb8jHzzv4
+ 4cLWybuX+S7XXXLkoLr2LNUMk3unbqw0Zfif8WdC5Neji/qrzeaUr5NmiGQ+nflAi0183/M1tfP
+ yGk8xAAA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On Tue, Oct 13, 2026 at 10:46:28PM +0800, Peng Fan wrote:
-> Hi Nicolin, Robin, Jason
-> 
-> On Tue, Oct 13, 2026 at 09:44:00AM -0300, Jason Gunthorpe wrote:
-> >On Tue, Oct 13, 2026 at 12:22:06PM +0100, Robin Murphy wrote:
-> >> If we're not going to support PASID for shared streams (which I suggest we
-> >> don't...) than we shouldn't strictly need to worry about CD tables anyway.
-> >> So rather than having to special-case CD table sharing for shared streams,
-> >> perhaps it might make sense to generalise back to a "default" per-domain CD
-> >> for non-PASID use, which can then get switched for the private per-stream
-> >> cd_table if and when a device does enable PASID?
-> >
-> >If we have stared STEs then the group becomes the per-STE data
-> >structure not the master.. We don't have any way right now to do that,
-> >but it would make some sense for the group to store the shared CD
-> 
-> Thanks for the detailed feedback, reply you all here.
-> 
-> For the CD table question: since shared-SID masters are in the same
-> group and always use the same domain, the CD content is identical.
-> With skip_shared_ste(), only stream->master's STE (and thus its
-> cd_table) is active in hardware.  The other masters' cd_tables are
-> allocated but never referenced by the STE.
-> 
-> I see two options:
-> 
-> A) Keep skip_shared_ste() and add arm_smmu_cd_owner() to redirect
->    all cd_table operations to stream->master. This is a minimal
->    change that works for our use case (platform devices, no PASID,
->    no domain switching).
-> 
-> B) Drop skip_shared_ste() entirely and share the CD table at the
->    group or domain level. This is cleaner but a larger change.
-> 
-> I'm leaning towards (A) for now to keep the series focused on the
-> simple shared-SID case.  Would that be acceptable, or do you prefer
-> we go with (B) from the start?
+This determines whether a VMA cannot be expanded or merged because what
+they mapped was determined to be a set size at mmap time.
 
-I think the skip is in the wrong place perhaps?
+This typically refers to mappings not managed by core mm, however
+VMA_DONTEXPAND_BIT
+is not reliably set alongside VMA_PFNMAP_BIT or VMA_MIXEDMAP_BIT, so we
+must explicitly test for this for now.
 
-The group is always guarenteed to have all the masters in it.
+We also explicitly test for VMA_PFNMAP_BIT as VMA_DONTEXPAND_BIT may not be
+set for VMA_PFNMAP_BIT's despite the one implying the other.
 
-So we could split them into primary masters and secondary ones. The
-secondary ones are all the devices thare share SIDs with the primary.
+Use this predicate in vma_flags_can_merge() and in check_prep_vma() in the
+mremap logic testing to see if mremap() can expand the VMA. The criteria
+for khugepaged and MADV_COLLAPSE eligibility in
+__thp_vma_allowable_orders() are precisely those for mergeability, so use
+vma_can_merge() there (with an expanded comment).
 
-The group list is guarenteed to have all masters in it, so we can
-simply fully skip attach from the secondary. It is guarenteed by the
-group that a primary will have already attached to the STE with
-exactly the same domain so the secondary just needs to do NOP.
+This obviates the need for the VM_NO_KHUGEPAGED mask, so remove it.
 
-If you do that then all these questions go away since there is only
-ever one thing writing the STE, it is always stable and no issue.
+Hugetlb VMAs remain excluded from khugepaged as hugetlbfs always sets
+VMA_DONTEXPAND_BIT.
 
-This does leave a problem for master remove to switch the STE to one
-of the secondaries, but that sounds like it could be managed through
-the release domain mechanism, just nominate a secondary to be primary
-and execute an attach on it in the normal way. The hitless STE
-mechanism will make it work safely.
+Also update the userland VMA tests to reflect the change.
 
-Jason
+No functional change intended.
+
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ include/linux/mm.h              | 39 +++++++++++++++++++++++++++++++++++----
+ mm/huge_memory.c                | 11 +++++++----
+ mm/mremap.c                     |  5 ++---
+ tools/testing/vma/include/dup.h | 16 +++++++++++++++-
+ 4 files changed, 59 insertions(+), 12 deletions(-)
+
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index df8a5a1eb9c3..2ecf39bc857b 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -600,9 +600,6 @@ enum {
+ #define VMA_REMAP_FLAGS mk_vma_flags(VMA_IO_BIT, VMA_PFNMAP_BIT,	\
+ 				     VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT)
+ 
+-/* This mask prevents VMA from being scanned with khugepaged */
+-#define VM_NO_KHUGEPAGED (VM_SPECIAL | VM_HUGETLB)
+-
+ /* This mask defines which mm->def_flags a process can inherit its parent */
+ #define VM_INIT_DEF_MASK	VM_NOHUGEPAGE
+ 
+@@ -1647,6 +1644,40 @@ static inline bool vma_is_mm_managed(const struct vm_area_struct *vma)
+ 	return vma_flags_is_mm_managed(&vma->flags);
+ }
+ 
++/**
++ * vma_flags_is_fixed_mapping() - Do the specified VMA flags indicate that this
++ * is a fixed mapping that cannot be expanded or merged?
++ * @flags: The VMA flags to test.
++ *
++ * Fixed mappings are those whose size is set at the point of mmap (for
++ * instance, a mapping of a fixed range of memory established by a driver),
++ * and thus cannot be expanded or merged.
++ *
++ * Returns: true if the flags indicate a fixed mapping.
++ */
++static inline bool vma_flags_is_fixed_mapping(const vma_flags_t *flags)
++{
++	/*
++	 * VMA_PFNMAP_BIT should imply VMA_DONTEXPAND_BIT, but some callers set
++	 * only the former.
++	 */
++	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_DONTEXPAND_BIT);
++}
++
++/**
++ * vma_is_fixed_mapping() - Is this VMA a fixed mapping that cannot be
++ * expanded or merged?
++ * @vma: The VMA to test.
++ *
++ * See vma_flags_is_fixed_mapping() for a description of this property.
++ *
++ * Returns: true if the VMA maps a fixed mapping.
++ */
++static inline bool vma_is_fixed_mapping(const struct vm_area_struct *vma)
++{
++	return vma_flags_is_fixed_mapping(&vma->flags);
++}
++
+ /**
+  * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
+  * merged with another?
+@@ -1668,7 +1699,7 @@ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ 	if (!vma_flags_is_mm_managed(flags))
+ 		return false;
+ 	/* VMA explicitly marked as being unmergeable. */
+-	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
++	if (vma_flags_is_fixed_mapping(flags))
+ 		return false;
+ 
+ 	return true;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 4cd917f77f3f..87e8bf8029ab 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -212,11 +212,14 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+ 		return in_pf ? orders : 0;
+ 
+ 	/*
+-	 * khugepaged special VMA and hugetlb VMA.
+-	 * Must be checked after dax since some dax mappings may have
+-	 * VM_MIXEDMAP set.
++	 * khugepaged moves data from VMAs once collapsed, after they have been
++	 * faulted in, relying on refaulting for file-backed memory.
++	 *
++	 * Mappings not managed by core mm cannot be reliably reconstructed from
++	 * page faults, and fixed mappings (including hugetlb) may well be
++	 * mm-managed - precisely the mappings which cannot be merged.
+ 	 */
+-	if (!in_pf && !smaps && (vm_flags & VM_NO_KHUGEPAGED))
++	if (!in_pf && !smaps && !vma_can_merge(vma))
+ 		return 0;
+ 
+ 	/*
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 7c368440fafe..ed19b47c2caf 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -1788,8 +1788,7 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
+ 		return -EINVAL;
+ 	}
+ 
+-	if ((vrm->flags & MREMAP_DONTUNMAP) &&
+-	    vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
++	if ((vrm->flags & MREMAP_DONTUNMAP) && vma_is_fixed_mapping(vma))
+ 		return -EINVAL;
+ 
+ 	/*
+@@ -1827,7 +1826,7 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
+ 	if (pgoff + (new_len >> PAGE_SHIFT) < pgoff)
+ 		return -EINVAL;
+ 
+-	if (vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
++	if (vma_is_fixed_mapping(vma))
+ 		return -EFAULT;
+ 
+ 	if (!mlock_future_ok(mm, vma_test(vma, VMA_LOCKED_BIT), vrm->delta))
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 89c645a6ad60..442ea9eb098d 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1676,6 +1676,20 @@ static inline bool vma_is_mm_managed(const struct vm_area_struct *vma)
+ 	return vma_flags_is_mm_managed(&vma->flags);
+ }
+ 
++static inline bool vma_flags_is_fixed_mapping(const vma_flags_t *flags)
++{
++	/*
++	 * VMA_PFNMAP_BIT should imply VMA_DONTEXPAND_BIT, but some callers set
++	 * only the former.
++	 */
++	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_DONTEXPAND_BIT);
++}
++
++static inline bool vma_is_fixed_mapping(const struct vm_area_struct *vma)
++{
++	return vma_flags_is_fixed_mapping(&vma->flags);
++}
++
+ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ {
+ 	/*
+@@ -1691,7 +1705,7 @@ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ 	if (!vma_flags_is_mm_managed(flags))
+ 		return false;
+ 	/* VMA explicitly marked as being unmergeable. */
+-	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
++	if (vma_flags_is_fixed_mapping(flags))
+ 		return false;
+ 
+ 	return true;
+
+-- 
+2.55.0
+
