@@ -1,65 +1,81 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010063.outbound.protection.outlook.com [52.101.201.63])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012061.outbound.protection.outlook.com [40.107.209.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC7948F005;
-	Tue, 13 Oct 2026 07:08:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C28247ACEE;
+	Tue, 13 Oct 2026 07:08:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.61
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791875296; cv=fail; b=WDP+jjB5ieFmpD2k3hEQKrHL15A4+FwNeJjq+Kufz3ROnPHyHjygrK/xqi9mN7x358ramyO55ts8K6YegNoPQmAfwbjwJiCFmze0eFZDNOpAs+mbVjotWy6R+ebpedGOeEDLI3YjWxkqf3OnqBz+7gQ0N9ecH8XxFKnoeQLKzUk=
+	t=1791875323; cv=fail; b=aas6VF4xy55xRwQjcuHQ22sxxwQDZal8Y/jFFXH6t22OWHaO3JDwDtGTzgbg01aZpqFC4GCtlMaRutbUYkcTqs0u4pSDNnZoNn+qXPZGhBuq/rr4IJq6Qr74LChdsw9ckfAobuAixqi/gFBranEWpeiT5Ql+rHR02AEUml2pUgA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791875296; c=relaxed/simple;
-	bh=F708ZyLimbqu1eXhOypMUf+kJEiegkiCMKXUpm2ubFg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=qV5sBg7gVF8ePnLq/ml37kMa6HNYcXyOOwcBns/7XnW+ppYP1MqvuSgWHyN69GKRLq7X08gG3PYu+TMRlmWt3Pvf+q8WNGtDL1qqw/5Km1EnFZ24bR2/hrToCgCAVhp4iwMvzuJuvTv3Eg67qt3/aeE9WLQKclVFyOsaIilemdQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=MnbK+x2q; arc=fail smtp.client-ip=52.101.201.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	s=arc-20240116; t=1791875323; c=relaxed/simple;
+	bh=dka16mXj+8OX2P349DzImCklEfQCzdy6cUfg0aGZ93s=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=e77v5C59eZmULrS1QIu+FpqoM4BNcu7/ZzPspr6sMUIJfjd/mhfJniQJHNeA7GVnFHIS7jnQkQZODHbBdKc7B5UkDg5tSexkqcz5rkTPuutE3HEmtH7s3KKaHM4NWqLYi1/505yH8iIqE3X7GWxEwyBksGic5tp+n9ikEFu6M0w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=eBxAW0IS; arc=fail smtp.client-ip=40.107.209.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="MnbK+x2q"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="eBxAW0IS"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uzF4geAnA7MaH9EK1deXVO9jdhf3Axb0kN8n5eY0Ag0Z4yM5CU6KPmIkY7MpdO7VkbsfRF7TOEdSsWNQWULNsXEQsYxc2jXSvi6iY2eTVKiZctcwRe6RDIO2fb1Swj9OeeKXBb/0fyjU8zlAdndluIwm0TLIzKEEEjXTeVxO6ayPZDLKy5xL0W2QthW+3VrapH9bZ898go7ljWxbS1QHpQOLRH/Abqo9fBnhUwBdP0cbf2WHTFRRJioR+BJmUI7cqQTlLQciz6kwLss+MlvwYQiusn0D6MVBmEZs+VnvFI7+HYlsPsOdgZYBBuMh4aDIuwl0Lg2cM2cw7tbORI0bJw==
+ b=uIbssjIa7VSx4iSY/4OJq4rOeSgxtqhVqJBhCcYGT4kwAF4nk6ZcbzsNN6VhObGo1dfZAatu4upldjBxQaDhWHa3Iz9FqRDTVAWOLOUU/kByH6xJ+3s2IV1G4dqQaMzHp4Yy08Yjw0Vi7FtrN+uijdnBHT5EP8m0ft1IgPI8R98fyEuH8vPC/g1I0O9uELvzdnyDuOWKDiFzq6yYu0Sd4L15XoaF4J7L1XVF+6RnaNO6bE/K3hYlMLNefJUYsTSTO2QkXjxQuN/HwbU6nSK+148ePMFMsy5vkm65fwoA6YiCNpv9uf2emygtWt/B31DMUc00kLZQOYTxB111jq5d6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uLZpDTEt2IHIzjbaWvE7gyvuiYgies+XzqTKWQRJC78=;
- b=LrpkGYK4327ytRjPr+BwHCyPH3WY9anGXt2RI0VehMDvsa44W2hgx222Sl+iyX3UoAu2FjcF6BykNaf0W7k2FMQhv7krdldnOPhXwqY/XxGGshqc8nlF3Ia1VsW4HLtcGdMM3Plx9gHCUrrLCJUKFqewFNYExNprCrCTOvU5b6yX6uwbJRbFkOacy8yb0PTA4R2xyUn2hBstFJWfnYLyNCn66zuKAmyKni3Mp4JaqEN5stQi8jP/U8MY4wgQobKAHsknOuXxrye9xFH+1ygkKJX5xVVKJL9u38tm+qQWWPy9LZbxcwdKyIInor3UZ6VoryWK7girrHI9UXeFQXTKjA==
+ bh=OPLRpTX+NIqCylm4WWwp4l1DLdhzvnrMSlv9iAGJ7Ok=;
+ b=kAFQKRICmI8OZyNj4z51NfJDz4eI61tzjFZ4eqpj3ZqmPRytFNRyTx/1AC3f0G3Eri/XHUvnPzjn+PdSo9pW9+fJPcbbzARvCF+LTMTYkrVdAB2giRbz2JSdwh1uEZSepthlPfZ9S12dIpemjwHr8dnCAxo+4BIQdh856FVpAQF8NzcazGYoLSlRqgoiLrczn+/e/xtCwI5NKjmVBKfvqIJiHOXHWS9tU1OHN9/iJ1uwodJkcfNxZFWtsBr4d3HHaPTSCSOC48G7L3V3mUP+Gd7D0xys4ZA1faGbuqZAXd1IlzjHgaGiyDiR81esIuuB1d5Y+XnWQZlnnnlVmaDm0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uLZpDTEt2IHIzjbaWvE7gyvuiYgies+XzqTKWQRJC78=;
- b=MnbK+x2qsetgo5bKNFKSlb895HzACogPn7T0BRwfo0jLW2yxy5q49JIBgQrMl9eqni6d5l/4B3NEm9R013JUV02ls26dDlrerpJ7sGDKjuYO+hrC7xZTIDFN6swBjBtOyPBLXnlZ0eeEi4FjKfYaPtl8SCMgLPA0ue3ghgJb5A8qQwbKm+TP4dBfy+PMafhQArW45JAIU85RWl+W6Xge82SrzJsBu9NqcOqWAsxmwGgPNLm7yqalZbbWXgrxWSX00EpId77fjHcLlEeyZKy7lp/0s54H7QtTArHFUaicJoz3qAnaksflHbJ9Ri3qkww+CruT8jzsvBq9JYlU8uFKXg==
+ bh=OPLRpTX+NIqCylm4WWwp4l1DLdhzvnrMSlv9iAGJ7Ok=;
+ b=eBxAW0ISBdeYoxAzgKKzEZL3fxN6VQiFWfcSQ/5vPp6ft24WfwG2x2DOYoASJIErkOig3gNfdY8ZhzfxuSI0/MOhTy7FbLFNoT+UL88dfphT9sXleuzahIIcAt6bm2HN6uJBg2CKOMLTw1GsVWW6ZLL6asmkNVWrhBIMzD6NOP0MLFMe+hzrB7HSR59rZIOs2vTJe4gze7nqs4cKxj9/nyWyIWTjxNFq7Js95WPuusXVRxni0STe+zTOS6aAnZR47AqC2JZrUvJe13vTjghm1mPor40qCuWG5KLQ842pr5RrbxKRAH3RnztpAlMLc2V9o7GAI76trjB6Ypqb5RIDRg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SJ0PR03MB6581.namprd03.prod.outlook.com (2603:10b6:a03:393::12)
- by BY1PR03MB7947.namprd03.prod.outlook.com (2603:10b6:a03:5b8::19) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ PH7PR12MB6418.namprd12.prod.outlook.com (2603:10b6:510:1fe::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
- 2026 07:08:10 +0000
-Received: from SJ0PR03MB6581.namprd03.prod.outlook.com
- ([fe80::e335:b86:cf59:8b80]) by SJ0PR03MB6581.namprd03.prod.outlook.com
- ([fe80::e335:b86:cf59:8b80%5]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 07:08:10 +0000
-From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-To: Dinh Nguyen <dinguyen@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-Subject: [PATCH v3 3/3] clk: socfpga: stratix10: register the SP timer clocks early
-Date: Tue, 13 Oct 2026 15:07:54 +0800
-Message-ID: <7de51d5f9c716c03fabab77d1a2b4dba3af745fd.1791871090.git.adrian.ho.yin.ng@altera.com>
-X-Mailer: git-send-email 2.49.GIT
-In-Reply-To: <cover.1791871090.git.adrian.ho.yin.ng@altera.com>
-References: <cover.1791871090.git.adrian.ho.yin.ng@altera.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI3PR01CA0012.apcprd01.prod.exchangelabs.com
- (2603:1096:4:296::11) To SJ0PR03MB6581.namprd03.prod.outlook.com
- (2603:10b6:a03:393::12)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 07:08:38 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 07:08:38 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 13 Oct 2026 16:08:34 +0900
+Message-Id: <DM3ISBKLJ754.GDSHT5NYU0G5@nvidia.com>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
+ <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
+ Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v3 4/8] gpu: nova-core: add NVKV encoder
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
+ <jhubbard@nvidia.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
+ <20260928-b4-nvkv-v3-4-f04504c262c2@nvidia.com>
+ <DLYAO1NDXB2L.3NUUCWAWFK188@nvidia.com>
+ <DLYARWONCNC4.16TY7TATZG2DX@nvidia.com>
+ <4ac83051-6ac3-4919-b230-bfa059ff956f@nvidia.com>
+ <DLYL5E2GFSM7.3SMUQUX8LN0C1@nvidia.com>
+In-Reply-To: <DLYL5E2GFSM7.3SMUQUX8LN0C1@nvidia.com>
+X-ClientProxiedBy: TY6P301CA0009.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:3be::6) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,282 +83,115 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6581:EE_|BY1PR03MB7947:EE_
-X-MS-Office365-Filtering-Correlation-Id: 241457dc-d9f9-4871-d86d-08df28f8bd2a
-X-MS-Exchange-AtpMessageProperties: SA
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|PH7PR12MB6418:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6811484-ef63-4932-3d91-08df28f8ce18
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003|55112099003;
+	BCL:0;ARA:13230040|376014|366016|7416014|10070799003|1800799024|23010399003|11063799006|4143699003|18002099003|56012099006|22082099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	K1AoQDy+8Ae7l9Qn1z5mKXLufOpgxqB8m8uEb6iBB+RIBUFRNysJZQSIyKcHezo/nPz3eTsrGQcrDRs9T8as8LTD6GrlRx2NxVwylEFeO0TOWLaHuU/Reh7EiW24zEdEHYxplKsSJz18ul/IsLvd4/0kLYBS0RfG1WE6rF9nxHqDK6UpEfJ0Q0r8Gn/EisbvQLxY9XgHkkOEkxCBpzcI1gOaHSdRSAoIcSUOvCqAkZYrzRZn9qolxZvFz5/nZKUL7hwaRgn5UDdzIoZzZfcwT5gm27Noo77xLeg2MkFVnHkHPkAyhSngGnb5l8GUlkSlh4fiOaMlUDD/nQtZQJuY6jKQDDYLTfsaO2DWuxus1G1cyxk2eInlocuwotskgNjFeQdxklu3ihzOVNak6nPpcpF0deqc/2UL05sr8Yl7invy9bf/o2QHqBQf9eIED5rJlvGiYDQq0FtQG2IN8YfRY+qas2e3GFf4D50N3duHCmvTixgk74iq+ipW/zfP6YS4qDrGLzifjTw7gZybXPGqZKdOtlKkx9IXoFlASHicbH1aqYaYntA2MrLukp51l+M2ORIP/LmX/JelRiMK2J4tY8sH2YR6rJJpMjJA/jRowiXGQHqJOnP9uPOga604XOJLtVGFJIad9IZy8rrYvwhe9adH0j5bbjoSZjzEUF3ZEG0=
+	4yJSv5hxBjBPSG7GDAbpcMThHb9/VVt8szHg+05dN3ScUfT8nooYBeRAgevgMv2hpE7ifqnUq9I+GtQSwIORAQjlY3vHt8LCnDB4du3ANqUkMLQP9ygIn17/xvUQlhjwWbK8+8G1IM0KckK8K9TFB56VNyuUYFS6x8Ey0LyKGYoiIhb2QDVP37w84y/vaNKtdKE4+xt3jZuzWj5RCtE4JNDXS+kaeLRPXI/MKo8nI/Y3N64N2kjzovXsOsndekMpfZ+c0p+Oi3qy+bKBa1GqQLtVFraoxMngWNt/zZSi5G+jHtC7wnuhAaqX7+BycQV4AUpaD4I5BbvxZzr0P/RxzBjsdGVDZEPkGwrHI0maCMWPnmSuQzACQd7ne6bBu5puk3h7bht4/+EPkSD+uMkIMP9ExXDtDy6KRb490h+CqWBX/QEKvfDXIMfW8rg67pbkG3IVHQgkRnSgcJ28TEPbOwAbBrjo4wtRTYNJW1xdpLL2F+4ow2/S/xiP23SYqoQummnSVhy46acGHNPbVWpqWB3vXf7Kfd69QNiGWQbjTk/7ZRRDyijVeQ3mc1Gm2lhQeXVVfRnofLckDWj7nocuGD6orv13f7cHPw2FEgtZqR3zYLD2jwelmhcwev7y+bptfDhDGoAo+3nAU6gaybOJQBVXhrBnksINWdAl4hNYTn4=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6581.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(55112099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(10070799003)(1800799024)(23010399003)(11063799006)(4143699003)(18002099003)(56012099006)(22082099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?rqOVPdutRFsVhZ1blrPxRo7tHlsGkxbGPeUd208zLlGtzXY1+xrlrvakKRjQ?=
- =?us-ascii?Q?HxyOVicZxtFZqggO32p/+hZ+DFFhUY865JiblAffzGaUazb01RX7Fv/Wn+et?=
- =?us-ascii?Q?gLwvsT0AktTHUil5wKLi1sJLZRrhQi6qyW5oWL32xVnDtkU5TT55m8Xsq3x8?=
- =?us-ascii?Q?mhxaWViPMRCvCLc2TQVSmlzbfFoyMjLLAQJZVKdAJohEEI07qffzxuKi1qSp?=
- =?us-ascii?Q?LBgAyqLlxvoPPHaALVr2s+xsXWPP7YaUDbxcdHW5bYs5UrANM7ODmjsOffnU?=
- =?us-ascii?Q?8Rv76MG+ijkAnmq0Dzphis+iw8jT3QPB023FYkTldWU+4Xh7w3D2Kg/aQvwp?=
- =?us-ascii?Q?EshU0GTJblyL1NyXc8IPa5y99nVkTAxGmJCFWTptYp7Om/Z83DhjwPKJv/VV?=
- =?us-ascii?Q?21x82vhP5zflnfzoCgeT10IXBkqgLxtikm3p2x1Tfc6+kqp4n/Tw5XsFo1xq?=
- =?us-ascii?Q?OwWj4cWSU9B/+HdZAHEuvZgRuUSkHCr9hjBR5Q/xvNtZdkjiLzMuifLJmYUU?=
- =?us-ascii?Q?nv28fHaNLtFT+JZ/Z1IQUrG5oqWXmAGfC4qbv5aUsHgOV435QInjZOwOnap0?=
- =?us-ascii?Q?XKNktYoiQTu//Kc7GPhOqGXFGGu152xAjNOJl6gxjREAXMIDKM+hascQBGpS?=
- =?us-ascii?Q?iyRQnu93s/NmyFQsBLUPfDBDMiuvtVeLGCKy2hIMRj08M/l3cHXVrcJ6ixTX?=
- =?us-ascii?Q?npF/uUbufp3cxfuEtyZvznHGVPlu7MuEBn4UMfXdz5igRBQ8dlvl+9jbof+v?=
- =?us-ascii?Q?c6bIlnMz59Be5hZ2bdpJp7L0EKTuoonoF5jiltTojeBSEzQXB3w2nNPzMnYx?=
- =?us-ascii?Q?g1oTd2sbuPUkSR9RJozyxmRMvydI0D8yfEWCIUpqzMSxs1I4+ZKzmd4wXQ+0?=
- =?us-ascii?Q?h6gnmG8EqyIRN5dAYphQQFIAhFK7bQYd/s6PygcpS9+CM+0mMiRTyWQaGqDt?=
- =?us-ascii?Q?BkWVsug7BocgF7zk7I7n8Ns8qBkxuKFFWm0eo4Yt76uB27cowAsFzBrv1sZk?=
- =?us-ascii?Q?U0DeW4YMm+KCnmuSGYJma0wxtKabW95kyfYIDj2aPCaRA8PeslOHWFeGhESJ?=
- =?us-ascii?Q?/EEwgds+Mp3esu7HkpT0evLrgKBBvPAoJxrNzdbtOO5M1KF8O/7bt4KP250G?=
- =?us-ascii?Q?Nez+HVVMB9QkJxcafCV1NlAsSZ3wCLZKekM04kPDsHWc//zIEJxkTUHB9syQ?=
- =?us-ascii?Q?OSTDg7jRIqY6L9J2wgCrstU9TGfGkfN8HPCBocal3DLBd3nd7etE3qsFUhA7?=
- =?us-ascii?Q?inopdWToCmU2DBCIebu8q7DOgYcMjaLToDsnn9PSBvPJPipTVTySfvVwZCHP?=
- =?us-ascii?Q?NGZqXq5fU6pYB2mVpwnFhKwspVIUzdZJfPPHVkaGJwIuOrkqELgedKGQQXWO?=
- =?us-ascii?Q?/oHaQnxn9rxeCiviyKsry8j7fssIUHcXM9eBuiZo8OsWPkv8IpkvyUCS028c?=
- =?us-ascii?Q?zniOvG0xh0azSx02mBnQJUvrdC0A1wgguPILKpJvaLw6M8RTj+D9zKQtH+Yz?=
- =?us-ascii?Q?iUdmg0IndMqXwectxKhEz3yyJUTfWEeiq4OWL0+Q8SKOe1fe8Y2y0M0+6103?=
- =?us-ascii?Q?lKj4UBSnPF23dVd9QOAl3Qm7MntPHHOlbnQjI5OY9PZzcRnq+61HdUALMJv/?=
- =?us-ascii?Q?L8+nXc4zzsW1bAkM75SKrazVF5MqzqRAHl5U1uMmjCxG4g171iLo8ZWVGFHq?=
- =?us-ascii?Q?eMHtDZfK/3eVTG9N6OeR4aqnY1Xb+jmjfpjopABoJiCd+x6CqC0eJGQu9KgS?=
- =?us-ascii?Q?AUweIo4ofivybpabx8FF9tOOy204Se8=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 241457dc-d9f9-4871-d86d-08df28f8bd2a
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6581.namprd03.prod.outlook.com
+	=?utf-8?B?SWNWNUZlTGZna1crN01yVWhsKzlMMEprMnZsZXRMZUpGcHRVYmNodjV5Sk1O?=
+ =?utf-8?B?Vmk5QmlkbzMwNmJ6TGs0S243bnl4czU1MGJYdGlSMDVlSUhNenIvYktndEZB?=
+ =?utf-8?B?b3lUQjhMUEJSUGZrNEZmYjhTZEEzRU0rMTNVNDJuOFp0SnRTSEJUWlhLeDYy?=
+ =?utf-8?B?QitqeDA1akZWSjJPNk1mbGZVdzM0bU1sUVZXbEtQVkU5RnVZcnpDYTdJUTdu?=
+ =?utf-8?B?dXZKa0JOSDBQNWNvc2xkWWhWNEpDSnFSV0ltc2tldnFuQVp3Z1YzclM5MC9t?=
+ =?utf-8?B?bWRlRTkyeEl3Q3htekFta2JmRlJBV1RtWDlPQWx0T1cvYjVNTGZwSGVoazBi?=
+ =?utf-8?B?bEtIeEU0NUVFN05wMXdJNmo3ZUxEUzhobHNnZkZoRHNIRFNDZW84bmFvc0hF?=
+ =?utf-8?B?RjR4MkFuakFpNjVSOFBzdlZTSzVMYWppaEtCOTFHSHRUMjYwK3RuQW1Vb0JO?=
+ =?utf-8?B?cE9nb0FjN3BFV0ZIdmVidUZqdWovb1RQWW45OGZ5Y2RkWXhCOTlERHdxL013?=
+ =?utf-8?B?QWFNZXhNK056S2VxWnhvazRFbzFDNExIVzU1SEdyNG1MeHpWOXZPRkc3RXpS?=
+ =?utf-8?B?bFNkeEU1djB3cS91aEVIdXM4YzZNTXJUaVJ1WnZ6V21nYnhBWm1KMDQ5aXBu?=
+ =?utf-8?B?TFN5WTFhVlgzdkFvYTM3QnVjUFo0OGdqdDVoV08yM2lTbVNwbUNiSlI4dzZF?=
+ =?utf-8?B?Wm9RZ0V0OC82MXVDZE1POUFDL002WVBHVGVaVU44NXZjbFMzQ1BBajN3MjZO?=
+ =?utf-8?B?emc4RUVqYXRvcVdVeTRUcm9CMTBCalk4cnVDdmxpeG5HVXg5bnhhUkFxVnI5?=
+ =?utf-8?B?cGJuQXRrRVdYbDBMdkc1Vmp4VlY1MkcxcDZPWk10YTZrdzNIQUlGeXVhbUxu?=
+ =?utf-8?B?Y3ZnZW5TSlMzUUdRM3I3bTNqdVMyb0c3VmNVc1JLTVJYOG5qS1JteXg0cWo5?=
+ =?utf-8?B?bEk2WHcvMFViVVg4Z1JiQnVhdEhnRXhsK2RMWlowNVBWWldGQXM4RHgvbFlW?=
+ =?utf-8?B?VnFOMXZiY1M5Zk5yeVBPdzFudVgzWkhRQ0ZlY09TSmVqYWdoTUdqMFJQREVm?=
+ =?utf-8?B?aEhqbExzUkk0Y3dIS3lWNjFMZmJqOXhpcEE5SUhSakdxYjlqZjI2emZRMHVj?=
+ =?utf-8?B?Q0VIb2w0OHdiSVE2eDZVNTFwSnVmRCtTcG9vM3hra0RJSVYvWWlOR0syRFJh?=
+ =?utf-8?B?U2R2aFhRUGtaeUtxNTJzTEFwSUtiVXRQcjRNU0lubUpZQWhRdkhhblFNSTV0?=
+ =?utf-8?B?UzNZbUM1bjN6TTJ3MkdVVEdTWStRZExXT1RWNDBDTlEvTlJMbVJVTnNIWC95?=
+ =?utf-8?B?L1F0Nk80NTJZZ2pUYjRSOFpkalhaR3BoMFhIRmVPc0ljYXRaWmN2b0VrQXVO?=
+ =?utf-8?B?Z3dSYWhnT09nM2hnaXN1dTNVT1RKb1Z2KysvcTdZZDRoNG9ZNy9xTElLV2Mr?=
+ =?utf-8?B?UDd4ckZBVGtSbVB1Nkl3WDdUSFpxTC8wQ0huOGZvdEtoOXNKTTZQdWUxSHlY?=
+ =?utf-8?B?Nk5mQXlWSzAweCtncjdsTG00ajFDQU8rK0phOERzNnhPNDFMUEhMdkNqWXJV?=
+ =?utf-8?B?T2pqOFM5QXZWa0dDNDRQSzU5ZERNeklHWXdMVUg5aE9KWGQ3OW9XTVpCY2lJ?=
+ =?utf-8?B?M3g2eUJPS2NTSmxHbVF4cWF3Rk8zb3A4b0hzcEgvWndDeFFISDlmaTFqSUZB?=
+ =?utf-8?B?VjAyS1BNUThJbFUwSEdrb0Z3K0llWnZlaTJlTmt5R1pXeFkxbzlzcnVDRThY?=
+ =?utf-8?B?aHA5MXNwS1NSbi8zUmY1KzljR0RCYmFxbTg5YWVGdjB6RzkvVjRZSHgzUHh6?=
+ =?utf-8?B?Z0JjaUdhRFZLTTRmb3h4YkRpanNWTWlGdjZ6V3JZc3FjZFBHYUN4dVRKREg4?=
+ =?utf-8?B?TnZvRHVPazdVOEtQc1R6RDJIOHh4Tmk5cHE1UmY4Q2lTbm5RaDlnM0p4dTMr?=
+ =?utf-8?B?MENLWXNKSWJnOGNsWGZ3WVBxUlUrRXg1dHlHSTZRMzdMdUdieVh1WlpjRDU5?=
+ =?utf-8?B?TENZbHZHL3czcGpxV2ZxUDY5M0V3bkIybUplZlVvcGZnR2dmK2pUeDR0VWNH?=
+ =?utf-8?B?ZlRXWFJCQXJFdUdIUHdFZzloa2xsK2RuaXJDaDB5S1VvL0c2enJnOGtqcytH?=
+ =?utf-8?B?NGw4NVNySnkwaXlHYnlSVXZsVXVNdWVVWDVsTnBsZHdNV3lKK3hvQ2dXeGdr?=
+ =?utf-8?B?Z3dINUZBSjhNdk40bW1UUFJBWjl6RldnejBxRzFvc2pwbEo0RmpqQmtmL3pE?=
+ =?utf-8?B?UVVFNk5yTnVNbEVHejEydElXdVhseEcrL2l3OUhmenFMOVhCTDgxNUViWjVl?=
+ =?utf-8?B?anlLRkhxN05PNjBLN1ZpNTA1dGluYmRBdUhiQ0dCTVZsMXIzbkFlaERNRWRZ?=
+ =?utf-8?Q?IinjbaIMsaueaNmtItUxEzd/GjRsEvHY+pF9mUcm4cmIG?=
+X-MS-Exchange-AntiSpam-MessageData-1: CffN3oRklSLsrw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6811484-ef63-4932-3d91-08df28f8ce18
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 07:08:10.1808
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 07:08:38.6314
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QQKEd/1WDrh/DJHhvy0L1mOBRcmWW+5WEbc2DE3dDza/QaBJajisOPmqM+GjT2gJWQMAVwKHfxap+06CoNp7e9dMKECEJIZkTs1JcYhVn+w=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR03MB7947
+X-MS-Exchange-CrossTenant-UserPrincipalName: l028mYM0myE3atugmFMKPMX7kLf8VSgRda1dvOtShC6c2jXucQ8+GaDszBYtZYLSzanjcmRvU1VgGGTUm5uaLw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6418
 
-The DW APB timers are probed through TIMER_OF_DECLARE() from time_init()
-and cannot defer, but the clock manager is a platform driver registered
-at core_initcall(). The timer's clk_get() therefore fails and the timer
-is never brought up.
+On Wed Oct 7, 2026 at 8:56 PM JST, Alexandre Courbot wrote:
+> On Wed Oct 7, 2026 at 8:33 PM JST, John Hubbard wrote:
+>> On 10/7/26 5:48 AM, Alexandre Courbot wrote:
+>>> On Wed Oct 7, 2026 at 12:43 PM JST, Alexandre Courbot wrote:
+>>>> On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
+>>>> <...>
+>>>> ... and that's all I could find on this patch. I particularly like how
+>>>> the examples have turned out!
+>>>=20
+>>> ... although maybe the Sashiko comments are worth considering too. Nova
+>>> does depend on little-endian, but it probably wouldn't cost us much to
+>>> e.g. call `to_le_bytes` instead of `to_ne_bytes` to make the code more
+>>> portable.
+>>
+>> I recall having this conversation before, and I've tried to consistently
+>> say "no". It's not a real thing, and if it ever becomes one it will be
+>> a very big deal, not something we would overlook.
+>
+> I agree on principle when writing endian-neutral code requires some
+> extra infrastructure or considerably more code, but here we are talking
+> about trading a call to `to_ne_bytes` for one to `to_le_bytes`, which is
+> zero effort.
+>
+> ... although the Sashiko warning on `extend_with_padding` *would*
+> require more than just a method call to properly manage arrays of `u32`
+> and `u64`, so maybe we don't need to fix them all, or any at all for
+> that matter since half-fixed code is still broken code.
 
-Register only l4_sp_clk and its parents (boot_clk, main_pll, periph_pll,
-main_noc_base_clk, peri_noc_base_clk and noc_free_clk) from
-of_clk_init() using CLK_OF_DECLARE_DRIVER(), with every other clock left
-as -EPROBE_DEFER. The remaining clocks are still registered when the
-platform driver probes, which reuses the early provider.
+If I see some code that is explicitly written to handle endianness, it's
+confusing, because it implies that some or all of the code is meant to
+work with variable endianness. But that's not the case, and would leave
+me wondering why just this bit was written in an endianness-neutral way.
+I think we agree on this part though.
 
-Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
----
- drivers/clk/socfpga/clk-s10.c | 146 ++++++++++++++++++++++++++++------
- 1 file changed, 121 insertions(+), 25 deletions(-)
+For the case where it requires no extra effort, e.g. `to_ne_bytes` vs
+`to_le_bytes`, I think we shouldn't use review time on it. So IMO
+`to_le_bytes` is conceptually slightly more correct here because NVKV is
+little endian regardless of the host CPU, but I would not want to use
+review time on this in the future because:
 
-diff --git a/drivers/clk/socfpga/clk-s10.c b/drivers/clk/socfpga/clk-s10.c
-index b4bf4e2d38e1..1976789b5166 100644
---- a/drivers/clk/socfpga/clk-s10.c
-+++ b/drivers/clk/socfpga/clk-s10.c
-@@ -5,6 +5,7 @@
- #include <linux/slab.h>
- #include <linux/clk-provider.h>
- #include <linux/of.h>
-+#include <linux/of_address.h>
- #include <linux/platform_device.h>
- 
- #include <dt-bindings/clock/stratix10-clock.h>
-@@ -188,20 +189,36 @@ static const struct stratix10_pll_clock s10_pll_clks[] = {
- 	  0, 0xe4},
- };
- 
-+/*
-+ * The SP timers are probed from time_init() and cannot defer, so their
-+ * l4_sp_clk and its parents are registered from of_clk_init(). Everything
-+ * else is registered when the platform driver probes.
-+ */
-+static const struct stratix10_perip_c_clock s10_early_perip_c_clks[] = {
-+	{ STRATIX10_MAIN_NOC_BASE_CLK, "main_noc_base_clk", "main_pll", NULL, 1, 0, 0x88},
-+	{ STRATIX10_PERI_NOC_BASE_CLK, "peri_noc_base_clk", "periph_pll", NULL, 1, 0,
-+	  0xF8},
-+};
-+
-+static const struct stratix10_perip_cnt_clock s10_early_perip_cnt_clks[] = {
-+	{ STRATIX10_NOC_FREE_CLK, "noc_free_clk", NULL, noc_free_mux, ARRAY_SIZE(noc_free_mux),
-+	  0, 0x4C, 0, 0x3C, 1},
-+};
-+
-+static const struct stratix10_gate_clock s10_early_gate_clks[] = {
-+	{ STRATIX10_L4_SP_CLK, "l4_sp_clk", NULL, noc_mux, ARRAY_SIZE(noc_mux),
-+	  CLK_IS_CRITICAL, 0x30, 3, 0x70, 16, 2, 0x3C, 1, 0},
-+};
-+
- static const struct stratix10_perip_c_clock s10_main_perip_c_clks[] = {
- 	{ STRATIX10_MAIN_MPU_BASE_CLK, "main_mpu_base_clk", "main_pll", NULL, 1, 0, 0x84},
--	{ STRATIX10_MAIN_NOC_BASE_CLK, "main_noc_base_clk", "main_pll", NULL, 1, 0, 0x88},
- 	{ STRATIX10_PERI_MPU_BASE_CLK, "peri_mpu_base_clk", "periph_pll", NULL, 1, 0,
- 	  0xF4},
--	{ STRATIX10_PERI_NOC_BASE_CLK, "peri_noc_base_clk", "periph_pll", NULL, 1, 0,
--	  0xF8},
- };
- 
- static const struct stratix10_perip_cnt_clock s10_main_perip_cnt_clks[] = {
- 	{ STRATIX10_MPU_FREE_CLK, "mpu_free_clk", NULL, mpu_free_mux, ARRAY_SIZE(mpu_free_mux),
- 	   0, 0x48, 0, 0, 0},
--	{ STRATIX10_NOC_FREE_CLK, "noc_free_clk", NULL, noc_free_mux, ARRAY_SIZE(noc_free_mux),
--	  0, 0x4C, 0, 0x3C, 1},
- 	{ STRATIX10_MAIN_EMACA_CLK, "main_emaca_clk", "main_noc_base_clk", NULL, 1, 0,
- 	  0x50, 0, 0, 0},
- 	{ STRATIX10_MAIN_EMACB_CLK, "main_emacb_clk", "main_noc_base_clk", NULL, 1, 0,
-@@ -263,8 +280,6 @@ static const struct stratix10_gate_clock s10_gate_clks[] = {
- 	  1, 0x70, 0, 2, 0x3C, 1, 0},
- 	{ STRATIX10_L4_MP_CLK, "l4_mp_clk", NULL, noc_mux, ARRAY_SIZE(noc_mux), 0, 0x30,
- 	  2, 0x70, 8, 2, 0x3C, 1, 0},
--	{ STRATIX10_L4_SP_CLK, "l4_sp_clk", NULL, noc_mux, ARRAY_SIZE(noc_mux), CLK_IS_CRITICAL, 0x30,
--	  3, 0x70, 16, 2, 0x3C, 1, 0},
- 	{ STRATIX10_CS_AT_CLK, "cs_at_clk", NULL, noc_mux, ARRAY_SIZE(noc_mux), 0, 0x30,
- 	  4, 0x70, 24, 2, 0x3C, 1, 0},
- 	{ STRATIX10_CS_TRACE_CLK, "cs_trace_clk", NULL, noc_mux, ARRAY_SIZE(noc_mux), 0, 0x30,
-@@ -382,33 +397,111 @@ static int s10_clk_register_pll(const struct stratix10_pll_clock *clks,
- 	return 0;
- }
- 
--static int s10_clkmgr_init(struct platform_device *pdev)
-+static struct stratix10_clock_data *s10_clk_data;
-+
-+static struct stratix10_clock_data *s10_clk_data_alloc(void __iomem *base)
-+{
-+	struct stratix10_clock_data *clk_data;
-+	int i;
-+
-+	clk_data = kzalloc(struct_size(clk_data, clk_data.hws, STRATIX10_NUM_CLKS),
-+			   GFP_KERNEL);
-+	if (!clk_data)
-+		return NULL;
-+
-+	clk_data->base = base;
-+	clk_data->clk_data.num = STRATIX10_NUM_CLKS;
-+
-+	for (i = 0; i < STRATIX10_NUM_CLKS; i++)
-+		clk_data->clk_data.hws[i] = ERR_PTR(-EPROBE_DEFER);
-+
-+	return clk_data;
-+}
-+
-+static void s10_clk_register_early(struct stratix10_clock_data *clk_data)
-+{
-+	s10_clk_register_pll(s10_pll_clks, ARRAY_SIZE(s10_pll_clks), clk_data);
-+
-+	s10_clk_register_c_perip(s10_early_perip_c_clks,
-+				 ARRAY_SIZE(s10_early_perip_c_clks), clk_data);
-+
-+	s10_clk_register_cnt_perip(s10_early_perip_cnt_clks,
-+				   ARRAY_SIZE(s10_early_perip_cnt_clks),
-+				   clk_data);
-+
-+	s10_clk_register_gate(s10_early_gate_clks,
-+			      ARRAY_SIZE(s10_early_gate_clks), clk_data);
-+}
-+
-+/*
-+ * The registered clocks keep using the mapping and clk_data, so neither is
-+ * released once the early clocks have been registered.
-+ */
-+static int s10_clkmgr_setup(struct device_node *np)
- {
--	struct device_node *np = pdev->dev.of_node;
--	struct device *dev = &pdev->dev;
- 	struct stratix10_clock_data *clk_data;
- 	void __iomem *base;
--	int i, num_clks;
- 
--	base = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(base)) {
-+	base = of_iomap(np, 0);
-+	if (!base) {
- 		pr_err("%s: failed to map clock registers\n", __func__);
--		return PTR_ERR(base);
-+		return -ENOMEM;
- 	}
- 
--	num_clks = STRATIX10_NUM_CLKS;
--	clk_data = devm_kzalloc(dev, struct_size(clk_data, clk_data.hws,
--						 num_clks), GFP_KERNEL);
--	if (!clk_data)
-+	clk_data = s10_clk_data_alloc(base);
-+	if (!clk_data) {
-+		iounmap(base);
- 		return -ENOMEM;
-+	}
- 
--	clk_data->base = base;
--	clk_data->clk_data.num = num_clks;
-+	s10_clk_register_early(clk_data);
-+	s10_clk_data = clk_data;
- 
--	for (i = 0; i < num_clks; i++)
--		clk_data->clk_data.hws[i] = ERR_PTR(-ENOENT);
-+	return 0;
-+}
- 
--	s10_clk_register_pll(s10_pll_clks, ARRAY_SIZE(s10_pll_clks), clk_data);
-+static int s10_clkmgr_add_provider(struct device_node *np)
-+{
-+	static bool added;
-+	int ret;
-+
-+	if (added)
-+		return 0;
-+
-+	ret = of_clk_add_hw_provider(np, of_clk_hw_onecell_get,
-+				     &s10_clk_data->clk_data);
-+	if (ret)
-+		return ret;
-+
-+	added = true;
-+
-+	return 0;
-+}
-+
-+static void __init s10_clkmgr_early_init(struct device_node *np)
-+{
-+	if (s10_clkmgr_setup(np))
-+		return;
-+
-+	if (s10_clkmgr_add_provider(np))
-+		pr_err("%s: failed to add clock provider\n", __func__);
-+}
-+
-+CLK_OF_DECLARE_DRIVER(stratix10_clkmgr, "intel,stratix10-clkmgr",
-+		      s10_clkmgr_early_init);
-+
-+static int s10_clkmgr_init(struct platform_device *pdev)
-+{
-+	struct stratix10_clock_data *clk_data;
-+	int i, ret;
-+
-+	if (!s10_clk_data) {
-+		ret = s10_clkmgr_setup(pdev->dev.of_node);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	clk_data = s10_clk_data;
- 
- 	s10_clk_register_c_perip(s10_main_perip_c_clks,
- 				 ARRAY_SIZE(s10_main_perip_c_clks), clk_data);
-@@ -420,8 +513,11 @@ static int s10_clkmgr_init(struct platform_device *pdev)
- 	s10_clk_register_gate(s10_gate_clks, ARRAY_SIZE(s10_gate_clks),
- 			      clk_data);
- 
--	of_clk_add_hw_provider(np, of_clk_hw_onecell_get, &clk_data->clk_data);
--	return 0;
-+	for (i = 0; i < STRATIX10_NUM_CLKS; i++)
-+		if (clk_data->clk_data.hws[i] == ERR_PTR(-EPROBE_DEFER))
-+			clk_data->clk_data.hws[i] = ERR_PTR(-ENOENT);
-+
-+	return s10_clkmgr_add_provider(pdev->dev.of_node);
- }
- 
- static int s10_clkmgr_probe(struct platform_device *pdev)
--- 
-2.49.GIT
-
+1. it's wonky to change just some of the handling, and changing more (as
+   you've noted) can require extra infra/copies/affect performance.
+2. I think assessing each `to_*_bytes` call every time it comes up for
+   which one is more conceptually correct (is it host-related, or
+   GSP-related, or if it's both, which one to choose since we're not
+   going to bother adding extra infra for it) is just gonna waste review
+   time.
