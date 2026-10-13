@@ -1,66 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-55.mta0.migadu.com [91.218.175.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3174718EF;
-	Tue, 13 Oct 2026 18:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A37A4718EF
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:02:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914556; cv=none; b=VYuGyQ3XxnLAwnrpMS5po8UHUeq29IDzsZ1nOiQ5WrixTbMoN/HjwHCif22omFFp/BwVTguBwMhsRSk5+27zc2f/a9nV1FqlmEhP8/vUew0KTzgJqaXWLwVtOl1cBGhgk1wAHScQh9mFNvYJI3PEmtJPpZgRoOdw65bPz96E4/U=
+	t=1791914566; cv=none; b=M0m06Iu89im9NkSt0CghnEJRymSTrH552p5p4hPAuJuRrksd+/cgtz8Z49Wl9sUGZTccC9dUvQlY5RqAEi8gkavFNNZw//Y6YiMuqiCtRfu+ZP/QTfMpIzVwsM6rMvgqD5W0R2A5yWiZEFXe09uPrf+Ps5/feH4jsHzKzCmlOEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914556; c=relaxed/simple;
-	bh=4mU1lwDPkzUgQW8b3yzTVOWvbnN10Uk/B5D2OZEUK7w=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=XZ1C8xIXyE6BalhFjFlebsUji7GlWCzKCnCjgb/hMyYiCg6izWbbKnHh3V+WAx9T9Nhf8TPZ95TgfK/ISnSiEXJIOlARadNoFSt2gNsaP/YmjGaFIU+2xzJKYVypKZhmmwXwVBQ90pcuRX185eULi49jSiUwpkyZzyVCntJiXxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WnBzFRZj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791914566; c=relaxed/simple;
+	bh=ezuFFUi6PivDxuUOseqtDzW4aOjW+5v9YWvmNMVwCvw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=HXaZnRn5qiUu5tgbI9P+hEVdHc6cHIMqG74f7TtpGgyT+GWQ57aIy+SkJ64UWXH/Tv0TghhFUjq9BamvbvSC9i2vvxAr6+Z+zyYG7fxP8GjEQ2fxDW7LRZ+2qdHi0ejHLwPM9yB8o91kXdUmRg8elbStDPSMsXFf6TS9D7zKSA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mPsbjCBM; arc=none smtp.client-ip=91.218.175.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WnBzFRZj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 713F01F000FF;
-	Tue, 13 Oct 2026 18:02:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791914554;
-	bh=MeeFNFJubG8PDj6YUUF1sN/pCxwclu2LdzrnSIGxX0o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WnBzFRZjmsBC607KBUWP8qW7aDvZBspvMh7ObL66WWuQx55u3HcdvyIVhufA0ENcM
-	 qXSGowXhE1ZU6UrVCJdVJw1Wf4xLzxlJkbmcXXy3Z2+KxXHWZf//8lbdUeCsW6XQ8P
-	 Vin5m3r7v9fD0weSI26xXyQMXV60Nyu/ij0JN29ACHcxfg22Ogno5BzUhiqlUG3Tt1
-	 RAZQninW4PdXffL0MDnnB/A930Sz2EKLhJcSzjpI2ol/QPp47pR/IuPBTyEiEiLImr
-	 iYt8gMedUW4Te3yTHOtSUWzEt4Zh1neGo4N7ALNhMjjcQExZSIXagxyGILzXEFEZVl
-	 MTZYxFAm8ZgRg==
-Date: Tue, 13 Oct 2026 08:02:33 -1000
-Message-ID: <3eda489898ebf7c848ce61760af745d9@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Yafang Shao <laoar.shao@gmail.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, akpm@linux-foundation.org, david@kernel.org, gourry@gourry.net, hannes@cmpxchg.org, mkoutny@suse.com, shakeel.butt@linux.dev, roman.gushchin@linux.dev, yu.c.chen@intel.com, zhao1.liu@intel.com, bpf@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 0/3] BPF-based per-cgroup NUMA balancing mode selection
-In-Reply-To: <CALOAHbBE_1ssK_26c-UY7N6WxhkVNpB6v9WACVGaOiWZ5zchCA@mail.gmail.com>
-References: <20261012120438.52849-1-laoar.shao@gmail.com> <d9a3367a1852158f60cc2e89677fb12f@kernel.org> <CALOAHbBE_1ssK_26c-UY7N6WxhkVNpB6v9WACVGaOiWZ5zchCA@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mPsbjCBM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ezuFFUi6PivDxuUOseqtDzW4aOjW+5v9YWvmNMVwCvw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791914562; v=1; x=1792519362;
+ b=mPsbjCBMh27MNSgXgUM6+2CBMOCxUJYSm52a5evtGlBOxaq2dwnBEH3Ncq0fovzBLYxaBSAT
+ b4BcorFn4v6/Dbv1y2uqcNA1CCdepM9in9NWziwMnmoKqj8sfTfs1QE0fsEaZlBTVcqpa6S7fDb
+ dIt6BNcP/nzhd86NK4O631+0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 72c23e72e327d275;
+	Tue, 13 Oct 2026 18:02:42 +0000
+X-Mizu-Trace-ID: 72c23e72e327d275
+X-Migadu-Flow: FLOW_OUT
+From: wen.yang@linux.dev
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>
+Cc: Eric Dumazet <edumazet@google.com>,
+	Jesper Dangaard Brouer <brouer@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-rt-devel@list.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"David S . Miller" <davem@davemloft.net>,
+	Wen Yang <wen.yang@linux.dev>
+Subject: [PATCH 10/15] net: make napi_threaded_poll() aware of sd->defer_list
+Date: Wed, 14 Oct 2026 02:02:26 +0800
+Message-Id: <ca670e2fb6418313626e3e039da3c034b0f99862.1791912669.git.wen.yang@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1791912669.git.wen.yang@linux.dev>
+References: <cover.1791912669.git.wen.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Eric Dumazet <edumazet@google.com>
 
-On Tue, Oct 13, 2026 at 10:16:32AM +0800, Yafang Shao wrote:
-> Part of the consults are keyed on struct folio rather than struct
-> task_struct: the folio surface answers from the folio's memcg, the
-> owner's request, not the touching task's.
+commit a1aaee7f8f79d1b0595e24f8c3caed24630d6cb6 upstream.
 
-Right, and I take the prctl() point too. It's stable uAPI and too rigid
-a bar for this.
+If we call skb_defer_free_flush() from napi_threaded_poll(),
+we can avoid to raise IPI from skb_attempt_defer_free()
+when the list becomes too big.
 
-My suggestion is to start smaller. The op doesn't compute anything
-from its inputs. It returns a fixed mode per cgroup, and you don't
-need struct_ops for that.
+This allows napi_threaded_poll() to rely less on softirqs,
+and lowers latency caused by a too big list.
 
-A kfunc that takes a cgid and a value would do: -1 for the system
-setting, otherwise the existing NUMA_BALANCING_* bitmask stored per
-cgroup. Task callsites read it through the task's cgroup, folio
-callsites through folio_memcg(). Same capability for the use case in
-the cover letter, a per-cgroup field and minimal plumbing, and the
-kfunc can grow later if a real decision-time policy shows up.
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Signed-off-by: Wen Yang <wen.yang@linux.dev>
+---
+ net/core/dev.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Thanks.
-
+diff --git a/net/core/dev.c b/net/core/dev.c
+index df7df594e7f0..cac16e17ccf9 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -6766,6 +6766,7 @@ static void skb_defer_free_flush(struct softnet_data *sd)
+ static int napi_threaded_poll(void *data)
+ {
+ 	struct napi_struct *napi = data;
++	struct softnet_data *sd;
+ 	void *have;
+ 
+ 	while (!napi_thread_wait(napi)) {
+@@ -6775,11 +6776,13 @@ static int napi_threaded_poll(void *data)
+ 			bool repoll = false;
+ 
+ 			local_bh_disable();
++			sd = this_cpu_ptr(&softnet_data);
+ 
+ 			have = netpoll_poll_lock(napi);
+ 			__napi_poll(napi, &repoll);
+ 			netpoll_poll_unlock(have);
+ 
++			skb_defer_free_flush(sd);
+ 			local_bh_enable();
+ 
+ 			if (!repoll)
 -- 
-tejun
+2.25.1
+
