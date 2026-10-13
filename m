@@ -1,190 +1,157 @@
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B86481661
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:42:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791862961; cv=none; b=amiyxGPPy72r4jiLDIjLyAA4Gr5tGOBOkZiLZ7UYRcsU72smJs1osiqDSf96YJG3SSpUFFpwRJ3UnC1eoEwyh/0yEW06nSXhn311fS1d52HJh7VZJaS2LH13NtQ2owkLTsURxrtHlIGG686Bj2ihC+6meTuQ2sy9x1gQoGnUlcs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791862961; c=relaxed/simple;
-	bh=+pwV1BLf376OQlAycLeQTh57nhL77y9ttRXyNGvVZIo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HfhOgalTy9vuuhqCfqNmTqlLqyxpZMNQzlp59e1UtjoVeu/i/HB00y91yauw2NUchPEGRAvK7R2O7eGaHmsI3PKQubPYwtqmEzDbaEppaHRfSG3awGcltjba7ubanolA+ftNLtEuJvyedXfIObPAum/f681dfn2xymKcTfA8tdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lu2XeH9x; arc=none smtp.client-ip=74.125.82.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA63947045E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791863017; cv=pass; b=dsQzOyAckr2Lr73HHJ1fk9DncVN2y3r3/ToRe8zH4jyGjHQoW+FfM3j8P7OtyoDzV1ABTLiuCd7cBwdQhQKjOUiouS36BoHtg4F4EPJlPhJSHQQWI7d+thWCNxbsMdo7dNDfkPw28fKODp07KKP0qQLbLuDwFyaivuY/F7Cb7iA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791863017; c=relaxed/simple;
+	bh=MbMgHBJFJm36HYiK0t4H+NweIDkiN83bQwLT2J0xZeE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QzRGejIRqrwl0sAhEVlf+6VLR1AqCgTTw/oykI8jiDmHj6dYvwOMcuQOqkMMIwRBzfmXWqrqldeqvTPfjonOM4H9Bku/kXhmOl1TJ5kG+gN/bIfqADg1MGt2HC2bAEpDQ17uy/FQen5X8KMTuShuGILBtOLm0JhiTHnIH/zWkzM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S0oZisPj; arc=pass smtp.client-ip=74.125.224.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lu2XeH9x"
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso1494547eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:42:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S0oZisPj"
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-6790844c9b0so1757411d50.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:43:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791863015; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gnnrp9u8jHAsMtkh1GTFODdHUT0OMy81LUVpwPM0eWGidwX6yB9Zd2SRSak4FqRf77
+         BXAoOFXagTAG2OVsldTPHwIgb4qUVeQyaUxN/3xy/4D0k15ML50PdOvuSVk0UIfnH/Mi
+         QjdG+Bt6d6/7DpQVCbVxioMbYITZ1a9pNwROIeuEyxmjqZrZbsDeggBBeIChk4EiojNq
+         uPwj7A5uQRnHHPglL4RR3JCamEype12uO9jGH6nsFCQIZwRL1VRHEtD7DzJPLFA4bpnA
+         IXxfPnthgzdNnGASpXR5SPAh0V9nhGlRwsMH16nrcfNhjzxHmKXcTENwOwhaFb0Tr+9a
+         tk5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=g1Xe8/t57+Y9BLtJJ1DCvjjCumMN4aWsrAavgy8Razw=;
+        fh=JJu1pHVe0QAXu4saeJbXdWl+6Da1hhJCwICEsgozrEI=;
+        b=O6ql4y+uOFP3Xc+476oQTLWff1eTAbeGLMiCTJd8GPPlI+d+sksCGhBHlws8YqFXZ+
+         Iuw8kP0A5z8XQ182ofaoUZfnqqUgJbI1QDhcYgWcYIp/g9KJNmhMNKZruITocgICcf2r
+         S9hlVCtKCIZJhFlJ8+sZ9i0iW4RGW6LDN4Ll4KGD3TzZnYC+JUqh8tKC7LtaIK+hZEwn
+         bFjNhiNBfsjx6a3AWSTJ7twn2WZTOvZVfJBIE9ulkYVcuHYDYM0zfRiJRL/WG0l0v1Ma
+         uuS8IebC7BIvZmZXx8D2scm7POVOlAgA6nAm4Bj4uk8ti8EPmMGxAjwFzZXwYHQ0lmMs
+         H/kg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791862957; x=1792467757; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h/ZFTuU6ysHjMR8HpQwB0BVfItHewIjMEkFYMIjIRl0=;
-        b=lu2XeH9x9OYUNeD1xglje7J42RJ473BPx1x/29M3mz6+sivZkE+qMzZIaS/r6cLL3q
-         ZRz1oINzpKDB3BRU40BKfp/y265FkbfSTN1q9bM864gZQW7yAt4NP7g5kAlo6PIaPQI6
-         AX5igZmFiw1w0IjJd+MRLwGfybG00BCnggJPNkJdgejWMtjedp1igb+KfqM2HZ/aQymi
-         n5OBAUTsG80VF9QBO6KQzxFov0AGoXzw/JV0FH1nQ3PD3Pnq5vy43BbHL7pssWam86E7
-         oXlsYkNyENgEMRzeJRF9QfGVHJPhxAGH/D0HFa03j78LYJdR8Jk+qNnYUF3i50IuYAz6
-         jKhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791862957; x=1792467757;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791863015; x=1792467815; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=h/ZFTuU6ysHjMR8HpQwB0BVfItHewIjMEkFYMIjIRl0=;
-        b=igq/NaJrO+LEu9Rs5nePV8D8nTd1h1SXhTSB3hu82jEfftJj+YSc8xBT+krPhGIFsY
-         eEGz/8vxKtS9HaatXUKV4FHjrWR6YzmNGciVTuCvHxDs0UMli7wqIyF8hCHqfoA5/PxM
-         QkUW1vrRdwmHXFySn5MzNzN0uAPUZUa3purC8Zt54riJ4nTzqzrHIwPDlKMLH6hkwh1p
-         WaB07NKI8Ms1iMMixcDXyR9Zz8Leve3JDrXcr5VMLcuBXDw3k/B4BpjkFQb4q7CdJR8X
-         RFg+lJOHBTzwcp3342jPqmteWlbRqQqM5ZszIGb4pNTTMbnFTLEJYS95C9ZHw+yDTPim
-         5rWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwCvSiuDKZyWtHSZ6uSj5y6HTJU2fY4HmPNmbApFPx9O8jyhwgYU44VA+ky0RWe0P+R4J+DyKRCE9V9Y2s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfuIPEc/DhUOw/UoIQOuBe6eHVkJYGxaAjVg7NlImFiwgStQor
-	2rt77yGvM011mNPlI7Z+8yVit9nYptwTGPiTIlSKAcaaMw/F0qXq3/De
-X-Gm-Gg: AYBFou0tlWvkaupfKobgrMvKoTaSAWLhREPcv9KSsUN68KIXMlQvDhz05ZZUCc8H0C0
-	pssHdDIuzoPO2fX7sJZVwdfDUjEhveWi0PiSI1S4hJ2BpanET3Ysm+CY3G/kkqPym5KFqVWCLpe
-	48UhKau3Gb8IMjksyE1OvxK9UKtogWDEKyQDMbN3Aj/Ddv50eo9QZ2zqTCU0mlAFmGhQ9rwdjqY
-	voSgyI4kXBNRaD6saDOa1BgDVlKtBOH+N/D4VEd1dsfYYU1TVK0heopUE9dJ7e9MovwSFOwudkw
-	J1kw/ytyqbkYpDxVd/iaDxxToosrqs8AFLIHL3AIP1MndtndvQiYtW5NwhFD16U3lrKtSJJkU/R
-	6h2xMYZckEytm957OOYnr8llreIagKC0VVD1/lkSKWtCDYQ7v66Z7KYLx2iyZ9EjVo9T8OJbuJe
-	cyeXlWsWq6lTYNpVCVNCTjxMRKpManaZgjoAYjGBNAt2EVoYP6dsvW3CWiQryHlD+f3MXtY8pp+
-	Egv5FfbAiOmB102EE9sKd+qmVSjlJ57PTAM5PRrlMYUz73cFhxzl+xj5G0D34U=
-X-Received: by 2002:a05:7301:1826:b0:359:866d:5bea with SMTP id 5a478bee46e88-359866d78a0mr8979453eec.21.1791862957378;
-        Mon, 12 Oct 2026 20:42:37 -0700 (PDT)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:679a:f35b:7c29:e0f2])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb68e56sm35268677eec.29.2026.10.12.20.42.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 20:42:36 -0700 (PDT)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Mon, 12 Oct 2026 20:42:24 -0700
-Subject: [PATCH 8/9] HID: multitouch: Drop redundant report ID validation
- in mt_get_feature
+        bh=g1Xe8/t57+Y9BLtJJ1DCvjjCumMN4aWsrAavgy8Razw=;
+        b=S0oZisPji0I6Jptei97TSSfraRyUPiWhH/2M59f8/P30bUtl14Csg9c7uKlzO3p97B
+         BTUWo7TwvAIa6R2pVaMLo1HxAcVzRwffMd98slLS9Zmc4kWhbgx4vz5kjDlTpj/g4azc
+         D+Emqny8AfJ8nzEP4fmhrrKP519AkatfNbh81/QnfxPkp7iMf1OqEKfpkxdnlo4LObSR
+         zNq5P3LkmGFXfZHJLTgoGaijKJhPxj8Kvs82CODbCpQR3noun1qh6l8T8QyNofQ15CqF
+         nOBLTDQg5bW1ywc4SQeN0Oke6AnlxW21tbArXtkXbYLNK4FMJdRotcE5MPaMzRLrslyN
+         +lfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791863015; x=1792467815;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=g1Xe8/t57+Y9BLtJJ1DCvjjCumMN4aWsrAavgy8Razw=;
+        b=b7Vgk2Ke0gwITv/cpp0xvnbt14shE7D8nEC+6n9YLeeCQmv24Odt+qy2exN7iZal3l
+         idpkttxGt4A1bGtoqanuEz3gVMgQAw9oqyde2JHTGxO31X0CRV1oIsfWx1Z4+HgC37rx
+         tiuT9NdsNvFnez+W1pVAc/NJExAxv/8v3HSmSHM++qIR2kLarc+erJWxCG6XEJmEEPtd
+         IMOgxJJ/vDa6N6+xNWGCPiFID9mebAV1/tssrRcVzFLLGSLSYKL0mzysCAVuz5gIGoJ3
+         mGQ1L6nsdm94xBMfb7LEBpW3OwGOCBiUIcamIuWBLmQz2B5TUKlRt9R257/NL6YVX3AE
+         fOlA==
+X-Forwarded-Encrypted: i=1; AKwUvBzqWUoFQTdNgU/732G2OyemA1ckE1gDfX7qbmOyD+44oVgTrUmdnlAz4PovD5aMhrVUq6N0Qu2zPliEpzA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJgE408CMZ31nIh2jmdOl2mKANIwvJ38GH+dF75Z9uS54JDuSe
+	hl0H8KdKMI+HTaY6Ornkku6naCZQooapi2vrF3PZgaU5W66g9JBB4o8ls7T8vgit8jV/uZ53J7C
+	O0lC6YWTgwzHy+GQD5fT0EIgu/a5+SMc=
+X-Gm-Gg: AYBFou1W39xAX+UgYC46ubpuJCVhL2kicztLjfMqIc4rLTYhDgI8peuhP2/VQR9tffT
+	yEzS2Ln4WduloY23RWGwwDazWNAfpNeuUiwEZDi0+sgyQOl1z7VEn6VaipsOKkn4mn3Xg5lud3I
+	SfVTlFz/O0/ovaFwN79AwvLEyvJGl216nZVdXQXW2AQZxmRRR5+wDTYeiYZw5HACOXU3D+awWig
+	Z5nZJ+CpuS2wqgLMOa/o4p7dmLaoQqf48ikOhj1m/2ACUpMImyEW9rL0XuMt3xeeuT8gBQUcpgb
+	pWo4eQP8hvb5YdB74v9UWZJUbQy5SqJlBhe3yCzB+cXkMqQ9z0HQoi2hJw==
+X-Received: by 2002:a05:690e:4102:b0:677:c605:b736 with SMTP id
+ 956f58d0204a3-679369ec2dfmr4046021d50.43.1791863014837; Mon, 12 Oct 2026
+ 20:43:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-hid-core-report-validation-v1-8-e0dd5cb60b2e@gmail.com>
-References: <20261012-hid-core-report-validation-v1-0-e0dd5cb60b2e@gmail.com>
-In-Reply-To: <20261012-hid-core-report-validation-v1-0-e0dd5cb60b2e@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- David Rheinsberg <david@readahead.eu>, 
- Frank Praznik <frank.praznik@oh.rr.com>, Jiri Kosina <jikos@kernel.org>, 
- Benjamin Tissoires <bentiss@kernel.org>, Even Xu <even.xu@intel.com>, 
- Xinpeng Sun <xinpeng.sun@intel.com>, 
- Roderick Colenbrander <roderick.colenbrander@sony.com>
-Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-input@vger.kernel.org, Shashikirana H K <shashikiranah@chromium.org>
-X-Mailer: b4 0.17-dev-e56a4
+References: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-0-674b907d0652@gmail.com>
+ <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-1-674b907d0652@gmail.com>
+In-Reply-To: <20260913-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v3-1-674b907d0652@gmail.com>
+From: Gyeyoung Baek <gye976@gmail.com>
+Date: Tue, 13 Oct 2026 12:43:22 +0900
+X-Gm-Features: AclHuK9taASNrgAMmV3Z1NS8TfpfNKzvhhsyrCVDqQveBDVwje9B5oj9wzDDHuo
+Message-ID: <CAKbEznugM-HxPxHwZ7RxC2iLC0TDH0qi9649hWATiPYXF+urfw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/4] drm/imagination: don't gate the runtime PM
+ callbacks on drm_dev_enter()
+To: Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: Alessio Belle <alessio.belle@imgtec.com>, 
+	Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Now that the core HID layer validates returned report IDs centrally and
-provides a quirk for devices with mismatched responses, remove the
-per-driver report ID check in the multitouch driver.
+Hi Ryan,
 
-Also drop the dedicated class and device entry for the ASUS ROG Flow
-Z13 touchpad, as the device now falls back cleanly to the generic Win 8
-multitouch entry.
+>  int
+> @@ -398,33 +397,24 @@ pvr_power_device_resume(struct device *dev)
+>         struct platform_device *plat_dev = to_platform_device(dev);
+>         struct drm_device *drm_dev = platform_get_drvdata(plat_dev);
+>         struct pvr_device *pvr_dev = to_pvr_device(drm_dev);
+> -       int idx;
+>         int err;
+>
+> -       if (!drm_dev_enter(drm_dev, &idx))
+> -               return -EIO;
+> +       if (pvr_dev->lost)
+> +               return 0;
+>
 
-Assisted-by: LLM
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
- drivers/hid/hid-multitouch.c | 32 --------------------------------
- 1 file changed, 32 deletions(-)
+'lost' looks protected by reset_sem, but it's read here without the
+lock. Shouldn't this at least be READ_ONCE()?
 
-diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index 4e19a0c4d238..69f770a5c430 100644
---- a/drivers/hid/hid-multitouch.c
-+++ b/drivers/hid/hid-multitouch.c
-@@ -79,7 +79,6 @@ MODULE_LICENSE("GPL");
- #define MT_QUIRK_APPLE_TOUCHBAR		BIT(23)
- #define MT_QUIRK_YOGABOOK9I		BIT(24)
- #define MT_QUIRK_KEEP_LATENCY_ON_CLOSE	BIT(25)
--#define MT_QUIRK_IGNORE_FEATURE_ID_MISMATCH	BIT(26)
- 
- #define MT_INPUTMODE_TOUCHSCREEN	0x02
- #define MT_INPUTMODE_TOUCHPAD		0x03
-@@ -236,7 +235,6 @@ static void mt_post_parse(struct mt_device *td, struct mt_application *app);
- #define MT_CLS_APPLE_TOUCHBAR			0x0114
- #define MT_CLS_YOGABOOK9I			0x0115
- #define MT_CLS_EGALAX_P80H84			0x0116
--#define MT_CLS_ASUS_ROG_Z13_FOLIO		0x0117
- #define MT_CLS_SIS				0x0457
- 
- #define MT_DEFAULT_MAXCONTACT	10
-@@ -407,16 +405,6 @@ static const struct mt_class mt_classes[] = {
- 		.quirks = MT_QUIRK_ALWAYS_VALID |
- 			MT_QUIRK_CONTACT_CNT_ACCURATE |
- 			MT_QUIRK_ASUS_CUSTOM_UP },
--	{ .name = MT_CLS_ASUS_ROG_Z13_FOLIO,
--		.quirks = MT_QUIRK_ALWAYS_VALID |
--			MT_QUIRK_IGNORE_DUPLICATES |
--			MT_QUIRK_HOVERING |
--			MT_QUIRK_CONTACT_CNT_ACCURATE |
--			MT_QUIRK_STICKY_FINGERS |
--			MT_QUIRK_WIN8_PTP_BUTTONS |
--			MT_QUIRK_CONFIDENCE |
--			MT_QUIRK_IGNORE_FEATURE_ID_MISMATCH,
--		.export_all_inputs = true },
- 	{ .name = MT_CLS_VTL,
- 		.quirks = MT_QUIRK_ALWAYS_VALID |
- 			MT_QUIRK_CONTACT_CNT_ACCURATE |
-@@ -519,7 +507,6 @@ static const struct attribute_group mt_attribute_group = {
- 
- static void mt_get_feature(struct hid_device *hdev, struct hid_report *report)
- {
--	struct mt_device *td = hid_get_drvdata(hdev);
- 	int ret;
- 	u32 size = hid_report_len(report);
- 	u8 *buf;
-@@ -541,25 +528,12 @@ static void mt_get_feature(struct hid_device *hdev, struct hid_report *report)
- 		dev_warn(&hdev->dev, "failed to fetch feature %d\n",
- 			 report->id);
- 	} else {
--		/*
--		 * The report ID in the request and the response should match.
--		 * Some firmware (e.g. the ASUS ROG Z13 Folio
--		 * touchpad) returns a mismatched ID on this specific fetch;
--		 * tolerate it only for devices explicitly flagged as such.
--		 */
--		if (report->id != buf[0] &&
--		    !(td->mtclass.quirks & MT_QUIRK_IGNORE_FEATURE_ID_MISMATCH)) {
--			hid_err(hdev, "Returned feature report did not match the request\n");
--			goto free;
--		}
--
- 		ret = hid_report_raw_event(hdev, HID_FEATURE_REPORT, buf,
- 					   size, size, 0);
- 		if (ret)
- 			dev_warn(&hdev->dev, "failed to report feature\n");
- 	}
- 
--free:
- 	kfree(buf);
- }
- 
-@@ -2734,12 +2708,6 @@ static const struct hid_device_id mt_devices[] = {
- 		HID_DEVICE(BUS_I2C, HID_GROUP_MULTITOUCH_WIN_8,
- 			   I2C_VENDOR_ID_HANTICK, I2C_PRODUCT_ID_HANTICK_5288) },
- 
--	/* Asus ROG Flow Z13 (2025) GZ302EA keyboard-cover touchpad */
--	{ .driver_data = MT_CLS_ASUS_ROG_Z13_FOLIO,
--		HID_DEVICE(BUS_USB, HID_GROUP_MULTITOUCH_WIN_8,
--			USB_VENDOR_ID_ASUSTEK,
--			USB_DEVICE_ID_ASUSTEK_ROG_Z13_FOLIO) },
--
- 	/* Generic MT device */
- 	{ HID_DEVICE(HID_BUS_ANY, HID_GROUP_MULTITOUCH, HID_ANY_ID, HID_ANY_ID) },
- 
+>         err = pvr_dev->device_data->pwr_ops->power_on(pvr_dev);
+>         if (err)
+> -               goto err_drm_dev_exit;
+> +               return err;
+>
+>         if (READ_ONCE(pvr_dev->fw_dev.initialised)) {
+>                 err = pvr_power_fw_enable(pvr_dev, true);
+> -               if (err)
+> -                       goto err_power_off;
+> +               if (err) {
+> +                       pvr_dev->device_data->pwr_ops->power_off(pvr_dev);
+> +                       return err;
+> +               }
+>         }
+>
+> -       drm_dev_exit(idx);
+> -
+>         return 0;
+> -
+> -err_power_off:
+> -       pvr_dev->device_data->pwr_ops->power_off(pvr_dev);
+> -
+> -err_drm_dev_exit:
+> -       drm_dev_exit(idx);
+> -
+> -       return err;
+>  }
+>
+>  int
+>
+> --
+> 2.55.0
+>
 
 -- 
-2.56.0.385.gd3acb90ef8-goog
-
+Thanks,
+Gyeyoung
