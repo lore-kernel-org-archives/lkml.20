@@ -1,60 +1,36 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3C85038E6;
-	Tue, 13 Oct 2026 13:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 275A65038E6;
+	Tue, 13 Oct 2026 13:33:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898365; cv=none; b=ZzPlFyh+6QYS45Wbr6EnxBJQQaZ8zK6mypi7a4gSvKvcJJaS4T3HdeSPole2ji1+3p1es8e73PsGDQsGjDP2hAWDLWPVNd6yFRxcmGdBKx+95jtnn7HL/YHZ9XWFcrf+M8gxlVUYCnnz1FFVnduIj6NyQU+hgcGGFQf4mcGbXI8=
+	t=1791898400; cv=none; b=oDdpfP1mInR/cjX7IMHRbvcVda42Tv+NF+yKrrlRCoXVPQ8W458+WZssx7A21lTbv3D/tb4mRlM+mRh9rH1Bev4iDpQW3VbfWDX9nOc479kBk4KDzsKywiLqRjO6cNL1xKB7Gajxsg1iCgPedXIgKbkIkg9fDxYW19AeFROS8B0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898365; c=relaxed/simple;
-	bh=vQUw9d5mOCImQNTh4NmNa0chp12gTHeAMoIthh/5IVg=;
+	s=arc-20240116; t=1791898400; c=relaxed/simple;
+	bh=cPVdDNYJoApSx+eURFNqmHO4aY1NPkklxp7No2AbiC8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PUkGJ+ui76jgmj6JuPUZL1bFI5KEzYR9Kv44C6DNXyFiCSkMJPoHGDU3gRvQDz8gfYIW/O6NPFdDnfqY+VrxsehG+HR6xZ6XskMtj77KNoJcFU6hU01hqFiW+tfVRMub2asUBJhwmYAn5B1LT351KuzXpcF3kUq/i+44qy17wRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WTp2hKrs; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mz4Q+2LMOfldKYU4vjSD9iL35V3EFbS+pH35s88d/NjuKI1Wrqvc67v4KnF5qpZ/PPebIHiBWNTa/BVvy85erSpNMdGm530ydZ8GMNfthYRl4v2tzqTv42qyIR3WlDyawW2xVGg8MBaOsWNF9iX2y/SQbzD/MGEx+ExIF5ajAsw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dQpSHBnk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WTp2hKrs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791898364; x=1823434364;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=vQUw9d5mOCImQNTh4NmNa0chp12gTHeAMoIthh/5IVg=;
-  b=WTp2hKrsfUhHaK0a+eOAKk5AtpB0TW/mgsTApmwPkbQYdbUZpf7flJyI
-   6LgmufgwwCyaYY29FMcwRiPNHFvOQNaEgLCJp4ESASaSk5YtveXFvNmHo
-   reVBnfEBb9haT/oNmsDo8yHIq4Sj/dq2/y5F2vhHfVZws6NcbThBZjiIR
-   sc5GYptU4JSERG9/eSJ/+caSw1/Vo7Tco0L8diw9ojhK/g3HYLDIcE5cX
-   At+pioDtoFMcQOmFk9sV6Niri1vInSZB15CBbaESyHI3vbnVHcOewdKhq
-   LOlQm6bWHIrqwtHn2cjG5Rb85t7VC+e16kD7PMXK/kqOe6SRvUOoEwyap
-   A==;
-X-CSE-ConnectionGUID: NkzaQZMxRmy1bXB7FVFlZQ==
-X-CSE-MsgGUID: YOoQ9LqgTV+2E5+bYIHHwA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="630823"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="630823"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 06:32:43 -0700
-X-CSE-ConnectionGUID: 1hK0v/C/QQ2j2ewLkyInpw==
-X-CSE-MsgGUID: gbpn0AaXRyCVKs4ZOR2rsA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1528720"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 06:31:43 -0700
-Date: Tue, 13 Oct 2026 16:31:40 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/1] gpiolib: shared: Don't define variable in the
- middle of the code
-Message-ID: <as4yvFgW9R5HPHX4@ashevche-desk.local>
-References: <20261013094412.945609-1-andriy.shevchenko@linux.intel.com>
- <d5508a2a-518e-46ee-a821-b6209ef35bfb@kernel.org>
- <CAMRc=McSCMS0PB69k0tnKMvBRkB1t-4HOhsvGr82yse4FuNtCw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dQpSHBnk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2903D1F000FF;
+	Tue, 13 Oct 2026 13:33:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791898398;
+	bh=qA4VvsSqMwfRFBuX/zH0bRqB9tHqU0s8qak4tSqjWsQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dQpSHBnk1+uFgaHJg23XwmFZDT+qGDAw/F7HyUyA4TimtID1U1ZNiYF2JsKkV+Pkq
+	 epU3y7FCNYMOOavtiDcpi9L+voRcQxKEjDnl8lrYgx2bnGZtQDSzqZs54PoVvZK+2k
+	 ftqe0577IquR/3C8jB89lVJ8SwgOHfFcUTh78rzE=
+Date: Tue, 13 Oct 2026 15:33:23 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] staging: rtl8723bs: use u8 instead of unsigned char
+ in NDIS typedefs
+Message-ID: <2026101314-dimmer-squishier-3781@gregkh>
+References: <20261007103236.37607-1-ampr.mhd@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,43 +39,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAMRc=McSCMS0PB69k0tnKMvBRkB1t-4HOhsvGr82yse4FuNtCw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261007103236.37607-1-ampr.mhd@gmail.com>
 
-On Tue, Oct 13, 2026 at 02:42:59PM +0300, Bartosz Golaszewski wrote:
-> On Tue, 13 Oct 2026 12:04:41 +0200, Jiri Slaby <jirislaby@kernel.org> said:
-> > On 13. 10. 26, 11:44, Andy Shevchenko wrote:
-> >> While the C11 allows us to define variables in the code, we do not
-> >> do this style (see more at [1]). Move the declaration to the top of
-> >> the function.
-> >>
-> >> Link: https://lore.kernel.org/lkml/58fd478f408a34b578ee8d949c5c4b4da4d4f41d.camel@HansenPartnership.com/ [1]
-> >
-> >  From the link, I have just learnt two things:
-> > 1) I am not alone preferring declarations in the middle of blocks (it
-> > has more pros than cons IMO). But again, I spend a lot of time in the
-> > c++ universe.
-
-True, but there is also old style and it's kept like this.
-
-> I actually do prefer declaring variables at the top of the function. This is
-> a leftover from when this variable was managed with __free().
+On Wed, Oct 07, 2026 at 02:02:36PM +0330, Muhammad Mahdi Amirpour wrote:
+> Replace the plain C type 'unsigned char' with the kernel's fixed-width
+> type 'u8' in the NDIS_802_11_RATES and NDIS_802_11_RATES_EX typedefs.
 > 
-> > 2) the kernel defines "auto" even for < c23. Therefore:
-
-True, but using auto in the code will make it really hard to follow. I find it
-nice in the macros, though.
-
-> Excuse me, what?! :O
+> The kernel coding style prefers fixed-width types over plain C types.
+> This addresses one of the outstanding TODO items in the rtl8723bs
+> driver: "convert any remaining unusual variable types".
 > 
-> That's the first time I'm learning that we can use C++-like auto in the kernel
-> C code. Thanks for bringing this to my attention!
+> No functional change.
+> 
+> Signed-off-by: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+> ---
+>  drivers/staging/rtl8723bs/include/wlan_bssdef.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/staging/rtl8723bs/include/wlan_bssdef.h b/drivers/staging/rtl8723bs/include/wlan_bssdef.h
+> index f4c1456f1..df541e956 100644
+> --- a/drivers/staging/rtl8723bs/include/wlan_bssdef.h
+> +++ b/drivers/staging/rtl8723bs/include/wlan_bssdef.h
+> @@ -15,8 +15,8 @@
+>  #define NDIS_802_11_LENGTH_RATES        8
+>  #define NDIS_802_11_LENGTH_RATES_EX     16
+>  
+> -typedef unsigned char   NDIS_802_11_RATES[NDIS_802_11_LENGTH_RATES];        /*  Set of 8 data rates */
+> -typedef unsigned char   NDIS_802_11_RATES_EX[NDIS_802_11_LENGTH_RATES_EX];  /*  Set of 16 data rates */
+> +typedef u8 NDIS_802_11_RATES[NDIS_802_11_LENGTH_RATES];        /*  Set of 8 data rates */
+> +typedef u8 NDIS_802_11_RATES_EX[NDIS_802_11_LENGTH_RATES_EX];  /*  Set of 16 data rates */
+>  
+>  struct ndis_802_11_ssid {
+>  	u32 ssid_length;
+> -- 
+> 2.55.0
+> 
 
-Yeah, with some version we eventually get it standardized.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Does not apply to the the staging-next branch at all :(
