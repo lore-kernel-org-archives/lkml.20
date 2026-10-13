@@ -1,123 +1,126 @@
-Received: from mail-yx2-f5.google.com (mail-yx2-f5.google.com [74.125.224.133])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43AB476CF1
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906C9480DF7
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:33:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912804; cv=none; b=I9BwFA/4e4eT3qIPhLPCCD2UHYRw9PohWhhGL46pbxymZxHZTbUt2DJ1pGPYjHgYFYEJAzY9QRoBxzLx0mz16yD9IVdzvE/kFsk5P82uw9nXV683dxdUUsLXe3j3MPihvQzwexIA6YQv/GeyGd0bkMggQnVXK4Qdug3sRLY08P4=
+	t=1791912829; cv=none; b=dClN6zAzvHGnNibmTU4TyJZlCjQbNOfhhANjqukUU7Q/RIMVf7x3teukdFA0xXC1rhvQBA+zoSOmIC9GVyJgEGgY4GD4OLlUk7pntmm+hTMUv0aswDnjwEXH3HR1tjmN82qaVFAMIMZocyxCClWDJ4FqTzHoJSPJHs/rn3w8pds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912804; c=relaxed/simple;
-	bh=JVFkb7Cu6YP094+ZnATto6Q9s4QbtUg3QlEdZAc0Qo4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rAoOXAx5kXImoesHWc23bJTaVntKZfOeF/zczTDUNYYGWsjdqrj/l2LBEh1yCcNmod1s1r5u5UuM3xVRNU4M6e29iTkVOyYXKWJlXb0myFcVoLcFwvADOUdoSfpE+7O7OIZbwSiGkUstT92P8FGjecLNtKIDr/2qxaqtFURjtqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AiqjafpK; arc=none smtp.client-ip=74.125.224.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791912829; c=relaxed/simple;
+	bh=m+i5mTlUxTCnrCi8WzAtmzzFXQV0rJfs+5MtNGiKS8Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b7msHMnpsrjgMNrpztv0PdjPZivxVoHKt9KIpjChrmLaR/c93rVTqtlail472Ln4AZkCf3cdbT6zSS9NUx/oNdm+oeq2Xy/EzbEwhZ3JBCF9E8Dce51LfRpNfYje7TG2/CX+8r3HVpYAQTL1N1/LcDTfawwhJBNyGKSuSOO9q64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=L5Vy0NpU; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AiqjafpK"
-Received: by mail-yx2-f5.google.com with SMTP id 956f58d0204a3-672d92bbfd3so1444269d50.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:33:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="L5Vy0NpU"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e8623790f8so160165ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:33:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791912802; x=1792517602; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ktaJr2DM5Zu0cnAztDTvIMhfnw3Hsx1asRS1ecJrXeg=;
-        b=AiqjafpK1JYuCmn+s3TiNuPOZcd9gH6oLc0ptahOzx4EMyOWymGzmF43/cg+rE4h/z
-         DWLLDpTEmEX+1qUBfe9zkkJSk/KWhxS7D/IMwyQeHiTl+25Fr1oGh6ueEGoOdPD/30kH
-         9xpDhE6rKyDWK+sHipKQcBJtbAWPqTBA4juOAmRDB77qtH7M+gfSOU7SffhwJxQeWaLH
-         BO09wPhjIcEqMtDriZvP27sPMgnlVFusMUc2cipCF5iaF4blzTN/kfVw3gNt6ic3Ly5f
-         bTFYI2T6Lk6JX5UqXWsZqm4iQZwxC78BUrprcUrupB/ICwS6wiuVs5iuyOV1oAiJ5Sgk
-         H77Q==
+        d=google.com; s=20251104; t=1791912828; x=1792517628; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qsfJHJAdVQ83GKISdOFSgeXuIu/91TZW8ltTQ/2oo/k=;
+        b=L5Vy0NpUII7ewM/cx4UM0kPWRO2ApbVBxPubGhJKJoRK8E4G23eV28CZ5n2zGZgqCT
+         kWH6aZcup0sUVpj7m+mtINUa9yqzqOfc0Vtdrd5Bsxq0iDa1tJ5a0YvV1bJO+QGxcWF6
+         DWSlHUYrim965MKghcbksimcpWRqKQQG0o6DYAw6BUkoidplq7AQbUdXs4AhDtLzTVeh
+         9zQFu7w+bEvc6/vthrZHX0tCPIK/2anhyYgtUN2ySiCFOHQjHNw4xJBYMuI9aBL6UvkX
+         srwM0xJqVYQq7P7jFtgFh5BM8Kt1PMSJdybasoucH8Rayt8/qW2BviKwHa0ZWQP0sJoO
+         cyVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791912802; x=1792517602;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ktaJr2DM5Zu0cnAztDTvIMhfnw3Hsx1asRS1ecJrXeg=;
-        b=HP1UcYARy3TMAP8Tnlycxwssut9SFyRVjdwOePTwqxxG5xJhCT0+LwcrGBNwv8Tvb+
-         F9/TYFgpQiH461gm/wPUd9K4ok9EhyAptrAFSNfK/TfPyLdWLBSCqWbuo9eShkIAa7X3
-         E+SIT0YYxHTEIN2mY+uXX7sqEUYIKATu2ky/yFLK4ABzTg4t+J8QuHM0Hk9byGHFEomo
-         LEvSe26SIA46Nk/Z4qkzxyyc7wG+UFvgxP/CLqQKDHuKvhhlraHbyq7YrPBAFM+46L00
-         MJneT7v+gCaIlsC/72aU1SFr9wsal3smElE6jDEQQ46ufkMiUdEnvkdV2DAgUXtGX4oE
-         J3Fw==
-X-Forwarded-Encrypted: i=1; AKwUvBz1anb+I68qHgQQsDQp75PWFs4XDcAAnz2gnEqSk4iFzdMjeTIjRfWTFG/R1/fEUCnDCFzbpmMlQi3aiRQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJSPVVW9Ql7XOb8SC3xy6fWCKYszZkYa9jPHHmyK2o8NUwXlvvs
-	LyHuq9+l1yXBJdqlwzBHTT+kG+3u6gcJxiCwK+BPKBfPdoFvTT+OX6dZ
-X-Gm-Gg: AYBFou1ZpJuJ1rG0UoN2X5QSRvid9Z+kHRkhNgZSuYgBPBqDrHSEvLn4J0vjEDbGkHl
-	hpfchdldYxl9ndyCCN7a4gSB6H0hvMN20NEMUWulUorNoAxk+/H4zSSEniN/TaTFBqQEf5inTdx
-	Rxz4bP7A7ibqfhWNh1O90AsH6FldG68tX8DgF76ttFDYmSgST4HQpm6l1/+TXo+ITDhSGo4f+o1
-	rGXsWiBX9jJsqKo6tO62Whv+oup4SguZt+Enwsph/GavrMUf+8V4UxncN0908IIJhBXer5YoYuY
-	PvArdoMfApFvyB69dhyAzeOi6NiiERDISqicnd3zVrGSLzg89MqALWS6eyNTxDOLEkryubyQqfK
-	BoEQM4j23Na4QIfQF7GmCbrNGlfNdJb/lGxKtl6PUxASDqlxoCSHT6Z+YonjXGMVHm+Df+z1m1b
-	v146w931j0B1NV5/PDY9Ujq31SAOT8T5hgkqMMHV9lkwBGiS6bFqwnPeCKO1r3KOYiCcKr4jOu
-X-Received: by 2002:a05:690e:14c1:b0:675:40a6:142c with SMTP id 956f58d0204a3-67935f1c770mr4649463d50.22.1791912801676;
-        Tue, 13 Oct 2026 10:33:21 -0700 (PDT)
-Received: from paradox ([98.122.223.224])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f1ecbfbsm46571567b3.23.2026.10.13.10.33.20
+        d=1e100.net; s=20260707; t=1791912828; x=1792517628;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qsfJHJAdVQ83GKISdOFSgeXuIu/91TZW8ltTQ/2oo/k=;
+        b=V+Qsl33D9+091tjjt9WlE39kzDvSPZSHKWh4JlxOD1vNV7d+HCUGzjiU4noIwpqu1g
+         IdGpqQg3sO30IjFwmRIkrWR1+oPVZdnHAbuJs39/vx7sObMGXvyKJ2or4ELFeo2UsQAJ
+         e8Z66GYAIGYxBYuM1QaBBbWOoIUUSgO+4LXdnDVBrsaU5bvCHNqZf0/Gg4pMnL2GFBNH
+         6K29M3m7Qlm3QI+Oib23OT+T7ryAdocAzjpflcHdC+pSHHdEgv1rb1TVp0yzWPOx4hpt
+         +k9Dj3q/UnK2qA8Jf0fhg5S21HZhvowo4b0YgBVhuGeKvKsMhOBBbz70DAH3QotL4A/M
+         JTGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx8jq9Th28UG6rscTrKaGMV+8tIevItyE0YJX+O6wilXnQXaZ0f5dWpOpfczQg2HElGoA02Xgx8uA3WYQQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2oldCce6L0a4rx3HbQIlcnN+718JtvBEeOzOET/3J9/dI8oeo
+	TQuvhA2NTNFuL/OmoWxXCdIGJYTXRWuY6ntCiil9tgi13B7n5YYQ/teE5MbhvEF9Jg==
+X-Gm-Gg: AYBFou3NcQJ72P8KaVlVwS748OJZO++hetlGdusyjnuvbdDTIQHDBgEzFblbtxjRWcY
+	HUEHoVa+I7PqW3mD8P5RRVbxJS6bOnPAaVYd3XjE17t4uZILyjBpVs/qQdhezLDewxvWoX/mRPe
+	O3hiLb4Nca0+kVNY7wAnb8FwUCpQWCuheBZzdSb0+5WB2vDb1rWD1oDJq8dlkcbJDGLP94A20/S
+	nIqeGezSvEftY1qqvySpz2x2cLJ+tS8yyxv6P+l75/sv4I10obQzLagvCz9xFFJp8U1ZBb/D6PR
+	+RFaRlVRB4g5uT2Kjed5Rq7XzIXsM4R3VGCAvXkMFL2wUlw3+lEIbiMRbKoC9A8OSHB0G2C1KJV
+	aL5nVt1Yfmuob2GIAwO/cYiuUOUydut4PYqxlc2/gHCYWQyheA/hdsxVhhxgHsedNrPa/+nAGhz
+	XNIK2vpikV33UjfDNl23NRcRgeiS3ls38X3kNobWZC/YZM5X6pzTdmJ+AGmUusbo4FyLA2O13Vu
+	9halB2WLAZb58hSjm4YEe0/p2e+Qwoe
+X-Received: by 2002:a17:902:ebc6:b0:2e2:d665:6ad8 with SMTP id d9443c01a7336-2e87bc2190fmr12955725ad.4.1791912827258;
+        Tue, 13 Oct 2026 10:33:47 -0700 (PDT)
+Received: from google.com (75.57.168.34.bc.googleusercontent.com. [34.168.57.75])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac600a0619sm637262a91.7.2026.10.13.10.33.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 10:33:21 -0700 (PDT)
-From: Martin Belanger <martin.nvme.dev@gmail.com>
-To: linux-nvme@lists.infradead.org,
-	kbusch@kernel.org,
-	sagi@grimberg.me,
-	hch@lst.de
-Cc: axboe@kernel.dk,
-	hare@suse.de,
-	linux-kernel@vger.kernel.org,
-	security@kernel.org,
-	Martin Belanger <martin.nvme.dev@gmail.com>,
-	stable@vger.kernel.org,
-	Daniel Wagner <wagi@kernel.org>
-Subject: [PATCH] nvme: make the DH-HMAC-CHAP secret attributes readable by root only
-Date: Tue, 13 Oct 2026 13:32:41 -0400
-Message-ID: <20261013173241.1713708-1-martin.nvme.dev@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Tue, 13 Oct 2026 10:33:46 -0700 (PDT)
+Date: Tue, 13 Oct 2026 17:33:43 +0000
+From: Lisa Wang <wyihan@google.com>
+To: Binbin Wu <binbin.wu@linux.intel.com>
+Cc: Xiaoyao Li <xiaoyao.li@intel.com>,
+	Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org,
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+	x86@kernel.org, Andrew Jones <ajones@ventanamicro.com>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Chao Gao <chao.gao@intel.com>,
+	Chenyi Qiang <chenyi.qiang@intel.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>,
+	Isaku Yamahata <isaku.yamahata@intel.com>,
+	Kiryl Shutsemau <kas@kernel.org>, linux-kselftest@vger.kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Roger Wang <runanwang@google.com>,
+	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>
+Subject: Re: [PATCH v15 14/23] KVM: selftests: Expose function to allocate
+ vCPU stack
+Message-ID: <as5rd8F3pLmimtGe@google.com>
+References: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
+ <20261001-tdx-selftests-v15-14-7c62a5d8a992@google.com>
+ <b2143700-da36-418c-af63-0b50b33f080e@intel.com>
+ <932ec219-5951-489b-bda9-1f6e9a605a9b@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <932ec219-5951-489b-bda9-1f6e9a605a9b@linux.intel.com>
 
-The dhchap_secret and dhchap_ctrl_secret sysfs attributes have mode
-0644. Their show functions return the secret, so any local user can
-read the DH-HMAC-CHAP secrets of a connected controller.
+On Sat, Oct 10, 2026 at 11:54:42AM +0800, Binbin Wu wrote:
+> >>  
+> >> -struct kvm_vcpu *vm_arch_vcpu_add(struct kvm_vm *vm, u32 vcpu_id)
+> >> +gva_t kvm_allocate_vcpu_stack(struct kvm_vm *vm)
+> > 
+> > Besides what Sashiko pointed out[1], this patch was just messed up during the
+> > rebase and it even doesn't compile.
+> 
+> 
+> Yes.
+> 
+> And since the upstream code already has vm_alloc_stack(), which basically does
+> the same thing.
+> 
+> I think this patch can be dropped. 
+> 
+> > 
+> > [1] https://lore.kernel.org/all/20261002091331.BA23F1F00893@smtp.kernel.org/
 
-Change the mode to 0600. Writing the attributes was already limited to
-root and is not changed.
+Yes.
 
-Fixes: f50fff73d620 ("nvme: implement In-Band authentication")
-Cc: stable@vger.kernel.org
-Cc: Daniel Wagner <wagi@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Martin Belanger <martin.nvme.dev@gmail.com>
----
- drivers/nvme/host/sysfs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+vm_alloc_stack() can replace kvm_allocate_vcpu_stack(). I will drop this
+patch in the next version.
 
-diff --git a/drivers/nvme/host/sysfs.c b/drivers/nvme/host/sysfs.c
-index e1e3dcfd084b..e0cb34545b97 100644
---- a/drivers/nvme/host/sysfs.c
-+++ b/drivers/nvme/host/sysfs.c
-@@ -864,7 +864,7 @@ static ssize_t nvme_ctrl_dhchap_secret_store(struct device *dev,
- 	return count;
- }
- 
--static DEVICE_ATTR(dhchap_secret, S_IRUGO | S_IWUSR,
-+static DEVICE_ATTR(dhchap_secret, 0600,
- 	nvme_ctrl_dhchap_secret_show, nvme_ctrl_dhchap_secret_store);
- 
- static ssize_t nvme_ctrl_dhchap_ctrl_secret_show(struct device *dev,
-@@ -922,7 +922,7 @@ static ssize_t nvme_ctrl_dhchap_ctrl_secret_store(struct device *dev,
- 	return count;
- }
- 
--static DEVICE_ATTR(dhchap_ctrl_secret, S_IRUGO | S_IWUSR,
-+static DEVICE_ATTR(dhchap_ctrl_secret, 0600,
- 	nvme_ctrl_dhchap_ctrl_secret_show, nvme_ctrl_dhchap_ctrl_secret_store);
- #endif
- 
--- 
-2.53.0
-
+Thanks!
