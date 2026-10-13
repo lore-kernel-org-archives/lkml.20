@@ -1,141 +1,143 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C1244BC94
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:09:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD4A44E66A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:09:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791857388; cv=none; b=W5zBQ9iVuiqaQ6Y3zRRGngmupM/YVCOr5PC5P5oW/1KK+uWS/CoAfKgZum93RBP/HGpfwmnhMeuRnCBqsCkYxzBgOHbjzs3qwvnhmIbNPmjNU8b6PRirn07/vd1z5eFJHJHIoULeaPLd/+Ew8XIerVAdC31dLandmBoJn81qIK4=
+	t=1791857389; cv=none; b=WML5lAwXQbUDISmx76Y//AxTvlynnICFqR98pALyfIVe5DpJC53nWgnPhEkeGznR/E9LNJbMmZFnwcr/N6DOd4OzLookm0N66SCXPoyqXlcq20LV5hEYzPjPMCmaYxoHvihcWMl51cALYnXurxXS2GQv7DbJ+FEY9g4vpJlYDyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791857388; c=relaxed/simple;
-	bh=czPVgNXT2OgaXwjFbvuyK45RKjR2md9vJ04hkTHTkCE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=SuiEgcTfKA87TG7TuMH9eG8GsZrie9gSSVsp1qFkbyOq4/iKMoj+zNwELvpwKqtPok1Qkn35See3l5Ng3Jxv74Jgu8YI60j6cyH/3R+bx8azf8oxgQh5wvjREEncmvq/FThmcVTt8T4PSAPHQ2/1yD2LBcPs741fwC97NILw0Pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gnFCcreV; arc=none smtp.client-ip=74.125.82.174
+	s=arc-20240116; t=1791857389; c=relaxed/simple;
+	bh=///uuY9jbj++gbJGzjzpOoqz67KdoOg1gGFB1Qb8Yi0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mj69I0pQzf9RXUdJcgvl8p9I1oIBcb8jQToyYsb/klwuDJaKLwHLVdjSuDqR2w3nMhHZOymWB0T0TyuqJmPUIQcBNrR77NiflBBfWYKwwcyja/LPj+QlD8laBIhd4GpYsJk8Y86TRyutxYtG+UOCXrp+xyAI9GX+9wlz/gPOG4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D0kBjkcW; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gnFCcreV"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-353804b591eso4165616eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:09:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D0kBjkcW"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e8455755f3so11960665ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:09:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791857387; x=1792462187; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=53/8rFLtj+oKerssY2sv6i0RQan/DUVl/IJk1Ms9Yfc=;
-        b=gnFCcreV0QYBNJTRlHo8PHFszPMpk3CNNVt3DdgKNnhWEZQ1V27Tv1axmCcyRTzkcR
-         yZVnB+0gWVjzBbDS0QLMynvvSxIn8PfLjmm0b1yzXWIlyZuBHeJsIQdhc658ueiy4Icr
-         Guqxf/RMKFPo0dggDLfjmK3Djzo2T1zegE36F22nNRgFGAdgfH4Nzb+ixj9l/XabJbL1
-         5C3RLOOH/rDr9tEQYnHqxNu7zZUz4d54nIOtzkfraAkSlliIdi1DpB81UXYLdsHtzrMR
-         AJ3PD+2XLs2UcAP8VxIcYpovPv5afhuHCArV5nthwW2kCcqGSScU8mZJvRPYLuurEwH8
-         WUHA==
+        d=gmail.com; s=20251104; t=1791857388; x=1792462188; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7yfQb/NIWEqP4dfQyyW1F46esS1vblLkgAQScX3XltE=;
+        b=D0kBjkcWRNEdwYrDZKC1BwlcbmmPHgDOBGMaT2Kg/idr2/p8rETcHROhvFGe5rbEAQ
+         wyv4MrIQBseEFza97Y9LamMWy9BhtLUTNNOaZwUSbiHv1t1V+/ZkZUE+qmEZUh1U39LU
+         7Sn+DqK7Rxio454w4JJKl8b+A53Hkg01MQjdftcTDH4bfxzik3yDcyjH43VAqpKGe62R
+         wb1fbwPOy8JnrAC/b+2/GVW4NY6qUl5LHHXX6+9lH3Uy+6JpdfgwGEQPM8gAsuuL/OFV
+         7xQPrwav0BIp2RrKRuOyMZB5eUhz22cpsRJWuNbJIbRa5pdp7ISg7Ghj/FWumgczb5SE
+         L62A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791857387; x=1792462187;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=53/8rFLtj+oKerssY2sv6i0RQan/DUVl/IJk1Ms9Yfc=;
-        b=dt6T/B8ZVpnqRKeKQW8qhHXIgD8Br1vppNQyg6rNih+hvXF2GGftDDiOOxqN31LDmf
-         cLZ9Xrm8AeoYu9GZ0qi5qRbcImecIcBt95D9+s1mC1XrhXHiDS89mI7/FLpZ9pkuwvVM
-         WwMU5wzyfRKB1oG5foN3WINazNIOHyGDjDl/K8PFzKrL4GpI0BVsCtjRjqPBpTCI+Ln/
-         wBwAoo6SS7cAQj2B0+fwWlCkHDBOUS3bcMOOs2h8t4wGnCFZ21QXbGlVwYs2ebxzAV0W
-         4bX+WdyAha4Z1mH4DYJLuWHh2CCJCJ6LUvGbvilgiri+6uYl0u0yFboYNFm/ZiRSLIkH
-         S1QQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw9GADVotzI2+bnuhgG2M4jaxC9ppOuIh2xI2x2FgHkBa6xyJa1ZItVfl4OKbx75hcuS9swuSuX9ADL2ZM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL8z+A64cbi7asIsvwTrpHsqmVZbJJZDwaBNCe5GOy20GE8Onp4
-	ijkTLTJg2T0B8hEP6X2jvHSMc1d0VMBNsEFAHYzAgyXApoQ4fkj9UiM9
-X-Gm-Gg: AYBFou31qM0t2uYXjZX2rkxYQ/AYPGIWRk3gZ+0yxR23M4PVum1/5ae52QReKz8WX7/
-	XxMlkYtlVmDD0FO3QlbT+ODp2g+h6nvDHFJqDDs+OkL3kkBDXuvQS3efgDG3NO88NycPx9Ulkmr
-	ClPW5/rRmujWHz1a01EeLsSmBSOfVgW1Ah0kdLLoaFIcVNhGOLrt2ePx58jVTBIljguYWZoD6rB
-	k59Cj5+nzr67sznBwO64VDwxPKjvMaB2vePNGi6zE+0m5pVy9Wrb0ibZEEqsQ0/pAHWWSmne+nc
-	0oY1itJoVrlM5P0GYMPmCRzo+mCd9lP4yGfwo9cU7rK+nqc3bDP0MpzEW1Ra3Osg8xd/kNeJ9PY
-	jEgRY7zddKOXNf4ml/uQCboxO53pZj/BlrXc/Dw0xk39i5/CIMQucYRAbD+xv6UNchhlkgmzUiW
-	ZMU/bdlUq47M1YoVoYY35yO44ukWFhyi6XoSrB+ydAra7eT8U90ECrjDmCrqpldmfcx0e3C9xci
-	WZYO3v7ov7Q
-X-Received: by 2002:a05:7300:d103:b0:35b:3181:80e9 with SMTP id 5a478bee46e88-35b31818605mr4170366eec.20.1791857386463;
-        Mon, 12 Oct 2026 19:09:46 -0700 (PDT)
-Received: from [127.0.1.1] ([2404:f801:8028:3:8056:897e:dae3:8e2e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35b19c6c7b4sm11643813eec.24.2026.10.12.19.09.43
+        d=1e100.net; s=20260707; t=1791857388; x=1792462188;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7yfQb/NIWEqP4dfQyyW1F46esS1vblLkgAQScX3XltE=;
+        b=ZAwhNL5dcCt/x/Ji0tA1c1JC65Hb+ziYx4csr5IW2sEydq8A0CsqzpFUl5EXkg/e1W
+         SvaEyFXZnHGUhMoaz03ZqSvqUQMbko0iyCb5/jVuFdmbjrnKDjIDcgaVCcj++1UaAcJr
+         AZzgmEgC9Olp9+DGnp2a8vCpihR2bHrFah7TYHZ5DBUjRJnvHpT3CylsBFNpkZ6H6rt0
+         lBMgpaSxWkUi2IQ5+Jcz/XNJXdu02DfCBmcENsA/SztnEDNokeFQLOUScOMmhSAWdI1e
+         77yoWKV47s+RTHy/IIfOLUwKHC5rIxvxnhTKXoz/R14Dojb/AeEiHMyKK16333AZFjQM
+         ftSQ==
+X-Gm-Message-State: AFq9FYKNmO18d6hQkypfIgTMTX32Aj74jD1Mo3b6nHFA6J7Be1XrsXvt
+	+GkpcALyj4VeKFDwOv4yd8zt+5w7HvTTaJRuIFdjSwE039q3x+DxfxJeCezDSQ==
+X-Gm-Gg: AYBFou3B0jtWd/Pe5HxthBo3+lEw2mdRkFbELdi7162GHZwGEjspQXGF27/wx7+BLnU
+	3EKIx5rEAkuszYESO6TKzw0TYybuOJw1U6FQEkkNTelRRwLvyEVocTpLt/ktaWqxHDzElQVk0Or
+	do5hBr7QHFIpFJYxgsTHPXMykkHmwscfMWdEdvFlqEe2AfSbf6hTqpcyWkfkj60sAVCijak1QQ8
+	Qkp6AiPsjkwDSbEXBIKr0TlvKZG5vAV7+MYwjWthYB3+wAyqtMBZzzzupPOIsyGUt3kNLS4lA+z
+	t/6iepAa84PTasUTgZd2k6HDLYDesnFpq4yHCVY2N7j21uYKyJsDZ/qahxFWyTEBeHGYa8lNjc/
+	MC88htv+IQHApHJ/m1CXoRu5ZF8bmXMOhuX+UrhwdJ2bcX95oqfYdV1FHCvzGB4EkWvgkn7CJwt
+	ONPo7sFr5Ck8983DIIH/OJrHYYUz0q2McPuxHUB4DMNTjFWST3NfEL9VeNJFvZGXQNsTrJGO+2U
+	JP+Yc1BJd8PAs7Ukz69a9JAhB0JFrela9EziHVnNf/ypqs9mKsxOlkU2bDLjRKQ9/cXj0dD5ul7
+	I0lkSdR/KA9prwY=
+X-Received: by 2002:a17:903:2a87:b0:2dd:c100:b2c5 with SMTP id d9443c01a7336-2e842ce4e2fmr99096335ad.48.1791857387543;
+        Mon, 12 Oct 2026 19:09:47 -0700 (PDT)
+Received: from f2fs-test.c.googlers.com.com (225.134.16.34.bc.googleusercontent.com. [34.16.134.225])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e90977deafsm4319505ad.68.2026.10.12.19.09.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 12 Oct 2026 19:09:46 -0700 (PDT)
-From: Subasri S <subasris1210@gmail.com>
-Date: Tue, 13 Oct 2026 07:39:40 +0530
-Subject: [PATCH RESEND] bcache: validate sb->keys before computing checksum
+From: Daeho Jeong <daeho43@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	kernel-team@android.com
+Cc: Daeho Jeong <daehojeong@google.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] f2fs: release a removed xattr node in roll-forward recovery
+Date: Tue, 13 Oct 2026 02:09:41 +0000
+Message-ID: <20261013020941.4025355-1-daeho43@gmail.com>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-bcache-super-v1-1-7bf7e6930eac@gmail.com>
-To: Coly Li <colyli@fygo.io>, Kent Overstreet <kent.overstreet@linux.dev>
-Cc: Kent Overstreet <koverstreet@google.com>, linux-bcache@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- syzbot+cb5b32abe226710cdd8a@syzkaller.appspotmail.com, 
- Subasri S <subasris1210@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791857383; l=2095;
- i=subasris1210@gmail.com; s=20260709; h=from:subject:message-id;
- bh=czPVgNXT2OgaXwjFbvuyK45RKjR2md9vJ04hkTHTkCE=;
- b=q+gXKToLe6oG7kwfZ0k9csc6qr5Y9W9z3QyJnSfj4hKUWIUfXYAE3pyWQL+OrlvARUkKCeDOC
- DjRaNK5jm19AD6Nn4FJuz51T7Tev3PCB3RjEinD0Pg2ltQR0O4kTOCl
-X-Developer-Key: i=subasris1210@gmail.com; a=ed25519;
- pk=6C4wavGFy/OsR8yQQKNWuDXoYPHp2L3sfgNfyzTruTk=
+Content-Transfer-Encoding: 8bit
 
-csum_set() checksums the superblock from just past the csum field up to
-&s->d[s->keys], so the length it hands to bch_crc64() comes straight off
-disk. d[] only has SB_JOURNAL_BUCKETS (256) entries, but keys is __le16
-and can be up to 65535, so a bogus value makes the crc walk far past the
-end of the 4k superblock buffer.
+From: Daeho Jeong <daehojeong@google.com>
 
-syzbot hit this with a superblock that has a valid offset and
-magic and garbage everywhere else:
+When xattrs shrink enough to fit in the inline xattr area,
+write_all_xattrs() truncates the xattr node and clears i_xattr_nid. If
+the file is then fsynced without a checkpoint, only the inode block is
+written, with i_xattr_nid of 0.
 
-BUG: KASAN: use-after-free in crc64_be_generic lib/crc/crc64-main.c:47 [inline]
-BUG: KASAN: use-after-free in crc64_be+0xb8/0xe8 lib/crc/crc64-main.c:68
-Read of size 1 at addr ffff0000dd543000 by task syz.0.33/4986
-Call trace:
- kasan_report+0x8c/0xc4 mm/kasan/report.c:595
- __asan_report_load1_noabort+0x20/0x2c mm/kasan/report_generic.c:378
- crc64_be_generic lib/crc/crc64-main.c:47 [inline]
- crc64_be+0xb8/0xe8 lib/crc/crc64-main.c:68
- bch_crc64 drivers/md/bcache/util.h:529 [inline]
- read_super drivers/md/bcache/super.c:208 [inline]
+Roll-forward recovery starts from the checkpointed inode, whose
+i_xattr_nid still points to the old xattr node.
+f2fs_recover_inline_xattr() copies only the inline xattr area, and
+f2fs_update_inode() writes the old i_xattr_nid back. So the inode keeps
+the stale xattr node:
 
-Add a bound check on sb->keys before calculating checksum.
+ - The node block is never released, and fsck reports "nonzero bytes in
+   xattr space after end of list".
+ - If the inline xattr list ends exactly at the end of the inline area,
+   its terminator is read from the stale node, and the removed xattrs
+   come back after recovery.
 
-Reported-by: syzbot+cb5b32abe226710cdd8a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=cb5b32abe226710cdd8a
-Tested-by: syzbot+cb5b32abe226710cdd8a@syzkaller.appspotmail.com
-Fixes: cafe56359144 ("bcache: A block layer cache")
-Signed-off-by: Subasri S <subasris1210@gmail.com>
+When the fsynced inode has no xattr node but the checkpointed one has,
+release the old xattr node in the same way as f2fs_recover_xattr_data().
+
+Fixes: 28cdce0459cc ("f2fs: recover inline xattr data in roll-forward process")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
 ---
- drivers/md/bcache/super.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ fs/f2fs/node.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
-index 97d9adb0bf96b..71929576ab89e 100644
---- a/drivers/md/bcache/super.c
-+++ b/drivers/md/bcache/super.c
-@@ -204,6 +204,10 @@ static const char *read_super(struct cache_sb *sb, struct block_device *bdev,
- 	if (memcmp(sb->magic, bcache_magic, 16))
- 		goto err;
- 
-+	err = "Too many journal buckets";
-+	if (sb->keys > SB_JOURNAL_BUCKETS)
-+		goto err;
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 55008f18afd..590fdedf9c2 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -2831,6 +2831,29 @@ int f2fs_recover_inline_xattr(struct inode *inode, struct f2fs_cached_block *ent
+ 	f2fs_cache_wait_writeback(ientry);
+ 	memcpy(dst_addr, src_addr, inline_size);
+ update_inode:
++	/*
++	 * The xattr node of the checkpoint was removed before fsync, e.g. the
++	 * xattrs became small enough to fit inline. Release it as well, or
++	 * the inode keeps pointing to the stale xattrs.
++	 */
++	if (!ri->i_xattr_nid && F2FS_I(inode)->i_xattr_nid) {
++		struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
++		struct node_info ni;
++		int err;
 +
- 	err = "Bad checksum";
- 	if (s->csum != csum_set(s))
- 		goto err;
-
----
-base-commit: 15ef2f78c49d20d53ec7c0f1c9b40b02e089f2d6
-change-id: 20260815-bcache-super-5e48eebfc4ad
-
-Best regards,
++		err = f2fs_get_node_info(sbi, F2FS_I(inode)->i_xattr_nid,
++								&ni, false);
++		if (err) {
++			f2fs_put_cache(ientry, true);
++			return err;
++		}
++
++		f2fs_invalidate_blocks(sbi, ni.blk_addr, 1);
++		dec_valid_node_count(sbi, inode, false);
++		set_node_addr(sbi, &ni, NULL_ADDR, false);
++		f2fs_i_xnid_write(inode, 0);
++	}
++
+ 	f2fs_update_inode(inode, ientry);
+ 	f2fs_put_cache(ientry, true);
+ 	return 0;
 -- 
-Subasri S <subasris1210@gmail.com>
+2.56.0.385.gd3acb90ef8-goog
 
