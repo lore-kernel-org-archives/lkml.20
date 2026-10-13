@@ -1,164 +1,121 @@
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9542352189E
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:14:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791911698; cv=none; b=Uzc7qsNTR7a0rPz27fHjJdgbz36JPxb+J3+JsGCd4cPiMpJB/JhyAz2O719Xr8ziXVPtS98h4PX5TGKSZ5wJ7kkqKoS0sHxGDe04kk7aKWs5NjB9XmVgvmXNclZypIANJcb0qZsojUVAOiEUuMspxKRYnQDnpS089x7eUavUzek=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791911698; c=relaxed/simple;
-	bh=1VrtYnlTdJeLZ/vqzNXn8sl/e4cmUeHNbbBwJRrJYdc=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=hOZ+92LjGfCGeYuyBGA/iyt4mb4KCdBeaiM5RgZzGz9jORvsCKqeV3OSXthY49YG+x1jfn85I3pbj86zbLfk2rDOkO9d1t0xPU8q/AHtxOdfIyJC/j/zR02mJK9SAVfFUk+GsWX4QmsE0GmDz2RyyJbgEsCHy1rIk+u5pEJd0kA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=gPvgT+z+; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=rGsHJy6/; arc=none smtp.client-ip=103.168.172.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7D533B6F8;
+	Tue, 13 Oct 2026 17:15:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791911742; cv=pass; b=tKYoH2RZHtqutz4yU666rW25ncOvJree9BI8oKQPalLseEA0XHrP2Xive699IMiCVXPhzwkuD5FlGNbBEph4QLE0F15wnhwV4l2bUNAzEJk2eL3pHDGAgybMCOxSZhXZqHU7ZnOPuFLkZuBln+SibbjOgyz0ht61B8NmrzPl2pg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791911742; c=relaxed/simple;
+	bh=ooJLDxSCJEcVNbGZxg1axPiit16FO3fuMRpP0KRlDPk=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=ZWMUmptZZsG/NWaC+tMmOCyUiW7StEuKjD+TiUJc2/sVn/EhfjeKinFEHzDcLVzPPm+q3GtGjutuYko5YHKg2scN5iEIq+rC+1miT1DAlu+t0qzH76ICAX94X6NHC7u5ixgp+KY1ErztXFSe3knlB5od3k1Ey5YGsHl+hlPp/h8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=L2snzBiw; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="gPvgT+z+";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="rGsHJy6/"
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 955DD1400178
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:14:55 -0400 (EDT)
-Received: from stl-imap-02 ([10.204.2.93])
-  by stl-compute-04.internal (MEProxy); Tue, 13 Oct 2026 13:14:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1791911695;
-	 x=1791998095; bh=3FlF1G+KcEHJIr2FkyRYgfz7rew4XJRTgG9g3R4uwfQ=; b=
-	gPvgT+z+tnbwqpme9IP6VOEbZe8A5neal5bG6snwTP1iEaP1FgvQBhQOwRyyCqeO
-	/ITt9Ig+maFNv78vpnJcromfQLDfsNI7yw2X9CjA8x2twVC5aM+iE77lJcwqd23Z
-	j0EyCa4ddKqIMhE5W0KHu7E+TiwvU1VDpzzTYgLMWgdJbbUM+LEYBTmyJ0hJSrR3
-	x3/HeTS3Z9QYLuU/UZDytppMnHJG5sqWcg0oa/OiFiKbAsthW3RaVFaLEkTS1uku
-	spiJM5VlVmTV6B5TDuRa64aehvIMLDJFqyb8n76TTjjwz4dufXPfeR95uPTg38r6
-	+QM2unZ2n1kgk556tp4s0A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791911695; x=
-	1791998095; bh=3FlF1G+KcEHJIr2FkyRYgfz7rew4XJRTgG9g3R4uwfQ=; b=r
-	GsHJy6/FQBWTknWtgAUmiVt3khwpd53dxZlhMELt+GKZHf6bmWEck5IkqJeVLv4W
-	0yTfWzwtl4zXPPkzgmilnphZ/3LbxtQLner4maaDZWc6j0S275ol21uw6f8DCo6+
-	ZKlxCP4g3HV9h+Xl2DIoaOSsx18W4ISPQ/TyMxUZF0hqmpJEzp43iXgKIKEYlHep
-	Q/X8bLtE937Xgs0lGN8e1ogC11H1fC0PJK5az9GiVKHPqzMLJfznBsY3ZoGpfq0y
-	HMZ2KkmcHbxNI1IdzCw5b4hyA0pWUo+2FsbiZmjMQ955f+ty8H2AorAqS+IRQKC5
-	bQYMOHlVYGzKEq9P7tsKg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=squebb.ca a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791911695; d=squebb.ca;
-	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:JDaUeC0Ps1dPIoZP5hPlXJ+kOhmlsVGtjNGqvZ94u/5/zPz
-	SA7kBR70wuITuH3zxMu5pbQfP414l+zSGcyVzy1Dk1B00nkNkWFV5ng+VuZOZh+J
-	FNAFkg5dUb401WemtmwDPGFDEQmdXeBE/DhCU+PY9rWPrtRWd7EYzXzQ9o0Reuwg
-	vXqqWaqLoWpr3odQBB71AM3wbDaC/R9eopUJhv2Fle7+ke6iTuN7ItxAeMM/JKs5
-	cPEmh68uZs2cVcrtT9guwvab1F7E2L2+afLYhTiVXd8c4MgRXrk04SNOW4etGQld
-	rVDKNOtO8TzW8q4hMKqQYqJEQL+9gOYJFSnpW8w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:aPRReYutXN5/7N2rtIluJR4+0127LIGfO7m9iYmipS0=:1VrtYnlTdJeLZ/vqzNXn8sl/e4cmUeHNbbBwJRrJYdc=;
-X-ME-Sender: <xms:DWfOar1AWY--CbfTUFqvGkF0vFJBEjlS47AhbjztQ2izhTFZUcW3Lw>
-    <xme:DWfOak4y9aiaAF7HVhobrlw3lEVQb3hkFCjrLW4JcZz5zZZgasW58exnc_OrT0iE2
-    oqmsbzf7vYDeNnOZfer-s4SdjHXg5T4ByA-3dcku6_c6P3ilrke9A>
-X-ME-Proxy-Cause: dmFkZTFDvlWDMhQ0CjBHlWCnSOgj4K1p645fC/lo9O/Lrk2iNb/TRDtuiTpvcQXBqmejT7
-    Ws+g8bLUfnvw1GfLltMVBLXaL+Oy70i/XpbQ4MQ6lxXxuNDAFaqkILzdE8MZONx3veSkBE
-    LJ+ag8142GRkeNQlf2VxcV0XDjfch/vBEVJ/CgGsmesIQpdUzoPIIhZMNQvapXozwoJZVg
-    vfIaJFOBZosQkAMcb6a6+ED7NGm1Nrgpm4csdNG3oYEmUC4AQhRoUJSv5l7ccf4loAXYRT
-    zG0T8B2KPLM572bD9deC++vGSMe+YgpdegvUWrzrLHWBLf3wE+cDkVSJz1VziYHSmICGpx
-    NdaLB0dI7FRRuC+mNAKak8T7RVWyiC9t4PR9EV8nFvyk/EhdFeq+4g8sAMeku0nv/xSiA7
-    JmkP3Pf1d82KR8YFPD9rJBlx8qadlks3GG0GfNvGLjTBH4uoR9af62sZWYCqX9jgdA+WGM
-    OKEJxKb+2ps+CmIQbR03lnY0YlYgYwcVabFJmIlXLYVqSjbxp4GiymAgfqIBIODWJ0XxVu
-    DPjTBNUgE4c9Ij5O5m0j7EVfUd2Mh0DwWfEUAwZPA+tWf2Vs+sd/fJGOg43Kec8a0puK7B
-    JacIQS74mjagbPhPdINUQZIjeXBKF71TRnJ9oWrkReZVxwIhdSCPhKl8vmZA
-X-ME-Proxy: <xmx:DWfOath9SUUIcqIHDJ0gQhlpo39u59GD1Cxppyim8SjP1biAMwGfyw>
-    <xmx:DWfOao6Lp_WCfhC64lVNqg5agUI-5csDX4r6YUhRUO5qUOv4DMDrnQ>
-    <xmx:DWfOalaSso2pPyZrfQq99338JYuT0pzZ3KdDkVe55EYDAu61T0GZCw>
-    <xmx:DWfOat68asUp4A4a9gf9b1henMhbwHqzjN01U8j3QA06zAHhLa1NLQ>
-    <xmx:D2fOapp_AkiCXhcGWxSVKDrTgj-Elyhgk7lK9r8u41IWDNxaH5AP9dS0>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id 8DCF32C0007C; Tue, 13 Oct 2026 13:14:53 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="L2snzBiw"
+ARC-Seal: i=1; a=rsa-sha256; t=1791911689; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=LEUbPmrFFXDtibm9yP4sUR8lKhChibHMPgsjkBJaZp0Bn8BJ0VM7qHrepUd0ZGcJ+4tGxVHTZGfiiJa9X7Hu+rAxX6sHhQxaUb0EhQ1o86YZT6dkqMM274ROs6NkUO5LuujbH9EtLpdsEmOnltkU/Lb8k6zQ62GMaBQ3FTnGLdU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791911689; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=ooJLDxSCJEcVNbGZxg1axPiit16FO3fuMRpP0KRlDPk=; 
+	b=SkHzPEO07ayq12RR3CekkEHgsVq5BMU3Nk5xwKaDeJipRDEhMnmPLGmY6yzbm928ZOSGqy7xMJu8Mt3Gh2YqMqlSaYdclNSVOk+a8by9VqEc2CvqXKlniNzbKyL79ilXu6DwTf3zdyLA+SwLZIwOlJUYzA9hxVW4yfaryFuQ7ck=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791911689;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=ooJLDxSCJEcVNbGZxg1axPiit16FO3fuMRpP0KRlDPk=;
+	b=L2snzBiwFRm2Un298G96nKH8dJJlCKmxondKGHWWovfCxW19Q9t75c2+DNbUymRi
+	lUFE/oGR6g17iOLdARIo4IlhGOeotfdA9y380MiIEFtE8t4DcC931MmVyL/ZOE9XHkq
+	FraynjClPudlBUeIfmeY8/sv9c3Lp08dzOuyZgPU=
+Received: by smtp.zohomail.com with SMTPS id 17919116876531023.9332615568634;
+	Tue, 13 Oct 2026 10:14:47 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-ThreadId: AFvlYNutXlQ3
-Date: Tue, 13 Oct 2026 13:14:33 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: "Huang Wei" <huangwei@kylinos.cn>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: 
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- linux-kernel@vger.kernel.org
-Message-Id: <b8cd4c7c-b7e7-4aab-8ba9-a16ab4ea345b@app.fastmail.com>
-In-Reply-To: <20261013070740.789934-1-huangwei@kylinos.cn>
-References: <20260918161539.2676619-1-huangwei@kylinos.cn>
- <20261013070740.789934-1-huangwei@kylinos.cn>
-Subject: Re: [PATCH] Revert "platform/x86: thinkpad_acpi: Add X9-14 Gen 1 to
- non-standard thermal/fan quirk tables"
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH v6 6/7] rust: clk: add `ExclusiveClk`
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20261013-clk-type-state-v6-6-a5e9977b3509@collabora.com>
+Date: Tue, 13 Oct 2026 14:14:28 -0300
+Cc: linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ linux-riscv@lists.infradead.org,
+ linux-pwm@vger.kernel.org,
+ linux-clk@vger.kernel.org,
+ rust-for-linux@vger.kernel.org,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Maurice Hieronymus <mhi@mailbox.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <FCA1D99F-AB7A-414E-AF99-BCCDF2B54FF3@collabora.com>
+References: <20261013-clk-type-state-v6-0-a5e9977b3509@collabora.com>
+ <20261013-clk-type-state-v6-6-a5e9977b3509@collabora.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ Drew Fustini <fustini@kernel.org>,
+ Guo Ren <guoren@kernel.org>,
+ Fu Wei <wefu@redhat.com>,
+ =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-ZohoMailClient: External
 
-Thanks Huang
 
-On Tue, Oct 13, 2026, at 3:07 AM, Huang Wei wrote:
-> This reverts commit bb0f3a5d6b9844b70ad696b9470762028f6d86ec.
->
-> Lenovo's firmware team has verified that the X9-14 Gen 1 uses EC
-> register offsets that are unique to this platform, rather than the
-> shared non-standard ECFW layout of the models already covered by the
-> quirk tables. Applying the generic quirk would make the driver read
-> the wrong registers and report bogus temperatures. Lenovo is working
-> on the correct solution based on an updated EC register specification.
->
 
-You're fast :) I was going to say we'll just post on top of your original patch now as it's been accepted. Didn't want to create extra work for you - but thanks for doing this.
-I'll let the team know to get moving on the proper fix - there's been some back and forth with the FW team on the details.
+> On 13 Oct 2026, at 14:07, Daniel Almeida =
+<daniel.almeida@collabora.com> wrote:
+>=20
+> Some drivers derive their configuration from a clock rate and cannot
+> tolerate the rate changing underneath them. In C, they claim rate
+> exclusivity with clk_rate_exclusive_get(), after which the clock
+> framework refuses rate changes from other consumers until
+> clk_rate_exclusive_put() is called.
+>=20
+> Add ExclusiveClk<T>, which takes a Clk<T> in any state and holds rate
+> exclusivity until it is dropped. ExclusiveClk::new() calls
+> clk_rate_exclusive_get(), and dropping the ExclusiveClk or calling
+> ExclusiveClk::into_inner() calls clk_rate_exclusive_put().
+> ExclusiveClk dereferences to the Clk<T>, so the rate can still be read
+> and changed through it. Since a Clk cannot be cloned, the ExclusiveClk
+> is the only handle to the consumer that holds the exclusivity.
+>=20
+> pwm-th1520 is the first user, in the next patch.
+>=20
+> Co-developed-by: Maurice Hieronymus <mhi@mailbox.org>
+> Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
 
-Thanks
-Mark
+Maurice, I changed a few things in the design, so I took ownership with
+your co-developed-by tag.
 
-> Link: 
-> https://lore.kernel.org/all/000acb24-7aef-4718-89ea-0dffd1ab34d9@app.fastmail.com/
-> Signed-off-by: Huang Wei <huangwei@kylinos.cn>
-> ---
->  drivers/platform/x86/lenovo/thinkpad_acpi.c | 2 --
->  1 file changed, 2 deletions(-)
->
-> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c 
-> b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> index 498139ac8f4b..6dd7c28fc0db 100644
-> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> @@ -6021,7 +6021,6 @@ static const struct tpacpi_quirk 
-> thermal_quirk_table[] __initconst = {
->  	TPACPI_Q_LNV3('R', '0', 'T', true),	/* 11e Gen5 GL*/
->  	TPACPI_Q_LNV3('R', '1', 'D', true),	/* 11e Gen5 GL-R*/
->  	TPACPI_Q_LNV3('R', '0', 'V', true),	/* 11e Gen5 KL-Y*/
-> -	TPACPI_Q_LNV3('N', '4', 'D', true),	/* X9-14 Gen 1 */
->  };
->
->  static enum thermal_access_mode thermal_read_mode;
-> @@ -8846,7 +8845,6 @@ static const struct tpacpi_quirk 
-> fan_quirk_table[] __initconst = {
->  	TPACPI_Q_LNV3('R', '0', 'T', TPACPI_FAN_NS),	/* 11e Gen5 GL */
->  	TPACPI_Q_LNV3('R', '1', 'D', TPACPI_FAN_NS),	/* 11e Gen5 GL-R */
->  	TPACPI_Q_LNV3('R', '0', 'V', TPACPI_FAN_NS),	/* 11e Gen5 KL-Y */
-> -	TPACPI_Q_LNV3('N', '4', 'D', TPACPI_FAN_NS),	/* X9-14 Gen 1 */
->  	TPACPI_Q_LNV('H', '3', TPACPI_FAN_NS),		/* Edge E330 */
->  	TPACPI_Q_LNV3('N', '1', 'O', TPACPI_FAN_NOFAN),	/* X1 Tablet (2nd 
-> gen) */
->  	TPACPI_Q_LNV3('R', '0', 'Q', TPACPI_FAN_DECRPM),/* L480 */
->
-> --
-> 2.25.1
+Let me know if that works for you, or what you would rather see instead.
+
+=E2=80=94 Daniel=
