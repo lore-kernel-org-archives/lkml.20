@@ -1,155 +1,160 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91EC251D52E
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:07:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D7AB5208C0;
+	Tue, 13 Oct 2026 17:07:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791911277; cv=none; b=n1106RB4mFt4I7tXCboxg1zm9AZalcUdmto56/AOKBkFgf4aJUnuq67VsinyjiTjfzkfXA4bAKYglubACfxHbz8XXnFn3LAmAo25GwuDySgusUD5Rp/GUdyMgGVVckd19nKtKE2NrtKgIQnQrfdotgloAh/bie4VB8syYsQmXOw=
+	t=1791911279; cv=none; b=makb3jPrsBbTVxuqalT2JvBOzpcfisVsbmmKDfA5MMsZ7uQMNP3MOsqmfLArrPWF1YtgR5vUtmZ1VZpUY2ORPRf8R/GYptvT3pUr02sq6R/plaRw6CUr8j5yvuWcktKdbhWeEg3G2ByJrqWor6ZVgqrSokS9Dv/eCUjB+L9YAxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791911277; c=relaxed/simple;
-	bh=rTuBmNyR0XGlPFPwSHO2WH1nLAjzRa3ub5EVcsQW5aY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ColsS8Unz2M0Cy5EjlQj0Kiv0/YZUov4wCJjY5nh96PSFvlNFTblce2dPoImR6xsUu6rrGPrYxCCGN96/k+alZoul67T3/3gOQPNyLPOOfjqPfnD8w+8sIwme/JDn2exykK4CDhMr405IV+vmgaVUOMseqmZsrr43a1QjMi8zoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dzVk6HIw; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791911279; c=relaxed/simple;
+	bh=2Yf2kuxeF3w3l7ajLNK6Pb5smbheplgY6qKYsuxMY0k=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=dfEQnXiB+glQhZrRlx6TF1/vATplzoCJ8XSnUEkaFxzyLABvqpTH/Y52pI9Ok+BEXcKhw7fuJ+XOuhn3mXtS9dAT31GnHHpkbwVMEh2zOk0ow2mSl4CV6ONpaWgBU9sqI+NPJDj/gnTylrWcqAVLkJ8P4ejXqeZ5LcTd9OASfik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=flPUt9hX; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dzVk6HIw"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso42045425e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:07:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791911273; x=1792516073; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gdq9VK8+Wh/mRy8KAkG8P/JTclrVTJdKPo9KBX5A3pI=;
-        b=dzVk6HIw0T3/iAzjQ3p8uI1GP9o167LUyDuHnnxwurcPbc+pxX3L/WW0QpN4XDgfQf
-         evJKp+bcxa1rSHfs9fOLxh940q4GNrsZIa/XfYb5NvV+RRDIq2Q3UZCiFHM0HKnWeAgH
-         73IJ6UgEnx4XuhoRe3fvu3NObnpuCbzfNDqFsI/qw8qfI5fEq4Teq103MK2GNYBLhof1
-         jyK09JiJhKepNmZUZr08ZSuMvzvbl/MJ+CZugtXAzP+InRfFKtruAUuu9PQ1+HTCTwHX
-         DC0KFpHWdoyNlnkRxs1jxveOg2d05HNqftqTPX0CX7Jj+sDohXT8A3ia+G6SLbOLK9wE
-         2kLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791911273; x=1792516073;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gdq9VK8+Wh/mRy8KAkG8P/JTclrVTJdKPo9KBX5A3pI=;
-        b=Ivky8sM8J4ehTibGgLQhoJdOGeLNQasFkw+8RwM0I//GWhz3uHgB4ynOO4+1VbTa25
-         XaPtE8MWboVobdcMA7yxEWClHxi6htGpAxV1zOOq1IhG7/GCDTs9FTTRMQMrw/OPd79z
-         av4KsvuHviG9owi9U1LvR/26cgRD9t8y67LF2KIL6vLdte6ZZ590bJscm9ToB6qp4eZz
-         oihDVLjzb7aqrTkn3jv1DOZXJIwCXOi94ywVFWONlRG19TiRdZ4qtoeeZmTsbRhnEllT
-         x+rK6CwAXWnUUBOSj7rikMmt2fVLVqCu2b32/3x2y3pH0tESqwmd99/8YavevTUfvEfD
-         RiCw==
-X-Forwarded-Encrypted: i=1; AKwUvByJyPCDd/BDPYtTjITEJ81qHedAQd07jbE/C1H08RdJq6fQP2MLbpFcufDRi9HP4U4h+W6pn129ZhRyCms=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJF1nCv0aezwNl1Ew9ECVYlOP+h0f9m7vVAElDmEpYUeF9GYWBG
-	RuRixR8O4zoy9Vng8MDpwv0IHbXYkig2bH8B1EtQaXCXiuH8QhRQEizd
-X-Gm-Gg: AYBFou3hLxi8c7qJ+AjKt1053pyX6Z8wnhF/gkRodSnrawxq0vt0zy0iky+eWh8H8s0
-	t8rIMv+2vCVEdH7OQb4FqEmbmmuK5YiF+ZYqSRIkBgBFRYKlVGLH/kdFB2YAbjn/CRzL/24I4sz
-	s8/qMm6yKIcwxYxxWZP42+bA6Vx3mTMmgAeMJKnRKkBySeUiNqKw5eW5d6uBDlVmy0kecQXiHKJ
-	MMyTKZ94vDE3TY+zJlTX9EVL+D+iew4czLUjGmFaTkLkHwfugb/lKEutKgeoCiE7RbZ+ezugDSC
-	B3hDvLbBwjWZlx13Vce/BrZOc88rjFwY+j/OWarYuUThJRayj6Ef3DQ0SPacs63AvF3FNa9O4xX
-	fc8zJu5Xdp4w2waReSD9KeLGRZ555HF2u8tpQSjNhCeFwqENHF1KHPtMLlIH1onGJgoePfn2z/8
-	nxzoCP5zRM0DP9KOdZpmeJDxNj31lgJWI5RwIK4KiqrQEiP0hkcjbKoJtWtjIqM+cAFA==
-X-Received: by 2002:a05:600c:3512:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-4a18e4913c3mr228195185e9.8.1791911272543;
-        Tue, 13 Oct 2026 10:07:52 -0700 (PDT)
-Received: from dev1.kernelcare.com ([2a01:4f8:172:1c85::2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf1358asm379560935e9.4.2026.10.13.10.07.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 10:07:51 -0700 (PDT)
-From: Andrey Misiurov <andrey.misyrov@gmail.com>
-To: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	Andrey Misiurov <andrey.misyrov@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] xen/gntdev: fix deadlock between map ioctl and mmap
-Date: Tue, 13 Oct 2026 19:07:45 +0200
-Message-ID: <20261013170745.583279-1-andrey.misyrov@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="flPUt9hX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=9HsSGoCb0zC7j7noIiWw0sISs0KaEMj1mlqkuxUg4h8=; t=1791911277;
+	x=1792516077; b=flPUt9hXvtFcaCsyUwFU0pkwsDtCX17U3V4lCMBkQli1ab9H9DNqoixbCW54j
+	clgy6Z6t0348zrRSkknZWho+jMWf7XZgBYbigx3M9wrNc42ZyVb/oTi6GtjZthGA0GQAqDeUsUImq
+	DBzahYoUjvOGw65Fr8sCRlWG0wvZrspXlqHlMru0GxfJJiqEcjcOJGoCs6wsy7+EFffd4UpOrEZnJ
+	6TTWd/N3AwCZ3S1cEBB45J3YJVxgVwFpCpQU39CW1Tq2Rc42oQ1JpgbxLGV9RhT/LPm4eAMKWYr6h
+	JTpf6YHVvimYu3aH2LDghRnqChf4TTGGN5np4jh4aX3UU0mLWA==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xGfyl-00000000r3y-29c9; Tue, 13 Oct 2026 19:07:55 +0200
+Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=[192.168.178.61])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xGfyl-00000000I3b-1DA6; Tue, 13 Oct 2026 19:07:55 +0200
+Message-ID: <a7affa82f2d658dc7bc0d5478ed21cd4e9faedbe.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH v2] usb: r8a66597-hcd: fix buffer overflow on odd-length
+ FIFO reads
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Karl Mehltretter <kmehltretter@gmail.com>, Greg Kroah-Hartman
+	 <gregkh@linuxfoundation.org>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>, linux-usb@vger.kernel.org, 
+	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 13 Oct 2026 19:07:54 +0200
+In-Reply-To: <20261005212823.55737-1-kmehltretter@gmail.com>
+References: <20261005212823.55737-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-Commit 45ca1afe2fd1 ("xen/gntdev: fix error handling in ioctl") moved
-copy_to_user() in gntdev_ioctl_map_grant_ref() under priv->lock. A
-fault in copy_to_user() takes mmap_lock, while gntdev_mmap() is called
-with mmap_lock held and takes priv->lock:
+Hi Greg,
 
-  ioctl thread                        mmap thread
-  mutex_lock(&priv->lock)
-                                      mmap_write_lock(mm)
-                                      gntdev_mmap()
-                                        mutex_lock(&priv->lock)
-  copy_to_user() faults
-    mmap_read_lock(mm)
+On Mon, 2026-10-05 at 23:28 +0200, Karl Mehltretter wrote:
+> An external R8A66597 (pdata->on_chip is not set) is read through a 16-bit
+> FIFO port. r8a66597_read_fifo() rounds the byte count up to whole words
+> and passes that word count to ioread16_rep(), which stores two bytes for
+> every word. For an odd byte count the last word puts one byte more into
+> the buffer than packet_read() asked for. When the data ends at the end of
+> the URB's transfer buffer, that byte is written behind the buffer.
+>=20
+> Enumerating a device is enough to trigger it. The USB core reads the
+> configuration descriptor header into a 9-byte kmalloc() buffer and the
+> driver stores 10 bytes. An SH7785LCR board booted with slub_debug=3DFZPU
+> reports:
+>=20
+>   [kmalloc Redzone overwritten] 0x820c4229-0x820c4229 @offset=3D553. Firs=
+t byte 0x9 instead of 0xcc
+>   BUG kmalloc-32 (Not tainted): Object corrupt
+>   Allocated in usb_get_configuration+0x12c/0x11d8 age=3D51 cpu=3D0 pid=3D=
+10
+>   Object   820c4220: 09 02 20 00 01 01 00 80 fa 09 cc cc cc cc cc cc
+>=20
+> Odd-sized HID report descriptors are overrun in the same way. Without
+> slab debugging the byte ends up in the unused tail of a kmalloc() object.
+> A transfer buffer that is embedded in a larger object has the byte after
+> it overwritten.
+>=20
+> Section 2.8.5 of the R8A66597 datasheet tells software to discard the
+> excess byte of the last 16-bit FIFO read when DTLN is odd. Read only the
+> whole words into the buffer. Read the last word into a temporary and
+> store only its first byte. Use ioread16_rep() for that word as well, so
+> that the byte is taken in the same byte order as the words before it.
+>=20
+> Fixes: 5d3043586db4 ("USB: r8a66597-hcd: host controller driver for R8A66=
+597")
+> Cc: stable@vger.kernel.org
+> Reported-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+> Closes: https://lore.kernel.org/linux-sh/3bd32eaf159db61ed1d423e1d52a869b=
+3689c682.camel@physik.fu-berlin.de/
+> Tested-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+>=20
+> v2:
+> - Simplify the handling of the last byte as suggested by Geert: no count
+>   variable, len & 1, and a plain byte store instead of a 1-byte memcpy().
+> - Reword the commit message and add the SLUB report from Adrian's board.
+> - Add Adrian's Tested-by. It was given for v1. The FIFO accesses are the
+>   same in v2, only the copy of the last byte changed.
+>=20
+> v1: https://lore.kernel.org/r/20261002213225.27834-1-kmehltretter@gmail.c=
+om/
+>=20
+> Adrian tested v1 on an SH7785LCR board. I tested v2 on a custom QEMU
+> model of the board with 32-bit and 29-bit kernels and slub_debug=3DFZPU.
+> Both report the overflow without the patch and not with it.
+>=20
+>  drivers/usb/host/r8a66597.h | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/usb/host/r8a66597.h b/drivers/usb/host/r8a66597.h
+> --- a/drivers/usb/host/r8a66597.h
+> +++ b/drivers/usb/host/r8a66597.h
+> @@ -179,8 +179,15 @@ static inline void r8a66597_read_fifo(struct r8a6659=
+7 *r8a66597,
+>  			       len & 0x03);
+>  		}
+>  	} else {
+> -		len =3D (len + 1) / 2;
+> -		ioread16_rep(fifoaddr, buf, len);
+> +		ioread16_rep(fifoaddr, buf, len / 2);
+> +
+> +		if (len & 1) {
+> +			u16 tmp;
+> +
+> +			/* Keep the byte order of the string read above. */
+> +			ioread16_rep(fifoaddr, &tmp, 1);
+> +			((u8 *)buf)[len - 1] =3D *(u8 *)&tmp;
+> +		}
+>  	}
+>  }
+> =20
 
-Reproduced on Debian 6.12.111 in a Xen guest, with the ioctl argument
-on a MAP_PRIVATE file page that has not been written yet. sysrq-w:
+Are you going to pick this up through your tree or shall I pick this up thr=
+ough
+the sh-linux tree?
 
-  task:repro state:D stack:0 pid:4479 tgid:4477 ppid:1 flags:0x00000000
-   rwsem_down_read_slowpath+0x25c/0x480
-   down_read_killable+0x48/0xc0
-   lock_mm_and_find_vma+0x96/0x250
-   do_user_addr_fault+0x12d/0x620
-   exc_page_fault+0x7e/0x180
-   asm_exc_page_fault+0x26/0x30
-   _copy_to_user+0x36/0x50
-   gntdev_ioctl+0x3b9/0xa00 [xen_gntdev]
-   __x64_sys_ioctl+0x97/0xc0
-  task:repro state:D stack:0 pid:4480 tgid:4477 ppid:1 flags:0x00000000
-   __mutex_lock.constprop.0+0x41b/0x720
-   gntdev_mmap+0x4d/0x330 [xen_gntdev]
-   __mmap_region+0x697/0xb10
-   mmap_region+0x78/0xa0
-   do_mmap+0x45d/0x630
-   vm_mmap_pgoff+0xf8/0x1c0
+Thanks,
+Adrian
 
-Drop priv->lock before copy_to_user() again. On failure, re-take it
-and remove the map by index, as IOCTL_GNTDEV_UNMAP_GRANT_REF does,
-since another thread may have unmapped it meanwhile.
-
-Fixes: 45ca1afe2fd1 ("xen/gntdev: fix error handling in ioctl")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
----
- drivers/xen/gntdev.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-index b71f5ba..1ad0220 100644
---- a/drivers/xen/gntdev.c
-+++ b/drivers/xen/gntdev.c
-@@ -670,15 +670,19 @@ static long gntdev_ioctl_map_grant_ref(struct gntdev_priv *priv,
- 	mutex_lock(&priv->lock);
- 	gntdev_add_map(priv, map);
- 	op.index = map->index << PAGE_SHIFT;
-+	mutex_unlock(&priv->lock);
- 
- 	if (copy_to_user(u, &op, sizeof(op)) != 0) {
--		list_del(&map->next);
-+		mutex_lock(&priv->lock);
-+		map = gntdev_find_map_index(priv, op.index >> PAGE_SHIFT,
-+					    op.count);
-+		if (map)
-+			list_del(&map->next);
- 		mutex_unlock(&priv->lock);
- 		gntdev_put_map(priv, map);
- 		return -EFAULT;
- 	}
- 
--	mutex_unlock(&priv->lock);
- 	return 0;
- }
- 
-
-base-commit: 61b6d1df1d6234c38a6ea7e4f58e7da035ef6ab4
--- 
-2.43.7
-
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
