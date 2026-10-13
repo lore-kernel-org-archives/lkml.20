@@ -1,145 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CAF852CCEC
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:11:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791915092; cv=none; b=oWE4sTxhXeV9FDS+HIjr/VF/D2FihnCtO1Wwt1rvHekDRJmg0AIG4WZsI8rMW127ohDgG0dhMocY4zu6f315vL4L8ewZTFzO8lks4CPQ11zd6BIoW+pvLUSnEH1QeduLX5Eb1NDWzZrHVHgEq3ocb/oEPvu/NIPdmElhAPZcCI0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791915092; c=relaxed/simple;
-	bh=kv86hYmMBQbE6TJlkSIrAxs7peU0eDUoWLJiPP1cayY=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79EE252FE46
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:11:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791915097; cv=pass; b=Lu/W9nX7Z5CB9MubGl4QF82Mxnn1nzy2/BcIg8s/lAJW2EDJf+fsxQhXRCHzW6b1Ye0av26EMViMIoZPR24CzZmEnjIExR9mw2bSKFjXGDDINSA83AdnHw2MMQxd4k0fplaQbUF0nJySk+4Ujw39qdgCwDqTrR5BNWgycyyrSQM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791915097; c=relaxed/simple;
+	bh=Nx/Ht7WbeWj9w+mc12q4UZvwSJdIOI1LylC3CvF+snE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GVKx6juEzPUfv6e9QgCE1sF/2Wz4JuaT0obSA8OET7JmXWTg/C1NNLU65ErzCtywqOvQJZwQQsUPMn44LL8um2OFOL6RpWXLBYja7jCMBhP8u/AOaBm6lOHC4mC54Y+tcnH43tOhlD5AunFJWTCQSpmS+AJvvbBCh25aHUS47rQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gJjPYU4X; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=gFuNoLuuSOkx8KSkHaXgF/lFfAQm5iydWZeCmNV0ctbibIoMbrEBJvI+VR1qEboGZc3wJVeAn2nJOhv/zVFL63TyMlZP36Bd/qYJjQBXsYID++G0ykEBDQ+KgecUrBYu9kF5ClvlS1giwtwH3N8sfryrGyawGgUfI3Il7XCTM3E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FWkVCbBK; arc=pass smtp.client-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gJjPYU4X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBA5D1F000FF
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:11:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791915086;
-	bh=4OjR8fAbEV1UOCWAVOuvTsWKBC+1E/b3SdLW0QHtZAI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=gJjPYU4XkvKCROILlLtY5tlRdwhWjqjMgP4JXpxehr0p+1eA52vm6bnNOiDPEPkyP
-	 ysEU/jeL0S0xjdZOhtwsvCfA8ROOFpEqfKVr0n6c6ST2ZhwNi8LpSKFFOjWK5K4hFp
-	 gnVKCT3/3CmwHPRs9diP7ci9voap7K8jlQDS4vMe1zztoA7GWMKw3pT6jBLJPNoHBz
-	 YCPenXESMk0WSbA5a5bvXM0jRhl9oFXyDrUbRENkGv1dn6nK32qdbncvPGn3q6dimn
-	 4MworbUIF4YKWjR9h9Q1bKUYUGJ5slVRQiVFSI+NKNcr4PuZlxtKUdgVabtHsbEqTQ
-	 QVzwPl15cMVTw==
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2e8e738ae0so568750666b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:11:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxqzbLpRmzqnsKshjIntFgOTE7bFwUe/iMuWXIkyWmjUq1oCuNxADqZl72YJv8a1X72DbD6q6M+lhtiiA4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4ngiI7lVqK6KPLyh3NZ5PMlKKsyoBFQb4H8ha0DWiUYbQr42O
-	4tArWswMZQVrUzAWE7WS46KjveX/Vp9Rj0TwpZDd9GEtCJKsTmpq8U+pJXLur4JTUoJqTfmX8Yz
-	AvoY++PRWZumiCPbDa3f1Tyn2TicWF/U=
-X-Received: by 2002:a17:907:3f97:b0:c37:aae1:c6d6 with SMTP id
- a640c23a62f3a-c37aae1e8a2mr135061066b.18.1791915085716; Tue, 13 Oct 2026
- 11:11:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FWkVCbBK"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3aae898c0afso1863931fa.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:11:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791915092; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oat+IK7uvjQvNozDShVOdlu3UfNlV2vMDgwnJrOBWUP9uNPXbMKKXVBscKVLl6nY8w
+         Sye+IQt6ZxGvln/xLPKVhfb5dKcjh+XdX2y2WPOUA42hqZECsMExXK7OLNQqrgxbT1s2
+         v1tXn1nJw+kiJ4+BTAg1vUhSGgs7el+sR8+3pRkfOfZHj95qVE08inJKww0dIKx2KDwK
+         u5Sp+Qw1StdYGTTRPkknrhd7veB1/EgaayieTdLM3U+NlqbfxHXYnnU2lCBjC7c9Fsf6
+         kim0YB4FXLMndVRHDO34A/vpHrWkB+uZnfPuAur1hmsNADp5ceojkYY3XEi1ZfG5aHQP
+         PjIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Tc1zp/jsWqF51CNIfkZYVDsfG54HgePDR513djZlTcM=;
+        fh=Mhk8oJ/kgntQVialMN5jxmQtxvNjGJQx7IhiB0f4+/8=;
+        b=E1fXVbtsyvKLjLkVwHYaT8YugauMvW6bj1aeuKEuHsYY2Vsw5Bjh1DIDLzPCNKekVL
+         gBfYtjGHNDOVWr0mBmNrW9nIaKwYVyoDjQ9noJWL2KYJBQKbbCba+X4oBGM5lBXLswC8
+         O2SejL21E7mbkvYL17tJU0pTpYbNw7upOo1RYCw+L+3f9gH44+tfYr8W7U458Bw2pDBN
+         bV22r+0bWrKtcgyEcdbMe/UC38Y4VsP/D74BdMxqoJgZfy3ssFaWWggF30uanJcqIyFx
+         sx4XuRpKqQ40bFX4++jlpkwKDkz96wQxZHEWkP+Blp2rBFK3uvP+ek9LMURwJ+uRBv9d
+         joGA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791915092; x=1792519892; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Tc1zp/jsWqF51CNIfkZYVDsfG54HgePDR513djZlTcM=;
+        b=FWkVCbBK0jrN4ebBhcwZtp8DtYvZUna0hRejCVerpEUup2Jv545NTBW+Ipzdb3vXoM
+         zUOHjJyWMiudlMCV03m3RENYNIS3lQv3OcpoBrAd7sji8h4OoycI3EGNIFzkylb1LvnQ
+         SFCnwdKfYBqjphih88JDBP+h2uGOuEfQaxfHTM5v2/fe/yrHo3mIH0kHAp6o9i7FqyUw
+         EMfsuKu8k+1b8Wor7PSl83Vsxgq1mdzZJheoh+paZN6el0dsGvYKa45jg3K9zIturQ4n
+         wGdF68Jxfe4nlNiFElnBKn5CAJV91LF/KTZiC3keQLEMVm2AaCvQcZIN4DjLT8KMenMj
+         bHGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791915092; x=1792519892;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Tc1zp/jsWqF51CNIfkZYVDsfG54HgePDR513djZlTcM=;
+        b=d2KkSNn6RZ3ebu6oIq1UITu4u1PfwSsTTaau56qbDfJIxGTic2vSsJ5jUNX09osCwh
+         HESv54qQfu2SZiHG59BcdQ/TuropIOLvnjRvT2K9eDQu5JaG3mQZejAeArEHpBkM2hU4
+         M4sAAOVEBzM9MpqMHqeSZNt8/QZAzTnpM7Uvck00KaWo+5bHdHmoGYoJI1uZ1+FayT9K
+         7T8qfAbFvpSzxFssL6WysJALWpTNOZZ84SinmE0Q/b29pOW5UMgRoOwZGBqk8K+qGAME
+         mZVCFoym3bJlKMjsDhTUqO9VIvb6Jj+5aNpSR9c2Q4U5XwCc6dkHKTEZ6govr5w4okEp
+         cSwg==
+X-Forwarded-Encrypted: i=1; AKwUvBw0M7R7PcTNT9pxZTXKRbsR++AudFp/sihSlCLJXP5Z/KLk8ij9aaCbalEUOvsTWLv06hlKcuGcJINA76g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL2SvNJEKLD5FFEAi8AhvOuJusEFaUhywYeL8+1+orxGyexqfCK
+	LmsZhpekS+tBBA1fxYt4WD7In4ARJAo29yXuaMDChsPiYo7c84N+8cTZftBoLoboIsaK6UH2izg
+	71HQkSd59Nne6DcSDbdi7Xe+O2BPclBw=
+X-Gm-Gg: AYBFou0pLM9ssBWNrnhtSLb7usGOkE0m6Cxss8SPSTTCw8wugWg7Oxl4zq4Y/gAoLjM
+	Dcr970fX4u0ZmSIutaZanOBEHr18nXDUebGDhc0zl6Y3syRVDVZ6gGmoNE7fXJjVSOK2aFEHFba
+	bF64vfM+c3Y7BR9k7ae57QM7FVjZcjB6Wf1Xk0BwAgaTOlqVXqCEEjPObXm6iy5ia2ZN6sQN+fO
+	G5Q+D0RtBHsbjeykih7Qt7C5avU94Z9ub9M7MFC2UTsjeUr9jnMyq8UzC5oymahC+ckkIYJRLwl
+	Pd+5Bbp4I/S9sETiBTGAqsqBSAeamumo3Jzrn0D/Grr046SMYG0qNrau
+X-Received: by 2002:a05:651c:1542:b0:3a6:692d:b7ed with SMTP id
+ 38308e7fff4ca-3a9c539343dmr36125771fa.20.1791915092239; Tue, 13 Oct 2026
+ 11:11:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012224736.2306637-1-yosry@kernel.org> <CALMp9eT6eJSDaJVJ_1mrn8-sP6F88q-OcGrEgUWy-YpAkuA9vg@mail.gmail.com>
- <CAO9r8zMsih9vRJFWgbE=bgWAqBzwPO3KJiAyBVA_hJBgjPp6mQ@mail.gmail.com> <CALMp9eRRb_8vbm3YM9dw7XbDsnjQ1wRYK10oNq4JAgkUZdpFLg@mail.gmail.com>
-In-Reply-To: <CALMp9eRRb_8vbm3YM9dw7XbDsnjQ1wRYK10oNq4JAgkUZdpFLg@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Tue, 13 Oct 2026 11:11:14 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMBxWT=A7+tFUTtDiTu0GNodQEiGw+EKRLesQghk9aBSg@mail.gmail.com>
-X-Gm-Features: AclHuK88B6hXdxvdCMwDNqS1gVFH0NICZdcesTbWDjUVLSw6ju3r10N_RvKj5UQ
-Message-ID: <CAO9r8zMBxWT=A7+tFUTtDiTu0GNodQEiGw+EKRLesQghk9aBSg@mail.gmail.com>
-Subject: Re: [PATCH] KVM: SVM: Update tracked pCPU on pCPU switch
-To: Jim Mattson <jmattson@google.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Stefan Teodorescu <fane@google.com>
+References: <cover.1781622998.git.geraldogabriel@gmail.com> <179189927768.12828.5970294502454132706.b4-ty@b4>
+In-Reply-To: <179189927768.12828.5970294502454132706.b4-ty@b4>
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+Date: Tue, 13 Oct 2026 15:11:20 -0300
+X-Gm-Features: AclHuK9xQdtHZz7WlG4Kf2RJqiboP4WJrJZBrkr8E7ZdVfvIdA54iitY7tUbJH4
+Message-ID: <CAEsQvctXV4zga6Rn+6=Q1zmEmMjDV-83VTWP-b2gWy4Bfdz_1Q@mail.gmail.com>
+Subject: Re: [PATCH v7 0/3] PCI: rockchip: 5.0 GT/s speed discouraged by Rockchip
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Shawn Lin <shawn.lin@rock-chips.com>, Dragan Simic <dsimic@manjaro.org>, 
+	linux-rockchip@lists.infradead.org, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 10:55=E2=80=AFAM Jim Mattson <jmattson@google.com> =
-wrote:
->
-> On Tue, Oct 13, 2026 at 7:49=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wr=
-ote:
-> >
-> > On Mon, Oct 12, 2026 at 4:58=E2=80=AFPM Jim Mattson <jmattson@google.co=
-m> wrote:
-> > >
-> > > On Mon, Oct 12, 2026 at 3:47=E2=80=AFPM Yosry Ahmed <yosry@kernel.org=
-> wrote:
-> [ ... ]
-> > > > @@ -3892,13 +3893,22 @@ static int pre_svm_run(struct kvm_vcpu *vcp=
-u)
-> > > >          * - The new VMCB does not detect a pCPU change and runs on=
- pCPU A with
-> > > >          *   the new ASID allocated on pCPU B, which is potentially=
- used by
-> > > >          *   another vCPU/VM.
-> > > > +        *
-> > > > +        * Note that dirtying both VMCBs is not strictly needed, bu=
-t the per-CPU
-> > > > +        * tracking is shared for both ASID and clean bits, and tha=
-t CPU must
-> > > > +        * match where the ASID was allocated.
-> > >
-> > > Is dirtying both VMCBs not strictly needed?
-> > >
-> > > Per APM vol. 2 (rev. 3.45), section 15.15.2:
-> > >
-> > > > The hypervisor must clear the entire VMCB [Clean] field to 0 for a =
-guest, under the following circumstances:
-> > > > ...
-> > > >  - The hypervisor executes the guest on a different CPU core than o=
-ne used the last time that guest was executed.
-> > > > ...
-> > > > Failure to clear the VMCB Clean bits to zero in these cases may res=
-ult in undefined behavior.
-> > >
-> > > Suppose vmcb02 runs on pCPU A, migrates to (and runs on) pCPU B, and
-> > > then migrates back to pCPU A with some clean bits set. At the next
-> > > VMRUN, pCPU A will happily load stale state for anything marked clean=
-.
-> > >
-> > > At some point before that VMRUN, something has to clear the clean bit=
-s!
-> >
-> > Dirtying both VMCBs is not needed in all cases covered with the new
-> > code here. IIUC, clean bits are VMCB-specific, unlike the ASID here
-> > which is shared.
-> >
-> > Because ASID is shared, we have to reset the ASID generation for both
-> > VMCBs when a new ASID is allocated through either, and update the cpu
-> > variable tracking which pCPU allocated that ASID. Since that cpu
-> > variable is also shared for tracking which pCPU ran the VMCB last, we
-> > also need to clear the clean bits every time we updated. IOW, if we
-> > had two variables, asid_cpu and vmcb_dirty_cpu, we would need to
-> > update asid_cpu on pCPU migration for both VMCBs, but only update
-> > vmcb_run_cpu for the current VMCB.
-> >
-> > This is all annoying and confusing, but that should go away in the
-> > static ASIDs series, and we should go back to only updating pCPU
-> > tracking, flushing the ASID, and clearing the clean bits only for the
-> > current VMCB.
->
-> I haven't read the static ASIDs series, but in any case, this patch
-> should stand on its own, in case that series never gets committed or
-> gets committed much later.
+Hi Mani,
 
-It does. I just didn't spend time trying to improve things beyond the fix.
+On Tue, Oct 13, 2026 at 10:48=E2=80=AFAM Manivannan Sadhasivam <mani@kernel=
+.org> wrote:
+>
+>
+> On Tue, 16 Jun 2026 12:24:48 -0300, Geraldo Nascimento wrote:
+> > PCI: rockchip: 5.0 GT/s speed discouraged by Rockchip
+> >
+> > Dragan Simic already had warned me of potential issues with 5.0 GT/s
+> > speed operation in Rockchip PCIe. However, in recent interactions
+> > with Shawn Lin from Rockchip it came to my attention there's grave
+> > danger in the unknown errata regarding 5.0 GT/s operational speed
+> > of their PCIe core, including data loss.
+> >
+> > [...]
+>
+> Applied, thanks!
+
+Thank you Mani, that was an important drop.
+
+It's a little strange I guess to have patches that were Reported-by
+and then Reviewed-by the same people. But in this case Dragan
+and Shawn deserve all the credit, I'm just the person who dropped
+some code.
+
+Regards,
+Geraldo Nascimento
 
 >
-> My complaint is with the claim, "dirtying both VMCBs is not strictly
-> needed," which seems to imply that dirtying the inactive VMCB here is
-> optional. In fact, once you update vmcb02.cpu/vmcb01.cpu for both
-> VMCBs, dirtying both *is* strictly needed so the inactive VMCB doesn't
-> later miss a pCPU switch.
-
-Yeah I guess it can be verbed more accurately, something like this:
-
-Dirtying both VMCBs is generally not required if only one VMCB
-switches pCPUs, but since the pCPU tracking is shared between ASID and
-VMCB clean bits, it must be done once pCPU tracking is updated.
-
-I won't respin until Sean takes a look, in case he wants more changes
-or prefers to make changes while applying.
+> [1/3] PCI: rockchip-ep: do not attempt 5.0 GT/s retraining
+>       commit: 39f89dde0a76b229df7eb356aaf6f444b4f8a636
+> [2/3] PCI: rockchip-host: do not attempt 5.0 GT/s retraining
+>       commit: 5988a53f5bf758b2d41cb6e0832c19b9692c76d2
+> [3/3] PCI: rockchip: drive at 2.5 GT/s, error other speeds
+>       commit: 62843031ca1f11d1b8e90e7f558c1b3c4cd77184
+>
+> Best regards,
+> --
+> =E0=AE=AE=E0=AE=A3=E0=AE=BF=E0=AE=B5=E0=AE=A3=E0=AF=8D=E0=AE=A3=E0=AE=A9=
+=E0=AF=8D =E0=AE=9A=E0=AE=A4=E0=AE=BE=E0=AE=9A=E0=AE=BF=E0=AE=B5=E0=AE=AE=
+=E0=AF=8D
+>
+>
