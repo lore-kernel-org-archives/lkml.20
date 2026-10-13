@@ -1,123 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-229.mta0.migadu.com [91.218.175.229])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72DA4AD4AF;
-	Tue, 13 Oct 2026 06:18:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB4E4ACC94
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:18:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791872298; cv=none; b=ZpY4BhfTdO8vDahJKlcEGxT+kaCgZ/4qoXBheLboRIneDq/lWO6qfpAy5UazLbUCtDGKlZT9TGa8LjNt1QyJmAwSaRGyrF88zvk0LS6GVri846q89vpwfrIpyBXwzwQ7UZsJ6ISw9rsPaeYAjei+nbuBrthQPtrCZ9uLNegaxk8=
+	t=1791872304; cv=none; b=ZDYtzj2oRGj6FqKHm7TGZMg79iQGSPHyZecpVIiK9yaTjP4+Jtt3+8S1HpGj4vTFee0yOmAONHYLxlOLNNRDsvPS1QPwZuPsTGBJAqs+2HYXKyC8MKMiRxu7VvEvPpcqiuMe5j7yfviNcXATzvEfOFLPbZZVgj4Sm650SGzK0sw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791872298; c=relaxed/simple;
-	bh=a6IdMJ4Ehai4AzAzwmTbXCyofjxWQVEE1jiwx+HKFqY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XT8HL6BiSFGGpPLHKxKgw8JUs2rlzK3WLDzD5T1cddHcI5wrBPkBiMVdwGwyNB212jM7jV0d4ZkrB5wqU46xf7bYfSmsp3uBYKJB84ElfBhh9TnltpnTpAeUfDXDCotvm+mSUAfNbyx0l9MVukVRn+SJbVs8wZVKOwKH07ACsbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MjfJ0rkX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791872304; c=relaxed/simple;
+	bh=sILqVf6vf2c7wxEo7EF7BwyGO93H6KbwkBm9lngJlDI=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=kM7fXxsd5Koi5OhobQzK2ZArllpL8ZbM7LyDIAk3tMUl/nTFKEVorZxb63AJ0XPczgtxQAJ4hsI/tQ4qcBW5z7dKRZyIBawinctztPF2vZ3mTQZRhxbfYQOxAKXE5GWCM5Sjwhd5ETUfmfthzhXT1SiN6knuaZNmME0ihLs9d1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VJD2Xkb5; arc=none smtp.client-ip=91.218.175.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MjfJ0rkX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19271F000FF;
-	Tue, 13 Oct 2026 06:18:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791872297;
-	bh=s0Owovj5yCN/YII+i8I65SUoJkW/splLTgjlRzLW90g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MjfJ0rkXJ2DyoAcWmEtDVDVvUKbYdcZ1Vcerv5B3uXjESwdAbG8iBg7y2LS2MeyTW
-	 4fhCrHGYMaDTgQiiRkQBAZyTlt5KyKDsBfG0db/ywbnxyQaO949953DNJUa8X9yfSZ
-	 OvhspphTmsyF68ALJrx+RMHJ1SFPC9Kf7Kd/z2Dzts0/Lh6SjPP9RWlMiIvAWW27E7
-	 R7APQlWX8TT7Z8WdBGWaUjfDr7SLWW38d2WZOpTkNt+l1z5WYImuYUHxJKCCs4oz8w
-	 bSpLfHRzzHfoZQHKRQ/gp3CO7sx+TsQqbN1Ts+4FFaSWlkbFCi9J3n1GItPchZBaqz
-	 iO8QfBEJdkYiw==
-Message-ID: <ad388a91-404f-40cd-8153-3a0df3411c16@kernel.org>
-Date: Tue, 13 Oct 2026 08:18:08 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VJD2Xkb5"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=sILqVf6vf2c7wxEo7EF7BwyGO93H6KbwkBm9lngJlDI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791872301; v=1; x=1792477101;
+ b=VJD2Xkb5iPjNVTQQT86PnpZrSqwCJhrf3AyrLsUtmueIyYhYVwYwhrBhlRWiRZQQRu/kbim/
+ DtYFw+AUOX0BmvSFsDkHALXLVg78FKmexZsLhkRVfApS3wsL5+uD8wh5qB0SNW8Fm70pqD5c2Uw
+ EsJ8rxIH3D9SlRNLocVw0rxM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id da02f3bab437fe5c;
+	Tue, 13 Oct 2026 06:18:21 +0000
+X-Mizu-Trace-ID: da02f3bab437fe5c
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/11] Cortina Systems CS75xx: interrupt controller,
- GPIO, I2C and TWD watchdog
-To: filipp.dunsky@gmail.com, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
- <linux@roeck-us.net>, Russell King <linux@armlinux.org.uk>,
- Arnd Bergmann <arnd@arndb.de>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org
-References: <20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 1/2] mm/shrinker: size shrinker_info_unit to a power of
+ two
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261012-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v1-1-5a7608393b7a@virtuozzo.com>
+Date: Tue, 13 Oct 2026 14:18:01 +0800
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Dave Chinner <david@fromorbit.com>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ cgroups@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <EDF08D88-7AD8-4697-A1EE-F20BB1F83AF6@linux.dev>
+References: <20261012-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v1-0-5a7608393b7a@virtuozzo.com>
+ <20261012-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v1-1-5a7608393b7a@virtuozzo.com>
+To: Konstantin Khorenko <khorenko@virtuozzo.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On 13/10/2026 08:07, Fil Dunsky via B4 Relay wrote:
-> This is the second step of the Cortina Systems CS75xx ("Goldengate G2")
-> / Securifi Almond+ support. It applies on top of the platform series
-> "ARM: Add support for Cortina Systems CS75xx and Securifi Almond+"
-> v6 [1] and adds:
-> 
->   - a driver for the per-CPU private watchdog of the ARM11 MPCore,
->     Cortex-A5 and Cortex-A9 ("arm,cortex-a9-twd-wdt"),
->   - the peripheral interrupt controller that combines the interrupts of
->     the low speed peripherals into one GIC interrupt,
->   - the GPIO banks,
->   - the I2C controller,
->   - the device tree nodes, including the reset button of the Almond+,
->     and the multi_v7_defconfig and MAINTAINERS updates.
-> 
 
-Slow down. One small patchset per 24h. If you send some big work, then
-once per 48h.
 
-Implement previous review.
+> On Oct 13, 2026, at 03:02, Konstantin Khorenko =
+<khorenko@virtuozzo.com> wrote:
+>=20
+> Every memory cgroup allocates, per NUMA node, one shrinker_info_unit
+> for every SHRINKER_UNIT_BITS shrinker ids up to shrinker_nr_max. The
+> unit holds BITS_PER_LONG atomic_long_t of deferred work, a power of
+> two, plus the one-word bitmap of shrinkers with objects charged to the
+> cgroup. That word takes the unit just past the power of two, to 520
+> bytes on 64-bit, so every unit comes from kmalloc-1k and almost half =
+of
+> it is padding.
+>=20
+> The units are allocated when the cgroup goes online and freed when it =
+is
+> freed, so a dying cgroup keeps them until the last reference to it is
+> gone. Their number is the number of memory cgroups, times the NUMA
+> nodes, times shrinker_nr_max / SHRINKER_UNIT_BITS. shrinker_nr_max is
+> the peak number of memcg-aware shrinkers registered at once, and every
+> superblock registers one, so a host that mounts many filesystems and
+> runs many cgroups carries the padding as unreclaimable slab, and keeps
+> paying it for new cgroups after the mounts are gone.
+>=20
+> Let a unit cover one id less than a word holds. The bitmap still fits
+> one word, and nr_deferred[] plus that word add up to BITS_PER_LONG
+> longs, so the unit fills a power-of-two kmalloc slot exactly and, on
+> 64-bit, the memory taken by units halves, for about one unit more in
+> BITS_PER_LONG.
+> round_up() in expand_shrinker_info() needs a power-of-two step and
+> becomes roundup(); the other uses of SHRINKER_UNIT_BITS are divisions,
+> modulos and multiplications that do not care. Assert the unit size at
+> build time, since the layout depends on it.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+> ---
+> include/linux/shrinker.h | 9 ++++++++-
+> mm/shrinker.c            | 2 +-
+> 2 files changed, 9 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
+> index 1a00be90d93a9..c250ab68d346c 100644
+> --- a/include/linux/shrinker.h
+> +++ b/include/linux/shrinker.h
+> @@ -7,7 +7,11 @@
+> #include <linux/refcount.h>
+> #include <linux/completion.h>
+>=20
+> -#define SHRINKER_UNIT_BITS BITS_PER_LONG
+> +/*
+> + * One id less than a word holds, so that nr_deferred[] and the map =
+word add
+> + * up to BITS_PER_LONG longs: a power of two, which fills a kmalloc =
+slot.
+> + */
+> +#define SHRINKER_UNIT_BITS (BITS_PER_LONG - 1)
+>=20
+> /*
+>  * Bitmap and deferred work of shrinker::id corresponding to =
+memcg-aware
+> @@ -18,6 +22,9 @@ struct shrinker_info_unit {
+> DECLARE_BITMAP(map, SHRINKER_UNIT_BITS);
+> };
+>=20
+> +static_assert(!(sizeof(struct shrinker_info_unit) &
+> + 		(sizeof(struct shrinker_info_unit) - 1)));
 
-Best regards,
-Krzysztof
+This assertion is not straightforward. I'd like to use =
+is_power_of_two().
+Like:
+
+  BUILD_BUG_ON(!is_power_of_2(sizeof(struct shrinker_info_unit)));
+
+Muchun,
+Thanks.
+
+> +
+> struct shrinker_info {
+> struct rcu_head rcu;
+> int map_nr_max;
+> diff --git a/mm/shrinker.c b/mm/shrinker.c
+> index 7ec2a9704f6f2..a9418072a509e 100644
+> --- a/mm/shrinker.c
+> +++ b/mm/shrinker.c
+> @@ -159,7 +159,7 @@ static int expand_one_shrinker_info(struct =
+mem_cgroup *memcg, int new_size,
+> static int expand_shrinker_info(int new_id)
+> {
+> 	int ret =3D 0;
+> - 	int new_nr_max =3D round_up(new_id + 1, SHRINKER_UNIT_BITS);
+> + 	int new_nr_max =3D roundup(new_id + 1, SHRINKER_UNIT_BITS);
+> 	int new_size, old_size =3D 0;
+> 	struct mem_cgroup *memcg;
+>=20
+>=20
+> --=20
+> 2.43.0
+>=20
+
