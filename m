@@ -1,99 +1,187 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233A051AEC1;
-	Tue, 13 Oct 2026 14:49:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5682051AEE8
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:49:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902986; cv=none; b=LHnuU4+kwJckSAPT6jvbL7QxVY6iKZikqmOmnstjrPZmX7PAk6zJRu50uhaYdpwssVd7gByng1qA7DhGIfMnWfe8PMpK6hR7ajnVFQHl9t5nzCKBU3dxYK4xr5dWOwyZwKZvaAUyvFjpkb9KjPBU/rc9/Sp7N7I0K4CcxS1Bquc=
+	t=1791902987; cv=none; b=b3x2A62N89RTmEwKI8iQOsPCBFEmlLVRLi5+cw1pospKZFxrkmUE2/goIkcOZ68rfcZ2pI7cAKPHUaXxkj/LmEl5fVB4ePxBenQ0OjSKjR/CwUd8SfUpCdIQC0rlV8B56hZne4BgDCQwB/3hpecFU8PfXW6s23yrKnSVwXFBue0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902986; c=relaxed/simple;
-	bh=3rsb8nWdGvpRdmiKdKsKDYrqQyeYfF2uVimuEu19udQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ghQIJ0+U2GMXLXqDDgFgsNCDtTgL5kc/m8SFpyE2JvDtbPj2NoQctBB9HU3p1Hr6HVrTCcIoBaf4CfEwgzBZLEPrSl3iy4tAz2f6r1uXaz1v24VUc+gKInvj+uq9zAGTKqgVXYzoveUfqc8mAwbKm6bTgz8TNDspGNNnq9IFxS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=5kN+fdN6; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791902987; c=relaxed/simple;
+	bh=kzfUibjmfz+BWp2vtACff4io5N0EKyuZUYSUqRhNKwA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=puAWJ79sk4O7pxgGefLMaP7CQjIr61SrdnUVoz2vVB46z0CBO2D6XnLP3lMYPu3M5kF8bwxHlS3PVdgum7ERCi4VJWrXaMXRgEEWYbZcrzj6Nqw9BwDYEVo1tPx/DUKxR+/t9pFrvXrRUmqa65ynbxMHZ7uZ0jR1nXvjSNbI+Ok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UxvP2iSd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="5kN+fdN6"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=a1u08QrH8lZikaYUD/nJ/gmcgMLj5GxGBGPSTFzZ71U=; b=5kN+fdN6bPprcZLy1HLjSt2Z+X
-	MFqQ3oepORbdLcCmRNnI5J7OjnTgpVq7IfGUlUDRCPuc4mBwCpxw7HQ5d3IEiWHVlQ1zsGV8Pynp1
-	cvazABtUhb84Liq1KxOrIsgEV+Bacw055h2gIXtsdhsV2lvDDMKjkoT2rghkkFucQzY4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xGdof-00AXbF-KF; Tue, 13 Oct 2026 16:49:21 +0200
-Date: Tue, 13 Oct 2026 16:49:21 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: netdev-bot+sashiko@kernel.org, kuba@kernel.org, davem@davemloft.net,
-	edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
-	linux@armlinux.org.uk, hkallweit1@gmail.com, corbet@lwn.net,
-	skhan@linuxfoundation.org, o.rempel@pengutronix.de,
-	vladimir.oltean@nxp.com, f.fainelli@gmail.com,
-	thomas.petazzoni@bootlin.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH net-next v2 2/3] selftests: drv-net: pause: Validate the
- pause autonegotiation with a partner
-Message-ID: <669ec93e-29d5-4fba-b272-b3cf27969fc9@lunn.ch>
-References: <20260925182628.214667-3-maxime.chevallier@bootlin.com>
- <179065240018.434549.346139764454021625@kernel.org>
- <40f413f0-1dfb-4968-b483-f03aa2f1bdbb@bootlin.com>
- <45340f54-a53b-4d3a-a773-b51cfc88c939@lunn.ch>
- <2a008b68-7f8f-4b30-8026-58d8a64ae5d1@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UxvP2iSd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 185231F00899
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:49:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791902986;
+	bh=Xk0bia0wGEL+ZVRs/OEBd3mcvMKkTlwfLW9T5doIEdQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UxvP2iSdi5GgZeYKArjnDKLKPh5wmm/dejVIzs80PIEF33v0Y69PIkVVTHGcrTce3
+	 SSI49t7s3bu1bPH04iq6H3igtiub2yNsXFSugtkZqG/lF7bqWOxbSkYh7nELimYw40
+	 du1QPGVaA5S0Ob2CpZeh10+9wtcJ8r9Nfn4UVlUhETa0OFw+LtDkD0JukcmU8mvfkd
+	 yQwZugsB52Ayg0Y/Ln547BVSuYqZ4sFc/HqKq/jIK30ABUOnhoneORFfr1aciFiJoI
+	 xpaahaEcNYUfoDiStAtQEKl34msqSiz9jJU3so3+cRN85N9N7GQUykeszn+wFkGuWC
+	 yxV+AAr9Yxgdw==
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93e63522076so229336085a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:49:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzV3LK9bcd++VfusaKCs0XopQCxctcHPg99oU4NFqdtQ1v0LIHSrU239Ahu2J+XPgMc9mED+6Igf+O4U78=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLtL1TMmbC10LMEtwOaswT3e7h2s244Ay0QiSXOyBPXLzo88laU
+	HkrEw6XbMqTjeECzmY7DkG4VtEGfaGPXBLK2i0ghfZ01w+fjUFAa9Ad92OqWSFcDsycdt0avJOf
+	Hs7rk1r9NgatlovfmmNSDROpu8Dr1nMU=
+X-Received: by 2002:a05:620a:198b:b0:92e:76a1:96cd with SMTP id
+ af79cd13be357-93ebd1e041emr2175761285a.13.1791902985432; Tue, 13 Oct 2026
+ 07:49:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2a008b68-7f8f-4b30-8026-58d8a64ae5d1@bootlin.com>
+References: <20261012224736.2306637-1-yosry@kernel.org> <CALMp9eT6eJSDaJVJ_1mrn8-sP6F88q-OcGrEgUWy-YpAkuA9vg@mail.gmail.com>
+In-Reply-To: <CALMp9eT6eJSDaJVJ_1mrn8-sP6F88q-OcGrEgUWy-YpAkuA9vg@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Tue, 13 Oct 2026 07:49:31 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zMsih9vRJFWgbE=bgWAqBzwPO3KJiAyBVA_hJBgjPp6mQ@mail.gmail.com>
+X-Gm-Features: AclHuK9xJBp-Vsd-n1koDePDqGfjuO5ptyn-EvDSLGQFyT0K7N46CCWugVLQ1TA
+Message-ID: <CAO9r8zMsih9vRJFWgbE=bgWAqBzwPO3KJiAyBVA_hJBgjPp6mQ@mail.gmail.com>
+Subject: Re: [PATCH] KVM: SVM: Update tracked pCPU on pCPU switch
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 04:02:44PM +0200, Maxime Chevallier wrote:
-> 
-> 
-> On 10/13/26 14:37, Andrew Lunn wrote:
-> >>> Firmware-managed NICs such as ice also keep the link on close by default.
-> >>> In drivers/net/ethernet/intel/ice/ice_main.c, the PHY is only taken down
-> >>> on close when ICE_FLAG_LINK_DOWN_ON_CLOSE_ENA is set:
-> >>>
-> >>> 	if (test_bit(ICE_FLAG_LINK_DOWN_ON_CLOSE_ENA, vsi->back->flags)) {
-> >>> 		int link_err = ice_phy_cfg(vsi, false);
-> >>>
-> >>> On this kind of hardware, a directly connected peer would be cached as
-> >>> cfg.lp_controllable = False. pause_aneg_resolution(), and the four later
-> >>> tests in the series, would then skip with "is not directly connected".
-> >>> That message points at cabling, when the real cause is that the PHY
-> >>> stayed powered.
-> >>>
-> >>> The new remote lp_advertising checks in pause_advertising_test() would
-> >>> also be skipped without any notice.
-> >>
-> >> Not much we can do if the peer doesn't behave as expected here. Not sure this
-> >> requires attention.
-> > 
-> > I sounds like anything with a BMC is going to hit this. So i doubt you
-> > will see it with your stmmac boards. Maybe sometime in the future we
-> > can query the NIC to see if it supports NCSI and change the test
-> > behaviour to fit?
-> 
-> Maybe the strategy is wrong then, the goal is to check that we're directly
-> connected to our test peer through a cable, or indirectly through a switch.
-> 
-> Link flapping seemed to me like the most generic solution, but maybe we can
-> do something entirely different ? Like for example trigger a re-negotiation
-> with ethtool -r and check for link flap, or maybe more reliably, ask the user
-> to pass a flag to the selftest command saying if yes or no we're directly
-> connected ?
+On Mon, Oct 12, 2026 at 4:58=E2=80=AFPM Jim Mattson <jmattson@google.com> w=
+rote:
+>
+> On Mon, Oct 12, 2026 at 3:47=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wr=
+ote:
+> >
+> > When a pCPU switch is detected in pre_svm_run(), update the tracked pCP=
+U
+> > and mark all fields dirty in both VMCBs (if nested is initialized), in
+> > addition to resetting the ASID generation in both VMCBs.
+> >
+> > Commit bf260dc9e7b8 ("KVM: SVM: Trigger new ASID allocation in both
+> > VMCBs on pCPU switch") reset the ASID generation in both VMCBs on a pCP=
+U
+> > switch, but only updated the tracked pCPU for the active VMCB to avoid
+> > unnecessarily dirtying the inactive VMCB. Leaving the inactive VMCB's
+> > tracked pCPU set to an old pCPU still allows an ASID allocated on one
+> > pCPU to be used on another:
+> >
+> > - vCPU runs with both vmcb01 and vmcb02 on pCPU A (both track cpu=3DA).
+> > - With vmcb01 active, vCPU migrates to pCPU B. vmcb01.cpu is updated to
+> > B, asid_generation is reset to 0 in both VMCBs, and a new ASID is
+> > allocated on pCPU B (setting vmcb01.asid_generation =3D gen_B).
+> > vmcb02.cpu remains A.
+> > - vCPU switches to vmcb02 and migrates back to pCPU A before
+> > pre_svm_run(). Because vmcb02.cpu is still A, no pCPU switch is
+> > detected, leaving vmcb01 with cpu=3DB and asid_generation=3Dgen_B.
+> > Because vmcb02.asid_generation is 0, a new ASID (asid_A) is allocated
+> > on pCPU A.
+> > - vCPU switches back to vmcb01 and migrates to pCPU B. Neither a pCPU
+> > change nor a generation mismatch is detected for vmcb01, so VMRUN on
+> > pCPU B uses asid_A (allocated on pCPU A), which may collide with
+> > another vCPU on pCPU B.
+>
+> By "collide," you mean that two vCPUs, potentially from different VMs,
+> will share TLB and paging-structure cache entries? Yikes!
 
-Triggering a renegotiation is probably the best. I've no experience
-with BMCs, but i suspect a down will not work, because it cuts the BMC
-off from the network. A renegotiation does seem like a safer choice.
+Potentially, yes.
 
-     Andrew
+>
+> > Because the per-VMCB cpu tracking is shared between ASID management and
+> > per-pCPU hardware VMCB clean bits, also mark both VMCBs dirty when
+> > updating their tracked pCPU so that the inactive VMCB does not run with
+> > stale clean bits when later entered on the new pCPU.
+> >
+> > Fixes: bf260dc9e7b8 ("KVM: SVM: Trigger new ASID allocation in both VMC=
+Bs on pCPU switch")
+>
+> Commit bf260dc9e7b8 hasn't made it to Linus yet, has it? Perhaps Sean
+> can just squash this in, rather than carrying a fix for a fix.
+
+That would be ideal.
+
+>
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Stefan Teodorescu <fane@google.com>
+> > Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> > ---
+> >  arch/x86/kvm/svm/svm.c | 20 +++++++++++++++-----
+> >  1 file changed, 15 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+> > index 136069dfcd44f..0a0af0cbb6bba 100644
+> > --- a/arch/x86/kvm/svm/svm.c
+> > +++ b/arch/x86/kvm/svm/svm.c
+> > @@ -3880,7 +3880,8 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
+> >
+> >         /*
+> >          * If the previous VMRUN of the VMCB occurred on a different ph=
+ysical
+> > -        * cpu, then mark the VMCB dirty as hardware's clean bits are p=
+er pCPU.
+> > +        * cpu, mark the VMCB dirty and reset the ASID generation, as h=
+ardware's
+> > +        * clean bits and ASIDs are per pCPU.
+> >          *
+> >          * Reset the ASID generation in both VMCBs. This will lead to a=
+ssigning
+> >          * a new ASID now, and then again when switching to the other V=
+MCB.
+> > @@ -3892,13 +3893,22 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
+> >          * - The new VMCB does not detect a pCPU change and runs on pCP=
+U A with
+> >          *   the new ASID allocated on pCPU B, which is potentially use=
+d by
+> >          *   another vCPU/VM.
+> > +        *
+> > +        * Note that dirtying both VMCBs is not strictly needed, but th=
+e per-CPU
+> > +        * tracking is shared for both ASID and clean bits, and that CP=
+U must
+> > +        * match where the ASID was allocated.
+>
+> Is dirtying both VMCBs not strictly needed?
+>
+> Per APM vol. 2 (rev. 3.45), section 15.15.2:
+>
+> > The hypervisor must clear the entire VMCB [Clean] field to 0 for a gues=
+t, under the following circumstances:
+> > ...
+> >  - The hypervisor executes the guest on a different CPU core than one u=
+sed the last time that guest was executed.
+> > ...
+> > Failure to clear the VMCB Clean bits to zero in these cases may result =
+in undefined behavior.
+>
+> Suppose vmcb02 runs on pCPU A, migrates to (and runs on) pCPU B, and
+> then migrates back to pCPU A with some clean bits set. At the next
+> VMRUN, pCPU A will happily load stale state for anything marked clean.
+>
+> At some point before that VMRUN, something has to clear the clean bits!
+
+Dirtying both VMCBs is not needed in all cases covered with the new
+code here. IIUC, clean bits are VMCB-specific, unlike the ASID here
+which is shared.
+
+Because ASID is shared, we have to reset the ASID generation for both
+VMCBs when a new ASID is allocated through either, and update the cpu
+variable tracking which pCPU allocated that ASID. Since that cpu
+variable is also shared for tracking which pCPU ran the VMCB last, we
+also need to clear the clean bits every time we updated. IOW, if we
+had two variables, asid_cpu and vmcb_dirty_cpu, we would need to
+update asid_cpu on pCPU migration for both VMCBs, but only update
+vmcb_run_cpu for the current VMCB.
+
+This is all annoying and confusing, but that should go away in the
+static ASIDs series, and we should go back to only updating pCPU
+tracking, flushing the ASID, and clearing the clean bits only for the
+current VMCB.
