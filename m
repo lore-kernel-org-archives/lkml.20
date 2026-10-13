@@ -1,122 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130774EBAC7;
-	Tue, 13 Oct 2026 22:09:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88110415B8D;
+	Tue, 13 Oct 2026 22:10:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791929382; cv=none; b=p16QX0vTHAYGrRbacwKIXuQUSk0oVBOa28WWi1FaRgoVJqGrbiDeK3ahP1XZ4EE7W0t4ReW2XqzbHq9r1jS3Jva4c30gsskqudqsZ66J/8PTFSaW7lvfkRHoC2OI+SrYmtHle9P2cn/xVLSDDdwAXyR5CPLhsuY9iGlk/tcjZ5o=
+	t=1791929414; cv=none; b=NzKs5IAKll3y+YxgvlGhi/0ij5DA0qhqCUBbewb5HhRpCiSLoeiKftI3BPOqor/Atxz00K4q3PAuhuYrjlWrfcthCn6nFt2PO/epRsBpCAq2qlBSkxUeIlhDkdR2bYPNLLbmYd2Nvhvfcd6Fen5ckoz1Ff4ruW4LCDNvIJcIcRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791929382; c=relaxed/simple;
-	bh=WEYZ3J98KpR+UxeSqA7xaY2Y4RzXIGwC2ttOq5ulyok=;
+	s=arc-20240116; t=1791929414; c=relaxed/simple;
+	bh=RWkMtynZxJyaD0r8fxVdAZVpWqTNJMgs9eWfNAjx01g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SXuI6k2mtfJ1Rq7SDqu376EOjjWd6JP2TdPRx34nA6EGg1OkZe4NDSOUeQXGqhLxaoidBx6X+JxXFYmBedwTVrAziYmu6vySLH0BIuULHzvBbP4q57QmR54Zg0B4Tw4GyA0pTH7ee+ZSBstRZJxmTxZl1R/YdGD7xxSVLp04q+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ds58Vcdy; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wkg1WAT4qQjDS0U1ehzLj7Vcn2B3BFtUElPFl5/n78kJYoIfsvwf1PfESu7lCeJzsfWGhoiZQ3Ty2nj4WyOfJJFlRFqE4OM4FuHag62hVGW+3EQit7qK2wzrm5k+nxwoBRNtRae4fCxidhixtWUeTGVNmO63owE/hOK7/IC/IaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g+Eshj8V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ds58Vcdy"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id CEA061F000FF;
-	Tue, 13 Oct 2026 22:09:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g+Eshj8V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E2021F000FF;
+	Tue, 13 Oct 2026 22:10:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791929380;
-	bh=qls4g8YUAa7fch+xmhxHOWoEVnBiTm0WfNE6hOSDAro=;
+	s=k20260515; t=1791929413;
+	bh=X/RsM2Ek4zZ53axGZAyenVk3blcnKjokWtjpwX3I6+4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ds58VcdyYjHFOtl9w9kQ/lwh1yCF2Q9VqSIKEgPVSUKhky92L8HJPjdgJi2+/wwfD
-	 pX6m/MJwBYkuiMPpoNmh+RPB1QpYvEbgxjJ+kqrGiGoTNJRVaz1vL/TYClUfxfmxzm
-	 ioWktmHsBZ6Mj/XOwh6kE6Rd+e5w3ruUGLcQYX8yzd6Z62WlgUTqMwrVX1/oUtDXsS
-	 BjGPJYE7uDlUPWmeCDjvEtdtZ0RrFoWkWWtCBS3z1FmR05z+9AlX1UkayoC7p9o90V
-	 RA2atP7VoiakED0tY5Ltjd2VpLDRO1zbc6rRlu4qwWtRQ9KtMd7CaRCA3p4CcpIpp7
-	 1zYMBYZrKOVPA==
-Date: Tue, 13 Oct 2026 15:09:40 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Siddh Raman Pant <siddh.raman.pant@oracle.com>
-Cc: linux-xfs@vger.kernel.org, stable@vger.kernel.org,
-	Dave Chinner <dchinner@redhat.com>, linux-kernel@vger.kernel.org,
-	Sasha Levin <sashal@kernel.org>,
-	Mark Tinguely <mark.tinguely@oracle.com>
-Subject: Re: [PATCH RESEND 6.12 v2 0/6] Backport of XFS umount hang fixes
-Message-ID: <20261013220940.GH2705364@frogsfrogsfrogs>
-References: <cover.1791883280.git.siddh.raman.pant@oracle.com>
+	b=g+Eshj8VmAVzH92w4Bde1RZficE6gJJiXdbIjKKHVQBMbvb6AhSkuF99HJqelj7Jj
+	 ysZsDmS6VEpxBbMOdpIzmX/9s1d1wMzAx8/cXbN6NJ//1BYi0im1JEzFQC3MaARO0y
+	 brefhnDDFg9axFJxKAxO79ToTq8/5YDxD/1fqLz4CWCtfuajDANkytXUD4lO+krD8I
+	 EP0TCDYZmXd7R6m9TFCI4aDhzuqdUJx5qgeBVZt+ysPkRHIi28n7U4/k86KlqUFXA5
+	 KEJNM6Jval3shB0Nqx9FWmVhgQITxGkZZ5Tm+hX0uLlUdBzLHSWYK7x6zT+gBizj1y
+	 haIxi3dKB1c/g==
+Date: Tue, 13 Oct 2026 23:10:09 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] spi: dw: Fix missing smp_mb() in dw_spi_exec_mem_op
+Message-ID: <f4fe920a-7b2b-4c6d-bf41-a7935e6e5574@sirena.org.uk>
+References: <20261010151529.30590-1-jszhang@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="y+zpgi+VOfE/ZT/n"
+Content-Disposition: inline
+In-Reply-To: <20261010151529.30590-1-jszhang@kernel.org>
+X-Cookie: Some equipment shown is optional.
+
+
+--y+zpgi+VOfE/ZT/n
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cover.1791883280.git.siddh.raman.pant@oracle.com>
 
-On Tue, Oct 13, 2026 at 03:07:23PM +0530, Siddh Raman Pant wrote:
-> Backport of this series:
-> https://lore.kernel.org/all/20250625224957.1436116-1-david@fromorbit.com/
-> 
-> I have added information in commit message upon conflict resolutions.
-> 
-> v2: Address Sasha's comments to v1 in the below mail:
-> https://lore.kernel.org/stable/2026-10-01-1-daily-reply-0012-re-xfs-umount-hang-backports@kernel.org/
-> 
-> xfstests_xfs testing results:
-> 	Generic:
-> 		Ran: 001 to 771 (672 tests; gaps)
-> 
-> 		Failures before changes:
-> 			Count: 4
-> 			IDs: 633, 696, 697, 753
-> 
-> 		Failures after changes:
-> 			Count: 4
-> 			IDs: 633, 696, 697, 753
-> 
-> 		No new success or failure after changes.
-> 
-> 	XFS:
-> 		Ran: 001 to 789 (311 tests; gaps)
-> 
-> 		Failures before changes:
-> 			Count: 2
-> 			IDs: 300, 556
-> 
-> 		Failures after changes:
-> 			Count: 2
-> 			IDs: 300, 556
-> 
-> 		No new success or failure after changes.
-> 
-> Thanks,
-> Siddh
+On Sat, Oct 10, 2026 at 11:15:29PM +0800, Jisheng Zhang wrote:
 
-Looks good to me, thanks for actually running fstests!
+> Similar as commit bfda044533b2 ("spi: dw: use "smp_mb()" to avoid
+> sending spi data error"), we also need the smp_mb() in
+> dw_spi_exec_mem_op() after setting up the members in "dws" to ensure
+> the data change is visible for all CPUs.
 
-That said -- generic goes up to 805 now, so I guess your branch is from
-somewhere between July and October 2025?
+Which other CPUs are we worried about here?  Unlike the regular SPI path
+which can use DMA and interrupts for the exec_op() stuff we only do PIO
+and have interrupts masked during the actual transfer.  If the task
+migrates I'd expect that to have all the required barriers, but
+otherwise it all looks single threaded.
 
-Acked-by: "Darrick J. Wong" <djwong@kernel.org>
+--y+zpgi+VOfE/ZT/n
+Content-Type: application/pgp-signature; name="signature.asc"
 
---D
+-----BEGIN PGP SIGNATURE-----
 
-> 
-> Dave Chinner (6):
->   xfs: xfs_ifree_cluster vs xfs_iflush_shutdown_abort deadlock
->   xfs: catch stale AGF/AGF metadata
->   xfs: avoid dquot buffer pin deadlock
->   xfs: rearrange code in xfs_buf_item.c
->   xfs: factor out stale buffer item completion
->   xfs: fix unmount hang with unflushable inodes stuck in the AIL
-> 
->  fs/xfs/libxfs/xfs_alloc.c  |  41 ++++-
->  fs/xfs/libxfs/xfs_ialloc.c |  31 +++-
->  fs/xfs/xfs_buf.c           |  55 -------
->  fs/xfs/xfs_buf.h           |   1 -
->  fs/xfs/xfs_buf_item.c      | 297 ++++++++++++++++++++++---------------
->  fs/xfs/xfs_buf_item.h      |   3 +-
->  fs/xfs/xfs_dquot.c         |   4 +-
->  fs/xfs/xfs_icache.c        |   8 +
->  fs/xfs/xfs_inode.c         |   2 +-
->  fs/xfs/xfs_qm.c            |  87 +++--------
->  fs/xfs/xfs_trace.h         |   1 -
->  11 files changed, 270 insertions(+), 260 deletions(-)
-> 
-> -- 
-> 2.53.0
-> 
-> 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrOrEEACgkQJNaLcl1U
+h9ByHwf+JseUXHmXgzdaK2j+8Yl/r0QRuDG55IsoNcnWoOO0hv53nvA63UrGvLHX
+OIWcvyFlW6uIfCEwJd88ssBqoT38X/ARabke1EFjjVOFf9zefKPibMf3yGHKruWW
+45HrEU+NTaTDObYNIxGZ6ec0hRew98YjmZHrkg8LzExEi5U8qxSvV7cS1q03maY7
+Aj9Hp+pIhTpTY8RO1rsjlK/ljCKF6T0qIwBqDCkdoeOU5DfKs+BFEuHFhy5jyVSp
+be3RMfWPxk0CD9X9KCDSFB/EXli9K0qThwuidcT6uZC/k+hwZv/2LVxd4ij8eyOy
+cELOQ5KIAIf9JvrT4Cn0kTsrGcpg2Q==
+=aGTZ
+-----END PGP SIGNATURE-----
+
+--y+zpgi+VOfE/ZT/n--
