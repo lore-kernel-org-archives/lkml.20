@@ -1,143 +1,165 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D1A3F929A
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:36:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5B738E119;
+	Tue, 13 Oct 2026 10:36:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887763; cv=pass; b=RzQmWWwMEgH5QIbHOHtV477b7zBaG13A7491IuE1ElwdKB8HlDy/azuDtUoujStDL5y9wcRGJpUuwefSUlIu5h8GcP+++EDfb7ZUjeDda7hRnutG0wDJu+yCoWowc4czsC9OEQQk78/mAx/cwqTI1NTh+3FM5dYVBeMew0M8Uo8=
+	t=1791887811; cv=pass; b=C5zSQEIzo7Ifr3URsI5Kb5HodwdfZn2OGnnqXBINuxyGVMqgj5XKzrdIednvvh5w+ewQv9V6YW6sX+/K8VvS03TrkB213/sJFk9UO8hCDNQG7yw00haJxjGJYBGJB2J2MetI80PCa9EAvEpypY8xpqE2RzhNyilzBsKwqcYaJtE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887763; c=relaxed/simple;
-	bh=ATKKoMBtvH+x+NnwXS+Q5BPcXq0fntwxaTtd2Uh64EQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Im4Op/AUL18BgMEMISPzVsgtz3XZClK1MuJGCfJpuN4X04c21L8raHui4vg+lsenbW/iqjgF/BiDp2chPXHCUb6r3cqekpj325q2Zutzi/IrvDqaz7qYkUcIuDVWE0Vo1Ohjn16SiVGdKbYIMRzG8rbltmeZlchErPEamoHSJyA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qr7pBV4z; arc=pass smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791887811; c=relaxed/simple;
+	bh=UXDIZJErLdPkmwivo36gFvniDggci+KdBCnz3+5yCcc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TjkLafYT5yvM+Lzaz0aXQ9/GwBA6iSTr3vwSlJ1PWDyS6d53lB+hl8mssBPT8ZItEfq4KbeW/EdrDsHNSxHhS3TvDiiqMbdX5I6f33lCa5dGGiflo2mCVo72vOW+sRolbj5f6cmIWrYuFCWpf5FfJL/wx0+tlzhTBqvzeU4iEQc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=gBgHeU2L; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qr7pBV4z"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2a4e013a44so412712866b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:36:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791887759; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QPkbtiMEoLf73EcmRGzZ+mgW40UV9Dix8peEid3z2iOAEcsdyy67F+fzYewB+pU607
-         w2ZpM+9HxQAYI0wNLPnYofd5Z+iAhoOJPdSSnSLWLD5Z5Fc6RUE3nYp//ukZvqQ2WI1p
-         QipNCqLERURL3nWXiIzbKwukHMG8lSeWl33jpUeCuG5ZyNKDWJcQ7YFxFshOkBGu7Erh
-         nR8xyMeBNtHer6bVPUTOeuNWrDOzSEOU1D8bt3unnz6FMTEEOfjVWMtpIWKeM5nsvPmr
-         XWT6/bDQkB6SqhannU/+5MRKTNuCyyx97G1vzyXo+E4rX/fHvNPNu9q084j1bW8g6ujh
-         EMOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=I5p7oXXlQx4QmfKm1Q6bW1oyoIsdT3apMQtNWEn4ZXo=;
-        fh=pLhhJzIyRBwtKCPi1XLK2BLFwOJedFgW8+zAGtT6mA8=;
-        b=FNFLTRXSEhidwsP4uS7hhXMNyNdamwp1cNEWDcWkZj2Z4XFxQ1Ncs003h8TApw6cir
-         0/jTGl1DYXApSUeaCgZqEw878riIKPqQaM8k2l2ZGzL2t+myLmU9WL/Wl/xPbcEshHE5
-         gD1GfQ/MrRDksj6bgM0NVPjvZpDVQWqNm8OtJ1Qp6TPt2TXy7BLKTCi0zPC0T7wrAF3p
-         LbwKnOa/FvmjOYIf0EIOFVbs4xDInGS4yqWoU04hydgWSFDbxuiyy4GOXdoEoo06Tp/2
-         ClSOeZhbsDOG2mifVabLLL5Ix+boH0UiAZHqMbw2/RpbWgl4yKess+TLEFM+/ZPE6I6A
-         0VfA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791887759; x=1792492559; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=I5p7oXXlQx4QmfKm1Q6bW1oyoIsdT3apMQtNWEn4ZXo=;
-        b=Qr7pBV4zhwHarFh0X0bLh3QNCgUKbYJ7Nas8wlDHrLY56Kuj4+ZiWvi+LMwCPVDwXl
-         BSguCYaAh3Xm18xWVsQMWiflNd2YQKyEZCu2SZhA3XWAhB11Aw5jh2kk8hY7X2CH4TcZ
-         KZEQa3EZ4yH7muY+Pfbd+I7xHf/QlyixiM5qkfdv6/yXDD2VnvCE1ZqVI/GwuunORnj1
-         W04/AMRt/K5+PIzg9ZjDdTcUoJfWEz/XUP6stMORztZPf1kv1PZRQN1uC+pLhVuLzVnI
-         Uvp5Q/yHLGhT07SvA6rre38mrAglovXFrOxPGRBjAiI4cTNDbU2sfKZKN2vgLOS3B+fc
-         f/0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791887759; x=1792492559;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I5p7oXXlQx4QmfKm1Q6bW1oyoIsdT3apMQtNWEn4ZXo=;
-        b=AWV5Q6Z/HR/I8t03LLxFWPcu3cLicEN9FE8Gv5tiOrRiAvJWLu8jxvxlS0OdPUbhlm
-         +ANMAHitfDX6w7fkltiJ+GDcfuztiFBl+EOndmkhP8/O/UrfkZ5r0rTu+yJl7P6kWvfW
-         y/dBRWsDR6kPN1940HK1FAAwx61at6PwhTNWCR16D8zR59oltZnXPTxuXSrGqbSYW5BG
-         K7SIZxY7VAMZA73K4yh5NQLMvDduBWXXXxJ8HxJ18sexBoksOBY5XNf2rC6/bUwj+wor
-         uPLtcsgJ56wDRCZsSwGUw5C9FSJnayK1nvhYYRHH5DxhlyLklkKJ7HpE8HZX6rRJ0o6A
-         cRGw==
-X-Forwarded-Encrypted: i=1; AKwUvBxA5KgL2YvYX/eaOw+QBxJ//5YUzDXFYJCn2VzzgCa6JryTxM8G2laMJe71YfTIIJnAAUrjRCXtI6Epnyc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlx6NuoyoAzi//l4z0QD8nliIRCXfUet/hk1miEYbnzfWQs87V
-	Nd2g9NoeF6RlJTmI2/S63NDbUUhDo+nAqtM0sNQzco/r91I4T3UPzJy/een1KcTJpofQDb0rklu
-	BwMODddhiPP4XYmCt7w59TSlquZJq3GneOC40f48=
-X-Gm-Gg: AYBFou2BZX7Oc8xyGD/JQmASKyH2sTv2UsCCigcXl3xX3sBLmLxNQEgPbRmp+dRbdMO
-	+GEydLnuZZdpbg1PdlpFHRQQ/e6wwRjfGfVK7fR+oIAxHnyt0yYBlF/PRITLF1sMr/CFWnXu4Xx
-	nc5oOb6Yq76HPxgVOqLliAuxcJbqNhBqDzW2vN7wt8La7ysZyWIvRzJnM6XvrS58yII+F66WTnW
-	UdGo3UqIK1NpWaPFtHlknEEL39/sYXltGA8/VXkotKMpiA/qjwZ6ilX+Plkzih2tEyC00rA/MRW
-	HdZAIvDBdH5gRBkiYc0qZdgjEBVInGbj3cKeYRkdFKroGI8KUAjQxa96D5ajG1+eoqK0YtGQet1
-	l2tpYbeWxhoSfSN2NmnLzhn0mLYNP0dI2Y/zbC3lyyYDFO7frrajfW88QlVeCLWvno4YIOJQJ9J
-	nyqTZQmVuLBHw/nvm6RqA/iKfSqB/EYITTgx6IrYBsJn61NqJNizY=
-X-Received: by 2002:a17:907:7246:b0:c26:19de:9adb with SMTP id
- a640c23a62f3a-c31a9d56575mr1092545066b.26.1791887759359; Tue, 13 Oct 2026
- 03:35:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="gBgHeU2L"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EC12F201E26;
+	Tue, 13 Oct 2026 12:36:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791887799;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OdWpvL+iWbfFMKPIXpaPQN0Lmso0BTxWzPGqeVm1vJc=;
+	b=gBgHeU2LfPJFwcNnJPf/87/EI0F0vckoDjjNWXCu9SEqNvtIotoG+L3Hrze0po+Q3SgWwn
+	Z+Z+eyiaavZYcGLoLBZj1BTyG1I55gVMiAaGz8b9hHz8r+F+ki2g4Wsd107xC0mMPkcZoZ
+	iUPet3ii2miWOFkip5nJkiO87ng4OLcKogCCo28+LMSFZvPDL2gnloXnDlg6BWIqX3Zmzk
+	KnqibLg72xusYHpnKDMjxuOHfTC1ntylefXxLTiMNU+St1GDoGJHcQRywUQIX4QProe+xO
+	P2fZZ2LoNbSKk8S8XKA0hZ7z5A6uNJA8TAzWkdmrMwOV28ZINn1ITY/99tHZ8g==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791887799; a=rsa-sha256;
+	cv=none;
+	b=ZeOGVaJiEwVP0ZlFcFBeFYFuMntOJ+r9e0ZEYODoNup0JJDfEQwl0Cl8okoajfl6LybkeA
+	SqfLB+RzhMXQ2f3+7jmc13HtNUeRjPJ7O5bxV31KkzCMUayl3TVbMUOMoaL+ODQm34GdM3
+	0QBlGHoQLRIovIvupfgHz4cXHrJhlR7f40aNQzMcayqtSzWeEYVtCAy8k/TUljyHvmYss2
+	9YqtKEAfrVg6DQj59GBOVkl/bfng/7rKiGiLLaQ324rYZE+YuGHABg94T1V9VwrttSql1u
+	VUJqZoG4RfZ6sg47pB/BSDYoQxNWdHzRZbWyhVqXiLit2IbCp6muaOS2gN/nQA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791887799;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OdWpvL+iWbfFMKPIXpaPQN0Lmso0BTxWzPGqeVm1vJc=;
+	b=cd/sDaGrV1sMR36H8LFru4bTmIRHCnbyvv3IWiNjtX57QCWyWo37GXTjQ7TpREjyjhwvPN
+	Ngl9OlPm2fbAGl97AUsURyqcy1pKZCLTgRbtU+RfAcqb6v/zKa83TGcHz1Ym7NZgXIPstn
+	h/RUm2AbyyCNiVgVAYuGtQ5T+w+/y79E5mku0NN+vo2udo+90QYvLm4VURVibspb1qDLVs
+	y1sMzoIg9CVb2fliCMZqc2ziKYsS54vePwqA6u90CBx0PcrtfRFLzYvWQPL5RsZXjyPPhi
+	30W3VIzxuFDSTghGxKI6N8f/2a5zh3iNiCi2mNipM/izbj6qVW0R4EKKG6LeLA==
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xGZs7-005g6d-2l;
+	Tue, 13 Oct 2026 12:36:39 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xGZs7-00000001xEj-38Ik;
+	Tue, 13 Oct 2026 12:36:39 +0200
+Date: Tue, 13 Oct 2026 12:36:39 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: =?utf-8?B?SMO2bHpsLA==?= Alexander <alexander.hoelzl@gmx.net>
+Cc: netdev-bot+sashiko@kernel.org, robin@protonic.nl,
+	linux-kernel@vger.kernel.org, kernel@pengutronix.de,
+	linux-can@vger.kernel.org, kuba@kernel.org
+Subject: Re: [PATCH v3] can: j1939: fix potential race condition in BAM
+ segmentation
+Message-ID: <as4JtwJObdkyUvZF@pengutronix.de>
+References: <20261011153119.120302-1-alexander.hoelzl@gmx.net>
+ <179186737069.1406898.4501392866752412525@kernel.org>
+ <fda0ca77-ecfe-4f95-a469-05cbc416944a@gmx.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013-gpio-mxc-cleanup-v7-0-c4d769587d3e@nxp.com>
-In-Reply-To: <20261013-gpio-mxc-cleanup-v7-0-c4d769587d3e@nxp.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 13 Oct 2026 13:35:22 +0300
-X-Gm-Features: AclHuK_etHkgfHNMFVBnkCMnseRcVeyJYO7O0Oj_IyfMyFzvQ7RtNYlt2MPQbFQ
-Message-ID: <CAHp75VdaDyfDL=34kOV0u_nHnJ+XXNwJU4=33v_Q8Eq=tHrYng@mail.gmail.com>
-Subject: Re: [PATCH v7 0/4] gpio: mxc: misc bug fixes
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <fda0ca77-ecfe-4f95-a469-05cbc416944a@gmx.net>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-On Tue, Oct 13, 2026 at 9:03=E2=80=AFAM Peng Fan (OSS) <peng.fan@oss.nxp.co=
-m> wrote:
->
-> This is a subset focusing on bug fixes, that separated from thread [1]
->
->   1. Fix a race where the chained IRQ handler is installed before the IRQ
->      domain, generic IRQ chip, and port list entry are ready.  An interru=
-pt
->      arriving in that window dereferences port->domain while still NULL
->      (mx3 path) or walks an incomplete list (mx2 path).  Move the handler
->      install after all dependencies are set up.
->
->   2. Fix non-atomic read-modify-write on both_edges.  gpio_set_irq_type()
->      can run concurrently for different pins on the same port (different
->      irq descriptors =3D different locks), so the old |=3D/&=3D on a u32 =
-is a
->      data race on SMP.  Switch to set_bit()/clear_bit()/test_bit() on
->      unsigned long.
->
->   3. Fix non-atomic read-modify-write on wakeup_pads, same class of bug
->      as both_edges.  Switch to assign_bit() on unsigned long.  Also fix
->      the bit being updated unconditionally even when irq_set_irq_wake()
->      fails.
->
->   4. Fix a race where devm_gpiochip_add_data() makes the chip visible
->      to consumers before the IRQ domain and generic irq chip are set up.
->      A to_irq() call in that window hits a NULL port->domain.  Move
->      gpiochip registration after IRQ setup is complete.
+On Tue, Oct 13, 2026 at 11:35:24AM +0200, Hölzl, Alexander wrote:
+> > [Severity: Medium]
+> > Could this cancel then re-arm sequence leak session references if two DT
+> > frames for the same BAM session are processed at the same time?
+> > 
+> > j1939_tp_schedule_txtimer() always takes a reference:
+> > 
+> > 	j1939_session_get(session);
+> > 	hrtimer_start(&session->txtimer, ms_to_ktime(msec),
+> > 		      HRTIMER_MODE_REL_SOFT);
+> > 
+> > Nothing serialises j1939_xtp_rx_dat_one() calls for the same session.
+> > j1939_session_get_by_addr() holds active_session_list_lock only during the
+> > lookup.
+> > 
+> > Two CPUs could handle TP.DT frames for this session at once. One example is
+> > the af_can loopback netif_rx() for a device without IFF_ECHO, racing a
+> > frame from the bus or an injected one. Another is two CAN_RAW injectors on
+> > vcan. The interleaving would be:
+> > 
+> > CPU1                              CPU2
+> > j1939_session_txtimer_cancel()
+> >    hrtimer_cancel() == 1, put
+> >                                    j1939_session_txtimer_cancel()
+> >                                      hrtimer_cancel() == 0
+> > j1939_tp_schedule_txtimer()
+> >    j1939_session_get()
+> >    hrtimer_start()
+> >                                    j1939_tp_schedule_txtimer()
+> >                                      j1939_session_get()
+> >                                      hrtimer_start()
+> > 
+> > When the timer fires, only one reference is dropped. The rxtimer has the
+> > same problem through j1939_tp_set_rxtimeout().
+> > 
+> > A leaked session never reaches j1939_session_destroy(). Its j1939_priv
+> > reference and priv_dev_tracker netdev reference are then never released,
+> > and unregistering the CAN netdev would hang waiting for the device to
+> > become free.
+> > 
+> > j1939_xtp_rx_cts_one() already uses the same unlocked pattern for directed
+> > sessions. Before this patch, though, the RX path never touched the txtimer
+> > for BAM transmitter sessions.
+> > 
+> This also sounds plausible, how should this be fixed? Should additional
+> locks be added? The session list lock is probably not the correct one to use
+> as this is a global lock over all sessions.
+> Additionally is the same type of race condition then found in
+> j1939_tp_set_rxtimeout? It does basically the same thing and could also be
+> called concurrently while e.g. receiving a can frame and handling a timer
+> callback?
+> 
+> CPU 1 callstack:
+> j1939_tp_recv -> j1939_xtp_rx_dat -> j1939_xtp_rx_dat_one ->
+> j1939_tp_set_rxtimeout
+> 
+> CPU 2 callstack:
+> j1939_tp_txtimer -> j1939_xtp_txnext_transmiter -> j1939_session_tx_dat ->
+> j1939_tp_set_rxtimeout
+> 
+> Could this cause a similar leak as described above?
 
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
-(no need to resend for that small issue in the commit message in one
-of the patches)
+Can you please take a look here:
+https://docs.kernel.org/dev-tools/context-analysis.html
 
-> [1] https://lore.kernel.org/linux-gpio/20261011-gpio-mxc-cleanup-v6-0-cb4=
-7ce2ad758@nxp.com/T/#m49d6a5a14a64774eda299bb711c8d316681e652b
+I hope it will help to resole some of the locking issues.
 
-
-
---=20
-With Best Regards,
-Andy Shevchenko
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
