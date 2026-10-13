@@ -1,138 +1,85 @@
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33935111BC;
-	Tue, 13 Oct 2026 13:17:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE23C34D3B0
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897474; cv=none; b=BRmM/a4VcTq95N8R9/1yl2ReX7ymcZfDbmpn0AmKZFpcniycy3f2lML0Hzk2Za3Fz4QGUgC81Rkh4nAQq1rgmauj5xlfPSH0yiSKPYtinulaxJBVnzNDOae2NWZjF4PRJ+1Kx5BeGAReWyRXKjymlOfw+r8ds9SfLqAOBObQO5Y=
+	t=1791897495; cv=none; b=VIDnjLZ2odjRsMMi0mU/jtJlvp4PtADH3ksZiXDVA6ZrOzCZ9FeMfU6gBHIOyobjRFRmrIhCA6F0vD5Kbb1GG7chvDVY+ta7R5VUlXRtNmqsnnux4YDBqUK/Et+XVSixtV0mMqHOk2sJ4zPPeRdTRRUNVc54irRHx3gpg6vzuAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897474; c=relaxed/simple;
-	bh=zRKJ0Yiw7bNadRDbKt6zuimuE0I5/BUEbr8eEqaW3sE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Ctg60zVSLe87vt1Z9CQaM9hmfwFLuj6BuR4TYA6eEYBSl2ZC3n4tRLD5yswlPnfqCfftlBOfAUldrkoQlflqC2jkbYk5ici47iHmpCXUUqFkAIwQdDs7o4siONk0iLIPiLskNIqwUyQb8HlMCZNCIisGV/MTq+2OtW8IRUPRKPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=zS/njdgW; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=8stvFBLN; arc=none smtp.client-ip=210.171.160.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	s=arc-20240116; t=1791897495; c=relaxed/simple;
+	bh=lwbHtHTp0gwZwOZd0t1ftlUDIs+ANxTV8ILN56eSQvE=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Niz3GAKTxofWk6O1YdzwoLPb7HYTvm4+z7HCbQfb8m22O4XCbxtS3Oxeay56Dh9MWtBaTUNLK+kgJpqYKKbdXxdtvOS1Oy71eMC8ySehffXXXHhRxJigWNlM5IEJFI8b6tkUUW1nBcLAl245XxX380f2VhWCQT2GGym1En2kPG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mUOf4h3U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="zS/njdgW";
-	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="8stvFBLN"
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id 5203D26F7697;
-	Tue, 13 Oct 2026 22:17:51 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1791897471;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DMwVLew5mvVnVvExhiUsbrBRHIiIZrNcbKYVNjQWJ+k=;
-	b=zS/njdgWijXA0/uHIjoZ/eDeT8NRVkLykjaubvLT1Z8wcDIEBYDDzDnNz0xvLF2imsWOPl
-	SpcVtbhS9AFQFBexQiFJAcjlpprMhDsSh6gZCT/6jjcgiOffaBnpgOboHf32ZoeohiDUCc
-	7BQolN/X2Z9lUzS3AcOoyFhdON91if7NNuzoCijWP48v3ZWKV02no+hVnvbi0BkgUED5HE
-	VFnduTQeZchjZqifO8tCSgFq5RAFf1Z5XxGma3Y3Ow2NKaAbFIveLOex9ETLKJDQ88WWXI
-	tfwDIvAinZg7rRC6oxGbxnugetqw8KFB2rfIDnQxG5moJXGbiXGniFDpGSo6xg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1791897471;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DMwVLew5mvVnVvExhiUsbrBRHIiIZrNcbKYVNjQWJ+k=;
-	b=8stvFBLNHVLZIsZxCnla2qRLNuPJwRPHOXgJiaEdK3JypLEjH61Nszi9KeIW90QU3F3d7n
-	bt480RmFSRGRA2DA==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id DEB98E00149;
-	Tue, 13 Oct 2026 22:17:50 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id D182022000A7; Tue, 13 Oct 2026 22:17:50 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>,
- linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] fat: allocate multiple clusters in fallocate
-In-Reply-To: <20261012171106.146243-4-matheus.aalmeida@inf.ufrgs.br>
-References: <20261012171106.146243-1-matheus.aalmeida@inf.ufrgs.br>
-	<20261012171106.146243-4-matheus.aalmeida@inf.ufrgs.br>
-Date: Tue, 13 Oct 2026 22:17:50 +0900
-Message-ID: <87cxtdn3i9.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mUOf4h3U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6973A1F0089C
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:18:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791897494;
+	bh=lwbHtHTp0gwZwOZd0t1ftlUDIs+ANxTV8ILN56eSQvE=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=mUOf4h3UTtn5qube9iKl1gSQX3Hd7Zn+7Tu1HV/nDUxMzUVlAvuBYvicarfDusVgO
+	 INeP+5xUHHB1UYpkhUKyS3dIPFzqk79yL4f8IHQIxZTpy5BgFxv8OerbErt/5ja57X
+	 G3gx4dAoZcdEdUBWtqcjaAFIWHGZ9CoFcAvnWiu5q4CSrlMuZw9sneuCgEFTx19GK1
+	 d07fkKc2QjC/JNcijoebWo92eB0SNzuKCo0cImuhtlTxaiVBOrdgFp5gtm2N4V+Dax
+	 vX2DaocuVce6N+bCEtOhiqrsH/z0zZ6uh0VzH6wPp2iHnqXvCeV+mP5bUv6G5knwfl
+	 vOenDnuYFI+eQ==
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a9761758adso24125571fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:18:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxCj8egc0fPG1UriTGWPRvkQbzLTDWCiyLj/5YDer8kzRXxm8skiKjVm9f0nt+aVJUaypT7irVRzmPaq0U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVUbtzYkWI6xXifV0QnXvKs3iTuLIQMT1nSDn1kb0LRPBwUKqL
+	CxahIhT50mebK8zC8E1K5zLi2GbJ89AKDkLab3AdHciRbW9yNhyyhmFqneLbYzqPPRhk3PJEPuy
+	qL+CJGHlckfdBag5FB8QvypxFeUrwRLz6IePAwmsjxA==
+X-Received: by 2002:a05:6512:6696:20b0:5bc:e47d:3ce4 with SMTP id
+ 2adb3069b0e04-5bce47d3d2dmr2367059e87.16.1791897493128; Tue, 13 Oct 2026
+ 06:18:13 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 13 Oct 2026 14:18:11 +0100
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 13 Oct 2026 14:18:11 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260925-arm64-have-shared-gpios-v1-1-57fed3fae35c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260925-arm64-have-shared-gpios-v1-1-57fed3fae35c@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 14:18:11 +0100
+X-Gmail-Original-Message-ID: <CAMRc=MfJR==AiSOjaCFHhiY_nsp0LhNckTYZw4eGeDMx_c7SqA@mail.gmail.com>
+X-Gm-Features: AclHuK8s4-NI7PYNkfIoRQUiKC4lZufEZRfgVawvM-TRXBlHCp205JIZBqlkoHc
+Message-ID: <CAMRc=MfJR==AiSOjaCFHhiY_nsp0LhNckTYZw4eGeDMx_c7SqA@mail.gmail.com>
+Subject: Re: [PATCH RESEND] arm64: enable HAVE_SHARED_GPIOS for all ARM64 platforms
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Drew Fustini <fustini@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Frank Li <Frank.Li@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
-
-> The fat_fallocate() code currently does many 1-cluster allocations when
-> growing a file in the FALLOC_FL_KEEP_SIZE path. Make it allocate
-> everything with one call instead.
+On Fri, 25 Sep 2026 09:43:17 +0200, Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> said:
+> Shared GPIO management provided by the GPIO shared proxy module has been
+> enabled for Qualcomm platforms for some time. By extension of the
+> defconfig, it's been effectively enabled for all ARM64 platforms when
+> using the default configuration. Bugs discovered initially after the
+> feature was first enabled, were fixed and I haven't seen any new reports
+> for several months. Make the feature enabled by default for all ARM64
+> platforms officially, which will allow us to continue the removal of the
+> deprecated GPIOD_FLAGS_BIT_NONEXCLUSIVE flag from the kernel.
 >
-> Benchmarking was done under QEMU/KVM with a virtio-blk device using
-> cache=none. Each result is the arithmetic mean of the listed samples.
->
-> start = now_ns();
-> for (unsigned int i = 0; i < count; i++)
->      fallocate(fds[i], FALLOC_FL_KEEP_SIZE, 0, bytes);
-> elapsed = now_ns() - start;
->
-> FAT32 with 512-byte clusters using count=16 files:
-> length    mounted sync?    before    after    improvement    samples
-> 256MiB    no               2.328s    0.175s   13.2x          10
-> 16MiB     no               149.659ms 14.036ms 10.7x          10
-> 16MiB     yes              747.993s  3.445s   217.1x         3
-> 1MiB      yes              46.63s    0.333s   140.1x         10
->
-> FAT32 with 512-byte clusters using count=128 files:
-> length    mounted sync?    before    after    improvement    samples
-> 1MiB      no               90.873ms  4.686ms  19.4x          10
-> 16KiB     no               1.287ms   0.241ms  5.3x           10
-> 128KiB    yes              47.284s   0.350s   135x           10
-> 4KiB      yes              1.98s     0.144s   13.7x          10
->
-> FAT32 with 4096-byte clusters using count=16 files:
-> length    mounted sync?    before    after    improvement    samples
-> 256MiB    no               295.392ms 24.733ms 11.9x          10
-> 16MiB     no               20.509ms  1.404ms  14.6x          10
-> 16MiB     yes              92.489s   0.348s   265.4x         10
-> 1MiB      yes              5.837s    0.048s   121.3x         10
->
-> The improvement is especially large on synchronous mounts, where the
-> new code can batch FAT updates instead of synchronously handling each
-> cluster allocation separately.
->
-> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-
-Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-
-Looks good. Thanks.
-
+> Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 > ---
->  fs/fat/file.c | 10 ++++------
->  1 file changed, 4 insertions(+), 6 deletions(-)
->
-> diff --git a/fs/fat/file.c b/fs/fat/file.c
-> index 41d49e9de..3aa541c6b 100644
-> --- a/fs/fat/file.c
-> +++ b/fs/fat/file.c
-> @@ -290,12 +290,10 @@ static long fat_fallocate(struct file *file, int mode,
->  		nr_cluster = (mm_bytes + (sbi->cluster_size - 1)) >>
->  			sbi->cluster_bits;
->  
-> -		/* Start the allocation.We are not zeroing out the clusters */
-> -		while (nr_cluster-- > 0) {
-> -			err = fat_add_clusters(inode, 1);
-> -			if (err)
-> -				goto error;
-> -		}
-> +		/* Allocate the clusters. We are not zeroing them out */
-> +		err = fat_add_clusters(inode, nr_cluster);
-> +		if (err)
-> +			goto error;
->  	} else {
->  		if ((offset + len) <= i_size_read(inode))
->  			goto error;
 
--- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Gentle ping. Can this go directly through the ARM-SoC tree?
+
+Bart
