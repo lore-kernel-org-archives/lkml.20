@@ -1,85 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-166.mta0.migadu.com [91.218.175.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28C94F85B6
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:00:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA384F68CF
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:00:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896410; cv=none; b=Kw8ipebFA0gSrQ5ybG7jN48ell3AwfxSXQT0XhufnrjzaAPC1/+veRXbPMLJeLOiFYf9NIRIgpkPFbfynqeqmJkLNabjznBO1bP3m5nDTS44fYsgtkJFh1m8n6ZRnHpKTdTZQr4GjhXtZh9/l5B982HGnI6OK5X711gaWXYINPc=
+	t=1791896412; cv=none; b=ETEEFvWoiGUOaraJqmUNpoIePLAS913MG2PhD465ihwalpiQ0an3AbmM7LDcyeFb998+yX4Wi4fFiXNw8YGjgZpTMW/jK1HpeI4bjWIa1JeXyN0joqAozUBSxElz8Bqg9fcSB4iV6Cp2XElQRMRpml4JUUN4m54ozBmdFVsF1Ww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896410; c=relaxed/simple;
-	bh=Yx10j2kSHH2SRk4+RHGOzL3CxFjyux+zvSHwt8FCucY=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=US1F723LBF73RdYmWFihv7sdBDgGMkWRPBtjqujq6Xql0EzcBQb3YIpDayN4WodVgrqP+WYZ/eXnaJraUMAoPpQYxkcQHKAAzMZzxsXcTV59af8USr3j0p8Duj9Sm7SwE/+DnDqA1miRu+S68ehsWM33aHK65AmT+8/zk4nkelY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lYz0A2VG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791896412; c=relaxed/simple;
+	bh=LYUbr06nCzkun3NGQIdKMFxFK4xBcbT7RiA9aRgNq6I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fpwCRe4xZQlqXxetS0uSYxF4haDXAKd+MphbeUci/US9ZOd4Eks4Kaac6nkYhl85SFXyvl1a3u1p1PsGPVlfO0UAJb1jkAKXtiKE4j+ZkK/YheWt6MhnObv3jX/coTYHOuWrcyXYBEZzaruXvuF6o1aDrjgUpsm45rT/ZY5dg/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tBgPHyTM; arc=none smtp.client-ip=91.218.175.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lYz0A2VG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 703791F0089A
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:00:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791896409;
-	bh=+f7hjFqoYYqzepasa7AMCSjMXUQ0fFSA/uS2EJqU4CM=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=lYz0A2VGRIjTym12aH7Axy6K6VnTpv7jGWciRk1bblvGAYscj441T/pFP2TA0/JxU
-	 NPDTi5RsDCOwHAzVLSuPBzzLdw5WHJ0vxu7/xPPvq03fKOLFHjtvV9oSf937mmX8kY
-	 wYUrRJI4AgfjY0NF9y9rT95umNJUCzazccQ2MJAypFke97E0ZO3YONDyCLcFqwy/I8
-	 kE8SuLO5Y0TStqcx2Ek+ZaGX1qL62tMg4YJQ+IZ3KxDnjYysblmyIDDVjLK8ey1nCU
-	 zXTrSnHu/T7h2hG6qP89QwF/Rt4ZPOil3/XNvLobxi3/mJ91/h3qiKFEGxMwvNvgjV
-	 9E4/xQgc8QrhQ==
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a20f06cce6so41516371fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:00:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwoGwLW70cmAK1US15awow223mZQRupKeqm3gPcvetHAYOw6Hc5MmGNF72M7/FmDMir7G1qTQGGtC6V2DQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLSMqzy4vnVNDcKLKiYkh3kguC/+2jeah369Mj7UZHzHgpgzqHe
-	cM9N1BMhjoyCAk8oQyuvW7Q/R1Kmtg38u2nDYkuDCjUVz34T9k/Bcs4ihG5ksudOaW0hFtrMr4f
-	MHmHB43gepiPUn+TPlxOtqyHeELv7SawojfydVx3k9Q==
-X-Received: by 2002:a2e:a985:0:b0:3a9:829e:1def with SMTP id
- 38308e7fff4ca-3a9c2b39c17mr26551871fa.21.1791896408192; Tue, 13 Oct 2026
- 06:00:08 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 13 Oct 2026 09:00:06 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 13 Oct 2026 09:00:06 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261008015017.3359804-4-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tBgPHyTM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=LYUbr06nCzkun3NGQIdKMFxFK4xBcbT7RiA9aRgNq6I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791896406; v=1; x=1792501206;
+ b=tBgPHyTM5siVvDz1GvdfGyGJe+fpsDuTrLTbHLYDh/bDloUXWNf7aeIwgnHZb++B2927Ucyd
+ uHBZnxoYAMShIqbPPgD8jSmR48RqwnQDJVqRAmQe+q27lEJpc+6Bsd6SSLIDk50AIc0OYvQZX9b
+ TaTwxQSaHIHgBOE0cGpT4ido=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9ced9724f8e9725a;
+	Tue, 13 Oct 2026 13:00:06 +0000
+X-Mizu-Trace-ID: 9ced9724f8e9725a
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5ba40832934so17967e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:00:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByODdJG1mvWj+VDJcqdFuJRPHgLyWmkRz3LcKcAUUiTXLPm59K2ztnWqyxJZnFt4khenexIEn/S6OTwIFU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIKtQqS8uX78fMphNv/xP1BJjQhzucB7mN2L9cQKrrxd/6VScck
+	8MLichIVmhLtrmrIg5NvR751UBnc+sYVIdXyoV+pYMaL4xFcF0BszzYUNhgRH3z2hELKssrXll4
+	9lQdK18xsLlGfwX+7Vx7h7U8HQm6qpPDiehwcjejo
+X-Received: by 2002:a05:6512:1284:b0:5b8:c230:1241 with SMTP id
+ 2adb3069b0e04-5bcea5f77eamr325892e87.10.1791896400858; Tue, 13 Oct 2026
+ 06:00:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008015017.3359804-1-shengchao.guo@oss.qualcomm.com> <20261008015017.3359804-4-shengchao.guo@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 09:00:06 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MefoZdGp__cRjUigLeYoiFbrm+Pw1n-XHJnhggMcBVP9A@mail.gmail.com>
-X-Gm-Features: AclHuK9rvV4-J4UvpGWlPsTNZi6lIIFpSgWSmTv6XmB-X6vr7YFYN1b-k_O-n6g
-Message-ID: <CAMRc=MefoZdGp__cRjUigLeYoiFbrm+Pw1n-XHJnhggMcBVP9A@mail.gmail.com>
-Subject: Re: [PATCH 3/3] phy: phy-snps-eusb2: Enable AHB2PHY bus clock on Nord
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>, 
-	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>
+References: <20261013081646.933312-1-fuad.tabba@linux.dev> <as3_NKT20MNdqaJR@kernel.org>
+ <86wlrl2a2f.wl-maz@kernel.org> <CA+EHjTztZpFrmuz9pK+01BsDxHnzpEwUMt6E3nUrgk4NNTsKYQ@mail.gmail.com>
+ <86v77526me.wl-maz@kernel.org>
+In-Reply-To: <86v77526me.wl-maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 13 Oct 2026 13:59:22 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTyZA6VL6EjhkB2bf9fDk4fUWpc=iXsu+sR1B+_YbR-nOQ@mail.gmail.com>
+X-Gm-Features: AclHuK91_oNrs_00jtZZScBUrir_3CsFdStuVvifnhav_N77zBitsUsBdY8t0FU
+Message-ID: <CA+EHjTyZA6VL6EjhkB2bf9fDk4fUWpc=iXsu+sR1B+_YbR-nOQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] KVM: arm64: vgic-its: Fix LPI double mapping and DISCARD
+To: Marc Zyngier <maz@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Andre Przywara <andre.przywara@arm.com>, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 8 Oct 2026 03:50:17 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> On Nord, the eUSB2 PHY registers sit behind the AHB2PHY_0 bridge, gated
-> by NE_GCC_AHB2PHY_CLK. The Nord PHY currently matches the sm8550
-> fallback, which only requests the "ref" clock, so the bridge clock is
-> never enabled by the PHY. When nothing else holds it, e.g. on boards
-> where only the USB20-only controller is in use, clk_disable_unused()
-> gates the bridge and PHY init accesses go nowhere:
->
->   xhci-hcd xhci-hcd.2.auto: can't setup: -110
->
-> Add Nord-specific match data that requests both "ref" and "bus" clocks,
-> reusing the existing Qualcomm init sequence. The bus clock is enabled
-> and disabled together with the ref clock in phy init/exit.
->
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
+Hi Marc,
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+On Tue, 13 Oct 2026 12:16:09 +0100, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> > A vCPU on its way into the guest does the same: it loads its LRs in
+> > kvm_vgic_flush_hwstate() while it's still OUTSIDE_GUEST_MODE, so
+> > kvm_arm_halt_guest() doesn't wait for it. With the delay after the
+> > flush instead, on v2 plus your 1/7 and 2/7 [2] and both changes from
+> > your reply to 1/7 [3], the guest takes it in 9 of 20 runs.
+>
+> Does this mean we still need OUTSIDE_GUEST_MODE to be a store-release
+> past the point where we resync the state?
+
+Not for the 9 of 20: that run already had the release. The halt reads
+the OUTSIDE_GUEST_MODE the vCPU published at its previous exit, so it
+doesn't wait for the early exit that folds the LPI back.
+
+We do still need it for the window after the exit: with the delay
+there and the same patches applied, the guest takes it in none of 20
+runs, against 13 of 20 on v2.
+
+> > Once DISCARD waits for irq->on_lr to clear before clearing
+> > pending_latch, the guest takes it in none of 20 runs in either case.
+> > I'll add that to v3, unless the single-vcpu stunning already waits for
+> > it.
+>
+> Polling for on_lr feels very dodgy, and I'd like to avoid this. If the
+> OUTSIDE_GUEST release addresses it, I'd rather do that.
+
+I'd rather avoid the polling too, but the release alone doesn't close
+this one. The vCPU would also need to store IN_GUEST_MODE and check
+its requests before kvm_vgic_flush_hwstate(), so that it never loads
+its LRs while it's OUTSIDE_GUEST_MODE. The existing check after the
+flush would still be needed, for the KVM_REQ_GUEST_HYP_IRQ_PENDING
+request kvm_vgic_flush_hwstate() makes in a nested state. With that
+and the release, the guest takes it in none of 20 runs with the delay
+after the flush, and herd7 finds no LKMM execution that leaves it
+pending.
+
+The IN_GUEST_MODE change would also cover vgic_mmio_change_active(),
+which depends on the same halt (the comment above
+vgic_access_active_prepare()). Would you be OK folding it into your
+series, on top of your OUTSIDE_GUEST_MODE changes? Patch 2 then
+wouldn't need the on_lr wait.
+
+Cheers,
+/fuad
