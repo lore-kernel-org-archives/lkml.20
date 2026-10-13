@@ -1,160 +1,121 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010064.outbound.protection.outlook.com [52.101.193.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09773490BEE;
-	Tue, 13 Oct 2026 19:33:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.64
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791920037; cv=fail; b=XYTUrLe+hhLo+94oceQYyg8hwE2G4JwiWe1bENvXvyqV1VwFFCGlC1zcvc5tpU2AK78AILIBhyn72jqWMXzTOMl9vlq82xxbesSVHJzT7dR7Y2Frgvz0RJ9OLpF2fXP5QUGZuSubr0RutJL10rl0YF+dT0IS0w85b7UdVPCkeBA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791920037; c=relaxed/simple;
-	bh=7GKagMjp9w4UZCKTV793POlGSHcCYhBUivtmap38B1o=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gdFKxCEO1Rxqg/PfwUskmRHCURAcDJuKttwvIIVz3KaG1bo2kUXQDoQji79PXVktwk9GspOq2CQ2v593BE0T7ladVZ87/Y9gLj6A+Xymr5tof3hgiAGIoccVTWk5lMup9oZashopGFZAd7XabFRN00A4Zd+/fWZu59747MoFg14=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=aMgtdzsn; arc=fail smtp.client-ip=52.101.193.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B8953C3C2;
+	Tue, 13 Oct 2026 19:35:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791920102; cv=none; b=jl6V6MuNNj/5xNJ/WfMJ9PVHSMCLJu7+GaUgo3uk9CnlaTHkxwoKNzCByxSXZsZvo5UQIxaTwmmYG95gBUQotvp5p7Ho47NmxMBUA+3UmWfYb9j9B5oTIJvCBRQR8Y1hYEpNZnonJ/EKXKL2FD8m6VcW/Te3+8al1l7jZhMDmeA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791920102; c=relaxed/simple;
+	bh=EKE+BrURLABnFg60A84Ac3H9FK1qvZV8iXW0jusei8M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cSeSUT894B73ITdcqIBnk1N/A1yLlY/L2gxhbrXCzomkWunUz/pNUXyhGmuh3IWRJACQU/6hIH3i3+qoI/cV3Bl5GcURYvhBDB08BIDryF5QD6m87ZppI5dnLgyqiJSzTSZcchM493HzAipg9mNf/nIlaXIzN52SxQPSnLXS4pM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T/HY68Sc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="aMgtdzsn"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xkR2q+xAuBy42531A4N7olBn3//0i1sZdIyb9fUjijNGM8/NhF5vhqjxG43r6VDDRjqC0+1rNJnjgupGqjg91q3OqbxWNzdv98yBH2YlJN/I42XOxgTUGq1jkVZbT43AnYF+Q699rG2NL9Vl2OCETrE5XucoS9dwO0vW7LP4jYyiD6vBth0Kpr+tG0bSyeNMWkE2AzyxuoNR8JvE5pG18BTDNwrhf+bYxpKVYNN4JTOYvIPgwfpdtr42vVZA79DqeBNeFUMCQn1FdzzkmLWXQcigXhNHnEBa3HRsljhCiYzgZdH8CwWIHYooYur6NuEgO/6zUXZm/s/cZLWaCJOrAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vzeiI+gayp9EAe7RxgwBRYceR2ZzbZYo/guosxXjHcE=;
- b=sSRXBmRGF7i++o+mzmVaqknwdky0cNr6sW8/vkUnDLbNwYF+EtRxgjIpmPNTojqj8dYblhKdV82OS8X+Jry+vl2Abw6ronHm1ndhAGIgEJQWqt5rPvlD7QkuPXNUKNRM/EKtxVD7XNCBgUozcv0EdyTwELbSYCnkRJ+KDfdnsT4p7VsMyCWCS1E5uPYcbJ/LVbVM5Jp1sfo1PZfLrxomofI+aOvzlvOBfxiKT6m1QOZa30JR/4tT1FxMVqw0K0WBSt9CcU1rWUfKoIsRBWpvZRBigKZxc/oEkSTSGCZa5hwdjBbmFrKvpRBNQ+pnMIOHYz7HSW2mYeFBKm9DXdm+ag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=arm.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vzeiI+gayp9EAe7RxgwBRYceR2ZzbZYo/guosxXjHcE=;
- b=aMgtdzsnRyVI+0R+pQjLpFuQLoOkYQgkuMvxm15a7zR0aYzsVbZSEf5XittQ24PS7QwzFCnoJJV/ylhgwZ4uUmngY1WinXPcJInVLFwcA5yBSM5LcNLhv6ftQ2w2j4QCnkugoOPemd32cgGiHMkRs13diD8nHQcY5jnPMBcIiCoZMImH1+okn92j24T5ys1ry6xfR+q22LWmIX6N2/CwyQYCnrYG9d6XSNNiIYlcot9tg62GDRR4ueJ/qRsEtlPwsHTmTGbqEOsmX/8oRwZh8J0D3U3LRMbVBq9fveGd6y1YnNihOWBK97cKX1WzNxUkGgrFARBxqXIC030MCG0WiA==
-Received: from BN0PR08CA0004.namprd08.prod.outlook.com (2603:10b6:408:142::22)
- by MW5PR12MB5599.namprd12.prod.outlook.com (2603:10b6:303:194::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 19:33:50 +0000
-Received: from BN1PEPF00018072.namprd04.prod.outlook.com
- (2603:10b6:408:142:cafe::7b) by BN0PR08CA0004.outlook.office365.com
- (2603:10b6:408:142::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
- Oct 2026 19:33:48 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN1PEPF00018072.mail.protection.outlook.com (10.167.245.200) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 19:33:47 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 13 Oct
- 2026 12:33:24 -0700
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail205.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 13 Oct
- 2026 12:33:23 -0700
-Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Tue, 13 Oct 2026 12:33:22 -0700
-Date: Tue, 13 Oct 2026 12:33:19 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Robin Murphy <robin.murphy@arm.com>
-CC: Jason Gunthorpe <jgg@ziepe.ca>, Peng Fan <peng.fan@oss.nxp.com>, "Will
- Deacon" <will@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>, Thierry Reding
-	<thierry.reding@kernel.org>, Krishna Reddy <vdumpa@nvidia.com>, "Jonathan
- Hunter" <jonathanh@nvidia.com>, <linux-arm-kernel@lists.infradead.org>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<linux-tegra@vger.kernel.org>, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH RFC v6 5/5] iommu/arm-smmu-v3: Wire up shared-SID STE
- ordering and feature gating
-Message-ID: <as6HfzpcalIh6SMs@nvidia.com>
-References: <20261011-smmu-shared-sid-v6-0-cb76b89dc612@nxp.com>
- <20261011-smmu-shared-sid-v6-5-cb76b89dc612@nxp.com>
- <aszfVNP6DGzWYdK0@shlinux89>
- <as1zR1wc7ERxvR1F@nvidia.com>
- <e8c22eb2-ed1f-47c7-b2ac-c56ead1cba8b@arm.com>
- <20261013124400.GI14213@ziepe.ca>
- <4d2a05c3-f7f6-4348-a3b4-c8f3ffa79b6c@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T/HY68Sc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59A701F000FF;
+	Tue, 13 Oct 2026 19:34:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791920101;
+	bh=6e7sCTs9s2Q0EweL+aD9Wlvk19OnMX+Ssr0sngoSMhI=;
+	h=From:Date:Subject:To:Cc;
+	b=T/HY68Sc3QjRCNkCifO5o9mK2HsfUUeyjqxEFjjGOPL45cILAPxsmu+/5apeQDJ42
+	 9VKSkKYJVksoR7WCpG2IbG92C45ERFGoL5MJSJvyj64QiYTWDWPIof9ApirDYt+nhY
+	 iN0kHFgqDXqtF/Xjg+hurJq1Ei35YbBkdOWsi56Sz1GtDNmOfJ2aUUMs3A+KkshaPw
+	 Zay5U2NKLJH/dLkYJ9w0iGUkh6u7/Y9cqsEbVjrdfq2Z9Om9gaYkfzgO5Omdp2nKn7
+	 0GjZ9KIclZsmEKWaQSs5ui+sQ4ikal6AGdwte2I0u+Te2Nymx8Dvb6+OZxAFsI2Uyo
+	 QkjSxBIjdFjVg==
+From: "Harry Yoo (Meta)" <harry@kernel.org>
+Date: Tue, 13 Oct 2026 20:34:39 +0100
+Subject: [PATCH] mm/percpu: account full object size for percpu memory
+ allocations
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <4d2a05c3-f7f6-4348-a3b4-c8f3ffa79b6c@arm.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018072:EE_|MW5PR12MB5599:EE_
-X-MS-Office365-Filtering-Correlation-Id: 789ba8b1-6d6b-4d1c-0180-08df2960e704
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|23010399003|82310400026|376014|7416014|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	YHQ6YIVvHu4uVyyc1qOayqYO3DNPsoNptiMcCHhOpCvVG5fH3BpRom87ajdP9KarkMqFnAQ1vBku0ZEEs/J2NaPpKHsHr1kfYgOta1Sx/NxgTC91qYWYJCL17dqabAKpyeUwxUOSKZz8tBKpdExVbV9w9pS6hSszTsszKu9PWDwGAgvm5HI4ZcE6HfEQejISIrReL+sYSxkZtVY8Dvward8/BTwV1RZHsBX4s91ZNDyvc64TthX0uNZItq7/jkRBM91SHqT1jbhObGYRLDfPgHMHowl9hym2NXrlj96LNDF+1LkFoG1hLoqjVdXXgnhR7lt7MH7R7UvoxzPaXh5PRus5bbINCdmYGq3Ymo2ycSmiXj2qn0nrTkQM9MJVsVgI2c0qgxGWDpUS/8gM6a4EriMKkWYoo2AvDho2t5eLWz/te7VwRvbLWDr6x6O3Qol4WD8XZQa5LS4tmNcMbcwwee6a5qSRCrp10zfV+E4EGvEmB9DofbFVWt9UOnUszBDJKBUU2HrFHdOjC1c2Cg55EDf7B0wQ1mBkD5RgnQPeYCN0OTLyTgUBxL2Tm3p9/VBhxacSaGFz3RqWtEugiLfccBCPIxfNiApJk4sH7A8ahKMRfCuLajJXK3Zd/I32MBvEg4GVjoEC6MxcgVsyEqBax935B3m8obKj2QoyObwhS7TpC0amvPqhR11zSDNj/986aM71dqy85g1mu6gY8ufyjA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(23010399003)(82310400026)(376014)(7416014)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	PCFai6p/keu6aQQuiIu+aBSK5VYZVFP3Beg4qYQ7yTXWMgTMErz+JAObrNNhwcHIPuwAwAJfEIFYmIXnvXIzOEDByyjjlwXDTqt9ZaqEBGqHCZ25yHYZIcdJWCXRM6Ou4umiyjS1WRQKP/TiV6eRSsYhRzFFYtAMDYb/Bx1DNxihG05DBf/J16gOtAfaHPUfXY9T0aHTzuSBP80wTpcrNMwcx0EfBSwyExJLnqfFvVTYOdJxDrr9o8nnsyMHnLvYHB37cTHJSU+xOwZE4bbo8bU2d+nRzVy5+wpldWqK+sdK7WLr6Ig0Hc03b4U/5X3/qlRYlmEsgGVwIZp2vCV7Eshtm9pgGao372vtaiphCDs/vmGqnZHrgHOyD+D8gEfD56HrrasTweWflKT1Z5bwoWUB0Aq0+XWZ4HEv+9MitnaKesmKB0JdrqDvw6JaC/od
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 19:33:47.7432
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 789ba8b1-6d6b-4d1c-0180-08df2960e704
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00018072.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5599
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-fix-alloc-percpu-accounting-v1-1-03e788a1e41f@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAM6HzmoC/yXMQQqDMBBA0avIrDtgUinqVaSLOJ3oiCQhMSKId
+ 29slw8+/4TEUThBX50QeZck3hWoRwU0GzcxyqcYdK1fqlZPtHKgWVdPGDhSyGiIfHabuAmbdrS
+ 66VRHxkI5hMgl/92H998pjwvTdi/hur6pRrqsfwAAAA==
+X-Change-ID: 20261013-fix-alloc-percpu-accounting-48bf24919caf
+To: Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
+ Christoph Lameter <cl@gentwo.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>
+Cc: kernel-team@meta.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, "Harry Yoo (Meta)" <harry@kernel.org>
+X-Mailer: b4 0.16.0
 
-On Tue, Oct 13, 2026 at 05:23:21PM +0100, Robin Murphy wrote:
-> On 13/10/2026 1:44 pm, Jason Gunthorpe wrote:
-> > On Tue, Oct 13, 2026 at 12:22:06PM +0100, Robin Murphy wrote:
-> > > If we're not going to support PASID for shared streams (which I suggest we
-> > > don't...) than we shouldn't strictly need to worry about CD tables anyway.
-> > > So rather than having to special-case CD table sharing for shared streams,
-> > > perhaps it might make sense to generalise back to a "default" per-domain CD
-> > > for non-PASID use, which can then get switched for the private per-stream
-> > > cd_table if and when a device does enable PASID?
-> > 
-> > If we have stared STEs then the group becomes the per-STE data
-> > structure not the master.. We don't have any way right now to do that,
-> > but it would make some sense for the group to store the shared CD
-> 
-> That would be precisely the aforementioned special case that I'd hope to
-> avoid. My point is that the CD represents the domain context, so we really
-> shouldn't have to have multiple copies of that per-device _or_ per-group,
-> _unless_ it is attached via a PASID, since in that case it does need to be
-> copied into a per-device CD table (since the per-domain CD table was indeed
-> the wrong move in hindsight).
-> 
-> So what I'm saying is that if we're going to make anything share CDs, then
-> ideally we should just make all non-PASID devices always directly share the
-> domain's own CD, then if we just enforce that any devices sharing StreamIDs
-> must be non-PASID devices, it should all work out, we save some memory in
-> the normal case, and never have to be concerned with rewriting any STE with
-> a different S1ContextPtr for the _same_ domain except when enabling or
-> disabling PASID for the (single) device owning that STE.
+When memory allocation profiling is enabled, the pages backing percpu
+memory chunks are attributed to func:pcpu_alloc_pages. However, the
+accounting of individual percpu memory allocations via alloc_percpu()
+and friends record only the size of a single object rather than its
+full size across all CPUs.
 
-FWIW, master->ats_always_on would be a special case here: it is
-non-PASID but needs s1cdmax to be non zero.
+As a result, it is often not straightforward to identify which kernel
+code is actually responsible for percpu memory, because the size is
+under-accounted by a factor of num_possible_cpus().
 
-But yea, that sounds like a good approach, though requires a big
-refactor.
+Account full object size with pcpu_obj_full_size(size) instead, which
+multiplies the object size by num_possible_cpus() and adds the objcg
+pointer overhead. This is consistent with what memcg already does for
+charging percpu allocations.
 
-Thanks
-Nicolin
+Verified with 64-CPU VM by spawning 400 processes in a memory cgroup and
+measuring mm_init()'s rss_stat counters.
+
+Delta of kernel/fork.c:1142 func:mm_init in /proc/allocinfo:
+
+                  bytes   calls   per allocation
+    unpatched      6320     395         16
+    patched      418176     396       1056
+
+'percpu' field in memory.stat: 422400 (1056 bytes per process)
+
+Memory allocation profiling now accounts the same amount of memory as
+what memcg charges.
+
+Cc: stable@vger.kernel.org
+Fixes: 60fa4a9e2323 ("mm: percpu: add codetag reference into pcpuobj_ext")
+Assisted-by: LLM # Verification
+Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
+---
+ mm/percpu.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/mm/percpu.c b/mm/percpu.c
+index 3eff382e565a..d7883507dc15 100644
+--- a/mm/percpu.c
++++ b/mm/percpu.c
+@@ -1696,14 +1696,15 @@ static void pcpu_alloc_tag_alloc_hook(struct pcpu_chunk *chunk, int off,
+ {
+ 	if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts)) {
+ 		alloc_tag_add(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag,
+-			      current->alloc_tag, size);
++			      current->alloc_tag, pcpu_obj_full_size(size));
+ 	}
+ }
+ 
+ static void pcpu_alloc_tag_free_hook(struct pcpu_chunk *chunk, int off, size_t size)
+ {
+ 	if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts))
+-		alloc_tag_sub(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag, size);
++		alloc_tag_sub(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag,
++			      pcpu_obj_full_size(size));
+ }
+ #else
+ static void pcpu_alloc_tag_alloc_hook(struct pcpu_chunk *chunk, int off,
+
+---
+base-commit: 0e199ae6e803e76ebf128e009d336e5917221e63
+change-id: 20261013-fix-alloc-percpu-accounting-48bf24919caf
+
+Best regards,
+--  
+Cheers,
+Harry / Hyeonggon
+
