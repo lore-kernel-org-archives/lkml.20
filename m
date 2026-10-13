@@ -1,74 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B5551AFC4;
-	Tue, 13 Oct 2026 15:40:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E97351AEE2;
+	Tue, 13 Oct 2026 15:40:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791906013; cv=none; b=Ik6FSABkB4gKJzDZ7P0ePgGS5gKnxe/K67bz/xyMDTzgqxjSMdhbFxXNiEgf3AxPdsW4Ndo3OFmZ2g0wBk94N9BccRzukDgEzY5ihjlT3oDPRQ9MhW2jk3r8unfqOVcTX1HOmAO3OAjd4v/kl2C454t6H8dv/Zh8/GRDOZ1HCn8=
+	t=1791906027; cv=none; b=T9BTz72QLATTyOK2T/YmJpMaS5zSRFimjgICyzdfWDw4qiS02brSA2N5FDxJvZE47Cc08ttRKFFn8gmZUiLv8d00SDO3kLpzhMoBaWWTinyT3m0PKzYuIwYnAiAQXwl9Gz0Snc+xva60QcbPyUihKQpZg2D7F9mwcUEg1dbvkNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791906013; c=relaxed/simple;
-	bh=Kc+g4AYNYaHlUUMpIFwwvMooz+DPHDMnyJyMXL1S6b4=;
+	s=arc-20240116; t=1791906027; c=relaxed/simple;
+	bh=aePh6U74khONlchJMqoCW7bzUBKnKhlb8hEUHQbTKnU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DeANAf3a+cVU9Eb2DErPCA/kXdKVDJk29KL8IjlEuBXy9oDPYMW/TNmf3S+v9/Pge9vFOmdPFIRT0/X+Remq7lCH+SlUvhBUm8TiOFawOb9ecnq7ZKcBhtiSZxIILXcgG2mj3yvzLWPmlfPJclQ3hOLej2DeYCVQgat3SRYy83I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SABT8bwu; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=kxPvRCKiX/9x8ZnTlZNR9RmlgnMpZ7DDPUrcR1Yo3h6qSsaWyBYKeggOsvMQYoCz7rg3+MHRjeFE36o/PWBo5p7V/3VBZ89CLKz7QACaDQd4f7THnjUTYtIf6MdLvSX8s3OelFlSHFIYCh47WRPwsht9DTRV+7pSWWMh982qXL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DVUu7flc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SABT8bwu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FB471F0089E;
-	Tue, 13 Oct 2026 15:40:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DVUu7flc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DED21F00898;
+	Tue, 13 Oct 2026 15:40:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791906012;
-	bh=UgznpuaGHIjf/1wAtS+z9UAIAApoFcgHOqVgQ1r4wfs=;
+	s=k20260515; t=1791906026;
+	bh=NJfxrBBuE+qmr3EtyxVuFFbz+aCw8+gpkG0ib2QwahE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SABT8bwuM0GGX/xLV1aYqca17/tmwLq/mJJlAKIfVhLQLSxnNK1gEtBNLd83MXtpJ
-	 2/9VYQIQUdguIygxVTJvlsW34DacLsndpQM2MHI6WJSyyfFC+gEIsie7VMbjAclBcn
-	 JR4wX9tovHRzEijrrVm/SX3gOdfsb8uYRQFb46w9AN2eK4WgJX4MrgUZ5LCcJ+Ynm6
-	 BXmtHb7FsWeCZ1qWwHGp3xclr2328NuiRJQtJDa9nXbk25B4kzl1Iw6NnGXqe1fnxj
-	 djFXz3HRHyPDrrHYnxIb0YiTTiqED6/X+nLen3wm10EDQkkJrXwptkIGHGy21ChToc
-	 VG1OTsqNnjWGw==
-Date: Tue, 13 Oct 2026 09:40:10 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Cc: Hannes Reinecke <hare@suse.de>, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] nvme-auth: fail when the controller does not
- authenticate itself
-Message-ID: <as5Q2k-aQokHA-ar@kbusch-mbp>
-References: <20261006134807.518056-1-yhlee@isslab.korea.ac.kr>
+	b=DVUu7flcNuGSas4GgqlFBqwDfapW7WYVrzgU2QBvOdMTKwVHiWl2zVe4pBXSFt3Vq
+	 0DR2c8kulFhKYU/Pl8JJQLBYn0xc7c6nS3sClSGi2Q7zTqD2aoczDI/aodtY+Nmpf+
+	 JC4P0lUJOq1NdQGRSf6Pcg3H4vdDvdtFpDH+BtDfkEy9nEPRUCZfO6AqvKzQTVgCS1
+	 TfC3vREgH/t0tOJuCIgqY9nNU84bzcQHHmJ4Y1tb0CnsH9Sjx2BfIJfHtNJOkjc6SZ
+	 64ygftEDo8SFqpS0Dnngitsu34Cjv2l6Rkd4/MamTY4yC44SAnv4CSO6c0t92eSTnI
+	 g8ZRkXVyN8oTg==
+Date: Tue, 13 Oct 2026 16:40:22 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] spi: omap2-mcspi: handle DMA setup failures
+Message-ID: <4a20222b-7d60-4763-9833-bc453d26ade8@sirena.org.uk>
+References: <20261013142004.1729849-1-sahaj123.sc@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="8iTOAyz0EiYcRMdX"
+Content-Disposition: inline
+In-Reply-To: <20261013142004.1729849-1-sahaj123.sc@gmail.com>
+X-Cookie: Some equipment shown is optional.
+
+
+--8iTOAyz0EiYcRMdX
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261006134807.518056-1-yhlee@isslab.korea.ac.kr>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 06, 2026 at 10:48:05PM +0900, Yehyeong Lee wrote:
-> nvme_auth_process_dhchap_success1() returns success as soon as the
-> controller clears the rvalid flag in its DH-HMAC-CHAP success1 message,
-> without looking at whether the host had asked the controller to
-> authenticate.  A host configured with a controller secret sends a
-> challenge in its reply, computes the expected controller response, and
-> sets chap->bi_directional; if the controller then answers with
-> rvalid = 0 the response is never compared, the host still sends
-> success2, and the queue is marked as authenticated.
-> 
-> A malicious or man-in-the-middle controller therefore only has to clear
-> one flag to turn the configured bidirectional authentication into a
-> one-way one, without holding any secret of its own.  The target side
-> already treats the mirror image of this as fatal: when the host supplied
-> a challenge but no controller key is configured, nvmet_auth_success1()
-> fails the authentication rather than answering with rvalid = 0.
-> 
-> Refuse the connection if the controller returns no response although
-> bidirectional authentication was requested.  chap->bi_directional is the
-> right condition rather than ctrl->ctrl_key, because secure concatenation
-> sends a challenge only to derive the PSK and deliberately clears
-> bi_directional; a one-way setup without a controller secret keeps
-> returning success as before.
+On Tue, Oct 13, 2026 at 07:50:04PM +0530, Sahaj Chaudhari wrote:
+> The DMA paths ignore failures from dmaengine_slave_config(), descriptor
+> preparation and dmaengine_submit(), and carry FIXME comments about
+> falling back to PIO. A failed setup can leave a half-started transfer
+> or wait for a completion that never arrives.
 
-Thanks, applied to nvme-7.4.
+> @@ -1227,10 +1300,27 @@ static int omap2_mcspi_transfer_one(struct spi_co=
+ntroller *ctlr,
+>  					+ OMAP2_MCSPI_TX0);
+> =20
+>  		if ((mcspi_dma->dma_rx && mcspi_dma->dma_tx) &&
+> -		    spi_xfer_is_dma_mapped(ctlr, spi, t))
+> -			count =3D omap2_mcspi_txrx_dma(spi, t);
+> -		else
+> +		    spi_xfer_is_dma_mapped(ctlr, spi, t)) {
+> +			ret =3D omap2_mcspi_txrx_dma(spi, t, &count,
+> +						   &pio_fallback);
+> +			if (ret) {
+> +				bool is_target =3D spi_controller_is_target(ctlr);
+> +				bool fallback;
+> +
+> +				fallback =3D omap2_mcspi_can_pio_fallback(pio_fallback, t,
+> +									is_target);
+> +				if (!fallback) {
+> +					status =3D ret;
+> +					goto out;
+> +				}
+> +
+> +				dev_warn(&spi->dev,
+> +					 "DMA setup failed, falling back to PIO\n");
+> +				count =3D omap2_mcspi_txrx_pio(spi, t);
+
+Do we need to turn off the FIFO here before doing PIO? =20
+
+> +			}
+> +		} else {
+>  			count =3D omap2_mcspi_txrx_pio(spi, t);
+> +		}
+> =20
+>  		if (count !=3D t->len) {
+>  			status =3D -EIO;
+> @@ -1246,8 +1336,12 @@ static int omap2_mcspi_transfer_one(struct spi_con=
+troller *ctlr,
+>  out:
+>  	/* Restore defaults if they were overriden */
+>  	if (par_override) {
+> +		int restore_status;
+> +
+>  		par_override =3D 0;
+> -		status =3D omap2_mcspi_setup_transfer(spi, NULL);
+> +		restore_status =3D omap2_mcspi_setup_transfer(spi, NULL);
+> +		if (!status)
+> +			status =3D restore_status;
+>  	}
+> =20
+>  	omap2_mcspi_set_enable(spi, 0);
+> --=20
+> 2.43.0
+>=20
+
+--8iTOAyz0EiYcRMdX
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrOUOUACgkQJNaLcl1U
+h9CflAf9FxnOkGW3I+4O6FGCNKhHWwZvviAk4+Owdo7QhfwRyFjEjpmXpT+5MPnw
+VFzLl9xNzw1dN/sQ0kV06es5pdgcobY9Bh+pKPHhDJZQVnLtgx2xJlf1YMMfasQc
+x28CA5WwC6A5mOg+3ul/urrqRorum79xSh4Qqjydyy0Hp4f9eXF80q8rzeAJT1/g
+o470mtVZZZAty7aaMaFWJ+5+6Aka4zAQt83e2T1lJ8C11NfNAjz4Cgqjs02JyOF6
+KJOPK3kw+aJt9VUwyYZGKJEwgGjchcMeAmwQov7xdL+vo0BWyTWaRivcOShadEo9
+pGSx8FakDQ9oAlDzuo7APBY94g6dXg==
+=HfFf
+-----END PGP SIGNATURE-----
+
+--8iTOAyz0EiYcRMdX--
