@@ -1,74 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3974B95B9
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F054DA539
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:43:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791934901; cv=none; b=btJmCJhwk0sPvM5upbVcPEVGOgOE1KkL1wfMQ+nX6LQEdG9t+RzSTTagc+sQAx/AkxGcKI9ChnBF3RGaFRnfQJS9p7NvS1WB/+AjiUdDVIOHON00a3hq2aqm1zz/TM1ohvRap41QoJ8Z+zSl1n4p2MeW0p3oWjBfyhzjtFmcFis=
+	t=1791935017; cv=none; b=F10Xguu7Oe372oHlIXO0f0VBjOtlD6F5CeUM6bcMG019MpsPsqTk8bghhR4+tGhxjJRdiM7Z4hI8s/hlmnPFTg96rN+MxkJTbmSnx6jNf6DcLVhzX8guITDSj9VmbiT49h8ZmUZFkuqZXjN0khIsBSPWbin4p2gdKFQ0O44pByk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791934901; c=relaxed/simple;
-	bh=A3FUhVOWfdIO0Hl31ZT5JPOkd0XdxMUAl3z6A0+0Pww=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Iap2MzAfDC9jj4xK9B/kV/7akW8PPTPE0rYwe4SAWtVVBY1M7hjO25yyoiAl9n/Gji4jG5BaoIbUri6lnviSfY/yjfZq025C0ughhnhWfuookn81EWnBDaKeijEgbJeF7Ix1jJPGBAeFDDcoWvH/3IaiLt9N0CKll0VUjpddMfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUc/+8zW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791935017; c=relaxed/simple;
+	bh=GvZxarkkwqqsR3khBy5tCFsKRpsaRw8uvoLtTbkALNo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VzHq9yB8XV0lAWnO6IgRyXbYzyCfpMeEK0A3rfeEAFSgibPmXFfcQRZIrUgrhAZDnz2IEoJymnwecAjZHCT4DSUFoVERbj/hsjLYnJccD1kLc6ys1NEuL07/yqeJrf0bkUyS9K533oA1KKagUqgQw/KTBRXX2hYf+4zGw5/cxXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=HxmGHMN+; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUc/+8zW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C963D1F0089C
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:41:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791934899;
-	bh=A3FUhVOWfdIO0Hl31ZT5JPOkd0XdxMUAl3z6A0+0Pww=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=JUc/+8zWtQEDYr5Anj1fugo+bpaucFV0Oe5d13K8oGe8MRNEXMg1EV+4InNIfz/3C
-	 6mM+RUySLQ7P1YlC8m+BWLmDpzH8CFkQsrVMJalN1IB09qcst9b5jwMcwJMRb3AW6T
-	 /jgw49sFOhXCP1UTaHDpfioI45qnwAxILr8a9OilWQrswOMl2FKGnoO7KW5PVKYY7R
-	 t4l9+lBND9VIEPHhL/vA7qc4gHKTvbdBefZWO4tNhl62xv+I3N6Caqk3wfkvqD0yhA
-	 SBnisRmqWGYZfI8C3bsU3mwsKIKQQN2gz33qUhi/X6dJ5Fm77niAhioi2TtLSidWnE
-	 RQIdOJrg6feDA==
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3a772ec8389so27679211fa.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:41:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxBkXG8KJVuESkulEzhUoy5M9+LRRK3wZLX+9xEqiM6g7t8d+a8a4BTw2ElBeGq+JN2xWcmBndipmxbDh0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJP58uKrQKIDNdx2oAUd6tKGs1nudz1m4CuPx2yP2GjzyEcZmL8
-	2o2jx0pyIHa5splYRvY2gjdhmzn2FtaYKgIqCDBIlDkBHKhKYsIgeABVXfw36LYnAaacMJKDjwR
-	D0P6dZ7zccbvgt+F+HN8f6ajA9qR8NxQ=
-X-Received: by 2002:a05:651c:3253:b0:3a9:decc:71d8 with SMTP id
- 38308e7fff4ca-3a9decc7400mr21468171fa.20.1791934898564; Tue, 13 Oct 2026
- 16:41:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="HxmGHMN+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=lL
+	OVZmATFMcWY5AsWvDsdDWTAZ57Fo5AmzovE35nef8=; b=HxmGHMN+F1cmSC5PdD
+	H3+yitLmpEcTU/hXcxrFiuzx7/tvPligLq5OahvAPfVWG2Pax/gy+abu7CzLJSxh
+	CKtzo1hd0wAObhBQ9HWE0TOrrUrSmuZfiONpn2ypftVq23Gz/Yt8FREo3YxFRify
+	JcS1lLMQMzc0GcPhlPRTyHjBw=
+Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3n8YRws5qn3YTEg--.47761S2;
+	Wed, 14 Oct 2026 07:43:15 +0800 (CST)
+From: Baolin Liu <liubaolin12138@163.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v1] ntfs: support FS_IOC_GETFSUUID
+Date: Wed, 14 Oct 2026 07:43:10 +0800
+Message-ID: <20261013234310.836392-1-liubaolin12138@163.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014-cv75-prefix-v1-1-fe95ed567880@ambarella.com>
-In-Reply-To: <20261014-cv75-prefix-v1-1-fe95ed567880@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 14 Oct 2026 01:41:26 +0200
-X-Gmail-Original-Message-ID: <CAD++jLn9SgrgCoY6rZTeSqtUz2PXitK15cNcw2sxd3gOjG3MvQ@mail.gmail.com>
-X-Gm-Features: AclHuK-5QJaToI1M3VEyCK9SLAW1pZniBd844zSmFeaZWQCAJufzB3jf4co85pc
-Message-ID: <CAD++jLn9SgrgCoY6rZTeSqtUz2PXitK15cNcw2sxd3gOjG3MvQ@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: vendor-prefixes: add Ambarella
-To: longzhao@ambarella.com
-Cc: Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, devicetree@vger.kernel.org, 
-	Long Zhao <zl020895@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3n8YRws5qn3YTEg--.47761S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WF15ZryxAF4DKF47tFW5Wrg_yoW8Gw1Upr
+	nak3yxKrZ5JF4j9ws2kr4Fqr1xZ3sxJa1Dtryqvw1fWws5t3WagrsFya4FgFWrAr95tr4j
+	qFs0939xuFyjqaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Um-ewUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hQEzmrOwhS47QAA3T
 
-On Tue, Oct 13, 2026 at 7:46=E2=80=AFPM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
+From: Baolin Liu <liubaolin@kylinos.cn>
 
-> From: Long Zhao <longzhao@ambarella.com>
->
-> Document the Ambarella, Inc. vendor prefix so Ambarella DT bindings
-> can be applied without waiting for the SoC series.
->
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+NTFS reads the 64-bit volume serial number from the boot sector but leaves
+the superblock UUID unset. As a result, the generic FS_IOC_GETFSUUID
+handler returns ENOTTY for files and directories on an NTFS volume.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Register the on-disk little-endian serial number as an eight-byte
+filesystem identifier with super_set_uuid(). The generic VFS handler can
+then expose the existing volume identifier.
 
-Yours,
-Linus Walleij
+Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
+---
+Tested in QEMU with file and directory descriptors, comparing the returned
+bytes with the boot sector. Queries remain consistent after read-only
+and read-write remounts, unmount/mount and a fresh boot. An invalid output
+buffer returns EFAULT.
+
+ fs/ntfs/super.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index 242fb19ced2b..950d305ab695 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -997,6 +997,8 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 				vol->mft_record_size_bits;
+ 	ntfs_debug("vol->mftmirr_size = %i", vol->mftmirr_size);
+ 	vol->serial_no = le64_to_cpu(b->volume_serial_number);
++	super_set_uuid(vol->sb, (const u8 *)&b->volume_serial_number,
++		       sizeof(b->volume_serial_number));
+ 	ntfs_debug("vol->serial_no = 0x%llx", vol->serial_no);
+ 
+ 	vol->sparse_compression_unit = 4;
+-- 
+2.51.0
+
