@@ -1,112 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4616C3FC5C9;
-	Tue, 13 Oct 2026 15:56:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F2B51AEF1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:57:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791907015; cv=none; b=ksvxvZy+hICKr9YftQKCIBTzownTDTYANYtIQJwSUV2zWcLWpSIbK/IzDNBG1+Gjo9LqT+AeImf21OhBoVJIsiqhf+kYi1WiAV0wVhFJaLbiHXoYPi8Hkfbzo4sl+T/K4z7g1o2ADzYHuSxR8QonuOxZL2GPuLsJIhNZeIaWt1g=
+	t=1791907026; cv=none; b=l7MVagBH3V3lTeoOxmGkNkt3DW7DO1lXphX5o0AcbZ26N3BLQtMLLhPVL4aie02u82oBedFT+YW9KFtqwDRDVgWb5bn1JoZCeaaNBHJFaU0ugr5S9GO4sau7K1SnMLDO5wpNf4G4ZFx9wQ6O/uhy/URI73SuD1ttoOThnSW7RAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791907015; c=relaxed/simple;
-	bh=9G1XugHRINvmwHOQzshtjzO2MxpAe3PmKNLpV/Swmtw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uqaiHQl662XG6JQJSNHt+OJxGx++a5u9dmCVUcLBzecIIEO8Y4scLiyRCNRpGUQpp8JfWdcdljX7taox4m5st23oI6ChtoBLH5PtW1vHfmfX/xV+MoDjSeoKolJ/V3JUk4o0yQwOl+ahWwYciflxz4RIRnWMrcHhpUBhMQ6i1AQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKjG9aqR; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKjG9aqR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168301F00893;
-	Tue, 13 Oct 2026 15:56:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791907013;
-	bh=NPx6DSV+4j0EiNoTg6BI5ljLh5I5fhSgaI3qnLWLPmg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jKjG9aqR/NFKyzM9hSQJgqgrhKzeAMUeH4nmyVQZBF18/6bLwiIA0wwCIoJto4wQr
-	 mYTcRSCdiNFskdTNuU5jjmNNQwz3rw21bVgIAi//rvVjDW1qOy7tqBqTowFYsOWBZ0
-	 DG66fN7fah7/IN0x+OGv1P7gTaoAlaZASZ0zzbwb0JG1u1h3bUxS74wtuRw7Jfii/t
-	 Bu0fiGWwGEqZwxAgib1ftjVNEjUS/5buDMB8sVPXJMrvAuNZCsvHLVIrC/fSnMVkqO
-	 saPja/KSPrYF8BkCAW/MqK/0j3gGfBnE9aURwNtn4h6SF4bEJVONc3uKuIVZVRJuFD
-	 awiQ8eIZRguIw==
-Date: Tue, 13 Oct 2026 18:56:45 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Benjamin Herrensmidt <benh@kernel.crashing.org>,
-	Peter Zijlstra <a.p.zijlstra@chello.nl>,
-	Rik van Riel <riel@redhat.com>,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm: disallow ioremap'ing ordinary RAM in
- generic_access_phys()
-Message-ID: <as5UvcuKuVjCOvuN@kernel.org>
-References: <20261013-generic_access_phys-v1-1-b3963ef76e37@kernel.org>
+	s=arc-20240116; t=1791907026; c=relaxed/simple;
+	bh=MnswUPZ0VQSjA/l20kQNmqe7pQbiGD3aNvzl4PUEOV0=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=pq8qpHcIn0zm57kfs2JZO3AEIarlM7h0/fiiZ+70Q96zlApMPCnGPJaeWp9FbYI7rICSA4lB9EoaBxfAa+gFAreCJbHlrUVJfz8Wmv4+6/NexKQWWLiVTVzP07GNqG3D9B29M4cB4JHbp7TKAulxRGWVA8Ffo7bjN6m6s/jA2yk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4e778acdbc6so5420150b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:57:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791907024; x=1792511824;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qWDulPA+RjVWRkoBuQohrpzz5Ilcc8Qj/ziaMykwjT0=;
+        b=0eBFb2XHyIntvwdQoh8wavOXVjLjXW17UcnP+tREbpiiDTdwCE8/c27YJ/CpoTror8
+         U1jbn5Al9LS5rfYzZxplqNbSNoV3fyX5Zvy7VtrwX9k/rzlDCiqENLkOxHC3+M7G5U33
+         +aSmcr8o3LVEdi2981IKsSbY/IvDSzIVGUJmIuTWaQ71Iipe4ha3LUUKw9BqUMnq+/I8
+         C+nUOGbFO3mAX4JqTibyhcQ+9M6ogNc4JDeK7NwQZSTyQzPmN9kkuABQqWAApbR7HUyO
+         O3X39Gmw5IsudZUof+VmylGdADAIv22ZZvKns5wBmO1GGuLs+4UiMK6LYmIWcJW3FAcS
+         aK5w==
+X-Gm-Message-State: AFq9FYIkhcxxrMF5ogXqm+ONDosS7Cw4WDH34QHKa4wyXbn4g5citIUs
+	vpJreBjNsXN+ghh8Ghz3B1z3WMGPvy5spRoovFZMqaEw5Y9JUGBzggJxkKWuj3FYpJK1/VkEIRB
+	eUSvOrKpMkavkGmMMg7Q1Bg3RTe318CrCJRMbD4TcQXLVAcfL23FrKkqt4JI=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013-generic_access_phys-v1-1-b3963ef76e37@kernel.org>
+X-Received: by 2002:a05:6808:182a:b0:4cb:f21c:a79f with SMTP id
+ 5614622812f47-50c516defcbmr14319865b6e.39.1791907023745; Tue, 13 Oct 2026
+ 08:57:03 -0700 (PDT)
+Date: Tue, 13 Oct 2026 08:57:03 -0700
+In-Reply-To: <CAEfrx+AF-unHJQ8mkPm9usZRSJMmNYY3VSRZzMPz0NJ-HjafZA@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ace54cf.5f317f00.247b6.000e.GAE@google.com>
+Subject: Re: [syzbot] [wireless?] INFO: rcu detected stall in rfkill_fop_release
+From: syzbot <syzbot+baad8fdbfa4129f93db6@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, spannme41@gmail.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 13, 2026 at 01:41:24PM +0200, David Hildenbrand (Arm) wrote:
-> generic_access_phys() can end up getting called on CoW PFNMAP mappings,
-> resulting in it trying to ioremap anonymous folios, which especially
-> the x86 code doesn't enjoy, and which is in general just odd/wrong.
-> 
-> E.g., with a CoW mapping of a PCI BAR:
-> 
-> ioremap on RAM at 0x0000000045623000 - 0x0000000045623fff
->   WARNING: arch/x86/mm/ioremap.c:216 at __ioremap_caller.isra.0+0x4c2/0x5f0
->   Call Trace:
->    generic_access_phys+0x130/0x4d0 mm/memory.c:7178
->    kernfs_vma_access+0x1ce/0x280 fs/kernfs/file.c:437
->    __access_remote_vm+0x58f/0x890 mm/memory.c:7256
->    mem_rw+0x2a1/0x670 fs/proc/base.c:912
-> 
-> But more generically, we should disallow access to anything that looks
-> like ordinary RAM in the system: including allocating memory (e.g.,
-> alloc_pages) and mapping them in a VM_PFNMAP.
-> 
-> For pages with an online memmap, allow only pages marked as reserved
-> (PageReserved). This also includes memblock allocations, however,
-> distinguishing them from other MMIO is tricky, and nobody should really
+Hello,
 
-With ARCH_KEEP_MEMBLOCK it's actually easy ...
+syzbot tried to test the proposed patch but the build/boot failed:
 
-> be mapping them in a PFNMAP (except someone abusing /dev/mem, which we
-> do not care about).
+init/main.c:14:2: error: ASDF
 
-... but yeah, it's not worth it.  
 
-> So only allow access if there is no online memmap, or if the pages are
-> marked reserved. Reject other pages with -EINVAL.
-> 
-> Note that, just like other pfn_to_online_page() users, we won't care about
-> concurrent memory offlining; mapping memory that can concurrently get
-> offlined is highly dubious.
-> 
-> Reported-by: syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=49b1021becba70c1f3f6
-> Reported-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> Closes: https://lore.kernel.org/r/20261001152524.171115-1-ngocthang2710.1999@gmail.com/
-> Fixes: 28b2ee20c7cb ("access_process_vm device memory infrastructure")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested on:
 
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+commit:         24a19b95 Linux 7.3-rc7
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=859f36d9ccbeaa3e
+dashboard link: https://syzkaller.appspot.com/bug?extid=baad8fdbfa4129f93db6
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=17ab467f980000
 
-> ---
->  mm/memory.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-
--- 
-Sincerely yours,
-Mike.
