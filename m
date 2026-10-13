@@ -1,121 +1,118 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from ahti.lucaweiss.eu (ahti.lucaweiss.eu [128.199.32.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D994AD4AA
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:24:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D44F4ED19E;
+	Tue, 13 Oct 2026 21:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.199.32.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791926646; cv=none; b=DMPOSmcCevxmxfC47KffiKhAemh+cPdzpzqSDBBR0o597iPHRSWUt5YX25elDrLsxnM+V8l4lbekpyWdKwX1kTfnsKedysrOtgvrG/MzGZEHl6YAp5iW/FaYcaP+zBNSt5uTgbnlzHTiV8b2EnsQt/8FqM7+UW97n+R88e//fZ0=
+	t=1791926695; cv=none; b=Bj6cYfPqbSp+GTLKIH9n56sFbBVCDfzA0CymP5RwBgRwy/wCfIr23tOKm5tka1ypfc3XFwcs0uFl9yZNkV5hggWZYdSK2kLMGem27bMWFwZhWoAclauaxBGka4YQIwkoqjHNUfZollIkurOCCa12in3axpyA8zP2QEfTpFk+MG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791926646; c=relaxed/simple;
-	bh=kOzzU32X9/PNXvPM6fEKQC0SzZXvwYsoB1WTyLjbZto=;
+	s=arc-20240116; t=1791926695; c=relaxed/simple;
+	bh=nKDrPdtKkv5zqB66996w81/rOjJtFS71nRCLGtuyIJ0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IN36vzrDlvIyIV7gL7NMNcgmqoLkCqTnIa2dNZUE/UZpzwuhK6vw4hFFQBWcP5mq+KzKdEcvToTOt+1onAjVgqZXzwGFz1DOrkVMGMWS0j8jrC0Pl7wj/Tyr5Fh1BY37reW7Yfqkn7jKgZufqPXlfrDrYl/1xTWU29atVjlaXsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r7KGAINz; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=LyqAFMtR+IWHqLWJxxGbbu/jCDrqi1rrncTGMtNw6vEU7uVpq9pJPBR5nf8woxJPRLTulqMCkiwzTq69XiLBCn+wXMcjGrCqp0KWz3LBi5WCRO5UauM5ZoXmWUj4NteF6gjaw51Vg0hRNrSPA0+bfiZlH/H+Kd4kxN/U3cuv8oI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lucaweiss.eu; spf=pass smtp.mailfrom=lucaweiss.eu; dkim=pass (1024-bit key) header.d=lucaweiss.eu header.i=@lucaweiss.eu header.b=wr1S/Hvg; arc=none smtp.client-ip=128.199.32.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lucaweiss.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lucaweiss.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r7KGAINz"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48bbb06e746so2039269f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:24:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791926641; x=1792531441; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bxJ53/ktAmv+NVuDjuFLPoxmZqnRHE1xVlMVYxWYBVY=;
-        b=r7KGAINz3nUrm3c42AY/Kivfs5lpiBoNsnXPNykr9L0Xl6V0VloyL3yC4DrdKhgQfM
-         c+45CMN4Kl5E0OEEBSfWfxzDwySbD8y7QAEaCLtZI3AUxyNCYdU7j0xWlKJxqvhK97nt
-         tYbRzSdIET5h3MTfFg5ePu/zHLPTQeF9vMHZGtv9k/FfpchNRBb2mcf0WCUhTxtX2HcZ
-         ACeRcNz3QxuGVuH0lCnnfag8uuof4jSrYsak7LU9s3IPvpxUh6PDCpQjdWHqdaUB15/u
-         rLpwjVqdrL7DlRRDfW3UmUlmXo9rXBj3CMmlXnTKFwCaypfYu4xXt8mmeXWaLP+AguZ7
-         /jLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791926641; x=1792531441;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bxJ53/ktAmv+NVuDjuFLPoxmZqnRHE1xVlMVYxWYBVY=;
-        b=LlY9rikjDYRXDWC9evkK+j+fLmYvNXXCPmgF+GYVdRLesJanOtbgxfV/gPIZPX88hL
-         tkk36lJn2q87wiQhTQ7gAp4DPGCluMit3fZ/SFnQgT1JN03ByPFxw+ArY4/n8OANCV1V
-         72BtDIy+AxlCF+afKxeHhKziZpchXXOOcLAfDQYUbjdeRzxziHfU4EBZhFI0+12ZDWpp
-         8fpMSV8hr5f33AGan7AZMlZeqHXwoY90vX/7k6sblDkU5C50yCPZkPkcWZ2GLUJRrYmb
-         RQh2c4T6nSdIIRuvnmYyhCluMF5TMGjDD/muAq/OxYByRGyLqImgr/tO2lL6PjzT1zOQ
-         nEjQ==
-X-Forwarded-Encrypted: i=1; AKwUvByrpYchEAPT9mdCVhZWJv/nVMqKyP0v1P4fEJx+fcYQeojwcdL9v0o0LP3d5oFIK8hGxBRpyP6jqdMlDmo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIb6IaHWfRZzKbNRIiYrhmAZP5h2btximqqs19w/nNGoFzxvS1r
-	RKeHG9G7UI/zF45aJbHUfQjjU3psLs5dfCdWibgZ95TyuNIMKUccSQUBOY77e3PZ
-X-Gm-Gg: AYBFou2KhRe8UzP6kqy6q8sJQW9ffCO476o4FMYkwUuygqPpKZ/SEKxnUCqscb4auEk
-	2fA5cJFsQ1zSxb1T6pxNZaRjzX18/QpCLYMPjYHrmCJH3RGMamuBbfpn5jgkhDvb3PTtTAXAevV
-	6Rua/XBNltGfJ2gq+LfEF2pyLngNsgFXzqiDLldyVoXK47uS0kDjWoQj5QQysXuI8gI4g/Fb9yE
-	uglRpbiIo2fRhLk99tdUTFNXHyybIKRK5MHFCgS+BNY6YYA/R07grhVOqws1tOyeiUvT1CBmxnd
-	2KsXgEiwoUywsvhipXGJHGI9fnHAIw8zK5U1mbtTGnS31i20WgJ1sVFpfxVqiqYVRUPxWI4WKYS
-	agdG01ckAfv/cRkZJscrYJNTYYuVHI2dQnfyVQ518SqlqziCFT43E9nfE2M+EvF4w5DFAUoX2Ow
-	THqesmXfaXxvyizMxY6KYKzgzNnM1X6NThewbjIz3tHghauLtBA4VI10H/1ziSyZa7KA==
-X-Received: by 2002:a05:6000:2905:b0:48c:6d9d:9f90 with SMTP id ffacd0b85a97d-48dba9d0b47mr28843597f8f.26.1791926641185;
-        Tue, 13 Oct 2026 14:24:01 -0700 (PDT)
-Received: from [192.168.1.18] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac5265sm7840541f8f.41.2026.10.13.14.23.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 14:23:59 -0700 (PDT)
-Message-ID: <11150412-3b60-4eef-90a1-ebbb1b6098fc@gmail.com>
-Date: Tue, 13 Oct 2026 23:23:58 +0200
+	dkim=pass (1024-bit key) header.d=lucaweiss.eu header.i=@lucaweiss.eu header.b="wr1S/Hvg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lucaweiss.eu; s=s1;
+	t=1791926315; bh=nKDrPdtKkv5zqB66996w81/rOjJtFS71nRCLGtuyIJ0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=wr1S/Hvg5UXnBzW08p4gPWHuR5AUhaU8qt4o5jIMTKUj+OeKC+hNv93KH3yAvxDpT
+	 bWSf/OAlI7YyJk65IcIwrBW0JqyDSnoTqzp3ZhjWda8U9ksXiLe8wAvyVGfQ/R7T4g
+	 RTRlh/TI7DeRsVXgSYU+OT8rmt8J0LNvkvc8ugV8=
+Message-ID: <6956afb7-9344-4979-bdf0-2584e890fb22@lucaweiss.eu>
+Date: Tue, 13 Oct 2026 23:18:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/2] dt-bindings: iio: light: add as7343
-To: Chang Yu <marcus.yu.56@gmail.com>, Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Joshua Crofts
- <joshua.crofts1@gmail.com>, Shi Hao <i.shihao.999@gmail.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261013115639.167433-1-marcus.yu.56@gmail.com>
- <20261013115639.167433-2-marcus.yu.56@gmail.com>
+Subject: Re: [PATCH 1/3] drm/panel-edp: Add AUO B140HAN04.0 panel entry
 Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261013115639.167433-2-marcus.yu.56@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: Doug Anderson <dianders@chromium.org>,
+ Luca Weiss <luca.weiss@fairphone.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, cros-qcom-dts-watchers@chromium.org,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ Jasper Korten <jja2000@gmail.com>
+References: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
+ <20261012-book2go-v1-1-7188e7ea7a15@fairphone.com>
+ <CAD=FV=WVAnohGm8kmaLpfchk_MxCiUB8EcyyWBxZqtnc+9YPcg@mail.gmail.com>
+From: Luca Weiss <luca@lucaweiss.eu>
+In-Reply-To: <CAD=FV=WVAnohGm8kmaLpfchk_MxCiUB8EcyyWBxZqtnc+9YPcg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 10/13/26 1:56 PM, Chang Yu wrote:
-[snip]
-> +
-> +  reg:
-> +    description:
-> +      I2C address of the device (0x39).
-> +    maxItems: 1
+On 13-10-2026 22:35, Doug Anderson wrote:
+> Hi,
+> 
+> On Mon, Oct 12, 2026 at 11:11 AM Luca Weiss <luca.weiss@fairphone.com> wrote:
+>>
+>> From: Jasper Korten <jja2000@gmail.com>
+>>
+>> Add an entry for the B140HAN04.0 eDP panel. It is found on the Samsung
+>> Galaxy Book2 Go.
+>>
+>> $ edid-decode /sys/class/drm/card0-eDP-1/edid
+>>
+>> 00 ff ff ff ff ff ff 00 06 af a9 65 00 00 00 00
+>> 28 20 01 04 a5 1f 11 78 02 9b 85 92 56 59 90 29
+>> 20 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+>> 01 01 01 01 01 01 14 37 80 b8 70 38 24 40 10 10
+>> 3e 00 35 ae 10 00 00 18 00 00 00 0f 00 00 00 00
+>> 00 00 00 00 00 00 00 00 00 20 00 00 00 fe 00 41
+>> 55 4f 0a 20 20 20 20 20 20 20 20 20 00 00 00 fe
+>> 00 42 31 34 30 48 41 4e 30 34 2e 30 20 0a 00 ed
+>>
+>> Signed-off-by: Jasper Korten <jja2000@gmail.com>
+>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+>> ---
+>>   drivers/gpu/drm/panel/panel-edp.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+>> index 2b455369ed70..73cdc2d37ab7 100644
+>> --- a/drivers/gpu/drm/panel/panel-edp.c
+>> +++ b/drivers/gpu/drm/panel/panel-edp.c
+>> @@ -1986,6 +1986,7 @@ static const struct edp_panel_entry edp_panels[] = {
+>>          EDP_PANEL_ENTRY('A', 'U', 'O', 0x635c, &delay_200_500_e50, "B116XAN06.3"),
+>>          EDP_PANEL_ENTRY('A', 'U', 'O', 0x639c, &delay_200_500_e50, "B140HAK02.7"),
+>>          EDP_PANEL_ENTRY('A', 'U', 'O', 0x643d, &delay_200_500_e50, "B140HAN06.4"),
+>> +       EDP_PANEL_ENTRY('A', 'U', 'O', 0x65a9, &delay_200_500_e50, "B140HAN04.0"),
+> 
+> I'd assume you don't have a datasheet here and that the timings are a
+> bit of a guess. It's nice if you put that in the commit message, but I
+> won't block it. Ideally you could reply here and let me know if you
+> referred to a datasheet or just made a guess about the timings so if
+> the question ever comes up later we can find the conversation based on
+> the Link: tag...
 
-on v4 Jonathan said "Might as well specify it as const given it can only
-take that value. They you can drop the description as it won't add
-anything." v6 still has the old form, looks like that got lost.
+I assume this is just based on copy-paste from the lines around this. 
+Jasper made this patch, but I assume he doesn't have any docs like that.
 
-[snip]> +
-> +  interrupts:
-> +    description:
-> +      Open drain output active low interrupt pin.
-> +    maxItems: 1
-> +
-> +  vdd-supply: true
-> +
-> +  led-max-microamp:
-> +    description:
-> +      The driver current for the external LED connected to the LDR pin.
+I briefly searched for the panel identifier some days ago and didn't 
+directly stumble upon a datasheet.
 
-this wording dates from when it was ams,led-current-microamp.
-leds/common.yaml defines led-max-microamp as a maximum ("risk of
-hardware damage in case an excessive current is set"), i.e. the board
-limit for LED_DRIVE, not the current program. please describe it as a
-maximum.
+Regards
+Luca
 
--- 
-cheers,
-jose a. p-a
+> 
+> Reviewed-by: Douglas Anderson <dianders@chromium.org>
+> 
+> Pushed to drm-misc-next:
+> 
+> [1/3] drm/panel-edp: Add AUO B140HAN04.0 panel entry
+>        commit: 9125232bc2a5020710db1eadd21973757f740648
+
