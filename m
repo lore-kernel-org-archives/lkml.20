@@ -1,134 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407CD4F405E
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:00:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892824; cv=none; b=E3qVkqCayc5P7VKivCxmTK6jpawOQrn2UneJbw4uPn960js9TWr4ImDFNtT09Wv7WGVPwuJwI5rQXXdb2ZXFb8SaS8W8OB1uiV18DfmqrPykSnjULtpWL/kTLiXnUzrpoVWrrcjf87b1gXhwHH5S5COqVKgN85LQ2Xsk0m15ZSI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892824; c=relaxed/simple;
-	bh=lsBHDyCfIWhi3VwWkUb2uLpFXgL/GQX1v3gq+h23/wI=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073BC4F4728
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:00:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791892838; cv=pass; b=mJtG1KhJSFLIcok/WFm7gwaR5Geb1FB0eebwutbdVCi+F+a/kzoQeU3Lw4bc/hnKcpTb2OMGTaJyQjkoZi3tVJuSwNt2LmWmi59NnmODNxQsZX6j5FbBKEDZ/CQ1r1PRwRXFuFRHpYcHgSg2amaAhQeSEP1hxuBS8omfWnt642w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791892838; c=relaxed/simple;
+	bh=3MZ0rBUQQ/DT6hYuG6QZ4NQ/FBC1DV7mDn+OHinCE3k=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qCidzUd2/N2E4d7QZGKmgfCCKOSPGFUIgUOAmJL9NvVwwSV5yMJw27THnK3APnweFXYmhes1NJ3ydYSBpmDLNNMasL6KANHuLeekuTbBc7OeTpKQ1cHg18o37rohVAgv4RCcWNhB8HjsnbT6EXq8xm7S5fFXZ1zAuaBXpg5ET8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Czf3JnBC; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=iNTkibbg4WOSKg9O74weyEHWh896d5gt0By9ZkiEp9UPx2GH6GWVev5z8u9yKRnL15/qc6bJiSkGb4UrqI/HBawOKTiBnvCVIF1RwwVcgJ2eKZY+64MG4eEeKaOncxP3oH0cB2oPA6dApHCCJzlJWASqzcy7wydgGMskTkQXA34=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=IaZLwu7R; arc=pass smtp.client-ip=74.125.224.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Czf3JnBC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2170F1F008A2
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:00:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791892823;
-	bh=mwF5fDDf9ldJfUewdzwZbaLTxq4SylhnnpsHOc72+Xg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Czf3JnBCYxZBG/6gPVggkFvvfxaAgRfFRxVp96bGfuYwwxRvnU3Q4TgkrZ62MWBFN
-	 nqclFv6aFFWBSDx3FuVz1GUzQ2NjiFZjzeWa12m84XOxzAIiqxP66PWBPR9beCOWCQ
-	 iEQj7jBfqGz3jykbcepuz0XCzBE7x1vyreRA863RdJFxkgE3D4yG3eUHHSRchG6PXG
-	 6hHzyt+8a/3/xPLxG+Fy3i8z2Se+IY8LHFYi0gy1zxSdALQqxYOgXaY2IhEXmyA0Pc
-	 dpEv1pVNSSvFTZWzai4Mp+PHeNy4l0vJsajxus8f7t7HLP6nT1SfBrem1Ei5nxZl17
-	 sTZiiWCFMmR/g==
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bccc73eea4so6398730e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:00:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwW9oriJaipDryYVDCuKbhXng8gufBm+eOnGqWHwdC2JEslkIH6aKyfaLED0iQXaRszuILyvVpF0UZ3Nc0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmGihsUQqkc3qCvqtMogGpODwzzEhw12s4jQQQXQQhkx6JQmnI
-	IGDPSDyI05MvR21k9tQn+ElLGcC5MBBROV2gggryaNvL1lREGDphJuJqPYOfWkfFxpkoGZZ44Of
-	ID0bmfXcIZr97RCzrajNpkYanb11tIJQ=
-X-Received: by 2002:a05:6512:304b:b0:5bc:b4e5:37f2 with SMTP id
- 2adb3069b0e04-5bcdd501368mr3713074e87.18.1791892820950; Tue, 13 Oct 2026
- 05:00:20 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="IaZLwu7R"
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-6790844c9b0so2040229d50.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:00:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791892836; cv=none;
+        d=google.com; s=arc-20260327;
+        b=N5D75SnoegqUaMn8Hcjst7XIth1THNFFkh8QzNc/Pn/ZsxoIDMzcEYreZgYmFUFXvI
+         x8Q5iMTm+Yp0fe1n7M/wqkmIlRXP3UotEJsI1ELJs4SG/RuXcC4QZcoPKBCErLaATO5x
+         VMXGAmFT6U+gWwCUG3eVqUwYQzeT5cx5f4/BXsQPLJ1ETi0tQlHobbEbEdDWbmFkdBld
+         VD0/LVMjSV96mpnF8fzqraIYtzBZtw28zpziY3vBjbuq0pJ4fgXRkBJDDi3H/Z0l5NUw
+         wOrcHp79PIMc+GVRZVSxMUZMgyLX7OqSovGSii66CLILxrONHVEpAGeVMSqIp5hlwuhG
+         ieZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pPCqI76VDLf6A6OD3FPwbH85jg0U2eYBPW7UJZyjAkU=;
+        fh=Uj4D+nKd0G27b2qTX+0BIfiy6VZJCwcS9vDt7umAx2o=;
+        b=VlkVoS9vyTKgikJM6nfJbpnkjMPhxb8FXo8/h8w3uLBzuAMGWSqcDd8MCLZTADA4le
+         OHqHvvPhweS3sUsy/abh0NkYE7g58TAmiA3uTJplmy7kvv//GQAtIlQUpZR+8eO0wRYM
+         VjGqo4vN6xxqkhEHihPogldEEairePmFHvu/DtoPrEWmcabz1VzBV0nvMcg2RbHTLSry
+         xfWSTiFUD2FDlN7W3qG9liHHF5jUsEgJiOXu2aSywa1C81MqBR+v2dQo/V78ZTqP0j05
+         znbPk/T0Uxbs04DaKDwwgBzlPGhC3Q2cisJIW4t8Lb0q133X8RazPIr38DQI2P8BRUf3
+         3GlA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1791892836; x=1792497636; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pPCqI76VDLf6A6OD3FPwbH85jg0U2eYBPW7UJZyjAkU=;
+        b=IaZLwu7R8ZTUVshbS8jWl4wLf/889Kp5dpZ8mC+Vjb8PzD/OJVDP4TPwDs/X7SxWj6
+         QTuLu1+L4G4eV6GTQGNpcU1q3yf0mjQnDgFTrWN0FPp3JZVm1TBB4pZ4c+mB1xou3nL+
+         C/Q2w30XPDuy7tpYbSQtkjvWG57ST04mbDhh0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791892836; x=1792497636;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pPCqI76VDLf6A6OD3FPwbH85jg0U2eYBPW7UJZyjAkU=;
+        b=tio/PXeMZ2gnsKx59iK951qhh/MZsrAK61ye0VYMWE1Oi/+7SjGXQER//uZiQq2Tm5
+         xhBrdDNyzsd1PrWsYo7moJJAI0m1jbaTgmsUlLDUYc/CwjBeynN6J4wElZOITr4m3Sm5
+         4WDFMFCtq8vHCZShD8N0A+E+Yypdbcch0SQm1NgY+RQ619lEAbSZaMKj/CSOCQPsJF/U
+         NJwJEmWMi5RAVaoytQnm6xi7FhPHerLmzFVEW/CvhV8yaezNHlVlU/6hLXKXavx2Iqfh
+         5Lh3HYxMam+A9Zz/GVtshcvBJk73O79eNV7HmqmH3XrWn7tZZb3EFoVN/c2/nErtRlAp
+         Io5A==
+X-Gm-Message-State: AFq9FYJOoD1YJa5MYp3QRLPXVl4DPB5oYXupMgoH5sJ3fPwo8/1+SD/D
+	A4TrBzmSvaXBbP30v54cCpLnCalWD/MxeF2EAcadqt0AwdGjrUUxosYkWTYiqcyWsu2XxZ5fWsu
+	4wF1Wk9jTtnx9oq0vYGyiGPWU8XhM3rr7F4ncEvZ22w==
+X-Gm-Gg: AYBFou2EBiwgvzd4alwhfILCAVX31eE8LRWhncjjOfkeCsIIwNGNeTmMBovFCNO58lF
+	TMhQHDUgScy1rUdr8E/xx+OnPRj5wNfpKGgMlJJ8QS9SejUJbbSGPJr+QBxZZUPzCecSQrIy5i8
+	4vS4jg2xWyjDD1MFeII5OAXUtR8kWRANu2SSllegjFYKO1Qdh67Ob+sAZgBmlZqrfrXUoP3mYLC
+	44tjnS4/TO4N/E0Ek1Wm1MiSXHCOQHOtMDA+4Osu5EQs61fKsXenuUc++kZSNI6iSawsX11Fh1M
+	gk/ff9KD0xsrIMb0jL+XAvDnd5iy1Gh8Y/0KTrEgjFA1hNy2+OHLZovKxJkN8SpglPDUZLwMFIc
+	gum08BZEzH9cqpMQr86ThtV5L/naqHnAimRKrTEixyppI
+X-Received: by 2002:a05:690e:418b:b0:677:d67d:39e3 with SMTP id
+ 956f58d0204a3-67936767e9cmr4005406d50.2.1791892835727; Tue, 13 Oct 2026
+ 05:00:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me>
- <20261012225141.13683-1-aliamemis@disroot.org> <fb993dd3-ee56-4e3d-aa16-573f011518f1@oss.qualcomm.com>
-In-Reply-To: <fb993dd3-ee56-4e3d-aa16-573f011518f1@oss.qualcomm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 13 Oct 2026 13:58:15 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com>
-X-Gm-Features: AclHuK_C_dbr3KeIp2vqfLebsjNfIQiI7_fB5E-myb508s6cuKhwC9dTzsMdEoA
-Message-ID: <CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: battery: Re-read battery information in the
- complete callback
-To: johannes.goede@oss.qualcomm.com
-Cc: =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Armin Wolf <W_Armin@gmx.de>, 
-	Charis Stratakis <c.stratakis@proton.me>, linux-acpi@vger.kernel.org, 
-	linux-pm@vger.kernel.org, regressions@lists.linux.dev, 
-	Mark Pearson <mpearson-lenovo@squebb.ca>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+References: <20260904101243.412006-1-dario.binacchi@amarulasolutions.com>
+ <179070048452.199845.10870046832708018931.b4-ty@b4> <CABGWkvojte=RG=BJ=jvcq5HfUcYUZNsWNN+c5zDh-449VJ8Svg@mail.gmail.com>
+ <ar2q8M7Sn9DccVBI@redhat.com>
+In-Reply-To: <ar2q8M7Sn9DccVBI@redhat.com>
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Date: Tue, 13 Oct 2026 14:00:24 +0200
+X-Gm-Features: AclHuK8xxG5WHCzDqDFRzliodJK57Ya-SC3DZoZtYPsOSf_tESDvqgcH-jYqUEQ
+Message-ID: <CABGWkvpjZsDR=tOEeNfEGY3TWC0U3o=ZZE4BEWCx8DF7uBmt+g@mail.gmail.com>
+Subject: Re: (subset) [PATCH v14 0/4] Support spread spectrum clocking for
+ i.MX8M PLLs
+To: Sudeep Holla <sudeep.holla@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-kernel@vger.kernel.org, michael@amarulasolutions.com, 
+	linux-amarula@amarulasolutions.com, Brian Masney <bmasney+clk@redhat.com>, 
+	Cristian Marussi <cristian.marussi@arm.com>, Fabio Estevam <festevam@gmail.com>, 
+	Frank Li <Frank.Li@nxp.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Brian Masney <bmasney@redhat.com>, Peng Fan <peng.fan@nxp.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Sebin Francis <sebin.francis@ti.com>, Stephen Boyd <sboyd@kernel.org>, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 11:33=E2=80=AFAM <johannes.goede@oss.qualcomm.com> =
-wrote:
+Hi Sudeep, Abel,
+
+On Thu, Oct 1, 2026 at 2:36=E2=80=AFAM Brian Masney <bmasney@redhat.com> wr=
+ote:
 >
-> Hi,
+> + Sudeep
 >
-> On 13-Oct-26 00:46, Ali Ahmet Memi=C5=9F wrote:
-> > Since commit d33e89d12295 ("thermal: core: Suspend thermal zones later
-> > and resume them earlier"), thermal zones are resumed from dpm_complete(=
-),
-> > before the PM_POST_SUSPEND notifier that re-reads _BIX and _BST. On
-> > ThinkPad P1 Gen2 and P53, INT3403 _TMP calls \GTST which switches the E=
-C
-> > page selector (HIID) without taking the BATM mutex used by the battery
-> > methods. ACPICA releases the interpreter lock around EC accesses
+> Hi Dario,
 >
-> I'm wondering if this "ACPICA releases the interpreter lock around EC
-> accesses" is not the real problem here.
-
-Yes, it most likely is.
-
-What actually happens is that ACPICA drops the interpreter lock and
-the namespace lock in several cases listed in the
-acpi_ex_exit_interpreter() documentation comment, the majority of
-which involve having to wait.
-
-The bottom line though is that the interpreter and namespace locks
-cannot be expected to be held throughout AML evaluation because it is
-not known in advance if any of the cases in question will appear.
-
-> Recently I've learned / heard
-> from a trusted source that Windows ACPI subsystem is very much single
-> threaded. So it is nice that ACPI has these mutexes and other stuff
-> to support multi-threading but as long as Windows ACPI interpreter is
-> not multi-threaded I think we may need to consider to copy Windows
-> behavior.
-
-This is also my conclusion, at least to some extent.
-
-The problem with it though is that in some cases parallel evaluation
-of AML is actually useful.  For example, say two PCI devices are
-powered up at the same time and AML waits for each of them.  The async
-suspend/resume aligns those waits to take place simultaneously instead
-of serializing them which allows some time to be saved.
-
-> So maybe the EC accesses should keep the interpreter lock locked during
-> EC accesses.
-
-The problem here is that it is hard to say in advance whether or not
-_BIX or _BST will access the EC and whether or not that will clash
-with _TMP evaluation for a seemingly unrelated thermal zone.
-
-> And even go further and maybe we need to introduce a big-acpi-lock,
-> which I guess the interpreter lock more or less is? And just serialize
-> all ACPI accesses since most ACPI tables clearly do not handle
-> multi-threaded access to ACPI methods well ?
-
-I would be inclined to do so except for device power management
-methods, that is _ON, _OFF, and _PSx, that are not the problematic
-ones, at least as far as I know.
-
-> Another example of multi-threaded ACPI calls causing problems is:
+> On Wed, Sep 30, 2026 at 11:01:28AM +0200, Dario Binacchi wrote:
+> > On Tue, Sep 29, 2026 at 6:48=E2=80=AFPM Brian Masney <bmasney@redhat.co=
+m> wrote:
+> > >
+> > >
+> > > On Fri, 04 Sep 2026 12:06:29 +0200, Dario Binacchi wrote:
+> > > > Support spread spectrum clocking for i.MX8M PLLs
+> > > >
+> > > > The series adds support for spread spectrum clocking for i.MX8M{M,N=
+,P}
+> > > > PLLs (audio, video and DRAM). It has been tested for the video PLL =
+on
+> > > > boards using i.MX8MN and i.MX8MP.
+> > > >
+> > > > While at it, it validates the spread spectrum configuration in the =
+clk
+> > > > core before it reaches the providers, and fixes the i.MX SCMI OEM
+> > > > extension, which converted the spread to the wrong unit.
+> > > >
+> > > > [...]
+> > >
+> > > Applied, thanks!
+> > >
+> > > [2/4] clk: validate spread spectrum configuration
+> > >       commit: 109124b8ff43fb911d5b8790bb5e4c5684f72d88
+> >
+> > Thanks for picking up patch 2/4.
+> >
+> > I put the two fixes at the head of the series expecting them to go in t=
+ogether.
+> > Am I missing something for 1/4?
+> >
+> > And how should 3/4 and 4/4 be handled?
 >
-> https://bugzilla.kernel.org/show_bug.cgi?id=3D221065
+> I can pick up the other SCMI patches, however I am waiting for a
+> Reviewed-by or an Acked-by from Sudeep for the SCMI changes in patches 1
+> and 3. It looks like Sudeep wasn't CCed on the original series so I added
+> him.
+>
+> Abel is the maintainer for imx in patch 4. I can take this as well,
+> however I'd need an Acked by from Abel.
 
-Right.
+Just a gentle ping. Any chance to get your acks on 1/4 and 3/4
+(Sudeep) and 4/4 (Abel)?
 
-So I guess the idea would be to add locking to acpi_evaluate_object()?
+Thanks and regards,
 
-An alternative might be to introduce an "exclusive" variant of
-acpi_evaluate_object() with built-in locking and use it in the cases
-that are known-problematic.
+Dario
+>
+> Brian
+>
+
+
+--=20
+Dario Binacchi
+Senior Embedded Software Engineer
+M. +39 328 0625246
+dario.binacchi@amarulasolutions.com
+=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=
+=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95
+Amarula Solutions SRL
+ Via Felice Cavallotti 25D, 41012 Carpi, MO, IT
+info@amarulasolutions.com
+www.amarulasolutions.com
