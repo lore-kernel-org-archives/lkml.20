@@ -1,104 +1,99 @@
-Received: from 14.mo550.mail-out.ovh.net (14.mo550.mail-out.ovh.net [178.32.97.215])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3B43859E9
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:15:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.32.97.215
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D2C516179
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:16:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908150; cv=none; b=Ia6MzJzWhrbFGkcp6oX23lU4iOLlmv2vPhatWb/3QZEBB0+tZCWRbxNTy9Ec+3pvRdDavqiMVWhkVi97ita0+kFEwvEC+wdJLYePiDJIdqPYqWVckK1wkzMOtZX7Mshhi/hn3wYTT6aiftuKZWzOHjo/AtkHBMxc6VFClxXvOB4=
+	t=1791908192; cv=none; b=CCBP6jKvey9nrAciSqGlH7ETefaw8tsv1sDReR9tlICBwtyVkoQ666V4/PmrzgoXhaEmItRLxLYNuPyny3j8QdIn0yx/BKyGi67CmVtw85Xzi4RBhuN+JPgnhSOZ8CKh01TLyklV4qeSzD60O/HuLOzTtvAZuXGgFxVfvuUuu68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908150; c=relaxed/simple;
-	bh=kfP8OPsPqO/oUZC3gPAT+oD2S4HQ3xDeqjik6j/TtY4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TCKTFOSUVGbj/c0k+dZjvQpZ5hJ5SYBzYvzCS06UtnklbItObTU0fCmd+1kPe5yQxxYyD9SfVzO7sIJXYh7Qu5H5/HegkXgwpCiTcaXXPU9RLxUmdvF7SsPlJm6o+7HuOP3BVHoNcWRKR8REjhcRZuBJKnwGWir/BArJX70BV1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=armadeus.com; spf=pass smtp.mailfrom=armadeus.com; dkim=pass (2048-bit key) header.d=armadeus.com header.i=@armadeus.com header.b=htzndDN0; arc=none smtp.client-ip=178.32.97.215
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=armadeus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=armadeus.com
+	s=arc-20240116; t=1791908192; c=relaxed/simple;
+	bh=FM29EhJVqrYLAqj2i7juSb1dg63c9N3PNf0p5C6RR1g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=chX2J2P3smvosHiEEOM1fQUZQrL4Fdd8N47YkVC8m+cS8OdRflBz4jxOmj7suu9ohYZ8//Jy9sAdm9QiMR7zxn3IAtjlP6LTaZWc8MBEgmWPbKKYlwrtZfDpS/LETkm5M10oby6MUQTiXkCM4eJUvcIJGMlibwjfHSxkgd/35Wc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=FQcp3SLr; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=armadeus.com header.i=@armadeus.com header.b="htzndDN0"
-Received: from director1.ghost.mail-out.ovh.net (unknown [10.110.58.221])
-	by mo550.mail-out.ovh.net (Postfix) with ESMTP id 4j3zkg45dZz5xny
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:07:39 +0000 (UTC)
-Received: from ghost-submission-c7b579475-655hp (unknown [10.110.164.42])
-	by director1.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 10B87C12C2;
-	Tue, 13 Oct 2026 16:07:38 +0000 (UTC)
-Received: from armadeus.com ([37.59.142.104])
-	by ghost-submission-c7b579475-655hp with ESMTPSA
-	id J4tGM0lXzmr7Qy8AW2yxgA
-	(envelope-from <sebastien.szymanski@armadeus.com>); Tue, 13 Oct 2026 16:07:38 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-104R005ed722c48-267d-45b9-9d0f-38bc83d56095,
-                    E71387541862F9B32BD99FE93336DDEC16E392F6) smtp.auth=sebastien.szymanski@armadeus.com
-X-OVh-ClientIp:92.148.202.169
-From: =?utf-8?q?S=C3=A9bastien_Szymanski?= <sebastien.szymanski@armadeus.com>
-Date: Tue, 13 Oct 2026 18:07:24 +0200
-Subject: [PATCH] ARM: dts: apf6: fix Ethernet support
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="FQcp3SLr"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ab33730821so1834608a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:16:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791908189; x=1792512989; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KgL+W3U7o5OU8BRm9L4xOZKWqaV/qLRw6ZW40Aj7xuM=;
+        b=FQcp3SLrSY5NEqzb3tgngcXIBi00SIlpeXyjWSj7kXUSSeHj5izzS0Uzjhvgp6zdq1
+         9O22olE6fuC9LHX+9Ka/jimBlxlbeu47WnXOThqbWqs8hdgsCKvH0geRj2nxiAWWPohq
+         WnUHJaWykLKO5ICAOJihW9KmYnbS7cO5s7Hkst5wSFXUjnorb3E4p6FHS5DDo8boz/wO
+         LZRFRyjXL1deWzGpGlLExLevVVzMIBT/vaJ7QwbQmo6JcnRw/WpRy9nklADyspVLWnIP
+         PiyySg4iDErDjTh5SFZws7OoCD8Hq+x1XSnHAIrWFj2l71tRXCfFsnlvZtwBvI22wI9Q
+         iA+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791908189; x=1792512989;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KgL+W3U7o5OU8BRm9L4xOZKWqaV/qLRw6ZW40Aj7xuM=;
+        b=s3zKSBkLW4R5rWjOU7IP+/YN6UbtqTzsfDrwFMeLYwKHGlSMDFn+KSciidb61Aaygf
+         OmLmyc44S0R4c6F1gUGOoo8UXb30R6Lx2A3v7d7x6HYtxDMnUmNDw6n8u7a4Sv50V1xJ
+         DlCmOSfT83/TrN7yj3D+X1PXeW9wNphPC3cMhg7jVoaLG0qe4CAEbG3A29/7K8pFNDTd
+         lfnuroGf4myMRNuW6c2mshT/x88udOipu6neZTV4hSkFUh+ngNasckR3GUWNuxDrARXv
+         VFda2IGBYe06aaQ1qWuaVmJhJQ6xLbpLW3oTSSHp98Lmg6UnwBEVxyxa7AKYzFoQndjp
+         gRpA==
+X-Forwarded-Encrypted: i=1; AKwUvBwTfaznoiy7LrLDbMWhmhZs+O3voPfjG9luZAfRtO725vtURr5TdrrpTzRnzGTGZKpH3hnKRclRftRNcZ0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJrEKU/3SanhiYE//zJZh66VWNnB1sahYtMW4Oa0KaDOM2WLnLC
+	EhF8W4q3NVLRVzmWyU6ccEz6geCGfGjj43Lc40IVHNcSybLsKgJnYHRuOqYq1euqPpxxU3kVdeP
+	fAnOpprL1jQ==
+X-Gm-Gg: AYBFou2Nr8b3uxXApXb/QrZmtzqPQ3dZ1zIBeqyqMOb4rrQQTxf5gADs8GKISf7BSx7
+	piRrtNXPD/xulR7GgmzNN6jRE/Z0WE0V36icIuqSHXVWmj0ROER6n3jq0lj8GE7uYQBAvyPXsv6
+	jJ/fLZzP4BUIKLPCcofzBJCx1BUEcXjU9pVfIRRa4I+b0RcC3mvSe8HJOotEu3jS4x/Vt35DDzP
+	cqCdKOcBp/oNPPjIZvsGUHEwg2CWurHGoD4pMKdE7RW7NNDmNkcel7kUPYv1E2s+XCoPxrs76hI
+	vDcHHHeGzbMQqb1OYejBELJtAOHOvRJFNrNyJOqIkc3CTTYCEuEGGKi8EIiYongwfre3NvOGWFj
+	dO+L+7m/oQp8Y+jNPSE7VrqpN7rccO2Ot2rm/XpkyKdI3wEfwtckouP6Zmwi2WzaWpIhgdu3jiG
+	grwjMvOoSbD65HT2M7umrsrHh7upngrTeKxfPUHEWApcduqOEOLw41F1SfsZMN1IKFL9kjbnvwH
+	sWMSHVzT1xjvuhNXSH3
+X-Received: by 2002:a17:90b:1d03:b0:3a0:9640:8028 with SMTP id 98e67ed59e1d1-3ab3a8db035mr10114932a91.59.1791908188836;
+        Tue, 13 Oct 2026 09:16:28 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:c51c:be8a:c517:276])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac600642c5sm202607a91.5.2026.10.13.09.16.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 09:16:28 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH 0/2] scsi: mvumi: bound two firmware-supplied lengths
+Date: Wed, 14 Oct 2026 01:16:18 +0900
+Message-ID: <20261013161620.3210533-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261013-apf6-fix-ethernet-v1-1-9530efe1d23e@armadeus.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5FMBSE4VeRs3aSloS4ryIW1JRj0SttiUS8u
- 2L5ZTL/SQFeEOiXneSxS5C/S9B5Rmbu3QSWMZkKVVRa6ZL71VZs5WDEGd4hsqlrUzYKVmGg9Fs
- 90v422+5z2IYFJj4huq4bM+Rl6HUAAAA=
-X-Change-ID: 20261013-apf6-fix-ethernet-c77c390ef0eb
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
- Shawn Guo <shawnguo@kernel.org>, Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?S=C3=A9bastien_Royen?= <sebastien.royen@armadeus.com>, 
- Julien Boibessot <julien.boibessot@armadeus.com>, stable@vger.kernel.org, 
- =?utf-8?q?S=C3=A9bastien_Szymanski?= <sebastien.szymanski@armadeus.com>
-X-Mailer: b4 0.16.0
-x-ovh-tracer-id: 6290121306616026755
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTFwwrfl1iPxPmWO6o6uy7jINWKAyMh0x8QwmnQbFs9EgGBBoRnjM3BUaJEZr2O/b+jim7kDcbnaQ7gbObCvdaGwmrI7ygNuePUx2XfOlPU+ynH2L/Y3qjv+8V1sNGQDoWzTS4dPbg8+1q+A4z3650pMSEERHWOc6c7wHIzQ/cd0AAinuhk1ciGuYw2D4AM54rlUTc3EI7eSXJzVYl3OyTQSK/C+/uQKTz4zratc5VMMn5UDog0h/EUCyQxoTf55Y9AhqDDFZ6zvIsDrjC6HgMcTURajxU4gpbIZHaHPJuId6YRUZECM9rjL8rwWeXi3BZLeaf9O0cp/v2LK91+ydBE1mf2jkmddL/sGGL9Q4okh6xCyj47YVTHfO7W3fK4EIytkY5NuPGZ+Pm19dZHfmvTslL1TO/lfPFsa9Vzc3+N3jWRhrIF8+2wNBLNj9Cyq2wvhbK6PoBFdUXBf+YuJn1/zcL+WmkLAb+Ebio5gsqZgoHPhA2tAFtyk/ZiS4mSmwp6jOPWsGbq7qcvfSOB3dD3FJwIHxGjDu9GqUjHZPdjfcgO8BxXGJY9NNkNKmF/tmFlXK0GMgXWya9hOgEhLPZNULUhAgBkMIQSdz5hYa/6cWoeVAFbLg3HBeewrWoJrbYT4dO6jhwNkkS76g4eJiA8MCauMM4yCii10xThAUKWfKA
-DKIM-Signature: a=rsa-sha256; bh=3JJebDaF8d0BDkPiP93+YZIa8Qgu2HPfzUYjFA6D8SE=;
- c=relaxed/relaxed; d=armadeus.com; h=From; s=ovhmo103079-selector1;
- t=1791907659; v=1;
- b=htzndDN0tLZisLCb4+yCj80PN7xv9g7YXxQHdVwxNFA1I1KYQbyiZdbAzxypK7zIFvtWUdlA
- r+p/WVV+ppUAzuY9Cza1y/KRrwjnBRzj7oRtHamoL4OZoIQbEG3XxkBEHIrdeIpf1KXsfSXMgrq
- 2/UbPM+mFpBi2IH1HsQ5viSypY+iiIFKg1drKuXZkQavLVjJhuqIRQm3zouS2VZrbD1Xz6WIxod
- yySiVzNtMLCjy/x0YLJTaXg29Aks8YfKXhaRmr6Nr6MiJWt0mlCrXkCR4PjW8lgmCZKsqFPEfV1
- 4XJdz2LUx6I4EgcjawOWbX78kUilhY/TtDYORO48qvGqw==
 
-Commit f5d9aa79dfdf ("ARM: imx6q: remove clk-out fixup for the Atheros
-AR8031 and AR8035 PHYs") removed a PHY fixup that setted the clock.
-Make the Ethernet interface work again by doing as advised in the
-commit's log, set the clock in the device tree.
+Two places in mvumi trust length/count fields the Marvell UMI firmware
+supplies and never check them against the buffers they index.  An event
+with the maximum param_count/sense_data_length makes mvumi_show_event()
+read past the 512-byte event buffer and into the log; a handshake page
+with frame_length >= 256 makes the checksum loop, which uses an unsigned
+char counter, spin forever during probe (shorter over-long values read
+past the page).  Both date to the driver's introduction.
 
-Fixes: f5d9aa79dfdf ("ARM: imx6q: remove clk-out fixup for the Atheros AR8031 and AR8035 PHYs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sébastien Szymanski <sebastien.szymanski@armadeus.com>
----
- arch/arm/boot/dts/nxp/imx/imx6qdl-apf6.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+Yehyeong Lee (2):
+  scsi: mvumi: bound the per-event parameter and sense dumps
+  scsi: mvumi: reject an out-of-range handshake frame length
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-apf6.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-apf6.dtsi
-index b78ed7974ea9..b55a3539fbe8 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-apf6.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-apf6.dtsi
-@@ -41,6 +41,7 @@ ethphy1: ethernet-phy@1 {
- 			reg = <1>;
- 			interrupt-parent = <&gpio1>;
- 			interrupts = <28 IRQ_TYPE_LEVEL_LOW>;
-+			qca,clk-out-frequency = <125000000>;
- 			status = "okay";
- 		};
- 	};
+ drivers/scsi/mvumi.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
----
+
 base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261013-apf6-fix-ethernet-c77c390ef0eb
-
-Best regards,
---  
-Sébastien Szymanski <sebastien.szymanski@armadeus.com>
+-- 
+2.43.0
 
