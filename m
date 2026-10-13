@@ -1,101 +1,125 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358434078C1;
-	Tue, 13 Oct 2026 09:44:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08AE4B4864;
+	Tue, 13 Oct 2026 09:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884663; cv=none; b=biQZL76ioNrfVS15KzK5D8SgLspYAulqXbqls/LruVaT1F7Sahldhzy7Npwha3r1gx3iy4W+RKujdhivjIQFKSaX7VeosYsgm6ywrdlbzE9GzbgQ3pQrVjwtXLOz8F1cdoGU9wXxm5C/7oLnRM4QHzijCV8RvhYu/Za82ljPJ2Y=
+	t=1791884667; cv=none; b=KwFXXa0Bjd25QeK3bqcto/ulQL4q6epqpdCgcWe+zlLl3S7RTuyXKSYyzBdG6gqzQ2AUsy4j8bUdR2oYhNNIfKlxH/IU1nn4D9WjGQBPutHSpJH8uSXdbJSPbZvApXHkS/eODeNTFmrME4O8T9vj8pMjCpyM47rD6s75+nYzXMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884663; c=relaxed/simple;
-	bh=PA557b9FgSWoKUFTpah05tJEQ/RR3TM1v7v/HWiizfY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sGvArqf7rVRjsZ7K5x1/+AlwGYd/5DlBeODlsyPKL4tCFKpcjj0AVSv3N1rWNlkR5/L3WR0+W1lXsBDdt8Z+lcwSxUwEqr4XT4fi5TjIQqHG9RhgsYhtrtJ5fT6bWuUiVI/J0qYFpuCKQSOGCgwCD6PCaXpFMsz8FgTW2ZEvJkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kd5A6s14; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791884667; c=relaxed/simple;
+	bh=w2AdlNpBy+1TwF9d4CHcLsL5oZ/y5bqPPF21Ann5FNE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gfMT5lCExyd/f0vxxCmZCTmoPtCyw00n9Ctt3lTLflA/F6KX+g5gwf8bkZ/OYQGO2xqiHA4m+fpYzLP+ZnVT/FA2MjcWqVqeLs9YkyP6BRIXRSDw/I+RdRCfgDDUhlee/q0biPH2iW35S0lVY6op1T1C2UXA2Jf4h46PjGV/h7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amieiro.net; spf=pass smtp.mailfrom=amieiro.net; dkim=pass (2048-bit key) header.d=amieiro.net header.i=@amieiro.net header.b=AgL38F/d; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amieiro.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amieiro.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kd5A6s14"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791884661; x=1823420661;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=PA557b9FgSWoKUFTpah05tJEQ/RR3TM1v7v/HWiizfY=;
-  b=kd5A6s14hd5gVnX2mvrUPCAffu+1C5C3j5cYlFW9mkWuA60oFGsAYruV
-   rSvFPZHZj6cvoqKH5Xg2dCax105EDSjGPEN2qrM+qwh6PST8yUMegYLJE
-   X1tGZtydPI5uyTYecSt5ypnUaA50Z1XkpmzUvcSePDb1+nCocdyrZKmX7
-   yeatiq9U6RMSmX13hneZO969uhKawO5E6hzBK49LFuieGkANXJtAHebDC
-   /oY8d+vydUx/YvacN5LdKHi1APzNrjf7GFXfVllWnRSee3iHX3yHlx1vn
-   VFQrci0qYvl1UJlvom/y38kYchwUYeP7+0/vsrIgU1yvFJHgY3wwQT+Ng
-   w==;
-X-CSE-ConnectionGUID: /SVEZO3tRqKN/QpqUHAtUA==
-X-CSE-MsgGUID: ohfL3mEhT1asqGVyMgixuA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="502648"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="502648"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:44:20 -0700
-X-CSE-ConnectionGUID: uZUKsXKaS96/TS8bvh3UbA==
-X-CSE-MsgGUID: OGtE7D/dSu+nEKffZ6cwwg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1445296"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa009.fm.intel.com with ESMTP; 13 Oct 2026 02:44:19 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id 1600D99; Tue, 13 Oct 2026 11:44:18 +0200 (CEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: [PATCH v1 1/1] gpiolib: shared: Don't define variable in the middle of the code
-Date: Tue, 13 Oct 2026 11:44:12 +0200
-Message-ID: <20261013094412.945609-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=amieiro.net header.i=@amieiro.net header.b="AgL38F/d"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4j3qDN4XCyzMlHW;
+	Tue, 13 Oct 2026 11:44:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amieiro.net; s=MBO0001;
+	t=1791884660;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=+ek82YOwxY2ZyMmaquQUEhCsrfdE0Z/M/Xy2E8wUM9Q=;
+	b=AgL38F/dmSM+by9AJXo/gj6A8Q1zJzIMyuqJ+4V6DP7phJK76ZejwFua1ujK3+tw5EpulG
+	pfAmbnpiI33iGu1LSCHJWnPyVC2BzM58jx3Bk4CbwA6X6jkFW0hKortV1S7NoTd//KIMur
+	KxSJeXw0EO3MfKPDjv6K6foKWG7b/kfSywlFK8dc7Wzt4IvtXk4YUWQmnvTbImf55blj1D
+	DqNX5M5+4FFQzufQUgyFB5vWKD/+iE5WCsbLcvrKtGPowi7+954JFnYcQiCgPrQJKMhAaw
+	9S1KBiG6szgAV6FmIngWJerJjVqgDAPrZMX45fbXoJCyB8SsvlfrBHCrr9LhOw==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of flavio@amieiro.net designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=flavio@amieiro.net
+From: Flavio Amieiro <flavio@amieiro.net>
+Subject: [PATCH v2 0/2] leds: Add support for the is31fl3206 LED driver
+Date: Tue, 13 Oct 2026 06:43:40 -0300
+Message-Id: <20261013-add-is31fl3206-support-v2-0-ca0d2bf5783f@amieiro.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4V07Zg+pKAr/8OwqO0gY7QlbSEaw
+ r8LGJcuT3LvORNLGAkTOxUTizhSouAXkLuC2c74GwK5hZnkUgsuJBjngJIS7UNJriENfR9iBle
+ WVVtrZY6VYcu5j9jSaxNfmi+n4XpHm1fbuugo5RDfW3kU6+4XUf8iowAOvLZca2vlQbizeRJSD
+ HuPmTXzPH8AZwkhONAAAAA=
+X-Change-ID: 20261012-add-is31fl3206-support-d557f863a97a
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Flavio Amieiro <flavio@amieiro.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2279; i=flavio@amieiro.net;
+ h=from:subject:message-id; bh=w2AdlNpBy+1TwF9d4CHcLsL5oZ/y5bqPPF21Ann5FNE=;
+ b=owGbwMvMwCX2bmrBFGnZ5lDG02pJDFln/0akilnbRCmJOhkJFlk9Upi6WeaZyVJZpY8n/092f
+ hRr8upvRykLgxgXg6yYIgtLGUuZd/vB5t3TVkvCzGFlAhnCwMUpABNpecTI0N4yqaiFUWfWn3fT
+ o4Waa2/31Jmtf73Zh+sul8Spu2J3bzIyXGNzLTpRIFFQLc65vvHyX9Zjul/s9USn/vsqVWzNfHw
+ nPwA=
+X-Developer-Key: i=flavio@amieiro.net; a=openpgp;
+ fpr=047604764B87C183BB96AB19EE9570941B1D8355
+X-Rspamd-Queue-Id: 4j3qDN4XCyzMlHW
 
-While the C11 allows us to define variables in the code, we do not
-do this style (see more at [1]). Move the declaration to the top of
-the function.
+This patch series adds support for the is31fl3206 LED driver to the
+already existing is31fl32xx driver.
 
-Link: https://lore.kernel.org/lkml/58fd478f408a34b578ee8d949c5c4b4da4d4f41d.camel@HansenPartnership.com/ [1]
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+The main difference between this specific variant and the others in
+the series is that the LED Control Register controls not only the
+enable status of the channel, but also the maximum output current for
+it.
+
+Because the layout of the register is very different from the previously
+supported variants, this patch follows a similar pattern present in the
+driver for paths that deviated from the norm: the chipdef can define a
+pointer to an extra function that (if non-NULL) will be called during
+probing. This was already done for reset_func and for sw_shutdown_func
+in order to support other chips in the same family but here, if the
+function is defined, the original initialization code will not run. This
+is because, in the previously existing cases, the lack of a register
+meant the generic code could be skipped, while here the registers exist,
+but differ in function.
+
+The patches keep the previous behavior of using only the PWM registers
+to control the state of the LEDs. For that reason, the current output
+is always set to the maximum value.
+
+Signed-off-by: Flavio Amieiro <flavio@amieiro.net>
 ---
- drivers/gpio/gpiolib-shared.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Changes in v2:
+- Avoid double initialization when enable_all_channels is non-NULL
+- Add missing entry in the i2c_device_id table
+- Link to v1: https://patch.msgid.link/20261013-add-is31fl3206-support-v1-0-08c066cc241d@amieiro.net
 
-diff --git a/drivers/gpio/gpiolib-shared.c b/drivers/gpio/gpiolib-shared.c
-index 5f9623e40b0f..40c08f1ae5f0 100644
---- a/drivers/gpio/gpiolib-shared.c
-+++ b/drivers/gpio/gpiolib-shared.c
-@@ -196,6 +196,7 @@ static int gpio_shared_of_traverse(struct device_node *curr)
- 		for (i = 0; i < count; i++) {
- 			struct device_node *np __free(device_node) = NULL;
- 			char *con_id __free(kfree) = NULL;
-+			struct fwnode_handle *curr_fwnode;
- 
- 			ret = of_parse_phandle_with_args(curr, prop->name,
- 							 "#gpio-cells", i,
-@@ -261,8 +262,7 @@ static int gpio_shared_of_traverse(struct device_node *curr)
- 				con_id[con_id_len - suffix_len] = '\0';
- 			}
- 
--			struct fwnode_handle *curr_fwnode =
--				fwnode_handle_get(of_fwnode_handle(curr));
-+			curr_fwnode = fwnode_handle_get(of_fwnode_handle(curr));
- 			ref = gpio_shared_make_ref(curr_fwnode, con_id, args.args[1]);
- 			if (!ref) {
- 				fwnode_handle_put(curr_fwnode);
--- 
-2.50.1
+To: Lee Jones <lee@kernel.org>
+To: Pavel Machek <pavel@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-leds@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+
+---
+Flavio Amieiro (2):
+      leds: is31f132xx: Add support for is31fl3206
+      dt-bindings: leds: Add issi,is31fl3206 to leds-is31fl32xx
+
+ .../devicetree/bindings/leds/leds-is31fl32xx.txt   |  1 +
+ drivers/leds/leds-is31fl32xx.c                     | 95 ++++++++++++++++++----
+ 2 files changed, 80 insertions(+), 16 deletions(-)
+---
+base-commit: 05b4738b0078f7d6f154f68068a11c8a0635e9df
+change-id: 20261012-add-is31fl3206-support-d557f863a97a
+
+Best regards,
+--  
+Flavio Amieiro <flavio@amieiro.net>
 
